@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DEFECTS>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\prenos\remc2\remc2\engine\</FILEPATH>
+      <FILENAME>engine_support.cpp</FILENAME>
+      <LINE>197</LINE>
+      <COLUMN>20</COLUMN>
+    </SFA>
+    <DEFECTCODE>6326</DEFECTCODE>
+    <DESCRIPTION>Možné porovnávání konstanty s jinou konstantou.</DESCRIPTION>
+    <FUNCTION>putpixel</FUNCTION>
+    <DECORATED>?putpixel@@YAXPAUSDL_Surface@@HHI@Z</DECORATED>
+    <FUNCLINE>181</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\prenos\remc2\remc2\engine\</FILEPATH>
+      <FILENAME>engine_support.cpp</FILENAME>
+      <LINE>249</LINE>
+      <COLUMN>9</COLUMN>
+    </SFA>
+    <DEFECTCODE>6246</DEFECTCODE>
+    <DESCRIPTION>Místní deklarace i skryje deklaraci se stejným názvem ve vnějším oboru. Další informace najdete u předchozí deklarace na řádku 219 z c:\prenos\remc2\remc2\engine\engine_support.cpp.</DESCRIPTION>
+    <FUNCTION>VGA_Init</FUNCTION>
+    <DECORATED>?VGA_Init@@YAXXZ</DECORATED>
+    <FUNCLINE>215</FUNCLINE>
+    <PATH>
+      <SFA>
+        <FILEPATH>c:\prenos\remc2\remc2\engine\</FILEPATH>
+        <FILENAME>engine_support.cpp</FILENAME>
+        <LINE>219</LINE>
+        <COLUMN>5</COLUMN>
+      </SFA>
+    </PATH>
+  </DEFECT>
+</DEFECTS>

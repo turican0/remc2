@@ -1,0 +1,265 @@
+#include "engine_support.h"
+
+
+#ifdef USE_DOSBOX
+extern DOS_Device *DOS_CON;
+#endif //USE_DOSBOX
+
+
+void myWriteOut(const char * format, ...) {
+	#ifdef USE_DOSBOX
+		DEBUG_ShowMsg(format);
+	#else
+		printf(format);
+	#endif //USE_DOSBOX
+    
+    /*Bit16u sz = 1;
+    unsigned char b = 'a';
+    DOS_CON->Write(&b, &sz);*/
+}
+
+int myprintf(const char * format, ...) {
+    char prbuffer[1024];
+    va_list arg;
+    int done;
+    va_start(arg, format);
+    done = vsprintf(prbuffer, format, arg);
+    va_end(arg);
+
+	#ifdef USE_DOSBOX
+		DEBUG_ShowMsg(prbuffer);
+	#else
+		printf(prbuffer);
+	#endif //USE_DOSBOX
+    
+    //return strlen(prbuffer);
+    return done;
+    /*Bit16u sz = 1;
+    unsigned char b = 'a';
+    DOS_CON->Write(&b, &sz);*/
+}
+
+
+//delete after finalization
+void pathfix(char* path, char* path2)
+{
+    if ((path[0] == 'c') || (path[0] == 'C'))
+    {
+        long len= strlen(path);
+        char* fixstring = (char*)"c:/prenos/Magic2/mc2-orig";
+        long fixlen = strlen(fixstring);
+        for (int i = len;i > 1;i--)
+            path2[i + fixlen -2] = path[i];
+        for (int i = 0;i < fixlen;i++)
+            path2[i] = fixstring[i];
+    }
+    else
+    {
+        long len = strlen(path);
+        char* fixstring = (char*)"c:/prenos/Magic2/mc2-orig/";
+        long fixlen = strlen(fixstring);
+        for (int i = len;i > -1;i--)
+            path2[i + fixlen] = path[i];
+        for (int i = 0;i < fixlen;i++)
+            path2[i] = fixstring[i];
+    }
+}
+
+Bit8u* readbuffer;
+char* printbuffer;//char* buffer; // [esp+0h] [ebp-2h]
+char* printbuffer2;//char v11; // [esp+40h] [ebp+3Eh]
+/*Bit32s x_DWORD_D41A4_x6x = 0;
+Bit32s x_DWORD_D41A4_x8x = 0;
+Bit32s x_DWORD_D41A4_xAx = -1;
+Bit32s x_DWORD_D41A4_xBx = -1;
+Bit32s x_DWORD_D41A4_xCx = -1;
+Bit32s x_DWORD_D41A4_xDx = -1;
+char x_DWORD_D41A4_xB6 = 'C';//2A1644 b6=182
+char x_DWORD_D41A4_x16x = '5';//2A15A4 16=22
+Bit8u x_DWORD_D41A4_x17x = 0;
+Bit8u x_DWORD_D41A4_x18x = 0;
+char x_DWORD_D41A4_x19x=0;//2A51BD 19=25
+Bit8u x_DWORD_D41A4_x1Ex = 0;
+Bit8u x_DWORD_D41A4_x2Bx=0;
+Bit8u x_DWORD_D41A4_x2Dx = 0;
+Bit32s x_DWORD_D41A4_x33x = 0;
+Bit32s x_DWORD_D41A4_x59x = 0;
+Bit32s x_DWORD_D41A4_x79x = 0;
+Bit32s x_DWORD_D41A4_x7Ax = 0;
+Bit32s x_DWORD_D41A4_x7Bx = 0;
+Bit32s x_DWORD_D41A4_x7Cx = 0;
+Bit32s x_DWORD_D41A4_x7Dx = 0;
+Bit32s x_DWORD_D41A4_x7Fx = 0;
+//char* char_355198 = "8R5";
+Bit32s x_DWORD_D41A4_xB2 = 0;
+Bit32s x_DWORD_D41A4_xB4 = 0;
+Bit32s x_DWORD_D41A4_xB7 = 0;
+Bit32s x_DWORD_D41A4_xBA = 0;
+Bit32s x_DWORD_D41A4_xC0 = 0;
+Bit32s x_DWORD_D41A4_xCE = 0;
+Bit32s x_DWORD_D41A4_xCF = 0;
+Bit32s x_DWORD_D41A4_xCD = 0;
+Bit32s x_DWORD_D41A4_xD0 = 0;
+Bit32s x_DWORD_D41A4_xD8=0;
+Bit32s x_DWORD_D41A4_xDC = 0;
+Bit32s x_DWORD_D41A4_xE0 = -1;
+Bit32s x_DWORD_D41A4_xE1 = -1;
+Bit32s x_DWORD_D41A4_xE2=-1;
+Bit32s x_DWORD_D41A4_xE6 = -1;
+Bit32s x_DWORD_D41A4_xF2 = -1;
+Bit32s x_DWORD_D41A4_xF6 = -1;
+Bit32s x_DWORD_D41A4_x100 = -1;
+Bit32s x_DWORD_D41A4_x235 = -1;
+Bit32s x_DWORD_D41A4_x749 = -1;
+Bit32s x_DWORD_D41A4_x8CF = -1;
+Bit32s x_DWORD_D41A4_x94C = -1;
+Bit32s x_DWORD_D41A4_x954 = -1;
+Bit32s x_DWORD_D41A4_x21AA = -1;
+Bit32s x_DWORD_D41A4_x00 = -1;
+Bit32s x_DWORD_D41A4_x9602 = -1;
+Bit32s x_DWORD_D41A4_x9603 = -1;
+Bit32s x_DWORD_D41A4_x9677 = -1;
+Bit32s x_DWORD_D41A4_x967B = -1;
+Bit32s x_DWORD_D41A4_x967F = -1;
+Bit32s x_DWORD_D41A4_x4 = -1;
+Bit32s x_DWORD_D41A4_x965B = -1;
+Bit32s x_DWORD_D41A4_x966F = -1;
+Bit32s x_DWORD_D41A4_x9683 = -1;
+Bit32s x_DWORD_D41A4_x96BF = -1;
+Bit32s x_DWORD_D41A4_x9691 = -1;
+Bit32s x_DWORD_D41A4_x9692 = -1;*/
+
+//Bit32s x2124_x_DWORD_D41A4_xCx_x_DWORD_D41A0_11234 = 0;
+
+Bit8u *x_DWORD_E9C38_smalltit; // weak
+
+//Bit32s x_DWORD_D41A4 = -1;
+
+int x_DWORD_D41A0 = 0; // weak
+
+Bit32s* x_D41A0_BYTEARRAY_0;
+Bit32s* x_D41A0_BYTEARRAY_4;
+Bit16s x_D41A0_WORDARRAY[10000];
+Bit32u* off_D918C[0x1c];
+
+Bit32s x_DWORD_355208;//3551CE+3A DWORD
+x_BYTE x_BYTE_355234;//harddrive//3551CE+66 BYTE
+x_BYTE x_BYTE_35520C;//3551CE+3e BYTE
+x_BYTE x_BYTE_355210;//3551CE+42 BYTE
+x_BYTE x_BYTE_355230;//3551CE+62 BYTE
+x_BYTE x_BYTE_355218;//3551CE+4a BYTE
+x_BYTE x_BYTE_355244;//aSpellsedit//3551CE+76 BYTE
+x_BYTE x_BYTE_355240;//3551CE+72 BYTE
+x_BYTE x_BYTE_35522C;//nocd//3551CE+5e BYTE
+x_BYTE x_BYTE_355224;//Showversion//3551CE+56 BYTE
+x_BYTE x_BYTE_355228;//Showversion2//3551CE+5a BYTE
+x_BYTE x_BYTE_355214;//3551CE+46 BYTE
+x_BYTE x_BYTE_35521C;//3551CE+4e BYTE
+x_BYTE x_BYTE_35523C;//Detectoff//3551CE+6e BYTE
+x_BYTE x_BYTE_355220;//Langcheck//3551CE+52 BYTE
+x_BYTE x_BYTE_355238;//aMusic2//3551CE+6a BYTE
+
+Bit8u* x_DWORD_180628b; // weak
+
+void support_begin() {
+    readbuffer = (Bit8u*)malloc(1000000);//fix it max 64000
+    printbuffer = (char*)malloc(4096);
+    //printbuffer[0] = '\0';
+    printbuffer2 = (char*)malloc(4096);
+	x_DWORD_180628b = (Bit8u*)malloc(16000* sizeof(Bit8u*));
+
+	x_DWORD_E9C38_smalltit= (Bit8u*)malloc(64000* sizeof(Bit8u*));
+
+	for (int i = 0;i < 0x1c;i++)
+		off_D918C[i] = new Bit32u;
+
+    //printbuffer2[0] = '\0';
+}
+void support_end() {
+    free(readbuffer);
+    free(printbuffer);//char* buffer; // [esp+0h] [ebp-2h]
+    free(printbuffer2);//char v11; // [esp+40h] [ebp+3Eh]
+	free(x_DWORD_180628b);
+	free(x_DWORD_E9C38_smalltit);
+	for (int i = 0;i < 0x1c;i++)
+		free(off_D918C[i]);
+}
+
+void putpixel(SDL_Surface *surface, int x, int y, Uint32 pixel)
+{
+	int bpp = surface->format->BytesPerPixel;
+	/* Here p is the address to the pixel we want to set */
+	Uint8 *p = (Uint8 *)surface->pixels + y * surface->pitch + x * bpp;
+
+	switch (bpp) {
+	case 1:
+		*p = pixel;
+		break;
+
+	case 2:
+		*(Uint16 *)p = pixel;
+		break;
+
+	case 3:
+		if (SDL_BYTEORDER == SDL_BIG_ENDIAN) {
+			p[0] = (pixel >> 16) & 0xff;
+			p[1] = (pixel >> 8) & 0xff;
+			p[2] = pixel & 0xff;
+		}
+		else {
+			p[0] = pixel & 0xff;
+			p[1] = (pixel >> 8) & 0xff;
+			p[2] = (pixel >> 16) & 0xff;
+		}
+		break;
+
+	case 4:
+		*(Uint32 *)p = pixel;
+		break;
+	}
+}
+
+void VGA_Init() {
+	/* Create a display surface with a grayscale palette */
+	SDL_Surface *screen;
+	SDL_Color colors[256];
+	int i;
+//neco
+		/* Fill colors with color information */
+		for (i = 0;i<256;i++) {
+			colors[i].r = i;
+			colors[i].g = i;
+			colors[i].b = i;
+		}
+
+	/* Create display */
+	screen = SDL_SetVideoMode(640, 480, 8, SDL_HWPALETTE);
+	if (!screen) {
+		printf("Couldn't set video mode: %s\n", SDL_GetError());
+		exit(-1);
+	}
+
+	/* Set palette */
+	SDL_SetPalette(screen, SDL_LOGPAL | SDL_PHYSPAL, colors, 0, 256);
+
+	int x = screen->w / 2;
+	int y = screen->h / 2;
+
+	/* Lock the screen for direct access to the pixels */
+	if (SDL_MUSTLOCK(screen)) {
+		if (SDL_LockSurface(screen) < 0) {
+			fprintf(stderr, "Can't lock screen: %s\n", SDL_GetError());
+			return;
+		}
+	}
+
+	for(int i=0;i<600;i++)
+		for (int j = 0;j<400;j++)
+			putpixel(screen, i, j, 127);
+
+	if (SDL_MUSTLOCK(screen)) {
+		SDL_UnlockSurface(screen);
+	}
+	/* Update just the part of the display that we've changed */
+	SDL_UpdateRect(screen, 0, 0, 0, 0);
+}

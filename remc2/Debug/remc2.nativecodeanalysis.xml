@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DEFECTS>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\prenos\remc2\remc2\engine\</FILEPATH>
+      <FILENAME>sub_main.h</FILENAME>
+      <LINE>204</LINE>
+      <COLUMN>20</COLUMN>
+    </SFA>
+    <DEFECTCODE>28251</DEFECTCODE>
+    <DESCRIPTION>Nekonzistentní poznámka u toupper: v této instanci je žádné poznámky. Viz c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\ctype.h(58). </DESCRIPTION>
+    <FUNCTION>toupper</FUNCTION>
+    <DECORATED>toupper</DECORATED>
+    <FUNCLINE>204</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\prenos\remc2\remc2\engine\</FILEPATH>
+      <FILENAME>defs.h</FILENAME>
+      <LINE>167</LINE>
+      <COLUMN>12</COLUMN>
+    </SFA>
+    <DEFECTCODE>6326</DEFECTCODE>
+    <DESCRIPTION>Možné porovnávání konstanty s jinou konstantou.</DESCRIPTION>
+    <FUNCTION>__ROL__</FUNCTION>
+    <DECORATED>??$__ROL__@E@@YAEEH@Z</DECORATED>
+    <FUNCLINE>159</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\prenos\remc2\remc2\engine\</FILEPATH>
+      <FILENAME>defs.h</FILENAME>
+      <LINE>167</LINE>
+      <COLUMN>12</COLUMN>
+    </SFA>
+    <DEFECTCODE>6326</DEFECTCODE>
+    <DESCRIPTION>Možné porovnávání konstanty s jinou konstantou.</DESCRIPTION>
+    <FUNCTION>__ROL__</FUNCTION>
+    <DECORATED>??$__ROL__@G@@YAGGH@Z</DECORATED>
+    <FUNCLINE>159</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\prenos\remc2\remc2\engine\</FILEPATH>
+      <FILENAME>defs.h</FILENAME>
+      <LINE>167</LINE>
+      <COLUMN>12</COLUMN>
+    </SFA>
+    <DEFECTCODE>6326</DEFECTCODE>
+    <DESCRIPTION>Možné porovnávání konstanty s jinou konstantou.</DESCRIPTION>
+    <FUNCTION>__ROL__</FUNCTION>
+    <DECORATED>??$__ROL__@I@@YAIIH@Z</DECORATED>
+    <FUNCLINE>159</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\prenos\remc2\remc2\engine\</FILEPATH>
+      <FILENAME>defs.h</FILENAME>
+      <LINE>167</LINE>
+      <COLUMN>12</COLUMN>
+    </SFA>
+    <DEFECTCODE>6326</DEFECTCODE>
+    <DESCRIPTION>Možné porovnávání konstanty s jinou konstantou.</DESCRIPTION>
+    <FUNCTION>__ROL__</FUNCTION>
+    <DECORATED>??$__ROL__@_K@@YA_K_KH@Z</DECORATED>
+    <FUNCLINE>159</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+</DEFECTS>

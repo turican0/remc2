@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Zdrojové soubory">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Hlavičkové soubory">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Soubory zdrojů">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Zdrojové soubory\engine">
+      <UniqueIdentifier>{226f2cc7-6c68-4f39-ab8d-24eefc9e6d28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Zdrojové soubory\dosbox_files">
+      <UniqueIdentifier>{f6116152-6e55-4742-8355-4b589d207084}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Zdrojové soubory\sdl">
+      <UniqueIdentifier>{0b9261b4-dda7-45c4-a93c-23eae6176727}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>Hlavičkové soubory</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Hlavičkové soubory</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\defs.h">
+      <Filter>Zdrojové soubory\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\dirent.h">
+      <Filter>Zdrojové soubory\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\engine_support.h">
+      <Filter>Zdrojové soubory\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\sub_main.h">
+      <Filter>Zdrojové soubory\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="dosbox_files\config.h">
+      <Filter>Zdrojové soubory\dosbox_files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Zdrojové soubory</Filter>
+    </ClCompile>
+    <ClCompile Include="remc2.cpp">
+      <Filter>Zdrojové soubory</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\dirent.c">
+      <Filter>Zdrojové soubory\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\engine_support.cpp">
+      <Filter>Zdrojové soubory\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\sub_main.cpp">
+      <Filter>Zdrojové soubory\engine</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="..\sdl\VisualC\SDLmain\Debug\SDLmain.lib">
+      <Filter>Zdrojové soubory\sdl</Filter>
+    </Library>
+    <Library Include="..\sdl\VisualC\Debug\SDL.lib">
+      <Filter>Zdrojové soubory\sdl</Filter>
+    </Library>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="engine\info.x">
+      <Filter>Zdrojové soubory\engine</Filter>
+    </Text>
+  </ItemGroup>
+</Project>
