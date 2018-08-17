@@ -143,6 +143,7 @@ Bit16s x_D41A0_WORDARRAY[10000];
 
 Bit32u x_D41A0_BYTEARRAY_4_0xE6_heapsize;
 Bit8u* x_D41A0_BYTEARRAY_4_0xE2_heapbuffer;
+Bit8u* x_D41A0_BYTEARRAY_4_0xDE_heapbuffer;
 //Bit32u* off_D918C[0x7c];//turn off - fix it
 
 Bit8u* dword_E9C30[1000]; // weak
@@ -171,9 +172,10 @@ void support_begin() {
     printbuffer = (char*)malloc(4096);
     //printbuffer[0] = '\0';
     printbuffer2 = (char*)malloc(4096);
-	x_DWORD_180628b = (Bit8u*)malloc(16000* sizeof(Bit8u*));
+	x_DWORD_180628b = (Bit8u*)malloc(320000);
 
-	x_DWORD_E9C38_smalltit= (Bit8u*)malloc(64000* sizeof(Bit8u*));
+	x_DWORD_E9C38_smalltit= (Bit8u*)malloc(64000);
+	x_D41A0_BYTEARRAY_4_0xDE_heapbuffer= (Bit8u*)malloc(64000);
 
 	/*for (int i = 0;i < 0x1c+0x60;i++)
 		off_D918C[i] = new Bit32u;*/
@@ -198,6 +200,7 @@ void support_end() {
 	free(x_DWORD_E9C38_smalltit);
 	/*for (int i = 0;i < 0x1c;i++)
 		free(off_D918C[i]);*/
+	free(x_D41A0_BYTEARRAY_4_0xDE_heapbuffer);
 	free(dword_E9C30[0]);
 	free(dword_E9C30[2]);
 	free(dword_E9C30[4]);

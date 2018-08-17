@@ -1,0 +1,3 @@
+﻿  stdafx.cpp
+  dirent.c
+c:\prenos\remc2\remc2\engine\dirent.c(149): fatal error C1010: Neočekávaný konec souboru při hledání předkompilované hlavičky. Nezapomněli jste do zdroje přidat #include "stdafx.h"?

@@ -2169,7 +2169,7 @@ void /*__cdecl*/ sub_5B100(int a1);
 void sub_5B7A0_prepare_pallette();
 // int /*__fastcall*/ _wcpp_1_unwind_leave__93(x_DWORD, x_DWORD, x_DWORD, x_DWORD, x_DWORD, x_DWORD); weak
 void sub_5B840_load_pallette_and_help_pallette();
-int /*__cdecl*/ sub_5B870(x_BYTE *a1, int a2, int a3);
+void /*__cdecl*/ sub_5B870(Bit8u *langbuffer, Bit8u** langindexbuffer, Bit32u count);
 //char sub_5B8D0_initialize();
 char sub_5BC20();
 void sub_5BCC0_set_any_variables1();
@@ -2667,8 +2667,8 @@ int /*__cdecl*/ sub_7E8D0(x_WORD *a1, __int16 a2, __int16 a3, __int16 a4, __int1
 signed int /*__cdecl*/ sub_7E9D0(x_WORD *a1, x_WORD *a2, x_WORD *a3);
 int /*__cdecl*/ sub_7EAE0(__int16 *a1, __int16 *a2, __int16 *a3, __int16 *a4, char *a5, x_WORD *a6);
 // int sub_7F6A0(int a1, int a2, __int16 a3, __int16 a4, char *a5, x_BYTE *a6, unsigned __int8 a7);
-int /*__cdecl*/ sub_7F7D0(unsigned int *a1, x_DWORD *a2, unsigned int a3, int a4);
-int /*__cdecl*/ sub_7F960(unsigned int *a1, unsigned int a2, unsigned int a3, int a4);
+int /*__cdecl*/ sub_7F7D0(Bit8u** a1, Bit8u** a2, unsigned int a3, char* a4);
+int /*__cdecl*/ sub_7F960(Bit8u* a1, Bit8u* a2, unsigned int a3, int a4);
 unsigned int /*__cdecl*/ sub_7FAE0(char *a1, __int16 a2, __int16 a3, __int16 a4, unsigned __int8 a5);
 int /*__cdecl*/ sub_7FB90(char* a1, int a2, __int16 a3, unsigned __int8 a4);
 // int sub_7FCB0(int a1, x_BYTE *a2, int a3, int a4, int a5, char a6, unsigned __int8 a7, __int16 a8);
@@ -8533,7 +8533,7 @@ char x_BYTE_D41B4 = '\0'; // weak
 char x_BYTE_D41B5 = ' '; // weak
 char x_BYTE_D41B6 = '\x01'; // weak
 char x_BYTE_D41B7 = ','; // weak
-Bit8u* x_DWORD_D41BC; // fix it
+Bit8u* x_DWORD_D41BC_langbuffer; // fix it
 char x_BYTE_D41C0 = '\0'; // weak
 char x_BYTE_D41C1 = '\0'; // weak
 char x_BYTE_D41C4 = 'c'; // weak
@@ -12365,7 +12365,8 @@ Bit32u PSTR14B = 0;*/
 
 //Bit8u *x_DWORD_E9C38_smalltit[64000]; // weak
 int x_DWORD_E9C3C; // weak
-int x_DWORD_E9C4C[2]; // idb
+Bit8u* x_DWORD_E9C4C_langindexbuffer[1000]; // idb
+//char* E9C4C_langindexbuffer[1000];
 int x_DWORD_E9C54; // weak
 int x_DWORD_E9C84; // weak
 int x_DWORD_E9CA8[136]; // idb
@@ -19156,7 +19157,7 @@ int sub_18AA0()
     x_BYTE_18055A = -1;
     v2 = x_D41A0_BYTEARRAY_4[0xA];
 	x_D41A0_BYTEARRAY_4[0x9602] = 1;
-    result = sub_19760((char *)x_DWORD_E9C4C[(v2 == 0) + 400], 3u, 50);
+    result = sub_19760((char *)x_DWORD_E9C4C_langindexbuffer[(v2 == 0) + 400], 3u, 50);
   }
   return result;
 }
@@ -20202,10 +20203,10 @@ int sub_1A4A0()
   for ( i = 0; i < 17; ++i )
   {
     sub_1A5B0(i + 1, &v6, &v5);
-    v2 = strlen((const char *)x_DWORD_E9C4C[v6]) + 1;
+    v2 = strlen((const char *)x_DWORD_E9C4C_langindexbuffer[v6]) + 1;
     if ( (signed int)(8 * (v2 - 1)) > v0 )
       v0 = 8 * (v2 - 1);
-    v3 = strlen((const char *)x_DWORD_E9C4C[v5]) + 1;
+    v3 = strlen((const char *)x_DWORD_E9C4C_langindexbuffer[v5]) + 1;
     if ( (signed int)(8 * (v3 - 1)) > v0 )
       v0 = 8 * (v3 - 1);
   }
@@ -20614,7 +20615,7 @@ char /*__cdecl*/ sub_1A970(char a1, int a2, int a3)
     case 2:
       if ( !x_BYTE_E3798 )
         return 0;
-      sub_19760((char *)x_DWORD_E9C4C[(x_BYTE_E3799 != 0) + 390], 3u, 50);
+      sub_19760((char *)x_DWORD_E9C4C_langindexbuffer[(x_BYTE_E3799 != 0) + 390], 3u, 50);
       sub_8D8F0();
       sub_86860(x_WORD_1803EC);
       x_BYTE_E3799 ^= 1u;
@@ -20644,7 +20645,7 @@ char /*__cdecl*/ sub_1A970(char a1, int a2, int a3)
         x_D41A0_BYTEARRAY_4[0x18] = v16 & 0xBF;
       else
         x_D41A0_BYTEARRAY_4[0x18] = v16 | 0x40;
-      sub_19760((char *)x_DWORD_E9C4C[((x_D41A0_BYTEARRAY_4[0x18] & 0x40) == 0) + 469], 3u, 50);
+      sub_19760((char *)x_DWORD_E9C4C_langindexbuffer[((x_D41A0_BYTEARRAY_4[0x18] & 0x40) == 0) + 469], 3u, 50);
       return 0;
     case 5:
       if ( x_D41A0_BYTEARRAY_4[0x16] & 0x10 )
@@ -20655,7 +20656,7 @@ char /*__cdecl*/ sub_1A970(char a1, int a2, int a3)
       {
         v12 = *((x_BYTE *)&loc_36DE9 + x_DWORD_D41A0 + 1) == 0;
         *((x_BYTE *)&loc_36DE9 + x_DWORD_D41A0 + 1) = v12;
-        sub_19760((char *)x_DWORD_E9C4C[(v12 == 0) + 398], 3u, 50);
+        sub_19760((char *)x_DWORD_E9C4C_langindexbuffer[(v12 == 0) + 398], 3u, 50);
       }
       return 0;
     case 6:
@@ -20850,34 +20851,34 @@ LABEL_97:
         return 0;
       v4 = *(x_BYTE *)(x_DWORD_D41A0 + 8586) ^ 1;
       *(x_BYTE *)(x_DWORD_D41A0 + 8586) = v4;
-      sub_19760((char *)x_DWORD_E9C4C[(v4 == 0) + 359], 3u, 50);
+      sub_19760((char *)x_DWORD_E9C4C_langindexbuffer[(v4 == 0) + 359], 3u, 50);
       return 0;
     case 10:
       if ( !*(x_BYTE *)(x_DWORD_D41A0 + 8620) || !off_D41A8 )
         return 0;
       *(x_BYTE *)(x_DWORD_D41A0 + 8588) ^= 1u;
-      sub_19760((char *)x_DWORD_E9C4C[(*(x_BYTE *)(x_DWORD_D41A0 + 8588) == 0) + 363], 3u, 50);
+      sub_19760((char *)x_DWORD_E9C4C_langindexbuffer[(*(x_BYTE *)(x_DWORD_D41A0 + 8588) == 0) + 363], 3u, 50);
       return 0;
     case 11:
       if ( !*(x_BYTE *)(x_DWORD_D41A0 + 8619) )
         return 0;
       v6 = *(x_BYTE *)(x_DWORD_D41A0 + 8587) ^ 1;
       *(x_BYTE *)(x_DWORD_D41A0 + 8587) = v6;
-      sub_19760((char *)x_DWORD_E9C4C[(v6 == 0) + 357], 3u, 50);
+      sub_19760((char *)x_DWORD_E9C4C_langindexbuffer[(v6 == 0) + 357], 3u, 50);
       return 0;
     case 12:
       if ( !*(x_BYTE *)(x_DWORD_D41A0 + 8630) )
         return 0;
       v7 = *(x_BYTE *)(x_DWORD_D41A0 + 8598) == 1;
       *(x_BYTE *)(x_DWORD_D41A0 + 8598) ^= 1u;
-      sub_19760((char *)x_DWORD_E9C4C[(unsigned __int8)v7 + 395], 3u, 50);
+      sub_19760((char *)x_DWORD_E9C4C_langindexbuffer[(unsigned __int8)v7 + 395], 3u, 50);
       return 0;
     case 13:
       v8 = (int)x_D41A0_BYTEARRAY_0;
       v9 = *(x_BYTE *)(x_DWORD_D41A0 + 8591) ^ 1;
       *(x_BYTE *)(x_DWORD_D41A0 + 8590) ^= 1u;
       *(x_BYTE *)(v8 + 8591) = v9;
-      sub_19760((char *)x_DWORD_E9C4C[(*(x_BYTE *)(v8 + 8590) == 0) + 365], 3u, 50);
+      sub_19760((char *)x_DWORD_E9C4C_langindexbuffer[(*(x_BYTE *)(v8 + 8590) == 0) + 365], 3u, 50);
       if ( *(x_BYTE *)(x_DWORD_D41A0 + 8590) )
         return 0;
       sub_87C10();
@@ -20887,14 +20888,14 @@ LABEL_97:
         return 0;
       v10 = *(x_BYTE *)(x_DWORD_D41A0 + 8600) ^ 1;
       *(x_BYTE *)(x_DWORD_D41A0 + 8600) = v10;
-      sub_19760((char *)x_DWORD_E9C4C[(v10 != 0) + 440], 3u, 50);
+      sub_19760((char *)x_DWORD_E9C4C_langindexbuffer[(v10 != 0) + 440], 3u, 50);
       return 0;
     case 15:
       if ( !*(x_BYTE *)(x_DWORD_D41A0 + 8633) )
         return 0;
       v11 = *(x_BYTE *)(x_DWORD_D41A0 + 8601) ^ 1;
       *(x_BYTE *)(x_DWORD_D41A0 + 8601) = v11;
-      sub_19760((char *)x_DWORD_E9C4C[(v11 == 0) + 442], 3u, 50);
+      sub_19760((char *)x_DWORD_E9C4C_langindexbuffer[(v11 == 0) + 442], 3u, 50);
       return 0;
     case 16:
       if ( !*(x_BYTE *)(x_DWORD_D41A0 + 8628) || *(x_BYTE *)(x_DWORD_D41A0 + 8592) )
@@ -20905,7 +20906,7 @@ LABEL_97:
     case 17:
       v25 = x_D41A0_BYTEARRAY_4[0xCF] == 0;
       x_D41A0_BYTEARRAY_4[0xCF] = v25;
-      sub_19760((char *)x_DWORD_E9C4C[(v25 != 0) + 402], 3u, 50);
+      sub_19760((char *)x_DWORD_E9C4C_langindexbuffer[(v25 != 0) + 402], 3u, 50);
       return 0;
     case 18:
       v7 = *(x_BYTE *)(x_DWORD_D41A0 + 8592) == 1;
@@ -36302,7 +36303,7 @@ int sub_30050()
       v3 = v15;
     else
       v3 = v14;
-    v18 = (char *)x_DWORD_E9C4C[v3];
+    v18 = (char *)x_DWORD_E9C4C_langindexbuffer[v3];
     v4 = x_D41A0_BYTEARRAY_4[0xBA];
 /* fix it    v16 = v2 + *(unsigned __int8 *)(**filearray_2aa18c[6] + 1012);
     v5 = v2 + v4 - *(unsigned __int8 *)(**filearray_2aa18c[6] + 1024);
@@ -36523,7 +36524,7 @@ int sub_30630()
     }
     if ( result )
     {
-      v5 = (const char *)x_DWORD_E9C4C[result];
+      v5 = (const char *)x_DWORD_E9C4C_langindexbuffer[result];
       v10 = 8;
       v9 = 400;
       v12 = 40;
@@ -36579,7 +36580,7 @@ char sub_30870()
   v8 = 8;
   v9 = 14;
   v11 = 636;
-  v0 = (const char *)x_DWORD_E9C4C[x_WORD_D41D4];
+  v0 = (const char *)x_DWORD_E9C4C_langindexbuffer[x_WORD_D41D4];
   v6 = 600;
   v4 = 320;
   v14 = x_BYTE_E9800;
@@ -62202,7 +62203,7 @@ LABEL_56:
           if ( (unsigned __int16)v116 == x_D41A0_BYTEARRAY_0[12] )
           {
             v83 = (char *)(v18 + 28);
-            v84 = (char *)x_DWORD_E9C4C[x_WORD_DA82E[40 * v82 + 13 * *(char *)(v114 + 2)]];
+            v84 = (char *)x_DWORD_E9C4C_langindexbuffer[x_WORD_DA82E[40 * v82 + 13 * *(char *)(v114 + 2)]];
             do
             {
               v85 = *v84;
@@ -68317,26 +68318,24 @@ void sub_5B840_load_pallette_and_help_pallette()
 // EA3D8: using guessed type int *xadatapald0dat2.var28_begin_buffer;
 
 //----- (0005B870) --------------------------------------------------------
-int /*__cdecl*/ sub_5B870(x_BYTE *a1, int a2, int a3)
+void /*__cdecl*/ sub_5B870(Bit8u *langbuffer, Bit8u** langindexbuffer, Bit32u count)//23c870
 {
-  x_BYTE *v3; // edx
-  int v4; // ecx
-  int result; // eax
-  x_DWORD *v6; // ebx
-  x_BYTE *v7; // ebx
+	//sub_5B870((x_BYTE *)x_DWORD_D41BC_langbuffer, 0xE9C4C, 471);
+	//edx 87ab14 ecx 1d7
+  //x_BYTE *v3; // edx
+  //int v4; // ecx
+  //int result; // eax
+  //x_DWORD *v6; // ebx
+  //x_BYTE *v7; // ebx
 
-  v3 = a1;
-  v4 = a3;
-  result = 0;
-  while ( (x_WORD)--v4 != -1 )
-  {
-    v6 = (x_DWORD *)(a2 + 4 * result++);
-    *v6 = (x_DWORD)v3;
-    do
-      v7 = v3++;
-    while ( *v7 );
-  }
-  return result;
+	Bit32u langindex = 0;
+	Bit32u indexindex = 0;
+	while (indexindex < count)//1d7
+	{
+		langindexbuffer[indexindex] = (langbuffer + langindex);
+		while (langbuffer[langindex++]);
+		indexindex++;
+	}
 }
 
 //----- (0005B8D0) --------------------------------------------------------
@@ -87249,10 +87248,10 @@ int sub_76A40()//257A40
   FILE* v0; // ebx
   int v1; // edi
   __int16 v2; // si
-  FILE* v3; // eax
-  FILE* v4; // ebx
-  FILE* v5; // edi
-  int v6; // esi
+  FILE* langfile; // eax
+  //FILE* v4; // ebx
+  //FILE* v5; // edi
+  Bit32u filelenght; // esi
   int result; // eax
   //char v8; // [esp+0h] [ebp-42h]
   //char v9; // [esp+50h] [ebp+Eh]
@@ -87294,22 +87293,22 @@ int sub_76A40()//257A40
       while ( v2 < 2 )
       {
         x_D41A0_BYTEARRAY_4[179] = x_D41A0_BYTEARRAY_4[0x4];
-        if ( x_BYTE_E29E0 || x_DWORD_D41BC )
-          sub_83E80((int)x_DWORD_D41BC);
-        v3 = sub_98817_open(printbuffer, 512);
-        v4 = v3;
-        v5 = v3;
-        if ( v3 != NULL )
+        if ( x_BYTE_E29E0 || x_DWORD_D41BC_langbuffer )
+          sub_83E80((int)x_DWORD_D41BC_langbuffer);
+		langfile = sub_98817_open(printbuffer, 512);
+        //v4 = v3;
+        //v5 = v3;
+        if (langfile != NULL )
         {
-          v6 = x_filelength(v3) - 4785;
-          x_DWORD_D41BC = (Bit8u*)sub_83CD0_malloc2(v6);
-          if ( x_DWORD_D41BC )
+			filelenght = x_filelength(langfile) - 4785;
+          x_DWORD_D41BC_langbuffer = (Bit8u*)sub_83CD0_malloc2(filelenght);
+          if ( x_DWORD_D41BC_langbuffer )
           {
-            sub_9891E(v4, 4785, 0);
-            sub_988A7_read(v4, (Bit8u*)x_DWORD_D41BC, v6);
+            sub_9891E(langfile, 4785, 0);
+            sub_988A7_read(langfile, (Bit8u*)x_DWORD_D41BC_langbuffer, filelenght);
           }
-          sub_98882_close(v5);
-          sub_5B870((x_BYTE *)x_DWORD_D41BC, (int)x_DWORD_E9C4C, 471);
+          sub_98882_close(langfile);
+          sub_5B870(x_DWORD_D41BC_langbuffer, x_DWORD_E9C4C_langindexbuffer, 471);
           break;
         }
         ++v2;
@@ -87334,7 +87333,7 @@ int sub_76A40()//257A40
 // 8E3D5: using guessed type x_DWORD sprintf_s(x_DWORD, const char *, ...);
 // 988DA: using guessed type x_DWORD /*__cdecl*/ filelength(x_DWORD);
 // D41A4: using guessed type int x_DWORD_D41A4;
-// D41BC: using guessed type int x_DWORD_D41BC;
+// D41BC: using guessed type int x_DWORD_D41BC_langbuffer;
 // D41C0: using guessed type char x_BYTE_D41C0;
 // E29D8: using guessed type __int16 x_WORD_E29D8;
 // E29E0: using guessed type char x_BYTE_E29E0;
@@ -87923,7 +87922,7 @@ char /*__cdecl*/ sub_77980(int a1)
 //----- (000779E0) --------------------------------------------------------
 char /*__cdecl*/ sub_779E0(int a1)//2589E0
 {
-  unsigned int v1; // ebx
+  char v1; // ebx
   int v2; // eax
   char *langfilename; // eax
   char v4; // al
@@ -87956,11 +87955,11 @@ char /*__cdecl*/ sub_779E0(int a1)//2589E0
   int v30; // [esp+190h] [ebp+4Eh]
   __int16 v31; // [esp+198h] [ebp+56h]
   char v32; // [esp+19Ah] [ebp+58h]
-  unsigned int v33; // [esp+19Ch] [ebp+5Ah]
+  Bit8u* v33; // [esp+19Ch] [ebp+5Ah]
   int v34; // [esp+1A0h] [ebp+5Eh]
-  unsigned int *v35; // [esp+1A4h] [ebp+62h]
-  unsigned int *v36; // [esp+1A8h] [ebp+66h]
-  unsigned int v37; // [esp+1ACh] [ebp+6Ah]
+  Bit8u* v35; // [esp+1A4h] [ebp+62h]
+  Bit8u* v36; // [esp+1A8h] [ebp+66h]
+  Bit8u* v37; // [esp+1ACh] [ebp+6Ah]
   int v38; // [esp+1B0h] [ebp+6Eh]
   int v39; // [esp+1B4h] [ebp+72h]
   __int16 v40; // [esp+1B8h] [ebp+76h]
@@ -88012,7 +88011,7 @@ char /*__cdecl*/ sub_779E0(int a1)//2589E0
 		langfilename = (char*)langfileD.name;//&v22;//naslo se oba v tom pripade prirad "D2.TXT", adresa 3550d2
 	//35513c 355134 451414 3550d2
 	//D2.TXT , [451514]000000, [355134]00100000-podobne v20,[35513c]0000
-    v4 = sub_7F7D0((unsigned int *)&v35, (x_DWORD*)&v33, v1, (int)langfilename);//2607d0
+    v4 = sub_7F7D0(&v35, &v33, v1, langfilename);//2607d0
 	//D2.TXT , [451514]020058e2e2e2, [355134]c5274500->00000000,[35513c]b9274500->141545->020058e2e2e2
     x_D41A0_BYTEARRAY_4[179] = v4;
     unknown_libname_4(&langfileD);//27b1b3
@@ -88035,7 +88034,7 @@ char /*__cdecl*/ sub_779E0(int a1)//2589E0
     }
     sub_7B5A0();//25c5a0
     x_WORD_17DEEE = 0;
-    sub_8CD27((Bit8u**)&x_DWORD_17DED4 + 222);//26dd27
+    sub_8CD27(&x_D41A0_BYTEARRAY_4_0xDE_heapbuffer);//26dd27
     while ( (x_WORD)v39 != 2 )
     {
       if ( x_BYTE_17DF10 == 59 )
@@ -88975,14 +88974,14 @@ char /*__cdecl*/ sub_79160(int a1)
         if ( v7[7] )
         {
           sub_6FC50(1);
-          v8 = (char *)x_DWORD_E9C4C[v7[6]];
+          v8 = (char *)x_DWORD_E9C4C_langindexbuffer[v7[6]];
           v25 = v7;
           sub_6FC80(v8, v26, v28, v6, v31);
         }
         else
         {
           sub_6FC50(1);
-          sub_6FC80((char *)x_DWORD_E9C4C[v7[6]], v26, v28, v6, v30);
+          sub_6FC80((char *)x_DWORD_E9C4C_langindexbuffer[v7[6]], v26, v28, v6, v30);
         }
         v7 += 9;
         LOWORD(v6) = sub_6FC30() + v6;
@@ -89005,7 +89004,7 @@ char /*__cdecl*/ sub_79160(int a1)
             v10[7] = 1;
           }
           sub_6FC50(1);
-          sub_6FC80((char *)x_DWORD_E9C4C[v10[6]], v26, v28, v6, v31);
+          sub_6FC80((char *)x_DWORD_E9C4C_langindexbuffer[v10[6]], v26, v28, v6, v31);
         }
         LOWORD(v11) = sub_6FC30();
         v10 += 9;
@@ -89226,7 +89225,7 @@ char sub_79610()
   {
     v4 = v2[1];
     v5 = *v2;
-    v6 = (x_BYTE *)x_DWORD_E9C4C[v2[6]];
+    v6 = (x_BYTE *)x_DWORD_E9C4C_langindexbuffer[v2[6]];
     v2 += 9;
     sub_7FCB0((int)v2, v6, v5, (signed __int16)v39, v4, 4, 0, 0);
   }
@@ -90580,7 +90579,7 @@ int /*__cdecl*/ sub_7BF20(signed __int16 *a1)
   {
 LABEL_14:
     if ( a1[5] > sub_6FC30() + 10 )
-      v1 = (x_BYTE *)x_DWORD_E9C4C[a1[6]];
+      v1 = (x_BYTE *)x_DWORD_E9C4C_langindexbuffer[a1[6]];
     v7 = sub_7B660(*a1, a1[1], a1[5], a1, v1, *((x_BYTE *)a1 + 16));
     if ( v7 )
     {
@@ -92470,7 +92469,7 @@ int /*__cdecl*/ sub_7E840(signed __int16 *a1, __int16 a2, __int16 a3)
       v5 = v3[1];
       v6 = v3[1];
       sub_81360(v3[3], v3[4], v3[6], v3[7], a3);
-      sub_7FCB0((int)v3, (x_BYTE *)x_DWORD_E9C4C[*v3], v5, (signed __int16)(v6 + 180), v3[2], 0, 0, a2);
+      sub_7FCB0((int)v3, (x_BYTE *)x_DWORD_E9C4C_langindexbuffer[*v3], v5, (signed __int16)(v6 + 180), v3[2], 0, 0, a2);
     }
     v3 += 9;
   }
@@ -93309,70 +93308,75 @@ LABEL_16:
 // 17DF11: using guessed type char x_BYTE_17DF11;
 
 //----- (0007F7D0) --------------------------------------------------------
-int /*__cdecl*/ sub_7F7D0(unsigned int *a1, x_DWORD *a2, unsigned int a3, int a4)//2607d0
+int /*__cdecl*/ sub_7F7D0(Bit8u** a1, Bit8u** a2, unsigned int a3, char* langfilename)//2607d0
 {
-  int v4; // edi
-  FILE* v5; // eax
-  FILE* v6; // ebx
-  int v7; // ebx
-  int v8; // eax
-  unsigned __int8 v9; // bl
-  char v10; // cl
+  //int v4; // edi
+  FILE* langfile; // eax
+  //FILE* v6; // ebx
+  //int v7; // ebx
+  //Bit8u* v8; // eax
+  //unsigned __int8 v9; // bl
+  //char v10; // cl
   //char v12; // [esp+0h] [ebp-5Ch]
-  int v13; // [esp+50h] [ebp-Ch]
-  FILE* v14; // [esp+54h] [ebp-8h]
-  unsigned __int8 i; // [esp+58h] [ebp-4h]
+  Bit16u langfilelenght; // [esp+50h] [ebp-Ch]
+  //FILE* v14; // [esp+54h] [ebp-8h]
+  //unsigned __int8 i; // [esp+58h] [ebp-4h]
 
-  v4 = 0;
-  sprintf_s(printbuffer,512, "%c%s/%s", x_D41A0_BYTEARRAY_4[0xB6], ":/NETHERW/LANGUAGE", a4);
-  for ( i = 0; i < 2u; i = v9 + 1 )
+  Bit8u a3x[5000];//fix it
+
+  //v4 = 0;
+  //fix it
+  //v9=0;//fix it
+  //fix it
+  sprintf_s(printbuffer,512, "%c%s/%s", x_D41A0_BYTEARRAY_4[0xB6], ":/NETHERW/LANGUAGE", langfilename);
+  for ( Bit8u i = 0; i < 2; i++ )//[ebp-4]=354f70
   {
-	v4 = atoi((char*)(a4 + 1));
+	//v4 = atoi(langfilename +1);
     //v4 = unknown_libname_1_atoi((char*)(a4 + 1));
-    v5 = sub_98817_open(printbuffer, 512);//279f9e
-    v6 = v5;
-    v14 = v5;
-    if ( v5 != NULL )
+	langfile = sub_98817_open(printbuffer, 512);//279f9e
+    //v6 = langfile;
+    //v14 = langfile;
+    if (langfile != NULL )
     {
-      v13 = x_filelength(v5);
-      sub_988A7_read(v6, (Bit8u*)a3, 4773);//279817
-      sub_988A7_read(v6, (Bit8u*)(a3 + 4773), 12);
-      if ( x_BYTE_E29E0 || x_DWORD_D41BC )
-        sub_83E80((int)x_DWORD_D41BC);
-      v7 = v13 - 4785;
-      v8 = (int)sub_83CD0_malloc2(v13 - 4785);
-      x_DWORD_D41BC = (Bit8u*)v8;
-      if ( v8 )
+	  langfilelenght = x_filelength(langfile);
+      sub_988A7_read(langfile, a3x, 4773);//279817
+      sub_988A7_read(langfile, (a3x+4773), 12);
+      if ( x_BYTE_E29E0 || x_DWORD_D41BC_langbuffer )//[2b39e0]00 || [2a51bc]00
+        sub_83E80((int)x_DWORD_D41BC_langbuffer);
+      //v7 = langfilelenght - 4785;
+	  x_DWORD_D41BC_langbuffer = (Bit8u*)sub_83CD0_malloc2(langfilelenght - 4785);
+      //x_DWORD_D41BC_langbuffer = (Bit8u*)v8;
+      if (x_DWORD_D41BC_langbuffer)
       {
         x_BYTE_E29E0 = 1;
-        sub_988A7_read(v14, (Bit8u*)v8, v7);
+        sub_988A7_read(langfile, x_DWORD_D41BC_langbuffer, langfilelenght - 4785);
       }
-      sub_98882_close(v14);
+      sub_98882_close(langfile);
       break;
     }
-    v9 = i;
-    sprintf_s(printbuffer,512, "LANGUAGE/%s", a4);
+    //v9 = i;
+    sprintf_s(printbuffer,512, "LANGUAGE/%s", langfilename);
   }
-  *a1 = a3 + 4773;
-  v10 = x_WORD_180660_VGA_type_resolution;
-  *a2 = a3 + 4785;
-  if ( v10 & 1 )
-    sub_98709_create_index_dattab_power((Bit8u*)*a1, (Bit8u*)a3 + 4785, (Bit8u*)a3, (new posistruct));
+  *a1 = a3x + 4773;//35513c
+  //v10 = x_WORD_180660_VGA_type_resolution;
+  *a2 = a3x + 4785;
+  if (x_WORD_180660_VGA_type_resolution & 1 )
+    sub_98709_create_index_dattab_power((Bit8u*)*a1, (Bit8u*)a3x + 4785, (Bit8u*)a3x, (new posistruct));
   else
-    sub_9874D_create_index_dattab((Bit8u*)*a1, (Bit8u*)a3 + 4785, (Bit8u*)a3, (new posistruct));
-  sub_5B870((x_BYTE *)x_DWORD_D41BC, 0xE9C4C, 471);//fix it //2a51bc
-  return v4;
+    sub_9874D_create_index_dattab((Bit8u*)*a1, (Bit8u*)a3x + 4785, (Bit8u*)a3x, (new posistruct));
+  sub_5B870(x_DWORD_D41BC_langbuffer, x_DWORD_E9C4C_langindexbuffer, 471);//fix it //2a51bc
+  return atoi(langfilename + 1);
 }
 // 8E3D5: using guessed type x_DWORD sprintf_s(x_DWORD, const char *, ...);
 // 988DA: using guessed type x_DWORD /*__cdecl*/ filelength(x_DWORD);
 // 98F9E: using guessed type x_DWORD /*__cdecl*/ unknown_libname_1_atoi(x_DWORD);
 // D41A4: using guessed type int x_DWORD_D41A4;
-// D41BC: using guessed type int x_DWORD_D41BC;
+// D41BC: using guessed type int x_DWORD_D41BC_langbuffer;
 // E29E0: using guessed type char x_BYTE_E29E0;
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
 //----- (0007F960) --------------------------------------------------------
-int /*__cdecl*/ sub_7F960(unsigned int *a1, unsigned int a2, unsigned int a3, int a4)
+int /*__cdecl*/ sub_7F960(Bit8u* a1, Bit8u* a2, unsigned int a3, int a4)
 {
   int v4; // esi
   FILE* v5; // eax
@@ -93398,11 +93402,11 @@ int /*__cdecl*/ sub_7F960(unsigned int *a1, unsigned int a2, unsigned int a3, in
       v13 = x_filelength(v5);
       sub_988A7_read(v6, (Bit8u*)a3, 4773);
       sub_988A7_read(v6, (Bit8u*)a3 + 4773, 12);
-      if ( x_BYTE_E29E0 || x_DWORD_D41BC )
-        sub_83E80((int)x_DWORD_D41BC);
+      if ( x_BYTE_E29E0 || x_DWORD_D41BC_langbuffer )
+        sub_83E80((int)x_DWORD_D41BC_langbuffer);
       v8 = v13 - 4785;
       v9 = (int)sub_83CD0_malloc2(v13 - 4785);
-      x_DWORD_D41BC = (Bit8u*)v9;
+      x_DWORD_D41BC_langbuffer = (Bit8u*)v9;
       if ( v9 )
       {
         x_BYTE_E29E0 = 1;
@@ -93418,14 +93422,14 @@ int /*__cdecl*/ sub_7F960(unsigned int *a1, unsigned int a2, unsigned int a3, in
     sub_98709_create_index_dattab_power((Bit8u*)a1, (Bit8u*)a2, (Bit8u*)a3, (new posistruct));
   else
     sub_9874D_create_index_dattab((Bit8u*)a1, (Bit8u*)a2, (Bit8u*)a3, (new posistruct));
-  sub_5B870((x_BYTE *)x_DWORD_D41BC, (int)x_DWORD_E9C4C, 471);
+  sub_5B870((Bit8u*)x_DWORD_D41BC_langbuffer, x_DWORD_E9C4C_langindexbuffer, 471);
   return v4;
 }
 // 8E3D5: using guessed type x_DWORD sprintf_s(x_DWORD, const char *, ...);
 // 988DA: using guessed type x_DWORD /*__cdecl*/ filelength(x_DWORD);
 // 98F9E: using guessed type x_DWORD /*__cdecl*/ unknown_libname_1_atoi(x_DWORD);
 // D41A4: using guessed type int x_DWORD_D41A4;
-// D41BC: using guessed type int x_DWORD_D41BC;
+// D41BC: using guessed type int x_DWORD_D41BC_langbuffer;
 // E29E0: using guessed type char x_BYTE_E29E0;
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
@@ -99242,7 +99246,7 @@ char sub_87610()
   x_BYTE *v7; // ST04_4
   char v8; // [esp+0h] [ebp-80h]
 
-  v0 = (const char *)x_DWORD_E9C4C[x_WORD_18053E[0]];
+  v0 = (const char *)x_DWORD_E9C4C_langindexbuffer[x_WORD_18053E[0]];
   v1 = &x_WORD_E2A74[15 * x_WORD_180536];
   if ( *((x_BYTE *)v1 + 3) & 1 )
   {
@@ -99302,7 +99306,7 @@ char sub_87610()
           v6 = *((x_BYTE *)&unk_1804B0 + 50);
         else
           v6 = *((x_BYTE *)&unk_1804B0 + 48);
-        v7 = (x_BYTE *)x_DWORD_E9C4C[x_WORD_18053E[v4++]];
+        v7 = (x_BYTE *)x_DWORD_E9C4C_langindexbuffer[x_WORD_18053E[v4++]];
         sub_2BC10(v7, *((x_WORD *)&unk_1804B0 + 4), v5, v6);
         v5 += *((signed __int16 *)&unk_1804B0 + 9);
       }
@@ -99356,7 +99360,7 @@ int sub_87860()
   {
     sub_87970();
     v0 = &x_WORD_E2A74[15 * (x_BYTE_18055A + 86)];
-    v1 = (const char *)x_DWORD_E9C4C[v0[2]];
+    v1 = (const char *)x_DWORD_E9C4C_langindexbuffer[v0[2]];
     v2 = v0[4];
     LOWORD(v0) = v0[5];
     x_WORD_1804FF = v2;
@@ -99437,7 +99441,7 @@ int sub_87A30()
     v1 = &x_WORD_E2A74[15 * x_BYTE_180559];
     v2 = v1[2];
     x_WORD_1804FF = v1[4];
-    v3 = (const char *)x_DWORD_E9C4C[v2];
+    v3 = (const char *)x_DWORD_E9C4C_langindexbuffer[v2];
     x_WORD_180501 = v1[5];
     x_BYTE_180513 = x_BYTE_E98FF;
     x_WORD_1804EF = 220;
@@ -101055,7 +101059,7 @@ int /*__cdecl*/ sub_89920(x_WORD *a1, __int16 a2, int a3)
   while ( v3 < a2 )
   {
     result = 0;
-    v6 = strlen((const char *)x_DWORD_E9C4C[*(signed __int16 *)(a3 + 2 * v3)]) + 1;
+    v6 = strlen((const char *)x_DWORD_E9C4C_langindexbuffer[*(signed __int16 *)(a3 + 2 * v3)]) + 1;
     if ( (signed int)(v6 - 1) > v4 )
       v4 = v6 - 1;
     ++v3;
