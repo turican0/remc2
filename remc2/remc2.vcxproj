@@ -174,7 +174,7 @@
     <Library Include="..\sdl\VisualC\SDLmain\Debug\SDLmain.lib" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="engine\info.x" />
+    <None Include="engine\info.x" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

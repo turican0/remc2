@@ -110,7 +110,12 @@ extern int x_DWORD_D41A0;
 extern Bit32s* x_D41A0_BYTEARRAY_0;
 extern Bit32s* x_D41A0_BYTEARRAY_4;
 extern Bit16s x_D41A0_WORDARRAY[];
-extern Bit32u* off_D918C[0x1c];
+
+extern Bit32u x_D41A0_BYTEARRAY_4_0xE6_heapsize;
+extern Bit8u* x_D41A0_BYTEARRAY_4_0xE2_heapbuffer;
+//extern Bit32u* off_D918C[0x7c];
+
+extern Bit8u* dword_E9C30[]; // weak
 
 
 extern x_DWORD x_DWORD_355208;//3551CE+3A DWORD

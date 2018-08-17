@@ -140,7 +140,12 @@ int x_DWORD_D41A0 = 0; // weak
 Bit32s* x_D41A0_BYTEARRAY_0;
 Bit32s* x_D41A0_BYTEARRAY_4;
 Bit16s x_D41A0_WORDARRAY[10000];
-Bit32u* off_D918C[0x1c];
+
+Bit32u x_D41A0_BYTEARRAY_4_0xE6_heapsize;
+Bit8u* x_D41A0_BYTEARRAY_4_0xE2_heapbuffer;
+//Bit32u* off_D918C[0x7c];//turn off - fix it
+
+Bit8u* dword_E9C30[1000]; // weak
 
 Bit32s x_DWORD_355208;//3551CE+3A DWORD
 x_BYTE x_BYTE_355234;//harddrive//3551CE+66 BYTE
@@ -170,8 +175,18 @@ void support_begin() {
 
 	x_DWORD_E9C38_smalltit= (Bit8u*)malloc(64000* sizeof(Bit8u*));
 
-	for (int i = 0;i < 0x1c;i++)
-		off_D918C[i] = new Bit32u;
+	/*for (int i = 0;i < 0x1c+0x60;i++)
+		off_D918C[i] = new Bit32u;*/
+	//2aa18c
+	//0 2bc394
+	//1
+	//2
+
+	dword_E9C30[0] = new Bit8u[4096];
+	for (int i = 0;i <4096;i++)
+		dword_E9C30[0][0] = 0;
+	dword_E9C30[2] = new Bit8u[4096];
+	dword_E9C30[4] = new Bit8u[4096];
 
     //printbuffer2[0] = '\0';
 }
@@ -181,8 +196,11 @@ void support_end() {
     free(printbuffer2);//char v11; // [esp+40h] [ebp+3Eh]
 	free(x_DWORD_180628b);
 	free(x_DWORD_E9C38_smalltit);
-	for (int i = 0;i < 0x1c;i++)
-		free(off_D918C[i]);
+	/*for (int i = 0;i < 0x1c;i++)
+		free(off_D918C[i]);*/
+	free(dword_E9C30[0]);
+	free(dword_E9C30[2]);
+	free(dword_E9C30[4]);
 }
 
 void putpixel(SDL_Surface *surface, int x, int y, Uint32 pixel)

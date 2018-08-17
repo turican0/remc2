@@ -2,6 +2,7 @@
 #include <assert.h>
 #include <sstream>
 #include <stddef.h>
+
 #include "dosbox.h"
 #include "engine.h"
 #include "mem.h"
@@ -37,6 +38,9 @@
 #include <ctype.h>
 
 #include <direct.h>  
+//#include <dir.h>
+#include <io.h>  
+//#include <time.h>  
 
 //#include <sys/statvfs.h>
 #include <windows.h>
@@ -162,6 +166,10 @@ extern x_WORD __SS__;
 
 extern char IsTable[];
 
+
+
+
+
 int /*__noreturn*/ sub_10000(); // weak
 unsigned int sub_15CB0(unsigned int a1, int a2); // weak
 char sub_15D40(__int16 a1, int a2, int a3); // weak
@@ -176,11 +184,11 @@ void JUMPOUT(x_WORD cs, int a, int* adr);
 void sub_1F0C0(int a1, int a2);
 int sub_253B0(int result, int a2, unsigned __int8 a3, unsigned __int8 a4);
 signed int sub_369F0(signed int a1, __int16 a2);
-int qmemcpy(void* a, void* b, unsigned int c);
+void qmemcpy(void* a, void* b, size_t c);
 char sub_2A340(int a1, int a2, int a3, int a4, int a5, int a6);
 unsigned __int16 sub_2AA90(int a1, int a2, int a3);
 void /*__spoils<ecx>*/ sub_72883(int a1, void *a2, unsigned __int16 a3, char a4);
-void /*__spoils<ecx>*/ sub_728A9(int a1, void *a2, unsigned __int16 a3, char a4);
+void /*__spoils<ecx>*/ sub_728A9(void *a2, unsigned __int16 a3, char a4);
 int sub_303D0(signed int a1);
 int _wcpp_1_unwind_leave__62(void); //weak
 int sub_7FCB0(int a1, x_BYTE *a2, int a3, int a4, int a5, char a6, unsigned __int8 a7, __int16 a8); //weak
@@ -224,7 +232,7 @@ x_DWORD /*__cdecl*/ dos_setvect(x_DWORD, x_DWORD, x_DWORD);// weak
 int /*__fastcall*/ _wcpp_1_unwind_leave__130(x_DWORD);// weak
 unsigned char _BitScanReverse(unsigned long * Index, unsigned long Mask);
 void sub_8F920(__int16 a1, signed int a2, int a3, char *a4, unsigned __int8 a5, char a6);
-void sub_8F935(__int16 a1, signed int a2, int a3, char *a4, unsigned __int8 a5, char a6);
+void sub_8F935(Bit16u a1, signed int a2, int a3, Bit8u* a4, unsigned __int8 a5, char a6);
 signed int sub_74767(signed __int16 *a1, x_BYTE *a2, int a3);
 x_DWORD /*__cdecl*/ segread(SREGS*); //weak
 //x_DWORD /*__cdecl*/ int386x(x_DWORD, x_DWORD, x_DWORD, x_DWORD);// weak

@@ -72,8 +72,8 @@
     </Library>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="engine\info.x">
+    <None Include="engine\info.x">
       <Filter>Zdrojové soubory\engine</Filter>
-    </Text>
+    </None>
   </ItemGroup>
 </Project>
