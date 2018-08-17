@@ -677,12 +677,12 @@ void sub_9A1B6(int a1, void *a2, void *a3)
 		qmemcpy(a2, a3, 0x2Bu);
 	}
 }
+long hFile;
 int unknown_libname_2_findfirst(char* path, Bit16u a2, char* filename) {//findfirst
 	char path2[2048] = "\0";
 	pathfix(path, path2);//only for DOSBOX version
 
 	struct _finddata_t c_file;
-	long hFile;
 	if ((hFile = _findfirst(path2, &c_file)) == -1L)	
 		return(0);//file not found
 	strcmp(filename, c_file.name);
@@ -717,7 +717,51 @@ int unknown_libname_2_findfirst(char* path, Bit16u a2, char* filename) {//findfi
 	sub_9A1B6(result, (void*)a3, (void*)a3);
 	return result;*/
 };// weak
-x_DWORD /*__cdecl*/ unknown_libname_3(x_DWORD) { stub_fix_it();return 0; };// weak
+x_DWORD /*__cdecl*/ unknown_libname_3(x_DWORD) {
+	//char path[100];//fix
+	char filename[100];//fix it
+
+	/*char path2[2048] = "\0";
+	pathfix(path, path2);//only for DOSBOX version
+	*/
+	struct _finddata_t c_file;
+	//long hFile;
+	if ((hFile = _findnext(hFile, &c_file)) == -1L)
+		return(0);//file not found
+	strcmp(filename, c_file.name);
+	_findclose(hFile);
+	return(1);
+	/*
+
+	if ((hFile = _findfirst(path2, &c_file)) == -1L)
+	printf("file not found");
+	else
+	{
+	do
+	{
+	printf("%s\n", c_file.name);
+	} while (_findnext(hFile, &c_file) == 0);
+	_findclose(hFile);
+	}
+
+	*/
+	/*int v2; // eax
+	int v3; // eax
+	int v4; // edx
+	int result; // eax
+	void *v6; // edx
+
+	v2 = a2;
+	BYTE1(v2) = 26;
+	__asm { int     21h; DOS - SET DISK TRANSFER AREA ADDRESS }
+	v3 = sub_9A1D9(v2, a2);
+	BYTE1(v3) = 79;
+	__asm { int     21h; DOS - 2 + -FIND NEXT ASCIZ(FINDNEXT) }
+	result = _doserror(v3, v4);
+	sub_9A1B6(result, v6, a1);
+	return result;*/
+	return 0;
+};// weak
 int /*__cdecl*/ unknown_libname_4(x_DWORD) { stub_fix_it();return 0; };// weak
 int _wcpp_1_unwind_leave__120(x_DWORD a, x_DWORD b, x_DWORD c) { stub_fix_it();return 0; };// weak
 void JUMPOUT(int* adr) { stub_fix_it();};
@@ -2767,7 +2811,7 @@ int sub_8CA16();
 void sub_8CACD();
 void sub_8CB1F();
 void sub_8CB3A();
-int /*__cdecl*/ sub_8CD27(Bit8u** a1);
+void sub_8CD27(Bit8u** a1);
 signed int sub_8CEDF_install_mouse();
 int sub_8D12F_set_mouse_viewport();
 void /*__fastcall*/ sub_8D290(char* a1, int a2, int a3);
@@ -68322,7 +68366,7 @@ char sub_5B8D0_initialize()//23c8d0
   }
   sub_560D0_create_sound_dir();//23C9ED - 2370D0
   sub_5BCC0_set_any_variables1();//23C9F2 - 23CCC0
-  if ( !(unsigned __int16)sub_5BF50_load_psxdata() )//23C9F7 - 23CF50 //neco se soubory asi jejich naceteni, nebo jen soubor palety
+  if ( !sub_5BF50_load_psxdata() )//23C9F7 - 23CF50 //neco se soubory asi jejich naceteni, nebo jen soubor palety
 	  exit(-1);
   sub_5C1B0_set_any_variables2();//23CA05 - 23D1B0
   if ( !sub_54200_create_user_directiores() )//23CA0A - 235200 //tady jedou i ty procenta
@@ -68392,7 +68436,7 @@ char sub_5B8D0_initialize()//23c8d0
 	*/
   x_BYTE_E3799 = x_BYTE_E3798;
   x_BYTE_E37FD = x_BYTE_E37FC;
-  /*sub_8CEDF_install_mouse();
+  sub_8CEDF_install_mouse();
   if ( !x_DWORD_E3768 )
   {
     sub_5BC20();
@@ -68400,7 +68444,7 @@ char sub_5B8D0_initialize()//23c8d0
     exit(-1);
   }
   //mouse init
-  */
+  
   //pointersdat_buffer = xadatapointersdat.var28_begin_buffer;//eb394 - 2bc394 -446f1{set in 23cf50}
   sub_8CD27(filearray_2aa18c[filearrayindex_POINTERSDATTAB].begin_buffer);//anything with vga, maybe mouse cursor//26dd27
   v2 = sub_5C430_multi_allocation(); //23d430
@@ -89186,7 +89230,8 @@ char sub_79610()
   for ( i = (x_WORD*)&unk_E28A8; *i; *(i - 2) = 0 )
     i += 9;
   x_WORD_E28B6 = 1;
-  v8 = sub_8CD27((Bit8u**)&x_DWORD_17DED4 + 660);
+  sub_8CD27((Bit8u**)&x_DWORD_17DED4 + 660);
+  v8 = 0;//fix it
   while ( (x_WORD)v44 != 2 )
   {
     v34 = j___clock(v8, v9, (x_DWORD)v2);
@@ -103302,16 +103347,16 @@ void sub_8CB3A()
 // 18074C: using guessed type __int16 x_WORD_18074C;
 
 //----- (0008CD27) --------------------------------------------------------
-int /*__cdecl*/ sub_8CD27(Bit8u** a1)//26dd27
+void sub_8CD27(Bit8u** a1)//26dd27
 {
   int result; // eax
   unsigned int i; // [esp+0h] [ebp-10h]
   int v3; // [esp+4h] [ebp-Ch]
   __int16 v4; // [esp+8h] [ebp-8h]
-  int v5; // [esp+Ch] [ebp-4h]
-  x_DWORD_E3758 = 1;
-  v5 = (int)x_DWORD_180628b;
-  x_DWORD_180628b = (Bit8u*)x_DWORD_180730;
+  //int v5; // [esp+Ch] [ebp-4h]
+  x_DWORD_E3758 = 1;//2b4758
+  //v5 = (int)x_DWORD_180628b;
+  x_DWORD_180628b[0] = x_DWORD_180730[0];//351730
   if ( a1 )
   {
     x_WORD_18072C = (short)a1[4];
@@ -103359,10 +103404,10 @@ int /*__cdecl*/ sub_8CD27(Bit8u** a1)//26dd27
   x_DWORD_180634 = x_DWORD_18064C;
   x_DWORD_180648 = x_DWORD_180658;
   x_DWORD_180644 = x_DWORD_180654;
-  result = v5;
-  x_DWORD_180628b = (Bit8u*)v5;
+  //result = v5;
+  //x_DWORD_180628b = (Bit8u*)v5;
   x_DWORD_E3758 = 0;
-  return result;
+  //return result;
 }
 // E36D4: using guessed type __int16 x_WORD_E36D4;
 // E3758: using guessed type int x_DWORD_E3758;
@@ -103386,9 +103431,9 @@ int /*__cdecl*/ sub_8CD27(Bit8u** a1)//26dd27
 // 180730: using guessed type int x_DWORD_180730;
 
 //----- (0008CEDF) --------------------------------------------------------
-signed int sub_8CEDF_install_mouse()
+signed int sub_8CEDF_install_mouse()//26dedf
 {
-  /*__int16 v1; // [esp+0h] [ebp-54h]
+  __int16 v1; // [esp+0h] [ebp-54h]
   __int16 v2; // [esp+1Ch] [ebp-38h]
   __int16 v3; // [esp+24h] [ebp-30h]
   void (*v4)(); // [esp+28h] [ebp-2Ch]
@@ -103435,7 +103480,7 @@ signed int sub_8CEDF_install_mouse()
     LOWORD(v4) = 1;
     int386(0x33, (REGS*)&v2, (REGS*)&v1);//set pixel ratio
   }
-  x_DWORD_E3768 = 1;*///fix it
+  x_DWORD_E3768 = 1;//fix it
   return 1;
 }
 // 98D52: using guessed type x_DWORD /*__cdecl*/ int386(x_DWORD, x_DWORD, x_DWORD);
