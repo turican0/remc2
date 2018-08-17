@@ -175,3 +175,10 @@ pointers_buffer - off_D918C
 		uvizlo to v teto smycce:
 		while ( !x_BYTE_1806E4 && !x_WORD_180746 && !x_WORD_180744 && (j___clock(v5, v3, v1) - v4) / 0x64u <= 0x14 )
 
+		11)
+		zde se vzalo silene cislo
+		x_D41A0_BYTEARRAY_4[0x4]
+
+		sprintf_s(printbuffer,512,"%c%s/L%d.txt",x_D41A0_BYTEARRAY_4[0xB6],":/NETHERW/LANGUAGE",x_D41A0_BYTEARRAY_4[0x4]);
+      while ( v2 < 2 )
+

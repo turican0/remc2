@@ -518,9 +518,9 @@ x_WORD _SF;
 x_DWORD _EBP;
 __int16 x_WORD_E3760;
 __int16 x_WORD_E3762;
-x_DWORD /*__cdecl*/ unknown_libname_2_findfirst(char*, Bit16u, char*);// weak
-x_DWORD /*__cdecl*/ unknown_libname_3(x_DWORD);// weak
-int /*__cdecl*/ unknown_libname_4(x_DWORD);// weak
+x_DWORD /*__cdecl*/ unknown_libname_2_findfirst(char*, Bit16u, _finddata_t* c_file);// weak
+x_DWORD /*__cdecl*/ unknown_libname_3(_finddata_t* c_file);// weak
+int /*__cdecl*/ unknown_libname_4(_finddata_t* c_file);// weak
 x_DWORD _GETDS;
 unsigned char MEMORY[0x1000000];
 
@@ -678,16 +678,16 @@ void sub_9A1B6(int a1, void *a2, void *a3)
 	}
 }
 long hFile;
-int unknown_libname_2_findfirst(char* path, Bit16u a2, char* filename) {//findfirst
+int unknown_libname_2_findfirst(char* path, Bit16u a2, _finddata_t* c_file) {//findfirst
 	char path2[2048] = "\0";
 	pathfix(path, path2);//only for DOSBOX version
 
-	struct _finddata_t c_file;
-	if ((hFile = _findfirst(path2, &c_file)) == -1L)	
-		return(0);//file not found
-	strcmp(filename, c_file.name);
+	//struct _finddata_t c_file;
+	if ((hFile = _findfirst(path2, c_file)) == -1L)	
+		return(-1);//file not found
+	//strcmp(filename, c_file.name);
 	_findclose(hFile);
-	return(1);
+	return(0);
 		/*
 	if ((hFile = _findfirst(path2, &c_file)) == -1L)
 		printf("file not found");
@@ -717,18 +717,18 @@ int unknown_libname_2_findfirst(char* path, Bit16u a2, char* filename) {//findfi
 	sub_9A1B6(result, (void*)a3, (void*)a3);
 	return result;*/
 };// weak
-x_DWORD /*__cdecl*/ unknown_libname_3(x_DWORD) {
+x_DWORD /*__cdecl*/ unknown_libname_3(_finddata_t* c_file) {
 	//char path[100];//fix
-	char filename[100];//fix it
+	//char filename[100];//fix it
 
 	/*char path2[2048] = "\0";
 	pathfix(path, path2);//only for DOSBOX version
 	*/
-	struct _finddata_t c_file;
+	//struct _finddata_t c_file;
 	//long hFile;
-	if ((hFile = _findnext(hFile, &c_file)) == -1L)
+	if ((hFile = _findnext(hFile, c_file)) == -1L)
 		return(0);//file not found
-	strcmp(filename, c_file.name);
+	//strcmp(filename, c_file.name);
 	_findclose(hFile);
 	return(1);
 	/*
@@ -762,7 +762,7 @@ x_DWORD /*__cdecl*/ unknown_libname_3(x_DWORD) {
 	return result;*/
 	return 0;
 };// weak
-int /*__cdecl*/ unknown_libname_4(x_DWORD) { stub_fix_it();return 0; };// weak
+int /*__cdecl*/ unknown_libname_4(struct _finddata_t *c_file) { return 0; };// weak
 int _wcpp_1_unwind_leave__120(x_DWORD a, x_DWORD b, x_DWORD c) { stub_fix_it();return 0; };// weak
 void JUMPOUT(int* adr) { stub_fix_it();};
 void JUMPOUT(x_WORD cs, int* adr) { stub_fix_it(); };
@@ -87925,9 +87925,9 @@ char /*__cdecl*/ sub_779E0(int a1)//2589E0
 {
   unsigned int v1; // ebx
   int v2; // eax
-  char *v3; // eax
+  char *langfilename; // eax
   char v4; // al
-  FILE* v5; // esi
+  FILE* configfile2; // esi
   int v6; // eax
   int v7; // edx
   int v8; // eax
@@ -87936,20 +87936,22 @@ char /*__cdecl*/ sub_779E0(int a1)//2589E0
   __int16 v11; // ax
   int v12; // esi
   char v13; // al
-  FILE* v14; // ebx
+  FILE* configfile; // ebx
   int v15; // eax
   char v17; // [esp+0h] [ebp-142h]
   //char v18; // [esp+A0h] [ebp-A2h]
-  char v19[100]; // [esp+F0h] [ebp-52h]
+  //char v19[100]; // [esp+F0h] [ebp-52h]
+  _finddata_t langfileL;
   char v20; // [esp+10Eh] [ebp-34h]
-  char v21[100]; // [esp+11Ch] [ebp-26h]
-  char v22; // [esp+13Ah] [ebp-8h]
+  //char v21[100]; // [esp+11Ch] [ebp-26h]
+  _finddata_t langfileD;
+  //char v22; // [esp+13Ah] [ebp-8h]
   char v23; // [esp+148h] [ebp+6h]
   char v24; // [esp+158h] [ebp+16h]
   int v25; // [esp+16Ch] [ebp+2Ah]
   __int16 v26; // [esp+170h] [ebp+2Eh]
   int v27; // [esp+180h] [ebp+3Eh]
-  char v28; // [esp+18Ah] [ebp+48h]
+  //char v28; // [esp+18Ah] [ebp+48h]
   int v29; // [esp+18Ch] [ebp+4Ah]
   int v30; // [esp+190h] [ebp+4Eh]
   __int16 v31; // [esp+198h] [ebp+56h]
@@ -87975,7 +87977,7 @@ char /*__cdecl*/ sub_779E0(int a1)//2589E0
   v40 = 0;
   v39 = 0;
   sprintf_s(printbuffer,512, "%c%s", x_D41A0_BYTEARRAY_4[0xB6], ":/NETHERW/CONFIG.DAT");
-  /*memset(&v25, 0, 32);
+  /*memset(&v25, 0, 32);//355104 ->355120
   memset(&v29, 0, 16);
   qmemcpy(&v25, (void *)x_D41A0_BYTEARRAY_4, 0x14u);
   qmemcpy(&v27, (void *)(x_D41A0_BYTEARRAY_4[20]), 2u);
@@ -87985,7 +87987,7 @@ char /*__cdecl*/ sub_779E0(int a1)//2589E0
   v32 = 2;
   sub_6EDB0_set_mouse_position_by_res();//24fdb0
   x_DWORD_17DEE4 = 13107520;
-  if ( a1 )
+  if ( a1 )//0x0
   {
     sub_7A110(x_WORD_180660_VGA_type_resolution, 12);//load hscreen 25b110
     v1 = x_DWORD_E9C38_smalltit[307200];
@@ -88000,32 +88002,35 @@ char /*__cdecl*/ sub_779E0(int a1)//2589E0
   sub_7B5A0();//25c5a0  disable //enable
   sub_8CD27(filearray_2aa18c[0].begin_buffer);//26dd27
   x_WORD_17DEEC = 0;
-  if ( !unknown_libname_2_findfirst((char*)"LANGUAGE/L*.TXT", 0, v19) )// 27B166
+  a1 = unknown_libname_2_findfirst((char*)"LANGUAGE/L*.TXT", 0, &langfileL);
+  if ( !a1 )// 27B166 - 355088
   {
-    v2 = unknown_libname_2_findfirst((char*)"LANGUAGE/D*.TXT", 0, v21); //v21=3550b4
-    if ( a1 || v2 )
-      v3 = &v20;
-    else
-      v3 = &v22;
+    v2 = unknown_libname_2_findfirst((char*)"LANGUAGE/D*.TXT", 0, &langfileD); //v21=3550b4 3550b4
+	if (a1 || v2)
+		langfilename = &v20;//neco se nenaslo
+	else
+		langfilename = (char*)langfileD.name;//&v22;//naslo se oba v tom pripade prirad "D2.TXT", adresa 3550d2
 	//35513c 355134 451414 3550d2
-    v4 = sub_7F7D0((unsigned int *)&v35, (x_DWORD*)&v33, v1, (int)v3);//2607d0
+	//D2.TXT , [451514]000000, [355134]00100000-podobne v20,[35513c]0000
+    v4 = sub_7F7D0((unsigned int *)&v35, (x_DWORD*)&v33, v1, (int)langfilename);//2607d0
+	//D2.TXT , [451514]020058e2e2e2, [355134]c5274500->00000000,[35513c]b9274500->141545->020058e2e2e2
     x_D41A0_BYTEARRAY_4[179] = v4;
-    unknown_libname_4((x_DWORD)&v21);//27b1b3
+    unknown_libname_4(&langfileD);//27b1b3
     v36 = v35;
     v37 = v33;
     if ( a1 )
     {
-      v5 = sub_98817_open(printbuffer, 512);
-      if ( v5 != NULL )
+	  configfile2 = sub_98817_open(printbuffer, 512);
+      if (configfile2 != NULL )
       {
-        sub_988A7_read(v5, (Bit8u*)&v34, 4);
+        sub_988A7_read(configfile2, (Bit8u*)&v34, 4);
         if ( v34 == -9 )
         {
-          sub_988A7_read(v5, (Bit8u*)&v40, 2);
+          sub_988A7_read(configfile2, (Bit8u*)&v40, 2);
           sprintf_s(&v17,sizeof(&v17), "L%d.TXT", v40);
           x_D41A0_BYTEARRAY_4[179] = sub_7F960(v36, v37, v1, (int)&v17);
         }
-        sub_98882_close(v5);
+        sub_98882_close(configfile2);
       }
     }
     sub_7B5A0();//25c5a0
@@ -88087,20 +88092,20 @@ char /*__cdecl*/ sub_779E0(int a1)//2589E0
       sub_7A060();//25b060
       if ( v10 == 1 )
       {
-        if ( unknown_libname_3((x_DWORD)&v19) )
+        if ( unknown_libname_3(&langfileL) )
         {
-          unknown_libname_4((x_DWORD)&v19);
-          unknown_libname_2_findfirst((char*)"LANGUAGE/L*.TXT", 0, v19);
+          unknown_libname_4(&langfileL);
+          unknown_libname_2_findfirst((char*)"LANGUAGE/L*.TXT", 0, &langfileL);
         }
         v11 = sub_7F960(v36, v37, v1, (int)&v20);
         v12 = (uint8)x_D41A0_BYTEARRAY_4;
         v40 = v11;
         if ( x_D41A0_BYTEARRAY_4[179] == v11 )
         {
-          if ( unknown_libname_3((x_DWORD)&v19) )
+          if ( unknown_libname_3(&langfileL) )
           {
-            unknown_libname_4((x_DWORD)&v19);
-            unknown_libname_2_findfirst((char*)"LANGUAGE/L*.TXT", 0, v19);
+            unknown_libname_4(&langfileL);
+            unknown_libname_2_findfirst((char*)"LANGUAGE/L*.TXT", 0, &langfileL);
           }
           v13 = sub_7F960(v36, v37, v1, (int)&v20);
           v12 = (uint8)x_D41A0_BYTEARRAY_4;
@@ -88113,20 +88118,20 @@ char /*__cdecl*/ sub_779E0(int a1)//2589E0
       }
     }
   }
-  unknown_libname_4((x_DWORD)&v19);
-  v14 = sub_98817_open(printbuffer, 546);
-  if ( v14 != NULL )
+  unknown_libname_4(&langfileL);
+  configfile = sub_98817_open(printbuffer, 546);
+  if (configfile!= NULL )
   {
     if ( x_D41A0_BYTEARRAY_4[0x0] == 1 )
       x_D41A0_BYTEARRAY_4[0x0] = 0;
     qmemcpy(&v25, (void *)x_D41A0_BYTEARRAY_4, 0x14u);
     qmemcpy(&v27, (void *)(x_D41A0_BYTEARRAY_4[20]), 2u);
     qmemcpy((char *)&v27 + 2, &x_BYTE_EB39E, 8u);
-    qmemcpy(&v28, &x_BYTE_EB39E + 8, 2u);
+    //qmemcpy(&v28, &x_BYTE_EB39E + 8, 2u);//fix it
     v25 = -9;
     v26 = x_D41A0_BYTEARRAY_4[179];
-    sub_98CAA_write(v14, (Bit8u*)&v25, 32);
-    sub_98882_close(v14);
+    sub_98CAA_write(configfile, (Bit8u*)&v25, 32);
+    sub_98882_close(configfile);
   }
   LOWORD(v15) = sub_90B27_VGA_command(0, 0x10u, 0);
   if ( x_WORD_180660_VGA_type_resolution & 1 )
@@ -98838,7 +98843,7 @@ int sub_86A00()
 char sub_86BD0()
 {
   char result; // al
-
+  result = 1;//fix it
   if ( x_DWORD_E2A6C )//2B3A6C - D5020000A11A0000
     result = sub_85F00_free_memory(x_DWORD_E2A6C);//264CDC - 266070 
   if ( x_DWORD_E2A70 )
@@ -102988,11 +102993,12 @@ char /*__cdecl*/ sub_8C140(unsigned __int16 a1, int a2)
 //----- (0008C21F) --------------------------------------------------------
 int sub_8C21F_any_graphics_command()
 {
-  char v1; // [esp+0h] [ebp-38h]
+  /*char v1; // [esp+0h] [ebp-38h]
   int v2; // [esp+1Ch] [ebp-1Ch]
 
   v2 = (unsigned __int16)x_WORD_180662_graphics_handle;
-  return int386(0x10, (REGS*)&v2, (REGS*)&v1);//grafika
+  return int386(0x10, (REGS*)&v2, (REGS*)&v1);//grafika*/
+	return(0);//fix it
 }
 // 98D52: using guessed type x_DWORD /*__cdecl*/ int386(x_DWORD, x_DWORD, x_DWORD);
 // 180662: using guessed type __int16 x_WORD_180662_graphics_handle;
@@ -103433,8 +103439,8 @@ void sub_8CD27(Bit8u** a1)//26dd27
 //----- (0008CEDF) --------------------------------------------------------
 signed int sub_8CEDF_install_mouse()//26dedf
 {
-  __int16 v1; // [esp+0h] [ebp-54h]
-  __int16 v2; // [esp+1Ch] [ebp-38h]
+  //__int16 v1; // [esp+0h] [ebp-54h]
+  //__int16 v2; // [esp+1Ch] [ebp-38h]
   __int16 v3; // [esp+24h] [ebp-30h]
   void (*v4)(); // [esp+28h] [ebp-2Ch]
   __int16 v5; // [esp+38h] [ebp-1Ch]
@@ -103443,18 +103449,18 @@ signed int sub_8CEDF_install_mouse()//26dedf
   int i; // [esp+4Ch] [ebp-8h]
 
   x_DWORD_E3768 = 0;
-  segread((SREGS*)&v5);
-  v2 = 0;
-  int386(0x33, (REGS*)&v2, (REGS*)&v1);//mouse reset
-  if ( v1 != -1 )
-    return 0;
-  v2 = 0xc;
+  //segread((SREGS*)&v5);
+  //v2 = 0;
+  //int386(0x33, (REGS*)&v2, (REGS*)&v1);//mouse reset
+  //if ( v1 != -1 )
+  //  return 0;
+  //v2 = 0xc;
   v3 = 127;
   LOWORD(v7) = __CS__;
   v6 = sub_8CB3A;
   v4 = sub_8CB3A;
   v5 = __CS__;
-  int386x(0x33, (REGS*)&v2, (REGS*)&v1, (SREGS*)&v5);//set mouse subroutine
+  //int386x(0x33, (REGS*)&v2, (REGS*)&v1, (SREGS*)&v5);//set mouse subroutine
   sub_8D12F_set_mouse_viewport();
   if ( !x_DWORD_180730 )
     x_DWORD_180730 = (Bit8s*)sub_83CD0_malloc2(4096);
@@ -103471,14 +103477,14 @@ signed int sub_8CEDF_install_mouse()//26dedf
     *(x_BYTE *)(i + x_DWORD_180730) = -2;
   if ( x_DWORD_180720 )
     sub_8CD27((Bit8u**)x_DWORD_180720);
-  v2 = 2;
-  int386(0x33, (REGS*)&v2, (REGS*)&v1);//hide mouse
+  //v2 = 2;
+  //int386(0x33, (REGS*)&v2, (REGS*)&v1);//hide mouse
   if ( x_WORD_180660_VGA_type_resolution & 8 )
   {
-    v2 = 0xF;
+    //v2 = 0xF;
     v3 = 1;
     LOWORD(v4) = 1;
-    int386(0x33, (REGS*)&v2, (REGS*)&v1);//set pixel ratio
+    //int386(0x33, (REGS*)&v2, (REGS*)&v1);//set pixel ratio
   }
   x_DWORD_E3768 = 1;//fix it
   return 1;
