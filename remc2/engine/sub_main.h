@@ -44,7 +44,7 @@
 
 //#include <sys/statvfs.h>
 #include <windows.h>
-#include "dirent.h"
+#include "portability/dirent.h"
 #include "defs.h"
 #define __CFSHL__(x, y) printf("invalid_operation:__CFSHL__(x, y)")
 #define __RCR__(x, y) printf("invalid_operation:__RCR__(x, y)")
@@ -187,8 +187,8 @@ signed int sub_369F0(signed int a1, __int16 a2);
 void qmemcpy(void* a, void* b, size_t c);
 char sub_2A340(int a1, int a2, int a3, int a4, int a5, int a6);
 unsigned __int16 sub_2AA90(int a1, int a2, int a3);
-void /*__spoils<ecx>*/ sub_72883(int a1, void *a2, unsigned __int16 a3, char a4);
-void /*__spoils<ecx>*/ sub_728A9(void *a2, unsigned __int16 a3, char a4);
+void /*__spoils<ecx>*/ sub_72883_memset_pallette(int a1, void *a2, unsigned __int16 a3, char a4);
+void /*__spoils<ecx>*/ sub_728A9_memset_pallette(void *a2, unsigned __int16 a3, char a4);
 int sub_303D0(signed int a1);
 int _wcpp_1_unwind_leave__62(void); //weak
 int sub_7FCB0(int a1, x_BYTE *a2, int a3, int a4, int a5, char a6, unsigned __int8 a7, __int16 a8); //weak
@@ -233,7 +233,7 @@ int /*__fastcall*/ _wcpp_1_unwind_leave__130(x_DWORD);// weak
 unsigned char _BitScanReverse(unsigned long * Index, unsigned long Mask);
 void sub_8F920(__int16 a1, signed int a2, int a3, char *a4, unsigned __int8 a5, char a6);
 void sub_8F935(Bit16u a1, signed int a2, int a3, Bit8u* a4, unsigned __int8 a5, char a6);
-signed int sub_74767(signed __int16 *a1, x_BYTE *a2, int a3);
+signed int sub_74767(signed __int16 *a1, x_BYTE *a2, Bit8u* a3);
 x_DWORD /*__cdecl*/ segread(SREGS*); //weak
 //x_DWORD /*__cdecl*/ int386x(x_DWORD, x_DWORD, x_DWORD, x_DWORD);// weak
 int int386x(int, REGS *, REGS *, struct SREGS *);
@@ -341,8 +341,8 @@ __int16 sub_B5EFA(__int16 a1, int a2, int a3, __int16 a4);
 //---------------------------
 
 char sub_54200();
-int sub_71410_process_tmaps();
-char sub_5B8D0_initialize();
+void sub_71410_process_tmaps();
+void sub_5B8D0_initialize();
 int /*__cdecl*/ sub_main(int argc, char **argv, char **envp);
 
 

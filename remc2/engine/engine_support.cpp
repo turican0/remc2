@@ -66,6 +66,7 @@ void pathfix(char* path, char* path2)
 }
 
 Bit8u* readbuffer;
+
 char* printbuffer;//char* buffer; // [esp+0h] [ebp-2h]
 char* printbuffer2;//char v11; // [esp+40h] [ebp+3Eh]
 /*Bit32s x_DWORD_D41A4_x6x = 0;
@@ -139,31 +140,19 @@ int x_DWORD_D41A0 = 0; // weak
 
 Bit32s* x_D41A0_BYTEARRAY_0;
 Bit32s* x_D41A0_BYTEARRAY_4;
+
+type_x_D41A0_BYTEARRAY_4_struct x_D41A0_BYTEARRAY_4_struct;
+
 Bit16s x_D41A0_WORDARRAY[10000];
 
 Bit32u x_D41A0_BYTEARRAY_4_0xE6_heapsize;
 Bit8u* x_D41A0_BYTEARRAY_4_0xE2_heapbuffer;
-Bit8u* x_D41A0_BYTEARRAY_4_0xDE_heapbuffer;
+//Bit8u* x_D41A0_BYTEARRAY_4_0xDE_heapbuffer;
 //Bit32u* off_D918C[0x7c];//turn off - fix it
 
 Bit8u* dword_E9C30[1000]; // weak
 
-Bit32s x_DWORD_355208;//3551CE+3A DWORD
-x_BYTE x_BYTE_355234;//harddrive//3551CE+66 BYTE
-x_BYTE x_BYTE_35520C;//3551CE+3e BYTE
-x_BYTE x_BYTE_355210;//3551CE+42 BYTE
-x_BYTE x_BYTE_355230;//3551CE+62 BYTE
-x_BYTE x_BYTE_355218;//3551CE+4a BYTE
-x_BYTE x_BYTE_355244;//aSpellsedit//3551CE+76 BYTE
-x_BYTE x_BYTE_355240;//3551CE+72 BYTE
-x_BYTE x_BYTE_35522C;//nocd//3551CE+5e BYTE
-x_BYTE x_BYTE_355224;//Showversion//3551CE+56 BYTE
-x_BYTE x_BYTE_355228;//Showversion2//3551CE+5a BYTE
-x_BYTE x_BYTE_355214;//3551CE+46 BYTE
-x_BYTE x_BYTE_35521C;//3551CE+4e BYTE
-x_BYTE x_BYTE_35523C;//Detectoff//3551CE+6e BYTE
-x_BYTE x_BYTE_355220;//Langcheck//3551CE+52 BYTE
-x_BYTE x_BYTE_355238;//aMusic2//3551CE+6a BYTE
+
 
 Bit8u* x_DWORD_180628b; // weak
 
@@ -175,7 +164,7 @@ void support_begin() {
 	x_DWORD_180628b = (Bit8u*)malloc(320000);
 
 	x_DWORD_E9C38_smalltit= (Bit8u*)malloc(64000);
-	x_D41A0_BYTEARRAY_4_0xDE_heapbuffer= (Bit8u*)malloc(64000);
+	//x_D41A0_BYTEARRAY_4_0xDE_heapbuffer= (Bit8u*)malloc(64000);
 
 	/*for (int i = 0;i < 0x1c+0x60;i++)
 		off_D918C[i] = new Bit32u;*/
@@ -200,87 +189,8 @@ void support_end() {
 	free(x_DWORD_E9C38_smalltit);
 	/*for (int i = 0;i < 0x1c;i++)
 		free(off_D918C[i]);*/
-	free(x_D41A0_BYTEARRAY_4_0xDE_heapbuffer);
+	//free(x_D41A0_BYTEARRAY_4_0xDE_heapbuffer);
 	free(dword_E9C30[0]);
 	free(dword_E9C30[2]);
 	free(dword_E9C30[4]);
-}
-
-void putpixel(SDL_Surface *surface, int x, int y, Uint32 pixel)
-{
-	int bpp = surface->format->BytesPerPixel;
-	/* Here p is the address to the pixel we want to set */
-	Uint8 *p = (Uint8 *)surface->pixels + y * surface->pitch + x * bpp;
-
-	switch (bpp) {
-	case 1:
-		*p = pixel;
-		break;
-
-	case 2:
-		*(Uint16 *)p = pixel;
-		break;
-
-	case 3:
-		if (SDL_BYTEORDER == SDL_BIG_ENDIAN) {
-			p[0] = (pixel >> 16) & 0xff;
-			p[1] = (pixel >> 8) & 0xff;
-			p[2] = pixel & 0xff;
-		}
-		else {
-			p[0] = pixel & 0xff;
-			p[1] = (pixel >> 8) & 0xff;
-			p[2] = (pixel >> 16) & 0xff;
-		}
-		break;
-
-	case 4:
-		*(Uint32 *)p = pixel;
-		break;
-	}
-}
-
-void VGA_Init() {
-	/* Create a display surface with a grayscale palette */
-	SDL_Surface *screen;
-	SDL_Color colors[256];
-	int i;
-//neco
-		/* Fill colors with color information */
-		for (i = 0;i<256;i++) {
-			colors[i].r = i;
-			colors[i].g = i;
-			colors[i].b = i;
-		}
-
-	/* Create display */
-	screen = SDL_SetVideoMode(640, 480, 8, SDL_HWPALETTE);
-	if (!screen) {
-		printf("Couldn't set video mode: %s\n", SDL_GetError());
-		exit(-1);
-	}
-
-	/* Set palette */
-	SDL_SetPalette(screen, SDL_LOGPAL | SDL_PHYSPAL, colors, 0, 256);
-
-	int x = screen->w / 2;
-	int y = screen->h / 2;
-
-	/* Lock the screen for direct access to the pixels */
-	if (SDL_MUSTLOCK(screen)) {
-		if (SDL_LockSurface(screen) < 0) {
-			fprintf(stderr, "Can't lock screen: %s\n", SDL_GetError());
-			return;
-		}
-	}
-
-	for(int i=0;i<600;i++)
-		for (int j = 0;j<400;j++)
-			putpixel(screen, i, j, 127);
-
-	if (SDL_MUSTLOCK(screen)) {
-		SDL_UnlockSurface(screen);
-	}
-	/* Update just the part of the display that we've changed */
-	SDL_UpdateRect(screen, 0, 0, 0, 0);
 }

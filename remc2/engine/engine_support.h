@@ -4,10 +4,7 @@
 #include <stddef.h>
 #include <stdarg.h>     /* va_list, va_start, va_arg, va_end */
 
-#include "SDL.h"
-
-void VGA_Init();
-
+#include "sdl/graphics_sdl.h"
 //#define USE_DOSBOX
 
 #ifdef USE_DOSBOX
@@ -109,18 +106,47 @@ extern int x_DWORD_D41A0;
 //extern Bit8s x_D41A0_BYTEARRAY[];
 extern Bit32s* x_D41A0_BYTEARRAY_0;
 extern Bit32s* x_D41A0_BYTEARRAY_4;
+
+typedef struct {
+	Bit8u harddisk_number;
+
+	//Bit8u setting_byte5_19;
+	Bit32u dwordindex_0;
+	Bit8u byteindex_4;
+	Bit32u dwordindex_6;
+	Bit32u dwordindex_8;
+	Bit32u dwordindex_12;
+	Bit8u setting_byte1_22;
+	Bit8u setting_byte2_23;
+	Bit8u setting_byte3_24;
+	Bit8u setting_byte4_25;
+	Bit8u setting_30;
+	FILE* moviemvidatfile_byte4_33;
+	Bit16u moviemvinumber_byte4_39;
+	Bit8u levelnumber_43;
+	Bit8u setting_45;
+	Bit8u byteindex_179;
+	Bit8u harddiskchar_byte4_182;
+	Bit8u setting_216;
+	Bit8u setting_38545;
+	Bit8u setting_38402;
+
+	
+}type_x_D41A0_BYTEARRAY_4_struct;
+
+extern type_x_D41A0_BYTEARRAY_4_struct x_D41A0_BYTEARRAY_4_struct;
 extern Bit16s x_D41A0_WORDARRAY[];
 
 extern Bit32u x_D41A0_BYTEARRAY_4_0xE6_heapsize;
 extern Bit8u* x_D41A0_BYTEARRAY_4_0xE2_heapbuffer;
-extern Bit8u* x_D41A0_BYTEARRAY_4_0xDE_heapbuffer;
+//extern Bit8u* x_D41A0_BYTEARRAY_4_0xDE_heapbuffer;
 //extern Bit32u* off_D918C[0x7c];
 
 extern Bit8u* dword_E9C30[]; // weak
 
 
-extern x_DWORD x_DWORD_355208;//3551CE+3A DWORD
-extern x_BYTE x_BYTE_355234;//harddrive//3551CE+66 BYTE
+/*extern x_DWORD x_DWORD_355208;//3551CE+3A DWORD
+extern x_BYTE x_BYTE_355234_hardisknumber;//harddrive//3551CE+66 BYTE
 extern x_BYTE x_BYTE_35520C;//3551CE+3e BYTE
 extern x_BYTE x_BYTE_355210;//3551CE+42 BYTE
 extern x_BYTE x_BYTE_355230;//3551CE+62 BYTE
@@ -134,7 +160,7 @@ extern x_BYTE x_BYTE_355214;//3551CE+46 BYTE
 extern x_BYTE x_BYTE_35521C;//3551CE+4e BYTE
 extern x_BYTE x_BYTE_35523C;//Detectoff//3551CE+6e BYTE
 extern x_BYTE x_BYTE_355220;//Langcheck//3551CE+52 BYTE
-extern x_BYTE x_BYTE_355238;//aMusic2//3551CE+6a BYTE
+extern x_BYTE x_BYTE_355238;//aMusic2//3551CE+6a BYTE*/
 
 extern Bit8u* x_DWORD_180628b;
 //extern char* char_355198;

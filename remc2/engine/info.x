@@ -182,3 +182,13 @@ pointers_buffer - off_D918C
 		sprintf_s(printbuffer,512,"%c%s/L%d.txt",x_D41A0_BYTEARRAY_4[0xB6],":/NETHERW/LANGUAGE",x_D41A0_BYTEARRAY_4[0x4]);
       while ( v2 < 2 )
 
+char aDataMsprd00Dat[18] = "data/msprd0-0.dat"; // weak
+char aDataMsprd00Tab_0[18] = "data/msprd0-0.tab"; // weak
+char aDataHsprd00Dat[18] = "data/hsprd0-0.dat"; // weak
+char aDataHsprd00Tab_0[18] = "data/hsprd0-0.tab"; // weak
+
+sub_8F8B0(0, 0, a1);//2708B0 super inicializace //a2 ma byt 86 nebo a1 nema nikam ukazovat
+
+sub_8CD27(&x_D41A0_BYTEARRAY_4_0xDE_heapbuffer);//26dd27 - najit kde se nastavuje
+bytearray de - [1a6578] - 0b0005a1a1a1a1
+
