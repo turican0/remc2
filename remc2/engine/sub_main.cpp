@@ -92753,7 +92753,7 @@ char /*__cdecl*/ sub_7E820(int a1)
 }
 
 //----- (0007E840) --------------------------------------------------------
-int /*__cdecl*/ sub_7E840(signed __int16 *a1, __int16 a2, __int16 a3)
+int /*__cdecl*/ sub_7E840(signed __int16 *a1, __int16 a2, __int16 a3)//25f840
 {
   signed __int16 *v3; // ebx
   signed __int16 v5; // si

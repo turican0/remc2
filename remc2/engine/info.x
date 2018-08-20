@@ -198,3 +198,8 @@ najit, kde se bere 45116 - [4527bf]->[451516]->58e2e2e2
 -nacita se zde:
 v4 = sub_7F7D0(&v35, &v33, v1, langfilename);//2607d0
 ---sub_988A7_read(langfile, x_DWORD_D41BC_langbuffer, langfilelenght - 4785);
+
+
+int /*__cdecl*/ sub_7E840(signed __int16 *a1, __int16 a2, __int16 a3)//25f840
+a1 - 3550e0 ->c6012a012c018d012a01004101ec00
+-kde je difonovana?
