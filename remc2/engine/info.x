@@ -192,3 +192,9 @@ sub_8F8B0(0, 0, a1);//2708B0 super inicializace //a2 ma byt 86 nebo a1 nema nika
 sub_8CD27(&x_D41A0_BYTEARRAY_4_0xDE_heapbuffer);//26dd27 - najit kde se nastavuje
 bytearray de - [1a6578] - 0b0005a1a1a1a1
 
+
+//fix it! sub_2BB40(263, 134, (Bit8u**)(v36 + 6));//20cb40
+najit, kde se bere 45116 - [4527bf]->[451516]->58e2e2e2
+-nacita se zde:
+v4 = sub_7F7D0(&v35, &v33, v1, langfilename);//2607d0
+---sub_988A7_read(langfile, x_DWORD_D41BC_langbuffer, langfilelenght - 4785);
