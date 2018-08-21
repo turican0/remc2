@@ -207,3 +207,5 @@ a1 - 3550e0 ->c6012a012c018d012a01004101ec00
 sub_7FCB0 - 260cb0
 56210 237210
 
+repair this function:
+void sub_8F935(Bit16u a1, signed int a2, int a3, Bit8u* a4, unsigned __int8 a5, char a6)//270935
