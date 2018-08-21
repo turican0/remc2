@@ -198,3 +198,6 @@ najit, kde se bere 45116 - [4527bf]->[451516]->58e2e2e2
 -nacita se zde:
 v4 = sub_7F7D0(&v35, &v33, v1, langfilename);//2607d0
 ---sub_988A7_read(langfile, x_DWORD_D41BC_langbuffer, langfilelenght - 4785);
+
+sub_7FCB0 - 260cb0
+56210 237210

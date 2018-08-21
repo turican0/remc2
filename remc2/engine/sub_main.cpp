@@ -93820,7 +93820,7 @@ LABEL_21:
 // 17DEC0: using guessed type int (int)x_DWORD_17DEC0;
 
 //----- (0007FCB0) --------------------------------------------------------
-int sub_7FCB0(int a1, x_BYTE *a2, int a3, int a4, int a5, char a6, unsigned __int8 a7, __int16 a8)
+int sub_7FCB0(int a1, x_BYTE *a2, int a3, int a4, int a5, Bit8u a6, unsigned __int8 a7, Bit32u a8)//560cb0
 {
   int v8; // esi
   signed __int16 j; // di
@@ -93905,7 +93905,7 @@ int sub_7FCB0(int a1, x_BYTE *a2, int a3, int a4, int a5, char a6, unsigned __in
   int v89; // [esp+B8h] [ebp-40h]
   int v90; // [esp+BCh] [ebp-3Ch]
   int v91; // [esp+C0h] [ebp-38h]
-  int v92; // [esp+C4h] [ebp-34h]
+  //int v92; // [esp+C4h] [ebp-34h]
   int v93; // [esp+C8h] [ebp-30h]
   int v94; // [esp+CCh] [ebp-2Ch]
   int v95; // [esp+D0h] [ebp-28h]
@@ -93918,6 +93918,14 @@ int sub_7FCB0(int a1, x_BYTE *a2, int a3, int a4, int a5, char a6, unsigned __in
   int v102; // [esp+ECh] [ebp-Ch]
   int v103; // [esp+F0h] [ebp-8h]
   int v104; // [esp+F4h] [ebp-4h]
+
+  //debug
+  //loadfromsnapshot((char*)"0160-00260CB0", (Bit8u*)&v87, 0x354e80,180);//zbytecne
+  loadfromsnapshot((char*)"0160-00260CB0", (Bit8u*)&a6, 0x354f6c, 1);
+  loadfromsnapshot((char*)"0160-00260CB0", (Bit8u*)&a4, 0x354f64, 4);
+  loadfromsnapshot((char*)"0160-00260CB0", (Bit8u*)&a3, 0x354f60, 4);
+  loadfromsnapshot((char*)"0160-00260CB0", (Bit8u*)&a8, 0x354f74, 4);
+  //debug
 
   //fix it
   v86 = 0;
@@ -93989,30 +93997,30 @@ int sub_7FCB0(int a1, x_BYTE *a2, int a3, int a4, int a5, char a6, unsigned __in
   {
     v104 = a4 - a3;
     v88 = a8;
-    v92 = (int)x_DWORD_17DED4;
-    v103 = *(unsigned __int8 *)((int)x_DWORD_17DED4 + 6 * a8 + 4);
-    if ( (signed __int16)(a4 - a3) % (signed int)(unsigned __int8)v103 )
+    //v92 = (int)x_DWORD_17DED4;
+    v103 = x_D41A0_BYTEARRAY_4[6 * a8 + 4];
+    if ( (a4 - a3) % v103 )
     {
-      v104 = ((signed __int16)(a4 - a3) / (signed int)(unsigned __int8)v103 + 1) * v103;
-      a4 = v104 + a3 - *(unsigned __int8 *)(v92 + 6 * (v88 - 1) + 4);
+      v104 = ((a4 - a3) / v103 + 1) * v103;
+      a4 = v104 + a3 - x_DWORD_17DED4[6 * (v88 - 1) + 4];
     }
-    for ( j = 0; j < (signed __int16)v104; j += v103 )
+    for ( j = 0; j < v104; j += v103 )
       sub_7C120(j + a3, a5, 6 * a8 + (int)x_DWORD_17DED4);
     HIWORD(v10) = HIWORD(x_DWORD_17DED4);
-    LOWORD(v10) = *(unsigned __int8 *)((int)x_DWORD_17DED4 + 6 * a8 + 5);
+    LOWORD(v10) = x_DWORD_17DED4[6 * a8 + 5];
     v11 = v10 + a5;
     v98 += v10;
     v12 = sub_5BE80_index_pallette((unsigned __int8 *)x_DWORD_17DE38, 0, 0, v86);
     *(x_DWORD *)&v86 = v12;
     v13 = 6 * (a8 - 1);
-    v14 = *(unsigned __int8 *)(v13 + (int)x_DWORD_17DED4 + 5);
+    v14 = x_DWORD_17DED4 [v13+ 5];
     v91 = (signed __int16)v11;
     v90 = (signed __int16)a3;
     sub_7C140((signed __int16)a3, v11, (signed __int16)v104, v14, v12);
     sub_7C120(v90, v91, v13 + (int)x_DWORD_17DED4);
     sub_7C120(a4, v91, v13 + (int)x_DWORD_17DED4);
     HIWORD(v15) = HIWORD(x_DWORD_17DED4);
-    LOWORD(v15) = *(unsigned __int8 *)(v13 + (int)x_DWORD_17DED4 + 5);
+    LOWORD(v15) = x_D41A0_BYTEARRAY_4[v13 + 5];
     a1 = v15 + v11;
     v98 += v15;
   }
@@ -94368,6 +94376,11 @@ LABEL_39:
     return v98 - v102;
   HIWORD(v84) = HIWORD(x_DWORD_17DED4);
   LOWORD(v84) = *(unsigned __int8 *)(x_DWORD_17DED4 + 6 * (a8 + 2) + 5);
+
+  //debug
+  compare_with_snapshot((char*)"0x45678", (Bit8u*)&v8, 0x4589,4);
+  //debug
+
   return a1 - v102 + v84;
 }
 // 8C250: using guessed type x_DWORD /*__cdecl*/ memset(x_DWORD, x_DWORD, x_DWORD);

@@ -194,3 +194,20 @@ void support_end() {
 	free(dword_E9C30[2]);
 	free(dword_E9C30[4]);
 }
+
+void loadfromsnapshot(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u size) {
+	char findnamec[500];
+	FILE* fptestepc;
+	char test[100];
+	sprintf(findnamec, "../remc2/memimages/engine-memory-%s", filename);
+	fopen_s(&fptestepc, findnamec, "rt");
+	fseek(fptestepc, adressdos, SEEK_SET);
+	//fread_s(test, size, 1, size, fptestepc);
+	fread_s(adress, size, 1, size, fptestepc);
+	fclose(fptestepc);
+};
+
+
+void compare_with_snapshot(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u size) {
+};
+
