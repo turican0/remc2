@@ -169,4 +169,8 @@ int myprintf(const char * format, ...);
 void pathfix(char* path, char* path2);
 void support_begin();
 void support_end();
+
+void loadfromsnapshot(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u size);
+void compare_with_snapshot(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u size);
+
 #endif //ENGINE_SUPPORT_ACTIVE

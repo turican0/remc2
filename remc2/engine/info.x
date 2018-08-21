@@ -203,3 +203,7 @@ v4 = sub_7F7D0(&v35, &v33, v1, langfilename);//2607d0
 int /*__cdecl*/ sub_7E840(signed __int16 *a1, __int16 a2, __int16 a3)//25f840
 a1 - 3550e0 ->c6012a012c018d012a01004101ec00
 -kde je difonovana?
+
+sub_7FCB0 - 260cb0
+56210 237210
+
