@@ -2083,7 +2083,7 @@ int sub_53CC0();
 int /*__cdecl*/ sub_53CF0_access(char* a1);
 Bit8u /*__cdecl*/ sub_53D10_create_nether_subdir(Bit8u a1, Bit8u* a2, Bit8u* a3);
 int /*__cdecl*/ sub_53E60_readfile_and_decompress(const char* path, Bit8u** a2);
-int /*__cdecl*/ sub_53EF0_fileexist(char* a1, int a2);
+bool /*__cdecl*/ sub_53EF0_fileexist(char* path, char* path2);
 bool /*__cdecl*/ sub_53F60(int a1);
 char /*__cdecl*/ sub_53F80(char* a1, char* a2, char* a3);
 
@@ -63458,28 +63458,20 @@ int /*__cdecl*/ sub_53E60_readfile_and_decompress(const char* path, Bit8u** a2)
 // 988DA: using guessed type x_DWORD /*__cdecl*/ filelength(x_DWORD);
 
 //----- (00053EF0) --------------------------------------------------------
-int /*__cdecl*/ sub_53EF0_fileexist(char* path, int a2)
+bool /*__cdecl*/ sub_53EF0_fileexist(char* path, char* path2)//fix a2
 {
-  FILE* v2; // eax
-  FILE* v3; // ebx
-  FILE* v4; // esi
-  FILE* v5; // eax
-  FILE* v6; // edi
-  unsigned __int8 v8; // [esp+0h] [ebp-4h]
-
-  v8 = 0;
-  v2 = sub_98817_open(path, 512);
-  v3 = v2;
-  v4 = v2;
-  v5 = sub_98817_open(path, 512);
-  v6 = v5;
-  if ( v3 == NULL || v5 == NULL )
-    v8 = 1;
-  if ( v4 != NULL)
-    sub_98882_close(v4);
-  if ( v6 != NULL)
-    sub_98882_close(v6);
-  return v8;
+  FILE* testfile1; // eax
+  FILE* testfile2; // eax
+  bool result=false; // [esp+0h] [ebp-4h]
+  testfile1 = sub_98817_open(path, 512);
+  testfile2 = sub_98817_open(path2, 512);
+  if (testfile1 == NULL || testfile2 == NULL )
+	  result = true;
+  if (testfile1 != NULL)
+    sub_98882_close(testfile1);
+  if (testfile2 != NULL)
+    sub_98882_close(testfile2);
+  return result;
 }
 
 //----- (00053F60) --------------------------------------------------------
@@ -63616,7 +63608,7 @@ char sub_54200_create_user_directiores()//235200
   outtext((char*)"\n");//235277 - 29EBED
   sprintf_s(printbuffer, 512, "%c:%s/%s/%s.dat", x_D41A0_BYTEARRAY_4_struct.harddisk_number, "/netherw", "cdata", "tmaps0-0");//2352A8 - 26F3D5
   sprintf_s(printbuffer2, 512, "data/%s.dat", "tmaps0-0");//2352BE - 26F3D5
-  if ( HIBYTE(v0) || (unsigned __int16)sub_53EF0_fileexist(printbuffer, (int)printbuffer2) )
+  if ( HIBYTE(v0) || (unsigned __int16)sub_53EF0_fileexist(printbuffer, printbuffer2) )
   {
     //fix it - whne file not exist
     v1 = outtext((char*)"Creating Setup Directories 1 ..");//2352E4 -29EBED
@@ -63630,7 +63622,7 @@ char sub_54200_create_user_directiores()//235200
   {
     sprintf_s(printbuffer, 512, "%c:%s/%s/%s.dat", x_D41A0_BYTEARRAY_4_struct.harddisk_number, "/netherw", "cdata", "tmaps1-0");//23537C - 26F3D5
     sprintf_s(printbuffer2, 512, "data/%s.dat", "tmaps1-0");//235392 - 26F3D5
-    if ( HIBYTE(v0) || (unsigned __int16)sub_53EF0_fileexist(printbuffer, (int)printbuffer2) )
+    if ( HIBYTE(v0) || (unsigned __int16)sub_53EF0_fileexist(printbuffer, printbuffer2) )
     {
       //fix it - whne file not exist
       v3 = outtext((char*)"Creating Setup Directories 2 ..");
@@ -63645,7 +63637,7 @@ char sub_54200_create_user_directiores()//235200
   {
     sprintf_s(printbuffer, 512, "%c:%s/%s/%s.dat", x_D41A0_BYTEARRAY_4_struct.harddisk_number, "/netherw", "cdata", "tmaps2-0");
     sprintf_s(printbuffer2, 512, "data/%s.dat", "tmaps2-0");
-    if ( HIBYTE(v0) || (unsigned __int16)sub_53EF0_fileexist(printbuffer, (int)printbuffer2) )
+    if ( HIBYTE(v0) || (unsigned __int16)sub_53EF0_fileexist(printbuffer, printbuffer2) )
     {
       //fix it - whne file not exist
       v5 = outtext((char*)"Creating Setup Directories 3 ..");
