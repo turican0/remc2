@@ -104,7 +104,7 @@ extern Bit32s x_DWORD_D41A4_x96BF;*/
 extern int x_DWORD_D41A0;
 
 //extern Bit8s x_D41A0_BYTEARRAY[];
-extern Bit32s* x_D41A0_BYTEARRAY_0;
+extern Bit8u* x_D41A0_BYTEARRAY_0;
 extern Bit8u* x_D41A0_BYTEARRAY_4;
 
 typedef struct {

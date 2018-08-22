@@ -209,3 +209,8 @@ sub_7FCB0 - 260cb0
 
 repair this function:
 void sub_8F935(Bit16u a1, signed int a2, int a3, Bit8u* a4, unsigned __int8 a5, char a6)//270935
+
+oprava
+int /*__cdecl*/ sub_81360(int a1, int a2, int a3, int a4, __int16 a5)//262360
+oprava4
+__int16 /*__cdecl*/ /*__spoils<>*/ sub_72633(Bit16u a1, Bit16u a2)//253633
