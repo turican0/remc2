@@ -197,36 +197,22 @@ void support_end() {
 
 void loadfromsnapshot(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u size) {
 	char findnamec[500];
-	Bit8u buffer[0x100000];
 	FILE* fptestepc;
-	//char test[100];
 	sprintf(findnamec, "../remc2/memimages/engine-memory-%s", filename);
-	fopen_s(&fptestepc, findnamec, "rt");	
-	//fread_s(test, size, 1, size, fptestepc);
-	//Bit8u x;
-	fread_s(buffer, 0x300000, 1, 0x300000, fptestepc);
-	for (long i = 0;i < size;i++)
-	{
-		fseek(fptestepc, adressdos+i, SEEK_SET);
-		fread_s(adress + i, 1, 1, 1, fptestepc);
-		//fread_s(adress + i, 1, 1, 1, fptestepc);
-	}
+	fopen_s(&fptestepc, findnamec, "rb");	
+	fseek(fptestepc, adressdos, SEEK_SET);
+	fread_s(adress, size, 1, size, fptestepc);
 	fclose(fptestepc);
 };
 
 void loadfromsnapshot2(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u size) {
 	char findnamec[500];
 	FILE* fptestepc;
-	char test[100];
 	Bit32u subadress;
 	sprintf(findnamec, "../remc2/memimages/engine-memory-%s", filename);
-	fopen_s(&fptestepc, findnamec, "rt");
+	fopen_s(&fptestepc, findnamec, "rb");
 	fseek(fptestepc, adressdos, SEEK_SET);
-	//fread_s(test, size, 1, size, fptestepc);
 	fread_s(&subadress, 4, 1, 4, fptestepc);
-	//fclose(fptestepc);
-
-	//fopen_s(&fptestepc, findnamec, "rt");
 	fseek(fptestepc, subadress, SEEK_SET);
 	fread_s(adress, size, 1, size, fptestepc);
 
