@@ -105,7 +105,7 @@ extern int x_DWORD_D41A0;
 
 //extern Bit8s x_D41A0_BYTEARRAY[];
 extern Bit32s* x_D41A0_BYTEARRAY_0;
-extern Bit32s* x_D41A0_BYTEARRAY_4;
+extern Bit8u* x_D41A0_BYTEARRAY_4;
 
 typedef struct {
 	Bit8u harddisk_number;
@@ -170,7 +170,8 @@ void pathfix(char* path, char* path2);
 void support_begin();
 void support_end();
 
-
 void loadfromsnapshot(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u size);
+void loadfromsnapshot2(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u size);
 void compare_with_snapshot(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u size);
+
 #endif //ENGINE_SUPPORT_ACTIVE

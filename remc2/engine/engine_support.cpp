@@ -139,7 +139,7 @@ Bit8u *x_DWORD_E9C38_smalltit; // weak
 int x_DWORD_D41A0 = 0; // weak
 
 Bit32s* x_D41A0_BYTEARRAY_0;
-Bit32s* x_D41A0_BYTEARRAY_4;
+Bit8u* x_D41A0_BYTEARRAY_4;
 
 type_x_D41A0_BYTEARRAY_4_struct x_D41A0_BYTEARRAY_4_struct;
 
@@ -207,7 +207,25 @@ void loadfromsnapshot(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u si
 	fclose(fptestepc);
 };
 
+void loadfromsnapshot2(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u size) {
+	char findnamec[500];
+	FILE* fptestepc;
+	char test[100];
+	Bit32u subadress;
+	sprintf(findnamec, "../remc2/memimages/engine-memory-%s", filename);
+	fopen_s(&fptestepc, findnamec, "rt");
+	fseek(fptestepc, adressdos, SEEK_SET);
+	//fread_s(test, size, 1, size, fptestepc);
+	fread_s(&subadress, 4, 1, 4, fptestepc);
+	//fclose(fptestepc);
+
+	//fopen_s(&fptestepc, findnamec, "rt");
+	fseek(fptestepc, subadress, SEEK_SET);
+	fread_s(adress, size, 1, size, fptestepc);
+
+	fclose(fptestepc);
+};
+
 
 void compare_with_snapshot(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u size) {
 };
-
