@@ -8,3 +8,6 @@ This is Version 0.01:<br />
 
 more in:
 [https://github.com/turican0/remc2/wiki]
+
+For develop I use modified version of Dosbox-x:
+https://github.com/turican0/dosbox-x-remc2
