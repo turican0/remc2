@@ -2568,7 +2568,7 @@ int /*__cdecl*/ sub_75044(unsigned int a1);
 int **/*__cdecl*/ sub_75110(__int16 a1, __int16 a2, __int16 a3, unsigned __int16 a4, __int16 a5);
 int **/*__cdecl*/ sub_75160(__int16 a1, __int16 a2, __int16 a3, unsigned __int16 a4, __int16 a5);
 int **/*__cdecl*/ sub_751B0(__int16 a1, __int16 a2, __int16 a3, unsigned __int16 a4, __int16 a5);
-void /*__cdecl*/ sub_75200(__int16 a1);
+void /*__cdecl*/ sub_75200(Bit16u height);
 int sub_752C0(); // weak
 int sub_753D0();
 int sub_75420();
@@ -86173,33 +86173,41 @@ int **/*__cdecl*/ sub_751B0(__int16 a1, __int16 a2, __int16 a3, unsigned __int16
 }
 
 //----- (00075200) --------------------------------------------------------
-void /*__cdecl*/ sub_75200(__int16 a1)
+void /*__cdecl*/ sub_75200(Bit16u height)
 {
-  Bit8u *v1; // esi
-  int v2; // esi
+  //Bit8u* v1; // esi
+  //int v2; // esi
 
   if ( !x_BYTE_E3766 )
     sub_8CACD();//26dacd
-  sub_9951B(0);//27a51b
+
+  //debug
+  //x_DWORD_180628b = (Bit8u*)malloc(0x10000);
+  //0x351628->3aa0a4
+  loadfromsnapshot((char*)"0160-00256200-2", x_DWORD_180628b, 0x3aa0a4, 0x10000);//4c
+  VGA_Blit(640,480, x_DWORD_180628b);
+  //debug
+
+  sub_9951B(0);//27a51b - objevil se kurzor
   qmemcpy(&loc_A0000_vga_buffer, (void *)x_DWORD_180628b, 0x10000u);//27a51b
-  v1 = &x_DWORD_180628b[ 0x10000];
-  sub_9951B(1);//27a51b
-  qmemcpy(&loc_A0000_vga_buffer, v1, 0x10000u);
-  v1 += 0x10000;
-  sub_9951B(2);//27a51b
-  qmemcpy(&loc_A0000_vga_buffer, v1, 0x10000u);
-  v2 = (int)(v1 + 0x10000);
-  sub_9951B(3);
-  if ( a1 == 400 )
+  //v1 = &x_DWORD_180628b[ 0x10000];
+  sub_9951B(1);//27a51b - tady se uz neco zobrazilo - asi 1/4
+  qmemcpy(&loc_A0000_vga_buffer, x_DWORD_180628b+ 0x10000, 0x10000u);//buffer- 102 radku
+  //v1 += 0x10000;
+  sub_9951B(2);//27a51b //2/2
+  qmemcpy(&loc_A0000_vga_buffer, x_DWORD_180628b + 0x20000, 0x10000u);
+  //v2 = (int)(v1 + 0x10000);
+  sub_9951B(3);//3/4
+  if ( height == 400 )
   {
-    qmemcpy(&loc_A0000_vga_buffer, (void*)(const void *)v2, 0xE800u);
-    sub_8CB1F();//2db1f
+    qmemcpy(&loc_A0000_vga_buffer, x_DWORD_180628b + 0x30000, 0xE800u);
+    sub_8CB1F();//2db1f //4/4
   }
   else
   {
-    qmemcpy(&loc_A0000_vga_buffer, (void*)(const void *)v2, 0x10000u);
-    sub_9951B(4);
-    qmemcpy(&loc_A0000_vga_buffer, (void*)(const void *)(v2 + 0x10000), 0xB000u);
+    qmemcpy(&loc_A0000_vga_buffer, x_DWORD_180628b + 0x30000, 0x10000u);
+    sub_9951B(4);//4/4
+    qmemcpy(&loc_A0000_vga_buffer, x_DWORD_180628b + 0x40000, 0xB000u);
     if ( !x_BYTE_E3766 )
       sub_8CB1F();//prekresleni obrazovky
   }

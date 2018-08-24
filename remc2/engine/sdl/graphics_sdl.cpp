@@ -8,7 +8,7 @@ extern DOS_Device *DOS_CON;
 SDL_Surface *screen;
 
 void VGA_Init() {
-	VGA_Init(320, 200, 8, SDL_HWPALETTE);
+	VGA_Init(320, 200, 8, SDL_HWPALETTE/*|SDL_DOUBLEBUF*/);
 }
 void VGA_Init(int width,int height,int bpp,Uint32 flags) {
 	SDL_Init(SDL_INIT_TIMER | SDL_INIT_VIDEO);
@@ -85,6 +85,7 @@ void VGA_test() {
 	int x = screen->w / 2;
 	int y = screen->h / 2;
 
+
 	/* Lock the screen for direct access to the pixels */
 	if (SDL_MUSTLOCK(screen)) {
 		if (SDL_LockSurface(screen) < 0) {
@@ -102,6 +103,32 @@ void VGA_test() {
 	}
 	/* Update just the part of the display that we've changed */
 	SDL_UpdateRect(screen, 0, 0, 0, 0);
+}
+
+void VGA_Blit(int width, int height, Uint8* buffer) {
+	//int x = screen->w / 2;
+	//int y = screen->h / 2;
+	//int bpp = screen->format->BytesPerPixel;
+	//Uint8 *p = (Uint8 *)screen->pixels + y * screen->pitch + x * bpp;
+
+	/* Lock the screen for direct access to the pixels */
+	if (SDL_MUSTLOCK(screen)) {
+		if (SDL_LockSurface(screen) < 0) {
+			fprintf(stderr, "Can't lock screen: %s\n", SDL_GetError());
+			return;
+		}
+	}
+
+	memcpy(screen->pixels, buffer,0x10000);
+	/*for (int i = 0;i < 600;i++)
+		for (int j = 0;j < 400;j++)
+			putpixel(screen, i, j, 127);*/
+
+	if (SDL_MUSTLOCK(screen)) {
+		SDL_UnlockSurface(screen);
+	}
+	/* Update just the part of the display that we've changed */
+	SDL_UpdateRect(screen, 0, 0, 0, 0);	
 }
 
 void VGA_Init_test() {
