@@ -232,3 +232,12 @@ int sub_7FCB0(int a1, x_BYTE *a2, int a3, int a4, int a5, Bit8u a6, unsigned __i
 test
 
 void /*__cdecl*/ sub_90164(Bit16u x1, Bit16u y1, Bit16u x2, Bit16u y2, Bit8u a5)
+
+0:
+0,0,0
+83-f9:
+124,120,120
+224:
+252,0,0
+228:
+0,0,220

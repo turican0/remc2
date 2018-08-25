@@ -48978,9 +48978,12 @@ __int16 sub_417D0_install_pal_and_mouse_minmax2()
 }
 // EA3D8: using guessed type int *xadatapald0dat2.var28_begin_buffer;
 
-void /*__cdecl*/ sub_41A90_VGA_pallette_install(Bit8u* a1)
+void /*__cdecl*/ sub_41A90_VGA_pallette_install(Bit8u* a1)//222a90
 {
-	return;
+	//debug
+	loadfromsnapshot((char*)"0160-00222A90-x", a1, 0x1a7358, 0x300);//4c
+	//debug
+	VGA_Set_pallette(a1);
 }
 //----- (00041A90) --------------------------------------------------------
 char /*__cdecl*/ sub_41A90_VGA_pallette_install_orig(unsigned __int8 *a1)//insgtalace palety viz:http://www.hoschl.cz/cyril/voxel5.c
@@ -49010,7 +49013,7 @@ char /*__cdecl*/ sub_41A90_VGA_pallette_install_orig(unsigned __int8 *a1)//insgt
     __outx_BYTE(0x3C9u, result);
   }
   if ( x_BYTE_E12EC )
-    result = sub_75A10(2, a1);
+    result = sub_75A10(2, a1);//256a10
   return result;
 }
 // E12EC: using guessed type char x_BYTE_E12EC;
@@ -68658,7 +68661,7 @@ void sub_5B7A0_prepare_pallette()//23C7A0
 // E9C2C: using guessed type int x_DWORD_E9C2C;
 
 //----- (0005B840) --------------------------------------------------------
-void sub_5B840_load_pallette_and_help_pallette()
+void sub_5B840_load_pallette_and_help_pallette()//23C840
 {
   *xadatapald0dat.var28_begin_buffer = (Bit8u*)malloc(10000);//fix it
   *xadataclrd0dat.var28_begin_buffer = (Bit8u*)malloc(10000);//fix it
@@ -68723,14 +68726,14 @@ void sub_5B8D0_initialize()//23c8d0
     myprintf("ERROR COPYING DATA FILES TO LOCAL DRIVE \n");
 	exit(-1);
   }
-  sub_71410_process_tmaps();
+  sub_71410_process_tmaps();//252410
 
   //sub_6EB90((unsigned int **)*filearray_2aa18c);//24FB90
   //2AA18C
-  sub_6EB90(&filearray_2aa18c[filearrayindex_POINTERSDATTAB]);
+  sub_6EB90(&filearray_2aa18c[filearrayindex_POINTERSDATTAB]);//24fb90
   //sub_6EB90((unsigned int **)&*filearray_2aa18c[0x60]);//24FB90
   //2AA1EC
-  sub_6EB90(&filearray_2aa18c[filearrayindex_BUILD00DATTAB]);
+  sub_6EB90(&filearray_2aa18c[filearrayindex_BUILD00DATTAB]);//24fb90
 
   sub_101C0();//23CA36 - 1f11c0 //sem se to vubec nedostane
   //zkontrolovat inicializaci
@@ -68741,21 +68744,21 @@ void sub_5B8D0_initialize()//23c8d0
   //fix it //x_D41A0_BYTEARRAY_4[0x18]=50CF38 =0
   */
   *xadataspellsdat.var28_begin_buffer = (Bit8u*)malloc(50000);
-  sub_53E60_readfile_and_decompress("data/spells.dat", xadataspellsdat.var28_begin_buffer);
+  sub_53E60_readfile_and_decompress("data/spells.dat", xadataspellsdat.var28_begin_buffer);//234e60
 
-  //v0 = sub_5C0A0();
+  //v0 = sub_5C0A0();//23d0a0
   if ( x_BYTE_D4B80 )
     exit(-1);
   x_BYTE_D4B80 = 1;
   x_WORD_180660_VGA_type_resolution = 1;//fix it
   if ( x_WORD_180660_VGA_type_resolution & 1 )
-    sub_72883_memset_pallette(sub_5C0A0(), (void *)x_DWORD_180628b, 0xC8u, 0);//*
+    sub_72883_memset_pallette(sub_5C0A0(), (void *)x_DWORD_180628b, 0xC8u, 0);//253883
   else
-    sub_728A9_memset_pallette((void *)x_DWORD_180628b, 0x1E0u, 0);
+    sub_728A9_memset_pallette((void *)x_DWORD_180628b, 0x1E0u, 0);//2538a9
   sub_90B27_VGA_command(0, 0x10u, 0);//271B27 tady se zapina vga
   *xadatapald0dat2.var28_begin_buffer = (Bit8u*)malloc(10000);//fix it
   memset((void*)*xadatapald0dat2.var28_begin_buffer, 0, 768);
-  sub_41A90_VGA_pallette_install(*xadatapald0dat2.var28_begin_buffer);
+  sub_41A90_VGA_pallette_install(*xadatapald0dat2.var28_begin_buffer);//222a90
   x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 = 0;//fix it
   if ( (x_D41A0_BYTEARRAY_4_struct.setting_byte1_22) & 0x110 )//2a51a4 // 38cf50+16 //00 druh grafiky/inicializace
   {
@@ -68764,7 +68767,7 @@ void sub_5B8D0_initialize()//23c8d0
     else
       sub_90E07_VGA_set_video_mode_640x480(*xadatapald0dat2.var28_begin_buffer);
     memset((void*)*xadatapald0dat2.var28_begin_buffer, 0, 768);
-    sub_41A90_VGA_pallette_install(*xadatapald0dat2.var28_begin_buffer);
+    sub_41A90_VGA_pallette_install(*xadatapald0dat2.var28_begin_buffer);//222a90
   }
   else
   {
@@ -68775,7 +68778,7 @@ void sub_5B8D0_initialize()//23c8d0
     else
       sub_90E07_VGA_set_video_mode_640x480((unsigned __int8 *)x_DWORD_180628b);
     memset((void*)*xadatapald0dat2.var28_begin_buffer, 0, 768);
-    sub_41A90_VGA_pallette_install(*xadatapald0dat2.var28_begin_buffer);
+    sub_41A90_VGA_pallette_install(*xadatapald0dat2.var28_begin_buffer);//222a90
   }
   /*if ( x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 8 )
     sub_8C2CD();
@@ -85041,7 +85044,7 @@ void /*__cdecl*/ sub_727F0(unsigned __int8 a1, unsigned __int8 a2, unsigned __in
 }
 
 //----- (00072883) --------------------------------------------------------
-void /*__spoils<ecx>*/ sub_72883_memset_pallette(int a1,void *a2, unsigned __int16 a3, char a4)
+void /*__spoils<ecx>*/ sub_72883_memset_pallette(int a1,void *a2, unsigned __int16 a3, char a4)//253883
 {
   int v4; // eax
 
@@ -85055,7 +85058,7 @@ void /*__spoils<ecx>*/ sub_72883_memset_pallette(int a1,void *a2, unsigned __int
 }
 
 //----- (000728A9) --------------------------------------------------------
-void /*__spoils<ecx>*/ sub_728A9_memset_pallette(void *a2, unsigned __int16 a3, char a4)
+void /*__spoils<ecx>*/ sub_728A9_memset_pallette(void *a2, unsigned __int16 a3, char a4)//2538a9
 {
 	memset32(a2, a4*257, a3*160);
 //3aa0a4,1E0,0
@@ -86174,7 +86177,7 @@ int **/*__cdecl*/ sub_751B0(__int16 a1, __int16 a2, __int16 a3, unsigned __int16
 
 //----- (00075200) --------------------------------------------------------
 long sub_75200_VGA_Blit640_index= 0;
-void /*__cdecl*/ sub_75200_VGA_Blit640(Bit16u height)
+void /*__cdecl*/ sub_75200_VGA_Blit640(Bit16u height)//256200
 {
   //Bit8u* v1; // esi
   //int v2; // esi
@@ -86558,7 +86561,7 @@ int sub_759B0_set_mouse_minmax_vert()
 // 17D6C4: using guessed type int x_DWORD_17D6C4;
 
 //----- (00075A10) --------------------------------------------------------
-unsigned __int8 /*__cdecl*/ sub_75A10(int a1, unsigned __int8 *a2)
+unsigned __int8 /*__cdecl*/ sub_75A10(int a1, unsigned __int8 *a2)//256a10
 {
   unsigned __int8 v2; // al
   unsigned __int8 *v3; // ebx

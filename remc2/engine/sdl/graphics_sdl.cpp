@@ -38,13 +38,13 @@ void VGA_Resize(int width, int height, int bpp, Uint32 flags) {
 	}
 };
 
-void VGA_set_pallette() {
+void VGA_Set_pallette(Uint8* pallettebuffer) {
 	SDL_Color colors[256];
 	/* Fill colors with color information */
 	for (int i = 0;i < 256;i++) {
-		colors[i].r = i;
-		colors[i].g = i;
-		colors[i].b = i;
+		colors[i].r = /*i;*/4 * pallettebuffer[i * 3];
+		colors[i].g = /*i;*/4 * pallettebuffer[i * 3 + 1];
+		colors[i].b = /*i;*/4 * pallettebuffer[i * 3 + 2];
 	}
 
 	/* Set palette */
