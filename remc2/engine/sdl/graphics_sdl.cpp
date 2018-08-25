@@ -38,7 +38,13 @@ void VGA_Resize(int width, int height, int bpp, Uint32 flags) {
 	}
 };
 
+Uint8 temppallettebuffer[768];
+Uint8* VGA_Get_pallette() {
+	return temppallettebuffer;
+}
+
 void VGA_Set_pallette(Uint8* pallettebuffer) {
+	memcpy(temppallettebuffer, pallettebuffer,768);
 	SDL_Color colors[256];
 	/* Fill colors with color information */
 	for (int i = 0;i < 256;i++) {
@@ -51,6 +57,9 @@ void VGA_Set_pallette(Uint8* pallettebuffer) {
 	SDL_SetPalette(screen, SDL_LOGPAL | SDL_PHYSPAL, colors, 0, 256);
 }
 
+void VGA_Write_basic_pallette(Uint8* pallettebuffer) {
+	memcpy(temppallettebuffer, pallettebuffer, 768);
+}
 
 void putpixel(SDL_Surface *surface, int x, int y, Uint32 pixel)
 {
