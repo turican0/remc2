@@ -7,16 +7,22 @@ extern DOS_Device *DOS_CON;
 
 SDL_Surface *screen;
 
+bool inited = false;
+
 void VGA_Init() {
 	VGA_Init(320, 200, 8, SDL_HWPALETTE/*|SDL_DOUBLEBUF*/);
 }
 void VGA_Init(int width,int height,int bpp,Uint32 flags) {
-	SDL_Init(SDL_INIT_TIMER | SDL_INIT_VIDEO);
-	atexit(SDL_Quit);
-	screen = SDL_SetVideoMode(width, height, bpp, flags);
-	if (!screen) {
-		printf("Couldn't set video mode: %s\n", SDL_GetError());
-		exit(-1);
+	if (!inited)
+	{
+		SDL_Init(SDL_INIT_TIMER | SDL_INIT_VIDEO);
+		atexit(SDL_Quit);
+		screen = SDL_SetVideoMode(width, height, bpp, flags);
+		if (!screen) {
+			printf("Couldn't set video mode: %s\n", SDL_GetError());
+			exit(-1);
+		}
+		inited = true;
 	}
 }
 
@@ -119,7 +125,7 @@ void VGA_Blit(int width, int height, Uint8* buffer) {
 		}
 	}
 
-	memcpy(screen->pixels, buffer,0x10000);
+	memcpy(screen->pixels, buffer, width*height);
 	/*for (int i = 0;i < 600;i++)
 		for (int j = 0;j < 400;j++)
 			putpixel(screen, i, j, 127);*/
