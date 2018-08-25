@@ -2,6 +2,9 @@
 Reverse engineering of game Magic Carpet 2 from assembler to c/c++ language
 <br />
 # Reverse engineering of game Magic Carpet 2 from assembler to c/c++ language<br />
+## 0.04:<br />
+-fixed pallette<br />
+<br />
 ## 0.03:<br />
 -fixed resolution<br />
 <br />
