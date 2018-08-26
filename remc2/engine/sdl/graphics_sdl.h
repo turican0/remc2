@@ -14,3 +14,4 @@ void VGA_Blit(int width, int height, Uint8* buffer);
 void VGA_Set_pallette(Uint8* pallettebuffer);
 void VGA_Write_basic_pallette(Uint8* pallettebuffer);
 Uint8* VGA_Get_pallette();
+void VGA_Draw_string(char* wrstring);

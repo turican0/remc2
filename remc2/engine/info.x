@@ -256,3 +256,8 @@ vylepsit sub_90B27_VGA_command
 fix this:
 v8[i] = x_BYTE_181544[i] + ((unk_181B42 >> 16) * (buffer[i] - x_BYTE_181544[i]) / shadow_levels);
 //352b42 352544
+
+find
+void /*__cdecl*/ sub_41A90_VGA_pallette_install(Bit8u* buffer)//222a90
+and
+void /*__cdecl*/ sub_A0D2C_VGA_get_pallette(Bit8u* buffer)

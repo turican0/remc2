@@ -8,57 +8,23 @@ extern DOS_Device *DOS_CON;
 SDL_Surface *screen;
 
 bool inited = false;
-
-void VGA_Init() {
-	VGA_Init(320, 200, 8, SDL_HWPALETTE/*|SDL_DOUBLEBUF*/);
-}
-void VGA_Init(int width,int height,int bpp,Uint32 flags) {
-	if (!inited)
-	{
-		SDL_Init(SDL_INIT_TIMER | SDL_INIT_VIDEO);
-		atexit(SDL_Quit);
-		screen = SDL_SetVideoMode(width, height, bpp, flags);
-		if (!screen) {
-			printf("Couldn't set video mode: %s\n", SDL_GetError());
-			exit(-1);
-		}
-		inited = true;
-	}
-}
-
-void VGA_Resize(int width, int height) {
-	VGA_Resize(width, height, 8, SDL_HWPALETTE);
-}
-void VGA_Resize(int width, int height, int bpp, Uint32 flags) {
-	SDL_FreeSurface(screen);
-	screen = SDL_SetVideoMode(width, height, bpp, flags);
-	if (!screen) {
-		printf("Couldn't set video mode: %s\n", SDL_GetError());
-		exit(-1);
-	}
-};
-
 Uint8 temppallettebuffer[768];
-Uint8* VGA_Get_pallette() {
-	return temppallettebuffer;
-}
 
-void VGA_Set_pallette(Uint8* pallettebuffer) {
-	memcpy(temppallettebuffer, pallettebuffer,768);
+void Set_basic_pallette() {	
 	SDL_Color colors[256];
 	/* Fill colors with color information */
 	for (int i = 0;i < 256;i++) {
-		colors[i].r = /*i;*/4 * pallettebuffer[i * 3];
-		colors[i].g = /*i;*/4 * pallettebuffer[i * 3 + 1];
-		colors[i].b = /*i;*/4 * pallettebuffer[i * 3 + 2];
+		temppallettebuffer[i * 3]=i;
+		temppallettebuffer[i * 3 + 1] = i;
+		temppallettebuffer[i * 3 + 2] = i;
+		colors[i].r = temppallettebuffer[i * 3];
+		colors[i].g = temppallettebuffer[i * 3 + 1];
+		colors[i].b = temppallettebuffer[i * 3 + 2];
 	}
 
 	/* Set palette */
 	SDL_SetPalette(screen, SDL_LOGPAL | SDL_PHYSPAL, colors, 0, 256);
-}
-
-void VGA_Write_basic_pallette(Uint8* pallettebuffer) {
-	memcpy(temppallettebuffer, pallettebuffer, 768);
+	//memcpy(temppallettebuffer, pallettebuffer, 768);
 }
 
 void putpixel(SDL_Surface *surface, int x, int y, Uint32 pixel)
@@ -94,6 +60,180 @@ void putpixel(SDL_Surface *surface, int x, int y, Uint32 pixel)
 		break;
 	}
 }
+
+void Draw_debug_matrix() {
+	SDL_Rect dstrect;
+	if (SDL_MUSTLOCK(screen)) {
+		if (SDL_LockSurface(screen) < 0) {
+			fprintf(stderr, "Can't lock screen: %s\n", SDL_GetError());
+			return;
+		}
+	}
+
+	for (int i = 0;i < 16;i++)
+		for (int j = 0;j < 16;j++)
+		{
+			dstrect.x = i* screen->w/16;
+			dstrect.y = j* screen->h/16;
+			dstrect.w = screen->w / 16;
+			dstrect.h = screen->h / 16;
+			SDL_FillRect(screen, &dstrect, i * 16 + j/*SDL_MapRGB(screen->format, i*16+j, 0, 0)*/);
+		}
+
+	if (SDL_MUSTLOCK(screen)) {
+		SDL_UnlockSurface(screen);
+	}
+	SDL_UpdateRect(screen, 0, 0, 0, 0);	
+};
+
+SDL_Surface* surface_font = NULL;
+bool VGA_LoadFont()
+{
+	//Loading success flag
+	bool success = true;
+
+	//Load splash image
+	//surface_font = SDL_LoadBMP("c:/prenos/remc2/font/xterm714.bmp");
+	surface_font = SDL_LoadBMP("../font/xterm613.bmp");
+	if (surface_font == NULL)
+	{
+		printf("Unable to load image %s! SDL Error: %s\n", "xterm714.bmp", SDL_GetError());
+		success = false;
+	}
+
+	return success;
+}
+
+void Draw_letter(int letter_number,int pozx,int pozy) {
+	SDL_Rect srcrect;
+	SDL_Rect dstrect;
+
+	/*for (int i = 0;i < 100;i++)
+		for (int j = 0;j < 100;j++)
+			putpixel(screen, i, j, 127);*/
+	//217 x 224//13x14
+	//186 x 208//11x13
+	/*int letter_numaber = 34;
+	int pozx = 15;
+	int pozy = 15;*/
+	srcrect.x = 12*(letter_number%16);
+	srcrect.y = 13 *(int) (letter_number / 16);
+	srcrect.w = 12;
+	srcrect.h = 13;
+	dstrect.x = (screen->w / 80)*pozx;
+	dstrect.y = (screen->h / 25)*pozy;
+	dstrect.w = screen->w / 80;
+	dstrect.h = screen->h / 25;
+	//SDL_RenderCopy(screen, surface_font, &srcrect, &dstrect);
+	SDL_BlitSurface(surface_font, &srcrect, screen, &dstrect);
+
+};
+
+int lastpoz = 0;
+
+void VGA_Draw_string(char* wrstring) {
+	SDL_Rect srcrect;
+	SDL_Rect dstrect;
+	if (SDL_MUSTLOCK(screen)) {
+		if (SDL_LockSurface(screen) < 0) {
+			fprintf(stderr, "Can't lock screen: %s\n", SDL_GetError());
+			return;
+		}
+	}
+
+	for (int i = 0;i < strlen(wrstring);i++)
+	{
+		if (wrstring[i] == '\n')
+		{
+			lastpoz += 80-lastpoz%80;
+		}
+		else
+		{
+			Draw_letter(wrstring[i], lastpoz % 80, (int)(lastpoz / 80));
+			lastpoz++;
+		}
+	}
+
+	if (SDL_MUSTLOCK(screen)) {
+		SDL_UnlockSurface(screen);
+	}
+	SDL_UpdateRect(screen, 0, 0, 0, 0);
+}
+
+
+void VGA_Init() {
+	VGA_Init(640, 480, 8, SDL_HWPALETTE/*|SDL_DOUBLEBUF*/);
+}
+void VGA_Init(int width,int height,int bpp,Uint32 flags) {
+	if (!inited)
+	{
+		SDL_Init(SDL_INIT_TIMER | SDL_INIT_VIDEO);
+		atexit(SDL_Quit);
+		screen = SDL_SetVideoMode(width, height, bpp, flags);
+		if (!screen) {
+			printf("Couldn't set video mode: %s\n", SDL_GetError());
+			exit(-1);
+		}
+
+		//Set the window caption
+		SDL_WM_SetCaption("Remake Magic Carpet 2", NULL);
+
+		if (!VGA_LoadFont())
+		{
+			printf("Failed to load font!\n");
+			exit(-1);
+		}
+
+		//debug
+		//Set_basic_pallette();
+		Draw_debug_matrix();	
+		//Draw_letter(0x42,15,15);
+		//VGA_Draw_string((char*)"test textx");
+		//degug
+		inited = true;
+	}
+}
+
+void VGA_Resize(int width, int height) {
+	VGA_Resize(width, height, 8, SDL_HWPALETTE);
+}
+void VGA_Resize(int width, int height, int bpp, Uint32 flags) {
+	SDL_FreeSurface(screen);
+	screen = SDL_SetVideoMode(width, height, bpp, flags);
+	if (!screen) {
+		printf("Couldn't set video mode: %s\n", SDL_GetError());
+		exit(-1);
+	}
+	//debug
+	Draw_debug_matrix();
+	//VGA_Draw_string((char*)"test textx");
+	//degug
+};
+
+
+Uint8* VGA_Get_pallette() {
+	return temppallettebuffer;
+}
+
+void VGA_Set_pallette(Uint8* pallettebuffer) {
+	memcpy(temppallettebuffer, pallettebuffer,768);
+	SDL_Color colors[256];
+	/* Fill colors with color information */
+	for (int i = 0;i < 256;i++) {
+		colors[i].r = /*i;*/4 * pallettebuffer[i * 3];
+		colors[i].g = /*i;*/4 * pallettebuffer[i * 3 + 1];
+		colors[i].b = /*i;*/4 * pallettebuffer[i * 3 + 2];
+	}
+
+	/* Set palette */
+	SDL_SetPalette(screen, SDL_LOGPAL | SDL_PHYSPAL, colors, 0, 256);
+}
+
+void VGA_Write_basic_pallette(Uint8* pallettebuffer) {
+	memcpy(temppallettebuffer, pallettebuffer, 768);
+}
+
+
 
 void VGA_test() {
 	
@@ -187,6 +327,20 @@ void VGA_Init_test() {
 	}
 	/* Update just the part of the display that we've changed */
 	SDL_UpdateRect(screen, 0, 0, 0, 0);
+}
+
+void VGA_close()
+{
+	//Deallocate surface
+	SDL_FreeSurface(surface_font);
+	surface_font = NULL;
+
+	//Destroy window
+	SDL_FreeSurface(screen);
+	screen = NULL;
+
+	//Quit SDL subsystems
+	SDL_Quit();
 }
 /*
 change resolution

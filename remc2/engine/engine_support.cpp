@@ -30,6 +30,7 @@ int myprintf(const char * format, ...) {
 		DEBUG_ShowMsg(prbuffer);
 	#else
 		printf(prbuffer);
+		VGA_Draw_string(prbuffer);
 	#endif //USE_DOSBOX
     
     //return strlen(prbuffer);
