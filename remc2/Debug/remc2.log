@@ -1,5 +1,1 @@
-﻿  graphics_sdl.cpp
-c:\prenos\remc2\remc2\engine\sdl\graphics_sdl.cpp(144): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sdl\graphics_sdl.cpp(136): warning C4101: dstrect: neodkazovaná lokální proměnná
-c:\prenos\remc2\remc2\engine\sdl\graphics_sdl.cpp(135): warning C4101: srcrect: neodkazovaná lokální proměnná
-  remc2.vcxproj -> C:\prenos\remc2\Debug\remc2.exe
+﻿  remc2.vcxproj -> C:\prenos\remc2\Debug\remc2.exe

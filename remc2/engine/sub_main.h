@@ -45,6 +45,7 @@
 //#include <sys/statvfs.h>
 #include <windows.h>
 #include "portability/dirent.h"
+#include "portability/system.h"
 #include "defs.h"
 #define __CFSHL__(x, y) printf("invalid_operation:__CFSHL__(x, y)")
 #define __RCR__(x, y) printf("invalid_operation:__RCR__(x, y)")

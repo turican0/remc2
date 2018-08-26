@@ -261,3 +261,20 @@ find
 void /*__cdecl*/ sub_41A90_VGA_pallette_install(Bit8u* buffer)//222a90
 and
 void /*__cdecl*/ sub_A0D2C_VGA_get_pallette(Bit8u* buffer)
+
+sub_90B27_VGA_pal_fadein_fadeout((Bit8u*)x_DWORD_17DE38, 0x20u, 0);//271b27 - tady se nacita paleta
+000000 1a1a15 13120f
+
+mozna
+x_DWORD_17DE38
+354f6c
+x_BYTE_181544_oldpalbuffer - 352544
+i - 352b44
+newpalbuffer - 354f44
+
+procedure 2589E0
+34ee38->1a7358
+
+sub_7A110(x_WORD_180660_VGA_type_resolution, 14);//25b110 - tady se paleta nastavi
+
+x_DWORD_17DEE0 = 34eee0

@@ -54,6 +54,9 @@
     <ClInclude Include="engine\portability\dirent.h">
       <Filter>Zdrojové soubory\engine\portability</Filter>
     </ClInclude>
+    <ClInclude Include="engine\portability\system.h">
+      <Filter>Zdrojové soubory\engine\portability</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -72,6 +75,9 @@
       <Filter>Zdrojové soubory\engine\sdl</Filter>
     </ClCompile>
     <ClCompile Include="engine\portability\dirent.c">
+      <Filter>Zdrojové soubory\engine\portability</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\portability\system.cpp">
       <Filter>Zdrojové soubory\engine\portability</Filter>
     </ClCompile>
   </ItemGroup>

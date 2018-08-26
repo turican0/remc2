@@ -153,6 +153,7 @@
     <ClInclude Include="engine\defs.h" />
     <ClInclude Include="engine\engine_support.h" />
     <ClInclude Include="engine\portability\dirent.h" />
+    <ClInclude Include="engine\portability\system.h" />
     <ClInclude Include="engine\sdl\graphics_sdl.h" />
     <ClInclude Include="engine\sub_main.h" />
     <ClInclude Include="stdafx.h" />
@@ -161,6 +162,7 @@
   <ItemGroup>
     <ClCompile Include="engine\engine_support.cpp" />
     <ClCompile Include="engine\portability\dirent.c" />
+    <ClCompile Include="engine\portability\system.cpp" />
     <ClCompile Include="engine\sdl\graphics_sdl.cpp" />
     <ClCompile Include="engine\sub_main.cpp" />
     <ClCompile Include="remc2.cpp" />
