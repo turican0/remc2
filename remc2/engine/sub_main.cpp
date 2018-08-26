@@ -1066,7 +1066,7 @@ FILE* /*__cdecl*/ x_sopen(char* path, int pmode, Bit32u flags) {
 };
 int /*__cdecl*/ x_close(FILE* descriptor) {
     return fclose(descriptor); };// weak
-x_DWORD /*__cdecl*/ x_lseek(FILE*, x_DWORD, char) { stub_fix_it();return 0; };// weak
+x_DWORD /*__cdecl*/ x_lseek(FILE* filedesc, x_DWORD position, char type) { return fseek(filedesc, position, type);; };// weak
 unsigned __CFRCR__(__int16 a, unsigned __int8 b) { stub_fix_it();return 0; };
 unsigned __CFRCL__(__int16 a, unsigned __int8 b) { stub_fix_it();return 0; };
 size_t /*__cdecl*/ x_write(FILE* descriptor, Bit8u* buffer, Bit32u size_t) {
@@ -2959,7 +2959,7 @@ FILE* /*__cdecl*/ sub_98817_open(char* path, int __pmode);
 int /*__cdecl*/ sub_98882_close(FILE* a1);
 size_t /*__cdecl*/ sub_988A7_read(FILE* a1, Bit8u* a2, int a3);
 // x_DWORD /*__cdecl*/ filelength(x_DWORD); weak
-int /*__cdecl*/ sub_9891E(FILE* a1, int a2, char a3);
+int /*__cdecl*/ sub_9891E_seek(FILE* filedesc, int position, char type);
 int /*__cdecl*/ sub_9894C_decompress(Bit8u* a1, Bit8u* a2);
 // char sub_98AE0_blong(int *a1);
 // __int16 sub_98AE9(__int16 *a1, int a2);
@@ -12945,7 +12945,7 @@ int x_DWORD_17DED0; // weak
 Bit8u* x_DWORD_17DED4; // weak
 Bit8u* x_DWORD_17DED8; // weak
 int x_DWORD_17DEDC; // weak
-FILE* x_DWORD_17DEE0; // weak
+FILE* x_DWORD_17DEE0_filedesc; // weak
 int x_DWORD_17DEE4; // weak
 __int16 x_WORD_17DEEC; // weak
 __int16 x_WORD_17DEEE; // weak
@@ -63156,7 +63156,7 @@ char /*__cdecl*/ sub_533B0_decompress_levels(__int16 a1, void *a2)
     sub_98882_close(levelstabfile);
     if ( x_filelength )
     {
-      sub_9891E(levelsdatfile, v7, 0);
+      sub_9891E_seek(levelsdatfile, v7, 0);
       sub_988A7_read(levelsdatfile, (Bit8u*)x_DWORD_E9C38_smalltit, v9);
       if ( sub_9894C_decompress((Bit8u*)x_DWORD_E9C38_smalltit, (Bit8u*)x_DWORD_E9C38_smalltit) < 0 )
       {
@@ -83826,7 +83826,7 @@ int /*__cdecl*/ sub_70C60_decompress_tmap(unsigned __int16 a1, Bit8u* a2)
   if ( x_DWORD_DB73C_tmapsfile == NULL)
     return (int)x_DWORD_DB73C_tmapsfile;
   v2 = 10 * a1;
-  sub_9891E(x_DWORD_DB73C_tmapsfile, *(x_DWORD *)(v2 + x_DWORD_F6ED0 + 4), 0);//lseek
+  sub_9891E_seek(x_DWORD_DB73C_tmapsfile, *(x_DWORD *)(v2 + x_DWORD_F6ED0 + 4), 0);//lseek
   v3 = x_DWORD_F6ED0[10 * (a1 + 1) + 4] - x_DWORD_F6ED0[v2 + 4];
   if ( sub_988A7_read(x_DWORD_DB73C_tmapsfile, (Bit8u*)a2, v3) != v3 )
     return -1;
@@ -86196,7 +86196,7 @@ void /*__cdecl*/ sub_75200_VGA_Blit640(Bit16u height)//256200
   //debug
   //x_DWORD_180628b = (Bit8u*)malloc(0x10000);
   //0x351628->3aa0a4
-	if (sub_75200_VGA_Blit640_index == 1) {
+	if (sub_75200_VGA_Blit640_index <2) {
 		loadfromsnapshot((char*)"0160-00256200-2", x_DWORD_180628b, 0x3aa0a4, 640 * height);//4c
 	}
   sub_75200_VGA_Blit640_index++;
@@ -87566,7 +87566,7 @@ signed int /*__fastcall*/ sub_76930(int a2, signed __int16 *a3)//257930
     x_WORD_E29D8 = 4;
   }
   memset(&x_DWORD_17DE38, 0, 613);
-  x_DWORD_17DEE0 = NULL;
+  x_DWORD_17DEE0_filedesc = NULL;
   sub_7BEC0();//25CEC0 // fix this structure
   sub_6EDB0_set_mouse_position_by_res();//24FDB0
   v3 = sub_81DB0();//262DB0
@@ -87615,7 +87615,7 @@ signed int /*__fastcall*/ sub_76930(int a2, signed __int16 *a3)//257930
 // E29DE: using guessed type char x_BYTE_E29DE;
 // E29E1: using guessed type char x_BYTE_E29E1;
 // 17DE38: using guessed type int x_DWORD_17DE38;
-// 17DEE0: using guessed type int x_DWORD_17DEE0;
+// 17DEE0: using guessed type int x_DWORD_17DEE0_filedesc;
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
 //----- (00076A40) --------------------------------------------------------
@@ -87640,7 +87640,7 @@ int sub_76A40()//257A40
   configdword1 = 0;
   memset(printbuffer, 0, 80);
   memset(&x_DWORD_17DE38, 0, 613);
-  x_DWORD_17DEE0 = NULL;
+  x_DWORD_17DEE0_filedesc = NULL;
   /*memset(&v10, 0, 32);fix it*/
   sprintf_s(printbuffer,512, "%c%s", x_D41A0_BYTEARRAY_4_struct.harddisk_number, ":/NETHERW/CONFIG.DAT");
   configdatfile = sub_98817_open(printbuffer, 512);
@@ -87680,7 +87680,7 @@ int sub_76A40()//257A40
           x_DWORD_D41BC_langbuffer = (Bit8u*)sub_83CD0_malloc2(filelenght);
           if ( x_DWORD_D41BC_langbuffer )
           {
-            sub_9891E(langfile, 4785, 0);
+            sub_9891E_seek(langfile, 4785, 0);
             sub_988A7_read(langfile, (Bit8u*)x_DWORD_D41BC_langbuffer, filelenght);
           }
           sub_98882_close(langfile);
@@ -87716,7 +87716,7 @@ int sub_76A40()//257A40
 // E3798: using guessed type char x_BYTE_E3798;
 // EB39E: using guessed type char x_BYTE_EB39E;
 // 17DE38: using guessed type int x_DWORD_17DE38;
-// 17DEE0: using guessed type int x_DWORD_17DEE0;
+// 17DEE0: using guessed type int x_DWORD_17DEE0_filedesc;
 
 //----- (00076CF0) --------------------------------------------------------
 void sub_76CF0()
@@ -90049,7 +90049,7 @@ void /*__cdecl*/ sub_7A110(char a1, char a2)//25b110
   x_DWORD_17DE38 = *xadatapald0dat2.var28_begin_buffer;
   x_WORD_17DEEC = 0;
   x_DWORD_17DE40 = (int)x_DWORD_180628b;
-  x_DWORD_17DEE0 = NULL;
+  x_DWORD_17DEE0_filedesc = NULL;
   x_DWORD_17DEDC = 0;
   x_DWORD_17DE48c = (int)x_D41A0_BYTEARRAY_4_0xE2_heapbuffer;
   sub_7B5D0();//25c5d0
@@ -90234,7 +90234,7 @@ void /*__cdecl*/ sub_7A110(char a1, char a2)//25b110
 // 17DED4: using guessed type int (int)x_DWORD_17DED4;
 // 17DED8: using guessed type int x_DWORD_17DED8;
 // 17DEDC: using guessed type int x_DWORD_17DEDC;
-// 17DEE0: using guessed type int x_DWORD_17DEE0;
+// 17DEE0: using guessed type int x_DWORD_17DEE0_filedesc;
 // 17DEEC: using guessed type __int16 x_WORD_17DEEC;
 // 17DF06: using guessed type __int16 x_WORD_17DF06;
 // 17DF08: using guessed type __int16 x_WORD_17DF08;
@@ -90245,33 +90245,33 @@ void /*__cdecl*/ sub_7A110(char a1, char a2)//25b110
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
 //----- (0007AA70) --------------------------------------------------------
-void /*__cdecl*/ sub_7AA70(char* path, Bit8u* a2, int a3, int a4)//25ba70
+void /*__cdecl*/ sub_7AA70(char* path, Bit8u* a2, int position, int lenght)//25ba70
 {
   //FILE* result; // eax
 
-  if ( x_DWORD_17DEE0 != NULL || (x_DWORD_17DEE0 = sub_98817_open(path, 512)))
+  if ( x_DWORD_17DEE0_filedesc != NULL || (x_DWORD_17DEE0_filedesc = sub_98817_open(path, 512)))
   {
-    //result = x_DWORD_17DEE0;
-    if ( x_DWORD_17DEE0 != NULL)
+    //result = x_DWORD_17DEE0_filedesc;
+    if ( x_DWORD_17DEE0_filedesc != NULL)
     {
       if ( a2 )
       {
-        sub_9891E(x_DWORD_17DEE0, a3, 0);
-        sub_988A7_read(x_DWORD_17DEE0, a2, a4);
+        sub_9891E_seek(x_DWORD_17DEE0_filedesc, position, 0);
+        sub_988A7_read(x_DWORD_17DEE0_filedesc, a2, lenght);
         sub_5C3D0_file_decompress(a2, a2);
-        x_DWORD_17DEDC = a4 + a3;
+        x_DWORD_17DEDC = lenght + position;//endbuffer
       }
       else
       {
-        sub_98882_close(x_DWORD_17DEE0);
-        x_DWORD_17DEE0 = NULL;
+        sub_98882_close(x_DWORD_17DEE0_filedesc);
+        x_DWORD_17DEE0_filedesc = NULL;
       }
     }
   }
   //return result;
 }
 // 17DEDC: using guessed type int x_DWORD_17DEDC;
-// 17DEE0: using guessed type int x_DWORD_17DEE0;
+// 17DEE0: using guessed type int x_DWORD_17DEE0_filedesc;
 
 //----- (0007AB00) --------------------------------------------------------
 int (/*__cdecl*/ **sub_7AB00(__int16 a1, int a2, signed __int16 *a3, unsigned __int8 a4))(int)
@@ -96300,7 +96300,7 @@ void sub_833C0()
   x_DWORD_17DE38 = *xadatapald0dat2.var28_begin_buffer;
   x_WORD_17DEEC = 0;
   x_DWORD_17DE40 = (int)x_DWORD_180628b;
-  x_DWORD_17DEE0 = NULL;
+  x_DWORD_17DEE0_filedesc = NULL;
   v0 = (int)x_D41A0_BYTEARRAY_4_0xE2_heapbuffer;
   x_DWORD_17DEDC = 0;
   x_DWORD_17DE48c = v0;
@@ -96438,7 +96438,7 @@ LABEL_24:
 // 17DED4: using guessed type int (int)x_DWORD_17DED4;
 // 17DED8: using guessed type int x_DWORD_17DED8;
 // 17DEDC: using guessed type int x_DWORD_17DEDC;
-// 17DEE0: using guessed type int x_DWORD_17DEE0;
+// 17DEE0: using guessed type int x_DWORD_17DEE0_filedesc;
 // 17DEEC: using guessed type __int16 x_WORD_17DEEC;
 // 17DEEE: using guessed type __int16 x_WORD_17DEEE;
 // 17DF10: using guessed type char x_BYTE_17DF10;
@@ -97048,11 +97048,11 @@ signed int /*__cdecl*/ sub_84300(unsigned __int8 a1)
     v3 = v1;
     if ( v1 != -1 )
     {
-      sub_9891E((FILE*)v1, 0, 2);
+      sub_9891E_seek((FILE*)v1, 0, 2);
       v4 = tell(v2);
-      sub_9891E((FILE*)v2, v4 - 4, 0);
+      sub_9891E_seek((FILE*)v2, v4 - 4, 0);
       sub_988A7_read((FILE*)v2, (Bit8u*)&v7, 4);
-      sub_9891E((FILE*)v2, v7, 0);
+      sub_9891E_seek((FILE*)v2, v7, 0);
       sub_988A7_read((FILE*)v2, (Bit8u*)v6, 12);
       if ( (unsigned __int16)x_WORD_E37B6 < 0x336u )
       {
@@ -97090,7 +97090,7 @@ signed int /*__cdecl*/ sub_84300(unsigned __int8 a1)
         sub_98882_close((FILE*)v3);
         return 1;
       }
-      sub_9891E((FILE*)v3, 96 * a1, 1);
+      sub_9891E_seek((FILE*)v3, 96 * a1, 1);
       if ( !sub_844F0(v3, v8) )
       {
         sub_98882_close((FILE*)v3);
@@ -97183,7 +97183,7 @@ char /*__cdecl*/ sub_844F0(int a1, unsigned __int8 a2)
   v6 = (Bit8u*)x_DWORD_E37A0;
   x_DWORD_E37A4 = x_DWORD_E37A0 + *(x_DWORD *)&_8[v5];
   v7 = (Bit8u*)x_DWORD_E37A8;
-  sub_9891E((FILE*)a1, *(x_DWORD *)&_4[v5], 0);
+  sub_9891E_seek((FILE*)a1, *(x_DWORD *)&_4[v5], 0);
   sub_988A7_read((FILE*)a1, (Bit8u*)x_DWORD_E37A8, 8);
   if ( *v7 != 82 || v7[1] != 78 || v7[2] != 67 )
   {
@@ -97199,7 +97199,7 @@ char /*__cdecl*/ sub_844F0(int a1, unsigned __int8 a2)
     - 8);
     sub_9894C_decompress(v7, v7);
   }
-  sub_9891E((FILE*)a1, *(x_DWORD *)&v8[16 * a2], 0);
+  sub_9891E_seek((FILE*)a1, *(x_DWORD *)&v8[16 * a2], 0);
   sub_988A7_read((FILE*)a1, (Bit8u*)x_DWORD_E37A0, 8);
   if ( *v6 != 82 || v6[1] != 78 || v6[2] != 67 )
   {
@@ -105077,11 +105077,11 @@ signed int /*__cdecl*/ sub_8EAD0(int a1)
   v4 = (int)sub_98817_open((char*)"SOUND/MUSIC.DAT", 512);
   if ( !v4 )
     return 0;
-  sub_9891E((FILE*)v4, 0, 2);
+  sub_9891E_seek((FILE*)v4, 0, 2);
   v7 = tell(v4);
-  sub_9891E((FILE*)v4, v7 - 4, 0);
+  sub_9891E_seek((FILE*)v4, v7 - 4, 0);
   sub_988A7_read((FILE*)v4, (Bit8u*)&v5, 4);
-  sub_9891E((FILE*)v4, v5, 0);
+  sub_9891E_seek((FILE*)v4, v5, 0);
   sub_988A7_read((FILE*)v4, (Bit8u*)v2, 8);
   v8 = a1 + 1;
   if ( (unsigned __int8)x_BYTE_180C84 < 0x57u )
@@ -105130,7 +105130,7 @@ LABEL_21:
 LABEL_24:
   if ( (unsigned __int16)v8 <= *(x_WORD *)&v2[2 * v6] )
   {
-    sub_9891E((FILE*)v4, (unsigned __int16)(v8 - 1) << 6, 1);
+    sub_9891E_seek((FILE*)v4, (unsigned __int16)(v8 - 1) << 6, 1);
     if ( !sub_8ED00(v4, v6) )
     {
       sub_98882_close((FILE*)v4);
@@ -105211,7 +105211,7 @@ char /*__cdecl*/ sub_8ED00(int a1, unsigned __int8 a2)
   v7 = (Bit8u*)x_DWORD_E3810;
   v9 = (Bit8u*)x_DWORD_E3808;
   x_DWORD_E380C = *(x_DWORD *)&v5[16 * a2] + x_DWORD_E3808;
-  sub_9891E((FILE*)a1, *(x_DWORD *)&v4[16 * a2], 0);
+  sub_9891E_seek((FILE*)a1, *(x_DWORD *)&v4[16 * a2], 0);
   sub_988A7_read((FILE*)a1, (Bit8u*)v7, 8);
   if ( *v7 == 82 && v7[1] == 78 && v7[2] == 67 )
   {
@@ -105229,7 +105229,7 @@ char /*__cdecl*/ sub_8ED00(int a1, unsigned __int8 a2)
   {
     sub_988A7_read((FILE*)a1, (Bit8u*)(x_DWORD_E3810 + 8), *(x_DWORD *)&v6[16 * a2] - 8);
   }
-  sub_9891E((FILE*)a1, *(x_DWORD *)&v3[16 * a2], 0);
+  sub_9891E_seek((FILE*)a1, *(x_DWORD *)&v3[16 * a2], 0);
   sub_988A7_read((FILE*)a1, (Bit8u*)v9, 8);
   if ( *v9 == 82 && v9[1] == 78 && v9[2] == 67 )
   {
@@ -109302,9 +109302,9 @@ size_t /*__cdecl*/ sub_988A7_read(FILE* a1, Bit8u* a2, int a3)
 // A0863: using guessed type x_DWORD /*__cdecl*/ read(x_DWORD, x_DWORD, x_DWORD);
 
 //----- (0009891E) --------------------------------------------------------
-int /*__cdecl*/ sub_9891E(FILE* a1, int a2, char a3)
+int /*__cdecl*/ sub_9891E_seek(FILE* filedecs, int position, char type)
 {
-  return x_lseek(a1, a2, a3);
+  return x_lseek(filedecs, position, type);
 }
 // AA7C0: using guessed type x_DWORD /*__cdecl*/ lseek(x_DWORD, x_DWORD, char);
 

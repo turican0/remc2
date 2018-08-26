@@ -1,1 +1,2 @@
-﻿  remc2.vcxproj -> C:\prenos\remc2\Debug\remc2.exe
+﻿MSVCRTD.lib(initializers.obj) : warning LNK4098: Výchozí knihovna msvcrt.lib je v konfliktu s použitím jiných knihoven. Použijte /NODEFAULTLIB:library.
+  remc2.vcxproj -> C:\prenos\remc2\Debug\remc2.exe

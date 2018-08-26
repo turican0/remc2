@@ -1,5 +1,5 @@
 #include "graphics_sdl.h"
-
+#include "../portability/system.h"
 
 #ifdef USE_DOSBOX
 extern DOS_Device *DOS_CON;
@@ -242,6 +242,7 @@ void VGA_Init(int width,int height,int bpp,Uint32 flags) {
 		//VGA_Draw_string((char*)"test textx");
 		//degug
 		inited = true;
+		mydelay(3000);
 	}
 }
 
