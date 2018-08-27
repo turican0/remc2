@@ -242,7 +242,7 @@ void VGA_Init(int width,int height,int bpp,Uint32 flags) {
 		//VGA_Draw_string((char*)"test textx");
 		//degug
 		inited = true;
-		mydelay(3000);
+		//mydelay(3000);
 	}
 }
 

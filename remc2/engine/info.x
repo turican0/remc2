@@ -278,3 +278,29 @@ procedure 2589E0
 sub_7A110(x_WORD_180660_VGA_type_resolution, 14);//25b110 - tady se paleta nastavi
 
 x_DWORD_17DEE0 = 34eee0
+
+
+
+hledani grafiky
+x_DWORD_180628b - 351628->3aa0a4
+00 00 00 00
+...
+00 86 00 20 86 20 20 20 20 20 09
+vlozeni zde:
+sub_9A144_memcopy_640line((void*)x_DWORD_E9C38_smalltit, (void*)x_DWORD_180628b, 0x1E0u);//27b144
+kopie z
+x_DWORD_E9C38_smalltit - 2bac38->406514
+
+x_DWORD_E9C38_smalltit nastaveno zde:
+sub_7A110(x_WORD_180660_VGA_type_resolution, 14);//25b110
+kde se to nahrava do x_D41A0_BYTEARRAY_4_0xE2_heapbuffer - 91c59
+x_D41A0_BYTEARRAY_4_0xE2_heapbuffer - nenacita se derenc
+stale se lisi na 3aa0a4+0xf8a8, tj 3B994C(asi vlajka)
+42 87 87 87 87
+nahraje se opet zde:
+sub_9A144_memcopy_640line((void*)x_DWORD_E9C38_smalltit, (void*)x_DWORD_180628b, 0x1E0u);//27b144
+v39 = sub_7E0E0();//25f0e0 - ale vlajka prida zde
+406514+0xf8a8=415DBC
+
+repair this function:
+signed int sub_7E0E0()//25f0e0

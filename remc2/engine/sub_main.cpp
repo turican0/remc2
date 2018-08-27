@@ -776,7 +776,7 @@ void JUMPOUT(int* adr) { stub_fix_it();};
 void JUMPOUT(x_WORD cs, int* adr) { stub_fix_it(); };
 void JUMPOUT(x_WORD cs, int a, int* adr) { stub_fix_it(); };
 void qmemcpy(void* a, void* b, unsigned int c) {
-	memset(a, (int)b, c);
+	memcpy(a, b, c);
 };
 int _wcpp_1_unwind_leave__62(void) { stub_fix_it();return 0; }; //weak
 void __outx_WORD(unsigned short Port, unsigned short Data) { stub_fix_it(); };
@@ -3006,8 +3006,8 @@ int /*__cdecl*/ sub_99FF5(unsigned __int8 a1);
 unsigned __int8 sub_9A0FC();
 signed int /*__fastcall*/ sub_9A10A(signed int result);
 x_DWORD /*__cdecl*/ j___delay(x_DWORD); // weak
-void /*__cdecl*/ sub_9A128(const void *a1, void *a2, unsigned __int16 a3);
-void /*__cdecl*/ sub_9A144(const void *a1, void *a2, unsigned __int16 a3);
+void sub_9A128_memcopy_320line(void* source, void* desc, Bit16u countlines);
+void sub_9A144_memcopy_640line(void* source, void* desc, Bit16u countlines);
 // x_DWORD /*__cdecl*/ unknown_libname_2_findfirst(x_DWORD, x_DWORD, x_DWORD); weak
 // x_DWORD /*__cdecl*/ unknown_libname_3(x_DWORD); weak
 // int /*__cdecl*/ unknown_libname_4(x_DWORD); weak
@@ -13122,7 +13122,7 @@ __int16 x_WORD_1805C6_vio2; // weak
 __int16 x_WORD_1805C8; // weak
 _UNKNOWN unk_1805CE; // weak
 int x_DWORD_180624_resolution_y; // weak
-//Bit8u x_DWORD_180628b; // weak
+//Bit8u x_DWORD_180628b_screen_buffer; // weak
 int x_DWORD_18062C_resolution_x; // weak
 int x_DWORD_180630; // weak
 int x_DWORD_180634; // weak
@@ -13384,7 +13384,7 @@ void sub_101C0()//1f11c0
   char v9; // [esp+8h] [ebp-8h]
   //__int16 v10; // [esp+Ch] [ebp-4h]
 
-  //v0 = x_DWORD_180628b;
+  //v0 = x_DWORD_180628b_screen_buffer;
   //xasearchd.var32_end_buffer = (Bit8u*)malloc(100000);//fix it
   sub_53E60_readfile_and_decompress("data/search.dat", xasearchd.var28_begin_buffer);//2A1004,351628->3AA0A4
   //v1 = 1;
@@ -13429,7 +13429,7 @@ void sub_101C0()//1f11c0
 // E7EE8: using guessed type int x_DWORD_E7EE8[];
 // E9980: using guessed type int x_DWORD_E9980;
 // E9C30: using guessed type int x_DWORD_E9C30;
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 
 //----- (000102D0) --------------------------------------------------------
 int /*__cdecl*/ sub_102D0(int a1, __int16 *a2, char a3)
@@ -34048,19 +34048,19 @@ void /*__cdecl*/ sub_2BB40(__int16 a1, __int16 a2, Pathstruct a3)
   //result = (int)x_D41A0_BYTEARRAY_0;
   if (x_D41A0_BYTEARRAY_0[8592] == 1 )
   {
-    //v5 = (int)x_DWORD_180628b;
-    x_DWORD_180628b = x_DWORD_E9C3C;
+    //v5 = (int)x_DWORD_180628b_screen_buffer;
+    x_DWORD_180628b_screen_buffer = x_DWORD_E9C3C;
 	if (x_WORD_180660_VGA_type_resolution & 1)
 		sub_8F8B0(a1, a2, a3);
 	else
 		sub_8F8E8(a1, a2, a3);
-    //x_DWORD_180628b = v5;
+    //x_DWORD_180628b_screen_buffer = v5;
   }
   //return result;
 }
 // D41A0: using guessed type int x_DWORD_D41A0;
 // E9C3C: using guessed type int x_DWORD_E9C3C;
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
 //----- (0002BBB0) --------------------------------------------------------
@@ -34073,17 +34073,17 @@ int /*__cdecl*/ sub_2BBB0(__int16 a1, __int16 a2, int a3)
   result = (int)x_D41A0_BYTEARRAY_0;
   if ( *(x_BYTE *)(x_DWORD_D41A0 + 8592) == 1 )
   {
-    v4 = (int)x_DWORD_180628b;
-    x_DWORD_180628b = (Bit8u*)x_DWORD_E9C3C;
+    v4 = (int)x_DWORD_180628b_screen_buffer;
+    x_DWORD_180628b_screen_buffer = (Bit8u*)x_DWORD_E9C3C;
     result = x_DWORD_F01EC(a1, a2, a3);
-    x_DWORD_180628b = (Bit8u*)v4;
+    x_DWORD_180628b_screen_buffer = (Bit8u*)v4;
   }
   return result;
 }
 // D41A0: using guessed type int x_DWORD_D41A0;
 // E9C3C: using guessed type int x_DWORD_E9C3C;
 // F01EC: using guessed type int (/*__cdecl*/ *x_DWORD_F01EC)(x_DWORD, x_DWORD, x_DWORD);
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 
 //----- (0002BC10) --------------------------------------------------------
 int /*__cdecl*/ sub_2BC10(char* a1, __int16 a2, __int16 a3, unsigned __int8 a4)
@@ -34095,17 +34095,17 @@ int /*__cdecl*/ sub_2BC10(char* a1, __int16 a2, __int16 a3, unsigned __int8 a4)
   result = (int)x_D41A0_BYTEARRAY_0;
   if ( *(x_BYTE *)(x_DWORD_D41A0 + 8592) == 1 )
   {
-    v5 = (int)x_DWORD_180628b;
-    x_DWORD_180628b = (Bit8u*)x_DWORD_E9C3C;
+    v5 = (int)x_DWORD_180628b_screen_buffer;
+    x_DWORD_180628b_screen_buffer = (Bit8u*)x_DWORD_E9C3C;
     sub_6F940(a1, a2, a3, a4);
     result = v5;
-    x_DWORD_180628b = (Bit8u*)v5;
+    x_DWORD_180628b_screen_buffer = (Bit8u*)v5;
   }
   return result;
 }
 // D41A0: using guessed type int x_DWORD_D41A0;
 // E9C3C: using guessed type int x_DWORD_E9C3C;
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 
 //----- (0002BC80) --------------------------------------------------------
 void /*__cdecl*/ sub_2BC80(Bit16u x1, Bit16u y1, Bit16u x2, Bit16u y2, Bit8u a5)
@@ -34126,20 +34126,20 @@ void /*__cdecl*/ sub_2BC80(Bit16u x1, Bit16u y1, Bit16u x2, Bit16u y2, Bit8u a5)
   result = x_D41A0_BYTEARRAY_0;
   if ( x_D41A0_BYTEARRAY_0[8592] == 1 )
   {
-    //v7 = (int)x_DWORD_180628b;
-    x_DWORD_180628b = x_DWORD_E9C3C;
+    //v7 = (int)x_DWORD_180628b_screen_buffer;
+    x_DWORD_180628b_screen_buffer = x_DWORD_E9C3C;
 	if (x_WORD_180660_VGA_type_resolution & 1)
 		sub_90164(x1, y1, x2, y2, a5);
 	else
 		sub_901E4(x1, y1, x2, y2, a5);
-    //result = (Bit8u)x_DWORD_180628b;
-    //x_DWORD_180628b = (Bit8u*)v7;
+    //result = (Bit8u)x_DWORD_180628b_screen_buffer;
+    //x_DWORD_180628b_screen_buffer = (Bit8u*)v7;
   }
   //return result;
 }
 // D41A0: using guessed type int x_DWORD_D41A0;
 // E9C3C: using guessed type int x_DWORD_E9C3C;
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
 //----- (0002BD10) --------------------------------------------------------
@@ -34157,17 +34157,17 @@ int /*__cdecl*/ sub_2BD10(__int16 a1, __int16 a2, __int16 a3, __int16 a4, unsign
   result = (int)x_D41A0_BYTEARRAY_0;
   if ( *(x_BYTE *)(x_DWORD_D41A0 + 8592) == 1 )
   {
-    v7 = (int)x_DWORD_180628b;
-    x_DWORD_180628b = (Bit8u*)x_DWORD_E9C3C;
+    v7 = (int)x_DWORD_180628b_screen_buffer;
+    x_DWORD_180628b_screen_buffer = (Bit8u*)x_DWORD_E9C3C;
     ((void (/*__cdecl*/ *)(x_DWORD, x_DWORD, x_DWORD, x_DWORD, x_DWORD))v5)(a1, a2, a3, a4, a5);
     result = v7;
-    x_DWORD_180628b = (Bit8u*)v7;
+    x_DWORD_180628b_screen_buffer = (Bit8u*)v7;
   }
   return result;
 }
 // D41A0: using guessed type int x_DWORD_D41A0;
 // E9C3C: using guessed type int x_DWORD_E9C3C;
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
 //----- (0002BE30) --------------------------------------------------------
@@ -34250,23 +34250,23 @@ int sub_2BE30()
         if ( v4 < 40 )
         {
           if ( x_WORD_180660_VGA_type_resolution & 1 )
-            sub_72883_memset_pallette((unsigned __int8)x_BYTE_EB3A8, (void *)x_DWORD_180628b, 0xC8u, x_BYTE_EB3A8);
+            sub_72883_memset_pallette((unsigned __int8)x_BYTE_EB3A8, (void *)x_DWORD_180628b_screen_buffer, 0xC8u, x_BYTE_EB3A8);
           else
-            sub_728A9_memset_pallette((void *)x_DWORD_180628b, 0x1E0u, x_BYTE_EB3A8);
+            sub_728A9_memset_pallette((void *)x_DWORD_180628b_screen_buffer, 0x1E0u, x_BYTE_EB3A8);
         }
       }
       if ( *(x_BYTE *)(x_DWORD_D41A0 + 8589) < 40 )
       {
         if ( x_WORD_180660_VGA_type_resolution & 1 )
-          sub_72883_memset_pallette((unsigned __int8)x_BYTE_EB3A8, (void *)x_DWORD_180628b, 0xC8u, x_BYTE_EB3A8);
+          sub_72883_memset_pallette((unsigned __int8)x_BYTE_EB3A8, (void *)x_DWORD_180628b_screen_buffer, 0xC8u, x_BYTE_EB3A8);
         else
-          sub_728A9_memset_pallette((void *)x_DWORD_180628b, 0x1E0u, x_BYTE_EB3A8);
+          sub_728A9_memset_pallette((void *)x_DWORD_180628b_screen_buffer, 0x1E0u, x_BYTE_EB3A8);
       }
       sub_40C50(*(char *)(x_DWORD_D41A0 + 8589));
       v5 = x_DWORD_D41A0 + 2124 * x_D41A0_BYTEARRAY_4_struct.dwordindex_12;
       v6 = *(unsigned __int16 *)(v5 + 11244);
       sub_411A0(
-        (int)x_DWORD_180628b,
+        (int)x_DWORD_180628b_screen_buffer,
         *(signed __int16 *)(v5 + 14 * (unsigned __int16)v6 + 11709),
         *(signed __int16 *)(v5 + 14 * (unsigned __int16)v6 + 11711),
         *(x_WORD *)(v5 + 14 * (unsigned __int16)v6 + 11715),
@@ -34419,9 +34419,9 @@ LABEL_41:
     case 0xE:
       v14 = x_DWORD_EA3E4[*(unsigned __int16 *)(2124 * x_D41A0_BYTEARRAY_4_struct.dwordindex_12 + x_DWORD_D41A0 + 11240)];
       if ( x_WORD_180660_VGA_type_resolution & 1 )
-        sub_72883_memset_pallette((unsigned __int8)x_BYTE_EB3A8, (void *)x_DWORD_180628b, 0xC8u, x_BYTE_EB3A8);
+        sub_72883_memset_pallette((unsigned __int8)x_BYTE_EB3A8, (void *)x_DWORD_180628b_screen_buffer, 0xC8u, x_BYTE_EB3A8);
       else
-        sub_728A9_memset_pallette((void *)x_DWORD_180628b, 0x1E0u, x_BYTE_EB3A8);
+        sub_728A9_memset_pallette((void *)x_DWORD_180628b_screen_buffer, 0x1E0u, x_BYTE_EB3A8);
       if ( x_WORD_180660_VGA_type_resolution == 1 )
       {
         v15 = x_DWORD_D41A0 + 2124 * x_D41A0_BYTEARRAY_4_struct.dwordindex_12;
@@ -34470,7 +34470,7 @@ LABEL_41:
       v21 = x_DWORD_D41A0 + 2124 * x_D41A0_BYTEARRAY_4_struct.dwordindex_12;
       v22 = *(x_WORD *)(v21 + 11244);
       sub_411A0(
-        (int)x_DWORD_180628b,
+        (int)x_DWORD_180628b_screen_buffer,
         *(signed __int16 *)(v21 + 14 * v22 + 11709),
         *(signed __int16 *)(v21 + 14 * v22 + 11711),
         *(x_WORD *)(v21 + 14 * v22 + 11715),
@@ -34630,7 +34630,7 @@ LABEL_73:
 // EB3A8: using guessed type char x_BYTE_EB3A8;
 // F01E8: using guessed type int (/*__cdecl*/ *x_DWORD_F01E8)(x_DWORD, x_DWORD, x_DWORD);
 // F01EC: using guessed type int (/*__cdecl*/ *x_DWORD_F01EC)(x_DWORD, x_DWORD, x_DWORD);
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 // 180648: using guessed type int x_DWORD_180648;
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
@@ -35350,9 +35350,9 @@ char /*__cdecl*/ sub_2DE80(__int16 a1, __int16 a2, Bit8u** a3)
   {
     v3 = *(unsigned __int8 *)(a3 + 5) / 2;
     v4 = a2 / 2 * x_DWORD_18062C_resolution_x + a1 / 2;
-    v5 = (x_BYTE *)(v4 + x_DWORD_180628b);
+    v5 = (x_BYTE *)(v4 + x_DWORD_180628b_screen_buffer);
     v6 = *(x_BYTE **)a3;
-    for ( i = v4 + (int)x_DWORD_180628b; v3; v6 += v15 )
+    for ( i = v4 + (int)x_DWORD_180628b_screen_buffer; v3; v6 += v15 )
     {
       while ( 1 )
       {
@@ -35393,9 +35393,9 @@ char /*__cdecl*/ sub_2DE80(__int16 a1, __int16 a2, Bit8u** a3)
   {
     v4 = a1 + x_DWORD_18062C_resolution_x * a2;
     v9 = *(unsigned __int8 *)(a3 + 5);
-    v10 = (x_BYTE *)(v4 + (int)x_DWORD_180628b);
+    v10 = (x_BYTE *)(v4 + (int)x_DWORD_180628b_screen_buffer);
     v11 = *(x_BYTE **)a3;
-    v17 = v4 + (int)x_DWORD_180628b;
+    v17 = v4 + (int)x_DWORD_180628b_screen_buffer;
     if ( *(x_BYTE *)(a3 + 5) )
     {
       do
@@ -35440,7 +35440,7 @@ char /*__cdecl*/ sub_2DE80(__int16 a1, __int16 a2, Bit8u** a3)
   }
   return v4;
 }
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 // 18062C: using guessed type int x_DWORD_18062C_resolution_x;
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
@@ -35467,9 +35467,9 @@ char /*__cdecl*/ sub_2DFD0(__int16 a1, __int16 a2, int a3, unsigned __int8 a4)
   {
     v19 = *(unsigned __int8 *)(a3 + 5) / 2;
     v4 = a2 / 2 * x_DWORD_18062C_resolution_x + a1 / 2;
-    v5 = (x_BYTE *)(v4 + (int)x_DWORD_180628b);
+    v5 = (x_BYTE *)(v4 + (int)x_DWORD_180628b_screen_buffer);
     v6 = *(x_BYTE **)a3;
-    for ( i = v4 + (int)x_DWORD_180628b; v19; v6 += v14 )
+    for ( i = v4 + (int)x_DWORD_180628b_screen_buffer; v19; v6 += v14 )
     {
       while ( 1 )
       {
@@ -35506,10 +35506,10 @@ char /*__cdecl*/ sub_2DFD0(__int16 a1, __int16 a2, int a3, unsigned __int8 a4)
   else
   {
     v18 = *(unsigned __int8 *)(a3 + 5);
-    LOBYTE(v4) = (int)x_DWORD_180628b;
-    v9 = (x_BYTE *)((int)x_DWORD_180628b + a1 + x_DWORD_18062C_resolution_x * a2);
+    LOBYTE(v4) = (int)x_DWORD_180628b_screen_buffer;
+    v9 = (x_BYTE *)((int)x_DWORD_180628b_screen_buffer + a1 + x_DWORD_18062C_resolution_x * a2);
     v10 = *(x_BYTE **)a3;
-    v17 = (int)x_DWORD_180628b + a1 + x_DWORD_18062C_resolution_x * a2;
+    v17 = (int)x_DWORD_180628b_screen_buffer + a1 + x_DWORD_18062C_resolution_x * a2;
     if ( *(x_BYTE *)(a3 + 5) )
     {
       do
@@ -35551,7 +35551,7 @@ char /*__cdecl*/ sub_2DFD0(__int16 a1, __int16 a2, int a3, unsigned __int8 a4)
   }
   return v4;
 }
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 // 18062C: using guessed type int x_DWORD_18062C_resolution_x;
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
@@ -35688,13 +35688,13 @@ int /*__cdecl*/ sub_2E790(__int16 a1, int a2, int a3, int a4, unsigned __int8 a5
       if ( (signed __int16)a3 + v5 <= v9 )
         break;
       ++v9;
-      *(x_BYTE *)((int)x_DWORD_180628b + x_DWORD_18062C_resolution_x * (signed __int16)result + v10) = x_BYTE_FAEE0[256 * a5
-                                                                                        + *(unsigned __int8 *)((int)x_DWORD_180628b + x_DWORD_18062C_resolution_x * (signed __int16)result + v10)];
+      *(x_BYTE *)((int)x_DWORD_180628b_screen_buffer + x_DWORD_18062C_resolution_x * (signed __int16)result + v10) = x_BYTE_FAEE0[256 * a5
+                                                                                        + *(unsigned __int8 *)((int)x_DWORD_180628b_screen_buffer + x_DWORD_18062C_resolution_x * (signed __int16)result + v10)];
     }
   }
   return result;
 }
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 // 18062C: using guessed type int x_DWORD_18062C_resolution_x;
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
@@ -35732,13 +35732,13 @@ int /*__cdecl*/ sub_2E850(__int16 a1, int a2, int a3, int a4, unsigned __int8 a5
       if ( (signed __int16)a3 + v5 <= v9 )
         break;
       ++v9;
-      *(x_BYTE *)((int)x_DWORD_180628b + x_DWORD_18062C_resolution_x * (signed __int16)result + v10) = x_BYTE_F6EE0[256 * a5
-                                                                                        + *(unsigned __int8 *)((int)x_DWORD_180628b + x_DWORD_18062C_resolution_x * (signed __int16)result + v10)];
+      *(x_BYTE *)((int)x_DWORD_180628b_screen_buffer + x_DWORD_18062C_resolution_x * (signed __int16)result + v10) = x_BYTE_F6EE0[256 * a5
+                                                                                        + *(unsigned __int8 *)((int)x_DWORD_180628b_screen_buffer + x_DWORD_18062C_resolution_x * (signed __int16)result + v10)];
     }
   }
   return result;
 }
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 // 18062C: using guessed type int x_DWORD_18062C_resolution_x;
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
@@ -35766,7 +35766,7 @@ int sub_2EB60()
   {
     x_BYTE_D41CE = 1;
     x_BYTE_D41C1 = 1;
-    x_DWORD_F01E4 = (int)x_DWORD_180628b + 64320;
+    x_DWORD_F01E4 = (int)x_DWORD_180628b_screen_buffer + 64320;
     x_WORD_F01F4 = 12800;
     result = sub_2EC30();
     x_DWORD_D41D0 = 0;
@@ -35778,7 +35778,7 @@ int sub_2EB60()
 // D41D0: using guessed type int x_DWORD_D41D0;
 // F01E4: using guessed type int x_DWORD_F01E4;
 // F01F4: using guessed type __int16 x_WORD_F01F4;
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 
 //----- (0002EBB0) --------------------------------------------------------
 int /*__cdecl*/ sub_2EBB0(Bit8u* a1)
@@ -35789,10 +35789,10 @@ int /*__cdecl*/ sub_2EBB0(Bit8u* a1)
   {
     x_DWORD_D41D0 = (int)a1;
     x_WORD_E36D4 = 64;
-    x_DWORD_180628b += 9920;
+    x_DWORD_180628b_screen_buffer += 9920;
     result = sub_7FCB0(64, a1, 0, 630, 340, 5, x_BYTE_EB3B6, 0);
     x_WORD_E36D4 = 0;
-    x_DWORD_180628b -= 9920;
+    x_DWORD_180628b_screen_buffer -= 9920;
   }
   return result;
 }
@@ -35800,7 +35800,7 @@ int /*__cdecl*/ sub_2EBB0(Bit8u* a1)
 // D41D0: using guessed type int x_DWORD_D41D0;
 // E36D4: using guessed type __int16 x_WORD_E36D4;
 // EB3B6: using guessed type char x_BYTE_EB3B6;
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 
 //----- (0002EC30) --------------------------------------------------------
 int sub_2EC30()
@@ -48279,12 +48279,12 @@ int /*__cdecl*/ sub_40BF0(int a1, int a2, int a3, int a4)
     v7 = a4 >> 1;
   }
   x_DWORD_F2C58 = v4 + x_DWORD_18062C_resolution_x * v5;
-  result = x_DWORD_F2C58 + (int)x_DWORD_180628b;
-  sub_BCD45(x_DWORD_F2C58 + (int)x_DWORD_180628b, 0, x_DWORD_18062C_resolution_x, (unsigned __int16)v6, (unsigned __int16)v7);
+  result = x_DWORD_F2C58 + (int)x_DWORD_180628b_screen_buffer;
+  sub_BCD45(x_DWORD_F2C58 + (int)x_DWORD_180628b_screen_buffer, 0, x_DWORD_18062C_resolution_x, (unsigned __int16)v6, (unsigned __int16)v7);
   return result;
 }
 // F2C58: using guessed type int x_DWORD_F2C58;
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 // 18062C: using guessed type int x_DWORD_18062C_resolution_x;
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
@@ -48312,13 +48312,13 @@ int /*__cdecl*/ sub_40C50(int a1)
     v4 = 16 * a1;
   }
   v5 = v3;
-  result = v2 + (int)x_DWORD_180628b;
+  result = v2 + (int)x_DWORD_180628b_screen_buffer;
   x_DWORD_F2C58 = v2;
-  sub_BCD45(v2 + (int)x_DWORD_180628b, 0, x_DWORD_18062C_resolution_x, v4, v5);
+  sub_BCD45(v2 + (int)x_DWORD_180628b_screen_buffer, 0, x_DWORD_18062C_resolution_x, v4, v5);
   return result;
 }
 // F2C58: using guessed type int x_DWORD_F2C58;
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 // 18062C: using guessed type int x_DWORD_18062C_resolution_x;
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
@@ -48359,7 +48359,7 @@ int /*__fastcall*/ sub_40D10(int a1)
   __outx_WORD(0x3CEu, 0xFF08u);
   HIWORD(v1) = 0;
   v30 = (int *)&loc_A0000_vga_buffer;
-  v28 = (int)x_DWORD_180628b;
+  v28 = (int)x_DWORD_180628b_screen_buffer;
   v27 = 200;
   v29 = (Bit8u)x_DWORD_E9C3C;
   while ( v27 )
@@ -48551,11 +48551,11 @@ int /*__fastcall*/ sub_40D10(int a1)
     --v27;
   }
   result = 0;
-  memset((void *)x_DWORD_180628b, 0, 0xFA00u);
+  memset((void *)x_DWORD_180628b_screen_buffer, 0, 0xFA00u);
   return result;
 }
 // E9C3C: using guessed type int x_DWORD_E9C3C;
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 
 //----- (00040F80) --------------------------------------------------------
 void sub_40F80()
@@ -48794,7 +48794,7 @@ char /*__cdecl*/ sub_411A0(int a1, int a2, int a3, __int16 a4, signed int a5, in
   if ( *(x_BYTE *)(x_DWORD_D41A0 + 8595) && *(x_BYTE *)(x_DWORD_D41A0 + 8592) && x_DWORD_18062C_resolution_x == 640 )
   {
     sub_BCD45(
-		(int)x_DWORD_180628b,
+		(int)x_DWORD_180628b_screen_buffer,
       0,
       2 * x_DWORD_18062C_resolution_x,
       (unsigned __int16)(x_DWORD_18062C_resolution_x / 2 - 8),
@@ -48807,12 +48807,12 @@ char /*__cdecl*/ sub_411A0(int a1, int a2, int a3, __int16 a4, signed int a5, in
     v25 = 4 * v23 >> 16;
     v26 = 20 * (signed int)v24 >> 16;
     sub_3C080(v25, v21, v55 - v26, v56 - v25, v21, a5, a6, a7, a8);
-    sub_BCD45((int)x_DWORD_180628b + x_DWORD_18062C_resolution_x / 2, 0, 0, 0, 0);
+    sub_BCD45((int)x_DWORD_180628b_screen_buffer + x_DWORD_18062C_resolution_x / 2, 0, 0, 0, 0);
     x_DWORD_D4324 = 5;
     sub_3C080(v56 + v25, v21, v55 + v26, v56 + v25, v21, a5, a6, a7, a8);
     result = x_DWORD_18062C_resolution_x;
     x_DWORD_D4324 = 0;
-    sub_BCD45((int)x_DWORD_180628b, 0, x_DWORD_18062C_resolution_x, (unsigned __int16)x_DWORD_18062C_resolution_x, (unsigned __int16)x_DWORD_180624_resolution_y);
+    sub_BCD45((int)x_DWORD_180628b_screen_buffer, 0, x_DWORD_18062C_resolution_x, (unsigned __int16)x_DWORD_18062C_resolution_x, (unsigned __int16)x_DWORD_180624_resolution_y);
   }
   else if ( *(x_BYTE *)(x_DWORD_D41A0 + 8592) != 1 || *(x_BYTE *)(x_DWORD_D41A0 + 8595) )
   {
@@ -48957,7 +48957,7 @@ LABEL_44:
 // E9C3C: using guessed type int x_DWORD_E9C3C;
 // EA3E4: using guessed type int x_DWORD_EA3E4[];
 // 180624: using guessed type int x_DWORD_180624_resolution_y;
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 // 18062C: using guessed type int x_DWORD_18062C_resolution_x;
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
@@ -51443,7 +51443,7 @@ __int16 sub_44580()
   char *v89; // [esp+8h] [ebp-10h]
   int v90; // [esp+Ch] [ebp-Ch]
 
-  v0 = (x_BYTE *)x_DWORD_180628b;
+  v0 = (x_BYTE *)x_DWORD_180628b_screen_buffer;
   v1 = 0;
   while ( v1 < 0x961u )
   {
@@ -51452,7 +51452,7 @@ __int16 sub_44580()
     v0 += 25;
   }
   v2 = 0;
-  v90 = (int)x_DWORD_180628b;
+  v90 = (int)x_DWORD_180628b_screen_buffer;
   v89 = (char *)&unk_D47E0;
   while ( v2 < 0x94u )
   {
@@ -51653,7 +51653,7 @@ __int16 sub_44580()
   return v79;
 }
 // 17B4E0: using guessed type __int16 x_WORD_17B4E0;
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 
 //----- (00044D00) --------------------------------------------------------
 int sub_44D00()
@@ -53214,14 +53214,14 @@ void sub_46830_main_loop(signed __int16 *a1, signed int a2, unsigned __int16 a3)
         if ( x_WORD_180660_VGA_type_resolution & 1 )
         {
           v9 = sub_5BE80_index_pallette(*xadatapald0dat2.var28_begin_buffer, 0, 0, 0);
-          a1 = (signed __int16 *)x_DWORD_180628b;
-          sub_72883_memset_pallette(v9, (void *)x_DWORD_180628b, 0xC8u, v9);
+          a1 = (signed __int16 *)x_DWORD_180628b_screen_buffer;
+          sub_72883_memset_pallette(v9, (void *)x_DWORD_180628b_screen_buffer, 0xC8u, v9);
         }
         else
         {
           v10 = sub_5BE80_index_pallette(*xadatapald0dat2.var28_begin_buffer, 0, 0, 0);
-          a3 = (int)x_DWORD_180628b;
-          sub_728A9_memset_pallette((void *)x_DWORD_180628b, 0x1E0u, v10);
+          a3 = (int)x_DWORD_180628b_screen_buffer;
+          sub_728A9_memset_pallette((void *)x_DWORD_180628b_screen_buffer, 0x1E0u, v10);
         }
         if ( x_WORD_180660_VGA_type_resolution & 1 )
           sub_90478();
@@ -53290,7 +53290,7 @@ void sub_46830_main_loop(signed __int16 *a1, signed int a2, unsigned __int16 a3)
 // E3804: using guessed type __int16 x_WORD_E3804;
 // EA3D8: using guessed type int *xadatapald0dat2.var28_begin_buffer;
 // 1803EC: using guessed type __int16 x_WORD_1803EC;
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
 //----- (00046B40) --------------------------------------------------------
@@ -53336,12 +53336,12 @@ void sub_46B40()
     if ( x_WORD_180660_VGA_type_resolution & 1 )
     {
       v1 = sub_5BE80_index_pallette(*xadatapald0dat2.var28_begin_buffer, 0, 0, 0);
-      sub_72883_memset_pallette((int)x_DWORD_180628b, (void *)x_DWORD_180628b, 0xC8u, v1);
+      sub_72883_memset_pallette((int)x_DWORD_180628b_screen_buffer, (void *)x_DWORD_180628b_screen_buffer, 0xC8u, v1);
     }
     else
     {
       v2 = sub_5BE80_index_pallette(*xadatapald0dat2.var28_begin_buffer, 0, 0, 0);
-      sub_728A9_memset_pallette((void *)x_DWORD_180628b, 0x1E0u, v2);
+      sub_728A9_memset_pallette((void *)x_DWORD_180628b_screen_buffer, 0x1E0u, v2);
     }
     memset((void*)*xadatapald0dat2.var28_begin_buffer, 0, 768);
     sub_41A90_VGA_pallette_install(*xadatapald0dat2.var28_begin_buffer);
@@ -53353,9 +53353,9 @@ void sub_46B40()
     v3 = sub_5BE80_index_pallette(*xadatapald0dat2.var28_begin_buffer, 0, 0, 0);
     x_BYTE_EB3A8 = v3;
     if ( x_WORD_180660_VGA_type_resolution & 1 )
-      sub_72883_memset_pallette(v3, (void *)x_DWORD_180628b, 0xC8u, v3);
+      sub_72883_memset_pallette(v3, (void *)x_DWORD_180628b_screen_buffer, 0xC8u, v3);
     else
-      sub_728A9_memset_pallette((void *)x_DWORD_180628b, 0x1E0u, v3);
+      sub_728A9_memset_pallette((void *)x_DWORD_180628b_screen_buffer, 0x1E0u, v3);
     sub_8CEDF_install_mouse();
     //fix it sub_8CD27((Bit8u**)**filearray_2aa18c[0]);
     x_D41A0_BYTEARRAY_4[0x33] = 2;
@@ -53379,7 +53379,7 @@ void sub_46B40()
 // EA3D8: using guessed type int *xadatapald0dat2.var28_begin_buffer;
 // EB394: using guessed type int **filearray_2aa18c[0];
 // EB3A8: using guessed type char x_BYTE_EB3A8;
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
 //----- (00046DD0) --------------------------------------------------------
@@ -53544,13 +53544,13 @@ LABEL_15:
     v12 = *(x_WORD *)(v2 + 4);
   }
 LABEL_16:
-  result = (char *)sub_53E60_readfile_and_decompress(&v13, (Bit8u**)x_DWORD_180628b);
+  result = (char *)sub_53E60_readfile_and_decompress(&v13, (Bit8u**)x_DWORD_180628b_screen_buffer);
   if ( (signed int)result > 0 )
   {
     v4 = (int)(result + 8);
     LOBYTE(v4) = v4 & 0xF8;
     v14 = v4;
-    result = (char *)sub_53E60_readfile_and_decompress((char*)&v8, (Bit8u**)(v4 + x_DWORD_180628b));
+    result = (char *)sub_53E60_readfile_and_decompress((char*)&v8, (Bit8u**)(v4 + x_DWORD_180628b_screen_buffer));
     v5 = result;
     if ( (signed int)result > 0 )
     {
@@ -53559,7 +53559,7 @@ LABEL_16:
       x_DWORD_D4188 = (int)result;
       if ( result )
       {
-        qmemcpy(result, (void *)x_DWORD_180628b, v6);
+        qmemcpy(result, (void *)x_DWORD_180628b_screen_buffer, v6);
         x_DWORD_D418C = x_DWORD_D4188 + v14;
         v7 = (unsigned int)&v5[x_DWORD_D4188 + v14];
         x_DWORD_D4190 = (int)&v5[x_DWORD_D4188 + v14];
@@ -53576,7 +53576,7 @@ LABEL_16:
 // D418C: using guessed type int x_DWORD_D418C;
 // D4190: using guessed type int x_DWORD_D4190;
 // D41A0: using guessed type int x_DWORD_D41A0;
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
 //----- (00047130) --------------------------------------------------------
@@ -54179,7 +54179,7 @@ int /*__cdecl*/ sub_47FC0(char a1)
     sub_53E60_readfile_and_decompress("data/smatitl2.dat", (Bit8u**)x_DWORD_E9C38_smalltit);
   else
     sub_53E60_readfile_and_decompress("data/smatitle.dat", (Bit8u**)x_DWORD_E9C38_smalltit);
-  sub_85B20((x_BYTE *)x_DWORD_E9C38_smalltit, (x_WORD *)x_DWORD_180628b, 0x190u);
+  sub_85B20((x_BYTE *)x_DWORD_E9C38_smalltit, (x_WORD *)x_DWORD_180628b_screen_buffer, 0x190u);
   if ( x_WORD_180660_VGA_type_resolution & 1 )
     sub_90478();
   else
@@ -54198,7 +54198,7 @@ int /*__cdecl*/ sub_47FC0(char a1)
 // D41A0: using guessed type int x_DWORD_D41A0;
 // E9C38: using guessed type int x_DWORD_E9C38_smalltit;
 // EA3D8: using guessed type int *xadatapald0dat2.var28_begin_buffer;
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
 //----- (000480A0) --------------------------------------------------------
@@ -63546,7 +63546,7 @@ char /*__cdecl*/ sub_53F80(char* a1, char* a2, char* a3)
   
   char printbuffer[512] = { '\0' };//char v15; // [esp+0h] [ebp-194h]
   char printbuffer2[512] = { '\0' };//char v16; // [esp+90h] [ebp-104h]
-  // x_DWORD_180628b - readbuffer
+  // x_DWORD_180628b_screen_buffer - readbuffer
   //printbuffer - char v17; // [esp+120h] [ebp-74h]
   int v18; // [esp+184h] [ebp-10h]
   int v19; // [esp+188h] [ebp-Ch]
@@ -63618,7 +63618,7 @@ char /*__cdecl*/ sub_53F80(char* a1, char* a2, char* a3)
 // BD985: using guessed type x_DWORD /*__cdecl*/ settextposition(x_DWORD, x_DWORD);
 // BDBED: using guessed type x_DWORD /*__cdecl*/ outtext(x_DWORD);
 // F4720: using guessed type int x_DWORD_F4720;
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 
 //----- (00054200) --------------------------------------------------------
 char sub_54200_create_user_directiores()//235200
@@ -68757,9 +68757,9 @@ void sub_5B8D0_initialize()//23c8d0
   x_BYTE_D4B80 = 1;
   x_WORD_180660_VGA_type_resolution = 1;//fix it
   if ( x_WORD_180660_VGA_type_resolution & 1 )
-    sub_72883_memset_pallette(sub_5C0A0(), (void *)x_DWORD_180628b, 0xC8u, 0);//253883
+    sub_72883_memset_pallette(sub_5C0A0(), (void *)x_DWORD_180628b_screen_buffer, 0xC8u, 0);//253883
   else
-    sub_728A9_memset_pallette((void *)x_DWORD_180628b, 0x1E0u, 0);//2538a9
+    sub_728A9_memset_pallette((void *)x_DWORD_180628b_screen_buffer, 0x1E0u, 0);//2538a9
 
   //VGA_Write_basic_pallette(basic_pal_buffer);
 
@@ -68782,9 +68782,9 @@ void sub_5B8D0_initialize()//23c8d0
     sub_90B27_VGA_pal_fadein_fadeout(0, 0x10u, 0);
 	x_WORD_180660_VGA_type_resolution = 1;//fix it
     if ( x_WORD_180660_VGA_type_resolution & 1 )
-      sub_90D6E_VGA_set_video_mode_320x200_and_pallette((unsigned __int8 *)x_DWORD_180628b);//3aa0a4
+      sub_90D6E_VGA_set_video_mode_320x200_and_pallette((unsigned __int8 *)x_DWORD_180628b_screen_buffer);//3aa0a4
     else
-      sub_90E07_VGA_set_video_mode_640x480_and_pallette((unsigned __int8 *)x_DWORD_180628b);
+      sub_90E07_VGA_set_video_mode_640x480_and_pallette((unsigned __int8 *)x_DWORD_180628b_screen_buffer);
     memset((void*)*xadatapald0dat2.var28_begin_buffer, 0, 768);
     sub_41A90_VGA_pallette_install(*xadatapald0dat2.var28_begin_buffer);//222a90
   }
@@ -68822,7 +68822,7 @@ void sub_5B8D0_initialize()//23c8d0
 // E37FD: using guessed type char x_BYTE_E37FD;
 // EA3D8: using guessed type int *xadatapald0dat2.var28_begin_buffer;
 // EB394: using guessed type int **filearray_2aa18c[0];
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
 //----- (0005BC20) --------------------------------------------------------
@@ -69287,22 +69287,23 @@ bool /*__cdecl*/ sub_5C380_test_vga_driver_header(Bit16u testlenght)//23D380
 // 181C40: using guessed type int x_DWORD_181C40_vga_init_buffer;
 
 //----- (0005C3D0) --------------------------------------------------------
-signed int /*__cdecl*/ sub_5C3D0_file_decompress(Bit8u* a1, Bit8u* a2)
+signed int /*__cdecl*/ sub_5C3D0_file_decompress(Bit8u* input, Bit8u* output)
 {
-  char v3; // [esp+0h] [ebp-8h]
-  char v4; // [esp+1h] [ebp-7h]
-  char v5; // [esp+2h] [ebp-6h]
-  char v6; // [esp+3h] [ebp-5h]
-  char v7; // [esp+4h] [ebp-4h]
+  //char v3; // [esp+0h] [ebp-8h]
+  //char v4; // [esp+1h] [ebp-7h]
+  //char v5; // [esp+2h] [ebp-6h]
+  //char v6; // [esp+3h] [ebp-5h]
+  //char v7; // [esp+4h] [ebp-4h]
 
-  v3 = 82;
-  v4 = 78;
-  v6 = 1;
-  v5 = 67;
-  v7 = 0;
-  if ( strncmp((const char*)a1, &v3, 4) )
+  char RNSSING[5] = "RNC\x1";
+  //v3 = 82;
+  //v4 = 78;
+  //v6 = 1;
+  //v5 = 67;
+  //v7 = 0;
+  if ( strncmp((const char*)input, RNSSING, 4) )
     return 0;
-  sub_9894C_decompress(a1, a2);
+  sub_9894C_decompress(input, output);
   return 1;
 }
 // 99682: using guessed type x_DWORD /*__cdecl*/ strncmp(x_DWORD, x_DWORD, x_DWORD);
@@ -73201,7 +73202,7 @@ char */*__cdecl*/ sub_61A00(int a1, int a2, __int16 a3, __int16 a4, int a5, int 
     a5 >>= 1;
     a6 >>= 1;
   }
-  v84 = v9 * x_DWORD_18062C_resolution_x + (int)x_DWORD_180628b + v8;
+  v84 = v9 * x_DWORD_18062C_resolution_x + (int)x_DWORD_180628b_screen_buffer + v8;
   LODWORD(v12) = (uint32)sub_10000;
   HIDWORD(v12) = (signed int)sub_10000 >> 31;
   v13 = v12 / v10;
@@ -73665,7 +73666,7 @@ LABEL_123:
 // EA3DC: using guessed type int **filearray_2aa18c[6];
 // EA3E4: using guessed type int x_DWORD_EA3E4[];
 // F4960: using guessed type __int16 x_WORD_F4960[];
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 // 18062C: using guessed type int x_DWORD_18062C_resolution_x;
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
@@ -73818,7 +73819,7 @@ LABEL_10:
     a5 >>= 1;
     a6 >>= 1;
   }
-  v99 = v9 * x_DWORD_18062C_resolution_x + (int)x_DWORD_180628b + v8;
+  v99 = v9 * x_DWORD_18062C_resolution_x + (int)x_DWORD_180628b_screen_buffer + v8;
   v100 = (int)(v9 * x_DWORD_18062C_resolution_x + x_DWORD_E9C3C + v8);
   LODWORD(v13) = (uint32)sub_10000;
   HIDWORD(v13) = (signed int)sub_10000 >> 31;
@@ -74300,7 +74301,7 @@ LABEL_119:
 // EA3DC: using guessed type int **filearray_2aa18c[6];
 // EA3E4: using guessed type int x_DWORD_EA3E4[];
 // F4960: using guessed type __int16 x_WORD_F4960[];
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 // 18062C: using guessed type int x_DWORD_18062C_resolution_x;
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
@@ -74449,7 +74450,7 @@ int /*__cdecl*/ sub_63670(int a1, int a2, int a3, int a4, int a5, int a6, __int1
     v13 = a6 >> 1;
     a8 *= 2;
   }
-  v70 = v11 * x_DWORD_18062C_resolution_x + (int)x_DWORD_180628b + v10;
+  v70 = v11 * x_DWORD_18062C_resolution_x + (int)x_DWORD_180628b_screen_buffer + v10;
   v71 = (int)(v11 * x_DWORD_18062C_resolution_x + x_DWORD_E9C3C + v10);
   if ( a10 )
   {
@@ -74703,7 +74704,7 @@ int /*__cdecl*/ sub_63670(int a1, int a2, int a3, int a4, int a5, int a6, __int1
 // DBF50: using guessed type void (/*__noreturn*/ *off_DBF50[2])();
 // E9C3C: using guessed type int x_DWORD_E9C3C;
 // F4960: using guessed type __int16 x_WORD_F4960[];
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 // 18062C: using guessed type int x_DWORD_18062C_resolution_x;
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
@@ -74791,7 +74792,7 @@ int /*__cdecl*/ sub_63C90(int a1, int a2, int a3, int a4, int a5, int a6, __int1
     v13 = a6 >> 1;
     a8 *= 2;
   }
-  v60 = x_DWORD_18062C_resolution_x * v11 + v10 + (int)x_DWORD_180628b;
+  v60 = x_DWORD_18062C_resolution_x * v11 + v10 + (int)x_DWORD_180628b_screen_buffer;
   if ( a10 )
   {
     v15 = x_WORD_F4960;
@@ -75023,7 +75024,7 @@ int /*__cdecl*/ sub_63C90(int a1, int a2, int a3, int a4, int a5, int a6, __int1
 // D41B6: using guessed type char x_BYTE_D41B6;
 // DBF50: using guessed type void (/*__noreturn*/ *off_DBF50[2])();
 // F4960: using guessed type __int16 x_WORD_F4960[];
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 // 18062C: using guessed type int x_DWORD_18062C_resolution_x;
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
@@ -75122,7 +75123,7 @@ char /*__cdecl*/ sub_644F0(int a1, int a2, __int16 a3, __int16 a4, int a5, int a
     a6 >>= 1;
     a8 *= 2;
   }
-  v53 = x_DWORD_18062C_resolution_x * a2 + (int)x_DWORD_180628b + a1;
+  v53 = x_DWORD_18062C_resolution_x * a2 + (int)x_DWORD_180628b_screen_buffer + a1;
   LODWORD(v9) = (uint32)sub_10000;
   HIDWORD(v9) = (signed int)sub_10000 >> 31;
   v83 = v9 / a8;
@@ -75367,7 +75368,7 @@ LABEL_47:
 // E9800: using guessed type char x_BYTE_E9800;
 // E98F0: using guessed type char x_BYTE_E98F0;
 // EA3E4: using guessed type int x_DWORD_EA3E4[];
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 // 18062C: using guessed type int x_DWORD_18062C_resolution_x;
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 // 644F0: using guessed type int var_118[5];
@@ -75409,7 +75410,7 @@ char /*__cdecl*/ sub_64CE0(int a1)
         v7 = x_DWORD_18062C_resolution_x;
         v8 = x_DWORD_18062C_resolution_x * (v6 - 1);
         v9 = v4 - 1;
-        v10 = (x_BYTE *)(v8 + v9 + x_DWORD_180628b);
+        v10 = (x_BYTE *)(v8 + v9 + x_DWORD_180628b_screen_buffer);
         *v10 = v5;
         v10[1] = v5;
         v10[2] = v5;
@@ -75443,7 +75444,7 @@ char /*__cdecl*/ sub_64CE0(int a1)
 // D41A4: using guessed type int x_DWORD_D41A4;
 // E9C3C: using guessed type int x_DWORD_E9C3C;
 // F4960: using guessed type __int16 x_WORD_F4960[];
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 // 18062C: using guessed type int x_DWORD_18062C_resolution_x;
 
 //----- (00064E20) --------------------------------------------------------
@@ -84180,7 +84181,7 @@ void sub_71410_process_tmaps()
 
   sub_70A60_open_tmaps();
   v0 = x_WORD_D951C;
-  v1 = (int)x_DWORD_180628b;
+  v1 = (int)x_DWORD_180628b_screen_buffer;
   while ( v0[3] || v0[4] )
   {
     v2 = *v0;
@@ -84214,7 +84215,7 @@ void sub_71410_process_tmaps()
 // 8C250: using guessed type x_DWORD /*__cdecl*/ memset(x_DWORD, x_DWORD, x_DWORD);
 // D951C: using guessed type __int16 x_WORD_D951C[];
 // F6ED0: using guessed type int x_DWORD_F6ED0;
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 
 //----- (00071520) --------------------------------------------------------
 bool /*__cdecl*/ sub_71520(unsigned __int16 a1)
@@ -85107,7 +85108,7 @@ int /*__cdecl*/ sub_72C40(__int16 a1, __int16 a2, int a3, unsigned __int8 a4)
   }
   return result;
 }
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
 //----- (00072CB0) --------------------------------------------------------
@@ -86194,43 +86195,43 @@ void /*__cdecl*/ sub_75200_VGA_Blit640(Bit16u height)//256200
     sub_8CACD_subblit_remove();//26dacd
 */
   //debug
-  //x_DWORD_180628b = (Bit8u*)malloc(0x10000);
+  //x_DWORD_180628b_screen_buffer = (Bit8u*)malloc(0x10000);
   //0x351628->3aa0a4
-	if (sub_75200_VGA_Blit640_index <2) {
-		loadfromsnapshot((char*)"0160-00256200-2", x_DWORD_180628b, 0x3aa0a4, 640 * height);//4c
+	if (sub_75200_VGA_Blit640_index ==1) {
+		int compsize=compare_with_snapshot((char*)"0160-00256200-2", x_DWORD_180628b_screen_buffer, 0x3aa0a4, 640 * height);//4c
 	}
   sub_75200_VGA_Blit640_index++;
   //debug
 
-  VGA_Blit(640, height, x_DWORD_180628b);
+  VGA_Blit(640, height, x_DWORD_180628b_screen_buffer);
   /*
   sub_9951B(0);//27a51b - objevil se kurzor
-  qmemcpy(&loc_A0000_vga_buffer, (void *)x_DWORD_180628b, 0x10000u);//27a51b
-  //v1 = &x_DWORD_180628b[ 0x10000];
+  qmemcpy(&loc_A0000_vga_buffer, (void *)x_DWORD_180628b_screen_buffer, 0x10000u);//27a51b
+  //v1 = &x_DWORD_180628b_screen_buffer[ 0x10000];
   sub_9951B(1);//27a51b - tady se uz neco zobrazilo - asi 1/4
-  qmemcpy(&loc_A0000_vga_buffer, x_DWORD_180628b+ 0x10000, 0x10000u);//buffer- 102 radku
+  qmemcpy(&loc_A0000_vga_buffer, x_DWORD_180628b_screen_buffer+ 0x10000, 0x10000u);//buffer- 102 radku
   //v1 += 0x10000;
   sub_9951B(2);//27a51b //2/2
-  qmemcpy(&loc_A0000_vga_buffer, x_DWORD_180628b + 0x20000, 0x10000u);
+  qmemcpy(&loc_A0000_vga_buffer, x_DWORD_180628b_screen_buffer + 0x20000, 0x10000u);
   //v2 = (int)(v1 + 0x10000);
   sub_9951B(3);//3/4
   if ( height == 400 )
   {
-    qmemcpy(&loc_A0000_vga_buffer, x_DWORD_180628b + 0x30000, 0xE800u);
+    qmemcpy(&loc_A0000_vga_buffer, x_DWORD_180628b_screen_buffer + 0x30000, 0xE800u);
     sub_8CB1F();//2db1f //4/4
   }
   else
   {
-    qmemcpy(&loc_A0000_vga_buffer, x_DWORD_180628b + 0x30000, 0x10000u);
+    qmemcpy(&loc_A0000_vga_buffer, x_DWORD_180628b_screen_buffer + 0x30000, 0x10000u);
     sub_9951B(4);//4/4
-    qmemcpy(&loc_A0000_vga_buffer, x_DWORD_180628b + 0x40000, 0xB000u);
+    qmemcpy(&loc_A0000_vga_buffer, x_DWORD_180628b_screen_buffer + 0x40000, 0xB000u);
     if ( !x_BYTE_E3766 )
       sub_8CB1F();//prekresleni obrazovky
   }
   */
 }
 // E3766: using guessed type char x_BYTE_E3766;
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 
 //----- (000752C0) --------------------------------------------------------
 //#error "753C1: positive sp value has been found (funcsize=79)"
@@ -86708,7 +86709,7 @@ void sub_75C50()
 {
   __outx_BYTE(0x302u, 2u);
   __outx_BYTE(0x303u, 1u);
-  memset((void*)x_DWORD_180628b, 0, x_DWORD_180624_resolution_y * x_DWORD_18062C_resolution_x);
+  memset((void*)x_DWORD_180628b_screen_buffer, 0, x_DWORD_180624_resolution_y * x_DWORD_18062C_resolution_x);
   if ( x_WORD_180660_VGA_type_resolution & 1 )
     sub_90478();
   else
@@ -86716,7 +86717,7 @@ void sub_75C50()
 }
 // 8C250: using guessed type x_DWORD /*__cdecl*/ memset(x_DWORD, x_DWORD, x_DWORD);
 // 180624: using guessed type int x_DWORD_180624_resolution_y;
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 // 18062C: using guessed type int x_DWORD_18062C_resolution_x;
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
@@ -86957,9 +86958,9 @@ LABEL_23:
   }
   if ( x_BYTE_D41C1 )
   {
-    x_DWORD_180628b += 9920;
+    x_DWORD_180628b_screen_buffer += 9920;
     sub_90478();
-    x_DWORD_180628b -= 9920;
+    x_DWORD_180628b_screen_buffer -= 9920;
   }
   else
   {
@@ -86978,7 +86979,7 @@ LABEL_23:
 // 17DB48: using guessed type __int16 x_WORD_17DB48;
 // 17DB4A: using guessed type __int16 x_WORD_17DB4A;
 // 17DB50: using guessed type int x_DWORD_17DB50;
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 
 //----- (00076160) --------------------------------------------------------
 int /*__cdecl*/ sub_76160(__int16 a1, __int16 a2, int a3)
@@ -86990,7 +86991,7 @@ int /*__cdecl*/ sub_76160(__int16 a1, __int16 a2, int a3)
   x_WORD_D4004 = 0;
   x_WORD_17DB58 = 0;
   x_WORD_17DB60 = 0;
-  x_DWORD_E12F4 = (int)x_DWORD_180628b;
+  x_DWORD_E12F4 = (int)x_DWORD_180628b_screen_buffer;
   result = (int)sub_98817_open(printbuffer, 512);
   x_DWORD_17DB38 = result;
   if ( result >= 0 )
@@ -87029,7 +87030,7 @@ int /*__cdecl*/ sub_76160(__int16 a1, __int16 a2, int a3)
 // 17DB5A: using guessed type __int16 x_WORD_17DB5A;
 // 17DB5C: using guessed type __int16 x_WORD_17DB5C;
 // 17DB60: using guessed type __int16 x_WORD_17DB60;
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 // 1806E4: using guessed type char x_BYTE_1806E4;
 // 180744: using guessed type __int16 x_WORD_180744;
 // 180746: using guessed type __int16 x_WORD_180746;
@@ -87937,9 +87938,9 @@ int /*__fastcall*/ sub_76FA0(int a1, int a2, signed __int16 *a3)
         *(x_BYTE *)(v17 + 38402) = 1;
       }
       if ( x_WORD_180660_VGA_type_resolution & 1 )
-        sub_9A128((const void *)x_DWORD_E9C38_smalltit, (void *)x_DWORD_180628b, 0xC8u);
+        sub_9A128_memcopy_320line((void*)x_DWORD_E9C38_smalltit, (void*)x_DWORD_180628b_screen_buffer, 0xC8u);
       else
-        sub_9A144((const void *)x_DWORD_E9C38_smalltit, (void *)x_DWORD_180628b, 0x1E0u);
+        sub_9A144_memcopy_640line((void*)x_DWORD_E9C38_smalltit, (void*)x_DWORD_180628b_screen_buffer, 0x1E0u);
       v19 = sub_7C120(185, 232, &x_DWORD_17DED4[396]);
       v21 = sub_7AB00(v19, v20, a3, 4u);
       if ( sub_7B250((int)v21, v22, (__int16)a3) )
@@ -88003,7 +88004,7 @@ int /*__fastcall*/ sub_76FA0(int a1, int a2, signed __int16 *a3)
 // 17DF10: using guessed type char x_BYTE_17DF10;
 // 17DF13: using guessed type char x_BYTE_17DF13;
 // 1803EC: using guessed type __int16 x_WORD_1803EC;
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
 //----- (00077350) --------------------------------------------------------
@@ -88045,12 +88046,12 @@ char /*__cdecl*/ sub_77350(int a1)
     if ( x_WORD_180660_VGA_type_resolution & 1 )
     {
       v4 = sub_5BE80_index_pallette((unsigned __int8 *)x_DWORD_17DE38, 0, 0, 0);
-      sub_72883_memset_pallette(v4, (void *)x_DWORD_180628b, 0xC8u, v4);
+      sub_72883_memset_pallette(v4, (void *)x_DWORD_180628b_screen_buffer, 0xC8u, v4);
     }
     else
     {
       v5 = sub_5BE80_index_pallette((unsigned __int8 *)x_DWORD_17DE38, 0, 0, 0);
-      sub_728A9_memset_pallette((void *)x_DWORD_180628b, 0x1E0u, v5);
+      sub_728A9_memset_pallette((void *)x_DWORD_180628b_screen_buffer, 0x1E0u, v5);
     }
     if ( x_WORD_180660_VGA_type_resolution & 1 )
       sub_90478();
@@ -88140,7 +88141,7 @@ char /*__cdecl*/ sub_77350(int a1)
 // 17E09C: using guessed type char x_BYTE_17E09C;
 // 17E09D: using guessed type char x_BYTE_17E09D;
 // 1803EC: using guessed type __int16 x_WORD_1803EC;
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
 //----- (00077680) --------------------------------------------------------
@@ -88336,7 +88337,7 @@ char /*__cdecl*/ sub_779E0(int a1)//2589E0
   Bit8u* v35; // [esp+1A4h] [ebp+62h]
   Bit8u* v36; // [esp+1A8h] [ebp+66h]
   Bit8u* v37; // [esp+1ACh] [ebp+6Ah]
-  int v38; // [esp+1B0h] [ebp+6Eh]
+  //Bit8u* v38; // [esp+1B0h] [ebp+6Eh]
   int v39; // [esp+1B4h] [ebp+72h]
   __int16 v40; // [esp+1B8h] [ebp+76h]
   int v41; // [esp+1BCh] [ebp+7Ah]
@@ -88369,8 +88370,8 @@ char /*__cdecl*/ sub_779E0(int a1)//2589E0
   }
   else
   {
-    v38 = (int)x_DWORD_E9C38_smalltit;
-    x_DWORD_E9C38_smalltit = (Bit8u*)x_D41A0_BYTEARRAY_4_0xE2_heapbuffer;
+    //v38 = x_DWORD_E9C38_smalltit;
+    x_DWORD_E9C38_smalltit = x_D41A0_BYTEARRAY_4_0xE2_heapbuffer;
     v1 = x_DWORD_E9C38_smalltit[307200];
     sub_7A110(x_WORD_180660_VGA_type_resolution, 14);//25b110
   }
@@ -88420,10 +88421,10 @@ char /*__cdecl*/ sub_779E0(int a1)//2589E0
         *(x_BYTE *)(v6 + 38402) = 1;
       }
       if ( x_WORD_180660_VGA_type_resolution & 1 )
-        sub_9A128((const void *)x_DWORD_E9C38_smalltit, (void *)x_DWORD_180628b, 0xC8u);
+        sub_9A128_memcopy_320line((void*)x_DWORD_E9C38_smalltit, (void*)x_DWORD_180628b_screen_buffer, 0xC8u);
       else
-        sub_9A144((const void *)x_DWORD_E9C38_smalltit, (void *)x_DWORD_180628b, 0x1E0u);//27b144
-      v39 = sub_7E0E0();
+        sub_9A144_memcopy_640line((void*)x_DWORD_E9C38_smalltit, (void*)x_DWORD_180628b_screen_buffer, 0x1E0u);//27b144
+      v39 = sub_7E0E0();//25f0e0
 	  sub_2BB40(263, 134, xadatalang);//20cb40
       v8 = (int)x_D41A0_BYTEARRAY_4;
       if ( x_D41A0_BYTEARRAY_4[0xA] == 1 )
@@ -88511,12 +88512,12 @@ char /*__cdecl*/ sub_779E0(int a1)//2589E0
   /*LOWORD(v15) = */sub_90B27_VGA_pal_fadein_fadeout(0, 0x10u, 0);
   if ( x_WORD_180660_VGA_type_resolution & 1 )
   {
-    v15 = (int)x_DWORD_180628b;
-    sub_72883_memset_pallette((int)x_DWORD_180628b, (void *)x_DWORD_180628b, 0xC8u, 0);
+    v15 = (int)x_DWORD_180628b_screen_buffer;
+    sub_72883_memset_pallette((int)x_DWORD_180628b_screen_buffer, (void *)x_DWORD_180628b_screen_buffer, 0xC8u, 0);
   }
   else
   {
-    sub_728A9_memset_pallette((void *)x_DWORD_180628b, 0x1E0u, 0);
+    sub_728A9_memset_pallette((void *)x_DWORD_180628b_screen_buffer, 0x1E0u, 0);
   }
   if ( x_WORD_180660_VGA_type_resolution & 1 )
     sub_72883_memset_pallette(v15, (void *)x_DWORD_E9C38_smalltit, 0xC8u, 0);
@@ -88535,15 +88536,15 @@ char /*__cdecl*/ sub_779E0(int a1)//2589E0
 	// fix it//sub_8CD27((Bit8u**)**filearray_2aa18c[0]);//mozna xadatapointerstab
 	// fix it! sub_8CD27((Bit8u**)(int)x_DWORD_17DED4 + 234);
     if ( x_WORD_180660_VGA_type_resolution & 1 )
-      sub_9A128((const void *)x_DWORD_180628b, (void *)x_DWORD_E9C38_smalltit, 0xC8u);
+      sub_9A128_memcopy_320line((void*)x_DWORD_180628b_screen_buffer, (void*)x_DWORD_E9C38_smalltit, 0xC8u);
     else
-      sub_9A144((const void *)x_DWORD_180628b, (void *)x_DWORD_E9C38_smalltit, 0x1E0u);
+      sub_9A144_memcopy_640line((void*)x_DWORD_180628b_screen_buffer, (void*)x_DWORD_E9C38_smalltit, 0x1E0u);
     sub_7C120(185, 232, &x_DWORD_17DED4[396]);
   }
-  else
+  /*else
   {
-    x_DWORD_E9C38_smalltit = (Bit8u*)v38;
-  }
+    x_DWORD_E9C38_smalltit = v38;
+  }*/
   sub_7AA70(0, 0, 0, 0);
   return 1;
 }
@@ -88565,7 +88566,7 @@ char /*__cdecl*/ sub_779E0(int a1)//2589E0
 // 17DEEC: using guessed type __int16 x_WORD_17DEEC;
 // 17DEEE: using guessed type __int16 x_WORD_17DEEE;
 // 17DF10: using guessed type char x_BYTE_17DF10;
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
 //----- (000780F0) --------------------------------------------------------
@@ -89595,8 +89596,8 @@ char sub_79610()
   memset(&v28, 0, 60);
   v2 = (signed __int16 *)&unk_E28A8;
   sub_7A110(x_WORD_180660_VGA_type_resolution, 15);
-  v3 = (int)x_DWORD_180628b;
-  x_DWORD_180628b = (Bit8u*)x_DWORD_E9C38_smalltit;
+  v3 = (int)x_DWORD_180628b_screen_buffer;
+  x_DWORD_180628b_screen_buffer = (Bit8u*)x_DWORD_E9C38_smalltit;
   while ( *v2 )
   {
     v4 = v2[1];
@@ -89605,7 +89606,7 @@ char sub_79610()
     v2 += 9;
     sub_7FCB0((int)v2, (Bit8u*)v6, v5, (signed __int16)v39, v4, 4, 0, 0);
   }
-  x_DWORD_180628b = (Bit8u*)v3;
+  x_DWORD_180628b_screen_buffer = (Bit8u*)v3;
   sub_7B5A0();
   for ( i = (x_WORD*)&unk_E28A8; *i; *(i - 2) = 0 )
     i += 9;
@@ -89617,9 +89618,9 @@ char sub_79610()
     v34 = j___clock(v8, v9, (x_DWORD)v2);
     v36 = v34;
     if ( x_WORD_180660_VGA_type_resolution & 1 )
-      sub_9A128((const void *)x_DWORD_E9C38_smalltit, (void *)x_DWORD_180628b, 0xC8u);
+      sub_9A128_memcopy_320line((void*)x_DWORD_E9C38_smalltit, (void*)x_DWORD_180628b_screen_buffer, 0xC8u);
     else
-      sub_9A144((const void *)x_DWORD_E9C38_smalltit, (void *)x_DWORD_180628b, 0x1E0u);
+      sub_9A144_memcopy_640line((void*)x_DWORD_E9C38_smalltit, (void*)x_DWORD_180628b_screen_buffer, 0x1E0u);
     if ( x_WORD_17DEEE & 1 )
     {
       for ( j = (x_WORD*)&unk_E28A8; *j; j += 9 )
@@ -89804,12 +89805,12 @@ char sub_79610()
   /*LOWORD(v26) = */sub_90B27_VGA_pal_fadein_fadeout(0, 0x10u, 0);
   if ( x_WORD_180660_VGA_type_resolution & 1 )
   {
-    v26 = (int)x_DWORD_180628b;
-    sub_72883_memset_pallette((int)x_DWORD_180628b, (void *)x_DWORD_180628b, 0xC8u, 0);
+    v26 = (int)x_DWORD_180628b_screen_buffer;
+    sub_72883_memset_pallette((int)x_DWORD_180628b_screen_buffer, (void *)x_DWORD_180628b_screen_buffer, 0xC8u, 0);
   }
   else
   {
-    sub_728A9_memset_pallette((void *)x_DWORD_180628b, 0x1E0u, 0);
+    sub_728A9_memset_pallette((void *)x_DWORD_180628b_screen_buffer, 0x1E0u, 0);
   }
   if ( x_WORD_180660_VGA_type_resolution & 1 )
     sub_72883_memset_pallette(v26, (void *)x_DWORD_E9C38_smalltit, 0xC8u, 0);
@@ -89827,9 +89828,9 @@ char sub_79610()
   sub_41A90_VGA_pallette_install((unsigned __int8 *)x_DWORD_17DE38);
   // fix it! sub_8CD27((Bit8u**)(int)x_DWORD_17DED4 + 234);
   if ( x_WORD_180660_VGA_type_resolution & 1 )
-    sub_9A128((const void *)x_DWORD_180628b, (void *)x_DWORD_E9C38_smalltit, 0xC8u);
+    sub_9A128_memcopy_320line((void*)x_DWORD_180628b_screen_buffer, (void*)x_DWORD_E9C38_smalltit, 0xC8u);
   else
-    sub_9A144((const void *)x_DWORD_180628b, (void *)x_DWORD_E9C38_smalltit, 0x1E0u);
+    sub_9A144_memcopy_640line((void*)x_DWORD_180628b_screen_buffer, (void*)x_DWORD_E9C38_smalltit, 0x1E0u);
   return 1;
 }
 // 8C250: using guessed type x_DWORD /*__cdecl*/ memset(x_DWORD, x_DWORD, x_DWORD);
@@ -89848,7 +89849,7 @@ char sub_79610()
 // 17DEE4: using guessed type int x_DWORD_17DEE4;
 // 17DEEE: using guessed type __int16 x_WORD_17DEEE;
 // 17DF10: using guessed type char x_BYTE_17DF10;
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
 //----- (00079E10) --------------------------------------------------------
@@ -90048,7 +90049,7 @@ void /*__cdecl*/ sub_7A110(char a1, char a2)//25b110
 
   x_DWORD_17DE38 = *xadatapald0dat2.var28_begin_buffer;
   x_WORD_17DEEC = 0;
-  x_DWORD_17DE40 = (int)x_DWORD_180628b;
+  x_DWORD_17DE40 = (int)x_DWORD_180628b_screen_buffer;
   x_DWORD_17DEE0_filedesc = NULL;
   x_DWORD_17DEDC = 0;
   x_DWORD_17DE48c = (int)x_D41A0_BYTEARRAY_4_0xE2_heapbuffer;
@@ -90241,11 +90242,11 @@ void /*__cdecl*/ sub_7A110(char a1, char a2)//25b110
 // 17DF0A: using guessed type __int16 x_WORD_17DF0A;
 // 17DF0C: using guessed type __int16 x_WORD_17DF0C;
 // 17DF0E: using guessed type __int16 x_WORD_17DF0E;
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
 //----- (0007AA70) --------------------------------------------------------
-void /*__cdecl*/ sub_7AA70(char* path, Bit8u* a2, int position, int lenght)//25ba70
+void /*__cdecl*/ sub_7AA70(char* path, Bit8u* filebuffer, int position, int lenght)//25ba70
 {
   //FILE* result; // eax
 
@@ -90254,11 +90255,11 @@ void /*__cdecl*/ sub_7AA70(char* path, Bit8u* a2, int position, int lenght)//25b
     //result = x_DWORD_17DEE0_filedesc;
     if ( x_DWORD_17DEE0_filedesc != NULL)
     {
-      if ( a2 )
+      if (filebuffer)
       {
         sub_9891E_seek(x_DWORD_17DEE0_filedesc, position, 0);
-        sub_988A7_read(x_DWORD_17DEE0_filedesc, a2, lenght);
-        sub_5C3D0_file_decompress(a2, a2);
+        sub_988A7_read(x_DWORD_17DEE0_filedesc, filebuffer, lenght);
+        sub_5C3D0_file_decompress(filebuffer, filebuffer);
         x_DWORD_17DEDC = lenght + position;//endbuffer
       }
       else
@@ -90357,12 +90358,12 @@ int sub_7AC00_load_and_set_graphics_and_pallette()//25BC00
       if ( x_WORD_180660_VGA_type_resolution & 1 )
       {
         //v0 = sub_5BE80_index_pallette(*xadatapald0dat2.var28_begin_buffer, 0, 0, 0);
-        //sub_72883_memset_pallette((int)x_DWORD_180628b, (void *)x_DWORD_180628b, 0xC8u, sub_5BE80_index_pallette(*xadatapald0dat2.var28_begin_buffer, 0, 0, 0));
+        //sub_72883_memset_pallette((int)x_DWORD_180628b_screen_buffer, (void *)x_DWORD_180628b_screen_buffer, 0xC8u, sub_5BE80_index_pallette(*xadatapald0dat2.var28_begin_buffer, 0, 0, 0));
       }
       else
       {
         //v1 = sub_5BE80_index_pallette(*xadatapald0dat2.var28_begin_buffer, 0, 0, 0);
-        //sub_728A9_memset_pallette(&x_DWORD_180628b, 0x1E0u, sub_5BE80_index_pallette(*xadatapald0dat2.var28_begin_buffer, 0, 0, 0));//[351628d]3aa0a4,1E0,0 //fix it
+        //sub_728A9_memset_pallette(&x_DWORD_180628b_screen_buffer, 0x1E0u, sub_5BE80_index_pallette(*xadatapald0dat2.var28_begin_buffer, 0, 0, 0));//[351628d]3aa0a4,1E0,0 //fix it
       }
       memset((void*)*xadatapald0dat2.var28_begin_buffer, 0, 768);
       sub_41A90_VGA_pallette_install(*xadatapald0dat2.var28_begin_buffer);
@@ -90374,9 +90375,9 @@ int sub_7AC00_load_and_set_graphics_and_pallette()//25BC00
 	  x_BYTE_EB3A8 = sub_5BE80_index_pallette(*xadatapald0dat2.var28_begin_buffer, 0, 0, 0);
       //x_BYTE_EB3A8 = v2;
       if ( x_WORD_180660_VGA_type_resolution & 1 )
-        sub_72883_memset_pallette(x_BYTE_EB3A8, (void *)x_DWORD_180628b, 0xC8u, x_BYTE_EB3A8);
+        sub_72883_memset_pallette(x_BYTE_EB3A8, (void *)x_DWORD_180628b_screen_buffer, 0xC8u, x_BYTE_EB3A8);
       else
-        sub_728A9_memset_pallette(x_DWORD_180628b, 0x1E0u, x_BYTE_EB3A8);
+        sub_728A9_memset_pallette(x_DWORD_180628b_screen_buffer, 0x1E0u, x_BYTE_EB3A8);
       sub_8CEDF_install_mouse();
 	  // fix it//sub_8CD27((Bit8u**)**filearray_2aa18c[0]);
     }
@@ -90390,7 +90391,7 @@ int sub_7AC00_load_and_set_graphics_and_pallette()//25BC00
 // EA3D8: using guessed type int *xadatapald0dat2.var28_begin_buffer;
 // EB394: using guessed type int **filearray_2aa18c[0];
 // EB3A8: using guessed type char x_BYTE_EB3A8;
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
 //----- (0007ADE0) --------------------------------------------------------
@@ -90417,12 +90418,12 @@ int /*__cdecl*/ sub_7ADE0(char a1)
     if ( x_WORD_180660_VGA_type_resolution & 1 )
     {
       v1 = sub_5BE80_index_pallette(*xadatapald0dat2.var28_begin_buffer, 0, 0, 0);
-      sub_72883_memset_pallette((int)x_DWORD_180628b, (void *)x_DWORD_180628b, 0xC8u, v1);
+      sub_72883_memset_pallette((int)x_DWORD_180628b_screen_buffer, (void *)x_DWORD_180628b_screen_buffer, 0xC8u, v1);
     }
     else
     {
       v2 = sub_5BE80_index_pallette(*xadatapald0dat2.var28_begin_buffer, 0, 0, 0);
-      sub_728A9_memset_pallette((void *)x_DWORD_180628b, 0x1E0u, v2);
+      sub_728A9_memset_pallette((void *)x_DWORD_180628b_screen_buffer, 0x1E0u, v2);
     }
     memset((void*)*xadatapald0dat2.var28_begin_buffer, 0, 768);
     sub_41A90_VGA_pallette_install(*xadatapald0dat2.var28_begin_buffer);
@@ -90434,9 +90435,9 @@ int /*__cdecl*/ sub_7ADE0(char a1)
     v3 = sub_5BE80_index_pallette(*xadatapald0dat2.var28_begin_buffer, 0, 0, 0);
     x_BYTE_EB3A8 = v3;
     if ( x_WORD_180660_VGA_type_resolution & 1 )
-      sub_72883_memset_pallette(v3, (void *)x_DWORD_180628b, 0xC8u, v3);
+      sub_72883_memset_pallette(v3, (void *)x_DWORD_180628b_screen_buffer, 0xC8u, v3);
     else
-      sub_728A9_memset_pallette((void *)x_DWORD_180628b, 0x1E0u, v3);
+      sub_728A9_memset_pallette((void *)x_DWORD_180628b_screen_buffer, 0x1E0u, v3);
     sub_8CEDF_install_mouse();
   }
   return 0;//fix it sub_8CD27((Bit8u**)**filearray_2aa18c[0]);
@@ -90448,7 +90449,7 @@ int /*__cdecl*/ sub_7ADE0(char a1)
 // EA3D8: using guessed type int *xadatapald0dat2.var28_begin_buffer;
 // EB394: using guessed type int **filearray_2aa18c[0];
 // EB3A8: using guessed type char x_BYTE_EB3A8;
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
 //----- (0007B200) --------------------------------------------------------
@@ -90663,9 +90664,9 @@ void sub_7B5D0()
   v0 = (int)memset((void*)*xadatapald0dat2.var28_begin_buffer, 0, 768);
   BYTE1(v0) = x_WORD_180660_VGA_type_resolution;
   if ( x_WORD_180660_VGA_type_resolution & 1 )
-    sub_72883_memset_pallette(v0, (void *)x_DWORD_180628b, 0xC8u, 0);
+    sub_72883_memset_pallette(v0, (void *)x_DWORD_180628b_screen_buffer, 0xC8u, 0);
   else
-    sub_728A9_memset_pallette(x_DWORD_180628b, 0x1E0u, 0);
+    sub_728A9_memset_pallette(x_DWORD_180628b_screen_buffer, 0x1E0u, 0);
   if ( x_WORD_180660_VGA_type_resolution & 1 )
     sub_90478();
   else
@@ -90673,7 +90674,7 @@ void sub_7B5D0()
 }
 // 8C250: using guessed type x_DWORD /*__cdecl*/ memset(x_DWORD, x_DWORD, x_DWORD);
 // EA3D8: using guessed type int *xadatapald0dat2.var28_begin_buffer;
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
 //----- (0007B660) --------------------------------------------------------
@@ -91140,11 +91141,11 @@ int /*__fastcall*/ sub_7C230(int a1, int a2, signed __int16 *a3)
   if ( x_WORD_180660_VGA_type_resolution & 1 )
   {
     a3 = (signed __int16 *)x_DWORD_E9C38_smalltit;
-    sub_9A128((const void *)x_DWORD_E9C38_smalltit, (void *)x_DWORD_180628b, 0xC8u);
+    sub_9A128_memcopy_320line((void*)x_DWORD_E9C38_smalltit, (void*)x_DWORD_180628b_screen_buffer, 0xC8u);
   }
   else
   {
-    sub_9A144((const void *)x_DWORD_E9C38_smalltit, (void *)x_DWORD_180628b, 0x1E0u);
+    sub_9A144_memcopy_640line((void*)x_DWORD_E9C38_smalltit, (void*)x_DWORD_180628b_screen_buffer, 0x1E0u);
   }
   v3 = sub_7C120(185, 232, &x_DWORD_17DED4[396]);
   sub_7AB00(v3, v4, a3, 4u);
@@ -91181,7 +91182,7 @@ int /*__fastcall*/ sub_7C230(int a1, int a2, signed __int16 *a3)
 // E9C38: using guessed type int x_DWORD_E9C38_smalltit;
 // 17DED4: using guessed type int (int)x_DWORD_17DED4;
 // 17DEE4: using guessed type int x_DWORD_17DEE4;
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
 //----- (0007C390) --------------------------------------------------------
@@ -91211,9 +91212,9 @@ signed int sub_7C390()
     qmemcpy(x_BYTE_E1B9C, &x_BYTE_17DE68[11 * sub_74515() + 1], sizeof(x_BYTE_E1B9C));
     v1 = (int *)(&off_E1E98 + 6 * x_WORD_17DEF4);
     if ( x_WORD_180660_VGA_type_resolution & 1 )
-      sub_9A128((const void *)x_DWORD_E9C38_smalltit, (void *)x_DWORD_180628b, 0xC8u);
+      sub_9A128_memcopy_320line((void*)x_DWORD_E9C38_smalltit, (void*)x_DWORD_180628b_screen_buffer, 0xC8u);
     else
-      sub_9A144((const void *)x_DWORD_E9C38_smalltit, (void *)x_DWORD_180628b, 0x1E0u);
+      sub_9A144_memcopy_640line((void*)x_DWORD_E9C38_smalltit, (void*)x_DWORD_180628b_screen_buffer, 0x1E0u);
     switch ( x_WORD_17DEF6 )
     {
       case 1:
@@ -91300,7 +91301,7 @@ LABEL_13:
 // 17DEFE: using guessed type __int16 x_WORD_17DEFE;
 // 17DF00: using guessed type __int16 x_WORD_17DF00;
 // 17DF02: using guessed type __int16 x_WORD_17DF02;
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
 //----- (0007C710) --------------------------------------------------------
@@ -91865,7 +91866,7 @@ unsigned int sub_7D380()
   int v0; // eax
   //char v2; // [esp+0h] [ebp-28h]
 
-  sub_85C42((int)x_DWORD_180628b, 246, 14, 109, 14, 0x9Fu);
+  sub_85C42((int)x_DWORD_180628b_screen_buffer, 246, 14, 109, 14, 0x9Fu);
   sub_6FC50(1);
   v0 = x_BYTE_17DE72[11 * x_WORD_17DEFC];
   sprintf_s(printbuffer,512, "%d. %s", v0 - 49, off_D9204[v0]);
@@ -91874,7 +91875,7 @@ unsigned int sub_7D380()
 // 8E3D5: using guessed type x_DWORD sprintf_s(x_DWORD, const char *, ...);
 // D9204: using guessed type const char *off_D9204[2];
 // 17DEFC: using guessed type __int16 x_WORD_17DEFC;
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 
 //----- (0007D400) --------------------------------------------------------
 int sub_7D400(int a1, __int16 a2, __int16 a3, char a4)
@@ -92475,7 +92476,7 @@ LABEL_13:
 // 17DF13: using guessed type char x_BYTE_17DF13;
 
 //----- (0007E0E0) --------------------------------------------------------
-signed int sub_7E0E0()
+signed int sub_7E0E0()//25f0e0
 {
   int v0; // esi
   x_WORD *v2; // ebx
@@ -93330,7 +93331,7 @@ LABEL_10:
 LABEL_92:
       if ( x_WORD_E29D6 )
       {
-        sub_85C8B(x_DWORD_17DE64, (char *)x_DWORD_180628b, *a1, *a2, 160, 480);
+        sub_85C8B(x_DWORD_17DE64, (char *)x_DWORD_180628b_screen_buffer, *a1, *a2, 160, 480);
         sub_7D400(*a1, *a1, *a2, *a5);
         LOWORD(v38) = sub_81EE0(*a1, v37, (int)a2, (signed __int16)a5, *a1, *a2);
         LOBYTE(v38) = x_BYTE_17DB8E;
@@ -93360,7 +93361,7 @@ LABEL_92:
       }
       else
       {
-        sub_85C8B(x_DWORD_17DE64, (char *)x_DWORD_180628b, *a1, *a2, 160, 480);
+        sub_85C8B(x_DWORD_17DE64, (char *)x_DWORD_180628b_screen_buffer, *a1, *a2, 160, 480);
         sub_7D400(*a1, *a1, *a2, *a5);
         LOWORD(v33) = sub_81EE0(*a1, v32, (int)a2, (signed __int16)a5, *a1, *a2);
         if ( x_BYTE_17DB8E )
@@ -93612,7 +93613,7 @@ LABEL_179:
 // 17DF10: using guessed type char x_BYTE_17DF10;
 // 17DF11: using guessed type char x_BYTE_17DF11;
 // 17E09D: using guessed type char x_BYTE_17E09D;
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 
 //----- (0007F6A0) --------------------------------------------------------
 int sub_7F6A0(int a1, int a2, __int16 a3, __int16 a4, char *a5, x_BYTE *a6, unsigned __int8 a7)
@@ -94032,7 +94033,7 @@ int sub_7FCB0(int a1, Bit8u* a2, Bit32s a3, Bit32s a4, int a5, Bit8u a6, unsigne
 				v18 = x_DWORD_17DED4[1655];
 				v8 = v18 + a5;
 				v93 = 0;
-				v19 = (x_BYTE *)(x_DWORD_180628b + a3 + 640 * (v18 + a5));
+				v19 = (x_BYTE *)(x_DWORD_180628b_screen_buffer + a3 + 640 * (v18 + a5));
 				while (x_DWORD_17DED4[1649] > v93)
 				{
 					v20 = 0;
@@ -94148,7 +94149,7 @@ int sub_7FCB0(int a1, Bit8u* a2, Bit32s a3, Bit32s a4, int a5, Bit8u a6, unsigne
 						if (a6 == 2)
 						{
 							sub_6FC50(*(__int16 *)&v86);
-							v31 = &x_DWORD_180628b[v26 + 640 * a1];
+							v31 = &x_DWORD_180628b_screen_buffer[v26 + 640 * a1];
 							v32 = 0;
 							while (v32 < x_DWORD_17DED4[1649])
 							{
@@ -94178,7 +94179,7 @@ int sub_7FCB0(int a1, Bit8u* a2, Bit32s a3, Bit32s a4, int a5, Bit8u a6, unsigne
 							if (a8)
 							{
 								v37 = 0;
-								v38 = &x_DWORD_180628b[v99 + 640 * a1];
+								v38 = &x_DWORD_180628b_screen_buffer[v99 + 640 * a1];
 								while (v37 < x_DWORD_17DED4[1649])
 								{
 									v39 = 0;
@@ -94269,7 +94270,7 @@ int sub_7FCB0(int a1, Bit8u* a2, Bit32s a3, Bit32s a4, int a5, Bit8u a6, unsigne
 				sub_6FC50(*(__int16 *)&v86);
 				v57 = 0;
 				v58 = (x_BYTE *)(v99 + 640 * a1);
-				v59 = (int)x_DWORD_180628b;
+				v59 = (int)x_DWORD_180628b_screen_buffer;
 				while (1)
 				{
 					v58 += v59;
@@ -94296,7 +94297,7 @@ int sub_7FCB0(int a1, Bit8u* a2, Bit32s a3, Bit32s a4, int a5, Bit8u a6, unsigne
 				v62 = x_DWORD_17DED4[1649];
 				v63 = v62 + a1;
 				sub_6FC50(*(__int16 *)&v86);
-				v64 = &x_DWORD_180628b[640 * v63 + v61];
+				v64 = &x_DWORD_180628b_screen_buffer[640 * v63 + v61];
 				v65 = 0;
 				while (v65 < x_DWORD_17DED4[1649])
 				{
@@ -94335,7 +94336,7 @@ int sub_7FCB0(int a1, Bit8u* a2, Bit32s a3, Bit32s a4, int a5, Bit8u a6, unsigne
 				if (a8)
 				{
 					v71 = 640 * a1 + v99;
-					v72 = (x_BYTE *)x_DWORD_180628b;
+					v72 = (x_BYTE *)x_DWORD_180628b_screen_buffer;
 					for (l = 0; ; ++l)
 					{
 						v72 += v71;
@@ -94361,7 +94362,7 @@ int sub_7FCB0(int a1, Bit8u* a2, Bit32s a3, Bit32s a4, int a5, Bit8u a6, unsigne
 					//HIWORD(v76) = HIWORD(x_DWORD_17DED4);
 					v76 = x_DWORD_17DED4[1649];
 					v77 = v76 + a1;
-					v78 = &x_DWORD_180628b[640 * v77 + v75];
+					v78 = &x_DWORD_180628b_screen_buffer[640 * v77 + v75];
 					v79 = 0;
 					while (v79 < x_DWORD_17DED4[1649])
 					{
@@ -94450,7 +94451,7 @@ int sub_7FCB0(int a1, Bit8u* a2, Bit32s a3, Bit32s a4, int a5, Bit8u a6, unsigne
 	v84 = x_DWORD_17DED4 [6 * (a8 + 2) + 5];
 
 	//debug
-	compare_with_snapshot((char*)"0x45678", (Bit8u*)&v8, 0x4589, 4);
+	//compare_with_snapshot((char*)"0x45678", (Bit8u*)&v8, 0x4589, 4);
 	//debug
 
 	return a1 - v102 + v84;
@@ -94460,7 +94461,7 @@ int sub_7FCB0(int a1, Bit8u* a2, Bit32s a3, Bit32s a4, int a5, Bit8u a6, unsigne
 // 17DE3C: using guessed type int x_DWORD_17DE3C;
 // 17DEC0: using guessed type int (int)x_DWORD_17DEC0;
 // 17DED4: using guessed type int (int)x_DWORD_17DED4;
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 // 7FCB0: using guessed type char var_F8[180];
 
 
@@ -94753,8 +94754,8 @@ int /*__cdecl*/ sub_812D0(__int16 a1, __int16 a2)
   int result; // eax
 
   _disable();
-  v2 = (int)x_DWORD_180628b;
-  x_DWORD_180628b = (Bit8u*)x_DWORD_17DE64;
+  v2 = (int)x_DWORD_180628b_screen_buffer;
+  x_DWORD_180628b_screen_buffer = (Bit8u*)x_DWORD_17DE64;
   v3 = x_DWORD_180624_resolution_y;
   x_DWORD_180644 = 960;
   x_DWORD_180624_resolution_y = 960;
@@ -94766,7 +94767,7 @@ int /*__cdecl*/ sub_812D0(__int16 a1, __int16 a2)
   x_DWORD_180624_resolution_y = v3;
   x_DWORD_180648 = v4;
   result = v3;
-  x_DWORD_180628b = (Bit8u*)v2;
+  x_DWORD_180628b_screen_buffer = (Bit8u*)v2;
   x_DWORD_180644 = v3;
   _enable();
   return result;
@@ -94774,7 +94775,7 @@ int /*__cdecl*/ sub_812D0(__int16 a1, __int16 a2)
 // 17DE64: using guessed type int x_DWORD_17DE64;
 // 17DED4: using guessed type int (int)x_DWORD_17DED4;
 // 180624: using guessed type int x_DWORD_180624_resolution_y;
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 // 18062C: using guessed type int x_DWORD_18062C_resolution_x;
 // 180644: using guessed type int x_DWORD_180644;
 // 180648: using guessed type int x_DWORD_180648;
@@ -95039,8 +95040,8 @@ signed int /*__fastcall*/ sub_81760(int a1)
   if ( x_BYTE_E1B82 == 1 )
   {
     _disable();
-    v15 = (int)x_DWORD_180628b;
-    x_DWORD_180628b = (Bit8u*)x_DWORD_17DE64;
+    v15 = (int)x_DWORD_180628b_screen_buffer;
+    x_DWORD_180628b_screen_buffer = (Bit8u*)x_DWORD_17DE64;
     v2 = x_DWORD_180624_resolution_y;
     x_DWORD_180644 = 960;
     x_DWORD_180624_resolution_y = 960;
@@ -95064,7 +95065,7 @@ signed int /*__fastcall*/ sub_81760(int a1)
     x_DWORD_180648 = v3;
     x_DWORD_180644 = v2;
     HIWORD(a1) = HIWORD(v15);
-    x_DWORD_180628b = (Bit8u*)v15;
+    x_DWORD_180628b_screen_buffer = (Bit8u*)v15;
     _enable();
   }
   for ( i = (x_WORD*)&unk_E1960; i[2]; i += 11 )
@@ -95183,7 +95184,7 @@ LABEL_18:
 // 17DE64: using guessed type int x_DWORD_17DE64;
 // 17DED4: using guessed type int (int)x_DWORD_17DED4;
 // 180624: using guessed type int x_DWORD_180624_resolution_y;
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 // 18062C: using guessed type int x_DWORD_18062C_resolution_x;
 // 180644: using guessed type int x_DWORD_180644;
 // 180648: using guessed type int x_DWORD_180648;
@@ -95573,8 +95574,8 @@ LABEL_42:
             _disable();
             v41 = x_DWORD_18062C_resolution_x;
             v42 = x_DWORD_180624_resolution_y;
-            v43 = (int)x_DWORD_180628b;
-            x_DWORD_180628b = (Bit8u*)x_DWORD_17DE64;
+            v43 = (int)x_DWORD_180628b_screen_buffer;
+            x_DWORD_180628b_screen_buffer = (Bit8u*)x_DWORD_17DE64;
             v44 = v7[17];
             x_DWORD_180648 = 1280;
             x_DWORD_18062C_resolution_x = 1280;
@@ -95587,7 +95588,7 @@ LABEL_42:
             x_DWORD_180624_resolution_y = v42;
             x_DWORD_180648 = v41;
             x_DWORD_180644 = v42;
-            x_DWORD_180628b = (Bit8u*)v43;
+            x_DWORD_180628b_screen_buffer = (Bit8u*)v43;
             _enable();
           }
           else
@@ -95616,7 +95617,7 @@ LABEL_85:
 // 17DE64: using guessed type int x_DWORD_17DE64;
 // 17DED4: using guessed type int (int)x_DWORD_17DED4;
 // 180624: using guessed type int x_DWORD_180624_resolution_y;
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 // 18062C: using guessed type int x_DWORD_18062C_resolution_x;
 // 180644: using guessed type int x_DWORD_180644;
 // 180648: using guessed type int x_DWORD_180648;
@@ -95829,15 +95830,15 @@ __int16 sub_82670()
             x_BYTE_D41C0 = 1;
           }
 		  // fix it//sub_8CD27((Bit8u**)**filearray_2aa18c[0]);
-          memset((void*)x_DWORD_180628b, 0, 307200);
+          memset((void*)x_DWORD_180628b_screen_buffer, 0, 307200);
           if ( x_WORD_180660_VGA_type_resolution != 1 )
           {
             sub_54600_mouse_reset();
             v6 = (int)memset((void*)*xadatapald0dat2.var28_begin_buffer, 0, 768);
             if ( x_WORD_180660_VGA_type_resolution & 1 )
-              sub_72883_memset_pallette((int)x_DWORD_180628b, (void *)x_DWORD_180628b, 0xC8u, 0);
+              sub_72883_memset_pallette((int)x_DWORD_180628b_screen_buffer, (void *)x_DWORD_180628b_screen_buffer, 0xC8u, 0);
             else
-              sub_728A9_memset_pallette((void *)x_DWORD_180628b, 0x1E0u, 0);
+              sub_728A9_memset_pallette((void *)x_DWORD_180628b_screen_buffer, 0x1E0u, 0);
             sub_41A90_VGA_pallette_install(*xadatapald0dat2.var28_begin_buffer);
             x_WORD_180660_VGA_type_resolution = 1;
             sub_90D6E_VGA_set_video_mode_320x200_and_pallette(*xadatapald0dat2.var28_begin_buffer);
@@ -95856,9 +95857,9 @@ __int16 sub_82670()
           sub_8E020();
           sub_7B5D0();
           if ( x_WORD_180660_VGA_type_resolution & 1 )
-            sub_72883_memset_pallette(v7, (void *)x_DWORD_180628b, 0xC8u, 0);
+            sub_72883_memset_pallette(v7, (void *)x_DWORD_180628b_screen_buffer, 0xC8u, 0);
           else
-            sub_728A9_memset_pallette((void *)x_DWORD_180628b, 0x1E0u, 0);
+            sub_728A9_memset_pallette((void *)x_DWORD_180628b_screen_buffer, 0x1E0u, 0);
           if ( x_WORD_180660_VGA_type_resolution & 1 )
             sub_90478();
           else
@@ -95869,9 +95870,9 @@ __int16 sub_82670()
             sub_54600_mouse_reset();
             v8 = (int)memset((void*)*xadatapald0dat2.var28_begin_buffer, 0, 768);
             if ( x_WORD_180660_VGA_type_resolution & 1 )
-              sub_72883_memset_pallette(v8, (void *)x_DWORD_180628b, 0xC8u, 0);
+              sub_72883_memset_pallette(v8, (void *)x_DWORD_180628b_screen_buffer, 0xC8u, 0);
             else
-              sub_728A9_memset_pallette((void *)x_DWORD_180628b, 0x1E0u, 0);
+              sub_728A9_memset_pallette((void *)x_DWORD_180628b_screen_buffer, 0x1E0u, 0);
             sub_41A90_VGA_pallette_install(*xadatapald0dat2.var28_begin_buffer);
             x_WORD_180660_VGA_type_resolution = v11;
             if ( v11 & 1 )
@@ -95903,7 +95904,7 @@ __int16 sub_82670()
 // 17DE54: using guessed type int (int)x_DWORD_17DE54;
 // 17DEC0: using guessed type int (int)x_DWORD_17DEC0;
 // 17DEC4: using guessed type int (int)x_DWORD_17DEC4;
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 // 1806E4: using guessed type char x_BYTE_1806E4;
 
@@ -96091,7 +96092,7 @@ void /*__cdecl*/ sub_82C20(__int16 a1)
       v41 = (signed __int16)v12 + *(unsigned __int8 *)((int)x_DWORD_17DED4 + 1648);
       v39 = (signed __int16)v48;
       v40 = (signed __int16)v48;
-      v15 = (x_BYTE *)(v41 + 640 * (signed __int16)v48 + x_DWORD_180628b);
+      v15 = (x_BYTE *)(v41 + 640 * (signed __int16)v48 + x_DWORD_180628b_screen_buffer);
       sub_7C120(v12, v48, &x_DWORD_17DED4[1644]);
       sub_7C120(v11 + v12 - *(unsigned __int8 *)((int)x_DWORD_17DED4 + 1648), v40, &x_DWORD_17DED4[1644]);
       v45 = 0;
@@ -96214,7 +96215,7 @@ LABEL_46:
 // 17DE3C: using guessed type int x_DWORD_17DE3C;
 // 17DEC0: using guessed type int (int)x_DWORD_17DEC0;
 // 17DED4: using guessed type int (int)x_DWORD_17DED4;
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 
 //----- (00083250) --------------------------------------------------------
 signed int /*__cdecl*/ sub_83250(char a1)
@@ -96222,7 +96223,7 @@ signed int /*__cdecl*/ sub_83250(char a1)
   int v1; // eax
 
 		  // fix it//sub_8CD27((Bit8u**)**filearray_2aa18c[0]);
-  memset((void*)x_DWORD_180628b, 0, 307200);
+  memset((void*)x_DWORD_180628b_screen_buffer, 0, 307200);
   if ( x_WORD_180660_VGA_type_resolution != 1 )
   {
     sub_54600_mouse_reset();
@@ -96237,9 +96238,9 @@ signed int /*__cdecl*/ sub_83250(char a1)
   v1 = (int)memset((void*)*xadatapald0dat2.var28_begin_buffer, 0, 768);
   BYTE1(v1) = x_WORD_180660_VGA_type_resolution;
   if ( x_WORD_180660_VGA_type_resolution & 1 )
-    sub_72883_memset_pallette(v1, (void *)x_DWORD_180628b, 0xC8u, 0);
+    sub_72883_memset_pallette(v1, (void *)x_DWORD_180628b_screen_buffer, 0xC8u, 0);
   else
-    sub_728A9_memset_pallette((void *)x_DWORD_180628b, 0x1E0u, 0);
+    sub_728A9_memset_pallette((void *)x_DWORD_180628b_screen_buffer, 0x1E0u, 0);
   sub_41A90_VGA_pallette_install(*xadatapald0dat2.var28_begin_buffer);
   x_WORD_180660_VGA_type_resolution = 8;
   sub_90E07_VGA_set_video_mode_640x480_and_pallette(*xadatapald0dat2.var28_begin_buffer);
@@ -96259,7 +96260,7 @@ signed int /*__cdecl*/ sub_83250(char a1)
 // 17DED4: using guessed type int (int)x_DWORD_17DED4;
 // 17DEEE: using guessed type __int16 x_WORD_17DEEE;
 // 17DF10: using guessed type char x_BYTE_17DF10;
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
 //----- (000833C0) --------------------------------------------------------
@@ -96299,7 +96300,7 @@ void sub_833C0()
   v20 = 0;
   x_DWORD_17DE38 = *xadatapald0dat2.var28_begin_buffer;
   x_WORD_17DEEC = 0;
-  x_DWORD_17DE40 = (int)x_DWORD_180628b;
+  x_DWORD_17DE40 = (int)x_DWORD_180628b_screen_buffer;
   x_DWORD_17DEE0_filedesc = NULL;
   v0 = (int)x_D41A0_BYTEARRAY_4_0xE2_heapbuffer;
   x_DWORD_17DEDC = 0;
@@ -96348,9 +96349,9 @@ void sub_833C0()
   while ( !x_BYTE_17DF10 && !x_WORD_17DEEE )
   {
     if ( x_WORD_180660_VGA_type_resolution & 1 )
-      sub_9A128((const void *)x_DWORD_17DE64, (void *)x_DWORD_180628b, 0xC8u);
+      sub_9A128_memcopy_320line((void*)x_DWORD_17DE64, (void*)x_DWORD_180628b_screen_buffer, 0xC8u);
     else
-      sub_9A144((const void *)x_DWORD_17DE64, (void *)x_DWORD_180628b, 0x1E0u);
+      sub_9A144_memcopy_640line((void*)x_DWORD_17DE64, (void*)x_DWORD_180628b_screen_buffer, 0x1E0u);
     v8 = j___clock(v6, v7, v5);
     v5 = v19;
     v18 = v8;
@@ -96403,9 +96404,9 @@ LABEL_24:
   v17 = (int)memset((void*)*xadatapald0dat2.var28_begin_buffer, 0, 768);
   LOBYTE(v17) = x_WORD_180660_VGA_type_resolution;
   if ( x_WORD_180660_VGA_type_resolution & 1 )
-    sub_72883_memset_pallette(v17, (void *)x_DWORD_180628b, 0xC8u, 0);
+    sub_72883_memset_pallette(v17, (void *)x_DWORD_180628b_screen_buffer, 0xC8u, 0);
   else
-    sub_728A9_memset_pallette((void *)x_DWORD_180628b, 0x1E0u, 0);
+    sub_728A9_memset_pallette((void *)x_DWORD_180628b_screen_buffer, 0x1E0u, 0);
   if ( x_WORD_180660_VGA_type_resolution & 1 )
     sub_90478();
   else
@@ -96442,7 +96443,7 @@ LABEL_24:
 // 17DEEC: using guessed type __int16 x_WORD_17DEEC;
 // 17DEEE: using guessed type __int16 x_WORD_17DEEE;
 // 17DF10: using guessed type char x_BYTE_17DF10;
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 // 1806E4: using guessed type char x_BYTE_1806E4;
 
@@ -96477,9 +96478,9 @@ int sub_83850()
   while ( !x_BYTE_1806E4 && !x_WORD_180746 && !x_WORD_180744 && (j___clock(v5, v3, v1) - v4) / 0x64u <= 0x14 )
   {
     if ( x_WORD_180660_VGA_type_resolution & 1 )
-      sub_9A128((const void *)x_DWORD_E9C38_smalltit, (void *)x_DWORD_180628b, 0xC8u);
+      sub_9A128_memcopy_320line((void*)x_DWORD_E9C38_smalltit, (void*)x_DWORD_180628b_screen_buffer, 0xC8u);
     else
-      sub_9A144((const void *)x_DWORD_E9C38_smalltit, (void *)x_DWORD_180628b, 0x1E0u);
+      sub_9A144_memcopy_640line((void*)x_DWORD_E9C38_smalltit, (void*)x_DWORD_180628b_screen_buffer, 0x1E0u);
     if ( (x_WORD)v1 )
     {
       if ( x_WORD_180660_VGA_type_resolution & 1 )
@@ -96495,9 +96496,9 @@ int sub_83850()
   }
   /*LOWORD(v6) = */sub_90B27_VGA_pal_fadein_fadeout(0, 0x10u, 0);
   if ( x_WORD_180660_VGA_type_resolution & 1 )
-    sub_72883_memset_pallette((int)x_DWORD_180628b, (void *)x_DWORD_180628b, 0xC8u, 0);
+    sub_72883_memset_pallette((int)x_DWORD_180628b_screen_buffer, (void *)x_DWORD_180628b_screen_buffer, 0xC8u, 0);
   else
-    sub_728A9_memset_pallette((void *)x_DWORD_180628b, 0x1E0u, 0);
+    sub_728A9_memset_pallette((void *)x_DWORD_180628b_screen_buffer, 0x1E0u, 0);
   if ( x_WORD_180660_VGA_type_resolution & 1 )
     sub_90478();
   else
@@ -96513,7 +96514,7 @@ int sub_83850()
 // 9A122: using guessed type x_DWORD /*__cdecl*/ j___delay(x_DWORD);
 // E9C38: using guessed type int x_DWORD_E9C38_smalltit;
 // EA3D8: using guessed type int *xadatapald0dat2.var28_begin_buffer;
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 // 1806E4: using guessed type char x_BYTE_1806E4;
 // 180744: using guessed type __int16 x_WORD_180744;
@@ -97957,7 +97958,7 @@ __int16 /*__cdecl*/ sub_856D0(int a1, int a2, __int16 a3, int a4)
   BYTE1(v9) = v5 - v10;
   v8 = *(x_DWORD *)a4;
   v35 = x_DWORD_18062C_resolution_x;
-  v11 = (x_BYTE *)(x_DWORD_18062C_resolution_x * (v7 + (unsigned __int8)v9) + x_DWORD_180628b + v6 + v36);
+  v11 = (x_BYTE *)(x_DWORD_18062C_resolution_x * (v7 + (unsigned __int8)v9) + x_DWORD_180628b_screen_buffer + v6 + v36);
   if ( (x_BYTE)v9 )
   {
     v12 = v10;
@@ -98281,7 +98282,7 @@ LABEL_41:
 // 17FEC4: using guessed type int x_DWORD_17FEC4;
 // 17FEC8: using guessed type int x_DWORD_17FEC8;
 // 17FECC: using guessed type int x_DWORD_17FECC;
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 // 18062C: using guessed type int x_DWORD_18062C_resolution_x;
 
 //----- (00085AF0) --------------------------------------------------------
@@ -98332,7 +98333,7 @@ int /*__cdecl*/ sub_85B20(x_BYTE *a1, x_WORD *a2, unsigned __int16 a3)
   v4 = a2;
   if ( x_WORD_180660_VGA_type_resolution & 1 )
   {
-    sub_9A128(a1, a2, 0xC8u);
+    sub_9A128_memcopy_320line(a1, a2, 0xC8u);
     result = v17;
   }
   else
@@ -98557,10 +98558,10 @@ void /*__spoils<ecx>*/ sub_85CC3(unsigned int a1, int a2, unsigned __int16 *a3)
   int v20; // [esp+Ch] [ebp-4h]
 
   v3 = a3;
-  v4 = (char *)x_DWORD_180628b;
-  v19 = (x_BYTE *)(x_DWORD_180628b + 306560);
-  v17 = (int)x_DWORD_180628b + 640;
-  v18 = (int)x_DWORD_180628b + 307200;
+  v4 = (char *)x_DWORD_180628b_screen_buffer;
+  v19 = (x_BYTE *)(x_DWORD_180628b_screen_buffer + 306560);
+  v17 = (int)x_DWORD_180628b_screen_buffer + 640;
+  v18 = (int)x_DWORD_180628b_screen_buffer + 307200;
   v20 = 0;
   LOWORD(a2) = 240;
   do
@@ -98629,7 +98630,7 @@ void /*__spoils<ecx>*/ sub_85CC3(unsigned int a1, int a2, unsigned __int16 *a3)
   }
   while ( (x_WORD)a2 );
 }
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 
 //----- (00085E40) --------------------------------------------------------
 int sub_85E40()
@@ -103559,7 +103560,7 @@ void sub_8C635_subsubblit_remove()
   x_WORD_1806EE = HIWORD(x_DWORD_1806FC);
   x_DWORD_180714 = (int)x_DWORD_180700;
   x_DWORD_180718 = (int)x_DWORD_1806F0;
-  x_DWORD_180708 = x_DWORD_180704 + (int)x_DWORD_180628b;
+  x_DWORD_180708 = x_DWORD_180704 + (int)x_DWORD_180628b_screen_buffer;
   x_DWORD_18070C = (int)x_DWORD_180730;
   for ( x_WORD_180738 = 0; ; ++x_WORD_180738 )
   {
@@ -103585,7 +103586,7 @@ void sub_8C635_subsubblit_remove()
 }
 // E3760: using guessed type int x_DWORD_E3760;
 // 180624: using guessed type int x_DWORD_180624_resolution_y;
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 // 18062C: using guessed type int x_DWORD_18062C_resolution_x;
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 // 1806E8: using guessed type int;
@@ -103691,7 +103692,7 @@ int sub_8CA16()
   x_BYTE *v2; // edx
 
   x_DWORD_180714 = (int)x_DWORD_180700;
-  x_DWORD_180708 = x_DWORD_180704 + (int)x_DWORD_180628b;
+  x_DWORD_180708 = x_DWORD_180704 + (int)x_DWORD_180628b_screen_buffer;
   for ( x_WORD_180738 = 0; ; ++x_WORD_180738 )
   {
     result = x_DWORD_1806FC >> 16;
@@ -103709,7 +103710,7 @@ int sub_8CA16()
   }
   return result;
 }
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 // 18062C: using guessed type int x_DWORD_18062C_resolution_x;
 // 1806F8: using guessed type int x_DWORD_1806F8;
 // 1806FC: using guessed type int x_DWORD_1806FC;
@@ -103776,8 +103777,8 @@ void sub_8CD27(Pathstruct a1)//26dd27
   //__int16 v4; // [esp+8h] [ebp-8h]
   //int v5; // [esp+Ch] [ebp-4h]
   x_DWORD_E3758 = 1;//2b4758
-  //v5 = (int)x_DWORD_180628b;
-  x_DWORD_180628b[0] = x_DWORD_180730[0];//351730
+  //v5 = (int)x_DWORD_180628b_screen_buffer;
+  x_DWORD_180628b_screen_buffer[0] = x_DWORD_180730[0];//351730
   if ( a1.var28_begin_buffer )
   {
     x_WORD_18072C = a1.var36_size_buffer&&0xff;
@@ -103826,13 +103827,13 @@ void sub_8CD27(Pathstruct a1)//26dd27
   x_DWORD_180648 = x_DWORD_180658;
   x_DWORD_180644 = x_DWORD_180654;
   //result = v5;
-  //x_DWORD_180628b = (Bit8u*)v5;
+  //x_DWORD_180628b_screen_buffer = (Bit8u*)v5;
   x_DWORD_E3758 = 0;
   //return result;
 }
 // E36D4: using guessed type __int16 x_WORD_E36D4;
 // E3758: using guessed type int x_DWORD_E3758;
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 // 18062C: using guessed type int x_DWORD_18062C_resolution_x;
 // 180630: using guessed type int x_DWORD_180630;
 // 180634: using guessed type int x_DWORD_180634;
@@ -104729,11 +104730,11 @@ __int16 sub_8E736()
 //----- (0008E799) --------------------------------------------------------
 int sub_8E799()
 {
-  return sub_8F023(x_DWORD_E3840, (int)x_DWORD_180628b, x_DWORD_E3824 - 6);
+  return sub_8F023(x_DWORD_E3840, (int)x_DWORD_180628b_screen_buffer, x_DWORD_E3824 - 6);
 }
 // E3824: using guessed type int x_DWORD_E3824;
 // E3840: using guessed type int x_DWORD_E3840;
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 
 //----- (0008E7B7) --------------------------------------------------------
 int sub_8E7B7()
@@ -104832,7 +104833,7 @@ __int16 sub_8E871()
 
   v11 = (unsigned __int16)x_WORD_E3820;
   sub_8F023(x_DWORD_E3840, (int)x_DWORD_E9C38_smalltit, x_DWORD_E3824 - 6);
-  v0 = (x_WORD *)x_DWORD_180628b;
+  v0 = (x_WORD *)x_DWORD_180628b_screen_buffer;
   v10 = *(x_WORD *)x_DWORD_E9C38_smalltit;
   v1 = (x_WORD *)(x_DWORD_E9C38_smalltit + 2);
   do
@@ -104894,7 +104895,7 @@ LABEL_14:
 // E3824: using guessed type int x_DWORD_E3824;
 // E3840: using guessed type int x_DWORD_E3840;
 // E9C38: using guessed type int x_DWORD_E9C38_smalltit;
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 
 //----- (0008E948) --------------------------------------------------------
 int sub_8E948()
@@ -104919,7 +104920,7 @@ int sub_8E948()
   v0 = (unsigned __int16)x_WORD_E3820;
   v1 = sub_8F023(x_DWORD_E3840, (int)x_DWORD_E9C38_smalltit, x_DWORD_E3824 - 6);
   LOWORD(v1) = *(x_WORD *)x_DWORD_E9C38_smalltit;
-  v13 = v0 * v1 + (int)x_DWORD_180628b;
+  v13 = v0 * v1 + (int)x_DWORD_180628b_screen_buffer;
   v2 = (char *)(x_DWORD_E9C38_smalltit + 4);
   v15 = *(x_WORD *)(x_DWORD_E9C38_smalltit + 2);
   do
@@ -104959,7 +104960,7 @@ int sub_8E948()
 // E3824: using guessed type int x_DWORD_E3824;
 // E3840: using guessed type int x_DWORD_E3840;
 // E9C38: using guessed type int x_DWORD_E9C38_smalltit;
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 
 //----- (0008E9EF) --------------------------------------------------------
 char sub_8E9EF()
@@ -104978,7 +104979,7 @@ char sub_8E9EF()
   v10 = x_WORD_E3820;
   v0 = x_WORD_E3822;
   sub_8F023(x_DWORD_E3840, (int)x_DWORD_E9C38_smalltit, x_DWORD_E3824 - 6);
-  v1 = (x_BYTE *)x_DWORD_180628b;
+  v1 = (x_BYTE *)x_DWORD_180628b_screen_buffer;
   v2 = (char *)x_DWORD_E9C38_smalltit;
   v3 = v0;
   do
@@ -105031,7 +105032,7 @@ char sub_8E9EF()
 // E3824: using guessed type int x_DWORD_E3824;
 // E3840: using guessed type int x_DWORD_E3840;
 // E9C38: using guessed type int x_DWORD_E9C38_smalltit;
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 
 //----- (0008EA7B) --------------------------------------------------------
 void /*__fastcall*/ sub_8EA7B(int a1, unsigned __int16 a2)
@@ -105531,7 +105532,7 @@ void /*__cdecl*/ sub_8F8B0(__int16 a1, __int16 a2, Pathstruct a3)//2708B0
   sub_8F935(a3.var36_size_buffer, a2, a1, a3.debugx, 0, 0);//270935 // a2 je 86
   //return v4;
 }
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 
 //----- (0008F8E8) --------------------------------------------------------
 void /*__cdecl*/ sub_8F8E8(__int16 a1, __int16 a2, Pathstruct a3)
@@ -105553,7 +105554,7 @@ void /*__cdecl*/ sub_8F8E8(__int16 a1, __int16 a2, Pathstruct a3)
 	sub_8F935(a3.var36_size_buffer&0xff, a2, a1, a3.debugx, 0, 0);//270935
   //return v4;
 }
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 
 //----- (0008F920) --------------------------------------------------------
 void sub_8F920(__int16 a1, signed int a2, int a3, char *a4, unsigned __int8 a5, char a6)
@@ -105710,7 +105711,7 @@ void sub_8F935(Bit16u a1, signed int a2, int a3, Bit8u* a4, unsigned __int8 a5, 
 
   if ( !(a1&&0xff00 ))//453558
     return;
-  v6 = (int)x_DWORD_180628b + x_DWORD_18063C + x_DWORD_18062C_resolution_x * x_DWORD_180650;
+  v6 = (int)x_DWORD_180628b_screen_buffer + x_DWORD_18063C + x_DWORD_18062C_resolution_x * x_DWORD_180650;
   if ( x_WORD_180660_VGA_type_resolution & 1 )
   {
     LOBYTE(a1) = (unsigned __int8)a1 >> 1;
@@ -105775,7 +105776,7 @@ void sub_8F935(Bit16u a1, signed int a2, int a3, Bit8u* a4, unsigned __int8 a5, 
         --v126;
       }
       while ( v126 );
-      v6 = (int)x_DWORD_180628b;
+      v6 = (int)x_DWORD_180628b_screen_buffer;
     }
     else
     {
@@ -106600,7 +106601,7 @@ LABEL_225:
 }
 // E36D4: using guessed type __int16 x_WORD_E36D4;
 // E3890: using guessed type int x_DWORD_E3890;
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 // 18062C: using guessed type int x_DWORD_18062C_resolution_x;
 // 180634: using guessed type int x_DWORD_180634;
 // 18063C: using guessed type int x_DWORD_18063C;
@@ -106620,7 +106621,7 @@ void /*__cdecl*/ sub_90164(Bit16u x1, Bit16u y1, Bit16u x2, Bit16u y2, Bit8u a5)
   Bit16u v10; // [esp+0h] [ebp-4h]
   Bit16u v11; // [esp+14h] [ebp+10h]
 
-  pixel = &x_DWORD_180628b[320 * (y1 >> 1) + (x1 >> 1)];
+  pixel = &x_DWORD_180628b_screen_buffer[320 * (y1 >> 1) + (x1 >> 1)];
   v6 = y2 >> 1;
   v11 = x2 >> 1;
   v10 = (320 - v11);
@@ -106656,7 +106657,7 @@ void /*__cdecl*/ sub_90164(Bit16u x1, Bit16u y1, Bit16u x2, Bit16u y2, Bit8u a5)
 }
 // E36D4: using guessed type __int16 x_WORD_E36D4;
 // E3890: using guessed type int x_DWORD_E3890;
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 
 //----- (000901E4) --------------------------------------------------------
 void /*__cdecl*/ sub_901E4(unsigned __int16 a1, unsigned __int16 a2, unsigned __int16 a3, __int16 a4, unsigned __int16 a5)
@@ -106668,7 +106669,7 @@ void /*__cdecl*/ sub_901E4(unsigned __int16 a1, unsigned __int16 a2, unsigned __
   int v9; // ecx
   int v10; // [esp+0h] [ebp-4h]
 
-  v5 = (x_BYTE *)(640 * a2 + x_DWORD_180628b + a1);
+  v5 = (x_BYTE *)(640 * a2 + x_DWORD_180628b_screen_buffer + a1);
   v6 = a4;
   v10 = (unsigned __int16)(640 - a3);
   if ( x_WORD_E36D4 & 4 )
@@ -106703,7 +106704,7 @@ void /*__cdecl*/ sub_901E4(unsigned __int16 a1, unsigned __int16 a2, unsigned __
 }
 // E36D4: using guessed type __int16 x_WORD_E36D4;
 // E3890: using guessed type int x_DWORD_E3890;
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 
 //----- (0009025C) --------------------------------------------------------
 int /*__cdecl*/ sub_9025C(__int16 a1, __int16 a2, __int16 a3, __int16 a4, unsigned __int16 a5, __int16 a6)
@@ -106743,7 +106744,7 @@ int /*__cdecl*/ sub_9025C(__int16 a1, __int16 a2, __int16 a3, __int16 a4, unsign
   if ( a4 >= v8 )
     a4 = 2 * x_DWORD_180630;
   v10 = (x_BYTE *)(320 * ((unsigned int)(unsigned __int16)a2 >> 1)
-                + (int)x_DWORD_180628b
+                + (int)x_DWORD_180628b_screen_buffer
                 + ((unsigned int)(unsigned __int16)a1 >> 1));
   v11 = a5;
   v12 = (unsigned __int16)a3;
@@ -106796,7 +106797,7 @@ int /*__cdecl*/ sub_9025C(__int16 a1, __int16 a2, __int16 a3, __int16 a4, unsign
   return v16;
 }
 // E3890: using guessed type int x_DWORD_E3890;
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 // 180630: using guessed type int x_DWORD_180630;
 // 180634: using guessed type int x_DWORD_180634;
 // 18063C: using guessed type int x_DWORD_18063C;
@@ -106833,7 +106834,7 @@ int /*__cdecl*/ sub_90374(__int16 a1, __int16 a2, __int16 a3, __int16 a4, unsign
     return v13;
   if ( a4 >= (signed __int16)x_DWORD_180630 )
     a4 = x_DWORD_180630;
-  v7 = (x_BYTE *)(640 * (unsigned __int16)a2 + x_DWORD_180628b + (unsigned __int16)a1);
+  v7 = (x_BYTE *)(640 * (unsigned __int16)a2 + x_DWORD_180628b_screen_buffer + (unsigned __int16)a1);
   v8 = a5;
   v9 = (unsigned __int16)a3;
   LOWORD(v9) = a3 - a1;
@@ -106882,7 +106883,7 @@ int /*__cdecl*/ sub_90374(__int16 a1, __int16 a2, __int16 a3, __int16 a4, unsign
   return v13;
 }
 // E3890: using guessed type int x_DWORD_E3890;
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 // 180630: using guessed type int x_DWORD_180630;
 // 180634: using guessed type int x_DWORD_180634;
 // 18063C: using guessed type int x_DWORD_18063C;
@@ -106893,12 +106894,12 @@ void sub_90478()
 {
   if ( !x_BYTE_E3766 )
     sub_8CACD_subblit_remove();
-  qmemcpy(&loc_A0000_vga_buffer, (void *)x_DWORD_180628b, 0xFA00u);
+  qmemcpy(&loc_A0000_vga_buffer, (void *)x_DWORD_180628b_screen_buffer, 0xFA00u);
   if ( !x_BYTE_E3766 )
     sub_8CB1F();
 }
 // E3766: using guessed type char x_BYTE_E3766;
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 
 //----- (000904C0) --------------------------------------------------------
 char /*__cdecl*/ sub_904C0(float a1)
@@ -107182,7 +107183,7 @@ void /*__cdecl*/ sub_90B27_VGA_pal_fadein_fadeout(Bit8u *newpalbuffer, Bit8u sha
 			}
 			//sub_9A0FC();
 			sub_41A90_VGA_pallette_install(outbuffer);
-			mydelay(200);
+			mydelay(50);
 		}
 		x_BYTE_E390C_VGA_pal_not_begin = 0;
 	}
@@ -109993,15 +109994,15 @@ signed int /*__fastcall*/ sub_9A10A(signed int result)
 // E4CA4: using guessed type int x_DWORD_E4CA4;
 
 //----- (0009A128) --------------------------------------------------------
-void /*__cdecl*/ sub_9A128(const void *a1, void *a2, unsigned __int16 a3)
+void /*__cdecl*/ sub_9A128_memcopy_320line(void* source, void* desc, Bit16u countlines)
 {
-  qmemcpy(a2, (void*)a1, 320 * a3);
+  qmemcpy(desc, source, 320 * countlines);
 }
 
 //----- (0009A144) --------------------------------------------------------
-void /*__cdecl*/ sub_9A144(const void *a1, void *a2, unsigned __int16 a3)
+void /*__cdecl*/ sub_9A144_memcopy_640line(void* source, void* desc, Bit16u countlines)
 {
-  qmemcpy(a2, (void*)a1, 640 * a3);
+  qmemcpy(desc, source, 640 * countlines);
 }
 
 //----- (0009A230) --------------------------------------------------------
@@ -135979,7 +135980,7 @@ void /*__cdecl*/ /*__spoils<ecx>*/ sub_BD1B6(int a1)
   v56 = v1;
   sub_9951B(0);
   v57 = 4096;
-  v2 = sub_BD320(0, (x_BYTE *)x_DWORD_180628b, (x_BYTE *)x_DWORD_E9C3C, 0, (int)&savedregs, a1);
+  v2 = sub_BD320(0, (x_BYTE *)x_DWORD_180628b_screen_buffer, (x_BYTE *)x_DWORD_E9C3C, 0, (int)&savedregs, a1);
   v7 = v4;
   v6 = v3;
   v5 = v2;
@@ -136036,7 +136037,7 @@ void /*__cdecl*/ /*__spoils<ecx>*/ sub_BD1B6(int a1)
   sub_BD320(v53, v54, v55, 0, (int)&savedregs, a1);
 }
 // E9C3C: using guessed type int x_DWORD_E9C3C;
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 
 //----- (000BD2CB) --------------------------------------------------------
 void /*__cdecl*/ /*__spoils<ecx>*/ sub_BD2CB(int a1)
@@ -136061,7 +136062,7 @@ void /*__cdecl*/ /*__spoils<ecx>*/ sub_BD2CB(int a1)
   v8 = v1;
   sub_9951B(0);
   v9 = 4096;
-  v2 = sub_BD320(0, (x_BYTE *)x_DWORD_180628b, (x_BYTE *)x_DWORD_E9C3C, 0, (int)&savedregs, a1);
+  v2 = sub_BD320(0, (x_BYTE *)x_DWORD_180628b_screen_buffer, (x_BYTE *)x_DWORD_E9C3C, 0, (int)&savedregs, a1);
   v7 = v4;
   v6 = v3;
   v5 = v2;
@@ -136070,7 +136071,7 @@ void /*__cdecl*/ /*__spoils<ecx>*/ sub_BD2CB(int a1)
   sub_BD320(v5, v6, v7, 0, (int)&savedregs, a1);
 }
 // E9C3C: using guessed type int x_DWORD_E9C3C;
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 
 //----- (000BD320) --------------------------------------------------------
 int sub_BD320(int result, x_BYTE *a2, x_BYTE *a3, int a4, int a5, int a6)
@@ -136152,7 +136153,7 @@ void sub_BD3DD()
     sub_8CACD_subblit_remove();
   sub_9951B(0);
   v0 = (char *)&loc_A0000_vga_buffer + 51200;
-  v1 = (char *)x_DWORD_180628b;
+  v1 = (char *)x_DWORD_180628b_screen_buffer;
   v2 = 11;
   do
   {
@@ -136218,7 +136219,7 @@ void sub_BD3DD()
     sub_8CB1F();
 }
 // E3766: using guessed type char x_BYTE_E3766;
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 
 //----- (000BD524) --------------------------------------------------------
 void /*__cdecl*/ sub_BD524(__int16 a1, __int16 a2, __int16 a3, __int16 a4)
@@ -136253,7 +136254,7 @@ void /*__cdecl*/ /*__spoils<ecx>*/ sub_BD542(unsigned __int16 a1, unsigned __int
   signed int v26; // [esp+4h] [ebp-8h]
   int v27; // [esp+8h] [ebp-4h]
 
-  v27 = (int)x_DWORD_180628b + x_DWORD_18063C + x_DWORD_18062C_resolution_x * x_DWORD_180650;
+  v27 = (int)x_DWORD_180628b_screen_buffer + x_DWORD_18063C + x_DWORD_18062C_resolution_x * x_DWORD_180650;
   v5 = a2;
   if ( (a2 & 0x8000u) == 0 )
   {
@@ -136469,7 +136470,7 @@ LABEL_54:
   }
   while ( v14 );
 }
-// 180628: using guessed type int x_DWORD_180628b;
+// 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 // 18062C: using guessed type int x_DWORD_18062C_resolution_x;
 // 18063C: using guessed type int x_DWORD_18063C;
 // 180644: using guessed type int x_DWORD_180644;

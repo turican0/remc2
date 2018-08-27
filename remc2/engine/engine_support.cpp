@@ -133,7 +133,7 @@ Bit32s x_DWORD_D41A4_x9692 = -1;*/
 
 //Bit32s x2124_x_DWORD_D41A4_xCx_x_DWORD_D41A0_11234 = 0;
 
-Bit8u *x_DWORD_E9C38_smalltit; // weak
+Bit8u* x_DWORD_E9C38_smalltit; // weak
 
 //Bit32s x_DWORD_D41A4 = -1;
 
@@ -155,14 +155,14 @@ Bit8u* dword_E9C30[1000]; // weak
 
 
 
-Bit8u* x_DWORD_180628b; // weak
+Bit8u* x_DWORD_180628b_screen_buffer; // weak
 
 void support_begin() {
     readbuffer = (Bit8u*)malloc(1000000);//fix it max 64000
     printbuffer = (char*)malloc(4096);
     //printbuffer[0] = '\0';
     printbuffer2 = (char*)malloc(4096);
-	x_DWORD_180628b = (Bit8u*)malloc(320000);
+	x_DWORD_180628b_screen_buffer = (Bit8u*)malloc(320000);
 
 	x_DWORD_E9C38_smalltit= (Bit8u*)malloc(64000);
 	//x_D41A0_BYTEARRAY_4_0xDE_heapbuffer= (Bit8u*)malloc(64000);
@@ -186,7 +186,7 @@ void support_end() {
     free(readbuffer);
     free(printbuffer);//char* buffer; // [esp+0h] [ebp-2h]
     free(printbuffer2);//char v11; // [esp+40h] [ebp+3Eh]
-	free(x_DWORD_180628b);
+	free(x_DWORD_180628b_screen_buffer);
 	free(x_DWORD_E9C38_smalltit);
 	/*for (int i = 0;i < 0x1c;i++)
 		free(off_D918C[i]);*/
@@ -221,5 +221,24 @@ void loadfromsnapshot2(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u s
 };
 
 
-void compare_with_snapshot(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u size) {
+Bit32u compare_with_snapshot(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u size) {
+
+	char findnamec[500];
+	Bit8u* buffer = (Bit8u*)malloc(size);
+	FILE* fptestepc;
+	sprintf(findnamec, "../remc2/memimages/engine-memory-%s", filename);
+	fopen_s(&fptestepc, findnamec, "rb");
+	fseek(fptestepc, adressdos, SEEK_SET);
+	
+	fread_s(buffer, size, 1, size, fptestepc);
+	int i;
+	for (i = 0;i < size;i++)
+	{
+		if (buffer[i] != adress[i])
+			break;
+	}
+
+	free(buffer);
+
+	return(i);
 };

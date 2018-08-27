@@ -162,7 +162,7 @@ extern x_BYTE x_BYTE_35523C;//Detectoff//3551CE+6e BYTE
 extern x_BYTE x_BYTE_355220;//Langcheck//3551CE+52 BYTE
 extern x_BYTE x_BYTE_355238;//aMusic2//3551CE+6a BYTE*/
 
-extern Bit8u* x_DWORD_180628b;
+extern Bit8u* x_DWORD_180628b_screen_buffer;
 //extern char* char_355198;
 void myWriteOut(const char * format, ...);
 int myprintf(const char * format, ...);
@@ -172,6 +172,6 @@ void support_end();
 
 void loadfromsnapshot(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u size);
 void loadfromsnapshot2(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u size);
-void compare_with_snapshot(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u size);
+Bit32u compare_with_snapshot(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u size);
 
 #endif //ENGINE_SUPPORT_ACTIVE
