@@ -134,6 +134,13 @@ typedef struct {
 	
 }type_x_D41A0_BYTEARRAY_4_struct;
 
+typedef struct {
+	Bit8u byte1;
+	Bit8u byte2;
+}doublebyte;
+
+doublebyte doublebyte_conv(Bit16u a2);
+
 extern type_x_D41A0_BYTEARRAY_4_struct x_D41A0_BYTEARRAY_4_struct;
 extern Bit16s x_D41A0_WORDARRAY[];
 
@@ -163,6 +170,7 @@ extern x_BYTE x_BYTE_355220;//Langcheck//3551CE+52 BYTE
 extern x_BYTE x_BYTE_355238;//aMusic2//3551CE+6a BYTE*/
 
 extern Bit8u* x_DWORD_180628b_screen_buffer;
+
 //extern char* char_355198;
 void myWriteOut(const char * format, ...);
 int myprintf(const char * format, ...);

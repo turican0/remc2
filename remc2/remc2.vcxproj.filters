@@ -93,5 +93,8 @@
     <None Include="engine\info.x">
       <Filter>Zdrojové soubory\engine</Filter>
     </None>
+    <None Include="engine\structures.x">
+      <Filter>Zdrojové soubory\engine</Filter>
+    </None>
   </ItemGroup>
 </Project>

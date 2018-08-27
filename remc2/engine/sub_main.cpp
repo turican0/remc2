@@ -339,7 +339,6 @@ typedef struct {
 	Bit8u** var32_end_buffer;//20 // asi buffer
 	Bit32u var36_size_buffer;//24 //asi file size
 	Bit32u var40_alloc_type;//28
-	Bit8u* debugx;
 } Pathstruct;
 
 Bit8u* x_DWORD_D41BC_langbuffer; // fix it
@@ -1587,7 +1586,7 @@ char /*__cdecl*/ sub_2B860(int a1, unsigned __int8 a2);
 signed int /*__cdecl*/ sub_2B9A0(int a1);
 unsigned __int8 /*__cdecl*/ sub_2BA50(int a1, unsigned __int8 a2);
 // int _wcpp_1_unwind_leave__62(void); weak
-void /*__cdecl*/ sub_2BB40(__int16 a1, __int16 a2, Pathstruct a3);
+void /*__cdecl*/ sub_2BB40(__int16 a1, __int16 a2, Bit8u* a3);
 int /*__cdecl*/ sub_2BBB0(__int16 a1, __int16 a2, int a3);
 int /*__cdecl*/ sub_2BC10(char* a1, __int16 a2, __int16 a3, unsigned __int8 a4);
 void /*__cdecl*/ sub_2BC80(Bit16u a1, Bit16u a2, Bit16u a3, Bit16u a4, Bit8u a5);
@@ -2852,8 +2851,8 @@ void /*__cdecl*/ sub_8F420(int a1, __int16 a2);
 int sub_8F4B0(); // weak
 void /*__cdecl*/ sub_8F710(int a1, __int16 a2, signed int a3, unsigned __int8 a4, char a5);
 char *sub_8F850();
-void /*__cdecl*/ sub_8F8B0(__int16 a1, __int16 a2, Pathstruct a3);
-void /*__cdecl*/ sub_8F8E8(__int16 a1, __int16 a2, Pathstruct a3);
+void /*__cdecl*/ sub_8F8B0(__int16 a1, __int16 a2, Bit8u* a3);
+void /*__cdecl*/ sub_8F8E8(__int16 a1, __int16 a2, Bit8u* a3);
 // void sub_8F920(__int16 a1, signed int a2, int a3, char *a4, unsigned __int8 a5, char a6);
 // void sub_8F935(__int16 a1, signed int a2, int a3, char *a4, unsigned __int8 a5, char a6);
 void /*__cdecl*/ sub_90164(Bit16u a1, Bit16u a2, Bit16u a3, Bit16u a4, Bit8u a5);
@@ -13127,12 +13126,12 @@ int x_DWORD_18062C_resolution_x; // weak
 int x_DWORD_180630; // weak
 int x_DWORD_180634; // weak
 int x_DWORD_180638; // weak
-int x_DWORD_18063C; // weak
+int x_DWORD_18063C_positionx; // weak
 int x_DWORD_180640; // weak
 int x_DWORD_180644; // weak
 int x_DWORD_180648; // weak
 int x_DWORD_18064C; // weak
-int x_DWORD_180650; // weak
+int x_DWORD_180650_positiony; // weak
 int x_DWORD_180654; // weak
 int x_DWORD_180658; // weak
 int x_DWORD_18065C; // weak
@@ -34032,13 +34031,13 @@ LABEL_10:
 }
 
 //----- (0002BB40) --------------------------------------------------------
-void /*__cdecl*/ sub_2BB40(__int16 a1, __int16 a2, Pathstruct a3)
+void /*__cdecl*/ sub_2BB40(__int16 a1, __int16 a2, Bit8u* a3)//20cb40
 {
   //void (*v3)(__int16, __int16, Pathstruct); // eax
   //int result; // eax
   //int v5; // edi
   //int (*v6)(__int16, __int16, Pathstruct); // [esp+0h] [ebp-4h]
-
+//123 cd 48c80f 
   if ( x_WORD_180660_VGA_type_resolution & 1 )
     sub_8F8B0(a1, a2, a3);
   else
@@ -34174,7 +34173,7 @@ int /*__cdecl*/ sub_2BD10(__int16 a1, __int16 a2, __int16 a3, __int16 a4, unsign
 int sub_2BE30()
 {
   char v0; // dl
-  void (/*__cdecl*/ *v1)(__int16, __int16, Pathstruct); // eax
+  void (/*__cdecl*/ *v1)(__int16, __int16, Bit8u*); // eax
   char v2; // bh
   int v3; // esi
   char v4; // dl
@@ -85103,7 +85102,7 @@ int /*__cdecl*/ sub_72C40(__int16 a1, __int16 a2, int a3, unsigned __int8 a4)
   else
   {
     if ( x_WORD_180660_VGA_type_resolution & 8 )
-      sub_8F935(v4, a2, a1, (Bit8u*)v5, a4, 0);
+      sub_8F935(doublebyte_conv(v4), a2, a1, (Bit8u*)v5, a4, 0);
     result = v7;
   }
   return result;
@@ -88425,7 +88424,7 @@ char /*__cdecl*/ sub_779E0(int a1)//2589E0
       else
         sub_9A144_memcopy_640line((void*)x_DWORD_E9C38_smalltit, (void*)x_DWORD_180628b_screen_buffer, 0x1E0u);//27b144
       v39 = sub_7E0E0();//25f0e0
-	  sub_2BB40(263, 134, xadatalang);//20cb40
+	  sub_2BB40(263, 134, xadatalang.var28_begin_buffer[0]);//20cb40
       v8 = (int)x_D41A0_BYTEARRAY_4;
       if ( x_D41A0_BYTEARRAY_4[0xA] == 1 )
       {
@@ -91063,9 +91062,7 @@ signed int /*__fastcall*/ sub_7C050(__int16 a1, __int16 a2)
 //----- (0007C120) --------------------------------------------------------
 int /*__cdecl*/ sub_7C120(__int16 a1, __int16 a2, Bit8u* a3)//25d120
 {
-	Pathstruct xdebug;//debug fix it
-	xdebug.debugx = a3;//debug fix it
-	sub_2BB40(a1, a2, xdebug);//ebp
+	sub_2BB40(a1, a2, a3);//ebp
 	return 0;
 }
 
@@ -92479,34 +92476,35 @@ LABEL_13:
 signed int sub_7E0E0()//25f0e0
 {
   int v0; // esi
-  x_WORD *v2; // ebx
+  //x_WORD *v2; // ebx
   int v3; // edx
 
   v0 = 0;
   if ( x_BYTE_17DF10 == 1 )
     return 2;
-  v2 = x_WORD_E1F84;
+  //v2 = x_WORD_E1F84;
+  Bit32u i = 0;
   if ( !x_WORD_E1F84[5] )
     return 0;
   do
   {
-    if ( !(x_WORD_17DEEE & 1) || (x_WORD)v0 )
+    if ( !(x_WORD_17DEEE & 1) || v0 )
     {
-      if ( *((x_BYTE *)v2 + 24) && sub_7B200(v2, x_DWORD_17DEE4, SHIWORD(x_DWORD_17DEE4)) )
-        v3 = *((unsigned __int8 *)v2 + 20);
+      if (x_WORD_E1F84[i+24] && sub_7B200(&x_WORD_E1F84[i], x_DWORD_17DEE4, SHIWORD(x_DWORD_17DEE4)) )
+        v3 = x_WORD_E1F84[i + 20];
       else
-        v3 = *((unsigned __int8 *)v2 + 21);
-	  //fix it! sub_2BB40(v2[5], v2[6], (Bit8u**)((int)x_DWORD_17DED4 + 6 * v3));
+        v3 = x_WORD_E1F84[i + 21];
+	  sub_2BB40(x_WORD_E1F84[i + 5], x_WORD_E1F84[i + 6], &x_DWORD_17DED4[6 * v3]);
     }
-    else if ( sub_7B200(v2, x_DWORD_17DEE4, SHIWORD(x_DWORD_17DEE4)) )
+    else if ( sub_7B200(&x_WORD_E1F84[i], x_DWORD_17DEE4, SHIWORD(x_DWORD_17DEE4)) )
     {
       sub_8F100(0, 14, 127, 64, 0x64u, 0, 3u);
-	  //fix it! sub_2BB40(v2[5], v2[6], (Bit8u**)((int)x_DWORD_17DED4 + 6 * *((unsigned __int8 *)v2 + 20)));
-      LOWORD(v0) = *((unsigned __int8 *)v2 + 22);
+	  sub_2BB40(x_WORD_E1F84[i + 5], x_WORD_E1F84[i + 6], &x_DWORD_17DED4[6 * x_WORD_E1F84[i + 20]]);
+      LOWORD(v0) = x_WORD_E1F84[i + 22];
     }
-    v2 += 22;
+	i += 22;
   }
-  while ( v2[5] );
+  while (x_WORD_E1F84[i + 5]);
   return v0;
 }
 // 17DED4: using guessed type int (int)x_DWORD_17DED4;
@@ -103794,15 +103792,15 @@ void sub_8CD27(Pathstruct a1)//26dd27
     x_WORD_18072C >>= 1;
     x_WORD_18072E >>= 1;
   }
-  x_DWORD_18065C = x_DWORD_180650;
+  x_DWORD_18065C = x_DWORD_180650_positiony;
   x_DWORD_180640 = x_DWORD_180630;
-  x_DWORD_180638 = x_DWORD_18063C;
+  x_DWORD_180638 = x_DWORD_18063C_positionx;
   x_DWORD_18064C = x_DWORD_180634;
   x_DWORD_180658 = x_DWORD_180648;
   x_DWORD_180654 = x_DWORD_180644;
-  x_DWORD_180650 = 0;
+  x_DWORD_180650_positiony = 0;
   x_DWORD_180630 = 64;
-  x_DWORD_18063C = 0;
+  x_DWORD_18063C_positionx = 0;
   x_DWORD_180634 = 64;
   x_DWORD_180648 = 64;
   x_DWORD_180644 = 64;
@@ -103817,12 +103815,12 @@ void sub_8CD27(Pathstruct a1)//26dd27
 	  //printf("%d",i);
   }
   if ( a1.var28_begin_buffer )
-    sub_8F8B0(0, 0, a1);//2708B0 super inicializace //a2 ma byt 86 nebo a1 nema nikam ukazovat
+    sub_8F8B0(0, 0, a1.var28_begin_buffer[0]);//2708B0 super inicializace //a2 ma byt 86 nebo a1 nema nikam ukazovat
   //x_DWORD_18062C_resolution_x = v3;
   x_WORD_E36D4 = x_WORD_E36D4;//355230
-  x_DWORD_180650 = x_DWORD_18065C;
+  x_DWORD_180650_positiony = x_DWORD_18065C;
   x_DWORD_180630 = x_DWORD_180640;
-  x_DWORD_18063C = x_DWORD_180638;
+  x_DWORD_18063C_positionx = x_DWORD_180638;
   x_DWORD_180634 = x_DWORD_18064C;
   x_DWORD_180648 = x_DWORD_180658;
   x_DWORD_180644 = x_DWORD_180654;
@@ -103838,12 +103836,12 @@ void sub_8CD27(Pathstruct a1)//26dd27
 // 180630: using guessed type int x_DWORD_180630;
 // 180634: using guessed type int x_DWORD_180634;
 // 180638: using guessed type int x_DWORD_180638;
-// 18063C: using guessed type int x_DWORD_18063C;
+// 18063C: using guessed type int x_DWORD_18063C_positionx;
 // 180640: using guessed type int x_DWORD_180640;
 // 180644: using guessed type int x_DWORD_180644;
 // 180648: using guessed type int x_DWORD_180648;
 // 18064C: using guessed type int x_DWORD_18064C;
-// 180650: using guessed type int x_DWORD_180650;
+// 180650: using guessed type int x_DWORD_180650_positiony;
 // 180654: using guessed type int x_DWORD_180654;
 // 180658: using guessed type int x_DWORD_180658;
 // 18065C: using guessed type int x_DWORD_18065C;
@@ -105521,7 +105519,7 @@ char *sub_8F850()
 // 180CA0: using guessed type int x_DWORD_180CA0[];
 
 //----- (0008F8B0) --------------------------------------------------------
-void /*__cdecl*/ sub_8F8B0(__int16 a1, __int16 a2, Pathstruct a3)//2708B0
+void /*__cdecl*/ sub_8F8B0(__int16 a1, __int16 a2, Bit8u* a3)//2708B0
 {
   //int v4; // [esp+4h] [ebp-4h]
 
@@ -105529,13 +105527,13 @@ void /*__cdecl*/ sub_8F8B0(__int16 a1, __int16 a2, Pathstruct a3)//2708B0
   //v4 = 0;
   //fix it
 
-  sub_8F935(a3.var36_size_buffer, a2, a1, a3.debugx, 0, 0);//270935 // a2 je 86
+  sub_8F935(doublebyte_conv(*(Bit16u*)a3), a2, a1, (Bit8u*)(a3+4), 0, 0);//270935 // a2 je 86
   //return v4;
 }
 // 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 
 //----- (0008F8E8) --------------------------------------------------------
-void /*__cdecl*/ sub_8F8E8(__int16 a1, __int16 a2, Pathstruct a3)
+void /*__cdecl*/ sub_8F8E8(__int16 a1, __int16 a2, Bit8u* a3)//2708e8
 {
   //int v4; // [esp+4h] [ebp-4h]
 
@@ -105551,7 +105549,11 @@ void /*__cdecl*/ sub_8F8E8(__int16 a1, __int16 a2, Pathstruct a3)
 	//esi´48913e
 	//0
 	//0
-	sub_8F935(a3.var36_size_buffer&0xff, a2, a1, a3.debugx, 0, 0);//270935
+
+	//123 cd 48c80f 
+	//2708e8 354f68
+
+	sub_8F935(doublebyte_conv((*a3)&0xff), a2, a1, a3, 0, 0);//270935
   //return v4;
 }
 // 180628: using guessed type int x_DWORD_180628b_screen_buffer;
@@ -105559,13 +105561,102 @@ void /*__cdecl*/ sub_8F8E8(__int16 a1, __int16 a2, Pathstruct a3)
 //----- (0008F920) --------------------------------------------------------
 void sub_8F920(__int16 a1, signed int a2, int a3, char *a4, unsigned __int8 a5, char a6)
 {
-  sub_8F935(a1, a2, a3, (Bit8u*)a4, a5, a6);//270935
+  sub_8F935(doublebyte_conv(a1), a2, a3, (Bit8u*)a4, a5, a6);//270935
 }
-
-//----- (0008F935) --------------------------------------------------------
-void sub_8F935(Bit16u a1, signed int a2, int a3, Bit8u* a4, unsigned __int8 a5, char a6)//270935
+/*
+bool Sprite::loadSprite(uint8 * tabData, uint8 * spriteData, uint32 offset,
+	bool rle)
 {
-  int v6; // edi
+	assert(tabData);
+	assert(spriteData);
+
+	uint8 *tabEntry = tabData + offset * TABENTRY_SIZE;
+	
+	uint32 spriteOffset = READ_LE_UINT32(tabEntry);
+
+	tabEntry += 4;
+	width_ = *tabEntry;
+	tabEntry += 1;
+	height_ = *tabEntry;
+
+	if (width_ == 0 || height_ == 0)
+		return true;
+
+	stride_ = ceil8(width_);
+	uint8 *spriteBlocks = spriteData + spriteOffset;
+
+	sprite_data_ = new uint8[stride_ * height_];
+	memset(sprite_data_, 255, stride_ * height_);
+
+	uint8 *currentPixel;
+
+	if (rle) {
+		for (int i = 0; i < height_; ++i) {
+			int spriteWidth = width_;
+			currentPixel = sprite_data_ + i * stride_;
+
+			uint8 b = *spriteBlocks++;
+			int runLength = b < 128 ? b : -(256 - b);
+			while (runLength != 0) {
+				spriteWidth -= runLength;
+
+				if (runLength > 0) {
+					if (currentPixel < sprite_data_)
+						currentPixel = sprite_data_;
+					if (currentPixel + runLength >
+						sprite_data_ + height_ * stride_)
+						runLength =
+						sprite_data_ + height_ * stride_ -
+						currentPixel;
+					// pixel run
+					for (int j = 0; j < runLength; ++j)
+						*currentPixel++ = *spriteBlocks++;
+
+				}
+				else if (runLength < 0) {
+					// transparent run
+					runLength *= -1;
+					if (currentPixel < sprite_data_)
+						currentPixel = sprite_data_;
+					if (currentPixel + runLength >
+						sprite_data_ + height_ * stride_)
+						runLength =
+						sprite_data_ + height_ * stride_ -
+						currentPixel;
+					memset(currentPixel, 255, runLength);
+					currentPixel += runLength;
+
+				}
+				else if (runLength == 0) {
+					// end of the row
+					spriteWidth = 0;
+				}
+
+				b = *spriteBlocks++;
+				runLength = b < 128 ? b : -(256 - b);
+			}
+		}
+	}
+	else {
+		for (int j = 0; j < height_; ++j) {
+			currentPixel = sprite_data_ + j * stride_;
+
+			for (int i = 0; i < width_; i += PIXELS_PER_BLOCK) {
+				unpackBlocks1(spriteBlocks, currentPixel);
+
+				spriteBlocks += BLOCK_LENGTH;
+				currentPixel += PIXELS_PER_BLOCK;
+			}
+		}
+	}
+
+	return true;
+}
+*/
+//----- (0008F935) --------------------------------------------------------
+void sub_8F935(doublebyte a1, Bit16u tiley, int tilex, Bit8u* texture, unsigned __int8 a5, char a6)//270935
+{
+  Bit8u* pixel_buffer_index; // edi
   x_BYTE *v7; // edi
   int v8; // ecx
   signed int v9; // eax
@@ -105580,13 +105671,13 @@ void sub_8F935(Bit16u a1, signed int a2, int a3, Bit8u* a4, unsigned __int8 a5, 
   char v18; // al
   char v19; // al
   char v20; // al
-  char *v21; // edi
+  Bit8u* v21_buffer_temp_index1; // edi
   unsigned int v22; // ecx
   signed int v23; // eax
-  char *v24; // ebx
-  char *v25; // edi
+  Bit8u* v24_buffer_temp_index2; // ebx
+  Bit8u* v25_buffer_temp_index3; // edi
   char v26; // al
-  char *v27; // esi
+  Bit8u* v27; // esi
   char *v28; // edi
   unsigned int v29; // ecx
   signed int v30; // eax
@@ -105627,7 +105718,7 @@ void sub_8F935(Bit16u a1, signed int a2, int a3, Bit8u* a4, unsigned __int8 a5, 
   char *v65; // edi
   char v66; // al
   char *v67; // esi
-  int v68; // edi
+  Bit8u* v68; // edi
   int v69; // ebx
   x_BYTE *v70; // edi
   x_BYTE *v71; // edx
@@ -105705,89 +105796,101 @@ void sub_8F935(Bit16u a1, signed int a2, int a3, Bit8u* a4, unsigned __int8 a5, 
   x_BYTE *v143; // [esp+4h] [ebp-4h]
   //debug
   //loadfromsnapshot((char*)"0160-00270935",(Bit8u*)&a1,0x55,4);
-  a1 = 0x0000;
+
+  //a1 = 0x1513;
+  x_DWORD_180650_positiony = 0;//351650
+  x_DWORD_18062C_resolution_x = 0x40;//35162c
+  x_DWORD_18063C_positionx = 0;//35163c
+  //x_DWORD_180628b_screen_buffer=82c714
+  x_WORD_180660_VGA_type_resolution = 0x30008;
+  tiley = 0;
+  a1.byte1 = 0x13;
+  a1.byte2 = 0x15;
+  tilex = 0;
+  x_DWORD_180644 = 0x40;
+  //a4 = 03;
   //debug
 
 
-  if ( !(a1&&0xff00 ))//453558
+  if ( !(a1.byte2))//453558
     return;
-  v6 = (int)x_DWORD_180628b_screen_buffer + x_DWORD_18063C + x_DWORD_18062C_resolution_x * x_DWORD_180650;
-  if ( x_WORD_180660_VGA_type_resolution & 1 )
+  pixel_buffer_index = x_DWORD_180628b_screen_buffer + x_DWORD_18063C_positionx + x_DWORD_18062C_resolution_x * x_DWORD_180650_positiony;
+  if ( x_WORD_180660_VGA_type_resolution & 1 )//pokud je rozliseno 320x200 zmensi hodnoty na polovic
   {
-    LOBYTE(a1) = (unsigned __int8)a1 >> 1;
-    HIBYTE(a1) >>= 1;
-    a3 >>= 1;
-    a2 >>= 1;
+    a1.byte1 /= 2;
+	a1.byte2 /= 2;
+    tilex /= 2;
+	tiley /= 2;
   }
-  if ( a2 < 0 )//ma byt 86
+  if (tiley < 0 )
   {
     if ( x_WORD_E36D4 & 2 )
     {
-      v128 = a2 + HIBYTE(a1);
+      v128 = tiley + a1.byte2;
       v46 = __OFADD__(1, v128);
       v129 = v128 + 1;
-      if ( (unsigned __int8)((v129 < 0) ^ v46) | (v129 == 0) )
+      if ( ((v129 < 0) ^ v46) | (v129 == 0) )
         return;
-      a2 = -1;
-      HIBYTE(a1) = v129;
+	  tiley = -1;
+	  a1.byte2 = v129;
     }
     else
     {
-      v130 = a2 + HIBYTE(a1);
-      if ( (unsigned __int8)((a2 + HIBYTE(a1) < 0) ^ __OFADD__(a2, HIBYTE(a1))) | (a2 + HIBYTE(a1) == 0) )
+      v130 = tiley + a1.byte2;
+      if ( ((tiley + a1.byte2 < 0) ^ __OFADD__(tiley, a1.byte2)) | (tiley + a1.byte2 == 0) )
         return;
-      HIBYTE(a1) += a2;
-      BYTE1(v130) = 0;
+	  a1.byte2 += tiley;
+      v130 = 0;
       do
       {
         while ( 1 )
         {
-          LOBYTE(v130) = *a4++;
-          if ( !(x_BYTE)v130 )
+          v130 = *texture++;
+          if ( !v130 )
             break;
           if ( (v130 & 0x80u) == 0 )
-            a4 += v130;
+			  texture += v130;
         }
-        ++a2;
+        tiley++;
       }
-      while ( a2 );
+      while (tiley);
     }
   }
-  else if ( a2 + HIBYTE(a1) >= x_DWORD_180644 )
+  else if (tiley + a1.byte2 >= x_DWORD_180644 )
   {
     if ( x_WORD_E36D4 & 2 )
     {
-      if ( a2 + 1 >= x_DWORD_180644 )
+      if (tiley + 1 >= x_DWORD_180644 )
         return;
-      v125 = HIBYTE(a1) + a2 + 1 - x_DWORD_180644;
-      HIBYTE(a1) = x_DWORD_180644 - (a2 + 1);
+      v125 = a1.byte2 + tiley + 1 - x_DWORD_180644;
+      a1.byte2 = x_DWORD_180644 - (tiley + 1);
       v126 = v125;
       v127 = 0;
       do
       {
         while ( 1 )
         {
-          LOBYTE(v127) = *a4++;
-          if ( !(x_BYTE)v127 )
+          v127 = *texture++;
+          if ( !v127 )
             break;
           if ( (v127 & 0x80u) == 0 )
-            a4 += v127;
+			  texture += v127;
         }
         --v126;
       }
       while ( v126 );
-      v6 = (int)x_DWORD_180628b_screen_buffer;
+	  pixel_buffer_index = x_DWORD_180628b_screen_buffer;
     }
     else
     {
-      if ( x_DWORD_180644 <= a2 )
+      if ( x_DWORD_180644 <= tiley)
         return;
-      HIBYTE(a1) = x_DWORD_180644 - a2;
+      a1.byte2 = x_DWORD_180644 - tiley;
     }
   }
-  if ( a3 >= 0 )
+  if ( tilex >= 0 )
   {
-    if ( a3 + (unsigned __int8)a1 >= x_DWORD_180648 )
+    if ( tilex + a1.byte1 >= x_DWORD_180648 )
     {
       if ( x_WORD_E36D4 )
       {
@@ -105795,13 +105898,13 @@ void sub_8F935(Bit16u a1, signed int a2, int a3, Bit8u* a4, unsigned __int8 a5, 
         {
           if ( x_WORD_E36D4 & 2 )
           {
-            if ( x_DWORD_180634 - a3 >= 0 )
+            if ( x_DWORD_180634 - tilex >= 0 )
             {
-              v79 = (unsigned __int8)a1 + a3;
-              v80 = (x_BYTE *)(x_DWORD_18062C_resolution_x * (HIBYTE(a1) + a2) + v79 + v6);
+              v79 = a1.byte1 + tilex;
+              v80 = (x_BYTE *)(x_DWORD_18062C_resolution_x * (a1.byte2 + tiley) + v79 + pixel_buffer_index);
               v81 = 0;
-              LOBYTE(v79) = x_DWORD_180634 - v79 - 2;
-              LOBYTE(a1) = v79;
+              v79 = x_DWORD_180634 - v79 - 2;
+              a1.byte1 = v79;
               v133 = v79;
               v82 = -1;
               v83 = v80;
@@ -105811,20 +105914,20 @@ void sub_8F935(Bit16u a1, signed int a2, int a3, Bit8u* a4, unsigned __int8 a5, 
                 {
                   while ( 1 )
                   {
-                    LOBYTE(v82) = *a4++;
+                    v82 = *texture++;
                     if ( (v82 & 0x80u) == 0 )
                       break;
                     v80 += v82;
-                    LOBYTE(a1) = a1 - v82;
+					a1.byte1 = a1.byte1 - v82;
                   }
-                  if ( !(x_BYTE)v82 )
+                  if ( !v82 )
                     break;
-                  LOBYTE(v81) = v82;
+                  v81 = v82;
                   do
                   {
-                    v84 = *a4++;
-                    LOBYTE(a1) = a1 + 1;
-                    if ( (a1 & 0x80u) == 0 )
+                    v84 = *texture++;
+					a1.byte1 = a1.byte1 + 1;
+                    if ( (a1.byte1 & 0x80u) == 0 )
                       *v80 = v84;
                     --v80;
                     --v81;
@@ -105833,18 +105936,18 @@ void sub_8F935(Bit16u a1, signed int a2, int a3, Bit8u* a4, unsigned __int8 a5, 
                 }
                 v83 -= x_DWORD_18062C_resolution_x;
                 v80 = v83;
-                a1 = __PAIR__(HIBYTE(a1), v133) - 256;
+				a1.byte1 = __PAIR__(a1.byte2, v133) - 256;
               }
-              while ( HIBYTE(a1) );
+              while (a1.byte2);
             }
           }
-          else if ( x_DWORD_180634 - a3 >= 0 )
+          else if ( x_DWORD_180634 - tilex >= 0 )
           {
-            v85 = (unsigned __int8)a1 + a3;
-            v86 = (x_BYTE *)(x_DWORD_18062C_resolution_x * a2 + v85 + v6);
+            v85 = a1.byte1 + tilex;
+            v86 = (x_BYTE *)(x_DWORD_18062C_resolution_x * tiley + v85 + pixel_buffer_index);
             v87 = 0;
-            LOBYTE(v85) = x_DWORD_180634 - v85 - 2;
-            LOBYTE(a1) = v85;
+            v85 = x_DWORD_180634 - v85 - 2;
+            a1.byte1 = v85;
             v134 = v85;
             v88 = -1;
             v89 = v86;
@@ -105854,20 +105957,20 @@ void sub_8F935(Bit16u a1, signed int a2, int a3, Bit8u* a4, unsigned __int8 a5, 
               {
                 while ( 1 )
                 {
-                  LOBYTE(v88) = *a4++;
+                  v88 = *texture++;
                   if ( (v88 & 0x80u) == 0 )
                     break;
                   v86 += v88;
-                  LOBYTE(a1) = a1 - v88;
+				  a1.byte1 = a1.byte1 - v88;
                 }
-                if ( !(x_BYTE)v88 )
+                if ( !v88 )
                   break;
-                LOBYTE(v87) = v88;
+                v87 = v88;
                 do
                 {
-                  v90 = *a4++;
-                  LOBYTE(a1) = a1 + 1;
-                  if ( (a1 & 0x80u) == 0 )
+                  v90 = *texture++;
+				  a1.byte1 = a1.byte1 + 1;
+                  if ( (a1.byte1 & 0x80u) == 0 )
                     *v86 = v90;
                   --v86;
                   --v87;
@@ -105876,19 +105979,19 @@ void sub_8F935(Bit16u a1, signed int a2, int a3, Bit8u* a4, unsigned __int8 a5, 
               }
               v89 += x_DWORD_18062C_resolution_x;
               v86 = v89;
-              a1 = __PAIR__(HIBYTE(a1), v134) - 256;
+			  a1.byte1 = __PAIR__(a1.byte2, v134) - 256;
             }
-            while ( HIBYTE(a1) );
+            while ( a1.byte2 );
           }
         }
         else if ( x_WORD_E36D4 & 2 )
         {
-          v91 = (x_BYTE *)(x_DWORD_18062C_resolution_x * (HIBYTE(a1) + a2) + a3 + v6);
+          v91 = (x_BYTE *)(x_DWORD_18062C_resolution_x * (a1.byte2 + tiley) + tilex + pixel_buffer_index);
           v92 = 0;
-          v93 = x_DWORD_180634 - a3;
+          v93 = x_DWORD_180634 - tilex;
           if ( v93 >= 0 )
           {
-            LOBYTE(a1) = v93;
+            a1.byte1 = v93;
             v135 = v93;
             v94 = -1;
             v95 = v91;
@@ -105898,20 +106001,20 @@ void sub_8F935(Bit16u a1, signed int a2, int a3, Bit8u* a4, unsigned __int8 a5, 
               {
                 while ( 1 )
                 {
-                  LOBYTE(v94) = *a4++;
+                  v94 = *texture++;
                   if ( (v94 & 0x80u) == 0 )
                     break;
                   v91 -= v94;
-                  LOBYTE(a1) = v94 + a1;
+				  a1.byte1 = v94 + a1.byte1;
                 }
-                if ( !(x_BYTE)v94 )
+                if ( !v94 )
                   break;
-                LOBYTE(v92) = v94;
+                v92 = v94;
                 do
                 {
-                  v96 = *a4++;
-                  LOBYTE(a1) = a1 - 1;
-                  if ( (a1 & 0x80u) == 0 )
+                  v96 = *texture++;
+				  a1.byte1 = a1.byte1 - 1;
+                  if ( (a1.byte1 & 0x80u) == 0 )
                     *v91++ = v96;
                   --v92;
                 }
@@ -105919,20 +106022,20 @@ void sub_8F935(Bit16u a1, signed int a2, int a3, Bit8u* a4, unsigned __int8 a5, 
               }
               v95 -= x_DWORD_18062C_resolution_x;
               v91 = v95;
-              a1 = __PAIR__(HIBYTE(a1), v135) - 256;
+			  a1.byte1 = __PAIR__(a1.byte2, v135) - 256;
             }
-            while ( HIBYTE(a1) );
+            while (a1.byte1);
           }
         }
       }
       else
       {
-        v68 = a3 + v6;
-        v69 = x_DWORD_180634 - a3;
+        v68 = tilex + pixel_buffer_index;
+        v69 = x_DWORD_180634 - tilex;
         if ( v69 >= 0 )
         {
-          v70 = (x_BYTE *)(x_DWORD_18062C_resolution_x * a2 + v68);
-          BYTE1(v69) = HIBYTE(a1);
+          v70 = (x_BYTE *)(x_DWORD_18062C_resolution_x * tiley + v68);
+          v69 = a1.byte2;
           v132 = v69;
           v71 = v70;
           v72 = 0;
@@ -105942,22 +106045,22 @@ void sub_8F935(Bit16u a1, signed int a2, int a3, Bit8u* a4, unsigned __int8 a5, 
             {
               while ( 1 )
               {
-                v73 = *a4++;
+                v73 = *texture++;
                 if ( v73 >= 0 )
                   break;
-                v46 = __OFADD__(v73, (x_BYTE)v69);
-                v75 = v73 + (x_BYTE)v69 == 0;
+                v46 = __OFADD__(v73, v69);
+                v75 = v73 + v69 == 0;
                 v76 = (char)(v73 + v69) < 0;
-                LOBYTE(v69) = v73 + v69;
-                if ( !((unsigned __int8)(v76 ^ v46) | (unsigned __int8)v75) )
+                v69 = v73 + v69;
+                if ( !((v76 ^ v46) | v75) )
                 {
                   v70 -= v73;
-                  v77 = *a4++;
-                  LOBYTE(v72) = v77;
+                  v77 = *texture++;
+                  v72 = v77;
                   do
                   {
-                    v78 = *a4++;
-                    LOBYTE(v69) = v69 - 1;
+                    v78 = *texture++;
+                    v69 = v69 - 1;
                     if ( (v69 & 0x80u) == 0 )
                       *v70++ = v78;
                     --v72;
@@ -105967,11 +106070,11 @@ void sub_8F935(Bit16u a1, signed int a2, int a3, Bit8u* a4, unsigned __int8 a5, 
               }
               if ( !v73 )
                 break;
-              LOBYTE(v72) = v73;
+              v72 = v73;
               do
               {
-                v74 = *a4++;
-                LOBYTE(v69) = v69 - 1;
+                v74 = *texture++;
+                v69 = v69 - 1;
                 if ( (v69 & 0x80u) == 0 )
                   *v70++ = v74;
                 --v72;
@@ -105980,9 +106083,9 @@ void sub_8F935(Bit16u a1, signed int a2, int a3, Bit8u* a4, unsigned __int8 a5, 
             }
             v71 += x_DWORD_18062C_resolution_x;
             v70 = v71;
-            LOWORD(v69) = __PAIR__(BYTE1(v69), v132) - 256;
+            v69 = __PAIR__(v69, v132) - 256;
           }
-          while ( BYTE1(v69) );
+          while ( v69 );
         }
       }
     }
@@ -105990,7 +106093,7 @@ void sub_8F935(Bit16u a1, signed int a2, int a3, Bit8u* a4, unsigned __int8 a5, 
     {
       if ( x_WORD_E36D4 & 2 )
       {
-        v7 = (x_BYTE *)(x_DWORD_18062C_resolution_x * (HIBYTE(a1) + a2) + (unsigned __int8)a1 + a3 + v6);
+        v7 = (x_BYTE *)(x_DWORD_18062C_resolution_x * (a1.byte2 + tiley) + a1.byte1 + tilex + pixel_buffer_index);
         v8 = 0;
         v9 = -1;
         v10 = v7;
@@ -106000,26 +106103,26 @@ void sub_8F935(Bit16u a1, signed int a2, int a3, Bit8u* a4, unsigned __int8 a5, 
           {
             while ( 1 )
             {
-              LOBYTE(v9) = *a4++;
+              v9 = *texture++;
               if ( (v9 & 0x80u) == 0 )
                 break;
               v7 += v9;
-              v12 = *a4++;
-              LOBYTE(v8) = v12;
+              v12 = *texture++;
+              v8 = v12;
               do
               {
-                v13 = *a4++;
+                v13 = *texture++;
                 *v7-- = v13;
                 --v8;
               }
               while ( v8 );
             }
-            if ( !(x_BYTE)v9 )
+            if ( !v9 )
               break;
-            LOBYTE(v8) = v9;
+            v8 = v9;
             do
             {
-              v11 = *a4++;
+              v11 = *texture++;
               *v7-- = v11;
               --v8;
             }
@@ -106027,13 +106130,13 @@ void sub_8F935(Bit16u a1, signed int a2, int a3, Bit8u* a4, unsigned __int8 a5, 
           }
           v10 -= x_DWORD_18062C_resolution_x;
           v7 = v10;
-          --HIBYTE(a1);
+          --a1.byte2;
         }
-        while ( HIBYTE(a1) );
+        while ( a1.byte2 );
       }
       else
       {
-        v14 = (x_BYTE *)(x_DWORD_18062C_resolution_x * a2 + (unsigned __int8)a1 + a3 + v6);
+        v14 = (x_BYTE *)(x_DWORD_18062C_resolution_x * tiley + a1.byte1 + tilex + pixel_buffer_index);
         v15 = 0;
         v16 = -1;
         v17 = v14;
@@ -106043,26 +106146,26 @@ void sub_8F935(Bit16u a1, signed int a2, int a3, Bit8u* a4, unsigned __int8 a5, 
           {
             while ( 1 )
             {
-              LOBYTE(v16) = *a4++;
+              v16 = *texture++;
               if ( (v16 & 0x80u) == 0 )
                 break;
               v14 += v16;
-              v19 = *a4++;
-              LOBYTE(v15) = v19;
+              v19 = *texture++;
+              v15 = v19;
               do
               {
-                v20 = *a4++;
+                v20 = *texture++;
                 *v14-- = v20;
                 --v15;
               }
               while ( v15 );
             }
-            if ( !(x_BYTE)v16 )
+            if ( !v16 )
               break;
-            LOBYTE(v15) = v16;
+            v15 = v16;
             do
             {
-              v18 = *a4++;
+              v18 = *texture++;
               *v14-- = v18;
               --v15;
             }
@@ -106070,16 +106173,16 @@ void sub_8F935(Bit16u a1, signed int a2, int a3, Bit8u* a4, unsigned __int8 a5, 
           }
           v17 += x_DWORD_18062C_resolution_x;
           v14 = v17;
-          --HIBYTE(a1);
+          --a1.byte2;
         }
-        while ( HIBYTE(a1) );
+        while ( a1.byte2 );
       }
     }
     else if ( x_WORD_E36D4 )
     {
       if ( x_WORD_E36D4 & 2 )
       {
-        v28 = (char *)(x_DWORD_18062C_resolution_x * (HIBYTE(a1) + a2) + a3 + v6);
+        v28 = (char *)(x_DWORD_18062C_resolution_x * (a1.byte2 + tiley) + tilex + pixel_buffer_index);
         v29 = 0;
         v30 = -1;
         v31 = v28;
@@ -106089,36 +106192,36 @@ void sub_8F935(Bit16u a1, signed int a2, int a3, Bit8u* a4, unsigned __int8 a5, 
           {
             while ( 1 )
             {
-              LOBYTE(v30) = *a4++;
+              v30 = *texture++;
               if ( (v30 & 0x80u) == 0 )
                 break;
               v32 = &v28[-v30];
-              v33 = *a4;
-              v34 = (char*)(a4 + 1);
-              LOBYTE(v29) = v33;
+              v33 = *texture;
+              v34 = (char*)(texture + 1);
+              v29 = v33;
               qmemcpy(v32, v34, v29);
-              a4 = (Bit8u*)&v34[v29];
+			  texture = (Bit8u*)&v34[v29];
               v28 = &v32[v29];
               v29 = 0;
             }
-            if ( !(x_BYTE)v30 )
+            if ( !v30 )
               break;
-            LOBYTE(v29) = v30;
-            qmemcpy(v28, a4, v29);
-            a4 += v29;
+            v29 = v30;
+            qmemcpy(v28, texture, v29);
+			texture += v29;
             v28 += v29;
             v29 = 0;
           }
           v31 -= x_DWORD_18062C_resolution_x;
           v28 = v31;
-          --HIBYTE(a1);
+          --a1.byte2;
         }
-        while ( HIBYTE(a1) );
+        while ( a1.byte2 );
       }
       else if ( x_WORD_E36D4 & 4 )
       {
         v35 = x_DWORD_E3890;
-        v36 = (x_BYTE *)(x_DWORD_18062C_resolution_x * a2 + a3 + v6);
+        v36 = (x_BYTE *)(x_DWORD_18062C_resolution_x * tiley + tilex + pixel_buffer_index);
         v37 = 0;
         v38 = v36;
         do
@@ -106127,19 +106230,19 @@ void sub_8F935(Bit16u a1, signed int a2, int a3, Bit8u* a4, unsigned __int8 a5, 
           {
             while ( 1 )
             {
-              v39 = *a4++;
+              v39 = *texture++;
               if ( (v39 & 0x80u) == 0 )
                 break;
               v36 -= (char)v39;
             }
             if ( !v39 )
               break;
-            LOBYTE(v37) = v39;
+            v37 = v39;
             v40 = v39;
             do
             {
-              LOBYTE(v40) = *a4++;
-              BYTE1(v40) = *v36;
+              v40 = *texture++;
+              v40 = *v36;
               *v36++ = *(x_BYTE *)(v40 + v35);
               --v37;
             }
@@ -106147,23 +106250,23 @@ void sub_8F935(Bit16u a1, signed int a2, int a3, Bit8u* a4, unsigned __int8 a5, 
           }
           v38 += x_DWORD_18062C_resolution_x;
           v36 = v38;
-          --HIBYTE(a1);
+          --a1.byte2;
         }
-        while ( HIBYTE(a1) );
+        while ( a1.byte2 );
       }
       else if ( x_WORD_E36D4 & 8 )
       {
-        v41 = (x_BYTE *)(x_DWORD_18062C_resolution_x * a2 + a3 + v6);
+        v41 = (x_BYTE *)(x_DWORD_18062C_resolution_x * tiley + tilex + pixel_buffer_index);
         v42 = 0;
         v142 = v41;
-        v140 = HIBYTE(a1);
+        v140 = a1.byte2;
         for ( i = a5; ; i = a5 )
         {
           while ( 1 )
           {
             while ( 1 )
             {
-              v44 = *a4++;
+              v44 = *texture++;
               if ( v44 >= 0 )
                 break;
               v42 = (unsigned __int8)-v44;
@@ -106184,7 +106287,7 @@ void sub_8F935(Bit16u a1, signed int a2, int a3, Bit8u* a4, unsigned __int8 a5, 
             LOBYTE(v42) = v44;
             do
             {
-              v45 = *a4++;
+              v45 = *texture++;
               v46 = __OFSUB__(i--, 1);
               if ( ((i & 0x80u) != 0) ^ v46 )
               {
@@ -106203,11 +106306,11 @@ void sub_8F935(Bit16u a1, signed int a2, int a3, Bit8u* a4, unsigned __int8 a5, 
             while ( 1 )
             {
               do
-                v48 = *a4++;
+                v48 = *texture++;
               while ( (v48 & 0x80u) != 0 );
               if ( !v48 )
                 break;
-              a4 += v48;
+			  texture += v48;
             }
           }
           v142 += x_DWORD_18062C_resolution_x;
@@ -106216,36 +106319,36 @@ void sub_8F935(Bit16u a1, signed int a2, int a3, Bit8u* a4, unsigned __int8 a5, 
       }
       else if ( x_WORD_E36D4 & 0x20 )
       {
-        v49 = (char *)(x_DWORD_18062C_resolution_x * a2 + a3 + v6);
+        v49 = (char *)(x_DWORD_18062C_resolution_x * tiley + tilex + pixel_buffer_index);
         v143 = v49;
-        v141 = HIBYTE(a1);
+        v141 = a1.byte2;
         do
         {
           while ( 1 )
           {
             while ( 1 )
             {
-              v50 = *a4++;
+              v50 = *texture++;
               if ( v50 >= 0 )
                 break;
-              v49 += (unsigned __int16)(a5 * (unsigned __int8)-v50);
+              v49 += (a5 * -v50);
             }
             if ( !v50 )
               break;
             v51 = v50;
             do
             {
-              v52 = *a4++;
+              v52 = *texture++;
               memset(v49, v52, a5);
               v49 += a5;
               v46 = __OFSUB__(v51--, 1);
             }
-            while ( !((unsigned __int8)((v51 < 0) ^ v46) | (v51 == 0)) );
+            while ( !(((v51 < 0) ^ v46) | (v51 == 0)) );
           }
           v53 = a6 - 1;
           if ( a6 > 1 )
           {
-            v131 = (char*)a4;
+            v131 = (char*)texture;
             v54 = v49 - v143;
             do
             {
@@ -106254,8 +106357,8 @@ void sub_8F935(Bit16u a1, signed int a2, int a3, Bit8u* a4, unsigned __int8 a5, 
               qmemcpy(v143, (void*)v55, v54);
               v46 = __OFSUB__(v53--, 1);
             }
-            while ( !((unsigned __int8)((v53 < 0) ^ v46) | (v53 == 0)) );
-            a4 = (Bit8u*)v131;
+            while ( !(((v53 < 0) ^ v46) | (v53 == 0)) );
+			texture = (Bit8u*)v131;
           }
           v143 += x_DWORD_18062C_resolution_x;
           v49 = v143;
@@ -106265,7 +106368,7 @@ void sub_8F935(Bit16u a1, signed int a2, int a3, Bit8u* a4, unsigned __int8 a5, 
       }
       else if ( x_WORD_E36D4 & 0x40 )
       {
-        v56 = (char *)(x_DWORD_18062C_resolution_x * a2 + a3 + v6);
+        v56 = (char *)(x_DWORD_18062C_resolution_x * tiley + tilex + pixel_buffer_index);
         v57 = 0;
         v58 = -1;
         v59 = v56;
@@ -106275,33 +106378,33 @@ void sub_8F935(Bit16u a1, signed int a2, int a3, Bit8u* a4, unsigned __int8 a5, 
           {
             while ( 1 )
             {
-              LOBYTE(v58) = *a4++;
+              v58 = *texture++;
               if ( (v58 & 0x80u) == 0 )
                 break;
               v60 = &v56[-v58];
-              LOBYTE(v57) = *a4;
-              a4 += v57 + 1;
+              v57 = *texture;
+			  texture += v57 + 1;
               memset(v60, a5, v57);
               v56 = &v60[v57];
               v57 = 0;
             }
-            if ( !(x_BYTE)v58 )
+            if ( !v58 )
               break;
-            LOBYTE(v57) = v58;
-            a4 += v57;
+            v57 = v58;
+			texture += v57;
             memset(v56, a5, v57);
             v56 += v57;
             v57 = 0;
           }
           v59 += x_DWORD_18062C_resolution_x;
           v56 = v59;
-          --HIBYTE(a1);
+          --a1.byte2;
         }
-        while ( HIBYTE(a1) );
+        while ( a1.byte2 );
       }
       else
       {
-        v61 = (char *)(x_DWORD_18062C_resolution_x * a2 + a3 + v6);
+        v61 = (char *)(x_DWORD_18062C_resolution_x * tiley + tilex + pixel_buffer_index);
         v62 = 0;
         v63 = -1;
         v64 = v61;
@@ -106311,80 +106414,80 @@ void sub_8F935(Bit16u a1, signed int a2, int a3, Bit8u* a4, unsigned __int8 a5, 
           {
             while ( 1 )
             {
-              LOBYTE(v63) = *a4++;
+              v63 = *texture++;
               if ( (v63 & 0x80u) == 0 )
                 break;
               v65 = &v61[-v63];
-              v66 = *a4;
-              v67 = (char*)(a4 + 1);
-              LOBYTE(v62) = v66;
+              v66 = *texture;
+              v67 = (char*)(texture + 1);
+              v62 = v66;
               qmemcpy(v65, v67, v62);
-              a4 = (Bit8u*)&v67[v62];
+			  texture = (Bit8u*)&v67[v62];
               v61 = &v65[v62];
               v62 = 0;
             }
-            if ( !(x_BYTE)v63 )
+            if ( !v63 )
               break;
-            LOBYTE(v62) = v63;
-            qmemcpy(v61, a4, v62);
-            a4 += v62;
+            v62 = v63;
+            qmemcpy(v61, texture, v62);
+			texture += v62;
             v61 += v62;
             v62 = 0;
           }
           v64 += x_DWORD_18062C_resolution_x;
           v61 = v64;
-          --HIBYTE(a1);
+          --a1.byte2;
         }
-        while ( HIBYTE(a1) );
+        while ( a1.byte2 );
       }
     }
     else
     {
-      v21 = (char *)(x_DWORD_18062C_resolution_x * a2 + a3 + v6);
+	  v21_buffer_temp_index1 = (x_DWORD_18062C_resolution_x * tiley + tilex + pixel_buffer_index);
       v22 = 0;
       v23 = -1;
-      v24 = v21;
+	  v24_buffer_temp_index2 = v21_buffer_temp_index1;
       do
       {
         while ( 1 )
         {
           while ( 1 )
           {
-            LOBYTE(v23) = *a4++;
+            v23 = *texture++;
             if ( (v23 & 0x80u) == 0 )
               break;
-            v25 = &v21[-v23];
-            v26 = *a4;
-            v27 = (char*)(a4 + 1);
-            LOBYTE(v22) = v26;
-            qmemcpy(v25, v27, v22);
-            a4 = (Bit8u*)&v27[v22];
-            v21 = &v25[v22];
+			v25_buffer_temp_index3 = &v21_buffer_temp_index1[-v23];
+            v26 = *texture;
+            v27 = texture + 1;
+            v22 = v26;
+            qmemcpy(v25_buffer_temp_index3, v27, v22);
+			texture = (Bit8u*)&v27[v22];
+			v21_buffer_temp_index1 = &v25_buffer_temp_index3[v22];
             v22 = 0;
           }
-          if ( !(x_BYTE)v23 )
+          if ( !v23 )
             break;
-          LOBYTE(v22) = v23;
-          qmemcpy(v21, a4, v22);
-          a4 += v22;
-          v21 += v22;
+          v22 = v23;
+          qmemcpy(v21_buffer_temp_index1, texture, v22);
+		  texture += v22;
+		  v21_buffer_temp_index1 += v22;
           v22 = 0;
         }
-        v24 += x_DWORD_18062C_resolution_x;
-        v21 = v24;
-        --HIBYTE(a1);
+		v24_buffer_temp_index2 += x_DWORD_18062C_resolution_x;
+		v21_buffer_temp_index1 = v24_buffer_temp_index2;
+        --a1.byte2;
       }
-      while ( HIBYTE(a1) );
+      while ( a1.byte2 );
     }
     return;
   }
   if ( !x_WORD_E36D4 )
   {
-    v97 = -a3;
-    if ( (unsigned __int8)a1 <= v97 )
+    v97 = -tilex;
+    if (a1.byte1 <= v97 )
       return;
-    v98 = (x_BYTE *)(x_DWORD_18062C_resolution_x * a2 + v6);
-    BYTE1(v97) = HIBYTE(a1);
+    v98 = (x_BYTE *)(x_DWORD_18062C_resolution_x * tiley + pixel_buffer_index);
+    v97 = a1.byte2;
     v99 = v98;
     v136 = v97;
     v100 = 0;
@@ -106394,16 +106497,16 @@ void sub_8F935(Bit16u a1, signed int a2, int a3, Bit8u* a4, unsigned __int8 a5, 
       {
         while ( 1 )
         {
-          v101 = *a4++;
+          v101 = *texture++;
           if ( v101 < 0 )
             break;
           if ( v101 )
           {
-            LOBYTE(v100) = v101;
+            v100 = v101;
             do
             {
-              v102 = *a4++;
-              LOBYTE(v97) = v97 - 1;
+              v102 = *texture++;
+              v97 = v97 - 1;
               if ( (v97 & 0x80u) != 0 )
                 *v98++ = v102;
               --v100;
@@ -106414,8 +106517,8 @@ void sub_8F935(Bit16u a1, signed int a2, int a3, Bit8u* a4, unsigned __int8 a5, 
           {
             v99 += x_DWORD_18062C_resolution_x;
             v98 = v99;
-            LOWORD(v97) = __PAIR__(BYTE1(v97), v136) - 256;
-            if ( !BYTE1(v97) )
+            v97 = __PAIR__(v97, v136) - 256;
+            if ( !v97 )
               return;
           }
         }
@@ -106423,19 +106526,19 @@ void sub_8F935(Bit16u a1, signed int a2, int a3, Bit8u* a4, unsigned __int8 a5, 
           break;
 LABEL_179:
         v98 -= v101;
-        v103 = *a4++;
-        LOBYTE(v100) = v103;
+        v103 = *texture++;
+        v100 = v103;
         do
         {
-          v104 = *a4++;
-          LOBYTE(v97) = v97 - 1;
+          v104 = *texture++;
+          v97 = v97 - 1;
           if ( (v97 & 0x80u) != 0 )
             *v98++ = v104;
           --v100;
         }
         while ( v100 );
       }
-      LOBYTE(v97) = v101 + v97;
+      v97 = v101 + v97;
       if ( (v97 & 0x80u) != 0 )
       {
         v101 = v97;
@@ -106447,11 +106550,11 @@ LABEL_179:
   {
     if ( !(x_WORD_E36D4 & 2) )
       return;
-    v117 = -a3;
-    if ( (unsigned __int8)a1 <= v117 )
+    v117 = -tilex;
+    if (a1.byte1 <= v117 )
       return;
-    v118 = (x_BYTE *)(x_DWORD_18062C_resolution_x * (HIBYTE(a1) + a2) + v6);
-    BYTE1(v117) = HIBYTE(a1);
+    v118 = (x_BYTE *)(x_DWORD_18062C_resolution_x * (a1.byte2 + tiley) + pixel_buffer_index);
+    v117 = a1.byte2;
     v119 = v118;
     v139 = v117;
     v120 = 0;
@@ -106461,16 +106564,16 @@ LABEL_179:
       {
         while ( 1 )
         {
-          v121 = *a4++;
+          v121 = *texture++;
           if ( v121 < 0 )
             break;
           if ( v121 )
           {
-            LOBYTE(v120) = v121;
+            v120 = v121;
             do
             {
-              v122 = *a4++;
-              LOBYTE(v117) = v117 - 1;
+              v122 = *texture++;
+              v117 = v117 - 1;
               if ( (v117 & 0x80u) != 0 )
                 *v118++ = v122;
               --v120;
@@ -106481,8 +106584,8 @@ LABEL_179:
           {
             v119 -= x_DWORD_18062C_resolution_x;
             v118 = v119;
-            LOWORD(v117) = __PAIR__(BYTE1(v117), v139) - 256;
-            if ( !BYTE1(v117) )
+            v117 = __PAIR__(v117, v139) - 256;
+            if ( !v117 )
               return;
           }
         }
@@ -106490,19 +106593,19 @@ LABEL_179:
           break;
 LABEL_225:
         v118 -= v121;
-        v123 = *a4++;
-        LOBYTE(v120) = v123;
+        v123 = *texture++;
+        v120 = v123;
         do
         {
-          v124 = *a4++;
-          LOBYTE(v117) = v117 - 1;
+          v124 = *texture++;
+          v117 = v117 - 1;
           if ( (v117 & 0x80u) != 0 )
             *v118++ = v124;
           --v120;
         }
         while ( v120 );
       }
-      LOBYTE(v117) = v121 + v117;
+      v117 = v121 + v117;
       if ( (v117 & 0x80u) != 0 )
       {
         v121 = v117;
@@ -106512,12 +106615,12 @@ LABEL_225:
   }
   if ( x_WORD_E36D4 & 2 )
   {
-    v105 = (x_BYTE *)(x_DWORD_18062C_resolution_x * (HIBYTE(a1) + a2) + (unsigned __int8)a1 + a3 + v6);
+    v105 = (x_BYTE *)(x_DWORD_18062C_resolution_x * (a1.byte2 + tiley) + a1.byte1 + tilex + pixel_buffer_index);
     v106 = 0;
-    v107 = (unsigned __int8)a1 + a3 + 1;
+    v107 = a1.byte1 + tilex + 1;
     if ( v107 >= 0 )
     {
-      LOBYTE(a1) = v107;
+      a1.byte1 = v107;
       v137 = v107;
       v108 = v105;
       v109 = -1;
@@ -106527,20 +106630,20 @@ LABEL_225:
         {
           while ( 1 )
           {
-            LOBYTE(v109) = *a4++;
+            v109 = *texture++;
             if ( (v109 & 0x80u) == 0 )
               break;
             v105 += v109;
-            LOBYTE(a1) = v109 + a1;
+            a1.byte1 = v109 + a1.byte1;
           }
-          if ( !(x_BYTE)v109 )
+          if ( !v109 )
             break;
-          LOBYTE(v106) = v109;
+          v106 = v109;
           do
           {
-            v110 = *a4++;
-            LOBYTE(a1) = a1 - 1;
-            if ( (a1 & 0x80u) == 0 )
+            v110 = *texture++;
+			a1.byte1 = a1.byte1 - 1;
+            if ( (a1.byte1 & 0x80u) == 0 )
               *v105 = v110;
             --v105;
             --v106;
@@ -106549,19 +106652,19 @@ LABEL_225:
         }
         v108 -= x_DWORD_18062C_resolution_x;
         v105 = v108;
-        a1 = __PAIR__(HIBYTE(a1), v137) - 256;
+		a1.byte1 = __PAIR__(a1.byte2, v137) - 256;
       }
-      while ( HIBYTE(a1) );
+      while ( a1.byte2 );
     }
   }
   else
   {
-    v111 = (x_BYTE *)(x_DWORD_18062C_resolution_x * a2 + (unsigned __int8)a1 + a3 + v6);
+    v111 = (x_BYTE *)(x_DWORD_18062C_resolution_x * tiley + a1.byte1 + tilex + pixel_buffer_index);
     v112 = 0;
-    v113 = (unsigned __int8)a1 + a3 + 1;
+    v113 = a1.byte1 + tilex + 1;
     if ( v113 >= 0 )
     {
-      LOBYTE(a1) = v113;
+      a1.byte1 = v113;
       v138 = v113;
       v114 = v111;
       v115 = -1;
@@ -106571,20 +106674,20 @@ LABEL_225:
         {
           while ( 1 )
           {
-            LOBYTE(v115) = *a4++;
+            v115 = *texture++;
             if ( (v115 & 0x80u) == 0 )
               break;
             v111 += v115;
-            LOBYTE(a1) = v115 + a1;
+			a1.byte1 = v115 + a1.byte1;
           }
-          if ( !(x_BYTE)v115 )
+          if ( !v115 )
             break;
-          LOBYTE(v112) = v115;
+          v112 = v115;
           do
           {
-            v116 = *a4++;
-            LOBYTE(a1) = a1 - 1;
-            if ( (a1 & 0x80u) == 0 )
+            v116 = *texture++;
+			a1.byte1 = a1.byte1 - 1;
+            if ( (a1.byte1 & 0x80u) == 0 )
               *v111 = v116;
             --v111;
             --v112;
@@ -106593,9 +106696,9 @@ LABEL_225:
         }
         v114 += x_DWORD_18062C_resolution_x;
         v111 = v114;
-        a1 = __PAIR__(HIBYTE(a1), v138) - 256;
+		a1.byte1 = __PAIR__(a1.byte1, v138) - 256;
       }
-      while ( HIBYTE(a1) );
+      while (a1.byte2);
     }
   }
 }
@@ -106604,10 +106707,10 @@ LABEL_225:
 // 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 // 18062C: using guessed type int x_DWORD_18062C_resolution_x;
 // 180634: using guessed type int x_DWORD_180634;
-// 18063C: using guessed type int x_DWORD_18063C;
+// 18063C: using guessed type int x_DWORD_18063C_positionx;
 // 180644: using guessed type int x_DWORD_180644;
 // 180648: using guessed type int x_DWORD_180648;
-// 180650: using guessed type int x_DWORD_180650;
+// 180650: using guessed type int x_DWORD_180650_positiony;
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
 //----- (00090164) --------------------------------------------------------
@@ -106725,18 +106828,18 @@ int /*__cdecl*/ sub_9025C(__int16 a1, __int16 a2, __int16 a3, __int16 a4, unsign
   //fix it
 
   v6 = 2 * x_DWORD_180634;
-  v7 = 2 * x_DWORD_180650;
+  v7 = 2 * x_DWORD_180650_positiony;
   v8 = 2 * x_DWORD_180630;
-  if ( a1 < (signed __int16)(2 * x_DWORD_18063C) )
-    a1 = 2 * x_DWORD_18063C;
-  if ( a3 < (signed __int16)(2 * x_DWORD_18063C) )
+  if ( a1 < (signed __int16)(2 * x_DWORD_18063C_positionx) )
+    a1 = 2 * x_DWORD_18063C_positionx;
+  if ( a3 < (signed __int16)(2 * x_DWORD_18063C_positionx) )
     return v16;
   if ( a1 >= v6 )
     return v16;
   if ( a3 >= v6 )
     a3 = 2 * x_DWORD_180634;
   if ( a2 < v7 )
-    a2 = 2 * x_DWORD_180650;
+    a2 = 2 * x_DWORD_180650_positiony;
   if ( a4 < v7 )
     return v16;
   if ( a2 >= v8 )
@@ -106800,8 +106903,8 @@ int /*__cdecl*/ sub_9025C(__int16 a1, __int16 a2, __int16 a3, __int16 a4, unsign
 // 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 // 180630: using guessed type int x_DWORD_180630;
 // 180634: using guessed type int x_DWORD_180634;
-// 18063C: using guessed type int x_DWORD_18063C;
-// 180650: using guessed type int x_DWORD_180650;
+// 18063C: using guessed type int x_DWORD_18063C_positionx;
+// 180650: using guessed type int x_DWORD_180650_positiony;
 
 //----- (00090374) --------------------------------------------------------
 int /*__cdecl*/ sub_90374(__int16 a1, __int16 a2, __int16 a3, __int16 a4, unsigned __int16 a5, __int16 a6)
@@ -106818,17 +106921,17 @@ int /*__cdecl*/ sub_90374(__int16 a1, __int16 a2, __int16 a3, __int16 a4, unsign
   v13 = 0;
   //fix it
 
-  if ( a1 < (signed __int16)x_DWORD_18063C )
-    a1 = x_DWORD_18063C;
-  if ( a3 < (signed __int16)x_DWORD_18063C )
+  if ( a1 < (signed __int16)x_DWORD_18063C_positionx )
+    a1 = x_DWORD_18063C_positionx;
+  if ( a3 < (signed __int16)x_DWORD_18063C_positionx )
     return v13;
   if ( a1 >= (signed __int16)x_DWORD_180634 )
     return v13;
   if ( a3 >= (signed __int16)x_DWORD_180634 )
     a3 = x_DWORD_180634;
-  if ( a2 < (signed __int16)x_DWORD_180650 )
-    a2 = x_DWORD_180650;
-  if ( a4 < (signed __int16)x_DWORD_180650 )
+  if ( a2 < (signed __int16)x_DWORD_180650_positiony )
+    a2 = x_DWORD_180650_positiony;
+  if ( a4 < (signed __int16)x_DWORD_180650_positiony )
     return v13;
   if ( a2 >= (signed __int16)x_DWORD_180630 )
     return v13;
@@ -106886,8 +106989,8 @@ int /*__cdecl*/ sub_90374(__int16 a1, __int16 a2, __int16 a3, __int16 a4, unsign
 // 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 // 180630: using guessed type int x_DWORD_180630;
 // 180634: using guessed type int x_DWORD_180634;
-// 18063C: using guessed type int x_DWORD_18063C;
-// 180650: using guessed type int x_DWORD_180650;
+// 18063C: using guessed type int x_DWORD_18063C_positionx;
+// 180650: using guessed type int x_DWORD_180650_positiony;
 
 //----- (00090478) --------------------------------------------------------
 void sub_90478()
@@ -112405,8 +112508,8 @@ void sub_A0D50_set_viewport(__int16 a1, __int16 a2, __int16 a3, __int16 a4)
 {
   int result; // eax
 
-  x_DWORD_18063C = a1;
-  x_DWORD_180650 = a2;
+  x_DWORD_18063C_positionx = a1;
+  x_DWORD_180650_positiony = a2;
   x_DWORD_180648 = a3;
   x_DWORD_180644 = a4;
   x_DWORD_180634 = a3 + a1;
@@ -112416,10 +112519,10 @@ void sub_A0D50_set_viewport(__int16 a1, __int16 a2, __int16 a3, __int16 a4)
 }
 // 180630: using guessed type int x_DWORD_180630;
 // 180634: using guessed type int x_DWORD_180634;
-// 18063C: using guessed type int x_DWORD_18063C;
+// 18063C: using guessed type int x_DWORD_18063C_positionx;
 // 180644: using guessed type int x_DWORD_180644;
 // 180648: using guessed type int x_DWORD_180648;
-// 180650: using guessed type int x_DWORD_180650;
+// 180650: using guessed type int x_DWORD_180650_positiony;
 
 //----- (000A0EEC) --------------------------------------------------------
 void sub_A0EEC()
@@ -136254,7 +136357,7 @@ void /*__cdecl*/ /*__spoils<ecx>*/ sub_BD542(unsigned __int16 a1, unsigned __int
   signed int v26; // [esp+4h] [ebp-8h]
   int v27; // [esp+8h] [ebp-4h]
 
-  v27 = (int)x_DWORD_180628b_screen_buffer + x_DWORD_18063C + x_DWORD_18062C_resolution_x * x_DWORD_180650;
+  v27 = (int)x_DWORD_180628b_screen_buffer + x_DWORD_18063C_positionx + x_DWORD_18062C_resolution_x * x_DWORD_180650_positiony;
   v5 = a2;
   if ( (a2 & 0x8000u) == 0 )
   {
@@ -136472,10 +136575,10 @@ LABEL_54:
 }
 // 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 // 18062C: using guessed type int x_DWORD_18062C_resolution_x;
-// 18063C: using guessed type int x_DWORD_18063C;
+// 18063C: using guessed type int x_DWORD_18063C_positionx;
 // 180644: using guessed type int x_DWORD_180644;
 // 180648: using guessed type int x_DWORD_180648;
-// 180650: using guessed type int x_DWORD_180650;
+// 180650: using guessed type int x_DWORD_180650_positiony;
 
 //----- (000BF123) --------------------------------------------------------
 int sub_BF123()

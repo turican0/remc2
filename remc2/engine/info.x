@@ -304,3 +304,8 @@ v39 = sub_7E0E0();//25f0e0 - ale vlajka prida zde
 
 repair this function:
 signed int sub_7E0E0()//25f0e0
+
+repair this
+void sub_8F935(doublebyte a1, Bit16u tilex, int a3, Bit8u* a4, unsigned __int8 a5, char a6)//270935
+
+texture - 47be3b

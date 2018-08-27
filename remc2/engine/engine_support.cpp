@@ -157,6 +157,13 @@ Bit8u* dword_E9C30[1000]; // weak
 
 Bit8u* x_DWORD_180628b_screen_buffer; // weak
 
+doublebyte doublebyte_conv(Bit16u a2) {
+	doublebyte result;
+	result.byte1 = a2 && 0xff;
+	result.byte2 = a2 && 0xff00;
+	return result;
+};
+
 void support_begin() {
     readbuffer = (Bit8u*)malloc(1000000);//fix it max 64000
     printbuffer = (char*)malloc(4096);
