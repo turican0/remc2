@@ -182,4 +182,6 @@ void loadfromsnapshot(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u si
 void loadfromsnapshot2(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u size);
 Bit32u compare_with_snapshot(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u size);
 
+void writehex(Bit8u* buffer,Bit32u count);
+
 #endif //ENGINE_SUPPORT_ACTIVE

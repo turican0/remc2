@@ -327,3 +327,11 @@ esi=[esi], tj 47ae48
 
 odladit
 signed int sub_7E0E0()//25f0e0
+
+x_DWORD_180628b_screen_buffer
+texture
+a dalsi
+v
+void sub_8F935(doublebyte a1, Bit16u tiley, int tilex, Bit8u* texture, unsigned __int8 a5, char a6)//270935
+diagnostika dalsich typu spritu
+

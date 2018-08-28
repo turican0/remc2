@@ -13126,7 +13126,7 @@ int x_DWORD_18062C_resolution_x; // weak
 int x_DWORD_180630; // weak
 int x_DWORD_180634; // weak
 int x_DWORD_180638; // weak
-int x_DWORD_18063C_positionx; // weak
+int x_DWORD_18063C_sprite_sizex; // weak
 int x_DWORD_180640; // weak
 int x_DWORD_180644; // weak
 int x_DWORD_180648; // weak
@@ -103804,13 +103804,13 @@ void sub_8CD27(Pathstruct a1)//26dd27
   }
   x_DWORD_18065C = x_DWORD_180650_positiony;
   x_DWORD_180640 = x_DWORD_180630;
-  x_DWORD_180638 = x_DWORD_18063C_positionx;
+  x_DWORD_180638 = x_DWORD_18063C_sprite_sizex;
   x_DWORD_18064C = x_DWORD_180634;
   x_DWORD_180658 = x_DWORD_180648;
   x_DWORD_180654 = x_DWORD_180644;
   x_DWORD_180650_positiony = 0;
   x_DWORD_180630 = 64;
-  x_DWORD_18063C_positionx = 0;
+  x_DWORD_18063C_sprite_sizex = 0;
   x_DWORD_180634 = 64;
   x_DWORD_180648 = 64;
   x_DWORD_180644 = 64;
@@ -103830,7 +103830,7 @@ void sub_8CD27(Pathstruct a1)//26dd27
   x_WORD_E36D4 = x_WORD_E36D4;//355230
   x_DWORD_180650_positiony = x_DWORD_18065C;
   x_DWORD_180630 = x_DWORD_180640;
-  x_DWORD_18063C_positionx = x_DWORD_180638;
+  x_DWORD_18063C_sprite_sizex = x_DWORD_180638;
   x_DWORD_180634 = x_DWORD_18064C;
   x_DWORD_180648 = x_DWORD_180658;
   x_DWORD_180644 = x_DWORD_180654;
@@ -103846,7 +103846,7 @@ void sub_8CD27(Pathstruct a1)//26dd27
 // 180630: using guessed type int x_DWORD_180630;
 // 180634: using guessed type int x_DWORD_180634;
 // 180638: using guessed type int x_DWORD_180638;
-// 18063C: using guessed type int x_DWORD_18063C_positionx;
+// 18063C: using guessed type int x_DWORD_18063C_sprite_sizex;
 // 180640: using guessed type int x_DWORD_180640;
 // 180644: using guessed type int x_DWORD_180644;
 // 180648: using guessed type int x_DWORD_180648;
@@ -105805,12 +105805,12 @@ void sub_8F935(doublebyte a1, Bit16u tiley, int tilex, Bit8u* texture, unsigned 
   x_BYTE *v142; // [esp+4h] [ebp-4h]
   x_BYTE *v143; // [esp+4h] [ebp-4h]
   //debug
-  loadfromsnapshot((char*)"0160-00270935-2",texture,0x47be3a,4000);
+  loadfromsnapshot((char*)"0160-00270935-2",texture,0x47be3a,0x400);
 
   //a1 = 0x1513;
   x_DWORD_180650_positiony = 0;//351650
   x_DWORD_18062C_resolution_x = 0x40;//35162c
-  x_DWORD_18063C_positionx = 0;//35163c
+  x_DWORD_18063C_sprite_sizex = 0;//35163c
   //x_DWORD_180628b_screen_buffer=82c714
   x_WORD_180660_VGA_type_resolution = 0x30008;
   tiley = 0;
@@ -105828,7 +105828,7 @@ void sub_8F935(doublebyte a1, Bit16u tiley, int tilex, Bit8u* texture, unsigned 
 
   if ( !(a1.byte2))//453558
     return;
-  pixel_buffer_index = x_DWORD_180628b_screen_buffer + x_DWORD_18063C_positionx + x_DWORD_18062C_resolution_x * x_DWORD_180650_positiony;
+  pixel_buffer_index = x_DWORD_180628b_screen_buffer + x_DWORD_18063C_sprite_sizex + x_DWORD_18062C_resolution_x * x_DWORD_180650_positiony;
   if ( x_WORD_180660_VGA_type_resolution & 1 )//pokud je rozliseno 320x200 zmensi hodnoty na polovic
   {
     a1.byte1 /= 2;
@@ -106458,9 +106458,43 @@ void sub_8F935(doublebyte a1, Bit16u tiley, int tilex, Bit8u* texture, unsigned 
     else
     {
 	  v21_buffer_temp_index1 = (x_DWORD_18062C_resolution_x * tiley + tilex + pixel_buffer_index);
+
       //v22 = 0;
-      v23 = -1;
-	  v24_buffer_temp_index2 = v21_buffer_temp_index1;
+      //v23 = -1;
+	  Bit32u inindex = 0;
+	  Bit32u outindex = 0;
+	  Bit8s shift = 0;
+	  Bit8s end = 0;
+	  Bit8s count = texture[inindex++];
+	  qmemcpy(&v21_buffer_temp_index1[outindex], &texture[inindex], count);
+	  writehex(v21_buffer_temp_index1,1500);
+	  for(Bit32u y=1;count!=0x7f;y++)
+		  {
+		    qmemcpy(&v21_buffer_temp_index1[outindex + shift], &texture[inindex], count);
+			inindex += count;
+			end = texture[inindex++];
+			if (end == 0)
+			{
+				count = texture[inindex++];
+				if (count < 0) {
+					shift = -count;
+					count = texture[inindex++];
+				}
+				outindex += x_DWORD_18062C_resolution_x;
+			}
+			else {
+				shift += count;
+				count = end;
+				if (count < 0) {
+					shift -= count;
+					count = texture[inindex++];
+				}
+			}
+			writehex(v21_buffer_temp_index1, 1500);
+			printf(" %d\n",y);
+		  }
+	  //v24_buffer_temp_index2 = v21_buffer_temp_index1;
+	  /*
       do
       {
         while ( 1 )
@@ -106487,7 +106521,9 @@ void sub_8F935(doublebyte a1, Bit16u tiley, int tilex, Bit8u* texture, unsigned 
 		  texture += texture[index_tab_v22];
 		  v21_buffer_temp_index1 += texture[index_tab_v22];
 		  texture[index_tab_v22] = 0;
-		  /*v23 = *texture++;
+		  
+		  
+		  v23 = *texture++;
 		  for ( ;v23!=0;v23 = *texture++)
           {
 			// 3 19 19
@@ -106505,13 +106541,13 @@ void sub_8F935(doublebyte a1, Bit16u tiley, int tilex, Bit8u* texture, unsigned 
           qmemcpy(v21_buffer_temp_index1, texture, v22);
 		  texture += v22;
 		  v21_buffer_temp_index1 += v22;
-          v22 = 0;*/
+          v22 = 0;
         }
 		v24_buffer_temp_index2 += x_DWORD_18062C_resolution_x;
 		v21_buffer_temp_index1 = v24_buffer_temp_index2;
         --a1.byte2;
       }
-      while ( a1.byte2 );
+      while ( a1.byte2 );*/
     }
     return;
   }
@@ -106741,7 +106777,7 @@ LABEL_225:
 // 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 // 18062C: using guessed type int x_DWORD_18062C_resolution_x;
 // 180634: using guessed type int x_DWORD_180634;
-// 18063C: using guessed type int x_DWORD_18063C_positionx;
+// 18063C: using guessed type int x_DWORD_18063C_sprite_sizex;
 // 180644: using guessed type int x_DWORD_180644;
 // 180648: using guessed type int x_DWORD_180648;
 // 180650: using guessed type int x_DWORD_180650_positiony;
@@ -106864,9 +106900,9 @@ int /*__cdecl*/ sub_9025C(__int16 a1, __int16 a2, __int16 a3, __int16 a4, unsign
   v6 = 2 * x_DWORD_180634;
   v7 = 2 * x_DWORD_180650_positiony;
   v8 = 2 * x_DWORD_180630;
-  if ( a1 < (signed __int16)(2 * x_DWORD_18063C_positionx) )
-    a1 = 2 * x_DWORD_18063C_positionx;
-  if ( a3 < (signed __int16)(2 * x_DWORD_18063C_positionx) )
+  if ( a1 < (signed __int16)(2 * x_DWORD_18063C_sprite_sizex) )
+    a1 = 2 * x_DWORD_18063C_sprite_sizex;
+  if ( a3 < (signed __int16)(2 * x_DWORD_18063C_sprite_sizex) )
     return v16;
   if ( a1 >= v6 )
     return v16;
@@ -106937,7 +106973,7 @@ int /*__cdecl*/ sub_9025C(__int16 a1, __int16 a2, __int16 a3, __int16 a4, unsign
 // 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 // 180630: using guessed type int x_DWORD_180630;
 // 180634: using guessed type int x_DWORD_180634;
-// 18063C: using guessed type int x_DWORD_18063C_positionx;
+// 18063C: using guessed type int x_DWORD_18063C_sprite_sizex;
 // 180650: using guessed type int x_DWORD_180650_positiony;
 
 //----- (00090374) --------------------------------------------------------
@@ -106955,9 +106991,9 @@ int /*__cdecl*/ sub_90374(__int16 a1, __int16 a2, __int16 a3, __int16 a4, unsign
   v13 = 0;
   //fix it
 
-  if ( a1 < (signed __int16)x_DWORD_18063C_positionx )
-    a1 = x_DWORD_18063C_positionx;
-  if ( a3 < (signed __int16)x_DWORD_18063C_positionx )
+  if ( a1 < (signed __int16)x_DWORD_18063C_sprite_sizex )
+    a1 = x_DWORD_18063C_sprite_sizex;
+  if ( a3 < (signed __int16)x_DWORD_18063C_sprite_sizex )
     return v13;
   if ( a1 >= (signed __int16)x_DWORD_180634 )
     return v13;
@@ -107023,7 +107059,7 @@ int /*__cdecl*/ sub_90374(__int16 a1, __int16 a2, __int16 a3, __int16 a4, unsign
 // 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 // 180630: using guessed type int x_DWORD_180630;
 // 180634: using guessed type int x_DWORD_180634;
-// 18063C: using guessed type int x_DWORD_18063C_positionx;
+// 18063C: using guessed type int x_DWORD_18063C_sprite_sizex;
 // 180650: using guessed type int x_DWORD_180650_positiony;
 
 //----- (00090478) --------------------------------------------------------
@@ -112542,7 +112578,7 @@ void sub_A0D50_set_viewport(__int16 a1, __int16 a2, __int16 a3, __int16 a4)
 {
   int result; // eax
 
-  x_DWORD_18063C_positionx = a1;
+  x_DWORD_18063C_sprite_sizex = a1;
   x_DWORD_180650_positiony = a2;
   x_DWORD_180648 = a3;
   x_DWORD_180644 = a4;
@@ -112553,7 +112589,7 @@ void sub_A0D50_set_viewport(__int16 a1, __int16 a2, __int16 a3, __int16 a4)
 }
 // 180630: using guessed type int x_DWORD_180630;
 // 180634: using guessed type int x_DWORD_180634;
-// 18063C: using guessed type int x_DWORD_18063C_positionx;
+// 18063C: using guessed type int x_DWORD_18063C_sprite_sizex;
 // 180644: using guessed type int x_DWORD_180644;
 // 180648: using guessed type int x_DWORD_180648;
 // 180650: using guessed type int x_DWORD_180650_positiony;
@@ -136391,7 +136427,7 @@ void /*__cdecl*/ /*__spoils<ecx>*/ sub_BD542(unsigned __int16 a1, unsigned __int
   signed int v26; // [esp+4h] [ebp-8h]
   int v27; // [esp+8h] [ebp-4h]
 
-  v27 = (int)x_DWORD_180628b_screen_buffer + x_DWORD_18063C_positionx + x_DWORD_18062C_resolution_x * x_DWORD_180650_positiony;
+  v27 = (int)x_DWORD_180628b_screen_buffer + x_DWORD_18063C_sprite_sizex + x_DWORD_18062C_resolution_x * x_DWORD_180650_positiony;
   v5 = a2;
   if ( (a2 & 0x8000u) == 0 )
   {
@@ -136609,7 +136645,7 @@ LABEL_54:
 }
 // 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 // 18062C: using guessed type int x_DWORD_18062C_resolution_x;
-// 18063C: using guessed type int x_DWORD_18063C_positionx;
+// 18063C: using guessed type int x_DWORD_18063C_sprite_sizex;
 // 180644: using guessed type int x_DWORD_180644;
 // 180648: using guessed type int x_DWORD_180648;
 // 180650: using guessed type int x_DWORD_180650_positiony;

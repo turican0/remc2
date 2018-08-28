@@ -249,3 +249,12 @@ Bit32u compare_with_snapshot(char* filename, Bit8u* adress, Bit32u adressdos, Bi
 
 	return(i);
 };
+
+void writehex(Bit8u* buffer, Bit32u count) {
+	for (int i=0;i < count;i++)
+	{
+		if (i % 32 == 0)printf("\n");
+		printf("%02X", buffer[i]);		
+	}
+	printf("\n");
+};
