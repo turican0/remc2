@@ -309,3 +309,21 @@ repair this
 void sub_8F935(doublebyte a1, Bit16u tilex, int a3, Bit8u* a4, unsigned __int8 a5, char a6)//270935
 
 texture - 47be3b
+sub_7AA70((char*)"DATA/SCREENS/HSCREEN0.DAT", &x_D41A0_BYTEARRAY_4_0xE2_heapbuffer[0x4D54A], 168849, 102213);
+sub_7AA70((char*)"DATA/SCREENS/HSCREEN0.DAT", x_DWORD_17DED4, 271062, 411);
+
+zmensen rozsah pro sdl zobrazeno na 1px
+
+NEW VALUE0168:0047BE3B - 0000,BA7B3C04
+NEW VALUE0168:0047BE3B - BA7B3C04,BA7B3C19
+NEW VALUE0168:0047BE3B - BA7B3C19,BA191919
+NEW VALUE0168:0047BE3B - BA191919,191919
+[34ee48]->453a5e
+
+edx,[ebp+1c]
+texture - 47ae39
+48c80f -<ebp+10
+esi=[esi], tj 47ae48
+
+odladit
+signed int sub_7E0E0()//25f0e0

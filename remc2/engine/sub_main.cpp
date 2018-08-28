@@ -34033,6 +34033,8 @@ LABEL_10:
 //----- (0002BB40) --------------------------------------------------------
 void /*__cdecl*/ sub_2BB40(__int16 a1, __int16 a2, Bit8u* a3)//20cb40
 {
+	//a3=48c80f-> 48ae47002633
+
   //void (*v3)(__int16, __int16, Pathstruct); // eax
   //int result; // eax
   //int v5; // edi
@@ -92494,6 +92496,14 @@ signed int sub_7E0E0()//25f0e0
         v3 = x_WORD_E1F84[i + 20];
       else
         v3 = x_WORD_E1F84[i + 21];
+	  /*
+	  [34eed4]+69+48c73d
+	  cd
+	  123
+	  */
+	  //x_D41A0_BYTEARRAY_4_0xE2_heapbuffer[0x4D54A + 164829 - 1]
+	  //je asi &x_DWORD_17DED4[6 * v3]
+
 	  sub_2BB40(x_WORD_E1F84[i + 5], x_WORD_E1F84[i + 6], &x_DWORD_17DED4[6 * v3]);
     }
     else if ( sub_7B200(&x_WORD_E1F84[i], x_DWORD_17DEE4, SHIWORD(x_DWORD_17DEE4)) )
@@ -105672,12 +105682,12 @@ void sub_8F935(doublebyte a1, Bit16u tiley, int tilex, Bit8u* texture, unsigned 
   char v19; // al
   char v20; // al
   Bit8u* v21_buffer_temp_index1; // edi
-  unsigned int v22; // ecx
+  //unsigned int v22; // ecx
   signed int v23; // eax
   Bit8u* v24_buffer_temp_index2; // ebx
   Bit8u* v25_buffer_temp_index3; // edi
-  char v26; // al
-  Bit8u* v27; // esi
+  //char v26; // al
+  //Bit8u* v27; // esi
   char *v28; // edi
   unsigned int v29; // ecx
   signed int v30; // eax
@@ -105795,7 +105805,7 @@ void sub_8F935(doublebyte a1, Bit16u tiley, int tilex, Bit8u* texture, unsigned 
   x_BYTE *v142; // [esp+4h] [ebp-4h]
   x_BYTE *v143; // [esp+4h] [ebp-4h]
   //debug
-  //loadfromsnapshot((char*)"0160-00270935",(Bit8u*)&a1,0x55,4);
+  loadfromsnapshot((char*)"0160-00270935-2",texture,0x47be3a,4000);
 
   //a1 = 0x1513;
   x_DWORD_180650_positiony = 0;//351650
@@ -105805,9 +105815,13 @@ void sub_8F935(doublebyte a1, Bit16u tiley, int tilex, Bit8u* texture, unsigned 
   x_WORD_180660_VGA_type_resolution = 0x30008;
   tiley = 0;
   a1.byte1 = 0x13;
+  
   a1.byte2 = 0x15;
+  //a1.byte2 = 0;
+  
   tilex = 0;
   x_DWORD_180644 = 0x40;
+
   //a4 = 03;
   //debug
 
@@ -106444,24 +106458,44 @@ void sub_8F935(doublebyte a1, Bit16u tiley, int tilex, Bit8u* texture, unsigned 
     else
     {
 	  v21_buffer_temp_index1 = (x_DWORD_18062C_resolution_x * tiley + tilex + pixel_buffer_index);
-      v22 = 0;
+      //v22 = 0;
       v23 = -1;
 	  v24_buffer_temp_index2 = v21_buffer_temp_index1;
       do
       {
         while ( 1 )
         {
-          while ( 1 )
+		  Bit32u index_tab=0;
+		  Bit32u index_tab_v23 = 0;
+		  Bit32u index_tab_v22 = 0;
+		  //v23 = texture[index_tab++];
+		  for (Bit32u index_tab = 0;texture[index_tab] != 0; index_tab++)
+		  {
+			  // 3 19 19
+			  v25_buffer_temp_index3 = &v21_buffer_temp_index1[-v23];
+			  //v27 = texture + 1;
+			  texture[index_tab_v22] = texture[index_tab];
+			  qmemcpy(v25_buffer_temp_index3, (void*)texture[index_tab+1], (int)texture[index_tab_v22]);
+			  //texture = (Bit8u*)&(texture + 1 + 3);
+			  v21_buffer_temp_index1 = &v25_buffer_temp_index3[texture[index_tab_v22]];
+			  texture[index_tab_v22] = 0;
+		  }
+		  if (!v23)
+			  break;
+		  texture[index_tab_v22] = texture[index_tab_v23];
+		  qmemcpy(v21_buffer_temp_index1, texture, texture[index_tab_v22]);
+		  texture += texture[index_tab_v22];
+		  v21_buffer_temp_index1 += texture[index_tab_v22];
+		  texture[index_tab_v22] = 0;
+		  /*v23 = *texture++;
+		  for ( ;v23!=0;v23 = *texture++)
           {
-            v23 = *texture++;
-            if ( (v23 & 0x80u) == 0 )
-              break;
-			v25_buffer_temp_index3 = &v21_buffer_temp_index1[-v23];
-            v26 = *texture;
-            v27 = texture + 1;
-            v22 = v26;
-            qmemcpy(v25_buffer_temp_index3, v27, v22);
-			texture = (Bit8u*)&v27[v22];
+			// 3 19 19
+            v25_buffer_temp_index3 = &v21_buffer_temp_index1[-v23];
+            //v27 = texture + 1;
+            v22 = *texture;
+            qmemcpy(v25_buffer_temp_index3, texture + 1, v22);
+			texture = (Bit8u*)&(*texture + 1+*v22);
 			v21_buffer_temp_index1 = &v25_buffer_temp_index3[v22];
             v22 = 0;
           }
@@ -106471,7 +106505,7 @@ void sub_8F935(doublebyte a1, Bit16u tiley, int tilex, Bit8u* texture, unsigned 
           qmemcpy(v21_buffer_temp_index1, texture, v22);
 		  texture += v22;
 		  v21_buffer_temp_index1 += v22;
-          v22 = 0;
+          v22 = 0;*/
         }
 		v24_buffer_temp_index2 += x_DWORD_18062C_resolution_x;
 		v21_buffer_temp_index1 = v24_buffer_temp_index2;
