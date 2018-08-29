@@ -335,3 +335,5 @@ v
 void sub_8F935(doublebyte a1, Bit16u tiley, int tilex, Bit8u* texture, unsigned __int8 a5, char a6)//270935
 diagnostika dalsich typu spritu
 
+najit puvod a1 v 270935
+

@@ -105805,7 +105805,7 @@ void sub_8F935(doublebyte a1, Bit16u tiley, int tilex, Bit8u* texture, unsigned 
   x_BYTE *v142; // [esp+4h] [ebp-4h]
   x_BYTE *v143; // [esp+4h] [ebp-4h]
   //debug
-  loadfromsnapshot((char*)"0160-00270935-2",texture,0x47be3a,0x400);
+  /*loadfromsnapshot((char*)"0160-00270935-2",texture,0x47be3a,0x400);
 
   //a1 = 0x1513;
   x_DWORD_180650_positiony = 0;//351650
@@ -105822,7 +105822,7 @@ void sub_8F935(doublebyte a1, Bit16u tiley, int tilex, Bit8u* texture, unsigned 
   tilex = 0;
   x_DWORD_180644 = 0x40;
 
-  //a4 = 03;
+  //a4 = 03;*/
   //debug
 
 
