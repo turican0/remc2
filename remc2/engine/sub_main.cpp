@@ -2851,7 +2851,7 @@ void /*__cdecl*/ sub_8F420(int a1, __int16 a2);
 int sub_8F4B0(); // weak
 void /*__cdecl*/ sub_8F710(int a1, __int16 a2, signed int a3, unsigned __int8 a4, char a5);
 char *sub_8F850();
-void /*__cdecl*/ sub_8F8B0(__int16 a1, __int16 a2, Bit8u* a3);
+void /*__cdecl*/ sub_8F8B0(__int16 a1, __int16 a2, Pathstruct a3);
 void /*__cdecl*/ sub_8F8E8(__int16 a1, __int16 a2, Bit8u* a3);
 // void sub_8F920(__int16 a1, signed int a2, int a3, char *a4, unsigned __int8 a5, char a6);
 // void sub_8F935(__int16 a1, signed int a2, int a3, char *a4, unsigned __int8 a5, char a6);
@@ -34040,8 +34040,12 @@ void /*__cdecl*/ sub_2BB40(__int16 a1, __int16 a2, Bit8u* a3)//20cb40
   //int v5; // edi
   //int (*v6)(__int16, __int16, Pathstruct); // [esp+0h] [ebp-4h]
 //123 cd 48c80f 
+  Pathstruct tempstruct;
+  Bit8u* tempcharstar;
+  tempstruct.var28_begin_buffer = &tempcharstar;//this fix
+  *tempstruct.var28_begin_buffer = a3;//this fix
   if ( x_WORD_180660_VGA_type_resolution & 1 )
-    sub_8F8B0(a1, a2, a3);
+    sub_8F8B0(a1, a2, tempstruct);
   else
     sub_8F8E8(a1, a2, a3);
   //v6 = v3;
@@ -34052,7 +34056,7 @@ void /*__cdecl*/ sub_2BB40(__int16 a1, __int16 a2, Bit8u* a3)//20cb40
     //v5 = (int)x_DWORD_180628b_screen_buffer;
     x_DWORD_180628b_screen_buffer = x_DWORD_E9C3C;
 	if (x_WORD_180660_VGA_type_resolution & 1)
-		sub_8F8B0(a1, a2, a3);
+		sub_8F8B0(a1, a2, tempstruct);
 	else
 		sub_8F8E8(a1, a2, a3);
     //x_DWORD_180628b_screen_buffer = v5;
@@ -34175,7 +34179,7 @@ int /*__cdecl*/ sub_2BD10(__int16 a1, __int16 a2, __int16 a3, __int16 a4, unsign
 int sub_2BE30()
 {
   char v0; // dl
-  void (/*__cdecl*/ *v1)(__int16, __int16, Bit8u*); // eax
+  //void (/*__cdecl*/ *v1)(__int16, __int16, Bit8u*); // eax
   char v2; // bh
   int v3; // esi
   char v4; // dl
@@ -34217,21 +34221,25 @@ int sub_2BE30()
 
   v0 = x_D41A0_BYTEARRAY_4_struct.setting_byte1_22;
   x_DWORD_D41C8 = 0;
+  Pathstruct tempstruct;//this must fix
+  tempstruct.var28_begin_buffer = new Bit8u*;//this must fix
   if ( *(x_BYTE *)(x_DWORD_D41A0 + 8600) )
   {
     if ( x_WORD_180660_VGA_type_resolution & 1 )
-      v1 = sub_8F8B0;
+      //v1 = sub_8F8B0;
+	/*x_DWORD_F01E8 = */sub_8F8B0(0,0, tempstruct);//this must fix
     else
-      v1 = sub_8F8E8;
-    x_DWORD_F01E8 = (int (/*__cdecl*/ *)(x_DWORD, x_DWORD, x_DWORD))v1;
+      //v1 = sub_8F8E8;
+	/*x_DWORD_F01E8 = */sub_8F8E8(0, 0, (Bit8u*)"");//this must fix
+    //x_DWORD_F01E8 = (int (/*__cdecl*/ *)(x_DWORD, x_DWORD, x_DWORD))v1;
   }
   else
   {
-    x_DWORD_F01E8 = (int (/*__cdecl*/ *)(x_DWORD, x_DWORD, x_DWORD))sub_2DE80;
+	  /*x_DWORD_F01E8 = */sub_2DE80(0, 0, 0);
   }
   x_DWORD_F01EC = x_DWORD_F01E8;
   v2 = x_D41A0_BYTEARRAY_4[0xA];
-  x_DWORD_F01E8 = (int (/*__cdecl*/ *)(x_DWORD, x_DWORD, x_DWORD))sub_2BBB0;
+  /*x_DWORD_F01E8 = */sub_2BBB0(0,0,0);
   if ( v2 )
     sub_88580();
   switch ( *(x_BYTE *)(2124 * x_D41A0_BYTEARRAY_4_struct.dwordindex_12 + x_DWORD_D41A0 + 12221) )
@@ -88363,7 +88371,7 @@ char /*__cdecl*/ sub_779E0(int a1)//2589E0
   
   v32 = 2;
   sub_6EDB0_set_mouse_position_by_res();//24fdb0
-  x_DWORD_17DEE4 = 13107520;
+  x_DWORD_17DEE4 = 0xC80140;
   if ( a1 )//0x0
   {
     sub_7A110(x_WORD_180660_VGA_type_resolution, 12);//load hscreen 25b110
@@ -103825,7 +103833,7 @@ void sub_8CD27(Pathstruct a1)//26dd27
 	  //printf("%d",i);
   }
   if ( a1.var28_begin_buffer )
-    sub_8F8B0(0, 0, a1.var28_begin_buffer[0]);//2708B0 super inicializace //a2 ma byt 86 nebo a1 nema nikam ukazovat
+    sub_8F8B0(0, 0, a1);//2708B0 super inicializace //a2 ma byt 86 nebo a1 nema nikam ukazovat
   //x_DWORD_18062C_resolution_x = v3;
   x_WORD_E36D4 = x_WORD_E36D4;//355230
   x_DWORD_180650_positiony = x_DWORD_18065C;
@@ -105529,7 +105537,7 @@ char *sub_8F850()
 // 180CA0: using guessed type int x_DWORD_180CA0[];
 
 //----- (0008F8B0) --------------------------------------------------------
-void /*__cdecl*/ sub_8F8B0(__int16 a1, __int16 a2, Bit8u* a3)//2708B0
+void /*__cdecl*/ sub_8F8B0(__int16 a1, __int16 a2, Pathstruct a3)//2708B0
 {
   //int v4; // [esp+4h] [ebp-4h]
 
@@ -105537,7 +105545,7 @@ void /*__cdecl*/ sub_8F8B0(__int16 a1, __int16 a2, Bit8u* a3)//2708B0
   //v4 = 0;
   //fix it
 
-  sub_8F935(doublebyte_conv(*(Bit16u*)a3), a2, a1, (Bit8u*)(a3+4), 0, 0);//270935 // a2 je 86
+  sub_8F935(doublebyte_conv(a3.var36_size_buffer), a2, a1, *(a3.var28_begin_buffer), 0, 0);//270935 // a2 je 86
   //return v4;
 }
 // 180628: using guessed type int x_DWORD_180628b_screen_buffer;

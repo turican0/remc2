@@ -336,4 +336,37 @@ void sub_8F935(doublebyte a1, Bit16u tiley, int tilex, Bit8u* texture, unsigned 
 diagnostika dalsich typu spritu
 
 najit puvod a1 v 270935
+je to promenna 1a6f48
+v void sub_8CD27(Pathstruct a1)//26dd27
+0 0 1a6f44
+spust sub_8F8B0(0, 0, a1.var28_begin_buffer[0]);//2708B0 super inicializace //a2 ma byt 86 nebo a1 nema nikam ukazovat
+  
 
+hleda se puvod:
+x_WORD_E1F84 - 2b2f84 - 000000000000000000002301cd003c
+-to je ok, je to definovano na zacatku
+x_DWORD_17DED4 - 34eed4? - 3dc74800d7c9480000000000ffffffff4001c8
+v 257a40
+v 2589e0
+mov [34eee6]-<si di
+dal testuj toto:
+sub_2BB40(x_WORD_E1F84[i + 5], x_WORD_E1F84[i + 6], &x_DWORD_17DED4[6 * v3]);
+291 205 &130
+48c80f cd 123
+48c73d +d2= 48c80f?
+48ae4700263341b6470026333abe4700
+
+hlavni procedura-
+char /*__cdecl*/ sub_779E0(int a1)//2589E0
+34eed4? - void /*__cdecl*/ sub_7A110(char a1, char a2)//25b110
+[34eed4]<-[[34ee48]+4d54a+38cdf] - toto zkontrolovat
+x_DWORD_17DE38 = *xadatapald0dat2.var28_begin_buffer;
+
+toto se nakrmi zde:
+19b
+422d6
+push 2a2a18
+call 25ba70
+
+48c73d - zkontrolovat xadatapald0dat2.var28_begin_buffer:
+000000000000020000005d5fc2220000

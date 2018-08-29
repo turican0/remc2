@@ -326,7 +326,7 @@ void VGA_Blit(int width, int height, Uint8* buffer) {
 		}
 	}
 
-	memcpy(screen->pixels, buffer, 1/*width*height*/);
+	memcpy(screen->pixels, buffer, width*height);
 	/*for (int i = 0;i < 600;i++)
 		for (int j = 0;j < 400;j++)
 			putpixel(screen, i, j, 127);*/
