@@ -241,8 +241,17 @@ Bit8u* ITEXT_BEGIN_BUFFER = 0;
 Bit8u* BLOCK16DAT_BEGIN_BUFFER = 0;
 Bit8u* BLOCK32DAT_BEGIN_BUFFER = 0;
 
+Bit8u* BSCREEN_BEGIN_BUFFER = 0;
+Bit8u* BSCREEN_END_BUFFER = 0;
+
 Bit8u* PALD0DAT_BEGIN_BUFFER = 0;
 Bit8u* PALD0DAT2_BEGIN_BUFFER = 0;
+
+Bit8u* WSCREEN_BEGIN_BUFFER = 0;
+Bit8u* WSCREEN_END_BUFFER = 0;
+
+Bit8u* BSCREEN2_BEGIN_BUFFER = 0;
+Bit8u* BSCREEN2_END_BUFFER = 0;
 
 Bit8u* MSPRD00DAT_BEGIN_BUFFER = 0;
 Bit8u* MSPRD00TAB_BEGIN_BUFFER = 0;
@@ -258,6 +267,8 @@ Bit8u* HFONT3TAB_END_BUFFER = 0;
 
 Bit8u* CLRD0DAT_BEGIN_BUFFER = 0;
 Bit8u* SPELLS_BEGIN_BUFFER = 0;
+
+Bit8u* LANG_BEGIN_BUFFER = 0;
 
 
 
@@ -393,46 +404,49 @@ Pathstruct xadatablock32dat = { "data/block32.dat\0",&BLOCK32DAT_BEGIN_BUFFER,NU
 #define psxadatablock32dat 23
 //zero
 #define psxazero6 24
-Pathstruct xabscreen = { "*BScreen\0",NULL,NULL,0x011508,NULL };
+Pathstruct xabscreen = { "*BScreen\0",&BSCREEN_BEGIN_BUFFER,&BSCREEN_END_BUFFER,0x011508,NULL };
 #define psxabscreen 25
 Pathstruct xadatapald0dat = { "data/pald-0.dat\0",&PALD0DAT_BEGIN_BUFFER,NULL,NULL,NULL };
 #define psxadatapald0dat 26
 //zero
 #define psxazero7 27
-Pathstruct xawscreen = { "*WScreen\0",NULL,NULL,0x04b100,NULL };
+Pathstruct xawscreen = { "*WScreen\0",&WSCREEN_BEGIN_BUFFER,&WSCREEN_END_BUFFER,0x04b100,NULL };
 #define psxawscreen 28
+Pathstruct xabscreen2 = { "*BScreen\0",&BSCREEN2_BEGIN_BUFFER,&BSCREEN2_END_BUFFER,0x011508,NULL };
+#define psxabscreen2 29
+
 Pathstruct xadatapald0dat2 = { "data/pald-0.dat\0",&PALD0DAT2_BEGIN_BUFFER,NULL,NULL,NULL };
-#define psxadatapald0dat2 29
+#define psxadatapald0dat2 30
 //zero
-#define psxazero8 30
+#define psxazero8 31
 Pathstruct xadatamsprd00dat = { "data/msprd0-0.dat\0",&MSPRD00DAT_BEGIN_BUFFER,NULL,NULL,NULL };
-#define psxadatamsprd00dat 31
+#define psxadatamsprd00dat 32
 Pathstruct xadatamsprd00tab = { "data/msprd0-0.tab\0",&MSPRD00TAB_BEGIN_BUFFER,&MSPRD00TAB_END_BUFFER,NULL,NULL };
-#define psxadatamsprd00tab 32
+#define psxadatamsprd00tab 33
 //zero
-#define psxazero9 33
+#define psxazero9 34
 Pathstruct xadatahsprd00dat = { "data/hsprd0-0.dat\0",&HSPRD00DAT_BEGIN_BUFFER,NULL,NULL,NULL };
-#define psxadatahsprd00dat 34
+#define psxadatahsprd00dat 35
 Pathstruct xadatahsprd00tab = { "data/hsprd0-0.tab\0",&HSPRD00TAB_BEGIN_BUFFER,&HSPRD00TAB_END_BUFFER,NULL,NULL };
-#define psxadatahsprd00tab 35
+#define psxadatahsprd00tab 36
 Pathstruct xadatahfont3dat = { "data/hfont3.dat\0",&HFONT3DAT_BEGIN_BUFFER,NULL,NULL,NULL };
-#define psxadatahfont3dat 36
+#define psxadatahfont3dat 37
 Pathstruct xadatahfont3tab = { "data/hfont3.tab\0",&HFONT3TAB_BEGIN_BUFFER,&HFONT3TAB_END_BUFFER,NULL,NULL };
-#define psxadatahfont3tab 37
+#define psxadatahfont3tab 38
 //zero
-#define psxazero10 38
+#define psxazero10 39
 Pathstruct xadataclrd0dat = { "data/clrd-0.dat\0",&CLRD0DAT_BEGIN_BUFFER,NULL,NULL,NULL };
-#define psxadatahfont3tab 39
-//zero
-#define psxazero11 39
-Pathstruct xadataspellsdat = { "data/spells.dat\0",&SPELLS_BEGIN_BUFFER,NULL,NULL,NULL };
 #define psxadatahfont3tab 40
 //zero
-#define psxazero12 41
-Pathstruct xadatalang = { "",&x_DWORD_D41BC_langbuffer,NULL,NULL,NULL };
+#define psxazero11 41
+Pathstruct xadataspellsdat = { "data/spells.dat\0",&SPELLS_BEGIN_BUFFER,NULL,NULL,NULL };
 #define psxadatahfont3tab 42
 //zero
-#define psxazero13 43
+#define psxazero12 43
+Pathstruct xadatalang = { "",&x_DWORD_D41BC_langbuffer,&LANG_BEGIN_BUFFER,NULL,NULL };
+#define psxadatahfont3tab 44
+//zero
+#define psxazero13 45
 
 Pathstruct pstr[100] = { xasearchd ,//00
 xafonts0dat,//01
@@ -462,17 +476,30 @@ xazero,//23
 xabscreen,//24
 xadatapald0dat,//25
 xazero,//26
-xadatahsprd00dat,//27
-xadatahsprd00tab,//28
-xadatahfont3dat,//29
-xadatahfont3tab,//30
-xazero,//31
-xadataclrd0dat,//32
+xawscreen,//27
+xabscreen2,//28
+xadatapald0dat2,//29
+xazero,//30
+xadatamsprd00dat,//31
+xadatamsprd00tab,//32
 xazero,//33
-xadataspellsdat,//34
-xazero };//35
+xadatahsprd00dat,//34
+xadatahsprd00tab,//35
+xadatahfont3dat,//36
+xadatahfont3tab,//37
+xazero,//38
+xadataclrd0dat,//39
+xazero,//40
+xadataspellsdat,//41
+xazero };//42
 
+typedef struct {
+	Bit8u* pointer;
+	Bit32u size;
+} SpriteStr;
 
+SpriteStr x_DWORD_17DED4_spritestr[1000];
+SpriteStr x_DWORD_17DEC0_spritestr[1000];
 
 
 x_DWORD loc_1B2E6;
@@ -10739,74 +10766,17 @@ x_WORD off_E1D64[22] =
 }; // idb
 void *off_E1E98 = (void *)0x5BC1E; // weak
 signed __int16 x_WORD_E1F70[10] = { 430, 78, 0, 0, 80, 0, 413, 0, 0, 0 }; // idb
-x_WORD x_WORD_E1F84[66] =
+Bit8u x_WORD_E1F84[136] =
 {
-  0,
-  0,
-  0,
-  0,
-  0,
-  291,
-  205,
-  60,
-  60,
-  0,
-  8996,
-  257,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  3,
-  0,
-  0,
-  0,
-  0,
-  0,
-  288,
-  99,
-  60,
-  60,
-  0,
-  19788,
-  258,
-  1,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  3,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0
+	0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x23,0x01,0xCD,0x00,0x3C,0x00,
+	0x3C,0x00,0x00,0x00,0x24,0x23,0x01,0x01,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+	0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x03,0x00,0x00,0x00,0x00,0x00,
+	0x00,0x00,0x00,0x00,0x00,0x00,0x20,0x01,0x63,0x00,0x3C,0x00,0x3C,0x00,0x00,0x00,
+	0x4C,0x4D,0x02,0x01,0x01,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+	0x00,0x00,0x00,0x00,0x00,0x00,0x03,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+	0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+	0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+	0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00
 }; // idb
 x_WORD x_WORD_E2008[66] =
 {
@@ -64781,6 +64751,13 @@ LABEL_13:
 //----- (00055F70) --------------------------------------------------------
 int /*__cdecl*/ sub_main(int argc, char **argv, char **envp)//236F70
 {
+
+  *xadataclrd0dat.var28_begin_buffer = (Bit8u*)malloc(10000);//fix it
+
+  *xadataspellsdat.var28_begin_buffer = (Bit8u*)malloc(50000);
+
+
+
   signed int v3; // edi
   unsigned __int16 v4; // si
   //skip __int16 v6; // [esp+0h] [ebp-1Ch]
@@ -68677,9 +68654,7 @@ void sub_5B7A0_prepare_pallette()//23C7A0
 //----- (0005B840) --------------------------------------------------------
 void sub_5B840_load_pallette_and_help_pallette()//23C840
 {
-  *xadatapald0dat.var28_begin_buffer = (Bit8u*)malloc(10000);//fix it
-  *xadataclrd0dat.var28_begin_buffer = (Bit8u*)malloc(10000);//fix it
-  sub_53E60_readfile_and_decompress("data/pald-0.dat", xadatapald0dat.var28_begin_buffer);
+  sub_53E60_readfile_and_decompress("data/pald-0.dat", xadatapald0dat2.var28_begin_buffer);
   sub_53E60_readfile_and_decompress("data/clrd-0.dat", xadataclrd0dat.var28_begin_buffer);
 }
 // EA3D8: using guessed type int *xadatapald0dat2.var28_begin_buffer;
@@ -68757,8 +68732,8 @@ void sub_5B8D0_initialize()//23c8d0
   /*if ( !(x_D41A0_BYTEARRAY_4[0x18] & 8) )
   //fix it //x_D41A0_BYTEARRAY_4[0x18]=50CF38 =0
   */
-  *xadataspellsdat.var28_begin_buffer = (Bit8u*)malloc(50000);
-  sub_53E60_readfile_and_decompress("data/spells.dat", xadataspellsdat.var28_begin_buffer);//234e60
+  //*xadataspellsdat.var28_begin_buffer = (Bit8u*)malloc(50000);
+  sub_53E60_readfile_and_decompress("data/spells.dat", xadataspellsdat.var28_begin_buffer);//234e60 buffer - 2ab818
 
   //v0 = sub_5C0A0();//23d0a0
   if ( x_BYTE_D4B80 )
@@ -68773,7 +68748,7 @@ void sub_5B8D0_initialize()//23c8d0
   //VGA_Write_basic_pallette(basic_pal_buffer);
 
   sub_90B27_VGA_pal_fadein_fadeout(0, 0x10u, 0);//271B27 tady se zapina vga
-  *xadatapald0dat2.var28_begin_buffer = (Bit8u*)malloc(10000);//fix it
+  //*xadatapald0dat2.var28_begin_buffer = (Bit8u*)malloc(10000);//fix it
   memset((void*)*xadatapald0dat2.var28_begin_buffer, 0, 768);
   sub_41A90_VGA_pallette_install(*xadatapald0dat2.var28_begin_buffer);//222a90
   x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 = 0;//fix it
@@ -68815,7 +68790,7 @@ void sub_5B8D0_initialize()//23c8d0
   //mouse init
   
   //pointersdat_buffer = xadatapointersdat.var28_begin_buffer;//eb394 - 2bc394 -446f1{set in 23cf50}
-  sub_8CD27(xadatapointersdat);//anything with vga, maybe mouse cursor//26dd27
+  sub_8CD27(xadatapointersdat);//anything with vga, maybe mouse cursor//26dd27 //xadatapointersdat asi 1a6f44
   v2 = sub_5C430_multi_allocation(); //23d430
   sub_46DD0_init_sound_and_music(v2, v3, (int)filearray_2aa18c[filearrayindex_POINTERSDATTAB].begin_buffer);//init sound and music//227DD0
 }
@@ -90198,18 +90173,23 @@ void /*__cdecl*/ sub_7A110(char a1, char a2)//25b110
         sub_7AA70((char*)"DATA/SCREENS/HSCREEN0.DAT", x_DWORD_17DE54, 0x13ACCA, 1226);
         sub_7AA70((char*)"DATA/SCREENS/HSCREEN0.DAT", x_DWORD_17DEC0, 0x13B194, 548);
         sub_7AA70((char*)"DATA/SCREENS/HSCREEN0.DAT", &x_D41A0_BYTEARRAY_4_0xE2_heapbuffer[0x4D54A], 168849, 102213);
-        sub_7AA70((char*)"DATA/SCREENS/HSCREEN0.DAT", x_DWORD_17DED4, 271062, 411);
+        sub_7AA70((char*)"DATA/SCREENS/HSCREEN0.DAT", x_DWORD_17DED4, 271062, 411);//19b
         sub_7AA70((char*)"DATA/SCREENS/HSCREEN0.DAT", x_D41A0_BYTEARRAY_4_0xE2_heapbuffer, 0x91C59, 134382);
         sub_7AA70((char*)"DATA/SCREENS/HSCREEN0.DAT", x_DWORD_17DE38, 0xB2947, 768);
-        if ( x_WORD_180660_VGA_type_resolution & 1 )
-          sub_98709_create_index_dattab_power((Bit8u*)(int)x_DWORD_17DED4, (Bit8u*)x_DWORD_17DED8, &x_D41A0_BYTEARRAY_4_0xE2_heapbuffer[0x4D54A], (new posistruct));
-        else
-          sub_9874D_create_index_dattab((Bit8u*)(int)x_DWORD_17DED4, (Bit8u*)x_DWORD_17DED8, &x_D41A0_BYTEARRAY_4_0xE2_heapbuffer[0x4D54A], (new posistruct));
-        if ( x_WORD_180660_VGA_type_resolution & 1 )
-          sub_98709_create_index_dattab_power((Bit8u*)(int)x_DWORD_17DEC0, (Bit8u*)(int)x_DWORD_17DEC4, (Bit8u*)(int)x_DWORD_17DE54, (new posistruct));
-        else
-          sub_9874D_create_index_dattab((Bit8u*)(int)x_DWORD_17DEC0, (Bit8u*)(int)x_DWORD_17DEC4, (Bit8u*)(int)x_DWORD_17DE54, (new posistruct));
-        break;
+		if (x_WORD_180660_VGA_type_resolution & 1) {
+
+			sub_98709_create_index_dattab_power(x_DWORD_17DED4, x_DWORD_17DED8, &x_D41A0_BYTEARRAY_4_0xE2_heapbuffer[0x4D54A], x_DWORD_17DED4_spritestr);
+			sub_98709_create_index_dattab_power(x_DWORD_17DEC0, x_DWORD_17DEC4, x_DWORD_17DE54, x_DWORD_17DEC0_spritestr);
+
+		}
+		else
+		{
+			sub_9874D_create_index_dattab(x_DWORD_17DED4, x_DWORD_17DED8, &x_D41A0_BYTEARRAY_4_0xE2_heapbuffer[0x4D54A], x_DWORD_17DED4_spritestr);
+			sub_9874D_create_index_dattab(x_DWORD_17DEC0, x_DWORD_17DEC4, x_DWORD_17DE54, x_DWORD_17DEC0_spritestr);
+
+		}
+		//34eed4 34eed8 37ee48
+          break;
       case 15:
         sub_7AA70((char*)"DATA/SCREENS/HSCREEN0.DAT", (Bit8u*)x_DWORD_E9C38_smalltit, 0x145210, 126188);
         sub_7AA70((char*)"DATA/SCREENS/HSCREEN0.DAT", (Bit8u*)x_DWORD_17DE38, 0x163EFC, 768);
@@ -92494,13 +92474,13 @@ signed int sub_7E0E0()//25f0e0
     return 2;
   //v2 = x_WORD_E1F84;
   Bit32u i = 0;
-  if ( !x_WORD_E1F84[5] )
+  if ( !x_WORD_E1F84[10] )
     return 0;
   do
   {
     if ( !(x_WORD_17DEEE & 1) || v0 )
     {
-      if (x_WORD_E1F84[i+24] && sub_7B200(&x_WORD_E1F84[i], x_DWORD_17DEE4, SHIWORD(x_DWORD_17DEE4)) )
+      if (x_WORD_E1F84[i+24] && sub_7B200((Bit16s*)&x_WORD_E1F84[i], x_DWORD_17DEE4, SHIWORD(x_DWORD_17DEE4)) )
         v3 = x_WORD_E1F84[i + 20];
       else
         v3 = x_WORD_E1F84[i + 21];
@@ -92512,17 +92492,17 @@ signed int sub_7E0E0()//25f0e0
 	  //x_D41A0_BYTEARRAY_4_0xE2_heapbuffer[0x4D54A + 164829 - 1]
 	  //je asi &x_DWORD_17DED4[6 * v3]
 
-	  sub_2BB40(x_WORD_E1F84[i + 5], x_WORD_E1F84[i + 6], &x_DWORD_17DED4[6 * v3]);
+	  sub_2BB40(x_WORD_E1F84[i + 10], x_WORD_E1F84[i + 12], &x_DWORD_17DED4[6 * v3]);
     }
-    else if ( sub_7B200(&x_WORD_E1F84[i], x_DWORD_17DEE4, SHIWORD(x_DWORD_17DEE4)) )
+    else if ( sub_7B200((Bit16s*)&x_WORD_E1F84[i], x_DWORD_17DEE4, SHIWORD(x_DWORD_17DEE4)) )
     {
       sub_8F100(0, 14, 127, 64, 0x64u, 0, 3u);
-	  sub_2BB40(x_WORD_E1F84[i + 5], x_WORD_E1F84[i + 6], &x_DWORD_17DED4[6 * x_WORD_E1F84[i + 20]]);
+	  sub_2BB40(x_WORD_E1F84[i + 10], x_WORD_E1F84[i + 12], &x_DWORD_17DED4[6 * x_WORD_E1F84[i + 20]]);
       LOWORD(v0) = x_WORD_E1F84[i + 22];
     }
 	i += 22;
   }
-  while (x_WORD_E1F84[i + 5]);
+  while (x_WORD_E1F84[i + 10]);
   return v0;
 }
 // 17DED4: using guessed type int (int)x_DWORD_17DED4;
@@ -109407,7 +109387,7 @@ void sub_986E0()
 // E39B8: using guessed type char x_BYTE_E39B8;
 
 //----- (00098709) --------------------------------------------------------
-void sub_98709_create_index_dattab_power(Bit8u* buffer, Bit8u* bufferend, Bit8u* a3,posistruct* a4)
+void sub_98709_create_index_dattab_power(Bit8u* buffer, Bit8u* bufferend, Bit8u* a3,x_DWORD_17DED4_spritestr)
 {
   /*Bit32u i = 0;
   while ((buffer + i)<bufferend)
@@ -110252,17 +110232,21 @@ signed int /*__cdecl*/ sub_9A32D_malloc_open_unpack(Pathstruct path)//27B32d
   //int *v2; // eax
   void* v3; // edx
   int *v4; // eax
-  void* (/*__cdecl*/ *v6)(int); // [esp+0h] [ebp-8h]
+  //void* (/*__cdecl*/ *v6)(int); // [esp+0h] [ebp-8h]
 
   //sub_85070();
-  if (path.var40_alloc_type & 1 )
+  /*if (path.var40_alloc_type & 1 )
     v6 = sub_83D70_malloc1;
   else
-    v6 = sub_83CD0_malloc2;
+    v6 = sub_83CD0_malloc2;*/
   sub_9A2F5(path);
   if (path.path[0] == 0x2A )//fix
   {
-	*(path.var28_begin_buffer) = (Bit8u*)v6(path.var36_size_buffer);
+	  if (path.var40_alloc_type & 1)
+		  *(path.var28_begin_buffer) = (Bit8u*)sub_83D70_malloc1(path.var36_size_buffer);
+	  else
+		  *(path.var28_begin_buffer) = (Bit8u*)sub_83CD0_malloc2(path.var36_size_buffer);
+	
     //v2 = *(int *)(path.var28_begin_buffer);
     //*v2 = v1;
     if ( !(*(path.var28_begin_buffer)))
@@ -110273,7 +110257,11 @@ signed int /*__cdecl*/ sub_9A32D_malloc_open_unpack(Pathstruct path)//27B32d
     path.var36_size_buffer = (int)sub_AB9E1_get_file_unpack_size(path.path);
     if (path.var36_size_buffer <= 0 )
       return 0;
-	*(path.var28_begin_buffer) = (Bit8u*)v6(path.var36_size_buffer);//asi init a malloc bufferu
+	if (path.var40_alloc_type & 1)
+		*(path.var28_begin_buffer) = (Bit8u*)sub_83D70_malloc1(path.var36_size_buffer);//asi init a malloc bufferu
+	else
+		*(path.var28_begin_buffer) = (Bit8u*)sub_83CD0_malloc2(path.var36_size_buffer);//asi init a malloc bufferu
+	
     //v4 = *(int **)path.var28_begin_buffer;
     //*v4 = v3;
     if ( !(*(path.var28_begin_buffer)))

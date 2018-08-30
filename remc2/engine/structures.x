@@ -1,3 +1,11 @@
+int /*__cdecl*/ sub_main(int argc, char **argv, char **envp)//236F70
+	void sub_5B8D0_initialize()//23c8d0
+	void sub_46830_main_loop(signed __int16 *a1, signed int a2, unsigned __int16 a3)//227830
+		signed int /*__fastcall*/ sub_76930(int a2, signed __int16 *a3)//257930
+			int sub_76A40()//257A40
+				char /*__cdecl*/ sub_779E0(int a1)//2589E0
+
+
 x_DWORD_17DED4 -[34eed4]->48c73d mozna je to path struct
 5e3a45000000
 realzny puvod 48c80f

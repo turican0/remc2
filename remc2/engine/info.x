@@ -370,3 +370,24 @@ call 25ba70
 
 48c73d - zkontrolovat xadatapald0dat2.var28_begin_buffer:
 000000000000020000005d5fc2220000
+
+xadatapald0dat2.var28_begin_buffer
+x_DWORD_EA3D8 - 2bb3d8->58731a
+prirazeno v  23vf50
+sub_5BF50_load_psxdata()
+
+48c80f
+void /*__cdecl*/ sub_7A110(char a1, char a2)//25b110
+priradi se to v 19b 422d6 34eed4
+ale pak se to jeste prepocte
+ea730200 0026
+
+jeste je treba rozlustit toto:
+
+        if ( x_WORD_180660_VGA_type_resolution & 1 )
+          sub_98709_create_index_dattab_power((Bit8u*)(int)x_DWORD_17DED4, (Bit8u*)x_DWORD_17DED8, &x_D41A0_BYTEARRAY_4_0xE2_heapbuffer[0x4D54A], (new posistruct));
+        else
+          sub_9874D_create_index_dattab((Bit8u*)(int)x_DWORD_17DED4, (Bit8u*)x_DWORD_17DED8, &x_D41A0_BYTEARRAY_4_0xE2_heapbuffer[0x4D54A], (new posistruct));
+        
+		//34eed4 34eed8 37ee48
+
