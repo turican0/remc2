@@ -493,13 +493,13 @@ xazero,//40
 xadataspellsdat,//41
 xazero };//42
 
-typedef struct {
+/*typedef struct {
 	Bit8u* pointer;
 	Bit32u size;
-} SpriteStr;
+} SpriteStr;*/
 
-SpriteStr x_DWORD_17DED4_spritestr[1000];
-SpriteStr x_DWORD_17DEC0_spritestr[1000];
+posistruct x_DWORD_17DED4_spritestr[1000];
+posistruct x_DWORD_17DEC0_spritestr[1000];
 
 
 x_DWORD loc_1B2E6;
@@ -53542,8 +53542,9 @@ LABEL_16:
         x_DWORD_D418C = x_DWORD_D4188 + v14;
         v7 = (unsigned int)&v5[x_DWORD_D4188 + v14];
         x_DWORD_D4190 = (int)&v5[x_DWORD_D4188 + v14];
+		posistruct tempposistruct;//fix it
         if ( x_WORD_180660_VGA_type_resolution & 1 )
-          sub_98709_create_index_dattab_power((Bit8u*)x_DWORD_D4188 + v14, (Bit8u*)v7, (Bit8u*)x_DWORD_D4188,(new posistruct));
+          sub_98709_create_index_dattab_power((Bit8u*)x_DWORD_D4188 + v14, (Bit8u*)v7, (Bit8u*)x_DWORD_D4188,(posistruct*)&tempposistruct);
         else
           sub_9874D_create_index_dattab((Bit8u*)(x_DWORD_D4188 + v14), (Bit8u*)v7, (Bit8u*)x_DWORD_D4188, (new posistruct));
       }
@@ -90101,18 +90102,19 @@ void /*__cdecl*/ sub_7A110(char a1, char a2)//25b110
         sub_7AA70((char*)"DATA/SCREENS/HSCREEN0.DAT", (Bit8u*)x_DWORD_17DE60, 0x13CE20, 20581);
         sub_7AA70((char*)"DATA/SCREENS/HSCREEN0.DAT", (Bit8u*)x_DWORD_17DE5C, 0x141E85, 13195);
         sub_7AA70(0, 0, 0, 0);
-        if ( x_WORD_180660_VGA_type_resolution & 1 )
-          sub_98709_create_index_dattab_power((Bit8u*)(int)x_DWORD_17DED4, (Bit8u*)x_DWORD_17DED8, (Bit8u*)x_DWORD_17DE48c, (new posistruct));
-        else
-          sub_9874D_create_index_dattab((Bit8u*)(int)x_DWORD_17DED4, (Bit8u*)x_DWORD_17DED8, (Bit8u*)x_DWORD_17DE48c, (new posistruct));
-        if ( x_WORD_180660_VGA_type_resolution & 1 )
-          sub_98709_create_index_dattab_power((Bit8u*)(int)x_DWORD_17DEC0, (Bit8u*)(int)x_DWORD_17DEC4, (Bit8u*)(int)x_DWORD_17DE54, (new posistruct));
-        else
-          sub_9874D_create_index_dattab((Bit8u*)(int)x_DWORD_17DEC0, (Bit8u*)(int)x_DWORD_17DEC4, (Bit8u*)(int)x_DWORD_17DE54, (new posistruct));
-        if ( x_WORD_180660_VGA_type_resolution & 1 )
-          sub_98709_create_index_dattab_power((Bit8u*)x_DWORD_17DEC8, (Bit8u*)x_DWORD_17DECC, (Bit8u*)x_DWORD_17DE58, (new posistruct));
-        else
-          sub_9874D_create_index_dattab((Bit8u*)x_DWORD_17DEC8, (Bit8u*)x_DWORD_17DECC, (Bit8u*)x_DWORD_17DE58, (new posistruct));
+		if (x_WORD_180660_VGA_type_resolution & 1)
+		{
+			sub_98709_create_index_dattab_power((Bit8u*)(int)x_DWORD_17DED4, (Bit8u*)x_DWORD_17DED8, (Bit8u*)x_DWORD_17DE48c, (new posistruct));
+			sub_98709_create_index_dattab_power((Bit8u*)(int)x_DWORD_17DEC0, (Bit8u*)(int)x_DWORD_17DEC4, (Bit8u*)(int)x_DWORD_17DE54, (new posistruct));
+			sub_98709_create_index_dattab_power((Bit8u*)x_DWORD_17DEC8, (Bit8u*)x_DWORD_17DECC, (Bit8u*)x_DWORD_17DE58, (new posistruct));
+		}
+		else
+		{
+			sub_9874D_create_index_dattab((Bit8u*)(int)x_DWORD_17DED4, (Bit8u*)x_DWORD_17DED8, (Bit8u*)x_DWORD_17DE48c, (new posistruct));
+			sub_9874D_create_index_dattab((Bit8u*)(int)x_DWORD_17DEC0, (Bit8u*)(int)x_DWORD_17DEC4, (Bit8u*)(int)x_DWORD_17DE54, (new posistruct));
+			sub_9874D_create_index_dattab((Bit8u*)x_DWORD_17DEC8, (Bit8u*)x_DWORD_17DECC, (Bit8u*)x_DWORD_17DE58, (new posistruct));
+		}
+        
         x_WORD_17DF06 = 254;
         x_WORD_17DF08 = 255;
         x_WORD_17DF0A = 256;
@@ -90136,14 +90138,16 @@ void /*__cdecl*/ sub_7A110(char a1, char a2)//25b110
         sub_7AA70((char*)"DATA/SCREENS/HSCREEN0.DAT", (Bit8u*)(int)x_DWORD_17DED4, 375690, 148);
         sub_7AA70((char*)"DATA/SCREENS/HSCREEN0.DAT", (Bit8u*)(int)x_DWORD_17DE54, 0x13ACCA, 1226);
         sub_7AA70((char*)"DATA/SCREENS/HSCREEN0.DAT", (Bit8u*)(int)x_DWORD_17DEC0, 0x13B194, 548);
-        if ( x_WORD_180660_VGA_type_resolution & 1 )
-          sub_98709_create_index_dattab_power((Bit8u*)(int)x_DWORD_17DED4, (Bit8u*)x_DWORD_17DED8, (Bit8u*)x_DWORD_17DE48c, (new posistruct));
-        else
-          sub_9874D_create_index_dattab((Bit8u*)(int)x_DWORD_17DED4, (Bit8u*)x_DWORD_17DED8, (Bit8u*)x_DWORD_17DE48c, (new posistruct));
-        if ( x_WORD_180660_VGA_type_resolution & 1 )
-          sub_98709_create_index_dattab_power((Bit8u*)(int)x_DWORD_17DEC0, (Bit8u*)(int)x_DWORD_17DEC4, (Bit8u*)(int)x_DWORD_17DE54, (new posistruct));
-        else
-          sub_9874D_create_index_dattab((Bit8u*)(int)x_DWORD_17DEC0, (Bit8u*)(int)x_DWORD_17DEC4, (Bit8u*)(int)x_DWORD_17DE54, (new posistruct));
+		if (x_WORD_180660_VGA_type_resolution & 1)
+		{
+			sub_98709_create_index_dattab_power((Bit8u*)(int)x_DWORD_17DED4, (Bit8u*)x_DWORD_17DED8, (Bit8u*)x_DWORD_17DE48c, (new posistruct));
+			sub_98709_create_index_dattab_power((Bit8u*)(int)x_DWORD_17DEC0, (Bit8u*)(int)x_DWORD_17DEC4, (Bit8u*)(int)x_DWORD_17DE54, (new posistruct));
+		}
+		else
+		{
+			sub_9874D_create_index_dattab((Bit8u*)(int)x_DWORD_17DED4, (Bit8u*)x_DWORD_17DED8, (Bit8u*)x_DWORD_17DE48c, (new posistruct));
+			sub_9874D_create_index_dattab((Bit8u*)(int)x_DWORD_17DEC0, (Bit8u*)(int)x_DWORD_17DEC4, (Bit8u*)(int)x_DWORD_17DE54, (new posistruct));
+		}
         break;
       case 12:
         sub_7AA70((char*)"DATA/SCREENS/HSCREEN0.DAT", (Bit8u*)x_DWORD_E9C38_smalltit, 0x91C59, 134382);
@@ -90177,18 +90181,39 @@ void /*__cdecl*/ sub_7A110(char a1, char a2)//25b110
         sub_7AA70((char*)"DATA/SCREENS/HSCREEN0.DAT", x_D41A0_BYTEARRAY_4_0xE2_heapbuffer, 0x91C59, 134382);
         sub_7AA70((char*)"DATA/SCREENS/HSCREEN0.DAT", x_DWORD_17DE38, 0xB2947, 768);
 		if (x_WORD_180660_VGA_type_resolution & 1) {
-
-			sub_98709_create_index_dattab_power(x_DWORD_17DED4, x_DWORD_17DED8, &x_D41A0_BYTEARRAY_4_0xE2_heapbuffer[0x4D54A], x_DWORD_17DED4_spritestr);
-			sub_98709_create_index_dattab_power(x_DWORD_17DEC0, x_DWORD_17DEC4, x_DWORD_17DE54, x_DWORD_17DEC0_spritestr);
-
+			sub_98709_create_index_dattab_power(x_DWORD_17DED4, x_DWORD_17DED4 + 411/*x_DWORD_17DED8*/, &x_D41A0_BYTEARRAY_4_0xE2_heapbuffer[0x4D54A], x_DWORD_17DED4_spritestr);
+			sub_98709_create_index_dattab_power(x_DWORD_17DEC0, x_DWORD_17DEC0 + 548/*x_DWORD_17DEC4*/, x_DWORD_17DE54, x_DWORD_17DEC0_spritestr);
 		}
 		else
 		{
-			sub_9874D_create_index_dattab(x_DWORD_17DED4, x_DWORD_17DED8, &x_D41A0_BYTEARRAY_4_0xE2_heapbuffer[0x4D54A], x_DWORD_17DED4_spritestr);
-			sub_9874D_create_index_dattab(x_DWORD_17DEC0, x_DWORD_17DEC4, x_DWORD_17DE54, x_DWORD_17DEC0_spritestr);
-
+			sub_9874D_create_index_dattab(x_DWORD_17DED4, x_DWORD_17DED4+411/*x_DWORD_17DED8*/, &x_D41A0_BYTEARRAY_4_0xE2_heapbuffer[0x4D54A], x_DWORD_17DED4_spritestr);
+			sub_9874D_create_index_dattab(x_DWORD_17DEC0, x_DWORD_17DEC0+548/*x_DWORD_17DEC4*/, x_DWORD_17DE54, x_DWORD_17DEC0_spritestr);
 		}
-		//34eed4 34eed8 37ee48
+		//-34eed4
+		// 3dc74800d7c94800472c0b00050000004001c800
+		// 48c73d - 000000000000020000005d5fc2220000
+		//-34eed8
+		// d7c94800
+		//48c9d7(rozdil 29a) - 000000000000000000000000000000000
+		//-34ee48
+		//5e3a4500
+		//453e5e - 6f005d3f3a13423a13200b	
+
+		//pote
+		//-34eed4
+		// 3dc74800d7c94800472c0b00050000004001c800
+		// 48c73d - 5e3a45000000603a45
+
+		//dale [0034eed4]->48c73d->5e3a4500 ->6f005d3f3a13
+		//+ d2=48c80f->47ae48 -> 26c2c2c2c2
+		
+		//48ae47002633 //47ae48->26c2c2c2c2c2
+
+		/*
+		34ee48=354f78->5e3a45
+		34eed4=354f70->48c73d->000000000000000000
+
+		*/
           break;
       case 15:
         sub_7AA70((char*)"DATA/SCREENS/HSCREEN0.DAT", (Bit8u*)x_DWORD_E9C38_smalltit, 0x145210, 126188);
@@ -92492,12 +92517,12 @@ signed int sub_7E0E0()//25f0e0
 	  //x_D41A0_BYTEARRAY_4_0xE2_heapbuffer[0x4D54A + 164829 - 1]
 	  //je asi &x_DWORD_17DED4[6 * v3]
 
-	  sub_2BB40(x_WORD_E1F84[i + 10], x_WORD_E1F84[i + 12], &x_DWORD_17DED4[6 * v3]);
+	  sub_2BB40(x_WORD_E1F84[i + 10], x_WORD_E1F84[i + 12], x_DWORD_17DED4_spritestr[v3].pointer);
     }
     else if ( sub_7B200((Bit16s*)&x_WORD_E1F84[i], x_DWORD_17DEE4, SHIWORD(x_DWORD_17DEE4)) )
     {
       sub_8F100(0, 14, 127, 64, 0x64u, 0, 3u);
-	  sub_2BB40(x_WORD_E1F84[i + 10], x_WORD_E1F84[i + 12], &x_DWORD_17DED4[6 * x_WORD_E1F84[i + 20]]);
+	  sub_2BB40(x_WORD_E1F84[i + 10], x_WORD_E1F84[i + 12], x_DWORD_17DED4_spritestr[x_WORD_E1F84[i + 20]].pointer);
       LOWORD(v0) = x_WORD_E1F84[i + 22];
     }
 	i += 22;
@@ -105813,7 +105838,10 @@ void sub_8F935(doublebyte a1, Bit16u tiley, int tilex, Bit8u* texture, unsigned 
   //a4 = 03;*/
   //debug
 
-
+  //x_DWORD_180650_positiony - 0 35162c
+  //x_DWORD_18062C_resolution_x - 40 35162c
+  //47ae48+1
+  //0x47be3a - 03191919
   if ( !(a1.byte2))//453558
     return;
   pixel_buffer_index = x_DWORD_180628b_screen_buffer + x_DWORD_18063C_sprite_sizex + x_DWORD_18062C_resolution_x * x_DWORD_180650_positiony;
@@ -109387,36 +109415,40 @@ void sub_986E0()
 // E39B8: using guessed type char x_BYTE_E39B8;
 
 //----- (00098709) --------------------------------------------------------
-void sub_98709_create_index_dattab_power(Bit8u* buffer, Bit8u* bufferend, Bit8u* a3,x_DWORD_17DED4_spritestr)
+void sub_98709_create_index_dattab_power(Bit8u* tabbuffer, Bit8u* tabbufferend, Bit8u* datbuffer, posistruct* dattabindex)
 {
-  /*Bit32u i = 0;
-  while ((buffer + i)<bufferend)
-  {
-    //if ((buffer + i) < a3 )//355234->1a6578//eax[0],eax[1c]
-    {
-		//buffer[i+4] *= 2;
-		//buffer[i+5] *= 2;
-		a4[i/6].size= (buffer[i + 4]*2)+((buffer[i + 5]*2)<<8);
-		a4[i/6].pointer = (*(Bit32u*)(buffer + i))+a3;
-    }
-    i += 6;
-  }*/ //fix it
+	/*if (!dattabindex)
+		dattabindex = (posistruct*)malloc((tabbufferend - tabbuffer)*sizeof(posistruct));
+	else
+	{
+		free(dattabindex);
+		dattabindex = (posistruct*)malloc((tabbufferend - tabbuffer) * sizeof(posistruct));
+	}*/
+	for (Bit32u i = 0;i < (tabbufferend - tabbuffer) / 6;i++)
+	{
+		//temppointer = (*(Bit32u*)(tabbuffer + 6 * i))+ datbuffer;
+		dattabindex[i].pointer = (*(Bit32u*)(tabbuffer + 6 * i)) + datbuffer;
+		dattabindex[i].size = (tabbuffer[6 * i + 4]*2) + ((tabbuffer[6 * i + 5]*2) << 8);
+	}
 }
 
 //----- (0009874D) --------------------------------------------------------
-void sub_9874D_create_index_dattab(Bit8u* buffer, Bit8u* bufferend, Bit8u* a3,posistruct* a4)
+void sub_9874D_create_index_dattab(Bit8u* tabbuffer, Bit8u* tabbufferend, Bit8u* datbuffer, posistruct* dattabindex)//27974d
 {
-  /*Bit32u i = 0;
-
-  while ((buffer + i)<bufferend)
-  {
-	//if ((buffer + i) < a3 )//355234->1a6578//eax[0],eax[1c]
-	  {
-		  //*(Bit32u*)(buffer + i) += (Bit32u)(&(a3[0]) - &(a3[0]));
-		  a4[i / 6].pointer = (*(Bit32u*)(buffer + i)) + a3;
-	  }
-	  i += 6;
-  }*/ //fix it
+	/*if (!dattabindex)
+		dattabindex = (posistruct*)malloc((tabbufferend - tabbuffer) * sizeof(posistruct));
+	else
+	{
+		free(dattabindex);
+		dattabindex = (posistruct*)malloc((tabbufferend - tabbuffer) * sizeof(posistruct));
+	}*/
+	//Bit8u* temppointer = datbuffer;
+	for (Bit32u i = 0;i < (tabbufferend - tabbuffer)/6;i++)
+	{
+		//temppointer = (*(Bit32u*)(tabbuffer + 6 * i))+ datbuffer;
+		dattabindex[i].pointer = (*(Bit32u*)(tabbuffer + 6 * i))+ datbuffer;
+		dattabindex[i].size = tabbuffer[6 * i + 4] + (tabbuffer[6 * i + 5] << 8);
+	}
 }
 
 //----- (00098790) --------------------------------------------------------

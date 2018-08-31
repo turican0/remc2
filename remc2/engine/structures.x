@@ -14,3 +14,28 @@ nastavuje se zde:0x25b110
 struktura:
 [0-32]-adresa
 [1-16]-lenght
+
+
+eax=1a6f44
+eax=[eax] ...0
+
+6f005d3f3a13
+eax=[ebp-1c]...453a5e
+edx=[ebp+14]..48c73d
+add [edx],eax     [edx]=000 + 453a5e
+eax=[ebp+14]..1a6f44
+[ebp+14]+=6
+
+5d3f3a13423a
+eax=[ebp-1c]...453a5e
+edx=[ebp+14]..48c743
+add [edx],eax     [edx]=002 + 453a60
+eax=[ebp+14]..1a6f44
+[ebp+14]+=6
+
+5d3f3a1342
+eax=[ebp-1c]...453a5e
+edx=[ebp+14]..48c749
+add [edx],eax     [edx]=c22200000 + 455d45
+eax=[ebp+14]..1a6f44
+[ebp+14]+=6
