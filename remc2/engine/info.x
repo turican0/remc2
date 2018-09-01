@@ -407,3 +407,10 @@ zbytek v 34c870
 
 toto v char /*__cdecl*/ sub_779E0(int a1)//2589E0 by mozna melo byt Bit8u*
 v1 = x_DWORD_E9C38_smalltit[307200];
+
+int /*__cdecl*/ sub_81360(Bit32s a1, Bit32s a2, Bit32s a3, Bit32s a4, __int16 a5)//262360
+
+dalsi problem zde:
+sub_7C120(v5, v6, &x_DWORD_17DED4[6 * a5]);
+
+v9 = &unk_E24BCx[18 * v31];//2b34bc

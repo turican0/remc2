@@ -40,7 +40,7 @@
 #include <direct.h>  
 //#include <dir.h>
 #include <io.h>  
-//#include <time.h>  
+#include <time.h>  
 
 //#include <sys/statvfs.h>
 #include <windows.h>
