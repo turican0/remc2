@@ -1613,7 +1613,7 @@ char /*__cdecl*/ sub_2B860(int a1, unsigned __int8 a2);
 signed int /*__cdecl*/ sub_2B9A0(int a1);
 unsigned __int8 /*__cdecl*/ sub_2BA50(int a1, unsigned __int8 a2);
 // int _wcpp_1_unwind_leave__62(void); weak
-void /*__cdecl*/ sub_2BB40(__int16 a1, __int16 a2, Bit8u* a3);
+void /*__cdecl*/ sub_2BB40(Bit16u a1, Bit16u a2, Bit8u* a3);
 int /*__cdecl*/ sub_2BBB0(__int16 a1, __int16 a2, int a3);
 int /*__cdecl*/ sub_2BC10(char* a1, __int16 a2, __int16 a3, unsigned __int8 a4);
 void /*__cdecl*/ sub_2BC80(Bit16u a1, Bit16u a2, Bit16u a3, Bit16u a4, Bit8u a5);
@@ -2701,7 +2701,7 @@ int /*__cdecl*/ sub_7E8D0(x_WORD *a1, __int16 a2, __int16 a3, __int16 a4, __int1
 signed int /*__cdecl*/ sub_7E9D0(x_WORD *a1, x_WORD *a2, x_WORD *a3);
 int /*__cdecl*/ sub_7EAE0(__int16 *a1, __int16 *a2, __int16 *a3, __int16 *a4, char *a5, x_WORD *a6);
 // int sub_7F6A0(int a1, int a2, __int16 a3, __int16 a4, char *a5, x_BYTE *a6, unsigned __int8 a7);
-int /*__cdecl*/ sub_7F7D0(Bit8u** a1, Bit8u** a2, unsigned int a3, char* a4);
+int /*__cdecl*/ sub_7F7D0(Bit8u** a1, Bit8u** a2, Bit8u* a3, char* a4);
 int /*__cdecl*/ sub_7F960(Bit8u* a1, Bit8u* a2, unsigned int a3, Bit8u* a4);
 unsigned int /*__cdecl*/ sub_7FAE0(char *a1, __int16 a2, __int16 a3, __int16 a4, unsigned __int8 a5);
 int /*__cdecl*/ sub_7FB90(char* a1, int a2, __int16 a3, unsigned __int8 a4);
@@ -34001,7 +34001,7 @@ LABEL_10:
 }
 
 //----- (0002BB40) --------------------------------------------------------
-void /*__cdecl*/ sub_2BB40(__int16 a1, __int16 a2, Bit8u* a3)//20cb40
+void /*__cdecl*/ sub_2BB40(Bit16u a1, Bit16u a2, Bit8u* a3)//20cb40
 {
 	//a3=48c80f-> 48ae47002633
 
@@ -34014,6 +34014,10 @@ void /*__cdecl*/ sub_2BB40(__int16 a1, __int16 a2, Bit8u* a3)//20cb40
   Bit8u* tempcharstar;
   tempstruct.var28_begin_buffer = &tempcharstar;//this fix
   *tempstruct.var28_begin_buffer = a3;//this fix
+
+  //push [ebp+18] -cd- pote ecx
+  //push [ebp+14] -123- pote ebx
+
   if ( x_WORD_180660_VGA_type_resolution & 1 )
     sub_8F8B0(a1, a2, tempstruct);
   else
@@ -88284,7 +88288,7 @@ char /*__cdecl*/ sub_77980(int a1)
 //----- (000779E0) --------------------------------------------------------
 char /*__cdecl*/ sub_779E0(int a1)//2589E0
 {
-  char v1; // ebx
+  Bit8u* v1; // ebx
   int v2; // eax
   char *langfilename; // eax
   char v4; // al
@@ -88351,13 +88355,13 @@ char /*__cdecl*/ sub_779E0(int a1)//2589E0
   if ( a1 )//0x0
   {
     sub_7A110(x_WORD_180660_VGA_type_resolution, 12);//load hscreen 25b110
-    v1 = x_DWORD_E9C38_smalltit[307200];
+    v1 = &x_DWORD_E9C38_smalltit[307200];//4B000
   }
   else
   {
     //v38 = x_DWORD_E9C38_smalltit;
-    x_DWORD_E9C38_smalltit = x_D41A0_BYTEARRAY_4_0xE2_heapbuffer;
-    v1 = x_DWORD_E9C38_smalltit[307200];
+    x_DWORD_E9C38_smalltit = x_D41A0_BYTEARRAY_4_0xE2_heapbuffer;//[[2a51a4]+e2]
+    v1 = &x_DWORD_E9C38_smalltit[307200];//406514+4b000
     sub_7A110(x_WORD_180660_VGA_type_resolution, 14);//25b110
   }
   sub_7B5A0();//25c5a0  disable //enabl
@@ -88373,6 +88377,10 @@ char /*__cdecl*/ sub_779E0(int a1)//2589E0
 		langfilename = (char*)langfileD.name;//&v22;//naslo se oba v tom pripade prirad "D2.TXT", adresa 3550d2
 	//35513c 355134 451414 3550d2
 	//D2.TXT , [451514]000000, [355134]00100000-podobne v20,[35513c]0000
+	//eax - 3550d2 d2.txt
+	//ebx - 451514 - 0000000000000000000
+	//[ebp+5a] 00100000
+	//[ebp+62] 00000000a4a03a00
     v4 = sub_7F7D0(&v35, &v33, v1, langfilename);//2607d0
 	//D2.TXT , [451514]020058e2e2e2, [355134]c5274500->00000000,[35513c]b9274500->141545->020058e2e2e2
     x_D41A0_BYTEARRAY_4_struct.byteindex_179 = v4;
@@ -88389,7 +88397,7 @@ char /*__cdecl*/ sub_779E0(int a1)//2589E0
         {
           sub_988A7_read(configfile2, (Bit8u*)&v40, 2);
           sprintf_s(printbuffer,512, "L%d.TXT", v40);
-          x_D41A0_BYTEARRAY_4_struct.byteindex_179 = sub_7F960(v36, v37, v1, (Bit8u*)printbuffer);
+          x_D41A0_BYTEARRAY_4_struct.byteindex_179 = sub_7F960(v36, v37, (unsigned int)v1, (Bit8u*)printbuffer);
         }
         sub_98882_close(configfile2);
       }
@@ -88410,6 +88418,7 @@ char /*__cdecl*/ sub_779E0(int a1)//2589E0
       else
         sub_9A144_memcopy_640line((void*)x_DWORD_E9C38_smalltit, (void*)x_DWORD_180628b_screen_buffer, 0x1E0u);//27b144
       v39 = sub_7E0E0();//25f0e0
+	  //4527b9=[ebp+66]+6 4527bf 161545005835->58e2e2e2e2e2
 	  sub_2BB40(263, 134, xadatalang.var28_begin_buffer[0]);//20cb40
       v8 = (int)x_D41A0_BYTEARRAY_4;
       if ( x_D41A0_BYTEARRAY_4[0xA] == 1 )
@@ -88417,7 +88426,7 @@ char /*__cdecl*/ sub_779E0(int a1)//2589E0
         LOBYTE(v8) = v32;
         if ( v32 == 2 )
         {
-          v30 = j___clock(v8, v7, v1);
+          v30 = j___clock(v8, v7, (int32)v1);
           if ( (v30 - v29) / 0x64u > 1 )
           {
             if ( !x_WORD_E24BE[9 * ++v31] )
@@ -88432,7 +88441,7 @@ char /*__cdecl*/ sub_779E0(int a1)//2589E0
         }
         else if ( v32 == 3 )
         {
-          v30 = j___clock(v8, v7, v1);
+          v30 = j___clock(v8, v7, (int32)v1);
           if ( (v30 - v29) / 0x64u > 1 )
             v32 = 2;
         }
@@ -88458,7 +88467,7 @@ char /*__cdecl*/ sub_779E0(int a1)//2589E0
           unknown_libname_4(&langfileL);
           unknown_libname_2_findfirst((char*)"LANGUAGE/L*.TXT", 0, &langfileL);
         }
-        v11 = sub_7F960(v36, v37, v1, (Bit8u*)&v20);
+        v11 = sub_7F960(v36, v37, (unsigned int)v1, (Bit8u*)&v20);
         v12 = (uint8)x_D41A0_BYTEARRAY_4;
         v40 = v11;
         if ( x_D41A0_BYTEARRAY_4_struct.byteindex_179 == v11 )
@@ -88468,7 +88477,7 @@ char /*__cdecl*/ sub_779E0(int a1)//2589E0
             unknown_libname_4(&langfileL);
             unknown_libname_2_findfirst((char*)"LANGUAGE/L*.TXT", 0, &langfileL);
           }
-          v13 = sub_7F960(v36, v37, v1, (Bit8u*)&v20);
+          v13 = sub_7F960(v36, v37, (unsigned int)v1, (Bit8u*)&v20);
           v12 = (uint8)x_D41A0_BYTEARRAY_4;
         }
         else
@@ -92516,8 +92525,8 @@ signed int sub_7E0E0()//25f0e0
 	  */
 	  //x_D41A0_BYTEARRAY_4_0xE2_heapbuffer[0x4D54A + 164829 - 1]
 	  //je asi &x_DWORD_17DED4[6 * v3]
-
-	  sub_2BB40(x_WORD_E1F84[i + 10], x_WORD_E1F84[i + 12], x_DWORD_17DED4_spritestr[v3].pointer);
+	  //123 cd
+	  sub_2BB40(x_WORD_E1F84[i + 10]+(x_WORD_E1F84[i + 11]<<8), x_WORD_E1F84[i + 12]+(x_WORD_E1F84[i + 13] << 8), x_DWORD_17DED4_spritestr[v3].pointer);
     }
     else if ( sub_7B200((Bit16s*)&x_WORD_E1F84[i], x_DWORD_17DEE4, SHIWORD(x_DWORD_17DEE4)) )
     {
@@ -93697,7 +93706,7 @@ LABEL_16:
 // 17DF11: using guessed type char x_BYTE_17DF11;
 
 //----- (0007F7D0) --------------------------------------------------------
-int /*__cdecl*/ sub_7F7D0(Bit8u** a1, Bit8u** a2, unsigned int a3, char* langfilename)//2607d0
+int /*__cdecl*/ sub_7F7D0(Bit8u** a1, Bit8u** a2, Bit8u* a3, char* langfilename)//2607d0
 {
   //int v4; // edi
   FILE* langfile; // eax
@@ -93728,7 +93737,7 @@ int /*__cdecl*/ sub_7F7D0(Bit8u** a1, Bit8u** a2, unsigned int a3, char* langfil
     if (langfile != NULL )
     {
 	  langfilelenght = x_filelength(langfile);
-      sub_988A7_read(langfile, a3x, 4773);//279817
+      sub_988A7_read(langfile, a3x, 4773);//2798a7
       sub_988A7_read(langfile, (a3x+4773), 12);
       if ( x_BYTE_E29E0 || x_DWORD_D41BC_langbuffer )//[2b39e0]00 || [2a51bc]00
         sub_83E80((int)x_DWORD_D41BC_langbuffer);
@@ -105575,6 +105584,15 @@ void /*__cdecl*/ sub_8F8E8(__int16 a1, __int16 a2, Bit8u* a3)//2708e8
 
 	//123 cd 48c80f 
 	//2708e8 354f68
+	/*
+	esi=[ebp+10]//48c80f
+	ebx=[ebp+8]//123 - nic
+	ecx=[ebp+c]//cd - a2?
+	edi=[351628]//3aa0a4
+	dl=[esi+4]//26
+	dh=[esi+5]//33
+	esi=[esi]//47ae48
+	*/
 
 	sub_8F935(doublebyte_conv((*a3)&0xff), a2, a1, a3, 0, 0);//270935
   //return v4;
@@ -106474,9 +106492,15 @@ void sub_8F935(doublebyte a1, Bit16u tiley, int tilex, Bit8u* texture, unsigned 
     else
     {
 	  v21_buffer_temp_index1 = (x_DWORD_18062C_resolution_x * tiley + tilex + pixel_buffer_index);
-
-      //v22 = 0;
-      //v23 = -1;
+	  //edi+=ebx
+	  //imul ecx,x_DWORD_18062C_resolution_x
+	  //edi+=ecx
+	  //v21_buffer_temp_index1=(x_DWORD_18062C_resolution_x * ecx + ebx + edi;
+      //x_DWORD_18062C_resolution_x - 35162c
+	  //tiley - ecx
+	  //tilex - ebx
+	  //pixel_buffer_index - edi
+	  
 	  Bit32u inindex = 0;
 	  Bit32u outindex = 0;
 	  Bit8s shift = 0;

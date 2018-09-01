@@ -391,3 +391,19 @@ jeste je treba rozlustit toto:
         
 		//34eed4 34eed8 37ee48
 
+najit problem zde:
+
+//4527b9=[ebp+66]+6 4527bf 161545005835->58e2e2e2e2e2
+sub_2BB40(263, 134, xadatalang.var28_begin_buffer[0]);//20cb40
+4527bf se nakrmi v:
+
+push eax - 3550d2 -> d2.txt
+push ebx - 451514 -> 00000000000000000
+push [ebp+5a] - 355134 - > 00100000000000000
+push [ebp+62] - 35513c - > 00000000a4a03a00
+v4 = sub_7F7D0(&v35, &v33, v1, langfilename);//2607d0
+-neco v 2798a7
+zbytek v 34c870
+
+toto v char /*__cdecl*/ sub_779E0(int a1)//2589E0 by mozna melo byt Bit8u*
+v1 = x_DWORD_E9C38_smalltit[307200];

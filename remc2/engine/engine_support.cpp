@@ -47,7 +47,7 @@ void pathfix(char* path, char* path2)
     if ((path[0] == 'c') || (path[0] == 'C'))
     {
         long len= strlen(path);
-        char* fixstring = (char*)"c:/prenos/Magic2/mc2-orig";
+        char* fixstring = (char*)"c:/prenos/Magic2/mc2-orig-copy";
         long fixlen = strlen(fixstring);
         for (int i = len;i > 1;i--)
             path2[i + fixlen -2] = path[i];
@@ -57,7 +57,7 @@ void pathfix(char* path, char* path2)
     else
     {
         long len = strlen(path);
-        char* fixstring = (char*)"c:/prenos/Magic2/mc2-orig/";
+        char* fixstring = (char*)"c:/prenos/Magic2/mc2-orig-copy/";
         long fixlen = strlen(fixstring);
         for (int i = len;i > -1;i--)
             path2[i + fixlen] = path[i];
