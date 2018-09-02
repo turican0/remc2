@@ -414,3 +414,11 @@ dalsi problem zde:
 sub_7C120(v5, v6, &x_DWORD_17DED4[6 * a5]);
 
 v9 = &unk_E24BCx[18 * v31];//2b34bc
+
+//loadfromsnapshot2((char*)"0160-00262360", (Bit8u*)x_DWORD_17DED4, 0x34eed4, 0x300);//3e
+  
+
+x_DWORD_17DED4 - 34eed4? - 3dc74800d7c9480000000000ffffffff4001c8
+v 257a40
+v 2589e0
+v 25b110
