@@ -90296,13 +90296,13 @@ void /*__cdecl*/ sub_7A110_load_hscreen(char a1, char a2)//25b110
         sub_7AA70((char*)"DATA/SCREENS/HSCREEN0.DAT", x_D41A0_BYTEARRAY_4_0xE2_heapbuffer, 0x91C59, 134382);
         sub_7AA70((char*)"DATA/SCREENS/HSCREEN0.DAT", x_DWORD_17DE38, 0xB2947, 768);
 		if (x_WORD_180660_VGA_type_resolution & 1) {
-			sub_98709_create_index_dattab_power(x_DWORD_17DED4, x_DWORD_17DED4 + 411/*x_DWORD_17DED8*/, &x_D41A0_BYTEARRAY_4_0xE2_heapbuffer[0x4D54A], x_DWORD_17DED4_spritestr);
-			sub_98709_create_index_dattab_power(x_DWORD_17DEC0, x_DWORD_17DEC0 + 548/*x_DWORD_17DEC4*/, x_DWORD_17DE54, x_DWORD_17DEC0_spritestr);
+			sub_98709_create_index_dattab_power(x_DWORD_17DED4, x_DWORD_17DED8, &x_D41A0_BYTEARRAY_4_0xE2_heapbuffer[0x4D54A], x_DWORD_17DED4_spritestr);
+			sub_98709_create_index_dattab_power(x_DWORD_17DEC0, x_DWORD_17DEC4, x_DWORD_17DE54, x_DWORD_17DEC0_spritestr);
 		}
 		else
 		{
-			sub_9874D_create_index_dattab(x_DWORD_17DED4, x_DWORD_17DED4+411/*x_DWORD_17DED8*/, &x_D41A0_BYTEARRAY_4_0xE2_heapbuffer[0x4D54A], x_DWORD_17DED4_spritestr);
-			sub_9874D_create_index_dattab(x_DWORD_17DEC0, x_DWORD_17DEC0+548/*x_DWORD_17DEC4*/, x_DWORD_17DE54, x_DWORD_17DEC0_spritestr);
+			sub_9874D_create_index_dattab(x_DWORD_17DED4, x_DWORD_17DED8, &x_D41A0_BYTEARRAY_4_0xE2_heapbuffer[0x4D54A], x_DWORD_17DED4_spritestr);
+			sub_9874D_create_index_dattab(x_DWORD_17DEC0, x_DWORD_17DEC4, x_DWORD_17DE54, x_DWORD_17DEC0_spritestr);
 		}
 		//-34eed4
 		// 3dc74800d7c94800472c0b00050000004001c800
@@ -94126,14 +94126,14 @@ int sub_7FCB0(int a1, Bit8u* a2, Bit32s a3, Bit32s a4, int a5, Bit8u a6, unsigne
 
 	//debug
 	//loadfromsnapshot((char*)"0160-00260CB0", (Bit8u*)&v87, 0x354e80,180);//zbytecne
-	loadfromsnapshot((char*)"0160-00260CB0", (Bit8u*)&a6, 0x354f6c, 1);
+	/*loadfromsnapshot((char*)"0160-00260CB0", (Bit8u*)&a6, 0x354f6c, 1);
 	loadfromsnapshot((char*)"0160-00260CB0", (Bit8u*)&a4, 0x354f64, 4);
 	loadfromsnapshot((char*)"0160-00260CB0", (Bit8u*)&a3, 0x354f60, 4);
-	loadfromsnapshot((char*)"0160-00260CB0", (Bit8u*)&a8, 0x354f74, 4);
-	loadfromsnapshot2((char*)"0160-00260CB0", (Bit8u*)x_DWORD_17DED4, 0x34eed4, 1000);
+	loadfromsnapshot((char*)"0160-00260CB0", (Bit8u*)&a8, 0x354f74, 4);*/
+	/*loadfromsnapshot2((char*)"0160-00260CB0", (Bit8u*)x_DWORD_17DED4, 0x34eed4, 1000);
 	a2 = (Bit8u*)malloc(0x10000);
-	loadfromsnapshot((char*)"0160-00260CB0", (Bit8u*)a2, 0x354f5c, 0x10000);
-	a5 = 0x12c;
+	loadfromsnapshot((char*)"0160-00260CB0", (Bit8u*)a2, 0x354f5c, 0x10000);*/
+	//a5 = 0x12c;
 
 	//debug
 
@@ -94155,28 +94155,28 @@ int sub_7FCB0(int a1, Bit8u* a2, Bit32s a3, Bit32s a4, int a5, Bit8u a6, unsigne
 			v104 = a4 - a3;
 			if (a8)
 			{
-				v103 = x_DWORD_17DED4[1654];
-				v90 = x_DWORD_17DED4[1654];
+				v103 = x_DWORD_17DED4_spritestr[275].sizex;
+				v90 = x_DWORD_17DED4_spritestr[275].sizex;
 				v94 = v104 / v90;
 				if (v104 % v90)
 				{
 					v16 = v103 * (v94++ + 1);
 					v104 = v16;
-					a4 = v16 + a3 - x_DWORD_17DED4[1648];
+					a4 = v16 + a3 - x_DWORD_17DED4_spritestr[274].sizex;
 				}
 				for (i = 0; i < v104; i += v103)
-					sub_7C120(i + a3, a5, &x_DWORD_17DED4[1650]);
-				//HIWORD(v18) = HIWORD(x_DWORD_17DED4);
-				v18 = x_DWORD_17DED4[1655];
+					sub_7C120(i + a3, a5, x_DWORD_17DED4_spritestr[275].pointer);
+				//HIWORD(v18) = HIWORD(x_DWORD_17DED4_spritestr);
+				v18 = x_DWORD_17DED4_spritestr[275].sizey;
 				v8 = v18 + a5;
 				v93 = 0;
 				v19 = (x_BYTE *)(x_DWORD_180628b_screen_buffer + a3 + 640 * (v18 + a5));
-				while (x_DWORD_17DED4[1649] > v93)
+				while (x_DWORD_17DED4_spritestr[274].sizey > v93)
 				{
 					v20 = 0;
 					while (1)
 					{
-						v90 = x_DWORD_17DED4[1648];
+						v90 = x_DWORD_17DED4_spritestr[274].sizex;
 						if (v20 >= a4 - (v90 + a3))
 							break;
 						HIBYTE(v97) = 15;
@@ -94187,13 +94187,13 @@ int sub_7FCB0(int a1, Bit8u* a2, Bit32s a3, Bit32s a4, int a5, Bit8u a6, unsigne
 					v19 += 640 - v20;
 					++v93;
 				}
-				sub_7C120(a3, v8, &x_DWORD_17DED4[1644]);
-				sub_7C120(a4 - x_DWORD_17DED4[1648], v8, &x_DWORD_17DED4[1644]);
+				sub_7C120(a3, v8, x_DWORD_17DED4_spritestr[274].pointer);
+				sub_7C120(a4 - x_DWORD_17DED4_spritestr[274].sizex, v8, x_DWORD_17DED4_spritestr[274].pointer);
 			}
 			if (a8)
 			{
-				//HIWORD(v21) = HIWORD(x_DWORD_17DED4);
-				v21 = x_DWORD_17DED4[1649];
+				//HIWORD(v21) = HIWORD(x_DWORD_17DED4_spritestr);
+				v21 = x_DWORD_17DED4_spritestr[274].sizey;
 				a1 = v21 + v8;
 				v98 += v21;
 			}
@@ -94207,29 +94207,29 @@ int sub_7FCB0(int a1, Bit8u* a2, Bit32s a3, Bit32s a4, int a5, Bit8u a6, unsigne
 	{
 		v104 = a4 - a3;//adress 260cf1
 		v88 = a8;
-		//v92 = (int)x_DWORD_17DED4;
-		v103 = x_DWORD_17DED4[6 * a8 + 4];//10
+		//v92 = (int)x_DWORD_17DED4_spritestr;
+		v103 = x_DWORD_17DED4_spritestr[a8].sizex;//10
 		if ((a4 - a3) % v103)
 		{
 			v104 = ((a4 - a3) / v103 + 1) * v103;
-			a4 = v104 + a3 - x_DWORD_17DED4[6 * (v88 - 1) + 4];
+			a4 = v104 + a3 - x_DWORD_17DED4_spritestr[(v88 - 1)].sizex;
 		}
 		for (j = 0; j < v104; j += v103)
-			sub_7C120(j + a3, a5, &x_DWORD_17DED4[6 * a8]);//25d120
-		//HIWORD(v10) = HIWORD(x_DWORD_17DED4);
-		v10 = x_DWORD_17DED4[6 * a8 + 5];//adress 260da7
+			sub_7C120(j + a3, a5, x_DWORD_17DED4_spritestr[a8].pointer);//25d120
+		//HIWORD(v10) = HIWORD(x_DWORD_17DED4_spritestr);
+		v10 = x_DWORD_17DED4_spritestr[a8].sizey;//adress 260da7
 		v11 = v10 + a5;
 		v98 += v10;
 		v12 = sub_5BE80_index_pallette(x_DWORD_17DE38, 0, 0, v86);
 		v86 = v12;
 		v13 = 6 * (a8 - 1);
-		v14 = x_DWORD_17DED4[v13 + 5];
+		v14 = x_DWORD_17DED4_spritestr[v13].sizey;
 		v91 = v11;
 		v90 = a3;
 		sub_7C140(a3, v11, v104, v14, v12);
-		sub_7C120(v90, v91, &x_DWORD_17DED4[v13]);
-		sub_7C120(a4, v91, &x_DWORD_17DED4[v13]);
-		//HIWORD(v15) = HIWORD(x_DWORD_17DED4);
+		sub_7C120(v90, v91, x_DWORD_17DED4_spritestr[v13].pointer);
+		sub_7C120(a4, v91, x_DWORD_17DED4_spritestr[v13].pointer);
+		//HIWORD(v15) = HIWORD(x_DWORD_17DED4_spritestr);
 		v15 = x_D41A0_BYTEARRAY_4[v13 + 5];
 		a1 = v15 + v11;
 		v98 += v15;
@@ -94288,10 +94288,10 @@ int sub_7FCB0(int a1, Bit8u* a2, Bit32s a3, Bit32s a4, int a5, Bit8u a6, unsigne
 							sub_6FC50(*(__int16 *)&v86);
 							v31 = &x_DWORD_180628b_screen_buffer[v26 + 640 * a1];
 							v32 = 0;
-							while (v32 < x_DWORD_17DED4[1649])
+							while (v32 < x_DWORD_17DED4_spritestr[274].sizey)
 							{
 								v33 = 0;
-								while (v33 < a4 - (v99 - x_DWORD_17DED4[1648]))
+								while (v33 < a4 - (v99 - x_DWORD_17DED4_spritestr[274].sizex))
 								{
 									HIBYTE(v97) = 15;
 									LOBYTE(v97) = *v31;
@@ -94301,15 +94301,15 @@ int sub_7FCB0(int a1, Bit8u* a2, Bit32s a3, Bit32s a4, int a5, Bit8u a6, unsigne
 								++v32;
 								v31 += 640 - v33;
 							}
-							sub_7C120(v99, a1, &x_DWORD_17DED4[1644]);
-							sub_7C120(a4, a1, &x_DWORD_17DED4[1644]);
-							//HIWORD(v34) = HIWORD(x_DWORD_17DED4);
-							v34 = x_DWORD_17DED4[1649];
+							sub_7C120(v99, a1, x_DWORD_17DED4_spritestr[274].pointer);
+							sub_7C120(a4, a1, x_DWORD_17DED4_spritestr[274].pointer);
+							//HIWORD(v34) = HIWORD(x_DWORD_17DED4_spritestr);
+							v34 = x_DWORD_17DED4_spritestr[274].sizey;
 							a1 += v34;
 							*(x_DWORD *)&v86 = a7;
 							v35 = v98;
 							v36 = a4 - 2 * sub_6FC10();
-							sub_6FC80(v87, v99 + x_DWORD_17DED4[1654], v36, v35, a7);
+							sub_6FC80(v87, v99 + x_DWORD_17DED4_spritestr[275].sizex, v36, v35, a7);
 						}
 						else if (a6 == 5)
 						{
@@ -94317,12 +94317,12 @@ int sub_7FCB0(int a1, Bit8u* a2, Bit32s a3, Bit32s a4, int a5, Bit8u a6, unsigne
 							{
 								v37 = 0;
 								v38 = &x_DWORD_180628b_screen_buffer[v99 + 640 * a1];
-								while (v37 < x_DWORD_17DED4[1649])
+								while (v37 < x_DWORD_17DED4_spritestr[274].sizey)
 								{
 									v39 = 0;
 									while (1)
 									{
-										v90 = x_DWORD_17DED4[1648];
+										v90 = x_DWORD_17DED4_spritestr[274].sizex;
 										if (v39 >= a4 - (v90 + v99))
 											break;
 										HIBYTE(v40) = 15;
@@ -94334,11 +94334,11 @@ int sub_7FCB0(int a1, Bit8u* a2, Bit32s a3, Bit32s a4, int a5, Bit8u a6, unsigne
 									v38 += 640 - v39;
 								}
 								v41 = v99;
-								sub_7C120(v99, a1, &x_DWORD_17DED4[1644]);
-								*(x_DWORD *)&v86 = x_DWORD_17DED4[1644];
-								sub_7C120(a4 - x_DWORD_17DED4[1648], a1, &x_DWORD_17DED4[1644]);
-								//HIWORD(v42) = HIWORD(x_DWORD_17DED4);
-								v42 = x_DWORD_17DED4[1649];
+								sub_7C120(v99, a1, x_DWORD_17DED4_spritestr[274].pointer);
+								*(x_DWORD *)&v86 = *x_DWORD_17DED4_spritestr[274].pointer;
+								sub_7C120(a4 - x_DWORD_17DED4_spritestr[274].sizex, a1, x_DWORD_17DED4_spritestr[274].pointer);
+								//HIWORD(v42) = HIWORD(x_DWORD_17DED4_spritestr);
+								v42 = x_DWORD_17DED4_spritestr[274].sizey;
 								a1 += v42;
 								sub_7FAE0(v87, v41, a4, v98, v86);
 							}
@@ -94359,13 +94359,13 @@ int sub_7FCB0(int a1, Bit8u* a2, Bit32s a3, Bit32s a4, int a5, Bit8u a6, unsigne
 							v27 = sub_5BE80_index_pallette(x_DWORD_17DE38, 0, 0, v86);
 							*(x_DWORD *)&v86 = v27;
 							v28 = 6 * (a8 - 1);
-							v29 = x_DWORD_17DED4 [v28 + 5];
+							v29 = x_DWORD_17DED4_spritestr[v28].sizey;
 							v90 = v99;
 							sub_7C140(v99, a1, v104, v29, v27);
-							sub_7C120(v90, a1, &x_DWORD_17DED4[v28]);
-							sub_7C120(a4, a1, &x_DWORD_17DED4[v28]);
-							//HIWORD(v30) = HIWORD(x_DWORD_17DED4);
-							v30 = x_DWORD_17DED4 [v28 + 5];
+							sub_7C120(v90, a1, x_DWORD_17DED4_spritestr[v28].pointer);
+							sub_7C120(a4, a1, x_DWORD_17DED4_spritestr[v28].pointer);
+							//HIWORD(v30) = HIWORD(x_DWORD_17DED4_spritestr);
+							v30 = x_DWORD_17DED4_spritestr[v28].sizey;
 							a1 += v30;
 						}
 						sub_7FAE0(v87, v99, a4, v98, v86);
@@ -94411,12 +94411,12 @@ int sub_7FCB0(int a1, Bit8u* a2, Bit32s a3, Bit32s a4, int a5, Bit8u a6, unsigne
 				while (1)
 				{
 					v58 += v59;
-					if (v57 >= x_DWORD_17DED4[1649])
+					if (v57 >= x_DWORD_17DED4_spritestr[274].sizey)
 						break;
 					v60 = 0;
 					while (1)
 					{
-						v91 = x_DWORD_17DED4[1648];
+						v91 = x_DWORD_17DED4_spritestr[274].sizex;
 						if (v60 >= a4 - (v99 - v91))
 							break;
 						HIBYTE(v97) = 15;
@@ -94428,20 +94428,20 @@ int sub_7FCB0(int a1, Bit8u* a2, Bit32s a3, Bit32s a4, int a5, Bit8u a6, unsigne
 					++v57;
 				}
 				v61 = v99;
-				sub_7C120(v99, a1, &x_DWORD_17DED4[1644]);
-				sub_7C120(a4, a1, &x_DWORD_17DED4[1644]);
-				//HIWORD(v62) = HIWORD(x_DWORD_17DED4);
-				v62 = x_DWORD_17DED4[1649];
+				sub_7C120(v99, a1, x_DWORD_17DED4_spritestr[274].pointer);
+				sub_7C120(a4, a1, x_DWORD_17DED4_spritestr[274].pointer);
+				//HIWORD(v62) = HIWORD(x_DWORD_17DED4_spritestr);
+				v62 = x_DWORD_17DED4_spritestr[274].sizey;
 				v63 = v62 + a1;
 				sub_6FC50(*(__int16 *)&v86);
 				v64 = &x_DWORD_180628b_screen_buffer[640 * v63 + v61];
 				v65 = 0;
-				while (v65 < x_DWORD_17DED4[1649])
+				while (v65 < x_DWORD_17DED4_spritestr[274].sizey)
 				{
 					v66 = 0;
 					while (1)
 					{
-						v91 = x_DWORD_17DED4[1648];
+						v91 = x_DWORD_17DED4_spritestr[274].sizex;
 						if (v66 >= a4 - (v99 - v91))
 							break;
 						HIBYTE(v97) = 15;
@@ -94452,21 +94452,21 @@ int sub_7FCB0(int a1, Bit8u* a2, Bit32s a3, Bit32s a4, int a5, Bit8u a6, unsigne
 					++v65;
 					v64 += 640 - v66;
 				}
-				sub_7C120(v99, v63, &x_DWORD_17DED4[1644]);
-				sub_7C120(a4, v63, &x_DWORD_17DED4[1644]);
-				//HIWORD(v67) = HIWORD(x_DWORD_17DED4);
-				v67 = x_DWORD_17DED4[1649];
+				sub_7C120(v99, v63, x_DWORD_17DED4_spritestr[274].pointer);
+				sub_7C120(a4, v63, x_DWORD_17DED4_spritestr[274].pointer);
+				//HIWORD(v67) = HIWORD(x_DWORD_17DED4_spritestr);
+				v67 = x_DWORD_17DED4_spritestr[274].sizey;
 				v68 = 0;
 				a1 = v67 + v63;
 				while (v68 < v104)
 				{
-					sub_7C120(v68 + a3, a1, &x_DWORD_17DED4[1650]);
+					sub_7C120(v68 + a3, a1, x_DWORD_17DED4_spritestr[275].pointer);
 					v68 += v103;
 				}
 				*(x_DWORD *)&v86 = a7;
 				v69 = v98;
 				v70 = a4 - 2 * sub_6FC10();
-				sub_6FC80(v87, v99 + x_DWORD_17DED4[1654], v70, v69, a7);
+				sub_6FC80(v87, v99 + x_DWORD_17DED4_spritestr[275].sizex, v70, v69, a7);
 			}
 			else if (a6 == 5)
 			{
@@ -94477,12 +94477,12 @@ int sub_7FCB0(int a1, Bit8u* a2, Bit32s a3, Bit32s a4, int a5, Bit8u a6, unsigne
 					for (l = 0; ; ++l)
 					{
 						v72 += v71;
-						if (l >= x_DWORD_17DED4[1649])
+						if (l >= x_DWORD_17DED4_spritestr[274].sizey)
 							break;
 						v74 = 0;
 						while (1)
 						{
-							v91 = x_DWORD_17DED4[1648];
+							v91 = x_DWORD_17DED4_spritestr[274].sizex;
 							if (v74 >= a4 - (v91 + v99))
 								break;
 							HIBYTE(v97) = 15;
@@ -94493,20 +94493,20 @@ int sub_7FCB0(int a1, Bit8u* a2, Bit32s a3, Bit32s a4, int a5, Bit8u a6, unsigne
 						v71 = 640 - v74;
 					}
 					v75 = v99;
-					sub_7C120(v99, a1, &x_DWORD_17DED4[1644]);
-					*(x_DWORD *)&v86 = x_DWORD_17DED4[1644];
-					sub_7C120(a4 - x_DWORD_17DED4[1648], a1, &x_DWORD_17DED4[1644]);
-					//HIWORD(v76) = HIWORD(x_DWORD_17DED4);
-					v76 = x_DWORD_17DED4[1649];
+					sub_7C120(v99, a1, x_DWORD_17DED4_spritestr[274].pointer);
+					*(x_DWORD *)&v86 = *x_DWORD_17DED4_spritestr[274].pointer;
+					sub_7C120(a4 - x_DWORD_17DED4_spritestr[274].sizex, a1, x_DWORD_17DED4_spritestr[274].pointer);
+					//HIWORD(v76) = HIWORD(x_DWORD_17DED4_spritestr);
+					v76 = x_DWORD_17DED4_spritestr[274].sizey;
 					v77 = v76 + a1;
 					v78 = &x_DWORD_180628b_screen_buffer[640 * v77 + v75];
 					v79 = 0;
-					while (v79 < x_DWORD_17DED4[1649])
+					while (v79 < x_DWORD_17DED4_spritestr[274].sizey)
 					{
 						v80 = 0;
 						while (1)
 						{
-							v90 = x_DWORD_17DED4[1648];
+							v90 = x_DWORD_17DED4_spritestr[274].sizex;
 							if (v80 >= a4 - (v90 + v99))
 								break;
 							HIBYTE(v97) = 15;
@@ -94517,20 +94517,20 @@ int sub_7FCB0(int a1, Bit8u* a2, Bit32s a3, Bit32s a4, int a5, Bit8u a6, unsigne
 						++v79;
 						v78 += 640 - v80;
 					}
-					sub_7C120(v99, v77, &x_DWORD_17DED4[1644]);
-					*(x_DWORD *)&v86 = x_DWORD_17DED4[1644];
-					sub_7C120(a4 - x_DWORD_17DED4[1648], v77, &x_DWORD_17DED4[1644]);
-					//HIWORD(v81) = HIWORD(x_DWORD_17DED4);
-					v81 = x_DWORD_17DED4[1649];
+					sub_7C120(v99, v77, x_DWORD_17DED4_spritestr[274].pointer);
+					*(x_DWORD *)&v86 = *x_DWORD_17DED4_spritestr[274].pointer;
+					sub_7C120(a4 - x_DWORD_17DED4_spritestr[274].sizex, v77, x_DWORD_17DED4_spritestr[274].pointer);
+					//HIWORD(v81) = HIWORD(x_DWORD_17DED4_spritestr);
+					v81 = x_DWORD_17DED4_spritestr[274].sizey;
 					v82 = 0;
 					a1 = v81 + v77;
 					while (v82 < v104)
 					{
 						v83 = v82 + a3;
 						v82 += v103;
-						sub_7C120(v83, a1, &x_DWORD_17DED4[1650]);
+						sub_7C120(v83, a1, x_DWORD_17DED4_spritestr[275].pointer);
 					}
-					sub_7FAE0(v87, v99 + x_DWORD_17DED4[1654], a4, v98, 0);
+					sub_7FAE0(v87, v99 + x_DWORD_17DED4_spritestr[275].sizex, a4, v98, 0);
 				}
 				else
 				{
@@ -94549,33 +94549,33 @@ int sub_7FCB0(int a1, Bit8u* a2, Bit32s a3, Bit32s a4, int a5, Bit8u a6, unsigne
 				v45 = sub_5BE80_index_pallette(x_DWORD_17DE38, 0, 0, v86);
 				*(x_DWORD *)&v86 = v45;
 				v46 = 6 * (a8 - 1);
-				v47 = x_DWORD_17DED4 [v46 + 5];
+				v47 = x_DWORD_17DED4_spritestr[v46/6].sizey;
 				v91 = v104;
 				v48 = v99;
 				v90 = a1;
 				sub_7C140(v99, a1, v104, v47, v45);
-				sub_7C120(v48, v90, &x_DWORD_17DED4[v46]);
+				sub_7C120(v48, v90, x_DWORD_17DED4_spritestr[v46/6].pointer);
 				v49 = v90;
 				v90 = a4;
-				sub_7C120(a4, v49, &x_DWORD_17DED4[v46]);
-				//HIWORD(v50) = HIWORD(x_DWORD_17DED4);
-				v50 = x_DWORD_17DED4 [v46 + 5];
+				sub_7C120(a4, v49, x_DWORD_17DED4_spritestr[v46/6].pointer);
+				//HIWORD(v50) = HIWORD(x_DWORD_17DED4_spritestr);
+				v50 = x_DWORD_17DED4_spritestr[v46/6].sizey;
 				v51 = v50 + a1;
 				v52 = sub_5BE80_index_pallette(x_DWORD_17DE38, 0, 0, v86);
 				*(x_DWORD *)&v86 = v52;
-				v53 = x_DWORD_17DED4 [v46 + 5];
+				v53 = x_DWORD_17DED4_spritestr[v46/6].sizey;
 				v54 = v91;
 				v91 = v51;
 				sub_7C140(v48, v51, v54, v53, v52);
-				sub_7C120(v48, v91, &x_DWORD_17DED4[v46]);
-				sub_7C120(v90, v91, &x_DWORD_17DED4[v46]);
-				//HIWORD(v55) = HIWORD(x_DWORD_17DED4);
-				v55 = x_DWORD_17DED4[v46 + 5];
+				sub_7C120(v48, v91, x_DWORD_17DED4_spritestr[v46/6].pointer);
+				sub_7C120(v90, v91, x_DWORD_17DED4_spritestr[v46/6].pointer);
+				//HIWORD(v55) = HIWORD(x_DWORD_17DED4_spritestr);
+				v55 = x_DWORD_17DED4_spritestr[v46/6].sizey;
 				v56 = 0;
 				a1 = v55 + v51;
 				while (v56 < v104)
 				{
-					sub_7C120(v56 + v99, a1, &x_DWORD_17DED4[6 * a8]);
+					sub_7C120(v56 + v99, a1, x_DWORD_17DED4_spritestr[a8].pointer);
 					v56 += v103;
 				}
 			}
@@ -94584,8 +94584,8 @@ int sub_7FCB0(int a1, Bit8u* a2, Bit32s a3, Bit32s a4, int a5, Bit8u a6, unsigne
 	}
 	if (a6)
 		return v98 - v102;
-	//HIWORD(v84) = HIWORD(x_DWORD_17DED4);
-	v84 = x_DWORD_17DED4 [6 * (a8 + 2) + 5];
+	//HIWORD(v84) = HIWORD(x_DWORD_17DED4_spritestr);
+	v84 = x_DWORD_17DED4_spritestr[(a8 + 2)].sizey;
 
 	//debug
 	//compare_with_snapshot((char*)"0x45678", (Bit8u*)&v8, 0x4589, 4);

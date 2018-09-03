@@ -426,3 +426,9 @@ v 25b110
 x_DWORD_17DED4_spritestr - 
 
 x_DWORD_17DED4_spritestr[0x44].sizex - tohle uz je spatne
+
+48c73d
+48c9d7
+
+fix this procedure:
+int sub_7FCB0(int a1, Bit8u* a2, Bit32s a3, Bit32s a4, int a5, Bit8u a6, unsigned __int8 a7, Bit32u a8)//260cb0
