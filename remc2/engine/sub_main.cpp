@@ -90174,7 +90174,7 @@ void /*__cdecl*/ sub_7A110_load_hscreen(char a1, char a2)//25b110
         sub_7AA70((char*)"DATA/SCREENS/HSCREEN0.DAT", (Bit8u*)x_DWORD_17DE38, 0, 768);
         sub_7AA70((char*)"DATA/SCREENS/HSCREEN0.DAT", (Bit8u*)x_DWORD_E9C38_smalltit, x_DWORD_17DEDC, 168081);
         sub_7AA70((char*)"DATA/SCREENS/HSCREEN0.DAT", (Bit8u*)x_DWORD_17DE48c, x_DWORD_17DEDC, 102213);
-        sub_7AA70((char*)"DATA/SCREENS/HSCREEN0.DAT", (Bit8u*)(int)x_DWORD_17DED4, x_DWORD_17DEDC, 411);
+        sub_7AA70((char*)"DATA/SCREENS/HSCREEN0.DAT", (Bit8u*)(int)x_DWORD_17DED4, x_DWORD_17DEDC, 411);//19b
         sub_7AA70((char*)"DATA/SCREENS/HSCREEN0.DAT", (Bit8u*)(int)x_DWORD_17DE54, 0x13ACCA, 1226);
         sub_7AA70((char*)"DATA/SCREENS/HSCREEN0.DAT", (Bit8u*)(int)x_DWORD_17DEC0, 0x13B194, 548);//25ba70
         sub_7AA70(0, 0, 0, 0);
@@ -94975,6 +94975,10 @@ int /*__cdecl*/ sub_81360(Bit32s a1, Bit32s a2, Bit32s a3, Bit32s a4, __int16 a5
   v29 = 0;
   v28 = 0;
   v8 = sub_581E0((Bit16u*)&a3, (Bit16u*)&a1);//2391E0
+  a1 &= 0xffff;
+  a2 &= 0xffff;
+  a3 &= 0xffff;
+  a4 &= 0xffff;
   if ( v8 <= 1024 || v8 >= 1536 )
   {
     if ( v8 <= 1536 || v8 >= 2048 )
@@ -95026,6 +95030,9 @@ int /*__cdecl*/ sub_81360(Bit32s a1, Bit32s a2, Bit32s a3, Bit32s a4, __int16 a5
   //v9 = 6 * a5;
   v25 = a4 - a2;
   //v23 = x_DWORD_17DED4[v9 + 4];
+  //6*a5
+  //dosbox - 258
+  //toto - 64
   v31 = 2 * abs((a3 - a1) / x_DWORD_17DED4_spritestr[a5].sizex);//find errors
   //v23 = x_DWORD_17DED4[v9 + 5];
   v30 = 2 * abs((a4 - a2) / x_DWORD_17DED4_spritestr[a5].sizey);

@@ -422,3 +422,7 @@ x_DWORD_17DED4 - 34eed4? - 3dc74800d7c9480000000000ffffffff4001c8
 v 257a40
 v 2589e0
 v 25b110
+
+x_DWORD_17DED4_spritestr - 
+
+x_DWORD_17DED4_spritestr[0x44].sizex - tohle uz je spatne
