@@ -69069,7 +69069,7 @@ Bit8u sub_5BE80_index_pallette(Bit8u *pallette, Bit8u a2, Bit8u a3, Bit8u a4)//2
 		  if (v10 + v11 * v11 < v6)
 		  {
 			  v6 = v10 + v11 * v11;
-			  result = i;
+			  result = pallette[i];
 		  }
 		  //v7++;
 		  pallette_index += 3;
@@ -94216,19 +94216,19 @@ int sub_7FCB0(int a1, Bit8u* a2, Bit32s a3, Bit32s a4, int a5, Bit8u a6, unsigne
 		}
 		for (j = 0; j < v104; j += v103)
 			sub_7C120(j + a3, a5, x_DWORD_17DED4_spritestr[a8].pointer);//25d120
-		//HIWORD(v10) = HIWORD(x_DWORD_17DED4_spritestr);
+		//HIWORD(v10) = HIWORD(x_DWORD_17DED4_spritestr); 
 		v10 = x_DWORD_17DED4_spritestr[a8].sizey;//adress 260da7
 		v11 = v10 + a5;
 		v98 += v10;
 		v12 = sub_5BE80_index_pallette(x_DWORD_17DE38, 0, 0, v86);
 		v86 = v12;
 		v13 = 6 * (a8 - 1);
-		v14 = x_DWORD_17DED4_spritestr[v13].sizey;
+		v14 = x_DWORD_17DED4_spritestr[v13/6].sizey;
 		v91 = v11;
 		v90 = a3;
 		sub_7C140(a3, v11, v104, v14, v12);
-		sub_7C120(v90, v91, x_DWORD_17DED4_spritestr[v13].pointer);
-		sub_7C120(a4, v91, x_DWORD_17DED4_spritestr[v13].pointer);
+		sub_7C120(v90, v91, x_DWORD_17DED4_spritestr[v13/6].pointer);
+		sub_7C120(a4, v91, x_DWORD_17DED4_spritestr[v13/6].pointer);
 		//HIWORD(v15) = HIWORD(x_DWORD_17DED4_spritestr);
 		v15 = x_D41A0_BYTEARRAY_4[v13 + 5];
 		a1 = v15 + v11;
@@ -94359,13 +94359,13 @@ int sub_7FCB0(int a1, Bit8u* a2, Bit32s a3, Bit32s a4, int a5, Bit8u a6, unsigne
 							v27 = sub_5BE80_index_pallette(x_DWORD_17DE38, 0, 0, v86);
 							*(x_DWORD *)&v86 = v27;
 							v28 = 6 * (a8 - 1);
-							v29 = x_DWORD_17DED4_spritestr[v28].sizey;
+							v29 = x_DWORD_17DED4_spritestr[v28/6].sizey;
 							v90 = v99;
 							sub_7C140(v99, a1, v104, v29, v27);
-							sub_7C120(v90, a1, x_DWORD_17DED4_spritestr[v28].pointer);
-							sub_7C120(a4, a1, x_DWORD_17DED4_spritestr[v28].pointer);
+							sub_7C120(v90, a1, x_DWORD_17DED4_spritestr[v28/6].pointer);
+							sub_7C120(a4, a1, x_DWORD_17DED4_spritestr[v28/6].pointer);
 							//HIWORD(v30) = HIWORD(x_DWORD_17DED4_spritestr);
-							v30 = x_DWORD_17DED4_spritestr[v28].sizey;
+							v30 = x_DWORD_17DED4_spritestr[v28/6].sizey;
 							a1 += v30;
 						}
 						sub_7FAE0(v87, v99, a4, v98, v86);

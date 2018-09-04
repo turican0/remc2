@@ -432,3 +432,8 @@ x_DWORD_17DED4_spritestr[0x44].sizex - tohle uz je spatne
 
 fix this procedure:
 int sub_7FCB0(int a1, Bit8u* a2, Bit32s a3, Bit32s a4, int a5, Bit8u a6, unsigned __int8 a7, Bit32u a8)//260cb0
+v ní opravit:
+sub_7FAE0(v87, v99, a4, v98, v86);
+
+problemek:
+v12 = sub_5BE80_index_pallette(x_DWORD_17DE38, 0, 0, v86);
