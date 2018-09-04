@@ -437,3 +437,20 @@ sub_7FAE0(v87, v99, a4, v98, v86);
 
 problemek:
 v12 = sub_5BE80_index_pallette(x_DWORD_17DE38, 0, 0, v86);
+
+v12 = sub_5BE80_index_pallette(x_DWORD_17DE38, 0, 0, v86);//mozny problem
+
+0x260ae0
+
+v15 = x_D41A0_BYTEARRAY_4[v13 + 5]; - chyba, ma byt 07, ale je 00
+x_D41A0_BYTEARRAY_4[0x1ec + 5]
+48c92e
+na adrese 260e55
+jak jinak, nez v 25b110
+
+zde se to naplni:
+sub_7AA70((char*)"DATA/SCREENS/HSCREEN0.DAT", x_DWORD_17DED4, 271062, 411);//19b
+-34eed4 tj. x_DWORD_17DED4
+
+a je to ok:
+v15 = x_DWORD_17DED4_spritestr[v13 / 6].sizey;
