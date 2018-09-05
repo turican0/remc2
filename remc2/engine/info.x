@@ -454,3 +454,6 @@ sub_7AA70((char*)"DATA/SCREENS/HSCREEN0.DAT", x_DWORD_17DED4, 271062, 411);//19b
 
 a je to ok:
 v15 = x_DWORD_17DED4_spritestr[v13 / 6].sizey;
+
+fix this:
+int /*__cdecl*/ sub_7FB90(char* a1, int a2, __int16 a3, unsigned __int8 a4)

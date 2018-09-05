@@ -93979,7 +93979,7 @@ int /*__cdecl*/ sub_7FB90(char* a1, int a2, __int16 a3, unsigned __int8 a4)
   if ( (a2 & 0x8000u) != 0 )
     v5 = 0;
   v10 = v5;
-  while ( *v4 && (signed __int16)v5 < 640 )
+  while ( *v4 && v5 < 640 )
   {
     v7 = (unsigned __int8)*v4;
     if ( v7 < 0xAu )
@@ -94001,7 +94001,7 @@ LABEL_16:
     if ( (unsigned __int8)v7 <= 0xAu )
     {
       v5 = v10;
-      v6 += *(unsigned __int8 *)((int)x_DWORD_17DEC0 + 395);
+      v6 += x_DWORD_17DEC0[395];
       goto LABEL_21;
     }
     if ( v7 < 0xDu )
@@ -94368,7 +94368,8 @@ int sub_7FCB0(int a1, Bit8u* a2, Bit32s a3, Bit32s a4, int a5, Bit8u a6, unsigne
 							v30 = x_DWORD_17DED4_spritestr[v28/6].sizey;
 							a1 += v30;
 						}
-						sub_7FAE0(v87, v99, a4, v98, v86);
+						//"click here" 12a 1e2 138 00
+						sub_7FAE0(v87, v99, a4, v98, v86);//adress 261197
 					}
 					if (a6 && a6 != 4 && a6 != 5)
 					{
