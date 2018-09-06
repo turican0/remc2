@@ -459,3 +459,11 @@ fix this:
 void sub_7FB90(char* a1, int a2, __int16 a3, unsigned __int8 a4)//260b90
 int /*__cdecl*/ sub_7C120(__int16 a1, __int16 a2, Bit8u* a3)//25d120
 x_DWORD_17DEC0 - 34eec0 - neni naplnena korektne
+
+rozdil v blitu
+x02287 - prvni rozdil
+zde se nastavi:
+sub_2BB40(263, 134, v1_langdattab[1].pointer);//20cb40
+-sub_8F8E8(a1, a2, a3);
+druhy pruchod:qmemcpy(&v21_buffer_temp_index1[outindex], &texture[inindex], count);
+chyba je v nastaveni x_DWORD_18062C_resolution_x(35162c) - coz ma byt 0x280 - 640
