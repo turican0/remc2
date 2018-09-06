@@ -475,3 +475,5 @@ while ( v141 );
       else if ( x_WORD_E36D4 & 0x40 )
       {
         v56 = (char *)(x_DWORD_18062C_resolution_x * tiley + tilex + pixel_buffer_index);
+
+sub_72C40(v5, v6, x_DWORD_17DEC0_spritestr[v4[0]].pointer, a4);

@@ -2559,7 +2559,7 @@ unsigned int /*__cdecl*/ sub_7277A(unsigned int a1);
 void /*__cdecl*/ sub_727F0(unsigned __int8 a1, unsigned __int8 a2, unsigned __int8 a3, unsigned __int8 a4);
 // void /*__spoils<ecx>*/ sub_72883_memset_pallette(int a1, void *a2, unsigned __int16 a3, char a4);
 // void /*__spoils<ecx>*/ sub_728A9_memset_pallette(int a1, void *a2, unsigned __int16 a3, char a4);
-void sub_72C40(__int16 a1, __int16 a2, Bit8u* a3, unsigned __int8 a4);
+void sub_72C40(__int16 a1, __int16 a2, posistruct a3, unsigned __int8 a4);
 int /*__cdecl*/ sub_72CB0(unsigned __int8 *a1, int a2);
 void sub_72D04();
 // int sub_72DDE(signed __int16 *a1, int a2);
@@ -83329,7 +83329,7 @@ LABEL_14:
     if ( !*v4 )
       goto LABEL_14;
     v8 = 6 * ((unsigned __int8)*v4 + 1);
-    sub_72C40(v5, a3, (Bit8u*)(v8 + x_DWORD_EA3D4), a4);
+    sub_72C40(v5, a3, *(new posistruct)/*(Bit8u*)(v8 + x_DWORD_EA3D4)*/, a4);
     v9 = *(unsigned __int8 *)(x_DWORD_EA3D4 + v8 + 4);
 LABEL_15:
     v5 += v9;
@@ -85162,10 +85162,10 @@ void /*__spoils<ecx>*/ sub_728A9_memset_pallette(void *a2, unsigned __int16 a3, 
 }
 
 //----- (00072C40) --------------------------------------------------------
-void sub_72C40(__int16 a1, __int16 a2, Bit8u* a3, unsigned __int8 a4)
+void sub_72C40(__int16 a1, __int16 a2, posistruct a3, unsigned __int8 a4)
 {
-  Bit16u v4; // dx
-  Bit8u* v5; // esi
+  //Bit16u v4; // dx
+  //Bit8u* v5; // esi
   //int result; // eax
   //int v7; // [esp+4h] [ebp-4h]
 
@@ -85173,17 +85173,22 @@ void sub_72C40(__int16 a1, __int16 a2, Bit8u* a3, unsigned __int8 a4)
   //v7 = 0;
   //fix it
 
-  v4 = *(x_WORD *)(a3 + 4);
-  v5 = *(Bit8u **)a3;
+  //v4 = *(x_WORD *)(a3 + 4);
+  //v5 = *(Bit8u **)a3;
   if ( x_WORD_180660_VGA_type_resolution & 1 )
   {
-    sub_8F920(v4, a2, a1, v5, a4, 0);
+    sub_8F920(a3.sizex+ (a3.sizex<<16), a2, a1, a3.pointer, a4, 0);
     //result = v7;
   }
   else
   {
-    if ( x_WORD_180660_VGA_type_resolution & 8 )
-      sub_8F935(doublebyte_conv(v4), a2, a1, v5, a4, 0);
+	  if (x_WORD_180660_VGA_type_resolution & 8)
+	  {
+		  doublebyte tempdblbyte;
+		  tempdblbyte.byte1 = a3.sizex;
+		  tempdblbyte.byte2 = a3.sizey;
+		  sub_8F935(tempdblbyte, a2, a1, a3.pointer, a4, 0);
+	  }
     //result = v7;
   }
   //return result;
@@ -93992,7 +93997,7 @@ LABEL_16:
       if ( *v4 )
       {
         if ( a4 )
-          sub_72C40(v5, v6, x_DWORD_17DEC0_spritestr[v4[0]].pointer, a4);
+          sub_72C40(v5, v6, x_DWORD_17DEC0_spritestr[v4[0]], a4);
         else
           sub_7C120(v5, v6, x_DWORD_17DEC0_spritestr[v4[0]].pointer);
       }
