@@ -467,3 +467,11 @@ sub_2BB40(263, 134, v1_langdattab[1].pointer);//20cb40
 -sub_8F8E8(a1, a2, a3);
 druhy pruchod:qmemcpy(&v21_buffer_temp_index1[outindex], &texture[inindex], count);
 chyba je v nastaveni x_DWORD_18062C_resolution_x(35162c) - coz ma byt 0x280 - 640
+
+problém zde:
+
+while ( v141 );
+      }
+      else if ( x_WORD_E36D4 & 0x40 )
+      {
+        v56 = (char *)(x_DWORD_18062C_resolution_x * tiley + tilex + pixel_buffer_index);

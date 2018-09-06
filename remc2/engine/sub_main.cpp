@@ -13177,9 +13177,9 @@ __int16 x_WORD_1805C4_vio1; // weak
 __int16 x_WORD_1805C6_vio2; // weak
 __int16 x_WORD_1805C8; // weak
 _UNKNOWN unk_1805CE; // weak
-int x_DWORD_180624_resolution_y; // weak
+Bit32u x_DWORD_180624_resolution_y; // weak
 //Bit8u x_DWORD_180628b_screen_buffer; // weak
-int x_DWORD_18062C_resolution_x; // weak
+Bit32u x_DWORD_18062C_resolution_x; // weak
 int x_DWORD_180630; // weak
 int x_DWORD_180634; // weak
 int x_DWORD_180638; // weak
@@ -103954,7 +103954,7 @@ void sub_8CD27(Pathstruct a1)//26dd27
   //v4 = x_WORD_E36D4;
   x_WORD_E36D4 = 0;
   //v3 = x_DWORD_18062C_resolution_x;
-  x_DWORD_18062C_resolution_x = 64;
+  //x_DWORD_18062C_resolution_x = 64;
   x_DWORD_180730 = (Bit8s*)malloc(0x1000);//fix it
   for (i = 0; i < 0x1000; ++i)
   {
@@ -105810,7 +105810,7 @@ bool Sprite::loadSprite(uint8 * tabData, uint8 * spriteData, uint32 offset,
 }
 */
 //----- (0008F935) --------------------------------------------------------
-void sub_8F935(doublebyte a1, Bit16u tiley, int tilex, Bit8u* texture, unsigned __int8 a5, char a6)//270935
+void sub_8F935(doublebyte a1, Bit16u tiley, int tilex, Bit8u* texture, Bit8u setbyte, char a6)//270935
 {
   Bit8u* pixel_buffer_index; // edi
   x_BYTE *v7; // edi
@@ -106423,7 +106423,7 @@ void sub_8F935(doublebyte a1, Bit16u tiley, int tilex, Bit8u* texture, unsigned 
         v42 = 0;
         v142 = v41;
         v140 = a1.byte2;
-        for ( i = a5; ; i = a5 )
+        for ( i = setbyte; ; i = setbyte)
         {
           while ( 1 )
           {
@@ -106438,7 +106438,7 @@ void sub_8F935(doublebyte a1, Bit16u tiley, int tilex, Bit8u* texture, unsigned 
                 v46 = __OFSUB__(i--, 1);
                 if ( ((i & 0x80u) != 0) ^ v46 )
                 {
-                  i = a5;
+                  i = setbyte;
                   ++v41;
                 }
                 --v42;
@@ -106454,7 +106454,7 @@ void sub_8F935(doublebyte a1, Bit16u tiley, int tilex, Bit8u* texture, unsigned 
               v46 = __OFSUB__(i--, 1);
               if ( ((i & 0x80u) != 0) ^ v46 )
               {
-                i = a5;
+                i = setbyte;
                 *v41++ = v45;
               }
               --v42;
@@ -106494,7 +106494,7 @@ void sub_8F935(doublebyte a1, Bit16u tiley, int tilex, Bit8u* texture, unsigned 
               v50 = *texture++;
               if ( v50 >= 0 )
                 break;
-              v49 += (a5 * -v50);
+              v49 += (setbyte * -v50);
             }
             if ( !v50 )
               break;
@@ -106502,8 +106502,8 @@ void sub_8F935(doublebyte a1, Bit16u tiley, int tilex, Bit8u* texture, unsigned 
             do
             {
               v52 = *texture++;
-              memset(v49, v52, a5);
-              v49 += a5;
+              memset(v49, v52, setbyte);
+              v49 += setbyte;
               v46 = __OFSUB__(v51--, 1);
             }
             while ( !(((v51 < 0) ^ v46) | (v51 == 0)) );
@@ -106531,7 +106531,40 @@ void sub_8F935(doublebyte a1, Bit16u tiley, int tilex, Bit8u* texture, unsigned 
       }
       else if ( x_WORD_E36D4 & 0x40 )
       {
-        v56 = (char *)(x_DWORD_18062C_resolution_x * tiley + tilex + pixel_buffer_index);
+		  v21_buffer_temp_index1 = (x_DWORD_18062C_resolution_x * tiley + tilex + pixel_buffer_index);
+		  Bit32u inindex = 0;
+		  Bit32u outindex = 0;
+		  Bit8s shift = 0;
+		  Bit8s end = 0;
+		  Bit8s count = texture[inindex++];
+		  memset(&v21_buffer_temp_index1[outindex], setbyte, count);
+		  //qmemcpy(&v21_buffer_temp_index1[outindex], &texture[inindex], count);
+		  for (Bit32u y = 1;count != 0x7f;y++)
+		  {
+			  memset(&v21_buffer_temp_index1[outindex + shift], setbyte, count);
+			  //qmemcpy(&v21_buffer_temp_index1[outindex + shift], &texture[inindex], count);
+			  inindex += count;
+			  end = texture[inindex++];
+			  if (end == 0)
+			  {
+				  count = texture[inindex++];
+				  if (count < 0) {
+					  shift = -count;
+					  count = texture[inindex++];
+				  }
+				  outindex += x_DWORD_18062C_resolution_x;
+			  }
+			  else {
+				  shift += count;
+				  count = end;
+				  if (count < 0) {
+					  shift -= count;
+					  count = texture[inindex++];
+				  }
+			  }
+		  }
+
+        /*v56 = (char *)(x_DWORD_18062C_resolution_x * tiley + tilex + pixel_buffer_index);
         v57 = 0;
         v58 = -1;
         v59 = v56;
@@ -106563,7 +106596,7 @@ void sub_8F935(doublebyte a1, Bit16u tiley, int tilex, Bit8u* texture, unsigned 
           v56 = v59;
           --a1.byte2;
         }
-        while ( a1.byte2 );
+        while ( a1.byte2 );*/
       }
       else
       {
@@ -106622,7 +106655,7 @@ void sub_8F935(doublebyte a1, Bit16u tiley, int tilex, Bit8u* texture, unsigned 
 	  Bit8s end = 0;
 	  Bit8s count = texture[inindex++];
 	  qmemcpy(&v21_buffer_temp_index1[outindex], &texture[inindex], count);
-	  writehex(v21_buffer_temp_index1,1500);
+	  //writehex(v21_buffer_temp_index1,1500);
 	  for(Bit32u y=1;count!=0x7f;y++)
 		  {
 		    qmemcpy(&v21_buffer_temp_index1[outindex + shift], &texture[inindex], count);
@@ -106645,8 +106678,8 @@ void sub_8F935(doublebyte a1, Bit16u tiley, int tilex, Bit8u* texture, unsigned 
 					count = texture[inindex++];
 				}
 			}
-			writehex(v21_buffer_temp_index1, 1500);
-			printf(" %d\n",y);
+			//writehex(v21_buffer_temp_index1, 1500);
+			//printf(" %d\n",y);
 		  }
 	  //v24_buffer_temp_index2 = v21_buffer_temp_index1;
 	  /*
