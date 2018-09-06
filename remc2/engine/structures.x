@@ -39,3 +39,8 @@ edx=[ebp+14]..48c749
 add [edx],eax     [edx]=c22200000 + 455d45
 eax=[ebp+14]..1a6f44
 [ebp+14]+=6
+
+zameny
+x_DWORD_17DED4 za x_DWORD_17DED4_spritestr
+x_DWORD_17DEC0 za x_DWORD_17DEC0_spritestr
+		

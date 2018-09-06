@@ -456,4 +456,6 @@ a je to ok:
 v15 = x_DWORD_17DED4_spritestr[v13 / 6].sizey;
 
 fix this:
-int /*__cdecl*/ sub_7FB90(char* a1, int a2, __int16 a3, unsigned __int8 a4)
+void sub_7FB90(char* a1, int a2, __int16 a3, unsigned __int8 a4)//260b90
+int /*__cdecl*/ sub_7C120(__int16 a1, __int16 a2, Bit8u* a3)//25d120
+x_DWORD_17DEC0 - 34eec0 - neni naplnena korektne

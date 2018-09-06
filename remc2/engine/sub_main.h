@@ -232,7 +232,7 @@ x_DWORD /*__cdecl*/ dos_getvect(x_DWORD);// weak
 x_DWORD /*__cdecl*/ dos_setvect(x_DWORD, x_DWORD, x_DWORD);// weak
 int /*__fastcall*/ _wcpp_1_unwind_leave__130(x_DWORD);// weak
 unsigned char _BitScanReverse(unsigned long * Index, unsigned long Mask);
-void sub_8F920(__int16 a1, signed int a2, int a3, char *a4, unsigned __int8 a5, char a6);
+void sub_8F920(__int16 a1, signed int a2, int a3, Bit8u* a4, unsigned __int8 a5, char a6);
 void sub_8F935(doublebyte a1, Bit16u a2, int a3, Bit8u* a4, unsigned __int8 a5, char a6);
 signed int sub_74767(signed __int16 *a1, x_BYTE *a2, Bit8u* a3);
 x_DWORD /*__cdecl*/ segread(SREGS*); //weak
