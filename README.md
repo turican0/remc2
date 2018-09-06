@@ -2,6 +2,9 @@
 # Reverse engineering of game Magic Carpet 2 from assembler to c/c++ language<br />
 ## STATUS: unplayable, in development<br />
 <br />
+## 0.06:<br />
+-some sprites works<br />
+<br />
 ## 0.05:<br />
 -add primitive console mode<br />
 -repairing fade pallete<br />
