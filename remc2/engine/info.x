@@ -477,3 +477,20 @@ while ( v141 );
         v56 = (char *)(x_DWORD_18062C_resolution_x * tiley + tilex + pixel_buffer_index);
 
 sub_72C40(v5, v6, x_DWORD_17DEC0_spritestr[v4[0]].pointer, a4);
+
+test cycle:
+char /*__cdecl*/ sub_779E0(int a1)//2589E0
+hledam zmeny 351628->3aa0a4 - 3842212
+
+bez vlajky
+engine-memory-0160-00258C99
+call 25f0e0 jinak tlacitko, bez vlajky
+engine-memory-0160-00258CA1
+call 20cb40 - prida vlajku
+engine-memory-0160-00258CBA
+call 279786 - pridano textove okno
+engine-memory-0160-00258D6A
+zadna zmena
+engine-memory-0160-00258DDF
+
+x_DWORD_17DEE4 -mouse info
