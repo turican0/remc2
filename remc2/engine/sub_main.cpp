@@ -11348,7 +11348,8 @@ Bit8u unk_E24BCx[0x51a] = {
 0x6D,0x01,0xF8,0x01,0x03,0x00,0x0E,0x01,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
 0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00
 }; // weak
-__int16 x_WORD_E24BE[18] = { 40, 49, 196, 38, 0, 283, 106, 2, 454, 298, 300, 397, 298, 0, 321, 236, 8, 0 }; // idb
+//__int16 x_WORD_E24BE[18] = { 40, 49, 196, 38, 0, 283, 106, 2, 454, 298, 300, 397, 298, 0, 321, 236, 8, 0 }; // 2b34be
+Bit16u x_WORD_E24BE[18] = {0x28,0x00,0x31,0x00,0xc4,0x00,0x26,0x00,0x00,0x00,0x1b,0x01,0x6a,0x00,0x02,0x00,0xc6,0x01 }; // 2b34be
 _UNKNOWN unk_E24F2; // weak
 _UNKNOWN unk_E2516; // weak
 __int16 x_WORD_E2518[] = { 303 }; // weak
@@ -88475,7 +88476,7 @@ char /*__cdecl*/ sub_779E0(int a1)//2589E0
 		  //0x4a3-0x0 b
           if ( (v30_actual_time - v29_old_time) / 100 > 1 )//pokud ubehlo 100ms
           {
-            if ( !x_WORD_E24BE[9 * ++v31] )
+            if ( !x_WORD_E24BE[9 * v31++] )//2b34be
               v31 = 0;
             v29_old_time = v30_actual_time;
           }
@@ -92926,9 +92927,11 @@ int /*__cdecl*/ sub_7E840(Bit16u* a1, __int16 a2, __int16 a3)//25f840
       v5 = v3[1];
       //v6 = v3[1];
 	  //zatim nic
+	  //18d 12a 141 ec - 18d 12a 141 ec -1
+	  //c4 26 11b 6a - c4 26 11b 6a -0 - chybi ocasek
       sub_81360_draw_bitmap_line(v3[3] + (v3[4] << 16), v3[4], v3[6]+ (v3[7]<<16), v3[7], a3);//262360
       //pridany tecky
-	  sub_7FCB0((int)v3, (Bit8u*)x_DWORD_E9C4C_langindexbuffer[*v3], v5, (signed __int16)(v5 + 180), v3[2], 0, 0, a2);//260cb0
+	  sub_7FCB0(v3[0], x_DWORD_E9C4C_langindexbuffer[v3[0]], v5, (v5 + 180), v3[2], 0, 0, a2);//260cb0
 	  //pridan ramecek s textem
 	}
     v3 += 9;
@@ -94160,7 +94163,7 @@ int sub_7FCB0(int a1, Bit8u* a2, Bit32s a3, Bit32s a4, int a5, Bit8u a6, unsigne
 		}
 	}
 	else
-	{
+	{//ramecek s textem
 		v104 = a4 - a3;//adress 260cf1
 		v88 = a8;
 		//v92 = (int)x_DWORD_17DED4_spritestr;
@@ -94170,9 +94173,10 @@ int sub_7FCB0(int a1, Bit8u* a2, Bit32s a3, Bit32s a4, int a5, Bit8u a6, unsigne
 			v104 = ((a4 - a3) / v103 + 1) * v103;
 			a4 = v104 + a3 - x_DWORD_17DED4_spritestr[(v88 - 1)].sizex;
 		}
-		for (j = 0; j < v104; j += v103)
+		for (j = 0; j < v104; j += v103)//ramecek - horni vodorovna linka
 			sub_7C120_draw_bitmap2(j + a3, a5, x_DWORD_17DED4_spritestr[a8]);//25d120
-		//HIWORD(v10) = HIWORD(x_DWORD_17DED4_spritestr); 
+		
+//HIWORD(v10) = HIWORD(x_DWORD_17DED4_spritestr); 
 		v10 = x_DWORD_17DED4_spritestr[a8].sizey;//adress 260da7
 		v11 = v10 + a5;
 		v98 += v10;
@@ -94182,9 +94186,9 @@ int sub_7FCB0(int a1, Bit8u* a2, Bit32s a3, Bit32s a4, int a5, Bit8u a6, unsigne
 		v14 = x_DWORD_17DED4_spritestr[v13/6].sizey;
 		v91 = v11;
 		v90 = a3;
-		sub_7C140(a3, v11, v104, v14, v12);
-		sub_7C120_draw_bitmap2(v90, v91, x_DWORD_17DED4_spritestr[v13/6]);
-		sub_7C120_draw_bitmap2(a4, v91, x_DWORD_17DED4_spritestr[v13/6]);
+		sub_7C140(a3, v11, v104, v14, v12);//prvni cerna linka
+		sub_7C120_draw_bitmap2(v90, v91, x_DWORD_17DED4_spritestr[v13/6]);//prvni levy svisly dilek
+		sub_7C120_draw_bitmap2(a4, v91, x_DWORD_17DED4_spritestr[v13/6]);//prvni pravy svisly dilek
 		//HIWORD(v15) = HIWORD(x_DWORD_17DED4_spritestr);
 		v15 = x_DWORD_17DED4_spritestr[v13 / 6].sizey;
 		a1 = v15 + v11;
@@ -94347,14 +94351,14 @@ int sub_7FCB0(int a1, Bit8u* a2, Bit32s a3, Bit32s a4, int a5, Bit8u a6, unsigne
 			else
 			{
 				*(x_DWORD *)&v86 = (int32)v87;
-				qmemcpy(v87, a2, k + 1);
+				qmemcpy(v87, a2, k + 1);//kopirovani textu
 			}
 			v101 = k;
 		}
 		if (!a2[k])
 			break;
 	}
-	if (!v95)
+	if (!v95)//zjisti kde je toto
 	{
 		if (a6 && a6 != 4)
 		{
@@ -94875,35 +94879,35 @@ int /*__cdecl*/ sub_812D0(__int16 a1, __int16 a2)
 // 180648: using guessed type int x_DWORD_180648;
 
 //----- (00081360) --------------------------------------------------------
-int /*__cdecl*/ sub_81360_draw_bitmap_line(Bit32s a1, Bit32s a2, Bit32s a3, Bit32s a4, __int16 a5)//262360
+int /*__cdecl*/ sub_81360_draw_bitmap_line(Bit32s minx, Bit32s miny, Bit32s maxx, Bit32s maxy, __int16 a5)//262360
 {
   Bit32s v5; // edi
   Bit32s v6; // esi
-  __int16 v7; // bx
-  __int16 v8; // ax
+  Bit16s v7; // bx
+  Bit16s v8; // ax
   //int v9; // ecx
   Bit32s v10; // eax
   Bit32s v11; // eax
-  int v12; // eax
-  int v13; // eax
+  Bit32s v12; // eax
+  Bit32s v13; // eax
   Bit32s v14; // eax
   Bit32s v15; // edx
-  int v17; // edx
-  int v18; // eax
+  Bit32s v17; // edx
+  Bit32s v18; // eax
   //Bit16u v19[2]; // [esp+0h] [ebp-38h]
-  __int16 v20; // [esp+2h] [ebp-36h]
+  Bit16s v20; // [esp+2h] [ebp-36h]
   //Bit16u v21; // [esp+8h] [ebp-30h]
-  __int16 v22; // [esp+Ah] [ebp-2Eh]
+  Bit16s v22; // [esp+Ah] [ebp-2Eh]
   //int v23; // [esp+10h] [ebp-28h]
-  int v24; // [esp+14h] [ebp-24h]
-  int v25; // [esp+18h] [ebp-20h]
-  int v26; // [esp+1Ch] [ebp-1Ch]
-  int v27; // [esp+20h] [ebp-18h]
+  Bit32s v24; // [esp+14h] [ebp-24h]
+  Bit32s v25; // [esp+18h] [ebp-20h]
+  Bit32s v26; // [esp+1Ch] [ebp-1Ch]
+  Bit32s v27; // [esp+20h] [ebp-18h]
   Bit32u v28; // [esp+24h] [ebp-14h]
-  int v29; // [esp+28h] [ebp-10h]
+  Bit32s v29; // [esp+28h] [ebp-10h]
   Bit32s v30; // [esp+2Ch] [ebp-Ch]
   Bit32s v31; // [esp+30h] [ebp-8h]
-  int v32; // [esp+34h] [ebp-4h]
+  Bit32s v32; // [esp+34h] [ebp-4h]
 
   //fix it
 
@@ -94922,20 +94926,20 @@ int /*__cdecl*/ sub_81360_draw_bitmap_line(Bit32s a1, Bit32s a2, Bit32s a3, Bit3
   //x_D41A0_BYTEARRAY_4[v9 + 4] = 0x0b;
   //fix it
 
-  v5 = a1;
-  v6 = a2;
+  v5 = minx & 0xffff;
+  v6 = miny & 0xffff;
   //v21 = a1;
   //v19 = a3;
-  v22 = a2;
-  v20 = a4;
+  v22 = miny & 0xffff;
+  v20 = maxy & 0xffff;
   v7 = 0;
   v29 = 0;
   v28 = 0;
-  v8 = sub_581E0((Bit16u*)&a3, (Bit16u*)&a1);//2391E0
-  a1 &= 0xffff;
-  a2 &= 0xffff;
-  a3 &= 0xffff;
-  a4 &= 0xffff;
+  v8 = sub_581E0((Bit16u*)&maxx, (Bit16u*)&minx);//2391E0
+  minx &= 0xffff;
+  miny &= 0xffff;
+  maxx &= 0xffff;
+  maxy &= 0xffff;
   if ( v8 <= 1024 || v8 >= 1536 )
   {
     if ( v8 <= 1536 || v8 >= 2048 )
@@ -94983,20 +94987,20 @@ int /*__cdecl*/ sub_81360_draw_bitmap_line(Bit32s a1, Bit32s a2, Bit32s a3, Bit3
   {
     v7 = a5 + 4;
   }
-  v24 = a3 - a1;
+  v24 = maxx - minx;
   //v9 = 6 * a5;
-  v25 = a4 - a2;
+  v25 = maxy - miny;
   //v23 = x_DWORD_17DED4[v9 + 4];
   //6*a5
   //dosbox - 258
   //toto - 64
-  v31 = 2 * abs((a3 - a1) / x_DWORD_17DED4_spritestr[a5].sizex);//find errors
+  v31 = 2 * abs((maxx - minx) / x_DWORD_17DED4_spritestr[a5].sizex);//find errors
   //v23 = x_DWORD_17DED4[v9 + 5];
-  v30 = 2 * abs((a4 - a2) / x_DWORD_17DED4_spritestr[a5].sizey);
-  v10 = a3 - a1;
-  if ( (a3 - a1) >= 0 )
+  v30 = 2 * abs((maxy - miny) / x_DWORD_17DED4_spritestr[a5].sizey);
+  v10 = maxx - minx;
+  if ( (maxx - minx) >= 0 )
   {
-    if ( a3 != a1 )
+    if (maxx != minx)
     {
       //HIWORD(v10) = HIWORD(x_DWORD_17DED4);
       v10 = x_DWORD_17DED4_spritestr[a5].sizex;
@@ -95023,18 +95027,18 @@ int /*__cdecl*/ sub_81360_draw_bitmap_line(Bit32s a1, Bit32s a2, Bit32s a3, Bit3
     v12 = -v13;
   }
   v26 = v12;
-  if ( a1 >= a3 )
+  if (minx >= maxx)
   {
-    if ( a1 > a3 )
+    if (minx > maxx)
       v29 = 1;
   }
   else
   {
     v29 = 2;
   }
-  if ( a2 >= a4 )
+  if (miny >= maxy)
   {
-    if ( a2 > a4 )
+    if (miny > maxy)
       v28 = 1;
   }
   else
@@ -95056,8 +95060,8 @@ int /*__cdecl*/ sub_81360_draw_bitmap_line(Bit32s a1, Bit32s a2, Bit32s a3, Bit3
   {
     if ( v31 <= v30 )
     {
-      if ( v6 == a4 )
-        return sub_7C120_draw_bitmap2(v5, a4, x_DWORD_17DED4_spritestr[v7]);
+      if ( v6 == maxy)
+        return sub_7C120_draw_bitmap2(v5, maxy, x_DWORD_17DED4_spritestr[v7]);
       if ( (v32 & 0x8000u) == 0 )
       {
         v5 += v27;
@@ -95069,8 +95073,8 @@ int /*__cdecl*/ sub_81360_draw_bitmap_line(Bit32s a1, Bit32s a2, Bit32s a3, Bit3
     }
     else
     {
-      if ( v5 == a3 )
-        return sub_7C120_draw_bitmap2((short)a3, v6, x_DWORD_17DED4_spritestr[v7]);
+      if ( v5 == maxx)
+        return sub_7C120_draw_bitmap2(maxx, v6, x_DWORD_17DED4_spritestr[v7]);
       if ( (v32 & 0x8000u) == 0 )
       {
         v6 += v26;
@@ -95085,26 +95089,28 @@ int /*__cdecl*/ sub_81360_draw_bitmap_line(Bit32s a1, Bit32s a2, Bit32s a3, Bit3
     {
       if ( v29 <= 1u )
       {
-        if ( v5 < a3 )
-          return sub_7C120_draw_bitmap2((short)a3, a4, x_DWORD_17DED4_spritestr[v7]);
+        if ( v5 < maxx)
+          return sub_7C120_draw_bitmap2(maxx, maxy, x_DWORD_17DED4_spritestr[v7]);
       }
-      else if ( v29 == 2 && v5 > a3 )
+      else if ( v29 == 2 && v5 > maxx)
       {
-        return sub_7C120_draw_bitmap2((short)a3, a4, x_DWORD_17DED4_spritestr[v7]);
+        return sub_7C120_draw_bitmap2(maxx, maxy, x_DWORD_17DED4_spritestr[v7]);
       }
     }
     if ( v28 < 1u )
       goto LABEL_70;
     if ( v28 > 1u )
       break;
-    if ( v6 < a4 )
-      return sub_7C120_draw_bitmap2((short)a3, a4, x_DWORD_17DED4_spritestr[v7]);
+    if ( v6 < maxy)
+      return sub_7C120_draw_bitmap2(maxx, maxy, x_DWORD_17DED4_spritestr[v7]);
 LABEL_70:
+	//18d 12a 141 ec - 18d 12a 141 ec -1
+	  //c4 26 11b 6a - c4 26 11b 6a -0 - chybi ocasek
     sub_7C120_draw_bitmap2(v5, v6, x_DWORD_17DED4_spritestr[a5]);
   }
-  if ( v28 != 2 || v6 <= a4 )
+  if ( v28 != 2 || v6 <= maxy)
     goto LABEL_70;
-  return sub_7C120_draw_bitmap2((short)a3, a4, x_DWORD_17DED4_spritestr[v7]);
+  return sub_7C120_draw_bitmap2(maxx, maxy, x_DWORD_17DED4_spritestr[v7]);
 }
 // 17DED4: using guessed type int (int)x_DWORD_17DED4;
 
@@ -106623,6 +106629,10 @@ void sub_8F935_bitmap_draw_final(Bit8u a1byte1,Bit8u a1byte2, Bit16u tiley, int 
 	  Bit8s shift = 0;
 	  Bit8s end = 0;
 	  Bit8s count = texture[inindex++];
+	  if (count < 0) {
+		  shift = -count;
+		  count = texture[inindex++];
+	  }
 	  qmemcpy(&v21_buffer_temp_index1[outindex], &texture[inindex], count);
 	  //writehex(v21_buffer_temp_index1,1500);
 	  for(Bit32u y=1;count!=0x7f;y++)
