@@ -228,7 +228,7 @@ void loadfromsnapshot2(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u s
 };
 
 
-Bit32u compare_with_snapshot(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u size) {
+Bit32u compare_with_snapshot(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u size, Bit8u* origbyte, Bit8u* copybyte) {
 
 	char findnamec[500];
 	Bit8u* buffer = (Bit8u*)malloc(size);
@@ -242,7 +242,11 @@ Bit32u compare_with_snapshot(char* filename, Bit8u* adress, Bit32u adressdos, Bi
 	for (i = 0;i < size;i++)
 	{
 		if (buffer[i] != adress[i])
+		{
+			*origbyte = buffer[i];
+			*copybyte = adress[i];
 			break;
+		}
 	}
 
 	free(buffer);
