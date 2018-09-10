@@ -145,7 +145,7 @@ bool VGA_LoadFont()
 
 	//Load splash image
 	//surface_font = SDL_LoadBMP("c:/prenos/remc2/font/xterm714.bmp");
-	surface_font = SDL_LoadBMP("../font/xterm613.bmp");
+	surface_font = SDL_LoadBMP("../font/xterm714.bmp");
 	if (surface_font == NULL)
 	{
 		printf("Unable to load image %s! SDL Error: %s\n", "xterm714.bmp", SDL_GetError());
@@ -167,13 +167,17 @@ void Draw_letter(int letter_number,int pozx,int pozy) {
 	/*int letter_numaber = 34;
 	int pozx = 15;
 	int pozy = 15;*/
-	srcrect.x = 12*(letter_number%16);
+	/*srcrect.x = 12*(letter_number%16);
 	srcrect.y = 13 *(int) (letter_number / 16);
 	srcrect.w = 12;
-	srcrect.h = 13;
-	dstrect.x = (screen->w / 80)*pozx;
+	srcrect.h = 13;*///for 613
+	srcrect.x = 14 * (letter_number % 16);
+	srcrect.y = 14 * (int)(letter_number / 16);
+	srcrect.w = 14;
+	srcrect.h = 14;
+	dstrect.x = (screen->w / 40)*pozx;
 	dstrect.y = (screen->h / 25)*pozy;
-	dstrect.w = screen->w / 80;
+	dstrect.w = screen->w / 40;
 	dstrect.h = screen->h / 25;
 	//SDL_RenderCopy(screen, surface_font, &srcrect, &dstrect);
 	SDL_BlitSurface(surface_font, &srcrect, screen, &dstrect);
@@ -237,7 +241,7 @@ void VGA_Init(int width,int height,int bpp,Uint32 flags) {
 
 		//debug
 		Set_basic_pallette();
-		Draw_debug_matrix();	
+		//Draw_debug_matrix();	
 		//Draw_letter(0x42,15,15);
 		//VGA_Draw_string((char*)"test textx");
 		//degug

@@ -235,6 +235,11 @@ Bit32u compare_with_snapshot(char* filename, Bit8u* adress, Bit32u adressdos, Bi
 	FILE* fptestepc;
 	sprintf(findnamec, "../remc2/memimages/engine-memory-%s", filename);
 	fopen_s(&fptestepc, findnamec, "rb");
+	if (fptestepc == NULL)
+	{
+		mydelay(100);
+		fopen_s(&fptestepc, findnamec, "rb");
+	}
 	fseek(fptestepc, adressdos, SEEK_SET);
 	
 	fread_s(buffer, size, 1, size, fptestepc);

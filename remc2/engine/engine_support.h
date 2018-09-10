@@ -4,6 +4,8 @@
 #include <stddef.h>
 #include <stdarg.h>     /* va_list, va_start, va_arg, va_end */
 
+#include"portability/system.h"
+
 #include "sdl/graphics_sdl.h"
 //#define USE_DOSBOX
 
