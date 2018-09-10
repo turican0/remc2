@@ -1,4 +1,4 @@
-find 0x351660;
+﻿find 0x351660;
 
 x_WORD_180662(351662)// neni treba
 
@@ -432,7 +432,7 @@ x_DWORD_17DED4_spritestr[0x44].sizex - tohle uz je spatne
 
 fix this procedure:
 int sub_7FCB0(int a1, Bit8u* a2, Bit32s a3, Bit32s a4, int a5, Bit8u a6, unsigned __int8 a7, Bit32u a8)//260cb0
-v n� opravit:
+v ní opravit:
 sub_7FAE0(v87, v99, a4, v98, v86);
 
 problemek:
@@ -468,7 +468,7 @@ sub_2BB40(263, 134, v1_langdattab[1].pointer);//20cb40
 druhy pruchod:qmemcpy(&v21_buffer_temp_index1[outindex], &texture[inindex], count);
 chyba je v nastaveni x_DWORD_18062C_resolution_x(35162c) - coz ma byt 0x280 - 640
 
-probl�m zde:
+problém zde:
 
 while ( v141 );
       }
@@ -1538,3 +1538,54 @@ LABEL_225:
     }
   }
 }
+
+x_DWORD_17DEE4_mouse_position
+34eee4
+a
+34eee6
+
+ setCursor:
+    push bp 
+    mov bp, sp
+    pusha
+    push es
+    mov ax, 09h
+    mov bx, WORD PTR [bp+08h]
+    mov cx, WORD PTR [bp+06h]
+    mov dx, WORD PTR [bp+04h]
+    push ds                         ;Setting ES = DS is not necessary in COM
+    pop es                          ;files unless somebody changed ES
+    int 33h 
+    pop es
+    popa
+    pop bp  
+    ret 06h  
+    ;
+    ; CURSORS
+    ;
+    barCursor       dw  16 DUP(0fe7fh)
+                    dw  16 DUP(0180h)
+    checkerCursor   dd  8 DUP(5555aaaah)
+                    dd  8 DUP(0aaaa5555h)
+_CODE ENDS 
+
+po cursoru je funkce:
+
+sub_8CB3A 
+
+	cseg01:00099374 __GETDS:                                ; CODE XREF: sub_6FD30+A↑p
+	cseg01:00099374                                         ; sub_752C0+A↑p ...
+	cseg01:00099374                 mov     ds, cs:word_9911C
+	cseg01:0009937C                 retn
+	cseg01:0009937C start           endp ; sp-analysis failed
+	cseg01:0009937C
+
+sub_8C839
+sub_9951B
+
+sub_8C329
+
+zde se to nastavuje:
+sub_8CEDF_install_mouse()
+
+
