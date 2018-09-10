@@ -2,7 +2,7 @@
 # Reverse engineering of game Magic Carpet 2 from assembler to c/c++ language<br />
 ## STATUS: unplayable, in development<br />
 <br />
-simple dev blog:[https://github.com/turican0/remc2/wiki]
+simple dev blog:[https://github.com/turican0/remc2/wiki]<br />
 ## 0.07:<br />
 -render of language select screen is same as original!<br />
 ## 0.06:<br />
