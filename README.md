@@ -2,6 +2,9 @@
 # Reverse engineering of game Magic Carpet 2 from assembler to c/c++ language<br />
 ## STATUS: unplayable, in development<br />
 <br />
+simple dev blog:[https://github.com/turican0/remc2/wiki]
+## 0.07:<br />
+-render of language select screen is same as original!<br />
 ## 0.06:<br />
 -some sprites works<br />
 <br />
@@ -22,9 +25,6 @@
 -can compile under Windows/Visual Studio<br />
 -repair some structures<br />
 -replace rnc utilites<br />
-
-more in:
-[https://github.com/turican0/remc2/wiki]
 
 For develop I use modified version of Dosbox-x:
 https://github.com/turican0/dosbox-x-remc2
