@@ -2852,7 +2852,7 @@ int sub_8C839();
 int sub_8CA16();
 void sub_8CACD_subblit_remove();
 void sub_8CB1F();
-void sub_8CB3A(int a1, int a2, int a3, int a4);
+void sub_8CB3A(Bit32u a1, Bit32s a2, int a3, Bit32s a4);
 void sub_8CD27(posistruct a2);
 signed int sub_8CEDF_install_mouse();
 int sub_8D12F_set_mouse_viewport();
@@ -11657,8 +11657,8 @@ char x_BYTE_E36D1 = '\0'; // weak
 __int16 x_WORD_E36D4 = 0; // weak
 char x_BYTE_E36DC[] = { '\0' }; // weak
 int x_DWORD_E3758 = 0; // weak
-__int16 x_WORD_E375C_resolution_x = 320; // weak
-__int16 x_WORD_E375E_resolution_y = 200; // weak
+Bit16s x_WORD_E375C_mouse_position_x = 320; // weak
+Bit16s x_WORD_E375E_mouse_position_y = 200; // weak
 int x_DWORD_E3760 = 13107520; // weak
 char x_BYTE_E3766 = '\0'; // weak
 int x_DWORD_E3768 = 0; // weak
@@ -13155,11 +13155,11 @@ _UNKNOWN unk_1806E6; // weak
 int x_DWORD_1806E8; // weak
 _UNKNOWN unk_1806EC; // weak
 __int16 x_WORD_1806EE; // weak
-Bit8s* x_DWORD_1806F0; // weak
+Bit8u* x_DWORD_1806F0; // weak
 int x_DWORD_1806F4; // weak
 int x_DWORD_1806F8; // weak
 int x_DWORD_1806FC; // weak
-Bit8s* x_DWORD_180700; // weak
+Bit8u* x_DWORD_180700; // weak
 int x_DWORD_180704; // weak
 int x_DWORD_180708; // weak
 int x_DWORD_18070C; // weak
@@ -13168,7 +13168,7 @@ int x_DWORD_180718; // weak
 int x_DWORD_180720; // weak
 Bit16u x_WORD_18072C; // weak
 Bit16u x_WORD_18072E; // weak
-Bit8s* x_DWORD_180730; // weak
+Bit8u* x_DWORD_180730; // weak
 int x_DWORD_180734; // weak
 __int16 x_WORD_180738; // weak
 int x_DWORD_18073A; // weak
@@ -68838,8 +68838,11 @@ void sub_5B8D0_initialize()//23c8d0
   
   //pointersdat_buffer = xadatapointersdat.var28_begin_buffer;//eb394 - 2bc394 -446f1{set in 23cf50}
   sub_8CD27(*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct);//anything with vga, maybe mouse cursor//26dd27 //xadatapointersdat asi 1a6f44
-  //1a6f44->1a6578 00 00
+  //1a6f44->1a6578 00 00 pointer->0b0005a1a1a1a1a10005a1b413aaa1
   //nastavi se zde:sub_6EB90(&filearray_2aa18c[filearrayindex_POINTERSDATTAB]);//24fb90
+
+  //pak je to v 809380
+
 
   v2 = sub_5C430_multi_allocation(); //23d430
   sub_46DD0_init_sound_and_music(v2, v3, (int)filearray_2aa18c[filearrayindex_POINTERSDATTAB].begin_buffer);//init sound and music//227DD0
@@ -68948,9 +68951,9 @@ int /*__cdecl*/ sub_5BDC0_set_mouse_position(__int16 a1, __int16 a2)
     v3 = 0;
   _disable();
   v4 = x_DWORD_E36C4;
-  x_WORD_E375C_resolution_x = v2;
+  x_WORD_E375C_mouse_position_x = v2;
   x_WORD_E3760 = v2;
-  x_WORD_E375E_resolution_y = v3;
+  x_WORD_E375E_mouse_position_y = v3;
   x_WORD_E3762 = v3;
   x_DWORD_1805B8 = v2;
   x_DWORD_1805B0 = v2;
@@ -68977,8 +68980,8 @@ int /*__cdecl*/ sub_5BDC0_set_mouse_position(__int16 a1, __int16 a2)
 // 8C250: using guessed type x_DWORD /*__cdecl*/ memset(x_DWORD, x_DWORD, x_DWORD);
 // 98D52: using guessed type x_DWORD /*__cdecl*/ int386(x_DWORD, x_DWORD, x_DWORD);
 // E36C4: using guessed type int x_DWORD_E36C4;
-// E375C: using guessed type __int16 x_WORD_E375C_resolution_x;
-// E375E: using guessed type __int16 x_WORD_E375E_resolution_y;
+// E375C: using guessed type __int16 x_WORD_E375C_mouse_position_x;
+// E375E: using guessed type __int16 x_WORD_E375E_mouse_position_y;
 // E3760: using guessed type __int16 x_WORD_E3760;
 // E3762: using guessed type __int16 x_WORD_E3762;
 // 1805B0: using guessed type int x_DWORD_1805B0;
@@ -101952,8 +101955,8 @@ int sub_89D10()
       {
         x_DWORD_1805B0 = (signed __int16)x_DWORD_E3760;
         x_DWORD_1805B4 = SHIWORD(x_DWORD_E3760);
-        x_DWORD_1805B8 = x_WORD_E375C_resolution_x;
-        x_DWORD_1805BC = x_WORD_E375E_resolution_y;
+        x_DWORD_1805B8 = x_WORD_E375C_mouse_position_x;
+        x_DWORD_1805BC = x_WORD_E375E_mouse_position_y;
         v0 = x_BYTE_180664[(unsigned __int8)x_BYTE_EB39E];
         x_WORD_1805C0 = 0;
         if ( v0 )
@@ -101992,8 +101995,8 @@ int sub_89D10()
       {
         x_DWORD_1805B0 = (signed __int16)x_DWORD_E3760;
         x_DWORD_1805B4 = SHIWORD(x_DWORD_E3760);
-        x_DWORD_1805B8 = x_WORD_E375C_resolution_x;
-        x_DWORD_1805BC = x_WORD_E375E_resolution_y;
+        x_DWORD_1805B8 = x_WORD_E375C_mouse_position_x;
+        x_DWORD_1805BC = x_WORD_E375E_mouse_position_y;
         v2 = x_BYTE_180664[(unsigned __int8)x_BYTE_EB39E];
         x_WORD_1805C0 = 0;
         if ( v2 )
@@ -102040,8 +102043,8 @@ LABEL_53:
       {
         x_DWORD_1805B0 = (signed __int16)x_DWORD_E3760;
         x_DWORD_1805B4 = SHIWORD(x_DWORD_E3760);
-        x_DWORD_1805B8 = x_WORD_E375C_resolution_x;
-        x_DWORD_1805BC = x_WORD_E375E_resolution_y;
+        x_DWORD_1805B8 = x_WORD_E375C_mouse_position_x;
+        x_DWORD_1805BC = x_WORD_E375E_mouse_position_y;
         v29 = x_BYTE_180664[(unsigned __int8)x_BYTE_EB39E];
         x_WORD_1805C0 = 0;
         if ( v29 )
@@ -102732,8 +102735,8 @@ LABEL_138:
     case 7:
       x_DWORD_1805B0 = (signed __int16)x_DWORD_E3760;
       x_DWORD_1805B4 = SHIWORD(x_DWORD_E3760);
-      x_DWORD_1805B8 = x_WORD_E375C_resolution_x;
-      x_DWORD_1805BC = x_WORD_E375E_resolution_y;
+      x_DWORD_1805B8 = x_WORD_E375C_mouse_position_x;
+      x_DWORD_1805BC = x_WORD_E375E_mouse_position_y;
       v30 = x_BYTE_180664[(unsigned __int8)x_BYTE_EB39E];
       x_WORD_1805C0 = 0;
       if ( v30 )
@@ -102774,8 +102777,8 @@ LABEL_217:
 // E36CE: using guessed type __int16 x_WORD_E36CE;
 // E36D0: using guessed type char x_BYTE_E36D0;
 // E36D1: using guessed type char x_BYTE_E36D1;
-// E375C: using guessed type __int16 x_WORD_E375C_resolution_x;
-// E375E: using guessed type __int16 x_WORD_E375E_resolution_y;
+// E375C: using guessed type __int16 x_WORD_E375C_mouse_position_x;
+// E375E: using guessed type __int16 x_WORD_E375E_mouse_position_y;
 // E3760: using guessed type int x_DWORD_E3760;
 // EA3DC: using guessed type int **filearray_2aa18c[6];
 // EB39E: using guessed type char x_BYTE_EB39E;
@@ -103665,7 +103668,7 @@ int sub_8C329()
   if ( x_WORD_180660_VGA_type_resolution & 8 )
   {
     HIWORD(x_DWORD_18073A) = HIWORD(x_DWORD_1806F4);
-    sub_9951B(SHIWORD(x_DWORD_1806F4));
+    sub_9951B(SHIWORD(x_DWORD_1806F4));//GET VIDEO STATE
   }
   unk_1806EC = x_DWORD_18062C_resolution_x - x_DWORD_1806E8;
   if ( (signed __int16)(x_DWORD_18062C_resolution_x - x_DWORD_1806E8) > x_WORD_18072C )
@@ -103839,7 +103842,7 @@ int sub_8C839()
     sub_9951B(SHIWORD(x_DWORD_1806F4));
   }
   x_DWORD_180714 = (int)x_DWORD_1806F0;
-  x_DWORD_180708 = (int)&loc_A0000_vga_buffer + (unsigned __int16)x_DWORD_1806F4;
+  x_DWORD_180708 = (int)&loc_A0000_vga_buffer + (unsigned __int16)x_DWORD_1806F4;//graphics memory maybe
   if ( x_WORD_180660_VGA_type_resolution & 1 )
   {
     for ( x_WORD_180738 = 0; ; ++x_WORD_180738 )
@@ -103958,45 +103961,45 @@ void sub_8CB1F()
 // E3758: using guessed type int x_DWORD_E3758;
 
 int x_BYTE_E3767;
-int x_DWORD_180710;
+int x_DWORD_180710_mouse_buttons_states;
 int x_WORD_18073E;
 int word_E3764;
 int x_WORD_180742;
 int x_WORD_180748;
 int x_WORD_180740;
 //----- (0008CB3A) --------------------------------------------------------
-void sub_8CB3A(int a1, int a2, int a3, int a4)
+void sub_8CB3A(Bit32u mouse_states, Bit32s mouse_posx, Bit32s a3, Bit32s mouse_posy)//26db3a
 {
-  ((void (/*__cdecl*/ *)(x_DWORD))_GETDS)((unsigned __int16)__DS__);
-  int v5; // [esp+4h] [ebp-8h]
-  int v6; // [esp+8h] [ebp-4h]
+  //((void (/*__cdecl*/ *)(x_DWORD))_GETDS)((unsigned __int16)__DS__);
+  Bit16s temp_mouse_x; // [esp+4h] [ebp-8h]
+  Bit16s temp_mouse_y; // [esp+8h] [ebp-4h]
   void *retaddr[2]; // [esp+1Ch] [ebp+10h]
 
-  LOWORD(v5) = a4;
-  v6 = a2;
-  if (x_DWORD_E3768)
+  temp_mouse_x = mouse_posx;
+  temp_mouse_y = mouse_posy;
+  if (x_DWORD_E3768)//2b4768 - 00000001
   {
 	  x_BYTE_E3767 = 1;
-	  x_DWORD_180710 = a1;
+	  x_DWORD_180710_mouse_buttons_states = mouse_states;//[ebp-c] - 00000001 // stav tlacitek 1 -zmena pozice
 	  if (x_WORD_180660_VGA_type_resolution & 8)
 	  {
-		  v5 = a4 >> 3;
-		  v6 = a2 >> 3;
+		  temp_mouse_x = mouse_posx >> 3;//[ebp-8] 0 - x
+		  temp_mouse_y = mouse_posy >> 3;//[ebp-4] 0 - y
 	  }
-	  x_WORD_E3760 = v5;
-	  a1 = v6;
-	  x_WORD_E3762 = v6;
-	  if ((signed __int16)v5 > 638)
+	  x_WORD_E3760 = temp_mouse_x; //nastav x
+	  //mouse_state = temp_mouse_y;
+	  x_WORD_E3762 = temp_mouse_y; //nastav y
+	  if (temp_mouse_x > 638)//pokud je x>638 nastav je na 638
 		  x_WORD_E3760 = 638;
-	  if (x_WORD_E3762 > 478)
+	  if (x_WORD_E3762 > 478)//pokud je y>478 nastav je na 478
 		  x_WORD_E3762 = 478;
-	  if (x_DWORD_180710 & 2)
+	  if (x_DWORD_180710_mouse_buttons_states & 2) // left button pressed
 	  {
-		  if (!x_WORD_18074C)
+		  if (!x_WORD_18074C)//first cycle after press
 		  {
 			  if (x_WORD_18073E <= 0)
 			  {
-				  LOWORD(a1) = word_E3764;
+				  //mouse_state = word_E3764;
 				  x_WORD_18073E = word_E3764;
 			  }
 			  else
@@ -104004,50 +104007,50 @@ void sub_8CB3A(int a1, int a2, int a3, int a4)
 				  x_WORD_180742 = 1;
 			  }
 		  }
-		  if (!x_WORD_18074C && !x_WORD_180746)
+		  if (!x_WORD_18074C && !x_WORD_180746)//first cycle after press and ...
 		  {
 			  x_WORD_180746 = 1;
-			  x_WORD_E375C_resolution_x = v5;
-			  a1 = v6;
-			  x_WORD_E375E_resolution_y = v6;
+			  x_WORD_E375C_mouse_position_x = temp_mouse_x;
+			  //mouse_state = temp_mouse_y;
+			  x_WORD_E375E_mouse_position_y = temp_mouse_y;
 		  }
 		  x_WORD_18074C = 1;
 	  }
-	  if (x_DWORD_180710 & 4)
+	  if (x_DWORD_180710_mouse_buttons_states & 4)// left button released
 		  x_WORD_18074C = 0;
-	  if (x_DWORD_180710 & 8)
+	  if (x_DWORD_180710_mouse_buttons_states & 8)// right button pressed
 	  {
-		  if (!x_WORD_18074A && !x_WORD_180744)
+		  if (!x_WORD_18074A && !x_WORD_180744)//first cycle after press and ...
 		  {
 			  x_WORD_180744 = 1;
-			  x_WORD_E375C_resolution_x = v5;
-			  a1 = v6;
-			  x_WORD_E375E_resolution_y = v6;
+			  x_WORD_E375C_mouse_position_x = temp_mouse_x;
+			  //mouse_state = temp_mouse_y;
+			  x_WORD_E375E_mouse_position_y = temp_mouse_y;
 		  }
 		  x_WORD_18074A = 1;
 	  }
-	  if (x_DWORD_180710 & 0x10)
+	  if (x_DWORD_180710_mouse_buttons_states & 0x10)// right button released
 		  x_WORD_18074A = 0;
-	  if (x_DWORD_180710 & 0x20)
+	  if (x_DWORD_180710_mouse_buttons_states & 0x20)// middle button pressed?
 	  {
 		  if (!x_WORD_180748 && !x_WORD_180740)
 		  {
 			  x_WORD_180740 = 1;
-			  x_WORD_E375C_resolution_x = v5;
-			  a1 = v6;
-			  x_WORD_E375E_resolution_y = v6;
+			  x_WORD_E375C_mouse_position_x = temp_mouse_x;
+			  //mouse_state = temp_mouse_y;
+			  x_WORD_E375E_mouse_position_y = temp_mouse_y;
 		  }
 		  x_WORD_180748 = 1;
 	  }
-	  if (x_DWORD_180710 & 0x40)
+	  if (x_DWORD_180710_mouse_buttons_states & 0x40)// middle button released?
 		  x_WORD_180748 = 0;
 	  if (!x_DWORD_E3758)
 	  {
 		  HIWORD(x_DWORD_180734) = x_WORD_E3BA4;
-		  sub_8C839();
-		  a1 = sub_8C329();
+		  sub_8C839();//draw cursor maybe
+		  /*mouse_state = */sub_8C329();
 		  if (x_WORD_180660_VGA_type_resolution & 8)
-			  a1 = sub_9951B(SHIWORD(x_DWORD_180734));
+			  /*mouse_state = */sub_9951B(SHIWORD(x_DWORD_180734));
 	  }
   }
   //return MK_FP(retaddr[0], retaddr[0])(a1, a2);
@@ -104057,14 +104060,14 @@ void sub_8CB3A(int a1, int a2, int a3, int a4)
 // 8CB3A: could not find valid save-restore pair for edi
 // 8CB3A: could not find valid save-restore pair for esi
 // E3758: using guessed type int x_DWORD_E3758;
-// E375C: using guessed type __int16 x_WORD_E375C_resolution_x;
-// E375E: using guessed type __int16 x_WORD_E375E_resolution_y;
+// E375C: using guessed type __int16 x_WORD_E375C_mouse_position_x;
+// E375E: using guessed type __int16 x_WORD_E375E_mouse_position_y;
 // E3760: using guessed type int x_DWORD_E3760;
 // E3767: using guessed type char x_BYTE_E3767;
 // E3768: using guessed type int x_DWORD_E3768;
 // E3BA4: using guessed type __int16 x_WORD_E3BA4;
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
-// 180710: using guessed type int x_DWORD_180710;
+// 180710: using guessed type int x_DWORD_180710_mouse_buttons_states;
 // 180734: using guessed type int x_DWORD_180734;
 // 18073E: using guessed type __int16 x_WORD_18073E;
 // 180740: using guessed type __int16 x_WORD_180740;
@@ -104094,7 +104097,7 @@ void sub_8CD27(posistruct a2)//26dd27
   //int v5; // [esp+Ch] [ebp-4h]
   x_DWORD_E3758 = 1;//2b4758
   //v5 = (int)x_DWORD_180628b_screen_buffer;
-  x_DWORD_180628b_screen_buffer[0] = x_DWORD_180730[0];//351730
+  //x_DWORD_180628b_screen_buffer = x_DWORD_180730;//351730
   if ( a2.pointer )
   {
     x_WORD_18072C = a2.sizex;
@@ -104126,7 +104129,7 @@ void sub_8CD27(posistruct a2)//26dd27
   x_WORD_E36D4 = 0;
   //v3 = x_DWORD_18062C_resolution_x;
   //x_DWORD_18062C_resolution_x = 64;
-  x_DWORD_180730 = (Bit8s*)malloc(0x1000);//fix it
+  x_DWORD_180730 = (Bit8u*)malloc(0x1000);//fix it
   for (i = 0; i < 0x1000; ++i)
   {
 	  x_DWORD_180730[i] = -2;
@@ -104174,9 +104177,9 @@ signed int sub_8CEDF_install_mouse()//26dedf
   //__int16 v1; // [esp+0h] [ebp-54h]
   //__int16 v2; // [esp+1Ch] [ebp-38h]
   __int16 v3; // [esp+24h] [ebp-30h]
-  void (*v4)(int a1, int a2, int a3, int a4); // [esp+28h] [ebp-2Ch]
+  void (*v4)(Bit32u a1, Bit32s a2, Bit32s a3, Bit32s a4); // [esp+28h] [ebp-2Ch]
   __int16 v5; // [esp+38h] [ebp-1Ch]
-  void (*v6)(int a1, int a2, int a3, int a4); // [esp+44h] [ebp-10h]
+  void (*v6)(Bit32u a1, Bit32s a2, Bit32s a3, Bit32s a4); // [esp+44h] [ebp-10h]
   int v7; // [esp+48h] [ebp-Ch]
   int i; // [esp+4Ch] [ebp-8h]
 
@@ -104192,14 +104195,19 @@ signed int sub_8CEDF_install_mouse()//26dedf
   v6 = sub_8CB3A;
   v4 = sub_8CB3A;
   v5 = __CS__;
+  /*
+  adress: 160:26db3a - sub_8CB3A
+  mask:7f
+  http://stanislavs.org/helppc/int_33-c.html
+  */
   //int386x(0x33, (REGS*)&v2, (REGS*)&v1, (SREGS*)&v5);//set mouse subroutine
   sub_8D12F_set_mouse_viewport();
   if ( !x_DWORD_180730 )
-    x_DWORD_180730 = (Bit8s*)sub_83CD0_malloc2(4096);
+    x_DWORD_180730 = (Bit8u*)sub_83CD0_malloc2(4096);//image buffers?-blit?
   if ( !x_DWORD_180700 )
-    x_DWORD_180700 = (Bit8s*)sub_83CD0_malloc2(4096);
+    x_DWORD_180700 = (Bit8u*)sub_83CD0_malloc2(4096);
   if ( !x_DWORD_1806F0 )
-    x_DWORD_1806F0 = (Bit8s*)sub_83CD0_malloc2(4096);
+    x_DWORD_1806F0 = (Bit8u*)sub_83CD0_malloc2(4096);
   if ( !x_DWORD_180730 || !x_DWORD_180700 || !x_DWORD_1806F0 )
     return 0;
   x_WORD_18072C = 0;
