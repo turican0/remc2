@@ -1588,4 +1588,13 @@ sub_8C329
 zde se to nastavuje:
 sub_8CEDF_install_mouse()
 
+https://www.equestionanswers.com/c/c-int33-mouse-service.php
+
+instalace kursoru mozna zde:
+sub_6EBF0(&filearray_2aa18c[filearrayindex_POINTERSDATTAB]);//24FBF0 - 2AA18C//?tab
+
+nebo tady:
+sub_52E90
+    
+
 

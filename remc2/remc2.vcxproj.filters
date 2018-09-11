@@ -57,6 +57,9 @@
     <ClInclude Include="engine\portability\system.h">
       <Filter>Zdrojové soubory\engine\portability</Filter>
     </ClInclude>
+    <ClInclude Include="engine\mctypes.h">
+      <Filter>Zdrojové soubory\engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

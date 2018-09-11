@@ -152,6 +152,7 @@
     <ClInclude Include="dosbox_files\config.h" />
     <ClInclude Include="engine\defs.h" />
     <ClInclude Include="engine\engine_support.h" />
+    <ClInclude Include="engine\mctypes.h" />
     <ClInclude Include="engine\portability\dirent.h" />
     <ClInclude Include="engine\portability\system.h" />
     <ClInclude Include="engine\sdl\graphics_sdl.h" />

@@ -276,11 +276,7 @@ Bit8u* ZERO_BUFFER = 0;
 
 
 
-typedef struct {
-	Bit8u* pointer;
-	Bit8u sizex;
-	Bit8u sizey;
-} posistruct;
+
 
 typedef struct {
 	Bit8u** begin_buffer;
@@ -3019,8 +3015,8 @@ int sub_995B0_test_vga_driver();
 // x_DWORD /*__cdecl*/ fgetc(x_DWORD); weak
 int sub_99830(); // weak
 void /*__cdecl*/ sub_99970(char a1, unsigned __int8 a2);
-void sub_99A77(Bit8u* a1, Bit8u* a2, Bit8u* a3, posistruct* a4);
-void sub_99AEB(Bit8u* a1, Bit8u* a2, Bit8u* a3, posistruct* a4);
+void sub_99A77_create_index_dattab_div(Bit8u* a1, Bit8u* a2, Bit8u* a3, posistruct* a4);
+void sub_99AEB_create_index_dattab_minus(Bit8u* a1, Bit8u* a2, Bit8u* a3, posistruct* a4);
 // x_DWORD /*__cdecl*/ strnicmp(x_DWORD, x_DWORD, x_DWORD); weak
 // x_DWORD /*__cdecl*/ dos_getvect(x_DWORD); weak
 // x_DWORD /*__cdecl*/ dos_setvect(x_DWORD, x_DWORD, x_DWORD); weak
@@ -68843,6 +68839,8 @@ void sub_5B8D0_initialize()//23c8d0
 
   //pak je to v 809380
 
+  VGA_Set_Cursor(*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct);
+
 
   v2 = sub_5C430_multi_allocation(); //23d430
   sub_46DD0_init_sound_and_music(v2, v3, (int)filearray_2aa18c[filearrayindex_POINTERSDATTAB].begin_buffer);//init sound and music//227DD0
@@ -82645,9 +82643,9 @@ void sub_6EBF0(filearray_struct *a1)//24FBF0
 	for (Bit32u i = 0;(a1[i].begin_buffer) != &ZERO_BUFFER;i++)	
 	{
 		if (x_WORD_180660_VGA_type_resolution & 1)
-			sub_99A77(*a1[i].begin_buffer, *a1[i].end_buffer, *a1[i].dat_buffer, a1[i].posistruct);
+			sub_99A77_create_index_dattab_div(*a1[i].begin_buffer, *a1[i].end_buffer, *a1[i].dat_buffer, a1[i].posistruct);
 		else
-			sub_99AEB(*a1[i].begin_buffer, *a1[i].end_buffer, *a1[i].dat_buffer, a1[i].posistruct);		
+			sub_99AEB_create_index_dattab_minus(*a1[i].begin_buffer, *a1[i].end_buffer, *a1[i].dat_buffer, a1[i].posistruct);		
 	}
 	/*
   //unsigned int* *i; // ebx
@@ -82658,9 +82656,9 @@ void sub_6EBF0(filearray_struct *a1)//24FBF0
   for ( ; a1[0]; a1 += 3 )
   {
     if ( x_WORD_180660_VGA_type_resolution & 1 )
-      result = sub_99A77((Bit8u*)*a1[0], *a1[1], *a1[2]);
+      result = sub_99A77_create_index_dattab_div((Bit8u*)*a1[0], *a1[1], *a1[2]);
     else
-      result = (unsigned int)sub_99AEB((unsigned int *)*a1[0], *a1[1], *a1[2]);
+      result = (unsigned int)sub_99AEB_create_index_dattab_minus((unsigned int *)*a1[0], *a1[1], *a1[2]);
   }
   return result;*/
 }
@@ -103652,7 +103650,7 @@ void sub_8C2DE()
 }
 
 //----- (0008C329) --------------------------------------------------------
-int sub_8C329()
+int sub_8C329()//26D329
 {
   int result; // eax
   x_BYTE *v1; // eax
@@ -103874,20 +103872,20 @@ int sub_8C839()
         v3 = (x_BYTE *)x_DWORD_180714++;
         v4 = (x_BYTE *)x_DWORD_180708++;
         *v4 = *v3;
-        if ( x_DWORD_180708 >= (unsigned int)&loc_AFFFE + 2 )
+        if ( x_DWORD_180708 >= 0xAFFFE + 2 )
         {
           ++HIWORD(x_DWORD_18073A);
           sub_9951B(SHIWORD(x_DWORD_18073A));
-          x_DWORD_180708 -= (signed int)sub_10000;
+          x_DWORD_180708 -= 0x10000;
         }
         LOWORD(x_DWORD_18073A) = x_DWORD_18073A + 1;
       }
       x_DWORD_180708 += x_DWORD_18062C_resolution_x - (*(int *)((char *)&x_DWORD_1806E8 + 2) >> 16);
-      if ( x_DWORD_180708 >= (unsigned int)&loc_AFFFE + 2 )
+      if ( x_DWORD_180708 >= 0xAFFFE + 2 )
       {
         ++HIWORD(x_DWORD_18073A);
         sub_9951B(SHIWORD(x_DWORD_18073A));
-        x_DWORD_180708 -= (signed int)sub_10000;
+        x_DWORD_180708 -= 0x10000;
       }
     }
   }
@@ -110375,19 +110373,17 @@ void /*__cdecl*/ sub_99970(char a1, unsigned __int8 a2)
 // 180C80: using guessed type int x_DWORD_180C80;
 
 //----- (00099A77) --------------------------------------------------------
-void sub_99A77(Bit8u* buffer, Bit8u* bufferend, Bit8u* a3, posistruct* a4)
-//unsigned int /*__cdecl*/ sub_99A77(Bit8u* a1, unsigned int a2, unsigned int a3)
+void sub_99A77_create_index_dattab_div(Bit8u* tabbuffer, Bit8u* tabbufferend, Bit8u* datbuffer, posistruct* dattabindex)
+//unsigned int /*__cdecl*/ sub_99A77_create_index_dattab_div(Bit8u* a1, unsigned int a2, unsigned int a3)
 {
-	/*Bit32u i = 0;
-	while ((buffer + i)<bufferend)
+	for (Bit32u i = 0;i < (tabbufferend - tabbuffer) / 6;i++)
 	{
-		//if ((buffer + i) < a3 )//355234->1a6578//eax[0],eax[1c]
-		{
-			a4[i / 6].size = (buffer[i + 4] / 2) + ((buffer[i + 5] / 2) << 8);
-			a4[i / 6].pointer = a3 - (*(Bit32u*)(buffer + i));
-		}
-		i += 6;
-	}*/ // fix it
+		//temppointer = (*(Bit32u*)(tabbuffer + 6 * i))+ datbuffer;
+		dattabindex[i].pointer = (Bit8u*)((Bit8u*)(*(Bit32u*)(tabbuffer + 6 * i)) - datbuffer);
+		dattabindex[i].sizex = tabbuffer[6 * i + 4] / 2;
+		dattabindex[i].sizey = tabbuffer[6 * i + 5] / 2;
+	}
+
 	/*
   unsigned int result; // eax
 
@@ -110408,9 +110404,14 @@ void sub_99A77(Bit8u* buffer, Bit8u* bufferend, Bit8u* a3, posistruct* a4)
 }
 
 //----- (00099AEB) --------------------------------------------------------
-void sub_99AEB(Bit8u* buffer, Bit8u* bufferend, Bit8u* a3, posistruct* a4)
-//unsigned int */*__cdecl*/ sub_99AEB(unsigned int *a1, unsigned int a2, unsigned int a3)
+void sub_99AEB_create_index_dattab_minus(Bit8u* tabbuffer, Bit8u* tabbufferend, Bit8u* datbuffer, posistruct* dattabindex)
+//unsigned int /*__cdecl*/ sub_99A77_create_index_dattab_div(Bit8u* a1, unsigned int a2, unsigned int a3)
 {
+	for (Bit32u i = 0;i < (tabbufferend - tabbuffer) / 6;i++)
+	{
+		//temppointer = (*(Bit32u*)(tabbuffer + 6 * i))+ datbuffer;
+		dattabindex[i].pointer = (Bit8u*)((Bit8u*)(*(Bit32u*)(tabbuffer + 6 * i)) - datbuffer);
+	}
 	/*Bit32u i = 0;
 	while ((buffer + i)<bufferend)
 	{

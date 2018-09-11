@@ -6,6 +6,8 @@
 
 #include "SDL.h"
 
+#include "../mctypes.h"
+
 void VGA_Init();
 void VGA_Init(int width, int height, int bpp, Uint32 flags);
 void VGA_Resize(int width, int height);
@@ -15,3 +17,4 @@ void VGA_Set_pallette(Uint8* pallettebuffer);
 void VGA_Write_basic_pallette(Uint8* pallettebuffer);
 Uint8* VGA_Get_pallette();
 void VGA_Draw_string(char* wrstring);
+void VGA_Set_Cursor(posistruct posstrcursor);
