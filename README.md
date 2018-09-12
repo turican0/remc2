@@ -5,8 +5,10 @@
 simple dev blog:[https://github.com/turican0/remc2/wiki]<br />
 ## 0.08:<br />
 -added mouse cursor!<br />
+<br />
 ## 0.07:<br />
 -render of language select screen is same as original!<br />
+<br />
 ## 0.06:<br />
 -some sprites works<br />
 <br />
