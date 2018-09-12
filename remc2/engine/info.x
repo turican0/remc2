@@ -1606,6 +1606,8 @@ x_DWORD_E3760 - fix xy
 x_DWORD_17DEE4_mouse_position - fix xy
 x_WORD_17DEEE - fix xy
 
+x_DWORD_1806E8 - fix xy
+
 x_DWORD_17DEE4_mouse_position = x_DWORD_E3760;
 SHIWORD(x_DWORD_17DEE4_mouse_position) = SHIWORD(x_DWORD_E3760);
 
@@ -1613,5 +1615,8 @@ sjednotit
 	x_DWORD_E3760
 	  x_WORD_E3760 = temp_mouse_x; //nastav x
 	  x_WORD_E3762 = temp_mouse_y; //nastav y
+
+Bit16s x_WORD_E3760_mousex;
+Bit16s x_WORD_E3762_mousey;
 
 

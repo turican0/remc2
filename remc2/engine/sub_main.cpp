@@ -547,8 +547,8 @@ x_WORD _CF;
 x_WORD _ZF;
 x_WORD _SF;
 x_DWORD _EBP;
-__int16 x_WORD_E3760;
-__int16 x_WORD_E3762;
+Bit16s x_WORD_E3760_mousex;
+Bit16s x_WORD_E3762_mousey;
 x_DWORD /*__cdecl*/ unknown_libname_2_findfirst(char*, Bit16u, _finddata_t* c_file);// weak
 x_DWORD /*__cdecl*/ unknown_libname_3(_finddata_t* c_file);// weak
 int /*__cdecl*/ unknown_libname_4(_finddata_t* c_file);// weak
@@ -11655,7 +11655,7 @@ char x_BYTE_E36DC[] = { '\0' }; // weak
 int x_DWORD_E3758 = 0; // weak
 Bit16s x_WORD_E375C_mouse_position_x = 320; // weak
 Bit16s x_WORD_E375E_mouse_position_y = 200; // weak
-int x_DWORD_E3760 = 13107520; // weak
+//int x_DWORD_E3760 = 13107520; // weak
 char x_BYTE_E3766 = '\0'; // weak
 int x_DWORD_E3768 = 0; // weak
 int x_DWORD_E3794 = 10; // weak
@@ -36279,20 +36279,20 @@ int sub_2F6B0()
   sub_2BC80(0, v40 + 70, 640, 2, v48);
   sub_2BC80(0, v4, 2, 70, v34);
   sub_2BC80(v36 + 638, v4, 2, 72, v5);
-  if ( (signed __int16)x_DWORD_E3760 < 4
-    || (signed __int16)x_DWORD_E3760 >= 66
-    || SHIWORD(x_DWORD_E3760) < v40 + 28
-    || SHIWORD(x_DWORD_E3760) >= v40 + 66 )
+  if (x_WORD_E3760_mousex < 4
+    || x_WORD_E3760_mousex >= 66
+    || x_WORD_E3762_mousey < v40 + 28
+    || x_WORD_E3762_mousey >= v40 + 66 )
   {
     v6 = v41[992];
   }
   else
   {
-    v6 = 4 * ((SHIWORD(x_DWORD_E3760) - (v40 + 28)) / 20)
-       + (((signed __int16)x_DWORD_E3760
+    v6 = 4 * ((x_WORD_E3762_mousey - (v40 + 28)) / 20)
+       + ((x_WORD_E3760_mousex
          - 4
-         - (__CFSHL__(((signed __int16)x_DWORD_E3760 - 4) >> 31, 4)
-          + 16 * (((signed __int16)x_DWORD_E3760 - 4) >> 31))) >> 4);
+         - (__CFSHL__((x_WORD_E3760_mousex - 4) >> 31, 4)
+          + 16 * ((x_WORD_E3760_mousex - 4) >> 31))) >> 4);
   }
   v46 = v6;
   v7 = v40 + 4;
@@ -36397,10 +36397,10 @@ int sub_2F6B0()
       v27 = **filearray_2aa18c[6] + 942;
     sub_2BB40_draw_bitmap(v24, v25, (Bit8u**)v27);
     sub_2BB40_draw_bitmap(v24 + 2, v25 + 2, (Bit8u**)(6 * (v39 + 74) + **filearray_2aa18c[6]));*/ //fix it
-    if ( (signed __int16)x_DWORD_E3760 >= v24
-      && (signed __int16)x_DWORD_E3760 < v24 + 32
-      && SHIWORD(x_DWORD_E3760) >= v25
-      && SHIWORD(x_DWORD_E3760) < v25 + 22 )
+    if (x_WORD_E3760_mousex >= v24
+      && x_WORD_E3760_mousex < v24 + 32
+      && x_WORD_E3762_mousey >= v25
+      && x_WORD_E3762_mousey < v25 + 22 )
     {
       v51 = v39;
     }
@@ -53313,12 +53313,13 @@ void sub_46830_main_loop(signed __int16 *a1, signed int a2, unsigned __int16 a3)
 //----- (00046B40) --------------------------------------------------------
 void sub_46B40()
 {
-  int v0; // kr00_4
+  //int v0; // kr00_4
   char v1; // al
   unsigned __int8 v2; // al
   unsigned __int8 v3; // al
 
-  v0 = x_DWORD_E3760;
+  Bit16s v0_tempmousex = x_WORD_E3760_mousex;
+  Bit16s v0_tempmousey = x_WORD_E3762_mousey;
   if ( x_BYTE_D41B4_vesa_driver_finded )
   {
     sub_90B27_VGA_pal_fadein_fadeout(0, 0x10u, 0);
@@ -53380,7 +53381,7 @@ void sub_46B40()
       x_BYTE_D419D = 1;
     else
       x_BYTE_D419D = 3;
-    sub_5BDC0_set_mouse_position(v0, SHIWORD(v0));
+    sub_5BDC0_set_mouse_position(v0_tempmousex, v0_tempmousey);
   }
 }
 // 8C250: using guessed type x_DWORD /*__cdecl*/ memset(x_DWORD, x_DWORD, x_DWORD);
@@ -63905,8 +63906,8 @@ x_WORD */*__cdecl*/ sub_548F0(x_WORD *a1)
     }
     else
     {
-      a1[509] = x_WORD_E3760;
-      v2 = x_WORD_E3762;
+      a1[509] = x_WORD_E3760_mousex;
+      v2 = x_WORD_E3762_mousey;
     }
     a1[510] = v2;
   }
@@ -64705,7 +64706,7 @@ unsigned int sub_55C60(int a1, int a2, int a3)
       v6 = (int)x_D41A0_BYTEARRAY_4;
       v7 = *(x_BYTE *)(a3 + 2118);
       *(x_WORD *)(a3 + 2120) = v5;
-      v8 = x_DWORD_E3760;
+      v8 = x_WORD_E3760_mousex;
       *(x_BYTE *)(a3 + 2118) = v7 + 1;
       *(x_WORD *)(v6 + 220) = v8;
       sub_55EB0(*(x_WORD *)(a3 + 10));
@@ -64729,9 +64730,9 @@ unsigned int sub_55C60(int a1, int a2, int a3)
     }
     if ( *(x_BYTE *)(a3 + 2118) >= 4u )
     {
-      if ( abs((signed __int16)x_DWORD_E3760 - x_D41A0_BYTEARRAY_4[0xDC]) > 16 )
+      if ( abs(x_WORD_E3760_mousex - x_D41A0_BYTEARRAY_4[0xDC]) > 16 )
         *(x_BYTE *)(a3 + 2118) = 8;
-      x_D41A0_BYTEARRAY_4[0xDC] = x_DWORD_E3760;
+      x_D41A0_BYTEARRAY_4[0xDC] = x_WORD_E3760_mousex;
     }
     v11 = *(x_BYTE *)(a3 + 2118);
     *(x_WORD *)(a3 + 1002) = 0;
@@ -68950,9 +68951,9 @@ int /*__cdecl*/ sub_5BDC0_set_mouse_position(__int16 a1, __int16 a2)
   _disable();
   v4 = x_DWORD_E36C4;
   x_WORD_E375C_mouse_position_x = v2;
-  x_WORD_E3760 = v2;
+  x_WORD_E3760_mousex = v2;
   x_WORD_E375E_mouse_position_y = v3;
-  x_WORD_E3762 = v3;
+  x_WORD_E3762_mousey = v3;
   x_DWORD_1805B8 = v2;
   x_DWORD_1805B0 = v2;
   v7 = 4;
@@ -82711,7 +82712,7 @@ int /*__cdecl*/ sub_6EDE0_set_mouse_position2(signed __int16 a1, signed __int16 
         {
           if ( a1 > 638 )
             v2 = 638;
-          x_WORD_E3760 = v2;
+		  x_WORD_E3760_mousex = v2;
           if ( !(x_WORD_180660_VGA_type_resolution & 1) )
             v2 *= 8;
         }
@@ -82719,9 +82720,9 @@ int /*__cdecl*/ sub_6EDE0_set_mouse_position2(signed __int16 a1, signed __int16 
         if ( a2 <= 0 )
         {
           if ( x_WORD_180660_VGA_type_resolution & 1 )
-            v5 = x_WORD_E3762;
+            v5 = x_WORD_E3762_mousey;
           else
-            v5 = 8 * x_WORD_E3762;
+            v5 = 8 * x_WORD_E3762_mousey;
           v8 = v5;
         }
         else
@@ -82730,7 +82731,7 @@ int /*__cdecl*/ sub_6EDE0_set_mouse_position2(signed __int16 a1, signed __int16 
           {
             if ( a2 > 398 )
               v3 = 398;
-            x_WORD_E3762 = v3;
+			x_WORD_E3762_mousey = v3;
             if ( !(x_WORD_180660_VGA_type_resolution & 1) )
               v3 *= 8;
           }
@@ -82738,7 +82739,7 @@ int /*__cdecl*/ sub_6EDE0_set_mouse_position2(signed __int16 a1, signed __int16 
           {
             if ( a2 > 478 )
               v3 = 478;
-            x_WORD_E3762 = v3;
+			x_WORD_E3762_mousey = v3;
             if ( !(x_WORD_180660_VGA_type_resolution & 1) )
               v3 *= 8;
           }
@@ -90130,8 +90131,8 @@ char sub_7A060_get_mouse_and_keyboard_events()//25B060
     x_WORD_17DEEE = 1;
   if ( x_WORD_180744 )
     LOBYTE(x_WORD_17DEEE) = x_WORD_17DEEE | 2;
-  x_DWORD_17DEE4_mouse_position = x_DWORD_E3760;//2b4760
-  SHIWORD(x_DWORD_17DEE4_mouse_position) = SHIWORD(x_DWORD_E3760);//2b4762
+  x_DWORD_17DEE4_mouse_position = x_WORD_E3760_mousex;//2b4760
+  SHIWORD(x_DWORD_17DEE4_mouse_position) = x_WORD_E3762_mousey;//2b4762
   sub_7C050_get_keyboard_keys1(0);
   result = x_BYTE_17DF10_ctrl_shift_status;
   x_WORD_180744 = 0;
@@ -101952,8 +101953,8 @@ int sub_89D10()
       v61 = sub_8B790((x_DWORD*)&unk_18058C);
       if ( x_WORD_1805C2 != 8 && x_WORD_1805C2 != 12 )
       {
-        x_DWORD_1805B0 = (signed __int16)x_DWORD_E3760;
-        x_DWORD_1805B4 = SHIWORD(x_DWORD_E3760);
+        x_DWORD_1805B0 = x_WORD_E3760_mousex;
+        x_DWORD_1805B4 = x_WORD_E3762_mousey;
         x_DWORD_1805B8 = x_WORD_E375C_mouse_position_x;
         x_DWORD_1805BC = x_WORD_E375E_mouse_position_y;
         v0 = x_BYTE_180664[(unsigned __int8)x_BYTE_EB39E];
@@ -101992,8 +101993,8 @@ int sub_89D10()
       sub_75910();
       if ( x_WORD_1805C2 != 9 && x_WORD_1805C2 != 13 )
       {
-        x_DWORD_1805B0 = (signed __int16)x_DWORD_E3760;
-        x_DWORD_1805B4 = SHIWORD(x_DWORD_E3760);
+        x_DWORD_1805B0 = x_WORD_E3760_mousex;
+        x_DWORD_1805B4 = x_WORD_E3762_mousey;
         x_DWORD_1805B8 = x_WORD_E375C_mouse_position_x;
         x_DWORD_1805BC = x_WORD_E375E_mouse_position_y;
         v2 = x_BYTE_180664[(unsigned __int8)x_BYTE_EB39E];
@@ -102040,8 +102041,8 @@ LABEL_53:
       x_DWORD_180594 = *(x_DWORD *)(x_DWORD_E36C4 + 8);
       if ( !v28 )
       {
-        x_DWORD_1805B0 = (signed __int16)x_DWORD_E3760;
-        x_DWORD_1805B4 = SHIWORD(x_DWORD_E3760);
+        x_DWORD_1805B0 = x_WORD_E3760_mousex;
+        x_DWORD_1805B4 = x_WORD_E3762_mousey;
         x_DWORD_1805B8 = x_WORD_E375C_mouse_position_x;
         x_DWORD_1805BC = x_WORD_E375E_mouse_position_y;
         v29 = x_BYTE_180664[(unsigned __int8)x_BYTE_EB39E];
@@ -102732,8 +102733,8 @@ LABEL_138:
       }
       return v61;
     case 7:
-      x_DWORD_1805B0 = (signed __int16)x_DWORD_E3760;
-      x_DWORD_1805B4 = SHIWORD(x_DWORD_E3760);
+      x_DWORD_1805B0 = x_WORD_E3760_mousex;
+      x_DWORD_1805B4 = x_WORD_E3762_mousey;
       x_DWORD_1805B8 = x_WORD_E375C_mouse_position_x;
       x_DWORD_1805BC = x_WORD_E375E_mouse_position_y;
       v30 = x_BYTE_180664[(unsigned __int8)x_BYTE_EB39E];
@@ -103657,7 +103658,9 @@ int sub_8C329()//26D329
   x_BYTE *v1; // eax
   x_BYTE *v2; // eax
 
-  x_DWORD_1806E8 = x_DWORD_E3760;
+  x_DWORD_1806E8 = x_WORD_E3760_mousex;
+  x_DWORD_1806E8 = x_WORD_E3762_mousey;//fix it
+
   if ( x_WORD_180660_VGA_type_resolution & 1 )
   {
     LOWORD(x_DWORD_1806E8) = (signed __int16)x_DWORD_1806E8 >> 1;
@@ -103760,8 +103763,8 @@ void sub_8C635_subsubblit_remove()
   x_BYTE *v1; // eax
   x_BYTE *v2; // edx
 
-  x_DWORD_1806F8 = x_DWORD_E3760;
-  x_DWORD_1806E8 = x_DWORD_E3760;
+  x_DWORD_1806F8 = x_WORD_E3760_mousex;
+  x_DWORD_1806E8 = x_WORD_E3762_mousey;//fix this
   if ( x_WORD_180660_VGA_type_resolution & 1 )
   {
     LOWORD(x_DWORD_1806F8) = (signed __int16)x_DWORD_1806F8 >> 1;
@@ -103989,13 +103992,13 @@ void sub_8CB3A(Bit32u mouse_states, Bit32s mouse_posx, Bit32s a3, Bit32s mouse_p
 		  temp_mouse_x = mouse_posx >> 3;//[ebp-8] 0 - x
 		  temp_mouse_y = mouse_posy >> 3;//[ebp-4] 0 - y
 	  }
-	  x_WORD_E3760 = temp_mouse_x; //nastav x
+	  x_WORD_E3760_mousex = temp_mouse_x; //nastav x
 	  //mouse_state = temp_mouse_y;
-	  x_WORD_E3762 = temp_mouse_y; //nastav y
+	  x_WORD_E3762_mousey = temp_mouse_y; //nastav y
 	  if (temp_mouse_x > 638)//pokud je x>638 nastav je na 638
-		  x_WORD_E3760 = 638;
-	  if (x_WORD_E3762 > 478)//pokud je y>478 nastav je na 478
-		  x_WORD_E3762 = 478;
+		  x_WORD_E3760_mousex = 638;
+	  if (x_WORD_E3762_mousey > 478)//pokud je y>478 nastav je na 478
+		  x_WORD_E3762_mousey = 478;
 	  if (x_DWORD_180710_mouse_buttons_states & 2) // left button pressed
 	  {
 		  if (!x_WORD_18074C)//first cycle after press
