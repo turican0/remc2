@@ -2649,7 +2649,7 @@ char /*__cdecl*/ sub_78730(x_WORD *a1);
 char /*__cdecl*/ sub_79160(int a1);
 char sub_79610();
 signed int /*__cdecl*/ sub_79E10(char *a1, char a2);
-char sub_7A060_get_keyboard2();
+char sub_7A060_get_mouse_and_keyboard_events();
 void sub_7A110_load_hscreen(char a1, char a2);
 void /*__cdecl*/ sub_7AA70(char* a1, Bit8u* a2, int a3, int a4);
 // int (/*__cdecl*/ **sub_7AB00(__int16 a1, int a2, signed __int16 *a3, unsigned __int8 a4))(int);
@@ -2663,7 +2663,7 @@ int /*__cdecl*/ sub_7B660(int a1, int a2, __int16 a3, x_WORD *a4, x_BYTE *a5, ch
 void sub_7BEC0();
 int /*__cdecl*/ sub_7BF20(signed __int16 *a1);
 x_WORD */*__cdecl*/ sub_7C020(x_WORD *a1);
-signed int /*__fastcall*/ sub_7C050_get_keyboard1(__int16 a1, __int16 a2);
+signed int /*__fastcall*/ sub_7C050_get_keyboard_keys1(Bit16s a2);
 int /*__cdecl*/ sub_7C120_draw_bitmap2(Bit16s posx, Bit16s posy, posistruct tempstr);
 void sub_7C140(Bit16u a1, Bit16u a2, Bit16u a3, Bit16u a4, Bit8u a5);
 char /*__cdecl*/ sub_7C200(unsigned __int8 a1);
@@ -87854,7 +87854,7 @@ char /*__cdecl*/ sub_76D10(char a1)
       while ( sub_9A10A_check_keyboard(v1) )
       {
         x_BYTE_1806E4 = 0;
-        LOBYTE(v1) = sub_7A060_get_keyboard2();
+        LOBYTE(v1) = sub_7A060_get_mouse_and_keyboard_events();
       }
       j___delay(50);
       sprintf_s(printbuffer,512, "intro\\intro2.dat");
@@ -87881,7 +87881,7 @@ LABEL_17:
   x_BYTE_D41C1 = 0;
   v3 = sub_9A10A_check_keyboard(v2);
   if ( v3 )
-    LOBYTE(v3) = sub_7A060_get_keyboard2();
+    LOBYTE(v3) = sub_7A060_get_mouse_and_keyboard_events();
   x_BYTE_17DF11 = 0;
   x_BYTE_17DF10_ctrl_shift_status = 0;
   if ( !a1 )
@@ -88049,7 +88049,7 @@ int /*__fastcall*/ sub_76FA0(int a1, int a2, signed __int16 *a3)
         LOBYTE(a3) = 1;
         sub_90B27_VGA_pal_fadein_fadeout((Bit8u*)x_DWORD_17DE38, 0x20u, 0);
       }
-      LOBYTE(v11) = sub_7A060_get_keyboard2();
+      LOBYTE(v11) = sub_7A060_get_mouse_and_keyboard_events();
     }
     sub_41BC0();
     *(x_BYTE *)(x_DWORD_D41A0 + 8592) = 0;
@@ -88170,7 +88170,7 @@ char /*__cdecl*/ sub_77350(int a1)
         sub_90478();
       else
         sub_75200_VGA_Blit640(480);
-      sub_7A060_get_keyboard2();
+      sub_7A060_get_mouse_and_keyboard_events();
     }
     sub_86860(x_WORD_1803EC);
     *(x_WORD *)(2124 * x_D41A0_BYTEARRAY_4_struct.dwordindex_12 + x_DWORD_D41A0 + 11232) = 0;
@@ -88330,7 +88330,7 @@ char /*__fastcall*/ sub_77680(int a1, int a2, signed __int16 *a3)
         sub_90478();
       else
         sub_75200_VGA_Blit640(480);
-      sub_7A060_get_keyboard2();
+      sub_7A060_get_mouse_and_keyboard_events();
     }
     sub_7B5D0();
     sub_7AA70(0, 0, 0, 0);
@@ -88495,7 +88495,7 @@ char /*__cdecl*/ sub_779E0(int a1)//2589E0
         {
           sub_988A7_read(configfile2, (Bit8u*)&v40, 2);
           sprintf_s(printbuffer,512, "L%d.TXT", v40);
-          x_D41A0_BYTEARRAY_4_struct.byteindex_179 = sub_7F960(v36, v37, (unsigned int)v1, (Bit8u*)printbuffer);
+          x_D41A0_BYTEARRAY_4_struct.byteindex_179 = sub_7F960(v36, v37, (unsigned int)v1, (Bit8u*)printbuffer);//tady se pak zmeni v1 za v1_langdattab
         }
         sub_98882_close(configfile2);
       }
@@ -88571,7 +88571,7 @@ char /*__cdecl*/ sub_779E0(int a1)//2589E0
         v41++;
       }
       v10 = v39;
-      sub_7A060_get_keyboard2();//25b060 adress 258ddf
+      sub_7A060_get_mouse_and_keyboard_events();//25b060 adress 258ddf
       if ( v10 == 1 )
       {
         if ( unknown_libname_3(&langfileL) )
@@ -89604,7 +89604,7 @@ LABEL_42:
     return 1;
   }
   x_BYTE_17DF10_ctrl_shift_status = 0;
-  sub_8C0E0((unsigned __int8 (/*__fastcall*/ *)(signed int))sub_7A060_get_keyboard2);
+  sub_8C0E0((unsigned __int8 (/*__fastcall*/ *)(signed int))sub_7A060_get_mouse_and_keyboard_events);
   if ( x_BYTE_17DF10_ctrl_shift_status == 1 )
   {
     if ( (unsigned __int16)x_WORD_1805C2 < 0xCu )
@@ -89895,7 +89895,7 @@ char sub_79610()
     v8 = v36 - v35;
     if ( (unsigned int)(v36 - v35) > 0xA )
     {
-      sub_7A060_get_keyboard2();
+      sub_7A060_get_mouse_and_keyboard_events();
       v8 = v36;
       v35 = v36;
     }
@@ -90121,7 +90121,7 @@ signed int /*__cdecl*/ sub_79E10(char *a1, char a2)
 // D1B54: using guessed type __int16 x_WORD_D1B54;
 
 //----- (0007A060) --------------------------------------------------------
-char sub_7A060_get_keyboard2()
+char sub_7A060_get_mouse_and_keyboard_events()//25B060
 {
   char result; // al
 
@@ -90130,8 +90130,9 @@ char sub_7A060_get_keyboard2()
     x_WORD_17DEEE = 1;
   if ( x_WORD_180744 )
     LOBYTE(x_WORD_17DEEE) = x_WORD_17DEEE | 2;
-  x_DWORD_17DEE4_mouse_position = x_DWORD_E3760;
-  sub_7C050_get_keyboard1(SHIWORD(x_DWORD_E3760), 0);
+  x_DWORD_17DEE4_mouse_position = x_DWORD_E3760;//2b4760
+  SHIWORD(x_DWORD_17DEE4_mouse_position) = SHIWORD(x_DWORD_E3760);//2b4762
+  sub_7C050_get_keyboard_keys1(0);
   result = x_BYTE_17DF10_ctrl_shift_status;
   x_WORD_180744 = 0;
   x_WORD_180746 = 0;
@@ -90588,7 +90589,7 @@ int /*__cdecl*/ sub_7ADE0(char a1)
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
 //----- (0007B200) --------------------------------------------------------
-bool sub_7B200_in_region(Bit16s* a1, Bit16s testx, Bit16s testy)
+bool sub_7B200_in_region(Bit16s* a1, Bit16s testx, Bit16s testy)//25c200
 {
   Bit16s minx; // dx
   Bit16s miny; // bx
@@ -91116,7 +91117,7 @@ x_WORD */*__cdecl*/ sub_7C020(x_WORD *a1)
 }
 
 //----- (0007C050) --------------------------------------------------------
-signed int /*__fastcall*/ sub_7C050_get_keyboard1(__int16 a1, __int16 a2)
+signed int /*__fastcall*/ sub_7C050_get_keyboard_keys1(Bit16s a1)
 {
   char v2; // bl
   unsigned int v3; // eax
@@ -91129,7 +91130,7 @@ signed int /*__fastcall*/ sub_7C050_get_keyboard1(__int16 a1, __int16 a2)
   x_BYTE_17DF11 = 0;
   HIBYTE(a1) = 2;
   //fix - __asm { int     16h; KEYBOARD - GET SHIFT STATUS }
-  HIBYTE(a2) = 1;
+  a1 = 1;
   v2 = a1;
   if ( a1 )
   {
@@ -91303,7 +91304,7 @@ int /*__fastcall*/ sub_7C230(int a1, int a2, signed __int16 *a3)
     sub_90478();
   else
     sub_75200_VGA_Blit640(480);
-  sub_7A060_get_keyboard2();
+  sub_7A060_get_mouse_and_keyboard_events();
   return (signed __int16)v7;
 }
 // 98786: using guessed type int /*__fastcall*/ j___clock(x_DWORD, x_DWORD, x_DWORD);
@@ -92625,7 +92626,7 @@ signed int sub_7E0E0()//25f0e0
   do
   {
     if ( !(x_WORD_17DEEE & 1) || v0 )
-    {
+    {//[34eee6] [34eee4] 2b2fb0
       if ((x_WORD_E1F84[i+12]&0xff) && sub_7B200_in_region(&x_WORD_E1F84[i], x_DWORD_17DEE4_mouse_position, SHIWORD(x_DWORD_17DEE4_mouse_position)) )
         v3 = x_WORD_E1F84[i + 10] & 0xff;
       else
@@ -96542,7 +96543,7 @@ void sub_833C0()
   while ( sub_9A10A_check_keyboard(v3) )
   {
     x_BYTE_1806E4 = 0;
-    LOBYTE(v3) = sub_7A060_get_keyboard2();
+    LOBYTE(v3) = sub_7A060_get_mouse_and_keyboard_events();
   }
   // fix it//sub_8CD27((Bit8u**)**filearray_2aa18c[0]);
   sub_7AA70((char*)"DATA/SCREENS/HSCREEN0.DAT", (Bit8u*)(int)x_DWORD_17DE54, 0x1641FC, 1214);
@@ -96604,7 +96605,7 @@ void sub_833C0()
       v19 = v5;
     }
 LABEL_24:
-    sub_7A060_get_keyboard2();
+    sub_7A060_get_mouse_and_keyboard_events();
     if ( v20 )
     {
       if ( x_WORD_180660_VGA_type_resolution & 1 )
@@ -96630,7 +96631,7 @@ LABEL_24:
   else
     sub_75200_VGA_Blit640(480);
   while ( x_BYTE_17DF10_ctrl_shift_status || x_WORD_17DEEE )
-    sub_7A060_get_keyboard2();
+    sub_7A060_get_mouse_and_keyboard_events();
   x_BYTE_17DF10_ctrl_shift_status = 0;
 }
 // 8C250: using guessed type x_DWORD /*__cdecl*/ memset(x_DWORD, x_DWORD, x_DWORD);
@@ -96724,7 +96725,7 @@ int sub_83850()
   while ( sub_9A10A_check_keyboard(v7) )
   {
     x_BYTE_1806E4 = 0;
-    LOBYTE(v7) = sub_7A060_get_keyboard2();
+    LOBYTE(v7) = sub_7A060_get_mouse_and_keyboard_events();
   }
   return j___delay(50);
 }

@@ -1595,6 +1595,23 @@ sub_6EBF0(&filearray_2aa18c[filearrayindex_POINTERSDATTAB]);//24FBF0 - 2AA18C//?
 
 nebo tady:
 sub_52E90
-    
+
+tady se to meni
+if ((x_WORD_E1F84[i+12]&0xff) && sub_7B200_in_region(&x_WORD_E1F84[i], x_DWORD_17DEE4_mouse_position, SHIWORD(x_DWORD_17DEE4_mouse_position)) )
+
+
+char sub_7A060_get_mouse_position2()//25B060
+
+x_DWORD_E3760 - fix xy
+x_DWORD_17DEE4_mouse_position - fix xy
+x_WORD_17DEEE - fix xy
+
+x_DWORD_17DEE4_mouse_position = x_DWORD_E3760;
+SHIWORD(x_DWORD_17DEE4_mouse_position) = SHIWORD(x_DWORD_E3760);
+
+sjednotit
+	x_DWORD_E3760
+	  x_WORD_E3760 = temp_mouse_x; //nastav x
+	  x_WORD_E3762 = temp_mouse_y; //nastav y
 
 
