@@ -1,6 +1,9 @@
 #include "graphics_sdl.h"
 #include "../portability/system.h"
 
+#include "../portability/system.h"
+#include "../sub_main_mouse.h"
+
 
 #ifdef USE_DOSBOX
 extern DOS_Device *DOS_CON;
@@ -216,22 +219,21 @@ void VGA_Draw_string(char* wrstring) {
 	SDL_UpdateRect(screen, 0, 0, 0, 0);
 }
 
-
 void VGA_Init() {
 	VGA_Init(640, 480, 8, SDL_HWPALETTE/*|SDL_DOUBLEBUF*/);
 }
 SDL_Rect dst;
 SDL_Surface *curs;
 
-void VGA_Set_Cursor(posistruct posstrcursor) {
+void VGA_Set_Cursor(posistruct posstrcursor,int number) {
 	/*SDL_Rect dstrect;
 	dstrect.x = 0;
 	dstrect.y = 0;
 	dstrect.w = 16;
 	dstrect.h = 16;
 	//SDL_FillRect(curs, &dstrect, 0);*/
-
-
+	int sizex = 64;
+	int sizey = 64;
 
 	if (SDL_MUSTLOCK(curs)) {
 		if (SDL_LockSurface(curs) < 0) {
@@ -239,11 +241,84 @@ void VGA_Set_Cursor(posistruct posstrcursor) {
 			return;
 		}
 	}
+	
+	SDL_FillRect(curs, NULL, 0x000000);
+
+	Bit32u inindex = 0;
+	Bit32u outindex = 0;
+	Bit8s shift = 0;
+	Bit8s end = 0;
+	Bit8s count = 0;
+
+	Bit8s unknownvar = posstrcursor.pointer[inindex++];
+	for(int i=0;i<number;i++)
+		while (posstrcursor.pointer[inindex++] != 0x7f);
+	
+	end = posstrcursor.pointer[inindex++];
+	if (end == 0)
+	{
+		count = posstrcursor.pointer[inindex++];
+		outindex++;
+		while (count == 0) {
+			outindex += curs->w + 1;
+			count = posstrcursor.pointer[inindex++];
+		}
+		if (count < 0) {
+			shift = -count;
+			count = posstrcursor.pointer[inindex++];
+		}
+		outindex += curs->w;
+	}
+	else {
+		shift += count;
+		count = end;
+		if (count < 0) {
+			shift -= count;
+			count = posstrcursor.pointer[inindex++];
+		}
+	}
+	memcpy(&((Uint8 *)curs->pixels)[outindex], &posstrcursor.pointer[inindex], count);
+	for (Bit32u y = 1;count != 0x7f;y++)
+	{
+		memcpy(&((Uint8 *)curs->pixels)[outindex + shift], &posstrcursor.pointer[inindex], count);
+		inindex += count;
+		end = posstrcursor.pointer[inindex++];
+		if (end == 0)
+		{
+			count = posstrcursor.pointer[inindex++];
+			while (count == 0) {
+				outindex += curs->w + 1;
+				count = posstrcursor.pointer[inindex++];
+			}
+			if (count < 0) {
+				shift = -count;
+				count = posstrcursor.pointer[inindex++];
+			}
+			outindex += curs->w;
+		}
+		else {
+			shift += count;
+			count = end;
+			if (count < 0) {
+				shift -= count;
+				count = posstrcursor.pointer[inindex++];
+			}
+		}
+	}
+
+	/*for (int i = 0;i < 500;i++)
+	{
+
+		((Uint8 *)curs->pixels)[i] = 128;
+	}*/
+
+	//free(v21_buffer_temp_index1);
+
 
 	//v21_buffer_temp_index1 = (x_DWORD_18062C_resolution_x * tiley + tilex + pixel_buffer_index);
 
 	//v21 = (char *)(dword_18062C * a2 + a3 + v6);
-	Bit8s v22_loc = 0;
+	/*Bit8s v22_loc = 0;
 	Bit8s v23_loc = -1;
 	int v25_loc = 0;
 	Bit8s v26_loc = 0;
@@ -264,7 +339,7 @@ void VGA_Set_Cursor(posistruct posstrcursor) {
 				v26_loc = posstrcursor.pointer[0];
 				v27_loc = (Bit8s*)(posstrcursor.pointer + 1);
 				v22_loc = v26_loc;
-				memcpy(((Uint8 *)curs->pixels)+v25_loc, v27_loc, v22_loc);
+				memcpy(((Uint8 *)curs->pixels+i)+v25_loc, v27_loc, v22_loc);
 				posstrcursor.pointer = (Bit8u*)&v27_loc[v22_loc];
 				i= v25_loc+v22_loc;
 				v22_loc = 0;
@@ -272,25 +347,22 @@ void VGA_Set_Cursor(posistruct posstrcursor) {
 			if (!v23_loc)
 				break;
 			v22_loc = v23_loc;
-			memcpy(((Uint8 *)curs->pixels), posstrcursor.pointer, v22_loc);
+			memcpy(((Uint8 *)curs->pixels+i), posstrcursor.pointer, v22_loc);
 			posstrcursor.pointer += v22_loc;
 			i += v22_loc;
 			v22_loc = 0;
 		}
 		v24_loc += curs->w;
 		i = v24_loc;
-		--posstrcursor.sizey;
-	} while (posstrcursor.sizey);
+		--sizey;
+	} while (sizey);
 
-
+	*/
 	/*for (int i = 0;i < 100;i++)
 		((Uint8 *)curs->pixels)[i] = posstrcursor.pointer[i];*/
 	if (SDL_MUSTLOCK(curs)) {
 		SDL_UnlockSurface(curs);
 	}
-
-
-
 
 	//Uint32 colorkey = SDL_MapRGB(curs->format, 0xff, 0xFF, 0xFF);
 	//SDL_SetColorKey(curs, SDL_SRCCOLORKEY, colorkey);
@@ -312,8 +384,8 @@ void VGA_Init(int width,int height,int bpp,Uint32 flags) {
 	if (!inited)
 	{
 		SDL_Init(SDL_INIT_TIMER | SDL_INIT_VIDEO);
-		//curs = SDL_LoadBMP("../cursors/cursor.bmp");
-		curs = SDL_CreateRGBSurface(SDL_HWPALETTE, 128, 128, 8, 0,0,0,0);
+		curs = SDL_LoadBMP("../cursors/cursor.bmp");
+		//curs = SDL_CreateRGBSurface(SDL_HWPALETTE, 64, 64, 8, 0,0,0,0);
 		Uint32 colorkey = SDL_MapRGB(curs->format, 0x0, 0x0, 0x0);
 		SDL_SetColorKey(curs, SDL_SRCCOLORKEY, colorkey);
 		SDL_ShowCursor(0);
@@ -381,6 +453,7 @@ void VGA_Set_pallette(Uint8* pallettebuffer) {
 
 	/* Set palette */
 	SDL_SetPalette(screen, SDL_LOGPAL | SDL_PHYSPAL, colors, 0, 256);
+	SDL_SetPalette(curs, SDL_LOGPAL | SDL_PHYSPAL, colors, 0, 256);
 }
 
 void VGA_Write_basic_pallette(Uint8* pallettebuffer) {
@@ -425,8 +498,8 @@ int events()
 		{
 		case SDL_MOUSEMOTION:
 			mousex = event.motion.x;
-
 			mousey = event.motion.y;
+			mouse_events(1, event.motion.x, event.motion.y);
 			break;
 
 

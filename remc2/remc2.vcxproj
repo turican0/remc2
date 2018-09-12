@@ -157,6 +157,7 @@
     <ClInclude Include="engine\portability\system.h" />
     <ClInclude Include="engine\sdl\graphics_sdl.h" />
     <ClInclude Include="engine\sub_main.h" />
+    <ClInclude Include="engine\sub_main_mouse.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>

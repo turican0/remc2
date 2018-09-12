@@ -68839,7 +68839,7 @@ void sub_5B8D0_initialize()//23c8d0
 
   //pak je to v 809380
 
-  VGA_Set_Cursor(*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct);
+  //VGA_Set_Cursor(*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct,0);
 
 
   v2 = sub_5C430_multi_allocation(); //23d430
@@ -103957,6 +103957,10 @@ void sub_8CB1F()
   x_DWORD_E3758 = 0;
 }
 // E3758: using guessed type int x_DWORD_E3758;
+
+void mouse_events(Bit32u buttons, int x, int y) {
+	sub_8CB3A(buttons, x, 0, y);//26db3a
+};
 
 int x_BYTE_E3767;
 int x_DWORD_180710_mouse_buttons_states;
