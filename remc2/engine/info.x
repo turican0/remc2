@@ -1602,9 +1602,8 @@ if ((x_WORD_E1F84[i+12]&0xff) && sub_7B200_in_region(&x_WORD_E1F84[i], x_DWORD_1
 
 char sub_7A060_get_mouse_position2()//25B060
 
-x_DWORD_E3760 - fix xy
+x_DWORD_E3760 - fix xy -ok
 x_DWORD_17DEE4_mouse_position - fix xy
-x_WORD_17DEEE - fix xy
 
 x_DWORD_1806E8 - fix xy
 
@@ -1620,3 +1619,18 @@ Bit16s x_WORD_E3760_mousex;
 Bit16s x_WORD_E3762_mousey;
 
 
+Bit8s x_DWORD_1806E8_mousex; // weak
+Bit8s x_DWORD_1806E8_mousey; // weak
+
+x_DWORD_180730 - fix xy
+x_DWORD_1806F8 - fix xy
+
+Bit16s x_DWORD_1806F8_mousex; // weak
+Bit16s x_DWORD_1806F8_mousey; // weak
+
+x_WORD_180660_VGA_type_resolution//351660 - ma by 8? asi ne, je to nejspis textovy mod
+
+I find 2b4760 changes - x_WORD_E3760_mousex
+
+test:
+char /*__cdecl*/ sub_779E0_lang_setting_loop(int a1x)//2589E0

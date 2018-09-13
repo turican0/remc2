@@ -492,6 +492,9 @@ int mousex, mousey;
 int events()
 {
 	SDL_Event event;
+	Uint8 buttonindex;
+	Uint8 buttonstate;
+	Bit32u buttonresult;
 	while (SDL_PollEvent(&event))
 	{
 		switch (event.type)
@@ -501,7 +504,66 @@ int events()
 			mousey = event.motion.y;
 			mouse_events(1, event.motion.x, event.motion.y);
 			break;
+		case SDL_MOUSEBUTTONDOWN:
+		case SDL_MOUSEBUTTONUP:
+			mousex = event.motion.x;
+			mousey = event.motion.y;
 
+			buttonresult = 0;
+
+			buttonindex = event.button.button;
+			buttonstate = event.button.state;
+			switch (buttonindex) {
+			case SDL_BUTTON_LEFT:
+			{
+				switch (buttonstate) {
+				case SDL_PRESSED:
+				{
+					buttonresult |= 2;
+					break;
+				}
+				case SDL_RELEASED:
+				{
+					buttonresult |= 4;
+					break;}
+				}
+				break;
+			}
+			case SDL_BUTTON_MIDDLE:
+			{
+				switch (buttonstate) {
+				case SDL_PRESSED:
+				{
+					buttonresult |= 8;
+					break;
+				}
+				case SDL_RELEASED:
+				{
+					buttonresult |= 0x10;
+					break;}
+				}
+				break;
+			}
+			case SDL_BUTTON_RIGHT:
+			{
+				switch (buttonstate) {
+				case SDL_PRESSED:
+				{
+					buttonresult |= 0x20;
+					break;
+				}
+				case SDL_RELEASED:
+				{
+					buttonresult |= 0x40;
+					break;}
+				}
+				break;
+				}
+			}
+				//x, y	The X / Y coordinates of the mouse at press / release time
+
+			mouse_events(buttonresult, event.motion.x, event.motion.y);
+			break;
 
 		case SDL_QUIT: return 0;
 		}
