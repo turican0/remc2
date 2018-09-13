@@ -748,7 +748,7 @@ long unknown_libname_2_findfirst(char* path, Bit16u a2, _finddata_t* c_file) {//
 	sub_9A1B6(result, (void*)a3, (void*)a3);
 	return result;*/
 };// weak
-long /*__cdecl*/ unknown_libname_3_findnext(_finddata_t* c_file, long hFile) {
+long /*__cdecl*/ unknown_libname_3_findnext(_finddata_t* c_file, long hFile) {//258193
 	//char path[100];//fix
 	//char filename[100];//fix it
 
@@ -793,7 +793,7 @@ long /*__cdecl*/ unknown_libname_3_findnext(_finddata_t* c_file, long hFile) {
 	return result;*/
 	return 0;
 };// weak
-int /*__cdecl*/ unknown_libname_4_find_close(struct _finddata_t *c_file, long hFile) {
+int /*__cdecl*/ unknown_libname_4_find_close(struct _finddata_t *c_file, long hFile) {//27b1b3
 	_findclose(hFile);
 	return 0;
 };// weak
@@ -2709,7 +2709,8 @@ int /*__cdecl*/ sub_7EAE0(__int16 *a1, __int16 *a2, __int16 *a3, __int16 *a4, ch
 // int sub_7F6A0(int a1, int a2, __int16 a3, __int16 a4, char *a5, x_BYTE *a6, unsigned __int8 a7);
 //int /*__cdecl*/ sub_7F7D0(Bit8u** a1, Bit8u** a2, Bit8u* a3, char* a4);
 int sub_7F7D0(Bit8u** a1, Bit8u** a2, Bit8u* a3, char* langfilename, posistruct* a3dattabindex);//2607d0
-int /*__cdecl*/ sub_7F960(Bit8u* a1, Bit8u* a2, unsigned int a3, Bit8u* a4);
+//int /*__cdecl*/ sub_7F960(Bit8u* a1, Bit8u* a2, unsigned int a3, Bit8u* a4);
+int sub_7F960(Bit8u* a1, Bit8u* a2, Bit8u* a3, char* langcountstring, posistruct* a3dattabindex);
 Bit32u sub_7FAE0_draw_text(char* a1, __int16 a2, __int16 a3, __int16 a4, unsigned __int8 a5);
 void sub_7FB90(char* a1, Bit16s a2, Bit16s a3, Bit8u a4);
 // int sub_7FCB0_draw_text_with_border(int a1, x_BYTE *a2, int a3, int a4, int a5, char a6, unsigned __int8 a7, __int16 a8);
@@ -12995,7 +12996,7 @@ char* x_DWORD_17E0A0[0x300]; // fix it -  weak
 int x_DWORD_17E0A4[0x300]; // fix it -  weak
 int x_DWORD_17E0A8[0x300]; // idb
 
-char x_DWORD_17ECA0[4608]; // weak
+Bit8u x_DWORD_17ECA0[4608]; // weak
 int x_DWORD_17ECA4; // weak
 int x_DWORD_17ECA8; // weak
 int x_DWORD_17ECAC; // weak
@@ -88434,13 +88435,13 @@ char /*__cdecl*/ sub_779E0_lang_setting_loop(int a1x)//2589E0
   __int16 v31; // [esp+198h] [ebp+56h]
   char v32; // [esp+19Ah] [ebp+58h]
   Bit8u* v33; // [esp+19Ch] [ebp+5Ah]
-  int v34; // [esp+1A0h] [ebp+5Eh]
+  Bit8u v34; // [esp+1A0h] [ebp+5Eh]
   Bit8u* v35; // [esp+1A4h] [ebp+62h]
   Bit8u* v36; // [esp+1A8h] [ebp+66h]
   Bit8u* v37; // [esp+1ACh] [ebp+6Ah]
   //Bit8u* v38; // [esp+1B0h] [ebp+6Eh]
   int v39; // [esp+1B4h] [ebp+72h]
-  __int16 v40; // [esp+1B8h] [ebp+76h]
+  Bit8u v40; // [esp+1B8h] [ebp+76h]
   int v41; // [esp+1BCh] [ebp+7Ah]
 
   //fix it
@@ -88508,12 +88509,12 @@ char /*__cdecl*/ sub_779E0_lang_setting_loop(int a1x)//2589E0
 	  configfile2 = sub_98817_open(printbuffer, 512);
       if (configfile2 != NULL )
       {
-        sub_988A7_read(configfile2, (Bit8u*)&v34, 4);
+        sub_988A7_read(configfile2, &v34, 4);
         if ( v34 == -9 )
         {
-          sub_988A7_read(configfile2, (Bit8u*)&v40, 2);
+          sub_988A7_read(configfile2, &v40, 2);
           sprintf_s(printbuffer,512, "L%d.TXT", v40);
-          x_D41A0_BYTEARRAY_4_struct.byteindex_179 = sub_7F960(v36, v37, (unsigned int)v1, (Bit8u*)printbuffer);//tady se pak zmeni v1 za v1_langdattab
+          x_D41A0_BYTEARRAY_4_struct.byteindex_179 = sub_7F960(v36, v37, v1, printbuffer, v1_langdattab);//tady se pak zmeni v1 za v1_langdattab
         }
         sub_98882_close(configfile2);
       }
@@ -88530,9 +88531,9 @@ char /*__cdecl*/ sub_779E0_lang_setting_loop(int a1x)//2589E0
         *(x_BYTE *)(v6 + 38402) = 1;
       }
       if ( x_WORD_180660_VGA_type_resolution & 1 )
-        sub_9A128_copy_screen_320((void*)x_DWORD_E9C38_smalltit, (void*)x_DWORD_180628b_screen_buffer, 0xC8u);
+        sub_9A128_copy_screen_320(x_DWORD_E9C38_smalltit, x_DWORD_180628b_screen_buffer, 0xC8u);
       else
-        sub_9A144_copy_screen_640((void*)x_DWORD_E9C38_smalltit, (void*)x_DWORD_180628b_screen_buffer, 0x1E0u);//write default screan 27b144  adress 258c99
+        sub_9A144_copy_screen_640(x_DWORD_E9C38_smalltit, x_DWORD_180628b_screen_buffer, 0x1E0u);//write default screan 27b144  adress 258c99
       v39 = sub_7E0E0_mouse_events();//25f0e0 adress 258ca1 - zmeni tlacitko, vrati stav kliknuti
 	  //4527b9=[ebp+66]+6 4527bf 161545005835->58e2e2e2e2e2
 	  sub_2BB40_draw_bitmap(263, 134, v1_langdattab[1]);//20cb40 adress 258cba - zmeni vlajku
@@ -88597,7 +88598,7 @@ char /*__cdecl*/ sub_779E0_lang_setting_loop(int a1x)//2589E0
 			unknown_libname_4_find_close(&langfileL, langlhandle);
           unknown_libname_2_findfirst((char*)"LANGUAGE/L*.TXT", 0, &langfileL);
         }
-        v11 = sub_7F960(v36, v37, (unsigned int)v1, (Bit8u*)&v20);//adress 258dec
+        v11 = sub_7F960(v36, v37, v1, &v20, v1_langdattab);//adress 258dec
         //v12 = (uint8)x_D41A0_BYTEARRAY_4;
         v40 = v11;
         if ( x_D41A0_BYTEARRAY_4_struct.byteindex_179 == v11 )
@@ -88607,7 +88608,7 @@ char /*__cdecl*/ sub_779E0_lang_setting_loop(int a1x)//2589E0
 			  unknown_libname_4_find_close(&langfileL, langlhandle);
             unknown_libname_2_findfirst((char*)"LANGUAGE/L*.TXT", 0, &langfileL);
           }
-          v13 = sub_7F960(v36, v37, (unsigned int)v1, (Bit8u*)&v20);
+          v13 = sub_7F960(v36, v37, v1, &v20, v1_langdattab);
           //v12 = (uint8)x_D41A0_BYTEARRAY_4;
         }
         else
@@ -88619,7 +88620,7 @@ char /*__cdecl*/ sub_779E0_lang_setting_loop(int a1x)//2589E0
       }
     }
   }
-  unknown_libname_4_find_close(&langfileL, langlhandle);
+  unknown_libname_4_find_close(&langfileL, langlhandle);//adress 258EA2
   configfile = sub_98817_open(printbuffer, 546);
   if (configfile!= NULL )
   {
@@ -93912,14 +93913,15 @@ int sub_7F7D0(Bit8u** a1, Bit8u** a2, Bit8u* a3, char* langfilename, posistruct*
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
 //----- (0007F960) --------------------------------------------------------
-int /*__cdecl*/ sub_7F960(Bit8u* a1, Bit8u* a2, unsigned int a3, Bit8u* langcountstring)
+int sub_7F960(Bit8u* a1, Bit8u* a2, Bit8u* a3, char* langcountstring, posistruct* a3dattabindex)
+//int sub_7F7D0(Bit8u** a1, Bit8u** a2, Bit8u* a3, char* langfilename, posistruct* a3dattabindex)//2607d0
 {
   Bit16u langcount; // esi
   FILE* langfile; // eax
   //FILE* v6; // ebx
   //FILE* v7; // edi
   int v8; // ebx
-  int v9; // eax
+  Bit8u* v9; // eax
   unsigned __int8 v10; // bl
   //char v12; // [esp+0h] [ebp-58h]
   int v13; // [esp+50h] [ebp-8h]
@@ -93929,24 +93931,24 @@ int /*__cdecl*/ sub_7F960(Bit8u* a1, Bit8u* a2, unsigned int a3, Bit8u* langcoun
   sprintf_s(printbuffer,512, "%c%s/%s", x_D41A0_BYTEARRAY_4_struct.harddisk_number, ":/NETHERW/LANGUAGE", langcountstring);
   for ( i = 0; i < 2u; i = v10 + 1 )
   {
-	langcount = atoi((char*)(langcountstring + 1));
+	langcount = atoi((langcountstring + 1));
 	langfile = sub_98817_open(printbuffer, 512);
     //v6 = v5;
     //v7 = v5;
     if (langfile != NULL )
     {
       v13 = x_filelength(langfile);
-      sub_988A7_read(langfile, (Bit8u*)a3, 4773);
-      sub_988A7_read(langfile, (Bit8u*)a3 + 4773, 12);
+      sub_988A7_read(langfile, a3, 4773);
+      sub_988A7_read(langfile, a3 + 4773, 12);
       if ( x_BYTE_E29E0 || x_DWORD_D41BC_langbuffer )
         sub_83E80((int)x_DWORD_D41BC_langbuffer);
       v8 = v13 - 4785;
-      v9 = (int)sub_83CD0_malloc2(v13 - 4785);
-      x_DWORD_D41BC_langbuffer = (Bit8u*)v9;
+      v9 = (Bit8u*)sub_83CD0_malloc2(v13 - 4785);
+      x_DWORD_D41BC_langbuffer = v9;
       if ( v9 )
       {
         x_BYTE_E29E0 = 1;
-        sub_988A7_read(langfile, (Bit8u*)v9, v8);
+        sub_988A7_read(langfile, v9, v8);
       }
       sub_98882_close(langfile);
       break;
@@ -93955,10 +93957,10 @@ int /*__cdecl*/ sub_7F960(Bit8u* a1, Bit8u* a2, unsigned int a3, Bit8u* langcoun
     sprintf_s(printbuffer,512, "LANGUAGE/%s", langcountstring);
   }
   if ( x_WORD_180660_VGA_type_resolution & 1 )
-    sub_98709_create_index_dattab_power((Bit8u*)a1, (Bit8u*)a2, (Bit8u*)a3, (new posistruct));
+    sub_98709_create_index_dattab_power(a1, a2, a3, a3dattabindex);
   else
-    sub_9874D_create_index_dattab((Bit8u*)a1, (Bit8u*)a2, (Bit8u*)a3, (new posistruct));
-  sub_5B870((Bit8u*)x_DWORD_D41BC_langbuffer, x_DWORD_E9C4C_langindexbuffer, 471);
+    sub_9874D_create_index_dattab(a1, a2, a3, a3dattabindex);
+  sub_5B870(x_DWORD_D41BC_langbuffer, x_DWORD_E9C4C_langindexbuffer, 471);
   return langcount;
 }
 // 8E3D5: using guessed type x_DWORD sprintf_s(x_DWORD, const char *, ...);
@@ -96975,23 +96977,23 @@ char /*__cdecl*/ sub_83E00(int a1, int a2)
 //----- (00083E80) --------------------------------------------------------
 void /*__cdecl*/ sub_83E80(int a1)
 {
-  int *v1; // eax
+  Bit8u* v1; // eax
   char v2; // bl
   int *i; // ebx
 
   if ( a1 )
   {
-    v1 = (int*)&x_DWORD_17ECA0;
+    v1 = (Bit8u*)&x_DWORD_17ECA0;
     v2 = 0;
     while ( v1 )
     {
-      if ( a1 == *v1 )
+      if ( a1 == v1[0] )
       {
         v2 = 1;
         *((x_BYTE *)v1 + 16) = 0;
         break;
       }
-      v1 = (int *)v1[2];
+      v1 = (Bit8u*)(int *)v1[2];
     }
     if ( v2 == 1 )
     {

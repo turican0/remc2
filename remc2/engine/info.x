@@ -1634,3 +1634,7 @@ I find 2b4760 changes - x_WORD_E3760_mousex
 
 test:
 char /*__cdecl*/ sub_779E0_lang_setting_loop(int a1x)//2589E0
+
+repair sub_7F960
+
+repair sub_83E80

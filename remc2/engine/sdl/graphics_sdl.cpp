@@ -380,12 +380,41 @@ Uint32 gmask = 0x0000ff00;
 Uint32 bmask = 0x00ff0000;
 Uint32 amask = 0xff000000;
 #endif*/
+
+Bit8u cursor1[10] = {
+0x10,0x10,0x10,0,0,0,0,0,0,0
+};
+
+void VGA_Set_Cursor2() {
+	int sizex = 64;
+	int sizey = 64;
+
+	if (SDL_MUSTLOCK(curs)) {
+		if (SDL_LockSurface(curs) < 0) {
+			fprintf(stderr, "Can't lock screen: %s\n", SDL_GetError());
+			return;
+		}
+	}
+
+	for (int i = 0;i < 10;i++)
+		((Uint8 *)curs->pixels)[i] = cursor1[i];
+
+	if (SDL_MUSTLOCK(curs)) {
+		SDL_UnlockSurface(curs);
+	}
+
+
+};
+
+
 void VGA_Init(int width,int height,int bpp,Uint32 flags) {
 	if (!inited)
 	{
 		SDL_Init(SDL_INIT_TIMER | SDL_INIT_VIDEO);
 		curs = SDL_LoadBMP("../cursors/cursor.bmp");
-		//curs = SDL_CreateRGBSurface(SDL_HWPALETTE, 64, 64, 8, 0,0,0,0);
+		/*curs = SDL_CreateRGBSurface(SDL_HWPALETTE, 64, 64, 8, 0,0,0,0);
+		VGA_Set_Cursor2();*/
+
 		Uint32 colorkey = SDL_MapRGB(curs->format, 0x0, 0x0, 0x0);
 		SDL_SetColorKey(curs, SDL_SRCCOLORKEY, colorkey);
 		SDL_ShowCursor(0);
@@ -449,11 +478,13 @@ void VGA_Set_pallette(Uint8* pallettebuffer) {
 		colors[i].r = /*i;*/4 * pallettebuffer[i * 3];
 		colors[i].g = /*i;*/4 * pallettebuffer[i * 3 + 1];
 		colors[i].b = /*i;*/4 * pallettebuffer[i * 3 + 2];
+		//if((colors[i].r==0x8)/*&&(colors[i].g == 0x0)&&(colors[i].b == 0x00)*/)
+			//printf("%01X %02X,%02X,%02X\n", i,colors[i].r, colors[i].g, colors[i].b);
 	}
 
 	/* Set palette */
 	SDL_SetPalette(screen, SDL_LOGPAL | SDL_PHYSPAL, colors, 0, 256);
-	SDL_SetPalette(curs, SDL_LOGPAL | SDL_PHYSPAL, colors, 0, 256);
+	//SDL_SetPalette(curs, SDL_LOGPAL | SDL_PHYSPAL, colors, 0, 256);
 }
 
 void VGA_Write_basic_pallette(Uint8* pallettebuffer) {
@@ -591,13 +622,25 @@ void VGA_Blit(int width, int height, Uint8* buffer) {
 	dst.y = mousey;
 	// Blit onto main surface
 	SDL_BlitSurface(curs, NULL, screen, &dst);
-	/*for (int i = 0;i < 600;i++)
-		for (int j = 0;j < 400;j++)
-			putpixel(screen, i, j, 127);*/
+
+	/*Uint8 unused[256];
+	for (int k = 0;k < 255;k++)
+		unused[k] == 0;
+	for (int i = 0;i < 640;i++)
+		for (int j = 0;j < 480;j++)
+			for (int k = 0;k < 255;k++)
+				if (((Uint8 *)screen->pixels)[480 * j + i] == k)
+					unused[k] = 1;
+	printf("\n,");
+	for (int k = 0;k < 255;k++)
+		if (unused[k] != 1)
+			printf("%04X,",k);
 
 	if (SDL_MUSTLOCK(screen)) {
 		SDL_UnlockSurface(screen);
-	}
+	}*/
+	//barvy e5 a vice jsou volne
+	
 	/* Update just the part of the display that we've changed */
 	SDL_UpdateRect(screen, 0, 0, 0, 0);	
 }
