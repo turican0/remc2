@@ -1638,3 +1638,13 @@ char /*__cdecl*/ sub_779E0_lang_setting_loop(int a1x)//2589E0
 repair sub_7F960
 
 repair sub_83E80
+
+najit 256200 ! - vykresli kursor! ne musi to by predtim
+najit 260960 ! - vykresli vlajku
+vlajka je asi uz zde - 25f840
+
+if ( !byte_E3766 )
+    sub_8CACD(v1); - asi kursor
+
+	je nekde zde:
+	void /*__cdecl*/ sub_75200_VGA_Blit640(Bit16u height)//256200

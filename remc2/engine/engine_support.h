@@ -97,6 +97,7 @@ typedef struct {
 	Bit8u byteindex_4;
 	Bit32u dwordindex_6;
 	Bit32u dwordindex_8;
+	Bit8u byteindex_A;
 	Bit32u dwordindex_12;
 	Bit8u setting_byte1_22;
 	Bit8u setting_byte2_23;
