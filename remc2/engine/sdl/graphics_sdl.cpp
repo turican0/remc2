@@ -223,15 +223,9 @@ void VGA_Init() {
 	VGA_Init(640, 480, 8, SDL_HWPALETTE/*|SDL_DOUBLEBUF*/);
 }
 SDL_Rect dst;
-SDL_Surface *curs;
-
+//SDL_Surface *curs;
+/*
 void VGA_Set_Cursor(posistruct posstrcursor,int number) {
-	/*SDL_Rect dstrect;
-	dstrect.x = 0;
-	dstrect.y = 0;
-	dstrect.w = 16;
-	dstrect.h = 16;
-	//SDL_FillRect(curs, &dstrect, 0);*/
 	int sizex = 64;
 	int sizey = 64;
 
@@ -306,60 +300,13 @@ void VGA_Set_Cursor(posistruct posstrcursor,int number) {
 		}
 	}
 
-	/*for (int i = 0;i < 500;i++)
-	{
-
-		((Uint8 *)curs->pixels)[i] = 128;
-	}*/
-
 	//free(v21_buffer_temp_index1);
 
 
 	//v21_buffer_temp_index1 = (x_DWORD_18062C_resolution_x * tiley + tilex + pixel_buffer_index);
 
 	//v21 = (char *)(dword_18062C * a2 + a3 + v6);
-	/*Bit8s v22_loc = 0;
-	Bit8s v23_loc = -1;
-	int v25_loc = 0;
-	Bit8s v26_loc = 0;
-	Bit8s* v27_loc = 0;
-	int v24_loc = 0;
-	int i = 0;
-	do
-	{
-		while (1)
-		{
-			while (1)
-			{
-				v23_loc = posstrcursor.pointer[0];
-				posstrcursor.pointer++;
-				if ((v23_loc & 0x80u) == 0)
-					break;
-				v25_loc = i-v23_loc;
-				v26_loc = posstrcursor.pointer[0];
-				v27_loc = (Bit8s*)(posstrcursor.pointer + 1);
-				v22_loc = v26_loc;
-				memcpy(((Uint8 *)curs->pixels+i)+v25_loc, v27_loc, v22_loc);
-				posstrcursor.pointer = (Bit8u*)&v27_loc[v22_loc];
-				i= v25_loc+v22_loc;
-				v22_loc = 0;
-			}
-			if (!v23_loc)
-				break;
-			v22_loc = v23_loc;
-			memcpy(((Uint8 *)curs->pixels+i), posstrcursor.pointer, v22_loc);
-			posstrcursor.pointer += v22_loc;
-			i += v22_loc;
-			v22_loc = 0;
-		}
-		v24_loc += curs->w;
-		i = v24_loc;
-		--sizey;
-	} while (sizey);
 
-	*/
-	/*for (int i = 0;i < 100;i++)
-		((Uint8 *)curs->pixels)[i] = posstrcursor.pointer[i];*/
 	if (SDL_MUSTLOCK(curs)) {
 		SDL_UnlockSurface(curs);
 	}
@@ -368,18 +315,6 @@ void VGA_Set_Cursor(posistruct posstrcursor,int number) {
 	//SDL_SetColorKey(curs, SDL_SRCCOLORKEY, colorkey);
 	//(curs->->pixels)[0] = 0;
 };
-/*//Uint32 rmask, gmask, bmask, amask;
-#if SDL_BYTEORDER == SDL_BIG_ENDIAN
-Uint32 rmask = 0xff000000;
-Uint32 gmask = 0x00ff0000;
-Uint32 bmask = 0x0000ff00;
-Uint32 amask = 0x000000ff;
-#else
-Uint32 rmask = 0x000000ff;
-Uint32 gmask = 0x0000ff00;
-Uint32 bmask = 0x00ff0000;
-Uint32 amask = 0xff000000;
-#endif*/
 
 Bit8u cursor1[10] = {
 0x10,0x10,0x10,0,0,0,0,0,0,0
@@ -404,23 +339,24 @@ void VGA_Set_Cursor2() {
 	}
 
 
-};
+};*/
 
 
 void VGA_Init(int width,int height,int bpp,Uint32 flags) {
 	if (!inited)
 	{
 		SDL_Init(SDL_INIT_TIMER | SDL_INIT_VIDEO);
-		curs = SDL_LoadBMP("../cursors/cursor.bmp");
+		//curs = SDL_LoadBMP("../cursors/cursor.bmp");
 		/*curs = SDL_CreateRGBSurface(SDL_HWPALETTE, 64, 64, 8, 0,0,0,0);
 		VGA_Set_Cursor2();*/
 
-		Uint32 colorkey = SDL_MapRGB(curs->format, 0x0, 0x0, 0x0);
-		SDL_SetColorKey(curs, SDL_SRCCOLORKEY, colorkey);
-		SDL_ShowCursor(0);
+		/*Uint32 colorkey = SDL_MapRGB(curs->format, 0x0, 0x0, 0x0);
+		SDL_SetColorKey(curs, SDL_SRCCOLORKEY, colorkey);		
 
 		dst.w = curs->w;
-		dst.h = curs->h;
+		dst.h = curs->h;*/
+
+		SDL_ShowCursor(0);
 
 		atexit(SDL_Quit);
 		screen = SDL_SetVideoMode(width, height, bpp, flags);
@@ -618,10 +554,10 @@ void VGA_Blit(int width, int height, Uint8* buffer) {
 	}
 
 	memcpy(screen->pixels, buffer, width*height);
-	dst.x = mousex;
+	/*dst.x = mousex;
 	dst.y = mousey;
 	// Blit onto main surface
-	SDL_BlitSurface(curs, NULL, screen, &dst);
+	SDL_BlitSurface(curs, NULL, screen, &dst);*/
 
 	/*Uint8 unused[256];
 	for (int k = 0;k < 255;k++)
@@ -698,8 +634,8 @@ void VGA_close()
 	SDL_FreeSurface(screen);
 	screen = NULL;
 
-	SDL_FreeSurface(curs);
-	screen = curs;
+	//SDL_FreeSurface(curs);
+	//curs=NULL;
 
 	//Quit SDL subsystems
 	SDL_Quit();

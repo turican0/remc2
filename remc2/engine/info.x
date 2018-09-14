@@ -1644,7 +1644,27 @@ najit 260960 ! - vykresli vlajku
 vlajka je asi uz zde - 25f840
 
 if ( !byte_E3766 )
-    sub_8CACD(v1); - asi kursor
+    sub_8CACD(v1); - urcite prida kursor
 
 	je nekde zde:
 	void /*__cdecl*/ sub_75200_VGA_Blit640(Bit16u height)//256200
+
+	zjistit zmeny x_WORD_18072C - 35172c
+
+	testuj:
+	void sub_8CD27(posistruct a2)//26dd27
+
+	35172c
+
+	az posledni volani - 
+
+	0x35172c;
+
+	pozor na toto:
+	sub_8CD27_set_cursor(*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct/*filearray_2aa18c[0]*/);//26dd27
+  x_WORD_17DEEC = 0;
+
+  	//[34eed4]+de? =48c81b ->3abe47001315
+	//25b110
+
+	x_DWORD_17DED4_spritestr[0x25]
