@@ -1668,3 +1668,20 @@ if ( !byte_E3766 )
 	//25b110
 
 	x_DWORD_17DED4_spritestr[0x25]
+
+	x_DWORD_180700 - 351700 // tady mozna nevadi - nealokovane pole
+	x_DWORD_1806F0 - 3516f0 // tady mozna take ne - nealokovane pole
+	x_DWORD_180730 - 351730 - 191919 fefefefe		
+	x_DWORD_18062C_resolution_x - 35162c musi byt 40
+
+	vlajka se prekresli v 258cba - v prvnim kroku je puvodni vlajka, ale v druhem
+	se vlajka nastavi
+
+	4527bf->451516
+
+	misto vlajky:
+	0x152C0
+
+	x_DWORD_18062C_resolution_x(351628) -3BF364
+	27b144 - tady se vlajka smaze
+	sub_7F960 / 260960 - prekresli texturu vlajky
