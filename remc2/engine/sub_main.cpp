@@ -758,7 +758,9 @@ long /*__cdecl*/ unknown_libname_3_findnext(_finddata_t* c_file, long hFile) {//
 	//struct _finddata_t c_file;
 	//long hFile;
 	if ((hFile = _findnext(hFile, c_file)) == -1L)
+	{
 		return(-1);//file not found
+	}
 	//strcmp(filename, c_file.name);
 	//_findclose(hFile);
 	return(hFile);
@@ -68922,11 +68924,11 @@ void sub_5BCC0_set_any_variables1()
   x_BYTE_EB3A6 = 0x36;//2bc3a6
   //result = x_D41A0_BYTEARRAY_4;//2a51a4
   x_BYTE_EB3A3 = 0x1D;//2bc3A3
-  x_D41A0_BYTEARRAY_4[4] = 0;//dword 38cf54
-  x_D41A0_BYTEARRAY_4[6] = 127;//dword 38cf56
-  x_D41A0_BYTEARRAY_4[8] = 127;//dword 38cf58
+  x_D41A0_BYTEARRAY_4_struct.byteindex_4 = 0;//dword 38cf54
+  x_D41A0_BYTEARRAY_4_struct.dwordindex_6 = 127;//dword 38cf56
+  x_D41A0_BYTEARRAY_4_struct.dwordindex_8 = 127;//dword 38cf58
   x_BYTE_EB3A0 = 0x4B;//2BC3A0
-  x_D41A0_BYTEARRAY_4[10] = 1;//byte 38cf5a
+  x_D41A0_BYTEARRAY_4_struct.byteindex_A = 1;//byte 38cf5a
   x_BYTE_EB3A2 = 0x1C;//2BC3A2
   x_D41A0_BYTEARRAY_4[11] = 0;//byte 38cf5b
   x_BYTE_EB3A4 = 0x38;//2BC3A4
@@ -86311,6 +86313,7 @@ void /*__cdecl*/ sub_75200_VGA_Blit640(Bit16u height)//256200
   //debug
 
   VGA_Blit(640, height, x_DWORD_180628b_screen_buffer);
+  mydelay(20);
 
   /*
   sub_9951B(0);//27a51b - objevil se kurzor
@@ -88428,7 +88431,7 @@ char /*__cdecl*/ sub_779E0_lang_setting_loop(int a1x)//2589E0
   //char v18; // [esp+A0h] [ebp-A2h]
   //char v19[100]; // [esp+F0h] [ebp-52h]
   _finddata_t langfileL;
-  char v20; // [esp+10Eh] [ebp-34h]
+  //char v20; // [esp+10Eh] [ebp-34h]
   //char v21[100]; // [esp+11Ch] [ebp-26h]
   _finddata_t langfileD;
   //char v22; // [esp+13Ah] [ebp-8h]
@@ -88496,7 +88499,7 @@ char /*__cdecl*/ sub_779E0_lang_setting_loop(int a1x)//2589E0
   {
 	  langdhandle = unknown_libname_2_findfirst((char*)"LANGUAGE/D*.TXT", 0, &langfileD); //v21=3550b4 3550b4
 	if (langlhandle==NULL || langdhandle == NULL)
-		langfilename = &v20;//neco se nenaslo
+		langfilename = (char*)langfileL.name;//neco se nenaslo
 	else
 		langfilename = (char*)langfileD.name;//&v22;//naslo se oba v tom pripade prirad "D2.TXT", adresa 3550d2
 	//35513c 355134 451414 3550d2
@@ -88608,9 +88611,10 @@ char /*__cdecl*/ sub_779E0_lang_setting_loop(int a1x)//2589E0
         if (unknown_libname_3_findnext(&langfileL, langlhandle) )//258193
         {
 			unknown_libname_4_find_close(&langfileL, langlhandle);
-          unknown_libname_2_findfirst((char*)"LANGUAGE/L*.TXT", 0, &langfileL);
+			langlhandle = unknown_libname_2_findfirst((char*)"LANGUAGE/L*.TXT", 0, &langfileL);
         }
-        v11 = sub_7F960(v36, v37, v1, &v20, v1_langdattab);//adress 258dec
+		// L2.TXT
+        v11 = sub_7F960(v36, v37, v1, langfileL.name, v1_langdattab);//adress 258dec
         //v12 = (uint8)x_D41A0_BYTEARRAY_4;
         v40 = v11;
         if ( x_D41A0_BYTEARRAY_4_struct.byteindex_179 == v11 )
@@ -88618,9 +88622,9 @@ char /*__cdecl*/ sub_779E0_lang_setting_loop(int a1x)//2589E0
           if (unknown_libname_3_findnext(&langfileL, langlhandle) )
           {
 			  unknown_libname_4_find_close(&langfileL, langlhandle);
-            unknown_libname_2_findfirst((char*)"LANGUAGE/L*.TXT", 0, &langfileL);
+			  langlhandle = unknown_libname_2_findfirst((char*)"LANGUAGE/L*.TXT", 0, &langfileL);
           }
-          v13 = sub_7F960(v36, v37, v1, &v20, v1_langdattab);
+          v13 = sub_7F960(v36, v37, v1, langfileL.name, v1_langdattab);
           //v12 = (uint8)x_D41A0_BYTEARRAY_4;
         }
         else

@@ -1685,3 +1685,9 @@ if ( !byte_E3766 )
 	x_DWORD_18062C_resolution_x(351628) -3BF364
 	27b144 - tady se vlajka smaze
 	sub_7F960 / 260960 - prekresli texturu vlajky
+
+	eax - 3550a6
+	ebx - 451514
+
+	x_D41A0_BYTEARRAY_4_struct.byteindex_A - 38cf5a
+	23ccc0
