@@ -3,6 +3,10 @@
 ## STATUS: unplayable, in development<br />
 <br />
 simple dev blog:[https://github.com/turican0/remc2/wiki]<br />
+## 0.09:<br />
+-fix cursor draw subroutine<br />
+-can select language<br />
+<br />
 ## 0.08:<br />
 -added mouse cursor!<br />
 <br />
