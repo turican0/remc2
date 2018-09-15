@@ -396,7 +396,7 @@ void VGA_Resize(int width, int height, int bpp, Uint32 flags) {
 		exit(-1);
 	}
 	//debug
-	Draw_debug_matrix();
+	//Draw_debug_matrix();
 	//VGA_Draw_string((char*)"test textx");
 	//degug
 };

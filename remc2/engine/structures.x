@@ -46,4 +46,6 @@ x_DWORD_17DEC0 za x_DWORD_17DEC0_spritestr
 
 x_WORD_E1F84 - upravit na strukturu
 unk_E24BCx - upravit na strukturu
+
+x_DWORD_17DE48c - nahrazeno heap?
 		

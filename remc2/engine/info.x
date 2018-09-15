@@ -1691,3 +1691,10 @@ if ( !byte_E3766 )
 
 	x_D41A0_BYTEARRAY_4_struct.byteindex_A - 38cf5a
 	23ccc0
+
+	2a51a4
+
+	fix cursor:
+	/* sub_8CD27_set_cursor((Bit8u**)**filearray_2aa18c[0]); fix it*/
+
+	int v8; // [esp+10h] [ebp-4h] - musi byt asi vstup

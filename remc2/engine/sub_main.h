@@ -189,7 +189,7 @@ signed int sub_369F0(signed int a1, __int16 a2);
 void qmemcpy(void* a, void* b, size_t c);
 char sub_2A340(int a1, int a2, int a3, int a4, int a5, int a6);
 unsigned __int16 sub_2AA90(int a1, int a2, int a3);
-void /*__spoils<ecx>*/ sub_72883_memset_pallette(int a1, void *a2, unsigned __int16 a3, char a4);
+void /*__spoils<ecx>*/ sub_72883_memset_pallette(/*int a1, */void *a2, unsigned __int16 a3, char a4);
 void /*__spoils<ecx>*/ sub_728A9_memset_pallette(void *a2, unsigned __int16 a3, char a4);
 void sub_303D0(signed int a1);
 int _wcpp_1_unwind_leave__62(void); //weak
