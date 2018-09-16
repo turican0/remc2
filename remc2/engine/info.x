@@ -1698,3 +1698,12 @@ if ( !byte_E3766 )
 	/* sub_8CD27_set_cursor((Bit8u**)**filearray_2aa18c[0]); fix it*/
 
 	int v8; // [esp+10h] [ebp-4h] - musi byt asi vstup
+
+	find variable : result = 7 * x_WORD_D4004;//2a5004
+
+	x_BYTE_E3798 && x_BYTE_E3799
+	se lisi od
+	2b4798 a 2b4798
+	227dd0
+	je to zde:
+	sub_90FD0(v3, v4, a3); //fix it
