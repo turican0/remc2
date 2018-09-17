@@ -1707,3 +1707,16 @@ if ( !byte_E3766 )
 	227dd0
 	je to zde:
 	sub_90FD0(v3, v4, a3); //fix it
+
+	neni nastaven E9C4C - 2bac4c - 82fd8f
+	sub_2EBB0_draw_text_with_border_630x340(x_DWORD_E9C4C_langindexbuffer[0]);//fix it
+	257a40
+	sub_76A40_lang_setting()
+
+	x_D41A0_BYTEARRAY_4_struct.byteindex_4 - ma byt 2 38cf54
+	adress - 257b53 -fixed
+
+	eax - 10
+	ebx - 10
+	ecx - 50
+	edx - 40

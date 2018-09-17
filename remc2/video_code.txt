@@ -1,0 +1,64 @@
+esi = [2b27cc]=000045040000005600000000570000000055100000000000410a000000024405
+edx = [2a5004]=0
+eax = edx*8 =0
+eax = eax - edx =0
+edx = esi+eax = 2b27cc -> 04000000560000000057
+bx=[34eb60]=0
+cmp
+bx=[edx+3] = 4
+eax=bx
+mov dl=[edx+2] 45
+dl-=41=4
+cmp
+edx&=ff .. 45-41=4
+ecx=edx*4 .. 10
+edx=eax*4 .. 10
+jmp
+
+edx = [2a5004]=1
+eax = edx*8 =8
+eax = eax - edx =7
+edx = esi+eax = 2b27d3 -> 0000560000000057
+bx=[34eb60]=0
+cmp
+bx=[edx+3] = 0
+eax=bx
+mov dl=[edx+2] 56
+dl-=41=15
+cmp
+edx&=ff .. 56-41=15
+ecx=edx*4 .. 54
+edx=edx*4 .. 0
+jmp
+
+edx = [2a5004]=2
+eax = edx*8 =10
+eax = eax - edx =e
+edx = esi+eax = 2b27d3 -> 000057
+bx=[34eb60]=0
+cmp
+bx=[edx+3] = 0
+eax=bx
+mov dl=[edx+2] 57
+dl-=41=15
+cmp
+edx&=ff .. 57-41=16
+ecx=edx*4 .. 58
+edx=edx*4 .. 0
+jmp
+
+edx = [2a5004]=3
+eax = edx*8 =18
+eax = eax - edx =15
+edx = esi+eax = 2b27e1 -> 00005510
+bx=[34eb60]=0
+cmp
+bx=[edx+3] = 10
+eax=bx
+mov dl=[edx+2] 55
+dl-=41=14
+cmp
+edx&=ff .. 55-41=14
+ecx=edx*4 .. 50
+edx=edx*4 .. 40
+jmp

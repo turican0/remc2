@@ -1641,10 +1641,10 @@ void /*__cdecl*/ sub_2E260(__int16 a1, __int16 a2, unsigned int a3, char a4);
 int /*__cdecl*/ sub_2E790(__int16 a1, int a2, int a3, int a4, unsigned __int8 a5);
 int /*__cdecl*/ sub_2E850(__int16 a1, int a2, int a3, int a4, unsigned __int8 a5);
 int sub_2EB40();
-int sub_2EB60();
-int /*__cdecl*/ sub_2EBB0(Bit8u* a1);
-int sub_2EC30();
-int sub_2EC60();
+void sub_2EB60();
+int /*__cdecl*/ sub_2EBB0_draw_text_with_border_630x340(Bit8u* a1);
+void sub_2EC30_clear_img_mem();
+void sub_2EC60();
 char /*__cdecl*/ sub_2EC90(char a1);
 __int16 sub_2ECC0();
 int sub_2F6B0();
@@ -2883,7 +2883,7 @@ signed int /*__cdecl*/ sub_8EAD0(int a1);
 unsigned int sub_8EC90();
 char /*__cdecl*/ sub_8ED00(int a1, unsigned __int8 a2);
 int /*__cdecl*/ sub_8F023(int a1, int a2, unsigned int a3);
-int /*__cdecl*/ sub_8F0AB(int a1, int a2, int a3);
+int /*__cdecl*/ sub_8F0AB(FILE* a1, int a2, int a3);
 int **/*__cdecl*/ sub_8F100(int *a1, __int16 a2, int a3, int a4, unsigned __int16 a5, char a6, unsigned __int8 a7);
 void /*__cdecl*/ sub_8F420(int a1, __int16 a2);
 int sub_8F4B0(); // weak
@@ -8585,7 +8585,7 @@ char x_BYTE_D41C4 = 'c'; // weak
 char x_BYTE_D41C6 = '('; // weak
 int x_DWORD_D41C8 = 0; // weak
 char x_BYTE_D41CE = '\0'; // weak
-int x_DWORD_D41D0 = 0; // weak
+Bit8u* x_DWORD_D41D0 = 0; // weak
 __int16 x_WORD_D41D4 = 1; // weak
 char x_BYTE_D41D8[] = { '\0' }; // weak
 char x_BYTE_D427C[164] =
@@ -12967,10 +12967,10 @@ char x_BYTE_EB3A7; // weak
 char x_BYTE_EB3A8; // weak
 char x_BYTE_EB3B6; // weak
 _UNKNOWN unk_F0000; // weak
-int x_DWORD_F01E4; // weak
+Bit8u* x_DWORD_F01E4; // weak
 int (/*__cdecl*/ *x_DWORD_F01E8)(x_DWORD, x_DWORD, x_DWORD); // weak
 int (/*__cdecl*/ *x_DWORD_F01EC)(x_DWORD, x_DWORD, x_DWORD); // weak
-__int16 x_WORD_F01F4; // weak
+Bit16u x_WORD_F01F4; // weak
 char x_BYTE_F01FE[1]; // fix it -  weak
 char x_BYTE_F01FF[1]; // fix it -  weak
 char x_BYTE_F0200[31]; // idb
@@ -13128,10 +13128,10 @@ __int16 x_WORD_17D70A; // weak
 __int16 x_WORD_17D70C; // weak
 __int16 x_WORD_17D70E; // weak
 char x_BYTE_17D710; // weak
-int x_DWORD_17D720; // weak
-__int16 x_WORD_17D724; // weak
-_UNKNOWN x_WORD_17D726; // weak
-int x_DWORD_17D730; // weak
+Bit32u x_DWORD_17D720[4]; // weak 0
+Bit16u x_WORD_17D724; // weak 4
+Bit16u x_WORD_17D726; // weak 6
+int x_DWORD_17D730; // weak 
 char x_BYTE_17D738[256]; // idb
 _UNKNOWN unk_17D838; // weak
 FILE* x_DWORD_17DB38; // weak
@@ -13145,7 +13145,7 @@ int x_DWORD_17DB54; // weak
 __int16 x_WORD_17DB58; // weak
 __int16 x_WORD_17DB5A; // weak
 __int16 x_WORD_17DB5C; // weak
-__int16 x_WORD_17DB60; // weak
+Bit16u x_WORD_17DB60; // weak
 int x_DWORD_17DB70; // weak
 __int16 x_WORD_17DB74; // weak
 _UNKNOWN unk_17DB76; // weak
@@ -21485,7 +21485,8 @@ LABEL_97:
 
 
 void sub_loc_1B2E6();
-void sub_loc_1B316(Bit8u v3);
+void sub_loc_1B2F7();
+void sub_loc_1B316(Bit8u a1);
 void sub_loc_1B334();
 void sub_loc_1B352();
 void sub_loc_1B36C();
@@ -21493,18 +21494,18 @@ void sub_loc_1B37D();
 void sub_loc_1B398();
 void sub_loc_1B3C9();
 void sub_loc_1B413();
-void sub_loc_1B424();
+void sub_loc_1B424(Bit16u a1);
 void sub_loc_1B450();
-void sub_loc_1B461();
-void sub_loc_1B4A0();
-void sub_loc_1B4DF();
+void sub_loc_1B461(Bit16u a1);
+void sub_loc_1B4A0(Bit16u a1);
+void sub_loc_1B4DF(Bit16u a1);
 void sub_loc_1B51E();
-void sub_loc_1B54A();
+void sub_loc_1B54A(Bit16u a1);
 void sub_loc_1B589();
 void sub_loc_1B5A7();
-void sub_loc_1B5BC();
+void sub_loc_1B5BC(Bit16u a1);
 void sub_loc_1B5CB();
-void sub_loc_1B5D7();
+//void sub_loc_1B5D7();
 
 //----- (0001B280) --------------------------------------------------------
 void sub_1B280(Bit8u* a1)//1fc280
@@ -21512,14 +21513,12 @@ void sub_1B280(Bit8u* a1)//1fc280
   int v1; // eax
   Bit8u* v2; // edx
   Bit8u v3; // dl
-
-
-
+   
   while ( 1 )
   {
 	v1 = 7 * x_WORD_D4004;//2a5004
     v2 = a1 + v1;
-    if ( x_WORD_17DB60 != *(x_WORD *)(a1 + v1) )
+    if ( x_WORD_17DB60 != *(Bit16u*)v2 )
       break;
 	v1 = *(Bit16u*)&v2[3];
     if (v1 == -1 )
@@ -21531,20 +21530,179 @@ void sub_1B280(Bit8u* a1)//1fc280
 		ecx+=v1
 		v3 += v1*/
 		switch(v3*4) {
-			case 0x0:
+			case 0x00:
 				sub_loc_1B2E6();
 				break;
-			case 0x10://loc_1B316: 
-				sub_loc_1B316(v3);
+			case 0x04:
+				sub_loc_1B2F7();
 				break;
-			case 0x50://loc_1B589: 
-				sub_loc_1B5BC();
+			case 0x08:
+				sub_loc_1B5CB();
 				break;
-			case 0x54://loc_1B589: 
+			case 0x0c:
+				sub_loc_1B51E();
+				break;
+			case 0x10:
+				sub_loc_1B316(v1);
+				break;
+			case 0x14:
+				sub_loc_1B461(v1);
+				break;
+			case 0x18:
+				sub_loc_1B5CB();
+				break;
+			case 0x1c:
+				sub_loc_1B5CB();
+				break;
+			case 0x20:
+				sub_loc_1B5CB();
+				break;
+			case 0x24:
+				sub_loc_1B5CB();
+				break;
+			case 0x28:
+				sub_loc_1B36C();
+				break;
+			case 0x2c:
+				sub_loc_1B334();
+				break;
+			case 0x30:
+				sub_loc_1B352();
+				break;
+			case 0x34:
+				sub_loc_1B5CB();
+				break;
+			case 0x38:
+				sub_loc_1B4DF(v1);
+				break;
+			case 0x3c:
+				sub_loc_1B4A0(v1);
+				break;
+			case 0x40:
+				sub_loc_1B37D();
+				break;
+			case 0x44:
+				sub_loc_1B398();
+				break;
+			case 0x48:
+				sub_loc_1B3C9();
+				break;
+			case 0x4c:
+				sub_loc_1B424(v1);
+				break;
+			case 0x50:
+				sub_loc_1B5BC(v1);
+				break;
+			case 0x54:
 				sub_loc_1B589();
 				break;
-			case 0x58://loc_1B589: 
+			case 0x58:
 				sub_loc_1B36C();
+				break;
+			case 0x5c:
+				sub_loc_1B450();
+				break;
+			case 0x60:
+				sub_loc_1B5A7();
+				break;
+			case 0x64:
+				sub_loc_1B352();
+				break;
+			case 0x68:
+				sub_loc_1B5CB();
+				break;
+			case 0x6c:
+				sub_loc_1B5CB();
+				break;
+			case 0x70:
+				sub_loc_1B5CB();
+				break;
+			case 0x74:
+				sub_loc_1B5CB();
+				break;
+			case 0x78:
+				sub_loc_1B5CB();
+				break;
+			case 0x7c:
+				sub_loc_1B5CB();
+				break;
+			case 0x80:
+				sub_loc_1B2E6();
+				break;
+			case 0x84:
+				sub_loc_1B2F7();
+				break;
+			case 0x88:
+				sub_loc_1B5CB();
+				break;
+			case 0x8c:
+				sub_loc_1B51E();
+				break;
+			case 0x90:
+				sub_loc_1B316(v1);
+				break;
+			case 0x94:
+				sub_loc_1B461(v1);
+				break;
+			case 0x98:
+				sub_loc_1B5CB();
+				break;
+			case 0x9c:
+				sub_loc_1B54A(v1);
+				break;
+			case 0xa0:
+				sub_loc_1B5CB();
+				break;
+			case 0xa4:
+				sub_loc_1B5CB();
+				break;
+			case 0xa8:
+				sub_loc_1B5CB();
+				break;
+			case 0xac:
+				sub_loc_1B334();
+				break;
+			case 0xb0:
+				sub_loc_1B352();
+				break;
+			case 0xb4:
+				sub_loc_1B5CB();
+				break;
+			case 0xb8:
+				sub_loc_1B4DF(v1);
+				break;
+			case 0xbc:
+				sub_loc_1B4A0(v1);
+				break;
+			case 0xc0:
+				sub_loc_1B5CB();
+				break;
+			case 0xc4:
+				sub_loc_1B398();
+				break;
+			case 0xc8:
+				sub_loc_1B3C9();
+				break;
+			case 0xcc:
+				sub_loc_1B424(v1);
+				break;
+			case 0xd0:
+				sub_loc_1B5CB();
+				break;
+			case 0xd4:
+				sub_loc_1B5CB();
+				break;
+			case 0xd8:
+				sub_loc_1B5CB();
+				break;
+			case 0xdc:
+				sub_loc_1B450();
+				break;
+			case 0xe0:
+				sub_loc_1B5CB();
+				break;
+			case 0xe4:
+				sub_loc_1B352();
 				break;
 			default:
 				exit(0);
@@ -21556,50 +21714,141 @@ void sub_1B280(Bit8u* a1)//1fc280
   //return result;
 }
 
-void sub_loc_1B289() {}
+int tempedx, tempeax,tempebx,tempesi;
+
+//void sub_loc_1B289() {}
 void sub_loc_1B2E6() {
 	//x_DWORD_E3844, eax
 	x_DWORD_E3844 = 0;
-	x_WORD_D4004++;
+	//x_WORD_D4004++;
 }
-void sub_loc_1B316(Bit8u v3) {
+void sub_loc_1B2F7() {
+	sub_8E020();
+	sub_8EAD0(tempebx);
+	//x_WORD_D4004++;
+}
+void sub_loc_1B316(Bit8u a1) {
 	sub_8D8F0();
-	sub_84300(v3);
-	x_WORD_D4004++;
+	sub_84300(a1);
+	//x_WORD_D4004++;
 }
-void sub_loc_1B334() {}
-void sub_loc_1B352() {}
+void sub_loc_1B334() {
+	if (x_DWORD_E387C)sub_loc_1B352();
+	else
+	{
+		sub_8F0AB((FILE*)x_DWORD_E3840, tempedx, tempeax);
+	}
+}
+void sub_loc_1B352() {
+	sub_8E160(tempebx,0x7f);
+	//x_WORD_D4004++;
+}
 void sub_loc_1B36C() {
-	sub_2EC30();
+	sub_2EC30_clear_img_mem();
 	x_WORD_D4004++;
 }
-void sub_loc_1B37D() {}
-void sub_loc_1B398() {}
-void sub_loc_1B3C9() {}
-void sub_loc_1B413() {}
-void sub_loc_1B424() {}
-void sub_loc_1B450() {}
-void sub_loc_1B461() {}
-void sub_loc_1B4A0() {}
-void sub_loc_1B4DF() {}
-void sub_loc_1B51E() {}
-void sub_loc_1B54A() {}
+void sub_loc_1B37D() {
+	sub_2EBB0_draw_text_with_border_630x340(x_DWORD_E9C4C_langindexbuffer[tempedx]);
+	//x_WORD_D4004++;
+}
+void sub_loc_1B398() {
+	if (x_BYTE_E3798)sub_loc_1B5CB();
+	sub_8F100(0, tempebx, 0x7f, 0x40, 0x64, 0xFFFFFFFF, 2);
+	//x_WORD_D4004++;
+}
+void sub_loc_1B3C9() {
+	if (x_BYTE_E3798)sub_loc_1B5CB();
+	if (tempesi+ x_WORD_D4004 *7==0)sub_loc_1B413();
+	sub_8F100(0, tempeax+3, 0x7f, 0x40, 0x64, 0, 2);
+	//x_WORD_D4004++;
+}
+void sub_loc_1B413() {
+	sub_8D8F0();
+	//x_WORD_D4004++;
+}
+void sub_loc_1B424(Bit16u a1) {
+	if (x_BYTE_E3798 == 0)sub_loc_1B5BC(a1);
+	if (tempebx)sub_loc_1B413();
+	sub_8F420(0,tempebx);
+	//x_WORD_D4004++;
+}
+void sub_loc_1B450() {
+	sub_8E020();
+	//x_WORD_D4004++;
+}
+void sub_loc_1B461(Bit16u a1) {
+	if(x_BYTE_E3798==0)sub_loc_1B5BC(a1);
+	sub_8F710(0, tempesi+tempeax + 3, 0, 4, 0x64/*, 1, 2*/);
+		/*cseg01 : 0001B46E                 movsx   edx, word_D4004
+		cseg01 : 0001B475                 push    1
+		cseg01 : 0001B477                 lea     eax, ds : 0[edx * 8]
+		cseg01 : 0001B47E                 push    4
+		cseg01 : 0001B480                 sub     eax, edx
+		cseg01 : 0001B482                 push    0
+		cseg01 : 0001B484                 movsx   eax, word ptr[esi + eax + 3]
+		cseg01 : 0001B489                 push    eax
+		cseg01 : 0001B48A                 push    0
+		cseg01 : 0001B48C                 call    sub_8F710*/
+	//x_WORD_D4004++;
+}
+void sub_loc_1B4A0(Bit16u a1) {
+	if (x_BYTE_E3798 == 0)sub_loc_1B5BC(a1);
+	sub_8F710(0, tempesi + tempeax + 3, 50, 2, 0);
+		/*cseg01 : 0001B4AD                 movsx   edx, word_D4004
+		cseg01 : 0001B4B4                 push    0
+		cseg01 : 0001B4B6                 lea     eax, ds : 0[edx * 8]
+		cseg01 : 0001B4BD                 push    2
+		cseg01 : 0001B4BF                 sub     eax, edx
+		cseg01 : 0001B4C1                 push    50h; 'P'
+		cseg01:0001B4C3                 movsx   eax, word ptr[esi + eax + 3]
+		cseg01 : 0001B4C8                 push    eax
+		cseg01 : 0001B4C9                 push    0
+		cseg01 : 0001B4CB                 call    sub_8F710*/
+	//x_WORD_D4004++;
+}
+void sub_loc_1B4DF(Bit16u a1) {
+	if (x_BYTE_E3798 == 0)sub_loc_1B5BC(a1);
+	sub_8F710(0, tempesi + tempeax + 3, 0x7f, 2, 0);
+	/*	cseg01 : 0001B4EC                 movsx   edx, word_D4004
+		cseg01 : 0001B4F3                 push    0
+		cseg01 : 0001B4F5                 lea     eax, ds : 0[edx * 8]
+		cseg01 : 0001B4FC                 push    2
+		cseg01 : 0001B4FE                 sub     eax, edx
+		cseg01 : 0001B500                 push    7Fh
+		cseg01 : 0001B502                 movsx   eax, word ptr[esi + eax + 3]
+		cseg01 : 0001B507                 push    eax
+		cseg01 : 0001B508                 push    0
+		cseg01 : 0001B50A                 call    sub_8F710*/
+	//x_WORD_D4004++;
+}
+void sub_loc_1B51E() {
+	sub_8E160(tempesi + tempeax + 3, 0x64/*, tempedx * 7*/);
+	//x_WORD_D4004++;
+}
+void sub_loc_1B54A(Bit16u a1) {
+	if (x_BYTE_E3798 == 0)sub_loc_1B5BC(a1);
+	sub_8F100(0, tempesi+tempeax+3, 0, 0x40, 0x64, 0xFFFFFFFF, 2);
+	//x_WORD_D4004++;
+}
 void sub_loc_1B589() {
 	if (x_BYTE_D41C0==0)sub_loc_1B5CB();
 	else
 	{
 		sub_2EB60();//maybe must fix
-		x_WORD_D4004++;
+		//x_WORD_D4004++;
 	}
 }
-void sub_loc_1B5A7() {}
-void sub_loc_1B5BC() {
-	sub_2EBB0(x_DWORD_E9C4C_langindexbuffer[0]);//fix it
+void sub_loc_1B5A7() {
+	sub_2EC60();
+	//x_WORD_D4004++;
+}
+void sub_loc_1B5BC(Bit16u a1) {
+	sub_2EBB0_draw_text_with_border_630x340(x_DWORD_E9C4C_langindexbuffer[a1]);//fix it - edx
 }
 void sub_loc_1B5CB() {
-	x_WORD_D4004++;
+	//x_WORD_D4004++;
 }
-void sub_loc_1B5D7() {}
+//void sub_loc_1B5D7() {}
 
 // 1B190: using guessed type void *off_1B190;
 // D4004: using guessed type __int16 x_WORD_D4004;
@@ -21704,7 +21953,7 @@ cseg01:0001B36C ; --------------------------------------------------------------
 cseg01:0001B36C
 cseg01:0001B36C loc_1B36C:                              ; CODE XREF: sub_1B280+5F↑j
 cseg01:0001B36C                                         ; DATA XREF: cseg01:0001B1B8↑o ...
-cseg01:0001B36C                 call    sub_2EC30
+cseg01:0001B36C                 call    sub_2EC30_clear_img_mem
 cseg01:0001B371                 inc     word_D4004
 cseg01:0001B378                 jmp     loc_1B289
 cseg01:0001B37D ; ---------------------------------------------------------------------------
@@ -21713,7 +21962,7 @@ cseg01:0001B37D loc_1B37D:                              ; CODE XREF: sub_1B280+5
 cseg01:0001B37D                                         ; DATA XREF: cseg01:0001B1D0↑o
 cseg01:0001B37D                 mov     eax, dword_E9C4C[edx]
 cseg01:0001B383                 push    eax
-cseg01:0001B384                 call    sub_2EBB0
+cseg01:0001B384                 call    sub_2EBB0_draw_text_with_border_630x340
 cseg01:0001B389                 add     esp, 4
 cseg01:0001B38C                 inc     word_D4004
 cseg01:0001B393                 jmp     loc_1B289
@@ -21906,7 +22155,7 @@ cseg01:0001B5BC loc_1B5BC:                              ; CODE XREF: sub_1B280+5
 cseg01:0001B5BC                                         ; DATA XREF: cseg01:0001B1E0↑o
 cseg01:0001B5BC                 mov     ebx, dword_E9C4C[edx]
 cseg01:0001B5C2                 push    ebx
-cseg01:0001B5C3                 call    sub_2EBB0
+cseg01:0001B5C3                 call    sub_2EBB0_draw_text_with_border_630x340
 cseg01:0001B5C8                 add     esp, 4
 cseg01:0001B5CB
 cseg01:0001B5CB loc_1B5CB:                              ; CODE XREF: sub_1B280+45↑j
@@ -21926,64 +22175,64 @@ cseg01:0001B5DB                 retn
 
 /*
 cseg01:0001B18F                 align 10h
-cseg01:0001B190 off_1B190       dd offset loc_1B2E6     ; DATA XREF: sub_1B280+5F↓r
-cseg01:0001B194                 dd offset loc_1B2F7
-cseg01:0001B198                 dd offset loc_1B5CB
-cseg01:0001B19C                 dd offset loc_1B51E
-cseg01:0001B1A0                 dd offset loc_1B316
-cseg01:0001B1A4                 dd offset loc_1B461
-cseg01:0001B1A8                 dd offset loc_1B5CB
-cseg01:0001B1AC                 dd offset loc_1B54A
-cseg01:0001B1B0                 dd offset loc_1B5CB
-cseg01:0001B1B4                 dd offset loc_1B5CB
-cseg01:0001B1B8                 dd offset loc_1B36C
-cseg01:0001B1BC                 dd offset loc_1B334
-cseg01:0001B1C0                 dd offset loc_1B352
-cseg01:0001B1C4                 dd offset loc_1B5CB
-cseg01:0001B1C8                 dd offset loc_1B4DF
-cseg01:0001B1CC                 dd offset loc_1B4A0
-cseg01:0001B1D0                 dd offset loc_1B37D
-cseg01:0001B1D4                 dd offset loc_1B398
-cseg01:0001B1D8                 dd offset loc_1B3C9
-cseg01:0001B1DC                 dd offset loc_1B424
-cseg01:0001B1E0                 dd offset loc_1B5BC
-cseg01:0001B1E4                 dd offset loc_1B589
-cseg01:0001B1E8                 dd offset loc_1B36C
-cseg01:0001B1EC                 dd offset loc_1B450
-cseg01:0001B1F0                 dd offset loc_1B5A7
-cseg01:0001B1F4                 dd offset loc_1B352
-cseg01:0001B1F8                 dd offset loc_1B5CB
-cseg01:0001B1FC                 dd offset loc_1B5CB
-cseg01:0001B200                 dd offset loc_1B5CB
-cseg01:0001B204                 dd offset loc_1B5CB
-cseg01:0001B208                 dd offset loc_1B5CB
-cseg01:0001B20C                 dd offset loc_1B5CB
-cseg01:0001B210                 dd offset loc_1B2E6
-cseg01:0001B214                 dd offset loc_1B2F7
-cseg01:0001B218                 dd offset loc_1B5CB
-cseg01:0001B21C                 dd offset loc_1B51E
-cseg01:0001B220                 dd offset loc_1B316
-cseg01:0001B224                 dd offset loc_1B461
-cseg01:0001B228                 dd offset loc_1B5CB
-cseg01:0001B22C                 dd offset loc_1B54A
-cseg01:0001B230                 dd offset loc_1B5CB
-cseg01:0001B234                 dd offset loc_1B5CB
-cseg01:0001B238                 dd offset loc_1B5CB
-cseg01:0001B23C                 dd offset loc_1B334
-cseg01:0001B240                 dd offset loc_1B352
-cseg01:0001B244                 dd offset loc_1B5CB
-cseg01:0001B248                 dd offset loc_1B4DF
-cseg01:0001B24C                 dd offset loc_1B4A0
-cseg01:0001B250                 dd offset loc_1B5CB
-cseg01:0001B254                 dd offset loc_1B398
-cseg01:0001B258                 dd offset loc_1B3C9
-cseg01:0001B25C                 dd offset loc_1B424
-cseg01:0001B260                 dd offset loc_1B5CB
-cseg01:0001B264                 dd offset loc_1B5CB
-cseg01:0001B268                 dd offset loc_1B5CB
-cseg01:0001B26C                 dd offset loc_1B450
-cseg01:0001B270                 dd offset loc_1B5CB
-cseg01:0001B274                 dd offset loc_1B352
+cseg01:0001B190 off_1B190       dd offset loc_1B2E6//00     ; DATA XREF: sub_1B280+5F↓r
+cseg01:0001B194                 dd offset loc_1B2F7//04
+cseg01:0001B198                 dd offset loc_1B5CB//08
+cseg01:0001B19C                 dd offset loc_1B51E//0c
+cseg01:0001B1A0                 dd offset loc_1B316//10
+cseg01:0001B1A4                 dd offset loc_1B461//14
+cseg01:0001B1A8                 dd offset loc_1B5CB//18
+cseg01:0001B1AC                 dd offset loc_1B54A//1c
+cseg01:0001B1B0                 dd offset loc_1B5CB//20
+cseg01:0001B1B4                 dd offset loc_1B5CB//24
+cseg01:0001B1B8                 dd offset loc_1B36C//28
+cseg01:0001B1BC                 dd offset loc_1B334//2c
+cseg01:0001B1C0                 dd offset loc_1B352//30
+cseg01:0001B1C4                 dd offset loc_1B5CB//34
+cseg01:0001B1C8                 dd offset loc_1B4DF//38
+cseg01:0001B1CC                 dd offset loc_1B4A0//3c
+cseg01:0001B1D0                 dd offset loc_1B37D//40
+cseg01:0001B1D4                 dd offset loc_1B398//44
+cseg01:0001B1D8                 dd offset loc_1B3C9//48
+cseg01:0001B1DC                 dd offset loc_1B424//4c
+cseg01:0001B1E0                 dd offset loc_1B5BC//50
+cseg01:0001B1E4                 dd offset loc_1B589//54
+cseg01:0001B1E8                 dd offset loc_1B36C//58
+cseg01:0001B1EC                 dd offset loc_1B450//5c
+cseg01:0001B1F0                 dd offset loc_1B5A7//60
+cseg01:0001B1F4                 dd offset loc_1B352//64
+cseg01:0001B1F8                 dd offset loc_1B5CB//68
+cseg01:0001B1FC                 dd offset loc_1B5CB//6c
+cseg01:0001B200                 dd offset loc_1B5CB//70
+cseg01:0001B204                 dd offset loc_1B5CB//74
+cseg01:0001B208                 dd offset loc_1B5CB//78
+cseg01:0001B20C                 dd offset loc_1B5CB//7c
+cseg01:0001B210                 dd offset loc_1B2E6//80
+cseg01:0001B214                 dd offset loc_1B2F7//84
+cseg01:0001B218                 dd offset loc_1B5CB//88
+cseg01:0001B21C                 dd offset loc_1B51E//8c
+cseg01:0001B220                 dd offset loc_1B316//90
+cseg01:0001B224                 dd offset loc_1B461//94
+cseg01:0001B228                 dd offset loc_1B5CB//98
+cseg01:0001B22C                 dd offset loc_1B54A//9c
+cseg01:0001B230                 dd offset loc_1B5CB//a0
+cseg01:0001B234                 dd offset loc_1B5CB//a4
+cseg01:0001B238                 dd offset loc_1B5CB//a8
+cseg01:0001B23C                 dd offset loc_1B334//ac
+cseg01:0001B240                 dd offset loc_1B352//b0
+cseg01:0001B244                 dd offset loc_1B5CB//b4
+cseg01:0001B248                 dd offset loc_1B4DF//b8
+cseg01:0001B24C                 dd offset loc_1B4A0//bc
+cseg01:0001B250                 dd offset loc_1B5CB//c0
+cseg01:0001B254                 dd offset loc_1B398//c4
+cseg01:0001B258                 dd offset loc_1B3C9//c8
+cseg01:0001B25C                 dd offset loc_1B424//cc
+cseg01:0001B260                 dd offset loc_1B5CB//d0
+cseg01:0001B264                 dd offset loc_1B5CB//d4
+cseg01:0001B268                 dd offset loc_1B5CB//d8
+cseg01:0001B26C                 dd offset loc_1B450//dc
+cseg01:0001B270                 dd offset loc_1B5CB//e0
+cseg01:0001B274                 dd offset loc_1B352//e4
 cseg01:0001B278                 align 10h
 */
 
@@ -36517,20 +36766,20 @@ int sub_2EB40()
 // D41D0: using guessed type int x_DWORD_D41D0;
 
 //----- (0002EB60) --------------------------------------------------------
-int sub_2EB60()
+void sub_2EB60()
 {
-  int result; // eax
+  //int result; // eax
 
   if ( !x_BYTE_D41CE )
   {
     x_BYTE_D41CE = 1;
     x_BYTE_D41C1 = 1;
-    x_DWORD_F01E4 = (int)x_DWORD_180628b_screen_buffer + 64320;
-    x_WORD_F01F4 = 12800;
-    result = sub_2EC30();
+    x_DWORD_F01E4 = &x_DWORD_180628b_screen_buffer[0xfb40];//line 320x201 - after normal image
+    x_WORD_F01F4 = 0x3200;
+    sub_2EC30_clear_img_mem();
     x_DWORD_D41D0 = 0;
   }
-  return result;
+  //return result;
 }
 // D41C1: using guessed type char x_BYTE_D41C1;
 // D41CE: using guessed type char x_BYTE_D41CE;
@@ -36540,18 +36789,18 @@ int sub_2EB60()
 // 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 
 //----- (0002EBB0) --------------------------------------------------------
-int /*__cdecl*/ sub_2EBB0(Bit8u* a1)
+int /*__cdecl*/ sub_2EBB0_draw_text_with_border_630x340(Bit8u* a1)
 {
   int result; // eax
 
   if ( x_BYTE_D41CE )
   {
-    x_DWORD_D41D0 = (int)a1;
+    x_DWORD_D41D0 = a1;
     x_WORD_E36D4 = 64;
-    x_DWORD_180628b_screen_buffer += 9920;
+    x_DWORD_180628b_screen_buffer += 0x26C0;
     result = sub_7FCB0_draw_text_with_border(64, a1, 0, 630, 340, 5, x_BYTE_EB3B6, 0);
     x_WORD_E36D4 = 0;
-    x_DWORD_180628b_screen_buffer -= 9920;
+    x_DWORD_180628b_screen_buffer -= 0x26C0;
   }
   return result;
 }
@@ -36562,13 +36811,12 @@ int /*__cdecl*/ sub_2EBB0(Bit8u* a1)
 // 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 
 //----- (0002EC30) --------------------------------------------------------
-int sub_2EC30()
+void sub_2EC30_clear_img_mem()
 {
-  int result; // eax
+  //int result; // eax
 
   if ( x_BYTE_D41CE )
-    result = (int)memset((void*)x_DWORD_F01E4, 0, (unsigned __int16)x_WORD_F01F4);
-  return result;
+    memset((void*)x_DWORD_F01E4, 0, x_WORD_F01F4);  
 }
 // 8C250: using guessed type x_DWORD /*__cdecl*/ memset(x_DWORD, x_DWORD, x_DWORD);
 // D41CE: using guessed type char x_BYTE_D41CE;
@@ -36576,18 +36824,18 @@ int sub_2EC30()
 // F01F4: using guessed type __int16 x_WORD_F01F4;
 
 //----- (0002EC60) --------------------------------------------------------
-int sub_2EC60()
+void sub_2EC60()
 {
-  int result; // eax
+  //int result; // eax
 
   if ( x_BYTE_D41CE )
   {
-    result = sub_2EC30();
+    sub_2EC30_clear_img_mem();
     x_BYTE_D41C1 = 0;
     x_BYTE_D41CE = 0;
     x_DWORD_D41D0 = 0;
   }
-  return result;
+  //return result;
 }
 // D41C1: using guessed type char x_BYTE_D41C1;
 // D41CE: using guessed type char x_BYTE_D41CE;
@@ -36603,7 +36851,7 @@ char /*__cdecl*/ sub_2EC90(char a1)
     result = a1;
     x_BYTE_EB3B6 = a1;
     if ( x_DWORD_D41D0 )
-      result = sub_2EBB0((Bit8u*)x_DWORD_D41D0);
+      result = sub_2EBB0_draw_text_with_border_630x340((Bit8u*)x_DWORD_D41D0);
   }
   return result;
 }
@@ -53941,7 +54189,7 @@ void sub_46830_main_loop(signed __int16 *a1, signed int a2, unsigned __int16 a3)
       return;
     sub_48350(); //fix it //229350
 	//v4=0; //fix it
-    sub_76930(v5, a1);//set language //257930
+    sub_76930(v5, a1);//set language, intro, menu, atd. //257930
     if ( !x_D41A0_BYTEARRAY_0[2124 * x_D41A0_BYTEARRAY_4_struct.dwordindex_12 + 11234])
     {
       v6 = x_D41A0_BYTEARRAY_4_struct.levelnumber_43;
@@ -87623,12 +87871,17 @@ int sub_75DB0()//256db0
   int result; // eax
 
   x_DWORD_17D730 = x_DWORD_E1300;
-  sub_988A7_read((FILE*)x_DWORD_17DB38, (Bit8u*)&x_DWORD_17D720, 16);
-  while ( x_WORD_17D724 != -3590 )
+  sub_988A7_read(x_DWORD_17DB38, (Bit8u*)x_DWORD_17D720, 16);
+  x_WORD_17D724 = x_DWORD_17D720[1]&0xffff;
+  x_WORD_17D726 = (x_DWORD_17D720[2] & 0xffff0000)>>32;
+  /*sub_988A7_read(x_DWORD_17DB38, (Bit8u*)x_DWORD_17D720, 16);
+  sub_988A7_read(x_DWORD_17DB38, (Bit8u*)x_DWORD_17D720, 16);
+  sub_988A7_read(x_DWORD_17DB38, (Bit8u*)x_DWORD_17D720, 16);*/
+  while ( x_WORD_17D724 != 0xf1fa/*-3590*/ )
     myprintf("ERROR UNKNOWN FRAME TYPE\n");
-  sub_988A7_read((FILE*)x_DWORD_17DB38, (Bit8u*)x_DWORD_E9C38_smalltit, x_DWORD_17D720 - 16);
-  result = x_DWORD_17D720;
-  x_DWORD_E1300 += x_DWORD_17D720;
+  sub_988A7_read(x_DWORD_17DB38, x_DWORD_E9C38_smalltit, x_DWORD_17D720[0] - 16);
+  result = x_DWORD_17D720[0];
+  x_DWORD_E1300 += x_DWORD_17D720[0];
   return result;
 }
 // E1300: using guessed type int x_DWORD_E1300;
@@ -87675,7 +87928,7 @@ void /*__fastcall*/ sub_75E70(__int16 a1)//256e70
   x_BYTE_17D738[0] = 0;
   if ( x_WORD_17D724 == -3840 )
   {
-    sub_75D70(0, x_DWORD_17D720 - 16);
+    sub_75D70(0, x_DWORD_17D720[0] - 16);
     v1 = sub_75DB0();
     a1 = 0;sub_75E70(v1);
   }
@@ -88504,7 +88757,7 @@ int sub_76A40_lang_setting()//257A40
     {
       sub_988A7_read(configdatfile, (Bit8u*)&v11, 28);
 
-	  x_D41A0_BYTEARRAY_4_struct.byteindex_179 = *(Bit16u*)&v11[0];
+	  x_D41A0_BYTEARRAY_4_struct.byteindex_4 = *(Bit16u*)&v11[0];
 	  x_D41A0_BYTEARRAY_4_struct.dwordindex_6 = *(Bit16u*)&v11[2];
 	  x_D41A0_BYTEARRAY_4_struct.dwordindex_8 = *(Bit16u*)&v11[4];
 	  x_D41A0_BYTEARRAY_4_struct.byteindex_A = *(Bit16u*)&v11[6];
