@@ -1732,3 +1732,26 @@ if ( !byte_E3766 )
 	call 256e70
 	call 257540
 		call 256d70
+
+	x_DWORD_E12F4 = 000000
+	versus
+	2b22f4 = a4a03a00000000001000000
+
+	x_DWORD_180628b_screen_buffer
+
+	34eb50
+	a
+	x_DWORD_17DB50->a4523f
+
+	v3 = (char*)"COLOUR256 ";
+    sub_76260_read_intro_pallette(0x100);
+	-tady je to ok
+	v7 = (char*)"BRUN ";//ok
+    sub_76540();
+	-tady je to take ok
+	sub_75CB0();//256cb0
+    if ( v23 )
+  	-tady je to stale ok
+
+dalsi cyklus 8c - ok
+sub_76300 - chyba

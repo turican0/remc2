@@ -87920,6 +87920,7 @@ void /*__fastcall*/ sub_75E70()//256e70
 
   //fix it
   v21 = 0;
+  x_DWORD_17DB54 = 0x40;
   //fix it
 
   //HIBYTE(a1) = 0;
@@ -87965,7 +87966,7 @@ void /*__fastcall*/ sub_75E70()//256e70
           break;
         case 7:
           v7 = (char*)"SS2 ";
-          sub_76300();
+          sub_76300();//257300 - uz by mel byt vykreslen text
           goto LABEL_23;
         case 0xB:
           sub_76260_read_intro_pallette(0x40);
@@ -87995,7 +87996,7 @@ void /*__fastcall*/ sub_75E70()//256e70
           goto LABEL_23;
         case 0xF:
           v7 = (char*)"BRUN ";//ok
-          sub_76540();
+          sub_76540();//257540
           goto LABEL_23;
         case 0x10:
           sub_75D70(x_DWORD_E12F4, x_WORD_17DB4A * x_WORD_17DB48);
@@ -88042,7 +88043,6 @@ LABEL_23:
   }
   if ( x_DWORD_17DB3C )
     x_DWORD_17DB3C();
-  x_DWORD_17DB54 = 0x40;//little hack
   sub_75CB0();//256cb0
   if ( v23 )
   {
@@ -88173,34 +88173,34 @@ void sub_76260_read_intro_pallette(Bit8u a1)
 }
 
 //----- (00076300) --------------------------------------------------------
-void sub_76300()
+void sub_76300()//257300
 {
   int v0; // edi
   __int16 result; // ax
   Bit8u* v2; // esi
-  char *v3; // ebx
+  Bit8u* v3; // ebx
   unsigned __int16 v4; // cx
-  unsigned __int16 v5; // [esp+0h] [ebp-1Ch]
-  int v6; // [esp+4h] [ebp-18h]
+  Bit16u v5; // [esp+0h] [ebp-1Ch]
+  //int v6; // [esp+4h] [ebp-18h]
   int i; // [esp+8h] [ebp-14h]
   int v8; // [esp+Ch] [ebp-10h]
-  int v9; // [esp+10h] [ebp-Ch]
-  char v10; // [esp+14h] [ebp-8h]
-  unsigned __int8 v11; // [esp+18h] [ebp-4h]
+  Bit16u v9; // [esp+10h] [ebp-Ch]
+  Bit8s v10; // [esp+14h] [ebp-8h]
+  Bit8u v11; // [esp+18h] [ebp-4h]
 
   v0 = 0;
   /*result = */sub_75D70((Bit8u*)&v5, 2u);
-  v2 = x_DWORD_E12F4;
+  v2 = x_DWORD_E12F4;//2b22f4
   if ( v5 > 0u )
   {
     do
     {
-      v3 = (char *)v2;
+      v3 = v2;
       sub_75D70((Bit8u*)&v9, 2u);
       if ( (v9 & 0x8000) == 0 )
       {
-        v6 = v9;
-        for ( i = 0; i < v6; ++i )
+        //v6 = v9;
+        for ( i = 0; i < v9; i++ )
         {
           sub_75D70((Bit8u*)&v11, 1u);
           v3 += v11;
@@ -88220,15 +88220,15 @@ void sub_76300()
             while ( abs(v10) > v4 )
             {
               v3 += 2;
-              ++v4;
-              *((x_WORD *)v3 - 1) = v8;
+              v4++;
+              *((Bit16s*)v3 - 1) = v8;
             }
           }
         }
       }
       else if ( v9 & 0x4000 )
       {
-        --v0;
+        v0--;
         v2 += x_WORD_17DB48 * (abs(v9) - 1);
       }
       else
@@ -88236,7 +88236,7 @@ void sub_76300()
         *(x_BYTE *)(v2 + x_WORD_17DB48 - 1) = v9;
       }
       //result = x_WORD_17DB48;
-      ++v0;
+      v0++;
       v2 += x_WORD_17DB48;
     }
     while ( v0 < v5 );
@@ -88308,7 +88308,7 @@ LABEL_8:
 // 17DB48: using guessed type __int16 x_WORD_17DB48;
 
 //----- (00076540) --------------------------------------------------------
-int sub_76540()
+int sub_76540()//257540
 {
   Bit8u* v0; // esi
   char *v1; // ebx
