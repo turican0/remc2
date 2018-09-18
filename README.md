@@ -4,7 +4,7 @@
 <br />
 simple dev blog:[https://github.com/turican0/remc2/wiki]<br />
 ## 0.10:<br />
--fix load and save language config<br />
+-fixed load and save language config<br />
 -can play part of intro<br />
 <br />
 ## 0.09:<br />
