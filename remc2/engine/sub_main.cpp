@@ -2628,7 +2628,7 @@ void sub_75D70(Bit8u* a1, Bit32u a2);
 void sub_75DB0();
 void /*__fastcall*/ sub_75E70();
 void sub_76160(__int16 a1, __int16 a2, Bit8u* a3);
-void sub_76260(Bit8u a1);
+void sub_76260_read_intro_pallette(Bit8u a1);
 void sub_76300();
 int sub_76430();
 int sub_76540();
@@ -3041,7 +3041,7 @@ signed int /*__cdecl*/ sub_99E8E(unsigned __int8 *a1, unsigned __int8 **a2, sign
 signed int /*__cdecl*/ sub_99FF0(unsigned __int8 *a1, unsigned __int8 **a2, signed int a3);
 int /*__cdecl*/ sub_99FF5(unsigned __int8 a1);
 // x_DWORD /*__cdecl*/ strcmp(x_DWORD, x_DWORD); weak
-unsigned __int8 sub_9A0FC();
+void sub_9A0FC_wait_to_screen_beam();
 signed int /*__fastcall*/ sub_9A10A_check_keyboard(signed int result);
 x_DWORD /*__cdecl*/ j___delay(x_DWORD); // weak
 void sub_9A128_copy_screen_320(void* source, void* desc, Bit16u countlines);
@@ -13134,7 +13134,7 @@ Bit16u x_WORD_17D724; // weak 4
 Bit16u x_WORD_17D726; // weak 6
 int x_DWORD_17D730; // weak 
 char x_BYTE_17D738[256]; // idb
-Bit8u unk_17D838; // weak
+Bit8u unk_17D838[0x300]; // weak
 FILE* x_DWORD_17DB38_intro_file_handle; // weak
 int (/*__fastcall*/ *x_DWORD_17DB3C)(); // weak
 Bit8u unk_17DB40[12]; // weak
@@ -54153,7 +54153,7 @@ char /*__cdecl*/ sub_46570(unsigned __int16 a1, __int16 a2)
 //----- (00046820) --------------------------------------------------------
 int sub_46820()
 {
-  ++x_DWORD_17DB54;
+  x_DWORD_17DB54++;
   return 0;
 }
 // 17DB54: using guessed type int x_DWORD_17DB54;
@@ -54736,30 +54736,30 @@ int sub_473E0()
   {
     if ( x_BYTE_18068E || x_BYTE_18069A )
     {
-      if ( (unsigned __int8)x_BYTE_1806E4 < 0x36u )
+      if ( x_BYTE_1806E4 < 0x36u )
       {
         if ( x_BYTE_1806E4 != 42 )
           goto LABEL_24;
       }
-      else if ( (unsigned __int8)x_BYTE_1806E4 > 0x36u
-             && ((unsigned __int8)x_BYTE_1806E4 < 0x3Bu || (unsigned __int8)x_BYTE_1806E4 > 0x3Fu && x_BYTE_1806E4 != 66) )
+      else if ( x_BYTE_1806E4 > 0x36u
+             && (x_BYTE_1806E4 < 0x3Bu || x_BYTE_1806E4 > 0x3Fu && x_BYTE_1806E4 != 66) )
       {
         goto LABEL_24;
       }
     }
-    else if ( (unsigned __int8)x_BYTE_1806E4 < 0x3Bu )
+    else if ( x_BYTE_1806E4 < 0x3Bu )
     {
       if ( x_BYTE_1806E4 != 19 )
         goto LABEL_24;
     }
-    else if ( (unsigned __int8)x_BYTE_1806E4 > 0x3Bu
-           && ((unsigned __int8)x_BYTE_1806E4 < 0x3Fu || (unsigned __int8)x_BYTE_1806E4 > 0x41u) )
+    else if ( x_BYTE_1806E4 > 0x3Bu
+           && (x_BYTE_1806E4 < 0x3Fu || x_BYTE_1806E4 > 0x41u) )
     {
 LABEL_24:
       HIBYTE(v1) = HIBYTE(x_WORD_F42A8);
       if ( x_WORD_F42A8 )
       {
-        x_WORD_F42AE = (unsigned __int8)x_BYTE_1806E4;
+        x_WORD_F42AE = x_BYTE_1806E4;
       }
       else
       {
@@ -86335,7 +86335,7 @@ signed int /*__fastcall*/ sub_72FBB(int a1, int a2, signed __int16 *a3)
   {
     if ( *(x_BYTE *)(x_DWORD_E12AE[0] + 49) != -1 )
       return 1;
-    if ( (unsigned int)(x_DWORD_17DB54 - i) > 0x78 )
+    if ( (x_DWORD_17DB54 - i) > 0x78 )
       break;
   }
   sub_748F7(0);
@@ -87814,7 +87814,7 @@ void sub_75C50()
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
 //----- (00075CB0) --------------------------------------------------------
-void sub_75CB0()
+void sub_75CB0()//256cb0
 {
   if ( x_WORD_E12FE && sub_473E0() )
   {
@@ -87912,7 +87912,7 @@ void /*__fastcall*/ sub_75E70()//256e70
   char v17; // al
   char v18; // al
   char v19; // al
-  Bit8u v20x[8]; // [esp+0h] [ebp-10h]
+  Bit8u v20x[6]; // [esp+0h] [ebp-10h]
   Bit32u v20y; // [esp+0h] [ebp-10h]
   int v21; // [esp+4h] [ebp-Ch]
   Bit8u* v22; // [esp+8h] [ebp-8h]
@@ -87943,16 +87943,16 @@ void /*__fastcall*/ sub_75E70()//256e70
       v22 = x_DWORD_17DB50;
       sub_75D70(v20x, 6u);
 	  v20y = *(Bit32u*)&v20x;
-      switch (*(Bit16u*)(&v20x[4]))
+      switch (*(Bit16u*)(&v20x[4]))//4? b
       {
         case 4:
           v3 = (char*)"COLOUR256 ";
-          sub_76260(0x100);
+          sub_76260_read_intro_pallette(0x100);
           v4 = &x_BYTE_17D738[strlen(x_BYTE_17D738)];
           do
           {
-            v5 = *v3;
-            *v4 = *v3;
+            v5 = v3[0];
+            v4[0] = v3[0];
             if ( !v5 )
               break;
             v6 = v3[1];
@@ -87968,7 +87968,7 @@ void /*__fastcall*/ sub_75E70()//256e70
           sub_76300();
           goto LABEL_23;
         case 0xB:
-          sub_76260(0x40);
+          sub_76260_read_intro_pallette(0x40);
           v8 = (char*)"COLOUR ";
           v9 = &x_BYTE_17D738[strlen(x_BYTE_17D738)];
           do
@@ -87994,7 +87994,7 @@ void /*__fastcall*/ sub_75E70()//256e70
           v7 = (char*)"BLACK ";
           goto LABEL_23;
         case 0xF:
-          v7 = (char*)"BRUN ";
+          v7 = (char*)"BRUN ";//ok
           sub_76540();
           goto LABEL_23;
         case 0x10:
@@ -88022,8 +88022,8 @@ LABEL_23:
           v16 = &x_BYTE_17D738[strlen(x_BYTE_17D738)];
           do
           {
-            v17 = *v7;
-            *v16 = *v7;
+            v17 = v7[0];
+            v16[0] = v7[0];
             if ( !v17 )
               break;
             v18 = v7[1];
@@ -88042,15 +88042,16 @@ LABEL_23:
   }
   if ( x_DWORD_17DB3C )
     x_DWORD_17DB3C();
-  sub_75CB0();
+  x_DWORD_17DB54 = 0x40;//little hack
+  sub_75CB0();//256cb0
   if ( v23 )
   {
-    sub_9A0FC();
+    sub_9A0FC_wait_to_screen_beam();//27b0fc
     if ( x_WORD_E12FC )
     {
-      sub_41A90_VGA_pallette_install(&unk_17D838);
-      v19 = sub_5BE80_test_pallette(&unk_17D838, 0x3Fu, 0x3Fu, 0x3Fu);
-      sub_2EC90(v19);
+      sub_41A90_VGA_pallette_install(unk_17D838);
+      v19 = sub_5BE80_test_pallette(unk_17D838, 0x3Fu, 0x3Fu, 0x3Fu);
+      sub_2EC90(v19);//20fc90
     }
   }
   if ( x_BYTE_D41C1 )
@@ -88136,9 +88137,9 @@ void sub_76160(__int16 a1, __int16 a2, Bit8u* a3)//257160
 // 180746: using guessed type __int16 x_WORD_180746;
 
 //----- (00076260) --------------------------------------------------------
-void sub_76260(Bit8u a1)
+void sub_76260_read_intro_pallette(Bit8u a1)
 {
-  char *v0; // ebx
+  Bit8u* v0; // ebx
   int v1; // esi
   unsigned int result; // eax
   unsigned __int16 v3; // di
@@ -88146,7 +88147,7 @@ void sub_76260(Bit8u a1)
   Bit32s v5; // [esp+4h] [ebp-8h]
   unsigned __int8 v6; // [esp+8h] [ebp-4h]
 
-  v0 = (char *)&unk_17D838;
+  v0 = unk_17D838;
   v1 = 0;
   /*result = */sub_75D70((Bit8u*)&v4, 2u);
   if ( v4 > 0u )
@@ -88158,15 +88159,13 @@ void sub_76260(Bit8u a1)
       v5 = 0;
       /*result = */sub_75D70((Bit8u*)&v5, 1u);
       if ( !v5 )
-        v5 = 256;
-      v3 = 0;
-      while ( v3 < v5 )
-      {
-        ++v3;
-        /*result = */sub_75D70((Bit8u*)v0, 3u);
+        v5 = 256;      
+	  for (v3 = 0; v3 < v5;v3++)//mybe read pallette
+      {        
+        sub_75D70(v0, 3u);
         v0 += 3;
       }
-      ++v1;
+      v1++;
     }
     while ( v1 < v4 );
   }
@@ -88324,12 +88323,12 @@ int sub_76540()
   while ( 1 )
   {
     result = v4;
-    if ( (unsigned __int16)v4 >= (unsigned __int16)x_WORD_17DB4A )
+    if ( v4 >= x_WORD_17DB4A )
       break;
     v1 = (char *)v0;
     v2 = 0;
     sub_75D70(0, 1u);
-    while ( v2 < (unsigned __int16)x_WORD_17DB48 )
+    while ( v2 < x_WORD_17DB48 )
     {
       sub_75D70((Bit8u*)&v6, 1u);
       if ( v6 >= 0 )
@@ -88349,7 +88348,7 @@ int sub_76540()
       v1 += v6;
     }
     ++v4;
-    v0 += (unsigned __int16)x_WORD_17DB48;
+    v0 += x_WORD_17DB48;
   }
   return result;
 }
@@ -88690,7 +88689,7 @@ signed int /*__fastcall*/ sub_76930(int a2, signed __int16 *a3)//257930
         sub_76D10(0);//257d10 uvodni obrazek a intro
         break;
       case 4:
-        v3 = sub_76FA0(v3, v4, a3);//257fa0 intro
+        v3 = sub_76FA0(v3, v4, a3);//257fa0 intro-neni intro
         break;
       case 5:
         x_WORD_E29DC = 1;
@@ -92689,7 +92688,7 @@ void /*__cdecl*/ sub_7C800(signed __int16 a1)
     v13[2] = (unsigned __int16)(*(unsigned __int8 *)(v15 + 2) * v1) >> 8;
   else
     v13[2] = v17;
-  sub_9A0FC();
+  sub_9A0FC_wait_to_screen_beam();
   sub_41A90_VGA_pallette_install((unsigned __int8 *)x_DWORD_17DE38);
 }
 // 17DE38: using guessed type int x_DWORD_17DE38;
@@ -92726,7 +92725,7 @@ void /*__cdecl*/ sub_7C9D0(signed __int16 a1)
   *(x_BYTE *)(x_DWORD_17DE38 + 444) -= (unsigned __int16)(v1 * *(unsigned __int8 *)(x_DWORD_17DE38 + 444)) >> 8;
   *(x_BYTE *)(v5 + 445) -= (unsigned __int16)(v1 * *(unsigned __int8 *)(v5 + 445)) >> 8;
   *(x_BYTE *)(v5 + 446) -= (unsigned __int16)(*(unsigned __int8 *)(v5 + 446) * v1) >> 8;
-  sub_9A0FC();
+  sub_9A0FC_wait_to_screen_beam();
   sub_41A90_VGA_pallette_install((unsigned __int8 *)x_DWORD_17DE38);
 }
 // 17DE38: using guessed type int x_DWORD_17DE38;
@@ -108939,7 +108938,7 @@ void /*__cdecl*/ sub_90B27_VGA_pal_fadein_fadeout(Bit8u *newpalbuffer, Bit8u sha
 			//outbuffer[i] = x_BYTE_181544_oldpalbuffer[i] + ((unk_181B42 >> 16)* (newpalbuffer[i] - x_BYTE_181544_oldpalbuffer[i])/ shadow_levels);
 			outbuffer[i] = x_BYTE_181544_oldpalbuffer[i] + (j* (newpalbuffer[i] - x_BYTE_181544_oldpalbuffer[i]) / shadow_levels);
 		}
-		//sub_9A0FC();
+		sub_9A0FC_wait_to_screen_beam();
 		sub_41A90_VGA_pallette_install(outbuffer);
 	}
 	else
@@ -108975,7 +108974,7 @@ void /*__cdecl*/ sub_90B27_VGA_pal_fadein_fadeout(Bit8u *newpalbuffer, Bit8u sha
 				//outbuffer[i] = x_BYTE_181544_oldpalbuffer[i] + ((unk_181B42 >> 16) * (newpalbuffer[i] - x_BYTE_181544_oldpalbuffer[i]) / shadow_levels);//352b42 352544
 				outbuffer[i] = x_BYTE_181544_oldpalbuffer[i] + (j * (newpalbuffer[i] - x_BYTE_181544_oldpalbuffer[i]) / shadow_levels);//352b42 352544
 			}
-			//sub_9A0FC();
+			sub_9A0FC_wait_to_screen_beam();
 			sub_41A90_VGA_pallette_install(outbuffer);
 			mydelay(50);
 		}
@@ -109028,7 +109027,7 @@ __int16 /*__cdecl*/ sub_90B27_VGA_pal_fadein_fadeout_orig(char *a1, unsigned __i
                                            * (signed int)(signed __int16)((unsigned __int8)v5 - (unsigned __int8)v6)
                                            / a2);
     }
-    sub_9A0FC();
+    sub_9A0FC_wait_to_screen_beam();
     sub_41A90_VGA_pallette_install((unsigned __int8 *)v8);
   }
   else
@@ -109053,7 +109052,7 @@ __int16 /*__cdecl*/ sub_90B27_VGA_pal_fadein_fadeout_orig(char *a1, unsigned __i
                                              * (signed int)(signed __int16)((unsigned __int8)v3 - (unsigned __int8)v4)
                                              / a2);
       }
-      sub_9A0FC();
+      sub_9A0FC_wait_to_screen_beam();
       sub_41A90_VGA_pallette_install((unsigned __int8 *)v8);
     }
     x_BYTE_E390C_VGA_pal_not_begin = 0;
@@ -111776,14 +111775,15 @@ int /*__cdecl*/ sub_99FF5(unsigned __int8 a1)
 // AB952: using guessed type x_DWORD /*__cdecl*/ x_tolower(x_DWORD);
 
 //----- (0009A0FC) --------------------------------------------------------
-unsigned __int8 sub_9A0FC()
+void sub_9A0FC_wait_to_screen_beam()
 {
-  unsigned __int8 result; // al
+  /*unsigned __int8 result; // al
 
   do
     result = __inx_BYTE(0x3DAu);
   while ( !(result & 8) );
-  return result;
+  return result;*/
+  mydelay(10);
 }
 
 //----- (0009A10A) --------------------------------------------------------

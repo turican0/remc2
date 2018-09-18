@@ -1722,3 +1722,13 @@ if ( !byte_E3766 )
 	edx - 40
 	3551e6
 	3f52a8
+
+	x_WORD_E12FE je 0
+	2b22fe ma byt 08a400
+	v 257160 - to je ok
+
+	x_DWORD_17DB54
+	34eb54 ma byt 8b nebo 98 nebo ba nebo 40
+	call 256e70
+	call 257540
+		call 256d70
