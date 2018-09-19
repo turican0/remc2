@@ -1583,10 +1583,10 @@ int /*__cdecl*/ sub_2E790(__int16 a1, int a2, int a3, int a4, unsigned __int8 a5
 int /*__cdecl*/ sub_2E850(__int16 a1, int a2, int a3, int a4, unsigned __int8 a5);
 void sub_2EB40();
 void sub_2EB60();
-int /*__cdecl*/ sub_2EBB0_draw_text_with_border_630x340(Bit8u* a1);
+void sub_2EBB0_draw_text_with_border_630x340(Bit8u* a1);
 void sub_2EC30_clear_img_mem();
 void sub_2EC60();
-char /*__cdecl*/ sub_2EC90(char a1);
+void sub_2EC90(char a1);
 __int16 sub_2ECC0();
 int sub_2F6B0();
 char sub_2FD90();
@@ -2454,7 +2454,7 @@ int /*__cdecl*/ sub_6F8E0(int a1, int a2);
 int /*__cdecl*/ sub_6F940(x_BYTE *a1, int a2, int a3, unsigned __int8 a4);
 __int16 sub_6FC10();
 __int16 sub_6FC30();
-int /*__cdecl*/ sub_6FC50(__int16 a1);
+void sub_6FC50(__int16 a1);
 unsigned int /*__cdecl*/ sub_6FC80(char *a1, __int16 a2, __int16 a3, __int16 a4, unsigned __int8 a5);
 int sub_6FD30(); // weak
 int sub_6FDA0();
@@ -2689,7 +2689,7 @@ int sub_84050();
 // __int16 sub_840D3(char _CF, bool _ZF, char _SF, char _OF);
 // void /*__spoils<st0>*/ sub_841CE(__int16 a1);
 bool /*__cdecl*/ sub_84250_load_file_array(int psindex);
-Bit32s sub_84300(Bit8u a1);
+Bit32s sub_84300_play_sound(Bit8u a1);
 void sub_844A0();
 char /*__cdecl*/ sub_844F0(FILE* a1, unsigned __int8 a2);
 int sub_84790();
@@ -21671,7 +21671,7 @@ void sub_loc_1B2F7() {
 }
 void sub_loc_1B316(Bit8u a1) {
 	sub_8D8F0();
-	sub_84300(a1);
+	sub_84300_play_sound(a1);
 	//x_WORD_D4004++;
 }
 void sub_loc_1B334() {
@@ -21687,7 +21687,7 @@ void sub_loc_1B352() {
 }
 void sub_loc_1B36C() {
 	sub_2EC30_clear_img_mem();
-	x_WORD_D4004++;
+	//x_WORD_D4004++;
 }
 void sub_loc_1B37D() {
 	sub_2EBB0_draw_text_with_border_630x340(x_DWORD_E9C4C_langindexbuffer[tempedx]);
@@ -21862,7 +21862,7 @@ cseg01:0001B316                 call    sub_8D8F0
 cseg01:0001B31B                 xor     eax, eax
 cseg01:0001B31D                 mov     al, bl
 cseg01:0001B31F                 push    eax
-cseg01:0001B320                 call    sub_84300
+cseg01:0001B320                 call    sub_84300_play_sound
 cseg01:0001B325                 add     esp, 4
 cseg01:0001B328                 inc     word_D4004
 cseg01:0001B32F                 jmp     loc_1B289
@@ -36731,20 +36731,20 @@ void sub_2EB60()
 // 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 
 //----- (0002EBB0) --------------------------------------------------------
-int /*__cdecl*/ sub_2EBB0_draw_text_with_border_630x340(Bit8u* a1)
+void sub_2EBB0_draw_text_with_border_630x340(Bit8u* a1)
 {
-  int result; // eax
+  //int result; // eax
 
   if ( x_BYTE_D41CE )
   {
     x_DWORD_D41D0 = a1;
     x_WORD_E36D4 = 64;
     x_DWORD_180628b_screen_buffer += 0x26C0;
-    result = sub_7FCB0_draw_text_with_border(64, a1, 0, 630, 340, 5, x_BYTE_EB3B6, 0);
+    /*result = */sub_7FCB0_draw_text_with_border(64, a1, 0, 630, 340, 5, x_BYTE_EB3B6, 0);
     x_WORD_E36D4 = 0;
     x_DWORD_180628b_screen_buffer -= 0x26C0;
   }
-  return result;
+  //return result;
 }
 // D41CE: using guessed type char x_BYTE_D41CE;
 // D41D0: using guessed type int x_DWORD_D41D0;
@@ -36784,18 +36784,18 @@ void sub_2EC60()
 // D41D0: using guessed type int x_DWORD_D41D0;
 
 //----- (0002EC90) --------------------------------------------------------
-char /*__cdecl*/ sub_2EC90(char a1)
+void sub_2EC90(char a1)
 {
-  char result; // al
+  //char result; // al
 
   if ( x_BYTE_D41CE )
   {
-    result = a1;
+    //result = a1;
     x_BYTE_EB3B6 = a1;
     if ( x_DWORD_D41D0 )
-      result = sub_2EBB0_draw_text_with_border_630x340((Bit8u*)x_DWORD_D41D0);
+      /*result = */sub_2EBB0_draw_text_with_border_630x340((Bit8u*)x_DWORD_D41D0);
   }
-  return result;
+  //return result;
 }
 // D41CE: using guessed type char x_BYTE_D41CE;
 // D41D0: using guessed type int x_DWORD_D41D0;
@@ -66176,14 +66176,14 @@ int /*__cdecl*/ sub_56C00(int a1)
       x_BYTE_DAE22 = 2;
       x_WORD_DAE1E = 244;
       *(x_BYTE *)(x_DWORD_D41A0 + 8600) = 0;
-      sub_84300(0);
+      sub_84300_play_sound(0);
       x_BYTE_D419E = 1;
     }
   }
   else if ( v1 <= 1u )
   {
     *(x_BYTE *)(x_DWORD_D41A0 + 8600) = 0;
-    sub_84300(1u);
+    sub_84300_play_sound(1u);
     x_BYTE_D419E = 9;
   }
   else if ( v1 == 2 )
@@ -66191,7 +66191,7 @@ int /*__cdecl*/ sub_56C00(int a1)
     *(x_BYTE *)(x_DWORD_D41A0 + 8600) = 1;
     x_BYTE_D41B6 = 1;
     x_BYTE_D41B7 = *(x_BYTE *)(a1 + 5);
-    sub_84300(2u);
+    sub_84300_play_sound(2u);
     x_BYTE_D419E = 10;
   }
   sub_5C0A0();
@@ -84296,7 +84296,7 @@ __int16 sub_6FC30()
 // EA3D4: using guessed type int x_DWORD_EA3D4;
 
 //----- (0006FC50) --------------------------------------------------------
-int /*__cdecl*/ sub_6FC50(__int16 a1)
+void sub_6FC50(__int16 a1)
 {
   int result; // eax
   int v2; // edx
@@ -84306,7 +84306,7 @@ int /*__cdecl*/ sub_6FC50(__int16 a1)
   if ( !v2 )
     v2 = x_DWORD_E9B20[0];
   x_DWORD_EA3D4 = v2;
-  return result * 4;
+  //return result * 4;
 }
 // E9B20: using guessed type int x_DWORD_E9B20[];
 // EA3D4: using guessed type int x_DWORD_EA3D4;
@@ -88053,8 +88053,8 @@ void sub_76160_play_intro(__int16 a1, __int16 a2, Bit8u* a3)//257160
         break;
       if ( x_WORD_17DB60 >= x_WORD_17DB46 - 1 )//34eb60 a 34eb46
         break;
-      sub_1B280(a3);//1fc280
-      /*v4 = */sub_75DB0();//256db0 
+      sub_1B280(a3);//1fc280 - asi vykresleni textu
+      /*v4 = */sub_75DB0();//256db0 - read header
       sub_75E70(/*v4*/);//256e70 - draw intro frame
       x_WORD_17DB60++;
     }
@@ -88116,18 +88116,33 @@ void sub_76260_read_intro_pallette(Bit8u a1)
 //----- (00076300) --------------------------------------------------------
 void sub_76300()//257300
 {
-  int v0; // edi
+  Bit32s v0; // edi
+  Bit16s result; // ax
+  Bit8u* v2; // esi
+  Bit8u* v3; // ebx
+  Bit16u v4; // cx
+  Bit16u v5; // [esp+0h] [ebp-1Ch]
+  //int v6; // [esp+4h] [ebp-18h]
+  Bit32s i; // [esp+8h] [ebp-14h]
+  Bit16s v8; // [esp+Ch] [ebp-10h]
+  Bit16s v9; // [esp+10h] [ebp-Ch]
+  Bit8s v10; // [esp+14h] [ebp-8h]
+  Bit8u v11; // [esp+18h] [ebp-4h]
+
+	/*
+	int v0; // edi
   __int16 result; // ax
   Bit8u* v2; // esi
   Bit8u* v3; // ebx
   unsigned __int16 v4; // cx
-  Bit16u v5; // [esp+0h] [ebp-1Ch]
+  Bit16s v5; // [esp+0h] [ebp-1Ch]
   //int v6; // [esp+4h] [ebp-18h]
   int i; // [esp+8h] [ebp-14h]
-  int v8; // [esp+Ch] [ebp-10h]
-  Bit16u v9; // [esp+10h] [ebp-Ch]
+  Bit16s v8; // [esp+Ch] [ebp-10h]
+  Bit16s v9; // [esp+10h] [ebp-Ch]
   Bit8s v10; // [esp+14h] [ebp-8h]
-  Bit8u v11; // [esp+18h] [ebp-4h]
+  Bit8s v11; // [esp+18h] [ebp-4h]
+  */
 
   v0 = 0;
   /*result = */sub_75D70((Bit8u*)&v5, 2u);
@@ -88967,7 +88982,7 @@ int /*__fastcall*/ sub_76FA0(int a1, int a2, signed __int16 *a3x)//257fa0
   v25 = 0;
   int386(0x21, (REGS*)&v24, (REGS*)&v24);//get set ctrl break*/
   sub_86860(x_WORD_1803EC);//267860
-  sub_84300(0);//265300
+  sub_84300_play_sound(0);//265300
   memset(&x_DWORD_17DBB8, 0, 16);
   x_BYTE_17DBC6 = 2;
   x_WORD_17DF04 = -1;
@@ -90345,7 +90360,7 @@ char sub_78E00(int a1, int a2, signed __int16 *a3)
 
   v28 = 0;
   v26 = j___clock();
-  v3 = sub_6FC50(1);
+  /*v3 = */sub_6FC50(1);
   LOWORD(v3) = a3[13];
   v29 = v3 + 10;
   HIWORD(v3) = HIWORD(x_DWORD_17DED4);
@@ -93594,7 +93609,7 @@ char sub_7DE80(int a1, int a2)
   memset(printbuffer, 0, 10);
   *(x_DWORD *)(a2 + 4) = 0;
   v3 = j___clock();
-  v4 = sub_6FC50(1);
+  /*v4 = */sub_6FC50(1);
   LOWORD(v4) = *(x_WORD *)(a2 + 26);
   v22 = v4 + 10;
   HIWORD(v4) = HIWORD(x_DWORD_17DED4);
@@ -95024,24 +95039,24 @@ int sub_7F960(Bit8u* a1, Bit8u* a2, Bit8u* a3, char* langcountstring, posistruct
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
 //----- (0007FAE0) --------------------------------------------------------
-Bit32u /*__cdecl*/ sub_7FAE0_draw_text(char* a1, __int16 a2, __int16 a3, __int16 a4, unsigned __int8 a5)//260ae0
+Bit32u /*__cdecl*/ sub_7FAE0_draw_text(char* text, Bit16s a2, Bit16s a3, Bit16s posy, Bit8u a5)//260ae0
 {
   Bit32u helpstrlen; // kr04_4
-  __int16 v6; // bx
-  int v7; // ebx
+  Bit16s v6; // bx
+  Bit32s posx; // ebx
 
-  helpstrlen = strlen(a1);
+  helpstrlen = strlen(text);
   v6 = a3 - a2;//ebx[ebx+1c] - 1e2 edx[ebp+18] - 12a
   if (helpstrlen == 1 )
   {
-    v7 = a2 + v6 / 2;
+	  posx = a2 + v6 / 2;
   }
   else
   {
-    v7 = v6 / 2 + a2 - x_DWORD_17DEC0_spritestr[65].sizex * helpstrlen / 2;
-    sub_7FB90(a1, v7, a4, a5);//"clisk here to" 13d 138 0
+	posx = v6 / 2 + a2 - x_DWORD_17DEC0_spritestr[65].sizex * helpstrlen / 2;
+    sub_7FB90(text, posx, posy, a5);//"clisk here to" 13d 138 0
   }
-  return v7 + x_DWORD_17DEC0_spritestr[65].sizex * strlen(a1);
+  return posx + x_DWORD_17DEC0_spritestr[65].sizex * strlen(text);
 }
 // 17DEC0: using guessed type int (int)x_DWORD_17DEC0;
 
@@ -95390,7 +95405,7 @@ int sub_7FCB0_draw_text_with_border(int a1, Bit8u* a2, Bit32s a3, Bit32s a4, int
 				goto LABEL_38;
 		}
 	LABEL_39:
-		if (v22)
+		if (v22)//space in text
 		{
 			if (v101)
 			{
@@ -95401,7 +95416,7 @@ int sub_7FCB0_draw_text_with_border(int a1, Bit8u* a2, Bit32s a3, Bit32s a4, int
 				}
 				else
 				{
-					v25 = x_DWORD_17DEC0[394];
+					v25 = x_DWORD_17DEC0_spritestr[65].sizex;
 				}
 				v89 = k;
 				v26 = v99;
@@ -95510,7 +95525,7 @@ int sub_7FCB0_draw_text_with_border(int a1, Bit8u* a2, Bit32s a3, Bit32s a4, int
 					else
 					{
 						//HIWORD(v43) = HIWORD(x_DWORD_17DEC0);
-						v43 = x_DWORD_17DEC0[395];
+						v43 = x_DWORD_17DEC0_spritestr[65].sizey;
 						v98 += v43;
 					}
 					memset(v87, 0, 180);
@@ -95533,10 +95548,10 @@ int sub_7FCB0_draw_text_with_border(int a1, Bit8u* a2, Bit32s a3, Bit32s a4, int
 	{
 		if (a6 && a6 != 4)
 		{
-			sub_6FC50(v86);
+			sub_6FC50(1/*v86*/);
 			if (a6 == 2)
 			{
-				sub_6FC50(v86);
+				sub_6FC50(1/*v86*/);
 				v57 = 0;
 				v58 = (x_BYTE *)(v99 + 640 * a1);
 				v59 = (int)x_DWORD_180628b_screen_buffer;
@@ -97544,7 +97559,7 @@ signed int /*__cdecl*/ sub_83250(char a1)
   // fix it! sub_8CD27_set_cursor((Bit8u**)(int)x_DWORD_17DED4 + 234);
   x_WORD_17DEEE = 0;
   x_BYTE_17DF10_ctrl_shift_status = 0;
-  return sub_84300(0);
+  return sub_84300_play_sound(0);
 }
 // 8C250: using guessed type x_DWORD /*__cdecl*/ memset(x_DWORD, x_DWORD, x_DWORD);
 // EA3D8: using guessed type int *xadatapald0dat2.var28_begin_buffer;
@@ -98322,7 +98337,7 @@ bool /*__cdecl*/ sub_84250_load_file_array(int psindex)//265250
 // EA3D8: using guessed type int *xadatapald0dat2.var28_begin_buffer;
 
 //----- (00084300) --------------------------------------------------------
-Bit32s sub_84300(Bit8u a1)//265300
+Bit32s sub_84300_play_sound(Bit8u a1)//265300
 {
   FILE* v1; // eax
   FILE* v2; // ebx
@@ -105645,7 +105660,7 @@ void sub_8D800()
   v0 = 1;
   while ( v0 )
   {
-    v0 = sub_84300(x_BYTE_E37AC);
+    v0 = sub_84300_play_sound(x_BYTE_E37AC);
     if ( v0 )
     {
       if ( (unsigned __int16)x_WORD_E37B6 < 0x336u )

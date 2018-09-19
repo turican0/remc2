@@ -1755,3 +1755,13 @@ if ( !byte_E3766 )
 
 dalsi cyklus 8c - ok
 sub_76300 - chyba
+
+dosbox - discoverwhich 0 276 174 0
+sub_7FAE0_draw_text(v87, v99, a4, v98, v86);
+remc2 discoverwhich 0 276 15c 0
+
+x_DWORD_17DEC0
+versus
+34eec0
+
+x_DWORD_17DEC0[394];//x_DWORD_17DEC0_spritestr[65]
