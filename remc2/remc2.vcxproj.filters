@@ -22,11 +22,8 @@
     <Filter Include="Zdrojové soubory\sdl">
       <UniqueIdentifier>{0b9261b4-dda7-45c4-a93c-23eae6176727}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Zdrojové soubory\engine\sdl">
-      <UniqueIdentifier>{5e3a1a82-ebe4-4375-9fc1-8ea365491a73}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Zdrojové soubory\engine\portability">
-      <UniqueIdentifier>{bb4e3edf-dde4-4df0-9709-b1c3794f4e67}</UniqueIdentifier>
+    <Filter Include="Zdrojové soubory\portability">
+      <UniqueIdentifier>{01d93e33-43df-4fd3-8b70-5b751cd75b6f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -48,20 +45,29 @@
     <ClInclude Include="dosbox_files\config.h">
       <Filter>Zdrojové soubory\dosbox_files</Filter>
     </ClInclude>
-    <ClInclude Include="engine\sdl\graphics_sdl.h">
-      <Filter>Zdrojové soubory\engine\sdl</Filter>
-    </ClInclude>
-    <ClInclude Include="engine\portability\dirent.h">
-      <Filter>Zdrojové soubory\engine\portability</Filter>
-    </ClInclude>
-    <ClInclude Include="engine\portability\system.h">
-      <Filter>Zdrojové soubory\engine\portability</Filter>
-    </ClInclude>
-    <ClInclude Include="engine\mctypes.h">
-      <Filter>Zdrojové soubory\engine</Filter>
-    </ClInclude>
     <ClInclude Include="engine\sub_main_mouse.h">
       <Filter>Zdrojové soubory\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="portability\dirent.h">
+      <Filter>Zdrojové soubory\portability</Filter>
+    </ClInclude>
+    <ClInclude Include="portability\mctypes.h">
+      <Filter>Zdrojové soubory\portability</Filter>
+    </ClInclude>
+    <ClInclude Include="portability\port_filesystem.h">
+      <Filter>Zdrojové soubory\portability</Filter>
+    </ClInclude>
+    <ClInclude Include="portability\port_inputs.h">
+      <Filter>Zdrojové soubory\portability</Filter>
+    </ClInclude>
+    <ClInclude Include="portability\port_outputs.h">
+      <Filter>Zdrojové soubory\portability</Filter>
+    </ClInclude>
+    <ClInclude Include="portability\port_sdl_vga_mouse.h">
+      <Filter>Zdrojové soubory\portability</Filter>
+    </ClInclude>
+    <ClInclude Include="portability\port_time.h">
+      <Filter>Zdrojové soubory\portability</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -77,14 +83,23 @@
     <ClCompile Include="engine\sub_main.cpp">
       <Filter>Zdrojové soubory\engine</Filter>
     </ClCompile>
-    <ClCompile Include="engine\sdl\graphics_sdl.cpp">
-      <Filter>Zdrojové soubory\engine\sdl</Filter>
+    <ClCompile Include="portability\dirent.c">
+      <Filter>Zdrojové soubory\portability</Filter>
     </ClCompile>
-    <ClCompile Include="engine\portability\dirent.c">
-      <Filter>Zdrojové soubory\engine\portability</Filter>
+    <ClCompile Include="portability\port_filesystem.cpp">
+      <Filter>Zdrojové soubory\portability</Filter>
     </ClCompile>
-    <ClCompile Include="engine\portability\system.cpp">
-      <Filter>Zdrojové soubory\engine\portability</Filter>
+    <ClCompile Include="portability\port_inputs.cpp">
+      <Filter>Zdrojové soubory\portability</Filter>
+    </ClCompile>
+    <ClCompile Include="portability\port_outputs.cpp">
+      <Filter>Zdrojové soubory\portability</Filter>
+    </ClCompile>
+    <ClCompile Include="portability\port_sdl_vga_mouse.cpp">
+      <Filter>Zdrojové soubory\portability</Filter>
+    </ClCompile>
+    <ClCompile Include="portability\port_time.cpp">
+      <Filter>Zdrojové soubory\portability</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

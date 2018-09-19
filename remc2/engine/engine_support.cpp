@@ -6,66 +6,7 @@ extern DOS_Device *DOS_CON;
 #endif //USE_DOSBOX
 
 
-void myWriteOut(const char * format, ...) {
-	#ifdef USE_DOSBOX
-		DEBUG_ShowMsg(format);
-	#else
-		printf(format);
-	#endif //USE_DOSBOX
-    
-    /*Bit16u sz = 1;
-    unsigned char b = 'a';
-    DOS_CON->Write(&b, &sz);*/
-}
-
-int myprintf(const char * format, ...) {
-    char prbuffer[1024];
-    va_list arg;
-    int done;
-    va_start(arg, format);
-    done = vsprintf(prbuffer, format, arg);
-    va_end(arg);
-
-	#ifdef USE_DOSBOX
-		DEBUG_ShowMsg(prbuffer);
-	#else
-		printf(prbuffer);
-		VGA_Draw_string(prbuffer);
-	#endif //USE_DOSBOX
-    
-    //return strlen(prbuffer);
-    return done;
-    /*Bit16u sz = 1;
-    unsigned char b = 'a';
-    DOS_CON->Write(&b, &sz);*/
-}
-
-
 //delete after finalization
-void pathfix(char* path, char* path2)
-{
-    if ((path[0] == 'c') || (path[0] == 'C'))
-    {
-        long len= strlen(path);
-        char* fixstring = (char*)"c:/prenos/Magic2/mc2-orig-copy";
-        long fixlen = strlen(fixstring);
-        for (int i = len;i > 1;i--)
-            path2[i + fixlen -2] = path[i];
-        for (int i = 0;i < fixlen;i++)
-            path2[i] = fixstring[i];
-    }
-    else
-    {
-        long len = strlen(path);
-        char* fixstring = (char*)"c:/prenos/Magic2/mc2-orig-copy/";
-        long fixlen = strlen(fixstring);
-        for (int i = len;i > -1;i--)
-            path2[i + fixlen] = path[i];
-        for (int i = 0;i < fixlen;i++)
-            path2[i] = fixstring[i];
-    }
-}
-
 Bit8u* readbuffer;
 
 char* printbuffer;//char* buffer; // [esp+0h] [ebp-2h]

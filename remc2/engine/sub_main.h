@@ -40,12 +40,14 @@
 #include <direct.h>  
 //#include <dir.h>
 #include <io.h>  
-#include <time.h>  
+
+#include "../portability/port_outputs.h"
 
 //#include <sys/statvfs.h>
 #include <windows.h>
-#include "portability/dirent.h"
-#include "portability/system.h"
+#include "../portability/dirent.h"
+#include "../portability/port_time.h"
+#include "../portability/port_filesystem.h"
 #include "defs.h"
 #define __CFSHL__(x, y) printf("invalid_operation:__CFSHL__(x, y)")
 #define __RCR__(x, y) printf("invalid_operation:__RCR__(x, y)")
@@ -214,8 +216,8 @@ int sub_51BB0(int a1);
 x_DWORD /*__cdecl*/ toupper(x_DWORD); //weak
 unsigned int sub_55C60(int a1, int a2, int a3);
 x_DWORD /*__cdecl*/ fix_filelength(x_DWORD);// weak
-x_DWORD /*__cdecl*/ access(char* path, Bit32u flags);// weak
-x_DWORD /*__cdecl*/ mkdir(char* path);
+//x_DWORD /*__cdecl*/ access(char* path, Bit32u flags);// weak
+//x_DWORD /*__cdecl*/ mkdir(char* path);
 x_DWORD /*__cdecl*/ settextposition(x_DWORD, x_DWORD);// weak
 x_DWORD /*__cdecl*/ outtext(char* text);// weak
 //x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);// weak

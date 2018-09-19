@@ -152,21 +152,27 @@
     <ClInclude Include="dosbox_files\config.h" />
     <ClInclude Include="engine\defs.h" />
     <ClInclude Include="engine\engine_support.h" />
-    <ClInclude Include="engine\mctypes.h" />
-    <ClInclude Include="engine\portability\dirent.h" />
-    <ClInclude Include="engine\portability\system.h" />
-    <ClInclude Include="engine\sdl\graphics_sdl.h" />
     <ClInclude Include="engine\sub_main.h" />
     <ClInclude Include="engine\sub_main_mouse.h" />
+    <ClInclude Include="portability\dirent.h" />
+    <ClInclude Include="portability\mctypes.h" />
+    <ClInclude Include="portability\port_filesystem.h" />
+    <ClInclude Include="portability\port_inputs.h" />
+    <ClInclude Include="portability\port_outputs.h" />
+    <ClInclude Include="portability\port_sdl_vga_mouse.h" />
+    <ClInclude Include="portability\port_time.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="engine\engine_support.cpp" />
-    <ClCompile Include="engine\portability\dirent.c" />
-    <ClCompile Include="engine\portability\system.cpp" />
-    <ClCompile Include="engine\sdl\graphics_sdl.cpp" />
     <ClCompile Include="engine\sub_main.cpp" />
+    <ClCompile Include="portability\dirent.c" />
+    <ClCompile Include="portability\port_filesystem.cpp" />
+    <ClCompile Include="portability\port_inputs.cpp" />
+    <ClCompile Include="portability\port_outputs.cpp" />
+    <ClCompile Include="portability\port_sdl_vga_mouse.cpp" />
+    <ClCompile Include="portability\port_time.cpp" />
     <ClCompile Include="remc2.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
