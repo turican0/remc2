@@ -23,5 +23,6 @@ void VGA_Set_Cursor(posistruct posstrcursor,int count);
 void VGA_GotoXY(int x, int y);
 int VGA_WhereX(); //returns current text cursor (x) coordinate 
 int VGA_WhereY(); //returns current text cursor (y) coordinate 
+void Set_basic_pallette();
 
 #endif //PORT_SDL_VGA_MOUSE

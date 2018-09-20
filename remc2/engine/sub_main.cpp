@@ -1263,7 +1263,7 @@ int /*__cdecl*/ sub_1A5B0(int a1, int *a2, int *a3);
 int sub_1A7A0();
 int sub_1A8A0();
 char /*__cdecl*/ sub_1A970(char a1, int a2, int a3);
-void sub_1B280(Bit8u* a1);
+void sub_1B280_draw_intro_text(Bit8u* a1);
 int sub_1B5F0();
 void /*__cdecl*/ sub_1B6B0(int a1);
 int /*__cdecl*/ sub_1B7A0(signed __int16 *a1);
@@ -21450,7 +21450,7 @@ void sub_loc_1B5CB();
 //void sub_loc_1B5D7();
 
 //----- (0001B280) --------------------------------------------------------
-void sub_1B280(Bit8u* a1)//1fc280
+void sub_1B280_draw_intro_text(Bit8u* a1)//1fc280
 {
   int v1; // eax
   Bit8u* v2; // edx
@@ -21785,7 +21785,10 @@ void sub_loc_1B5A7() {
 	//x_WORD_D4004++;
 }
 void sub_loc_1B5BC(Bit16u a1) {
+	memset(x_DWORD_180628b_screen_buffer, 200, 320*200);//debug
+	Set_basic_pallette();
 	sub_2EBB0_draw_text_with_border_630x340(x_DWORD_E9C4C_langindexbuffer[a1]);//fix it - edx
+	sub_90478_VGA_Blit320();//debug
 }
 void sub_loc_1B5CB() {
 	//x_WORD_D4004++;
@@ -21801,7 +21804,7 @@ void sub_loc_1B5CB() {
 // 17DB60: using guessed type __int16 x_WORD_17DB60;
 
 /*
-sub_1B280       proc near               ; CODE XREF: sub_76160_play_intro+C0↓p
+sub_1B280_draw_intro_text       proc near               ; CODE XREF: sub_76160_play_intro+C0↓p
 cseg01:0001B280                                         ; cseg01:0008E526↓p ...
 cseg01:0001B280
 cseg01:0001B280 arg_0           = dword ptr  14h
@@ -21813,8 +21816,8 @@ cseg01:0001B283                 push    ebp
 cseg01:0001B284                 mov     ebp, esp
 cseg01:0001B286                 mov     esi, [ebp+arg_0]
 cseg01:0001B289
-cseg01:0001B289 loc_1B289:                              ; CODE XREF: sub_1B280+75↓j
-cseg01:0001B289                                         ; sub_1B280+91↓j ...
+cseg01:0001B289 loc_1B289:                              ; CODE XREF: sub_1B280_draw_intro_text+75↓j
+cseg01:0001B289                                         ; sub_1B280_draw_intro_text+91↓j ...
 cseg01:0001B289                 movsx   edx, word_D4004
 cseg01:0001B290                 lea     eax, ds:0[edx*8]
 cseg01:0001B297                 sub     eax, edx
@@ -21836,7 +21839,7 @@ cseg01:0001B2D8                 lea     edx, ds:0[eax*4]
 cseg01:0001B2DF                 jmp     cs:off_1B190[ecx]
 cseg01:0001B2E6 ; ---------------------------------------------------------------------------
 cseg01:0001B2E6
-cseg01:0001B2E6 loc_1B2E6:                              ; CODE XREF: sub_1B280+5F↑j
+cseg01:0001B2E6 loc_1B2E6:                              ; CODE XREF: sub_1B280_draw_intro_text+5F↑j
 cseg01:0001B2E6                                         ; DATA XREF: cseg01:off_1B190↑o ...
 cseg01:0001B2E6                 movsx   eax, bx
 cseg01:0001B2E9                 mov     dword_E3844, eax
@@ -21844,7 +21847,7 @@ cseg01:0001B2EE                 inc     word_D4004
 cseg01:0001B2F5                 jmp     short loc_1B289
 cseg01:0001B2F7 ; ---------------------------------------------------------------------------
 cseg01:0001B2F7
-cseg01:0001B2F7 loc_1B2F7:                              ; CODE XREF: sub_1B280+5F↑j
+cseg01:0001B2F7 loc_1B2F7:                              ; CODE XREF: sub_1B280_draw_intro_text+5F↑j
 cseg01:0001B2F7                                         ; DATA XREF: cseg01:0001B194↑o ...
 cseg01:0001B2F7                 call    sub_8E020
 cseg01:0001B2FC                 xor     eax, eax
@@ -21856,7 +21859,7 @@ cseg01:0001B30A                 inc     word_D4004
 cseg01:0001B311                 jmp     loc_1B289
 cseg01:0001B316 ; ---------------------------------------------------------------------------
 cseg01:0001B316
-cseg01:0001B316 loc_1B316:                              ; CODE XREF: sub_1B280+5F↑j
+cseg01:0001B316 loc_1B316:                              ; CODE XREF: sub_1B280_draw_intro_text+5F↑j
 cseg01:0001B316                                         ; DATA XREF: cseg01:0001B1A0↑o ...
 cseg01:0001B316                 call    sub_8D8F0
 cseg01:0001B31B                 xor     eax, eax
@@ -21868,7 +21871,7 @@ cseg01:0001B328                 inc     word_D4004
 cseg01:0001B32F                 jmp     loc_1B289
 cseg01:0001B334 ; ---------------------------------------------------------------------------
 cseg01:0001B334
-cseg01:0001B334 loc_1B334:                              ; CODE XREF: sub_1B280+5F↑j
+cseg01:0001B334 loc_1B334:                              ; CODE XREF: sub_1B280_draw_intro_text+5F↑j
 cseg01:0001B334                                         ; DATA XREF: cseg01:0001B1BC↑o ...
 cseg01:0001B334                 mov     edx, dword_E387C
 cseg01:0001B33A                 test    edx, edx
@@ -21881,8 +21884,8 @@ cseg01:0001B349                 push    edi
 cseg01:0001B34A                 call    sub_8F0AB
 cseg01:0001B34F                 add     esp, 0Ch
 cseg01:0001B352
-cseg01:0001B352 loc_1B352:                              ; CODE XREF: sub_1B280+5F↑j
-cseg01:0001B352                                         ; sub_1B280+BC↑j
+cseg01:0001B352 loc_1B352:                              ; CODE XREF: sub_1B280_draw_intro_text+5F↑j
+cseg01:0001B352                                         ; sub_1B280_draw_intro_text+BC↑j
 cseg01:0001B352                                         ; DATA XREF: ...
 cseg01:0001B352                 push    7Fh
 cseg01:0001B354                 movsx   eax, bx
@@ -21893,14 +21896,14 @@ cseg01:0001B360                 inc     word_D4004
 cseg01:0001B367                 jmp     loc_1B289
 cseg01:0001B36C ; ---------------------------------------------------------------------------
 cseg01:0001B36C
-cseg01:0001B36C loc_1B36C:                              ; CODE XREF: sub_1B280+5F↑j
+cseg01:0001B36C loc_1B36C:                              ; CODE XREF: sub_1B280_draw_intro_text+5F↑j
 cseg01:0001B36C                                         ; DATA XREF: cseg01:0001B1B8↑o ...
 cseg01:0001B36C                 call    sub_2EC30_clear_img_mem
 cseg01:0001B371                 inc     word_D4004
 cseg01:0001B378                 jmp     loc_1B289
 cseg01:0001B37D ; ---------------------------------------------------------------------------
 cseg01:0001B37D
-cseg01:0001B37D loc_1B37D:                              ; CODE XREF: sub_1B280+5F↑j
+cseg01:0001B37D loc_1B37D:                              ; CODE XREF: sub_1B280_draw_intro_text+5F↑j
 cseg01:0001B37D                                         ; DATA XREF: cseg01:0001B1D0↑o
 cseg01:0001B37D                 mov     eax, dword_E9C4C[edx]
 cseg01:0001B383                 push    eax
@@ -21910,7 +21913,7 @@ cseg01:0001B38C                 inc     word_D4004
 cseg01:0001B393                 jmp     loc_1B289
 cseg01:0001B398 ; ---------------------------------------------------------------------------
 cseg01:0001B398
-cseg01:0001B398 loc_1B398:                              ; CODE XREF: sub_1B280+5F↑j
+cseg01:0001B398 loc_1B398:                              ; CODE XREF: sub_1B280_draw_intro_text+5F↑j
 cseg01:0001B398                                         ; DATA XREF: cseg01:0001B1D4↑o ...
 cseg01:0001B398                 cmp     byte_E3798, 0
 cseg01:0001B39F                 jz      loc_1B5CB
@@ -21928,7 +21931,7 @@ cseg01:0001B3BD                 inc     word_D4004
 cseg01:0001B3C4                 jmp     loc_1B289
 cseg01:0001B3C9 ; ---------------------------------------------------------------------------
 cseg01:0001B3C9
-cseg01:0001B3C9 loc_1B3C9:                              ; CODE XREF: sub_1B280+5F↑j
+cseg01:0001B3C9 loc_1B3C9:                              ; CODE XREF: sub_1B280_draw_intro_text+5F↑j
 cseg01:0001B3C9                                         ; DATA XREF: cseg01:0001B1D8↑o ...
 cseg01:0001B3C9                 cmp     byte_E3798, 0
 cseg01:0001B3D0                 jz      loc_1B5CB
@@ -21952,14 +21955,14 @@ cseg01:0001B407                 inc     word_D4004
 cseg01:0001B40E                 jmp     loc_1B289
 cseg01:0001B413 ; ---------------------------------------------------------------------------
 cseg01:0001B413
-cseg01:0001B413 loc_1B413:                              ; CODE XREF: sub_1B280+16C↑j
-cseg01:0001B413                                         ; sub_1B280+1B4↓j
+cseg01:0001B413 loc_1B413:                              ; CODE XREF: sub_1B280_draw_intro_text+16C↑j
+cseg01:0001B413                                         ; sub_1B280_draw_intro_text+1B4↓j
 cseg01:0001B413                 call    sub_8D8F0
 cseg01:0001B418                 inc     word_D4004
 cseg01:0001B41F                 jmp     loc_1B289
 cseg01:0001B424 ; ---------------------------------------------------------------------------
 cseg01:0001B424
-cseg01:0001B424 loc_1B424:                              ; CODE XREF: sub_1B280+5F↑j
+cseg01:0001B424 loc_1B424:                              ; CODE XREF: sub_1B280_draw_intro_text+5F↑j
 cseg01:0001B424                                         ; DATA XREF: cseg01:0001B1DC↑o ...
 cseg01:0001B424                 cmp     byte_E3798, 0
 cseg01:0001B42B                 jz      loc_1B5CB
@@ -21974,14 +21977,14 @@ cseg01:0001B444                 inc     word_D4004
 cseg01:0001B44B                 jmp     loc_1B289
 cseg01:0001B450 ; ---------------------------------------------------------------------------
 cseg01:0001B450
-cseg01:0001B450 loc_1B450:                              ; CODE XREF: sub_1B280+5F↑j
+cseg01:0001B450 loc_1B450:                              ; CODE XREF: sub_1B280_draw_intro_text+5F↑j
 cseg01:0001B450                                         ; DATA XREF: cseg01:0001B1EC↑o ...
 cseg01:0001B450                 call    sub_8E020
 cseg01:0001B455                 inc     word_D4004
 cseg01:0001B45C                 jmp     loc_1B289
 cseg01:0001B461 ; ---------------------------------------------------------------------------
 cseg01:0001B461
-cseg01:0001B461 loc_1B461:                              ; CODE XREF: sub_1B280+5F↑j
+cseg01:0001B461 loc_1B461:                              ; CODE XREF: sub_1B280_draw_intro_text+5F↑j
 cseg01:0001B461                                         ; DATA XREF: cseg01:0001B1A4↑o ...
 cseg01:0001B461                 cmp     byte_E3798, 0
 cseg01:0001B468                 jz      loc_1B5CB
@@ -22000,7 +22003,7 @@ cseg01:0001B494                 inc     word_D4004
 cseg01:0001B49B                 jmp     loc_1B289
 cseg01:0001B4A0 ; ---------------------------------------------------------------------------
 cseg01:0001B4A0
-cseg01:0001B4A0 loc_1B4A0:                              ; CODE XREF: sub_1B280+5F↑j
+cseg01:0001B4A0 loc_1B4A0:                              ; CODE XREF: sub_1B280_draw_intro_text+5F↑j
 cseg01:0001B4A0                                         ; DATA XREF: cseg01:0001B1CC↑o ...
 cseg01:0001B4A0                 cmp     byte_E3798, 0
 cseg01:0001B4A7                 jz      loc_1B5CB
@@ -22019,7 +22022,7 @@ cseg01:0001B4D3                 inc     word_D4004
 cseg01:0001B4DA                 jmp     loc_1B289
 cseg01:0001B4DF ; ---------------------------------------------------------------------------
 cseg01:0001B4DF
-cseg01:0001B4DF loc_1B4DF:                              ; CODE XREF: sub_1B280+5F↑j
+cseg01:0001B4DF loc_1B4DF:                              ; CODE XREF: sub_1B280_draw_intro_text+5F↑j
 cseg01:0001B4DF                                         ; DATA XREF: cseg01:0001B1C8↑o ...
 cseg01:0001B4DF                 cmp     byte_E3798, 0
 cseg01:0001B4E6                 jz      loc_1B5CB
@@ -22038,7 +22041,7 @@ cseg01:0001B512                 inc     word_D4004
 cseg01:0001B519                 jmp     loc_1B289
 cseg01:0001B51E ; ---------------------------------------------------------------------------
 cseg01:0001B51E
-cseg01:0001B51E loc_1B51E:                              ; CODE XREF: sub_1B280+5F↑j
+cseg01:0001B51E loc_1B51E:                              ; CODE XREF: sub_1B280_draw_intro_text+5F↑j
 cseg01:0001B51E                                         ; DATA XREF: cseg01:0001B19C↑o ...
 cseg01:0001B51E                 movsx   edx, word_D4004
 cseg01:0001B525                 lea     eax, ds:0[edx*8]
@@ -22052,7 +22055,7 @@ cseg01:0001B53E                 inc     word_D4004
 cseg01:0001B545                 jmp     loc_1B289
 cseg01:0001B54A ; ---------------------------------------------------------------------------
 cseg01:0001B54A
-cseg01:0001B54A loc_1B54A:                              ; CODE XREF: sub_1B280+5F↑j
+cseg01:0001B54A loc_1B54A:                              ; CODE XREF: sub_1B280_draw_intro_text+5F↑j
 cseg01:0001B54A                                         ; DATA XREF: cseg01:0001B1AC↑o ...
 cseg01:0001B54A                 cmp     byte_E3798, 0
 cseg01:0001B551                 jz      short loc_1B5CB
@@ -22073,7 +22076,7 @@ cseg01:0001B57D                 inc     word_D4004
 cseg01:0001B584                 jmp     loc_1B289
 cseg01:0001B589 ; ---------------------------------------------------------------------------
 cseg01:0001B589
-cseg01:0001B589 loc_1B589:                              ; CODE XREF: sub_1B280+5F↑j
+cseg01:0001B589 loc_1B589:                              ; CODE XREF: sub_1B280_draw_intro_text+5F↑j
 cseg01:0001B589                                         ; DATA XREF: cseg01:0001B1E4↑o
 cseg01:0001B589                 cmp     byte_D41C0, 0
 cseg01:0001B590                 jz      short loc_1B5CB
@@ -22084,7 +22087,7 @@ cseg01:0001B59B                 inc     word_D4004
 cseg01:0001B5A2                 jmp     loc_1B289
 cseg01:0001B5A7 ; ---------------------------------------------------------------------------
 cseg01:0001B5A7
-cseg01:0001B5A7 loc_1B5A7:                              ; CODE XREF: sub_1B280+5F↑j
+cseg01:0001B5A7 loc_1B5A7:                              ; CODE XREF: sub_1B280_draw_intro_text+5F↑j
 cseg01:0001B5A7                                         ; DATA XREF: cseg01:0001B1F0↑o
 cseg01:0001B5A7                 push    eax
 cseg01:0001B5A8                 call    sub_2EC60
@@ -22093,21 +22096,21 @@ cseg01:0001B5B0                 inc     word_D4004
 cseg01:0001B5B7                 jmp     loc_1B289
 cseg01:0001B5BC ; ---------------------------------------------------------------------------
 cseg01:0001B5BC
-cseg01:0001B5BC loc_1B5BC:                              ; CODE XREF: sub_1B280+5F↑j
+cseg01:0001B5BC loc_1B5BC:                              ; CODE XREF: sub_1B280_draw_intro_text+5F↑j
 cseg01:0001B5BC                                         ; DATA XREF: cseg01:0001B1E0↑o
 cseg01:0001B5BC                 mov     ebx, dword_E9C4C[edx]
 cseg01:0001B5C2                 push    ebx
 cseg01:0001B5C3                 call    sub_2EBB0_draw_text_with_border_630x340
 cseg01:0001B5C8                 add     esp, 4
 cseg01:0001B5CB
-cseg01:0001B5CB loc_1B5CB:                              ; CODE XREF: sub_1B280+45↑j
-cseg01:0001B5CB                                         ; sub_1B280+5F↑j ...
+cseg01:0001B5CB loc_1B5CB:                              ; CODE XREF: sub_1B280_draw_intro_text+45↑j
+cseg01:0001B5CB                                         ; sub_1B280_draw_intro_text+5F↑j ...
 cseg01:0001B5CB                 inc     word_D4004
 cseg01:0001B5D2                 jmp     loc_1B289
 cseg01:0001B5D7 ; ---------------------------------------------------------------------------
 cseg01:0001B5D7
-cseg01:0001B5D7 loc_1B5D7:                              ; CODE XREF: sub_1B280+26↑j
-cseg01:0001B5D7                                         ; sub_1B280+36↑j
+cseg01:0001B5D7 loc_1B5D7:                              ; CODE XREF: sub_1B280_draw_intro_text+26↑j
+cseg01:0001B5D7                                         ; sub_1B280_draw_intro_text+36↑j
 cseg01:0001B5D7                 pop     ebp
 cseg01:0001B5D8                 pop     edi
 cseg01:0001B5D9                 pop     esi
@@ -22117,7 +22120,7 @@ cseg01:0001B5DB                 retn
 
 /*
 cseg01:0001B18F                 align 10h
-cseg01:0001B190 off_1B190       dd offset loc_1B2E6//00     ; DATA XREF: sub_1B280+5F↓r
+cseg01:0001B190 off_1B190       dd offset loc_1B2E6//00     ; DATA XREF: sub_1B280_draw_intro_text+5F↓r
 cseg01:0001B194                 dd offset loc_1B2F7//04
 cseg01:0001B198                 dd offset loc_1B5CB//08
 cseg01:0001B19C                 dd offset loc_1B51E//0c
@@ -87990,10 +87993,10 @@ LABEL_23:
     sub_9A0FC_wait_to_screen_beam();//27b0fc
     if ( x_WORD_E12FC )
     {
-		Bit8u origbyte = 0;
+		/*Bit8u origbyte = 0;
 		Bit8u remakebyte = 0;
 		long compar = compare_with_snapshot((char*)"0160-00256E70", unk_17D838, 0x34e838, 0x300, &origbyte, &remakebyte);
-		
+		*/
 
       sub_41A90_VGA_pallette_install(unk_17D838);
       v19 = sub_5BE80_test_pallette(unk_17D838, 0x3Fu, 0x3Fu, 0x3Fu);
@@ -88059,7 +88062,7 @@ void sub_76160_play_intro(__int16 a1, __int16 a2, Bit8u* a3)//257160
         break;
       if ( x_WORD_17DB60 >= x_WORD_17DB46 - 1 )//34eb60 a 34eb46
         break;
-      sub_1B280(a3);//1fc280 - asi vykresleni textu
+      sub_1B280_draw_intro_text(a3);//1fc280 - asi vykresleni textu
       /*v4 = */sub_75DB0();//256db0 - read header
 
 	  
@@ -88070,11 +88073,11 @@ void sub_76160_play_intro(__int16 a1, __int16 a2, Bit8u* a3)//257160
 
 	  //debug
 	  int compsize;
-	  if (testcount > 349)
+	  if (testcount > 0)
 	  {
 		  Bit8u origbyte = 0;
 		  Bit8u remakebyte = 0;
-		  compsize = compare_with_snapshot((char*)"0160-00256E70", x_DWORD_180628b_screen_buffer, 0x3aa0a4, 320 * 200, &origbyte, &remakebyte);
+		  compsize = compare_with_snapshot((char*)"0160-00256E70", x_DWORD_180628b_screen_buffer, 0x3aa0a4, 320 * 231, &origbyte, &remakebyte);
 	  }
 	  testcount++;
 	  //debug
@@ -95205,7 +95208,7 @@ int sub_7FCB0_draw_text_with_border(int a1, Bit8u* a2, Bit32s a3, Bit32s a4, int
 	int v16; // eax
 	signed __int16 i; // di
 	Bit8u v18; // eax
-	x_BYTE *v19; // ecx
+	Bit8u* v19; // ecx
 	__int16 v20; // di
 	Bit8u v21; // eax
 	char v22; // al
@@ -95338,7 +95341,7 @@ int sub_7FCB0_draw_text_with_border(int a1, Bit8u* a2, Bit32s a3, Bit32s a4, int
 				v18 = x_DWORD_17DED4_spritestr[275].sizey;
 				v8 = v18 + a5;
 				v93 = 0;
-				v19 = (x_BYTE *)(x_DWORD_180628b_screen_buffer + a3 + 640 * (v18 + a5));
+				v19 = (x_DWORD_180628b_screen_buffer + a3 + 640 * (v18 + a5));
 				while (x_DWORD_17DED4_spritestr[274].sizey > v93)
 				{
 					v20 = 0;
@@ -95434,7 +95437,7 @@ int sub_7FCB0_draw_text_with_border(int a1, Bit8u* a2, Bit32s a3, Bit32s a4, int
 			{
 				if (a6 && a6 != 4 && a6 != 5)
 				{
-					sub_6FC50(v86);
+					sub_6FC50(1/*v86*/);
 					v25 = sub_6FC10();
 				}
 				else
@@ -95443,18 +95446,18 @@ int sub_7FCB0_draw_text_with_border(int a1, Bit8u* a2, Bit32s a3, Bit32s a4, int
 				}
 				v89 = k;
 				v26 = v99;
-				if ((signed __int16)v99 + v25 * (k - v96) <= a4 - 3 * v25)
+				if (v99 + v25 * (k - v96) <= a4 - 3 * v25)//adress 2610c2
 				{
 					v86b = &v87[strlen(v87)];
 					qmemcpy(v86b, &a2[v101 + 1], v89 - v101);
 				}
-				else
+				else//width is higher then line size
 				{
 					if (a6 && a6 != 4)
 					{
 						if (a6 == 2)
 						{
-							sub_6FC50(v86);
+							sub_6FC50(1/*v86*/);
 							v31 = &x_DWORD_180628b_screen_buffer[v26 + 640 * a1];
 							v32 = 0;
 							while (v32 < x_DWORD_17DED4_spritestr[274].sizey)
@@ -95567,7 +95570,7 @@ int sub_7FCB0_draw_text_with_border(int a1, Bit8u* a2, Bit32s a3, Bit32s a4, int
 		if (!a2[k])
 			break;
 	}
-	if (!v95)//adress 2614e2 (804e2)
+	if (!v95)//adress 2614e2 (804e2) discoverwhich
 	{
 		if (a6 && a6 != 4)
 		{
@@ -95603,7 +95606,7 @@ int sub_7FCB0_draw_text_with_border(int a1, Bit8u* a2, Bit32s a3, Bit32s a4, int
 				//HIWORD(v62) = HIWORD(x_DWORD_17DED4_spritestr);
 				v62 = x_DWORD_17DED4_spritestr[274].sizey;
 				v63 = v62 + a1;
-				sub_6FC50(v86);
+				sub_6FC50(1/*v86*/);
 				v64 = &x_DWORD_180628b_screen_buffer[640 * v63 + v61];
 				v65 = 0;
 				while (v65 < x_DWORD_17DED4_spritestr[274].sizey)

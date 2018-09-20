@@ -1784,3 +1784,30 @@ zkontrolovat paletu:
 unk_17D838
 versus
 34e838
+
+barva
+805c30 versus
+000000
+
+radek cca 169
+posouva se o 31 radku - 0x26C0
+
+Kafkar... 0 276 154 0
+Kafkar... 0 276 154 0
+
+setbyte is color
+
+void sub_8F935_bitmap_draw_final(Bit8u a1byte1,Bit8u a1byte2, Bit16u tiley, int tilex, Bit8u* texture, Bit8u setbyte, char a6)//270935
+
+	memset(x_DWORD_180628b_screen_buffer, 127, 320*200);//debug
+		//VGA_Blit(320, 200, x_DWORD_180628b_screen_buffer);
+	sub_2EBB0_draw_text_with_border_630x340(x_DWORD_E9C4C_langindexbuffer[a1]);//fix it - edx
+	sub_90478_VGA_Blit320();//debug
+}
+
+void sub_loc_1B5BC(Bit16u a1) {
+	memset(x_DWORD_180628b_screen_buffer, 200, 320*200);//debug
+	Set_basic_pallette();
+	sub_2EBB0_draw_text_with_border_630x340(x_DWORD_E9C4C_langindexbuffer[a1]);//fix it - edx
+	sub_90478_VGA_Blit320();//debug
+}
