@@ -1765,3 +1765,17 @@ versus
 34eec0
 
 x_DWORD_17DEC0[394];//x_DWORD_17DEC0_spritestr[65]
+
+3ed8- 50 radek
+
+text - problem palety
+
+
+zkontrolovat tento kod:
+  {
+    sub_9A0FC_wait_to_screen_beam();//27b0fc
+    if ( x_WORD_E12FC )
+    {
+      sub_41A90_VGA_pallette_install(unk_17D838);
+      v19 = sub_5BE80_test_pallette(unk_17D838, 0x3Fu, 0x3Fu, 0x3Fu);
+      sub_2EC90(v19);//20fc90

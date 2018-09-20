@@ -88020,6 +88020,7 @@ LABEL_23:
 // 17DB50: using guessed type int x_DWORD_17DB50;
 // 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 
+long testcount = 0;
 //----- (00076160) --------------------------------------------------------
 void sub_76160_play_intro(__int16 a1, __int16 a2, Bit8u* a3)//257160
 {
@@ -88055,7 +88056,24 @@ void sub_76160_play_intro(__int16 a1, __int16 a2, Bit8u* a3)//257160
         break;
       sub_1B280(a3);//1fc280 - asi vykresleni textu
       /*v4 = */sub_75DB0();//256db0 - read header
+
+	  
+
+
       sub_75E70(/*v4*/);//256e70 - draw intro frame
+
+
+	  //debug
+	  int compsize;
+	  if (testcount > 199)
+	  {
+		  Bit8u origbyte = 0;
+		  Bit8u remakebyte = 0;
+		  compsize = compare_with_snapshot((char*)"0160-00256E70", x_DWORD_180628b_screen_buffer, 0x3aa0a4, 320 * 200, &origbyte, &remakebyte);
+	  }
+	  testcount++;
+	  //debug
+
       x_WORD_17DB60++;
     }
     while ( x_BYTE_1806E4 != 1 );
