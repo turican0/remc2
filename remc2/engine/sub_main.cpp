@@ -87990,6 +87990,11 @@ LABEL_23:
     sub_9A0FC_wait_to_screen_beam();//27b0fc
     if ( x_WORD_E12FC )
     {
+		Bit8u origbyte = 0;
+		Bit8u remakebyte = 0;
+		long compar = compare_with_snapshot((char*)"0160-00256E70", unk_17D838, 0x34e838, 0x300, &origbyte, &remakebyte);
+		
+
       sub_41A90_VGA_pallette_install(unk_17D838);
       v19 = sub_5BE80_test_pallette(unk_17D838, 0x3Fu, 0x3Fu, 0x3Fu);
       sub_2EC90(v19);//20fc90
@@ -88065,7 +88070,7 @@ void sub_76160_play_intro(__int16 a1, __int16 a2, Bit8u* a3)//257160
 
 	  //debug
 	  int compsize;
-	  if (testcount > 199)
+	  if (testcount > 349)
 	  {
 		  Bit8u origbyte = 0;
 		  Bit8u remakebyte = 0;

@@ -1779,3 +1779,8 @@ zkontrolovat tento kod:
       sub_41A90_VGA_pallette_install(unk_17D838);
       v19 = sub_5BE80_test_pallette(unk_17D838, 0x3Fu, 0x3Fu, 0x3Fu);
       sub_2EC90(v19);//20fc90
+
+zkontrolovat paletu:
+unk_17D838
+versus
+34e838
