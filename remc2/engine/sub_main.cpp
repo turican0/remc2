@@ -21785,10 +21785,10 @@ void sub_loc_1B5A7() {
 	//x_WORD_D4004++;
 }
 void sub_loc_1B5BC(Bit16u a1) {
-	memset(x_DWORD_180628b_screen_buffer, 200, 320*200);//debug
-	Set_basic_pallette();
+	//memset(x_DWORD_180628b_screen_buffer, 200, 320*200);//debug
+	//Set_basic_pallette();
 	sub_2EBB0_draw_text_with_border_630x340(x_DWORD_E9C4C_langindexbuffer[a1]);//fix it - edx
-	sub_90478_VGA_Blit320();//debug
+	//sub_90478_VGA_Blit320();//debug
 }
 void sub_loc_1B5CB() {
 	//x_WORD_D4004++;
@@ -88000,7 +88000,7 @@ LABEL_23:
 
       sub_41A90_VGA_pallette_install(unk_17D838);
       v19 = sub_5BE80_test_pallette(unk_17D838, 0x3Fu, 0x3Fu, 0x3Fu);
-      sub_2EC90(v19);//20fc90
+      sub_2EC90(v19);//20fc90 -zde se prekresli texty
     }
   }
   if ( x_BYTE_D41C1 )
@@ -88032,6 +88032,9 @@ long testcount = 0;
 //----- (00076160) --------------------------------------------------------
 void sub_76160_play_intro(__int16 a1, __int16 a2, Bit8u* a3)//257160
 {
+	//fix
+	memset(&x_DWORD_180628b_screen_buffer[320 * 200], 0, 320);
+	//fix
   FILE* tempfile; // eax
   __int16 v4; // ax
 
@@ -88065,12 +88068,9 @@ void sub_76160_play_intro(__int16 a1, __int16 a2, Bit8u* a3)//257160
       sub_1B280_draw_intro_text(a3);//1fc280 - asi vykresleni textu
       /*v4 = */sub_75DB0();//256db0 - read header
 
-	  
-
-
       sub_75E70(/*v4*/);//256e70 - draw intro frame
 
-
+	  /*
 	  //debug
 	  int compsize;
 	  if (testcount > 0)
@@ -88081,7 +88081,7 @@ void sub_76160_play_intro(__int16 a1, __int16 a2, Bit8u* a3)//257160
 	  }
 	  testcount++;
 	  //debug
-
+	  */
       x_WORD_17DB60++;
     }
     while ( x_BYTE_1806E4 != 1 );
@@ -95309,7 +95309,7 @@ int sub_7FCB0_draw_text_with_border(int a1, Bit8u* a2, Bit32s a3, Bit32s a4, int
 	//debug
 
 	//fix it
-	v86 = 0;
+	v86 = a7;
 	//fix it
 
 	v8 = a5;

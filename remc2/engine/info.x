@@ -1811,3 +1811,18 @@ void sub_loc_1B5BC(Bit16u a1) {
 	sub_2EBB0_draw_text_with_border_630x340(x_DWORD_E9C4C_langindexbuffer[a1]);//fix it - edx
 	sub_90478_VGA_Blit320();//debug
 }
+
+void sub_76160_play_intro(__int16 a1, __int16 a2, Bit8u* a3)//257160
+
+x_DWORD_180628b_screen_buffer
+
+0x3aa0a4
+
+256e70 - sub_75E70
+	20fc90 - zde se doplni titulky
+
+dosbox Kafkar	0 276 154 fe
+sub_7FAE0_draw_text(v87, v99, a4, v98, v86);
+remc2 Kafkar 0 276 154 0
+
+ebp+28 3551cc
