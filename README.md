@@ -3,6 +3,10 @@
 ## STATUS: unplayable, in development<br />
 <br />
 simple dev blog:[https://github.com/turican0/remc2/wiki]<br />
+## 0.11:<br />
+-fixed text rendering<br />
+-can play all intro<br />
+<br />
 ## 0.10:<br />
 -fixed load and save language config<br />
 -can play part of intro<br />
