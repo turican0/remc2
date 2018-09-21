@@ -1811,3 +1811,9 @@ void sub_loc_1B5BC(Bit16u a1) {
 	sub_2EBB0_draw_text_with_border_630x340(x_DWORD_E9C4C_langindexbuffer[a1]);//fix it - edx
 	sub_90478_VGA_Blit320();//debug
 }
+
+v21_buffer_temp_index1 = (x_DWORD_18062C_resolution_x * tiley + tilex + pixel_buffer_index);
+	  Bit8s v57_loc = 0;
+	  Bit8s v58_loc = -1;
+	  Bit8s* v59_loc = (Bit8s*)v21_buffer_temp_index1;
+	  Bit8s* v60loc = 0;

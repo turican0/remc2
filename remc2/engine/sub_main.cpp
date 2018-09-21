@@ -21785,10 +21785,10 @@ void sub_loc_1B5A7() {
 	//x_WORD_D4004++;
 }
 void sub_loc_1B5BC(Bit16u a1) {
-	memset(x_DWORD_180628b_screen_buffer, 200, 320*200);//debug
-	Set_basic_pallette();
+	//memset(x_DWORD_180628b_screen_buffer, 200, 320*200);//debug
+	//Set_basic_pallette();
 	sub_2EBB0_draw_text_with_border_630x340(x_DWORD_E9C4C_langindexbuffer[a1]);//fix it - edx
-	sub_90478_VGA_Blit320();//debug
+	//sub_90478_VGA_Blit320();//debug
 }
 void sub_loc_1B5CB() {
 	//x_WORD_D4004++;
@@ -107846,7 +107846,8 @@ void sub_8F935_bitmap_draw_final(Bit8u a1byte1,Bit8u a1byte2, Bit16u tiley, int 
       else if ( x_WORD_E36D4 & 0x40 )
       {
 
-
+	  //memset(x_DWORD_180628b_screen_buffer, 200, 320*400);//debug
+	  //memset(x_DWORD_180628b_screen_buffer+170*320, 255, 320 * 30);//debug
 	  //v56 = (char *)(dword_18062C * a2 + a3 + v6);
 	  v21_buffer_temp_index1 = (x_DWORD_18062C_resolution_x * tiley + tilex + pixel_buffer_index);
 	  Bit8s v57_loc = 0;
@@ -107882,6 +107883,9 @@ void sub_8F935_bitmap_draw_final(Bit8u a1byte1,Bit8u a1byte2, Bit16u tiley, int 
 		  v21_buffer_temp_index1 = (Bit8u*)v59_loc;
 		  --a1byte2;
 	  } while (a1byte2);
+	  //Set_basic_pallette();//debug
+	  //sub_90478_VGA_Blit320();//debug
+	  //Set_basic_pallette();//debug
 	  /*
 		  v21_buffer_temp_index1 = (x_DWORD_18062C_resolution_x * tiley + tilex + pixel_buffer_index);
 		  Bit32u inindex = 0;
