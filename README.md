@@ -3,10 +3,10 @@
 ## STATUS: unplayable, in development<br />
 <br />
 To start the game, it needs data from the original distribution, which you can download at the minimum fee here:<br />
-[https://www.gog.com/game/magic_carpet_2_the_netherworlds]<br />
+https://www.gog.com/game/magic_carpet_2_the_netherworlds<br />
 (or from any abbadone archive, if it is legal in your country)<br />
 <br />
-simple dev blog:[https://github.com/turican0/remc2/wiki]<br />
+simple dev blog:https://github.com/turican0/remc2/wiki<br />
 ## 0.11:<br />
 -fixed text rendering<br />
 -can play all intro<br />
