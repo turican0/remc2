@@ -7,6 +7,9 @@ https://www.gog.com/game/magic_carpet_2_the_netherworlds<br />
 (or from any abbadone archive, if it is legal in your country)<br />
 <br />
 simple dev blog:https://github.com/turican0/remc2/wiki<br />
+## 0.12:<br />
+-main menu is fixed<br />
+<br />
 ## 0.11:<br />
 -fixed text rendering<br />
 -can play all intro<br />
