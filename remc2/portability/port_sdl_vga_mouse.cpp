@@ -581,14 +581,17 @@ void VGA_Blit(int width, int height, Uint8* buffer) {
 	for (int k = 0;k < 255;k++)
 		if (unused[k] != 1)
 			printf("%04X,",k);
-
+*/
 	if (SDL_MUSTLOCK(screen)) {
 		SDL_UnlockSurface(screen);
-	}*/
+	}
+		/*
 	//barvy e5 a vice jsou volne
 	
 	/* Update just the part of the display that we've changed */
 	SDL_UpdateRect(screen, 0, 0, 0, 0);	
+
+	//Set_basic_pallette();
 }
 
 void VGA_Init_test() {

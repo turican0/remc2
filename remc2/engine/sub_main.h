@@ -191,8 +191,8 @@ signed int sub_369F0(signed int a1, __int16 a2);
 void qmemcpy(void* a, void* b, size_t c);
 char sub_2A340(int a1, int a2, int a3, int a4, int a5, int a6);
 unsigned __int16 sub_2AA90(int a1, int a2, int a3);
-void /*__spoils<ecx>*/ sub_72883_memset_pallette(/*int a1, */void *a2, unsigned __int16 a3, char a4);
-void /*__spoils<ecx>*/ sub_728A9_memset_pallette(void *a2, unsigned __int16 a3, char a4);
+void /*__spoils<ecx>*/ sub_72883_clear_text_mode(/*int a1, */void *a2, unsigned __int16 a3, char a4);
+void /*__spoils<ecx>*/ sub_728A9_clear_graphics_mode(void *a2, unsigned __int16 a3, char a4);
 void sub_303D0(signed int a1);
 int _wcpp_1_unwind_leave__62(void); //weak
 int sub_7FCB0_draw_text_with_border(int a1, Bit8u* a2, Bit32s a3, Bit32s a4, int a5, Bit8u a6, unsigned __int8 a7, Bit32u a8);//560cb0
@@ -244,7 +244,7 @@ int int386x(int, REGS *, REGS *, struct SREGS *);
 unsigned char __readgsx_BYTE(unsigned long Offset);
 unsigned short __readgsx_WORD(unsigned long Offset);
 int /*__fastcall*/ _wcpp_1_unwind_leave__131(x_DWORD);// weak
-int(/*__cdecl*/ **sub_7AB00(__int16 a1, int a2, signed __int16 *a3, unsigned __int8 a4))(int);
+Bit8u* sub_7AB00(/*__int16 a1,*/ int a2, signed __int16 *a3, unsigned __int8 a4);
 int sub_7F6A0(int a1, int a2, __int16 a3, __int16 a4, char *a5, x_BYTE *a6, unsigned __int8 a7);
 unsigned int sub_81CA0(int a1, int a2, __int16 a3, __int16 a4, int a5);
 signed int sub_7E5A0(int a1, int a2, __int16 a3, __int16 a4, int a5, __int16 a6, __int16 a7);
