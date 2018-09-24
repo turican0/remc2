@@ -92295,9 +92295,40 @@ bool pre_sub_7B250(Bit32u var) {
 	bool callres = true;
 
 	switch (var) {
-	case 0: {
-		//sub_xx(i);
-		callres = true;
+	case 0x258980: {
+		return sub_77980(var);
+		break;
+	}
+	case 0x2589e0: {
+		return sub_779E0_lang_setting_loop(var);
+		break;
+	}
+	case 0x25a160: {
+		return sub_79160(var);
+		break;
+	}
+	case 0x25dcf0: {
+		return sub_7CCF0(/*var*/);
+		break;
+	}
+	case 0x25dd30: {
+		return sub_7CD30(/*var*/);
+		break;
+	}
+	case 0x25dca0: {
+		return sub_7CCA0(/*var*/);
+		break;
+	}
+	case 0x25dda0: {
+		return sub_7CDA0(/*var*/);
+		break;
+	}
+	case 0x25dbf0: {
+		return sub_7CBF0(/*var*/);
+		break;
+	}
+	case 0x25dc40: {
+		return sub_7CC40(/*var*/);
 		break;
 	}
 	}
@@ -92329,7 +92360,7 @@ char /*__fastcall*/ sub_7B250(int a1, int a2/*, __int16 a3*/)//25c250
   {
     if ( *((Bit16s*)i + 4) && *(Bit16s*)i )
     {
-      if (pre_sub_7B250(*(Bit16s*)i))
+      if (pre_sub_7B250(*(Bit32u*)i))
       {
         *((Bit16s*)i + 4) = 0;
         sub_7B5A0_disable_enable();
