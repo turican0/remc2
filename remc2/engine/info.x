@@ -1848,3 +1848,6 @@ sub_8CD27_set_cursor(x_DWORD_17DED4_spritestr[234]);
 
 	  ;// fix it! sub_8CD27_set_cursor((Bit8u**)x_DWORD_180720); - not fixed
 x_BYTE_E25ED - 2b35ed
+
+x_DWORD_E3768 2b4768 - tlacitka
+x_DWORD_180710_mouse_buttons_states - 351710 - tlacitka
