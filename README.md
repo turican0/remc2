@@ -2,7 +2,18 @@
 # Reverse engineering of game Magic Carpet 2 from assembler to c/c++ language<br />
 ## STATUS: unplayable, in development<br />
 <br />
-simple dev blog:[https://github.com/turican0/remc2/wiki]<br />
+To start the game, it needs data from the original distribution, which you can download at the minimum fee here:<br />
+https://www.gog.com/game/magic_carpet_2_the_netherworlds<br />
+(or from any abbadone archive, if it is legal in your country)<br />
+<br />
+simple dev blog:https://github.com/turican0/remc2/wiki<br />
+## 0.12:<br />
+-main menu is fixed<br />
+<br />
+## 0.11:<br />
+-fixed text rendering<br />
+-can play all intro<br />
+<br />
 ## 0.10:<br />
 -fixed load and save language config<br />
 -can play part of intro<br />

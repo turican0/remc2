@@ -1811,3 +1811,40 @@ void sub_loc_1B5BC(Bit16u a1) {
 	sub_2EBB0_draw_text_with_border_630x340(x_DWORD_E9C4C_langindexbuffer[a1]);//fix it - edx
 	sub_90478_VGA_Blit320();//debug
 }
+
+void sub_76160_play_intro(__int16 a1, __int16 a2, Bit8u* a3)//257160
+
+x_DWORD_180628b_screen_buffer
+
+0x3aa0a4
+
+256e70 - sub_75E70
+	20fc90 - zde se doplni titulky
+
+dosbox Kafkar	0 276 154 fe
+sub_7FAE0_draw_text(v87, v99, a4, v98, v86);
+remc2 Kafkar 0 276 154 0
+
+ebp+28 3551cc
+
+find this:
+2b2bac - dosbox 508325000000
+
+Bit8u* sub_7AB00(__int16 a1, int a2, signed __int16 *a3, unsigned __int8 a4)
+
+int /*__fastcall*/ sub_76FA0(int a1, int a2, signed __int16 *a3x)//257fa0 - menu loop
+
+sub_7A110_load_hscreen(x_WORD_180660_VGA_type_resolution, 4);
+
+void sub_81360_draw_bitmap_line(Bit32s minx, Bit32s miny, Bit32s maxx, Bit32s maxy, __int16 a5)//262360
+
+problem:
+      v21 = sub_7AB00(v19, v20, (Bit16s*)a3x, 4u);
+      if ( sub_7B250((int)v21, v22, a3x) )
+
+sub_8CD27_set_cursor(*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct);//anything with vga, maybe mouse cursor//26dd27 //xadatapointersdat asi 1a6f44
+sub_8CD27_set_cursor(*filearray_2aa18c[0].posistruct);
+sub_8CD27_set_cursor(x_DWORD_17DED4_spritestr[234]);
+
+	  ;// fix it! sub_8CD27_set_cursor((Bit8u**)x_DWORD_180720); - not fixed
+x_BYTE_E25ED - 2b35ed
