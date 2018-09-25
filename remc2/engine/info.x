@@ -1857,5 +1857,15 @@ sub_6FC30() - 250c30
 x_DWORD_EA3D4 - 2bb3d4
 ..x_DWORD_E9B20[1];=2bab20 v sub_6Fc50
 
+
 find setting of 
 0x19f0ec,0x19f7ec
+24fb90
+
+2bab20 - find
+	23cf50
+		265250
+			27b32d
+
+proble in sub_2BD10:
+x_DWORD_D41A0

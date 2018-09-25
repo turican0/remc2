@@ -13349,7 +13349,8 @@ char x_BYTE_E98F0; // weak
 char x_BYTE_E98FF; // weak
 myStructps x_DWORD_E9980x[32]; // weak
 //Bit16u x_WORD_E9984[0x86]; // idb
-int x_DWORD_E9B20[2] = {0x19f0ec,0x19f7ec}; // fix it -  weak
+//int x_DWORD_E9B20[2] = {0,0}; // fix it -  weak
+Pathstruct x_DWORD_E9B20[2] = { xafonts0tab,xafonts1tab };
 /*
 0x19f028,0x19f028,0xb803ebfc,c91fffff...
 */
@@ -13439,7 +13440,7 @@ int x_DWORD_EA3C4; // weak
 int x_DWORD_EA3C8; // weak
 int x_DWORD_EA3CC; // weak
 int x_DWORD_EA3D0; // weak
-int x_DWORD_EA3D4; // weak
+Bit8u* x_DWORD_EA3D4; // weak
 //Bit8u *xadatapald0dat2.var28_begin_buffer[0x300]; // weak
 /*int x_DWORD_EA3DC; // weak*/
 /*int x_DWORD_EA3E0_copyto_x_DWORD_EA3E0[]; // weak*/
@@ -70607,7 +70608,7 @@ signed int sub_5BF50_load_psxdata()//23cf50 //find 2bc394
       x_BYTE_D41B4_vesa_driver_finded = 1;
     else
       myprintf("NO VESA DRIVER DETECTED\n");
-    if (sub_84250_load_file_array(psxasearchd))//set 2bc394(after 2A9A54)
+    if (sub_84250_load_file_array(psxasearchd))//set 2bc394(after 2A9A54) - set 2bab20
     {
       myprintf("NOT ENOUGH MEMORY\n");
       sub_90D3F_unload_file_array(psxasearchd);
@@ -84856,13 +84857,13 @@ __int16 sub_6FC30()
 void sub_6FC50(__int16 a1)
 {
   int result; // eax
-  int v2; // edx
+  Pathstruct v2; // edx
 
   result = a1;
   v2 = x_DWORD_E9B20[result];
-  if ( !v2 )
+  if ( !v2.var28_begin_buffer )
     v2 = x_DWORD_E9B20[0];
-  x_DWORD_EA3D4 = v2;
+  x_DWORD_EA3D4 = *v2.var28_begin_buffer;
   //return result * 4;
 }
 // E9B20: using guessed type int x_DWORD_E9B20[];
@@ -98958,7 +98959,7 @@ bool /*__cdecl*/ sub_84250_load_file_array(int psindex)//265250
   //char str[50];//char v6; // [esp+0h] [ebp-64h]
 
   int oldpsindex = psindex;
-  //sub_85070(); fix it
+  sub_85070(); //fix it
   //v1 = pstr[psindex];//ebx=edi
   result = 0;//esi=0
   if (pstr[psindex].var28_begin_buffer)
@@ -98975,7 +98976,7 @@ bool /*__cdecl*/ sub_84250_load_file_array(int psindex)//265250
   //oldpsindex = psindex;
   while (pstr[psindex].var28_begin_buffer)
   {
-    v4 = sub_9A32D_malloc_open_unpack(pstr[psindex]);//27B32d - dalo mu to 1
+    v4 = sub_9A32D_malloc_open_unpack(pstr[psindex]);//27B32d - dalo mu to 1 - set 2bab20
 
 	if ( v4 >= 0 )
     {
@@ -99632,7 +99633,7 @@ void sub_85070()// fix it 34FCA0
   edx=0
   */
 
-  // fix if ( !x_DWORD_17E0A8 )//34f0a8
+  if ( !x_DWORD_17E0A8 )//34f0a8
   {
 
     v21 = sub_85450_allocate_mem_pool(0x10000);
