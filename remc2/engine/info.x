@@ -1851,3 +1851,11 @@ x_BYTE_E25ED - 2b35ed
 
 x_DWORD_E3768 2b4768 - tlacitka
 x_DWORD_180710_mouse_buttons_states - 351710 - tlacitka
+
+problem in:
+sub_6FC30() - 250c30
+x_DWORD_EA3D4 - 2bb3d4
+..x_DWORD_E9B20[1];=2bab20 v sub_6Fc50
+
+find setting of 
+0x19f0ec,0x19f7ec

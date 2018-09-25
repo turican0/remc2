@@ -2589,12 +2589,12 @@ int sub_76F40(); // weak
 int /*__fastcall*/ sub_76FA0_main_menu(int a1, int a2, Bit16u a3);
 char /*__cdecl*/ sub_77350(int a1);
 char /*__fastcall*/ sub_77680(int a1, int a2, signed __int16 *a3);
-char /*__cdecl*/ sub_77980(int a1);
-char /*__cdecl*/ sub_779E0_lang_setting_loop(int a1);
+char /*__cdecl*/ sub_77980(Bit8u* a1);
+char /*__cdecl*/ sub_779E0_lang_setting_loop(Bit8u* a1);
 char /*__cdecl*/ sub_780F0(int a1);
 char /*__cdecl*/ sub_78730(x_WORD *a1);
 // char sub_78E00(int a1, int a2, signed __int16 *a3);
-char /*__cdecl*/ sub_79160(int a1);
+char /*__cdecl*/ sub_79160(Bit8u* a1);
 char sub_79610();
 signed int /*__cdecl*/ sub_79E10(char *a1, char a2);
 char sub_7A060_get_mouse_and_keyboard_events();
@@ -13349,7 +13349,10 @@ char x_BYTE_E98F0; // weak
 char x_BYTE_E98FF; // weak
 myStructps x_DWORD_E9980x[32]; // weak
 //Bit16u x_WORD_E9984[0x86]; // idb
-int x_DWORD_E9B20[1]; // fix it -  weak
+int x_DWORD_E9B20[2] = {0x19f0ec,0x19f7ec}; // fix it -  weak
+/*
+0x19f028,0x19f028,0xb803ebfc,c91fffff...
+*/
 int x_DWORD_E9B90; // weak
 int x_DWORD_E9BA8; // weak
 int x_DWORD_E9C08; // weak
@@ -89982,11 +89985,11 @@ char /*__fastcall*/ sub_77680(int a1, int a2, signed __int16 *a3)
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
 //----- (00077980) --------------------------------------------------------
-char /*__cdecl*/ sub_77980(int a1)
+char /*__cdecl*/ sub_77980(Bit8u* a1)
 {
   __int16 v1; // ax
   char v2; // bl
-
+  //a1 ma byt 2b2cb4
   v1 = sub_7BF20((signed __int16 *)(a1 + 26));
   v2 = v1;
   if ( v1 == 1 )
@@ -90005,7 +90008,7 @@ char /*__cdecl*/ sub_77980(int a1)
 // E29DC: using guessed type __int16 x_WORD_E29DC;
 
 //----- (000779E0) --------------------------------------------------------
-char /*__cdecl*/ sub_779E0_lang_setting_loop(int a1x)//2589E0
+char /*__cdecl*/ sub_779E0_lang_setting_loop(Bit8u* a1x)//2589E0
 {
   Bit8u* v1; // ebx  
   char *langfilename; // eax
@@ -91076,7 +91079,7 @@ LABEL_15:
 // 17DF11: using guessed type char x_BYTE_17DF11;
 
 //----- (00079160) --------------------------------------------------------
-char /*__cdecl*/ sub_79160(int a1)
+char /*__cdecl*/ sub_79160(Bit8u* a1)
 {
   signed __int16 *v1; // esi
   int v2; // eax
@@ -92291,20 +92294,20 @@ bool sub_7B200_in_region(Bit16s* a1, Bit16s testx, Bit16s testy)//25c200
   return result;
 }
 
-bool pre_sub_7B250(Bit32u var) {
+bool pre_sub_7B250(Bit32u var,Bit8u* var2) {
 	bool callres = true;
 
 	switch (var) {
 	case 0x258980: {
-		return sub_77980(var);
+		return sub_77980(var2);//exit
 		break;
 	}
 	case 0x2589e0: {
-		return sub_779E0_lang_setting_loop(var);
+		return sub_779E0_lang_setting_loop(var2);
 		break;
 	}
 	case 0x25a160: {
-		return sub_79160(var);
+		return sub_79160(var2);
 		break;
 	}
 	case 0x25dcf0: {
@@ -92360,7 +92363,7 @@ char /*__fastcall*/ sub_7B250(int a1, int a2/*, __int16 a3*/)//25c250
   {
     if ( *((Bit16s*)i + 4) && *(Bit16s*)i )
     {
-      if (pre_sub_7B250(*(Bit32u*)i))
+      if (pre_sub_7B250(*(Bit32u*)i,i))
       {
         *((Bit16s*)i + 4) = 0;
         sub_7B5A0_disable_enable();
