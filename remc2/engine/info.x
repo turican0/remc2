@@ -1867,5 +1867,13 @@ find setting of
 		265250
 			27b32d
 
-proble in sub_2BD10:
+problem in sub_2BD10:
 x_DWORD_D41A0
+
+x_DWORD_EA3D4 in
+int sub_7FCB0_draw_text_with_border(int a1, Bit8u* a2, Bit32s a3, Bit32s a4, int a5, Bit8u a6, unsigned __int8 a7, Bit32u a8)//260cb0
+	sub_2BC10
+		sub_2BC10
+			sub_6F940
+sub_7B660
+a3?
