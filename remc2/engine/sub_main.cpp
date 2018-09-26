@@ -214,6 +214,8 @@ return true;
 }
 */
 
+//posistruct var_2BB3E0_x_DWORD_EA3D4_14[0x3e9];
+
 Bit8u* SEARCH_BEGIN_BUFFER = 0;
 Bit8u* SEARCH_END_BUFFER = 0;
 Bit8u* FONTS0DAT_BEGIN_BUFFER = 0;
@@ -13350,7 +13352,7 @@ char x_BYTE_E98FF; // weak
 myStructps x_DWORD_E9980x[32]; // weak
 //Bit16u x_WORD_E9984[0x86]; // idb
 //int x_DWORD_E9B20[2] = {0,0}; // fix it -  weak
-Pathstruct x_DWORD_E9B20[2] = { xafonts0tab,xafonts1tab };
+Pathstruct x_DWORD_E9B20[2] = { pstr[3],pstr[3] };
 /*
 0x19f028,0x19f028,0xb803ebfc,c91fffff...
 */
@@ -37289,7 +37291,7 @@ void sub_2EB60()
 // 180628: using guessed type int x_DWORD_180628b_screen_buffer;
 
 //----- (0002EBB0) --------------------------------------------------------
-void sub_2EBB0_draw_text_with_border_630x340(Bit8u* a1)
+void sub_2EBB0_draw_text_with_border_630x340(Bit8u* a1)//20fbb0
 {
   //int result; // eax
 
@@ -70834,8 +70836,17 @@ void sub_5C330()//23D330
 
   if (x_D41A0_BYTEARRAY_0)//386035
   {
-    /*for ( int i = 0; i < 0x3E9; i++ )
-		*filearray_2aa18c[7] = (Bit8u*)(Bit32u*)readdword((Bit8s*)x_D41A0_BYTEARRAY_0,0) + 0x6e8e + 168 * i;//fix it - this is dword*/ // fix it
+	  for (int i = 0; i < 0x3E9; i++)
+	  {
+		  //Bit32s x = *x_D41A0_BYTEARRAY_0 + 0x6e8e + 168 * i;//fix
+		  //var_2BB3E0_x_DWORD_EA3D4_14.pointer
+	  }
+		  //*filearray_2aa18c[7] = (Bit8u*)(Bit32u*)readdword((Bit8s*)x_D41A0_BYTEARRAY_0, 0) + 0x6e8e + 168 * i;//fix it - this is dword // fix it
+	  //356038([x_D41A0_BYTEARRAY_0=2a51a0]) +6e8e
+	  //[2bb3e0+edx*4]-<
+	  //edx++
+	  //356038([x_D41A0_BYTEARRAY_0]) +6e8e + a8 * i
+		//*filearray_2aa18c[7] = (Bit8u*)(Bit32u*)readdword((Bit8s*)x_D41A0_BYTEARRAY_0,0) + 0x6e8e + 168 * i;//fix it - this is dword // fix it
   }
 }
 // D41A0: using guessed type int x_DWORD_D41A0;
@@ -84825,7 +84836,14 @@ LABEL_14:
     if ( !*v4 )
       goto LABEL_14;
     v8 = 6 * ((unsigned __int8)*v4 + 1);
-    sub_72C40(v5, a3, *(new posistruct)/*(Bit8u*)(v8 + x_DWORD_EA3D4)*/, a4);
+	//similar as:sub_7C120_draw_bitmap2(tempposx, tempposy, xy_DWORD_17DEC0_spritestr[temptextbuffer[0]]);
+	posistruct tempposistruct;//fixed
+	//tempposistruct.pointer = new Bit8u[1];//fixed
+	tempposistruct.pointer= &x_DWORD_EA3D4[v8];//fixed
+	tempposistruct.sizex = 0;
+	tempposistruct.sizey = 0;
+	sub_72C40(v5, a3, tempposistruct, a4);//fixed
+	//sub_72C40(v5, a3, *(new posistruct)/*(Bit8u*)(v8 + x_DWORD_EA3D4)*/, a4);
     v9 = *(unsigned __int8 *)(x_DWORD_EA3D4 + v8 + 4);
 LABEL_15:
     v5 += v9;
@@ -98950,7 +98968,7 @@ void /*__spoils<st0>*/ sub_841CE(__int16 a1)
 // E29F4: using guessed type __int16 x_WORD_E29F4;
 
 //----- (00084250) --------------------------------------------------------
-bool /*__cdecl*/ sub_84250_load_file_array(int psindex)//265250
+bool sub_84250_load_file_array(int psindex)//265250
 {
   //Pathstruct v1; // ebx
   Bit16u result; // si

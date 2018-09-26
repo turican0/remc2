@@ -1876,4 +1876,45 @@ int sub_7FCB0_draw_text_with_border(int a1, Bit8u* a2, Bit32s a3, Bit32s a4, int
 		sub_2BC10
 			sub_6F940
 sub_7B660
-a3?
+
+x_DWORD_EA3D4 - 2bb3d4
+melo by to byt posistruct
+zmeneno v 
+0x257160
+	1fc280
+		20fbb0(2ebb0)
+
+2BB578
+in
+sub_5C1B0_set_any_variables2 - 23d1b0
+sub_5C330(); - 23d330
+a pote:
+
+Bit32s x = *x_D41A0_BYTEARRAY_0 + 0x6e8e + 168 * i;//fix
+
+find 2a51a0
+
+x_DWORD_EA3D4 - 2bb3d4
+ecf71900 58731a00 00000000 0000000
+c6ce3500 6ecf3500 16d03500 bed03500
+35cec6 - 0000000
+
+[2bb3d4]->19f7ec
+2c32a100 00 00 2e32a100 04 07 36321a
+1a322c->110100000000000007f0000000000000000
+
+1a32dc
+0101000ff01010000ff010100007f001
+0x257160
+	1fc280
+		20fbb0(2ebb0)
+			250c50
+x_DWORD_EA3D4=x_DWORD_E9B20[0] nebo x_DWORD_E9B20[1]
+Pathstruct x_DWORD_E9B20[2] = { xafonts0tab,xafonts1tab };?
+sub_5B8D0_initialize_0x0023C8D0
+	sub_5BF50_load_psxdata()-23CF50
+		sub_84250_load_file_array-265250
+			sub_9A32D_malloc_open_unpack-27b32d
+*pstr[3].var28_begin_buffer,100
+
+tempposistruct.pointer= &x_DWORD_EA3D4[v8];//fixed
