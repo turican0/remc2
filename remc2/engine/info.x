@@ -1918,3 +1918,34 @@ sub_5B8D0_initialize_0x0023C8D0
 *pstr[3].var28_begin_buffer,100
 
 tempposistruct.pointer= &x_DWORD_EA3D4[v8];//fixed
+
+19f990->59361a00 0407 70361a00 04 07 85361a00
+-prvni 24fb90
+19f990->59361a00 080e 70361a00 08 0e 85361a00
+nekde se to musi upravit a tam z toho bude posistruct
+sub_7AC00_load_and_set_graphics_and_pallette - 25bc00
+	24fbf0
+
+sub_6EBF0(&filearray_2aa18c[filearrayindex_POINTERSDATTAB]);
+-find filearray_2aa18c changes !
+
+x_DWORD_E9B20 je filearray_2aa18c[filearrayindex_ZERO1] - ale je nuytne prijit na to kde to vznika
+
+2aa18c-> 
+	2bc394->1a6f44 000000 0000
+	2bc388->1a6f86 000000 0000
+	2bc390->1a6578 1a6f44 0000
+	2bab20->19f0ec 19f7ec - to je to co hledam
+
+	
+
+sub_5B8D0_initialize()//23c8d0
+	nacteni:
+	sub_5BF50_load_psxdata - 23cf50
+	prvni zmena dalsi zmena je v:
+	sub_6EB90 - 24fb90
+
+toto je cil!
+Pathstruct x_DWORD_E9B20 = filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct;
+
+sub_7AC00_load_and_set_graphics_and_pallette - tady to nutne zkontrolovat

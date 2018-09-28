@@ -48,4 +48,6 @@ x_WORD_E1F84 - upravit na strukturu
 unk_E24BCx - upravit na strukturu
 
 x_DWORD_17DE48c - nahrazeno heap?
+
+x_DWORD_E9B20 =
 		

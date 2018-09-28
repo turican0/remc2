@@ -13352,7 +13352,10 @@ char x_BYTE_E98FF; // weak
 myStructps x_DWORD_E9980x[32]; // weak
 //Bit16u x_WORD_E9984[0x86]; // idb
 //int x_DWORD_E9B20[2] = {0,0}; // fix it -  weak
-Pathstruct x_DWORD_E9B20[2] = { pstr[3],pstr[3] };
+//Pathstruct x_DWORD_E9B20[2] = { pstr[3],pstr[3] };
+posistruct* x_DWORD_E9B20[2] = { filearray_2aa18c[filearrayindex_FONTS0DATTAB].posistruct,filearray_2aa18c[filearrayindex_MSPRDDATTAB].posistruct};
+
+
 /*
 0x19f028,0x19f028,0xb803ebfc,c91fffff...
 */
@@ -84839,10 +84842,13 @@ LABEL_14:
 	//similar as:sub_7C120_draw_bitmap2(tempposx, tempposy, xy_DWORD_17DEC0_spritestr[temptextbuffer[0]]);
 	posistruct tempposistruct;//fixed
 	//tempposistruct.pointer = new Bit8u[1];//fixed
+	/*
+	19f990->59361a00 0407 70361a00 04 07 85361a00
+	*/
 	tempposistruct.pointer= &x_DWORD_EA3D4[v8];//fixed
 	tempposistruct.sizex = 0;
 	tempposistruct.sizey = 0;
-	sub_72C40(v5, a3, tempposistruct, a4);//fixed
+	sub_72C40(v5, a3, tempposistruct, a4);//fixed 2509d1
 	//sub_72C40(v5, a3, *(new posistruct)/*(Bit8u*)(v8 + x_DWORD_EA3D4)*/, a4);
     v9 = *(unsigned __int8 *)(x_DWORD_EA3D4 + v8 + 4);
 LABEL_15:
@@ -84875,13 +84881,13 @@ __int16 sub_6FC30()//250c30
 void sub_6FC50(__int16 a1)//250c50
 {
   int result; // eax
-  Pathstruct v2; // edx
+  posistruct v2; // edx
 
   result = a1;
-  v2 = x_DWORD_E9B20[result];
-  if ( !v2.var28_begin_buffer )
-    v2 = x_DWORD_E9B20[0];
-  x_DWORD_EA3D4 = *v2.var28_begin_buffer;
+  v2 = *x_DWORD_E9B20[result];
+  if ( !v2.pointer )
+    v2 = *x_DWORD_E9B20[0];
+  x_DWORD_EA3D4 = v2.pointer;
   //return result * 4;
 }
 // E9B20: using guessed type int x_DWORD_E9B20[];
@@ -111678,41 +111684,104 @@ void sub_986E0()
 //----- (00098709) --------------------------------------------------------
 void sub_98709_create_index_dattab_power(Bit8u* tabbuffer, Bit8u* tabbufferend, Bit8u* datbuffer, posistruct* dattabindex)
 {
-	/*if (!dattabindex)
-		dattabindex = (posistruct*)malloc((tabbufferend - tabbuffer)*sizeof(posistruct));
+	Bit32u testadr=*(Bit32u*)tabbuffer;
+	if (testadr == 0x9999)
+	{
+		for (Bit32u i = 0;i < (tabbufferend - tabbuffer) / 6;i++)
+		{
+			dattabindex[i].pointer += (Bit32s)datbuffer;
+			dattabindex[i].sizex *= 2;
+			dattabindex[i].sizey *= 2;
+		}		
+	}
 	else
 	{
-		free(dattabindex);
-		dattabindex = (posistruct*)malloc((tabbufferend - tabbuffer) * sizeof(posistruct));
-	}*/
-	for (Bit32u i = 0;i < (tabbufferend - tabbuffer) / 6;i++)
-	{
-		//temppointer = (*(Bit32u*)(tabbuffer + 6 * i))+ datbuffer;
-		dattabindex[i].pointer = (*(Bit32u*)(tabbuffer + 6 * i)) + datbuffer;
-		dattabindex[i].sizex = tabbuffer[6 * i + 4] * 2;
-		dattabindex[i].sizey = tabbuffer[6 * i + 5] * 2;
+		for (Bit32u i = 0;i < (tabbufferend - tabbuffer) / 6;i++)
+		{
+			dattabindex[i].pointer = (Bit8u*)(*(Bit32u*)(tabbuffer + 6 * i)) + (Bit32s)datbuffer;
+			dattabindex[i].sizex = tabbuffer[6 * i + 4] * 2;
+			dattabindex[i].sizey = tabbuffer[6 * i + 5] * 2;
+		}
+		testadr = 0x9999;
+		memcpy(tabbuffer, &testadr, 4);
 	}
 }
 
 //----- (0009874D) --------------------------------------------------------
 void sub_9874D_create_index_dattab(Bit8u* tabbuffer, Bit8u* tabbufferend, Bit8u* datbuffer, posistruct* dattabindex)//27974d
 {
-	/*if (!dattabindex)
-		dattabindex = (posistruct*)malloc((tabbufferend - tabbuffer) * sizeof(posistruct));
+	Bit32u testadr = *(Bit32u*)tabbuffer;
+	if (testadr == 0x9999)
+	{
+		for (Bit32u i = 0;i < (tabbufferend - tabbuffer) / 6;i++)
+		{
+			dattabindex[i].pointer += (Bit32s)datbuffer;
+		}
+	}
 	else
 	{
-		free(dattabindex);
-		dattabindex = (posistruct*)malloc((tabbufferend - tabbuffer) * sizeof(posistruct));
-	}*/
-	//Bit8u* temppointer = datbuffer;
-	for (Bit32u i = 0;i < (tabbufferend - tabbuffer)/6;i++)
-	{
-		//temppointer = (*(Bit32u*)(tabbuffer + 6 * i))+ datbuffer;
-		dattabindex[i].pointer = (*(Bit32u*)(tabbuffer + 6 * i))+ datbuffer;
-		dattabindex[i].sizex = tabbuffer[6 * i + 4];
-		dattabindex[i].sizey = tabbuffer[6 * i + 5];
+		for (Bit32u i = 0;i < (tabbufferend - tabbuffer) / 6;i++)
+		{
+			dattabindex[i].pointer = (Bit8u*)(*(Bit32u*)(tabbuffer + 6 * i)) + (Bit32s)datbuffer;
+			dattabindex[i].sizex = tabbuffer[6 * i + 4];
+			dattabindex[i].sizey = tabbuffer[6 * i + 5];
+		}
+		testadr = 0x9999;
+		memcpy(tabbuffer, &testadr, 4);
 	}
 }
+
+//----- (00099A77) --------------------------------------------------------
+void sub_99A77_create_index_dattab_div(Bit8u* tabbuffer, Bit8u* tabbufferend, Bit8u* datbuffer, posistruct* dattabindex)
+{
+	Bit32u testadr = *(Bit32u*)tabbuffer;
+	if (testadr == 0x9999)
+	{
+		for (Bit32u i = 0;i < (tabbufferend - tabbuffer) / 6;i++)
+		{
+			dattabindex[i].pointer -= (Bit32s)datbuffer;
+			dattabindex[i].sizex /= 2;
+			dattabindex[i].sizey /= 2;
+		}
+	}
+	else
+	{
+		for (Bit32u i = 0;i < (tabbufferend - tabbuffer) / 6;i++)
+		{
+			dattabindex[i].pointer = (Bit8u*)(*(Bit32u*)(tabbuffer + 6 * i)) - (Bit32s)datbuffer;
+			dattabindex[i].sizex = tabbuffer[6 * i + 4] / 2;
+			dattabindex[i].sizey = tabbuffer[6 * i + 5] / 2;
+		}
+		testadr = 0x9999;
+		memcpy(tabbuffer, &testadr, 4);
+	}
+}
+
+//----- (00099AEB) --------------------------------------------------------
+void sub_99AEB_create_index_dattab_minus(Bit8u* tabbuffer, Bit8u* tabbufferend, Bit8u* datbuffer, posistruct* dattabindex)
+{
+	Bit32u testadr = *(Bit32u*)tabbuffer;
+	if (testadr == 0x9999)
+	{
+		for (Bit32u i = 0;i < (tabbufferend - tabbuffer) / 6;i++)
+		{
+			dattabindex[i].pointer -= (Bit32s)datbuffer;
+		}
+	}
+	else
+	{
+		for (Bit32u i = 0;i < (tabbufferend - tabbuffer) / 6;i++)
+		{
+			dattabindex[i].pointer = (Bit8u*)(*(Bit32u*)(tabbuffer + 6 * i)) - (Bit32s)datbuffer;
+			dattabindex[i].sizex = tabbuffer[6 * i + 4];
+			dattabindex[i].sizey = tabbuffer[6 * i + 5];
+		}
+		testadr = 0x9999;
+		memcpy(tabbuffer, &testadr, 4);
+	}
+}
+
+
 
 //----- (00098790) --------------------------------------------------------
 void /*__cdecl*/ sub_98790(unsigned __int16 a1, unsigned __int8 a2)
@@ -112183,69 +112252,7 @@ void /*__cdecl*/ sub_99970(char a1, unsigned __int8 a2)
 // 180C78: using guessed type int x_DWORD_180C78;
 // 180C80: using guessed type int x_DWORD_180C80;
 
-//----- (00099A77) --------------------------------------------------------
-void sub_99A77_create_index_dattab_div(Bit8u* tabbuffer, Bit8u* tabbufferend, Bit8u* datbuffer, posistruct* dattabindex)
-//unsigned int /*__cdecl*/ sub_99A77_create_index_dattab_div(Bit8u* a1, unsigned int a2, unsigned int a3)
-{
-	for (Bit32u i = 0;i < (tabbufferend - tabbuffer) / 6;i++)
-	{
-		//temppointer = (*(Bit32u*)(tabbuffer + 6 * i))+ datbuffer;
-		dattabindex[i].pointer = (Bit8u*)((Bit8u*)(*(Bit32u*)(tabbuffer + 6 * i)) - datbuffer);
-		dattabindex[i].sizex = tabbuffer[6 * i + 4] / 2;
-		dattabindex[i].sizey = tabbuffer[6 * i + 5] / 2;
-	}
 
-	/*
-  unsigned int result; // eax
-
-  while ( 1 )
-  {
-    result = (int)a1;
-    if ( a1 >= (Bit8u*)a2 )
-      break;
-    if ( a1[0] >= a3 )
-    {
-      a1[4] = a1[4] / 2;
-      a1[5] = a1[5] / 2;
-      a1[0] -= a3;
-    }
-    a1 += 6;
-  }
-  return result;*/
-}
-
-//----- (00099AEB) --------------------------------------------------------
-void sub_99AEB_create_index_dattab_minus(Bit8u* tabbuffer, Bit8u* tabbufferend, Bit8u* datbuffer, posistruct* dattabindex)
-//unsigned int /*__cdecl*/ sub_99A77_create_index_dattab_div(Bit8u* a1, unsigned int a2, unsigned int a3)
-{
-	for (Bit32u i = 0;i < (tabbufferend - tabbuffer) / 6;i++)
-	{
-		//temppointer = (*(Bit32u*)(tabbuffer + 6 * i))+ datbuffer;
-		dattabindex[i].pointer = (Bit8u*)((Bit8u*)(*(Bit32u*)(tabbuffer + 6 * i)) - datbuffer);
-	}
-	/*Bit32u i = 0;
-	while ((buffer + i)<bufferend)
-	{
-		//if ((buffer + i) < a3 )//355234->1a6578//eax[0],eax[1c]
-		{
-			//a4[i / 6].size = (buffer[i + 4] / 2) + ((buffer[i + 5] / 2) << 8);
-			a4[i / 6].pointer = a3- (*(Bit32u*)(buffer + i));
-		}
-		i += 6;
-	}*/ // fix it
-  /*unsigned int *result; // eax
-
-  while ( 1 )
-  {
-    result = a1;
-    if ( (unsigned int)a1 >= a2 )
-      break;
-    if ( *a1 >= a3 )
-      *a1 -= a3;
-    a1 = (unsigned int *)((char *)a1 + 6);
-  }
-  return result;*/
-}
 
 //----- (00099C10) --------------------------------------------------------
 void sub_99C10()
