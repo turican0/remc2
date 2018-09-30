@@ -287,18 +287,56 @@ typedef struct {
 	posistruct* posistruct;
 } filearray_struct;
 
-posistruct posistruct1[100];//fix it
-posistruct posistruct2[100];//fix it
-posistruct posistruct3[100];//fix it
-posistruct posistruct4[100];//fix it
-posistruct posistruct5[100];//fix it
-posistruct posistruct6[100];//fix it
-posistruct posistruct7[100];//fix it
-posistruct posistruct8[100];//fix it
-posistruct posistruct9[100];//fix it
-posistruct posistruct10[100];//fix it
-posistruct posistruct11[100];//fix it
-posistruct posistruct12[100];//fix it
+posistruct posistruct1[1700];//fix it
+posistruct posistruct2[1700];//fix it
+posistruct posistruct3[1700];//fix it
+posistruct posistruct4[1700];//fix it
+posistruct posistruct5[1700];//fix it
+posistruct posistruct6[1700];//fix it
+posistruct posistruct7[1700];//fix it
+posistruct posistruct8[1700];//fix it
+posistruct posistruct9[1700];//fix it
+posistruct posistruct10[1700];//fix it
+posistruct posistruct11[1700];//fix it
+posistruct posistruct12[1700];//fix it
+posistruct posistruct13[1700];//fix it
+posistruct posistruct14[1700];//fix it
+posistruct posistruct15[1700];//fix it
+posistruct posistruct16[1700];//fix it
+posistruct posistruct17[1700];//fix it
+posistruct posistruct18[1700];//fix it
+posistruct posistruct19[1700];//fix it
+posistruct posistruct20[1700];//fix it
+posistruct posistruct21[1700];//fix it
+posistruct posistruct22[1700];//fix it
+posistruct posistruct23[1700];//fix it
+posistruct posistruct24[1700];//fix it
+posistruct posistruct25[1700];//fix it
+posistruct posistruct26[1700];//fix it
+posistruct posistruct27[1700];//fix it
+posistruct posistruct28[1700];//fix it
+posistruct posistruct29[1700];//fix it
+posistruct posistruct30[1700];//fix it
+posistruct posistruct31[1700];//fix it
+posistruct posistruct32[1700];//fix it
+posistruct posistruct33[1700];//fix it
+posistruct posistruct34[1700];//fix it
+posistruct posistruct35[1700];//fix it
+posistruct posistruct36[1700];//fix it
+posistruct posistruct37[1700];//fix it
+posistruct posistruct38[1700];//fix it
+posistruct posistruct39[1700];//fix it
+posistruct posistruct40[1700];//fix it
+posistruct posistruct41[1700];//fix it
+posistruct posistruct42[1700];//fix it
+posistruct posistruct43[1700];//fix it
+posistruct posistruct44[1700];//fix it
+posistruct posistruct45[1700];//fix it
+posistruct posistruct46[1700];//fix it
+posistruct posistruct47[1700];//fix it
+posistruct posistruct48[1700];//fix it
+posistruct posistruct49[1700];//fix it
+posistruct posistruct50[1700];//fix it
 
 filearray_struct filearray_2aa18c[] = {
 	{ &POINTERSTAB_BEGIN_BUFFER,&POINTERSTAB_END_BUFFER,&POINTERSDAT_BEGIN_BUFFER,posistruct1 },
@@ -310,7 +348,37 @@ filearray_struct filearray_2aa18c[] = {
 { &HFONT3TAB_BEGIN_BUFFER,&HFONT3TAB_BEGIN_BUFFER,&HFONT3TAB_END_BUFFER,posistruct7 },
 { &ZERO_BUFFER,&ZERO_BUFFER,&ZERO_BUFFER,posistruct8 },
 { &BUILD00TAB_BEGIN_BUFFER,&BUILD00TAB_END_BUFFER,&BUILD00DAT_BEGIN_BUFFER,posistruct9 },
-{ &ZERO_BUFFER,&ZERO_BUFFER,&ZERO_BUFFER,posistruct10 }
+{ &ZERO_BUFFER,&ZERO_BUFFER,&ZERO_BUFFER,posistruct10 },
+{ &ZERO_BUFFER,&ZERO_BUFFER,&ZERO_BUFFER,posistruct11 },
+{ &ZERO_BUFFER,&ZERO_BUFFER,&ZERO_BUFFER,posistruct12 },
+{ &ZERO_BUFFER,&ZERO_BUFFER,&ZERO_BUFFER,posistruct13 },
+{ &ZERO_BUFFER,&ZERO_BUFFER,&ZERO_BUFFER,posistruct14 },
+{ &ZERO_BUFFER,&ZERO_BUFFER,&ZERO_BUFFER,posistruct15 },
+{ &ZERO_BUFFER,&ZERO_BUFFER,&ZERO_BUFFER,posistruct16 },
+{ &ZERO_BUFFER,&ZERO_BUFFER,&ZERO_BUFFER,posistruct17 },
+{ &ZERO_BUFFER,&ZERO_BUFFER,&ZERO_BUFFER,posistruct18 },
+{ &ZERO_BUFFER,&ZERO_BUFFER,&ZERO_BUFFER,posistruct19 },
+{ &ZERO_BUFFER,&ZERO_BUFFER,&ZERO_BUFFER,posistruct20 },
+{ &ZERO_BUFFER,&ZERO_BUFFER,&ZERO_BUFFER,posistruct21 },
+{ &ZERO_BUFFER,&ZERO_BUFFER,&ZERO_BUFFER,posistruct22 },
+{ &ZERO_BUFFER,&ZERO_BUFFER,&ZERO_BUFFER,posistruct23 },
+{ &ZERO_BUFFER,&ZERO_BUFFER,&ZERO_BUFFER,posistruct24 },
+{ &ZERO_BUFFER,&ZERO_BUFFER,&ZERO_BUFFER,posistruct25 },
+{ &ZERO_BUFFER,&ZERO_BUFFER,&ZERO_BUFFER,posistruct26 },
+{ &ZERO_BUFFER,&ZERO_BUFFER,&ZERO_BUFFER,posistruct27 },
+{ &ZERO_BUFFER,&ZERO_BUFFER,&ZERO_BUFFER,posistruct28 },
+{ &ZERO_BUFFER,&ZERO_BUFFER,&ZERO_BUFFER,posistruct29 },
+{ &ZERO_BUFFER,&ZERO_BUFFER,&ZERO_BUFFER,posistruct30 },
+{ &ZERO_BUFFER,&ZERO_BUFFER,&ZERO_BUFFER,posistruct41 },
+{ &ZERO_BUFFER,&ZERO_BUFFER,&ZERO_BUFFER,posistruct42 },
+{ &ZERO_BUFFER,&ZERO_BUFFER,&ZERO_BUFFER,posistruct43 },
+{ &ZERO_BUFFER,&ZERO_BUFFER,&ZERO_BUFFER,posistruct44 },
+{ &ZERO_BUFFER,&ZERO_BUFFER,&ZERO_BUFFER,posistruct45 },
+{ &ZERO_BUFFER,&ZERO_BUFFER,&ZERO_BUFFER,posistruct46 },
+{ &ZERO_BUFFER,&ZERO_BUFFER,&ZERO_BUFFER,posistruct47 },
+{ &ZERO_BUFFER,&ZERO_BUFFER,&ZERO_BUFFER,posistruct48 },
+{ &ZERO_BUFFER,&ZERO_BUFFER,&ZERO_BUFFER,posistruct49 },
+{ &ZERO_BUFFER,&ZERO_BUFFER,&ZERO_BUFFER,posistruct50 },
 };
 /*
 Bit8u** filearray_2aa18c[] = {//misto *filearray_2aa18c - 2aa18c
@@ -2454,8 +2522,8 @@ x_BYTE */*__cdecl*/ sub_6F7E0(int a1);
 unsigned int /*__cdecl*/ sub_6F850(int a1, int a2);
 int /*__cdecl*/ sub_6F8E0(int a1, int a2);
 int /*__cdecl*/ sub_6F940(x_BYTE *a1, int a2, int a3, unsigned __int8 a4);
-__int16 sub_6FC10();
-__int16 sub_6FC30();
+Bit8u sub_6FC10();
+Bit8u sub_6FC30();
 void sub_6FC50(__int16 a1);
 unsigned int /*__cdecl*/ sub_6FC80(char *a1, __int16 a2, __int16 a3, __int16 a4, unsigned __int8 a5);
 int sub_6FD30(); // weak
@@ -2591,11 +2659,11 @@ int sub_76F40(); // weak
 int /*__fastcall*/ sub_76FA0_main_menu(int a1, int a2, Bit16u a3);
 char /*__cdecl*/ sub_77350(int a1);
 char /*__fastcall*/ sub_77680(int a1, int a2, signed __int16 *a3);
-char /*__cdecl*/ sub_77980(Bit8u* a1);
+char /*__cdecl*/ sub_77980_exit_dialog(Bit8u* a1);
 char /*__cdecl*/ sub_779E0_lang_setting_loop(Bit8u* a1);
 char /*__cdecl*/ sub_780F0(int a1);
 char /*__cdecl*/ sub_78730(x_WORD *a1);
-// char sub_78E00(int a1, int a2, signed __int16 *a3);
+// char sub_78E00_set_player_name(int a1, int a2, signed __int16 *a3);
 char /*__cdecl*/ sub_79160(Bit8u* a1);
 char sub_79610();
 signed int /*__cdecl*/ sub_79E10(char *a1, char a2);
@@ -2609,11 +2677,11 @@ bool sub_7B200_in_region(Bit16s* a1, Bit16s testx, Bit16s testy);
 char /*__fastcall*/ sub_7B250(int a1, int a2/*, __int16 a3*/);
 void sub_7B5A0_disable_enable();
 void sub_7B5D0();
-int /*__cdecl*/ sub_7B660(int a1, int a2, __int16 a3, x_WORD *a4, x_BYTE *a5, char a6);
+int /*__cdecl*/ sub_7B660_draw_scroll_dialog2(int a1, int a2, __int16 a3, x_WORD *a4, x_BYTE *a5, char a6);
 void sub_7BEC0();
-int /*__cdecl*/ sub_7BF20(signed __int16 *a1);
+int /*__cdecl*/ sub_7BF20_draw_scroll_dialog(signed __int16 *a1);
 x_WORD */*__cdecl*/ sub_7C020(x_WORD *a1);
-signed int /*__fastcall*/ sub_7C050_get_keyboard_keys1(Bit16s a2);
+signed int /*__fastcall*/ sub_7C050_get_keyboard_keys1();
 int /*__cdecl*/ sub_7C120_draw_bitmap2(Bit16s posx, Bit16s posy, posistruct tempstr);
 void sub_7C140(Bit16u a1, Bit16u a2, Bit16u a3, Bit16u a4, Bit8u a5);
 char /*__cdecl*/ sub_7C200(unsigned __int8 a1);
@@ -13353,7 +13421,7 @@ myStructps x_DWORD_E9980x[32]; // weak
 //Bit16u x_WORD_E9984[0x86]; // idb
 //int x_DWORD_E9B20[2] = {0,0}; // fix it -  weak
 //Pathstruct x_DWORD_E9B20[2] = { pstr[3],pstr[3] };
-posistruct* x_DWORD_E9B20[2] = { filearray_2aa18c[filearrayindex_FONTS0DATTAB].posistruct,filearray_2aa18c[filearrayindex_MSPRDDATTAB].posistruct};
+filearray_struct x_DWORD_E9B20[2] = { filearray_2aa18c[filearrayindex_FONTS0DATTAB],filearray_2aa18c[filearrayindex_MSPRDDATTAB]};
 
 
 /*
@@ -13445,7 +13513,7 @@ int x_DWORD_EA3C4; // weak
 int x_DWORD_EA3C8; // weak
 int x_DWORD_EA3CC; // weak
 int x_DWORD_EA3D0; // weak
-Bit8u* x_DWORD_EA3D4; // weak
+posistruct* x_DWORD_EA3D4; // weak
 //Bit8u *xadatapald0dat2.var28_begin_buffer[0x300]; // weak
 /*int x_DWORD_EA3DC; // weak*/
 /*int x_DWORD_EA3E0_copyto_x_DWORD_EA3E0[]; // weak*/
@@ -13905,7 +13973,7 @@ int x_DWORD_180658; // weak
 int x_DWORD_18065C; // weak
 __int16 x_WORD_180660_VGA_type_resolution; // weak
 __int16 x_WORD_180662_graphics_handle; // weak
-char x_BYTE_180664[24]; // idb
+Bit8s x_BYTE_180664[128]; // idb
 char x_BYTE_18067C; // weak
 char x_BYTE_18068E; // weak
 char x_BYTE_180693; // weak
@@ -84840,17 +84908,17 @@ LABEL_14:
       goto LABEL_14;
     v8 = 6 * ((unsigned __int8)*v4 + 1);
 	//similar as:sub_7C120_draw_bitmap2(tempposx, tempposy, xy_DWORD_17DEC0_spritestr[temptextbuffer[0]]);
-	posistruct tempposistruct;//fixed
+	//posistruct tempposistruct;//fixed
 	//tempposistruct.pointer = new Bit8u[1];//fixed
 	/*
 	19f990->59361a00 0407 70361a00 04 07 85361a00
 	*/
-	tempposistruct.pointer= &x_DWORD_EA3D4[v8];//fixed
+	/*tempposistruct.pointer= &x_DWORD_EA3D4[v8];//fixed
 	tempposistruct.sizex = 0;
-	tempposistruct.sizey = 0;
-	sub_72C40(v5, a3, tempposistruct, a4);//fixed 2509d1
+	tempposistruct.sizey = 0;*/
+	sub_72C40(v5, a3, x_DWORD_EA3D4[v8/6], a4);//fixed 2509d1
 	//sub_72C40(v5, a3, *(new posistruct)/*(Bit8u*)(v8 + x_DWORD_EA3D4)*/, a4);
-    v9 = *(unsigned __int8 *)(x_DWORD_EA3D4 + v8 + 4);
+    v9 = x_DWORD_EA3D4[v8/6].sizex;
 LABEL_15:
     v5 += v9;
 LABEL_16:
@@ -84864,30 +84932,30 @@ LABEL_16:
 // EA3D4: using guessed type int x_DWORD_EA3D4;
 
 //----- (0006FC10) --------------------------------------------------------
-__int16 sub_6FC10()//250c10
+Bit8u sub_6FC10()//250c10
 {
-  return *(unsigned __int8 *)(x_DWORD_EA3D4 + 202);
+  return x_DWORD_EA3D4[33].sizex;
 }
 // EA3D4: using guessed type int x_DWORD_EA3D4;
 
 //----- (0006FC30) --------------------------------------------------------
-__int16 sub_6FC30()//250c30
+Bit8u sub_6FC30()//250c30
 {
-  return *(unsigned __int8 *)(x_DWORD_EA3D4 + 203);
+  return x_DWORD_EA3D4[34].sizey;
 }
 // EA3D4: using guessed type int x_DWORD_EA3D4;
 
 //----- (0006FC50) --------------------------------------------------------
 void sub_6FC50(__int16 a1)//250c50
 {
-  int result; // eax
-  posistruct v2; // edx
+  //int result; // eax
+  posistruct *v2; // edx
 
-  result = a1;
-  v2 = *x_DWORD_E9B20[result];
-  if ( !v2.pointer )
-    v2 = *x_DWORD_E9B20[0];
-  x_DWORD_EA3D4 = v2.pointer;
+  //result = a1;
+  v2 = x_DWORD_E9B20[a1].posistruct;
+  if ( !v2->pointer )
+    v2 = x_DWORD_E9B20[0].posistruct;
+  x_DWORD_EA3D4 = v2;
   //return result * 4;
 }
 // E9B20: using guessed type int x_DWORD_E9B20[];
@@ -86677,9 +86745,12 @@ cseg01:000728C5                 mov     al, [ebp+arg_8]
 cseg01:000728C8                 mov     ah, [ebp+arg_8]
 	*/
 
-	memset32(a2, a4*257*256, a3*160);
+	//memset32(a2, a4*257*256, a3*160);
 
-	memset32(a2, 640 * 480, a3 * 160);//fixed
+	//memset32(a2, 640 * 480, a3 * 160);//fixed
+	//11 800 fffffff7 355142
+	//00,00,00,00 12c00 1e0*a0 3aa0a4
+	memset32(a2, a4, 4*160*a3);
 //3aa0a4,1E0,0
   
 
@@ -87871,6 +87942,7 @@ int sub_753D0()
 
   //fix it
   v3 = 0;
+  v2 = 0;
   //fix it
 
   v0 = 0;
@@ -87879,10 +87951,11 @@ int sub_753D0()
     v1 = v0++;
     x_BYTE_180664[v1] = 0;
   }
-  v2 = dos_getvect(9);
+  //v2 = dos_getvect(9);
   x_WORD_17D434 = v3;
   x_DWORD_17D430 = v2;
-  return dos_setvect(9, (x_DWORD)sub_752C0, (unsigned __int16)__CS__);
+  //return dos_setvect(9, (x_DWORD)sub_752C0, (unsigned __int16)__CS__);
+  return 0;//fix it
 }
 // 752C0: using guessed type int sub_752C0();
 // 99BA7: using guessed type x_DWORD /*__cdecl*/ dos_getvect(x_DWORD);
@@ -89592,7 +89665,7 @@ int /*__fastcall*/ sub_76FA0_main_menu(int a1, int a2, Bit16u a3x)//257fa0
   v23 = 0;
   //fix it
 
-  memset(x_DWORD_180628b_screen_buffer, 0, 640*480);//fixed
+  //memset(x_DWORD_180628b_screen_buffer, 0, 640*480);//fixed
 
   /*memset(&v24, 0, 28);
   v24 = 0x3301;
@@ -89700,8 +89773,8 @@ int /*__fastcall*/ sub_76FA0_main_menu(int a1, int a2, Bit16u a3x)//257fa0
       v11 = sub_7A060_get_mouse_and_keyboard_events();
     }
     sub_41BC0();
-    *(x_BYTE *)(x_DWORD_D41A0 + 8592) = 0;
-    dos_setvect(9, x_DWORD_17DE22, x_WORD_17DE26);
+	x_D41A0_BYTEARRAY_0[8592] = 0;
+    //dos_setvect(9, x_DWORD_17DE22, x_WORD_17DE26);
     sub_753D0();
     result = (int)x_DWORD_17DE44;
     x_DWORD_E9C38_smalltit = x_DWORD_17DE44;
@@ -89709,8 +89782,8 @@ int /*__fastcall*/ sub_76FA0_main_menu(int a1, int a2, Bit16u a3x)//257fa0
   else
   {
     sub_41BC0();
-    *(x_BYTE *)(x_DWORD_D41A0 + 8592) = 0;
-    dos_setvect(9, x_DWORD_17DE22, x_WORD_17DE26);
+	x_D41A0_BYTEARRAY_0[8592] = 0;
+    //dos_setvect(9, x_DWORD_17DE22, x_WORD_17DE26);
     result = sub_753D0();
   }
   return result;
@@ -90010,12 +90083,12 @@ char /*__fastcall*/ sub_77680(int a1, int a2, signed __int16 *a3)
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
 //----- (00077980) --------------------------------------------------------
-char /*__cdecl*/ sub_77980(Bit8u* a1)//258980
+char /*__cdecl*/ sub_77980_exit_dialog(Bit8u* a1)//258980
 {
   __int16 v1; // ax
   char v2; // bl
   //a1 ma byt 2b2cb4
-  v1 = sub_7BF20((signed __int16 *)(a1 + 26));
+  v1 = sub_7BF20_draw_scroll_dialog((signed __int16 *)(a1 + 26));//draw exit dialog
   v2 = v1;
   if ( v1 == 1 )
   {
@@ -90259,6 +90332,7 @@ char /*__cdecl*/ sub_779E0_lang_setting_loop(Bit8u* a1x)//2589E0
       }
     }
   }
+  //adress 258ea1
   unknown_libname_4_find_close(&langfileL, langlhandle);//adress 258EA2
   configfile = sub_98817_open(printbuffer2, 546);
   if (configfile!= NULL )
@@ -90341,7 +90415,7 @@ char /*__cdecl*/ sub_779E0_lang_setting_loop(Bit8u* a1x)//2589E0
     sub_90478_VGA_Blit320();
   else
     sub_75200_VGA_Blit640(480);
-  if (langlhandle == NULL)
+  if (langlhandle != NULL)//3551d4
   {
     sub_7AA70_load_and_decompres_dat_file((char*)"DATA/SCREENS/HSCREEN0.DAT", (Bit8u*)x_DWORD_17DE38, 0, 768);
     sub_7AA70_load_and_decompres_dat_file((char*)"DATA/SCREENS/HSCREEN0.DAT", (Bit8u*)x_DWORD_17DE40, x_DWORD_17DEDC, 168081);
@@ -90491,7 +90565,7 @@ char /*__cdecl*/ sub_780F0(int a1)
     }
     x_WORD_17DF04 = 0;
   }
-  v51 = sub_7BF20((signed __int16 *)(a1 + 26));
+  v51 = sub_7BF20_draw_scroll_dialog((signed __int16 *)(a1 + 26));
   if ( (x_BYTE)v51 )
   {
     sub_7C020((x_WORD *)(a1 + 26));
@@ -90766,7 +90840,7 @@ char /*__cdecl*/ sub_78730(x_WORD *a1)
     }
     x_WORD_17DF04 = 0;
   }
-  v59 = sub_7BF20(v1);
+  v59 = sub_7BF20_draw_scroll_dialog(v1);
   if ( (x_BYTE)v59 )
   {
     sub_7C020(v1);
@@ -90950,7 +91024,7 @@ char /*__cdecl*/ sub_78730(x_WORD *a1)
 // 17DF11: using guessed type char x_BYTE_17DF11;
 
 //----- (00078E00) --------------------------------------------------------
-char sub_78E00(int a1, int a2, signed __int16 *a3)
+char sub_78E00_set_player_name(/*int a1, int a2, */signed __int16 *a3)//259e00
 {
   int v3; // eax
   int v4; // esi
@@ -90962,16 +91036,16 @@ char sub_78E00(int a1, int a2, signed __int16 *a3)
   unsigned __int8 v10; // al
   __int16 v11; // bx
   unsigned __int8 v12; // al
-  char *v13; // esi
-  char *v14; // edi
+  Bit8u* v13; // esi
+  Bit8u* v14; // edi
   char v15; // al
   char v16; // al
-  char *v17; // edi
-  char *v18; // esi
+  Bit8u* v17; // edi
+  Bit8u* v18; // esi
   char v19; // al
   char v20; // al
-  char *v21; // edi
-  char *v22; // esi
+  Bit8u* v21; // edi
+  Bit8u* v22; // esi
   char v23; // al
   char v24; // al
   int v26; // [esp+0h] [ebp-14h]
@@ -90983,17 +91057,17 @@ char sub_78E00(int a1, int a2, signed __int16 *a3)
   v28 = 0;
   v26 = j___clock();
   /*v3 = */sub_6FC50(1);
-  LOWORD(v3) = a3[13];
-  v29 = v3 + 10;
+  //LOWORD(v3) = a3[13];
+  v29 = a3[13] + 10;
   //HIWORD(v3) = HIWORD(x_DWORD_17DED4);
-  LOWORD(v3) = xy_DWORD_17DED4_spritestr[72].sizex;
+  v3 = xy_DWORD_17DED4_spritestr[72].sizex;
   v27 = v29 + v3 - 22;
   v4 = a3[14] + a3[17] / 2;
   v5 = v4 - sub_6FC30();
-  v30 = sub_7BF20(a3 + 13);
+  v30 = sub_7BF20_draw_scroll_dialog(a3 + 13);
   if ( a3[18] <= a3[17] / 2 )
     goto LABEL_15;
-  x_WORD_17DEF0 = strlen((const char *)(int)x_DWORD_17DE50);
+  x_WORD_17DEF0 = strlen((const char *)x_DWORD_17DE50);
   if ( (unsigned __int8)x_BYTE_17DF10_ctrl_shift_status < 0xFu )
   {
     if ( x_BYTE_17DF10_ctrl_shift_status != 14 )
@@ -91001,7 +91075,7 @@ char sub_78E00(int a1, int a2, signed __int16 *a3)
 LABEL_9:
       if ( (unsigned __int16)x_WORD_17DEF0 < 0xCu && x_BYTE_17DF11 && sub_7C200(x_BYTE_17DF11) )
       {
-        v7 = (char *)((int)x_DWORD_17DE50 + (unsigned __int16)x_WORD_17DEF0);
+        v7 = (char *)(x_DWORD_17DE50 + x_WORD_17DEF0);
         v8 = x_BYTE_17DF11;
         v7[1] = 0;
         *v7 = v8;
@@ -91011,8 +91085,8 @@ LABEL_9:
 LABEL_7:
     if ( x_WORD_17DEF0 )
     {
-      v6 = (const char *)(int)x_DWORD_17DE50;
-      *(x_BYTE *)(strlen((const char *)(int)x_DWORD_17DE50) + (int)x_DWORD_17DE50 - 1) = 0;
+      v6 = (const char *)x_DWORD_17DE50;
+      *(x_BYTE *)(strlen((const char *)x_DWORD_17DE50) + x_DWORD_17DE50 - 1) = 0;
       x_WORD_17DEF0 = strlen(v6);
     }
     goto LABEL_13;
@@ -91024,11 +91098,11 @@ LABEL_7:
     goto LABEL_7;
   }
 LABEL_13:
-  _strupr_s((char*)(int)x_DWORD_17DE50,sizeof((int)x_DWORD_17DE50));
+  _strupr_s((char*)x_DWORD_17DE50, strlen((char*)x_DWORD_17DE50)+1);
   sub_6FC50(1);
   v9 = sub_6FC30() + v5;
   v10 = sub_5BE80_test_pallette((unsigned __int8 *)x_DWORD_17DE38, 0x16u, 0x10u, 9u);
-  v11 = sub_6FC80((char *)(int)x_DWORD_17DE50, v29, v27, v9, v10);
+  v11 = sub_6FC80((char *)x_DWORD_17DE50, v29, v27, v9, v10);
   if ( (v26 - x_DWORD_17DED0) / 0xCu >= 1 )
   {
     v12 = sub_5BE80_test_pallette((unsigned __int8 *)x_DWORD_17DE38, 0x16u, 0x10u, 9u);
@@ -91040,8 +91114,8 @@ LABEL_15:
   {
     if ( v30 == 1 )
     {
-      v13 = (char *)(int)x_DWORD_17DE50;
-      v14 = (char *)(x_DWORD_D41A0 + 11230 + 2124 * x_D41A0_BYTEARRAY_4_struct.dwordindex_12 + 927);
+      v13 = x_DWORD_17DE50;
+      v14 = &x_D41A0_BYTEARRAY_0[11230 + 2124 * x_D41A0_BYTEARRAY_4_struct.dwordindex_12 + 927];
       do
       {
         v15 = *v13;
@@ -91054,8 +91128,8 @@ LABEL_15:
         v14 += 2;
       }
       while ( v16 );
-      v17 = (char*)x_D41A0_BYTEARRAY_4[57];
-      v18 = (char *)(2124 * x_D41A0_BYTEARRAY_4_struct.dwordindex_12 + x_DWORD_D41A0 + 11230 + 927);
+      v17 = x_D41A0_BYTEARRAY_4_struct.player_name_57;//38cf89
+      v18 = &x_D41A0_BYTEARRAY_0[2124 * x_D41A0_BYTEARRAY_4_struct.dwordindex_12 + 11230 + 927];
       do
       {
         v19 = *v18;
@@ -91071,10 +91145,10 @@ LABEL_15:
     }
     else
     {
-      x_D41A0_BYTEARRAY_4[57] = 0;
+		*x_D41A0_BYTEARRAY_4_struct.player_name_57 = 0;//fixed x_D41A0_BYTEARRAY_4_struct.player_name_57 = 0;
     }
-    v21 = (char *)(int)x_DWORD_17DE50;
-    v22 = (char *)(x_DWORD_D41A0 + 11230 + 2124 * x_D41A0_BYTEARRAY_4_struct.dwordindex_12 + 927);
+    v21 = x_DWORD_17DE50;
+    v22 = &x_D41A0_BYTEARRAY_0[11230 + 2124 * x_D41A0_BYTEARRAY_4_struct.dwordindex_12 + 927];
     do
     {
       v23 = *v22;
@@ -91154,7 +91228,7 @@ char /*__cdecl*/ sub_79160(Bit8u* a1)//25a160
     v28 = v26 + v3 - 22;
     v5 = *(signed __int16 *)(a1 + 28) + v4 / 2;
     v6 = v5 - 2 * sub_6FC30();
-    v29 = sub_7BF20((signed __int16 *)(a1 + 26));
+    v29 = sub_7BF20_draw_scroll_dialog((signed __int16 *)(a1 + 26));
     if ( *(x_WORD *)(a1 + 36) >= *(x_WORD *)(a1 + 34) )
     {
       v7 = (signed __int16 *)&unk_E2690;
@@ -91287,7 +91361,7 @@ LABEL_42:
       *(x_WORD *)(a1 + 38) = 439;
     }
   }
-  sub_7BF20(v1);
+  sub_7BF20_draw_scroll_dialog(v1);
   if ( *(x_WORD *)(a1 + 36) < *(x_WORD *)(a1 + 34) )
     return v27;
   v18 = *(x_BYTE *)(a1 + 25);
@@ -91839,7 +91913,7 @@ char sub_7A060_get_mouse_and_keyboard_events()//25B060
     LOBYTE(x_WORD_17DEEE) = x_WORD_17DEEE | 2;
   x_DWORD_17DEE4_mouse_positionx = x_WORD_E3760_mousex;//2b4760
   x_DWORD_17DEE4_mouse_positiony = x_WORD_E3762_mousey;//2b4762
-  sub_7C050_get_keyboard_keys1(0);
+  sub_7C050_get_keyboard_keys1();
   result = x_BYTE_17DF10_ctrl_shift_status;
   x_WORD_180744 = 0;
   x_WORD_180746 = 0;
@@ -92201,7 +92275,7 @@ int sub_7AC00_load_and_set_graphics_and_pallette()//25BC00
       x_WORD_E29DA_type_resolution = x_WORD_180660_VGA_type_resolution;
       x_WORD_180660_VGA_type_resolution = 8;
       x_DWORD_E9C3C = (Bit8u*)sub_83CD0_malloc2(307200);
-	  // fix it//sub_6EB90(&*filearray_2aa18c[0]);
+	  sub_6EB90(&filearray_2aa18c[filearrayindex_POINTERSDATTAB]);
       memset((void*)*xadatapald0dat2.var28_begin_buffer, 0, 768);
       if ( x_WORD_180660_VGA_type_resolution & 1 )
       {
@@ -92324,11 +92398,15 @@ bool pre_sub_7B250(Bit32u var,Bit8u* var2) {
 	bool callres = true;
 	switch (var) {
 	case 0x258980: {
-		return sub_77980(var2);//exit dialog
+		return sub_77980_exit_dialog(var2);//exit dialog
 		break;
 	}
 	case 0x2589e0: {
 		return sub_779E0_lang_setting_loop(var2);
+		break;
+	}
+	case 0x259e00: {
+		return sub_78E00_set_player_name((Bit16s*)var2);//set user name
 		break;
 	}
 	case 0x25a160: {
@@ -92571,7 +92649,7 @@ void sub_7B5D0()
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
 //----- (0007B660) --------------------------------------------------------
-int /*__cdecl*/ sub_7B660(int a1, int a2, __int16 a3, x_WORD *a4, x_BYTE *a5, char a6)//25c660
+int /*__cdecl*/ sub_7B660_draw_scroll_dialog2(int a1, int a2, __int16 a3, x_WORD *a4, x_BYTE *a5, char a6)//25c660
 {
   int v6; // ebx
   unsigned __int8 v7; // al
@@ -92596,14 +92674,14 @@ int /*__cdecl*/ sub_7B660(int a1, int a2, __int16 a3, x_WORD *a4, x_BYTE *a5, ch
   int v26; // eax
   __int16 v27; // cx
   Bit8u* v28; // edx
-  Bit8u* v29; // eax
+  //Bit8u* v29; // eax
   int v30; // ebx
   unsigned __int8 v31; // al
-  char v33; // [esp+0h] [ebp-4Ch]
-  __int16 v34; // [esp+Ah] [ebp-42h]
-  __int16 v35; // [esp+Ch] [ebp-40h]
-  __int16 v36; // [esp+Eh] [ebp-3Eh]
-  __int16 v37; // [esp+10h] [ebp-3Ch]
+  Bit16s v33[9]; // [esp+0h] [ebp-4Ch]
+  //__int16 v34; // [esp+Ah] [ebp-42h]
+  //__int16 v35; // [esp+Ch] [ebp-40h]
+  //__int16 v36; // [esp+Eh] [ebp-3Eh]
+  //__int16 v37; // [esp+10h] [ebp-3Ch]
   int v38; // [esp+2Ch] [ebp-20h]
   int v39; // [esp+30h] [ebp-1Ch]
   int v40; // [esp+34h] [ebp-18h]
@@ -92612,19 +92690,19 @@ int /*__cdecl*/ sub_7B660(int a1, int a2, __int16 a3, x_WORD *a4, x_BYTE *a5, ch
   int v43; // [esp+40h] [ebp-Ch]
   unsigned __int8 v44; // [esp+44h] [ebp-8h]
   unsigned __int8 v45; // [esp+48h] [ebp-4h]
-  Bit8u* v46; // [esp+64h] [ebp+18h]
+  signed __int16 v46; // [esp+64h] [ebp+18h]
 
   HIWORD(v6) = HIWORD(a4);
   v44 = 0;
   if ( !a3 )
   {
-    sub_7C120_draw_bitmap2(a1, a2, xy_DWORD_17DED4_spritestr[x_WORD_17DF06]);
+    sub_7C120_draw_bitmap2(a1, a2, xy_DWORD_17DED4_spritestr[x_WORD_17DF06]);//unknown draw
     goto LABEL_31;
   }
   v45 = sub_5BE80_test_pallette((unsigned __int8 *)x_DWORD_17DE38, 0x25u, 0x1Fu, 0x19u);
   v38 = (signed __int16)a2;
   v41 = (signed __int16)a1;
-  sub_7C120_draw_bitmap2(a1, a2, xy_DWORD_17DED4_spritestr[x_WORD_17DF06]);
+  sub_7C120_draw_bitmap2(a1, a2, xy_DWORD_17DED4_spritestr[x_WORD_17DF06]);//top scroll border
   v7 = sub_5BE80_test_pallette((unsigned __int8 *)x_DWORD_17DE38, 0x2Au, 0x24u, 0x1Du);
   sub_7C140(
     (signed __int16)(a1 + 10),
@@ -92635,29 +92713,29 @@ int /*__cdecl*/ sub_7B660(int a1, int a2, __int16 a3, x_WORD *a4, x_BYTE *a5, ch
   v39 = v45;
   v40 = (signed __int16)(a3 + a2);
   sub_2BD10(a1 + 10, a2, a1 + 10, a3 + a2, v45);
-  v8 = xy_DWORD_17DED4_spritestr[x_WORD_17DF06].pointer;
-  v9 = a2 + *(unsigned __int8 *)(v8 + 5) - 2;
-  sub_2BD10(a1 + *(unsigned __int8 *)(v8 + 4) - 12, v9, a1 + *(unsigned __int8 *)(v8 + 4) - 12, v9 + a3, v45);
-  v10 = sub_7C120_draw_bitmap2(a1, v40, xy_DWORD_17DED4_spritestr[x_WORD_17DF06]);
+  //v8 = xy_DWORD_17DED4_spritestr[x_WORD_17DF06].pointer;
+  v9 = a2 + xy_DWORD_17DED4_spritestr[x_WORD_17DF06].sizey - 2;
+  sub_2BD10(a1 + xy_DWORD_17DED4_spritestr[x_WORD_17DF06].sizex - 12, v9, a1 + xy_DWORD_17DED4_spritestr[x_WORD_17DF06].sizex - 12, v9 + a3, v45); // to je ta linka, kterou je treba opravit
+  v10 = sub_7C120_draw_bitmap2(a1, v40, xy_DWORD_17DED4_spritestr[x_WORD_17DF06]);//bottom scroll border
   if ( a4[5] >= a4[4] )
   {
     switch ( a6 )
     {
       case 3:
-        LOWORD(v10) = *a4;
+        v10 = a4[0];
         v43 = v10 + 15;
-        v12 = 6 * x_WORD_17DF0C;
-        v13 = v12 + xy_DWORD_17DED4_spritestr[0].pointer;
-        LOWORD(v11) = a4[4];
-        LOWORD(v12) = a4[1];
-        LOWORD(v14) = *(unsigned __int8 *)(v13 + 5);
-        HIWORD(v14) = (signed __int16)a1 >> 15;
+        //v12 = 6 * x_WORD_17DF0C;
+        //v13 = v12 + xy_DWORD_17DED4_spritestr[0].pointer;
+        v11 = a4[4];
+        v12 = a4[1];
+        v14 = xy_DWORD_17DED4_spritestr[x_WORD_17DF0C].sizey;
+        //HIWORD(v14) = (signed __int16)a1 >> 15;
         v15 = v11 + v12 - v14;
-        v35 = v15;
-        v34 = v43;
-        v36 = *(unsigned __int8 *)(v13 + 4);
-        v37 = *(unsigned __int8 *)(v13 + 5);
-        if ( sub_7B200_in_region((x_WORD*)&v33, x_DWORD_17DEE4_mouse_positionx, x_DWORD_17DEE4_mouse_positiony) )
+		v33[6] = v15;//12 - v35
+		v33[5] = v43;//10 - v34
+		v33[7] = xy_DWORD_17DED4_spritestr[x_WORD_17DF0C].sizex;//14 adress 25c832
+		v33[8] = xy_DWORD_17DED4_spritestr[x_WORD_17DF0C].sizey;//16
+        if ( sub_7B200_in_region(v33, x_DWORD_17DEE4_mouse_positionx, x_DWORD_17DEE4_mouse_positiony) )//icon OK
         {
           sub_7C120_draw_bitmap2(v43, v15, xy_DWORD_17DED4_spritestr[x_WORD_17DF0E]);
           if ( x_WORD_17DEEE & 1 )
@@ -92667,19 +92745,19 @@ int /*__cdecl*/ sub_7B660(int a1, int a2, __int16 a3, x_WORD *a4, x_BYTE *a5, ch
         {
           sub_7C120_draw_bitmap2(v43, v15, xy_DWORD_17DED4_spritestr[x_WORD_17DF0C]);
         }
-        v16 = 3 * x_WORD_17DF06;
-        LOWORD(v16) = xy_DWORD_17DED4_spritestr[x_WORD_17DF06].sizex;
-        LOWORD(v6) = *a4;
+        //v16 = 3 * x_WORD_17DF06;
+        v16 = xy_DWORD_17DED4_spritestr[x_WORD_17DF06].sizex;
+        v6 = a4[0];
         v42 = v16 - 12 + v6;
-        v17 = xy_DWORD_17DED4_spritestr[x_WORD_17DF06].pointer;
-        LOWORD(v16) = v42 - *(unsigned __int8 *)(v17 + 4);
-        v35 = v15;
+        //v17 = xy_DWORD_17DED4_spritestr[x_WORD_17DF06].pointer;
+        v16 = v42 - xy_DWORD_17DED4_spritestr[x_WORD_17DF08].sizex;
+		v33[6] = v15;
         v18 = v16;
-        v34 = v16;
-        v36 = *(unsigned __int8 *)(v17 + 4);
+		v33[5] = v16;
+		v33[7] = xy_DWORD_17DED4_spritestr[x_WORD_17DF08].sizex;
         v39 = x_WORD_17DF0A;
-        v37 = xy_DWORD_17DED4_spritestr[x_WORD_17DF06].sizey;
-        if ( sub_7B200_in_region((x_WORD*)&v33, x_DWORD_17DEE4_mouse_positionx, x_DWORD_17DEE4_mouse_positiony) )
+		v33[8] = xy_DWORD_17DED4_spritestr[x_WORD_17DF0A].sizey;
+        if ( sub_7B200_in_region(v33, x_DWORD_17DEE4_mouse_positionx, x_DWORD_17DEE4_mouse_positiony) )//icon X - cancel
         {
           sub_7C120_draw_bitmap2(v18, v15, xy_DWORD_17DED4_spritestr[x_WORD_17DF0A]);
           if ( x_WORD_17DEEE & 1 )
@@ -92687,20 +92765,20 @@ int /*__cdecl*/ sub_7B660(int a1, int a2, __int16 a3, x_WORD *a4, x_BYTE *a5, ch
         }
         else
         {
-          sub_7C120_draw_bitmap2(v18, v15, xy_DWORD_17DED4_spritestr[x_WORD_17DF08]);
+          sub_7C120_draw_bitmap2(v18, v15, xy_DWORD_17DED4_spritestr[x_WORD_17DF08]);//zlom
         }
         goto LABEL_23;
       case 1:
-        v19 = xy_DWORD_17DED4_spritestr[x_WORD_17DF0C].pointer;
+        //v19 = xy_DWORD_17DED4_spritestr[x_WORD_17DF0C].pointer;
         v20 = *a4 + 30;
         v21 = a4[4] + a4[1];
-        v22 = *(unsigned __int8 *)(v19 + 5);
-        v34 = *a4 + 30;
+        v22 = xy_DWORD_17DED4_spritestr[x_WORD_17DF0C].sizey;
+		v33[5] = *a4 + 30;
         v23 = v21 - v22;
-        v35 = v21 - v22;
-        v36 = *(unsigned __int8 *)(v19 + 4);
-        v37 = *(unsigned __int8 *)(v19 + 5);
-        if ( sub_7B200_in_region((x_WORD*)&v33, x_DWORD_17DEE4_mouse_positionx, x_DWORD_17DEE4_mouse_positiony) )
+		v33[5] = v21 - v22;
+		v33[7] = xy_DWORD_17DED4_spritestr[x_WORD_17DF0C].sizex;
+		v33[8] = xy_DWORD_17DED4_spritestr[x_WORD_17DF0C].sizey;
+        if ( sub_7B200_in_region(v33, x_DWORD_17DEE4_mouse_positionx, x_DWORD_17DEE4_mouse_positiony) )
         {
           sub_7C120_draw_bitmap2(v20, v23, xy_DWORD_17DED4_spritestr[x_WORD_17DF0E]);
           if ( x_WORD_17DEEE & 1 )
@@ -92713,17 +92791,17 @@ int /*__cdecl*/ sub_7B660(int a1, int a2, __int16 a3, x_WORD *a4, x_BYTE *a5, ch
       case 2:
         v26 = 3 * x_WORD_17DF0C;
         v20 = *a4 + 40;
-        LOWORD(v26) = xy_DWORD_17DED4_spritestr[x_WORD_17DF0C].sizey;
+        v26 = xy_DWORD_17DED4_spritestr[x_WORD_17DF0C].sizey;
         v27 = a4[4];
         v42 = v26;
         v23 = v27 + a4[1] - (unsigned __int8)v26;
-        v35 = v27 + a4[1] - (unsigned __int8)v26;
+		v33[6] = v27 + a4[1] - (unsigned __int8)v26;
         v39 = x_WORD_17DF08;
-        v28 = xy_DWORD_17DED4_spritestr[x_WORD_17DF0C].pointer;
-        v34 = v20;
-        v36 = *(unsigned __int8 *)(v28 + 4);
-        v37 = *(unsigned __int8 *)(v28 + 5);
-        if ( sub_7B200_in_region((x_WORD*)&v33, x_DWORD_17DEE4_mouse_positionx, x_DWORD_17DEE4_mouse_positiony) )
+        //v28 = xy_DWORD_17DED4_spritestr[x_WORD_17DF0C].pointer;
+		v33[5] = v20;
+		v33[7] = xy_DWORD_17DED4_spritestr[x_WORD_17DF0C].sizex;
+		v33[8] = xy_DWORD_17DED4_spritestr[x_WORD_17DF0C].sizey;
+        if ( sub_7B200_in_region(v33, x_DWORD_17DEE4_mouse_positionx, x_DWORD_17DEE4_mouse_positiony) )
         {
           sub_7C120_draw_bitmap2(v20, v23, xy_DWORD_17DED4_spritestr[x_WORD_17DF0A]);
           if ( x_WORD_17DEEE & 1 )
@@ -92751,14 +92829,15 @@ LABEL_23:
     }
   }
   sub_6FC50(1);
-  v29 = xy_DWORD_17DED4_spritestr[x_WORD_17DF06].pointer;
-  v30 = a1 + 10 + *(unsigned __int8 *)(v29 + 4) - 22;
-  LOWORD(v29) = *(unsigned __int8 *)(v29 + 5);
-  v46 = v29 + 2 + a2;
+  //v29 = xy_DWORD_17DED4_spritestr[x_WORD_17DF06].pointer;
+  v30 = a1 + 10 + xy_DWORD_17DED4_spritestr[x_WORD_17DF06].sizex - 22;
+  //v29 = xy_DWORD_17DED4_spritestr[x_WORD_17DF06].sizey;
+  v46 = xy_DWORD_17DED4_spritestr[x_WORD_17DF06].sizey + 2 + a2;
   if ( a5 )
   {
     v31 = sub_5BE80_test_pallette((unsigned __int8 *)x_DWORD_17DE38, 0x16u, 0x10u, 9u);
-    sub_7FCB0_draw_text_with_border(v30, (Bit8u*)a5, (signed __int16)(a1 + 10), (signed __int16)v30, (signed __int16)v46, 1, v31, 0);
+    //"Exit Game" 16a 1c6 28 1 4c//adress 25cc27
+	sub_7FCB0_draw_text_with_border(v30, (Bit8u*)a5, (signed __int16)(a1 + 10), (signed __int16)v30, (signed __int16)v46, 1, v31, 0);
   }
 LABEL_31:
   if ( v44 )
@@ -92821,7 +92900,7 @@ void sub_7BEC0()//
 // D41A4: using guessed type int x_DWORD_D41A4;
 
 //----- (0007BF20) --------------------------------------------------------
-int /*__cdecl*/ sub_7BF20(signed __int16 *a1)//25cf20
+int /*__cdecl*/ sub_7BF20_draw_scroll_dialog(signed __int16 *a1)//25cf20
 {
   x_BYTE *v1; // esi
   int result; // eax
@@ -92850,7 +92929,7 @@ int /*__cdecl*/ sub_7BF20(signed __int16 *a1)//25cf20
     }
     else
     {
-      ++a1[5];
+      a1[5]++;//next char
     }
     goto LABEL_14;
   }
@@ -92861,7 +92940,8 @@ int /*__cdecl*/ sub_7BF20(signed __int16 *a1)//25cf20
 LABEL_14:
     if ( a1[5] > sub_6FC30() + 10 )
       v1 = (x_BYTE *)x_DWORD_E9C4C_langindexbuffer[a1[6]];
-    v7 = sub_7B660(*a1, a1[1], a1[5], a1, v1, *((x_BYTE *)a1 + 16));
+	//160 1a 21 2b2cce? exit game 3
+    v7 = sub_7B660_draw_scroll_dialog2(a1[0], a1[1], a1[5], a1, v1, a1[8]&0xff);
     if ( v7 )
     {
       if ( !a1[7] )
@@ -92896,36 +92976,41 @@ x_WORD */*__cdecl*/ sub_7C020(x_WORD *a1)//25d020
 }
 
 //----- (0007C050) --------------------------------------------------------
-signed int /*__fastcall*/ sub_7C050_get_keyboard_keys1(Bit16s a1)
+signed int /*__fastcall*/ sub_7C050_get_keyboard_keys1()
 {
-  char v2; // bl
-  unsigned int v3; // eax
-  __int16 v4; // dx
-  unsigned int v5; // esi
+  Bit8u v2; // bl
+  long v3; // eax  
+  Bit8u v3h;
+  Bit8u v4; // dx
+  Bit8u v4h;
+  Bit8u a1h;
+  long v5; // esi
   bool ctrl_or_alt_pressed; // zf
   signed int result; // eax
 
   x_BYTE_17DF10_ctrl_shift_status = 0;
   x_BYTE_17DF11 = 0;
-  HIBYTE(a1) = 2;
+  a1h = 2;
+
   //fix - __asm { int     16h; KEYBOARD - GET SHIFT STATUS }
-  a1 = 1;
-  v2 = a1;
-  if ( a1 )
+  v2=VGA_get_shift_status();
+  //a1 = 1;
+  //v2 = a1;
+  if (v2)
   {
-    if ( a1 & 1 )//right_shift
+    if (v2 & 1 )//right_shift
     {
       x_BYTE_17DF10_ctrl_shift_status = 54;
     }
-    else if ( a1 & 2 )//left_shift
+    else if (v2 & 2 )//left_shift
     {
       x_BYTE_17DF10_ctrl_shift_status = 42;
     }
-    else if ( a1 & 4 )//ctrl
+    else if (v2 & 4 )//ctrl
     {
       x_BYTE_17DF10_ctrl_shift_status = 29;
     }
-    else if ( a1 & 8 )//alt
+    else if (v2 & 8 )//alt
     {
       x_BYTE_17DF10_ctrl_shift_status = 56;
     }
@@ -92934,7 +93019,7 @@ signed int /*__fastcall*/ sub_7C050_get_keyboard_keys1(Bit16s a1)
   v5 = v3;
   do
   {
-	ctrl_or_alt_pressed = (v2 & 1) == 0;
+	/*ctrl_or_alt_pressed = (v2 & 1) == 0;
     if ( !(v2 & 1) )
     {
       ctrl_or_alt_pressed = (v2 & 2) == 0;
@@ -92951,11 +93036,20 @@ signed int /*__fastcall*/ sub_7C050_get_keyboard_keys1(Bit16s a1)
     }
     BYTE1(v3) = 2;
     HIBYTE(v4) = 2;
+	a1 = VGA_get_shift_status();
     //fix - __asm { int     16h; KEYBOARD - GET SHIFT STATUS }
     if (ctrl_or_alt_pressed)
       HIBYTE(v4) = 1;
     v2 = v3;
-    v3 = j___clock() - v5;
+    v3 = j___clock() - v5;*/
+	if (!(v2 & 1) && !(v2 & 2) && !(v2 & 4) && !(v2 & 8))
+		break;
+	v4h = 2;
+	ctrl_or_alt_pressed = VGA_get_shift_status();
+	if(ctrl_or_alt_pressed)
+		v4h = 1;
+	//v2 = v3;
+	v3 = j___clock() - v5;
   }
   while ( v3 <= 5 );
   while ( 1 )
@@ -92963,10 +93057,11 @@ signed int /*__fastcall*/ sub_7C050_get_keyboard_keys1(Bit16s a1)
     result = sub_9A10A_check_keyboard(/*v3*/);
     if ( !result )
       break;
-    BYTE1(result) = 0;
+    //BYTE1(result) = 0;
+	result = VGA_read_char_from_buffer();
     // fix - __asm { int     16h; KEYBOARD - READ CHAR FROM BUFFER, WAIT IF EMPTY }
     x_BYTE_17DF11 = result;
-    v3 = (signed int)result >> 8;
+    v3 = result >> 8;
     x_BYTE_17DF10_ctrl_shift_status = v3;
   }
   return result;
@@ -93062,7 +93157,7 @@ int /*__fastcall*/ sub_7C230(int a1, int a2, signed __int16 *a3)
   }
   v3 = sub_7C120_draw_bitmap2(185, 232, xy_DWORD_17DED4_spritestr[66]);
   sub_7AB00(/*v3,*/ v4, a3, 4u);
-  v5 = (x_WORD *)sub_7BF20(x_WORD_E1F70);
+  v5 = (x_WORD *)sub_7BF20_draw_scroll_dialog(x_WORD_E1F70);
   v7 = v5;
   if ( (x_WORD)v5 )
   {
@@ -94311,7 +94406,7 @@ char sub_7DE80(int a1, int a2)
   v20 = v22 + v4 - 22;
   v7 = v6 / 2 + *(signed __int16 *)(a2 + 28);
   v8 = v7 - sub_6FC30();
-  v9 = sub_7BF20((signed __int16 *)(a2 + 26));
+  v9 = sub_7BF20_draw_scroll_dialog((signed __int16 *)(a2 + 26));
   v10 = *(signed __int16 *)(a2 + 34);
   v23 = v9;
   if ( *(signed __int16 *)(a2 + 36) <= v10 / 2 )
@@ -94650,7 +94745,7 @@ signed int /*__cdecl*/ sub_7E640(int a1)
   signed int result; // eax
 
   if ( a1 )
-    v1 = sub_7BF20((signed __int16 *)(a1 + 26));
+    v1 = sub_7BF20_draw_scroll_dialog((signed __int16 *)(a1 + 26));
   else
     v1 = 1;
   if ( v1 == 1 )
@@ -112455,6 +112550,7 @@ signed int /*__fastcall*/ sub_9A10A_check_keyboard(/*signed int result*/)
 {
   if ( x_DWORD_E4CA4 )
     return 1;
+  return VGA_check_standart_input_status();
   //fix it:__asm { int     21h; DOS - CHECK STANDARD INPUT STATUS }
   /*
   on return:

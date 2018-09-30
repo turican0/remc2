@@ -127,6 +127,7 @@ void support_begin() {
 		dword_E9C30[0][0] = 0;
 	dword_E9C30[2] = new Bit8u[4096];
 	dword_E9C30[4] = new Bit8u[4096];
+	x_D41A0_BYTEARRAY_4_struct.player_name_57 =new Bit8u[256];
 
     //printbuffer2[0] = '\0';
 }
@@ -142,6 +143,7 @@ void support_end() {
 	free(dword_E9C30[0]);
 	free(dword_E9C30[2]);
 	free(dword_E9C30[4]);
+	free(x_D41A0_BYTEARRAY_4_struct.player_name_57);
 }
 
 void loadfromsnapshot(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u size) {

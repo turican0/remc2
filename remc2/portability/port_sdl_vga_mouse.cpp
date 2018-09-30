@@ -366,6 +366,8 @@ void VGA_Init(int width,int height,int bpp,Uint32 flags) {
 		dst.w = curs->w;
 		dst.h = curs->h;*/
 
+		SDL_EnableUNICODE(SDL_DISABLE);
+
 		SDL_ShowCursor(0);
 
 		atexit(SDL_Quit);
@@ -465,7 +467,8 @@ void VGA_test() {
 }
 
 int mousex, mousey;
-
+bool pressed = false;
+char lastchar=0;
 int events()
 {
 	SDL_Event event;
@@ -476,6 +479,18 @@ int events()
 	{
 		switch (event.type)
 		{
+		case SDL_KEYDOWN:
+			pressed = true;
+			lastchar = (char)event.key.keysym.sym;
+			printf("Key press detected\n");//test
+			break;
+
+		case SDL_KEYUP:
+			//pressed = false;
+			//lastchar = 0;
+			printf("Key release detected\n");//test
+			break;
+
 		case SDL_MOUSEMOTION:
 			mousex = event.motion.x;
 			mousey = event.motion.y;
@@ -734,3 +749,18 @@ CAPTURE_AddImage( render.src.width, render.src.height, render.src.bpp, pitch,
 			INLINE void Mouse_AddEvent(Bit8u type) // zpracovani udalosti mysi - aktivuje preruseni
 
 */
+Bit16s VGA_get_shift_status() {
+	return 0;
+}
+bool VGA_check_standart_input_status() {
+	bool locpressed = pressed;
+	char loclastchar = lastchar;
+	pressed = false;
+	return locpressed;
+}
+char VGA_read_char_from_buffer() {
+	bool locpressed = pressed;
+	char loclastchar = lastchar;
+	lastchar = 0;
+	return loclastchar;
+}

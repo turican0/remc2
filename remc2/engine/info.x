@@ -1949,3 +1949,23 @@ toto je cil!
 Pathstruct x_DWORD_E9B20 = filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct;
 
 sub_7AC00_load_and_set_graphics_and_pallette - tady to nutne zkontrolovat
+v 19f0ec
+25cc28
+
+sub_77980_exit_dialog()
+2b2cb4
+80892500 00000000 01002601 19003400
+2c009801 40380b01 00006001 1a000000
+
+sub_7BF20_draw_scroll_dialog
+
+  sub_2BD10(a1 + *(unsigned __int8 *)(v8 + 4) - 12, v9, a1 + *(unsigned __int8 *)(v8 + 4) - 12, v9 + a3, v45); // to je ta linka, kterou je treba opravit
+
+  find v33:
+  if ( sub_7B200_in_region((x_WORD*)&v33, x_DWORD_17DEE4_mouse_positionx, x_DWORD_17DEE4_mouse_positiony) )//icon OK
+  v33
+  355134
+  00000000 00000000 00006f01 4e002a00
+  1c000000 00000000 53026801 68010000
+
+  //adress 25c832

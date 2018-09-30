@@ -19,10 +19,13 @@ void VGA_Set_pallette(Uint8* pallettebuffer);
 void VGA_Write_basic_pallette(Uint8* pallettebuffer);
 Uint8* VGA_Get_pallette();
 void VGA_Draw_string(char* wrstring);
-void VGA_Set_Cursor(posistruct posstrcursor,int count);
+//void VGA_Set_Cursor(posistruct posstrcursor,int count);
 void VGA_GotoXY(int x, int y);
 int VGA_WhereX(); //returns current text cursor (x) coordinate 
 int VGA_WhereY(); //returns current text cursor (y) coordinate 
 void Set_basic_pallette();
+Bit16s VGA_get_shift_status();
+bool VGA_check_standart_input_status();
+char VGA_read_char_from_buffer();
 
 #endif //PORT_SDL_VGA_MOUSE
