@@ -91486,10 +91486,10 @@ char sub_79610()
   sub_7A110_load_hscreen(x_WORD_180660_VGA_type_resolution, 15);
   v3 = (int)x_DWORD_180628b_screen_buffer;
   x_DWORD_180628b_screen_buffer = (Bit8u*)x_DWORD_E9C38_smalltit;
-  while ( *v2 )
+  while ( v2[0] )
   {
     v4 = v2[1];
-    v5 = *v2;
+    v5 = v2[0];
     v6 = (x_BYTE *)x_DWORD_E9C4C_langindexbuffer[v2[6]];
     v2 += 9;
     sub_7FCB0_draw_text_with_border((int)v2, (Bit8u*)v6, v5, (signed __int16)v39, v4, 4, 0, 0);
@@ -91547,7 +91547,7 @@ char sub_79610()
         sub_79E10(&v28, *v13);
         sub_7FCB0_draw_text_with_border((int)v13, (Bit8u*)&v28, (signed __int16)v43, (signed __int16)v42, v14[1], 4, 0, 0);
       }
-      ++v13;
+      v13++;
       v14 += 9;
     }
     v2 = (signed __int16 *)&x_BYTE_E25ED[0x2BB];
