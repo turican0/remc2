@@ -12307,7 +12307,7 @@ Bit8u x_BYTE_E25ED[0x1000] = {
  };
 _UNKNOWN unk_E2690; // weak
 _UNKNOWN unk_E26C8; // weak
-_UNKNOWN unk_E28A8; // weak
+//_UNKNOWN unk_E28A8; // weak
 __int16 x_WORD_E28B6 = 1; // weak
 x_WORD x_WORD_E2970[51] =
 {
@@ -89826,7 +89826,7 @@ char /*__cdecl*/ sub_77350(int a1)
   char v7; // bl
 
   v1 = 0;
-  v2 = *(x_BYTE *)(2124 * x_D41A0_BYTEARRAY_4_struct.dwordindex_12 + x_DWORD_D41A0 + 11232);
+  v2 = x_D41A0_BYTEARRAY_0 [2124 * x_D41A0_BYTEARRAY_4_struct.dwordindex_12 + 11232];
   x_WORD_E29D6 = 0;
   if ( v2 & 2 && x_D41A0_BYTEARRAY_4_struct.levelnumber_43 == 24 )
     sub_833C0();
@@ -89842,7 +89842,7 @@ char /*__cdecl*/ sub_77350(int a1)
     x_BYTE_17E082 = 13;
     x_WORD_17E06C = 0;
     memset(&x_DWORD_17DB70, 0, 56);
-    if ( *(x_BYTE *)(2124 * x_D41A0_BYTEARRAY_4_struct.dwordindex_12 + x_DWORD_D41A0 + 11232) & 2 )
+    if (x_D41A0_BYTEARRAY_0[2124 * x_D41A0_BYTEARRAY_4_struct.dwordindex_12 + 11232] & 2 )
       x_BYTE_17DB8F = 4;
     else
       x_BYTE_17DB8F = 1;
@@ -89874,11 +89874,11 @@ char /*__cdecl*/ sub_77350(int a1)
     {
       if ( x_BYTE_17DF10_ctrl_shift_status == 59 )
       {
-        v6 = (uint8)x_D41A0_BYTEARRAY_4;
+        //v6 = (uint8)x_D41A0_BYTEARRAY_4;
         v7 = x_D41A0_BYTEARRAY_4_struct.byteindex_A;
         x_D41A0_BYTEARRAY_4_struct.byteindex_A = v7 != 1;
         x_BYTE_17DF13 = v7 != 1;
-        *(x_BYTE *)(v6 + 38402) = 1;
+		x_D41A0_BYTEARRAY_4_struct.setting_38402 = 1;
       }
       v1 = sub_7EAE0(
              (__int16 *)&unk_17DB76,
@@ -89894,7 +89894,7 @@ char /*__cdecl*/ sub_77350(int a1)
       sub_7A060_get_mouse_and_keyboard_events();
     }
     sub_86860(x_WORD_1803EC);
-    *(x_WORD *)(2124 * x_D41A0_BYTEARRAY_4_struct.dwordindex_12 + x_DWORD_D41A0 + 11232) = 0;
+	x_D41A0_BYTEARRAY_0[2124 * x_D41A0_BYTEARRAY_4_struct.dwordindex_12 + 11232] = 0;
     sub_8D8F0();
     x_WORD_E29D6 = 0;
     if ( v1 >= 1u )
@@ -91474,14 +91474,15 @@ char sub_79610()
   v42 = 410;
   v44 = 0;
   v41 = 0;
-  LOBYTE(v0) = xy_DWORD_17DED4_spritestr[107].sizey;
+  v0 = xy_DWORD_17DED4_spritestr[107].sizey;
   v45 = 191;
   //LOWORD(v0) = (unsigned __int8)v0;
   v40 = v0;
   v38 = j___clock();
   v35 = v38;
   memset(&v28, 0, 60);
-  v2 = (signed __int16 *)&unk_E28A8;
+  //v2 = (signed __int16 *)&unk_E28A8;
+  v2 = (signed __int16 *)&x_BYTE_E25ED[0x2BB];
   sub_7A110_load_hscreen(x_WORD_180660_VGA_type_resolution, 15);
   v3 = (int)x_DWORD_180628b_screen_buffer;
   x_DWORD_180628b_screen_buffer = (Bit8u*)x_DWORD_E9C38_smalltit;
@@ -91495,7 +91496,7 @@ char sub_79610()
   }
   x_DWORD_180628b_screen_buffer = (Bit8u*)v3;
   sub_7B5A0_disable_enable();
-  for ( i = (x_WORD*)&unk_E28A8; *i; *(i - 2) = 0 )
+  for ( i = (x_WORD*)&x_BYTE_E25ED[0x2BB]; *i; *(i - 2) = 0 )
     i += 9;
   x_WORD_E28B6 = 1;
   sub_8CD27_set_cursor(xy_DWORD_17DED4_spritestr[110]);
@@ -91510,7 +91511,7 @@ char sub_79610()
       sub_9A144_copy_screen_640((void*)x_DWORD_E9C38_smalltit, (void*)x_DWORD_180628b_screen_buffer, 0x1E0u);
     if ( x_WORD_17DEEE & 1 )
     {
-      for ( j = (x_WORD*)&unk_E28A8; *j; j += 9 )
+      for ( j = (x_WORD*)&x_BYTE_E25ED[0x2BB]; *j; j += 9 )
       {
         v30 = v45;
         v31 = j[1] - 4;
@@ -91518,7 +91519,7 @@ char sub_79610()
         v33 = v40;
         if ( sub_7B200_in_region((x_WORD*)&v29, x_DWORD_17DEE4_mouse_positionx, x_DWORD_17DEE4_mouse_positiony) )
         {
-          for ( k = (x_WORD*)&unk_E28A8; *k; *(k - 2) = 0 )
+          for ( k = (x_WORD*)&x_BYTE_E25ED[0x2BB]; *k; *(k - 2) = 0 )
             k += 9;
           j[7] = 1;
           v1 = 0;
@@ -91531,13 +91532,13 @@ char sub_79610()
     {
       x_D41A0_BYTEARRAY_4_struct.dwordindex_0 = 1;
       sub_5BCC0_set_any_variables1();
-      for ( l = (x_WORD*)&unk_E28A8; *l; *(l - 2) = 0 )
+      for ( l = (x_WORD*)&x_BYTE_E25ED[0x2BB]; *l; *(l - 2) = 0 )
         l += 9;
       v1 = 0;
       x_WORD_E28B6 = 1;
     }
     v13 = &x_BYTE_EB39E;
-    v14 = (signed __int16 *)&unk_E28A8;
+    v14 = (signed __int16 *)&x_BYTE_E25ED[0x2BB];
     while ( v13 < &x_BYTE_EB3A8 )
     {
       memset(&v28, 0, 60);
@@ -91549,7 +91550,7 @@ char sub_79610()
       ++v13;
       v14 += 9;
     }
-    v2 = (signed __int16 *)&unk_E28A8;
+    v2 = (signed __int16 *)&x_BYTE_E25ED[0x2BB];
     for ( m = &x_BYTE_EB39E; m < &x_BYTE_EB3A8 && !v1; ++m )
     {
       v16 = v2[7];
@@ -92396,21 +92397,37 @@ bool sub_7B200_in_region(Bit16s* a1, Bit16s testx, Bit16s testy)//25c200
 
 bool pre_sub_7B250(Bit32u var,Bit8u* var2) {
 	bool callres = true;
-	switch (var) {
+	switch (var) {	
+	case 0x258350: {
+		return sub_77350((int)var2);//258350 - new game
+		break;
+	}
 	case 0x258980: {
 		return sub_77980_exit_dialog(var2);//exit dialog
 		break;
-	}
+	}	
 	case 0x2589e0: {
 		return sub_779E0_lang_setting_loop(var2);
 		break;
 	}
+	case 0x2590f0: {
+		return sub_780F0((int)var2);//2590f0 - load
+		break;
+	}
+	case 0x259730: {
+		return sub_78730;//259730 -save
+		break;
+	}				   
 	case 0x259e00: {
 		return sub_78E00_set_player_name((Bit16s*)var2);//set user name
 		break;
 	}
-	case 0x25a160: {
+	case 0x25a160: {//set joystick
 		return sub_79160(var2);
+		break;
+	}
+	case 0x25a610: {//set keys
+		return sub_79610();
 		break;
 	}
 	case 0x25dcf0: {
