@@ -83,7 +83,7 @@ extern Bit32s x_DWORD_D41A4_x96BF;*/
 //extern Bit32s x2124_x_DWORD_D41A4_xCx_x_DWORD_D41A0_11234;
 
 //extern Bit32s x_DWORD_D41A4;
-extern int x_DWORD_D41A0;
+//extern Bit8u* x_DWORD_D41A0;
 
 //extern Bit8s x_D41A0_BYTEARRAY[];
 extern Bit8u* x_D41A0_BYTEARRAY_0;

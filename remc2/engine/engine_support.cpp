@@ -78,7 +78,7 @@ Bit8u* x_DWORD_E9C38_smalltit; // weak
 
 //Bit32s x_DWORD_D41A4 = -1;
 
-int x_DWORD_D41A0 = 0; // weak
+//Bit8u* x_DWORD_D41A0; // weak
 
 Bit8u* x_D41A0_BYTEARRAY_0;
 Bit8u* x_D41A0_BYTEARRAY_4;
