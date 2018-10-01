@@ -1969,3 +1969,12 @@ sub_7BF20_draw_scroll_dialog
   1c000000 00000000 53026801 68010000
 
   //adress 25c832
+
+  char* sub_70910() // fix it!
+
+  fix int x_DWORD_EA2C4; // weak
+
+  result = (int)x_DWORD_17DE44; - problem je zde:
+  x_DWORD_E9C38_smalltit = x_DWORD_17DE44;
+
+  //test removed x_DWORD_17DE44

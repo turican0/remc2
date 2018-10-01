@@ -50,4 +50,6 @@ unk_E24BCx - upravit na strukturu
 x_DWORD_17DE48c - nahrazeno heap?
 
 x_DWORD_E9B20 =
+
+//test removed x_DWORD_17DE44
 		
