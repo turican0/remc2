@@ -1978,3 +1978,35 @@ sub_7BF20_draw_scroll_dialog
   x_DWORD_E9C38_smalltit = x_DWORD_17DE44;
 
   //test removed x_DWORD_17DE44
+
+  //test removed
+
+find x_DWORD_E9C2C);//2bac2c
+	initialize
+		23cf50
+			sub_83B50();//264B50
+				sub_54630_load_psxblock(x_BYTE_D41B5);
+
+sub_5BF50_load_psxdata()
+
+x_DWORD_E9C2C == pstr[psxadatablock32dat].var28_begin_buffer
+
+find &off_D41A8);//2a51a8
+
+find x_DWORD_F6ED0);//2c7ed0 == TMAPS00TAB_BEGIN_BUFFER
+find x_BYTE_F6EE0);//2c7ee0
+
+2a9a54
+2a9c38
+2a9f7c
+
+problém je zde:
+      v1 = sub_7EAE0(
+             (__int16 *)&unk_17DB76,
+             (__int16 *)&unk_17DB78,
+             (__int16 *)&unk_17DB7E,
+             (__int16 *)&unk_17DB80,
+             &x_BYTE_17DB8F,
+             (x_WORD*)&unk_17DB90);
+
+

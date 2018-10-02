@@ -98,6 +98,9 @@ Bit8u* dword_E9C30[1000]; // weak
 
 Bit8u* x_DWORD_180628b_screen_buffer; // weak
 
+Bit8u* off_D41A8;//graphics buffer// = (Bit8u*)&x_BYTE_14B4E0; // weak
+Bit8u* x_BYTE_14B4E0;
+
 doublebyte doublebyte_conv(Bit16u a2) {
 	doublebyte result;
 	result.byte1 = a2 && 0xff;
@@ -129,6 +132,10 @@ void support_begin() {
 	dword_E9C30[4] = new Bit8u[4096];
 	x_D41A0_BYTEARRAY_4_struct.player_name_57 =new Bit8u[256];
 
+	x_BYTE_14B4E0 = new Bit8u[65536];
+	off_D41A8 = new Bit8u[65536];
+	memcpy(off_D41A8, &x_BYTE_14B4E0,4);
+
     //printbuffer2[0] = '\0';
 }
 void support_end() {
@@ -144,6 +151,9 @@ void support_end() {
 	free(dword_E9C30[2]);
 	free(dword_E9C30[4]);
 	free(x_D41A0_BYTEARRAY_4_struct.player_name_57);
+
+	free(x_BYTE_14B4E0);
+	free(off_D41A8);
 }
 
 void loadfromsnapshot(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u size) {
