@@ -101,6 +101,10 @@ Bit8u* x_DWORD_180628b_screen_buffer; // weak
 Bit8u* off_D41A8;//graphics buffer// = (Bit8u*)&x_BYTE_14B4E0; // weak
 Bit8u* x_BYTE_14B4E0;
 
+posistruct* xy_DWORD_17DED4_spritestr;
+posistruct* xy_DWORD_17DEC0_spritestr;
+posistruct* xy_DWORD_17DEC8_spritestr;
+
 doublebyte doublebyte_conv(Bit16u a2) {
 	doublebyte result;
 	result.byte1 = a2 && 0xff;
@@ -136,6 +140,10 @@ void support_begin() {
 	off_D41A8 = new Bit8u[65536];
 	memcpy(off_D41A8, &x_BYTE_14B4E0,4);
 
+	xy_DWORD_17DED4_spritestr = new posistruct[1000];
+	xy_DWORD_17DEC0_spritestr = new posistruct[1000];
+	xy_DWORD_17DEC8_spritestr = new posistruct[1000];
+
     //printbuffer2[0] = '\0';
 }
 void support_end() {
@@ -154,6 +162,10 @@ void support_end() {
 
 	free(x_BYTE_14B4E0);
 	free(off_D41A8);
+
+	free(xy_DWORD_17DED4_spritestr);
+	free(xy_DWORD_17DEC0_spritestr);
+	free(xy_DWORD_17DEC8_spritestr);
 }
 
 void loadfromsnapshot(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u size) {

@@ -43,6 +43,7 @@ eax=[ebp+14]..1a6f44
 zameny
 x_DWORD_17DED4 za xy_DWORD_17DED4_spritestr
 x_DWORD_17DEC0 za xy_DWORD_17DEC0_spritestr
+x_DWORD_17DEC8 za xy_DWORD_17DEC8_spritestr
 
 x_WORD_E1F84 - upravit na strukturu
 unk_E24BCx - upravit na strukturu

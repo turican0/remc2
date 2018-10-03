@@ -138,6 +138,10 @@ extern Bit8u* x_D41A0_BYTEARRAY_4_0xE2_heapbuffer;
 
 extern Bit8u* dword_E9C30[]; // weak
 
+extern posistruct* xy_DWORD_17DED4_spritestr;
+extern posistruct* xy_DWORD_17DEC0_spritestr;
+extern posistruct* xy_DWORD_17DEC8_spritestr;
+
 
 /*extern x_DWORD x_DWORD_355208;//3551CE+3A DWORD
 extern x_BYTE x_BYTE_355234_hardisknumber;//harddrive//3551CE+66 BYTE

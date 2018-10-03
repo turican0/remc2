@@ -8,9 +8,9 @@ c:\prenos\remc2\remc2\debug\port_sdl_vga_mouse.obj
 c:\prenos\remc2\remc2\debug\port_outputs.obj
 c:\prenos\remc2\remc2\debug\port_inputs.obj
 c:\prenos\remc2\remc2\debug\port_filesystem.obj
+c:\prenos\remc2\remc2\debug\sub_main.obj
 c:\prenos\remc2\remc2\debug\engine_support.obj
 c:\prenos\remc2\remc2\debug\dirent.obj
-c:\prenos\remc2\remc2\debug\sub_main.obj
 c:\prenos\remc2\debug\remc2.exe
 c:\prenos\remc2\debug\remc2.ilk
 c:\prenos\remc2\debug\remc2.pdb
