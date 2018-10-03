@@ -26,6 +26,6 @@ int VGA_WhereY(); //returns current text cursor (y) coordinate
 void Set_basic_pallette();
 Bit16s VGA_get_shift_status();
 bool VGA_check_standart_input_status();
-char VGA_read_char_from_buffer();
+Bit16u VGA_read_char_from_buffer();
 
 #endif //PORT_SDL_VGA_MOUSE

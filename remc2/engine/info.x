@@ -2009,4 +2009,6 @@ problém je zde:
              &x_BYTE_17DB8F,
              (x_WORD*)&unk_17DB90);
 
+find 2bc39e
+
 
