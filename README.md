@@ -7,6 +7,14 @@ https://www.gog.com/game/magic_carpet_2_the_netherworlds<br />
 (or from any abbadone archive, if it is legal in your country)<br />
 <br />
 simple dev blog:https://github.com/turican0/remc2/wiki<br />
+
+## 0.14:<br />
+-can open load menu<br />
+-can open save menu<br />
+-fixed setting keys<br />
+-fixed setting keys menu<br />
+-can open game progress menu<br />
+<br />
 ## 0.13:<br />
 -fixed language menu<br />
 -fixed change name menu<br />
