@@ -213,7 +213,7 @@ int sub_47320(signed int a1);
 char sub_56D60(unsigned int a1, char a2);
 void sub_47560(int a1, int a2, x_BYTE *a3, signed int a4, __int16 a5);
 int sub_51BB0(int a1);
-x_DWORD /*__cdecl*/ toupper(x_DWORD); //weak
+//x_DWORD /*__cdecl*/ toupper(x_DWORD); //weak
 unsigned int sub_55C60(int a1, int a2, int a3);
 x_DWORD /*__cdecl*/ fix_filelength(x_DWORD);// weak
 //x_DWORD /*__cdecl*/ access(char* path, Bit32u flags);// weak

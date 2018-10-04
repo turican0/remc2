@@ -356,6 +356,7 @@ void VGA_Init(int width,int height,int bpp,Uint32 flags) {
 	if (!inited)
 	{
 		SDL_Init(SDL_INIT_TIMER | SDL_INIT_VIDEO);
+		init_sound();
 		//curs = SDL_LoadBMP("../cursors/cursor.bmp");
 		/*curs = SDL_CreateRGBSurface(SDL_HWPALETTE, 64, 64, 8, 0,0,0,0);
 		VGA_Set_Cursor2();*/
@@ -770,6 +771,7 @@ void VGA_Init_test() {
 
 void VGA_close()
 {
+	clean_up_sound();
 	//Deallocate surface
 	SDL_FreeSurface(surface_font);
 	surface_font = NULL;

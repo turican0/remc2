@@ -2012,3 +2012,5 @@ problém je zde:
 find 2bc39e
 
 
+sub_7AB00(/*v3,*/ v4, a3, 4u);
+

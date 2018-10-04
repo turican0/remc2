@@ -90,12 +90,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\prenos\remc2\sdl\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\prenos\remc2\sdl\include;C:\prenos\remc2\sdl_mixer\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\prenos\remc2\sdl\VisualC\SDLmain\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\prenos\remc2\sdl\VisualC\SDLmain\Debug;C:\prenos\remc2\sdl_mixer\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -110,6 +111,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <TargetMachine>MachineX64</TargetMachine>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -159,6 +161,7 @@
     <ClInclude Include="portability\port_filesystem.h" />
     <ClInclude Include="portability\port_inputs.h" />
     <ClInclude Include="portability\port_outputs.h" />
+    <ClInclude Include="portability\port_sdl_sound.h" />
     <ClInclude Include="portability\port_sdl_vga_mouse.h" />
     <ClInclude Include="portability\port_time.h" />
     <ClInclude Include="stdafx.h" />
@@ -171,6 +174,7 @@
     <ClCompile Include="portability\port_filesystem.cpp" />
     <ClCompile Include="portability\port_inputs.cpp" />
     <ClCompile Include="portability\port_outputs.cpp" />
+    <ClCompile Include="portability\port_sdl_sound.cpp" />
     <ClCompile Include="portability\port_sdl_vga_mouse.cpp" />
     <ClCompile Include="portability\port_time.cpp" />
     <ClCompile Include="remc2.cpp" />

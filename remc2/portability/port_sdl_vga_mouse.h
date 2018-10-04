@@ -10,6 +10,8 @@
 
 #include "mctypes.h"
 
+#include "port_sdl_sound.h"
+
 void VGA_Init();
 void VGA_Init(int width, int height, int bpp, Uint32 flags);
 void VGA_Resize(int width, int height);

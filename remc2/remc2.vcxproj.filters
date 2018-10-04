@@ -69,6 +69,9 @@
     <ClInclude Include="portability\port_time.h">
       <Filter>Zdrojové soubory\portability</Filter>
     </ClInclude>
+    <ClInclude Include="portability\port_sdl_sound.h">
+      <Filter>Zdrojové soubory\portability</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -99,6 +102,9 @@
       <Filter>Zdrojové soubory\portability</Filter>
     </ClCompile>
     <ClCompile Include="portability\port_time.cpp">
+      <Filter>Zdrojové soubory\portability</Filter>
+    </ClCompile>
+    <ClCompile Include="portability\port_sdl_sound.cpp">
       <Filter>Zdrojové soubory\portability</Filter>
     </ClCompile>
   </ItemGroup>
