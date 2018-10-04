@@ -398,8 +398,14 @@ void VGA_Init(int width,int height,int bpp,Uint32 flags) {
 	}
 }
 
+
+int origw = 640;
+int origh = 480;
+
 void VGA_Resize(int width, int height) {
-	VGA_Resize(width, height, 8, SDL_HWPALETTE);
+	origw = width;
+	origh = height;
+	//VGA_Resize(width, height, 8, SDL_HWPALETTE);
 }
 void VGA_Resize(int width, int height, int bpp, Uint32 flags) {
 	SDL_FreeSurface(screen);
@@ -695,7 +701,40 @@ void VGA_Blit(int width, int height, Uint8* buffer) {
 		}
 	}
 
-	memcpy(screen->pixels, buffer, width*height);
+
+	if((origw == screen->w)&&(origh == screen->h))//same resolution
+		memcpy(screen->pixels, buffer, width*height);
+	else if ((origw*2 == screen->w) && (origh*2 == screen->h))//2x resolution
+	{
+		int k = 0;
+		int l = 0;
+		for (int i = 0;i < screen->w;i++)
+		{
+			for (int j = 0;j < screen->h;j++)
+			{
+				((Bit8u*)screen->pixels)[i + j * screen->w] = buffer[k + l * origw];
+				l += j % 2;
+			}
+			k += i % 2;
+			l = 0;
+		}
+	}
+	else//any resolution
+	{
+		int k = 0;
+		int l = 0;
+		float xscale= (float)origw/ (float)screen->w;
+		float yscale= (float)origh/ (float)screen->h;
+		for (int i = 0; i < screen->w; i++)
+		{
+			for (int j = 0; j < screen->h; j++)//49+1 - final size
+			{
+				k = (int)(i * xscale);
+				l = (int)(j * yscale);
+				((Bit8u*)screen->pixels)[i + j * screen->w] = buffer[k + l * origw];
+			}
+		}
+	}
 	/*dst.x = mousex;
 	dst.y = mousey;
 	// Blit onto main surface

@@ -2014,3 +2014,26 @@ find 2bc39e
 
 sub_7AB00(/*v3,*/ v4, a3, 4u);
 
+34eed4 ->43d1be-> 14654000 0000 16654000 5d5f 56874000
+
+43c63c
+2bac38->4434af 4483e4 1a101a 00000
+
+43d446
+
+byte_EB39E; 2bc39e
+unk_E28A8 2b38a8
+
+x_BYTE_E25ED[0x2BB]
+
+x_WORD_E2008 = 2b3008
+
+
+//sound
+
+x_WORD_E2A14_sound_active - 2b3a14
+
+x_BYTE_E3798 - 2b4798 - neni aktivni
+
+x_BYTE_E37AD_actual_sound - 2b47ad
+//
