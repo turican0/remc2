@@ -1,0 +1,444 @@
+
+		page
+
+;
+;	File	:	MSND_DSP.EQU
+;
+;       Project :       MultiSound DOS API
+;
+;	Purpose	:	Define shared memory map & I/F Constants
+;
+;	Owner	:	Bill Wagner
+;
+
+;
+; Dsp files:
+;
+;	msndinit.bin - 512 word init code
+;
+;	msndperm.reb  - DSP code to make the board functional.  The first word
+;	is the length in words of the code which will be resident in the shared
+;	ram.  The code area will start at the top of the shared memory area
+;	(1:7FFFH/X:BFFFH) and fill down towards the beginning of the shared ram
+;	(0:0000H/X:4000H).
+;
+;
+;
+;	Control Block -  (0:7F00H/X:7F80H) - start		256 bytes
+
+
+;	*************************************************
+;	*	   Hardware Constants Defined		*
+;	*************************************************
+
+SRAM_SEG_B0	EQU	0D000h			; init stuff - not really used
+SRAM_SEG_B1	EQU	0E000h			; init stuff - dito
+SRAM_BANK_SIZE	EQU	08000h			; size of each side
+SRAM_BANKS	EQU	2			; # of banks
+SRAM_CNTL_START	EQU	07F00h			; start of shared control area
+
+DSP_BASE_ADDR	EQU	04000h			; dsp word-wise base memory addr
+DSP_BANK_BASE	EQU	04000h			; dsp word-wise bank base offset
+
+
+HP_ICR		EQU	 0h			; host port / dsp registers
+HP_CVR		EQU	 1h
+HP_ISR		EQU	 2h
+HP_IVR		EQU	 3h
+HP_NU		EQU	 4h
+HP_TXH		EQU	 5h
+HP_RXH		EQU	 5h
+HP_TXM		EQU	 6h
+HP_RXM		EQU	 6h
+HP_TXL		EQU	 7h
+HP_RXL		EQU	 7h
+						; host port / hw control regs
+HP_MEMM		EQU	08h			; memory map reg
+HP_IRQM		EQU	09h			; irq map reg
+HP_DSPR		EQU	0Ah			; dsp reset
+HP_PROR		EQU	0Bh			; proteus reset
+HP_BLKS		EQU	0Ch			; block(bank) select
+HP_WAIT		EQU	0Dh			; extra wait state select
+HP_BITM		EQU	0Eh			; bit memory bus mode: 8/16
+
+HPR_BLRC	EQU	08h			; read - board level R/C timer
+HPR_SPR1	EQU	09h
+HPR_SPR2	EQU	0Ah
+HPR_TCL0	EQU	0Bh			;  "   - TOPCAT chip level lsb
+HPR_TCL1	EQU	0Ch
+HPR_TCL2	EQU	0Dh
+HPR_TCL3	EQU	0Eh
+HPR_TCL4	EQU	0Fh			;  "        "     "     "  msb
+
+
+HPICR_Record	RECORD	HPICR_INIT:1, HPICR_HM:2, HPICR_HF1:1, HPICR_HF0:1, HPICR_0:1, HPICR_TREQ:1, HPICR_RREQ:1
+HPCVR_Record	RECORD	HPCVR_HC:1, HPCVR_0:2, HPCVR_HV:5
+HPISR_Record	RECORD	HPISR_HREQ:1, HPISR_DMA:1, HPISR_0:1, HPISR_HF3:1, HPISR_HF2:1, HPISR_TRDY:1, HPISR_TXDE:1, HPISR_RXDF:1
+
+HPIO_290	EQU	0			; host port i/o mapping choices
+HPIO_260	EQU	1
+HPIO_250	EQU	2
+HPIO_240	EQU	3
+HPIO_230	EQU	4
+HPIO_220	EQU	5
+HPIO_210	EQU	6
+HPIO_3E0	EQU	7
+
+HPMEM_NONE	EQU	0			; host port - shared memory map choices
+HPMEM_B000	EQU	1
+HPMEM_C800	EQU	2
+HPMEM_D000	EQU	3
+HPMEM_D400	EQU	4			; (no longer hw supported)
+HPMEM_D800	EQU	5
+HPMEM_E000	EQU	6
+HPMEM_E800	EQU	7
+
+HPIRQ_NONE	EQU	0			; host port - IRQ choices
+HPIRQ_5		EQU	1
+HPIRQ_7		EQU	2
+HPIRQ_9		EQU	3
+HPIRQ_10	EQU	4
+HPIRQ_11	EQU	5
+HPIRQ_12	EQU	6
+HPIRQ_15	EQU	7
+
+HPDSPRESET_OFF	EQU	0			; DSP reset off/on
+HPDSPRESET_ON	EQU	1
+
+HPPRORESET_OFF	EQU	0			; Proteus reset off/on
+HPPRORESET_ON	EQU	1
+
+HPBLKSEL_0	EQU	0			; 32k shared memory window block select
+HPBLKSEL_1	EQU	1
+
+HPWAITSTATE_0	EQU	0			; added memory wait state select
+HPWAITSTATE_1	EQU	1
+
+HPBITMODE_16	EQU	0			; memory bus bit mode select
+HPBITMODE_8	EQU	1
+
+	page
+
+;	*************************************************
+;	*     Host<->DSP Interface Constants Defined	*
+;	*************************************************
+
+; Host int message types: (TXH @ Int time)
+
+HIMT_PLAY_DONE		EQU	00h		; digital audio play (complete)
+HIMT_RECORD_DONE	EQU	01h		; digital audio record (complete)
+HIMT_MIDI_EOS		EQU	02H		; midi long output (complete)
+
+HIMT_MIDI_IN_BYTE	EQU	0Eh		; midi input buff has data, pc go check
+HIMT_DSP		EQU	0Fh		; dsp special tales - TXM has reason
+						; TXM values for HIMT_DSP
+	HIDSP_INT_PLAY_UNDER	EQU	00H	; dsp internal play buffer underflow
+	HIDSP_INT_RECORD_OVER	EQU	01H	; dsp internal rec. buffer overflow
+	HIDSP_INPUT_CLIPPING	EQU	02H	; digital audio input data is clipping
+						; (tag bits are in control block
+						;  as "wCurrInputTagBits")
+	HIDSP_MIX_CLIPPING	EQU	03H	; the mixer is clipping
+	HIDSP_MIDI_IN_OVER	EQU	10H	; shared midi input buffer overflow
+	HIDSP_MIDI_FRAME_ERR	EQU	11H	; midi data port framing error
+	HIDSP_MIDI_PARITY_ERR	EQU	12H	; midi data port parity error
+	HIDSP_MIDI_OVERRUN_ERR	EQU	13H	; midi data port over-run error
+
+
+; Host -> DSP exceptions (CVR)
+
+HDEX_BASE		EQU	92h
+
+HDEX_PLAY_START		EQU	 0 + HDEX_BASE
+HDEX_PLAY_STOP		EQU	 1 + HDEX_BASE
+HDEX_PLAY_PAUSE		EQU	 2 + HDEX_BASE
+HDEX_PLAY_RESUME	EQU	 3 + HDEX_BASE
+HDEX_RECORD_START	EQU	 4 + HDEX_BASE
+HDEX_RECORD_STOP	EQU	 5 + HDEX_BASE
+HDEX_MIDI_IN_START	EQU	 6 + HDEX_BASE
+HDEX_MIDI_IN_STOP	EQU	 7 + HDEX_BASE
+HDEX_MIDI_OUT_START	EQU	 8 + HDEX_BASE
+HDEX_MIDI_OUT_STOP	EQU	 9 + HDEX_BASE
+HDEX_AUX_REQ		EQU	10 + HDEX_BASE
+
+;	 Aux requests (TXL)
+
+	HDEXAR_MIDI_MAP_IO	EQU	 0
+	HDEXAR_CLEAR_PEAKS	EQU	 1
+	HDEXAR_IN_SET_POTS	EQU	 2
+	HDEXAR_AUX_SET_POTS	EQU	 3
+	HDEXAR_CAL_A_TO_D	EQU	 4	; prep bit-0 of CHSF record 1st
+	HDEXAR_RD_EXT_DSP_BITS	EQU	 5
+
+;*	HDEXAR_PLAY_SET_RATE	EQU	 ?
+;*	HDEXAR_PLAY_SET_PITCH	EQU	 ?
+;*	HDEXAR_PLAY_SET_DIR_FWD	EQU	 ?
+;*	HDEXAR_PLAY_SET_DIR_REV	EQU	 ?
+;*	HDEXAR_PLAY_SET_TC	EQU	 ?
+;*	HDEXAR_PLAY_SET_EQ	EQU	 ?
+
+	page
+
+;	*************************************************
+;	*	     Misc. Equates Defined		*
+;	*************************************************
+
+MIDI_EOS	EQU	0FDh
+
+SMA_FREE	EQU	0			; shared memory area is free to use
+SMA_INSIDE	EQU	01h			; in shared mem (block moving)
+SMA_START_DSP	EQU	40h			; dsp needs started at end of sma access
+SMA_RECHECK	EQU	80h			; recheck sma buffers when done
+
+	page
+
+;	*************************************************
+;	*	     Structure Definitions		*
+;	*************************************************
+
+JobQueueStruc		STRUC			; typical job queue control structure
+wJQ_Start		DW	?		; queue start address: dsp word X based
+wJQ_Size		DW	?		; queue size: # words - 1
+wJQ_Head		DW	?		; queue head: curr output word offset
+						;             advanced by dsp
+wJQ_Tail		DW	?		; queue tail: curr input  word offset
+						;             advanced by host
+JobQueueStruc		ENDS
+
+DAQueueDataStruc	STRUC			; typical digital audio queue data format
+wDAQD_Start		DW	?		; dsp X:xxxx based buffer address
+wDAQD_Size		DW	?		; # of bytes in buffer / avail. buffer size
+wDAQD_Format		DW	1		; data format (1 = PCM, 2 = future)
+wDAQD_SampleSize	DW	16		; # of bits per sample
+wDAQD_Channels		DW	2		; 1 = mono, 2 = stereo, etc.
+wDAQD_SampleRate	DW	44100		; samples / sec. (ie. 44kHz = 44100)
+wDAQD_IntMsg		DW	?		; TXH/TXM data @ int/completion time
+						;  TXH : b3->b0 = the message type
+						;	 b7->b4 = error # (0=none)
+						;	 init to 0 by host
+						;	 set @ errror time by dsp
+						;  TXM = specific message data
+wDAQD_Flags		DW	0		; tbd
+DAQueueDataStruc	ENDS
+
+DAQD_STRUC_SIZE		EQU	((size DAQueueDataStruc) / 2)	; size of element in words
+
+
+	page
+
+;	*************************************************
+;	*						*
+;	*	Shared Memory Map - RAM Bank #0		*
+;	*						*
+;	*************************************************
+
+SRAM_BANK_0		SEGMENT	AT SRAM_SEG_B0			; bank 0 definition
+
+			ORG	0000h
+SB0			EQU	$
+
+DAP_BUFF_SIZE		EQU	2400h			; was/could be 2500h
+DAP_BUFF_1_SIZE		EQU	DAP_BUFF_SIZE
+DAP_BUFF_2_SIZE		EQU	DAP_BUFF_SIZE
+DAP_BUFF_3_SIZE		EQU	DAP_BUFF_SIZE
+bDAPbuff1Start		DB	DAP_BUFF_1_SIZE DUP (0)	; DA playback buffer #1
+bDAPbuff2Start		DB	DAP_BUFF_2_SIZE DUP (0)	; DA playback buffer #2
+bDAPbuff3Start		DB	DAP_BUFF_3_SIZE DUP (0)	; DA playback buffer #3
+
+DAPQ_BUFF_SIZE		EQU	DAQD_STRUC_SIZE*3	; queue size (3 entries)
+wDAPQbuff		DW	DAPQ_BUFF_SIZE DUP (0)	; queue
+
+DARQ_BUFF_SIZE		EQU	DAQD_STRUC_SIZE*3	; queue size (3 entries)
+wDARQbuff		DW	DARQ_BUFF_SIZE DUP (0)	; queue
+
+MODQ_BUFF_SIZE		EQU	400h			; buffer size
+wMODQbuff		DW	MODQ_BUFF_SIZE DUP (0)	; MIDI output data queue
+
+;****************** added 7/30/91 *********************
+MIDQ_BUFF_SIZE		EQU	200h			; buffer size
+wMIDQbuff		DW	MIDQ_BUFF_SIZE DUP (0)	; MIDI input data queue
+
+DSPQ_BUFF_SIZE		EQU	40h			; buffer size
+wDSPQbuff		DW	DSPQ_BUFF_SIZE DUP (0)	; DSP->Host Message queue
+;******************************************************
+
+
+;	*************************************************
+;	*	    Control Block Definition		*
+;	*************************************************
+
+			ORG	SRAM_CNTL_START	; control block start in bank 0
+
+;	Queue Area
+
+wDAPQ			LABEL	WORD		; Digital Audio Playback Queue Control
+wDAPQ_Start		DW	?
+wDAPQ_Size		DW	?
+wDAPQ_Head		DW	?		; dsp owns
+wDAPQ_Tail		DW	?		; pc  owns
+
+wDARQ			LABEL	WORD		; Digital Audio Record Queue Control
+wDARQ_Start		DW	?
+wDARQ_Size		DW	?
+wDARQ_Head		DW	?		; dsp owns
+wDARQ_Tail		DW	?		; pc  owns
+
+wMODQ			LABEL	WORD		; MIDI Ouput Data Queue Control
+wMODQ_Start		DW	?
+wMODQ_Size		DW	?
+wMODQ_Head		DW	?		; dsp owns
+wMODQ_Tail		DW	?		; pc  owns
+
+;****************** added 7/30/91 *********************
+wMIDQ			LABEL	WORD		; MIDI Input Data Queue Control
+wMIDQ_Start		DW	?
+wMIDQ_Size		DW	?
+wMIDQ_Head		DW	?		; pc  owns
+wMIDQ_Tail		DW	?		; dsp owns
+
+wDSPQ			LABEL	WORD		; DSP->Host Message Queue Control
+wDSPQ_Start		DW	?
+wDSPQ_Size		DW	?
+wDSPQ_Head		DW	?		; pc  owns
+wDSPQ_Tail		DW	?		; dsp owns
+;******************************************************
+
+
+			ORG	SRAM_CNTL_START+40h	; begin of misc shared vars
+
+;	Common Data Area
+
+wCurrPlayBytes		DW	0		; # of bytes played in current play job
+wCurrRecordBytes	DW	0		; # of bytes recorded in current record job
+wCurrPlayVolLeft        DW      07FFFh          ; current wave output volume - left
+wCurrPlayVolRight       DW      07FFFh          ; current wave output volume - right
+wCurrInVolLeft          DW      07FFFh          ; current input mixer volume - left
+wCurrInVolRight         DW      07FFFh          ; current input mixer volume - right
+wCurrMIDIVolLeft        DW      07FFFh          ; current MIDI output volume - left
+wCurrMIDIVolRight       DW      07FFFh          ; current MIDI output volume - right
+dwCurrPlayPitch		DD	00010000h	; current play pitch: MSW = int, LSW = frac
+dwCurrPlayRate		DD	00010000h	; current play rate: MSW = int, LSW = frac
+wCurrMIDIIOPatch	DW	0		; current MIDI I/O patch setup
+
+wCurrPlayFormat		DW	1		; current playback data format (1=PCM)
+wCurrPlaySampleSize	DW	16		;    "       "     sample size in bits
+wCurrPlayChannels	DW	2		;    "       "     # of channels (1=mono)
+wCurrPlaySampleRate	DW	44100		;    "       "     data output rate
+
+wCurrRecordFormat	DW	1		; current recorder data format
+wCurrRecordSampleSize	DW	16		;    "       "     sample size in bits
+wCurrRecordChannels	DW	2		;    "       "     # of channels (2=stereo)
+wCurrRecordSampleRate	DW	44100		;    "       "     data output rate
+
+wCurrDSPStatusFlags	DW	0		; current DSP status flags:
+						;  0	play underflow
+						;  1	record overflow
+						;  2	play paused
+						;  3	in mix enabled
+						;  4	play reverse enabled
+						;  5    - spare -
+						;  6    record active
+						;  7    MIDI in active
+						;  8	- spare -
+						;  9	- spare -
+						; 10	play back rate != 1.00
+						; 11	play pitch != 1.00
+						; 12	play time comp != 1.00
+						; 13	play EQ bands != 1.00
+						; 14	- spare -
+						; 15	- spare -
+
+CDSFRecord	RECORD	CDSF_DSP:11, CDSF_PRev:1, CDSF_IMix:1, CDSF_PPause:1, CDSF_ROver:1, CDSF_PUnder:1
+
+
+wCurrHostStatusFlags	DW	0		; current Host status flags:
+						;  0	ACAL w/ AGND ref
+						;  1	DSP has run before
+						;  2	Record monitor enabled
+
+CHSFRecord	RECORD	CHSF_SPARE:13, CHSF_REC_MON:1, CHSF_HAS_RUN:1, CHSF_ACAL_TO_DCAL:1
+
+
+wCurrInputTagBits	DW	0		; current A/D clipping tag bits
+
+wCurrLeftPeak		DW	0		; current A/D left  peak value
+wCurrRightPeak		DW	0		; current A/D right peak value
+
+wExtDSPbits		DW	0		; external DSP harware bits:
+						;  0	DCAL state
+						;  1	Ext. MIDI conn state
+						;  2	- spare -
+						;  3/7	MadDog chip level
+						;  8/15 - spare -
+
+EDBRecord	RECORD	EDB_SPARES:8, EDB_MADDOG_LEVEL:5, EDB_SPARE:1, EDB_EXT_MIDI_CONN:1, EDB_DCAL:1
+
+bExtHostbits		DB	0		; external Host harware bits:
+						;  0	(board level r/c bit)
+						;  1	- spare -
+						;  2	- spare -
+						;  3/7	TopCat chip level
+
+bBoardLevel		DB	0		; MultiSound rev level
+
+EHBRecord	RECORD	EHB_TOPCAT_LEVEL:5, EHB_SPARES:2, EHB_BOARD_LEVEL_RC:1
+
+
+bInPotPosRight		DB	0		; input  pot left  setting (0->FF)
+bInPotPosLeft		DB	0		; input  pot right setting (0->FF)
+
+bAuxPotPosRight		DB	0		; aux/CD pot left  setting (0->FF)
+bAuxPotPosLeft		DB	0		; aux/CD pot right setting (0->FF)
+
+bInPotMaxRight		DB	0		; input  pot left  setting (0->FF)
+bInPotMaxLeft		DB	0		; input  pot right setting (0->FF)
+
+bAuxPotMaxRight		DB	0		; aux/CD pot left  setting (0->FF)
+bAuxPotMaxLeft		DB	0		; aux/CD pot right setting (0->FF)
+
+bInPotMaxMethod		DB	0		;*nu* input  pot max method
+bAuxPotMaxMethod	DB	0		;*nu* aux/CD pot max method
+						;*nu* 0=off, 1=var, 2=2Vrms, 3=0.5Vrms, 4=fut.
+
+wCurrMastVolLeft	DW	05FFFh		; master left  volume scalar
+wCurrMastVolRight	DW	05FFFh		; master right volume scalar
+
+wCalFreqAtoD		DW	44100		; calibrate freq for a/d
+
+wCurrAuxVolLeft		DW	07FFFh		; aux left  volume
+wCurrAuxVolRight	DW	07FFFh		; aux right volume
+
+
+			ORG	SRAM_CNTL_START+0F0h	; begin of debug vars
+
+wDSPQ_StartIsrHead	DW	0			; 0
+wDSPQ_StartIsrTail	DW	0			; 2
+wDSPQ_LastHead		DW	0			; 4
+wDSPQ_LastTail		DW	0			; 6
+wIsrRuns		DW	0			; 8
+wLostHreqCnt		DW	0			; A
+
+SRAM_BANK_0		ENDS
+
+	page
+
+;	*************************************************
+;	*						*
+;	*	Shared Memory Map - RAM Bank #1		*
+;	*						*
+;	*************************************************
+
+SRAM_BANK_1		SEGMENT	AT SRAM_SEG_B1		; bank 1 definition
+
+			ORG	0000h
+SB1			EQU	$
+
+DAR_BUFF_SIZE		EQU	2000h			; was/could be 2500h
+DAR_BUFF_1_SIZE		EQU	DAR_BUFF_SIZE
+DAR_BUFF_2_SIZE		EQU	DAR_BUFF_SIZE
+DAR_BUFF_3_SIZE		EQU	DAR_BUFF_SIZE
+bDARbuff1Start		DB	DAR_BUFF_1_SIZE DUP (0)	; DA record buffer #1
+bDARbuff2Start		DB	DAR_BUFF_2_SIZE DUP (0)	; DA record buffer #2
+bDARbuff3Start		DB	DAR_BUFF_3_SIZE DUP (0)	; DA record buffer #3
+
+SRAM_BANK_1		ENDS
+

@@ -2033,7 +2033,14 @@ x_WORD_E2008 = 2b3008
 
 x_WORD_E2A14_sound_active - 2b3a14
 
-x_BYTE_E3798 - 2b4798 - neni aktivni
+x_BYTE_E3798_sound_active2 - 2b4798 - neni aktivni
 
 x_BYTE_E37AD_actual_sound - 2b47ad
+
+
+x_D41A0_BYTEARRAY_4_struct.setting_216 = 43 = 38d006
+
+char *sub_8F850()//270850
+x_BYTE_E388D=0 ?
+void sub_8D8F0_sound_proc3()//26e8f0
 //

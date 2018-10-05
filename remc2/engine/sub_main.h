@@ -266,16 +266,16 @@ char sub_8BA10(int a1, int a2, int *a3, char *a4, int a5);
 double /*__fastcall*/ _CHP(x_DWORD);// weak
 char sub_8B980(int a1, int a2, x_DWORD **a3, int a4);
 bool sub_9AE04(int eax0, int edx0, int a3, int a1, int a2);
-int *sub_93330(int a1, int a2, const void *a3);
+int *sub_93330_AIL_install_DIG_driver_file(int a1, int a2, const void *a3);
 char sub_9AE90(int eax0, int edx0, int ebx0, int *a1, x_BYTE *a2, int a3, int a4);
 int sub_931F0(int a1, int **a2);
-int *sub_95850(int a1, int a2, const void *a3);
+int *sub_95850_AIL_install_MDI_driver_file(int a1, int a2, const void *a3);
 int sub_95710(int a1, int **a2);
 Bit32u /*__cdecl*/ x_read(FILE* descriptor, Bit8u* data, Bit32u size);// weak
 double IF_DPOW(double, double);// weak
-x_DWORD /*__cdecl*/ x_dos_setdrive(x_DWORD, x_DWORD);// weak
-int /*__cdecl*/ x_chdir(const char* path);
-x_DWORD /*__cdecl*/ x_getcwd(x_DWORD, x_DWORD);// weak
+x_DWORD x_dos_setdrive(Bit32s a, Bit32s* b);
+//int /*__cdecl*/ x_chdir(const char* path);
+//char* /*__cdecl*/ x_getcwd(x_DWORD a, x_DWORD b);// weak
 x_DWORD /*__cdecl*/ x_outp(x_DWORD, char);// weak
 x_DWORD /*__cdecl*/ x_inp(x_DWORD);// weak
 x_DWORD *sub_9E720(int a1, int a2, int a3);

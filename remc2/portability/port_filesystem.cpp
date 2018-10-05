@@ -24,6 +24,31 @@ void pathfix(char* path, char* path2)
 	}
 }
 
+void unpathfix(char* path, char* path2)
+{
+	/*if ((path[0] == 'c') || (path[0] == 'C'))
+	{
+		long len = strlen(path);
+		char* fixstring = (char*)"c:/prenos/Magic2/mc2-orig-copy";
+		long fixlen = strlen(fixstring);
+		for (int i = len;i > 1;i--)
+			path2[i + fixlen - 2] = path[i];
+		for (int i = 0;i < fixlen;i++)
+			path2[i] = fixstring[i];
+	}
+	else
+	{
+		long len = strlen(path);
+		char* fixstring = (char*)"c:/prenos/Magic2/mc2-orig-copy/";
+		long fixlen = strlen(fixstring);
+		for (int i = len;i > -1;i--)
+			path2[i + fixlen] = path[i];
+		for (int i = 0;i < fixlen;i++)
+			path2[i] = fixstring[i];
+	}*/
+	strcpy(path2, "c:/prenos/Magic2/mc2-orig-copy/");//fix this
+}
+
 long my_findfirst(char* path, _finddata_t* c_file){
 	char path2[2048] = "\0";
 	pathfix(path, path2);//only for DOSBOX version
@@ -126,4 +151,19 @@ int myclose(FILE* descriptor) {
 };
 Bit32s mylseek(FILE* filedesc, x_DWORD position, char type) {
 	return fseek(filedesc, position, type);
+};
+
+int x_chdir(const char* path) {
+	char path2[2048] = "\0";
+	pathfix((char*)path, path2);
+	int result = _chdir(path2);
+	return result;
+};// weak
+char* x_getcwd(x_DWORD a, x_DWORD b) {
+	char cwd[512] = "\0";	
+	if (getcwd(cwd, 512) == NULL)
+		perror("getcwd() error");
+	char* path2 = (char*)malloc(512);
+	unpathfix(cwd, path2);	
+	return path2;
 };

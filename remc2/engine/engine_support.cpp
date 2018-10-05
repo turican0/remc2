@@ -144,6 +144,8 @@ void support_begin() {
 	xy_DWORD_17DEC0_spritestr = new posistruct[1000];
 	xy_DWORD_17DEC8_spritestr = new posistruct[1000];
 
+	x_D41A0_BYTEARRAY_4_struct.harddiskchar_byte4_182 = 0x43;
+
     //printbuffer2[0] = '\0';
 }
 void support_end() {
