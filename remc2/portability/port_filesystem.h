@@ -27,4 +27,6 @@ Bit32s mylseek(FILE* filedesc, x_DWORD position, char type);
 int x_chdir(const char* path);
 char* x_getcwd(x_DWORD a, x_DWORD b);
 
+FILE* myopent(char* path, char* type);
+
 #endif //PORT_FILESYSTEM

@@ -152,6 +152,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="dosbox_files\config.h" />
+    <ClInclude Include="engine\ail_sound.h" />
     <ClInclude Include="engine\defs.h" />
     <ClInclude Include="engine\engine_support.h" />
     <ClInclude Include="engine\sub_main.h" />

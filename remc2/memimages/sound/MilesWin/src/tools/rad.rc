@@ -1,0 +1,210 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "radres.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDI_ICON                ICON                    "rad.ico"
+
+//
+// Cursor
+//
+
+// IDC_SPLIT_CURSOR        CURSOR  DISCARDABLE     "Split.cur"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Accelerator
+//
+
+IDR_ACCELS ACCELERATORS DISCARDABLE 
+BEGIN
+    VK_F5,          IDM_REFRESH,            VIRTKEY, NOINVERT
+END
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Acquisition dialog
+//
+
+IDD_EXAMMS DIALOGEX 0, 0, 0, 0
+STYLE WS_VISIBLE | WS_CHILD | WS_EX_CLIENTEDGE | DS_FIXEDSYS | DS_SETFONT | DS_CONTROL
+FONT 8, "MS Shell Dlg", 0, 0, 0x0
+BEGIN
+    GROUPBOX        " Digital Sound Controls ",-1,8,6,192,218
+    LTEXT           "Choose the audio configuration to use:",-1,19,20,170,8
+    COMBOBOX        100,21,30,172,188,CBS_DROPDOWNLIST | WS_VSCROLL |
+                    WS_TABSTOP
+/*    PUSHBUTTON      "&Play 3D sound",101,18,50,59,17,WS_GROUP 
+    PUSHBUTTON      "&Play 2D sound",116,18,70,59,17,WS_GROUP	*/
+    LTEXT           "Velocity",202,41,51,100,8
+    LTEXT           "Pitch",203,41,62,100,8
+    CONTROL         "Slider1",102,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS |
+                    WS_TABSTOP,75,51,93,10
+    CONTROL         "Slider1",129,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS |
+                    WS_TABSTOP,75,62,93,10
+    PUSHBUTTON      "&Play selected sound",111,22,80,75,17
+    PUSHBUTTON      "&Stop all sounds",110,111,80,75,17
+
+    CONTROL         "&Rotate sound around the listener",103,"Button",
+                    BS_AUTORADIOBUTTON,18,105,170,10
+    CONTROL         "&Back and forth, through the listener",104,"Button",
+                    BS_AUTORADIOBUTTON,18,116,170,10
+    CONTROL         "&Place sound manually",105,"Button",
+                    BS_AUTORADIOBUTTON,18,127,170,10
+    CONTROL         "&Orient listener manually",131,"Button",
+                    BS_AUTORADIOBUTTON,18,138,170,10
+
+/*    CONTROL         "Phaser filter",124,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,19,143,148,10 */
+    CONTROL         "Rotating audible cone",125,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,19,157,140,10
+    CONTROL         "Add walls (add occlusions to the environment)",126,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,19,168,160,10
+    CONTROL         "Add crates (add obstructions to the environment)",127,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,19,179,172,10
+    CONTROL         "Enable looping",128,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,19,190,169,10
+    LTEXT           "Falloff Power:",119,19,208,49,8
+    CONTROL         "1.0",120,"Button",BS_AUTORADIOBUTTON,70,208,28,
+                    10
+    CONTROL         "2.0",121,"Button",BS_AUTORADIOBUTTON,100,208,28,
+                    10
+    CONTROL         "3.0",122,"Button",BS_AUTORADIOBUTTON,130,208,28,
+                    10
+    CONTROL         "4.0",123,"Button",BS_AUTORADIOBUTTON,160,208,28,
+                    10
+    GROUPBOX        " Environment Reverb Options ",206,8,227,192,29
+    CONTROL         "&None",106,"Button",BS_AUTORADIOBUTTON | WS_GROUP,14,
+                    240,33,10
+    CONTROL         "&Bath",107,"Button",BS_AUTORADIOBUTTON,55,240,33,10
+    CONTROL         "&Mountains",108,"Button",BS_AUTORADIOBUTTON,97,240,49,
+                    10
+    CONTROL         "&Hallway",109,"Button",BS_AUTORADIOBUTTON,154,240,41,10
+    GROUPBOX        " Current environment: ",130,208,6,184,181
+/*    PUSHBUTTON      "&Stop all sounds",110,8,263,56,17
+    PUSHBUTTON      "&Load new sound...",113,220,263,69,17
+    PUSHBUTTON      "P&rovider attributes...",114,69,263,73,17
+    PUSHBUTTON      "S&ound attributes...",115,147,263,68,17
+    PUSHBUTTON      "&About...",111,294,263,46,17
+    PUSHBUTTON      "&Close",112,345,263,46,17 */
+    GROUPBOX        " Sample Reverb Options ",207,208,191,184,49
+    LTEXT           "Dry",212,226,204,28,8
+    LTEXT           "Wet",213,306,204,28,8
+    CONTROL         "Slider1",214,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS |
+                    WS_TABSTOP,246,204,53,10
+    CONTROL         "Slider1",215,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS |
+                    WS_TABSTOP,326,204,53,10
+    CONTROL         "Enable 3D attenuation of wet signal",216,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,226,219,149,10
+/*    CONTROL         "Apply environment reverb to 2D sound",217,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,226,226,149,10 */
+END
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Change-caption dialog
+//
+
+//IDD_CONTROL DIALOGEX 0, 0, 0, 0
+//STYLE WS_VISIBLE | WS_CHILD | WS_EX_CLIENTEDGE | DS_FIXEDSYS | DS_SETFONT | DS_CONTROL
+//FONT 8, "MS Shell Dlg", 0, 0, 0x0
+//BEGIN
+//    LTEXT           "",IDC_CTRL_NAME,16,5,71,8
+//    EDITTEXT        IDC_CTRL_EDIT,13,25,160,13,ES_AUTOHSCROLL
+///*    CONTROL         "Slider1",IDC_CTRL_SLIDER,"msctls_trackbar32",TBS_NOTICKS | WS_TABSTOP,13,35,160,14 */
+//    GROUPBOX        "Help",IDC_CTRL_HELP,13,45,232,48
+//    LTEXT           "RAD Audio Designer v0.80 of 6-Mar-07",IDC_CTRL_BOX,20,55,220,32
+//END
+//
+IDD_CONTROL DIALOGEX 0, 0, 0, 0
+STYLE WS_VISIBLE | WS_CHILD | WS_EX_CLIENTEDGE | DS_FIXEDSYS | DS_SETFONT | DS_CONTROL
+FONT 8, "MS Shell Dlg", 0, 0, 0x0
+BEGIN
+    LTEXT           "",IDC_CTRL_NAME,16,5,71,8
+    GROUPBOX        "Help",IDC_CTRL_HELP,13,14,232,81
+    LTEXT           "Miles Sound System Version 8 Demo/Example\rCopyright (c) 2006-2007 RAD Game Tools, Inc.",IDC_CTRL_BOX,20,28,220,32
+END
+
+
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_PN_PARAMS, DIALOG
+    BEGIN
+        BOTTOMMARGIN, 302
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

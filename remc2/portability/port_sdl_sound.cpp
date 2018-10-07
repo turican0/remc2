@@ -125,3 +125,7 @@ void stopmusic1()
 {
 	Mix_HaltMusic();
 }
+
+void ac_sound_call_driver(Bit32s* drvr, Bit32s fn, VDI_CALL* in, VDI_CALL* out)/*AIL_DRIVER *drvr,S32 fn, VDI_CALL*in,VDI_CALL *out)*/ {
+	printf("drvr:%08X, fn:%08X, in:%08X, out:%08X\n", drvr, fn, in, out);
+};

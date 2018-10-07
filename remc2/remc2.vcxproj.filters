@@ -72,6 +72,9 @@
     <ClInclude Include="portability\port_sdl_sound.h">
       <Filter>Zdrojové soubory\portability</Filter>
     </ClInclude>
+    <ClInclude Include="engine\ail_sound.h">
+      <Filter>Zdrojové soubory\engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

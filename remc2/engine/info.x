@@ -2044,3 +2044,45 @@ char *sub_8F850()//270850
 x_BYTE_E388D=0 ?
 void sub_8D8F0_sound_proc3()//26e8f0
 //
+
+preruseni zvuku sound interupt irq
+//fix it:__asm { int     31h; DPMI Services   ax=func xxxxh }
+
+AIL_API_get_real_vect
+
+ac_sound_call_driver x
+ac_sound_stop_music - on end
+ac_sound_install_dig_ini x
+ac_sound_install_dig_driver_file x
+ac_sound_get_io_environment x
+
+int sub_8E470_sound_proc17_volume(int a1)
+x_BYTE_E379A - find this var
+
+void sub_8E160_sound_proc15_startsequence(__int16 a1, unsigned __int8 a2)//3 64
+x_BYTE_E37FC 00 - 2b47fc = 01
+x_BYTE_E37FD 00 - 2b47fd = 01
+x_WORD_E3804 00 - 2b4804 = 06
+x_WORD_E3802 00 - 2b4802 = 00
+
+unk_180A30
+
+      if ( !sub_931F0_AIL_install_DIG_INI(a3, (int **)&x_DWORD_180B48) )
+      {
+        sub_93480_AIL_uninstall_DIG_driver((unsigned int *)x_DWORD_180B48); -- sem se to musi dostat
+        v10 = 1;
+      }
+
+sub_931F0_AIL_install_DIG_INI
+
+//3550c8 - SB16.DIG  //355148 - 220
+
+int sub_92190_AIL_read_INI(Bit8u* a1, char* a2)//AIL_read_INI // 273190
+
+
+int *sub_A2EA0(int a1, const void *a2) //
+	int sub_A2C80(int *a1, const void *a2) // problem s a2
+
+sub_91A80_AIL_set_preference
+	sub_9E6E0_set_preference
+		x_DWORD_181DAC[number];?
