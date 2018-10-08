@@ -2086,3 +2086,12 @@ int *sub_A2EA0(int a1, const void *a2) //
 sub_91A80_AIL_set_preference
 	sub_9E6E0_set_preference
 		x_DWORD_181DAC[number];?
+
+
+unk_F4240 - find and set
+
+351b48
+
+sub_93330_AIL_install_DIG_driver_file
+
+    x_WORD_180B30 = v5.IO;//fixed

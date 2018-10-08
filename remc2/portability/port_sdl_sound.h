@@ -17,7 +17,10 @@ int playsound4();
 void playmusic1();
 void stopmusic1();
 
-void ac_sound_call_driver(Bit32s* drvr, Bit32s fn, VDI_CALL* in, VDI_CALL* out);
+Bit32s ac_sound_call_driver(AIL_DRIVER* drvr, Bit32s fn, VDI_CALL* in, VDI_CALL* out);
+
+void ac_set_real_vect(Bit32u vectnum, Bit8u* real_ptr);
+AIL_DRIVER* ac_AIL_API_install_driver(int a1, Bit8u* a2, int a3);
 
 
 

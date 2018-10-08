@@ -70,7 +70,7 @@ void unpathfix(char* path, char* path2)
 		for (int i = 0;i < fixlen;i++)
 			path2[i] = fixstring[i];
 	}*/
-	strcpy(path2, "c:/prenos/Magic2/mc2-orig-copy/NETHERW/sound/");//fix this
+	strcpy(path2, "c:/");//fix this
 }
 
 long my_findfirst(char* path, _finddata_t* c_file){
