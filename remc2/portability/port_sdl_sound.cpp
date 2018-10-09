@@ -157,10 +157,10 @@ Bit32s ac_sound_call_driver(AIL_DRIVER* drvr, Bit32s fn, VDI_CALL* in, VDI_CALL*
 		drvr->AIL_DRIVER_var4_VHDR->num_IO_configurations = num_IO_configurations;
 		drvr->AIL_DRIVER_var4_VHDR->environment_string = &environment_string;
 		drvr->AIL_DRIVER_var4_VHDR->VDI_HDR_var46 = service_rate;
-		out->AX = 0x040c;//adress
-		out->BX = 0x04fc;//adress
-		out->CX = 0x2c38;//offset
-		out->DX = 0x2c38;//offset
+		out->AX = 0x040c;//offset
+		out->BX = 0x04fc;//offset
+		//out->CX = 0x2c38;//segment
+		//out->DX = 0x2c38;//segment
 		out->SI = 0;
 		out->DI = 0;
 		break;
@@ -175,6 +175,16 @@ AIL_DRIVER* ac_AIL_API_install_driver(int a1, Bit8u* a2, int a3)/*driver_image,n
 	//printf("drvr:%08X, fn:%08X, in:%08X, out:%08X\n", drvr, fn, in, out);
 	return 0;
 }
-void ac_set_real_vect(Bit32u vectnum, Bit8u* real_ptr)
+
+Bit16u actvect[0x1000];
+
+void ac_set_real_vect(Bit32u vectnum, Bit16u real_ptr)
 {
+	actvect[vectnum] = real_ptr;
+	//66
+};
+
+Bit16u ac_get_real_vect(Bit32u vectnum)
+{
+	return actvect[vectnum];
 };

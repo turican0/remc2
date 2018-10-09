@@ -35,19 +35,20 @@ IO_PARMS;
 
 typedef MSS_STRUCT                      // Standard MSS 3.X VDI driver header
 {
-	/*0*/Bit8s ID[6];
-	/*6*/Bit32u driver_version;
+	/*0*/Bit8s ID[8];
+	/*8*/Bit16u driver_version;
 	/*10*/Bit16u VDI_HDR_var10;
 	/*12*/Bit16u VDI_HDR_var12;
 	/*14*/Bit16u num_IO_configurations;//03
-	/*16*/void* environment_string;//2c380506
-	/*20*/Bit16u VDI_HDR_var20;
+	/*16*/void* environment_string;//2c380506	
+	//20
 	/*22*/IO_PARMS IO;//22
-	/*46*/Bit16u VDI_HDR_var46;//busy
+	/*20*/Bit16u scratch0;
+	/*46*/Bit16s VDI_HDR_var46;//busy
 	/*48*/Bit16u VDI_HDR_var48;//driver_num
 	/*50*/Bit16u VDI_HDR_var50;
 	/*52*/Bit16u VDI_HDR_var52_this_ISR;
-	/*54*/Bit8u* VDI_HDR_var54_prev_ISR;
+	/*54*/Bit16u VDI_HDR_var54_prev_ISR;
    /*58*/Bit8s scratch[122];           // Shared scratch workspace
    
    Bit8s     dev_name[80];           // Device name (VDI version >= 1.12 only)

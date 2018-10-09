@@ -2123,3 +2123,5 @@ fix sub_A2EA0
 
 v8 = sub_93010_AIL_install_driver(/*a1, */v6, v3); - sledovat
 	AIL_DRIVER* sub_9E720_AIL_API_install_driver(/*int a1, */Bit8u* driver_image, Bit32s n_bytes)//27f720
+
+	v7 = sub_A2EA0(v8, IO);
