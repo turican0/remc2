@@ -2098,3 +2098,28 @@ sub_93330_AIL_install_DIG_driver_file
 
 
 355048
+
+1a7758
+
+fix sub_A2EA0
+-kde se vzal?
+
+	  /*
+	  eax = [ebp+10]//1a7884
+	  eax=[eax]//1a7758
+	  eax=[eax+10]//2c380
+
+	  eax = [ebp+10]//1a7884
+	  eax=[eax]//1a7758
+	  eax=[eax+10]//2c380
+	  eax=[eax+0c]>>16<<4//2c38
+
+	  eax = [ebp+10]//1a7884
+	  eax=[eax]//1a7758
+	  eax=[eax+10]//2c380//[eax+0c] je 2c38050e
+	  eax=[eax+0c]&&ffff//50e
+	  + = 2c88e - final adress
+	  */
+
+v8 = sub_93010_AIL_install_driver(/*a1, */v6, v3); - sledovat
+	AIL_DRIVER* sub_9E720_AIL_API_install_driver(/*int a1, */Bit8u* driver_image, Bit32s n_bytes)//27f720

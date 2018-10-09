@@ -126,7 +126,46 @@ void stopmusic1()
 	Mix_HaltMusic();
 }
 
+struct{
+	int a;
+} common_IO_configurations;
+
+struct {
+	int a;
+} environment_string;
+
+int num_IO_configurations = 3;
+int service_rate = -1;
+
 Bit32s ac_sound_call_driver(AIL_DRIVER* drvr, Bit32s fn, VDI_CALL* in, VDI_CALL* out)/*AIL_DRIVER *drvr,S32 fn, VDI_CALL*in,VDI_CALL *out)*/ {
+	switch (fn) {
+	case 0x300: {
+		drvr->AIL_DRIVER_var4_VHDR->VDI_HDR_var10 = (int)&common_IO_configurations;
+		drvr->AIL_DRIVER_var4_VHDR->num_IO_configurations = num_IO_configurations;
+		drvr->AIL_DRIVER_var4_VHDR->environment_string = &environment_string;
+		drvr->AIL_DRIVER_var4_VHDR->VDI_HDR_var46 = service_rate;
+		/*out->AX = 0;
+		out->BX = 0;
+		out->CX = 0;
+		out->DX = 0;
+		out->SI = 0;
+		out->DI = 0;*/
+		break;
+	}
+	case 0x301: {
+		drvr->AIL_DRIVER_var4_VHDR->VDI_HDR_var10 = (int)&common_IO_configurations;
+		drvr->AIL_DRIVER_var4_VHDR->num_IO_configurations = num_IO_configurations;
+		drvr->AIL_DRIVER_var4_VHDR->environment_string = &environment_string;
+		drvr->AIL_DRIVER_var4_VHDR->VDI_HDR_var46 = service_rate;
+		out->AX = 0x040c;//adress
+		out->BX = 0x04fc;//adress
+		out->CX = 0x2c38;//offset
+		out->DX = 0x2c38;//offset
+		out->SI = 0;
+		out->DI = 0;
+		break;
+	}
+	}
 	printf("drvr:%08X, fn:%08X, in:%08X, out:%08X\n", drvr, fn, in, out);
 	return 1;
 };

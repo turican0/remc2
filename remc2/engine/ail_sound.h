@@ -35,13 +35,20 @@ IO_PARMS;
 
 typedef MSS_STRUCT                      // Standard MSS 3.X VDI driver header
 {
-	/*0*/Bit8s scratch0[46];
-	/*46*/Bit16u VDI_HDR_var46;
-	/*48*/Bit16u VDI_HDR_var48;
+	/*0*/Bit8s ID[6];
+	/*6*/Bit32u driver_version;
+	/*10*/Bit16u VDI_HDR_var10;
+	/*12*/Bit16u VDI_HDR_var12;
+	/*14*/Bit16u num_IO_configurations;//03
+	/*16*/void* environment_string;//2c380506
+	/*20*/Bit16u VDI_HDR_var20;
+	/*22*/IO_PARMS IO;//22
+	/*46*/Bit16u VDI_HDR_var46;//busy
+	/*48*/Bit16u VDI_HDR_var48;//driver_num
 	/*50*/Bit16u VDI_HDR_var50;
-	/*52*/Bit16u VDI_HDR_var52;
-	/*54*/Bit8u* VDI_HDR_var54;
-   /*58*/Bit8s     scratch[124];           // Shared scratch workspace
+	/*52*/Bit16u VDI_HDR_var52_this_ISR;
+	/*54*/Bit8u* VDI_HDR_var54_prev_ISR;
+   /*58*/Bit8s scratch[122];           // Shared scratch workspace
    
    Bit8s     dev_name[80];           // Device name (VDI version >= 1.12 only)
 }
@@ -110,7 +117,7 @@ AIL_DRIVERx;
 
 typedef MSS_STRUCT                   // Handle to driver
 {
-/*0*/REALFAR AIL_DRIVER_var0_seg;
+/*0*/REALFAR AIL_DRIVER_var0_seg;//remove this! segment must be zero!
 /*4*/Bit32u AIL_DRIVER_var1_sel;
 /*8*/Bit8u* AIL_DRIVER_var2_buf;
 /*12*/Bit32u AIL_DRIVER_var3_size;
@@ -133,5 +140,41 @@ typedef MSS_STRUCT                   // Initialization file structure
 }
 AIL_INI;
 
+typedef MSS_STRUCT                   // Initialization file structure
+{
+   /*0*/AIL_DRIVER* var0_aildrv;
+	/*1*/Bit32s var1_aildrv;
+	/*2*/Bit32u var2_aildrv;
+	 Bit32u var3_aildrv;
+	/*2*/Bit32u var4_aildrv;
+	Bit32u var5_aildrv;
+	Bit32u var6_aildrv;
+	Bit32u var7_aildrv;
+	/*13*/Bit32u var8_aildrv;
+	/*13*/Bit32u var9_aildrv;
+	/*13*/Bit32u var10_aildrv;
+	 Bit32u var11_aildrv;
+	/*13*/Bit32u var13_aildrv;
+	/*13*/Bit32u var14_aildrv;
+	/*13*/Bit32u var15_aildrv;
+	/*13*/Bit32u var16_aildrv;
+	/*13*/Bit32u var17_aildrv;
+	/*13*/Bit32u var18_aildrv;
+	/*13*/Bit32u var19_aildrv;
+	/*20*/ Bit8u* var20_aildrv_dig_drv;
+	/*13*/Bit32u var21_aildrv;
+	/*13*/Bit32u var22_aildrv;
+	/*13*/Bit8u* var23_aildrv;
+	/*13*/Bit32u var24_aildrv;
+	/*13*/Bit32u var25_aildrv;
+	/*13*/Bit32u var26_aildrv;
+	/*13*/Bit32u var36_aildrv;
+	/*13*/Bit32u var40_aildrv;
+	/*13*/Bit32u var46_aildrv;
+  
+  ///*28/*/ Bit16s var28_aildrv;
+  /*4*/	Bit8u scratch[144];
+}
+unkstr1;
 
 #endif //AIL_SOUND_
