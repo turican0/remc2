@@ -64,7 +64,7 @@ typedef MSS_STRUCT                      // Standard MSS 3.X VDI driver header
    /*10*/REALFAR  common_IO_configurations;
    /*14*/Bit16u    num_IO_configurations;
 
-   /*16*/REALFAR  environment_string;
+   /*16*/REALFAR  environment_stringx;//not use this is 16bit adress
 
    /*20*/IO_PARMS IO;
 
@@ -144,10 +144,10 @@ AIL_INI;
 typedef MSS_STRUCT                   // Initialization file structure
 {
    /*0*/AIL_DRIVER* var0_aildrv;
-	/*1*/Bit32s var1_aildrv;
-	/*2*/Bit32u var2_aildrv;
+	/*1*/Bit8u* var1_aildrv;
+	/*2*/Bit8u* var2_aildrv;
 	 Bit32u var3_aildrv;
-	/*2*/Bit32u var4_aildrv;
+	/*2*/Bit32s var4_aildrv;
 	Bit32u var5_aildrv;
 	Bit32u var6_aildrv;
 	Bit32u var7_aildrv;
@@ -155,7 +155,8 @@ typedef MSS_STRUCT                   // Initialization file structure
 	/*13*/Bit32u var9_aildrv;
 	/*13*/Bit32u var10_aildrv;
 	 Bit32u var11_aildrv;
-	/*13*/Bit32u var13_aildrv;
+	 Bit32u var12_aildrv;
+	/*13*/Bit8u* var13_aildrv;
 	/*13*/Bit32u var14_aildrv;
 	/*13*/Bit32u var15_aildrv;
 	/*13*/Bit32u var16_aildrv;

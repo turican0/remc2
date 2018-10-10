@@ -2125,3 +2125,28 @@ v8 = sub_93010_AIL_install_driver(/*a1, */v6, v3); - sledovat
 	AIL_DRIVER* sub_9E720_AIL_API_install_driver(/*int a1, */Bit8u* driver_image, Bit32s n_bytes)//27f720
 
 	v7 = sub_A2EA0(v8, IO);
+
+	nesmi vratit null:
+	sub_93330_AIL_install_DIG_driver_file(/*a1, */a2.driver_name, a2.IO);
+	musi neco vratit:
+	int *sub_A2EA0(AIL_DRIVER* a1, IO_PARMS IO)//283ea0
+
+kde se bere:
+  *(x_DWORD *)(a1 + 84);//21
+  *(x_DWORD *)(a1 + 96); i++ )//24
+
+  find 00352DB4
+	void sub_8D290_sound_proc13(char* a1/*, int a2, int a3*/)//26e290
+		sub_917D0(v3);
+
+find x_DWORD_181DAC - 352dac - c8
+
+x_WORD_E2A14_sound_active - 2b3a14
+sub_8D290_sound_proc13
+	x_WORD_E37B6_sound_number
+		void sub_8D800_sound_proc2()//26E800
+			 v0 = sub_84300_play_sound(x_BYTE_E37AC); 265300 - mel by vratit 0
+			 //5 0 1
+				sub_844F0_read_and_decompress_sound(v3, v8) - asi neprobehne uspesne
+					fix this:
+					x_DWORD_E37A8_sound_buffer1 = (Bit8u*)sub_83CD0_malloc2(*(x_DWORD *)&_C[v2] + 256);

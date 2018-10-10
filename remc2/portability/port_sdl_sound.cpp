@@ -12,6 +12,8 @@ Mix_Chunk *high = NULL;
 Mix_Chunk *med = NULL;
 Mix_Chunk *low = NULL;
 
+Bit8u sound_buffer[4][20000];
+
 bool init_sound()
 {
 	//Initialize SDL_mixer
@@ -157,8 +159,8 @@ Bit32s ac_sound_call_driver(AIL_DRIVER* drvr, Bit32s fn, VDI_CALL* in, VDI_CALL*
 		drvr->AIL_DRIVER_var4_VHDR->num_IO_configurations = num_IO_configurations;
 		drvr->AIL_DRIVER_var4_VHDR->environment_string = &environment_string;
 		drvr->AIL_DRIVER_var4_VHDR->VDI_HDR_var46 = service_rate;
-		out->AX = 0x040c;//offset
-		out->BX = 0x04fc;//offset
+		out->AX = 1;//offset
+		out->BX = 2;//offset
 		//out->CX = 0x2c38;//segment
 		//out->DX = 0x2c38;//segment
 		out->SI = 0;
