@@ -179,4 +179,184 @@ typedef MSS_STRUCT                   // Initialization file structure
 }
 unkstr1;
 
+
+typedef MSS_STRUCT _SAMPLE           // Sample instance
+{
+   char tag[4];
+   char scratch[400];
+   /*char       tag[4];            // HSAM
+
+   HDIGDRIVER driver;            // Driver for playback
+
+   S32        index;             // Numeric index of this sample 
+
+   void const FAR *start[2];     // Sample buffer address (W)
+   U32       len[2];           // Sample buffer size in bytes (W)
+   U32       pos[2];           // Index to next byte (R/W)
+   U32       done[2];           // Nonzero if buffer with len=0 sent by app
+   S32       reset_ASI[2];      // Reset the ASI decoder at the end of the buffer
+   S32       reset_seek_pos[2];  // New destination offset in stream source data, for ASI codecs that care
+   S32       exhaust_ASI;        // Are we prolonging the buffer lifetime until ASI output is exhausted?
+
+   U32      src_fract;           // Fractional part of source address
+   S32      left_val;            // Mixer source value from end of last buffer
+   S32      right_val;           // Mixer source value from end of last buffer
+
+   S32      current_buffer;      // Buffer # active (0/1)
+   S32      last_buffer;         // Last active buffer (for double-buffering)
+   S32      starved;             // Buffer stream has run out of data
+
+   S32      loop_count;          // # of cycles-1 (1=one-shot, 0=indefinite)
+   S32      loop_start;          // Starting offset of loop block (0=SOF)
+   S32      loop_end;            // End offset of loop block (-1=EOF)
+   S32      orig_loop_count;     // Original loop properties specified by app, before any
+   S32      orig_loop_start;     // alignment constraints
+   S32      orig_loop_end;
+
+   S32      format;              // DIG_F format (8/16 bits, mono/stereo)
+   U32      flags;               // DIG_PCM_SIGN / DIG_PCM_ORDER (stereo only)
+
+   S32      playback_rate;       // Playback rate in hertz
+
+   F32      save_volume;         // Sample volume 0-1.0
+   F32      save_pan;            // Mono panpot/stereo balance (0=L ... 1.0=R)
+
+   F32      left_volume;         // Left/mono volume 0 to 1.0
+   F32      right_volume;        // Right volume 0 to 1.0
+
+   F32      wet_level;           // reverb level 0 to 1.0
+   F32      dry_level;           // non-reverb level 0 to 1.0
+
+   F32      obstruction;
+   F32      occlusion;
+   F32      exclusion;
+
+   F32      auto_3D_channel_levels[MAX_SPEAKERS]; // Channel levels set by 3D positioner (always 1.0 if not 3D-positioned)
+   F32      user_channel_levels[MAX_SPEAKERS]; // Channel levels set by AIL_set_sample_channel_levels() [driver->logical_channels]
+   S32      cur_scale[MAX_SPEAKERS];           // Calculated 11-bit volume scale factors for current/previous mixing interval
+   S32      prev_scale[MAX_SPEAKERS];          // (These are all indexed by build buffer*2, not speaker indexes!)
+   S32      ramps_left[MAX_SPEAKERS];
+
+   LOWPASS_INFO lp;              // low pass info
+   F32      cutoff_param;
+   F32      calculated_cut;
+   S32      service_type;        // 1 if single-buffered; 2 if streamed
+
+   AILSAMPLECB  SOB;             // Start-of-block callback function
+   AILSAMPLECB  EOB;             // End-of-buffer callback function
+   AILSAMPLECB  EOS;             // End-of-sample callback function
+
+   SINTa    user_data[8];      // Miscellaneous user data
+   SINTa    system_data[8];      // Miscellaneous system data
+
+   ADPCMDATA adpcm;
+
+   S32      last_decomp_left;    // last sample in an asi or adpcm buffer
+   S32      last_decomp_right;   // last sample in an asi or adpcm buffer
+
+   S32      doeob;               // Flags to trigger callbacks
+   S32      dosob;
+   S32      doeos;
+
+   //
+   // Sample pipeline stages
+   //
+
+   SPINFO   pipeline[N_SAMPLE_STAGES];
+   S32      n_active_filters;    // # of SP_FILTER_n stages active
+
+   //
+   // 3D-related state for all platforms (including Xbox)
+   //
+
+   S32      is_3D;               // TRUE if channel levels are derived automatically from 3D positional state, FALSE if they're controlled manually
+   S3DSTATE S3D;                 // Software version applies 3D positioning only if is_3D == TRUE, but output filters always use it
+
+#ifdef MSS_VFLT_SUPPORTED
+   void FAR *voice;              // Optional object used by output filter to store per-sample information such as DS3D buffers
+#endif
+
+   //
+   // Platform-specific members
+   //
+
+#ifdef IS_XBOX
+   AILLPDIRECTSOUNDBUFFER pDSB;
+
+   S32 hw_rate;
+   S32 hw_channels;
+   S32 hw_bits;
+   S32 direct_mode;
+
+   STAGE_BUFFER * ds_staging_buffer;
+   S32 waiting_for_which_half;
+   S32 cleared_bufs;
+   S32 cleared_bytes;
+   S32 need_more_zeroes;
+   S32 ds_stage_size;
+
+   F32 shadow_FL;
+   F32 shadow_FR;
+   F32 shadow_FC;
+   F32 shadow_LF;
+   F32 shadow_BL;
+   F32 shadow_BR;
+
+   MSSVECTOR3D shadow_position;
+   MSSVECTOR3D shadow_face;
+   MSSVECTOR3D shadow_velocity;
+   S32         shadow_playback_rate;
+   F32         shadow_volume;
+   F32         shadow_occlusion;
+   F32         shadow_obstruction;
+   F32         shadow_exclusion;
+   F32         shadow_min_dist;
+   F32         shadow_max_dist;
+   F32         shadow_inner_angle;
+   F32         shadow_outer_angle;
+   F32         shadow_outer_volume;
+   F32         shadow_wet_level;
+   F32         shadow_dry_level;
+   S32         shadow_auto_3D_atten;
+   S32         shadow_is_3D;
+
+#endif
+
+   F32 leftb_volume;         // Left/mono volume 0 to 1.0 (back)
+   F32 rightb_volume;        // Right volume 0 to 1.0 (back)
+   F32 center_volume;        // Center volume 0 to 1.0
+   F32 low_volume;           // Low volume 0 to 1.0
+   F32 save_fb_pan;          // Sample volume 0-1.0
+   F32 save_center;          // saved center level
+   F32 save_low;             // saved sub level
+
+#ifdef IS_WINDOWS
+
+   //
+   // DirectSound-specific data
+   //
+
+   S32      service_interval;    // Service sample every n ms
+   S32      service_tick;        // Current service countdown value
+   S32      buffer_segment_size; // Buffer segment size to fill
+
+   S32      prev_segment;        // Previous segment # (0...n)
+   S32      prev_cursor;         // Previous play cursor location
+
+   S32      bytes_remaining;     // # of bytes left to play (if not -1)
+
+   S32      direct_control;      // 1 if app controls buffer, 0 if MSS
+
+#endif*/
+}
+SAMPLE;
+typedef MSS_STRUCT _SAMPLE * HSAMPLE;           // Handle to sample
+
+typedef MSS_STRUCT                   // Initialization file structure
+{
+	Bit8u* buffer;
+	Bit8u scratch[19];
+}
+unkstr2;//lenght 23 mybe identic with _SAMPLE
+
 #endif //AIL_SOUND_
