@@ -2172,17 +2172,22 @@ b49fa2 000
 *(x_DWORD *)v8 = (x_DWORD)sub_93510_AIL_allocate_sample_handle(x_DWORD_180B48);
 
 fix this:
-void sub_A38E0_init_sample(HSAMPLE S/*S32     format,U32     flags*/)
-void sub_A3B40_set_sample_volume(HSAMPLE S, float volume)
-void sub_A3BB0_set_sample_volume_pan(HSAMPLE S, float volume)
-void sub_A3CB0_start_sample(HSAMPLE S)
-void sub_A3DA0_end_sample(HSAMPLE S)
-int sub_A3EB0_register_EOS_callback(HSAMPLE S, int EOS)
-void sub_A3F00_set_sample_user_data(HSAMPLE S, int a2, int a3)
-int sub_A3F30_sample_user_data(HSAMPLE S, int index)
-x_DWORD *sub_A4970(int a1, int a2, int a3)
-void sub_A3AF0_set_sample_playback_rate(HSAMPLE S, int a2)
-x_DWORD *sub_A47C0(int a1, x_DWORD *a2)
-Bit32s sub_A4B20_set_sample_file(HSAMPLE S, Bit8u* file_image, Bit32s block)
-void sub_A9950(int a1, int a2);
+void sub_A38E0_init_sample(HSAMPLE S/*S32     format,U32     flags*/) - ok 2848e0
+void sub_A3B40_set_sample_volume(HSAMPLE S, float volume) -ok 284b40
+void sub_A3BB0_set_sample_volume_pan(HSAMPLE S, float volume) - ok 284bb0
+void sub_A3CB0_start_sample(HSAMPLE S) - ok 284cb0
+void sub_A3DA0_end_sample(HSAMPLE S) - ok - fix call fix 284da0
+int sub_A3EB0_register_EOS_callback(HSAMPLE S, int EOS)-ok- 284eb0
+void sub_A3F00_set_sample_user_data(HSAMPLE S, int a2, int a3)-ok- 284f00
+int sub_A3F30_sample_user_data(HSAMPLE S, int index)-ok- 284f30
+x_DWORD *sub_A4970(int a1, int a2, int a3)?ok 285970
+void sub_A3AF0_set_sample_playback_rate(HSAMPLE S, int a2) - ok 284af0
+x_DWORD *sub_A47C0(int a1, x_DWORD *a2)?ok 2857c0
+Bit32s sub_A4B20_set_sample_file(HSAMPLE S, Bit8u* file_image, Bit32s block)?ok 285b20
+void sub_A9950(int a1, int a2);??? 28a950
+int sub_A3A70(x_DWORD *a1, int a2, int a3) 284a70
+sub_A2110((HSAMPLE)(x_DWORD *)(2196 * i + a1[23])); 283110
+sub_A2070((unkstr1*)S->sam_var[0]);//? 283070
+void sub_A43E0(HSAMPLE S) 2853e0
 
+int sub_A4920()

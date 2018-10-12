@@ -179,11 +179,59 @@ typedef MSS_STRUCT                   // Initialization file structure
 }
 unkstr1;
 
+//0 pointer to unkstr1 
+#define sam_var2_sample_address_start 2
+#define sam_var3_sample_address_x 3
+#define sam_var4_sample_address_len 4
+#define sam_var5_sample_address_x 5
+
+//10 position of any struct
+
+#define sam_var16_volume 16
+#define sam_var17_volume_pan 17
+#define sam_var60_playback_rate 60
+
+#define sam_var532_EOS_ptr 523
 
 typedef MSS_STRUCT _SAMPLE           // Sample instance
 {
-   char tag[4];
-   char scratch[400];
+   //char tag[4];
+	//16 - volume
+  Bit32s sam_var[1000];
+  Bit8u* sam_var542;
+  /*Bit32s sam_var2;
+  Bit32s sam_var3;
+  Bit32s sam_var4;
+  Bit32s sam_var5;
+  Bit32s sam_var6;
+  Bit32s sam_var7;
+  Bit32s sam_var8;
+  Bit32s sam_var9;
+  Bit32s sam_var10;
+  Bit32s sam_var11;
+  Bit32s sam_var12;
+  Bit32s sam_var13;
+  Bit32s sam_var14;
+  Bit32s sam_var15;
+  Bit32s sam_var16;
+  Bit32s sam_var17;
+  Bit32s sam_var18;
+  Bit32s sam_var19;
+  Bit32s sam_var20;
+  Bit32s sam_var21;
+  Bit32s sam_var22;
+  Bit32s sam_var23;
+  Bit32s sam_var24;
+  Bit32s sam_var25;
+  Bit32s sam_var26;
+  Bit32s sam_var27;
+  Bit32s sam_var28;
+  Bit32s sam_var29;
+  Bit32s sam_var274;
+  Bit32s sam_var530;
+  Bit32s sam_var531;
+  Bit32s sam_var532;
+   char scratch[400];*/
    /*char       tag[4];            // HSAM
 
    HDIGDRIVER driver;            // Driver for playback
