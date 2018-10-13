@@ -2191,3 +2191,12 @@ sub_A2070((unkstr1*)S->sam_var[0]);//? 283070
 void sub_A43E0(HSAMPLE S) 2853e0
 
 int sub_A4920()
+
+sub_938C0_AIL_set_sample_file(*v14, (Bit8u*)*(x_DWORD *)(x_DWORD_E37A0_sound_buffer2 + 32 * a2 + 18), 1);
+-cycle
+
+void sub_8F710_sound_proc21(int a1, __int16 a2, signed int a3, unsigned __int8 a4, char a5)
+-unk_180750_sound_buffer3 - nektere nejsou inicializovany
+
+unkstr1* sub_A2070(unkstr1* a1)//283070
+  if ( !a1->var24_aildrv ) - mozna ma byt false

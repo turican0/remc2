@@ -186,7 +186,7 @@ unkstr1;
 #define sam_var5_sample_address_x 5
 
 //10 position of any struct
-
+#define sam_var12_loop_count 12
 #define sam_var16_volume 16
 #define sam_var17_volume_pan 17
 #define sam_var60_playback_rate 60
@@ -198,6 +198,11 @@ typedef MSS_STRUCT _SAMPLE           // Sample instance
    //char tag[4];
 	//16 - volume
   Bit32s sam_var[1000];
+Bit16s sam_varxw12 = 0;
+	Bit16s sam_varxw18 = 0;
+	Bit8u* sam_varxd14 = 0;
+	Bit8s sam_varbx20 = 0;
+	Bit8s sam_varbx21 = 0;
   Bit8u* sam_var542;
   /*Bit32s sam_var2;
   Bit32s sam_var3;
