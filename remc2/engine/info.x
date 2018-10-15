@@ -2201,9 +2201,31 @@ void sub_8F710_sound_proc21(int a1, __int16 a2, signed int a3, unsigned __int8 a
 unkstr1* sub_A2070(unkstr1* a1)//283070
   if ( !a1->var24_aildrv ) - mozna ma byt false
 
+    S->sam_var[sam_var2_sample_address_start] = (Bit32s)start;
+	S->sam_var[sam_var4_sample_address_len] = len;
 
-dig->var24_aildrv
+set file sample
+S - a29720->1a7884 02 876940 00 005ec01 00 00 00
+1a7884->1a7758 02c78c 02c87c 00 800 5622 02 00
 
-find a29720->1a7884
-sub_931F0_AIL_install_DIG_INI - 2741f0
-	v7 = sub_A2EA0(v8, IO); -283ea0
+0
+355168
+	01 025622 1a6f44 355188
+401
+1a7758
+
+401
+a20002
+2b6f44
+35001a
+
+call driver
+
+find 2b27cc
+
+analyze:
+char sub_77980_exit_dialog(Bit8u* a1)//258980
+
+a1->var21_aildrv - ma byt 0
+
+

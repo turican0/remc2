@@ -15,19 +15,28 @@ Mix_Chunk *low = NULL;
 Bit8u sound_buffer[4][20000];
 
 bool init_sound()
-{
+{	
+	//#define MUSIC_MID_FLUIDSYNTH
 	//Initialize SDL_mixer
-	if (Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 4096) == -1)
+	//Mix_SetSoundFonts("c:\\prenos\\remc2\\sound\\SGM-V2.01.sf2");
+	if (Mix_OpenAudio(22050, AUDIO_U8/*MIX_DEFAULT_FORMAT*/, 1, 4096) == -1)//4096
 	{
 		return false;
 	}
+	//Mix_SetSoundFonts("c:\\prenos\\remc2\\sound\\SGM-V2.01.sf2");
+	//Mix_EachSoundFont("c:\\prenos\\remc2\\sound\\SGM-V2.01.sf2");
+	load_sound_files();
 	return true;
 }
+
+
+Mix_Chunk mychunk;
 
 bool load_sound_files()
 {
 	//Load the music
-	music = Mix_LoadMUS("beat.wav");
+	music = Mix_LoadMUS("c:\\prenos\\remc2\\sound\\Music003.mid");
+	//music = Mix_LoadMUS("c:\\prenos\\remc2\\sound\\beat.wav");
 
 	//If there was a problem loading the music
 	if (music == NULL)
@@ -138,6 +147,7 @@ struct {
 
 int num_IO_configurations = 3;
 int service_rate = -1;
+HSAMPLE last_sample;
 
 Bit32s ac_sound_call_driver(AIL_DRIVER* drvr, Bit32s fn, VDI_CALL* in, VDI_CALL* out)/*AIL_DRIVER *drvr,S32 fn, VDI_CALL*in,VDI_CALL *out)*/ {
 	switch (fn) {
@@ -155,16 +165,31 @@ Bit32s ac_sound_call_driver(AIL_DRIVER* drvr, Bit32s fn, VDI_CALL* in, VDI_CALL*
 		break;
 	}
 	case 0x301: {
-		drvr->AIL_DRIVER_var4_VHDR->VDI_HDR_var10 = (int)&common_IO_configurations;
+		/*drvr->AIL_DRIVER_var4_VHDR->VDI_HDR_var10 = (int)&common_IO_configurations;
 		drvr->AIL_DRIVER_var4_VHDR->num_IO_configurations = num_IO_configurations;
 		drvr->AIL_DRIVER_var4_VHDR->environment_string = &environment_string;
-		drvr->AIL_DRIVER_var4_VHDR->VDI_HDR_var46 = service_rate;
+		drvr->AIL_DRIVER_var4_VHDR->VDI_HDR_var46 = service_rate;*/
 		out->AX = 1;//offset
 		out->BX = 2;//offset
 		//out->CX = 0x2c38;//segment
 		//out->DX = 0x2c38;//segment
 		out->SI = 0;
 		out->DI = 0;
+		break;
+	}
+	case 0x401: {
+		mychunk.abuf=(Bit8u*)last_sample->sam_var2_sample_address_start;
+		mychunk.alen = last_sample->sam_var4_sample_address_len;
+		mychunk.volume = last_sample->sam_var16_volume;
+		Mix_PlayChannel(-1, &mychunk, 0);
+		/*if (Mix_PlayingMusic() == 0)
+		{
+			//Play the music
+			if (Mix_PlayMusic(music, -1) == -1)
+			{
+				return 1;
+			}
+		}*/
 		break;
 	}
 	}

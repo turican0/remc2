@@ -18,7 +18,7 @@ void playmusic1();
 void stopmusic1();
 
 extern Bit8u sound_buffer[4][20000];
-
+extern HSAMPLE last_sample;
 
 Bit32s ac_sound_call_driver(AIL_DRIVER* drvr, Bit32s fn, VDI_CALL* in, VDI_CALL* out);
 

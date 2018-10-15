@@ -109,19 +109,6 @@ typedef MSS_STRUCT                   // Handle to driver
 }
 AIL_DRIVER;
 
-//0 pointer to unkstr1 
-//#define sam_var2_sample_address_start 2
-//#define sam_var3_sample_address_x 3
-//#define sam_var4_sample_address_len 4
-//#define sam_var5_sample_address_x 5
-
-//10 position of any struct
-//#define sam_var12_loop_count 12
-//#define sam_var17_volume_pan 17
-//#define sam_var15_playback_rate 15
-
-//#define sam_var532_EOS_ptr 523
-
 typedef int(*EOS_callback_type)(void);
 
 typedef MSS_STRUCT _SAMPLE           // Sample instance
@@ -129,79 +116,206 @@ typedef MSS_STRUCT _SAMPLE           // Sample instance
 	//char tag[4];
 	 //16 - volume
    Bit32s sam_var[1000];
- Bit8u* sam_var2_sample_address_start = 0;
- Bit32u sam_var3_sample_address_start2 = 0;
- Bit32u sam_var4_sample_address_len = 0;
- Bit32u sam_var5_sample_address_len2 = 0;
-	 Bit32s sam_var12_loop_count = 0;
-	 Bit32s sam_var13_format = 0;
-	 Bit32u sam_var14_flags = 0;
-	 Bit32s sam_var15_playback_rate = 0;
-	 Bit32s sam_var16_volume = 0;
-	 Bit32s sam_var17_volume_pan = 0;
-	 Bit16s sam_varxw18 = 0;
-	 Bit8s sam_varbx20 = 0;
-	 Bit8s sam_varbx21 = 0;
-	 EOS_callback_type sam_var532_EOS_ptr;
-	 //sam var 533+ -SINTa[8] user data
+Bit8u* sam_var2_sample_address_start = 0;
+Bit32u sam_var3_sample_address_start2 = 0;
+Bit32u sam_var4_sample_address_len = 0;
+Bit32u sam_var5_sample_address_len2 = 0;
+Bit32s sam_var12_loop_count = 0;
+Bit32s sam_var13_format = 0;
+Bit32u sam_var14_flags = 0;
+Bit32s sam_var15_playback_rate = 0;
+Bit32s sam_var16_volume = 0;
+Bit32s sam_var17_volume_pan = 0;
+Bit16s sam_varw18 = 0;
+Bit8s sam_varb20 = 0;
+Bit8s sam_varb21 = 0;
+EOS_callback_type sam_var532_EOS_ptr;
+
    Bit8u* sam_var542;
-   /*
-	0 - char       tag[4];            // HSAM
+   /*Bit32s sam_var2;
+   Bit32s sam_var3;
+   Bit32s sam_var4;
+   Bit32s sam_var5;
+   Bit32s sam_var6;
+   Bit32s sam_var7;
+   Bit32s sam_var8;
+   Bit32s sam_var9;
+   Bit32s sam_var10;
+   Bit32s sam_var11;
+   Bit32s sam_var12;
+   Bit32s sam_var13;
+   Bit32s sam_var14;
+   Bit32s sam_var15;
+   Bit32s sam_var16;
+   Bit32s sam_var17;
+   Bit32s sam_var18;
+   Bit32s sam_var19;
+   Bit32s sam_var20;
+   Bit32s sam_var21;
+   Bit32s sam_var22;
+   Bit32s sam_var23;
+   Bit32s sam_var24;
+   Bit32s sam_var25;
+   Bit32s sam_var26;
+   Bit32s sam_var27;
+   Bit32s sam_var28;
+   Bit32s sam_var29;
+   Bit32s sam_var274;
+   Bit32s sam_var530;
+   Bit32s sam_var531;
+   Bit32s sam_var532;
+	char scratch[400];*/
+	/*char       tag[4];            // HSAM
 
-	1 - HDIGDRIVER driver;            // Driver for playback
+	HDIGDRIVER driver;            // Driver for playback
 
-	2 - U32      status;              // SMP_ flags: _FREE, _DONE, _PLAYING
+	S32        index;             // Numeric index of this sample
 
-	3,4 - void FAR *start[2];           // Sample buffer address (W)
-	5,6 - U32       len  [2];           // Sample buffer size in bytes (W)
-	7,8 - U32       pos  [2];           // Index to next byte (R/W)
-	9,10 - U32       done [2];           // Nonzero if buffer with len=0 sent by app
+	void const FAR *start[2];     // Sample buffer address (W)
+	U32       len[2];           // Sample buffer size in bytes (W)
+	U32       pos[2];           // Index to next byte (R/W)
+	U32       done[2];           // Nonzero if buffer with len=0 sent by app
+	S32       reset_ASI[2];      // Reset the ASI decoder at the end of the buffer
+	S32       reset_seek_pos[2];  // New destination offset in stream source data, for ASI codecs that care
+	S32       exhaust_ASI;        // Are we prolonging the buffer lifetime until ASI output is exhausted?
 
-	11 - U32      src_fract;           // Fractional part of source address
-	12 -S32      left_val;            // Mixer source value from end of last buffer
-	13 -S32      right_val;           // Mixer source value from end of last buffer
+	U32      src_fract;           // Fractional part of source address
+	S32      left_val;            // Mixer source value from end of last buffer
+	S32      right_val;           // Mixer source value from end of last buffer
 
-	14 -S32      current_buffer;      // Buffer # active (0/1)
-	15- S32      last_buffer;         // Last active buffer (for double-buffering)
-	16- S32      starved;             // Buffer stream has run out of data
+	S32      current_buffer;      // Buffer # active (0/1)
+	S32      last_buffer;         // Last active buffer (for double-buffering)
+	S32      starved;             // Buffer stream has run out of data
 
-	t12- S32      loop_count;          // # of cycles-1 (1=one-shot, 0=indefinite)
+	S32      loop_count;          // # of cycles-1 (1=one-shot, 0=indefinite)
 	S32      loop_start;          // Starting offset of loop block (0=SOF)
 	S32      loop_end;            // End offset of loop block (-1=EOF)
+	S32      orig_loop_count;     // Original loop properties specified by app, before any
+	S32      orig_loop_start;     // alignment constraints
+	S32      orig_loop_end;
 
-	13-S32      format;              // DIG_F format (8/16 bits, mono/stereo)
-	14-U32      flags;               // DIG_PCM_SIGN / DIG_PCM_ORDER (stereo only)
+	S32      format;              // DIG_F format (8/16 bits, mono/stereo)
+	U32      flags;               // DIG_PCM_SIGN / DIG_PCM_ORDER (stereo only)
 
-	t15 S32      playback_rate;       // Playback rate in hertz
+	S32      playback_rate;       // Playback rate in hertz
 
-	t16- S32      volume;              // Sample volume 0-127
-	t17- S32      pan;                 // Mono panpot/stereo balance (0=L ... 127=R)
+	F32      save_volume;         // Sample volume 0-1.0
+	F32      save_pan;            // Mono panpot/stereo balance (0=L ... 1.0=R)
 
-	S32      left_scale;          // Left/mono volume scalar 0-2047
-	S32      right_scale;         // Right volume scalar 0-2047
+	F32      left_volume;         // Left/mono volume 0 to 1.0
+	F32      right_volume;        // Right volume 0 to 1.0
 
+	F32      wet_level;           // reverb level 0 to 1.0
+	F32      dry_level;           // non-reverb level 0 to 1.0
+
+	F32      obstruction;
+	F32      occlusion;
+	F32      exclusion;
+
+	F32      auto_3D_channel_levels[MAX_SPEAKERS]; // Channel levels set by 3D positioner (always 1.0 if not 3D-positioned)
+	F32      user_channel_levels[MAX_SPEAKERS]; // Channel levels set by AIL_set_sample_channel_levels() [driver->logical_channels]
+	S32      cur_scale[MAX_SPEAKERS];           // Calculated 11-bit volume scale factors for current/previous mixing interval
+	S32      prev_scale[MAX_SPEAKERS];          // (These are all indexed by build buffer*2, not speaker indexes!)
+	S32      ramps_left[MAX_SPEAKERS];
+
+	LOWPASS_INFO lp;              // low pass info
+	F32      cutoff_param;
+	F32      calculated_cut;
 	S32      service_type;        // 1 if single-buffered; 2 if streamed
 
 	AILSAMPLECB  SOB;             // Start-of-block callback function
 	AILSAMPLECB  EOB;             // End-of-buffer callback function
 	AILSAMPLECB  EOS;             // End-of-sample callback function
 
-	S32      user_data  [8];      // Miscellaneous user data
-	S32      system_data[8];      // Miscellaneous system data
+	SINTa    user_data[8];      // Miscellaneous user data
+	SINTa    system_data[8];      // Miscellaneous system data
 
 	ADPCMDATA adpcm;
 
- #ifdef IS_WINDOWS
+	S32      last_decomp_left;    // last sample in an asi or adpcm buffer
+	S32      last_decomp_right;   // last sample in an asi or adpcm buffer
 
-	S32      SOB_IsWin32s;        // Is this a Win32s callback
-	S32      EOB_IsWin32s;        // Is this a Win32s callback
-	S32      EOS_IsWin32s;        // Is this a Win32s callback
+	S32      doeob;               // Flags to trigger callbacks
+	S32      dosob;
+	S32      doeos;
+
+	//
+	// Sample pipeline stages
+	//
+
+	SPINFO   pipeline[N_SAMPLE_STAGES];
+	S32      n_active_filters;    // # of SP_FILTER_n stages active
+
+	//
+	// 3D-related state for all platforms (including Xbox)
+	//
+
+	S32      is_3D;               // TRUE if channel levels are derived automatically from 3D positional state, FALSE if they're controlled manually
+	S3DSTATE S3D;                 // Software version applies 3D positioning only if is_3D == TRUE, but output filters always use it
+
+ #ifdef MSS_VFLT_SUPPORTED
+	void FAR *voice;              // Optional object used by output filter to store per-sample information such as DS3D buffers
+ #endif
+
+	//
+	// Platform-specific members
+	//
+
+ #ifdef IS_XBOX
+	AILLPDIRECTSOUNDBUFFER pDSB;
+
+	S32 hw_rate;
+	S32 hw_channels;
+	S32 hw_bits;
+	S32 direct_mode;
+
+	STAGE_BUFFER * ds_staging_buffer;
+	S32 waiting_for_which_half;
+	S32 cleared_bufs;
+	S32 cleared_bytes;
+	S32 need_more_zeroes;
+	S32 ds_stage_size;
+
+	F32 shadow_FL;
+	F32 shadow_FR;
+	F32 shadow_FC;
+	F32 shadow_LF;
+	F32 shadow_BL;
+	F32 shadow_BR;
+
+	MSSVECTOR3D shadow_position;
+	MSSVECTOR3D shadow_face;
+	MSSVECTOR3D shadow_velocity;
+	S32         shadow_playback_rate;
+	F32         shadow_volume;
+	F32         shadow_occlusion;
+	F32         shadow_obstruction;
+	F32         shadow_exclusion;
+	F32         shadow_min_dist;
+	F32         shadow_max_dist;
+	F32         shadow_inner_angle;
+	F32         shadow_outer_angle;
+	F32         shadow_outer_volume;
+	F32         shadow_wet_level;
+	F32         shadow_dry_level;
+	S32         shadow_auto_3D_atten;
+	S32         shadow_is_3D;
+
+ #endif
+
+	F32 leftb_volume;         // Left/mono volume 0 to 1.0 (back)
+	F32 rightb_volume;        // Right volume 0 to 1.0 (back)
+	F32 center_volume;        // Center volume 0 to 1.0
+	F32 low_volume;           // Low volume 0 to 1.0
+	F32 save_fb_pan;          // Sample volume 0-1.0
+	F32 save_center;          // saved center level
+	F32 save_low;             // saved sub level
+
+ #ifdef IS_WINDOWS
 
 	//
 	// DirectSound-specific data
 	//
-
-	S32      secondary_buffer;    // Secondary buffer index
 
 	S32      service_interval;    // Service sample every n ms
 	S32      service_tick;        // Current service countdown value
@@ -214,27 +328,7 @@ typedef MSS_STRUCT _SAMPLE           // Sample instance
 
 	S32      direct_control;      // 1 if app controls buffer, 0 if MSS
 
- #endif
-
-	S32      doeob;               // Flags to trigger callbacks
-	S32      dosob;
-	S32      doeos;
-
-	//
-	// Sample pipeline stages
-	//
-
-	DPINFO   pipeline[N_SAMPLE_STAGES];
-
-	//
-	// Reverb parms
-	//
-
-	F32      reverb_level;           // Level [0.0, 1.0]
-	F32      reverb_reflect_time;    // Reflect time in milliseconds
-	F32      reverb_decay_time;      // Decay time [0.1, 20.0]
-	S32      base_scale;             // Original 12-bit volume scalar
-   */
+ #endif*/
 }
 SAMPLE;
 typedef MSS_STRUCT _SAMPLE * HSAMPLE;           // Handle to sample
@@ -276,6 +370,7 @@ typedef MSS_STRUCT                   // Initialization file structure
   /*4*/	Bit8u scratch[144];
 }
 _DIG_DRIVER;
+
 typedef _DIG_DRIVER* HDIGDRIVER;    // Handle to digital driver
 
 typedef MSS_STRUCT                   // Handle to driver
@@ -312,6 +407,61 @@ typedef MSS_STRUCT                   // Initialization file structure
 }
 AIL_INI;
 
+
+/*
+//0 pointer to unkstr1 
+#define sam_var2_sample_address_start 2
+#define sam_var3_sample_address_x 3//start2
+#define sam_var4_sample_address_len 4
+#define sam_var5_sample_address_x 5//len2
+
+//10 index(subadress) of sound
+#define sam_var12_loop_count 12
+#define sam_var16_volume 16
+#define sam_var17_volume_pan 17
+#define sam_var60_playback_rate 60
+
+#define sam_var532_EOS_ptr 523
+*/
+//only for reference
+struct SoundDriver                   // Handle to driver
+{
+	/* 00 */ uint32_t seg;                 // Seg:off pointer to driver (off=0)
+	/* 04 */ uint32_t sel;                 // Selector for driver (off=0)
+	/* 08 */ void	   *buf;                 // Protected-mode pointer to driver
+	/* 0c */ uint32_t size;                // Size of driver image
+	/* 10 */ void	   *VHDR;                // Pointer to driver header (same as buf)
+	/* 14 */ int32_t  type;                // AIL3DIG or AIL3MDI (see below)
+	/* 18 */ int32_t  initialized;         // 1 if hardware successfully init'd, else 0
+	/* 1c */ int32_t  PM_ISR;              // -1 if no PM ISR hooked, else IRQ #
+	/* 20 */ int32_t  server;              // DRV_SERVE periodic timer, if requested
+	/* 24 */ void(*destructor)(void *); // Vector to high-level destructor, if any
+	/* 28 */ void    *descriptor; // High-level descriptor (DIG_ or MDI_DRIVER)
+}/* __attribute__((packed))*/;
+struct SoundSample
+{
+  /*  00 */ SoundDriver *driver;            // Driver for playback
+/*  04 */ uint32_t     status;            // SMP_ flags: _FREE, _DONE, _PLAYING
+/*  08 */ void        *start[2];          // Sample buffer address (W)
+/*  10 */ uint32_t     len[2];            // Sample buffer size in bytes (W)
+/*  18 */ uint32_t     pos[2];            // Index to next byte (R/W)
+/*  20 */ uint32_t     done[2];           // Nonzero if buffer with len=0 sent by app
+/*  28 */ int32_t      current_buffer;    // Buffer # active (0/1)
+/*  2c */ int32_t      last_buffer;       // Last active buffer (for double-buffering)
+/*  30 */ int32_t      loop_count;        // 0-inf, 1-1
+/*  34 */ int32_t      format;            // DIG_F format (8/16 bits, mono/stereo)
+/*  38 */ uint32_t     flags;             // DIG_PCM_SIGN / DIG_PCM_ORDER (stereo only)
+/*  3c */ int32_t      playback_rate;     // Playback rate in hertz
+/*  40 */ int32_t      volume;            // Sample volume 0-127
+/*  44 */ int32_t      pan;               // Mono panpot/stereo balance (0=L ... 127=R)
+/*  48 */ int32_t      vol_scale[2][256]; // [left/mono=0,right=1][256] channel volume
+/* ... */ void	*SOB;               // Start-of-block callback function
+/* ... */ void	*EOB;               // End-of-buffer callback function
+/* ... */ void        *EOS;               // End-of-sample callback function
+/* ... */ int32_t      user_data[8];      // Miscellaneous user data
+/* ... */ int32_t      system_data[8];    // Miscellaneous system data
+}/* __attribute__((packed))*/;
+//only for reference
 
 
 
