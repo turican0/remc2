@@ -2200,3 +2200,10 @@ void sub_8F710_sound_proc21(int a1, __int16 a2, signed int a3, unsigned __int8 a
 
 unkstr1* sub_A2070(unkstr1* a1)//283070
   if ( !a1->var24_aildrv ) - mozna ma byt false
+
+
+dig->var24_aildrv
+
+find a29720->1a7884
+sub_931F0_AIL_install_DIG_INI - 2741f0
+	v7 = sub_A2EA0(v8, IO); -283ea0
