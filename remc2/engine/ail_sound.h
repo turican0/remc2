@@ -115,7 +115,9 @@ typedef MSS_STRUCT _SAMPLE           // Sample instance
 {
 	//char tag[4];
 	 //16 - volume
+
    Bit32s sam_var[1000];
+xHDIGDRIVER sam_var0;
 Bit8u* sam_var2_sample_address_start = 0;
 Bit32u sam_var3_sample_address_start2 = 0;
 Bit32u sam_var4_sample_address_len = 0;
