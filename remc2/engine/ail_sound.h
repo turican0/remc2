@@ -91,6 +91,7 @@ VDI_HDRorig;
 _DIG_DRIVER;*/
 
 typedef void* xHDIGDRIVER;
+//typedef void* xHMDIDRIVER;
 
 typedef MSS_STRUCT                   // Handle to driver
 {
@@ -128,9 +129,9 @@ Bit32u sam_var14_flags = 0;
 Bit32s sam_var15_playback_rate = 0;
 Bit32s sam_var16_volume = 0;
 Bit32s sam_var17_volume_pan = 0;
-Bit16s sam_varw18 = 0;
-Bit8s sam_varb20 = 0;
-Bit8s sam_varb21 = 0;
+Bit32u sam_varw18x[256];
+Bit8s sam_varb20 = 0;//maybe sam_varw18x[1]
+Bit8s sam_varb21 = 0;//maybe sam_varw18x[2]
 EOS_callback_type sam_var532_EOS_ptr;
 
    Bit8u* sam_var542;
@@ -374,6 +375,111 @@ typedef MSS_STRUCT                   // Initialization file structure
 _DIG_DRIVER;
 
 typedef _DIG_DRIVER* HDIGDRIVER;    // Handle to digital driver
+
+typedef MSS_STRUCT                   // Initialization file structure
+{
+//	/*0*/AIL_DRIVER* var0_aildrv;
+///*1*/Bit8u* var1_aildrv;
+///*2*/Bit8u* var2_aildrv;
+ //Bit32u var3_aildrv;
+// /*2*/Bit32s var4_aildrv;
+// Bit32u var5_aildrv;
+ //Bit32u var6_aildrv;
+ //Bit32u var7_aildrv;
+ ///*13*/Bit32u var8_aildrv;
+ ///*13*/Bit32u var9_aildrv;
+ ///*13*/Bit32u var10_aildrv;
+  //Bit32u var11_aildrv;
+  //Bit32u var12_aildrv;
+  ///*13*/Bit8u* var13_aildrv;
+  ///*13*/Bit32u var14_aildrv;
+  ///*13*/Bit32u var15_aildrv;
+  ///*13*/Bit32u var16_aildrv;
+  ///*13*/Bit32u var17_aildrv;
+  ///*13*/Bit32u var18_aildrv;
+  ///*13*/Bit32u var19_aildrv;
+  ///*20*/ Bit8u* var20_aildrv_dig_drv;
+  ///*13*/Bit32u var21_aildrv;
+  ///*13*/Bit32u var22_aildrv;
+  ///*13*/HSAMPLE var23_aildrvx;
+  ///*13*/Bit32u var24_aildrv;
+  ///*13*/Bit32u var25_aildrv;
+  ///*13*/Bit32u var26_aildrv;
+  ///*13*/Bit32u var36_aildrv;
+  ///*13*/Bit32u var40_aildrv;
+  ///*13*/Bit32u var46_aildrv;
+
+  ///*28/*/ Bit16s var28_aildrv;
+  /*4*/	Bit8u scratch[144];
+}
+_MDI_DRIVER;
+
+typedef _MDI_DRIVER* HMDIDRIVER;    // Handle to digital driver
+
+typedef MSS_STRUCT _SEQUENCE                  // XMIDI sequence state table
+{
+   char     tag[4];                       // HSEQ
+
+   HMDIDRIVER driver;                     // Driver for playback
+
+   Bit32u      status;                       // SEQ_ flags
+
+   void const   FAR *TIMB;                // XMIDI IFF chunk pointers
+   void const   FAR *RBRN;
+   void const   FAR *EVNT;
+
+   Bit8u const     FAR *EVNT_ptr;            // Current event pointer
+
+   Bit8u      FAR *ICA;                      // Indirect Controller Array
+
+   AILPREFIXCB   prefix_callback;         // XMIDI Callback Prefix handler
+   AILTRIGGERCB  trigger_callback;        // XMIDI Callback Trigger handler
+   AILBEATCB     beat_callback;           // XMIDI beat/bar change handler
+   AILSEQUENCECB EOS;                     // End-of-sequence callback function
+
+   Bit32s      loop_count;                   // 0=one-shot, -1=indefinite, ...
+
+   Bit32s      interval_count;               // # of intervals until next event
+   Bit32s      interval_num;                 // # of intervals since start
+
+   Bit32s      volume;                       // Sequence volume 0-127
+   Bit32s      volume_target;                // Target sequence volume 0-127
+   Bit32s      volume_accum;                 // Accumulated volume period
+   Bit32s      volume_period;                // Period for volume stepping
+
+   Bit32s      tempo_percent;                // Relative tempo percentage 0-100
+   Bit32s      tempo_target;                 // Target tempo 0-100
+   Bit32s      tempo_accum;                  // Accumulated tempo period
+   Bit32s      tempo_period;                 // Period for tempo stepping
+   Bit32s      tempo_error;                  // Error counter for tempo DDA
+
+   Bit32s      beat_count;                   // Sequence playback position
+   S32      measure_count;
+
+   Bit32s      time_numerator;               // Sequence timing data
+   Bit32s      time_fraction;
+   Bit32s      beat_fraction;
+   Bit32s      time_per_beat;
+
+   void const FAR *FOR_ptrs[FOR_NEST];    // Loop stack
+   Bit32s      FOR_loop_count[FOR_NEST];
+
+   Bit32s      chan_map[NUM_CHANS];   // Physical channel map for sequence
+
+   CTRL_LOG shadow;                       // Controller values for sequence
+
+   Bit32s      note_count;                   // # of notes "on"
+
+   Bit32s      note_chan[MAX_NOTES];   // Channel for queued note (-1=free)
+   Bit32s      note_num[MAX_NOTES];   // Note # for queued note
+   Bit32s      note_time[MAX_NOTES];   // Remaining duration in intervals
+
+   SINTa    user_data[8];               // Miscellaneous user data
+   SINTa    system_data[8];               // Miscellaneous system data
+
+} SEQUENCE;
+
+typedef _SEQUENCE* HSEQUENCE;
 
 typedef MSS_STRUCT                   // Handle to driver
 {

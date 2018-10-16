@@ -111,7 +111,8 @@ typedef struct {
 	Bit16u moviemvinumber_byte4_39;
 	Bit8u levelnumber_43;
 	Bit8u setting_45;
-	Bit8u* player_name_57;
+	char* player_name_57;
+	char* savestring_89;
 	Bit8u byteindex_179;
 	Bit8u harddiskchar_byte4_182;
 	Bit8u setting_216;

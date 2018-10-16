@@ -2244,4 +2244,19 @@ AFTER 04X:00000160/002B59DC
 call near
 int *sub_A20D0(int *a1)
 
+1a78d8
+
+fix 283110
+co je S->sam_varw18 - a29ffc
+-128 hodnot
+con
+
+char x_BYTE_17DF3C[1]; // fix it -  weak
+char x_BYTE_17DF3D[1]; // fix it -  weak
+char x_BYTE_17DF3E[302]; // idb
+
+fix sub_A6530 - 287530 timer
+
+
+
 
