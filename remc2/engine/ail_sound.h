@@ -416,6 +416,10 @@ _MDI_DRIVER;
 
 typedef _MDI_DRIVER* HMDIDRIVER;    // Handle to digital driver
 
+#define MAX_NOTES                32       // Max # of notes "on"
+#define FOR_NEST                 4        // # of nested XMIDI FOR loops
+#define NUM_CHANS                16       // # of possible MIDI channels
+
 typedef MSS_STRUCT _SEQUENCE                  // XMIDI sequence state table
 {
    char     tag[4];                       // HSEQ
@@ -424,18 +428,18 @@ typedef MSS_STRUCT _SEQUENCE                  // XMIDI sequence state table
 
    Bit32u      status;                       // SEQ_ flags
 
-   void const   FAR *TIMB;                // XMIDI IFF chunk pointers
+   /*void const   FAR *TIMB;                // XMIDI IFF chunk pointers
    void const   FAR *RBRN;
-   void const   FAR *EVNT;
+   void const   FAR *EVNT;*/
 
-   Bit8u const     FAR *EVNT_ptr;            // Current event pointer
+   Bit8u const *EVNT_ptr;            // Current event pointer
 
-   Bit8u      FAR *ICA;                      // Indirect Controller Array
+   Bit8u* *ICA;                      // Indirect Controller Array
 
-   AILPREFIXCB   prefix_callback;         // XMIDI Callback Prefix handler
+   /*AILPREFIXCB   prefix_callback;         // XMIDI Callback Prefix handler
    AILTRIGGERCB  trigger_callback;        // XMIDI Callback Trigger handler
    AILBEATCB     beat_callback;           // XMIDI beat/bar change handler
-   AILSEQUENCECB EOS;                     // End-of-sequence callback function
+   AILSEQUENCECB EOS;                     // End-of-sequence callback function*/
 
    Bit32s      loop_count;                   // 0=one-shot, -1=indefinite, ...
 
@@ -454,19 +458,19 @@ typedef MSS_STRUCT _SEQUENCE                  // XMIDI sequence state table
    Bit32s      tempo_error;                  // Error counter for tempo DDA
 
    Bit32s      beat_count;                   // Sequence playback position
-   S32      measure_count;
+   Bit32s      measure_count;
 
    Bit32s      time_numerator;               // Sequence timing data
    Bit32s      time_fraction;
    Bit32s      beat_fraction;
    Bit32s      time_per_beat;
 
-   void const FAR *FOR_ptrs[FOR_NEST];    // Loop stack
+   void const* FOR_ptrs[FOR_NEST];    // Loop stack
    Bit32s      FOR_loop_count[FOR_NEST];
 
    Bit32s      chan_map[NUM_CHANS];   // Physical channel map for sequence
 
-   CTRL_LOG shadow;                       // Controller values for sequence
+   //CTRL_LOG shadow;                       // Controller values for sequence
 
    Bit32s      note_count;                   // # of notes "on"
 
@@ -474,8 +478,8 @@ typedef MSS_STRUCT _SEQUENCE                  // XMIDI sequence state table
    Bit32s      note_num[MAX_NOTES];   // Note # for queued note
    Bit32s      note_time[MAX_NOTES];   // Remaining duration in intervals
 
-   SINTa    user_data[8];               // Miscellaneous user data
-   SINTa    system_data[8];               // Miscellaneous system data
+   /*SINTa    user_data[8];               // Miscellaneous user data
+   SINTa    system_data[8];               // Miscellaneous system data*/
 
 } SEQUENCE;
 

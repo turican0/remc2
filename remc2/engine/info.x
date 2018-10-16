@@ -2255,7 +2255,11 @@ char x_BYTE_17DF3C[1]; // fix it -  weak
 char x_BYTE_17DF3D[1]; // fix it -  weak
 char x_BYTE_17DF3E[302]; // idb
 
-fix sub_A6530 - 287530 timer
+fix sub_A6530 - 287530 timer predelat na AILTIMERCB
+fix HMDIDRIVER sub_A6FB0_sound_proc26(AIL_DRIVER a1, const void *a2)
+int sub_A7970_AIL_API_uninstall_MDI_driver(HMDIDRIVER mdi)
+HSEQUENCE sub_A7B30_AIL_API_allocate_sequence_handle(HMDIDRIVER mdi)
+void /*__fastcall*/ sub_8D970_sound_proc1(char* a1/*int a1, int a2, char* a3*/)//26e970
 
 
 
