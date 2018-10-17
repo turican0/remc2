@@ -456,72 +456,73 @@ typedef void* xCALLBACK;            // Generic callback function prototype
 
 typedef struct                      // MIDI status log structure
 {
-	Bit32s     program[NUM_CHANS];  // Program Change
-	Bit32s     pitch_l[NUM_CHANS];  // Pitch Bend LSB
-	Bit32s     pitch_h[NUM_CHANS];  // Pitch Bend MSB
+	/*0*/Bit32s     program[NUM_CHANS];  // Program Change
+	/*64*/Bit32s     pitch_l[NUM_CHANS];  // Pitch Bend LSB
+	/*128*/Bit32s     pitch_h[NUM_CHANS];  // Pitch Bend MSB
 
-	Bit32s     c_lock[NUM_CHANS];  // Channel Lock
-	Bit32s     c_prot[NUM_CHANS];  // Channel Lock Protection
-	Bit32s     c_mute[NUM_CHANS];  // Channel Mute
-	Bit32s     c_v_prot[NUM_CHANS];  // Voice Protection
-	Bit32s     bank[NUM_CHANS];  // Patch Bank Select
-	Bit32s     indirect[NUM_CHANS];  // ICA indirect controller value
-	Bit32s     callback[NUM_CHANS];  // Callback Trigger
+	/*192*/Bit32s     c_lock[NUM_CHANS];  // Channel Lock
+	/*256*/Bit32s     c_prot[NUM_CHANS];  // Channel Lock Protection
+	/*320*/Bit32s     c_mute[NUM_CHANS];  // Channel Mute
+	/*384*/Bit32s     c_v_prot[NUM_CHANS];  // Voice Protection
+	/*448*/Bit32s     bank[NUM_CHANS];  // Patch Bank Select
+	/*512*/Bit32s     indirect[NUM_CHANS];  // ICA indirect controller value
+	/*576*/Bit32s     callback[NUM_CHANS];  // Callback Trigger
 
-	Bit32s     mod[NUM_CHANS];  // Modulation
-	Bit32s     vol[NUM_CHANS];  // Volume
-	Bit32s     pan[NUM_CHANS];  // Panpot
-	Bit32s     exp[NUM_CHANS];  // Expression
-	Bit32s     sus[NUM_CHANS];  // Sustain
-	Bit32s     reverb[NUM_CHANS];  // Reverb
-	Bit32s     chorus[NUM_CHANS];  // Chorus
+	/*640*/Bit32s     mod[NUM_CHANS];  // Modulation
+	/*704*/Bit32s     vol[NUM_CHANS];  // Volume
+	/*768*/Bit32s     pan[NUM_CHANS];  // Panpot
+	/*832*/Bit32s     exp[NUM_CHANS];  // Expression
+	/*896*/Bit32s     sus[NUM_CHANS];  // Sustain
+	/*960*/Bit32s     reverb[NUM_CHANS];  // Reverb
+	/*1024*/Bit32s     chorus[NUM_CHANS];  // Chorus
 
-	Bit32s     bend_range[NUM_CHANS];  // Bender Range (data MSB, RPN 0 assumed)
+	/*1088*/Bit32s     bend_range[NUM_CHANS];  // Bender Range (data MSB, RPN 0 assumed)
+	//1152
 }
 CTRL_LOG;
 
 typedef struct                            // XMIDI sequence state table
 {
-	/*0*/struct x_MDI_DRIVER* driver;            // Driver for playback //0
+	/*0*/struct x_MDI_DRIVER* driver_0;            // Driver for playback //0
 
-	/*1*/Bit32u    status;                       // SEQ_ flags
+	/*1*/Bit32u status_1;                       // SEQ_ flags
 
-	/*2*/void* TIMB;                         // XMIDI IFF chunk pointers
-	/*3*/void* RBRN;
-	/*4*/void* EVNT;
+	/*2*/void* TIMB_2;                         // XMIDI IFF chunk pointers
+	/*3*/void* RBRN_3;
+	/*4*/void* EVNT_4;
 
-	/*5*/Bit8u* EVNT_ptr;                     // Current event pointer
+	/*5*/Bit8u* EVNT_ptr_5;                     // Current event pointer
 
-	/*6*/Bit8u* ICA;                          // Indirect Controller Array
+	/*6*/Bit8u* ICA_6;                          // Indirect Controller Array
 
-	/*7*/xCALLBACK prefix_callback;              // XMIDI Callback Prefix handler
-	/*8*/xCALLBACK trigger_callback;             // XMIDI Callback Trigger handler
-	/*9*/xCALLBACK beat_callback;                // XMIDI beat/bar change handler
-	/*10*/xCALLBACK EOS;                          // End-of-sequence callback function
+	/*7*/xCALLBACK prefix_callback_7;              // XMIDI Callback Prefix handler
+	/*8*/xCALLBACK trigger_callback_8_32;             // XMIDI Callback Trigger handler
+	/*9*/xCALLBACK beat_callback_9;                // XMIDI beat/bar change handler
+	/*10*/xCALLBACK EOS_10;                          // End-of-sequence callback function
 
-	/*11*/Bit32s     loop_count;                   // 0=one-shot, -1=indefinite, ...
+	/*11*/Bit32s     loop_count_11;                   // 0=one-shot, -1=indefinite, ...
 
-	/*12*/Bit32s     interval_count;               // # of intervals until next event
-	/*13*/Bit32s     interval_num;                 // # of intervals since start
+	/*12*/Bit32s     interval_count_12;               // # of intervals until next event
+	/*13*/Bit32s     interval_num_13;                 // # of intervals since start
 
-	/*14*/Bit32s     volume;                       // Sequence volume 0-127
-	/*15*/Bit32s     volume_target;                // Target sequence volume 0-127
-	/*16*/Bit32s     volume_accum;                 // Accumulated volume period
-	/*17*/Bit32s     volume_period;                // Period for volume stepping
+	/*14*/Bit32s     volume_14;                       // Sequence volume 0-127
+	/*15*/Bit32s     volume_target_15;                // Target sequence volume 0-127
+	/*16*/Bit32s     volume_accum_16;                 // Accumulated volume period
+	/*17*/Bit32s     volume_period_17;                // Period for volume stepping
 
-	/*18*/Bit32s     tempo_percent;                // Relative tempo percentage 0-100
-	/*19*/Bit32s     tempo_target;                 // Target tempo 0-100
-	/*20*/Bit32s     tempo_accum;                  // Accumulated tempo period
-	/*21*/Bit32s     tempo_period;                 // Period for tempo stepping
-	/*22*/Bit32s     tempo_error;                  // Error counter for tempo DDA
+	/*18*/Bit32s     tempo_percent_18;                // Relative tempo percentage 0-100
+	/*19*/Bit32s     tempo_target_19;                 // Target tempo 0-100
+	/*20*/Bit32s     tempo_accum_20;                  // Accumulated tempo period
+	/*21*/Bit32s     tempo_period_21;                 // Period for tempo stepping
+	/*22*/Bit32s     tempo_error_22;                  // Error counter for tempo DDA
 
-	/*23*/Bit32s     beat_count;                   // Sequence playback position
-	/*24*/Bit32s     measure_count;
+	/*23*/Bit32s     beat_count_23;                   // Sequence playback position
+	/*24*/Bit32s     measure_count_24;
 
-	/*25*/Bit32s     time_numerator;               // Sequence timing data
-	/*26*/Bit32s     time_fraction;
-	/*27*/Bit32s     beat_fraction;
-	/*28*/Bit32s     time_per_beat;
+	/*25*/Bit32s     time_numerator_25;               // Sequence timing data
+	/*26*/Bit32s     time_fraction_26;
+	/*27*/Bit32s     beat_fraction_27;
+	/*28*/Bit32s     time_per_beat_28;
 
 	/*29*/void* FOR_ptrs[FOR_NEST];    // Loop stack
 	/*33*/Bit32s     FOR_loop_count_33[FOR_NEST];
@@ -530,14 +531,30 @@ typedef struct                            // XMIDI sequence state table
 
 	/*53*/CTRL_LOG shadow;                       // Controller values for sequence
 
-	Bit32s     note_count;                   // # of notes "on"
+	/*1205*/Bit32s     note_count;                   // # of notes "on"
 
-	Bit32s     note_chan[MAX_NOTES];   // Channel for queued note (-1=free)
-	Bit32s     note_num[MAX_NOTES];   // Note # for queued note
-	Bit32s     note_time[MAX_NOTES];   // Remaining duration in intervals
+	/*1333*/Bit32s     note_chan[MAX_NOTES];   // Channel for queued note (-1=free)
+	/*1461*/Bit32s     note_num[MAX_NOTES];   // Note # for queued note
+	/*1589*/Bit32s     note_time[MAX_NOTES];   // Remaining duration in intervals
 
-	Bit32s     user_data[8];               // Miscellaneous user data
-	Bit32s     system_data[8];               // Miscellaneous system data
+	/*1621*/Bit32s     user_data[8];               // Miscellaneous user data
+	/*1653*/Bit32s     system_data[8];               // Miscellaneous system data
+	
+	Bit32s seq_40;
+
+	Bit32s seq_101[NUM_CHANS];
+	Bit32s seq_117[NUM_CHANS];
+	Bit32s seq_149[NUM_CHANS];
+	Bit32s seq_277[NUM_CHANS];
+
+
+	
+	
+	Bit32s seq_341;
+	Bit32s seq_342[MAX_NOTES];
+	Bit32s seq_374[MAX_NOTES];
+
+
 }
 SEQUENCE;
 
