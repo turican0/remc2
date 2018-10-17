@@ -2255,12 +2255,32 @@ char x_BYTE_17DF3C[1]; // fix it -  weak
 char x_BYTE_17DF3D[1]; // fix it -  weak
 char x_BYTE_17DF3E[302]; // idb
 
-fix sub_A6530 - 287530 timer predelat na AILTIMERCB
-fix HMDIDRIVER sub_A6FB0_sound_proc26(AIL_DRIVER a1, const void *a2)
-int sub_A7970_AIL_API_uninstall_MDI_driver(HMDIDRIVER mdi)
-HSEQUENCE sub_A7B30_AIL_API_allocate_sequence_handle(HMDIDRIVER mdi)
+fix sub_A6530 - 287530 timer predelat na AILTIMERCB?
+fix HMDIDRIVER sub_A6FB0_sound_proc26(AIL_DRIVER a1, const void *a2)-ok?
+int sub_A7970_AIL_API_uninstall_MDI_driver(HMDIDRIVER mdi)-ok
+HSEQUENCE sub_A7B30_AIL_API_allocate_sequence_handle(HMDIDRIVER mdi)-ok
 void /*__fastcall*/ sub_8D970_sound_proc1(char* a1/*int a1, int a2, char* a3*/)//26e970
+int sub_A6F30(HDIGDRIVER a) { stub_fix_it();return 0; }; // weak
+for ( i = 0; i < 16; i++ )
+            {
+              v12[i + 8] = 0;
+              v12[i + 24] = 0;
+              v12[i + 40] = 0;
+              v12[i + 56] = 0;
+              v12[i + 72] = 0;
+              v12[i + 88] = 0;
+            }
 
+v12->var0_aildrv->AIL_DRIVER_var5
+
+zkontroluj:
+x_DWORD_181EC8 = 16000000 / x_DWORD_181DAC[10];
+v12->var0_aildrv->AIL_DRIVER_var5 - find 1a7a24
+354f44 00000000 3c781a00 604f3500
+2f630
+274010
+
+2f0b0
 
 
 

@@ -49,9 +49,10 @@ typedef MSS_STRUCT                      // Standard MSS 3.X VDI driver header
 	/*50*/Bit16u VDI_HDR_var50;
 	/*52*/Bit16u VDI_HDR_var52_this_ISR;
 	/*54*/Bit16u VDI_HDR_var54_prev_ISR;
-   /*58*/Bit8s scratch[122];           // Shared scratch workspace
-   
-   Bit8s     dev_name[80];           // Device name (VDI version >= 1.12 only)
+   /*58*/Bit8s scratch[130];           // Shared scratch workspace   
+   Bit8s dev_name[80];           // Device name (VDI version >= 1.12 only)
+   Bit8s scratch2[1692];
+   char mdiapplendix[4];   
 }
 VDI_HDR;
 
@@ -97,7 +98,7 @@ typedef MSS_STRUCT                   // Handle to driver
 {
 	/*0*/REALFAR AIL_DRIVER_var0_seg;//remove this! segment must be zero!
 /*4*/Bit32u AIL_DRIVER_var1_sel;
-/*8*/Bit8u* AIL_DRIVER_var2_buf;
+/*8*/VDI_HDR* AIL_DRIVER_var2_buf;
 /*12*/Bit32u AIL_DRIVER_var3_size;
 /*16*/VDI_HDR* AIL_DRIVER_var4_VHDR;
 /*20*/Bit32s AIL_DRIVER_var5;
@@ -376,16 +377,89 @@ _DIG_DRIVER;
 
 typedef _DIG_DRIVER* HDIGDRIVER;    // Handle to digital driver
 
+#define MAX_NOTES                32       // Max # of notes "on"
+#define FOR_NEST                 4        // # of nested XMIDI FOR loops
+#define NUM_CHANS                16       // # of possible MIDI channels
+
+typedef MSS_STRUCT _SEQUENCE                  // XMIDI sequence state table
+{
+  Bit32u seq_var1;
+
+  Bit32u seq_var10;
+  /*
+	 char     tag[4];                       // HSEQ
+
+	 HMDIDRIVER driver;                     // Driver for playback
+
+	 Bit32u      status;                       // SEQ_ flags
+
+	 void const   FAR *TIMB;                // XMIDI IFF chunk pointers
+	 void const   FAR *RBRN;
+	 void const   FAR *EVNT;
+
+	 Bit8u const *EVNT_ptr;            // Current event pointer
+
+	 Bit8u* *ICA;                      // Indirect Controller Array
+
+	 AILPREFIXCB   prefix_callback;         // XMIDI Callback Prefix handler
+	 AILTRIGGERCB  trigger_callback;        // XMIDI Callback Trigger handler
+	 AILBEATCB     beat_callback;           // XMIDI beat/bar change handler
+	 AILSEQUENCECB EOS;                     // End-of-sequence callback function
+
+	 Bit32s      loop_count;                   // 0=one-shot, -1=indefinite, ...
+
+	 Bit32s      interval_count;               // # of intervals until next event
+	 Bit32s      interval_num;                 // # of intervals since start
+
+	 Bit32s      volume;                       // Sequence volume 0-127
+	 Bit32s      volume_target;                // Target sequence volume 0-127
+	 Bit32s      volume_accum;                 // Accumulated volume period
+	 Bit32s      volume_period;                // Period for volume stepping
+
+	 Bit32s      tempo_percent;                // Relative tempo percentage 0-100
+	 Bit32s      tempo_target;                 // Target tempo 0-100
+	 Bit32s      tempo_accum;                  // Accumulated tempo period
+	 Bit32s      tempo_period;                 // Period for tempo stepping
+	 Bit32s      tempo_error;                  // Error counter for tempo DDA
+
+	 Bit32s      beat_count;                   // Sequence playback position
+	 Bit32s      measure_count;
+
+	 Bit32s      time_numerator;               // Sequence timing data
+	 Bit32s      time_fraction;
+	 Bit32s      beat_fraction;
+	 Bit32s      time_per_beat;
+
+	 void const* FOR_ptrs[FOR_NEST];    // Loop stack
+	 Bit32s      FOR_loop_count[FOR_NEST];
+
+	 Bit32s      chan_map[NUM_CHANS];   // Physical channel map for sequence
+
+	 //CTRL_LOG shadow;                       // Controller values for sequence
+
+	 Bit32s      note_count;                   // # of notes "on"
+
+	 Bit32s      note_chan[MAX_NOTES];   // Channel for queued note (-1=free)
+	 Bit32s      note_num[MAX_NOTES];   // Note # for queued note
+	 Bit32s      note_time[MAX_NOTES];   // Remaining duration in intervals
+
+	 SINTa    user_data[8];               // Miscellaneous user data
+	 SINTa    system_data[8];               // Miscellaneous system data*/
+
+} SEQUENCE;
+
+typedef _SEQUENCE* HSEQUENCE;
+
 typedef MSS_STRUCT                   // Initialization file structure
 {
-//	/*0*/AIL_DRIVER* var0_aildrv;
-///*1*/Bit8u* var1_aildrv;
-///*2*/Bit8u* var2_aildrv;
- //Bit32u var3_aildrv;
-// /*2*/Bit32s var4_aildrv;
-// Bit32u var5_aildrv;
- //Bit32u var6_aildrv;
- //Bit32u var7_aildrv;
+	/*0*/AIL_DRIVER* var0_aildrv;
+/*1*/Bit8u* var1_aildrv;
+/*2*/Bit8u* var2_aildrv;
+ Bit32u var3_aildrv;
+ /*2*/Bit32s var4_aildrv;
+ Bit32u var5_aildrv;
+ HSEQUENCE var6_aildrv;
+ Bit32u var7_aildrv;
  ///*13*/Bit32u var8_aildrv;
  ///*13*/Bit32u var9_aildrv;
  ///*13*/Bit32u var10_aildrv;
@@ -410,80 +484,18 @@ typedef MSS_STRUCT                   // Initialization file structure
   ///*13*/Bit32u var46_aildrv;
 
   ///*28/*/ Bit16s var28_aildrv;
+ Bit16s var104_aildrv;
+ Bit16s var105_aildrv;
+ Bit16s var106_aildrv;
+ Bit16s var107_aildrv;
+ Bit16s var108_aildrv;
   /*4*/	Bit8u scratch[144];
 }
 _MDI_DRIVER;
 
 typedef _MDI_DRIVER* HMDIDRIVER;    // Handle to digital driver
 
-#define MAX_NOTES                32       // Max # of notes "on"
-#define FOR_NEST                 4        // # of nested XMIDI FOR loops
-#define NUM_CHANS                16       // # of possible MIDI channels
 
-typedef MSS_STRUCT _SEQUENCE                  // XMIDI sequence state table
-{
-   char     tag[4];                       // HSEQ
-
-   HMDIDRIVER driver;                     // Driver for playback
-
-   Bit32u      status;                       // SEQ_ flags
-
-   /*void const   FAR *TIMB;                // XMIDI IFF chunk pointers
-   void const   FAR *RBRN;
-   void const   FAR *EVNT;*/
-
-   Bit8u const *EVNT_ptr;            // Current event pointer
-
-   Bit8u* *ICA;                      // Indirect Controller Array
-
-   /*AILPREFIXCB   prefix_callback;         // XMIDI Callback Prefix handler
-   AILTRIGGERCB  trigger_callback;        // XMIDI Callback Trigger handler
-   AILBEATCB     beat_callback;           // XMIDI beat/bar change handler
-   AILSEQUENCECB EOS;                     // End-of-sequence callback function*/
-
-   Bit32s      loop_count;                   // 0=one-shot, -1=indefinite, ...
-
-   Bit32s      interval_count;               // # of intervals until next event
-   Bit32s      interval_num;                 // # of intervals since start
-
-   Bit32s      volume;                       // Sequence volume 0-127
-   Bit32s      volume_target;                // Target sequence volume 0-127
-   Bit32s      volume_accum;                 // Accumulated volume period
-   Bit32s      volume_period;                // Period for volume stepping
-
-   Bit32s      tempo_percent;                // Relative tempo percentage 0-100
-   Bit32s      tempo_target;                 // Target tempo 0-100
-   Bit32s      tempo_accum;                  // Accumulated tempo period
-   Bit32s      tempo_period;                 // Period for tempo stepping
-   Bit32s      tempo_error;                  // Error counter for tempo DDA
-
-   Bit32s      beat_count;                   // Sequence playback position
-   Bit32s      measure_count;
-
-   Bit32s      time_numerator;               // Sequence timing data
-   Bit32s      time_fraction;
-   Bit32s      beat_fraction;
-   Bit32s      time_per_beat;
-
-   void const* FOR_ptrs[FOR_NEST];    // Loop stack
-   Bit32s      FOR_loop_count[FOR_NEST];
-
-   Bit32s      chan_map[NUM_CHANS];   // Physical channel map for sequence
-
-   //CTRL_LOG shadow;                       // Controller values for sequence
-
-   Bit32s      note_count;                   // # of notes "on"
-
-   Bit32s      note_chan[MAX_NOTES];   // Channel for queued note (-1=free)
-   Bit32s      note_num[MAX_NOTES];   // Note # for queued note
-   Bit32s      note_time[MAX_NOTES];   // Remaining duration in intervals
-
-   /*SINTa    user_data[8];               // Miscellaneous user data
-   SINTa    system_data[8];               // Miscellaneous system data*/
-
-} SEQUENCE;
-
-typedef _SEQUENCE* HSEQUENCE;
 
 typedef MSS_STRUCT                   // Handle to driver
 {

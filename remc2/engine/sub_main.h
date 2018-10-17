@@ -268,10 +268,10 @@ char sub_8BA10(int a1, int a2, int *a3, char *a4, int a5);
 double /*__fastcall*/ _CHP(x_DWORD);// weak
 char sub_8B980(int a1, int a2, x_DWORD **a3, int a4);
 bool sub_9AE04(int eax0, int edx0, int a3, int a1, int a2);
-HDIGDRIVER sub_93330_AIL_install_DIG_driver_file(/*int a1, */char* filename, IO_PARMS IO);
+HDIGDRIVER sub_93330_AIL_install_DIG_driver_file(/*int a1, */char* filename, IO_PARMS* IO);
 char sub_9AE90(int eax0, int edx0, int ebx0, int *a1, x_BYTE *a2, int a3, int a4);
 int sub_931F0_AIL_install_DIG_INI(/*int a1, */HDIGDRIVER* a2);
-HMDIDRIVER sub_95850_AIL_install_MDI_driver_file(char* filename, IO_PARMS *IO);
+HMDIDRIVER sub_95850_AIL_install_MDI_driver_file(char* filename, IO_PARMS* IO);
 Bit32s sub_95710_AIL_install_MDI_INI(/*int a1, */HMDIDRIVER *mdi);
 Bit32u /*__cdecl*/ x_read(FILE* descriptor, Bit8u* data, Bit32u size);// weak
 double IF_DPOW(double, double);// weak
@@ -282,9 +282,9 @@ x_DWORD /*__cdecl*/ x_outp(x_DWORD, char);// weak
 x_DWORD /*__cdecl*/ x_inp(x_DWORD);// weak
 x_DWORD *sub_9E720(int a1, int a2, int a3);
 int sub_A3720_AIL_API_install_DIG_INI(/*int a1, */HDIGDRIVER* dig);
-HDIGDRIVER sub_A3600_AIL_API_install_DIG_driver_file(/*int a1, */char* filename, IO_PARMS IO);
+HDIGDRIVER sub_A3600_AIL_API_install_DIG_driver_file(/*int a1, */char* filename, IO_PARMS* IO);
 Bit32s sub_A78F0_AIL_API_install_MDI_INI(HMDIDRIVER *mdi);
-HMDIDRIVER sub_A77D0_AIL_API_install_MDI_INI(char* filename, IO_PARMS *IO);
+HMDIDRIVER sub_A77D0_AIL_API_install_MDI_INI(char* filename, IO_PARMS* IO);
 FILE* /*__cdecl*/ x_creat(char* path, Bit32u flags);//
 x_DWORD /*__cdecl*/ x_setmode(FILE* path, int mode);// weak
 FILE* /*__cdecl*/ x_sopen(char* path, int pmode, Bit32u flags);
