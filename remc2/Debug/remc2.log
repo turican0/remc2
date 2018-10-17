@@ -1,4 +1,7 @@
-﻿  sub_main.cpp
+﻿  engine_support.cpp
+c:\prenos\remc2\remc2\engine\engine_support.cpp(216): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\engine_support.cpp(232): warning C4018: <: signed/unsigned – neshoda
+  sub_main.cpp
 c:\prenos\remc2\remc2\engine\sub_main.cpp(1): warning C4067: Po direktivě preprocesoru byly neočekávané tokeny – očekával se nový řádek.
 c:\prenos\remc2\remc2\engine\defs.h(74): warning C4005: LOBYTE: předefinování makra
   c:\program files (x86)\windows kits\10\include\10.0.16299.0\shared\minwindef.h(206): note: viz předchozí definice LOBYTE
@@ -925,9 +928,72 @@ c:\prenos\remc2\remc2\engine\sub_main.cpp(116736): warning C4018: <: signed/unsi
 c:\prenos\remc2\remc2\engine\sub_main.cpp(116898): warning C4101: v4: neodkazovaná lokální proměnná
 c:\prenos\remc2\remc2\engine\sub_main.cpp(116899): warning C4101: v5: neodkazovaná lokální proměnná
 c:\prenos\remc2\remc2\engine\sub_main.cpp(116952): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(118401): error C2679: Binární =: Nenašel se žádný operátor, který by zpracovával pravý operand typu int (nebo neexistuje žádný přijatelný převod).
+  c:\prenos\remc2\remc2\engine\ail_sound.h(541): note: mohlo by být: SEQUENCE &SEQUENCE::operator =(SEQUENCE &&)
+  c:\prenos\remc2\remc2\engine\ail_sound.h(541): note: nebo       SEQUENCE &SEQUENCE::operator =(const SEQUENCE &)
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(118401): note: při pokusu o shodu se seznamem argumentů (SEQUENCE, int)
+c:\prenos\remc2\remc2\engine\sub_main.cpp(118404): error C2679: Binární =: Nenašel se žádný operátor, který by zpracovával pravý operand typu int (nebo neexistuje žádný přijatelný převod).
+  c:\prenos\remc2\remc2\engine\ail_sound.h(541): note: mohlo by být: SEQUENCE &SEQUENCE::operator =(SEQUENCE &&)
+  c:\prenos\remc2\remc2\engine\ail_sound.h(541): note: nebo       SEQUENCE &SEQUENCE::operator =(const SEQUENCE &)
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(118404): note: při pokusu o shodu se seznamem argumentů (SEQUENCE, int)
+c:\prenos\remc2\remc2\engine\sub_main.cpp(118406): error C2679: Binární =: Nenašel se žádný operátor, který by zpracovával pravý operand typu int (nebo neexistuje žádný přijatelný převod).
+  c:\prenos\remc2\remc2\engine\ail_sound.h(541): note: mohlo by být: SEQUENCE &SEQUENCE::operator =(SEQUENCE &&)
+  c:\prenos\remc2\remc2\engine\ail_sound.h(541): note: nebo       SEQUENCE &SEQUENCE::operator =(const SEQUENCE &)
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(118406): note: při pokusu o shodu se seznamem argumentů (SEQUENCE, int)
+c:\prenos\remc2\remc2\engine\sub_main.cpp(118407): error C2679: Binární =: Nenašel se žádný operátor, který by zpracovával pravý operand typu int (nebo neexistuje žádný přijatelný převod).
+  c:\prenos\remc2\remc2\engine\ail_sound.h(541): note: mohlo by být: SEQUENCE &SEQUENCE::operator =(SEQUENCE &&)
+  c:\prenos\remc2\remc2\engine\ail_sound.h(541): note: nebo       SEQUENCE &SEQUENCE::operator =(const SEQUENCE &)
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(118407): note: při pokusu o shodu se seznamem argumentů (SEQUENCE, int)
+c:\prenos\remc2\remc2\engine\sub_main.cpp(118408): error C2679: Binární =: Nenašel se žádný operátor, který by zpracovával pravý operand typu int (nebo neexistuje žádný přijatelný převod).
+  c:\prenos\remc2\remc2\engine\ail_sound.h(541): note: mohlo by být: SEQUENCE &SEQUENCE::operator =(SEQUENCE &&)
+  c:\prenos\remc2\remc2\engine\ail_sound.h(541): note: nebo       SEQUENCE &SEQUENCE::operator =(const SEQUENCE &)
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(118408): note: při pokusu o shodu se seznamem argumentů (SEQUENCE, int)
+c:\prenos\remc2\remc2\engine\sub_main.cpp(118409): error C2679: Binární =: Nenašel se žádný operátor, který by zpracovával pravý operand typu int (nebo neexistuje žádný přijatelný převod).
+  c:\prenos\remc2\remc2\engine\ail_sound.h(541): note: mohlo by být: SEQUENCE &SEQUENCE::operator =(SEQUENCE &&)
+  c:\prenos\remc2\remc2\engine\ail_sound.h(541): note: nebo       SEQUENCE &SEQUENCE::operator =(const SEQUENCE &)
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(118409): note: při pokusu o shodu se seznamem argumentů (SEQUENCE, int)
+c:\prenos\remc2\remc2\engine\sub_main.cpp(118410): error C2679: Binární =: Nenašel se žádný operátor, který by zpracovával pravý operand typu int (nebo neexistuje žádný přijatelný převod).
+  c:\prenos\remc2\remc2\engine\ail_sound.h(541): note: mohlo by být: SEQUENCE &SEQUENCE::operator =(SEQUENCE &&)
+  c:\prenos\remc2\remc2\engine\ail_sound.h(541): note: nebo       SEQUENCE &SEQUENCE::operator =(const SEQUENCE &)
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(118410): note: při pokusu o shodu se seznamem argumentů (SEQUENCE, int)
+c:\prenos\remc2\remc2\engine\sub_main.cpp(118411): error C2679: Binární =: Nenašel se žádný operátor, který by zpracovával pravý operand typu int (nebo neexistuje žádný přijatelný převod).
+  c:\prenos\remc2\remc2\engine\ail_sound.h(541): note: mohlo by být: SEQUENCE &SEQUENCE::operator =(SEQUENCE &&)
+  c:\prenos\remc2\remc2\engine\ail_sound.h(541): note: nebo       SEQUENCE &SEQUENCE::operator =(const SEQUENCE &)
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(118411): note: při pokusu o shodu se seznamem argumentů (SEQUENCE, int)
+c:\prenos\remc2\remc2\engine\sub_main.cpp(118412): error C2679: Binární =: Nenašel se žádný operátor, který by zpracovával pravý operand typu int (nebo neexistuje žádný přijatelný převod).
+  c:\prenos\remc2\remc2\engine\ail_sound.h(541): note: mohlo by být: SEQUENCE &SEQUENCE::operator =(SEQUENCE &&)
+  c:\prenos\remc2\remc2\engine\ail_sound.h(541): note: nebo       SEQUENCE &SEQUENCE::operator =(const SEQUENCE &)
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(118412): note: při pokusu o shodu se seznamem argumentů (SEQUENCE, int)
+c:\prenos\remc2\remc2\engine\sub_main.cpp(118413): error C2679: Binární =: Nenašel se žádný operátor, který by zpracovával pravý operand typu int (nebo neexistuje žádný přijatelný převod).
+  c:\prenos\remc2\remc2\engine\ail_sound.h(541): note: mohlo by být: SEQUENCE &SEQUENCE::operator =(SEQUENCE &&)
+  c:\prenos\remc2\remc2\engine\ail_sound.h(541): note: nebo       SEQUENCE &SEQUENCE::operator =(const SEQUENCE &)
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(118413): note: při pokusu o shodu se seznamem argumentů (SEQUENCE, int)
+c:\prenos\remc2\remc2\engine\sub_main.cpp(118414): error C2679: Binární =: Nenašel se žádný operátor, který by zpracovával pravý operand typu int (nebo neexistuje žádný přijatelný převod).
+  c:\prenos\remc2\remc2\engine\ail_sound.h(541): note: mohlo by být: SEQUENCE &SEQUENCE::operator =(SEQUENCE &&)
+  c:\prenos\remc2\remc2\engine\ail_sound.h(541): note: nebo       SEQUENCE &SEQUENCE::operator =(const SEQUENCE &)
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(118414): note: při pokusu o shodu se seznamem argumentů (SEQUENCE, int)
+c:\prenos\remc2\remc2\engine\sub_main.cpp(118415): error C2440: =: nejde převést z: HSEQUENCE na: int32 *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(118415): note: Typy, na které se ukazuje, spolu nesouvisejí; převod vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(118416): error C2679: Binární =: Nenašel se žádný operátor, který by zpracovával pravý operand typu int (nebo neexistuje žádný přijatelný převod).
+  c:\prenos\remc2\remc2\engine\ail_sound.h(541): note: mohlo by být: SEQUENCE &SEQUENCE::operator =(SEQUENCE &&)
+  c:\prenos\remc2\remc2\engine\ail_sound.h(541): note: nebo       SEQUENCE &SEQUENCE::operator =(const SEQUENCE &)
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(118416): note: při pokusu o shodu se seznamem argumentů (SEQUENCE, int)
+c:\prenos\remc2\remc2\engine\sub_main.cpp(118426): error C2664: int32 *sub_A6370(HSEQUENCE): Nejde převést argument 1 z: int32 * na: HSEQUENCE.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(118426): note: Typy, na které se ukazuje, spolu nesouvisejí; převod vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(118867): error C2065: _SEQUENCE: nedeklarovaný identifikátor
 c:\prenos\remc2\remc2\engine\sub_main.cpp(118870): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(118872): error C2039: seq_var1: Není členem SEQUENCE.
+  c:\prenos\remc2\remc2\engine\ail_sound.h(484): note: viz deklarace: SEQUENCE
+c:\prenos\remc2\remc2\engine\sub_main.cpp(118873): error C2039: seq_var0_driver: Není členem SEQUENCE.
+  c:\prenos\remc2\remc2\engine\ail_sound.h(484): note: viz deklarace: SEQUENCE
 c:\prenos\remc2\remc2\engine\sub_main.cpp(118881): warning C4244: =: __int64 se převádí na Bit32s; může dojít ke ztrátě dat.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(119164): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(119164): error C2039: seq_var1: Není členem SEQUENCE.
+  c:\prenos\remc2\remc2\engine\ail_sound.h(484): note: viz deklarace: SEQUENCE
+c:\prenos\remc2\remc2\engine\sub_main.cpp(119175): error C2039: seq_var1: Není členem SEQUENCE.
+  c:\prenos\remc2\remc2\engine\ail_sound.h(484): note: viz deklarace: SEQUENCE
+c:\prenos\remc2\remc2\engine\sub_main.cpp(119177): error C2039: seq_var10: Není členem SEQUENCE.
+  c:\prenos\remc2\remc2\engine\ail_sound.h(484): note: viz deklarace: SEQUENCE
 c:\prenos\remc2\remc2\engine\sub_main.cpp(121112): warning C4244: =: short se převádí na int8; může dojít ke ztrátě dat.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(121879): warning C4244: return: short se převádí na char; může dojít ke ztrátě dat.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(122644): warning C4244: return: short se převádí na char; může dojít ke ztrátě dat.
@@ -1208,123 +1274,22 @@ c:\prenos\remc2\remc2\engine\sub_main.cpp(132549): warning C4805: ^: Potenciáln
 c:\prenos\remc2\remc2\engine\sub_main.cpp(132657): warning C4805: ^: Potenciálně nebezpečné směšování typu bool a typu unsigned char v jedné operaci
 c:\prenos\remc2\remc2\engine\sub_main.cpp(132788): warning C4805: ^: Potenciálně nebezpečné směšování typu bool a typu unsigned char v jedné operaci
 c:\prenos\remc2\remc2\engine\sub_main.cpp(132924): warning C4805: ^: Potenciálně nebezpečné směšování typu bool a typu unsigned char v jedné operaci
-c:\prenos\remc2\remc2\engine\defs.h(258): warning C4244: inicializování: T se převádí na U; může dojít ke ztrátě dat.
-          with
-          [
-              T=Bit16u
-          ]
-          and
-          [
-              U=Bit8u
-          ]
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(108460): note: Viz odkaz na kompilované vytváření instancí funkce šablona int8 __OFADD__<Bit16u,Bit8u>(T,U)
-          with
-          [
-              T=Bit16u,
-              U=Bit8u
-          ]
-c:\prenos\remc2\remc2\engine\sub_main.cpp(17431): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(23173): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(23320): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(23340): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(23355): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(23368): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(24425): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(25845): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(26776): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(26969): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(27989): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(28131): warning C4739: Odkaz na proměnnou v10 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(28512): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(29773): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(29790): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(30253): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(30879): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(30940): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(32207): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(32364): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(33965): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(34832): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(35044): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(34670): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(35069): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(35349): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(35373): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(39278): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(39652): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(39827): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(39886): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(40069): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(40486): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(40511): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(40610): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(40634): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(40657): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(40666): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(40988): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(41043): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(42119): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(42203): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(42278): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(42423): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(42429): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(42466): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(42480): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(42492): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(42687): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(43999): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(44056): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(44267): warning C4715: sub_385C0: ne všechny cesty k ovládacím prvkům vrací hodnotu
-c:\prenos\remc2\remc2\engine\sub_main.cpp(45139): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(45884): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(46448): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(57533): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(57542): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(58332): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(59741): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(61888): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(63875): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(63828): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(63839): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(69268): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(69287): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(71887): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(72090): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(71903): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(71986): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(72001): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(72015): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(72414): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(72725): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(72969): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(73045): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(73074): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(73102): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(73836): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(74018): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(74327): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(77656): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(77958): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(78156): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(78277): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(78488): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(78615): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(78709): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(78866): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(78991): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(79034): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(79127): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(79231): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(79350): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(79691): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(80316): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(80855): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(101326): warning C4739: Odkaz na proměnnou unk_180484 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(101269): warning C4739: Odkaz na proměnnou unk_180470 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(101382): warning C4739: Odkaz na proměnnou unk_18048B překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(101383): warning C4739: Odkaz na proměnnou unk_18048B překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(101491): warning C4739: Odkaz na proměnnou unk_180452 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(101493): warning C4739: Odkaz na proměnnou unk_180452 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(101538): warning C4739: Odkaz na proměnnou unk_180460 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(101540): warning C4739: Odkaz na proměnnou unk_180460 překračuje její prostor úložiště.
-  remc2.vcxproj -> C:\prenos\remc2\Debug\remc2.exe
+  port_outputs.cpp
+  port_sdl_sound.cpp
+c:\prenos\remc2\remc2\portability\port_sdl_sound.cpp(196): warning C4477: printf: Formátovací řetězec %08X vyžaduje argument typu unsigned int, ale variadický argument 1 má typ AIL_DRIVER *.
+c:\prenos\remc2\remc2\portability\port_sdl_sound.cpp(196): warning C4477: printf: Formátovací řetězec %08X vyžaduje argument typu unsigned int, ale variadický argument 3 má typ VDI_CALL *.
+c:\prenos\remc2\remc2\portability\port_sdl_sound.cpp(196): warning C4477: printf: Formátovací řetězec %08X vyžaduje argument typu unsigned int, ale variadický argument 4 má typ VDI_CALL *.
+  port_sdl_vga_mouse.cpp
+c:\prenos\remc2\remc2\portability\port_sdl_vga_mouse.cpp(213): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\portability\port_sdl_vga_mouse.cpp(205): warning C4101: dstrect: neodkazovaná lokální proměnná
+c:\prenos\remc2\remc2\portability\port_sdl_vga_mouse.cpp(204): warning C4101: srcrect: neodkazovaná lokální proměnná
+  remc2.cpp
+c:\prenos\remc2\remc2\engine\defs.h(74): warning C4005: LOBYTE: předefinování makra
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\shared\minwindef.h(206): note: viz předchozí definice LOBYTE
+c:\prenos\remc2\remc2\engine\defs.h(75): warning C4005: LOWORD: předefinování makra
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\shared\minwindef.h(204): note: viz předchozí definice LOWORD
+c:\prenos\remc2\remc2\engine\defs.h(77): warning C4005: HIBYTE: předefinování makra
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\shared\minwindef.h(207): note: viz předchozí definice HIBYTE
+c:\prenos\remc2\remc2\engine\defs.h(78): warning C4005: HIWORD: předefinování makra
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\shared\minwindef.h(205): note: viz předchozí definice HIWORD
+  Generování kódu...

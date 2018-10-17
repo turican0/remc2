@@ -377,16 +377,19 @@ _DIG_DRIVER;
 
 typedef _DIG_DRIVER* HDIGDRIVER;    // Handle to digital driver
 
+typedef void* xHMDIDRIVER;
+
 #define MAX_NOTES                32       // Max # of notes "on"
 #define FOR_NEST                 4        // # of nested XMIDI FOR loops
 #define NUM_CHANS                16       // # of possible MIDI channels
-
+/*
 typedef MSS_STRUCT _SEQUENCE                  // XMIDI sequence state table
 {
+  xHMDIDRIVER seq_var0_driver;
   Bit32u seq_var1;
 
   Bit32u seq_var10;
-  /*
+  
 	 char     tag[4];                       // HSEQ
 
 	 HMDIDRIVER driver;                     // Driver for playback
@@ -444,13 +447,103 @@ typedef MSS_STRUCT _SEQUENCE                  // XMIDI sequence state table
 	 Bit32s      note_time[MAX_NOTES];   // Remaining duration in intervals
 
 	 SINTa    user_data[8];               // Miscellaneous user data
-	 SINTa    system_data[8];               // Miscellaneous system data*/
+	 SINTa    system_data[8];               // Miscellaneous system data
 
 } SEQUENCE;
 
-typedef _SEQUENCE* HSEQUENCE;
+typedef _SEQUENCE* HSEQUENCE;*/
+typedef void* xCALLBACK;            // Generic callback function prototype
 
-typedef MSS_STRUCT                   // Initialization file structure
+typedef struct                      // MIDI status log structure
+{
+	Bit32s     program[NUM_CHANS];  // Program Change
+	Bit32s     pitch_l[NUM_CHANS];  // Pitch Bend LSB
+	Bit32s     pitch_h[NUM_CHANS];  // Pitch Bend MSB
+
+	Bit32s     c_lock[NUM_CHANS];  // Channel Lock
+	Bit32s     c_prot[NUM_CHANS];  // Channel Lock Protection
+	Bit32s     c_mute[NUM_CHANS];  // Channel Mute
+	Bit32s     c_v_prot[NUM_CHANS];  // Voice Protection
+	Bit32s     bank[NUM_CHANS];  // Patch Bank Select
+	Bit32s     indirect[NUM_CHANS];  // ICA indirect controller value
+	Bit32s     callback[NUM_CHANS];  // Callback Trigger
+
+	Bit32s     mod[NUM_CHANS];  // Modulation
+	Bit32s     vol[NUM_CHANS];  // Volume
+	Bit32s     pan[NUM_CHANS];  // Panpot
+	Bit32s     exp[NUM_CHANS];  // Expression
+	Bit32s     sus[NUM_CHANS];  // Sustain
+	Bit32s     reverb[NUM_CHANS];  // Reverb
+	Bit32s     chorus[NUM_CHANS];  // Chorus
+
+	Bit32s     bend_range[NUM_CHANS];  // Bender Range (data MSB, RPN 0 assumed)
+}
+CTRL_LOG;
+
+typedef struct                            // XMIDI sequence state table
+{
+	/*0*/struct x_MDI_DRIVER* driver;            // Driver for playback //0
+
+	/*1*/Bit32u    status;                       // SEQ_ flags
+
+	/*2*/void* TIMB;                         // XMIDI IFF chunk pointers
+	/*3*/void* RBRN;
+	/*4*/void* EVNT;
+
+	/*5*/Bit8u* EVNT_ptr;                     // Current event pointer
+
+	/*6*/Bit8u* ICA;                          // Indirect Controller Array
+
+	/*7*/xCALLBACK prefix_callback;              // XMIDI Callback Prefix handler
+	/*8*/xCALLBACK trigger_callback;             // XMIDI Callback Trigger handler
+	/*9*/xCALLBACK beat_callback;                // XMIDI beat/bar change handler
+	/*10*/xCALLBACK EOS;                          // End-of-sequence callback function
+
+	/*11*/Bit32s     loop_count;                   // 0=one-shot, -1=indefinite, ...
+
+	/*12*/Bit32s     interval_count;               // # of intervals until next event
+	/*13*/Bit32s     interval_num;                 // # of intervals since start
+
+	/*14*/Bit32s     volume;                       // Sequence volume 0-127
+	/*15*/Bit32s     volume_target;                // Target sequence volume 0-127
+	/*16*/Bit32s     volume_accum;                 // Accumulated volume period
+	/*17*/Bit32s     volume_period;                // Period for volume stepping
+
+	/*18*/Bit32s     tempo_percent;                // Relative tempo percentage 0-100
+	/*19*/Bit32s     tempo_target;                 // Target tempo 0-100
+	/*20*/Bit32s     tempo_accum;                  // Accumulated tempo period
+	/*21*/Bit32s     tempo_period;                 // Period for tempo stepping
+	/*22*/Bit32s     tempo_error;                  // Error counter for tempo DDA
+
+	/*23*/Bit32s     beat_count;                   // Sequence playback position
+	/*24*/Bit32s     measure_count;
+
+	/*25*/Bit32s     time_numerator;               // Sequence timing data
+	/*26*/Bit32s     time_fraction;
+	/*27*/Bit32s     beat_fraction;
+	/*28*/Bit32s     time_per_beat;
+
+	/*29*/void* FOR_ptrs[FOR_NEST];    // Loop stack
+	/*33*/Bit32s     FOR_loop_count_33[FOR_NEST];
+
+	/*37*/Bit32s     chan_map_37[NUM_CHANS];   // Physical channel map for sequence
+
+	/*53*/CTRL_LOG shadow;                       // Controller values for sequence
+
+	Bit32s     note_count;                   // # of notes "on"
+
+	Bit32s     note_chan[MAX_NOTES];   // Channel for queued note (-1=free)
+	Bit32s     note_num[MAX_NOTES];   // Note # for queued note
+	Bit32s     note_time[MAX_NOTES];   // Remaining duration in intervals
+
+	Bit32s     user_data[8];               // Miscellaneous user data
+	Bit32s     system_data[8];               // Miscellaneous system data
+}
+SEQUENCE;
+
+typedef SEQUENCE * HSEQUENCE;       // Handle to sequence
+
+typedef struct                   // Initialization file structure
 {
 	/*0*/AIL_DRIVER* var0_aildrv;
 /*1*/Bit8u* var1_aildrv;

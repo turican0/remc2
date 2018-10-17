@@ -1,0 +1,6 @@
+### OPUS MKMF:  Do not remove this line!  Generated dependencies follow.
+
+testsnd1.obj: appagg.h appapi.h appguid.h comtools.h datapath.h dbg.h \
+	 dbgmacro.h lg.h lgalt.h lgassert.h lglocmsg.h lglog.h lgsndid.h \
+	 lgsound.h memall.h memmacro.h mprintf.h prikind.h pumpenum.h res.h \
+	 restypes.h types.h wappapi.h wappguid.h
