@@ -1,0 +1,19 @@
+Archive created by -=MIRSOFT=-
+Look for game MIDs at http://go.to/gamemids
+
+*** Archive info ***
+Archiver: Mirsoft
+Type: Game rip
+Format: MID
+Original Composer: Russell Shaw
+Sequencer: Russell Shaw
+Num of tunes: 24
+Complete:
+
+*** Game info ***
+Name: Magic Carpet 2
+Platform: PC
+Year: 1995
+Genre: Action
+Publisher: Electronic Arts
+Developer: Bullfrog
