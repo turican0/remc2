@@ -1,3 +1,26 @@
 ﻿  stdafx.cpp
-  dirent.c
-c:\prenos\remc2\remc2\engine\dirent.c(149): fatal error C1010: Neočekávaný konec souboru při hledání předkompilované hlavičky. Nezapomněli jste do zdroje přidat #include "stdafx.h"?
+  engine_support.cpp
+c:\prenos\remc2\remc2\engine\engine_support.cpp(239): fatal error C1010: Neočekávaný konec souboru při hledání předkompilované hlavičky. Nezapomněli jste do zdroje přidat #include "stdafx.h"?
+  sub_main.cpp
+c:\prenos\remc2\remc2\engine\sub_main.cpp(508): warning C4005: psxadatahfont3tab: předefinování makra
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(504): note: viz předchozí definice psxadatahfont3tab
+c:\prenos\remc2\remc2\engine\sub_main.cpp(512): warning C4005: psxadatahfont3tab: předefinování makra
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(508): note: viz předchozí definice psxadatahfont3tab
+c:\prenos\remc2\remc2\engine\sub_main.cpp(516): warning C4005: psxadatahfont3tab: předefinování makra
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(512): note: viz předchozí definice psxadatahfont3tab
+c:\prenos\remc2\remc2\engine\sub_main.cpp(140733): fatal error C1010: Neočekávaný konec souboru při hledání předkompilované hlavičky. Nezapomněli jste do zdroje přidat #include "stdafx.h"?
+  port_filesystem.cpp
+c:\prenos\remc2\remc2\portability\port_filesystem.cpp(204): fatal error C1010: Neočekávaný konec souboru při hledání předkompilované hlavičky. Nezapomněli jste do zdroje přidat #include "stdafx.h"?
+  port_inputs.cpp
+c:\prenos\remc2\remc2\portability\port_inputs.cpp(4): fatal error C1010: Neočekávaný konec souboru při hledání předkompilované hlavičky. Nezapomněli jste do zdroje přidat #include "stdafx.h"?
+  port_outputs.cpp
+c:\prenos\remc2\remc2\portability\port_outputs.cpp(38): fatal error C1010: Neočekávaný konec souboru při hledání předkompilované hlavičky. Nezapomněli jste do zdroje přidat #include "stdafx.h"?
+  port_sdl_sound.cpp
+c:\prenos\remc2\remc2\portability\port_sdl_sound.cpp(218): fatal error C1010: Neočekávaný konec souboru při hledání předkompilované hlavičky. Nezapomněli jste do zdroje přidat #include "stdafx.h"?
+  port_sdl_vga_mouse.cpp
+c:\prenos\remc2\remc2\portability\port_sdl_vga_mouse.cpp(967): fatal error C1010: Neočekávaný konec souboru při hledání předkompilované hlavičky. Nezapomněli jste do zdroje přidat #include "stdafx.h"?
+  port_time.cpp
+c:\prenos\remc2\remc2\portability\port_time.cpp(15): fatal error C1010: Neočekávaný konec souboru při hledání předkompilované hlavičky. Nezapomněli jste do zdroje přidat #include "stdafx.h"?
+  remc2.cpp
+c:\prenos\remc2\remc2\remc2.cpp(26): fatal error C1010: Neočekávaný konec souboru při hledání předkompilované hlavičky. Nezapomněli jste do zdroje přidat #include "stdafx.h"?
+  Generování kódu...

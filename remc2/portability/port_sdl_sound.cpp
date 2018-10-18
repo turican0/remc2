@@ -152,10 +152,10 @@ HSAMPLE last_sample;
 Bit32s ac_sound_call_driver(AIL_DRIVER* drvr, Bit32s fn, VDI_CALL* in, VDI_CALL* out)/*AIL_DRIVER *drvr,S32 fn, VDI_CALL*in,VDI_CALL *out)*/ {
 	switch (fn) {
 	case 0x300: {
-		drvr->AIL_DRIVER_var4_VHDR->VDI_HDR_var10 = (int)&common_IO_configurations;
-		drvr->AIL_DRIVER_var4_VHDR->num_IO_configurations = num_IO_configurations;
-		drvr->AIL_DRIVER_var4_VHDR->environment_string = &environment_string;
-		drvr->AIL_DRIVER_var4_VHDR->VDI_HDR_var46 = service_rate;
+		drvr->VHDR_4->VDI_HDR_var10 = (void*)&common_IO_configurations;
+		drvr->VHDR_4->num_IO_configurations_14 = num_IO_configurations;
+		drvr->VHDR_4->environment_string_16 = (Bit32u)&environment_string;
+		drvr->VHDR_4->VDI_HDR_var46 = service_rate;
 		/*out->AX = 0;
 		out->BX = 0;
 		out->CX = 0;
@@ -178,9 +178,9 @@ Bit32s ac_sound_call_driver(AIL_DRIVER* drvr, Bit32s fn, VDI_CALL* in, VDI_CALL*
 		break;
 	}
 	case 0x401: {
-		mychunk.abuf=(Bit8u*)last_sample->sam_var2_sample_address_start;
-		mychunk.alen = last_sample->sam_var4_sample_address_len;
-		mychunk.volume = last_sample->sam_var16_volume;
+		mychunk.abuf=(Bit8u*)last_sample->start_2_3[0];
+		mychunk.alen = last_sample->len_4_5[0];
+		mychunk.volume = last_sample->volume_16;
 		Mix_PlayChannel(-1, &mychunk, 0);
 		/*if (Mix_PlayingMusic() == 0)
 		{

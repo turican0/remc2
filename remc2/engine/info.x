@@ -2284,5 +2284,17 @@ v12->var0_aildrv->AIL_DRIVER_var5 - find 1a7a24
 
 sub_A8050_AIL_API_stop_sequence
 
+void sub_B0C1A(HDIGDRIVER a1)
+
+fix // x_DWORD_E4E1C
+	return ((int(*)(int, x_BYTE *, int *))off_AEB40[x_DWORD_E4E1C])(v4, (int8*)v5, v3);
+//dma sub_B0B87(v26, 0);//fix
+
+x_BYTE_E37FC - musi byt >1 // 2b47fc - 1
+x_BYTE_E37FD - musi byt >1 // 2b47fd - 1
+3 <= x_WORD_E3804 0 //2b4804 - 06
+x_WORD_E3802//2b4802 00
+if ( x_BYTE_E37FC && x_BYTE_E37FD && a1 <= x_WORD_E3804 && x_WORD_E3802 != a1 )
+
 
 
