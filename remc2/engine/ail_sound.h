@@ -192,28 +192,28 @@ typedef void* xCALLBACK;            // Generic callback function prototype
 
 typedef struct                      // MIDI status log structure
 {
-	/*0*/Bit32s     program[NUM_CHANS];  // Program Change
-	/*64*/Bit32s     pitch_l[NUM_CHANS];  // Pitch Bend LSB
-	/*128*/Bit32s     pitch_h[NUM_CHANS];  // Pitch Bend MSB
+	/*53 0*/Bit32s     program[NUM_CHANS];  // Program Change
+	/*69 16*/Bit32s     pitch_l[NUM_CHANS];  // Pitch Bend LSB
+	/*85 32*/Bit32s     pitch_h[NUM_CHANS];  // Pitch Bend MSB
 
-	/*192*/Bit32s     c_lock[NUM_CHANS];  // Channel Lock
-	/*256*/Bit32s     c_prot[NUM_CHANS];  // Channel Lock Protection
-	/*320*/Bit32s     c_mute[NUM_CHANS];  // Channel Mute
-	/*384*/Bit32s     c_v_prot[NUM_CHANS];  // Voice Protection
-	/*448*/Bit32s     bank[NUM_CHANS];  // Patch Bank Select
-	/*512*/Bit32s     indirect[NUM_CHANS];  // ICA indirect controller value
-	/*576*/Bit32s     callback[NUM_CHANS];  // Callback Trigger
+	/*101 48*/Bit32s     c_lock[NUM_CHANS];  // Channel Lock
+	/*117 64*/Bit32s     c_prot[NUM_CHANS];  // Channel Lock Protection
+	/*133 80*/Bit32s     c_mute[NUM_CHANS];  // Channel Mute
+	/*149 96*/Bit32s     c_v_prot[NUM_CHANS];  // Voice Protection
+	/*165 112*/Bit32s     bank[NUM_CHANS];  // Patch Bank Select
+	/*181 128*/Bit32s     indirect[NUM_CHANS];  // ICA indirect controller value
+	/*197 144*/Bit32s     callback[NUM_CHANS];  // Callback Trigger
 
-	/*640*/Bit32s     mod[NUM_CHANS];  // Modulation
-	/*704*/Bit32s     vol[NUM_CHANS];  // Volume
-	/*768*/Bit32s     pan[NUM_CHANS];  // Panpot
-	/*832*/Bit32s     exp[NUM_CHANS];  // Expression
-	/*896*/Bit32s     sus[NUM_CHANS];  // Sustain
-	/*960*/Bit32s     reverb[NUM_CHANS];  // Reverb
-	/*1024*/Bit32s     chorus[NUM_CHANS];  // Chorus
+	/*213 160*/Bit32s     mod[NUM_CHANS];  // Modulation
+	/*229 176*/Bit32s     vol[NUM_CHANS];  // Volume
+	/*245 192*/Bit32s     pan[NUM_CHANS];  // Panpot
+	/*261 208*/Bit32s     exp[NUM_CHANS];  // Expression
+	/*277 224*/Bit32s     sus[NUM_CHANS];  // Sustain
+	/*393 240*/Bit32s     reverb[NUM_CHANS];  // Reverb
+	/*309 256*/Bit32s     chorus[NUM_CHANS];  // Chorus
 
-	/*1088*/Bit32s     bend_range[NUM_CHANS];  // Bender Range (data MSB, RPN 0 assumed)
-	//1152
+	/*325 272*/Bit32s     bend_range[NUM_CHANS];  // Bender Range (data MSB, RPN 0 assumed)
+	//341 288
 }
 CTRL_LOG;
 
@@ -224,7 +224,7 @@ typedef struct                            // XMIDI sequence state table
 	/*1*/Bit32u status_1;                       // SEQ_ flags
 
 	/*2*/void* TIMB_2;                         // XMIDI IFF chunk pointers
-	/*3*/void* RBRN_3;
+	/*3*/Bit8u* RBRN_3;
 	/*4*/void* EVNT_4;
 
 	/*5*/Bit8u* EVNT_ptr_5;                     // Current event pointer
@@ -260,21 +260,21 @@ typedef struct                            // XMIDI sequence state table
 	/*27*/Bit32s     beat_fraction_27;
 	/*28*/Bit32s     time_per_beat_28;
 
-	/*29*/void* FOR_ptrs[FOR_NEST];    // Loop stack
+	/*29*/Bit8u* FOR_ptrs[FOR_NEST];    // Loop stack
 	/*33*/Bit32s     FOR_loop_count_33[FOR_NEST];
 
 	/*37*/Bit32s     chan_map_37[NUM_CHANS];   // Physical channel map for sequence
 
 	/*53*/CTRL_LOG shadow_53;                       // Controller values for sequence
 
-	/*1205*/Bit32s     note_count;                   // # of notes "on"
+	/*341*/Bit32s     note_count;                   // # of notes "on"
 
-	/*1333*/Bit32s     note_chan[MAX_NOTES];   // Channel for queued note (-1=free)
-	/*1461*/Bit32s     note_num[MAX_NOTES];   // Note # for queued note
-	/*1589*/Bit32s     note_time[MAX_NOTES];   // Remaining duration in intervals
+	/*342*/Bit32s     note_chan[MAX_NOTES];   // Channel for queued note (-1=free)
+	/*374*/Bit32s     note_num[MAX_NOTES];   // Note # for queued note
+	/*406*/Bit32s     note_time[MAX_NOTES];   // Remaining duration in intervals
 
-	/*1621*/Bit32s     user_data[8];               // Miscellaneous user data
-	/*1653*/Bit32s     system_data[8];               // Miscellaneous system data
+	/*438*/Bit32s     user_data[8];               // Miscellaneous user data
+	/*446*/Bit32s     system_data[8];               // Miscellaneous system data
 	
 	Bit32s seq_40;
 
@@ -289,6 +289,8 @@ typedef struct                            // XMIDI sequence state table
 	Bit32s seq_341;
 	Bit32s seq_342[MAX_NOTES];
 	Bit32s seq_374[MAX_NOTES];
+
+
 
 
 }
@@ -330,22 +332,22 @@ typedef struct _MDI_DRIVER          // Handle to XMIDI driver
  Bit32u n_sequences_7;
 
  /*8*/Bit32s        lock[NUM_CHANS];   // 1 if locked, 2 if protected, else 0
- /*9*/HSEQUENCE   locker[NUM_CHANS];   // HSEQUENCE which locked channel
- /*10*/HSEQUENCE   owner[NUM_CHANS];   // HSEQUENCE which owned locked channel
- /*11*/HSEQUENCE   user[NUM_CHANS];   // Last sequence to use channel
- /*11*/Bit32s        state[NUM_CHANS];   // Lock state prior to being locked
+ /*24*/HSEQUENCE   locker[NUM_CHANS];   // HSEQUENCE which locked channel
+ /*40*/HSEQUENCE   owner[NUM_CHANS];   // HSEQUENCE which owned locked channel
+ /*56*/HSEQUENCE   user[NUM_CHANS];   // Last sequence to use channel
+ /*72*/Bit32s        state[NUM_CHANS];   // Lock state prior to being locked
 
- /*11*/Bit32s        notes[NUM_CHANS];   // # of active notes in channel
+ /*88*/Bit32s        notes[NUM_CHANS];   // # of active notes in channel
 
- /*11*/xCALLBACK    event_trap;          // MIDI event trap callback function
- /*11*/xCALLBACK    timbre_trap;         // MIDI timbre request callback function
+ /*104*/xCALLBACK    event_trap;          // MIDI event trap callback function
+ /*105*/xCALLBACK    timbre_trap;         // MIDI timbre request callback function
 
- /*11*/Bit32s        message_count;       // MIDI message count
- /*11*/Bit32s        offset;              // MIDI buffer offset
+ /*106*/Bit32s        message_count;       // MIDI message count
+ /*107*/Bit32s        offset;              // MIDI buffer offset
 
- /*11*/Bit32s        master_volume;       // Master XMIDI note volume 0-127
+ /*108*/Bit32s        master_volume;       // Master XMIDI note volume 0-127
 
- /*11*/Bit32s        system_data[8];      // Miscellaneous system data
+ /*109*/Bit32s        system_data[8];      // Miscellaneous system data
 
 
  ///*13*/Bit32u var8_aildrv;
@@ -363,7 +365,7 @@ typedef struct _MDI_DRIVER          // Handle to XMIDI driver
   ///*20*/ Bit8u* var20_aildrv_dig_drv;
   ///*13*/Bit32u var21_aildrv;
   ///*13*/Bit32u var22_aildrv;
-  ///*13*/HSAMPLE var23_aildrvx;
+  /*13*/HSEQUENCE var23_aildrvx[NUM_CHANS];
   ///*13*/Bit32u var24_aildrv;
   ///*13*/Bit32u var25_aildrv;
   ///*13*/Bit32u var26_aildrv;

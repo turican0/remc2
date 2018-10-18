@@ -2297,4 +2297,10 @@ x_WORD_E3802//2b4802 00
 if ( x_BYTE_E37FC && x_BYTE_E37FD && a1 <= x_WORD_E3804 && x_WORD_E3802 != a1 )
 
 
+x_DWORD_E3810 je null // 2b4810
+
+void sub_A5850(HSEQUENCE S, char a2, unsigned int a3, signed int a4, int a5)
+
+v7->event_trap
+
 
