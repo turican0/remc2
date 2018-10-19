@@ -165,6 +165,7 @@
     <ClInclude Include="portability\port_sdl_sound.h" />
     <ClInclude Include="portability\port_sdl_vga_mouse.h" />
     <ClInclude Include="portability\port_time.h" />
+    <ClInclude Include="portability\xmi2mid.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
@@ -178,6 +179,7 @@
     <ClCompile Include="portability\port_sdl_sound.cpp" />
     <ClCompile Include="portability\port_sdl_vga_mouse.cpp" />
     <ClCompile Include="portability\port_time.cpp" />
+    <ClCompile Include="portability\xmi2mid.cpp" />
     <ClCompile Include="remc2.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

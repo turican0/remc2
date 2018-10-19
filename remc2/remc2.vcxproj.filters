@@ -75,6 +75,9 @@
     <ClInclude Include="engine\ail_sound.h">
       <Filter>Zdrojové soubory\engine</Filter>
     </ClInclude>
+    <ClInclude Include="portability\xmi2mid.h">
+      <Filter>Zdrojové soubory\portability</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -108,6 +111,9 @@
       <Filter>Zdrojové soubory\portability</Filter>
     </ClCompile>
     <ClCompile Include="portability\port_sdl_sound.cpp">
+      <Filter>Zdrojové soubory\portability</Filter>
+    </ClCompile>
+    <ClCompile Include="portability\xmi2mid.cpp">
       <Filter>Zdrojové soubory\portability</Filter>
     </ClCompile>
   </ItemGroup>

@@ -15,7 +15,7 @@ typedef MSS_STRUCT                     // VDI interface register structure
 }
 VDI_CALL;
 
-typedef void (* AILTIMERCB)    (Bit32u user);
+
 
 typedef Bit32s HTIMER;            // Handle to timer
 
@@ -385,6 +385,8 @@ MDI_DRIVER;
 
 typedef MDI_DRIVER* HMDIDRIVER;    // Handle to digital driver
 
+typedef void(*AILTIMERCB)    (HMDIDRIVER user);
+
 typedef MSS_STRUCT                   // Initialization file structure
 {
    char     device_name[128];    // Device name
@@ -392,4 +394,24 @@ typedef MSS_STRUCT                   // Initialization file structure
    IO_PARMS IO;                  // I/O parameters for driver
 }
 AIL_INI;
+/*
+typedef struct _XMIDISUB
+{
+	Bit8u trackname[18];//0
+	Bit8u* data_buffer_4b;//18
+	Bit16u var5b;//22
+	Bit32u var6;//24
+	//Bit32u var7;//28
+}
+XMIDISUBHEADER;
+
+typedef struct _XMIDIHEADER
+{
+	Bit8u sign[4];//RNC
+	Bit32u size;
+	Bit8u x[32-8];
+	XMIDISUBHEADER track[6];
+}
+XMIDIHEADER;*/
+
 #endif //AIL_SOUND_

@@ -3,6 +3,7 @@
 #include "mctypes.h"
 #include "SDL.h"
 #include "SDL_mixer.h"
+#include "xmi2mid.h"
 #include <string>
 
 #include "../engine/ail_sound.h"
@@ -25,6 +26,8 @@ Bit32s ac_sound_call_driver(AIL_DRIVER* drvr, Bit32s fn, VDI_CALL* in, VDI_CALL*
 void ac_set_real_vect(Bit32u vectnum, Bit16u real_ptr);
 Bit16u ac_get_real_vect(Bit32u vectnum);
 AIL_DRIVER* ac_AIL_API_install_driver(int a1, Bit8u* a2, int a3);
+
+void test_midi_play(Bit8u* data, Bit8u* header, Bit32s track_number);
 
 
 

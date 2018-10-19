@@ -2303,4 +2303,6 @@ void sub_A5850(HSEQUENCE S, char a2, unsigned int a3, signed int a4, int a5)
 
 v7->event_trap
 
+fix: sub_8EAD0_load_music(tempebx);
+
 

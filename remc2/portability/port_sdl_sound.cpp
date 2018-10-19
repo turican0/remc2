@@ -14,6 +14,20 @@ Mix_Chunk *low = NULL;
 
 Bit8u sound_buffer[4][20000];
 
+void test_midi_play(Bit8u* data, Bit8u* header,Bit32s track_number)
+{
+	Bit8u* acttrack=&header[32 + track_number * 32];
+	//int testsize = *(Bit32u*)(&header[32 + (track_number + 1) * 32] + 18) - *(Bit32u*)(acttrack + 18);
+	int testsize2 = *(Bit32u*)(acttrack + 26);
+
+	NativeMidiSong* music2;
+	
+	//unsigned char* TranscodeXmiToMid(const unsigned char* pXmiData,	size_t iXmiLength, size_t* pMidLength);
+	size_t iXmiLength = testsize2;
+	size_t pMidLength;
+	Bit8u* outmidi = TranscodeXmiToMid((const Bit8u*)*(Bit32u*)(acttrack + 18), iXmiLength,&pMidLength);
+}
+
 bool init_sound()
 {	
 	//#define MUSIC_MID_FLUIDSYNTH
@@ -25,7 +39,7 @@ bool init_sound()
 	}
 	//Mix_SetSoundFonts("c:\\prenos\\remc2\\sound\\SGM-V2.01.sf2");
 	//Mix_EachSoundFont("c:\\prenos\\remc2\\sound\\SGM-V2.01.sf2");
-	load_sound_files();
+	load_sound_files();	
 	return true;
 }
 
