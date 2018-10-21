@@ -3,10 +3,15 @@
 #include "mctypes.h"
 #include "SDL.h"
 #include "SDL_mixer.h"
+#include "music.h"
+#include "mixer.h"
+#include "music_timidity.h"
 #include "xmi2mid.h"
 #include <string>
 
 #include "../engine/ail_sound.h"
+
+#define USE_SDL2
 
 bool init_sound();
 bool load_sound_files();
@@ -17,6 +22,7 @@ int playsound3();
 int playsound4();
 void playmusic1();
 void stopmusic1();
+void playmusic2();
 
 extern Bit8u sound_buffer[4][20000];
 extern HSAMPLE last_sample;

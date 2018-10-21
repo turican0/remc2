@@ -118,19 +118,19 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Library Include="..\sdl\VisualC\SDLmain\Debug\SDLmain.lib">
-      <Filter>Zdrojové soubory\sdl</Filter>
-    </Library>
-    <Library Include="..\sdl\VisualC\Debug\SDL.lib">
-      <Filter>Zdrojové soubory\sdl</Filter>
-    </Library>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="engine\info.x">
       <Filter>Zdrojové soubory\engine</Filter>
     </None>
     <None Include="engine\structures.x">
       <Filter>Zdrojové soubory\engine</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="..\sdl2\lib\x86\SDL2.lib">
+      <Filter>Zdrojové soubory\sdl</Filter>
+    </Library>
+    <Library Include="..\sdl2\lib\x86\SDLmain.lib">
+      <Filter>Zdrojové soubory\sdl</Filter>
+    </Library>
   </ItemGroup>
 </Project>

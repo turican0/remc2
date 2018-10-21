@@ -6,9 +6,9 @@
 #include <stddef.h>
 #include <stdarg.h>     /* va_list, va_start, va_arg, va_end */
 
-#include "SDL.h"
-
 #include "mctypes.h"
+
+#include "SDL.h"
 
 #include "port_sdl_sound.h"
 

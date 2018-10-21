@@ -1,7 +1,5 @@
 ﻿  port_sdl_sound.cpp
-c:\prenos\remc2\remc2\portability\port_sdl_sound.cpp(23): error C2065: MidiSong: nedeklarovaný identifikátor
-c:\prenos\remc2\remc2\portability\port_sdl_sound.cpp(23): error C2146: Chyba syntaxe: Chybí ; před identifikátorem music2.
-c:\prenos\remc2\remc2\portability\port_sdl_sound.cpp(23): error C2065: music2: nedeklarovaný identifikátor
-c:\prenos\remc2\remc2\portability\port_sdl_sound.cpp(210): warning C4477: printf: Formátovací řetězec %08X vyžaduje argument typu unsigned int, ale variadický argument 1 má typ AIL_DRIVER *.
-c:\prenos\remc2\remc2\portability\port_sdl_sound.cpp(210): warning C4477: printf: Formátovací řetězec %08X vyžaduje argument typu unsigned int, ale variadický argument 3 má typ VDI_CALL *.
-c:\prenos\remc2\remc2\portability\port_sdl_sound.cpp(210): warning C4477: printf: Formátovací řetězec %08X vyžaduje argument typu unsigned int, ale variadický argument 4 má typ VDI_CALL *.
+c:\prenos\remc2\remc2\portability\port_sdl_sound.cpp(261): warning C4477: printf: Formátovací řetězec %08X vyžaduje argument typu unsigned int, ale variadický argument 1 má typ AIL_DRIVER *.
+c:\prenos\remc2\remc2\portability\port_sdl_sound.cpp(261): warning C4477: printf: Formátovací řetězec %08X vyžaduje argument typu unsigned int, ale variadický argument 3 má typ VDI_CALL *.
+c:\prenos\remc2\remc2\portability\port_sdl_sound.cpp(261): warning C4477: printf: Formátovací řetězec %08X vyžaduje argument typu unsigned int, ale variadický argument 4 má typ VDI_CALL *.
+  remc2.vcxproj -> C:\prenos\remc2\Debug\remc2.exe

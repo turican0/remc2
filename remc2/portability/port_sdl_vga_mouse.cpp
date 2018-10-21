@@ -8,7 +8,21 @@
 extern DOS_Device *DOS_CON;
 #endif //USE_DOSBOX
 
+#ifdef USE_SDL2
+SDL_Window* gWindow = NULL;
+SDL_Renderer *renderer = NULL;
+SDL_Texture *texture = NULL;
+SDL_Surface *helper_surface = NULL;
+#endif
+
 SDL_Surface *screen;
+
+int width = 640;
+int height = 480;
+int SCREEN_WIDTH = 640;
+int SCREEN_HEIGHT = 480;
+const char* default_caption = "Remake Magic Carpet 2";
+
 
 bool inited = false;
 Uint8 temppallettebuffer[768];/* = {
@@ -64,20 +78,25 @@ Uint8 temppallettebuffer[768];/* = {
 
 
 
-void Set_basic_pallette() {	
+void Set_basic_pallette() {
 	SDL_Color colors[256];
 	/* Fill colors with color information */
 	for (int i = 0;i < 256;i++) {
-		temppallettebuffer[i * 3]=i/4;
-		temppallettebuffer[i * 3 + 1] = i/4;
-		temppallettebuffer[i * 3 + 2] = i/4;
+		temppallettebuffer[i * 3] = i / 4;
+		temppallettebuffer[i * 3 + 1] = i / 4;
+		temppallettebuffer[i * 3 + 2] = i / 4;
 		colors[i].r = temppallettebuffer[i * 3];
 		colors[i].g = temppallettebuffer[i * 3 + 1];
 		colors[i].b = temppallettebuffer[i * 3 + 2];
 	}
 
 	/* Set palette */
+
+#ifdef USE_SDL2
+	SDL_SetPaletteColors(screen->format->palette, colors, 0, 256);
+#else
 	SDL_SetPalette(screen, SDL_LOGPAL | SDL_PHYSPAL, colors, 0, 256);
+#endif
 	//memcpy(temppallettebuffer, pallettebuffer, 768);
 }
 
@@ -115,6 +134,21 @@ void putpixel(SDL_Surface *surface, int x, int y, Uint32 pixel)
 	}
 }
 
+void SubBlit() {
+#ifdef USE_SDL2
+	SDL_BlitSurface(screen, NULL, helper_surface, NULL);
+
+	SDL_UpdateTexture(texture, NULL/*&rect*/, helper_surface->pixels, helper_surface->pitch);
+
+	SDL_RenderCopy(renderer, texture, NULL, NULL);
+	SDL_RenderPresent(renderer);
+
+	//SDL_UpdateWindowSurface(gWindow);
+#else
+	SDL_UpdateRect(screen, 0, 0, 0, 0);
+#endif
+}
+
 void Draw_debug_matrix() {
 	SDL_Rect dstrect;
 	if (SDL_MUSTLOCK(screen)) {
@@ -127,8 +161,8 @@ void Draw_debug_matrix() {
 	for (int i = 0;i < 16;i++)
 		for (int j = 0;j < 16;j++)
 		{
-			dstrect.x = i* screen->w/16;
-			dstrect.y = j* screen->h/16;
+			dstrect.x = i * screen->w / 16;
+			dstrect.y = j * screen->h / 16;
 			dstrect.w = screen->w / 16;
 			dstrect.h = screen->h / 16;
 			SDL_FillRect(screen, &dstrect, i * 16 + j/*SDL_MapRGB(screen->format, i*16+j, 0, 0)*/);
@@ -137,7 +171,7 @@ void Draw_debug_matrix() {
 	if (SDL_MUSTLOCK(screen)) {
 		SDL_UnlockSurface(screen);
 	}
-	SDL_UpdateRect(screen, 0, 0, 0, 0);	
+	SubBlit();
 };
 
 SDL_Surface* surface_font = NULL;
@@ -158,22 +192,22 @@ bool VGA_LoadFont()
 	return success;
 }
 
-void Draw_letter(int letter_number,int pozx,int pozy) {
+void Draw_letter(int letter_number, int pozx, int pozy) {
 	SDL_Rect srcrect;
 	SDL_Rect dstrect;
 
 	/*for (int i = 0;i < 100;i++)
 		for (int j = 0;j < 100;j++)
 			putpixel(screen, i, j, 127);*/
-	//217 x 224//13x14
-	//186 x 208//11x13
-	/*int letter_numaber = 34;
-	int pozx = 15;
-	int pozy = 15;*/
-	/*srcrect.x = 12*(letter_number%16);
-	srcrect.y = 13 *(int) (letter_number / 16);
-	srcrect.w = 12;
-	srcrect.h = 13;*///for 613
+			//217 x 224//13x14
+			//186 x 208//11x13
+			/*int letter_numaber = 34;
+			int pozx = 15;
+			int pozy = 15;*/
+			/*srcrect.x = 12*(letter_number%16);
+			srcrect.y = 13 *(int) (letter_number / 16);
+			srcrect.w = 12;
+			srcrect.h = 13;*///for 613
 	srcrect.x = 14 * (letter_number % 16);
 	srcrect.y = 14 * (int)(letter_number / 16);
 	srcrect.w = 14;
@@ -184,7 +218,6 @@ void Draw_letter(int letter_number,int pozx,int pozy) {
 	dstrect.h = screen->h / 25;
 	//SDL_RenderCopy(screen, surface_font, &srcrect, &dstrect);
 	SDL_BlitSurface(surface_font, &srcrect, screen, &dstrect);
-
 };
 
 int lastpoz = 0;
@@ -214,7 +247,7 @@ void VGA_Draw_string(char* wrstring) {
 	{
 		if (wrstring[i] == '\n')
 		{
-			lastpoz += textwidth -lastpoz% textwidth;
+			lastpoz += textwidth - lastpoz % textwidth;
 		}
 		else
 		{
@@ -226,12 +259,17 @@ void VGA_Draw_string(char* wrstring) {
 	if (SDL_MUSTLOCK(screen)) {
 		SDL_UnlockSurface(screen);
 	}
-	SDL_UpdateRect(screen, 0, 0, 0, 0);
+	SubBlit();
 }
 
+
 void VGA_Init() {
-	VGA_Init(640, 480, 8, SDL_HWPALETTE/*|SDL_DOUBLEBUF*/);
+#ifdef USE_SDL2
+#define SDL_HWPALETTE 0
+#endif
+	VGA_Init(SCREEN_WIDTH, SCREEN_HEIGHT, 8, SDL_HWPALETTE | SDL_INIT_AUDIO);
 }
+
 SDL_Rect dst;
 //SDL_Surface *curs;
 /*
@@ -245,7 +283,7 @@ void VGA_Set_Cursor(posistruct posstrcursor,int number) {
 			return;
 		}
 	}
-	
+
 	SDL_FillRect(curs, NULL, 0x000000);
 
 	Bit32u inindex = 0;
@@ -257,7 +295,7 @@ void VGA_Set_Cursor(posistruct posstrcursor,int number) {
 	Bit8s unknownvar = posstrcursor.pointer[inindex++];
 	for(int i=0;i<number;i++)
 		while (posstrcursor.pointer[inindex++] != 0x7f);
-	
+
 	end = posstrcursor.pointer[inindex++];
 	if (end == 0)
 	{
@@ -351,35 +389,152 @@ void VGA_Set_Cursor2() {
 
 };*/
 
+#ifdef USE_SDL2
 
-void VGA_Init(int width,int height,int bpp,Uint32 flags) {
+
+// Initalize Color Masks. 
+#if SDL_BYTEORDER == SDL_BIG_ENDIAN 
+Uint32 redMask = 0xff000000;
+Uint32 greenMask = 0x00ff0000;
+Uint32 blueMask = 0x0000ff00;
+Uint32 alphaMask = 0x000000ff;
+#else 
+Uint32 redMask = 0x000000ff;
+Uint32 greenMask = 0x0000ff00;
+Uint32 blueMask = 0x00ff0000;
+Uint32 alphaMask = 0xff000000;
+#endif 
+void VGA_Init(int width, int height, int bpp, Uint32 flags)
+{
+	if (!inited)
+	{
+		//Initialization flag
+		//bool success = true;
+
+		//Initialize SDL
+		if (SDL_Init(SDL_INIT_VIDEO) < 0)
+		{
+			printf("SDL could not initialize! SDL_Error: %s\n", SDL_GetError());
+			exit(0);
+			//success = false;
+		}
+		else
+		{
+			init_sound();
+			// Set hint before you create the Renderer!
+			SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "0");
+			SDL_SetHint(SDL_HINT_FRAMEBUFFER_ACCELERATION, "1");
+			SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");
+
+			gWindow =
+				SDL_CreateWindow(default_caption, SDL_WINDOWPOS_CENTERED,
+					SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_SHOWN);
+
+			renderer =
+				SDL_CreateRenderer(gWindow, -1, SDL_RENDERER_ACCELERATED |
+					SDL_RENDERER_TARGETTEXTURE);
+
+
+			SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0xFF);
+
+
+			// Now create your surface and convert the pixel format right away!
+			// Converting the pixel format to match the texture makes for quicker updates, otherwise
+			// It has to do the conversion each time you update the texture manually. This slows everything down.
+			// Do it once, and don't have to worry about it again.
+
+			helper_surface =
+				SDL_CreateRGBSurface(
+					SDL_SWSURFACE, width, height, 32,
+					redMask, greenMask, blueMask, alphaMask);
+
+			helper_surface =
+				SDL_ConvertSurfaceFormat(
+					helper_surface, SDL_PIXELFORMAT_ARGB8888, 0);
+
+			screen =
+				SDL_CreateRGBSurface(
+					SDL_SWSURFACE, width, height, 32,
+					redMask, greenMask, blueMask, alphaMask);
+
+			screen =
+				SDL_ConvertSurfaceFormat(
+					screen, SDL_PIXELFORMAT_INDEX8, 0);
+
+
+			texture = SDL_CreateTexture(renderer,
+				SDL_PIXELFORMAT_ARGB8888,
+				SDL_TEXTUREACCESS_STREAMING,
+				helper_surface->w, helper_surface->h);
+
+			SDL_SetTextureBlendMode(texture, SDL_BLENDMODE_BLEND);
+
+			// Sure clear the screen first.. always nice.
+			SDL_RenderClear(renderer);
+			SDL_RenderPresent(renderer);
+			/*//Create window
+			//gWindow = SDL_CreateWindow(default_caption, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_SHOWN);
+			//
+			gWindow = SDL_CreateWindow(default_caption,SDL_WINDOWPOS_UNDEFINED,SDL_WINDOWPOS_UNDEFINED, width, height,0);
+
+			if (gWindow == NULL)
+			{
+				printf("Window could not be created! SDL_Error: %s\n", SDL_GetError());
+				exit(0);
+				//success = false;
+			}
+			else
+			{
+				//Get window surface
+				helper_surface = SDL_GetWindowSurface(gWindow);
+				//
+				//helper_surface =SDL_CreateRGBSurface(SDL_SWSURFACE, 320, 200, 32,redMask, greenMask, blueMask, alphaMask);
+
+				helper_surface =SDL_ConvertSurfaceFormat(helper_surface, SDL_PIXELFORMAT_ARGB8888, 0);
+
+				screen =SDL_CreateRGBSurface(SDL_SWSURFACE, 320, 200, 32,	redMask, greenMask, blueMask, alphaMask);
+
+				screen =SDL_ConvertSurfaceFormat(screen, SDL_PIXELFORMAT_ARGB8888, 0);
+			}*/
+		}
+		if (!VGA_LoadFont())
+		{
+			printf("Failed to load font!\n");
+			exit(-1);
+		}
+
+		Set_basic_pallette();
+		inited = true;
+		//mydelay(3000);
+	}
+	//return success;
+}
+#else
+void VGA_Init(int width, int height, int bpp, Uint32 flags) {
 	if (!inited)
 	{
 		SDL_Init(SDL_INIT_TIMER | SDL_INIT_VIDEO);
 		init_sound();
-		//curs = SDL_LoadBMP("../cursors/cursor.bmp");
-		/*curs = SDL_CreateRGBSurface(SDL_HWPALETTE, 64, 64, 8, 0,0,0,0);
-		VGA_Set_Cursor2();*/
-
-		/*Uint32 colorkey = SDL_MapRGB(curs->format, 0x0, 0x0, 0x0);
-		SDL_SetColorKey(curs, SDL_SRCCOLORKEY, colorkey);		
-
-		dst.w = curs->w;
-		dst.h = curs->h;*/
-
+#ifdef USE_SDL2
+		//SDL_EnableUNICODE(SDL_DISABLE);
+#else
 		SDL_EnableUNICODE(SDL_DISABLE);
+#endif
 
 		SDL_ShowCursor(0);
 
 		atexit(SDL_Quit);
+
 		screen = SDL_SetVideoMode(width, height, bpp, flags);
+
 		if (!screen) {
 			printf("Couldn't set video mode: %s\n", SDL_GetError());
 			exit(-1);
 		}
 
 		//Set the window caption
-		SDL_WM_SetCaption("Remake Magic Carpet 2", NULL);
+
+		SDL_WM_SetCaption(default_caption, NULL);
 
 		if (!VGA_LoadFont())
 		{
@@ -397,6 +552,7 @@ void VGA_Init(int width,int height,int bpp,Uint32 flags) {
 		//mydelay(3000);
 	}
 }
+#endif
 
 
 int origw = 640;
@@ -408,8 +564,13 @@ void VGA_Resize(int width, int height) {
 	//VGA_Resize(width, height, 8, SDL_HWPALETTE);
 }
 void VGA_Resize(int width, int height, int bpp, Uint32 flags) {
-	SDL_FreeSurface(screen);
+	/*SDL_FreeSurface(screen);
+
+	#ifdef USE_SDL2
+		//screen = SDL_SetVideoMode(width, height, bpp, flags);
+	#else
 	screen = SDL_SetVideoMode(width, height, bpp, flags);
+	#endif
 	if (!screen) {
 		printf("Couldn't set video mode: %s\n", SDL_GetError());
 		exit(-1);
@@ -418,6 +579,7 @@ void VGA_Resize(int width, int height, int bpp, Uint32 flags) {
 	//Draw_debug_matrix();
 	//VGA_Draw_string((char*)"test textx");
 	//degug
+	*/
 };
 
 
@@ -426,7 +588,7 @@ Uint8* VGA_Get_pallette() {
 }
 
 void VGA_Set_pallette(Uint8* pallettebuffer) {
-	memcpy(temppallettebuffer, pallettebuffer,768);
+	memcpy(temppallettebuffer, pallettebuffer, 768);
 	SDL_Color colors[256];
 	/* Fill colors with color information */
 	for (int i = 0;i < 256;i++) {
@@ -438,8 +600,11 @@ void VGA_Set_pallette(Uint8* pallettebuffer) {
 	}
 
 	/* Set palette */
+#ifdef USE_SDL2
+	SDL_SetPaletteColors(screen->format->palette, colors, 0, 256);
+#else
 	SDL_SetPalette(screen, SDL_LOGPAL | SDL_PHYSPAL, colors, 0, 256);
-	//SDL_SetPalette(curs, SDL_LOGPAL | SDL_PHYSPAL, colors, 0, 256);
+#endif
 }
 
 void VGA_Write_basic_pallette(Uint8* pallettebuffer) {
@@ -449,7 +614,7 @@ void VGA_Write_basic_pallette(Uint8* pallettebuffer) {
 
 
 void VGA_test() {
-	
+
 	int x = screen->w / 2;
 	int y = screen->h / 2;
 
@@ -470,7 +635,8 @@ void VGA_test() {
 		SDL_UnlockSurface(screen);
 	}
 	/* Update just the part of the display that we've changed */
-	SDL_UpdateRect(screen, 0, 0, 0, 0);
+
+	SubBlit();
 }
 
 /*
@@ -591,7 +757,7 @@ Right Ctrl (101-key)      *       *       *       *       *       *       *     
 
 int mousex, mousey;
 bool pressed = false;
-Bit16u lastchar=0;
+Bit16u lastchar = 0;
 int events()
 {
 	SDL_Event event;
@@ -604,7 +770,7 @@ int events()
 		{
 		case SDL_KEYDOWN:
 			pressed = true;
-			lastchar = (event.key.keysym.scancode<<8) + event.key.keysym.sym;
+			lastchar = (event.key.keysym.scancode << 8) + event.key.keysym.sym;
 			printf("Key press detected\n");//test
 			break;
 
@@ -673,9 +839,9 @@ int events()
 					break;}
 				}
 				break;
-				}
 			}
-				//x, y	The X / Y coordinates of the mouse at press / release time
+			}
+			//x, y	The X / Y coordinates of the mouse at press / release time
 
 			mouse_events(buttonresult, event.motion.x, event.motion.y);
 			break;
@@ -686,25 +852,21 @@ int events()
 	return 1;
 }
 
+//SDL_Window *window = NULL;
+//SDL_Surface *output_surface = NULL;
+
+
 void VGA_Blit(int width, int height, Uint8* buffer) {
 	events();
-	//int x = screen->w / 2;
-	//int y = screen->h / 2;
-	//int bpp = screen->format->BytesPerPixel;
-	//Uint8 *p = (Uint8 *)screen->pixels + y * screen->pitch + x * bpp;
-
-	/* Lock the screen for direct access to the pixels */
 	if (SDL_MUSTLOCK(screen)) {
 		if (SDL_LockSurface(screen) < 0) {
 			fprintf(stderr, "Can't lock screen: %s\n", SDL_GetError());
 			return;
 		}
 	}
-
-
-	if((origw == screen->w)&&(origh == screen->h))//same resolution
+	if ((origw == screen->w) && (origh == screen->h))//same resolution
 		memcpy(screen->pixels, buffer, width*height);
-	else if ((origw*2 == screen->w) && (origh*2 == screen->h))//2x resolution
+	else if ((origw * 2 == screen->w) && (origh * 2 == screen->h))//2x resolution
 	{
 		int k = 0;
 		int l = 0;
@@ -723,8 +885,8 @@ void VGA_Blit(int width, int height, Uint8* buffer) {
 	{
 		int k = 0;
 		int l = 0;
-		float xscale= (float)origw/ (float)screen->w;
-		float yscale= (float)origh/ (float)screen->h;
+		float xscale = (float)origw / (float)screen->w;
+		float yscale = (float)origh / (float)screen->h;
 		for (int i = 0; i < screen->w; i++)
 		{
 			for (int j = 0; j < screen->h; j++)//49+1 - final size
@@ -735,35 +897,15 @@ void VGA_Blit(int width, int height, Uint8* buffer) {
 			}
 		}
 	}
-	/*dst.x = mousex;
-	dst.y = mousey;
-	// Blit onto main surface
-	SDL_BlitSurface(curs, NULL, screen, &dst);*/
-
-	/*Uint8 unused[256];
-	for (int k = 0;k < 255;k++)
-		unused[k] == 0;
-	for (int i = 0;i < 640;i++)
-		for (int j = 0;j < 480;j++)
-			for (int k = 0;k < 255;k++)
-				if (((Uint8 *)screen->pixels)[480 * j + i] == k)
-					unused[k] = 1;
-	printf("\n,");
-	for (int k = 0;k < 255;k++)
-		if (unused[k] != 1)
-			printf("%04X,",k);
-*/
 	if (SDL_MUSTLOCK(screen)) {
 		SDL_UnlockSurface(screen);
 	}
-		/*
-	//barvy e5 a vice jsou volne
-	
-	/* Update just the part of the display that we've changed */
-	SDL_UpdateRect(screen, 0, 0, 0, 0);	
+	SubBlit();
 
 	//Set_basic_pallette();
 }
+
+
 
 void VGA_Init_test() {
 	/* Create a display surface with a grayscale palette */
@@ -777,14 +919,24 @@ void VGA_Init_test() {
 	}
 
 	/* Create display */
+
+#ifdef USE_SDL2
+	//screen = SDL_SetVideoMode(640, 480, 8, SDL_HWPALETTE);
+#else
 	screen = SDL_SetVideoMode(640, 480, 8, SDL_HWPALETTE);
+#endif
 	if (!screen) {
 		printf("Couldn't set video mode: %s\n", SDL_GetError());
 		exit(-1);
 	}
 
 	/* Set palette */
+
+#ifdef USE_SDL2
+	SDL_SetPaletteColors(screen->format->palette, colors, 0, 256);
+#else
 	SDL_SetPalette(screen, SDL_LOGPAL | SDL_PHYSPAL, colors, 0, 256);
+#endif
 
 	int x = screen->w / 2;
 	int y = screen->h / 2;
@@ -805,26 +957,40 @@ void VGA_Init_test() {
 		SDL_UnlockSurface(screen);
 	}
 	/* Update just the part of the display that we've changed */
-	SDL_UpdateRect(screen, 0, 0, 0, 0);
-}
 
+#ifdef USE_SDL2
+	SDL_UpdateWindowSurface(gWindow);
+#else
+	SDL_UpdateRect(screen, 0, 0, 0, 0);
+#endif
+}
+#ifdef USE_SDL2
 void VGA_close()
 {
 	clean_up_sound();
-	//Deallocate surface
 	SDL_FreeSurface(surface_font);
 	surface_font = NULL;
-
-	//Destroy window
 	SDL_FreeSurface(screen);
 	screen = NULL;
-
-	//SDL_FreeSurface(curs);
-	//curs=NULL;
-
-	//Quit SDL subsystems
+	SDL_DestroyTexture(texture);
+	texture = NULL;
+	SDL_DestroyRenderer(renderer);
+	renderer = NULL;
+	SDL_DestroyWindow(gWindow);
+	gWindow = NULL;
 	SDL_Quit();
 }
+#else
+void VGA_close()
+{
+	clean_up_sound();
+	SDL_FreeSurface(surface_font);
+	surface_font = NULL;
+	SDL_FreeSurface(screen);
+	screen = NULL;
+	SDL_Quit();
+}
+#endif
 /*
 change resolution
 #include <SDL.h>
@@ -919,7 +1085,7 @@ Bit16u VGA_read_char_from_buffer() {
 	bool locpressed = pressed;
 	Bit16u loclastchar = lastchar;
 	lastchar = 0;
-	switch (loclastchar&0xff00) {
+	switch (loclastchar & 0xff00) {
 	case 0x4900://up
 		loclastchar = 0x4800;
 		break;

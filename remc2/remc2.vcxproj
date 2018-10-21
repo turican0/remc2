@@ -90,13 +90,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\prenos\remc2\sdl\include;C:\prenos\remc2\sdl_mixer\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\prenos\remc2\sdl2\include;c:\prenos\remc2\sdl2_mixer\;C:\prenos\remc2\remc2\sdl-mixer-x\include\SDL_mixer_ext;C:\prenos\remc2\remc2\sdl-mixer-x\src;c:\prenos\remc2\remc2\sdl-mixer-x\src\codecs\;C:\prenos\remc2\remc2\sdl-mixer-x\src\codecs;C:\prenos\remc2\fluidsynth\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\prenos\remc2\sdl\VisualC\SDLmain\Debug;C:\prenos\remc2\sdl_mixer\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>c:\prenos\remc2\sdl2\lib\x86\;c:\prenos\remc2\sdl2_mixer\VisualC\Win32\Debug\;C:\prenos\remc2\sdl\lib\x86;C:\prenos\remc2\Debug;C:\prenos\remc2\fluidsynth\lib;C:\prenos\SDL2_mixer-2.0.2\VisualC\Win32\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2_mixer.lib;SDL2.lib;libfluidsynth.dll.a;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -189,12 +189,12 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Library Include="..\sdl\VisualC\Debug\SDL.lib" />
-    <Library Include="..\sdl\VisualC\SDLmain\Debug\SDLmain.lib" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="engine\info.x" />
     <None Include="engine\structures.x" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="..\sdl2\lib\x86\SDL2.lib" />
+    <Library Include="..\sdl2\lib\x86\SDLmain.lib" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

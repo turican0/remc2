@@ -5,6 +5,7 @@ and may not be redistributed without written permission.*/
 
 //The music that will be played
 Mix_Music *music = NULL;
+Mix_Music* music2 = NULL;
 
 //The sound effects that will be used
 Mix_Chunk *scratch = NULL;
@@ -13,19 +14,43 @@ Mix_Chunk *med = NULL;
 Mix_Chunk *low = NULL;
 
 Bit8u sound_buffer[4][20000];
+/*
+10
+29
 
+128-0
+0-0
+0-10
+0-29
+0-80
+0-76
+0-78
+0-78
+
+ channel 1
+ 2
+
+*/
 void test_midi_play(Bit8u* data, Bit8u* header,Bit32s track_number)
 {
 	Bit8u* acttrack=&header[32 + track_number * 32];
 	//int testsize = *(Bit32u*)(&header[32 + (track_number + 1) * 32] + 18) - *(Bit32u*)(acttrack + 18);
 	int testsize2 = *(Bit32u*)(acttrack + 26);
-
-	NativeMidiSong* music2;
 	
 	//unsigned char* TranscodeXmiToMid(const unsigned char* pXmiData,	size_t iXmiLength, size_t* pMidLength);
 	size_t iXmiLength = testsize2;
 	size_t pMidLength;
 	Bit8u* outmidi = TranscodeXmiToMid((const Bit8u*)*(Bit32u*)(acttrack + 18), iXmiLength,&pMidLength);
+	SDL_RWops* rwmidi=SDL_RWFromMem(outmidi, pMidLength);
+#ifdef USE_SDL2
+	//Timidity_Init();
+	music2 = Mix_LoadMUSType_RW(rwmidi, MUS_MID, SDL_TRUE);
+	//music2 = Mix_LoadMUSType_RW(rwmidi, MIX_MUSIC_TIMIDITY, SDL_TRUE);
+#else
+	music2 = Mix_LoadMUS_RW(rwmidi);
+#endif
+	playmusic2();
+
 }
 
 bool init_sound()
@@ -33,12 +58,12 @@ bool init_sound()
 	//#define MUSIC_MID_FLUIDSYNTH
 	//Initialize SDL_mixer
 	//Mix_SetSoundFonts("c:\\prenos\\remc2\\sound\\SGM-V2.01.sf2");
-	if (Mix_OpenAudio(22050, AUDIO_U8/*MIX_DEFAULT_FORMAT*/, 1, 4096) == -1)//4096
+	if (Mix_OpenAudio(11025/*22050*/, AUDIO_U8/*MIX_DEFAULT_FORMAT*/, 1, 4096) == -1)//4096
 	{
 		return false;
 	}
-	//Mix_SetSoundFonts("c:\\prenos\\remc2\\sound\\SGM-V2.01.sf2");
-	//Mix_EachSoundFont("c:\\prenos\\remc2\\sound\\SGM-V2.01.sf2");
+	//Mix_SetSoundFonts("c:\\prenos\\Magic2\\sf2\\Musyng Kite.sf2");
+	Mix_SetSoundFonts("c:\\prenos\\Magic2\\sf2\\TOM-SF2.sf2");
 	load_sound_files();	
 	return true;
 }
@@ -48,7 +73,7 @@ Mix_Chunk mychunk;
 
 bool load_sound_files()
 {
-	//Load the music
+	/*//Load the music
 	music = Mix_LoadMUS("c:\\prenos\\remc2\\sound\\Music003.mid");
 	//music = Mix_LoadMUS("c:\\prenos\\remc2\\sound\\beat.wav");
 
@@ -56,7 +81,7 @@ bool load_sound_files()
 	if (music == NULL)
 	{
 		return false;
-	}
+	}*/
 
 	//Load the sound effects
 	scratch = Mix_LoadWAV("scratch.wav");
@@ -151,6 +176,26 @@ void stopmusic1()
 	Mix_HaltMusic();
 }
 
+void playmusic2()
+{
+	if (Mix_PlayingMusic() == 0)
+	{
+		//Play the music
+		if (Mix_PlayMusic(music2, -1) == -1)
+			if (Mix_PausedMusic() == 1)
+			{
+				//Resume the music
+				Mix_ResumeMusic();
+			}
+		//If the music is playing
+			else
+			{
+				//Pause the music
+				Mix_PauseMusic();
+			}
+	}
+}
+
 struct{
 	int a;
 } common_IO_configurations;
@@ -195,7 +240,13 @@ Bit32s ac_sound_call_driver(AIL_DRIVER* drvr, Bit32s fn, VDI_CALL* in, VDI_CALL*
 		mychunk.abuf=(Bit8u*)last_sample->start_2_3[0];
 		mychunk.alen = last_sample->len_4_5[0];
 		mychunk.volume = last_sample->volume_16;
-		Mix_PlayChannel(-1, &mychunk, 0);
+		//mychunk.allocated = 0;
+
+		#ifdef USE_SDL2
+				Mix_PlayChannel(-1, &mychunk, 0);
+		#else
+				Mix_PlayChannel(-1, &mychunk, 0);
+		#endif
 		/*if (Mix_PlayingMusic() == 0)
 		{
 			//Play the music
