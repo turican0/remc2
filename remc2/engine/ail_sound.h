@@ -1,6 +1,7 @@
 #ifndef AIL_SOUND_ACTIVE
 #define AIL_SOUND_ACTIVE
 #include "../dosbox_files/config.h"
+//#include "SDL_mixer.h"
 
 #define MSS_STRUCT struct
 
@@ -110,6 +111,8 @@ Bit32s vol_scale_18[2][256];
 EOS_callback_type sam_var532_EOS_ptr;
 Bit32s sam_var[1000];
    Bit8u* sam_var542;
+
+   //Mix_Chunk chunk;
 }
 SAMPLE;
 typedef MSS_STRUCT _SAMPLE * HSAMPLE;           // Handle to sample
@@ -291,7 +294,7 @@ typedef struct                            // XMIDI sequence state table
 	Bit32s seq_374[MAX_NOTES];
 
 
-
+	Bit32s sequence_num;
 
 }
 SEQUENCE;

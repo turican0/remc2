@@ -2305,4 +2305,13 @@ v7->event_trap
 
 fix: sub_8EAD0_load_music(tempebx);
 
+x_BYTE_E37FC - 2b47fc
+x_BYTE_E37FD - 2b47fd
+
+start sequence:
+find it
+x_WORD_E3802 - 2b4802
+
+void sub_8E160_sound_proc15_startsequence(__int16 a1, unsigned __int8 a2)//26f160
+
 

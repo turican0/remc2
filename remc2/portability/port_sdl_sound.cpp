@@ -5,13 +5,15 @@ and may not be redistributed without written permission.*/
 
 //The music that will be played
 Mix_Music *music = NULL;
-Mix_Music* music2 = NULL;
+Mix_Music* GAME_music[10] = {NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL};
 
 //The sound effects that will be used
 Mix_Chunk *scratch = NULL;
 Mix_Chunk *high = NULL;
 Mix_Chunk *med = NULL;
 Mix_Chunk *low = NULL;
+
+Mix_Chunk gamechunk;
 
 Bit8u sound_buffer[4][20000];
 /*
@@ -44,13 +46,58 @@ void test_midi_play(Bit8u* data, Bit8u* header,Bit32s track_number)
 	SDL_RWops* rwmidi=SDL_RWFromMem(outmidi, pMidLength);
 #ifdef USE_SDL2
 	//Timidity_Init();
-	music2 = Mix_LoadMUSType_RW(rwmidi, MUS_MID, SDL_TRUE);
+	GAME_music[track_number] = Mix_LoadMUSType_RW(rwmidi, MUS_MID, SDL_TRUE);
 	//music2 = Mix_LoadMUSType_RW(rwmidi, MIX_MUSIC_TIMIDITY, SDL_TRUE);
 #else
 	music2 = Mix_LoadMUS_RW(rwmidi);
 #endif
-	playmusic2();
+	playmusic2(track_number);
+}
 
+void SOUND_start_sequence(Bit32s sequence_num) {
+	if (Mix_PlayingMusic() == 0)
+	{
+		if (Mix_PlayMusic(GAME_music[sequence_num], -1) == -1)
+			if (Mix_PausedMusic() == 1)
+			{
+				Mix_ResumeMusic();
+			}
+			else
+			{
+				Mix_PauseMusic();
+			}
+	}
+};
+
+void SOUND_pause_sequence(Bit32s sequence_num) {
+	Mix_PauseMusic();
+};
+
+void SOUND_stop_sequence(Bit32s sequence_num) {
+	Mix_HaltMusic();
+};
+void SOUND_resume_sequence(Bit32s sequence_num) {
+	Mix_ResumeMusic();
+};
+
+void SOUND_init_MIDI_sequence(Bit8u* data, Bit8u* header, Bit32s track_number)
+{
+	Bit8u* acttrack = &header[32 + track_number * 32];
+	//int testsize = *(Bit32u*)(&header[32 + (track_number + 1) * 32] + 18) - *(Bit32u*)(acttrack + 18);
+	int testsize2 = *(Bit32u*)(acttrack + 26);
+
+	//unsigned char* TranscodeXmiToMid(const unsigned char* pXmiData,	size_t iXmiLength, size_t* pMidLength);
+	size_t iXmiLength = testsize2;
+	size_t pMidLength;
+	Bit8u* outmidi = TranscodeXmiToMid((const Bit8u*)*(Bit32u*)(acttrack + 18), iXmiLength, &pMidLength);
+	SDL_RWops* rwmidi = SDL_RWFromMem(outmidi, pMidLength);
+#ifdef USE_SDL2
+	//Timidity_Init();
+	GAME_music[track_number] = Mix_LoadMUSType_RW(rwmidi, MUS_MID, SDL_TRUE);
+	//music2 = Mix_LoadMUSType_RW(rwmidi, MIX_MUSIC_TIMIDITY, SDL_TRUE);
+#else
+	music2 = Mix_LoadMUS_RW(rwmidi);
+#endif
 }
 
 bool init_sound()
@@ -69,7 +116,7 @@ bool init_sound()
 }
 
 
-Mix_Chunk mychunk;
+//Mix_Chunk mychunk;
 
 bool load_sound_files()
 {
@@ -176,12 +223,12 @@ void stopmusic1()
 	Mix_HaltMusic();
 }
 
-void playmusic2()
+void playmusic2(Bit32s track_number)
 {
 	if (Mix_PlayingMusic() == 0)
 	{
 		//Play the music
-		if (Mix_PlayMusic(music2, -1) == -1)
+		if (Mix_PlayMusic(GAME_music[track_number], -1) == -1)
 			if (Mix_PausedMusic() == 1)
 			{
 				//Resume the music
@@ -206,11 +253,11 @@ struct {
 
 int num_IO_configurations = 3;
 int service_rate = -1;
-HSAMPLE last_sample;
+//HSAMPLE last_sample;
 
 Bit32s ac_sound_call_driver(AIL_DRIVER* drvr, Bit32s fn, VDI_CALL* in, VDI_CALL* out)/*AIL_DRIVER *drvr,S32 fn, VDI_CALL*in,VDI_CALL *out)*/ {
 	switch (fn) {
-	case 0x300: {
+	case 0x300: {//AIL_API_install_driver
 		drvr->VHDR_4->VDI_HDR_var10 = (void*)&common_IO_configurations;
 		drvr->VHDR_4->num_IO_configurations_14 = num_IO_configurations;
 		drvr->VHDR_4->environment_string_16 = (Bit32u)&environment_string;
@@ -223,7 +270,7 @@ Bit32s ac_sound_call_driver(AIL_DRIVER* drvr, Bit32s fn, VDI_CALL* in, VDI_CALL*
 		out->DI = 0;*/
 		break;
 	}
-	case 0x301: {
+	case 0x301: {//AIL_API_install_DIG_driver_file/AIL_API_install_MDI_driver_file
 		/*drvr->AIL_DRIVER_var4_VHDR->VDI_HDR_var10 = (int)&common_IO_configurations;
 		drvr->AIL_DRIVER_var4_VHDR->num_IO_configurations = num_IO_configurations;
 		drvr->AIL_DRIVER_var4_VHDR->environment_string = &environment_string;
@@ -236,8 +283,17 @@ Bit32s ac_sound_call_driver(AIL_DRIVER* drvr, Bit32s fn, VDI_CALL* in, VDI_CALL*
 		out->DI = 0;
 		break;
 	}
+	case 0x304: {//AIL_API_install_DIG_driver_file/AIL_API_install_MDI_driver_file
+		break;
+	}
+	case 0x305: {//AIL_API_install_DIG_driver_file/AIL_API_install_MDI_driver_file
+		break;
+	}
+	case 0x306: {//AIL_API_uninstall_driver/AIL_API_uninstall_MDI_driver_file
+		break;
+	}
 	case 0x401: {
-		mychunk.abuf=(Bit8u*)last_sample->start_2_3[0];
+/*		mychunk.abuf=(Bit8u*)last_sample->start_2_3[0];
 		mychunk.alen = last_sample->len_4_5[0];
 		mychunk.volume = last_sample->volume_16;
 		//mychunk.allocated = 0;
@@ -246,15 +302,17 @@ Bit32s ac_sound_call_driver(AIL_DRIVER* drvr, Bit32s fn, VDI_CALL* in, VDI_CALL*
 				Mix_PlayChannel(-1, &mychunk, 0);
 		#else
 				Mix_PlayChannel(-1, &mychunk, 0);
-		#endif
-		/*if (Mix_PlayingMusic() == 0)
-		{
-			//Play the music
-			if (Mix_PlayMusic(music, -1) == -1)
-			{
-				return 1;
-			}
-		}*/
+		#endif*/
+		break;
+	}
+	case 0x501: {//AIL_API_install_MDI_INI
+		break;
+	}
+	case 0x502: {//AIL_API_install_MDI_INI
+		break;
+	}
+	default:
+	{
 		break;
 	}
 	}
@@ -262,8 +320,26 @@ Bit32s ac_sound_call_driver(AIL_DRIVER* drvr, Bit32s fn, VDI_CALL* in, VDI_CALL*
 	return 1;
 };
 
+void SOUND_start_sample(HSAMPLE S) {
+	gamechunk.abuf = (Bit8u*)S->start_2_3[0];
+	gamechunk.alen = S->len_4_5[0];
+	gamechunk.volume = S->volume_16;
+
+	Mix_PlayChannel(-1, &gamechunk, 0);
+};
+
+void SOUND_end_sample(HSAMPLE S) {
+	Mix_HaltChannel(-1);
+};
+
+
+
 AIL_DRIVER* ac_AIL_API_install_driver(int a1, Bit8u* a2, int a3)/*driver_image,n_bytes*///27f720
 {
+	/*
+	Mix_HookMusicFinished(void (SDLCALL *music_finished)(void));
+	Mix_ChannelFinished(void (SDLCALL *channel_finished)(int channel));
+	*/
 	//printf("drvr:%08X, fn:%08X, in:%08X, out:%08X\n", drvr, fn, in, out);
 	return 0;
 }

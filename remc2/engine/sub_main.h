@@ -246,11 +246,11 @@ int int386x(int, REGS *, REGS *, struct SREGS *);
 unsigned char __readgsx_BYTE(unsigned long Offset);
 unsigned short __readgsx_WORD(unsigned long Offset);
 int /*__fastcall*/ _wcpp_1_unwind_leave__131(x_DWORD);// weak
-Bit8u* sub_7AB00(/*__int16 a1,*/ int a2, signed __int16 *a3, unsigned __int8 a4);
+void sub_7AB00_draw_menu_animations(/*__int16 a1,*/ int a2, signed __int16 *a3, unsigned __int8 a4);
 int sub_7F6A0(int a1, int a2, __int16 a3, __int16 a4, char *a5, x_BYTE *a6, unsigned __int8 a7);
 unsigned int sub_81CA0(int a1, int a2, __int16 a3, __int16 a4, int a5);
 signed int sub_7E5A0(int a1, int a2, __int16 a3, __int16 a4, int a5, __int16 a6, __int16 a7);
-int sub_81260(int a1, int a2, int a3, __int16 a4, __int16 a5);
+void sub_81260(int a1, int a2, int a3, __int16 a4, __int16 a5);
 int sub_82510(__int16 a1, int *a2);
 signed __int16 sub_81EE0(int a1, int a2, int a3, signed __int16 a4, __int16 a5, __int16 a6);
 signed int sub_80D40(__int16 a1, __int16 a2, __int16 a3, __int16 a4, __int16 a5, char a6);

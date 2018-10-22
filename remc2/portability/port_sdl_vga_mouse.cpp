@@ -76,7 +76,33 @@ Uint8 temppallettebuffer[768];/* = {
 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };*/
 
 
+Uint8* VGA_Get_pallette() {
+	return temppallettebuffer;
+}
 
+void SubBlit() {
+#ifdef USE_SDL2
+	SDL_BlitSurface(screen, NULL, helper_surface, NULL);
+
+	SDL_UpdateTexture(texture, NULL/*&rect*/, helper_surface->pixels, helper_surface->pitch);
+
+	SDL_RenderCopy(renderer, texture, NULL, NULL);
+	SDL_RenderPresent(renderer);
+
+	//SDL_UpdateWindowSurface(gWindow);
+#else
+	SDL_UpdateRect(screen, 0, 0, 0, 0);
+#endif
+}
+
+void SubSet_pallette(SDL_Color* colors) {
+#ifdef USE_SDL2
+	SDL_SetPaletteColors(screen->format->palette, colors, 0, 256);
+	SubBlit();
+#else
+	SDL_SetPalette(screen, SDL_LOGPAL | SDL_PHYSPAL, colors, 0, 256);
+#endif
+}
 
 void Set_basic_pallette() {
 	SDL_Color colors[256];
@@ -92,11 +118,7 @@ void Set_basic_pallette() {
 
 	/* Set palette */
 
-#ifdef USE_SDL2
-	SDL_SetPaletteColors(screen->format->palette, colors, 0, 256);
-#else
-	SDL_SetPalette(screen, SDL_LOGPAL | SDL_PHYSPAL, colors, 0, 256);
-#endif
+	SubSet_pallette(colors);
 	//memcpy(temppallettebuffer, pallettebuffer, 768);
 }
 
@@ -132,21 +154,6 @@ void putpixel(SDL_Surface *surface, int x, int y, Uint32 pixel)
 		*(Uint32 *)p = pixel;
 		break;
 	}
-}
-
-void SubBlit() {
-#ifdef USE_SDL2
-	SDL_BlitSurface(screen, NULL, helper_surface, NULL);
-
-	SDL_UpdateTexture(texture, NULL/*&rect*/, helper_surface->pixels, helper_surface->pitch);
-
-	SDL_RenderCopy(renderer, texture, NULL, NULL);
-	SDL_RenderPresent(renderer);
-
-	//SDL_UpdateWindowSurface(gWindow);
-#else
-	SDL_UpdateRect(screen, 0, 0, 0, 0);
-#endif
 }
 
 void Draw_debug_matrix() {
@@ -583,10 +590,6 @@ void VGA_Resize(int width, int height, int bpp, Uint32 flags) {
 };
 
 
-Uint8* VGA_Get_pallette() {
-	return temppallettebuffer;
-}
-
 void VGA_Set_pallette(Uint8* pallettebuffer) {
 	memcpy(temppallettebuffer, pallettebuffer, 768);
 	SDL_Color colors[256];
@@ -599,12 +602,7 @@ void VGA_Set_pallette(Uint8* pallettebuffer) {
 			//printf("%01X %02X,%02X,%02X\n", i,colors[i].r, colors[i].g, colors[i].b);
 	}
 
-	/* Set palette */
-#ifdef USE_SDL2
-	SDL_SetPaletteColors(screen->format->palette, colors, 0, 256);
-#else
-	SDL_SetPalette(screen, SDL_LOGPAL | SDL_PHYSPAL, colors, 0, 256);
-#endif
+	SubSet_pallette(colors);
 }
 
 void VGA_Write_basic_pallette(Uint8* pallettebuffer) {
