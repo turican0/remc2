@@ -85,9 +85,9 @@ typedef MSS_STRUCT _SAMPLE           // Sample instance
 	//char tag[4];
 	 //16 - volume
 
-struct _DIG_DRIVER* driver_0;
-Bit32u status_1;
-void* start_2_3[2];
+struct _DIG_DRIVER* driver_0;//0
+Bit32u status_1;//4
+void* start_2_3[2];//8
 Bit32u len_4_5[2];
 Bit32u pos_6_7[2];            // Index to next byte (R/W)
 Bit32u done_8_9[2];            // Nonzero if buffer with len=0 sent by app

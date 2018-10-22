@@ -428,6 +428,8 @@ void VGA_Init(int width, int height, int bpp, Uint32 flags)
 		else
 		{
 			init_sound();
+			//SDL_EnableUNICODE(SDL_DISABLE);
+			SDL_ShowCursor(0);
 			// Set hint before you create the Renderer!
 			SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "0");
 			SDL_SetHint(SDL_HINT_FRAMEBUFFER_ACCELERATION, "1");
@@ -522,11 +524,7 @@ void VGA_Init(int width, int height, int bpp, Uint32 flags) {
 	{
 		SDL_Init(SDL_INIT_TIMER | SDL_INIT_VIDEO);
 		init_sound();
-#ifdef USE_SDL2
-		//SDL_EnableUNICODE(SDL_DISABLE);
-#else
 		SDL_EnableUNICODE(SDL_DISABLE);
-#endif
 
 		SDL_ShowCursor(0);
 

@@ -99,9 +99,9 @@ static Mix_MusicInterface *s_music_interfaces[] =
 #ifdef MUSIC_MOD_MIKMOD
     &Mix_MusicInterface_MIKMOD,
 #endif
-//#ifdef MUSIC_MID_FLUIDSYNTH
+#ifdef MUSIC_MID_FLUIDSYNTH
     &Mix_MusicInterface_FLUIDSYNTH,
-//#endif
+#endif
 #ifdef MUSIC_MID_TIMIDITY
     //&Mix_MusicInterface_TIMIDITY,
 #endif

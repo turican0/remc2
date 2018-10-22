@@ -55,7 +55,7 @@ void test_midi_play(Bit8u* data, Bit8u* header,Bit32s track_number)
 }
 
 void SOUND_start_sequence(Bit32s sequence_num) {
-	if (Mix_PlayingMusic() == 0)
+	/*if (Mix_PlayingMusic() == 0)
 	{
 		if (Mix_PlayMusic(GAME_music[sequence_num], -1) == -1)
 			if (Mix_PausedMusic() == 1)
@@ -66,7 +66,7 @@ void SOUND_start_sequence(Bit32s sequence_num) {
 			{
 				Mix_PauseMusic();
 			}
-	}
+	}*/
 };
 
 void SOUND_pause_sequence(Bit32s sequence_num) {
@@ -100,20 +100,7 @@ void SOUND_init_MIDI_sequence(Bit8u* data, Bit8u* header, Bit32s track_number)
 #endif
 }
 
-bool init_sound()
-{	
-	//#define MUSIC_MID_FLUIDSYNTH
-	//Initialize SDL_mixer
-	//Mix_SetSoundFonts("c:\\prenos\\remc2\\sound\\SGM-V2.01.sf2");
-	if (Mix_OpenAudio(11025/*22050*/, AUDIO_U8/*MIX_DEFAULT_FORMAT*/, 1, 4096) == -1)//4096
-	{
-		return false;
-	}
-	//Mix_SetSoundFonts("c:\\prenos\\Magic2\\sf2\\Musyng Kite.sf2");
-	Mix_SetSoundFonts("c:\\prenos\\Magic2\\sf2\\TOM-SF2.sf2");
-	load_sound_files();	
-	return true;
-}
+
 
 
 //Mix_Chunk mychunk;
@@ -332,14 +319,33 @@ void SOUND_end_sample(HSAMPLE S) {
 	Mix_HaltChannel(-1);
 };
 
+void SOUND_finalize(int channel) {
+	gamechunk.volume = 0;
+}
 
+bool init_sound()
+{
+	//#define MUSIC_MID_FLUIDSYNTH
+	//Initialize SDL_mixer
+	//Mix_SetSoundFonts("c:\\prenos\\remc2\\sound\\SGM-V2.01.sf2");
+	if (Mix_OpenAudio(11025/*22050*/, AUDIO_U8/*MIX_DEFAULT_FORMAT*/, 1, 4096) == -1)//4096
+	{
+		return false;
+	}
+	//Mix_SetSoundFonts("c:\\prenos\\Magic2\\sf2\\Musyng Kite.sf2");
+	Mix_SetSoundFonts("c:\\prenos\\Magic2\\sf2\\TOM-SF2.sf2");
+	load_sound_files();
+	/*
+Mix_HookMusicFinished(void (SDLCALL *music_finished)(void));
+*/
+	Mix_ChannelFinished(SOUND_finalize);
+	return true;
+}
 
 AIL_DRIVER* ac_AIL_API_install_driver(int a1, Bit8u* a2, int a3)/*driver_image,n_bytes*///27f720
 {
-	/*
-	Mix_HookMusicFinished(void (SDLCALL *music_finished)(void));
-	Mix_ChannelFinished(void (SDLCALL *channel_finished)(int channel));
-	*/
+
+	
 	//printf("drvr:%08X, fn:%08X, in:%08X, out:%08X\n", drvr, fn, in, out);
 	return 0;
 }
