@@ -13,7 +13,7 @@ Mix_Chunk *high = NULL;
 Mix_Chunk *med = NULL;
 Mix_Chunk *low = NULL;
 
-Mix_Chunk gamechunk;
+Mix_Chunk gamechunk[32];
 
 Bit8u sound_buffer[4][20000];
 /*
@@ -308,11 +308,11 @@ Bit32s ac_sound_call_driver(AIL_DRIVER* drvr, Bit32s fn, VDI_CALL* in, VDI_CALL*
 };
 
 void SOUND_start_sample(HSAMPLE S) {
-	gamechunk.abuf = (Bit8u*)S->start_2_3[0];
-	gamechunk.alen = S->len_4_5[0];
-	gamechunk.volume = S->volume_16;
+	gamechunk[S->index_sample].abuf = (Bit8u*)S->start_2_3[0];
+	gamechunk[S->index_sample].alen = S->len_4_5[0];
+	gamechunk[S->index_sample].volume = S->volume_16;
 
-	Mix_PlayChannel(-1, &gamechunk, 0);
+	Mix_PlayChannel(-1, &gamechunk[S->index_sample], 0);
 };
 
 void SOUND_end_sample(HSAMPLE S) {
@@ -320,7 +320,7 @@ void SOUND_end_sample(HSAMPLE S) {
 };
 
 void SOUND_finalize(int channel) {
-	gamechunk.volume = 0;
+	//gamechunk[S->index_sample].volume = 0;
 }
 
 bool init_sound()

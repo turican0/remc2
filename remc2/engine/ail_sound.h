@@ -86,7 +86,7 @@ typedef MSS_STRUCT _SAMPLE           // Sample instance
 	 //16 - volume
 
 struct _DIG_DRIVER* driver_0;//0
-Bit32u status_1;//4
+Bit32u status_1=0;//4
 void* start_2_3[2];//8
 Bit32u len_4_5[2];
 Bit32u pos_6_7[2];            // Index to next byte (R/W)
@@ -111,7 +111,7 @@ Bit32s vol_scale_18[2][256];
 EOS_callback_type sam_var532_EOS_ptr;
 Bit32s sam_var[1000];
    Bit8u* sam_var542;
-
+   int index_sample = -1;
    //Mix_Chunk chunk;
 }
 SAMPLE;

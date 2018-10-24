@@ -2314,4 +2314,12 @@ x_WORD_E3802 - 2b4802
 
 void sub_8E160_sound_proc15_startsequence(__int16 a1, unsigned __int8 a2)//26f160
 
+1fc2a3 - 1e1000
+call 270710 - 1e1000
 
+-melo byt to byt zde
+void sub_loc_1B54A(Bit16u a1, Bit8u* a2) {
+problem je zde -
+if ( x_WORD_17DB60 != *(Bit16u*)v2 )
+
+a2 = 0;//debug
