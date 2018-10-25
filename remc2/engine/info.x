@@ -2323,3 +2323,7 @@ problem je zde -
 if ( x_WORD_17DB60 != *(Bit16u*)v2 )
 
 a2 = 0;//debug
+
+
+v8 = sub_824E0(x_DWORD_17DB70str.x_WORD_17DB8A);
+fix v8

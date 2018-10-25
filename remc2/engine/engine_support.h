@@ -104,8 +104,8 @@ typedef struct {
 	Bit32u dwordindex_12;
 	Bit8u setting_byte1_22;
 	Bit8u setting_byte2_23;
-	Bit8u setting_byte3_24;
-	Bit8u setting_byte4_25;
+	Bit8u setting_byte3_24;//cheats? 0x20==free spell
+	Bit8u setting_byte4_25;//cheats? 0x1==Invincability
 	Bit8u setting_30;
 	FILE* moviemvidatfile_byte4_33;
 	Bit16u moviemvinumber_byte4_39;

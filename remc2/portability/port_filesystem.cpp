@@ -177,6 +177,16 @@ Bit32s mylseek(FILE* filedesc, x_DWORD position, char type) {
 	return fseek(filedesc, position, type);
 };
 
+Bit32s myfseek(FILE* filedesc, x_DWORD position, char type) {
+	return fseek(filedesc, position, type);
+};
+
+long myftell(FILE* decriptor) {
+	return ftell(decriptor);
+};
+
+
+
 int x_chdir(const char* path) {
 	char path2[2048] = "\0";
 	pathfix((char*)path, path2);

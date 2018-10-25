@@ -14,6 +14,7 @@ Mix_Chunk *med = NULL;
 Mix_Chunk *low = NULL;
 
 Mix_Chunk gamechunk[32];
+HSAMPLE gamechunkHSAMPLE[32];
 
 Bit8u sound_buffer[4][20000];
 /*
@@ -311,8 +312,8 @@ void SOUND_start_sample(HSAMPLE S) {
 	gamechunk[S->index_sample].abuf = (Bit8u*)S->start_2_3[0];
 	gamechunk[S->index_sample].alen = S->len_4_5[0];
 	gamechunk[S->index_sample].volume = S->volume_16;
-
-	Mix_PlayChannel(-1, &gamechunk[S->index_sample], 0);
+	gamechunkHSAMPLE[S->index_sample] = S;
+	Mix_PlayChannel(S->index_sample, &gamechunk[S->index_sample], 0);
 };
 
 void SOUND_end_sample(HSAMPLE S) {
@@ -320,7 +321,21 @@ void SOUND_end_sample(HSAMPLE S) {
 };
 
 void SOUND_finalize(int channel) {
-	//gamechunk[S->index_sample].volume = 0;
+	HSAMPLE S = gamechunkHSAMPLE[channel];
+	if (S)
+	{
+		if (S->status_1 != 1)
+		{
+			if (S->status_1 != 2)
+			{
+				S->status_1 = 2;
+			}
+		}
+		S->vol_scale_18[0][0] = 0;
+		S->flags_14 = 0;
+		S->vol_scale_18[0][2] = 0;
+		S->vol_scale_18[0][3] = 0;
+	}
 }
 
 bool init_sound()

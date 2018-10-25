@@ -23,6 +23,9 @@ Bit32s mymkdir(char* path);
 FILE* myopen(char* path, int pmode, Bit32u flags);
 int myclose(FILE* descriptor);
 Bit32s mylseek(FILE* filedesc, x_DWORD position, char type);
+Bit32s myfseek(FILE* filedesc, x_DWORD position, char type);
+
+long myftell(FILE* decriptor);
 
 int x_chdir(const char* path);
 char* x_getcwd(x_DWORD a, x_DWORD b);
