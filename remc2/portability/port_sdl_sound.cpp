@@ -50,13 +50,13 @@ void test_midi_play(Bit8u* data, Bit8u* header,Bit32s track_number)
 	GAME_music[track_number] = Mix_LoadMUSType_RW(rwmidi, MUS_MID, SDL_TRUE);
 	//music2 = Mix_LoadMUSType_RW(rwmidi, MIX_MUSIC_TIMIDITY, SDL_TRUE);
 #else
-	music2 = Mix_LoadMUS_RW(rwmidi);
+	GAME_music[track_number] = Mix_LoadMUS_RW(rwmidi);
 #endif
 	playmusic2(track_number);
 }
 
 void SOUND_start_sequence(Bit32s sequence_num) {
-	/*if (Mix_PlayingMusic() == 0)
+	if (Mix_PlayingMusic() == 0)
 	{
 		if (Mix_PlayMusic(GAME_music[sequence_num], -1) == -1)
 			if (Mix_PausedMusic() == 1)
@@ -67,7 +67,7 @@ void SOUND_start_sequence(Bit32s sequence_num) {
 			{
 				Mix_PauseMusic();
 			}
-	}*/
+	}
 };
 
 void SOUND_pause_sequence(Bit32s sequence_num) {
@@ -97,7 +97,7 @@ void SOUND_init_MIDI_sequence(Bit8u* data, Bit8u* header, Bit32s track_number)
 	GAME_music[track_number] = Mix_LoadMUSType_RW(rwmidi, MUS_MID, SDL_TRUE);
 	//music2 = Mix_LoadMUSType_RW(rwmidi, MIX_MUSIC_TIMIDITY, SDL_TRUE);
 #else
-	music2 = Mix_LoadMUS_RW(rwmidi);
+	GAME_music[track_number] = Mix_LoadMUS_RW(rwmidi);
 #endif
 }
 
