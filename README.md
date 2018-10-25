@@ -8,6 +8,12 @@ https://www.gog.com/game/magic_carpet_2_the_netherworlds<br />
 <br />
 simple dev blog:https://github.com/turican0/remc2/wiki<br />
 
+## 0.15:<br />
+-BIG work on SOUND and MUSIC<br />
+--rewrite mss and connect it to SDL<br />
+(full function WAV or MIDI music - at now native MIDI, I test timiditi or fluidsynth, I maybe add OPL syntesis later)<br />
+-add SDL2 support<br />
+<br />
 ## 0.14:<br />
 -can open load menu<br />
 -can open save menu<br />
