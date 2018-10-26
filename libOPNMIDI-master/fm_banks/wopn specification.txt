@@ -1,0 +1,131 @@
+===============================================================================
+              MIDI playing bank for Yamaha OPN2 (YM2612) chip
+                 file format specification (WOPN and OPNI)
+===============================================================================
+                         Created in April, 30, 2017
+===============================================================================
+Author:             Vitaliy Novichkov "Wohlstand"
+Contacts emails:    admin@wohlnet.ru, nvd339@yandex.ru
+===============================================================================
+
+Versions:
+- Version 1: (April, 30, 2017): First release
+- Version 2: (November, 24, 2017): Added bank meta-data
+              and measured sounding delays per each instrument
+
+===============================================================================
+Contents:
+    1. Single-instrument entry
+    2. Instrument file (OPNI)
+    3. MIDI playing bank file (WOPN)
+===============================================================================
+
+
+===============================================================================
+                        1. Single-instrument entry
+===============================================================================
+
+    Each instrument file contains a set of data for single
+channel of YM2612 chip to setup the timbre
+
+Lenght of each instrument entry is 65 bytes
+
+Bytes-Lenght  | Description
+-------------------------------------------
+    32        | Name of instrument null-terminated string
+    2         | Big-Endian 16-bit signed integer, MIDI key offset value
+    1         | 8-bit unsigned integer, Percussion instrument key number
+    1         | Feedback and Algirithm register data
+    1         | LFO sensitivity register data
+--- Operators 1/2/3/4 (repeats 4 times) ---
+    1         | Detune and frequency multiplication register data
+    1         | Total level register data
+    1         | Rate scale and attack register data
+    1         | Amplitude mudulation enable and Decay-1 register data
+    1         | Decay-2 register data
+    1         | Systain and Release register data
+    1         | SSG-EG register data
+-------------------------------------------
+--VERSION >= 2---WOPL-Bank-only, OPNI must don't have those fields---
+    2         | Big-Endian 16-bit signed integer, Millisecond delay of sound
+              | while key is on
+    2         | Big-Endian 16-bit signed integer, Millisecond delay of sound
+              | after key off
+-------------------------------------------
+
+
+===============================================================================
+                         2. Instrument file (OPNI)
+===============================================================================
+
+    Each instrument file contains a set of data for single
+channel of YM2612 chip to setup the timbre on it.
+
+Total data lenght: 77 bytes
+
+Bytes-Lenght |  Description
+---------------Header--------------------
+----VERSION==1--------------------------
+    11       |  Magic number "WOPN2-INST\0". Where '\0' is a zero byte which
+             |  termiates the string
+             | (Version-1 has no version number entry!!!)
+----VERSION>=2--------------------------
+    11       |  Magic number "WOPN2-IN2T\0". Where '\0' is a zero byte which
+             |  termiates the string
+    2             | Version code Unsigned 16-bit little-endian integer
+----------------------------------------
+    1        |  Is this instrument a percussion. 0 - melodic, or 1 - percussion
+----------------Data---------------------
+    65       |  [Single-instrument entry], look at top of this text file
+
+
+===============================================================================
+                      3. MIDI playing bank file (WOPN)
+===============================================================================
+
+    Bank format designed to store instrument bank for playing MIDI
+in multiple standards like GM, GS and XG. Format allows to save
+multiple sets with 128-instruments which is needed to store
+GS and XG instrument sets which are have more than standard 128
+instruments with a single bank.
+
+Total data lenght is sum of (version 1): 17 + (65*128*MBanks) + (65*128*PBanks) bytes
+Total data lenght is sum of (version 2): 19 + (65*128*MBanks) + (65*128*PBanks) bytes
+
+Bytes-Lenght |      Description
+---------------Header--------------------
+--Header--
+----VERSION==1--------------------------
+    11            | Magic number "WOPN2-BANK\0". Where '\0' is a zero byte
+                  |     which termiates the string
+                  | (Version-1 has no version number entry!!!)
+----VERSION>=2--------------------------
+    11            | Magic number "WOPN2-B2NK\0". Where '\0' is a zero byte
+                  |     which termiates the string
+    2             | Version code Unsigned 16-bit little-endian integer
+----------------------------------------
+    2             | [MBanks] Unsigned big-endian 16-bit integer, count of melod.
+                  |     MIDI banks (every bank contains 128 instruments)
+    2             | [PBanks] Unsigned big-endian 16-bit integer, count of perc.
+                  |     MIDI banks (every bank contains 128 instruments)
+    1             | Chip global LFO enable flag and frequency register data
+--VERSION >= 2---Melodic bank meta-data-----
+(repeat MBanks times)
+    32            | Name of melodic bank null-terminated string
+    1             | LSB index of bank (unsigned char)
+    1             | MSB index of bank (unsigned char)
+--VERSION >= 2---Percussion bank meta-data--
+(repeat PBanks times)
+    32            | Name of melodic bank null-terminated string
+    1             | LSB index of bank (unsigned char)
+    1             | MSB index of bank (unsigned char)
+-----------Melodic Instruments-----------
+    65*128*MBanks | 128 [Single-instrument entries] per each bank,
+                  |     look at top of this text file
+---------Percussion Instruments----------
+    65*128*PBanks | 128 [Single-instrument entries] per each bank,
+                  |     look at top of this text file
+-----------------------------------------
+
+
+

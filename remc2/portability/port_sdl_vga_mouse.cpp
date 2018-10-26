@@ -237,7 +237,14 @@ int VGA_WhereX() {
 	return(lastpoz%textwidth);
 };
 int VGA_WhereY() {
-	return(lastpoz%textwidth);
+	return((int)(lastpoz/textwidth));
+};
+
+POSITION VGA_WhereXY() {
+	POSITION result;
+	result.x=(lastpoz%textwidth);
+	result.y=((int)(lastpoz / textwidth));
+	return result;
 };
 
 void VGA_Draw_string(char* wrstring) {

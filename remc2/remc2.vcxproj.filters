@@ -25,6 +25,18 @@
     <Filter Include="Zdrojové soubory\portability">
       <UniqueIdentifier>{01d93e33-43df-4fd3-8b70-5b751cd75b6f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Zdrojové soubory\libs">
+      <UniqueIdentifier>{c389486e-08f9-4a9c-8d63-02861b70c8ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Zdrojové soubory\libs\libADL">
+      <UniqueIdentifier>{78883006-e8c8-4d4f-bd9e-96abcaacbd44}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Zdrojové soubory\libs\libOPL">
+      <UniqueIdentifier>{ff369d05-130b-4c6a-8c3a-280d3b6e9439}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Zdrojové soubory\libs\sdl-mixer-x">
+      <UniqueIdentifier>{70d24271-835d-4590-a4bc-c3d3bfaafc36}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -78,6 +90,219 @@
     <ClInclude Include="portability\xmi2mid.h">
       <Filter>Zdrojové soubory\portability</Filter>
     </ClInclude>
+    <ClInclude Include="..\libADLMIDI-master\src\adldata.hh">
+      <Filter>Zdrojové soubory\libs\libADL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libADLMIDI-master\src\adlmidi_bankmap.h">
+      <Filter>Zdrojové soubory\libs\libADL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libADLMIDI-master\src\adlmidi_cvt.hpp">
+      <Filter>Zdrojové soubory\libs\libADL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libADLMIDI-master\src\adlmidi_midiplay.hpp">
+      <Filter>Zdrojové soubory\libs\libADL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libADLMIDI-master\src\adlmidi_opl3.hpp">
+      <Filter>Zdrojové soubory\libs\libADL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libADLMIDI-master\src\adlmidi_private.hpp">
+      <Filter>Zdrojové soubory\libs\libADL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libADLMIDI-master\src\adlmidi_ptr.hpp">
+      <Filter>Zdrojové soubory\libs\libADL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libADLMIDI-master\src\cvt_mus2mid.hpp">
+      <Filter>Zdrojové soubory\libs\libADL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libADLMIDI-master\src\cvt_xmi2mid.hpp">
+      <Filter>Zdrojové soubory\libs\libADL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libADLMIDI-master\src\file_reader.hpp">
+      <Filter>Zdrojové soubory\libs\libADL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libADLMIDI-master\src\fraction.hpp">
+      <Filter>Zdrojové soubory\libs\libADL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libADLMIDI-master\src\midi_sequencer.h">
+      <Filter>Zdrojové soubory\libs\libADL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libADLMIDI-master\src\midi_sequencer.hpp">
+      <Filter>Zdrojové soubory\libs\libADL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libADLMIDI-master\src\midi_sequencer_impl.hpp">
+      <Filter>Zdrojové soubory\libs\libADL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libADLMIDI-master\src\chips\dosbox_opl3.h">
+      <Filter>Zdrojové soubory\libs\libADL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libADLMIDI-master\src\chips\nuked_opl3.h">
+      <Filter>Zdrojové soubory\libs\libADL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libADLMIDI-master\src\chips\nuked_opl3_v174.h">
+      <Filter>Zdrojové soubory\libs\libADL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libADLMIDI-master\src\chips\opl_chip_base.h">
+      <Filter>Zdrojové soubory\libs\libADL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libADLMIDI-master\src\chips\nuked\nukedopl3.h">
+      <Filter>Zdrojové soubory\libs\libADL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libADLMIDI-master\src\chips\nuked\nukedopl3_174.h">
+      <Filter>Zdrojové soubory\libs\libADL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libADLMIDI-master\src\chips\dosbox\dbopl.h">
+      <Filter>Zdrojové soubory\libs\libADL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libADLMIDI-master\src\wopl\wopl_file.h">
+      <Filter>Zdrojové soubory\libs\libADL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libOPNMIDI-master\src\cvt_mus2mid.hpp">
+      <Filter>Zdrojové soubory\libs\libOPL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libOPNMIDI-master\src\cvt_xmi2mid.hpp">
+      <Filter>Zdrojové soubory\libs\libOPL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libOPNMIDI-master\src\file_reader.hpp">
+      <Filter>Zdrojové soubory\libs\libOPL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libOPNMIDI-master\src\fraction.hpp">
+      <Filter>Zdrojové soubory\libs\libOPL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libOPNMIDI-master\src\midi_sequencer.h">
+      <Filter>Zdrojové soubory\libs\libOPL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libOPNMIDI-master\src\midi_sequencer.hpp">
+      <Filter>Zdrojové soubory\libs\libOPL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libOPNMIDI-master\src\midi_sequencer_impl.hpp">
+      <Filter>Zdrojové soubory\libs\libOPL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libOPNMIDI-master\src\opnbank.h">
+      <Filter>Zdrojové soubory\libs\libOPL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libOPNMIDI-master\src\opnmidi_bankmap.h">
+      <Filter>Zdrojové soubory\libs\libOPL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libOPNMIDI-master\src\opnmidi_cvt.hpp">
+      <Filter>Zdrojové soubory\libs\libOPL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libOPNMIDI-master\src\opnmidi_midiplay.hpp">
+      <Filter>Zdrojové soubory\libs\libOPL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libOPNMIDI-master\src\opnmidi_opn2.hpp">
+      <Filter>Zdrojové soubory\libs\libOPL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libOPNMIDI-master\src\opnmidi_private.hpp">
+      <Filter>Zdrojové soubory\libs\libOPL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libOPNMIDI-master\src\opnmidi_ptr.hpp">
+      <Filter>Zdrojové soubory\libs\libOPL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libOPNMIDI-master\src\wopn\wopn_file.h">
+      <Filter>Zdrojové soubory\libs\libOPL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libOPNMIDI-master\src\chips\gens_opn2.h">
+      <Filter>Zdrojové soubory\libs\libOPL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libOPNMIDI-master\src\chips\gx_opn2.h">
+      <Filter>Zdrojové soubory\libs\libOPL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libOPNMIDI-master\src\chips\mame_opn2.h">
+      <Filter>Zdrojové soubory\libs\libOPL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libOPNMIDI-master\src\chips\nuked_opn2.h">
+      <Filter>Zdrojové soubory\libs\libOPL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libOPNMIDI-master\src\chips\opn_chip_base.h">
+      <Filter>Zdrojové soubory\libs\libOPL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libOPNMIDI-master\src\chips\gens\Ym2612_Emu.h">
+      <Filter>Zdrojové soubory\libs\libOPL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libOPNMIDI-master\src\chips\gx\gx_ym2612.h">
+      <Filter>Zdrojové soubory\libs\libOPL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libOPNMIDI-master\src\chips\mame\mame_ym2612fm.h">
+      <Filter>Zdrojové soubory\libs\libOPL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libOPNMIDI-master\src\chips\mame\mamedef.h">
+      <Filter>Zdrojové soubory\libs\libOPL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libOPNMIDI-master\src\chips\nuked\ym3438.h">
+      <Filter>Zdrojové soubory\libs\libOPL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SDL-Mixer-X-master\src\effects_internal.h">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SDL-Mixer-X-master\src\mixer.h">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SDL-Mixer-X-master\src\music.h">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\load_aiff.h">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\load_voc.h">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_cmd.h">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_flac.h">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_fluidsynth.h">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_gme.h">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_id3tag.h">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_mad.h">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_midi_adl.h">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_midi_opn.h">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_mikmod.h">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_modplug.h">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_mpg123.h">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_nativemidi.h">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_ogg.h">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_opus.h">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_timidity.h">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_wav.h">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\OPNMIDI\gm_opn_bank.h">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\native_midi\native_midi.h">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\native_midi\native_midi_common.h">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -116,6 +341,183 @@
     <ClCompile Include="portability\xmi2mid.cpp">
       <Filter>Zdrojové soubory\portability</Filter>
     </ClCompile>
+    <ClCompile Include="..\libADLMIDI-master\src\adldata.cpp">
+      <Filter>Zdrojové soubory\libs\libADL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libADLMIDI-master\src\adlmidi.cpp">
+      <Filter>Zdrojové soubory\libs\libADL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libADLMIDI-master\src\adlmidi_load.cpp">
+      <Filter>Zdrojové soubory\libs\libADL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libADLMIDI-master\src\adlmidi_midiplay.cpp">
+      <Filter>Zdrojové soubory\libs\libADL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libADLMIDI-master\src\adlmidi_opl3.cpp">
+      <Filter>Zdrojové soubory\libs\libADL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libADLMIDI-master\src\adlmidi_private.cpp">
+      <Filter>Zdrojové soubory\libs\libADL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libADLMIDI-master\src\adlmidi_sequencer.cpp">
+      <Filter>Zdrojové soubory\libs\libADL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libADLMIDI-master\src\chips\dosbox_opl3.cpp">
+      <Filter>Zdrojové soubory\libs\libADL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libADLMIDI-master\src\chips\nuked_opl3.cpp">
+      <Filter>Zdrojové soubory\libs\libADL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libADLMIDI-master\src\chips\nuked_opl3_v174.cpp">
+      <Filter>Zdrojové soubory\libs\libADL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libADLMIDI-master\src\chips\nuked\nukedopl3.c">
+      <Filter>Zdrojové soubory\libs\libADL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libADLMIDI-master\src\chips\nuked\nukedopl3_174.c">
+      <Filter>Zdrojové soubory\libs\libADL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libADLMIDI-master\src\chips\dosbox\dbopl.cpp">
+      <Filter>Zdrojové soubory\libs\libADL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libADLMIDI-master\src\wopl\wopl_file.c">
+      <Filter>Zdrojové soubory\libs\libADL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libOPNMIDI-master\src\opnmidi.cpp">
+      <Filter>Zdrojové soubory\libs\libOPL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libOPNMIDI-master\src\opnmidi_load.cpp">
+      <Filter>Zdrojové soubory\libs\libOPL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libOPNMIDI-master\src\opnmidi_midiplay.cpp">
+      <Filter>Zdrojové soubory\libs\libOPL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libOPNMIDI-master\src\opnmidi_opn2.cpp">
+      <Filter>Zdrojové soubory\libs\libOPL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libOPNMIDI-master\src\opnmidi_private.cpp">
+      <Filter>Zdrojové soubory\libs\libOPL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libOPNMIDI-master\src\opnmidi_sequencer.cpp">
+      <Filter>Zdrojové soubory\libs\libOPL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libOPNMIDI-master\src\wopn\wopn_file.c">
+      <Filter>Zdrojové soubory\libs\libOPL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libOPNMIDI-master\src\chips\gens_opn2.cpp">
+      <Filter>Zdrojové soubory\libs\libOPL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libOPNMIDI-master\src\chips\gx_opn2.cpp">
+      <Filter>Zdrojové soubory\libs\libOPL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libOPNMIDI-master\src\chips\mame_opn2.cpp">
+      <Filter>Zdrojové soubory\libs\libOPL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libOPNMIDI-master\src\chips\nuked_opn2.cpp">
+      <Filter>Zdrojové soubory\libs\libOPL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libOPNMIDI-master\src\chips\gens\Ym2612_Emu.cpp">
+      <Filter>Zdrojové soubory\libs\libOPL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libOPNMIDI-master\src\chips\gx\gx_ym2612.c">
+      <Filter>Zdrojové soubory\libs\libOPL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libOPNMIDI-master\src\chips\mame\mame_ym2612fm.c">
+      <Filter>Zdrojové soubory\libs\libOPL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libOPNMIDI-master\src\chips\nuked\ym3438.c">
+      <Filter>Zdrojové soubory\libs\libOPL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\effect_position.c">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\effect_stereoreverse.c">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\effects_internal.c">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\mixer.c">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\mixer_x_deprecated.c">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\music.c">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\load_aiff.c">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\load_voc.c">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_cmd.c">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_flac.c">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_fluidsynth.c">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_gme.c">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_id3tag.c">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_mad.c">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_midi_adl.c">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_midi_opn.c">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_mikmod.c">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_modplug.c">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_mpg123.c">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_nativemidi.c">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_ogg.c">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_opus.c">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_timidity.c">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_wav.c">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\native_midi\native_midi_common.c">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\native_midi\native_midi_haiku.cpp">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\native_midi\native_midi_mac.c">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\native_midi\native_midi_macosx.c">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\native_midi\native_midi_win32.c">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\vb6_binding\vb6_sdl_binds.c">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="engine\info.x">
@@ -123,6 +525,18 @@
     </None>
     <None Include="engine\structures.x">
       <Filter>Zdrojové soubory\engine</Filter>
+    </None>
+    <None Include="..\libADLMIDI-master\src\adlmidi_bankmap.tcc">
+      <Filter>Zdrojové soubory\libs\libADL</Filter>
+    </None>
+    <None Include="..\libADLMIDI-master\src\chips\opl_chip_base.tcc">
+      <Filter>Zdrojové soubory\libs\libADL</Filter>
+    </None>
+    <None Include="..\libOPNMIDI-master\src\opnmidi_bankmap.tcc">
+      <Filter>Zdrojové soubory\libs\libOPL</Filter>
+    </None>
+    <None Include="..\libOPNMIDI-master\src\chips\opn_chip_base.tcc">
+      <Filter>Zdrojové soubory\libs\libOPL</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

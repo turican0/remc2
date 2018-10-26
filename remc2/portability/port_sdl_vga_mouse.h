@@ -12,6 +12,12 @@
 
 #include "port_sdl_sound.h"
 
+typedef struct
+{
+	Bit32s x;
+	Bit32s y;
+} POSITION;
+
 void VGA_Init();
 void VGA_Init(int width, int height, int bpp, Uint32 flags);
 void VGA_Resize(int width, int height);
@@ -24,7 +30,8 @@ void VGA_Draw_string(char* wrstring);
 //void VGA_Set_Cursor(posistruct posstrcursor,int count);
 void VGA_GotoXY(int x, int y);
 int VGA_WhereX(); //returns current text cursor (x) coordinate 
-int VGA_WhereY(); //returns current text cursor (y) coordinate 
+int VGA_WhereY(); //returns current text cursor (y) coordinate
+POSITION VGA_WhereXY();
 void Set_basic_pallette();
 Bit16s VGA_get_shift_status();
 bool VGA_check_standart_input_status();

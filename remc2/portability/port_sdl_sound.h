@@ -2,10 +2,10 @@
 #define PORT_SDL_SOUND
 #include "mctypes.h"
 #include "SDL.h"
-#include "SDL_mixer.h"
+#include "SDL_mixer_ext.h"
 #include "music.h"
 #include "mixer.h"
-#include "music_timidity.h"
+//#include "music_timidity.h"
 #include "xmi2mid.h"
 #include <string>
 
