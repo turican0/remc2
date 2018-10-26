@@ -28,7 +28,7 @@ extern void add_chunk_decoder(const char *decoder);
 #define MUSIC_WAV
 #define MUSIC_MID_OPNMIDI
 #define MUSIC_MID_ADLMIDI
-#define MUSIC_MID_FLUIDSYNTH
+//#define MUSIC_MID_FLUIDSYNTH
 //#define MUSIC_MID_TIMIDITY
 //#define MUSIC_MID_NATIVE
 

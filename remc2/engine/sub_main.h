@@ -254,7 +254,7 @@ void sub_81260(int a1, int a2, int a3, __int16 a4, __int16 a5);
 int sub_82510(__int16 a1, int *a2);
 signed __int16 sub_81EE0(int a1, int a2, int a3, signed __int16 a4, __int16 a5, __int16 a6);
 signed int sub_80D40_move_graphics_and_play_sounds(__int16 a1, __int16 a2, __int16 a3, __int16 a4, __int16 a5, char a6);
-void /*__spoils<ecx>*/ sub_85CC3(unsigned int a1, int a2, unsigned __int16 *a3);
+void sub_85CC3_draw_round_frame(/*unsigned int a1, int a2, */unsigned __int16 *a3);
 void sub_840B8(char a1, bool a2, char a3, char a4);
 //unsigned     int __readeflags(void);
 __int16 sub_840D3(char _CF, bool _ZF, char _SF, char _OF);

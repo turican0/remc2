@@ -104,9 +104,8 @@ void SubSet_pallette(SDL_Color* colors) {
 #endif
 }
 
-void Set_basic_pallette() {
+void Set_basic_pallette0() {
 	SDL_Color colors[256];
-	/* Fill colors with color information */
 	for (int i = 0;i < 256;i++) {
 		temppallettebuffer[i * 3] = i / 4;
 		temppallettebuffer[i * 3 + 1] = i / 4;
@@ -115,11 +114,25 @@ void Set_basic_pallette() {
 		colors[i].g = temppallettebuffer[i * 3 + 1];
 		colors[i].b = temppallettebuffer[i * 3 + 2];
 	}
-
-	/* Set palette */
-
 	SubSet_pallette(colors);
-	//memcpy(temppallettebuffer, pallettebuffer, 768);
+}
+void Set_basic_pallette1() {
+	SDL_Color colors[256];
+	for (int i = 0;i < 256;i++) {
+		if (i != 0)
+		{
+			colors[i].r = 0;
+			colors[i].g = 0;
+			colors[i].b = 0;
+		}
+		else
+		{
+			colors[i].r = 255;
+			colors[i].g = 255;
+			colors[i].b = 255;
+		}
+	}
+	SubSet_pallette(colors);
 }
 
 void putpixel(SDL_Surface *surface, int x, int y, Uint32 pixel)
@@ -156,7 +169,7 @@ void putpixel(SDL_Surface *surface, int x, int y, Uint32 pixel)
 	}
 }
 
-void Draw_debug_matrix() {
+void Draw_debug_matrix0() {
 	SDL_Rect dstrect;
 	if (SDL_MUSTLOCK(screen)) {
 		if (SDL_LockSurface(screen) < 0) {
@@ -173,6 +186,31 @@ void Draw_debug_matrix() {
 			dstrect.w = screen->w / 16;
 			dstrect.h = screen->h / 16;
 			SDL_FillRect(screen, &dstrect, i * 16 + j/*SDL_MapRGB(screen->format, i*16+j, 0, 0)*/);
+		}
+
+	if (SDL_MUSTLOCK(screen)) {
+		SDL_UnlockSurface(screen);
+	}
+	SubBlit();
+};
+
+void Draw_debug_matrix1() {
+	SDL_Rect dstrect;
+	if (SDL_MUSTLOCK(screen)) {
+		if (SDL_LockSurface(screen) < 0) {
+			fprintf(stderr, "Can't lock screen: %s\n", SDL_GetError());
+			return;
+		}
+	}
+
+	for (int i = 0;i < 16;i++)
+		for (int j = 0;j < 16;j++)
+		{
+			dstrect.x = i * screen->w / 16;
+			dstrect.y = j * screen->h / 16;
+			dstrect.w = screen->w / 16;
+			dstrect.h = screen->h / 16;
+			SDL_FillRect(screen, &dstrect, 1);
 		}
 
 	if (SDL_MUSTLOCK(screen)) {
@@ -274,6 +312,7 @@ void VGA_Draw_string(char* wrstring) {
 		SDL_UnlockSurface(screen);
 	}
 	SubBlit();
+	mydelay(50);
 }
 
 
@@ -519,7 +558,8 @@ void VGA_Init(int width, int height, int bpp, Uint32 flags)
 			exit(-1);
 		}
 
-		Set_basic_pallette();
+		Set_basic_pallette1();
+		Draw_debug_matrix1();	
 		inited = true;
 		//mydelay(3000);
 	}
@@ -555,7 +595,8 @@ void VGA_Init(int width, int height, int bpp, Uint32 flags) {
 		}
 
 		//debug
-		Set_basic_pallette();
+		Set_basic_pallette1();
+		Draw_debug_matrix1();
 		//Draw_debug_matrix();	
 		//Draw_letter(0x42,15,15);
 		//VGA_Draw_string((char*)"test textx");

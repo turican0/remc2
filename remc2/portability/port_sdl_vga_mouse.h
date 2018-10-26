@@ -32,7 +32,8 @@ void VGA_GotoXY(int x, int y);
 int VGA_WhereX(); //returns current text cursor (x) coordinate 
 int VGA_WhereY(); //returns current text cursor (y) coordinate
 POSITION VGA_WhereXY();
-void Set_basic_pallette();
+void Set_basic_pallette0();
+void Set_basic_pallette1();
 Bit16s VGA_get_shift_status();
 bool VGA_check_standart_input_status();
 Bit16u VGA_read_char_from_buffer();

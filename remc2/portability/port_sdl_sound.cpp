@@ -304,7 +304,7 @@ Bit32s ac_sound_call_driver(AIL_DRIVER* drvr, Bit32s fn, VDI_CALL* in, VDI_CALL*
 		break;
 	}
 	}
-	printf("drvr:%08X, fn:%08X, in:%08X, out:%08X\n", drvr, fn, in, out);
+	//printf("drvr:%08X, fn:%08X, in:%08X, out:%08X\n", drvr, fn, in, out);
 	return 1;
 };
 
