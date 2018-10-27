@@ -2327,3 +2327,6 @@ a2 = 0;//debug
 
 v8 = sub_824E0(x_DWORD_17DB70str.x_WORD_17DB8A);
 fix v8
+
+find 
+x_BYTE_F6EE0 - 2c7ee0 \

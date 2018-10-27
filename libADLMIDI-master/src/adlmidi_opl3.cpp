@@ -26,6 +26,8 @@
 #include <stdlib.h>
 #include <cassert>
 
+#define ADLMIDI_DISABLE_NUKED_EMULATOR
+
 #ifdef ADLMIDI_HW_OPL
 static const unsigned OPLBase = 0x388;
 #else

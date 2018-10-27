@@ -539,12 +539,4 @@
       <Filter>Zdrojové soubory\libs\libOPL</Filter>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Library Include="..\sdl2\lib\x86\SDL2.lib">
-      <Filter>Zdrojové soubory\sdl</Filter>
-    </Library>
-    <Library Include="..\sdl2\lib\x86\SDLmain.lib">
-      <Filter>Zdrojové soubory\sdl</Filter>
-    </Library>
-  </ItemGroup>
 </Project>

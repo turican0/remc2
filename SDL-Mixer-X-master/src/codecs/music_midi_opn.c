@@ -54,7 +54,7 @@ static void OPNMIDI_SetDefault(OpnMidi_Setup *setup)
 
 int SDLCALLCC Mix_OPNMIDI_getFullRangeBrightness()
 {
-    #ifdef MUSIC_MID_ADLMIDI
+    #ifdef MUSIC_MID_OPNMIDI
     return opnmidi_setup.full_brightness_range;
     #else
     return -1;
@@ -92,7 +92,7 @@ void SDLCALLCC Mix_OPNMIDI_setFullRangeBrightness(int frb)
 
 int SDLCALLCC Mix_OPNMIDI_getEmulator()
 {
-    #ifdef MUSIC_MID_ADLMIDI
+    #ifdef MUSIC_MID_OPNMIDI
     return opnmidi_setup.emulator;
     #else
     return -1;

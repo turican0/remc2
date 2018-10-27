@@ -49,6 +49,7 @@ static UINT MidiDevice=MIDI_MAPPER;
 static HMIDISTRM hMidiStream;
 static NativeMidiSong *currentsong;
 
+//#ifdef MUSIC_MID_NATIVE
 static int BlockOut(NativeMidiSong *song)
 {
   MMRESULT err;
@@ -324,5 +325,5 @@ const char *native_midi_error(void)
 {
   return "";
 }
-
+//#endif// MUSIC_MID_NATIVE
 #endif /* Windows native MIDI support */

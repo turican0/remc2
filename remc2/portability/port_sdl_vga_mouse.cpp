@@ -312,7 +312,7 @@ void VGA_Draw_string(char* wrstring) {
 		SDL_UnlockSurface(screen);
 	}
 	SubBlit();
-	mydelay(50);
+	mydelay(10);
 }
 
 

@@ -1,11 +1,12 @@
 #include "port_sdl_sound.h"
+#include <adlmidi.h>
 
 /*This source code copyrighted by Lazy Foo' Productions (2004-2013)
 and may not be redistributed without written permission.*/
 
 //The music that will be played
 Mix_Music *music = NULL;
-Mix_Music* GAME_music[10] = {NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL};
+Mix_Music* GAME_music[10] = { NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL };
 
 //The sound effects that will be used
 Mix_Chunk *scratch = NULL;
@@ -34,17 +35,17 @@ Bit8u sound_buffer[4][20000];
  2
 
 */
-void test_midi_play(Bit8u* data, Bit8u* header,Bit32s track_number)
+void test_midi_play(Bit8u* data, Bit8u* header, Bit32s track_number)
 {
-	Bit8u* acttrack=&header[32 + track_number * 32];
+	Bit8u* acttrack = &header[32 + track_number * 32];
 	//int testsize = *(Bit32u*)(&header[32 + (track_number + 1) * 32] + 18) - *(Bit32u*)(acttrack + 18);
 	int testsize2 = *(Bit32u*)(acttrack + 26);
-	
+
 	//unsigned char* TranscodeXmiToMid(const unsigned char* pXmiData,	size_t iXmiLength, size_t* pMidLength);
 	size_t iXmiLength = testsize2;
 	size_t pMidLength;
-	Bit8u* outmidi = TranscodeXmiToMid((const Bit8u*)*(Bit32u*)(acttrack + 18), iXmiLength,&pMidLength);
-	SDL_RWops* rwmidi=SDL_RWFromMem(outmidi, pMidLength);
+	Bit8u* outmidi = TranscodeXmiToMid((const Bit8u*)*(Bit32u*)(acttrack + 18), iXmiLength, &pMidLength);
+	SDL_RWops* rwmidi = SDL_RWFromMem(outmidi, pMidLength);
 #ifdef USE_SDL2
 	//Timidity_Init();
 	GAME_music[track_number] = Mix_LoadMUSType_RW(rwmidi, MUS_MID, SDL_TRUE);
@@ -231,7 +232,7 @@ void playmusic2(Bit32s track_number)
 	}
 }
 
-struct{
+struct {
 	int a;
 } common_IO_configurations;
 
@@ -281,16 +282,16 @@ Bit32s ac_sound_call_driver(AIL_DRIVER* drvr, Bit32s fn, VDI_CALL* in, VDI_CALL*
 		break;
 	}
 	case 0x401: {
-/*		mychunk.abuf=(Bit8u*)last_sample->start_2_3[0];
-		mychunk.alen = last_sample->len_4_5[0];
-		mychunk.volume = last_sample->volume_16;
-		//mychunk.allocated = 0;
+		/*		mychunk.abuf=(Bit8u*)last_sample->start_2_3[0];
+				mychunk.alen = last_sample->len_4_5[0];
+				mychunk.volume = last_sample->volume_16;
+				//mychunk.allocated = 0;
 
-		#ifdef USE_SDL2
-				Mix_PlayChannel(-1, &mychunk, 0);
-		#else
-				Mix_PlayChannel(-1, &mychunk, 0);
-		#endif*/
+				#ifdef USE_SDL2
+						Mix_PlayChannel(-1, &mychunk, 0);
+				#else
+						Mix_PlayChannel(-1, &mychunk, 0);
+				#endif*/
 		break;
 	}
 	case 0x501: {//AIL_API_install_MDI_INI
@@ -338,17 +339,18 @@ void SOUND_finalize(int channel) {
 	}
 }
 
+int run();
+
 bool init_sound()
 {
+	//run();
 	//#define MUSIC_MID_FLUIDSYNTH
 	//Initialize SDL_mixer
-	//Mix_SetSoundFonts("c:\\prenos\\remc2\\sound\\SGM-V2.01.sf2");
 	if (Mix_OpenAudio(11025/*22050*/, AUDIO_U8/*MIX_DEFAULT_FORMAT*/, 1, 4096) == -1)//4096
 	{
 		return false;
 	}
-	//Mix_SetSoundFonts("c:\\prenos\\Magic2\\sf2\\Musyng Kite.sf2");
-	Mix_SetSoundFonts("c:\\prenos\\Magic2\\sf2\\TOM-SF2.sf2");
+	//Mix_SetSoundFonts("c:\\prenos\\Magic2\\sf2\\TOM-SF2.sf2");
 	load_sound_files();
 	/*
 Mix_HookMusicFinished(void (SDLCALL *music_finished)(void));
@@ -360,7 +362,7 @@ Mix_HookMusicFinished(void (SDLCALL *music_finished)(void));
 AIL_DRIVER* ac_AIL_API_install_driver(int a1, Bit8u* a2, int a3)/*driver_image,n_bytes*///27f720
 {
 
-	
+
 	//printf("drvr:%08X, fn:%08X, in:%08X, out:%08X\n", drvr, fn, in, out);
 	return 0;
 }
@@ -377,3 +379,114 @@ Bit16u ac_get_real_vect(Bit32u vectnum)
 {
 	return actvect[vectnum];
 };
+
+void test_music()
+{
+}
+
+void my_audio_callback(void *midi_player, Uint8 *stream, int len);
+
+/* variable declarations */
+static Uint32 is_playing = 0; /* remaining length of the sample we have to play */
+static short buffer[4096]; /* Audio buffer */
+
+int run()
+{
+	/* local variables */
+	static SDL_AudioSpec            spec; /* the specs of our piece of music */
+	static struct ADL_MIDIPlayer    *midi_player = NULL; /* Instance of ADLMIDI player */
+	static const char               *music_path = NULL; /* Path to music file */
+
+	music_path = "c:\\prenos\\remc2\\remc2\\memimages\\midi\\Music001.mid";
+
+	/* Initialize SDL.*/
+	if (SDL_Init(SDL_INIT_AUDIO) < 0)
+		return 1;
+
+	spec.freq = 44100;
+	spec.format = AUDIO_S16SYS;
+	spec.channels = 2;
+	spec.samples = 2048;
+
+	/* Initialize ADLMIDI */
+	midi_player = adl_init(spec.freq);
+	if (!midi_player)
+	{
+		fprintf(stderr, "Couldn't initialize ADLMIDI: %s\n", adl_errorString());
+		return 1;
+	}
+
+	/* set the callback function */
+	spec.callback = my_audio_callback;
+	/* set ADLMIDI's descriptor as userdata to use it for sound generation */
+	spec.userdata = midi_player;
+
+	/* Open the audio device */
+	if (SDL_OpenAudio(&spec, NULL) < 0)
+	{
+		fprintf(stderr, "Couldn't open audio: %s\n", SDL_GetError());
+		return 1;
+	}
+
+	/* Optionally Setup ADLMIDI as you want */
+
+	/* Set using of embedded bank by ID */
+	/*adl_setBank(midi_player, 68);*/
+
+	/* Set using of custom bank (WOPL format) loaded from a file */
+	/*adl_openBankFile(midi_player, "/home/vitaly/Yandex.Disk/??????/Wolfinstein.wopl");*/
+
+	/* Open the MIDI (or MUS, IMF or CMF) file to play */
+	if (adl_openFile(midi_player, music_path) < 0)
+	{
+		fprintf(stderr, "Couldn't open music file: %s\n", adl_errorInfo(midi_player));
+		SDL_CloseAudio();
+		adl_close(midi_player);
+		return 1;
+	}
+
+	is_playing = 1;
+	/* Start playing */
+	SDL_PauseAudio(0);
+
+	printf("Playing... Hit Ctrl+C to quit!\n");
+
+	/* wait until we're don't playing */
+	while (is_playing)
+	{
+		SDL_Delay(100);
+	}
+
+	/* shut everything down */
+	SDL_CloseAudio();
+	adl_close(midi_player);
+
+	return 0;
+}
+
+/*
+ audio callback function
+ here you have to copy the data of your audio buffer into the
+ requesting audio buffer (stream)
+ you should only copy as much as the requested length (len)
+*/
+void my_audio_callback(void *midi_player, Uint8 *stream, int len)
+{
+	struct ADL_MIDIPlayer* p = (struct ADL_MIDIPlayer*)midi_player;
+
+	/* Convert bytes length into total count of samples in all channels */
+	int samples_count = len / 2;
+
+	/* Take some samples from the ADLMIDI */
+	samples_count = adl_play(p, samples_count, (short*)buffer);
+
+	if (samples_count <= 0)
+	{
+		is_playing = 0;
+		SDL_memset(stream, 0, len);
+		return;
+	}
+
+	/* Send buffer to the audio device */
+	SDL_memcpy(stream, (Uint8*)buffer, samples_count * 2);
+}
