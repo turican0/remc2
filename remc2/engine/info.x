@@ -2330,3 +2330,20 @@ fix v8
 
 find 
 x_BYTE_F6EE0 - 2c7ee0 \
+
+find
+x_BYTE_13B4E0 - 30c4e0 nebo spis 30c500 v sub_44E40
+vychazi z
+x_BYTE_11B4E0 - 2ec4e0 nebo spis 2ec500 v sub_44DB0 - asi ok
+vychazi z
+x_WORD_15B4E0 - 32c4e0 f5fd58 v sub_B5EFA -zde je to vyreseno
+
+
+find 355220
+
+sub_43830 - v2
+
+
+dalsi zasek v sub_44EE0
+
+dalsi zasek v sub_440D0

@@ -210,9 +210,9 @@ unsigned __int16 sub_3FD60(int a1, int a2);
 //unsigned char __inx_BYTE(unsigned short Port);
 unsigned int sub_43970(unsigned int a1);
 unsigned __int16 sub_44EE0(int a1, int a2);
-char sub_56A30_init_game_level(unsigned int a1);
+void sub_56A30_init_game_level(unsigned int a1);
 int sub_47320(signed int a1);
-char sub_56D60(unsigned int a1, char a2);
+void sub_56D60(unsigned int a1, char a2);
 void sub_47560(int a1, int a2, x_BYTE *a3, signed int a4, __int16 a5);
 int sub_51BB0(int a1);
 //x_DWORD /*__cdecl*/ toupper(x_DWORD); //weak
@@ -340,9 +340,9 @@ __int64 sub_B522B(int a1, __int16 a2, int _ESI);
 //int _Intel_hook_fini(void);// weak
 //int _Phar_hook_fini(void);// weak
 //int /*__cdecl*/ _Ergo_hook_fini(x_DWORD);// weak
-__int16 sub_B5F8F(__int16 a1, int a2, int a3, __int16 a4);
+void sub_B5F8F(__int16 a1, Bit16u* a2, Bit32s a3, __int16* a4);
 int sub_BD320(int result, x_BYTE *a2, x_BYTE *a3, int a4, int a5, int a6);
-__int16 sub_B5EFA(__int16 a1, int a2, int a3, __int16 a4);
+void sub_B5EFA(__int16 a1, Bit16u* a2, Bit32s a3, __int16* a4);
 
 //---------------------------
 
