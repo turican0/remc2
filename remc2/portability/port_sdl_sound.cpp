@@ -62,6 +62,8 @@ void test_midi_play(Bit8u* data, Bit8u* header, Bit32s track_number)
 }
 
 void SOUND_start_sequence(Bit32s sequence_num) {
+	//3 - menu
+	//4 - intro
 	if (Mix_PlayingMusic() == 0)
 	{
 		if (Mix_PlayMusic(GAME_music[sequence_num], -1) == -1)
@@ -99,8 +101,8 @@ void SOUND_init_MIDI_sequence(Bit8u* data, Bit8u* header, Bit32s track_number)
 	
 	if (oggmusic) {
 		char buffer[512];
-		int tracknumber = 0;
-		sprintf(buffer, "%smusic%d.ogg", oggmusicpath, tracknumber);
+		//if (track_number > 1)track_number = 0;
+		sprintf(buffer, "%smusic%d.ogg", oggmusicpath, track_number);
 		GAME_music[track_number] = Mix_LoadMUS(buffer);
 	}
 	else
@@ -326,11 +328,17 @@ Bit32s ac_sound_call_driver(AIL_DRIVER* drvr, Bit32s fn, VDI_CALL* in, VDI_CALL*
 };
 
 void SOUND_start_sample(HSAMPLE S) {
-	if(hqsound)
+	if (hqsound)
+	{
 		gamechunk[S->index_sample].abuf = (Bit8u*)S->start_44mhz;
+		gamechunk[S->index_sample].alen = S->len_4_5[0]*8;
+	}
 	else
+	{
 		gamechunk[S->index_sample].abuf = (Bit8u*)S->start_2_3[0];
-	gamechunk[S->index_sample].alen = S->len_4_5[0];
+		gamechunk[S->index_sample].alen = S->len_4_5[0];
+	}
+	
 	gamechunk[S->index_sample].volume = S->volume_16;
 	gamechunkHSAMPLE[S->index_sample] = S;
 	Mix_PlayChannel(S->index_sample, &gamechunk[S->index_sample], 0);
@@ -366,7 +374,8 @@ bool init_sound()
 	//#define MUSIC_MID_FLUIDSYNTH
 	//Initialize SDL_mixer
 	if (hqsound) {
-		if (Mix_OpenAudio(44100, AUDIO_S16SYS, 2, 4096) == -1)//4096
+		if (Mix_OpenAudio(44100, AUDIO_S16, 2, 4096) == -1)//4096
+		//if (Mix_OpenAudio(11025, AUDIO_S8, 1, 4096) == -1)//4096
 		{
 			return false;
 		}
