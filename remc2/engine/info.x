@@ -2347,3 +2347,8 @@ sub_43830 - v2
 dalsi zasek v sub_44EE0
 
 dalsi zasek v sub_440D0
+
+
+find x_WORD_E2572
+find x_WORD_E2970
+find x_WORD_E24BE a dalsi

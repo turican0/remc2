@@ -112,6 +112,8 @@ EOS_callback_type sam_var532_EOS_ptr;
 Bit32s sam_var[1000];
    Bit8u* sam_var542;
    int index_sample = -1;
+
+   void* start_44mhz;//8
    //Mix_Chunk chunk;
 }
 SAMPLE;

@@ -4,15 +4,20 @@
 /*This source code copyrighted by Lazy Foo' Productions (2004-2013)
 and may not be redistributed without written permission.*/
 
+bool hqsound=false;
+bool oggmusic=false;
+char oggmusicpath[512];
+
 //The music that will be played
-Mix_Music *music = NULL;
+//Mix_Music *music = NULL;
 Mix_Music* GAME_music[10] = { NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL };
+//Mix_Chunk* GAME_musicmp3[10] = { NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL };
 
 //The sound effects that will be used
-Mix_Chunk *scratch = NULL;
+/*Mix_Chunk *scratch = NULL;
 Mix_Chunk *high = NULL;
 Mix_Chunk *med = NULL;
-Mix_Chunk *low = NULL;
+Mix_Chunk *low = NULL;*/
 
 Mix_Chunk gamechunk[32];
 HSAMPLE gamechunkHSAMPLE[32];
@@ -91,15 +96,25 @@ void SOUND_init_MIDI_sequence(Bit8u* data, Bit8u* header, Bit32s track_number)
 	//unsigned char* TranscodeXmiToMid(const unsigned char* pXmiData,	size_t iXmiLength, size_t* pMidLength);
 	size_t iXmiLength = testsize2;
 	size_t pMidLength;
-	Bit8u* outmidi = TranscodeXmiToMid((const Bit8u*)*(Bit32u*)(acttrack + 18), iXmiLength, &pMidLength);
-	SDL_RWops* rwmidi = SDL_RWFromMem(outmidi, pMidLength);
+	
+	if (oggmusic) {
+		char buffer[512];
+		int tracknumber = 0;
+		sprintf(buffer, "%smusic%d.ogg", oggmusicpath, tracknumber);
+		GAME_music[track_number] = Mix_LoadMUS(buffer);
+	}
+	else
+	{
+		Bit8u* outmidi = TranscodeXmiToMid((const Bit8u*)*(Bit32u*)(acttrack + 18), iXmiLength, &pMidLength);
+		SDL_RWops* rwmidi = SDL_RWFromMem(outmidi, pMidLength);
 #ifdef USE_SDL2
-	//Timidity_Init();
-	GAME_music[track_number] = Mix_LoadMUSType_RW(rwmidi, MUS_MID, SDL_TRUE);
-	//music2 = Mix_LoadMUSType_RW(rwmidi, MIX_MUSIC_TIMIDITY, SDL_TRUE);
+		//Timidity_Init();
+		GAME_music[track_number] = Mix_LoadMUSType_RW(rwmidi, MUS_MID, SDL_TRUE);
+		//music2 = Mix_LoadMUSType_RW(rwmidi, MIX_MUSIC_TIMIDITY, SDL_TRUE);
 #else
-	GAME_music[track_number] = Mix_LoadMUS_RW(rwmidi);
+		GAME_music[track_number] = Mix_LoadMUS_RW(rwmidi);
 #endif
+	}
 }
 
 
@@ -107,18 +122,8 @@ void SOUND_init_MIDI_sequence(Bit8u* data, Bit8u* header, Bit32s track_number)
 
 //Mix_Chunk mychunk;
 
-bool load_sound_files()
+/*bool load_sound_files()
 {
-	/*//Load the music
-	music = Mix_LoadMUS("c:\\prenos\\remc2\\sound\\Music003.mid");
-	//music = Mix_LoadMUS("c:\\prenos\\remc2\\sound\\beat.wav");
-
-	//If there was a problem loading the music
-	if (music == NULL)
-	{
-		return false;
-	}*/
-
 	//Load the sound effects
 	scratch = Mix_LoadWAV("scratch.wav");
 	high = Mix_LoadWAV("high.wav");
@@ -133,23 +138,32 @@ bool load_sound_files()
 
 	//If everything loaded fine
 	return true;
-}
+}*/
 
 void clean_up_sound()
 {
-	//Free the sound effects
+	/*//Free the sound effects
 	Mix_FreeChunk(scratch);
 	Mix_FreeChunk(high);
 	Mix_FreeChunk(med);
-	Mix_FreeChunk(low);
+	Mix_FreeChunk(low);*/
 
 	//Free the music
-	Mix_FreeMusic(music);
+	//Mix_FreeMusic(music);
+	for (int i = 0;i < 10;i++)
+	{
+		//Mix_FreeChunk(GAME_musicmp3[i]);
+		Mix_FreeMusic(GAME_music[i]);
+	}
 
 	//Quit SDL_mixer
 	Mix_CloseAudio();
 }
-
+/*
+int load_music_files() {
+	GAME_musicmp3[0] = Mix_LoadMUS("music.mp3");
+}*/
+/*
 int playsound1()
 {
 	//Play the scratch effect
@@ -186,7 +200,8 @@ int playsound4()
 	}
 	return 0;
 }
-
+*/
+/*
 void playmusic1()
 {
 	if (Mix_PlayingMusic() == 0)
@@ -206,12 +221,13 @@ void playmusic1()
 			}
 	}
 }
-
+*/
+/*
 void stopmusic1()
 {
 	Mix_HaltMusic();
 }
-
+*/
 void playmusic2(Bit32s track_number)
 {
 	if (Mix_PlayingMusic() == 0)
@@ -310,7 +326,10 @@ Bit32s ac_sound_call_driver(AIL_DRIVER* drvr, Bit32s fn, VDI_CALL* in, VDI_CALL*
 };
 
 void SOUND_start_sample(HSAMPLE S) {
-	gamechunk[S->index_sample].abuf = (Bit8u*)S->start_2_3[0];
+	if(hqsound)
+		gamechunk[S->index_sample].abuf = (Bit8u*)S->start_44mhz;
+	else
+		gamechunk[S->index_sample].abuf = (Bit8u*)S->start_2_3[0];
 	gamechunk[S->index_sample].alen = S->len_4_5[0];
 	gamechunk[S->index_sample].volume = S->volume_16;
 	gamechunkHSAMPLE[S->index_sample] = S;
@@ -346,12 +365,23 @@ bool init_sound()
 	//run();
 	//#define MUSIC_MID_FLUIDSYNTH
 	//Initialize SDL_mixer
-	if (Mix_OpenAudio(11025/*22050*/, AUDIO_U8/*MIX_DEFAULT_FORMAT*/, 1, 4096) == -1)//4096
+	if (hqsound) {
+		if (Mix_OpenAudio(44100, AUDIO_S16SYS, 2, 4096) == -1)//4096
+		{
+			return false;
+		}
+	}
+	else
 	{
-		return false;
+		if (Mix_OpenAudio(11025/*22050*/, AUDIO_U8/*MIX_DEFAULT_FORMAT*/, 1, 4096) == -1)//4096
+		{
+			return false;
+		}
 	}
 	//Mix_SetSoundFonts("c:\\prenos\\Magic2\\sf2\\TOM-SF2.sf2");
-	load_sound_files();
+	//load_sound_files();
+	/*if(mp3music)
+		load_music_files();*/
 	/*
 Mix_HookMusicFinished(void (SDLCALL *music_finished)(void));
 */

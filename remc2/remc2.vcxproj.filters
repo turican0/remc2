@@ -37,6 +37,9 @@
     <Filter Include="Zdrojové soubory\libs\sdl-mixer-x">
       <UniqueIdentifier>{70d24271-835d-4590-a4bc-c3d3bfaafc36}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Zdrojové soubory\libs\inih">
+      <UniqueIdentifier>{88c3818e-fa9e-47cd-9191-d23071ee450d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -303,6 +306,12 @@
     <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\native_midi\native_midi_common.h">
       <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
     </ClInclude>
+    <ClInclude Include="..\inih\ini.h">
+      <Filter>Zdrojové soubory\libs\inih</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inih\INIReader.h">
+      <Filter>Zdrojové soubory\libs\inih</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -517,6 +526,12 @@
     </ClCompile>
     <ClCompile Include="..\SDL-Mixer-X-master\src\vb6_binding\vb6_sdl_binds.c">
       <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\inih\ini.c">
+      <Filter>Zdrojové soubory\libs\inih</Filter>
+    </ClCompile>
+    <ClCompile Include="..\inih\INIReader.cpp">
+      <Filter>Zdrojové soubory\libs\inih</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
