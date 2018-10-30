@@ -2349,6 +2349,7 @@ dalsi zasek v sub_44EE0
 dalsi zasek v sub_440D0
 
 
-find x_WORD_E2572
-find x_WORD_E2970
-find x_WORD_E24BE a dalsi
+find x_WORD_E2572 - 2B3572 - ok
+find x_WORD_E2970 - 2B3970 - ok
+find x_WORD_E24BE - 2B34be
+a dalsi
