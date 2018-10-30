@@ -2353,3 +2353,9 @@ find x_WORD_E2572 - 2B3572 - ok
 find x_WORD_E2970 - 2B3970 - ok
 find x_WORD_E24BE - 2B34be
 a dalsi
+
+zkontrolovat tento radek
+if (v99 + v25 * (k - v96) <= a4 - 3 * v25)//adress 2610c2
+
+a pak tento -color ma byt nula
+void sub_7FB90_draw_text(char* textbuffer, Bit16s posx, Bit16s posy, Bit8u color)
