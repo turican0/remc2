@@ -2357,5 +2357,34 @@ a dalsi
 zkontrolovat tento radek
 if (v99 + v25 * (k - v96) <= a4 - 3 * v25)//adress 2610c2
 
+špatně je a6 i v8
+[ebp+24] - 5
+if (!a6)//adress 261023
+		v98 = v8 + 12;
+
+edx=[ebp-14] - 9
+[ebp-40]=edx - 9
+edx=[ebp-24] - 0
+ecx=[ebp-40] - 9
+sub ecx,edx - 9
+cbw eax=8
+edx=ecx - 9
+imul edx,aex - 48
+lea ecx,[0+eax*4] -18
+mov eax,ecx - 18
+movsx ecx,[ebp-1c] - 1f2
+movsx esi,[ebp-18] - 92
+mov edi,ecx - 1f2
+add edx,esi - da
+sub edi,eax - 1da
+
+
+
 a pak tento -color ma byt nula
 void sub_7FB90_draw_text(char* textbuffer, Bit16s posx, Bit16s posy, Bit8u color)
+
+xy_DWORD_17DEC0_spritestr[0]
+se neshoduje s [34eec0]->4531c7 
+
+xy_DWORD_17DEC0_spritestr[65].sizex (394)
+se neshoduje s [34eec0]->4531c7+18a
