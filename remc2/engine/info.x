@@ -2388,3 +2388,5 @@ se neshoduje s [34eec0]->4531c7
 
 xy_DWORD_17DEC0_spritestr[65].sizex (394)
 se neshoduje s [34eec0]->4531c7+18a
+34eec0
+-trva

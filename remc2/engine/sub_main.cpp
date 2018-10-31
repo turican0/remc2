@@ -2816,7 +2816,7 @@ unsigned int *sub_85AF0(int a1);
 int sub_85B20(x_BYTE *a1, x_WORD *a2, unsigned __int16 a3);
 int sub_85BF5(x_BYTE *a1, int a2, int a3, int a4, int a5, int a6);
 int sub_85C42(int a1, int a2, int a3, int a4, int a5, unsigned __int8 a6);
-void sub_85C8B_draw_game_world_map(Bit8u* a1, Bit8u* a2, int a3, int a4, int a5, int a6);
+void sub_85C8B_draw_new_game_map_background(Bit8u* a1, Bit8u* a2, int a3, int a4, int a5, int a6);
 // void /*__spoils<ecx>*/ sub_85CC3_draw_round_frame(unsigned int a1, int a2, unsigned __int16 *a3);
 int sub_85E40();
 __int16 sub_85EB0_alloc_memory(__int16 a1);
@@ -91701,25 +91701,25 @@ void sub_7A110_load_hscreen(char a1, char a2)//25b110
 			x_WORD_17DF0E = 71;
 			break;
 		case 6://adress 25b533
-			x_DWORD_17DE54 = &x_D41A0_BYTEARRAY_4_0xE2_heapbuffer[0x4D54A + 301787];//(Bit8u*)x_DWORD_17DE48c + 301787;//49adb
-			x_DWORD_17DEC4 = &x_D41A0_BYTEARRAY_4_0xE2_heapbuffer[0x4D54A + 316179];//(Bit8u*)x_DWORD_17DE48c + 316179;//4d313
-			x_DWORD_17DE58 = &x_D41A0_BYTEARRAY_4_0xE2_heapbuffer[0x4D54A + 316179];//x_DWORD_17DE48c + 316179;
-			x_DWORD_17DEC8 = &x_D41A0_BYTEARRAY_4_0xE2_heapbuffer[0x4D54A + 322754];//x_DWORD_17DE48c + 322754;
-			x_DWORD_17DECC = &x_D41A0_BYTEARRAY_4_0xE2_heapbuffer[0x4D54A + 324380];//x_DWORD_17DE48c + 324380;
-			x_DWORD_17DED4 = &x_D41A0_BYTEARRAY_4_0xE2_heapbuffer[0x4D54A + 324380];//(Bit8u*)x_DWORD_17DE48c + 324380;
-			x_DWORD_17DED8 = &x_D41A0_BYTEARRAY_4_0xE2_heapbuffer[0x4D54A + 326258];//(Bit8u*)x_DWORD_17DE48c + 326258;
-			x_DWORD_17DE60 = x_DWORD_17DE44;
-			x_DWORD_17DE64_game_world_map = &x_D41A0_BYTEARRAY_4_0xE2_heapbuffer[0x4D54A + 326258];//x_DWORD_17DE48c + 326258;
-			x_DWORD_17DE3C = &x_D41A0_BYTEARRAY_4_0xE2_heapbuffer[0x4D54A + 0x12C000 + 326258];//(Bit8u*)&unk_12C000 + x_DWORD_17DE48c + 326258;
-			x_DWORD_17DEC0 = &x_D41A0_BYTEARRAY_4_0xE2_heapbuffer[0x4D54A + 314541];//(Bit8u*)x_DWORD_17DE48c + 314541;
-			x_DWORD_17DE5C_border_bitmap = &x_D41A0_BYTEARRAY_4_0xE2_heapbuffer[0x4D54A + 0x12C000 + 326258 + 0x4000];//x_DWORD_17DE3C + 0x4000;//ok
-			sub_7AA70_load_and_decompres_dat_file((char*)"DATA/SCREENS/HSCREEN0.DAT", (x_DWORD_17DE48c + 301787), 0x1641FC, 1214);
+			x_DWORD_17DE54 = &x_D41A0_BYTEARRAY_4_0xE2_heapbuffer[0x4D54A + 301787];//(Bit8u*)x_DWORD_17DE48c + 301787;//49adb * //44ffef
+			x_DWORD_17DEC4 = &x_D41A0_BYTEARRAY_4_0xE2_heapbuffer[0x4D54A + 316179];//(Bit8u*)x_DWORD_17DE48c + 316179;//4d313 //453827
+			x_DWORD_17DE58 = &x_D41A0_BYTEARRAY_4_0xE2_heapbuffer[0x4D54A + 316179];//x_DWORD_17DE48c + 316179; * //453827
+			x_DWORD_17DEC8 = &x_D41A0_BYTEARRAY_4_0xE2_heapbuffer[0x4D54A + 322754];//x_DWORD_17DE48c + 322754; * //4551d6
+			x_DWORD_17DECC = &x_D41A0_BYTEARRAY_4_0xE2_heapbuffer[0x4D54A + 324380];//x_DWORD_17DE48c + 324380; //455830
+			x_DWORD_17DED4 = &x_D41A0_BYTEARRAY_4_0xE2_heapbuffer[0x4D54A + 324380];//(Bit8u*)x_DWORD_17DE48c + 324380; *//455830
+			x_DWORD_17DED8 = &x_D41A0_BYTEARRAY_4_0xE2_heapbuffer[0x4D54A + 326258];//(Bit8u*)x_DWORD_17DE48c + 326258; //455f86
+			x_DWORD_17DE60 = x_DWORD_17DE44;//* //3f52a4
+			x_DWORD_17DE64_game_world_map = &x_D41A0_BYTEARRAY_4_0xE2_heapbuffer[0x4D54A + 326258];//x_DWORD_17DE48c + 326258; * //455f86
+			x_DWORD_17DE3C = &x_D41A0_BYTEARRAY_4_0xE2_heapbuffer[0x4D54A + 0x12C000 + 326258];//(Bit8u*)&unk_12C000 + x_DWORD_17DE48c + 326258;//* //581f86
+			x_DWORD_17DEC0 = &x_D41A0_BYTEARRAY_4_0xE2_heapbuffer[0x4D54A + 314541];//(Bit8u*)x_DWORD_17DE48c + 314541; * //4531c1
+			x_DWORD_17DE5C_border_bitmap = &x_D41A0_BYTEARRAY_4_0xE2_heapbuffer[0x4D54A + 0x12C000 + 326258 + 0x4000];//x_DWORD_17DE3C + 0x4000;//ok *//585f86
+			sub_7AA70_load_and_decompres_dat_file((char*)"DATA/SCREENS/HSCREEN0.DAT", x_DWORD_17DE54, 0x1641FC, 1214);//*
 			sub_7AA70_load_and_decompres_dat_file((char*)"DATA/SCREENS/HSCREEN0.DAT", x_DWORD_17DEC0, 0x1646BA, 589);
 			sub_7AA70_load_and_decompres_dat_file((char*)"DATA/SCREENS/HSCREEN0.DAT", x_DWORD_17DE58, 0x164907, 1191);
 			sub_7AA70_load_and_decompres_dat_file((char*)"DATA/SCREENS/HSCREEN0.DAT", x_DWORD_17DEC8, 0x164DAE, 543);
-			sub_7AA70_load_and_decompres_dat_file((char*)"DATA/SCREENS/HSCREEN0.DAT", x_DWORD_17DE38, 0x13A9CA, 768);
-			sub_7AA70_load_and_decompres_dat_file((char*)"DATA/SCREENS/HSCREEN0.DAT", x_DWORD_17DE64_game_world_map, 0xB2C44 + 3, 0x87D80 + 3);
-			sub_7AA70_load_and_decompres_dat_file((char*)"DATA/SCREENS/HSCREEN0.DAT", x_DWORD_17DE48c, 0x783BD, 103577);
+			sub_7AA70_load_and_decompres_dat_file((char*)"DATA/SCREENS/HSCREEN0.DAT", x_DWORD_17DE38, 0x13A9CA, 768);//ok
+			sub_7AA70_load_and_decompres_dat_file((char*)"DATA/SCREENS/HSCREEN0.DAT", x_DWORD_17DE64_game_world_map, 0xB2C47, 0x87D83);
+			sub_7AA70_load_and_decompres_dat_file((char*)"DATA/SCREENS/HSCREEN0.DAT", x_DWORD_17DE48c, 0x783BD, 103577);//ok
 			sub_7AA70_load_and_decompres_dat_file((char*)"DATA/SCREENS/HSCREEN0.DAT", x_DWORD_17DED4, 0x91856, 1027);
 			sub_7AA70_load_and_decompres_dat_file((char*)"DATA/SCREENS/HSCREEN0.DAT", x_DWORD_17DE3C, 0x13B3B8, 6760);
 			sub_7AA70_load_and_decompres_dat_file((char*)"DATA/SCREENS/HSCREEN0.DAT", x_DWORD_17DE60, 0x13CE20, 20581);
@@ -91735,6 +91735,7 @@ void sub_7A110_load_hscreen(char a1, char a2)//25b110
 			{
 				sub_9874D_create_index_dattab(x_DWORD_17DED4, x_DWORD_17DED8, x_DWORD_17DE48c, xy_DWORD_17DED4_spritestr);
 				sub_9874D_create_index_dattab(x_DWORD_17DEC0, x_DWORD_17DEC4, x_DWORD_17DE54, xy_DWORD_17DEC0_spritestr);//here
+				//34eec0 34eec4 34ee54
 				sub_9874D_create_index_dattab(x_DWORD_17DEC8, x_DWORD_17DECC, x_DWORD_17DE58, xy_DWORD_17DEC8_spritestr);
 			}
 
@@ -93642,7 +93643,7 @@ void sub_7D400_draw_texts_and_play_sounds(int a1, __int16 a2, __int16 a3, char a
 	x_WORD *v22; // eax
 	__int16 v23; // bx
 	signed __int16 *k; // eax
-	__int16 v25; // [esp+0h] [ebp-54h]
+	__int16 v25[18]; // [esp+0h] [ebp-54h]
 	__int16 v26; // [esp+2h] [ebp-52h]
 	__int16 v27; // [esp+4h] [ebp-50h]
 	__int16 v28; // [esp+6h] [ebp-4Eh]
@@ -93812,7 +93813,7 @@ void sub_7D400_draw_texts_and_play_sounds(int a1, __int16 a2, __int16 a3, char a
 					v29 = *((x_WORD *)v41 + 7) - 60 - a3;
 					v30 = *((x_WORD *)v41 + 6) + 16 - a2;
 					v31 = *((x_WORD *)v41 + 7) - 4 - a3;
-					v25 = 464;
+					*v25 = 464;
 					v18 = (int)v40;
 					sub_7E840_draw_textbox_with_line((Bit16u*)&v25, 238, 264);
 					if (v18)
@@ -93839,7 +93840,7 @@ void sub_7D400_draw_texts_and_play_sounds(int a1, __int16 a2, __int16 a3, char a
 					v29 = v40[7] - 60 - a3;
 					v30 = v40[6] + 16 - a2;
 					v31 = v40[7] - 4 - a3;
-					v25 = 465;
+					*v25 = 465;
 					sub_7E840_draw_textbox_with_line((Bit16u*)&v25, 238, 264);
 					if (v41)
 					{
@@ -93900,7 +93901,6 @@ void sub_7D400_draw_texts_and_play_sounds(int a1, __int16 a2, __int16 a3, char a
 	if (!v41 || v40)
 		return;
 	sub_7DA70(*((x_WORD *)v41 + 6), *((x_WORD *)v41 + 7), x_WORD_E1B66, x_WORD_E1B68, a2, a3);
-	return/* v42*/;
 }
 // 8C250: using guessed type x_DWORD memset(x_DWORD, x_DWORD, x_DWORD);
 // 98786: using guessed type int /*__fastcall*/ j___clock(x_DWORD, x_DWORD, x_DWORD);
@@ -94960,7 +94960,8 @@ int sub_7EAE0_new_game_draw(Bit16s* posx, Bit16s* posy, __int16 *a3, __int16 *a4
 		}
 		*a5 = 3;
 	LABEL_66:
-		sub_81760_new_game_subdraw((Bit8u*)j);//draw any
+		sub_81760_new_game_subdraw((Bit8u*)j);//draw cursor
+		
 		goto LABEL_92;
 	case 2:
 		v25 = *a4;
@@ -95090,8 +95091,8 @@ int sub_7EAE0_new_game_draw(Bit16s* posx, Bit16s* posy, __int16 *a3, __int16 *a4
 	LABEL_92:
 		if (x_WORD_E29D6_not_movex)
 		{
-			sub_85C8B_draw_game_world_map(x_DWORD_17DE64_game_world_map, x_DWORD_180628b_screen_buffer, *posx, *posy, 160, 480);//draw game word map
-			sub_7D400_draw_texts_and_play_sounds(*posx, *posx, *posy, *a5);
+			sub_85C8B_draw_new_game_map_background(x_DWORD_17DE64_game_world_map, x_DWORD_180628b_screen_buffer, *posx, *posy, 160, 480);//draw game word map
+			sub_7D400_draw_texts_and_play_sounds(*posx, *posx, *posy, *a5);//draw helps, cursor, flags
 			/*LOWORD(v38) = */sub_81EE0_draw_and_sound_dragon_and_fire(*posx, v37, (int)posy, (signed __int16)a5, *posx, *posy); // fair animation
 			LOBYTE(v38) = x_DWORD_17DB70str.x_BYTE_17DB8E;
 			if (x_DWORD_17DB70str.x_BYTE_17DB8E)
@@ -95120,9 +95121,12 @@ int sub_7EAE0_new_game_draw(Bit16s* posx, Bit16s* posy, __int16 *a3, __int16 *a4
 		}
 		else
 		{
-			sub_85C8B_draw_game_world_map(x_DWORD_17DE64_game_world_map, x_DWORD_180628b_screen_buffer, *posx, *posy, 160, 480);
-			sub_7D400_draw_texts_and_play_sounds(*posx, *posx, *posy, *a5);
+			sub_85C8B_draw_new_game_map_background(x_DWORD_17DE64_game_world_map, x_DWORD_180628b_screen_buffer, *posx, *posy, 160, 480);
+			
+			sub_7D400_draw_texts_and_play_sounds(*posx, *posx, *posy, *a5);//draw helps, cursor, flags
+			
 			/*LOWORD(v33) = */sub_81EE0_draw_and_sound_dragon_and_fire(*posx, v32, (int)posy, (signed __int16)a5, *posx, *posy);
+			
 			if (x_DWORD_17DB70str.x_BYTE_17DB8E)
 			{
 				v33 = sub_80D40_move_graphics_and_play_sounds((__int16)posx, *posx, *posy, x_DWORD_17DB70str.x_WORD_17DB84, x_DWORD_17DB70str.x_WORD_17DB86, x_DWORD_17DB70str.x_WORD_17DB88);
@@ -95131,6 +95135,7 @@ int sub_7EAE0_new_game_draw(Bit16s* posx, Bit16s* posy, __int16 *a3, __int16 *a4
 					x_DWORD_17DB70str.x_BYTE_17DB8E = 0;
 			}
 			sub_85CC3_draw_round_frame(/*v33, posy,*/ (unsigned __int16 *)x_DWORD_17DE5C_border_bitmap);
+			
 			v34 = 1;
 			v35 = *a5;
 			x_WORD_E29D6_not_movex = 1;
@@ -95148,7 +95153,8 @@ int sub_7EAE0_new_game_draw(Bit16s* posx, Bit16s* posy, __int16 *a3, __int16 *a4
 			}
 		}
 	LABEL_108:
-		v39 = sub_7E320_draw_bitmaps_and_play_sounds(v34, (int)a5);
+		v39 = sub_7E320_draw_bitmaps_and_play_sounds(v34, (int)a5);//four buttons in conrners
+		
 		v69 = v39;
 		if (!x_DWORD_17DB70str.x_BYTE_17DB8E && !v71 && !v39)
 		{
@@ -95191,7 +95197,8 @@ int sub_7EAE0_new_game_draw(Bit16s* posx, Bit16s* posy, __int16 *a3, __int16 *a4
 						v54 = 60;
 					//adress 2602a0
 
-					sub_80C30_draw_texts(130, v54, 380);//sem se to nema dostat
+					sub_80C30_draw_texts(130, v54, 380);//divny text
+					
 				}
 				else if (x_DWORD_17DE28str.x_BYTE_17DE34 <= 2u || x_DWORD_17DE28str.x_BYTE_17DE34 == 3)
 				{
@@ -95836,17 +95843,14 @@ int sub_7FCB0_draw_text_with_border(int a1, Bit8u* a2, Bit32s a3, Bit32s a4, int
 			v8 = v18 + a5;			
 			v19 = (x_DWORD_180628b_screen_buffer + a3 + 640 * (v18 + a5));
 			for (v93 = 0;v93<xy_DWORD_17DED4_spritestr[274].sizey;v93++)
-			{
-				v20 = 0;
-				while (1)
+			{				
+				for (v20 = 0;v20 < a4 - (v90 + a3);v20++)
 				{
 					v90 = xy_DWORD_17DED4_spritestr[274].sizex;
-					if (v20 >= a4 - (v90 + a3))
-						break;
 					HIBYTE(v97) = 15;
-					LOBYTE(v97) = *v19;
-					v20++;
-					*(v19++ - 1) = x_DWORD_17DE3C[v97];
+					LOBYTE(v97) = *v19;					
+					v19++;
+					*(v19 - 1) = x_DWORD_17DE3C[v97];
 				}
 				v19 += 640 - v20;				
 			}
@@ -95949,19 +95953,16 @@ int sub_7FCB0_draw_text_with_border(int a1, Bit8u* a2, Bit32s a3, Bit32s a4, int
 						if (a6 == 2)
 						{
 							sub_6FC50(1/*v86*/);
-							v31 = &x_DWORD_180628b_screen_buffer[v26 + 640 * a1];
-							v32 = 0;
-							while (v32 < xy_DWORD_17DED4_spritestr[274].sizey)
+							v31 = &x_DWORD_180628b_screen_buffer[v26 + 640 * a1];							
+							for (v32 = 0;v32 < xy_DWORD_17DED4_spritestr[274].sizey;v32++)
 							{
-								v33 = 0;
-								while (v33 < a4 - (v99 - xy_DWORD_17DED4_spritestr[274].sizex))
+								for (v33 = 0;v33 < a4 - (v99 - xy_DWORD_17DED4_spritestr[274].sizex);v33++)
 								{
 									HIBYTE(v97) = 15;
-									LOBYTE(v97) = *v31;
-									++v33;
-									*(++v31 - 1) = x_DWORD_17DE3C[v97];
-								}
-								v32++;
+									LOBYTE(v97) = *v31;									
+									v31++;
+									*(v31 - 1) = x_DWORD_17DE3C[v97];
+								}								
 								v31 += 640 - v33;
 							}
 							sub_7C120_draw_bitmap_640(v99, a1, xy_DWORD_17DED4_spritestr[274]);
@@ -96063,28 +96064,21 @@ int sub_7FCB0_draw_text_with_border(int a1, Bit8u* a2, Bit32s a3, Bit32s a4, int
 			sub_6FC50(1/*v86*/);
 			if (a6 == 2)
 			{
-				sub_6FC50(1/*v86*/);
-				v57 = 0;
+				sub_6FC50(1/*v86*/);				
 				v58 = (x_BYTE *)(v99 + 640 * a1);
 				v59 = (int)x_DWORD_180628b_screen_buffer;
-				while (1)
+				for (v57 = 0;v57 < xy_DWORD_17DED4_spritestr[274].sizey;v57++)
 				{
 					v58 += v59;
-					if (v57 >= xy_DWORD_17DED4_spritestr[274].sizey)
-						break;
-					v60 = 0;
-					while (1)
+					for (v60 = 0;v60 < a4 - (v99 - v91);v60++)
 					{
 						v91 = xy_DWORD_17DED4_spritestr[274].sizex;
-						if (v60 >= a4 - (v99 - v91))
-							break;
 						HIBYTE(v97) = 15;
 						LOBYTE(v97) = *v58;
-						++v60;
-						*(++v58 - 1) = x_DWORD_17DE3C[v97];
+						v58++;
+						*(v58 - 1) = x_DWORD_17DE3C[v97];
 					}
 					v59 = 640 - v60;
-					++v57;
 				}
 				v61 = v99;
 				sub_7C120_draw_bitmap_640(v99, a1, xy_DWORD_17DED4_spritestr[274]);
@@ -96093,22 +96087,19 @@ int sub_7FCB0_draw_text_with_border(int a1, Bit8u* a2, Bit32s a3, Bit32s a4, int
 				v62 = xy_DWORD_17DED4_spritestr[274].sizey;
 				v63 = v62 + a1;
 				sub_6FC50(1/*v86*/);
-				v64 = &x_DWORD_180628b_screen_buffer[640 * v63 + v61];
-				v65 = 0;
-				while (v65 < xy_DWORD_17DED4_spritestr[274].sizey)
-				{
-					v66 = 0;
-					while (1)
+				v64 = &x_DWORD_180628b_screen_buffer[640 * v63 + v61];				
+				for (v65 = 0;v65 < xy_DWORD_17DED4_spritestr[274].sizey;v65++)
+				{					
+					for (v66 = 0;v66 < a4 - (v99 - v91);v66++)
 					{
 						v91 = xy_DWORD_17DED4_spritestr[274].sizex;
 						if (v66 >= a4 - (v99 - v91))
 							break;
 						HIBYTE(v97) = 15;
 						LOBYTE(v97) = *v64;
-						++v66;
-						*(++v64 - 1) = x_DWORD_17DE3C[v97];
+						v64++;
+						*(v64 - 1) = x_DWORD_17DE3C[v97];
 					}
-					++v65;
 					v64 += 640 - v66;
 				}
 				sub_7C120_draw_bitmap_640(v99, v63, xy_DWORD_17DED4_spritestr[274]);
@@ -100323,7 +100314,7 @@ int sub_85C42(int a1, int a2, int a3, int a4, int a5, unsigned __int8 a6)
 }
 
 //----- (00085C8B) --------------------------------------------------------
-void sub_85C8B_draw_game_world_map(Bit8u* a1, Bit8u* a2, int a3, int a4, int a5, int a6)
+void sub_85C8B_draw_new_game_map_background(Bit8u* a1, Bit8u* a2, int a3, int a4, int a5, int a6)
 {
 	int v6; // edx
 	char *v7; // edi
