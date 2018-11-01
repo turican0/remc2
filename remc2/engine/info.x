@@ -2384,9 +2384,12 @@ a pak tento -color ma byt nula
 void sub_7FB90_draw_text(char* textbuffer, Bit16s posx, Bit16s posy, Bit8u color)
 
 xy_DWORD_17DEC0_spritestr[0]
-se neshoduje s [34eec0]->4531c7 
+se neshoduje s [34eec0]->4531c7 + 394 = 453351
 
 xy_DWORD_17DEC0_spritestr[65].sizex (394)
 se neshoduje s [34eec0]->4531c7+18a
 34eec0
 -trva
+
+problem:
+sub_7FCB0_draw_text_with_border(v3, x_DWORD_E9C4C_langindexbuffer[23 + v3], (signed __int16)(a1 + 4 * v9), v8, a2, 5, v7, 1);		

@@ -1,0 +1,1 @@
+dwebp.exe -o export.png mobelix-letak-moderni-inspirace-1_1000.webp

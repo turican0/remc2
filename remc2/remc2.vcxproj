@@ -229,6 +229,7 @@
     <ClInclude Include="engine\ail_sound.h" />
     <ClInclude Include="engine\defs.h" />
     <ClInclude Include="engine\engine_support.h" />
+    <ClInclude Include="engine\read_config.h" />
     <ClInclude Include="engine\sub_main.h" />
     <ClInclude Include="engine\sub_main_mouse.h" />
     <ClInclude Include="portability\dirent.h" />
@@ -306,6 +307,7 @@
     <ClCompile Include="..\SDL-Mixer-X-master\src\music.c" />
     <ClCompile Include="..\SDL-Mixer-X-master\src\vb6_binding\vb6_sdl_binds.c" />
     <ClCompile Include="engine\engine_support.cpp" />
+    <ClCompile Include="engine\read_config.cpp" />
     <ClCompile Include="engine\sub_main.cpp" />
     <ClCompile Include="portability\dirent.c" />
     <ClCompile Include="portability\port_filesystem.cpp" />

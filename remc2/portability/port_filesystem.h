@@ -12,6 +12,8 @@
 //#include <string.h>
 //#include <ctype.h>
 
+extern char gamepath[512];
+
 long my_findfirst(char* path, _finddata_t* c_file);
 long my_findnext(long hFile, _finddata_t* c_file);
 void my_findclose(long hFile);
@@ -31,5 +33,14 @@ int x_chdir(const char* path);
 char* x_getcwd(x_DWORD a, x_DWORD b);
 
 FILE* myopent(char* path, char* type);
+
+typedef struct {
+	int number;
+	char dir[256][512];
+} dirsstruct;
+
+dirsstruct getListDir(char* dirname);
+
+int dos_getdrive(int* a);
 
 #endif //PORT_FILESYSTEM

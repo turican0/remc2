@@ -312,6 +312,9 @@
     <ClInclude Include="..\inih\INIReader.h">
       <Filter>Zdrojové soubory\libs\inih</Filter>
     </ClInclude>
+    <ClInclude Include="engine\read_config.h">
+      <Filter>Zdrojové soubory\engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -532,6 +535,9 @@
     </ClCompile>
     <ClCompile Include="..\inih\INIReader.cpp">
       <Filter>Zdrojové soubory\libs\inih</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\read_config.cpp">
+      <Filter>Zdrojové soubory\engine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

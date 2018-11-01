@@ -1,11 +1,38 @@
 #include "port_filesystem.h"
+#include <string>
+
+
+//char gamepath[512] = "c:\\prenos\\Magic2\\mc2-orig-copy";
+char gamepath[512] = "..\\..\\Magic2\\mc2-orig-copy";
+char gamepathout[512];
+char fixsound[512] = "fix-sound\\";
+char fixsoundout[512];
+
+
+std::string utf8_encode(const std::wstring &wstr)
+{
+	if (wstr.empty()) return std::string();
+	int size_needed = WideCharToMultiByte(CP_UTF8, 0, &wstr[0], (int)wstr.size(), NULL, 0, NULL, NULL);
+	std::string strTo(size_needed, 0);
+	WideCharToMultiByte(CP_UTF8, 0, &wstr[0], (int)wstr.size(), &strTo[0], size_needed, NULL, NULL);
+	return strTo;
+}
 
 void pathfix(char* path, char* path2)
 {
+	LPWSTR buffer = new WCHAR[MAX_PATH];
+	GetModuleFileName(NULL, buffer, MAX_PATH);
+	std::string locstr = utf8_encode(buffer);
+	std::string::size_type pos = std::string(locstr).find_last_of("\\/");
+	std::string strpathx = std::string(locstr).substr(0, pos)/*+"\\system.exe"*/;
+	char* pathx = (char*)strpathx.c_str();
+	sprintf(fixsoundout, "%s\\%s", pathx, fixsound);
+	sprintf(gamepathout, "%s\\%s", pathx, gamepath);
+
 	if ((path[0] == 'c') || (path[0] == 'C'))
 	{
 		long len = strlen(path);
-		char* fixstring = (char*)"c:/prenos/Magic2/mc2-orig-copy";
+		char* fixstring = (char*)gamepathout;//(char*)"c:/prenos/Magic2/mc2-orig-copy";
 		long fixlen = strlen(fixstring);
 		for (int i = len;i > 1;i--)
 			path2[i + fixlen - 2] = path[i];
@@ -15,21 +42,32 @@ void pathfix(char* path, char* path2)
 	else
 	{
 		long len = strlen(path);
-		char* fixstring = (char*)"c:/prenos/Magic2/mc2-orig-copy/";
+		char* fixstring = (char*)gamepathout;//(char*)"c:/prenos/Magic2/mc2-orig-copy/";
 		long fixlen = strlen(fixstring);
 		for (int i = len;i > -1;i--)
-			path2[i + fixlen] = path[i];
+			path2[i + fixlen+1] = path[i];
 		for (int i = 0;i < fixlen;i++)
 			path2[i] = fixstring[i];
+		path2[fixlen] = '\\';
 	}
 }
 
+
 void pathfix2(char* path, char* path2)
 {
+	LPWSTR buffer= new WCHAR[MAX_PATH];
+	GetModuleFileName(NULL, buffer, MAX_PATH);
+	std::string locstr= utf8_encode(buffer);
+	std::string::size_type pos = std::string(locstr).find_last_of("\\/");
+	std::string strpathx = std::string(locstr).substr(0, pos)/*+"\\system.exe"*/;
+	char* pathx = (char*)strpathx.c_str();
+	sprintf(fixsoundout,"%s\\%s", pathx,fixsound);
+	sprintf(gamepathout, "%s\\%s", pathx, gamepath);
+
 	if ((path[0] == 'c') || (path[0] == 'C'))
 	{
 		long len = strlen(path);
-		char* fixstring = (char*)"c:/prenos/Magic2/mc2-orig-copy";
+		char* fixstring = (char*)gamepath;//(char*)"c:/prenos/Magic2/mc2-orig-copy";
 		long fixlen = strlen(fixstring);
 		for (int i = len;i > 1;i--)
 			path2[i + fixlen - 2] = path[i];
@@ -39,13 +77,15 @@ void pathfix2(char* path, char* path2)
 	else
 	{
 		long len = strlen(path);
-		char* fixstring = (char*)"c:/prenos/Magic2/mc2-orig-copy/NETHERW/sound/";
+		char* fixstring = (char*)fixsoundout;//(char*)"c:/prenos/Magic2/mc2-orig-copy/NETHERW/sound/";
+		//char* fixstring = (char*)"c:/prenos/Magic2/mc2-orig-copy/NETHERW/sound/";
 		long fixlen = strlen(fixstring);
 		for (int i = len;i > -1;i--)
 			path2[i + fixlen] = path[i];
 		for (int i = 0;i < fixlen;i++)
 			path2[i] = fixstring[i];
 	}
+	free(buffer);
 }
 
 void unpathfix(char* path, char* path2)
@@ -210,4 +250,33 @@ FILE* myopent(char* path, char* type) {
 
 	fopen_s(&fp, path2, type);
 	return fp;
+};
+
+dirsstruct getListDir(char* dirname)
+{
+	struct dirent *de;  // Pointer for directory entry 
+	dirsstruct directories;
+	directories.number = 0;
+	// opendir() returns a pointer of DIR type.  
+	DIR *dr = opendir(dirname);
+	if (dr == NULL)  // opendir returns NULL if couldn't open directory 
+	{
+		printf("Could not open current directory");
+		return directories;
+	}
+	// Refer http://pubs.opengroup.org/onlinepubs/7990989775/xsh/readdir.html 
+	// for readdir() 
+	while ((de = readdir(dr)) != NULL)
+	{
+		if(de->d_name[0]!='.')
+			sprintf(directories.dir[directories.number++],"%s", de->d_name);
+		//printf("%s\n", de->d_name);		
+	}
+	closedir(dr);
+	return directories;
+}
+
+int dos_getdrive(int* a) {
+	*a = _getdrive();
+	return *a;
 };

@@ -6,6 +6,7 @@ and may not be redistributed without written permission.*/
 
 bool hqsound=false;
 bool oggmusic=false;
+bool oggmusicalternative = false;
 char oggmusicpath[512];
 
 //The music that will be played
@@ -98,11 +99,51 @@ void SOUND_init_MIDI_sequence(Bit8u* data, Bit8u* header, Bit32s track_number)
 	//unsigned char* TranscodeXmiToMid(const unsigned char* pXmiData,	size_t iXmiLength, size_t* pMidLength);
 	size_t iXmiLength = testsize2;
 	size_t pMidLength;
-	
+	dirsstruct helpdirsstruct;
+
 	if (oggmusic) {
 		char buffer[512];
+		char buffer2[512];
 		//if (track_number > 1)track_number = 0;
-		sprintf(buffer, "%smusic%d.ogg", oggmusicpath, track_number);
+		if (oggmusicalternative)///&&track_number==4
+		{			
+			if (track_number == 0)
+			{
+				sprintf(buffer2, "%salternative\\cave\\", oggmusicpath);
+			}
+			else if (track_number == 1)
+			{
+				sprintf(buffer2, "%salternative\\cave\\", oggmusicpath);
+			}
+			else if (track_number == 2)
+			{
+				sprintf(buffer2, "%salternative\\cave\\", oggmusicpath);
+			}
+			else if (track_number == 3)
+			{
+				sprintf(buffer2, "%salternative\\cave\\", oggmusicpath);				
+			}
+			else if (track_number == 4)
+			{
+				sprintf(buffer2, "%salternative\\cave\\", oggmusicpath);				
+			}
+			else if (track_number == 5)
+			{
+				sprintf(buffer2, "%salternative\\cave\\", oggmusicpath);				
+			}
+			helpdirsstruct = getListDir(buffer2);
+			if (helpdirsstruct.number > 0)
+			{
+				int randtrack = rand()%(helpdirsstruct.number + 1);
+				if(randtrack==0)sprintf(buffer, "%smusic%d.ogg", oggmusicpath, track_number);
+				else
+					sprintf(buffer, "%s%s", buffer2,helpdirsstruct.dir[randtrack-1]);
+			}
+			else
+				sprintf(buffer, "%smusic%d.ogg", oggmusicpath, track_number);
+		}
+		else
+			sprintf(buffer, "%smusic%d.ogg", oggmusicpath, track_number);
 		GAME_music[track_number] = Mix_LoadMUS(buffer);
 	}
 	else
@@ -373,6 +414,7 @@ bool init_sound()
 	//run();
 	//#define MUSIC_MID_FLUIDSYNTH
 	//Initialize SDL_mixer
+	srand(0x1234567);
 	if (hqsound) {
 		if (Mix_OpenAudio(44100, AUDIO_S16, 2, 4096) == -1)//4096
 		//if (Mix_OpenAudio(11025, AUDIO_S8, 1, 4096) == -1)//4096

@@ -10,12 +10,14 @@
 #include <string>
 
 #include "../engine/ail_sound.h"
+#include "port_filesystem.h"
 
 #define USE_SDL2
 
 extern bool hqsound;
 extern bool oggmusic;
 extern char oggmusicpath[512];
+extern bool oggmusicalternative;
 
 bool init_sound();
 bool load_sound_files();
