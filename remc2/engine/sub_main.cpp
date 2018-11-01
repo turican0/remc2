@@ -11887,8 +11887,8 @@ Bit8u x_BYTE_E25ED[0x1000] = {
 0x00,0x00,0x00,0x01,0x00,0x0D,0x00,0x00,0x00,0x5A,0x01,0x32,0x00,0x3C,0x00,0x68,
 0x01,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00
 };
-_UNKNOWN unk_E2690; // weak
-_UNKNOWN unk_E26C8; // weak
+//_UNKNOWN unk_E2690; // weak //x_BYTE_E25ED[0xa3]
+//_UNKNOWN unk_E26C8; // weak //x_BYTE_E25ED[0xdb]
 //_UNKNOWN unk_E28A8; // weak x_BYTE_E25ED[0x2BB]
 //__int16 x_WORD_E28B6 = 1; // weak
 x_WORD x_WORD_E2970[51] =
@@ -87600,7 +87600,7 @@ void sub_75200_VGA_Blit640(Bit16u height)//256200
 		//debug
 
 	VGA_Blit(640, height, x_DWORD_180628b_screen_buffer);
-	mydelay(10);//set speed
+	mydelay(20);//set speed
 
 	/*
 	sub_9951B(0);//27a51b - objevil se kurzor
@@ -90883,7 +90883,7 @@ char sub_79160_set_joystick_dialog(Bit8u* a1)//25a160
 		v29 = sub_7BF20_draw_scroll_dialog((signed __int16 *)(a1 + 26));
 		if (*(x_WORD *)(a1 + 36) >= *(x_WORD *)(a1 + 34))
 		{
-			v7 = (signed __int16 *)&unk_E2690;
+			v7 = (signed __int16 *)&x_BYTE_E25ED[0xa3];
 			sub_6FC50(1);
 			while (v7[6])
 			{
@@ -90905,7 +90905,7 @@ char sub_79160_set_joystick_dialog(Bit8u* a1)//25a160
 			v9 = *(signed __int16 *)(a1 + 28) + *(signed __int16 *)(a1 + 34) / 2;
 			v6 = v9 - 2 * sub_6FC30_get34_sizey();
 			v19[5] = v26;
-			v10 = (signed __int16 *)&unk_E2690;
+			v10 = (signed __int16 *)&x_BYTE_E25ED[0xa3];
 			v19[7] = xy_DWORD_17DED4_spritestr[72].sizex;
 			v19[8] = sub_6FC30_get34_sizey();
 			while (v10[6])
@@ -90929,7 +90929,7 @@ char sub_79160_set_joystick_dialog(Bit8u* a1)//25a160
 		}
 		if (v29)
 		{
-			v12 = (x_WORD*)&unk_E2690;
+			v12 = (x_WORD*)&x_BYTE_E25ED[0xa3];
 			while (v12[6])
 			{
 				if (v12[7])
@@ -93602,7 +93602,7 @@ void sub_7D400_draw_texts_and_play_sounds(int a1, __int16 a2, __int16 a3, char a
 	//fix it
 
 	v42 = -1;
-	v4 = (x_WORD*)&unk_E26C8;
+	v4 = (x_WORD*)&x_BYTE_E25ED[0xdb];
 	v41 = 0;
 	v40 = 0;
 	v39 = j___clock();
@@ -94243,7 +94243,7 @@ Bit16s sub_7E1F0_test_mouse_regions()//25f1f0
 // 17DEEE: using guessed type __int16 x_WORD_17DEEE;
 
 //----- (0007E320) --------------------------------------------------------
-signed int sub_7E320_draw_bitmaps_and_play_sounds(__int16 a1, int a2)
+signed int sub_7E320_draw_bitmaps_and_play_sounds(__int16 a1, int a2)//25f320
 {
 	Bit8u* i; // esi
 	Bit8u* v3; // esi
@@ -94252,7 +94252,7 @@ signed int sub_7E320_draw_bitmaps_and_play_sounds(__int16 a1, int a2)
 	Bit8u* k; // esi
 	//int v8; // edi
 	int v9; // edx
-	int v10; // eax
+	//int v10; // eax
 	char *v11; // edi
 	posistruct* v12; // edi
 	Bit8u* v13; // esi
@@ -94329,9 +94329,9 @@ signed int sub_7E320_draw_bitmaps_and_play_sounds(__int16 a1, int a2)
 		sub_8F100_sound_proc19(0, 14, 127, 64, 0x64u, 0, 3u);
 		goto LABEL_33;
 	}
-	v10 = (int)x_D41A0_BYTEARRAY_4;
+	//v10 = (int)x_D41A0_BYTEARRAY_4;
 	k[24] = 1;
-	if (*(x_BYTE *)(v10 + 10) != 1)
+	if (x_D41A0_BYTEARRAY_4_struct.byteindex_A != 1)
 		return 0;
 	v11 = (char *)&unk_E2516;
 	if (!*((x_WORD *)&unk_E2516 + 1))
@@ -95026,7 +95026,7 @@ int sub_7EAE0_new_game_draw(Bit16s* posx, Bit16s* posy, __int16 *a3, __int16 *a4
 			sub_85C8B_draw_new_game_map_background(x_DWORD_17DE64_game_world_map, x_DWORD_180628b_screen_buffer, *posx, *posy, 160, 480);//draw game word map
 			sub_7D400_draw_texts_and_play_sounds(*posx, *posx, *posy, *a5);//draw helps, cursor, flags
 			/*LOWORD(v38) = */sub_81EE0_draw_and_sound_dragon_and_fire(*posx, v37, (int)posy, (signed __int16)a5, *posx, *posy); // fair animation
-			LOBYTE(v38) = x_DWORD_17DB70str.x_BYTE_17DB8E;
+			//LOBYTE(v38) = x_DWORD_17DB70str.x_BYTE_17DB8E;
 			if (x_DWORD_17DB70str.x_BYTE_17DB8E)
 			{
 				v38 = sub_80D40_move_graphics_and_play_sounds((__int16)posx, *posx, *posy, x_DWORD_17DB70str.x_WORD_17DB84, x_DWORD_17DB70str.x_WORD_17DB86, x_DWORD_17DB70str.x_WORD_17DB88);
@@ -95085,7 +95085,7 @@ int sub_7EAE0_new_game_draw(Bit16s* posx, Bit16s* posy, __int16 *a3, __int16 *a4
 			}
 		}
 	LABEL_108:
-		v39 = sub_7E320_draw_bitmaps_and_play_sounds(v34, (int)a5);//four buttons in conrners
+		v39 = sub_7E320_draw_bitmaps_and_play_sounds(v34, (int)a5);//four buttons in corners and helps
 		
 		v69 = v39;
 		if (!x_DWORD_17DB70str.x_BYTE_17DB8E && !v71 && !v39)
@@ -95754,51 +95754,54 @@ int sub_7FCB0_draw_text_with_border(int a1, Bit8u* a2, Bit32s a3, Bit32s a4, int
 	v103 = 0;
 	v104 = 0;
 	memset(v87, 0, 180);
-	if (a6 == 2 || a6 == 5)
+	if (a6)
 	{
-		v104 = a4 - a3;
-		if (a8)
+		if (a6 == 2 || a6 == 5)
 		{
-			v103 = xy_DWORD_17DED4_spritestr[275].sizex;
-			v90 = xy_DWORD_17DED4_spritestr[275].sizex;
-			v94 = v104 / v90;
-			if (v104 % v90)
+			v104 = a4 - a3;
+			if (a8)
 			{
-				v16 = v103 * (v94++ + 1);
-				v104 = v16;
-				a4 = v16 + a3 - xy_DWORD_17DED4_spritestr[274].sizex;
-			}
-			for (i = 0; i < v104; i += v103)
-				sub_7C120_draw_bitmap_640(i + a3, a5, xy_DWORD_17DED4_spritestr[275]);
-			//HIWORD(v18) = HIWORD(xy_DWORD_17DED4_spritestr);
-			v18 = xy_DWORD_17DED4_spritestr[275].sizey;
-			v8 = v18 + a5;			
-			v19 = (x_DWORD_180628b_screen_buffer + a3 + 640 * (v18 + a5));
-			for (v93 = 0;v93<xy_DWORD_17DED4_spritestr[274].sizey;v93++)
-			{				
-				for (v20 = 0;v20 < a4 - (v90 + a3);v20++)
+				v103 = xy_DWORD_17DED4_spritestr[275].sizex;
+				v90 = xy_DWORD_17DED4_spritestr[275].sizex;
+				v94 = v104 / v90;
+				if (v104 % v90)
 				{
-					v90 = xy_DWORD_17DED4_spritestr[274].sizex;
-					HIBYTE(v97) = 15;
-					LOBYTE(v97) = *v19;					
-					v19++;
-					*(v19 - 1) = x_DWORD_17DE3C[v97];
+					v16 = v103 * (v94++ + 1);
+					v104 = v16;
+					a4 = v16 + a3 - xy_DWORD_17DED4_spritestr[274].sizex;
 				}
-				v19 += 640 - v20;				
+				for (i = 0; i < v104; i += v103)
+					sub_7C120_draw_bitmap_640(i + a3, a5, xy_DWORD_17DED4_spritestr[275]);
+				//HIWORD(v18) = HIWORD(xy_DWORD_17DED4_spritestr);
+				v18 = xy_DWORD_17DED4_spritestr[275].sizey;
+				v8 = v18 + a5;
+				v19 = (x_DWORD_180628b_screen_buffer + a3 + 640 * (v18 + a5));
+				for (v93 = 0;v93 < xy_DWORD_17DED4_spritestr[274].sizey;v93++)
+				{
+					for (v20 = 0;v20 < a4 - (v90 + a3);v20++)
+					{
+						v90 = xy_DWORD_17DED4_spritestr[274].sizex;
+						HIBYTE(v97) = 15;
+						LOBYTE(v97) = *v19;
+						v19++;
+						*(v19 - 1) = x_DWORD_17DE3C[v97];
+					}
+					v19 += 640 - v20;
+				}
+				sub_7C120_draw_bitmap_640(a3, v8, xy_DWORD_17DED4_spritestr[274]);
+				sub_7C120_draw_bitmap_640(a4 - xy_DWORD_17DED4_spritestr[274].sizex, v8, xy_DWORD_17DED4_spritestr[274]);
 			}
-			sub_7C120_draw_bitmap_640(a3, v8, xy_DWORD_17DED4_spritestr[274]);
-			sub_7C120_draw_bitmap_640(a4 - xy_DWORD_17DED4_spritestr[274].sizex, v8, xy_DWORD_17DED4_spritestr[274]);
-		}
-		if (a8)
-		{
-			//HIWORD(v21) = HIWORD(xy_DWORD_17DED4_spritestr);
-			v21 = xy_DWORD_17DED4_spritestr[274].sizey;
-			a1 = v21 + v8;
-			v98 += v21;
-		}
-		else
-		{
-			v98 = v8;
+			if (a8)
+			{
+				//HIWORD(v21) = HIWORD(xy_DWORD_17DED4_spritestr);
+				v21 = xy_DWORD_17DED4_spritestr[274].sizey;
+				a1 = v21 + v8;
+				v98 += v21;
+			}
+			else
+			{
+				v98 = v8;
+			}
 		}
 	}
 	else

@@ -7,6 +7,7 @@
 #include "mixer.h"
 //#include "music_timidity.h"
 #include "xmi2mid.h"
+#include <time.h>       /* time */
 #include <string>
 
 #include "../engine/ail_sound.h"

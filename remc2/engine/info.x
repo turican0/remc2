@@ -2395,3 +2395,6 @@ problem:
 sub_7FCB0_draw_text_with_border(v3, x_DWORD_E9C4C_langindexbuffer[23 + v3], (signed __int16)(a1 + 4 * v9), v8, a2, 5, v7, 1);		
 
 3800000
+
+signed int sub_7E320_draw_bitmaps_and_play_sounds(__int16 a1, int a2)//25f320
+helps

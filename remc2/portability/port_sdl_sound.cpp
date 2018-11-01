@@ -414,7 +414,7 @@ bool init_sound()
 	//run();
 	//#define MUSIC_MID_FLUIDSYNTH
 	//Initialize SDL_mixer
-	srand(0x1234567);
+	srand(time(NULL));
 	if (hqsound) {
 		if (Mix_OpenAudio(44100, AUDIO_S16, 2, 4096) == -1)//4096
 		//if (Mix_OpenAudio(11025, AUDIO_S8, 1, 4096) == -1)//4096
