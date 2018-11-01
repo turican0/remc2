@@ -1,4 +1,20 @@
-﻿  sub_main.cpp
+﻿  engine_support.cpp
+c:\prenos\remc2\sdl-mixer-x-master\src\music.h(31): warning C4273: round: nekonzistentní propojení dll
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\corecrt_math.h(532): note: viz předchozí definice round
+c:\prenos\remc2\remc2\engine\engine_support.cpp(216): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\engine_support.cpp(232): warning C4018: <: signed/unsigned – neshoda
+  read_config.cpp
+c:\prenos\remc2\sdl-mixer-x-master\src\music.h(31): warning C4273: round: nekonzistentní propojení dll
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\corecrt_math.h(532): note: viz předchozí definice round
+c:\prenos\remc2\remc2\engine\defs.h(74): warning C4005: LOBYTE: předefinování makra
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\shared\minwindef.h(206): note: viz předchozí definice LOBYTE
+c:\prenos\remc2\remc2\engine\defs.h(75): warning C4005: LOWORD: předefinování makra
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\shared\minwindef.h(204): note: viz předchozí definice LOWORD
+c:\prenos\remc2\remc2\engine\defs.h(77): warning C4005: HIBYTE: předefinování makra
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\shared\minwindef.h(207): note: viz předchozí definice HIBYTE
+c:\prenos\remc2\remc2\engine\defs.h(78): warning C4005: HIWORD: předefinování makra
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\shared\minwindef.h(205): note: viz předchozí definice HIWORD
+  sub_main.cpp
 c:\prenos\remc2\remc2\engine\sub_main.cpp(1): warning C4067: Po direktivě preprocesoru byly neočekávané tokeny – očekával se nový řádek.
 c:\prenos\remc2\remc2\engine\defs.h(74): warning C4005: LOBYTE: předefinování makra
   c:\program files (x86)\windows kits\10\include\10.0.16299.0\shared\minwindef.h(206): note: viz předchozí definice LOBYTE
@@ -1238,6 +1254,33 @@ c:\prenos\remc2\remc2\engine\defs.h(258): warning C4244: inicializování: T se 
               T=Bit16u,
               U=Bit8u
           ]
+  port_filesystem.cpp
+  port_outputs.cpp
+c:\prenos\remc2\sdl-mixer-x-master\src\music.h(31): warning C4273: round: nekonzistentní propojení dll
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\corecrt_math.h(532): note: viz předchozí definice round
+  port_sdl_sound.cpp
+c:\prenos\remc2\sdl-mixer-x-master\src\music.h(31): warning C4273: round: nekonzistentní propojení dll
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\corecrt_math.h(532): note: viz předchozí definice round
+c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.15.26726\include\xtgmath.h(221): warning C4273: round: nekonzistentní propojení dll
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\corecrt_math.h(532): note: viz předchozí definice round
+  port_sdl_vga_mouse.cpp
+c:\prenos\remc2\sdl-mixer-x-master\src\music.h(31): warning C4273: round: nekonzistentní propojení dll
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\corecrt_math.h(532): note: viz předchozí definice round
+c:\prenos\remc2\remc2\portability\port_sdl_vga_mouse.cpp(298): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\portability\port_sdl_vga_mouse.cpp(290): warning C4101: dstrect: neodkazovaná lokální proměnná
+c:\prenos\remc2\remc2\portability\port_sdl_vga_mouse.cpp(289): warning C4101: srcrect: neodkazovaná lokální proměnná
+  remc2.cpp
+c:\prenos\remc2\sdl-mixer-x-master\src\music.h(31): warning C4273: round: nekonzistentní propojení dll
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\corecrt_math.h(532): note: viz předchozí definice round
+c:\prenos\remc2\remc2\engine\defs.h(74): warning C4005: LOBYTE: předefinování makra
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\shared\minwindef.h(206): note: viz předchozí definice LOBYTE
+c:\prenos\remc2\remc2\engine\defs.h(75): warning C4005: LOWORD: předefinování makra
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\shared\minwindef.h(204): note: viz předchozí definice LOWORD
+c:\prenos\remc2\remc2\engine\defs.h(77): warning C4005: HIBYTE: předefinování makra
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\shared\minwindef.h(207): note: viz předchozí definice HIBYTE
+c:\prenos\remc2\remc2\engine\defs.h(78): warning C4005: HIWORD: předefinování makra
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\shared\minwindef.h(205): note: viz předchozí definice HIWORD
+  Generování kódu...
 c:\prenos\remc2\remc2\engine\sub_main.cpp(16961): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(22701): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(22848): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
@@ -1246,10 +1289,10 @@ c:\prenos\remc2\remc2\engine\sub_main.cpp(22883): warning C4739: Odkaz na promě
 c:\prenos\remc2\remc2\engine\sub_main.cpp(22896): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(23953): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(25372): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(26303): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(26496): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(27658): warning C4739: Odkaz na proměnnou v10 překračuje její prostor úložiště.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(26303): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(27516): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(27658): warning C4739: Odkaz na proměnnou v10 překračuje její prostor úložiště.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(28038): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(29299): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(29316): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
@@ -1259,9 +1302,9 @@ c:\prenos\remc2\remc2\engine\sub_main.cpp(30466): warning C4739: Odkaz na promě
 c:\prenos\remc2\remc2\engine\sub_main.cpp(31732): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(31889): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(33489): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(34193): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(34355): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(34567): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(34193): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(34592): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(34871): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(34895): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
@@ -1298,17 +1341,17 @@ c:\prenos\remc2\remc2\engine\sub_main.cpp(56973): warning C4739: Odkaz na promě
 c:\prenos\remc2\remc2\engine\sub_main.cpp(57761): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(59170): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(61317): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(63304): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(63257): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(63268): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(63304): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(68684): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(68703): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(71306): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(71509): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(71322): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(71405): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(71420): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(71434): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(71509): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(71833): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(72143): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(72387): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
@@ -1339,7 +1382,75 @@ c:\prenos\remc2\remc2\engine\sub_main.cpp(100646): warning C4739: Odkaz na prom�
 c:\prenos\remc2\remc2\engine\sub_main.cpp(100702): warning C4739: Odkaz na proměnnou unk_18048B překračuje její prostor úložiště.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(100703): warning C4739: Odkaz na proměnnou unk_18048B překračuje její prostor úložiště.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(100811): warning C4739: Odkaz na proměnnou unk_180452 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(100813): warning C4739: Odkaz na proměnnou unk_180452 překračuje její prostor úložiště.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(100858): warning C4739: Odkaz na proměnnou unk_180460 překračuje její prostor úložiště.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(100813): warning C4739: Odkaz na proměnnou unk_180452 překračuje její prostor úložiště.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(100860): warning C4739: Odkaz na proměnnou unk_180460 překračuje její prostor úložiště.
+  LINK : Soubor C:\prenos\remc2\Debug\remc2.exe se nenašel nebo se při posledním přírůstkovém propojování nesestavil. Provádí se úplné propojení.
+     Vytváří se knihovna C:\prenos\remc2\Debug\remc2.lib a objekt C:\prenos\remc2\Debug\remc2.exp.
+LINK : warning LNK4098: Výchozí knihovna LIBCMTD je v konfliktu s použitím jiných knihoven. Použijte /NODEFAULTLIB:library.
+xmi2mid.obj : warning LNK4099: Soubor .pdb vc141.pdb se nenašel s xmi2mid.obj nebo na C:\prenos\remc2\Debug\vc141.pdb. Objekt se propojí, jako by nebyly dostupné žádné ladicí informace.
+port_time.obj : warning LNK4099: Soubor .pdb vc141.pdb se nenašel s port_time.obj nebo na C:\prenos\remc2\Debug\vc141.pdb. Objekt se propojí, jako by nebyly dostupné žádné ladicí informace.
+port_inputs.obj : warning LNK4099: Soubor .pdb vc141.pdb se nenašel s port_inputs.obj nebo na C:\prenos\remc2\Debug\vc141.pdb. Objekt se propojí, jako by nebyly dostupné žádné ladicí informace.
+dirent.obj : warning LNK4099: Soubor .pdb vc141.pdb se nenašel s dirent.obj nebo na C:\prenos\remc2\Debug\vc141.pdb. Objekt se propojí, jako by nebyly dostupné žádné ladicí informace.
+vb6_sdl_binds.obj : warning LNK4099: Soubor .pdb vc141.pdb se nenašel s vb6_sdl_binds.obj nebo na C:\prenos\remc2\Debug\vc141.pdb. Objekt se propojí, jako by nebyly dostupné žádné ladicí informace.
+music.obj : warning LNK4099: Soubor .pdb vc141.pdb se nenašel s music.obj nebo na C:\prenos\remc2\Debug\vc141.pdb. Objekt se propojí, jako by nebyly dostupné žádné ladicí informace.
+mixer_x_deprecated.obj : warning LNK4099: Soubor .pdb vc141.pdb se nenašel s mixer_x_deprecated.obj nebo na C:\prenos\remc2\Debug\vc141.pdb. Objekt se propojí, jako by nebyly dostupné žádné ladicí informace.
+mixer.obj : warning LNK4099: Soubor .pdb vc141.pdb se nenašel s mixer.obj nebo na C:\prenos\remc2\Debug\vc141.pdb. Objekt se propojí, jako by nebyly dostupné žádné ladicí informace.
+effect_stereoreverse.obj : warning LNK4099: Soubor .pdb vc141.pdb se nenašel s effect_stereoreverse.obj nebo na C:\prenos\remc2\Debug\vc141.pdb. Objekt se propojí, jako by nebyly dostupné žádné ladicí informace.
+effect_position.obj : warning LNK4099: Soubor .pdb vc141.pdb se nenašel s effect_position.obj nebo na C:\prenos\remc2\Debug\vc141.pdb. Objekt se propojí, jako by nebyly dostupné žádné ladicí informace.
+effects_internal.obj : warning LNK4099: Soubor .pdb vc141.pdb se nenašel s effects_internal.obj nebo na C:\prenos\remc2\Debug\vc141.pdb. Objekt se propojí, jako by nebyly dostupné žádné ladicí informace.
+native_midi_win32.obj : warning LNK4099: Soubor .pdb vc141.pdb se nenašel s native_midi_win32.obj nebo na C:\prenos\remc2\Debug\vc141.pdb. Objekt se propojí, jako by nebyly dostupné žádné ladicí informace.
+native_midi_macosx.obj : warning LNK4099: Soubor .pdb vc141.pdb se nenašel s native_midi_macosx.obj nebo na C:\prenos\remc2\Debug\vc141.pdb. Objekt se propojí, jako by nebyly dostupné žádné ladicí informace.
+native_midi_mac.obj : warning LNK4099: Soubor .pdb vc141.pdb se nenašel s native_midi_mac.obj nebo na C:\prenos\remc2\Debug\vc141.pdb. Objekt se propojí, jako by nebyly dostupné žádné ladicí informace.
+native_midi_haiku.obj : warning LNK4099: Soubor .pdb vc141.pdb se nenašel s native_midi_haiku.obj nebo na C:\prenos\remc2\Debug\vc141.pdb. Objekt se propojí, jako by nebyly dostupné žádné ladicí informace.
+native_midi_common.obj : warning LNK4099: Soubor .pdb vc141.pdb se nenašel s native_midi_common.obj nebo na C:\prenos\remc2\Debug\vc141.pdb. Objekt se propojí, jako by nebyly dostupné žádné ladicí informace.
+music_wav.obj : warning LNK4099: Soubor .pdb vc141.pdb se nenašel s music_wav.obj nebo na C:\prenos\remc2\Debug\vc141.pdb. Objekt se propojí, jako by nebyly dostupné žádné ladicí informace.
+music_timidity.obj : warning LNK4099: Soubor .pdb vc141.pdb se nenašel s music_timidity.obj nebo na C:\prenos\remc2\Debug\vc141.pdb. Objekt se propojí, jako by nebyly dostupné žádné ladicí informace.
+music_opus.obj : warning LNK4099: Soubor .pdb vc141.pdb se nenašel s music_opus.obj nebo na C:\prenos\remc2\Debug\vc141.pdb. Objekt se propojí, jako by nebyly dostupné žádné ladicí informace.
+music_ogg.obj : warning LNK4099: Soubor .pdb vc141.pdb se nenašel s music_ogg.obj nebo na C:\prenos\remc2\Debug\vc141.pdb. Objekt se propojí, jako by nebyly dostupné žádné ladicí informace.
+music_nativemidi.obj : warning LNK4099: Soubor .pdb vc141.pdb se nenašel s music_nativemidi.obj nebo na C:\prenos\remc2\Debug\vc141.pdb. Objekt se propojí, jako by nebyly dostupné žádné ladicí informace.
+music_mpg123.obj : warning LNK4099: Soubor .pdb vc141.pdb se nenašel s music_mpg123.obj nebo na C:\prenos\remc2\Debug\vc141.pdb. Objekt se propojí, jako by nebyly dostupné žádné ladicí informace.
+music_modplug.obj : warning LNK4099: Soubor .pdb vc141.pdb se nenašel s music_modplug.obj nebo na C:\prenos\remc2\Debug\vc141.pdb. Objekt se propojí, jako by nebyly dostupné žádné ladicí informace.
+music_mikmod.obj : warning LNK4099: Soubor .pdb vc141.pdb se nenašel s music_mikmod.obj nebo na C:\prenos\remc2\Debug\vc141.pdb. Objekt se propojí, jako by nebyly dostupné žádné ladicí informace.
+music_midi_opn.obj : warning LNK4099: Soubor .pdb vc141.pdb se nenašel s music_midi_opn.obj nebo na C:\prenos\remc2\Debug\vc141.pdb. Objekt se propojí, jako by nebyly dostupné žádné ladicí informace.
+music_midi_adl.obj : warning LNK4099: Soubor .pdb vc141.pdb se nenašel s music_midi_adl.obj nebo na C:\prenos\remc2\Debug\vc141.pdb. Objekt se propojí, jako by nebyly dostupné žádné ladicí informace.
+music_mad.obj : warning LNK4099: Soubor .pdb vc141.pdb se nenašel s music_mad.obj nebo na C:\prenos\remc2\Debug\vc141.pdb. Objekt se propojí, jako by nebyly dostupné žádné ladicí informace.
+music_id3tag.obj : warning LNK4099: Soubor .pdb vc141.pdb se nenašel s music_id3tag.obj nebo na C:\prenos\remc2\Debug\vc141.pdb. Objekt se propojí, jako by nebyly dostupné žádné ladicí informace.
+music_gme.obj : warning LNK4099: Soubor .pdb vc141.pdb se nenašel s music_gme.obj nebo na C:\prenos\remc2\Debug\vc141.pdb. Objekt se propojí, jako by nebyly dostupné žádné ladicí informace.
+music_fluidsynth.obj : warning LNK4099: Soubor .pdb vc141.pdb se nenašel s music_fluidsynth.obj nebo na C:\prenos\remc2\Debug\vc141.pdb. Objekt se propojí, jako by nebyly dostupné žádné ladicí informace.
+music_flac.obj : warning LNK4099: Soubor .pdb vc141.pdb se nenašel s music_flac.obj nebo na C:\prenos\remc2\Debug\vc141.pdb. Objekt se propojí, jako by nebyly dostupné žádné ladicí informace.
+music_cmd.obj : warning LNK4099: Soubor .pdb vc141.pdb se nenašel s music_cmd.obj nebo na C:\prenos\remc2\Debug\vc141.pdb. Objekt se propojí, jako by nebyly dostupné žádné ladicí informace.
+load_voc.obj : warning LNK4099: Soubor .pdb vc141.pdb se nenašel s load_voc.obj nebo na C:\prenos\remc2\Debug\vc141.pdb. Objekt se propojí, jako by nebyly dostupné žádné ladicí informace.
+load_aiff.obj : warning LNK4099: Soubor .pdb vc141.pdb se nenašel s load_aiff.obj nebo na C:\prenos\remc2\Debug\vc141.pdb. Objekt se propojí, jako by nebyly dostupné žádné ladicí informace.
+wopn_file.obj : warning LNK4099: Soubor .pdb vc141.pdb se nenašel s wopn_file.obj nebo na C:\prenos\remc2\Debug\vc141.pdb. Objekt se propojí, jako by nebyly dostupné žádné ladicí informace.
+opnmidi_sequencer.obj : warning LNK4099: Soubor .pdb vc141.pdb se nenašel s opnmidi_sequencer.obj nebo na C:\prenos\remc2\Debug\vc141.pdb. Objekt se propojí, jako by nebyly dostupné žádné ladicí informace.
+opnmidi_private.obj : warning LNK4099: Soubor .pdb vc141.pdb se nenašel s opnmidi_private.obj nebo na C:\prenos\remc2\Debug\vc141.pdb. Objekt se propojí, jako by nebyly dostupné žádné ladicí informace.
+opnmidi_opn2.obj : warning LNK4099: Soubor .pdb vc141.pdb se nenašel s opnmidi_opn2.obj nebo na C:\prenos\remc2\Debug\vc141.pdb. Objekt se propojí, jako by nebyly dostupné žádné ladicí informace.
+opnmidi_midiplay.obj : warning LNK4099: Soubor .pdb vc141.pdb se nenašel s opnmidi_midiplay.obj nebo na C:\prenos\remc2\Debug\vc141.pdb. Objekt se propojí, jako by nebyly dostupné žádné ladicí informace.
+opnmidi_load.obj : warning LNK4099: Soubor .pdb vc141.pdb se nenašel s opnmidi_load.obj nebo na C:\prenos\remc2\Debug\vc141.pdb. Objekt se propojí, jako by nebyly dostupné žádné ladicí informace.
+opnmidi.obj : warning LNK4099: Soubor .pdb vc141.pdb se nenašel s opnmidi.obj nebo na C:\prenos\remc2\Debug\vc141.pdb. Objekt se propojí, jako by nebyly dostupné žádné ladicí informace.
+nuked_opn2.obj : warning LNK4099: Soubor .pdb vc141.pdb se nenašel s nuked_opn2.obj nebo na C:\prenos\remc2\Debug\vc141.pdb. Objekt se propojí, jako by nebyly dostupné žádné ladicí informace.
+ym3438.obj : warning LNK4099: Soubor .pdb vc141.pdb se nenašel s ym3438.obj nebo na C:\prenos\remc2\Debug\vc141.pdb. Objekt se propojí, jako by nebyly dostupné žádné ladicí informace.
+mame_opn2.obj : warning LNK4099: Soubor .pdb vc141.pdb se nenašel s mame_opn2.obj nebo na C:\prenos\remc2\Debug\vc141.pdb. Objekt se propojí, jako by nebyly dostupné žádné ladicí informace.
+mame_ym2612fm.obj : warning LNK4099: Soubor .pdb vc141.pdb se nenašel s mame_ym2612fm.obj nebo na C:\prenos\remc2\Debug\vc141.pdb. Objekt se propojí, jako by nebyly dostupné žádné ladicí informace.
+gx_opn2.obj : warning LNK4099: Soubor .pdb vc141.pdb se nenašel s gx_opn2.obj nebo na C:\prenos\remc2\Debug\vc141.pdb. Objekt se propojí, jako by nebyly dostupné žádné ladicí informace.
+gx_ym2612.obj : warning LNK4099: Soubor .pdb vc141.pdb se nenašel s gx_ym2612.obj nebo na C:\prenos\remc2\Debug\vc141.pdb. Objekt se propojí, jako by nebyly dostupné žádné ladicí informace.
+gens_opn2.obj : warning LNK4099: Soubor .pdb vc141.pdb se nenašel s gens_opn2.obj nebo na C:\prenos\remc2\Debug\vc141.pdb. Objekt se propojí, jako by nebyly dostupné žádné ladicí informace.
+Ym2612_Emu.obj : warning LNK4099: Soubor .pdb vc141.pdb se nenašel s Ym2612_Emu.obj nebo na C:\prenos\remc2\Debug\vc141.pdb. Objekt se propojí, jako by nebyly dostupné žádné ladicí informace.
+wopl_file.obj : warning LNK4099: Soubor .pdb vc141.pdb se nenašel s wopl_file.obj nebo na C:\prenos\remc2\Debug\vc141.pdb. Objekt se propojí, jako by nebyly dostupné žádné ladicí informace.
+nuked_opl3_v174.obj : warning LNK4099: Soubor .pdb vc141.pdb se nenašel s nuked_opl3_v174.obj nebo na C:\prenos\remc2\Debug\vc141.pdb. Objekt se propojí, jako by nebyly dostupné žádné ladicí informace.
+nuked_opl3.obj : warning LNK4099: Soubor .pdb vc141.pdb se nenašel s nuked_opl3.obj nebo na C:\prenos\remc2\Debug\vc141.pdb. Objekt se propojí, jako by nebyly dostupné žádné ladicí informace.
+nukedopl3_174.obj : warning LNK4099: Soubor .pdb vc141.pdb se nenašel s nukedopl3_174.obj nebo na C:\prenos\remc2\Debug\vc141.pdb. Objekt se propojí, jako by nebyly dostupné žádné ladicí informace.
+nukedopl3.obj : warning LNK4099: Soubor .pdb vc141.pdb se nenašel s nukedopl3.obj nebo na C:\prenos\remc2\Debug\vc141.pdb. Objekt se propojí, jako by nebyly dostupné žádné ladicí informace.
+dosbox_opl3.obj : warning LNK4099: Soubor .pdb vc141.pdb se nenašel s dosbox_opl3.obj nebo na C:\prenos\remc2\Debug\vc141.pdb. Objekt se propojí, jako by nebyly dostupné žádné ladicí informace.
+dbopl.obj : warning LNK4099: Soubor .pdb vc141.pdb se nenašel s dbopl.obj nebo na C:\prenos\remc2\Debug\vc141.pdb. Objekt se propojí, jako by nebyly dostupné žádné ladicí informace.
+adlmidi_sequencer.obj : warning LNK4099: Soubor .pdb vc141.pdb se nenašel s adlmidi_sequencer.obj nebo na C:\prenos\remc2\Debug\vc141.pdb. Objekt se propojí, jako by nebyly dostupné žádné ladicí informace.
+adlmidi_private.obj : warning LNK4099: Soubor .pdb vc141.pdb se nenašel s adlmidi_private.obj nebo na C:\prenos\remc2\Debug\vc141.pdb. Objekt se propojí, jako by nebyly dostupné žádné ladicí informace.
+adlmidi_opl3.obj : warning LNK4099: Soubor .pdb vc141.pdb se nenašel s adlmidi_opl3.obj nebo na C:\prenos\remc2\Debug\vc141.pdb. Objekt se propojí, jako by nebyly dostupné žádné ladicí informace.
+adlmidi_midiplay.obj : warning LNK4099: Soubor .pdb vc141.pdb se nenašel s adlmidi_midiplay.obj nebo na C:\prenos\remc2\Debug\vc141.pdb. Objekt se propojí, jako by nebyly dostupné žádné ladicí informace.
+adlmidi_load.obj : warning LNK4099: Soubor .pdb vc141.pdb se nenašel s adlmidi_load.obj nebo na C:\prenos\remc2\Debug\vc141.pdb. Objekt se propojí, jako by nebyly dostupné žádné ladicí informace.
+adlmidi.obj : warning LNK4099: Soubor .pdb vc141.pdb se nenašel s adlmidi.obj nebo na C:\prenos\remc2\Debug\vc141.pdb. Objekt se propojí, jako by nebyly dostupné žádné ladicí informace.
+adldata.obj : warning LNK4099: Soubor .pdb vc141.pdb se nenašel s adldata.obj nebo na C:\prenos\remc2\Debug\vc141.pdb. Objekt se propojí, jako by nebyly dostupné žádné ladicí informace.
+INIReader.obj : warning LNK4099: Soubor .pdb vc141.pdb se nenašel s INIReader.obj nebo na C:\prenos\remc2\Debug\vc141.pdb. Objekt se propojí, jako by nebyly dostupné žádné ladicí informace.
+ini.obj : warning LNK4099: Soubor .pdb vc141.pdb se nenašel s ini.obj nebo na C:\prenos\remc2\Debug\vc141.pdb. Objekt se propojí, jako by nebyly dostupné žádné ladicí informace.
   remc2.vcxproj -> C:\prenos\remc2\Debug\remc2.exe
