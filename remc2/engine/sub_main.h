@@ -253,7 +253,7 @@ int sub_7F6A0(int a1, int a2, __int16 a3, __int16 a4, char *a5, x_BYTE *a6, unsi
 unsigned int sub_81CA0(int a1, int a2, __int16 a3, __int16 a4, int a5);
 signed int sub_7E5A0_pre_draw(int a1, int a2, __int16 a3, __int16 a4, Bit8u* a5, __int16 a6, __int16 a7);
 void sub_81260(int a1, int a2, int a3, __int16 a4, __int16 a5);
-int sub_82510(__int16 a1, int *a2);
+void sub_82510(/*__int16 a1*//*, int *a2*/);
 signed __int16 sub_81EE0(int a1, int a2, int a3, signed __int16 a4, __int16 a5, __int16 a6);
 signed int sub_80D40_move_graphics_and_play_sounds(__int16 a1, __int16 a2, __int16 a3, __int16 a4, __int16 a5, char a6);
 void sub_85CC3_draw_round_frame(/*unsigned int a1, int a2, */unsigned __int16 *a3);

@@ -2398,3 +2398,35 @@ sub_7FCB0_draw_text_with_border(v3, x_DWORD_E9C4C_langindexbuffer[23 + v3], (sig
 
 signed int sub_7E320_draw_bitmaps_and_play_sounds(__int16 a1, int a2)//25f320
 helps
+
+int sub_82510(__int16 a1, int *a2)//263510
+sub_7E840_draw_textbox_with_line((Bit16u*)&v10, 238, 264);//draw help
+
+find 34eba8 respektive 34ebb6
+&unk_17DBA8str.unk_17DBA8
+
+xy_DWORD_17DEC0_spritestr[65].sizex - 08 34eec0->4551d6 455360 0707
+ale 34eec0+18a je 07
+
+v 279a59
+
+x_DWORD_17DEC0+0x18a
+
+25e6cb
+
+void sub_7D400_draw_texts_and_play_sounds(int a1, __int16 a2, __int16 a3, char a4)//25e40
+if (a4 == 3 && x_D41A0_BYTEARRAY_4_struct.byteindex_A == 1)
+
+260ae0
+2611b1 - 801b1
+sub_7FAE0_draw_text(v87, v99, a4, v98, 0/*v86*/);//adress 261197 (80197)
+int sub_7FCB0_draw_text_with_border(int a1, Bit8u* a2, Bit32s a3, Bit32s a4, int a5, Bit8u a6, unsigned __int8 a7, Bit32u a8)//260cb0
+25f8b1 - 7e8b1
+int sub_7E840_draw_textbox_with_line(Bit16u* a1, __int16 a2, __int16 a3)//25f840
+25e8c2 - 7d8c2
+
+sub_7E840(&v22, 238, 264);
+void sub_7D400_draw_texts_and_play_sounds(int a1, __int16 a2, __int16 a3, char a4)//25e400
+25e8c2
+
+black line -sub_7C140(v99, a1, v104, v29, v27)
