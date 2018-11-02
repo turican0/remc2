@@ -8,6 +8,11 @@ https://www.gog.com/game/magic_carpet_2_the_netherworlds<br />
 <br />
 simple dev blog:https://github.com/turican0/remc2/wiki<br />
 
+## 0.16:<br />
+-map menu graphics full fixed!<br />
+-added config<br />
+-added alternative music<br />
+<br />
 ## 0.15:<br />
 -BIG work on SOUND and MUSIC<br />
 --rewrite mss and connect it to SDL<br />
