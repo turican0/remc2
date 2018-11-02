@@ -2430,3 +2430,8 @@ void sub_7D400_draw_texts_and_play_sounds(int a1, __int16 a2, __int16 a3, char a
 25e8c2
 
 black line -sub_7C140(v99, a1, v104, v29, v27)
+
+x_WORD_180660_VGA_type_resolution - 8
+versus
+351660 -1
+355244
