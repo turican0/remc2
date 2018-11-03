@@ -2435,3 +2435,20 @@ x_WORD_180660_VGA_type_resolution - 8
 versus
 351660 -1
 355244
+
+find
+x_BYTE_13B4E0 - 30c4e0 nebo spis 30c500 v sub_44E40
+vychazi z
+x_BYTE_11B4E0 - 2ec4e0 nebo spis 2ec500 v sub_44DB0 - asi ok
+vychazi z
+x_WORD_15B4E0 - 32c4e0 f5fd58 v sub_B5EFA -zde je to vyreseno
+
+	sub_44E40(*(x_DWORD *)(v2 + 39), *(x_WORD *)(v2 + 43));//225e40
+	- problem x_BYTE_13B4E0
+	treto=i radek ma byt:
+	00 00 05 00 00 05, ale je
+	00 00 05 05 05 05
+
+	-sem se to ani nedostane
+void sub_44EE0(int a1, Bit16u a2)//225ee0
+x_BYTE_10B4E0 - 2dc4e0

@@ -211,7 +211,7 @@ unsigned __int16 sub_3FD60(int a1, int a2);
 //void __outx_BYTE(unsigned short Port, unsigned char Data);
 //unsigned char __inx_BYTE(unsigned short Port);
 unsigned int sub_43970(unsigned int a1);
-unsigned __int16 sub_44EE0(int a1, int a2);
+void sub_44EE0(int a1, Bit16u a2);
 void sub_56A30_init_game_level(unsigned int a1);
 int sub_47320(signed int a1);
 void sub_56D60(unsigned int a1, char a2);
