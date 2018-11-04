@@ -2452,3 +2452,6 @@ x_WORD_15B4E0 - 32c4e0 f5fd58 v sub_B5EFA -zde je to vyreseno
 	-sem se to ani nedostane
 void sub_44EE0(int a1, Bit16u a2)//225ee0
 x_BYTE_10B4E0 - 2dc4e0
+
+find
+unk_D47E0 - 2a57e0
