@@ -57181,7 +57181,7 @@ int filearrayindex_MSPRDDATTAB = 2;
 int filearrayindex_ZERO1 = 3;
 int filearrayindex_MSPRD00DATTAB = 4;
 	*/
-	*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct[a2]
+	//*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct[a2]
 	v2 = 0;  //fix it
 	v3 = *(unsigned __int8 *)(v2 + 5);
 	v4 = *(unsigned __int8 *)(v2 + 4);
@@ -95598,7 +95598,7 @@ Bit32u sub_7FAE0_draw_text(char* text, Bit16s a2, Bit16s a3, Bit16s posy, Bit8u 
 //----- (0007FB90) --------------------------------------------------------
 void sub_7FB90_draw_text(char* textbuffer, Bit16s posx, Bit16s posy, Bit8u color)//260b90
 {
-	char *temptextbuffer; // esi
+	Bit8u* temptextbuffer; // esi
 	Bit16s tempposx; // ebx
 	Bit16s tempposy; // di
 	char v7; // ax
@@ -95606,7 +95606,7 @@ void sub_7FB90_draw_text(char* textbuffer, Bit16s posx, Bit16s posy, Bit8u color
 	//int result; // eax
 	int v10; // [esp+0h] [ebp-4h]
 
-	temptextbuffer = textbuffer;
+	temptextbuffer = (Bit8u*)textbuffer;
 	tempposx = posx;
 	tempposy = posy;
 	if (color)
