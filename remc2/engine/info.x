@@ -2455,3 +2455,9 @@ x_BYTE_10B4E0 - 2dc4e0
 
 find
 unk_D47E0 - 2a57e0
+
+find 
+dword_EA3BC - 2bb3bc
+27b3d8 z call 27b32d -sub_9A32D_malloc_open_unpack
+sub_84250_load_file_array
+sub_5BF50_load_psxdata -23cf50

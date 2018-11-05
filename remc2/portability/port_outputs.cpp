@@ -14,7 +14,7 @@ void myWriteOut(const char * format, ...) {
 	DOS_CON->Write(&b, &sz);*/
 }
 
-int myprintf(const char * format, ...) {
+void myprintf(const char * format, ...) {
 	char prbuffer[1024];
 	va_list arg;
 	int done;
@@ -30,7 +30,7 @@ int myprintf(const char * format, ...) {
 #endif //USE_DOSBOX
 
 	//return strlen(prbuffer);
-	return done;
+	//return done;
 	/*Bit16u sz = 1;
 	unsigned char b = 'a';
 	DOS_CON->Write(&b, &sz);*/

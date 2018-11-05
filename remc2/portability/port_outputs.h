@@ -13,6 +13,6 @@
 //#include "../portability/mctypes.h"
 
 void myWriteOut(const char * format, ...);
-int myprintf(const char * format, ...);
+void myprintf(const char * format, ...);
 
 #endif //PORT_OUTPUTS

@@ -77,15 +77,15 @@ Toggle light sources on / off#Zapnout / vypnout svìtla#13
 Alter screen size#Zmìna velikosti obrazovky#14
 Toggle help on / off#Zapnout / vypnout nápovìdu#15
 Toggle flight assistance on / off#Zapnout / vypnout letového asistenta#16
-Kafkar: When you're a wizard trapped in the Netherworlds, and its demon overlord discovers which#Kafkar: Kdy jsi èarodìj uvìznìnı v Podsvìtí, a místní démon zjistí,#17
-dimension you've just come from, you have good reason to wonder how long that dimension has left# e nejsi odsud, máš dobrı dùvod odsud zmizet døív,#18
-before said demon tranforms it into an ornament for his throne room...#ne tì démon pøemìní na ozdobu svého trùnního pokoje ...#19
-Vissuluth: I am free! And I smell the fear of mortal men.#Vissuluth: Jsem svobodnı! A ze smtelníkù cítím strach.#20
-Kafkar: Then you remember that promising apprentice you once introduced to the eldritch arts...#Kafkar: Pak si vzpomínáš, e ten slibnı uèeò, kterého jsi jednou pøedstavil v tajuplném umìní ...#21
-Apprentice: No! Master?#Uèedník: Ne! Mistøe?#22
-Kafkar: I see you have met your new neighbour, Vissuluth, Demon Lord of the Netherworlds.#Kafkar: Vidím, potkal jsi svého nového souseda, Vissulutha, Pána Démonù Podsvìtí.#23
-"You must explore the outer Netherworlds while you learn its magic. Your first destination is the ancient city of Jahwl."#"Musíš prozkoumat Okolí Podsvìtí, a nauèít se nové kouzlo. Tvùj první cíl je starobylé mìsto Jahwl."#24
-"Before Vissuluth's rule of the Netherworlds began, the island of Kopahk was occupied by the great sorceress, Payahandra. Go there and discover her lost spells."#"Pøedtím, ne Vissuluthova ovládl Podsvìtí, byl ostrov Kopahk obsazen velkou èarodìjkou Payahandrou. Jdi tam a najdi její ztracená kouzla."#25
+Kafkar: When you're a wizard trapped in the Netherworlds, and its demon overlord discovers which#Kafkar: Kdy jsi èarodìj uvìznìnı v Podsvìtí, a místní démon zjistí,#16x
+dimension you've just come from, you have good reason to wonder how long that dimension has left# e nejsi odsud, máš dobrı dùvod odsud zmizet døív,#17x
+before said demon tranforms it into an ornament for his throne room...#ne tì démon pøemìní na trofej v trùnním sále ...#18x
+Vissuluth: I am free! And I smell the fear of mortal men.#Vissuluth: Jsem svobodnı! A cítím, jak se mì smrtelnící dìsí.#19x
+Kafkar: Then you remember that promising apprentice you once introduced to the eldritch arts...#Kafkar: Nezapomeò, kdo tì tì zasvìtil do tajù èarodìjného umìní ...#20x
+Apprentice: No! Master?#Uèedník: Ne! Mistøe?#21x
+Kafkar: I see you have met your new neighbour, Vissuluth, Demon Lord of the Netherworlds.#Kafkar: Vidím, potkal jsi našeho nového souseda, Vissulutha, Pána Démonù Podsvìtí.#22x
+"You must explore the outer Netherworlds while you learn its magic. Your first destination is the ancient city of Jahwl."#"Musíš prozkoumat prostor Podsvìtí, a nauèít se nová kouzla. Tvùj první cíl je starobylé mìsto Jahwl."#24
+"Before Vissuluth's rule of the Netherworlds began, the island of Kopahk was occupied by the great sorceress, Payahandra. Go there and discover her lost spells."#"Pøedtím, ne Vissuluthov ovládl Podsvìtí, byl ostrov Kopahk obsazen velkou èarodìjkou Payahandrou. Jdi tam a najdi její ztracená kouzla."#25
 "Nyphur is a shapechanger. I will send you to his lair to seek the source of his power. I warn you, he will not have left his domain weakly defended."#"Nyphur je tvùrcem tvaru, posílám tì do svého doupìte, hledat zdroj jeho moci. Musím tì varovat, jeho panství má silnou obranu."#26
 "A gift from the gods! Alas, it falls towards the netherworld of the spiders…"#"Dar od bohù! Bohuel, spadl poblí pavouèího podsvìtí ..." #27
 "The outcast, Nyphur, wages war against Rahn The Destructor, in the outer netherworld of T'Klom. Neither is fit to rule."#"Vyhnanec Nyphur, vede válku proti Rahnovi Nièiteli ve vnìjším podzemí T'Klomu. Dokud ho neovládne."#28
@@ -451,48 +451,48 @@ Spells found#Byly nalezeny kouzla#387
 Overall performance#Celkovı vıkon#388
 Yes#Ano#389
 No#Ne#390
-Sound On#Zvuk zapnutı#391
-Sound Off#Zvuk vypnutı#392
-Music On#Zapnutá hudba#393
-Music Off#Hudba vypnutá#394
-Time Taken#Èas pøijatı#395
-Light Sources On#Svìtelné zdroje jsou zapnuté#396
-Light Sources Off#Svìtelné zdroje vypnuté#397
-New Spell Level#Nová úroveò kouzla#398
-Flight Assistance On#Letová pomoc zapnutá#399
-Flight Assistance Off#Letová pomoc vypnutá#400
-Help Mode On#Reim nápovìdy je zapnutı#401
-Help Mode Off#Reim nápovìdy vypnut#402
-Player Names On#Názvy hráèù jsou zapnuté#403
-Player Names Off#Názvy hráèù jsou vypnuty#404
+Sound On#Zvuk Zapnut#391
+Sound Off#Zvuk Vypnut#392
+Music On#Hudba Zapnuta#393
+Music Off#Hudba Vypnuta#394
+Time Taken#Èas Pøijat#395
+Light Sources On#Svìtelné Zdroje Zapnuty#396
+Light Sources Off#Svìtelné Zdroje Vypnuty#397
+New Spell Level#Nová Úroveò Kouzla#398
+Flight Assistance On#Letová Pomoc Zapnuta#399
+Flight Assistance Off#Letová Pomoc Vypnuta#400
+Help Mode On#Reim Nápovìdy zapnut#401
+Help Mode Off#Reim Nápovìdy Vypnut#402
+Player Names On#Jména Hráèù jsou Zapnuty#403
+Player Names Off#Jména Hráèù Vypnuty#404
 Help#Nápovìda#405
-Load a Save Game#Nahrání Uloené hry#406
-Save Current Game#Uloení aktuální hry#407
-Exit Game#Odchod ze hry#408
-Select Language#Vıbìr Jazyka#409
+Load a Save Game#Nahrát Uloenou Hru#406
+Save Current Game#Uloit Souèasnou Hru#407
+Exit Game#Odejít ze Hry#408
+Select Language#Vybrat Jazyk#409
 Play MultiPlayer Game#Hrát Hru s Dalšími Hráèi#410
 Play Game#Zaèít Hrát Hru#411
-Configure Joystick#Konfigurace Joystiku#412
+Configure Joystick#Konfigurovat Joystik#412
 Enter Network Session#Zadejte síovou relaci#413
 Attempting Connection#Pokus o pøipojení#414
 Empty#Prázdnı slot#415
 Play Game#Zaèít Hrát Hru#416
 Enter Your Player Name#Zadej Své Hráèské Jméno#417
-Play MultiPlayer Game#Pøehrát hru pro více hráèù#418
-Load A Previous Game#Nahrání Uloené hry#419
-Choose Language Text#Zvolte Jazyk Textù#420
-Enter your name:#Zadej své hráèské jméno:#421
-Load#Náhrání#422
-Save#Uloení#423
+Play MultiPlayer Game#Hrát Hru Více Hráèù#418
+Load A Previous Game#Nahrát Pøedchozí Hru#419
+Choose Language Text#Zvolit Jazyk Textù#420
+Enter your name:#Zadat Hráèské Jméno:#421
+Load#Náhrát#422
+Save#Uloit#423
 Load Level#Náhrát Úroveò#424
 Save Level#Uloit Úroveò#425
 Paused!#Pozastaveno!#426
 Music Volume#Hlasitost Hudby#427
 Sound Volume#Hlasitost Zvukù#428
 Options#Monosti#429
-Failed#Selhalo#430
-Has Completed Objective.#Dosáhl jsi cíle.#431
-Has Completed All Objectives.#Dosáhl jsi všech cílù.#432
+Failed#Selhání#430
+Has Completed Objective.#Dosáhl Jsi Cíle.#431
+Has Completed All Objectives.#Dosáhl Jsi Všech Cílù.#432
 DAY#DEN#433
 NIGHT#NOC#434
 CAVERN#JESKYNÌ#435
@@ -501,22 +501,22 @@ KEY INFORMATION#KLÍÈOVÁ INFORMACE#437
 ANALOGUE#ANALOGOVİ#438
 DIGITAL#DIGITÁLNÍ#439
 ROTATE THE JOYSTICK#OTOÈ JOYSTICK#440
-Panel Transparency On#Prùhlednost panelu zapnuta#441
-Panel Transparency Off#Prùhlednost panelu vypnuta#442
-Flat Shading On#Ploché stínování zapnuté#443
-Flat Shading Off#Plošné stínování vypnuto#444
+Panel Transparency On#Prùhlednost Panelu Zapnuta#441
+Panel Transparency Off#Prùhlednost Panelu Vypnuta#442
+Flat Shading On#Plošné Stínování Zapnuto#443
+Flat Shading Off#Plošné Stínování Vypnuto#444
 Move Player Forwards#Pohyb Hráèe Vpøed#445
 Move Player Backwards#Pohyb Hráèe Vzad#446
 Move Player Left#Pohyb Hráèe Vlevo#447
 Move Player Right#Pohyb Hráèe Vpravo#448
-Map screen#Obrazovka mapy#449
+Map screen#Obrazovka Mapy#449
 Spell Menu#Nabídka Kouzel#450
-Player Information#Informace o hráèích#451
+Player Information#Informace o Hráèích#451
 Spell Menu mark spells#Nabídka Kouzel znaèky kouzel#452
 Marked spells toggle forwards#Oznaèené kouzla se pøepínají dopøedu#453
 Marked spells toggle backwards#Oznaèené kouzla se pøepínají dozadu#454
-Click here to change language setting#Pro zmìnu jazyka klikni zde#455
-Exit language configuration screen#Odchod z nastavení vıbìru jazyka#456
+Click here to change language setting#Kliknutím Zde se Zmìní Jazyk#455
+Exit language configuration screen#Odchod z Obrazovky Vıbìru Jazyka#456
 Start multiplayer game#Spuste hru pro více hráèù#457
 Exit mulitplayer session#Ukonèete relaci pro více hráèù#458
 Select next character#Vyberte další znak#459
@@ -524,11 +524,11 @@ Select previous character#Vyberte pøedchozí znak#460
 Select multiplayer level#Vyberte úroveò pro více hráèù#461
 Select joystick#Vyberte joystick#462
 Select joystick type#Vyberte typ joysticku#463
-Configure Keyboard controls#Konfigurace ovládacích prvkù klávesnice#464
-Click here to play previous level#Kliknìte zde pro pøehrání pøedchozí úrovnì#465
-Click here to play next level#Kliknìte zde pro pøehrání další úrovnì#466
-Exit to main menu#Ukonèete hlavní nabídku#467
-Restart Game#Restartujte hru#468
+Configure Keyboard controls#Konfigurovat Ovládání Klávesnicí#464
+Click here to play previous level#Kliknutím zde se spustí pøedchozí úroveò#465
+Click here to play next level#Kliknutím zde se spustí další úroveò#466
+Exit to main menu#Návrat do Hlavního Menu#467
+Restart Game#Restat Hry#468
 Change screen resolution#Zmìna rozlišení obrazovky#469
-Speech On#Øeè zapnutá#470
-Speech Off#Øeè vypnutá#471
+Speech On#Øeè Zapnuta#470
+Speech Off#Øeè Vypnuta#471
