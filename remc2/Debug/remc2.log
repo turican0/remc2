@@ -1254,9 +1254,9 @@ c:\prenos\remc2\remc2\engine\sub_main.cpp(27700): warning C4739: Odkaz na promě
 c:\prenos\remc2\remc2\engine\sub_main.cpp(28080): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(29341): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(29358): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(29821): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(30447): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(30508): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(29821): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(31774): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(31931): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(33531): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
@@ -1272,9 +1272,9 @@ c:\prenos\remc2\remc2\engine\sub_main.cpp(39381): warning C4739: Odkaz na promě
 c:\prenos\remc2\remc2\engine\sub_main.cpp(39440): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(39623): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(40040): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(40065): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(40164): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(40188): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(40065): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(40211): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(40220): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(40542): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
@@ -1307,10 +1307,10 @@ c:\prenos\remc2\remc2\engine\sub_main.cpp(68747): warning C4739: Odkaz na promě
 c:\prenos\remc2\remc2\engine\sub_main.cpp(68766): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(71369): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(71385): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(71572): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(71468): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(71483): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(71497): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(71572): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(71896): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(72206): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(72450): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
@@ -1322,16 +1322,16 @@ c:\prenos\remc2\remc2\engine\sub_main.cpp(73497): warning C4739: Odkaz na promě
 c:\prenos\remc2\remc2\engine\sub_main.cpp(73805): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(77123): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(77425): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(77744): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(77623): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(77744): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(77955): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(78082): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(78176): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(78333): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(78458): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(78501): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(78698): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(78594): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(78698): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(78817): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(79158): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(79783): warning C4739: Odkaz na proměnnou x_WORD_EB398 překračuje její prostor úložiště.
@@ -1344,4 +1344,7 @@ c:\prenos\remc2\remc2\engine\sub_main.cpp(100891): warning C4739: Odkaz na prom�
 c:\prenos\remc2\remc2\engine\sub_main.cpp(100893): warning C4739: Odkaz na proměnnou unk_180452 překračuje její prostor úložiště.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(100938): warning C4739: Odkaz na proměnnou unk_180460 překračuje její prostor úložiště.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(100940): warning C4739: Odkaz na proměnnou unk_180460 překračuje její prostor úložiště.
+  LINK : Soubor C:\prenos\remc2\Debug\remc2.exe se nenašel nebo se při posledním přírůstkovém propojování nesestavil. Provádí se úplné propojení.
+     Vytváří se knihovna C:\prenos\remc2\Debug\remc2.lib a objekt C:\prenos\remc2\Debug\remc2.exp.
+LINK : warning LNK4098: Výchozí knihovna LIBCMTD je v konfliktu s použitím jiných knihoven. Použijte /NODEFAULTLIB:library.
   remc2.vcxproj -> C:\prenos\remc2\Debug\remc2.exe
