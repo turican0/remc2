@@ -326,6 +326,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\Debug\config.ini" />
     <None Include="..\libADLMIDI-master\src\adlmidi_bankmap.tcc" />
     <None Include="..\libADLMIDI-master\src\chips\opl_chip_base.tcc" />
     <None Include="..\libOPNMIDI-master\src\chips\opn_chip_base.tcc" />

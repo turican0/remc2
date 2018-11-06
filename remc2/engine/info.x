@@ -2461,3 +2461,5 @@ dword_EA3BC - 2bb3bc
 27b3d8 z call 27b32d -sub_9A32D_malloc_open_unpack
 sub_84250_load_file_array
 sub_5BF50_load_psxdata -23cf50
+->1a7088 - 000000 ... 1515f203000015156407
+*pstr[0xc].var28_begin_buffer

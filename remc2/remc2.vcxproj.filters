@@ -559,5 +559,8 @@
     <None Include="..\libOPNMIDI-master\src\chips\opn_chip_base.tcc">
       <Filter>Zdrojové soubory\libs\libOPL</Filter>
     </None>
+    <None Include="..\Debug\config.ini">
+      <Filter>Zdrojové soubory</Filter>
+    </None>
   </ItemGroup>
 </Project>
