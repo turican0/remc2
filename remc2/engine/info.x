@@ -2463,3 +2463,7 @@ sub_84250_load_file_array
 sub_5BF50_load_psxdata -23cf50
 ->1a7088 - 000000 ... 1515f203000015156407
 *pstr[0xc].var28_begin_buffer
+
+find
+x_WORD_17B4E0 - 34c4e0
+sub_44E40 - 225e40

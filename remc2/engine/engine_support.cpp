@@ -96,7 +96,7 @@ Bit8u* dword_E9C30[1000]; // weak
 
 
 
-Bit8u* x_DWORD_180628b_screen_buffer; // weak
+Bit8u* x_DWORD_180628b_screen_buffer; //351628
 
 Bit8u* off_D41A8;//graphics buffer// = (Bit8u*)&x_BYTE_14B4E0; // weak
 Bit8u* x_BYTE_14B4E0;

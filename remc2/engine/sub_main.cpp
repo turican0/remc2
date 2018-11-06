@@ -13322,8 +13322,8 @@ __int16 x_WORD_F2CC2; // weak
 __int16 x_WORD_F2CC4; // weak
 char x_BYTE_F2CC6; // weak
 char x_BYTE_F2CC7; // weak
-char x_BYTE_F2CD0[1]; // fix it -  weak
-char x_BYTE_F2CD1[4815]; // idb
+char x_BYTE_F2CD0[4816]; // 233cd0
+//char x_BYTE_F2CD1[4815]; // idb
 char x_BYTE_F3FA0[1]; // fix it -  weak
 char x_BYTE_F3FA1[1]; // fix it -  weak
 char x_BYTE_F3FA2[670]; // idb
@@ -13388,7 +13388,7 @@ _UNKNOWN unk_165329; // weak
 //_UNKNOWN unk_16554D; // weak
 //_UNKNOWN unk_178B5F; // weak
 _UNKNOWN unk_178E5F; // weak
-__int16 x_WORD_17B4E0; // weak
+__int16 x_WORD_17B4E0; // 34c4e0
 _UNKNOWN unk_17C118; // weak
 int x_DWORD_17D430; // weak
 __int16 x_WORD_17D434; // weak
@@ -52972,7 +52972,7 @@ void sub_44580()//225580
 		v2++;
 		v89 += 4;
 	}
-	v72 = x_BYTE_F2CD0;
+	v72 = x_BYTE_F2CD0;//adress 225afd
 	for (i = 0; i < 7; i++)
 	{
 		for (j = 0; j < 7; j++)
@@ -52997,7 +52997,7 @@ void sub_44580()//225580
 			}
 		}
 	}
-	v78 = 0;
+	v78 = 0;//adress 225bbd
 	do
 	{
 		v79 = v78;
@@ -54258,7 +54258,7 @@ char sub_462A0(unsigned __int16 a1, __int16 a2)//2272a0
 				x_BYTE_10B4E0[v5] = v10;
 				if ((unsigned __int8)v10 >= 8u)
 				{
-					LOBYTE(v4) = x_BYTE_F2CD1[v11] + (x_BYTE_13B4E0[v5] & 0x87);
+					LOBYTE(v4) = x_BYTE_F2CD0[v11+1] + (x_BYTE_13B4E0[v5] & 0x87);
 				}
 				else
 				{
@@ -54426,7 +54426,7 @@ char sub_46570(unsigned __int16 a1, __int16 a2)//227570
 				x_BYTE_10B4E0[v9] = v14;
 				if ((unsigned __int8)v14 >= 8u)
 				{
-					LOBYTE(v4) = x_BYTE_F2CD1[v15] + (x_BYTE_13B4E0[v9] & 0x87);
+					LOBYTE(v4) = x_BYTE_F2CD0[v15+1] + (x_BYTE_13B4E0[v9] & 0x87);
 				}
 				else
 				{
