@@ -2473,3 +2473,17 @@ f33b - ok
 
 find 
 unk_F42B0
+
+1a70f2 - find
+call 279709 - sub_98709_create_index_dattab_power
+call 24fb90 - sub_6EB90
+	init:sub_6EB90(&filearray_2aa18c[filearrayindex_BUILD00DATTAB]);//24fb90
+	init:sub_101C0();//23CA36 - 1f11c0 //sem se to vubec nedostane
+
+2aa1ec
+2bb3b0
+
+2bb3bc
+1a7088
+
+2bb3bc + 6 *0x11

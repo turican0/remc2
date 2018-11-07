@@ -1895,7 +1895,7 @@ signed int sub_48FD0(char a1, char a2, __int16 a3, unsigned __int16 a4, int a5);
 void sub_49090(Bit8u* a1, x_WORD *a2);
 void sub_49270_generate_level_features(Bit8u* a1);
 void sub_49290(Bit8u* a1, char a2);
-void sub_49540(Bit8u* a1, int a2);
+void sub_49540(Bit8u* a1, Bit8u* a2);
 void sub_49830(Bit8u* a1);
 void sub_498A0();
 int sub_49A20(int a1);
@@ -56583,7 +56583,7 @@ void sub_49290(Bit8u* a1, char a2)//22a290
 	{
 		if (i[4] == -1 && *i == 10 && i[1] == 82)
 		{
-			sub_49540(a1, (int)i);
+			sub_49540(a1, (Bit8u*)i);
 			if (a2)
 				v3 = 0;
 			else
@@ -56611,7 +56611,7 @@ void sub_49290(Bit8u* a1, char a2)//22a290
 				|| v5 == 50
 				|| v5 == 88)
 			{
-				sub_49540(a1, (int)j);
+				sub_49540(a1, (Bit8u*)j);
 				if (a2)
 					v6 = 0;
 				else
@@ -56628,7 +56628,7 @@ void sub_49290(Bit8u* a1, char a2)//22a290
 			v8 = k[1];
 			if (v8 == 81 || v8 == 80)
 			{
-				sub_49540(a1, (int)k);
+				sub_49540(a1, (Bit8u*)k);
 				if (a2)
 					v9 = 0;
 				else
@@ -56642,7 +56642,7 @@ void sub_49290(Bit8u* a1, char a2)//22a290
 	{
 		if (l[4] == -1 && *l == 14 && l[1] == 2)
 		{
-			sub_49540(a1, (int)l);
+			sub_49540(a1, (Bit8u*)l);
 			if (a2)
 				v11 = 0;
 			else
@@ -56658,7 +56658,7 @@ void sub_49290(Bit8u* a1, char a2)//22a290
 			v13 = m[1];
 			if (v13 == 27 || v13 == 28)
 			{
-				sub_49540(a1, (int)m);
+				sub_49540(a1, (Bit8u*)m);
 				if (a2)
 					v14 = 0;
 				else
@@ -56672,7 +56672,7 @@ void sub_49290(Bit8u* a1, char a2)//22a290
 	{
 		if (n[4] == -1 && *n == 10 && n[1] == 45 && x_BYTE_D93C2[4 * (unsigned __int16)n[7]] & 0x10)
 		{
-			sub_49540(a1, (int)n);
+			sub_49540(a1, (Bit8u*)n);
 			if (a2)
 				v16 = 0;
 			else
@@ -56685,7 +56685,7 @@ void sub_49290(Bit8u* a1, char a2)//22a290
 	{
 		if (ii[4] == -1 && *ii == 10 && ii[1] == 45 && !(x_BYTE_D93C2[4 * (unsigned __int16)ii[7]] & 0x10))
 		{
-			sub_49540(a1, (int)ii);
+			sub_49540(a1, (Bit8u*)ii);
 			if (a2)
 				v18 = 0;
 			else
@@ -56710,7 +56710,7 @@ int sub_off_D697E(Bit16u functionnumber, Bit8u* adress)//22a97e
 };
 
 //----- (00049540) --------------------------------------------------------
-void sub_49540(Bit8u* a1, int a2)//22a540
+void sub_49540(Bit8u* a1, Bit8u* a2)//22a540
 {
 	unsigned __int16 v2; // ax
 	__int16 v3; // ax
@@ -56992,7 +56992,7 @@ int sub_49A20(int a1)//22aa20
 //----- (00049A30) --------------------------------------------------------
 void sub_49A30(int a1, unsigned __int16 a2)//22aa30
 {
-	Bit8u* v2; // eax
+	posistruct v2; // eax
 	__int16 v3; // dx
 	int v4; // eax
 	char v5; // dl
@@ -57001,14 +57001,20 @@ void sub_49A30(int a1, unsigned __int16 a2)//22aa30
 	unsigned __int16 v9; // [esp+4h] [ebp-Ch]
 	unsigned __int8 v10; // [esp+8h] [ebp-8h]
 	unsigned __int8 v11; // [esp+Ch] [ebp-4h]
+	/*
+	0x16 = [ebp+14]
+	0x11 = [ebp+18]
+	eax=6*0x11 - to je ta adresa
+	*/
 
 						 // fix it//v2 = **filearray_2aa18c[24] + 6 * a2;
 	//v2 = dword_EA3BC + 6 * a2;
-	v2 = *pstr[0xc].var28_begin_buffer;
-	//psxadatabuild00dat
-	//v2 = 0;  //fix it
-	v8 = *(unsigned __int8 *)(v2 + 5);
-	v9 = *(unsigned __int8 *)(v2 + 4);
+	//a2 ma byt 0x11
+	v2=filearray_2aa18c[filearrayindex_BUILD00DATTAB].posistruct[a2];
+	//v2 = filearray_2aa18c[filearrayindex_BUILD00DATTAB].posistruct[6];
+	//75 a5 39 00 60 60 7e b7 39 00 1e 1e 40 b9 39 00
+	v8 = v2.sizey;
+	v9 = v2.sizex;
 	*(x_DWORD *)(a1 + 16) = 2;
 	v3 = x_WORD_180660_VGA_type_resolution;
 	*(x_WORD *)(a1 + 132) = (unsigned __int8)v9 * (unsigned __int8)v8 >> 4;
@@ -83961,7 +83967,7 @@ void sub_6EAB0(int a1, __int16 a2, __int16 a3)
 // E3799: using guessed type char x_BYTE_E3799;
 
 //----- (0006EB90) --------------------------------------------------------
-void sub_6EB90(filearray_struct *a1)
+void sub_6EB90(filearray_struct *a1)//24fb90
 {
 	for (Bit32u i = 0;(a1[i].begin_buffer) != &ZERO_BUFFER;i++)
 	{
