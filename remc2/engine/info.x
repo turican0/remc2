@@ -2443,6 +2443,8 @@ x_BYTE_11B4E0 - 2ec4e0 nebo spis 2ec500 v sub_44DB0 - asi ok
 vychazi z
 x_WORD_15B4E0 - 32c4e0 f5fd58 v sub_B5EFA -zde je to vyreseno
 
+x_BYTE_12B4E0 - 2fc4e0
+
 	sub_44E40(*(x_DWORD *)(v2 + 39), *(x_WORD *)(v2 + 43));//225e40
 	- problem x_BYTE_13B4E0
 	treto=i radek ma byt:
@@ -2467,3 +2469,7 @@ sub_5BF50_load_psxdata -23cf50
 find
 x_WORD_17B4E0 - 34c4e0
 sub_44E40 - 225e40
+f33b - ok
+
+find 
+unk_F42B0
