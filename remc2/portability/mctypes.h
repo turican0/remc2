@@ -25,8 +25,8 @@ typedef unsigned int    uint32;
 #define x_LONG int32
 
 typedef struct {
-	Bit8u* pointer;
-	Bit8u sizex;
-	Bit8u sizey;
+	Bit8u* data;
+	Bit8u width;
+	Bit8u height;
 } posistruct;
 #endif //ENGINE_TYPES

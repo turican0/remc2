@@ -84,7 +84,7 @@ Vissuluth: I am free! And I smell the fear of mortal men.#Vissuluth: Jsem svobod
 Kafkar: Then you remember that promising apprentice you once introduced to the eldritch arts...#Kafkar: Vzpomeò si, e jsem zasvìcen v umìní èarovat ...#20#
 Apprentice: No! Master?#Uèedník: Ne! Mistøe?#21#
 Kafkar: I see you have met your new neighbour, Vissuluth, Demon Lord of the Netherworlds.#Kafkar: Vidím, e jsi potkal našeho nového souseda, Vissulutha, Pána Démonù z Netherworlds.#22#
-"You must explore the outer Netherworlds while you learn its magic. Your first destination is the ancient city of Jahwl."#"Potøebuješ prozkoumat svìt Podsvìtí, a nauèit se nová kouzla. Tvùj první cíl je starobylé mìsto Jahwl."#23#
+"You must explore the outer Netherworlds while you learn its magic. Your first destination is the ancient city of Jahwl."#"Potøebuješ prozkoumat svìt Podsvìtí, a nauèit se nová kouzla. Zaèni s návštìvou starobylého mìsta Jahwl."#23#
 "Before Vissuluth's rule of the Netherworlds began, the island of Kopahk was occupied by the great sorceress, Payahandra. Go there and discover her lost spells."#"Pøedtím, ne Vissuluth ovládl øíši Netherworlds, byl ostrov Kopahk obsazen velkou èarodìjkou Payahandrou. Dostaò se tam a najdi její ztracená kouzla."#24#
 "Nyphur is a shapechanger. I will send you to his lair to seek the source of his power. I warn you, he will not have left his domain weakly defended."#"Nyphur je utváøeè, posílám tì do jeho doupìte, najít zdroj jeho moci. Musím tì varovat, jeho panství má silnou obranu."#25#
 "A gift from the gods! Alas, it falls towards the netherworld of the spiders…"#"Dar od bohù! Bohuel, spadl poblí pavouèí øíše ..." #26#
@@ -347,7 +347,7 @@ You have been banished from the realm.#Vy jsi vyhnán z øíše.#282#
 has been banished from the realm.#byl vyhnán z øíše.#283#
 "You have discovered one of the demon lord's hidden realms."#"Objevil jsi první ze skrıší pána démonù."#284#
 "You have discovered another of the demon lord's hidden realms."#"Objevil jsi další ze skrıší pána démonù."#285#
-Press 'O' to show current objective#Stiskni tlaèítko "O" pro zobrazení aktuálního cíle#286#
+Press 'O' to show current objective#Stiskni tlaèítko "O" pro zobrazení aktuálního úkolu#286#
 You are here#Nacházíš se zde#287#
 Walls cannot be passed#Stìny jsou neprostupné#288#
 Press RETURN for large map#Stisk tlaèítka RETURN pøepne na velkou mapu#289#
@@ -356,7 +356,7 @@ Search for spells#Najdi kouzla#291#
 Search for fireball spell#Najdi kouzlo ohnivé koule#292#
 Search for castle spell#Najdi kouzlo hradu#293#
 Search for possession spell#Najdi kouzlo oznaèení#294#
-Use fireball spell to destroy target#Kouzlem ohnivá koule mùeš nièit cíle#295#
+Use fireball spell to destroy target#Kouzlem ohnivá koule mùeš nièit nepøátele#295#
 Use possession spell to possess mana#Hradní mana je nutná#296#
 Use castle spell to build a safe haven#Pouijte hradní kouzlo k vybudování bezpeèného útoèištì#297#
 Press control for spell menu#Stisknìte ovládací prvek pro nabídku kouzla#298#
@@ -395,18 +395,18 @@ Selected spell level#Vybraná úroveò kouzla#330#
 Spell Experience points#Zkušenosti kouzla#331#
 Not enough castled mana to use#Nedostateènì obsazené mana, které by bylo moné pouít#332#
 Achieved spell level#Dosaená úroveò kouzla#333#
-Your current objective is to collect mana#Tvım souèasnım cílem je shromaïovat manu#334#
-Your current objective is to destroy a building#Tvım souèasnım cílem je znièit budovu#335#
-Your current objective is to destroy buildings#Tvım souèasnım cílem je znièit budovy#336#
-Your current objective is to kill a creature#Tvım souèasnım cílem je zabít potvoru#337#
-Your current objective is to kill creatures#Tvım souèasnım cílem je zabít potvory#338#
-Your current objective is to kill a player#Tvım souèasnım cílem je zabít hráèe#339#
-Your current objective is to kill all players#Tvım souèasnım cílem je zabít všechny hráèe#340#
-Your current objective is to fly to a point#Tvım souèasnım cílem je doletìt do bodu#341#
-You must now fly to the exit point#Nyní musíš odletìt k vıchodu#342#
-Fly to here to complete objective#Abys splnil úkol, musíš doletìt sem#343#
-This is an objective target#Toto je tvùj cíl#344#
-Fly here to exit the level#Dole sem, abys opustil úroveò#345#
+Your current objective is to collect mana#Tvùj souèasnı úkol je shromádit manu#334#
+Your current objective is to destroy a building#Tvùj souèasnı úkol je znièení budovy#335#
+Your current objective is to destroy buildings#Tvùj souèasnı úkol je znièení budov#336#
+Your current objective is to kill a creature#Tvùj souèasnı úkol je zabití potvory#337#
+Your current objective is to kill creatures#Tvùj souèasnı úkol je zabití potvor#338#
+Your current objective is to kill a player#Tvùj souèasnı úkol je zabití protihráèe#339#
+Your current objective is to kill all players#Tvùj souèasnı úkol je zabití protihráèù#340#
+Your current objective is to fly to a point#Tvùj souèasnı úkol je doletìt na místo#341#
+You must now fly to the exit point#Nyní bys mìl letìt k místo, kde je vıchod#342#
+Fly to here to complete objective#Pro splnìní úkolu, le sem#343#
+This is an objective target#Toto je tvùj úkol#344#
+Fly here to exit the level#A doletíš sem, dokonèíš tuto úroveò#345#
 Message stores#Zprávy jsou uloeny#346#
 To all players in view#Pro všechny hráèe v dohledu#347#
 To nearest player in view#Nejbliší hráè v dohledu#348#
@@ -491,8 +491,8 @@ Music Volume#Hlasitost Hudby#426#
 Sound Volume#Hlasitost Zvukù#427#
 Options#Monosti#428#
 Failed#Selhání#429#
-Has Completed Objective.#Dosáhl Jsi Cíle.#430#
-Has Completed All Objectives.#Dosáhl Jsi Všech Cílù.#431#
+Has Completed Objective.#Splnil Jsi Úkol#430#
+Has Completed All Objectives.#Splnil Jsi Všechny Úkoly#431#
 DAY#DEN#432#
 NIGHT#NOC#433#
 CAVERN#JESKYNÌ#434#

@@ -2487,3 +2487,19 @@ call 24fb90 - sub_6EB90
 1a7088
 
 2bb3bc + 6 *0x11
+
+find
+x_DWORD_EA3E4 -  2bb3e4
+x_DWORD_EA3E8 -  2bb3e8
+sub_5C330();//23D330
+
+for (i = (int)&x_DWORD_EA3E0[2]; i < (int)&x_DWORD_EA3E0[0x3e9]; i += 168)
+	{
+		if (*(x_BYTE *)(i + 63) && *(x_BYTE *)(i + 13) & 4)
+			sub_57F20(i);
+	}
+
+x_DWORD_EA3E0 + 0x6e8e - 35cec6
+
+sub_567C0(); - zde se inicializuje znovu
+
