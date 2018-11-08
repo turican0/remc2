@@ -2503,3 +2503,8 @@ x_DWORD_EA3E0 + 0x6e8e - 35cec6
 
 sub_567C0(); - zde se inicializuje znovu
 
+Bit8u sub_6FC30_get34_height()//250c30 - neni inicializovano
+{
+	return x_DWORD_EA3D4[34].height;
+}
+
