@@ -2507,4 +2507,5 @@ Bit8u sub_6FC30_get34_height()//250c30 - neni inicializovano
 {
 	return x_DWORD_EA3D4[34].height;
 }
+sub_6FC50(1);
 
