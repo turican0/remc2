@@ -2509,3 +2509,9 @@ Bit8u sub_6FC30_get34_height()//250c30 - neni inicializovano
 }
 sub_6FC50(1);
 
+text:
+sub_7C120_draw_bitmap_640(tempposx, tempposy, xy_DWORD_17DEC0_spritestr[temptextbuffer[0]]);
+
+x_BYTE_3659F
+x_BYTE_3659F[v8 + *(unsigned __int8 *)(x_D41A0_BYTEARRAY_0 + 224769)] = 1;
+
