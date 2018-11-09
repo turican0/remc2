@@ -6,3 +6,8 @@
 /remc2/Debug
 *.log
 *.db
+*.ilk
+*.pdb
+*.tlog
+*.obj
+*.idb
