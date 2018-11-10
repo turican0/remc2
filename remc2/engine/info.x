@@ -2515,3 +2515,36 @@ sub_7C120_draw_bitmap_640(tempposx, tempposy, xy_DWORD_17DEC0_spritestr[temptext
 x_BYTE_3659F
 x_BYTE_3659F[v8 + *(unsigned __int8 *)(x_D41A0_BYTEARRAY_0 + 224769)] = 1;
 
+find
+35cf6a ->b0 52 2c
+x_D41A0_BYTEARRAY_0 -> 356038
+
+x_DWORD_EA3E0
+
+find
+2bb3e4->c6 ce 35
+x_DWORD_EA3E0[1]
+
+35cec6+150
+35cf6a ->2c52b0
+*(Bit32s*)(v2 + 164)
+
+*(Bit32u*)(x_D41A0_BYTEARRAY_0 + 28466) = (Bit32u)&unk_F42B0;
+
+void sub_60F00()//241f00
+
+void sub_5C330()//23D330
+2bb3e4->35cec6
+x_DWORD_EA3E0[1]= &x_D41A0_BYTEARRAY_0[0x6e8e];//28302
+x_D41A0_BYTEARRAY_0=356038, rozdil 0x6e8e
+
+void sub_49F30()//22af30
+35cec6+a4(35cf6a)->2c52b0
+
+
+2c52b0+150->0
+
+
+find
+x_D41A0_BYTEARRAY_4_struct.player_name_57
+void sub_51BB0_game_events(int a1)//232bb0

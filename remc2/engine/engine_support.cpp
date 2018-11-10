@@ -105,6 +105,8 @@ posistruct* xy_DWORD_17DED4_spritestr;
 posistruct* xy_DWORD_17DEC0_spritestr;
 posistruct* xy_DWORD_17DEC8_spritestr;
 
+posistruct* x_DWORD_D4188t_spritestr;
+
 doublebyte doublebyte_conv(Bit16u a2) {
 	doublebyte result;
 	result.byte1 = a2 && 0xff;
@@ -145,6 +147,8 @@ void support_begin() {
 	xy_DWORD_17DEC0_spritestr = new posistruct[1000];
 	xy_DWORD_17DEC8_spritestr = new posistruct[1000];
 
+	x_DWORD_D4188t_spritestr = new posistruct[1000];
+
 	x_D41A0_BYTEARRAY_4_struct.harddiskchar_byte4_182 = 0x43;
 
     //printbuffer2[0] = '\0';
@@ -170,6 +174,8 @@ void support_end() {
 	free(xy_DWORD_17DED4_spritestr);
 	free(xy_DWORD_17DEC0_spritestr);
 	free(xy_DWORD_17DEC8_spritestr);
+
+	free(x_DWORD_D4188t_spritestr);
 }
 
 void loadfromsnapshot(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u size) {
