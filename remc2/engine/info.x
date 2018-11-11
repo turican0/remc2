@@ -2550,3 +2550,5 @@ x_D41A0_BYTEARRAY_4_struct.player_name_57
 void sub_51BB0_game_events(int a1)//232bb0
 
 void sub_5C950(Bit8u* a1, Bit8u* a2)//23d950
+
+unsigned int sub_7277A(unsigned int a1)//25377a

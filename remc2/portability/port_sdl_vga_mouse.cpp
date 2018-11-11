@@ -896,6 +896,11 @@ int events()
 	return 1;
 }
 
+int VGA_Set_mouse(Bit16s a1, Bit16s a2) {
+	//mouse set cursor
+	return 0;
+};
+
 //SDL_Window *window = NULL;
 //SDL_Surface *output_surface = NULL;
 
