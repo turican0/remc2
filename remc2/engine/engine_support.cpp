@@ -150,6 +150,7 @@ void support_begin() {
 	x_DWORD_D4188t_spritestr = new posistruct[1000];
 
 	x_D41A0_BYTEARRAY_4_struct.harddiskchar_byte4_182 = 0x43;
+	x_D41A0_BYTEARRAY_4_struct.player_name_57 = 0;
 
     //printbuffer2[0] = '\0';
 }
