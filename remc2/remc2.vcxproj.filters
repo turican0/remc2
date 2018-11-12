@@ -40,6 +40,9 @@
     <Filter Include="Zdrojové soubory\libs\inih">
       <UniqueIdentifier>{88c3818e-fa9e-47cd-9191-d23071ee450d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Zdrojové soubory\libs\libcdio">
+      <UniqueIdentifier>{3e804c19-3508-49ea-9239-4480ec81165c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -315,6 +318,18 @@
     <ClInclude Include="engine\read_config.h">
       <Filter>Zdrojové soubory\engine</Filter>
     </ClInclude>
+    <ClInclude Include="..\libcdio\cddb.h">
+      <Filter>Zdrojové soubory\libs\libcdio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libcdio\getopt.h">
+      <Filter>Zdrojové soubory\libs\libcdio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libcdio\getopt_int.h">
+      <Filter>Zdrojové soubory\libs\libcdio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libcdio\util.h">
+      <Filter>Zdrojové soubory\libs\libcdio</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -538,6 +553,39 @@
     </ClCompile>
     <ClCompile Include="engine\read_config.cpp">
       <Filter>Zdrojové soubory\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libcdio\cddb.c">
+      <Filter>Zdrojové soubory\libs\libcdio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libcdio\cd-drive.c">
+      <Filter>Zdrojové soubory\libs\libcdio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libcdio\cd-info.c">
+      <Filter>Zdrojové soubory\libs\libcdio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libcdio\cdinfo-linux.c">
+      <Filter>Zdrojové soubory\libs\libcdio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libcdio\cd-read.c">
+      <Filter>Zdrojové soubory\libs\libcdio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libcdio\getopt.c">
+      <Filter>Zdrojové soubory\libs\libcdio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libcdio\getopt1.c">
+      <Filter>Zdrojové soubory\libs\libcdio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libcdio\iso-info.c">
+      <Filter>Zdrojové soubory\libs\libcdio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libcdio\iso-read.c">
+      <Filter>Zdrojové soubory\libs\libcdio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libcdio\mmc-tool.c">
+      <Filter>Zdrojové soubory\libs\libcdio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libcdio\util.c">
+      <Filter>Zdrojové soubory\libs\libcdio</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

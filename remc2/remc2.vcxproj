@@ -90,7 +90,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\prenos\remc2\sdl2\include;C:\prenos\remc2\fluidsynth\include;C:\prenos\remc2\libADLMIDI-master\include;C:\prenos\remc2\libOPNMIDI-master\include;C:\prenos\remc2\SDL-Mixer-X-master\include\SDL_mixer_ext;C:\prenos\remc2\SDL-Mixer-X-master\src;C:\prenos\remc2\inih;C:\prenos\remc2\libvorbis\include;C:\prenos\remc2\libogg\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\prenos\remc2\sdl2\include;C:\prenos\remc2\fluidsynth\include;C:\prenos\remc2\libADLMIDI-master\include;C:\prenos\remc2\libOPNMIDI-master\include;C:\prenos\remc2\SDL-Mixer-X-master\include\SDL_mixer_ext;C:\prenos\remc2\SDL-Mixer-X-master\src;C:\prenos\remc2\inih;C:\prenos\remc2\libvorbis\include;C:\prenos\remc2\libogg\include;C:\prenos\remc2\libcdio\cddb-inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
     </ClCompile>
     <Link>
@@ -176,6 +176,10 @@
     <ClInclude Include="..\libADLMIDI-master\src\midi_sequencer.hpp" />
     <ClInclude Include="..\libADLMIDI-master\src\midi_sequencer_impl.hpp" />
     <ClInclude Include="..\libADLMIDI-master\src\wopl\wopl_file.h" />
+    <ClInclude Include="..\libcdio\cddb.h" />
+    <ClInclude Include="..\libcdio\getopt.h" />
+    <ClInclude Include="..\libcdio\getopt_int.h" />
+    <ClInclude Include="..\libcdio\util.h" />
     <ClInclude Include="..\libOPNMIDI-master\src\chips\gens\Ym2612_Emu.h" />
     <ClInclude Include="..\libOPNMIDI-master\src\chips\gens_opn2.h" />
     <ClInclude Include="..\libOPNMIDI-master\src\chips\gx\gx_ym2612.h" />
@@ -261,6 +265,17 @@
     <ClCompile Include="..\libADLMIDI-master\src\chips\nuked_opl3.cpp" />
     <ClCompile Include="..\libADLMIDI-master\src\chips\nuked_opl3_v174.cpp" />
     <ClCompile Include="..\libADLMIDI-master\src\wopl\wopl_file.c" />
+    <ClCompile Include="..\libcdio\cd-drive.c" />
+    <ClCompile Include="..\libcdio\cd-info.c" />
+    <ClCompile Include="..\libcdio\cd-read.c" />
+    <ClCompile Include="..\libcdio\cddb.c" />
+    <ClCompile Include="..\libcdio\cdinfo-linux.c" />
+    <ClCompile Include="..\libcdio\getopt.c" />
+    <ClCompile Include="..\libcdio\getopt1.c" />
+    <ClCompile Include="..\libcdio\iso-info.c" />
+    <ClCompile Include="..\libcdio\iso-read.c" />
+    <ClCompile Include="..\libcdio\mmc-tool.c" />
+    <ClCompile Include="..\libcdio\util.c" />
     <ClCompile Include="..\libOPNMIDI-master\src\chips\gens\Ym2612_Emu.cpp" />
     <ClCompile Include="..\libOPNMIDI-master\src\chips\gens_opn2.cpp" />
     <ClCompile Include="..\libOPNMIDI-master\src\chips\gx\gx_ym2612.c" />
