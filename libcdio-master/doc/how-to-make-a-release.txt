@@ -1,0 +1,73 @@
+- Let people know of a pending release, e.g. libcdio-devel@gnu.org;
+  no major changes before release, please
+
+- Coordinate with libcdio-paranoia release
+
+- test on lots of platforms; sourceforge compile farm, for example
+
+- "make distcheck" should work.
+
+- Look for/fix/apply patches and outstanding bugs on Savannah.
+
+- Go over Changelog and add NEWS. Update date of release.
+
+- Remove "git" from configure.ac's release name. E.g.
+    define(RELEASE_NUM, 23)
+    define(LIBVCD_VERSION_STR, 0.7.$1git)
+                                     ^^^
+    ...
+
+- make doxygen documentation
+  cd doc/doxygen; ./run_doxygen
+     remove any errors.
+
+- Make sure sources are current and checked in:
+    git pull
+
+- autogen.sh && make && make check
+
+- Tag release in git:
+  git tag release-${LIBCDIO_VERSION}
+  git push --tags
+
+- "make distcheck" one more time
+
+- Get onto ftp.gnu.org. I use my perl program
+
+   gnupload from the automake distribution.
+   locate gnupload
+   /src/build/automake-1.12.4/lib/gnupload --to ftp.gnu.org:libcdio libcdio-#{LIBCDIO_VERSION}.tar.gz  (Use "is" password)
+
+- Update/Announce on Freshmeat:
+   http://freshmeat.net/add-release/36670/
+   (http://freshmeat.net/projects/libcdio/ "add release")
+
+  The NEWS file is your friend.
+
+- copy doxygen html to web pages:
+  cd libcdio-www/doxygen
+  rm *.html
+  cp ../../libcdio/doc/doxygen/html/*.html .
+  cvs update .
+
+    for each "U" html *except libcdio.html* that is put back, remove it
+    with "rm" and then "cvs remove". For example,
+    put in file /tmp/libcdio-remove.txt
+       rm `cat /tmp/libcdio-remove.txt`
+       cvs remove `cat /tmp/libcdio-remove.txt`
+
+    for each new "?" html add it. For example:
+    put in file /tmp/libcdio-new.txt and run:
+       cvs add `cat /tmp/libcdio-new.txt`
+
+
+  cvs commit .
+
+- copy libcdio manual to web page:
+     cd libcdio-www
+     (cd ../libcdio/doc && make libcdio.html)
+     cp ../libcdio/doc/libcdio.html .
+     cvs commit libcdio.html
+
+- Bump version in configure.ac and add "git". See place above in
+  removal.

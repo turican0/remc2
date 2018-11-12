@@ -1,0 +1,83 @@
+__________________________________
+
+Disc mode is listed as: CD-DA
+CD-ROM Track List (1 - 3)
+  #: MSF       LSN    Type   Green? Copy? Channels Premphasis?
+  1: 00:02:00  000000 audio  false  no    2        no
+  2: 00:10:00  000600 audio  false  no    2        no
+  3: 00:18:00  001200 audio  false  no    2        no
+170: 00:26:12  001812 leadout (4 MB raw, 4 MB formatted)
+Media Catalog Number (MCN): not available
+Last CD Session LSN: not supported by drive/driver
+audio status: not implemented
+__________________________________
+CD Analysis Report
+
+Language 0 'English':
+CD-TEXT for Disc:
+	TITLE: Joyful Nights
+	PERFORMER: United Cat Orchestra
+	SONGWRITER: Various Songwriters
+	COMPOSER: Various Composers
+	MESSAGE: For all our fans
+	ARRANGER: Tom Cat
+	UPC_EAN: 1234567890123
+	GENRE: Feline classic music
+	DISC_ID: 1234567890
+	GENRE_CODE: 5 (Classical)
+CD-TEXT for Track  1:
+	TITLE: Song of Joy
+	PERFORMER: Felix and The Purrs
+	SONGWRITER: Friedrich Schiller
+	COMPOSER: unknown
+	MESSAGE: Fritz and Louie once were punks
+	ARRANGER: Tom Cat
+	ISRC: XYBLG1101234
+CD-TEXT for Track  2:
+	TITLE: Humpty Dumpty
+	PERFORMER: Catwalk Beauties
+	SONGWRITER: Mother Goose
+	MESSAGE: Pluck the goose
+	ISRC: XYBLG1100005
+CD-TEXT for Track  3:
+	TITLE: Mee Owwww
+	PERFORMER: Mia Kitten
+	SONGWRITER: Mia Kitten
+	COMPOSER: Mia Kitten
+	ARRANGER: Mia Kitten
+	ISRC: XYBLG1100006
+
+Language 1 'German':
+CD-TEXT for Disc:
+	TITLE: Freudvolle Nächte
+	PERFORMER: Vereinigtes Katzenorchester
+	SONGWRITER: Verschiedene Liedschreiber
+	COMPOSER: Verschiedene Komponisten
+	MESSAGE: Für alle unsere Fans
+	ARRANGER: Tom Cat
+	UPC_EAN: 1234567890123
+	GENRE: Katzenhafte Klassik
+	DISC_ID: 1234567890
+	GENRE_CODE: 5 (Classical)
+CD-TEXT for Track  1:
+	TITLE: Lied der Freude
+	PERFORMER: Felix und Die Schnurrer
+	SONGWRITER: Friedrich Schiller
+	COMPOSER: Ludwig van Beethoven
+	MESSAGE: Fritz und Louie waren einmal Punks
+	ARRANGER: Tom Cat
+	ISRC: XYBLG1101234
+CD-TEXT for Track  2:
+	TITLE: Rubbeldiekatz
+	PERFORMER: Katzengang Schönheiten
+	SONGWRITER: Mutter Gans
+	COMPOSER: unbekannt
+	MESSAGE: Rupft die Gans
+	ISRC: XYBLG1100005
+CD-TEXT for Track  3:
+	TITLE: Mie auu
+	PERFORMER: Mia Kätzchen
+	SONGWRITER: Mia Kätzchen
+	COMPOSER: Mia Kätzchen
+	ARRANGER: Mia Kätzchen
+	ISRC: XYBLG1100006

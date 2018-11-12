@@ -1,0 +1,20 @@
+__________________________________
+
+Disc mode is listed as: CD-DA
+CD-ROM Track List (1 - 1)
+  #: MSF       LSN    Type   Green? Copy? Channels Premphasis?
+  1: 00:02:00  000000 audio  false  yes   2        no
+170: 00:06:02  000302 leadout (693 KB raw, 693 KB formatted)
+Media Catalog Number (MCN): 0000010271955
+Last CD Session LSN: not supported by drive/driver
+audio status: not implemented
+__________________________________
+CD Analysis Report
+
+Language 0 'English':
+CD-TEXT for Disc:
+	TITLE: Join us now we have the software
+	PERFORMER: Richard Stallman
+CD-TEXT for Track  1:
+	TITLE: Soft
+	PERFORMER: Richard S

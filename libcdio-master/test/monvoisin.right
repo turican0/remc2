@@ -1,0 +1,65 @@
+__________________________________
+
+Disc mode is listed as: CD DATA (Mode 2)
+CD-ROM Track List (1 - 2)
+  #: MSF       LSN    Type   Green? Copy?
+  1: 00:02:00  000000 XA     true   no   
+  2: 00:18:51  001251 XA     true   no   
+170: 00:39:71  002846 leadout (6 MB raw, 6 MB formatted)
+Media Catalog Number (MCN): not available
+Last CD Session LSN: not supported by drive/driver
+__________________________________
+CD Analysis Report
+CD-ROM with CD-RTOS and ISO 9660 filesystem
+ISO 9660: 1101 blocks, label `MONVOISIN                       '
+Application: CDI/CDI_VCD.APP;1
+Preparer   : 
+Publisher  : 
+System     : CD-RTOS CD-BRIDGE
+Volume     : MONVOISIN
+Volume Set : 
+ISO9660 filesystem
+/:
+  d---1xrxrxr 0 0 [fn 00] [LSN     18]      2048 Jan 01 1970 00:00:00  .
+  d---1xrxrxr 0 0 [fn 00] [LSN     18]      2048 Jan 01 1970 00:00:00  ..
+  d---1xrxrxr 0 0 [fn 00] [LSN     19]      2048 Feb 19 2001 15:37:04  cdi
+  d---1xrxrxr 0 0 [fn 00] [LSN     20]      2048 Feb 19 2001 15:37:04  ext
+  d---1xrxrxr 0 0 [fn 00] [LSN     21]      2048 Feb 19 2001 15:37:04  mpegav
+  d---1xrxrxr 0 0 [fn 00] [LSN     22]      2048 Feb 19 2001 15:37:04  segment
+  d---1xrxrxr 0 0 [fn 00] [LSN     23]      2048 Feb 19 2001 15:37:04  vcd
+
+/CDI/:
+  d---1xrxrxr 0 0 [fn 00] [LSN     19]      2048 Jan 01 1970 00:00:00  .
+  d---1xrxrxr 0 0 [fn 00] [LSN     18]      2048 Jan 01 1970 00:00:00  ..
+  ---2-xrxrxr 0 0 [fn 01] [LSN    211]   1494332 (  1315168) Feb 19 2001 15:37:04  cdi_imag.rtf
+  ----1xrxrxr 0 0 [fn 01] [LSN    854]     13616 Feb 19 2001 15:37:04  cdi_text.fnt
+  ----1xrxrxr 0 0 [fn 01] [LSN    861]    102400 Feb 19 2001 15:37:04  cdi_vcd.app
+  ----1xrxrxr 0 0 [fn 01] [LSN    911]       279 Feb 19 2001 15:37:04  cdi_vcd.cfg
+
+/EXT/:
+  d---1xrxrxr 0 0 [fn 00] [LSN     20]      2048 Jan 01 1970 00:00:00  .
+  d---1xrxrxr 0 0 [fn 00] [LSN     18]      2048 Jan 01 1970 00:00:00  ..
+  ----1xrxrxr 0 0 [fn 01] [LSN    912]     65536 Feb 19 2001 15:37:04  lot_x.vcd
+  ----1xrxrxr 0 0 [fn 01] [LSN    944]        24 Feb 19 2001 15:37:04  psd_x.vcd
+  ----1xrxrxr 0 0 [fn 01] [LSN    945]       114 Feb 19 2001 15:37:04  scandata.dat
+
+/MPEGAV/:
+  d---1xrxrxr 0 0 [fn 00] [LSN     21]      2048 Jan 01 1970 00:00:00  .
+  d---1xrxrxr 0 0 [fn 00] [LSN     18]      2048 Jan 01 1970 00:00:00  ..
+  ---2-xrxrxr 0 0 [fn 01] [LSN   1251]   3655652 (  3221504) Feb 19 2001 15:37:59  avseq01.dat
+
+/SEGMENT/:
+  d---1xrxrxr 0 0 [fn 00] [LSN     22]      2048 Jan 01 1970 00:00:00  .
+  d---1xrxrxr 0 0 [fn 00] [LSN     18]      2048 Jan 01 1970 00:00:00  ..
+
+/VCD/:
+  d---1xrxrxr 0 0 [fn 00] [LSN     23]      2048 Jan 01 1970 00:00:00  .
+  d---1xrxrxr 0 0 [fn 00] [LSN     18]      2048 Jan 01 1970 00:00:00  ..
+  ----1xrxrxr 0 0 [fn 00] [LSN    151]      2048 Feb 19 2001 15:37:04  entries.vcd
+  ----1xrxrxr 0 0 [fn 00] [LSN    150]      2048 Feb 19 2001 15:37:04  info.vcd
+  ----1xrxrxr 0 0 [fn 00] [LSN    152]     65536 Feb 19 2001 15:37:04  lot.vcd
+  ----1xrxrxr 0 0 [fn 00] [LSN    184]        24 Feb 19 2001 15:37:04  psd.vcd
+
+XA sectors   Video CD   
+session #2 starts at track  2, LSN: 1251, ISO 9660 blocks:   1101
+ISO 9660: 1101 blocks, label `MONVOISIN                       '

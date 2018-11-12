@@ -1,0 +1,168 @@
+#   Copyright (C) 2003, 2004, 2005, 2006, 2008, 2012
+#   Rocky Bernstein <rocky@gnu.org>
+#
+#   This program is free software: you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation, either version 3 of the License, or
+#   (at your option) any later version.
+#
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+# Common routines and setup for regression testing.
+SKIP_TEST_EXITCODE=77
+
+# Some output changes depending on TZ and locale. Set this so we get known
+# results
+TZ=CUT
+# both 'en_US' and 'en_US.utf8' might be defined on some platforms
+if locale -a >/dev/null 2>&1 ; then 
+  # Note: Solaris 10's shell can't handle $(..) so we use `...`
+  LC_TIME=`locale -a | grep 'en_US' | grep -v 'utf8' | grep -v 'iso88591' &2>/dev/null`
+fi
+[ -z "$LC_TIME" ] && {
+  LC_TIME=${LC_TIME:-en_US}
+}>/dev/null 2>&1
+
+export TZ LC_TIME
+
+check_result() {
+  RC=$1
+  shift
+  msg=$1
+  shift
+  cmdline="$cmd $*"
+  if test $RC -ne 0 ; then 
+    if test $RC -ne $SKIP_TEST_EXITCODE ; then
+      echo "$0: $msg failed."
+      if test -n "$cmdline" ; then 
+        echo "$0: failed command:"
+        echo "	$cmdline"
+      fi
+      exit $RC
+    else 
+      echo "-- $0: $msg skipped."
+    fi
+  else 
+    echo "-- $0: $msg ok."
+  fi
+}
+
+test_common() {
+
+  cmdname="$1"
+  cmd="../src/${cmdname}@EXEEXT@"
+  opts="$2"
+  outfile="$3"
+  rightfile="$4"
+
+  if [ ! -x "${cmd}" ]; then
+    echo "-- $0: No ${cmd}"
+    return 1
+  fi
+
+  cmdline="${cmd}"
+  if "${cmd}" --no-header ${opts} >"${outfile}" 2>&1 ; then 
+    if test "@DIFF@" != no; then
+      if @DIFF@ @DIFF_OPTS@ "${outfile}" "${rightfile}" ; then
+	rm -f "${outfile}"
+	return 0
+      else
+	return 3
+      fi
+    else
+      echo "$0: No diff(1) or cmp(1) found - cannot test ${cmdname}"
+      rm -f "${outfile}"
+      return $SKIP_TEST_EXITCODE
+    fi
+  else
+    echo "$0 failed running: ${cmdname} ${opts}"
+    return 2
+  fi
+
+}
+
+test_cdinfo() {
+  test_common cd-info "$@"
+}
+
+test_iso_info() {
+  test_common iso-info "$@"
+}
+
+test_cd_read() {
+  test_common cd-read "$@"
+}
+
+test_iso_read() {
+
+  # not test_common, as we use an output file not stdout.
+
+  opts="$1"
+  outfile="$2"
+  rightfile="$3"
+
+  ISO_READ="../src/iso-read@EXEEXT@"
+
+  if [ ! -x ${ISO_READ} ]; then
+    echo "-- $0: No ${ISO_READ}"
+    return 1
+  fi
+
+  if "${ISO_READ}" ${opts} -o "${outfile}" 2>&1 ; then 
+    if test "@DIFF@" != no; then
+      if @DIFF@ @DIFF_OPTS@ "${outfile}" "${rightfile}" ; then
+	rm -f "${outfile}"
+	return 0
+      else
+	return 3
+      fi
+    else
+      echo "$0: No diff(1) or cmp(1) found - cannot test ${ISO_READ}"
+      rm -f "${outfile}"
+      return 77
+    fi
+  else
+    echo "$0 failed running: ${ISO_READ} ${opts} -o ${outfile}"
+    return 2
+  fi
+
+}
+
+test_legal_header() {
+
+  cmdname="$1"
+  cmd="../src/${cmdname}@EXEEXT@"
+  opts="$2"
+  outfile="$3"
+
+  if test "@GREP@" = no; then
+    echo "$0: No grep(1) found - cannot test ${cmd}."
+    echo "$0: Legal header test skipped."
+    exit $SKIP_TEST_EXITCODE
+  fi
+  "${cmd}" ${opts} > ${outfile} 2>&1
+  while read line; do
+    @GREP@ "${line}" ${outfile} >/dev/null 2>&1
+    if [ "$?" -ne 0 ] ; then
+      echo "$0: Legal header test failed due to missing expected line:"
+      echo "  ${line}"
+      echo "$0: Failed command:"
+      echo "  ${cmd} ${opts}"
+      exit 4
+    fi
+  done < ${srcdir}/check_legal.regex
+  rm -f ${outfile}
+  echo "-- $0: Legal header of ${cmd} ${opts} ok."
+
+}
+
+#;;; Local Variables: ***
+#;;; mode:shell-script ***
+#;;; eval: (sh-set-shell "bash") ***
+#;;; End: ***

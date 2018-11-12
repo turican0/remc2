@@ -1,0 +1,13 @@
+/*.lo
+/*.o
+/*.orig
+/*.rej
+/*~
+/.deps
+/.libs
+/Makefile
+/Makefile.in
+/abs_path
+/follow_symlink
+/libcdio.la
+/libcdio.la.ver

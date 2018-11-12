@@ -1,0 +1,6 @@
+CD_DA
+
+// Track 1
+TRACK AUDIO
+COPY
+DATAFILE "cdda.bin" #200 00:00:25

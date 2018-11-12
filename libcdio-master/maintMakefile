@@ -1,0 +1,5 @@
+# Lots of warnings!
+AM_CFLAGS += -Wall -Wextra -Wdeclaration-after-statement -Wshadow -Wpointer-arith -Wbad-function-cast
+
+MAKE_MAINTAINER_MODE := -DMAKE_MAINTAINER_MODE
+AM_CPPFLAGS += $(MAKE_MAINTAINER_MODE)

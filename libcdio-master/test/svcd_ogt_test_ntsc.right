@@ -1,0 +1,56 @@
+__________________________________
+
+CD-ROM Track List (1 - 2)
+  #: MSF       LSN    Type   Green? Copy?
+  1: 00:02:00  000000 XA     true   yes  
+  2: 00:09:01  000526 XA     true   yes  
+170: 00:56:56  004106 leadout (9 MB raw, 9 MB formatted)
+Media Catalog Number (MCN): not available
+Last CD Session LSN: not supported by drive/driver
+__________________________________
+CD Analysis Report
+CD-ROM with CD-RTOS and ISO 9660 filesystem
+ISO 9660: 376 blocks, label `SVCD_OGT_TEST_NTSC              '
+Application: 
+Preparer   : GNU VCDIMAGER 0.7.12 LINUX-GNU/I386
+Publisher  : 
+System     : CD-RTOS CD-BRIDGE
+Volume     : SVCD_OGT_TEST_NTSC
+Volume Set : 
+ISO9660 filesystem
+/:
+  d---1xrxrxr 0 0 [fn 00] [LSN     18]      2048 Jul 14 1978 00:00:00  .
+  d---1xrxrxr 0 0 [fn 00] [LSN     18]      2048 Jul 14 1978 00:00:00  ..
+  d---1xrxrxr 0 0 [fn 00] [LSN     19]      2048 Jul 14 1978 00:00:00  ext
+  d---1xrxrxr 0 0 [fn 00] [LSN     20]      2048 Jul 14 1978 00:00:00  mpeg2
+  d---1xrxrxr 0 0 [fn 00] [LSN     21]      2048 Jul 14 1978 00:00:00  segment
+  d---1xrxrxr 0 0 [fn 00] [LSN     22]      2048 Jul 14 1978 00:00:00  svcd
+
+/EXT/:
+  d---1xrxrxr 0 0 [fn 00] [LSN     19]      2048 Jul 14 1978 00:00:00  .
+  d---1xrxrxr 0 0 [fn 00] [LSN     18]      2048 Jul 14 1978 00:00:00  ..
+  ----1xrxrxr 0 0 [fn 00] [LSN    375]       201 Jul 14 1978 00:00:00  scandata.dat
+
+/MPEG2/:
+  d---1xrxrxr 0 0 [fn 00] [LSN     20]      2048 Jul 14 1978 00:00:00  .
+  d---1xrxrxr 0 0 [fn 00] [LSN     18]      2048 Jul 14 1978 00:00:00  ..
+  ---2-xrxrxr 0 0 [fn 00] [LSN    526]   7971320 (  7024640) Jul 14 1978 00:00:00  avseq01.mpg
+
+/SEGMENT/:
+  d---1xrxrxr 0 0 [fn 00] [LSN     21]      2048 Jul 14 1978 00:00:00  .
+  d---1xrxrxr 0 0 [fn 00] [LSN     18]      2048 Jul 14 1978 00:00:00  ..
+  ---2-xrxrxr 0 0 [fn 00] [LSN    225]    183596 (   161792) Jul 14 1978 00:00:00  item0001.mpg
+
+/SVCD/:
+  d---1xrxrxr 0 0 [fn 00] [LSN     22]      2048 Jul 14 1978 00:00:00  .
+  d---1xrxrxr 0 0 [fn 00] [LSN     18]      2048 Jul 14 1978 00:00:00  ..
+  ----1xrxrxr 0 0 [fn 00] [LSN    151]      2048 Jul 14 1978 00:00:00  entries.svd
+  ----1xrxrxr 0 0 [fn 00] [LSN    150]      2048 Jul 14 1978 00:00:00  info.svd
+  ----1xrxrxr 0 0 [fn 00] [LSN    152]     65536 Jul 14 1978 00:00:00  lot.svd
+  ----1xrxrxr 0 0 [fn 00] [LSN    184]        40 Jul 14 1978 00:00:00  psd.svd
+  ----1xrxrxr 0 0 [fn 00] [LSN    186]       190 Jul 14 1978 00:00:00  search.dat
+  ----1xrxrxr 0 0 [fn 00] [LSN    185]      2048 Jul 14 1978 00:00:00  tracks.svd
+
+XA sectors   Super Video CD (SVCD) or Chaoji Video CD (CVD)
+session #2 starts at track  2, LSN: 526, ISO 9660 blocks:    376
+ISO 9660: 376 blocks, label `SVCD_OGT_TEST_NTSC              '

@@ -1,0 +1,17 @@
+/*.o
+/.deps
+/.libs
+/Makefile
+/Makefile.in
+/cdtext
+/copying
+/device
+/drives
+/eject
+/iso4
+/isofile
+/isofile2
+/isolist
+/mmc1
+/mmc2
+/tracks

@@ -1,0 +1,16 @@
+/*.o
+/*.exe
+/*~
+/.deps
+/.libs
+/Makefile
+/Makefile.in
+/copying
+/device
+/eject
+/isofile
+/isofile2
+/isolist
+/main
+/mmc1
+/mmc2

@@ -1,0 +1,558 @@
+Thomas Schmitt has made significant contributions to this glossary.
+See also @uref{http://www.dvdrhelp.com/glossary}.
+
+@table @dfn
+
+@item @anchor{ASPI}ASPI
+@cindex ASPI
+See @acronym{Win32 ASPI}
+
+@item ATA
+
+Advanced Technology Attachment (ATA). The same thing as IDE.
+
+@item ATAPI
+
+Advanced Technology Attachment (ATA) Packet Interface. The interface
+provides a mechanism for transferring and executing SCSI CDBs on IDE
+CD Drives and DVD Drives.
+
+IDE (also called ATA) was originally designed for hard drives only,
+but with help of ATAPI it is possible to connect other devices, in
+particular CD-ROMS to the IDE/EIDE connections.
+
+The ATAPI CD-ROM drives understand a subset of SCSI commands. In
+particular multi-initiator commands are neither needed nor defined for
+ATAPI devices.
+
+@item BIN/CUE
+
+A CD-image format developed by Jeff Arnold for CDRWIN software on
+Microsoft Windows. Many other programs subsequently support using this
+format. The @code{.CUE} file is a text file which contains CD format
+and track layout information, while the @code{.BIN} file holds the
+actual data of each track.
+
+@item Blu-ray Disc (BD)
+@cindex Blu-ray Disc (BD)
+Optical media with capacity of 25 GB as single layer and 50 GB as
+double layer. See also @pxref{models-profiles,,"Media models and
+profiles"}.
+
+
+@item CD
+@cindex CD
+Compact Disc. Capacity up to 900 MB. See also
+@pxref{models-profiles,,"Media models and profiles"}.
+
+@item CD-DA
+@cindex CD-DA
+Compact Disc Digital Audio, described in the ``Red Book'' or IEC 60908
+(formerly IEC 908). This commonly referred to as an audio @acronym{CD}
+and what most people think of when you play a @acronym{CD} as it was
+the first to use the @acronym{CD} medium.
+
+See @url{http://en.wikipedia.org/wiki/Red_Book_(audio_CD_standard)}
+
+@item CD+G
+@cindex CD+G
+
+Compact Disc + Graphics. An extension of the CD audio format contains
+a limited amount of graphics in subcode channels. This disc works in
+all audio players but the graphics portion is only available in a
+special CD+G or Karaoke player.
+
+@item CD-i
+@cindex CD-i
+
+Compact Disc Interactive. An extension of the CD format designed
+around a set-top computer that connects to a TV to provide interactive
+home entertainment, including digital audio and video, video games,
+and software applications. Defined by the ``Green Book'' standard.
+@uref{http://www.icdia.org/}. CD-i for video and video music has
+largely (if not totally) been superseded by VCDs.
+
+@item CD-i Bridge
+@cindex CD-i Bridge
+
+A standard allowing CD-ROM XA discs to play on CD-i.  Kodak PhotoCDs
+are CD-XA Bridge discs.
+
+@item CD-ROM
+@cindex CD-ROM
+
+Compact Disc Read Only Memory or ``Yellow Book'' describe in Standards
+ISO/IEC 10149. The data stored on it can be either in the form of
+audio, computer or video files.
+
+@item CD-ROM Mode 1 and Mode2
+
+The Yellow Book specifies two types of tracks, Mode 1 and Mode 2. Mode
+1 is used for computer data and text and has an extra error correction
+layer. Mode 2 is for audio and video data and has no extra correction
+layer. CD-ROM/XA An expansion of the CD-ROM Mode 2 format that allows
+both computer and audio/video to be mixed in the same track.
+
+@item CD Text
+@cindex CD Text
+
+CD Text is a technology developed by Sony Corporation and Philips
+Electronics in 1996 that allows storing in an audio CD and its tracks
+information such as artist name, title, songwriter, composer, or
+arranger. Commercially available audio CDs sometimes contain CD Text
+information. 
+
+Information on how CD Text is stored can be found in in older MMC
+standards.  Specifically, try ``Annex J'' of ``mmc3r10g.pdf''.  
+
+An ``Unofficial CD Text FAQ'' is at
+@url{http://web.ncf.ca/aa571/cdtext.htm}
+
+@item @anchor{XA}CD XA
+@cindex CD XA
+
+CD-ROM EXtended Architecture. A modification to the CD-ROM
+specification that defines two new types of sectors.  CD-ROM XA was
+developed jointly by Sony, Philips, and Microsoft, and announced in
+August 1988. Its specifications were published in an extension to the
+Yellow Book.  CD-i, Photo CD, Video CD and CD-EXTRA have all
+subsequently been based on CD-ROM XA.
+
+CD-XA defines another way of formatting sectors on a CD-ROM, including
+headers in the sectors that describe the type (audio, video, data) and
+some additional info (markers, resolution in case of a video or audio
+sector, file numbers, etc).
+
+The data written on a CD-XA is consistent with and can be in ISO-9660
+file system format and therefore be readable by ISO-9660 file system
+translators. But also a CD-I player can read CD-XA discs even if
+its own `Green Book' file system only resembles ISO 9660 and isn't
+fully compatible. 
+
+@item DVD
+@cindex DVD
+Digital Versatile Disc. Capacity up to 4.5 GB as single layer and 8.5
+GB as double layer media. See also @pxref{models-profiles,,"Media
+models and profiles"}.
+
+@item Defect management
+@cindex Defect management
+A method to compensate small amounts of bad spots on media by replacing
+them out of a pool of reserve blocks and performing address translation.
+The necessary checkreading slows down write performance by a factor of 2 or 3.
+Defect management applies by default to DVD-RAM and BD-RE. Optionally it
+can be formatted onto CD-RW and DVD+RW, where it has the name "Mount Rainier".
+Sequential BD-R can be formatted for defect management too.
+
+@item Command Packet
+@cindex Command Packet
+
+The data structure that is used to issue an ATAPI command. It contains
+a SCSI Command Descriptor Block (CDB).
+
+@item ECMA-119 (ISO-9660)
+@cindex ECMA-119
+
+(@uref{http://www.ecma-international.org/publications/standards/Ecma-119.htm}
+is a freely available specification which is technically identical to ISO 9660.
+
+@item ECMA-167 (UDF)
+@cindex ECMA-167
+
+(@uref{http://www.ecma-international.org/publications/standards/Ecma-167.htm}
+is a freely available specification which is also approved as ISO 13346.
+It serves as base for UDF.
+
+@item ECMA-168
+@cindex ECMA-168
+
+(@uref{http://www.ecma-international.org/publications/standards/Ecma-168.htm}
+is a freely available specification which is also approved as ISO 13490.
+
+@item FSF
+@cindex FSF
+
+Free Software Foundation, @uref{http://www.fsf.org/}
+
+@item GNU
+@cindex GNU
+
+@acronym{GNU} is not @acronym{UNIX}, @uref{http://www.gnu.org/}
+
+@item IDE
+
+Integrated Drive Electronics. This is a commonly used interface for
+hard disk drives and CD-ROM drives. It is less expensive than SCSI,
+but offers slightly less in terms of performance.
+
+@item ISO
+@cindex ISO
+
+International Standards Organization. 
+
+@item ISO 13346
+@cindex ISO 13346
+
+ISO 13346 / ECMA-167 is a filesystem framework for data exchange on
+overwriteable or pseudo-overwriteable media. It serves as base of UDF.
+
+@item ISO 13490
+@cindex ISO 13490
+
+ISO 13490 / ECMA-168 is an attempt to replace ISO 9660 by a format that
+allows finer write granularity and representation of typical disk file
+properties. It resembles ECMA-167 which led to UDF.
+
+@item ISO 9660
+@cindex ISO 9660
+
+ISO 9660 / ECMA-119 is an operating-system independent filesystem format
+originally intended for CD-ROM media. It was standardized in 1988 and
+replaced the High Sierra standard for the logical format on CD-ROM media
+(ISO 9660 and High Sierra are identical in content, but the exact format is
+different). ISO 9660 and ECMA-119 are technically identical meanwhile.
+
+There are several specification levels. In Level 1, file names must be
+in the 8.3 format (no more than eight characters in the name, no more
+than three characters in the suffix) and in capital letters. Directory
+names can be no longer than eight characters. There can be no more
+than eight nested directory levels. Level 2 and 3 specifications allow
+file names up to 32 characters long. Level 3 allows data file sizes to be
+4 GB or larger. File data content is stored in extents, i.e. contiguous
+sequences of blocks. A single extent can hold only up to 2 exp 32 - 1 bytes.
+So files of 4 GB or larger need more than one extent to be stored.
+Older operating systems might have trouble with multi-extent files.
+
+@item Joliet extensions
+@cindex Joliet extensions
+
+This ISO-9660 upward-compatible standard was developed for Windows 95
+and Windows NT by Microsoft as an extension of ISO 9600 which allows
+the use of Unicode characters and supports file names up to 64
+characters.
+
+See @uref{http://bmrc.berkeley.edu/people/chaffee/jolspec.html} for
+the Joliet Specification.
+
+The name Joliet comes from the city in Illinois (U.S) that the
+standard was defined.
+
+@item LBA
+@cindex LBA
+
+Logical Block Addressing. Mapped integer numbers from CD Red Book
+Addressing MSF.  The starting sector is -150 and ending sector is
+449849, which correlates directly to MSF: 00:00:00 to 99:59:74.
+Because an LBA is a single number it is often easier to work with in
+programming than an MSF.
+
+@item Lead in
+@cindex lead in
+
+The area of a CD where the Table Of Contents (TOC) and CD Text are
+stored.  I think it is supposed to be around 4500 (1 min) or more
+sectors in length.  On a CDR(W) the lead-in length is variable,
+because manufacturers have a different starting position
+indicated by the ATIP start of lead-in position that is recorded in
+the ATIP groove on the disk. For example:
+
+@table @dfn
+@item Ricoh Company Limited
+97:27:00, 97:27:06, 97:27:66
+@item Mitsubishi Chemical (Verbatim)
+97:34:21 to 97:34:25
+@end table
+
+@item LSN
+@cindex LSN
+
+Logical Sector Number. Mapped integer numbers from CD Red Book
+Addressing MSF.  The starting sector is 0 and ending sector is 449699,
+which correlates to MSF: 00:00:00 to 99:59:74.  Because an LSN is a
+single number it is often easier to work with in programming than an
+MSF. Because it starts at 0 rather than -150 as is the case of an LBA
+it can be represented as an unsigned value.
+
+@item MCN
+@cindex MCN
+
+Media Catalog Number. A identification number on an audio CD.  Also
+called a UPC. Another identification number is ISRC.
+
+@item @anchor{MMC}MMC
+@cindex MMC (Multimedia Commands)
+
+MMC (Multimedia Commands). 
+
+MMC are raw commands for communicating with CDROM drives,
+CD-Rewriters, DVD-Rewriters, etc. The are subset of the larger SCSI
+command set. See also @pxref{SCSI,,@acronym{SCSI}}.
+
+Many manufacturers have adopted this standard and it also applies to
+ATAPI versions of their drives.
+
+The documents @code{libcdio} makes use of are described in the
+Multi-Media Commands standard (MMC). This document generally has a
+numeric level number appended. For example MMC-5 refers to
+``Multi-Media Commands - 5.
+
+@item @anchor{models-profiles}Media models and profiles
+@cindex Media models and profiles
+
+MMC classifies media as models, which describe their logical structure,
+and as profiles, which describe the capabilities of the drive with the
+particular media. So both are closely related but not identical.
+
+There are three model families: CD, DVD, Blu-ray.
+CD allows special sector formats like audio as well as data
+sectors of 2048 bytes. DVD and Blu-ray only record data sectors.
+@table @dfn
+@item Non-writable media: CD-ROM, DVD-ROM, BD-ROM.
+@item Write-once media: CD-R, DVD-R, DVD+R, BD-R.
+@item Reusable media: CD-RW, DVD-RW, DVD+RW, DVD-RAM, BD-RE.
+@end table
+
+Profiles depend on drive type and media state. They are expressed as
+numbers. It is unfortunate that formatted CD-RW have the same
+profile number as unformatted ones.
+
+ROM drives often announce all media as ROM profiles.
+Some writer drives show closed sequential media as ROM profile.
+@table @dfn
+@item CD-ROM     0x08
+@item DVD-ROM    0x10
+@item BD-ROM     0x40
+@end table
+
+Sequentially recordable profiles allow multisession in most cases.
+Special burn programs are needed for writing to them.
+@table @dfn
+@item CD-R       0x09
+@item CD-RW      0x0a (unformatted)
+@item DVD-R      0x11
+@item DVD-RW     0x14 (unformatted)
+@item DVD-R DL   0x15 (double layer)
+@item DVD-R DL   0x16 (double layer, jump recording)
+@item DVD+R      0x1a
+@item DVD+RW DL  0x2a (double layer)
+@item DVD+R DL   0x2b (double layer)
+@item BD-R       0x41 (single or double layer, formatted or not)
+@item HD DVD-ROM 0x50
+@item HD DVD-R   0x51
+@item HD DVD-RAM 0x52
+@end table
+They can assume three states:
+@table @dfn
+@item "Blank" is not readable but writeable from scratch
+@item "Appendable" is readable and after the readable part still writeable
+@item "Closed" is only readable
+@end table
+CD-RW and DVD-RW can be brought back to blank state,
+or they can be formatted to become overwriteable.
+
+Overwriteable profiles allow random read-write access with a
+granularity of 2 kB or 32 kB.
+One can hope for having read-write access via the normal
+POSIX operations lseek(), read(), write() of the operating system.
+@table @dfn
+@item CD-RW      0x0a (formatted)
+@item DVD-RAM    0x12
+@item DVD-RW     0x13 (formatted, 32 kB write granularity)
+@item DVD+RW     0x1a
+@item BD-R       0x42 (formatted for pseudo-random recording)
+@item BD-RE      0x43 (single or double layer)
+@end table
+BD-R profile 0x42 is defined by MMC but not implemented by the consumer
+priced Blu-ray burners as of year 2010.
+
+@item Mixed Mode CD
+@cindex Mixed Mode CD
+
+A Mixed Mode is a CD that contains tracks of differing CD-ROM Mode
+formats. In particular the first track may contain both computer data
+(Yellow Book) CD ROM data while the remaining tracks are audio or
+video data. Video CD's can be Mixed Mode CDs. 
+
+@item Multisession 
+@cindex Multisession 
+
+A way of writing to a CD , DVD or Blu-ray Disc that allows more data to be
+added to readable discs at a later time. The media must not have been closed
+by the previous write session. This applies originally to unformatted CD-R,
+CD-RW, DVD-R, DVD-RW, DVD+R, and sequential BD-R which all can record more
+than one session. They hold a table-of-content with sessions and tracks.
+Formatted CD-RW, DVD-RAM, DVD+RW, DVD-RW, and BD-RE have only one track.
+Multisession on these media needs help by the recorded data formats.
+
+Multisession can be used to add a changeset to an existing ISO 9660
+filesystem. Typically the add-on session contains a whole new filesystem tree
+with old and new files. It also contains the data blocks of the newly
+introduced or freshly overwritten files.
+The convention for mounting multisession ISO 9660 images is to load the
+superblock from the start of the first track in the last session as listed
+in the media table-of-content. Formatted media are assumed to have a single
+track starting at block 0. So ISO 9660 multisession on formatted media has
+to overwrite the volume descriptors at block 16 ff. with every new session.
+A chain of recognizable sessions can be achieved by starting the first
+ISO 9660 image at block 32 so that its descriptors get not overwritten later.
+
+@item Nero NRG format file
+@cindex Nero NRG, CD-Image format
+
+A proprietary CD image file format use by a popular program for
+Microsoft Windows, Ahead Nero. The specification of this format is
+not to our knowledge published. 
+
+@item Rock Ridge Extensions
+@cindex Rock Ridge extensions
+
+An extension to the ISO-9660 standard which adds POSIX information to files.
+It allows long file names, owner, group, access permissions @code{ugo+-rwx},
+inode numbers, hard-link count, file types other than directory or regular
+file. Rock Ridge is described by unapproved standard IEEE P1282 / RRIP-1.12
+and based on unapproved IEEE P1281 / SUSP-1.10. It has become a de-facto
+standard on X/Open systems like GNU/Linux, FreeBSD, Solaris, et.\ al.
+
+@item @anchor{SCSI}SCSI 
+@cindex SCSI 
+
+Small Computer System Interface.  A set of ANSI standard electronic
+interfaces (originally developed at Apple Computer) that allow
+personal computers to communicate with peripheral hardware such as
+CD-ROM drives, disk drives, printers, etc.
+
+Although the original hardware is outdated since years, the SCSI command
+set nowadays controls most storage devices including all optical disc drives.
+The contemporary electronic technologies which transport SCSI commands
+to optical drives are P-ATA, SATA, and USB.
+
+A SCSI programming specification made by the SCSI committee T10
+organization @url{http://www.t10.org/}.
+
+The documents @code{libcdio} makes use of are described in SCSI
+standards documents SCSI Primary Commands (SPC), SCSI Block Commands
+(SBC), and Multi-Media Commands (MMC). These documents generally have
+a numeric level number appended. For example SPC-3 refers to 
+``SCSI Primary Commands - 3'.
+
+In year 2010 the current versions were SPC-3, SBC-2, MMC-5.
+
+@item SCSI CDB
+@cindex SCSI CDB
+
+SCSI Command Descriptor Block. The data structure that is used to
+issue a SCSI command. 
+
+@item SCSI Pass Through Interface.
+@cindex SCSI Pass Through Interface.
+
+Yet another way of issuing MMC commands for accessing a CD-ROM. As
+with MMC or ASPI, the CD-ROM doesn't necessarily have to be a
+SCSI-attached drive. See also @pxref{MMC,,@acronym{MMC}} and
+@pxref{MMC,,@acronym{ASPI}}.
+
+@item Session
+
+A fully readable complete recording that contains one or more tracks
+of computer data or audio on a CD. On a DVD or Blu-ray Disc, there are only
+data sessions.
+
+@item SVCD
+@cindex Super VCD (SVCD)
+
+Super @acronym{VCD} 
+
+An improvement of Video CD 2.0 specification which includes most
+notably a switch from @acronym{MPEG}-1 (constant bit rate encoding) to
+@acronym{MPEG}-2 (variable bit rate encoding) for the video stream.
+
+Also added was higher video-stream resolution, up to 4 overlay
+graphics and text (@dfn{OGT}) sub-channels for user switchable
+subtitle displaying, closed caption text, and command lists for
+controlling the @acronym{SVCD} virtual machine.
+
+See @uref{http://www.dvdrhelp.com/svcd}
+
+@item TOC
+@cindex TOC (CD Table of Contents)
+
+(Compact Disc) Table of Contents. The TOC contains a list of sessions
+and their tracks. For sessions, it records the starting track
+number and the last track number. For tracks it records starting time
+block address, size, copy protection, linear audio preemphasis, track format
+(CDDA or data) in that order.
+Session and track information is also available on sequential DVD and
+Blu-ray Discs. Several track properties are fixed to equivalents of CD data.
+
+@item Track 
+@cindex track
+
+A unit of data of a CD. The size of a track can vary; it can occupy
+the entire contents of the CD. Most CD standards however require that
+tracks have a 150 frame (or ``2 second'') lead-in gap.
+
+An abstraction of tracks for CD, DVD and Blu-ray Discs is the Logical Track
+as of MMC specs. Overwriteable media have a single logical track, sequential
+media can have one or more logical tracks which they describe in their TOC.
+
+@item UDF
+@cindex UDF
+
+Universal Disc Format was designed as successor of ISO 9660. It allows
+to record long file names and advanced file properties. Although intended
+as format for data exchange its main importance is with DVD video players.
+Video DVDs have to bear a simple UDF filesystem with a prescribed set
+of files.
+
+@item VCD
+@cindex Video CD (VCD)
+
+The Video Compact Disc (@dfn{Video CD} or @dfn{VCD}) is a standardized
+digital video storage format. It is based on the commonly available
+Compact Disc technology, which allows for low-cost video authoring.
+Video CD's can be played in most @acronym{DVD} standalone player,
+dedicated VCD players and finally, modern Personal Computers with
+multimedia support.
+
+A Video CD is made up of @acronym{CD-ROM XA} sectors,
+i.e. @acronym{CD-ROM} mode 2 form 1 & 2 sectors. Non-@acronym{MPEG} data
+is stored in mode 2 form 1 sectors with a user data area of 2048 byte,
+which have a similar L2 error correction and detection
+(@acronym{ECC}/@acronym{EDC}) to @acronym{CD-ROM} mode 1 sectors. While
+real-time @acronym{MPEG} streams is stored in @acronym{CD-ROM} mode 2
+form 2 sectors, which by have no L2 @acronym{ECC}, yield a ~14% greater
+user data area consisting of 2324 bytes@footnote{actually raw mode 2
+sectors have a 2336 byte user data area, but parts of it are used for
+error codes and headers when using the mode 2 form 1 or form 2
+configurations.}
+
+@uref{http://www.dvdrhelp.com/vcd}
+
+@item Win32 ASPI
+@cindex ASPI
+
+The ASPI interface specification was developed by Adaptec for 
+sending commands to a SCSI host adapter (such as those controlling CD
+and DVD drives) and used on Window 9x/NT and later. Emulation for
+ATAPI drives was added so that the same sets of commands worked those
+even though the drives might not be SCSI nor might there even be a
+SCSI controller attached.
+
+However in Windows NT/2K/XP, Microsoft provides their Win32 ioctl
+interface, and has take steps to make using ASPI more inaccessible
+(e.g. requiring administrative access to use ASPI).
+
+See also @pxref{MMC,,@acronym{MMC}}.
+
+@item Win32 ioctl driver
+
+Ioctl (Input Output ConTroLs). A Win32 function, implemented in all
+Microsoft Windows.  It is used for sending commands to devices using
+defined codes and structures.
+
+@item XA
+@cindex XA
+
+@xref{XA,,@acronym{CD-ROM XA}}.
+
+@end table

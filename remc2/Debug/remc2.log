@@ -1,91 +1,1161 @@
-﻿  cd-info.c
-c:\prenos\remc2\libcdio\cd-info.c(54): fatal error C1083: Nejde otevřít soubor zahrnout: cdio_assert.h: No such file or directory
-  cd-read.c
-c:\prenos\remc2\libcdio\cd-read.c(153): warning C4013: strncmp nedefinované; předpokládá se extern vracející int.
-c:\prenos\remc2\libcdio\cd-read.c(165): warning C4013: bsearch nedefinované; předpokládá se extern vracející int.
-c:\prenos\remc2\libcdio\cd-read.c(172): warning C4013: strcmp nedefinované; předpokládá se extern vracející int.
-c:\prenos\remc2\libcdio\cd-read.c(181): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\libcdio\cd-read.c(185): warning C4013: exit nedefinované; předpokládá se extern vracející int.
-c:\prenos\remc2\libcdio\cd-read.c(164): warning C4047: inicializování: subopt_entry_t * se liší od: int úrovněmi indirekce.
-c:\prenos\remc2\libcdio\cd-read.c(215): warning C4013: strdup nedefinované; předpokládá se extern vracející int.
-c:\prenos\remc2\libcdio\cd-read.c(215): warning C4047: =: char * se liší od: int úrovněmi indirekce.
-c:\prenos\remc2\libcdio\cd-read.c(314): warning C4013: strrchr nedefinované; předpokládá se extern vracející int.
-c:\prenos\remc2\libcdio\cd-read.c(314): warning C4047: =: char * se liší od: int úrovněmi indirekce.
-c:\prenos\remc2\libcdio\cd-read.c(315): warning C4047: =: char * se liší od: int úrovněmi indirekce.
-c:\prenos\remc2\libcdio\cd-read.c(320): warning C4047: =: char * se liší od: int úrovněmi indirekce.
-c:\prenos\remc2\libcdio\cd-read.c(321): warning C4013: atoi nedefinované; předpokládá se extern vracející int.
-c:\prenos\remc2\libcdio\cd-read.c(332): warning C4047: =: char * se liší od: int úrovněmi indirekce.
-c:\prenos\remc2\libcdio\cd-read.c(341): error C2065: VERSION: nedeklarovaný identifikátor
-c:\prenos\remc2\libcdio\cd-read.c(341): warning C4047: funkce: const char * se liší od: int úrovněmi indirekce.
-c:\prenos\remc2\libcdio\cd-read.c(341): warning C4024: print_version: Formální a skutečný parametr mají odlišné typy: 2.
-c:\prenos\remc2\libcdio\cd-read.c(373): warning C4047: =: char * se liší od: int úrovněmi indirekce.
-c:\prenos\remc2\libcdio\cd-read.c(458): warning C4013: free nedefinované; předpokládá se extern vracející int.
-c:\prenos\remc2\libcdio\cd-read.c(507): error C2065: VERSION: nedeklarovaný identifikátor
-c:\prenos\remc2\libcdio\cd-read.c(507): warning C4047: funkce: const char * se liší od: int úrovněmi indirekce.
-c:\prenos\remc2\libcdio\cd-read.c(507): warning C4024: print_version: Formální a skutečný parametr mají odlišné typy: 2.
-c:\prenos\remc2\libcdio\cd-read.c(518): warning C4013: open nedefinované; předpokládá se extern vracející int.
-c:\prenos\remc2\libcdio\cd-read.c(518): error C2065: O_WRONLY: nedeklarovaný identifikátor
-c:\prenos\remc2\libcdio\cd-read.c(518): error C2065: O_CREAT: nedeklarovaný identifikátor
-c:\prenos\remc2\libcdio\cd-read.c(518): error C2065: O_TRUNC: nedeklarovaný identifikátor
-c:\prenos\remc2\libcdio\cd-read.c(576): warning C4013: err_exit nedefinované; předpokládá se extern vracející int.
-c:\prenos\remc2\libcdio\cd-read.c(590): warning C4013: fdopen_s nedefinované; předpokládá se extern vracející int.
-c:\prenos\remc2\libcdio\cd-read.c(590): warning C4047: =: FILE * se liší od: int úrovněmi indirekce.
-c:\prenos\remc2\libcdio\cd-read.c(597): warning C4013: write nedefinované; předpokládá se extern vracející int.
-c:\prenos\remc2\libcdio\cd-read.c(606): warning C4013: close nedefinované; předpokládá se extern vracející int.
-  cdinfo-linux.c
-c:\prenos\remc2\libcdio\cdinfo-linux.c(31): fatal error C1083: Nejde otevřít soubor zahrnout: config.h: No such file or directory
-  iso-info.c
-c:\prenos\remc2\libcdio\iso-info.c(161): warning C4013: strrchr nedefinované; předpokládá se extern vracející int.
-c:\prenos\remc2\libcdio\iso-info.c(161): warning C4047: =: char * se liší od: int úrovněmi indirekce.
-c:\prenos\remc2\libcdio\iso-info.c(162): warning C4013: strdup nedefinované; předpokládá se extern vracející int.
-c:\prenos\remc2\libcdio\iso-info.c(162): warning C4047: =: char * se liší od: int úrovněmi indirekce.
-c:\prenos\remc2\libcdio\iso-info.c(167): warning C4013: atoi nedefinované; předpokládá se extern vracející int.
-c:\prenos\remc2\libcdio\iso-info.c(169): warning C4013: free nedefinované; předpokládá se extern vracející int.
-c:\prenos\remc2\libcdio\iso-info.c(170): warning C4047: =: char * se liší od: int úrovněmi indirekce.
-c:\prenos\remc2\libcdio\iso-info.c(177): warning C4013: atoll nedefinované; předpokládá se extern vracející int.
-c:\prenos\remc2\libcdio\iso-info.c(203): warning C4047: =: char * se liší od: int úrovněmi indirekce.
-c:\prenos\remc2\libcdio\iso-info.c(209): warning C4013: exit nedefinované; předpokládá se extern vracející int.
-c:\prenos\remc2\libcdio\iso-info.c(245): warning C4013: alloca nedefinované; předpokládá se extern vracející int.
-c:\prenos\remc2\libcdio\iso-info.c(275): warning C4013: strlen nedefinované; předpokládá se extern vracející int.
-c:\prenos\remc2\libcdio\iso-info.c(275): warning C4018: >=: signed/unsigned – neshoda
-c:\prenos\remc2\libcdio\iso-info.c(289): warning C4013: strncat nedefinované; předpokládá se extern vracející int.
-c:\prenos\remc2\libcdio\iso-info.c(292): warning C4013: strcmp nedefinované; předpokládá se extern vracející int.
-c:\prenos\remc2\libcdio\iso-info.c(294): warning C4022: _cdio_list_append: neshoda ukazatelů pro skutečný parametr 2
-c:\prenos\remc2\libcdio\iso-info.c(359): warning C4013: strftime_s nedefinované; předpokládá se extern vracející int.
-c:\prenos\remc2\libcdio\iso-info.c(359): warning C4133: funkce: nekompatibilní typy – z: time_t * na: tm *const
-c:\prenos\remc2\libcdio\iso-info.c(359): error C2198: localtime_s: moc malý počet argumentů pro volání
-c:\prenos\remc2\libcdio\iso-info.c(382): warning C4013: calloc nedefinované; předpokládá se extern vracející int.
-c:\prenos\remc2\libcdio\iso-info.c(382): warning C4047: inicializování: char * se liší od: int úrovněmi indirekce.
-c:\prenos\remc2\libcdio\iso-info.c(469): warning C4013: err_exit nedefinované; předpokládá se extern vracející int.
-  iso-read.c
-c:\prenos\remc2\libcdio\iso-read.c(21): fatal error C1083: Nejde otevřít soubor zahrnout: portable.h: No such file or directory
-  mmc-tool.c
-c:\prenos\remc2\libcdio\mmc-tool.c(83): warning C4013: memcpy nedefinované; předpokládá se extern vracející int.
-c:\prenos\remc2\libcdio\mmc-tool.c(160): warning C4013: atoi nedefinované; předpokládá se extern vracející int.
-c:\prenos\remc2\libcdio\mmc-tool.c(178): warning C4013: strdup nedefinované; předpokládá se extern vracející int.
-c:\prenos\remc2\libcdio\mmc-tool.c(178): warning C4047: =: char * se liší od: int úrovněmi indirekce.
-c:\prenos\remc2\libcdio\mmc-tool.c(184): warning C4047: =: char * se liší od: int úrovněmi indirekce.
-c:\prenos\remc2\libcdio\mmc-tool.c(213): error C2065: VERSION: nedeklarovaný identifikátor
-c:\prenos\remc2\libcdio\mmc-tool.c(213): warning C4047: funkce: const char * se liší od: int úrovněmi indirekce.
-c:\prenos\remc2\libcdio\mmc-tool.c(213): warning C4024: print_version: Formální a skutečný parametr mají odlišné typy: 2.
-c:\prenos\remc2\libcdio\mmc-tool.c(236): warning C4047: =: char * se liší od: int úrovněmi indirekce.
-c:\prenos\remc2\libcdio\mmc-tool.c(241): warning C4013: free nedefinované; předpokládá se extern vracející int.
-c:\prenos\remc2\libcdio\mmc-tool.c(249): warning C4013: exit nedefinované; předpokládá se extern vracející int.
-c:\prenos\remc2\libcdio\mmc-tool.c(268): warning C4013: strrchr nedefinované; předpokládá se extern vracející int.
-c:\prenos\remc2\libcdio\mmc-tool.c(268): warning C4047: =: char * se liší od: int úrovněmi indirekce.
-c:\prenos\remc2\libcdio\mmc-tool.c(269): warning C4047: =: char * se liší od: int úrovněmi indirekce.
-c:\prenos\remc2\libcdio\mmc-tool.c(458): warning C4244: funkce: const long se převádí na uint16_t; může dojít ke ztrátě dat.
-  util.c
-c:\prenos\remc2\libcdio\util.c(46): warning C4013: free nedefinované; předpokládá se extern vracející int.
-c:\prenos\remc2\libcdio\util.c(48): warning C4013: exit nedefinované; předpokládá se extern vracející int.
-c:\prenos\remc2\libcdio\util.c(102): warning C4013: err_exit nedefinované; předpokládá se extern vracející int.
-c:\prenos\remc2\libcdio\util.c(176): warning C4013: strlen nedefinované; předpokládá se extern vracející int.
-c:\prenos\remc2\libcdio\util.c(178): warning C4013: strncmp nedefinované; předpokládá se extern vracející int.
-c:\prenos\remc2\libcdio\util.c(179): warning C4013: strdup nedefinované; předpokládá se extern vracející int.
-c:\prenos\remc2\libcdio\util.c(179): warning C4047: return: char * se liší od: int úrovněmi indirekce.
-c:\prenos\remc2\libcdio\util.c(181): warning C4013: calloc nedefinované; předpokládá se extern vracející int.
-c:\prenos\remc2\libcdio\util.c(351): warning C4013: memcpy nedefinované; předpokládá se extern vracející int.
-c:\prenos\remc2\libcdio\util.c(467): warning C4013: va_start nedefinované; předpokládá se extern vracející int.
-c:\prenos\remc2\libcdio\util.c(473): warning C4013: va_end nedefinované; předpokládá se extern vracející int.
+﻿  stdafx.cpp
+  ini.c
+  nukedopl3.c
+  nukedopl3_174.c
+  wopl_file.c
+  extract.c
+c:\prenos\remc2\libcdio-master\example\extract.c(114): warning C4013: snprintf_s nedefinované; předpokládá se extern vracející int.
+c:\prenos\remc2\libcdio-master\example\extract.c(135): warning C4047: funkce: FILE ** se liší od: FILE * úrovněmi indirekce.
+c:\prenos\remc2\libcdio-master\example\extract.c(135): warning C4024: fopen_s: Formální a skutečný parametr mají odlišné typy: 1.
+c:\prenos\remc2\libcdio-master\example\extract.c(211): warning C4047: funkce: FILE ** se liší od: FILE * úrovněmi indirekce.
+c:\prenos\remc2\libcdio-master\example\extract.c(211): warning C4024: fopen_s: Formální a skutečný parametr mají odlišné typy: 1.
+  abs_path.c
+c:\prenos\remc2\libcdio-master\lib\driver\abs_path.c(69): warning C4013: strlen nedefinované; předpokládá se extern vracející int.
+c:\prenos\remc2\libcdio-master\lib\driver\abs_path.c(72): warning C4013: malloc nedefinované; předpokládá se extern vracející int.
+c:\prenos\remc2\libcdio-master\lib\driver\abs_path.c(76): warning C4013: strncpy nedefinované; předpokládá se extern vracející int.
+c:\prenos\remc2\libcdio-master\lib\driver\abs_path.c(103): warning C4013: strdup nedefinované; předpokládá se extern vracející int.
+c:\prenos\remc2\libcdio-master\lib\driver\abs_path.c(103): warning C4047: return: char * se liší od: int úrovněmi indirekce.
+c:\prenos\remc2\libcdio-master\lib\driver\abs_path.c(111): warning C4047: return: char * se liší od: int úrovněmi indirekce.
+c:\prenos\remc2\libcdio-master\lib\driver\abs_path.c(114): warning C4013: calloc nedefinované; předpokládá se extern vracející int.
+c:\prenos\remc2\libcdio-master\lib\driver\abs_path.c(115): warning C4013: snprintf nedefinované; předpokládá se extern vracející int.
+c:\prenos\remc2\libcdio-master\lib\driver\abs_path.c(114): warning C4047: inicializování: char * se liší od: int úrovněmi indirekce.
+  audio.c
+c:\prenos\remc2\libcdio-master\lib\driver\audio.c(33): warning C4273: cdio_audio_get_msf_seconds: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\audio.h(78): note: viz předchozí definice cdio_audio_get_msf_seconds
+c:\prenos\remc2\libcdio-master\lib\driver\audio.c(46): warning C4273: cdio_audio_get_volume: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\audio.h(72): note: viz předchozí definice cdio_audio_get_volume
+c:\prenos\remc2\libcdio-master\lib\driver\audio.c(65): warning C4273: cdio_audio_pause: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\audio.h(85): note: viz předchozí definice cdio_audio_pause
+c:\prenos\remc2\libcdio-master\lib\driver\audio.c(82): warning C4273: cdio_audio_play_msf: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\audio.h(94): note: viz předchozí definice cdio_audio_play_msf
+c:\prenos\remc2\libcdio-master\lib\driver\audio.c(99): warning C4273: cdio_audio_play_track_index: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\audio.h(104): note: viz předchozí definice cdio_audio_play_track_index
+c:\prenos\remc2\libcdio-master\lib\driver\audio.c(116): warning C4273: cdio_audio_read_subchannel: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\audio.h(113): note: viz předchozí definice cdio_audio_read_subchannel
+c:\prenos\remc2\libcdio-master\lib\driver\audio.c(134): warning C4273: cdio_audio_resume: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\audio.h(122): note: viz předchozí definice cdio_audio_resume
+c:\prenos\remc2\libcdio-master\lib\driver\audio.c(152): warning C4273: cdio_audio_set_volume: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\audio.h(131): note: viz předchozí definice cdio_audio_set_volume
+c:\prenos\remc2\libcdio-master\lib\driver\audio.c(170): warning C4273: cdio_audio_stop: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\audio.h(140): note: viz předchozí definice cdio_audio_stop
+  cdio.c
+c:\prenos\remc2\libcdio-master\lib\driver\cdio.c(50): warning C4273: cdio_get_arg: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\device.h(1023): note: viz předchozí definice cdio_get_arg
+c:\prenos\remc2\libcdio-master\lib\driver\cdio.c(81): warning C4273: cdio_set_arg: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\device.h(1032): note: viz předchozí definice cdio_set_arg
+  cdtext.c
+c:\prenos\remc2\libcdio-master\lib\driver\cdtext.c(201): warning C4273: cdtext_field2str: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\cdtext.h(217): note: viz předchozí definice cdtext_field2str
+c:\prenos\remc2\libcdio-master\lib\driver\cdtext.c(213): warning C4273: cdtext_genre2str: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\cdtext.h(207): note: viz předchozí definice cdtext_genre2str
+c:\prenos\remc2\libcdio-master\lib\driver\cdtext.c(225): warning C4273: cdtext_lang2str: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\cdtext.h(212): note: viz předchozí definice cdtext_lang2str
+c:\prenos\remc2\libcdio-master\lib\driver\cdtext.c(239): warning C4273: cdtext_destroy: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\cdtext.h(243): note: viz předchozí definice cdtext_destroy
+c:\prenos\remc2\libcdio-master\lib\driver\cdtext.c(249): warning C4013: free nedefinované; předpokládá se extern vracející int.
+c:\prenos\remc2\libcdio-master\lib\driver\cdtext.c(265): warning C4273: cdtext_get: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\cdtext.h(251): note: viz předchozí definice cdtext_get
+c:\prenos\remc2\libcdio-master\lib\driver\cdtext.c(270): warning C4013: strdup nedefinované; předpokládá se extern vracející int.
+c:\prenos\remc2\libcdio-master\lib\driver\cdtext.c(270): warning C4047: return: char * se liší od: int úrovněmi indirekce.
+c:\prenos\remc2\libcdio-master\lib\driver\cdtext.c(285): warning C4273: cdtext_get_const: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\cdtext.h(263): note: viz předchozí definice cdtext_get_const
+c:\prenos\remc2\libcdio-master\lib\driver\cdtext.c(301): warning C4273: cdtext_get_genre: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\cdtext.h(271): note: viz předchozí definice cdtext_get_genre
+c:\prenos\remc2\libcdio-master\lib\driver\cdtext.c(314): warning C4273: cdtext_get_language: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\cdtext.h(278): note: viz předchozí definice cdtext_get_language
+c:\prenos\remc2\libcdio-master\lib\driver\cdtext.c(329): warning C4273: cdtext_list_languages: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\cdtext.h(297): note: viz předchozí definice cdtext_list_languages
+c:\prenos\remc2\libcdio-master\lib\driver\cdtext.c(358): warning C4273: cdtext_select_language: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\cdtext.h(288): note: viz předchozí definice cdtext_select_language
+c:\prenos\remc2\libcdio-master\lib\driver\cdtext.c(386): warning C4273: cdtext_init: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\cdtext.h(225): note: viz předchozí definice cdtext_init
+c:\prenos\remc2\libcdio-master\lib\driver\cdtext.c(392): warning C4013: malloc nedefinované; předpokládá se extern vracející int.
+c:\prenos\remc2\libcdio-master\lib\driver\cdtext.c(424): warning C4013: strcmp nedefinované; předpokládá se extern vracející int.
+c:\prenos\remc2\libcdio-master\lib\driver\cdtext.c(465): warning C4273: cdtext_set: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\cdtext.h(310): note: viz předchozí definice cdtext_set
+c:\prenos\remc2\libcdio-master\lib\driver\cdtext.c(477): warning C4013: strlen nedefinované; předpokládá se extern vracející int.
+c:\prenos\remc2\libcdio-master\lib\driver\cdtext.c(481): warning C4047: =: char * se liší od: int úrovněmi indirekce.
+c:\prenos\remc2\libcdio-master\lib\driver\cdtext.c(495): warning C4273: cdtext_data_init: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\cdtext.h(236): note: viz předchozí definice cdtext_data_init
+c:\prenos\remc2\libcdio-master\lib\driver\cdtext.c(506): warning C4013: memset nedefinované; předpokládá se extern vracející int.
+c:\prenos\remc2\libcdio-master\lib\driver\cdtext.c(538): warning C4018: <=: signed/unsigned – neshoda
+  cd_types.c
+c:\prenos\remc2\libcdio-master\lib\driver\cd_types.c(140): warning C4013: memset nedefinované; předpokládá se extern vracející int.
+c:\prenos\remc2\libcdio-master\lib\driver\cd_types.c(142): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\libcdio-master\lib\driver\cd_types.c(163): warning C4013: strlen nedefinované; předpokládá se extern vracející int.
+c:\prenos\remc2\libcdio-master\lib\driver\cd_types.c(166): warning C4013: memcmp nedefinované; předpokládá se extern vracející int.
+c:\prenos\remc2\libcdio-master\lib\driver\cd_types.c(225): warning C4273: cdio_guess_cd_type: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\cd_types.h(149): note: viz předchozí definice cdio_guess_cd_type
+c:\prenos\remc2\libcdio-master\lib\driver\cd_types.c(255): warning C4013: strncpy nedefinované; předpokládá se extern vracející int.
+  device.c
+c:\prenos\remc2\libcdio-master\lib\driver\device.c(187): warning C4273: cdio_driver_errmsg: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\device.h(253): note: viz předchozí definice cdio_driver_errmsg
+c:\prenos\remc2\libcdio-master\lib\driver\device.c(234): warning C4273: cdio_driver_describe: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\device.h(482): note: viz předchozí definice cdio_driver_describe
+c:\prenos\remc2\libcdio-master\lib\driver\device.c(244): warning C4273: cdio_init: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\device.h(1038): note: viz předchozí definice cdio_init
+c:\prenos\remc2\libcdio-master\lib\driver\device.c(271): warning C4273: cdio_destroy: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\device.h(474): note: viz předchozí definice cdio_destroy
+c:\prenos\remc2\libcdio-master\lib\driver\device.c(278): warning C4013: free nedefinované; předpokládá se extern vracející int.
+c:\prenos\remc2\libcdio-master\lib\driver\device.c(293): warning C4273: cdio_close_tray: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\device.h(246): note: viz předchozí definice cdio_close_tray
+c:\prenos\remc2\libcdio-master\lib\driver\device.c(303): warning C4013: strdup nedefinované; předpokládá se extern vracející int.
+c:\prenos\remc2\libcdio-master\lib\driver\device.c(303): warning C4047: =: char * se liší od: int úrovněmi indirekce.
+c:\prenos\remc2\libcdio-master\lib\driver\device.c(343): warning C4273: cdio_eject_media: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\device.h(261): note: viz předchozí definice cdio_eject_media
+c:\prenos\remc2\libcdio-master\lib\driver\device.c(369): warning C4273: cdio_eject_media_drive: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\device.h(269): note: viz předchozí definice cdio_eject_media_drive
+c:\prenos\remc2\libcdio-master\lib\driver\device.c(384): warning C4273: cdio_free_device_list: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\device.h(281): note: viz předchozí definice cdio_free_device_list
+c:\prenos\remc2\libcdio-master\lib\driver\device.c(404): warning C4273: cdio_get_default_device: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\device.h(296): note: viz předchozí definice cdio_get_default_device
+c:\prenos\remc2\libcdio-master\lib\driver\device.c(433): warning C4273: cdio_get_default_device_driver: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\device.h(305): note: viz předchozí definice cdio_get_default_device_driver
+c:\prenos\remc2\libcdio-master\lib\driver\device.c(466): warning C4273: cdio_get_devices: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\device.h(318): note: viz předchozí definice cdio_get_devices
+c:\prenos\remc2\libcdio-master\lib\driver\device.c(474): warning C4273: cdio_get_devices_ret: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\device.h(378): note: viz předchozí definice cdio_get_devices_ret
+c:\prenos\remc2\libcdio-master\lib\driver\device.c(520): warning C4273: cdio_get_devices_with_cap: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\device.h(356): note: viz předchozí definice cdio_get_devices_with_cap
+c:\prenos\remc2\libcdio-master\lib\driver\device.c(530): warning C4273: cdio_get_devices_with_cap_ret: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\device.h(365): note: viz předchozí definice cdio_get_devices_with_cap_ret
+c:\prenos\remc2\libcdio-master\lib\driver\device.c(611): warning C4273: cdio_get_drive_cap: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\device.h(392): note: viz předchozí definice cdio_get_drive_cap
+c:\prenos\remc2\libcdio-master\lib\driver\device.c(634): warning C4273: cdio_get_drive_cap_dev: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\device.h(406): note: viz předchozí definice cdio_get_drive_cap_dev
+c:\prenos\remc2\libcdio-master\lib\driver\device.c(655): warning C4273: cdio_get_driver_name: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\device.h(417): note: viz předchozí definice cdio_get_driver_name
+c:\prenos\remc2\libcdio-master\lib\driver\device.c(667): warning C4273: cdio_get_driver_name_from_id: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\device.h(424): note: viz předchozí definice cdio_get_driver_name_from_id
+c:\prenos\remc2\libcdio-master\lib\driver\device.c(678): warning C4273: cdio_get_driver_id: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\device.h(434): note: viz předchozí definice cdio_get_driver_id
+c:\prenos\remc2\libcdio-master\lib\driver\device.c(690): warning C4273: cdio_get_hwinfo: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\device.h(440): note: viz předchozí definice cdio_get_hwinfo
+c:\prenos\remc2\libcdio-master\lib\driver\device.c(709): warning C4273: cdio_get_last_session: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\device.h(451): note: viz předchozí definice cdio_get_last_session
+c:\prenos\remc2\libcdio-master\lib\driver\device.c(724): warning C4273: cdio_get_media_changed: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\device.h(460): note: viz předchozí definice cdio_get_media_changed
+c:\prenos\remc2\libcdio-master\lib\driver\device.c(733): warning C4273: cdio_have_atapi: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\device.h(463): note: viz předchozí definice cdio_have_atapi
+c:\prenos\remc2\libcdio-master\lib\driver\device.c(803): warning C4273: cdio_have_driver: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\device.h(466): note: viz předchozí definice cdio_have_driver
+c:\prenos\remc2\libcdio-master\lib\driver\device.c(811): warning C4273: cdio_is_device: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\device.h(988): note: viz předchozí definice cdio_is_device
+c:\prenos\remc2\libcdio-master\lib\driver\device.c(837): warning C4273: cdio_open: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\device.h(494): note: viz předchozí definice cdio_open
+c:\prenos\remc2\libcdio-master\lib\driver\device.c(851): warning C4273: cdio_open_am: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\device.h(507): note: viz předchozí definice cdio_open_am
+c:\prenos\remc2\libcdio-master\lib\driver\device.c(859): warning C4047: =: char * se liší od: int úrovněmi indirekce.
+c:\prenos\remc2\libcdio-master\lib\driver\device.c(905): warning C4273: cdio_open_cd: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\device.h(568): note: viz předchozí definice cdio_open_cd
+c:\prenos\remc2\libcdio-master\lib\driver\device.c(926): warning C4273: cdio_open_am_cd: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\device.h(577): note: viz předchozí definice cdio_open_am_cd
+c:\prenos\remc2\libcdio-master\lib\driver\device.c(938): warning C4273: cdio_set_blocksize: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\device.h(993): note: viz předchozí definice cdio_set_blocksize
+c:\prenos\remc2\libcdio-master\lib\driver\device.c(960): warning C4273: cdio_set_speed: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\device.h(1012): note: viz předchozí definice cdio_set_speed
+  disc.c
+c:\prenos\remc2\libcdio-master\lib\driver\disc.c(65): warning C4273: cdio_get_cdtext: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\disc.h(77): note: viz předchozí definice cdio_get_cdtext
+c:\prenos\remc2\libcdio-master\lib\driver\disc.c(85): warning C4273: cdio_get_cdtext_raw: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\disc.h(68): note: viz předchozí definice cdio_get_cdtext_raw
+c:\prenos\remc2\libcdio-master\lib\driver\disc.c(103): warning C4273: cdio_get_disc_last_lsn: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\disc.h(91): note: viz předchozí definice cdio_get_disc_last_lsn
+c:\prenos\remc2\libcdio-master\lib\driver\disc.c(113): warning C4273: cdio_get_discmode: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\disc.h(84): note: viz předchozí definice cdio_get_discmode
+c:\prenos\remc2\libcdio-master\lib\driver\disc.c(130): warning C4273: cdio_get_mcn: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\disc.h(108): note: viz předchozí definice cdio_get_mcn
+c:\prenos\remc2\libcdio-master\lib\driver\disc.c(140): warning C4273: cdio_is_discmode_cdrom: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\disc.h(121): note: viz předchozí definice cdio_is_discmode_cdrom
+c:\prenos\remc2\libcdio-master\lib\driver\disc.c(155): warning C4273: cdio_is_discmode_dvd: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\disc.h(126): note: viz předchozí definice cdio_is_discmode_dvd
+  ds.c
+c:\prenos\remc2\libcdio-master\lib\driver\ds.c(59): warning C4273: _cdio_list_new: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\ds.h(54): note: viz předchozí definice _cdio_list_new
+c:\prenos\remc2\libcdio-master\lib\driver\ds.c(67): warning C4273: _cdio_list_free: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\ds.h(56): note: viz předchozí definice _cdio_list_free
+c:\prenos\remc2\libcdio-master\lib\driver\ds.c(76): warning C4273: _cdio_list_length: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\ds.h(58): note: viz předchozí definice _cdio_list_length
+c:\prenos\remc2\libcdio-master\lib\driver\ds.c(84): warning C4273: _cdio_list_prepend: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\ds.h(60): note: viz předchozí definice _cdio_list_prepend
+c:\prenos\remc2\libcdio-master\lib\driver\ds.c(104): warning C4273: _cdio_list_append: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\ds.h(62): note: viz předchozí definice _cdio_list_append
+c:\prenos\remc2\libcdio-master\lib\driver\ds.c(129): warning C4273: _cdio_list_foreach: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\ds.h(64): note: viz předchozí definice _cdio_list_foreach
+c:\prenos\remc2\libcdio-master\lib\driver\ds.c(144): warning C4273: _cdio_list_find: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\ds.h(67): note: viz předchozí definice _cdio_list_find
+c:\prenos\remc2\libcdio-master\lib\driver\ds.c(161): warning C4273: _cdio_list_begin: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\ds.h(76): note: viz předchozí definice _cdio_list_begin
+c:\prenos\remc2\libcdio-master\lib\driver\ds.c(169): warning C4273: _cdio_list_end: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\ds.h(78): note: viz předchozí definice _cdio_list_end
+c:\prenos\remc2\libcdio-master\lib\driver\ds.c(177): warning C4273: _cdio_list_node_next: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\ds.h(80): note: viz předchozí definice _cdio_list_node_next
+c:\prenos\remc2\libcdio-master\lib\driver\ds.c(186): warning C4273: _cdio_list_node_free: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\ds.h(82): note: viz předchozí definice _cdio_list_node_free
+c:\prenos\remc2\libcdio-master\lib\driver\ds.c(237): warning C4273: _cdio_list_node_data: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\ds.h(84): note: viz předchozí definice _cdio_list_node_data
+  bincue.c
+c:\prenos\remc2\libcdio-master\lib\driver\image\bincue.c(290): error C4996: 'strerror': This function or variable may be unsafe. Consider using strerror_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(181): note: viz deklarace: strerror
+c:\prenos\remc2\libcdio-master\lib\driver\image\bincue.c(304): error C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(439): note: viz deklarace: strtok
+c:\prenos\remc2\libcdio-master\lib\driver\image\bincue.c(313): error C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(439): note: viz deklarace: strtok
+c:\prenos\remc2\libcdio-master\lib\driver\image\bincue.c(346): error C4996: 'strdup': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _strdup. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(538): note: viz deklarace: strdup
+c:\prenos\remc2\libcdio-master\lib\driver\image\bincue.c(347): error C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(439): note: viz deklarace: strtok
+c:\prenos\remc2\libcdio-master\lib\driver\image\bincue.c(356): error C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(439): note: viz deklarace: strtok
+c:\prenos\remc2\libcdio-master\lib\driver\image\bincue.c(410): error C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(439): note: viz deklarace: strtok
+c:\prenos\remc2\libcdio-master\lib\driver\image\bincue.c(413): error C4996: 'strdup': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _strdup. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(538): note: viz deklarace: strdup
+c:\prenos\remc2\libcdio-master\lib\driver\image\bincue.c(424): error C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(439): note: viz deklarace: strtok
+c:\prenos\remc2\libcdio-master\lib\driver\image\bincue.c(425): error C4996: 'sscanf': This function or variable may be unsafe. Consider using sscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\stdio.h(2261): note: viz deklarace: sscanf
+c:\prenos\remc2\libcdio-master\lib\driver\image\bincue.c(434): error C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(439): note: viz deklarace: strtok
+c:\prenos\remc2\libcdio-master\lib\driver\image\bincue.c(669): error C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(439): note: viz deklarace: strtok
+c:\prenos\remc2\libcdio-master\lib\driver\image\bincue.c(689): error C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(439): note: viz deklarace: strtok
+c:\prenos\remc2\libcdio-master\lib\driver\image\bincue.c(690): error C4996: 'strdup': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _strdup. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(538): note: viz deklarace: strdup
+c:\prenos\remc2\libcdio-master\lib\driver\image\bincue.c(701): error C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(439): note: viz deklarace: strtok
+c:\prenos\remc2\libcdio-master\lib\driver\image\bincue.c(715): error C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(439): note: viz deklarace: strtok
+c:\prenos\remc2\libcdio-master\lib\driver\image\bincue.c(725): error C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(439): note: viz deklarace: strtok
+c:\prenos\remc2\libcdio-master\lib\driver\image\bincue.c(726): error C4996: 'sscanf': This function or variable may be unsafe. Consider using sscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\stdio.h(2261): note: viz deklarace: sscanf
+c:\prenos\remc2\libcdio-master\lib\driver\image\bincue.c(735): error C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(439): note: viz deklarace: strtok
+c:\prenos\remc2\libcdio-master\lib\driver\image\bincue.c(817): error C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(439): note: viz deklarace: strtok
+c:\prenos\remc2\libcdio-master\lib\driver\image\bincue.c(920): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\libcdio-master\lib\driver\image\bincue.c(980): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\libcdio-master\lib\driver\image\bincue.c(1029): warning C4273: cdio_get_devices_bincue: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\device.h(550): note: viz předchozí definice cdio_get_devices_bincue
+c:\prenos\remc2\libcdio-master\lib\driver\image\bincue.c(1057): warning C4273: cdio_get_default_device_bincue: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\device.h(548): note: viz předchozí definice cdio_get_default_device_bincue
+c:\prenos\remc2\libcdio-master\lib\driver\image\bincue.c(1059): error C4996: 'strdup': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _strdup. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(538): note: viz deklarace: strdup
+c:\prenos\remc2\libcdio-master\lib\driver\image\bincue.c(1067): error C4996: 'strncpy': This function or variable may be unsafe. Consider using strncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(337): note: viz deklarace: strncpy
+c:\prenos\remc2\libcdio-master\lib\driver\image\bincue.c(1070): error C4996: 'strncpy': This function or variable may be unsafe. Consider using strncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(337): note: viz deklarace: strncpy
+c:\prenos\remc2\libcdio-master\lib\driver\image\bincue.c(1073): error C4996: 'strncpy': This function or variable may be unsafe. Consider using strncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(337): note: viz deklarace: strncpy
+c:\prenos\remc2\libcdio-master\lib\driver\image\bincue.c(1145): warning C4273: cdio_is_cuefile: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\device.h(959): note: viz předchozí definice cdio_is_cuefile
+c:\prenos\remc2\libcdio-master\lib\driver\image\bincue.c(1156): error C4996: 'strdup': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _strdup. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(538): note: viz deklarace: strdup
+c:\prenos\remc2\libcdio-master\lib\driver\image\bincue.c(1186): warning C4273: cdio_is_binfile: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\device.h(951): note: viz předchozí definice cdio_is_binfile
+c:\prenos\remc2\libcdio-master\lib\driver\image\bincue.c(1192): error C4996: 'strdup': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _strdup. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(538): note: viz deklarace: strdup
+c:\prenos\remc2\libcdio-master\lib\driver\image\bincue.c(1216): warning C4273: cdio_open_am_bincue: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\device.h(524): note: viz předchozí definice cdio_open_am_bincue
+c:\prenos\remc2\libcdio-master\lib\driver\image\bincue.c(1230): warning C4273: cdio_open_bincue: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\device.h(516): note: viz předchozí definice cdio_open_bincue
+c:\prenos\remc2\libcdio-master\lib\driver\image\bincue.c(1246): warning C4273: cdio_open_cue: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\device.h(586): note: viz předchozí definice cdio_open_cue
+c:\prenos\remc2\libcdio-master\lib\driver\image\bincue.c(1281): warning C4133: =: nekompatibilní typy – z: driver_return_code_t (__cdecl *)(void *,void *,lsn_t,unsigned int) na: int (__cdecl *)(void *,void *,lsn_t,unsigned int)
+c:\prenos\remc2\libcdio-master\lib\driver\image\bincue.c(1283): warning C4133: =: nekompatibilní typy – z: driver_return_code_t (__cdecl *)(void *,void *,lsn_t,bool) na: int (__cdecl *)(void *,void *,lsn_t,bool)
+c:\prenos\remc2\libcdio-master\lib\driver\image\bincue.c(1284): warning C4133: =: nekompatibilní typy – z: driver_return_code_t (__cdecl *)(void *,void *,lsn_t,bool,unsigned int) na: int (__cdecl *)(void *,void *,lsn_t,bool,unsigned int)
+c:\prenos\remc2\libcdio-master\lib\driver\image\bincue.c(1285): warning C4133: =: nekompatibilní typy – z: driver_return_code_t (__cdecl *)(void *,void *,lsn_t,bool) na: int (__cdecl *)(void *,void *,lsn_t,bool)
+c:\prenos\remc2\libcdio-master\lib\driver\image\bincue.c(1286): warning C4133: =: nekompatibilní typy – z: driver_return_code_t (__cdecl *)(void *,void *,lsn_t,bool,unsigned int) na: int (__cdecl *)(void *,void *,lsn_t,bool,unsigned int)
+c:\prenos\remc2\libcdio-master\lib\driver\image\bincue.c(1289): warning C4133: =: nekompatibilní typy – z: driver_return_code_t (__cdecl *)(void *,int) na: int (__cdecl *)(void *,int)
+  cdrdao.c
+c:\prenos\remc2\libcdio-master\lib\driver\image\cdrdao.c(207): warning C4018: <=: signed/unsigned – neshoda
+c:\prenos\remc2\libcdio-master\lib\driver\image\cdrdao.c(326): error C4996: 'strerror': This function or variable may be unsafe. Consider using strerror_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(181): note: viz deklarace: strerror
+c:\prenos\remc2\libcdio-master\lib\driver\image\cdrdao.c(344): error C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(439): note: viz deklarace: strtok
+c:\prenos\remc2\libcdio-master\lib\driver\image\cdrdao.c(348): error C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(439): note: viz deklarace: strtok
+c:\prenos\remc2\libcdio-master\lib\driver\image\cdrdao.c(373): error C4996: 'strdup': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _strdup. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(538): note: viz deklarace: strdup
+c:\prenos\remc2\libcdio-master\lib\driver\image\cdrdao.c(413): error C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(439): note: viz deklarace: strtok
+c:\prenos\remc2\libcdio-master\lib\driver\image\cdrdao.c(623): error C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(439): note: viz deklarace: strtok
+c:\prenos\remc2\libcdio-master\lib\driver\image\cdrdao.c(632): error C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(439): note: viz deklarace: strtok
+c:\prenos\remc2\libcdio-master\lib\driver\image\cdrdao.c(639): error C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(439): note: viz deklarace: strtok
+c:\prenos\remc2\libcdio-master\lib\driver\image\cdrdao.c(651): error C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(439): note: viz deklarace: strtok
+c:\prenos\remc2\libcdio-master\lib\driver\image\cdrdao.c(671): error C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(439): note: viz deklarace: strtok
+c:\prenos\remc2\libcdio-master\lib\driver\image\cdrdao.c(673): error C4996: 'strdup': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _strdup. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(538): note: viz deklarace: strdup
+c:\prenos\remc2\libcdio-master\lib\driver\image\cdrdao.c(680): error C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(439): note: viz deklarace: strtok
+c:\prenos\remc2\libcdio-master\lib\driver\image\cdrdao.c(697): error C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(439): note: viz deklarace: strtok
+c:\prenos\remc2\libcdio-master\lib\driver\image\cdrdao.c(702): error C4996: 'strdup': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _strdup. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(538): note: viz deklarace: strdup
+c:\prenos\remc2\libcdio-master\lib\driver\image\cdrdao.c(724): error C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(439): note: viz deklarace: strtok
+c:\prenos\remc2\libcdio-master\lib\driver\image\cdrdao.c(739): error C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(439): note: viz deklarace: strtok
+c:\prenos\remc2\libcdio-master\lib\driver\image\cdrdao.c(762): error C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(439): note: viz deklarace: strtok
+c:\prenos\remc2\libcdio-master\lib\driver\image\cdrdao.c(772): error C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(439): note: viz deklarace: strtok
+c:\prenos\remc2\libcdio-master\lib\driver\image\cdrdao.c(777): error C4996: 'strdup': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _strdup. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(538): note: viz deklarace: strdup
+c:\prenos\remc2\libcdio-master\lib\driver\image\cdrdao.c(803): error C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(439): note: viz deklarace: strtok
+c:\prenos\remc2\libcdio-master\lib\driver\image\cdrdao.c(822): error C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(439): note: viz deklarace: strtok
+c:\prenos\remc2\libcdio-master\lib\driver\image\cdrdao.c(870): error C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(439): note: viz deklarace: strtok
+c:\prenos\remc2\libcdio-master\lib\driver\image\cdrdao.c(880): error C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(439): note: viz deklarace: strtok
+c:\prenos\remc2\libcdio-master\lib\driver\image\cdrdao.c(890): error C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(439): note: viz deklarace: strtok
+c:\prenos\remc2\libcdio-master\lib\driver\image\cdrdao.c(896): error C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(439): note: viz deklarace: strtok
+c:\prenos\remc2\libcdio-master\lib\driver\image\cdrdao.c(906): error C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(439): note: viz deklarace: strtok
+c:\prenos\remc2\libcdio-master\lib\driver\image\cdrdao.c(923): error C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(439): note: viz deklarace: strtok
+c:\prenos\remc2\libcdio-master\lib\driver\image\cdrdao.c(933): error C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(439): note: viz deklarace: strtok
+c:\prenos\remc2\libcdio-master\lib\driver\image\cdrdao.c(949): error C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(439): note: viz deklarace: strtok
+c:\prenos\remc2\libcdio-master\lib\driver\image\cdrdao.c(967): error C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(439): note: viz deklarace: strtok
+c:\prenos\remc2\libcdio-master\lib\driver\image\cdrdao.c(1070): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\libcdio-master\lib\driver\image\cdrdao.c(1134): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\libcdio-master\lib\driver\image\cdrdao.c(1148): warning C4273: cdio_get_devices_cdrdao: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\device.h(559): note: viz předchozí definice cdio_get_devices_cdrdao
+c:\prenos\remc2\libcdio-master\lib\driver\image\cdrdao.c(1172): warning C4273: cdio_get_default_device_cdrdao: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\device.h(557): note: viz předchozí definice cdio_get_default_device_cdrdao
+c:\prenos\remc2\libcdio-master\lib\driver\image\cdrdao.c(1174): error C4996: 'strdup': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _strdup. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(538): note: viz deklarace: strdup
+c:\prenos\remc2\libcdio-master\lib\driver\image\cdrdao.c(1182): error C4996: 'strncpy': This function or variable may be unsafe. Consider using strncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(337): note: viz deklarace: strncpy
+c:\prenos\remc2\libcdio-master\lib\driver\image\cdrdao.c(1185): error C4996: 'strncpy': This function or variable may be unsafe. Consider using strncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(337): note: viz deklarace: strncpy
+c:\prenos\remc2\libcdio-master\lib\driver\image\cdrdao.c(1188): error C4996: 'strncpy': This function or variable may be unsafe. Consider using strncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(337): note: viz deklarace: strncpy
+c:\prenos\remc2\libcdio-master\lib\driver\image\cdrdao.c(1260): warning C4273: cdio_is_tocfile: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\device.h(977): note: viz předchozí definice cdio_is_tocfile
+c:\prenos\remc2\libcdio-master\lib\driver\image\cdrdao.c(1283): warning C4273: cdio_open_am_cdrdao: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\device.h(539): note: viz předchozí definice cdio_open_am_cdrdao
+c:\prenos\remc2\libcdio-master\lib\driver\image\cdrdao.c(1297): warning C4273: cdio_open_cdrdao: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\device.h(532): note: viz předchozí definice cdio_open_cdrdao
+c:\prenos\remc2\libcdio-master\lib\driver\image\cdrdao.c(1331): warning C4133: =: nekompatibilní typy – z: driver_return_code_t (__cdecl *)(void *,void *,lsn_t,unsigned int) na: int (__cdecl *)(void *,void *,lsn_t,unsigned int)
+c:\prenos\remc2\libcdio-master\lib\driver\image\cdrdao.c(1333): warning C4133: =: nekompatibilní typy – z: driver_return_code_t (__cdecl *)(void *,void *,lsn_t,bool) na: int (__cdecl *)(void *,void *,lsn_t,bool)
+c:\prenos\remc2\libcdio-master\lib\driver\image\cdrdao.c(1335): warning C4133: =: nekompatibilní typy – z: driver_return_code_t (__cdecl *)(void *,void *,lsn_t,bool) na: int (__cdecl *)(void *,void *,lsn_t,bool)
+c:\prenos\remc2\libcdio-master\lib\driver\image\cdrdao.c(1336): warning C4133: =: nekompatibilní typy – z: driver_return_code_t (__cdecl *)(void *,void *,lsn_t,bool,unsigned int) na: int (__cdecl *)(void *,void *,lsn_t,bool,unsigned int)
+c:\prenos\remc2\libcdio-master\lib\driver\image\cdrdao.c(1339): warning C4133: =: nekompatibilní typy – z: driver_return_code_t (__cdecl *)(void *,int) na: int (__cdecl *)(void *,int)
+  nrg.c
+c:\prenos\remc2\libcdio-master\lib\driver\image\nrg.c(116): warning C4244: =: uint64_t se převádí na uint16_t; může dojít ke ztrátě dat.
+c:\prenos\remc2\libcdio-master\lib\driver\image\nrg.c(209): warning C4244: =: uint64_t se převádí na off_t; může dojít ke ztrátě dat.
+c:\prenos\remc2\libcdio-master\lib\driver\image\nrg.c(502): warning C4244: =: uint64_t se převádí na lba_t; může dojít ke ztrátě dat.
+c:\prenos\remc2\libcdio-master\lib\driver\image\nrg.c(539): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\libcdio-master\lib\driver\image\nrg.c(633): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\libcdio-master\lib\driver\image\nrg.c(634): warning C4244: inicializování: uint64_t se převádí na uint32_t; může dojít ke ztrátě dat.
+c:\prenos\remc2\libcdio-master\lib\driver\image\nrg.c(636): warning C4244: inicializování: uint64_t se převádí na uint32_t; může dojít ke ztrátě dat.
+c:\prenos\remc2\libcdio-master\lib\driver\image\nrg.c(915): warning C4018: >=: signed/unsigned – neshoda
+c:\prenos\remc2\libcdio-master\lib\driver\image\nrg.c(939): warning C4018: >=: signed/unsigned – neshoda
+c:\prenos\remc2\libcdio-master\lib\driver\image\nrg.c(939): warning C4018: <=: signed/unsigned – neshoda
+c:\prenos\remc2\libcdio-master\lib\driver\image\nrg.c(941): warning C4244: inicializování: uint64_t se převádí na long; může dojít ke ztrátě dat.
+c:\prenos\remc2\libcdio-master\lib\driver\image\nrg.c(970): warning C4018: >=: signed/unsigned – neshoda
+c:\prenos\remc2\libcdio-master\lib\driver\image\nrg.c(980): warning C4018: >=: signed/unsigned – neshoda
+c:\prenos\remc2\libcdio-master\lib\driver\image\nrg.c(980): warning C4018: <=: signed/unsigned – neshoda
+c:\prenos\remc2\libcdio-master\lib\driver\image\nrg.c(982): warning C4244: inicializování: uint64_t se převádí na long; může dojít ke ztrátě dat.
+c:\prenos\remc2\libcdio-master\lib\driver\image\nrg.c(1023): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\libcdio-master\lib\driver\image\nrg.c(1041): warning C4018: >=: signed/unsigned – neshoda
+c:\prenos\remc2\libcdio-master\lib\driver\image\nrg.c(1051): warning C4018: >=: signed/unsigned – neshoda
+c:\prenos\remc2\libcdio-master\lib\driver\image\nrg.c(1051): warning C4018: <=: signed/unsigned – neshoda
+c:\prenos\remc2\libcdio-master\lib\driver\image\nrg.c(1053): warning C4244: inicializování: uint64_t se převádí na long; může dojít ke ztrátě dat.
+c:\prenos\remc2\libcdio-master\lib\driver\image\nrg.c(1096): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\libcdio-master\lib\driver\image\nrg.c(1173): warning C4273: cdio_get_devices_nrg: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\device.h(941): note: viz předchozí definice cdio_get_devices_nrg
+c:\prenos\remc2\libcdio-master\lib\driver\image\nrg.c(1201): warning C4273: cdio_get_default_device_nrg: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\device.h(939): note: viz předchozí definice cdio_get_default_device_nrg
+c:\prenos\remc2\libcdio-master\lib\driver\image\nrg.c(1203): error C4996: 'strdup': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _strdup. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(538): note: viz deklarace: strdup
+c:\prenos\remc2\libcdio-master\lib\driver\image\nrg.c(1211): error C4996: 'strncpy': This function or variable may be unsafe. Consider using strncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(337): note: viz deklarace: strncpy
+c:\prenos\remc2\libcdio-master\lib\driver\image\nrg.c(1214): error C4996: 'strncpy': This function or variable may be unsafe. Consider using strncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(337): note: viz deklarace: strncpy
+c:\prenos\remc2\libcdio-master\lib\driver\image\nrg.c(1217): error C4996: 'strncpy': This function or variable may be unsafe. Consider using strncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(337): note: viz deklarace: strncpy
+c:\prenos\remc2\libcdio-master\lib\driver\image\nrg.c(1275): warning C4273: cdio_is_nrg: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\device.h(968): note: viz předchozí definice cdio_is_nrg
+c:\prenos\remc2\libcdio-master\lib\driver\image\nrg.c(1309): warning C4273: cdio_open_am_nrg: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\device.h(928): note: viz předchozí definice cdio_open_am_nrg
+c:\prenos\remc2\libcdio-master\lib\driver\image\nrg.c(1319): warning C4273: cdio_open_nrg: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\device.h(920): note: viz předchozí definice cdio_open_nrg
+c:\prenos\remc2\libcdio-master\lib\driver\image\nrg.c(1353): warning C4133: =: nekompatibilní typy – z: driver_return_code_t (__cdecl *)(void *,void *,lsn_t,unsigned int) na: int (__cdecl *)(void *,void *,lsn_t,unsigned int)
+c:\prenos\remc2\libcdio-master\lib\driver\image\nrg.c(1355): warning C4133: =: nekompatibilní typy – z: driver_return_code_t (__cdecl *)(void *,void *,lsn_t,bool) na: int (__cdecl *)(void *,void *,lsn_t,bool)
+c:\prenos\remc2\libcdio-master\lib\driver\image\nrg.c(1356): warning C4133: =: nekompatibilní typy – z: driver_return_code_t (__cdecl *)(void *,void *,lsn_t,bool,unsigned int) na: int (__cdecl *)(void *,void *,lsn_t,bool,unsigned int)
+c:\prenos\remc2\libcdio-master\lib\driver\image\nrg.c(1357): warning C4133: =: nekompatibilní typy – z: driver_return_code_t (__cdecl *)(void *,void *,lsn_t,bool) na: int (__cdecl *)(void *,void *,lsn_t,bool)
+c:\prenos\remc2\libcdio-master\lib\driver\image\nrg.c(1358): warning C4133: =: nekompatibilní typy – z: driver_return_code_t (__cdecl *)(void *,void *,lsn_t,bool,unsigned int) na: int (__cdecl *)(void *,void *,lsn_t,bool,unsigned int)
+c:\prenos\remc2\libcdio-master\lib\driver\image\nrg.c(1384): error C4996: 'strdup': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _strdup. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(538): note: viz deklarace: strdup
+  image_common.c
+c:\prenos\remc2\libcdio-master\lib\driver\image_common.c(45): warning C4273: _eject_media_image: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\lib\driver\image_common.h(75): note: viz předchozí definice _eject_media_image
+c:\prenos\remc2\libcdio-master\lib\driver\image_common.c(56): warning C4273: _free_image: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\lib\driver\image_common.h(73): note: viz předchozí definice _free_image
+c:\prenos\remc2\libcdio-master\lib\driver\image_common.c(64): warning C4013: free nedefinované; předpokládá se extern vracející int.
+c:\prenos\remc2\libcdio-master\lib\driver\image_common.c(82): warning C4273: _get_arg_image: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\lib\driver\image_common.h(80): note: viz předchozí definice _get_arg_image
+c:\prenos\remc2\libcdio-master\lib\driver\image_common.c(85): warning C4013: strcmp nedefinované; předpokládá se extern vracející int.
+c:\prenos\remc2\libcdio-master\lib\driver\image_common.c(102): warning C4273: _get_cdtext_image: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\lib\driver\image_common.h(85): note: viz předchozí definice _get_cdtext_image
+c:\prenos\remc2\libcdio-master\lib\driver\image_common.c(116): warning C4273: _get_discmode_image: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\lib\driver\image_common.h(90): note: viz předchozí definice _get_discmode_image
+c:\prenos\remc2\libcdio-master\lib\driver\image_common.c(130): warning C4273: _get_drive_cap_image: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\lib\driver\image_common.h(96): note: viz předchozí definice _get_drive_cap_image
+c:\prenos\remc2\libcdio-master\lib\driver\image_common.c(155): warning C4273: _get_first_track_num_image: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\lib\driver\image_common.h(105): note: viz předchozí definice _get_first_track_num_image
+c:\prenos\remc2\libcdio-master\lib\driver\image_common.c(174): warning C4273: get_media_changed_image: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\lib\driver\image_common.h(114): note: viz předchozí definice get_media_changed_image
+c:\prenos\remc2\libcdio-master\lib\driver\image_common.c(187): warning C4273: _get_mcn_image: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\lib\driver\image_common.h(123): note: viz předchozí definice _get_mcn_image
+c:\prenos\remc2\libcdio-master\lib\driver\image_common.c(191): warning C4013: strdup nedefinované; předpokládá se extern vracející int.
+c:\prenos\remc2\libcdio-master\lib\driver\image_common.c(191): warning C4047: return: char * se liší od: int úrovněmi indirekce.
+c:\prenos\remc2\libcdio-master\lib\driver\image_common.c(199): warning C4273: _get_num_tracks_image: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\lib\driver\image_common.h(128): note: viz předchozí definice _get_num_tracks_image
+c:\prenos\remc2\libcdio-master\lib\driver\image_common.c(214): warning C4273: _get_track_msf_image: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\lib\driver\image_common.h(138): note: viz předchozí definice _get_track_msf_image
+c:\prenos\remc2\libcdio-master\lib\driver\image_common.c(234): warning C4273: get_track_channels_image: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\lib\driver\image_common.h(144): note: viz předchozí definice get_track_channels_image
+c:\prenos\remc2\libcdio-master\lib\driver\image_common.c(245): warning C4273: get_track_copy_permit_image: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\lib\driver\image_common.h(149): note: viz předchozí definice get_track_copy_permit_image
+c:\prenos\remc2\libcdio-master\lib\driver\image_common.c(258): warning C4273: get_track_preemphasis_image: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\lib\driver\image_common.h(156): note: viz předchozí definice get_track_preemphasis_image
+c:\prenos\remc2\libcdio-master\lib\driver\image_common.c(270): warning C4273: get_track_pregap_lba_image: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\lib\driver\image_common.h(163): note: viz předchozí definice get_track_pregap_lba_image
+c:\prenos\remc2\libcdio-master\lib\driver\image_common.c(297): warning C4273: get_track_isrc_image: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\lib\driver\image_common.h(172): note: viz předchozí definice get_track_isrc_image
+c:\prenos\remc2\libcdio-master\lib\driver\image_common.c(302): warning C4047: return: char * se liší od: int úrovněmi indirekce.
+c:\prenos\remc2\libcdio-master\lib\driver\image_common.c(329): warning C4273: read_data_sectors_image: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\lib\driver\image_common.h(195): note: viz předchozí definice read_data_sectors_image
+c:\prenos\remc2\libcdio-master\lib\driver\image_common.c(363): warning C4273: _set_arg_image: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\lib\driver\image_common.h(206): note: viz předchozí definice _set_arg_image
+c:\prenos\remc2\libcdio-master\lib\driver\image_common.c(370): warning C4047: =: char * se liší od: int úrovněmi indirekce.
+c:\prenos\remc2\libcdio-master\lib\driver\image_common.c(376): warning C4047: =: char * se liší od: int úrovněmi indirekce.
+c:\prenos\remc2\libcdio-master\lib\driver\image_common.c(382): warning C4047: =: char * se liší od: int úrovněmi indirekce.
+  logging.c
+c:\prenos\remc2\libcdio-master\lib\driver\logging.c(41): warning C4273: cdio_loglevel_default: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\logging.h(51): note: viz předchozí definice cdio_loglevel_default
+c:\prenos\remc2\libcdio-master\lib\driver\logging.c(45): warning C4273: cdio_default_log_handler: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\logging.h(73): note: viz předchozí definice cdio_default_log_handler
+c:\prenos\remc2\libcdio-master\lib\driver\logging.c(89): warning C4273: cdio_log_set_handler: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\logging.h(85): note: viz předchozí definice cdio_log_set_handler
+c:\prenos\remc2\libcdio-master\lib\driver\logging.c(131): warning C4273: cdio_log: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\logging.h(99): note: viz předchozí definice cdio_log
+c:\prenos\remc2\libcdio-master\lib\driver\logging.c(133): warning C4013: va_start nedefinované; předpokládá se extern vracející int.
+c:\prenos\remc2\libcdio-master\lib\driver\logging.c(135): warning C4013: va_end nedefinované; předpokládá se extern vracející int.
+c:\prenos\remc2\libcdio-master\lib\driver\logging.c(148): warning C4273: cdio_debug: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\logging.h(107): note: viz předchozí definice cdio_debug
+c:\prenos\remc2\libcdio-master\lib\driver\logging.c(149): warning C4273: cdio_info: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\logging.h(114): note: viz předchozí definice cdio_info
+c:\prenos\remc2\libcdio-master\lib\driver\logging.c(150): warning C4273: cdio_warn: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\logging.h(121): note: viz předchozí definice cdio_warn
+c:\prenos\remc2\libcdio-master\lib\driver\logging.c(151): warning C4273: cdio_error: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\logging.h(128): note: viz předchozí definice cdio_error
+  memory.c
+c:\prenos\remc2\libcdio-master\lib\driver\memory.c(38): warning C4273: cdio_free: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\memory.h(36): note: viz předchozí definice cdio_free
+c:\prenos\remc2\libcdio-master\lib\driver\memory.c(40): warning C4013: free nedefinované; předpokládá se extern vracející int.
+  win32.c
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(532): error C2059: chyba syntaxe: }
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(561): error C2065: _img_private_t: nedeklarovaný identifikátor
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(561): error C2065: env: nedeklarovaný identifikátor
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(561): warning C4047: =: int se liší od: void * úrovněmi indirekce.
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(561): error C2106: =: Levý operand musí být l-value.
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(562): error C2065: env: nedeklarovaný identifikátor
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(562): error C2223: Levá strana operátoru ->access_mode musí ukazovat na strukturu/sjednocení.
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(563): error C2065: _AM_NONE: nedeklarovaný identifikátor
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(565): error C2065: _AM_IOCTL: nedeklarovaný identifikátor
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(566): error C2065: _AM_MMC_RDWR: nedeklarovaný identifikátor
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(567): error C2065: _AM_MMC_RDWR_EXCL: nedeklarovaný identifikátor
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(580): error C2065: _img_private_t: nedeklarovaný identifikátor
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(580): error C2065: p_env: nedeklarovaný identifikátor
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(580): warning C4047: =: int se liší od: void * úrovněmi indirekce.
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(580): error C2106: =: Levý operand musí být l-value.
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(583): error C2065: p_env: nedeklarovaný identifikátor
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(583): error C2223: Levá strana operátoru ->gen musí ukazovat na strukturu/sjednocení.
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(583): warning C4033: get_arg_win32 musí vracet hodnotu
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(585): error C2065: p_env: nedeklarovaný identifikátor
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(585): error C2223: Levá strana operátoru ->access_mode musí ukazovat na strukturu/sjednocení.
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(586): error C2065: _AM_IOCTL: nedeklarovaný identifikátor
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(588): error C2065: _AM_ASPI: nedeklarovaný identifikátor
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(590): error C2065: _AM_MMC_RDWR: nedeklarovaný identifikátor
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(592): error C2065: _AM_MMC_RDWR_EXCL: nedeklarovaný identifikátor
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(594): error C2065: _AM_NONE: nedeklarovaný identifikátor
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(598): error C2065: p_env: nedeklarovaný identifikátor
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(598): error C2223: Levá strana operátoru ->gen musí ukazovat na strukturu/sjednocení.
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(598): warning C4033: get_arg_win32 musí vracet hodnotu
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(614): error C2143: Chyba syntaxe: Chybí ; před *.
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(614): error C2065: p_env: nedeklarovaný identifikátor
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(614): error C2100: neplatná indirekce
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(614): warning C4047: =: int se liší od: const void * úrovněmi indirekce.
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(616): error C2065: p_env: nedeklarovaný identifikátor
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(616): error C2223: Levá strana operátoru ->hASPI musí ukazovat na strukturu/sjednocení.
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(617): error C2065: p_env: nedeklarovaný identifikátor
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(617): error C2223: Levá strana operátoru ->gen musí ukazovat na strukturu/sjednocení.
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(617): error C2198: mmc_get_mcn: moc malý počet argumentů pro volání
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(619): warning C4013: get_mcn_win32ioctl nedefinované; předpokládá se extern vracející int.
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(619): error C2065: p_env: nedeklarovaný identifikátor
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(619): warning C4047: return: char * se liší od: int úrovněmi indirekce.
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(632): error C2143: Chyba syntaxe: Chybí ; před *.
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(632): error C2065: p_env: nedeklarovaný identifikátor
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(632): error C2100: neplatná indirekce
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(632): warning C4047: =: int se liší od: const void * úrovněmi indirekce.
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(634): error C2065: p_env: nedeklarovaný identifikátor
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(634): error C2223: Levá strana operátoru ->hASPI musí ukazovat na strukturu/sjednocení.
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(635): error C2065: p_env: nedeklarovaný identifikátor
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(635): error C2223: Levá strana operátoru ->gen musí ukazovat na strukturu/sjednocení.
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(635): warning C4047: funkce: const CdIo_t * se liší od: track_t úrovněmi indirekce.
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(635): warning C4024: mmc_get_track_isrc: Formální a skutečný parametr mají odlišné typy: 1.
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(635): error C2198: mmc_get_track_isrc: moc malý počet argumentů pro volání
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(637): warning C4013: get_track_isrc_win32ioctl nedefinované; předpokládá se extern vracející int.
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(637): error C2065: p_env: nedeklarovaný identifikátor
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(637): warning C4047: return: char * se liší od: int úrovněmi indirekce.
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(647): error C2065: _img_private_t: nedeklarovaný identifikátor
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(647): error C2065: p_env: nedeklarovaný identifikátor
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(647): warning C4047: =: int se liší od: void * úrovněmi indirekce.
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(647): error C2106: =: Levý operand musí být l-value.
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(649): error C2065: p_env: nedeklarovaný identifikátor
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(651): error C2065: p_env: nedeklarovaný identifikátor
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(651): error C2223: Levá strana operátoru ->gen musí ukazovat na strukturu/sjednocení.
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(652): warning C4013: read_toc_win32 nedefinované; předpokládá se extern vracející int.
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(652): error C2065: p_env: nedeklarovaný identifikátor
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(654): error C2065: p_env: nedeklarovaný identifikátor
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(654): error C2223: Levá strana operátoru ->gen musí ukazovat na strukturu/sjednocení.
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(655): error C2065: p_env: nedeklarovaný identifikátor
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(655): error C2223: Levá strana operátoru ->gen musí ukazovat na strukturu/sjednocení.
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(658): warning C4013: get_track_format_win32ioctl nedefinované; předpokládá se extern vracející int.
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(658): error C2065: p_env: nedeklarovaný identifikátor
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(672): error C2065: _img_private_t: nedeklarovaný identifikátor
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(672): error C2065: p_env: nedeklarovaný identifikátor
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(672): warning C4047: =: int se liší od: void * úrovněmi indirekce.
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(672): error C2106: =: Levý operand musí být l-value.
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(674): error C2065: p_env: nedeklarovaný identifikátor
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(674): warning C4022: _cdio_get_track_format: neshoda ukazatelů pro skutečný parametr 1
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(682): error C2065: _AM_ASPI: nedeklarovaný identifikátor
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(682): error C2065: p_env: nedeklarovaný identifikátor
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(682): error C2223: Levá strana operátoru ->access_mode musí ukazovat na strukturu/sjednocení.
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(683): error C2065: p_env: nedeklarovaný identifikátor
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(683): error C2223: Levá strana operátoru ->tocent musí ukazovat na strukturu/sjednocení.
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(683): error C2223: Levá strana operátoru ->gen musí ukazovat na strukturu/sjednocení.
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(683): warning C4033: _cdio_get_track_green musí vracet hodnotu
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(691): error C2065: p_env: nedeklarovaný identifikátor
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(691): error C2223: Levá strana operátoru ->tocent musí ukazovat na strukturu/sjednocení.
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(691): error C2223: Levá strana operátoru ->gen musí ukazovat na strukturu/sjednocení.
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(691): warning C4033: _cdio_get_track_green musí vracet hodnotu
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(704): error C2065: _img_private_t: nedeklarovaný identifikátor
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(704): error C2065: p_env: nedeklarovaný identifikátor
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(704): warning C4047: =: int se liší od: void * úrovněmi indirekce.
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(704): error C2106: =: Levý operand musí být l-value.
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(708): error C2065: p_env: nedeklarovaný identifikátor
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(708): error C2223: Levá strana operátoru ->gen musí ukazovat na strukturu/sjednocení.
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(709): error C2065: p_env: nedeklarovaný identifikátor
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(711): error C2065: p_env: nedeklarovaný identifikátor
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(711): error C2223: Levá strana operátoru ->gen musí ukazovat na strukturu/sjednocení.
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(713): error C2065: p_env: nedeklarovaný identifikátor
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(713): error C2223: Levá strana operátoru ->gen musí ukazovat na strukturu/sjednocení.
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(716): error C2065: p_env: nedeklarovaný identifikátor
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(716): error C2223: Levá strana operátoru ->tocent musí ukazovat na strukturu/sjednocení.
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(716): warning C4047: funkce: lsn_t se liší od: msf_t * úrovněmi indirekce.
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(716): warning C4024: cdio_lsn_to_msf: Formální a skutečný parametr mají odlišné typy: 1.
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(716): error C2198: cdio_lsn_to_msf: moc malý počet argumentů pro volání
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(727): warning C4273: cdio_get_devices_win32: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\device.h(870): note: viz předchozí definice cdio_get_devices_win32
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(773): warning C4273: cdio_get_default_device_win32: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\device.h(868): note: viz předchozí definice cdio_get_default_device_win32
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(794): warning C4273: cdio_is_device_win32: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\lib\driver\generic.h(156): note: viz předchozí definice cdio_is_device_win32
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(841): warning C4273: cdio_open_win32: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\device.h(846): note: viz předchozí definice cdio_open_win32
+c:\prenos\remc2\libcdio-master\lib\driver\mswindows\win32.c(852): warning C4273: cdio_open_am_win32: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\device.h(854): note: viz předchozí definice cdio_open_am_win32
   Generování kódu...
-c:\prenos\remc2\libcdio\util.c(467): error C4700: používá se neinicializovaná lokální proměnná args
+c:\prenos\remc2\libcdio-master\lib\driver\logging.c(133): error C4700: používá se neinicializovaná lokální proměnná args
+c:\prenos\remc2\libcdio-master\lib\driver\logging.c(148): error C4700: používá se neinicializovaná lokální proměnná args
+c:\prenos\remc2\libcdio-master\lib\driver\logging.c(149): error C4700: používá se neinicializovaná lokální proměnná args
+c:\prenos\remc2\libcdio-master\lib\driver\logging.c(151): error C4700: používá se neinicializovaná lokální proměnná args
+c:\prenos\remc2\libcdio-master\lib\driver\logging.c(150): error C4700: používá se neinicializovaná lokální proměnná args
+  Kompilování...
+  win32_ioctl.c
+  read.c
+c:\prenos\remc2\libcdio-master\lib\driver\read.c(84): warning C4273: cdio_lseek: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\read.h(53): note: viz předchozí definice cdio_lseek
+c:\prenos\remc2\libcdio-master\lib\driver\read.c(106): warning C4273: cdio_read: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\read.h(67): note: viz předchozí definice cdio_read
+c:\prenos\remc2\libcdio-master\lib\driver\read.c(120): warning C4273: cdio_read_audio_sector: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\read.h(78): note: viz předchozí definice cdio_read_audio_sector
+c:\prenos\remc2\libcdio-master\lib\driver\read.c(134): warning C4273: cdio_read_audio_sectors: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\read.h(91): note: viz předchozí definice cdio_read_audio_sectors
+c:\prenos\remc2\libcdio-master\lib\driver\read.c(135): warning C4018: >: signed/unsigned – neshoda
+c:\prenos\remc2\libcdio-master\lib\driver\read.c(155): warning C4273: cdio_read_data_sectors: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\read.h(112): note: viz předchozí definice cdio_read_data_sectors
+c:\prenos\remc2\libcdio-master\lib\driver\read.c(181): warning C4273: cdio_read_mode1_sector: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\read.h(125): note: viz předchozí definice cdio_read_mode1_sector
+c:\prenos\remc2\libcdio-master\lib\driver\read.c(194): warning C4013: memcpy nedefinované; předpokládá se extern vracející int.
+c:\prenos\remc2\libcdio-master\lib\driver\read.c(214): warning C4273: cdio_read_mode1_sectors: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\read.h(138): note: viz předchozí definice cdio_read_mode1_sectors
+c:\prenos\remc2\libcdio-master\lib\driver\read.c(215): warning C4018: >: signed/unsigned – neshoda
+c:\prenos\remc2\libcdio-master\lib\driver\read.c(237): warning C4273: cdio_read_mode2_sector: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\read.h(156): note: viz předchozí definice cdio_read_mode2_sector
+c:\prenos\remc2\libcdio-master\lib\driver\read.c(261): warning C4273: cdio_read_mode2_sectors: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\read.h(181): note: viz předchozí definice cdio_read_mode2_sectors
+c:\prenos\remc2\libcdio-master\lib\driver\read.c(262): warning C4018: >: signed/unsigned – neshoda
+c:\prenos\remc2\libcdio-master\lib\driver\read.c(280): warning C4273: cdio_read_sector: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\read.h(163): note: viz předchozí definice cdio_read_sector
+c:\prenos\remc2\libcdio-master\lib\driver\read.c(316): warning C4273: cdio_read_sectors: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\read.h(215): note: viz předchozí definice cdio_read_sectors
+  realpath.c
+c:\prenos\remc2\libcdio-master\lib\driver\realpath.c(116): warning C4013: strncpy nedefinované; předpokládá se extern vracející int.
+  sector.c
+c:\prenos\remc2\libcdio-master\lib\driver\sector.c(52): warning C4273: cdio_lba_to_lsn: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\sector.h(229): note: viz předchozí definice cdio_lba_to_lsn
+c:\prenos\remc2\libcdio-master\lib\driver\sector.c(64): warning C4273: cdio_lsn_to_msf: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\sector.h(245): note: viz předchozí definice cdio_lsn_to_msf
+c:\prenos\remc2\libcdio-master\lib\driver\sector.c(98): warning C4273: cdio_lba_to_msf_str: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\sector.h(219): note: viz předchozí definice cdio_lba_to_msf_str
+c:\prenos\remc2\libcdio-master\lib\driver\sector.c(101): warning C4013: strdup nedefinované; předpokládá se extern vracející int.
+c:\prenos\remc2\libcdio-master\lib\driver\sector.c(101): warning C4047: return: char * se liší od: int úrovněmi indirekce.
+c:\prenos\remc2\libcdio-master\lib\driver\sector.c(116): warning C4273: cdio_lsn_to_lba: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\sector.h(240): note: viz předchozí definice cdio_lsn_to_lba
+c:\prenos\remc2\libcdio-master\lib\driver\sector.c(126): warning C4273: cdio_lba_to_msf: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\sector.h(234): note: viz předchozí definice cdio_lba_to_msf
+c:\prenos\remc2\libcdio-master\lib\driver\sector.c(137): warning C4273: cdio_msf_to_lba: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\sector.h(251): note: viz předchozí definice cdio_msf_to_lba
+c:\prenos\remc2\libcdio-master\lib\driver\sector.c(159): warning C4273: cdio_msf_to_lsn: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\sector.h(257): note: viz předchozí definice cdio_msf_to_lsn
+c:\prenos\remc2\libcdio-master\lib\driver\sector.c(168): warning C4273: cdio_msf_to_str: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\sector.h(224): note: viz předchozí definice cdio_msf_to_str
+c:\prenos\remc2\libcdio-master\lib\driver\sector.c(171): warning C4013: snprintf nedefinované; předpokládá se extern vracející int.
+c:\prenos\remc2\libcdio-master\lib\driver\sector.c(172): warning C4047: return: char * se liší od: int úrovněmi indirekce.
+c:\prenos\remc2\libcdio-master\lib\driver\sector.c(183): warning C4273: cdio_msf3_to_lba: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\sector.h(264): note: viz předchozí definice cdio_msf3_to_lba
+c:\prenos\remc2\libcdio-master\lib\driver\sector.c(194): warning C4273: cdio_mmssff_to_lba: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\sector.h(271): note: viz předchozí definice cdio_mmssff_to_lba
+c:\prenos\remc2\libcdio-master\lib\driver\sector.c(199): warning C4013: strcmp nedefinované; předpokládá se extern vracející int.
+  track.c
+c:\prenos\remc2\libcdio-master\lib\driver\track.c(48): warning C4273: cdio_get_first_track_num: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\track.h(105): note: viz předchozí definice cdio_get_first_track_num
+c:\prenos\remc2\libcdio-master\lib\driver\track.c(68): warning C4273: cdio_get_last_track_num: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\track.h(111): note: viz předchozí definice cdio_get_last_track_num
+c:\prenos\remc2\libcdio-master\lib\driver\track.c(91): warning C4273: cdio_get_track_channels: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\track.h(127): note: viz předchozí definice cdio_get_track_channels
+c:\prenos\remc2\libcdio-master\lib\driver\track.c(115): warning C4273: cdio_get_track_copy_permit: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\track.h(132): note: viz předchozí definice cdio_get_track_copy_permit
+c:\prenos\remc2\libcdio-master\lib\driver\track.c(128): warning C4273: cdio_get_track_format: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\track.h(138): note: viz předchozí definice cdio_get_track_format
+c:\prenos\remc2\libcdio-master\lib\driver\track.c(142): warning C4273: cdio_get_joliet_level: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\disc.h(96): note: viz předchozí definice cdio_get_joliet_level
+c:\prenos\remc2\libcdio-master\lib\driver\track.c(157): warning C4273: cdio_get_num_tracks: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\disc.h(116): note: viz předchozí definice cdio_get_num_tracks
+c:\prenos\remc2\libcdio-master\lib\driver\track.c(176): warning C4273: cdio_get_track: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\track.h(121): note: viz předchozí definice cdio_get_track
+c:\prenos\remc2\libcdio-master\lib\driver\track.c(221): warning C4273: cdio_get_track_green: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\track.h(148): note: viz předchozí definice cdio_get_track_green
+c:\prenos\remc2\libcdio-master\lib\driver\track.c(242): warning C4273: cdio_get_track_lba: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\track.h(168): note: viz předchozí definice cdio_get_track_lba
+c:\prenos\remc2\libcdio-master\lib\driver\track.c(268): warning C4273: cdio_get_track_lsn: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\track.h(182): note: viz předchozí definice cdio_get_track_lsn
+c:\prenos\remc2\libcdio-master\lib\driver\track.c(302): warning C4273: cdio_get_track_isrc: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\track.h(218): note: viz předchozí definice cdio_get_track_isrc
+c:\prenos\remc2\libcdio-master\lib\driver\track.c(330): warning C4273: cdio_get_track_pregap_lba: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\track.h(193): note: viz předchozí definice cdio_get_track_pregap_lba
+c:\prenos\remc2\libcdio-master\lib\driver\track.c(350): warning C4273: cdio_get_track_pregap_lsn: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\track.h(204): note: viz předchozí definice cdio_get_track_pregap_lsn
+c:\prenos\remc2\libcdio-master\lib\driver\track.c(360): warning C4273: cdio_get_track_last_lsn: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\track.h(154): note: viz předchozí definice cdio_get_track_last_lsn
+c:\prenos\remc2\libcdio-master\lib\driver\track.c(377): warning C4273: cdio_get_track_msf: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\track.h(230): note: viz předchozí definice cdio_get_track_msf
+c:\prenos\remc2\libcdio-master\lib\driver\track.c(397): warning C4273: cdio_get_track_preemphasis: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\track.h(236): note: viz předchozí definice cdio_get_track_preemphasis
+c:\prenos\remc2\libcdio-master\lib\driver\track.c(413): warning C4273: cdio_get_track_sec_count: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\track.h(247): note: viz předchozí definice cdio_get_track_sec_count
+  utf8.c
+c:\prenos\remc2\libcdio-master\lib\driver\utf8.c(85): warning C4273: cdio_utf8_to_wchar: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\utf8.h(106): note: viz předchozí definice cdio_utf8_to_wchar
+c:\prenos\remc2\libcdio-master\lib\driver\utf8.c(106): warning C4273: fopen_utf8: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\utf8.h(112): note: viz předchozí definice fopen_utf8
+c:\prenos\remc2\libcdio-master\lib\driver\utf8.c(110): error C4996: '_wfopen': This function or variable may be unsafe. Consider using _wfopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\corecrt_wstdio.h(130): note: viz deklarace: _wfopen
+c:\prenos\remc2\libcdio-master\lib\driver\utf8.c(286): warning C4273: cdio_charset_from_utf8: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\utf8.h(78): note: viz předchozí definice cdio_charset_from_utf8
+c:\prenos\remc2\libcdio-master\lib\driver\utf8.c(314): warning C4273: cdio_charset_to_utf8: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\utf8.h(96): note: viz předchozí definice cdio_charset_to_utf8
+c:\prenos\remc2\libcdio-master\lib\driver\utf8.c(336): warning C4018: <: signed/unsigned – neshoda
+  util.c
+c:\prenos\remc2\libcdio-master\lib\driver\util.c(84): warning C4013: strdup nedefinované; předpokládá se extern vracející int.
+c:\prenos\remc2\libcdio-master\lib\driver\util.c(84): warning C4047: =: char * se liší od: int úrovněmi indirekce.
+c:\prenos\remc2\libcdio-master\lib\driver\util.c(98): warning C4013: strtok nedefinované; předpokládá se extern vracející int.
+c:\prenos\remc2\libcdio-master\lib\driver\util.c(98): warning C4047: =: char * se liší od: int úrovněmi indirekce.
+c:\prenos\remc2\libcdio-master\lib\driver\util.c(99): warning C4047: =: char * se liší od: int úrovněmi indirekce.
+c:\prenos\remc2\libcdio-master\lib\driver\util.c(114): warning C4013: memcpy nedefinované; předpokládá se extern vracející int.
+c:\prenos\remc2\libcdio-master\lib\driver\util.c(129): warning C4047: =: char * se liší od: int úrovněmi indirekce.
+c:\prenos\remc2\libcdio-master\lib\driver\util.c(151): warning C4047: =: char * se liší od: int úrovněmi indirekce.
+c:\prenos\remc2\libcdio-master\lib\driver\util.c(153): warning C4013: strlen nedefinované; předpokládá se extern vracející int.
+c:\prenos\remc2\libcdio-master\lib\driver\util.c(167): warning C4273: cdio_to_bcd8: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\util.h(118): note: viz předchozí definice cdio_to_bcd8
+c:\prenos\remc2\libcdio-master\lib\driver\util.c(175): warning C4273: cdio_from_bcd8: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\util.h(119): note: viz předchozí definice cdio_from_bcd8
+  _cdio_generic.c
+c:\prenos\remc2\libcdio-master\lib\driver\_cdio_generic.c(73): warning C4273: cdio_generic_unimplemented_eject_media: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\lib\driver\generic.h(97): note: viz předchozí definice cdio_generic_unimplemented_eject_media
+c:\prenos\remc2\libcdio-master\lib\driver\_cdio_generic.c(83): warning C4273: cdio_generic_unimplemented_set_blocksize: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\lib\driver\generic.h(105): note: viz předchozí definice cdio_generic_unimplemented_set_blocksize
+c:\prenos\remc2\libcdio-master\lib\driver\_cdio_generic.c(92): warning C4273: cdio_generic_unimplemented_set_speed: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\lib\driver\generic.h(113): note: viz předchozí definice cdio_generic_unimplemented_set_speed
+c:\prenos\remc2\libcdio-master\lib\driver\_cdio_generic.c(103): warning C4273: cdio_generic_free: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\lib\driver\generic.h(119): note: viz předchozí definice cdio_generic_free
+c:\prenos\remc2\libcdio-master\lib\driver\_cdio_generic.c(116): warning C4013: close nedefinované; předpokládá se extern vracející int.
+c:\prenos\remc2\libcdio-master\lib\driver\_cdio_generic.c(129): warning C4273: cdio_generic_init: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\lib\driver\generic.h(124): note: viz předchozí definice cdio_generic_init
+c:\prenos\remc2\libcdio-master\lib\driver\_cdio_generic.c(136): warning C4013: open nedefinované; předpokládá se extern vracející int.
+c:\prenos\remc2\libcdio-master\lib\driver\_cdio_generic.c(140): error C4996: 'strerror': This function or variable may be unsafe. Consider using strerror_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(181): note: viz deklarace: strerror
+c:\prenos\remc2\libcdio-master\lib\driver\_cdio_generic.c(159): warning C4273: cdio_generic_read_form1_sector: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\lib\driver\generic.h(144): note: viz předchozí definice cdio_generic_read_form1_sector
+c:\prenos\remc2\libcdio-master\lib\driver\_cdio_generic.c(172): warning C4273: cdio_generic_lseek: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\lib\driver\generic.h(131): note: viz předchozí definice cdio_generic_lseek
+c:\prenos\remc2\libcdio-master\lib\driver\_cdio_generic.c(174): warning C4013: lseek nedefinované; předpokládá se extern vracející int.
+c:\prenos\remc2\libcdio-master\lib\driver\_cdio_generic.c(184): warning C4273: cdio_generic_read: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\lib\driver\generic.h(138): note: viz předchozí definice cdio_generic_read
+c:\prenos\remc2\libcdio-master\lib\driver\_cdio_generic.c(186): warning C4013: read nedefinované; předpokládá se extern vracející int.
+c:\prenos\remc2\libcdio-master\lib\driver\_cdio_generic.c(194): warning C4273: cdio_generic_stdio_free: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\lib\driver\generic.h(150): note: viz předchozí definice cdio_generic_stdio_free
+c:\prenos\remc2\libcdio-master\lib\driver\_cdio_generic.c(211): warning C4273: cdio_is_device_generic: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\lib\driver\generic.h(169): note: viz předchozí definice cdio_is_device_generic
+c:\prenos\remc2\libcdio-master\lib\driver\_cdio_generic.c(212): error C2079: buf používá nedefinované struct stat.
+c:\prenos\remc2\libcdio-master\lib\driver\_cdio_generic.c(213): warning C4013: stat nedefinované; předpokládá se extern vracející int.
+c:\prenos\remc2\libcdio-master\lib\driver\_cdio_generic.c(218): error C2224: Levá strana operátoru .st_mode musí mít typ struktura/sjednocení.
+c:\prenos\remc2\libcdio-master\lib\driver\_cdio_generic.c(218): error C2065: S_IFMT: nedeklarovaný identifikátor
+c:\prenos\remc2\libcdio-master\lib\driver\_cdio_generic.c(218): warning C4013: S_ISCHR nedefinované; předpokládá se extern vracející int.
+c:\prenos\remc2\libcdio-master\lib\driver\_cdio_generic.c(218): warning C4033: cdio_is_device_generic musí vracet hodnotu
+c:\prenos\remc2\libcdio-master\lib\driver\_cdio_generic.c(215): error C4996: 'strerror': This function or variable may be unsafe. Consider using strerror_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(181): note: viz deklarace: strerror
+c:\prenos\remc2\libcdio-master\lib\driver\_cdio_generic.c(226): warning C4273: cdio_is_device_quiet_generic: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\lib\driver\generic.h(175): note: viz předchozí definice cdio_is_device_quiet_generic
+c:\prenos\remc2\libcdio-master\lib\driver\_cdio_generic.c(227): error C2079: buf používá nedefinované struct stat.
+c:\prenos\remc2\libcdio-master\lib\driver\_cdio_generic.c(231): error C2224: Levá strana operátoru .st_mode musí mít typ struktura/sjednocení.
+c:\prenos\remc2\libcdio-master\lib\driver\_cdio_generic.c(231): error C2065: S_IFMT: nedeklarovaný identifikátor
+c:\prenos\remc2\libcdio-master\lib\driver\_cdio_generic.c(231): warning C4033: cdio_is_device_quiet_generic musí vracet hodnotu
+c:\prenos\remc2\libcdio-master\lib\driver\_cdio_generic.c(258): error C4996: 'strdup': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _strdup. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(538): note: viz deklarace: strdup
+c:\prenos\remc2\libcdio-master\lib\driver\_cdio_generic.c(282): warning C4273: get_cdtext_generic: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\lib\driver\generic.h(184): note: viz předchozí definice get_cdtext_generic
+c:\prenos\remc2\libcdio-master\lib\driver\_cdio_generic.c(315): warning C4273: get_discmode_generic: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\lib\driver\generic.h(200): note: viz předchozí definice get_discmode_generic
+c:\prenos\remc2\libcdio-master\lib\driver\_cdio_generic.c(348): warning C4273: get_discmode_cd_generic: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\lib\driver\generic.h(205): note: viz předchozí definice get_discmode_cd_generic
+c:\prenos\remc2\libcdio-master\lib\driver\_cdio_generic.c(423): warning C4273: get_first_track_num_generic: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\lib\driver\generic.h(190): note: viz předchozí definice get_first_track_num_generic
+c:\prenos\remc2\libcdio-master\lib\driver\_cdio_generic.c(438): warning C4273: get_num_tracks_generic: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\lib\driver\generic.h(195): note: viz předchozí definice get_num_tracks_generic
+c:\prenos\remc2\libcdio-master\lib\driver\_cdio_generic.c(457): warning C4273: read_cdtext_generic: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\lib\driver\generic.h(233): note: viz předchozí definice read_cdtext_generic
+c:\prenos\remc2\libcdio-master\lib\driver\_cdio_generic.c(470): warning C4273: get_track_channels_generic: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\lib\driver\generic.h(211): note: viz předchozí definice get_track_channels_generic
+c:\prenos\remc2\libcdio-master\lib\driver\_cdio_generic.c(480): warning C4273: get_track_copy_permit_generic: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\lib\driver\generic.h(216): note: viz předchozí definice get_track_copy_permit_generic
+c:\prenos\remc2\libcdio-master\lib\driver\_cdio_generic.c(492): warning C4273: get_track_preemphasis_generic: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\lib\driver\generic.h(224): note: viz předchozí definice get_track_preemphasis_generic
+c:\prenos\remc2\libcdio-master\lib\driver\_cdio_generic.c(499): warning C4273: set_track_flags: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\lib\driver\generic.h(235): note: viz předchozí definice set_track_flags
+c:\prenos\remc2\libcdio-master\lib\driver\_cdio_generic.c(513): warning C4273: read_data_sectors_generic: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\lib\driver\generic.h(238): note: viz předchozí definice read_data_sectors_generic
+  _cdio_stdio.c
+c:\prenos\remc2\libcdio-master\lib\driver\_cdio_stdio.c(122): warning C4013: strerror nedefinované; předpokládá se extern vracející int.
+c:\prenos\remc2\libcdio-master\lib\driver\_cdio_stdio.c(171): error C2065: EFBIG: nedeklarovaný identifikátor
+c:\prenos\remc2\libcdio-master\lib\driver\_cdio_stdio.c(240): warning C4273: cdio_stdio_destroy: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\lib\driver\_cdio_stdio.h(37): note: viz předchozí definice cdio_stdio_destroy
+c:\prenos\remc2\libcdio-master\lib\driver\_cdio_stdio.c(246): warning C4273: cdio_stdio_new: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\lib\driver\_cdio_stdio.h(32): note: viz předchozí definice cdio_stdio_new
+c:\prenos\remc2\libcdio-master\lib\driver\_cdio_stdio.c(250): error C2079: statbuf používá nedefinované struct stat.
+c:\prenos\remc2\libcdio-master\lib\driver\_cdio_stdio.c(261): warning C4013: stat nedefinované; předpokládá se extern vracející int.
+c:\prenos\remc2\libcdio-master\lib\driver\_cdio_stdio.c(272): error C2224: Levá strana operátoru .st_size musí mít typ struktura/sjednocení.
+  _cdio_stream.c
+c:\prenos\remc2\libcdio-master\lib\driver\_cdio_stream.c(59): warning C4273: cdio_stream_close: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\lib\driver\_cdio_stream.h(123): note: viz předchozí definice cdio_stream_close
+c:\prenos\remc2\libcdio-master\lib\driver\_cdio_stream.c(72): warning C4273: cdio_stream_destroy: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\lib\driver\_cdio_stream.h(121): note: viz předchozí definice cdio_stream_destroy
+c:\prenos\remc2\libcdio-master\lib\driver\_cdio_stream.c(93): warning C4273: cdio_stream_getpos: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\lib\driver\_cdio_stream.h(67): note: viz předchozí definice cdio_stream_getpos
+c:\prenos\remc2\libcdio-master\lib\driver\_cdio_stream.c(100): warning C4273: cdio_stream_new: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\lib\driver\_cdio_stream.h(71): note: viz předchozí definice cdio_stream_new
+c:\prenos\remc2\libcdio-master\lib\driver\_cdio_stream.c(106): warning C4013: memcpy nedefinované; předpokládá se extern vracející int.
+c:\prenos\remc2\libcdio-master\lib\driver\_cdio_stream.c(152): warning C4273: cdio_stream_read: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\lib\driver\_cdio_stream.h(90): note: viz předchozí definice cdio_stream_read
+c:\prenos\remc2\libcdio-master\lib\driver\_cdio_stream.c(181): warning C4273: cdio_stream_seek: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\lib\driver\_cdio_stream.h(109): note: viz předchozí definice cdio_stream_seek
+c:\prenos\remc2\libcdio-master\lib\driver\_cdio_stream.c(208): warning C4273: cdio_stream_stat: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\lib\driver\_cdio_stream.h(116): note: viz předchozí definice cdio_stream_stat
+  iso9660.c
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660.c(80): error C4996: 'getenv': This function or variable may be unsafe. Consider using _dupenv_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\stdlib.h(1199): note: viz deklarace: getenv
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660.c(82): error C4996: 'tzset': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _tzset. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\time.h(593): note: viz deklarace: tzset
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660.c(88): error C4996: 'tzset': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _tzset. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\time.h(593): note: viz deklarace: tzset
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660.c(97): error C4996: 'gmtime': This function or variable may be unsafe. Consider using gmtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\time.h(495): note: viz deklarace: gmtime
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660.c(111): error C4996: 'localtime': This function or variable may be unsafe. Consider using localtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\time.h(505): note: viz deklarace: localtime
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660.c(145): warning C4013: strncpy nedefinované; předpokládá se extern vracející int.
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660.c(148): warning C4013: strlen nedefinované; předpokládá se extern vracející int.
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660.c(174): warning C4273: iso9660_get_dtime: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\iso9660.h(721): note: viz předchozí definice iso9660_get_dtime
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660.c(195): warning C4013: memcpy nedefinované; předpokládá se extern vracející int.
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660.c(199): warning C4013: memset nedefinované; předpokládá se extern vracející int.
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660.c(263): warning C4273: iso9660_get_ltime: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\iso9660.h(729): note: viz předchozí definice iso9660_get_ltime
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660.c(305): warning C4273: iso9660_set_dtime_with_timezone: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\iso9660.h(696): note: viz předchozí definice iso9660_set_dtime_with_timezone
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660.c(338): warning C4273: iso9660_set_dtime: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\iso9660.h(687): note: viz předchozí definice iso9660_set_dtime
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660.c(360): warning C4273: iso9660_set_ltime_with_timezone: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\iso9660.h(709): note: viz předchozí definice iso9660_set_ltime_with_timezone
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660.c(368): warning C4013: snprintf nedefinované; předpokládá se extern vracející int.
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660.c(393): warning C4273: iso9660_set_ltime: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\iso9660.h(703): note: viz předchozí definice iso9660_set_ltime
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660.c(420): warning C4273: iso9660_name_translate: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\iso9660.h(760): note: viz předchozí definice iso9660_name_translate
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660.c(442): warning C4273: iso9660_name_translate_ext: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\iso9660.h(778): note: viz předchozí definice iso9660_name_translate_ext
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660.c(488): warning C4273: iso9660_strncpy_pad: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\iso9660.h(792): note: viz předchozí definice iso9660_strncpy_pad
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660.c(555): warning C4273: iso9660_is_dchar: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\iso9660.h(740): note: viz předchozí definice iso9660_is_dchar
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660.c(572): warning C4273: iso9660_is_achar: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\iso9660.h(747): note: viz předchozí definice iso9660_is_achar
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660.c(584): warning C4273: iso9660_set_evd: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\iso9660.h(1135): note: viz předchozí definice iso9660_set_evd
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660.c(614): warning C4273: iso9660_set_pvd: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\iso9660.h(1127): note: viz předchozí definice iso9660_set_pvd
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660.c(684): warning C4273: iso9660_dir_calc_record_size: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\iso9660.h(855): note: viz předchozí definice iso9660_dir_calc_record_size
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660.c(707): warning C4273: iso9660_dir_add_entry_su: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\iso9660.h(849): note: viz předchozí definice iso9660_dir_add_entry_su
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660.c(791): warning C4273: iso9660_dir_init_new: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\iso9660.h(837): note: viz předchozí definice iso9660_dir_init_new
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660.c(807): warning C4273: iso9660_dir_init_new_su: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\iso9660.h(842): note: viz předchozí definice iso9660_dir_init_new_su
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660.c(825): warning C4273: iso9660_pathtable_init: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\iso9660.h(1113): note: viz předchozí definice iso9660_pathtable_init
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660.c(838): warning C4273: iso9660_get_posix_filemode: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\iso9660.h(1008): note: viz předchozí definice iso9660_get_posix_filemode
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660.c(912): warning C4273: iso9660_pathtable_get_size: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\iso9660.h(1115): note: viz předchozí definice iso9660_pathtable_get_size
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660.c(923): warning C4273: iso9660_pathtable_l_add_entry: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\iso9660.h(1117): note: viz předchozí definice iso9660_pathtable_l_add_entry
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660.c(933): warning C4267: funkce: Převod z: size_t na: uint8_t, může dojít ke ztrátě dat.
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660.c(958): warning C4273: iso9660_pathtable_m_add_entry: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\iso9660.h(1120): note: viz předchozí definice iso9660_pathtable_m_add_entry
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660.c(968): warning C4267: funkce: Převod z: size_t na: uint8_t, může dojít ke ztrátě dat.
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660.c(998): warning C4273: iso9660_dirname_valid_p: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\iso9660.h(809): note: viz předchozí definice iso9660_dirname_valid_p
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660.c(1046): warning C4273: iso9660_pathname_valid_p: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\iso9660.h(830): note: viz předchozí definice iso9660_pathname_valid_p
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660.c(1051): warning C4013: strrchr nedefinované; předpokládá se extern vracející int.
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660.c(1051): warning C4047: =: const char * se liší od: int úrovněmi indirekce.
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660.c(1054): warning C4013: strdup nedefinované; předpokládá se extern vracející int.
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660.c(1056): error C2100: neplatná indirekce
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660.c(1056): error C2106: =: Levý operand musí být l-value.
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660.c(1054): warning C4047: inicializování: char * se liší od: int úrovněmi indirekce.
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660.c(1111): warning C4273: iso9660_pathname_isofy: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\iso9660.h(817): note: viz předchozí definice iso9660_pathname_isofy
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660.c(1118): warning C4047: return: char * se liší od: int úrovněmi indirekce.
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660.c(1127): warning C4273: iso9660_get_application_id: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\iso9660.h(975): note: viz předchozí definice iso9660_get_application_id
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660.c(1129): warning C4047: return: char * se liší od: int úrovněmi indirekce.
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660.c(1143): warning C4273: iso9660_get_dir_len: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\iso9660.h(989): note: viz předchozí definice iso9660_get_dir_len
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660.c(1159): warning C4273: iso9660_get_pvd_type: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\iso9660.h(1036): note: viz předchozí definice iso9660_get_pvd_type
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660.c(1166): warning C4273: iso9660_get_pvd_id: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\iso9660.h(1038): note: viz předchozí definice iso9660_get_pvd_id
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660.c(1173): warning C4273: iso9660_get_pvd_space_size: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\iso9660.h(1040): note: viz předchozí definice iso9660_get_pvd_space_size
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660.c(1180): warning C4273: iso9660_get_pvd_block_size: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\iso9660.h(1042): note: viz předchozí definice iso9660_get_pvd_block_size
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660.c(1190): warning C4273: iso9660_get_pvd_version: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\iso9660.h(1047): note: viz předchozí definice iso9660_get_pvd_version
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660.c(1200): warning C4273: iso9660_get_root_lsn: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\iso9660.h(1082): note: viz předchozí definice iso9660_get_root_lsn
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660.c(1216): warning C4273: iso9660_get_preparer_id: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\iso9660.h(1014): note: viz předchozí definice iso9660_get_preparer_id
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660.c(1218): warning C4047: return: char * se liší od: int úrovněmi indirekce.
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660.c(1227): warning C4273: iso9660_get_publisher_id: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\iso9660.h(1027): note: viz předchozí definice iso9660_get_publisher_id
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660.c(1229): warning C4047: return: char * se liší od: int úrovněmi indirekce.
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660.c(1238): warning C4273: iso9660_get_system_id: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\iso9660.h(1053): note: viz předchozí definice iso9660_get_system_id
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660.c(1240): warning C4047: return: char * se liší od: int úrovněmi indirekce.
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660.c(1248): warning C4273: iso9660_get_volume_id: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\iso9660.h(1088): note: viz předchozí definice iso9660_get_volume_id
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660.c(1250): warning C4047: return: char * se liší od: int úrovněmi indirekce.
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660.c(1259): warning C4273: iso9660_get_volumeset_id: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\iso9660.h(1101): note: viz předchozí definice iso9660_get_volumeset_id
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660.c(1261): warning C4047: return: char * se liší od: int úrovněmi indirekce.
+  iso9660_fs.c
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660_fs.c(124): warning C4013: memcmp nedefinované; předpokládá se extern vracející int.
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660_fs.c(187): warning C4013: strncmp nedefinované; předpokládá se extern vracející int.
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660_fs.c(208): warning C4273: iso9660_open: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\iso9660.h(576): note: viz předchozí definice iso9660_open
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660_fs.c(219): warning C4273: iso9660_open_ext: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\iso9660.h(585): note: viz předchozí definice iso9660_open_ext
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660_fs.c(230): warning C4273: iso9660_open_fuzzy: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\iso9660.h(602): note: viz předchozí definice iso9660_open_fuzzy
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660_fs.c(242): warning C4273: iso9660_open_fuzzy_ext: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\iso9660.h(614): note: viz předchozí definice iso9660_open_fuzzy_ext
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660_fs.c(254): warning C4273: iso9660_close: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\iso9660.h(569): note: viz předchozí definice iso9660_close
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660_fs.c(270): warning C4013: strlen nedefinované; předpokládá se extern vracející int.
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660_fs.c(352): warning C4273: iso9660_ifs_get_application_id: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\iso9660.h(981): note: viz předchozí definice iso9660_ifs_get_application_id
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660_fs.c(363): warning C4273: iso9660_ifs_get_joliet_level: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\iso9660.h(987): note: viz předchozí definice iso9660_ifs_get_joliet_level
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660_fs.c(375): warning C4273: iso9660_ifs_get_preparer_id: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\iso9660.h(1020): note: viz předchozí definice iso9660_ifs_get_preparer_id
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660_fs.c(388): warning C4273: iso9660_ifs_get_publisher_id: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\iso9660.h(1033): note: viz předchozí definice iso9660_ifs_get_publisher_id
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660_fs.c(401): warning C4273: iso9660_ifs_get_system_id: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\iso9660.h(1075): note: viz předchozí definice iso9660_ifs_get_system_id
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660_fs.c(414): warning C4273: iso9660_ifs_get_volume_id: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\iso9660.h(1094): note: viz předchozí definice iso9660_ifs_get_volume_id
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660_fs.c(427): warning C4273: iso9660_ifs_get_volumeset_id: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\iso9660.h(1107): note: viz předchozí definice iso9660_ifs_get_volumeset_id
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660_fs.c(457): warning C4273: iso9660_ifs_read_pvd: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\iso9660.h(659): note: viz předchozí definice iso9660_ifs_read_pvd
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660_fs.c(470): warning C4273: iso9660_ifs_read_superblock: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\iso9660.h(675): note: viz předchozí definice iso9660_ifs_read_superblock
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660_fs.c(486): warning C4013: memcpy nedefinované; předpokládá se extern vracející int.
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660_fs.c(525): warning C4273: iso9660_ifs_fuzzy_read_superblock: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\iso9660.h(625): note: viz předchozí definice iso9660_ifs_fuzzy_read_superblock
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660_fs.c(557): warning C4013: memchr nedefinované; předpokládá se extern vracející int.
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660_fs.c(557): warning C4047: =: char * se liší od: int úrovněmi indirekce.
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660_fs.c(559): warning C4047: =: char * se liší od: int úrovněmi indirekce.
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660_fs.c(560): warning C4013: strstr nedefinované; předpokládá se extern vracející int.
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660_fs.c(560): warning C4047: =: char * se liší od: int úrovněmi indirekce.
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660_fs.c(588): warning C4273: iso9660_fs_read_pvd: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\iso9660.h(652): note: viz předchozí definice iso9660_fs_read_pvd
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660_fs.c(619): warning C4273: iso9660_fs_read_superblock: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\iso9660.h(667): note: viz předchozí definice iso9660_fs_read_superblock
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660_fs.c(692): warning C4244: funkce: int64_t se převádí na off_t; může dojít ke ztrátě dat.
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660_fs.c(703): warning C4273: iso9660_iso_seek_read: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\iso9660.h(645): note: viz předchozí definice iso9660_iso_seek_read
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660_fs.c(773): warning C4013: strncpy nedefinované; předpokládá se extern vracející int.
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660_fs.c(860): warning C4273: iso9660_dir_to_name: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\iso9660.h(1003): note: viz předchozí definice iso9660_dir_to_name
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660_fs.c(870): warning C4013: strdup nedefinované; předpokládá se extern vracející int.
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660_fs.c(870): warning C4047: return: char * se liší od: int úrovněmi indirekce.
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660_fs.c(872): warning C4047: return: char * se liší od: int úrovněmi indirekce.
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660_fs.c(874): warning C4047: return: char * se liší od: int úrovněmi indirekce.
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660_fs.c(999): warning C4013: strcmp nedefinované; předpokládá se extern vracející int.
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660_fs.c(1153): warning C4273: iso9660_fs_stat: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\iso9660.h(929): note: viz předchozí definice iso9660_fs_stat
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660_fs.c(1209): warning C4273: iso9660_fs_stat_translate: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\iso9660.h(939): note: viz předchozí definice iso9660_fs_stat_translate
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660_fs.c(1223): warning C4273: iso9660_ifs_stat_translate: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\iso9660.h(953): note: viz předchozí definice iso9660_ifs_stat_translate
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660_fs.c(1235): warning C4273: iso9660_ifs_stat: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\iso9660.h(946): note: viz předchozí definice iso9660_ifs_stat
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660_fs.c(1262): warning C4273: iso9660_fs_readdir: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\iso9660.h(962): note: viz předchozí definice iso9660_fs_readdir
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660_fs.c(1331): warning C4273: iso9660_ifs_readdir: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\iso9660.h(969): note: viz předchozí definice iso9660_ifs_readdir
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660_fs.c(1444): warning C4022: _cdio_list_append: neshoda ukazatelů pro skutečný parametr 2
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660_fs.c(1515): warning C4273: iso9660_fs_find_lsn_with_path: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\iso9660.h(875): note: viz předchozí definice iso9660_fs_find_lsn_with_path
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660_fs.c(1528): warning C4273: iso9660_ifs_find_lsn: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\iso9660.h(885): note: viz předchozí definice iso9660_ifs_find_lsn
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660_fs.c(1543): warning C4273: iso9660_ifs_find_lsn_with_path: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\iso9660.h(902): note: viz předchozí definice iso9660_ifs_find_lsn_with_path
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660_fs.c(1553): warning C4273: iso9660_stat_free: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\iso9660.h(909): note: viz předchozí definice iso9660_stat_free
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660_fs.c(1563): warning C4273: iso9660_ifs_is_xa: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\iso9660.h(1140): note: viz předchozí definice iso9660_ifs_is_xa
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660_fs.c(1648): warning C4273: iso9660_have_rr: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\iso9660.h(1069): note: viz předchozí definice iso9660_have_rr
+c:\prenos\remc2\libcdio-master\lib\iso9660\iso9660_fs.c(1650): warning C4047: inicializování: char * se liší od: int úrovněmi indirekce.
+  rock.c
+c:\prenos\remc2\libcdio-master\lib\iso9660\rock.c(58): warning C4013: calloc nedefinované; předpokládá se extern vracející int.
+c:\prenos\remc2\libcdio-master\lib\iso9660\rock.c(63): warning C4018: <=: signed/unsigned – neshoda
+c:\prenos\remc2\libcdio-master\lib\iso9660\rock.c(69): warning C4013: memcpy nedefinované; předpokládá se extern vracející int.
+c:\prenos\remc2\libcdio-master\lib\iso9660\rock.c(70): warning C4013: free nedefinované; předpokládá se extern vracející int.
+c:\prenos\remc2\libcdio-master\lib\iso9660\rock.c(151): warning C4273: get_rock_ridge_filename: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\rock.h(318): note: viz předchozí definice get_rock_ridge_filename
+c:\prenos\remc2\libcdio-master\lib\iso9660\rock.c(223): warning C4013: strncat nedefinované; předpokládá se extern vracející int.
+c:\prenos\remc2\libcdio-master\lib\iso9660\rock.c(235): warning C4013: strlen nedefinované; předpokládá se extern vracející int.
+c:\prenos\remc2\libcdio-master\lib\iso9660\rock.c(517): warning C4273: parse_rock_ridge_stat: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\rock.h(321): note: viz předchozí definice parse_rock_ridge_stat
+c:\prenos\remc2\libcdio-master\lib\iso9660\rock.c(544): warning C4013: memset nedefinované; předpokládá se extern vracející int.
+c:\prenos\remc2\libcdio-master\lib\iso9660\rock.c(586): warning C4273: iso9660_get_rock_attr_str: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\rock.h(362): note: viz předchozí definice iso9660_get_rock_attr_str
+c:\prenos\remc2\libcdio-master\lib\iso9660\rock.c(589): error C2065: S_IFMT: nedeklarovaný identifikátor
+c:\prenos\remc2\libcdio-master\lib\iso9660\rock.c(591): warning C4013: S_ISDIR nedefinované; předpokládá se extern vracející int.
+c:\prenos\remc2\libcdio-master\lib\iso9660\rock.c(593): warning C4013: S_ISCHR nedefinované; předpokládá se extern vracející int.
+c:\prenos\remc2\libcdio-master\lib\iso9660\rock.c(597): error C2065: S_IFMT: nedeklarovaný identifikátor
+c:\prenos\remc2\libcdio-master\lib\iso9660\rock.c(635): warning C4273: iso9660_get_posix_filemode_from_rock: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\rock.h(327): note: viz předchozí definice iso9660_get_posix_filemode_from_rock
+  xa.c
+c:\prenos\remc2\libcdio-master\lib\iso9660\xa.c(68): warning C4013: memset nedefinované; předpokládá se extern vracející int.
+c:\prenos\remc2\libcdio-master\lib\iso9660\xa.c(104): warning C4273: iso9660_get_xa_attr_str: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\xa.h(145): note: viz předchozí definice iso9660_get_xa_attr_str
+c:\prenos\remc2\libcdio-master\lib\iso9660\xa.c(133): warning C4273: iso9660_xa_init: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\xa.h(154): note: viz předchozí definice iso9660_xa_init
+c:\prenos\remc2\libcdio-master\lib\iso9660\xa.c(156): warning C4273: iso9660_xa_free: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\xa.h(163): note: viz předchozí definice iso9660_xa_free
+c:\prenos\remc2\libcdio-master\lib\iso9660\xa.c(166): warning C4273: iso9660_get_posix_filemode_from_xa: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\xa.h(114): note: viz předchozí definice iso9660_get_posix_filemode_from_xa
+c:\prenos\remc2\libcdio-master\lib\iso9660\xa.c(186): error C2065: S_IFDIR: nedeklarovaný identifikátor
+  filemode.c
+c:\prenos\remc2\libcdio-master\lib\udf\filemode.c(92): error C2065: S_IFMT: nedeklarovaný identifikátor
+c:\prenos\remc2\libcdio-master\lib\udf\filemode.c(95): warning C4013: S_ISCHR nedefinované; předpokládá se extern vracející int.
+c:\prenos\remc2\libcdio-master\lib\udf\filemode.c(97): warning C4013: S_ISDIR nedefinované; předpokládá se extern vracející int.
+c:\prenos\remc2\libcdio-master\lib\udf\filemode.c(99): warning C4013: S_ISREG nedefinované; předpokládá se extern vracející int.
+c:\prenos\remc2\libcdio-master\lib\udf\filemode.c(102): error C2065: S_IFMT: nedeklarovaný identifikátor
+c:\prenos\remc2\libcdio-master\lib\udf\filemode.c(186): warning C4273: udf_mode_string: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\udf.h(188): note: viz předchozí definice udf_mode_string
+  udf.c
+c:\prenos\remc2\libcdio-master\lib\udf\udf.c(47): warning C4273: udf_get_posix_filemode: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\udf_file.h(62): note: viz předchozí definice udf_get_posix_filemode
+c:\prenos\remc2\libcdio-master\lib\udf\udf.c(118): warning C4273: udf_get_part_number: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\udf.h(102): note: viz předchozí definice udf_get_part_number
+  udf_file.c
+c:\prenos\remc2\libcdio-master\lib\udf\udf_file.c(38): warning C4273: udf_get_filename: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\udf_file.h(41): note: viz předchozí definice udf_get_filename
+c:\prenos\remc2\libcdio-master\lib\udf\udf_file.c(48): warning C4273: udf_get_file_entry: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\udf_file.h(46): note: viz předchozí definice udf_get_file_entry
+c:\prenos\remc2\libcdio-master\lib\udf\udf_file.c(59): warning C4273: udf_get_fileid_descriptor: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\udf_file.h(35): note: viz předchozí definice udf_get_fileid_descriptor
+c:\prenos\remc2\libcdio-master\lib\udf\udf_file.c(75): warning C4273: udf_get_link_count: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\udf_file.h(52): note: viz předchozí definice udf_get_link_count
+c:\prenos\remc2\libcdio-master\lib\udf\udf_file.c(86): warning C4273: udf_get_file_length: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\udf_file.h(57): note: viz předchozí definice udf_get_file_length
+c:\prenos\remc2\libcdio-master\lib\udf\udf_file.c(98): warning C4273: udf_is_dir: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\udf_file.h(109): note: viz předchozí definice udf_is_dir
+c:\prenos\remc2\libcdio-master\lib\udf\udf_file.c(145): warning C4018: >: signed/unsigned – neshoda
+c:\prenos\remc2\libcdio-master\lib\udf\udf_file.c(172): warning C4018: >: signed/unsigned – neshoda
+c:\prenos\remc2\libcdio-master\lib\udf\udf_file.c(235): warning C4273: udf_read_block: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\udf_file.h(88): note: viz předchozí definice udf_read_block
+  udf_fs.c
+c:\prenos\remc2\libcdio-master\lib\udf\udf_fs.c(126): warning C4273: udf_checktag: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\lib\udf\udf_fs.h(26): note: viz předchozí definice udf_checktag
+c:\prenos\remc2\libcdio-master\lib\udf\udf_fs.c(153): warning C4273: udf_get_lba: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\udf.h(190): note: viz předchozí definice udf_get_lba
+c:\prenos\remc2\libcdio-master\lib\udf\udf_fs.c(211): error C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(439): note: viz deklarace: strtok
+c:\prenos\remc2\libcdio-master\lib\udf\udf_fs.c(239): warning C4273: udf_fopen: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\udf.h(149): note: viz předchozí definice udf_fopen
+c:\prenos\remc2\libcdio-master\lib\udf\udf_fs.c(250): error C4996: 'strncpy': This function or variable may be unsafe. Consider using strncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(337): note: viz deklarace: strncpy
+c:\prenos\remc2\libcdio-master\lib\udf\udf_fs.c(251): error C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(439): note: viz deklarace: strtok
+c:\prenos\remc2\libcdio-master\lib\udf\udf_fs.c(305): error C4996: 'strdup': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _strdup. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(538): note: viz deklarace: strdup
+c:\prenos\remc2\libcdio-master\lib\udf\udf_fs.c(326): warning C4273: udf_read_sectors: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\udf.h(87): note: viz předchozí definice udf_read_sectors
+c:\prenos\remc2\libcdio-master\lib\udf\udf_fs.c(361): warning C4273: udf_open: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\udf.h(96): note: viz předchozí definice udf_open
+c:\prenos\remc2\libcdio-master\lib\udf\udf_fs.c(442): warning C4273: udf_get_volume_id: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\udf.h(121): note: viz předchozí definice udf_get_volume_id
+c:\prenos\remc2\libcdio-master\lib\udf\udf_fs.c(468): error C4996: 'strncpy': This function or variable may be unsafe. Consider using strncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(337): note: viz deklarace: strncpy
+c:\prenos\remc2\libcdio-master\lib\udf\udf_fs.c(488): warning C4273: udf_get_volumeset_id: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\udf.h(133): note: viz předchozí definice udf_get_volumeset_id
+c:\prenos\remc2\libcdio-master\lib\udf\udf_fs.c(515): warning C4273: udf_get_logical_volume_id: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\udf.h(143): note: viz předchozí definice udf_get_logical_volume_id
+c:\prenos\remc2\libcdio-master\lib\udf\udf_fs.c(534): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\libcdio-master\lib\udf\udf_fs.c(534): error C4996: 'strncpy': This function or variable may be unsafe. Consider using strncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(337): note: viz deklarace: strncpy
+c:\prenos\remc2\libcdio-master\lib\udf\udf_fs.c(552): warning C4273: udf_get_root: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\udf.h(112): note: viz předchozí definice udf_get_root
+c:\prenos\remc2\libcdio-master\lib\udf\udf_fs.c(637): warning C4273: udf_close: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\udf.h(79): note: viz předchozí definice udf_close
+c:\prenos\remc2\libcdio-master\lib\udf\udf_fs.c(653): warning C4273: udf_opendir: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\udf_file.h(67): note: viz předchozí definice udf_opendir
+c:\prenos\remc2\libcdio-master\lib\udf\udf_fs.c(677): warning C4273: udf_readdir: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\udf_file.h(99): note: viz předchozí definice udf_readdir
+c:\prenos\remc2\libcdio-master\lib\udf\udf_fs.c(754): warning C4273: udf_dirent_free: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\udf_file.h(104): note: viz předchozí definice udf_dirent_free
+  udf_time.c
+c:\prenos\remc2\libcdio-master\lib\udf\udf_time.c(113): warning C4273: udf_stamp_to_time: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\udf_time.h(75): note: viz předchozí definice udf_stamp_to_time
+c:\prenos\remc2\libcdio-master\lib\udf\udf_time.c(215): warning C4273: udf_get_modification_time: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\udf_time.h(54): note: viz předchozí definice udf_get_modification_time
+c:\prenos\remc2\libcdio-master\lib\udf\udf_time.c(230): warning C4273: udf_get_access_time: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\udf_time.h(44): note: viz předchozí definice udf_get_access_time
+c:\prenos\remc2\libcdio-master\lib\udf\udf_time.c(245): warning C4273: udf_get_attribute_time: nekonzistentní propojení dll
+  c:\prenos\remc2\libcdio-master\include\cdio\udf_time.h(49): note: viz předchozí definice udf_get_attribute_time
+  gx_ym2612.c
+  Generování kódu...
+  Kompilování...
+  mame_ym2612fm.c
+  ym3438.c
+  wopn_file.c
+  load_aiff.c
+  load_voc.c
+  music_cmd.c
+  music_flac.c
+  music_fluidsynth.c
+  music_gme.c
+  music_id3tag.c
+c:\prenos\remc2\sdl-mixer-x-master\src\music.h(31): warning C4273: round: nekonzistentní propojení dll
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\corecrt_math.h(532): note: viz předchozí definice round
+  music_mad.c
+  music_midi_adl.c
+c:\prenos\remc2\sdl-mixer-x-master\src\music.h(31): warning C4273: round: nekonzistentní propojení dll
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\corecrt_math.h(532): note: viz předchozí definice round
+  music_midi_opn.c
+c:\prenos\remc2\sdl-mixer-x-master\src\music.h(31): warning C4273: round: nekonzistentní propojení dll
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\corecrt_math.h(532): note: viz předchozí definice round
+  music_mikmod.c
+  music_modplug.c
+  music_mpg123.c
+  music_nativemidi.c
+c:\prenos\remc2\sdl-mixer-x-master\src\music.h(31): warning C4273: round: nekonzistentní propojení dll
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\corecrt_math.h(532): note: viz předchozí definice round
+  music_ogg.c
+c:\prenos\remc2\sdl-mixer-x-master\src\music.h(31): warning C4273: round: nekonzistentní propojení dll
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\corecrt_math.h(532): note: viz předchozí definice round
+  music_opus.c
+  music_timidity.c
+c:\prenos\remc2\sdl-mixer-x-master\src\music.h(31): warning C4273: round: nekonzistentní propojení dll
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\corecrt_math.h(532): note: viz předchozí definice round
+  Generování kódu...
+  Kompilování...
+  music_wav.c
+c:\prenos\remc2\sdl-mixer-x-master\src\music.h(31): warning C4273: round: nekonzistentní propojení dll
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\corecrt_math.h(532): note: viz předchozí definice round
+  native_midi_common.c
+  native_midi_mac.c
+  native_midi_macosx.c
+  native_midi_win32.c
+  effects_internal.c
+  effect_position.c
+  effect_stereoreverse.c
+  mixer.c
+c:\prenos\remc2\sdl-mixer-x-master\src\music.h(31): warning C4273: round: nekonzistentní propojení dll
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\corecrt_math.h(532): note: viz předchozí definice round
+  mixer_x_deprecated.c
+  music.c
+c:\prenos\remc2\sdl-mixer-x-master\src\music.h(31): warning C4273: round: nekonzistentní propojení dll
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\corecrt_math.h(532): note: viz předchozí definice round
+c:\prenos\remc2\sdl-mixer-x-master\src\music.c(494): warning C4013: atoi nedefinované; předpokládá se extern vracející int.
+c:\prenos\remc2\sdl-mixer-x-master\src\music.c(1821): warning C4098: Mix_PauseMusic: Funkce void vrací hodnotu.
+c:\prenos\remc2\sdl-mixer-x-master\src\music.c(1843): warning C4098: Mix_ResumeMusic: Funkce void vrací hodnotu.
+  vb6_sdl_binds.c
+  dirent.c
+  Generování kódu...

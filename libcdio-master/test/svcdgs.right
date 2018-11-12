@@ -1,0 +1,79 @@
+__________________________________
+
+Disc mode is listed as: CD DATA (Mode 2)
+CD-ROM Track List (1 - 2)
+  #: MSF       LSN    Type   Green? Copy?
+  1: 00:02:00  000000 XA     true   no   
+  2: 00:22:53  001553 XA     true   no   
+170: 01:17:62  005687 leadout (12 MB raw, 12 MB formatted)
+Media Catalog Number (MCN): 
+Last CD Session LSN: not supported by drive/driver
+__________________________________
+CD Analysis Report
+CD-ROM with ISO 9660 filesystem
+ISO 9660: 6610 blocks, label `SVCD                            '
+Application: I-author v1.0, EnReach, Inc. (C) Copyright 1998, Kernel writen by Hujianjun
+Preparer   : EnReach
+Publisher  : EnReach
+System     : S_VCD30 DISC of EnReach
+Volume     : SVCD
+Volume Set : SVCD01
+ISO9660 filesystem
+/:
+  d---1xrxrxr 0 0 [fn 00] [LSN     20]      2048 Jan 06 2001 21:29:31  .
+  d---1xrxrxr 0 0 [fn 00] [LSN     20]      2048 Jan 06 2001 21:29:31  ..
+  d---1xrxrxr 0 0 [fn 00] [LSN     21]      2048 Jan 06 2001 21:29:31  autorun
+  d---1xrxrxr 0 0 [fn 00] [LSN     22]      2048 Jan 06 2001 21:29:31  data
+  d---1xrxrxr 0 0 [fn 00] [LSN     23]      2048 Jan 06 2001 21:29:31  ext
+  d---1xrxrxr 0 0 [fn 00] [LSN     24]      2048 Jan 06 2001 21:29:31  mpegav
+  d---1xrxrxr 0 0 [fn 00] [LSN     25]      2048 Jan 06 2001 21:29:31  segment
+  d---1xrxrxr 0 0 [fn 00] [LSN     26]      2048 Jan 06 2001 21:29:31  svcd
+  d---1xrxrxr 0 0 [fn 00] [LSN     27]      2048 Jan 06 2001 21:29:31  vmp
+
+/AUTORUN/:
+  d---1xrxrxr 0 0 [fn 00] [LSN     21]      2048 Jan 06 2001 21:29:31  .
+  d---1xrxrxr 0 0 [fn 00] [LSN     20]      2048 Jan 06 2001 21:29:31  ..
+
+/DATA/:
+  d---1xrxrxr 0 0 [fn 00] [LSN     22]      2048 Jan 06 2001 21:29:31  .
+  d---1xrxrxr 0 0 [fn 00] [LSN     20]      2048 Jan 06 2001 21:29:31  ..
+  d---1xrxrxr 0 0 [fn 00] [LSN    300]      2048 Jan 06 2001 21:29:31  svcddata
+
+/DATA/SVCDDATA/:
+  d---1xrxrxr 0 0 [fn 00] [LSN    300]      2048 Jan 06 2001 21:29:31  .
+  d---1xrxrxr 0 0 [fn 00] [LSN     22]      2048 Jan 06 2001 21:29:31  ..
+
+/EXT/:
+  d---1xrxrxr 0 0 [fn 00] [LSN     23]      2048 Jan 06 2001 21:29:31  .
+  d---1xrxrxr 0 0 [fn 00] [LSN     20]      2048 Jan 06 2001 21:29:31  ..
+
+/MPEGAV/:
+  d---1xrxrxr 0 0 [fn 00] [LSN     24]      2048 Jan 06 2001 21:29:31  .
+  d---1xrxrxr 0 0 [fn 00] [LSN     20]      2048 Jan 06 2001 21:29:31  ..
+  ---2--r-r-r 0 0 [fn 01] [LSN    463]  13909140 ( 12257280) Jan 06 2001 21:29:31  avseq01.mpg
+
+/SEGMENT/:
+  d---1xrxrxr 0 0 [fn 00] [LSN     25]      2048 Jan 06 2001 21:29:31  .
+  d---1xrxrxr 0 0 [fn 00] [LSN     20]      2048 Jan 06 2001 21:29:31  ..
+
+/SVCD/:
+  d---1xrxrxr 0 0 [fn 00] [LSN     26]      2048 Jan 06 2001 21:29:31  .
+  d---1xrxrxr 0 0 [fn 00] [LSN     20]      2048 Jan 06 2001 21:29:31  ..
+  ----1xr-rxr 0 0 [fn 00] [LSN    151]      2048 Jan 06 2001 21:29:31  entries.svd
+  ----1xr-rxr 0 0 [fn 00] [LSN    150]      2048 Jan 06 2001 21:29:31  info.svd
+  ----1xr-rxr 0 0 [fn 00] [LSN    152]     65536 Jan 06 2001 21:29:31  lot.svd
+  ----1xr-rxr 0 0 [fn 00] [LSN    184]        16 Jan 06 2001 21:29:31  psd.svd
+  ----1xr-rxr 0 0 [fn 00] [LSN    188]       427 Jan 06 2001 21:29:31  search.dat
+  ----1xr-rxr 0 0 [fn 00] [LSN    186]      4096 Jan 06 2001 21:29:31  spicontx.svd
+  ----1xr-rxr 0 0 [fn 00] [LSN    185]      2048 Jan 06 2001 21:29:31  tracks.svd
+
+/VMP/:
+  d---1xrxrxr 0 0 [fn 00] [LSN     27]      2048 Jan 06 2001 21:29:31  .
+  d---1xrxrxr 0 0 [fn 00] [LSN     20]      2048 Jan 06 2001 21:29:31  ..
+  d---1xrxrxr 0 0 [fn 00] [LSN     28]      2048 Jan 06 2001 21:29:31  svcdj
+
+/VMP/SVCDJ/:
+  d---1xrxrxr 0 0 [fn 00] [LSN     28]      2048 Jan 06 2001 21:29:31  .
+  d---1xrxrxr 0 0 [fn 00] [LSN     27]      2048 Jan 06 2001 21:29:31  ..
+
+XA sectors   Chaoji Video CD (CVD)

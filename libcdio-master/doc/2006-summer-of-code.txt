@@ -1,0 +1,101 @@
+1. Add, finish or improve an OO API.
+
+   Some work has been done to extend the API to Python, and Perl (via
+   SWIG), Ruby and C++. With the exception of Ruby these are OO
+   interfaces as well. However most languages do not cover the full
+   language. In particular handling MMC (Multi-media) commands is
+   missing and a CD-Paranoia interface (OO or not) is missing. Pick
+   one of these existing API's or extend to a new API (e.g. Java),
+   preferably an OO one. All of the OO API's are fairly new, so if you
+   feel you want to improve on the API, that's okay too.
+
+2. Add, finish a CD-image format parser. Use it say to write a
+   CD-image format converter.
+
+   The existing CD-image format parsers are ad hoc. Several image
+   (cdrdao or bin/cue) have a text file and currently libcdio uses C
+   strstr and strtok to parse this. In some cases image reading is
+   incomplete: 
+      * cdrdao can only handle reading from one file
+      * CD-Text doesn't allow specification of the encoding
+      * handling "silence" in CUE/BIN
+
+   Some work has been done to create Bison grammars for cdrdao and
+   cue/bin image formats; some basic tests of these parser has been
+   done, but no semantic actions have been added to integrate this
+   into the library. Add the semantic actions. Feel free to add other
+   (preferably non-proprietary) CD-Image formats. Use the parsers to
+   write a translator between the image formats. Standard good
+   practice is to translate into an intermediate language for the N
+   "languages" and then the generate output language from that. This
+   requires 2N for the N*N combinations (rather than N*N individual
+   translators).
+
+3. Finish UDF and/or ISO 9660 handling. 
+   
+   UDF (Universal Data File) is used for example in DVD discs and
+   Data. It will be used by in the new Blue-Ray technology. Think of
+   it as a modernized Unicode version of the old ISO 9660 standard.
+
+   UDF support is probably the most often requested missing feature of
+   libcdio.  Some work has been done to define the UDF structures and
+   there is some UDF handling in the current version (0.77) and even
+   more in will appear in the next 0.78. The full UDF specification is
+   much more than currently will exist even in 0.78. Fill out UDF
+   support. 
+
+4. write a "tar" command for ISO 9660 and/or UDF images.
+
+   There is an ISO 9660 library. An often requested feature is to add
+   something like a "tar" command for ISO 9660 images or UDF images.
+   For ISO 9660, currently there are commands to list the contents of
+   an ISO 9660 image file and extract a single file. In version the
+   next version of libcdio 0.78, there will probably be corresponding
+   commands for UDF. Take GNU tar and extend it to ISO 9660 or UDF
+   images.
+
+5. Add EAC (exact audio copy) features, possibly on top of
+   cd-paranoia.  Fix possible cd-paranoia bugs.
+   
+   EAC (http://www.exactaudiocopy.de/) is a freeware program for
+   Microsoft Windows and is used to copy audio data from an audio CD
+   to a stereo WAV file. It is similar to cdparanoia
+   (http://www.xiph.org/paranoia/) and libcdio has a multi-OS port of
+   this. The concensus seems to be that EAC does a better job.
+
+   cdparanoia can probably be extended to do better, more like EAC.
+   There may be bugs in cdparanoia especially with silence which is
+   confused with the silence that appears in a track gap.  More or
+   better regression tests should be done for medium and large
+   jittering.
+   
+   [Peter Creath may want to mentor this.]
+
+6. Modify libcdio to handle CD-ROM drive customization. 
+
+   Some programs which work with CD-ROMs allow for a database of
+   CD-ROM drives capabilities. Most notably xmcd
+   (http://www.amb.org/xmcd/). cdparanoia has such a capability
+   although it is not user-configurable like xmcd. Add a CD-ROM
+   capability database with user customization and modify libcdio to
+   use that for various operations. CD-ROM capabilities might include
+   how to get drive capabilities (e.g. MMC MODE-SENSE page 2A command
+   in either the 6 or 10 byte version or via MMC GET-CONFIGURATION command.)
+
+   For other capibilities listed those listed in xmcd.
+
+7. Wide character support for CD-Text.
+   [Burkhard Plaum has might want to mentor this. If so he should
+   write a more detailed description than given above]
+
+[8. libcdio API overhaul removed. This may not be too difficult
+   for a student project. But if someone is really interested, look in
+   CVS revision 1.1. for what this might entail.]
+
+9. Revise to use glib rather than home-grown routines. 
+   
+   libcdio has it's own list-processing, byte swapping routines. In
+   particular the routines in bytesex.h and ds.h. Replace these with
+   the corresponding glib routines.
+
+$Id: 2006-summer-of-code.txt,v 1.2 2006/04/17 13:24:56 rocky Exp $

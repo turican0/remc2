@@ -1,0 +1,7 @@
+[NAME]
+iso-read \- reads portions of an ISO 9660 image
+[SEE ALSO] 
+\&\f(CWiso-info(1)\fR for information about an ISO-9660 image.
+\&\f(CWcd-read(1)\fR to read portions of an ISO 9660 image.
+[AUTHOR] 
+Rocky Bernstein <rocky@gnu.org>

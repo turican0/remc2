@@ -1,0 +1,22 @@
+// Taken from one of Steve Schultz's VCD collection. 
+// The .bin and offsets have been changed and are wrong. 
+CD_ROM_XA
+
+
+// Track 1
+TRACK MODE2_FORM_MIX
+COPY
+DATAFILE "../data/cdda.bin" 00:00:00 // comment
+
+
+// Track 2
+TRACK MODE2_FORM_MIX
+COPY
+DATAFILE "cdda.bin" #100 00:00:03 
+
+
+// Track 3
+TRACK MODE2_FORM_MIX
+COPY
+DATAFILE "cdda.bin" #200 00:00:25 
+

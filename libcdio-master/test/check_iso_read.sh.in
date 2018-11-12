@@ -1,0 +1,217 @@
+#!/bin/sh
+#
+# check_iso_read.sh
+#
+# Author: Leo Baschy
+# Some small adaptions made to make it work in libcdio's test suite by
+# rocky.
+#
+# takes zero, one, or two optional parameters in any order
+#
+# ONE optional parameter:
+# an integer number for approximate size of .iso file in megabytes,
+# default is 1, for 1 megabyte,
+# to test approximately 5 gigabytes pass 5000
+#
+# OTHER optional parameter:
+# the iso-read command you want to test,
+# default is iso-read,
+# has to be named iso-read to be recognized,
+# could be for example src/iso-read
+#
+# Set environment variable VERBOSE=1 for more verbose output
+
+RM='@RM@'
+VERBOSE=${VERBOSE:-0}
+
+# Run $@ capturing output. Show output on an error or if VERBOSE is
+# set.
+run_cmd() {
+    output=`$@ 2>&1`
+    if [ $? -ne 0  -o $VERBOSE -ne 0 ]; then
+	echo >&2 -- $output
+    fi
+}
+
+# Remove file $1 if that file exists
+rm_if_exists() {
+    file=$1
+    [ -f $file ] && $RM $file
+}
+
+# Remove driectory $1 if that directory exists
+rmdir_if_exists() {
+    dir=$1
+    [ -d $dir ] && $RM -r $dir
+}
+
+cleanup() {
+    for i in 0 1 2 3 4 5 6 7 8 9 ; do
+	rm_if_exists 1Mfile${i}s-read.txt
+    done
+    for file in exampleIso1M.iso exampleIso1M.iso.tar.gz; do
+	rm_if_exists $file
+    done
+    rmdir_if_exists exampleIso1M.iso.prep
+}
+
+# in $1 or $2 accept integer number as total .iso size in megabytes
+case "$1" in
+    [0-9]* )
+        size="$1" ;;
+    *)
+        case "$2" in
+            [0-9]* )
+               size="$2" ;;
+        *)
+          size="1" ;; # default
+        esac
+        ;;
+esac
+
+# in $1 or $2 accept a different location for iso-read,
+# e.g. ~/libcdio/src/iso-read
+case "$1" in
+    iso-read )
+        ISO_READ="$1" ;;
+    *)
+        case "$2" in
+        iso-read )
+            ISO_READ="$2" ;;
+	*)
+            ISO_READ="../src/iso-read" ;;
+        esac
+	;;
+esac
+
+if [ ! -x ${ISO_READ} ]; then
+    echo "-- $0: No ${ISO_READ}. Skipping."
+    exit 77
+fi
+
+echo "-- Going to use ${ISO_READ}."
+echo "-- " `$ISO_READ --version`
+
+# pick for your system,
+# on a Mac mkisofs, otherwise people use newer genisoimage
+isomakingcommand="@ISO_MAKING_COMMAND@"
+if [ -z "$isomakingcommand" ]
+then
+    echo "-- $0: Neither mkisofs nor genisoimage found. Skipping."
+    exit 77
+fi
+
+echo "-- Working with a $size megabyte large .iso file in $datadir ."
+
+isoname="exampleIso"$size"M.iso"
+
+prepdir="prep"
+
+if [ ! -f "$isoname" ]
+then
+
+    echo "-- Going to use " `which "$isomakingcommand"` " to prepare $isoname in $isoname.$prepdir ."
+
+    mkdir "$isoname.$prepdir"
+    mkdir "$isoname.$prepdir"/mixed
+
+    # a large file with many of the same characters that will compress well
+    run_cmd dd if=/dev/zero bs=1024 count=$size"00" | tr '\0' '\060' > "$isoname.$prepdir/mixed/file0l.txt"
+    # a small file we will want to iso-read
+    echo "content of short text file #0 we are looking for" > "$isoname.$prepdir/mixed/file0s.txt"
+    # a few times over now
+    run_cmd dd if=/dev/zero bs=1024 count=$size"00" | tr '\0' '\061' > "$isoname.$prepdir/mixed/file1l.txt"
+    echo "content of short text file #1 we are looking for" > "$isoname.$prepdir/mixed/fileOneSmall.txt"
+    run_cmd dd if=/dev/zero bs=1024 count=$size"00" | tr '\0' '\062' > "$isoname.$prepdir/mixed/file2l.txt"
+    echo "content of short text file #2 we are looking for" > "$isoname.$prepdir/mixed/file2small.txt"
+    run_cmd dd if=/dev/zero bs=1024 count=$size"00" | tr '\0' '\063' > "$isoname.$prepdir/mixed/file3l.txt"
+    echo "content of short text file #3 we are looking for" > "$isoname.$prepdir/mixed/file3ThreeSmall.txt"
+    run_cmd dd if=/dev/zero bs=1024 count=$size"00" | tr '\0' '\064' > "$isoname.$prepdir/mixed/file4l.txt"
+    echo "content of short text file #4 we are looking for" > "$isoname.$prepdir/mixed/fileFourS.txt"
+    run_cmd dd if=/dev/zero bs=1024 count=$size"00" | tr '\0' '\065' > "$isoname.$prepdir/mixed/file5l.txt"
+    echo "content of short text file #5 we are looking for" > "$isoname.$prepdir/mixed/file5small.txt"
+    run_cmd dd if=/dev/zero bs=1024 count=$size"00" | tr '\0' '\066' > "$isoname.$prepdir/mixed/file6l.txt"
+    echo "content of short text file #6 we are looking for" > "$isoname.$prepdir/mixed/file6s.txt"
+    run_cmd dd if=/dev/zero bs=1024 count=$size"00" | tr '\0' '\067' > "$isoname.$prepdir/mixed/file7l.txt"
+    echo "content of short text file #7 we are looking for" > "$isoname.$prepdir/mixed/fileSevenSmall.txt"
+    run_cmd dd if=/dev/zero bs=1024 count=$size"00" | tr '\0' '\068' > "$isoname.$prepdir/mixed/file8l.txt"
+    echo "content of short text file #8 we are looking for" > "$isoname.$prepdir/mixed/file8s.txt"
+    run_cmd dd if=/dev/zero bs=1024 count=$size"00" | tr '\0' '\069' > "$isoname.$prepdir/mixed/file9l.txt"
+    echo "content of short text file #9 we are looking for" > "$isoname.$prepdir/mixed/file9s.txt"
+
+    # a potentially huge .iso file, whatever you wrote above
+    run_cmd "$isomakingcommand" -r -J -T -f -V "EXAMPLEISO"$size"M" -o "$isoname" "$isoname.$prepdir"
+
+    # if you want to archive a test file, this compressed one is much smaller,
+    # seen 4KB instead of 1MB, seen 5MB instead of 5GB
+    v_opt=''
+    [ $VERBOSE -ne 0 ] && v_opt='-v'
+    tar $v_opt -cf "$isoname.tar" "$isoname"
+    gzip $v_opt -9 "$isoname.tar"
+
+else
+    echo "-- Using existing $isoname ."
+fi
+
+# remind of disk space use
+# ls -al
+# du -h .
+
+echo "
+-- ----------------------------------------
+-- Size $size megabyte .iso file read back:
+-- ----------------------------------------
+"
+for i in 0 1 2 3 4 5 6 7 8 9
+do
+    echo "didn't read file #$i" > $size"Mfile"$i"s-read.txt"
+done
+#
+"$ISO_READ" -i "$isoname" -e "mixed/file0s.txt" -o $size"Mfile0s-read.txt"
+"$ISO_READ" -i "$isoname" -e "mixed/fileOneSmall.txt" -o $size"Mfile1s-read.txt"
+"$ISO_READ" -i "$isoname" -e "mixed/file2small.txt" -o $size"Mfile2s-read.txt"
+"$ISO_READ" -i "$isoname" -e "mixed/file3ThreeSmall.txt" -o $size"Mfile3s-read.txt"
+"$ISO_READ" -i "$isoname" -e "mixed/fileFourS.txt" -o $size"Mfile4s-read.txt"
+"$ISO_READ" -i "$isoname" -e "mixed/file5small.txt" -o $size"Mfile5s-read.txt"
+"$ISO_READ" -i "$isoname" -e "mixed/file6s.txt" -o $size"Mfile6s-read.txt"
+"$ISO_READ" -i "$isoname" -e "mixed/fileSevenSmall.txt" -o $size"Mfile7s-read.txt"
+"$ISO_READ" -i "$isoname" -e "mixed/file8s.txt" -o $size"Mfile8s-read.txt"
+"$ISO_READ" -i "$isoname" -e "mixed/file9s.txt" -o $size"Mfile9s-read.txt"
+#
+anybad=0
+for i in 0 1 2 3 4 5 6 7 8 9
+do
+    readback=`cat $size"Mfile"$i"s-read.txt"`
+    if [ "$readback" = "content of short text file #$i we are looking for" ]
+    then
+        echo "-- file #$i read back OK: $readback"
+    else
+        anybad=1
+        echo "file #$i read DEFECT : $readback"
+    fi
+done
+
+cleanup
+
+if [ $anybad -eq 0 ]
+then
+    echo "-- $0: Overall success of $0 :)"
+else
+    echo "$0: Overall FAILURE of $0 :("
+fi
+
+exit $anybad
+
+# if it worked correctly you should see the lines we wrote into the short files:
+#
+# content of short text file #i we are looking for
+#
+# IF however defect https://savannah.gnu.org/bugs/?39373 is still
+# in effect you might see lines such as:
+# 111111111111111111111111111111111111
+#
+# furthermore, IF however defect https://savannah.gnu.org/bugs/?39354 is still
+# in effect you might see lines such as:
+#
+# iso-read: Could not get ISO-9660 file information out of $isoname for file mixed/file2small.txt.
+# iso-read: iso-info may be able to show the contents of $isoname.
