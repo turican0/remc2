@@ -52,6 +52,17 @@ void pathfix(char* path, char* path2)
 	}
 }
 
+void get_exe_path(char* retpath) {
+	LPWSTR buffer = new WCHAR[MAX_PATH];
+	GetModuleFileName(NULL, buffer, MAX_PATH);
+	std::string locstr = utf8_encode(buffer);
+	std::string::size_type pos = std::string(locstr).find_last_of("\\/");
+	std::string strpathx = std::string(locstr).substr(0, pos)/*+"\\system.exe"*/;
+	sprintf(retpath,"%s", (char*)strpathx.c_str());
+	//retpath = (char*)strpathx.c_str();
+	//return pathx;
+};
+
 
 void pathfix2(char* path, char* path2)
 {

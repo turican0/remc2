@@ -68717,29 +68717,36 @@ int sub_main(int argc, char **argv, char **envp)//236F70
 	//skip signal(4, 1);//236FB5 - 279DC0
 	//skip signal(6, 1);//236FC1 - 279DC0
 
-	readini((char*)"c:\\prenos\\remc2\\Debug\\config.ini");//tom
+	readini((char*)"c:/prenos/remc2/Debug/config.ini");//tom
 
 	VGA_Init();
 
 	char mainfile[1024];
 	char maindir[1024];
 	myprintf("Finding Game Data...\n");
-	sprintf(mainfile, "%s%s", gamepath, "\\data\\tmaps0-0.dat");
+	sprintf(mainfile, "%s%s", gamepath, "/data/tmaps0-0.dat");
 	if (!file_exists(mainfile))//test original file
 	{
-		myprintf("Original Game Data Not Found, find GOG iso file\n");
-		//sprintf(mainfile, "%s%s", gamepath, ".dat");
-		//sprintf(maindir, "%s%s", gamepath2, ".dat");
-		sprintf(mainfile, "%s", (char*)"c:\\prenos\\gparted-live-0.27.0-1-i686");
-		sprintf(maindir, "%s", (char*)"c:\\prenos\\ex");
-		if (!file_exists(mainfile))//test existing GOG cd iso file
+		//myprintf("Original Game Data Not Found, find GOG iso file\n");
+		/*char locexepath[1024];
+		get_exe_path(locexepath);
+		for (int i = 0;i < strlen(locexepath);i++)
 		{
-			myprintf("Any game data not found\n");
-			mydelay(3000);
+			if (locexepath[i] == '\\')
+				locexepath[i] = '/';
+		}
+		sprintf(mainfile, "%s/%s%s", locexepath,gamepath, "/MC2.dat");
+		sprintf(maindir, "%s/%s%s", locexepath, gamepath, "/extracted-game-files");
+		//sprintf(mainfile, "%s", (char*)"c:\\prenos\\gparted-live-0.27.0-1-i686");*/
+		//sprintf(maindir, "%s", (char*)"c:\\prenos\\ex");
+		//if (!file_exists(mainfile))//test existing GOG cd iso file
+		{
+			myprintf("Original game not found in\n %s folder\n", gamepath);
+			mydelay(20000);
 			exit(1);//iso not found
 		}
-		myprintf("GOG game iso cd founded!\n");
-		sprintf(mainfile, "%s%s", gamepath, "\\data\\tmaps0-0.dat");
+		/*myprintf("GOG game iso cd founded!\n");
+		sprintf(mainfile, "%s%s", gamepath, "/extracted-game-files\\data\\tmaps0-0.dat");
 		if (file_exists(mainfile))
 		{
 			myprintf("I found extracted GOG game files!\n");
@@ -68748,7 +68755,11 @@ int sub_main(int argc, char **argv, char **envp)//236F70
 		else
 		{
 			myprintf("Extracting GOG iso cd...\n");
+			sprintf(mainfile, "%s/%s%s", locexepath, gamepath, "/MC2.dat");
+
 			cd_iso_extract(mainfile, maindir);
+			//cd_iso_extract((char*)"c:\\prenos\\MC2.dat.bin", maindir);
+		
 			//sprintf(mainfile, "%s%s", gamepath, "\\data\\tmaps0-0.dat");
 			if (file_exists(mainfile))
 			{
@@ -68761,7 +68772,7 @@ int sub_main(int argc, char **argv, char **envp)//236F70
 				mydelay(3000);
 				exit(1);//problem with file extracting
 			}
-		}		
+		}	*/	
 	}
 	else
 	{

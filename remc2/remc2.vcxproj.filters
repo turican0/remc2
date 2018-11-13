@@ -40,9 +40,6 @@
     <Filter Include="Zdrojové soubory\libs\inih">
       <UniqueIdentifier>{88c3818e-fa9e-47cd-9191-d23071ee450d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Zdrojové soubory\libs\libcdio">
-      <UniqueIdentifier>{9439cdd6-ce0c-4160-9df1-4090cdeb514b}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -571,10 +568,5 @@
     <None Include="..\Debug\config.ini">
       <Filter>Zdrojové soubory</Filter>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Library Include="..\libcdio-master\lib\x86\libcdio.lib">
-      <Filter>Zdrojové soubory\libs\libcdio</Filter>
-    </Library>
   </ItemGroup>
 </Project>

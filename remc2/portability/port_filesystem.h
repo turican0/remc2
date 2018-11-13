@@ -43,4 +43,6 @@ dirsstruct getListDir(char* dirname);
 
 int dos_getdrive(int* a);
 
+void get_exe_path(char*);
+
 #endif //PORT_FILESYSTEM
