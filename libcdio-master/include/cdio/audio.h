@@ -69,20 +69,20 @@ extern "C" {
     has the ability to get the volume or not.
 
   */
-  CDIO_EXTERN driver_return_code_t cdio_audio_get_volume (CdIo_t *p_cdio,  /*out*/
+  driver_return_code_t cdio_audio_get_volume (CdIo_t *p_cdio,  /*out*/
 					      cdio_audio_volume_t *p_volume);
 
   /*! 
     Return the number of seconds (discarding frame portion) of an MSF 
   */
-  CDIO_EXTERN uint32_t cdio_audio_get_msf_seconds(msf_t *p_msf);
+  uint32_t cdio_audio_get_msf_seconds(msf_t *p_msf);
 
   /*!
     Pause playing CD through analog output
 
     @param p_cdio the CD object to be acted upon.
   */
-  CDIO_EXTERN driver_return_code_t cdio_audio_pause (CdIo_t *p_cdio);
+  driver_return_code_t cdio_audio_pause (CdIo_t *p_cdio);
 
   /*!
     Playing CD through analog output at the given MSF.
@@ -91,7 +91,7 @@ extern "C" {
     @param p_start_msf pointer to staring MSF
     @param p_end_msf pointer to ending MSF
   */
-  CDIO_EXTERN driver_return_code_t cdio_audio_play_msf (CdIo_t *p_cdio, 
+  driver_return_code_t cdio_audio_play_msf (CdIo_t *p_cdio, 
 					    /*in*/msf_t *p_start_msf,
 					    /*in*/ msf_t *p_end_msf);
 
@@ -101,7 +101,7 @@ extern "C" {
     @param p_cdio the CD object to be acted upon.
     @param p_track_index location to start/end.
   */
-  CDIO_EXTERN driver_return_code_t cdio_audio_play_track_index 
+  driver_return_code_t cdio_audio_play_track_index 
   ( CdIo_t *p_cdio,  cdio_track_index_t *p_track_index);
 
   /*!
@@ -110,7 +110,7 @@ extern "C" {
     @param p_cdio the CD object to be acted upon.
     @param p_subchannel place for returned subchannel information
   */
-  CDIO_EXTERN driver_return_code_t cdio_audio_read_subchannel (CdIo_t *p_cdio, 
+  driver_return_code_t cdio_audio_read_subchannel (CdIo_t *p_cdio, 
 						   /*out*/ cdio_subchannel_t *p_subchannel);
 
   /*!
@@ -119,7 +119,7 @@ extern "C" {
     @param p_cdio the CD object to be acted upon.
 
   */
-  CDIO_EXTERN driver_return_code_t cdio_audio_resume (CdIo_t *p_cdio);
+  driver_return_code_t cdio_audio_resume (CdIo_t *p_cdio);
 
   /*!
     Set volume of an audio CD.
@@ -128,7 +128,7 @@ extern "C" {
     @param p_volume place for returned volume-level information
 
   */
-  CDIO_EXTERN driver_return_code_t cdio_audio_set_volume (CdIo_t *p_cdio, /*out*/
+  driver_return_code_t cdio_audio_set_volume (CdIo_t *p_cdio, /*out*/
 					      cdio_audio_volume_t *p_volume);
 
   /*!
@@ -137,7 +137,7 @@ extern "C" {
     @param p_cdio the CD object to be acted upon.
 
   */
-  CDIO_EXTERN driver_return_code_t cdio_audio_stop (CdIo_t *p_cdio);
+  driver_return_code_t cdio_audio_stop (CdIo_t *p_cdio);
 
 #ifdef __cplusplus
 }

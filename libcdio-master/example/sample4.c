@@ -1,6 +1,6 @@
 /*
-  Copyright (C) 2003, 2004, 2008, 2009, 2012 Rocky Bernstein <rocky@gnu.org>
-  
+  Copyright (C) 2003-2004, 2008-2009, 2012, 2017 Rocky Bernstein <rocky@gnu.org>
+
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
   the Free Software Foundation, either version 3 of the License, or
@@ -15,7 +15,7 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/* 
+/*
    A slightly improved sample3 program: we handle cdio logging and
    take an optional CD-location.
 */
@@ -26,6 +26,9 @@
 
 #ifdef HAVE_STDIO_H
 #include <stdio.h>
+#endif
+#ifdef HAVE_STDLIB_H
+#include <stdlib.h>
 #endif
 #ifdef HAVE_STRING_H
 #include <string.h>
@@ -38,7 +41,7 @@
 #include <cdio/cd_types.h>
 #include <cdio/logging.h>
 
-static void 
+static void
 log_handler (cdio_log_level_t level, const char message[])
 {
   switch(level) {
@@ -51,7 +54,7 @@ log_handler (cdio_log_level_t level, const char message[])
 }
 
 static void
-print_analysis(cdio_iso_analysis_t cdio_iso_analysis, 
+print_analysis(cdio_iso_analysis_t cdio_iso_analysis,
 	       cdio_fs_anal_t fs, int first_data, unsigned int num_audio)
 {
   switch(CDIO_FSTYPE(fs)) {
@@ -111,7 +114,7 @@ print_analysis(cdio_iso_analysis_t cdio_iso_analysis,
   if (fs & CDIO_FS_ANAL_HIDDEN_TRACK)
     printf("Hidden Track   ");
   if (fs & CDIO_FS_ANAL_PHOTO_CD)
-    printf("%sPhoto CD   ", 
+    printf("%sPhoto CD   ",
 		      num_audio > 0 ? " Portfolio " : "");
   if (fs & CDIO_FS_ANAL_CDTV)
     printf("Commodore CDTV   ");
@@ -134,7 +137,7 @@ main(int argc, const char *argv[])
 {
   CdIo_t *p_cdio;
   cdio_fs_anal_t fs=0;
-  
+
   track_t num_tracks;
   track_t first_track_num;
   lsn_t start_track;          /* first sector of track */
@@ -147,7 +150,7 @@ main(int argc, const char *argv[])
   unsigned int i;
   char *cd_image_name = NULL;
 
-  if (argc > 1) 
+  if (argc > 1)
     cd_image_name = strdup(argv[1]);
 
   cdio_log_set_handler (log_handler);
@@ -156,6 +159,7 @@ main(int argc, const char *argv[])
 
   if (NULL == p_cdio) {
     printf("-- Problem in trying to find a driver.\n\n");
+    free(cd_image_name);
     return 77;
   }
 
@@ -178,48 +182,49 @@ main(int argc, const char *argv[])
     printf("-- Audio CD\n");
   } else {
     /* we have data track(s) */
-    cdio_iso_analysis_t cdio_iso_analysis; 
+    cdio_iso_analysis_t cdio_iso_analysis;
 
     memset(&cdio_iso_analysis, 0, sizeof(cdio_iso_analysis));
-    
+
     for (i = first_data; i <= num_tracks; i++) {
       lsn_t lsn;
       track_format_t track_format = cdio_get_track_format(p_cdio, i);
-      
+
       lsn = cdio_get_track_lsn(p_cdio, i);
-      
+
       switch ( track_format ) {
       case TRACK_FORMAT_AUDIO:
       case TRACK_FORMAT_ERROR:
 	break;
       case TRACK_FORMAT_CDI:
       case TRACK_FORMAT_XA:
-      case TRACK_FORMAT_DATA: 
-      case TRACK_FORMAT_PSX: 
+      case TRACK_FORMAT_DATA:
+      case TRACK_FORMAT_PSX:
 	;
       }
-      
+
       start_track = (i == 1) ? 0 : lsn;
-      
+
       /* save the start of the data area */
-      if (i == first_data) 
+      if (i == first_data)
 	data_start = start_track;
-      
+
       /* skip tracks which belong to the current walked session */
       if (start_track < data_start + cdio_iso_analysis.isofs_size)
 	continue;
-      
+
       fs = cdio_guess_cd_type(p_cdio, start_track, i, &cdio_iso_analysis);
-      
+
       print_analysis(cdio_iso_analysis, fs, first_data, num_audio);
-      
+
       if ( !(CDIO_FSTYPE(fs) == CDIO_FS_ISO_9660 ||
 	     CDIO_FSTYPE(fs) == CDIO_FS_ISO_HFS  ||
 	     CDIO_FSTYPE(fs) == CDIO_FS_ISO_9660_INTERACTIVE) )
 	/* no method for non-ISO9660 multisessions */
-	break;	
+	break;
     }
   }
+  free(cd_image_name);
   cdio_destroy(p_cdio);
   return 0;
 }

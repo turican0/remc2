@@ -134,7 +134,7 @@ bool file_exists(const char * filename) {
 	}
 	return false;*/
 	FILE* file;
-	if (fopen_s(&file, filename, "r")) {
+	if (fopen_s(&file, filename, "r")==NULL) {
 		fclose(file);
 		return true;
 	}

@@ -1,4 +1,4 @@
-#   Copyright (C) 2003-2006, 2008-2009, 2012-13
+#   Copyright (C) 2003-2006, 2008-2009, 2012-2013, 2017
 #   Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software: you can redistribute it and/or modify
@@ -27,6 +27,7 @@ noinst_PROGRAMS = \
 	cdchange \
 	cdio-eject \
 	cdtext \
+	cdtext-raw \
 	device \
 	discid \
 	drives \
@@ -49,7 +50,7 @@ noinst_PROGRAMS = \
 	udf1 \
 	udffile
 
-check_PROGRAMS  = cdtext device drives isofile2 \
+check_PROGRAMS  = device drives isofile2 \
                    mmc1 mmc2 mmc2a mmc3 sample4
 
 #: run regression tests. "test" is the same thing as "check"
@@ -59,6 +60,11 @@ test: check-am
 check-short:
 	$(MAKE) check 2>&1  | ruby @abs_top_srcdir@/make-check-filter.rb
 
+#: run valgrind on C programs
+check-leaks: $(check_PROGRAMS)
+	for p in $(check_PROGRAMS); do \
+	   valgrind ./$$p; \
+        done
 
 AM_CPPFLAGS = $(LIBCDIO_CFLAGS)
 
@@ -73,6 +79,9 @@ cdio_eject_LDADD        = $(LIBCDIO_LIBS) $(LTLIBICONV)
 
 cdtext_DEPENDENCIES   = $(LIBCDIO_DEPS)
 cdtext_LDADD          = $(LIBCDIO_LIBS) $(LTLIBICONV)
+
+cdtext_raw_DEPENDENCIES = $(LIBCDIO_DEPS)
+cdtext_raw_LDADD        = $(LIBCDIO_LIBS) $(LTLIBICONV)
 
 device_DEPENDENCIES   = $(LIBCDIO_DEPS)
 device_LDADD          = $(LIBCDIO_LIBS) $(LTLIBICONV)
@@ -128,5 +137,10 @@ udffile_LDADD        = $(LIBUDF_LIBS) $(LIBCDIO_LIBS) $(LTLIBICONV)
 
 TESTS               = $(check_PROGRAMS)
 
-# iso programs create file "copying"
-MOSTLYCLEANFILES = copying *.wav *.log *.trs *.orig *.rej
+MOSTLYCLEANFILES = copying *.wav *.log *.trs *.orig *.rej *.dSYM
+
+mostlyclean-generic:
+	-test -z "$(MOSTLYCLEANFILES)" || rm -fr $(MOSTLYCLEANFILES)
+	-test -z "$(TEST_LOGS)" || rm -f $(TEST_LOGS)
+	-test -z "$(TEST_LOGS:.log=.trs)" || rm -f $(TEST_LOGS:.log=.trs)
+	-test -z "$(TEST_SUITE_LOG)" || rm -f $(TEST_SUITE_LOG)

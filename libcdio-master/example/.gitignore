@@ -1,3 +1,4 @@
+/*.dSYM
 /*.exe
 /*.exe.stackdump
 /*.o
@@ -10,6 +11,7 @@
 /cdchange
 /cdio-eject
 /cdtext
+/cdtext-raw
 /copying
 /device
 /discid

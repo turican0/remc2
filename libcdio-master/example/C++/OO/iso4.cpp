@@ -1,6 +1,6 @@
 /*
   Copyright (C) 2006, 2008, 2009 Rocky Bernstein <rocky@gnu.org>
-  
+
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
   the Free Software Foundation, either version 3 of the License, or
@@ -23,7 +23,7 @@
    use in the listing. Otherwise a compiled-in default ISO 9660 image
    name (that comes with the libcdio distribution) will be used.
 
-   This program can be compiled with either a C or C++ compiler. In 
+   This program can be compiled with either a C or C++ compiler. In
    the distributuion we perfer C++ just to make sure we haven't broken
    things on the C++ side.
  */
@@ -72,13 +72,13 @@ main(int argc, const char *argv[])
   const char *psz_path="/";
   ISO9660::PVD *p_pvd;
 
-  if (argc > 1) 
+  if (argc > 1)
     psz_fname = argv[1];
-  else 
+  else
     psz_fname = ISO9660_IMAGE;
 
   if (!p_iso->open(psz_fname, DRIVER_UNKNOWN)) {
-    fprintf(stderr, "Sorry, couldn't open %s as a CD or CD image.\n", 
+    fprintf(stderr, "Sorry, couldn't open %s as a CD or CD image.\n",
 	    psz_fname);
     return 1;
   }
@@ -92,8 +92,9 @@ main(int argc, const char *argv[])
     print_vd_info("System     ", get_system_id);
     print_vd_info("Volume     ", get_volume_id);
     print_vd_info("Volume Set ", get_volumeset_id);
+    free(psz_str);
   }
-  
+
   if (p_iso->readdir (psz_path, stat_vector))
   {
     /* Iterate over the list of files.  */
@@ -103,16 +104,15 @@ main(int argc, const char *argv[])
 	char filename[4096];
 	ISO9660::Stat *p_s = *i;
 	iso9660_name_translate(p_s->p_stat->filename, filename);
-	printf ("%s [LSN %6d] %8u %s%s\n", 
+	printf ("%s [LSN %6d] %8u %s%s\n",
 		2 == p_s->p_stat->type ? "d" : "-",
 		p_s->p_stat->lsn, p_s->p_stat->size, psz_path, filename);
 	delete(p_s);
       }
-    
+
     stat_vector.clear();
   }
 
   delete(p_iso);
   return 0;
 }
-

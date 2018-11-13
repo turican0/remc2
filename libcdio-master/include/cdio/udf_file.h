@@ -32,39 +32,39 @@ extern "C" {
   /**
     Return the file id descriptor of the given file.
   */
-CDIO_EXTERN   bool udf_get_fileid_descriptor(const udf_dirent_t *p_udf_dirent, 
+  bool udf_get_fileid_descriptor(const udf_dirent_t *p_udf_dirent, 
 				 /*out*/ udf_fileid_desc_t *p_udf_fid);
 
   /**
     Return the name of the file
   */
-CDIO_EXTERN   const char *udf_get_filename(const udf_dirent_t *p_udf_dirent);
+  const char *udf_get_filename(const udf_dirent_t *p_udf_dirent);
   
   /**
     Return the name of the file
   */
-  CDIO_EXTERN bool udf_get_file_entry(const udf_dirent_t *p_udf_dirent, 
+  bool udf_get_file_entry(const udf_dirent_t *p_udf_dirent, 
 			  /*out*/ udf_file_entry_t *p_udf_fe);
 
   /**
     Return the number of hard links of the file. Return 0 if error.
   */
-  CDIO_EXTERN uint16_t udf_get_link_count(const udf_dirent_t *p_udf_dirent);
+  uint16_t udf_get_link_count(const udf_dirent_t *p_udf_dirent);
 
   /**
     Return the file length the file. Return 2147483647L if error.
   */
-  CDIO_EXTERN uint64_t udf_get_file_length(const udf_dirent_t *p_udf_dirent);
+  uint64_t udf_get_file_length(const udf_dirent_t *p_udf_dirent);
 
   /**  
     Returns a POSIX mode for a given p_udf_dirent.
   */
-  CDIO_EXTERN mode_t udf_get_posix_filemode(const udf_dirent_t *p_udf_dirent);
+  mode_t udf_get_posix_filemode(const udf_dirent_t *p_udf_dirent);
 
   /**
     Return the next subdirectory. 
   */
-  CDIO_EXTERN udf_dirent_t *udf_opendir(const udf_dirent_t *p_udf_dirent);
+  udf_dirent_t *udf_opendir(const udf_dirent_t *p_udf_dirent);
   
   /**
      Attempts to read up to count bytes from UDF directory entry
@@ -85,7 +85,7 @@ CDIO_EXTERN   const char *udf_get_filename(const udf_dirent_t *p_udf_dirent);
     If count is zero, read() returns zero and has no other results. If
     count is greater than SSIZE_MAX, the result is unspecified.
   */
-  CDIO_EXTERN ssize_t udf_read_block(const udf_dirent_t *p_udf_dirent, 
+  ssize_t udf_read_block(const udf_dirent_t *p_udf_dirent, 
 			 void * buf, size_t count);
 
   /**
@@ -96,17 +96,17 @@ CDIO_EXTERN   const char *udf_get_filename(const udf_dirent_t *p_udf_dirent);
     must call udf_dirent_free() with p_udf_dirent when done with it to 
     release resources.
   */
-  CDIO_EXTERN udf_dirent_t *udf_readdir(udf_dirent_t *p_udf_dirent);
+  udf_dirent_t *udf_readdir(udf_dirent_t *p_udf_dirent);
   
   /**
     free free resources associated with p_udf_dirent.
   */
-  CDIO_EXTERN bool udf_dirent_free(udf_dirent_t *p_udf_dirent);
+  bool udf_dirent_free(udf_dirent_t *p_udf_dirent);
   
   /**
     Return true if the file is a directory.
   */
-  CDIO_EXTERN bool udf_is_dir(const udf_dirent_t *p_udf_dirent);
+  bool udf_is_dir(const udf_dirent_t *p_udf_dirent);
   
 #ifdef __cplusplus
 }

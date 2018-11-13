@@ -1,6 +1,6 @@
 /*
   Copyright (C) 2012 Pete Batard <pete@akeo.ie>
-  Based on samples copyright (c) 2003-2011 Rocky Bernstein <rocky@gnu.org>
+  Based on samples copyright (c) 2003-2011, 2017 Rocky Bernstein <rocky@gnu.org>
 
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -35,13 +35,9 @@
 #ifdef HAVE_ERRNO_H
 #include <errno.h>
 #endif
-#ifdef xHAVE_STDLIB_H
+#ifdef HAVE_STDLIB_H
 #include <stdlib.h>
 #endif
-#include <stdio.h>
-#include <string.h>
-#include <errno.h>
-#include <stdlib.h>
 
 #if defined(_WIN32)
 #include <direct.h>
@@ -111,7 +107,7 @@ static int udf_extract_files(udf_t *p_udf, udf_dirent_t *p_udf_dirent, const cha
       fprintf(stderr, "Error allocating file name\n");
       goto out;
     }
-    i_length = snprintf_s(psz_fullpath, i_length, "%s%s/%s", psz_extract_dir, psz_path, psz_basename);
+    i_length = snprintf(psz_fullpath, i_length, "%s%s/%s", psz_extract_dir, psz_path, psz_basename);
     if (i_length < 0) {
       goto out;
     }
@@ -126,13 +122,14 @@ static int udf_extract_files(udf_t *p_udf, udf_dirent_t *p_udf_dirent, const cha
 	    goto out;
 	}
       } else if (-1 == rc) {
-        //fprintf(stderr, "  Unable to create make directory %s:\n%s\n",psz_fullpath, strerror_s(errno,512));
+        fprintf(stderr, "  Unable to create make directory %s:\n%s\n",
+		psz_fullpath, strerror(errno));
       } else {
-        fprintf_s(stderr, "  Unable to create make directory %s;(rc=%d)\n",
+        fprintf(stderr, "  Unable to create make directory %s;(rc=%d)\n",
 		psz_fullpath, rc);
       }
     } else {
-      fopen_s(fd,psz_fullpath, "wb");
+      fd = fopen(psz_fullpath, "wb");
       if (fd == NULL) {
         fprintf(stderr, "  Unable to create file %s\n", psz_fullpath);
         goto out;
@@ -147,7 +144,8 @@ static int udf_extract_files(udf_t *p_udf, udf_dirent_t *p_udf_dirent, const cha
         }
         fwrite(buf, (size_t)MIN(i_file_length, i_read), 1, fd);
         if (ferror(fd)) {
-          //fprintf(stderr, "  Error writing file %s: %s\n", psz_fullpath,          strerror(errno));
+          fprintf(stderr, "  Error writing file %s: %s\n", psz_fullpath,
+                  strerror(errno));
           goto out;
         }
         i_file_length -= i_read;
@@ -173,9 +171,9 @@ static int iso_extract_files(iso9660_t* p_iso, const char *psz_path)
   char psz_fullpath[4096], *psz_basename;
   const char *psz_iso_name = &psz_fullpath[strlen(psz_extract_dir)];
   unsigned char buf[ISO_BLOCKSIZE];
-  CdioListNode_t* p_entnode;
+  CdioListNode_t *p_entnode;
   iso9660_stat_t *p_statbuf;
-  CdioList_t* p_entlist;
+  CdioISO9660FileList_t* p_entlist;
   size_t i;
   lsn_t lsn;
   int64_t i_file_length;
@@ -183,8 +181,7 @@ static int iso_extract_files(iso9660_t* p_iso, const char *psz_path)
   if ((p_iso == NULL) || (psz_path == NULL))
     return 1;
 
-  i_length = sprintf_s(psz_fullpath, sizeof(psz_fullpath), "%s%s/", psz_extract_dir, psz_path);
-
+  i_length = snprintf(psz_fullpath, sizeof(psz_fullpath), "%s%s/", psz_extract_dir, psz_path);
   if (i_length < 0)
     return 1;
   psz_basename = &psz_fullpath[i_length];
@@ -208,7 +205,7 @@ static int iso_extract_files(iso9660_t* p_iso, const char *psz_path)
         goto out;
     } else {
       printf("Extracting: %s\n", psz_fullpath);
-      fopen_s(fd,psz_fullpath, "wb");
+      fd = fopen(psz_fullpath, "wb");
       if (fd == NULL) {
         fprintf(stderr, "  Unable to create file\n");
         goto out;
@@ -224,7 +221,8 @@ static int iso_extract_files(iso9660_t* p_iso, const char *psz_path)
         }
         fwrite(buf, (size_t)MIN(i_file_length, ISO_BLOCKSIZE), 1, fd);
         if (ferror(fd)) {
-	  //fprintf(stderr, "  Error writing file %s: %s\n", psz_iso_name,strerror(errno));
+	  fprintf(stderr, "  Error writing file %s: %s\n", psz_iso_name,
+		  strerror(errno));
           goto out;
         }
         i_file_length -= ISO_BLOCKSIZE;
@@ -238,11 +236,11 @@ static int iso_extract_files(iso9660_t* p_iso, const char *psz_path)
 out:
   if (fd != NULL)
     fclose(fd);
-  _cdio_list_free(p_entlist, true);
+  iso9660_filelist_free(p_entlist);
   return r;
 }
 
-int mainx(int argc, char** argv)
+int main(int argc, char** argv)
 {
   iso9660_t* p_iso = NULL;
   udf_t* p_udf = NULL;

@@ -64,11 +64,10 @@
 #endif
 
 #include <cdio/types.h>
-#include "cdio.h"
 
-/*! Information that can be obtained through a Read Subchannel
-  command.
-*/
+      /*! Information that can be obtained through a Read Subchannel
+        command.
+      */
       typedef enum cdio_subchannel
         {
           CDIO_SUBCHANNEL_SUBQ_DATA             = 0,
@@ -216,59 +215,59 @@ typedef enum cdio_cd_minutes_sectors
       /*! 
         Convert an LBA into a string representation of the MSF.
         \warning cdio_lba_to_msf_str returns new allocated string */
-      CDIO_EXTERN char *cdio_lba_to_msf_str (lba_t i_lba);
+      char *cdio_lba_to_msf_str (lba_t i_lba);
       
       /*! 
         Convert an MSF into a string representation of the MSF.
         \warning cdio_msf_to_msf_str returns new allocated string */
-      CDIO_EXTERN char *cdio_msf_to_str (const msf_t *p_msf);
+      char *cdio_msf_to_str (const msf_t *p_msf);
       
       /*! 
         Convert an LBA into the corresponding LSN.
       */
-      CDIO_EXTERN lba_t cdio_lba_to_lsn (lba_t i_lba);
+      lba_t cdio_lba_to_lsn (lba_t i_lba);
       
       /*! 
         Convert an LBA into the corresponding MSF.
       */
-      CDIO_EXTERN void  cdio_lba_to_msf(lba_t i_lba, msf_t *p_msf);
+      void  cdio_lba_to_msf(lba_t i_lba, msf_t *p_msf);
       
       /*! 
         Convert an LSN into the corresponding LBA.
         CDIO_INVALID_LBA is returned if there is an error.
       */
-      CDIO_EXTERN lba_t cdio_lsn_to_lba (lsn_t i_lsn);
+      lba_t cdio_lsn_to_lba (lsn_t i_lsn);
       
       /*! 
         Convert an LSN into the corresponding MSF.
       */
-      CDIO_EXTERN void  cdio_lsn_to_msf (lsn_t i_lsn, msf_t *p_msf);
+      void  cdio_lsn_to_msf (lsn_t i_lsn, msf_t *p_msf);
       
       /*! 
         Convert a MSF into the corresponding LBA.
         CDIO_INVALID_LBA is returned if there is an error.
       */
-      CDIO_EXTERN lba_t cdio_msf_to_lba (const msf_t *p_msf);
+      lba_t cdio_msf_to_lba (const msf_t *p_msf);
       
       /*! 
         Convert a MSF into the corresponding LSN.
         CDIO_INVALID_LSN is returned if there is an error.
       */
-      CDIO_EXTERN lsn_t cdio_msf_to_lsn (const msf_t *p_msf);
+      lsn_t cdio_msf_to_lsn (const msf_t *p_msf);
       
       /*!  
         Convert a MSF - broken out as 3 integer components into the
         corresponding LBA.  
         CDIO_INVALID_LBA is returned if there is an error.
       */
-      CDIO_EXTERN lba_t cdio_msf3_to_lba (unsigned int minutes, unsigned int seconds, 
+      lba_t cdio_msf3_to_lba (unsigned int minutes, unsigned int seconds, 
                               unsigned int frames);
       
       /*! 
         Convert a string of the form MM:SS:FF into the corresponding LBA.
         CDIO_INVALID_LBA is returned if there is an error.
       */
-      CDIO_EXTERN lba_t cdio_mmssff_to_lba (const char *psz_mmssff);
+      lba_t cdio_mmssff_to_lba (const char *psz_mmssff);
       
 #ifdef __cplusplus
     }

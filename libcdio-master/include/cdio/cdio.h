@@ -32,20 +32,6 @@
  */
 #define CDIO_API_VERSION 6
 
-#ifdef CDIO_STATICLIB
-#  define CDIO_EXTERN
-#elif defined(WIN32)
-#  if defined(BUILDING_CDIO)
-#    define CDIO_EXTERN  __declspec(dllexport)
-#  else
-#    define CDIO_EXTERN  __declspec(dllimport)
-#  endif
-#elif defined(BUILDING_CDIO) && defined(CDIO_HIDDEN_SYMBOLS)
-#  define CDIO_EXTERN CDIO_EXTERN_SYMBOL
-#else
-#  define CDIO_EXTERN
-#endif
-
 #include <cdio/version.h>
 #include <cdio/types.h>
 #include <cdio/sector.h>

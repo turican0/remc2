@@ -1,6 +1,6 @@
 /*
-  Copyright (C) 2006, 2008, 2009, 2011 Rocky Bernstein <rocky@gnu.org>
-  
+  Copyright (C) 2006, 2008, 2009, 2011, 2017 Rocky Bernstein <rocky@gnu.org>
+
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
   the Free Software Foundation, either version 3 of the License, or
@@ -51,8 +51,8 @@ main(int argc, const char *argv[])
   char *psz_drive = NULL;
   bool do_eject = false;
   bool do_close = false;
-  
-  if (argc > 1) 
+
+  if (argc > 1)
     psz_drive = strdup(argv[1]);
 
   if (!psz_drive) {
@@ -68,7 +68,7 @@ main(int argc, const char *argv[])
     printf("-- Can't open %s\n", psz_drive);
     exit(77);
   }
-  
+
   ret = mmc_get_tray_status(p_cdio);
   switch((int) ret) {
   case 0:
@@ -82,28 +82,30 @@ main(int argc, const char *argv[])
   default:
     printf("-- Error status for drive %s: %s.\n", psz_drive,
 	   cdio_driver_errmsg(ret));
+    free(psz_drive);
     return 77;
   }
-  
+
   ret = mmc_get_media_changed(p_cdio);
   switch((int) ret) {
   case 0:
-    printf("-- CD-ROM drive %s media not changed since last test.\n", 
+    printf("-- CD-ROM drive %s media not changed since last test.\n",
 	   psz_drive);
     break;
   case 1:
     printf("-- CD-ROM drive %s media changed since last test.\n", psz_drive);
     break;
   default:
-    printf("-- Error status for drive %s: %s.\n", psz_drive, 
+    printf("-- Error status for drive %s: %s.\n", psz_drive,
 	   cdio_driver_errmsg(ret));
+    free(psz_drive);
     return 77;
   }
 
   if (do_eject && argc > 2)
-    ret = cdio_eject_media_drive(psz_drive);
+    cdio_eject_media_drive(psz_drive);
   else
-    ret = cdio_close_tray(psz_drive, &driver_id);
+    cdio_close_tray(psz_drive, &driver_id);
 
   ret = mmc_get_tray_status(p_cdio);
   switch((int) ret) {
@@ -116,13 +118,14 @@ main(int argc, const char *argv[])
   default:
     printf("Error status for drive %s: %s.\n", psz_drive,
 	   cdio_driver_errmsg(ret));
+    free(psz_drive);
     return 77;
   }
-  
+
   ret = mmc_get_media_changed(p_cdio);
   switch((int) ret) {
   case 0:
-    printf("-- CD-ROM drive %s media not changed since last test.\n", 
+    printf("-- CD-ROM drive %s media not changed since last test.\n",
 	   psz_drive);
     break;
   case 1:
@@ -131,6 +134,7 @@ main(int argc, const char *argv[])
   default:
     printf("-- Error status for drive %s: %s.\n", psz_drive,
 	   cdio_driver_errmsg(ret));
+    free(psz_drive);
     return 77;
   }
 

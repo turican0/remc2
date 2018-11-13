@@ -68721,6 +68721,53 @@ int sub_main(int argc, char **argv, char **envp)//236F70
 
 	VGA_Init();
 
+	char mainfile[1024];
+	char maindir[1024];
+	myprintf("Finding Game Data...\n");
+	sprintf(mainfile, "%s%s", gamepath, "\\data\\tmaps0-0.dat");
+	if (!file_exists(mainfile))//test original file
+	{
+		myprintf("Original Game Data Not Found, find GOG iso file\n");
+		//sprintf(mainfile, "%s%s", gamepath, ".dat");
+		//sprintf(maindir, "%s%s", gamepath2, ".dat");
+		sprintf(mainfile, "%s", (char*)"c:\\prenos\\gparted-live-0.27.0-1-i686");
+		sprintf(maindir, "%s", (char*)"c:\\prenos\\ex");
+		if (!file_exists(mainfile))//test existing GOG cd iso file
+		{
+			myprintf("Any game data not found\n");
+			mydelay(3000);
+			exit(1);//iso not found
+		}
+		myprintf("GOG game iso cd founded!\n");
+		sprintf(mainfile, "%s%s", gamepath, "\\data\\tmaps0-0.dat");
+		if (file_exists(mainfile))
+		{
+			myprintf("I found extracted GOG game files!\n");
+			sprintf(gamepath, "%s", maindir);
+		}
+		else
+		{
+			myprintf("Extracting GOG iso cd...\n");
+			cd_iso_extract(mainfile, maindir);
+			//sprintf(mainfile, "%s%s", gamepath, "\\data\\tmaps0-0.dat");
+			if (file_exists(mainfile))
+			{
+				myprintf("GOG iso cd extracted!\n");
+				sprintf(gamepath, "%s", maindir);
+			}
+			else
+			{
+				myprintf("Any problem with GOG iso cd extracting\n");
+				mydelay(3000);
+				exit(1);//problem with file extracting
+			}
+		}		
+	}
+	else
+	{
+		myprintf("Original Game Data Found!\n");
+	}
+
 	sub_56210_process_command_line(argc, argv);//236FD4 - 237210
 	//-init 0x2a51a4 je nekde tu
 

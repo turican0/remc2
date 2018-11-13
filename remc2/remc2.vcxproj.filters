@@ -43,24 +43,6 @@
     <Filter Include="Zdrojové soubory\libs\libcdio">
       <UniqueIdentifier>{9439cdd6-ce0c-4160-9df1-4090cdeb514b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Zdrojové soubory\libs\libcdio\udf">
-      <UniqueIdentifier>{37d3aea1-4a31-4923-b486-d1c517517f43}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Zdrojové soubory\libs\libcdio\driver">
-      <UniqueIdentifier>{f20c8b49-aff8-4a58-a58b-e4860ce76ae4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Zdrojové soubory\libs\libcdio\driver\win32">
-      <UniqueIdentifier>{3cc61f88-168b-4be7-bdca-6f4a6f3178f7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Zdrojové soubory\libs\libcdio\driver\image">
-      <UniqueIdentifier>{773ee047-cec8-482c-b3a6-cf9556f3e516}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Zdrojové soubory\libs\libcdio\include">
-      <UniqueIdentifier>{f0ee5c61-cf87-49fd-a317-fb46b906e99e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Zdrojové soubory\libs\libcdio\iso9660">
-      <UniqueIdentifier>{5ac43d6e-9fe8-4302-a1ef-cfb9401cc50f}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -336,149 +318,8 @@
     <ClInclude Include="engine\read_config.h">
       <Filter>Zdrojové soubory\engine</Filter>
     </ClInclude>
-    <ClInclude Include="..\libcdio-master\lib\udf\udf_fs.h">
-      <Filter>Zdrojové soubory\libs\libcdio\udf</Filter>
-    </ClInclude>
-    <ClInclude Include="..\libcdio-master\lib\udf\udf_private.h">
-      <Filter>Zdrojové soubory\libs\libcdio\udf</Filter>
-    </ClInclude>
-    <ClInclude Include="..\libcdio-master\lib\driver\cdio_assert.h">
-      <Filter>Zdrojové soubory\libs\libcdio\driver</Filter>
-    </ClInclude>
-    <ClInclude Include="..\libcdio-master\lib\driver\cdio_private.h">
-      <Filter>Zdrojové soubory\libs\libcdio\driver</Filter>
-    </ClInclude>
-    <ClInclude Include="..\libcdio-master\lib\driver\cdtext_private.h">
-      <Filter>Zdrojové soubory\libs\libcdio\driver</Filter>
-    </ClInclude>
-    <ClInclude Include="..\libcdio-master\lib\driver\filemode.h">
-      <Filter>Zdrojové soubory\libs\libcdio\driver</Filter>
-    </ClInclude>
-    <ClInclude Include="..\libcdio-master\lib\driver\generic.h">
-      <Filter>Zdrojové soubory\libs\libcdio\driver</Filter>
-    </ClInclude>
-    <ClInclude Include="..\libcdio-master\lib\driver\image.h">
-      <Filter>Zdrojové soubory\libs\libcdio\driver</Filter>
-    </ClInclude>
-    <ClInclude Include="..\libcdio-master\lib\driver\image_common.h">
-      <Filter>Zdrojové soubory\libs\libcdio\driver</Filter>
-    </ClInclude>
-    <ClInclude Include="..\libcdio-master\lib\driver\portable.h">
-      <Filter>Zdrojové soubory\libs\libcdio\driver</Filter>
-    </ClInclude>
-    <ClInclude Include="..\libcdio-master\lib\driver\_cdio_stdio.h">
-      <Filter>Zdrojové soubory\libs\libcdio\driver</Filter>
-    </ClInclude>
-    <ClInclude Include="..\libcdio-master\lib\driver\_cdio_stream.h">
-      <Filter>Zdrojové soubory\libs\libcdio\driver</Filter>
-    </ClInclude>
-    <ClInclude Include="..\libcdio-master\lib\driver\MSWindows\win32.h">
-      <Filter>Zdrojové soubory\libs\libcdio\driver\win32</Filter>
-    </ClInclude>
-    <ClInclude Include="..\libcdio-master\lib\driver\image\nrg.h">
-      <Filter>Zdrojové soubory\libs\libcdio\driver\image</Filter>
-    </ClInclude>
-    <ClInclude Include="..\libcdio-master\include\cdio\audio.h">
-      <Filter>Zdrojové soubory\libs\libcdio\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\libcdio-master\include\cdio\bytesex.h">
-      <Filter>Zdrojové soubory\libs\libcdio\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\libcdio-master\include\cdio\bytesex_asm.h">
-      <Filter>Zdrojové soubory\libs\libcdio\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\libcdio-master\include\cdio\cdio.h">
-      <Filter>Zdrojové soubory\libs\libcdio\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\libcdio-master\include\cdio\cdtext.h">
-      <Filter>Zdrojové soubory\libs\libcdio\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\libcdio-master\include\cdio\cd_types.h">
-      <Filter>Zdrojové soubory\libs\libcdio\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\libcdio-master\include\cdio\device.h">
-      <Filter>Zdrojové soubory\libs\libcdio\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\libcdio-master\include\cdio\disc.h">
-      <Filter>Zdrojové soubory\libs\libcdio\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\libcdio-master\include\cdio\ds.h">
-      <Filter>Zdrojové soubory\libs\libcdio\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\libcdio-master\include\cdio\dvd.h">
-      <Filter>Zdrojové soubory\libs\libcdio\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\libcdio-master\include\cdio\ecma_167.h">
-      <Filter>Zdrojové soubory\libs\libcdio\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\libcdio-master\include\cdio\iso9660.h">
-      <Filter>Zdrojové soubory\libs\libcdio\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\libcdio-master\include\cdio\logging.h">
-      <Filter>Zdrojové soubory\libs\libcdio\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\libcdio-master\include\cdio\memory.h">
-      <Filter>Zdrojové soubory\libs\libcdio\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\libcdio-master\include\cdio\mmc.h">
-      <Filter>Zdrojové soubory\libs\libcdio\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\libcdio-master\include\cdio\mmc_cmds.h">
-      <Filter>Zdrojové soubory\libs\libcdio\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\libcdio-master\include\cdio\mmc_hl_cmds.h">
-      <Filter>Zdrojové soubory\libs\libcdio\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\libcdio-master\include\cdio\mmc_ll_cmds.h">
-      <Filter>Zdrojové soubory\libs\libcdio\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\libcdio-master\include\cdio\mmc_util.h">
-      <Filter>Zdrojové soubory\libs\libcdio\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\libcdio-master\include\cdio\posix.h">
-      <Filter>Zdrojové soubory\libs\libcdio\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\libcdio-master\include\cdio\read.h">
-      <Filter>Zdrojové soubory\libs\libcdio\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\libcdio-master\include\cdio\rock.h">
-      <Filter>Zdrojové soubory\libs\libcdio\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\libcdio-master\include\cdio\scsi_mmc.h">
-      <Filter>Zdrojové soubory\libs\libcdio\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\libcdio-master\include\cdio\sector.h">
-      <Filter>Zdrojové soubory\libs\libcdio\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\libcdio-master\include\cdio\track.h">
-      <Filter>Zdrojové soubory\libs\libcdio\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\libcdio-master\include\cdio\types.h">
-      <Filter>Zdrojové soubory\libs\libcdio\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\libcdio-master\include\cdio\udf.h">
-      <Filter>Zdrojové soubory\libs\libcdio\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\libcdio-master\include\cdio\udf_file.h">
-      <Filter>Zdrojové soubory\libs\libcdio\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\libcdio-master\include\cdio\udf_time.h">
-      <Filter>Zdrojové soubory\libs\libcdio\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\libcdio-master\include\cdio\utf8.h">
-      <Filter>Zdrojové soubory\libs\libcdio\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\libcdio-master\include\cdio\util.h">
-      <Filter>Zdrojové soubory\libs\libcdio\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\libcdio-master\include\cdio\version.h">
-      <Filter>Zdrojové soubory\libs\libcdio\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\libcdio-master\include\cdio\xa.h">
-      <Filter>Zdrojové soubory\libs\libcdio\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\libcdio-master\lib\iso9660\iso9660_private.h">
-      <Filter>Zdrojové soubory\libs\libcdio\iso9660</Filter>
+    <ClInclude Include="engine\cd_utils.h">
+      <Filter>Zdrojové soubory\engine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -704,110 +545,8 @@
     <ClCompile Include="engine\read_config.cpp">
       <Filter>Zdrojové soubory\engine</Filter>
     </ClCompile>
-    <ClCompile Include="..\libcdio-master\example\extract.c">
+    <ClCompile Include="engine\cd_utils.cpp">
       <Filter>Zdrojové soubory\engine</Filter>
-    </ClCompile>
-    <ClCompile Include="..\libcdio-master\lib\udf\filemode.c">
-      <Filter>Zdrojové soubory\libs\libcdio\udf</Filter>
-    </ClCompile>
-    <ClCompile Include="..\libcdio-master\lib\udf\udf.c">
-      <Filter>Zdrojové soubory\libs\libcdio\udf</Filter>
-    </ClCompile>
-    <ClCompile Include="..\libcdio-master\lib\udf\udf_file.c">
-      <Filter>Zdrojové soubory\libs\libcdio\udf</Filter>
-    </ClCompile>
-    <ClCompile Include="..\libcdio-master\lib\udf\udf_fs.c">
-      <Filter>Zdrojové soubory\libs\libcdio\udf</Filter>
-    </ClCompile>
-    <ClCompile Include="..\libcdio-master\lib\udf\udf_time.c">
-      <Filter>Zdrojové soubory\libs\libcdio\udf</Filter>
-    </ClCompile>
-    <ClCompile Include="..\libcdio-master\lib\driver\abs_path.c">
-      <Filter>Zdrojové soubory\libs\libcdio\driver</Filter>
-    </ClCompile>
-    <ClCompile Include="..\libcdio-master\lib\driver\audio.c">
-      <Filter>Zdrojové soubory\libs\libcdio\driver</Filter>
-    </ClCompile>
-    <ClCompile Include="..\libcdio-master\lib\driver\cdio.c">
-      <Filter>Zdrojové soubory\libs\libcdio\driver</Filter>
-    </ClCompile>
-    <ClCompile Include="..\libcdio-master\lib\driver\cdtext.c">
-      <Filter>Zdrojové soubory\libs\libcdio\driver</Filter>
-    </ClCompile>
-    <ClCompile Include="..\libcdio-master\lib\driver\cd_types.c">
-      <Filter>Zdrojové soubory\libs\libcdio\driver</Filter>
-    </ClCompile>
-    <ClCompile Include="..\libcdio-master\lib\driver\device.c">
-      <Filter>Zdrojové soubory\libs\libcdio\driver</Filter>
-    </ClCompile>
-    <ClCompile Include="..\libcdio-master\lib\driver\disc.c">
-      <Filter>Zdrojové soubory\libs\libcdio\driver</Filter>
-    </ClCompile>
-    <ClCompile Include="..\libcdio-master\lib\driver\ds.c">
-      <Filter>Zdrojové soubory\libs\libcdio\driver</Filter>
-    </ClCompile>
-    <ClCompile Include="..\libcdio-master\lib\driver\image_common.c">
-      <Filter>Zdrojové soubory\libs\libcdio\driver</Filter>
-    </ClCompile>
-    <ClCompile Include="..\libcdio-master\lib\driver\logging.c">
-      <Filter>Zdrojové soubory\libs\libcdio\driver</Filter>
-    </ClCompile>
-    <ClCompile Include="..\libcdio-master\lib\driver\memory.c">
-      <Filter>Zdrojové soubory\libs\libcdio\driver</Filter>
-    </ClCompile>
-    <ClCompile Include="..\libcdio-master\lib\driver\read.c">
-      <Filter>Zdrojové soubory\libs\libcdio\driver</Filter>
-    </ClCompile>
-    <ClCompile Include="..\libcdio-master\lib\driver\realpath.c">
-      <Filter>Zdrojové soubory\libs\libcdio\driver</Filter>
-    </ClCompile>
-    <ClCompile Include="..\libcdio-master\lib\driver\sector.c">
-      <Filter>Zdrojové soubory\libs\libcdio\driver</Filter>
-    </ClCompile>
-    <ClCompile Include="..\libcdio-master\lib\driver\track.c">
-      <Filter>Zdrojové soubory\libs\libcdio\driver</Filter>
-    </ClCompile>
-    <ClCompile Include="..\libcdio-master\lib\driver\utf8.c">
-      <Filter>Zdrojové soubory\libs\libcdio\driver</Filter>
-    </ClCompile>
-    <ClCompile Include="..\libcdio-master\lib\driver\util.c">
-      <Filter>Zdrojové soubory\libs\libcdio\driver</Filter>
-    </ClCompile>
-    <ClCompile Include="..\libcdio-master\lib\driver\_cdio_generic.c">
-      <Filter>Zdrojové soubory\libs\libcdio\driver</Filter>
-    </ClCompile>
-    <ClCompile Include="..\libcdio-master\lib\driver\_cdio_stdio.c">
-      <Filter>Zdrojové soubory\libs\libcdio\driver</Filter>
-    </ClCompile>
-    <ClCompile Include="..\libcdio-master\lib\driver\_cdio_stream.c">
-      <Filter>Zdrojové soubory\libs\libcdio\driver</Filter>
-    </ClCompile>
-    <ClCompile Include="..\libcdio-master\lib\driver\MSWindows\win32.c">
-      <Filter>Zdrojové soubory\libs\libcdio\driver\win32</Filter>
-    </ClCompile>
-    <ClCompile Include="..\libcdio-master\lib\driver\MSWindows\win32_ioctl.c">
-      <Filter>Zdrojové soubory\libs\libcdio\driver\win32</Filter>
-    </ClCompile>
-    <ClCompile Include="..\libcdio-master\lib\driver\image\bincue.c">
-      <Filter>Zdrojové soubory\libs\libcdio\driver\image</Filter>
-    </ClCompile>
-    <ClCompile Include="..\libcdio-master\lib\driver\image\cdrdao.c">
-      <Filter>Zdrojové soubory\libs\libcdio\driver\image</Filter>
-    </ClCompile>
-    <ClCompile Include="..\libcdio-master\lib\driver\image\nrg.c">
-      <Filter>Zdrojové soubory\libs\libcdio\driver\image</Filter>
-    </ClCompile>
-    <ClCompile Include="..\libcdio-master\lib\iso9660\iso9660.c">
-      <Filter>Zdrojové soubory\libs\libcdio\iso9660</Filter>
-    </ClCompile>
-    <ClCompile Include="..\libcdio-master\lib\iso9660\iso9660_fs.c">
-      <Filter>Zdrojové soubory\libs\libcdio\iso9660</Filter>
-    </ClCompile>
-    <ClCompile Include="..\libcdio-master\lib\iso9660\rock.c">
-      <Filter>Zdrojové soubory\libs\libcdio\iso9660</Filter>
-    </ClCompile>
-    <ClCompile Include="..\libcdio-master\lib\iso9660\xa.c">
-      <Filter>Zdrojové soubory\libs\libcdio\iso9660</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -832,8 +571,10 @@
     <None Include="..\Debug\config.ini">
       <Filter>Zdrojové soubory</Filter>
     </None>
-    <None Include="..\libcdio-master\include\cdio\version.h.in">
-      <Filter>Zdrojové soubory\libs\libcdio\include</Filter>
-    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="..\libcdio-master\lib\x86\libcdio.lib">
+      <Filter>Zdrojové soubory\libs\libcdio</Filter>
+    </Library>
   </ItemGroup>
 </Project>

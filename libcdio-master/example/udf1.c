@@ -21,7 +21,7 @@
 
 /* This is the UDF image. */
 #define UDF_IMAGE_PATH "../"
-#define UDF_IMAGE "/src2/cd-images/udf/UDF102ISO.iso"
+#define UDF_IMAGE "../test/data/udf102.iso"
 
 #ifdef HAVE_CONFIG_H
 #include "config.h"

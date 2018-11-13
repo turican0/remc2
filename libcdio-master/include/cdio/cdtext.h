@@ -27,7 +27,6 @@
 #ifndef CDIO_CDTEXT_H_
 #define CDIO_CDTEXT_H_
 
-#include "cdio.h"
 #include <cdio/types.h>
 
 #ifdef __cplusplus
@@ -204,17 +203,17 @@ typedef struct cdtext_s cdtext_t;
 /*!
   Return string representation of the given genre code.
 */
-CDIO_EXTERN const char *cdtext_genre2str (cdtext_genre_t i);
+const char *cdtext_genre2str (cdtext_genre_t i);
 
 /*!
   Return string representation of the given language code.
 */
-CDIO_EXTERN const char *cdtext_lang2str (cdtext_lang_t i);
+const char *cdtext_lang2str (cdtext_lang_t i);
 
 /*!
   Return string representation of given field type.
 */
-CDIO_EXTERN const char *cdtext_field2str (cdtext_field_t i);
+const char *cdtext_field2str (cdtext_field_t i);
 
 /*! 
   Initialize a new cdtext structure.
@@ -222,7 +221,7 @@ CDIO_EXTERN const char *cdtext_field2str (cdtext_field_t i);
   When the structure is no longer needed, release the 
   resources using cdtext_delete.
 */
-CDIO_EXTERN cdtext_t *cdtext_init (void);
+cdtext_t *cdtext_init (void);
 
 /*!
   Read a binary CD-TEXT and fill a cdtext struct.
@@ -233,14 +232,14 @@ CDIO_EXTERN cdtext_t *cdtext_init (void);
 
   @returns 0 on success, non-zero on failure
 */       
-CDIO_EXTERN int cdtext_data_init(cdtext_t *p_cdtext, uint8_t *wdata, size_t i_data);
+int cdtext_data_init(cdtext_t *p_cdtext, uint8_t *wdata, size_t i_data);
 
 /*!
   Free memory associated with the given cdtext_t object.
 
   @param p_cdtext the CD-TEXT object 
 */
-CDIO_EXTERN void cdtext_destroy (cdtext_t *p_cdtext);
+void cdtext_destroy (cdtext_t *p_cdtext);
 
 /*!
   Returns a copy of the return value of cdtext_get_const or NULL.
@@ -248,7 +247,7 @@ CDIO_EXTERN void cdtext_destroy (cdtext_t *p_cdtext);
   Must be freed using cdio_free() when done.
   @see cdtext_get_const
 */
-CDIO_EXTERN char *cdtext_get (const cdtext_t *p_cdtext, cdtext_field_t key, track_t track);
+char *cdtext_get (const cdtext_t *p_cdtext, cdtext_field_t key, track_t track);
 
 /*!
   Returns value of the given field.
@@ -260,7 +259,7 @@ CDIO_EXTERN char *cdtext_get (const cdtext_t *p_cdtext, cdtext_field_t key, trac
   @param field type of the field to return
   @param track specifies the track, 0 stands for disc
 */
-CDIO_EXTERN const char *cdtext_get_const (const cdtext_t *p_cdtext, cdtext_field_t field, 
+const char *cdtext_get_const (const cdtext_t *p_cdtext, cdtext_field_t field, 
                               track_t track);
 
 /*!
@@ -268,14 +267,28 @@ CDIO_EXTERN const char *cdtext_get_const (const cdtext_t *p_cdtext, cdtext_field
 
   @param p_cdtext the CD-TEXT object
 */
-CDIO_EXTERN cdtext_genre_t cdtext_get_genre (const cdtext_t *p_cdtext);
+cdtext_genre_t cdtext_get_genre (const cdtext_t *p_cdtext);
 
 /*!
   Returns the currently active language.
 
   @param p_cdtext the CD-TEXT object
 */
-CDIO_EXTERN cdtext_lang_t cdtext_get_language (const cdtext_t *p_cdtext);
+cdtext_lang_t cdtext_get_language (const cdtext_t *p_cdtext);
+
+/*!
+  Returns the first track number.
+
+  @param p_cdtext the CD-TEXT object
+*/
+track_t cdtext_get_first_track(const cdtext_t *p_cdtext);
+
+/*!
+  Returns the last track number.
+
+  @param p_cdtext the CD-TEXT object
+*/
+track_t cdtext_get_last_track(const cdtext_t *p_cdtext);
 
 /*!
   Try to select the given language.
@@ -285,7 +298,7 @@ CDIO_EXTERN cdtext_lang_t cdtext_get_language (const cdtext_t *p_cdtext);
 
   @return true on success, false if language is not available
 */
-CDIO_EXTERN bool cdtext_select_language(cdtext_t *p_cdtext, cdtext_lang_t language);
+bool cdtext_select_language(cdtext_t *p_cdtext, cdtext_lang_t language);
 
 /*
   Returns a list of available languages or NULL.
@@ -294,7 +307,7 @@ CDIO_EXTERN bool cdtext_select_language(cdtext_t *p_cdtext, cdtext_lang_t langua
 
   @param p_cdtext the CD-TEXT object
 */
-CDIO_EXTERN cdtext_lang_t *cdtext_list_languages (const cdtext_t *p_cdtext);
+cdtext_lang_t *cdtext_list_languages (const cdtext_t *p_cdtext);
 
 /*! 
   Sets the given field at the given track to the given value.
@@ -307,7 +320,7 @@ CDIO_EXTERN cdtext_lang_t *cdtext_list_languages (const cdtext_t *p_cdtext);
   @param track track to work on
   @param charset charset to convert from
  */
-CDIO_EXTERN void cdtext_set (cdtext_t *p_cdtext, cdtext_field_t key, const uint8_t *value, track_t track, const char *charset);
+void cdtext_set (cdtext_t *p_cdtext, cdtext_field_t key, const uint8_t *value, track_t track, const char *charset);
 
 #ifdef __cplusplus
 }

@@ -43,8 +43,9 @@
 #ifdef HAVE_WINDOWS_H
 #include <windows.h>
 #endif
-#if !defined(HAVE_SLEEP) && defined(_WIN32)
+#ifdef _WIN32
 #include <windows.h>
+#undef sleep
 #define sleep(s) Sleep(1000*s)
 #endif
 

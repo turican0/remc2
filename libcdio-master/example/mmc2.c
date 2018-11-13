@@ -1,5 +1,5 @@
 /*
-  Copyright (C) 2004-2005, 2008-2009, 2012, 2014
+  Copyright (C) 2004-2005, 2008-2009, 2012, 2014, 2017
   Rocky Bernstein <rocky@gnu.org>
 
   This program is free software: you can redistribute it and/or modify
@@ -75,25 +75,27 @@ main(int argc, const char *argv[])
 
 	i_feature = CDIO_MMC_GET_LEN16(p);
 	{
-	  uint8_t *q;
 	  const char *feature_str = mmc_feature2str(i_feature);
 	  printf("-- %s Feature\n", feature_str);
 	  switch( i_feature )
 	    {
 	    case CDIO_MMC_FEATURE_PROFILE_LIST:
-	      for ( q = p+4 ; q < p + i_feature_additional ; q += 4 ) {
-		int i_profile=CDIO_MMC_GET_LEN16(q);
-		const char *feature_profile_str =
-		  mmc_feature_profile2str(i_profile);
-		printf( "-- \t%s", feature_profile_str );
-		if (q[2] & 1) {
-		  printf(" - on");
+	      {
+		uint8_t *q;
+		for ( q = p+4 ; q < p + i_feature_additional ; q += 4 ) {
+		  int i_profile=CDIO_MMC_GET_LEN16(q);
+		  const char *feature_profile_str =
+		    mmc_feature_profile2str(i_profile);
+		  printf( "-- \t%s", feature_profile_str );
+		  if (q[2] & 1) {
+		    printf(" - on");
+		  }
+		  printf("\n");
 		}
 		printf("\n");
-	      }
-	      printf("\n");
 
-	      break;
+		break;
+	      }
 	    case CDIO_MMC_FEATURE_CORE:
 	      {
 		uint8_t *q = p+4;

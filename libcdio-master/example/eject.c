@@ -1,8 +1,6 @@
 /*
-  $Id: eject.c,v 1.5 2008/03/24 15:30:55 karl Exp $
-
   Copyright (C) 2005, 2006, 2008 Rocky Bernstein <rocky@gnu.org>
-  
+
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
   the Free Software Foundation, either version 3 of the License, or
@@ -19,10 +17,10 @@
 
 /* Simple program to eject a CD-ROM drive door and then close it again.
 
-   If a single argument is given, it is used as the CD-ROM device to 
+   If a single argument is given, it is used as the CD-ROM device to
    eject/close. Otherwise a CD-ROM drive will be scanned for.
 
-   See also corresponding C++ program of a similar name. 
+   See also corresponding C++ program of a similar name.
 */
 #ifdef HAVE_CONFIG_H
 #include "config.h"
@@ -47,8 +45,8 @@ main(int argc, const char *argv[])
   driver_return_code_t ret;
   driver_id_t driver_id = DRIVER_DEVICE;
   char *psz_drive = NULL;
-  
-  if (argc > 1) 
+
+  if (argc > 1)
     psz_drive = strdup(argv[1]);
 
   if (!psz_drive) {
@@ -70,7 +68,7 @@ main(int argc, const char *argv[])
     printf("Eject of CD-ROM drive %s failed.\n", psz_drive);
     break;
   }
-  
+
   if (DRIVER_OP_SUCCESS == cdio_close_tray(psz_drive, &driver_id)) {
     printf("Closed tray of CD-ROM drive %s.\n", psz_drive);
   } else {
@@ -93,7 +91,7 @@ main(int argc, const char *argv[])
 
   driver_id = DRIVER_DEVICE;
   if (DRIVER_OP_SUCCESS == cdio_close_tray(NULL, &driver_id)) {
-    printf("Closed tray of CD-ROM drive for default disc driver:\n\t%s\n", 
+    printf("Closed tray of CD-ROM drive for default disc driver:\n\t%s\n",
 	   cdio_driver_describe(driver_id));
   } else {
     printf("Closing tray of CD-ROM drive failed for default "

@@ -1,9 +1,0 @@
-/cue.tab.c
-/cue.tab.h
-/cuelexer
-/cueparser
-/toc.tab.c
-/toc.tab.h
-/tocparser
-/lex.cuelex.c
-/lex.cue.c

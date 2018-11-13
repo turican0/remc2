@@ -1,5 +1,6 @@
 /*
-  Copyright (C) 2005, 2008-2009, 2012, 2014 Rocky Bernstein <rocky@gnu.org>
+  Copyright (C) 2005, 2008-2009, 2012, 2014, 2017 Rocky Bernstein
+  <rocky@gnu.org>
 
   Adapted from Gerd Knorr's player.c program  <kraxel@bytesex.org>
   Copyright (C) 1997, 1998
@@ -56,7 +57,7 @@
 
 static bool play_track(track_t t1, track_t t2);
 
-static CdIo_t             *p_cdio = NULL;            /* libcdio handle */
+static CdIo_t             *p_cdio_global = NULL;         /* libcdio handle */
 static driver_id_t        driver_id = DRIVER_DEVICE;
 
 /* cdrom data */
@@ -79,7 +80,7 @@ static bool               debug        = false;
 static bool               b_record = false; /* we have a record for
 					the inserted CD */
 
-static char *psz_device=NULL;
+static char *psz_device_global=NULL;
 static char *psz_program;
 
 inline static void
@@ -96,8 +97,8 @@ xperror(const char *psz_msg)
 static void
 oops(const char *psz_msg, int rc)
 {
-  cdio_destroy (p_cdio);
-  free (psz_device);
+  cdio_destroy (p_cdio_global);
+  free (psz_device_global);
   exit (rc);
 }
 
@@ -122,13 +123,13 @@ static bool
 cd_eject(void)
 {
   bool b_ok = true;
-  if (p_cdio) {
-    cd_stop(p_cdio);
-    b_ok = DRIVER_OP_SUCCESS == cdio_eject_media(&p_cdio);
+  if (p_cdio_global) {
+    cd_stop(p_cdio_global);
+    b_ok = DRIVER_OP_SUCCESS == cdio_eject_media(&p_cdio_global);
     if (!b_ok)
       xperror("eject");
     b_cd = false;
-    p_cdio = NULL;
+    p_cdio_global = NULL;
   }
   return b_ok;
 }
@@ -230,11 +231,11 @@ play_track(track_t i_start_track, track_t i_end_track)
   bool b_ok = true;
 
   if (!b_cd) {
-    cd_close(psz_device);
-    read_toc(p_cdio);
+    cd_close(psz_device_global);
+    read_toc(p_cdio_global);
   }
 
-  read_subchannel(p_cdio);
+  read_subchannel(p_cdio_global);
   if (!b_cd || i_first_track == CDIO_CDROM_LEADOUT_TRACK)
     return false;
 
@@ -247,8 +248,8 @@ play_track(track_t i_start_track, track_t i_end_track)
   if (debug)
     fprintf(stderr,"%d-%d\n",i_start_track, i_end_track);
 
-  cd_pause(p_cdio);
-  b_ok = (DRIVER_OP_SUCCESS == cdio_audio_play_msf(p_cdio,
+  cd_pause(p_cdio_global);
+  b_ok = (DRIVER_OP_SUCCESS == cdio_audio_play_msf(p_cdio_global,
 						   &(toc[i_start_track]),
 						   &(toc[i_end_track])) );
   if (!b_ok) xperror("play");
@@ -374,7 +375,7 @@ main(int argc, char *argv[])
   }
 
   if (argc > optind) {
-    psz_device = strdup(argv[optind]);
+    psz_device_global = strdup(argv[optind]);
   } else {
     char **ppsz_cdda_drives=NULL;
     char **ppsz_all_cd_drives = cdio_get_devices_ret(&driver_id);
@@ -389,26 +390,26 @@ main(int argc, char *argv[])
       fprintf(stderr, "Can't find a CD-ROM drive with a CD-DA in it\n");
       exit(3);
     }
-    psz_device = strdup(ppsz_cdda_drives[0]);
+    psz_device_global = strdup(ppsz_cdda_drives[0]);
     cdio_free_device_list(ppsz_all_cd_drives);
     cdio_free_device_list(ppsz_cdda_drives);
   }
 
   if (!b_cd && todo != EJECT_CD) {
-    cd_close(psz_device);
+    cd_close(psz_device_global);
   }
 
   /* open device */
   if (b_verbose)
-    fprintf(stderr,"open %s... ", psz_device);
+    fprintf(stderr,"open %s... ", psz_device_global);
 
-  p_cdio = cdio_open (psz_device, driver_id);
+  p_cdio_global = cdio_open (psz_device_global, driver_id);
 
-  if (!p_cdio) {
+  if (!p_cdio_global) {
     if (b_verbose)
       fprintf(stderr, "error: %s\n", strerror(errno));
     else
-      fprintf(stderr, "open %s: %s\n", psz_device, strerror(errno));
+      fprintf(stderr, "open %s: %s\n", psz_device_global, strerror(errno));
     exit(1);
   } else
     if (b_verbose) fprintf(stderr,"ok\n");
@@ -416,17 +417,17 @@ main(int argc, char *argv[])
   if (EJECT_CD == todo) {
     i_rc = cd_eject() ? 0 : 1;
   } else {
-    read_toc(p_cdio);
+    read_toc(p_cdio_global);
     if (!b_cd) {
-      cd_close(psz_device);
-      read_toc(p_cdio);
+      cd_close(psz_device_global);
+      read_toc(p_cdio_global);
     }
     if (b_cd)
       switch (todo) {
       case NO_OP:
 	break;
       case STOP_PLAYING:
-	i_rc = cd_stop(p_cdio) ? 0 : 1;
+	i_rc = cd_stop(p_cdio_global) ? 0 : 1;
 	break;
       case EJECT_CD:
 	/* Should have been handled above before case statement. gcc
@@ -442,19 +443,19 @@ main(int argc, char *argv[])
 	  play_track(1,CDIO_CDROM_LEADOUT_TRACK);
 	  break;
 	case CLOSE_CD:
-	  i_rc = cdio_close_tray(psz_device, NULL) ? 0 : 1;
+	  i_rc = cdio_close_tray(psz_device_global, NULL) ? 0 : 1;
 	  break;
 	case SET_VOLUME:
 	  {
 	    cdio_audio_volume_t volume;
 	    volume.level[0] = i_volume_level;
-	    i_rc = (DRIVER_OP_SUCCESS == cdio_audio_set_volume(p_cdio,
+	    i_rc = (DRIVER_OP_SUCCESS == cdio_audio_set_volume(p_cdio_global,
 							       &volume))
 	      ? 0 : 1;
 	    break;
 	  }
 	case LIST_SUBCHANNEL:
-	  if (read_subchannel(p_cdio)) {
+	  if (read_subchannel(p_cdio_global)) {
 	    if (sub.audio_status == CDIO_MMC_READ_SUB_ST_PAUSED ||
 		sub.audio_status == CDIO_MMC_READ_SUB_ST_PLAY) {
 	      {
@@ -471,7 +472,7 @@ main(int argc, char *argv[])
 	  break;
       }
       else {
-	fprintf(stderr,"no CD in drive (%s)\n", psz_device);
+	fprintf(stderr,"no CD in drive (%s)\n", psz_device_global);
       }
   }
 

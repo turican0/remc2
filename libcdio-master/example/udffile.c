@@ -1,7 +1,7 @@
 /*
-  Copyright (C) 2005, 2006, 2008, 2009, 2010, 2011
+  Copyright (C) 2005, 2006, 2008-2011, 2017
    Rocky Bernstein <rocky@gnu.org>
-  
+
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
   the Free Software Foundation, either version 3 of the License, or
@@ -18,7 +18,7 @@
 
 /* Simple program to show using libudf to extract a file.
 
-   This program can be compiled with either a C or C++ compiler. In 
+   This program can be compiled with either a C or C++ compiler. In
    the distribution we prefer C++ just to make sure we haven't broken
    things on the C++ side.
  */
@@ -32,7 +32,7 @@
 
 /* This is the UDF image. */
 #define UDF_IMAGE_PATH "../"
-#define UDF_IMAGE "../test/udf102.iso"
+#define UDF_IMAGE "../test/data/udf102.iso"
 #define UDF_FILENAME "/COPYING"
 #define LOCAL_FILENAME "copying"
 
@@ -71,48 +71,52 @@ main(int argc, const char *argv[])
   char const *psz_udf_fname;
   char const *psz_local_fname;
 
-  if (argc > 1) 
+  if (argc > 1)
     psz_udf_image = argv[1];
-  else 
+  else
     psz_udf_image = UDF_IMAGE;
 
-  if (argc > 2) 
+  if (argc > 2)
     psz_udf_fname = argv[2];
-  else 
+  else
     psz_udf_fname = UDF_FILENAME;
 
-  if (argc > 3) 
+  if (argc > 3)
     psz_local_fname = argv[3];
-  else 
+  else
     psz_local_fname = LOCAL_FILENAME;
 
 
   p_udf = udf_open (psz_udf_image);
-  
+
   if (NULL == p_udf) {
-    fprintf(stderr, "Sorry, couldn't open %s as something using UDF\n", 
+    fprintf(stderr, "Sorry, couldn't open %s as something using UDF\n",
 	    psz_udf_image);
     return 1;
   } else {
     udf_dirent_t *p_udf_root = udf_get_root(p_udf, true, 0);
     udf_dirent_t *p_udf_file = NULL;
     if (NULL == p_udf_root) {
-      fprintf(stderr, "Sorry, couldn't find / in %s\n", 
+      fprintf(stderr, "Sorry, couldn't find / in %s\n",
 	      psz_udf_image);
+      udf_close(p_udf);
       return 1;
     }
-    
+
     p_udf_file = udf_fopen(p_udf_root, psz_udf_fname);
     if (!p_udf_file) {
-      fprintf(stderr, "Sorry, couldn't find %s in %s\n", 
+      fprintf(stderr, "Sorry, couldn't find %s in %s\n",
 	      psz_udf_fname, psz_udf_image);
+      udf_close(p_udf);
       return 2;
-      
+
     }
 
     if (!(p_outfd = fopen (psz_local_fname, "wb")))
       {
 	perror ("fopen()");
+	udf_close(p_udf);
+	udf_dirent_free(p_udf_file);
 	return 3;
     }
 
@@ -139,6 +143,7 @@ main(int argc, const char *argv[])
       }
 
       fflush (p_outfd);
+      udf_dirent_free(p_udf_file);
       udf_dirent_free(p_udf_root);
       udf_close(p_udf);
       /* Make sure the file size has the exact same byte size. Without the
@@ -146,12 +151,11 @@ main(int argc, const char *argv[])
       */
       if (ftruncate (fileno (p_outfd), i_file_length))
 	perror ("ftruncate()");
-      
-      printf("Extraction of file '%s' from %s successful.\n", 
+
+      printf("Extraction of file '%s' from %s successful.\n",
 	     psz_local_fname, psz_udf_image);
-      
+
       return 0;
     }
   }
 }
-

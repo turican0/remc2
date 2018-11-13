@@ -1,7 +1,7 @@
 /*
-  Copyright (C) 2004, 2005, 2008, 2009, 2010, 2011, 2012
+  Copyright (C) 2004, 2005, 2008-2012, 2017
    Rocky Bernstein <rocky@gnu.org>
-  
+
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
   the Free Software Foundation, either version 3 of the License, or
@@ -16,7 +16,7 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/* Sample program to show use of the MMC interface. 
+/* Sample program to show use of the MMC interface.
    An optional drive name can be supplied as an argument.
    This basically the libdio mmc_get_hwinfo() routine.
    See also corresponding C++ programs.
@@ -63,24 +63,24 @@ main(int argc, const char *argv[])
     CDIO_MMC_SET_COMMAND(cdb.field, CDIO_MMC_GPCMD_INQUIRY);
     cdb.field[4] = sizeof(buf);
 
-    i_status = mmc_run_cmd(p_cdio, DEFAULT_TIMEOUT_MS, &cdb, 
+    i_status = mmc_run_cmd(p_cdio, DEFAULT_TIMEOUT_MS, &cdb,
 			   SCSI_MMC_DATA_READ, sizeof(buf), &buf);
     if (i_status == 0) {
 	char psz_vendor[CDIO_MMC_HW_VENDOR_LEN+1];
 	char psz_model[CDIO_MMC_HW_MODEL_LEN+1];
 	char psz_rev[CDIO_MMC_HW_REVISION_LEN+1];
-	
+
 	memcpy(psz_vendor, buf + 8, sizeof(psz_vendor)-1);
 	psz_vendor[sizeof(psz_vendor)-1] = '\0';
 	memcpy(psz_model,
-	       buf + 8 + CDIO_MMC_HW_VENDOR_LEN, 
+	       buf + 8 + CDIO_MMC_HW_VENDOR_LEN,
 	       sizeof(psz_model)-1);
 	psz_model[sizeof(psz_model)-1] = '\0';
 	memcpy(psz_rev,
 	       buf + 8 + CDIO_MMC_HW_VENDOR_LEN +CDIO_MMC_HW_MODEL_LEN,
 	       sizeof(psz_rev)-1);
 	psz_rev[sizeof(psz_rev)-1] = '\0';
-	
+
 	printf("-- Vendor: %s\n-- Model: %s\n-- Revision: %s\n",
 	       psz_vendor, psz_model, psz_rev);
     } else {
@@ -88,11 +88,10 @@ main(int argc, const char *argv[])
     }
 
     {
-	driver_return_code_t i_status;
 	bool b_erasable;
+	cdio_mmc_feature_profile_t disctype;
 
 	i_status = mmc_get_disc_erasable(p_cdio, &b_erasable);
-	cdio_mmc_feature_profile_t disctype;
 	if (DRIVER_OP_SUCCESS == i_status)
 	    printf("-- Disc is %serasable.\n", b_erasable ? "" : "not ");
 	else
@@ -100,15 +99,15 @@ main(int argc, const char *argv[])
 
 	i_status = mmc_get_disctype(p_cdio, 0, &disctype);
 	if (DRIVER_OP_SUCCESS == i_status) {
-	    printf("-- disc type: profile is %s (0x%X)\n", 
-		   mmc_feature_profile2str(disctype), 
+	    printf("-- disc type: profile is %s (0x%X)\n",
+		   mmc_feature_profile2str(disctype),
 		   disctype);
 	}
     }
 
   }
-  
+
   cdio_destroy(p_cdio);
-  
+
   return 0;
 }

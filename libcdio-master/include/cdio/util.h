@@ -21,14 +21,13 @@
 #define CDIO_UTIL_H_
 
 /*!
-   \file util.h 
-   \brief Miscellaneous utility functions. 
+   \file util.h
+   \brief Miscellaneous utility functions.
 
    Warning: this will probably get removed/replaced by using glib.h
 */
 #include <stdlib.h>
 #include <cdio/types.h>
-#include "cdio.h"
 
 #if !defined CDIO_INLINE
 #if defined(__cplusplus) || defined(inline)
@@ -48,7 +47,8 @@
 #undef  MIN
 #define MIN(a, b)  (((a) < (b)) ? (a) : (b))
 
-#define BETWEEN(x, low, high) ((x) >= (low) && (x) <= (high))
+#undef  IN
+#define IN(x, low, high) ((x) >= (low) && (x) <= (high))
 
 #undef  CLAMP
 #define CLAMP(x, low, high)  (((x) > (high)) ? (high) : (((x) < (low)) ? (low) : (x)))
@@ -65,8 +65,14 @@ _cdio_len2blocks (uint32_t i_len, uint16_t i_blocksize)
   return i_blocks;
 }
 
+
+/*! free() and NULL out p_obj it is not already null. */
+#define CDIO_FREE_IF_NOT_NULL(p_obj) \
+  if (NULL != p_obj) { free(p_obj); p_obj=NULL; };
+
+
 /* round up to next block boundary */
-static CDIO_INLINE unsigned 
+static CDIO_INLINE unsigned
 _cdio_ceil2block (unsigned offset, uint16_t i_blocksize)
 {
   return _cdio_len2blocks (offset, i_blocksize) * i_blocksize;
@@ -99,11 +105,11 @@ _cdio_memdup (const void *mem, size_t count);
 char *
 _cdio_strdup_upper (const char str[]);
 
-/* Duplicate path and make it platform compliant. Typically needed for
-   MinGW/MSYS where a "/c/..." path must be translated to "c:/..." for
-   use with fopen(), etc. Returned string must be freed by the caller
-   using cdio_free(). */
-char * 
+/*! Duplicate path and make it platform compliant. Typically needed for
+    MinGW/MSYS where a "/c/..." path must be translated to "c:/..." for
+    use with fopen(), etc. Returned string must be freed by the caller
+    using cdio_free(). */
+char *
 _cdio_strdup_fixpath (const char path[]);
 
 void
@@ -115,8 +121,8 @@ _cdio_strlenv(char **str_array);
 char **
 _cdio_strsplit(const char str[], char delim);
 
-CDIO_EXTERN uint8_t cdio_to_bcd8(uint8_t n);
-CDIO_EXTERN uint8_t cdio_from_bcd8(uint8_t p);
+uint8_t cdio_to_bcd8(uint8_t n);
+uint8_t cdio_from_bcd8(uint8_t p);
 
 /*!  cdio_realpath() same as POSIX.1-2001 realpath if that's
 around. If not we do poor-man's simulation of that behavior.  */
@@ -125,7 +131,7 @@ char *cdio_realpath (const char *psz_src, char *psz_dst);
 #ifdef WANT_FOLLOW_SYMLINK_COMPATIBILITY
 # define cdio_follow_symlink cdio_realpath
 #endif
-  
+
 #ifdef __cplusplus
 }
 #endif
@@ -133,7 +139,7 @@ char *cdio_realpath (const char *psz_src, char *psz_dst);
 #endif /* CDIO_UTIL_H_ */
 
 
-/* 
+/*
  * Local variables:
  *  c-file-style: "gnu"
  *  tab-width: 8

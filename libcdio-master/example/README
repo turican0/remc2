@@ -29,6 +29,8 @@ cdio-eject.c: a stripped-down "eject" command to open or close a CDROM
 
 cdtext.c:    A program to show CD-Text and CD disc mode info.
 
+cdtext-raw.c:    A program to show CD-Text parsing from binary files.
+
 device.c:    A program to show drivers installed and what the default
              CD-ROM drive is. See also corresponding C++ programs of similar
              names.

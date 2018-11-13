@@ -29,6 +29,8 @@
 #ifndef CDIO_ROCK_H_
 #define CDIO_ROCK_H_
 
+#define mode_t unsigned short
+
 #include <cdio/types.h>
 
 #ifdef __cplusplus
@@ -315,15 +317,15 @@ typedef struct iso_rock_statbuf_s {
 PRAGMA_END_PACKED
 
 /*! return length of name field; 0: not found, -1: to be ignored */
-CDIO_EXTERN int get_rock_ridge_filename(iso9660_dir_t * de, /*out*/ char * retname, 
+int get_rock_ridge_filename(iso9660_dir_t * de, /*out*/ char * retname, 
                             /*out*/ iso9660_stat_t *p_stat);
 
-  CDIO_EXTERN int parse_rock_ridge_stat(iso9660_dir_t *de, /*out*/ iso9660_stat_t *p_stat);
+  int parse_rock_ridge_stat(iso9660_dir_t *de, /*out*/ iso9660_stat_t *p_stat);
 
   /*!
     Returns POSIX mode bitstring for a given file.
   */
-  CDIO_EXTERN mode_t 
+  mode_t 
   iso9660_get_posix_filemode_from_rock(const iso_rock_statbuf_t *rr);
 
 /*!
@@ -359,7 +361,7 @@ CDIO_EXTERN int get_rock_ridge_filename(iso9660_dir_t * de, /*out*/ char * retna
   group/user is set "S" indicates this. If none of these properties
   holds the "-" indicates this.
 */
-CDIO_EXTERN const char *iso9660_get_rock_attr_str(posix_mode_t st_mode);
+const char *iso9660_get_rock_attr_str(posix_mode_t st_mode);
 
 /** These variables are not used, but are defined to facilatate debugging
     by letting us use enumerations values (which also correspond to 

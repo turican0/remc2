@@ -1,5 +1,5 @@
 /*
-    Copyright (C) 2003-2008, 2012-2013
+    Copyright (C) 2003-2008, 2012-2013, 2017
                   Rocky Bernstein <rocky@gnu.org>
     Copyright (C) 2000 Herbert Valerio Riedel <hvr@gnu.org>
 
@@ -506,6 +506,18 @@ typedef struct iso9660_svd_s  iso9660_svd_t;
 
 PRAGMA_END_PACKED
 
+/*! \brief A data type for a list of ISO9660
+  statbuf file pointers returned from the various
+  Cdio iso9660 readdir routines.
+ */
+typedef CdioList_t CdioISO9660FileList_t;
+
+/*! \brief A data type for a list of ISO9660
+  statbuf drectory pointer returned from the variious
+  Cdio iso9660 readdir routines.
+ */
+typedef CdioList_t CdioISO9660DirList_t;
+
 /*! \brief Unix stat-like version of iso9660_dir
 
    The iso9660_stat structure is not part of the ISO-9660
@@ -563,17 +575,26 @@ typedef struct _iso9660_s iso9660_t;
     associated with the image. Call this when done using using an ISO
     9660 image.
 
+    @param p_iso the ISO-9660 file image to get data from
+
     @return true is unconditionally returned. If there was an error
-    false would be returned.
+    false would be returned. Resources associated with p_iso are
+    freed.
   */
-  CDIO_EXTERN bool iso9660_close (iso9660_t * p_iso);
+  bool iso9660_close (iso9660_t * p_iso);
 
 
   /*!
     Open an ISO 9660 image for reading. Maybe in the future we will have
     a mode. NULL is returned on error.
+
+    @param psz_path full path of ISO9660 file.
+
+
+    @return a IS9660 structure  is unconditionally returned. The caller
+    should call iso9660_close() when done.
   */
-  CDIO_EXTERN iso9660_t *iso9660_open (const char *psz_path /*flags, mode */);
+  iso9660_t *iso9660_open (const char *psz_path /*flags, mode */);
 
   /*!
     Open an ISO 9660 image for reading allowing various ISO 9660
@@ -582,7 +603,7 @@ typedef struct _iso9660_s iso9660_t;
 
     @see iso9660_open_fuzzy
   */
-  CDIO_EXTERN iso9660_t *iso9660_open_ext (const char *psz_path,
+  iso9660_t *iso9660_open_ext (const char *psz_path,
                                iso_extension_mask_t iso_extension_mask);
 
   /*! Open an ISO 9660 image for "fuzzy" reading. This means that we
@@ -599,7 +620,7 @@ typedef struct _iso9660_s iso9660_t;
 
     @see iso9660_open, @see iso9660_fuzzy_ext
   */
-  CDIO_EXTERN iso9660_t *iso9660_open_fuzzy (const char *psz_path /*flags, mode */,
+  iso9660_t *iso9660_open_fuzzy (const char *psz_path /*flags, mode */,
                                  uint16_t i_fuzz);
 
   /*!
@@ -611,7 +632,7 @@ typedef struct _iso9660_s iso9660_t;
 
     @see iso9660_open_ext @see iso9660_open_fuzzy
   */
-  CDIO_EXTERN iso9660_t *iso9660_open_fuzzy_ext (const char *psz_path,
+  iso9660_t *iso9660_open_fuzzy_ext (const char *psz_path,
                                      iso_extension_mask_t iso_extension_mask,
                                      uint16_t i_fuzz
                                      /*flags, mode */);
@@ -622,7 +643,7 @@ typedef struct _iso9660_s iso9660_t;
     not reading an ISO 9660 image but a CD-Image which contains an ISO 9660
     filesystem.
   */
-  CDIO_EXTERN bool iso9660_ifs_fuzzy_read_superblock (iso9660_t *p_iso,
+  bool iso9660_ifs_fuzzy_read_superblock (iso9660_t *p_iso,
                                           iso_extension_mask_t iso_extension_mask,
                                           uint16_t i_fuzz);
 
@@ -642,21 +663,21 @@ typedef struct _iso9660_s iso9660_t;
     @return number of bytes (not blocks) read
 
   */
-  CDIO_EXTERN long int iso9660_iso_seek_read (const iso9660_t *p_iso, /*out*/ void *ptr,
+  long int iso9660_iso_seek_read (const iso9660_t *p_iso, /*out*/ void *ptr,
                                   lsn_t start, long int i_size);
 
   /*!
     Read the Primary Volume Descriptor for a CD.
     True is returned if read, and false if there was an error.
   */
-  CDIO_EXTERN bool iso9660_fs_read_pvd ( const CdIo_t *p_cdio,
+  bool iso9660_fs_read_pvd ( const CdIo_t *p_cdio,
                              /*out*/ iso9660_pvd_t *p_pvd );
 
   /*!
     Read the Primary Volume Descriptor for an ISO 9660 image.
     True is returned if read, and false if there was an error.
   */
-  CDIO_EXTERN bool iso9660_ifs_read_pvd (const iso9660_t *p_iso,
+  bool iso9660_ifs_read_pvd (const iso9660_t *p_iso,
                              /*out*/ iso9660_pvd_t *p_pvd);
 
   /*!
@@ -664,7 +685,7 @@ typedef struct _iso9660_s iso9660_t;
     Primary Volume Descriptor (PVD) and perhaps a Supplemental Volume
     Descriptor if (Joliet) extensions are acceptable.
   */
-  CDIO_EXTERN bool iso9660_fs_read_superblock (CdIo_t *p_cdio,
+  bool iso9660_fs_read_superblock (CdIo_t *p_cdio,
                                    iso_extension_mask_t iso_extension_mask);
 
   /*!
@@ -672,7 +693,7 @@ typedef struct _iso9660_s iso9660_t;
     Primary Volume Descriptor (PVD) and perhaps a Supplemental Volume
     Descriptor if (Joliet) extensions are acceptable.
   */
-  CDIO_EXTERN bool iso9660_ifs_read_superblock (iso9660_t *p_iso,
+  bool iso9660_ifs_read_superblock (iso9660_t *p_iso,
                                     iso_extension_mask_t iso_extension_mask);
 
 
@@ -684,7 +705,7 @@ typedef struct _iso9660_s iso9660_t;
     Set time in format used in ISO 9660 directory index record
     from a Unix time structure.
   */
-  CDIO_EXTERN void iso9660_set_dtime (const struct tm *tm,
+  void iso9660_set_dtime (const struct tm *tm,
                           /*out*/ iso9660_dtime_t *idr_date);
 
 
@@ -693,20 +714,20 @@ typedef struct _iso9660_s iso9660_t;
     from a Unix time structure. timezone is given as an offset
     correction in minutes.
   */
-  CDIO_EXTERN void iso9660_set_dtime_with_timezone (const struct tm *p_tm,
+  void iso9660_set_dtime_with_timezone (const struct tm *p_tm,
                                         int timezone,
                                         /*out*/ iso9660_dtime_t *p_idr_date);
 
   /*!
     Set "long" time in format used in ISO 9660 primary volume descriptor
     from a Unix time structure. */
-  CDIO_EXTERN void iso9660_set_ltime (const struct tm *_tm,
+  void iso9660_set_ltime (const struct tm *_tm,
                           /*out*/ iso9660_ltime_t *p_pvd_date);
 
   /*!
     Set "long" time in format used in ISO 9660 primary volume descriptor
     from a Unix time structure. */
-  CDIO_EXTERN void iso9660_set_ltime_with_timezone (const struct tm *_tm,
+  void iso9660_set_ltime_with_timezone (const struct tm *_tm,
                                         int timezone,
                                         /*out*/ iso9660_ltime_t *p_pvd_date);
 
@@ -718,7 +739,7 @@ typedef struct _iso9660_s iso9660_t;
     If tm is to reflect the localtime, set "b_localtime" true, otherwise
     tm will reported in GMT.
   */
-  CDIO_EXTERN bool iso9660_get_dtime (const iso9660_dtime_t *idr_date, bool b_localtime,
+  bool iso9660_get_dtime (const iso9660_dtime_t *idr_date, bool b_localtime,
                           /*out*/ struct tm *tm);
 
 
@@ -726,7 +747,7 @@ typedef struct _iso9660_s iso9660_t;
     Get "long" time in format used in ISO 9660 primary volume descriptor
     from a Unix time structure.
   */
-  CDIO_EXTERN bool iso9660_get_ltime (const iso9660_ltime_t *p_ldate,
+  bool iso9660_get_ltime (const iso9660_ltime_t *p_ldate,
                           /*out*/ struct tm *p_tm);
 
   /*====================================================
@@ -737,14 +758,14 @@ typedef struct _iso9660_s iso9660_t;
     ISO-9600 level 1 directory name. These are the ASCII capital
     letters A-Z, the digits 0-9 and an underscore.
   */
-  CDIO_EXTERN bool iso9660_is_dchar (int c);
+  bool iso9660_is_dchar (int c);
 
   /*!
     Return true if c is an ACHAR -
     These are the DCHAR's plus some ASCII symbols including the space
     symbol.
   */
-  CDIO_EXTERN bool iso9660_is_achar (int c);
+  bool iso9660_is_achar (int c);
 
   /*!
     Convert an ISO-9660 file name which is in the format usually stored
@@ -757,7 +778,7 @@ typedef struct _iso9660_s iso9660_t;
     it should be at least the size of psz_oldname.
     @return length of the translated string is returned.
   */
-  CDIO_EXTERN int iso9660_name_translate(const char *psz_oldname,
+  int iso9660_name_translate(const char *psz_oldname,
                              /*out*/ char *psz_newname);
 
   /*!
@@ -775,7 +796,7 @@ typedef struct _iso9660_s iso9660_t;
     @return length of the translated string is returned. It will be no greater
     than the length of psz_oldname.
   */
-  CDIO_EXTERN int iso9660_name_translate_ext(const char *psz_oldname, char *psz_newname,
+  int iso9660_name_translate_ext(const char *psz_oldname, char *psz_newname,
                                  uint8_t i_joliet_level);
 
   /*!
@@ -789,7 +810,7 @@ typedef struct _iso9660_s iso9660_t;
     In addition to getting changed, dst is the return value.
     Note: this string might not be NULL terminated.
   */
-  CDIO_EXTERN char *iso9660_strncpy_pad(char dst[], const char src[], size_t len,
+  char *iso9660_strncpy_pad(char dst[], const char src[], size_t len,
                             enum strncpy_pad_check _check);
 
   /*=====================================================================
@@ -806,7 +827,7 @@ typedef struct _iso9660_s iso9660_t;
 
     True is returned if psz_path is valid.
   */
-  CDIO_EXTERN bool iso9660_dirname_valid_p (const char psz_path[]);
+  bool iso9660_dirname_valid_p (const char psz_path[]);
 
   /*!
     Take psz_path and a version number and turn that into a ISO-9660
@@ -814,7 +835,7 @@ typedef struct _iso9660_s iso9660_t;
     number. For example, mydir/file.ext -> MYDIR/FILE.EXT;1 for version
     1. The resulting ISO-9660 pathname is returned.
   */
-  CDIO_EXTERN char *iso9660_pathname_isofy (const char psz_path[], uint16_t i_version);
+  char *iso9660_pathname_isofy (const char psz_path[], uint16_t i_version);
 
   /*!
     Check that psz_path is a valid ISO-9660 pathname.
@@ -827,36 +848,38 @@ typedef struct _iso9660_s iso9660_t;
 
     True is returned if psz_path is valid.
   */
-  CDIO_EXTERN bool iso9660_pathname_valid_p (const char psz_path[]);
+  bool iso9660_pathname_valid_p (const char psz_path[]);
 
 /*=====================================================================
   directory tree
 ======================================================================*/
 
-CDIO_EXTERN void
+void
 iso9660_dir_init_new (void *dir, uint32_t self, uint32_t ssize,
                       uint32_t parent, uint32_t psize,
                       const time_t *dir_time);
 
-CDIO_EXTERN void
+void
 iso9660_dir_init_new_su (void *dir, uint32_t self, uint32_t ssize,
                          const void *ssu_data, unsigned int ssu_size,
                          uint32_t parent, uint32_t psize,
                          const void *psu_data, unsigned int psu_size,
                          const time_t *dir_time);
 
-CDIO_EXTERN void
+void
 iso9660_dir_add_entry_su (void *dir, const char filename[], uint32_t extent,
                           uint32_t size, uint8_t file_flags,
                           const void *su_data,
                           unsigned int su_size, const time_t *entry_time);
 
-CDIO_EXTERN unsigned int
+unsigned int
 iso9660_dir_calc_record_size (unsigned int namelen, unsigned int su_len);
 
 /*!
    Given a directory pointer, find the filesystem entry that contains
    lsn and return information about it.
+
+   @param p_cdio the CD object to read from
 
    @return stat_t of entry if we found lsn, or NULL otherwise.
    Caller must free return value using iso9660_stat_free().
@@ -867,22 +890,35 @@ iso9660_stat_t *iso9660_fs_find_lsn(CdIo_t *p_cdio, lsn_t i_lsn);
 
 /*!
    Given a directory pointer, find the filesystem entry that contains
-   lsn and return information about it.
+   LSN and return information about it.
+
+   @param p_cdio the ISO-9660 file image to get data from.
+
+   @param i_lsn the LSN to find
+
+   @param ppsz_full_filename the place to store the name of the path that has LSN.
+   On entry this should point to NULL. If not, the value will be freed.
+   On exit a value is malloc'd and the caller is responsible for
+   freeing the result.
 
    @return stat_t of entry if we found lsn, or NULL otherwise.
    Caller must free return value using iso9660_stat_free().
  */
-CDIO_EXTERN iso9660_stat_t *iso9660_fs_find_lsn_with_path(CdIo_t *p_cdio, lsn_t i_lsn,
-                                              /*out*/ char **ppsz_path);
+iso9660_stat_t *iso9660_fs_find_lsn_with_path(CdIo_t *p_cdio, lsn_t i_lsn,
+                                              /*out*/ char **ppsz_full_filename);
 
 /*!
    Given a directory pointer, find the filesystem entry that contains
    lsn and return information about it.
 
+   @param p_iso the ISO-9660 file image to get data from.
+
+   @param i_lsn the LSN to find
+
    @return stat_t of entry if we found lsn, or NULL otherwise.
    Caller must free return value using iso9660_stat_free().
  */
-CDIO_EXTERN iso9660_stat_t *iso9660_ifs_find_lsn(iso9660_t *p_iso, lsn_t i_lsn);
+iso9660_stat_t *iso9660_ifs_find_lsn(iso9660_t *p_iso, lsn_t i_lsn);
 
 
 /*!
@@ -890,7 +926,9 @@ CDIO_EXTERN iso9660_stat_t *iso9660_ifs_find_lsn(iso9660_t *p_iso, lsn_t i_lsn);
    lsn and return information about it.
 
    @param p_iso pointer to iso_t
+
    @param i_lsn LSN to find
+
    @param ppsz_path  full path of lsn filename. On entry *ppsz_path should be
    NULL. On return it will be allocated an point to the full path of the
    file at lsn or NULL if the lsn is not found. You should deallocate
@@ -899,14 +937,17 @@ CDIO_EXTERN iso9660_stat_t *iso9660_ifs_find_lsn(iso9660_t *p_iso, lsn_t i_lsn);
    @return stat_t of entry if we found lsn, or NULL otherwise.
    Caller must free return value using iso9660_stat_free().
  */
-CDIO_EXTERN iso9660_stat_t *iso9660_ifs_find_lsn_with_path(iso9660_t *p_iso,
+iso9660_stat_t *iso9660_ifs_find_lsn_with_path(iso9660_t *p_iso,
                                                lsn_t i_lsn,
                                                /*out*/ char **ppsz_path);
 
 /*!
   Free the passed iso9660_stat_t structure.
+
+  @param p_stat iso9660 stat buffer to free.
+
  */
-CDIO_EXTERN void iso9660_stat_free(iso9660_stat_t *p_stat);
+void iso9660_stat_free(iso9660_stat_t *p_stat);
 
 /*!
   Return file status for psz_path. NULL is returned on error.
@@ -915,7 +956,9 @@ CDIO_EXTERN void iso9660_stat_free(iso9660_stat_t *p_stat);
 
   @param psz_path filename path to look up and get information about
 
-  @return ISO 9660 file information
+  @return ISO 9660 file information. The caller must free the returned
+  result using iso9660_stat_free().
+
 
   Important note:
 
@@ -926,7 +969,7 @@ CDIO_EXTERN void iso9660_stat_free(iso9660_stat_t *p_stat);
   in more stat information. Ideally iso9660_fs_stat should be fixed.
   Patches anyone?
  */
-CDIO_EXTERN iso9660_stat_t *iso9660_fs_stat (CdIo_t *p_cdio, const char psz_path[]);
+iso9660_stat_t *iso9660_fs_stat (CdIo_t *p_cdio, const char psz_path[]);
 
 
 /*!
@@ -934,59 +977,133 @@ CDIO_EXTERN iso9660_stat_t *iso9660_fs_stat (CdIo_t *p_cdio, const char psz_path
   pathname version numbers in the ISO 9660 name are dropped, i.e. ;1
   is removed and if level 1 ISO-9660 names are lowercased.
 
-  b_mode2 is historical. It is not used.
+  @param p_cdio the CD object to read from
+
+  @param psz_path filename path to look up and get information about
+
+  @return ISO 9660 file information.  The caller must free the
+  returned result using iso9660_stat_free().
+
  */
-CDIO_EXTERN iso9660_stat_t *iso9660_fs_stat_translate (CdIo_t *p_cdio,
-                                           const char psz_path[],
-                                           bool b_mode2);
+iso9660_stat_t *iso9660_fs_stat_translate (CdIo_t *p_cdio,
+                                           const char psz_path[]);
+/*!
+
+  @param p_iso the ISO-9660 file image to get data from
+
+  @param psz_path path the look up
+
+  @return file status for pathname. NULL is returned on error.
+  The caller must free the returned result using iso9660_stat_free().
+ */
+iso9660_stat_t *iso9660_ifs_stat (iso9660_t *p_iso, const char psz_path[]);
+
 
 /*!
-  Return file status for pathname. NULL is returned on error.
- */
-CDIO_EXTERN iso9660_stat_t *iso9660_ifs_stat (iso9660_t *p_iso, const char psz_path[]);
+  @param p_iso the ISO-9660 file image to get data from
 
+  @param psz_path filename path translate
 
-/*!  Return file status for path name psz_path. NULL is returned on
+  @return file status for path name psz_path. NULL is returned on
   error.  pathname version numbers in the ISO 9660 name are dropped,
   i.e. ;1 is removed and if level 1 ISO-9660 names are lowercased.
+  The caller must free the returned result using iso9660_stat_free().
  */
-CDIO_EXTERN iso9660_stat_t *iso9660_ifs_stat_translate (iso9660_t *p_iso,
+iso9660_stat_t *iso9660_ifs_stat_translate (iso9660_t *p_iso,
                                             const char psz_path[]);
 
-/*!  Read psz_path (a directory) and return a list of iso9660_stat_t
-  pointers for the files inside that directory. The caller must free the
-  returned result using _cdio_list_free().
 
-  b_mode2 is historical. It is not used.
-*/
-CDIO_EXTERN CdioList_t * iso9660_fs_readdir (CdIo_t *p_cdio, const char psz_path[],
-                                 bool b_mode2);
+/*!
+  Create a new data structure to hold a list of
+  ISO9660 statbuf-entry pointers for the files inside
+  a directory.
 
-/*!  Read psz_path (a directory) and return a list of iso9660_stat_t
-  pointers for the files inside that directory. The caller must free
-  the returned result using _cdio_list_free().
+  @return allocated list. Free with iso9660_filelist_free()
 */
-CDIO_EXTERN CdioList_t * iso9660_ifs_readdir (iso9660_t *p_iso, const char psz_path[]);
+CdioISO9660FileList_t * iso9660_filelist_new(void);
+
+
+/*!
+  Create a new data structure to hold a list of
+  ISO9660 statbuf entries for directory
+  pointers for the files inside a directory.
+
+  @return allocated list. Free with iso9660_dirlist_free()
+*/
+CdioISO9660DirList_t * iso9660_dirlist_new(void);
+
+
+
+/*!
+  Free the passed CdioISOC9660FileList_t structure.
+*/
+void iso9660_filelist_free(CdioISO9660FileList_t *p_filelist);
+
+
+/*!
+  Free the passed CdioISOC9660Dirlist_t structure.
+*/
+void iso9660_dirlist_free(CdioISO9660DirList_t *p_filelist);
+
+
+/*!
+  Read psz_path (a directory) and return a list of iso9660_stat_t
+  pointers for the files inside that directory.
+
+  @param p_cdio the CD object to read from
+
+  @param psz_path path the read the directory from.
+
+  @return file status for psz_path. The caller must free the
+  The caller must free the returned result using iso9660_stat_free().
+*/
+CdioList_t * iso9660_fs_readdir (CdIo_t *p_cdio, const char psz_path[]);
+
+/*!
+  Read psz_path (a directory) and return a list of iso9660_stat_t
+  pointers for the files inside that directory.
+
+  @param p_iso the ISO-9660 file image to get data from
+
+  @param psz_path path the read the directory from.
+
+  @return file status for psz_path. The caller must free the
+  The caller must free the returned result using iso9660_stat_free().
+*/
+CdioList_t * iso9660_ifs_readdir (iso9660_t *p_iso, const char psz_path[]);
 
 /*!
   Return the PVD's application ID.
+
+  @param p_pvd the PVD to get data from
+
+  @return  the application id.
   NULL is returned if there is some problem in getting this.
+  The caller must free the resturned result using free() if
+  not null.
 */
-CDIO_EXTERN char * iso9660_get_application_id(iso9660_pvd_t *p_pvd);
+char * iso9660_get_application_id(iso9660_pvd_t *p_pvd);
 
 /*!
-  Get the application ID.  psz_app_id is set to NULL if there
-  is some problem in getting this and false is returned.
+  Return the PVD's application ID.
+
+  @param p_iso the ISO-9660 file image to get data from
+
+  @param p_psz_app_id the application id set on success.
+
+  NULL is returned if there is some problem in getting this.
+  The caller must free the resturned result using free() if
+  not null.
 */
-CDIO_EXTERN bool iso9660_ifs_get_application_id(iso9660_t *p_iso,
+bool iso9660_ifs_get_application_id(iso9660_t *p_iso,
                                     /*out*/ cdio_utf8_t **p_psz_app_id);
 
 /*!
   Return the Joliet level recognized for p_iso.
 */
-CDIO_EXTERN uint8_t iso9660_ifs_get_joliet_level(iso9660_t *p_iso);
+uint8_t iso9660_ifs_get_joliet_level(iso9660_t *p_iso);
 
-CDIO_EXTERN uint8_t iso9660_get_dir_len(const iso9660_dir_t *p_idr);
+uint8_t iso9660_get_dir_len(const iso9660_dir_t *p_idr);
 
 #ifdef FIXME
 uint8_t iso9660_get_dir_size(const iso9660_dir_t *p_idr);
@@ -1000,57 +1117,57 @@ lsn_t iso9660_get_dir_extent(const iso9660_dir_t *p_idr);
     A string is allocated: the caller must deallocate. This routine
     can return NULL if memory allocation fails.
   */
-  CDIO_EXTERN char * iso9660_dir_to_name (const iso9660_dir_t *p_iso9660_dir);
+  char * iso9660_dir_to_name (const iso9660_dir_t *p_iso9660_dir);
 
   /*!
     Returns a POSIX mode for a given p_iso_dirent.
   */
-  CDIO_EXTERN mode_t iso9660_get_posix_filemode(const iso9660_stat_t *p_iso_dirent);
+  mode_t iso9660_get_posix_filemode(const iso9660_stat_t *p_iso_dirent);
 
   /*!
     Return a string containing the preparer id with trailing
     blanks removed.
   */
-  CDIO_EXTERN char *iso9660_get_preparer_id(const iso9660_pvd_t *p_pvd);
+  char *iso9660_get_preparer_id(const iso9660_pvd_t *p_pvd);
 
   /*!
     Get the preparer ID.  psz_preparer_id is set to NULL if there
     is some problem in getting this and false is returned.
   */
-  CDIO_EXTERN bool iso9660_ifs_get_preparer_id(iso9660_t *p_iso,
+  bool iso9660_ifs_get_preparer_id(iso9660_t *p_iso,
                                    /*out*/ cdio_utf8_t **p_psz_preparer_id);
 
   /*!
     Return a string containing the PVD's publisher id with trailing
     blanks removed.
   */
-  CDIO_EXTERN char *iso9660_get_publisher_id(const iso9660_pvd_t *p_pvd);
+  char *iso9660_get_publisher_id(const iso9660_pvd_t *p_pvd);
 
   /*!
     Get the publisher ID.  psz_publisher_id is set to NULL if there
     is some problem in getting this and false is returned.
   */
-  CDIO_EXTERN bool iso9660_ifs_get_publisher_id(iso9660_t *p_iso,
+  bool iso9660_ifs_get_publisher_id(iso9660_t *p_iso,
                                     /*out*/ cdio_utf8_t **p_psz_publisher_id);
 
-  CDIO_EXTERN uint8_t iso9660_get_pvd_type(const iso9660_pvd_t *p_pvd);
+  uint8_t iso9660_get_pvd_type(const iso9660_pvd_t *p_pvd);
 
-  CDIO_EXTERN const char * iso9660_get_pvd_id(const iso9660_pvd_t *p_pvd);
+  const char * iso9660_get_pvd_id(const iso9660_pvd_t *p_pvd);
 
-  CDIO_EXTERN int iso9660_get_pvd_space_size(const iso9660_pvd_t *p_pvd);
+  int iso9660_get_pvd_space_size(const iso9660_pvd_t *p_pvd);
 
-  CDIO_EXTERN int iso9660_get_pvd_block_size(const iso9660_pvd_t *p_pvd) ;
+  int iso9660_get_pvd_block_size(const iso9660_pvd_t *p_pvd) ;
 
   /*! Return the primary volume id version number (of pvd).
     If there is an error 0 is returned.
   */
-  CDIO_EXTERN int iso9660_get_pvd_version(const iso9660_pvd_t *pvd) ;
+  int iso9660_get_pvd_version(const iso9660_pvd_t *pvd) ;
 
   /*!
     Return a string containing the PVD's system id with trailing
     blanks removed.
   */
-CDIO_EXTERN   char *iso9660_get_system_id(const iso9660_pvd_t *p_pvd);
+  char *iso9660_get_system_id(const iso9660_pvd_t *p_pvd);
 
   /*!
     Return "yup" if any file has Rock-Ridge extensions. Warning: this can
@@ -1066,65 +1183,65 @@ CDIO_EXTERN   char *iso9660_get_system_id(const iso9660_pvd_t *p_pvd);
     such as not being able to allocate memory in processing.
 
   */
-  CDIO_EXTERN bool_3way_t iso9660_have_rr(iso9660_t *p_iso, uint64_t u_file_limit);
+  bool_3way_t iso9660_have_rr(iso9660_t *p_iso, uint64_t u_file_limit);
 
   /*!
     Get the system ID.  psz_system_id is set to NULL if there
     is some problem in getting this and false is returned.
   */
-  CDIO_EXTERN bool iso9660_ifs_get_system_id(iso9660_t *p_iso,
+  bool iso9660_ifs_get_system_id(iso9660_t *p_iso,
                                  /*out*/ cdio_utf8_t **p_psz_system_id);
 
 
   /*! Return the LSN of the root directory for pvd.
     If there is an error CDIO_INVALID_LSN is returned.
   */
-  CDIO_EXTERN lsn_t iso9660_get_root_lsn(const iso9660_pvd_t *p_pvd);
+  lsn_t iso9660_get_root_lsn(const iso9660_pvd_t *p_pvd);
 
   /*!
     Get the volume ID in the PVD.  psz_volume_id is set to NULL if there
     is some problem in getting this and false is returned.
   */
-  CDIO_EXTERN char *iso9660_get_volume_id(const iso9660_pvd_t *p_pvd);
+  char *iso9660_get_volume_id(const iso9660_pvd_t *p_pvd);
 
   /*!
     Get the volume ID in the PVD.  psz_volume_id is set to NULL if there
     is some problem in getting this and false is returned.
   */
-  CDIO_EXTERN bool iso9660_ifs_get_volume_id(iso9660_t *p_iso,
+  bool iso9660_ifs_get_volume_id(iso9660_t *p_iso,
                                  /*out*/ cdio_utf8_t **p_psz_volume_id);
 
   /*!
     Return the volumeset ID in the PVD.
     NULL is returned if there is some problem in getting this.
   */
-  CDIO_EXTERN char *iso9660_get_volumeset_id(const iso9660_pvd_t *p_pvd);
+  char *iso9660_get_volumeset_id(const iso9660_pvd_t *p_pvd);
 
   /*!
     Get the volumeset ID.  psz_systemset_id is set to NULL if there
     is some problem in getting this and false is returned.
   */
-  CDIO_EXTERN bool iso9660_ifs_get_volumeset_id(iso9660_t *p_iso,
+  bool iso9660_ifs_get_volumeset_id(iso9660_t *p_iso,
                                     /*out*/ cdio_utf8_t **p_psz_volumeset_id);
 
   /* pathtable */
 
   /*! Zero's out pathable. Do this first. */
-  CDIO_EXTERN void iso9660_pathtable_init (void *pt);
+  void iso9660_pathtable_init (void *pt);
 
-  CDIO_EXTERN unsigned int iso9660_pathtable_get_size (const void *pt);
+  unsigned int iso9660_pathtable_get_size (const void *pt);
 
-  CDIO_EXTERN uint16_t iso9660_pathtable_l_add_entry (void *pt, const char name[],
+  uint16_t iso9660_pathtable_l_add_entry (void *pt, const char name[],
                                           uint32_t extent, uint16_t parent);
 
-  CDIO_EXTERN uint16_t iso9660_pathtable_m_add_entry (void *pt, const char name[],
+  uint16_t iso9660_pathtable_m_add_entry (void *pt, const char name[],
                                           uint32_t extent, uint16_t parent);
 
   /**=====================================================================
      Volume Descriptors
      ======================================================================*/
 
-  CDIO_EXTERN void iso9660_set_pvd (void *pd, const char volume_id[],
+  void iso9660_set_pvd (void *pd, const char volume_id[],
                         const char application_id[],
                         const char publisher_id[], const char preparer_id[],
                         uint32_t iso_size, const void *root_dir,
@@ -1132,12 +1249,12 @@ CDIO_EXTERN   char *iso9660_get_system_id(const iso9660_pvd_t *p_pvd);
                         uint32_t path_table_m_extent,
                         uint32_t path_table_size, const time_t *pvd_time);
 
-  CDIO_EXTERN void iso9660_set_evd (void *pd);
+  void iso9660_set_evd (void *pd);
 
   /*!
     Return true if ISO 9660 image has extended attrributes (XA).
   */
-  CDIO_EXTERN bool iso9660_ifs_is_xa (const iso9660_t * p_iso);
+  bool iso9660_ifs_is_xa (const iso9660_t * p_iso);
 
 
 #ifndef DO_NOT_WANT_COMPATIBILITY

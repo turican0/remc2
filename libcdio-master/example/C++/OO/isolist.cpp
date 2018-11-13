@@ -2,7 +2,7 @@
   $Id: isolist.cpp,v 1.2 2008/03/24 15:30:57 karl Exp $
 
   Copyright (C) 2006, 2008 Rocky Bernstein <rocky@gnu.org>
-  
+
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
   the Free Software Foundation, either version 3 of the License, or
@@ -25,7 +25,7 @@
    use in the listing. Otherwise a compiled-in default ISO 9660 image
    name (that comes with the libcdio distribution) will be used.
 
-   This program can be compiled with either a C or C++ compiler. In 
+   This program can be compiled with either a C or C++ compiler. In
    the distributuion we perfer C++ just to make sure we haven't broken
    things on the C++ side.
  */
@@ -62,7 +62,7 @@
     printf(title ": %s\n", psz_str);	  \
   }					  \
   free(psz_str);			  \
-  psz_str = NULL;			  
+  psz_str = NULL;
 
 
 int
@@ -73,13 +73,13 @@ main(int argc, const char *argv[])
   char const *psz_fname;
   const char *psz_path="/";
 
-  if (argc > 1) 
+  if (argc > 1)
     psz_fname = argv[1];
-  else 
+  else
     psz_fname = ISO9660_IMAGE;
 
   if (!p_iso->open(psz_fname)) {
-    fprintf(stderr, "Sorry, couldn't open %s as an ISO-9660 image\n", 
+    fprintf(stderr, "Sorry, couldn't open %s as an ISO-9660 image\n",
 	    psz_fname);
     return 1;
   }
@@ -104,16 +104,14 @@ main(int argc, const char *argv[])
 	char filename[4096];
 	ISO9660::Stat *p_s = *i;
 	iso9660_name_translate(p_s->p_stat->filename, filename);
-	printf ("%s [LSN %6d] %8u %s%s\n", 
+	printf ("%s [LSN %6d] %8u %s%s\n",
 		2 == p_s->p_stat->type ? "d" : "-",
 		p_s->p_stat->lsn, p_s->p_stat->size, psz_path, filename);
-	delete(p_s);
       }
-    
+
     stat_vector.clear();
   }
 
   delete(p_iso);
   return 0;
 }
-
