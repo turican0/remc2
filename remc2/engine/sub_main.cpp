@@ -2911,10 +2911,10 @@ signed int sub_7E0E0_mouse_events();
 Bit16s sub_7E1F0_test_mouse_regions();
 // signed int sub_7E320_draw_bitmaps_and_play_sounds(__int16 a1, int a2);
 // signed int sub_7E5A0_pre_draw(int a1, int a2, __int16 a3, __int16 a4, int a5, __int16 a6, __int16 a7);
-signed int sub_7E620(int a1);
-signed int sub_7E640(int a1);
-char sub_7E800(x_WORD *a1);
-char sub_7E820(int a1);
+signed int sub_7E620(Bit8u* a1);
+signed int sub_7E640(Bit8u* a1);
+char sub_7E800(Bit8u* a1);
+char sub_7E820(Bit8u* a1);
 void sub_7E840_draw_textbox_with_line(Bit16u* a1, __int16 a2, __int16 a3);
 void sub_7E8D0(x_WORD *a1, __int16 a2, __int16 a3, __int16 a4, __int16 a5, __int16 a6, __int16 a7);
 signed int sub_7E9D0(x_WORD *a1, x_WORD *a2, x_WORD *a3);
@@ -96958,6 +96958,27 @@ Bit16s sub_7E1F0_test_mouse_regions()//25f1f0
 // 17DEE4: using guessed type int x_DWORD_17DEE4_mouse_position;
 // 17DEEE: using guessed type __int16 x_WORD_17DEEE;
 
+int pre_sub_7E320(Bit32u adress, Bit8u* a1)
+{
+	switch (adress)
+	{
+	case 0x25f800: {
+		return sub_7E800(a1);//25f800
+	}
+	case 0x25f820: {
+		return sub_7E820(a1);//25f800
+	}
+	case 0x25f640: {
+		return sub_7E640(a1);//25f800
+	}
+	case 0x25f620: {
+		return sub_7E620(a1);//25f800
+	}
+	}
+	mydelay(10000);
+	exit(1);
+}
+
 //----- (0007E320) --------------------------------------------------------
 signed int sub_7E320_draw_bitmaps_and_play_sounds(__int16 a1, int a2)//25f320
 {
@@ -96992,7 +97013,8 @@ signed int sub_7E320_draw_bitmaps_and_play_sounds(__int16 a1, int a2)//25f320
 		{
 			if (*((x_WORD *)v3 + 4) && *(x_DWORD *)v3)
 			{
-				v5 = v3[0];
+				//v5 = (*(int(__cdecl **)(_BYTE *))v3)(v3);
+				v5 = pre_sub_7E320(*(Bit32s*)v3, v3);
 				LOWORD(a2) = v5;
 				if (!v5)
 					return 1;
@@ -97085,7 +97107,7 @@ signed int sub_7E320_draw_bitmaps_and_play_sounds(__int16 a1, int a2)//25f320
 // 17DEEE: using guessed type __int16 x_WORD_17DEEE;
 
 //----- (0007E5A0) --------------------------------------------------------
-signed int sub_7E5A0_pre_draw(int a1, int a2, __int16 a3, __int16 a4, Bit8u* a5, __int16 a6, __int16 a7)
+signed int sub_7E5A0_pre_draw(int a1, int a2, __int16 a3, __int16 a4, Bit8u* a5, __int16 a6, __int16 a7)//25f5a0
 {
 	int v7; // edx
 	signed int v8; // esi
@@ -97114,14 +97136,14 @@ signed int sub_7E5A0_pre_draw(int a1, int a2, __int16 a3, __int16 a4, Bit8u* a5,
 // 17DED4: using guessed type int (int)x_DWORD_17DED4;
 
 //----- (0007E620) --------------------------------------------------------
-signed int sub_7E620(int a1)
+signed int sub_7E620(Bit8u* a1)//25f620
 {
 	*(x_WORD *)(a1 + 8) = 0;
 	return 2;
 }
 
 //----- (0007E640) --------------------------------------------------------
-signed int sub_7E640(int a1)
+signed int sub_7E640(Bit8u* a1)//25f640
 {
 	signed __int16 v1; // ax
 	x_WORD *i; // eax
@@ -97200,18 +97222,18 @@ signed int sub_7E640(int a1)
 // 1803EC: using guessed type __int16 x_WORD_1803EC;
 
 //----- (0007E800) --------------------------------------------------------
-char sub_7E800(x_WORD *a1)
+char sub_7E800(Bit8u* a1)//25f800
 {
 	char result; // al
 
-	result = sub_78730_save_game_dialog(a1);
+	result = sub_78730_save_game_dialog((Bit16s*)a1);
 	if (result)
 		a1[4] = 0;
 	return result;
 }
 
 //----- (0007E820) --------------------------------------------------------
-char sub_7E820(int a1)
+char sub_7E820(Bit8u* a1)//25f820
 {
 	char result; // al
 

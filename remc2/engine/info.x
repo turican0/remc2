@@ -2552,3 +2552,7 @@ void sub_51BB0_game_events(int a1)//232bb0
 void sub_5C950(Bit8u* a1, Bit8u* a2)//23d950
 
 unsigned int sub_7277A(unsigned int a1)//25377a
+
+result = sub_78730_save_game_dialog(a1);
+char sub_7E800(x_WORD *a1)//25f800
+signed int sub_7E320_draw_bitmaps_and_play_sounds(__int16 a1, int a2)//25f320
