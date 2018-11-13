@@ -56071,7 +56071,7 @@ void sub_46830_main_loop(Bit16s* a1, signed int a2, unsigned __int16 a3)//227830
 	unsigned __int8 v8; // dl
 	unsigned __int8 v9; // al
 	unsigned __int8 v10; // al
-	Bit8u* v11; // eax
+	//Bit8u* v11; // eax
 	char v12; // ch
 	x_WORD *v13; // eax
 
@@ -56148,8 +56148,8 @@ void sub_46830_main_loop(Bit16s* a1, signed int a2, unsigned __int16 a3)//227830
 					sub_6DB50(1, 0);
 				}
 				sub_713A0();
-				v11 = 2124 * x_D41A0_BYTEARRAY_4[0xC] + x_D41A0_BYTEARRAY_0;
-				v12 = *(x_BYTE *)(v11 + 11232);
+				//v11 = 2124 * x_D41A0_BYTEARRAY_4[0xC] + x_D41A0_BYTEARRAY_0;
+				v12 = x_D41A0_BYTEARRAY_0[2124 * x_D41A0_BYTEARRAY_4[0xC] + 11232];
 				if (v12 & 4)
 				{
 					sub_56D60(a3, 0);
@@ -56164,7 +56164,7 @@ void sub_46830_main_loop(Bit16s* a1, signed int a2, unsigned __int16 a3)//227830
 				else
 				{
 					LOBYTE(a1) = v12 | 8;
-					*(x_BYTE *)(v11 + 11232) = v12 | 8;
+					x_D41A0_BYTEARRAY_0[2124 * x_D41A0_BYTEARRAY_4[0xC] + 11232] = v12 | 8;
 				}
 				BYTE1(a1) = x_D41A0_BYTEARRAY_0[2124 * x_D41A0_BYTEARRAY_4_struct.dwordindex_12 + 11234];
 				if (BYTE1(a1) & 0x10)
