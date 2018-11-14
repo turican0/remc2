@@ -181,7 +181,7 @@ extern char IsTable[];
 
 
 
-int /*__noreturn*/ sub_10000(); // weak
+//int /*__noreturn*/ sub_10000(); // weak
 unsigned int sub_15CB0(unsigned int a1, int a2); // weak
 char sub_15D40(__int16 a1, int a2, int a3); // weak
 int sub_16730(int a1, int a2, char a3); // weak

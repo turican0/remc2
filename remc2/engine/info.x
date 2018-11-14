@@ -2556,3 +2556,9 @@ unsigned int sub_7277A(unsigned int a1)//25377a
 result = sub_78730_save_game_dialog(a1);
 char sub_7E800(x_WORD *a1)//25f800
 signed int sub_7E320_draw_bitmaps_and_play_sounds(__int16 a1, int a2)//25f320
+
+355184 -> 60592c+2->1b
+v58=200
+
+void sub_49F90()//22af90
+
