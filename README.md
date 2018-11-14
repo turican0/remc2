@@ -7,7 +7,12 @@ https://www.gog.com/game/magic_carpet_2_the_netherworlds<br />
 (or from any abbadone archive, if it is legal in your country)<br />
 <br />
 simple dev blog:https://github.com/turican0/remc2/wiki<br />
-
+## 0.17:<br />
+-fixed Load, Save, Restart and Exit button in Map Menu<br />
+-add czech translation<br />
+-fix load level initialize<br />
+-begin of fixing game draw pipeline<br />
+<br />
 ## 0.16:<br />
 -map menu graphics full fixed!<br />
 -added config<br />
