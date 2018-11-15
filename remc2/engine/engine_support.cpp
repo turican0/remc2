@@ -81,7 +81,7 @@ Bit8u* x_DWORD_E9C38_smalltit; // weak
 //Bit8u* x_DWORD_D41A0; // weak
 
 Bit8u* x_D41A0_BYTEARRAY_0;
-Bit8u* x_D41A0_BYTEARRAY_4;
+//Bit8u* x_D41A0_BYTEARRAY_4;
 
 type_x_D41A0_BYTEARRAY_4_struct x_D41A0_BYTEARRAY_4_struct;
 

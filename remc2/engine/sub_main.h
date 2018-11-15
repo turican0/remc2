@@ -186,7 +186,7 @@ unsigned int sub_15CB0(unsigned int a1, int a2); // weak
 char sub_15D40(__int16 a1, int a2, int a3); // weak
 int sub_16730(int a1, int a2, char a3); // weak
 int sub_16CA0(int a1, int *a2, __int16 a3, char a4); // weak
-char sub_17A00(x_BYTE *a1, signed int a2, __int16 a3); // weak
+void sub_17A00(x_BYTE *a1, signed int a2, __int16 a3); // weak
 int _wcpp_1_unwind_leave__120(x_DWORD a, x_DWORD b, x_DWORD c);// weak
 void sub_1A070(signed int a1, __int16 a2);
 void JUMPOUT(int* adr);
@@ -348,6 +348,8 @@ __int64 sub_B522B(int a1, __int16 a2, int _ESI);
 void sub_B5F8F(__int16 a1, Bit16u* a2, Bit32s a3, __int16* a4);
 int sub_BD320(int result, x_BYTE *a2, x_BYTE *a3, int a4, int a5, int a6);
 void sub_B5EFA(__int16 a1, Bit16u* a2, Bit32s a3, __int16* a4);
+
+int pre_sub_4A190(Bit32u adress, Bit8u* a1);
 
 //---------------------------
 

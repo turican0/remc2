@@ -2562,3 +2562,19 @@ v58=200
 
 void sub_49F90()//22af90
 
+&x_DWORD_EA3E0[2]
+versus
+0x35cf6e -00000000 1e000000
+-find 35cf72
+231266 -near - x_WORD *sub_50250(int a1)//231250
+int sub_off_D697E(Bit16u functionnumber, Bit8u* adress)//22a97e
+void sub_49540(Bit8u* a1, Bit8u* a2)//22a540
+
+
+		case 0:return (int)sub_51530((int)adress);
+		case 1:return sub_51660((int)adress);
+		case 2:return sub_516C0((int)adress);
+		case 3:return sub_51570((int)adress);
+		case 4:return sub_515C0((int)adress);
+		case 5:return (int)sub_51610((int)adress);
+
