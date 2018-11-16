@@ -136,7 +136,7 @@ void support_begin() {
 		dword_E9C30[0][0] = 0;
 	dword_E9C30[2] = new Bit8u[4096];
 	dword_E9C30[4] = new Bit8u[4096];
-	x_D41A0_BYTEARRAY_4_struct.player_name_57 =new char[256];
+	//x_D41A0_BYTEARRAY_4_struct.player_name_57 =new char[256];
 	x_D41A0_BYTEARRAY_4_struct.savestring_89 = new char[256];
 
 	x_BYTE_14B4E0 = new Bit8u[65536];
@@ -150,7 +150,7 @@ void support_begin() {
 	x_DWORD_D4188t_spritestr = new posistruct[1000];
 
 	x_D41A0_BYTEARRAY_4_struct.harddiskchar_byte4_182 = 0x43;
-	x_D41A0_BYTEARRAY_4_struct.player_name_57 = 0;
+	//x_D41A0_BYTEARRAY_4_struct.player_name_57 = 0;
 
     //printbuffer2[0] = '\0';
 }
@@ -166,7 +166,7 @@ void support_end() {
 	free(dword_E9C30[0]);
 	free(dword_E9C30[2]);
 	free(dword_E9C30[4]);
-	free(x_D41A0_BYTEARRAY_4_struct.player_name_57);
+	//free(x_D41A0_BYTEARRAY_4_struct.player_name_57);
 	free(x_D41A0_BYTEARRAY_4_struct.savestring_89);
 
 	free(x_BYTE_14B4E0);

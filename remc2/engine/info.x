@@ -2567,7 +2567,7 @@ versus
 0x35cf6e -00000000 1e000000
 -find 35cf72
 231266 -near - x_WORD *sub_50250(int a1)//231250
-int sub_off_D697E(Bit16u functionnumber, Bit8u* adress)//22a97e
+int pre_sub_4A190(Bit16u functionnumber, Bit8u* adress)//22a97e
 void sub_49540(Bit8u* a1, Bit8u* a2)//22a540
 
 
@@ -2577,4 +2577,33 @@ void sub_49540(Bit8u* a1, Bit8u* a2)//22a540
 		case 3:return sub_51570((int)adress);
 		case 4:return sub_515C0((int)adress);
 		case 5:return (int)sub_51610((int)adress);
+
+test void sub_498A0()//22a8a0
+
+find 2153f0 - maybe 443f0
+
+2a75c0 - 2A5c44
+
+0x211d50 - maybe 40d50
+
+5 2A5C57
+
+0x2a75c6-2a5c52=1974
+
+problem
+void sub_49540(Bit8u* a1, Bit8u* a2)//22a540
+
+problem:
+x_WORD_EB398ar[0] = *(Bit16s*)(a2 + 4) << 8;//adress 22a5af
+1a70ee - 75a5390060607eb7
+27971f - call 279709
+call 24fb90
+tj. sub_6EB90(&filearray_2aa18c[filearrayindex_BUILD00DATTAB]);//24fb90
+in previous
+call 281863
+call 2798a7
+call 234e60
+call 23cf50 - 23c9f7
+&filearray_2aa18c[filearrayindex_BUILD00DATTAB]
+
 
