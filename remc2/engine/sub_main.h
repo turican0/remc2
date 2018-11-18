@@ -216,7 +216,7 @@ unsigned __int16 sub_3FD60(int a1, int a2);
 unsigned int sub_43970(unsigned int a1);
 void sub_44EE0(int a1, Bit16u a2);
 void sub_56A30_init_game_level(unsigned int a1);
-int sub_47320(signed int a1);
+void sub_47320(signed int a1);
 void sub_56D60(unsigned int a1, char a2);
 void sub_47560(int a1, int a2, x_BYTE *a3, signed int a4, __int16 a5);
 void sub_51BB0_game_events(int a1);

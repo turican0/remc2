@@ -2606,4 +2606,28 @@ call 234e60
 call 23cf50 - 23c9f7
 &filearray_2aa18c[filearrayindex_BUILD00DATTAB]
 
+problem
+int sub_B5C60(__int16 a1, __int16 a2)
+
+0x1e - find 1a713c e2d43900
+call 281863
+call 2798a7
+call 234e60
+call 27b32d
+call 265250
+call 23cf50
+
+Bit8u* x_DWORD_EA3E0[0x3E9];//2bb3e0
+27b453
+call 27b32d
+call 265250
+call 228160
+
+			sub_47FC0(v7);//vga smaltitle
+			sub_56A30_init_game_level(a3);
+			sub_47160();
+
+find 363286 ->c6ce3500
+238989 -int sub_57730()?
+
 
