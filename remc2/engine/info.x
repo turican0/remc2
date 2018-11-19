@@ -2629,5 +2629,17 @@ call 228160
 
 find 363286 ->c6ce3500
 238989 -int sub_57730()?
+for (j = &x_DWORD_EA3E0[2]; j < &x_DWORD_EA3E0[0x3e9]; j += 168)
+x_DWORD_EA3E0[2] - 000000001e000000d007
+35cf6e - 000000001e000000a861
+find 35cf74 0000a861
+void sub_37240(int a1)//218240
+
+next problem:
+35d02a(35d016)=2789 versus 9494
+eb2a - 22b17b in 22b050-sub_4A050
+2789 - 22b17b in 22b050-sub_4A050
+*(Bit16u*)(v1 + 20) = v6;//this is it line
+356040->e92a711b
 
 
