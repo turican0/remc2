@@ -2635,11 +2635,20 @@ x_DWORD_EA3E0[2] - 000000001e000000d007
 find 35cf74 0000a861
 void sub_37240(int a1)//218240
 
+-pak se vrat sem
+
 next problem:
 35d02a(35d016)=2789 versus 9494
 eb2a - 22b17b in 22b050-sub_4A050
 2789 - 22b17b in 22b050-sub_4A050
 *(Bit16u*)(v1 + 20) = v6;//this is it line
-356040->e92a711b
+
+356040->e92a711b - *(Bit32u*)(x_D41A0_BYTEARRAY_0 + 8)
+22a8c2 - void sub_498A0()//22a8a0
+
+35d016 + 2a=35d040->f401 nikoli 0300
+22b146
+22abb6 - void sub_49A30(Bit8u* a1, unsigned __int16 a2)//22aa30
+*(x_WORD *)(a1 + 42) = x_WORD_D93C0_bldgprmbuffer[2 * a2];
 
 
