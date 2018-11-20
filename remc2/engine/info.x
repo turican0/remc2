@@ -2651,4 +2651,16 @@ eb2a - 22b17b in 22b050-sub_4A050
 22abb6 - void sub_49A30(Bit8u* a1, unsigned __int16 a2)//22aa30
 *(x_WORD *)(a1 + 42) = x_WORD_D93C0_bldgprmbuffer[2 * a2];
 
+int sub_38330(Bit8u* a1)//219330
+
+find 35cf6e->16d03500
+238989
+2388db
+void sub_57730()//238730 - test
+
+v20 = &x_DWORD_D4C52ar[14 * (*m)[69] + *(Bit32u*)(x_DWORD_D4C52ar + 18 * v19)-0x2a5c52];
+versus				
+
+
+
 

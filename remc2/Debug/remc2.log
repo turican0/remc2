@@ -86,7 +86,6 @@ c:\prenos\remc2\remc2\engine\sub_main.cpp(29398): warning C4018: <=: signed/unsi
 c:\prenos\remc2\remc2\engine\sub_main.cpp(29417): warning C4018: <=: signed/unsigned – neshoda
 c:\prenos\remc2\remc2\engine\sub_main.cpp(30607): warning C4244: =: short se převádí na uint8; může dojít ke ztrátě dat.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(30710): warning C4101: v0: neodkazovaná lokální proměnná
-c:\prenos\remc2\remc2\engine\sub_main.cpp(30768): warning C4244: return: unsigned short se převádí na char; může dojít ke ztrátě dat.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(30843): warning C4244: argument: unsigned short se převádí na char; může dojít ke ztrátě dat.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(30901): warning C4244: =: short se převádí na char; může dojít ke ztrátě dat.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(32238): warning C4309: argument: zkrácení konstantní hodnoty
@@ -239,107 +238,110 @@ c:\prenos\remc2\remc2\engine\sub_main.cpp(59199): warning C4244: =: unsigned sho
 c:\prenos\remc2\remc2\engine\sub_main.cpp(59252): warning C4244: =: unsigned short se převádí na uint8; může dojít ke ztrátě dat.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(59893): warning C4244: argument: unsigned short se převádí na char; může dojít ke ztrátě dat.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(59894): warning C4244: =: unsigned short se převádí na Bit8u; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(60241): warning C4302: přetypování: zkrácení z: Bit8u * na: char
-c:\prenos\remc2\remc2\engine\sub_main.cpp(62393): warning C4244: =: short se převádí na int8; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(62436): warning C4244: =: __int64 se převádí na int32; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(62439): warning C4244: =: __int64 se převádí na int32; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(60240): warning C4302: přetypování: zkrácení z: Bit8u * na: char
+c:\prenos\remc2\remc2\engine\sub_main.cpp(62392): warning C4244: =: short se převádí na int8; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(62435): warning C4244: =: __int64 se převádí na int32; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(62438): warning C4244: =: __int64 se převádí na int32; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(62441): warning C4244: =: __int64 se převádí na int16; může dojít ke ztrátě dat.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(62442): warning C4244: =: __int64 se převádí na int16; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(62443): warning C4244: =: __int64 se převádí na int16; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(62764): warning C4244: =: short se převádí na int8; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(63253): warning C4244: =: short se převádí na int8; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(63565): warning C4244: =: __int64 se převádí na int16; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(63700): warning C4309: argument: zkrácení konstantní hodnoty
-c:\prenos\remc2\remc2\engine\sub_main.cpp(63987): warning C4309: argument: zkrácení konstantní hodnoty
-c:\prenos\remc2\remc2\engine\sub_main.cpp(64501): warning C4309: argument: zkrácení konstantní hodnoty
-c:\prenos\remc2\remc2\engine\sub_main.cpp(64528): warning C4309: argument: zkrácení konstantní hodnoty
-c:\prenos\remc2\remc2\engine\sub_main.cpp(65420): warning C4309: argument: zkrácení konstantní hodnoty
-c:\prenos\remc2\remc2\engine\sub_main.cpp(65451): warning C4309: argument: zkrácení konstantní hodnoty
-c:\prenos\remc2\remc2\engine\sub_main.cpp(67353): warning C4244: =: short se převádí na int8; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(68183): warning C4244: =: __int64 se převádí na int16; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(68212): warning C4244: =: __int64 se převádí na int16; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(68286): warning C4244: =: unsigned short se převádí na Bit8u; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(68371): warning C4244: =: short se převádí na Bit8u; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(68435): warning C4554: &: Zkontrolujte, jestli není chyba v prioritě operátorů; zadejte prioritu jednoznačně pomocí závorek.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(68832): warning C4302: přetypování: zkrácení z: Bit8u * na: short
-c:\prenos\remc2\remc2\engine\sub_main.cpp(70096): warning C4244: =: Bit16s se převádí na Bit8u; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(70120): warning C4244: =: Bit16s se převádí na Bit8u; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(70212): warning C4101: maindir: neodkazovaná lokální proměnná
+c:\prenos\remc2\remc2\engine\sub_main.cpp(62763): warning C4244: =: short se převádí na int8; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(63252): warning C4244: =: short se převádí na int8; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(63564): warning C4244: =: __int64 se převádí na int16; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(63699): warning C4309: argument: zkrácení konstantní hodnoty
+c:\prenos\remc2\remc2\engine\sub_main.cpp(63986): warning C4309: argument: zkrácení konstantní hodnoty
+c:\prenos\remc2\remc2\engine\sub_main.cpp(64500): warning C4309: argument: zkrácení konstantní hodnoty
+c:\prenos\remc2\remc2\engine\sub_main.cpp(64527): warning C4309: argument: zkrácení konstantní hodnoty
+c:\prenos\remc2\remc2\engine\sub_main.cpp(65419): warning C4309: argument: zkrácení konstantní hodnoty
+c:\prenos\remc2\remc2\engine\sub_main.cpp(65450): warning C4309: argument: zkrácení konstantní hodnoty
+c:\prenos\remc2\remc2\engine\sub_main.cpp(67352): warning C4244: =: short se převádí na int8; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(68182): warning C4244: =: __int64 se převádí na int16; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(68211): warning C4244: =: __int64 se převádí na int16; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(68285): warning C4244: =: unsigned short se převádí na Bit8u; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(68370): warning C4244: =: short se převádí na Bit8u; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(68434): warning C4554: &: Zkontrolujte, jestli není chyba v prioritě operátorů; zadejte prioritu jednoznačně pomocí závorek.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(68831): warning C4302: přetypování: zkrácení z: Bit8u * na: short
+c:\prenos\remc2\remc2\engine\sub_main.cpp(70095): warning C4244: =: Bit16s se převádí na Bit8u; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(70119): warning C4244: =: Bit16s se převádí na Bit8u; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(70211): warning C4101: maindir: neodkazovaná lokální proměnná
+c:\prenos\remc2\remc2\engine\sub_main.cpp(70801): warning C4244: =: short se převádí na uint8; může dojít ke ztrátě dat.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(70802): warning C4244: =: short se převádí na uint8; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(70803): warning C4244: =: short se převádí na uint8; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(70821): warning C4244: =: short se převádí na Bit8u; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(70847): warning C4244: =: short se převádí na uint8; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(70820): warning C4244: =: short se převádí na Bit8u; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(70846): warning C4244: =: short se převádí na uint8; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(70881): warning C4244: =: short se převádí na uint8; může dojít ke ztrátě dat.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(70882): warning C4244: =: short se převádí na uint8; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(70883): warning C4244: =: short se převádí na uint8; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(70899): warning C4244: =: short se převádí na Bit8u; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(70916): warning C4244: =: short se převádí na uint8; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(70985): warning C4244: =: unsigned short se převádí na unsigned char; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(70991): warning C4244: =: unsigned short se převádí na unsigned char; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(71112): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(71255): warning C4101: v17: neodkazovaná lokální proměnná
-c:\prenos\remc2\remc2\engine\sub_main.cpp(71595): warning C4018: <=: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(71629): warning C4244: =: short se převádí na uint8; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(71951): warning C4101: v3: neodkazovaná lokální proměnná
-c:\prenos\remc2\remc2\engine\sub_main.cpp(72219): warning C4018: >=: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(72365): warning C4244: =: short se převádí na Bit8u; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(72369): warning C4244: =: short se převádí na Bit8u; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(72503): warning C4101: result: neodkazovaná lokální proměnná
-c:\prenos\remc2\remc2\engine\sub_main.cpp(72636): warning C4244: argument: short se převádí na unsigned char; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(73125): warning C4244: =: unsigned short se převádí na uint8; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(74107): warning C4101: i: neodkazovaná lokální proměnná
-c:\prenos\remc2\remc2\engine\sub_main.cpp(74483): warning C4244: =: Bit16u se převádí na Bit8u; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(74759): warning C4305: =: zkrácení z: int na: Bit8u
-c:\prenos\remc2\remc2\engine\sub_main.cpp(74759): warning C4309: =: zkrácení konstantní hodnoty
-c:\prenos\remc2\remc2\engine\sub_main.cpp(75084): warning C4244: =: short se převádí na Bit8u; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(75118): warning C4018: <=: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(76421): warning C4302: přetypování: zkrácení z: int16 * na: short
-c:\prenos\remc2\remc2\engine\sub_main.cpp(76484): warning C4244: =: short se převádí na uint8; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(77021): warning C4805: ^: Potenciálně nebezpečné směšování typu bool a typu unsigned char v jedné operaci
-c:\prenos\remc2\remc2\engine\sub_main.cpp(77035): warning C4302: přetypování: zkrácení z: int8 * na: char
-c:\prenos\remc2\remc2\engine\sub_main.cpp(77221): warning C4302: přetypování: zkrácení z: int16 * na: char
-c:\prenos\remc2\remc2\engine\sub_main.cpp(77575): warning C4244: =: __int64 se převádí na int16; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(78168): warning C4244: =: short se převádí na Bit8u; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(78267): warning C4244: =: __int64 se převádí na int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(70898): warning C4244: =: short se převádí na Bit8u; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(70915): warning C4244: =: short se převádí na uint8; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(70984): warning C4244: =: Bit16u se převádí na Bit8u; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(70990): warning C4244: =: Bit16u se převádí na Bit8u; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(70982): warning C4101: v5: neodkazovaná lokální proměnná
+c:\prenos\remc2\remc2\engine\sub_main.cpp(71111): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(71254): warning C4101: v17: neodkazovaná lokální proměnná
+c:\prenos\remc2\remc2\engine\sub_main.cpp(71594): warning C4018: <=: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(71628): warning C4244: =: short se převádí na uint8; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(71950): warning C4101: v3: neodkazovaná lokální proměnná
+c:\prenos\remc2\remc2\engine\sub_main.cpp(72218): warning C4018: >=: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(72364): warning C4244: =: short se převádí na Bit8u; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(72368): warning C4244: =: short se převádí na Bit8u; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(72502): warning C4101: result: neodkazovaná lokální proměnná
+c:\prenos\remc2\remc2\engine\sub_main.cpp(72635): warning C4244: argument: short se převádí na unsigned char; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(73124): warning C4244: =: unsigned short se převádí na uint8; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(74106): warning C4101: i: neodkazovaná lokální proměnná
+c:\prenos\remc2\remc2\engine\sub_main.cpp(74482): warning C4244: =: Bit16u se převádí na Bit8u; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(74758): warning C4305: =: zkrácení z: int na: Bit8u
+c:\prenos\remc2\remc2\engine\sub_main.cpp(74758): warning C4309: =: zkrácení konstantní hodnoty
+c:\prenos\remc2\remc2\engine\sub_main.cpp(75083): warning C4244: =: short se převádí na Bit8u; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(75117): warning C4018: <=: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(76420): warning C4302: přetypování: zkrácení z: int16 * na: short
+c:\prenos\remc2\remc2\engine\sub_main.cpp(76483): warning C4244: =: short se převádí na uint8; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(77020): warning C4805: ^: Potenciálně nebezpečné směšování typu bool a typu unsigned char v jedné operaci
+c:\prenos\remc2\remc2\engine\sub_main.cpp(77034): warning C4302: přetypování: zkrácení z: int8 * na: char
+c:\prenos\remc2\remc2\engine\sub_main.cpp(77220): warning C4302: přetypování: zkrácení z: int16 * na: char
+c:\prenos\remc2\remc2\engine\sub_main.cpp(77329): warning C4244: =: short se převádí na int8; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(77574): warning C4244: =: __int64 se převádí na int16; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(78167): warning C4244: =: short se převádí na Bit8u; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(78266): warning C4244: =: __int64 se převádí na int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(78734): warning C4302: přetypování: zkrácení z: Bit8u * na: unsigned char
 c:\prenos\remc2\remc2\engine\sub_main.cpp(78735): warning C4302: přetypování: zkrácení z: Bit8u * na: unsigned char
-c:\prenos\remc2\remc2\engine\sub_main.cpp(78736): warning C4302: přetypování: zkrácení z: Bit8u * na: unsigned char
-c:\prenos\remc2\remc2\engine\sub_main.cpp(78766): warning C4244: =: __int64 se převádí na int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(78808): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(78765): warning C4244: =: __int64 se převádí na int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(78807): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(79346): warning C4302: přetypování: zkrácení z: Bit8u * na: unsigned char
 c:\prenos\remc2\remc2\engine\sub_main.cpp(79347): warning C4302: přetypování: zkrácení z: Bit8u * na: unsigned char
-c:\prenos\remc2\remc2\engine\sub_main.cpp(79348): warning C4302: přetypování: zkrácení z: Bit8u * na: unsigned char
-c:\prenos\remc2\remc2\engine\sub_main.cpp(79384): warning C4244: =: __int64 se převádí na int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(79429): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(80677): warning C4244: =: __int64 se převádí na int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(82111): warning C4244: =: short se převádí na uint8; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(82479): warning C4244: =: short se převádí na uint8; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(82516): warning C4244: return: short se převádí na char; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(82606): warning C4244: =: short se převádí na uint8; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(82746): warning C4244: =: short se převádí na uint8; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(84993): warning C4244: =: int16 se převádí na uint8; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(85047): warning C4244: return: unsigned short se převádí na char; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(87179): warning C4302: přetypování: zkrácení z: char * na: int8
-c:\prenos\remc2\remc2\engine\sub_main.cpp(87190): warning C4302: přetypování: zkrácení z: char * na: char
-c:\prenos\remc2\remc2\engine\sub_main.cpp(87274): warning C4244: argument: short se převádí na unsigned char; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(87316): warning C4244: argument: short se převádí na unsigned char; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(87890): warning C4102: LABEL_46: neodkazovaná jmenovka
-c:\prenos\remc2\remc2\engine\sub_main.cpp(88722): warning C4805: ==: Potenciálně nebezpečné směšování typu bool a typu int v jedné operaci
-c:\prenos\remc2\remc2\engine\sub_main.cpp(88745): warning C4805: ==: Potenciálně nebezpečné směšování typu bool a typu int v jedné operaci
-c:\prenos\remc2\remc2\engine\sub_main.cpp(88885): warning C4101: v0: neodkazovaná lokální proměnná
-c:\prenos\remc2\remc2\engine\sub_main.cpp(89135): warning C4302: přetypování: zkrácení z: Bit8u * na: unsigned char
-c:\prenos\remc2\remc2\engine\sub_main.cpp(89946): warning C4244: =: unsigned short se převádí na uint8; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(89958): warning C4018: <=: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(89984): warning C4302: přetypování: zkrácení z: void * na: char
-c:\prenos\remc2\remc2\engine\sub_main.cpp(90060): warning C4244: =: unsigned short se převádí na uint8; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(90073): warning C4018: <=: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(90147): warning C4302: přetypování: zkrácení z: int8 * na: short
-c:\prenos\remc2\remc2\engine\sub_main.cpp(90251): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(90912): warning C4302: přetypování: zkrácení z: Bit8u * na: int8
-c:\prenos\remc2\remc2\engine\sub_main.cpp(92451): warning C4305: argument: zkrácení z: int na: Bit8u
-c:\prenos\remc2\remc2\engine\sub_main.cpp(92451): warning C4309: argument: zkrácení konstantní hodnoty
-c:\prenos\remc2\remc2\engine\sub_main.cpp(92768): warning C4244: =: Bit16s se převádí na int8; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(93026): warning C4244: =: short se převádí na int8; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(93030): warning C4244: =: short se převádí na int8; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(93287): warning C4244: =: Bit16u se převádí na Bit8u; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(79383): warning C4244: =: __int64 se převádí na int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(79428): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(80676): warning C4244: =: __int64 se převádí na int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(82110): warning C4244: =: short se převádí na uint8; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(82478): warning C4244: =: short se převádí na uint8; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(82515): warning C4244: return: short se převádí na char; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(82605): warning C4244: =: short se převádí na uint8; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(82745): warning C4244: =: short se převádí na uint8; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(84992): warning C4244: =: int16 se převádí na uint8; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(85046): warning C4244: return: unsigned short se převádí na char; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(87178): warning C4302: přetypování: zkrácení z: char * na: int8
+c:\prenos\remc2\remc2\engine\sub_main.cpp(87189): warning C4302: přetypování: zkrácení z: char * na: char
+c:\prenos\remc2\remc2\engine\sub_main.cpp(87273): warning C4244: argument: short se převádí na unsigned char; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(87315): warning C4244: argument: short se převádí na unsigned char; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(87889): warning C4102: LABEL_46: neodkazovaná jmenovka
+c:\prenos\remc2\remc2\engine\sub_main.cpp(88721): warning C4805: ==: Potenciálně nebezpečné směšování typu bool a typu int v jedné operaci
+c:\prenos\remc2\remc2\engine\sub_main.cpp(88744): warning C4805: ==: Potenciálně nebezpečné směšování typu bool a typu int v jedné operaci
+c:\prenos\remc2\remc2\engine\sub_main.cpp(88884): warning C4101: v0: neodkazovaná lokální proměnná
+c:\prenos\remc2\remc2\engine\sub_main.cpp(89134): warning C4302: přetypování: zkrácení z: Bit8u * na: unsigned char
+c:\prenos\remc2\remc2\engine\sub_main.cpp(89945): warning C4244: =: unsigned short se převádí na uint8; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(89957): warning C4018: <=: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(89983): warning C4302: přetypování: zkrácení z: void * na: char
+c:\prenos\remc2\remc2\engine\sub_main.cpp(90059): warning C4244: =: unsigned short se převádí na uint8; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(90072): warning C4018: <=: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(90146): warning C4302: přetypování: zkrácení z: int8 * na: short
+c:\prenos\remc2\remc2\engine\sub_main.cpp(90250): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(90911): warning C4302: přetypování: zkrácení z: Bit8u * na: int8
+c:\prenos\remc2\remc2\engine\sub_main.cpp(92450): warning C4305: argument: zkrácení z: int na: Bit8u
+c:\prenos\remc2\remc2\engine\sub_main.cpp(92450): warning C4309: argument: zkrácení konstantní hodnoty
+c:\prenos\remc2\remc2\engine\sub_main.cpp(92767): warning C4244: =: Bit16s se převádí na int8; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(93025): warning C4244: =: short se převádí na int8; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(93029): warning C4244: =: short se převádí na int8; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(93286): warning C4244: =: Bit16u se převádí na Bit8u; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(93289): warning C4244: =: Bit16u se převádí na Bit8u; může dojít ke ztrátě dat.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(93290): warning C4244: =: Bit16u se převádí na Bit8u; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(93291): warning C4244: =: Bit16u se převádí na Bit8u; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(93292): warning C4244: =: Bit16u se převádí na Bit8u; může dojít ke ztrátě dat.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(93293): warning C4244: =: Bit16u se převádí na Bit8u; může dojít ke ztrátě dat.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(93294): warning C4244: =: Bit16u se převádí na Bit8u; může dojít ke ztrátě dat.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(93295): warning C4244: =: Bit16u se převádí na Bit8u; může dojít ke ztrátě dat.
@@ -349,488 +351,487 @@ c:\prenos\remc2\remc2\engine\sub_main.cpp(93298): warning C4244: =: Bit16u se p�
 c:\prenos\remc2\remc2\engine\sub_main.cpp(93299): warning C4244: =: Bit16u se převádí na Bit8u; může dojít ke ztrátě dat.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(93300): warning C4244: =: Bit16u se převádí na Bit8u; může dojít ke ztrátě dat.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(93301): warning C4244: =: Bit16u se převádí na Bit8u; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(93302): warning C4244: =: Bit16u se převádí na Bit8u; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(93538): warning C4244: argument: short se převádí na char; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(93694): warning C4244: argument: short se převádí na char; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(93834): warning C4244: argument: short se převádí na char; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(93890): warning C4302: přetypování: zkrácení z: short * na: int8
-c:\prenos\remc2\remc2\engine\sub_main.cpp(93936): warning C4244: =: short se převádí na char; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(94024): warning C4244: argument: short se převádí na char; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(94032): warning C4244: argument: short se převádí na char; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(94159): warning C4244: =: short se převádí na Bit8u; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(94469): warning C4244: =: short se převádí na Bit8u; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(94555): warning C4244: return: short se převádí na char; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(94857): warning C4244: return: short se převádí na char; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(94916): warning C4267: =: Převod z: size_t na: short, může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(94936): warning C4267: =: Převod z: size_t na: short, může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(95181): warning C4244: return: short se převádí na char; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(95194): warning C4244: return: short se převádí na char; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(95211): warning C4244: return: short se převádí na char; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(95218): warning C4244: return: short se převádí na char; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(95220): warning C4244: return: short se převádí na char; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(95225): warning C4244: return: short se převádí na char; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(95251): warning C4244: return: short se převádí na char; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(95330): warning C4244: argument: short se převádí na char; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(96340): warning C4244: argument: short se převádí na char; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(96497): warning C4244: =: short se převádí na uint8; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(96858): warning C4244: =: Bit16s se převádí na Bit8u; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(96931): warning C4244: =: long se převádí na char; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(97027): warning C4302: přetypování: zkrácení z: int16 * na: int16
-c:\prenos\remc2\remc2\engine\sub_main.cpp(97047): warning C4302: přetypování: zkrácení z: int16 * na: short
-c:\prenos\remc2\remc2\engine\sub_main.cpp(97112): warning C4244: argument: short se převádí na unsigned char; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(97577): warning C4244: =: short se převádí na char; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(97581): warning C4244: argument: short se převádí na unsigned char; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(97590): warning C4244: argument: short se převádí na unsigned char; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(97599): warning C4244: argument: short se převádí na unsigned char; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(97608): warning C4244: =: short se převádí na Bit8u; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(97722): warning C4244: argument: short se převádí na unsigned char; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(98316): warning C4302: přetypování: zkrácení z: short * na: short
-c:\prenos\remc2\remc2\engine\sub_main.cpp(98324): warning C4302: přetypování: zkrácení z: short * na: int8
-c:\prenos\remc2\remc2\engine\sub_main.cpp(98339): warning C4244: =: short se převádí na char; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(98343): warning C4244: return: short se převádí na char; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(98813): warning C4554: >>: Zkontrolujte, jestli není chyba v prioritě operátorů; zadejte prioritu jednoznačně pomocí závorek.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(99246): warning C4302: přetypování: zkrácení z: char * na: int16
-c:\prenos\remc2\remc2\engine\sub_main.cpp(99253): warning C4302: přetypování: zkrácení z: char * na: short
-c:\prenos\remc2\remc2\engine\sub_main.cpp(99257): warning C4302: přetypování: zkrácení z: Bit16s * na: short
-c:\prenos\remc2\remc2\engine\sub_main.cpp(99257): warning C4244: argument: Bit16s se převádí na char; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(99285): warning C4302: přetypování: zkrácení z: char * na: short
-c:\prenos\remc2\remc2\engine\sub_main.cpp(99289): warning C4302: přetypování: zkrácení z: Bit16s * na: short
-c:\prenos\remc2\remc2\engine\sub_main.cpp(99289): warning C4244: argument: Bit16s se převádí na char; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(99391): warning C4302: přetypování: zkrácení z: Bit16s * na: short
-c:\prenos\remc2\remc2\engine\sub_main.cpp(99437): warning C4302: přetypování: zkrácení z: Bit16s * na: short
-c:\prenos\remc2\remc2\engine\sub_main.cpp(99440): warning C4244: =: short se převádí na Bit8u; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(99548): warning C4267: =: Převod z: size_t na: int8, může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(99580): warning C4267: =: Převod z: size_t na: int8, může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(99588): warning C4267: argument: Převod z: size_t na: short, může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(99630): warning C4244: =: long se převádí na Bit16u; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(93537): warning C4244: argument: short se převádí na char; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(93693): warning C4244: argument: short se převádí na char; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(93833): warning C4244: argument: short se převádí na char; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(93889): warning C4302: přetypování: zkrácení z: short * na: int8
+c:\prenos\remc2\remc2\engine\sub_main.cpp(93935): warning C4244: =: short se převádí na char; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(94023): warning C4244: argument: short se převádí na char; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(94031): warning C4244: argument: short se převádí na char; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(94158): warning C4244: =: short se převádí na Bit8u; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(94468): warning C4244: =: short se převádí na Bit8u; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(94554): warning C4244: return: short se převádí na char; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(94856): warning C4244: return: short se převádí na char; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(94915): warning C4267: =: Převod z: size_t na: short, může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(94935): warning C4267: =: Převod z: size_t na: short, může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(95180): warning C4244: return: short se převádí na char; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(95193): warning C4244: return: short se převádí na char; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(95210): warning C4244: return: short se převádí na char; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(95217): warning C4244: return: short se převádí na char; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(95219): warning C4244: return: short se převádí na char; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(95224): warning C4244: return: short se převádí na char; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(95250): warning C4244: return: short se převádí na char; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(95329): warning C4244: argument: short se převádí na char; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(96339): warning C4244: argument: short se převádí na char; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(96496): warning C4244: =: short se převádí na uint8; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(96857): warning C4244: =: Bit16s se převádí na Bit8u; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(96930): warning C4244: =: long se převádí na char; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(97026): warning C4302: přetypování: zkrácení z: int16 * na: int16
+c:\prenos\remc2\remc2\engine\sub_main.cpp(97046): warning C4302: přetypování: zkrácení z: int16 * na: short
+c:\prenos\remc2\remc2\engine\sub_main.cpp(97111): warning C4244: argument: short se převádí na unsigned char; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(97576): warning C4244: =: short se převádí na char; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(97580): warning C4244: argument: short se převádí na unsigned char; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(97589): warning C4244: argument: short se převádí na unsigned char; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(97598): warning C4244: argument: short se převádí na unsigned char; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(97607): warning C4244: =: short se převádí na Bit8u; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(97721): warning C4244: argument: short se převádí na unsigned char; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(98315): warning C4302: přetypování: zkrácení z: short * na: short
+c:\prenos\remc2\remc2\engine\sub_main.cpp(98323): warning C4302: přetypování: zkrácení z: short * na: int8
+c:\prenos\remc2\remc2\engine\sub_main.cpp(98338): warning C4244: =: short se převádí na char; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(98342): warning C4244: return: short se převádí na char; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(98812): warning C4554: >>: Zkontrolujte, jestli není chyba v prioritě operátorů; zadejte prioritu jednoznačně pomocí závorek.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(99245): warning C4302: přetypování: zkrácení z: char * na: int16
+c:\prenos\remc2\remc2\engine\sub_main.cpp(99252): warning C4302: přetypování: zkrácení z: char * na: short
+c:\prenos\remc2\remc2\engine\sub_main.cpp(99256): warning C4302: přetypování: zkrácení z: Bit16s * na: short
+c:\prenos\remc2\remc2\engine\sub_main.cpp(99256): warning C4244: argument: Bit16s se převádí na char; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(99284): warning C4302: přetypování: zkrácení z: char * na: short
+c:\prenos\remc2\remc2\engine\sub_main.cpp(99288): warning C4302: přetypování: zkrácení z: Bit16s * na: short
+c:\prenos\remc2\remc2\engine\sub_main.cpp(99288): warning C4244: argument: Bit16s se převádí na char; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(99390): warning C4302: přetypování: zkrácení z: Bit16s * na: short
+c:\prenos\remc2\remc2\engine\sub_main.cpp(99436): warning C4302: přetypování: zkrácení z: Bit16s * na: short
+c:\prenos\remc2\remc2\engine\sub_main.cpp(99439): warning C4244: =: short se převádí na Bit8u; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(99547): warning C4267: =: Převod z: size_t na: int8, může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(99579): warning C4267: =: Převod z: size_t na: int8, může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(99587): warning C4267: argument: Převod z: size_t na: short, může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(99629): warning C4244: =: long se převádí na Bit16u; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(101071): warning C4302: přetypování: zkrácení z: Bit8u * na: short
 c:\prenos\remc2\remc2\engine\sub_main.cpp(101072): warning C4302: přetypování: zkrácení z: Bit8u * na: short
-c:\prenos\remc2\remc2\engine\sub_main.cpp(101073): warning C4302: přetypování: zkrácení z: Bit8u * na: short
+c:\prenos\remc2\remc2\engine\sub_main.cpp(101130): warning C4302: přetypování: zkrácení z: Bit8u * na: short
 c:\prenos\remc2\remc2\engine\sub_main.cpp(101131): warning C4302: přetypování: zkrácení z: Bit8u * na: short
-c:\prenos\remc2\remc2\engine\sub_main.cpp(101132): warning C4302: přetypování: zkrácení z: Bit8u * na: short
-c:\prenos\remc2\remc2\engine\sub_main.cpp(101206): warning C4018: >: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(101338): warning C4018: >: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(101726): warning C4244: =: short se převádí na unsigned char; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(101754): warning C4302: přetypování: zkrácení z: int16 * na: short
-c:\prenos\remc2\remc2\engine\sub_main.cpp(101760): warning C4302: přetypování: zkrácení z: int16 * na: int16
-c:\prenos\remc2\remc2\engine\sub_main.cpp(101780): warning C4302: přetypování: zkrácení z: int16 * na: short
-c:\prenos\remc2\remc2\engine\sub_main.cpp(101786): warning C4302: přetypování: zkrácení z: int16 * na: int16
-c:\prenos\remc2\remc2\engine\sub_main.cpp(101863): warning C4302: přetypování: zkrácení z: int16 * na: short
-c:\prenos\remc2\remc2\engine\sub_main.cpp(102032): warning C4267: =: Převod z: size_t na: short, může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(102036): warning C4018: >: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(102037): warning C4267: =: Převod z: size_t na: short, může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(102045): warning C4018: >: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(102163): warning C4102: LABEL_46: neodkazovaná jmenovka
-c:\prenos\remc2\remc2\engine\sub_main.cpp(102213): warning C4244: =: short se převádí na uint8; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(102224): warning C4244: argument: short se převádí na char; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(102379): warning C4244: =: short se převádí na uint8; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(103262): warning C4244: return: short se převádí na char; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(103444): warning C4302: přetypování: zkrácení z: Bit8u * na: short
-c:\prenos\remc2\remc2\engine\sub_main.cpp(104283): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(104329): warning C4244: =: short se převádí na uint8; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(104333): warning C4244: =: short se převádí na uint8; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(104337): warning C4244: =: short se převádí na uint8; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(104341): warning C4244: =: short se převádí na uint8; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(104345): warning C4244: =: short se převádí na uint8; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(104349): warning C4244: =: short se převádí na uint8; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(104353): warning C4244: =: short se převádí na uint8; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(104358): warning C4244: =: short se převádí na uint8; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(104369): warning C4244: =: short se převádí na uint8; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(104373): warning C4244: =: short se převádí na uint8; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(104377): warning C4244: =: short se převádí na uint8; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(104381): warning C4244: =: short se převádí na uint8; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(104385): warning C4244: =: short se převádí na uint8; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(104389): warning C4244: =: short se převádí na uint8; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(104393): warning C4244: =: short se převádí na uint8; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(104398): warning C4244: =: short se převádí na uint8; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(105009): warning C4244: return: short se převádí na char; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(105056): warning C4244: return: short se převádí na char; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(105103): warning C4244: return: short se převádí na char; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(105164): warning C4244: argument: unsigned short se převádí na char; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(105236): warning C4244: =: short se převádí na char; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(105238): warning C4244: =: short se převádí na char; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(105425): warning C4244: =: short se převádí na uint8; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(105641): warning C4302: přetypování: zkrácení z: Bit8u * na: unsigned char
-c:\prenos\remc2\remc2\engine\sub_main.cpp(105751): warning C4302: přetypování: zkrácení z: short * na: short
-c:\prenos\remc2\remc2\engine\sub_main.cpp(105754): warning C4302: přetypování: zkrácení z: Bit8u * na: unsigned char
-c:\prenos\remc2\remc2\engine\sub_main.cpp(105832): warning C4302: přetypování: zkrácení z: Bit8u * na: unsigned char
-c:\prenos\remc2\remc2\engine\sub_main.cpp(106447): warning C4244: =: short se převádí na char; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(106516): warning C4244: =: unsigned short se převádí na uint8; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(106524): warning C4244: =: unsigned short se převádí na uint8; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(106568): warning C4244: =: unsigned short se převádí na uint8; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(107496): warning C4302: přetypování: zkrácení z: Bit8u * na: unsigned char
-c:\prenos\remc2\remc2\engine\sub_main.cpp(108888): warning C4244: =: double se převádí na uint32; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(109117): warning C4102: LABEL_46: neodkazovaná jmenovka
+c:\prenos\remc2\remc2\engine\sub_main.cpp(101205): warning C4018: >: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(101337): warning C4018: >: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(101725): warning C4244: =: short se převádí na unsigned char; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(101753): warning C4302: přetypování: zkrácení z: int16 * na: short
+c:\prenos\remc2\remc2\engine\sub_main.cpp(101759): warning C4302: přetypování: zkrácení z: int16 * na: int16
+c:\prenos\remc2\remc2\engine\sub_main.cpp(101779): warning C4302: přetypování: zkrácení z: int16 * na: short
+c:\prenos\remc2\remc2\engine\sub_main.cpp(101785): warning C4302: přetypování: zkrácení z: int16 * na: int16
+c:\prenos\remc2\remc2\engine\sub_main.cpp(101862): warning C4302: přetypování: zkrácení z: int16 * na: short
+c:\prenos\remc2\remc2\engine\sub_main.cpp(102031): warning C4267: =: Převod z: size_t na: short, může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(102035): warning C4018: >: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(102036): warning C4267: =: Převod z: size_t na: short, může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(102044): warning C4018: >: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(102162): warning C4102: LABEL_46: neodkazovaná jmenovka
+c:\prenos\remc2\remc2\engine\sub_main.cpp(102212): warning C4244: =: short se převádí na uint8; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(102223): warning C4244: argument: short se převádí na char; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(102378): warning C4244: =: short se převádí na uint8; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(103261): warning C4244: return: short se převádí na char; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(103443): warning C4302: přetypování: zkrácení z: Bit8u * na: short
+c:\prenos\remc2\remc2\engine\sub_main.cpp(104282): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(104328): warning C4244: =: short se převádí na uint8; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(104332): warning C4244: =: short se převádí na uint8; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(104336): warning C4244: =: short se převádí na uint8; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(104340): warning C4244: =: short se převádí na uint8; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(104344): warning C4244: =: short se převádí na uint8; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(104348): warning C4244: =: short se převádí na uint8; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(104352): warning C4244: =: short se převádí na uint8; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(104357): warning C4244: =: short se převádí na uint8; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(104368): warning C4244: =: short se převádí na uint8; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(104372): warning C4244: =: short se převádí na uint8; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(104376): warning C4244: =: short se převádí na uint8; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(104380): warning C4244: =: short se převádí na uint8; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(104384): warning C4244: =: short se převádí na uint8; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(104388): warning C4244: =: short se převádí na uint8; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(104392): warning C4244: =: short se převádí na uint8; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(104397): warning C4244: =: short se převádí na uint8; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(105008): warning C4244: return: short se převádí na char; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(105055): warning C4244: return: short se převádí na char; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(105102): warning C4244: return: short se převádí na char; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(105163): warning C4244: argument: unsigned short se převádí na char; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(105235): warning C4244: =: short se převádí na char; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(105237): warning C4244: =: short se převádí na char; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(105424): warning C4244: =: short se převádí na uint8; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(105640): warning C4302: přetypování: zkrácení z: Bit8u * na: unsigned char
+c:\prenos\remc2\remc2\engine\sub_main.cpp(105750): warning C4302: přetypování: zkrácení z: short * na: short
+c:\prenos\remc2\remc2\engine\sub_main.cpp(105753): warning C4302: přetypování: zkrácení z: Bit8u * na: unsigned char
+c:\prenos\remc2\remc2\engine\sub_main.cpp(105831): warning C4302: přetypování: zkrácení z: Bit8u * na: unsigned char
+c:\prenos\remc2\remc2\engine\sub_main.cpp(106446): warning C4244: =: short se převádí na char; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(106515): warning C4244: =: unsigned short se převádí na uint8; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(106523): warning C4244: =: unsigned short se převádí na uint8; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(106567): warning C4244: =: unsigned short se převádí na uint8; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(107495): warning C4302: přetypování: zkrácení z: Bit8u * na: unsigned char
+c:\prenos\remc2\remc2\engine\sub_main.cpp(108887): warning C4244: =: double se převádí na uint32; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(109116): warning C4102: LABEL_46: neodkazovaná jmenovka
+c:\prenos\remc2\remc2\engine\sub_main.cpp(109412): warning C4244: =: Bit16s se převádí na Bit8s; může dojít ke ztrátě dat.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(109413): warning C4244: =: Bit16s se převádí na Bit8s; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(109414): warning C4244: =: Bit16s se převádí na Bit8s; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(109429): warning C4244: =: Bit16u se převádí na char; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(109519): warning C4244: =: Bit16s se převádí na Bit8s; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(109521): warning C4244: =: Bit16s se převádí na Bit8s; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(109532): warning C4244: =: Bit16s se převádí na char; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(109985): warning C4390: ; – Našel se prázdný řízený příkaz; zadali jste ho tak záměrně?
-c:\prenos\remc2\remc2\engine\sub_main.cpp(110182): warning C4477: sscanf_s: Formátovací řetězec %s vyžaduje argument typu char *, ale variadický argument 1 má typ unsigned int.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(110182): note: Tento argument se používá ve specifikátoru převodu.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(110182): warning C4473: sscanf_s: Pro formátovací řetězec se nepředal dostatečný počet argumentů.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(110182): note: Pro zástupný text a jeho parametry se očekával tento počet variadických argumentů: 6, ale je zadaný tento počet: 1.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(110182): note: Chybějící variadický argument 2 je vyžadován formátovacím řetězcem %s.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(110182): note: Tento argument se používá jako velikost vyrovnávací paměti.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(110514): warning C4477: sscanf_s: Formátovací řetězec %s vyžaduje argument typu char *, ale variadický argument 1 má typ unsigned int.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(110514): note: Tento argument se používá ve specifikátoru převodu.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(110514): warning C4473: sscanf_s: Pro formátovací řetězec se nepředal dostatečný počet argumentů.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(110514): note: Pro zástupný text a jeho parametry se očekával tento počet variadických argumentů: 6, ale je zadaný tento počet: 1.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(110514): note: Chybějící variadický argument 2 je vyžadován formátovacím řetězcem %s.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(110514): note: Tento argument se používá jako velikost vyrovnávací paměti.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(110454): warning C4101: v3: neodkazovaná lokální proměnná
-c:\prenos\remc2\remc2\engine\sub_main.cpp(110461): warning C4101: v7x: neodkazovaná lokální proměnná
-c:\prenos\remc2\remc2\engine\sub_main.cpp(110717): warning C4101: i: neodkazovaná lokální proměnná
-c:\prenos\remc2\remc2\engine\sub_main.cpp(111002): warning C4244: =: short se převádí na int8; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(111170): warning C4244: return: short se převádí na char; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(111408): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(111602): warning C4018: >: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(112203): warning C4805: ^: Potenciálně nebezpečné směšování typu bool a typu unsigned char v jedné operaci
-c:\prenos\remc2\remc2\engine\sub_main.cpp(112203): warning C4805: |: Potenciálně nebezpečné směšování typu int a typu bool v jedné operaci
-c:\prenos\remc2\remc2\engine\sub_main.cpp(112911): warning C4244: =: uint64 se převádí na unsigned int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(111893): warning C4101: v98: neodkazovaná lokální proměnná
-c:\prenos\remc2\remc2\engine\sub_main.cpp(111931): warning C4101: v136: neodkazovaná lokální proměnná
-c:\prenos\remc2\remc2\engine\sub_main.cpp(111898): warning C4101: v103: neodkazovaná lokální proměnná
-c:\prenos\remc2\remc2\engine\sub_main.cpp(111892): warning C4101: v97: neodkazovaná lokální proměnná
-c:\prenos\remc2\remc2\engine\sub_main.cpp(111895): warning C4101: v100: neodkazovaná lokální proměnná
-c:\prenos\remc2\remc2\engine\sub_main.cpp(111897): warning C4101: v102: neodkazovaná lokální proměnná
-c:\prenos\remc2\remc2\engine\sub_main.cpp(111896): warning C4101: v101: neodkazovaná lokální proměnná
-c:\prenos\remc2\remc2\engine\sub_main.cpp(111899): warning C4101: v104: neodkazovaná lokální proměnná
-c:\prenos\remc2\remc2\engine\sub_main.cpp(111894): warning C4101: v99: neodkazovaná lokální proměnná
-c:\prenos\remc2\remc2\engine\sub_main.cpp(113186): warning C4244: =: unsigned short se převádí na int8; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(113273): warning C4244: =: unsigned short se převádí na int8; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(113335): warning C4305: =: zkrácení z: double na: float
-c:\prenos\remc2\remc2\engine\sub_main.cpp(113486): warning C4305: argument: zkrácení z: double na: float
-c:\prenos\remc2\remc2\engine\sub_main.cpp(113507): warning C4244: argument: short se převádí na char; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(113946): warning C4244: argument: short se převádí na char; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(113948): warning C4244: argument: short se převádí na char; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(113950): warning C4244: argument: short se převádí na char; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(113952): warning C4244: argument: short se převádí na char; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(113954): warning C4244: argument: short se převádí na char; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(113956): warning C4244: argument: short se převádí na char; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(113958): warning C4244: argument: short se převádí na char; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(113960): warning C4244: argument: short se převádí na char; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(114727): warning C4302: přetypování: zkrácení z: HSAMPLE na: char
-c:\prenos\remc2\remc2\engine\sub_main.cpp(115636): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(115645): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(115662): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(115669): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(115686): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(115695): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(115712): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(115719): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(115932): warning C4244: =: Bit16u se převádí na uint8; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(115963): warning C4244: return: Bit16u se převádí na char; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(116921): warning C4302: přetypování: zkrácení z: int16 * na: unsigned char
-c:\prenos\remc2\remc2\engine\sub_main.cpp(117077): warning C4309: argument: zkrácení konstantní hodnoty
-c:\prenos\remc2\remc2\engine\sub_main.cpp(117269): warning C4309: argument: zkrácení konstantní hodnoty
-c:\prenos\remc2\remc2\engine\sub_main.cpp(117713): warning C4101: v10: neodkazovaná lokální proměnná
-c:\prenos\remc2\remc2\engine\sub_main.cpp(117984): warning C4101: v19: neodkazovaná lokální proměnná
-c:\prenos\remc2\remc2\engine\sub_main.cpp(118517): warning C4244: =: __int64 se převádí na int32; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(118550): warning C4244: =: __int64 se převádí na int32; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(118596): warning C4244: =: __int64 se převádí na int32; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(118629): warning C4244: =: __int64 se převádí na int32; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(118694): warning C4244: =: __int64 se převádí na int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(118709): warning C4244: =: __int64 se převádí na int32; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(118723): warning C4244: =: __int64 se převádí na int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(118932): warning C4018: >=: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(119038): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(119190): warning C4302: přetypování: zkrácení z: char * na: short
-c:\prenos\remc2\remc2\engine\sub_main.cpp(120355): warning C4101: v4: neodkazovaná lokální proměnná
-c:\prenos\remc2\remc2\engine\sub_main.cpp(120356): warning C4101: v5: neodkazovaná lokální proměnná
-c:\prenos\remc2\remc2\engine\sub_main.cpp(120510): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(109428): warning C4244: =: Bit16u se převádí na char; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(109518): warning C4244: =: Bit16s se převádí na Bit8s; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(109520): warning C4244: =: Bit16s se převádí na Bit8s; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(109531): warning C4244: =: Bit16s se převádí na char; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(109984): warning C4390: ; – Našel se prázdný řízený příkaz; zadali jste ho tak záměrně?
+c:\prenos\remc2\remc2\engine\sub_main.cpp(110181): warning C4477: sscanf_s: Formátovací řetězec %s vyžaduje argument typu char *, ale variadický argument 1 má typ unsigned int.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(110181): note: Tento argument se používá ve specifikátoru převodu.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(110181): warning C4473: sscanf_s: Pro formátovací řetězec se nepředal dostatečný počet argumentů.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(110181): note: Pro zástupný text a jeho parametry se očekával tento počet variadických argumentů: 6, ale je zadaný tento počet: 1.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(110181): note: Chybějící variadický argument 2 je vyžadován formátovacím řetězcem %s.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(110181): note: Tento argument se používá jako velikost vyrovnávací paměti.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(110513): warning C4477: sscanf_s: Formátovací řetězec %s vyžaduje argument typu char *, ale variadický argument 1 má typ unsigned int.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(110513): note: Tento argument se používá ve specifikátoru převodu.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(110513): warning C4473: sscanf_s: Pro formátovací řetězec se nepředal dostatečný počet argumentů.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(110513): note: Pro zástupný text a jeho parametry se očekával tento počet variadických argumentů: 6, ale je zadaný tento počet: 1.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(110513): note: Chybějící variadický argument 2 je vyžadován formátovacím řetězcem %s.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(110513): note: Tento argument se používá jako velikost vyrovnávací paměti.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(110453): warning C4101: v3: neodkazovaná lokální proměnná
+c:\prenos\remc2\remc2\engine\sub_main.cpp(110460): warning C4101: v7x: neodkazovaná lokální proměnná
+c:\prenos\remc2\remc2\engine\sub_main.cpp(110716): warning C4101: i: neodkazovaná lokální proměnná
+c:\prenos\remc2\remc2\engine\sub_main.cpp(111001): warning C4244: =: short se převádí na int8; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(111169): warning C4244: return: short se převádí na char; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(111407): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(111601): warning C4018: >: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(112202): warning C4805: ^: Potenciálně nebezpečné směšování typu bool a typu unsigned char v jedné operaci
+c:\prenos\remc2\remc2\engine\sub_main.cpp(112202): warning C4805: |: Potenciálně nebezpečné směšování typu int a typu bool v jedné operaci
+c:\prenos\remc2\remc2\engine\sub_main.cpp(112910): warning C4244: =: uint64 se převádí na unsigned int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(111892): warning C4101: v98: neodkazovaná lokální proměnná
+c:\prenos\remc2\remc2\engine\sub_main.cpp(111930): warning C4101: v136: neodkazovaná lokální proměnná
+c:\prenos\remc2\remc2\engine\sub_main.cpp(111897): warning C4101: v103: neodkazovaná lokální proměnná
+c:\prenos\remc2\remc2\engine\sub_main.cpp(111891): warning C4101: v97: neodkazovaná lokální proměnná
+c:\prenos\remc2\remc2\engine\sub_main.cpp(111894): warning C4101: v100: neodkazovaná lokální proměnná
+c:\prenos\remc2\remc2\engine\sub_main.cpp(111896): warning C4101: v102: neodkazovaná lokální proměnná
+c:\prenos\remc2\remc2\engine\sub_main.cpp(111895): warning C4101: v101: neodkazovaná lokální proměnná
+c:\prenos\remc2\remc2\engine\sub_main.cpp(111898): warning C4101: v104: neodkazovaná lokální proměnná
+c:\prenos\remc2\remc2\engine\sub_main.cpp(111893): warning C4101: v99: neodkazovaná lokální proměnná
+c:\prenos\remc2\remc2\engine\sub_main.cpp(113185): warning C4244: =: unsigned short se převádí na int8; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(113272): warning C4244: =: unsigned short se převádí na int8; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(113334): warning C4305: =: zkrácení z: double na: float
+c:\prenos\remc2\remc2\engine\sub_main.cpp(113485): warning C4305: argument: zkrácení z: double na: float
+c:\prenos\remc2\remc2\engine\sub_main.cpp(113506): warning C4244: argument: short se převádí na char; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(113945): warning C4244: argument: short se převádí na char; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(113947): warning C4244: argument: short se převádí na char; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(113949): warning C4244: argument: short se převádí na char; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(113951): warning C4244: argument: short se převádí na char; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(113953): warning C4244: argument: short se převádí na char; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(113955): warning C4244: argument: short se převádí na char; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(113957): warning C4244: argument: short se převádí na char; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(113959): warning C4244: argument: short se převádí na char; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(114726): warning C4302: přetypování: zkrácení z: HSAMPLE na: char
+c:\prenos\remc2\remc2\engine\sub_main.cpp(115635): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(115644): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(115661): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(115668): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(115685): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(115694): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(115711): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(115718): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(115931): warning C4244: =: Bit16u se převádí na uint8; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(115962): warning C4244: return: Bit16u se převádí na char; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(116920): warning C4302: přetypování: zkrácení z: int16 * na: unsigned char
+c:\prenos\remc2\remc2\engine\sub_main.cpp(117076): warning C4309: argument: zkrácení konstantní hodnoty
+c:\prenos\remc2\remc2\engine\sub_main.cpp(117268): warning C4309: argument: zkrácení konstantní hodnoty
+c:\prenos\remc2\remc2\engine\sub_main.cpp(117712): warning C4101: v10: neodkazovaná lokální proměnná
+c:\prenos\remc2\remc2\engine\sub_main.cpp(117983): warning C4101: v19: neodkazovaná lokální proměnná
+c:\prenos\remc2\remc2\engine\sub_main.cpp(118516): warning C4244: =: __int64 se převádí na int32; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(118549): warning C4244: =: __int64 se převádí na int32; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(118595): warning C4244: =: __int64 se převádí na int32; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(118628): warning C4244: =: __int64 se převádí na int32; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(118693): warning C4244: =: __int64 se převádí na int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(118708): warning C4244: =: __int64 se převádí na int32; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(118722): warning C4244: =: __int64 se převádí na int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(118931): warning C4018: >=: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(119037): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(119189): warning C4302: přetypování: zkrácení z: char * na: short
+c:\prenos\remc2\remc2\engine\sub_main.cpp(120354): warning C4101: v4: neodkazovaná lokální proměnná
+c:\prenos\remc2\remc2\engine\sub_main.cpp(120355): warning C4101: v5: neodkazovaná lokální proměnná
+c:\prenos\remc2\remc2\engine\sub_main.cpp(120509): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(120513): warning C4244: =: double se převádí na Bit16s; může dojít ke ztrátě dat.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(120514): warning C4244: =: double se převádí na Bit16s; může dojít ke ztrátě dat.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(120515): warning C4244: =: double se převádí na Bit16s; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(120516): warning C4244: =: double se převádí na Bit16s; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(120525): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(121616): warning C4101: v6: neodkazovaná lokální proměnná
-c:\prenos\remc2\remc2\engine\sub_main.cpp(122373): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(122384): warning C4244: =: __int64 se převádí na Bit32s; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(122670): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(122917): warning C4101: v2: neodkazovaná lokální proměnná
-c:\prenos\remc2\remc2\engine\sub_main.cpp(122918): warning C4101: i: neodkazovaná lokální proměnná
-c:\prenos\remc2\remc2\engine\sub_main.cpp(122919): warning C4101: v4: neodkazovaná lokální proměnná
-c:\prenos\remc2\remc2\engine\sub_main.cpp(124694): warning C4244: =: short se převádí na int8; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(125454): warning C4244: return: short se převádí na char; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(126189): warning C4244: return: short se převádí na char; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(126446): warning C4244: =: short se převádí na char; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(126665): warning C4244: =: short se převádí na char; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(126757): warning C4244: =: short se převádí na char; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(126997): warning C4244: =: short se převádí na char; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127091): warning C4244: =: short se převádí na char; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127154): warning C4018: >=: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127161): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127172): warning C4018: >=: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127180): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127191): warning C4018: >=: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127201): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127212): warning C4018: >=: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127222): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127235): warning C4018: >=: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127241): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127254): warning C4018: >=: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127261): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127275): warning C4018: >=: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127283): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127297): warning C4018: >=: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127305): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127316): warning C4018: >=: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127321): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127332): warning C4018: >=: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127338): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127349): warning C4018: >=: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127357): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127368): warning C4018: >=: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127376): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127389): warning C4018: >=: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127395): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127408): warning C4018: >=: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127415): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127429): warning C4018: >=: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127437): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127451): warning C4018: >=: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127459): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127470): warning C4018: >=: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127475): warning C4244: +=: __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127478): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127490): warning C4018: >=: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127495): warning C4244: +=: __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127499): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127513): warning C4018: >=: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127520): warning C4244: +=: __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127525): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127539): warning C4018: >=: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127546): warning C4244: +=: __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127551): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127566): warning C4018: >=: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127570): warning C4244: +=: __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127574): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127589): warning C4018: >=: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127593): warning C4244: +=: __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127598): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127614): warning C4018: >=: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127619): warning C4244: +=: __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127624): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127640): warning C4018: >=: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127645): warning C4244: +=: __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127650): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127662): warning C4018: >=: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127666): warning C4244: +=: __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127669): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127681): warning C4018: >=: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127685): warning C4244: +=: __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127689): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127703): warning C4018: >=: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127708): warning C4244: +=: __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127713): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127727): warning C4018: >=: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127732): warning C4244: +=: __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127737): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127752): warning C4018: >=: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127756): warning C4244: +=: __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127760): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127775): warning C4018: >=: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127779): warning C4244: +=: __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127784): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127800): warning C4018: >=: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127805): warning C4244: +=: __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127810): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127826): warning C4018: >=: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127831): warning C4244: +=: __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127836): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127848): warning C4018: >=: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127853): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127864): warning C4018: >=: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127870): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127881): warning C4018: >=: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127889): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127900): warning C4018: >=: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127908): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127919): warning C4018: >=: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127927): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127938): warning C4018: >=: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127946): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127957): warning C4018: >=: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127964): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127975): warning C4018: >=: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127983): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(127996): warning C4018: >=: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128005): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128018): warning C4018: >=: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128027): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128040): warning C4018: >=: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128049): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128062): warning C4018: >=: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128071): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128084): warning C4018: >=: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128090): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128103): warning C4018: >=: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128110): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128124): warning C4018: >=: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128132): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128146): warning C4018: >=: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128154): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128168): warning C4018: >=: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128176): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128190): warning C4018: >=: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128198): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128209): warning C4018: >=: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128213): warning C4244: +=: __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128216): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128228): warning C4018: >=: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128232): warning C4244: +=: __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128236): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128250): warning C4018: >=: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128255): warning C4244: +=: __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128260): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128274): warning C4018: >=: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128279): warning C4244: +=: __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128284): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128298): warning C4018: >=: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128303): warning C4244: +=: __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128308): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128322): warning C4018: >=: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128327): warning C4244: +=: __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128332): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128346): warning C4018: >=: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128351): warning C4244: +=: __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128355): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128369): warning C4018: >=: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128374): warning C4244: +=: __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128379): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128394): warning C4018: >=: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128400): warning C4244: +=: __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128405): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128420): warning C4018: >=: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128426): warning C4244: +=: __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128431): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128446): warning C4018: >=: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128452): warning C4244: +=: __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128457): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128472): warning C4018: >=: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128478): warning C4244: +=: __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128483): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128498): warning C4018: >=: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128502): warning C4244: +=: __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128506): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128521): warning C4018: >=: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128525): warning C4244: +=: __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128530): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128546): warning C4018: >=: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128551): warning C4244: +=: __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128556): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128572): warning C4018: >=: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128577): warning C4244: +=: __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128582): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128598): warning C4018: >=: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128603): warning C4244: +=: __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128608): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128624): warning C4018: >=: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128629): warning C4244: +=: __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128634): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128690): warning C4244: =: unsigned __int64 se převádí na int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128737): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128770): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128867): warning C4302: přetypování: zkrácení z: int (__cdecl *)(void) na: int16
-c:\prenos\remc2\remc2\engine\sub_main.cpp(128968): warning C4244: =: unsigned __int64 se převádí na int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(129068): warning C4244: =: unsigned __int64 se převádí na int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(129229): warning C4302: přetypování: zkrácení z: int32 * na: short
-c:\prenos\remc2\remc2\engine\sub_main.cpp(129853): warning C4302: přetypování: zkrácení z: int32 * na: short
-c:\prenos\remc2\remc2\engine\sub_main.cpp(130297): warning C4302: přetypování: zkrácení z: int32 * na: short
-c:\prenos\remc2\remc2\engine\sub_main.cpp(130510): warning C4302: přetypování: zkrácení z: void * na: int16
-c:\prenos\remc2\remc2\engine\sub_main.cpp(131093): warning C4244: return: unsigned __int64 se převádí na int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(131118): warning C4244: =: unsigned __int64 se převádí na int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(131156): warning C4244: =: unsigned __int64 se převádí na uint32; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(131171): warning C4244: =: unsigned __int64 se převádí na int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(131172): warning C4244: =: unsigned __int64 se převádí na uint8; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(131184): warning C4244: argument: unsigned __int64 se převádí na short; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(131191): warning C4244: =: T se převádí na int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(120524): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(121615): warning C4101: v6: neodkazovaná lokální proměnná
+c:\prenos\remc2\remc2\engine\sub_main.cpp(122372): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(122383): warning C4244: =: __int64 se převádí na Bit32s; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(122669): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(122916): warning C4101: v2: neodkazovaná lokální proměnná
+c:\prenos\remc2\remc2\engine\sub_main.cpp(122917): warning C4101: i: neodkazovaná lokální proměnná
+c:\prenos\remc2\remc2\engine\sub_main.cpp(122918): warning C4101: v4: neodkazovaná lokální proměnná
+c:\prenos\remc2\remc2\engine\sub_main.cpp(124693): warning C4244: =: short se převádí na int8; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(125453): warning C4244: return: short se převádí na char; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(126188): warning C4244: return: short se převádí na char; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(126445): warning C4244: =: short se převádí na char; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(126664): warning C4244: =: short se převádí na char; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(126756): warning C4244: =: short se převádí na char; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(126996): warning C4244: =: short se převádí na char; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127090): warning C4244: =: short se převádí na char; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127153): warning C4018: >=: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127160): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127171): warning C4018: >=: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127179): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127190): warning C4018: >=: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127200): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127211): warning C4018: >=: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127221): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127234): warning C4018: >=: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127240): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127253): warning C4018: >=: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127260): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127274): warning C4018: >=: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127282): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127296): warning C4018: >=: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127304): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127315): warning C4018: >=: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127320): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127331): warning C4018: >=: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127337): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127348): warning C4018: >=: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127356): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127367): warning C4018: >=: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127375): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127388): warning C4018: >=: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127394): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127407): warning C4018: >=: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127414): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127428): warning C4018: >=: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127436): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127450): warning C4018: >=: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127458): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127469): warning C4018: >=: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127474): warning C4244: +=: __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127477): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127489): warning C4018: >=: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127494): warning C4244: +=: __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127498): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127512): warning C4018: >=: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127519): warning C4244: +=: __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127524): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127538): warning C4018: >=: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127545): warning C4244: +=: __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127550): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127565): warning C4018: >=: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127569): warning C4244: +=: __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127573): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127588): warning C4018: >=: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127592): warning C4244: +=: __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127597): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127613): warning C4018: >=: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127618): warning C4244: +=: __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127623): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127639): warning C4018: >=: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127644): warning C4244: +=: __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127649): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127661): warning C4018: >=: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127665): warning C4244: +=: __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127668): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127680): warning C4018: >=: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127684): warning C4244: +=: __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127688): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127702): warning C4018: >=: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127707): warning C4244: +=: __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127712): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127726): warning C4018: >=: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127731): warning C4244: +=: __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127736): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127751): warning C4018: >=: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127755): warning C4244: +=: __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127759): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127774): warning C4018: >=: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127778): warning C4244: +=: __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127783): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127799): warning C4018: >=: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127804): warning C4244: +=: __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127809): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127825): warning C4018: >=: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127830): warning C4244: +=: __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127835): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127847): warning C4018: >=: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127852): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127863): warning C4018: >=: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127869): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127880): warning C4018: >=: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127888): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127899): warning C4018: >=: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127907): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127918): warning C4018: >=: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127926): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127937): warning C4018: >=: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127945): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127956): warning C4018: >=: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127963): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127974): warning C4018: >=: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127982): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(127995): warning C4018: >=: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128004): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128017): warning C4018: >=: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128026): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128039): warning C4018: >=: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128048): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128061): warning C4018: >=: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128070): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128083): warning C4018: >=: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128089): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128102): warning C4018: >=: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128109): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128123): warning C4018: >=: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128131): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128145): warning C4018: >=: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128153): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128167): warning C4018: >=: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128175): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128189): warning C4018: >=: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128197): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128208): warning C4018: >=: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128212): warning C4244: +=: __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128215): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128227): warning C4018: >=: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128231): warning C4244: +=: __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128235): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128249): warning C4018: >=: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128254): warning C4244: +=: __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128259): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128273): warning C4018: >=: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128278): warning C4244: +=: __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128283): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128297): warning C4018: >=: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128302): warning C4244: +=: __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128307): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128321): warning C4018: >=: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128326): warning C4244: +=: __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128331): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128345): warning C4018: >=: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128350): warning C4244: +=: __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128354): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128368): warning C4018: >=: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128373): warning C4244: +=: __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128378): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128393): warning C4018: >=: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128399): warning C4244: +=: __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128404): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128419): warning C4018: >=: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128425): warning C4244: +=: __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128430): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128445): warning C4018: >=: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128451): warning C4244: +=: __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128456): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128471): warning C4018: >=: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128477): warning C4244: +=: __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128482): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128497): warning C4018: >=: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128501): warning C4244: +=: __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128505): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128520): warning C4018: >=: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128524): warning C4244: +=: __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128529): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128545): warning C4018: >=: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128550): warning C4244: +=: __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128555): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128571): warning C4018: >=: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128576): warning C4244: +=: __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128581): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128597): warning C4018: >=: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128602): warning C4244: +=: __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128607): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128623): warning C4018: >=: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128628): warning C4244: +=: __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128633): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128689): warning C4244: =: unsigned __int64 se převádí na int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128736): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128769): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128866): warning C4302: přetypování: zkrácení z: int (__cdecl *)(void) na: int16
+c:\prenos\remc2\remc2\engine\sub_main.cpp(128967): warning C4244: =: unsigned __int64 se převádí na int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(129067): warning C4244: =: unsigned __int64 se převádí na int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(129228): warning C4302: přetypování: zkrácení z: int32 * na: short
+c:\prenos\remc2\remc2\engine\sub_main.cpp(129852): warning C4302: přetypování: zkrácení z: int32 * na: short
+c:\prenos\remc2\remc2\engine\sub_main.cpp(130296): warning C4302: přetypování: zkrácení z: int32 * na: short
+c:\prenos\remc2\remc2\engine\sub_main.cpp(130509): warning C4302: přetypování: zkrácení z: void * na: int16
+c:\prenos\remc2\remc2\engine\sub_main.cpp(131092): warning C4244: return: unsigned __int64 se převádí na int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(131117): warning C4244: =: unsigned __int64 se převádí na int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(131155): warning C4244: =: unsigned __int64 se převádí na uint32; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(131170): warning C4244: =: unsigned __int64 se převádí na int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(131171): warning C4244: =: unsigned __int64 se převádí na uint8; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(131183): warning C4244: argument: unsigned __int64 se převádí na short; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(131190): warning C4244: =: T se převádí na int; může dojít ke ztrátě dat.
           with
           [
               T=unsigned __int64
           ]
-c:\prenos\remc2\remc2\engine\sub_main.cpp(131198): warning C4244: =: unsigned __int64 se převádí na uint32; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(131221): warning C4244: =: unsigned __int64 se převádí na uint32; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(131232): warning C4244: return: unsigned __int64 se převádí na int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(131349): warning C4244: return: unsigned __int64 se převádí na int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(131372): warning C4244: =: uint64 se převádí na int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(131386): warning C4244: =: unsigned __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(131393): warning C4244: =: unsigned __int64 se převádí na int32; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(131394): warning C4244: =: uint64 se převádí na int32; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(131396): warning C4244: =: uint64 se převádí na unsigned int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(131398): warning C4244: =: unsigned __int64 se převádí na int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(131406): warning C4244: =: unsigned __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(131411): warning C4244: +=: unsigned __int64 se převádí na int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(131420): warning C4244: =: uint64 se převádí na unsigned int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(131425): warning C4244: =: unsigned __int64 se převádí na int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(131429): warning C4244: =: unsigned __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(131435): warning C4244: +=: unsigned __int64 se převádí na int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(131452): warning C4244: =: unsigned __int64 se převádí na uint32; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(131468): warning C4244: argument: unsigned __int64 se převádí na int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(131474): warning C4244: argument: unsigned __int64 se převádí na int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(131477): warning C4244: return: unsigned __int64 se převádí na int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(131539): warning C4244: return: unsigned __int64 se převádí na int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(131555): warning C4244: return: unsigned __int64 se převádí na int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(131561): warning C4244: =: unsigned __int64 se převádí na int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(131568): warning C4244: =: unsigned __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(131575): warning C4244: =: unsigned __int64 se převádí na int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(131581): warning C4244: =: unsigned __int64 se převádí na int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(131596): warning C4244: =: unsigned __int64 se převádí na uint32; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(131609): warning C4244: return: unsigned __int64 se převádí na int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(131619): warning C4244: =: unsigned __int64 se převádí na uint32; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(131626): warning C4244: return: unsigned __int64 se převádí na int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(131747): warning C4244: =: __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(131749): warning C4244: argument: __int64 se převádí na int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(131764): warning C4244: =: __int64 se převádí na int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(131782): warning C4244: return: __int64 se převádí na int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(131882): warning C4244: =: unsigned __int64 se převádí na int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(131901): warning C4244: =: unsigned __int64 se převádí na int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(131910): warning C4244: =: unsigned __int64 se převádí na int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(131914): warning C4244: =: unsigned __int64 se převádí na int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(132120): warning C4309: argument: zkrácení konstantní hodnoty
-c:\prenos\remc2\remc2\engine\sub_main.cpp(132238): warning C4309: argument: zkrácení konstantní hodnoty
-c:\prenos\remc2\remc2\engine\sub_main.cpp(132337): warning C4244: =: __int64 se převádí na uint32; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(132343): warning C4244: return: __int64 se převádí na int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(132477): warning C4244: argument: unsigned __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(132498): warning C4244: argument: unsigned __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(132502): warning C4244: argument: unsigned __int64 se převádí na int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(132586): warning C4309: argument: zkrácení konstantní hodnoty
-c:\prenos\remc2\remc2\engine\sub_main.cpp(132641): warning C4244: =: unsigned __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(132666): warning C4244: return: unsigned __int64 se převádí na int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(132762): warning C4309: argument: zkrácení konstantní hodnoty
-c:\prenos\remc2\remc2\engine\sub_main.cpp(132798): warning C4244: =: unsigned __int64 se převádí na int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(132812): warning C4244: =: unsigned __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(132857): warning C4309: argument: zkrácení konstantní hodnoty
-c:\prenos\remc2\remc2\engine\sub_main.cpp(132894): warning C4244: return: unsigned __int64 se převádí na int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(132911): warning C4244: return: unsigned __int64 se převádí na int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(131197): warning C4244: =: unsigned __int64 se převádí na uint32; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(131220): warning C4244: =: unsigned __int64 se převádí na uint32; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(131231): warning C4244: return: unsigned __int64 se převádí na int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(131348): warning C4244: return: unsigned __int64 se převádí na int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(131371): warning C4244: =: uint64 se převádí na int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(131385): warning C4244: =: unsigned __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(131392): warning C4244: =: unsigned __int64 se převádí na int32; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(131393): warning C4244: =: uint64 se převádí na int32; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(131395): warning C4244: =: uint64 se převádí na unsigned int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(131397): warning C4244: =: unsigned __int64 se převádí na int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(131405): warning C4244: =: unsigned __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(131410): warning C4244: +=: unsigned __int64 se převádí na int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(131419): warning C4244: =: uint64 se převádí na unsigned int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(131424): warning C4244: =: unsigned __int64 se převádí na int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(131428): warning C4244: =: unsigned __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(131434): warning C4244: +=: unsigned __int64 se převádí na int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(131451): warning C4244: =: unsigned __int64 se převádí na uint32; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(131467): warning C4244: argument: unsigned __int64 se převádí na int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(131473): warning C4244: argument: unsigned __int64 se převádí na int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(131476): warning C4244: return: unsigned __int64 se převádí na int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(131538): warning C4244: return: unsigned __int64 se převádí na int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(131554): warning C4244: return: unsigned __int64 se převádí na int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(131560): warning C4244: =: unsigned __int64 se převádí na int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(131567): warning C4244: =: unsigned __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(131574): warning C4244: =: unsigned __int64 se převádí na int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(131580): warning C4244: =: unsigned __int64 se převádí na int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(131595): warning C4244: =: unsigned __int64 se převádí na uint32; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(131608): warning C4244: return: unsigned __int64 se převádí na int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(131618): warning C4244: =: unsigned __int64 se převádí na uint32; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(131625): warning C4244: return: unsigned __int64 se převádí na int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(131746): warning C4244: =: __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(131748): warning C4244: argument: __int64 se převádí na int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(131763): warning C4244: =: __int64 se převádí na int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(131781): warning C4244: return: __int64 se převádí na int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(131881): warning C4244: =: unsigned __int64 se převádí na int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(131900): warning C4244: =: unsigned __int64 se převádí na int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(131909): warning C4244: =: unsigned __int64 se převádí na int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(131913): warning C4244: =: unsigned __int64 se převádí na int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(132119): warning C4309: argument: zkrácení konstantní hodnoty
+c:\prenos\remc2\remc2\engine\sub_main.cpp(132237): warning C4309: argument: zkrácení konstantní hodnoty
+c:\prenos\remc2\remc2\engine\sub_main.cpp(132336): warning C4244: =: __int64 se převádí na uint32; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(132342): warning C4244: return: __int64 se převádí na int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(132476): warning C4244: argument: unsigned __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(132497): warning C4244: argument: unsigned __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(132501): warning C4244: argument: unsigned __int64 se převádí na int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(132585): warning C4309: argument: zkrácení konstantní hodnoty
+c:\prenos\remc2\remc2\engine\sub_main.cpp(132640): warning C4244: =: unsigned __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(132665): warning C4244: return: unsigned __int64 se převádí na int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(132761): warning C4309: argument: zkrácení konstantní hodnoty
+c:\prenos\remc2\remc2\engine\sub_main.cpp(132797): warning C4244: =: unsigned __int64 se převádí na int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(132811): warning C4244: =: unsigned __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(132856): warning C4309: argument: zkrácení konstantní hodnoty
+c:\prenos\remc2\remc2\engine\sub_main.cpp(132893): warning C4244: return: unsigned __int64 se převádí na int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(132910): warning C4244: return: unsigned __int64 se převádí na int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(132936): warning C4244: =: unsigned __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(132937): warning C4244: =: unsigned __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(132938): warning C4244: =: unsigned __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(132947): warning C4244: =: uint64 se převádí na int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(132956): warning C4244: =: unsigned __int64 se převádí na int32; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(132958): warning C4244: return: unsigned __int64 se převádí na int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(132960): warning C4244: =: uint64 se převádí na int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(132973): warning C4244: return: unsigned __int64 se převádí na int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(133037): warning C4244: argument: unsigned __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(133172): warning C4244: argument: short se převádí na char; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(133197): warning C4244: argument: short se převádí na char; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(133281): warning C4244: =: double se převádí na float; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(134968): warning C4805: ^: Potenciálně nebezpečné směšování typu bool a typu unsigned char v jedné operaci
-c:\prenos\remc2\remc2\engine\sub_main.cpp(135059): warning C4805: ^: Potenciálně nebezpečné směšování typu bool a typu unsigned char v jedné operaci
-c:\prenos\remc2\remc2\engine\sub_main.cpp(135186): warning C4805: ^: Potenciálně nebezpečné směšování typu bool a typu unsigned char v jedné operaci
-c:\prenos\remc2\remc2\engine\sub_main.cpp(135317): warning C4805: ^: Potenciálně nebezpečné směšování typu bool a typu unsigned char v jedné operaci
-c:\prenos\remc2\remc2\engine\sub_main.cpp(135463): warning C4805: ^: Potenciálně nebezpečné směšování typu bool a typu unsigned char v jedné operaci
-c:\prenos\remc2\remc2\engine\sub_main.cpp(135507): warning C4805: ^: Potenciálně nebezpečné směšování typu bool a typu unsigned char v jedné operaci
-c:\prenos\remc2\remc2\engine\sub_main.cpp(135567): warning C4805: ^: Potenciálně nebezpečné směšování typu bool a typu unsigned char v jedné operaci
-c:\prenos\remc2\remc2\engine\sub_main.cpp(135627): warning C4805: ^: Potenciálně nebezpečné směšování typu bool a typu unsigned char v jedné operaci
-c:\prenos\remc2\remc2\engine\sub_main.cpp(135706): warning C4805: ^: Potenciálně nebezpečné směšování typu bool a typu unsigned char v jedné operaci
-c:\prenos\remc2\remc2\engine\sub_main.cpp(135750): warning C4805: ^: Potenciálně nebezpečné směšování typu bool a typu unsigned char v jedné operaci
-c:\prenos\remc2\remc2\engine\sub_main.cpp(135810): warning C4805: ^: Potenciálně nebezpečné směšování typu bool a typu unsigned char v jedné operaci
-c:\prenos\remc2\remc2\engine\sub_main.cpp(135870): warning C4805: ^: Potenciálně nebezpečné směšování typu bool a typu unsigned char v jedné operaci
-c:\prenos\remc2\remc2\engine\sub_main.cpp(135986): warning C4805: ^: Potenciálně nebezpečné směšování typu bool a typu unsigned char v jedné operaci
-c:\prenos\remc2\remc2\engine\sub_main.cpp(136092): warning C4805: ^: Potenciálně nebezpečné směšování typu bool a typu unsigned char v jedné operaci
-c:\prenos\remc2\remc2\engine\sub_main.cpp(136221): warning C4805: ^: Potenciálně nebezpečné směšování typu bool a typu unsigned char v jedné operaci
-c:\prenos\remc2\remc2\engine\sub_main.cpp(136355): warning C4805: ^: Potenciálně nebezpečné směšování typu bool a typu unsigned char v jedné operaci
+c:\prenos\remc2\remc2\engine\sub_main.cpp(132946): warning C4244: =: uint64 se převádí na int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(132955): warning C4244: =: unsigned __int64 se převádí na int32; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(132957): warning C4244: return: unsigned __int64 se převádí na int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(132959): warning C4244: =: uint64 se převádí na int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(132972): warning C4244: return: unsigned __int64 se převádí na int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(133036): warning C4244: argument: unsigned __int64 se převádí na unsigned int; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(133171): warning C4244: argument: short se převádí na char; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(133196): warning C4244: argument: short se převádí na char; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(133280): warning C4244: =: double se převádí na float; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(134967): warning C4805: ^: Potenciálně nebezpečné směšování typu bool a typu unsigned char v jedné operaci
+c:\prenos\remc2\remc2\engine\sub_main.cpp(135058): warning C4805: ^: Potenciálně nebezpečné směšování typu bool a typu unsigned char v jedné operaci
+c:\prenos\remc2\remc2\engine\sub_main.cpp(135185): warning C4805: ^: Potenciálně nebezpečné směšování typu bool a typu unsigned char v jedné operaci
+c:\prenos\remc2\remc2\engine\sub_main.cpp(135316): warning C4805: ^: Potenciálně nebezpečné směšování typu bool a typu unsigned char v jedné operaci
+c:\prenos\remc2\remc2\engine\sub_main.cpp(135462): warning C4805: ^: Potenciálně nebezpečné směšování typu bool a typu unsigned char v jedné operaci
+c:\prenos\remc2\remc2\engine\sub_main.cpp(135506): warning C4805: ^: Potenciálně nebezpečné směšování typu bool a typu unsigned char v jedné operaci
+c:\prenos\remc2\remc2\engine\sub_main.cpp(135566): warning C4805: ^: Potenciálně nebezpečné směšování typu bool a typu unsigned char v jedné operaci
+c:\prenos\remc2\remc2\engine\sub_main.cpp(135626): warning C4805: ^: Potenciálně nebezpečné směšování typu bool a typu unsigned char v jedné operaci
+c:\prenos\remc2\remc2\engine\sub_main.cpp(135705): warning C4805: ^: Potenciálně nebezpečné směšování typu bool a typu unsigned char v jedné operaci
+c:\prenos\remc2\remc2\engine\sub_main.cpp(135749): warning C4805: ^: Potenciálně nebezpečné směšování typu bool a typu unsigned char v jedné operaci
+c:\prenos\remc2\remc2\engine\sub_main.cpp(135809): warning C4805: ^: Potenciálně nebezpečné směšování typu bool a typu unsigned char v jedné operaci
+c:\prenos\remc2\remc2\engine\sub_main.cpp(135869): warning C4805: ^: Potenciálně nebezpečné směšování typu bool a typu unsigned char v jedné operaci
+c:\prenos\remc2\remc2\engine\sub_main.cpp(135985): warning C4805: ^: Potenciálně nebezpečné směšování typu bool a typu unsigned char v jedné operaci
+c:\prenos\remc2\remc2\engine\sub_main.cpp(136091): warning C4805: ^: Potenciálně nebezpečné směšování typu bool a typu unsigned char v jedné operaci
+c:\prenos\remc2\remc2\engine\sub_main.cpp(136220): warning C4805: ^: Potenciálně nebezpečné směšování typu bool a typu unsigned char v jedné operaci
+c:\prenos\remc2\remc2\engine\sub_main.cpp(136354): warning C4805: ^: Potenciálně nebezpečné směšování typu bool a typu unsigned char v jedné operaci
 c:\prenos\remc2\remc2\engine\defs.h(258): warning C4244: inicializování: T se převádí na U; může dojít ke ztrátě dat.
           with
           [
@@ -840,7 +841,7 @@ c:\prenos\remc2\remc2\engine\defs.h(258): warning C4244: inicializování: T se 
           [
               U=Bit8u
           ]
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(111989): note: Viz odkaz na kompilované vytváření instancí funkce šablona int8 __OFADD__<Bit16u,Bit8u>(T,U)
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(111988): note: Viz odkaz na kompilované vytváření instancí funkce šablona int8 __OFADD__<Bit16u,Bit8u>(T,U)
           with
           [
               T=Bit16u,
