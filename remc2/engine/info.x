@@ -202,7 +202,7 @@ v4 = sub_7F7D0(&v35, &v33, v1, langfilename);//2607d0
 
 int /*__cdecl*/ sub_7E840(signed __int16 *a1, __int16 a2, __int16 a3)//25f840
 a1 - 3550e0 ->c6012a012c018d012a01004101ec00
--kde je difonovana?
+-kde je defonovana?
 
 sub_7FCB0 - 260cb0
 56210 237210
@@ -2659,8 +2659,29 @@ find 35cf6e->16d03500
 void sub_57730()//238730 - test
 
 v20 = &x_DWORD_D4C52ar[14 * (*m)[69] + *(Bit32u*)(x_DWORD_D4C52ar + 18 * v19)-0x2a5c52];
-versus				
+versus		
+
+find
+stav x_DWORD_EA3E0 - 
+void sub_57730()//238730
+
+x_DWORD_EA3E0 - 2bb3e0
+27b453
+call 27b32d - signed int sub_9A32D_malloc_open_unpack(Pathstruct path)//27B32d
+call 265250 - bool sub_84250_load_file_array(int psindex)//265250
+void sub_47160()//228160
+
+nekde pod
+sub_47560
+
+{ &MSPRD00TAB_BEGIN_BUFFER,&MSPRD00TAB_END_BUFFER,&MSPRD00DAT_BEGIN_BUFFER,posistruct5 },
+je
 
 
+signed int sub_5C8D0(int a1)//23d8d0
+x_DWORD_EA3E4[0x98] not 363286 ->c6ce35
+238989
+void sub_57730()//238730
+	for (j = &x_DWORD_EA3E4[1]; j < &x_DWORD_EA3E4[0x3e8]; j += 168)
 
 
