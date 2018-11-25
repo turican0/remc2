@@ -203,7 +203,7 @@ void /*__spoils<ecx>*/ sub_728A9_clear_graphics_mode(void *a2, unsigned __int16 
 void sub_303D0(signed int a1);
 int _wcpp_1_unwind_leave__62(void); //weak
 int sub_7FCB0_draw_text_with_border(int a1, Bit8u* a2, Bit32s a3, Bit32s a4, int a5, Bit8u a6, unsigned __int8 a7, Bit32u a8);//560cb0
-char sub_45DC0(char a1, char a2, unsigned __int16 a3, unsigned __int8 a4);
+void sub_45DC0(/*char a1, char a2, */unsigned __int16 a3, unsigned __int8 a4);
 signed int sub_36A50(signed int a1, char a2);
 char sub_36920(signed __int16 a1, int a2);
 __int16 sub_48A20(int a1, char a2, char a3, int a4, int a5, unsigned __int8 a6);
@@ -213,7 +213,7 @@ unsigned __int16 sub_3FD60(int a1, int a2);
 //void __outx_WORD(unsigned short Port, unsigned short Data);
 //void __outx_BYTE(unsigned short Port, unsigned char Data);
 //unsigned char __inx_BYTE(unsigned short Port);
-unsigned int sub_43970(unsigned int a1);
+void sub_43970(unsigned int a1);
 void sub_44EE0(int a1, Bit16u a2);
 void sub_56A30_init_game_level(unsigned int a1);
 void sub_47320(signed int a1);

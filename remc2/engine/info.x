@@ -2684,4 +2684,84 @@ x_DWORD_EA3E4[0x98] not 363286 ->c6ce35
 void sub_57730()//238730
 	for (j = &x_DWORD_EA3E4[1]; j < &x_DWORD_EA3E4[0x3e8]; j += 168)
 
+3632d2->804d80de
+238e40
+void sub_57D70(Bit8u* a1, Bit8u* a2)//238d70
+
+void sub_57D70(Bit8u* a1, Bit8u* a2)//238d70
+a2
+neni
+3550d8 -data tj v2 = word_15B4E0[(*(_BYTE *)(a2 + 3) << 8) + *(_BYTE *)(a2 + 1)];
+find
+238e40
+void sub_57D70(Bit8u* a1, Bit8u* a2)//238d70
+
+23d99f - adress
+
+35839a - data
+
+22b839 - adress
+int sub_4A820(int a1)//22b820
+
+355210 - data
+
+355214 - data2->0x002212a0
+
+22b375
+void sub_4A310(unsigned __int16 *a1)//22b310
+
+22b36c - adress maybe 8a36c
+22b310
+posxy = v11 + (v12 << 16);
+v13 = sub_10C40((Bit16u*)&posxy);
+
+22b379 adress
+
+int sub_B5C60(Bit16u a1, Bit16u a2)//296c60
+
+
+x_BYTE_11B4E0[0xdf4d]=0x98
+versus
+[0xdf4d+2ec4e0]=0x95 //2FA42D
+225e34
+void sub_44DB0()//225db0
+
+unsigned int sub_43970(unsigned int a1)//224970
+
+2183f3
+void sub_37240(Bit8u* a1)//218240
+
+229c84
+__int16 sub_48B90(int a1)//229b90
+
+sub_44D00();//225d00
+
+sub_70910_print_string((char*)"Initialise Models\0");
+	memset(x_WORD_EB398ar, 0, 6);
+	sub_49F90();
+	v2 = x_D41A0_BYTEARRAY_0;
+	x_D41A0_BYTEARRAY_0[4582] = -1;
+	sub_71A70(v2[196308]);
+	if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 4))
+	{
+		sub_58940(&x_D41A0_BYTEARRAY_0[196302]);
+		sub_11EE0(&x_D41A0_BYTEARRAY_0[196302]);
+		sub_84790();
+	}
+	sub_4A1E0(0, 1);
+
+	x_BYTE_11B4E0 - 2ec4e0 - difference
+
+	void sub_49290(Bit8u* a1, char a2)//22a290
+	-je to treba projit a zkontrolovat krok po kroku
+
+	void sub_462A0(unsigned __int16 a1, __int16 a2)//2272a0
+	-bad count 0x6d5c
+
+	void sub_37240(Bit8u* a1)//218240
+
+	0xbdaf - remc2
+	0xb14b - dosbox
+
+
 

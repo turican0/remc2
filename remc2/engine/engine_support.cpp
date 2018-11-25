@@ -209,7 +209,7 @@ Bit32u compare_with_snapshot(char* filename, Bit8u* adress, Bit32u adressdos, Bi
 	char findnamec[500];
 	Bit8u* buffer = (Bit8u*)malloc(size);
 	FILE* fptestepc;
-	sprintf(findnamec, "../remc2/memimages/engine-memory-%s", filename);
+	sprintf(findnamec, "c:/prenos/remc2/remc2/memimages/engine-memory-%s", filename);
 	fopen_s(&fptestepc, findnamec, "rb");
 	if (fptestepc == NULL)
 	{
