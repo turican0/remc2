@@ -183,8 +183,8 @@ extern char IsTable[];
 
 //int /*__noreturn*/ sub_10000(); // weak
 unsigned int sub_15CB0(unsigned int a1, Bit8u* a2); // weak
-char sub_15D40(__int16 a1, int a2, int a3); // weak
-int sub_16730(int a1, int a2, char a3); // weak
+char sub_15D40(__int16 a1, Bit8u* a2, int a3); // weak
+int sub_16730(int a1, Bit8u* a2, char a3); // weak
 int sub_16CA0(int a1, int *a2, __int16 a3, char a4); // weak
 void sub_17A00(x_BYTE *a1, signed int a2, __int16 a3); // weak
 int _wcpp_1_unwind_leave__120(x_DWORD a, x_DWORD b, x_DWORD c);// weak
@@ -192,11 +192,11 @@ void sub_1A070(signed int a1, __int16 a2);
 void JUMPOUT(int* adr);
 void JUMPOUT(x_WORD cs, int* adr);
 void JUMPOUT(x_WORD cs, int a, int* adr);
-void sub_1F0C0(int a1, int a2);
-int sub_253B0(int result, int a2, unsigned __int8 a3, unsigned __int8 a4);
+void sub_1F0C0(Bit8u* a1, Bit8u* a2);
+int sub_253B0(int result, Bit8u* a2, unsigned __int8 a3, unsigned __int8 a4);
 signed int sub_369F0(signed int a1, __int16 a2);
 void qmemcpy(void* a, void* b, size_t c);
-char sub_2A340(int a1, int a2, int a3, int a4, int a5, int a6);
+char sub_2A340(int a1, Bit8u* a2, Bit8u* a3, int a4, Bit8u* a5, Bit8u* a6);
 unsigned __int16 sub_2AA90(int a1, int a2, int a3);
 void /*__spoils<ecx>*/ sub_72883_clear_text_mode(/*int a1, */void *a2, unsigned __int16 a3, char a4);
 void /*__spoils<ecx>*/ sub_728A9_clear_graphics_mode(void *a2, unsigned __int16 a3, char a4);
