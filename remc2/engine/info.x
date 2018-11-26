@@ -2758,7 +2758,7 @@ sub_70910_print_string((char*)"Initialise Models\0");
 	void sub_462A0(unsigned __int16 a1, __int16 a2)//2272a0
 	-bad count 0x6d5c
 
-	void sub_37240(Bit8u* a1)//218240
+	void  (Bit8u* a1)//218240
 
 	0xbdaf - remc2
 	0xb14b - dosbox
