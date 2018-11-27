@@ -110,6 +110,7 @@ c:\prenos\remc2\remc2\engine\sub_main.cpp(33645): warning C4309: argument: zkrá
 c:\prenos\remc2\remc2\engine\sub_main.cpp(33686): warning C4309: argument: zkrácení konstantní hodnoty
 c:\prenos\remc2\remc2\engine\sub_main.cpp(33757): warning C4018: <=: signed/unsigned – neshoda
 c:\prenos\remc2\remc2\engine\sub_main.cpp(33862): warning C4309: argument: zkrácení konstantní hodnoty
+c:\prenos\remc2\remc2\engine\sub_main.cpp(33960): warning C4101: result: neodkazovaná lokální proměnná
 c:\prenos\remc2\remc2\engine\sub_main.cpp(34644): warning C4244: argument: int16 se převádí na char; může dojít ke ztrátě dat.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(34803): warning C4244: =: short se převádí na int8; může dojít ke ztrátě dat.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(34855): warning C4244: argument: __int64 se převádí na short; může dojít ke ztrátě dat.
@@ -145,63 +146,12 @@ c:\prenos\remc2\remc2\engine\sub_main.cpp(36154): warning C4309: argument: zkrá
 c:\prenos\remc2\remc2\engine\sub_main.cpp(36161): warning C4309: argument: zkrácení konstantní hodnoty
 c:\prenos\remc2\remc2\engine\sub_main.cpp(36327): warning C4309: argument: zkrácení konstantní hodnoty
 c:\prenos\remc2\remc2\engine\sub_main.cpp(36599): warning C4309: argument: zkrácení konstantní hodnoty
-c:\prenos\remc2\remc2\engine\sub_main.cpp(37088): error C2440: =: nejde převést z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(37088): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(37104): error C2664: char sub_2A340(int,Bit8u *,Bit8u *,int,Bit8u *,Bit8u *): Nejde převést argument 2 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(37104): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(37106): error C2664: unsigned short sub_2AA90(int,int,int): Nejde převést argument 1 z: Bit8u * na: int.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(37106): note: Neexistuje kontext, ve kterém by byl tento převod možný.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(37109): error C2664: void sub_2A7F0(Bit8u *,int,char): Nejde převést argument 2 z: Bit8u * na: int.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(37109): note: Neexistuje kontext, ve kterém by byl tento převod možný.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(37110): error C2296: /: Neplatné. Levý operand má typ Bit8u *.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(37115): error C2664: unsigned short sub_2AA90(int,int,int): Nejde převést argument 1 z: Bit8u * na: int.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(37115): note: Neexistuje kontext, ve kterém by byl tento převod možný.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(37121): error C2664: unsigned short sub_2AA90(int,int,int): Nejde převést argument 1 z: Bit8u * na: int.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(37121): note: Neexistuje kontext, ve kterém by byl tento převod možný.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(37122): error C2440: =: nejde převést z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(37122): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(37125): error C2664: void sub_57CF0(Bit8u *,Bit8u *): Nejde převést argument 2 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(37125): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(37127): error C2664: int sub_2A9F0(int,int): Nejde převést argument 1 z: Bit8u * na: int.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(37127): note: Neexistuje kontext, ve kterém by byl tento převod možný.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(37134): error C2562: sub_29A90: funkce void vrací hodnotu.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(36661): note: viz deklarace: sub_29A90
-c:\prenos\remc2\remc2\engine\sub_main.cpp(37159): error C2440: =: nejde převést z: Bit8u * na: int.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(37159): note: Neexistuje kontext, ve kterém by byl tento převod možný.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(37165): error C2440: =: nejde převést z: Bit8u * na: int.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(37165): note: Neexistuje kontext, ve kterém by byl tento převod možný.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(37292): error C2664: void sub_57CF0(Bit8u *,Bit8u *): Nejde převést argument 2 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(37292): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(37307): error C2440: =: nejde převést z: Bit8u * na: int.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(37307): note: Neexistuje kontext, ve kterém by byl tento převod možný.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(37480): error C2440: =: nejde převést z: Bit8u * na: int.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(37480): note: Neexistuje kontext, ve kterém by byl tento převod možný.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(37488): warning C4302: přetypování: zkrácení z: char * na: int16
-c:\prenos\remc2\remc2\engine\sub_main.cpp(37504): error C2664: void sub_57CF0(Bit8u *,Bit8u *): Nejde převést argument 2 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(37504): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(37530): error C2664: void sub_57CF0(Bit8u *,Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(37530): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(37614): error C2664: void sub_57CF0(Bit8u *,Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(37614): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(37701): error C2664: int sub_2A940(Bit8u *,Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(37701): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(37868): error C2664: void sub_57CF0(Bit8u *,Bit8u *): Nejde převést argument 2 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(37868): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(37898): error C2664: int sub_1BD90(Bit8u *,char): Nejde převést argument 1 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(37898): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(37908): error C2664: void sub_1BF90(Bit8u *,char): Nejde převést argument 1 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(37908): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(38005): error C2664: int sub_1B8C0(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(38005): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(38063): error C2664: int sub_1CED0(Bit8u *,Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(38063): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(38105): error C2664: int sub_1B8C0(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(38105): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(38132): error C2664: int sub_1B8C0(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(38132): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(37613): warning C4302: přetypování: zkrácení z: Bit16s * na: short
+c:\prenos\remc2\remc2\engine\sub_main.cpp(37898): warning C4309: argument: zkrácení konstantní hodnoty
+c:\prenos\remc2\remc2\engine\sub_main.cpp(37896): warning C4101: index: neodkazovaná lokální proměnná
+c:\prenos\remc2\remc2\engine\sub_main.cpp(37908): warning C4309: argument: zkrácení konstantní hodnoty
 c:\prenos\remc2\remc2\engine\sub_main.cpp(38162): warning C4309: argument: zkrácení konstantní hodnoty
-c:\prenos\remc2\remc2\engine\sub_main.cpp(38174): error C2664: void sub_1D5D0(Bit8u *,short): Nejde převést argument 1 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(38174): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(38248): warning C4244: =: short se převádí na uint8; může dojít ke ztrátě dat.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(38265): warning C4244: return: short se převádí na char; může dojít ke ztrátě dat.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(38817): warning C4302: přetypování: zkrácení z: Bit8u * na: unsigned short
@@ -224,129 +174,34 @@ c:\prenos\remc2\remc2\engine\sub_main.cpp(40959): warning C4267: argument: Přev
 c:\prenos\remc2\remc2\engine\sub_main.cpp(41065): warning C4302: přetypování: zkrácení z: Bit8u * na: unsigned char
 c:\prenos\remc2\remc2\engine\sub_main.cpp(41157): warning C4302: přetypování: zkrácení z: Bit8u * na: unsigned char
 c:\prenos\remc2\remc2\engine\sub_main.cpp(41208): warning C4302: přetypování: zkrácení z: Bit8u * na: unsigned char
-c:\prenos\remc2\remc2\engine\sub_main.cpp(41511): error C2664: int sub_585A0(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(41511): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(41741): error C2664: void sub_57CF0(Bit8u *,Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(41741): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(41815): error C2664: char sub_11400(Bit8u *,char,unsigned short): Nejde převést argument 1 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(41815): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(41847): error C2664: int sub_585A0(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(41847): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(42069): error C2664: int sub_116A0(Bit8u *,char,unsigned short): Nejde převést argument 1 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(42069): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(42236): error C2664: int sub_585A0(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(42236): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(42237): error C2664: int sub_112D0(Bit8u *,unsigned short): Nejde převést argument 1 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(42237): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(42253): error C2664: int sub_585A0(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(42253): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(42254): error C2664: int sub_112D0(Bit8u *,unsigned short): Nejde převést argument 1 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(42254): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(42311): error C2664: void sub_57CF0(Bit8u *,Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(42311): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(42370): error C2664: void sub_57CF0(Bit8u *,Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(42370): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(42564): error C2664: void sub_57CF0(Bit8u *,Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(42564): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(42626): error C2664: int sub_10C80(Bit8u *,unsigned char,unsigned short): Nejde převést argument 1 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(42626): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(42897): error C2664: int sub_10C80(Bit8u *,unsigned char,unsigned short): Nejde převést argument 1 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(42897): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(42954): error C2664: void sub_57CF0(Bit8u *,Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(42954): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(42968): error C2664: void sub_57CF0(Bit8u *,Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(42968): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(43148): error C2664: int sub_580E0(Bit8u *,int,int,int,short): Nejde převést argument 1 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(43148): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(43149): error C2664: void sub_57CF0(Bit8u *,Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(43149): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(43154): error C2664: int sub_11900(Bit8u *,Bit8u *,unsigned char,unsigned short): Nejde převést argument 1 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(43154): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(43182): error C2664: bool sub_10750(Bit8u *,int): Nejde převést argument 1 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(43182): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(43183): error C2664: int sub_11900(Bit8u *,Bit8u *,unsigned char,unsigned short): Nejde převést argument 1 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(43183): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(43187): error C2664: bool sub_10750(Bit8u *,int): Nejde převést argument 1 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(43187): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(41255): warning C4101: result: neodkazovaná lokální proměnná
+c:\prenos\remc2\remc2\engine\sub_main.cpp(41584): warning C4302: přetypování: zkrácení z: Bit8u * na: unsigned char
+c:\prenos\remc2\remc2\engine\sub_main.cpp(41586): warning C4302: přetypování: zkrácení z: Bit8u * na: int8
+c:\prenos\remc2\remc2\engine\sub_main.cpp(41603): warning C4302: přetypování: zkrácení z: Bit8u * na: unsigned char
+c:\prenos\remc2\remc2\engine\sub_main.cpp(41605): warning C4302: přetypování: zkrácení z: Bit8u * na: int8
+c:\prenos\remc2\remc2\engine\sub_main.cpp(41921): warning C4302: přetypování: zkrácení z: Bit8u * na: unsigned char
+c:\prenos\remc2\remc2\engine\sub_main.cpp(41923): warning C4302: přetypování: zkrácení z: Bit8u * na: int8
+c:\prenos\remc2\remc2\engine\sub_main.cpp(41939): warning C4302: přetypování: zkrácení z: Bit8u * na: unsigned char
+c:\prenos\remc2\remc2\engine\sub_main.cpp(41941): warning C4302: přetypování: zkrácení z: Bit8u * na: int8
 c:\prenos\remc2\remc2\engine\sub_main.cpp(43327): warning C4244: return: short se převádí na char; může dojít ke ztrátě dat.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(43359): warning C4244: return: short se převádí na char; může dojít ke ztrátě dat.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(43369): warning C4244: return: short se převádí na char; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(43444): error C2664: void sub_57CF0(Bit8u *,Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(43444): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(43464): error C2664: int sub_10C80(Bit8u *,unsigned char,unsigned short): Nejde převést argument 1 z: unsigned int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(43464): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(43495): error C2664: void sub_57CF0(Bit8u *,Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(43495): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(43553): error C2664: int sub_10C80(Bit8u *,unsigned char,unsigned short): Nejde převést argument 1 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(43553): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(43584): error C2664: int sub_10C80(Bit8u *,unsigned char,unsigned short): Nejde převést argument 1 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(43584): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(43608): error C2664: int sub_585A0(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(43608): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(43609): error C2664: int sub_10C80(Bit8u *,unsigned char,unsigned short): Nejde převést argument 1 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(43609): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(43667): warning C4244: =: unsigned short se převádí na uint8; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(43852): error C2664: int sub_104A0(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(43852): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(44524): error C2664: bool sub_106C0(Bit8u *,Bit8u *): Nejde převést argument 2 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(44524): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(44534): error C2664: void sub_57CF0(Bit8u *,Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(44534): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(44535): error C2664: void sub_5C800(Bit8u *,char): Nejde převést argument 1 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(44535): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(44576): error C2664: void sub_57CF0(Bit8u *,Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(44576): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(44895): error C2664: void sub_57CF0(Bit8u *,Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(44895): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(44923): error C2664: bool sub_11E70(Bit8u *,short *): Nejde převést argument 1 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(44923): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(44944): error C2664: bool sub_11E70(Bit8u *,short *): Nejde převést argument 1 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(44944): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(44994): error C2664: void sub_57CF0(Bit8u *,Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(44994): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(44997): error C2664: Bit8u *sub_10A50(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(44997): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(45173): error C2664: char sub_49C90(Bit8u *,short): Nejde převést argument 1 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(45173): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(45011): warning C4302: přetypování: zkrácení z: Bit8u * na: Bit16u
 c:\prenos\remc2\remc2\engine\sub_main.cpp(45208): warning C4244: return: short se převádí na char; může dojít ke ztrátě dat.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(45444): warning C4244: =: __int64 se převádí na int; může dojít ke ztrátě dat.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(45591): warning C4302: přetypování: zkrácení z: unsigned char * na: char
 c:\prenos\remc2\remc2\engine\sub_main.cpp(45756): warning C4244: argument: Bit16u se převádí na char; může dojít ke ztrátě dat.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(45757): warning C4244: argument: Bit16u se převádí na char; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(45905): error C2664: bool sub_10750(Bit8u *,int): Nejde převést argument 1 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(45905): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(45923): error C2664: bool sub_10750(Bit8u *,int): Nejde převést argument 1 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(45923): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(46084): warning C4244: argument: short se převádí na char; může dojít ke ztrátě dat.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(46161): warning C4302: přetypování: zkrácení z: Bit8u * na: uint8
 c:\prenos\remc2\remc2\engine\sub_main.cpp(46581): warning C4244: argument: unsigned short se převádí na char; může dojít ke ztrátě dat.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(46670): warning C4244: argument: unsigned short se převádí na unsigned char; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(46750): error C2664: char sub_5F890(int,short): Nejde převést argument 1 z: Bit8u * na: int.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(46750): note: Neexistuje kontext, ve kterém by byl tento převod možný.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(46751): error C2664: bool sub_106C0(Bit8u *,Bit8u *): Nejde převést argument 2 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(46753): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(46762): error C2664: char sub_5F890(int,short): Nejde převést argument 1 z: Bit8u * na: int.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(46762): note: Neexistuje kontext, ve kterém by byl tento převod možný.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(46835): error C2664: int sub_10C80(Bit8u *,unsigned char,unsigned short): Nejde převést argument 1 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(46835): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(46886): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(46966): error C2664: int sub_11900(Bit8u *,Bit8u *,unsigned char,unsigned short): Nejde převést argument 1 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(46966): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(47629): error C2664: void sub_57CF0(Bit8u *,Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(47629): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(47847): error C2664: bool sub_10750(Bit8u *,int): Nejde převést argument 1 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(47847): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(47855): error C2664: bool sub_10750(Bit8u *,int): Nejde převést argument 1 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(47855): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(48091): error C2664: int sub_10C80(Bit8u *,unsigned char,unsigned short): Nejde převést argument 1 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(48091): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(48342): error C2664: void sub_57CF0(Bit8u *,Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(48342): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(47425): warning C4302: přetypování: zkrácení z: Bit8u * na: Bit8u
 c:\prenos\remc2\remc2\engine\sub_main.cpp(48473): warning C4244: =: int16 se převádí na uint8; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(48776): error C2664: char sub_49C90(Bit8u *,short): Nejde převést argument 1 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(48776): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(48906): error C2664: void sub_57CF0(Bit8u *,Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(48906): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(48535): warning C4102: LABEL_46: neodkazovaná jmenovka
+c:\prenos\remc2\remc2\engine\sub_main.cpp(48922): warning C4302: přetypování: zkrácení z: Bit8u * na: int16
 c:\prenos\remc2\remc2\engine\sub_main.cpp(49978): warning C4244: =: short se převádí na uint8; může dojít ke ztrátě dat.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(49979): warning C4244: =: short se převádí na uint8; může dojít ke ztrátě dat.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(50199): warning C4244: =: unsigned short se převádí na uint8; může dojít ke ztrátě dat.
@@ -355,6 +210,7 @@ c:\prenos\remc2\remc2\engine\sub_main.cpp(50333): warning C4244: =: unsigned sho
 c:\prenos\remc2\remc2\engine\sub_main.cpp(50539): warning C4302: přetypování: zkrácení z: int * na: unsigned char
 c:\prenos\remc2\remc2\engine\sub_main.cpp(51093): warning C4244: =: unsigned short se převádí na uint8; může dojít ke ztrátě dat.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(51166): warning C4244: =: unsigned short se převádí na uint8; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(50399): warning C4102: LABEL_46: neodkazovaná jmenovka
 c:\prenos\remc2\remc2\engine\sub_main.cpp(52684): warning C4302: přetypování: zkrácení z: Bit8u * na: Bit8u
 c:\prenos\remc2\remc2\engine\sub_main.cpp(52898): warning C4302: přetypování: zkrácení z: Bit8u * na: Bit8u
 c:\prenos\remc2\remc2\engine\sub_main.cpp(53373): warning C4244: =: short se převádí na char; může dojít ke ztrátě dat.
@@ -363,6 +219,7 @@ c:\prenos\remc2\remc2\engine\sub_main.cpp(54961): warning C4244: argument: Bit16
 c:\prenos\remc2\remc2\engine\sub_main.cpp(54963): warning C4244: argument: Bit16u se převádí na unsigned char; může dojít ke ztrátě dat.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(54964): warning C4244: argument: Bit16u se převádí na unsigned char; může dojít ke ztrátě dat.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(54965): warning C4244: argument: Bit16u se převádí na unsigned char; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(55017): warning C4101: result: neodkazovaná lokální proměnná
 c:\prenos\remc2\remc2\engine\sub_main.cpp(55054): warning C4244: =: unsigned short se převádí na uint8; může dojít ke ztrátě dat.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(55089): warning C4244: =: unsigned short se převádí na uint8; může dojít ke ztrátě dat.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(55803): warning C4244: =: unsigned short se převádí na Bit8u; může dojít ke ztrátě dat.
@@ -380,7 +237,9 @@ c:\prenos\remc2\remc2\engine\sub_main.cpp(57006): warning C4244: =: unsigned sho
 c:\prenos\remc2\remc2\engine\sub_main.cpp(57027): warning C4244: =: unsigned short se převádí na uint8; může dojít ke ztrátě dat.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(57062): warning C4244: =: unsigned short se převádí na uint8; může dojít ke ztrátě dat.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(57577): warning C4244: =: int16 se převádí na Bit8u; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(57700): warning C4101: v6: neodkazovaná lokální proměnná
 c:\prenos\remc2\remc2\engine\sub_main.cpp(57983): warning C4018: >: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\sub_main.cpp(58141): warning C4101: result: neodkazovaná lokální proměnná
 c:\prenos\remc2\remc2\engine\sub_main.cpp(58255): warning C4302: přetypování: zkrácení z: Bit8u * na: unsigned char
 c:\prenos\remc2\remc2\engine\sub_main.cpp(58402): warning C4244: =: __int64 se převádí na char; může dojít ke ztrátě dat.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(58691): warning C4244: =: short se převádí na uint8; může dojít ke ztrátě dat.
@@ -390,96 +249,220 @@ c:\prenos\remc2\remc2\engine\sub_main.cpp(59270): warning C4244: argument: short
 c:\prenos\remc2\remc2\engine\sub_main.cpp(59276): warning C4244: argument: short se převádí na char; může dojít ke ztrátě dat.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(59298): warning C4244: =: unsigned short se převádí na uint8; může dojít ke ztrátě dat.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(59351): warning C4244: =: unsigned short se převádí na uint8; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(60124): error C2664: void sub_57CF0(Bit8u *,Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(60124): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(60132): error C2664: void sub_57CF0(Bit8u *,Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(60132): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(60136): warning C4244: argument: unsigned short se převádí na char; může dojít ke ztrátě dat.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(60137): warning C4244: =: unsigned short se převádí na Bit8u; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(60198): error C2664: char sub_49C90(Bit8u *,short): Nejde převést argument 1 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(60198): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
 c:\prenos\remc2\remc2\engine\sub_main.cpp(60483): warning C4302: přetypování: zkrácení z: Bit8u * na: char
-c:\prenos\remc2\remc2\engine\sub_main.cpp(60500): error C2664: int16 *sub_352C0(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(60500): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(60505): error C2664: void sub_35390(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(60505): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(60622): error C2664: int sub_389F0(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(60622): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(61686): error C2664: short sub_12100(int,Bit8u *,char): Nejde převést argument 2 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(61686): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(62635): warning C4244: =: short se převádí na int8; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(62678): warning C4244: =: __int64 se převádí na int32; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(62681): warning C4244: =: __int64 se převádí na int32; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(62684): warning C4244: =: __int64 se převádí na int16; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(62685): warning C4244: =: __int64 se převádí na int16; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(62853): error C2664: int sub_102D0(Bit8u *,short *,char): Nejde převést argument 1 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(62853): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(62900): error C2664: char sub_49C90(Bit8u *,short): Nejde převést argument 1 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(62900): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(63006): warning C4244: =: short se převádí na int8; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(63450): error C2664: int sub_26500(int,Bit8u *): Nejde převést argument 2 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(63450): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(63451): error C2664: Bit8u *sub_268F0(Bit8u *,unsigned char): Nejde převést argument 1 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(63451): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(63495): warning C4244: =: short se převádí na int8; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(63554): error C2440: return: nejde převést z: void na: int.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(63554): note: Výrazy typu void nejde převádět na jiné typy.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(63749): error C2664: void sub_293D0(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(63749): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(63807): warning C4244: =: __int64 se převádí na int16; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(63942): warning C4309: argument: zkrácení konstantní hodnoty
-c:\prenos\remc2\remc2\engine\sub_main.cpp(64229): warning C4309: argument: zkrácení konstantní hodnoty
-c:\prenos\remc2\remc2\engine\sub_main.cpp(64743): warning C4309: argument: zkrácení konstantní hodnoty
-c:\prenos\remc2\remc2\engine\sub_main.cpp(64770): warning C4309: argument: zkrácení konstantní hodnoty
-c:\prenos\remc2\remc2\engine\sub_main.cpp(65660): error C2664: void sub_57CF0(Bit8u *,Bit8u *): Nejde převést argument 1 z: unsigned int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(65660): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(65662): warning C4309: argument: zkrácení konstantní hodnoty
-c:\prenos\remc2\remc2\engine\sub_main.cpp(65693): warning C4309: argument: zkrácení konstantní hodnoty
-c:\prenos\remc2\remc2\engine\sub_main.cpp(66868): error C2664: int sub_104A0(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(66868): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(67595): warning C4244: =: short se převádí na int8; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(68425): warning C4244: =: __int64 se převádí na int16; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(68454): warning C4244: =: __int64 se převádí na int16; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(68528): warning C4244: =: unsigned short se převádí na Bit8u; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(68613): warning C4244: =: short se převádí na Bit8u; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(68677): warning C4554: &: Zkontrolujte, jestli není chyba v prioritě operátorů; zadejte prioritu jednoznačně pomocí závorek.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(69074): warning C4302: přetypování: zkrácení z: Bit8u * na: short
-c:\prenos\remc2\remc2\engine\sub_main.cpp(70338): warning C4244: =: Bit16s se převádí na Bit8u; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(70362): warning C4244: =: Bit16s se převádí na Bit8u; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(71060): warning C4244: =: short se převádí na uint8; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(71061): warning C4244: =: short se převádí na uint8; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(71079): warning C4244: =: short se převádí na Bit8u; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(71105): warning C4244: =: short se převádí na uint8; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(71140): warning C4244: =: short se převádí na uint8; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(71141): warning C4244: =: short se převádí na uint8; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(71157): warning C4244: =: short se převádí na Bit8u; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(71174): warning C4244: =: short se převádí na uint8; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(71243): warning C4244: =: Bit16u se převádí na Bit8u; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(71249): warning C4244: =: Bit16u se převádí na Bit8u; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(71367): warning C4018: <: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(71664): error C2664: char sub_12500(Bit8u *): Nejde převést argument 1 z: unsigned int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(71664): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(71699): error C2664: char sub_21F60(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(71699): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(71760): error C2562: sub_57CF0: funkce void vrací hodnotu.
-  c:\prenos\remc2\remc2\engine\sub_main.cpp(71744): note: viz deklarace: sub_57CF0
-c:\prenos\remc2\remc2\engine\sub_main.cpp(71850): warning C4018: <=: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(71884): warning C4244: =: short se převádí na uint8; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(72474): warning C4018: >=: signed/unsigned – neshoda
-c:\prenos\remc2\remc2\engine\sub_main.cpp(72620): warning C4244: =: short se převádí na Bit8u; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(72624): warning C4244: =: short se převádí na Bit8u; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(72891): warning C4244: argument: short se převádí na unsigned char; může dojít ke ztrátě dat.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(73051): error C2664: bool sub_106C0(Bit8u *,Bit8u *): Nejde převést argument 1 z: unsigned int na: Bit8u *.
-c:\prenos\remc2\remc2\engine\sub_main.cpp(73051): fatal error C1003: Počet chyb překračuje 100; kompilace se zastavuje.
-  remc2.cpp
-c:\prenos\remc2\sdl-mixer-x-master\src\music.h(31): warning C4273: round: nekonzistentní propojení dll
-  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\corecrt_math.h(532): note: viz předchozí definice round
-c:\prenos\remc2\remc2\engine\defs.h(74): warning C4005: LOBYTE: předefinování makra
-  c:\program files (x86)\windows kits\10\include\10.0.16299.0\shared\minwindef.h(206): note: viz předchozí definice LOBYTE
-c:\prenos\remc2\remc2\engine\defs.h(75): warning C4005: LOWORD: předefinování makra
-  c:\program files (x86)\windows kits\10\include\10.0.16299.0\shared\minwindef.h(204): note: viz předchozí definice LOWORD
-c:\prenos\remc2\remc2\engine\defs.h(77): warning C4005: HIBYTE: předefinování makra
-  c:\program files (x86)\windows kits\10\include\10.0.16299.0\shared\minwindef.h(207): note: viz předchozí definice HIBYTE
-c:\prenos\remc2\remc2\engine\defs.h(78): warning C4005: HIWORD: předefinování makra
-  c:\program files (x86)\windows kits\10\include\10.0.16299.0\shared\minwindef.h(205): note: viz předchozí definice HIWORD
-  Generování kódu...
+c:\prenos\remc2\remc2\engine\sub_main.cpp(62639): warning C4244: =: short se převádí na int8; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(62682): warning C4244: =: __int64 se převádí na int32; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(62685): warning C4244: =: __int64 se převádí na int32; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(62688): warning C4244: =: __int64 se převádí na int16; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(62689): warning C4244: =: __int64 se převádí na int16; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(62697): error C2296: /: Neplatné. Levý operand má typ Bit8u *.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(62703): error C2440: =: nejde převést z: Bit8u * na: int.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(62703): note: Neexistuje kontext, ve kterém by byl tento převod možný.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(62733): error C2664: void sub_49A20(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(62733): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(62746): error C2440: return: nejde převést z: Bit8u * na: int.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(62746): note: Neexistuje kontext, ve kterém by byl tento převod možný.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(62766): error C2440: =: nejde převést z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(62766): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(62776): error C2664: void sub_49C70(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(62776): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(62784): error C2296: /: Neplatné. Levý operand má typ Bit8u *.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(62801): error C2440: return: nejde převést z: Bit8u * na: int.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(62801): note: Neexistuje kontext, ve kterém by byl tento převod možný.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(62831): error C2664: void sub_49C70(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(62831): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(62854): error C2664: void sub_49A20(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(62854): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(62857): error C2664: int sub_102D0(Bit8u *,short *,char): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(62857): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(62887): error C2664: void sub_49C70(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(62887): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(62903): error C2664: void sub_49A20(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(62903): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(62904): error C2664: char sub_49C90(Bit8u *,short): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(62904): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(62958): error C2664: void sub_49A20(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(62958): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(63010): warning C4244: =: short se převádí na int8; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(63012): error C2664: void sub_49A20(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(63012): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(63089): error C2664: void sub_49A20(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(63089): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(63140): error C2664: void sub_49A20(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(63140): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(63173): error C2664: void sub_49C70(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(63173): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(63194): error C2664: void sub_49A20(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(63194): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(63228): error C2664: void sub_49C70(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(63228): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(63248): error C2664: void sub_49A20(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(63248): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(63278): error C2664: void sub_49C70(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(63278): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(63298): error C2664: void sub_49A20(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(63298): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(63329): error C2664: void sub_49C70(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(63329): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(63352): error C2664: void sub_49A20(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(63352): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(63381): error C2664: void sub_49C70(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(63381): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(63399): error C2664: void sub_49A20(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(63399): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(63453): error C2440: =: nejde převést z: void na: int.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(63453): note: Výrazy typu void nejde převádět na jiné typy.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(63458): error C2440: return: nejde převést z: Bit8u * na: int.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(63458): note: Neexistuje kontext, ve kterém by byl tento převod možný.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(63499): warning C4244: =: short se převádí na int8; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(63518): error C2664: void sub_49C70(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(63518): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(63519): error C2664: void sub_49A20(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(63519): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(63549): error C2664: void sub_274C0(Bit8u *,Bit8u *,int16 *,short): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(63549): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(63558): error C2440: return: nejde převést z: void na: int.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(63558): note: Výrazy typu void nejde převádět na jiné typy.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(63604): error C2664: void sub_49A20(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(63604): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(63638): error C2664: void sub_49C70(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(63638): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(63656): error C2664: void sub_49A20(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(63656): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(63685): error C2664: void sub_49C70(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(63685): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(63703): error C2664: void sub_49A20(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(63703): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(63732): error C2664: void sub_49C70(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(63732): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(63750): error C2664: void sub_49A20(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(63750): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(63753): error C2664: void sub_293D0(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(63753): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(63811): warning C4244: =: __int64 se převádí na int16; může dojít ke ztrátě dat.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(63856): error C2664: unsigned short sub_2AD40(Bit8u *): Nejde převést argument 1 z: unsigned int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(63856): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(63890): error C2664: void sub_49C70(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(63890): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(63913): error C2664: void sub_49A20(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(63913): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(63944): error C2664: void sub_49A20(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(63944): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(63946): warning C4309: argument: zkrácení konstantní hodnoty
+c:\prenos\remc2\remc2\engine\sub_main.cpp(63990): error C2664: void sub_49A20(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(63990): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(64021): error C2664: void sub_49A20(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(64021): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(64051): error C2664: void sub_49A20(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(64051): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(64081): error C2664: void sub_49A20(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(64081): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(64111): error C2664: void sub_49A20(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(64111): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(64141): error C2664: void sub_49A20(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(64141): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(64171): error C2664: void sub_49A20(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(64171): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(64201): error C2664: void sub_49A20(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(64201): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(64231): error C2664: void sub_49A20(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(64231): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(64233): warning C4309: argument: zkrácení konstantní hodnoty
+c:\prenos\remc2\remc2\engine\sub_main.cpp(64262): error C2664: void sub_49A20(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(64262): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(64292): error C2664: void sub_49A20(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(64292): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(64322): error C2664: void sub_49A20(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(64322): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(64347): error C2664: void sub_49A20(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(64347): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(64371): error C2664: void sub_49A20(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(64371): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(64395): error C2664: void sub_49A20(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(64395): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(64419): error C2664: void sub_49A20(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(64419): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(64444): error C2664: void sub_49A20(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(64444): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(64473): error C2664: void sub_49A20(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(64473): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(64503): error C2664: void sub_49A20(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(64503): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(64533): error C2664: void sub_49A20(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(64533): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(64565): error C2664: void sub_49A20(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(64565): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(64598): error C2664: void sub_49A20(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(64598): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(64628): error C2664: void sub_49A20(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(64628): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(64657): error C2664: void sub_49A20(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(64657): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(64687): error C2664: void sub_49A20(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(64687): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(64716): error C2664: void sub_49A20(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(64716): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(64744): error C2664: void sub_49A20(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(64744): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(64747): warning C4309: argument: zkrácení konstantní hodnoty
+c:\prenos\remc2\remc2\engine\sub_main.cpp(64772): error C2664: void sub_49A20(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(64772): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(64774): warning C4309: argument: zkrácení konstantní hodnoty
+c:\prenos\remc2\remc2\engine\sub_main.cpp(64799): error C2664: void sub_49A20(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(64799): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(64827): error C2664: void sub_49A20(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(64827): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(64856): error C2664: void sub_49A20(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(64856): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(64885): error C2664: void sub_49A20(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(64885): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(64913): error C2664: void sub_49A20(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(64913): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(64949): error C2664: void sub_49A20(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(64949): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(65002): error C2664: void sub_49A20(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(65002): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(65032): error C2664: void sub_49A20(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(65032): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(65057): error C2664: void sub_49A20(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(65057): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(65084): error C2664: void sub_49A20(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(65084): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(65155): error C2664: void sub_49A20(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(65155): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(65188): error C2664: void sub_49A20(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(65188): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(65220): error C2664: void sub_49A20(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(65220): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(65250): error C2664: void sub_49A20(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(65250): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(65274): error C2664: void sub_49A20(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(65274): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(65314): error C2664: void sub_49A20(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(65314): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(65341): error C2664: void sub_49A20(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(65341): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(65369): error C2664: void sub_49A20(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(65369): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(65395): error C2664: void sub_49A20(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(65395): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(65446): error C2664: void sub_49A20(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(65446): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(65544): error C2664: void sub_49A20(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(65544): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(65664): error C2664: void sub_57CF0(Bit8u *,Bit8u *): Nejde převést argument 1 z: unsigned int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(65664): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(65666): warning C4309: argument: zkrácení konstantní hodnoty
+c:\prenos\remc2\remc2\engine\sub_main.cpp(65693): error C2664: void sub_49A20(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(65693): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(65697): warning C4309: argument: zkrácení konstantní hodnoty
+c:\prenos\remc2\remc2\engine\sub_main.cpp(65721): error C2664: void sub_49A20(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(65721): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(65746): error C2664: void sub_49A20(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(65746): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(65773): error C2664: void sub_49A20(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+  c:\prenos\remc2\remc2\engine\sub_main.cpp(65773): note: Převod z celočíselného typu na typ ukazatele vyžaduje přetypování reinterpret_cast, C-style nebo function-style.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(65796): error C2664: void sub_49A20(Bit8u *): Nejde převést argument 1 z: int na: Bit8u *.
+c:\prenos\remc2\remc2\engine\sub_main.cpp(65796): fatal error C1003: Počet chyb překračuje 100; kompilace se zastavuje.
