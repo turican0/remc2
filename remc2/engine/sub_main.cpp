@@ -45621,8 +45621,6 @@ char sub_36FC0(int a1)//217fc0
 // EA3BC: using guessed type int **filearray_2aa18c[24];
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
-int debugindex = 0;
-
 //----- (00037240) --------------------------------------------------------
 void sub_37240(Bit8u* a1)//218240
 {
@@ -45676,9 +45674,6 @@ void sub_37240(Bit8u* a1)//218240
 	unsigned __int16 v48; // [esp+50h] [ebp-8h]
 	Bit16u v49; // [esp+50h] [ebp-8h]
 	Bit8u v50; // [esp+54h] [ebp-4h]
-
-	if(debugindex>=0xfe)
-		v50 = 0;
 
 	v50 = 0;
 	if (*(Bit32u*)(a1 + 4) == *(Bit32u*)(a1 + 8))
@@ -45735,7 +45730,7 @@ void sub_37240(Bit8u* a1)//218240
 				v23++;
 				HIBYTE(v44)++;
 			}
-			v17 = a1[69];
+			v17 = a1[69];//adress 218650
 			if (v17 >= 0x30u)
 			{
 				if (v17 <= 0x30u)
@@ -45758,7 +45753,7 @@ void sub_37240(Bit8u* a1)//218240
 					*(Bit16u*)(a1 + 80) = sub_10C40((Bit16u*)(a1 + 76));
 					v20 = (v3 >> 1) & 0xFFFF;
 					sub_48A20(v20, v38, SHIBYTE(v38), v20, (Bit16u)v19, 2u);
-					sub_48A20(v20, v38, SHIBYTE(v38), v20, (Bit16u)v19, 5u);
+					sub_48A20(v20, v38, SHIBYTE(v38), v20, (Bit16u)v19, 5u);//problem
 					sub_377A0(a1);
 				}
 			}
@@ -45889,7 +45884,6 @@ void sub_37240(Bit8u* a1)//218240
 			}
 		}
 	}
-	debugindex++;
 }
 // D41B6: using guessed type char x_BYTE_D41B6;
 // EA3BC: using guessed type int **filearray_2aa18c[24];
@@ -59051,7 +59045,7 @@ __int16 sub_48A20(int a1, char a2, char a3, int a4, int a5, unsigned __int8 a6)/
 	while ((x_WORD)--v7 != -1)
 	{
 		LOWORD(a1) = a6;
-		++a1;
+		a1++;
 		while ((x_WORD)--a1 != -1)
 		{
 			sub_48B90(v8);
@@ -59061,8 +59055,8 @@ __int16 sub_48A20(int a1, char a2, char a3, int a4, int a5, unsigned __int8 a6)/
 		}
 		LOBYTE(v16) = 2 * a5 + v13;
 		LOBYTE(v8) = v13 - a6;
-		++HIBYTE(v8);
-		++HIBYTE(v16);
+		HIBYTE(v8)++;
+		HIBYTE(v16)++;
 	}
 	LOBYTE(v9) = v13 - a6;
 	LOBYTE(v17) = v13 - a6;
@@ -59074,13 +59068,13 @@ __int16 sub_48A20(int a1, char a2, char a3, int a4, int a5, unsigned __int8 a6)/
 	while ((x_WORD)--v11 != -1)
 	{
 		LOWORD(v7) = a6;
-		++v7;
+		v7++;
 		while ((x_WORD)--v7 != -1)
 		{
 			sub_48B90(v9);
 			sub_48B90(v17);
-			++HIBYTE(v9);
-			++HIBYTE(v17);
+			HIBYTE(v9)++;
+			HIBYTE(v17)++;
 		}
 		LOBYTE(v10) = 2 * a4;
 		HIBYTE(v9) = v14 - a6;
@@ -59150,10 +59144,10 @@ __int16 sub_48B90(int a1)//229b90
 				if ((unsigned __int8)x_BYTE_10B4E0[(unsigned __int16)i] <= 5u
 					|| (unsigned __int8)x_BYTE_10B4E0[(unsigned __int16)i] > 0x22u)
 				{
-					++v3;
+					v3++;
 					v2 += x_BYTE_11B4E0[(unsigned __int16)i];
 				}
-				++i;
+				i++;
 			}
 		}
 		if (v3)
@@ -59544,7 +59538,7 @@ void sub_49270_generate_level_features(Bit8u* a1)//22a270
 	origbyte = 0;
 	remakebyte = 0;
 	comp1 = compare_with_snapshot((char*)"0160-0022A288", (Bit8u*)x_WORD_15B4E0, 0x32c4e0, 0x20000, &origbyte, &remakebyte);
-	comp2 = compare_with_snapshot((char*)"0160-0022A288", x_BYTE_11B4E0, 0x2ec4e0, 0x10000, &origbyte, &remakebyte);//0xa546
+	comp2 = compare_with_snapshot((char*)"0160-0022A288", x_BYTE_11B4E0, 0x2ec4e0, 0x10000, &origbyte, &remakebyte);//0xa63c
 	comp3 = compare_with_snapshot((char*)"0160-0022A288", x_BYTE_13B4E0, 0x30c4e0, 0x10000, &origbyte, &remakebyte);//0xb14b
 	comp4 = compare_with_snapshot((char*)"0160-0022A288", x_BYTE_10B4E0, 0x2dc4e0, 0x10000, &origbyte, &remakebyte);//0xb14b
 	comp5 = compare_with_snapshot((char*)"0160-0022A288", x_BYTE_12B4E0, 0x2fc4e0, 0x10000, &origbyte, &remakebyte);//0xb04a
@@ -59970,6 +59964,8 @@ void sub_49830(Bit8u* a1)//22a830
 	//return result;
 }
 
+int debugcounter=0;
+
 //----- (000498A0) --------------------------------------------------------
 void sub_498A0()//22a8a0
 {
@@ -60061,7 +60057,12 @@ LABEL_2:
 				v8x = *(Bit32u*)&(x_DWORD_D4C52ar[(v5 + 6 - 0x2a5c52)]);
 				if (v8x && *(Bit32u*)&(x_DWORD_D4C52ar[(v5 + 10 - 0x2a5c52)]))
 					//v8((int)i, v7);
+				{//adress 22a976
+					if (debugcounter >= 0x3d)//0x057e
+						myprintf("xx");
 					pre_sub_4A190(v8x, i);
+					debugcounter++;
+				}
 				goto LABEL_27;
 			}
 			if (v4 == 45)
@@ -78671,8 +78672,8 @@ void sub_613D0(Bit8u* a1)//2423d0
 			v8 = x_WORD_180660_VGA_type_resolution == 1 ? (signed int)*(unsigned __int8 *)(v7 + **filearray_2aa18c[24] + 5) >> 1 : *(unsigned __int8 *)(v7 + **filearray_2aa18c[24] + 5);
 			*/
 			//filearrayindex_MSPRD00DATTAB
-		    i1 = x_WORD_180660_VGA_type_resolution == 1 ? filearray_2aa18c[v4].posistruct->width >> 1 : filearray_2aa18c[v4].posistruct->width;
-			v8 = x_WORD_180660_VGA_type_resolution == 1 ? filearray_2aa18c[v4].posistruct->height >> 1 : filearray_2aa18c[v4].posistruct->height;
+		    i1 = x_WORD_180660_VGA_type_resolution == 1 ? filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct[v4].width >> 1 : filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct[v4].width;
+			v8 = x_WORD_180660_VGA_type_resolution == 1 ? filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct[v4].height >> 1 : filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct[v4].height;
 
 			v20 = ((unsigned __int16)(*(x_WORD *)(a1 + 76) + 128) >> 8) - (i1 >> 1);
 			v19 = ((unsigned __int16)(*(x_WORD *)(a1 + 78) + 128) >> 8) - (v8 >> 1);
@@ -133605,7 +133606,7 @@ int sub_B5C60(Bit16u a1, Bit16u a2)//296c60
 	if ((HIBYTE(a1) + HIBYTE(a2)) & 1)
 	{
 		//if (__CFADD__((x_BYTE)v3, (x_BYTE)a1))
-		if(uint8(v3) >= uint8(v3 + a1))
+		if(uint8(v3) > uint8(v3 + a1))
 		{
 			HIBYTE(v2) = HIBYTE(a2) + 1;
 			v4 = x_BYTE_11B4E0[v2];

@@ -2763,5 +2763,41 @@ sub_70910_print_string((char*)"Initialise Models\0");
 	0xbdaf - remc2
 	0xb14b - dosbox
 
+	&x_BYTE_11B4E0[0xb452] - 57555144
+	versus
+	002ec4e0 + 0xb452- 57555244
+
+	2183f3
+	tj.
+		case 0x218240: {
+		sub_37240(a1);
+
+	100 - 58585548 - ok
+	400 - 69696661 - ok
+	570 - 71717171 - ok
+	573 - tam je prvni rozdil
+	575
+	579
+	57a - 696c6c6c - re versus 7171717 - dos
+
+ 0 0
+ e7 07
+ 4c 37
+ 48 5e
+
+ ca 40
+ 80 80
+
+ 355184
+
+ 55504949
+ 	&x_BYTE_11B4E0[0xc35a] - 6d6d6a62
+	versus
+	002ec4e0 + 0xc35a- 7676726e
+
+
+
+
+
 
 
