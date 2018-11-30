@@ -231,7 +231,7 @@ Bit32u compare_with_snapshot(char* filename, Bit8u* adress, Bit32u adressdos, Bi
 	}
 
 	free(buffer);
-
+	fclose(fptestepc);
 	return(i);
 };
 

@@ -216,6 +216,16 @@ return true;
 }
 */
 
+Bit8u origbyte;
+Bit8u remakebyte;
+int comp1;
+int comp2;
+int comp3;
+int comp4;
+int comp5;
+
+
+
 //posistruct var_2BB3E0_x_DWORD_EA3D4_14[0x3e9];
 
 Bit8u* SEARCH_BEGIN_BUFFER = 0;
@@ -45780,7 +45790,7 @@ void sub_37240(Bit8u* a1)//218240
 					HIBYTE(v40)++;
 				}
 			}
-			v41 = v37;
+			v41 = v37;//adress 218389
 			v28 = 0;
 			v34 = v26;
 			while (v3 > v28)
@@ -45792,8 +45802,7 @@ void sub_37240(Bit8u* a1)//218240
 					if (v34[1] != 0xffu)
 					{
 						//v6 = x_BYTE_13B4E0[v46];
-						x_BYTE_11B4E0[v46] += ((Bit8u)v34[1] + (Bit16u)v35 - x_BYTE_11B4E0[v46])
-							/ *(Bit32u*)(a1 + 8);
+						x_BYTE_11B4E0[v46] += ((Bit32s)((Bit8u)v34[1] + (Bit16u)v35 - x_BYTE_11B4E0[v46]))/ *(Bit32s*)(a1 + 8);
 						if (!(x_BYTE_13B4E0[v46] & 7))
 						{
 							x_BYTE_13B4E0[v46] = x_BYTE_13B4E0[v46] & 0xF0 | 1;
@@ -60058,8 +60067,27 @@ LABEL_2:
 				if (v8x && *(Bit32u*)&(x_DWORD_D4C52ar[(v5 + 10 - 0x2a5c52)]))
 					//v8((int)i, v7);
 				{//adress 22a976
-					if (debugcounter >= 0x3d)//0x057e
-						myprintf("xx");
+					if (debugcounter >= 0x99)//0x057e
+					{
+						//debug
+//x_WORD_15B4E0 32c4e0
+//x_BYTE_11B4E0 2ec4e0
+//x_BYTE_13B4E0 30c4e0
+//x_BYTE_10B4E0 2dc4e0
+//x_BYTE_12B4E0 2fc4e0
+						origbyte = 0;
+						remakebyte = 0;
+						comp1 = compare_with_snapshot((char*)"0160-0022A976", (Bit8u*)x_WORD_15B4E0, 0x32c4e0, 0x20000, &origbyte, &remakebyte);
+						comp2 = compare_with_snapshot((char*)"0160-0022A976", x_BYTE_11B4E0, 0x2ec4e0, 0x10000, &origbyte, &remakebyte);
+						comp3 = compare_with_snapshot((char*)"0160-0022A976", x_BYTE_13B4E0, 0x30c4e0, 0x10000, &origbyte, &remakebyte);
+						comp4 = compare_with_snapshot((char*)"0160-0022A976", x_BYTE_10B4E0, 0x2dc4e0, 0x10000, &origbyte, &remakebyte);
+						comp5 = compare_with_snapshot((char*)"0160-0022A976", x_BYTE_12B4E0, 0x2fc4e0, 0x10000, &origbyte, &remakebyte);
+
+						//	compsize = compare_with_snapshot((char*)"0160-00256200-2", x_DWORD_180628b_screen_buffer, 0x3aa0a4, 640 * height, &origbyte, &remakebyte);//4c
+					//debug	
+						myprintf("i:%d,", debugcounter);
+					}
+						
 					pre_sub_4A190(v8x, i);
 					debugcounter++;
 				}
@@ -71250,55 +71278,55 @@ char sub_572C0(signed __int16 *a1, __int16 a2, __int16 a3, __int16 a4, char a5)/
 //----- (00057390) --------------------------------------------------------
 void sub_57390(Bit16u a1, Bit16u a2)//238390
 {
-	Bit8u index; // al
+	//Bit8u index; // al
 	int i; // ebx
 	char v4; // ah
 	Bit8u* v5; // ebx
 
-	index = a1;
+	//index = a1;
 	for (i = x_WORD_15B4E0[a1];x_DWORD_EA3E4[i] != x_DWORD_EA3E4[0]; i = *(Bit16u*)(x_DWORD_EA3E4[i] + 22))
 	{
 		//v5 = x_DWORD_EA3E4[i];
 		/*if (v5 == (int)x_DWORD_EA3E4[0])
 			break;*/
-		index = a2;
+		//index = a2;
 		if (*(Bit16u*)(x_DWORD_EA3E4[i] + 26) != a2)
 		{
-			index = x_DWORD_EA3E4[i][63];			
-			if (index == 2)
+			//index = x_DWORD_EA3E4[i][63];			
+			if (x_DWORD_EA3E4[i][63] == 2)
 			{
 				sub_57F10(x_DWORD_EA3E4[i]);
 				continue;
 			}
-			if (index == 5)
+			if (x_DWORD_EA3E4[i][63] == 5)
 			{
 				v4 = 1;
-				index = x_DWORD_EA3E4[i][64];
-				if (index < 0x10u)
+				//index = x_DWORD_EA3E4[i][64];
+				if (x_DWORD_EA3E4[i][64] < 0x10u)
 				{
-					if (index < 8u)
+					if (x_DWORD_EA3E4[i][64] < 8u)
 					{
-						if (index != 6)
+						if (x_DWORD_EA3E4[i][64] != 6)
 							goto LABEL_25;
 					}
-					else if (index > 8u && index != 10)
+					else if (x_DWORD_EA3E4[i][64] > 8u && x_DWORD_EA3E4[i][64] != 10)
 					{
 						goto LABEL_25;
 					}
 				}
-				else if (index > 0x10u)
+				else if (x_DWORD_EA3E4[i][64] > 0x10u)
 				{
-					if (index < 0x19u)
+					if (x_DWORD_EA3E4[i][64] < 0x19u)
 					{
-						if (index < 0x16u || index > 0x17u)
+						if (x_DWORD_EA3E4[i][64] < 0x16u || x_DWORD_EA3E4[i][64] > 0x17u)
 							goto LABEL_25;
 					}
-					else if (index <= 0x19u)
+					else if (x_DWORD_EA3E4[i][64] <= 0x19u)
 					{
 						if (x_DWORD_EA3E4[i][69] != -56)
 							goto LABEL_25;
 					}
-					else if (index != 27)
+					else if (x_DWORD_EA3E4[i][64] != 27)
 					{
 					LABEL_25:
 						if (v4)

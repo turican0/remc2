@@ -2795,6 +2795,26 @@ sub_70910_print_string((char*)"Initialise Models\0");
 	versus
 	002ec4e0 + 0xc35a- 7676726e
 
+	&x_BYTE_11B4E0[0xbe54] - 55504949
+	versus
+	002ec4e0 + 0xbe54- 675b4e4e
+
+	0x10 - ok
+	0x12 - ok
+	0x15 - error?
+	0x25 - ok
+	0x50 - ok
+	0x75 - ok
+	0x87 - ok
+	0x93 - ok
+	0x96 - ok
+	0x98 - ok
+	0x99 - ok
+	0x100 - error comp3 and comp4 b93b
+	0x250 - error comp3 and comp4 b14b
+	0x580 - error?
+
+
 
 
 
