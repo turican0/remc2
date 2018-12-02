@@ -2500,7 +2500,7 @@ int sub_5C530();
 void sub_5C800(Bit8u* a1, char a2);
 void sub_5C830(Bit8u* a1, char a2, __int16 a3);
 signed int sub_5C870(Bit8u* a1);
-signed int sub_5C8D0(int a1);
+signed int sub_5C8D0(Bit8u* a1);
 void sub_5C950(Bit8u* a1, Bit8u* a2);
 void sub_5CF40(int a1, char a2);
 int sub_5D0A0(Bit8u* a1);
@@ -46552,7 +46552,7 @@ int sub_38330(Bit8u* a1)//219330
 		}
 	}
 	if (x_WORD_D93C0_bldgprmbuffer[2+4 * a1[70]] & 1)
-		sub_5C8D0((int)a1);
+		sub_5C8D0(a1);
 LABEL_31:
 	result = sub_10C40((Bit16u*)(a1 + 76));
 	*(x_WORD *)(a1 + 80) = result;
@@ -75433,7 +75433,7 @@ signed int sub_5C870(Bit8u* a1)//23d870
 // EA3E4: using guessed type int (int)x_DWORD_EA3E4[];
 
 //----- (0005C8D0) --------------------------------------------------------
-signed int sub_5C8D0(int a1)//23d8d0
+signed int sub_5C8D0(Bit8u* a1)//23d8d0
 {
 	Bit8u* v1; // ebx
 	int v2; // esi

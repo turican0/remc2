@@ -2905,6 +2905,12 @@ az
 0xc749
 comp2 = compare_with_snapshot((char*)"0160-00229B94", x_BYTE_11B4E0
 
+signed int sub_5C8D0(Bit8u* a1)//23d8d0
+363286->35cec6
+versus
+x_DWORD_EA3E4[*(Bit16u*)(2124 * x_D41A0_BYTEARRAY_4_struct.byteindex_12 + x_D41A0_BYTEARRAY_0 + 11240)];
+238989 in void sub_57730()//238730
+
 
 
 
