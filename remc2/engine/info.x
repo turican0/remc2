@@ -2810,13 +2810,100 @@ sub_70910_print_string((char*)"Initialise Models\0");
 	0x96 - ok
 	0x98 - ok
 	0x99 - ok
+	0xc0 - ok
+	0xd0 - ok
+	0xd8 - ok
+	0xd9 - error comp3 and comp4 e5e4
+	0xda - error comp3 and comp4 e3dd
+	0xdc - error comp3 and comp4 e3dd
+	0xe0 - error comp3 and comp4 bba9
 	0x100 - error comp3 and comp4 b93b
 	0x250 - error comp3 and comp4 b14b
 	0x580 - error?
 
+	&x_BYTE_13B4E0[0xe5e4] -0x30c4e0 01414161
+	&x_BYTE_10B4E0[0xe5e4] -0x2dc4e0 01010124
+	pote
+	&x_BYTE_13B4E0[0xe3e4] -0x30c4e0 d1b1b1b1/81818181
+	&x_BYTE_10B4E0[0xe3e4] -0x2dc4e0 1a1a1a1a/ff010101
 
+				x_BYTE_10B4E0[a3] = *v7;
+			x_BYTE_13B4E0[a3] = x_BYTE_13B4E0[a3] & 0x8F | v7[1];
+			sub_45DC0(/*v16, v12,*/ v48, v15[0]);
+			sub_37240(a1);
 
+find 2a5a30 unk_D4A30
 
+	0x10 - ok
+	0x12 - ok
+	0x15 - ok
+	0x25 - ok
+	0x50 - ok
+	0x75 - ok
+	0x87 - ok
+	0x93 - ok
+	0x96 - ok
+	0x98 - ok
+	0x99 - ok
+	0xc0 - ok
+	0xd0 - ok
+	0xd8 - ok
+	0xd9 - ok
+	0x120 - ok
+	0x200 - ok
+	0x400 - ok
+	0x500 - ok
+	0x540 - ok
+	0x560 - ok
+	0x562 - ok
+	0x563 - ok
+	0x564 - ok
+	0x565 - ok
+	0x570 - error comp2 c143 comp5 c544
+	0x582 - error comp2 a546 comp5 b24a
+
+	&x_BYTE_13B4E0[0xe3e2] -0x30c4e0 41615131
+	&x_BYTE_10B4E0[0xe3e2] -0x2dc4e0 01010101
+	pote
+	&x_BYTE_13B4E0[0xe3e2] -0x30c4e0 21514101
+	&x_BYTE_10B4E0[0xe3e2] -0x2dc4e0 01010101
+
+	e3e2
+
+	e6e5
+	void sub_45DC0(Bit8u a1, Bit8u a2, unsigned __int16 a3, unsigned __int8 a4)//226dc0
+void sub_462A0(unsigned __int16 a1, __int16 a2)//2272a0
+d24f
+c648
+
+comp2
+	&x_BYTE_11B4E0[0xc648] -0x2ec4e0 01010101		
+
+comp2
+	&x_BYTE_11B4E0[0xc445] -0x82829d71 0x2ec4e0	tj.7f888582	
+	
+filearray_2aa18c[filearrayindex_BUILD00DATTAB]
+versus
+1a7124->24cf39
+
+(debugcounter2 >= 0x2340)
+az
+(debugcounter2 >= 0x2520)
+
+2345 -ok
+2347 -ok
+2348 -ok
+2349 -ok
+2350 -ok
+2355 -ok
+2362 -ok
+2366 -ok
+2368 -ok
+2369 -ok
+2370 -ok
+2450 -ok
+0xc749
+comp2 = compare_with_snapshot((char*)"0160-00229B94", x_BYTE_11B4E0
 
 
 
