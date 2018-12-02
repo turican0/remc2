@@ -7,6 +7,7 @@ https://www.gog.com/game/magic_carpet_2_the_netherworlds<br />
 (or from any abbadone archive, if it is legal in your country)<br />
 <br />
 simple dev blog:https://github.com/turican0/remc2/wiki<br />
+<br />
 ## 0.18:<br />
 -loading level product same data as original<br />
 -retyping and fixing hundreds functions<br />
