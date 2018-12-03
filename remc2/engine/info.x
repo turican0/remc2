@@ -2923,6 +2923,8 @@ x_WORD *sub_4A9C0(int a1)//22b9c0
 Bit8u* sub_4AA40(int a1)//22ba40
 atd.
 
+add adress 213400
+
 
 
 
