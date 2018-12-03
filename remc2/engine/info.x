@@ -2911,6 +2911,18 @@ versus
 x_DWORD_EA3E4[*(Bit16u*)(2124 * x_D41A0_BYTEARRAY_4_struct.byteindex_12 + x_D41A0_BYTEARRAY_0 + 11240)];
 238989 in void sub_57730()//238730
 
+find
+3632d6->a0136400
+tj.
+(Bit16u*)(v1 + 76)//+4
+238e42 - void sub_57D70(Bit8u* a1, Bit8u* a2)//238d70
+
+fix
+x_WORD *sub_4A920(int a1)//22b920
+x_WORD *sub_4A9C0(int a1)//22b9c0
+Bit8u* sub_4AA40(int a1)//22ba40
+atd.
+
 
 
 
