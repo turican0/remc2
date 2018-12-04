@@ -2935,5 +2935,7 @@ adress 22fc77 -7b03 - Bit8u* sub_4EC10(int a1)//22fc10
 
 (int)x_DWORD_EA3E4
 
+sub_498A0();//22a383 - problem - test it
+
 
 
