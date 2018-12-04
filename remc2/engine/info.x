@@ -2925,6 +2925,14 @@ atd.
 
 add adress 213400
 
+char sub_32420(Bit8u* a1)//213420
+compare
+a1 with 3618ee - elespon 100
+
+find 3618f2
+adress 22b137 -2c01 - Bit8u* sub_4A050()//22b050 - asi ok
+adress 22fc77 -7b03 - Bit8u* sub_4EC10(int a1)//22fc10
+
 
 
 

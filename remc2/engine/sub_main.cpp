@@ -1941,14 +1941,14 @@ void sub_320E0(Bit8u* a1);
 void sub_32120(Bit8u* a1);
 void sub_32160(Bit8u* a1);
 void sub_322A0(Bit8u* a1);
-char sub_323E0(int a1);
-char sub_32400(int a1);
-char sub_32420(int a1);
+char sub_323E0(Bit8u* a1);
+char sub_32400(Bit8u* a1);
+char sub_32420(Bit8u* a1);
 void sub_32530(Bit8u* a1);
 void sub_32600(Bit8u* a1);
 void sub_32880(Bit8u* a1);
 void sub_32A70(int a1);
-void sub_32CF0(int a1);
+void sub_32CF0(Bit8u* a1);
 int sub_32F40(Bit8u* a1);
 void sub_33110(Bit8u* a1);
 x_WORD *sub_331A0(Bit8u* a1);
@@ -1962,7 +1962,7 @@ void sub_33B20(Bit8u* a1);
 void sub_33C00(Bit8u* a1);
 void sub_33C70(Bit8u* a1);
 void sub_33D40(Bit8u* a1);
-void sub_33D80(int a1);
+void sub_33D80(Bit8u* a1);
 void sub_33E20(Bit8u* a1);
 void sub_33E80(Bit8u* a1);
 bool sub_33F70(unsigned __int16 a1);
@@ -42253,7 +42253,7 @@ void sub_31FB0(Bit8u* a1)
 // D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
 
 //----- (000320E0) --------------------------------------------------------
-void sub_320E0(Bit8u* a1)
+void sub_320E0(Bit8u* a1)//2130e0
 {
 	int v1; // eax
 
@@ -42270,7 +42270,7 @@ void sub_320E0(Bit8u* a1)
 }
 
 //----- (00032120) --------------------------------------------------------
-void sub_32120(Bit8u* a1)
+void sub_32120(Bit8u* a1)//213120
 {
 	int v1; // eax
 
@@ -42287,7 +42287,7 @@ void sub_32120(Bit8u* a1)
 }
 
 //----- (00032160) --------------------------------------------------------
-void sub_32160(Bit8u* a1)
+void sub_32160(Bit8u* a1)//213160
 {
 	int v1; // eax
 	__int16 v3; // dx
@@ -42346,7 +42346,7 @@ void sub_32160(Bit8u* a1)
 // EB39C: using guessed type __int16 x_WORD_EB398ar[2];
 
 //----- (000322A0) --------------------------------------------------------
-void sub_322A0(Bit8u* a1)
+void sub_322A0(Bit8u* a1)//2132a0
 {
 	int v1; // eax
 	__int16 v3; // dx
@@ -42405,19 +42405,19 @@ void sub_322A0(Bit8u* a1)
 // EB39C: using guessed type __int16 x_WORD_EB398ar[2];
 
 //----- (000323E0) --------------------------------------------------------
-char sub_323E0(int a1)
+char sub_323E0(Bit8u* a1)//2133e0
 {
 	return sub_32420(a1);
 }
 
 //----- (00032400) --------------------------------------------------------
-char sub_32400(int a1)
+char sub_32400(Bit8u* a1)//213400
 {
 	return sub_32420(a1);
 }
 
 //----- (00032420) --------------------------------------------------------
-char sub_32420(int a1)
+char sub_32420(Bit8u* a1)//213420
 {
 	int v1; // ecx
 	int v2; // eax
@@ -42474,7 +42474,7 @@ LABEL_10:
 }
 
 //----- (00032530) --------------------------------------------------------
-void sub_32530(Bit8u* a1)
+void sub_32530(Bit8u* a1)//213530
 {
 	int v1; // ecx
 	int v2; // eax
@@ -42515,7 +42515,7 @@ void sub_32530(Bit8u* a1)
 }
 
 //----- (00032600) --------------------------------------------------------
-void sub_32600(Bit8u* a1)
+void sub_32600(Bit8u* a1)//213600
 {
 	int v1; // eax
 	int v2; // eax
@@ -42620,7 +42620,7 @@ void sub_32600(Bit8u* a1)
 // EB39C: using guessed type __int16 x_WORD_EB398ar[2];
 
 //----- (00032880) --------------------------------------------------------
-void sub_32880(Bit8u* a1)
+void sub_32880(Bit8u* a1)//213880
 {
 	int v1; // edx
 	int result; // eax
@@ -42689,7 +42689,7 @@ void sub_32880(Bit8u* a1)
 // D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
 
 //----- (00032A70) --------------------------------------------------------
-void sub_32A70(int a1)
+void sub_32A70(int a1)//213a70
 {
 	__int16 v1; // si
 	__int16 v2; // ax
@@ -42791,7 +42791,7 @@ void sub_32A70(int a1)
 // EA3E4: using guessed type int (int)x_DWORD_EA3E4[];
 
 //----- (00032CF0) --------------------------------------------------------
-void sub_32CF0(Bit8u* a1)
+void sub_32CF0(Bit8u* a1)//213cf0
 {
 	Bit8u* v1; // eax
 	Bit8u* v2; // ecx
@@ -42871,7 +42871,7 @@ void sub_32CF0(Bit8u* a1)
 // D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
 
 //----- (00032F40) --------------------------------------------------------
-int sub_32F40(Bit8u* a1)
+int sub_32F40(Bit8u* a1)//213f40
 {
 	int v1; // eax
 	int v2; // esi
@@ -42931,7 +42931,7 @@ int sub_32F40(Bit8u* a1)
 // D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
 
 //----- (00033110) --------------------------------------------------------
-void sub_33110(Bit8u* a1)
+void sub_33110(Bit8u* a1)//214110
 {
 	int v1; // edx
 
@@ -42953,7 +42953,7 @@ void sub_33110(Bit8u* a1)
 // D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
 
 //----- (000331A0) --------------------------------------------------------
-x_WORD *sub_331A0(Bit8u* a1)
+x_WORD *sub_331A0(Bit8u* a1)//2141a0
 {
 	__int16 v1; // ax
 	__int16 v2; // ax
@@ -43008,7 +43008,7 @@ x_WORD *sub_331A0(Bit8u* a1)
 // EB39C: using guessed type __int16 x_WORD_EB398ar[2];
 
 //----- (00033340) --------------------------------------------------------
-void sub_33340(x_WORD *a1)
+void sub_33340(x_WORD *a1)//214340
 {
 	Bit8u* i; // ebx
 	char v2; // dl
@@ -43199,7 +43199,7 @@ void sub_33340(x_WORD *a1)
 // EB39C: using guessed type __int16 x_WORD_EB398ar[2];
 
 //----- (00033710) --------------------------------------------------------
-void sub_33710(Bit8u* a1)
+void sub_33710(Bit8u* a1)//214710
 {
 	int v1; // edi
 	x_DWORD *i; // ebx
@@ -43235,7 +43235,7 @@ void sub_33710(Bit8u* a1)
 // EA3E4: using guessed type int (int)x_DWORD_EA3E4[];
 
 //----- (00033810) --------------------------------------------------------
-char sub_33810(Bit8u* a1, Bit8u* a2)
+char sub_33810(Bit8u* a1, Bit8u* a2)//214810
 {
 	char result; // al
 	unsigned __int8 v3; // ah
@@ -43301,7 +43301,7 @@ char sub_33810(Bit8u* a1, Bit8u* a2)
 }
 
 //----- (000338D0) --------------------------------------------------------
-void sub_338D0(Bit8u* a1)
+void sub_338D0(Bit8u* a1)//2148d0
 {
 	int v1; // edi
 	int v2; // esi
@@ -43342,7 +43342,7 @@ void sub_338D0(Bit8u* a1)
 // EA3E4: using guessed type int (int)x_DWORD_EA3E4[];
 
 //----- (000339B0) --------------------------------------------------------
-char sub_339B0(Bit8u* a1)
+char sub_339B0(Bit8u* a1)//2149b0
 {
 	__int16 v1; // ax
 	unsigned __int16 v2; // dx
@@ -43403,7 +43403,7 @@ char sub_339B0(Bit8u* a1)
 // EA3E4: using guessed type int (int)x_DWORD_EA3E4[];
 
 //----- (00033AD0) --------------------------------------------------------
-void sub_33AD0(Bit8u* a1)
+void sub_33AD0(Bit8u* a1)//214ad0
 {
 	//int result; // eax
 	__int16 v2; // bx
@@ -43436,7 +43436,7 @@ void sub_33AD0(Bit8u* a1)
 }
 
 //----- (00033B20) --------------------------------------------------------
-void sub_33B20(Bit8u* a1)
+void sub_33B20(Bit8u* a1)//214b20
 {
 	__int16 v1; // ax
 	__int16 v2; // ax
@@ -43481,7 +43481,7 @@ void sub_33B20(Bit8u* a1)
 // EB398: using guessed type __int16 x_WORD_EB398;
 
 //----- (00033C00) --------------------------------------------------------
-void sub_33C00(Bit8u* a1)
+void sub_33C00(Bit8u* a1)//214c00
 {
 	int result; // eax
 	Bit8u* v2; // ebx
@@ -43503,7 +43503,7 @@ void sub_33C00(Bit8u* a1)
 // EA3E4: using guessed type int (int)x_DWORD_EA3E4[];
 
 //----- (00033C70) --------------------------------------------------------
-void sub_33C70(Bit8u* a1)
+void sub_33C70(Bit8u* a1)//214c70
 {
 	unsigned __int16 v1; // dx
 	Bit8u* v2; // eax
@@ -43551,7 +43551,7 @@ void sub_33C70(Bit8u* a1)
 // EB39C: using guessed type __int16 x_WORD_EB398ar[2];
 
 //----- (00033D40) --------------------------------------------------------
-void sub_33D40(Bit8u* a1)
+void sub_33D40(Bit8u* a1)//214d40
 {
 	int i; // ebx
 	Bit8u* v2; // ebx
@@ -43569,7 +43569,7 @@ void sub_33D40(Bit8u* a1)
 // EA3E4: using guessed type int (int)x_DWORD_EA3E4[];
 
 //----- (00033D80) --------------------------------------------------------
-void sub_33D80(Bit8u* a1)
+void sub_33D80(Bit8u* a1)//214d80
 {
 	int v1; // eax
 	__int16 v2; // ax
@@ -43599,7 +43599,7 @@ void sub_33D80(Bit8u* a1)
 // D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
 
 //----- (00033E20) --------------------------------------------------------
-void sub_33E20(Bit8u* a1)
+void sub_33E20(Bit8u* a1)//214e20
 {
 	int v1; // ecx
 	unsigned __int16 v2; // ST08_2
@@ -43624,7 +43624,7 @@ void sub_33E20(Bit8u* a1)
 }
 
 //----- (00033E80) --------------------------------------------------------
-void sub_33E80(Bit8u* a1)
+void sub_33E80(Bit8u* a1)//214e80
 {
 	int v1; // eax
 	int result; // eax
@@ -43645,7 +43645,7 @@ void sub_33E80(Bit8u* a1)
 }
 
 //----- (00033F70) --------------------------------------------------------
-bool sub_33F70(unsigned __int16 a1)
+bool sub_33F70(unsigned __int16 a1)//214f70
 {
 	unsigned __int16 v1; // ax
 	signed int v2; // edx
@@ -43678,7 +43678,7 @@ bool sub_33F70(unsigned __int16 a1)
 }
 
 //----- (00034000) --------------------------------------------------------
-int sub_34000(int a1)
+int sub_34000(int a1)//215000
 {
 	unsigned __int16 v1; // bx
 	unsigned __int16 v3; // [esp+0h] [ebp-Ch]
@@ -43712,7 +43712,7 @@ int sub_34000(int a1)
 }
 
 //----- (00034110) --------------------------------------------------------
-int sub_34110(x_WORD *a1)
+int sub_34110(x_WORD *a1)//215110
 {
 	unsigned __int16 v1; // bx
 	char v3; // [esp+0h] [ebp-Ch]
@@ -43744,7 +43744,7 @@ int sub_34110(x_WORD *a1)
 }
 
 //----- (00034210) --------------------------------------------------------
-int sub_34210(x_WORD *a1)
+int sub_34210(x_WORD *a1)//215210
 {
 	int v1; // edx
 	int v2; // ebx
@@ -43804,21 +43804,21 @@ int sub_34210(x_WORD *a1)
 }
 
 //----- (00034330) --------------------------------------------------------
-int sub_34330(int a1)
+int sub_34330(int a1)//215330
 {
 	sub_57F10((Bit8u*)a1);
 	return 1;
 }
 
 //----- (00034350) --------------------------------------------------------
-int sub_34350(int a1)
+int sub_34350(int a1)//215350
 {
 	sub_57F10((Bit8u*)a1);
 	return 1;
 }
 
 //----- (00034390) --------------------------------------------------------
-int sub_34390(int a1)
+int sub_34390(int a1)//215390
 {
 	unsigned int v1; // eax
 
@@ -43830,7 +43830,7 @@ int sub_34390(int a1)
 }
 
 //----- (000343C0) --------------------------------------------------------
-int sub_343C0(int a1)
+int sub_343C0(int a1)//2153c0
 {
 	unsigned int v1; // eax
 
@@ -60508,6 +60508,185 @@ int pre_sub_4A190(Bit32u adress, Bit8u* a1)
 {
 	switch (adress)
 	{
+	case 0x2130e0: {
+		sub_320E0(a1);
+		return 0;
+		break;
+	}
+	case 0x213120: {
+		sub_32120(a1);
+		return 0;
+		break;
+	}
+	case 0x213160: {
+		sub_32160(a1);
+		return 0;
+		break;
+	}
+	case 0x2132a0: {
+		sub_322A0(a1);
+		return 0;
+		break;
+	}
+	case 0x2133e0: {
+		return sub_323E0(a1);
+		break;
+	}
+
+	case 0x213400: {
+		return sub_32400(a1);
+		break;
+	}
+	case 0x213420: {
+		return sub_32420(a1);
+		break;
+	}
+	case 0x213530: {
+		sub_32530(a1);
+		return 0;
+		break;
+	}
+	case 0x213600: {
+		sub_32600(a1);
+		return 0;
+		break;
+	}
+	case 0x213880: {
+		sub_32880(a1);
+		return 0;
+		break;
+	}
+
+	case 0x213a70: {
+		sub_32A70((int)a1);
+		return 0;
+		break;
+	}
+	case 0x213cf0: {
+		sub_32CF0(a1);
+		return 0;
+		break;
+	}
+	case 0x213f40: {
+		return (int)sub_32F40(a1);
+		break;
+	}
+	case 0x214110: {
+		sub_33110(a1);
+		return 0;
+		break;
+	}
+	case 0x2141a0: {
+		return (int)sub_331A0(a1);
+		break;
+	}
+
+	case 0x214340: {
+		sub_33340((Bit16s*)a1);
+		return 0;
+		break;
+	}
+	case 0x214710: {
+		sub_33710(a1);
+		return 0;
+		break;
+	}
+	case 0x214810: {
+		return (int)sub_33810(a1,0);
+		break;
+	}
+	case 0x2148d0: {
+		sub_338D0(a1);
+		return 0;
+		break;
+	}
+	case 0x2149b0: {
+		return sub_339B0(a1);
+		break;
+	}
+
+
+	case 0x214ad0: {
+		sub_33AD0(a1);
+		return 0;
+		break;
+	}
+	case 0x214b20: {
+		sub_33B20(a1);
+		return 0;
+		break;
+	}
+	case 0x214c00: {
+		sub_33C00(a1);
+		return 0;
+		break;
+	}
+	case 0x214c70: {
+		sub_33C70(a1);
+		return 0;
+		break;
+	}
+	case 0x214d40: {
+		sub_33D40(a1);
+		return 0;
+		break;
+	}
+
+
+
+	case 0x214d80: {
+		sub_33D80(a1);
+		return 0;
+		break;
+	}
+	case 0x214e20: {
+		sub_33E20(a1);
+		return 0;
+		break;
+	}
+	case 0x214e80: {
+		sub_33E80(a1);
+		return 0;
+		break;
+	}
+	case 0x214f70: {
+		return sub_33F70((int)a1);
+		break;
+	}
+	case 0x215000: {
+		return sub_34000((int)a1);
+		break;
+	}
+
+
+	case 0x215110: {
+		return sub_34110((Bit16s*)a1);
+		break;
+	}
+	case 0x215210: {
+		return sub_34210((Bit16s*)a1);
+		break;
+	}
+	case 0x215330: {
+		return (int)sub_34330((int)a1);
+		break;
+	}
+	case 0x215350: {
+		return sub_34350((int)a1);
+		break;
+	}
+	case 0x215390: {
+		return sub_34390((int)a1);
+		break;
+	}
+	case 0x2153c0: {
+		return sub_343C0((int)a1);
+		break;
+	}
+
+
+
+
 	case 0x2153f0: {
 		return sub_343F0((Bit16u*)a1);
 		break;
