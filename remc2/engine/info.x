@@ -2933,6 +2933,7 @@ find 3618f2
 adress 22b137 -2c01 - Bit8u* sub_4A050()//22b050 - asi ok
 adress 22fc77 -7b03 - Bit8u* sub_4EC10(int a1)//22fc10
 
+(int)x_DWORD_EA3E4
 
 
 
