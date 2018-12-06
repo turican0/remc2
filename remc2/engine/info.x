@@ -2937,5 +2937,24 @@ adress 22fc77 -7b03 - Bit8u* sub_4EC10(int a1)//22fc10
 
 sub_498A0();//22a383 - problem - test it
 
+find
+35d026->02000000 versus 04000000
+3d000000 - 2297ac
+04000000 - 23127b
+02000000 - 22aa7a -void sub_49A30(Bit8u* a1, unsigned __int16 a2)//22aa30
+void sub_49540(Bit8u* a1, Bit8u* a2)//22a540
 
+find
+36193e->5012
+22aa20 int sub_49A20(Bit8u* a1)//22aa20
+xxxx
+22b190
+22b392 - call sub_4A310(unsigned __int16 *a1)//22b310
+void sub_4A1E0(int a1, char a2)//22b1e0
+
+38635d
+386c09
+
+
+24a3f0 // 693f0
 
