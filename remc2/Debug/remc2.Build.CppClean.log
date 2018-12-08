@@ -66,6 +66,7 @@ c:\prenos\remc2\remc2\debug\port_sdl_sound.obj
 c:\prenos\remc2\remc2\debug\port_outputs.obj
 c:\prenos\remc2\remc2\debug\port_inputs.obj
 c:\prenos\remc2\remc2\debug\port_filesystem.obj
+c:\prenos\remc2\remc2\debug\sub_main.obj
 c:\prenos\remc2\remc2\debug\read_config.obj
 c:\prenos\remc2\remc2\debug\engine_support.obj
 c:\prenos\remc2\remc2\debug\cd_utils.obj
@@ -75,7 +76,6 @@ c:\prenos\remc2\remc2\debug\opnmidi_private.obj
 c:\prenos\remc2\remc2\debug\opnmidi_opn2.obj
 c:\prenos\remc2\remc2\debug\remc2.pch
 c:\prenos\remc2\remc2\debug\stdafx.obj
-c:\prenos\remc2\remc2\debug\sub_main.obj
 c:\prenos\remc2\debug\remc2.exe
 c:\prenos\remc2\debug\remc2.ilk
 c:\prenos\remc2\debug\remc2.pdb

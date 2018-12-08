@@ -2958,3 +2958,71 @@ void sub_4A1E0(int a1, char a2)//22b1e0
 
 24a3f0 // 693f0
 
+x_WORD_15B4E0, 0x32c4e0
+2856
+x_WORD_15B4E0+0x2856 = 32ED36
+238e3c - void sub_57D70(Bit8u* a1, Bit8u* a2)//238d70
+Bit8u* sub_4B490(int a1)//22c490
+Bit8u* sub_4A190(Bit8u* a1, int a2, int a3)//22b190
+void sub_4A310(unsigned __int16 *a1)//22b310
+void sub_4A1E0(int a1, char a2)//22b1e0
+void sub_56A30_init_game_level(unsigned int a1)//237a30
+
+36193e
+
+find
+36193e->5012
+22aa20 int sub_49A20(Bit8u* a1)//22aa20
+xxxx
+22b190
+22b392 - call sub_4A310(unsigned __int16 *a1)//22b310
+void sub_4A1E0(int a1, char a2)//22b1e0
+
+38635d
+386c09
+
+jina adresa 22fc10 versus 22b1ca
+
+find
+35517c
+
+Bit8u* sub_4A050()//22b050
+
+find 35606d->34c 39e
+22af6d - void sub_49F30()//22af30 - ok
+22b002 - void sub_49F90()//22af90 - ok
+22b100 - Bit8u* sub_4A050()//22b050
+
+0 - ok
+10 - ok
+50 - ok
+75 - ok
+87 - ok
+94 - ok
+0x99 - ok
+0x9a - 0x34e(dbox) - 0x34e
+0x9b - 0x34d(dbox) - 0x3ba
+0x9c - 0x34c(dbox) - 0x34c
+0xa0 - 0x348(dbox) - 0x3b5
+0xb0 - 0x338(dbox) - 0x338
+0xc0 - je to preskoceno 0x328
+100 - za
+
+unsigned int sub_6F150(Bit8u* a1)//250150 - kontrola
+
+find 363286
+238989 void sub_57730()//238730
+[2a51a4]
+*(Bit32u*)&x_DWORD_EA3E4[0x98]
+363286
+
+void sub_5C8D0(Bit8u* a1)//23d8d0
+
+find 3632d6
+238e46 - void sub_57D70(Bit8u* a1, Bit8u* a2)//238d70
+23d9d4 - void sub_5C950(Bit8u* a1, Bit8u* a2)//23d950
+91
+
+find 2537b0 versus x_WORD_727B0
+
+void sub_32420(Bit8u* a1)//213420
