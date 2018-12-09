@@ -3026,3 +3026,31 @@ find 3632d6
 find 2537b0 versus x_WORD_727B0
 
 void sub_32420(Bit8u* a1)//213420
+
+unsigned int sub_6F150(Bit8u* a1)//250150
+			|| !x_BYTE_3659C
+
+find 3618ee->0000007b0300007a03
+3618f0
+22fc77 - Bit8u* sub_4EC10(int a1)//22fc10
+22b1ca - 22b190
+*(Bit32u*)(x_D41A0_BYTEARRAY_0 + 4 * 0x376+ 582)
+
+211f60
+2130e0
+
+sub_47320(a2);
+
+sub_47560(index, v4, v1, a1, x_DWORD_17DB54_game_turn2);
+sub_57730();
+
+find
+x_DWORD_E7EE0 - 2b8ee0
+
+void sub_101C0()//1f11c0
+x_DWORD_E9980x[k].pointer = &dword_E9C30[0][l];
+
+dword_E9C30
+x_DWORD_E9980x
+
+signed int sub_10130(int a1, x_DWORD *a2, x_DWORD *a3)//1f1130
