@@ -3054,3 +3054,10 @@ dword_E9C30
 x_DWORD_E9980x
 
 signed int sub_10130(int a1, x_DWORD *a2, x_DWORD *a3)//1f1130
+
+!!!!!!! - re test
+Bit8u* sub_4A050()//22b050
+!!!!!!! - re test
+
+246080
+23f010
