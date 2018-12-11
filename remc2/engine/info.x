@@ -3065,3 +3065,5 @@ Bit8u* sub_4A050()//22b050
 remove evets fo debug !!!!
 
 x_BYTE_3659C
+
+void sub_2D710(Bit8u* a1)//20e710
