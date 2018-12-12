@@ -3076,7 +3076,19 @@ x_D41A0_BYTEARRAY_4_struct.byteindex_242ar[4]
 24203d - sub_61000(Bit8u* a1)//242000
 
 find a67dea - edx+412
+-&filearray_2aa18c[filearrayindex_MSPRD00DATTAB]
 
 2818ac
+
 279739
-279722
+
+279722 - void sub_98709_create_index_dattab_power(Bit8u* tabbuffer, Bit8u* tabbufferend, Bit8u* datbuffer, posistruct* dattabindex)//279709
+24fbc2 - 24fb90
+228160
+
+1]
+void sub_30630()
+v6?
+
+2]-fix  **file
+void sub_30A60_in_game_menu(__int16 a1, __int16 a2)
