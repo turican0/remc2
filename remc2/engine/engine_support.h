@@ -107,7 +107,9 @@ typedef struct {
 	Bit8u setting_byte1_22;//x_D41A0_BYTEARRAY_4_struct.setting_byte1_22
 	Bit8u setting_byte2_23;//0x17//x_D41A0_BYTEARRAY_4_struct.setting_byte2_23
 	Bit8u setting_byte3_24;//cheats? 0x20==free spell//x_D41A0_BYTEARRAY_4_struct.setting_byte3_24
+	//spell on - 0x20
 	Bit8u setting_byte4_25;//cheats? 0x1==Invincability
+	//invincability - 1;
 	Bit8u byteindex_26;//x_D41A0_BYTEARRAY_4_struct.byteindex_26
 	Bit8u setting_30;//x_D41A0_BYTEARRAY_4_struct.setting_30
 	FILE* moviemvidatfile_byte4_33;
@@ -190,6 +192,11 @@ typedef struct {
 	Bit8u setting_38402;//0x9602//x_D41A0_BYTEARRAY_4_struct.setting_38402
 
 	Bit8u bytearray_38403[116];//array 116//0x9603//x_D41A0_BYTEARRAY_4_struct.bytearray_38403	
+	/*
+	creatures
+		8-dead
+		69-dead
+	*/
 	//bytearray_38419=bytearray_38403[16]//0x965b//x_D41A0_BYTEARRAY_4_struct.bytearray_38403[16]
 	//bytearray_38439=bytearray_38403[36]//0x965b//x_D41A0_BYTEARRAY_4_struct.bytearray_38403[36]
 	//bytearray_38403[88]//Bit32u dword_38491;//0x965b//x_D41A0_BYTEARRAY_4_struct.bytearray_38403[88]
@@ -204,6 +211,16 @@ typedef struct {
 	
 	//endarray - dword_38519
 	Bit32u dword_38519;//0x9677//x_D41A0_BYTEARRAY_4_struct.dword_38519
+	/*
+	entite
+	8-dead
+	26-index
+	64-type
+		1-player
+		2-castle
+		3-ballon
+	144-mana
+	*/
 	Bit32u dword_38527;//0x967F//x_D41A0_BYTEARRAY_4_struct.dword_38527
 	Bit32u dword_38523;//0x967b//x_D41A0_BYTEARRAY_4_struct.dword_38523
 	Bit32u dword_38531;//0x9683//x_D41A0_BYTEARRAY_4_struct.dword_38531

@@ -3067,3 +3067,16 @@ remove evets fo debug !!!!
 x_BYTE_3659C
 
 void sub_2D710(Bit8u* a1)//20e710
+
+find 38d046
+x_D41A0_BYTEARRAY_4_struct.byteindex_242ar[4]
+
+241f60
+
+24203d - sub_61000(Bit8u* a1)//242000
+
+find a67dea - edx+412
+
+2818ac
+279739
+279722

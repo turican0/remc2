@@ -1,5 +1,4 @@
-﻿  stdafx.cpp
-  ini.c
+﻿  ini.c
 c:\prenos\remc2\inih\ini.c(114): warning C4005: HANDLER: předefinování makra
   c:\prenos\remc2\inih\ini.c(112): note: viz předchozí definice HANDLER
 c:\prenos\remc2\inih\ini.c(270): fatal error C1010: Neočekávaný konec souboru při hledání předkompilované hlavičky. Nezapomněli jste do zdroje přidat #include "stdafx.h"?
