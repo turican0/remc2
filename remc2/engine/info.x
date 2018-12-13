@@ -3090,5 +3090,5 @@ find a67dea - edx+412
 void sub_30630()
 v6?
 
-2]-fix  **file
-void sub_30A60_in_game_menu(__int16 a1, __int16 a2)
+2]-fix  **file - ok
+char sub_6D4C0(Bit8u* a1) - ok

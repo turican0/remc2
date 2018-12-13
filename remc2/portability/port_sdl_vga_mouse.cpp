@@ -135,6 +135,19 @@ void Set_basic_pallette1() {
 	SubSet_pallette(colors);
 }
 
+void Set_basic_pallette3() {
+	SDL_Color colors[256];
+	for (int i = 0; i < 256; i++) {
+		temppallettebuffer[i * 3] = i;
+		temppallettebuffer[i * 3 + 1] = ((int)(i/16))*16;
+		temppallettebuffer[i * 3 + 2] = (i%16)*16;
+		colors[i].r = temppallettebuffer[i * 3];
+		colors[i].g = temppallettebuffer[i * 3 + 1];
+		colors[i].b = temppallettebuffer[i * 3 + 2];
+	}
+	SubSet_pallette(colors);
+}
+
 void putpixel(SDL_Surface *surface, int x, int y, Uint32 pixel)
 {
 	int bpp = surface->format->BytesPerPixel;
@@ -952,6 +965,11 @@ void VGA_Blit(int width, int height, Uint8* buffer) {
 	SubBlit();
 
 	//Set_basic_pallette();
+}
+
+void VGA_Debug_Blit(int width, int height, Uint8* buffer) {
+	Set_basic_pallette3();
+	VGA_Blit(width, height, buffer);
 }
 
 
