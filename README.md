@@ -8,6 +8,10 @@ https://www.gog.com/game/magic_carpet_2_the_netherworlds<br />
 <br />
 simple dev blog:https://github.com/turican0/remc2/wiki<br />
 <br />
+## 0.19:<br />
+-fixing many structures<br />
+-first in game graphics<br />
+<br />
 ## 0.18:<br />
 -loading level product same data as original<br />
 -retyping and fixing hundreds functions<br />
