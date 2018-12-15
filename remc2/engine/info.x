@@ -3087,8 +3087,18 @@ find a67dea - edx+412
 228160
 
 1]
-void sub_30630()
-v6?
+void sub_30630()//211630
+v6? - 3551bc->4001000002000002
 
 2]-fix  **file - ok
 char sub_6D4C0(Bit8u* a1) - ok
+
+a44dc6 - ."Nasleduj -v2
+ebp+76 35519c->a44dad "Let smerem -v14
+
+v12 ma byt 19
+chce to zjistit puvod
+*(signed __int16 *)(a1 + 4) a *(signed __int16 *)(a1 + 16)
+3551bc
+
+void sub_30630()//211630 
