@@ -3102,3 +3102,15 @@ chce to zjistit puvod
 3551bc
 
 void sub_30630()//211630 
+
+find 38d046->794c
+void sub_2D710(Bit8u* a1)//20e710
+v18 = x_D41A0_BYTEARRAY_4_struct.byteindex_242ar[4]; = [2a51a4]+f6
+241f68 call 242000
+
+position of graphics buffer 655360 nebo 3842212
+
+void sub_2E260_draw_spell(__int16 a1, __int16 a2, Bit8u* a3, char a4)//20f260
+[2bb3e4]->c6ce3500 6ecf3500
+ebx=36332e
+cmp ebx,[2bb3e4]
