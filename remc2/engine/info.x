@@ -3133,3 +3133,10 @@ void sub_47760(/*int a1,*/Bit32u user/* int a2, int a3*/)//228760
 
 sub_2E260_draw_spell(//draw spell1
 
+eax+0x333
+tj.
+35932f->0x99
+*(*(Bit32s*)(v3 + 164)+0x333)
+235cd9 int sub_54A50(unsigned __int16 a1, int a2)//235a50
+	*(_WORD *)(a2 + 2103) = result;
+
