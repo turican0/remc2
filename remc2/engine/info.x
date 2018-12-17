@@ -3111,8 +3111,8 @@ v18 = x_D41A0_BYTEARRAY_4_struct.byteindex_242ar[4]; = [2a51a4]+f6
 position of graphics buffer 655360 nebo 3842212
 
 void sub_2E260_draw_spell(__int16 a1, __int16 a2, Bit8u* a3, char a4)//20f260
-[2bb3e4]->c6ce3500 6ecf3500
-ebx=36332e
+[2bb3e4]->c6ce3500 6ecf3500 -ok
+ebx=36332e - a3 ne
 cmp ebx,[2bb3e4]
 
 void sub_5D530(Bit8u* a1)//*(x_DWORD *)(a1 + 160)//23e530
@@ -3130,4 +3130,6 @@ unk_D89A6; 0x2a99a6
 unk_D849A; 0x2a949a
 
 void sub_47760(/*int a1,*/Bit32u user/* int a2, int a3*/)//228760
+
+sub_2E260_draw_spell(//draw spell1
 
