@@ -208,7 +208,7 @@ signed int sub_36A50(signed int a1, char a2);
 char sub_36920(signed __int16 a1, Bit8u* a2);
 __int16 sub_48A20(int a1, char a2, char a3, int a4, int a5, unsigned __int8 a6);
 unsigned int sub_439A0(unsigned int a1, unsigned __int16 a2);
-unsigned __int16 sub_3E360(int a1, int a2);
+unsigned __int16 sub_3E360(Bit8u* a1, Bit8u* a2);
 unsigned __int16 sub_3FD60(int a1, int a2);
 //void __outx_WORD(unsigned short Port, unsigned short Data);
 //void __outx_BYTE(unsigned short Port, unsigned char Data);

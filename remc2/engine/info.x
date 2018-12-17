@@ -3114,3 +3114,20 @@ void sub_2E260_draw_spell(__int16 a1, __int16 a2, Bit8u* a3, char a4)//20f260
 [2bb3e4]->c6ce3500 6ecf3500
 ebx=36332e
 cmp ebx,[2bb3e4]
+
+void sub_5D530(Bit8u* a1)//*(x_DWORD *)(a1 + 160)//23e530
+
+a1+160
+363326->9a942a
+
+22b15f - sub_4A050()//22b050
+Bit8u* sub_4A920(Bit8u* a1)//22b920
+
+*(x_DWORD *)(a1 + 160)
+2a949a - 0700010000
+
+unk_D89A6; 0x2a99a6
+unk_D849A; 0x2a949a
+
+void sub_47760(/*int a1,*/Bit32u user/* int a2, int a3*/)//228760
+

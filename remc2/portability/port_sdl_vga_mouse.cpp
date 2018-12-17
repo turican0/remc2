@@ -968,7 +968,7 @@ void VGA_Blit(int width, int height, Uint8* buffer) {
 }
 
 void VGA_Debug_Blit(int width, int height, Uint8* buffer) {
-	Set_basic_pallette3();
+	//Set_basic_pallette3();
 	VGA_Blit(width, height, buffer);
 }
 
