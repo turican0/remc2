@@ -3140,3 +3140,31 @@ tj.
 235cd9 int sub_54A50(unsigned __int16 a1, int a2)//235a50
 	*(_WORD *)(a2 + 2103) = result;
 
+*(x_WORD *)(x_D41A0_BYTEARRAY_0 + 11230 + 1817) = 1;
+
+
+test
+int sub_2BE30()//20ce30
+		v3 = x_DWORD_EA3E4[*(unsigned __int16 *)(2124 * x_D41A0_BYTEARRAY_4_struct.byteindex_12 + x_D41A0_BYTEARRAY_0 + 11240)];
+		20ced9
+
+		problem je zde:
+		for (i = 0; i < 26; i++)
+	{
+		v3 = 2 * i;
+		if (*(x_WORD *)(2 * i + *(x_DWORD *)(a1 + 164) + 819))
+		{
+			v4 = (Bit8u*)sub_4A190((Bit8u*)(a1 + 76), 15, i);
+			if (v4)
+			{
+				v5 = &x_D41A0_BYTEARRAY_0[28302];
+				*(x_WORD *)(*(x_DWORD *)(a1 + 164) + v3 + 819) = (v4 - &x_D41A0_BYTEARRAY_0[28302]) / 168;
+				*(x_WORD *)(v4 + 40) = (a1 - v5) / 168;
+				v4[12] |= 1u;
+			}
+			else
+			{
+				*(x_WORD *)(v3 + *(x_DWORD *)(a1 + 164) + 819) = 0;
+			}
+		}
+	}
