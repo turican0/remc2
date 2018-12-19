@@ -235,6 +235,49 @@ Bit32u compare_with_snapshot(char* filename, Bit8u* adress, Bit32u adressdos, Bi
 	return(i);
 };
 
+void mine_texts(char* filename, Bit32u adressdos, Bit32u count, char* outfilename) {
+
+	char findnamec[500];
+	FILE* fptestepc;
+	FILE* fileout;
+	char actchar;
+	char outtext[2048];
+	char outtext2[2048];
+	sprintf(findnamec, "c:/prenos/remc2/remc2/memimages/engine-memory-%s", filename);
+	fopen_s(&fptestepc, findnamec, "rb");
+	fopen_s(&fileout, outfilename, "wb");
+	if (fptestepc == NULL)
+	{
+		mydelay(100);
+		fopen_s(&fptestepc, findnamec, "rb");
+	}
+	fseek(fptestepc, adressdos, SEEK_SET);
+	long adressadd;
+	long adressaddall=0;
+	for (int i = 0; i < count; i++)
+	{
+		adressadd = 0;
+		fread_s(&actchar, 1, 1, 1, fptestepc);
+		while(actchar!=0){
+			outtext[adressadd] = actchar;
+			fread_s(&actchar, 1, 1, 1, fptestepc);
+			adressadd++;
+			adressaddall++;
+		}
+		for (int j = 0; j < (adressaddall + 1) % 4; j++)
+		{
+			fread_s(&actchar, 1, 1, 1, fptestepc);
+			adressaddall++;
+		}
+		outtext[adressadd]=0;
+		sprintf(outtext2,"text:%s\n",outtext);
+		fwrite(outtext2, strlen(outtext2),1, fileout);
+	}
+
+	fclose(fptestepc);
+	fclose(fileout);
+};
+
 void writehex(Bit8u* buffer, Bit32u count) {
 	for (int i=0;i < count;i++)
 	{

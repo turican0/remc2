@@ -289,4 +289,6 @@ Bit32u compare_with_snapshot(char* filename, Bit8u* adress, Bit32u adressdos, Bi
 
 void writehex(Bit8u* buffer,Bit32u count);
 
+void mine_texts(char* filename, Bit32u adressdos, Bit32u count, char* outfilename);
+
 #endif //ENGINE_SUPPORT_ACTIVE

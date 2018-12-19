@@ -1,0 +1,104 @@
+text:
+text:data/search.dat
+text:REAK!
+
+text: Help Data
+text:@OK
+text:%s:%s.
+text:s. %s.
+text: %s
+text:_%s
+text:[%s] %s
+text:d
+text:3d
+text: OK
+text:%s?
+text:ound
+text:FS/netherw
+text:%s/%s
+text:Initialise Sound
+text:IZEERROR: NOT ENOUGH MEMORY FOR SOUNDS
+
+text:		Sound Disabled
+text:	data/mwebd0-0.dat
+text:data/mwebd0-0.tab
+text:ata/hwebd0-0.dat
+text:E_data/hwebd0-0.tab
+text:
+text:data/mwebn0-0.dat
+text:ata/mwebn0-0.tab
+text: Sdata/hwebn0-0.dat
+text:Edata/hwebn0-0.tab
+text:data/mwebc0-0.dat
+text:ata/mwebc0-0.tab
+text:dadata/hwebc0-0.dat
+text:adata/hwebc0-0.tab
+text:data/msprd0-0.dat
+text:s
+text:ta/msprd0-0.tab
+text:adata/hsprd0-0.dat
+text:data/hsprd0-0.tab
+text:ata/msprn0-0.dat
+text:tadata/msprn0-0.tab
+text:adata/hsprn0-0.dat
+text:data/hsprn0-0.tab
+text:ata/msprc0-0.dat
+text:tadata/msprc0-0.tab
+text:
+text:data/hsprc0-0.dat
+text:ata/hsprc0-0.tab
+text:dadata/pald-0.dat
+text:a/clrd-0.dat
+text:data/palf-0.dat
+text:ata/paln-0.dat
+text:ta/clrn-0.dat
+text:a/palc-0.dat
+text:data/clrc-0.dat
+text:ata/smatitle.dat
+text:
+text:
+text:data/smatitl2.dat
+text:ata/smatitle.pal
+text:dadata/smatitl2.pal
+text:
+text:%c
+text:. CHEAT: access all spells
+text: CHEAT: more mana
+text:CHEAT: destroy all players
+text:.. CHEAT: destroy all castles
+text:. CHEAT: destroy all balloons
+text: CHEAT: heal
+text:r.. CHEAT: Kill all creatures
+text:.. CHEAT: More Spell Experience Points
+text:. CHEAT: Free Spell Usage OFF
+text: CHEAT: Free Spell Usage ON
+text:s.. CHEAT: Invincability ON
+text:.. CHEAT: Invincability OFF
+text:levels
+text:etherw
+text: %c:%s/%s/levels.dat
+text:levels/levels.dat
+text:c:%s/%s/levels.tab
+text:vels/levels.tab
+text:FERROR decompressing levels.dat
+
+text:levels/lev%05d.dat
+text:evels/lev%05d%s
+text:tymovie
+text:
+text:%s/gam%05d.dat
+text:s/map%05d.dat
+text:ta/bldgprm.dat
+text: %s/mvi%05d.dat
+text:%c:%s
+text:
+text:/lERROR decompressing %s
+
+text:%s.tab
+text:%s/%s.dat
+text:d%c
+text:%0Checking Setup Version ..
+text:yversion.dat
+text:cdata
+text:c:%s/%s/%s
+text:%0tmaps0-0
