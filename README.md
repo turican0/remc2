@@ -8,6 +8,11 @@ https://www.gog.com/game/magic_carpet_2_the_netherworlds<br />
 <br />
 simple dev blog:https://github.com/turican0/remc2/wiki<br />
 <br />
+## 0.20:<br />
+-fixed pallette<br />
+-fixed spell<br />
+-some minimap problems fixed<br />
+<br />
 ## 0.19:<br />
 -fixing many structures<br />
 -first in game graphics<br />
