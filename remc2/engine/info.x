@@ -3170,3 +3170,31 @@ int sub_2BE30()//20ce30
 	}
 
 2a1000
+
+
+x_WORD_F4960[40]
+versus
+2c5960
+
+x_BYTE_10B1E0
+versus
+2dc1e0-> ffffff
+2818ac
+call 281863
+size_t sub_988A7_read(FILE* a1, Bit8u* a2, int a3)//2798a7
+int sub_53E60_readfile_and_decompress(const char* path, Bit8u** a2)//234E60
+void sub_54800_read_and_decompress_tables(Bit8u a1)//235800
+void sub_56A30_init_game_level(unsigned int a1)//237a30
+
+2c7ee0+0x14300
+x_BYTE_F6EE0_tables
+x_BYTE_10B1E0==x_BYTE_F6EE0_tables[0x14300]
+
+pallette
+1a7358 -> 000000 000101 000203 000305
+
+35d7d8->7ffbffff40020000
+LOBYTE(v56b) = sub_3E360(v217, v227);//21f01b
+
+_UNKNOWN unk_D4328; // weak //2a5328
+find 2a5328->ed01000000ffd8

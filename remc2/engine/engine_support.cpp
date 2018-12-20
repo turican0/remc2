@@ -254,24 +254,26 @@ void mine_texts(char* filename, Bit32u adressdos, Bit32u count, char* outfilenam
 	fseek(fptestepc, adressdos, SEEK_SET);
 	long adressadd;
 	long adressaddall=0;
+	fread_s(&actchar, 1, 1, 1, fptestepc);
 	for (int i = 0; i < count; i++)
 	{
 		adressadd = 0;
-		fread_s(&actchar, 1, 1, 1, fptestepc);
+		while ((adressaddall % 4)||(actchar==0))
+		{
+			fread_s(&actchar, 1, 1, 1, fptestepc);
+			adressaddall++;
+		}
 		while(actchar!=0){
 			outtext[adressadd] = actchar;
 			fread_s(&actchar, 1, 1, 1, fptestepc);
 			adressadd++;
 			adressaddall++;
 		}
-		for (int j = 0; j < (adressaddall + 1) % 4; j++)
-		{
-			fread_s(&actchar, 1, 1, 1, fptestepc);
-			adressaddall++;
-		}
+		
 		outtext[adressadd]=0;
-		sprintf(outtext2,"text:%s\n",outtext);
-		fwrite(outtext2, strlen(outtext2),1, fileout);
+		sprintf(outtext2,"char* off_%05X[1]={%s};\n", 0xDB06C- 0x1131 + adressaddall,outtext);
+		if(strlen(outtext2)>1)
+			fwrite(outtext2, strlen(outtext2),1, fileout);
 	}
 
 	fclose(fptestepc);
