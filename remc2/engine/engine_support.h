@@ -19,7 +19,7 @@
 extern Bit8u* readbuffer;
 extern char* printbuffer;//char* buffer; // [esp+0h] [ebp-2h]
 extern char* printbuffer2;//char v11; // [esp+40h] [ebp+3Eh]
-extern Bit8u *x_DWORD_E9C38_smalltit; // weak
+//extern Bit8u *x_DWORD_E9C38_smalltit; // weak
 /*extern Bit32s x_DWORD_D41A4_x6x;
 extern Bit32s x_DWORD_D41A4_x8x;
 extern Bit32s x_DWORD_D41A4_xAx;

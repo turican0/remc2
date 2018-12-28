@@ -3198,3 +3198,76 @@ LOBYTE(v56b) = sub_3E360(v217, v227);//21f01b
 
 _UNKNOWN unk_D4328; // weak //2a5328
 find 2a5328->ed01000000ffd8
+
+x_DWORD_E9C38_smalltit 2bac38->a4523f00
+BSCREEN2_BEGIN_BUFFER
+27b3b1
+signed int sub_9A32D_malloc_open_unpack(Pathstruct path)//27B32d
+bool sub_84250_load_file_array(int psindex)//265250
+
+3f52a4->7fecffff
+281f26
+int sub_A0F06(int a1, int a2, int a3, int a4, int a5, int a6, int a7)//281f06
+27984f
+__int16 sub_98B2C(unsigned __int8 a1, int a2)//180804 279b2c
+__int16 sub_98AE9(__int16 *a1, int a2)//279ae9
+
+21d2df
+void sub_3C080_draw_terrain_and_particles(int a1, int a2, __int16 a3, __int16 a4, __int16 a5, signed int a6, int a7, __int16 a8, int a9)//21d080
+
+x_DWORD_DE558 - 2af558->3aa0a4
+x_DWORD_180628b_screen_buffer
+0x3aa0a4
+
+29dd67 - void /*__spoils<>*/ sub_BCD45(Bit8u* a1, int a2, int a3, int a4, int a5)//29dd45
+
+buffer - 3aa0a4 + 320*105 (3875812 = 3B23E4)
+
+22304e __int16 sub_41BD3(unsigned int a1)//222bd3
+sub_3E360(Bit8u* a1, Bit8u* a2)//20f360
+unsigned __int16 sub_3FD60(/*int a1, */Bit8u* a2)//220d60
+
+299a8e - call void /*__spoils<ecx>*/ sub_B6253(x_DWORD *a1, x_DWORD *a2, x_DWORD *a3)
+21f00c
+void sub_3C080_draw_terrain_and_particles(int a1, int a2, __int16 a3, __int16 a4, __int16 a5, signed int a6, int a7, __int16 a8, int a9)//21d080
+
+a1[1] versus 3550c0 - 0x51
+
+x_DWORD_DE554
+versus
+2af554:649f3a00 a4a03a00
+29dd6c call sub_BCD45(Bit8u* a1, int a2, int a3, int a4, int a5)//29dd45
+
+3aa0a4-140=3a9f64
+3a9f64:0204020402040204
+2818ac
+
+int sub_53E60_readfile_and_decompress(const char* path, Bit8u** a2)//234E60
+v 23cf50
+
+build0-0.dat
+2bb3a8
+2bb3ac
+0138c0
+build0-0.tab
+2bb3bc
+2bb3b0
+01ce
+
+3551c8->2a9c38
+2bb3a8->3966e4
+2a9c38
+
+unk_DE56C - 2af56c
+297b08
+
+x_DWORD_DE55C-2af55c->34c68000
+
+21efc5
+
+x_DWORD_DDF50
+2aef50
+23c809 sub_5B7A0_prepare_pallette()//23C7A0
+
+x_DWORD_B8845 299845:00000000 f1ffffffff
+299961

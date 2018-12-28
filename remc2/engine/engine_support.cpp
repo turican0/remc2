@@ -74,7 +74,7 @@ Bit32s x_DWORD_D41A4_x9692 = -1;*/
 
 //Bit32s x2124_x_DWORD_D41A4_xCx_x_DWORD_D41A0_11234 = 0;
 
-Bit8u* x_DWORD_E9C38_smalltit; // weak
+//Bit8u* x_DWORD_E9C38_smalltit; // weak
 
 //Bit32s x_DWORD_D41A4 = -1;
 
@@ -121,7 +121,7 @@ void support_begin() {
     printbuffer2 = (char*)malloc(4096);
 	x_DWORD_180628b_screen_buffer = (Bit8u*)malloc(320000);
 
-	x_DWORD_E9C38_smalltit= (Bit8u*)malloc(64000);
+	//x_DWORD_E9C38_smalltit= (Bit8u*)malloc(64000);
 	//x_D41A0_BYTEARRAY_4_0xDE_heapbuffer= (Bit8u*)malloc(64000);
 
 	/*for (int i = 0;i < 0x1c+0x60;i++)
@@ -159,7 +159,7 @@ void support_end() {
     free(printbuffer);//char* buffer; // [esp+0h] [ebp-2h]
     free(printbuffer2);//char v11; // [esp+40h] [ebp+3Eh]
 	free(x_DWORD_180628b_screen_buffer);
-	free(x_DWORD_E9C38_smalltit);
+	//free(x_DWORD_E9C38_smalltit);
 	/*for (int i = 0;i < 0x1c;i++)
 		free(off_D918C[i]);*/
 	//free(x_D41A0_BYTEARRAY_4_0xDE_heapbuffer);
