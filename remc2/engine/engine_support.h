@@ -110,7 +110,7 @@ typedef struct {
 	//spell on - 0x20
 	Bit8u setting_byte4_25;//cheats? 0x1==Invincability
 	//invincability - 1;
-	Bit8u byteindex_26;//x_D41A0_BYTEARRAY_4_struct.byteindex_26
+	Bit8u byteindex_26=0;//x_D41A0_BYTEARRAY_4_struct.byteindex_26
 	Bit8u setting_30;//x_D41A0_BYTEARRAY_4_struct.setting_30
 	FILE* moviemvidatfile_byte4_33;
 	Bit8u byteindex_34;//0x22//x_D41A0_BYTEARRAY_4_struct.byteindex_34

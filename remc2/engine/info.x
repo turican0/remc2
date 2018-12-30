@@ -3271,3 +3271,28 @@ x_DWORD_DDF50
 
 x_DWORD_B8845 299845:00000000 f1ffffffff
 299961
+
+1042c040
+1042c4f0 - 4b0
+49d
+
+void sub_70F50(unsigned __int16 a1)//251f50
+find i
+
+x_D41A0_BYTEARRAY_4_struct.byteindex_26 [eax+1a] 38cf6a
+
+musi nejdriv spustit void sub_718F0()//2528f0
+
+porovnat chod
+void sub_718F0()//2528f0
+
+x_BYTE_F5340 2c6340
+2528d9
+
+kontrola char sub_71890()//252890
+
+x_WORD_D951C 2aa51c
+
+2ab7fc 0x1300
+
+void sub_71410_process_tmaps()//252410
