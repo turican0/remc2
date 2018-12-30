@@ -8,6 +8,9 @@ https://www.gog.com/game/magic_carpet_2_the_netherworlds<br />
 <br />
 simple dev blog:https://github.com/turican0/remc2/wiki<br />
 <br />
+## 0.22:<br />
+-fixed some rendering errors<br />
+<br />
 ## 0.21:<br />
 -fixed cleaning game screen<br />
 -first successfull texture drawing<br />
