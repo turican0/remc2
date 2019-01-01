@@ -3296,3 +3296,5 @@ x_WORD_D951C 2aa51c
 2ab7fc 0x1300
 
 void sub_71410_process_tmaps()//252410
+
+unk_D4350 2a5350
