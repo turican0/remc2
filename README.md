@@ -8,6 +8,10 @@ https://www.gog.com/game/magic_carpet_2_the_netherworlds<br />
 <br />
 simple dev blog:https://github.com/turican0/remc2/wiki<br />
 <br />
+## 0.24:<br />
+-fixed menu texture<br />
+-fixed minimap<br />
+<br />
 ## 0.23:<br />
 -fixed textures<br />
 <br />
