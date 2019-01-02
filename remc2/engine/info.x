@@ -3298,3 +3298,64 @@ x_WORD_D951C 2aa51c
 void sub_71410_process_tmaps()//252410
 
 unk_D4350 2a5350
+
+compare
+void sub_63C90_draw_minimap_b(int a1, int a2, int a3, int a4, int a5, int a6, __int16 a7, int a8, int a9, int a10)//244c90
+v74[1] 18 versus 19
+x_WORD_F4960 versus 2c5960
+v67 = v13 / 2;
+		v17 = &x_WORD_F4960[2 * (v13 / 2)];
+		v68 = v17 - 2;
+		v64 = 0;
+		v18 = v12 >> 1;
+		while (v67)
+		{
+			v19 = v18 * x_BYTE_F6EE0_tablesx[0x14300+v64 >> 16] >> 8;
+			v17[0] = v18 + v19;
+			v68[0] = v18 + v19;
+			v17[1] = v18 - v19;
+			v68[1] = v18 - v19;
+			v68 -= 2;
+			v17 += 2;
+			v64 += 0x1000000 / (v13 >> 1);
+			v67--;
+		}
+
+x_BYTE_F6EE0_tablesx[0x14300] versus 2dc1e0 - ffffffff
+2818ac
+call 281863
+call size_t sub_988A7_read(FILE* a1, Bit8u* a2, int a3)//2798a7
+call int sub_53E60_readfile_and_decompress(const char* path, Bit8u** a2)//234E60 
+void sub_54800_read_and_decompress_tables(Bit8u a1)//235800
+
+x_DWORD_180628b_screen_buffer+0x141
+versus
+3aa0a4+0x141
+
+void sub_2D710_draw_menu(Bit8u* a1)//20e710
+x_DWORD_F01E8(2, 2, filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct[40]);
+
+filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct[40]
+versus a67ac8->0xa5c78e->10898a8b8c8f
+281f26
+0x17e - 0x90, ale má být 0x37
+
+20ef35 void sub_2DE80_draw_bitmapxx(__int16 a1, __int16 a2, posistruct a3)//20ee80
+20cbc4 void sub_2BBB0(__int16 a1, __int16 a2, posistruct a3)//20cbb0
+20e7c9 void sub_2D710_draw_menu(Bit8u* a1)//20e710
+
+x_DWORD_180628b_screen_buffer+0x210
+versus
+3aa0a4+0x210 0x31(ma byt) versus 0x20
+
+20ef2b void sub_2DE80_draw_bitmapxx(__int16 a1, __int16 a2, posistruct a3)//20ee80
+20cbca void sub_2BBB0(__int16 a1, __int16 a2, posistruct a3)//20cbb0
+20ed4e void sub_2D710_draw_menu(Bit8u* a1)//20e710
+
+x_DWORD_180628b_screen_buffer+0x394
+versus
+3aa0a4+0x394 0x35(ma byt) versus 0xd8
+
+21d3db void sub_3C080_draw_terrain_and_particles(int a1, int a2, __int16 a3, __int16 a4, __int16 a5, signed int a6, int a7, __int16 a8, int a9)//21d080
+
+	
