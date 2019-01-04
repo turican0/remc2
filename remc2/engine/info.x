@@ -3352,10 +3352,109 @@ versus
 20cbca void sub_2BBB0(__int16 a1, __int16 a2, posistruct a3)//20cbb0
 20ed4e void sub_2D710_draw_menu(Bit8u* a1)//20e710
 
-x_DWORD_180628b_screen_buffer+0x394
+x_DWORD_180628b_screen_buffer+0x39a
 versus
-3aa0a4+0x394 0x35(ma byt) versus 0xd8
+3aa0a4+0x39a 0x0c(ma byt) versus 0xf0
 
 21d3db void sub_3C080_draw_terrain_and_particles(int a1, int a2, __int16 a3, __int16 a4, __int16 a5, signed int a6, int a7, __int16 a8, int a9)//21d080
 
+void sub_2E260_draw_spell(__int16 a1, __int16 a2, Bit8u* a3, char a4)//20f260
+
+270ca4 
+call void sub_8F935_bitmap_draw_final(Bit8u a1byte1, Bit8u a1byte2, Bit16u tiley, int tilex, Bit8u* texture, Bit8u setbyte, char a6)//270935
+call void sub_8F920(Bit8u a1byte1, Bit8u a1byte2, Bit16s posx, Bit16s posy, Bit8u* a4, unsigned __int8 a5, char a6)//270920
+call void sub_72C40_draw_bitmap_640_setcolor(Bit16s posx, Bit16s posy, posistruct a3, Bit8u color)//253c40
+call void sub_6F940_sub_draw_text(Bit8u* textbuffer, int posx, int posy, Bit8u color)//250940
+call void sub_2BC10_draw_text(Bit8u* textbuffer, Bit16s posx, Bit16s posy, Bit8u color)//20cc10
+20f401 void sub_2E260_draw_spell(__int16 a1, __int16 a2, Bit8u* a3, char a4)//20f260
+
+void sub_2E260_draw_spell(__int16 a1, __int16 a2, Bit8u* a3, char a4)//20f260
+
+x_DWORD_180628b_screen_buffer+0x4ed
+versus
+3aa0a4+0x4ed 0x99(ma byt) versus 0x34
+
+20ef2b call void sub_2DE80_draw_bitmapxx(__int16 a1, __int16 a2, posistruct a3)//20ee80
+
+270a97 call void sub_8F935_bitmap_draw_final(Bit8u a1byte1, Bit8u a1byte2, Bit16u tiley, int tilex, Bit8u* texture, Bit8u setbyte, char a6)//270935
+
+
+*(char *)(a3 + 64) tj 0x3633d6+0x40
 	
+232143 call Bit8u* sub_51120(Bit8u* a1, char a2, char a3)//232120
+
+Bit8u* sub_51120(Bit8u* a1, char a2, char a3)//232120
+2321c3 call Bit8u* sub_511C0(Bit8u* a1)//2321c0
+call near Bit8u* sub_4A190(Bit8u* a1, int a2, int a3)//22b190
+void sub_5CF40(Bit8u* a1, char a2)//23df40 - 23df72 - ecx=3 esi=1 edi=2
+void sub_5C950(Bit8u* a1, Bit8u* a2)//23d950
+void sub_51BB0_game_events(Bit8u* a1)//232bb0 //232dc5
+
+355088
+
+2321c7 Bit8u* sub_511C0(Bit8u* a1)//2321c0
+23df77
+
+
+	*(x_DWORD *)(v2 + 4) = 10000;
+	sub_5CF40(v2, v8); - zde
+
+if (*(x_WORD *)(2 * i + *(x_DWORD *)(a1 + 164) + 819))
+
+*(Bit32s*)(a1 + 164)
+versus
+36332a->358ffc
+358ffc+0x333(35932f)->990001
+
+22b169 call Bit8u* sub_4A050()//22b050
+
+Bit8u unk_D83AC[100]; // weak//2a93ac
+Bit8u unk_F42B0[0x470]; // weak//2c52b0
+
+235cd1 call int sub_54A50(unsigned __int16 a1, Bit8u* a2)//235a50
+aaaaa
+
+23dfb1 call void sub_5CF40(Bit8u* a1, char a2)//23df40
+
+x_D41A0_BYTEARRAY_0 + 11230 + 1817=1//x_D41A0_BYTEARRAY_0 + 11230 + 0x3e6+0x333=1
+
+358c16+1817=35932f
+
+
+x_D41A0_BYTEARRAY_0 + 11230
+
+unk_F42B0+819
+
+unk_F42B0 versus 2c52b0
+363286+a4=36332A->358ffc+0x333(35932f)->010001
+
+sub_54A50 a2 versus 358c16
+v0 = x_D41A0_BYTEARRAY_0 + 11230(2BDE)=0x358c16;
+versus
+x_D41A0_BYTEARRAY_0=356038
+v int sub_53160()//234160
+
+358c16+1817(0x719)=35932F
+tj.
+x_D41A0_BYTEARRAY_0 + 11230+0x719=x_D41A0_BYTEARRAY_0 + 11230+0x3e6  +0x333
+x_D41A0_BYTEARRAY_0 + 11230+0x3e6 je *(Bit32s*)(a1 + 164)
+
+void sub_54A50(unsigned __int16 a1, Bit8u* a2)//235a50
+
+x_WORD_D93C0_bldgprmbuffer[2+0x13d+v5];
+versus
+byte_d94ff[v5]
+versus [esi+2aa4ff]->0001020304
+
+x_DWORD_180628b_screen_buffer+0x51d
+versus
+3aa0a4+0x51d 0x84(ma byt) versus 0x33
+
+2451b9 call 244c90
+call 244600
+20d1af call int sub_2BE30_draw_game_frame()//20ce30
+
+24342b call void sub_61A00(int a1, int a2, __int16 a3, __int16 a4, int a5, int a6, __int16 a7, int a8)//242a00
+void sub_61880_draw_minimap_entites(int a1, int a2, __int16 a3, __int16 a4, int a5, int a6, __int16 a7, int a8)//242880
+
+v55 = ((v73 * v53 + v86 * v52) >> 16) + v76;
