@@ -3458,3 +3458,102 @@ call 244600
 void sub_61880_draw_minimap_entites(int a1, int a2, __int16 a3, __int16 a4, int a5, int a6, __int16 a7, int a8)//242880
 
 v55 = ((v73 * v53 + v86 * v52) >> 16) + v76;
+
+(jx-28470-x_D41A0_BYTEARRAY_0)/168
+
+__int16 x_WORD_F4962[830]; // idb 2c5962
+
+244d86 void sub_63C90_draw_minimap_b(int a1, int a2, int a3, int a4, int a5, int a6, __int16 a7, int a8, int a9, int a10)//244c90
+
+x_DWORD_180628b_screen_buffer+0x59b
+versus
+3aa0a4+0x59b 0x34(ma byt) versus 0x3d
+
+20ef2b void sub_2DE80_draw_bitmapxx(__int16 a1, __int16 a2, posistruct a3)//20ee80
+20cbc4 call void sub_2BBB0(__int16 a1, __int16 a2, posistruct a3)//20cbb0
+20ecaf void sub_2D710_draw_menu(Bit8u* a1)//20e710
+
+
+void sub_2D710_draw_menu(Bit8u* a1)//20e710
+x_DWORD_F01E8(v8, 2, filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct[41]);
+(i-v4 - x_DWORD_180628b_screen_buffer)/40 == 0x21
+
+a3.data - 0xcd
+
+differrence:
+a5d570->95963031 3b3a3939
+a3.data+0xe5
+
+281f26
+291c75
+28b658
+279786
+291c75
+void sub_47160()//228160
+
+a5b3b0+0x21c0
+*a2+0x21c0
+
+0x25239DA8 0x40 42 89 8a 8b 8c 8f 90 92
+0x25239DEA 0x40 42 89 8f 92 93 93 95 95
+0x25239E2C 0x40 8a 91 95 96 96 30 30 31
+
+a5d48c 0x40 -42
+a5d510 0x40 -42
+a5d4ce 0x40 -42
+a5d552 0x40
+
+A5D48C[20dc]
+a5d56c 95 95 94 95[21bc] spatny(95953b3b)
+a5d570(0xe4) 95 96 30 31 31 [21c0]
+
+6c
+
+20db versus 2020
+
+0x24F80038
+
+0x24F82113
+
+c7 21a3
+
+0x24BB8F36
+filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct[41].data 0x24BB8E6F
+filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct[41].data+0xe7
+*path.var28_begin_buffer+0x20dc+0xe0
+
+x_DWORD_180628b_screen_buffer+0x125d
+versus
+3aa0a4+0x125d 0xa1(ma byt) versus 0xa4
+
+20ef2b
+228557
+20ed48
+
+x_DWORD_F01E8(v12, 2, filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct[41]);
+
+edx=363286
+[edx+8c]=[38d046]=0x3e8
+38d046
+38d04a
+
+v18
+38cf50+f6=38d046->4c79
+24203d call Bit8u* sub_61000(Bit8u* a1)//242000
+241f00 call void sub_60F00()//241f00
+void sub_56A30_init_game_level(unsigned int a1)//237a30
+
+void sub_60F00()//241f00
+
+find init x_DWORD_EA3E4 versus 2bb3e4
+
+x_DWORD_EA3E4[0x3e8]
+2bb3e4
+[2bb3e8]
+[2bc384]->385f06
+//fa0
+
+23d36f call 23d330
+
+196302 0x6604u=222418
+224791 0x36e17
