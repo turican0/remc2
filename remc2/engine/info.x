@@ -3557,3 +3557,23 @@ x_DWORD_EA3E4[0x3e8]
 
 196302 0x6604u=222418
 224791 0x36e17
+
+2bb3e8->000000001e
+2bc384->065f3800
+
+[2a51a0]->356038+2fece->385f06 tj. a2
+385f06
+
+2bb3e8->35cf6e->000000001e
+35d016->00000000
+
+problem je zde:
+Bit8u* sub_48690(__int16 a1, __int16 a2, __int16 a3, __int16 a4)//229690
+
+x_DWORD_180628b_screen_buffer+0x1cde
+versus
+3aa0a4+0x1c 0x1cde 0x24(ma byt) versus 0xd1
+
+před
+20d1af call void sub_63600_draw_minimap(int a1, int a2, int a3, int a4, int a5, int a6, __int16 a7, int a8, int a9, int a10)//244600
+
