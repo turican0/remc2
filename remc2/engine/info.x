@@ -3630,6 +3630,20 @@ versus
 +0x1a
 
 2120b3 call void sub_30F60(Bit8u* a1)//211f60
+myprintf("xxx");
+addprocedurestop(0x238a3d, 0x7a, true, true, 0x363a6600 + 0xc);
+
+void sub_30F60(Bit8u* a1)//211f60
+x_D41A0_BYTEARRAY_0 + 28470+168*0xa3
+versus
+363a66
+0xc - 84 versus 04
+0x1a - 7a versus a4
+
+04
+------
+238e46 call void sub_57D70(Bit8u* a1, Bit8u* a2)//238d70
+
 
 
 
