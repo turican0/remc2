@@ -648,18 +648,42 @@ void VGA_Resize(int width, int height, int bpp, Uint32 flags) {
 	*/
 };
 
+FILE* fptpal;
+void SavePal(Uint8* pallettebuffer,char* filename)
+{
+	fopen_s(&fptpal, filename, "wb");
+	fwrite(pallettebuffer, 768,1, fptpal);
+	fclose(fptpal);
+}
+
+void VGA_Set_file_pallette(char* filename) {
+	Bit8u pallettebuffer[768];
+	fopen_s(&fptpal, filename, "rb");
+	fread(pallettebuffer, 768, 1, fptpal);
+	fclose(fptpal);
+
+	SDL_Color colors[256];
+	for (int i = 0;i < 256;i++) {
+		colors[i].r = 4 * pallettebuffer[i * 3];
+		colors[i].g = 4 * pallettebuffer[i * 3 + 1];
+		colors[i].b = 4 * pallettebuffer[i * 3 + 2];
+	}
+	SubSet_pallette(colors);
+}
 
 void VGA_Set_pallette(Uint8* pallettebuffer) {
 	memcpy(temppallettebuffer, pallettebuffer, 768);
 	SDL_Color colors[256];
 	/* Fill colors with color information */
-	for (int i = 0;i < 256;i++) {
+	for (int i = 0; i < 256; i++) {
 		colors[i].r = /*i;*/4 * pallettebuffer[i * 3];
 		colors[i].g = /*i;*/4 * pallettebuffer[i * 3 + 1];
 		colors[i].b = /*i;*/4 * pallettebuffer[i * 3 + 2];
 		//if((colors[i].r==0x8)/*&&(colors[i].g == 0x0)&&(colors[i].b == 0x00)*/)
 			//printf("%01X %02X,%02X,%02X\n", i,colors[i].r, colors[i].g, colors[i].b);
 	}
+
+	//SavePal(pallettebuffer,(char*)"c:\\prenos\\remc2\\testpal.pal");
 
 	SubSet_pallette(colors);
 }

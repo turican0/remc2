@@ -3636,15 +3636,66 @@ addprocedurestop(0x238a3d, 0x7a, true, true, 0x363a6600 + 0xc);
 void sub_30F60(Bit8u* a1)//211f60
 x_D41A0_BYTEARRAY_0 + 28470+168*0xa3
 versus
-363a66
+363a66(35cf6e+6af8)
 0xc - 84 versus 04
 0x1a - 7a versus a4
 
 04
 ------
 238e46 call void sub_57D70(Bit8u* a1, Bit8u* a2)//238d70
+void sub_4E320(Bit8u* a1)//22f320
+void sub_30F60(Bit8u* a1)//211f60
+
+2120cf call void sub_30F60(Bit8u* a1)//211f60
+238a8e call void sub_57730()//238730
+
+adress after 361f7e(35cf6e+7a*168)
+
+22f320
 
 
+test memory
+x_D41A0_BYTEARRAY_0 + 28470
+0x35cf6e
+after
+void sub_47560_draw_and_events_in_game(Bit8u* a1, int a2, Bit32u a3, signed int a4, __int16 a5)//228560
+sub_57730
+
+x_DWORD_180628b_screen_buffer+0x26e2
+versus
+3aa0a4+0x26e2 0x32(ma byt) versus 0x35
+
+2451b9 void sub_63C90_draw_minimap_b(int a1, int a2, int a3, int a4, int a5, int a6, __int16 a7, int a8, int a9, int a10)//244c90
+
+v60 3aa0a4
+0x038A6EF8
+
+x_BYTE_10B4E0
+versus
+2dc4e0
+
+3ac786-3aa0a4 - 1f=26c0
+2580=v71-x_DWORD_180628b_screen_buffer
+
+x_BYTE_F6EE0_tablesx[0x2302]
+versus
+2c7ee0->40404040
+
+edi 3ac765
+
+xx
+423a384242423a3a423a333702 3a3a23
+
+0x1d
+
+0x21
+        //addprocedurestop(0x244c90, 0x0, true, true, 0x3aa0a400 + 0x26c0);
+---------------------
+2ea12b
+versus
+x_BYTE_10B4E0+0xdc4b
+225ef6 call void sub_44EE0(int a1, Bit16u a2)//225ee0
+void sub_44E40(int a1, Bit8u a2)//225e40
 
 
 
