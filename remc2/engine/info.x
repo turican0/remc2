@@ -3694,8 +3694,19 @@ xx
 2ea12b
 versus
 x_BYTE_10B4E0+0xdc4b
+
 225ef6 call void sub_44EE0(int a1, Bit16u a2)//225ee0
 void sub_44E40(int a1, Bit8u a2)//225e40
+
+2ea12b - 2x
+22622b call void sub_45210(Bit8u a1, Bit8u a2)//226210
+void sub_43830_generate_level_map(unsigned int a1, Bit8u* a2)//224830
+
+225cc7 call void sub_44580()//225580
+
+2272e1 call unsigned __int16 sub_46180(unsigned __int16 a1, char a2)//227180
+
+
 
 
 
