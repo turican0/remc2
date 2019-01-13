@@ -3691,20 +3691,108 @@ xx
 0x21
         //addprocedurestop(0x244c90, 0x0, true, true, 0x3aa0a400 + 0x26c0);
 ---------------------
-2ea12b
+2ea12b - 48014848
 versus
 x_BYTE_10B4E0+0xdc4b
 
+//03
 225ef6 call void sub_44EE0(int a1, Bit16u a2)//225ee0
 void sub_44E40(int a1, Bit8u a2)//225e40
 
+//00040506
 2ea12b - 2x
 22622b call void sub_45210(Bit8u a1, Bit8u a2)//226210
 void sub_43830_generate_level_map(unsigned int a1, Bit8u* a2)//224830
-
+//2e
 225cc7 call void sub_44580()//225580
 
+//01017c
 2272e1 call unsigned __int16 sub_46180(unsigned __int16 a1, char a2)//227180
+
+//48
+227411 call unsigned __int16 sub_46180(unsigned __int16 a1, char a2)//227180
+
+//238730 call void sub_57730()//238730
+
+------------------
+363b0e+0x4c=184c07dc nikoli a34b13dc
+versus
+xxxx
+238e40 call void sub_57D70(Bit8u* a1, Bit8u* a2)//238d70
+22b190
+21209f call void sub_30F60(Bit8u* a1)//211f60
+238a8b call void sub_57730()//238730
+361f7e-35cf6e=5010/168=122//7a
+------------------
+ebp-8
+ebp-4
+
+signed int sub_10130(int a1, x_DWORD *a2, x_DWORD *a3)//1f1130 - druhy pruchod?
+-----------------------
+test 2bac30->1a0038 000000 3f52a4 00000000 1a1038 000000 000000 a43aa4
+xasearchd
+versus
+dword_E9C30
+
+pstr[xx].var28
+pstr[xx].var32
+pstr[xx].var36
+
+27b381
+
+signed int sub_9A32D_malloc_open_unpack(Pathstruct path)//27B32d
+
+fix:
+void sub_101C0()//1f11c0
+a kontola:
+x_BYTE_E7EE0x
+x_BYTE_E9980x
+---------------------------------
+analyze
+signed int sub_9A32D_malloc_open_unpack(Pathstruct path)//27B32d
+
+ebx=2a9a54
+2a5365617263684400000000000000000000
+00000000000000000000000000030ac2b->0000000000000
+40ac2b->00000    0010        
+---------------------------------
+x_DWORD_180628b_screen_buffer+0x8f09
+versus
+3aa0a4+0x8f09 0x30(ma byt) versus 0x35
+
+223039 call __int16 sub_41BD3(unsigned int a1)//222bd3
+
+unk_F0E20?
+
+-------------
+x_DWORD_F2C30 a7
+versus
+2c3c30 //f6
+21f517 call unsigned __int16 sub_3E360_draw_particles(Bit8u* a1, Bit8u* a2)//21f360
+21f1b6 call void sub_3C080_draw_terrain_and_particles(int a1, int a2, __int16 a3, __int16 a4, __int16 a5, signed int a6, int a7, __int16 a8, int a9)//21d080
+222708 call void sub_411A0_draw_world(Bit8u* a1, int a2, int a3, __int16 a4, signed int a5, int a6, __int16 a7, int a8)//2221a0
+
+3fdc24 - v227
+3fdc50
+3fdc7c
+3fdca8
+3fdcd4
+3fdd00
+3fdd2c
+3fdd58
+3fdd84
+3fddb0
+3fdddc
+3fde08
+3fde34
+3fde60
+3fde8c
+3fdeb8
+
+3f7110
+
+if (*(x_WORD *)(v243 + 36))//adress 21f1b5 aex 360000 ebx 3f78a0 ecx 0 edx 414eb0
+0 0 e4
 
 
 

@@ -92,7 +92,7 @@ Bit8u* x_D41A0_BYTEARRAY_4_0xE2_heapbuffer;
 //Bit8u* x_D41A0_BYTEARRAY_4_0xDE_heapbuffer;
 //Bit32u* off_D918C[0x7c];//turn off - fix it
 
-Bit8u* dword_E9C30[1000]; // weak
+//xx Bit8u* dword_E9C30[1000]; // weak
 
 
 
@@ -131,11 +131,11 @@ void support_begin() {
 	//1
 	//2
 
-	dword_E9C30[0] = new Bit8u[4096];
+	/*xx dword_E9C30[0] = new Bit8u[4096];
 	for (int i = 0;i <4096;i++)
 		dword_E9C30[0][0] = 0;
 	dword_E9C30[2] = new Bit8u[4096];
-	dword_E9C30[4] = new Bit8u[4096];
+	dword_E9C30[4] = new Bit8u[4096];*/
 	//x_D41A0_BYTEARRAY_4_struct.player_name_57 =new char[256];
 	x_D41A0_BYTEARRAY_4_struct.savestring_89 = new char[256];
 
@@ -163,9 +163,9 @@ void support_end() {
 	/*for (int i = 0;i < 0x1c;i++)
 		free(off_D918C[i]);*/
 	//free(x_D41A0_BYTEARRAY_4_0xDE_heapbuffer);
-	free(dword_E9C30[0]);
+	/*xx free(dword_E9C30[0]);
 	free(dword_E9C30[2]);
-	free(dword_E9C30[4]);
+	free(dword_E9C30[4]);*/
 	//free(x_D41A0_BYTEARRAY_4_struct.player_name_57);
 	free(x_D41A0_BYTEARRAY_4_struct.savestring_89);
 

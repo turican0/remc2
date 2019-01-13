@@ -250,7 +250,7 @@ extern Bit8u* x_D41A0_BYTEARRAY_4_0xE2_heapbuffer;
 //extern Bit8u* x_D41A0_BYTEARRAY_4_0xDE_heapbuffer;
 //extern Bit32u* off_D918C[0x7c];
 
-extern Bit8u* dword_E9C30[]; // weak
+//xx extern Bit8u* dword_E9C30[]; // weak
 
 extern posistruct* xy_DWORD_17DED4_spritestr;
 extern posistruct* xy_DWORD_17DEC0_spritestr;
