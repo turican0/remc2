@@ -3794,7 +3794,29 @@ versus
 if (*(x_WORD *)(v243 + 36))//adress 21f1b5 aex 360000 ebx 3f78a0 ecx 0 edx 414eb0
 0 0 e4
 
+addprocedurestop(0x21f1b5, 0x2, true, true, 0x2c3c3000);
+-------------------------------
+problem in 
+3640f6
+versus
+x_DWORD_EA3E4[0xae]+0x16
++0x16 , 0x2c, 0x50
+
+16
+void sub_57D70(Bit8u* a1, Bit8u* a2)//238d70
+Bit8u* sub_4E320(Bit8u* a1)//22f320
+0xa
 
 
+zm2nu hledat zde:
+void sub_47320_in_game_loop(signed int a1)//228320
+debugcounter==0xb
+-----
+32c4e0+0xd94f*2
+versus
+x_WORD_15B4E0[0xd94f]
+-problem je i predtim
 
-
+void sub_57D70(Bit8u* a1, Bit8u* a2)//238d70
+Bit8u* sub_4E320(Bit8u* a1)//22f320
+0x9
