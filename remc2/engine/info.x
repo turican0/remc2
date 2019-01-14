@@ -3799,8 +3799,11 @@ addprocedurestop(0x21f1b5, 0x2, true, true, 0x2c3c3000);
 problem in 
 3640f6
 versus
-x_DWORD_EA3E4[0xae]+0x16
-+0x16 , 0x2c, 0x50
+x_DWORD_EA3E4[0xae]+0x56
++0x16 , 0x2c, 0x50, 0x56
+
+0x56
+&x_DWORD_E9C38_smalltit[35200-0x6384]+0x56
 
 16
 void sub_57D70(Bit8u* a1, Bit8u* a2)//238d70
@@ -3820,3 +3823,16 @@ x_WORD_15B4E0[0xd94f]
 void sub_57D70(Bit8u* a1, Bit8u* a2)//238d70
 Bit8u* sub_4E320(Bit8u* a1)//22f320
 0x9
+
+----------------
+3622c6+0x14 =c237
+versus
+&x_DWORD_D4C52ar[0x17bc]+6+0x14=0385;
+
+211fec call void sub_30F60(Bit8u* a1)//211f60
+
+--------------------
+
+void sub_3C080_draw_terrain_and_particles(int a1, int a2, __int16 a3, __int16 a4, __int16 a5, signed int a6, int a7, __int16 a8, int a9)//21d080
+v205[42] = v248x[32] + (((signed int)(unsigned __int8)x_BYTE_13B4E0[v204] >> 2) & 0x1C);
+
