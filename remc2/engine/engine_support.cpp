@@ -235,6 +235,42 @@ Bit32u compare_with_snapshot(char* filename, Bit8u* adress, Bit32u adressdos, Bi
 	return(i);
 };
 
+Bit32u compare_with_sequence(Bit8u* adress, Bit32u adressdos, Bit32u count, Bit32u size, Bit8u* origbyte, Bit8u* copybyte) {
+
+	char findnamec[500];
+	Bit8u* buffer = (Bit8u*)malloc(100000);
+	FILE* fptestepc;
+	sprintf(findnamec, "c:/prenos/remc2/remc2/memimages/sequence-%08X.bin", adressdos);
+	fopen_s(&fptestepc, findnamec, "rb");
+	if (fptestepc == NULL)
+	{
+		mydelay(100);
+		fopen_s(&fptestepc, findnamec, "rb");
+	}
+	fseek(fptestepc, adressdos, SEEK_SET);
+	
+	int i;
+	for (i = 0; i < count; i++)
+	{
+		fread_s(buffer,size,1,size, fptestepc);
+	}
+
+	fread_s(buffer, size, 1, size, fptestepc);
+	for (i = 0; i < size; i++)
+	{
+		if (buffer[i] != adress[i])
+		{
+			*origbyte = buffer[i];
+			*copybyte = adress[i];
+			break;
+		}
+	}
+
+	free(buffer);
+	fclose(fptestepc);
+	return(i);
+};
+
 void mine_texts(char* filename, Bit32u adressdos, Bit32u count, char* outfilename) {
 
 	char findnamec[500];

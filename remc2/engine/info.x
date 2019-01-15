@@ -3836,3 +3836,5 @@ versus
 void sub_3C080_draw_terrain_and_particles(int a1, int a2, __int16 a3, __int16 a4, __int16 a5, signed int a6, int a7, __int16 a8, int a9)//21d080
 v205[42] = v248x[32] + (((signed int)(unsigned __int8)x_BYTE_13B4E0[v204] >> 2) & 0x1C);
 
+//x_D41A0_BYTEARRAY_0
+
