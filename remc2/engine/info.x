@@ -3838,3 +3838,28 @@ v205[42] = v248x[32] + (((signed int)(unsigned __int8)x_BYTE_13B4E0[v204] >> 2) 
 
 //x_D41A0_BYTEARRAY_0
 
+3f78a0+0x56
+versus
+*(Bit32u*)(&x_DWORD_E9C38_smalltit[0x25fc]+0x56)
+0002, ale má být nula
+---
+3640f6+0x50 - 9c107d
+versus
+x_DWORD_EA3E4[0xae]+0x50 88107d
+if (debugcounter5 >= 0x0a)
+
+
+x_DWORD_F2C5C - d4db
+versus
+2c3c5c - 10000
+
+21d121 call void sub_3C080_draw_terrain_and_particles(int a1, int a2, __int16 a3, __int16 a4, __int16 a5, signed int a6, int a7, __int16 a8, int a9)//21d080
+
+x_DWORD_F2C7C - 67be
+versus
+2c3c7c - 00000
+
+
+x_DWORD_DB350 alespon 100
+versus
+2ac350
