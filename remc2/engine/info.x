@@ -3870,3 +3870,13 @@ versus
 3aa0a4+0x51d
 62 versus 84
 1309 tj radek 4 sl. 29
+
+24342b call void sub_61A00_draw_minimap_entites_b(int a1, int a2, __int16 a3, __int16 a4, int a5, int a6, __int16 a7, int a8)//242a00
+
+363286
+versus
+x_DWORD_EA3E4[0x98]
++0x1c-00000000 -void sub_5D530(Bit8u* a1)//*(x_DWORD *)(a1 + 160)//23e530
++0x3c-00009903 -sub_57730(); pod
+
+!!!!!!! zkontrolovat - x_D41A0_BYTEARRAY_0 + 28470; jx < x_D41A0_BYTEARRAY_0 + 196302
