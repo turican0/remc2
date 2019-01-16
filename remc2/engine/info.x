@@ -3863,3 +3863,10 @@ versus
 x_DWORD_DB350 alespon 100
 versus
 2ac350
+-----------------------------------
+step 2
+x_DWORD_180628b_screen_buffer+0x51d
+versus
+3aa0a4+0x51d
+62 versus 84
+1309 tj radek 4 sl. 29
