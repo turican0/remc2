@@ -3881,8 +3881,24 @@ x_DWORD_EA3E4[0x98]
 
 !!!!!!! zkontrolovat - x_D41A0_BYTEARRAY_0 + 28470; jx < x_D41A0_BYTEARRAY_0 + 196302
 ------------------------------------------
+unk_F42B0[0x470];
+------------------------------------------
 x_D41A0_BYTEARRAY_0
 versus
 0x356038
 ---0x235
-236f71
+227934
+---0x246
+---0x2f7d
+2342f8 void sub_53160()//234160 //x_D41A0_BYTEARRAY_0+0x2f7d
+356038
+---0x314d
+//x_D41A0_BYTEARRAY_0+0x314d
+23db6d void sub_5C950(Bit8u* a1, Bit8u* a2)//23d950
+---x_D41A0_BYTEARRAY_0+0x6f32 void sub_49EC0(Bit16u* a1, __int16 a2)//22aec0
+---x_D41A0_BYTEARRAY_0+0x796e //x_D41A0_BYTEARRAY_0+0x796e
+1f1e82 int sub_10C80(Bit8u* a1, unsigned __int8 a2, unsigned __int16 a3)//1f1c80
+void sub_30D50(Bit8u* a1, Bit8u v2, Bit8u v4)//211d50
+---x_D41A0_BYTEARRAY_0+0x8fa6 //0x356038+0x8fa6
+1f33a7 void sub_12330(Bit8u* a1, __int16 a2)//1f3330
+1f3203 __int16 sub_12100(int a1, Bit8u* a2, char a3)//1f3100
