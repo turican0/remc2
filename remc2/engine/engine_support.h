@@ -287,7 +287,7 @@ void loadfromsnapshot(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u si
 void loadfromsnapshot2(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u size);
 Bit32u compare_with_snapshot(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u size, Bit8u* origbyte, Bit8u* copybyte);
 Bit32u compare_with_sequence(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u count, Bit32u size, Bit8u* origbyte, Bit8u* copybyte);
-
+Bit32u compare_with_snapshot_D41A0(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u size, Bit8u* origbyte, Bit8u* copybyte);
 void writehex(Bit8u* buffer,Bit32u count);
 
 void mine_texts(char* filename, Bit32u adressdos, Bit32u count, char* outfilename);
