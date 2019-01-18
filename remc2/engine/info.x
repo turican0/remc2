@@ -3909,3 +3909,22 @@ void sub_30D50(Bit8u* a1, Bit8u v2, Bit8u v4)//211d50
 ---x_D41A0_BYTEARRAY_0+0x8fa6 //0x356038+0x8fa6
 1f33a7 void sub_12330(Bit8u* a1, __int16 a2)//1f3330
 1f3203 __int16 sub_12100(int a1, Bit8u* a2, char a3)//1f3100
+
+1f33aa void sub_12330(Bit8u* a1, __int16 a2)//1f3330
+
+---0x356038+0x365fc //x_D41A0_BYTEARRAY_0+0x365fc
++8=38C63C
+adress 1f2f61 signed int sub_11EE0(Bit8u* a1)//1f2ee0
+
+---x_D41A0_BYTEARRAY_0+0x904e //0x356038+0x904e
+adress 1f33aa void sub_12330(Bit8u* a1, __int16 a2)//1f3330
+1f3208
+void sub_12100(Bit8u* a1, Bit8u* a2, char a3)//1f3100
+****
+35ef96+0x10
+versus
+xx
+***adress 22b257
+zjisti kolikaty pruchod 4a310 zpusobi zmenu 35ef96+0x10
+void sub_4A310(unsigned __int16 *a1)//22b310
+
