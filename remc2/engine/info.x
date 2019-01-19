@@ -3927,4 +3927,30 @@ xx
 ***adress 22b257
 zjisti kolikaty pruchod 4a310 zpusobi zmenu 35ef96+0x10
 void sub_4A310(unsigned __int16 *a1)//22b310
+-predtim to che otestovat 386399 !!!!!!
+---------------------------------------
+---x_D41A0_BYTEARRAY_0+0x10 //0x356038+0x10
+
+---------------------------------------
+---------------------------------------
+-----------------------------------
+step 2
+x_DWORD_180628b_screen_buffer+0x51d
+versus
+3aa0a4+0x51d
+62 versus 84
+1309 tj radek 4 sl. 29
+
+24342b call void sub_61A00_draw_minimap_entites_b(int a1, int a2, __int16 a3, __int16 a4, int a5, int a6, __int16 a7, int a8)//242a00
+test druheho pruchodu x_D41A0_BYTEARRAY_0
+
+x_BYTE_E88E0 -- 2b98e0
+22920f
+--------------------------------
+x_DWORD_180628b_screen_buffer+0xddd0
+versus
+3aa0a4+0xddd0
+
+
+unk_F0E20 2c1e20
 
