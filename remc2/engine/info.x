@@ -3953,4 +3953,15 @@ versus
 
 
 unk_F0E20 2c1e20
+----
+x_D41A0_BYTEARRAY_4_struct.byteindex_121[2]
+versus
+38cfcb
+if (debugcounter2 >= 0x46a)
+232d0a void sub_51BB0_game_events(Bit8u* a1)//232bb0
+---------------------------------------------------
+--nejprve zpet k testovani pole x_D41A0_BYTEARRAY_0
 
+---x_D41A0_BYTEARRAY_0+0x2fc8 //0x356038+0x2fc8
+00 versus f6
+v63 = (Bit8u*)(*(int(**)(Bit8u*))((char *)&off_D781E + 14 * v112))(v113 + 76);
