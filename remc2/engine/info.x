@@ -3963,5 +3963,35 @@ if (debugcounter2 >= 0x46a)
 --nejprve zpet k testovani pole x_D41A0_BYTEARRAY_0
 
 ---x_D41A0_BYTEARRAY_0+0x2fc8 //0x356038+0x2fc8
-00 versus f6
+00 versus c2
 v63 = (Bit8u*)(*(int(**)(Bit8u*))((char *)&off_D781E + 14 * v112))(v113 + 76);
+---------------------------------------------------
+358ffc
+versus
+*(Bit32s*)(*x_DWORD_EA3E4+0x63c0+164)
+------------------------------------
+35ce76
+versus
+x_D41A0_BYTEARRAY_0 + 28222
+
+sub_17060
+x_D41A0_BYTEARRAY_0[10 * *(Bit16u*)&x_D41A0_BYTEARRAY_0[12] + 28226] = v4;
+sub_17060(x_DWORD_1805B0, x_DWORD_1805B4);
+sub_17A00((Bit8u*)a3, a4, a5);//fix it//nothing draw
+---------------------------------------------------
+35ce76 -01
+versus
+x_D41A0_BYTEARRAY_0[10 * x_D41A0_BYTEARRAY_4_struct.byteindex_12 + 28222]-00
+
+
+----------------------------
+test druhy pruchod //adress 228583
+---x_D41A0_BYTEARRAY_0+0x6e41 //0x356038+0x6e41
+-orig 00
+-remake 81
+
+
+unk_180560
+versus
+351560
+
