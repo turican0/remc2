@@ -3995,3 +3995,24 @@ unk_180560
 versus
 351560
 
+35ce76 -01
+versus
+&x_D41A0_BYTEARRAY_0[10 * x_D41A0_BYTEARRAY_4_struct.byteindex_12 + 28222]
+--------------------------------
+x_DWORD_180628b_screen_buffer+0x51d
+versus
+3aa0a4+0x51d 0x62(ma byt) versus 0x84
+
+24342b call void sub_61A00_draw_minimap_entites_b(int a1, int a2, __int16 a3, __int16 a4, int a5, int a6, __int16 a7, int a8)//242a00
+
+x_D41A0_BYTEARRAY_4_struct.byteindex_121[2]
+versus
+38cfcb
+
+322d0a void sub_51BB0_game_events(Bit8u* a1)//232bb0
+
+byteindex_12
+*(Bit16s*)&x_D41A0_BYTEARRAY_0[12]
+
+x_D41A0_BYTEARRAY_4_struct.byteindex_12
+v16 = *(x_DWORD *)(2124 * *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] + x_D41A0_BYTEARRAY_0 + 11248) / (unsigned int)v15 & 1;
