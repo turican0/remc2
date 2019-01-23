@@ -4016,3 +4016,34 @@ byteindex_12
 
 x_D41A0_BYTEARRAY_4_struct.byteindex_12
 v16 = *(x_DWORD *)(2124 * *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] + x_D41A0_BYTEARRAY_0 + 11248) / (unsigned int)v15 & 1;
+
+---x_D41A0_BYTEARRAY_0+0x7b //0x356038+0x7b
+
+sub_47760(/*int a1,*/Bit32u user/* int a2, int a3*/)//228760
+
+252973 int sub_71930()//252930
+
+x_DWORD_F66F0+0x70  2c76f0+0x70
+0x78
+00 00 poi poi-orig
+poi poi poi poi
+poi poi poi poi
+poi poi poi poi
+
+00 00 00 00
+poi poi poi poi
+poi poi poi poi
+00 00 00 00
+
+---------------------------------------
+void sub_70F50(unsigned __int16 a1)//251f50
+252842 void sub_71780()//252780
+
+x_DWORD_F66F0[0x42]
+2c6340+0x108
+
+251ffa
+---------------
+2c77f8(2c76f0+0x108) ->006d4000
+versus
+x_DWORD_F66F0[0x42]
