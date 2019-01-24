@@ -4047,3 +4047,10 @@ x_DWORD_F66F0[0x42]
 2c77f8(2c76f0+0x108) ->006d4000
 versus
 x_DWORD_F66F0[0x42]
+---------------
+x_BYTE_F5538[0x42]
+versus
+2c657a
+
+252771 call void sub_71730(unsigned __int16 a1)//252730
+252712 void sub_716C0(unsigned __int16 a1, unsigned __int16 a2, unsigned __int16 a3)//2526c0
