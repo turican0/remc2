@@ -4054,3 +4054,7 @@ versus
 
 252771 call void sub_71730(unsigned __int16 a1)//252730
 252712 void sub_716C0(unsigned __int16 a1, unsigned __int16 a2, unsigned __int16 a3)//2526c0
+
+---x_D41A0_BYTEARRAY_0+0x120a //0x356038+0x120a
+26-orig versus 66-remake
+12b2

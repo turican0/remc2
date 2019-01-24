@@ -237,7 +237,7 @@ Bit32u compare_with_snapshot(char* filename, Bit8u* adress, Bit32u adressdos, Bi
 
 int test_D41A0_id_pointer(Bit32u adress) {
 	if ((adress >= 0x314d) && (adress < 0x3151))return 2;//clock
-	if ((adress >= 0x246)&& (adress < 0x120a))return 1;
+	if ((adress >= 0x246)&& (adress < 0x12b2))return 1;
 	if (adress >= 0x6f32)return 1;
 
 	return 0;
