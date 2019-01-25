@@ -4058,3 +4058,8 @@ versus
 ---x_D41A0_BYTEARRAY_0+0x120a //0x356038+0x120a
 26-orig versus 66-remake
 12b2
+
+22b046 call void sub_49F90()//22af90
+*(x_DWORD *)(v7 + 582) = (Bit32s)x_DWORD_EA3E4[v3]
+
+unk_D83AC - zrusit - sloucit
