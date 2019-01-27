@@ -4063,3 +4063,46 @@ versus
 *(x_DWORD *)(v7 + 582) = (Bit32s)x_DWORD_EA3E4[v3]
 
 unk_D83AC - zrusit - sloucit
+
+---x_D41A0_BYTEARRAY_0+0x12aa //0x356038+0x12aa
+7e versus 00
+22b046 call void sub_49F90()//22af90
+*(x_DWORD *)(v7 + 582) = (Bit32s)x_DWORD_EA3E4[v3]
+2360e4 call char sub_55080(unsigned __int8 a1, int a2)//236080
+238663 call void sub_57640()//238640
+2288a1 void sub_47760(/*int a1,*/Bit32u user/* int a2, int a3*/)//228760
+228564 void sub_47560_draw_and_events_in_game(Bit8u* a1, int a2, Bit32u a3, signed int a4, __int16 a5)//228560
+-------------------------
+--*(x_DWORD *)(v4 + 4582);
+Bit8u* sub_57F20(Bit8u* a1)//238f20
+void sub_57730()//238730
+
+predtim
+0x362026+0x14,0x18,0x20,0x4d,0x4e,0x4f
+00000000 557f0000 a9007c00 00000000
+versus
+x_D41A0_BYTEARRAY_0+0xbfee
+
+557f
+21205f call void sub_30F60(Bit8u* a1)//211f60
+
+
+x_D41A0_BYTEARRAY_0+0x6f36
+
+x_D41A0_BYTEARRAY_0+0x8f7e//0x356038+0x8f7e
+
+2306
+8b06
+
+x_D41A0_BYTEARRAY_0+0x8f97//0x356038+0x8f97
+
+249d37 call int sub_68C70(int a1)//249c70
+249c1b void sub_68BF0()//249bf0
+
+x_D41A0_BYTEARRAY_4_struct.bytearray_38403
+versus
+396553+4
+
+238849 void sub_57730()//238730
+
+x_D41A0_BYTEARRAY_0+0xd886//0x356038+0xd886

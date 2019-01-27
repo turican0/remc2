@@ -238,8 +238,39 @@ Bit32u compare_with_snapshot(char* filename, Bit8u* adress, Bit32u adressdos, Bi
 int test_D41A0_id_pointer(Bit32u adress) {
 	if ((adress >= 0x314d) && (adress < 0x3151))return 2;//clock
 	if ((adress >= 0x246)&& (adress < 0x12b2))return 1;
-	if (adress >= 0x6f32)return 1;
-
+	/*if ((adress >= 0x6f32) && (adress < 0x6f37))return 1;
+	if ((adress >= 0x6fd6) && (adress < 0x6fdb))return 1;
+	if ((adress >= 0x707e) && (adress < 0x707f))return 1;
+	if ((adress >= 0x7082) && (adress < 0x7083))return 1;
+	if ((adress >= 0x7126) && (adress < 0x712b))return 1;
+	if ((adress >= 0x71ce) && (adress < 0x71cf))return 1;
+	if ((adress >= 0x71d2) && (adress < 0x71d3))return 1;
+	if ((adress >= 0x7276) && (adress < 0x7277))return 1;
+	if ((adress >= 0x727a) && (adress < 0x727b))return 1;
+	if ((adress >= 0x731e) && (adress < 0x731f))return 1;
+	if ((adress >= 0x7322) && (adress < 0x7323))return 1;
+	if ((adress >= 0x73c6) && (adress < 0x73c7))return 1;
+	if ((adress >= 0x73ca) && (adress < 0x73cb))return 1;
+	if ((adress >= 0x746e) && (adress < 0x746f))return 1;
+	if ((adress >= 0x7472) && (adress < 0x7473))return 1;
+	if ((adress >= 0x7516) && (adress < 0x7517))return 1;
+	if ((adress >= 0x751a) && (adress < 0x751b))return 1;
+	if ((adress >= 0x75be) && (adress < 0x75bf))return 1;
+	if ((adress >= 0x75c2) && (adress < 0x75c3))return 1;
+	if ((adress >= 0x7666) && (adress < 0x7667))return 1;
+	if ((adress >= 0x766a) && (adress < 0x766b))return 1;
+	if ((adress >= 0x770e) && (adress < 0x770f))return 1;
+	if ((adress >= 0x7712) && (adress < 0x7713))return 1;
+	if ((adress >= 0x77b6) && (adress < 0x77b7))return 1;
+	if ((adress >= 0x77ba) && (adress < 0x77bb))return 1;
+	if ((adress >= 0x785e) && (adress < 0x7863))return 1;
+	if ((adress >= 0x7906) && (adress < 0x790b))return 1;
+	if ((adress >= 0x79ae) && (adress < 0x79b3))return 1;
+	if ((adress >= 0x7a56) && (adress < 0x7a5b))return 1;
+	if ((adress >= 0x7afe) && (adress < 0x7b03))return 1;*/
+	for (int i = 0; i < 0x3e8; i++) {
+		if ((adress >= 0x6f2e +i*168) && (adress < 0x6f37 + i * 168))return 1;
+	}
 	return 0;
 }
 

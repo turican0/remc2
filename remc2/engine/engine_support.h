@@ -191,7 +191,7 @@ typedef struct {
 
 	Bit8u setting_38402;//0x9602//x_D41A0_BYTEARRAY_4_struct.setting_38402
 
-	Bit8u bytearray_38403[116];//array 116//0x9603//x_D41A0_BYTEARRAY_4_struct.bytearray_38403	
+	Bit8u* bytearray_38403x[29];//array 116//0x9603//x_D41A0_BYTEARRAY_4_struct.bytearray_38403	
 	/*
 	creatures
 		8-dead
