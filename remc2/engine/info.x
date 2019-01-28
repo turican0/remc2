@@ -4128,3 +4128,32 @@ x_D41A0_BYTEARRAY_0+0x12aa//0x356038+0x12aa
 7e versus 00
 
 37
+--------------------------------------------
+x_DWORD_180628b_screen_buffer+0x9b6e//3aa0a4+0x9b6e
+37 versus 77
+
+299b6c call void /*__spoils<ecx>*/ sub_B6253_draw_quad(x_DWORD *a1, x_DWORD *a2, x_DWORD *a3)//297253
+21f064 call void sub_3C080_draw_terrain_and_particles(int a1, int a2, __int16 a3, __int16 a4, __int16 a5, signed int a6, int a7, __int16 a8, int a9)//21d080
+
+	if (*(0x36E03 + x_D41A0_BYTEARRAY_0 + 1))
+		sub_30630();
+
+----------------------------
+x_D41A0_BYTEARRAY_0+0x12aa//0x356038+0x12aa
+7e versus 00
+//pruchod 3
+22b046 call void sub_49F90()//22af90
+2360df call char sub_55080(unsigned __int8 a1, int a2)//236080
+2288a1 call void sub_57640()//238640
+228564 call void sub_47760(/*int a1,*/Bit32u user/* int a2, int a3*/)//228760
+
+problem je zde
+Bit8u* sub_57F20(Bit8u* a1)//238f20
+void sub_57730()//238730
+------------------------------------------------
+x_DWORD_180628b_screen_buffer+0x1f71//3aa0a4+0x1f71
+b8 versus 37
+-blinking rectangle
+245db2 call void char sub_64CE0(int a1)//245ce0
+
+v void sub_644F0(int a1, int a2, __int16 a3, __int16 a4, int a5, int a6, __int16 a7, int a8)//2454f0
