@@ -4106,3 +4106,25 @@ versus
 238849 void sub_57730()//238730
 
 x_D41A0_BYTEARRAY_0+0xd886//0x356038+0xd886
+56 versus 51
+
+238e42 d60f
+238e42 d60f19
+238e42 561019 call void sub_57CF0(Bit8u* a1, Bit8u* a2)//238cf0
+190
+
+x_D41A0_BYTEARRAY_0+0xd570//0x356038+0xd570
+99 versus 94
+---------------
+x_D41A0_BYTEARRAY_0+0x36df6//0x356038+0x36df6
+ac versus f6
+2362ae call char sub_55250(unsigned __int8 a1)//236250
+
+char sub_55250(unsigned __int8 a1)//236250
+
+2a93ac
+------------------
+x_D41A0_BYTEARRAY_0+0x12aa//0x356038+0x12aa
+7e versus 00
+
+37

@@ -271,6 +271,7 @@ int test_D41A0_id_pointer(Bit32u adress) {
 	for (int i = 0; i < 0x3e8; i++) {
 		if ((adress >= 0x6f2e +i*168) && (adress < 0x6f37 + i * 168))return 1;
 	}
+	if ((adress >= 0x36df6) && (adress < 0x36df7))return 1;
 	return 0;
 }
 
