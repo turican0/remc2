@@ -4155,5 +4155,8 @@ x_DWORD_180628b_screen_buffer+0x1f71//3aa0a4+0x1f71
 b8 versus 37
 -blinking rectangle
 245db2 call void char sub_64CE0(int a1)//245ce0
-
+24595b void sub_644F0(int a1, int a2, __int16 a3, __int16 a4, int a5, int a6, __int16 a7, int a8)//2454f0
 v void sub_644F0(int a1, int a2, __int16 a3, __int16 a4, int a5, int a6, __int16 a7, int a8)//2454f0
+
+difference:
+0x2c(44),0x2d(45)
