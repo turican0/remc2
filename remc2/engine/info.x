@@ -4160,3 +4160,23 @@ v void sub_644F0(int a1, int a2, __int16 a3, __int16 a4, int a5, int a6, __int16
 
 difference:
 0x2c(44),0x2d(45)
+
+-------------------
+pruchod 7
+x_D41A0_BYTEARRAY_0+0x9022//0x356038+0x9022
+c2 versus ee
+2d - signed int sub_1B8C0(Bit8u* a1)//1fc8c0
+83 - signed int sub_1B8C0(Bit8u* a1)//1fc8c0
+d8 - signed int sub_1B8C0(Bit8u* a1)//1fc8c0
+ee - signed int sub_1B8C0(Bit8u* a1)//1fc8c0
+
+8003
+9603 - 1fc9d8 call sub_1B8C0(Bit8u* a1)//1fc8c0
+--
+ac03
+--
+c203 - 1fc9d8 call sub_1B8C0(Bit8u* a1)//1fc8c0
+1ff2cf - char sub_1E1C0(Bit8u* a1, __int16 a2)//1ff1c0
+1ff02e - char sub_1E020(Bit8u* a1, __int16 a2)//1ff020
+
+porovnat x_DWORD_EA3E4
