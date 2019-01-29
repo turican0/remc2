@@ -4180,3 +4180,10 @@ c203 - 1fc9d8 call sub_1B8C0(Bit8u* a1)//1fc8c0
 1ff02e - char sub_1E020(Bit8u* a1, __int16 a2)//1ff020
 
 porovnat x_DWORD_EA3E4
+
+void sub_41A90_VGA_pallette_install(Bit8u* buffer)//222a90
+271c10 call Bit16s sub_90B27_VGA_pal_fadein_fadeout(Bit8u *newpalbuffer, Bit8u shadow_levels, bool singlestep)//271B27 init and nightfall
+void sub_47760(/*int a1,*/Bit32u user/* int a2, int a3*/)//228760
+fix:
+outbuffer[i] = x_BYTE_181544_oldpalbuffer[i] + (j* (newpalbuffer[i] - x_BYTE_181544_oldpalbuffer[i]) / shadow_levels);
+
