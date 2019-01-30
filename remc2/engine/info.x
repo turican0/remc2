@@ -4189,4 +4189,9 @@ outbuffer[i] = x_BYTE_181544_oldpalbuffer[i] + (j* (newpalbuffer[i] - x_BYTE_181
 
 2288da call void sub_47760(/*int a1,*/Bit32u user/* int a2, int a3*/)//228760
 
-
+0x1000 - ok
+0x13b5 - ok
+0x179c - ok
+0x1b83
+2d05
+0x1f00
