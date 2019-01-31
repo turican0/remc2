@@ -4195,3 +4195,17 @@ outbuffer[i] = x_BYTE_181544_oldpalbuffer[i] + (j* (newpalbuffer[i] - x_BYTE_181
 0x1b83
 2d05
 0x1f00
+
+-----------------------------
+krok2
+unk_1804B0ar+0x86 versus 3514b0+0x86
+4f versus 13
+---------
+array_E2A74+0x22 versus 2b3a74+0x22
+1e versus 32
+---------
+array_E2A74+0x21f versus 2b3a74+0x21f
+04 versus 00
+---------
+array_E2A74+0x246 versus 2b3a74+0x246
+76 versus 1e

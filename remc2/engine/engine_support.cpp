@@ -275,6 +275,14 @@ int test_D41A0_id_pointer(Bit32u adress) {
 	return 0;
 }
 
+int test_E2A74_id_pointer(Bit32u adress) {
+	if ((adress >= 0x246) && (adress < 0x247))return 1;
+	if ((adress >= 0x282) && (adress < 0x283))return 1;
+	if ((adress >= 0x2a0) && (adress < 0x2a1))return 1;
+
+	return 0;
+}
+
 Bit32u compare_with_snapshot_D41A0(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u size, Bit8u* origbyte, Bit8u* copybyte) {
 
 	char findnamec[500];
@@ -344,6 +352,55 @@ Bit32u compare_with_sequence_D41A0(char* filename, Bit8u* adress, Bit32u adressd
 	for (i = 0; i < size; i++)
 	{
 		int testx = test_D41A0_id_pointer(i);
+		if (testx == 1)
+		{
+			if (*(Bit32u*)&buffer[i])testa = true;
+			else testa = false;
+			if (*(Bit32u*)&adress[i])testb = true;
+			else testb = false;
+			if (testa != testb)
+			{
+				*origbyte = buffer[i];
+				*copybyte = adress[i];
+				break;
+			}
+			i += 3;
+		}
+		else if (testx == 0) {
+			if (buffer[i] != adress[i])
+			{
+				*origbyte = buffer[i];
+				*copybyte = adress[i];
+				break;
+			}
+		}
+	}
+
+	free(buffer);
+	fclose(fptestepc);
+	return(i);
+};
+
+Bit32u compare_with_sequence_array_E2A74(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u count, Bit32u size, Bit8u* origbyte, Bit8u* copybyte) {
+
+	char findnamec[500];
+	Bit8u* buffer = (Bit8u*)malloc(size);
+	FILE* fptestepc;
+	sprintf(findnamec, "c:/prenos/remc2/remc2/memimages/sequence-%s.bin", filename);
+	fopen_s(&fptestepc, findnamec, "rb");
+	if (fptestepc == NULL)
+	{
+		mydelay(100);
+		fopen_s(&fptestepc, findnamec, "rb");
+	}
+	fseek(fptestepc, count*size, SEEK_SET);
+
+	fread_s(buffer, size, 1, size, fptestepc);
+	int i;
+	bool testa, testb;
+	for (i = 0; i < size; i++)
+	{
+		int testx = test_E2A74_id_pointer(i);
 		if (testx == 1)
 		{
 			if (*(Bit32u*)&buffer[i])testa = true;
