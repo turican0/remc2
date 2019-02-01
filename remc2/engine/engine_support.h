@@ -100,7 +100,7 @@ typedef struct {
 	Bit8u byteindex_4;//x_D41A0_BYTEARRAY_4_struct.byteindex_4
 	Bit16u wordindex_6;//x_D41A0_BYTEARRAY_4_struct.wordindex_6
 	Bit16u wordindex_8;//x_D41A0_BYTEARRAY_4_struct.wordindex_8
-	Bit8u byteindex_10;//0xa//x_D41A0_BYTEARRAY_4_struct.byteindex_10
+	Bit8u byteindex_10;//0xa//x_D41A0_BYTEARRAY_4_struct.byteindex_10//show help
 	Bit8u byteindex_11;//0xb//x_D41A0_BYTEARRAY_4_struct.byteindex_11
 	Bit8u byteindexx_12;//0xc//x_D41A0_BYTEARRAY_4_struct.byteindex_12
 	Bit8u byteindex_13;//0xd//x_D41A0_BYTEARRAY_4_struct.byteindex_13
@@ -289,7 +289,7 @@ Bit32u compare_with_snapshot(char* filename, Bit8u* adress, Bit32u adressdos, Bi
 Bit32u compare_with_sequence(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u count, Bit32u size, Bit8u* origbyte, Bit8u* copybyte);
 Bit32u compare_with_snapshot_D41A0(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u size, Bit8u* origbyte, Bit8u* copybyte);
 Bit32u compare_with_sequence_D41A0(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u count, Bit32u size, Bit8u* origbyte, Bit8u* copybyte);
-Bit32u compare_with_sequence_array_E2A74(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u count, Bit32u size, Bit8u* origbyte, Bit8u* copybyte);
+Bit32u compare_with_sequence_array_E2A74(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u count, Bit32u size, Bit8u* origbyte, Bit8u* copybyte, int* posdiff);
 void writehex(Bit8u* buffer,Bit32u count);
 
 void mine_texts(char* filename, Bit32u adressdos, Bit32u count, char* outfilename);

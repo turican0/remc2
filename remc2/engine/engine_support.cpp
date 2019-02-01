@@ -381,7 +381,7 @@ Bit32u compare_with_sequence_D41A0(char* filename, Bit8u* adress, Bit32u adressd
 	return(i);
 };
 
-Bit32u compare_with_sequence_array_E2A74(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u count, Bit32u size, Bit8u* origbyte, Bit8u* copybyte) {
+Bit32u compare_with_sequence_array_E2A74(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u count, Bit32u size, Bit8u* origbyte, Bit8u* copybyte, int* posdiff) {
 
 	char findnamec[500];
 	Bit8u* buffer = (Bit8u*)malloc(size);
@@ -398,6 +398,7 @@ Bit32u compare_with_sequence_array_E2A74(char* filename, Bit8u* adress, Bit32u a
 	fread_s(buffer, size, 1, size, fptestepc);
 	int i;
 	bool testa, testb;
+	int diffindex=0;
 	for (i = 0; i < size; i++)
 	{
 		int testx = test_E2A74_id_pointer(i);
@@ -409,18 +410,20 @@ Bit32u compare_with_sequence_array_E2A74(char* filename, Bit8u* adress, Bit32u a
 			else testb = false;
 			if (testa != testb)
 			{
-				*origbyte = buffer[i];
-				*copybyte = adress[i];
-				break;
+				posdiff[diffindex] = i;
+				origbyte[diffindex] = buffer[i];
+				copybyte[diffindex++] = adress[i];
+				if(diffindex>=100)break;
 			}
 			i += 3;
 		}
 		else if (testx == 0) {
 			if (buffer[i] != adress[i])
 			{
-				*origbyte = buffer[i];
-				*copybyte = adress[i];
-				break;
+				posdiff[diffindex] = i;
+				origbyte[diffindex] = buffer[i];
+				copybyte[diffindex++] = adress[i];
+				if (diffindex >= 100)break;
 			}
 		}
 	}

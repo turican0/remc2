@@ -4209,3 +4209,26 @@ array_E2A74+0x21f versus 2b3a74+0x21f
 ---------
 array_E2A74+0x246 versus 2b3a74+0x246
 76 versus 1e
+---------
+array_E2A74+0x88d versus 2b3a74+0x88d
+76 versus 1e
+
+void sub_88B20()//269b20
+
+x_D41A0_BYTEARRAY_0[10] versus 0x38cf50+0xa
+1 versus 0
+23cd17
+
+---------
+array_E2A74+0x22 versus 2b3a74+0x22
+1e versus 1f
+
+Bit8u* sub_87B70()//268b70
+-----------------------------
+krok2
+unk_1804B0ar+0x7a versus 3514b0+0x7a
+0 versus 32
+
+void sub_884D0(int a1, __int16 a2, Bit8u* a3, char a4, char a5)//2694d0
+
+int sub_88450()//269450
