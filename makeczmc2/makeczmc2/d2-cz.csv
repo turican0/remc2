@@ -109,7 +109,7 @@ Kafkar: I see you have met your new neighbour, Vissuluth, Demon Lord of the Neth
 "Dawn rises over the City of Jathnar, the iniquitous den from which the lackeys of the Demon Lord do his bidding. Leave nothing standing here. Let nothing live."#"´Vıchod slunce nad mìstem Jathnar odkryl doupì zloèinu, plného loutek Pána Démonù. Vše zboø a nenech nic pøeít."#45#
 "Vissuluth's Citadel generates a shield which none of your spells can penetrate. But the catacombs beneath the ruins of Jathnar should still provide a way."#"Vissulutská Citadela tvoøí štít, kterım ádné z tvıch kouzel nepojde, ale skrz katakomby pod ostatky Jathnara by mìlo jít ještì projít."#46#
 "You found the way. I have asked so much and you have never faltered. But you must be ready to use everything you have learned in the battle ahead, for you have reached the citadel. And Vissuluth has returned."#"Našel jsi cestu. ádal jsem hodnì, ale tys mì nikdy nezklamal. Do nadcházející bitvy se pøiprav pouít všechno co ses nauèil. Dostal ses a k Citadele. A Vissuluth je tu zpìt."#47#
-"Fly towards my beacon."#"Le smìrem k mé znaèce."#48#
+"Fly towards my beacon."#"Dole k mé znaèce."#48#
 "Follow the path to the foot of the spire. There you will find a spell jar."#"Následuj cestu a k patì vìièky, najdeš tam kouzelnı svitek."#49#
 "These archers guard a spell jar. They must be vanquished."#"Tito luèištníci kouzelnı svitek chrání. Pora je."#50#
 "Build the strongest castle you can and fill it with mana."#"Postav si silnìjší hrad, a ho mùeš naplnit manou."#51#
@@ -222,7 +222,7 @@ I" fear there will more of these creatures to slay before your journey is done."
 "You have done it! Ye gods, you have done it. Master, it is I who will serve you, henceforth. Denizens of the Netherworld, hear me! Vissuluth is dead. All hail the new Lord of the Netherworlds"!#"Tys to udìlal! Boe, tys to udìlal! Mistøe, jsem to já, kdo ti a doteï slouil. Obyvatelé øíše Netherworls slyšte mì. Vissuluth je mrtvı, a ije novı Pán Netherworls!"#158#
 Your ability to cast %s has improved.#Tvoje schopnost sesílání %s se zlepšila.#159#
 FIREBALL#OHNIVÁ KOULE#160#
-POSSESS#OZNAÈENÍ#161#
+POSSESS#ZNAÈKOVAÈ#161#
 CASTLE#HRAD#162#
 SPEED UP#ZRYCHLENÍ#163#
 MORPH#PROMÌNA#164#
@@ -239,23 +239,23 @@ DUEL#DUEL#174#
 TREMOR#OTØES#175#
 CRATER#KRÁTER#176#
 EARTHQUAKE#ZEMÌTØESENÍ#177#
-VOLCANO#VULKÁN#178#
-SUMMON ARMY#POVOLÁNÍ ARMÁDY#179#
+VOLCANO#SOPKA#178#
+SUMMON ARMY#POVOLAT ARMÁDU#179#
 GRAVITY WELL#GRAVITAÈNÍ STUDNA#180#
-WHIRLWIND#TWISTER#181#
-FOOL'S MANA#BLÁZNOVA MANA#182#
+WHIRLWIND#TORNÁDO#181#
+FOOL'S MANA#KLAUNOVA MANA#182#
 MAGIC MINE#MAGICKÁ MINA#183#
 ALLIANCE#ALIANCE#184#
 CAVE IN#PROPAD#185#
 FireBall#Ohnivá Koule#186#
 Rapid Fire#Prudkı Oheò#187#
 Fire Storm#Ohnivá Bouøe#188#
-Possession#Oznaèení#189#
-Mana Magnet#Magnetická Mana#190#
-Mana Lock#Uzamknutá Mana#191#
+Possession#Znaèkovaè many#189#
+Mana Magnet#Magnetovaè many#190#
+Mana Lock#Uzamykaè many#191#
 Castle#Hrad#192#
-Fire Tower#Ohnivá Vì#193#
-Lightning Tower#Blesková Vì#194#
+Fire Tower#Ohnivı hrad#193#
+Lightning Tower#Bleskovı hrad#194#
 Speed Up#Zrychlení#195#
 Super Speed#SuperZrychlení#196#
 Super Speed II#MegaZrychlení#197#
@@ -266,12 +266,12 @@ Wyvern Morph#Wyverní Promìna#201#
 Heal#Léèení#202#
 Aid#Obvaz#203#
 Constitution#Znovuzrození#204#
-Shield#Štít#205#
-Shield II#SuperŠtít#206#
-Invulnerable#MegaŠtít#207#
+Shield#Ochrana#205#
+Shield II#Zakryt#206#
+Invulnerable#Štít#207#
 Lightning#Blesk#208#
-Thunderbolt#HromoBytí#209#
-Thunderstorm#HromoBouøe#210#
+Thunderbolt#Bouøka#209#
+Thunderstorm#HromoBytí#210#
 Rebound#Odraz#211#
 Rebound II#SuperOdraz#212#
 Amplify#Zesílení#213#
@@ -282,17 +282,17 @@ Teleport#Teleport#217#
 Teleport II#SuperTeleport#218#
 Castle Port#HradoPort#219#
 Invisible#Neviditelnost#220#
-Possess Invisible#Neviditelné Oznaèení#221#
-Attack Invisible#Neviditelnı Útok#222#
+Possess Invisible#Skryté znaèkování#221#
+Attack Invisible#Skrytı útok#222#
 Beyond Sight#Ostrozrak#223#
-See Invisible#Vidìt Neviditelné#224#
-See All#Vidìt Vše#225#
-Steal Mana#Kráde many#226#
-Double Steal#Dvojitá Kráde#227#
+See Invisible#Odkrytí neviditelnıch#224#
+See All#Odkrytí všeho#225#
+Steal Mana#Odcizení many#226#
+Double Steal#Kráde many#227#
 Burgle#Vyloupení#228#
-Duel#Duel#229#
-Mana Drain#Sát Manu#230#
-Health Drain#Sát zdraví#231#
+Duel#Souboj#229#
+Mana Drain#Vysát Manu#230#
+Health Drain#Vysát ivot#231#
 Tremor#Otøes#232#
 Tremor II#SuperOtøes#233#
 Tremor III#MegaOtøes#234#
@@ -302,9 +302,9 @@ Crater III#MegaKráter#237#
 Earthquake#Zemìtøesení#238#
 Earthquake II#SuperZemìtøesení#239#
 Earthquake III#MegaZemìtøesení#240#
-Volcano#Vulkán#241#
-Volcano II#SuperVulkán#242#
-Volcano III#MegaVulkán#243#
+Volcano#Sopka#241#
+Volcano II#SuperSopka#242#
+Volcano III#MegaSopka#243#
 Bee Army#Vèelí Armáda#244#
 Firefly Army#Svìtlušèí Armáda#245#
 Cymmerian Army#Cymmerianí Armáda#246#
@@ -312,21 +312,21 @@ Wyvern Army#Wyverní Armáda#247#
 Gravity Well#Gravitaèní Studna#248#
 Gravity Well II#Gravitaèní SuperStudna#249#
 Gravity Well III#Gravitaèní MegaStudna#250#
-Whirlwind#Twister#251#
-Whirlwind II#SuperTwister#252#
-Whirlwind III#MegaTwister#253#
-Fool's Mana#Bláznova Mana#254#
-Rapid Fire#Prudkı Oheò#255#
-Lightning Fire#Bleskovı Oheò#256#
+Whirlwind#Vír#251#
+Whirlwind II#Tornádo#252#
+Whirlwind III#Uragán#253#
+Fool's Mana#Klaunova Mana#254#
+Rapid Fire#hnoucí Oheò#255#
+Lightning Fire#Jiskøivı Oheò#256#
 Magic Mine#Magická Mina#257#
 Magic Mine II#Magická SuperMina#258#
 Magic Mine III#Magická MegaMina#259#
 Alliance#Aliance#260#
 Alliance II#SuperAliance#261#
 Alliance III#MegaAliance#262#
-Cave In#Propad#263#
-Cave In II#SuperPropad#264#
-Cave In III#MegaPropad#265#
+Cave In#Prohlubeò#263#
+Cave In II#Propad#264#
+Cave In III#Zøícení#265#
 I, Vissuluth, demon lord of the netherworlds, call upon the battle dead.#Já, Vissuluth, pán démonù z netherworlds, povolávám do bitvy mrtvé.#266#
 Ancient warriors, rise and march upon the domain of man. Kill them!#Starovìcí váleèníci, povstaòte a pojïte do øíše lidí. Zabte je!#267#
 Burn their cities to the ground! And as their armies fall before us,#Vypálím mìsta do základù! A a jejich vojska pøed mnou padnou,#268#
@@ -351,27 +351,27 @@ Press 'O' to show current objective#Stiskni tlaèítko "O" pro zobrazení aktuálníh
 You are here#Nacházíš se zde#287#
 Walls cannot be passed#Stìny jsou neprostupné#288#
 Press RETURN for large map#Stisk tlaèítka RETURN pøepne na velkou mapu#289#
-Your life is low, retreat for a while#Máš málo zdraví, na chvíli se stáhni#290#
+Your life is low, retreat for a while#Jsi vánì zranìnı, na chvíli uteè#290#
 Search for spells#Najdi kouzla#291#
 Search for fireball spell#Najdi kouzlo Ohnivé koule#292#
 Search for castle spell#Najdi kouzlo Hrad#293#
-Search for possession spell#Najdi kouzlo Oznaèení#294#
-Use fireball spell to destroy target#Kouzlem Ohnivá koule mùeš nièit nepøátele#295#
-Use possession spell to possess mana#Kouzlem Oznaèení získej manu#296#
+Search for possession spell#Najdi kouzlo Znaèkovaè#294#
+Use fireball spell to destroy target#Pomocí kouzla Ohnivá koule budeš bojovat#295#
+Use possession spell to possess mana#Pomocí kouzla Znaèkovaè získáš další manu#296#
 Use castle spell to build a safe haven#Kouzlo Hrad pouij k vybudování bezpeèného útoèištì#297#
 Press control for spell menu#Stisknutím tlaèítka Control se zobrazí vıbìr kouzel#298#
 Return to castle and recast castle spell#Vra se k hradu a pouij znovu kouzlo Hrad#299#
-Use cursor keys to move#Pohyb ovládáš šipkami#300#
-Use mouse to steer#Smìr letu øídíš myší#301#
+Use cursor keys to move#Pomocí šipek se pohybuješ#300#
+Use mouse to steer#Pomocí myši se rozhlííš#301#
 Your castle has been attacked#Tvùj hrad byl napaden#302#
-Cannot build castles too close to walls#Hrady nelze stavìt pøíliš blízko stìnám#303#
+Cannot build castles too close to walls#Hrady nelze stavìt tak blízko stìnám#303#
 Use Shift L to destroy your castle for building elsewhere#Pouitím tlaèítek Shift+L, se tvùj hrad znièí a pùjde postavit jinde#304#
-Press ALT for player information#Stisknìtím tlaèitka ALT se zobrazí informace o hráèích#305#
+Press ALT for player information#Stisknutím tlaèítka ALT se zobrazí informace o hráèích#305#
 Possess This Mana#Oznaè Tuto Manu#306#
-Destroy this for its mana#Zab ta zvíøata a získej z nich manu#307#
-Collect this spell by flying into it#Seber to kouzlo tak, e do nìj vletíš#308#
-Possess this building to increase your spells mana#Oznaè tuto budovu, a zvyš si tím kouzelnou manu#309#
-This stone restores your life#Tento kámen ti obnoví zdraví#310#
+Destroy this for its mana#Zab tato zvíøata a získej z nich manu#307#
+Collect this spell by flying into it#Seber toto kouzlo tím, e pøes nìj pøeletíš#308#
+Possess this building to increase your spells mana#Oznaèením budov, získáš další kouzelnou manu#309#
+This stone restores your life#U tohoto kamene se ti obnoví ivot#310#
 This is your balloon which collects your possessed mana#Zde je tvùj balón, kterı shromaïuje tvou oznaèenou manu#311#
 This is your castle#Zde je tvùj hrad#312#
 This is an enemy castle#Zde je nepøátelskı hrad#313#
@@ -385,28 +385,28 @@ Mana held by balloons#Mana obsaená v balónech#320#
 Number of balloons#Poèet balónù#321#
 Balloons life#Poškození balónù#322#
 Castle mana required#Stavba hradu vyaduje manu#323#
-This is your life#Ukazatel tvého zdraví#324#
-This is your spells mana#Ukazatel tvé many#325#
+This is your life#Mnoství tvého ivota#324#
+This is your spells mana#Mnoství tvé many#325#
 Click on LMB to cast this spell#Kliknutím na Levé Myšítko vyvoláš toto kouzlo#326#
 Click on RMB to cast this spell#Kliknutím na Pravé Myšitko vyvoláš toto kouzlo#327#
 Spell recharge and shots#Dobíjení a poèet seslání kouzel#328#
-Not enough mana to cast#Nestaèí natoèit mana#329#
-Selected spell level#Vybraná úroveò kouzla#330#
+Not enough mana to cast#K seslání kouzla ti chybí mana#329#
+Selected spell level#Souèasná úroveò kouzla#330#
 Spell Experience points#Zkušenosti kouzla#331#
 Not enough castled mana to use#Nedostateènì obsazené mana, které by bylo moné pouít#332#
 Achieved spell level#Dosaená úroveò kouzla#333#
-Your current objective is to collect mana#Tvùj souèasnı úkol je shromádit manu#334#
-Your current objective is to destroy a building#Tvùj souèasnı úkol je znièení budovy#335#
-Your current objective is to destroy buildings#Tvùj souèasnı úkol je znièení budov#336#
-Your current objective is to kill a creature#Tvùj souèasnı úkol je zabití potvory#337#
-Your current objective is to kill creatures#Tvùj souèasnı úkol je zabití potvor#338#
-Your current objective is to kill a player#Tvùj souèasnı úkol je zabití protihráèe#339#
-Your current objective is to kill all players#Tvùj souèasnı úkol je zabití protihráèù#340#
-Your current objective is to fly to a point#Tvùj souèasnı úkol je doletìt na místo#341#
-You must now fly to the exit point#Nyní bys mìl letìt k místo, kde je vıchod#342#
-Fly to here to complete objective#Pro splnìní úkolu, le sem#343#
+Your current objective is to collect mana#Tvım úkolem je nashromádit dostatek many#334#
+Your current objective is to destroy a building#Tvım úkolem je znièení budovy#335#
+Your current objective is to destroy buildings#Tvım úkolem je znièení budov#336#
+Your current objective is to kill a creature#Tvım úkolem je zabít potvory#337#
+Your current objective is to kill creatures#Tvım úkolem je zabít potvor#338#
+Your current objective is to kill a player#Tvım úkolem je zabít protihráèe#339#
+Your current objective is to kill all players#Tvım úkolem je zabít protihráèe#340#
+Your current objective is to fly to a point#Tvım úkolem je doletìt na urèené místo#341#
+You must now fly to the exit point#Teï musíš doletìt bránì z tohoto svìta#342#
+Fly to here to complete objective#Dole na toto místo#343#
 This is an objective target#Toto je tvùj úkol#344#
-Fly here to exit the level#A doletíš sem, dokonèíš tuto úroveò#345#
+Fly here to exit the level#A doletíš sem, opustíš tuto úroveò#345#
 Message stores#Zprávy jsou uloeny#346#
 To all players in view#Pro všechny hráèe v dohledu#347#
 To nearest player in view#Nejbliší hráè v dohledu#348#
@@ -440,7 +440,7 @@ is dead.#je mrtvı.#375#
 has rejoined.#se pøipojil.#376#
 Mana#Mana#377#
 Tasks completed#Úkoly byly dokonèeny#378#
-Fly to the exit point.#Le k vıchodu.#379#
+Fly to the exit point.#Le k bránì.#379#
 Press the space bar to continue.#Pokraèuj stiskem mezerníku.#380#
 speed normal#bìná rychlost#381#
 speed fast#zrychlení#382#
