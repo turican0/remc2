@@ -4360,3 +4360,9 @@ int sub_89830(x_WORD *a1)//26a830
 
 int sub_89520(signed __int16 *a1)//26a520
 int sub_89830(x_WORD *a1)//26a830
+
+unk_1804B0ar+0x1c
+void sub_87610()//268610
+
+void sub_884D0(int a1, __int16 a2, Bit8u* a3, char a4, char a5)//2694d0
+int sub_871F0()//2681f0
