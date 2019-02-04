@@ -4357,3 +4357,6 @@ int sub_89830(x_WORD *a1)//26a830
 
 3514cc 64
 268709 - void sub_87610()//268610
+
+int sub_89520(signed __int16 *a1)//26a520
+int sub_89830(x_WORD *a1)//26a830
