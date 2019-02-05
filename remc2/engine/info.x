@@ -4372,3 +4372,13 @@ void sub_51BB0_game_events(Bit8u* a1)//232bb0
 x_DWORD_E9C4C_langindexbuffer
 
 char sub_1A970_change_game_settings(char a1, int a2, int a3)//1fb970
+
+--
+unk_1804B0ar+0x1e
+
+Bit8u* sub_87B70()//268b70
+
+64003400 - ok
+30007a00 - ok
+30007800 - ok
+021c0020 - 

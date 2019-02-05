@@ -402,45 +402,45 @@ Your current objective is to kill a creature#Tvım úkolem je zabít potvory#337#
 Your current objective is to kill creatures#Tvım úkolem je zabít potvor#338#
 Your current objective is to kill a player#Tvım úkolem je zabít protihráèe#339#
 Your current objective is to kill all players#Tvım úkolem je zabít protihráèe#340#
-Your current objective is to fly to a point#Tvım úkolem je doletìt na urèené místo#341#
-You must now fly to the exit point#Teï musíš doletìt bránì z tohoto svìta#342#
+Your current objective is to fly to a point#Tvım úkolem je doletìt na oznaèené místo#341#
+You must now fly to the exit point#Teï musíš doletìt k portálu k portálu#342#
 Fly to here to complete objective#Dole na toto místo#343#
 This is an objective target#Toto je tvùj úkol#344#
-Fly here to exit the level#A doletíš sem, opustíš tuto úroveò#345#
+Fly here to exit the level#Le k portálu#345#
 Message stores#Zprávy jsou uloeny#346#
 To all players in view#Pro všechny hráèe v dohledu#347#
-To nearest player in view#Nejbliší hráè v dohledu#348#
+To nearest player in view#Nejblišímu hráèi v dohledu#348#
 To all players#Pro všechny hráèe#349#
 To specific players#K urèitım hráèùm#350#
 Message Recipients#Pøíjemci zpráv#351#
-Current spells mana value#Aktuální kouzla hodnota mana#352#
-Number of times you have killed %s#Poèet zabití %s#353#
+Current spells mana value#Mnoství many souèasného kouzla#352#
+Number of times you have killed %s#Poèet úmrtí %s#353#
 No Sound#Bez Hudby#354#
 No Music#Bez Zvuku#355#
 Yes/No#Ano/Ne#356#
-Shadows On#Stíny jsou Zapnuty#357#
-Shadows Off#Stíny jsou Vypnuty#358#
-Reflections On#Odrazy jsou Zapnuty#359#
-Reflections Off#Odrazy jsou Vypnuty#360#
-Soften On#Vyhlazení je Zapnuto#361#
-Soften Off#Vyhlazení je Vypnuto#362#
-Sky On#Nebe je Zapnuto#363#
-Sky Off#Nebe je Vypnuto#364#
-Icons and Map On#Ikony a Mapa jsou Zapnuty#365#
-Icons and Map Off#Ikony a Mapa jsou Vypnuty#366#
-Stereo Mode On#Stereo reim je Zapnut#367#
-Stereo Mode Off#Stereo reim je Vypnut#368#
-Light Speed Blur On#Slabé Rozmazání je Zapnuto#369#
-Heavy Speed Blur On#Silné Rozmazání je Zapnuto#370#
-Speed Blur Off#Blokování rychlosti vypnuto#371#
+Shadows On#Stíny Zapnuty#357#
+Shadows Off#Stíny Vypnuty#358#
+Reflections On#Odrazy Zapnuty#359#
+Reflections Off#Odrazy Vypnuty#360#
+Soften On#Vyhlazení Zapnuto#361#
+Soften Off#Vyhlazení Vypnuto#362#
+Sky On#Nebe Zapnuto#363#
+Sky Off#Nebe Vypnuto#364#
+Icons and Map On#Ikony a Mapa Zapnuty#365#
+Icons and Map Off#Ikony a Mapa Vypnuty#366#
+Stereo Mode On#Stereo reim Zapnut#367#
+Stereo Mode Off#Stereo reim Vypnut#368#
+Light Speed Blur On#Slabé Rozmáznutí Zapnuto#369#
+Heavy Speed Blur On#Silné Rozmáznutí Zapnuto#370#
+Speed Blur Off#Rozmáznutí Vypnuto#371#
 Hit Ratio#Pomìr úmrtí#372#
-Player Names#Názvy hráèù#373#
+Player Names#Jména hráèù#373#
 has died.#zemøel.#374#
 is dead.#je mrtvı.#375#
 has rejoined.#se pøipojil.#376#
 Mana#Mana#377#
 Tasks completed#Úkoly byly dokonèeny#378#
-Fly to the exit point.#Le k bránì.#379#
+Fly to the exit point.#Le k portálu.#379#
 Press the space bar to continue.#Pokraèuj stiskem mezerníku.#380#
 speed normal#bìná rychlost#381#
 speed fast#zrychlení#382#
@@ -486,10 +486,10 @@ Load#Nahrát#421#
 Save#Uloit#422#
 Load Level#Nahrát Úroveò#423#
 Save Level#Uloit Úroveò#424#
-Paused!#Pozastaveno!#425#
+Paused!#Hra Pozastavena!#425#
 Music Volume#Hlasitost Hudby#426#
 Sound Volume#Hlasitost Zvukù#427#
-Options#Monosti#428#
+Options#Nastavení#428#
 Failed#Selhání#429#
 Has Completed Objective.#Splnil Jsi Úkol#430#
 Has Completed All Objectives.#Splnil Jsi Všechny Úkoly#431#
@@ -513,15 +513,15 @@ Map screen#Zobrazit Mapu#448#
 Spell Menu#Nabídka Kouzel#449#
 Player Information#Informace O Hráèích#450#
 Spell Menu mark spells#Nabídka Kouzel vıbìr kouzel#451#
-Marked spells toggle forwards#Další vybrané kouzlo#452#
-Marked spells toggle backwards#Pøedchozí vybrané kouzlo#453#
+Marked spells toggle forwards#Vybrat pøedchozí kouzlo#452#
+Marked spells toggle backwards#Vybrat následující kouzlo#453#
 Click here to change language setting#Kliknutím Zde se Zmìní Jazyk#454#
 Exit language configuration screen#Odchod z Obrazovky Vıbìru Jazyka#455#
 Start multiplayer game#Spuštìní hry více hráèù#456#
 Exit mulitplayer session#Ukonèení relace více hráèù#457#
-Select next character#Vıbìr další postavy#458#
-Select previous character#Vıbìr pøedchozí postavy#459#
-Select multiplayer level#Vıbìr úrovnì pro hru více hráèù#460#
+Select next character#Vybrat další postavu#458#
+Select previous character#Vybrat pøedchozí postavu#459#
+Select multiplayer level#Vybrat úroveò pro hru více hráèù#460#
 Select joystick#Nastavení joysticku#461#
 Select joystick type#Nastavení typu joysticku#462#
 Configure Keyboard controls#Konfigurace Ovládání Klávesnicí#463#
