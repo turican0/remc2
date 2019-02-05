@@ -4366,3 +4366,9 @@ void sub_87610()//268610
 
 void sub_884D0(int a1, __int16 a2, Bit8u* a3, char a4, char a5)//2694d0
 int sub_871F0()//2681f0
+
+void sub_2CE30_pause_end_level(int a1, int a2)//20de30
+void sub_51BB0_game_events(Bit8u* a1)//232bb0
+x_DWORD_E9C4C_langindexbuffer
+
+char sub_1A970_change_game_settings(char a1, int a2, int a3)//1fb970
