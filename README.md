@@ -8,6 +8,10 @@ https://www.gog.com/game/magic_carpet_2_the_netherworlds<br />
 <br />
 simple dev blog:https://github.com/turican0/remc2/wiki<br />
 <br />
+## 0.29:<br />
+-fixed begin of game<br />
+-fixed help system<br />
+<br />
 ## 0.28:<br />
 -fixed first 110 frames!<br />
 <br />
