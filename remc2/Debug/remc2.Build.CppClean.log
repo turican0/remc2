@@ -1,5 +1,7 @@
+c:\prenos\remc2\remc2\debug\remc2.pch
 c:\prenos\remc2\remc2\debug\vc141.pdb
 c:\prenos\remc2\remc2\debug\vc141.idb
+c:\prenos\remc2\remc2\debug\stdafx.obj
 c:\prenos\remc2\remc2\debug\music_modplug.obj
 c:\prenos\remc2\remc2\debug\music_mikmod.obj
 c:\prenos\remc2\remc2\debug\music_midi_opn.obj
@@ -74,19 +76,15 @@ c:\prenos\remc2\remc2\debug\native_midi_haiku.obj
 c:\prenos\remc2\remc2\debug\opnmidi_sequencer.obj
 c:\prenos\remc2\remc2\debug\opnmidi_private.obj
 c:\prenos\remc2\remc2\debug\opnmidi_opn2.obj
-c:\prenos\remc2\remc2\debug\remc2.pch
-c:\prenos\remc2\remc2\debug\stdafx.obj
 c:\prenos\remc2\debug\remc2.ilk
 c:\prenos\remc2\debug\remc2.exe
 c:\prenos\remc2\debug\remc2.pdb
 c:\prenos\remc2\debug\remc2.lib
 c:\prenos\remc2\debug\remc2.exp
-c:\prenos\remc2\remc2\debug\sub_main.obj.enc
 c:\prenos\remc2\remc2\debug\remc2.tlog\cl.command.1.tlog
 c:\prenos\remc2\remc2\debug\remc2.tlog\cl.read.1.tlog
 c:\prenos\remc2\remc2\debug\remc2.tlog\cl.write.1.tlog
 c:\prenos\remc2\remc2\debug\remc2.tlog\link.command.1.tlog
-c:\prenos\remc2\remc2\debug\remc2.tlog\link.delete.1.tlog
 c:\prenos\remc2\remc2\debug\remc2.tlog\link.read.1.tlog
 c:\prenos\remc2\remc2\debug\remc2.tlog\link.write.1.tlog
 c:\prenos\remc2\remc2\debug\remc2.tlog\remc2.write.1u.tlog
