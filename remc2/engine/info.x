@@ -4382,3 +4382,14 @@ Bit8u* sub_87B70()//268b70
 30007a00 - ok
 30007800 - ok
 021c0020 - 
+
+&array_E2A74[0xad8]
+
+fix
+x_BYTE_180664
+char x_BYTE_18067C; // weak
+char x_BYTE_18068E; // weak
+char x_BYTE_180693; // weak
+char x_BYTE_180696; // weak
+char x_BYTE_18069A; // weak
+char x_BYTE_18069C; // weak

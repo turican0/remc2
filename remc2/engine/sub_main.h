@@ -238,8 +238,9 @@ int /*__fastcall*/ _wcpp_1_unwind_leave__93(x_DWORD, x_DWORD, x_DWORD, x_DWORD, 
 int /*__cdecl*/ _wcpp_1_unwind_leave__100(x_DWORD, x_DWORD);// weak
 //long _InterlockedExchange(long volatile * Target, long Value);
 int /*__cdecl*/ _wcpp_1_unwind_leave__98(x_DWORD);// weak
-x_DWORD /*__cdecl*/ dos_getvect(x_DWORD);// weak
-x_DWORD /*__cdecl*/ dos_setvect(x_DWORD, x_DWORD, x_DWORD);// weak
+//x_DWORD /*__cdecl*/ dos_getvect(x_DWORD);// weak
+void(*dos_getvect(x_DWORD number))();
+x_DWORD /*__cdecl*/ dos_setvect(x_DWORD number, void(*actcall)(), x_DWORD);// weak
 int /*__fastcall*/ _wcpp_1_unwind_leave__130(x_DWORD);// weak
 //unsigned char _BitScanReverse(unsigned long * Index, unsigned long Mask);
 void sub_8F920(Bit8u a1byte1, Bit8u a1byte2, Bit16s posx, Bit16s posy, Bit8u* a4, unsigned __int8 a5, char a6);
