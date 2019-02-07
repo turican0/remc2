@@ -1177,20 +1177,9 @@ Bit16u VGA_read_char_from_buffer() {
 	Bit16u loclastchar = lastchar;
 	lastchar = 0;
 	switch (loclastchar & 0xff00) {
-	case 0x4900://up
-		loclastchar = 0x4800;
+	case 0x1300://p
+		loclastchar = 0x1970;
 		break;
-	case 0x4e00://right
-		loclastchar = 0x4d00;
-		break;
-
-	case 0x5100://down
-		loclastchar = 0x5000;
-		break;
-	case 0x4c00://left
-		loclastchar = 0x4b00;
-		break;
-
 	case 0x1c00://enter
 	case 0x1d00://enter
 		loclastchar = 0x1c00;
@@ -1206,18 +1195,32 @@ Bit16u VGA_read_char_from_buffer() {
 		loclastchar = 0x2a00;
 		break;
 
-	case 0x3700://left shift
-		loclastchar = 0x3600;
-		break;
-
-	case 0x4000://.
-		loclastchar = 0x3400;
-		break;
-
 	case 0x3500:// /
 	case 0x3600:// /
 		loclastchar = 0x352f;
 		break;
+
+	case 0x3700://left shift
+		loclastchar = 0x3600;
+		break;
+	case 0x4000://.
+		loclastchar = 0x3400;
+		break;
+	case 0x4900://up
+		loclastchar = 0x4800;
+		break;
+	case 0x4e00://right
+		loclastchar = 0x4d00;
+		break;
+
+	case 0x5100://down
+		loclastchar = 0x5000;
+		break;
+	case 0x4c00://left
+		loclastchar = 0x4b00;
+		break;
 	}
+
+	
 	return loclastchar;
 }

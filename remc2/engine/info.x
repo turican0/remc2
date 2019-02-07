@@ -4393,3 +4393,23 @@ char x_BYTE_180693; // weak
 char x_BYTE_180696; // weak
 char x_BYTE_18069A; // weak
 char x_BYTE_18069C; // weak
+
+x_DWORD_180730_cursor_data
+82c714
+270aa0 call void sub_8F935_bitmap_draw_final(Bit8u a1byte1, Bit8u a1byte2, Bit16u tiley, int tilex, Bit8u* texture, Bit8u setbyte, char a6)//270935
+2708d7 call void sub_8F8B0_draw_bitmap320(Bit16s posx, Bit16s posy, posistruct temppstr)//2708B0
+26de71 call void sub_8CD27_set_cursor(posistruct a2)//26dd27
+1f9c2c call void sub_18BB0()//1f9bb0
+
+ca5d45-d1ae42 13 15
+fc5135
+e4002b
+
+17df70
+xy_DWORD_17DED4_spritestr[39]
+
+x_DWORD_EB394 - find - 2bc394
+
+Bit8u* v1102; // [esp+0h] [ebp-88h] - fix
+
+adress 1f9c12
