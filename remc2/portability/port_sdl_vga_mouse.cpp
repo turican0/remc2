@@ -15,6 +15,9 @@ SDL_Texture *texture = NULL;
 SDL_Surface *helper_surface = NULL;
 #endif
 
+Bit8u x_BYTE_1806E4; // weak//3516e4
+Bit8s x_BYTE_180664[128]; // idb
+
 SDL_Surface *screen;
 
 int width = 640;
@@ -852,10 +855,15 @@ int events()
 		case SDL_KEYDOWN:
 			pressed = true;
 			lastchar = (event.key.keysym.scancode << 8) + event.key.keysym.sym;
+			setPress(true, lastchar);
 			printf("Key press detected\n");//test
 			break;
 
 		case SDL_KEYUP:
+			lastchar = (event.key.keysym.scancode << 8) + event.key.keysym.sym;
+			setPress(false, lastchar);
+			//pressed = false;
+			//lastchar = (event.key.keysym.scancode << 8) + event.key.keysym.sym;
 			//pressed = false;
 			//lastchar = 0;
 			printf("Key release detected\n");//test
@@ -896,12 +904,12 @@ int events()
 				switch (buttonstate) {
 				case SDL_PRESSED:
 				{
-					buttonresult |= 8;
+					buttonresult |= 0x20;
 					break;
 				}
 				case SDL_RELEASED:
 				{
-					buttonresult |= 0x10;
+					buttonresult |= 0x40;
 					break;}
 				}
 				break;
@@ -911,12 +919,12 @@ int events()
 				switch (buttonstate) {
 				case SDL_PRESSED:
 				{
-					buttonresult |= 0x20;
+					buttonresult |= 0x8;
 					break;
 				}
 				case SDL_RELEASED:
 				{
-					buttonresult |= 0x40;
+					buttonresult |= 0x10;
 					break;}
 				}
 				break;
@@ -1172,10 +1180,8 @@ bool VGA_check_standart_input_status() {
 	pressed = false;
 	return locpressed;
 }
-Bit16u VGA_read_char_from_buffer() {
-	bool locpressed = pressed;
-	Bit16u loclastchar = lastchar;
-	lastchar = 0;
+
+Bit16u fixchar(Bit16u loclastchar) {
 	switch (loclastchar & 0xff00) {
 	case 0x1300://p
 		loclastchar = 0x1970;
@@ -1206,21 +1212,44 @@ Bit16u VGA_read_char_from_buffer() {
 	case 0x4000://.
 		loclastchar = 0x3400;
 		break;
+
 	case 0x4900://up
+	case 0x5200:
 		loclastchar = 0x4800;
 		break;
 	case 0x4e00://right
+	case 0x4f00:
 		loclastchar = 0x4d00;
 		break;
-
 	case 0x5100://down
 		loclastchar = 0x5000;
 		break;
-	case 0x4c00://left
+	case 0x5000://left
+	case 0x4c00:
 		loclastchar = 0x4b00;
 		break;
 	}
-
-	
 	return loclastchar;
+}
+Bit16u VGA_read_char_from_buffer() {
+	bool locpressed = pressed;
+	Bit16u loclastchar = lastchar;
+	lastchar = 0;
+	loclastchar = fixchar(loclastchar);
+	return loclastchar;
+}
+
+void setPress(bool locpressed, Bit16u loclastchar) {
+	loclastchar = fixchar(loclastchar);
+	
+	if (locpressed)
+	{
+		x_BYTE_1806E4 = (loclastchar & 0xff00) >> 8;// VGA_read_char_from_buffer();
+		x_BYTE_180664[x_BYTE_1806E4 & 0x7F] = x_BYTE_1806E4;
+	}
+	else
+	{
+		x_BYTE_180664[x_BYTE_1806E4 & 0x7F] = 0;
+	}
+
 }

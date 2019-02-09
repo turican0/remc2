@@ -4413,3 +4413,33 @@ x_DWORD_EB394 - find - 2bc394
 Bit8u* v1102; // [esp+0h] [ebp-88h] - fix
 
 adress 1f9c12
+
+void sub_693F0(Bit8u* a1)//24a3f0
+(__int16 *)&*xadataspellsdat.var28_begin_buffer[80 * *(char *)(a1 + 64) + 2 + 26 * *(char *)(a1 + 70)],
+
+2482e0
+
+filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct[x_BYTE_D419E]
+
+x_D41A0_BYTEARRAY_0[8589]->28
+versus
+3581c5->1f
+
+1fc123 call char sub_1A970_change_game_settings(char a1, int a2, int a3)//1fb970
+
+x_WORD_180660_VGA_type_resolution
+versus
+351660
+
+
+x_BYTE_EB3A8
+versus
+2bc3a8
+
+compare - *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] ==1
+x_DWORD_EA3E4[*(unsigned __int16 *)(2124 * *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] + x_D41A0_BYTEARRAY_0 + 11240)]
+
+void sub_752C0()//2562c0
+
+x_BYTE_180664
+versus

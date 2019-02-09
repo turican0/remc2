@@ -40,5 +40,9 @@ Bit16s VGA_get_shift_status();
 bool VGA_check_standart_input_status();
 Bit16u VGA_read_char_from_buffer();
 int VGA_Set_mouse(Bit16s a1, Bit16s a2);
+void setPress(bool locpressed, Bit16u loclastchar);
+
+extern Bit8u x_BYTE_1806E4; // weak//3516e4
+extern Bit8s x_BYTE_180664[128]; // idb
 
 #endif //PORT_SDL_VGA_MOUSE
