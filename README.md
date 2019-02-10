@@ -8,6 +8,11 @@ https://www.gog.com/game/magic_carpet_2_the_netherworlds<br />
 <br />
 simple dev blog:https://github.com/turican0/remc2/wiki<br />
 <br />
+## 0.30:<br />
+-fix in game menu(mostly)<br />
+-can fly over one level<br />
+(can not use spells, change reflections, resolutions, brigtness not and etc. not work)
+<br />
 ## 0.29:<br />
 -fixed begin of game<br />
 -fixed help system<br />
