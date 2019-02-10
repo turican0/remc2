@@ -1191,16 +1191,16 @@ Bit16u fixchar(Bit16u loclastchar) {
 		loclastchar = 0x1c00;
 		break;
 	case 0x1e00://ctrl
+	case 0xe000:
 		loclastchar = 0x1d00;
 		break;
 
-	case 0x3900://alt
-		loclastchar = 0x3800;
+	case 0x2900://esc
+		loclastchar = 0x011b;
 		break;
 	case 0x2b00://left shift
 		loclastchar = 0x2a00;
 		break;
-
 	case 0x3500:// /
 	case 0x3600:// /
 		loclastchar = 0x352f;
@@ -1209,6 +1209,13 @@ Bit16u fixchar(Bit16u loclastchar) {
 	case 0x3700://left shift
 		loclastchar = 0x3600;
 		break;
+
+	case 0x3900://alt
+		loclastchar = 0x3800;
+		break;
+	
+
+	
 	case 0x4000://.
 		loclastchar = 0x3400;
 		break;
@@ -1253,3 +1260,16 @@ void setPress(bool locpressed, Bit16u loclastchar) {
 	}
 
 }
+
+/*
+UP
+DOWN
+LEFT
+RIGHT
+ENTER
+CTRL //1d
+ALT
+LEFT SHIFT
+RIGHT SHIFT
+ALT
+*/

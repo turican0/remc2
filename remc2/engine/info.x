@@ -4443,3 +4443,10 @@ void sub_752C0()//2562c0
 
 x_BYTE_180664
 versus
+
+
+Bit32u sub_64E20(Bit8u* a1)//245e20
+
+x_WORD_1805C2 nesmi byt 7
+
+x_BYTE_E36D1 - musi byt 1
