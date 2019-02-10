@@ -142,12 +142,14 @@ typedef struct {
 	Bit8u byteindex_183;//0xb7//x_D41A0_BYTEARRAY_4_struct.byteindex_183
 	Bit8u byteindex_184;//0xb8//x_D41A0_BYTEARRAY_4_struct.byteindex_184
 	Bit8u byteindex_186;//0xba//x_D41A0_BYTEARRAY_4_struct.byteindex_186
-	Bit8u byteindex_188;//x_D41A0_BYTEARRAY_4_struct.byteindex_188
-	Bit8u byteindex_189;//x_D41A0_BYTEARRAY_4_struct.byteindex_189
-	Bit8u byteindex_190;//x_D41A0_BYTEARRAY_4_struct.byteindex_190
-	Bit8u byteindex_192;//0xc0//x_D41A0_BYTEARRAY_4_struct.byteindex_192
-	Bit8u byteindex_193;//0xc1//x_D41A0_BYTEARRAY_4_struct.byteindex_193
-	Bit8u byteindex_194;//0xc2//x_D41A0_BYTEARRAY_4_struct.byteindex_194
+	Bit32u dwordindex_188;//x_D41A0_BYTEARRAY_4_struct.byteindex_188
+	//Bit8u byteindex_189;//x_D41A0_BYTEARRAY_4_struct.byteindex_189
+	//Bit8u byteindex_190;//x_D41A0_BYTEARRAY_4_struct.byteindex_190
+
+	Bit32u dwordindex_192;//0xc0//x_D41A0_BYTEARRAY_4_struct.byteindex_192
+	//Bit8u byteindex_193;//0xc1//x_D41A0_BYTEARRAY_4_struct.byteindex_193
+	//Bit8u byteindex_194;//0xc2//x_D41A0_BYTEARRAY_4_struct.byteindex_194
+	
 	Bit8u byteindex_196;//0xc4//x_D41A0_BYTEARRAY_4_struct.byteindex_196
 	Bit8u transfer_rate_dwordindex_200;//0xc8//x_D41A0_BYTEARRAY_4_struct.transfer_rate_dwordindex_200
 	Bit8u byteindex_204;//0xCC//x_D41A0_BYTEARRAY_4_struct.byteindex_204
@@ -183,7 +185,7 @@ typedef struct {
 	Bit32u dwordindex_2388;//0x954//x_D41A0_BYTEARRAY_4_struct.dwordindex_2388
 	Bit32u dwordindex_2392;//0x958//x_D41A0_BYTEARRAY_4_struct.dwordindex_2392
 
-	Bit8u byteindex_8618;//0x21aa//x_D41A0_BYTEARRAY_4_struct.byteindex_8618
+	//Bit8u byteindex_8618;//0x21aa//x_D41A0_BYTEARRAY_4_struct.byteindex_8618
 	//Bit8u setting_38545;
 
 	Bit8u dwordindex_38396;//0x95FC//x_D41A0_BYTEARRAY_4_struct.dwordindex_38396

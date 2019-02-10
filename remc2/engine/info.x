@@ -4450,3 +4450,15 @@ Bit32u sub_64E20(Bit8u* a1)//245e20
 x_WORD_1805C2 nesmi byt 7
 
 x_BYTE_E36D1 - musi byt 1
+
+Bit32u dwordindex_188;//x_D41A0_BYTEARRAY_4_struct.byteindex_188
+	Bit8u byteindex_189;//x_D41A0_BYTEARRAY_4_struct.byteindex_189
+	Bit8u byteindex_190;//x_D41A0_BYTEARRAY_4_struct.byteindex_190
+
+	Bit8u byteindex_192;//0xc0//x_D41A0_BYTEARRAY_4_struct.byteindex_192
+	Bit8u byteindex_193;//0xc1//x_D41A0_BYTEARRAY_4_struct.byteindex_193
+	Bit8u byteindex_194;//0xc2//x_D41A0_BYTEARRAY_4_struct.byteindex_194
+
+x_D41A0_BYTEARRAY_4_struct.byteindex_8618 by melo byt 1
+
+char sub_1A970_change_game_settings(char a1, int a2, int a3)//1fb970
