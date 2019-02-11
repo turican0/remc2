@@ -101,9 +101,9 @@ typedef struct {
 	Bit16u wordindex_6;//x_D41A0_BYTEARRAY_4_struct.wordindex_6
 	Bit16u wordindex_8;//x_D41A0_BYTEARRAY_4_struct.wordindex_8
 	Bit8u byteindex_10;//0xa//x_D41A0_BYTEARRAY_4_struct.byteindex_10//show help
-	Bit8u byteindex_11;//0xb//x_D41A0_BYTEARRAY_4_struct.byteindex_11
-	Bit8u byteindexx_12;//0xc//x_D41A0_BYTEARRAY_4_struct.byteindex_12
-	Bit8u byteindex_13;//0xd//x_D41A0_BYTEARRAY_4_struct.byteindex_13
+	Bit8s byte_brightness_11;//0xb//x_D41A0_BYTEARRAY_4_struct.byteindex_11
+	Bit8s byte_brightness_12;//0xc//x_D41A0_BYTEARRAY_4_struct.byteindex_12
+	Bit8s byte_brightness_13;//0xd//x_D41A0_BYTEARRAY_4_struct.byteindex_13
 	Bit32u dwordindex_16;//0x10//x_D41A0_BYTEARRAY_4_struct.dwordindex_16
 	Bit8u setting_byte1_22;//x_D41A0_BYTEARRAY_4_struct.setting_byte1_22
 	Bit8u setting_byte2_23;//0x17//x_D41A0_BYTEARRAY_4_struct.setting_byte2_23

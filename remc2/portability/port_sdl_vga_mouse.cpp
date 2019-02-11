@@ -941,8 +941,12 @@ int events()
 	return 1;
 }
 
-int VGA_Set_mouse(Bit16s a1, Bit16s a2) {
+int VGA_Set_mouse(Bit16s x, Bit16s y) {
 	//mouse set cursor
+	//SDL_WarpMouseGlobal(x, y);
+	SDL_WarpMouseInWindow(gWindow, x, y);
+
+
 	return 0;
 };
 

@@ -4462,3 +4462,19 @@ Bit32u dwordindex_188;//x_D41A0_BYTEARRAY_4_struct.byteindex_188
 x_D41A0_BYTEARRAY_4_struct.byteindex_8618 by melo byt 1
 
 char sub_1A970_change_game_settings(char a1, int a2, int a3)//1fb970
+
+2124 * 1 + x_D41A0_BYTEARRAY_0 + 11240
+
+356044
+versus
+*(Bit16s*)&x_D41A0_BYTEARRAY_0[12]
+
+x_DWORD_17DB54_game_turn2
+versus
+34eb54
+
+247b30
+
+mezi
+case 0x246f60: {
+case 0x2482e0: {
