@@ -106,7 +106,7 @@ typedef struct {
 	Bit8s byte_brightness_13;//0xd//x_D41A0_BYTEARRAY_4_struct.byteindex_13
 	Bit32u dwordindex_16;//0x10//x_D41A0_BYTEARRAY_4_struct.dwordindex_16
 	Bit8u setting_byte1_22;//x_D41A0_BYTEARRAY_4_struct.setting_byte1_22
-	Bit8u setting_byte2_23;//0x17//x_D41A0_BYTEARRAY_4_struct.setting_byte2_23
+	Bit8s setting_byte2_23;//0x17//x_D41A0_BYTEARRAY_4_struct.setting_byte2_23
 	Bit8u setting_byte3_24;//cheats? 0x20==free spell//x_D41A0_BYTEARRAY_4_struct.setting_byte3_24
 	//spell on - 0x20
 	Bit8u setting_byte4_25;//cheats? 0x1==Invincability
