@@ -1186,57 +1186,56 @@ bool VGA_check_standart_input_status() {
 }
 
 Bit16u fixchar(Bit16u loclastchar) {
-	switch (loclastchar & 0xff00) {
-	case 0x1300://p
+	switch ((loclastchar & 0xff00)>>8) {
+	case SDL_SCANCODE_P://p
 		loclastchar = 0x1970;
 		break;
-	case 0x1c00://enter
-	case 0x1d00://enter
+	case SDL_SCANCODE_RETURN://enter
+	case SDL_SCANCODE_RETURN2://enter
 		loclastchar = 0x1c00;
 		break;
-	case 0x1e00://ctrl
-	case 0xe000:
+	case SDL_SCANCODE_LCTRL://ctrl
+	case SDL_SCANCODE_RCTRL:
 		loclastchar = 0x1d00;
 		break;
 
-	case 0x2900://esc
+	case SDL_SCANCODE_ESCAPE://esc
 		loclastchar = 0x011b;
 		break;
-	case 0x2b00://left shift
+	case SDL_SCANCODE_LSHIFT://left shift
 		loclastchar = 0x2a00;
 		break;
-	case 0x3500:// /
-	case 0x3600:// /
+	case SDL_SCANCODE_SLASH:// /
+	case SDL_SCANCODE_KP_DIVIDE:// /
 		loclastchar = 0x352f;
 		break;
 
-	case 0x3700://left shift
+	case SDL_SCANCODE_RSHIFT://left shift
 		loclastchar = 0x3600;
 		break;
 
-	case 0x3900://alt
+	case SDL_SCANCODE_LALT://alt
 		loclastchar = 0x3800;
 		break;
-	
 
+	case SDL_SCANCODE_SPACE://space
+		loclastchar = 0x3920;
+		break;
 	
-	case 0x4000://.
+	case SDL_SCANCODE_PERIOD://.
 		loclastchar = 0x3400;
 		break;
 
-	case 0x4900://up
-	case 0x5200:
+	case SDL_SCANCODE_UP://up
 		loclastchar = 0x4800;
 		break;
-	case 0x4e00://right
-	case 0x4f00:
+	case SDL_SCANCODE_RIGHT://right
 		loclastchar = 0x4d00;
 		break;
-	case 0x5100://down
+	case SDL_SCANCODE_DOWN://down
 		loclastchar = 0x5000;
 		break;
-	case 0x5000://left
-	case 0x4c00:
+	case SDL_SCANCODE_LEFT://left
 		loclastchar = 0x4b00;
 		break;
 	}

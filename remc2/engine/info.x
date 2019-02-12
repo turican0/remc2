@@ -4478,3 +4478,9 @@ versus
 mezi
 case 0x246f60: {
 case 0x2482e0: {
+
+if (v114[5] & 0x40)
+				*(x_BYTE *)(*(x_DWORD *)(v113 + 164) + 1112) = *(x_BYTE *)(v114 + 1);
+			if (v114[5] < 0 && !v18[2118])
+				v18[2118] = 1;
+			goto LABEL_215;
