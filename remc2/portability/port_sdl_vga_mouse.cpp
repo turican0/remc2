@@ -875,7 +875,7 @@ int events()
 			mouse_events(1, event.motion.x, event.motion.y);
 			break;
 		case SDL_MOUSEBUTTONDOWN:
-		case SDL_MOUSEBUTTONUP:
+		//case SDL_MOUSEBUTTONUP:
 			mousex = event.motion.x;
 			mousey = event.motion.y;
 
@@ -1259,9 +1259,14 @@ void setPress(bool locpressed, Bit16u loclastchar) {
 	}
 	else
 	{
-		x_BYTE_180664[x_BYTE_1806E4 & 0x7F] = 0;
+		x_BYTE_180664[((loclastchar & 0xff00) >> 8) & 0x7F] = 0;
 	}
 
+}
+
+void VGA_mouse_clear_keys() {
+	for (int i = 0; i < 128; i++)
+		x_BYTE_180664[i] = 0;
 }
 
 /*

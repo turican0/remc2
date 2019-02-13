@@ -454,7 +454,8 @@ Bit32u compare_with_sequence(char* filename, Bit8u* adress, Bit32u adressdos, Bi
 	}*/
 
 	fread_s(buffer, size, 1, size, fptestepc);
-	for (i = 0; i < size; i++)
+	for (i = size-1; i >0; i--)
+	//for (i = 0; i < size; i++)
 	{
 		if (buffer[i] != adress[i])
 		{
@@ -462,7 +463,7 @@ Bit32u compare_with_sequence(char* filename, Bit8u* adress, Bit32u adressdos, Bi
 			*copybyte = adress[i];
 			break;
 		}
-	}
+	}	
 
 	free(buffer);
 	fclose(fptestepc);

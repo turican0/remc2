@@ -4484,3 +4484,67 @@ if (v114[5] & 0x40)
 			if (v114[5] < 0 && !v18[2118])
 				v18[2118] = 1;
 			goto LABEL_215;
+
+x_WORD_EB398ar - position and rotation
+
+
+x_BYTE_EB39E_keys[0]
+x_WORD_1805C0
+x_D41A0_BYTEARRAY_0[10 * *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] + 28227]
+
+*(x_WORD *)(a1 + 28)
+------------------
+void sub_69640(Bit8u* a1)//24a640
+
+--------------------------
+x_DWORD_180628b_screen_buffer+0x2168(0x00)
+versus
+0x3aa0a4+0x2168(0x86)
+
+x_DWORD_180628b_screen_buffer+0x6ef9(0x00)
+versus
+0x3aa0a4+0x6ef9(0x86)
+
+
+cyklus3
+x_DWORD_180628b_screen_buffer+0xf99a(0x1f)
+versus
+0x3aa0a4+0xf99a(0xf7)
+
+&x_DWORD_E9C38_smalltit[0x1f40]
+x_WORD_15B4E0[0xda4f]
+
+void sub_51BB0_game_events(Bit8u* a1)//232bb0
+
+
+void sub_191B0(__int16 a1, char a2)//1fa1b0 //set spell
+
+
+if (v114[5] & 0x40)
+	*(x_BYTE *)(*(x_DWORD *)(v113 + 164) + 1112) = *(x_BYTE *)(v114 + 1);
+if (v114[5] < 0 && !v18[2118])
+	v18[2118] = 1;
+goto LABEL_215;
+
+LABEL_215:
+		v99 = *(x_DWORD *)(v113 + 164);
+		v100 = 2 * *(char *)(v114 + 3) - *(signed __int16 *)(v99 + 341);
+		*(x_WORD *)(v99 + 4) = (signed int)(v100 - (__CFSHL__(HIDWORD(v100), 2) + 4 * HIDWORD(v100))) >> 2;
+		v101 = *(x_DWORD *)(v113 + 164);
+		v102 = 2 * *(char *)(v114 + 4) - *(signed __int16 *)(v101 + 343);
+		LODWORD(v102) = (signed int)(v102 - (__CFSHL__(HIDWORD(v102), 2) + 4 * HIDWORD(v102))) >> 2;
+		HIDWORD(v102) = (int)v114;
+		*(x_WORD *)(v101 + 6) = v102;
+		**(x_DWORD **)(v113 + 164) = *(unsigned __int8 *)(HIDWORD(v102) + 5);
+		*(x_WORD *)(*(x_DWORD *)(v113 + 164) + 24) = *(x_WORD *)(v114 + 6);
+		*(x_WORD *)(*(x_DWORD *)(v113 + 164) + 26) = *(x_WORD *)(v114 + 8);
+		v103 = x_DWORD_EA3E4[*(unsigned __int16 *)(v18 + 10)];
+		sub_57B20(v18, v103);
+		if (*(x_BYTE *)(v18 + 2118))
+			sub_55C60(a1, (int)v103, v18);
+		a1 = v114;
+		v18 += 2124;
+		v104 = v116 + 1;
+		memset((void*)v114, 0, 10);
+		v116 = v104;
+		v114 = (Bit8u*)a1 + 10;
