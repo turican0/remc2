@@ -4548,3 +4548,27 @@ LABEL_215:
 		memset((void*)v114, 0, 10);
 		v116 = v104;
 		v114 = (Bit8u*)a1 + 10;
+
+v18 = x_D41A0_BYTEARRAY_0 + 11230; - projektily?
+
+x_DWORD_EA3E4[0x25a1]
+
+--------------------------
+x_DWORD_180628b_screen_buffer+0x2168(0x00)
+versus
+0x3aa0a4+0x2168(0x86)
+
+2230a1 - void sub_41BD3(unsigned int a1)//222bd3
+
+Bit8u x_BYTE_F6EE0_tablesx[0x14600];// (Bit8u*)&x_BYTE_F6EE0_tablesbuff;
+//2cbee0-0x4000=0x2c7ee0
+Bit8u x_BYTE_10B4E0[0x10000]; // idb// x_BYTE_10B1E0[0x300] //map array1
+//2DC4E0
+Bit8u x_BYTE_11B4E0[0x10000]; // idb						//map array2
+//2EC4E0
+Bit8u x_BYTE_12B4E0[0x10000]; // fix it -  weak				//map array3
+//2FC4E0
+Bit8u x_BYTE_13B4E0[0x10000]; // idb						//map array4
+//30C4E0
+__int16 x_WORD_15B4E0[0x20000]; // idb						//map array5
+//32C4E0
