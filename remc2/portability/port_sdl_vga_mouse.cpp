@@ -1187,6 +1187,27 @@ bool VGA_check_standart_input_status() {
 
 Bit16u fixchar(Bit16u loclastchar) {
 	switch ((loclastchar & 0xff00)>>8) {
+
+/*	case 0x13://r
+	case 0x19://p
+	case 0x1f: {//s
+	case 0x21: {//f
+	1a
+	1b
+	1c
+	17
+	01
+	39
+	2-9
+	20
+	1c
+	42
+	3b
+	43
+	2a
+	
+	*/
+
 	case SDL_SCANCODE_P://p
 		loclastchar = 0x1970;
 		break;
