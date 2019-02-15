@@ -8,6 +8,10 @@ https://www.gog.com/game/magic_carpet_2_the_netherworlds<br />
 <br />
 simple dev blog:https://github.com/turican0/remc2/wiki<br />
 <br />
+## 0.31:<br />
+-fixed all key(maybe :)<br />
+-fixed spells fire and posses<br />
+<br />
 ## 0.30:<br />
 -fix in game menu(mostly)<br />
 -can fly over one level<br />
