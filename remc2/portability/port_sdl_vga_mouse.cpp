@@ -875,7 +875,7 @@ int events()
 			mouse_events(1, event.motion.x, event.motion.y);
 			break;
 		case SDL_MOUSEBUTTONDOWN:
-		//case SDL_MOUSEBUTTONUP:
+		case SDL_MOUSEBUTTONUP:
 			mousex = event.motion.x;
 			mousey = event.motion.y;
 
