@@ -15,7 +15,7 @@ simple dev blog:https://github.com/turican0/remc2/wiki<br />
 ## 0.30:<br />
 -fix in game menu(mostly)<br />
 -can fly over one level<br />
-(can not use spells, change reflections, resolutions, brigtness not and etc. not work)
+(can not use spells, change reflections, resolutions, brigtness not and etc. not work)<br />
 <br />
 ## 0.29:<br />
 -fixed begin of game<br />
