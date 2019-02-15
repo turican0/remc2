@@ -1186,69 +1186,234 @@ bool VGA_check_standart_input_status() {
 }
 
 Bit16u fixchar(Bit16u loclastchar) {
-	switch ((loclastchar & 0xff00)>>8) {
+	switch ((loclastchar & 0xff00) >> 8) {
 
-/*	case 0x13://r
-	case 0x19://p
-	case 0x1f: {//s
-	case 0x21: {//f
-	1a
-	1b
-	1c
-	17
-	01
-	39
-	2-9
-	20
-	1c
-	42
-	3b
-	43
-	2a
-	
-	*/
+	case SDL_SCANCODE_ESCAPE://esc
+		loclastchar = 0x011b;
+		break;
 
+	case SDL_SCANCODE_1://1
+		loclastchar = 0x0231;
+		break;
+	case SDL_SCANCODE_2://2
+		loclastchar = 0x0332;
+		break;
+	case SDL_SCANCODE_3://3
+		loclastchar = 0x0433;
+		break;
+	case SDL_SCANCODE_4://4
+		loclastchar = 0x0534;
+		break;
+	case SDL_SCANCODE_5://5
+		loclastchar = 0x0635;
+		break;
+	case SDL_SCANCODE_6://6
+		loclastchar = 0x0736;
+		break;
+	case SDL_SCANCODE_7://7
+		loclastchar = 0x0837;
+		break;
+	case SDL_SCANCODE_8://8
+		loclastchar = 0x0938;
+		break;
+	case SDL_SCANCODE_9://9
+		loclastchar = 0x0a39;
+		break;
+	case SDL_SCANCODE_0://0
+		loclastchar = 0x0b30;
+		break;
+
+	case SDL_SCANCODE_MINUS://-
+	case SDL_SCANCODE_KP_MINUS:
+		loclastchar = 0x0c2d;
+		break;
+	case SDL_SCANCODE_EQUALS://=
+	case SDL_SCANCODE_KP_PLUS:
+		loclastchar = 0x0d3d;
+		break;
+	case SDL_SCANCODE_BACKSPACE://backspace
+		loclastchar = 0x0b30;
+		break;
+	case SDL_SCANCODE_TAB://tab
+	case SDL_SCANCODE_KP_TAB:
+		loclastchar = 0x0b30;
+		break;
+	case SDL_SCANCODE_Q://q
+		loclastchar = 0x1071;
+		break;
+	case SDL_SCANCODE_W://w
+		loclastchar = 0x1177;
+		break;
+	case SDL_SCANCODE_E://e
+		loclastchar = 0x1265;
+		break;
+	case SDL_SCANCODE_R://r
+		loclastchar = 0x1372;
+		break;
+	case SDL_SCANCODE_T://t
+		loclastchar = 0x1474;
+		break;
+	case SDL_SCANCODE_Y://y
+		loclastchar = 0x1579;
+		break;
+	case SDL_SCANCODE_U://u
+		loclastchar = 0x1675;
+		break;
+	case SDL_SCANCODE_I://i
+		loclastchar = 0x1769;
+		break;
+	case SDL_SCANCODE_O://o
+		loclastchar = 0x186f;
+		break;
 	case SDL_SCANCODE_P://p
 		loclastchar = 0x1970;
 		break;
+
+	case SDL_SCANCODE_LEFTBRACKET://[
+		loclastchar = 0x1a5b;
+		break;
+	case SDL_SCANCODE_RIGHTBRACKET://]
+		loclastchar = 0x1b5d;
+		break;
+
 	case SDL_SCANCODE_RETURN://enter
 	case SDL_SCANCODE_RETURN2://enter
-		loclastchar = 0x1c00;
+		loclastchar = 0x1c0d;
 		break;
 	case SDL_SCANCODE_LCTRL://ctrl
 	case SDL_SCANCODE_RCTRL:
 		loclastchar = 0x1d00;
 		break;
 
-	case SDL_SCANCODE_ESCAPE://esc
-		loclastchar = 0x011b;
+	case SDL_SCANCODE_A://a
+		loclastchar = 0x1e61;
 		break;
+	case SDL_SCANCODE_S://s
+		loclastchar = 0x1f73;
+		break;
+	case SDL_SCANCODE_D://d
+		loclastchar = 0x2064;
+		break;
+	case SDL_SCANCODE_F://f
+		loclastchar = 0x2166;
+		break;
+	case SDL_SCANCODE_G://g
+		loclastchar = 0x2267;
+		break;
+	case SDL_SCANCODE_H://h
+		loclastchar = 0x2368;
+		break;
+	case SDL_SCANCODE_J://j
+		loclastchar = 0x246a;
+		break;
+	case SDL_SCANCODE_K://k
+		loclastchar = 0x256b;
+		break;
+	case SDL_SCANCODE_L://l
+		loclastchar = 0x266c;
+		break;
+
+	case SDL_SCANCODE_SEMICOLON://;
+		loclastchar = 0x273b;
+		break;
+	case SDL_SCANCODE_APOSTROPHE://'
+		loclastchar = 0x2827;
+		break;
+	case SDL_SCANCODE_GRAVE://`
+		loclastchar = 0x2960;
+		break;
+
 	case SDL_SCANCODE_LSHIFT://left shift
 		loclastchar = 0x2a00;
 		break;
-	case SDL_SCANCODE_SLASH:// /
-	case SDL_SCANCODE_KP_DIVIDE:// /
+	case SDL_SCANCODE_BACKSLASH:// "\"
+		loclastchar = 0x2b5c;
+		break;
+
+	case SDL_SCANCODE_Z://z
+		loclastchar = 0x2c7a;
+		break;
+	case SDL_SCANCODE_X://x
+		loclastchar = 0x2d78;
+		break;
+	case SDL_SCANCODE_C://c
+		loclastchar = 0x2e63;
+		break;
+	case SDL_SCANCODE_V://v
+		loclastchar = 0x2f76;
+		break;
+	case SDL_SCANCODE_B://b
+		loclastchar = 0x3062;
+		break;
+	case SDL_SCANCODE_N://n
+		loclastchar = 0x316e;
+		break;
+	case SDL_SCANCODE_M://m
+		loclastchar = 0x326d;
+		break;
+	case SDL_SCANCODE_COMMA://,
+		loclastchar = 0x332c;
+		break;
+	case SDL_SCANCODE_PERIOD://.
+		loclastchar = 0x342e;
+		break;
+	case SDL_SCANCODE_SLASH:// "/"
 		loclastchar = 0x352f;
 		break;
 
-	case SDL_SCANCODE_RSHIFT://left shift
+	case SDL_SCANCODE_RSHIFT://right shift
 		loclastchar = 0x3600;
 		break;
 
 	case SDL_SCANCODE_LALT://alt
+	case SDL_SCANCODE_RALT:
 		loclastchar = 0x3800;
 		break;
 
 	case SDL_SCANCODE_SPACE://space
 		loclastchar = 0x3920;
 		break;
-	
-	case SDL_SCANCODE_PERIOD://.
-		loclastchar = 0x3400;
+
+	case SDL_SCANCODE_F1://f1
+		loclastchar = 0x3b00;
+		break;
+	case SDL_SCANCODE_F2://f2
+		loclastchar = 0x3c00;
+		break;
+	case SDL_SCANCODE_F3://f3
+		loclastchar = 0x3d00;
+		break;
+	case SDL_SCANCODE_F4://f4
+		loclastchar = 0x3e00;
+		break;
+	case SDL_SCANCODE_F5://f5
+		loclastchar = 0x3f00;
+		break;
+	case SDL_SCANCODE_F6://f6
+		loclastchar = 0x4000;
+		break;
+	case SDL_SCANCODE_F7://f7
+		loclastchar = 0x4100;
+		break;
+	case SDL_SCANCODE_F8://f8
+		loclastchar = 0x4200;
+		break;
+	case SDL_SCANCODE_F9://f9
+		loclastchar = 0x4300;
+		break;
+	case SDL_SCANCODE_F10://f10
+		loclastchar = 0x4400;
+		break;
+
+	case SDL_SCANCODE_HOME://home
+		loclastchar = 0x4700;
 		break;
 
 	case SDL_SCANCODE_UP://up
 		loclastchar = 0x4800;
+		break;
+	case SDL_SCANCODE_PAGEUP://pageup
+		loclastchar = 0x4900;
 		break;
 	case SDL_SCANCODE_RIGHT://right
 		loclastchar = 0x4d00;
@@ -1259,7 +1424,22 @@ Bit16u fixchar(Bit16u loclastchar) {
 	case SDL_SCANCODE_LEFT://left
 		loclastchar = 0x4b00;
 		break;
-	}
+	case SDL_SCANCODE_END://end
+		loclastchar = 0x4f00;
+		break;
+	case SDL_SCANCODE_PAGEDOWN://pagedown
+		loclastchar = 0x5000;
+		break;
+
+	case SDL_SCANCODE_INSERT://ins
+		loclastchar = 0x5200;
+		break;
+	case SDL_SCANCODE_DELETE://del
+		loclastchar = 0x5300;
+		break;
+
+}
+
 	return loclastchar;
 }
 Bit16u VGA_read_char_from_buffer() {
