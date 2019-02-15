@@ -4595,3 +4595,7 @@ versus
  0x1c-bc07
  246fbf - void sub_65F60(Bit8u* a1)//246f60
 
+ &x_D41A0_BYTEARRAY_0[0xf60a+4] versus 365642+4
+ je 30cd
+ ma byt 0414
+
