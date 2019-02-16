@@ -155,10 +155,10 @@ void support_begin() {
     //printbuffer2[0] = '\0';
 }
 void support_end() {
-    free(readbuffer);
-    free(printbuffer);//char* buffer; // [esp+0h] [ebp-2h]
-    free(printbuffer2);//char v11; // [esp+40h] [ebp+3Eh]
-	free(x_DWORD_180628b_screen_buffer);
+	if(readbuffer)free(readbuffer);
+	if(printbuffer)free(printbuffer);//char* buffer; // [esp+0h] [ebp-2h]
+    if(printbuffer2)free(printbuffer2);//char v11; // [esp+40h] [ebp+3Eh]
+	if(x_DWORD_180628b_screen_buffer)free(x_DWORD_180628b_screen_buffer);
 	//free(x_DWORD_E9C38_smalltit);
 	/*for (int i = 0;i < 0x1c;i++)
 		free(off_D918C[i]);*/
@@ -167,16 +167,16 @@ void support_end() {
 	free(dword_E9C30[2]);
 	free(dword_E9C30[4]);*/
 	//free(x_D41A0_BYTEARRAY_4_struct.player_name_57);
-	free(x_D41A0_BYTEARRAY_4_struct.savestring_89);
+	if(x_D41A0_BYTEARRAY_4_struct.savestring_89)delete(x_D41A0_BYTEARRAY_4_struct.savestring_89);
 
-	free(x_BYTE_14B4E0);
-	free(off_D41A8);
+	if(x_BYTE_14B4E0)delete(x_BYTE_14B4E0);
+	if(off_D41A8)delete(off_D41A8);
 
-	free(xy_DWORD_17DED4_spritestr);
-	free(xy_DWORD_17DEC0_spritestr);
-	free(xy_DWORD_17DEC8_spritestr);
+	if(xy_DWORD_17DED4_spritestr)delete(xy_DWORD_17DED4_spritestr);
+	if(xy_DWORD_17DEC0_spritestr)delete(xy_DWORD_17DEC0_spritestr);//fix +1 command
+	if(xy_DWORD_17DEC8_spritestr)delete(xy_DWORD_17DEC8_spritestr);
 
-	free(x_DWORD_D4188t_spritestr);
+	if(x_DWORD_D4188t_spritestr)delete(x_DWORD_D4188t_spritestr);
 }
 
 void loadfromsnapshot(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u size) {

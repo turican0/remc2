@@ -84,7 +84,7 @@ Vissuluth: I am free! And I smell the fear of mortal men.#Vissuluth: Koneènì jse
 Kafkar: Then you remember that promising apprentice you once introduced to the eldritch arts...#Kafkar: Nezapomeò, e tì mohu zasvìtit do kouzelnického umìní ...#20#
 Apprentice: No! Master?#Uèedník: Ne! Jste tu mistøe?#21#
 Kafkar: I see you have met your new neighbour, Vissuluth, Demon Lord of the Netherworlds.#Kafkar: Vidím, e jsi potkal našeho nového souseda, Vissulutha, Pána Démonù z Netherworlds.#22#
-"You must explore the outer Netherworlds while you learn its magic. Your first destination is the ancient city of Jahwl."#"Potøebuješ prozkoumat svìt Podsvìtí, a nauèit se nová kouzla. Zaèni s návštìvou starobylého mìsta Jahwl."#23#
+"You must explore the outer Netherworlds while you learn its magic. Your first destination is the ancient city of Jahwl."#"Musíš prozkoumat svìt Podsvìtí, a nauèit se nová kouzla. Zaèni s návštìvou starobylého mìsta Jahwl."#23#
 "Before Vissuluth's rule of the Netherworlds began, the island of Kopahk was occupied by the great sorceress, Payahandra. Go there and discover her lost spells."#"Pøedtím, ne Vissuluth ovládl øíši Netherworlds, byl ostrov Kopahk obsazen mocnou èarodìjnicí Payahandrou. Dostaò se na nìj a hledej její poztrácená kouzla."#24#
 "Nyphur is a shapechanger. I will send you to his lair to seek the source of his power. I warn you, he will not have left his domain weakly defended."#"Nyphur je Mìniè, posílám tì do jeho doupìte, najít zdroj jeho moci. Musím tì ale varovat, e ti své královsví nenechá zadarmo."#25#
 "A gift from the gods! Alas, it falls towards the netherworld of the spiders…"#"Dar od bohù! Bohuel, spadl poblí pavouèí øíše ..." #26#
@@ -109,9 +109,9 @@ Kafkar: I see you have met your new neighbour, Vissuluth, Demon Lord of the Neth
 "Dawn rises over the City of Jathnar, the iniquitous den from which the lackeys of the Demon Lord do his bidding. Leave nothing standing here. Let nothing live."#"´Vıchod slunce nad mìstem Jathnar odkryl doupì zloèinu, plného loutek Pána Démonù. Vše zboø a nenech nic pøeít."#45#
 "Vissuluth's Citadel generates a shield which none of your spells can penetrate. But the catacombs beneath the ruins of Jathnar should still provide a way."#"Vissulutská Citadela tvoøí štít, kterım ádné z tvıch kouzel nepojde, ale skrz katakomby pod ostatky Jathnara by mìlo jít ještì projít."#46#
 "You found the way. I have asked so much and you have never faltered. But you must be ready to use everything you have learned in the battle ahead, for you have reached the citadel. And Vissuluth has returned."#"Našel jsi cestu. ádal jsem hodnì, ale tys mì nikdy nezklamal. Do nadcházející bitvy se pøiprav pouít všechno co ses nauèil. Dostal ses a k Citadele. A Vissuluth je tu zpìt."#47#
-"Fly towards my beacon."#"Dole k mé znaèce."#48#
-"Follow the path to the foot of the spire. There you will find a spell jar."#"Následuj cestu a k patì vìièky, najdeš tam kouzelnı svitek."#49#
-"These archers guard a spell jar. They must be vanquished."#"Tito luèištníci kouzelnı svitek chrání. Pora je."#50#
+"Fly towards my beacon."#"Le na místo, kam ukazuje šipka."#48#
+"Follow the path to the foot of the spire. There you will find a spell jar."#"Le podél cestièky a k patì vìièky, kde najdeš kouzelnı svitek."#49#
+"These archers guard a spell jar. They must be vanquished."#"Luèištníci, kteøí kouzelnı svitek hlídali, se probudili. Musíš je zlikvidovat."#50#
 "Build the strongest castle you can and fill it with mana."#"Postav si silnìjší hrad, a ho mùeš naplnit manou."#51#
 "These fireflies are lethal. Destroy them."#"Toto jsou vraedné svìtlušky. Zniè je."#52#
 "The city of Jahwl is safe for now. Come, there is much more to do."#"Mìsto Jahwl je v bezpeèí. Pùjdeme tedy dále."#53#
@@ -131,7 +131,7 @@ Kafkar: I see you have met your new neighbour, Vissuluth, Demon Lord of the Neth
 "This is a good time to attack the spiders But beware their webs."#"Nastal èas zaútoèit na pavouky. Pozor na jejich pavuèiny."#67#
 "Once more, your determination proves its worth. Make your way to the portal. We must press on."#"Tvé odhodlání pøináší ovoce, Le k portálu. Musíme pokraèovat.“#68#
 "Rahn is weaker. Challenge him and banish him."#"Rahn je slabší, napadni ho a zlikviduj."#69#
-"Defend yourself against Nyphur."#"Bráò se proti Nyphurovi."#70#
+"Defend yourself against Nyphur."#"Braò se proti Nyphurovi."#70#
 "I hope your taste for victory over Vissuluth's lieutenants is not yet sated. Already they plan their revenge."#"Doufám, e jsi stále odhodlanı pøemoci Vissuluthovy. Chystají se ti pomstít."#71#
 "Send this creature to the grave where it belongs."#"Pošli tu pøíšeru do hrobu, kam patøí."#72#
 "I fear you have attracted some unwanted attention."#"Obávám se, e jsi pøilákal trošku nechtìné pozornosti."#73#
@@ -369,24 +369,24 @@ Use Shift L to destroy your castle for building elsewhere#Pouitím tlaèítek Shif
 Press ALT for player information#Stisknutím tlaèítka ALT se zobrazí informace o hráèích#305#
 Possess This Mana#Oznaè Tuto Manu#306#
 Destroy this for its mana#Zab tato zvíøata a získej z nich manu#307#
-Collect this spell by flying into it#Seber toto kouzlo tím, e pøes nìj pøeletíš#308#
-Possess this building to increase your spells mana#Oznaèením budov, získáš další kouzelnou manu#309#
+Collect this spell by flying into it#Seber toto kouzlo tím, e nad ním pøeletíš#308#
+Possess this building to increase your spells mana#Oznaèením budov, získáš více kouzelné many#309#
 This stone restores your life#U tohoto kamene se ti obnoví ivot#310#
-This is your balloon which collects your possessed mana#Zde je tvùj balón, kterı shromaïuje tvou oznaèenou manu#311#
-This is your castle#Zde je tvùj hrad#312#
-This is an enemy castle#Zde je nepøátelskı hrad#313#
-This is an enemy balloon#Zde je nepøátelskı balón#314#
+This is your balloon which collects your possessed mana#Toto je tvùj balón, kterı shromaïuje tebou oznaèenou manu#311#
+This is your castle#Toto je tvùj hrad#312#
+This is an enemy castle#Toto je nepøátelskı hrad#313#
+This is an enemy balloon#Toto je nepøátelskı balón#314#
 Marker stone#Znaèící kámen#315#
-This is an enemy player#Zde je nepøátelskı hráè#316#
+This is an enemy player#Toto je nepøátelskı hráè#316#
 Castled mana, current and capacity#Souèasná a maximální mana hradu#317#
-Castle life#Poškození hradu#318#
+Castle life#Stav tvého hradu#318#
 Current size of castle#Tøída velikosti hradu#319#
 Mana held by balloons#Mana obsaená v balónech#320#
-Number of balloons#Poèet balónù#321#
-Balloons life#Poškození balónù#322#
-Castle mana required#Stavba hradu vyaduje manu#323#
-This is your life#Mnoství tvého ivota#324#
-This is your spells mana#Mnoství tvé many#325#
+Number of balloons#Poèet tvıch balónù#321#
+Balloons life#Stav poškození balónù#322#
+Castle mana required#Stavba hradu vyaduje více many#323#
+This is your life#Stav tvého ivota#324#
+This is your spells mana#Stav tvé many#325#
 Click on LMB to cast this spell#Kliknutím na Levé Myšítko vyvoláš toto kouzlo#326#
 Click on RMB to cast this spell#Kliknutím na Pravé Myšitko vyvoláš toto kouzlo#327#
 Spell recharge and shots#Dobíjení a poèet seslání kouzel#328#
@@ -442,9 +442,9 @@ Mana#Mana#377#
 Tasks completed#Úkoly byly dokonèeny#378#
 Fly to the exit point.#Le k portálu.#379#
 Press the space bar to continue.#Pokraèuj stiskem mezerníku.#380#
-speed normal#bìná rychlost#381#
-speed fast#zrychlení#382#
-speed super fast#superzrychlení#383#
+speed normal#normální rychlost hry#381#
+speed fast#malé zrychlení hry#382#
+speed super fast#velké zrychlení hry#383#
 Creatures Killed#Potvor zabito#384#
 Accuracy#Pøesnost#385#
 Spells found#Byla nalezena kouzla#386#
@@ -461,10 +461,10 @@ Light Sources Off#Svìtelné Zdroje Vypnuty#396#
 New Spell Level#Nová Úroveò Kouzla#397#
 Flight Assistance On#Letovı Asistent Zapnut#398#
 Flight Assistance Off#Letovı Asistent Vypnut#399#
-Help Mode On#Reim Nápovìdy zapnut#400#
-Help Mode Off#Reim Nápovìdy Vypnut#401#
-Player Names On#Jména Hráèù Zapnuta#402#
-Player Names Off#Jména Hráèù Vypnuta#403#
+Help Mode On#Nápovìda Zapnuta#400#
+Help Mode Off#Nápovìda Vypnuta#401#
+Player Names On#Zobrazovat Jména Hráèù#402#
+Player Names Off#Nezobrazovat Jména Hráèù#403#
 Help#Nápovìda#404#
 Load a Save Game#Nahrát Uloenou Hru#405#
 Save Current Game#Uloit Souèasnou Hru#406#

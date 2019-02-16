@@ -4599,3 +4599,48 @@ versus
  je 30cd
  ma byt 0414
 
+
+ x_DWORD_E9C28
+ versus
+ 2bac28
+
+ 252319 call void sub_712F0()//2522f0
+
+ 2530c0 void sub_720C0(int *a1)//2530c0
+ void sub_713A0()//2523a0
+
+ x_BYTE_F3FA0 - pallette
+
+ castle procedures:
+ 22e900
+ 247b30
+ 22ba40
+ 240a70
+
+ fire proceudres:
+ 22e2e0
+ 246b30
+
+ 22fb50
+ 2133e0
+ 213160
+
+ fire tree
+ 22f5f0
+ 212760
+ 245f60
+
+ posses procedures
+ 22e3b0
+ 246f60
+
+ 22fbc0
+ 2130e0
+
+ splash procedures
+ 22f570
+ 2128b0
+
+
+ find this:
+ void sub_5FA70(Bit8u* a1)//240a70
