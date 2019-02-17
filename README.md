@@ -6,6 +6,8 @@ To start the game, it needs data from the original distribution, which you can d
 https://www.gog.com/game/magic_carpet_2_the_netherworlds<br />
 (or from any abbadone archive, if it is legal in your country)<br />
 <br />
+Now you can only compile only 32-bit binary version (64bit will be available after rewriting all arrays to structures).<br />
+<br />
 simple dev blog:https://github.com/turican0/remc2/wiki<br />
 <br />
 ## 0.31:<br />
