@@ -49,6 +49,7 @@ void SOUND_start_sequence(Bit32s sequence_num);
 void SOUND_pause_sequence(Bit32s sequence_num);
 void SOUND_stop_sequence(Bit32s sequence_num);
 void SOUND_resume_sequence(Bit32s sequence_num);
+Bit32u SOUND_sample_status(HSAMPLE S);
 //void test_midi_play(Bit8u* data, Bit8u* header, Bit32s track_number);
 
 

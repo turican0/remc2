@@ -385,6 +385,11 @@ void SOUND_start_sample(HSAMPLE S) {
 	Mix_PlayChannel(S->index_sample, &gamechunk[S->index_sample], 0);
 };
 
+Bit32u SOUND_sample_status(HSAMPLE S) {
+	if (Mix_Playing(S->index_sample)==0)return 2;
+	return 0;
+}
+
 void SOUND_end_sample(HSAMPLE S) {
 	Mix_HaltChannel(-1);
 };

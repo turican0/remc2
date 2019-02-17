@@ -107,6 +107,8 @@ posistruct* xy_DWORD_17DEC8_spritestr;
 
 posistruct* x_DWORD_D4188t_spritestr;
 
+posistruct* xy_DWORD_17DEC0_spritestr_orig;
+
 doublebyte doublebyte_conv(Bit16u a2) {
 	doublebyte result;
 	result.byte1 = a2 && 0xff;
@@ -144,7 +146,8 @@ void support_begin() {
 	memcpy(off_D41A8, &x_BYTE_14B4E0,4);
 
 	xy_DWORD_17DED4_spritestr = new posistruct[1000];
-	xy_DWORD_17DEC0_spritestr = new posistruct[1000];
+	xy_DWORD_17DEC0_spritestr_orig = new posistruct[1000];
+	xy_DWORD_17DEC0_spritestr=xy_DWORD_17DEC0_spritestr_orig;
 	xy_DWORD_17DEC8_spritestr = new posistruct[1000];
 
 	x_DWORD_D4188t_spritestr = new posistruct[1000];
@@ -173,7 +176,7 @@ void support_end() {
 	if(off_D41A8)delete(off_D41A8);
 
 	if(xy_DWORD_17DED4_spritestr)delete(xy_DWORD_17DED4_spritestr);
-	if(xy_DWORD_17DEC0_spritestr)delete(xy_DWORD_17DEC0_spritestr);//fix +1 command
+	if(xy_DWORD_17DEC0_spritestr_orig)delete(xy_DWORD_17DEC0_spritestr_orig);//fixed
 	if(xy_DWORD_17DEC8_spritestr)delete(xy_DWORD_17DEC8_spritestr);
 
 	if(x_DWORD_D4188t_spritestr)delete(x_DWORD_D4188t_spritestr);
