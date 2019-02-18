@@ -228,12 +228,12 @@ x_DWORD /*__cdecl*/ fix_filelength(x_DWORD);// weak
 x_DWORD /*__cdecl*/ settextposition(x_DWORD, x_DWORD);// weak
 x_DWORD /*__cdecl*/ outtext(char* text);// weak
 //x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);// weak
-int int386(int intno, REGS *inregs, REGS *outregs);
+//int int386(int intno, REGS *inregs, REGS *outregs);
 int /*__fastcall*/ gettextposition(x_DWORD, x_DWORD, x_DWORD);// weak
 x_DWORD /*__cdecl*/ signal(x_DWORD, x_DWORD);// weak
 //int __cdecl unknown_libname_1(char *a1);
-void _disable();
-void _enable();
+//void _disable();
+//void _enable();
 int /*__fastcall*/ _wcpp_1_unwind_leave__93(x_DWORD, x_DWORD, x_DWORD, x_DWORD, x_DWORD, x_DWORD);// weak
 int /*__cdecl*/ _wcpp_1_unwind_leave__100(x_DWORD, x_DWORD);// weak
 //long _InterlockedExchange(long volatile * Target, long Value);
@@ -248,7 +248,7 @@ void sub_8F935_bitmap_draw_final(Bit8u a1byte1, Bit8u a1byte2, Bit16u a2, int a3
 signed int sub_74767(signed __int16 *a1, x_BYTE *a2, Bit8u* a3);
 x_DWORD /*__cdecl*/ segread(SREGS*); //weak
 //x_DWORD /*__cdecl*/ int386x(x_DWORD, x_DWORD, x_DWORD, x_DWORD);// weak
-int int386x(int, REGS *, REGS *, struct SREGS *);
+//int int386x(int, REGS *, REGS *, struct SREGS *);
 unsigned char __readgsx_BYTE(unsigned long Offset);
 unsigned short __readgsx_WORD(unsigned long Offset);
 //int /*__fastcall*/ _wcpp_1_unwind_leave__131(x_DWORD);// weak

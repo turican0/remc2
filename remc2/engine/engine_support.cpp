@@ -81,6 +81,12 @@ Bit32s x_DWORD_D41A4_x9692 = -1;*/
 //Bit8u* x_DWORD_D41A0; // weak
 
 Bit8u* x_D41A0_BYTEARRAY_0;
+//12 - my be player counter(position of structure)
+//11244 - players(my by creatures, every 2124 lenght)
+//196302 - terrain input
+//196308 - sky and blocks
+
+
 //Bit8u* x_D41A0_BYTEARRAY_4;
 
 type_x_D41A0_BYTEARRAY_4_struct x_D41A0_BYTEARRAY_4_struct;

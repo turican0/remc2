@@ -45,4 +45,5 @@ int dos_getdrive(int* a);
 
 void get_exe_path(char*);
 
+unsigned __int64 dos_getdiskfree(__int16 a1, __int16 a2, Bit8u a, short* b);
 #endif //PORT_FILESYSTEM

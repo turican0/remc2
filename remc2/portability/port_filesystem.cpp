@@ -291,3 +291,83 @@ int dos_getdrive(int* a) {
 	*a = _getdrive();
 	return *a;
 };
+
+struct space_info
+{
+	// all values are byte counts
+	unsigned long capacity;
+	unsigned long free;      // <= capacity
+	unsigned long available; // <= free
+};
+//BOOST_FILESYSTEM_DECL
+space_info space(char* path, int* ec)
+{
+#   ifdef BOOST_POSIX_API
+	struct BOOST_STATVFS vfs;
+	space_info info;
+	if (!error(::BOOST_STATVFS(path, &vfs) ? BOOST_ERRNO : 0,
+		p, ec, "boost::filesystem::space"))
+	{
+		info.capacity
+			= static_cast<boost::uintmax_t>(vfs.f_blocks)* BOOST_STATVFS_F_FRSIZE;
+		info.free
+			= static_cast<boost::uintmax_t>(vfs.f_bfree)* BOOST_STATVFS_F_FRSIZE;
+		info.available
+			= static_cast<boost::uintmax_t>(vfs.f_bavail)* BOOST_STATVFS_F_FRSIZE;
+	}
+
+#   else
+	ULARGE_INTEGER avail, total, free;
+	space_info info;
+
+	//std::string charstring = "hello, world";
+
+	std::wstring widestring;
+
+	for (int i = 0; i < strlen(path); i++)
+		widestring += (wchar_t)path[i];
+
+	LPCWSTR lpcwpath = widestring.c_str();
+
+
+	if (GetDiskFreeSpaceExW(lpcwpath, &avail, &total, &free) != 0)
+	{
+		info.capacity
+			= ((total.HighPart) << 32)
+			+ total.LowPart;
+		info.free
+			= ((free.HighPart) << 32)
+			+ free.LowPart;
+		info.available
+			= ((avail.HighPart) << 32)
+			+ avail.LowPart;
+	}
+
+#   endif
+
+	else
+	{
+		info.capacity = info.free = info.available = 0;
+	}
+	return info;
+}
+
+unsigned __int64 dos_getdiskfree(__int16 a1, __int16 a2, Bit8u a, short* b) {
+	unsigned long wanted_size = 0;//fix it
+	char drivename[10];
+	sprintf(drivename, "%c:", (Bit8u)(a + 64));
+	int ec;
+	space_info myspaceinfo = space(drivename, &ec);
+	if (ec)
+		if (myspaceinfo.free > wanted_size)return 0;
+		else return 1;
+	else return 1;
+	/*
+	if ( (_WORD)b == -1 )
+	return _set_EINVAL(b, a3);
+	a4[0] = a;
+	a4[1] = a2;
+	a4[2] = b;
+	a4[3] = a1;
+	*/
+};

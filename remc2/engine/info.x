@@ -4634,7 +4634,7 @@ versus
  22e3b0
  246f60
 
- 22fbc0
+ 22f8c0
  2130e0
 
  splash procedures
@@ -4644,3 +4644,13 @@ versus
 
  find this:
  void sub_5FA70(Bit8u* a1)//240a70
+
+
+ player position:
+*(Bit16s*)(x_D41A0_BYTEARRAY_0 + 2124 * *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] + 14 * *(Bit16u*)(x_D41A0_BYTEARRAY_0 + 2124 * *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] + 11244) + 11709),//position of player
+*(Bit16s*)(x_D41A0_BYTEARRAY_0 + 2124 * *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] + 14 * *(Bit16u*)(x_D41A0_BYTEARRAY_0 + 2124 * *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] + 11244) + 11711),//position of player
+*(Bit16s*)(x_D41A0_BYTEARRAY_0 + 2124 * *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] + 14 * *(Bit16u*)(x_D41A0_BYTEARRAY_0 + 2124 * *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] + 11244) + 11715),//rotation of player z 
+*(Bit16s*)(x_D41A0_BYTEARRAY_0 + 2124 * *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] + 14 * *(Bit16u*)(x_D41A0_BYTEARRAY_0 + 2124 * *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] + 11244) + 11717),//rotation of player
+*(Bit16s*)(x_D41A0_BYTEARRAY_0 + 2124 * *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] + 14 * *(Bit16u*)(x_D41A0_BYTEARRAY_0 + 2124 * *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] + 11244) + 11719),//rotation of player
+
+
