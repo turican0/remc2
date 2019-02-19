@@ -10,6 +10,10 @@ Now you can only compile only 32-bit binary version (64bit will be available aft
 <br />
 simple dev blog:https://github.com/turican0/remc2/wiki<br />
 <br />
+## 0.32:<br />
+-fixed and rewriting many some structures<br />
+-begin of fixing castle creating<br />
+<br />
 ## 0.31:<br />
 -fixed all key(maybe :)<br />
 -fixed spells fire and posses<br />
