@@ -4654,3 +4654,18 @@ versus
 *(Bit16s*)(x_D41A0_BYTEARRAY_0 + 2124 * *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] + 14 * *(Bit16u*)(x_D41A0_BYTEARRAY_0 + 2124 * *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] + 11244) + 11719),//rotation of player
 
 
+
+*(Bit32u*)(&x_DWORD_D4C52ar[0x1856] + 6)
+0x2a5c52+0x1856+6
+misto 0x2130e0 tam dat 240a70
+
+
+-------------------
+x_DWORD_180628b_screen_buffer+ 0x21df
+versus
+3aa0a4+ 125d  b2(ma byt) versus  83
+
+compare
+x_BYTE_F6EE0_tablesx
+versus
+2cbee0
