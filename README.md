@@ -13,7 +13,6 @@ simple dev blog:https://github.com/turican0/remc2/wiki<br />
 ## 0.32:<br />
 -fixed and rewriting many some structures<br />
 -begin of fixing castle creating<br />
-Funny clip with incorrectly castle creating:<br />
 <br />
 ## 0.31:<br />
 -fixed all key(maybe :)<br />
