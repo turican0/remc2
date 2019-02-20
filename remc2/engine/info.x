@@ -4663,11 +4663,46 @@ misto 0x2130e0 tam dat 240a70
 -------------------
 x_DWORD_180628b_screen_buffer+ 0x21df
 versus
-3aa0a4+ 125d  b2(ma byt) versus  83
+3aa0a4+ 0x21df  b2(ma byt) versus  83
+
+3a-minimap
+63-minmap
+83-kriz
+
+83
+21d3db - 00
+2451b9 - 42 25 3b 3a
+2436c2 - 83
+--
+21d3db - 00
+2451b9 - 42 25 3b 3a
+2436c2 - 83
+---
+21d3db - 00
+223051 - 3e 3e 3e 3e
+2451b9 - 62 25 3b 39
+2436c2 - 83
+---
+21d3db - 00
+2451b9 - 42 25 3b 3a
+2436c2 - 83
+---
+21d3db - 00
+2451b9 - 42 25 3b 3a
+24342b - a4
+2436c2 - ff
+----
+21d3db - 00
+223051 - 3a 3a 3a 3a -ok
+2451b9 - 63 26 39 38 -ok
+242cdc - b2 - sem se to nedostane!
+---
 
 compare
 x_BYTE_F6EE0_tablesx
 versus
-2cbee0
+0x2c7ee0
 
 fix end //end 17B4E0
+
+test  sub_61A00_draw_minimap_entites_b asi 7 pruchod
