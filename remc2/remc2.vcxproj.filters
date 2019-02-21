@@ -318,6 +318,9 @@
     <ClInclude Include="engine\cd_utils.h">
       <Filter>Zdrojové soubory\engine</Filter>
     </ClInclude>
+    <ClInclude Include="engine\AIL_stub.h">
+      <Filter>Zdrojové soubory\engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -543,6 +546,9 @@
       <Filter>Zdrojové soubory\engine</Filter>
     </ClCompile>
     <ClCompile Include="engine\cd_utils.cpp">
+      <Filter>Zdrojové soubory\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\AIL_stub.cpp">
       <Filter>Zdrojové soubory\engine</Filter>
     </ClCompile>
   </ItemGroup>
