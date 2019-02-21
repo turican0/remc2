@@ -4706,3 +4706,40 @@ versus
 fix end //end 17B4E0
 
 test  sub_61A00_draw_minimap_entites_b asi 7 pruchod
+
+-------------------
+x_DWORD_180628b_screen_buffer+ 0x1415
+versus
+3aa0a4+ 0x1415  39(ma byt) versus  b0
+
+00
+63 63 a2 a2 - particles
+39 37  minimap
+17 -minimap ent
+b0 -minimap ent
+
+------------------------------------------pruchod 9
+x_D41A0_BYTEARRAY_0+0x1154e(0x12)
+versus
+ 356038+0x1154e(0x11)
+
+ -void sub_37BC0(Bit8u* a1)//218bc0 - 13
+ -void sub_37BC0(Bit8u* a1)//218bc0 - 12
+
+ 218be5 - 13
+ 218bf9 - 12
+ 367586 - 12
+
+ 218bfc - 11
+
+&x_D41A0_BYTEARRAY_0[0x1153e]
+
+x_D41A0_BYTEARRAY_0[0x1153e+0x45] - 0x2c
+versus  356038+0x1153e+0x45//11583
+
+Bit8u* sub_50370(Bit8u* a1)//231370
+void sub_60480(Bit8u* a1)//241480
+void sub_5F8F0(Bit8u* a1)//2408f0
+void sub_5FA70(Bit8u* a1)//240a70
+
+x_D41A0_BYTEARRAY_0[0x11496+0x45]-predtim
