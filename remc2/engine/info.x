@@ -4706,5 +4706,3 @@ versus
 fix end //end 17B4E0
 
 test  sub_61A00_draw_minimap_entites_b asi 7 pruchod
-
-xx
