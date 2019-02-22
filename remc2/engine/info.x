@@ -4742,4 +4742,8 @@ void sub_60480(Bit8u* a1)//241480
 void sub_5F8F0(Bit8u* a1)//2408f0
 void sub_5FA70(Bit8u* a1)//240a70
 
-x_D41A0_BYTEARRAY_0[0x11496+0x45]-predtim
+&x_D41A0_BYTEARRAY_0[0x11496+0x45]-predtim 0xc
+-return (int)sub_4E8C0(a1);//posses spell drop1
+-pod sub_65F60(a1);//fly possess projectile
+
+void sub_65F60(Bit8u* a1)//246f60 - test this

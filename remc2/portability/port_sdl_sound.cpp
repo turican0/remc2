@@ -90,6 +90,10 @@ void SOUND_resume_sequence(Bit32s sequence_num) {
 	Mix_ResumeMusic();
 };
 
+void SOUND_set_sequence_volume(Bit32s volume) {
+	Mix_VolumeMusic(volume);
+};
+
 void SOUND_init_MIDI_sequence(Bit8u* data, Bit8u* header, Bit32s track_number)
 {
 	Bit8u* acttrack = &header[32 + track_number * 32];
@@ -367,6 +371,19 @@ Bit32s ac_sound_call_driver(AIL_DRIVER* drvr, Bit32s fn, VDI_CALL* in, VDI_CALL*
 	//printf("drvr:%08X, fn:%08X, in:%08X, out:%08X\n", drvr, fn, in, out);
 	return 1;
 };
+
+void SOUND_set_master_volume(Bit32s volume) {
+	//gamechunk[S->index_sample].volume = volume;
+	Mix_Volume(-1, volume);
+	
+	//may be can fix - must analyze
+
+}
+
+void SOUND_set_sample_volume(HSAMPLE S, Bit32s volume) {
+	gamechunk[S->index_sample].volume = volume;
+	Mix_Volume(S->index_sample, volume);
+}
 
 void SOUND_start_sample(HSAMPLE S) {
 	if (hqsound)
