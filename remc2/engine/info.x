@@ -4719,7 +4719,7 @@ versus
 b0 -minimap ent
 
 ------------------------------------------pruchod 9
-x_D41A0_BYTEARRAY_0+0x1154e(0x12)
+x_D41A0_BYTEARRAY_0+0x1154e(0x12)-debugcounter11==9
 versus
  356038+0x1154e(0x11)
 
@@ -4734,7 +4734,7 @@ versus
 
 &x_D41A0_BYTEARRAY_0[0x1153e]
 
-x_D41A0_BYTEARRAY_0[0x1153e+0x45] - 0x2c
+&x_D41A0_BYTEARRAY_0[0x1153e+0x45] - 0x2c-debugcounter11==9
 versus  356038+0x1153e+0x45//11583
 
 Bit8u* sub_50370(Bit8u* a1)//231370
@@ -4742,8 +4742,186 @@ void sub_60480(Bit8u* a1)//241480
 void sub_5F8F0(Bit8u* a1)//2408f0
 void sub_5FA70(Bit8u* a1)//240a70
 
-&x_D41A0_BYTEARRAY_0[0x11496+0x45]-predtim 0xc
+&x_D41A0_BYTEARRAY_0[0x11496+0x45]-predtim 0xc-debugcounter11==8
+versus  356038+0x11496+0x45//114DB
+
 -return (int)sub_4E8C0(a1);//posses spell drop1
 -pod sub_65F60(a1);//fly possess projectile
 
 void sub_65F60(Bit8u* a1)//246f60 - test this
+
+
+367586 - 13
+218bfe - 12 call void sub_37BC0(Bit8u* a1)//218bc0
+
+13
+12
+13
+12
+
+------------------------------------------pruchod a
+x_DWORD_180628b_screen_buffer+ 0x1415
+versus
+3aa0a4+ 0x1415  39(ma byt) versus  b0
+------------------------------------------pruchod a
+x_D41A0_BYTEARRAY_0+0x7922(0xad)-debugcounter11==a
+versus
+356038+0x7922(0x3a)
+
+void sub_385C0(Bit8u* a1)//2195c0
+
+------------------------------------------pruchod a
+x_DWORD_180628b_screen_buffer+ 0x1a5a
+versus
+3aa0a4+ 0x1a5a  9e(ma byt) versus  3b
+
+7e 7e - particles
+7e 7e 43 43 -minimap
+3b 63 - minimap
+3b 63 a2 a2- minimap entites
+
+--------
+22304e - 3d 3d 24 24
+2451b9 - 63 3a 31 36
+--------
+223039 - 7e 7e 43 43
+2451b9 - 9e 3b 3c a2
+
+x_BYTE_10B4E0 - 2dc4e0
+x_BYTE_12B4E0 - 2fc4e0
+---------------------------------------pruchod 8
+x_BYTE_10B4E0+1(0x01)
+versus
+0x2dc4e0+1(0x24)
+x_BYTE_12B4E0(0x1e)
+versus
+0x2fc4e0(0x20)
+
+char sub_46570(unsigned __int16 a1, __int16 a2)//227570
+void sub_37BC0(Bit8u* a1)//218bc0
+
+2276b8 -2401
+
+---------------
+sub_46570
+0100-ok
+2500-ok
+2501-ok
+0101-ok
+2401-ok
+2425-ok
+242501-ne 012500
+240101
+242401
+242425
+24242501
+24240101
+24242401
+24242425
+24242401
+2424242401
+01242424
+27242424
+01242424
+01012424
+01272424
+01012424
+01010124
+01012724
+01010124
+01010101
+01010127
+01010101
+
+x_BYTE_11B4E0 - rozdil zde
+
+x_WORD_15B4E0 - zde je to ok
+
+void sub_37BC0(Bit8u* a1)//218bc0
+
+---------------------------------------pruchod 8
+x_BYTE_12B4E0+0xfe(0x1f)
+versus
+0x2fc4e0+0xfe(0x20)
+
+2277bf - call char sub_46570(unsigned __int16 a1, __int16 a2)//227570
+eax=ffff
+alah=0000
+218f79 - call void sub_37BC0(Bit8u* a1)//218bc0
+
+---------------------------------------pruchod 8
+x_BYTE_13B4E0+0x2fe(0x68)
+versus
+0x30c4e0+0x2fe(0x60)
+
+2277f2-toto je az pote
+
+---------------------------------pruchod 9
+x_BYTE_10B4E0(0x1)
+versus
+0x2dc4e0(0x0)
+char sub_46570(unsigned __int16 a1, __int16 a2)//227570
+0101 =1
+0124 =v14
+
+0124
+----
+2275cd - 0101
+2276b8 - 0124
+----
+0124
+
+---------------------------------pruchod b
+x_BYTE_13B4E0+0x2(0xc0)
+versus
+0x30c4e0+0x2(0x40)
+
+void sub_45DC0(Bit8u a1, Bit8u a2, unsigned __int16 a3, unsigned __int8 a4)//226dc0
+void sub_37BC0(Bit8u* a1)//218bc0 -  - problem uz zde
+40 18 48 38
+-----------
+40 10 48 38
+40 10 40 38
+c0 10 40 38
+c0 90 40 38
+
+40 18 48 38
+-----------
+
+--------------------- pruchod b
+x_BYTE_13B4E0+0x2(0xc0)
+versus
+30c4e0+0x2(0x40)
+
+--------------------- pruchod 7
+x_D41A0_BYTEARRAY_0 + 0x1158e(cc)
+versus
+0x356038 + 0x1158e (00)
+
+--------------------- pruchod 7
+x_D41A0_BYTEARRAY_0 + 0x115dc(40)
+versus
+0x356038 + 0x115dc (00)
+
+213520
+--------------------- pruchod 18
+x_D41A0_BYTEARRAY_0 + 0x115f6(ff)
+versus
+0x356038 + 0x115f6 (1)
+
+void sub_37BC0(Bit8u* a1)//218bc0
+01
+void sub_37BC0(Bit8u* a1)//218bc0
+=-1
+
+02
+------
+01 218bfc
+
+--------------------- pruchod 1a
+x_D41A0_BYTEARRAY_0 + 0x1156c(4)
+versus
+0x356038 + 0x1156c (2)
+
+238f10
+21922b call void sub_37BC0(Bit8u* a1)//218bc0
