@@ -299,5 +299,73 @@ Bit32u compare_with_sequence_x_DWORD_F2C20ar(char* filename, Bit8u* adress, Bit3
 void writehex(Bit8u* buffer,Bit32u count);
 
 void mine_texts(char* filename, Bit32u adressdos, Bit32u count, char* outfilename);
+#pragma pack (2)
+typedef struct {//lenght 8
+	Bit8u byte_0;//array_0x365F4
+	Bit8u byte_1;//array_0x365F5
+	Bit8u byte_2;//array_0x365F6
+	Bit8u byte_3;//array_0x365F7
+	Bit16s word_4;//array_0x365F8
+	Bit16s word_6;//array_0x365FC
+} type_str_0x365F4;
+
+typedef struct {//lenght 8
+	//Bit8u byte_0;//array_0x36479
+	Bit8u byte_0;//array_0x3647a
+	Bit8u byte_1;//array_0x3647b
+	Bit16s word_2;//array_0x3647c
+	Bit16s word_4;//array_0x3647e
+	Bit16s word_6;//array_0x36480
+
+} type_str_0x3647A;
+
+typedef struct {//lenght 20
+	Bit8u byte_0;//array_0x3030E
+	Bit8u byte_1;//array_0x3650F
+	Bit8u byte_2;//array_0x36510
+	Bit8u byte_3;//array_0x36511
+	Bit8u byte_4;//array_0x36512
+	Bit16s word_5;//array_0x36513
+	Bit8u stub[13];//array_0x36515	
+} type_str_0x3030E;
+
+typedef struct {//lenght 20
+	Bit8u byte_0;//array_0x3030E
+	Bit8u byte_1;//array_0x3650F
+	Bit8u byte_2;//array_0x36510
+	Bit8u byte_3;//array_0x36511
+	Bit8u byte_4;//array_0x36512
+	Bit16s word_5;//array_0x36513
+	Bit8u stub[13];//array_0x36515	
+} type_str_0x30325;
+
+typedef struct{//lenght 0x36e16
+	Bit16s word_12;//player_index?
+	Bit32s dword_565;
+
+	type_str_0x3030E array_0x3030E[0xb];//fix array lenght;
+
+	type_str_0x30325 array_0x30325[0x4af];
+////0x30325 0x360d1 tj rozdil 23980=1199*20
+
+	//36479
+	type_str_0x3647A array_0x3647A[0xb];//8x11	
+
+	type_str_0x365F4 array_0x365F4[0xb];//8x11	
+	Bit8s byte_0x36e00;
+
+	
+
+	//&x_D41A0_BYTEARRAY_0[197413]; ix < &x_D41A0_BYTEARRAY_0[221393]; ix += 20)
+
+	//type_str_0x365F2 array_str_0x365F2[0x10];//fix it
+	//*(0x365F2 + x_D41A0_BYTEARRAY_0 + 8 * (signed __int16)result + 2)
+
+} type_D41A0_BYTESTR_0;
+#pragma pack (0)
+extern type_D41A0_BYTESTR_0 D41A0_BYTESTR_0;
+
+void x_D41A0_BYTEARRAY_0_to_x_D41A0_BYTESTR_0();
+void x_D41A0_BYTESTR_0_to_x_D41A0_BYTEARRAY_0();
 
 #endif //ENGINE_SUPPORT_ACTIVE

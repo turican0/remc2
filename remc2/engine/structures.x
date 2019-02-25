@@ -55,4 +55,60 @@ x_DWORD_E9B20 =
 x_DWORD_E9C2C == BLOCK32DAT_BEGIN_BUFFER tj. pstr[psxadatablock32dat].var28_begin_buffer
 
 x_DWORD_F6ED0);//2c7ed0 == TMAPS00TAB_BEGIN_BUFFER
-		
+
+x_D41A0_BYTEARRAY_0
+*(x_BYTE *)(x_D41A0_BYTEARRAY_0 + v9 + 0x365F5) |= 2u;
+*(x_BYTE *)(x_D41A0_BYTEARRAY_0 + v10 + 0x365F5) |= 0x20u;
+*(x_BYTE *)(x_D41A0_BYTEARRAY_0 + v11 + 0x365F5) |= 0x40u;
+
+*(Bit16u*)(8 * v3+ &x_D41A0_BYTEARRAY_0[0x3647C]))
+*(x_BYTE *)(x_D41A0_BYTEARRAY_0 + 8 * (signed __int16)result + 0x365F6) = *(x_BYTE *)(8 * (signed __int16)result + a1 + 0x65AD)
+*(_WORD *)(&x_D41A0_BYTEARRAY_0[0x30313	+ 20 * *(_WORD *)(&x_D41A0_BYTEARRAY_0[0x3647c + 8 * v6])])
+
+if (x_D41A0_BYTEARRAY_0[8 * *(unsigned __int8 *)(a1 + 72) + 0x365F6])
+
+i - (&x_D41A0_BYTEARRAY_0[28302])) / 168;
+
+struct_28222{//lenght 10
+byte_28222
+byte_28223
+byte_28224_unk
+byte_28225
+byte_28226
+byte_28227_unk
+word_28228
+word_28230
+}
+
+struct_11230{//lenght 2124
+byte_11232 - setting1
+12149-rot1?
+byte_11286 - setting2 - resolution?
+12244-pos1?
+12568-rot2?
+12573-rot3?
+12593-pos2/rot4?
+byte_12286
+
+}
+
+struct_222539{//lenght 10
+byte_222541
+}
+
+struct_222620{//lenght 11
+byte_222620
+}
+
+x_D41A0_BYTEARRAY_0
+{
+struct_11232[8]
+struct_28222[8]
+
+struct_222539[8]
+struct_222620[8]
+}
+
+test:
+void sub_12100(Bit8u* a1, Bit8u* a2, char a3)//1f3100		
+void sub_11EE0(Bit8u* a1)//1f2ee0
