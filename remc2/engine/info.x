@@ -4932,3 +4932,13 @@ versus
 (x_D41A0_BYTEARRAY_0 + 2124 * *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] + 12568)-rotate 2
 (x_D41A0_BYTEARRAY_0 + 2124 * *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] + 12573)-rotate 3
 (x_D41A0_BYTEARRAY_0 + 2124 * *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] + 12593)-rotate 4
+
+void sub_17A00(Bit8u* a1, signed int a2, __int16 a3)//1f8a00
+
+--------------------- pruchod 1
+x_DWORD_180628b_screen_buffer + 0x2167(00)
+versus
+0x3aa0a4 + 0x2167 (86)
+
+2230a1 - call void sub_41BD3(unsigned int a1)//222bd3
+void sub_3E360_draw_particles(Bit8u* a1, Bit8u* a2)//21f360

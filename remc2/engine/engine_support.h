@@ -339,9 +339,29 @@ typedef struct {//lenght 20
 	Bit8u stub[13];//array_0x36515	
 } type_str_0x30325;
 
+typedef struct {//lenght 2124=0x84C
+	Bit8u byte_0;// 0x2BE0
+	Bit8u byte_1;// 0x2BE1
+	Bit8u byte_2;// 0x2BE2
+	Bit8u stub0[5];
+	Bit8u byte_8;// 0x2BE8
+	Bit8u stub1[0x3d4];
+	Bit8u byte_0x3dd;//0x3dd
+	Bit8u stub2[0x46e];// 0x2BE3
+} type_str_0x2BE0;
+
 typedef struct{//lenght 0x36e16
-	Bit16s word_12;//player_index?
-	Bit32s dword_565;
+	Bit16s word_0xc;//player_index?
+	Bit32s dword_0x235;//
+
+	
+	Bit8s byte_0x218D;
+	Bit8s byte_0x2190;
+
+	//x_D41A0_BYTEARRAY_0[2124 * D41A0_BYTESTR_0.word_12 + 11234])
+	//x_D41A0_BYTEARRAY_0[0x84C * D41A0_BYTESTR_0.word_12 + 0x2BE2])
+	type_str_0x2BE0 array_0x2BE0[0xb];
+	Bit8u byte_0x2FED4;//x_D41A0_BYTEARRAY_0[196308]
 
 	type_str_0x3030E array_0x3030E[0xb];//fix array lenght;
 

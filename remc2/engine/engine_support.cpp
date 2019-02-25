@@ -594,13 +594,23 @@ type_D41A0_BYTESTR_0 D41A0_BYTESTR_0;
 
 void x_D41A0_BYTEARRAY_0_to_x_D41A0_BYTESTR_0()
 {
-	D41A0_BYTESTR_0.word_12 = *(Bit16s*)&x_D41A0_BYTEARRAY_0[12];
-	D41A0_BYTESTR_0.dword_565= *(Bit32s*)&x_D41A0_BYTEARRAY_0[565];
+	D41A0_BYTESTR_0.word_0xc = *(Bit16s*)&x_D41A0_BYTEARRAY_0[0xc];
+	D41A0_BYTESTR_0.dword_0x235 = *(Bit32s*)&x_D41A0_BYTEARRAY_0[0x235];
+
+	D41A0_BYTESTR_0.byte_0x218D = x_D41A0_BYTEARRAY_0[0x218D];
+	D41A0_BYTESTR_0.byte_0x2190 = x_D41A0_BYTEARRAY_0[0x2190];
+
+	D41A0_BYTESTR_0.byte_0x2FED4 = x_D41A0_BYTEARRAY_0[0x2FED4];
+
 	D41A0_BYTESTR_0.byte_0x36e00 = x_D41A0_BYTEARRAY_0[0x36e00];
 	memcpy(D41A0_BYTESTR_0.array_0x365F4, &x_D41A0_BYTEARRAY_0[0x365F4],0x58);
 	for (int i = 0; i < 0xb; i++)//fix 0x1 to real count
 	{
-		memcpy(&D41A0_BYTESTR_0.array_0x3030E[i], &x_D41A0_BYTEARRAY_0[0x3030E + 8 * i], 0x20);
+		memcpy(&D41A0_BYTESTR_0.array_0x2BE0[i], &x_D41A0_BYTEARRAY_0[0x2BE2 + 0x84c * i], 0x84c);
+	}
+	for (int i = 0; i < 0xb; i++)//fix 0x1 to real count
+	{
+		memcpy(&D41A0_BYTESTR_0.array_0x3030E[i], &x_D41A0_BYTEARRAY_0[0x3030E + 20 * i], 0x20);
 	}
 	for (int i = 0; i < 0xb; i++)//fix 0x1 to real count
 	{
@@ -614,13 +624,23 @@ void x_D41A0_BYTEARRAY_0_to_x_D41A0_BYTESTR_0()
 
 void x_D41A0_BYTESTR_0_to_x_D41A0_BYTEARRAY_0()
 {
-	*(Bit16s*)&x_D41A0_BYTEARRAY_0[12]= D41A0_BYTESTR_0.word_12;
-	*(Bit32s*)&x_D41A0_BYTEARRAY_0[565] = D41A0_BYTESTR_0.dword_565;
+	*(Bit16s*)&x_D41A0_BYTEARRAY_0[0xc]= D41A0_BYTESTR_0.word_0xc;
+	*(Bit32s*)&x_D41A0_BYTEARRAY_0[0x235] = D41A0_BYTESTR_0.dword_0x235;
+
+	x_D41A0_BYTEARRAY_0[0x218D] = D41A0_BYTESTR_0.byte_0x218D;
+	x_D41A0_BYTEARRAY_0[0x2190] = D41A0_BYTESTR_0.byte_0x2190;
+
+	x_D41A0_BYTEARRAY_0[0x2FED4] = D41A0_BYTESTR_0.byte_0x2FED4;
+	
 	x_D41A0_BYTEARRAY_0[0x36e00]= D41A0_BYTESTR_0.byte_0x36e00;
 	memcpy(&x_D41A0_BYTEARRAY_0[0x365F4], D41A0_BYTESTR_0.array_0x365F4, 0x58);
 	for (int i = 0; i < 0xb; i++)//fix 0x1 to real count
 	{
-		memcpy(&x_D41A0_BYTEARRAY_0[0x3030E + 8 * i], &D41A0_BYTESTR_0.array_0x3030E[i], 0x20);
+		memcpy(&x_D41A0_BYTEARRAY_0[0x2BE2+ 0x84c * i], &D41A0_BYTESTR_0.array_0x2BE0[i], 0x84c);
+	}
+	for (int i = 0; i < 0xb; i++)//fix 0x1 to real count
+	{
+		memcpy(&x_D41A0_BYTEARRAY_0[0x3030E + 20 * i], &D41A0_BYTESTR_0.array_0x3030E[i], 0x20);
 	}
 	for (int i = 0; i < 0xb; i++)//fix 0x1 to real count
 	{

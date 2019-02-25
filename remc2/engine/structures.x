@@ -112,3 +112,5 @@ struct_222620[8]
 test:
 void sub_12100(Bit8u* a1, Bit8u* a2, char a3)//1f3100		
 void sub_11EE0(Bit8u* a1)//1f2ee0
+
+void sub_17A00(Bit8u* a1, signed int a2, __int16 a3)//1f8a00
