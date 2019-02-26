@@ -4950,3 +4950,20 @@ void sub_17060(__int16 a1, __int16 a2)//1f8060
 relativní x a y
 x_D41A0_BYTEARRAY_0[10 * D41A0_BYTESTR_0.word_0xc + 28225] = v3;
 x_D41A0_BYTEARRAY_0[10 * D41A0_BYTESTR_0.word_0xc + 28226] = v4;
+
+--------------------- pruchod 1
+x_DWORD_180628b_screen_buffer + 0xe051(38)
+versus
+0x3aa0a4 + 0xe051 (3a)
+
+--------------------- pruchod 8
+x_DWORD_180628b_screen_buffer + 0x5306(a2)
+versus
+0x3aa0a4 + 0x5306 (3d)
+
+--------------------
+3d - particles(sub_41BD3)
+3d 00 36 3c - particles(sub_41BD3)
+a2 00 36 3c - particles(sub_41BD3)
+a2 3d 36 3c - particles(sub_41BD3)
+a2 3d 36 64 - particles(sub_41BD3)
