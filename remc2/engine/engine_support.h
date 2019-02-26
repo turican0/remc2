@@ -350,6 +350,10 @@ typedef struct {//lenght 2124=0x84C
 	Bit8u stub2[0x46e];// 0x2BE3
 } type_str_0x2BE0;
 
+//11232 - byte
+//11240 - word
+//12286 - byte
+
 typedef struct{//lenght 0x36e16
 	Bit16s word_0xc;//player_index?
 	Bit32s dword_0x235;//
