@@ -402,7 +402,14 @@ typedef struct{//lenght 0x36e16
 	type_str_0x3647A array_0x3647A[0xb];//8x11	
 
 	type_str_0x365F4 array_0x365F4[0xb];//8x11	
-	Bit8s byte_0x36e00;
+
+	Bit8s byte_0x365FC;
+	Bit8s byte_0x365FD;
+	Bit16s word_0x365E0;
+
+	Bit8s byte_0x36E00;
+
+	
 
 	
 
