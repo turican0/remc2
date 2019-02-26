@@ -4945,3 +4945,8 @@ void sub_3E360_draw_particles(Bit8u* a1, Bit8u* a2)//21f360
 
 find it
 void sub_18F80(Bit8u* a1)//1f9f80
+
+void sub_17060(__int16 a1, __int16 a2)//1f8060
+relativní x a y
+x_D41A0_BYTEARRAY_0[10 * D41A0_BYTESTR_0.word_0xc + 28225] = v3;
+x_D41A0_BYTEARRAY_0[10 * D41A0_BYTESTR_0.word_0xc + 28226] = v4;
