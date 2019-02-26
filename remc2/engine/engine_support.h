@@ -340,22 +340,48 @@ typedef struct {//lenght 20
 } type_str_0x30325;
 
 typedef struct {//lenght 2124=0x84C
-	Bit8u byte_0;// 0x2BE0
-	Bit8u byte_1;// 0x2BE1
-	Bit8u byte_2;// 0x2BE2
-	Bit8u stub0[5];
-	Bit8u byte_8;// 0x2BE8
-	Bit8u stub1[0x3d4];
-	Bit8u byte_0x3dd;//0x3dd
-	Bit8u stub2[0x46e];// 0x2BE3
-} type_str_0x2BE0;
+	Bit8u byte_0x000_2BDE_11230;//0	//11230 - byte? - ne zacatek struktury
+	Bit8u byte_0x001_2BDF_11231_xx;
+	Bit8u byte_0x002_2BE0_11232;//2	//11232 - byte //2
+	Bit8u byte_0x003_2BE0_11233_xx;
+	Bit8u byte_0x004_2BE0_11234;//2	//11234 - byte //4
+	Bit8u byte_0x005_2BE0_11235_xx;
+	Bit8u byte_0x006_2BE4_11236;//6	//11236 - byte //6
+	Bit8u byte_0x007_2BE4_11237_xx;
+	Bit8u byte_0x008_2BE4_11238_xx;
+	Bit8u byte_0x009_2BE4_11239_xx;
+	Bit16u word_0x00a_2BE4_11240;//10 //11240 - word - index z EA3E4 //0xa
+	Bit8u stub[16];
+	Bit8s array_0x01c_2BFA_11258[49];//28//11258 - byte* jmeno2?
+	Bit16u word_0x04d_2C2B_11307;//77 //11307 - word
+	Bit16u word_0x04d_2C2D_11309;//79 //11309 - word
+	Bit8u stub2[846];
+	Bit8s array_0x39f_2BFA_12157[64];//927//12157 - byte(11230+927) 100% jmeno
+	Bit8u byte_0x3DF_2BE4_12221;//991//12221 - byte
+	Bit8u byte_0x3E0_2BE4_12222_xx;
+	Bit8u byte_0x3E1_2BE4_12223;//993//12223 - byte
+	Bit8u byte_0x3E2_2BE4_12224;//994//12224 - byte
+	Bit8u stub3[61];
+	Bit8u byte_0x420_2BE4_12286;//1056//12286 - byte
+	Bit8u stub4[1067];
+} type_str_0x2BDE;//11230
 
-//11232 - byte
-//11240 - word
+//11230 - byte? - ne zacatek struktury
+//11232 - byte //2
+//11236 - byte //6
+//11240 - word - index z EA3E4 //0xa
+//11258 - byte* jmeno?
+//11307 - word
+//11309 - word
+//12157 - byte(11230+927) 100% jmeno
+//12221 - byte
+//12223 - byte
+//12224 - byte
 //12286 - byte
 
 typedef struct{//lenght 0x36e16
 	Bit16s word_0xc;//player_index?
+	//word 0xe - 14
 	Bit32s dword_0x235;//
 
 	
@@ -364,7 +390,7 @@ typedef struct{//lenght 0x36e16
 
 	//x_D41A0_BYTEARRAY_0[2124 * D41A0_BYTESTR_0.word_12 + 11234])
 	//x_D41A0_BYTEARRAY_0[0x84C * D41A0_BYTESTR_0.word_12 + 0x2BE2])
-	type_str_0x2BE0 array_0x2BE0[0xb];
+	type_str_0x2BDE array_0x2BDE[0xb];
 	Bit8u byte_0x2FED4;//x_D41A0_BYTEARRAY_0[196308]
 
 	type_str_0x3030E array_0x3030E[0xb];//fix array lenght;

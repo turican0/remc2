@@ -4942,3 +4942,6 @@ versus
 
 2230a1 - call void sub_41BD3(unsigned int a1)//222bd3
 void sub_3E360_draw_particles(Bit8u* a1, Bit8u* a2)//21f360
+
+find it
+void sub_18F80(Bit8u* a1)//1f9f80
