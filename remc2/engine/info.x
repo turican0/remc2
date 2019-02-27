@@ -4967,3 +4967,24 @@ versus
 a2 00 36 3c - particles(sub_41BD3)
 a2 3d 36 3c - particles(sub_41BD3)
 a2 3d 36 64 - particles(sub_41BD3)
+
+38 00 00 00
+38 38 00 00
+38 38 3a 00
+
+orig:
+38 38 3a 3b
+299ab7 - sub_B6253_draw_quad
+3a 38 3a 3b
+223bd1 - particles
+remake:
+38 3a 3a 3b - 88
+particles -222bd3- sub_41BD3
+
+x_BYTE_F2CC6(01)
+versus
+2C3CC6(01)
+
+x_DWORD_F2C20ar[0x01] - typ rotace
+
+x_DWORD_F2C20ar[0x01] = v45;
