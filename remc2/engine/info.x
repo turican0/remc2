@@ -4988,3 +4988,34 @@ versus
 x_DWORD_F2C20ar[0x01] - typ rotace
 
 x_DWORD_F2C20ar[0x01] = v45;
+
+(Bit16s*)(&x_DWORD_E9C38_smalltit[45920])
+versus
+[2bac38]+b360=400604
+
+remake
+91
+
+orig
+91 - 223dba
+
+orig
+222bd3
+84 38 00 39
+2a 00 39 2a
+
+90 21 00 90
+21 00 90 21
+
+x_D41A0_BYTEARRAY_0[0x2f75+4] - rotation of player
+
+--------------------- pruchod 0
+x_DWORD_180628b_screen_buffer + 0xdf11(39)
+versus
+0x3aa0a4 + 0xdf11 (3b)
+
+39 - quad
+39 39 00 00 -quad
+39 39 39 00 - quad
+
+39 3b 39 39 - particles
