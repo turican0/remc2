@@ -5019,3 +5019,42 @@ versus
 39 39 39 00 - quad
 
 39 3b 39 39 - particles
+
+--------------------- pruchod 8
+x_DWORD_180628b_screen_buffer + 0x508e(a2)
+versus
+0x3aa0a4 + 0x508e (3d)
+
+3d
+a2 - particles
+
+x_DWORD_F2C20ar[0x10/4] = 8a
+
+x_DWORD_F2C20ar[0x27] by melo byt f5ff
+versus
+2c3cbc
+
+21cec8 call x_DWORD *sub_3B560(__int16 a1)//21c560
+
+v69 = *(Bit32s*)&x_DWORD_D9F50ar[v1*4];
+//2aaf50
+*(Bit32s*)&x_DWORD_D9F50ar[v1*4];
+v70 = *(Bit32s*)&x_DWORD_DA750ar[v1*4];
+//2ab750
+
+&x_DWORD_D9F50ar[1*4]
+versus
+2aaf50+4
+252426
+
+x_WORD_D951C
+
+void sub_71410_process_tmaps()//252410
+
+
+*(Bit16s*)&x_BYTE_D951C[
+
+test all x_BYTE_D951C
+fix:
+				v39 = (char*)&((*xadataspellsdat.var28_begin_buffer)[80 * v44 + 2 + 26 * v10]);
+				if (x_BYTE_D951C[0x12fd+80 * *(char *)(v9 + 64)] & 4)
