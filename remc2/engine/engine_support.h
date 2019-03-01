@@ -366,6 +366,7 @@ typedef struct {//lenght 2124=0x84C
 	Bit8u stub4[1067];
 } type_str_0x2BDE;//11230
 
+
 //11230 - byte? - ne zacatek struktury
 //11232 - byte //2
 //11236 - byte //6
@@ -379,14 +380,33 @@ typedef struct {//lenght 2124=0x84C
 //12224 - byte
 //12286 - byte
 
+
+typedef struct {//lenght 9377
+	Bit8u stub[9377];
+} type_str_0x24DF;
+
 typedef struct{//lenght 0x36e16
 	Bit16s word_0xc;//player_index?
 	//word 0xe - 14
-	Bit32s dword_0x235;//
+	Bit32s dword_0x235;//speed?
 
+	Bit8s byte_0x218A; //8586 reflections
 	
-	Bit8s byte_0x218D;
+	Bit8s byte_0x218B;//8587 shadows
+	Bit8s byte_0x218C;//8588 sky
+	Bit8s byte_0x218D;//8589 alter screen size
 	Bit8s byte_0x2190;
+
+	Bit8s byte_0x2196;//8598 lights
+
+
+	Bit8s byte_0x21AA;//8618 can reflections
+	Bit8s byte_0x21AB;//8619 can shadows
+	Bit8s byte_0x21AC;//8620 can sky
+	Bit8s byte_0x21B6;//8630 can lights
+	
+
+	/*??*/type_str_0x24DF array_0x24DF[0xb];//?lenght
 
 	//x_D41A0_BYTEARRAY_0[2124 * D41A0_BYTESTR_0.word_12 + 11234])
 	//x_D41A0_BYTEARRAY_0[0x84C * D41A0_BYTESTR_0.word_12 + 0x2BE2])
@@ -407,12 +427,18 @@ typedef struct{//lenght 0x36e16
 	Bit8s byte_0x365FD;
 	Bit16s word_0x365E0;
 
+	Bit8s byte_0x36DEA_fly_asistant;
+
+	Bit16s word_0x36DEC_mousex;
+	Bit16s word_0x36DEE_mousey;
+	Bit16s word_0x36DF1_mousexx;
+
+	Bit32s dword_0x36DF2;//index
+
 	Bit8s byte_0x36E00;
 
 	
-
 	
-
 	//&x_D41A0_BYTEARRAY_0[197413]; ix < &x_D41A0_BYTEARRAY_0[221393]; ix += 20)
 
 	//type_str_0x365F2 array_str_0x365F2[0x10];//fix it
