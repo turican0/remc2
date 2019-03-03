@@ -5123,3 +5123,5 @@ alias ((Bit8u*)x_DWORD_DDF50x)+0x1ec
 *(Bit32s*)(((Bit8u*)x_DWORD_DDF50x)+0x1ec)
 
 x_DWORD_DB350_ret
+
+void sub_2ECC0_draw_bottom_menu()//20fcc0
