@@ -5111,3 +5111,15 @@ versus 2acf38 - f5ff
 x_DWORD_E9C38_smalltit
 
 unk_D4350
+
+(Bit32s*)x_DWORD_DDF50[0x1a]+8
+(Bit32s*)x_DWORD_DDF50x[0x1a]+8
+
+BLOCK32DAT_BEGIN_BUFFER
+
+*(Bit32s*)x_DWORD_DDF50x[0x7b]
+alias ((Bit8u*)x_DWORD_DDF50x)+0x1ec
+
+*(Bit32s*)(((Bit8u*)x_DWORD_DDF50x)+0x1ec)
+
+x_DWORD_DB350_ret
