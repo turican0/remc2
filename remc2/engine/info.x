@@ -5128,3 +5128,5 @@ void sub_2ECC0_draw_bottom_menu()//20fcc0
 
 if(debugcounter==2)
 LOBYTE(unk_18058Cstr.x_DWORD_18059C) = unk_18058Cstr.x_DWORD_18059C | 0x10;
+
+26bc24 call int sub_89D10_analyze_keys()//26ad10

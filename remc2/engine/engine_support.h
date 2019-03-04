@@ -118,7 +118,7 @@ typedef struct {
 	Bit16u moviemvinumber_byte4_39;//x_D41A0_BYTEARRAY_4_struct.moviemvinumber_byte4_39
 	Bit8u levelnumber_43;//x_D41A0_BYTEARRAY_4_struct.levelnumber_43
 	Bit8u setting_45;
-	Bit8u byteindex_50;//0x32//x_D41A0_BYTEARRAY_4_struct.byteindex_50
+	Bit8s byteindex_50;//0x32//x_D41A0_BYTEARRAY_4_struct.byteindex_50
 	Bit8u byteindex_51;//0x33//x_D41A0_BYTEARRAY_4_struct.byteindex_51
 	Bit8u byteindex_52;//0x34//x_D41A0_BYTEARRAY_4_struct.byteindex_52
 	Bit8u byteindex_53;//0x35//x_D41A0_BYTEARRAY_4_struct.byteindex_53
