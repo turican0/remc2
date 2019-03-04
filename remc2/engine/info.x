@@ -5125,3 +5125,6 @@ alias ((Bit8u*)x_DWORD_DDF50x)+0x1ec
 x_DWORD_DB350_ret
 
 void sub_2ECC0_draw_bottom_menu()//20fcc0
+
+if(debugcounter==2)
+LOBYTE(unk_18058Cstr.x_DWORD_18059C) = unk_18058Cstr.x_DWORD_18059C | 0x10;
