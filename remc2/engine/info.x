@@ -5130,3 +5130,15 @@ if(debugcounter==2)
 LOBYTE(unk_18058Cstr.x_DWORD_18059C) = unk_18058Cstr.x_DWORD_18059C | 0x10;
 
 26bc24 call int sub_89D10_analyze_keys()//26ad10
+
+
+draw spell:
+sub_2BB40_draw_bitmap(a1, a2, filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct[(*(char *)(a3 + 64) + 123)]);
+
+x_WORD_D93C0_bldgprmbuffer[0x13f+v54]
+versus
+2aa4ff
+
+char x_BYTE_D94FF[29]
+
+01020304050607..

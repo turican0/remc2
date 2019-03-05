@@ -41,6 +41,8 @@
 //#include <dir.h>
 #include <io.h>  
 
+#include <vld.h>
+
 #include "../portability/port_outputs.h"
 
 //#include <sys/statvfs.h>
