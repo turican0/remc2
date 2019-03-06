@@ -40,6 +40,9 @@
     <Filter Include="Zdrojové soubory\libs\inih">
       <UniqueIdentifier>{88c3818e-fa9e-47cd-9191-d23071ee450d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Zdrojové soubory\libs\VLD">
+      <UniqueIdentifier>{02abf87b-ff7c-44da-a526-393812b76394}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -568,5 +571,10 @@
     <None Include="..\Debug\config.ini">
       <Filter>Zdrojové soubory</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="..\..\..\Program Files (x86)\Visual Leak Detector\lib\Win32\vld.lib">
+      <Filter>Zdrojové soubory\libs\VLD</Filter>
+    </Library>
   </ItemGroup>
 </Project>
