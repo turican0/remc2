@@ -5142,3 +5142,9 @@ versus
 char x_BYTE_D94FF[29]
 
 01020304050607..
+
+int sub_89920(x_WORD *a1, __int16 a2, Bit8u* a3)//26a920
+draw spell text
+
+find in this
+void sub_87610()//268610

@@ -336,9 +336,6 @@
     <None Include="engine\info.x" />
     <None Include="engine\structures.x" />
   </ItemGroup>
-  <ItemGroup>
-    <Library Include="..\..\..\Program Files (x86)\Visual Leak Detector\lib\Win32\vld.lib" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

@@ -41,7 +41,7 @@
 //#include <dir.h>
 #include <io.h>  
 
-#include <vld.h>//only for debug
+//#include <vld.h>//only for debug
 
 #include "../portability/port_outputs.h"
 

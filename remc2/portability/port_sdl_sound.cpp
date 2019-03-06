@@ -11,7 +11,7 @@ char oggmusicpath[512];
 
 //The music that will be played
 //Mix_Music *music = NULL;
-Mix_Music* GAME_music[10] = { NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL };
+Mix_Music* GAME_music[20] = { NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL };
 //Mix_Chunk* GAME_musicmp3[10] = { NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL };
 
 //The sound effects that will be used
@@ -54,6 +54,10 @@ void test_midi_play(Bit8u* data, Bit8u* header, Bit32s track_number)
 	SDL_RWops* rwmidi = SDL_RWFromMem(outmidi, pMidLength);
 #ifdef USE_SDL2
 	//Timidity_Init();
+	if (track_number > 20)
+	{
+		exit(0);
+	}
 	GAME_music[track_number] = Mix_LoadMUSType_RW(rwmidi, MUS_MID, SDL_TRUE);
 	//music2 = Mix_LoadMUSType_RW(rwmidi, MIX_MUSIC_TIMIDITY, SDL_TRUE);
 #else
@@ -135,6 +139,9 @@ void SOUND_init_MIDI_sequence(Bit8u* data, Bit8u* header, Bit32s track_number)
 			{
 				sprintf(buffer2, "%salternative\\cave\\", oggmusicpath);				
 			}
+			else
+				sprintf(buffer2, "%salternative\\cave\\", oggmusicpath);
+
 			helpdirsstruct = getListDir(buffer2);
 			if (helpdirsstruct.number > 0)
 			{
