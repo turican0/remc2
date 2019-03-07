@@ -395,7 +395,7 @@ typedef struct {//lenght 0x6604u
 	//36479
 	type_str_0x3647A array_0x3647A[0xb];//8x11	
 	//konec 6604
-} type_str_2FECE;
+} type_str_2FECE;//compress level 
 
 typedef struct{//lenght 0x36e16
 	Bit16s word_0xc;//player_index?

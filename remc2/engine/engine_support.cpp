@@ -122,12 +122,16 @@ doublebyte doublebyte_conv(Bit16u a2) {
 	return result;
 };
 
+Bit8u* pre_x_DWORD_180628b_screen_buffer;
+
 void support_begin() {
     readbuffer = (Bit8u*)malloc(1000000);//fix it max 64000
     printbuffer = (char*)malloc(4096);
     //printbuffer[0] = '\0';
     printbuffer2 = (char*)malloc(4096);
-	x_DWORD_180628b_screen_buffer = (Bit8u*)malloc(320000);
+	pre_x_DWORD_180628b_screen_buffer = (Bit8u*)malloc(420000);
+	//x_DWORD_180628b_screen_buffer = (Bit8u*)malloc(320000);
+	x_DWORD_180628b_screen_buffer = &pre_x_DWORD_180628b_screen_buffer[100000];
 
 	//x_DWORD_E9C38_smalltit= (Bit8u*)malloc(64000);
 	//x_D41A0_BYTEARRAY_4_0xDE_heapbuffer= (Bit8u*)malloc(64000);
@@ -167,7 +171,7 @@ void support_end() {
 	if(readbuffer)free(readbuffer);
 	if(printbuffer)free(printbuffer);//char* buffer; // [esp+0h] [ebp-2h]
     if(printbuffer2)free(printbuffer2);//char v11; // [esp+40h] [ebp+3Eh]
-	if(x_DWORD_180628b_screen_buffer)free(x_DWORD_180628b_screen_buffer);
+	if(pre_x_DWORD_180628b_screen_buffer)free(pre_x_DWORD_180628b_screen_buffer);
 	//free(x_DWORD_E9C38_smalltit);
 	/*for (int i = 0;i < 0x1c;i++)
 		free(off_D918C[i]);*/
@@ -661,7 +665,7 @@ void x_D41A0_BYTEARRAY_0_to_x_D41A0_BYTESTR_0()
 	D41A0_BYTESTR_0.byte_0x218D = x_D41A0_BYTEARRAY_0[0x218D];
 	D41A0_BYTESTR_0.byte_0x2190 = x_D41A0_BYTEARRAY_0[0x2190];
 
-	D41A0_BYTESTR_0.byte_0x2FED4 = x_D41A0_BYTEARRAY_0[0x2FED4];
+	D41A0_BYTESTR_0.str_2FECE.byte_0x2FED4 = x_D41A0_BYTEARRAY_0[0x2FED4];
 
 	D41A0_BYTESTR_0.byte_0x365FC = x_D41A0_BYTEARRAY_0[0x365FC];
 	D41A0_BYTESTR_0.byte_0x365FD = x_D41A0_BYTEARRAY_0[0x365FD];
@@ -676,11 +680,11 @@ void x_D41A0_BYTEARRAY_0_to_x_D41A0_BYTESTR_0()
 	}
 	for (int i = 0; i < 0xb; i++)//fix 0x1 to real count
 	{
-		memcpy(&D41A0_BYTESTR_0.array_0x3030E[i], &x_D41A0_BYTEARRAY_0[0x3030E + 20 * i], 0x20);
+		memcpy(&D41A0_BYTESTR_0.str_2FECE.array_0x3030E[i], &x_D41A0_BYTEARRAY_0[0x3030E + 20 * i], 0x20);
 	}
 	for (int i = 0; i < 0xb; i++)//fix 0x1 to real count
 	{
-		memcpy(&D41A0_BYTESTR_0.array_0x3647A[i], &x_D41A0_BYTEARRAY_0[0x3647A + 8 * i], 0x8);
+		memcpy(&D41A0_BYTESTR_0.str_2FECE.array_0x3647A[i], &x_D41A0_BYTEARRAY_0[0x3647A + 8 * i], 0x8);
 	}
 	for (int i = 0; i < 0xb; i++)//fix 0x1 to real count
 	{
@@ -696,7 +700,7 @@ void x_D41A0_BYTESTR_0_to_x_D41A0_BYTEARRAY_0()
 	x_D41A0_BYTEARRAY_0[0x218D] = D41A0_BYTESTR_0.byte_0x218D;
 	x_D41A0_BYTEARRAY_0[0x2190] = D41A0_BYTESTR_0.byte_0x2190;
 
-	x_D41A0_BYTEARRAY_0[0x2FED4] = D41A0_BYTESTR_0.byte_0x2FED4;
+	x_D41A0_BYTEARRAY_0[0x2FED4] = D41A0_BYTESTR_0.str_2FECE.byte_0x2FED4;
 	
 	x_D41A0_BYTEARRAY_0[0x365FC]= D41A0_BYTESTR_0.byte_0x365FC;
 	x_D41A0_BYTEARRAY_0[0x365FD]= D41A0_BYTESTR_0.byte_0x365FD;
@@ -711,11 +715,11 @@ void x_D41A0_BYTESTR_0_to_x_D41A0_BYTEARRAY_0()
 	}
 	for (int i = 0; i < 0xb; i++)//fix 0x1 to real count
 	{
-		memcpy(&x_D41A0_BYTEARRAY_0[0x3030E + 20 * i], &D41A0_BYTESTR_0.array_0x3030E[i], 0x20);
+		memcpy(&x_D41A0_BYTEARRAY_0[0x3030E + 20 * i], &D41A0_BYTESTR_0.str_2FECE.array_0x3030E[i], 0x20);
 	}
 	for (int i = 0; i < 0xb; i++)//fix 0x1 to real count
 	{
-		memcpy(&x_D41A0_BYTEARRAY_0[0x3647A + 8 * i], &D41A0_BYTESTR_0.array_0x3647A[i], 0x8);
+		memcpy(&x_D41A0_BYTEARRAY_0[0x3647A + 8 * i], &D41A0_BYTESTR_0.str_2FECE.array_0x3647A[i], 0x8);
 	}
 	for (int i = 0; i < 0xb; i++)//fix 0x1 to real count
 	{

@@ -5148,3 +5148,15 @@ draw spell text
 
 find in this
 void sub_87610()//268610
+
+
+x_DWORD_F2C20ar
+2000
+0
+1c000 !!
+fffff6d
+
+x_DWORD_F2C20ar[0x25] nesmi byt cccccccc
+
+test 
+v123
