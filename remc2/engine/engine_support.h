@@ -385,6 +385,18 @@ typedef struct {//lenght 9377
 	Bit8u stub[9377];
 } type_str_0x24DF;
 
+
+typedef struct {//lenght 0x6604u
+		//podpolozky
+	Bit8u byte_0x2FED4;//x_D41A0_BYTEARRAY_0[196308]
+	type_str_0x3030E array_0x3030E[0xb];//fix array lenght;
+	type_str_0x30325 array_0x30325[0x4af];
+	////0x30325 0x360d1 tj rozdil 23980=1199*20
+	//36479
+	type_str_0x3647A array_0x3647A[0xb];//8x11	
+	//konec 6604
+} type_str_2FECE;
+
 typedef struct{//lenght 0x36e16
 	Bit16s word_0xc;//player_index?
 	//word 0xe - 14
@@ -404,6 +416,9 @@ typedef struct{//lenght 0x36e16
 	Bit8s byte_0x21AB;//8619 can shadows
 	Bit8s byte_0x21AC;//8620 can sky
 	Bit8s byte_0x21B6;//8630 can lights
+
+	
+		
 	
 
 	/*??*/type_str_0x24DF array_0x24DF[0xb];//?lenght
@@ -411,16 +426,18 @@ typedef struct{//lenght 0x36e16
 	//x_D41A0_BYTEARRAY_0[2124 * D41A0_BYTESTR_0.word_12 + 11234])
 	//x_D41A0_BYTEARRAY_0[0x84C * D41A0_BYTESTR_0.word_12 + 0x2BE2])
 	type_str_0x2BDE array_0x2BDE[0xb];
+	
+
+	type_str_2FECE str_2FECE;// a1 = &x_D41A0_BYTEARRAY_0[0x2FECE/*196302*/];//fix - size 0x6604u//compress level 
+	/*//podpolozky
 	Bit8u byte_0x2FED4;//x_D41A0_BYTEARRAY_0[196308]
-
 	type_str_0x3030E array_0x3030E[0xb];//fix array lenght;
-
 	type_str_0x30325 array_0x30325[0x4af];
-////0x30325 0x360d1 tj rozdil 23980=1199*20
-
+	////0x30325 0x360d1 tj rozdil 23980=1199*20
 	//36479
 	type_str_0x3647A array_0x3647A[0xb];//8x11	
-
+	//konec 6604
+	*/
 	type_str_0x365F4 array_0x365F4[0xb];//8x11	
 
 	Bit8s byte_0x365FC;
