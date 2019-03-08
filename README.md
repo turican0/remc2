@@ -10,6 +10,13 @@ Now you can only compile only 32-bit binary version (64bit will be available aft
 <br />
 simple dev blog:https://github.com/turican0/remc2/wiki<br />
 <br />
+## 0.35:<br />
+-fixed bad rendering(blurr effect)<br />
+-fix many errors<br />
+-fix spell menu<br />
+-add fullscreen switch by ALT+ENTER<br />
+-fix some crashs<br />
+<br />
 ## 0.34:<br />
 -fix billboard draw bug<br />
 <br />
