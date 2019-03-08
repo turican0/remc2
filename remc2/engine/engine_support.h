@@ -463,6 +463,11 @@ typedef struct{//lenght 0x36e16
 
 } type_D41A0_BYTESTR_0;
 #pragma pack (0)
+
+/*
+*(Bit32s*)&x_D41A0_BYTEARRAY_0[0x341c]
+-selected bottom spell
+*/
 extern type_D41A0_BYTESTR_0 D41A0_BYTESTR_0;
 
 void x_D41A0_BYTEARRAY_0_to_x_D41A0_BYTESTR_0();
