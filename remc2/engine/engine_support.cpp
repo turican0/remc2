@@ -129,9 +129,9 @@ void support_begin() {
     printbuffer = (char*)malloc(4096);
     //printbuffer[0] = '\0';
     printbuffer2 = (char*)malloc(4096);
-	pre_x_DWORD_180628b_screen_buffer = (Bit8u*)malloc(420000);
+	pre_x_DWORD_180628b_screen_buffer = (Bit8u*)malloc(600000);
 	//x_DWORD_180628b_screen_buffer = (Bit8u*)malloc(320000);
-	x_DWORD_180628b_screen_buffer = &pre_x_DWORD_180628b_screen_buffer[100000];
+	x_DWORD_180628b_screen_buffer = &pre_x_DWORD_180628b_screen_buffer[200000];
 
 	//x_DWORD_E9C38_smalltit= (Bit8u*)malloc(64000);
 	//x_D41A0_BYTEARRAY_4_0xDE_heapbuffer= (Bit8u*)malloc(64000);

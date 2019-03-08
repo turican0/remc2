@@ -497,9 +497,9 @@ void VGA_Init(int width, int height, int bpp, Uint32 flags)
 			SDL_SetHint(SDL_HINT_FRAMEBUFFER_ACCELERATION, "1");
 			SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");
 
-			gWindow =
-				SDL_CreateWindow(default_caption, SDL_WINDOWPOS_CENTERED,
-					SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_SHOWN);
+			//gWindow = SDL_CreateWindow(default_caption, SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_SHOWN);
+
+			gWindow = SDL_CreateWindow(default_caption,	SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_SHOWN);
 
 			renderer =
 				SDL_CreateRenderer(gWindow, -1, SDL_RENDERER_ACCELERATED |
@@ -516,16 +516,16 @@ void VGA_Init(int width, int height, int bpp, Uint32 flags)
 
 			helper_surface =
 				SDL_CreateRGBSurface(
-					SDL_SWSURFACE, width, height, 32,
+					SDL_SWSURFACE, width, height, 24,
 					redMask, greenMask, blueMask, alphaMask);
 
 			helper_surface =
 				SDL_ConvertSurfaceFormat(
-					helper_surface, SDL_PIXELFORMAT_ARGB8888, 0);
+					helper_surface, SDL_PIXELFORMAT_RGB888/*SDL_PIXELFORMAT_ARGB8888*/, 0);
 
 			screen =
 				SDL_CreateRGBSurface(
-					SDL_SWSURFACE, width, height, 32,
+					SDL_SWSURFACE, width, height, 24,
 					redMask, greenMask, blueMask, alphaMask);
 
 			screen =
@@ -534,7 +534,7 @@ void VGA_Init(int width, int height, int bpp, Uint32 flags)
 
 
 			texture = SDL_CreateTexture(renderer,
-				SDL_PIXELFORMAT_ARGB8888,
+				SDL_PIXELFORMAT_RGB888/*SDL_PIXELFORMAT_ARGB8888*/,
 				SDL_TEXTUREACCESS_STREAMING,
 				helper_surface->w, helper_surface->h);
 
@@ -839,6 +839,26 @@ Right Ctrl (101-key)      *       *       *       *       *       *       *     
 # Alt-keypad number returns the specified character code and scan code 0
 */
 
+bool alt_enter(SDL_Event* event) {
+
+	if ((event->key.keysym.sym == SDLK_RETURN) && (event->key.keysym.mod & KMOD_ALT))
+		return true;
+	return false;
+}
+
+void ToggleFullscreen(SDL_Window* Window) {
+	Uint32 FullscreenFlag = SDL_WINDOW_FULLSCREEN;
+	bool IsFullscreen = SDL_GetWindowFlags(Window) & FullscreenFlag;
+	SDL_SetWindowFullscreen(Window, IsFullscreen ? 0 : FullscreenFlag);
+	//SDL_ShowCursor(IsFullscreen);
+
+	/*
+	SDL_RestoreWindow(screen); //Incase it's maximized...
+	SDL_SetWindowSize(screen, dm.w, dm.h + 10);
+	SDL_SetWindowPosition(screen, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
+	*/
+}
+
 int mousex, mousey;
 bool pressed = false;
 Bit16u lastchar = 0;
@@ -855,7 +875,11 @@ int events()
 		case SDL_KEYDOWN:
 			pressed = true;
 			lastchar = (event.key.keysym.scancode << 8) + event.key.keysym.sym;
-			setPress(true, lastchar);
+
+			if (alt_enter(&event))
+				ToggleFullscreen(gWindow);
+			else
+				setPress(true, lastchar);
 			printf("Key press detected\n");//test
 			break;
 
@@ -1469,6 +1493,53 @@ void VGA_mouse_clear_keys() {
 	for (int i = 0; i < 128; i++)
 		x_BYTE_180664[i] = 0;
 }
+
+/*
+int main() {
+	SDL_Init(SDL_INIT_VIDEO);
+	SDL_Window* Window = SDL_CreateWindow("",
+		SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 640, 480, 0);
+
+	bool Exit = false;
+	for (SDL_Event Event; !Exit;) {
+		SDL_WaitEvent(&Event);
+		if (Event.type == SDL_KEYDOWN) {
+			switch (Event.key.keysym.sym) {
+			case SDLK_f: ToggleFullscreen(Window); break;
+			case SDLK_q: Exit = true; break;
+			}
+		}
+	}
+	SDL_DestroyWindow(Window);
+	SDL_Quit();
+}
+*/
+
+/*
+void toggleWindowed()
+{
+	//Grab the mouse so that we don't end up with unexpected movement when the dimensions/position of the window changes.
+	SDL_SetRelativeMouseMode(SDL_TRUE);
+	windowed = !windowed;
+	if (windowed)
+	{
+		int i = SDL_GetWindowDisplayIndex(win);
+		screenWidth = windowedWidth;
+		screenHeight = windowedHeight;
+		SDL_SetWindowFullscreen(win, 0);
+	}
+	else
+	{
+		int i = SDL_GetWindowDisplayIndex(win);
+		SDL_Rect j;
+		SDL_GetDisplayBounds(i, &j);
+		screenWidth = j.w;
+		screenHeight = j.h;
+		SDL_SetWindowFullscreen(win, SDL_WINDOW_FULLSCREEN_DESKTOP);
+	}
+	recalculateResolution(); //This function sets appropriate font sizes/UI positions
+}
+*/
 
 /*
 UP
