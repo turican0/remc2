@@ -5185,3 +5185,7 @@ versus
 
 *(Bit32s*)&x_D41A0_BYTEARRAY_0[0x341c]
 -selected bottom spell
+
+sub_692A0(x_DWORD_EA3E4[0xc4e0/168]);
++64
++69
