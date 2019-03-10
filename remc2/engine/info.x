@@ -5189,3 +5189,43 @@ versus
 sub_692A0(x_DWORD_EA3E4[0xc4e0/168]);
 +64
 +69
+
+castle1
+filearray_2aa18c[filearrayindex_BUILD00DATTAB].posistruct[1].data
+
+castle1
+filearray_2aa18c[filearrayindex_BUILD00DATTAB].posistruct[2].data
+
+&(*a1[i].dat_buffer+0x100)
+
+filearray_2aa18c[filearrayindex_BUILD00DATTAB][2].dat_buffer
+
+*(&filearray_2aa18c[filearrayindex_BUILD00DATTAB])[0].dat_buffer
+
+void sub_49EC0(Bit16u* a1, __int16 a2)//22aec0 // get castle data
+-test
+
+create castle
+unsigned int sub_60810(Bit8u* a1)//241810
+
+
+
+void sub_37240(Bit8u* a1)//218240
+
+begin of heightmap:
+3065056 - 2ec4e0 - x_BYTE_11B4E0
+
+x_BYTE_11B4E0+3287
+0x02D3DB00-0x348
+
+groove castle void sub_37BC0(Bit8u* a1)//218bc0
+
+quad error
+x_DWORD_DDF50[0x19]
+x_DWORD_DDF50[0x19]
+
+
+23ac80
+
+1fc6b0
+void sub_loc_1B2E6() {//1fc2e6
