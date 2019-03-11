@@ -477,6 +477,8 @@ x_D41A0_BYTEARRAY_0[0x6e8e]-0xa8 arrays
 Bit32s get_x_D41A0_BYTEARRAY_0_8();
 void set_x_D41A0_BYTEARRAY_0_8(Bit32s value);
 
+void clean_x_D41A0_BYTEARRAY_0();
+
 
 extern type_D41A0_BYTESTR_0 D41A0_BYTESTR_0;
 

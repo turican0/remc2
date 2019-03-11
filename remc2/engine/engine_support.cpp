@@ -743,3 +743,8 @@ void set_x_D41A0_BYTEARRAY_0_8(Bit32s value) {
 	*(x_DWORD *)(x_D41A0_BYTEARRAY_0 + 8) = value;
 	D41A0_BYTESTR_0.dword_0x8 = value;
 };
+
+
+void clean_x_D41A0_BYTEARRAY_0() {
+	D41A0_BYTESTR_0.dword_0x8 = 0;
+};
