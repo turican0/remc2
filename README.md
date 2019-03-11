@@ -10,6 +10,10 @@ Now you can only compile only 32-bit binary version (64bit will be available aft
 <br />
 simple dev blog:https://github.com/turican0/remc2/wiki<br />
 <br />
+## 0.36:<br />
+-fixed second level of castle<br />
+-!!!can finalize level I!!!(without fireflys now)<br />
+<br />
 ## 0.35:<br />
 -fixed bad rendering(blurr effect)<br />
 -fix many errors<br />
