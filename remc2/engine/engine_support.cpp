@@ -726,3 +726,20 @@ void x_D41A0_BYTESTR_0_to_x_D41A0_BYTEARRAY_0()
 		memcpy(&x_D41A0_BYTEARRAY_0[0x365F4 + 8 * i], &D41A0_BYTESTR_0.array_0x365F4[i], 0x8);
 	}
 }
+
+void testdword(Bit32s* val1, Bit32s* val2) {
+	if (val1 != val2)
+	{
+		printf("x_D41A0_BYTEARRAY_0_error");
+		exit(0);
+	}
+}
+
+Bit32s get_x_D41A0_BYTEARRAY_0_8() {
+	testdword((Bit32s*)(x_D41A0_BYTEARRAY_0 + 8), &D41A0_BYTESTR_0.dword_0x8);
+	return *(x_DWORD *)(x_D41A0_BYTEARRAY_0 + 8);
+};
+void set_x_D41A0_BYTEARRAY_0_8(Bit32s value) {
+	*(x_DWORD *)(x_D41A0_BYTEARRAY_0 + 8) = value;
+	D41A0_BYTESTR_0.dword_0x8 = value;
+};

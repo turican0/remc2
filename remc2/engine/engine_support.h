@@ -398,6 +398,8 @@ typedef struct {//lenght 0x6604u
 } type_str_2FECE;//compress level 
 
 typedef struct{//lenght 0x36e16
+	Bit32s dword_0x8;
+
 	Bit16s word_0xc;//player_index?
 	//word 0xe - 14
 	Bit32s dword_0x235;//speed?
@@ -467,7 +469,15 @@ typedef struct{//lenght 0x36e16
 /*
 *(Bit32s*)&x_D41A0_BYTEARRAY_0[0x341c]
 -selected bottom spell
+
+
+x_D41A0_BYTEARRAY_0[28302]-168 arrays
+x_D41A0_BYTEARRAY_0[0x6e8e]-0xa8 arrays
 */
+Bit32s get_x_D41A0_BYTEARRAY_0_8();
+void set_x_D41A0_BYTEARRAY_0_8(Bit32s value);
+
+
 extern type_D41A0_BYTESTR_0 D41A0_BYTESTR_0;
 
 void x_D41A0_BYTEARRAY_0_to_x_D41A0_BYTESTR_0();
