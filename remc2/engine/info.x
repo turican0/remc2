@@ -5229,3 +5229,14 @@ x_DWORD_DDF50[0x19]
 
 1fc6b0
 void sub_loc_1B2E6() {//1fc2e6
+
+
+int sub_58F00_game_objectives()//239f00
+23a4f6
+
+38c5d4:
+000100 0201010101 00 - point 1
+
+000200 0202010101 00 - get jar
+
+000300 0202020101 00 - kill soldiers
