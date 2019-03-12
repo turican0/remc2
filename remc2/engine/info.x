@@ -5268,3 +5268,11 @@ sub_A5040(x_DWORD *a1)//286040
 
 compare
 int sub_58F00_game_objectives()//239f00
+
+358ffc +4 +6 
+versus
+v6
+
+358ffc 9c
+versus
+*(Bit32s*)(v6 + 316)
