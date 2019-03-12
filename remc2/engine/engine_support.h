@@ -398,26 +398,54 @@ typedef struct {//lenght 0x6604u
 } type_str_2FECE;//compress level 
 
 typedef struct{//lenght 0x36e16
+	Bit8u stub0[8];
 	Bit32s dword_0x8;
 
 	Bit16s word_0xc;//player_index?
+	Bit8u byte_0xe;
 	//word 0xe - 14
+	Bit8u stub1[0x13];
+	Bit8u byte_0x22;
+	Bit8u stub2[0x212];
 	Bit32s dword_0x235;//speed?
 
-	Bit8s byte_0x218A; //8586 reflections
+	Bit8u stub3[0x1f50];
+
+	Bit8u byte_0x218A; //8586 reflections	
+	Bit8u byte_0x218B;//8587 shadows
+	Bit8u byte_0x218C;//8588 sky
+	Bit8u byte_0x218D;//8589 alter screen size
+	Bit8u byte_0x218E;
+	Bit8u byte_0x218F;
+	Bit8u byte_0x2190;
+
+	Bit8u stub4[0x5];
+
+	Bit8u byte_0x2196;//8598 lights
+	Bit8u byte_0x2197;//setting
+	Bit8u byte_0x2198;//setting
+	Bit8u byte_0x2199;//setting
+
+	Bit8u stub5[0x10];
+
+	Bit8u byte_0x21AA;//8618 can reflections
+	Bit8u byte_0x21AB;//8619 can shadows
+	Bit8u byte_0x21AC;//8620 can sky
+	Bit8u byte_0x21AD;
+	Bit8u byte_0x21AE;
+	Bit8u byte_0x21AF;
+	Bit8u byte_0x21B0;
+	Bit8u byte_0x21B1;
+	Bit8u byte_0x21B2;
+	Bit8u byte_0x21B3;
+	Bit8u byte_0x21B4;
+	Bit8u byte_0x21B5;
+	Bit8u byte_0x21B6;//8630 can lights
+	Bit8u byte_0x21B7;
+	Bit8u byte_0x21B8;
+
+
 	
-	Bit8s byte_0x218B;//8587 shadows
-	Bit8s byte_0x218C;//8588 sky
-	Bit8s byte_0x218D;//8589 alter screen size
-	Bit8s byte_0x2190;
-
-	Bit8s byte_0x2196;//8598 lights
-
-
-	Bit8s byte_0x21AA;//8618 can reflections
-	Bit8s byte_0x21AB;//8619 can shadows
-	Bit8s byte_0x21AC;//8620 can sky
-	Bit8s byte_0x21B6;//8630 can lights
 
 	
 		
@@ -463,6 +491,8 @@ typedef struct{//lenght 0x36e16
 	//type_str_0x365F2 array_str_0x365F2[0x10];//fix it
 	//*(0x365F2 + x_D41A0_BYTEARRAY_0 + 8 * (signed __int16)result + 2)
 
+	Bit8u stubend[0x36e17 - 0x25721-2];
+
 } type_D41A0_BYTESTR_0;
 #pragma pack (0)
 
@@ -477,12 +507,73 @@ x_D41A0_BYTEARRAY_0[0x6e8e]-0xa8 arrays
 Bit32s get_x_D41A0_BYTEARRAY_0_8();
 void set_x_D41A0_BYTEARRAY_0_8(Bit32s value);
 
+Bit8u get_x_D41A0_BYTEARRAY_0_0xe();
+void set_x_D41A0_BYTEARRAY_0_0xe(Bit8u value);
+
+Bit8u get_x_D41A0_BYTEARRAY_0_0x22();
+void set_x_D41A0_BYTEARRAY_0_0x22(Bit8u value);
+
+Bit8u get_x_D41A0_BYTEARRAY_0_0x218a();
+void set_x_D41A0_BYTEARRAY_0_0x218a(Bit8u value);
+Bit8u get_x_D41A0_BYTEARRAY_0_0x218b();
+void set_x_D41A0_BYTEARRAY_0_0x218b(Bit8u value);
+Bit8u get_x_D41A0_BYTEARRAY_0_0x218c();
+void set_x_D41A0_BYTEARRAY_0_0x218c(Bit8u value);
+Bit8u get_x_D41A0_BYTEARRAY_0_0x218d();
+void set_x_D41A0_BYTEARRAY_0_0x218d(Bit8u value);
+Bit8u get_x_D41A0_BYTEARRAY_0_0x218e();
+void set_x_D41A0_BYTEARRAY_0_0x218e(Bit8u value);
+Bit8u get_x_D41A0_BYTEARRAY_0_0x218f();
+void set_x_D41A0_BYTEARRAY_0_0x218f(Bit8u value);
+Bit8u get_x_D41A0_BYTEARRAY_0_0x2196();
+void set_x_D41A0_BYTEARRAY_0_0x2196(Bit8u value);
+Bit8u get_x_D41A0_BYTEARRAY_0_0x2197();
+void set_x_D41A0_BYTEARRAY_0_0x2197(Bit8u value);
+Bit8u get_x_D41A0_BYTEARRAY_0_0x2198();
+void set_x_D41A0_BYTEARRAY_0_0x2198(Bit8u value);
+Bit8u get_x_D41A0_BYTEARRAY_0_0x2199();
+void set_x_D41A0_BYTEARRAY_0_0x2199(Bit8u value);
+
+
+Bit8u get_x_D41A0_BYTEARRAY_0_0x21aa();
+void set_x_D41A0_BYTEARRAY_0_0x21aa(Bit8u value);
+Bit8u get_x_D41A0_BYTEARRAY_0_0x21ab();
+void set_x_D41A0_BYTEARRAY_0_0x21ab(Bit8u value);
+Bit8u get_x_D41A0_BYTEARRAY_0_0x21ac();
+void set_x_D41A0_BYTEARRAY_0_0x21ac(Bit8u value);
+Bit8u get_x_D41A0_BYTEARRAY_0_0x21ad();
+void set_x_D41A0_BYTEARRAY_0_0x21ad(Bit8u value);
+Bit8u get_x_D41A0_BYTEARRAY_0_0x21ae();
+void set_x_D41A0_BYTEARRAY_0_0xx21ae(Bit8u value);
+Bit8u get_x_D41A0_BYTEARRAY_0_0x21af();
+void set_x_D41A0_BYTEARRAY_0_0x21af(Bit8u value);
+Bit8u get_x_D41A0_BYTEARRAY_0_0x21b0();
+void set_x_D41A0_BYTEARRAY_0_0x21b0(Bit8u value);
+Bit8u get_x_D41A0_BYTEARRAY_0_0x21b1();
+void set_x_D41A0_BYTEARRAY_0_0x21b1(Bit8u value);
+Bit8u get_x_D41A0_BYTEARRAY_0_0x21b2();
+void set_x_D41A0_BYTEARRAY_0_0x21b2(Bit8u value);
+Bit8u get_x_D41A0_BYTEARRAY_0_0x21b3();
+void set_x_D41A0_BYTEARRAY_0_0x21b3(Bit8u value);
+Bit8u get_x_D41A0_BYTEARRAY_0_0x21b4();
+void set_x_D41A0_BYTEARRAY_0_0x21b4(Bit8u value);
+Bit8u get_x_D41A0_BYTEARRAY_0_0x21b5();
+void set_x_D41A0_BYTEARRAY_0_0x21b5(Bit8u value);
+Bit8u get_x_D41A0_BYTEARRAY_0_0x21b6();
+void set_x_D41A0_BYTEARRAY_0_0x21b6(Bit8u value);
+Bit8u get_x_D41A0_BYTEARRAY_0_0x21b7();
+void set_x_D41A0_BYTEARRAY_0_0x21b7(Bit8u value);
+Bit8u get_x_D41A0_BYTEARRAY_0_0x21b8();
+void set_x_D41A0_BYTEARRAY_0_0x21b8(Bit8u value);
+
 void clean_x_D41A0_BYTEARRAY_0();
+
+void test_x_D41A0_BYTEARRAY_0();
 
 
 extern type_D41A0_BYTESTR_0 D41A0_BYTESTR_0;
 
-void x_D41A0_BYTEARRAY_0_to_x_D41A0_BYTESTR_0();
-void x_D41A0_BYTESTR_0_to_x_D41A0_BYTEARRAY_0();
+/*void x_D41A0_BYTEARRAY_0_to_x_D41A0_BYTESTR_0();
+void x_D41A0_BYTESTR_0_to_x_D41A0_BYTEARRAY_0();*/
 
 #endif //ENGINE_SUPPORT_ACTIVE
