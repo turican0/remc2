@@ -221,9 +221,9 @@ void sub_56A30_init_game_level(unsigned int a1);
 void sub_47320_in_game_loop(signed int a1);
 void sub_56D60(unsigned int a1, char a2);
 void sub_47560_draw_and_events_in_game(Bit8u* a1, int a2, Bit32u a3, signed int a4, __int16 a5);
-void sub_51BB0_game_events(Bit8u* a1);
+void sub_51BB0_game_events(/*Bit8u* a1*/);
 //x_DWORD /*__cdecl*/ toupper(x_DWORD); //weak
-void sub_55C60(int a1, int a2, Bit8u* a3);
+void sub_55C60(/*int a1, int a2,*/ Bit8u* a3);
 x_DWORD /*__cdecl*/ fix_filelength(x_DWORD);// weak
 //x_DWORD /*__cdecl*/ access(char* path, Bit32u flags);// weak
 //x_DWORD /*__cdecl*/ mkdir(char* path);

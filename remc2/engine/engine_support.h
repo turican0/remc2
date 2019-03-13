@@ -398,7 +398,7 @@ typedef struct {//lenght 0x6604u
 } type_str_2FECE;//compress level 
 
 typedef struct{//lenght 0x36e16	
-	Bit8u stub0[8];
+	Bit8u stub0[4];
 	Bit32s dword_0x4;
 	Bit32s dword_0x8;
 

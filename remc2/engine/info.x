@@ -5276,3 +5276,6 @@ v6
 358ffc 9c
 versus
 *(Bit32s*)(v6 + 316)
+
+
+sub_56A30_init_game_level
