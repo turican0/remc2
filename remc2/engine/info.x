@@ -5279,3 +5279,15 @@ versus
 
 
 sub_56A30_init_game_level
+
+
+x_D41A0_BYTEARRAY_0 + 28222
+versus
+35ce76
+
+1f8136 - call void sub_17060_compute_mouse_relative_pos(__int16 a1, __int16 a2)//1f8060
+
+01
+1f8136
+
+233ce1 - void sub_51BB0_game_events(/*Bit8u* a1*/)//232bb0
