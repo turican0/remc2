@@ -5241,4 +5241,38 @@ int sub_58F00_game_objectives()//239f00
 
 000300 0202020101 00 - kill soldiers
 
-4
+000400 0202020201 00 - svetlusky
+
+239006
+299be7 - b8be7
+
+sub_A5040(x_DWORD *a1)//286040
+
+
+								v18 = *(Bit32u*)&x_D41A0_BYTEARRAY_4_struct.byteindex_242ar[4];
+								if (v18 > 0)
+								{
+									v7 = (int)x_D41A0_BYTEARRAY_0;
+									if ((unsigned int)(100
+										* (*(x_DWORD *)(v6 + 316)
+											+ *(x_DWORD *)(x_DWORD_EA3E4[*(unsigned __int16 *)(v6 + 58)] + 144))
+										/ v18) >= *(x_DWORD *)(x_D41A0_BYTEARRAY_0 + 10 * v3 + 222546))
+									{
+										v0[v3 + 3] = 2;
+										v4 = 1;
+										*(x_WORD *)(0x2FED5 + v7) = 0;
+									}
+								}
+
+
+
+compare
+int sub_58F00_game_objectives()//239f00
+
+358ffc +4 +6 
+versus
+v6
+
+358ffc 9c
+versus
+*(Bit32s*)(v6 + 316)
