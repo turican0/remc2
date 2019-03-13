@@ -9,8 +9,8 @@ https://www.gog.com/game/magic_carpet_2_the_netherworlds<br />
 Now you can only compile only 32-bit binary version (64bit will be available after rewriting all arrays to structures).<br />
 <br />
 simple dev blog:https://github.com/turican0/remc2/wiki<br />
-## ROADMAP:<br />
-### MILLSTONE 5<br />
+## ROADMAP:
+### MILLSTONE 5
 -can build x64<br />
 -can build Linux<br />
 ### MILLSTONE 4<br />
