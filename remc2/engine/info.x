@@ -5240,3 +5240,5 @@ int sub_58F00_game_objectives()//239f00
 000200 0202010101 00 - get jar
 
 000300 0202020101 00 - kill soldiers
+
+4
