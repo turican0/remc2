@@ -5291,3 +5291,24 @@ versus
 1f8136
 
 233ce1 - void sub_51BB0_game_events(/*Bit8u* a1*/)//232bb0
+
+rozdil je uz v 35ce76 - 01(06) a 05(20) - kde se to meni?
+
+27e1cc 00->01
+1f8136 00000000 - 00000044
+1f8176 00000000 - 000000447f
+27e201 0000447f -> 00000000
+1fa279 00000000 -> 06000000 - mouse 20  take mouse
+1fa279 void sub_191B0(__int16 a1, char a2)//1fa1b0 //set spell
+1fa0a5 void sub_18F80(Bit8u* a1)//1f9f80
+1f8dd8 void sub_17A00_mouse_and_keys_events(Bit8u* a1, signed int a2, __int16 a3)//1f8a00
+
+
+asi zde:
+		if (x_D41A0_BYTEARRAY_0[10 * D41A0_BYTESTR_0.word_0xc + 28222] != a1 && x_D41A0_BYTEARRAY_0[10 * D41A0_BYTESTR_0.word_0xc + 28222])
+			return;
+		//v7 = (int)x_D41A0_BYTEARRAY_0;
+		x_D41A0_BYTEARRAY_0[10 * D41A0_BYTESTR_0.word_0xc + 28222] = a1;
+
+
+1fa290 void sub_191B0(__int16 a1, char a2)//1fa1b0 //set spell
