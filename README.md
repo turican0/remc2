@@ -10,11 +10,14 @@ Now you can only compile only 32-bit binary version (64bit will be available aft
 <br />
 simple dev blog:https://github.com/turican0/remc2/wiki<br />
 ## ROADMAP:<br />
-## MILLSTONE 5<br />
+## MILLSTONE 6<br />
 -can build x64<br />
 -can build Linux<br />
+## MILLSTONE 5<br />
+-add next resolutions<br />
 ## MILLSTONE 4<br />
 -fix music (can switch between Original MIDI, Music in wave format and Alternative music)<br />
+-fix multiplayer
 ## MILLSTONE 3<br />
 -Fix resolution 640x480<br />
 -can play All game same as in original in 320x200<br />
