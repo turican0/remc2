@@ -5312,3 +5312,91 @@ asi zde:
 
 
 1fa290 void sub_191B0(__int16 a1, char a2)//1fa1b0 //set spell
+
+ecx ebp-18 000000000000000
+eax ebp-14 0100000000000000000000000000001
+ecx [ecx+a4] 0000000000000000000000
+eax [eax+3] 0
+edx [ecx+155] 0
+add
+sub
+mov
+sar
+shl
+sbb
+sar
+mov [ecx+4],ax 0
+ecx ebp-18 000000000000000
+eax ebp-14 0100000000000000000000000000001
+ecx [ecx+a4] 0000000000000000000000
+eax [eax+4] 0
+edx [ecx+157] 0
+add
+sub
+mov
+sar
+shl
+sbb
+sar
+edx ebp-14 0100000000000000000000000000001
+[ecx+6],ax 0
+xor eax
+
+-------------
+ecx ebp-18 c6ce3500 1027 0000 1027
+eax ebp-14 0000000000000000000000000000001
+ecx [ecx+a4] 0000000000000000000000
+eax [eax+3] 0
+edx [ecx+155] 0
+add
+sub
+mov
+sar
+shl
+sbb
+sar
+mov [ecx+4],ax 0
+ecx ebp-18 000000000000000
+eax ebp-14 0100000000000000000000000000001
+ecx [ecx+a4] 0000000000000000000000
+eax [eax+4] 0
+edx [ecx+157] 0
+add
+sub
+mov
+sar
+shl
+sbb
+sar
+edx ebp-14 0100000000000000000000000000001
+[ecx+6],ax 0
+xor eax
+---------------
+ecx ebp-18 c6ce3500 1027 0000 1027
+eax ebp-14 0600000000200000000000000000001
+ecx [ecx+a4] 0000000000000000000000
+eax [eax+3] 0
+edx [ecx+155] 0
+add
+sub
+mov
+sar
+shl
+sbb
+sar
+mov [ecx+4],ax 0
+ecx ebp-18 000000000000000
+eax ebp-14 0100000000000000000000000000001
+ecx [ecx+a4] 0000000000000000000000
+eax [eax+4] 0
+edx [ecx+157] 0
+add
+sub
+mov
+sar
+shl
+sbb
+sar
+edx ebp-14 0100000000000000000000000000001
+[ecx+6],ax 0
+xor eax
