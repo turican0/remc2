@@ -456,6 +456,8 @@ typedef struct{//lenght 0x36e16
 	//x_D41A0_BYTEARRAY_0[2124 * D41A0_BYTESTR_0.word_12 + 11234])
 	//x_D41A0_BYTEARRAY_0[0x84C * D41A0_BYTESTR_0.word_12 + 0x2BE2])
 	type_str_0x2BDE array_0x2BDE[0xb];
+
+	//array 0x6a3e 10*x // game events
 	
 
 	type_str_2FECE str_2FECE;// a1 = &x_D41A0_BYTEARRAY_0[0x2FECE/*196302*/];//fix - size 0x6604u//compress level 
@@ -468,11 +470,18 @@ typedef struct{//lenght 0x36e16
 	type_str_0x3647A array_0x3647A[0xb];//8x11	
 	//konec 6604
 	*/
-	type_str_0x365F4 array_0x365F4[0xb];//8x11	
 
-	Bit8s byte_0x365FC;
-	Bit8s byte_0x365FD;
+	//array 0x364D6 lenght 0x68 end 0x3653e
+
 	Bit16s word_0x365E0;
+
+	type_str_0x365F4 array_0x365F4[0xb];//8x11	//set 0x58 // end 0x3664c
+
+	//Bit8s byte_0x365FC;//array_0x365F4[1].byte_0
+	//Bit8s byte_0x365FD;//array_0x365F4[1].byte_1
+	
+
+	//array 0x3664C lenght 0x79e (end-0x36dea)
 
 	Bit8s byte_0x36DEA_fly_asistant;
 
@@ -497,6 +506,21 @@ typedef struct{//lenght 0x36e16
 
 } type_D41A0_BYTESTR_0;
 #pragma pack (0)
+
+/*
+	memset((void*)(&x_D41A0_BYTEARRAY_0[0x10]), 0, 0x1d);
+	memset((void*)(&x_D41A0_BYTEARRAY_0[0x2d]), 0, 4);
+	memset((void*)(&x_D41A0_BYTEARRAY_0[0x31]), 0, 2);
+	memset((void*)(&x_D41A0_BYTEARRAY_0[0x33]), 0, 2);
+	memset((void*)(&x_D41A0_BYTEARRAY_0[0x35]), 0, 4);
+	memset((void*)(&x_D41A0_BYTEARRAY_0[0x239]), 0, 1);
+	memset((void*)(&x_D41A0_BYTEARRAY_0[0x364D2]), 0, 0x6c);
+	memset((void*)(&x_D41A0_BYTEARRAY_0[0x2362]), 0, 0x30);
+	memset((void*)(&x_D41A0_BYTEARRAY_0[0x6E8E]), 0, 0x29040);
+*/
+
+//memset((void*)(x_D41A0_BYTEARRAY_0 + 222796), 0, 1950);
+//memset((void*)(x_D41A0_BYTEARRAY_0 + 0x3664C), 0, 0x79E);
 
 /*
 *(Bit32s*)&x_D41A0_BYTEARRAY_0[0x341c]

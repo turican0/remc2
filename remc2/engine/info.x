@@ -5421,10 +5421,10 @@ eax=[[[ebp+var_44]+0A4h]+13c]
 
 241fe4  - call void sub_60F00()//241f00
 
-22d6b0 - 123
+22d6b0 - 123 creating
 22bd70 - 1
 22d6b0 - 45
-206d50 - 123
+206d50 - 123 creating mana?
 246040 - 1
 206d50 - 45
 -----
