@@ -5465,6 +5465,11 @@ x23ac80 - 5
 246040 - b
 23ac40 - 2
 
-a1 + 80 - life?
-a1 + 4 - life?
-a1 + 8 - life?
+a1 + 4 - max life 
+a1 + 8 - act life
+a1 + 76 - position
+
+if (*(x_BYTE *)(*(x_DWORD *)(a1 + 160) + 32) & 1 || sub_104D0((signed __int16 *)(a1 + 76)) == 1)
+here firefly died
+
+a1 + 80 not set

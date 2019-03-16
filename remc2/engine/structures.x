@@ -450,3 +450,8 @@ case 1:sprintf_s(buffer, "Type:1 N/A ");i += 2;break;
 				shift = -2;
 			break;
 		}
+
+
+a1 + 4 - max life 
+a1 + 8 - act life
+a1 + 76 - position
