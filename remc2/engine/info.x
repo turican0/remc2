@@ -5467,9 +5467,36 @@ x23ac80 - 5
 
 a1 + 4 - max life 
 a1 + 8 - act life
+a1 + 16 - other pointer
+a1 + 20 - random
+a1 + 28 - a1+20 - rotation
+a1 + 30 - a1+20
+a1 + 32 - a1+20
+a1 + 34 - 0
+a1 + 42 - 300
+a1 + 56 - 1
+a1 + 63 - exam.5 - type of entity
+a1 + 64 - exam.19 - subtype of entity
+a1 + 65 - 3
+a1 + 66 - 0
+a1 + 69 - exam. 0x99
 a1 + 76 - position
+a1 + 130 = a1 + 132 // speed
+a1 + 132 - exam. 76 // speed
+a1 + 134 - exam. 8
+a1 + 144 - max life >>1
+a1 + 160 - unk_D7BD6 pointer
 
 if (*(x_BYTE *)(*(x_DWORD *)(a1 + 160) + 32) & 1 || sub_104D0((signed __int16 *)(a1 + 76)) == 1)
 here firefly died
 
 a1 + 80 not set
+
+a1 + 60
+362026 +0x50
+
+fix sub_57FA0
+
+fix unk_D7BD6
+
+36226e

@@ -255,10 +255,10 @@ case 1:sprintf_s(buffer, "Type:1 N/A ");i += 2;break;
 			outsubtype = ((unsigned int)content[i] & 0xff + ((unsigned int)content[i + 1] & 0xff << 8));
 			switch ((unsigned int)content[i] & 0xff + ((unsigned int)content[i + 1] & 0xff << 8)) {
 			case 0:sprintf_s(buffer, "Subtype:Dragon ");i += 2;break;
-			case 1:sprintf_s(buffer, "Subtype:Vulture ");i += 2;break;
+			case 1:sprintf_s(buffer, "Subtype:Vulture ");i += 2;break;// goat - kamzik
 			case 2:sprintf_s(buffer, "Subtype:Bee ");i += 2;break;
 			case 3:sprintf_s(buffer, "Subtype:Worm ");i += 2;break;
-			case 4:sprintf_s(buffer, "Subtype:Archer ");i += 2;break;
+			case 4:sprintf_s(buffer, "Subtype:Archer ");i += 2;break;//ok
 			case 5:sprintf_s(buffer, "Subtype:Crab ");i += 2;break;
 			case 6:sprintf_s(buffer, "Subtype:Kraken ");i += 2;break;
 			case 7:sprintf_s(buffer, "Subtype:Troll ");i += 2;break;
@@ -267,10 +267,11 @@ case 1:sprintf_s(buffer, "Type:1 N/A ");i += 2;break;
 			case 0xa:sprintf_s(buffer, "Subtype:Emu ");i += 2;break;
 			case 0xb:sprintf_s(buffer, "Subtype:Genie ");i += 2;break;
 			case 0xc:sprintf_s(buffer, "Subtype:Builder ");i += 2;break;
-			case 0xd:sprintf_s(buffer, "Subtype:Townie ");i += 2;break;
+			case 0xd:sprintf_s(buffer, "Subtype:Townie ");i += 2;break;//ok
 			case 0xe:sprintf_s(buffer, "Subtype:Trader ");i += 2;break;
 			case 0xf:sprintf_s(buffer, "Subtype:? Ape? ");i += 2;break;
 			case 0x10:sprintf_s(buffer, "Subtype:Wyvern ");i += 2;break;
+			0x13//FireFly
 			default:sprintf_s(buffer, "Subtype:Error%u ", ((unsigned int)content[i] & 0xff + ((unsigned int)content[i + 1] & 0xff << 8)));i += 2;break;
 			}
 			break;
