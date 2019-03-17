@@ -5500,3 +5500,10 @@ fix sub_57FA0
 fix unk_D7BD6
 
 36226e
+
+last procedure 23f8c0
+
+if (v4 == 8 && v15 != *(Bit32s*)(x_D41A0_BYTEARRAY_0 + 4))
+v15? 0 =! 0xe1b7
+
+v15=ebp-8

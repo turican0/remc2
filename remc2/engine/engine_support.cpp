@@ -721,7 +721,7 @@ void x_D41A0_BYTESTR_0_to_x_D41A0_BYTEARRAY_0()
 	{
 		memcpy(&x_D41A0_BYTEARRAY_0[0x3647A + 8 * i], &D41A0_BYTESTR_0.str_2FECE.array_0x3647A[i], 0x8);
 	}
-	for (int i = 0; i < 0xb; i++)//fix 0x1 to real count
+	for (int i = 0; i < 0xb; i++)//fix 0x1 to real count			
 	{
 		memcpy(&x_D41A0_BYTEARRAY_0[0x365F4 + 8 * i], &D41A0_BYTESTR_0.array_0x365F4[i], 0x8);
 	}
