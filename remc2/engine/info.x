@@ -5507,3 +5507,12 @@ if (v4 == 8 && v15 != *(Bit32s*)(x_D41A0_BYTEARRAY_0 + 4))
 v15? 0 =! 0xe1b7
 
 v15=ebp-8
+
+problem in
+x_DWORD_DE558
+x_DWORD_E9C3C - max 0xfa00
+
+x_DWORD_DE560 je 0x140
+
+if (v123 - x_DWORD_DE558<0)
+	v123 = v123;

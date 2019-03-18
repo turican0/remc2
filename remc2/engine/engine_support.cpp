@@ -129,7 +129,7 @@ void support_begin() {
     printbuffer = (char*)malloc(4096);
     //printbuffer[0] = '\0';
     printbuffer2 = (char*)malloc(4096);
-	pre_x_DWORD_180628b_screen_buffer = (Bit8u*)malloc(1000000);
+	pre_x_DWORD_180628b_screen_buffer = (Bit8u*)malloc(2000000);
 	//x_DWORD_180628b_screen_buffer = (Bit8u*)malloc(320000);
 	x_DWORD_180628b_screen_buffer = &pre_x_DWORD_180628b_screen_buffer[200000];
 
