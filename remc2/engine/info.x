@@ -5516,3 +5516,5 @@ x_DWORD_DE560 je 0x140
 
 if (v123 - x_DWORD_DE558<0)
 	v123 = v123;
+
+mouseturnoff = true;

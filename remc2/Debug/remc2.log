@@ -1,4 +1,120 @@
-﻿  sub_main.cpp
+﻿  stdafx.cpp
+  ini.c
+  nukedopl3.c
+  nukedopl3_174.c
+  wopl_file.c
+  gx_ym2612.c
+  mame_ym2612fm.c
+  ym3438.c
+  wopn_file.c
+  load_aiff.c
+  load_voc.c
+  music_cmd.c
+  music_flac.c
+  music_fluidsynth.c
+  music_gme.c
+  music_id3tag.c
+c:\prenos\remc2\sdl-mixer-x-master\src\music.h(31): warning C4273: round: nekonzistentní propojení dll
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\corecrt_math.h(532): note: viz předchozí definice round
+  music_mad.c
+  music_midi_adl.c
+c:\prenos\remc2\sdl-mixer-x-master\src\music.h(31): warning C4273: round: nekonzistentní propojení dll
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\corecrt_math.h(532): note: viz předchozí definice round
+  music_midi_opn.c
+c:\prenos\remc2\sdl-mixer-x-master\src\music.h(31): warning C4273: round: nekonzistentní propojení dll
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\corecrt_math.h(532): note: viz předchozí definice round
+  music_mikmod.c
+  music_modplug.c
+  Generování kódu...
+  Kompilování...
+  music_mpg123.c
+  music_nativemidi.c
+c:\prenos\remc2\sdl-mixer-x-master\src\music.h(31): warning C4273: round: nekonzistentní propojení dll
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\corecrt_math.h(532): note: viz předchozí definice round
+  music_ogg.c
+c:\prenos\remc2\sdl-mixer-x-master\src\music.h(31): warning C4273: round: nekonzistentní propojení dll
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\corecrt_math.h(532): note: viz předchozí definice round
+  music_opus.c
+  music_timidity.c
+c:\prenos\remc2\sdl-mixer-x-master\src\music.h(31): warning C4273: round: nekonzistentní propojení dll
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\corecrt_math.h(532): note: viz předchozí definice round
+  music_wav.c
+c:\prenos\remc2\sdl-mixer-x-master\src\music.h(31): warning C4273: round: nekonzistentní propojení dll
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\corecrt_math.h(532): note: viz předchozí definice round
+  native_midi_common.c
+  native_midi_mac.c
+  native_midi_macosx.c
+  native_midi_win32.c
+  effects_internal.c
+  effect_position.c
+  effect_stereoreverse.c
+  mixer.c
+c:\prenos\remc2\sdl-mixer-x-master\src\music.h(31): warning C4273: round: nekonzistentní propojení dll
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\corecrt_math.h(532): note: viz předchozí definice round
+  mixer_x_deprecated.c
+  music.c
+c:\prenos\remc2\sdl-mixer-x-master\src\music.h(31): warning C4273: round: nekonzistentní propojení dll
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\corecrt_math.h(532): note: viz předchozí definice round
+c:\prenos\remc2\sdl-mixer-x-master\src\music.c(494): warning C4013: atoi nedefinované; předpokládá se extern vracející int.
+c:\prenos\remc2\sdl-mixer-x-master\src\music.c(1821): warning C4098: Mix_PauseMusic: Funkce void vrací hodnotu.
+c:\prenos\remc2\sdl-mixer-x-master\src\music.c(1843): warning C4098: Mix_ResumeMusic: Funkce void vrací hodnotu.
+  vb6_sdl_binds.c
+  dirent.c
+  Generování kódu...
+  INIReader.cpp
+  adldata.cpp
+  adlmidi.cpp
+  adlmidi_load.cpp
+  adlmidi_midiplay.cpp
+  adlmidi_opl3.cpp
+  adlmidi_private.cpp
+  adlmidi_sequencer.cpp
+  dbopl.cpp
+  dosbox_opl3.cpp
+  nuked_opl3.cpp
+  nuked_opl3_v174.cpp
+  Ym2612_Emu.cpp
+  gens_opn2.cpp
+  gx_opn2.cpp
+  mame_opn2.cpp
+  nuked_opn2.cpp
+  opnmidi.cpp
+  opnmidi_load.cpp
+  opnmidi_midiplay.cpp
+  Generování kódu...
+  Kompilování...
+  opnmidi_opn2.cpp
+  opnmidi_private.cpp
+  opnmidi_sequencer.cpp
+  native_midi_haiku.cpp
+  cd_utils.cpp
+  engine_support.cpp
+c:\prenos\remc2\sdl-mixer-x-master\src\music.h(31): warning C4273: round: nekonzistentní propojení dll
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\corecrt_math.h(532): note: viz předchozí definice round
+c:\prenos\remc2\remc2\engine\engine_support.h(508): warning C4086: Očekávalo se, že parametr direktivy pragma bude 1, 2, 4, 8 nebo 16.
+c:\prenos\remc2\remc2\engine\engine_support.cpp(236): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\engine_support.cpp(285): warning C4018: >=: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\engine_support.cpp(285): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\engine_support.cpp(325): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\engine_support.cpp(374): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\engine_support.cpp(429): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\engine_support.cpp(481): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\engine_support.cpp(533): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\engine_support.cpp(589): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\engine_support.cpp(624): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\engine\engine_support.cpp(650): warning C4018: <: signed/unsigned – neshoda
+  read_config.cpp
+c:\prenos\remc2\sdl-mixer-x-master\src\music.h(31): warning C4273: round: nekonzistentní propojení dll
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\corecrt_math.h(532): note: viz předchozí definice round
+c:\prenos\remc2\remc2\engine\defs.h(74): warning C4005: LOBYTE: předefinování makra
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\shared\minwindef.h(206): note: viz předchozí definice LOBYTE
+c:\prenos\remc2\remc2\engine\defs.h(75): warning C4005: LOWORD: předefinování makra
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\shared\minwindef.h(204): note: viz předchozí definice LOWORD
+c:\prenos\remc2\remc2\engine\defs.h(77): warning C4005: HIBYTE: předefinování makra
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\shared\minwindef.h(207): note: viz předchozí definice HIBYTE
+c:\prenos\remc2\remc2\engine\defs.h(78): warning C4005: HIWORD: předefinování makra
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\shared\minwindef.h(205): note: viz předchozí definice HIWORD
+  sub_main.cpp
 c:\prenos\remc2\remc2\engine\defs.h(74): warning C4005: LOBYTE: předefinování makra
   c:\program files (x86)\windows kits\10\include\10.0.16299.0\shared\minwindef.h(206): note: viz předchozí definice LOBYTE
 c:\prenos\remc2\remc2\engine\defs.h(75): warning C4005: LOWORD: předefinování makra
@@ -959,4 +1075,43 @@ c:\prenos\remc2\remc2\engine\defs.h(258): warning C4244: inicializování: T se 
               T=Bit16u,
               U=Bit8u
           ]
+  port_filesystem.cpp
+c:\prenos\remc2\remc2\portability\port_filesystem.cpp(327): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\portability\port_filesystem.cpp(336): warning C4293: <<: Počet operací shift je záporný nebo moc velký; nedefinované chování.
+c:\prenos\remc2\remc2\portability\port_filesystem.cpp(339): warning C4293: <<: Počet operací shift je záporný nebo moc velký; nedefinované chování.
+c:\prenos\remc2\remc2\portability\port_filesystem.cpp(342): warning C4293: <<: Počet operací shift je záporný nebo moc velký; nedefinované chování.
+  port_inputs.cpp
+  port_outputs.cpp
+c:\prenos\remc2\sdl-mixer-x-master\src\music.h(31): warning C4273: round: nekonzistentní propojení dll
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\corecrt_math.h(532): note: viz předchozí definice round
+  port_sdl_sound.cpp
+c:\prenos\remc2\sdl-mixer-x-master\src\music.h(31): warning C4273: round: nekonzistentní propojení dll
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\corecrt_math.h(532): note: viz předchozí definice round
+c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.15.26726\include\xtgmath.h(221): warning C4273: round: nekonzistentní propojení dll
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\corecrt_math.h(532): note: viz předchozí definice round
+c:\prenos\remc2\remc2\portability\port_sdl_sound.cpp(446): warning C4244: argument: time_t se převádí na unsigned int; může dojít ke ztrátě dat.
+  port_sdl_vga_mouse.cpp
+c:\prenos\remc2\sdl-mixer-x-master\src\music.h(31): warning C4273: round: nekonzistentní propojení dll
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\corecrt_math.h(532): note: viz předchozí definice round
+c:\prenos\remc2\remc2\portability\port_sdl_vga_mouse.cpp(314): warning C4018: <: signed/unsigned – neshoda
+c:\prenos\remc2\remc2\portability\port_sdl_vga_mouse.cpp(306): warning C4101: dstrect: neodkazovaná lokální proměnná
+c:\prenos\remc2\remc2\portability\port_sdl_vga_mouse.cpp(305): warning C4101: srcrect: neodkazovaná lokální proměnná
+  port_time.cpp
+  xmi2mid.cpp
+  remc2.cpp
+c:\prenos\remc2\sdl-mixer-x-master\src\music.h(31): warning C4273: round: nekonzistentní propojení dll
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\corecrt_math.h(532): note: viz předchozí definice round
+c:\prenos\remc2\remc2\engine\engine_support.h(508): warning C4086: Očekávalo se, že parametr direktivy pragma bude 1, 2, 4, 8 nebo 16.
+c:\prenos\remc2\remc2\engine\defs.h(74): warning C4005: LOBYTE: předefinování makra
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\shared\minwindef.h(206): note: viz předchozí definice LOBYTE
+c:\prenos\remc2\remc2\engine\defs.h(75): warning C4005: LOWORD: předefinování makra
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\shared\minwindef.h(204): note: viz předchozí definice LOWORD
+c:\prenos\remc2\remc2\engine\defs.h(77): warning C4005: HIBYTE: předefinování makra
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\shared\minwindef.h(207): note: viz předchozí definice HIBYTE
+c:\prenos\remc2\remc2\engine\defs.h(78): warning C4005: HIWORD: předefinování makra
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\shared\minwindef.h(205): note: viz předchozí definice HIWORD
+  Generování kódu...
+  LINK : Soubor C:\prenos\remc2\Debug\remc2.exe se nenašel nebo se při posledním přírůstkovém propojování nesestavil. Provádí se úplné propojení.
+     Vytváří se knihovna C:\prenos\remc2\Debug\remc2.lib a objekt C:\prenos\remc2\Debug\remc2.exp.
+LINK : warning LNK4098: Výchozí knihovna LIBCMTD je v konfliktu s použitím jiných knihoven. Použijte /NODEFAULTLIB:library.
   remc2.vcxproj -> C:\prenos\remc2\Debug\remc2.exe
