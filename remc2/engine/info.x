@@ -5520,3 +5520,15 @@ if (v123 - x_DWORD_DE558<0)
 mouseturnoff = true;
 
 missing adress 0x24c3a0
+
+void sub_8E160_sound_proc15_startsequence(__int16 a1, unsigned __int8 a2)//26f160
+
+*(Bit16u*)(x_D41A0_BYTEARRAY_0 + 565) musi byt 1
+[2a51a0]+235
+
+356038 +235
+
+*(Bit16u*)(x_D41A0_BYTEARRAY_0 + 565)
+versus
+35626d
+kde se meni
