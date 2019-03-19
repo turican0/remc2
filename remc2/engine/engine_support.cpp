@@ -731,7 +731,7 @@ void testdword(Bit32s* val1, Bit32s* val2) {
 	if (*val1 != *val2)
 	{
 		printf("x_D41A0_BYTEARRAY_0_error");
-		exit(0);
+		//exit(0);
 	}
 }
 
@@ -739,7 +739,7 @@ void testbyte(Bit8u* val1, Bit8u* val2) {
 	if (*val1 != *val2)
 	{
 		printf("x_D41A0_BYTEARRAY_0_error");
-		exit(0);
+		//exit(0);
 	}
 }
 
@@ -1001,7 +1001,7 @@ void set_x_D41A0_BYTEARRAY_0_0x2BE0(int number, Bit8u value) {
 
 Bit8u get_x_D41A0_BYTEARRAY_0_0x36e0b() {
 	testbyte(&x_D41A0_BYTEARRAY_0[0x36E0B], &D41A0_BYTESTR_0.byte_0x36E0B);
-	return D41A0_BYTESTR_0.byte_0x36E0B;
+	return x_D41A0_BYTEARRAY_0[0x36E0B];
 };
 void set_x_D41A0_BYTEARRAY_0_0x36e0b(Bit8u value) {
 	x_D41A0_BYTEARRAY_0[0x36E0B] = value;
