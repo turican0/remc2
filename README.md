@@ -9,23 +9,28 @@ https://www.gog.com/game/magic_carpet_2_the_netherworlds<br />
 Now you can only compile only 32-bit binary version (64bit will be available after rewriting all arrays to structures).<br />
 <br />
 simple dev blog:https://github.com/turican0/remc2/wiki<br />
-## ROADMAP:<br />
-## MILLSTONE 6<br />
+<h2>ROADMAP:</h2><br />
+<h3>MILLSTONE 6</h3><br />
 -can build x64<br />
 -can build Linux<br />
-## MILLSTONE 5<br />
+<h3>MILLSTONE 5</h3><br />
 -add next resolutions<br />
-## MILLSTONE 4<br />
+<h3>MILLSTONE 4</h3><br />
 -fix music (can switch between Original MIDI, Music in wave format and Alternative music)<br />
 -fix multiplayer
-## MILLSTONE 3<br />
+<h3>MILLSTONE 3</h3><br />
 -Fix resolution 640x480<br />
 -can play All game same as in original in 320x200<br />
-## MILLSTONE 2<br />
+<h3>MILLSTONE 2</h3><br />
 -Change basic arrays to structures<br />
 -Fix Load and Save game<br />
-## MILLSTONE 1<br />
+<h3>MILLSTONE 1</h3><br />
 -Can Play whole First level same as in original in 320x200<br />
+<br />
+## 0.37:<br />
+-Can play level 1 as original<br />
+-in game music<br />
+-can load and save game<br />
 <br />
 ## 0.36:<br />
 -fixed second level of castle<br />
