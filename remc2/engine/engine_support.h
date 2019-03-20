@@ -408,7 +408,7 @@ typedef struct{//lenght 0x36e16
 	Bit8u stub1[0x13];
 	Bit8u byte_0x22;
 	Bit8u stub2[0x212];
-	Bit32s dword_0x235;//speed?
+	Bit32s dword_0x235;//act music
 
 	Bit8u stub3[0x1f50];
 

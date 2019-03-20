@@ -69,6 +69,12 @@ void test_midi_play(Bit8u* data, Bit8u* header, Bit32s track_number)
 void SOUND_start_sequence(Bit32s sequence_num) {
 	//3 - menu
 	//4 - intro
+
+	//volume fix
+	if(Mix_VolumeMusic(-1)==0)
+		Mix_VolumeMusic(0x7f);
+	//volume fix
+
 	if (Mix_PlayingMusic() == 0)
 	{
 		if (Mix_PlayMusic(GAME_music[sequence_num], -1) == -1)

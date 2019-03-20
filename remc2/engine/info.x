@@ -5529,6 +5529,11 @@ void sub_8E160_sound_proc15_startsequence(__int16 a1, unsigned __int8 a2)//26f16
 356038 +235
 
 *(Bit16u*)(x_D41A0_BYTEARRAY_0 + 565)
+D41A0_BYTESTR_0.dword_0x235
 versus
 35626d
 kde se meni
+
+227932
+
+find change unk_17E078
