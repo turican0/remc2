@@ -16,6 +16,8 @@
 #ifndef ENGINE_SUPPORT_ACTIVE
 #define ENGINE_SUPPORT_ACTIVE
 
+void allert_error();
+
 extern Bit8u* readbuffer;
 extern char* printbuffer;//char* buffer; // [esp+0h] [ebp-2h]
 extern char* printbuffer2;//char v11; // [esp+40h] [ebp+3Eh]

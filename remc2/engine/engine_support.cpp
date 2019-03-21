@@ -124,6 +124,12 @@ doublebyte doublebyte_conv(Bit16u a2) {
 
 Bit8u* pre_x_DWORD_180628b_screen_buffer;
 
+void allert_error() {
+	int a = 10;
+	int b = 0;
+	int c = a / b;//this is generate error
+}
+
 void support_begin() {
     readbuffer = (Bit8u*)malloc(1000000);//fix it max 64000
     printbuffer = (char*)malloc(4096);
@@ -731,6 +737,7 @@ void testdword(Bit32s* val1, Bit32s* val2) {
 	if (*val1 != *val2)
 	{
 		printf("x_D41A0_BYTEARRAY_0_error");
+		//allert_error();
 		//exit(0);
 	}
 }
@@ -739,6 +746,7 @@ void testbyte(Bit8u* val1, Bit8u* val2) {
 	if (*val1 != *val2)
 	{
 		printf("x_D41A0_BYTEARRAY_0_error");
+		//allert_error();
 		//exit(0);
 	}
 }
