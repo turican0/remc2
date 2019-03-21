@@ -116,8 +116,10 @@ void SOUND_init_MIDI_sequence(Bit8u* data, Bit8u* header, Bit32s track_number)
 	dirsstruct helpdirsstruct;
 
 	if (oggmusic) {
-		char buffer[512];
-		char buffer2[512];
+		char buffer1[512]="";
+		char buffer2[512] = "";
+		char buffer3[512] = "";
+		char buffer4[512] = "";
 		//if (track_number > 1)track_number = 0;
 		if (oggmusicalternative)///&&track_number==4
 		{			
@@ -148,20 +150,25 @@ void SOUND_init_MIDI_sequence(Bit8u* data, Bit8u* header, Bit32s track_number)
 			else
 				sprintf(buffer2, "%salternative\\cave\\", oggmusicpath);
 
-			helpdirsstruct = getListDir(buffer2);
+			sprintf(buffer1, "%s", oggmusicpath);
+
+			FixDir(buffer3, buffer2);
+			FixDir(buffer4, buffer1);
+
+			helpdirsstruct = getListDir(buffer3);
 			if (helpdirsstruct.number > 0)
 			{
 				int randtrack = rand()%(helpdirsstruct.number + 1);
-				if(randtrack==0)sprintf(buffer, "%smusic%d.ogg", oggmusicpath, track_number);
+				if(randtrack==0)sprintf(buffer4, "%smusic%d.ogg", oggmusicpath, track_number);
 				else
-					sprintf(buffer, "%s%s", buffer2,helpdirsstruct.dir[randtrack-1]);
+					sprintf(buffer4, "%s%s", buffer3,helpdirsstruct.dir[randtrack-1]);
 			}
 			else
-				sprintf(buffer, "%smusic%d.ogg", oggmusicpath, track_number);
+				sprintf(buffer4, "%smusic%d.ogg", oggmusicpath, track_number);
 		}
 		else
-			sprintf(buffer, "%smusic%d.ogg", oggmusicpath, track_number);
-		GAME_music[track_number] = Mix_LoadMUS(buffer);
+			sprintf(buffer4, "%smusic%d.ogg", oggmusicpath, track_number);
+		GAME_music[track_number] = Mix_LoadMUS(buffer4);
 	}
 	else
 	{

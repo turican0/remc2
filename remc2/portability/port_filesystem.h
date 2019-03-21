@@ -40,6 +40,8 @@ typedef struct {
 } dirsstruct;
 
 dirsstruct getListDir(char* dirname);
+//dirsstruct getListDirFix(char* dirname);
+void FixDir(char* outdirname, char* indirname);
 
 int dos_getdrive(int* a);
 

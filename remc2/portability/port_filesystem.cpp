@@ -272,7 +272,7 @@ dirsstruct getListDir(char* dirname)
 	DIR *dr = opendir(dirname);
 	if (dr == NULL)  // opendir returns NULL if couldn't open directory 
 	{
-		printf("Could not open current directory");
+		printf("Could not open current directory1 %s\n", dirname);
 		return directories;
 	}
 	// Refer http://pubs.opengroup.org/onlinepubs/7990989775/xsh/readdir.html 
@@ -287,6 +287,43 @@ dirsstruct getListDir(char* dirname)
 	return directories;
 }
 
+void FixDir(char* outdirname, char* indirname) {
+	//char outdirname[512] = "\0";
+	char pathexe[512] = "\0";
+	get_exe_path(pathexe);
+	sprintf(outdirname, "%s/%s", pathexe, indirname);
+};
+/*
+
+dirsstruct getListDirFix(char* indirname)
+{
+	struct dirent *de;  // Pointer for directory entry 
+	dirsstruct directories;
+	directories.number = 0;
+	// opendir() returns a pointer of DIR type.  
+	char path2[512] = "\0";
+	char pathexe[512] = "\0";
+	get_exe_path(pathexe);
+	sprintf(path2,"%s/%s", pathexe,indirname);
+
+	DIR *dr = opendir(path2);
+	if (dr == NULL)  // opendir returns NULL if couldn't open directory 
+	{
+		printf("Could not open current directory2 %s\n", path2);
+		return directories;
+	}
+	// Refer http://pubs.opengroup.org/onlinepubs/7990989775/xsh/readdir.html 
+	// for readdir() 
+	while ((de = readdir(dr)) != NULL)
+	{
+		if (de->d_name[0] != '.')
+			sprintf(directories.dir[directories.number++], "%s", de->d_name);
+		//printf("%s\n", de->d_name);		
+	}
+	closedir(dr);
+	return directories;
+}
+*/
 int dos_getdrive(int* a) {
 	*a = _getdrive();
 	return *a;
