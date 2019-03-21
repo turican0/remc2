@@ -125,9 +125,9 @@ doublebyte doublebyte_conv(Bit16u a2) {
 Bit8u* pre_x_DWORD_180628b_screen_buffer;
 
 void allert_error() {
-	int a = 10;
+	/*int a = 10;
 	int b = 0;
-	int c = a / b;//this is generate error
+	int c = a / b;//this is generate error*/
 }
 
 void support_begin() {
