@@ -5537,3 +5537,5 @@ kde se meni
 227932
 
 find change unk_17E078
+
+add adress 1f3910
