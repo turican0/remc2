@@ -5541,3 +5541,5 @@ find change unk_17E078
 add adress 1f3910
 az
 0x1fc2e6
+
+x_WORD_180660_VGA_type_resolution
