@@ -1,4 +1,0 @@
-﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.Cpp.Common.props(144,5): warning MSB4211: Probíhá první nastavení vlastnosti WindowsTargetPlatformVersion na určitou hodnotu. Tato vlastnost již však byla použita v C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.Cpp.WindowsSDK.props (29,5).
-C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.Cpp.Common.props(144,5): warning MSB4211: Probíhá první nastavení vlastnosti WindowsTargetPlatformVersion na určitou hodnotu. Tato vlastnost již však byla použita v C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.Cpp.WindowsSDK.props (29,5).
-  SDL_win32_main.c
-  SDLmain.vcxproj -> c:\prenos\remc2\sdl\VisualC\SDLmain\.\Debug\SDLmain.lib

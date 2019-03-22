@@ -4,10 +4,13 @@
 
 /.vs/remc2/v15
 /remc2/Debug
-*.log
-*.db
-*.ilk
-*.pdb
-*.tlog
-*.obj
-*.idb
+**/vc141.idb
+**/vc141.pdb
+**/*.log
+**/*.db
+**/*.ilk
+**/*.pdb
+**/*.tlog
+**/*.obj
+**/*.idb
+
