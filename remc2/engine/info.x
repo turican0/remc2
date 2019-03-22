@@ -5543,3 +5543,25 @@ az
 0x1fc2e6
 
 x_WORD_180660_VGA_type_resolution
+
+add adress 219d80
+
+	case 0x219b00: {
+az
+	case 0x22b810: {
+
+add adress 2311d0
+
+compare
+void sub_2D710_draw_top_menu(Bit8u* a1)//20e710
+
+find
+x_DWORD_E9B20
+
+x_DWORD_18062C_resolution_x
+versus
+35162c
+
+in
+
+271e4b
