@@ -5539,3 +5539,5 @@ kde se meni
 find change unk_17E078
 
 add adress 1f3910
+az
+0x1fc2e6
