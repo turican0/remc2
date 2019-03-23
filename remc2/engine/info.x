@@ -5550,7 +5550,7 @@ add adress 219d80
 az
 	case 0x22b810: {
 
-add adress 2311d0
+add adress 2311d0 !!
 
 compare
 void sub_2D710_draw_top_menu(Bit8u* a1)//20e710
@@ -5565,3 +5565,36 @@ versus
 in
 
 271e4b
+
+a43be8+4
+versus
+filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct[54].width
+
+2818ac
+2798bf
+234e8f - call sub_53E60_readfile_and_decompress
+27b3ea - call signed int sub_9A32D_malloc_open_unpack(Pathstruct path)//27B32d
+265289 - bool sub_84250_load_file_array(int psindex)//265250
+2282c3 - void sub_47160()//228160
+27977e - void sub_9874D_create_index_dattab(Bit8u* tabbuffer, Bit8u* tabbufferend, Bit8u* datbuffer, posistruct* dattabindex)//27974d
+24fbda - void sub_6EB90(filearray_struct *a1)//24fb90
+228302 - void sub_47160()//228160
+
+test 
+void sub_46B40()//227b40
+
+
+set font
+a47658 + 8
+
+
+int filearrayindex_POINTERSDATTAB = 0;
+int filearrayindex_FONTS0DATTAB = 1;
+int filearrayindex_MSPRDDATTAB = 2;
+int filearrayindex_ZERO1 = 3;
+int filearrayindex_MSPRD00DATTAB = 4;
+int filearrayindex_ZERO2 = 5;
+int filearrayindex_HFONT3DATTAB = 6;
+int filearrayindex_ZERO3 = 7;
+int filearrayindex_BUILD00DATTAB = 8;
+int filearrayindex_ZERO4 = 9;
