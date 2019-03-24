@@ -1027,7 +1027,7 @@ void clean_x_D41A0_BYTEARRAY_0() {
 void errorsize(int type,int size)
 {
 	printf("Test x_D41A0_BYTEARRAY_0 %d %X ERROR\n",type,size);
-	exit(0);
+	//exit(0);
 }
 
 void test_x_D41A0_BYTEARRAY_0() {

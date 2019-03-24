@@ -5598,3 +5598,6 @@ int filearrayindex_HFONT3DATTAB = 6;
 int filearrayindex_ZERO3 = 7;
 int filearrayindex_BUILD00DATTAB = 8;
 int filearrayindex_ZERO4 = 9;
+
+
+void sub_7D400_draw_texts_and_play_sounds(int a1, __int16 a2, __int16 a3, char a4)//25e400
