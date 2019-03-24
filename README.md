@@ -27,6 +27,9 @@ simple dev blog:https://github.com/turican0/remc2/wiki<br />
 <h3>MILLSTONE 1</h3><br />
 -Can Play whole First level same as in original in 320x200<br />
 <br />
+## 0.39:<br />
+-HI-res fixed<br />
+-fixed carpet position in level menu<br />
 ## 0.38:<br />
 -First test HI-res<br />
 -finded problems with texts, menus and terrain<br />
