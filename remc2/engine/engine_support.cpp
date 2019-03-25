@@ -1305,6 +1305,33 @@ void set_x_D41A0_BYTEARRAY_0_0x21b8(Bit8u value) {
 	D41A0_BYTESTR_0.byte_0x21B8 = value;
 };
 
+Bit32s get_x_D41A0_BYTEARRAY_0_0x2362(int number) {
+	testdword((Bit32s*)&x_D41A0_BYTEARRAY_0[6*number+0x2362], &D41A0_BYTESTR_0.array_0x2362[number].dw);
+	return D41A0_BYTESTR_0.array_0x2362[number].dw;
+};
+void set_x_D41A0_BYTEARRAY_0_0x2362(int number, Bit32s value) {
+	*(Bit32s*)&x_D41A0_BYTEARRAY_0[6 * number + 0x2362] = value;
+	D41A0_BYTESTR_0.array_0x2362[number].dw = value;
+};
+Bit16s get_x_D41A0_BYTEARRAY_0_0x2366(int number) {
+	testword((Bit16s*)&x_D41A0_BYTEARRAY_0[6 * number + 0x2362+4], &D41A0_BYTESTR_0.array_0x2362[number].w);
+	return D41A0_BYTESTR_0.array_0x2362[number].w;
+};
+void set_x_D41A0_BYTEARRAY_0_0x2366(int number, Bit16s value) {
+	*(Bit16s*)&x_D41A0_BYTEARRAY_0[6 * number + 0x2362+4] = value;
+	D41A0_BYTESTR_0.array_0x2362[number].w = value;
+};
+
+void clean_x_D41A0_BYTEARRAY_0_0x2362() {
+	memset((void*)(&x_D41A0_BYTEARRAY_0[9058]), 0, 48);
+	for (int i=0; i < 8; i++)
+	{
+		D41A0_BYTESTR_0.array_0x2362[i].dw = 0;
+		D41A0_BYTESTR_0.array_0x2362[i].w =0 ;
+	}
+
+};
+
 Bit8u get_x_D41A0_BYTEARRAY_0_0x2BE0(int number) {
 	testbyte(&x_D41A0_BYTEARRAY_0[0x84c * number + 0x2BE0], &D41A0_BYTESTR_0.array_0x2BDE[number].byte_0x002_2BE0_11232);
 	return D41A0_BYTESTR_0.array_0x2BDE[number].byte_0x002_2BE0_11232;
