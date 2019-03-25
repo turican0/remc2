@@ -973,20 +973,20 @@ void testbyte(Bit8u* val1, Bit8u* val2) {
 
 Bit32s get_x_D41A0_BYTEARRAY_0_4() {
 	testdword((Bit32s*)(x_D41A0_BYTEARRAY_0 + 4), &D41A0_BYTESTR_0.dword_0x4);
-	return *(x_DWORD *)(x_D41A0_BYTEARRAY_0 + 4);
+	return *(Bit32s*)(x_D41A0_BYTEARRAY_0 + 4);
 };
 void set_x_D41A0_BYTEARRAY_0_4(Bit32s value) {
-	*(x_DWORD *)(x_D41A0_BYTEARRAY_0 + 4) = value;
+	*(Bit32s*)(x_D41A0_BYTEARRAY_0 + 4) = value;
 	D41A0_BYTESTR_0.dword_0x4 = value;
 };
 
 Bit32s get_x_D41A0_BYTEARRAY_0_8() {
 	testdword((Bit32s*)(x_D41A0_BYTEARRAY_0 + 8), &D41A0_BYTESTR_0.dword_0x8);
-	return *(x_DWORD *)(x_D41A0_BYTEARRAY_0 + 8);
+	return *(Bit32s*)(x_D41A0_BYTEARRAY_0 + 8);
 };
 void set_x_D41A0_BYTEARRAY_0_8(Bit32s value) {
 	D41A0_BYTESTR_0.dword_0x8 = value;
-	*(x_DWORD *)(x_D41A0_BYTEARRAY_0 + 8) = value;	
+	*(Bit32s*)(x_D41A0_BYTEARRAY_0 + 8) = value;
 };
 
 Bit16s get_x_D41A0_BYTEARRAY_0_0xe() {
