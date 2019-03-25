@@ -520,7 +520,7 @@ typedef struct{//lenght 0x36e16
 
 	//x_D41A0_BYTEARRAY_0[2124 * D41A0_BYTESTR_0.word_12 + 11234])
 	//x_D41A0_BYTEARRAY_0[0x84C * D41A0_BYTESTR_0.word_12 + 0x2BE2])
-	type_str_0x2BDE array_0x2BDE[0xb];
+	type_str_0x2BDE array_0x2BDE[0xb]; //0x84c*0xb
 
 	//array 0x6a3e 10*x // game events
 	
