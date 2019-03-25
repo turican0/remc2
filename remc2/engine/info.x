@@ -5601,3 +5601,5 @@ int filearrayindex_ZERO4 = 9;
 
 
 void sub_7D400_draw_texts_and_play_sounds(int a1, __int16 a2, __int16 a3, char a4)//25e400
+
+sub_82C20 - draw end level info

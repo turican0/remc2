@@ -40,6 +40,9 @@
     <Filter Include="Zdrojové soubory\libs\inih">
       <UniqueIdentifier>{88c3818e-fa9e-47cd-9191-d23071ee450d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Zdrojové soubory\libs\libpng">
+      <UniqueIdentifier>{fb196976-86c1-4372-b999-a541250ac3dc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -568,5 +571,13 @@
     <None Include="..\Debug\config.ini">
       <Filter>Zdrojové soubory</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="..\zlib\lib\zlib.lib">
+      <Filter>Zdrojové soubory\libs\libpng</Filter>
+    </Library>
+    <Library Include="..\libpng2\libpng-master\projects\vstudio2017\Debug\libpng15.lib">
+      <Filter>Zdrojové soubory\libs\libpng</Filter>
+    </Library>
   </ItemGroup>
 </Project>

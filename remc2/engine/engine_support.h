@@ -4,6 +4,10 @@
 #include <stddef.h>
 #include <stdarg.h>     /* va_list, va_start, va_arg, va_end */
 
+#include "png.h"
+#pragma comment(lib, "zlib.lib") // must be before libpng!
+#pragma comment(lib, "libpng15.lib") // must be after zlib!
+
 #include"../portability/port_time.h"
 
 #include "../portability/port_sdl_vga_mouse.h"
@@ -13,9 +17,41 @@
 
 
 
+
+
+
 #ifndef ENGINE_SUPPORT_ACTIVE
 #define ENGINE_SUPPORT_ACTIVE
+/*
+// sign flag
+template<class T> int8 __SETS__x(T x)
+{
+	if (sizeof(T) == 1)
+		return int8(x) < 0;
+	if (sizeof(T) == 2)
+		return int16(x) < 0;
+	if (sizeof(T) == 4)
+		return int32(x) < 0;
+	//return int64(x) < 0;
+}
 
+// overflow flag of addition (x+y)
+template<class T, class U> int8 __OFADD__x(T x, U y)
+{
+	if (sizeof(T) < sizeof(U))
+	{
+		U x2 = x;
+		int8 sx = __SETS__x(x2);
+		return ((1 ^ sx) ^ __SETS__x(y)) & (sx ^ __SETS__x(x2 + y));
+	}
+	else
+	{
+		T y2 = y;
+		int8 sx = __SETS__x(x);
+		return ((1 ^ sx) ^ __SETS__x(y2)) & (sx ^ __SETS__x(x + y2));
+	}
+}
+*/
 void allert_error();
 
 extern Bit8u* readbuffer;
@@ -656,5 +692,5 @@ extern type_D41A0_BYTESTR_0 D41A0_BYTESTR_0;
 
 /*void x_D41A0_BYTEARRAY_0_to_x_D41A0_BYTESTR_0();
 void x_D41A0_BYTESTR_0_to_x_D41A0_BYTEARRAY_0();*/
-
+void write_posistruct_to_png(Bit8u* buffer, int width, int height, char* filename);
 #endif //ENGINE_SUPPORT_ACTIVE

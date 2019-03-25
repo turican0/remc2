@@ -733,6 +733,217 @@ void x_D41A0_BYTESTR_0_to_x_D41A0_BYTEARRAY_0()
 	}
 }*/
 
+inline void setRGBA(png_byte *ptr, Bit8u* val)
+{	
+		ptr[0] = val[0];
+		ptr[1] = val[1];
+		ptr[2] = val[2];
+		ptr[3] = val[3];	
+}
+
+int writeImage(char* filename, int width, int height, Bit8u *buffer, char* title)
+{
+	int code = 0;
+	FILE *fp = NULL;
+	png_structp png_ptr = NULL;
+	png_infop info_ptr = NULL;
+	png_bytep row = NULL;
+
+	// Open file for writing (binary mode)
+	fp = fopen(filename, "wb");
+	if (fp == NULL) {
+		fprintf(stderr, "Could not open file %s for writing\n", filename);
+		code = 1;
+		goto finalise;
+	}
+
+	// Initialize write structure
+	png_ptr = png_create_write_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
+	if (png_ptr == NULL) {
+		fprintf(stderr, "Could not allocate write struct\n");
+		code = 1;
+		goto finalise;
+	}
+
+	// Initialize info structure
+	info_ptr = png_create_info_struct(png_ptr);
+	if (info_ptr == NULL) {
+		fprintf(stderr, "Could not allocate info struct\n");
+		code = 1;
+		goto finalise;
+	}
+
+	// Setup Exception handling
+	if (setjmp(png_jmpbuf(png_ptr))) {
+		fprintf(stderr, "Error during png creation\n");
+		code = 1;
+		goto finalise;
+	}
+
+	png_init_io(png_ptr, fp);
+
+	// Write header (8 bit colour depth)
+	png_set_IHDR(png_ptr, info_ptr, width, height,
+		8, PNG_COLOR_TYPE_RGBA, PNG_INTERLACE_NONE,
+		PNG_COMPRESSION_TYPE_BASE, PNG_FILTER_TYPE_BASE);
+
+	// Set title
+	if (title != NULL) {
+		png_text title_text;
+		title_text.compression = PNG_TEXT_COMPRESSION_NONE;
+		title_text.key = (png_charp)"Title";
+		title_text.text = title;
+		png_set_text(png_ptr, info_ptr, &title_text, 1);
+	}
+
+	png_write_info(png_ptr, info_ptr);
+
+	// Allocate memory for one row (3 bytes per pixel - RGB)
+	row = (png_bytep)malloc(4 * width * sizeof(png_byte));
+
+	// Write image data
+	int x, y;
+	for (y = 0; y < height; y++) {
+		for (x = 0; x < width; x++) {
+			setRGBA(&(row[x * 4]), buffer+(y*width + x)*4);
+		}
+		png_write_row(png_ptr, row);
+	}
+
+	// End write
+	png_write_end(png_ptr, NULL);
+
+finalise:
+	if (fp != NULL) fclose(fp);
+	if (info_ptr != NULL) png_free_data(png_ptr, info_ptr, PNG_FREE_ALL, -1);
+	if (png_ptr != NULL) png_destroy_write_struct(&png_ptr, (png_infopp)NULL);
+	if (row != NULL) free(row);
+
+	return code;
+}
+
+
+void write_posistruct_to_png(Bit8u* buffer,int width, int height, char* filename) {
+	//int width = actposistruct->width;
+	//int height = actposistruct->height;
+	//png_bytep *row_pointers=(png_bytep*)malloc(sizeof(row_pointers)*height);
+	png_bytep row = NULL;
+	//Bit8u buffer[10000];
+
+	//Bit8u* buffer_ptr = buffer;
+
+	//Bit8u* texture= actposistruct->data;
+
+	//Bit8u* v21_buffer_temp_index1 = buffer;
+	/*
+	//v21 = (char *)(dword_18062C * a2 + a3 + v6);
+	Bit8s v22_loc = 0;
+	Bit8s v23_loc = -1;
+	Bit8s* v25_loc = 0;
+	Bit8s v26_loc = 0;
+	Bit8s* v27_loc = 0;
+	Bit8s* v24_loc = (Bit8s*)v21_buffer_temp_index1;
+
+	int x_DWORD_18062C_resolution_x = 11;
+	int a1byte2 = 8;
+
+	do
+	{
+		while (1)
+		{
+			while (1)
+			{
+				v23_loc = texture[0];
+				texture++;
+				if ((v23_loc & 0x80u) == 0)
+					break;
+				v25_loc = (Bit8s*)&v21_buffer_temp_index1[-v23_loc];
+				v26_loc = texture[0];
+				v27_loc = (Bit8s*)(texture + 1);
+				v22_loc = v26_loc;
+				memcpy(v25_loc, v27_loc, v22_loc);
+				texture = (Bit8u*)&v27_loc[v22_loc];
+				v21_buffer_temp_index1 = (Bit8u*)&v25_loc[v22_loc];
+				v22_loc = 0;
+			}
+			if (!v23_loc)
+				break;
+			v22_loc = v23_loc;
+			memcpy(v21_buffer_temp_index1, texture, v22_loc);
+			texture += v22_loc;
+			v21_buffer_temp_index1 += v22_loc;
+			v22_loc = 0;
+		}
+		v24_loc += x_DWORD_18062C_resolution_x;
+		v21_buffer_temp_index1 = (Bit8u*)v24_loc;
+		a1byte2--;
+	} while (a1byte2);
+	*/
+	Bit8u buffer2[10000*4];
+	for (int i = 0; i < 10000; i++)
+	{
+		buffer2[i * 4 + 0] = buffer[i];
+		buffer2[i * 4 + 1] = buffer[i];
+		buffer2[i * 4 + 2] = buffer[i];
+		if (buffer[i] != 0xff)buffer2[i * 4 + 3]=255;
+	}
+	writeImage(filename, width, height, buffer2, (char*)"test");
+	/*
+	int y;
+
+	FILE *fp = fopen(filename, "wb");
+	if (!fp) abort();
+
+	png_structp png = png_create_write_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
+	if (!png) abort();
+
+	png_infop info = png_create_info_struct(png);
+	if (!info) abort();
+
+	if (setjmp(png_jmpbuf(png))) abort();
+
+	png_init_io(png, fp);
+
+	// Output is 8bit depth, RGBA format.
+	png_set_IHDR(
+		png,
+		info,
+		width, height,
+		8,
+		PNG_COLOR_TYPE_RGBA,
+		PNG_INTERLACE_NONE,
+		PNG_COMPRESSION_TYPE_DEFAULT,
+		PNG_FILTER_TYPE_DEFAULT
+	);
+	png_write_info(png, info);
+
+	// To remove the alpha channel for PNG_COLOR_TYPE_RGB format,
+	// Use png_set_filler().
+	//png_set_filler(png, 0, PNG_FILLER_AFTER);
+
+
+	// Allocate memory for one row (3 bytes per pixel - RGB)
+	row = (png_bytep)malloc(3 * width * sizeof(png_byte));
+
+	// Write image data
+	int xx, yy;
+	for (yy = 0; yy < height; yy++) {
+		for (xx = 0; xx < width; xx++) {
+			setRGB(&(row[xx * 3]), buffer[yy*width + xx]);
+		}
+		png_write_row(png, row);
+	}
+
+	// End write
+	png_write_end(png, NULL);
+
+	if (fp != NULL) fclose(fp);
+	if (info != NULL) png_free_data(png, info, PNG_FREE_ALL, -1);
+	if (png != NULL) png_destroy_write_struct(&png, (png_infopp)NULL);
+	if (row != NULL) free(row);*/
+}
+
+
 void testdword(Bit32s* val1, Bit32s* val2) {
 	if (*val1 != *val2)
 	{
