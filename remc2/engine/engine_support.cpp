@@ -1323,13 +1323,70 @@ void set_x_D41A0_BYTEARRAY_0_0x2366(int number, Bit16s value) {
 };
 
 void clean_x_D41A0_BYTEARRAY_0_0x2362() {
-	memset((void*)(&x_D41A0_BYTEARRAY_0[9058]), 0, 48);
+	memset((void*)(&x_D41A0_BYTEARRAY_0[0x2362]), 0, 48);
 	for (int i=0; i < 8; i++)
 	{
 		D41A0_BYTESTR_0.array_0x2362[i].dw = 0;
 		D41A0_BYTESTR_0.array_0x2362[i].w =0 ;
 	}
 
+};
+
+void clean_x_D41A0_BYTEARRAY_0_0x2BDE(int number) {
+	memset((void*)(&x_D41A0_BYTEARRAY_0[0x2BDE+2124*number]), 0, 2124);
+	memset((void*)(&D41A0_BYTESTR_0.array_0x2BDE[number]), 0, 2124);
+	/*for (int i = 0; i < 8; i++)
+	{
+		D41A0_BYTESTR_0.array_0x2BDE[i].byte_0x000_2BDE_11230=0;//0	//11230 - byte? - ne zacatek struktury
+		D41A0_BYTESTR_0.array_0x2BDE[i].byte_0x001_2BDF_11231_xx = 0;
+		D41A0_BYTESTR_0.array_0x2BDE[i].byte_0x002_2BE0_11232 = 0;//2	//11232 - byte //2
+		D41A0_BYTESTR_0.array_0x2BDE[i].byte_0x003_2BE0_11233_xx = 0;
+		D41A0_BYTESTR_0.array_0x2BDE[i].byte_0x004_2BE0_11234 = 0;//2	//11234 - byte //4
+		D41A0_BYTESTR_0.array_0x2BDE[i].byte_0x005_2BE0_11235_xx = 0;
+		D41A0_BYTESTR_0.array_0x2BDE[i].byte_0x006_2BE4_11236 = 0;//6	//11236 - byte //6
+		D41A0_BYTESTR_0.array_0x2BDE[i].byte_0x007_2BE4_11237_xx = 0;
+		D41A0_BYTESTR_0.array_0x2BDE[i].byte_0x008_2BE4_11238_xx = 0;
+		D41A0_BYTESTR_0.array_0x2BDE[i].byte_0x009_2BE4_11239_xx = 0;
+		D41A0_BYTESTR_0.array_0x2BDE[i].word_0x00a_2BE4_11240 = 0;//10 //11240 - word - index z EA3E4 //0xa
+		for (int j = 0; j < 16; j++)
+			D41A0_BYTESTR_0.array_0x2BDE[i].stub[j]=0;
+		for (int j = 0; j < 49; j++)
+			D41A0_BYTESTR_0.array_0x2BDE[i].array_0x01c_2BFA_11258[j]=0;//28//11258 - byte* jmeno2?
+		D41A0_BYTESTR_0.array_0x2BDE[i].word_0x04d_2C2B_11307 = 0;//77 //11307 - word
+		D41A0_BYTESTR_0.array_0x2BDE[i].word_0x04d_2C2D_11309 = 0;//79 //11309 - word
+		for (int j = 0; j < 846; j++)
+			D41A0_BYTESTR_0.array_0x2BDE[i].stub2[j];
+		for (int j = 0; j < 64; j++)
+			D41A0_BYTESTR_0.array_0x2BDE[i].array_0x39f_2BFA_12157[j];//927//12157 - byte(11230+927) 100% jmeno
+		D41A0_BYTESTR_0.array_0x2BDE[i].byte_0x3DF_2BE4_12221 = 0;//991//12221 - byte
+		D41A0_BYTESTR_0.array_0x2BDE[i].byte_0x3E0_2BE4_12222_xx = 0;
+		D41A0_BYTESTR_0.array_0x2BDE[i].byte_0x3E1_2BE4_12223 = 0;//993//12223 - byte
+		D41A0_BYTESTR_0.array_0x2BDE[i].byte_0x3E2_2BE4_12224 = 0;//994//12224 - byte
+		for (int j = 0; j < 61; j++)
+			D41A0_BYTESTR_0.array_0x2BDE[i].stub3[j];
+		D41A0_BYTESTR_0.array_0x2BDE[i].byte_0x420_2BE4_12286 = 0;//1056//12286 - byte
+		for (int j = 0; j < 942; j++)
+			D41A0_BYTESTR_0.array_0x2BDE[i].stub4[j];	
+		for (int j = 0; j < 24; j++)
+			D41A0_BYTESTR_0.array_0x2BDE[i].struct_0x649_2BDE_12839.array_0x7CF_2BDE_13229[j];
+		D41A0_BYTESTR_0.array_0x2BDE[i].struct_0x649_2BDE_12839.word_0x7E7_2BDE_13253=0;
+		for (int j = 0; j < 99; j++)
+			D41A0_BYTESTR_0.array_0x2BDE[i].stub5[j];
+	}*/
+};
+
+void copyto_x_D41A0_BYTEARRAY_0_0x2BDE_0x7CF(int number, Bit8u* value) {
+	memcpy(&x_D41A0_BYTEARRAY_0[2124*number+1999], value, 24);
+	memcpy(D41A0_BYTESTR_0.array_0x2BDE[number].struct_0x649_2BDE_12839.array_0x7CF_2BDE_13229, value, 24);
+};
+
+void copyto_x_D41A0_BYTEARRAY_0_0x2BDE_0x7E7(int number, Bit16s value) {
+	memcpy(&x_D41A0_BYTEARRAY_0[2124 * number + 2023], &value, 24);
+	D41A0_BYTESTR_0.array_0x2BDE[number].struct_0x649_2BDE_12839.word_0x7E7_2BDE_13253 = value;
+};
+
+Bit8u* get_x_D41A0_BYTEARRAY_0_0x2BE0_0x649(int number) {
+	return (Bit8u*)&D41A0_BYTESTR_0.array_0x2BDE[number].struct_0x649_2BDE_12839;
 };
 
 Bit8u get_x_D41A0_BYTEARRAY_0_0x2BE0(int number) {
