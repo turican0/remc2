@@ -5605,3 +5605,5 @@ void sub_7D400_draw_texts_and_play_sounds(int a1, __int16 a2, __int16 a3, char a
 sub_82C20 - draw end level info
 
 fix void sub_53160()//234160
+
+fix void sub_54A50(unsigned __int16 a1, Bit8u* a2)//235a50

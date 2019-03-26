@@ -569,9 +569,9 @@ typedef struct{//lenght 0x36e16
 	dw_ws array_0x2362[8];//0x30
 	//Bit32s dword_0x2362;
 	//Bit16s word_0x2366;
-
-	/*??*/type_str_0x24DF array_0x24DF[0xb];//?lenght
-
+	Bit8u stub3c[0x14d];
+	///*??*/type_str_0x24DF array_0x24DF[0xb];//?lenght
+	Bit8u stub3d[0x6ff];
 
 
 
@@ -580,7 +580,7 @@ typedef struct{//lenght 0x36e16
 	type_str_0x2BDE array_0x2BDE[0xb]; //0x84c*0xb
 
 	//array 0x6a3e 10*x // game events
-	
+	Bit8u stub3e[0x277ac];
 
 	type_str_2FECE str_2FECE;// a1 = &x_D41A0_BYTEARRAY_0[0x2FECE/*196302*/];//fix - size 0x6604u//compress level 
 	/*//podpolozky
@@ -594,9 +594,9 @@ typedef struct{//lenght 0x36e16
 	*/
 
 	//array 0x364D6 lenght 0x68 end 0x3653e
-
+	Bit8u stub3f[0x831];
 	Bit16s word_0x365E0;
-
+	Bit8u stub3g[0x12];
 	type_str_0x365F4 array_0x365F4[0xb];//8x11	//set 0x58 // end 0x3664c
 
 	//Bit8s byte_0x365FC;//array_0x365F4[1].byte_0
@@ -604,17 +604,16 @@ typedef struct{//lenght 0x36e16
 	
 
 	//array 0x3664C lenght 0x79e (end-0x36dea)
-
+	Bit8u stub3h[0x79e];
 	Bit8s byte_0x36DEA_fly_asistant;
-
+	Bit8s byte_0x36DEB_xx;
 	Bit16s word_0x36DEC_mousex;
 	Bit16s word_0x36DEE_mousey;
-	Bit16s word_0x36DF1_mousexx;
-
+	Bit16s word_0x36DF0_mousexx;
 	Bit32s dword_0x36DF2;//index
-
+	Bit8u stub3i[0xa];
 	Bit8s byte_0x36E00;
-
+	Bit8u stub3j[0xa];
 	Bit8u byte_0x36E0B;
 	
 	
@@ -624,7 +623,7 @@ typedef struct{//lenght 0x36e16
 	//type_str_0x365F2 array_str_0x365F2[0x10];//fix it
 	//*(0x365F2 + x_D41A0_BYTEARRAY_0 + 8 * (signed __int16)result + 2)
 
-	Bit8u stubend[0x36e17 - 0x25721-2];
+	Bit8u stubend[0xb];
 
 } type_D41A0_BYTESTR_0;
 #pragma pack (0)
