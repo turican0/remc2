@@ -386,8 +386,8 @@ typedef struct {//begin 0x649 //lenght min 0x1ee
 	Bit8s byte_0x781_2BDE[0x1a];//1921
 	Bit8u stub4d[0x1a];
 	Bit8s byte_0x7B5_2BDE[0x1a];//1973
-	Bit8u array_0x7CF_2BDE_13229[0x18];//1999
-	Bit8s array_0x7E7_2BDE_13253[0x1c];
+	Bit8u array_0x7CF_2BDE_13229[0x34];//1999
+	//Bit8s array_0x7E7_2BDE_13253[0x1c];//array_0x7CF_2BDE_13229[0x18]
 	//Bit8s byte_0x7E8_2BDE[0x1a];// -1x26//2024
 
 	Bit8s byte_0x803_2BDE[0x19];// -1x26//2051
@@ -511,6 +511,20 @@ typedef struct {
 	Bit16s w;
 } dw_ws;
 
+typedef struct {
+	Bit8s Bit_0;
+	Bit8s Bit_1;
+	Bit8s Bit_2;
+	Bit8s Bit_3;
+	Bit8s Bit_4;
+	Bit8s Bit_5;
+	Bit8s Bit_6;
+	Bit8s Bit_7;
+	Bit8s Bit_8;
+	Bit8s Bit_9;
+}
+typedef_str_0x6E3E;
+
 typedef struct{//lenght 0x36e16	
 	Bit8u stub0[4];
 	Bit32s dword_0x4;
@@ -593,6 +607,8 @@ typedef struct{//lenght 0x36e16
 	//x_D41A0_BYTEARRAY_0[0x84C * D41A0_BYTESTR_0.word_12 + 0x2BE2])
 	type_str_0x2BDE array_0x2BDE[0xb]; //0x84c*0xb
 
+	typedef_str_0x6E3E array_0x6E3E[8];//28222	lenght 0xa size 0x8
+	xx
 	//array 0x6a3e 10*x // game events
 	Bit8u stub3e[0x277ac];
 

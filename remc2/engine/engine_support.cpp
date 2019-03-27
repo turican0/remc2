@@ -1381,9 +1381,9 @@ void copyto_x_D41A0_BYTEARRAY_0_0x2BDE_0x7CF(int number, Bit8u* value) {
 };
 
 void copyto_x_D41A0_BYTEARRAY_0_0x2BDE_0x7E7(int number, Bit8u* value) {
-	memcpy(&x_D41A0_BYTEARRAY_0[0x2BDE + 2124 * number + 2023], &value, 24);
+	memcpy(&x_D41A0_BYTEARRAY_0[0x2BDE + 2124 * number + 2023], value, 24);
 	//xx D41A0_BYTESTR_0.array_0x2BDE[number].struct_0x649_2BDE_12839.word_0x7E7_2BDE_13253 = value;
-	memcpy(D41A0_BYTESTR_0.array_0x2BDE[number].struct_0x649_2BDE_12839.array_0x7E7_2BDE_13253, value, 24);
+	memcpy(&D41A0_BYTESTR_0.array_0x2BDE[number].struct_0x649_2BDE_12839.array_0x7CF_2BDE_13229[0x18], value, 24);
 };
 
 void set_x_D41A0_BYTEARRAY_0_0x2BDE_0x7(int number, Bit16s value) {
@@ -1474,7 +1474,7 @@ Bit8u* get_x_D41A0_BYTEARRAY_0_0x2BDE_0x649(int number) {
 };
 
 void set_x_D41A0_BYTEARRAY_0_0x2BDE_0x649(int index, int subindex, Bit32s value) {
-	*(Bit32s*)&x_D41A0_BYTEARRAY_0[0x84c * index + 0x2BDE + 4 * subindex] = value;
+	*(Bit32s*)&x_D41A0_BYTEARRAY_0[0x84c * index + 0x2BDE+0x649 + 4 * subindex] = value;
 	D41A0_BYTESTR_0.array_0x2BDE[index].struct_0x649_2BDE_12839.dword_0x649_2BDE[subindex] = value;
 };
 
@@ -1484,7 +1484,7 @@ void set_x_D41A0_BYTEARRAY_0_0x2BDE_0x717(int index, int subindex, Bit16s value)
 };
 
 void set_x_D41A0_BYTEARRAY_0_0x2BDE_0x781(int index, int subindex, Bit8s value) {
-	x_D41A0_BYTEARRAY_0[0x781 * index + 0x2BDE + subindex] = value;
+	x_D41A0_BYTEARRAY_0[0x2BDE + 0x84c * index + 0x781 + subindex] = value;
 	D41A0_BYTESTR_0.array_0x2BDE[index].struct_0x649_2BDE_12839.byte_0x781_2BDE[subindex] = value;
 };
 
@@ -1494,7 +1494,7 @@ Bit8s get_x_D41A0_BYTEARRAY_0_0x2BDE_0x7B5(int index, int subindex) {
 };
 
 void set_x_D41A0_BYTEARRAY_0_0x2BDE_0x7B5(int index, int subindex, Bit8s value) {
-	x_D41A0_BYTEARRAY_0[0x7b5 * index + 0x2BDE + subindex] = value;
+	x_D41A0_BYTEARRAY_0[0x84c * index + 0x2BDE + 0x7b5 + subindex] = value;
 	D41A0_BYTESTR_0.array_0x2BDE[index].struct_0x649_2BDE_12839.byte_0x7B5_2BDE[subindex] = value;
 };
 
@@ -1503,13 +1503,13 @@ Bit8s get_x_D41A0_BYTEARRAY_0_0x2BDE_0x7CF(int index, int subindex) {
 	return D41A0_BYTESTR_0.array_0x2BDE[index].struct_0x649_2BDE_12839.array_0x7CF_2BDE_13229[subindex];
 };
 void set_x_D41A0_BYTEARRAY_0_0x2BDE_0x7CF(int index, int subindex, Bit8s value) {
-	x_D41A0_BYTEARRAY_0[0x7b5 * index + 0x2BDE + subindex] = value;
+	x_D41A0_BYTEARRAY_0[0x84c * index + 0x2BDE+0x7cf + subindex] = value;
 	D41A0_BYTESTR_0.array_0x2BDE[index].struct_0x649_2BDE_12839.array_0x7CF_2BDE_13229[subindex] = value;
 };
 
 void set_x_D41A0_BYTEARRAY_0_0x2BDE_0x7e8(int index, int subindex, Bit8s value) {
 	x_D41A0_BYTEARRAY_0[0x84c * index + 0x2BDE + 0x7e8 + subindex] = value;
-	D41A0_BYTESTR_0.array_0x2BDE[index].struct_0x649_2BDE_12839.array_0x7E7_2BDE_13253[subindex+1] = value;
+	D41A0_BYTESTR_0.array_0x2BDE[index].struct_0x649_2BDE_12839.array_0x7CF_2BDE_13229[0x18+subindex+1] = value;
 };
 Bit8s get_x_D41A0_BYTEARRAY_0_0x2BDE_0x803(int index, int subindex) {
 	testbyte(&x_D41A0_BYTEARRAY_0[0x84c * index + 0x2BDE + 0x803 + subindex], (Bit8u*)&D41A0_BYTESTR_0.array_0x2BDE[index].struct_0x649_2BDE_12839.byte_0x803_2BDE[subindex]);

@@ -5609,3 +5609,5 @@ fix void sub_53160()//234160
 fix void sub_54A50(unsigned __int16 a1, Bit8u* a2)//235a50
 
 (int)&D41A0_BYTESTR_0.array_0x2BDE[0].struct_0x649_2BDE_12839.array_0x7E7_2BDE_13253-(int)&D41A0_BYTESTR_0.array_0x2BDE[0].struct_0x649_2BDE_12839+0x649
+
+(Bit8u*)&D41A0_BYTESTR_0+0x6e3e
