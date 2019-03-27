@@ -377,11 +377,23 @@ typedef struct {//lenght 20
 	Bit8u stub[13];//array_0x36515	
 } type_str_0x30325;
 
-typedef struct {//lenght min 0x1ee
-	Bit8u stub4b[390];
-	Bit8u array_0x7CF_2BDE_13229[24];
-	Bit16s word_0x7E7_2BDE_13253;
-	Bit8u stub2[78];
+typedef struct {//begin 0x649 //lenght min 0x1ee
+	Bit32s dword_0x649_2BDE[0x33];//1609
+	Bit8u stub1[2];
+	Bit16s word_0x717_2BDE[0x1a];// -2xa1 tj 2x 26//1815	
+	//1817
+	Bit8u stub4c[54];
+	Bit8s byte_0x781_2BDE[0x1a];//1921
+	Bit8u stub4d[0x1a];
+	Bit8s byte_0x7B5_2BDE[0x1a];//1973
+	Bit8u array_0x7CF_2BDE_13229[0x18];//1999
+	Bit8s array_0x7E7_2BDE_13253[0x1c];
+	//Bit8s byte_0x7E8_2BDE[0x1a];// -1x26//2024
+
+	Bit8s byte_0x803_2BDE[0x19];// -1x26//2051
+
+	Bit8s byte_0x81C_2BDE[0x1a];// -1x26//2076
+	Bit8u stub2[1];
 } type_struct_0x649_2BDE_12839;
 
 typedef struct { // 479 // size 14 tj 0xe
@@ -456,9 +468,11 @@ typedef struct {//lenght 2124=0x84C
 	/*Bit8u stub4b[228];
 	Bit8u array_0x7CF_2BDE_13229[24];
 	Bit16s word_0x7E7_2BDE_13253;*/
+	
+	Bit16s word_0x837_2BDE;//2103
+	Bit16s word_0x839_2BDE;//2105
 
-
-	Bit8u stub5[21];
+	Bit8u stub5[17];
 } type_str_0x2BDE;//11230 // 84c lenght
 
 
@@ -757,37 +771,58 @@ void clean_x_D41A0_BYTEARRAY_0_0x2362();
 void clean_x_D41A0_BYTEARRAY_0_0x2BDE(int number);
 
 void copyto_x_D41A0_BYTEARRAY_0_0x2BDE_0x7CF(int number,Bit8u* value);
-void copyto_x_D41A0_BYTEARRAY_0_0x2BDE_0x7E7(int number, Bit16s value);
+void copyto_x_D41A0_BYTEARRAY_0_0x2BDE_0x7E7(int number, Bit8u* value);
 
 void set_x_D41A0_BYTEARRAY_0_0x2BDE_0x7(int number, Bit16s value);
+Bit8s get_x_D41A0_BYTEARRAY_0_0x2BDE_0x9(int number);
 void set_x_D41A0_BYTEARRAY_0_0x2BDE_0x9(int number, Bit8s value);
 void set_x_D41A0_BYTEARRAY_0_0x2BDE_0xe(int number, Bit16s value);
-Bit16s get_x_D41A0_BYTEARRAY_0_0x2BE0_0x10(int number);
+Bit16s get_x_D41A0_BYTEARRAY_0_0x2BDE_0x10(int number);
 void set_x_D41A0_BYTEARRAY_0_0x2BDE_0x10(int number, Bit16s value);
 void set_x_D41A0_BYTEARRAY_0_0x2BDE_0x18(int number, Bit32s value);
 
 void set_x_D41A0_BYTEARRAY_0_0x2BDE_0x3e1(int number, Bit8s value);
 
-Bit32s get_x_D41A0_BYTEARRAY_0_0x2BE0_0x1d1_2BDE_11707(int index, int subindex);//465
+Bit32s get_x_D41A0_BYTEARRAY_0_0x2BDE_0x1d1_2BDE_11707(int index, int subindex);//465
 void set_x_D41A0_BYTEARRAY_0_0x2BDE_0x1d1_2BDE_11707(int index, int subindex, Bit32s value);//465
 
-Bit32s get_x_D41A0_BYTEARRAY_0_0x2BE0_0x1d5_2BDE_11707(int index, int subindex);//469
+Bit32s get_x_D41A0_BYTEARRAY_0_0x2BDE_0x1d5_2BDE_11707(int index, int subindex);//469
 void set_x_D41A0_BYTEARRAY_0_0x2BDE_0x1d5_2BDE_11707(int index, int subindex, Bit32s value);//469
 
-Bit32s get_x_D41A0_BYTEARRAY_0_0x2BE0_0x1d9_2BDE_11707(int index, int subindex);//473
+Bit32s get_x_D41A0_BYTEARRAY_0_0x2BDE_0x1d9_2BDE_11707(int index, int subindex);//473
 void set_x_D41A0_BYTEARRAY_0_0x2BDE_0x1d9_2BDE_11707(int index, int subindex, Bit32s value);//473
 
-Bit16s get_x_D41A0_BYTEARRAY_0_0x2BE0_0x1dd_2BDE_11707(int index, int subindex);//477
+Bit16s get_x_D41A0_BYTEARRAY_0_0x2BDE_0x1dd_2BDE_11707(int index, int subindex);//477
 void set_x_D41A0_BYTEARRAY_0_0x2BDE_0x1dd_2BDE_11707(int index, int subindex, Bit16s value);//477
 
-Bit8s* get_x_D41A0_BYTEARRAY_0_0x2BE0_0x39f_2BFA_12157(int index);
+Bit8s* get_x_D41A0_BYTEARRAY_0_0x2BDE_0x39f_2BFA_12157(int index);
 
 void set_x_D41A0_BYTEARRAY_0_0x2BDE_0x5a6(int number, Bit8s value);
 
-Bit8u* get_x_D41A0_BYTEARRAY_0_0x2BE0_0x649(int number);
+Bit8u* get_x_D41A0_BYTEARRAY_0_0x2BDE_0x649(int number);
+void set_x_D41A0_BYTEARRAY_0_0x2BDE_0x649(int number,int subindex, Bit32s value);
 
-Bit8u get_x_D41A0_BYTEARRAY_0_0x2BE0(int number);
-void set_x_D41A0_BYTEARRAY_0_0x2BE0(int number,Bit8u value);
+void set_x_D41A0_BYTEARRAY_0_0x2BDE_0x717(int index, int subindex, Bit16s value);
+void set_x_D41A0_BYTEARRAY_0_0x2BDE_0x781(int index, int subindex, Bit8s value);
+Bit8s get_x_D41A0_BYTEARRAY_0_0x2BDE_0x7B5(int index, int subindex);
+void set_x_D41A0_BYTEARRAY_0_0x2BDE_0x7B5(int index, int subindex, Bit8s value);
+Bit8s get_x_D41A0_BYTEARRAY_0_0x2BDE_0x7CF(int index, int subindex);
+void set_x_D41A0_BYTEARRAY_0_0x2BDE_0x7CF(int index, int subindex, Bit8s value);
+void set_x_D41A0_BYTEARRAY_0_0x2BDE_0x7e8(int index, int subindex, Bit8s value);
+Bit8s get_x_D41A0_BYTEARRAY_0_0x2BDE_0x803(int index, int subindex);
+void set_x_D41A0_BYTEARRAY_0_0x2BDE_0x803(int index, int subindex, Bit8s value);
+void set_x_D41A0_BYTEARRAY_0_0x2BDE_0x81c(int index, int subindex, Bit8s value);
+
+Bit16s get_x_D41A0_BYTEARRAY_0_0x2BDE_0x837(int index);
+void set_x_D41A0_BYTEARRAY_0_0x2BDE_0x837(int index, Bit16s value);
+Bit16s get_x_D41A0_BYTEARRAY_0_0x2BDE_0x839(int index);
+void set_x_D41A0_BYTEARRAY_0_0x2BDE_0x839(int index, Bit16s value);
+
+
+
+
+Bit8u get_x_D41A0_BYTEARRAY_0_0x2BDE(int number);
+void set_x_D41A0_BYTEARRAY_0_0x2BDE(int number,Bit8u value);
 
 
 
