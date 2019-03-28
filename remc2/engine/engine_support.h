@@ -511,7 +511,7 @@ typedef struct {
 	Bit16s w;
 } dw_ws;
 
-typedef struct {
+/*typedef struct {
 	Bit8s Bit_0;
 	Bit8s Bit_1;
 	Bit8s Bit_2;
@@ -523,7 +523,7 @@ typedef struct {
 	Bit8s Bit_8;
 	Bit8s Bit_9;
 }
-typedef_str_0x6E3E;
+typedef_str_0x6E3E;*/
 
 typedef struct{//lenght 0x36e16	
 	Bit8u stub0[4];
@@ -543,7 +543,7 @@ typedef struct{//lenght 0x36e16
 	Bit32s dword_0x23a;
 	Bit32s dword_0x23e;
 	Bit32s dword_0x242;
-	Bit32u array_0x246[0x3e8];//pointers
+	Bit8u* pointers_0x246[0x3e8];//pointers
 	/*
 	*(x_DWORD *)(x_D41A0_BYTEARRAY_0 + 570) = 1;//0x23a
 	*(x_DWORD *)(x_D41A0_BYTEARRAY_0 + 574) = 0;//0x23e
@@ -605,12 +605,13 @@ typedef struct{//lenght 0x36e16
 
 	//x_D41A0_BYTEARRAY_0[2124 * D41A0_BYTESTR_0.word_12 + 11234])
 	//x_D41A0_BYTEARRAY_0[0x84C * D41A0_BYTESTR_0.word_12 + 0x2BE2])
-	type_str_0x2BDE array_0x2BDE[0xb]; //0x84c*0xb
+	type_str_0x2BDE array_0x2BDE[0x8]; //0x84c*0xb
 
-	typedef_str_0x6E3E array_0x6E3E[8];//28222	lenght 0xa size 0x8
-	xx
-	//array 0x6a3e 10*x // game events
-	Bit8u stub3e[0x277ac];
+	Bit8s array_0x6E3E[8][0xa];//28222	lenght 0xa size 0x8// game events
+	Bit8u stub3ee[0xa4];
+	Bit8u* pointer_0x6F32;
+
+	Bit8u stub3e[0x28f98];
 
 	type_str_2FECE str_2FECE;// a1 = &x_D41A0_BYTEARRAY_0[0x2FECE/*196302*/];//fix - size 0x6604u//compress level 
 	/*//podpolozky
@@ -715,8 +716,8 @@ void set_x_D41A0_BYTEARRAY_0_23e(Bit32s value);
 Bit32s get_x_D41A0_BYTEARRAY_0_242();
 void set_x_D41A0_BYTEARRAY_0_242(Bit32s value);
 
-Bit32u get_x_D41A0_BYTEARRAY_0_0x246(int number);
-void set_x_D41A0_BYTEARRAY_0_0x246(int number, Bit32u value);
+Bit8u* get_x_D41A0_BYTEARRAY_0_0x246(int number);
+void set_x_D41A0_BYTEARRAY_0_0x246(int number, Bit8u* value);
 
 Bit32s get_x_D41A0_BYTEARRAY_0_0x11e6();
 void set_x_D41A0_BYTEARRAY_0_0x11e6(Bit32s value);
@@ -840,9 +841,11 @@ void set_x_D41A0_BYTEARRAY_0_0x2BDE_0x839(int index, Bit16s value);
 Bit8u get_x_D41A0_BYTEARRAY_0_0x2BDE(int number);
 void set_x_D41A0_BYTEARRAY_0_0x2BDE(int number,Bit8u value);
 
+Bit8s get_x_D41A0_BYTEARRAY_0_0x6E3E(int index,int subindex);
+void set_x_D41A0_BYTEARRAY_0_0x6E3E(int index, int subindex, Bit8s value);
 
-
-
+Bit8u* get_x_D41A0_BYTEARRAY_0_0x6F32();
+void set_x_D41A0_BYTEARRAY_0_0x6F32(Bit8u* value);
 
 Bit8u get_x_D41A0_BYTEARRAY_0_0x36e0b();
 void set_x_D41A0_BYTEARRAY_0_0x36e0b(Bit8u value);

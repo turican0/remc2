@@ -5611,3 +5611,22 @@ fix void sub_54A50(unsigned __int16 a1, Bit8u* a2)//235a50
 (int)&D41A0_BYTESTR_0.array_0x2BDE[0].struct_0x649_2BDE_12839.array_0x7E7_2BDE_13253-(int)&D41A0_BYTESTR_0.array_0x2BDE[0].struct_0x649_2BDE_12839+0x649
 
 (Bit8u*)&D41A0_BYTESTR_0+0x6e3e
+
+(Bit8u*)&D41A0_BYTESTR_0+0x6f32
+&x_D41A0_BYTEARRAY_0[0x6f32]
+
+(Bit8u*)&D41A0_BYTESTR_0+0x6f3A
+&x_D41A0_BYTEARRAY_0[0x6f3A]
+
+Bit8u* sub_4A050_new_event()//22b050
+&x_D41A0_BYTEARRAY_0[0x6e8e + (168 * i)];
+
+0x246
++4 32u
++12 32u
++20 16u
++26 16u
++42 16u
++130 16u
++160 32u
++164 32u
