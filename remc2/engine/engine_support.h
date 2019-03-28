@@ -525,6 +525,26 @@ typedef struct {
 }
 typedef_str_0x6E3E;*/
 
+typedef struct {//lenght a8
+	Bit8u stub0[4];
+	Bit32u dword_0x4;//4
+	Bit8u stub1[4];
+	Bit32u dword_0xc;//12
+	Bit8u stub2[4];
+	Bit16u word_0x14;//20
+	Bit8u stub3[4];
+	Bit16u word_0x1A;//26
+	Bit8u stub4[14];
+	Bit16u word_0x2A;//42
+	Bit8u stub5[86];
+	Bit16u word_0x82;//130
+	Bit8u stub6[28];
+	Bit16u word_0xA0;//160
+	Bit16u word_0xA2;//162
+	Bit8u stub7[4];
+}
+type_str_0x6E8E;
+
 typedef struct{//lenght 0x36e16	
 	Bit8u stub0[4];
 	Bit32s dword_0x4;
@@ -608,6 +628,7 @@ typedef struct{//lenght 0x36e16
 	type_str_0x2BDE array_0x2BDE[0x8]; //0x84c*0xb
 
 	Bit8s array_0x6E3E[8][0xa];//28222	lenght 0xa size 0x8// game events
+	type_str_0x6E8E struct_0x6E8E[0x3e8];//28302
 	Bit8u stub3ee[0xa4];
 	Bit8u* pointer_0x6F32;
 
