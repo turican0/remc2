@@ -130,6 +130,72 @@ extern Bit8u* x_D41A0_BYTEARRAY_0;
 extern Bit8u* off_D41A8;
 extern Bit8u* x_BYTE_14B4E0;
 
+typedef struct _str_0x6E8E {//lenght a8
+	struct _str_0x6E8E* next_0;
+	Bit32u dword_0x4;//4
+	Bit32s dword_0x8;//8
+	Bit8s byte_0xc_12;//12
+	Bit8s byte_0xd_13;//13
+	Bit8u stub1[2];
+	Bit16s word_0x10_16;//16
+	Bit8u stub2[2];
+	Bit16u word_0x14_20;//20
+	Bit16u word_0x16_22;//22
+	Bit8u stub3[2];
+	Bit16u word_0x1A_26;//26 // index
+	Bit8u stub4[12];
+	Bit16u word_0x28_40;//40
+	Bit16u word_0x2A_42;//42
+	Bit8u stub4a[4];
+	Bit16u word_0x30_48;//48
+	Bit8u stub4b[6];
+	Bit8s byte_0x38_56;//56
+	Bit8u stub4c[4];
+	Bit8s byte_0x3D_61;//61
+	Bit8s byte_0x3E_62_xx;//62
+	Bit8s byte_0x3F_63;//63
+	Bit8s byte_0x40_64;//64 //type
+	//Bit8s byte_0x41_65;//65
+	//Bit8s byte_0x42_66;//66
+	Bit8u stub5[4];
+	Bit8s byte_0x45_69;//69
+	Bit8s byte_0x46_70;//70
+	Bit8s byte_0x47_71_xx;//71
+	Bit8s byte_0x48_72;//72
+	Bit8s byte_0x49_73;//70
+	Bit16s word_0x4A_74;
+	Bit16s array_0x4C_76[3];
+	Bit16s array_0x54_82[4];
+
+	Bit8u stub5aa[4];
+	Bit32s dword_0x5E_94;//94
+	Bit16s word_0x62_98;//98 //4
+	Bit32s dword_0x64_100;//100 //6
+	Bit16s word_0x68_104;//104 //10
+	Bit8u stub5b[24];
+	Bit16u word_0x82_130;//130
+	Bit8u stub6[4];
+	Bit32s dword_0x88_136;//136
+	Bit8u stub6a[4];
+	Bit32s dword_0x90_144;//144
+	Bit16u word_0x94_148;//148
+	Bit8u stub6b[10];
+	Bit16u word_0xA0_160;//160
+	Bit16u word_0xA2_162;//162
+	Bit32s dword_0xA4_164;//100
+}
+type_str_0x6E8E;
+/*
+	entite
+	8-dead
+	26-index
+	64-type
+		1-player
+		2-castle
+		3-ballon
+	144-mana
+*/
+
 typedef struct {
 	Bit8u harddisk_number;
 
@@ -251,7 +317,7 @@ typedef struct {
 	//bytearray_38535=bytearray_38403[132]//0x965b//x_D41A0_BYTEARRAY_4_struct.bytearray_38403[132]
 	
 	//endarray - dword_38519
-	Bit32u dword_38519;//0x9677//x_D41A0_BYTEARRAY_4_struct.dword_38519
+	type_str_0x6E8E* dword_38519;//0x9677//x_D41A0_BYTEARRAY_4_struct.dword_38519
 	/*
 	entite
 	8-dead
@@ -262,7 +328,7 @@ typedef struct {
 		3-ballon
 	144-mana
 	*/
-	Bit32u dword_38527;//0x967F//x_D41A0_BYTEARRAY_4_struct.dword_38527
+	type_str_0x6E8E* dword_38527;//0x967F//x_D41A0_BYTEARRAY_4_struct.dword_38527
 	Bit32u dword_38523;//0x967b//x_D41A0_BYTEARRAY_4_struct.dword_38523
 	Bit32u dword_38531;//0x9683//x_D41A0_BYTEARRAY_4_struct.dword_38531
 	Bit32u dword_38535;//x_D41A0_BYTEARRAY_4_struct.dword_38535
@@ -525,25 +591,7 @@ typedef struct {
 }
 typedef_str_0x6E3E;*/
 
-typedef struct {//lenght a8
-	Bit8u stub0[4];
-	Bit32u dword_0x4;//4
-	Bit8u stub1[4];
-	Bit32u dword_0xc;//12
-	Bit8u stub2[4];
-	Bit16u word_0x14;//20
-	Bit8u stub3[4];
-	Bit16u word_0x1A;//26
-	Bit8u stub4[14];
-	Bit16u word_0x2A;//42
-	Bit8u stub5[86];
-	Bit16u word_0x82;//130
-	Bit8u stub6[28];
-	Bit16u word_0xA0;//160
-	Bit16u word_0xA2;//162
-	Bit8u stub7[4];
-}
-type_str_0x6E8E;
+
 
 typedef struct{//lenght 0x36e16	
 	Bit8u stub0[4];
