@@ -184,8 +184,8 @@ extern char IsTable[];
 
 
 //int /*__noreturn*/ sub_10000(); // weak
-Bit8u* sub_15CB0(Bit8u* a1, Bit8u* a2); // weak
-char sub_15D40(__int16 a1, Bit8u* a2, Bit8u* a3); // weak
+Bit8u* sub_15CB0(Bit8u* a1, type_str_0x6E8E* a2); // weak
+char sub_15D40(__int16 a1, type_str_0x6E8E* a2, Bit8u* a3); // weak
 int sub_16730(int a1, Bit8u* a2, char a3); // weak
 int sub_16CA0(int a1, int *a2, __int16 a3, char a4); // weak
 void sub_17A00(x_BYTE *a1, signed int a2, __int16 a3); // weak

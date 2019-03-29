@@ -143,16 +143,22 @@ typedef struct _str_0x6E8E {//lenght a8
 	Bit16u word_0x16_22;//22
 	Bit8u stub3[2];
 	Bit16u word_0x1A_26;//26 // index
-	Bit8u stub4[12];
-	Bit16u word_0x28_40;//40
+	Bit16s word_0x1C_28;//28
+	Bit16s word_0x1E_30;//30
+	Bit16s word_0x20_32;//32
+	Bit8s byte_0x21_33;//33
+	Bit8u stub4aa[3];
+	Bit16s word_0x26_38[2];//38
+	//Bit16u word_0x28_40;//40
 	Bit16u word_0x2A_42;//42
-	Bit8u stub4a[4];
+	Bit8u stub4a[2];
+	Bit16s word_0x2E_46;//46
 	Bit16u word_0x30_48;//48
 	Bit8u stub4b[6];
 	Bit8s byte_0x38_56;//56
 	Bit8u stub4c[4];
 	Bit8s byte_0x3D_61;//61
-	Bit8s byte_0x3E_62_xx;//62
+	Bit8s byte_0x3E_62;//62
 	Bit8s byte_0x3F_63;//63
 	Bit8s byte_0x40_64;//64 //type
 	//Bit8s byte_0x41_65;//65
@@ -174,14 +180,18 @@ typedef struct _str_0x6E8E {//lenght a8
 	Bit16s word_0x68_104;//104 //10
 	Bit8u stub5b[24];
 	Bit16u word_0x82_130;//130
-	Bit8u stub6[4];
+	Bit16s word_0x84_132;//132
+	Bit8u stub6[2];
 	Bit32s dword_0x88_136;//136
-	Bit8u stub6a[4];
+	Bit32s dword_0x8C_140;//140
 	Bit32s dword_0x90_144;//144
 	Bit16u word_0x94_148;//148
-	Bit8u stub6b[10];
-	Bit16u word_0xA0_160;//160
-	Bit16u word_0xA2_162;//162
+	Bit16u word_0x96_150;//150
+	Bit16u word_0x98_152;//152
+	Bit16s word_0x9A_154[2];//154
+	Bit16s word_0x9E_158;//152
+	Bit32u dword_0xA0_160;//160
+	//Bit16u word_0xA2_162;//162
 	Bit32s dword_0xA4_164;//100
 }
 type_str_0x6E8E;
@@ -298,7 +308,7 @@ typedef struct {
 
 	Bit8u setting_38402;//0x9602//x_D41A0_BYTEARRAY_4_struct.setting_38402
 
-	Bit8u* bytearray_38403x[29];//array 116//0x9603//x_D41A0_BYTEARRAY_4_struct.bytearray_38403	
+	type_str_0x6E8E* bytearray_38403x[29];//array 116//0x9603//x_D41A0_BYTEARRAY_4_struct.bytearray_38403	
 	/*
 	creatures
 		8-dead
@@ -329,8 +339,8 @@ typedef struct {
 	144-mana
 	*/
 	type_str_0x6E8E* dword_38527;//0x967F//x_D41A0_BYTEARRAY_4_struct.dword_38527
-	Bit32u dword_38523;//0x967b//x_D41A0_BYTEARRAY_4_struct.dword_38523
-	Bit32u dword_38531;//0x9683//x_D41A0_BYTEARRAY_4_struct.dword_38531
+	type_str_0x6E8E* dword_38523;//0x967b//x_D41A0_BYTEARRAY_4_struct.dword_38523
+	type_str_0x6E8E* dword_38531;//0x9683//x_D41A0_BYTEARRAY_4_struct.dword_38531
 	Bit32u dword_38535;//x_D41A0_BYTEARRAY_4_struct.dword_38535
 	Bit8u byte_38544;//x_D41A0_BYTEARRAY_4_struct.byte_38544
 	Bit8u setting_38545;//0x9691//x_D41A0_BYTEARRAY_4_struct.setting_38545
