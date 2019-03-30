@@ -5630,3 +5630,7 @@ Bit8u* sub_4A050_new_event()//22b050
 +130 16u
 +160 32u
 +164 32u
+
+test sub_10C80 +6
+test sub_10C80 +6
+test sub_11900 +6

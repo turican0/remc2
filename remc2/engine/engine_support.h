@@ -136,9 +136,10 @@ typedef struct _str_0x6E8E {//lenght a8
 	Bit32s dword_0x8;//8
 	Bit8s byte_0xc_12;//12
 	Bit8s byte_0xd_13;//13
-	Bit8u stub1[2];
-	Bit16s word_0x10_16;//16
-	Bit8u stub2[2];
+	Bit8s byte_0xe_14;//14
+	Bit8s byte_0xf_15;//15
+	Bit32s dword_0x10_16;//16
+	//Bit8u stub2[2];
 	Bit16u word_0x14_20;//20
 	Bit16u word_0x16_22;//22
 	Bit8u stub3[2];
@@ -147,23 +148,30 @@ typedef struct _str_0x6E8E {//lenght a8
 	Bit16s word_0x1E_30;//30
 	Bit16s word_0x20_32;//32
 	Bit8s byte_0x21_33;//33
-	Bit8u stub4aa[3];
-	Bit16s word_0x26_38[2];//38
-	//Bit16u word_0x28_40;//40
+	Bit8u stub4aa[2];
+	Bit16s word_0x24_36;//36
+	Bit16s word_0x26_38;//38
+	Bit16u word_0x28_40;//40
 	Bit16u word_0x2A_42;//42
 	Bit8u stub4a[2];
 	Bit16s word_0x2E_46;//46
 	Bit16u word_0x30_48;//48
-	Bit8u stub4b[6];
+	Bit16u word_0x32_50;//50
+	Bit16u word_0x34_52;//52
+	Bit16u word_0x36_54;//54
 	Bit8s byte_0x38_56;//56
-	Bit8u stub4c[4];
+	Bit8s byte_0x39_57;//57
+	Bit8u stub4c[1];
+	Bit8s byte_0x3B_59;//59
+	Bit8s byte_0x3C_60_xx;//60
 	Bit8s byte_0x3D_61;//61
 	Bit8s byte_0x3E_62;//62
 	Bit8s byte_0x3F_63;//63
 	Bit8s byte_0x40_64;//64 //type
-	//Bit8s byte_0x41_65;//65
-	//Bit8s byte_0x42_66;//66
-	Bit8u stub5[4];
+	Bit8s byte_0x41_65;//65
+	Bit8s byte_0x42_66;//66
+	Bit8s byte_0x43_67;//67
+	Bit8s byte_0x44_68;//68	
 	Bit8s byte_0x45_69;//69
 	Bit8s byte_0x46_70;//70
 	Bit8s byte_0x47_71_xx;//71
@@ -181,7 +189,7 @@ typedef struct _str_0x6E8E {//lenght a8
 	Bit8u stub5b[24];
 	Bit16u word_0x82_130;//130
 	Bit16s word_0x84_132;//132
-	Bit8u stub6[2];
+	Bit16s word_0x86_134;//134
 	Bit32s dword_0x88_136;//136
 	Bit32s dword_0x8C_140;//140
 	Bit32s dword_0x90_144;//144
