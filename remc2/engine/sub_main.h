@@ -194,7 +194,7 @@ void sub_1A070(signed int a1, __int16 a2);
 void JUMPOUT(int* adr);
 void JUMPOUT(x_WORD cs, int* adr);
 void JUMPOUT(x_WORD cs, int a, int* adr);
-void sub_1F0C0(Bit8u* a1, type_str_0x6E8E* a2);
+void sub_1F0C0(type_str_0x6E8E* a1, type_str_0x6E8E* a2);
 int sub_253B0(int result, Bit8u* a2, unsigned __int8 a3, unsigned __int8 a4);
 signed int sub_369F0(signed int a1, __int16 a2);
 void qmemcpy(void* a, void* b, size_t c);
