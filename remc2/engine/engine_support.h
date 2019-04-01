@@ -139,7 +139,6 @@ typedef struct _str_0x6E8E {//lenght a8
 	Bit8s byte_0xe_14;//14
 	Bit8s byte_0xf_15;//15
 	Bit32s dword_0x10_16;//16
-	//Bit8u stub2[2];
 	Bit16u word_0x14_20;//20
 	Bit16u word_0x16_22;//22
 	Bit8u stub3[2];
@@ -147,10 +146,10 @@ typedef struct _str_0x6E8E {//lenght a8
 	Bit16s word_0x1C_28;//28
 	Bit16s word_0x1E_30;//30
 	Bit16s word_0x20_32;//32
-	Bit8s byte_0x21_33;//33
+	//Bit8s byte_0x21_33;//33
 	Bit8u stub4aa[2];
-	Bit16s word_0x24_36;//36
-	Bit16s word_0x26_38;//38
+	Bit16s word_0x24_36;//36 // index subentity
+	Bit16s word_0x26_38;//38 // index subentity
 	Bit16u word_0x28_40;//40
 	Bit16u word_0x2A_42;//42
 	Bit16s word_0x2A_44;//44
@@ -166,8 +165,8 @@ typedef struct _str_0x6E8E {//lenght a8
 	Bit8s byte_0x3C_60_xx;//60
 	Bit8s byte_0x3D_61;//61
 	Bit8s byte_0x3E_62;//62
-	Bit8s byte_0x3F_63;//63
-	Bit8s byte_0x40_64;//64 //type
+	Bit8s byte_0x3F_63;//63 //type
+	Bit8s byte_0x40_64;//64 //subtype
 	Bit8s byte_0x41_65;//65
 	Bit8s byte_0x42_66;//66
 	Bit8s byte_0x43_67;//67
@@ -178,12 +177,11 @@ typedef struct _str_0x6E8E {//lenght a8
 	Bit8s byte_0x48_72;//72
 	Bit8s byte_0x49_73;//70
 	Bit16s word_0x4A_74;
-	Bit16s array_0x4C_76[3];
+	Bit16s array_0x4C_76[3];//position
 	Bit16s array_0x54_82[4];
-
 	Bit8u stub5aa[4];
 	Bit32s dword_0x5E_94;//94
-	Bit16s word_0x62_98;//98 //4
+	Bit16s word_0x62_98;//98 //4 // index subentity
 	Bit32s dword_0x64_100;//100 //6
 	Bit16s word_0x68_104;//104 //10
 	Bit8u stub5b[24];
@@ -194,7 +192,7 @@ typedef struct _str_0x6E8E {//lenght a8
 	Bit32s dword_0x8C_140;//140
 	Bit32s dword_0x90_144;//144
 	Bit16u word_0x94_148;//148
-	Bit16u word_0x96_150;//150
+	Bit16u word_0x96_150;//150 // index subentity
 	Bit16u word_0x98_152;//152
 	Bit16s word_0x9A_154[2];//154
 	Bit16s word_0x9E_158;//152
