@@ -180,7 +180,8 @@ typedef struct _str_0x6E8E {//lenght a8
 	Bit16s array_0x4C_76[3];//position
 	Bit16s array_0x54_82[4];
 	Bit16s word_0x5A_90;
-	Bit8u stub5aa[2];
+	Bit8u byte_0x5C_92;
+	Bit8u stub5aa[1];
 	Bit32s dword_0x5E_94;//94
 	Bit16s word_0x62_98;//98 //4 // index subentity
 	Bit32s dword_0x64_100;//100 //6
