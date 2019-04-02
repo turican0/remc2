@@ -195,8 +195,8 @@ void JUMPOUT(int* adr);
 void JUMPOUT(x_WORD cs, int* adr);
 void JUMPOUT(x_WORD cs, int a, int* adr);
 void sub_1F0C0(type_str_0x6E8E* a1, type_str_0x6E8E* a2);
-int sub_253B0(int result, type_str_0x6E8E* a2, unsigned __int8 a3, unsigned __int8 a4);
-signed int sub_369F0(signed int a1, __int16 a2);
+int sub_253B0(/*int result, */type_str_0x6E8E* a2, unsigned __int8 a3, unsigned __int8 a4);
+signed int sub_369F0(/*signed int a1,*/ __int16 a2);
 void qmemcpy(void* a, void* b, size_t c);
 char sub_2A340(int a1, Bit8u* a2, Bit8u* a3, int a4, Bit8u* a5, Bit8u* a6);
 unsigned __int16 sub_2AA90(Bit8u* a1, Bit8u* a2, Bit8u* a3);
@@ -206,7 +206,7 @@ void sub_303D0(signed int a1);
 int _wcpp_1_unwind_leave__62(void); //weak
 int sub_7FCB0_draw_text_with_border(int a1, char* a2, Bit32s a3, Bit32s a4, int a5, Bit8u a6, unsigned __int8 a7, Bit32u a8);//560cb0
 void sub_45DC0(Bit8u a1, Bit8u a2, unsigned __int16 a3, unsigned __int8 a4);
-signed int sub_36A50(signed int a1, char a2);
+signed int sub_36A50(/*signed int a1, */char a2);
 char sub_36920(signed __int16 a1, Bit8u* a2);
 __int16 sub_48A20(int a1, char a2, char a3, int a4, int a5, unsigned __int8 a6);
 unsigned int sub_439A0(unsigned int a1, unsigned __int16 a2);

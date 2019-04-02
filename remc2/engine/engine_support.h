@@ -156,7 +156,7 @@ typedef struct _str_0x6E8E {//lenght a8
 	Bit16s word_0x2E_46;//46
 	Bit16u word_0x30_48;//48
 	Bit16u word_0x32_50;//50
-	Bit16u word_0x34_52;//52
+	Bit16u word_0x34_52;//52 // index subentity
 	Bit16u word_0x36_54;//54
 	Bit8s byte_0x38_56;//56
 	Bit8s byte_0x39_57;//57
@@ -179,7 +179,8 @@ typedef struct _str_0x6E8E {//lenght a8
 	Bit16s word_0x4A_74;
 	Bit16s array_0x4C_76[3];//position
 	Bit16s array_0x54_82[4];
-	Bit8u stub5aa[4];
+	Bit16s word_0x5A_90;
+	Bit8u stub5aa[2];
 	Bit32s dword_0x5E_94;//94
 	Bit16s word_0x62_98;//98 //4 // index subentity
 	Bit32s dword_0x64_100;//100 //6
