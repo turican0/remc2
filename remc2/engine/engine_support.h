@@ -147,7 +147,7 @@ typedef struct _str_0x6E8E {//lenght a8
 	Bit16s word_0x1E_30;//30
 	Bit16s word_0x20_32;//32
 	//Bit8s byte_0x21_33;//33
-	Bit8u stub4aa[2];
+	Bit16s word_0x22_34;//34
 	Bit16s word_0x24_36;//36 // index subentity
 	Bit16s word_0x26_38;//38 // index subentity
 	Bit16u word_0x28_40;//40
