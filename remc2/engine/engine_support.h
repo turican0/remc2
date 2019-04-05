@@ -151,8 +151,8 @@ typedef struct _str_0x6E8E {//lenght a8
 	Bit16s word_0x24_36;//36 // index subentity
 	Bit16s word_0x26_38;//38 // index subentity
 	Bit16u word_0x28_40;//40
-	Bit16u word_0x2A_42;//42
-	Bit16s word_0x2A_44;//44
+	Bit16u word_0x2A_42;//42 //maybe Bit16s
+	Bit16s word_0x2A_44;//44 //add to z
 	Bit16s word_0x2E_46;//46
 	Bit16u word_0x30_48;//48
 	Bit16u word_0x32_50;//50
@@ -187,17 +187,17 @@ typedef struct _str_0x6E8E {//lenght a8
 	Bit32s dword_0x64_100;//100 //6
 	Bit16s word_0x68_104;//104 //10
 	Bit8u stub5b[24];
-	Bit16u word_0x82_130;//130
+	Bit16u word_0x82_130;//130 //add to z
 	Bit16s word_0x84_132;//132
 	Bit16s word_0x86_134;//134
 	Bit32s dword_0x88_136;//136
-	Bit32s dword_0x8C_140;//140
+	Bit32s dword_0x8C_140;//140 //wiz name?
 	Bit32s dword_0x90_144;//144
 	Bit16u word_0x94_148;//148
-	Bit16u word_0x96_150;//150 // index subentity
+	Bit16s word_0x96_150;//150 // index subentity
 	Bit16u word_0x98_152;//152
-	Bit16s word_0x9A_154[2];//154
-	Bit16s word_0x9E_158;//152
+	Bit16s word_0x9A_154x[3];//154
+	//Bit16s word_0x9E_158;//152
 	Bit32u dword_0xA0_160;//160
 	//Bit16u word_0xA2_162;//162
 	Bit32s dword_0xA4_164;//100
