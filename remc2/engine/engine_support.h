@@ -186,7 +186,11 @@ typedef struct _str_0x6E8E {//lenght a8
 	Bit16s word_0x62_98;//98 //4 // index subentity
 	Bit32s dword_0x64_100;//100 //6
 	Bit16s word_0x68_104;//104 //10
-	Bit8u stub5b[24];
+	Bit8u stub5b[12];
+	Bit16s word_0x76_118;//118
+	Bit8u stub5c[2];
+	Bit16s word_0x7A_122;//122
+	Bit8u stub5d[6];
 	Bit16u word_0x82_130;//130 //add to z
 	Bit16s word_0x84_132;//132
 	Bit16s word_0x86_134;//134
