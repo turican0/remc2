@@ -172,7 +172,7 @@ typedef struct _str_0x6E8E {//lenght a8
 	Bit8s byte_0x43_67;//67
 	Bit8s byte_0x44_68;//68	
 	Bit8s byte_0x45_69;//69
-	Bit8s byte_0x46_70;//70
+	Bit8s byte_0x46_70;//70 // index of bitmap
 	Bit8s byte_0x47_71_xx;//71
 	Bit8s byte_0x48_72;//72
 	Bit8s byte_0x49_73;//70
@@ -188,9 +188,10 @@ typedef struct _str_0x6E8E {//lenght a8
 	Bit16s word_0x68_104;//104 //10
 	Bit8u stub5b[12];
 	Bit16s word_0x76_118;//118
-	Bit8u stub5c[2];
+	Bit16s word_0x78_120;//120
 	Bit16s word_0x7A_122;//122
-	Bit8u stub5d[6];
+	Bit16s word_0x7C_124;//124
+	Bit8u stub5d[4];
 	Bit16u word_0x82_130;//130 //add to z
 	Bit16s word_0x84_132;//132
 	Bit16s word_0x86_134;//134
