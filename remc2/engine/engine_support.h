@@ -130,14 +130,26 @@ extern Bit8u* x_D41A0_BYTEARRAY_0;
 extern Bit8u* off_D41A8;
 extern Bit8u* x_BYTE_14B4E0;
 
+
+typedef struct {
+	Bit8u byte1;
+	Bit8u byte2;
+}doublebyte;
+
+typedef struct {
+	doublebyte dbyte1_2;
+	doublebyte dbyte3_4;
+}tetrabytebyte;
+
 typedef struct _str_0x6E8E {//lenght a8
 	struct _str_0x6E8E* next_0;
 	Bit32u dword_0x4;//4
 	Bit32s dword_0x8;//8
-	Bit8s byte_0xc_12;//12
-	Bit8s byte_0xd_13;//13
-	Bit8s byte_0xe_14;//14
-	Bit8s byte_0xf_15;//15
+	tetrabytebyte struct_byte_0xc_12_15;//12
+			            //12//struct_byte_0xc_12_15.dbyte1_2.byte1
+	//Bit8s byte_0xd_13;//13//struct_byte_0xc_12_15.dbyte1_2.byte2
+	//Bit8s byte_0xe_14;//14//struct_byte_0xc_12_15.dbyte3_4.byte1
+	//Bit8s byte_0xf_15;//15//struct_byte_0xc_12_15.dbyte3_4.byte2
 	Bit32s dword_0x10_16;//16
 	Bit16u word_0x14_20;//20
 	Bit16u word_0x16_22;//22
@@ -365,10 +377,7 @@ typedef struct {
 
 }type_x_D41A0_BYTEARRAY_4_struct;
 
-typedef struct {
-	Bit8u byte1;
-	Bit8u byte2;
-}doublebyte;
+
 
 doublebyte doublebyte_conv(Bit16u a2);
 
