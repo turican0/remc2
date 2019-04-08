@@ -15,4 +15,5 @@
 **/*.idb
 **/*.dbg
 
-*.opendb
+**/*.opendb
+**/*.ipch
