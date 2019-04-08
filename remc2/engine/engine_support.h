@@ -183,7 +183,7 @@ typedef struct _str_0x6E8E {//lenght a8
 	Bit8s byte_0x42_66;//66
 	Bit8s byte_0x43_67;//67
 	Bit8s byte_0x44_68;//68	
-	Bit8s byte_0x45_69;//69
+	Bit8s byte_0x45_69;//69 // index of structure with lenght 14
 	Bit8s byte_0x46_70;//70 // index of bitmap
 	Bit8s byte_0x47_71_xx;//71
 	Bit8s byte_0x48_72;//72
@@ -209,7 +209,7 @@ typedef struct _str_0x6E8E {//lenght a8
 	Bit16s word_0x86_134;//134
 	Bit32s dword_0x88_136;//136
 	Bit32s dword_0x8C_140;//140 //wiz name?
-	Bit32s dword_0x90_144;//144
+	Bit32s dword_0x90_144;//144 0-1000
 	Bit16u word_0x94_148;//148
 	Bit16s word_0x96_150;//150 // index subentity
 	Bit16u word_0x98_152;//152
@@ -643,7 +643,7 @@ typedef struct{//lenght 0x36e16
 	Bit32s dword_0x23a;
 	Bit32s dword_0x23e;
 	Bit32s dword_0x242;
-	Bit8u* pointers_0x246[0x3e8];//pointers
+	type_str_0x6E8E* pointers_0x246[0x3e8];//pointers
 	/*
 	*(x_DWORD *)(x_D41A0_BYTEARRAY_0 + 570) = 1;//0x23a
 	*(x_DWORD *)(x_D41A0_BYTEARRAY_0 + 574) = 0;//0x23e
@@ -817,8 +817,8 @@ void set_x_D41A0_BYTEARRAY_0_23e(Bit32s value);
 Bit32s get_x_D41A0_BYTEARRAY_0_242();
 void set_x_D41A0_BYTEARRAY_0_242(Bit32s value);
 
-Bit8u* get_x_D41A0_BYTEARRAY_0_0x246(int number);
-void set_x_D41A0_BYTEARRAY_0_0x246(int number, Bit8u* value);
+type_str_0x6E8E* get_x_D41A0_BYTEARRAY_0_0x246(int number);
+void set_x_D41A0_BYTEARRAY_0_0x246(int number, type_str_0x6E8E* value);
 
 Bit32s get_x_D41A0_BYTEARRAY_0_0x11e6();
 void set_x_D41A0_BYTEARRAY_0_0x11e6(Bit32s value);

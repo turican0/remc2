@@ -1076,12 +1076,12 @@ void set_x_D41A0_BYTEARRAY_0_242(Bit32s value) {
 	D41A0_BYTESTR_0.dword_0x242 = value;
 };
 
-Bit8u* get_x_D41A0_BYTEARRAY_0_0x246(int number) {
+type_str_0x6E8E* get_x_D41A0_BYTEARRAY_0_0x246(int number) {
 	testdword((Bit32s*)&x_D41A0_BYTEARRAY_0[4*number + 0x246], (Bit32s*)&D41A0_BYTESTR_0.pointers_0x246[number]);
 	return D41A0_BYTESTR_0.pointers_0x246[number];
 };
-void set_x_D41A0_BYTEARRAY_0_0x246(int number, Bit8u* value) {
-	*(Bit8u**)&x_D41A0_BYTEARRAY_0[4*number + 0x246] = value;
+void set_x_D41A0_BYTEARRAY_0_0x246(int number, type_str_0x6E8E* value) {
+	*(Bit8u**)&x_D41A0_BYTEARRAY_0[4*number + 0x246] = (Bit8u*)value;
 	D41A0_BYTESTR_0.pointers_0x246[number] = value;
 };
 
