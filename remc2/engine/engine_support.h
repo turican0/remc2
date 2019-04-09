@@ -144,7 +144,7 @@ typedef struct {
 typedef struct _str_0x6E8E {//lenght a8
 	struct _str_0x6E8E* next_0;
 	Bit32u dword_0x4;//4
-	Bit32s dword_0x8;//8
+	Bit32u dword_0x8;//8
 	tetrabytebyte struct_byte_0xc_12_15;//12
 			            //12//struct_byte_0xc_12_15.dbyte1_2.byte1
 	//Bit8s byte_0xd_13;//13//struct_byte_0xc_12_15.dbyte1_2.byte2
@@ -758,7 +758,7 @@ typedef struct{//lenght 0x36e16
 	Bit8u stubend[0xb];
 
 } type_D41A0_BYTESTR_0;
-#pragma pack (0)
+#pragma pack (16)
 
 /*
 	memset((void*)(&x_D41A0_BYTEARRAY_0[0x10]), 0, 0x1d);
