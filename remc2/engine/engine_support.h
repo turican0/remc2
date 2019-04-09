@@ -150,8 +150,8 @@ typedef struct _str_0x6E8E {//lenght a8
 	//Bit8s byte_0xd_13;//13//struct_byte_0xc_12_15.dbyte1_2.byte2
 	//Bit8s byte_0xe_14;//14//struct_byte_0xc_12_15.dbyte3_4.byte1
 	//Bit8s byte_0xf_15;//15//struct_byte_0xc_12_15.dbyte3_4.byte2
-	Bit32s dword_0x10_16;//16
-	Bit16u word_0x14_20;//20
+	Bit32s dword_0x10_16;//16 // index of array
+	Bit16u word_0x14_20;//20 //random seed
 	Bit16u word_0x16_22;//22
 	Bit8u stub3[2];
 	Bit16u word_0x1A_26;//26 // index
@@ -183,8 +183,8 @@ typedef struct _str_0x6E8E {//lenght a8
 	Bit8s byte_0x42_66;//66
 	Bit8s byte_0x43_67;//67
 	Bit8s byte_0x44_68;//68	
-	Bit8s byte_0x45_69;//69 // index of structure with lenght 14
-	Bit8s byte_0x46_70;//70 // index of bitmap
+	Bit8u byte_0x45_69;//69 // index of structure with lenght 14
+	Bit8u byte_0x46_70;//70 // index of bitmap
 	Bit8s byte_0x47_71_xx;//71
 	Bit8s byte_0x48_72;//72
 	Bit8s byte_0x49_73;//70
