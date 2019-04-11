@@ -172,7 +172,7 @@ typedef struct _str_0x6E8E {//lenght a8
 	Bit16u word_0x36_54;//54
 	Bit8s byte_0x38_56;//56
 	Bit8s byte_0x39_57;//57
-	Bit8u stub4c[1];
+	Bit8s byte_0x3A_58;//58
 	Bit8s byte_0x3B_59;//59
 	Bit8s byte_0x3C_60;//60
 	Bit8s byte_0x3D_61;//61
