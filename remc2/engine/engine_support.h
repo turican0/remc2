@@ -154,7 +154,7 @@ typedef struct _str_0x6E8E {//lenght a8
 	Bit32s dword_0x10_16;//16 // index of array
 	Bit16u word_0x14_20;//20 //random seed
 	Bit16u word_0x16_22;//22
-	Bit8u stub3[2];
+	Bit16u word_0x18_24;//24
 	Bit16u word_0x1A_26;//26 // index - owner
 	Bit16s word_0x1C_28;//28
 	Bit16s word_0x1E_30;//30
@@ -220,7 +220,7 @@ typedef struct _str_0x6E8E {//lenght a8
 	//Bit16s word_0x9E_158;//152
 	Bit32u dword_0xA0_160;//160
 	//Bit16u word_0xA2_162;//162
-	Bit32s dword_0xA4_164;//100
+	Bit32s dword_0xA4_164;//100 // adress of xx
 }
 type_str_0x6E8E;
 /*
@@ -369,7 +369,7 @@ typedef struct {
 	type_str_0x6E8E* dword_38527;//0x967F//x_D41A0_BYTEARRAY_4_struct.dword_38527
 	type_str_0x6E8E* dword_38523;//0x967b//x_D41A0_BYTEARRAY_4_struct.dword_38523
 	type_str_0x6E8E* dword_38531;//0x9683//x_D41A0_BYTEARRAY_4_struct.dword_38531
-	Bit32u dword_38535;//x_D41A0_BYTEARRAY_4_struct.dword_38535
+	type_str_0x6E8E* dword_38535;//x_D41A0_BYTEARRAY_4_struct.dword_38535
 	Bit8u byte_38544;//x_D41A0_BYTEARRAY_4_struct.byte_38544
 	Bit8u setting_38545;//0x9691//x_D41A0_BYTEARRAY_4_struct.setting_38545
 	Bit8u byte_38546;//0x9692//x_D41A0_BYTEARRAY_4_struct.byte_38546
