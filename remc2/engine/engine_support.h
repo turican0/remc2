@@ -147,6 +147,7 @@ typedef struct _str_0x6E8E {//lenght a8
 	Bit32u dword_0x8;//8
 	tetrabytebyte struct_byte_0xc_12_15;//12
 			            //12//struct_byte_0xc_12_15.dbyte1_2.byte1
+	//0xfe - all spell
 	//Bit8s byte_0xd_13;//13//struct_byte_0xc_12_15.dbyte1_2.byte2
 	//Bit8s byte_0xe_14;//14//struct_byte_0xc_12_15.dbyte3_4.byte1
 	//Bit8s byte_0xf_15;//15//struct_byte_0xc_12_15.dbyte3_4.byte2
@@ -154,7 +155,7 @@ typedef struct _str_0x6E8E {//lenght a8
 	Bit16u word_0x14_20;//20 //random seed
 	Bit16u word_0x16_22;//22
 	Bit8u stub3[2];
-	Bit16u word_0x1A_26;//26 // index
+	Bit16u word_0x1A_26;//26 // index - owner
 	Bit16s word_0x1C_28;//28
 	Bit16s word_0x1E_30;//30
 	Bit16s word_0x20_32;//32
@@ -178,7 +179,9 @@ typedef struct _str_0x6E8E {//lenght a8
 	Bit8s byte_0x3D_61;//61
 	Bit8s byte_0x3E_62;//62 
 	Bit8s byte_0x3F_63;//63 //type
+	//11 - spell
 	Bit8s byte_0x40_64;//64 //subtype
+	//0 or 1 - player, 2 - castle,3-ballon
 	Bit8s byte_0x41_65;//65
 	Bit8s byte_0x42_66;//66
 	Bit8s byte_0x43_67;//67
