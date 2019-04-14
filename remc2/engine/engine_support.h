@@ -143,8 +143,8 @@ typedef struct {
 
 typedef struct _str_0x6E8E {//lenght a8
 	struct _str_0x6E8E* next_0;
-	Bit32u dword_0x4;//4
-	Bit32u dword_0x8;//8
+	Bit32s dword_0x4;//4
+	Bit32s dword_0x8;//8 // this is Bit32s
 	tetrabytebyte struct_byte_0xc_12_15;//12
 			            //12//struct_byte_0xc_12_15.dbyte1_2.byte1
 	//0xfe - all spell
@@ -197,16 +197,19 @@ typedef struct _str_0x6E8E {//lenght a8
 	Bit16s word_0x5A_90;
 	Bit8s byte_0x5C_92;
 	Bit8s byte_0x5D_93;
-	Bit32s dword_0x5E_94;//94
+	Bit32s dword_0x5E_94;//94 //36 lenght
 	Bit16s word_0x62_98;//98 //4 // index subentity
 	Bit32s dword_0x64_100;//100 //6
 	Bit16s word_0x68_104;//104 //10
-	Bit8u stub5b[12];
+	Bit8u stub5b[6];
+	Bit32s dword_0x70_112;//112
+	Bit16s word_0x74_116;//116
 	Bit16s word_0x76_118;//118
 	Bit16s word_0x78_120;//120
 	Bit16s word_0x7A_122;//122
 	Bit16s word_0x7C_124;//124
-	Bit8u stub5d[4];
+	Bit8u stub5d[2];
+	Bit16u word_0x80_128;//128
 	Bit16u word_0x82_130;//130 //add to z
 	Bit16s word_0x84_132;//132
 	Bit16s word_0x86_134;//134
