@@ -141,6 +141,19 @@ typedef struct {
 	doublebyte dbyte3_4;
 }tetrabytebyte;
 
+typedef struct {
+	Bit16s x;
+	Bit16s y;
+	Bit16s z;
+}axis_3d;
+
+typedef struct {
+	Bit16s aa;
+	Bit16s bb;
+	Bit16s cc;
+	Bit16s dd;
+}axis_4d;
+
 typedef struct _str_0x6E8E {//lenght a8
 	struct _str_0x6E8E* next_0;
 	Bit32s dword_0x4;//4
@@ -192,8 +205,8 @@ typedef struct _str_0x6E8E {//lenght a8
 	Bit8s byte_0x48_72;//72
 	Bit8s byte_0x49_73;//70
 	Bit16s word_0x4A_74;
-	Bit16s array_0x4C_76[3];//position
-	Bit16s array_0x54_82[4];
+	axis_3d array_0x4C_76;//position
+	axis_4d array_0x54_82;
 	Bit16s word_0x5A_90;
 	Bit8s byte_0x5C_92;
 	Bit8s byte_0x5D_93;
@@ -219,7 +232,7 @@ typedef struct _str_0x6E8E {//lenght a8
 	Bit16u word_0x94_148;//148
 	Bit16s word_0x96_150;//150 // index subentity
 	Bit16u word_0x98_152;//152
-	Bit16s word_0x9A_154x[3];//154
+	axis_3d word_0x9A_154x;//154
 	//Bit16s word_0x9E_158;//152
 	Bit32u dword_0xA0_160;//160
 	//Bit16u word_0xA2_162;//162
