@@ -953,6 +953,16 @@ void testdword(Bit32s* val1, Bit32s* val2) {
 	}
 }
 
+void testcbyte(int count,Bit8u* val1, Bit8u* val2) {
+	for(int i=0;i<count;count++)
+	if (val1[i] != val2[i])
+	{
+		printf("x_D41A0_BYTEARRAY_0_error");
+		//allert_error();
+		//exit(0);
+	}
+}
+
 void testword(Bit16s* val1, Bit16s* val2) {
 	if (*val1 != *val2)
 	{
@@ -1305,29 +1315,32 @@ void set_x_D41A0_BYTEARRAY_0_0x21b8(Bit8u value) {
 	D41A0_BYTESTR_0.byte_0x21B8 = value;
 };
 
-Bit32s get_x_D41A0_BYTEARRAY_0_0x2362(int number) {
-	testdword((Bit32s*)&x_D41A0_BYTEARRAY_0[6*number+0x2362], &D41A0_BYTESTR_0.array_0x2362[number].dw);
-	return D41A0_BYTESTR_0.array_0x2362[number].dw;
+axis_3d get_x_D41A0_BYTEARRAY_0_0x2362(int number) {
+	testcbyte(6, (Bit8u*)&x_D41A0_BYTEARRAY_0[6 * number + 0x2362], (Bit8u*)&D41A0_BYTESTR_0.array_0x2362[number]);
+	//testdword((Bit32s*)&x_D41A0_BYTEARRAY_0[6*number+0x2362], &D41A0_BYTESTR_0.array_0x2362[number]);
+	return D41A0_BYTESTR_0.array_0x2362[number];
 };
-void set_x_D41A0_BYTEARRAY_0_0x2362(int number, Bit32s value) {
-	*(Bit32s*)&x_D41A0_BYTEARRAY_0[6 * number + 0x2362] = value;
-	D41A0_BYTESTR_0.array_0x2362[number].dw = value;
+void set_x_D41A0_BYTEARRAY_0_0x2362(int number, axis_3d value) {
+	memcpy(&x_D41A0_BYTEARRAY_0[6 * number + 0x2362],&value,6);
+	//*(Bit32s*)&x_D41A0_BYTEARRAY_0[6 * number + 0x2362] = value;
+	D41A0_BYTESTR_0.array_0x2362[number] = value;
 };
-Bit16s get_x_D41A0_BYTEARRAY_0_0x2366(int number) {
+/*Bit16s get_x_D41A0_BYTEARRAY_0_0x2366(int number) {
 	testword((Bit16s*)&x_D41A0_BYTEARRAY_0[6 * number + 0x2362+4], &D41A0_BYTESTR_0.array_0x2362[number].w);
 	return D41A0_BYTESTR_0.array_0x2362[number].w;
 };
 void set_x_D41A0_BYTEARRAY_0_0x2366(int number, Bit16s value) {
 	*(Bit16s*)&x_D41A0_BYTEARRAY_0[6 * number + 0x2362+4] = value;
 	D41A0_BYTESTR_0.array_0x2362[number].w = value;
-};
+};*/
 
 void clean_x_D41A0_BYTEARRAY_0_0x2362() {
 	memset((void*)(&x_D41A0_BYTEARRAY_0[0x2362]), 0, 48);
 	for (int i=0; i < 8; i++)
 	{
-		D41A0_BYTESTR_0.array_0x2362[i].dw = 0;
-		D41A0_BYTESTR_0.array_0x2362[i].w =0 ;
+		D41A0_BYTESTR_0.array_0x2362[i].x = 0;
+		D41A0_BYTESTR_0.array_0x2362[i].y = 0;
+		D41A0_BYTESTR_0.array_0x2362[i].z = 0;
 	}
 
 };

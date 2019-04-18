@@ -622,12 +622,12 @@ typedef struct {//lenght 0x6604u
 	type_str_0x3647A array_0x3647A[0xb];//8x11	
 	//konec 6604
 } type_str_2FECE;//compress level 
-
+/*
 typedef struct {
 	Bit32s dw;
 	Bit16s w;
 } dw_ws;
-
+*/
 /*typedef struct {
 	Bit8s Bit_0;
 	Bit8s Bit_1;
@@ -713,7 +713,7 @@ typedef struct{//lenght 0x36e16
 
 	Bit8u stub3b[0x1a8];
 
-	dw_ws array_0x2362[8];//0x30
+	axis_3d array_0x2362[8];//0x30
 	//Bit32s dword_0x2362;
 	//Bit16s word_0x2366;
 	Bit8u stub3c[0x14d];
@@ -897,10 +897,10 @@ void set_x_D41A0_BYTEARRAY_0_0x21b7(Bit8u value);
 Bit8u get_x_D41A0_BYTEARRAY_0_0x21b8();
 void set_x_D41A0_BYTEARRAY_0_0x21b8(Bit8u value);
 
-Bit32s get_x_D41A0_BYTEARRAY_0_0x2362(int number); //lenght 48 - 6x8
-void set_x_D41A0_BYTEARRAY_0_0x2362(int number,Bit32s value);
-Bit16s get_x_D41A0_BYTEARRAY_0_0x2366(int number);
-void set_x_D41A0_BYTEARRAY_0_0x2366(int number, Bit16s value);
+axis_3d get_x_D41A0_BYTEARRAY_0_0x2362(int number); //lenght 48 - 6x8
+void set_x_D41A0_BYTEARRAY_0_0x2362(int number, axis_3d value);
+/*Bit16s get_x_D41A0_BYTEARRAY_0_0x2366(int number);
+void set_x_D41A0_BYTEARRAY_0_0x2366(int number, Bit16s value);*/
 
 void clean_x_D41A0_BYTEARRAY_0_0x2362();
 
