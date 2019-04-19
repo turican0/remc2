@@ -195,8 +195,8 @@ typedef struct _str_0x6E8E {//lenght a8
 	//11 - spell
 	Bit8s byte_0x40_64;//64 //subtype
 	//0 or 1 - player, 2 - castle,3-ballon
-	Bit8s byte_0x41_65;//65
-	Bit8s byte_0x42_66;//66
+	Bit8s byte_0x41_65;//65 //type subentity
+	Bit8s byte_0x42_66;//66 //subtype subentity
 	Bit8s byte_0x43_67;//67
 	Bit8s byte_0x44_68;//68	
 	Bit8u byte_0x45_69;//69 // index of structure with lenght 14
