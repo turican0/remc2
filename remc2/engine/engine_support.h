@@ -156,8 +156,8 @@ typedef struct {
 
 typedef struct _str_0x6E8E {//lenght a8
 	struct _str_0x6E8E* next_0;
-	Bit32s dword_0x4;//4
-	Bit32s dword_0x8;//8 // this is Bit32s
+	Bit32s dword_0x4;//4 //?bitmap
+	Bit32s dword_0x8;//8 // this is Bit32s ?bitmap
 	tetrabytebyte struct_byte_0xc_12_15;//12
 			            //12//struct_byte_0xc_12_15.dbyte1_2.byte1
 	//0xfe - all spell
