@@ -965,7 +965,9 @@ Bit8s get_x_D41A0_BYTEARRAY_0_0x6E3E(int index,int subindex);
 void set_x_D41A0_BYTEARRAY_0_0x6E3E(int index, int subindex, Bit8s value);
 
 type_str_0x6E8E* get_x_D41A0_BYTEARRAY_0_0x6E8E_adr();
-
+//28302
+//(signed int)((Bit8u*)a1x - x_D41A0_BYTEARRAY_0 - 28302) / 168
+//a1x-get_x_D41A0_BYTEARRAY_0_0x6E8E_adr()
 Bit8u* get_x_D41A0_BYTEARRAY_0_0x6F32();
 void set_x_D41A0_BYTEARRAY_0_0x6F32(Bit8u* value);
 
