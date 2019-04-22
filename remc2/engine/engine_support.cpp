@@ -1573,6 +1573,10 @@ void set_x_D41A0_BYTEARRAY_0_0x6E3E(int index, int subindex, Bit8s value) {
 	D41A0_BYTESTR_0.array_0x6E3E[index][subindex] = value;
 };
 
+type_str_0x6E8E* get_x_D41A0_BYTEARRAY_0_0x6E8E_adr() {
+	return D41A0_BYTESTR_0.struct_0x6E8E;
+};
+
 Bit8u* get_x_D41A0_BYTEARRAY_0_0x6F32() {
 	testdword((Bit32s*)&x_D41A0_BYTEARRAY_0[0x6F32], (Bit32s*)&D41A0_BYTESTR_0.pointer_0x6F32);
 	return D41A0_BYTESTR_0.pointer_0x6F32;

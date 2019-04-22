@@ -142,9 +142,9 @@ typedef struct {
 }tetrabytebyte;
 
 typedef struct {
-	Bit16s x;
-	Bit16s y;
-	Bit16s z;
+	Bit16u x;
+	Bit16u y;
+	Bit16u z;
 }axis_3d;
 
 typedef struct {
@@ -963,6 +963,8 @@ void set_x_D41A0_BYTEARRAY_0_0x2BDE(int number,Bit8u value);
 
 Bit8s get_x_D41A0_BYTEARRAY_0_0x6E3E(int index,int subindex);
 void set_x_D41A0_BYTEARRAY_0_0x6E3E(int index, int subindex, Bit8s value);
+
+type_str_0x6E8E* get_x_D41A0_BYTEARRAY_0_0x6E8E_adr();
 
 Bit8u* get_x_D41A0_BYTEARRAY_0_0x6F32();
 void set_x_D41A0_BYTEARRAY_0_0x6F32(Bit8u* value);
