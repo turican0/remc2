@@ -130,7 +130,7 @@ extern Bit8u* x_D41A0_BYTEARRAY_0;
 extern Bit8u* off_D41A8;
 extern Bit8u* x_BYTE_14B4E0;
 
-
+#pragma pack (1)
 typedef struct {
 	Bit8u byte1;
 	Bit8u byte2;
@@ -154,10 +154,10 @@ typedef struct {
 	Bit16s dd;
 }axis_4d;
 
-typedef struct _str_0x6E8E {//lenght a8
+typedef struct _str_0x6E8E {//lenght a8//THING
 	struct _str_0x6E8E* next_0;
-	Bit32s dword_0x4;//4 //?bitmap
-	Bit32s dword_0x8;//8 // this is Bit32s ?bitmap
+	Bit32s dword_0x4;//4 //?bitmap//LIVE
+	Bit32s dword_0x8;//8 // this is Bit32s ?bitmap//MAX LIVE
 	tetrabytebyte struct_byte_0xc_12_15;//12
 			            //12//struct_byte_0xc_12_15.dbyte1_2.byte1
 	//0xfe - all spell
@@ -168,7 +168,7 @@ typedef struct _str_0x6E8E {//lenght a8
 	Bit16u word_0x14_20;//20 //random seed
 	Bit16u word_0x16_22;//22
 	Bit16u word_0x18_24;//24
-	Bit16u word_0x1A_26;//26 // index - owner
+	Bit16u word_0x1A_26;//26 // index - owner //ID
 	Bit16s word_0x1C_28;//28
 	Bit16s word_0x1E_30;//30
 	Bit16s word_0x20_32;//32
@@ -176,7 +176,7 @@ typedef struct _str_0x6E8E {//lenght a8
 	Bit16s word_0x22_34;//34
 	Bit16s word_0x24_36;//36 // index subentity
 	Bit16s word_0x26_38;//38 // index subentity
-	Bit16u word_0x28_40;//40
+	Bit16u word_0x28_40;//40//WHO OWNS ME
 	Bit16u word_0x2A_42;//42 //maybe Bit16s
 	Bit16s word_0x2A_44;//44 //add to z
 	Bit16s word_0x2E_46;//46
@@ -191,21 +191,21 @@ typedef struct _str_0x6E8E {//lenght a8
 	Bit8s byte_0x3C_60;//60
 	Bit8s byte_0x3D_61;//61
 	Bit8s byte_0x3E_62;//62 
-	Bit8s byte_0x3F_63;//63 //type
+	Bit8s byte_0x3F_63;//63 //type//MODEL
 	//11 - spell
-	Bit8s byte_0x40_64;//64 //subtype
+	Bit8s byte_0x40_64;//64 //subtype//CLASS
 	//0 or 1 - player, 2 - castle,3-ballon
 	Bit8s byte_0x41_65;//65 //type subentity
 	Bit8s byte_0x42_66;//66 //subtype subentity
 	Bit8s byte_0x43_67;//67
 	Bit8s byte_0x44_68;//68	
-	Bit8u byte_0x45_69;//69 // index of structure with lenght 14
+	Bit8u byte_0x45_69;//69 // index of structure with lenght 14//STATE
 	Bit8u byte_0x46_70;//70 // index of bitmap
 	Bit8s byte_0x47_71_xx;//71
 	Bit8s byte_0x48_72;//72
 	Bit8s byte_0x49_73;//70
 	Bit16s word_0x4A_74;
-	axis_3d array_0x4C_76;//position
+	axis_3d array_0x4C_76;//position//ACTUAL X Y Z
 	axis_4d array_0x54_82;
 	Bit16s word_0x5A_90;
 	Bit8s byte_0x5C_92;
@@ -223,12 +223,12 @@ typedef struct _str_0x6E8E {//lenght a8
 	Bit16s word_0x7C_124;//124
 	Bit8u stub5d[2];
 	Bit16u word_0x80_128;//128
-	Bit16u word_0x82_130;//130 //add to z
-	Bit16s word_0x84_132;//132
-	Bit16s word_0x86_134;//134
+	Bit16u word_0x82_130;//130 //add to z//ACTUAL SPEED
+	Bit16s word_0x84_132;//132//MIN SPEED
+	Bit16s word_0x86_134;//134//MAX SPEED
 	Bit32s dword_0x88_136;//136
-	Bit32s dword_0x8C_140;//140 //wiz name?
-	Bit32s dword_0x90_144;//144 0-1000
+	Bit32s dword_0x8C_140;//140 //wiz name?//ACTUAL MANA
+	Bit32s dword_0x90_144;//144 0-1000//MAX MANA
 	Bit16u word_0x94_148;//148
 	Bit16s word_0x96_150;//150 // index subentity
 	Bit16u word_0x98_152;//152
@@ -454,7 +454,7 @@ Bit32u compare_with_sequence_array_222BD3(char* filename, Bit8u* adress, Bit32u 
 void writehex(Bit8u* buffer,Bit32u count);
 
 void mine_texts(char* filename, Bit32u adressdos, Bit32u count, char* outfilename);
-#pragma pack (1)
+
 typedef struct {//lenght 8
 	Bit8u byte_0;//array_0x365F4
 	Bit8u byte_1;//array_0x365F5
@@ -967,7 +967,7 @@ void set_x_D41A0_BYTEARRAY_0_0x6E3E(int index, int subindex, Bit8s value);
 type_str_0x6E8E* get_x_D41A0_BYTEARRAY_0_0x6E8E_adr();
 //28302
 //((Bit8u*)v1x - (x_D41A0_BYTEARRAY_0 + 28302)) / 168
-//v6x-get_x_D41A0_BYTEARRAY_0_0x6E8E_adr()
+//ix-get_x_D41A0_BYTEARRAY_0_0x6E8E_adr()
 Bit8u* get_x_D41A0_BYTEARRAY_0_0x6F32();
 void set_x_D41A0_BYTEARRAY_0_0x6F32(Bit8u* value);
 
