@@ -473,17 +473,43 @@ typedef struct {//lenght 8
 	Bit16s word_6;//array_0x36480
 
 } type_str_0x3647A;
+/*
+typedef struct {//lenght 20
+	Bit8u byte_0;//array_0x3030E//0x30322
+	Bit8u byte_1;//array_0x3650F//0x30323
+	Bit8u byte_2;//array_0x36510//0x30324
+	Bit8u byte_3;//array_0x36511//0x30325
+	Bit8u byte_4;//array_0x36512//0x30326
+	Bit16s word_5;//array_0x36513//0x30327
+	Bit8u stuba[8];//array_0x36515//0x30329
+	Bit8u* anystruct;//array_0x3651d//0x30331
+	Bit8u stubb[1];
+} type_str_0x3030E;*/
 
 typedef struct {//lenght 20
-	Bit8u byte_0;//array_0x3030E
-	Bit8u byte_1;//array_0x3650F
-	Bit8u byte_2;//array_0x36510
-	Bit8u byte_3;//array_0x36511
-	Bit8u byte_4;//array_0x36512
-	Bit16s word_5;//array_0x36513
-	Bit8u stub[13];//array_0x36515	
-} type_str_0x3030E;
-
+	Bit8u byte_0;//type_str_0x30310//type_str_0x30324
+	Bit8u str_0x30310_byte_1;//type_str_0x30311//type_str_0x30325
+	Bit8u byte_2;//type_str_0x30312//type_str_0x30326
+	Bit16s str_0x30310_word_3;//type_str_0x30313//type_str_0x30327
+	//Bit8u byte_4;//type_str_0x30314//type_str_0x30328
+	Bit8u byte_5;//type_str_0x30315//type_str_0x30329
+	Bit8u byte_6;//type_str_0x30316//type_str_0x3032a
+	Bit8u byte_7;//type_str_0x30317//type_str_0x3032b
+	Bit8u byte_8;//type_str_0x30318//type_str_0x3032c
+	Bit8u byte_9;//type_str_0x30319//type_str_0x3032d
+	Bit8u byte_10;//type_str_0x3031a//type_str_0x3032e
+	Bit8u byte_11;//type_str_0x3031b//type_str_0x3032f
+	Bit8u byte_12;//type_str_0x3031c//type_str_0x30330
+	Bit8u str_0x30310_byte_13;//type_str_0x3031d//type_str_0x30331
+	Bit8u byte_14;//type_str_0x3031e//type_str_0x30332
+	Bit8u byte_15;//type_str_0x3031f//type_str_0x30333
+	Bit8u byte_16;//type_str_0x30320//type_str_0x30334
+	Bit8u byte_17;//type_str_0x30321//type_str_0x30335
+	Bit8u byte_18;//type_str_0x30322//type_str_0x30336
+	Bit8u byte_19;//type_str_0x30323//type_str_0x30337
+}
+type_str_0x30310;
+/*
 typedef struct {//lenght 20
 	Bit8u byte_0;//array_0x3030E
 	Bit8u byte_1;//array_0x3650F
@@ -493,7 +519,7 @@ typedef struct {//lenght 20
 	Bit16s word_5;//array_0x36513
 	Bit8u stub[13];//array_0x36515	
 } type_str_0x30325;
-
+*/
 typedef struct {//begin 0x649 //lenght min 0x1ee
 	Bit32s dword_0x649_2BDE[0x33];//1609
 	Bit8u stub1[2];
@@ -595,8 +621,8 @@ typedef struct {//lenght 2124=0x84C
 typedef struct {//lenght 8
 	Bit8s str_0x65ac_byte_0;//0x65ac
 	Bit8s str_0x65ac_byte_1;//0x65ad
-	Bit8s str_0x65ac_byte_2;//0x65ae
-	Bit8s str_0x65ac_byte_3;//0x65af
+	Bit16s str_0x65ac_word_2;//0x65ae
+	//Bit8s str_0x65ac_byte_3;//0x65af
 	Bit16s str_0x65ac_word_4;//0x65b0
 	Bit16s str_0x65ac_word_6;//0x65b2	
 }
@@ -627,9 +653,12 @@ typedef struct {//lenght 0x6604u
 	//0x30331 - end of structure lenght 20
 	/*197413 - 0x30324*/
 	/*221393 - 0x360D1*/
-
-	type_str_0x3030E array_0x3030E[0xb];//fix array lenght;
-	type_str_0x30325 array_0x30325[0x4af];
+	type_str_0x30310 array_0x30310[0x4b0];
+	//type_str_0x3030E array_0x3030E[0xb];//fix array lenght;
+	//0x3030e
+	//0x30322
+	//0x30336
+	//type_str_0x30325 array_0x30325[0x4af];
 	////0x30325 0x360d1 tj rozdil 23980=1199*20
 	//36479
 	type_str_0x3647A array_0x3647A[0xb];//8x11	
@@ -766,6 +795,7 @@ typedef struct{//lenght 0x36e16
 	
 
 	type_str_0x65ac array_0x365F4[0xb];//8x11	//set 0x58 // end 0x3664c
+
 
 	//Bit8s byte_0x365FC;//array_0x365F4[1].byte_0
 	//Bit8s byte_0x365FD;//array_0x365F4[1].byte_1
