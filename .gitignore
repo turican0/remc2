@@ -2,7 +2,9 @@
 # Tento soubor .gitignore byl automaticky vytvořen aplikací Microsoft(R) Visual Studio.
 ################################################################################
 
+/.vs
 /.vs/remc2/v15
+/.vs/remc2/v16
 /remc2/Debug
 **/vc141.idb
 **/vc141.pdb
