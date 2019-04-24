@@ -333,6 +333,7 @@
     <None Include="..\libADLMIDI-master\src\chips\opl_chip_base.tcc" />
     <None Include="..\libOPNMIDI-master\src\chips\opn_chip_base.tcc" />
     <None Include="..\libOPNMIDI-master\src\opnmidi_bankmap.tcc" />
+    <None Include="engine\bytearrays.x" />
     <None Include="engine\info.x" />
     <None Include="engine\structures.x" />
   </ItemGroup>

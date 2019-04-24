@@ -571,6 +571,9 @@
     <None Include="..\Debug\config.ini">
       <Filter>Zdrojové soubory</Filter>
     </None>
+    <None Include="engine\bytearrays.x">
+      <Filter>Zdrojové soubory\engine</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\zlib\lib\zlib.lib">
