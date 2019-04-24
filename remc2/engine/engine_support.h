@@ -124,7 +124,7 @@ extern Bit32s x_DWORD_D41A4_x96BF;*/
 //extern Bit8u* x_DWORD_D41A0;
 
 //extern Bit8s x_D41A0_BYTEARRAY[];
-extern Bit8u* x_D41A0_BYTEARRAY_0;
+//extern Bit8u* x_D41A0_BYTEARRAY_0;
 //extern Bit8u* x_D41A0_BYTEARRAY_4;
 
 extern Bit8u* off_D41A8;
@@ -454,7 +454,7 @@ Bit32u compare_with_sequence_array_222BD3(char* filename, Bit8u* adress, Bit32u 
 void writehex(Bit8u* buffer,Bit32u count);
 
 void mine_texts(char* filename, Bit32u adressdos, Bit32u count, char* outfilename);
-
+/*
 typedef struct {//lenght 8
 	Bit8u byte_0;//array_0x365F4
 	Bit8u byte_1;//array_0x365F5
@@ -463,7 +463,7 @@ typedef struct {//lenght 8
 	Bit16s word_4;//array_0x365F8
 	Bit16s word_6;//array_0x365FC
 } type_str_0x365F4;
-
+*/
 typedef struct {//lenght 8
 	//Bit8u byte_0;//array_0x36479
 	Bit8u byte_0;//array_0x3647a
@@ -592,6 +592,15 @@ typedef struct {//lenght 2124=0x84C
 	Bit8u stub5[17];
 } type_str_0x2BDE;//11230 // 84c lenght
 
+typedef struct {//lenght 8
+	Bit8s str_0x65ac_byte_0;//0x65ac
+	Bit8s str_0x65ac_byte_1;//0x65ad
+	Bit8s str_0x65ac_byte_2;//0x65ae
+	Bit8s str_0x65ac_byte_3;//0x65af
+	Bit16s str_0x65ac_word_4;//0x65b0
+	Bit16s str_0x65ac_word_6;//0x65b2	
+}
+type_str_0x65ac;
 
 //11230 - byte? - ne zacatek struktury
 //11232 - byte //2
@@ -615,6 +624,10 @@ typedef struct {//lenght 9377
 typedef struct {//lenght 0x6604u
 		//podpolozky
 	Bit8u byte_0x2FED4;//x_D41A0_BYTEARRAY_0[196308]
+	//0x30331 - end of structure lenght 20
+	/*197413 - 0x30324*/
+	/*221393 - 0x360D1*/
+
 	type_str_0x3030E array_0x3030E[0xb];//fix array lenght;
 	type_str_0x30325 array_0x30325[0x4af];
 	////0x30325 0x360d1 tj rozdil 23980=1199*20
@@ -724,7 +737,9 @@ typedef struct{//lenght 0x36e16
 
 	//x_D41A0_BYTEARRAY_0[2124 * D41A0_BYTESTR_0.word_12 + 11234])
 	//x_D41A0_BYTEARRAY_0[0x84C * D41A0_BYTESTR_0.word_12 + 0x2BE2])
-	type_str_0x2BDE array_0x2BDE[0x8]; //0x84c*0xb
+	type_str_0x2BDE array_0x2BDE[0xb]; //0x84c*0xb ??
+
+	type_str_0x65ac array_0x65ac[0xb];//??
 
 	Bit8s array_0x6E3E[8][0xa];//28222	lenght 0xa size 0x8// game events
 	type_str_0x6E8E struct_0x6E8E[0x3e8];//28302
@@ -748,7 +763,9 @@ typedef struct{//lenght 0x36e16
 	Bit8u stub3f[0x831];
 	Bit16s word_0x365E0;
 	Bit8u stub3g[0x12];
-	type_str_0x365F4 array_0x365F4[0xb];//8x11	//set 0x58 // end 0x3664c
+	
+
+	type_str_0x65ac array_0x365F4[0xb];//8x11	//set 0x58 // end 0x3664c
 
 	//Bit8s byte_0x365FC;//array_0x365F4[1].byte_0
 	//Bit8s byte_0x365FD;//array_0x365F4[1].byte_1
@@ -802,6 +819,8 @@ typedef struct{//lenght 0x36e16
 x_D41A0_BYTEARRAY_0[28302]-168 arrays
 x_D41A0_BYTEARRAY_0[0x6e8e]-0xa8 arrays
 */
+
+/*
 Bit32s get_x_D41A0_BYTEARRAY_0_4();
 void set_x_D41A0_BYTEARRAY_0_4(Bit32s value);
 
@@ -896,7 +915,7 @@ Bit8u get_x_D41A0_BYTEARRAY_0_0x21b7();
 void set_x_D41A0_BYTEARRAY_0_0x21b7(Bit8u value);
 Bit8u get_x_D41A0_BYTEARRAY_0_0x21b8();
 void set_x_D41A0_BYTEARRAY_0_0x21b8(Bit8u value);
-
+*/
 axis_3d get_x_D41A0_BYTEARRAY_0_0x2362(int number); //lenght 48 - 6x8
 void set_x_D41A0_BYTEARRAY_0_0x2362(int number, axis_3d value);
 /*Bit16s get_x_D41A0_BYTEARRAY_0_0x2366(int number);
@@ -906,7 +925,7 @@ void clean_x_D41A0_BYTEARRAY_0_0x2362();
 
 
 void clean_x_D41A0_BYTEARRAY_0_0x2BDE(int number);
-
+/*
 void copyto_x_D41A0_BYTEARRAY_0_0x2BDE_0x7CF(int number,Bit8u* value);
 void copyto_x_D41A0_BYTEARRAY_0_0x2BDE_0x7E7(int number, Bit8u* value);
 
@@ -978,7 +997,7 @@ void and_x_D41A0_BYTEARRAY_0_0x36e0b(Bit8u value);
 void clean_x_D41A0_BYTEARRAY_0();
 
 void test_x_D41A0_BYTEARRAY_0();
-
+*/
 
 extern type_D41A0_BYTESTR_0 D41A0_BYTESTR_0;
 

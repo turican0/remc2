@@ -80,7 +80,7 @@ Bit32s x_DWORD_D41A4_x9692 = -1;*/
 
 //Bit8u* x_DWORD_D41A0; // weak
 
-Bit8u* x_D41A0_BYTEARRAY_0;
+//Bit8u* x_D41A0_BYTEARRAY_0;
 //12 - my be player counter(position of structure)
 //11244 - players(my by creatures, every 2124 lenght)
 //196302 - terrain input
@@ -981,7 +981,7 @@ void testbyte(Bit8u* val1, Bit8u* val2) {
 	}
 }
 
-Bit32s get_x_D41A0_BYTEARRAY_0_4() {
+/*Bit32s get_x_D41A0_BYTEARRAY_0_4() {
 	testdword((Bit32s*)(x_D41A0_BYTEARRAY_0 + 4), &D41A0_BYTESTR_0.dword_0x4);
 	return *(Bit32s*)(x_D41A0_BYTEARRAY_0 + 4);
 };
@@ -1325,6 +1325,7 @@ void set_x_D41A0_BYTEARRAY_0_0x2362(int number, axis_3d value) {
 	//*(Bit32s*)&x_D41A0_BYTEARRAY_0[6 * number + 0x2362] = value;
 	D41A0_BYTESTR_0.array_0x2362[number] = value;
 };
+*/
 /*Bit16s get_x_D41A0_BYTEARRAY_0_0x2366(int number) {
 	testword((Bit16s*)&x_D41A0_BYTEARRAY_0[6 * number + 0x2362+4], &D41A0_BYTESTR_0.array_0x2362[number].w);
 	return D41A0_BYTESTR_0.array_0x2362[number].w;
@@ -1335,7 +1336,7 @@ void set_x_D41A0_BYTEARRAY_0_0x2366(int number, Bit16s value) {
 };*/
 
 void clean_x_D41A0_BYTEARRAY_0_0x2362() {
-	memset((void*)(&x_D41A0_BYTEARRAY_0[0x2362]), 0, 48);
+	//memset((void*)(&x_D41A0_BYTEARRAY_0[0x2362]), 0, 48);
 	for (int i=0; i < 8; i++)
 	{
 		D41A0_BYTESTR_0.array_0x2362[i].x = 0;
@@ -1346,7 +1347,7 @@ void clean_x_D41A0_BYTEARRAY_0_0x2362() {
 };
 
 void clean_x_D41A0_BYTEARRAY_0_0x2BDE(int number) {
-	memset((void*)(&x_D41A0_BYTEARRAY_0[0x2BDE+2124*number]), 0, 2124);
+	//memset((void*)(&x_D41A0_BYTEARRAY_0[0x2BDE+2124*number]), 0, 2124);
 	memset((void*)(&D41A0_BYTESTR_0.array_0x2BDE[number]), 0, 2124);
 	/*for (int i = 0; i < 8; i++)
 	{
@@ -1387,7 +1388,7 @@ void clean_x_D41A0_BYTEARRAY_0_0x2BDE(int number) {
 			D41A0_BYTESTR_0.array_0x2BDE[i].stub5[j];
 	}*/
 };
-
+/*
 void copyto_x_D41A0_BYTEARRAY_0_0x2BDE_0x7CF(int number, Bit8u* value) {
 	memcpy(&x_D41A0_BYTEARRAY_0[0x2BDE + 2124*number+1999], value, 24);
 	memcpy(D41A0_BYTESTR_0.array_0x2BDE[number].struct_0x649_2BDE_12839.array_0x7CF_2BDE_13229, value, 24);
@@ -1576,7 +1577,8 @@ void set_x_D41A0_BYTEARRAY_0_0x6E3E(int index, int subindex, Bit8s value) {
 type_str_0x6E8E* get_x_D41A0_BYTEARRAY_0_0x6E8E_adr() {
 	return D41A0_BYTESTR_0.struct_0x6E8E;
 };
-
+*/
+/*
 Bit8u* get_x_D41A0_BYTEARRAY_0_0x6F32() {
 	testdword((Bit32s*)&x_D41A0_BYTEARRAY_0[0x6F32], (Bit32s*)&D41A0_BYTESTR_0.pointer_0x6F32);
 	return D41A0_BYTESTR_0.pointer_0x6F32;
@@ -1602,13 +1604,13 @@ void and_x_D41A0_BYTEARRAY_0_0x36e0b(Bit8u value) {
 void clean_x_D41A0_BYTEARRAY_0() {
 	D41A0_BYTESTR_0.dword_0x8 = 0;
 };
-
+*/
 void errorsize(int type,int size)
 {
 	printf("Test x_D41A0_BYTEARRAY_0 %d %X ERROR\n",type,size);
 	//exit(0);
 }
-
+/*
 void test_x_D41A0_BYTEARRAY_0() {
 	//test1
 	if (D41A0_BYTESTR_0.dword_0x8 != *(x_DWORD *)(x_D41A0_BYTEARRAY_0 + 8))errorsize(0,0);
@@ -1622,3 +1624,4 @@ void test_x_D41A0_BYTEARRAY_0() {
 		if(((Bit8u*)&D41A0_BYTESTR_0)[i]!= x_D41A0_BYTEARRAY_0[i])//((Bit8u*)&D41A0_BYTESTR_0+i)
 			errorsize(2,i);
 };
+*/
