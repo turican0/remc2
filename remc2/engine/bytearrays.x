@@ -24,3 +24,10 @@ D41A0_BYTESTR_0.array_0x365F4[v5+1].str_0x3647A_byte_0
 0x365FC + dword_D41A0
 D41A0_BYTESTR_0.array_0x365F4[v5+1].str_0x3647A_byte_1
 0x365FD + dword_D41A0
+
+sub_12100
+
+0x365F8 - word
+0x365FA - word
+0x365FC + dword_D41A0 + 4(0x36600) - dword
+array_0x365F4+4 -2

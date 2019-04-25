@@ -464,14 +464,24 @@ typedef struct {//lenght 8
 	Bit16s word_6;//array_0x365FC
 } type_str_0x365F4;
 */
+
 typedef struct {//lenght 8
 	//Bit8u byte_0;//array_0x36479
 	Bit8u str_0x3647A_byte_0;//array_0x3647a
 	Bit8u str_0x3647A_byte_1;//array_0x3647b
 	Bit16s str_0x3647A_word_2;//array_0x3647c
 	Bit16s str_0x3647A_word_4;//array_0x3647e
-	Bit16s str_0x3647A_word_6;//array_0x36480
+	Bit16s str_0x3647A_word_6;//array_0x36480	
 } type_str_0x3647A;
+
+typedef struct {//lenght 8
+	//Bit8u byte_0;//array_0x36479
+	Bit8u str_0x3647A_byte_0;//array_0x3647a
+	Bit8u str_0x3647A_byte_1;//array_0x3647b
+	Bit16s str_0x3647A_word_2;//array_0x3647c
+	Bit32u str_0x3647A_dword_4;//array_0x3647e
+	//Bit16s str_0x3647A_word_6;//array_0x36480
+} type_str_0x3647Ab;
 /*
 typedef struct {//lenght 20
 	Bit8u byte_0;//array_0x3030E//0x30322
