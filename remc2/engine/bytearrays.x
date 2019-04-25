@@ -4,7 +4,8 @@ D41A0_BYTESTR_0.str_2FECE.array_0x3647A[result].str_0x3647A_word_4
 *(_WORD *)(dword_D41A0 + (8 * xx) + 0x3647E)??
 D41A0_BYTESTR_0.str_2FECE.array_0x3647A[result].str_0x3647A_word_6
 *(_WORD *)(dword_D41A0 + (8 * xx) + 0x36480)??
-D41A0_BYTESTR_0.array_0x365F4 = 0x365F4+dword_D41A0;
+
+D41A0_BYTESTR_0.array_0x365F4 = 0x365F4+dword_D41A0;-ok
 D41A0_BYTESTR_0.array_0x365F4[xx].str_0x65ac_byte_1
 *(_BYTE *)(dword_D41A0 + 8 * xx + 0x365F5)
 D41A0_BYTESTR_0.array_0x365F4[xx].str_0x65ac_word_4

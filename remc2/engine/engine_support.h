@@ -616,7 +616,7 @@ typedef struct {//lenght 2124=0x84C
 
 	Bit8u stub5[17];
 } type_str_0x2BDE;//11230 // 84c lenght
-
+/*
 typedef struct {//lenght 8
 	Bit8s str_0x65ac_byte_0;//0x65ac
 	Bit8s str_0x65ac_byte_1;//0x65ad
@@ -626,7 +626,7 @@ typedef struct {//lenght 8
 	Bit16s str_0x65ac_word_6;//0x65b2	
 }
 type_str_0x65ac;
-
+*/
 //11230 - byte? - ne zacatek struktury
 //11232 - byte //2
 //11236 - byte //6
@@ -767,7 +767,7 @@ typedef struct{//lenght 0x36e16
 	//x_D41A0_BYTEARRAY_0[0x84C * D41A0_BYTESTR_0.word_12 + 0x2BE2])
 	type_str_0x2BDE array_0x2BDE[0xb]; //0x84c*0xb ??
 
-	type_str_0x65ac array_0x65ac[0xb];//??
+	//type_str_0x65ac array_0x65ac[0xb];//??
 
 	Bit8s array_0x6E3E[8][0xa];//28222	lenght 0xa size 0x8// game events
 	type_str_0x6E8E struct_0x6E8E[0x3e8];//28302
@@ -793,7 +793,7 @@ typedef struct{//lenght 0x36e16
 	Bit8u stub3g[0x12];
 	
 
-	type_str_0x65ac array_0x365F4[0xb];//8x11	//set 0x58 // end 0x3664c
+	type_str_0x3647A array_0x365F4[0xb];//8x11	//set 0x58 // end 0x3664c
 
 
 	//Bit8s byte_0x365FC;//array_0x365F4[1].byte_0
