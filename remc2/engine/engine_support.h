@@ -143,6 +143,11 @@ typedef struct {
 
 typedef struct {
 	Bit16u x;
+	Bit16u y;	
+}axis_2d;
+
+typedef struct {
+	Bit16u x;
 	Bit16u y;
 	Bit16u z;
 }axis_3d;
@@ -464,15 +469,25 @@ typedef struct {//lenght 8
 	Bit16s word_6;//array_0x365FC
 } type_str_0x365F4;
 */
+/*
+typedef struct {
+	Bit16u word0;
+	Bit16u word1;	
+} type_str_double_word;
+*/
+typedef struct {//lenght 8
+	type_str_0x6E8E* str_0x365F4;//	
+	axis_2d str_0x365F8_axis;//		
+} type_str_0x365F4;
 
 typedef struct {//lenght 8
 	//Bit8u byte_0;//array_0x36479
 	Bit8u str_0x3647A_byte_0;//array_0x3647a
 	Bit8u str_0x3647A_byte_1;//array_0x3647b
 	Bit16s str_0x3647A_word_2;//array_0x3647c
-	Bit16s str_0x3647A_word_4;//array_0x3647e
-	Bit16s str_0x3647A_word_6;//array_0x36480	
-} type_str_0x3647A;
+	axis_2d str_0x3647C_axis;//	
+	//type_str_0x6E8E* str_0x3647C;//	
+} type_str_0x3647Ac;
 
 typedef struct {//lenght 8
 	//Bit8u byte_0;//array_0x36479
@@ -670,7 +685,7 @@ typedef struct {//lenght 0x6604u
 	//type_str_0x30325 array_0x30325[0x4af];
 	////0x30325 0x360d1 tj rozdil 23980=1199*20
 	//36479
-	type_str_0x3647A array_0x3647A[0xb];//8x11	
+	type_str_0x3647Ac array_0x3647A[0xb];//8x11	
 	//konec 6604
 } type_str_2FECE;//compress level 
 /*
@@ -803,7 +818,7 @@ typedef struct{//lenght 0x36e16
 	Bit8u stub3g[0x12];
 	
 
-	type_str_0x3647A array_0x365F4[0xb];//8x11	//set 0x58 // end 0x3664c
+	type_str_0x365F4 array_0x365F4[0xb];//8x11	//set 0x58 // end 0x3664c
 
 
 	//Bit8s byte_0x365FC;//array_0x365F4[1].byte_0
