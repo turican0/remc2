@@ -159,6 +159,24 @@ typedef struct {
 	Bit16s dd;
 }axis_4d;
 
+typedef struct {
+	Bit8s str_0x6E3E_byte0;//0x6E3E-28222//D41A0_BYTESTR_0.array_0x6E3E[xx].str_0x6E3E_byte0
+	Bit8s str_0x6E3E_byte1x;//0x6E3F-28223
+	Bit8s str_0x6E3E_byte2x;//0x6E40-28224
+	Bit8s str_0x6E3E_byte3;//0x6E41-28225
+	Bit8s str_0x6E3E_byte4;//0x6E42-28226
+	Bit8s str_0x6E3E_byte5x;//0x6E43-28227
+	Bit16u str_0x6E3E_word6;//0x6E44-28228
+	Bit16u str_0x6E3E_word8;//0x6E46-28230
+}type_str_0x6E3E;
+/*
+3-bit-28225
+4-bit-28226
+5-bit-28227
+6-2bit-28228
+8-2bit-28230
+*/
+
 typedef struct _str_0x6E8E {//lenght a8//THING
 	struct _str_0x6E8E* next_0;
 	Bit32s dword_0x4;//4 //?bitmap//LIVE
@@ -475,11 +493,14 @@ typedef struct {
 	Bit16u word1;	
 } type_str_double_word;
 */
+/*
 typedef struct {//lenght 8
-	type_str_0x6E8E* str_0x365F4;//	
+	Bit8u str_0x3647A_byte_0;//array_0x3647a
+	Bit8u str_0x3647A_byte_1;//array_0x3647b
+	Bit16s str_0x3647A_word_2;//array_0x3647c
 	axis_2d str_0x365F8_axis;//		
 } type_str_0x365F4;
-
+*/
 typedef struct {//lenght 8
 	//Bit8u byte_0;//array_0x36479
 	Bit8u str_0x3647A_byte_0;//array_0x3647a
@@ -688,6 +709,33 @@ typedef struct {//lenght 0x6604u
 	type_str_0x3647Ac array_0x3647A[0xb];//8x11	
 	//konec 6604
 } type_str_2FECE;//compress level 
+
+typedef struct {//size 10 count 8
+	Bit8s str_3654C_byte0;
+	Bit8s str_3654D_byte1;
+	Bit8s str_3654E_byte2;
+	Bit8s str_3655F_byte3;
+	Bit8s str_36560_byte4;
+	Bit8s str_36561_byte5;
+	Bit8s str_36562_byte6;
+	Bit8s str_36563_byte7;
+	Bit8s str_36564_byte8;
+	Bit8s str_36565_byte9;
+} type_str_3654C;
+
+typedef struct {//size 11 count 6
+	Bit8s str_3659C_byte0;
+	Bit8s str_3659D_byte1;
+	Bit8s str_3659E_byte2;
+	Bit8s str_365AF_byte3;
+	Bit8s str_365A0_byte4;
+	Bit8s str_365A1_byte5;
+	Bit8s str_365A2_byte6;
+	Bit8s str_365A3_byte7;
+	Bit8s str_365A4_byte8;
+	Bit8s str_365A5_byte9;
+	Bit8s str_365A6_byte10;
+} type_str_3659C;
 /*
 typedef struct {
 	Bit32s dw;
@@ -793,8 +841,15 @@ typedef struct{//lenght 0x36e16
 	type_str_0x2BDE array_0x2BDE[0xb]; //0x84c*0xb ??
 
 	//type_str_0x65ac array_0x65ac[0xb];//??
+	/*
+	3-bit-28225
+	4-bit-28226
+	5-bit-28227
+	6-2bit-28228
+	8-2bit-28230
+	*/
 
-	Bit8s array_0x6E3E[8][0xa];//28222	lenght 0xa size 0x8// game events
+	type_str_0x6E3E array_0x6E3E[8];//28222	lenght 0xa size 0x8// game events
 	type_str_0x6E8E struct_0x6E8E[0x3e8];//28302
 	Bit8u stub3ee[0xa4];
 	Bit8u* pointer_0x6F32;
@@ -814,11 +869,15 @@ typedef struct{//lenght 0x36e16
 
 	//array 0x364D6 lenght 0x68 end 0x3653e
 	Bit8u stub3f[0x831];
+
+	type_str_3654C struct_0x3654C[0x8];//size 10 count 8
+	type_str_3659C struct_0x3659C[0x6];//size 11 count 6
+
 	Bit16s word_0x365E0;
 	Bit8u stub3g[0x12];
 	
 
-	type_str_0x365F4 array_0x365F4[0xb];//8x11	//set 0x58 // end 0x3664c
+	type_str_0x3647Ac array_0x365F4[0xb];//8x11	//set 0x58 // end 0x3664c
 
 
 	//Bit8s byte_0x365FC;//array_0x365F4[1].byte_0
@@ -835,7 +894,10 @@ typedef struct{//lenght 0x36e16
 	Bit32s dword_0x36DF2;//index
 	Bit8u stub3i[0xa];
 	Bit8s byte_0x36E00;
-	Bit8u stub3j[0xa];
+	Bit8u stub3j[0x2];
+	Bit8s byte_0x36E03;
+	Bit8s byte_0x36E04;
+	Bit8u stub3k[0x6];
 	Bit8u byte_0x36E0B;
 	
 	
