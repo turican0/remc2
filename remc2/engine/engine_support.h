@@ -177,11 +177,17 @@ typedef struct {
 8-2bit-28230
 */
 
+union dw_w_b {
+	Bit8u byte[4];
+	Bit16u word[2];
+	Bit32u dword;
+};
+
 typedef struct _str_0x6E8E {//lenght a8//THING
 	struct _str_0x6E8E* next_0;
 	Bit32s dword_0x4;//4 //?bitmap//LIVE
 	Bit32s dword_0x8;//8 // this is Bit32s ?bitmap//MAX LIVE
-	tetrabytebyte struct_byte_0xc_12_15;//12
+	dw_w_b struct_byte_0xc_12_15;//12
 			            //12//struct_byte_0xc_12_15.dbyte1_2.byte1
 	//0xfe - all spell
 	//Bit8s byte_0xd_13;//13//struct_byte_0xc_12_15.dbyte1_2.byte2
@@ -501,12 +507,19 @@ typedef struct {//lenght 8
 	axis_2d str_0x365F8_axis;//		
 } type_str_0x365F4;
 */
+
+union un1 {
+	axis_2d axis;
+	type_str_0x6E8E* pointer_0x6E8E;
+	//Bit32u dword;
+};
+
 typedef struct {//lenght 8
 	//Bit8u byte_0;//array_0x36479
 	Bit8u str_0x3647A_byte_0;//array_0x3647a
 	Bit8u str_0x3647A_byte_1;//array_0x3647b
 	Bit16s str_0x3647A_word_2;//array_0x3647c
-	axis_2d str_0x3647C_axis;//	
+	un1 str_0x3647C_4;//	
 
 	//type_str_0x6E8E* str_0x3647C;//	
 } type_str_0x3647Ac;
@@ -597,11 +610,14 @@ typedef struct { // 479 // size 14 tj 0xe
 	Bit16s word_0x1eb_2BDE_11721; //491*/
 } type_struct_0x1d1_2BDE_11695;
 
+
+
 typedef struct {//lenght 2124=0x84C
-	Bit8u byte_0x000_2BDE_11230;//0	//11230 - byte? - ne zacatek struktury
-	Bit8u byte_0x001_2BDF_11231_xx;
-	Bit8u byte_0x002_2BE0_11232;//2	//11232 - byte //2, maybe word
-	Bit8u byte_0x003_2BE0_11233_xx;
+	dw_w_b dw_w_b_0_2BDE_11230;
+	//Bit8u byte_0x000_2BDE_11230;//0	//11230 - byte? - ne zacatek struktury
+	//Bit8u byte_0x001_2BDF_11231_xx;
+	//Bit8u byte_0x002_2BE0_11232;//2	//11232 - byte //2, maybe word
+	//Bit8u byte_0x003_2BE0_11233_xx;
 	Bit8u byte_0x004_2BE0_11234;//2	//11234 - byte //4
 	Bit8u byte_0x005_2BE0_11235_xx;
 	Bit8u byte_0x006_2BE4_11236;//6	//11236 - byte //6
@@ -837,7 +853,6 @@ typedef struct{//lenght 0x36e16
 	Bit8u stub3d[0x6ff];
 
 
-
 	//x_D41A0_BYTEARRAY_0[2124 * D41A0_BYTESTR_0.word_12 + 11234])
 	//x_D41A0_BYTEARRAY_0[0x84C * D41A0_BYTESTR_0.word_12 + 0x2BE2])
 	type_str_0x2BDE array_0x2BDE[0x8]; //0x84c*0x8 ??
@@ -872,7 +887,12 @@ typedef struct{//lenght 0x36e16
 
 	//array 0x364D6 lenght 0x68 end 0x3653e
 	Bit8u stub3f[0x831];
-
+	Bit16s word_0x3653E;//
+	Bit16s word_0x36540;//
+	Bit16s word_0x36542;//
+	Bit16s word_0x36544;//
+	Bit16s word_0x36546;//
+	Bit16s word_0x36548;//
 	type_str_3654C struct_0x3654C[0x8];//size 10 count 8
 	type_str_3659C struct_0x3659C[0x6];//size 11 count 6
 
