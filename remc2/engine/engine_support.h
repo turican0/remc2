@@ -161,11 +161,11 @@ typedef struct {
 
 typedef struct {
 	Bit8s str_0x6E3E_byte0;//0x6E3E-28222//D41A0_BYTESTR_0.array_0x6E3E[xx].str_0x6E3E_byte0
-	Bit8s str_0x6E3E_byte1x;//0x6E3F-28223
-	Bit8s str_0x6E3E_byte2x;//0x6E40-28224
+	Bit8s str_0x6E3E_byte1;//0x6E3F-28223
+	Bit8s str_0x6E3E_byte2;//0x6E40-28224
 	Bit8s str_0x6E3E_byte3;//0x6E41-28225
 	Bit8s str_0x6E3E_byte4;//0x6E42-28226
-	Bit8s str_0x6E3E_byte5x;//0x6E43-28227
+	Bit8s str_0x6E3E_byte5;//0x6E43-28227
 	Bit16u str_0x6E3E_word6;//0x6E44-28228
 	Bit16u str_0x6E3E_word8;//0x6E46-28230
 }type_str_0x6E3E;
@@ -507,6 +507,7 @@ typedef struct {//lenght 8
 	Bit8u str_0x3647A_byte_1;//array_0x3647b
 	Bit16s str_0x3647A_word_2;//array_0x3647c
 	axis_2d str_0x3647C_axis;//	
+
 	//type_str_0x6E8E* str_0x3647C;//	
 } type_str_0x3647Ac;
 
@@ -599,7 +600,7 @@ typedef struct { // 479 // size 14 tj 0xe
 typedef struct {//lenght 2124=0x84C
 	Bit8u byte_0x000_2BDE_11230;//0	//11230 - byte? - ne zacatek struktury
 	Bit8u byte_0x001_2BDF_11231_xx;
-	Bit8u byte_0x002_2BE0_11232;//2	//11232 - byte //2
+	Bit8u byte_0x002_2BE0_11232;//2	//11232 - byte //2, maybe word
 	Bit8u byte_0x003_2BE0_11233_xx;
 	Bit8u byte_0x004_2BE0_11234;//2	//11234 - byte //4
 	Bit8u byte_0x005_2BE0_11235_xx;
@@ -618,7 +619,7 @@ typedef struct {//lenght 2124=0x84C
 	Bit8u byte_0x016_2BE0_11252_xx;
 	Bit8u byte_0x017_2BE0_11253_xx;	
 	Bit32s dword_0x018_2BDE_11254; //24
-	Bit8s array_0x01c_2BFA_11258[49];//28//11258 - byte* jmeno2?
+	char array_0x01c_2BFA_11258[49];//28//11258 - byte* jmeno2?
 	Bit16u word_0x04d_2C2B_11307;//77 //11307 - word
 	Bit16u word_0x04f_2C2D_11309;//79 //11309 - word
 	Bit8u stub2[384];
@@ -790,8 +791,8 @@ typedef struct{//lenght 0x36e16
 	Bit8u byte_0x218B;//8587 shadows
 	Bit8u byte_0x218C;//8588 sky
 	Bit8u byte_0x218D;//8589 alter screen size
-	Bit8u byte_0x218E;//8590 lights
-	Bit8u byte_0x218F;//8591 icons
+	Bit8u byte_0x218E;//8590 icons
+	Bit8u byte_0x218F;//8591 ??
 	Bit8u byte_0x2190;//8592 screen size?
 	Bit8u byte_0x2191;//8593
 	Bit8u byte_0x2192;//8594
@@ -818,14 +819,15 @@ typedef struct{//lenght 0x36e16
 	Bit8u byte_0x21B1;
 	Bit8u byte_0x21B2;
 	Bit8u byte_0x21B3;
-	Bit8u byte_0x21B4;
-	Bit8u byte_0x21B5;
+	Bit8u byte_0x21B4;//resolution//8628
+	Bit8u byte_0x21B5;//8629
 	Bit8u byte_0x21B6;//8630 can lights
 	Bit8u byte_0x21B7;//8631
 	Bit8u byte_0x21B8;//8632 can transparency
 	Bit8u byte_0x21B9;//8633 can flat	
+	//Bit8u byte_0x21BA;//
 
-	Bit8u stub3b[0x1a8];
+	Bit8u stub3b[0x1a7];
 
 	axis_3d array_0x2362[8];//0x30
 	//Bit32s dword_0x2362;
@@ -838,7 +840,7 @@ typedef struct{//lenght 0x36e16
 
 	//x_D41A0_BYTEARRAY_0[2124 * D41A0_BYTESTR_0.word_12 + 11234])
 	//x_D41A0_BYTEARRAY_0[0x84C * D41A0_BYTESTR_0.word_12 + 0x2BE2])
-	type_str_0x2BDE array_0x2BDE[0xb]; //0x84c*0xb ??
+	type_str_0x2BDE array_0x2BDE[0x8]; //0x84c*0x8 ??
 
 	//type_str_0x65ac array_0x65ac[0xb];//??
 	/*
@@ -866,6 +868,7 @@ typedef struct{//lenght 0x36e16
 	type_str_0x3647A array_0x3647A[0xb];//8x11	
 	//konec 6604
 	*/
+	Bit32u dword_0x364D2;
 
 	//array 0x364D6 lenght 0x68 end 0x3653e
 	Bit8u stub3f[0x831];
