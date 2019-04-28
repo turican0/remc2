@@ -599,10 +599,12 @@ typedef struct {//begin 0x649 //lenght min 0x1ee
 } type_struct_0x649_2BDE_12839;
 
 typedef struct { // 479 // size 14 tj 0xe
-	Bit32s dword_0x1d1_2BDE_11695; //465 //0
-	Bit32s dword_0x1d5_2BDE_11699; //469 //4
-	Bit32s dword_0x1d9_2BDE_11703; //473 //8
-	Bit16s word_0x1dd_2BDE_11707; //477 //12
+	axis_3d axis_2BDE_11695;//11709
+	//Bit32s dword_0x1d1_2BDE_11695; //465 //0
+	//Bit32s dword_0x1d5_2BDE_11699; //469 //4
+	//Bit32s dword_0x1d9_2BDE_11703; //473 //8
+	axis_4d rotation__2BDE_11701;//_2BDE_11715
+	//Bit16s word_0x1dd_2BDE_11707; //477 //12
 	/*
 	Bit32s dword_0x1df_2BDE_11709; //479
 	Bit32s dword_0x1e3_2BDE_11713; //483
@@ -659,7 +661,7 @@ typedef struct {//lenght 2124=0x84C
 	}*/
 	//Bit8u stub2b[308];
 	
-	Bit8s array_0x39f_2BFA_12157[0x40];//927//12157 - byte(11230+927) 100% name
+	char array_0x39f_2BFA_12157[0x40];//927//12157 - byte(11230+927) 100% name
 	Bit8u byte_0x3DF_2BE4_12221;//991//12221 - byte
 	Bit8u byte_0x3E0_2BE4_12222_xx;
 	Bit8u byte_0x3E1_2BE4_12223;//993//12223 - byte - ok
@@ -894,7 +896,7 @@ typedef struct{//lenght 0x36e16
 	Bit16s word_0x36546;//
 	Bit16s word_0x36548;//
 	type_str_3654C struct_0x3654C[0x8];//size 10 count 8
-	type_str_3659C struct_0x3659C[0x6];//size 11 count 6
+	type_str_3659C struct_0x3659C[0x8];//size 11 count 6
 
 	Bit16s word_0x365E0;
 	Bit8u stub3g[0x12];
