@@ -640,6 +640,7 @@ typedef struct {//lenght 2124=0x84C
 	char array_0x01c_2BFA_11258[49];//28//11258 - byte* jmeno2?
 	Bit16u word_0x04d_2C2B_11307;//77 //11307 - word
 	Bit16u word_0x04f_2C2D_11309;//79 //11309 - word
+	char names_81[8][48];//81 ?8
 	Bit8u stub2[384];
 
 	type_struct_0x1d1_2BDE_11695 struct_0x1d1_2BDE_11695[0x21];//465
@@ -663,9 +664,10 @@ typedef struct {//lenght 2124=0x84C
 	
 	char array_0x39f_2BFA_12157[0x40];//927//12157 - byte(11230+927) 100% name
 	Bit8u byte_0x3DF_2BE4_12221;//991//12221 - byte
-	Bit8u byte_0x3E0_2BE4_12222_xx;
+	Bit8u byte_0x3E0_2BE4_12222;//992//12222 - byte
 	Bit8u byte_0x3E1_2BE4_12223;//993//12223 - byte - ok
 	Bit8u byte_0x3E2_2BE4_12224;//994//12224 - byte
+	Bit8u byte_0x3E3_2BE4_12225;//995
 	Bit8u stub3[61];
 	Bit8u byte_0x420_2BE4_12286;//1056//12286 - byte
 	Bit8u stub4[389];
