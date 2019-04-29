@@ -714,6 +714,7 @@ typedef struct {//lenght 9377
 typedef struct {//lenght 0x6604u
 		//podpolozky
 	Bit8u byte_0x2FED4;//x_D41A0_BYTEARRAY_0[196308]
+	Bit16s word_0x2FED5;
 	//0x30331 - end of structure lenght 20
 	/*197413 - 0x30324*/
 	/*221393 - 0x360D1*/
