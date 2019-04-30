@@ -147,9 +147,9 @@ typedef struct {
 }axis_2d;
 
 typedef struct {
-	Bit16u x;
-	Bit16u y;
-	Bit16u z;
+	Bit16s x;
+	Bit16s y;
+	Bit16s z;
 }axis_3d;
 
 typedef struct {
@@ -668,6 +668,7 @@ typedef struct {//lenght 2124=0x84C
 	Bit8u byte_0x3E1_2BE4_12223;//993//12223 - byte - ok
 	Bit8u byte_0x3E2_2BE4_12224;//994//12224 - byte
 	Bit8u byte_0x3E3_2BE4_12225;//995
+	Bit8u byte_0x3E4_2BE4_12226;//996
 	Bit8u stub3[61];
 	Bit8u byte_0x420_2BE4_12286;//1056//12286 - byte
 	Bit8u stub4[389];
@@ -791,6 +792,8 @@ typedef struct{//lenght 0x36e16
 	Bit8u array_0x10[0x12];
 	Bit8u byte_0x22;
 	Bit8u stub1[0x12];
+	Bit16u word_0x31;//49
+	Bit16u word_0x33;//51
 	Bit32s dword_0x35;
 	Bit8u stub2[0x1fc];
 	Bit32s dword_0x235;//act music
