@@ -585,6 +585,7 @@ typedef struct {//begin 0x649 //lenght min 0x1ee
 	Bit16s word_0x717_2BDE[0x1a];// -2xa1 tj 2x 26//1815	
 	//1817
 	Bit8u stub4c[54];
+	Bit16s word_0x731_2BDE;//13071
 	Bit8s byte_0x781_2BDE[0x1a];//1921
 	Bit8u stub4d[0x1a];
 	Bit8s byte_0x7B5_2BDE[0x1a];//1973
@@ -630,10 +631,11 @@ typedef struct {//lenght 2124=0x84C
 	Bit8u byte_0x00d_2BE0_11243_xx;
 	Bit16s word_0x00e_2BDE_11244; //14
 	Bit16s word_0x010_2BDE_11246; //16	
-	Bit8u byte_0x012_2BE0_11248_xx;
-	Bit8u byte_0x013_2BE0_11249_xx;
-	Bit8u byte_0x014_2BE0_11250_xx;
-	Bit8u byte_0x015_2BE0_11251_xx;
+	Bit32s dword_0x012_2BE0_11248;
+	//Bit8u byte_0x013_2BE0_11249_xx;
+	//Bit8u byte_0x014_2BE0_11250_xx;
+	//Bit8u byte_0x015_2BE0_11251_xx;
+
 	Bit8u byte_0x016_2BE0_11252_xx;
 	Bit8u byte_0x017_2BE0_11253_xx;	
 	Bit32s dword_0x018_2BDE_11254; //24
@@ -716,6 +718,8 @@ typedef struct {//lenght 9377
 
 typedef struct {//lenght 0x6604u
 		//podpolozky
+	Bit8u byte_0x2FED2;//x_D41A0_BYTEARRAY_0[196306]
+
 	Bit8u byte_0x2FED4;//x_D41A0_BYTEARRAY_0[196308]
 	Bit16s word_0x2FED5;
 	//0x30331 - end of structure lenght 20
@@ -836,13 +840,13 @@ typedef struct{//lenght 0x36e16
 	Bit8u byte_0x21AA;//8618 can reflections
 	Bit8u byte_0x21AB;//8619 can shadows
 	Bit8u byte_0x21AC;//8620 can sky
-	Bit8u byte_0x21AD;
-	Bit8u byte_0x21AE;
-	Bit8u byte_0x21AF;
-	Bit8u byte_0x21B0;
-	Bit8u byte_0x21B1;
-	Bit8u byte_0x21B2;
-	Bit8u byte_0x21B3;
+	Bit8u byte_0x21AD;//8621
+	Bit8u byte_0x21AE;//8622
+	Bit8u byte_0x21AF;//8623
+	Bit8u byte_0x21B0;//8624
+	Bit8u byte_0x21B1;//8625
+	Bit8u byte_0x21B2;//8626
+	Bit8u byte_0x21B3;//8627
 	Bit8u byte_0x21B4;//resolution//8628
 	Bit8u byte_0x21B5;//8629
 	Bit8u byte_0x21B6;//8630 can lights
@@ -901,6 +905,7 @@ typedef struct{//lenght 0x36e16
 	Bit16s word_0x36544;//
 	Bit16s word_0x36546;//
 	Bit16s word_0x36548;//
+	Bit16s word_0x3654A;//
 	type_str_3654C struct_0x3654C[0x8];//size 10 count 8
 	type_str_3659C struct_0x3659C[0x8];//size 11 count 6
 
