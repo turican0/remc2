@@ -545,9 +545,9 @@ typedef struct {//lenght 20
 	Bit8u stubb[1];
 } type_str_0x3030E;*/
 
-typedef struct {//lenght 20
+/*typedef struct {//lenght 20
 	Bit8u byte_0;//type_str_0x30310//type_str_0x30324
-	Bit8u str_0x30310_byte_1;//type_str_0x30311//type_str_0x30325
+	Bit8u str_0x30310_word_1;//type_str_0x30311//type_str_0x30325
 	Bit8u byte_2;//type_str_0x30312//type_str_0x30326
 	Bit16s str_0x30310_word_3;//type_str_0x30313//type_str_0x30327
 	//Bit8u byte_4;//type_str_0x30314//type_str_0x30328
@@ -567,7 +567,32 @@ typedef struct {//lenght 20
 	Bit8u byte_18;//type_str_0x30322//type_str_0x30336
 	Bit8u byte_19;//type_str_0x30323//type_str_0x30337
 }
-type_str_0x30310;
+type_str_0x30310;*/
+typedef struct {//lenght 20
+	//Bit8u byte_0;//type_str_0x30310//type_str_0x30324
+	Bit16u str_0x30311_word_0;//type_str_0x30311//type_str_0x30325
+	//Bit8u byte_1;//type_str_0x30312//type_str_0x30326
+	Bit16s str_0x30311_word_2;//type_str_0x30313//type_str_0x30327
+	//Bit8u byte_4;//type_str_0x30314//type_str_0x30328
+	Bit16u word_4;//type_str_0x30315//type_str_0x30329
+	//Bit8u byte_5;//type_str_0x30316//type_str_0x3032a
+	Bit8u byte_6;//type_str_0x30317//type_str_0x3032b
+	Bit8u byte_7;//type_str_0x30318//type_str_0x3032c
+	Bit8u byte_8;//type_str_0x30319//type_str_0x3032d
+	Bit8u byte_9;//type_str_0x3031a//type_str_0x3032e
+	Bit8u byte_10;//type_str_0x3031b//type_str_0x3032f
+	Bit8u byte_11;//type_str_0x3031c//type_str_0x30330
+	Bit8u str_0x30311_byte_12;//type_str_0x3031d//type_str_0x30331
+	Bit8u byte_13;//type_str_0x3031e//type_str_0x30332
+	Bit8u byte_14;//type_str_0x3031f//type_str_0x30333
+	Bit8u byte_15;//type_str_0x30320//type_str_0x30334
+	Bit16u word_16;//type_str_0x30321//type_str_0x30335
+	//Bit8u byte_17;//type_str_0x30322//type_str_0x30336
+	Bit8u byte_18;//type_str_0x30323//type_str_0x30337
+	Bit8u byte_19;//type_str_0x30324//type_str_0x30338
+}
+type_str_0x30311;
+
 /*
 typedef struct {//lenght 20
 	Bit8u byte_0;//array_0x3030E
@@ -726,13 +751,17 @@ typedef struct {//lenght 0x6604u
 	//0x30331 - end of structure lenght 20
 	/*197413 - 0x30324*/
 	/*221393 - 0x360D1*/
-	type_str_0x30310 array_0x30310[0x4b0];
+	type_str_0x30311 array_0x30311[0x4b0];
+	//mozna by to melo zacit az 0x30311
+
 	//type_str_0x3030E array_0x3030E[0xb];//fix array lenght;
 	//0x3030e
 	//0x30322
 	//0x30336
 	//type_str_0x30325 array_0x30325[0x4af];
+	
 	////0x30325 0x360d1 tj rozdil 23980=1199*20
+	
 	//36479
 	type_str_0x3647Ac array_0x3647A[0xb];//8x11	
 	//konec 6604
@@ -906,7 +935,8 @@ typedef struct{//lenght 0x36e16
 	*/
 	Bit32u dword_0x364D2;
 
-	//array 0x364D6 lenght 0x68 end 0x3653e
+	Bit8u array_0x364D6[0x68];// lenght 0x68=104 end 0x3653e
+
 	Bit8u stub3f[0x831];
 	Bit16s word_0x3653E;//
 	Bit16s word_0x36540;//
@@ -1077,15 +1107,15 @@ void set_x_D41A0_BYTEARRAY_0_0x21b7(Bit8u value);
 Bit8u get_x_D41A0_BYTEARRAY_0_0x21b8();
 void set_x_D41A0_BYTEARRAY_0_0x21b8(Bit8u value);
 */
-axis_3d get_x_D41A0_BYTEARRAY_0_0x2362(int number); //lenght 48 - 6x8
-void set_x_D41A0_BYTEARRAY_0_0x2362(int number, axis_3d value);
+//axis_3d get_x_D41A0_BYTEARRAY_0_0x2362(int number); //lenght 48 - 6x8
+//void set_x_D41A0_BYTEARRAY_0_0x2362(int number, axis_3d value);
 /*Bit16s get_x_D41A0_BYTEARRAY_0_0x2366(int number);
 void set_x_D41A0_BYTEARRAY_0_0x2366(int number, Bit16s value);*/
 
-void clean_x_D41A0_BYTEARRAY_0_0x2362();
+//void clean_x_D41A0_BYTEARRAY_0_0x2362();
 
 
-void clean_x_D41A0_BYTEARRAY_0_0x2BDE(int number);
+//void clean_x_D41A0_BYTEARRAY_0_0x2BDE(int number);
 /*
 void copyto_x_D41A0_BYTEARRAY_0_0x2BDE_0x7CF(int number,Bit8u* value);
 void copyto_x_D41A0_BYTEARRAY_0_0x2BDE_0x7E7(int number, Bit8u* value);
