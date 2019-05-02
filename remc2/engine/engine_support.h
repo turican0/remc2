@@ -718,6 +718,7 @@ typedef struct {//lenght 9377
 
 typedef struct {//lenght 0x6604u
 		//podpolozky
+	type_str_0x6E8E* dword_2FECE;//D41A0_BYTESTR_0.str_2FECE.dword_2FECE
 	Bit8u byte_0x2FED2;//x_D41A0_BYTEARRAY_0[196306]
 
 	Bit8u byte_0x2FED4;//x_D41A0_BYTEARRAY_0[196308]
@@ -813,7 +814,8 @@ typedef struct{//lenght 0x36e16
 	*/
 	//Bit8u stub3[0x1f44];
 	Bit32s dword_0x11e6;
-	Bit8u stub3[0xfa0];
+	type_str_0x6E8E* dword_0x11EA[0x3e9];//??4586
+	//Bit8u stub3[0xfa0];
 
 	Bit8u byte_0x218A;//8586 reflections	
 	Bit8u byte_0x218B;//8587 shadows
@@ -880,8 +882,15 @@ typedef struct{//lenght 0x36e16
 
 	type_str_0x6E3E array_0x6E3E[8];//28222	lenght 0xa size 0x8// game events
 	type_str_0x6E8E struct_0x6E8E[0x3e8];//28302
-	Bit8u stub3ee[0xa4];
-	Bit8u* pointer_0x6F32;
+	//1 - 6F36 - 28470
+	//2 - 6FDE
+	//3 - 7086
+	//4 - 712e
+
+	//Bit8u stub3ee[0xa4];
+	//Bit8u* pointer_0x6F32;
+
+	//type_str_0x6E8E struct_0x6F36[8];//lenght 168
 
 	Bit8u stub3e[0x28f98];
 
