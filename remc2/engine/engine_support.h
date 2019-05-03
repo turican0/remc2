@@ -625,11 +625,11 @@ typedef struct {//begin 0x649 //lenght min 0x1ee
 } type_struct_0x649_2BDE_12839;
 
 typedef struct { // 479 // size 14 tj 0xe
-	axis_3d axis_2BDE_11695;//11709
+	axis_3d axis_2BDE_11695;//11709 0 2 4
 	//Bit32s dword_0x1d1_2BDE_11695; //465 //0
 	//Bit32s dword_0x1d5_2BDE_11699; //469 //4
 	//Bit32s dword_0x1d9_2BDE_11703; //473 //8
-	axis_4d rotation__2BDE_11701;//_2BDE_11715
+	axis_4d rotation__2BDE_11701;//_2BDE_11715 6 8 10 12
 	//Bit16s word_0x1dd_2BDE_11707; //477 //12
 	/*
 	Bit32s dword_0x1df_2BDE_11709; //479
@@ -647,7 +647,7 @@ typedef struct {//lenght 2124=0x84C
 	//Bit8u byte_0x002_2BE0_11232;//2	//11232 - byte //2, maybe word
 	//Bit8u byte_0x003_2BE0_11233_xx;
 	Bit8u byte_0x004_2BE0_11234;//2	//11234 - byte //4
-	Bit8u byte_0x005_2BE0_11235_xx;
+	Bit8u byte_0x005_2BE0_11235;//5
 	Bit8u byte_0x006_2BE4_11236;//6	//11236 - byte //6
 	Bit16s word_0x007_2BE4_11237;
 	Bit8s byte_0x009_2BE4_11239;
@@ -656,13 +656,13 @@ typedef struct {//lenght 2124=0x84C
 	Bit8u byte_0x00d_2BE0_11243_xx;
 	Bit16s word_0x00e_2BDE_11244; //14
 	Bit16s word_0x010_2BDE_11246; //16	
-	Bit32s dword_0x012_2BE0_11248;
+	Bit32s dword_0x012_2BE0_11248;//18
 	//Bit8u byte_0x013_2BE0_11249_xx;
 	//Bit8u byte_0x014_2BE0_11250_xx;
 	//Bit8u byte_0x015_2BE0_11251_xx;
 
-	Bit8u byte_0x016_2BE0_11252_xx;
-	Bit8u byte_0x017_2BE0_11253_xx;	
+	Bit8u byte_0x016_2BE0_11252_xx;//22
+	Bit8u byte_0x017_2BE0_11253_xx;//23	
 	Bit32s dword_0x018_2BDE_11254; //24
 	char array_0x01c_2BFA_11258[49];//28//11258 - byte* jmeno2?
 	Bit16u word_0x04d_2C2B_11307;//77 //11307 - word
@@ -697,6 +697,7 @@ typedef struct {//lenght 2124=0x84C
 	Bit8u byte_0x3E3_2BE4_12225;//995
 	Bit8u byte_0x3E4_2BE4_12226;//996
 	Bit8u stub3[61];
+	Bit16s word_0x420_2BE4_12284;
 	Bit8u byte_0x420_2BE4_12286;//1056//12286 - byte
 	Bit8u stub4[389];
 	Bit8s byte_0x5a6_2BE4_12676;//1446
@@ -708,7 +709,7 @@ typedef struct {//lenght 2124=0x84C
 	
 	Bit16s word_0x837_2BDE;//2103
 	Bit16s word_0x839_2BDE;//2105
-
+	Bit8s byte_word_0x846_2BDE;//2118
 	Bit8u stub5[17];
 } type_str_0x2BDE;//11230 // 84c lenght
 /*
@@ -967,9 +968,12 @@ typedef struct{//lenght 0x36e16
 	Bit16s word_0x36DEE_mousey;
 	Bit16s word_0x36DF0_mousexx;
 	Bit32s dword_0x36DF2;//index
-	Bit8u stub3i[0xa];
+	Bit8u stub3i[0x6];
+	Bit16s word_0x36DFC;
+	Bit16s word_0x36DFE;	
 	Bit8s byte_0x36E00;
-	Bit8u stub3j[0x2];
+	Bit8u stub3j[0x1];
+	Bit8s byte_0x36E02;
 	Bit8s byte_0x36E03;
 	Bit8s byte_0x36E04;
 	Bit8u stub3k[0x6];
