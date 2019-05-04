@@ -280,6 +280,25 @@ type_str_0x6E8E;
 */
 
 typedef struct {
+Bit8u byteindex_2255ar[26];
+Bit16u word_2279;
+}
+type_2255ar;
+
+typedef struct {
+	type_str_0x6E3E str_0x256_0;
+	Bit8u str0x256_24[100];//??lenght
+	Bit8u str0x256_1609[100];//??lenght
+
+	//0x100//x_D41A0_BYTEARRAY_4_struct.byteindex_256ar	
+	//280=byteindex_256ar[24];//x_D41A0_BYTEARRAY_4_struct.byteindex_256ar[24]
+	//565=byteindex_256ar[309];//0x235//x_D41A0_BYTEARRAY_4_struct.byteindex_256ar[309]
+	//1865=byteindex_256ar[1609];//0x749//x_D41A0_BYTEARRAY_4_struct.byteindex_256ar[1609]
+	//end 2224
+}
+type_str_0x256;
+
+typedef struct {
 	Bit8u harddisk_number;
 
 	//Bit8u setting_byte5_19;
@@ -358,13 +377,14 @@ typedef struct {
 	//Bit8u byteindex_246;//0xf6//x_D41A0_BYTEARRAY_4_struct.byteindex_242ar[4]
 	//Bit8u byteindex_250;//x_D41A0_BYTEARRAY_4_struct.byteindex_242ar[8]
 	
-	Bit8u byteindex_256ar[2124];//0x100//x_D41A0_BYTEARRAY_4_struct.byteindex_256ar	
+	type_str_0x256 byteindex_256ar;//0x100//x_D41A0_BYTEARRAY_4_struct.byteindex_256ar	
 	//280=byteindex_256ar[24];//x_D41A0_BYTEARRAY_4_struct.byteindex_256ar[24]
 	//565=byteindex_256ar[309];//0x235//x_D41A0_BYTEARRAY_4_struct.byteindex_256ar[309]
 	//1865=byteindex_256ar[1609];//0x749//x_D41A0_BYTEARRAY_4_struct.byteindex_256ar[1609]
 	//end 2224
 
-	Bit8u byteindex_2255ar[26];//0x100//x_D41A0_BYTEARRAY_4_struct.byteindex_2255ar
+	//Bit8u byteindex_2255ar[26];//0x100//x_D41A0_BYTEARRAY_4_struct.byteindex_2255ar
+	type_2255ar str_2255ar;
 	//end 2281
 
 	Bit32u dwordindex_2380;//0x94c//x_D41A0_BYTEARRAY_4_struct.dwordindex_2380
@@ -614,7 +634,13 @@ typedef struct {//begin 0x649 //lenght min 0x1ee
 	Bit8s byte_0x781_2BDE[0x1a];//1921
 	Bit8u stub4d[0x1a];
 	Bit8s byte_0x7B5_2BDE[0x1a];//1973
-	Bit8u array_0x7CF_2BDE_13229[0x34];//1999
+	//Bit8u array_0x7CF_2BDE_13229[0x34];//1999
+	//Bit8u array_0x7CF_2BDE_13229[0x18];//1999
+	type_2255ar array_0x7CF_2BDE_13229;
+	Bit8u stub4e[0x1a];
+	//24
+	//2
+
 	//Bit8s array_0x7E7_2BDE_13253[0x1c];//array_0x7CF_2BDE_13229[0x18]
 	//Bit8s byte_0x7E8_2BDE[0x1a];// -1x26//2024
 
@@ -629,8 +655,8 @@ typedef struct { // 479 // size 14 tj 0xe
 	//Bit32s dword_0x1d1_2BDE_11695; //465 //0
 	//Bit32s dword_0x1d5_2BDE_11699; //469 //4
 	//Bit32s dword_0x1d9_2BDE_11703; //473 //8
-	axis_4d rotation__2BDE_11701;//_2BDE_11715 6 8 10 12
-	//Bit16s word_0x1dd_2BDE_11707; //477 //12
+	axis_4d rotation__2BDE_11701;//_2BDE_11715 6 8 10 12 //aa
+	//Bit16s word_0x1dd_2BDE_11707; //477 //12 //dd
 	/*
 	Bit32s dword_0x1df_2BDE_11709; //479
 	Bit32s dword_0x1e3_2BDE_11713; //483
@@ -663,7 +689,7 @@ typedef struct {//lenght 2124=0x84C
 
 	Bit8u byte_0x016_2BE0_11252_xx;//22
 	Bit8u byte_0x017_2BE0_11253_xx;//23	
-	Bit32s dword_0x018_2BDE_11254; //24
+	Bit32s dword_0x018_2BDE_11254; //24 //pointer
 	char array_0x01c_2BFA_11258[49];//28//11258 - byte* jmeno2?
 	Bit16u word_0x04d_2C2B_11307;//77 //11307 - word
 	Bit16u word_0x04f_2C2D_11309;//79 //11309 - word
@@ -709,6 +735,9 @@ typedef struct {//lenght 2124=0x84C
 	
 	Bit16s word_0x837_2BDE;//2103
 	Bit16s word_0x839_2BDE;//2105
+
+	Bit8s byte_0x83D_2BDE;//2109
+
 	Bit8s byte_word_0x846_2BDE;//2118
 	Bit8u stub5[17];
 } type_str_0x2BDE;//11230 // 84c lenght
@@ -1119,7 +1148,7 @@ void set_x_D41A0_BYTEARRAY_0_0x2366(int number, Bit16s value);*/
 //void clean_x_D41A0_BYTEARRAY_0_0x2362();
 
 
-//void clean_x_D41A0_BYTEARRAY_0_0x2BDE(int number);
+void clean_x_D41A0_BYTEARRAY_0_0x2BDE(int number);
 /*
 void copyto_x_D41A0_BYTEARRAY_0_0x2BDE_0x7CF(int number,Bit8u* value);
 void copyto_x_D41A0_BYTEARRAY_0_0x2BDE_0x7E7(int number, Bit8u* value);
