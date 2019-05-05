@@ -177,11 +177,12 @@ typedef struct {
 8-2bit-28230
 */
 
-union dw_w_b {
+typedef union {
 	Bit8u byte[4];
 	Bit16u word[2];
 	Bit32u dword;
-};
+}
+dw_w_b;
 
 typedef struct _str_0x6E8E {//lenght a8//THING
 	struct _str_0x6E8E* next_0;
@@ -280,15 +281,47 @@ type_str_0x6E8E;
 */
 
 typedef struct {
-Bit8u byteindex_2255ar[26];
+Bit8u byteindex_2255ar[24];
 Bit16u word_2279;
 }
 type_2255ar;
 
 typedef struct {
+	Bit32s dword[0x1a];
+}
+type_dword_0x649_2BDE;
+
+
+typedef struct {//begin 0x649 //lenght min 0x1ee
+	type_dword_0x649_2BDE dword_0x649_2BDE;//1609//0x649+0,lenght 0x68(4x0x1a)
+	Bit8u stub1[2];
+	Bit16s word_0x717_2BDE[0x1a];// -2xa1 tj 2x 26//1815	
+	//1817
+	Bit8u stub4c[54];
+	Bit16s word_0x731_2BDE;//13071
+	Bit8s byte_0x781_2BDE[0x1a];//1921
+	type_2255ar array_0x79B_2BDE_13177;//0x649+338,lenght 0x18+2
+	Bit8s byte_0x7B5_2BDE[0x1a];//1973
+	//Bit8u array_0x7CF_2BDE_13229[0x34];//1999
+	//Bit8u array_0x7CF_2BDE_13229[0x18];//1999
+	type_2255ar array_0x7CF_2BDE_13229;//0x649+390,lenght 0x18+2
+	Bit8u stub4e[0x1a];
+	//24
+	//2
+
+	//Bit8s array_0x7E7_2BDE_13253[0x1c];//array_0x7CF_2BDE_13229[0x18]
+	type_2255ar byte_0x7E8_2BDE;// -1x26//2024
+
+	type_2255ar byte_0x803_2BDE;// -1x26//2051//0x649+442, lenght 0x18+2
+
+	type_2255ar byte_0x81D_2BDE;// -1x26//2076//0x649+468, lenght 0x18+2
+	//Bit8u stub2[1];
+} type_struct_0x649_2BDE_12839;
+
+typedef struct {
 	type_str_0x6E3E str_0x256_0;
-	Bit8u str0x256_24[100];//??lenght
-	Bit8u str0x256_1609[100];//??lenght
+	Bit8u str0x256_24[1585];//??lenght
+	type_struct_0x649_2BDE_12839 str0x256_1609;//??lenght
 
 	//0x100//x_D41A0_BYTEARRAY_4_struct.byteindex_256ar	
 	//280=byteindex_256ar[24];//x_D41A0_BYTEARRAY_4_struct.byteindex_256ar[24]
@@ -528,11 +561,12 @@ typedef struct {//lenght 8
 } type_str_0x365F4;
 */
 
-union un1 {
+typedef union {
 	axis_2d axis;
 	type_str_0x6E8E* pointer_0x6E8E;
 	//Bit32u dword;
-};
+}
+un1;
 
 typedef struct {//lenght 8
 	//Bit8u byte_0;//array_0x36479
@@ -624,6 +658,7 @@ typedef struct {//lenght 20
 	Bit8u stub[13];//array_0x36515	
 } type_str_0x30325;
 */
+/*
 typedef struct {//begin 0x649 //lenght min 0x1ee
 	Bit32s dword_0x649_2BDE[0x33];//1609
 	Bit8u stub1[2];
@@ -649,7 +684,7 @@ typedef struct {//begin 0x649 //lenght min 0x1ee
 	Bit8s byte_0x81C_2BDE[0x1a];// -1x26//2076
 	Bit8u stub2[1];
 } type_struct_0x649_2BDE_12839;
-
+*/
 typedef struct { // 479 // size 14 tj 0xe
 	axis_3d axis_2BDE_11695;//11709 0 2 4
 	//Bit32s dword_0x1d1_2BDE_11695; //465 //0
@@ -675,7 +710,7 @@ typedef struct {//lenght 2124=0x84C
 	Bit8u byte_0x004_2BE0_11234;//2	//11234 - byte //4
 	Bit8u byte_0x005_2BE0_11235;//5
 	Bit8u byte_0x006_2BE4_11236;//6	//11236 - byte //6
-	Bit16s word_0x007_2BE4_11237;
+	Bit16s word_0x007_2BE4_11237;//index of player
 	Bit8s byte_0x009_2BE4_11239;
 	Bit16u word_0x00a_2BE4_11240;//10 //11240 - word - index z EA3E4 //0xa
 	Bit8u byte_0x00c_2BE0_11242_xx;
@@ -723,7 +758,9 @@ typedef struct {//lenght 2124=0x84C
 	Bit8u byte_0x3E3_2BE4_12225;//995
 	Bit8u byte_0x3E4_2BE4_12226;//996
 	Bit8u stub3[61];
-	Bit16s word_0x420_2BE4_12284;
+	Bit16s word_0x3FA_2BDE;//1018 mouse_x
+	Bit16s word_0x3FC_2BDE;//1020 mouse_y
+	Bit16s word_0x420_2BE4_12284;//1054
 	Bit8u byte_0x420_2BE4_12286;//1056//12286 - byte
 	Bit8u stub4[389];
 	Bit8s byte_0x5a6_2BE4_12676;//1446
@@ -770,18 +807,26 @@ typedef struct {//lenght 9377
 	Bit8u stub[9377];
 } type_str_0x24DF;
 
+typedef struct {//lenght 110
+	Bit8u byte_0x360FB;
+	Bit8u byte_0x360E1;
+	Bit8u stuba[0x19];
+	Bit8u byte_0x36115;
+	Bit8u stubb[109];
+}
+type_str_0x360FB;
 
 typedef struct {//lenght 0x6604u
 		//podpolozky
 	type_str_0x6E8E* dword_2FECE;//D41A0_BYTESTR_0.str_2FECE.dword_2FECE
-	Bit8u byte_0x2FED2;//x_D41A0_BYTEARRAY_0[196306]
+	Bit8u byte_0x2FED2;//x_D41A0_BYTEARRAY_0[196306] // type of level graphics
 
 	Bit8u byte_0x2FED4;//x_D41A0_BYTEARRAY_0[196308]
 	Bit16s word_0x2FED5;
 	//0x30331 - end of structure lenght 20
 	/*197413 - 0x30324*/
 	/*221393 - 0x360D1*/
-	type_str_0x30311 array_0x30311[0x4b0];
+	type_str_0x30311 array_0x30311[0x4b0];//end(next entity) - 0x360d1
 	//mozna by to melo zacit az 0x30311
 
 	//type_str_0x3030E array_0x3030E[0xb];//fix array lenght;
@@ -793,6 +838,7 @@ typedef struct {//lenght 0x6604u
 	////0x30325 0x360d1 tj rozdil 23980=1199*20
 	
 	//36479
+	type_str_0x360FB str_0x360FB[8];
 	type_str_0x3647Ac array_0x3647A[0xb];//8x11	
 	//konec 6604
 } type_str_2FECE;//compress level 
@@ -843,6 +889,61 @@ typedef struct {
 }
 typedef_str_0x6E3E;*/
 
+typedef struct {
+	Bit8u reflections_0x218A;//8586 reflections	
+	Bit8u shadows_0x218B;//8587 shadows
+	Bit8u sky_0x218C;//8588 sky
+	Bit8u alter_0x218D;//8589 alter screen size
+}
+type_str_0x8586;
+
+typedef union {
+	type_str_0x8586 str;
+	Bit32u dword;
+}
+type_uni_0x8586;
+
+typedef struct {
+	Bit8u icons_0x218E;//8590 icons//str_0x218E.str.icons_0x218E
+	Bit8u xxxx_0x218F;//8591 ??//str_0x218E.str.xxxx_0x218F
+	Bit8u scr_size_0x2190;//8592 screen size?//str_0x218E.str.scr_size_0x2190
+	Bit8u xxxx_0x2191;//8593//str_0x218E.str.xxxx_0x2191
+}
+type_str_0x218E;
+
+typedef union {
+	type_str_0x218E str;
+	Bit32u dword;
+}
+type_uni_0x218E;
+
+typedef struct {
+	Bit8u xxxx_0x2192;//8594 ??//str_0x2192.str.xxxx_0x2192
+	Bit8u xxxx_0x2193;//8595 ??//str_0x2192.str.xxxx_0x2193
+	Bit8u resolution_0x2194;//8596 resolution//str_0x2192.str.resolution_0x2194
+	Bit8u shadows_0x2195;//8593 shadows//str_0x2192.str.shadows_0x2195
+}
+type_str_0x2192;
+
+typedef union {
+	type_str_0x2192 str;
+	Bit32u dword;
+}
+type_uni_0x2192;
+
+typedef struct {
+	Bit8u lights_0x2196;//8598 lights//str_0x2196.str.lights_0x2196
+	Bit8u setting_0x2197;//8599 setting//str_0x2196.str.setting_0x2197
+	Bit8u transparency_0x2198;//8600 transparency//str_0x2196.str.transparency_0x2198
+	Bit8u flat_0x2199;//8601 flat//str_0x2196.str.flat_0x2199
+}
+type_str_0x2196;
+
+typedef union {
+	type_str_0x2196 str;
+	Bit32u dword;
+}
+type_uni_0x2196;
 
 
 typedef struct{//lenght 0x36e16	
@@ -876,22 +977,26 @@ typedef struct{//lenght 0x36e16
 	type_str_0x6E8E* dword_0x11EA[0x3e9];//??4586
 	//Bit8u stub3[0xfa0];
 
-	Bit8u byte_0x218A;//8586 reflections	
-	Bit8u byte_0x218B;//8587 shadows
-	Bit8u byte_0x218C;//8588 sky
-	Bit8u byte_0x218D;//8589 alter screen size
-	Bit8u byte_0x218E;//8590 icons
-	Bit8u byte_0x218F;//8591 ??
-	Bit8u byte_0x2190;//8592 screen size?
-	Bit8u byte_0x2191;//8593
-	Bit8u byte_0x2192;//8594
-	Bit8u byte_0x2193;//8595
-	Bit8u byte_0x2194;//8596 resolution
-	Bit8u byte_0x2195;//8597 shadows
-	Bit8u byte_0x2196;//8598 lights
-	Bit8u byte_0x2197;//setting
-	Bit8u byte_0x2198;//8600 transparency
-	Bit8u byte_0x2199;//8601 flat
+	type_uni_0x8586 str_0x8586;
+	//Bit8u byte_0x218A;//8586 reflections	
+	//Bit8u byte_0x218B;//8587 shadows
+	//Bit8u byte_0x218C;//8588 sky
+	//Bit8u byte_0x218D;//8589 alter screen size
+	type_uni_0x218E str_0x218E;
+	//Bit8u byte_0x218E;//8590 icons
+	//Bit8u byte_0x218F;//8591 ??
+	//Bit8u byte_0x2190;//8592 screen size?
+	//Bit8u byte_0x2191;//8593
+	type_uni_0x2192 str_0x2192;
+	//Bit8u byte_0x2192;//8594
+	//Bit8u byte_0x2193;//8595
+	//Bit8u byte_0x2194;//8596 resolution
+	//Bit8u byte_0x2195;//8597 shadows
+	type_uni_0x2196 str_0x2196;
+	//Bit8u byte_0x2196;//8598 lights
+	//Bit8u byte_0x2197;//setting
+	//Bit8u byte_0x2198;//8600 transparency
+	//Bit8u byte_0x2199;//8601 flat
 
 	Bit32s dword_0x219A;//8602
 	Bit32s dword_0x219E;//8606
