@@ -281,8 +281,8 @@ type_str_0x6E8E;
 */
 
 typedef struct {
-Bit8u byteindex_2255ar[24];
-Bit16u word_2279;
+Bit8u byteindex_2255ar[0x1a];
+//Bit16u word_2279;
 }
 type_2255ar;
 
@@ -295,7 +295,7 @@ type_dword_0x649_2BDE;
 typedef struct {//begin 0x649 //lenght min 0x1ee
 	type_dword_0x649_2BDE dword_0x649_2BDE;//1609//0x649+0,lenght 0x68(4x0x1a)
 	Bit8u stub1[2];
-	Bit16s word_0x717_2BDE[0x1a];// -2xa1 tj 2x 26//1815	
+	Bit16s word_0x719_2BDE[0x1a];// -2xa1 tj 2x 26//1817
 	//1817
 	Bit8u stub4c[54];
 	Bit16s word_0x731_2BDE;//13071
@@ -305,16 +305,16 @@ typedef struct {//begin 0x649 //lenght min 0x1ee
 	//Bit8u array_0x7CF_2BDE_13229[0x34];//1999
 	//Bit8u array_0x7CF_2BDE_13229[0x18];//1999
 	type_2255ar array_0x7CF_2BDE_13229;//0x649+390,lenght 0x18+2
-	Bit8u stub4e[0x1a];
+	//Bit8u stub4e[0x1a];
 	//24
 	//2
 
 	//Bit8s array_0x7E7_2BDE_13253[0x1c];//array_0x7CF_2BDE_13229[0x18]
-	type_2255ar byte_0x7E8_2BDE;// -1x26//2024
+	type_2255ar byte_0x7E9_2BDE;// -1x26//2026
 
 	type_2255ar byte_0x803_2BDE;// -1x26//2051//0x649+442, lenght 0x18+2
 
-	type_2255ar byte_0x81D_2BDE;// -1x26//2076//0x649+468, lenght 0x18+2
+	type_2255ar byte_0x81D_2BDE;// -1x26//2077//0x649+468, lenght 0x18+2
 	//Bit8u stub2[1];
 } type_struct_0x649_2BDE_12839;
 
@@ -573,7 +573,11 @@ typedef struct {//lenght 8
 	Bit8u str_0x3647A_byte_0;//array_0x3647a
 	Bit8u str_0x3647A_byte_1;//array_0x3647b
 	Bit16s str_0x3647A_word_2;//array_0x3647c
-	un1 str_0x3647C_4;//	
+	un1 str_0x3647C_4;//array_0x3647e	
+	/*
+	axis_2d axis;//array_0x3647e	
+	type_str_0x6E8E* pointer_0x6E8E;//36484
+	*/
 
 	//type_str_0x6E8E* str_0x3647C;//	
 } type_str_0x3647Ac;
@@ -758,11 +762,14 @@ typedef struct {//lenght 2124=0x84C
 	Bit8u byte_0x3E3_2BE4_12225;//995
 	Bit8u byte_0x3E4_2BE4_12226;//996
 	Bit8u stub3[61];
+	Bit16s word_0x3EA_2BDE;//1002
 	Bit16s word_0x3FA_2BDE;//1018 mouse_x
 	Bit16s word_0x3FC_2BDE;//1020 mouse_y
 	Bit16s word_0x420_2BE4_12284;//1054
 	Bit8u byte_0x420_2BE4_12286;//1056//12286 - byte
 	Bit8u stub4[389];
+	Bit16u word_0x53B_2BDE;// 1339
+	Bit32u dword_2BDE_12621;
 	Bit8s byte_0x5a6_2BE4_12676;//1446
 	Bit8u stub4b[162];
 	type_struct_0x649_2BDE_12839 struct_0x649_2BDE_12839;//min 0x1ee
@@ -775,7 +782,10 @@ typedef struct {//lenght 2124=0x84C
 
 	Bit8s byte_0x83D_2BDE;//2109
 
-	Bit8s byte_word_0x846_2BDE;//2118
+	Bit8s byte_0x846_2BDE;//2118
+	Bit8s byte_0x847_2BDE;//2119
+	Bit16s word_0x848_2BDE;//2120
+	Bit16s word_0x84A_2BDE;//2122
 	Bit8u stub5[17];
 } type_str_0x2BDE;//11230 // 84c lenght
 /*
@@ -847,13 +857,13 @@ typedef struct {//size 10 count 8
 	Bit8s str_3654C_byte0;
 	Bit8s str_3654D_byte1;
 	Bit8s str_3654E_byte2;
-	Bit8s str_3655F_byte3;
-	Bit8s str_36560_byte4;
-	Bit8s str_36561_byte5;
-	Bit8s str_36562_byte6;
-	Bit8s str_36563_byte7;
-	Bit8s str_36564_byte8;
-	Bit8s str_36565_byte9;
+	Bit8s str_3654F_byte3;
+	Bit8s str_36550_byte4;
+	Bit8s str_36551_byte5;
+	Bit32s str_36552_dword6;
+	//Bit8s str_36553_byte7;
+	//Bit8s str_36554_byte8;
+	//Bit8s str_36555_byte9;
 } type_str_3654C;
 
 typedef struct {//size 11 count 6
@@ -897,11 +907,11 @@ typedef struct {
 }
 type_str_0x8586;
 
-typedef union {
+/*typedef union {
 	type_str_0x8586 str;
 	Bit32u dword;
 }
-type_uni_0x8586;
+type_uni_0x8586;*/
 
 typedef struct {
 	Bit8u icons_0x218E;//8590 icons//str_0x218E.str.icons_0x218E
@@ -911,11 +921,11 @@ typedef struct {
 }
 type_str_0x218E;
 
-typedef union {
+/*typedef union {
 	type_str_0x218E str;
 	Bit32u dword;
 }
-type_uni_0x218E;
+type_uni_0x218E;*/
 
 typedef struct {
 	Bit8u xxxx_0x2192;//8594 ??//str_0x2192.str.xxxx_0x2192
@@ -925,11 +935,11 @@ typedef struct {
 }
 type_str_0x2192;
 
-typedef union {
+/*typedef union {
 	type_str_0x2192 str;
 	Bit32u dword;
 }
-type_uni_0x2192;
+type_uni_0x2192;*/
 
 typedef struct {
 	Bit8u lights_0x2196;//8598 lights//str_0x2196.str.lights_0x2196
@@ -939,14 +949,82 @@ typedef struct {
 }
 type_str_0x2196;
 
-typedef union {
+/*typedef union {
 	type_str_0x2196 str;
 	Bit32u dword;
 }
-type_uni_0x2196;
+type_uni_0x2196;*/
 
+typedef struct {
+	Bit8u creflections_0x21AA;//Bit8u byte_0x21AA;//8618 can reflections//str_0x21AA.str.creflections_0x21AA
+	Bit8u cshadows_0x21AB;//Bit8u byte_0x21AB;//8619 can shadows//str_0x21AA.str.cshadows_0x21AB
+	Bit8u csky_0x21AC;//Bit8u byte_0x21AC;//8620 can sky//str_0x21AA.str.csky_0x21AC
+	Bit8u calter_0x21AD;//Bit8u byte_0x21AD;//8621//str_0x21AA.str.calter_0x21AD
+}
+type_str_0x21AA;
 
-typedef struct{//lenght 0x36e16	
+/*typedef union {
+	type_str_0x21AA str;
+	Bit32u dword;
+}
+type_uni_0x21AA;*/
+
+typedef struct {
+	Bit8u xxxx_0x21AE;//Bit8u byte_0x21AE;//str_0x21AE.str.xxxx_0x21AE
+	Bit8u xxxx_0x21AF;//Bit8u byte_0x21AF;//str_0x21AE.str.xxxx_0x21AF
+	Bit8u xxxx_0x21B0;//Bit8u byte_0x21B0;//str_0x21AE.str.xxxx_0x21B0
+	Bit8u xxxx_0x21B1;//Bit8u byte_0x21B1;//str_0x21AE.str.xxxx_0x21B1
+}
+type_str_0x21AE;
+
+/*typedef union {
+	type_str_0x21AE str;
+	Bit32u dword;
+}
+type_uni_0x21AE;*/
+
+typedef struct {
+	Bit8u xxxx_0x21B2;//Bit8u byte_0x21B2;//str_0x21B2.str.xxxx_0x21B2
+	Bit8u xxxx_0x21B3;//Bit8u byte_0x21B3;//str_0x21B2.str.xxxx_0x21B3
+	Bit8u cresolution_0x21B4;//Bit8u byte_0x21B4;//str_0x21B2.str.cresolution_0x21B4
+	Bit8u xxxx_0x21B5;//Bit8u byte_0x21B5;//str_0x21B2.str.xxxx_0x21B5
+}
+type_str_0x21B2;
+
+/*typedef union {
+	type_str_0x21B2 str;
+	Bit32u dword;
+}
+type_uni_0x21B2;*/
+
+typedef struct {
+	Bit8u clights_0x21B6;//Bit8u byte_0x21B6;//str_0x21B6.str.clights_0x21B6
+	Bit8u csetting_0x21B7;//Bit8u byte_0x21B7;//str_0x21B6.str.csetting_0x21B7
+	Bit8u ctransparency_0x21B8;//Bit8u byte_0x21B8;//str_0x21B6.str.ctransparency_0x21B8
+	Bit8u cflat_0x21B9;//Bit8u byte_0x21B9;//str_0x21B6.str.cflat_0x21B9
+}
+type_str_0x21B6;
+
+/*typedef union {
+	type_str_0x21B6 str;
+	Bit32u dword;
+}
+type_uni_0x21B6;*/
+typedef struct{//lenght 39
+	Bit8s byte_0;
+	Bit8s stuba[9];
+	Bit32s dword_A;
+	Bit8s stub[38];
+}
+type_str_0x3664C;
+
+typedef struct {//lenght 108
+	Bit32u dword_0x364D2;//lenght 108
+	Bit8u array_0x364D6[0x68];// lenght 0x68=104 end 0x3653e
+}
+type_str_0x364D2;
+
+typedef struct {//lenght 0x36e16	
 	Bit8u stub0[4];
 	Bit32s dword_0x4;
 	Bit32s dword_0x8;
@@ -954,15 +1032,15 @@ typedef struct{//lenght 0x36e16
 	Bit16s word_0xc;//player_index?
 	Bit16s word_0xe;
 	//word 0xe - 14
-	Bit8u array_0x10[0x12];
-	Bit8u byte_0x22;
-	Bit8u stub1[0x12];
+	Bit8u array_0x10[0x1d]; //0x10, next 0x2d(45)
+	Bit32s dword_0x2d;//45
+	//Bit8u byte_0x22;
 	Bit16u word_0x31;//49
 	Bit16u word_0x33;//51
-	Bit32s dword_0x35;
+	Bit32s dword_0x35;//53
 	Bit8u stub2[0x1fc];
 	Bit32s dword_0x235;//act music
-	Bit8u stub2b[0x1];
+	Bit8u byte_0x239;//569
 	Bit32s dword_0x23a;
 	Bit32s dword_0x23e;
 	Bit32s dword_0x242;
@@ -977,48 +1055,53 @@ typedef struct{//lenght 0x36e16
 	type_str_0x6E8E* dword_0x11EA[0x3e9];//??4586
 	//Bit8u stub3[0xfa0];
 
-	type_uni_0x8586 str_0x8586;
+	type_str_0x8586 str_0x8586;
 	//Bit8u byte_0x218A;//8586 reflections	
 	//Bit8u byte_0x218B;//8587 shadows
 	//Bit8u byte_0x218C;//8588 sky
 	//Bit8u byte_0x218D;//8589 alter screen size
-	type_uni_0x218E str_0x218E;
+	type_str_0x218E str_0x218E;
 	//Bit8u byte_0x218E;//8590 icons
 	//Bit8u byte_0x218F;//8591 ??
 	//Bit8u byte_0x2190;//8592 screen size?
 	//Bit8u byte_0x2191;//8593
-	type_uni_0x2192 str_0x2192;
+	type_str_0x2192 str_0x2192;
 	//Bit8u byte_0x2192;//8594
 	//Bit8u byte_0x2193;//8595
 	//Bit8u byte_0x2194;//8596 resolution
 	//Bit8u byte_0x2195;//8597 shadows
-	type_uni_0x2196 str_0x2196;
+	type_str_0x2196 str_0x2196;
 	//Bit8u byte_0x2196;//8598 lights
 	//Bit8u byte_0x2197;//setting
 	//Bit8u byte_0x2198;//8600 transparency
 	//Bit8u byte_0x2199;//8601 flat
 
-	Bit32s dword_0x219A;//8602
-	Bit32s dword_0x219E;//8606
-	Bit32s dword_0x21A2;//8610
-	Bit32s dword_0x21A6;//8614
+	Bit32u dword_0x219A;//8602
+	Bit32u dword_0x219E;//8606
+	Bit32u dword_0x21A2;//8610
+	Bit32u dword_0x21A6;//8614
 
-	Bit8u byte_0x21AA;//8618 can reflections
-	Bit8u byte_0x21AB;//8619 can shadows
-	Bit8u byte_0x21AC;//8620 can sky
-	Bit8u byte_0x21AD;//8621
-	Bit8u byte_0x21AE;//8622
-	Bit8u byte_0x21AF;//8623
-	Bit8u byte_0x21B0;//8624
-	Bit8u byte_0x21B1;//8625
-	Bit8u byte_0x21B2;//8626
-	Bit8u byte_0x21B3;//8627
-	Bit8u byte_0x21B4;//resolution//8628
-	Bit8u byte_0x21B5;//8629
-	Bit8u byte_0x21B6;//8630 can lights
-	Bit8u byte_0x21B7;//8631
-	Bit8u byte_0x21B8;//8632 can transparency
-	Bit8u byte_0x21B9;//8633 can flat	
+	type_str_0x21AA str_0x21AA;
+	//Bit8u byte_0x21AA;//8618 can reflections
+	//Bit8u byte_0x21AB;//8619 can shadows
+	//Bit8u byte_0x21AC;//8620 can sky
+	//Bit8u byte_0x21AD;//8621
+	type_str_0x21AE str_0x21AE;
+	//Bit8u byte_0x21AE;//8622
+	//Bit8u byte_0x21AF;//8623
+	//Bit8u byte_0x21B0;//8624
+	//Bit8u byte_0x21B1;//8625
+	type_str_0x21B2 str_0x21B2;
+	//Bit8u byte_0x21B2;//8626
+	//Bit8u byte_0x21B3;//8627
+	//Bit8u byte_0x21B4;//resolution//8628
+	//Bit8u byte_0x21B5;//8629
+	type_str_0x21B6 str_0x21B6;
+	//Bit8u byte_0x21B6;//8630 can lights
+	//Bit8u byte_0x21B7;//8631
+	//Bit8u byte_0x21B8;//8632 can transparency
+	//Bit8u byte_0x21B9;//8633 can flat	
+
 	//Bit8u byte_0x21BA;//
 
 	Bit8u stub3b[0x1a7];
@@ -1068,9 +1151,10 @@ typedef struct{//lenght 0x36e16
 	type_str_0x3647A array_0x3647A[0xb];//8x11	
 	//konec 6604
 	*/
-	Bit32u dword_0x364D2;
 
-	Bit8u array_0x364D6[0x68];// lenght 0x68=104 end 0x3653e
+	type_str_0x364D2 str_0x364D2;//lenght 108
+	/*Bit32u dword_0x364D2;//lenght 108
+	Bit8u array_0x364D6[0x68];// lenght 0x68=104 end 0x3653e*/
 
 	Bit8u stub3f[0x831];
 	Bit16s word_0x3653E;//
@@ -1094,19 +1178,20 @@ typedef struct{//lenght 0x36e16
 	//Bit8s byte_0x365FD;//array_0x365F4[1].byte_1
 	
 
-	//array 0x3664C lenght 0x79e (end-0x36dea)
-	Bit8u stub3h[0x79e];
+	type_str_0x3664C str_0x3664C[0x32];// lenght 0x79e//39x50 (end-0x36dea)
+	//Bit8u stub3h[0x79e];
 	Bit8s byte_0x36DEA_fly_asistant;
 	Bit8s byte_0x36DEB_xx;
 	Bit16s word_0x36DEC_mousex;
 	Bit16s word_0x36DEE_mousey;
 	Bit16s word_0x36DF0_mousexx;
 	Bit32s dword_0x36DF2;//index
-	Bit8u stub3i[0x6];
+	Bit32u dword_0x36DF6;//pointer
+	Bit8u stub3i[0x2];
 	Bit16s word_0x36DFC;
 	Bit16s word_0x36DFE;	
-	Bit8s byte_0x36E00;
-	Bit8u stub3j[0x1];
+	Bit8u byte_0x36E00;
+	Bit8u byte_0x36E01;
 	Bit8s byte_0x36E02;
 	Bit8s byte_0x36E03;
 	Bit8s byte_0x36E04;
