@@ -761,6 +761,7 @@ typedef struct {//lenght 2124=0x84C
 	Bit8u byte_0x3E2_2BE4_12224;//994//12224 - byte
 	Bit8u byte_0x3E3_2BE4_12225;//995
 	Bit8u byte_0x3E4_2BE4_12226;//996
+	Bit32u dword_0x3E6_2BE4_12228;//998//pointer or other
 	Bit8u stub3[61];
 	Bit16s word_0x3EA_2BDE;//1002
 	Bit16s word_0x3FA_2BDE;//1018 mouse_x
@@ -833,10 +834,23 @@ typedef struct {//lenght 0x6604u
 
 	Bit8u byte_0x2FED4;//x_D41A0_BYTEARRAY_0[196308]
 	Bit16s word_0x2FED5;
+	Bit16s word_0x2FED7;
+
+	Bit16u word_0x2FEE5;//2FEE5//23
+	Bit16u word_0x2FEE9;//2FEE9//27
+	Bit32u word_0x2FEF5;//2FEF5//39
+	Bit16u word_0x2FEF9;//2FEF9//43
+	Bit16u word_0x2FEFD;//2FEFD//47
+	Bit16u word_0x2FF01;//2FF01//51
+	Bit16u word_0x2FF05;//2FF05//55
+	Bit16u word_0x2FF09;//2FF09//59
+	Bit16u word_0x2FF0D;//2FF0D//63
+	Bit16u word_0x2FF11;//2FF11//67
 	//0x30331 - end of structure lenght 20
 	/*197413 - 0x30324*/
 	/*221393 - 0x360D1*/
 	type_str_0x30311 array_0x30311[0x4b0];//end(next entity) - 0x360d1
+	Bit8u next_0x360D1;
 	//mozna by to melo zacit az 0x30311
 
 	//type_str_0x3030E array_0x3030E[0xb];//fix array lenght;
@@ -1020,7 +1034,7 @@ type_str_0x3664C;
 
 typedef struct {//lenght 108
 	Bit32u dword_0x364D2;//lenght 108
-	Bit8u array_0x364D6[0x68];// lenght 0x68=104 end 0x3653e
+	Bit32u dword_0x364D6[0x1a];// lenght 0x68=104 end 0x3653e
 }
 type_str_0x364D2;
 
