@@ -721,7 +721,7 @@ typedef struct {//lenght 2124=0x84C
 	Bit8u byte_0x00d_2BE0_11243_xx;
 	Bit16s word_0x00e_2BDE_11244; //14
 	Bit16s word_0x010_2BDE_11246; //16	
-	Bit32s dword_0x012_2BE0_11248;//18
+	Bit32s dword_0x012_2BE0_11248;//18 ??
 	//Bit8u byte_0x013_2BE0_11249_xx;
 	//Bit8u byte_0x014_2BE0_11250_xx;
 	//Bit8u byte_0x015_2BE0_11251_xx;
@@ -761,7 +761,7 @@ typedef struct {//lenght 2124=0x84C
 	Bit8u byte_0x3E2_2BE4_12224;//994//12224 - byte
 	Bit8u byte_0x3E3_2BE4_12225;//995
 	Bit8u byte_0x3E4_2BE4_12226;//996
-	Bit32u dword_0x3E6_2BE4_12228;//998//pointer or other
+	Bit32u dword_0x3E6_2BE4_12228;//998//pointer or other	
 	Bit8u stub3[61];
 	Bit16s word_0x3EA_2BDE;//1002
 	Bit16s word_0x3FA_2BDE;//1018 mouse_x
@@ -823,6 +823,7 @@ typedef struct {//lenght 110
 	Bit8u byte_0x360E1;
 	Bit8u stuba[0x19];
 	Bit8u byte_0x36115;
+	//0x36141[8];??
 	Bit8u stubb[109];
 }
 type_str_0x360FB;
@@ -863,6 +864,7 @@ typedef struct {//lenght 0x6604u
 	
 	//36479
 	type_str_0x360FB str_0x360FB[8];
+	//0x36443 - 70 + 110 * 7
 	type_str_0x3647Ac array_0x3647A[0xb];//8x11	
 	//konec 6604
 } type_str_2FECE;//compress level 
@@ -884,7 +886,7 @@ typedef struct {//size 11 count 6
 	Bit8s str_3659C_byte0;
 	Bit8s str_3659D_byte1;
 	Bit8s str_3659E_byte2;
-	Bit8s str_365AF_byte3;
+	Bit8s str_3659F_byte3;
 	Bit8s str_365A0_byte4;
 	Bit8s str_365A1_byte5;
 	Bit8s str_365A2_byte6;
@@ -1038,6 +1040,13 @@ typedef struct {//lenght 108
 }
 type_str_0x364D2;
 
+typedef struct {//lenght 7
+	Bit8s byte_0;//25972
+	Bit8s byte_1;//25973
+	Bit8u stub[6];
+}
+type_str_0x6574;
+
 typedef struct {//lenght 0x36e16	
 	Bit8u stub0[4];
 	Bit32s dword_0x4;
@@ -1132,6 +1141,7 @@ typedef struct {//lenght 0x36e16
 	//x_D41A0_BYTEARRAY_0[0x84C * D41A0_BYTESTR_0.word_12 + 0x2BE2])
 	type_str_0x2BDE array_0x2BDE[0x8]; //0x84c*0x8 ??
 
+	type_str_0x6574 str_0x6574[8];//25972
 	//type_str_0x65ac array_0x65ac[0xb];//??
 	/*
 	3-bit-28225
@@ -1179,7 +1189,7 @@ typedef struct {//lenght 0x36e16
 	Bit16s word_0x36548;//
 	Bit16s word_0x3654A;//
 	type_str_3654C struct_0x3654C[0x8];//size 10 count 8
-	type_str_3659C struct_0x3659C[0x8];//size 11 count 6
+	type_str_3659C struct_0x3659C[0x8];//size 11 count 8 C-0 D-1 E-2 F-3
 
 	Bit16s word_0x365E0;
 	Bit8u stub3g[0x12];
