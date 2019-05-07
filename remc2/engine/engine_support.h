@@ -628,9 +628,9 @@ typedef struct {//lenght 20
 type_str_0x30310;*/
 typedef struct {//lenght 20
 	//Bit8u byte_0;//type_str_0x30310//type_str_0x30324
-	Bit16u str_0x30311_word_0;//type_str_0x30311//type_str_0x30325
+	Bit16u str_0x30311_word_0;//type_str_0x30311//type_str_0x30325//1091
 	//Bit8u byte_1;//type_str_0x30312//type_str_0x30326
-	Bit16s str_0x30311_word_2;//type_str_0x30313//type_str_0x30327
+	Bit16s str_0x30311_word_2;//type_str_0x30313//type_str_0x30327//1091
 	//Bit8u byte_4;//type_str_0x30314//type_str_0x30328
 	Bit16u word_4;//type_str_0x30315//type_str_0x30329
 	//Bit8u byte_5;//type_str_0x30316//type_str_0x3032a
@@ -642,7 +642,7 @@ typedef struct {//lenght 20
 	Bit8u byte_11;//type_str_0x3031c//type_str_0x30330
 	Bit8u str_0x30311_byte_12;//type_str_0x3031d//type_str_0x30331
 	Bit8u byte_13;//type_str_0x3031e//type_str_0x30332
-	Bit8u byte_14;//type_str_0x3031f//type_str_0x30333
+	Bit8u byte_14;//type_str_0x3031f//type_str_0x30333//1105
 	Bit8u byte_15;//type_str_0x30320//type_str_0x30334
 	Bit16u word_16;//type_str_0x30321//type_str_0x30335
 	//Bit8u byte_17;//type_str_0x30322//type_str_0x30336
@@ -770,7 +770,8 @@ typedef struct {//lenght 2124=0x84C
 	Bit8u byte_0x420_2BE4_12286;//1056//12286 - byte
 	Bit8u stub4[389];
 	Bit16u word_0x53B_2BDE;// 1339
-	Bit32u dword_2BDE_12621;
+	Bit32u dword_2BDE_12621;//1391
+	Bit16s word_2BDE_12658[8];//1428
 	Bit8s byte_0x5a6_2BE4_12676;//1446
 	Bit8u stub4b[162];
 	type_struct_0x649_2BDE_12839 struct_0x649_2BDE_12839;//min 0x1ee
@@ -823,10 +824,19 @@ typedef struct {//lenght 110
 	Bit8u byte_0x360E1;
 	Bit8u stuba[0x19];
 	Bit8u byte_0x36115;
+	//0x36141;//70
 	//0x36141[8];??
 	Bit8u stubb[109];
 }
 type_str_0x360FB;
+
+typedef struct {
+	Bit16s word_0;//25973
+	Bit16s word_2;//25975
+	Bit16s word_4; //25977
+	Bit8u stub[1];
+}
+type_str_0x36443;
 
 typedef struct {//lenght 0x6604u
 		//podpolozky
@@ -863,7 +873,8 @@ typedef struct {//lenght 0x6604u
 	////0x30325 0x360d1 tj rozdil 23980=1199*20
 	
 	//36479
-	type_str_0x360FB str_0x360FB[8];
+	type_str_0x360FB str_0x360FB[8];//asi zacina o 40 driv
+	type_str_0x36443 str_0x36443[8];
 	//0x36443 - 70 + 110 * 7
 	type_str_0x3647Ac array_0x3647A[0xb];//8x11	
 	//konec 6604
@@ -872,11 +883,11 @@ typedef struct {//lenght 0x6604u
 typedef struct {//size 10 count 8
 	Bit8s str_3654C_byte0;
 	Bit8s str_3654D_byte1;
-	Bit8s str_3654E_byte2;
-	Bit8s str_3654F_byte3;
-	Bit8s str_36550_byte4;
-	Bit8s str_36551_byte5;
-	Bit32s str_36552_dword6;
+	Bit16s str_3654E_word2;
+	//Bit8s str_3654F_byte3;
+	Bit16s str_36550_word4;
+	//Bit8s str_36551_byte5;
+	Bit32s str_36552_dword6; //pointer sometimes
 	//Bit8s str_36553_byte7;
 	//Bit8s str_36554_byte8;
 	//Bit8s str_36555_byte9;
