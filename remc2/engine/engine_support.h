@@ -819,6 +819,7 @@ typedef struct {//lenght 9377
 	Bit8u stub[9377];
 } type_str_0x24DF;
 
+/*
 typedef struct {//lenght 110
 	Bit8u byte_0x360FB;
 	Bit8u byte_0x360E1;
@@ -828,7 +829,20 @@ typedef struct {//lenght 110
 	//0x36141[8];??
 	Bit8u stubb[109];
 }
-type_str_0x360FB;
+type_str_0x360FB;*/
+
+typedef struct {//lenght 110
+		Bit8u stuba[2];
+		Bit16s word_0x360D5;
+		Bit16s word_0x360D9;
+		Bit16s word_0x360DD;
+		Bit8u byte_0x360FB;
+		Bit8u byte_0x360E1;
+		Bit8u stubb[0x19];
+		Bit8u byte_0x36115;
+		Bit16s word_0x3612F;
+}
+type_str_0x360D3;
 
 typedef struct {
 	Bit16s word_0;//25973
@@ -846,7 +860,7 @@ typedef struct {//lenght 0x6604u
 	Bit8u byte_0x2FED4;//x_D41A0_BYTEARRAY_0[196308]
 	Bit16s word_0x2FED5;
 	Bit16s word_0x2FED7;
-
+	Bit8s array_0x2FED9[8];
 	Bit16u word_0x2FEE5;//2FEE5//23
 	Bit16u word_0x2FEE9;//2FEE9//27
 	Bit32u word_0x2FEF5;//2FEF5//39
@@ -862,6 +876,8 @@ typedef struct {//lenght 0x6604u
 	/*221393 - 0x360D1*/
 	type_str_0x30311 array_0x30311[0x4b0];//end(next entity) - 0x360d1
 	Bit8u next_0x360D1;
+
+	type_str_0x360D3 next_0x360D3[8];//lenght 110
 	//mozna by to melo zacit az 0x30311
 
 	//type_str_0x3030E array_0x3030E[0xb];//fix array lenght;
@@ -873,7 +889,7 @@ typedef struct {//lenght 0x6604u
 	////0x30325 0x360d1 tj rozdil 23980=1199*20
 	
 	//36479
-	type_str_0x360FB str_0x360FB[8];//asi zacina o 40 driv
+	//type_str_0x360FB str_0x360FB[8];//asi zacina o 40 driv
 	type_str_0x36443 str_0x36443[8];
 	//0x36443 - 70 + 110 * 7
 	type_str_0x3647Ac array_0x3647A[0xb];//8x11	
@@ -881,7 +897,7 @@ typedef struct {//lenght 0x6604u
 } type_str_2FECE;//compress level 
 
 typedef struct {//size 10 count 8
-	Bit8s str_3654C_byte0;
+	Bit8s str_3654C_byte0;//222540
 	Bit8s str_3654D_byte1;
 	Bit16s str_3654E_word2;
 	//Bit8s str_3654F_byte3;
@@ -894,17 +910,18 @@ typedef struct {//size 10 count 8
 } type_str_3654C;
 
 typedef struct {//size 11 count 6
-	Bit8s str_3659C_byte0;
-	Bit8s str_3659D_byte1;
-	Bit8s str_3659E_byte2;
-	Bit8s str_3659F_byte3;
+	Bit8u array_0x3659C_byte[11];
+	/*Bit8s str_3659C_byte0;array_0x3659C_byte[0]
+	Bit8s str_3659D_byte1;array_0x3659C_byte[1]
+	Bit8s str_3659E_byte2;array_0x3659C_byte[2]
+	Bit8s str_3659F_byte3;array_0x3659C_byte[3]
 	Bit8s str_365A0_byte4;
 	Bit8s str_365A1_byte5;
 	Bit8s str_365A2_byte6;
 	Bit8s str_365A3_byte7;
 	Bit8s str_365A4_byte8;
 	Bit8s str_365A5_byte9;
-	Bit8s str_365A6_byte10;
+	Bit8s str_365A6_byte10;*/
 } type_str_3659C;
 /*
 typedef struct {
@@ -1231,7 +1248,7 @@ typedef struct {//lenght 0x36e16
 	Bit8s byte_0x36E03;
 	Bit8s byte_0x36E04;
 	Bit8u stub3k[0x6];
-	Bit8u byte_0x36E0B;
+	Bit8s byte_0x36E0B;
 	
 	
 	
