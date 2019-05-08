@@ -783,6 +783,7 @@ typedef struct {//lenght 2124=0x84C
 	Bit16s word_0x839_2BDE;//2105
 
 	Bit8s byte_0x83D_2BDE;//2109
+	Bit8s byte_0x83E_2BDE;//2110 //spell index
 
 	Bit8s byte_0x846_2BDE;//2118
 	Bit8s byte_0x847_2BDE;//2119
@@ -1089,6 +1090,7 @@ typedef struct {//lenght 0x36e16
 	Bit16u word_0x31;//49
 	Bit16u word_0x33;//51
 	Bit32s dword_0x35;//53
+	Bit8u array_0x39[508];//57
 	Bit8u stub2[0x1fc];
 	Bit32s dword_0x235;//act music
 	Bit8u byte_0x239;//569
@@ -1096,6 +1098,7 @@ typedef struct {//lenght 0x36e16
 	Bit32s dword_0x23e;
 	Bit32s dword_0x242;
 	type_str_0x6E8E* pointers_0x246[0x3e8];//pointers
+	//0x81d 2077
 	/*
 	*(x_DWORD *)(x_D41A0_BYTEARRAY_0 + 570) = 1;//0x23a
 	*(x_DWORD *)(x_D41A0_BYTEARRAY_0 + 574) = 0;//0x23e
@@ -1191,7 +1194,7 @@ typedef struct {//lenght 0x36e16
 
 	//type_str_0x6E8E struct_0x6F36[8];//lenght 168
 
-	Bit8u stub3e[0x28f98];
+	//Bit8u stub3e[0x28f98];
 
 	type_str_2FECE str_2FECE;// a1 = &x_D41A0_BYTEARRAY_0[0x2FECE/*196302*/];//fix - size 0x6604u//compress level 
 	/*//podpolozky
