@@ -661,7 +661,7 @@ void writehex(Bit8u* buffer, Bit32u count) {
 	printf("\n");
 };
 
-//type_D41A0_BYTESTR_0 D41A0_BYTESTR_0;
+type_D41A0_BYTESTR_0 D41A0_BYTESTR_0;
 /*
 void x_D41A0_BYTEARRAY_0_to_x_D41A0_BYTESTR_0()
 {
