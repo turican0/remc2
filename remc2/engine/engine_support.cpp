@@ -360,7 +360,7 @@ Bit32u compare_with_snapshot_D41A0(char* filename, Bit8u* adress, Bit32u adressd
 	return(i);
 };
 
-Bit32u compare_with_sequence_D41A0(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u count, Bit32u size, Bit8u* origbyte, Bit8u* copybyte) {
+Bit32u compare_with_sequence_D41A0(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u count, Bit32u size, Bit8u* origbyte, Bit8u* copybyte,int offset) {
 
 	char findnamec[500];
 	Bit8u* buffer = (Bit8u*)malloc(size);
@@ -372,7 +372,7 @@ Bit32u compare_with_sequence_D41A0(char* filename, Bit8u* adress, Bit32u adressd
 		mydelay(100);
 		fopen_s(&fptestepc, findnamec, "rb");
 	}
-	fseek(fptestepc, count*size, SEEK_SET);
+	fseek(fptestepc, count*size+ offset, SEEK_SET);
 
 	fread_s(buffer, size, 1, size, fptestepc);
 	int i;
@@ -570,10 +570,10 @@ Bit32u compare_with_sequence_array_222BD3(char* filename, Bit8u* adress, Bit32u 
 	return(i);
 };
 
-Bit32u compare_with_sequence(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u count, Bit32u size, Bit8u* origbyte, Bit8u* copybyte) {
+Bit32u compare_with_sequence(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u count, Bit32u size, Bit8u* origbyte, Bit8u* copybyte,int offset) {
 
 	char findnamec[500];
-	Bit8u* buffer = (Bit8u*)malloc(100000);
+	Bit8u* buffer = (Bit8u*)malloc(size);
 	FILE* fptestepc;
 	sprintf(findnamec, "c:/prenos/remc2/remc2/memimages/sequence-%s.bin", filename);
 	fopen_s(&fptestepc, findnamec, "rb");
@@ -582,7 +582,7 @@ Bit32u compare_with_sequence(char* filename, Bit8u* adress, Bit32u adressdos, Bi
 		mydelay(100);
 		fopen_s(&fptestepc, findnamec, "rb");
 	}
-	fseek(fptestepc, count*size, SEEK_SET);
+	fseek(fptestepc, count*size+ offset, SEEK_SET);
 	
 	int i;
 	/*for (i = 0; i < count; i++)

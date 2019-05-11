@@ -5634,3 +5634,73 @@ Bit8u* sub_4A050_new_event()//22b050
 test sub_10C80 +6
 test sub_10C80 +6
 test sub_11900 +6
+
+---------------
+(Bit8u*)&D41A0_BYTESTR_0+0x8
+
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x8
+
+sub_498A0
+sub_49290
+sub_49270_generate_level_features
+
+sub_498A0
+sub_49290
+sub_49270_generate_level_features
+
+test sub sub_498A0
+
+(Bit8u*)&D41A0_BYTESTR_0+0x6f77
+
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x6f77
+
+sub_48690
+
+zdroj:
+index = sub_71E70(x_DWORD_E9C28, (unsigned __int16)(4 * ((unsigned int)(*(x_DWORD *)index + 13) >> 2)), i);
+index = sub_70C60_decompress_tmap(i, *(Bit8u**)index);
+*(Bit32u*)v4
+*(Bit32u*)v4
+
+D41A0_BYTESTR_0.str_2FECE.byte_0x2FED4
+versus
+*(x_BYTE *)(x_D41A0_BYTEARRAY_0 + 196308)
+
+diffecence
+v2x = sub_4A190(&v35x, 3, a1x->byte_0x009_2BE4_11239 == 1);
+
+D41A0_BYTESTR_0.array_0x2362[0]
+versus
+*(x_WORD *)(x_D41A0_BYTEARRAY_0 + 0 + 9062)
+
+rozdíl v
+x_BYTE_11B4E0[0xdf4d]
+
+test
+
+sub_56A30_init_game_level
+
+(Bit8u*)&D41A0_BYTESTR_0+0x795e
+
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x795e
+
+x_BYTE_11B4E0+0x45 0x68 orig:0x8b
+x_BYTE_12B4E0+0x51 0x24 orig:0x15
+
+sub_37240
+
+x_BYTE_11B4E0[v46] += ((Bit32s)((Bit8u)v34[1] + (Bit16u)v35 - x_BYTE_11B4E0[v46]))/ a1x->dword_0x8;
+
+D41A0_BYTESTR_0.struct_0x6E8E[2].byte_0x45_69 - neni 0x34, ale 0x33
+
+sub_37240
+
+-test a0
+void sub_498A0()//22a8a0
+
+(Bit8u*)&D41A0_BYTESTR_0+0x6f42 00
+
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x6f42 04
+
+0x3e6
+0x4364
