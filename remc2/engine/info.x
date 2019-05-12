@@ -5704,3 +5704,9 @@ void sub_498A0()//22a8a0
 
 0x3e6
 0x4364
+
+(Bit8u*)&D41A0_BYTESTR_0+0x795e 00
+
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x795e a0
+
+void sub_49A30(Bit8u* a1, unsigned __int16 a2)//22aa30
