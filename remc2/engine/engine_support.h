@@ -195,16 +195,21 @@ typedef union {
 }
 dw_w_b;
 typedef struct {//begin 611
-	Bit16s array_0x333_819[10];//208//size??
+	Bit32s array_0x263_611[0x1a];//size??
+	Bit32s array_0x2CB_715[0x1a];//104//size??
+	Bit16s array_0x333_819[0x1a];//208//size?? spells
 	//820//array_0x333_819[1]
 	//821//array_0x333_819[2]
 	//822//array_0x333_819[3]
 	//823//array_0x333_819[4]
+	//824//array_0x333_819[5]
+	//825//array_0x333_819[6]
 	//835//array_0x333_819[16]
 	Bit16s array_0x367_871[0x1a];
 	//875 -array_0x367_871[4]
-	Bit8s array_0x3B5_949[10];//338//size??
-	Bit8s array_0x41D_1053x[10];//size??
+	Bit8s array_0x39B_923[0x1a];//size??
+	Bit8s array_0x3B5_949[0x1a];//338//size??
+	//Bit8s array_0x41D_1053x[0x1a];//size??
 	//Bit8s array_0x41E_1054;//array_0x41D_1053x[1]
 	//Bit8s array_0x41F_1055;//array_0x41D_1053x[2]
 	//Bit8s array_0x420_1056;//array_0x41D_1053x[3]
@@ -215,9 +220,14 @@ typedef struct {//begin 611
 	//Bit8s array_0x428_1064;//array_0x41D_1053x[11]
 	//Bit8s array_0x433_1075;//array_0x41D_1053x[22]
 	//1079 501+611//spell index
+	Bit8s array_0x3E9_1001[0x1a];//390//size??
+	Bit8s array_0x403_1027[0x1a];//416//size??
+	Bit8s array_0x41D_1053y[0x1a];//442//size??
 	Bit8s array_0x437_1079[10];//468//size??
-	Bit16s word_0x451_1105;//
-	Bit16s word_0x453_1107;//
+	Bit16s word_0x451_1105;//494 act left spell index
+	Bit16s word_0x453_1107;//496 act right spell index
+	Bit8s byte_0x455_1109;//498
+	Bit8s byte_0x456_1110;//499
 	Bit8s byte_0x457_1111;//500
 	Bit8s byte_0x458_1112;//501
 	Bit8s byte_0x459_1113;//502
@@ -236,24 +246,48 @@ typedef struct {
 }
 type_str_164_pos;
 
-typedef struct {
+typedef struct {//size 1136
+	Bit32s dword_0x0_0;
+	Bit16s word_0x4_4;
+	Bit16s word_0x6_6;
 	Bit16s word_0xc_12;
 	Bit16s word_0xe_14;
 	Bit16s word_0x10_16;
 	type_str_164_pos position_20;//position
+	Bit16s word_0x18_24;
+	Bit16s word_0x1A_26;
+	Bit16s word_0x1E_30;
+	Bit16s word_0x26_38[8];
 	Bit16s word_0x2E_46;
 	Bit16s word_0x38_56;
 	Bit16s word_0x3A_58;
-	Bit16s word_0x159_345;
+	Bit16u array_0x3C_60[10];//size??
+	Bit32s dword_0x13C_316;
+	Bit8u byte_0x14C_332;
+	Bit8s byte_0x14D_333;
+	Bit8s byte_0x14E_334;
+	Bit8s byte_0x14F_335;
 	Bit8s byte_0x154_340;
 	Bit16s word_0x155_341;
 	Bit16s word_0x157_343;
+	Bit16s word_0x159_345;
 	Bit16s word_0x163_355;
+	Bit32s dword_0x165_357;
+	Bit32s dword_0x169_361;
 	Bit32s dword_0x16D_365;
 	Bit32s dword_0x175_373;
+	Bit32s dword_0x179_377;
+	Bit32s dword_0x17D_381;
+	Bit32s dword_0x181_385;
+	Bit32s dword_0x189_393;
+	Bit8s byte_0x195_405;
+	Bit8s byte_0x196_406;
+	Bit8s byte_0x197_407;
 	Bit16s word_1A2_418;
 	Bit16s word_1A4_420;
+	Bit8s byte_0x1BE_446;
 	Bit8s byte_0x1C1_449;//switch - event? type?
+	//Bit8s array_0x1D4_468[0x1a];
 	Bit16u word_0x204_516[32];
 	//Bit16s word_0x242_578;//word_0x204_516[31]
 	Bit16s word_0x244_580;
@@ -853,7 +887,7 @@ typedef struct {//lenght 2124=0x84C
 	Bit8u byte_0x3E3_2BE4_12225;//995
 	Bit8u byte_0x3E4_2BE4_12226;//996
 	Bit8u stub3[1];
-	Bit32u dword_0x3E6_2BE4_12228;//998//pointer or other	
+	type_str_164* dword_0x3E6_2BE4_12228;//998//pointer or other	
 	//Bit8u stub3[61];
 	Bit16s word_0x3EA_2BDE;//1002
 	Bit8u stub3b[14];
