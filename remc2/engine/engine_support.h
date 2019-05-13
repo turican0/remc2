@@ -194,6 +194,76 @@ typedef union {
 	Bit32u dword;
 }
 dw_w_b;
+typedef struct {//begin 611
+	Bit16s array_0x333_819[10];//208//size??
+	//820//array_0x333_819[1]
+	//821//array_0x333_819[2]
+	//822//array_0x333_819[3]
+	//823//array_0x333_819[4]
+	//835//array_0x333_819[16]
+	Bit16s array_0x367_871[0x1a];
+	//875 -array_0x367_871[4]
+	Bit8s array_0x3B5_949[10];//338//size??
+	Bit8s array_0x41D_1053x[10];//size??
+	//Bit8s array_0x41E_1054;//array_0x41D_1053x[1]
+	//Bit8s array_0x41F_1055;//array_0x41D_1053x[2]
+	//Bit8s array_0x420_1056;//array_0x41D_1053x[3]
+	//Bit8s array_0x422_1058;//array_0x41D_1053x[5]
+	//Bit8s array_0x423_1059;//array_0x41D_1053x[6]
+	//Bit8s array_0x424_1060;//array_0x41D_1053x[7]
+	//Bit8s array_0x425_1061;//array_0x41D_1053x[8]
+	//Bit8s array_0x428_1064;//array_0x41D_1053x[11]
+	//Bit8s array_0x433_1075;//array_0x41D_1053x[22]
+	//1079 501+611//spell index
+	Bit8s array_0x437_1079[10];//468//size??
+	Bit16s word_0x451_1105;//
+	Bit16s word_0x453_1107;//
+	Bit8s byte_0x457_1111;//500
+	Bit8s byte_0x458_1112;//501
+	Bit8s byte_0x459_1113;//502
+	Bit8s byte_0x45A_1114;
+	Bit8s byte_0x45B_1115;
+	Bit8s byte_0x45C_1116;
+	Bit8s byte_0x45D_1117;
+	Bit8s byte_0x45E_1118;
+	Bit8s byte_0x45E_1119;
+}
+type_str_611;
+
+typedef struct {
+	Bit16s x;
+	Bit16s y;
+}
+type_str_164_pos;
+
+typedef struct {
+	Bit16s word_0xc_12;
+	Bit16s word_0xe_14;
+	Bit16s word_0x10_16;
+	type_str_164_pos position_20;//position
+	Bit16s word_0x2E_46;
+	Bit16s word_0x38_56;
+	Bit16s word_0x3A_58;
+	Bit16s word_0x159_345;
+	Bit8s byte_0x154_340;
+	Bit16s word_0x155_341;
+	Bit16s word_0x157_343;
+	Bit16s word_0x163_355;
+	Bit32s dword_0x16D_365;
+	Bit32s dword_0x175_373;
+	Bit16s word_1A2_418;
+	Bit16s word_1A4_420;
+	Bit8s byte_0x1C1_449;//switch - event? type?
+	Bit16u word_0x204_516[32];
+	//Bit16s word_0x242_578;//word_0x204_516[31]
+	Bit16s word_0x244_580;
+	Bit16s word_0x246_582;
+	Bit16s word_0x248_584;
+	type_str_611 str_611;
+	//611;
+	
+}
+type_str_164;
 
 typedef struct _str_0x6E8E {//lenght a8//THING
 	struct _str_0x6E8E* next_0;
@@ -277,7 +347,7 @@ typedef struct _str_0x6E8E {//lenght a8//THING
 	//Bit16s word_0x9E_158;//152
 	Bit32u dword_0xA0_160;//160
 	//Bit16u word_0xA2_162;//162
-	Bit32s dword_0xA4_164;//100 // adress of xx
+	type_str_164* dword_0xA4_164x;//100 // adress of xx
 }
 type_str_0x6E8E;
 /*
