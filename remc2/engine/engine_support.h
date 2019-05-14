@@ -198,13 +198,13 @@ typedef struct {//begin 611
 	Bit32s array_0x263_611[0x1a];//size??
 	Bit32s array_0x2CB_715[0x1a];//104//size??
 	Bit16s array_0x333_819[0x1a];//208//size?? spells
-	//820//array_0x333_819[1]
-	//821//array_0x333_819[2]
-	//822//array_0x333_819[3]
-	//823//array_0x333_819[4]
-	//824//array_0x333_819[5]
-	//825//array_0x333_819[6]
-	//835//array_0x333_819[16]
+	//821//array_0x333_819[1]
+	//823//array_0x333_819[2]
+	//825//array_0x333_819[3]
+	//827//array_0x333_819[4]
+	//835//array_0x333_819[8]
+	Bit16s word_0x34B_843;
+	Bit16s word_0x34F_847;
 	Bit16s array_0x367_871[0x1a];
 	//875 -array_0x367_871[4]
 	Bit8s array_0x39B_923[0x1a];//size??
@@ -223,7 +223,7 @@ typedef struct {//begin 611
 	Bit8s array_0x3E9_1001[0x1a];//390//size??
 	Bit8s array_0x403_1027[0x1a];//416//size??
 	Bit8s array_0x41D_1053y[0x1a];//442//size??
-	Bit8s array_0x437_1079[10];//468//size??
+	Bit8s array_0x437_1079[0x1a];//468//size?? //table of spell indexes
 	Bit16s word_0x451_1105;//494 act left spell index
 	Bit16s word_0x453_1107;//496 act right spell index
 	Bit8s byte_0x455_1109;//498
@@ -253,24 +253,41 @@ typedef struct {//size 1136
 	Bit16s word_0xc_12;
 	Bit16s word_0xe_14;
 	Bit16s word_0x10_16;
+	Bit8s byte_0x11_17;
 	type_str_164_pos position_20;//position
 	Bit16s word_0x18_24;
 	Bit16s word_0x1A_26;
 	Bit16s word_0x1E_30;
+	Bit16s word_0x20_32;
+	Bit16s word_0x22_34;
+	Bit16s word_0x24_36;
 	Bit16s word_0x26_38[8];
 	Bit16s word_0x2E_46;
+	Bit16s word_0x36_54;
 	Bit16s word_0x38_56;
 	Bit16s word_0x3A_58;
 	Bit16u array_0x3C_60[10];//size??
+	Bit16u array_0x5C_92[10];
+	/*Bit8s byte_0xD3_211;
+	Bit8s byte_0xD4_212;
+	Bit8s byte_0xD5_213;*/
+	Bit32s dword_0x12A_298;
+	Bit32s dword_0x12E_302;
 	Bit32s dword_0x13C_316;
+	Bit32s dword_0x142_322;
+	Bit16s word_0x146_326;
+	Bit16s word_0x148_328;
+	Bit16s word_0x14A_330;
 	Bit8u byte_0x14C_332;
 	Bit8s byte_0x14D_333;
 	Bit8s byte_0x14E_334;
 	Bit8s byte_0x14F_335;
+	Bit32s byte_0x150_336;
 	Bit8s byte_0x154_340;
 	Bit16s word_0x155_341;
 	Bit16s word_0x157_343;
 	Bit16s word_0x159_345;
+	Bit8s array_0x15B_347[8];
 	Bit16s word_0x163_355;
 	Bit32s dword_0x165_357;
 	Bit32s dword_0x169_361;
@@ -280,19 +297,35 @@ typedef struct {//size 1136
 	Bit32s dword_0x17D_381;
 	Bit32s dword_0x181_385;
 	Bit32s dword_0x189_393;
+	Bit32s dword_0x18D_397;
 	Bit8s byte_0x195_405;
 	Bit8s byte_0x196_406;
 	Bit8s byte_0x197_407;
-	Bit16s word_1A2_418;
-	Bit16s word_1A4_420;
+	Bit32s dword_0x19A_410;
+	Bit32s dword_0x19E_414;
+	Bit16s word_0x1A2_418;
+	Bit16s word_0x1A4_420;
+	Bit16s word_0x1A6_422;//211
+	Bit16s word_0x1A8_424;//212
+	Bit16s word_0x1AA_426;//213
+	Bit8s array_0x1AC_428[18];
 	Bit8s byte_0x1BE_446;
+	Bit8s byte_0x1BF_447;
 	Bit8s byte_0x1C1_449;//switch - event? type?
+	Bit16s word_0x1C2_450;
 	//Bit8s array_0x1D4_468[0x1a];
-	Bit16u word_0x204_516[32];
+	Bit16s array_0x1FC_508[32];
+	//Bit16s word_0x204_516[32];
 	//Bit16s word_0x242_578;//word_0x204_516[31]
+	Bit16s word_0x242_578;
 	Bit16s word_0x244_580;
 	Bit16s word_0x246_582;
 	Bit16s word_0x248_584;
+	Bit16s word_0x24A_586;
+	Bit16s word_0x24C_588;
+	Bit8s array_0x24E_590[10];//size??
+	Bit8s byte_0x261_609;
+	Bit8s byte_0x262_610;
 	type_str_611 str_611;
 	//611;
 	
