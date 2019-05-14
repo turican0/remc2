@@ -197,6 +197,7 @@ dw_w_b;
 typedef struct {//begin 611
 	Bit32s array_0x263_611[0x1a];//size??
 	Bit32s array_0x2CB_715[0x1a];//104//size??
+	//array_0x2CB_715[2] 723
 	Bit16s array_0x333_819[0x1a];//208//size?? spells
 	//821//array_0x333_819[1]
 	//823//array_0x333_819[2]
@@ -412,7 +413,7 @@ typedef struct _str_0x6E8E {//lenght a8//THING
 	Bit16u word_0x98_152;//152
 	axis_3d word_0x9A_154x;//154
 	//Bit16s word_0x9E_158;//152
-	Bit32u dword_0xA0_160;//160
+	Bit32u dword_0xA0_160x;//160
 	//Bit16u word_0xA2_162;//162
 	type_str_164* dword_0xA4_164x;//100 // adress of xx
 }
