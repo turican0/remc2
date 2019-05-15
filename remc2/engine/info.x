@@ -5712,3 +5712,13 @@ void sub_498A0()//22a8a0
 void sub_49A30(Bit8u* a1, unsigned __int16 a2)//22aa30
 
 sub_51BB0_game_events(/*(Bit8u*)a4*/);//nothing draw
+
+(Bit8u*)x_WORD_15B4E0+0x144a orig 0 remake bf
+
+void sub_4A310(unsigned __int16 *a1)//22b310
+in clean
+x_WORD_15B4E0[v2.word] = a1x - D41A0_BYTESTR_0.struct_0x6E8E;
+bad 3d axis
+
+iy == 5
+ix == 11
