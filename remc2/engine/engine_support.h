@@ -336,6 +336,8 @@ type_str_164;
 typedef struct {//lenght 34
 	Bit16s word_160_0x2_2;
 	Bit16s word_160_0x4_4;
+	Bit16s word_160_0x6_6;
+	Bit16s word_160_0x8_8;
 	Bit16s word_160_0xa_10;
 	Bit16s word_160_0xc_12;
 	Bit16s word_160_0xe_14;
@@ -362,10 +364,10 @@ typedef struct _str_0x6E8E {//lenght a8//THING
 	//Bit8s byte_0xe_14;//14//struct_byte_0xc_12_15.dbyte3_4.byte1
 	//Bit8s byte_0xf_15;//15//struct_byte_0xc_12_15.dbyte3_4.byte2
 	Bit32s dword_0x10_16;//16 // index of array
-	Bit16u word_0x14_20;//20 //random seed
+	Bit16u word_0x14_20;//20 //random seed adress
 	Bit16u word_0x16_22;//22
 	Bit16u word_0x18_24;//24
-	Bit16u word_0x1A_26;//26 // index - owner //ID
+	Bit16u word_0x1A_26;//26 // index - owner //ID last index
 	Bit16s word_0x1C_28;//28
 	Bit16s word_0x1E_30;//30
 	Bit16s word_0x20_32;//32
@@ -387,7 +389,7 @@ typedef struct _str_0x6E8E {//lenght a8//THING
 	Bit8s byte_0x3B_59;//59
 	Bit8s byte_0x3C_60;//60
 	Bit8s byte_0x3D_61;//61
-	Bit8s byte_0x3E_62;//62 
+	Bit8s byte_0x3E_62;//62 //index
 	Bit8s byte_0x3F_63;//63 //type//MODEL
 	//11 - spell
 	Bit8s byte_0x40_64;//64 //subtype//CLASS
@@ -431,7 +433,7 @@ typedef struct _str_0x6E8E {//lenght a8//THING
 	Bit16u word_0x98_152;//152
 	axis_3d word_0x9A_154x;//154
 	//Bit16s word_0x9E_158;//152
-	type_str_160* dword_0xA0_160x;//160
+	type_str_160* dword_0xA0_160x;//160 //special settings
 	//Bit16u word_0xA2_162;//162
 	type_str_164* dword_0xA4_164x;//100 // adress of xx
 }
@@ -1302,7 +1304,7 @@ typedef struct {//lenght 0x36e16
 	//Bit8u byte_0x22;
 	Bit16u word_0x31;//49
 	Bit16u word_0x33;//51
-	Bit32s dword_0x35;//53
+	Bit32s dword_0x35;//53//entity counter(max 1000 entity changes per step)
 	Bit8u array_0x39[508];//57
 	//Bit8u stub2[0x1fc];
 	Bit32s dword_0x235;//act music
@@ -1318,7 +1320,7 @@ typedef struct {//lenght 0x36e16
 	*(x_DWORD *)(x_D41A0_BYTEARRAY_0 + 578) = 0;//0x242
 	*/
 	//Bit8u stub3[0x1f44];
-	Bit32s dword_0x11e6;
+	Bit32s dword_0x11e6;//second entity counter
 	type_str_0x6E8E* dword_0x11EA[0x3e8];//??4586
 	//Bit8u stub3[0xfa0];
 

@@ -5710,3 +5710,5 @@ void sub_498A0()//22a8a0
 (Bit8u*)x_D41A0_BYTEARRAY_0+0x795e a0
 
 void sub_49A30(Bit8u* a1, unsigned __int16 a2)//22aa30
+
+sub_51BB0_game_events(/*(Bit8u*)a4*/);//nothing draw
