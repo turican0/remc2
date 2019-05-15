@@ -333,6 +333,24 @@ typedef struct {//size 1136
 }
 type_str_164;
 
+typedef struct {//lenght 34
+	Bit16s word_160_0x2_2;
+	Bit16s word_160_0x4_4;
+	Bit16s word_160_0xa_10;
+	Bit16s word_160_0xc_12;
+	Bit16s word_160_0xe_14;
+	Bit16s word_160_0x10_16;//->dword_0xA0_160x->word_160_0x10_16
+	Bit16s word_160_0x12_18;
+	Bit32s dword_160_0x14_20;
+	Bit16s word_160_0x1a_26;
+	Bit16s word_160_0x1c_28;
+	Bit16s word_160_0x1e_30;
+	Bit8s byte_160_0x20_32;
+}
+type_str_160;
+
+//viz. unk_D7BD6
+
 typedef struct _str_0x6E8E {//lenght a8//THING
 	struct _str_0x6E8E* next_0;
 	Bit32s dword_0x4;//4 //?bitmap//LIVE
@@ -413,7 +431,7 @@ typedef struct _str_0x6E8E {//lenght a8//THING
 	Bit16u word_0x98_152;//152
 	axis_3d word_0x9A_154x;//154
 	//Bit16s word_0x9E_158;//152
-	Bit32u dword_0xA0_160x;//160
+	type_str_160* dword_0xA0_160x;//160
 	//Bit16u word_0xA2_162;//162
 	type_str_164* dword_0xA4_164x;//100 // adress of xx
 }
