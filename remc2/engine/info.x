@@ -5735,3 +5735,9 @@ D41A0_BYTESTR_0.array_0x2BDE[v0index].struct_0x649_2BDE_12839.array_0x7CF_2BDE_1
 
 find position:
 array_0x7CF_2BDE_13229
+
+v8 is different
+
+D41A0_BYTESTR_0.str_2FECE.next_0x360D2[v4].byte_0x360E1 = 1
+versus
+110 * v4 + x_D41A0_BYTEARRAY_0 + 221409 = 0
