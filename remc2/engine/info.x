@@ -5722,3 +5722,16 @@ bad 3d axis
 
 iy == 5
 ix == 11
+
+(Bit8u*)&D41A0_BYTESTR_0+0x2bf6 7b
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x2bf6 00
+
+repair type_str_0x256
+
+(Bit8u*)&D41A0_BYTESTR_0+0x32fb 1
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x32fb 00
+
+D41A0_BYTESTR_0.array_0x2BDE[v0index].struct_0x649_2BDE_12839.array_0x7CF_2BDE_13229.byteindex_2255ar[result] = 1;
+
+find position:
+array_0x7CF_2BDE_13229

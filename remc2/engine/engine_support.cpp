@@ -155,7 +155,7 @@ void support_begin() {
 	dword_E9C30[2] = new Bit8u[4096];
 	dword_E9C30[4] = new Bit8u[4096];*/
 	//x_D41A0_BYTEARRAY_4_struct.player_name_57 =new char[256];
-	x_D41A0_BYTEARRAY_4_struct.savestring_89 = new char[256];
+	//x_D41A0_BYTEARRAY_4_struct.savestring_89 = new char[256];
 
 	x_BYTE_14B4E0 = new Bit8u[65536];
 	off_D41A8 = new Bit8u[65536];
