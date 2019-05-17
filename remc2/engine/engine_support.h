@@ -833,21 +833,21 @@ typedef struct {//lenght 20
 	//Bit8u byte_1;//type_str_0x30312//type_str_0x30326
 	Bit16s str_0x30311_word_2;//type_str_0x30313//type_str_0x30327//1091
 	//Bit8u byte_4;//type_str_0x30314//type_str_0x30328
-	Bit16u word_4;//type_str_0x30315//type_str_0x30329
+	axis_3d axis3d_4;//type_str_0x30315//type_str_0x30329
 	//Bit8u byte_5;//type_str_0x30316//type_str_0x3032a
-	Bit8u byte_6;//type_str_0x30317//type_str_0x3032b
-	Bit8u byte_7;//type_str_0x30318//type_str_0x3032c
-	Bit16u word_8;//type_str_0x30319//type_str_0x3032d
-	Bit8u byte_10;//type_str_0x3031b//type_str_0x3032f
-	Bit8u byte_11;//type_str_0x3031c//type_str_0x30330
-	Bit8u str_0x30311_byte_12;//type_str_0x3031d//type_str_0x30331
-	Bit8u byte_13;//type_str_0x3031e//type_str_0x30332
-	Bit8u byte_14;//type_str_0x3031f//type_str_0x30333//1105
-	Bit8u byte_15;//type_str_0x30320//type_str_0x30334
-	Bit8u byte_16;//type_str_0x30321//type_str_0x30335
-	Bit8u byte_17;//type_str_0x30322//type_str_0x30336
-	Bit8u byte_18;//type_str_0x30323//type_str_0x30337
-	Bit8u byte_19;//type_str_0x30324//type_str_0x30338
+	//Bit16u word_6;//type_str_0x30317//type_str_0x3032b
+	//Bit8u byte_7;//type_str_0x30318//type_str_0x3032c
+	//Bit16u word_8;//type_str_0x30319//type_str_0x3032d
+	Bit16u word_10;//type_str_0x3031b//type_str_0x3032f
+	//Bit8u byte_11;//type_str_0x3031c//type_str_0x30330
+	Bit16u word_12;//type_str_0x3031d//type_str_0x30331
+	//Bit8u byte_13;//type_str_0x3031e//type_str_0x30332
+	Bit16u word_14;//type_str_0x3031f//type_str_0x30333//1105
+	//Bit8u byte_15;//type_str_0x30320//type_str_0x30334
+	Bit16u word_16;//type_str_0x30321//type_str_0x30335
+	//Bit8u byte_17;//type_str_0x30322//type_str_0x30336
+	Bit16u word_18;//type_str_0x30323//type_str_0x30337
+	//Bit8u byte_19;//type_str_0x30324//type_str_0x30338
 }
 type_str_0x30311;
 
@@ -1045,15 +1045,15 @@ typedef struct {//lenght 110 //word_0x360D2
 		Bit16s word_0x360D5;
 		Bit8u stubb[2];
 		Bit16s word_0x360D9;
-		Bit8u stubc[3];
+		Bit8u stubc[2];
 		Bit16s word_0x360DD;
-		Bit8u byte_0x360FB;
-		Bit8u byte_0x360E1;
-		Bit8u stubd[51];
+		Bit8u stubd[2];
+		Bit8u byte_0x360E1x[26];
+		Bit8u byte_0x360FBx[26];
 		//Bit8u byte_0x36112;
 		//Bit8u stubb[0x2];
-		Bit8u byte_0x36115;
-		Bit8u stube[25];
+		Bit8u byte_0x36115x[26];
+		//Bit8u stube[25];
 		Bit16s word_0x3612F;
 		//Bit8u byte_0x0x36140;
 		Bit8u stubf[15];
