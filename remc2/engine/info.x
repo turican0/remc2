@@ -5747,3 +5747,52 @@ versus
 
 (Bit8u*)&D41A0_BYTESTR_0+0x8f97 0xf1
 (Bit8u*)x_D41A0_BYTEARRAY_0+0x8f97 0x21
+
+test 237bb0
+test 237bb9
+
+x_BYTE_13B4E0+0x4a = 0x31 - remake
+
+x_BYTE_13B4E0+0x4a = 0x11
+
+void sub_498A0()
+iy == 2
+x_BYTE_13B4E0 + 0xd371 == 0x14
+x_BYTE_13B4E0 + 0xd371 == 0x34(orig)
+
+D41A0_BYTESTR_0.struct_0x6E8E[1]
+&x_D41A0_BYTEARRAY_0[28302+168+63]
+
+(x_D41A0_BYTEARRAY_0 + 4 * 0x3e6+ 582) ==&x_D41A0_BYTEARRAY_0[28302+168]
+x_DWORD_EA3E4[1]
+6e54fb0b
+versus
+D41A0_BYTESTR_0.pointers_0x246[0x3e6]
+de5c6e00 !=6e5cde
+
+comp20 = compare_with_sequence_D41A0((char*)"00237BB9-00356038", (Bit8u*)& D41A0_BYTESTR_0, 0x356038, debugcounter11, 0x36e16, &origbyte20, &remakebyte20);
+0x8f97
+(Bit8u*)&D41A0_BYTESTR_0+0x8f97 0xf1
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x8f97 0x21
+
+test sub_4A310
+(Bit8u*)&D41A0_BYTESTR_0+0x365a0 0x00
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x365a0 0x01
+
+(Bit8u*)&D41A0_BYTESTR_0+0x36605 0x00
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x36605 0x01
+
+
+(Bit8u*)&D41A0_BYTESTR_0+0x8f97 0xf1
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x8f97 0x21
+
+D41A0_BYTESTR_0.pointers_0x246[0x3b5]->dword_0xA0_160x->word_160_0x1a_26
+
+(Bit8u*)&D41A0_BYTESTR_0+0x8f9c 0x00
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x8f9c 0x01
+
+(Bit8u*)&D41A0_BYTESTR_0+0x8fa3 0x09
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x8fa3 0x0f
+
+test 
+void sub_12100(type_str_0x30311* a1x, type_str_0x6E8E* a2, char a3)//1f3100

@@ -570,10 +570,10 @@ Bit32u compare_with_sequence_array_222BD3(char* filename, Bit8u* adress, Bit32u 
 	return(i);
 };
 
-Bit32u compare_with_sequence(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u count, Bit32u size, Bit8u* origbyte, Bit8u* copybyte,int offset) {
+Bit32u compare_with_sequence(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u count, Bit32u size1, Bit32u size2, Bit8u* origbyte, Bit8u* copybyte,int offset) {
 
 	char findnamec[500];
-	Bit8u* buffer = (Bit8u*)malloc(size);
+	Bit8u* buffer = (Bit8u*)malloc(size2);
 	FILE* fptestepc;
 	sprintf(findnamec, "c:/prenos/remc2/remc2/memimages/sequence-%s.bin", filename);
 	fopen_s(&fptestepc, findnamec, "rb");
@@ -582,7 +582,7 @@ Bit32u compare_with_sequence(char* filename, Bit8u* adress, Bit32u adressdos, Bi
 		mydelay(100);
 		fopen_s(&fptestepc, findnamec, "rb");
 	}
-	fseek(fptestepc, count*size+ offset, SEEK_SET);
+	fseek(fptestepc, count*size1+ offset, SEEK_SET);
 	
 	int i;
 	/*for (i = 0; i < count; i++)
@@ -590,9 +590,9 @@ Bit32u compare_with_sequence(char* filename, Bit8u* adress, Bit32u adressdos, Bi
 		fread_s(buffer,size,1,size, fptestepc);
 	}*/
 
-	fread_s(buffer, size, 1, size, fptestepc);
+	fread_s(buffer, size2, 1, size2, fptestepc);
 	//for (i = size-1; i >0; i--)
-	for (i = 0; i < size; i++)
+	for (i = 0; i < size2; i++)
 	{
 		if (buffer[i] != adress[i])
 		{

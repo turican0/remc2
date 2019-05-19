@@ -334,6 +334,7 @@ typedef struct {//size 1136
 type_str_164;
 
 typedef struct {//lenght 34
+	Bit8u stub[2];
 	Bit16s word_160_0x2_2;
 	Bit16s word_160_0x4_4;
 	Bit16s word_160_0x6_6;
@@ -344,10 +345,12 @@ typedef struct {//lenght 34
 	Bit16s word_160_0x10_16;//->dword_0xA0_160x->word_160_0x10_16
 	Bit16s word_160_0x12_18;
 	Bit32s dword_160_0x14_20;
+	Bit8u stuba[2];
 	Bit16s word_160_0x1a_26;
 	Bit16s word_160_0x1c_28;
 	Bit16s word_160_0x1e_30;
 	Bit8s byte_160_0x20_32;
+	Bit8u stubb[1];
 }
 type_str_160;
 
@@ -727,7 +730,7 @@ void support_end();
 void loadfromsnapshot(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u size);
 void loadfromsnapshot2(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u size);
 Bit32u compare_with_snapshot(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u size, Bit8u* origbyte, Bit8u* copybyte);
-Bit32u compare_with_sequence(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u count, Bit32u size, Bit8u* origbyte, Bit8u* copybyte, int offset = 0);
+Bit32u compare_with_sequence(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u count, Bit32u size1, Bit32u size2, Bit8u* origbyte, Bit8u* copybyte, int offset = 0);
 Bit32u compare_with_snapshot_D41A0(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u size, Bit8u* origbyte, Bit8u* copybyte);
 Bit32u compare_with_sequence_D41A0(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u count, Bit32u size, Bit8u* origbyte, Bit8u* copybyte,int offset=0);
 Bit32u compare_with_sequence_array_E2A74(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u count, Bit32u size, Bit8u* origbyte, Bit8u* copybyte, int* posdiff);
@@ -771,8 +774,8 @@ un1;
 
 typedef struct {//lenght 8
 	//Bit8u byte_0;//array_0x36479
-	Bit8u str_0x3647A_byte_0;//array_0x3647a
-	Bit8u str_0x3647A_byte_1;//array_0x3647b
+	Bit8s str_0x3647A_byte_0;//array_0x3647a
+	Bit8s str_0x3647A_byte_1;//array_0x3647b
 	Bit16s str_0x3647A_word_2;//array_0x3647c
 	un1 str_0x3647C_4;//array_0x3647e	
 	/*
