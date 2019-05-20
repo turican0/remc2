@@ -5796,3 +5796,13 @@ D41A0_BYTESTR_0.pointers_0x246[0x3b5]->dword_0xA0_160x->word_160_0x1a_26
 
 test 
 void sub_12100(type_str_0x30311* a1x, type_str_0x6E8E* a2, char a3)//1f3100
+
+22b820 // 1 instance in level 1
+231b00 // 1 instance in level 1
+231ae0 // 1 instance in level 21
+22c490 // 1 instance in level 33
+22cf40 // 1 instance in level 28
+231b60 // 1 instance in level 1
+22fc10 // 1 instance in level 9
+22f3b0 // 1 instance in level 8
+22bdf0 // 1 instance in level 3
