@@ -5794,6 +5794,10 @@ D41A0_BYTESTR_0.pointers_0x246[0x3b5]->dword_0xA0_160x->word_160_0x1a_26
 (Bit8u*)&D41A0_BYTESTR_0+0x8fa3 0x09
 (Bit8u*)x_D41A0_BYTEARRAY_0+0x8fa3 0x0f
 
+sub_12100((Bit8u*)a1, v3, *(x_BYTE *)(v3 + 64) == 9);
+
+v4==3
+
 test 
 void sub_12100(type_str_0x30311* a1x, type_str_0x6E8E* a2, char a3)//1f3100
 
