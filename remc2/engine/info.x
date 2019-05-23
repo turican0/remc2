@@ -5810,3 +5810,19 @@ void sub_12100(type_str_0x30311* a1x, type_str_0x6E8E* a2, char a3)//1f3100
 22fc10 // 1 instance in level 9
 22f3b0 // 1 instance in level 8
 22bdf0 // 1 instance in level 3
+
+&D41A0_BYTESTR_0.str_2FECE.array_0x30311[0x59] == 0x5
+versus
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x30313+20*0x59 == 0x01
+
+&D41A0_BYTESTR_0.str_2FECE+0x443
+
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x30313
+0x0C2169B8
+
+0x0C246CC9
+0x0C246CCB
+
+
+(Bit8u*)&D41A0_BYTESTR_0+0x9044 0x01
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x9044 0x00
