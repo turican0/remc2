@@ -776,7 +776,7 @@ typedef struct {//lenght 8
 	//Bit8u byte_0;//array_0x36479
 	Bit8s str_0x3647A_byte_0;//array_0x3647a
 	Bit8s str_0x3647A_byte_1;//array_0x3647b
-	Bit16s str_0x3647A_word_2;//array_0x3647c
+	uaxis_2d str_0x3647A_2;//array_0x3647c//str_0x3647A_2.word
 	un1 str_0x3647C_4;//array_0x3647e	
 	/*
 	axis_2d axis;//array_0x3647e	
