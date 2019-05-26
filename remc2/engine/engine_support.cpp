@@ -406,6 +406,8 @@ Bit32u compare_with_sequence_D41A0(char* filename, Bit8u* adress, Bit32u adressd
 
 	free(buffer);
 	fclose(fptestepc);
+	if (i < size)
+		allert_error();
 	return(i);
 };
 
@@ -604,6 +606,8 @@ Bit32u compare_with_sequence(char* filename, Bit8u* adress, Bit32u adressdos, Bi
 
 	free(buffer);
 	fclose(fptestepc);
+	if (i < size2)
+		allert_error();
 	return(i);
 };
 

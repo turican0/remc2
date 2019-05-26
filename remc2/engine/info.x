@@ -5836,3 +5836,39 @@ fix str_0x3647A_word_2
 
 (Bit8u*)&D41A0_BYTESTR_0+0x364d2 0x02
 (Bit8u*)x_D41A0_BYTEARRAY_0+0x364d2 0x01
+
+D41A0_BYTESTR_0.array_0x2BDE[0].dword_0x3E6_2BE4_12228
+(Bit32u)(a1 + 998)
+
+test v113
+
+a1x->dword_0x3E6_2BE4_12228
+x_D41A0_BYTEARRAY_0 + 11230 + 998
+
+dword_0x3E6_2BE4_12228 musi byt struktura ne ukazatel
+
+(Bit8u*)&D41A0_BYTESTR_0+0x3417 0xff
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x3417 0x01
+
+test sub_54A50
+
+x_D41A0_BYTEARRAY_0 + 11230 + 2103
+
+x_D41A0_BYTEARRAY_0 + 11230 + 2105
+
+(Bit8u*)x_BYTE_10B4E0+0xd84c 0x05
+(Bit8u*)x_BYTE_10B4E0+0xd84c 0x37
+
+30d50
+572c0
+56f10
+462a0
+
+sub_30D50
+
+void sub_57730()//238730
+
+jx next problem
+
+test
+int sub_10C80(type_str_0x6E8E* a1x, unsigned __int8 a2, unsigned __int16 a3)//1f1c80
