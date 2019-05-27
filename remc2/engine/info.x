@@ -5883,3 +5883,20 @@ test int sub_38330(type_str_0x6E8E* a1x)//219330
 
 test char sub_1DDA0(type_str_0x6E8E* a1x, __int16 a2)//1feda0
 
+(Bit8u*)&D41A0_BYTESTR_0+0x364e2 0x00
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x364e2 0x01
+
+(Bit8u*)&D41A0_BYTESTR_0+0x8f7e 0x76
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x8f7e 0x8b
+
+(Bit8u*)&D41A0_BYTESTR_0+0xd496 0x00
+(Bit8u*)x_D41A0_BYTEARRAY_0+0xd496 0x40
+
+void sub_57CF0(type_str_0x6E8E* a1x, axis_3d* a2x)//238cf0
+
+(Bit8u*)x_BYTE_10B4E0+0xbcae 0x25
+(Bit8u*)x_BYTE_10B4E0+0xbcae 0x00
+
+
+void sub_462A0(unsigned __int16 a1, __int16 a2)//2272a0
+
