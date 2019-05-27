@@ -5872,3 +5872,14 @@ jx next problem
 
 test
 int sub_10C80(type_str_0x6E8E* a1x, unsigned __int8 a2, unsigned __int16 a3)//1f1c80
+
+(Bit8u*)&D41A0_BYTESTR_0+0x6f7b 0x35
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x6f7b 0x34
+
+test int sub_38330(type_str_0x6E8E* a1x)//219330
+
+(Bit8u*)&D41A0_BYTESTR_0+0x8f7e 0x76
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x8f7e 0x8b
+
+test char sub_1DDA0(type_str_0x6E8E* a1x, __int16 a2)//1feda0
+
