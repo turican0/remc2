@@ -5900,3 +5900,6 @@ void sub_57CF0(type_str_0x6E8E* a1x, axis_3d* a2x)//238cf0
 
 void sub_462A0(unsigned __int16 a1, __int16 a2)//2272a0
 
+void sub_37240(type_str_0x6E8E* a1x)//218240
+test begin
+
