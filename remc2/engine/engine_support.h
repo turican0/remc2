@@ -1130,10 +1130,15 @@ typedef struct {//lenght 0x6604u
 	Bit16s word_0x2FED5;
 	Bit16s word_0x2FED7;
 	Bit8s array_0x2FED9[8];
-	Bit8u stubb[8];
-	//Bit16u word_0x2FEE5;//2FEE5//23
+	Bit8u stubb[4];
+	Bit16u word_0x2FEE5;//2FEE5//23
+	Bit8u stubb2[2];
 	Bit16u word_0x2FEE9;//2FEE9//27
-	Bit8u stubc[10];
+	Bit8u stubc[2];
+	Bit16u word_0x2FEED;//2FEED//31
+	Bit8u stubc2[2];
+	Bit16u word_0x2FEF1;//2FEF1//35
+	Bit8u stubc3[2];
 	Bit32u word_0x2FEF5;//2FEF5//39
 	//Bit8u stubd[2];
 	Bit16u word_0x2FEF9;//2FEF9//43

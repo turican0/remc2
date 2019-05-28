@@ -5905,3 +5905,8 @@ test begin
 
 sub_57CF0
 -more count than 35
+
+zde:
+sub_57CF0(a1x, &x_WORD_EB398ar);
+
+je took, jen ulozen maly vzorek
