@@ -5909,4 +5909,9 @@ sub_57CF0
 zde:
 sub_57CF0(a1x, &x_WORD_EB398ar);
 
-je took, jen ulozen maly vzorek
+je to ok, je jen ulozen maly vzorek
+
+(Bit8u*)&D41A0_BYTESTR_0+0xd496 0x00
+(Bit8u*)x_D41A0_BYTEARRAY_0+0xd496 0x40
+
+debugcounter_238CF0 =0x85
