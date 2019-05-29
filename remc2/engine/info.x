@@ -5915,3 +5915,15 @@ je to ok, je jen ulozen maly vzorek
 (Bit8u*)x_D41A0_BYTEARRAY_0+0xd496 0x40
 
 debugcounter_238CF0 =0x85
+
+(Bit8u*)&D41A0_BYTESTR_0+0xda7e 0x50
+(Bit8u*)x_D41A0_BYTEARRAY_0+0xda7e 0x35
+
+sub_580E0
+
+(Bit8u*)&D41A0_BYTESTR_0+0x2fc8 0x00
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x2fc8 0x3f
+
+test sub_895D0_draw_text_with_frame
+and
+sub_30630

@@ -1472,7 +1472,7 @@ typedef struct {//lenght 0x36e16
 	*/
 
 	type_str_0x6E3E array_0x6E3E[8];//28222	lenght 0xa size 0x8// game events
-	type_str_0x6E8E struct_0x6E8E[0x3e8];//28302
+	type_str_0x6E8E struct_0x6E8E[0x3e8];//28302 a8*3e8 
 	//1 - 6F36 - 28470
 	//2 - 6FDE
 	//3 - 7086
