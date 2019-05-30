@@ -30,12 +30,15 @@ simple dev blog:https://github.com/turican0/remc2/wiki<br />
 ## 0.40:<br />
 -tons code after arrays to structs rewriting fixed<br />
 -count bugs is similar as Release 0.25<br />
+<br />
 ## 0.39:<br />
 -HI-res fixed<br />
 -fixed carpet position in level menu<br />
+<br />
 ## 0.38:<br />
 -First test HI-res<br />
 -finded problems with texts, menus and terrain<br />
+<br />
 ## 0.37:<br />
 -Can play level 1 as original<br />
 -in game music<br />
