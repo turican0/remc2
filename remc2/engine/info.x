@@ -5927,3 +5927,5 @@ sub_580E0
 test sub_895D0_draw_text_with_frame
 and
 sub_30630
+
+sub_87610

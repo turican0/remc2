@@ -1552,6 +1552,83 @@ typedef struct {//lenght 0x36e16
 	Bit8u stubend[0xa];
 
 } type_D41A0_BYTESTR_0;
+
+struct {//lenght 0x33
+	Bit16s word_0x0;//0 //0
+	Bit16s word_0x2;//2 //1
+	Bit16s word_0x4;//4 //2
+	Bit16s word_0x6;//6 //3
+	Bit16s word_0x8;//8 //4
+	Bit16s word_0xa;//a //5
+	Bit16s word_0xc;//c-3f //6
+	Bit16s word_0xe;//e //7
+	Bit16s word_0x10;//10 //8
+	Bit16s word_0x12;//12 //9
+	Bit16s word_0x14;//14 //10
+	Bit16s word_0x16;//16 //11
+	Bit16s word_0x18;//18 //12	
+	Bit16s word_0x1a;//1a //13
+	Bit16s word_0x1c;//1c-4f //14 
+	Bit16s word_0x1e;//1e-51 //15
+	Bit16s word_0x20;//20 //16
+	Bit16s word_0x22;//22 //17
+	Bit16s word_0x24;//24-57 //width 18
+	Bit16s word_0x26;//26-59 //19
+	Bit16s word_0x28;//28-5b //20
+	Bit16s word_0x2a;//2a-5d//21
+	Bit8s stub[4];
+	Bit8s byte_0x30;//30-63 - color1 //24
+	Bit8s byte_0x31;//31-64 - color2
+	Bit8s byte_0x32;//32-65 - color2
+}
+typedef type_sub_str_unk_1804B0ar;
+
+struct {//0xb0 nebo spis 171(0xab)
+	type_sub_str_unk_1804B0ar type_sub_0[2];
+	/*Bit16s word_0xe;//e
+	Bit16s word_0x10;//10
+	Bit16s word_0x12;//12
+	Bit16s word_0x14;//14//47=14+33
+	Bit16s word_0x16;//16//49=16+33
+	Bit16s word_0x18;//18//4b=18+33
+	Bit16s word_0x1a;//1a//4d;=1a+33
+	//0x33
+	//0x66
+	*/
+
+
+	Bit32s dword_0x66;//66
+	Bit32s dword_0x6a;//6a
+	Bit32s dword_0x6e;//6e
+	Bit32s dword_0x72;//72
+	Bit32s dword_0x76;//76
+	Bit32s dword_0x7a;//7a
+	Bit8s stub[4];
+	Bit32s dword_0x82;//82	
+	Bit16s word_0x86;//86
+	Bit16s word_0x88;//88
+	Bit32s dword_0x8a;//8a
+	Bit16s array_0x8e[4];//8e //text lines
+	Bit16s word_0x96;//96
+	Bit16s word_0x98;//98
+	Bit16s word_0x9a;//9A
+	Bit16s word_0x9c;//9C
+	Bit8s byte_0x9e;//9e
+	Bit8s byte_0x9f;//9f
+	Bit8s byte_0xa0;//a0
+	Bit8s byte_0xa1;//a1
+	Bit8s byte_0xa2;//a2
+	Bit8s byte_0xa3;//a3
+	Bit8s byte_0xa4;//a4
+	Bit8s byte_0xa5;//a5
+	Bit8s byte_0xa6;//a6
+	Bit8s byte_0xa7;//a7
+	Bit8s byte_0xa8;//a8
+	Bit8s byte_0xa9;//a9
+	Bit8s byte_0xaa;//aa
+	//Bit8s stubb[1];
+}
+typedef type_str_unk_1804B0ar;
 #pragma pack (16)
 
 /*
@@ -1758,6 +1835,9 @@ void test_x_D41A0_BYTEARRAY_0();
 */
 
 extern type_D41A0_BYTESTR_0 D41A0_BYTESTR_0;
+
+
+
 
 /*void x_D41A0_BYTEARRAY_0_to_x_D41A0_BYTESTR_0();
 void x_D41A0_BYTESTR_0_to_x_D41A0_BYTEARRAY_0();*/
