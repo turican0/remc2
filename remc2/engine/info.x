@@ -5929,3 +5929,9 @@ and
 sub_30630
 
 sub_87610
+
+x_DWORD_180628b_screen_buffer+0x4ed 0x34
+ 0x3aa0a4+0x4ed 0x99
+
+ test here:
+ if (D41A0_BYTESTR_0.str_0x218E.xxxx_0x218F)
