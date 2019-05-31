@@ -883,12 +883,24 @@ void write_posistruct_to_png(Bit8u* buffer,int width, int height, char* filename
 		a1byte2--;
 	} while (a1byte2);
 	*/
+
+	Bit8u pallettebuffer[768];
+	FILE* palfile;
+	fopen_s(&palfile, "c:\\prenos\\remc2\\testpal.pal", "rb");
+	fread(pallettebuffer, 768, 1, palfile);
+	fclose(palfile);
+
 	Bit8u buffer2[10000*4];
 	for (int i = 0; i < 10000; i++)
 	{
-		buffer2[i * 4 + 0] = buffer[i];
+		/*buffer2[i * 4 + 0] = buffer[i];
 		buffer2[i * 4 + 1] = buffer[i];
-		buffer2[i * 4 + 2] = buffer[i];
+		buffer2[i * 4 + 2] = buffer[i];*/
+		buffer2[i * 4 + 0] = pallettebuffer[buffer[i] * 3];
+		buffer2[i * 4 + 1] = pallettebuffer[buffer[i] * 3+1];
+		buffer2[i * 4 + 2] = pallettebuffer[buffer[i] * 3+2];
+
+
 		if (buffer[i] != 0xff)buffer2[i * 4 + 3]=255;
 	}
 	writeImage(filename, width, height, buffer2, (char*)"test");
