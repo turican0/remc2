@@ -1455,7 +1455,7 @@ typedef struct {//lenght 0x36e16
 	Bit8u stub3c[0x14d];
 	///*??*/type_str_0x24DF array_0x24DF[0xb];//?lenght
 	Bit8u stub3d[0x6ff];
-
+	//2BEC
 
 	//x_D41A0_BYTEARRAY_0[2124 * D41A0_BYTESTR_0.word_12 + 11234])
 	//x_D41A0_BYTEARRAY_0[0x84C * D41A0_BYTESTR_0.word_12 + 0x2BE2])

@@ -5935,3 +5935,38 @@ x_DWORD_180628b_screen_buffer+0x4ed 0x34
 
  test here:
  if (D41A0_BYTESTR_0.str_0x218E.xxxx_0x218F)
+
+ find
+&((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[1])
+ (Bit8u*)&filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct[1]+6
+
+
+ x_DWORD_180628b_screen_buffer+0x51d 0x33
+ 0x3aa0a4+0x51d 0x84
+
+ sub_61A00_draw_minimap_entites_b
+
+ x_D41A0_BYTEARRAY_0+0x2f71
+ (Bit8u*)&D41A0_BYTESTR_0+0x2f71
+
+ (Bit8u*)&D41A0_BYTESTR_0.array_0x2BDE[D41A0_BYTESTR_0.word_0xc]-(Bit8u*)&D41A0_BYTESTR_0
+ 0x2bde tj 0x393
+  (Bit8u*)D41A0_BYTESTR_0.array_0x2BDE[D41A0_BYTESTR_0.word_0xc].struct_0x1d1_2BDE_11695-(Bit8u*)&D41A0_BYTESTR_0
+ 0x2daf tj 0x1c2
+   (Bit8u*)&D41A0_BYTESTR_0.array_0x2BDE[D41A0_BYTESTR_0.word_0xc].struct_0x1d1_2BDE_11695[0x1f]-(Bit8u*)&D41A0_BYTESTR_0
+ 0x2daf tj 0x1c2
+
+479
+0x1df
+
+fix
+for (jy = &D41A0_BYTESTR_0.struct_0x6E8E[1]; jy <= &D41A0_BYTESTR_0.struct_0x6E8E[0x3e8-1]; jy += sizeof(type_str_0x6E8E))
+
+ x_DWORD_180628b_screen_buffer+0x125d 0xa4
+ 0x3aa0a4+0x125d 0xa1
+
+  x_DWORD_180628b_screen_buffer+0x1448d 0x92
+ 0x3aa0a4+0x1448d 0x2f
+
+ (Bit8u*)&x_WORD_15B4E0+0x1ba9a 0xce
+ x_WORD_15B4E0+0x1ba9a 0x00
