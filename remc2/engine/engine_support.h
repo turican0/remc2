@@ -277,7 +277,7 @@ typedef struct {//size 1136
 	Bit16s word_0x4_4;
 	Bit16s word_0x6_6;
 	Bit8u stuba[4];
-	Bit16s word_0xc_12;
+	Bit16s word_0xc_12;//final speed
 	Bit16s word_0xe_14;
 	Bit16s word_0x10_16;
 	//Bit8s byte_0x11_17;
@@ -341,9 +341,9 @@ typedef struct {//size 1136
 	Bit32s dword_0x19E_414;
 	Bit16s word_0x1A2_418;
 	Bit16s word_0x1A4_420;
-	Bit16s word_0x1A6_422;//211
-	Bit16s word_0x1A8_424;//212
-	Bit16s word_0x1AA_426;//213
+	Bit16s word_0x1A6_422;//211 x add
+	Bit16s word_0x1A8_424;//212 y add
+	Bit16s word_0x1AA_426;//213 z add
 	type_str_0x1AC_428 str_0x1AC_428;
 	Bit8s byte_0x1BE_446;
 	Bit8s byte_0x1BF_447;
@@ -472,7 +472,7 @@ typedef struct _str_0x6E8E {//lenght a8//THING
 	type_str_0x5E_94 str_0x5E_94;
 	
 
-	Bit16u word_0x82_130;//130 //add to z//ACTUAL SPEED
+	Bit16s word_0x82_130;//130 //add to z//ACTUAL SPEED
 	Bit16s word_0x84_132;//132//MIN SPEED
 	Bit16s word_0x86_134;//134//MAX SPEED
 	Bit32s dword_0x88_136;//136

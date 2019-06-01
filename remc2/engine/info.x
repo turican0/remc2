@@ -5970,3 +5970,21 @@ for (jy = &D41A0_BYTESTR_0.struct_0x6E8E[1]; jy <= &D41A0_BYTESTR_0.struct_0x6E8
 
  (Bit8u*)&x_WORD_15B4E0+0x1ba9a 0xce
  x_WORD_15B4E0+0x1ba9a 0x00
+
+ sub_57FA0 - move player
+
+ D41A0_BYTESTR_0.array_0x6E3E[0].str_0x6E3E_byte0
+ D41A0_BYTESTR_0.array_0x6E3E[0].str_0x6E3E_byte5
+
+ &x_DWORD_EA3E4[0]->array_0x4C_76
+
+ v113x->dword_0xA4_164x->word_0x6_6 = v102;//fix - test it
+
+ D41A0_BYTESTR_0.array_0x2BDE[D41A0_BYTESTR_0.word_0xc].struct_0x1d1_2BDE_11695[D41A0_BYTESTR_0.array_0x2BDE[D41A0_BYTESTR_0.word_0xc].word_0x00e_2BDE_11244+1].axis_2BDE_11695
+ &x_DWORD_EA3E4[D41A0_BYTESTR_0.array_0x2BDE[0].word_0x00a_2BE4_11240]->array_0x4C_76
+ &x_WORD_EB398ar
+
+ a1x->dword_0xA4_164x->word_0x1A6_422
+ a1x->dword_0xA4_164x->word_0x1A8_424
+ move
+ sub_57FA0(&x_WORD_EB398ar, a1x->word_0x1C_28, a1x->dword_0xA4_164x->word_0x24_36, v16);
