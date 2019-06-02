@@ -5988,3 +5988,36 @@ for (jy = &D41A0_BYTESTR_0.struct_0x6E8E[1]; jy <= &D41A0_BYTESTR_0.struct_0x6E8
  a1x->dword_0xA4_164x->word_0x1A8_424
  move
  sub_57FA0(&x_WORD_EB398ar, a1x->word_0x1C_28, a1x->dword_0xA4_164x->word_0x24_36, v16);
+
+  (Bit8u*)&x_WORD_15B4E0+0x1ba9a 0xce
+ x_WORD_15B4E0+0x1ba9a 0x00
+
+ void sub_65F60(type_str_0x6E8E* a1x)//246f60
+
+(Bit8u*)&D41A0_BYTESTR_0+0xd25b 0x00
+(Bit8u*)x_D41A0_BYTEARRAY_0+0xd25b 0x02
+
+x_DWORD_180628b_screen_buffer+0x1f71 0x37
+ 0x3aa0a4+0x1f71 0xb8
+
+ find
+ void sub_644F0_draw_minimap_marks(int a1, int a2, __int16 a3, __int16 a4, int a5, int a6, __int16 a7, int a8)//2454f0
+
+  (Bit8u*)&x_WORD_15B4E0+0x1a698 0x10
+ x_WORD_15B4E0+0x1a698 0xfd
+
+ Bit8u* sub_4E8C0(Bit8u* a1)//22f8c0
+
+ void sub_65F60(Bit8u* a1)//246f60
+
+(Bit8u*)&D41A0_BYTESTR_0+0xda3b 0x04
+(Bit8u*)x_D41A0_BYTEARRAY_0+0xda3b 0x00
+
+void sub_30D50(type_str_0x6E8E* a1x, Bit8u v2, Bit8u v4)//211d50
+after
+void sub_65F60(type_str_0x6E8E* a1x)//246f60
+
+(Bit8u*)&D41A0_BYTESTR_0+0x3100 0x0
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x3100 0x9c
+
+sub_47560_draw_and_events_in_game
