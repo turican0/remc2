@@ -6025,3 +6025,30 @@ void sub_65F60(type_str_0x6E8E* a1x)//246f60
 void sub_60F00()//241f00
 
 sub_47560_draw_and_events_in_game
+
+debugcounter_sub_241F7A
+
+krok 0xc8
+
+002285FF-00356038
+
+(Bit8u*)&D41A0_BYTESTR_0+0x91a6 0xd0
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x91a6 0xc2
+0x356038 +0x91a6
+
+test
+void sub_57CF0(type_str_0x6E8E* a1x, axis_3d* a2x)//238cf0
+sub_57CF0 - 00
+sub_57CF0 - 16
+sub_57CF0 - 2f
+sub_57CF0 - 48
+sub_57CF0 - 61
+sub_57CF0 - 7a
+sub_57CF0 - 93
+sub_57CF0 - ab
+sub_57CF0 - c1
+sub_57CF0 - c3
+sub_57CF0 - c6
+sub_57D70_clean_event - cb
+sub_57CF0 - d0
+sub_57CF0 - d0ff
