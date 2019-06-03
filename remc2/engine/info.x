@@ -6019,6 +6019,7 @@ void sub_65F60(type_str_0x6E8E* a1x)//246f60
 
 (Bit8u*)&D41A0_BYTESTR_0+0x3100 0x0
 (Bit8u*)x_D41A0_BYTEARRAY_0+0x3100 0x9c
+0x356038 +0x3100
 
 241fe4
 void sub_60F00()//241f00
