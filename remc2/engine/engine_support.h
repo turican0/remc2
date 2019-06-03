@@ -624,10 +624,18 @@ typedef struct {
 	Bit32u dwordindex_188;//x_D41A0_BYTEARRAY_4_struct.byteindex_188
 	//Bit8u byteindex_189;//x_D41A0_BYTEARRAY_4_struct.byteindex_189
 	//Bit8u byteindex_190;//x_D41A0_BYTEARRAY_4_struct.byteindex_190
-
+						  
+    //1(0x1)-help//2(0x2)-sound//3(0x4)-music//4(0x8)-speek//5(0x10)-fly//6(0x20)-bright//7(0x40)speed//8(0x80)screen
+	//9(0x100)-reflection//10(0x200)-sky//11(0x400)-shadows//12(0x800)-light/13(0x1000)-icons//14(0x2000)-transparency//15(0x4000)-flat	//16(0x8000)-resolution
+	//17(0x10000)-names
+	
 	Bit32u dwordindex_192;//0xc0//x_D41A0_BYTEARRAY_4_struct.byteindex_192
 	//Bit8u byteindex_193;//0xc1//x_D41A0_BYTEARRAY_4_struct.byteindex_193
 	//Bit8u byteindex_194;//0xc2//x_D41A0_BYTEARRAY_4_struct.byteindex_194
+
+	//1(0x1)-help//2(0x2)-sound//3(0x4)-music//4(0x8)-speek//5(0x10)-fly//6(0x20)-bright//7(0x40)speed//8(0x80)screen
+	//9(0x100)-reflection//10(0x200)-sky//11(0x400)-shadows//12(0x800)-light/13(0x1000)-icons//14(0x2000)-transparency//15(0x4000)-flat	//16(0x8000)-resolution
+	//17(0x10000)-names
 	
 	Bit8u byteindex_196;//0xc4//x_D41A0_BYTEARRAY_4_struct.byteindex_196
 	Bit8u stubl[3];
