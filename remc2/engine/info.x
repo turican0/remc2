@@ -6054,3 +6054,6 @@ sub_57CF0 - d0
 sub_57CF0 - d0ff x c2 238d31
 
 signed int sub_1B8C0(type_str_0x6E8E* a1x)//1fc8c0
+
+test 
+__int16 sub_23750(type_str_0x6E8E* a1x)//204750
