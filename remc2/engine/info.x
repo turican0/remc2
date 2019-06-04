@@ -6038,17 +6038,19 @@ krok 0xc8
 
 test
 void sub_57CF0(type_str_0x6E8E* a1x, axis_3d* a2x)//238cf0
-sub_57CF0 - 00
-sub_57CF0 - 16
-sub_57CF0 - 2f
-sub_57CF0 - 48
-sub_57CF0 - 61
-sub_57CF0 - 7a
-sub_57CF0 - 93
-sub_57CF0 - ab
-sub_57CF0 - c1
-sub_57CF0 - c3
-sub_57CF0 - c6
+sub_57CF0 - 00 - ok
+sub_57CF0 - 16 - ok
+sub_57CF0 - 2f - ok
+sub_57CF0 - 48 - ok
+sub_57CF0 - 61 - ok
+sub_57CF0 - 7a - ok
+sub_57CF0 - 93 - ok
+sub_57CF0 - ab - ok
+sub_57CF0 - c1 - ok
+sub_57CF0 - c3 - ok
+sub_57CF0 - c6 - ok
 sub_57D70_clean_event - cb
 sub_57CF0 - d0
-sub_57CF0 - d0ff
+sub_57CF0 - d0ff x c2 238d31
+
+signed int sub_1B8C0(type_str_0x6E8E* a1x)//1fc8c0
