@@ -6057,3 +6057,10 @@ signed int sub_1B8C0(type_str_0x6E8E* a1x)//1fc8c0
 
 test 
 __int16 sub_23750(type_str_0x6E8E* a1x)//204750
+
+(Bit8u*)&a1x->array_0x4C_76-(Bit8u*)&D41A0_BYTESTR_0
+
+x_BYTE_10B4E0+
+
+help messages:
+sub_871F0();
