@@ -6064,3 +6064,32 @@ x_BYTE_10B4E0+
 
 help messages:
 sub_871F0();
+
+(Bit8u*)&D41A0_BYTESTR_0+0x2fbd 0x05
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x2fbd 0x00
+0x356038 +0x2fbd
+
+
+0xd2
+
+ x_DWORD_180628b_screen_buffer+0x2988 0x89
+ 0x3aa0a4+0x2988 0x00
+
+ str_unk_1804B0ar.array_0x8e[0]
+ versus
+*(Bit16s*)&unk_1804B0ar[0x8e]
+
+str_unk_1804B0ar.uni_0x8a.word[2]
+word_18054E
+void sub_884D0(int a1, __int16 a2, Bit8u* a3, char a4, char a5)//2694d0
+
+str_unk_1804B0ar
+3514b0
+
+(Bit8u*)&str_unk_1804B0ar + 0x86 0x48
+0x3514b0 + 0x86 0x4f
+
+test
+void sub_87580()//268580
+
+test sub_88450

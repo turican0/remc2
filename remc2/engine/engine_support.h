@@ -1591,6 +1591,12 @@ struct {//lenght 0x33
 }
 typedef type_sub_str_unk_1804B0ar;
 
+typedef union {//lenght 12
+	Bit32s dword[3];
+	Bit16s word[6];
+}
+type_uni_0x8a;
+
 struct {//0xb0 nebo spis 171(0xab)
 	type_sub_str_unk_1804B0ar type_sub_0[2];
 	/*Bit16s word_0xe;//e
@@ -1615,8 +1621,9 @@ struct {//0xb0 nebo spis 171(0xab)
 	Bit32s dword_0x82;//82	
 	Bit16s word_0x86;//86
 	Bit16s word_0x88;//88
-	Bit32s dword_0x8a;//8a
-	Bit16s array_0x8e[4];//8e //text lines
+	type_uni_0x8a uni_0x8a;
+	//Bit32s dword_0x8a;//8a
+	//Bit16s array_0x8e[4];//8e //text lines
 	Bit16s word_0x96;//96
 	Bit16s word_0x98;//98
 	Bit16s word_0x9a;//9A
