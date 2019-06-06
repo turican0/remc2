@@ -6087,9 +6087,19 @@ str_unk_1804B0ar
 3514b0
 
 (Bit8u*)&str_unk_1804B0ar + 0x86 0x48
+(Bit8u*)&unk_1804B0ar + 0x86 0x4f
 0x3514b0 + 0x86 0x4f
 
 test
 void sub_87580()//268580
 
 test sub_88450
+
+&array_E2A74[0x1e+0x1e*0x4e+2] ma byt 5, ale je 4
+
+in void sub_87CF0()//268cf0
+
+
+v0 = sub_88450();
+
+test
