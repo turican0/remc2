@@ -302,8 +302,8 @@ POSITION VGA_WhereXY() {
 };
 
 void VGA_Draw_string(char* wrstring) {
-	SDL_Rect srcrect;
-	SDL_Rect dstrect;
+	SDL_Rect srcrect = {0,0,0,0};
+	SDL_Rect dstrect= {0,0,0,0};
 	if (SDL_MUSTLOCK(screen)) {
 		if (SDL_LockSurface(screen) < 0) {
 			fprintf(stderr, "Can't lock screen: %s\n", SDL_GetError());
@@ -311,7 +311,7 @@ void VGA_Draw_string(char* wrstring) {
 		}
 	}
 
-	for (int i = 0;i < strlen(wrstring);i++)
+	for (Bit32u i = 0;i < strlen(wrstring);i++)
 	{
 		if (wrstring[i] == '\n')
 		{

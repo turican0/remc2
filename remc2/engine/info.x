@@ -6103,3 +6103,51 @@ in void sub_87CF0()//268cf0
 v0 = sub_88450();
 
 test
+
+&array_E2A74[0x246] 0xe6
+0x2B3A74 +0x246 0x76
+c+30xX
+
+array_E2A74
+
+sub_4F9A0 - add effect black smoke
+v1x->byte_0x3F_63 = 10;
+v1x->byte_0x40_64 = 30;
+
+sub_50250 - add effect ?? no in INF
+v1x->byte_0x3F_63 = 10;
+v1x->byte_0x40_64 = 45;
+
+sub_50A90 - add spell
+v3x->byte_0x3F_63 = 11;
+v3x->byte_0x40_64 = a2;
+
+sub_4B490 - add creature Vulture(sup?)
+v1x->byte_0x3F_63 = 5;
+v1x->byte_0x40_64 = 1;
+
+sub_4BF40 - add creature Townie
+v1x->byte_0x3F_63 = 5;
+v1x->byte_0x40_64 = 13;
+
+sub_4EC10 - add effect ??
+v1x->byte_0x3F_63 = 10;	
+v1x->byte_0x40_64 = 60;
+
+sub_4E3B0 - add effect Big explosion
+v1x->byte_0x3F_63 = 10;
+v1x->byte_0x40_64 = 1;
+
+sub_4ADF0 - add scenery Dolmen
+v1x->byte_0x3F_63 = 2;
+v1x->byte_0x40_64 = 2;
+
+sub_4A920 - add player 0
+v1x->byte_0x3F_63 = 3;		
+v1x->byte_0x40_64 = 0;
+
+sub_51120 - add any
+
+(Bit8u*)&str_unk_1804B0ar + 0x86 0x48
+(Bit8u*)&unk_1804B0ar + 0x86 0x4f
+0x3514b0 + 0x86 0x4f

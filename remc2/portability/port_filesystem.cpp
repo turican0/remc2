@@ -361,7 +361,7 @@ space_info space(char* path, int* ec)
 
 	std::wstring widestring;
 
-	for (int i = 0; i < strlen(path); i++)
+	for (Bit32u i = 0; i < strlen(path); i++)
 		widestring += (wchar_t)path[i];
 
 	LPCWSTR lpcwpath = widestring.c_str();

@@ -186,7 +186,7 @@ void support_end() {
 	free(dword_E9C30[2]);
 	free(dword_E9C30[4]);*/
 	//free(x_D41A0_BYTEARRAY_4_struct.player_name_57);
-	if(x_D41A0_BYTEARRAY_4_struct.savestring_89)delete(x_D41A0_BYTEARRAY_4_struct.savestring_89);
+	//if(x_D41A0_BYTEARRAY_4_struct.savestring_89)delete(x_D41A0_BYTEARRAY_4_struct.savestring_89);
 
 	if(x_BYTE_14B4E0)delete(x_BYTE_14B4E0);
 	if(off_D41A8)delete(off_D41A8);
@@ -238,7 +238,7 @@ Bit32u compare_with_snapshot(char* filename, Bit8u* adress, Bit32u adressdos, Bi
 	fseek(fptestepc, adressdos, SEEK_SET);
 	
 	fread_s(buffer, size, 1, size, fptestepc);
-	int i;
+	Bit32u i;
 	for (i = 0;i < size;i++)
 	{
 		if (buffer[i] != adress[i])
@@ -287,7 +287,7 @@ int test_D41A0_id_pointer(Bit32u adress) {
 	if ((adress >= 0x79ae) && (adress < 0x79b3))return 1;
 	if ((adress >= 0x7a56) && (adress < 0x7a5b))return 1;
 	if ((adress >= 0x7afe) && (adress < 0x7b03))return 1;*/
-	for (int i = 0; i < 0x3e8; i++) {
+	for (Bit32u i = 0; i < 0x3e8; i++) {
 		if ((adress >= 0x6f2e +i*168) && (adress < 0x6f37 + i * 168))return 1;
 	}
 	if ((adress >= 0x36df6) && (adress < 0x36df7))return 1;
@@ -326,7 +326,7 @@ Bit32u compare_with_snapshot_D41A0(char* filename, Bit8u* adress, Bit32u adressd
 	fseek(fptestepc, adressdos, SEEK_SET);
 
 	fread_s(buffer, size, 1, size, fptestepc);
-	int i;
+	Bit32u i;
 	bool testa, testb;
 	for (i = 0; i < size; i++)
 	{
@@ -375,7 +375,7 @@ Bit32u compare_with_sequence_D41A0(char* filename, Bit8u* adress, Bit32u adressd
 	fseek(fptestepc, count*size+ offset, SEEK_SET);
 
 	fread_s(buffer, size, 1, size, fptestepc);
-	int i;
+	Bit32u i;
 	bool testa, testb;
 	for (i = 0; i < size; i++)
 	{
@@ -431,7 +431,7 @@ Bit32u compare_with_sequence_x_DWORD_F2C20ar(char* filename, Bit8u* adress, Bit3
 	fseek(fptestepc, count*size, SEEK_SET);
 
 	fread_s(buffer, size, 1, size, fptestepc);
-	int i;
+	Bit32u i;
 	bool testa, testb;
 	int diffindex = 0;
 	for (i = 0; i < size; i++)
@@ -468,10 +468,10 @@ Bit32u compare_with_sequence_x_DWORD_F2C20ar(char* filename, Bit8u* adress, Bit3
 	return(diffindex);
 };
 
-Bit32u compare_with_sequence_array_E2A74(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u count, Bit32u size, Bit8u* origbyte, Bit8u* copybyte, int* posdiff) {
+Bit32u compare_with_sequence_array_E2A74(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u count, Bit32u size1,Bit32u size2, Bit8u* origbyte, Bit8u* copybyte, int offset) {
 
 	char findnamec[500];
-	Bit8u* buffer = (Bit8u*)malloc(size);
+	Bit8u* buffer = (Bit8u*)malloc(size2);
 	FILE* fptestepc;
 	sprintf(findnamec, "c:/prenos/remc2/remc2/memimages/sequence-%s.bin", filename);
 	fopen_s(&fptestepc, findnamec, "rb");
@@ -480,13 +480,13 @@ Bit32u compare_with_sequence_array_E2A74(char* filename, Bit8u* adress, Bit32u a
 		mydelay(100);
 		fopen_s(&fptestepc, findnamec, "rb");
 	}
-	fseek(fptestepc, count*size, SEEK_SET);
+	fseek(fptestepc, count * size1 + offset, SEEK_SET);
 
-	fread_s(buffer, size, 1, size, fptestepc);
-	int i;
+	fread_s(buffer, size2, 1, size2, fptestepc);
+	Bit32u i;
 	bool testa, testb;
 	int diffindex=0;
-	for (i = 0; i < size; i++)
+	for (i = 0; i < size2; i++)
 	{
 		int testx = test_E2A74_id_pointer(i);
 		if (testx == 1)
@@ -497,20 +497,18 @@ Bit32u compare_with_sequence_array_E2A74(char* filename, Bit8u* adress, Bit32u a
 			else testb = false;
 			if (testa != testb)
 			{
-				posdiff[diffindex] = i;
-				origbyte[diffindex] = buffer[i];
-				copybyte[diffindex++] = adress[i];
-				if(diffindex>=100)break;
+				*origbyte = buffer[i];
+				*copybyte = adress[i];
+				break;
 			}
 			i += 3;
 		}
 		else if (testx == 0) {
 			if (buffer[i] != adress[i])
 			{
-				posdiff[diffindex] = i;
-				origbyte[diffindex] = buffer[i];
-				copybyte[diffindex++] = adress[i];
-				if (diffindex >= 100)break;
+				*origbyte = buffer[i];
+				*copybyte = adress[i];
+				break;
 			}
 		}
 	}
@@ -535,7 +533,7 @@ Bit32u compare_with_sequence_array_222BD3(char* filename, Bit8u* adress, Bit32u 
 	fseek(fptestepc, count*size, SEEK_SET);
 
 	fread_s(buffer, size, 1, size, fptestepc);
-	int i;
+	Bit32u i;
 	bool testa, testb;
 	int diffindex = 0;
 	for (i = 0; i < size; i++)
@@ -586,7 +584,7 @@ Bit32u compare_with_sequence(char* filename, Bit8u* adress, Bit32u adressdos, Bi
 	}
 	fseek(fptestepc, count*size1+ offset, SEEK_SET);
 	
-	int i;
+	Bit32u i;
 	/*for (i = 0; i < count; i++)
 	{
 		fread_s(buffer,size,1,size, fptestepc);
@@ -631,7 +629,7 @@ void mine_texts(char* filename, Bit32u adressdos, Bit32u count, char* outfilenam
 	long adressadd;
 	long adressaddall=0;
 	fread_s(&actchar, 1, 1, 1, fptestepc);
-	for (int i = 0; i < count; i++)
+	for (Bit32u i = 0; i < count; i++)
 	{
 		adressadd = 0;
 		while ((adressaddall % 4)||(actchar==0))
@@ -657,7 +655,7 @@ void mine_texts(char* filename, Bit32u adressdos, Bit32u count, char* outfilenam
 };
 
 void writehex(Bit8u* buffer, Bit32u count) {
-	for (int i=0;i < count;i++)
+	for (Bit32u i=0;i < count;i++)
 	{
 		if (i % 32 == 0)printf("\n");
 		printf("%02X", buffer[i]);		
