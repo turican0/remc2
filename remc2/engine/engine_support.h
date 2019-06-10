@@ -428,11 +428,11 @@ typedef struct _str_0x6E8E {//lenght a8//THING
 	Bit16u word_0x16_22;//22
 	Bit16u word_0x18_24;//24
 	Bit16u word_0x1A_26;//26 // index - owner //ID last index
-	Bit16s word_0x1C_28;//28
-	Bit16s word_0x1E_30;//30
-	Bit16s word_0x20_32;//32
+	Bit16s word_0x1C_28;//28//rotate1
+	Bit16s word_0x1E_30;//30//rotate2
+	Bit16s word_0x20_32;//32//rotate3
 	//Bit8s byte_0x21_33;//33
-	Bit16s word_0x22_34;//34
+	Bit16s word_0x22_34;//34//rotate4
 	Bit16s word_0x24_36;//36 // index subentity
 	Bit16s word_0x26_38;//38 // index subentity
 	Bit16u word_0x28_40;//40//WHO OWNS ME
@@ -782,6 +782,7 @@ void loadfromsnapshot(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u si
 void loadfromsnapshot2(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u size);
 Bit32u compare_with_snapshot(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u size, Bit8u* origbyte, Bit8u* copybyte);
 Bit32u compare_with_sequence(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u count, Bit32u size1, Bit32u size2, Bit8u* origbyte, Bit8u* copybyte, int offset = 0);
+Bit32u compare_with_sequence_E7EE0(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u count, Bit32u size1, Bit32u size2, Bit8u* origbyte, Bit8u* copybyte, int offset = 0);
 Bit32u compare_with_snapshot_D41A0(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u size, Bit8u* origbyte, Bit8u* copybyte);
 Bit32u compare_with_sequence_D41A0(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u count, Bit32u size, Bit8u* origbyte, Bit8u* copybyte,int offset=0);
 Bit32u compare_with_sequence_array_E2A74(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u count, Bit32u size1, Bit32u size2, Bit8u* origbyte, Bit8u* copybyte, int offset=0);

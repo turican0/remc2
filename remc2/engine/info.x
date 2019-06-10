@@ -6151,3 +6151,51 @@ sub_51120 - add any
 (Bit8u*)&str_unk_1804B0ar + 0x86 0x48
 (Bit8u*)&unk_1804B0ar + 0x86 0x4f
 0x3514b0 + 0x86 0x4f
+
+sub_57B20
+
+(Bit8u*)x_WORD_15B4E0+0x1ba98 orig 0 remake ce
+
+((Bit8s*)a1)+28
+((Bit8s*)a1)+28
+
+sub_69640
+
+0x3c6
+
+x_DWORD_180628b_screen_buffer+0x1a4d 0x23
+ 0x3aa0a4+0x1a4d 0xb8
+ x=13,y=21
+
+ 245db2
+
+ char sub_64CE0_draw_follow_rectangle(v51x_struct* a1)//245ce0
+
+ debugcounter_644F0==3
+
+ v65 versus [ebp+1e]
+ 355184 b05a2c
+
+ sub_10780 - fire
+
+ x_BYTE_E7EE0x[700*4*2]
+  test in 1f1130
+
+ x_BYTE_E7EE0x+0x28 0x38 38f9d402
+ 0x2b8ee0+0x28 0x80
+ 
+ D41A0_BYTESTR_0.array_0x2BDE[D41A0_BYTESTR_0.word_0xc].struct_0x1d1_2BDE_11695[D41A0_BYTESTR_0.array_0x2BDE[D41A0_BYTESTR_0.word_0xc].word_0x00e_2BDE_11244+1].axis_2BDE_11695.x=0x73a0
+ D41A0_BYTESTR_0.array_0x2BDE[D41A0_BYTESTR_0.word_0xc].struct_0x1d1_2BDE_11695[D41A0_BYTESTR_0.array_0x2BDE[D41A0_BYTESTR_0.word_0xc].word_0x00e_2BDE_11244+1].axis_2BDE_11695.y=0xd5e6
+
+
+(Bit8u*)&D41A0_BYTESTR_0+0x3659d 0x00
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x3659d 0x01
+0x356038 +0x3659d
+
+(Bit8u*)&D41A0_BYTESTR_0+0x12b2 0x46
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x12b2 0xd6
+0x356038 +0x12b2
+
+(Bit8u*)&D41A0_BYTESTR_0+0xf6f6 0x32
+(Bit8u*)x_D41A0_BYTEARRAY_0+0xf6f6 0x14
+0x356038 +0x12b2

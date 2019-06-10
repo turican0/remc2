@@ -253,10 +253,14 @@ Bit32u compare_with_snapshot(char* filename, Bit8u* adress, Bit32u adressdos, Bi
 	fclose(fptestepc);
 	return(i);
 };
+int test_E7EE0_id_pointer(Bit32u adress) {
+	if ((adress >= 0x28) && (adress < 0x29))return 1;
+	return 0;
+}
 
 int test_D41A0_id_pointer(Bit32u adress) {
 	if ((adress >= 0x314d) && (adress < 0x3151))return 2;//clock
-	if ((adress >= 0x246)&& (adress < 0x12b2))return 1;
+	if ((adress >= 0x246)&& (adress < 0x12b3))return 1;
 	/*if ((adress >= 0x6f32) && (adress < 0x6f37))return 1;
 	if ((adress >= 0x6fd6) && (adress < 0x6fdb))return 1;
 	if ((adress >= 0x707e) && (adress < 0x707f))return 1;
@@ -336,6 +340,55 @@ Bit32u compare_with_snapshot_D41A0(char* filename, Bit8u* adress, Bit32u adressd
 			if (*(Bit32u*)&buffer[i])testa = true;
 			else testa = false;
 			if (*(Bit32u*)&adress[i])testb = true;
+			else testb = false;
+			if (testa != testb)
+			{
+				*origbyte = buffer[i];
+				*copybyte = adress[i];
+				break;
+			}
+			i += 3;
+		}
+		else if (testx == 0) {
+			if (buffer[i] != adress[i])
+			{
+				*origbyte = buffer[i];
+				*copybyte = adress[i];
+				break;
+			}
+		}
+	}
+
+	free(buffer);
+	fclose(fptestepc);
+	return(i);
+};
+
+Bit32u compare_with_sequence_E7EE0(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u count, Bit32u size1, Bit32u size2, Bit8u* origbyte, Bit8u* copybyte, int offset){
+	char findnamec[500];
+	Bit8u* buffer = (Bit8u*)malloc(size2);
+	FILE* fptestepc;
+	sprintf(findnamec, "c:/prenos/remc2/remc2/memimages/sequence-%s.bin", filename);
+	fopen_s(&fptestepc, findnamec, "rb");
+	if (fptestepc == NULL)
+	{
+		mydelay(100);
+		fopen_s(&fptestepc, findnamec, "rb");
+	}
+	fseek(fptestepc, count * size1 + offset, SEEK_SET);
+
+	fread_s(buffer, size2, 1, size2, fptestepc);
+	Bit32u i;
+	bool testa, testb;
+	int diffindex = 0;
+	for (i = 0; i < size2; i++)
+	{
+		int testx = test_E7EE0_id_pointer(i);
+		if (testx == 1)
+		{
+			if (*(Bit32u*)& buffer[i])testa = true;
+			else testa = false;
+			if (*(Bit32u*)& adress[i])testb = true;
 			else testb = false;
 			if (testa != testb)
 			{
