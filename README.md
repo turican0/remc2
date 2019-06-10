@@ -27,6 +27,9 @@ simple dev blog:https://github.com/turican0/remc2/wiki<br />
 <h3>MILLSTONE 1</h3><br />
 -Can Play whole First level same as in original in 320x200<br />
 <br />
+## 0.42:<br />
+-state similar as revision 0.30<br />
+<br />
 ## 0.41:<br />
 -again fixed first 7 frames<br />
 -similar bugs to revision 0.27<br />
