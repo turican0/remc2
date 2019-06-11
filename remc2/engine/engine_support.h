@@ -1142,9 +1142,9 @@ typedef struct {//lenght 0x6604u
 	Bit8u stubb[4];
 	Bit16u word_0x2FEE5;//2FEE5//23
 	Bit8u stubb2[2];
-	Bit16u word_0x2FEE9;//2FEE9//27
+	Bit16u word_0x2FEE9;//2FEE9//27 //first seed position
 	Bit8u stubc[2];
-	Bit16u word_0x2FEED;//2FEED//31
+	Bit16u word_0x2FEED;//2FEED//31 //first seed height
 	Bit8u stubc2[2];
 	Bit16u word_0x2FEF1;//2FEF1//35
 	Bit8u stubc3[2];

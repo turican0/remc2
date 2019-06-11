@@ -6199,3 +6199,5 @@ x_DWORD_180628b_screen_buffer+0x1a4d 0x23
 (Bit8u*)&D41A0_BYTESTR_0+0xf6f6 0x32
 (Bit8u*)x_D41A0_BYTEARRAY_0+0xf6f6 0x14
 0x356038 +0x12b2
+
+void sub_56A30_init_game_level(unsigned int a1)//237a30
