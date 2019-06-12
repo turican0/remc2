@@ -144,13 +144,19 @@ typedef struct {
 typedef struct {
 	Bit16u x;
 	Bit16u y;	
-}axis_2d;
+}axis_2du;
+
+typedef struct {
+	Bit16s x;
+	Bit16s y;
+	Bit16s z;
+}axis_3d;
 
 typedef struct {
 	Bit16u x;
 	Bit16u y;
 	Bit16u z;
-}axis_3d;
+}axis_3du;
 
 typedef struct {
 	Bit16s aa;
@@ -818,7 +824,7 @@ typedef struct {//lenght 8
 */
 
 typedef union {
-	axis_2d axis;
+	axis_2du axis;
 	type_str_0x6E8E* pointer_0x6E8E;
 	//Bit32u dword;
 }
