@@ -6216,3 +6216,10 @@ void sub_56A30_init_game_level(unsigned int a1)//237a30
 (Bit8u*)&D41A0_BYTESTR_0+0x36605 0x01
 (Bit8u*)x_D41A0_BYTEARRAY_0+0x36605 0x19
 0x356038 +0x36605
+
+procedure 200530 -hit
+procedure 2004F0 -killed
+procedure 200510 -killed 2
+procedure 231080
+procedure 216940
+

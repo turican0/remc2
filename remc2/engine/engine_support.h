@@ -147,17 +147,17 @@ typedef struct {
 }axis_2du;
 
 typedef struct {
-	Bit16s x;
-	Bit16s y;
-	Bit16s z;
+	Bit16u x;
+	Bit16u y;
+	Bit16u z;
 }axis_3d;
-
+/*
 typedef struct {
 	Bit16u x;
 	Bit16u y;
 	Bit16u z;
 }axis_3du;
-
+*/
 typedef struct {
 	Bit16s aa;
 	Bit16s bb;
