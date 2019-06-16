@@ -6308,3 +6308,7 @@ stop
 
 0xbedc
 0xd541
+
+x_DWORD_180628b_screen_buffer+ 0x2581
+versus
+3aa0a4+ 0x2581  17(ma byt) versus  03
