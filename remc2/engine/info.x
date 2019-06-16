@@ -6226,3 +6226,82 @@ procedure 216940
 0x2d62
 0x1afa
 
+(Bit8u*)&D41A0_BYTESTR_0+0xb4a0 0x36
+(Bit8u*)x_D41A0_BYTEARRAY_0+0xb4a0 0x12
+0x356038 +0xb4a0
+
+x_DWORD_180628b_screen_buffer+ 0x2960
+versus
+3aa0a4+ 0x2960  3d(ma byt) versus  f8
+
+x_DWORD_180628b_screen_buffer+ 0x26de
+versus
+3aa0a4+ 0x26de  b0(ma byt) versus  3d
+
+fix v1 in void sub_87610()//268610
+
+compare str_unk_1804B0ar
+
+unk_1804B0ar+ 86 versus 3514b0+ 86
+
+(Bit8u*)&str_unk_1804B0ar+0x9e 0x08
+0x3514b0+0x9e 0x28
+26956a call 2694d0
+268609 call 268580
+268254 call 2681f0 
+22860f call 228560
+228354
+
+(Bit8u*)&array_E2A74+0x23a+2 (0xc4e)
+versus
+0x2b3a74+0x23a+2
+
+(Bit8u*)&array_E2A74+0xe
+versus
+0x2b3a74+0xe 0x90
+
+(Bit8u*)&array_E2A74+0x246 0x11
+versus
+0x2b3a74+0x246 0x9
+
+0x181
+
+(Bit8u*)&D41A0_BYTESTR_0+0x17732 0x00
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x17732 0x70
+0x356038 +0x17732
+
+211ede
+
+void sub_30D50(type_str_0x6E8E* a1x, Bit8u v2, Bit8u v4)//211d50
+
+20c
+
+axis_3d word_0x9A_154x;//154 - mozna dat jako Bit16s
+
+0x18e
+
+(Bit8u*)&D41A0_BYTESTR_0+0x17732 0x16
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x17732 0x18
+0x356038 +0x17732
+
+(Bit8u*)&D41A0_BYTESTR_0+0x177a0 0xfb
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x177a0 0xfa
+0x356038 +0x17732
+
+sub_35940 y a z
+debugcounter_216940 == 0x13
+
+type_str_0x6E8E* sub_69AB0(type_str_0x6E8E* a1x)//24aab0
+
+0x2876
+0x2c75
+
+step 0x118
+(Bit8u*)&D41A0_BYTESTR_0+0x194ba 0x80
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x194ba 0x20
+0x356038 +0x194ba
+
+216e16
+
+void sub_35940(type_str_0x6E8E* a1x)//216940 //move mana sphere
+stop

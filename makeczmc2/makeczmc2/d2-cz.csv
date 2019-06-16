@@ -347,10 +347,10 @@ You have been banished from the realm.#Vy jsi vyhnán z øíše.#282#
 has been banished from the realm.#byl vyhnán z øíše.#283#
 "You have discovered one of the demon lord's hidden realms."#"Objevil jsi první ze skrıší pána démonù."#284#
 "You have discovered another of the demon lord's hidden realms."#"Objevil jsi další ze skrıší pána démonù."#285#
-Press 'O' to show current objective#Stiskni tlaèítko "O" pro zobrazení aktuálního úkolu#286#
+Press 'O' to show current objective#Stiskem tlaèítko "O" zjistíš co máš dìlat#286#
 You are here#Nacházíš se zde#287#
 Walls cannot be passed#Tyto stìny jsou neprostupné#288#
-Press RETURN for large map#Stisk tlaèítka RETURN pøepne na velkou mapu#289#
+Press RETURN for large map#Stisk tlaèítka RETURN pøepne velikost mapy#289#
 Your life is low, retreat for a while#Jsi vánì zranìnı, na chvíli uteè#290#
 Search for spells#Najdi kouzla#291#
 Search for fireball spell#Najdi kouzlo Ohnivé koule#292#
@@ -363,12 +363,12 @@ Press control for spell menu#Stisknutím tlaèítka Control se zobrazí vıbìr kouzel
 Return to castle and recast castle spell#Vra se k hradu a pouij znovu kouzlo Hrad#299#
 Use cursor keys to move#Pomocí šipek se pohybuješ#300#
 Use mouse to steer#Pomocí myši se rozhlííš#301#
-Your castle has been attacked#Tvùj hrad byl napaden#302#
+Your castle has been attacked#Tvùj hrad je pod útokem#302#
 Cannot build castles too close to walls#Hrady nelze stavìt tak blízko stìnám#303#
 Use Shift L to destroy your castle for building elsewhere#Pouitím tlaèítek Shift+L, se tvùj hrad znièí a pùjde postavit jinde#304#
-Press ALT for player information#Stisknutím tlaèítka ALT se zobrazí informace o hráèích#305#
+Press ALT for player information#Stiskem tlaèítka ALT se zobrazí informace o hráèích#305#
 Possess This Mana#Oznaè Tuto Manu#306#
-Destroy this for its mana#Ulov tyto zvíøata a získej z nich manu#307#
+Destroy this for its mana#Ulov tato zvíøata a tím je promìò na manu#307#
 Collect this spell by flying into it#Seber toto kouzlo tím, e nad ním pøeletíš#308#
 Possess this building to increase your spells mana#Oznaèením budov, získáš další kouzelnou manu#309#
 This stone restores your life#U tohoto kamene se ti obnoví ivot#310#
@@ -381,7 +381,7 @@ This is an enemy player#Toto je nepøátelskı hráè#316#
 Castled mana, current and capacity#Aktuální a maximální mana hradu#317#
 Castle life#Stav tvého hradu#318#
 Current size of castle#Tøída velikosti hradu#319#
-Mana held by balloons#Mana obsaená v balónech#320#
+Mana held by balloons#Mnoství many v balónech#320#
 Number of balloons#Poèet tvıch balónù#321#
 Balloons life#Stav tvıch balónù#322#
 Castle mana required#Stavba hradu vyaduje více many#323#
@@ -442,8 +442,8 @@ Mana#Mana#377#
 Tasks completed#Splnil Jsi Všechny Úkoly#378#
 Fly to the exit point.#Nyní se vydej k portálu.#379#
 Press the space bar to continue.#Pokraèuj stiskem mezerníku.#380#
-speed normal#normální rychlost hry#381#
-speed fast#malé zrychlení hry#382#
+speed normal#bìná rychlost hry#381#
+speed fast#mírné zrychlení hry#382#
 speed super fast#velké zrychlení hry#383#
 Creatures Killed#Potvor zabito#384#
 Accuracy#Pøesnost#385#
