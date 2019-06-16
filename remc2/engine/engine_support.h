@@ -1198,7 +1198,7 @@ typedef struct {//lenght 0x6604u
 typedef struct {//size 10 count 8
 	Bit8s str_3654C_byte0;//222540
 	Bit8s str_3654D_byte1;
-	Bit16s str_3654E_word2;
+	Bit16s str_3654E_word2;//objective parametres
 	//Bit8s str_3654F_byte3;
 	Bit16s str_36550_word4;
 	//Bit8s str_36551_byte5;
@@ -1209,7 +1209,7 @@ typedef struct {//size 10 count 8
 } type_str_3654C;
 
 typedef struct {//size 11 count 6
-	Bit8u array_0x3659C_byte[11];
+	Bit8u array_0x3659C_byte[11];//objectives 1-active 2-done
 	/*Bit8s str_3659C_byte0;array_0x3659C_byte[0]
 	Bit8s str_3659D_byte1;array_0x3659C_byte[1]
 	Bit8s str_3659E_byte2;array_0x3659C_byte[2]
@@ -1550,8 +1550,8 @@ typedef struct {//lenght 0x36e16
 	Bit16s word_0x36DFC;
 	Bit16s word_0x36DFE;	
 	Bit8u byte_0x36E00;
-	Bit8u byte_0x36E01;
-	Bit8s byte_0x36E02;
+	Bit8u byte_0x36E01;//count objectives
+	Bit8s byte_0x36E02;//temp objective
 	Bit8s byte_0x36E03;
 	Bit8s byte_0x36E04;
 	Bit8u stub3k[0x6];

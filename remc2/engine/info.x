@@ -6305,3 +6305,6 @@ step 0x118
 
 void sub_35940(type_str_0x6E8E* a1x)//216940 //move mana sphere
 stop
+
+0xbedc
+0xd541
