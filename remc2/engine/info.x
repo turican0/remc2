@@ -6328,3 +6328,8 @@ versus
 
 problem je zde:
 LOWORD(v78) = sub_581E0_maybe_tan2(&v75x->array_0x4C_76, &v67x);
+
+2459a4
+
+test
+void sub_644F0_draw_minimap_marks(int a1, int a2, __int16 a3, __int16 a4, int a5, int a6, __int16 a7, int a8)//2454f0
