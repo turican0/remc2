@@ -6312,3 +6312,19 @@ stop
 x_DWORD_180628b_screen_buffer+ 0x2581
 versus
 3aa0a4+ 0x2581  17(ma byt) versus  03
+
+step 0x25
+(Bit8u*)&D41A0_BYTESTR_0+0x975e 0xa1
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x975e 0x03
+0x356038 +0x975e
+
+0x7249
+0xd491
+
+step 0x1c1
+x_DWORD_180628b_screen_buffer+ 0x191e
+versus
+3aa0a4+ 0x191e  77(ma byt) versus  23
+
+problem je zde:
+LOWORD(v78) = sub_581E0_maybe_tan2(&v75x->array_0x4C_76, &v67x);
