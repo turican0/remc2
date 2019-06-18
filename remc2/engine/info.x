@@ -6340,3 +6340,28 @@ je
 
 test
 void sub_644F0_draw_minimap_marks(int a1, int a2, __int16 a3, __int16 a4, int a5, int a6, __int16 a7, int a8)//2454f0
+
+if(debugcounter_47560>0)
+char sub_77350_new_game_dialog(Bit8u* a1)//258350
+after
+
+sub_47560_draw_and_events_in_game(/*Bit8u* a1, int a2, */Bit32u a3, signed int a4, __int16 a5)//228560
+{
+
+step 0x2
+x_DWORD_180628b_screen_buffer+ 0x7da0
+versus
+3aa0a4+ 0x7da0  59(ma byt) versus  1f
+
+
+5959580d
+270aa0 - sub_8F935_bitmap_draw_final
+270914 - sub_8F8E8_draw_bitmap640
+20cb72 - sub_2BB40_draw_bitmap
+25d136 - sub_7C120_draw_bitmap_640
+263e43 - sub_82C20
+
+find &x_DWORD_17DBC8x[4] 0x0c
+versus 34ebd8 0x1f
+
+0x356038+0x314d

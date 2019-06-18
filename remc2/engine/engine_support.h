@@ -336,7 +336,7 @@ typedef struct {//size 1136
 	Bit32s dword_0x17D_381;
 	Bit32s dword_0x181_385;
 	Bit32s dword_0x185_389;
-	Bit32s dword_0x189_393;
+	Bit32s dword_0x189_393;//time of game
 	Bit32s dword_0x18D_397;
 	Bit8u stubi[4];
 	Bit8s byte_0x195_405;
