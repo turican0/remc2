@@ -27,6 +27,9 @@ simple dev blog:https://github.com/turican0/remc2/wiki<br />
 <h3>MILLSTONE 1</h3><br />
 -Can Play whole First level same as in original in 320x200<br />
 <br />
+## 0.44:<br />
+-first level can play same as original(again)<br />
+<br />
 ## 0.43:<br />
 -again can play level 1 now(without ending)<br />
 <br />
