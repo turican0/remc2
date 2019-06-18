@@ -321,6 +321,9 @@
     <ClInclude Include="engine\cd_utils.h">
       <Filter>Zdrojové soubory\engine</Filter>
     </ClInclude>
+    <ClInclude Include="engine\engine_support_converts.h">
+      <Filter>Zdrojové soubory\engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -546,6 +549,9 @@
       <Filter>Zdrojové soubory\engine</Filter>
     </ClCompile>
     <ClCompile Include="engine\cd_utils.cpp">
+      <Filter>Zdrojové soubory\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\engine_support_converts.cpp">
       <Filter>Zdrojové soubory\engine</Filter>
     </ClCompile>
   </ItemGroup>
