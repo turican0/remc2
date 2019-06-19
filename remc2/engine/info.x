@@ -6365,3 +6365,10 @@ find &x_DWORD_17DBC8x[4] 0x0c
 versus 34ebd8 0x1f
 
 0x356038+0x314d
+
+x_DWORD_180628b_screen_buffer+0x5d3 0x78
+ 0x3aa0a4+0x5d3 0xd8
+
+ 20ef2b - call 2c11ec
+ 20ee80
+ 20e710 - void sub_2D710_draw_top_menu(type_str_0x6E8E* a1x)//20e710
