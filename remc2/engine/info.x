@@ -6369,6 +6369,22 @@ versus 34ebd8 0x1f
 x_DWORD_180628b_screen_buffer+0x5d3 0x78
  0x3aa0a4+0x5d3 0xd8
 
+ x 4 y 211
+
  20ef2b - call 2c11ec
  20ee80
  20e710 - void sub_2D710_draw_top_menu(type_str_0x6E8E* a1x)//20e710
+
+ step 0x0
+(Bit8u*)&D41A0_BYTESTR_0+0x3999 0x4b
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x3999 0xc5
+0x356038 +0x3999
+
+void sub_56A30_init_game_level(unsigned int a1)//237a30
+
+ step 0x0
+(Bit8u*)&D41A0_BYTESTR_0+0x39da 0x1f
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x39da 0x00
+0x356038 +0x39da
+
+test array_0x1FC_508
