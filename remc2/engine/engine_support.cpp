@@ -105,7 +105,7 @@ Bit8u* x_D41A0_BYTEARRAY_4_0xE2_heapbuffer;
 Bit8u* x_DWORD_180628b_screen_buffer; //351628
 
 Bit8u* off_D41A8;//graphics buffer// = (Bit8u*)&x_BYTE_14B4E0; // weak
-Bit8u* x_BYTE_14B4E0;
+Bit8u* x_BYTE_14B4E0;//31C4E0
 
 posistruct* xy_DWORD_17DED4_spritestr;
 posistruct* xy_DWORD_17DEC0_spritestr;
@@ -262,6 +262,7 @@ int test_D41A0_id_pointer(Bit32u adress) {
 	if ((adress >= 0x314d) && (adress < 0x3151))return 2;//clock
 	if ((adress >= 0x3999) && (adress < 0x399c))return 2;//clock2
 	if ((adress >= 0x246)&& (adress < 0x2186))return 1;
+	if ((adress >= 0x3655c) && (adress < 0x3655d))return 1;
 	/*if ((adress >= 0x6f32) && (adress < 0x6f37))return 1;
 	if ((adress >= 0x6fd6) && (adress < 0x6fdb))return 1;
 	if ((adress >= 0x707e) && (adress < 0x707f))return 1;

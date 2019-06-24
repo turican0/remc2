@@ -52,6 +52,10 @@
 #include "../portability/port_filesystem.h"
 #include "defs.h"
 #define __CFSHL__(x, y) (x<<y)
+//#define __CFSHL__(x, y) 1
+/*Bit32s __CFSHL__(Bit32u x, Bit32u y) {
+	return 1;
+}*/
 //myprintf("invalid_operation:__CFSHL__(x, y)")
 #define __RCR__(x, y) printf("invalid_operation:__RCR__(x, y)")
 #define __RCL__(x, y) printf("invalid_operation:__RCL__(x, y)")

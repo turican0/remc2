@@ -147,6 +147,16 @@ typedef struct {
 }axis_2du;
 
 typedef struct {
+	Bit16s x;
+	Bit16s y;
+}axis_2d;
+
+typedef struct {
+	Bit32s x;
+	Bit32s y;
+}axis_2d_32;
+
+typedef struct {
 	Bit16u x;
 	Bit16u y;
 	Bit16u z;
@@ -267,11 +277,11 @@ typedef struct {//begin 611//str_611
 }
 type_str_611;
 
-typedef struct {
+/*typedef struct {
 	Bit16s x;
 	Bit16s y;
 }
-type_str_164_pos;
+type_str_164_pos;*/
 
 typedef struct {//lenght 18
 	Bit16s word_0;
@@ -288,7 +298,7 @@ typedef struct {//size 1136
 	Bit16s word_0x10_16;
 	//Bit8s byte_0x11_17;
 	Bit8u stubb[2];
-	type_str_164_pos position_20;//position
+	axis_2d position_backup_20;//position //mouse backup
 	Bit16s word_0x18_24;
 	Bit16s word_0x1A_26;
 	Bit8u stubc[2];
@@ -336,7 +346,7 @@ typedef struct {//size 1136
 	Bit32s dword_0x17D_381;
 	Bit32s dword_0x181_385;
 	Bit32s dword_0x185_389;
-	Bit32s dword_0x189_393;//time of game
+	Bit32s dword_0x189_393;
 	Bit32s dword_0x18D_397;
 	Bit8u stubi[4];
 	Bit8s byte_0x195_405;
@@ -356,12 +366,12 @@ typedef struct {//size 1136
 	Bit8s byte_0x1C0_448;
 	Bit8s byte_0x1C1_449;//switch - event? type?
 	Bit16s word_0x1C2_450;
-	Bit8u stubl[6];
+	Bit8u stubl[56];
 	//Bit8s array_0x1D4_468[0x1a];
-	Bit16s array_0x1FC_508[32];
+	Bit16s array_0x1FC_508[32];//1ca
 	//Bit16s word_0x204_516[32];
 	//Bit16s word_0x242_578;//word_0x204_516[31]
-	Bit8u stubm[56];
+	Bit8u stubm[6];
 	Bit16s word_0x242_578;
 	Bit16s word_0x244_580;
 	Bit16s word_0x246_582;
@@ -455,7 +465,7 @@ typedef struct _str_0x6E8E {//lenght a8//THING
 	Bit8s byte_0x3B_59;//59
 	Bit8s byte_0x3C_60;//60
 	Bit8s byte_0x3D_61;//61
-	Bit8s byte_0x3E_62;//62 //index
+	Bit8u byte_0x3E_62;//62 //index
 	Bit8s byte_0x3F_63;//63 //type//MODEL
 	//11 - spell
 	Bit8s byte_0x40_64;//64 //subtype//CLASS

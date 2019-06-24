@@ -6383,8 +6383,120 @@ x_DWORD_180628b_screen_buffer+0x5d3 0x78
 void sub_56A30_init_game_level(unsigned int a1)//237a30
 
  step 0x0
-(Bit8u*)&D41A0_BYTESTR_0+0x39da 0x1f
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x39da 0x00
+(Bit8u*)&D41A0_BYTESTR_0+0x39e2 0x1f
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x39e2 0x00
 0x356038 +0x39da
 
 test array_0x1FC_508
+
+find adress:
+v2x->dword_0xA4_164x->array_0x1FC_508[4 * l+4] = 24607;
+of v2x
+
+x_DWORD_180628b_screen_buffer+0x3688 0xe3
+0x3aa0a4+0x3688 0x00
+
+ (Bit8u*)&x_WORD_15B4E0+0x1e402 0x6f
+ x_WORD_15B4E0+0x1e402 0x00
+ 32c4e0+0x1e402 0x00
+
+
+ test
+ type_str_0x6E8E* sub_4A920(axis_3d* a1x)//22b920 - add player 0 -ok
+
+ test
+ void sub_51BB0_game_events(/*Bit8u* a1*/)//232bb0
+
+ step 1
+ (Bit8u*)&x_WORD_15B4E0+0x1e402 0x6f
+ x_WORD_15B4E0+0x1e402 0x00
+ 32C4E0+0x1e402
+
+ step 0x0
+(Bit8u*)&D41A0_BYTESTR_0+0x3655c 0xb6
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x3655c 0x46
+0x356038 +0x3655c
+
+ step 0x11
+(Bit8u*)&D41A0_BYTESTR_0+0x2fc8 0xfb
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x2fc8 0xf9
+0x356038 +0x3655c
+
+ step 0x1c
+ (Bit8u*)&x_WORD_15B4E0+0x18802 0x6f
+ x_WORD_15B4E0+0x18802 0x77
+ 32C4E0+0x18802
+
+ call 238d70
+ call 238cf0
+ void sub_33340(type_str_0x6E8E* a1x)//214340
+
+ step 0x822
+  (Bit8u*)&x_WORD_15B4E0+0x18802 0x6f
+ x_WORD_15B4E0+0x18802 0x77
+ 32C4E0+0x18802
+
+ test here:
+ v6 = sub_581E0_maybe_tan2(&a1x->word_0x9A_154x, &ix->array_0x4C_76);
+
+step 0xa1f
+(Bit8u*)&D41A0_BYTESTR_0+0x39d1 0x06
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x39d1 0x00
+0x356038 +0x39d1
+
+1f3ec5
+
+step 0xa1f
+(Bit8u*)&D41A0_BYTESTR_0+0x39d1 0x06
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x39d1 0x00
+0x356038 +0x39d1
+
+test
+signed int sub_12E70(type_str_0x6E8E* a1x)//1f3e70
+
+92
+
+(Bit8u*)&D41A0_BYTESTR_0+0x7e5a 0x0d
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x7e5a 0x05
+0x356038 +0x7e5a
+orig   copy
+08 00  08 00
+00 00  00 00
+01 00  01 00
+01 04  01 04
+00 00  00 04 00 00
+08 00  08 00
+01 00  09 00
+05 00
+05 04
+
+01 04
+
+
+step 0x6c
+(Bit8u*)&D41A0_BYTESTR_0+0x381c 0x00
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x381c 0x50
+0x356038 +0x381c
+
+1f5d71 - call 1f5c90 - signed int sub_14C90(type_str_0x6E8E* a1x, type_str_0x6E8E* a2x, signed int a3, signed int a4)//1f5c90
+1f460e - call 1f45c0 - signed int sub_135C0(type_str_0x6E8E* a1x)//1f45c0
+238a8b - void sub_57730()//238730
+
+step 0x8b
+(Bit8u*)&D41A0_BYTESTR_0+0x70e4 0x18
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x70e4 0x5e
+0x356038 +0x70e4
+
+
+test 1f1c80
+
+step debugcounter_10c80==0xed
+(Bit8u*)&D41A0_BYTESTR_0+0x70e4 0x46
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x70e4 0x8c
+0x356038 +0x70e4
+
+1f1e63
+1f1e66 - int sub_10C80(type_str_0x6E8E* a1x, unsigned __int8 a2, unsigned __int16 a3)//1f1c80
+(_DWORD *)(jj + 94) = a3;
+
+if (sub_10750(a1x, jjx))
