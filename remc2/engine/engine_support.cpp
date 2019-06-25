@@ -1694,3 +1694,9 @@ void test_x_D41A0_BYTEARRAY_0() {
 			errorsize(2,i);
 };
 */
+
+int my_sign(int var)
+{
+	if (var < 0)return -1;
+	return 0;
+}

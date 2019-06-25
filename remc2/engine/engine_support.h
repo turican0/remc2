@@ -1874,4 +1874,8 @@ extern type_D41A0_BYTESTR_0 D41A0_BYTESTR_0;
 /*void x_D41A0_BYTEARRAY_0_to_x_D41A0_BYTESTR_0();
 void x_D41A0_BYTESTR_0_to_x_D41A0_BYTEARRAY_0();*/
 void write_posistruct_to_png(Bit8u* buffer, int width, int height, char* filename);
+
+
+int my_sign(int var);
+
 #endif //ENGINE_SUPPORT_ACTIVE
