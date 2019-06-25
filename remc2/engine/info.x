@@ -6500,3 +6500,22 @@ step debugcounter_10c80==0xed
 (_DWORD *)(jj + 94) = a3;
 
 if (sub_10750(a1x, jjx))
+
+1f1c80
+0x10d54
+
+0x1f1d54
+
+0x144b
+
+step 0xb6
+(Bit8u*)&D41A0_BYTESTR_0+0x3964 0x80
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x3964 0x81
+0x356038 +0x3964
+
+1f3c63
+
+step 0xb6
+(Bit8u*)&D41A0_BYTESTR_0+0x3964 0x80
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x3964 0x81
+0x356038 +0x3964

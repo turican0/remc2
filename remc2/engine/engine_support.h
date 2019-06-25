@@ -331,7 +331,7 @@ typedef struct {//size 1136
 	Bit8s byte_0x14E_334;
 	Bit8s byte_0x14F_335;
 	Bit32s byte_0x150_336;
-	Bit8s byte_0x154_340;
+	Bit8u byte_0x154_340;
 	Bit16s word_0x155_341;
 	Bit16s word_0x157_343;
 	Bit16s word_0x159_345;
