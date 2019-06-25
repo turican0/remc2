@@ -6519,3 +6519,7 @@ step 0xb6
 (Bit8u*)&D41A0_BYTESTR_0+0x3964 0x80
 (Bit8u*)x_D41A0_BYTEARRAY_0+0x3964 0x81
 0x356038 +0x3964
+
+
+set mouse:
+__int16 sub_6D200(type_str_0x2BDE* a1x)//24e200
