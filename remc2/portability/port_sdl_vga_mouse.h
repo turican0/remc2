@@ -39,7 +39,7 @@ void VGA_Set_file_pallette(char* filename);
 Bit16s VGA_get_shift_status();
 bool VGA_check_standart_input_status();
 Bit16u VGA_read_char_from_buffer();
-int VGA_Set_mouse(Bit16s a1, Bit16s a2);
+void VGA_Set_mouse(Bit16s a1, Bit16s a2);
 void setPress(bool locpressed, Bit16u loclastchar);
 
 void VGA_mouse_clear_keys();
