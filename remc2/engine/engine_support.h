@@ -269,11 +269,7 @@ typedef struct {//begin 611//str_611
 	Bit8s byte_0x458_1112;//501//byte_0x83E_2BDE
 	Bit8s byte_0x459_1113;//502
 	Bit8s byte_0x45A_1114;
-	Bit8s byte_0x45B_1115;
-	Bit8s byte_0x45C_1116;
-	Bit8s byte_0x45D_1117;
-	Bit8s byte_0x45E_1118;
-	Bit8s byte_0x45E_1119;
+	Bit8s byte_0x45B_1115;	
 }
 type_str_611;
 
@@ -383,6 +379,12 @@ typedef struct {//size 1136
 	Bit8s byte_0x261_609;
 	Bit8s byte_0x262_610;
 	type_str_611 str_611;
+
+	Bit8s str_611_byte_0x45C_1116;
+	Bit8s str_611_byte_0x45D_1117;
+	Bit8s str_611_byte_0x45E_1118;
+	Bit8s str_611_byte_0x45E_1119;
+
 	//Bit8u stubo[16];
 	//611;
 	
@@ -566,6 +568,11 @@ typedef struct {//lenght 2124?
 	Bit8u stubc[1581];
 	//Bit8u str0x256_24[1585];//??lenght
 	type_str_611 str0x256_1609;//??lenght
+
+	Bit8s byte_0x45C_1116;
+	Bit8s byte_0x45D_1117;
+	Bit8s byte_0x45E_1118;
+	Bit8s byte_0x45E_1119;
 
 	//0x100//x_D41A0_BYTEARRAY_4_struct.byteindex_256ar	
 	//280=byteindex_256ar[24];//x_D41A0_BYTEARRAY_4_struct.byteindex_256ar[24]

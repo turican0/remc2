@@ -6528,3 +6528,10 @@ __int16 sub_6D200(type_str_0x2BDE* a1x)//24e200
 char sub_780F0_load_game_dialog(Bit8u* a1)//0x2590f0
 
 sub_988A7_read(v10, (Bit8u*)&x_BYTE_17DF14[43 * (x_WORD_17DF04 - 1)], 20);
+
+x_WORD_17DF04
+versus
+34ef04
+
+26 - 355168
+32 - 355174
