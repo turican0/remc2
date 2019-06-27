@@ -695,13 +695,13 @@ void convert_struct_to_array_D41A0_0(type_D41A0_BYTESTR_0* input,Bit8u* output) 
 	for (int i = 0; i < 0x3e8; i++)
 		memcpy(output + 0x11ea + 4 * i, &input->dword_0x11EA[i], 4);
 	//type_str_0x218A str_0x218A;
-	memcpy(output + 0x218A, &input->str_0x218A, 4);
+	memcpy(output + 0x218A, &input->str_0x218A_settings.str_0x218A, 4);
 	//type_str_0x218E str_0x218E;
-	memcpy(output + 0x218E, &input->str_0x218E, 4);
+	memcpy(output + 0x218E, &input->str_0x218A_settings.str_0x218E, 4);
 	//type_str_0x2192 str_0x2192;
-	memcpy(output + 0x2192, &input->str_0x2192, 4);
+	memcpy(output + 0x2192, &input->str_0x218A_settings.str_0x2192, 4);
 	//type_str_0x2196 str_0x2196;
-	memcpy(output + 0x2196, &input->str_0x2196, 4);
+	memcpy(output + 0x2196, &input->str_0x218A_settings.str_0x2196, 4);
 	//Bit32u dword_0x219A;//8602
 	memcpy(output + 0x219A, &input->dword_0x219A, 4);
 	//Bit32u dword_0x219E;//8606

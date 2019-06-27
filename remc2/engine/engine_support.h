@@ -1390,6 +1390,30 @@ typedef struct {//lenght 7
 }
 type_str_0x6574;
 
+typedef struct {
+	type_str_0x218A str_0x218A;
+	//Bit8u byte_0x218A;//8586 reflections	
+	//Bit8u byte_0x218B;//8587 shadows
+	//Bit8u byte_0x218C;//8588 sky
+	//Bit8u byte_0x218D;//8589 alter screen size
+	type_str_0x218E str_0x218E;
+	//Bit8u byte_0x218E;//8590 icons
+	//Bit8u byte_0x218F;//8591 ??
+	//Bit8u byte_0x2190;//8592 screen size?
+	//Bit8u byte_0x2191;//8593
+	type_str_0x2192 str_0x2192;
+	//Bit8u byte_0x2192;//8594
+	//Bit8u byte_0x2193;//8595
+	//Bit8u byte_0x2194;//8596 resolution
+	//Bit8u byte_0x2195;//8597 shadows
+	type_str_0x2196 str_0x2196;
+	//Bit8u byte_0x2196;//8598 lights
+	//Bit8u byte_0x2197;//setting
+	//Bit8u byte_0x2198;//8600 transparency
+	//Bit8u byte_0x2199;//8601 flat
+}
+type_str_0x218A_settings;
+
 typedef struct {//lenght 0x36e16	
 	Bit8u stub0[4];
 	Bit32s dword_0x4;
@@ -1423,26 +1447,7 @@ typedef struct {//lenght 0x36e16
 	type_str_0x6E8E* dword_0x11EA[0x3e8];//??4586
 	//Bit8u stub3[0xfa0];
 
-	type_str_0x218A str_0x218A;
-	//Bit8u byte_0x218A;//8586 reflections	
-	//Bit8u byte_0x218B;//8587 shadows
-	//Bit8u byte_0x218C;//8588 sky
-	//Bit8u byte_0x218D;//8589 alter screen size
-	type_str_0x218E str_0x218E;
-	//Bit8u byte_0x218E;//8590 icons
-	//Bit8u byte_0x218F;//8591 ??
-	//Bit8u byte_0x2190;//8592 screen size?
-	//Bit8u byte_0x2191;//8593
-	type_str_0x2192 str_0x2192;
-	//Bit8u byte_0x2192;//8594
-	//Bit8u byte_0x2193;//8595
-	//Bit8u byte_0x2194;//8596 resolution
-	//Bit8u byte_0x2195;//8597 shadows
-	type_str_0x2196 str_0x2196;
-	//Bit8u byte_0x2196;//8598 lights
-	//Bit8u byte_0x2197;//setting
-	//Bit8u byte_0x2198;//8600 transparency
-	//Bit8u byte_0x2199;//8601 flat
+	type_str_0x218A_settings str_0x218A_settings;	
 
 	Bit32u dword_0x219A;//8602
 	Bit32u dword_0x219E;//8606
