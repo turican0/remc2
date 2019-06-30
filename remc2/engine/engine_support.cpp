@@ -93,8 +93,8 @@ type_x_D41A0_BYTEARRAY_4_struct x_D41A0_BYTEARRAY_4_struct;
 
 Bit16s x_D41A0_WORDARRAY[10000];
 
-Bit32u x_D41A0_BYTEARRAY_4_0xE6_heapsize;
-Bit8u* x_D41A0_BYTEARRAY_4_0xE2_heapbuffer;
+//Bit32u x_D41A0_BYTEARRAY_4_0xE6_heapsize;
+//Bit8u* x_D41A0_BYTEARRAY_4_0xE2_heapbuffer;
 //Bit8u* x_D41A0_BYTEARRAY_4_0xDE_heapbuffer;
 //Bit32u* off_D918C[0x7c];//turn off - fix it
 
@@ -255,6 +255,11 @@ Bit32u compare_with_snapshot(char* filename, Bit8u* adress, Bit32u adressdos, Bi
 };
 int test_E7EE0_id_pointer(Bit32u adress) {
 	if ((adress >= 0x28) && (adress < 0x29))return 1;
+	return 0;
+}
+
+int test_D41A0_4_id_pointer(Bit32u adress) {
+	if ((adress >= 0xe2) && (adress < 0xe3))return 1;	
 	return 0;
 }
 
@@ -440,6 +445,57 @@ Bit32u compare_with_sequence_D41A0(char* filename, Bit8u* adress, Bit32u adressd
 			if (*(Bit32u*)&buffer[i])testa = true;
 			else testa = false;
 			if (*(Bit32u*)&adress[i])testb = true;
+			else testb = false;
+			if (testa != testb)
+			{
+				*origbyte = buffer[i];
+				*copybyte = adress[i];
+				break;
+			}
+			i += 3;
+		}
+		else if (testx == 0) {
+			if (buffer[i] != adress[i])
+			{
+				*origbyte = buffer[i];
+				*copybyte = adress[i];
+				break;
+			}
+		}
+	}
+
+	free(buffer);
+	fclose(fptestepc);
+	if (i < size)
+		allert_error();
+	return(i);
+};
+
+Bit32u compare_with_sequence_D41A0_4(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u count, Bit32u size, Bit8u* origbyte, Bit8u* copybyte, int offset) {
+
+	char findnamec[500];
+	Bit8u* buffer = (Bit8u*)malloc(size);
+	FILE* fptestepc;
+	sprintf(findnamec, "c:/prenos/remc2/remc2/memimages/sequence-%s.bin", filename);
+	fopen_s(&fptestepc, findnamec, "rb");
+	if (fptestepc == NULL)
+	{
+		mydelay(100);
+		fopen_s(&fptestepc, findnamec, "rb");
+	}
+	fseek(fptestepc, count * size + offset, SEEK_SET);
+
+	fread_s(buffer, size, 1, size, fptestepc);
+	Bit32u i;
+	bool testa, testb;
+	for (i = 0; i < size; i++)
+	{
+		int testx = test_D41A0_4_id_pointer(i);
+		if (testx == 1)
+		{
+			if (*(Bit32u*)& buffer[i])testa = true;
+			else testa = false;
+			if (*(Bit32u*)& adress[i])testb = true;
 			else testb = false;
 			if (testa != testb)
 			{

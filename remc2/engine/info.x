@@ -6535,3 +6535,91 @@ versus
 
 26 - 355168
 32 - 355174
+
+void sub_47320_in_game_loop(signed int a1)//228320
+test
+
+
+x_BYTE_10B4E0+0x21 00
+versus
+2dc4e0+0x21 2c
+
+x_BYTE_10B4E0+0x21 00
+versus
+2dc4e0+0x21 2c
+
+&x_D41A0_BYTEARRAY_4_struct+0x0 0x00
+versus
+0x38cf50+0x0 0x43
+
+(Bit8u*)&x_D41A0_BYTEARRAY_4_struct+0x2b 0x00
+versus
+0x38cf50+0x2b 0x01
+
+void sub_5BCC0_set_any_variables1()//23ccc0
+
+(Bit8u*)&x_D41A0_BYTEARRAY_4_struct+0x8e 0x00
+versus
+0x38cf50+0x8e 0x4e
+
+(Bit8u*)&x_D41A0_BYTEARRAY_4_struct+0xb9 0x00
+versus
+0x38cf50+0xb9 0x01
+
+(Bit8u*)&x_D41A0_BYTEARRAY_4_struct+0xe2 0x00
+versus
+0x38cf50+0xe2 0x14
+
+(Bit8u*)&D41A0_BYTESTR_0+0x218b 0x00
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x218b 0x1
+0x356038 +0x218b
+
+23d279
+
+sub_988A7_read(FILE, (Bit8u*)&D41A0_BYTESTR_0.str_0x218A_settings, 16);
+
+4,6,8,10,12,14 word
+
+(Bit8u*)&x_D41A0_BYTEARRAY_4_struct+0x2b 0x00
+versus
+0x38cf50+0x2b 0x01
+
+
+35944d
+
+char sub_780F0_load_game_dialog(Bit8u* a1)//0x2590f0
+
+tady se v kopii nastavi -1
+void sub_54A50(unsigned __int16 a1, int v0index/*Bit8u* a2*/)//235a50
+
+sub_54A50
+
+1815+2==1817-611 0x719 0x4b6
+2024+1==2025-611 0x7e9 0x586
+2076+1?-611 0x81d 0x5ba
+
+array_0x367_871x - ok
+
+1609-998=611
+2076 - 998=1078
+1815-998=817
+2024-998=1026
+2051-998=1053
+1921-998=923
+1973-998=975
+1999-998=1001
+2255-998=1257
+
+
+test
+void sub_54A50(unsigned __int16 a1, int v0index/*Bit8u* a2*/)//235a50
+
+(Bit8u*)&x_D41A0_BYTEARRAY_4_struct+0x749 0x00
+versus
+0x38cf50+0x749 0x62
+
+2341bf
+void sub_53160()//234160
+
+test
+void sub_53160()//234160

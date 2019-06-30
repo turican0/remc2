@@ -241,7 +241,7 @@ typedef struct {//begin 611//str_611
 	//835//array_0x333_819[8]
 	//type_16_1a word_0x34B_843;//232//remove it array_0x333_819x.word[0xc]
 	//type_16_1a word_0x34F_847;//remove it array_0x333_819x.word[0xe]
-	type_16_1a array_0x367_871x;//260
+	type_16_1a array_0x367_871x;//260//ok
 	//875 -array_0x367_871[4]
 	type_8_1a array_0x39B_923x;//312//size??//byte_0x781_2BDE
 	type_8_1a array_0x3B5_949x;//338//size??//array_0x79B_2BDE_13177
@@ -584,18 +584,18 @@ typedef struct {//lenght 2124?
 type_str_0x256;
 
 typedef struct {
-	Bit8u harddisk_number;
+	//Bit8u harddisk_number;
 
 	//Bit8u setting_byte5_19;
 	Bit32u dwordindex_0;//x_D41A0_BYTEARRAY_4_struct.dwordindex_0
-	Bit8u byteindex_4;//x_D41A0_BYTEARRAY_4_struct.byteindex_4
+	Bit16u wordindex_4;//x_D41A0_BYTEARRAY_4_struct.byteindex_4
 	Bit16u wordindex_6;//x_D41A0_BYTEARRAY_4_struct.wordindex_6
 	Bit16u wordindex_8;//x_D41A0_BYTEARRAY_4_struct.wordindex_8
 	Bit8u byteindex_10;//0xa//x_D41A0_BYTEARRAY_4_struct.byteindex_10//show help
 	Bit8s byte_brightness_11;//0xb//x_D41A0_BYTEARRAY_4_struct.byteindex_11
 	Bit8s byte_brightness_12;//0xc//x_D41A0_BYTEARRAY_4_struct.byteindex_12
 	Bit8s byte_brightness_13;//0xd//x_D41A0_BYTEARRAY_4_struct.byteindex_13
-	Bit8u stuba[2];
+	Bit16u wordindex_14;
 	Bit32u dwordindex_16;//0x10//x_D41A0_BYTEARRAY_4_struct.dwordindex_16	
 	Bit8u stubb[2];
 	Bit8u setting_byte1_22;//x_D41A0_BYTEARRAY_4_struct.setting_byte1_22
@@ -613,10 +613,10 @@ typedef struct {
 	FILE* moviemvidatfile_byte4_35;
 	Bit16u moviemvinumber_byte4_39;//x_D41A0_BYTEARRAY_4_struct.moviemvinumber_byte4_39
 	Bit8u stube[2];
-	Bit8u levelnumber_43;//x_D41A0_BYTEARRAY_4_struct.levelnumber_43
-	Bit8u stubf[1];
-	Bit8u setting_45;
-	Bit8u stubg[4];
+	Bit16u levelnumber_43w;//x_D41A0_BYTEARRAY_4_struct.levelnumber_43
+	//Bit8u stubf[1];
+	Bit16u setting_45w;
+	Bit8u stubg[3];
 	Bit8s byteindex_50;//0x32//x_D41A0_BYTEARRAY_4_struct.byteindex_50
 	Bit8u byteindex_51;//0x33//x_D41A0_BYTEARRAY_4_struct.byteindex_51
 	Bit8u byteindex_52;//0x34//x_D41A0_BYTEARRAY_4_struct.byteindex_52
@@ -640,8 +640,8 @@ typedef struct {
 	Bit8u byteindex_181;//0xb5//x_D41A0_BYTEARRAY_4_struct.byteindex_181
 	Bit8u harddiskchar_byte4_182;
 	Bit8u byteindex_183;//0xb7//x_D41A0_BYTEARRAY_4_struct.byteindex_183
-	Bit8u byteindex_184;//0xb8//x_D41A0_BYTEARRAY_4_struct.byteindex_184
-	Bit8u stubj[1];
+	Bit16u byteindex_184w;//0xb8//x_D41A0_BYTEARRAY_4_struct.byteindex_184
+	//Bit8u stubj[1];
 	Bit8u byteindex_186;//0xba//x_D41A0_BYTEARRAY_4_struct.byteindex_186
 	Bit8u stubk[1];
 	Bit32u dwordindex_188;//x_D41A0_BYTEARRAY_4_struct.byteindex_188
@@ -670,20 +670,22 @@ typedef struct {
 	Bit8u byteindex_207;//0xcf//x_D41A0_BYTEARRAY_4_struct.byteindex_207
 	Bit8u byteindex_208;//0xd0//x_D41A0_BYTEARRAY_4_struct.byteindex_208
 	Bit8u stubmm[1];
-	Bit8u byteindex_210;//0xd2//x_D41A0_BYTEARRAY_4_struct.byteindex_210
-	Bit8u stubn[3];
-	Bit8u byteindex_214;//0xd6//x_D41A0_BYTEARRAY_4_struct.byteindex_214
-	Bit8u stubo[1];
-	Bit8u setting_216;
-	Bit8u stubp[1];
-	Bit8u byteindex_218;//0xda//x_D41A0_BYTEARRAY_4_struct.byteindex_218
-	Bit8u stubq[1];
+	Bit32u byteindex_210d;//0xd2//x_D41A0_BYTEARRAY_4_struct.byteindex_210
+	//Bit8u stubn[3];
+	Bit16u byteindex_214w;//0xd6//x_D41A0_BYTEARRAY_4_struct.byteindex_214
+	//Bit8u stubo[1];
+	Bit16u setting_216w;
+	//Bit8u stubp[1];
+	Bit16u byteindex_218w;//0xda//x_D41A0_BYTEARRAY_4_struct.byteindex_218
+	//Bit8u stubq[1];
 	
 	Bit8u byteindex_220;//0xdc//x_D41A0_BYTEARRAY_4_struct.byteindex_220
 	Bit8u byteindex_221ar[3];//0xe0//x_D41A0_BYTEARRAY_4_struct.byteindex_221ar
 	Bit8u byteindex_224;//0xe0//x_D41A0_BYTEARRAY_4_struct.byteindex_224
 	Bit8u byteindex_225;//0xe1//x_D41A0_BYTEARRAY_4_struct.byteindex_225
-	Bit8u stubr[16];
+	Bit8u* pointer_0xE2_heapbuffer_226;//x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226
+	Bit32u dword_0xE6_heapsize_230;//x_D41A0_BYTEARRAY_4_struct.dword_0xE6_heapsize_230
+	Bit8u stubr[8];
 	Bit8u byteindex_242ar[14];//0xf2//x_D41A0_BYTEARRAY_4_struct.byteindex_242ar
 	//Bit8u byteindex_246;//0xf6//x_D41A0_BYTEARRAY_4_struct.byteindex_242ar[4]
 	//Bit8u byteindex_250;//x_D41A0_BYTEARRAY_4_struct.byteindex_242ar[8]
@@ -763,8 +765,8 @@ doublebyte doublebyte_conv(Bit16u a2);
 extern type_x_D41A0_BYTEARRAY_4_struct x_D41A0_BYTEARRAY_4_struct;
 extern Bit16s x_D41A0_WORDARRAY[];
 
-extern Bit32u x_D41A0_BYTEARRAY_4_0xE6_heapsize;
-extern Bit8u* x_D41A0_BYTEARRAY_4_0xE2_heapbuffer;
+//extern Bit32u x_D41A0_BYTEARRAY_4_0xE6_heapsize;
+//extern Bit8u* x_D41A0_BYTEARRAY_4_0xE2_heapbuffer;
 //extern Bit8u* x_D41A0_BYTEARRAY_4_0xDE_heapbuffer;
 //extern Bit32u* off_D918C[0x7c];
 
@@ -811,6 +813,7 @@ Bit32u compare_with_sequence_D41A0(char* filename, Bit8u* adress, Bit32u adressd
 Bit32u compare_with_sequence_array_E2A74(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u count, Bit32u size1, Bit32u size2, Bit8u* origbyte, Bit8u* copybyte, int offset=0);
 Bit32u compare_with_sequence_x_DWORD_F2C20ar(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u count, Bit32u size, Bit8u* origbyte, Bit8u* copybyte, int* posdiff);
 Bit32u compare_with_sequence_array_222BD3(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u count, Bit32u size, Bit8u* origbyte, Bit8u* copybyte, int* posdiff);
+Bit32u compare_with_sequence_D41A0_4(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u count, Bit32u size, Bit8u* origbyte, Bit8u* copybyte, int offset = 0);
 
 void writehex(Bit8u* buffer,Bit32u count);
 
