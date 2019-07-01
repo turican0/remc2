@@ -6623,3 +6623,17 @@ void sub_53160()//234160
 
 test
 void sub_53160()//234160
+
+(Bit8u*)&x_D41A0_BYTEARRAY_4_struct+0x954 0x00
+versus
+0x38cf50+0x954 0x26
+
+250db2
+
+(Bit8u*)&x_D41A0_BYTEARRAY_4_struct+0x749 0x0
+versus
+0x38cf50+0x749 0x62
+
+2341bf
+
+void sub_53160()//234160

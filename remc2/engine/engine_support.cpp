@@ -260,6 +260,7 @@ int test_E7EE0_id_pointer(Bit32u adress) {
 
 int test_D41A0_4_id_pointer(Bit32u adress) {
 	if ((adress >= 0xe2) && (adress < 0xe3))return 1;	
+	if ((adress >= 0x954) && (adress < 0x95a))return 2;
 	return 0;
 }
 
