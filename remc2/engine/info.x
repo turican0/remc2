@@ -6658,3 +6658,8 @@ dword_D41A4 + 280
 dword_0x3E6_2BE4_12228=998
 1865-256-998=611
 str_611=611
+
+step 1
+(Bit8u*)&x_D41A0_BYTEARRAY_4_struct+0x4 0x0
+versus
+0x38cf50+0x4 0x7
