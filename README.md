@@ -30,7 +30,7 @@ simple dev blog:https://github.com/turican0/remc2/wiki<br />
 ## 0.45:<br />
 -fix many differents in dword_0xA4_164 structure<br />
 -fix many loading problem<br />
--level two particly playable(with black enemy sorceler and drop game after meet with him)<br />
+-level two particly playable(with black enemy sorceler name and drop game after meet with him)<br />
 <br />
 ## 0.44:<br />
 -first level can play same as original(again)<br />
