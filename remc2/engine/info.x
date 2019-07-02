@@ -6663,3 +6663,6 @@ step 1
 (Bit8u*)&x_D41A0_BYTEARRAY_4_struct+0x4 0x0
 versus
 0x38cf50+0x4 0x7
+
+read
+char sub_54D30(__int16 a1)//235d30
