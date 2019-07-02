@@ -27,6 +27,11 @@ simple dev blog:https://github.com/turican0/remc2/wiki<br />
 <h3>MILLSTONE 1</h3><br />
 -Can Play whole First level same as in original in 320x200<br />
 <br />
+## 0.45:<br />
+-fix many differents in dword_0xA4_164 structure<br />
+-fix many loading problem<br />
+-level two particly playable(with black enemy sorceler and drop game after meet with him)<br />
+<br />
 ## 0.44:<br />
 -first level can play same as original(again)<br />
 <br />
