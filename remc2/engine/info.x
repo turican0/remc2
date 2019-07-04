@@ -6678,3 +6678,10 @@ versus
 (Bit8u*)&str_unk_1804B0ar + 0x8a 0x67
 (Bit8u*)&unk_1804B0ar + 0x8a 0x48
 0x3514b0 + 0x8a 0x48
+
+step 0
+(Bit8u*)&x_D41A0_BYTEARRAY_4_struct+0x5806 0x89
+versus
+0x38cf50+0x5806 0x31
+
+sub_17060_compute_mouse_relative_pos - move mouse
