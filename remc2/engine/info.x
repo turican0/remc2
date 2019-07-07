@@ -6685,3 +6685,116 @@ versus
 0x38cf50+0x5806 0x31
 
 sub_17060_compute_mouse_relative_pos - move mouse
+
+if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 0x10))
+							sub_18BB0();
+						x_BYTE_1806E4 = 0;
+
+debugcounter_47560
+
+step 1
+(Bit8u*)&D41A0_BYTESTR_0+0x8 0x8e
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x8 0x2d
+0x356038 +0x8
+
+ (Bit8u*)&x_WORD_15B4E0+0x466e 0x00
+ x_WORD_15B4E0+0x466e 0x00
+ 32c4e0+0x466e 0x5e
+
+238e3c
+void sub_57D70_clean_event(type_str_0x6E8E* a1x, axis_3d* a2x)//238d70 // register object on axis
+238d1d
+void sub_57CF0(type_str_0x6E8E* a1x, axis_3d* a2x)//238cf0
+1fca1e
+signed int sub_1B8C0(type_str_0x6E8E* a1x)//1fc8c0
+1ff2cf
+void sub_1DBF0(type_str_0x6E8E* a1x, unsigned __int16 a2)//1febf0
+1fe616
+void sub_1D5D0(type_str_0x6E8E* a1x, __int16 a2)//1fe5d0
+2005bf
+__int16 sub_1F5B0(type_str_0x6E8E* a1x)//2005b0
+238a8e
+
+
+step 1
+(Bit8u*)&D41A0_BYTESTR_0+0x8f66 0xff
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x8f66 0x58
+0x356038 +0x8f66
+
+
+x_DWORD_EA3E4[50]->dword_0xA0_160x
+
+void sub_57680()//238680
+indexx->dword_0xA0_160x += (int)i;
+
+edx = 2a93ac
+ebx=[edx+36df6] tj 2a93ac
+eax=[2bb3e8] tj 35cf6e
+
+(Bit8u*)&D41A0_BYTESTR_0+0x8f7a 0xf8
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x8f7a 0x25
+0x356038 +0x8f7a
+
+1fcd2e
+signed int sub_1B8C0(type_str_0x6E8E* a1x)//1fc8c0
+1feeae
+void sub_1DDA0(type_str_0x6E8E* a1x, __int16 a2)//1feda0
+1fec59
+void sub_1DBF0(type_str_0x6E8E* a1x, unsigned __int16 a2)//1febf0
+1fe611
+void sub_1D5D0(type_str_0x6E8E* a1x, __int16 a2)//1fe5d0
+
+v34
+
+a1x->dword_0xA0_160x->word_160_0x10_16
+versus
+2a98da+10
+
+&x_DWORD_EA3E4[1]->dword_0xA0_160x
+
+(Bit8u*)&D41A0_BYTESTR_0+0x8f66 0xff
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x8f66 0x58
+0x356038 +0x8f66
+
+(type_str_160*)&unk_D7BD6[0x7d6]
+
+000000
+e0b28e - tj. (type_str_160*)&unk_D7BD6[0x7d6]
+
+x_BYTE_10B4E0+0x0 00
+versus
+2dc4e0+0x0 2c
+
+&x_DWORD_EA3E4[0x74]->dword_0xA4_164x
+
+while (v0 < D41A0_BYTESTR_0.word_0xe)
+
+ (Bit8u*)&x_WORD_15B4E0+0xb39a 0x74
+ x_WORD_15B4E0+0xb39a 0x17
+ 32C4E0+0xb39a
+
+ 238e3c
+ void sub_57D70_clean_event(type_str_0x6E8E* a1x, axis_3d* a2x)//238d70 // register object on axis
+ 22e349
+ 190
+ 22b1ca
+  type_str_0x6E8E* pre_sub_4A190(Bit32u adress, Bit16s* a1,int type)//pre 22b190
+ 24ed4e
+ type_str_0x6E8E* sub_6DCA0(type_str_0x6E8E* a1x, axis_3d* a2x, unsigned __int16 a3, __int16 *a4, __int16 a5, char a6)//24eca0
+ 24a48a
+
+ 238a8b
+ void sub_57730()//238730
+
+ (Bit8u*)&D41A0_BYTESTR_0+0xbb84 0x3
+(Bit8u*)x_D41A0_BYTEARRAY_0+0xbb84 0x5
+0x356038 +0xbb84
+2407c2
+
+unsigned __int8 sub_5F7B0(type_str_0x6E8E* a1x, type_str_0x6E8E* a2x, int a3)//2407b0
+char sub_5F660(type_str_0x6E8E* a1x, type_str_0x6E8E* a2x, int a3)//240660 XX
+signed int sub_14E10(type_str_0x6E8E* a1x, unsigned __int8 a2)//1f5e10
+signed int sub_13890(type_str_0x6E8E* a1x)//1f4890
+signed int sub_13830(type_str_0x6E8E* a1x)//1f4830
+
+

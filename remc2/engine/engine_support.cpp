@@ -328,7 +328,7 @@ Bit32u compare_with_snapshot_D41A0(char* filename, Bit8u* adress, Bit32u adressd
 	char findnamec[500];
 	Bit8u* buffer = (Bit8u*)malloc(size);
 	FILE* fptestepc;
-	sprintf(findnamec, "c:/prenos/remc2/remc2/memimages/engine-memory-%s", filename);
+	sprintf(findnamec, "c:/prenos/dosbox-x-remc2/vs2015/engine-memory-%s", filename);
 	fopen_s(&fptestepc, findnamec, "rb");
 	if (fptestepc == NULL)
 	{
@@ -376,7 +376,7 @@ Bit32u compare_with_sequence_E7EE0(char* filename, Bit8u* adress, Bit32u adressd
 	char findnamec[500];
 	Bit8u* buffer = (Bit8u*)malloc(size2);
 	FILE* fptestepc;
-	sprintf(findnamec, "c:/prenos/remc2/remc2/memimages/sequence-%s.bin", filename);
+	sprintf(findnamec, "c:/prenos/dosbox-x-remc2/vs2015/sequence-%s.bin", filename);
 	fopen_s(&fptestepc, findnamec, "rb");
 	if (fptestepc == NULL)
 	{
@@ -426,7 +426,7 @@ Bit32u compare_with_sequence_D41A0(char* filename, Bit8u* adress, Bit32u adressd
 	char findnamec[500];
 	Bit8u* buffer = (Bit8u*)malloc(size);
 	FILE* fptestepc;
-	sprintf(findnamec, "c:/prenos/remc2/remc2/memimages/sequence-%s.bin", filename);
+	sprintf(findnamec, "c:/prenos/dosbox-x-remc2/vs2015/sequence-%s.bin", filename);
 	fopen_s(&fptestepc, findnamec, "rb");
 	if (fptestepc == NULL)
 	{
@@ -477,7 +477,7 @@ Bit32u compare_with_sequence_D41A0_4(char* filename, Bit8u* adress, Bit32u adres
 	char findnamec[500];
 	Bit8u* buffer = (Bit8u*)malloc(size);
 	FILE* fptestepc;
-	sprintf(findnamec, "c:/prenos/remc2/remc2/memimages/sequence-%s.bin", filename);
+	sprintf(findnamec, "c:/prenos/dosbox-x-remc2/vs2015/sequence-%s.bin", filename);
 	fopen_s(&fptestepc, findnamec, "rb");
 	if (fptestepc == NULL)
 	{
@@ -533,7 +533,7 @@ Bit32u compare_with_sequence_x_DWORD_F2C20ar(char* filename, Bit8u* adress, Bit3
 	char findnamec[500];
 	Bit8u* buffer = (Bit8u*)malloc(size);
 	FILE* fptestepc;
-	sprintf(findnamec, "c:/prenos/remc2/remc2/memimages/sequence-%s.bin", filename);
+	sprintf(findnamec, "c:/prenos/dosbox-x-remc2/vs2015/sequence-%s.bin", filename);
 	fopen_s(&fptestepc, findnamec, "rb");
 	if (fptestepc == NULL)
 	{
@@ -585,7 +585,7 @@ Bit32u compare_with_sequence_array_E2A74(char* filename, Bit8u* adress, Bit32u a
 	char findnamec[500];
 	Bit8u* buffer = (Bit8u*)malloc(size2);
 	FILE* fptestepc;
-	sprintf(findnamec, "c:/prenos/remc2/remc2/memimages/sequence-%s.bin", filename);
+	sprintf(findnamec, "c:/prenos/dosbox-x-remc2/vs2015/sequence-%s.bin", filename);
 	fopen_s(&fptestepc, findnamec, "rb");
 	if (fptestepc == NULL)
 	{
@@ -635,7 +635,7 @@ Bit32u compare_with_sequence_array_222BD3(char* filename, Bit8u* adress, Bit32u 
 	char findnamec[500];
 	Bit8u* buffer = (Bit8u*)malloc(size);
 	FILE* fptestepc;
-	sprintf(findnamec, "c:/prenos/remc2/remc2/memimages/sequence-%s.bin", filename);
+	sprintf(findnamec, "c:/prenos/dosbox-x-remc2/vs2015/sequence-%s.bin", filename);
 	fopen_s(&fptestepc, findnamec, "rb");
 	if (fptestepc == NULL)
 	{
@@ -687,7 +687,7 @@ Bit32u compare_with_sequence(char* filename, Bit8u* adress, Bit32u adressdos, Bi
 	char findnamec[500];
 	Bit8u* buffer = (Bit8u*)malloc(size2);
 	FILE* fptestepc;
-	sprintf(findnamec, "c:/prenos/remc2/remc2/memimages/sequence-%s.bin", filename);
+	sprintf(findnamec, "c:/prenos/dosbox-x-remc2/vs2015/sequence-%s.bin", filename);
 	fopen_s(&fptestepc, findnamec, "rb");
 	if (fptestepc == NULL)
 	{
@@ -729,7 +729,7 @@ void mine_texts(char* filename, Bit32u adressdos, Bit32u count, char* outfilenam
 	char actchar;
 	char outtext[2048];
 	char outtext2[2048];
-	sprintf(findnamec, "c:/prenos/remc2/remc2/memimages/engine-memory-%s", filename);
+	sprintf(findnamec, "c:/prenos/dosbox-x-remc2/vs2015/engine-memory-%s", filename);
 	fopen_s(&fptestepc, findnamec, "rb");
 	fopen_s(&fileout, outfilename, "wb");
 	if (fptestepc == NULL)

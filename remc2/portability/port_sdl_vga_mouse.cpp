@@ -686,7 +686,7 @@ void VGA_Set_pallette(Uint8* pallettebuffer) {
 			//printf("%01X %02X,%02X,%02X\n", i,colors[i].r, colors[i].g, colors[i].b);
 	}
 
-	//SavePal(pallettebuffer,(char*)"c:\\prenos\\remc2\\testpal.pal");
+	//SavePal(pallettebuffer,(char*)"c:\\prenos\\remc2\\level1.pal");
 
 	SubSet_pallette(colors);
 }
