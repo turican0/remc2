@@ -127,7 +127,7 @@ extern Bit32s x_DWORD_D41A4_x96BF;*/
 //extern Bit8u* x_D41A0_BYTEARRAY_0;
 //extern Bit8u* x_D41A0_BYTEARRAY_4;
 
-extern Bit8u* off_D41A8;
+extern Bit8u* off_D41A8_sky;
 extern Bit8u* x_BYTE_14B4E0;
 
 #pragma pack (1)

@@ -104,7 +104,7 @@ Bit16s x_D41A0_WORDARRAY[10000];
 
 Bit8u* x_DWORD_180628b_screen_buffer; //351628
 
-Bit8u* off_D41A8;//graphics buffer// = (Bit8u*)&x_BYTE_14B4E0; // weak
+Bit8u* off_D41A8_sky;//graphics buffer// = (Bit8u*)&x_BYTE_14B4E0; // weak
 Bit8u* x_BYTE_14B4E0;//31C4E0
 
 posistruct* xy_DWORD_17DED4_spritestr;
@@ -158,8 +158,8 @@ void support_begin() {
 	//x_D41A0_BYTEARRAY_4_struct.savestring_89 = new char[256];
 
 	x_BYTE_14B4E0 = new Bit8u[65536];
-	off_D41A8 = new Bit8u[65536];
-	memcpy(off_D41A8, &x_BYTE_14B4E0,4);
+	off_D41A8_sky = new Bit8u[65536];
+	memcpy(off_D41A8_sky, &x_BYTE_14B4E0,4);
 
 	xy_DWORD_17DED4_spritestr = new posistruct[1000];
 	xy_DWORD_17DEC0_spritestr_orig = new posistruct[1000];
@@ -189,7 +189,7 @@ void support_end() {
 	//if(x_D41A0_BYTEARRAY_4_struct.savestring_89)delete(x_D41A0_BYTEARRAY_4_struct.savestring_89);
 
 	if(x_BYTE_14B4E0)delete(x_BYTE_14B4E0);
-	if(off_D41A8)delete(off_D41A8);
+	if(off_D41A8_sky)delete(off_D41A8_sky);
 
 	if(xy_DWORD_17DED4_spritestr)delete(xy_DWORD_17DED4_spritestr);
 	if(xy_DWORD_17DEC0_spritestr_orig)delete(xy_DWORD_17DEC0_spritestr_orig);//fixed
