@@ -6797,4 +6797,21 @@ signed int sub_14E10(type_str_0x6E8E* a1x, unsigned __int8 a2)//1f5e10
 signed int sub_13890(type_str_0x6E8E* a1x)//1f4890
 signed int sub_13830(type_str_0x6E8E* a1x)//1f4830
 
+problem v
+void sub_159E0()//1f69e0
+
+0x38cf50 + 0x9683
+
+x_DWORD_180628b_screen_buffer+ 0x5806
+versus
+3aa0a4+ 0x5806  6c(ma byt) versus  b3
+
+x_DWORD_180628b_screen_buffer+ 0x74e1
+versus
+3aa0a4+ 0x74e1  00(ma byt) versus  63
+
+draw square
+void sub_90164(Bit16u x1, Bit16u y1, Bit16u x2, Bit16u y2, Bit8u a5)//271164
+v23 ?
+
 
