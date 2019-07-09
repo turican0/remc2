@@ -6819,3 +6819,15 @@ xadatablock32dat
 sub_5B7A0_prepare_textures()
 
 test void sub_5B7A0_prepare_textures()
+
+__int16 sub_2CB30(x_DWORD *a1, __int16 a2, int a3, __int16 a4)//20db30
+354fdc - aa
+
+&x_WORD_D93C0_bldgprmbuffer[2+0x130]
+versus
+2aa4f2
+
+(Bit8u*)&D41A0_BYTESTR_0+0x31d0 0x88
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x31d0 0xff
+0x356038 +0x31d0
+
