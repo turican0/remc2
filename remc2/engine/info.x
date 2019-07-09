@@ -6814,4 +6814,8 @@ draw square
 void sub_90164(Bit16u x1, Bit16u y1, Bit16u x2, Bit16u y2, Bit8u a5)//271164
 v23 ?
 
+BLOCK32DAT_BEGIN_BUFFER
+xadatablock32dat
+sub_5B7A0_prepare_textures()
 
+test void sub_5B7A0_prepare_textures()
