@@ -1166,7 +1166,7 @@ typedef struct {//lenght 0x6604u
 	type_str_0x6E8E* dword_2FECE;//D41A0_BYTESTR_0.str_2FECE.dword_2FECE
 	Bit8u byte_0x2FED2;//x_D41A0_BYTEARRAY_0[196306] // type of level graphics
 	Bit8u stuba[1];
-	Bit8u byte_0x2FED4;//x_D41A0_BYTEARRAY_0[196308]
+	Bit8u byte_0x2FED4;//x_D41A0_BYTEARRAY_0[196308]//GraphicsType
 	Bit16s word_0x2FED5;
 	Bit16s word_0x2FED7;
 	Bit8s array_0x2FED9[8];
