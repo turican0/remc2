@@ -6857,3 +6857,5 @@ signed int sub_13850(type_str_0x6E8E* a1x)//1f4850
 signed int sub_12910(type_str_0x6E8E* a1x)//1f3910
 
 fix water
+
+add adress 0x2311d0
