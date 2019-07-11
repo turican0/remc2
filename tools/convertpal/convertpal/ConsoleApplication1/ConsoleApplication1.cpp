@@ -5,12 +5,12 @@
 /* run this program using the console pauser or add your own getch, system("pause") or input loop */
 
 int main(int argc, char* argv[]) {
-	const char* standartpal_filename = "c:\\prenos\\remc2\\tools\\palletelight\\Debug\\\out.pal";
-	const char* atyppal_filename = "c:\\prenos\\remc2\\biggraphics\\out_rlt-ff.data.pal";
+	const char* standartpal_filename = "c:\\prenos\\remc2\\tools\\palletelight\\Debug\\\out-d.pal";
+	const char* atyppal_filename = "c:\\prenos\\remc2\\Debug\\biggraphics\\out_rlt-ff.data.pal";
 	//const char* data_filename = "c:\\prenos\\remc2\\biggraphics\\out_rlt-ff-rgb.data";
-	const char* data_filename = "c:\\prenos\\remc2\\biggraphics\\out_rlt-n.data";
+	const char* data_filename = "c:\\prenos\\remc2\\Debug\\biggraphics\\block32-src.data";
 	//const char* data_filename = "c:\\prenos\\remc2\\biggraphics\\test.data";
-	const char* outdata_filename = "c:\\prenos\\remc2\\biggraphics\\out_rlt-n-out.data";
+	const char* outdata_filename = "c:\\prenos\\remc2\\Debug\\biggraphics\\block128.data";
 
 	FILE* fptr_stdpal;
 	fopen_s(&fptr_stdpal, standartpal_filename, "rb");

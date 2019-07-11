@@ -27,7 +27,7 @@ int myclose(FILE* descriptor);
 Bit32s mylseek(FILE* filedesc, x_DWORD position, char type);
 Bit32s myfseek(FILE* filedesc, x_DWORD position, char type);
 
-void AdvReadfile(const char* path, Bit8u** buffer);
+void AdvReadfile(const char* path, Bit8u* buffer);
 
 long myftell(FILE* decriptor);
 

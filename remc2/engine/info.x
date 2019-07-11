@@ -6839,3 +6839,21 @@ v1124
 
 v3[2] - v5[2]
 v3[3] - v5[3]
+
+(Bit8u*)&D41A0_BYTESTR_0+0x315a 0x04
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x315a 0x03
+0x356038 +0x315a
+
+20ed51
+20d2f9 - void sub_2D710_draw_top_menu(type_str_0x6E8E* a1x)//20e710
+
+if (v2x > x_DWORD_EA3E4[0] && v2x->dword_0x10_16)
+
+type_str_0x6E8E* sub_146C0(type_str_0x6E8E* a1x, unsigned __int8 a2)//1f56c0
+type_str_0x6E8E* sub_15760(type_str_0x6E8E* a1x, unsigned __int8 a2)//1f6760
+char sub_15790(type_str_0x6E8E* a1x)//1f6790
+signed int sub_13890(type_str_0x6E8E* a1x)//1f4890
+signed int sub_13850(type_str_0x6E8E* a1x)//1f4850
+signed int sub_12910(type_str_0x6E8E* a1x)//1f3910
+
+fix water

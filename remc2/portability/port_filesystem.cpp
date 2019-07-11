@@ -409,15 +409,26 @@ unsigned __int64 dos_getdiskfree(__int16 a1, __int16 a2, Bit8u a, short* b) {
 	*/
 };
 
-void AdvReadfile(const char* path, Bit8u** buffer) {
-	FILE* file;
+void AdvReadfile(const char* path, Bit8u* buffer) {
+
+	
+	char pathexe[512] = "\0";
+	get_exe_path(pathexe);
 	char path2[512];
-	sprintf(path2,"../../remc2/Debug/%s",path);
+	sprintf(path2, "%s/%s", pathexe, path);
+	/*
+	FILE* file0;
+	fopen_s(&file0, path2, (char*)"wb");
+	char x = 1;
+	fwrite(&x, 1, 1, file0);
+	myclose(file0);
+	*/
+	FILE* file;
 	//fopen_s(&file, (char*)"c:\\prenos\\remc2\\biggraphics\\out_rlt-n-out.data", (char*)"rb");
 	fopen_s(&file, path2, (char*)"rb");
 	fseek(file, 0L, SEEK_END);
 	long szdata = ftell(file);
 	fseek(file, 0L, SEEK_SET);
-	fread(*buffer, szdata, 1, file);
+	fread(buffer, szdata, 1, file);
 	myclose(file);
 };
