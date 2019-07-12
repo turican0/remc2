@@ -2,15 +2,22 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define level1
+//#define level2
 /* run this program using the console pauser or add your own getch, system("pause") or input loop */
 
 int main(int argc, char* argv[]) {
-	const char* standartpal_filename = "c:\\prenos\\remc2\\tools\\palletelight\\Debug\\\out-d.pal";
-	const char* atyppal_filename = "c:\\prenos\\remc2\\Debug\\biggraphics\\out_rlt-ff.data.pal";
-	//const char* data_filename = "c:\\prenos\\remc2\\biggraphics\\out_rlt-ff-rgb.data";
+#ifdef level1
+	const char* standartpal_filename = "c:\\prenos\\remc2\\tools\\palletelight\\Debug\\\out-n.pal";
+	const char* data_filename = "c:\\prenos\\remc2\\Debug\\biggraphics\\bl32n0-0-src.data";
+	const char* outdata_filename = "c:\\prenos\\remc2\\Debug\\biggraphics\\bl128n0-0.data";
+#endif level1
+#ifdef level2
+	const char* standartpal_filename = "c:\\prenos\\remc2\\tools\\palletelight\\Debug\\\out-bl.pal";
 	const char* data_filename = "c:\\prenos\\remc2\\Debug\\biggraphics\\block32-src.data";
-	//const char* data_filename = "c:\\prenos\\remc2\\biggraphics\\test.data";
 	const char* outdata_filename = "c:\\prenos\\remc2\\Debug\\biggraphics\\block128.data";
+#endif level2
+
 
 	FILE* fptr_stdpal;
 	fopen_s(&fptr_stdpal, standartpal_filename, "rb");
@@ -20,7 +27,7 @@ int main(int argc, char* argv[]) {
 	unsigned char* content_stdpal = (unsigned char*)malloc(szstd * sizeof(char*));
 	fread(content_stdpal, szstd, 1, fptr_stdpal);
 	fclose(fptr_stdpal);
-
+	/*
 	FILE* fptr_atyppal;
 	fopen_s(&fptr_atyppal, atyppal_filename, "rb");
 	fseek(fptr_atyppal, 0L, SEEK_END);
@@ -46,7 +53,7 @@ int main(int argc, char* argv[]) {
 				index2[j] = i;
 			}
 		}
-
+		*/
 	FILE* fptr_data;
 	fopen_s(&fptr_data, data_filename, "rb");
 	fseek(fptr_data, 0L, SEEK_END);
@@ -64,12 +71,27 @@ int main(int argc, char* argv[]) {
 	{
 		int best = 1000;
 		unsigned char x = 0;
+
+		int xindex = (i/128) % 2;
+		int yindex = i / (128 * 128 * 2);
+		int tileindex = yindex * 2 + xindex;
+
 		for (int j = 0; j < szstd / 3; j++)
 		{
 			int score = 0;
 			score += abs(content_data[i * 3 + 0] - content_stdpal[j * 3 + 0]);
 			score += abs(content_data[i * 3 + 1] - content_stdpal[j * 3 + 1]);
 			score += abs(content_data[i * 3 + 2] - content_stdpal[j * 3 + 2]);
+			#ifdef level1
+						if ((tileindex == 0) && (j != 0) && (j != 1) && (j != 2) && (j != 3) && (j != 4))
+							continue;
+			#endif level1
+			#ifdef level2
+						if ((tileindex == 0) && (j != 1) && (j != 2))
+							continue;
+			#endif level2
+			if ((tileindex == 0) && (j != 1) && (j != 2))
+				continue;
 			if (score < best)
 			{
 				best = score;

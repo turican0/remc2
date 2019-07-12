@@ -13,6 +13,8 @@
 //#include <ctype.h>
 
 extern char gamepath[512];
+extern char bigtexturepath[512];
+
 
 long my_findfirst(char* path, _finddata_t* c_file);
 long my_findnext(long hFile, _finddata_t* c_file);
@@ -28,6 +30,7 @@ Bit32s mylseek(FILE* filedesc, x_DWORD position, char type);
 Bit32s myfseek(FILE* filedesc, x_DWORD position, char type);
 
 void AdvReadfile(const char* path, Bit8u* buffer);
+void ReadGraphicsfile(const char* path, Bit8u* buffer);
 
 long myftell(FILE* decriptor);
 

@@ -28,6 +28,7 @@ typedef struct
 	return 1;
 }*/
 int config_skip_screen;
+int texturepixels;
 void readini(char* filename) {
 	/*configuration config;
 
@@ -69,6 +70,11 @@ void readini(char* filename) {
 		oggmusicalternative = false;
 	std::string readstr = reader.GetString("sound", "oggmusicpath", "");
 	strcpy(oggmusicpath, (char*)readstr.c_str());
+
+	std::string readstr3 = reader.GetString("graphics", "bigtexturepath", "");
+	strcpy(bigtexturepath, (char*)readstr3.c_str());
+
+	texturepixels=reader.GetInteger("graphics", "texturepixels", 32);
 
 	std::string readstr2 = reader.GetString("main", "gamepath", "");
 	strcpy((char*)gamepath, (char*)readstr2.c_str());

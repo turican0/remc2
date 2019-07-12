@@ -6859,3 +6859,8 @@ signed int sub_12910(type_str_0x6E8E* a1x)//1f3910
 fix water
 
 add adress 0x2311d0
+
+test
+v1 = (a1x->dword_0x8C_140 - (__CFSHL__(a1x->dword_0x8C_140 >> 31, 2) + 4 * (a1x->dword_0x8C_140 >> 31))) >> 2;
+
+get x_BYTE_E29EC by cpuid
