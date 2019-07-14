@@ -71,8 +71,8 @@ void readini(char* filename) {
 	std::string readstr = reader.GetString("sound", "oggmusicpath", "");
 	strcpy(oggmusicpath, (char*)readstr.c_str());
 
-	std::string readstr3 = reader.GetString("graphics", "bigtexturepath", "");
-	strcpy(bigtexturepath, (char*)readstr3.c_str());
+	std::string readstr3 = reader.GetString("graphics", "biggraphicspath", "");
+	strcpy(biggraphicspath, (char*)readstr3.c_str());
 
 	texturepixels=reader.GetInteger("graphics", "texturepixels", 32);
 

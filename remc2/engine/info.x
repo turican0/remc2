@@ -6864,3 +6864,93 @@ test
 v1 = (a1x->dword_0x8C_140 - (__CFSHL__(a1x->dword_0x8C_140 >> 31, 2) + 4 * (a1x->dword_0x8C_140 >> 31))) >> 2;
 
 get x_BYTE_E29EC by cpuid
+
+procedure 12062 - 22fa20
+
+2311d0
+
+sub_55080(0, x_D41A0_BYTEARRAY_4_struct.levelnumber_43w,(char*)"")
+
+D41A0_BYTESTR_0.dword_0x36DF6 = (Bit32u)&unk_D7BD6[0x7d6];
+
+x_DWORD_EA3E4[0x18]->dword_0xA4_164x->word_0x242_578 - nelze precist
+
+(Bit8u*)&D41A0_BYTESTR_0+0x315a 0x04
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x315a 0x03
+0x356038 +0x315a
+
+250d3f
+void sub_6FDA0()//fix//250da0
+
+void sub_2D710_draw_top_menu(type_str_0x6E8E* a1x)//20e710
+x_DWORD_F01E8(v12, 2, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[41]);
+
+279882
+int sub_53E60_readfile_and_decompress(const char* path, Bit8u** a2)//234E60
+234e8f - call 2798a7
+
+call 250d3f
+
+20ed51
+
+void sub_2D710_draw_top_menu(type_str_0x6E8E* a1x)//20e710
+
+0x356038 +0x315a
+
+a1x->dword_0xA4_164x->byte_0x195_405
+x_DWORD_EA3E4[D41A0_BYTESTR_0.array_0x2BDE[D41A0_BYTESTR_0.word_0xc].word_0x00a_2BE4_11240]->dword_0xA4_164x
+je
+(Bit8u*)&D41A0_BYTESTR_0+0x315a
+
+byte_0x196_406
+a1x->dword_0xA4_164x->byte_0x196_406
+
+ (Bit8u*)&x_WORD_15B4E0+0x24de 0xb5
+ x_WORD_15B4E0+0x24de 0x00
+
+ debugcounter_238730==0x2e
+
+  (Bit8u*)&x_WORD_15B4E0+0xebb2 0x0
+ x_WORD_15B4E0+0xebb2 0x86
+ 32c4e0+0xebb2 0x86
+ 238e3c - void sub_57D70_clean_event(type_str_0x6E8E* a1x, axis_3d* a2x)//238d70 // register object on axis
+ 238d18 - void sub_57CF0(type_str_0x6E8E* a1x, axis_3d* a2x)//238cf0
+ 2413bc - int sub_5FF50(type_str_0x6E8E* a1x)//240f50
+
+ (Bit8u*)&D41A0_BYTESTR_0+0x2fe8 0xba
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x2fe8 0xb8
+0x356038 +0x2fe8
+
+ (Bit8u*)&D41A0_BYTESTR_0+0x7e3a 0x74
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x7e3a 0x01
+0x356038 +0x7e3a
+
+23f638
+
+void sub_5E310_multiplayer_test_die(type_str_0x6E8E* a1x)//23f310
+
+ (Bit8u*)&D41A0_BYTESTR_0+0xb782 0x17
+(Bit8u*)x_D41A0_BYTEARRAY_0+0xb782 0x16
+0x356038 +0xb782
+
+(Bit8u*)&D41A0_BYTESTR_0+0x6f82 0x36
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x6f82 0x48
+0x356038 +0x6f82
+
+void sub_57D70_clean_event(type_str_0x6E8E* a1x, axis_3d* a2x)//238d70 // register object on axis
+type_str_0x6E8E* sub_501D0(axis_3d* a1x)//2311d0
+
+adress 2bc398
+x_WORD_EB398ar = a1x->array_0x4C_76;
+
+v113x->dword_0xA4_164x->word_0x4_4 = ((v100x - ((v100x>>31) << 2)) - cftemp) >> 2;
+		//v113x->dword_0xA4_164x->word_0x4_4 = (signed int)(v100 - (__CFSHL__(HIDWORD(v100), 2) + 4 * HIDWORD(v100))) >> 2;
+		//v101 = v113x->dword_0xA4_164;
+		v102x = 2 * D41A0_BYTESTR_0.array_0x6E3E[v114x].str_0x6E3E_byte4 - v113x->dword_0xA4_164x->word_0x157_343;
+		cftemp = 0;
+		if ((v102x >> 30) & 1)cftemp = 1;
+		v102x = ((v102x - ((v102x >> 31) << 2)) - cftemp) >> 2;
+		//LODWORD(v102) = (signed int)(v102 - (__CFSHL__(HIDWORD(v102), 2) + 4 * HIDWORD(v102))) >> 2;
+
+		a1x->word_0x1C_28 = (a1x->word_0x1C_28 + ((v7 - (__CFSHL__(v7 >> 31, 3) + 8 * (v7 >> 31))) >> 3)) & 0x7FF;
+	//a1x->word_0x1C_28 = (a1x->word_0x1C_28 + (v7 - (my_sign(v7) * 7)) >> 3) & 0x7FF;

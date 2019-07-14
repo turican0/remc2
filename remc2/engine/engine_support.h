@@ -1431,8 +1431,8 @@ type_str_0x218A_settings;
 
 typedef struct {//lenght 0x36e16	
 	Bit8u stub0[4];
-	Bit32s dword_0x4;
-	Bit32s dword_0x8;
+	Bit32u dword_0x4;
+	Bit32u dword_0x8;
 
 	Bit16s word_0xc;//player_index?
 	Bit16s word_0xe;

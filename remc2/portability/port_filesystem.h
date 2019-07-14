@@ -13,7 +13,7 @@
 //#include <ctype.h>
 
 extern char gamepath[512];
-extern char bigtexturepath[512];
+extern char biggraphicspath[512];
 
 
 long my_findfirst(char* path, _finddata_t* c_file);
