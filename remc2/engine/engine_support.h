@@ -6,7 +6,10 @@
 
 #include "png.h"
 #pragma comment(lib, "zlib.lib") // must be before libpng!
+#ifndef _WIN64
 #pragma comment(lib, "libpng15.lib") // must be after zlib!
+#else
+#endif
 
 #include"../portability/port_time.h"
 

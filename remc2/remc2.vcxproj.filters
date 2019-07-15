@@ -588,5 +588,11 @@
     <Library Include="..\libpng2\libpng-master\projects\vstudio2017\Debug\libpng15.lib">
       <Filter>Zdrojové soubory\libs\libpng</Filter>
     </Library>
+    <Library Include="..\libpng3\lib\libpng16_static.lib">
+      <Filter>Zdrojové soubory\libs\libpng</Filter>
+    </Library>
+    <Library Include="..\zlib-64\lib\zlib.lib">
+      <Filter>Zdrojové soubory\libs\libpng</Filter>
+    </Library>
   </ItemGroup>
 </Project>
