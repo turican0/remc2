@@ -6960,3 +6960,16 @@ v113x->dword_0xA4_164x->word_0x4_4 = ((v100x - ((v100x>>31) << 2)) - cftemp) >> 
 	void sub_3E360_draw_particles(Bit8u* a1, Bit8u* a2)//21f360
 	TMAPS00TAB_BEGIN_BUFFER
 	sub_70C60_decompress_tmap
+
+	step 8
+(Bit8u*)&x_WORD_15B4E0+0xebba 0x7c
+ x_WORD_15B4E0+0xebba 0
+ 32c4e0+0xebba 0
+
+ 238ec4
+ 238d0e void sub_57E50(type_str_0x6E8E* a1x)//238e50
+ 2053d8 void sub_57CF0(type_str_0x6E8E* a1x, axis_3d* a2x)//238cf0
+
+
+
+ void sub_1F3C0(type_str_0x6E8E* a1x)//2003c0
