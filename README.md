@@ -27,6 +27,10 @@ simple dev blog:https://github.com/turican0/remc2/wiki<br />
 <h3>MILLSTONE 1</h3><br />
 -Can Play whole First level same as in original in 320x200<br />
 <br />
+## 0.46:<br />
+-second level mosty playable(can not finish, and next minor bugs)<br />
+-added 128x128 textures(any water tiles not cleaned now)<br />
+<br />
 ## 0.45:<br />
 -fix many differents in dword_0xA4_164 structure<br />
 -fix many loading problem<br />
