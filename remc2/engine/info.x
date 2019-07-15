@@ -6954,3 +6954,9 @@ v113x->dword_0xA4_164x->word_0x4_4 = ((v100x - ((v100x>>31) << 2)) - cftemp) >> 
 
 		a1x->word_0x1C_28 = (a1x->word_0x1C_28 + ((v7 - (__CFSHL__(v7 >> 31, 3) + 8 * (v7 >> 31))) >> 3)) & 0x7FF;
 	//a1x->word_0x1C_28 = (a1x->word_0x1C_28 + (v7 - (my_sign(v7) * 7)) >> 3) & 0x7FF;
+
+	x_BYTE_1806E4==0x13
+
+	void sub_3E360_draw_particles(Bit8u* a1, Bit8u* a2)//21f360
+	TMAPS00TAB_BEGIN_BUFFER
+	sub_70C60_decompress_tmap
