@@ -6973,3 +6973,5 @@ v113x->dword_0xA4_164x->word_0x4_4 = ((v100x - ((v100x>>31) << 2)) - cftemp) >> 
 
 
  void sub_1F3C0(type_str_0x6E8E* a1x)//2003c0
+
+ void sub_7DD70()//25ed70
