@@ -625,7 +625,7 @@ typedef struct {//lenght 2124=0x84C
 	Bit8u byte_0x017_2BE0_11253_xx;//23	
 	Bit32s dword_0x018_2BDE_11254; //24 //pointer
 	char array_0x01c_2BFA_11258[49];//28//11258 - byte* jmeno2?
-	Bit16u word_0x04d_2C2B_11307;//77 //11307 - word
+	Bit16s word_0x04d_2C2B_11307;//77 //11307 - word
 	Bit16u word_0x04f_2C2D_11309;//79 //11309 - word
 	char names_81[8][48];//81 ?8
 	//Bit8u stub2[384];

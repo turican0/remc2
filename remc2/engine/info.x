@@ -6975,3 +6975,47 @@ v113x->dword_0xA4_164x->word_0x4_4 = ((v100x - ((v100x>>31) << 2)) - cftemp) >> 
  void sub_1F3C0(type_str_0x6E8E* a1x)//2003c0
 
  void sub_7DD70()//25ed70
+
+(Bit8u*)&D41A0_BYTESTR_0+0x3479 0x1
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x3479 0x0
+0x356038 +0x3479
+
+20e15c
+20d35a - void sub_2CE30_pause_end_level(int a1, int a2)//20de30
+
+x_DWORD_180628b_screen_buffer+0x5806 0xb3
+0x3aa0a4+0x5806 0x6c
+
+b3 - bitmap final
+
+ad
+6c 20fb25
+int sub_2E790(__int16 a1, int a2, int a3, int a4, unsigned __int8 a5)//20f790
+
+(Bit8u*)&x_BYTE_10B4E0+0x62 46
+versus
+2dc4e0+0x62 02
+
+ (Bit8u*)&x_WORD_15B4E0+0x1313a 0xec
+ x_WORD_15B4E0+0x1313a 0x1d
+ 32c4e0+0x1313a 0x00
+
+ fc -ok
+ ec
+
+ 1d - 238e3c
+ 22fb22 -void sub_57D70_clean_event(type_str_0x6E8E* a1x, axis_3d* a2x)//238d70 // register object on axis
+ 22fa13 - type_str_0x6E8E* sub_4EAA0(axis_3d* a1x, char a2, char a3, __int16 a4, int a5)//22faa0
+ 2134b3 - type_str_0x6E8E* sub_4E9E0(axis_3d* a1x)//22f9e0
+ 2133e7 - void sub_32420(type_str_0x6E8E* a1x)//213420
+
+ step 0x18e
+ (Bit8u*)&x_WORD_15B4E0+0x1860e 0x00
+ x_WORD_15B4E0+0x1860e 0x2f
+ 32c4e0+0x1860e 0x00
+
+ 238e3c
+ 238d18 void sub_57D70_clean_event(type_str_0x6E8E* a1x, axis_3d* a2x)//238d70 // register object on axis
+ 240f05 void sub_57CF0(type_str_0x6E8E* a1x, axis_3d* a2x)//238cf0
+
+ debugcounter_238CF0 ==0xfd
