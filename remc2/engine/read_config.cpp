@@ -29,6 +29,7 @@ typedef struct
 }*/
 int config_skip_screen;
 int texturepixels;
+bool res640x480 = false;
 void readini(char* filename) {
 	/*configuration config;
 
@@ -70,6 +71,10 @@ void readini(char* filename) {
 		oggmusicalternative = false;
 	std::string readstr = reader.GetString("sound", "oggmusicpath", "");
 	strcpy(oggmusicpath, (char*)readstr.c_str());
+
+	std::string readstrgd = reader.GetString("graphics", "defaultresolution", "");
+	if(!strcmp("640x480", (char*)readstrgd.c_str()))
+		res640x480=true;
 
 	std::string readstr3 = reader.GetString("graphics", "biggraphicspath", "");
 	strcpy(biggraphicspath, (char*)readstr3.c_str());

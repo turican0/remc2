@@ -27,8 +27,10 @@ void pathfix(char* path, char* path2)
 	std::string::size_type pos = std::string(locstr).find_last_of("\\/");
 	std::string strpathx = std::string(locstr).substr(0, pos)/*+"\\system.exe"*/;
 	char* pathx = (char*)strpathx.c_str();
+
 	sprintf(fixsoundout, "%s\\%s", pathx, fixsound);
 	sprintf(gamepathout, "%s\\%s", pathx, gamepath);
+	
 
 	if ((path[0] == 'c') || (path[0] == 'C'))
 	{

@@ -24,5 +24,6 @@
 void readini(char* filename);
 extern int config_skip_screen;
 extern int texturepixels;
+extern bool res640x480;
 
 #endif //READ_CONFIG
