@@ -6974,7 +6974,9 @@ v113x->dword_0xA4_164x->word_0x4_4 = ((v100x - ((v100x>>31) << 2)) - cftemp) >> 
 
  void sub_1F3C0(type_str_0x6E8E* a1x)//2003c0
 
- void sub_7DD70()//25ed70
+ void sub_7DD70()//25ed70 - must rewrite
+ sub_81CA0 - must rewrite
+ void sub_56C00_sound_proc2(int a1)//237c00 - must rewrite
 
 (Bit8u*)&D41A0_BYTESTR_0+0x3479 0x1
 (Bit8u*)x_D41A0_BYTEARRAY_0+0x3479 0x0
@@ -7019,3 +7021,4 @@ versus
  240f05 void sub_57CF0(type_str_0x6E8E* a1x, axis_3d* a2x)//238cf0
 
  debugcounter_238CF0 ==0xfd
+

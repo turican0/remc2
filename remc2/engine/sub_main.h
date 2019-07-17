@@ -192,6 +192,25 @@ typedef struct {
 	Bit8s byte_11;//last sprite
 }type_str_unk_E1748;
 
+typedef struct {//lenght 30
+	Bit32s dword_0;
+	Bit32s dword_4;
+	Bit16s word_8;
+	Bit16s word_10;
+	Bit16s word_12;
+	Bit16s word_14;
+	Bit16s word_16;
+	Bit16s word_18;
+	Bit8s byte_20;
+	Bit8s byte_21;
+	Bit16s word_22;
+	Bit16s word_24;
+	Bit8s byte_26;
+	Bit8s stuba[1];
+	Bit8s byte_28;
+	Bit8s stubb[1];
+} type_x_BYTE_E25ED_db_str;
+
 
 
 
@@ -269,7 +288,7 @@ unsigned short __readgsx_WORD(unsigned long Offset);
 //int /*__fastcall*/ _wcpp_1_unwind_leave__131(x_DWORD);// weak
 void sub_7AB00_draw_menu_animations(/*__int16 a1,*/ /*int a2,*/ /*type_str_unk_E1748* a3,*/ unsigned __int8 a4);
 int sub_7F6A0(int a1, int a2, __int16 a3, __int16 a4, char *a5, x_BYTE *a6, unsigned __int8 a7);
-unsigned int sub_81CA0(int a1, int a2, __int16 a3, __int16 a4, int a5);
+unsigned int sub_81CA0(int a1, int a2, __int16 a3, __int16 a4, type_x_BYTE_E25ED_db_str* a5);
 signed int sub_7E5A0_pre_draw(int a1, int a2, __int16 a3, __int16 a4, Bit8u* a5, __int16 a6, __int16 a7);
 void sub_81260(int a1, int a2, Bit8s* a3, __int16 a4, __int16 a5);
 void sub_82510(/*__int16 a1*//*, int *a2*/);
