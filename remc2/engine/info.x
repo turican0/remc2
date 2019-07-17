@@ -7019,6 +7019,24 @@ versus
  238e3c
  238d18 void sub_57D70_clean_event(type_str_0x6E8E* a1x, axis_3d* a2x)//238d70 // register object on axis
  240f05 void sub_57CF0(type_str_0x6E8E* a1x, axis_3d* a2x)//238cf0
+ 24095c void sub_5FD00(type_str_0x6E8E* a1x)//240d00
 
  debugcounter_238CF0 ==0xfd
+
+ 
+ (Bit8u*)&x_WORD_15B4E0+0x1a02c 0xec
+ x_WORD_15B4E0+0x1a02c 0x43
+ 32c4e0+0x1a02c 0x00
+ 
+ 238e3c void sub_57D70_clean_event(type_str_0x6E8E* a1x, axis_3d* a2x)//238d70 // register object on axis
+ 231110 type_str_0x6E8E* sub_500C0(axis_3d* a1x, __int16 a2)//2310c0
+ 23108c
+
+ 36a2d2 test
+
+ f0b9 - first 250d3f
+ 0000 - 27e224
+ 46f7 - 22b17f
+ type_str_0x6E8E* sub_4A050_new_event()//22b050
+ type_str_0x6E8E* sub_500C0(axis_3d* a1x, __int16 a2)//2310c0
 
