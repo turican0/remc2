@@ -538,7 +538,8 @@ void convert_struct_to_array_0x3647Ac(type_str_0x3647Ac* input, Bit8u* output) {
 
 void convert_struct_to_array_2FECE(type_str_2FECE* input, Bit8u* output) {//lenght 6604
 	//type_str_0x6E8E* dword_2FECE;//D41A0_BYTESTR_0.str_2FECE.dword_2FECE
-	memcpy(output + 0, &input->dword_2FECE, 4);
+	memcpy(output + 0, &input->word_2FECE, 2);
+	memcpy(output + 2, &input->word_2FED0, 2);
 	//Bit8u byte_0x2FED2;//x_D41A0_BYTEARRAY_0[196306] // type of level graphics//4
 	memcpy(output + 4, &input->byte_0x2FED2, 1);//0xa8
 	//Bit8u stuba[1];//5

@@ -7049,3 +7049,5 @@ x_DWORD_180628b_screen_buffer+0x153a0 0x92
 
 //test removing sub_917D0(/*v3*/);
 
+fix int sub_71E70(int a1, unsigned int a2, __int16 a3)//252e70
+

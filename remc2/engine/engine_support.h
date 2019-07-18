@@ -1166,9 +1166,11 @@ type_str_0x36442;
 
 typedef struct {//lenght 0x6604u
 		//podpolozky
-	type_str_0x6E8E* dword_2FECE;//D41A0_BYTESTR_0.str_2FECE.dword_2FECE
+	//type_str_0x6E8E* dword_2FECE;//D41A0_BYTESTR_0.str_2FECE.dword_2FECE
+	Bit16u word_2FECE;
+	Bit16u word_2FED0;
 	Bit8u byte_0x2FED2;//x_D41A0_BYTEARRAY_0[196306] // type of level graphics
-	Bit8u stuba[1];
+	Bit8u byte_0x2FED3;
 	Bit8u byte_0x2FED4;//x_D41A0_BYTEARRAY_0[196308]//GraphicsType
 	Bit16s word_0x2FED5;
 	Bit16s word_0x2FED7;
