@@ -7051,3 +7051,5 @@ x_DWORD_180628b_screen_buffer+0x153a0 0x92
 
 fix int sub_71E70(int a1, unsigned int a2, __int16 a3)//252e70
 
+x_DWORD_E9C28 -rewrite
+
