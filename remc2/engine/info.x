@@ -7053,3 +7053,55 @@ fix int sub_71E70(int a1, unsigned int a2, __int16 a3)//252e70
 
 x_DWORD_E9C28 -rewrite
 
+
+remake:
+1:
+D41A0_BYTESTR_0.pointers_0x246[v0] =190ee46
+D41A0_BYTESTR_0.struct_0x6E8E =1901f8e
+D41A0_BYTESTR_0.dword_0x8 =83dcbcc7
+D41A0_BYTESTR_0.pointers_0x246[v0]->word_0x14_20 be02 13b
+ok
+
+2:
+D41A0_BYTESTR_0.pointers_0x246[v0] =190f03e
+D41A0_BYTESTR_0.struct_0x6E8E =1901f8e
+D41A0_BYTESTR_0.dword_0x8 =f85eda06
+D41A0_BYTESTR_0.pointers_0x246[v0]->word_0x14_20 db44 13e
+ok 13e
+
+3:
+D41A0_BYTESTR_0.pointers_0x246[v0] =190f0e6
+D41A0_BYTESTR_0.struct_0x6E8E =1901f8e
+D41A0_BYTESTR_0.dword_0x8 =8a501aa5
+D41A0_BYTESTR_0.pointers_0x246[v0]->word_0x14_20 1be4 13f
+ok 13f
+
+4:
+D41A0_BYTESTR_0.pointers_0x246[v0] =190f18e
+D41A0_BYTESTR_0.struct_0x6E8E =1901f8e
+D41A0_BYTESTR_0.dword_0x8 =40201aa4
+D41A0_BYTESTR_0.pointers_0x246[v0]->word_0x14_20 1be4 140
+ok 140
+
+void sub_5FD00(type_str_0x6E8E* a1x)//240d00
+
+190xx
+5:
+D41A0_BYTESTR_0.pointers_0x246[v0] =190ba6e - rozdil ec
+D41A0_BYTESTR_0.struct_0x6E8E =1901f8e
+D41A0_BYTESTR_0.dword_0x8 =d7eff603
+D41A0_BYTESTR_0.pointers_0x246[v0]->word_0x14_20 f6ef ec
+ne f746 143
+
+D41A0_BYTESTR_0.pointers_0x246[0x295] - D41A0_BYTESTR_0.struct_0x6E8E
+
+(Bit8u*)&D41A0_BYTESTR_0+0x142b3 0xfe
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x142b3 0x0
+0x356038 +0x142b3
+
+
+x_BYTE_13B4E0+0xe683(0x15)
+versus
+0x30c4e0+0xe683(0x35)
+
+sub_46570 - step 1
