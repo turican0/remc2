@@ -7047,3 +7047,5 @@ step1
 x_DWORD_180628b_screen_buffer+0x153a0 0x92
 0x3aa0a4+0x153a0 0x19
 
+//test removing sub_917D0(/*v3*/);
+
