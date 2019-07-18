@@ -7040,3 +7040,10 @@ versus
  type_str_0x6E8E* sub_4A050_new_event()//22b050
  type_str_0x6E8E* sub_500C0(axis_3d* a1x, __int16 a2)//2310c0
 
+x_DWORD_180628b_screen_buffer+0x16527 0x30
+0x3aa0a4+0x16527 0x92
+
+step1
+x_DWORD_180628b_screen_buffer+0x153a0 0x92
+0x3aa0a4+0x153a0 0x19
+

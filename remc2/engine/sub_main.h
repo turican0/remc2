@@ -183,6 +183,7 @@ extern x_WORD __SS__;
 
 extern char IsTable[];
 
+#pragma pack (1)
 typedef struct {
 	Bit32s dword_0;
 	Bit16s word_4;
@@ -210,7 +211,7 @@ typedef struct {//lenght 30
 	Bit8s byte_28;
 	Bit8s stubb[1];
 } type_x_BYTE_E25ED_db_str;
-
+#pragma pack (16)
 
 
 
