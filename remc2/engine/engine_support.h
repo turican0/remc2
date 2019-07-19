@@ -697,6 +697,20 @@ typedef struct {//lenght 2124=0x84C
 	//Bit8u stub5[17];
 } type_str_0x2BDE;//11230 // 84c lenght
 
+
+typedef struct {//size 26
+	Bit32s dword_0;
+	Bit32s dword_4;
+	Bit8u* dword_8_data;
+	Bit32u* dword_12x;//Bit32u*
+	Bit32u* dword_16x;//Bit32u*
+	Bit16s word_20;
+	Bit16s word_22;
+	Bit16s word_24;
+	Bit8u data[];
+	//Bit32u dword_26;
+} type_x_DWORD_E9C28_str;
+
 typedef struct {
 	//Bit8u harddisk_number;
 

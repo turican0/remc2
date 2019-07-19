@@ -7105,3 +7105,5 @@ versus
 0x30c4e0+0xe683(0x35)
 
 sub_46570 - step 1
+
+pointer_0xE2_heapbuffer_226
