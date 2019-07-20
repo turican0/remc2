@@ -7107,3 +7107,67 @@ versus
 sub_46570 - step 1
 
 pointer_0xE2_heapbuffer_226
+
+x_BYTE_10B4E0+0xdb85 0x1b
+versus
+2dc4e0+0xdb85 0x1a
+
+2818ac
+2798bf call 281863
+23694a size_t sub_988A7_read(FILE* a1, Bit8u* a2, int a3)//2798a7
+23663b bool sub_558E0_InGameLoad(Bit8u fileindex)//2368e0
+1faf9b
+
+367afc
+240bf7
+void sub_5FBD0(type_str_0x6E8E* a1x)//240bd0
+
+(Bit8u*)&D41A0_BYTESTR_0+0x11ad3 0x35
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x11ad3 0x15
+0x356038 +0x11ad3
+
+(Bit8u*)&D41A0_BYTESTR_0+0x36dec 0x2c
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x36dec 0x22 
+0x356038 +0x36dec
+
+
+x_BYTE_10B4E0+0x18a 58
+versus
+2dc4e0+0x18a 39
+
+x_BYTE_10B4E0+0x36dec 22
+versus
+2dc4e0+0x36dec 1e
+
+(Bit8u*)&D41A0_BYTESTR_0+0xd50b 0
+(Bit8u*)x_D41A0_BYTEARRAY_0+0xd50b 6
+0x356038 +0xd50b
+
+250d3f 4
+205280 6
+
+problem
+unsigned int sub_10080(int a1, int a2)//1f1080
+make zero pointer
+
+(Bit8u*)&D41A0_BYTESTR_0+0x14567 36
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x14567 16
+0x356038 +0x14567
+
+(Bit8u*)&D41A0_BYTESTR_0+0x3119 fe
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x3119 ff
+0x356038 +0x3119
+
+(Bit8u*)&D41A0_BYTESTR_0+0x36df0 0x1c
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x36df0 0x1b
+0x356038 +0x36df0
+
+sub_3E360
+test
+x_DWORD_F2C20ar[0x14]
+
+&x_DWORD_F2C20ar[0x14]
+
+(Bit8u*)&D41A0_BYTESTR_0+0x11cd0 0xff
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x11cd0 0xea
+0x356038 +0x11cd0
