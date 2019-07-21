@@ -24,7 +24,7 @@ simple dev blog:https://github.com/turican0/remc2/wiki<br />
 <h3>MILLSTONE 2</h3><br />
 -Change basic arrays to structures<br />
 -Fix Load and Save game<br />
-<h3>MILLSTONE 1</h3><br />
+<h3>MILLSTONE 1 - PASSED</h3><br />
 -Can Play whole First level same as in original in 320x200<br />
 <br />
 ## 0.46:<br />
