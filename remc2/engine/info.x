@@ -7171,3 +7171,53 @@ x_DWORD_F2C20ar[0x14]
 (Bit8u*)&D41A0_BYTESTR_0+0x11cd0 0xff
 (Bit8u*)x_D41A0_BYTEARRAY_0+0x11cd0 0xea
 0x356038 +0x11cd0
+
+step 0x88
+x_DWORD_180628b_screen_buffer+0x0 0x24
+ 0x3aa0a4+0x0 0xa8
+
+ a8
+ fe - particles - memset32(v25x, v32, v30*4);
+ 24 - triangle
+
+ a8
+ fefefefe
+ a8a8a8a8
+ 299a1f void /*__spoils<ecx>*/ sub_B6253_draw_triangle(x_DWORD *a1, x_DWORD *a2, x_DWORD *a3)//297253
+
+ 0x14896
+
+ x_DWORD_E9C3C - neni nastaveno
+
+ x_DWORD_DE558
+ versus
+ 2af558->82fa14
+
+ x_DWORD_E9C38_smalltit
+ versus
+ 2bac38->
+
+ &x_DWORD_E9C38_smalltit[35200] + 0x10 a07d0000
+ 3fdc24 - 0x10 b48fffff
+
+ a6 a7 a8 a9
+
+ x_DWORD_E9C38_smalltit + 0x2271 0x21
+ 2bac38 - 0x2271 0x35
+ 3f52a4
+
+ quest
+ void sub_32160(type_str_0x6E8E* a1x)//213160
+
+ 23f8c0
+ 22fa20
+ 2132a0
+
+x_DWORD_180628b_screen_buffer+ 0x85c
+versus
+3aa0a4+ 0x85c  43(ma byt) versus  f0
+
+43434343 266caf
+void sub_85C8B_draw_new_game_map_background(Bit8u* a1, Bit8u* a2, int a3, int a4, int a5, int a6)//266c8b
+
+test void sub_81760_new_game_subdraw(type_unk_E17CC_str_0x194* a1x)//262760
