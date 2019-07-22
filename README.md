@@ -27,6 +27,12 @@ simple dev blog:https://github.com/turican0/remc2/wiki<br />
 <h3>MILLSTONE 1 - PASSED</h3><br />
 -Can Play whole First level same as in original in 320x200<br />
 <br />
+## 0.47(included binary version):<br />
+-first two levels fixed, and playable as in original game<br />
+-128x128 textures, 640x480 and best graphics in default<br />
+-fixed many errors<br />
+-many fix of 64bit version - now can run game, game menu work, level select map work, but game not playable<br />
+regression: you must restart game after set language<br />
 ## 0.46:<br />
 -second level mosty playable(can not finish, and next minor bugs)<br />
 -added 128x128 textures(any water tiles not cleaned now)<br />
