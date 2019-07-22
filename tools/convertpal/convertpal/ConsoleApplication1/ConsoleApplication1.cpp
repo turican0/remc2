@@ -2,8 +2,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-//#define level1
-#define level2
+#define level1
+//#define level2
 /* run this program using the console pauser or add your own getch, system("pause") or input loop */
 
 unsigned char get32colorIndex(unsigned char* content_data32, int xindex2, int yindex2, int xpos, int ypos)
@@ -308,8 +308,8 @@ int main(int argc, char* argv[]) {
 			inindex = true;
 		*/
 		bool inindex = false;
-		if(get32colorIndex(content_data32, xindex, yindex, xpos, ypos)==1)inindex = true;
-		if (get32colorIndex(content_data32, xindex, yindex, xpos, ypos) == 2)inindex = true;
+		//if(get32colorIndex(content_data32, xindex, yindex, xpos, ypos)==1)inindex = true;
+		//if (get32colorIndex(content_data32, xindex, yindex, xpos, ypos) == 2)inindex = true;
 		//0 1 2 3 4 5
 		//int counterremoved = 0;
 		//unsigned int removed[256];
@@ -320,6 +320,12 @@ int main(int argc, char* argv[]) {
 			int best = 1000;
 			x = 0;
 			for (int j = 0; j < szstd / 3; j++)
+#ifdef level1
+				//if ((j != 0x3d)&& (j != 0x3e))
+#endif level1
+#ifdef level2
+				if ((j != 0x67))
+#endif level2
 			{
 				int score = 0;
 				score += abs(content_data[i * 3 + 0] - content_stdpal[j * 3 + 0]);

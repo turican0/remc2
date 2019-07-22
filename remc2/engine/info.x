@@ -7221,3 +7221,12 @@ versus
 void sub_85C8B_draw_new_game_map_background(Bit8u* a1, Bit8u* a2, int a3, int a4, int a5, int a6)//266c8b
 
 test void sub_81760_new_game_subdraw(type_unk_E17CC_str_0x194* a1x)//262760
+
+x_WORD_E1964
+514
+x_WORD_E1B66
+
+*a5
+versus edi
+
+&x_DWORD_17DB70str.x_BYTE_17DB8F

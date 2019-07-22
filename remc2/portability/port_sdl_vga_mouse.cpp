@@ -1466,6 +1466,22 @@ Bit16u fixchar(Bit16u loclastchar) {
 
 	return loclastchar;
 }
+
+
+void VGA_cleanKeyBuffer() {
+	//bool locpressed = pressed;
+	Bit16u loclastchar = lastchar;
+	lastchar = 0;
+	loclastchar = fixchar(loclastchar);
+	while(loclastchar!=0)
+	{
+		//bool locpressed = pressed;
+		loclastchar = lastchar;
+		lastchar = 0;
+		loclastchar = fixchar(loclastchar);
+	}
+}
+
 Bit16u VGA_read_char_from_buffer() {
 	bool locpressed = pressed;
 	Bit16u loclastchar = lastchar;

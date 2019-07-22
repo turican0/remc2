@@ -43,6 +43,7 @@ void VGA_Set_mouse(Bit16s a1, Bit16s a2);
 void setPress(bool locpressed, Bit16u loclastchar);
 
 void VGA_mouse_clear_keys();
+void VGA_cleanKeyBuffer();
 
 extern Bit8u x_BYTE_1806E4; // weak//3516e4
 extern Bit8s x_BYTE_180664[128]; // idb
