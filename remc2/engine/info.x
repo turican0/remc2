@@ -7230,3 +7230,17 @@ x_WORD_E1B66
 versus edi
 
 &x_DWORD_17DB70str.x_BYTE_17DB8F
+
+2d grafika:
+	                                       cislo sloupce             adresa                             posun
+              40 *                                  (0>>16)           0x9a4e874                            0x828d82c tj 0,1, atd.
+v2 = (char *)(x_DWORD_F2C20ar[0x08] * (x_DWORD_F2C20ar[0x0a] >> 16) + x_DWORD_F2C20ar[0x02] + *(x_DWORD *)(x_DWORD_E9C38_smalltit + 36964));
+=======
+x_WORD_E1964
+514
+x_WORD_E1B66
+
+*a5
+versus edi
+
+&x_DWORD_17DB70str.x_BYTE_17DB8F
