@@ -7244,3 +7244,11 @@ x_WORD_E1B66
 versus edi
 
 &x_DWORD_17DB70str.x_BYTE_17DB8F
+
+
+fix:
+return (type_str_0x6E8E*)sub_1EF40((type_str_0x6E8E*)a1, 0);
+
+x_BYTE_10B4E0+0x97d 02
+versus
+2dc4e0+0x97d 46
