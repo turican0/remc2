@@ -7252,3 +7252,5 @@ return (type_str_0x6E8E*)sub_1EF40((type_str_0x6E8E*)a1, 0);
 x_BYTE_10B4E0+0x97d 02
 versus
 2dc4e0+0x97d 46
+
+void sub_49270_generate_level_features(type_str_2FECE* a1x)//22a270
