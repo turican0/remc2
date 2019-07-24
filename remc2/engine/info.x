@@ -7264,3 +7264,15 @@ sub_2BC10_draw_text(printbuffer, v4x, v2, (*xadataclrd0dat.var28_begin_buffer)[0
 v83 = D41A0_BYTESTR_0.array_0x2BDE[v18x].array_0x01c_2BFA_11258;
 v84 = x_DWORD_E9C4C_langindexbuffer[*(Bit16s*)&x_DWORD_DA750ar[0xde+2*40 * v82 + 13 * D41A0_BYTESTR_0.array_0x6E3E[v114x].str_0x6E3E_byte2]];
 strcpy(v83,v84);
+
+//fixing
+sub_6EB90(&filearray_2aa18c[filearrayindex_BUILD00DATTAB]);//24fb90 adress 0x23ca2e
+
+(char*)&((*xadataspellsdat.var28_begin_buffer)[80 * 1 + 2 + 26 * 1])
+
+&v37x->dword_0xA4_164x->str_611.byte_0x458_1112 -selected
+&v37x->dword_0xA4_164x->str_611.byte_0x459_1113 -selected
+
+&v37x->dword_0xA4_164x->str_611.array_0x437_1079x.byte[x_BYTE_D94FF_spell_index[v54]]
+
+v79x->array_0x437_1079x.byte[x_BYTE_D94FF_spell_index[D41A0_BYTESTR_0.array_0x6E3E[v114x].str_0x6E3E_byte2]] = D41A0_BYTESTR_0.array_0x6E3E[v114x].str_0x6E3E_byte2;
