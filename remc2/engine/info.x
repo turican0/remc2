@@ -7254,3 +7254,13 @@ versus
 2dc4e0+0x97d 46
 
 void sub_49270_generate_level_features(type_str_2FECE* a1x)//22a270
+
+sub_2EBB0_draw_text_with_border_630x340(x_DWORD_E9C4C_langindexbuffer[*(Bit32u*)(a2 + x_WORD_D4004 * 7 + 2)]);
+sub_2EBB0_draw_text_with_border_630x340(x_DWORD_E9C4C_langindexbuffer[a1]);//fix it - edx
+
+sub_2BC10_draw_text(v11x, v9, v13, v8); ?
+sub_2BC10_draw_text(printbuffer, v4x, v2, (*xadataclrd0dat.var28_begin_buffer)[0xf00]);
+
+v83 = D41A0_BYTESTR_0.array_0x2BDE[v18x].array_0x01c_2BFA_11258;
+v84 = x_DWORD_E9C4C_langindexbuffer[*(Bit16s*)&x_DWORD_DA750ar[0xde+2*40 * v82 + 13 * D41A0_BYTESTR_0.array_0x6E3E[v114x].str_0x6E3E_byte2]];
+strcpy(v83,v84);
