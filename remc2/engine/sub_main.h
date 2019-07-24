@@ -174,12 +174,12 @@ struct REGS {
     uint32 cflag;
 };
 
-extern x_WORD __CS__;
+/*extern x_WORD __CS__;
 extern x_WORD __GS__;
 extern x_WORD __DS__;
 extern x_WORD __ES__;
 extern x_WORD __FS__;
-extern x_WORD __SS__;
+extern x_WORD __SS__;*/
 
 extern char IsTable[];
 
@@ -281,7 +281,7 @@ int /*__fastcall*/ _wcpp_1_unwind_leave__130(x_DWORD);// weak
 void sub_8F920(Bit8u a1byte1, Bit8u a1byte2, Bit16s posx, Bit16s posy, Bit8u* a4, unsigned __int8 a5, char a6);
 void sub_8F935_bitmap_draw_final(Bit8u a1byte1, Bit8u a1byte2, Bit16u a2, int a3, Bit8u* a4, Bit8u setbyte, char a6);
 signed int sub_74767(signed __int16 *a1, x_BYTE *a2, Bit8u* a3);
-x_DWORD /*__cdecl*/ segread(SREGS*); //weak
+//x_DWORD /*__cdecl*/ segread(SREGS*); //weak
 //x_DWORD /*__cdecl*/ int386x(x_DWORD, x_DWORD, x_DWORD, x_DWORD);// weak
 //int int386x(int, REGS *, REGS *, struct SREGS *);
 unsigned char __readgsx_BYTE(unsigned long Offset);
