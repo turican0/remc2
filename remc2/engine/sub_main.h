@@ -238,11 +238,11 @@ void /*__spoils<ecx>*/ sub_728A9_clear_graphics_mode(void *a2, unsigned __int16 
 void sub_303D0(/*signed int a1*/);
 int _wcpp_1_unwind_leave__62(void); //weak
 int sub_7FCB0_draw_text_with_border(int a1, char* a2, Bit32s a3, Bit32s a4, int a5, Bit8u a6, unsigned __int8 a7, Bit32u a8);//560cb0
-void sub_45DC0(Bit8u a1, Bit8u a2, unsigned __int16 a3, unsigned __int8 a4);
+void sub_45DC0(Bit8u a1, Bit8u a2, uaxis_2d a3x, unsigned __int8 a4);
 signed int sub_36A50(/*signed int a1, */char a2);
 char sub_36920(/*signed __int16 a1, */type_str_0x6E8E* a2);
-__int16 sub_48A20(int a1, char a2, char a3, int a4, int a5, unsigned __int8 a6);
-unsigned int sub_439A0(unsigned int a1, unsigned __int16 a2);
+__int16 sub_48A20(int a1, Bit8u a2, Bit8u a3, int a4, int a5, unsigned __int8 a6);
+Bit8u sub_439A0(/*unsigned int a1,*/ uaxis_2d a2);
 void sub_3E360_draw_particles(Bit8u* a1, Bit8u* a2);
 unsigned __int16 sub_3FD60(/*int a1, */Bit8u* a2);
 //void __outx_WORD(unsigned short Port, unsigned short Data);
@@ -381,9 +381,9 @@ __int64 sub_B522B(int a1, __int16 a2, int _ESI);
 //int _Intel_hook_fini(void);// weak
 //int _Phar_hook_fini(void);// weak
 //int /*__cdecl*/ _Ergo_hook_fini(x_DWORD);// weak
-void sub_B5F8F(__int16 a1, Bit16u* a2, Bit32s a3, __int16* a4);
+void sub_B5F8F(__int16 a1, uaxis_2d* a2, Bit32s a3, __int16* a4);
 int sub_BD320(int result, x_BYTE *a2, x_BYTE *a3, int a4, int a5, int a6);
-void sub_B5EFA(__int16 a1, Bit16u* a2, Bit32s a3, __int16* a4);
+void sub_B5EFA(__int16 a1, uaxis_2d* a2, Bit32s a3, __int16* a4);
 
 type_str_0x6E8E* pre_sub_4A190(Bit32u adress, Bit16s* a1,int type);
 
