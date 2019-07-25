@@ -7277,5 +7277,16 @@ sub_6EB90(&filearray_2aa18c[filearrayindex_BUILD00DATTAB]);//24fb90 adress 0x23c
 
 v79x->array_0x437_1079x.byte[x_BYTE_D94FF_spell_index[D41A0_BYTESTR_0.array_0x6E3E[v114x].str_0x6E3E_byte2]] = D41A0_BYTESTR_0.array_0x6E3E[v114x].str_0x6E3E_byte2;
 
-fix terrain:
-unsigned int sub_439A0(unsigned int a1, unsigned __int16 a2)//2249a0
+x_BYTE_10B4E0 + 0x5050 (0x3)
+versus
+0x2dc4e0(0x8)
+
+(Bit8u*)&D41A0_BYTESTR_0+0x44ad 0x05
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x44ad 0x01
+0x356038+0x44ad
+
+int sub_1EF40(type_str_0x6E8E* a1x, type_str_0x6E8E* a2x)//1fff40
+void sub_1BF90(type_str_0x6E8E* a1x, char a2)//1fcf90
+
+[ebp-c]
+ebx 3650b6 -> 000000a00f0000a00f00000c00000062000000906d1801
