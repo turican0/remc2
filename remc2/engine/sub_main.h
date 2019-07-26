@@ -249,7 +249,7 @@ unsigned __int16 sub_3FD60(/*int a1, */Bit8u* a2);
 //void __outx_BYTE(unsigned short Port, unsigned char Data);
 //unsigned char __inx_BYTE(unsigned short Port);
 void sub_43970(unsigned int a1);
-void sub_44EE0(/*int a1, */uaxis_2d a2);
+void sub_44EE0_smooth_tiles(/*int a1, */uaxis_2d a2);
 void sub_56A30_init_game_level(unsigned int a1);
 void sub_47320_in_game_loop(signed int a1);
 void sub_56D60(unsigned int a1, char a2);
