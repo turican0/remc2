@@ -691,6 +691,17 @@ void VGA_Set_pallette(Uint8* pallettebuffer) {
 	SubSet_pallette(colors);
 }
 
+void VGA_Set_pallette2(Uint8* pallettebuffer) {
+	memcpy(temppallettebuffer, pallettebuffer, 768);
+	SDL_Color colors[256];
+	for (int i = 0; i < 256; i++) {
+		colors[i].r = /*i;*/pallettebuffer[i * 3];
+		colors[i].g = /*i;*/pallettebuffer[i * 3 + 1];
+		colors[i].b = /*i;*/pallettebuffer[i * 3 + 2];
+	}
+	SubSet_pallette(colors);
+}
+
 void VGA_Write_basic_pallette(Uint8* pallettebuffer) {
 	memcpy(temppallettebuffer, pallettebuffer, 768);
 }
