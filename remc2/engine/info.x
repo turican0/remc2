@@ -7290,3 +7290,14 @@ void sub_1BF90(type_str_0x6E8E* a1x, char a2)//1fcf90
 
 [ebp-c]
 ebx 3650b6 -> 000000a00f0000a00f00000c00000062000000906d1801
+
+(Bit8u*)&D41A0_BYTESTR_0+0x2fca 0x09
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x2fca 0x00
+0x356038+0x2fca
+
+(Bit8u*)&x_WORD_15B4E0_source+0x13282 0x06
+x_WORD_15B4E0+0x13282 0xba
+
+(Bit8u*)&D41A0_BYTESTR_0+0xabe6 0x18
+(Bit8u*)x_D41A0_BYTEARRAY_0+0xabe6 0x1b
+0x356038+0xabe6
