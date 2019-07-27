@@ -686,7 +686,7 @@ void VGA_Set_pallette(Uint8* pallettebuffer) {
 			//printf("%01X %02X,%02X,%02X\n", i,colors[i].r, colors[i].g, colors[i].b);
 	}
 
-	//SavePal(pallettebuffer,(char*)"c:\\prenos\\remc2\\level2.pal");
+	SavePal(pallettebuffer,(char*)"c:\\prenos\\remc2\\level4.pal");
 
 	SubSet_pallette(colors);
 }
@@ -1498,6 +1498,8 @@ Bit16u VGA_read_char_from_buffer() {
 	Bit16u loclastchar = lastchar;
 	lastchar = 0;
 	loclastchar = fixchar(loclastchar);
+	if (loclastchar == 0x0b30)
+		loclastchar = 0x0e08;
 	return loclastchar;
 }
 

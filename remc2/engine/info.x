@@ -7301,3 +7301,30 @@ x_WORD_15B4E0+0x13282 0xba
 (Bit8u*)&D41A0_BYTESTR_0+0xabe6 0x18
 (Bit8u*)x_D41A0_BYTEARRAY_0+0xabe6 0x1b
 0x356038+0xabe6
+
+(Bit8u*)&x_WORD_15B4E0_source+0xb12a 0x00
+x_WORD_15B4E0+0xb12a 0x05
+ 32c4e0+0xb12a 0x05
+
+(Bit8u*)&D41A0_BYTESTR_0+0x2fc4 0x10
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x2fc4 0x0
+0x356038+0x2fc4
+
+D41A0_BYTESTR_0.array_0x6E3E[0].str_0x6E3E_byte5
+&unk_18058Cstr.x_DWORD_18059C
+
+(Bit8u*)&D41A0_BYTESTR_0+0x2c18 0x65
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x2c18 0x20
+0x356038+0x2c18
+
+(Bit8u*)&D41A0_BYTESTR_0+0x2fc8 0xfd
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x2fc8 0x0
+0x356038+0x2fc8
+
+
+char sub_78730_save_game_dialog(x_WORD *a1)//259730
+
+x_BYTE_17DF11_last_key_status backspace
+
+test
+type_str_0x6E8E* sub_48930(__int16 a1, __int16 a2, __int16 a3, __int16 a4, char a5)//229930
