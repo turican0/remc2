@@ -7384,3 +7384,20 @@ void sub_49090(type_str_2FECE* a1x, type_str_0x30311* a2x)//22a090
 914f*
 7313
 9421
+
+d29
+
+(Bit8u*)&D41A0_BYTESTR_0+0xa20e 0x00
+(Bit8u*)x_D41A0_BYTEARRAY_0+0xa20e 0x2b
+0x356038+0xa20a
+
+x_BYTE_10B4E0_terraintype+0x3aa 0x4d
+versus
+2dc4e0+0x3aa 4c
+
+remove it
+//only for debugging
+
+(Bit8u*)&D41A0_BYTESTR_0+0xa25c 0x00
+(Bit8u*)x_D41A0_BYTEARRAY_0+0xa25c 0x35
+0x356038+0xa25c
