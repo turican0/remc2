@@ -27,6 +27,10 @@ simple dev blog:https://github.com/turican0/remc2/wiki<br />
 <h3>MILLSTONE 1 - PASSED</h3><br />
 -Can Play whole First level same as in original in 320x200<br />
 <br />
+## 0.48:<br />
+-fixed level 3<br />
+-fixed any problems with mouse positions(when spell select)<br />
+-rewrite any terrain generate functions<br />
 ## 0.47(included binary version):<br />
 -first two levels fixed, and playable as in original game<br />
 -128x128 textures, 640x480 and best graphics in default<br />
