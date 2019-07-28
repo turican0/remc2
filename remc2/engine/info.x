@@ -7328,3 +7328,59 @@ x_BYTE_17DF11_last_key_status backspace
 
 test
 type_str_0x6E8E* sub_48930(__int16 a1, __int16 a2, __int16 a3, __int16 a4, char a5)//229930
+
+3551a4 - adress
+ebx=0xa*18=0xb4
+eax=0x51*14=0x46e
+edx=[ebx+2a5c56]=2a7978
+cmp [2a7978+a],0
+78792a00445c2a000b0000000000907e
+edx=[2a7978+4] tj 51
+
+ebx 3551a4
+push ebx
+call eax+6 tj 2a7978+6 tj 200b230001000000
+
+*(Bit32u*)&x_DWORD_D4C52ar[4 + 18*10]+81 * 14
+
+add
+void sub_5B100(int a2, type_str_0x6E8E* a1x)//23c100
+to
+pre_sub_4A190
+
+x_BYTE_10B4E0_terraintype+0x66 0x06
+versus
+2dc4e0+0x66 0x4d
+
+06060601
+void sub_462A0(unsigned __int16 a1, __int16 a2)//2272a0
+
+x_BYTE_10B4E0_terraintype +0x6064 (0x1)
+versus
+0x2dc4e0 +0x6064 (0x6)
+
+(Bit8u*)&D41A0_BYTESTR_0+0xa204 0x02
+(Bit8u*)x_D41A0_BYTEARRAY_0+0xa204 0x22
+0x356038+0xa204
+
+0x22
+229986
+type_str_0x6E8E* sub_48930(__int16 a1, __int16 a2, __int16 a3, __int16 a4, char a5)//229930
+
+(Bit8u*)&D41A0_BYTESTR_0+0xa20a 0x94
+(Bit8u*)x_D41A0_BYTEARRAY_0+0xa20a 0x00
+0x356038+0xa20a
+ale je 360242
+
+void sub_49090(type_str_2FECE* a1x, type_str_0x30311* a2x)//22a090
+
+22a16b - stop
+
+1c7f*
+1a57*
+333a*
+5126*
+8d33*
+914f*
+7313
+9421
