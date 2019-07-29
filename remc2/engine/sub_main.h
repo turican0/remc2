@@ -248,8 +248,11 @@ void /*__spoils<ecx>*/ sub_B5E70_decompress_terrain_map_level(__int16 a1, unsign
 void sub_44DB0_truncTerrainHeight();
 void sub_44E40(int a1, unsigned __int8 a2);
 
+void sub_6FC50(__int16 a1);
+
 bool sub_7B200_in_region(Bit16s* a1, Bit16s testx, Bit16s testy);
 void sub_2BC10_draw_text(char* text, __int16 a2, __int16 a3, unsigned __int8 a4);
+void sub_6F940_sub_draw_text(char* a1, int a2, int a3, Bit8u color);
 //int /*__noreturn*/ sub_10000(); // weak
 type_str_0x6E8E* sub_15CB0(/*type_str_0x6E8E* a1,*/ type_str_0x6E8E* a2); // weak
 char sub_15D40(__int16 a1, type_str_0x6E8E* a2, type_str_0x6E8E* a3); // weak
