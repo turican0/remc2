@@ -235,6 +235,7 @@
     <ClInclude Include="engine\ail_sound.h" />
     <ClInclude Include="engine\cd_utils.h" />
     <ClInclude Include="engine\defs.h" />
+    <ClInclude Include="engine\editor.h" />
     <ClInclude Include="engine\engine_support.h" />
     <ClInclude Include="engine\engine_support_converts.h" />
     <ClInclude Include="engine\read_config.h" />
@@ -315,6 +316,7 @@
     <ClCompile Include="..\SDL-Mixer-X-master\src\music.c" />
     <ClCompile Include="..\SDL-Mixer-X-master\src\vb6_binding\vb6_sdl_binds.c" />
     <ClCompile Include="engine\cd_utils.cpp" />
+    <ClCompile Include="engine\editor.cpp" />
     <ClCompile Include="engine\engine_support.cpp" />
     <ClCompile Include="engine\engine_support_converts.cpp" />
     <ClCompile Include="engine\read_config.cpp" />

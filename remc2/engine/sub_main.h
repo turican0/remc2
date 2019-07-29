@@ -213,9 +213,43 @@ typedef struct {//lenght 30
 } type_x_BYTE_E25ED_db_str;
 #pragma pack (16)
 
+extern Bit16s x_DWORD_17DEE4_mouse_positionx; // weak
+extern Bit16s x_DWORD_17DEE4_mouse_positiony; // weak
+extern __int16 x_WORD_17DEEC; // weak
+extern __int16 x_WORD_17DEEE; // weak
+extern __int16 x_WORD_17DEF0; // weak
+extern __int16 x_WORD_17DEF2; // weak
+extern __int16 x_WORD_17DEF4; // weak
+extern __int16 x_WORD_17DEF6; // weak
+extern __int16 x_WORD_17DEF8; // weak
+extern __int16 x_WORD_17DEFA; // weak
+extern __int16 x_WORD_17DEFC; // weak
+extern __int16 x_WORD_17DEFE; // weak
+extern __int16 x_WORD_17DF00; // weak
+extern __int16 x_WORD_17DF02; // weak
+extern __int16 x_WORD_17DF04; // weak
+extern __int16 x_WORD_17DF06; // weak
+extern __int16 x_WORD_17DF08; // weak
+extern __int16 x_WORD_17DF0A; // weak
+extern __int16 x_WORD_17DF0C; // weak
+extern __int16 x_WORD_17DF0E; // weak
+extern char x_BYTE_17DF10_get_key_scancode; // weak
+extern char x_BYTE_17DF11_last_key_status; // weak
 
+extern Bit8u x_BYTE_10B4E0_terraintype[0x10000]; // idb// x_BYTE_10B1E0[0x300]//2DC4E0 //map array1
+extern Bit8u x_BYTE_11B4E0_height[0x10000]; // idb		//2EC4E0    	//map array2 // heightmap
+extern Bit8u x_BYTE_12B4E0_shading[0x10000]; // fix it -  weak	//2FC4E0    //map array3
+extern Bit8u x_BYTE_13B4E0_angle[0x10000]; // idb//30C4E0	//map array4 // water
+extern __int16 x_WORD_15B4E0_source[0x10000]; // idb//32C4E0	//map array5
 
+extern Bit16u x_WORD_17B4E0; // 34c4e0
 
+void /*__spoils<ecx>*/ sub_B5E70_decompress_terrain_map_level(__int16 a1, unsigned __int16 a2, __int16 a3, Bit32s a4);
+void sub_44DB0_truncTerrainHeight();
+void sub_44E40(int a1, unsigned __int8 a2);
+
+bool sub_7B200_in_region(Bit16s* a1, Bit16s testx, Bit16s testy);
+void sub_2BC10_draw_text(char* text, __int16 a2, __int16 a3, unsigned __int8 a4);
 //int /*__noreturn*/ sub_10000(); // weak
 type_str_0x6E8E* sub_15CB0(/*type_str_0x6E8E* a1,*/ type_str_0x6E8E* a2); // weak
 char sub_15D40(__int16 a1, type_str_0x6E8E* a2, type_str_0x6E8E* a3); // weak
@@ -253,6 +287,8 @@ void sub_44EE0_smooth_tiles(/*int a1, */uaxis_2d a2);
 void sub_56A30_init_game_level(unsigned int a1);
 void sub_47320_in_game_loop(signed int a1);
 void sub_56D60(unsigned int a1, char a2);
+void sub_75200_VGA_Blit640(Bit16u height);
+char sub_7A060_get_mouse_and_keyboard_events();
 void sub_47560_draw_and_events_in_game(/*Bit8u* a1, int a2, */Bit32u a3, signed int a4, __int16 a5);
 void sub_51BB0_game_events(/*Bit8u* a1*/);
 //x_DWORD /*__cdecl*/ toupper(x_DWORD); //weak
