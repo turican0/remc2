@@ -268,6 +268,8 @@ void sub_45600(unsigned __int8 a1);
 
 void sub_6FC50(__int16 a1);
 
+char sub_533B0_decompress_levels(__int16 a1, type_str_2FECE* a2);
+
 bool sub_7B200_in_region(Bit16s* a1, Bit16s testx, Bit16s testy);
 void sub_2BC10_draw_text(char* text, __int16 a2, __int16 a3, unsigned __int8 a4);
 void sub_6F940_sub_draw_text(char* a1, int a2, int a3, Bit8u color);

@@ -6,6 +6,7 @@ int minimapx = 0;
 int minimapy = 0;
 
 int maptype = 0;
+int actlevel = 0;
 
 void init_pal() {
 	Bit8u temppal[0x300];
@@ -34,14 +35,14 @@ void editor_run()
 	//savepal
 	//save sceenbuffer
 	//save D41A0_BYTESTR_0
-	D41A0_BYTESTR_0.str_2FECE.word_0x2FEE5 = 128;
-	D41A0_BYTESTR_0.str_2FECE.word_0x2FEE9 = 128;
-	D41A0_BYTESTR_0.str_2FECE.word_0x2FEED = 128;
-	D41A0_BYTESTR_0.str_2FECE.word_0x2FEF1 = 128;
-	D41A0_BYTESTR_0.str_2FECE.word_0x2FEFD = 128;
-	D41A0_BYTESTR_0.str_2FECE.word_0x2FF01 = 128;
-	D41A0_BYTESTR_0.str_2FECE.word_0x2FF0D = 128;
-	D41A0_BYTESTR_0.str_2FECE.word_0x2FF11 = 128;
+	D41A0_BYTESTR_0.str_2FECE.word_0x2FEE5 = 0;
+	D41A0_BYTESTR_0.str_2FECE.word_0x2FEE9 = 0;
+	D41A0_BYTESTR_0.str_2FECE.word_0x2FEED = 0;
+	D41A0_BYTESTR_0.str_2FECE.word_0x2FEF1 = 0;
+	D41A0_BYTESTR_0.str_2FECE.word_0x2FEFD = 0;
+	D41A0_BYTESTR_0.str_2FECE.word_0x2FF01 = 0;
+	D41A0_BYTESTR_0.str_2FECE.word_0x2FF0D = 0;
+	D41A0_BYTESTR_0.str_2FECE.word_0x2FF11 = 0;
 	init_pal();
 	clean_tarrain();
 	terrain_recalculate();
@@ -187,7 +188,7 @@ void drawdetail(int x, int y,int size,int zoom) {
 		}
 };
 
-Bit16s editor_regiondata[22 * (24+24+1+4+1)] = {
+Bit16s editor_regiondata[22 * (24+24+1+4+3+1)] = {
 	//arrow buttons
                                 	//position    //size              //type gr      under mou 
 0x0000,0x0000,0x0000,0x0000,0x0000,0x00b0,0x0000,0x0008,0x0010,0x0000,0x0304,0x0101,0x00ff,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0003,
@@ -254,7 +255,10 @@ Bit16s editor_regiondata[22 * (24+24+1+4+1)] = {
 0x0000,0x0000,0x0000,0x0000,0x0000,0x0020,0x00be,0x0019,0x0019,0x0000,0x0102,0x0101,0x00ff,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0003,
 0x0000,0x0000,0x0000,0x0000,0x0000,0x0040,0x00be,0x0019,0x0019,0x0000,0x0102,0x0101,0x00ff,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0003,
 0x0000,0x0000,0x0000,0x0000,0x0000,0x0060,0x00be,0x0019,0x0019,0x0000,0x0102,0x0101,0x00ff,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0003,
-
+//load
+0x0000,0x0000,0x0000,0x0000,0x0000,0x0140,0x0000,0x0019,0x0019,0x0000,0x0102,0x0101,0x00ff,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0003,
+0x0000,0x0000,0x0000,0x0000,0x0000,0x0138,0x0000,0x0019,0x0019,0x0000,0x0304,0x0101,0x00ff,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0003,
+0x0000,0x0000,0x0000,0x0000,0x0000,0x0159,0x0000,0x0019,0x0019,0x0000,0x0506,0x0101,0x00ff,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0003,
 
 0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000
 };
@@ -488,6 +492,10 @@ void drawtexts() {
 	sprintf(temp, "%04X", D41A0_BYTESTR_0.str_2FECE.word_0x2FF11);
 	VGA_Draw_stringXYtoBuffer(temp, 210, 112, x_DWORD_180628b_screen_buffer);
 
+
+	sprintf(temp, "%d", actlevel);
+	VGA_Draw_stringXYtoBuffer(temp, 324, 4, x_DWORD_180628b_screen_buffer);
+	
 	
 	//word_0x2FEFD
 	//word_0x2FF01
@@ -499,6 +507,10 @@ void drawtexts() {
 	VGA_Draw_stringXYtoBuffer(temp, 450,480-16 , x_DWORD_180628b_screen_buffer);
 
 
+}
+
+void loadlevel(int levelnumber) {
+	sub_533B0_decompress_levels(levelnumber, &D41A0_BYTESTR_0.str_2FECE);
 }
 
 void editor_mouse_events()//25f0e0
@@ -590,7 +602,20 @@ void editor_mouse_events()//25f0e0
 			case 49: {maptype = 0; changed = true; break; }
 			case 50: {maptype = 1; changed = true; break; }
 			case 51: {maptype = 2; changed = true; break; }
-			case 52: {maptype = 3; changed = true; break; }					 
+			case 52: {maptype = 3; changed = true; break; }				
+
+			//case 53: {loadlevel(0); changed = true; break; }
+			case 54: {
+				actlevel--;
+				if (actlevel < 0)actlevel =0;
+				loadlevel(actlevel); changed = true; break;
+			}
+			case 55: {
+				actlevel++;
+				if (actlevel > 24)actlevel = 24;
+				loadlevel(actlevel); changed = true; break;
+			}
+
 			}
 			/*
 				D41A0_BYTESTR_0.str_2FECE.word_0x2FEE5 = 128;

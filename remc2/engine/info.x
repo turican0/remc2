@@ -7565,3 +7565,21 @@ remove it
 
 https://dwarffortresswiki.org/Tileset_repository#13.C3.9713
 
+(Bit8u*)&D41A0_BYTESTR_0+0x03aa 0x4d
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x03aa 0x4c
+0x356038+0x03aa
+
+(Bit8u*)&x_BYTE_11B4E0_height+0x13a3 - 0x5d
+versus
+002ec4e0 +  0x13a3 - 0x5a
+
+238178
+
+char sub_570F0(__int16 a1, __int16 a2, signed __int16 a3, char a4, char a5, char a6)//2380f0
+215798
+int sub_34540(type_str_0x6E8E* a1x)//215540
+
+int sub_34520(type_str_0x6E8E* a1x)//215520
+
+
+
