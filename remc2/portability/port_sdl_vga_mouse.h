@@ -29,6 +29,7 @@ void VGA_Set_pallette2(Uint8* pallettebuffer);
 void VGA_Write_basic_pallette(Uint8* pallettebuffer);
 Uint8* VGA_Get_pallette();
 void VGA_Draw_string(char* wrstring);
+void VGA_Draw_stringXYtoBuffer(char* wrstring, int x, int y,Bit8u* buffer);
 //void VGA_Set_Cursor(posistruct posstrcursor,int count);
 void VGA_GotoXY(int x, int y);
 int VGA_WhereX(); //returns current text cursor (x) coordinate 

@@ -235,6 +235,7 @@ void Draw_debug_matrix1() {
 	SubBlit();
 };
 
+Bit8u fontbuffer[256*256];
 SDL_Surface* surface_font = NULL;
 bool VGA_LoadFont()
 {
@@ -243,12 +244,17 @@ bool VGA_LoadFont()
 
 	//Load splash image
 	//surface_font = SDL_LoadBMP("c:/prenos/remc2/font/xterm714.bmp");
-	surface_font = SDL_LoadBMP("../font/xterm714.bmp");
+	surface_font = SDL_LoadBMP("../font/16x16-font.bmp");
 	if (surface_font == NULL)
 	{
 		printf("Unable to load image %s! SDL Error: %s\n", "xterm714.bmp", SDL_GetError());
 		success = false;
 	}
+
+	Bit8u* pixels=(Bit8u*)surface_font->pixels;
+	for (int yy = 0; yy < 256; yy++)
+		for (int xx = 0; xx < 256; xx++)
+			fontbuffer[yy * 256 + xx] = pixels[(yy * 256 + xx)*3];
 
 	return success;
 }
@@ -269,16 +275,50 @@ void Draw_letter(int letter_number, int pozx, int pozy) {
 			srcrect.y = 13 *(int) (letter_number / 16);
 			srcrect.w = 12;
 			srcrect.h = 13;*///for 613
-	srcrect.x = 14 * (letter_number % 16);
-	srcrect.y = 14 * (int)(letter_number / 16);
-	srcrect.w = 14;
-	srcrect.h = 14;
+	srcrect.x = 16 * (letter_number % 16);
+	srcrect.y = 16 * (int)(letter_number / 16);
+	srcrect.w = 16;
+	srcrect.h = 16;
 	dstrect.x = (screen->w / 40)*pozx;
-	dstrect.y = (screen->h / 25)*pozy;
+	dstrect.y = (screen->h / 30)*pozy;
 	dstrect.w = screen->w / 40;
-	dstrect.h = screen->h / 25;
+	dstrect.h = screen->h / 30;
 	//SDL_RenderCopy(screen, surface_font, &srcrect, &dstrect);
 	SDL_BlitSurface(surface_font, &srcrect, screen, &dstrect);
+};
+
+void Draw_letterToBuffer(int letter_number, int pozx, int pozy, Bit8u* buffer) {
+	SDL_Rect srcrect;
+	SDL_Rect dstrect;
+
+	/*for (int i = 0;i < 100;i++)
+		for (int j = 0;j < 100;j++)
+			putpixel(screen, i, j, 127);*/
+			//217 x 224//13x14
+			//186 x 208//11x13
+			/*int letter_numaber = 34;
+			int pozx = 15;
+			int pozy = 15;*/
+			/*srcrect.x = 12*(letter_number%16);
+			srcrect.y = 13 *(int) (letter_number / 16);
+			srcrect.w = 12;
+			srcrect.h = 13;*///for 613
+	srcrect.x = 16 * (letter_number % 16);
+	srcrect.y = 16 * (int)(letter_number / 16);
+	srcrect.w = 16;
+	srcrect.h = 16;
+	dstrect.x = pozx;
+	dstrect.y = pozy;
+	dstrect.w = screen->w / 40;
+	dstrect.h = screen->h / 30;
+	//SDL_RenderCopy(screen, surface_font, &srcrect, &dstrect);	
+	for (int yy = 0; yy < dstrect.h; yy++)
+		for (int xx = 0; xx < dstrect.w; xx++)
+		{
+			int srcx = xx+ srcrect.x;
+			int srcy = yy+ srcrect.y;
+			buffer[(dstrect.y+yy) * 640 + (dstrect.x+xx)] = fontbuffer[srcx+ srcy*256];
+		}
 };
 
 int lastpoz = 0;
@@ -329,6 +369,22 @@ void VGA_Draw_string(char* wrstring) {
 	}
 	SubBlit();
 	mydelay(10);
+}
+
+void VGA_Draw_stringXYtoBuffer(char* wrstring,int x, int y, Bit8u* buffer) {
+	int loclastpoz=0;
+	for (Bit32u i = 0; i < strlen(wrstring); i++)
+	{
+		if (wrstring[i] == '\n')
+		{
+			loclastpoz += textwidth - loclastpoz % textwidth;
+		}
+		else
+		{
+			Draw_letterToBuffer(wrstring[i], x+(loclastpoz % textwidth)*14, y+((int)(loclastpoz / textwidth))*14, buffer);
+			loclastpoz++;
+		}
+	}
 }
 
 
