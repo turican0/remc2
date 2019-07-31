@@ -7582,4 +7582,6 @@ int sub_34540(type_str_0x6E8E* a1x)//215540
 int sub_34520(type_str_0x6E8E* a1x)//215520
 
 
+https://philippegroarke.com/posts/2018/c++_ui_solutions/
+
 

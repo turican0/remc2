@@ -1,3 +1,4 @@
+#include "kiss_sdl.h"
 #include "sub_main.h"
 #ifndef ENGINE_EDITOR
 #define ENGINE_EDITOR

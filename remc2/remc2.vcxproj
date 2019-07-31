@@ -90,7 +90,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\prenos\remc2\sdl2\include;C:\prenos\remc2\fluidsynth\include;C:\prenos\remc2\libADLMIDI-master\include;C:\prenos\remc2\libOPNMIDI-master\include;C:\prenos\remc2\SDL-Mixer-X-master\include\SDL_mixer_ext;C:\prenos\remc2\SDL-Mixer-X-master\src;C:\prenos\remc2\inih;C:\prenos\remc2\libvorbis\include;C:\prenos\remc2\libogg\include;C:\Program Files %28x86%29\Visual Leak Detector\include;C:\prenos\remc2\libpng2\libpng-master;C:\prenos\remc2\zlib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\prenos\remc2\sdl2\include;C:\prenos\remc2\fluidsynth\include;C:\prenos\remc2\libADLMIDI-master\include;C:\prenos\remc2\libOPNMIDI-master\include;C:\prenos\remc2\SDL-Mixer-X-master\include\SDL_mixer_ext;C:\prenos\remc2\SDL-Mixer-X-master\src;C:\prenos\remc2\inih;C:\prenos\remc2\libvorbis\include;C:\prenos\remc2\libogg\include;C:\Program Files %28x86%29\Visual Leak Detector\include;C:\prenos\remc2\libpng2\libpng-master;C:\prenos\remc2\zlib\include;C:\prenos\remc2\kiss_sdl-master;C:\prenos\remc2\SDL2_image-2.0.5\include;C:\prenos\remc2\SDL2_ttf-2.0.15\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
     </ClCompile>
     <Link>
@@ -160,6 +160,7 @@
   <ItemGroup>
     <ClInclude Include="..\inih\ini.h" />
     <ClInclude Include="..\inih\INIReader.h" />
+    <ClInclude Include="..\kiss_sdl-master\kiss_sdl.h" />
     <ClInclude Include="..\libADLMIDI-master\src\adldata.hh" />
     <ClInclude Include="..\libADLMIDI-master\src\adlmidi_bankmap.h" />
     <ClInclude Include="..\libADLMIDI-master\src\adlmidi_cvt.hpp" />
@@ -256,6 +257,10 @@
   <ItemGroup>
     <ClCompile Include="..\inih\ini.c" />
     <ClCompile Include="..\inih\INIReader.cpp" />
+    <ClCompile Include="..\kiss_sdl-master\kiss_draw.cpp" />
+    <ClCompile Include="..\kiss_sdl-master\kiss_general.cpp" />
+    <ClCompile Include="..\kiss_sdl-master\kiss_posix.cpp" />
+    <ClCompile Include="..\kiss_sdl-master\kiss_widgets.cpp" />
     <ClCompile Include="..\libADLMIDI-master\src\adldata.cpp" />
     <ClCompile Include="..\libADLMIDI-master\src\adlmidi.cpp" />
     <ClCompile Include="..\libADLMIDI-master\src\adlmidi_load.cpp" />
@@ -354,6 +359,8 @@
     <Library Include="..\libpng3\lib\libpng16_static.lib">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </Library>
+    <Library Include="..\SDL2_image-2.0.5\lib\x86\SDL2_image.lib" />
+    <Library Include="..\SDL2_ttf-2.0.15\lib\x86\SDL2_ttf.lib" />
     <Library Include="..\zlib-64\lib\zlib.lib">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </Library>

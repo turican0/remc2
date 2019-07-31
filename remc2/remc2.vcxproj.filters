@@ -43,6 +43,15 @@
     <Filter Include="Zdrojové soubory\libs\libpng">
       <UniqueIdentifier>{fb196976-86c1-4372-b999-a541250ac3dc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Zdrojové soubory\libs\kiss-sdl">
+      <UniqueIdentifier>{e736b33a-3eae-4e8d-b5ab-9f14d29617a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Zdrojové soubory\libs\sdl-image">
+      <UniqueIdentifier>{59b0bf29-bc92-4444-a34f-c199f5de56c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Zdrojové soubory\libs\sdl-ttf">
+      <UniqueIdentifier>{1d61dcf1-3c1a-4a47-8271-a8ce53ef3ff8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -327,6 +336,9 @@
     <ClInclude Include="engine\editor.h">
       <Filter>Zdrojové soubory\engine</Filter>
     </ClInclude>
+    <ClInclude Include="..\kiss_sdl-master\kiss_sdl.h">
+      <Filter>Zdrojové soubory\libs\kiss-sdl</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -560,6 +572,18 @@
     <ClCompile Include="engine\editor.cpp">
       <Filter>Zdrojové soubory\engine</Filter>
     </ClCompile>
+    <ClCompile Include="..\kiss_sdl-master\kiss_draw.cpp">
+      <Filter>Zdrojové soubory\libs\kiss-sdl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kiss_sdl-master\kiss_general.cpp">
+      <Filter>Zdrojové soubory\libs\kiss-sdl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kiss_sdl-master\kiss_posix.cpp">
+      <Filter>Zdrojové soubory\libs\kiss-sdl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kiss_sdl-master\kiss_widgets.cpp">
+      <Filter>Zdrojové soubory\libs\kiss-sdl</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="engine\info.x">
@@ -599,6 +623,12 @@
     </Library>
     <Library Include="..\zlib-64\lib\zlib.lib">
       <Filter>Zdrojové soubory\libs\libpng</Filter>
+    </Library>
+    <Library Include="..\SDL2_image-2.0.5\lib\x86\SDL2_image.lib">
+      <Filter>Zdrojové soubory\libs\sdl-image</Filter>
+    </Library>
+    <Library Include="..\SDL2_ttf-2.0.15\lib\x86\SDL2_ttf.lib">
+      <Filter>Zdrojové soubory\libs\sdl-ttf</Filter>
     </Library>
   </ItemGroup>
 </Project>
