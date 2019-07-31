@@ -88,9 +88,9 @@ int kiss_label_draw(kiss_label *label, SDL_Renderer *renderer)
 	if (len > KISS_MAX_LABEL - 2)
 		label->text[len - 1] = '\n';
 	else
-		strcat_s(label->text, strlen("\n")+1,"\n");
+		strcat_s(label->text, strlen("\n")+strlen(label->text)+1,"\n");
 	for (p = label->text; *p; p = strchr(p, '\n') + 1) {
-		kiss_string_copy(buf, strcspn(p, "\n") + 1, p, NULL);
+		kiss_string_copy(buf, strcspn(p, "\n")+1, p, NULL);
 		kiss_rendertext(renderer, buf, label->rect.x, y,
 			label->font, label->textcolor);
 		y += label->font.lineheight;

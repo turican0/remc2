@@ -1042,13 +1042,14 @@ int main_x(/*int argc, char** argv*/)
 	int textbox_width, textbox_height, window2_width, window2_height,
 		draw, quit;
 
+	SDL_ShowCursor(true);
 	quit = 0;
 	draw = 1;
 	textbox_width = 250;
 	textbox_height = 250;
 	window2_width = 400;
 	window2_height = 168;
-	renderer = kiss_init((char*)"kiss_sdl example 1", &objects, 640, 480);
+	renderer = kiss_init((char*)"REMC2 Editor", &objects, 1024, 768);
 	if (!renderer) return 1;
 	kiss_array_new(&a1);
 	kiss_array_append(&objects, ARRAY_TYPE, &a1);
@@ -1056,50 +1057,60 @@ int main_x(/*int argc, char** argv*/)
 	kiss_array_append(&objects, ARRAY_TYPE, &a2);
 
 	/* Arrange the widgets nicely relative to each other */
-	kiss_window_new(&window1, NULL, 1, 0, 0, kiss_screen_width,
-		kiss_screen_height);
-	kiss_textbox_new(&textbox1, &window1, 1, &a1, kiss_screen_width / 2 -
-		(2 * textbox_width + 2 * kiss_up.w - kiss_edge) / 2,
-		3 * kiss_normal.h, textbox_width, textbox_height);
-	kiss_vscrollbar_new(&vscrollbar1, &window1, textbox1.rect.x +
-		textbox_width, textbox1.rect.y, textbox_height);
-	kiss_textbox_new(&textbox2, &window1, 1, &a2,
-		vscrollbar1.uprect.x + kiss_up.w, textbox1.rect.y,
-		textbox_width, textbox_height);
-	kiss_vscrollbar_new(&vscrollbar2, &window1, textbox2.rect.x +
-		textbox_width, vscrollbar1.uprect.y, textbox_height);
-	kiss_label_new(&label1, &window1, (char*)"Folders", textbox1.rect.x +
-		kiss_edge, textbox1.rect.y - kiss_textfont.lineheight);
-	kiss_label_new(&label2, &window1, (char*)"Files", textbox2.rect.x +
-		kiss_edge, textbox1.rect.y - kiss_textfont.lineheight);
-	kiss_label_new(&label_sel, &window1, (char*)"", textbox1.rect.x +
-		kiss_edge, textbox1.rect.y + textbox_height +
-		kiss_normal.h);
-	kiss_entry_new(&entry, &window1, 1, (char*)"kiss", textbox1.rect.x,
-		label_sel.rect.y + kiss_textfont.lineheight,
-		2 * textbox_width + 2 * kiss_up.w + kiss_edge);
-	kiss_button_new(&button_cancel, &window1, (char*)"Cancel",
-		entry.rect.x + entry.rect.w - kiss_edge - kiss_normal.w,
-		entry.rect.y + entry.rect.h + kiss_normal.h);
-	kiss_button_new(&button_ok1, &window1, (char*)"OK", button_cancel.rect.x -
-		2 * kiss_normal.w, button_cancel.rect.y);
-	kiss_window_new(&window2, NULL, 1, kiss_screen_width / 2 -
-		window2_width / 2, kiss_screen_height / 2 -
-		window2_height / 2, window2_width, window2_height);
-	kiss_label_new(&label_res, &window2, (char*)"", window2.rect.x +
-		kiss_up.w, window2.rect.y + kiss_vslider.h);
-	label_res.textcolor = kiss_blue;
-	kiss_progressbar_new(&progressbar, &window2, window2.rect.x +
-		kiss_up.w - kiss_edge, window2.rect.y + window2.rect.h / 2 -
-		kiss_bar.h / 2 - kiss_border,
-		window2.rect.w - 2 * kiss_up.w + 2 * kiss_edge);
-	kiss_button_new(&button_ok2, &window2, (char*)"OK", window2.rect.x +
-		window2.rect.w / 2 - kiss_normal.w / 2,
-		progressbar.rect.y + progressbar.rect.h +
-		2 * kiss_vslider.h);
+	kiss_window_new(&window1, NULL, 1, 0, 0, kiss_screen_width, kiss_screen_height);
+	kiss_textbox_new(&textbox1, &window1, 1, &a1, kiss_screen_width / 2 - (2 * textbox_width + 2 * kiss_up.w - kiss_edge) / 2, 3 * kiss_normal.h, textbox_width, textbox_height);
 
-	dirent_read(&textbox1, &vscrollbar1, &textbox2, &vscrollbar2,
-		&label_sel);
+#if SDL_BYTEORDER == SDL_BIG_ENDIAN
+	Uint32 rmask = 0xff000000;
+	Uint32 gmask = 0x00ff0000;
+	Uint32 bmask = 0x0000ff00;
+	Uint32 amask = 0x000000ff;
+#else
+	Uint32 rmask = 0x000000ff;
+	Uint32 gmask = 0x0000ff00;
+	Uint32 bmask = 0x00ff0000;
+	Uint32 amask = 0xff000000;
+#endif
+	SDL_Surface* surface = SDL_CreateRGBSurface(SDL_SWSURFACE, 256, 256, 32, rmask, gmask, bmask, amask);
+	if (surface == NULL) {
+		fprintf(stderr, "CreateRGBSurface failed: %s\n", SDL_GetError());
+		exit(1);
+	}
+	Bit8u* scrbuff = (Bit8u*)surface->pixels;
+	for (int j = 0; j < 256; j++)
+		for (int i = 0; i < 256; i++) {
+			scrbuff[4 * (i * 256 + j)] = 128;
+			scrbuff[4 * (i * 256 + j)+1] = 128;
+			scrbuff[4 * (i * 256 + j)+2] = 128;
+			scrbuff[4 * (i * 256 + j)+3] = 128;
+		}
+	kiss_image mapimage;
+	mapimage.w=256;
+	mapimage.h=256;
+	mapimage.magic = KISS_MAGIC;
+	mapimage.image= SDL_CreateTextureFromSurface(renderer, surface);
+
+	
+
+	
+
+	kiss_vscrollbar_new(&vscrollbar1, &window1, textbox1.rect.x +	textbox_width, textbox1.rect.y, textbox_height);
+	kiss_textbox_new(&textbox2, &window1, 1, &a2,vscrollbar1.uprect.x + kiss_up.w, textbox1.rect.y,	textbox_width, textbox_height);
+	kiss_vscrollbar_new(&vscrollbar2, &window1, textbox2.rect.x +textbox_width, vscrollbar1.uprect.y, textbox_height);
+	kiss_label_new(&label1, &window1, (char*)"Folders", textbox1.rect.x +kiss_edge, textbox1.rect.y - kiss_textfont.lineheight);
+	kiss_label_new(&label2, &window1, (char*)"Files", textbox2.rect.x +	kiss_edge, textbox1.rect.y - kiss_textfont.lineheight);
+	kiss_label_new(&label_sel, &window1, (char*)"", textbox1.rect.x +kiss_edge, textbox1.rect.y + textbox_height +kiss_normal.h);
+	kiss_entry_new(&entry, &window1, 1, (char*)"kiss", textbox1.rect.x,label_sel.rect.y + kiss_textfont.lineheight,2 * textbox_width + 2 * kiss_up.w + kiss_edge);
+	kiss_button_new(&button_cancel, &window1, (char*)"Cancel",entry.rect.x + entry.rect.w - kiss_edge - kiss_normal.w,entry.rect.y + entry.rect.h + kiss_normal.h);
+	kiss_button_new(&button_ok1, &window1, (char*)"OK", button_cancel.rect.x -2 * kiss_normal.w, button_cancel.rect.y);
+	kiss_window_new(&window2, NULL, 1, kiss_screen_width / 2 -window2_width / 2, kiss_screen_height / 2 -window2_height / 2, window2_width, window2_height);
+	
+	kiss_label_new(&label_res, &window2, (char*)"", window2.rect.x +kiss_up.w, window2.rect.y + kiss_vslider.h);
+	label_res.textcolor = kiss_blue;
+	kiss_progressbar_new(&progressbar, &window2, window2.rect.x +kiss_up.w - kiss_edge, window2.rect.y + window2.rect.h / 2 -kiss_bar.h / 2 - kiss_border,window2.rect.w - 2 * kiss_up.w + 2 * kiss_edge);
+	kiss_button_new(&button_ok2, &window2, (char*)"OK", window2.rect.x +window2.rect.w / 2 - kiss_normal.w / 2,progressbar.rect.y + progressbar.rect.h +2 * kiss_vslider.h);
+
+	dirent_read(&textbox1, &vscrollbar1, &textbox2, &vscrollbar2,&label_sel);
 	/* Do that, and all widgets associated with the window will show */
 	window1.visible = 1;
 
@@ -1113,21 +1124,14 @@ int main_x(/*int argc, char** argv*/)
 
 			kiss_window_event(&window2, &e, &draw);
 			kiss_window_event(&window1, &e, &draw);
-			textbox1_event(&textbox1, &e, &vscrollbar1,
-				&textbox2, &vscrollbar2, &label_sel, &draw);
-			vscrollbar1_event(&vscrollbar1, &e, &textbox1,
-				&draw);
-			textbox2_event(&textbox2, &e, &vscrollbar2, &entry,
-				&draw);
+			textbox1_event(&textbox1, &e, &vscrollbar1,	&textbox2, &vscrollbar2, &label_sel, &draw);
+			vscrollbar1_event(&vscrollbar1, &e, &textbox1,	&draw);
+			textbox2_event(&textbox2, &e, &vscrollbar2, &entry,	&draw);
 			vscrollbar2_event(&vscrollbar2, &e, &textbox2, &draw);
-			button_ok1_event(&button_ok1, &e, &window1, &window2,
-				&label_sel, &entry, &label_res, &progressbar,
-				&draw);
-			button_cancel_event(&button_cancel, &e, &quit,
-				&draw);
+			button_ok1_event(&button_ok1, &e, &window1, &window2,&label_sel, &entry, &label_res, &progressbar,&draw);
+			button_cancel_event(&button_cancel, &e, &quit,&draw);
 			kiss_entry_event(&entry, &e, &draw);
-			button_ok2_event(&button_ok2, &e, &window1, &window2,
-				&progressbar, &draw);
+			button_ok2_event(&button_ok2, &e, &window1, &window2,&progressbar, &draw);
 		}
 
 		vscrollbar1_event(&vscrollbar1, NULL, &textbox1, &draw);
@@ -1137,6 +1141,9 @@ int main_x(/*int argc, char** argv*/)
 		if (!draw) continue;
 		SDL_RenderClear(renderer);
 
+		
+
+		
 		kiss_window_draw(&window1, renderer);
 		kiss_label_draw(&label1, renderer);
 		kiss_label_draw(&label2, renderer);
@@ -1153,6 +1160,11 @@ int main_x(/*int argc, char** argv*/)
 		kiss_progressbar_draw(&progressbar, renderer);
 		kiss_button_draw(&button_ok2, renderer);
 
+		kiss_renderimage(renderer, mapimage, 0, 0, NULL);
+
+		SDL_Rect r; r.x = 50; r.y = 50; r.w = 50; r.h = 50; SDL_Color color = { 0, 0, 0 };
+		kiss_fillrect(renderer, &r, color);
+		
 		SDL_RenderPresent(renderer);
 		draw = 0;
 	}

@@ -56,7 +56,7 @@ int kiss_maxlength(kiss_font font, int width, char *str1, char *str2)
 
 	n = 0;
 	if (!str1 && !str2) return -1;
-	kiss_string_copy(buf, KISS_MAX_LENGTH, str1, str2);
+	kiss_string_copy(buf, KISS_MAX_LENGTH-1, str1, str2);
 	/* Maximum length + 1 for '\0', by the rule */
 	for (i = 0; buf[i]; i += kiss_utf8next(buf, i))
 		if (++n * font.advance > width)
@@ -71,7 +71,7 @@ int kiss_textwidth(kiss_font font, char *str1, char *str2)
 	int width;
 
 	if (!str1 && !str2) return -1;
-	kiss_string_copy(buf, KISS_MAX_LENGTH, str1, str2);
+	kiss_string_copy(buf, KISS_MAX_LENGTH-1, str1, str2);
 	TTF_SizeUTF8(font.font, buf, &width, NULL);
 	return width;
 }
@@ -138,7 +138,7 @@ int kiss_image_new(kiss_image *image, char *fname, kiss_array *a,
 	char buf[KISS_MAX_LENGTH];
 
 	if (!image || !fname) return -1;
-	kiss_string_copy(buf, KISS_MAX_LENGTH, (char*)RESDIR, fname);
+	kiss_string_copy(buf, KISS_MAX_LENGTH-1, (char*)RESDIR, fname);
 	if (!(image->image = IMG_LoadTexture(renderer, buf))) {
 		fprintf(stderr, "Cannot load image %s\n", fname);
 		return -1;
@@ -154,7 +154,7 @@ int kiss_font_new(kiss_font *font, char *fname, kiss_array *a, int size)
 	char buf[KISS_MAX_LENGTH];
 
 	if (!font || !fname) return -1;
-	kiss_string_copy(buf, KISS_MAX_LENGTH, (char*)RESDIR, fname);
+	kiss_string_copy(buf, KISS_MAX_LENGTH-1, (char*)RESDIR, fname);
 	if (!(font->font = TTF_OpenFont(buf, size))) {
 		fprintf(stderr, "Cannot load font %s\n", fname);
 		return -1;
@@ -195,24 +195,37 @@ SDL_Renderer* kiss_init(char* title, kiss_array *a, int w, int h)
 	renderer = SDL_CreateRenderer(window, -1,
 		SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 	if (renderer) kiss_array_append(a, RENDERER_TYPE, renderer);
-	r += kiss_font_new(&kiss_textfont, (char*)"kiss_font.ttf", a,
-		kiss_textfont_size);
-	r += kiss_font_new(&kiss_buttonfont, (char*)"kiss_font.ttf", a,
-		kiss_buttonfont_size);
-	r += kiss_image_new(&kiss_normal, (char*)"kiss_normal.png", a, renderer);
-	r += kiss_image_new(&kiss_prelight, (char*)"kiss_prelight.png", a, renderer);
-	r += kiss_image_new(&kiss_active, (char*)"kiss_active.png", a, renderer);
-	r += kiss_image_new(&kiss_bar, (char*)"kiss_bar.png", a, renderer);
-	r += kiss_image_new(&kiss_vslider, (char*)"kiss_vslider.png", a, renderer);
-	r += kiss_image_new(&kiss_hslider, (char*)"kiss_hslider.png", a, renderer);
-	r += kiss_image_new(&kiss_up, (char*)"kiss_up.png", a, renderer);
-	r += kiss_image_new(&kiss_down, (char*)"kiss_down.png", a, renderer);
-	r += kiss_image_new(&kiss_left, (char*)"kiss_left.png", a, renderer);
-	r += kiss_image_new(&kiss_right, (char*)"kiss_right.png", a, renderer);
-	r += kiss_image_new(&kiss_combo, (char*)"kiss_combo.png", a, renderer);
-	r += kiss_image_new(&kiss_selected, (char*)"kiss_selected.png", a, renderer);
-	r += kiss_image_new(&kiss_unselected, (char*)"kiss_unselected.png", a,
-		renderer);
+
+	char path2[512];
+	FixDir(path2, (char*)"kiss\\kiss_font.ttf");
+	r += kiss_font_new(&kiss_textfont, path2, a, kiss_textfont_size);
+	r += kiss_font_new(&kiss_buttonfont, path2, a,kiss_buttonfont_size);
+	FixDir(path2, (char*)"kiss\\kiss_normal.png");
+	r += kiss_image_new(&kiss_normal, path2, a, renderer);
+	FixDir(path2, (char*)"kiss\\kiss_prelight.png");
+	r += kiss_image_new(&kiss_prelight, path2, a, renderer);
+	FixDir(path2, (char*)"kiss\\kiss_active.png");
+	r += kiss_image_new(&kiss_active, path2, a, renderer);
+	FixDir(path2, (char*)"kiss\\kiss_bar.png");
+	r += kiss_image_new(&kiss_bar, path2, a, renderer);
+	FixDir(path2, (char*)"kiss\\kiss_vslider.png");
+	r += kiss_image_new(&kiss_vslider, path2, a, renderer);
+	FixDir(path2, (char*)"kiss\\kiss_hslider.png");
+	r += kiss_image_new(&kiss_hslider, path2, a, renderer);
+	FixDir(path2, (char*)"kiss\\kiss_up.png");
+	r += kiss_image_new(&kiss_up, path2, a, renderer);
+	FixDir(path2, (char*)"kiss\\kiss_down.png");
+	r += kiss_image_new(&kiss_down, path2, a, renderer);
+	FixDir(path2, (char*)"kiss\\kiss_left.png");
+	r += kiss_image_new(&kiss_left, path2, a, renderer);
+	FixDir(path2, (char*)"kiss\\kiss_right.png");
+	r += kiss_image_new(&kiss_right, path2, a, renderer);
+	FixDir(path2, (char*)"kiss\\kiss_combo.png");
+	r += kiss_image_new(&kiss_combo, path2, a, renderer);
+	FixDir(path2, (char*)"kiss\\kiss_selected.png");
+	r += kiss_image_new(&kiss_selected, path2, a, renderer);
+	FixDir(path2, (char*)"kiss\\kiss_unselected.png");
+	r += kiss_image_new(&kiss_unselected, path2, a,	renderer);
 	if (r) {
 		kiss_clean(a);
 		return NULL;

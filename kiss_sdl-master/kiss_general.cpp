@@ -92,12 +92,12 @@ char *kiss_string_copy(char *dest, size_t size, char *str1, char *str2)
 	if (!dest) return NULL;
 	strcpy_s(dest, strlen("")+1,"");
 	if (size < 2) return dest;
-	if (str1) strncpy_s(dest, size,str1, size);
+	if (str1) strncpy_s(dest, size+1,str1, size);
 	dest[size - 1] = 0;
 	len = strlen(dest);
 	if (!str2 || size - 1 <= len) return dest;
 	p = dest;
-	strncpy_s(p + len, size - len,str2, size - len);
+	strncpy_s(p + len, size - len+1,str2, size - len);
 	dest[size - 1] = 0;
 	kiss_utf8fix(dest);
 	return dest;
@@ -125,8 +125,10 @@ int kiss_array_new(kiss_array *a)
 	a->size = KISS_MIN_LENGTH;
 	a->length = 0;
 	a->ref = 1;
-	a->data = (void **) malloc(KISS_MIN_LENGTH * sizeof(void *));
-	a->id = (int *) malloc(KISS_MIN_LENGTH * sizeof(int));
+	//a->data = (void **) malloc(KISS_MIN_LENGTH * sizeof(void *));
+	a->data = new void*[KISS_MIN_LENGTH];
+	//a->id = (int *) malloc(KISS_MIN_LENGTH * sizeof(int));
+	a->id = new int [KISS_MIN_LENGTH];
 	return 0;
 }
 
@@ -145,7 +147,7 @@ int kiss_array_id(kiss_array *a, int index)
 int kiss_array_assign(kiss_array *a, int index, int id, void *data)
 {
 	if (!a || index < 0 || index >= a->length) return -1;
-	free(a->data[index]);
+	delete(a->data[index]);
 	a->data[index] = data;
 	a->id[index] = id;
 	return 0;
@@ -213,7 +215,7 @@ int kiss_array_remove(kiss_array *a, int index)
 	int i;
 
 	if (!a || index < 0 || index >= a->length) return -1;
-	free(a->data[index]);
+	delete(a->data[index]);
 	for (i = index; i < a->length - 1; i++) {
 		a->data[i] = a->data[i + 1];
 		a->id[i] = a->id[i + 1];
@@ -234,10 +236,11 @@ int kiss_array_free(kiss_array *a)
 		return 0;
 	}
 	if (a->length)
-		for (i = 0; i < a->length; i++)
-			free (a->data[i]);
-	free(a->data);
-	free(a->id);
+		delete[] a->data;
+		/*for (i = 0; i < a->length; i++)
+			delete (a->data[i]);*/
+	//delete(a->data);
+	delete(a->id);
 	a->data = NULL;
 	a->id = NULL;
 	a->size = 0;

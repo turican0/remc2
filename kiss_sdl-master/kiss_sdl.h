@@ -51,6 +51,8 @@
 #include <string.h>
 #include <stdio.h>
 
+#include "../remc2/portability/port_filesystem.h"
+
 #define KISS_MAX_LENGTH 200
 #define KISS_MIN_LENGTH 10
 #define KISS_MAX_LABEL 500
