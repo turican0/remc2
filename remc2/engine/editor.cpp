@@ -9,6 +9,18 @@ int maptype = 0;
 int actlevel = 0;
 int first_terrain_feature = 1;
 
+SDL_Surface* mapsurface;
+kiss_image mapimage;
+SDL_Renderer* editor_renderer;
+
+void SetPixelMapSurface(int x,int y,int color) {
+	Bit8u* scrbuff = (Bit8u*)mapsurface->pixels;
+	scrbuff[4 * (y * 256 + x)] = color;
+	scrbuff[4 * (y * 256 + x) + 1] = color;
+	scrbuff[4 * (y * 256 + x) + 2] = color;
+	scrbuff[4 * (y * 256 + x) + 3] = 255;
+}
+
 void init_pal() {
 	Bit8u temppal[0x300];
 	for (int i = 0; i < 256; i++)
@@ -29,6 +41,10 @@ void terrain_recalculate();
 
 int main_x(/*int argc, char** argv*/);
 
+void loadlevel(int levelnumber) {
+	sub_533B0_decompress_levels(levelnumber, &D41A0_BYTESTR_0.str_2FECE);
+}
+
 void editor_run()
 {	
 
@@ -47,6 +63,7 @@ void editor_run()
 	D41A0_BYTESTR_0.str_2FECE.word_0x2FF11 = 0;
 	init_pal();
 	clean_tarrain();
+	loadlevel(0);
 	terrain_recalculate();
 	main_x(/*int argc, char** argv*/);
 	editor_loop();
@@ -153,6 +170,33 @@ void drawterrain(int x,int y) {
 				}
 			k++;
 		}
+};
+void drawterrain2(int x, int y) {
+	int k = 0;
+	for (int j = 0; j < 256; j++)
+		for (int i = 0; i < 256; i++)
+		{
+			switch (maptype)
+			{
+			case 0:
+				SetPixelMapSurface(i,j,x_BYTE_10B4E0_terraintype[k]);
+				break;
+			case 1:
+				SetPixelMapSurface(i, j, x_BYTE_11B4E0_height[k]);
+				break;
+			case 2:
+				SetPixelMapSurface(i, j, x_BYTE_12B4E0_shading[k]);
+				break;
+			case 3:
+				SetPixelMapSurface(i, j, x_BYTE_13B4E0_angle[k]);
+				break;
+			}
+			k++;
+		}
+	mapimage.image = SDL_CreateTextureFromSurface(editor_renderer, mapsurface);
+	kiss_renderimage(editor_renderer, mapimage, x, y, NULL);
+	/*SDL_Texture* Background_Tx = SDL_CreateTextureFromSurface(editor_renderer, mapsurface);
+	SDL_RenderCopy(editor_renderer, Background_Tx, NULL, NULL);*/
 };
 void drawdetail(int x, int y,int size,int zoom) {
 	int k = 0;
@@ -639,10 +683,6 @@ void drawtexts() {
 
 }
 
-void loadlevel(int levelnumber) {
-	sub_533B0_decompress_levels(levelnumber, &D41A0_BYTESTR_0.str_2FECE);
-}
-
 void editor_mouse_events()//25f0e0
 {
 	int v3; // edx
@@ -893,8 +933,7 @@ static void dirent_read(kiss_textbox* textbox1, kiss_vscrollbar* vscrollbar1,
 	strcpy(ending, "/");
 	if (buf[0] == 'C') strcpy(ending, "\\");
 	if (!strcmp(buf, "/") || !strcmp(buf, "C:\\")) strcpy(ending, "");
-	kiss_string_copy(label_sel->text, (2 * textbox1->rect.w +
-		2 * kiss_up.w) / kiss_textfont.advance, buf, ending);
+	kiss_string_copy(label_sel->text, (2 * textbox1->rect.w +2 * kiss_up.w) / kiss_textfont.advance, buf, ending);
 #ifdef _MSC_VER
 	dir = kiss_opendir((char*)"*");
 #else
@@ -1028,7 +1067,6 @@ static void button_ok2_event(kiss_button* button, SDL_Event* e,
 
 int main_x(/*int argc, char** argv*/)
 {
-	SDL_Renderer* renderer;
 	SDL_Event e;
 	kiss_array objects, a1, a2;
 	kiss_window window1, window2;
@@ -1049,8 +1087,8 @@ int main_x(/*int argc, char** argv*/)
 	textbox_height = 250;
 	window2_width = 400;
 	window2_height = 168;
-	renderer = kiss_init((char*)"REMC2 Editor", &objects, 1024, 768);
-	if (!renderer) return 1;
+	editor_renderer = kiss_init((char*)"REMC2 Editor", &objects, 1024, 768);
+	if (!editor_renderer) return 1;
 	kiss_array_new(&a1);
 	kiss_array_append(&objects, ARRAY_TYPE, &a1);
 	kiss_array_new(&a2);
@@ -1071,24 +1109,23 @@ int main_x(/*int argc, char** argv*/)
 	Uint32 bmask = 0x00ff0000;
 	Uint32 amask = 0xff000000;
 #endif
-	SDL_Surface* surface = SDL_CreateRGBSurface(SDL_SWSURFACE, 256, 256, 32, rmask, gmask, bmask, amask);
-	if (surface == NULL) {
+	mapsurface = SDL_CreateRGBSurface(SDL_SWSURFACE, 256, 256, 32, rmask, gmask, bmask, amask);
+	if (mapsurface == NULL) {
 		fprintf(stderr, "CreateRGBSurface failed: %s\n", SDL_GetError());
 		exit(1);
 	}
-	Bit8u* scrbuff = (Bit8u*)surface->pixels;
+	/*Bit8u* scrbuff = (Bit8u*)mapsurface->pixels;
 	for (int j = 0; j < 256; j++)
 		for (int i = 0; i < 256; i++) {
 			scrbuff[4 * (i * 256 + j)] = 128;
 			scrbuff[4 * (i * 256 + j)+1] = 128;
 			scrbuff[4 * (i * 256 + j)+2] = 128;
 			scrbuff[4 * (i * 256 + j)+3] = 128;
-		}
-	kiss_image mapimage;
+		}*/
 	mapimage.w=256;
 	mapimage.h=256;
 	mapimage.magic = KISS_MAGIC;
-	mapimage.image= SDL_CreateTextureFromSurface(renderer, surface);
+	mapimage.image= SDL_CreateTextureFromSurface(editor_renderer, mapsurface);
 
 	
 
@@ -1139,33 +1176,34 @@ int main_x(/*int argc, char** argv*/)
 		kiss_progressbar_event(&progressbar, NULL, &draw);
 
 		if (!draw) continue;
-		SDL_RenderClear(renderer);
+		SDL_RenderClear(editor_renderer);
 
 		
 
 		
-		kiss_window_draw(&window1, renderer);
-		kiss_label_draw(&label1, renderer);
-		kiss_label_draw(&label2, renderer);
-		kiss_textbox_draw(&textbox1, renderer);
-		kiss_vscrollbar_draw(&vscrollbar1, renderer);
-		kiss_textbox_draw(&textbox2, renderer);
-		kiss_vscrollbar_draw(&vscrollbar2, renderer);
-		kiss_label_draw(&label_sel, renderer);
-		kiss_entry_draw(&entry, renderer);
-		kiss_button_draw(&button_ok1, renderer);
-		kiss_button_draw(&button_cancel, renderer);
-		kiss_window_draw(&window2, renderer);
-		kiss_label_draw(&label_res, renderer);
-		kiss_progressbar_draw(&progressbar, renderer);
-		kiss_button_draw(&button_ok2, renderer);
+		kiss_window_draw(&window1, editor_renderer);
+		kiss_label_draw(&label1, editor_renderer);
+		kiss_label_draw(&label2, editor_renderer);
+		kiss_textbox_draw(&textbox1, editor_renderer);
+		kiss_vscrollbar_draw(&vscrollbar1, editor_renderer);
+		kiss_textbox_draw(&textbox2, editor_renderer);
+		kiss_vscrollbar_draw(&vscrollbar2, editor_renderer);
+		kiss_label_draw(&label_sel, editor_renderer);
+		kiss_entry_draw(&entry, editor_renderer);
+		kiss_button_draw(&button_ok1, editor_renderer);
+		kiss_button_draw(&button_cancel, editor_renderer);
+		kiss_window_draw(&window2, editor_renderer);
+		kiss_label_draw(&label_res, editor_renderer);
+		kiss_progressbar_draw(&progressbar, editor_renderer);
+		kiss_button_draw(&button_ok2, editor_renderer);
 
-		kiss_renderimage(renderer, mapimage, 0, 0, NULL);
-
-		SDL_Rect r; r.x = 50; r.y = 50; r.w = 50; r.h = 50; SDL_Color color = { 0, 0, 0 };
-		kiss_fillrect(renderer, &r, color);
+		drawterrain2(0, window1.rect.h-mapimage.h);
 		
-		SDL_RenderPresent(renderer);
+
+		/*SDL_Rect r; r.x = 50; r.y = 50; r.w = 50; r.h = 50; SDL_Color color = { 0, 0, 0 };
+		kiss_fillrect(editor_renderer, &r, color);*/
+		
+		SDL_RenderPresent(editor_renderer);
 		draw = 0;
 	}
 	kiss_clean(&objects);

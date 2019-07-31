@@ -7584,4 +7584,10 @@ int sub_34520(type_str_0x6E8E* a1x)//215520
 
 https://philippegroarke.com/posts/2018/c++_ui_solutions/
 
+char sub_46570(unsigned __int16 a1, __int16 a2)//227570
+rewrite
+
+test
+char sub_570F0(__int16 a1, __int16 a2, signed __int16 a3, char a4, char a5, char a6)//2380f0
+
 
