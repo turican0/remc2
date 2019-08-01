@@ -343,65 +343,298 @@ int kiss_hex4edit_draw(kiss_hex4edit* hex4edit, SDL_Renderer* renderer) {
 int kiss_hex4edit_new2(kiss_hex4edit2* hex4edit2, kiss_window* wdw, void* adress, char* text, int x, int y)
 //int kiss_hex4edit2_new(kiss_button* button, kiss_window* wdw, char* text,	int x, int y)
 {
-	if (!hex4edit2 || !text) return -1;
-	if (hex4edit2->font.magic != KISS_MAGIC) hex4edit2->font = kiss_buttonfont;
-	if (hex4edit2->normalimg.magic != KISS_MAGIC)
+	if (!hex4edit2 || !text) return -1;	
+
+	hex4edit2->valueadress = adress;
+
+	if (hex4edit2->font.magic != KISS_MAGIC) hex4edit2->font = kiss_textfont;
+	if (hex4edit2->valuefont.magic != KISS_MAGIC) hex4edit2->valuefont = kiss_textfont;
+
+	if (hex4edit2->left.magic != KISS_MAGIC)
+		hex4edit2->left = kiss_left;
+	if (hex4edit2->left_sel.magic != KISS_MAGIC)
+		hex4edit2->left_sel = kiss_left_sel;
+
+	if (hex4edit2->right.magic != KISS_MAGIC)
+		hex4edit2->right = kiss_right;
+	if (hex4edit2->right_sel.magic != KISS_MAGIC)
+		hex4edit2->right_sel = kiss_right_sel;
+	/*if (hex4edit2->normalimg.magic != KISS_MAGIC)
 		hex4edit2->normalimg = kiss_normal;
 	if (hex4edit2->activeimg.magic != KISS_MAGIC)
 		hex4edit2->activeimg = kiss_active;
 	if (hex4edit2->prelightimg.magic != KISS_MAGIC)
-		hex4edit2->prelightimg = kiss_prelight;
-	kiss_makerect(&hex4edit2->rect, x, y, hex4edit2->normalimg.w,
-		hex4edit2->normalimg.h);
-	hex4edit2->textcolor = kiss_white;
+		hex4edit2->prelightimg = kiss_prelight;*/
+	
+	
+	hex4edit2->textcolor = kiss_black;
 	kiss_string_copy(hex4edit2->text, KISS_MAX_LENGTH, text, NULL);
-	hex4edit2->textx = x + hex4edit2->normalimg.w / 2 -
-		kiss_textwidth(hex4edit2->font, text, NULL) / 2;
-	hex4edit2->texty = y + hex4edit2->normalimg.h / 2 -
-		hex4edit2->font.fontheight / 2;
-	hex4edit2->active = 0;
-	hex4edit2->prelight = 0;
+	hex4edit2->textx = x /*+ hex4edit2->normalimg.w / 2 -	kiss_textwidth(hex4edit2->font, text, NULL) / 2*/;
+	hex4edit2->texty = y + hex4edit2->left.h / 2 -	hex4edit2->font.fontheight / 2;
+
+	int basic_shift_x = 100;
+	kiss_makerect(&hex4edit2->leftrect1, basic_shift_x + x, y, hex4edit2->left.w, hex4edit2->left.h);
+	kiss_makerect(&hex4edit2->leftrect2, basic_shift_x + x + hex4edit2->left.w, y, hex4edit2->left.w, hex4edit2->left.h);
+	kiss_makerect(&hex4edit2->leftrect3, basic_shift_x + x + hex4edit2->left.w * 2, y, hex4edit2->left.w, hex4edit2->left.h);
+	kiss_makerect(&hex4edit2->leftrect4, basic_shift_x + x + hex4edit2->left.w * 3, y, hex4edit2->left.w, hex4edit2->left.h);
+
+	char buf[256];
+	sprintf(buf,"%04X", *(Bit16u*)adress);
+	hex4edit2->valuetextcolor = kiss_black;
+	kiss_string_copy(hex4edit2->valuetext, KISS_MAX_LENGTH, buf, NULL);
+	hex4edit2->valuetextx = basic_shift_x + x + hex4edit2->left.w * 4;
+	hex4edit2->valuetexty = y + hex4edit2->left.h / 2 - hex4edit2->font.fontheight / 2;
+	
+	int second_shift_x = basic_shift_x+98;
+	kiss_makerect(&hex4edit2->rightrect1, second_shift_x + x, y, hex4edit2->right.w, hex4edit2->right.h);
+	kiss_makerect(&hex4edit2->rightrect2, second_shift_x + x + hex4edit2->right.w, y, hex4edit2->right.w, hex4edit2->right.h);
+	kiss_makerect(&hex4edit2->rightrect3, second_shift_x + x + hex4edit2->right.w * 2, y, hex4edit2->right.w, hex4edit2->right.h);
+	kiss_makerect(&hex4edit2->rightrect4, second_shift_x + x + hex4edit2->right.w * 3, y, hex4edit2->right.w, hex4edit2->right.h);
+	
+	hex4edit2->left1active = 0;
+	hex4edit2->left1prelight = 0;
+	hex4edit2->left2active = 0;
+	hex4edit2->left2prelight = 0;
+	hex4edit2->left3active = 0;
+	hex4edit2->left3prelight = 0;
+	hex4edit2->left4active = 0;
+	hex4edit2->left4prelight = 0;
+	hex4edit2->right1active = 0;
+	hex4edit2->right1prelight = 0;
+	hex4edit2->right2active = 0;
+	hex4edit2->right2prelight = 0;
+	hex4edit2->right3active = 0;
+	hex4edit2->right3prelight = 0;
+	hex4edit2->right4active = 0;
+	hex4edit2->right4prelight = 0;
+
+
 	hex4edit2->visible = 0;
 	hex4edit2->focus = 0;
 	hex4edit2->wdw = wdw;
 	return 0;
 }
 
-int kiss_hex4edit2_event(kiss_hex4edit2* hex4edit2, SDL_Event* event, int* draw)
+int kiss_hex4edit_event2(kiss_hex4edit2* hex4edit2, SDL_Event* event, int* draw)
 {
 	if (!hex4edit2 || !hex4edit2->visible || !event) return 0;
 	if (event->type == SDL_WINDOWEVENT &&
 		event->window.event == SDL_WINDOWEVENT_EXPOSED)
 		* draw = 1;
-	if (!hex4edit2->focus && (!hex4edit2->wdw ||
-		(hex4edit2->wdw && !hex4edit2->wdw->focus)))
+	if (!hex4edit2->focus && (!hex4edit2->wdw ||(hex4edit2->wdw && !hex4edit2->wdw->focus)))
 		return 0;
-	if (event->type == SDL_MOUSEBUTTONDOWN &&
-		kiss_pointinrect(event->button.x, event->button.y,
-			&hex4edit2->rect)) {
-		hex4edit2->active = 1;
+	if (event->type == SDL_MOUSEBUTTONDOWN && kiss_pointinrect(event->button.x, event->button.y,&hex4edit2->leftrect1)) {
+		hex4edit2->left1active = 1;
 		*draw = 1;
+		*(Bit16u*)hex4edit2->valueadress -= 4096;
+		char buf[256];
+		sprintf(buf, "%04X", *(Bit16u*)hex4edit2->valueadress);
+		kiss_string_copy(hex4edit2->valuetext, KISS_MAX_LENGTH, buf, NULL);
+		return 11;
 	}
-	else if (event->type == SDL_MOUSEBUTTONUP &&
-		kiss_pointinrect(event->button.x, event->button.y,
-			&hex4edit2->rect) && hex4edit2->active) {
-		hex4edit2->active = 0;
+	else if (event->type == SDL_MOUSEBUTTONUP && kiss_pointinrect(event->button.x, event->button.y,&hex4edit2->leftrect1) && hex4edit2->left1active) {
+		hex4edit2->left1active = 0;
 		*draw = 1;
 		return 1;
 	}
-	else if (event->type == SDL_MOUSEMOTION &&
-		kiss_pointinrect(event->motion.x, event->motion.y,
-			&hex4edit2->rect)) {
-		hex4edit2->prelight = 1;
+	else if (event->type == SDL_MOUSEMOTION && kiss_pointinrect(event->motion.x, event->motion.y,&hex4edit2->leftrect1)) {
+		hex4edit2->left1prelight = 1;
 		*draw = 1;
 	}
-	else if (event->type == SDL_MOUSEMOTION &&
-		!kiss_pointinrect(event->motion.x, event->motion.y,
-			&hex4edit2->rect)) {
-		hex4edit2->prelight = 0;
+	else if (event->type == SDL_MOUSEMOTION &&!kiss_pointinrect(event->motion.x, event->motion.y,&hex4edit2->leftrect1)) {
+		hex4edit2->left1prelight = 0;
 		*draw = 1;
-		if (hex4edit2->active) {
-			hex4edit2->active = 0;
+		if (hex4edit2->left1active) {
+			hex4edit2->left1active = 0;
+			return 1;
+		}
+	}
+
+	if (event->type == SDL_MOUSEBUTTONDOWN && kiss_pointinrect(event->button.x, event->button.y, &hex4edit2->leftrect2)) {
+		hex4edit2->left2active = 1;
+		*draw = 1;
+		*(Bit16u*)hex4edit2->valueadress -= 256;
+		char buf[256];
+		sprintf(buf, "%04X", *(Bit16u*)hex4edit2->valueadress);
+		kiss_string_copy(hex4edit2->valuetext, KISS_MAX_LENGTH, buf, NULL);
+		return 12;
+	}
+	else if (event->type == SDL_MOUSEBUTTONUP && kiss_pointinrect(event->button.x, event->button.y, &hex4edit2->leftrect2) && hex4edit2->left2active) {
+		hex4edit2->left2active = 0;
+		*draw = 1;
+		return 1;
+	}
+	else if (event->type == SDL_MOUSEMOTION && kiss_pointinrect(event->motion.x, event->motion.y, &hex4edit2->leftrect2)) {
+		hex4edit2->left2prelight = 1;
+		*draw = 1;
+	}
+	else if (event->type == SDL_MOUSEMOTION && !kiss_pointinrect(event->motion.x, event->motion.y, &hex4edit2->leftrect2)) {
+		hex4edit2->left2prelight = 0;
+		*draw = 1;
+		if (hex4edit2->left2active) {
+			hex4edit2->left2active = 0;
+			return 1;
+		}
+	}
+
+	if (event->type == SDL_MOUSEBUTTONDOWN && kiss_pointinrect(event->button.x, event->button.y, &hex4edit2->leftrect3)) {
+		hex4edit2->left3active = 1;
+		*draw = 1;
+		*(Bit16u*)hex4edit2->valueadress -= 16;
+		char buf[256];
+		sprintf(buf, "%04X", *(Bit16u*)hex4edit2->valueadress);
+		kiss_string_copy(hex4edit2->valuetext, KISS_MAX_LENGTH, buf, NULL);
+		return 13;
+	}
+	else if (event->type == SDL_MOUSEBUTTONUP && kiss_pointinrect(event->button.x, event->button.y, &hex4edit2->leftrect3) && hex4edit2->left3active) {
+		hex4edit2->left3active = 0;
+		*draw = 1;
+		return 1;
+	}
+	else if (event->type == SDL_MOUSEMOTION && kiss_pointinrect(event->motion.x, event->motion.y, &hex4edit2->leftrect3)) {
+		hex4edit2->left3prelight = 1;
+		*draw = 1;
+	}
+	else if (event->type == SDL_MOUSEMOTION && !kiss_pointinrect(event->motion.x, event->motion.y, &hex4edit2->leftrect3)) {
+		hex4edit2->left3prelight = 0;
+		*draw = 1;
+		if (hex4edit2->left3active) {
+			hex4edit2->left3active = 0;
+			return 1;
+		}
+	}
+
+	if (event->type == SDL_MOUSEBUTTONDOWN && kiss_pointinrect(event->button.x, event->button.y, &hex4edit2->leftrect4)) {
+		hex4edit2->left4active = 1;
+		*draw = 1;
+		*(Bit16u*)hex4edit2->valueadress -= 1;
+		char buf[256];
+		sprintf(buf, "%04X", *(Bit16u*)hex4edit2->valueadress);
+		kiss_string_copy(hex4edit2->valuetext, KISS_MAX_LENGTH, buf, NULL);
+		return 14;
+	}
+	else if (event->type == SDL_MOUSEBUTTONUP && kiss_pointinrect(event->button.x, event->button.y, &hex4edit2->leftrect4) && hex4edit2->left4active) {
+		hex4edit2->left4active = 0;
+		*draw = 1;
+		return 1;
+	}
+	else if (event->type == SDL_MOUSEMOTION && kiss_pointinrect(event->motion.x, event->motion.y, &hex4edit2->leftrect4)) {
+		hex4edit2->left4prelight = 1;
+		*draw = 1;
+	}
+	else if (event->type == SDL_MOUSEMOTION && !kiss_pointinrect(event->motion.x, event->motion.y, &hex4edit2->leftrect4)) {
+		hex4edit2->left4prelight = 0;
+		*draw = 1;
+		if (hex4edit2->left4active) {
+			hex4edit2->left4active = 0;
+			return 1;
+		}
+	}
+
+	if (event->type == SDL_MOUSEBUTTONDOWN && kiss_pointinrect(event->button.x, event->button.y, &hex4edit2->rightrect1)) {
+		hex4edit2->right1active = 1;
+		*draw = 1;
+		*(Bit16u*)hex4edit2->valueadress += 1;
+		char buf[256];
+		sprintf(buf, "%04X", *(Bit16u*)hex4edit2->valueadress);
+		kiss_string_copy(hex4edit2->valuetext, KISS_MAX_LENGTH, buf, NULL);
+		return 15;
+	}
+	else if (event->type == SDL_MOUSEBUTTONUP && kiss_pointinrect(event->button.x, event->button.y, &hex4edit2->rightrect1) && hex4edit2->right1active) {
+		hex4edit2->right1active = 0;
+		*draw = 1;
+		return 1;
+	}
+	else if (event->type == SDL_MOUSEMOTION && kiss_pointinrect(event->motion.x, event->motion.y, &hex4edit2->rightrect1)) {
+		hex4edit2->right1prelight = 1;
+		*draw = 1;
+	}
+	else if (event->type == SDL_MOUSEMOTION && !kiss_pointinrect(event->motion.x, event->motion.y, &hex4edit2->rightrect1)) {
+		hex4edit2->right1prelight = 0;
+		*draw = 1;
+		if (hex4edit2->right1active) {
+			hex4edit2->right1active = 0;
+			return 1;
+		}
+	}
+
+	if (event->type == SDL_MOUSEBUTTONDOWN && kiss_pointinrect(event->button.x, event->button.y, &hex4edit2->rightrect2)) {
+		hex4edit2->right2active = 1;
+		*draw = 1;
+		*(Bit16u*)hex4edit2->valueadress += 16;
+		char buf[256];
+		sprintf(buf, "%04X", *(Bit16u*)hex4edit2->valueadress);
+		kiss_string_copy(hex4edit2->valuetext, KISS_MAX_LENGTH, buf, NULL);
+		return 16;
+	}
+	else if (event->type == SDL_MOUSEBUTTONUP && kiss_pointinrect(event->button.x, event->button.y, &hex4edit2->rightrect2) && hex4edit2->right2active) {
+		hex4edit2->right2active = 0;
+		*draw = 1;
+		return 1;
+	}
+	else if (event->type == SDL_MOUSEMOTION && kiss_pointinrect(event->motion.x, event->motion.y, &hex4edit2->rightrect2)) {
+		hex4edit2->right2prelight = 1;
+		*draw = 1;
+	}
+	else if (event->type == SDL_MOUSEMOTION && !kiss_pointinrect(event->motion.x, event->motion.y, &hex4edit2->rightrect2)) {
+		hex4edit2->right2prelight = 0;
+		*draw = 1;
+		if (hex4edit2->right2active) {
+			hex4edit2->right2active = 0;
+			return 1;
+		}
+	}
+
+	if (event->type == SDL_MOUSEBUTTONDOWN && kiss_pointinrect(event->button.x, event->button.y, &hex4edit2->rightrect3)) {
+		hex4edit2->right3active = 1;
+		*draw = 1;
+		*(Bit16u*)hex4edit2->valueadress += 256;
+		char buf[256];
+		sprintf(buf, "%04X", *(Bit16u*)hex4edit2->valueadress);
+		kiss_string_copy(hex4edit2->valuetext, KISS_MAX_LENGTH, buf, NULL);
+		return 17;
+	}
+	else if (event->type == SDL_MOUSEBUTTONUP && kiss_pointinrect(event->button.x, event->button.y, &hex4edit2->rightrect3) && hex4edit2->right3active) {
+		hex4edit2->right3active = 0;
+		*draw = 1;
+		return 1;
+	}
+	else if (event->type == SDL_MOUSEMOTION && kiss_pointinrect(event->motion.x, event->motion.y, &hex4edit2->rightrect3)) {
+		hex4edit2->right3prelight = 1;
+		*draw = 1;
+	}
+	else if (event->type == SDL_MOUSEMOTION && !kiss_pointinrect(event->motion.x, event->motion.y, &hex4edit2->rightrect3)) {
+		hex4edit2->right3prelight = 0;
+		*draw = 1;
+		if (hex4edit2->right3active) {
+			hex4edit2->right3active = 0;
+			return 1;
+		}
+	}
+
+	if (event->type == SDL_MOUSEBUTTONDOWN && kiss_pointinrect(event->button.x, event->button.y, &hex4edit2->rightrect4)) {
+		hex4edit2->right4active = 1;
+		*draw = 1;
+		*(Bit16u*)hex4edit2->valueadress += 4096;
+		char buf[256];
+		sprintf(buf, "%04X", *(Bit16u*)hex4edit2->valueadress);
+		kiss_string_copy(hex4edit2->valuetext, KISS_MAX_LENGTH, buf, NULL);
+		return 18;
+	}
+	else if (event->type == SDL_MOUSEBUTTONUP && kiss_pointinrect(event->button.x, event->button.y, &hex4edit2->rightrect4) && hex4edit2->right4active) {
+		hex4edit2->right4active = 0;
+		*draw = 1;
+		return 1;
+	}
+	else if (event->type == SDL_MOUSEMOTION && kiss_pointinrect(event->motion.x, event->motion.y, &hex4edit2->rightrect4)) {
+		hex4edit2->right4prelight = 1;
+		*draw = 1;
+	}
+	else if (event->type == SDL_MOUSEMOTION && !kiss_pointinrect(event->motion.x, event->motion.y, &hex4edit2->rightrect4)) {
+		hex4edit2->right4prelight = 0;
+		*draw = 1;
+		if (hex4edit2->right4active) {
+			hex4edit2->right4active = 0;
 			return 1;
 		}
 	}
@@ -412,18 +645,88 @@ int kiss_hex4edit_draw2(kiss_hex4edit2* hex4edit2, SDL_Renderer* renderer)
 {
 	if (hex4edit2 && hex4edit2->wdw) hex4edit2->visible = hex4edit2->wdw->visible;
 	if (!hex4edit2 || !hex4edit2->visible || !renderer) return 0;
-	if (hex4edit2->active)
-		kiss_renderimage(renderer, hex4edit2->activeimg, hex4edit2->rect.x,
-			hex4edit2->rect.y, NULL);
-	else if (hex4edit2->prelight && !hex4edit2->active)
-		kiss_renderimage(renderer, hex4edit2->prelightimg,
-			hex4edit2->rect.x, hex4edit2->rect.y, NULL);
+	
+	if (hex4edit2->left1active)
+		kiss_renderimage(renderer, hex4edit2->left_sel, hex4edit2->leftrect1.x,hex4edit2->leftrect1.y, NULL);
+	else if (hex4edit2->left1prelight && !hex4edit2->left1active)
+		kiss_renderimage(renderer, hex4edit2->left_sel,hex4edit2->leftrect1.x, hex4edit2->leftrect1.y, NULL);
 	else
-		kiss_renderimage(renderer, hex4edit2->normalimg, hex4edit2->rect.x,
-			hex4edit2->rect.y, NULL);
-	kiss_rendertext(renderer, hex4edit2->text, hex4edit2->textx, hex4edit2->texty,
-		hex4edit2->font, hex4edit2->textcolor);
+		kiss_renderimage(renderer, hex4edit2->left, hex4edit2->leftrect1.x, hex4edit2->leftrect1.y, NULL);
+
+	if (hex4edit2->left2active)
+		kiss_renderimage(renderer, hex4edit2->left_sel, hex4edit2->leftrect2.x, hex4edit2->leftrect2.y, NULL);
+	else if (hex4edit2->left2prelight && !hex4edit2->left2active)
+		kiss_renderimage(renderer, hex4edit2->left_sel, hex4edit2->leftrect2.x, hex4edit2->leftrect2.y, NULL);
+	else
+		kiss_renderimage(renderer, hex4edit2->left, hex4edit2->leftrect2.x, hex4edit2->leftrect2.y, NULL);
+
+	if (hex4edit2->left3active)
+		kiss_renderimage(renderer, hex4edit2->left_sel, hex4edit2->leftrect3.x, hex4edit2->leftrect3.y, NULL);
+	else if (hex4edit2->left3prelight && !hex4edit2->left3active)
+		kiss_renderimage(renderer, hex4edit2->left_sel, hex4edit2->leftrect3.x, hex4edit2->leftrect3.y, NULL);
+	else
+		kiss_renderimage(renderer, hex4edit2->left, hex4edit2->leftrect3.x, hex4edit2->leftrect3.y, NULL);
+
+	if (hex4edit2->left4active)
+		kiss_renderimage(renderer, hex4edit2->left_sel, hex4edit2->leftrect4.x, hex4edit2->leftrect4.y, NULL);
+	else if (hex4edit2->left4prelight && !hex4edit2->left4active)
+		kiss_renderimage(renderer, hex4edit2->left_sel, hex4edit2->leftrect4.x, hex4edit2->leftrect4.y, NULL);
+	else
+		kiss_renderimage(renderer, hex4edit2->left, hex4edit2->leftrect4.x, hex4edit2->leftrect4.y, NULL);
+
+
+	if (hex4edit2->right1active)
+		kiss_renderimage(renderer, hex4edit2->right_sel, hex4edit2->rightrect1.x, hex4edit2->rightrect1.y, NULL);
+	else if (hex4edit2->right1prelight && !hex4edit2->right1active)
+		kiss_renderimage(renderer, hex4edit2->right_sel, hex4edit2->rightrect1.x, hex4edit2->rightrect1.y, NULL);
+	else
+		kiss_renderimage(renderer, hex4edit2->right, hex4edit2->rightrect1.x, hex4edit2->rightrect1.y, NULL);
+	if (hex4edit2->right2active)
+		kiss_renderimage(renderer, hex4edit2->right_sel, hex4edit2->rightrect2.x, hex4edit2->rightrect2.y, NULL);
+	else if (hex4edit2->right2prelight && !hex4edit2->right2active)
+		kiss_renderimage(renderer, hex4edit2->right_sel, hex4edit2->rightrect2.x, hex4edit2->rightrect2.y, NULL);
+	else
+		kiss_renderimage(renderer, hex4edit2->right, hex4edit2->rightrect2.x, hex4edit2->rightrect2.y, NULL);
+	if (hex4edit2->right3active)
+		kiss_renderimage(renderer, hex4edit2->right_sel, hex4edit2->rightrect3.x, hex4edit2->rightrect3.y, NULL);
+	else if (hex4edit2->right3prelight && !hex4edit2->right3active)
+		kiss_renderimage(renderer, hex4edit2->right_sel, hex4edit2->rightrect3.x, hex4edit2->rightrect3.y, NULL);
+	else
+		kiss_renderimage(renderer, hex4edit2->right, hex4edit2->rightrect3.x, hex4edit2->rightrect3.y, NULL);
+	if (hex4edit2->right4active)
+		kiss_renderimage(renderer, hex4edit2->right_sel, hex4edit2->rightrect4.x, hex4edit2->rightrect4.y, NULL);
+	else if (hex4edit2->right4prelight && !hex4edit2->right4active)
+		kiss_renderimage(renderer, hex4edit2->right_sel, hex4edit2->rightrect4.x, hex4edit2->rightrect4.y, NULL);
+	else
+		kiss_renderimage(renderer, hex4edit2->right, hex4edit2->rightrect4.x, hex4edit2->rightrect4.y, NULL);
+
+
+
+	kiss_rendertext(renderer, hex4edit2->text, hex4edit2->textx, hex4edit2->texty,hex4edit2->font, hex4edit2->textcolor);
+	kiss_rendertext(renderer, hex4edit2->valuetext, hex4edit2->valuetextx, hex4edit2->valuetexty, hex4edit2->valuefont, hex4edit2->valuetextcolor);
 	return 1;
+}
+
+int kiss_terrain_new(kiss_terrain* terrain, kiss_window* wdw, Bit8u* terrainadress, int x, int y, int w, int h) {
+	if (!terrain) return -1;
+
+	terrain->terrainadress = terrainadress;
+
+	kiss_makerect(&terrain->rect, x, y, w, h);
+	terrain->active = 0;
+	terrain->prelight = 0;
+
+	terrain->visible = 0;
+	terrain->focus = 0;
+	terrain->wdw = wdw;
+	return 0;
+}
+
+int kiss_terrain_event(kiss_terrain* terrain, SDL_Event* event, int* draw) {
+	return 0;
+}
+int kiss_terrain_draw(kiss_terrain* terrain, SDL_Renderer* renderer) {
+	return 0;
 }
 
 static void vnewpos(kiss_vscrollbar *vscrollbar, double step, int *draw)

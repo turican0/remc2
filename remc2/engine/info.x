@@ -7590,4 +7590,20 @@ rewrite
 test
 char sub_570F0(__int16 a1, __int16 a2, signed __int16 a3, char a4, char a5, char a6)//2380f0
 
+step 0x38
+(Bit8u*)&x_BYTE_13B4E0_angle+0x1c9b(0x01)
+versus
+0x30c4e0+0x1c9b(0x09)
+
+step 1
+0x69 0x11
+2119
+2911
+5119
+0179 - error
+
+void sub_462A0(uaxis_2d a1x, uaxis_2d a2x)//2272a0 - error
+
+debugcounter_215540 == 0x3dd
+
 

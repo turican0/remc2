@@ -148,24 +148,127 @@ typedef struct kiss_button {
 	kiss_window* wdw;
 } kiss_button;
 
+typedef struct kiss_hex4edit {
+	int visible;
+	int focus;
+	SDL_Rect leftrect1;
+	SDL_Rect leftrect2;
+	SDL_Rect leftrect3;
+	SDL_Rect leftrect4;
+	SDL_Rect rightrect1;
+	SDL_Rect rightrect2;
+	SDL_Rect rightrect3;
+	SDL_Rect rightrect4;
+	double fraction;
+	unsigned int lasttick;
+	int left1clicked;
+	int left2clicked;
+	int left3clicked;
+	int left4clicked;
+	int right1clicked;
+	int right2clicked;
+	int right3clicked;
+	int right4clicked;
+	kiss_image left1;
+	kiss_image left2;
+	kiss_image left3;
+	kiss_image left4;
+	kiss_image right1;
+	kiss_image right2;
+	kiss_image right3;
+	kiss_image right4;
+
+	SDL_Rect labelrect;
+	int labeltextx;
+	int labeltexty;
+	char labeltext[KISS_MAX_LENGTH];
+	int labelprelight;
+	SDL_Color labeltextcolor;
+	kiss_font labelfont;
+
+	SDL_Rect valuerect;
+	int valuetextx;
+	int valuetexty;
+	char valuetext[KISS_MAX_LENGTH];
+	int valueprelight;
+	SDL_Color valuetextcolor;
+	kiss_font valuefont;
+
+	kiss_window* wdw;
+} kiss_hex4edit;
 
 typedef struct kiss_hex4edit2 {
 	int visible;
 	int focus;
-	SDL_Rect rect;
+
+	SDL_Rect leftrect1;
+	SDL_Rect leftrect2;
+	SDL_Rect leftrect3;
+	SDL_Rect leftrect4;
+
+	SDL_Rect rightrect1;
+	SDL_Rect rightrect2;
+	SDL_Rect rightrect3;
+	SDL_Rect rightrect4;
+
+	int left1active;
+	int left2active;
+	int left3active;
+	int left4active;
+	int right1active;
+	int right2active;
+	int right3active;
+	int right4active;
+
+	int left1prelight;
+	int left2prelight;
+	int left3prelight;
+	int left4prelight;
+	int right1prelight;
+	int right2prelight;
+	int right3prelight;
+	int right4prelight;
+
 	int textx;
 	int texty;
 	char text[KISS_MAX_LENGTH];
-	int active;
-	int prelight;
+	//int prelight;
 	SDL_Color textcolor;
 	kiss_font font;
-	kiss_image normalimg;
+
+	int valuetextx;
+	int valuetexty;
+	char valuetext[KISS_MAX_LENGTH];
+	SDL_Color valuetextcolor;
+	kiss_font valuefont;
+
+	void* valueadress;
+
+	/*kiss_image normalimg;
 	kiss_image activeimg;
-	kiss_image prelightimg;
+	kiss_image prelightimg;*/
+	kiss_image left;
+	kiss_image left_sel;
+	kiss_image right;
+	kiss_image right_sel;
 	kiss_window* wdw;
 } kiss_hex4edit2;
 
+typedef struct kiss_terrain {
+	int visible;
+	int focus;
+
+	SDL_Rect rect;
+	
+	int active;
+	
+	int prelight;
+
+	Bit8u* terrainadress;
+	
+	kiss_image image;
+	kiss_window* wdw;
+} kiss_terrain;
 
 typedef struct kiss_selectbutton {
 	int visible;
@@ -214,55 +317,6 @@ typedef struct kiss_hscrollbar {
 	kiss_image hslider;
 	kiss_window* wdw;
 } kiss_hscrollbar;
-
-typedef struct kiss_hex4edit {
-	int visible;
-	int focus;
-	SDL_Rect leftrect1;
-	SDL_Rect leftrect2;
-	SDL_Rect leftrect3;
-	SDL_Rect leftrect4;
-	SDL_Rect rightrect1;
-	SDL_Rect rightrect2;
-	SDL_Rect rightrect3;
-	SDL_Rect rightrect4;
-	double fraction;
-	unsigned int lasttick;
-	int left1clicked;
-	int left2clicked;
-	int left3clicked;
-	int left4clicked;
-	int right1clicked;
-	int right2clicked;
-	int right3clicked;
-	int right4clicked;
-	kiss_image left1;
-	kiss_image left2;
-	kiss_image left3;
-	kiss_image left4;
-	kiss_image right1;
-	kiss_image right2;
-	kiss_image right3;
-	kiss_image right4;
-
-	SDL_Rect labelrect;
-	int labeltextx;
-	int labeltexty;
-	char labeltext[KISS_MAX_LENGTH];
-	int labelprelight;
-	SDL_Color labeltextcolor;
-	kiss_font labelfont;
-
-	SDL_Rect valuerect;
-	int valuetextx;
-	int valuetexty;
-	char valuetext[KISS_MAX_LENGTH];
-	int valueprelight;
-	SDL_Color valuetextcolor;
-	kiss_font valuefont;
-	
-	kiss_window* wdw;
-} kiss_hex4edit;
 
 typedef struct kiss_progressbar {
 	int visible;
@@ -333,7 +387,7 @@ extern SDL_Color kiss_white, kiss_black, kiss_green, kiss_blue,
 kiss_lightblue;
 extern kiss_font kiss_textfont, kiss_buttonfont;
 extern kiss_image kiss_normal, kiss_prelight, kiss_active, kiss_bar,
-kiss_up, kiss_down, kiss_left, kiss_right, kiss_vslider,
+kiss_up, kiss_down, kiss_left, kiss_left_sel, kiss_right, kiss_right_sel, kiss_vslider,
 kiss_hslider, kiss_selected, kiss_unselected, kiss_combo;
 extern double kiss_spacing;
 extern int kiss_textfont_size, kiss_buttonfont_size;
@@ -420,6 +474,10 @@ extern "C" {
 	int kiss_hex4edit_new2(kiss_hex4edit2* hex4edit2, kiss_window* wdw, void* adress, char* text, int x, int y);
 	int kiss_hex4edit_event2(kiss_hex4edit2* hex4edit2, SDL_Event* event, int* draw);
 	int kiss_hex4edit_draw2(kiss_hex4edit2* hex4edit2, SDL_Renderer* renderer);
+
+	int kiss_terrain_new(kiss_terrain* terrain, kiss_window* wdw, Bit8u* terrainadress, int x,int y,int w,int h);
+	int kiss_terrain_event(kiss_terrain* terrain, SDL_Event* event, int* draw);
+	int kiss_terrain_draw(kiss_terrain* terrain, SDL_Renderer* renderer);
 
 	int kiss_progressbar_new(kiss_progressbar* progressbar, kiss_window* wdw,int x, int y, int w);
 	int kiss_progressbar_event(kiss_progressbar* progressbar, SDL_Event* event,int* draw);

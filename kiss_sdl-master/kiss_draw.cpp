@@ -26,7 +26,7 @@
 
 kiss_font kiss_textfont, kiss_buttonfont;
 kiss_image kiss_normal, kiss_prelight, kiss_active, kiss_bar,
-kiss_up, kiss_down, kiss_left, kiss_right, kiss_vslider,
+kiss_up, kiss_down, kiss_left, kiss_left_sel, kiss_right, kiss_right_sel, kiss_vslider,
 kiss_hslider, kiss_selected, kiss_unselected, kiss_combo;
 int kiss_screen_width, kiss_screen_height;
 int kiss_textfont_size = 15;
@@ -217,8 +217,12 @@ SDL_Renderer* kiss_init(char* title, kiss_array* a, int w, int h)
 	r += kiss_image_new(&kiss_down, path2, a, renderer);
 	FixDir(path2, (char*)"kiss\\kiss_left.png");
 	r += kiss_image_new(&kiss_left, path2, a, renderer);
+	FixDir(path2, (char*)"kiss\\kiss_left_sel.png");
+	r += kiss_image_new(&kiss_left_sel, path2, a, renderer);
 	FixDir(path2, (char*)"kiss\\kiss_right.png");
 	r += kiss_image_new(&kiss_right, path2, a, renderer);
+	FixDir(path2, (char*)"kiss\\kiss_right_sel.png");
+	r += kiss_image_new(&kiss_right_sel, path2, a, renderer);
 	FixDir(path2, (char*)"kiss\\kiss_combo.png");
 	r += kiss_image_new(&kiss_combo, path2, a, renderer);
 	FixDir(path2, (char*)"kiss\\kiss_selected.png");

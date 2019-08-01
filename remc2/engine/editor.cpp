@@ -9,11 +9,23 @@ int maptype = 0;
 int actlevel = 0;
 int first_terrain_feature = 1;
 
+Bit8u* terrainadress;
+
 SDL_Surface* mapsurface;
 kiss_image mapimage;
 SDL_Renderer* editor_renderer;
 
-void SetPixelMapSurface(int x,int y,int color) {
+void SetPixelMapSurface(int x,int y,int nx,int ny,Bit8u* adress) {
+	if (nx < 0 || nx>255 || ny < 0 || ny>255)
+	{
+		Bit8u* scrbuff = (Bit8u*)mapsurface->pixels;
+		scrbuff[4 * (y * 256 + x)] = 255;
+		scrbuff[4 * (y * 256 + x) + 1] = 0;
+		scrbuff[4 * (y * 256 + x) + 2] = 0;
+		scrbuff[4 * (y * 256 + x) + 3] = 255;
+		return;
+	}
+	int color = adress[nx+ny*256];
 	Bit8u* scrbuff = (Bit8u*)mapsurface->pixels;
 	scrbuff[4 * (y * 256 + x)] = color;
 	scrbuff[4 * (y * 256 + x) + 1] = color;
@@ -65,6 +77,9 @@ void editor_run()
 	clean_tarrain();
 	loadlevel(0);
 	terrain_recalculate();
+
+	terrainadress = x_BYTE_10B4E0_terraintype;
+
 	main_x(/*int argc, char** argv*/);
 	editor_loop();
 	//restorepal
@@ -171,27 +186,27 @@ void drawterrain(int x,int y) {
 			k++;
 		}
 };
-void drawterrain2(int x, int y) {
-	int k = 0;
+void drawterrain2(int x, int y,float zoom,int beginx,int beginy) {
 	for (int j = 0; j < 256; j++)
 		for (int i = 0; i < 256; i++)
 		{
+			int nx = beginx+i/zoom;
+			int ny = beginy+j/zoom;
 			switch (maptype)
 			{
 			case 0:
-				SetPixelMapSurface(i,j,x_BYTE_10B4E0_terraintype[k]);
+				SetPixelMapSurface(i,j, nx, ny, x_BYTE_10B4E0_terraintype);
 				break;
 			case 1:
-				SetPixelMapSurface(i, j, x_BYTE_11B4E0_height[k]);
+				SetPixelMapSurface(i, j, nx, ny,  x_BYTE_11B4E0_height);
 				break;
 			case 2:
-				SetPixelMapSurface(i, j, x_BYTE_12B4E0_shading[k]);
+				SetPixelMapSurface(i, j, nx, ny,  x_BYTE_12B4E0_shading);
 				break;
 			case 3:
-				SetPixelMapSurface(i, j, x_BYTE_13B4E0_angle[k]);
+				SetPixelMapSurface(i, j, nx, ny, x_BYTE_13B4E0_angle);
 				break;
 			}
-			k++;
 		}
 	mapimage.image = SDL_CreateTextureFromSurface(editor_renderer, mapsurface);
 	kiss_renderimage(editor_renderer, mapimage, x, y, NULL);
@@ -1083,6 +1098,7 @@ int main_x(/*int argc, char** argv*/)
 		draw, quit;
 
 	kiss_hex4edit2 hex4edit2 = { 0 };
+	kiss_terrain terrain1= { 0 };
 
 	SDL_ShowCursor(true);
 	quit = 0;
@@ -1101,6 +1117,7 @@ int main_x(/*int argc, char** argv*/)
 	/* Arrange the widgets nicely relative to each other */
 	kiss_window_new(&window1, NULL, 1, 0, 0, kiss_screen_width, kiss_screen_height);
 	kiss_textbox_new(&textbox1, &window1, 1, &a1, kiss_screen_width / 2 - (2 * textbox_width + 2 * kiss_up.w - kiss_edge) / 2, 3 * kiss_normal.h, textbox_width, textbox_height);
+
 
 #if SDL_BYTEORDER == SDL_BIG_ENDIAN
 	Uint32 rmask = 0xff000000;
@@ -1151,7 +1168,10 @@ int main_x(/*int argc, char** argv*/)
 	kiss_progressbar_new(&progressbar, &window2, window2.rect.x +kiss_up.w - kiss_edge, window2.rect.y + window2.rect.h / 2 -kiss_bar.h / 2 - kiss_border,window2.rect.w - 2 * kiss_up.w + 2 * kiss_edge);
 	kiss_button_new(&button_ok2, &window2, (char*)"OK", window2.rect.x +window2.rect.w / 2 - kiss_normal.w / 2,progressbar.rect.y + progressbar.rect.h +2 * kiss_vslider.h);
 	
-	kiss_hex4edit_new2(&hex4edit2, &window1, &D41A0_BYTESTR_0.str_2FECE.word_0x2FEE5, (char*)"RANDOM SEED:", 0, 0);
+	kiss_hex4edit_new2(&hex4edit2, &window1, &D41A0_BYTESTR_0.str_2FECE.word_0x2FEE5, (char*)"RANDOM SEED:", 10, 10);
+
+	//drawterrain2(0, window1.rect.h - mapimage.h, 10, 0, 0);
+	kiss_terrain_new(&terrain1, &window2, terrainadress, 0, window1.rect.h - mapimage.h,256,256);
 
 	dirent_read(&textbox1, &vscrollbar1, &textbox2, &vscrollbar2,&label_sel);
 		
@@ -1162,6 +1182,7 @@ int main_x(/*int argc, char** argv*/)
 	while (!quit) {
 
 		/* Some code may be written here */
+		bool changed = false;
 
 		SDL_Delay(10);
 		while (SDL_PollEvent(&e)) {
@@ -1176,8 +1197,12 @@ int main_x(/*int argc, char** argv*/)
 			button_ok1_event(&button_ok1, &e, &window1, &window2,&label_sel, &entry, &label_res, &progressbar,&draw);
 			button_cancel_event(&button_cancel, &e, &quit,&draw);
 			kiss_entry_event(&entry, &e, &draw);
-			button_ok2_event(&button_ok2, &e, &window1, &window2,&progressbar, &draw);
+			button_ok2_event(&button_ok2, &e, &window1, &window2,&progressbar, &draw);			
+			if (kiss_hex4edit_event2(&hex4edit2, &e, &draw) > 10)
+				changed = true;
 		}
+		if (changed)
+			terrain_recalculate();
 
 		vscrollbar1_event(&vscrollbar1, NULL, &textbox1, &draw);
 		vscrollbar2_event(&vscrollbar2, NULL, &textbox2, &draw);
@@ -1207,8 +1232,9 @@ int main_x(/*int argc, char** argv*/)
 
 		kiss_hex4edit_draw2(&hex4edit2, editor_renderer);
 
-		//drawterrain2(0, window1.rect.h-mapimage.h);
-		
+		//drawterrain2(0, window1.rect.h-mapimage.h,10,0,0);
+		kiss_terrain_draw(&terrain1, editor_renderer);
+
 
 		/*SDL_Rect r; r.x = 50; r.y = 50; r.w = 50; r.h = 50; SDL_Color color = { 0, 0, 0 };
 		kiss_fillrect(editor_renderer, &r, color);*/
