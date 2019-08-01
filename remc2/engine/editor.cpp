@@ -929,6 +929,8 @@ static void dirent_read(kiss_textbox* textbox1, kiss_vscrollbar* vscrollbar1,
 	kiss_array_free(textbox2->array);
 	kiss_array_new(textbox1->array);
 	kiss_array_new(textbox2->array);
+	
+
 	kiss_getcwd(buf, KISS_MAX_LENGTH);
 	strcpy(ending, "/");
 	if (buf[0] == 'C') strcpy(ending, "\\");
@@ -941,7 +943,7 @@ static void dirent_read(kiss_textbox* textbox1, kiss_vscrollbar* vscrollbar1,
 #endif
 	while ((ent = kiss_readdir(dir))) {
 		if (!ent->d_name) continue;
-		kiss_getstat(ent->d_name, &s);
+		kiss_getstat(ent->d_name, &s);		
 		if (kiss_isdir(s))
 			kiss_array_appendstring(textbox1->array, 0,
 				ent->d_name, (char*)"/");
@@ -1080,6 +1082,8 @@ int main_x(/*int argc, char** argv*/)
 	int textbox_width, textbox_height, window2_width, window2_height,
 		draw, quit;
 
+	kiss_hex4edit2 hex4edit2 = { 0 };
+
 	SDL_ShowCursor(true);
 	quit = 0;
 	draw = 1;
@@ -1146,8 +1150,12 @@ int main_x(/*int argc, char** argv*/)
 	label_res.textcolor = kiss_blue;
 	kiss_progressbar_new(&progressbar, &window2, window2.rect.x +kiss_up.w - kiss_edge, window2.rect.y + window2.rect.h / 2 -kiss_bar.h / 2 - kiss_border,window2.rect.w - 2 * kiss_up.w + 2 * kiss_edge);
 	kiss_button_new(&button_ok2, &window2, (char*)"OK", window2.rect.x +window2.rect.w / 2 - kiss_normal.w / 2,progressbar.rect.y + progressbar.rect.h +2 * kiss_vslider.h);
+	
+	kiss_hex4edit_new2(&hex4edit2, &window1, &D41A0_BYTESTR_0.str_2FECE.word_0x2FEE5, (char*)"RANDOM SEED:", 0, 0);
 
 	dirent_read(&textbox1, &vscrollbar1, &textbox2, &vscrollbar2,&label_sel);
+		
+
 	/* Do that, and all widgets associated with the window will show */
 	window1.visible = 1;
 
@@ -1197,7 +1205,9 @@ int main_x(/*int argc, char** argv*/)
 		kiss_progressbar_draw(&progressbar, editor_renderer);
 		kiss_button_draw(&button_ok2, editor_renderer);
 
-		drawterrain2(0, window1.rect.h-mapimage.h);
+		kiss_hex4edit_draw2(&hex4edit2, editor_renderer);
+
+		//drawterrain2(0, window1.rect.h-mapimage.h);
 		
 
 		/*SDL_Rect r; r.x = 50; r.y = 50; r.w = 50; r.h = 50; SDL_Color color = { 0, 0, 0 };

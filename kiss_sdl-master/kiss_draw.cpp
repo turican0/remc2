@@ -11,13 +11,13 @@
   freely, subject to the following restrictions:
 
   1. The origin of this software must not be misrepresented; you must not
-     claim that you wrote the original software. If you use this software
-     in a product, an acknowledgment in the product documentation would
-     be appreciated but is not required.
+	 claim that you wrote the original software. If you use this software
+	 in a product, an acknowledgment in the product documentation would
+	 be appreciated but is not required.
   2. Altered source versions must be plainly marked as such, and must not
-     be misrepresented as being the original software.
+	 be misrepresented as being the original software.
   3. This notice may not be removed or altered from any source
-     distribution.
+	 distribution.
 
   kiss_sdl version 1.2.4
 */
@@ -26,8 +26,8 @@
 
 kiss_font kiss_textfont, kiss_buttonfont;
 kiss_image kiss_normal, kiss_prelight, kiss_active, kiss_bar,
-	kiss_up, kiss_down, kiss_left, kiss_right, kiss_vslider,
-	kiss_hslider, kiss_selected, kiss_unselected, kiss_combo;
+kiss_up, kiss_down, kiss_left, kiss_right, kiss_vslider,
+kiss_hslider, kiss_selected, kiss_unselected, kiss_combo;
 int kiss_screen_width, kiss_screen_height;
 int kiss_textfont_size = 15;
 int kiss_buttonfont_size = 12;
@@ -37,11 +37,11 @@ int kiss_slider_padding = 2;
 int kiss_edge = 2;
 int kiss_border = 6;
 double kiss_spacing = 0.5;
-SDL_Color kiss_white = {255, 255, 255, 255};
-SDL_Color kiss_black = {0, 0, 0, 255};
-SDL_Color kiss_green = {0, 150, 0, 255};
-SDL_Color kiss_blue = {0, 0, 255, 255};
-SDL_Color kiss_lightblue = {200, 225, 255, 255};
+SDL_Color kiss_white = { 255, 255, 255, 255 };
+SDL_Color kiss_black = { 0, 0, 0, 255 };
+SDL_Color kiss_green = { 0, 150, 0, 255 };
+SDL_Color kiss_blue = { 0, 0, 255, 255 };
+SDL_Color kiss_lightblue = { 200, 225, 255, 255 };
 
 unsigned int kiss_getticks(void)
 {
@@ -49,14 +49,14 @@ unsigned int kiss_getticks(void)
 }
 
 /* Can be rewritten for proportional fonts */
-int kiss_maxlength(kiss_font font, int width, char *str1, char *str2)
+int kiss_maxlength(kiss_font font, int width, char* str1, char* str2)
 {
 	char buf[KISS_MAX_LENGTH];
 	int n, i;
 
 	n = 0;
 	if (!str1 && !str2) return -1;
-	kiss_string_copy(buf, KISS_MAX_LENGTH-1, str1, str2);
+	kiss_string_copy(buf, KISS_MAX_LENGTH, str1, str2);
 	/* Maximum length + 1 for '\0', by the rule */
 	for (i = 0; buf[i]; i += kiss_utf8next(buf, i))
 		if (++n * font.advance > width)
@@ -65,19 +65,19 @@ int kiss_maxlength(kiss_font font, int width, char *str1, char *str2)
 }
 
 /* Works also with proportional fonts */
-int kiss_textwidth(kiss_font font, char *str1, char *str2)
+int kiss_textwidth(kiss_font font, char* str1, char* str2)
 {
 	char buf[KISS_MAX_LENGTH];
 	int width;
 
 	if (!str1 && !str2) return -1;
-	kiss_string_copy(buf, KISS_MAX_LENGTH-1, str1, str2);
+	kiss_string_copy(buf, KISS_MAX_LENGTH, str1, str2);
 	TTF_SizeUTF8(font.font, buf, &width, NULL);
 	return width;
 }
 
-int kiss_renderimage(SDL_Renderer *renderer, kiss_image image,
-	int x, int y, SDL_Rect *clip)
+int kiss_renderimage(SDL_Renderer* renderer, kiss_image image,
+	int x, int y, SDL_Rect* clip)
 {
 	SDL_Rect dst;
 
@@ -89,10 +89,10 @@ int kiss_renderimage(SDL_Renderer *renderer, kiss_image image,
 	return 0;
 }
 
-int kiss_rendertext(SDL_Renderer *renderer, char *text, int x, int y,
+int kiss_rendertext(SDL_Renderer* renderer, char* text, int x, int y,
 	kiss_font font, SDL_Color color)
 {
-	SDL_Surface *surface;
+	SDL_Surface* surface;
 	kiss_image image;
 
 	if (!text || !renderer || !font.font) return -1;
@@ -105,7 +105,7 @@ int kiss_rendertext(SDL_Renderer *renderer, char *text, int x, int y,
 	return 0;
 }
 
-int kiss_fillrect(SDL_Renderer *renderer, SDL_Rect *rect, SDL_Color color)
+int kiss_fillrect(SDL_Renderer* renderer, SDL_Rect* rect, SDL_Color color)
 {
 	if (!renderer || !rect) return -1;
 	SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
@@ -113,7 +113,7 @@ int kiss_fillrect(SDL_Renderer *renderer, SDL_Rect *rect, SDL_Color color)
 	return 0;
 }
 
-int kiss_decorate(SDL_Renderer *renderer, SDL_Rect *rect, SDL_Color color,
+int kiss_decorate(SDL_Renderer* renderer, SDL_Rect* rect, SDL_Color color,
 	int edge)
 {
 	SDL_Rect outlinerect;
@@ -132,13 +132,13 @@ int kiss_decorate(SDL_Renderer *renderer, SDL_Rect *rect, SDL_Color color,
 	return 0;
 }
 
-int kiss_image_new(kiss_image *image, char *fname, kiss_array *a,
+int kiss_image_new(kiss_image* image, char* fname, kiss_array* a,
 	SDL_Renderer* renderer)
 {
 	char buf[KISS_MAX_LENGTH];
 
 	if (!image || !fname) return -1;
-	kiss_string_copy(buf, KISS_MAX_LENGTH-1, (char*)RESDIR, fname);
+	kiss_string_copy(buf, KISS_MAX_LENGTH, (char*)RESDIR, fname);
 	if (!(image->image = IMG_LoadTexture(renderer, buf))) {
 		fprintf(stderr, "Cannot load image %s\n", fname);
 		return -1;
@@ -149,19 +149,19 @@ int kiss_image_new(kiss_image *image, char *fname, kiss_array *a,
 	return 0;
 }
 
-int kiss_font_new(kiss_font *font, char *fname, kiss_array *a, int size)
+int kiss_font_new(kiss_font* font, char* fname, kiss_array* a, int size)
 {
 	char buf[KISS_MAX_LENGTH];
 
 	if (!font || !fname) return -1;
-	kiss_string_copy(buf, KISS_MAX_LENGTH-1, (char*)RESDIR, fname);
+	kiss_string_copy(buf, KISS_MAX_LENGTH, (char*)RESDIR, fname);
 	if (!(font->font = TTF_OpenFont(buf, size))) {
 		fprintf(stderr, "Cannot load font %s\n", fname);
 		return -1;
 	}
 	if (a) kiss_array_append(a, FONT_TYPE, font->font);
 	font->fontheight = TTF_FontHeight(font->font);
-	font->spacing = (int) kiss_spacing * font->fontheight;
+	font->spacing = (int)kiss_spacing * font->fontheight;
 	font->lineheight = font->fontheight + font->spacing;
 	font->ascent = TTF_FontAscent(font->font);
 	TTF_GlyphMetrics(font->font, 'W', NULL, NULL, NULL, NULL,
@@ -170,10 +170,10 @@ int kiss_font_new(kiss_font *font, char *fname, kiss_array *a, int size)
 	return 0;
 }
 
-SDL_Renderer* kiss_init(char* title, kiss_array *a, int w, int h)
+SDL_Renderer* kiss_init(char* title, kiss_array* a, int w, int h)
 {
-	SDL_Window *window;
-	SDL_Renderer *renderer;
+	SDL_Window* window;
+	SDL_Renderer* renderer;
 	SDL_Rect srect;
 	int r;
 
@@ -195,11 +195,10 @@ SDL_Renderer* kiss_init(char* title, kiss_array *a, int w, int h)
 	renderer = SDL_CreateRenderer(window, -1,
 		SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 	if (renderer) kiss_array_append(a, RENDERER_TYPE, renderer);
-
 	char path2[512];
 	FixDir(path2, (char*)"kiss\\kiss_font.ttf");
 	r += kiss_font_new(&kiss_textfont, path2, a, kiss_textfont_size);
-	r += kiss_font_new(&kiss_buttonfont, path2, a,kiss_buttonfont_size);
+	r += kiss_font_new(&kiss_buttonfont, path2, a, kiss_buttonfont_size);
 	FixDir(path2, (char*)"kiss\\kiss_normal.png");
 	r += kiss_image_new(&kiss_normal, path2, a, renderer);
 	FixDir(path2, (char*)"kiss\\kiss_prelight.png");
@@ -225,15 +224,15 @@ SDL_Renderer* kiss_init(char* title, kiss_array *a, int w, int h)
 	FixDir(path2, (char*)"kiss\\kiss_selected.png");
 	r += kiss_image_new(&kiss_selected, path2, a, renderer);
 	FixDir(path2, (char*)"kiss\\kiss_unselected.png");
-	r += kiss_image_new(&kiss_unselected, path2, a,	renderer);
+	r += kiss_image_new(&kiss_unselected, path2, a, renderer);
 	if (r) {
 		kiss_clean(a);
 		return NULL;
 	}
-	return renderer;	
+	return renderer;
 }
 
-int kiss_clean(kiss_array *a)
+int kiss_clean(kiss_array* a)
 {
 	int i;
 
@@ -241,22 +240,22 @@ int kiss_clean(kiss_array *a)
 	if (a->length)
 		for (i = a->length - 1; i >= 0; i--) {
 			if (kiss_array_id(a, i) == FONT_TYPE)
-				TTF_CloseFont((TTF_Font *)
+				TTF_CloseFont((TTF_Font*)
 					kiss_array_data(a, i));
 			else if (kiss_array_id(a, i) == TEXTURE_TYPE)
-				SDL_DestroyTexture((SDL_Texture *)
+				SDL_DestroyTexture((SDL_Texture*)
 					kiss_array_data(a, i));
 			else if (kiss_array_id(a, i) == RENDERER_TYPE)
-				SDL_DestroyRenderer((SDL_Renderer *)
+				SDL_DestroyRenderer((SDL_Renderer*)
 					kiss_array_data(a, i));
 			else if (kiss_array_id(a, i) == WINDOW_TYPE)
-				SDL_DestroyWindow((SDL_Window *)
+				SDL_DestroyWindow((SDL_Window*)
 					kiss_array_data(a, i));
 			else if (kiss_array_id(a, i) == ARRAY_TYPE)
-				kiss_array_free((kiss_array *)
+				kiss_array_free((kiss_array*)
 					kiss_array_data(a, i));
 			else
-				free (a->data[i]);
+				free(a->data[i]);
 		}
 	a->length = 0;
 	kiss_array_free(a);
@@ -265,4 +264,3 @@ int kiss_clean(kiss_array *a)
 	SDL_Quit();
 	return 0;
 }
-

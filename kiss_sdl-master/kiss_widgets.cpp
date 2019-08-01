@@ -268,6 +268,164 @@ int kiss_vscrollbar_new(kiss_vscrollbar *vscrollbar, kiss_window *wdw,
 	return 0;
 }
 
+int kiss_hex4edit_new(kiss_hex4edit* hex4edit, kiss_window* wdw,void* adress, char* text, int x, int y)
+{
+	if (!hex4edit) return -1;
+	if (hex4edit->left1.magic != KISS_MAGIC)
+		hex4edit->left1 = kiss_left;
+	if (hex4edit->left2.magic != KISS_MAGIC)
+		hex4edit->left2 = kiss_left;
+	if (hex4edit->left3.magic != KISS_MAGIC)
+		hex4edit->left3 = kiss_left;
+	if (hex4edit->left4.magic != KISS_MAGIC)
+		hex4edit->left4 = kiss_left;
+	if (hex4edit->right1.magic != KISS_MAGIC)
+		hex4edit->right1 = kiss_right;
+	if (hex4edit->right2.magic != KISS_MAGIC)
+		hex4edit->right2 = kiss_right;
+	if (hex4edit->right3.magic != KISS_MAGIC)
+		hex4edit->right3 = kiss_right;
+	if (hex4edit->right4.magic != KISS_MAGIC)
+		hex4edit->right4 = kiss_right;
+
+	kiss_makerect(&hex4edit->leftrect1, x, y, hex4edit->left1.w, hex4edit->left1.h);
+	kiss_makerect(&hex4edit->leftrect2, x, y, hex4edit->left2.w, hex4edit->left2.h);
+	kiss_makerect(&hex4edit->leftrect3, x, y, hex4edit->left3.w, hex4edit->left3.h);
+	kiss_makerect(&hex4edit->leftrect4, x, y, hex4edit->left4.w, hex4edit->left4.h);
+	kiss_makerect(&hex4edit->rightrect1, x, y, hex4edit->left1.w, hex4edit->left1.h);
+	kiss_makerect(&hex4edit->rightrect2, x, y, hex4edit->left2.w, hex4edit->left2.h);
+	kiss_makerect(&hex4edit->rightrect3, x, y, hex4edit->left3.w, hex4edit->left3.h);
+	kiss_makerect(&hex4edit->rightrect4, x, y, hex4edit->left4.w, hex4edit->left4.h);
+
+	hex4edit->left1clicked = 0;
+	hex4edit->left2clicked = 0;
+	hex4edit->left3clicked = 0;
+	hex4edit->left4clicked = 0;
+	hex4edit->right1clicked = 0;
+	hex4edit->right2clicked = 0;
+	hex4edit->right3clicked = 0;
+	hex4edit->right4clicked = 0;
+
+	hex4edit->labeltextcolor = kiss_white;
+	kiss_string_copy(hex4edit->labeltext, KISS_MAX_LENGTH, text, NULL);
+	hex4edit->labeltextx = x;
+	hex4edit->labeltexty = y;
+	//hex4edit->labelactive = 0;
+	hex4edit->labelprelight = 0;
+	hex4edit->visible = 0;
+	hex4edit->focus = 0;
+
+	hex4edit->lasttick = 0;
+	hex4edit->visible = 0;
+	hex4edit->focus = 0;
+	hex4edit->wdw = wdw;
+	return 0;
+}
+int kiss_hex4edit_event(kiss_hex4edit* hex4edit, SDL_Event* event, int* draw) {
+	return 0;
+};
+int kiss_hex4edit_draw(kiss_hex4edit* hex4edit, SDL_Renderer* renderer) {
+	if (hex4edit && hex4edit->wdw) hex4edit->visible = hex4edit->wdw->visible;
+	if (!hex4edit || !hex4edit->visible || !renderer) return 0;
+	/*if (hex4edit->active)
+		kiss_renderimage(renderer, hex4edit->activeimg, hex4edit->rect.x,butthex4editon->rect.y, NULL);
+	else if (button->prelight && !button->active)
+		kiss_renderimage(renderer, button->prelightimg,
+			button->rect.x, button->rect.y, NULL);
+	else
+		kiss_renderimage(renderer, button->normalimg, button->rect.x,
+			button->rect.y, NULL);*/
+	kiss_rendertext(renderer, hex4edit->labeltext, hex4edit->labeltextx, hex4edit->labeltexty,
+		hex4edit->labelfont, hex4edit->labeltextcolor);
+	return 1;
+};
+
+int kiss_hex4edit_new2(kiss_hex4edit2* hex4edit2, kiss_window* wdw, void* adress, char* text, int x, int y)
+//int kiss_hex4edit2_new(kiss_button* button, kiss_window* wdw, char* text,	int x, int y)
+{
+	if (!hex4edit2 || !text) return -1;
+	if (hex4edit2->font.magic != KISS_MAGIC) hex4edit2->font = kiss_buttonfont;
+	if (hex4edit2->normalimg.magic != KISS_MAGIC)
+		hex4edit2->normalimg = kiss_normal;
+	if (hex4edit2->activeimg.magic != KISS_MAGIC)
+		hex4edit2->activeimg = kiss_active;
+	if (hex4edit2->prelightimg.magic != KISS_MAGIC)
+		hex4edit2->prelightimg = kiss_prelight;
+	kiss_makerect(&hex4edit2->rect, x, y, hex4edit2->normalimg.w,
+		hex4edit2->normalimg.h);
+	hex4edit2->textcolor = kiss_white;
+	kiss_string_copy(hex4edit2->text, KISS_MAX_LENGTH, text, NULL);
+	hex4edit2->textx = x + hex4edit2->normalimg.w / 2 -
+		kiss_textwidth(hex4edit2->font, text, NULL) / 2;
+	hex4edit2->texty = y + hex4edit2->normalimg.h / 2 -
+		hex4edit2->font.fontheight / 2;
+	hex4edit2->active = 0;
+	hex4edit2->prelight = 0;
+	hex4edit2->visible = 0;
+	hex4edit2->focus = 0;
+	hex4edit2->wdw = wdw;
+	return 0;
+}
+
+int kiss_hex4edit2_event(kiss_hex4edit2* hex4edit2, SDL_Event* event, int* draw)
+{
+	if (!hex4edit2 || !hex4edit2->visible || !event) return 0;
+	if (event->type == SDL_WINDOWEVENT &&
+		event->window.event == SDL_WINDOWEVENT_EXPOSED)
+		* draw = 1;
+	if (!hex4edit2->focus && (!hex4edit2->wdw ||
+		(hex4edit2->wdw && !hex4edit2->wdw->focus)))
+		return 0;
+	if (event->type == SDL_MOUSEBUTTONDOWN &&
+		kiss_pointinrect(event->button.x, event->button.y,
+			&hex4edit2->rect)) {
+		hex4edit2->active = 1;
+		*draw = 1;
+	}
+	else if (event->type == SDL_MOUSEBUTTONUP &&
+		kiss_pointinrect(event->button.x, event->button.y,
+			&hex4edit2->rect) && hex4edit2->active) {
+		hex4edit2->active = 0;
+		*draw = 1;
+		return 1;
+	}
+	else if (event->type == SDL_MOUSEMOTION &&
+		kiss_pointinrect(event->motion.x, event->motion.y,
+			&hex4edit2->rect)) {
+		hex4edit2->prelight = 1;
+		*draw = 1;
+	}
+	else if (event->type == SDL_MOUSEMOTION &&
+		!kiss_pointinrect(event->motion.x, event->motion.y,
+			&hex4edit2->rect)) {
+		hex4edit2->prelight = 0;
+		*draw = 1;
+		if (hex4edit2->active) {
+			hex4edit2->active = 0;
+			return 1;
+		}
+	}
+	return 0;
+}
+
+int kiss_hex4edit_draw2(kiss_hex4edit2* hex4edit2, SDL_Renderer* renderer)
+{
+	if (hex4edit2 && hex4edit2->wdw) hex4edit2->visible = hex4edit2->wdw->visible;
+	if (!hex4edit2 || !hex4edit2->visible || !renderer) return 0;
+	if (hex4edit2->active)
+		kiss_renderimage(renderer, hex4edit2->activeimg, hex4edit2->rect.x,
+			hex4edit2->rect.y, NULL);
+	else if (hex4edit2->prelight && !hex4edit2->active)
+		kiss_renderimage(renderer, hex4edit2->prelightimg,
+			hex4edit2->rect.x, hex4edit2->rect.y, NULL);
+	else
+		kiss_renderimage(renderer, hex4edit2->normalimg, hex4edit2->rect.x,
+			hex4edit2->rect.y, NULL);
+	kiss_rendertext(renderer, hex4edit2->text, hex4edit2->textx, hex4edit2->texty,
+		hex4edit2->font, hex4edit2->textcolor);
+	return 1;
+}
+
 static void vnewpos(kiss_vscrollbar *vscrollbar, double step, int *draw)
 {
 	*draw = 1;
