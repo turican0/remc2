@@ -642,7 +642,7 @@ int kiss_dec1edit_new(kiss_dec1edit* dec1edit, kiss_window* wdw, void* adress, c
 	dec1edit->valueadress = adress;
 
 	dec1edit->min = min;
-	dec1edit->min = max;
+	dec1edit->max = max;
 
 	if (dec1edit->font.magic != KISS_MAGIC) dec1edit->font = kiss_textfont;
 	if (dec1edit->valuefont.magic != KISS_MAGIC) dec1edit->valuefont = kiss_textfont;
@@ -662,7 +662,7 @@ int kiss_dec1edit_new(kiss_dec1edit* dec1edit, kiss_window* wdw, void* adress, c
 	dec1edit->textx = x /*+ hex4edit->normalimg.w / 2 -	kiss_textwidth(hex4edit->font, text, NULL) / 2*/;
 	dec1edit->texty = y + dec1edit->left.h / 2 - dec1edit->font.fontheight / 2;
 
-	int basic_shift_x = 100;
+	int basic_shift_x = 70;
 	kiss_makerect(&dec1edit->leftrect1, basic_shift_x + x, y, dec1edit->left.w, dec1edit->left.h);
 	char buf[256];
 	sprintf(buf, "%d", *(Bit16u*)adress);
@@ -774,7 +774,7 @@ int kiss_dec1edit_draw(kiss_dec1edit* dec1edit, SDL_Renderer* renderer)
 	return 1;
 }
 
-int kiss_terrain_new(kiss_terrain* terrain, kiss_window* wdw, SDL_Surface* mapsurface, int x, int y, int w, int h,float* terrainzoom, int* terrainbeginx, int* terrainbeginy){
+int kiss_terrain_new(kiss_terrain* terrain, kiss_window* wdw, SDL_Surface* mapsurface, int x, int y, float* terrainzoom, int* terrainbeginx, int* terrainbeginy){
 	if (!terrain) return -1;
 
 	terrain->terrainzoom = terrainzoom;
@@ -786,7 +786,7 @@ int kiss_terrain_new(kiss_terrain* terrain, kiss_window* wdw, SDL_Surface* mapsu
 	terrain->image.h = mapsurface->h;
 	terrain->image.magic = KISS_MAGIC;
 
-	kiss_makerect(&terrain->rect, x, y, w, h);
+	kiss_makerect(&terrain->rect, x, y, mapsurface->w, mapsurface->h);
 	terrain->active = 0;
 	terrain->movingactive = 0;
 	terrain->prelight = 0;
@@ -802,38 +802,44 @@ int kiss_terrain_event(kiss_terrain* terrain, SDL_Event* event, int* draw,int mo
 		*draw = 1;
 		int wheel = event->wheel.y;
 		if (wheel < -10)wheel = -10;
-		if (wheel > 10)wheel = 10;		
-			
+		if (wheel > 10)wheel = 10;
+
 		float oldzoom = *terrain->terrainzoom;
 		switch (wheel)
 		{
-			case -3:
-				(*terrain->terrainzoom) *= 0.125;
+		case -3:
+			(*terrain->terrainzoom) *= 0.125;
 			break;
-			case -2:
-				(*terrain->terrainzoom) *= 0.25;
+		case -2:
+			(*terrain->terrainzoom) *= 0.25;
 			break;
-			case -1:
-				(*terrain->terrainzoom) *= 0.5;
+		case -1:
+			(*terrain->terrainzoom) *= 0.5;
 			break;
-			case 1:
-				(*terrain->terrainzoom) *= 2;
+		case 1:
+			(*terrain->terrainzoom) *= 2;
 			break;
-			case 2:
-				(*terrain->terrainzoom) *= 4;
+		case 2:
+			(*terrain->terrainzoom) *= 4;
 			break;
-			case 3:
-				(*terrain->terrainzoom) *= 8;
+		case 3:
+			(*terrain->terrainzoom) *= 8;
 			break;
 		}
 		if ((*terrain->terrainzoom) > 64)(*terrain->terrainzoom) = 64;
-		if ((*terrain->terrainzoom) < 0.125)(*terrain->terrainzoom) = 0.25;
-
-		float cursorpixx = *terrain->terrainbeginx + (mousex - terrain->rect.x) / oldzoom;
-		float cursorpixy = *terrain->terrainbeginy + (mousey - terrain->rect.y) / oldzoom;
-		*terrain->terrainbeginx = cursorpixx - (mousex - terrain->rect.x) / (*terrain->terrainzoom);
-		*terrain->terrainbeginy = cursorpixy - (mousey - terrain->rect.y) / (*terrain->terrainzoom);
-
+		if ((*terrain->terrainzoom) < 1)
+		{
+			(*terrain->terrainzoom) = 1;
+			*terrain->terrainbeginx = 0;
+			*terrain->terrainbeginy = 0;
+		}
+		else
+		{
+			float cursorpixx = *terrain->terrainbeginx + (mousex - terrain->rect.x) / (oldzoom*2);
+			float cursorpixy = *terrain->terrainbeginy + (mousey - terrain->rect.y) / (oldzoom*2);
+			*terrain->terrainbeginx = cursorpixx - (mousex - terrain->rect.x) / (*terrain->terrainzoom*2);
+			*terrain->terrainbeginy = cursorpixy - (mousey - terrain->rect.y) / (*terrain->terrainzoom*2);
+		}
 		//float cursorpixy = terrainbeginy +
 
 		return 11;
@@ -862,12 +868,15 @@ int kiss_terrain_event(kiss_terrain* terrain, SDL_Event* event, int* draw,int mo
 	}
 	else if (event->type == SDL_MOUSEMOTION && kiss_pointinrect(event->motion.x, event->motion.y, &terrain->rect)) {
 		if (terrain->movingactive == 1) {
-			*terrain->terrainbeginx = terrain->oldterrainbeginx-(event->motion.x - terrain->movex)/ *terrain->terrainzoom;
-			*terrain->terrainbeginy = terrain->oldterrainbeginy-(event->motion.y - terrain->movey)/ *terrain->terrainzoom;						
+			*terrain->terrainbeginx = terrain->oldterrainbeginx-(event->motion.x - terrain->movex)/ (*terrain->terrainzoom*2);
+			*terrain->terrainbeginy = terrain->oldterrainbeginy - (event->motion.y - terrain->movey) / (*terrain->terrainzoom*2);
+			terrain->prelight = 1;
+			*draw = 1;
+			return 13;
 		}
 		terrain->prelight = 1;
 		*draw = 1;
-		return 13;
+		return 1;
 	}
 	else if (event->type == SDL_MOUSEMOTION && !kiss_pointinrect(event->motion.x, event->motion.y, &terrain->rect)) {
 		terrain->prelight = 0;

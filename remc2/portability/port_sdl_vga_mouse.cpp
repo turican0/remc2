@@ -259,6 +259,10 @@ bool VGA_LoadFont()
 	return success;
 }
 
+int lastpoz = 0;
+int textwidth = 40;
+int textheight = 30;
+
 void Draw_letter(int letter_number, int pozx, int pozy) {
 	SDL_Rect srcrect;
 	SDL_Rect dstrect;
@@ -279,10 +283,10 @@ void Draw_letter(int letter_number, int pozx, int pozy) {
 	srcrect.y = 16 * (int)(letter_number / 16);
 	srcrect.w = 16;
 	srcrect.h = 16;
-	dstrect.x = (screen->w / 40)*pozx;
-	dstrect.y = (screen->h / 30)*pozy;
-	dstrect.w = screen->w / 40;
-	dstrect.h = screen->h / 30;
+	dstrect.x = (screen->w / textwidth)*pozx;
+	dstrect.y = (screen->h / textheight)*pozy;
+	dstrect.w = screen->w / textwidth;
+	dstrect.h = screen->h / textheight;
 	//SDL_RenderCopy(screen, surface_font, &srcrect, &dstrect);
 	SDL_BlitSurface(surface_font, &srcrect, screen, &dstrect);
 };
@@ -309,8 +313,8 @@ void Draw_letterToBuffer(int letter_number, int pozx, int pozy, Bit8u* buffer) {
 	srcrect.h = 16;
 	dstrect.x = pozx;
 	dstrect.y = pozy;
-	dstrect.w = screen->w / 40;
-	dstrect.h = screen->h / 30;
+	dstrect.w = screen->w / textwidth;
+	dstrect.h = screen->h / textheight;
 	//SDL_RenderCopy(screen, surface_font, &srcrect, &dstrect);	
 	for (int yy = 0; yy < dstrect.h; yy++)
 		for (int xx = 0; xx < dstrect.w; xx++)
@@ -321,8 +325,7 @@ void Draw_letterToBuffer(int letter_number, int pozx, int pozy, Bit8u* buffer) {
 		}
 };
 
-int lastpoz = 0;
-int textwidth = 80;
+
 
 void VGA_GotoXY(int x, int y) {
 	lastpoz = y * textwidth + x;
@@ -359,7 +362,8 @@ void VGA_Draw_string(char* wrstring) {
 		}
 		else
 		{
-			Draw_letter(wrstring[i], lastpoz % textwidth, (int)(lastpoz / textwidth));
+			if(lastpoz<= textwidth*textheight)
+				Draw_letter(wrstring[i], lastpoz % textwidth, (int)(lastpoz / textwidth));
 			lastpoz++;
 		}
 	}

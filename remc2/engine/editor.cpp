@@ -21,18 +21,18 @@ void SetPixelMapSurface(int x,int y,int nx,int ny,Bit8u* adress) {
 	if (nx < 0 || nx>255 || ny < 0 || ny>255)
 	{
 		Bit8u* scrbuff = (Bit8u*)mapsurface->pixels;
-		scrbuff[4 * (y * 256 + x)] = 255;
-		scrbuff[4 * (y * 256 + x) + 1] = 0;
-		scrbuff[4 * (y * 256 + x) + 2] = 0;
-		scrbuff[4 * (y * 256 + x) + 3] = 255;
+		scrbuff[4 * (y * 512 + x)] = 255;
+		scrbuff[4 * (y * 512 + x) + 1] = 0;
+		scrbuff[4 * (y * 512 + x) + 2] = 0;
+		scrbuff[4 * (y * 512 + x) + 3] = 255;
 		return;
 	}
-	int color = adress[nx+ny*256];
+	int color = adress[nx+ny* 256];
 	Bit8u* scrbuff = (Bit8u*)mapsurface->pixels;
-	scrbuff[4 * (y * 256 + x)] = color;
-	scrbuff[4 * (y * 256 + x) + 1] = color;
-	scrbuff[4 * (y * 256 + x) + 2] = color;
-	scrbuff[4 * (y * 256 + x) + 3] = 255;
+	scrbuff[4 * (y * 512 + x)] = color;
+	scrbuff[4 * (y * 512 + x) + 1] = color;
+	scrbuff[4 * (y * 512 + x) + 2] = color;
+	scrbuff[4 * (y * 512 + x) + 3] = 255;
 }
 
 void init_pal() {
@@ -154,7 +154,15 @@ void terrain_recalculate() {
 	{
 		sub_44D00();//225d00
 	}
-
+	sub_49F30();//prepare events pointers
+	if (stage > 14)
+	{
+		sub_49830(&D41A0_BYTESTR_0.str_2FECE);
+	}
+	if (stage > 15)
+	{
+		sub_49290(&D41A0_BYTESTR_0.str_2FECE, 1);
+	}
 	changed = false;
 };
 
@@ -184,26 +192,48 @@ void drawterrain(int x,int y) {
 		}
 };
 void fillterrain(int x, int y,float zoom,int beginx,int beginy) {
+	Bit8u terrfeatlayer[256 * 256];
 	for (int j = 0; j < 256; j++)
 		for (int i = 0; i < 256; i++)
 		{
-			int nx = beginx+i/zoom;
-			int ny = beginy+j/zoom;
-			switch (maptype)
-			{
-			case 0:
-				SetPixelMapSurface(i,j, nx, ny, x_BYTE_10B4E0_terraintype);
-				break;
-			case 1:
-				SetPixelMapSurface(i, j, nx, ny,  x_BYTE_11B4E0_height);
-				break;
-			case 2:
-				SetPixelMapSurface(i, j, nx, ny,  x_BYTE_12B4E0_shading);
-				break;
-			case 3:
-				SetPixelMapSurface(i, j, nx, ny, x_BYTE_13B4E0_angle);
-				break;
+			terrfeatlayer[i+j*256]=0;
+		}
+	for (int i = 0; i < 0x4B0; i++)
+	{
+		type_str_0x30311 actfeat = D41A0_BYTESTR_0.str_2FECE.array_0x30311[first_terrain_feature + i];
+		if((actfeat.axis3d_4.x>-1)&&(actfeat.axis3d_4.x < 256)&&(actfeat.axis3d_4.y > -1)&&(actfeat.axis3d_4.y < 256))
+			terrfeatlayer[actfeat.axis3d_4.x + actfeat.axis3d_4.y * 256] = 1;
+	}
+
+	for (int j = 0; j < 512; j++)
+		for (int i = 0; i < 512; i++)
+		{
+			int nx = beginx+i/(zoom*2);
+			int ny = beginy+j/(zoom*2);
+			if ((nx > -1 && nx<256 && ny > -1 && ny<256)&&(terrfeatlayer[nx + ny * 256] == 1))
+			{				
+				Bit8u* scrbuff = (Bit8u*)mapsurface->pixels;//setred
+				scrbuff[4 * (j * 512 + i)] = 255;
+				scrbuff[4 * (j * 512 + i) + 1] = 0;
+				scrbuff[4 * (j * 512 + i) + 2] = 0;
+				scrbuff[4 * (j * 512 + i) + 3] = 255;
 			}
+			else
+				switch (maptype)
+				{
+				case 0:
+					SetPixelMapSurface(i,j, nx, ny, x_BYTE_10B4E0_terraintype);
+					break;
+				case 1:
+					SetPixelMapSurface(i, j, nx, ny,  x_BYTE_11B4E0_height);
+					break;
+				case 2:
+					SetPixelMapSurface(i, j, nx, ny,  x_BYTE_12B4E0_shading);
+					break;
+				case 3:
+					SetPixelMapSurface(i, j, nx, ny, x_BYTE_13B4E0_angle);
+					break;
+				}
 		}
 	/*mapimage.image = SDL_CreateTextureFromSurface(editor_renderer, mapsurface);
 	kiss_renderimage(editor_renderer, mapimage, x, y, NULL);
@@ -976,7 +1006,7 @@ static void terrain_feat_append(kiss_textbox* textbox1, kiss_vscrollbar* vscroll
 	kiss_array_new(textbox1->array);
 	char temp[256];
 	VGA_Draw_stringXYtoBuffer(temp, 304, 32, x_DWORD_180628b_screen_buffer);
-	for (int i = 0; i < 20; i++)
+	for (int i = 0; i < 0x4B0; i++)
 	{
 		type_str_0x30311 actfeat = D41A0_BYTESTR_0.str_2FECE.array_0x30311[first_terrain_feature + i];
 		sprintf(temp, "%04X|%04X|%04X|%04X|%04X|%04X|%04X|%04X|%04X|%04X", actfeat.str_0x30311_word_0, actfeat.str_0x30311_word_2, actfeat.axis3d_4.x, actfeat.axis3d_4.y, actfeat.axis3d_4.z, actfeat.word_10, actfeat.word_12, actfeat.word_14, actfeat.word_16, actfeat.word_18);
@@ -985,7 +1015,7 @@ static void terrain_feat_append(kiss_textbox* textbox1, kiss_vscrollbar* vscroll
 	
 		
 		
-	text_reset(textbox1, vscrollbar1);	
+	//text_reset(textbox1, vscrollbar1);	
 }
 
 /* The widget arguments are widgets that this widget talks with */
@@ -1154,7 +1184,7 @@ int main_x(/*int argc, char** argv*/)
 	kiss_array objects, a1, a2;
 	kiss_window window1, window2;
 	kiss_label label1 = { 0 }, label2 = { 0 },label_res = { 0 };
-	kiss_button button_ok1 = { 0 }, button_ok2 = { 0 }, button_cancel = { 0 };
+	//kiss_button button_ok1 = { 0 }, button_ok2 = { 0 }, button_cancel = { 0 };
 	kiss_textbox textbox1 = { 0 };
 	kiss_vscrollbar vscrollbar1 = { 0 };
 	kiss_progressbar progressbar = { 0 };
@@ -1184,6 +1214,8 @@ int main_x(/*int argc, char** argv*/)
 
 	kiss_dec1edit levelSel = { 0 };
 
+	kiss_label labelXY = { 0 };
+
 	SDL_ShowCursor(true);
 	quit = 0;
 	draw = 1;
@@ -1200,7 +1232,7 @@ int main_x(/*int argc, char** argv*/)
 
 	/* Arrange the widgets nicely relative to each other */
 	kiss_window_new(&window1, NULL, 1, 0, 0, kiss_screen_width, kiss_screen_height);
-	kiss_textbox_new(&textbox1, &window1, 1, &a1, kiss_screen_width / 2 - (2 * textbox_width + 2 * kiss_up.w - kiss_edge) / 2, 3 * kiss_normal.h, textbox_width, textbox_height);
+	kiss_textbox_new(&textbox1, &window1, 1, &a1, 512, 20, textbox_width, textbox_height);
 
 
 #if SDL_BYTEORDER == SDL_BIG_ENDIAN
@@ -1214,7 +1246,7 @@ int main_x(/*int argc, char** argv*/)
 	Uint32 bmask = 0x00ff0000;
 	Uint32 amask = 0xff000000;
 #endif
-	mapsurface = SDL_CreateRGBSurface(SDL_SWSURFACE, 256, 256, 32, rmask, gmask, bmask, amask);
+	mapsurface = SDL_CreateRGBSurface(SDL_SWSURFACE, 512, 512, 32, rmask, gmask, bmask, amask);
 	if (mapsurface == NULL) {
 		fprintf(stderr, "CreateRGBSurface failed: %s\n", SDL_GetError());
 		exit(1);
@@ -1227,8 +1259,8 @@ int main_x(/*int argc, char** argv*/)
 			scrbuff[4 * (i * 256 + j)+2] = 128;
 			scrbuff[4 * (i * 256 + j)+3] = 128;
 		}*/
-	mapimage.w=256;
-	mapimage.h=256;
+	mapimage.w=512;
+	mapimage.h=512;
 	mapimage.magic = KISS_MAGIC;
 	mapimage.image= SDL_CreateTextureFromSurface(editor_renderer, mapsurface);
 
@@ -1243,14 +1275,14 @@ int main_x(/*int argc, char** argv*/)
 	//kiss_label_new(&label2, &window1, (char*)"Files", textbox2.rect.x +	kiss_edge, textbox1.rect.y - kiss_textfont.lineheight);
 	//kiss_label_new(&label_sel, &window1, (char*)"", textbox1.rect.x +kiss_edge, textbox1.rect.y + textbox_height +kiss_normal.h);
 	//kiss_entry_new(&entry, &window1, 1, (char*)"kiss", textbox1.rect.x,label_sel.rect.y + kiss_textfont.lineheight,2 * textbox_width + 2 * kiss_up.w + kiss_edge);
-	kiss_button_new(&button_cancel, &window1, (char*)"Cancel",entry.rect.x + entry.rect.w - kiss_edge - kiss_normal.w,entry.rect.y + entry.rect.h + kiss_normal.h);
-	kiss_button_new(&button_ok1, &window1, (char*)"OK", button_cancel.rect.x -2 * kiss_normal.w, button_cancel.rect.y);
+	//kiss_button_new(&button_cancel, &window1, (char*)"Cancel",entry.rect.x + entry.rect.w - kiss_edge - kiss_normal.w,entry.rect.y + entry.rect.h + kiss_normal.h);
+	//kiss_button_new(&button_ok1, &window1, (char*)"OK", button_cancel.rect.x -2 * kiss_normal.w, button_cancel.rect.y);
 	kiss_window_new(&window2, NULL, 1, kiss_screen_width / 2 -window2_width / 2, kiss_screen_height / 2 -window2_height / 2, window2_width, window2_height);
 	
 	kiss_label_new(&label_res, &window2, (char*)"", window2.rect.x +kiss_up.w, window2.rect.y + kiss_vslider.h);
 	label_res.textcolor = kiss_blue;
 	kiss_progressbar_new(&progressbar, &window2, window2.rect.x +kiss_up.w - kiss_edge, window2.rect.y + window2.rect.h / 2 -kiss_bar.h / 2 - kiss_border,window2.rect.w - 2 * kiss_up.w + 2 * kiss_edge);
-	kiss_button_new(&button_ok2, &window2, (char*)"OK", window2.rect.x +window2.rect.w / 2 - kiss_normal.w / 2,progressbar.rect.y + progressbar.rect.h +2 * kiss_vslider.h);
+	//kiss_button_new(&button_ok2, &window2, (char*)"OK", window2.rect.x +window2.rect.w / 2 - kiss_normal.w / 2,progressbar.rect.y + progressbar.rect.h +2 * kiss_vslider.h);
 	
 	kiss_hex4edit_new(&hex4edit1, &window1, &D41A0_BYTESTR_0.str_2FECE.word_0x2FEE5, (char*)"RANDOM SEED:", 10, 10);
 	kiss_hex4edit_new(&hex4edit2, &window1, &D41A0_BYTESTR_0.str_2FECE.word_0x2FEE9, (char*)"SHIFT:", 10, 30);
@@ -1266,18 +1298,20 @@ int main_x(/*int argc, char** argv*/)
 	kiss_hex4edit_new(&hex4edit12, &window1, &D41A0_BYTESTR_0.str_2FECE.word_0x2FF11, (char*)"0x2FF11:", 10, 230);
 
 	//drawterrain2(0, window1.rect.h - mapimage.h, 10, 0, 0);
-	kiss_terrain_new(&terrain1, &window1, mapsurface, 0, window1.rect.h - mapimage.h,256,256, &terrainzoom,&terrainbeginx,&terrainbeginy);
+	kiss_terrain_new(&terrain1, &window1, mapsurface, 0, window1.rect.h - mapimage.h,&terrainzoom,&terrainbeginx,&terrainbeginy);
 	kiss_array combo1ar;
 
 	//kiss_selectbutton_new(&selectbutton1, &window2,50, 50);
-	kiss_label_new(&labelSel, &window1, (char*)"Map layer:",300,670);
-	kiss_selectbutton_new(&select1, &window1,350,670);
-	kiss_selectbutton_new(&select2, &window1, 370,670);
-	kiss_selectbutton_new(&select3, &window1, 390, 670);
-	kiss_selectbutton_new(&select4, &window1, 410, 670);
+	kiss_label_new(&labelSel, &window1, (char*)"Map layer:",290, 236);
+	kiss_selectbutton_new(&select1, &window1, labelSel.rect.x+110, labelSel.rect.y);
+	kiss_selectbutton_new(&select2, &window1, select1.rect.x+20, labelSel.rect.y);
+	kiss_selectbutton_new(&select3, &window1, select2.rect.x + 20, labelSel.rect.y);
+	kiss_selectbutton_new(&select4, &window1, select3.rect.x + 20, labelSel.rect.y);
 
 
-	kiss_dec1edit_new(&levelSel, &window1, &actlevel,(char*)"Level:", 1,24,300, 690);
+	kiss_dec1edit_new(&levelSel, &window1, &actlevel,(char*)"Level:", 1,24,290, 216);
+
+	kiss_label_new(&labelXY, &window1, (char*)"", 900, 700);
 
 	//dirent_read(&textbox1, &vscrollbar1, &textbox2, &vscrollbar2,&label_sel);
 	terrain_feat_append(&textbox1, &vscrollbar1);
@@ -1298,6 +1332,8 @@ int main_x(/*int argc, char** argv*/)
 			int mousex;
 			int mousey;
 			SDL_GetMouseState(&mousex, &mousey);
+			//updatexystr((char**)&xystr,mousex, mousey);
+			sprintf(labelXY.text, "%d,%d", mousex, mousey);
 
 			if (e.type == SDL_QUIT) quit = 1;
 			
@@ -1308,9 +1344,9 @@ int main_x(/*int argc, char** argv*/)
 			//textbox2_event(&textbox2, &e, &vscrollbar2, &entry,	&draw);
 			//vscrollbar2_event(&vscrollbar2, &e, &textbox2, &draw);
 			//button_ok1_event(&button_ok1, &e, &window1, &window2,&label_sel, &entry, &label_res, &progressbar,&draw);
-			button_cancel_event(&button_cancel, &e, &quit,&draw);
+			//button_cancel_event(&button_cancel, &e, &quit,&draw);
 			kiss_entry_event(&entry, &e, &draw);
-			button_ok2_event(&button_ok2, &e, &window1, &window2,&progressbar, &draw);			
+			//button_ok2_event(&button_ok2, &e, &window1, &window2,&progressbar, &draw);			
 			if (kiss_hex4edit_event(&hex4edit1, &e, &draw) > 10)changed = true;
 			if (kiss_hex4edit_event(&hex4edit2, &e, &draw) > 10)changed = true;
 			if (kiss_hex4edit_event(&hex4edit3, &e, &draw) > 10)changed = true;
@@ -1324,10 +1360,10 @@ int main_x(/*int argc, char** argv*/)
 			if (kiss_hex4edit_event(&hex4edit11, &e, &draw) > 10)changed = true;
 			if (kiss_hex4edit_event(&hex4edit12, &e, &draw) > 10)changed = true;
 
-			if(select1_event(&select1, &e, &select2, &select3, &select4, &draw))changed = true;
-			if(select2_event(&select2, &e, &select1, &select3, &select4, &draw))changed = true;
-			if(select3_event(&select3, &e, &select1, &select2, &select4, &draw))changed = true;
-			if(select4_event(&select4, &e, &select1, &select2, &select3, &draw))changed = true;
+			if(select1_event(&select1, &e, &select2, &select3, &select4, &draw))zoomchanged = true;
+			if(select2_event(&select2, &e, &select1, &select3, &select4, &draw))zoomchanged = true;
+			if(select3_event(&select3, &e, &select1, &select2, &select4, &draw))zoomchanged = true;
+			if(select4_event(&select4, &e, &select1, &select2, &select3, &draw))zoomchanged = true;
 
 			int terev=kiss_terrain_event(&terrain1, &e, &draw, mousex, mousey);
 
@@ -1361,12 +1397,12 @@ int main_x(/*int argc, char** argv*/)
 		//kiss_vscrollbar_draw(&vscrollbar2, editor_renderer);
 		//kiss_label_draw(&label_sel, editor_renderer);
 		kiss_entry_draw(&entry, editor_renderer);
-		kiss_button_draw(&button_ok1, editor_renderer);
-		kiss_button_draw(&button_cancel, editor_renderer);
+		//kiss_button_draw(&button_ok1, editor_renderer);
+		//kiss_button_draw(&button_cancel, editor_renderer);
 		kiss_window_draw(&window2, editor_renderer);
 		kiss_label_draw(&label_res, editor_renderer);
 		kiss_progressbar_draw(&progressbar, editor_renderer);
-		kiss_button_draw(&button_ok2, editor_renderer);
+		//kiss_button_draw(&button_ok2, editor_renderer);
 
 		kiss_hex4edit_draw(&hex4edit1, editor_renderer);
 		kiss_hex4edit_draw(&hex4edit2, editor_renderer);
@@ -1388,6 +1424,8 @@ int main_x(/*int argc, char** argv*/)
 		kiss_label_draw(&labelSel, editor_renderer);
 
 		kiss_dec1edit_draw(&levelSel, editor_renderer);
+
+		kiss_label_draw(&labelXY, editor_renderer);
 
 		if(changed||zoomchanged)
 			fillterrain(0, window1.rect.h-mapimage.h, terrainzoom, terrainbeginx, terrainbeginy);//set terrain

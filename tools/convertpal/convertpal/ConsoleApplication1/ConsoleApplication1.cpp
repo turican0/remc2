@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define level1
+#define level4
 //#define level2
 /* run this program using the console pauser or add your own getch, system("pause") or input loop */
 
@@ -130,6 +130,12 @@ int main(int argc, char* argv[]) {
 	const char* outdata_filename = "c:\\prenos\\remc2\\Debug\\biggraphics\\block128.data";
 	const char* orig32_filename = "c:\\prenos\\remc2\\Debug\\biggraphics\\block32.data";
 #endif level2
+#ifdef level4
+	const char* standartpal_filename = "c:\\prenos\\remc2\\tools\\palletelight\\Debug\\out-c.pal";
+	const char* data_filename = "c:\\prenos\\remc2\\Debug\\biggraphics\\bl32c0-0-src.data";
+	const char* outdata_filename = "c:\\prenos\\remc2\\Debug\\biggraphics\\bl128c0-0.data";
+	const char* orig32_filename = "c:\\prenos\\remc2\\Debug\\biggraphics\\bl32c0-0.data";
+#endif level4
 
 
 	FILE* fptr_stdpal;
@@ -326,6 +332,9 @@ int main(int argc, char* argv[]) {
 #ifdef level2
 				if ((j != 0x67))
 #endif level2
+#ifdef level4
+					if (true)
+#endif level4
 			{
 				int score = 0;
 				score += abs(content_data[i * 3 + 0] - content_stdpal[j * 3 + 0]);
@@ -404,7 +413,7 @@ int main(int argc, char* argv[]) {
 	{
 		unsigned char x = 0xff;
 		fwrite(&x, 1, 1, fptw_outdata);
-	}
+	}// sss
 	/*
 	for (int i = 119; i < 256; i++)
 		for (int j = 0; j < 128 * 10; j++)

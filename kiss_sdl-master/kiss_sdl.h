@@ -476,7 +476,7 @@ extern "C" {
 	int kiss_dec1edit_event(kiss_dec1edit* hex4edit, SDL_Event* event, int* draw);
 	int kiss_dec1edit_draw(kiss_dec1edit* hex4edit, SDL_Renderer* renderer);
 
-	int kiss_terrain_new(kiss_terrain* terrain, kiss_window* wdw, SDL_Surface* mapsurface, int x,int y,int w,int h, float* terrainzoom, int* terrainbeginx, int* terrainbeginy);
+	int kiss_terrain_new(kiss_terrain* terrain, kiss_window* wdw, SDL_Surface* mapsurface, int x,int y,float* terrainzoom, int* terrainbeginx, int* terrainbeginy);
 	int kiss_terrain_event(kiss_terrain* terrain, SDL_Event* event, int* draw, int mousex, int mousey);
 	int kiss_terrain_draw(kiss_terrain* terrain, SDL_Renderer* renderer);
 

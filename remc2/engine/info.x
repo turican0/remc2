@@ -7606,4 +7606,78 @@ void sub_462A0(uaxis_2d a1x, uaxis_2d a2x)//2272a0 - error
 
 debugcounter_215540 == 0x3dd
 
+ebp-1c 78
+ale ne
+85
 
+x_BYTE_F0200
+versus
+2c1200
+
+step 0x170
+x_BYTE_13B4E0_angle+0x1597(0x29)
+versus
+0x30c4e0+0x1597(0x49)
+
+set 29 31:d ds
+void sub_462A0(uaxis_2d a1x, uaxis_2d a2x)//2272a0
+
+11
+19
+41
+49
+31 versus 01
+
+test
+if (debugcounter_215540 >= 0x87d)
+and later
+
+8cd
+
+0xc0
+x_BYTE_F0200
+versus
+2c1200 &x_BYTE_F01FEx[2 + 0]
+
+
+step d55
+x_BYTE_13B4E0_angle+0x2ab2(0x01)
+versus
+0x30c4e0+0x2ab2(0x81)
+
+23c320 - void sub_5B100(/*int a2,*/ type_str_0x6E8E* a1x)//23c100
+
+(Bit8u*)&x_BYTE_11B4E0_height+0x51af - 0x93
+versus
+002ec4e0 +  0x51af - 0x95
+
+(Bit8u*)&D41A0_BYTESTR_0+0xdc76 0x00
+(Bit8u*)x_D41A0_BYTEARRAY_0+0xdc76 0xd4
+0x356038 +0xdc76
+
+(Bit8u*)&D41A0_BYTESTR_0+0x235 0x03
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x235 0x00
+0x356038 +0x235
+
+end game after dead
+						sub_191B0(15, 0);
+						x_BYTE_1806E4 = 0;
+
+x_DWORD_180628b_screen_buffer+0x42 0x40
+ 0x3aa0a4+0x42 0x29
+
+ BLOCK32DAT_BEGIN_BUFFER+200
+ BLOCK32DAT_BEGIN_BUFFER+250
+
+ adress 248780
+
+step 9163 
+(Bit8u*)&D41A0_BYTESTR_0+0x9163 0x04
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x9163 0x00
+0x356038 +0x9163
+
+difference in sub_84B80();//nothing draw
+
+void sub_31120(type_str_0x6E8E* a1x)//212120
+
+x_BYTE_17DF14[0x81]
