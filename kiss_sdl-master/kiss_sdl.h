@@ -448,8 +448,7 @@ extern "C" {
 	int kiss_label_new(kiss_label* label, kiss_window* wdw, char* text,
 		int x, int y);
 	int kiss_label_draw(kiss_label* label, SDL_Renderer* renderer);
-	int kiss_button_new(kiss_button* button, kiss_window* wdw, char* text,
-		int x, int y);
+	int kiss_button_new(kiss_button* button, kiss_window* wdw, char* text, int x, int y, kiss_image* img);
 	int kiss_button_event(kiss_button* button, SDL_Event* event, int* draw);
 	int kiss_button_draw(kiss_button* button, SDL_Renderer* renderer);
 	int kiss_selectbutton_new(kiss_selectbutton* selectbutton, kiss_window* wdw,
