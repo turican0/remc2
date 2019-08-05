@@ -7681,3 +7681,38 @@ difference in sub_84B80();//nothing draw
 void sub_31120(type_str_0x6E8E* a1x)//212120
 
 x_BYTE_17DF14[0x81]
+
+(Bit8u*)&D41A0_BYTESTR_0+0x36608 0xae
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x36608 0xf6
+0x356038 +0x36608
+
+(Bit8u*)&x_BYTE_11B4E0_height+0xbd7d - 0x52
+versus
+002ec4e0 +  0xbd7d - 0x55
+
+(Bit8u*)&D41A0_BYTESTR_0+0x41e5 0x82 nebo 4c
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x41e5 0x51
+0x356038 +0x41e5
+
+(Bit8u*)&D41A0_BYTESTR_0+0x6ede 0x80
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x6ede 0x40
+0x356038 +0x6ede
+
+
+testing 233d56
+
+35520c:
+ebx=358c16
+ebx+=84c
+
+kde se priradi 0x368724
+22bb69
+
+(Bit8u*)&D41A0_BYTESTR_0+0xb11b 0x19
+(Bit8u*)x_D41A0_BYTEARRAY_0+0xb11b 0x1f
+0x356038 +0xb11b
+
+void sub_12330(type_str_0x6E8E* a1x, __int16 a2)//1f3330
+
+test 
+void sub_12330(type_str_0x6E8E* a1x, __int16 a2)//1f3330

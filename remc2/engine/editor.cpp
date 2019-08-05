@@ -1300,8 +1300,6 @@ int main_x(/*int argc, char** argv*/)
 	img_delete_prelight.magic = KISS_MAGIC;
 	img_delete_prelight.image = IMG_LoadTexture(editor_renderer, path2);
 
-
-	char path2[512];
 	kiss_image img_add_normal;
 	FixDir(path2, (char*)"kiss\\kiss_add_normal.png");
 	img_add_normal.w = 16;
