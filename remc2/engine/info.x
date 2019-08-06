@@ -7716,3 +7716,33 @@ void sub_12330(type_str_0x6E8E* a1x, __int16 a2)//1f3330
 
 test 
 void sub_12330(type_str_0x6E8E* a1x, __int16 a2)//1f3330
+
+D41A0_BYTESTR_0.array_0x365F4[a1x->byte_0x48_72].str_0x3647A_byte_1
+D41A0_BYTESTR_0.array_0x365F4[4].str_0x3647A_byte_1
+nema byt 7
+D41A0_BYTESTR_0.array_0x365F4[a1x->byte_0x48_72]
+ma byt 04 03 00 04 09
+
+void sub_12780()//1f3780
+
+x_D41A0_BYTEARRAY_4_struct.bytearray_38403x[D41A0_BYTESTR_0.array_0x365F4[resultx + 1].str_0x3647C_4.axis.x
+
+(Bit8u*)&D41A0_BYTESTR_0+0x36552 0xe6
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x36552 0x2e
+0x356038 +0x36552
+
+step 0x119
+(Bit8u*)&D41A0_BYTESTR_0+0x6edb 0x00
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x6edb 0x40
+0x356038 +0x6edb
+
+signed int sub_13B00(type_str_0x6E8E* a1x)//1f4b00
+
+a1x->array_0x4C_76.y-(my_sign16(a1x->array_0x4C_76.y)<<14)+my_sign16(a1x->array_0x4C_76.y)
+(my_sign16(a1x->array_0x4C_76.y)<<14)-a1x->array_0x4C_76.y
+
+90
+4000
+
+D41A0_BYTESTR_0.array_0x365F4[resultx+1].str_0x3647C_4.pointer_0x6E8E
+D41A0_BYTESTR_0.array_0x365F4[2].str_0x3647C_4.pointer_0x6E8E

@@ -1915,6 +1915,7 @@ void x_D41A0_BYTESTR_0_to_x_D41A0_BYTEARRAY_0();*/
 void write_posistruct_to_png(Bit8u* buffer, int width, int height, char* filename);
 
 
-int my_sign(int var);
+int my_sign32(Bit32s var);
+int my_sign16(Bit16s var);
 
 #endif //ENGINE_SUPPORT_ACTIVE

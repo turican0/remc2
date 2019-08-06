@@ -272,6 +272,7 @@ int test_D41A0_id_pointer(Bit32u adress) {
 	if ((adress >= 0x246)&& (adress < 0x2186))return 1;
 	if ((adress >= 0x3655c) && (adress < 0x3655d))return 1;
 	if ((adress >= 0x36608) && (adress < 0x36609))return 1;
+	if ((adress >= 0x36552) && (adress < 0x36553))return 1;
 	/*if ((adress >= 0x6f32) && (adress < 0x6f37))return 1;
 	if ((adress >= 0x6fd6) && (adress < 0x6fdb))return 1;
 	if ((adress >= 0x707e) && (adress < 0x707f))return 1;
@@ -1755,8 +1756,13 @@ void test_x_D41A0_BYTEARRAY_0() {
 };
 */
 
-int my_sign(int var)
+int my_sign32(Bit32s var)
 {
 	if (var < 0)return -1;
 	return 0;
+}
+
+int my_sign16(Bit16s var)
+{
+	return my_sign32(var);
 }
