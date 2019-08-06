@@ -448,7 +448,7 @@ extern "C" {
 	int kiss_label_new(kiss_label* label, kiss_window* wdw, char* text,
 		int x, int y);
 	int kiss_label_draw(kiss_label* label, SDL_Renderer* renderer);
-	int kiss_button_new(kiss_button* button, kiss_window* wdw, char* text, int x, int y, kiss_image* img);
+	int kiss_button_new(kiss_button* button, kiss_window* wdw, char* text, int x, int y, kiss_image* img = NULL);
 	int kiss_button_event(kiss_button* button, SDL_Event* event, int* draw);
 	int kiss_button_draw(kiss_button* button, SDL_Renderer* renderer);
 	int kiss_selectbutton_new(kiss_selectbutton* selectbutton, kiss_window* wdw,
@@ -468,6 +468,7 @@ extern "C" {
 	int kiss_hscrollbar_draw(kiss_hscrollbar* hscrollbar,SDL_Renderer* renderer);
 
 	int kiss_hex4edit_new(kiss_hex4edit* hex4edit, kiss_window* wdw, void* adress, char* text, int x, int y);
+	int kiss_hex4edit_update_adress(kiss_hex4edit* hex4edit, void* adress);
 	int kiss_hex4edit_event(kiss_hex4edit* hex4edit, SDL_Event* event, int* draw);
 	int kiss_hex4edit_draw(kiss_hex4edit* hex4edit, SDL_Renderer* renderer);
 

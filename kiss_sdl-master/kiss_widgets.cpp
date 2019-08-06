@@ -99,7 +99,7 @@ int kiss_label_draw(kiss_label *label, SDL_Renderer *renderer)
 	return 1;
 }
 
-int kiss_button_new(kiss_button* button, kiss_window* wdw, char* text, int x, int y, kiss_image* img = NULL)
+int kiss_button_new(kiss_button* button, kiss_window* wdw, char* text, int x, int y, kiss_image* img)
 {
 	if (!button || !text) return -1;
 	if (button->font.magic != KISS_MAGIC) button->font = kiss_buttonfont;
@@ -111,7 +111,10 @@ int kiss_button_new(kiss_button* button, kiss_window* wdw, char* text, int x, in
 			button->normalimg = *img;
 	}
 	if (button->activeimg.magic != KISS_MAGIC)
-		button->activeimg = kiss_active;
+		if (img == NULL)
+			button->normalimg = kiss_active;
+		else
+			button->normalimg = *img;
 	if (button->prelightimg.magic != KISS_MAGIC)
 		button->prelightimg = kiss_prelight;
 	kiss_makerect(&button->rect, x, y, button->normalimg.w,
@@ -344,6 +347,16 @@ int kiss_hex4edit_new(kiss_hex4edit* hex4edit, kiss_window* wdw, void* adress, c
 	hex4edit->visible = 0;
 	hex4edit->focus = 0;
 	hex4edit->wdw = wdw;
+	return 0;
+}
+
+int kiss_hex4edit_update_adress(kiss_hex4edit* hex4edit, void* adress)
+{
+	if (!hex4edit) return -1;
+	hex4edit->valueadress = adress;	
+	char buf[256];
+	sprintf(buf, "%04X", *(Bit16u*)adress);
+	kiss_string_copy(hex4edit->valuetext, KISS_MAX_LENGTH, buf, NULL);	
 	return 0;
 }
 
