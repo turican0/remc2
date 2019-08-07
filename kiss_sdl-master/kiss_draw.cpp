@@ -39,6 +39,7 @@ int kiss_border = 6;
 double kiss_spacing = 0.5;
 SDL_Color kiss_white = { 255, 255, 255, 255 };
 SDL_Color kiss_black = { 0, 0, 0, 255 };
+SDL_Color kiss_gray = { 128, 128, 128, 255 };
 SDL_Color kiss_green = { 0, 150, 0, 255 };
 SDL_Color kiss_blue = { 0, 0, 255, 255 };
 SDL_Color kiss_lightblue = { 200, 225, 255, 255 };

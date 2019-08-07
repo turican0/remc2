@@ -385,7 +385,7 @@ typedef struct kiss_combobox {
 } kiss_combobox;
 
 extern SDL_Color kiss_white, kiss_black, kiss_green, kiss_blue,
-kiss_lightblue;
+kiss_lightblue, kiss_gray;
 extern kiss_font kiss_textfont, kiss_buttonfont;
 extern kiss_image kiss_normal, kiss_prelight, kiss_active, kiss_bar,
 kiss_up, kiss_down, kiss_left, kiss_left_sel, kiss_right, kiss_right_sel, kiss_vslider,
@@ -478,6 +478,7 @@ extern "C" {
 
 	int kiss_terrain_new(kiss_terrain* terrain, kiss_window* wdw, SDL_Surface* mapsurface, int x,int y,float* terrainzoom, int* terrainbeginx, int* terrainbeginy);
 	int kiss_terrain_event(kiss_terrain* terrain, SDL_Event* event, int* draw, int mousex, int mousey);
+	int kiss_terrain_eventfeat(kiss_terrain* terrain, SDL_Event* event, int* draw, int mousex, int mousey, int* tersetposx, int* tersetposy);
 	int kiss_terrain_draw(kiss_terrain* terrain, SDL_Renderer* renderer);
 
 	int kiss_progressbar_new(kiss_progressbar* progressbar, kiss_window* wdw,int x, int y, int w);
@@ -490,7 +491,7 @@ extern "C" {
 	int kiss_entry_draw(kiss_entry* entry, SDL_Renderer* renderer);
 	int kiss_textbox_new(kiss_textbox* textbox, kiss_window* wdw, int decorate,
 		kiss_array* a, int x, int y, int w, int h);
-	int kiss_textbox_event(kiss_textbox* textbox, SDL_Event* event, int* draw);
+	int kiss_textbox_event(kiss_textbox* textbox, SDL_Event* event, int mousex,int mousey,int* draw);
 	int kiss_textbox_draw(kiss_textbox* textbox, SDL_Renderer* renderer);
 	int kiss_combobox_new(kiss_combobox* combobox, kiss_window* wdw,
 		char* text, kiss_array* a, int x, int y, int w, int h);
