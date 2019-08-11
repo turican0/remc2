@@ -213,6 +213,32 @@ typedef struct {//lenght 30
 } type_x_BYTE_E25ED_db_str;
 #pragma pack (16)
 
+extern int filearrayindex_POINTERSDATTAB;
+extern int filearrayindex_FONTS0DATTAB;
+extern int filearrayindex_MSPRDDATTAB;
+extern int filearrayindex_ZERO1;
+extern int filearrayindex_MSPRD00DATTAB;
+extern int filearrayindex_ZERO2;
+extern int filearrayindex_HFONT3DATTAB;
+extern int filearrayindex_ZERO3;
+extern int filearrayindex_BUILD00DATTAB;
+extern int filearrayindex_ZERO4;
+
+#pragma pack (1)
+typedef struct {
+	Bit8u** begin_buffer;
+	Bit8u** end_buffer;
+	Bit8u** dat_buffer;
+	posistruct** posistruct;
+} filearray_struct;
+#pragma pack (16)
+
+extern filearray_struct filearray_2aa18c[];
+extern filearray_struct x_DWORD_E9B20[4];
+
+extern __int16 x_WORD_E29DA_type_resolution; // weak
+extern __int16 x_WORD_180660_VGA_type_resolution; // weak
+
 extern Bit16s x_DWORD_17DEE4_mouse_positionx; // weak
 extern Bit16s x_DWORD_17DEE4_mouse_positiony; // weak
 extern __int16 x_WORD_17DEEC; // weak
@@ -272,6 +298,8 @@ void sub_49F30();
 
 
 void sub_6FC50(__int16 a1);
+
+void sub_6EBF0(filearray_struct* a1);
 
 char sub_533B0_decompress_levels(__int16 a1, type_str_2FECE* a2);
 

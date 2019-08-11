@@ -97,6 +97,10 @@ void loadlevel(int levelnumber) {
 void editor_run()
 {	
 
+	sub_6EBF0(&filearray_2aa18c[filearrayindex_POINTERSDATTAB]);
+	x_WORD_180660_VGA_type_resolution = 1;
+	x_WORD_E29DA_type_resolution = 1;
+
 	sub_6FC50(1);
 
 	//save D41A0_BYTESTR_0
@@ -247,39 +251,83 @@ void fillterrain(/*int x, int y,*/float zoom,int beginx,int beginy) {
 	for (int i = 0; i < 0x4B0; i++)
 	{
 		type_str_0x30311 actfeat = D41A0_BYTESTR_0.str_2FECE.array_0x30311[first_terrain_feature + i];
-		if((actfeat.axis3d_4.x>-1)&&(actfeat.axis3d_4.x < 256)&&(actfeat.axis3d_4.y > -1)&&(actfeat.axis3d_4.y < 256))
-			terrfeatlayer[actfeat.axis3d_4.x + actfeat.axis3d_4.y * 256] = 1;
+		if ((actfeat.axis3d_4.x > -1) && (actfeat.axis3d_4.x < 256) && (actfeat.axis3d_4.y > -1) && (actfeat.axis3d_4.y < 256))
+			terrfeatlayer[actfeat.axis3d_4.x + actfeat.axis3d_4.y * 256] = actfeat.str_0x30311_word_0;//all entites
 	}
 
 	for (int j = 0; j < 512; j++)
 		for (int i = 0; i < 512; i++)
 		{
-			int nx = beginx+i/(zoom*2);
-			int ny = beginy+j/(zoom*2);
-			if ((nx > -1 && nx<256 && ny > -1 && ny<256)&&(terrfeatlayer[nx + ny * 256] == 1))
-			{				
-				Bit8u* scrbuff = (Bit8u*)mapsurface->pixels;//setred
-				scrbuff[4 * (j * 512 + i)] = 255;
-				scrbuff[4 * (j * 512 + i) + 1] = 0;
-				scrbuff[4 * (j * 512 + i) + 2] = 0;
-				scrbuff[4 * (j * 512 + i) + 3] = 255;
-			}
-			else
-				switch (maptype)
+			int nx = beginx + i / (zoom * 2);
+			int ny = beginy + j / (zoom * 2);
+			if ((nx > -1 && nx<256 && ny > -1 && ny < 256))
+			{
+				Bit8u* scrbuff = (Bit8u*)mapsurface->pixels;
+				switch (terrfeatlayer[nx + ny * 256])
 				{
 				case 0:
-					SetPixelMapSurface(i,j, nx, ny, x_BYTE_10B4E0_terraintype);
+					switch (maptype)
+					{
+					case 0:
+						SetPixelMapSurface(i, j, nx, ny, x_BYTE_10B4E0_terraintype);
+						break;
+					case 1:
+						SetPixelMapSurface(i, j, nx, ny, x_BYTE_11B4E0_height);
+						break;
+					case 2:
+						SetPixelMapSurface(i, j, nx, ny, x_BYTE_12B4E0_shading);
+						break;
+					case 3:
+						SetPixelMapSurface(i, j, nx, ny, x_BYTE_13B4E0_angle);
+						break;
+					}
 					break;
-				case 1:
-					SetPixelMapSurface(i, j, nx, ny,  x_BYTE_11B4E0_height);
+
+				case 0x5:
+					scrbuff[4 * (j * 512 + i)] = 0;//setgreen
+					scrbuff[4 * (j * 512 + i) + 1] = 255;
+					scrbuff[4 * (j * 512 + i) + 2] = 0;
+					scrbuff[4 * (j * 512 + i) + 3] = 255;
 					break;
-				case 2:
-					SetPixelMapSurface(i, j, nx, ny,  x_BYTE_12B4E0_shading);
+				case 0xa:
+					scrbuff[4 * (j * 512 + i)] = 0;//setblue
+					scrbuff[4 * (j * 512 + i) + 1] = 0;
+					scrbuff[4 * (j * 512 + i) + 2] = 255;
+					scrbuff[4 * (j * 512 + i) + 3] = 255;
 					break;
-				case 3:
-					SetPixelMapSurface(i, j, nx, ny, x_BYTE_13B4E0_angle);
+				/*case 0xf0:
+					scrbuff[4 * (j * 512 + i)] = 255;//setwhite
+					scrbuff[4 * (j * 512 + i) + 1] = 255;
+					scrbuff[4 * (j * 512 + i) + 2] = 255;
+					scrbuff[4 * (j * 512 + i) + 3] = 255;*/
+					break;
+				case 0x2:
+				case 0x3:
+					scrbuff[4 * (j * 512 + i)] = 255;//set brow
+					scrbuff[4 * (j * 512 + i) + 1] = 255;
+					scrbuff[4 * (j * 512 + i) + 2] = 0;
+					scrbuff[4 * (j * 512 + i) + 3] = 255;
+					break;
+				case 0xb:
+					scrbuff[4 * (j * 512 + i)] = 0;//set cyan
+					scrbuff[4 * (j * 512 + i) + 1] = 255;
+					scrbuff[4 * (j * 512 + i) + 2] = 255;
+					scrbuff[4 * (j * 512 + i) + 3] = 255;
+					break;
+				case 0xe:
+					scrbuff[4 * (j * 512 + i)] = 255;//set magenta
+					scrbuff[4 * (j * 512 + i) + 1] = 0;
+					scrbuff[4 * (j * 512 + i) + 2] = 255;
+					scrbuff[4 * (j * 512 + i) + 3] = 255;
+					break;
+				default:
+					scrbuff[4 * (j * 512 + i)] = 255;//setred
+					scrbuff[4 * (j * 512 + i) + 1] = 0;
+					scrbuff[4 * (j * 512 + i) + 2] = 0;
+					scrbuff[4 * (j * 512 + i) + 3] = 255;
 					break;
 				}
+			}
 		}
 };
 void fillterrainfeat(float zoom, int beginx, int beginy) {	
@@ -293,56 +341,86 @@ void fillterrainfeat(float zoom, int beginx, int beginy) {
 	{
 		type_str_0x30311 actfeat = D41A0_BYTESTR_0.str_2FECE.array_0x30311[first_terrain_feature + i];
 		if ((actfeat.axis3d_4.x > -1) && (actfeat.axis3d_4.x < 256) && (actfeat.axis3d_4.y > -1) && (actfeat.axis3d_4.y < 256))
-			terrfeatlayer[actfeat.axis3d_4.x + actfeat.axis3d_4.y * 256] = 1;//all entites
+			terrfeatlayer[actfeat.axis3d_4.x + actfeat.axis3d_4.y * 256] = actfeat.str_0x30311_word_0;//all entites
 	}
 
 	type_str_0x30311 actfeat = temparray_0x30311[edited_line2 + 1];
 	if ((actfeat.axis3d_4.x > -1) && (actfeat.axis3d_4.x < 256) && (actfeat.axis3d_4.y > -1) && (actfeat.axis3d_4.y < 256))
-		terrfeatlayer[actfeat.axis3d_4.x + actfeat.axis3d_4.y * 256] = 2;//selected entity
+		terrfeatlayer[actfeat.axis3d_4.x + actfeat.axis3d_4.y * 256] = 0xf0;//selected entity
 
 	for (int j = 0; j < 512; j++)
 		for (int i = 0; i < 512; i++)
 		{
 			int nx = beginx + i / (zoom * 2);
 			int ny = beginy + j / (zoom * 2);
-			if (( (nx > -1 && nx<256 && ny > -1 && ny < 256) && (terrfeatlayer[nx + ny * 256] == 2))
-				/*||(((nx + 1) > -1 && (nx+1)<256 && ny > -1 && ny < 256) && (terrfeatlayer[(nx + 1) + ny * 256] == 2)) ||
-				(((nx - 1) > -1 && (nx - 1) <256 && ny > -1 && ny < 256) && (terrfeatlayer[(nx - 1) + ny * 256] == 2)) ||
-				((nx > -1 && nx<256 && (ny+1) > -1 && (ny + 1) < 256) && (terrfeatlayer[nx + (ny + 1) * 256] == 2)) ||
-				((nx > -1 && nx<256 && (ny - 1) > -1 && (ny - 1) < 256) && (terrfeatlayer[nx + (ny - 1) * 256] == 2))*/
-				)
+			if ((nx > -1 && nx<256 && ny > -1 && ny < 256))
 			{
-				Bit8u* scrbuff = (Bit8u*)mapsurfacefeat->pixels;//setred
-				scrbuff[4 * (j * 512 + i)] = 255;
-				scrbuff[4 * (j * 512 + i) + 1] = 255;
-				scrbuff[4 * (j * 512 + i) + 2] = 255;
-				scrbuff[4 * (j * 512 + i) + 3] = 255;
-			}
-			else
-			if ((nx > -1 && nx<256 && ny > -1 && ny < 256) && (terrfeatlayer[nx + ny * 256] == 1))
-			{
-				Bit8u* scrbuff = (Bit8u*)mapsurfacefeat->pixels;//setred
-				scrbuff[4 * (j * 512 + i)] = 255;
-				scrbuff[4 * (j * 512 + i) + 1] = 0;
-				scrbuff[4 * (j * 512 + i) + 2] = 0;
-				scrbuff[4 * (j * 512 + i) + 3] = 255;
-			}
-			else
-				switch (maptypefeat)
+				Bit8u* scrbuff = (Bit8u*)mapsurfacefeat->pixels;
+				switch (terrfeatlayer[nx + ny * 256])
 				{
 				case 0:
-					SetPixelMapSurfacefeat(i, j, nx, ny, x_BYTE_10B4E0_terraintype);
+					switch (maptypefeat)
+					{
+					case 0:
+						SetPixelMapSurfacefeat(i, j, nx, ny, x_BYTE_10B4E0_terraintype);
+						break;
+					case 1:
+						SetPixelMapSurfacefeat(i, j, nx, ny, x_BYTE_11B4E0_height);
+						break;
+					case 2:
+						SetPixelMapSurfacefeat(i, j, nx, ny, x_BYTE_12B4E0_shading);
+						break;
+					case 3:
+						SetPixelMapSurfacefeat(i, j, nx, ny, x_BYTE_13B4E0_angle);
+						break;
+					}
 					break;
-				case 1:
-					SetPixelMapSurfacefeat(i, j, nx, ny, x_BYTE_11B4E0_height);
+
+				case 0x5:
+					scrbuff[4 * (j * 512 + i)] = 0;//setgreen
+					scrbuff[4 * (j * 512 + i) + 1] = 255;
+					scrbuff[4 * (j * 512 + i) + 2] = 0;
+					scrbuff[4 * (j * 512 + i) + 3] = 255;
 					break;
-				case 2:
-					SetPixelMapSurfacefeat(i, j, nx, ny, x_BYTE_12B4E0_shading);
+				case 0xa:
+					scrbuff[4 * (j * 512 + i)] = 0;//setblue
+					scrbuff[4 * (j * 512 + i) + 1] = 0;
+					scrbuff[4 * (j * 512 + i) + 2] = 255;
+					scrbuff[4 * (j * 512 + i) + 3] = 255;
 					break;
-				case 3:
-					SetPixelMapSurfacefeat(i, j, nx, ny, x_BYTE_13B4E0_angle);
+				case 0xf0:
+					scrbuff[4 * (j * 512 + i)] = 255;//setwhite
+					scrbuff[4 * (j * 512 + i) + 1] = 255;
+					scrbuff[4 * (j * 512 + i) + 2] = 255;
+					scrbuff[4 * (j * 512 + i) + 3] = 255;
+					break;
+				case 0x2:
+				case 0x3:
+					scrbuff[4 * (j * 512 + i)] = 255;//set brow
+					scrbuff[4 * (j * 512 + i) + 1] = 255;
+					scrbuff[4 * (j * 512 + i) + 2] = 0;
+					scrbuff[4 * (j * 512 + i) + 3] = 255;
+					break;
+				case 0xb:
+					scrbuff[4 * (j * 512 + i)] = 0;//set cyan
+					scrbuff[4 * (j * 512 + i) + 1] = 255;
+					scrbuff[4 * (j * 512 + i) + 2] = 255;
+					scrbuff[4 * (j * 512 + i) + 3] = 255;
+					break;
+				case 0xe:
+					scrbuff[4 * (j * 512 + i)] = 255;//set magenta
+					scrbuff[4 * (j * 512 + i) + 1] = 0;
+					scrbuff[4 * (j * 512 + i) + 2] = 255;
+					scrbuff[4 * (j * 512 + i) + 3] = 255;
+					break;
+				default:
+					scrbuff[4 * (j * 512 + i)] = 255;//setred
+					scrbuff[4 * (j * 512 + i) + 1] = 0;
+					scrbuff[4 * (j * 512 + i) + 2] = 0;
+					scrbuff[4 * (j * 512 + i) + 3] = 255;
 					break;
 				}
+			}
 		}
 };
 void drawdetail(int x, int y,int size,int zoom) {

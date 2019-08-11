@@ -1032,6 +1032,8 @@ int kiss_terrain_draw(kiss_terrain* terrain, SDL_Renderer* renderer) {
 		terrain->visible = terrain->wdw->visible;
 	if (!terrain || !terrain->visible || !renderer) return 0;
 
+	if(terrain->image.image!=NULL)
+		SDL_DestroyTexture(terrain->image.image);
 	terrain->image.image = SDL_CreateTextureFromSurface(renderer, terrain->mapsurface);
 	kiss_renderimage(renderer, terrain->image, terrain->rect.x, terrain->rect.y, NULL);
 	return 0;

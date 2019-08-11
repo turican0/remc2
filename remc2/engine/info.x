@@ -7745,4 +7745,138 @@ a1x->array_0x4C_76.y-(my_sign16(a1x->array_0x4C_76.y)<<14)+my_sign16(a1x->array_
 4000
 
 D41A0_BYTESTR_0.array_0x365F4[resultx+1].str_0x3647C_4.pointer_0x6E8E
-D41A0_BYTESTR_0.array_0x365F4[2].str_0x3647C_4.pointer_0x6E8E
+&D41A0_BYTESTR_0.array_0x365F4[2].str_0x3647C_4.pointer_0x6E8E
+
+step 0x23c
+(Bit8u*)&D41A0_BYTESTR_0+0xf8a6 0x03
+(Bit8u*)x_D41A0_BYTEARRAY_0+0xf8a6 0x02
+0x356038 +0xf8a6
+
+void sub_12330(type_str_0x6E8E* a1x, __int16 a2)//1f3330
+
+void sub_12780()//1f3780
+
+void sub_55100(char a1)//236100
+nejasne
+38c640
+
+
+x_BYTE_10B4E0_terraintype+0xc67e 1a
+versus
+2dc4e0+0xc67e 0a
+
+227023
+211dfc call 226dc0
+
+(Bit8u*)&D41A0_BYTESTR_0+0xbd7 0x16
+(Bit8u*)x_D41A0_BYTEARRAY_0+0xbd7 0xb3
+0x356038 +0xbd7
+
+ (Bit8u*)&x_WORD_15B4E0_source+0xcc3c 0x89
+ x_WORD_15B4E0+0xcc3c 0x4b
+ 32c4e0+0xcc3c 0x00
+
+ void sub_32880(type_str_0x6E8E* a1x)//213880
+ type_str_0x6E8E* sub_4E320(axis_3d* a1x)//22f320
+
+ zkontrolovat my_sign16
+
+ problem zde:
+ for (iix = x_D41A0_BYTEARRAY_4_struct.dword_38519; iix > x_DWORD_EA3E4[0]; iix = iix->next_0)
+ 76 8a 36 00 40 9c 00 00 6e 8e 00 00 0e 00 00 00
+ 03 00 00 00 28 8a 00 00 02 00 13 01 00 00 00 00
+
+ test abs
+
+ v3x->dword_0xA4_164x->str_611.array_0x2CB_715x.dword[a2]
+ x_DWORD_EA3E4[0x109]->dword_0xA4_164x->str_611.array_0x2CB_715x.dword[9]
+ versus 92
+ 359xxx+9*4+2cb=3592eb
+
+ void sub_6D8B0(unsigned __int16 a1, unsigned __int16 a2, __int16 a3)//24e8b0
+
+ a1x->word_0x14_20 = 9377 * a1x->word_0x14_20 + 9439;
+
+ sub_10130(v5, &v12, &v13)
+ v12 == -1
+ v13 == -2
+
+ (Bit8u*)*(Bit32s*)&x_BYTE_E7EE0x[4*6*1+4*5]
+ versus
+ 0x1a0078 tj 2b8f0c 2b8ee0+x
+
+ x_BYTE_E9980x
+ versus
+ 2ba980
+
+ *(Bit32s*)&x_BYTE_E9980x[6*4]
+
+ (Bit8u*)&x_WORD_15B4E0_source+0xcafc 0x3e
+ x_WORD_15B4E0+0xcafc 0x00
+ 32c4e0+0xcafc 0x00
+ 
+ 355180
+ type_str_0x6E8E* sub_4E320(axis_3d* a1x)//22f320
+ sub_57D70_clean_event(v1x, a1x);
+
+ 26f3d0
+
+(Bit8u*)&D41A0_BYTESTR_0+0x824a 0x04
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x824a 0x84
+0x356038 +0x824a
+
+zmena
+int sub_A0F06(int a1, int a2, int a3, int a4, int a5, int a6, int a7)//281f06
+
+22aea0 - call 22aea0
+type_str_0x6E8E* sub_49EA0(type_str_0x6E8E* a1x, __int16 a2, __int16 a3)//22aea0
+void sub_32880(type_str_0x6E8E* a1x)//213880
+
+sub_49EA0(a1x,(768 * a1x->dword_0x10_16- (__CFSHL__(768 * a1x->dword_0x10_16 >> 31, 2)+ 4 * (768 * a1x->dword_0x10_16 >> 31))) >> 2,512);
+
+2
+lea
+*4 = 8
+sub = 6
+shl 8 =0x600
+(768 * a1x->dword_0x10_16-my_sign(768 * a1x->dword_0x10_16)*5)>>2
+
+void sub_57730()//238730
+
+(Bit8u*)&D41A0_BYTESTR_0+0x77de 0x00
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x77de 0x1a
+0x356038 +0x77de
+
+204f9e
+void sub_23E60(type_str_0x6E8E* a1x)//204e60
+
+(Bit8u*)&D41A0_BYTESTR_0+0x8 0x74
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x8 0x1f
+0x356038 +0x8
+
+x_BYTE_10B4E0_terraintype+0xb87b 1b
+versus
+2dc4e0+0xb87b 30
+
+x_BYTE_13B4E0_angle+0xb97c(0xb1)
+versus
+0x30c4e0+0xb97c(0x31)
+
+2197c5
+
+void sub_385C0(type_str_0x6E8E* a1x)//2195c0 //remove castle stage
+
+(Bit8u*)&D41A0_BYTESTR_0+0x39b2 0xe7
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x39b2 0xe6
+0x356038 +0x39b2
+fix this
+a1x->dword_0xA4_164x->word_0x1A2_418 = ((a1x->dword_0xA4_164x->word_0x246_582- 255- (__CFSHL__((a1x->dword_0xA4_164x->word_0x246_582 - 255) >> 31, 3)+ 8 * ((a1x->dword_0xA4_164x->word_0x246_582 - 255) >> 31))) >> 3)- 1;
+
+
+add 209fc0
+
+type_str_0x6E8E* sub_28000(type_str_0x6E8E* a1x)//209000
+
+x_BYTE_10B4E0_terraintype +0x15 (0x2c)
+versus
+0x2dc4e0 +0x15 (0x00)
