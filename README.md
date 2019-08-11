@@ -28,7 +28,7 @@ simple dev blog:https://github.com/turican0/remc2/wiki<br />
 -Can Play whole First level same as in original in 320x200<br />
 <br />
 ## 0.49:<br />
--fixed level 4 and 5<br />
+-fixed levels 4 and 5<br />
 -fixed any problems with castle destroying<br />
 -many other fixes<br />
 ## 0.48:<br />
