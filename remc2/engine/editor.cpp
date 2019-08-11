@@ -112,6 +112,7 @@ void editor_run()
 	D41A0_BYTESTR_0.str_2FECE.word_0x2FF01 = 0;
 	D41A0_BYTESTR_0.str_2FECE.word_0x2FF0D = 0;
 	D41A0_BYTESTR_0.str_2FECE.word_0x2FF11 = 0;
+	D41A0_BYTESTR_0.str_2FECE.word_0x2FF11 = 0;
 	//init_pal();
 	clean_tarrain();
 	loadlevel(0);
@@ -250,19 +251,20 @@ void fillterrain(/*int x, int y,*/float zoom,int beginx,int beginy) {
 		}
 	for (int i = 0; i < 0x4B0; i++)
 	{
-		type_str_0x30311 actfeat = D41A0_BYTESTR_0.str_2FECE.array_0x30311[first_terrain_feature + i];
+		type_str_0x30311 actfeat = temparray_0x30311[first_terrain_feature + i];
 		if ((actfeat.axis3d_4.x > -1) && (actfeat.axis3d_4.x < 256) && (actfeat.axis3d_4.y > -1) && (actfeat.axis3d_4.y < 256))
 			terrfeatlayer[actfeat.axis3d_4.x + actfeat.axis3d_4.y * 256] = actfeat.str_0x30311_word_0;//all entites
 	}
+	Bit8u* scrbuff = (Bit8u*)mapsurface->pixels;
 
 	for (int j = 0; j < 512; j++)
 		for (int i = 0; i < 512; i++)
 		{
 			int nx = beginx + i / (zoom * 2);
 			int ny = beginy + j / (zoom * 2);
+			
 			if ((nx > -1 && nx<256 && ny > -1 && ny < 256))
-			{
-				Bit8u* scrbuff = (Bit8u*)mapsurface->pixels;
+			{				
 				switch (terrfeatlayer[nx + ny * 256])
 				{
 				case 0:
@@ -328,8 +330,16 @@ void fillterrain(/*int x, int y,*/float zoom,int beginx,int beginy) {
 					break;
 				}
 			}
+			else
+			{
+				scrbuff[4 * (j * 512 + i)] = 255;//setred
+				scrbuff[4 * (j * 512 + i) + 1] = 0;
+				scrbuff[4 * (j * 512 + i) + 2] = 0;
+				scrbuff[4 * (j * 512 + i) + 3] = 255;
+			}
 		}
 };
+
 void fillterrainfeat(float zoom, int beginx, int beginy) {	
 	Bit8u terrfeatlayer[256 * 256];
 	for (int j = 0; j < 256; j++)
@@ -339,7 +349,7 @@ void fillterrainfeat(float zoom, int beginx, int beginy) {
 		}
 	for (int i = 0; i < 0x4B0; i++)
 	{
-		type_str_0x30311 actfeat = D41A0_BYTESTR_0.str_2FECE.array_0x30311[first_terrain_feature + i];
+		type_str_0x30311 actfeat = temparray_0x30311[first_terrain_feature + i];
 		if ((actfeat.axis3d_4.x > -1) && (actfeat.axis3d_4.x < 256) && (actfeat.axis3d_4.y > -1) && (actfeat.axis3d_4.y < 256))
 			terrfeatlayer[actfeat.axis3d_4.x + actfeat.axis3d_4.y * 256] = actfeat.str_0x30311_word_0;//all entites
 	}
@@ -348,14 +358,14 @@ void fillterrainfeat(float zoom, int beginx, int beginy) {
 	if ((actfeat.axis3d_4.x > -1) && (actfeat.axis3d_4.x < 256) && (actfeat.axis3d_4.y > -1) && (actfeat.axis3d_4.y < 256))
 		terrfeatlayer[actfeat.axis3d_4.x + actfeat.axis3d_4.y * 256] = 0xf0;//selected entity
 
+	Bit8u* scrbuff = (Bit8u*)mapsurfacefeat->pixels;
 	for (int j = 0; j < 512; j++)
 		for (int i = 0; i < 512; i++)
 		{
 			int nx = beginx + i / (zoom * 2);
-			int ny = beginy + j / (zoom * 2);
+			int ny = beginy + j / (zoom * 2);			
 			if ((nx > -1 && nx<256 && ny > -1 && ny < 256))
-			{
-				Bit8u* scrbuff = (Bit8u*)mapsurfacefeat->pixels;
+			{				
 				switch (terrfeatlayer[nx + ny * 256])
 				{
 				case 0:
@@ -420,6 +430,13 @@ void fillterrainfeat(float zoom, int beginx, int beginy) {
 					scrbuff[4 * (j * 512 + i) + 3] = 255;
 					break;
 				}
+			}
+			else
+			{
+				scrbuff[4 * (j * 512 + i)] = 255;//setred
+				scrbuff[4 * (j * 512 + i) + 1] = 0;
+				scrbuff[4 * (j * 512 + i) + 2] = 0;
+				scrbuff[4 * (j * 512 + i) + 3] = 255;
 			}
 		}
 };

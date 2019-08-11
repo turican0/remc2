@@ -7877,6 +7877,19 @@ add 209fc0
 
 type_str_0x6E8E* sub_28000(type_str_0x6E8E* a1x)//209000
 
-x_BYTE_10B4E0_terraintype +0x15 (0x2c)
-versus
-0x2dc4e0 +0x15 (0x00)
+(Bit8u*)&D41A0_BYTESTR_0+0x3654d 0x0
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x3654d 0x1
+0x356038 +0x3654d
+
+239eac
+void sub_58DA0(type_str_0x30311* a1x, type_str_0x6E8E* a2x)//239da0
+22b3ea
+void sub_4A310(type_str_0x30311* a1x)//22b310
+void sub_4A1E0(int a1, char a2)//22b1e0
+
+0x356038+0x36552 - where set?
+
+D41A0_BYTESTR_0.struct_0x3654C[0].str_36552_dword6
+239d28
+
+void sub_58940(/*Bit8u* a1*/)//239940 //init games objectives
