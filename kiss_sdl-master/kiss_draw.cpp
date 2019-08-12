@@ -44,7 +44,10 @@ SDL_Color kiss_yellow = { 255, 255, 0, 255 };
 SDL_Color kiss_gryellow = { 192, 192, 64, 255 };
 SDL_Color kiss_green = { 0, 150, 0, 255 };
 SDL_Color kiss_blue = { 0, 0, 255, 255 };
+SDL_Color kiss_grblue = { 64, 64, 128, 255 };
 SDL_Color kiss_lightblue = { 200, 225, 255, 255 };
+SDL_Color kiss_red = { 255, 0, 0, 255 };
+SDL_Color kiss_magenta = { 255, 0, 255, 255 };
 
 unsigned int kiss_getticks(void)
 {

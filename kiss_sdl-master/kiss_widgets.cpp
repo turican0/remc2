@@ -813,6 +813,7 @@ int kiss_terrain_new(kiss_terrain* terrain, kiss_window* wdw, SDL_Surface* mapsu
 	terrain->wdw = wdw;
 	return 0;
 }
+
 int kiss_terrain_eventfeat(kiss_terrain* terrain, SDL_Event* event, int* draw, int mousex, int mousey,int* tersetposx, int* tersetposy) {
 	if (!terrain || !terrain->visible || !event) return 0;
 	if (event->type == SDL_WINDOWEVENT &&
@@ -1377,17 +1378,27 @@ int kiss_textbox_event(kiss_textbox *textbox, SDL_Event *event, int mousex, int 
 	if (!textbox->focus && (!textbox->wdw ||
 		(textbox->wdw && !textbox->wdw->focus)))
 		return 0;
-	if (event->type == SDL_MOUSEBUTTONDOWN &&
-		kiss_pointinrect(event->button.x, event->button.y,
-		&textbox->textrect)) {
-		numoflines = textbox_numoflines(textbox);
-		texty = event->button.y - textbox->textrect.y;
-		textmaxy = numoflines * textbox->font.lineheight;
-		if (texty < textmaxy) {
-			textbox->selectedline =
-				texty / textbox->font.lineheight;
-			return 1;
+	if (event->type == SDL_MOUSEBUTTONDOWN && kiss_pointinrect(event->button.x, event->button.y, &textbox->textrect)) {
+		if (event->button.button == SDL_BUTTON_RIGHT) {
+			numoflines = textbox_numoflines(textbox);
+			texty = event->button.y - textbox->textrect.y;
+			textmaxy = numoflines * textbox->font.lineheight;
+			if (texty < textmaxy) {
+				textbox->selectedline = texty / textbox->font.lineheight;
+				return 40;
+			}
 		}
+		else
+			if (event->button.button == SDL_BUTTON_LEFT)
+			{
+			numoflines = textbox_numoflines(textbox);
+			texty = event->button.y - textbox->textrect.y;
+			textmaxy = numoflines * textbox->font.lineheight;
+			if (texty < textmaxy) {
+				textbox->selectedline = texty / textbox->font.lineheight;
+				return 1;
+			}
+	}
 	} else if (event->type == SDL_MOUSEMOTION &&
 		kiss_pointinrect(event->motion.x, event->motion.y,
 		&textbox->textrect)) {
@@ -1443,24 +1454,24 @@ int kiss_textbox_draw(kiss_textbox *textbox, SDL_Renderer *renderer)
 	for (i = 0; i < numoflines; i++) {
 		kiss_string_copy(buf, kiss_maxlength(textbox->font,	textbox->textwidth,	(char *) kiss_array_data(textbox->array,textbox->firstline + i), NULL),
 			(char *) kiss_array_data(textbox->array,textbox->firstline + i), NULL);
-		char* textbuff = (char*)textbox->array->data[i];
+		char* textbuff = (char*)textbox->array->data[textbox->firstline+i];
 		if((textbuff[strlen(textbuff) - 1] == 'I')&& (textbuff[strlen(textbuff) - 2] == 'S'))
 			kiss_rendertext(renderer, buf, textbox->textrect.x,
 				textbox->textrect.y + i * textbox->font.lineheight +
 				textbox->font.spacing / 2, textbox->font,
-				kiss_gryellow);
+				kiss_magenta);
 		else
 		if (textbuff[strlen(textbuff) - 1] == 'I')
 		kiss_rendertext(renderer, buf, textbox->textrect.x,
 			textbox->textrect.y + i * textbox->font.lineheight +
 			textbox->font.spacing / 2, textbox->font,
-			kiss_gray);
+			kiss_red);
 		else
 		if (textbuff[strlen(textbuff) - 2] == 'S')
 			kiss_rendertext(renderer, buf, textbox->textrect.x,
 				textbox->textrect.y + i * textbox->font.lineheight +
 				textbox->font.spacing / 2, textbox->font,
-				kiss_yellow);
+				kiss_blue);
 		else
 		kiss_rendertext(renderer, buf, textbox->textrect.x,
 			textbox->textrect.y + i * textbox->font.lineheight +

@@ -263,7 +263,7 @@ void fillterrain(kiss_terrain* terrain, float zoom, int beginx, int beginy) {
 	{
 		if (temparray_0x30311_selected[i])
 		{
-			type_str_0x30311 actfeat = temparray_0x30311[i + 1];
+			type_str_0x30311 actfeat = temparray_0x30311[i];
 			if ((actfeat.axis3d_4.x > -1) && (actfeat.axis3d_4.x < 256) && (actfeat.axis3d_4.y > -1) && (actfeat.axis3d_4.y < 256))
 				terrfeatlayer[actfeat.axis3d_4.x + actfeat.axis3d_4.y * 256] = 0xf0;//selected entity
 		}
@@ -1267,17 +1267,31 @@ static int textbox1_event(kiss_textbox* textbox, SDL_Event* e,	kiss_vscrollbar* 
 {
 	int index;
 	int result = -1;
-
-	if (kiss_textbox_event(textbox, e, mousex,mousey,draw)) {
+	int terret = kiss_textbox_event(textbox, e, mousex, mousey, draw);
+	if (terret==1) {
 		index = textbox->firstline + textbox->selectedline;
 		if (strcmp((char*)kiss_array_data(textbox->array, index),"")) {
 			textbox->selectedline = -1;
-			kiss_chdir((char*)kiss_array_data(textbox->array,index));
+			//kiss_chdir((char*)kiss_array_data(textbox->array,index));
 			result = index;
 			//dirent_read(textbox, vscrollbar1, textbox2,	vscrollbar2, label_sel);
 			*draw = 1;
 		}
-	}
+	}else
+		if (terret == 40)
+		{
+			if (textbox->selectedline != -1)
+			{
+				index = textbox->firstline + textbox->selectedline;
+				if (temparray_0x30311_selected[index +1])
+					temparray_0x30311_selected[index +1] = false;
+				else
+					temparray_0x30311_selected[index +1] = true;
+				textbox->selectedline = -1;
+				*draw = 1;
+				result = -2;
+			}
+		}
 	return result;
 }
 
@@ -1524,24 +1538,50 @@ static int select1_feat_event(kiss_selectbutton* select, SDL_Event* e, kiss_arra
 }
 
 void SetSelected(kiss_terrain* terrain, type_str_0x30311* temp303array, bool* selecedarray) {
-	int xmin = terrain->posx;
-	int xmax = terrain->posy;
-	int ymin = terrain->oldposx;
-	int ymax = terrain->oldposy;
+	int xmax = terrain->posx;
+	int ymax = terrain->posy;
+	int xmin = terrain->oldposx;
+	int ymin = terrain->oldposy;
 	if (xmax < xmin) { int temp = xmax; xmax = xmin; xmin = temp; }
 	if (ymax < ymin) { int temp = ymax; ymax = ymin; ymin = temp; }
+	bool prevselect = false;
 	for (int i = 0; i < 0x4b0; i++)
+	{
+		if (selecedarray[i])prevselect = true;
+	}
+	int count = 0;
+	for (int i = 0; i < 0x4b0; i++)
+	{
 		if ((temp303array[i].axis3d_4.x <= xmax) &&
 			(temp303array[i].axis3d_4.x >= xmin) &&
 			(temp303array[i].axis3d_4.y <= ymax) &&
 			(temp303array[i].axis3d_4.y >= ymin))
 		{
 			selecedarray[i] = true;
+			count++;
 		}
 		else
 		{
 			selecedarray[i] = false;
 		}
+	}
+	if ((count == 0) /*((xmin != xmax) || (ymin != ymax))*/) {
+		if (prevselect&& (xmin == xmax) && (ymin == ymax))return;
+
+		int findx = (xmin + xmax) / 2;
+		int findy = (ymin + ymax) / 2;
+		int dist = 100000;
+		int finded = -1;
+		for (int i = 0; i < 0x4b0; i++)
+		{
+			int actdist = abs(findx - temp303array[i].axis3d_4.x) + abs(findy - temp303array[i].axis3d_4.y);
+			if (actdist < dist) {
+				finded = i;
+				dist = actdist;
+			}
+		}
+		if(finded!=-1)selecedarray[finded] = true;
+	}
 }
 
 int kiss_terrain_event(kiss_terrain* terrain, SDL_Event* event, int* draw, int mousex, int mousey, type_str_0x30311* temp303array, bool* selecedarray) {
@@ -1626,15 +1666,15 @@ int kiss_terrain_event(kiss_terrain* terrain, SDL_Event* event, int* draw, int m
 		if (event->button.button == SDL_BUTTON_RIGHT)
 		{
 			terrain->movingactive = 0;
-			SetSelected(terrain,temp303array, selecedarray);
+			//SetSelected(terrain,temp303array, selecedarray);
 		}
 		else
 			if (event->button.button == SDL_BUTTON_LEFT)
 			{
 				terrain->posx = (event->button.x - terrain->rect.x) / (*terrain->terrainzoom * 2) + *terrain->terrainbeginx;
 				terrain->posy = (event->button.y - terrain->rect.y) / (*terrain->terrainzoom * 2) + *terrain->terrainbeginy;
-				terrain->movingactive = 0;
 				SetSelected(terrain, temp303array, selecedarray);
+				terrain->movingactive = 0;				
 			}
 		terrain->active = 0;
 		*draw = 1;
@@ -1652,6 +1692,7 @@ int kiss_terrain_event(kiss_terrain* terrain, SDL_Event* event, int* draw, int m
 			if (terrain->movingactive == 2) {
 				terrain->posx = (event->button.x - terrain->rect.x) / (*terrain->terrainzoom * 2) + *terrain->terrainbeginx;
 				terrain->posy = (event->button.y - terrain->rect.y) / (*terrain->terrainzoom * 2) + *terrain->terrainbeginy;
+				SetSelected(terrain, temp303array, selecedarray);
 				terrain->prelight = 1;
 				*draw = 1;
 				return 14;
@@ -1663,13 +1704,14 @@ int kiss_terrain_event(kiss_terrain* terrain, SDL_Event* event, int* draw, int m
 	else if (event->type == SDL_MOUSEMOTION && !kiss_pointinrect(event->motion.x, event->motion.y, &terrain->rect)) {
 		terrain->prelight = 0;
 		terrain->movingactive = 0;
-		SetSelected(terrain, temp303array, selecedarray);
+		//SetSelected(terrain, temp303array, selecedarray);
 		*draw = 1;
 		if (terrain->active) {
 			terrain->active = 0;
 			return 1;
 		}
 	}
+	//SetSelected(terrain, temp303array, selecedarray);
 	return 0;
 }
 
@@ -1941,7 +1983,7 @@ int main_x(/*int argc, char** argv*/)
 			kiss_window_event(&window2, &e, &draw);
 			kiss_window_event(&window1, &e, &draw);
 			edited_line=textbox1_event(&textbox1, &e, &vscrollbar1,	mousex,mousey,&draw);
-
+			if (edited_line == -2) { changed2 = true; zoomchanged = true; }
 			if (edited_line>=0)
 			{
 				edited_line2 = edited_line;
@@ -2019,10 +2061,11 @@ int main_x(/*int argc, char** argv*/)
 
 			if (kiss_dec1edit_event(&levelSel, &e, &draw) > 0) { loadlevel(actlevel-1); changed = true; }
 
-			if (terev >= 10)
+			if (terev >= 1)
 			{
 				zoomchanged = true;				
 			}			
+			if (terev == 14)changed2 = true;
 
 			int tersetposx, tersetposy;
 			int terevfeat = kiss_terrain_eventfeat(&terrainfeat, &e, &draw, mousex, mousey,&tersetposx, &tersetposy);
