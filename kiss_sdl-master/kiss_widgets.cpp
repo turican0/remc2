@@ -813,106 +813,6 @@ int kiss_terrain_new(kiss_terrain* terrain, kiss_window* wdw, SDL_Surface* mapsu
 	terrain->wdw = wdw;
 	return 0;
 }
-
-int kiss_terrain_event(kiss_terrain* terrain, SDL_Event* event, int* draw,int mousex,int mousey) {
-	if (!terrain || !terrain->visible || !event) return 0;
-	if (event->type == SDL_WINDOWEVENT &&
-		event->window.event == SDL_WINDOWEVENT_EXPOSED)
-		* draw = 1;
-	if (!terrain->focus && (!terrain->wdw || (terrain->wdw && !terrain->wdw->focus)))
-		return 0;
-	if (event->type == SDL_MOUSEWHEEL && kiss_pointinrect(mousex, mousey, &terrain->rect)) {
-		*draw = 1;
-		int wheel = event->wheel.y;
-		if (wheel < -10)wheel = -10;
-		if (wheel > 10)wheel = 10;
-
-		float oldzoom = *terrain->terrainzoom;
-		switch (wheel)
-		{
-		case -3:
-			(*terrain->terrainzoom) *= 0.125;
-			break;
-		case -2:
-			(*terrain->terrainzoom) *= 0.25;
-			break;
-		case -1:
-			(*terrain->terrainzoom) *= 0.5;
-			break;
-		case 1:
-			(*terrain->terrainzoom) *= 2;
-			break;
-		case 2:
-			(*terrain->terrainzoom) *= 4;
-			break;
-		case 3:
-			(*terrain->terrainzoom) *= 8;
-			break;
-		}
-		if ((*terrain->terrainzoom) > 64)(*terrain->terrainzoom) = 64;
-		if ((*terrain->terrainzoom) < 1)
-		{
-			(*terrain->terrainzoom) = 1;
-			*terrain->terrainbeginx = 0;
-			*terrain->terrainbeginy = 0;
-		}
-		else
-		{
-			float cursorpixx = *terrain->terrainbeginx + (mousex - terrain->rect.x) / (oldzoom*2);
-			float cursorpixy = *terrain->terrainbeginy + (mousey - terrain->rect.y) / (oldzoom*2);
-			*terrain->terrainbeginx = cursorpixx - (mousex - terrain->rect.x) / (*terrain->terrainzoom*2);
-			*terrain->terrainbeginy = cursorpixy - (mousey - terrain->rect.y) / (*terrain->terrainzoom*2);
-		}
-		//float cursorpixy = terrainbeginy +
-
-		return 11;
-	}
-	else if (event->type == SDL_MOUSEBUTTONDOWN && kiss_pointinrect(event->button.x, event->button.y, &terrain->rect)) {
-		if (event->button.button == SDL_BUTTON_RIGHT)
-		{
-			terrain->movingactive = 1;
-			terrain->movex = event->button.x;
-			terrain->movey = event->button.y;
-			terrain->oldterrainbeginx = *terrain->terrainbeginx;
-			terrain->oldterrainbeginy = *terrain->terrainbeginy;
-		}
-		terrain->active = 1;
-		*draw = 1;
-		return 10;
-	}
-	else if (event->type == SDL_MOUSEBUTTONUP && kiss_pointinrect(event->button.x, event->button.y, &terrain->rect) && terrain->active) {
-		if (event->button.button == SDL_BUTTON_RIGHT)
-		{
-			terrain->movingactive = 0;
-		}
-		terrain->active = 0;
-		*draw = 1;
-		return 1;
-	}
-	else if (event->type == SDL_MOUSEMOTION && kiss_pointinrect(event->motion.x, event->motion.y, &terrain->rect)) {
-		if (terrain->movingactive == 1) {
-			*terrain->terrainbeginx = terrain->oldterrainbeginx-(event->motion.x - terrain->movex)/ (*terrain->terrainzoom*2);
-			*terrain->terrainbeginy = terrain->oldterrainbeginy - (event->motion.y - terrain->movey) / (*terrain->terrainzoom*2);
-			terrain->prelight = 1;
-			*draw = 1;
-			return 13;
-		}
-		terrain->prelight = 1;
-		*draw = 1;
-		return 1;
-	}
-	else if (event->type == SDL_MOUSEMOTION && !kiss_pointinrect(event->motion.x, event->motion.y, &terrain->rect)) {
-		terrain->prelight = 0;
-		terrain->movingactive = 0;
-		*draw = 1;
-		if (terrain->active) {
-			terrain->active = 0;
-			return 1;
-		}
-	}
-	return 0;
-}
-
 int kiss_terrain_eventfeat(kiss_terrain* terrain, SDL_Event* event, int* draw, int mousex, int mousey,int* tersetposx, int* tersetposy) {
 	if (!terrain || !terrain->visible || !event) return 0;
 	if (event->type == SDL_WINDOWEVENT &&
@@ -1544,11 +1444,23 @@ int kiss_textbox_draw(kiss_textbox *textbox, SDL_Renderer *renderer)
 		kiss_string_copy(buf, kiss_maxlength(textbox->font,	textbox->textwidth,	(char *) kiss_array_data(textbox->array,textbox->firstline + i), NULL),
 			(char *) kiss_array_data(textbox->array,textbox->firstline + i), NULL);
 		char* textbuff = (char*)textbox->array->data[i];
+		if((textbuff[strlen(textbuff) - 1] == 'I')&& (textbuff[strlen(textbuff) - 2] == 'S'))
+			kiss_rendertext(renderer, buf, textbox->textrect.x,
+				textbox->textrect.y + i * textbox->font.lineheight +
+				textbox->font.spacing / 2, textbox->font,
+				kiss_gryellow);
+		else
 		if (textbuff[strlen(textbuff) - 1] == 'I')
 		kiss_rendertext(renderer, buf, textbox->textrect.x,
 			textbox->textrect.y + i * textbox->font.lineheight +
 			textbox->font.spacing / 2, textbox->font,
 			kiss_gray);
+		else
+		if (textbuff[strlen(textbuff) - 2] == 'S')
+			kiss_rendertext(renderer, buf, textbox->textrect.x,
+				textbox->textrect.y + i * textbox->font.lineheight +
+				textbox->font.spacing / 2, textbox->font,
+				kiss_yellow);
 		else
 		kiss_rendertext(renderer, buf, textbox->textrect.x,
 			textbox->textrect.y + i * textbox->font.lineheight +

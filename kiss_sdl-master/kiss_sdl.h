@@ -260,9 +260,15 @@ typedef struct kiss_terrain {
 	
 	int active;
 
+	int oldmovingactive;
 	int movingactive;
 	int movex;
 	int movey;
+
+	int posx;
+	int posy;
+	int oldposx;
+	int oldposy;
 	
 	int prelight;
 
@@ -385,7 +391,7 @@ typedef struct kiss_combobox {
 } kiss_combobox;
 
 extern SDL_Color kiss_white, kiss_black, kiss_green, kiss_blue,
-kiss_lightblue, kiss_gray;
+kiss_lightblue, kiss_gray, kiss_yellow, kiss_gryellow;
 extern kiss_font kiss_textfont, kiss_buttonfont;
 extern kiss_image kiss_normal, kiss_prelight, kiss_active, kiss_bar,
 kiss_up, kiss_down, kiss_left, kiss_left_sel, kiss_right, kiss_right_sel, kiss_vslider,
@@ -477,7 +483,7 @@ extern "C" {
 	int kiss_dec1edit_draw(kiss_dec1edit* hex4edit, SDL_Renderer* renderer);
 
 	int kiss_terrain_new(kiss_terrain* terrain, kiss_window* wdw, SDL_Surface* mapsurface, int x,int y,float* terrainzoom, int* terrainbeginx, int* terrainbeginy);
-	int kiss_terrain_event(kiss_terrain* terrain, SDL_Event* event, int* draw, int mousex, int mousey);
+	//int kiss_terrain_event(kiss_terrain* terrain, SDL_Event* event, int* draw, int mousex, int mousey, type_str_0x30311** temp303array, int selecedarray);
 	int kiss_terrain_eventfeat(kiss_terrain* terrain, SDL_Event* event, int* draw, int mousex, int mousey, int* tersetposx, int* tersetposy);
 	int kiss_terrain_draw(kiss_terrain* terrain, SDL_Renderer* renderer);
 
