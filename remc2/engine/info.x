@@ -7895,3 +7895,37 @@ D41A0_BYTESTR_0.struct_0x3654C[0].str_36552_dword6
 void sub_58940(/*Bit8u* a1*/)//239940 //init games objectives
 
 xy_DWORD_17DED4_spritestr[39]
+
+add adress 20a330
+
+	case 0x209ff0: {
+
+	case 0x211be0: {
+
+(Bit8u*)&x_WORD_15B4E0_source+0x15d28 0x00
+x_WORD_15B4E0+0x15d28 0x4e
+ 32c4e0+0x15d28 0x4e
+
+238e3c
+void sub_57D70_clean_event(type_str_0x6E8E* a1x, axis_3d* a2x)//238d70 // register object on axis
+238cf0
+void sub_57CF0(type_str_0x6E8E* a1x, axis_3d* a2x)//238cf0
+
+(Bit8u*)&D41A0_BYTESTR_0+0x8 0x7c
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x8 0xef
+0x356038 +0x8
+
+&x_D41A0_BYTEARRAY_4_struct.setting_30 a0
+versus
+38cf50+0x1e 54
+
+(Bit8u*)&D41A0_BYTESTR_0+0xa20a 0x10
+(Bit8u*)x_D41A0_BYTEARRAY_0+0xa20a 0x28
+0x356038 +0xa20a
+
+238e40
+238d70 void sub_57D70_clean_event(type_str_0x6E8E* a1x, axis_3d* a2x)//238d70 // register object on axis
+238cf0
+void sub_57CF0(type_str_0x6E8E* a1x, axis_3d* a2x)//238cf0
+23adc0
+char sub_59DC0(type_str_0x6E8E* a1x)//23adc0

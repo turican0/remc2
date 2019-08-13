@@ -1324,7 +1324,7 @@ int main_x(/*int argc, char** argv*/)
 	//kiss_textbox_new(&textbox2, &window1, 1, &a2,vscrollbar1.uprect.x + kiss_up.w, textbox1.rect.y,	textbox_width, textbox_height);
 	//kiss_vscrollbar_new(&vscrollbar2, &window1, textbox2.rect.x +textbox_width, vscrollbar1.uprect.y, textbox_height);
 	kiss_label_new(&label_terfeat, &window1, (char*)"TERRAN FEATURES:", 13 + textbox1.rect.x + kiss_edge, 10);
-	kiss_label_new(&label_terfeat2, &window1, (char*)" 0  | 2  | X  | Y  | Z  | 10 | 12 | 14 | 16 | 18", 13 + textbox1.rect.x + kiss_edge, textbox1.rect.y - kiss_textfont.lineheight);
+	kiss_label_new(&label_terfeat2, &window1, (char*)"TYPE|SUBT| X  | Y  | Z  | 10 |INIT| 14 | 16 | 18", 13 + textbox1.rect.x + kiss_edge, textbox1.rect.y - kiss_textfont.lineheight);
 	//kiss_label_new(&label2, &window1, (char*)"Files", textbox2.rect.x +	kiss_edge, textbox1.rect.y - kiss_textfont.lineheight);
 	//kiss_label_new(&label_sel, &window1, (char*)"", textbox1.rect.x +kiss_edge, textbox1.rect.y + textbox_height +kiss_normal.h);
 	//kiss_entry_new(&entry, &window1, 1, (char*)"kiss", textbox1.rect.x,label_sel.rect.y + kiss_textfont.lineheight,2 * textbox_width + 2 * kiss_up.w + kiss_edge);
@@ -1383,13 +1383,13 @@ int main_x(/*int argc, char** argv*/)
 	kiss_label_new(&labelXY, &window1, (char*)"", 900, 740);
 
 	Bit16u temp_var;
-	kiss_hex4edit_new(&hex4edit1feat, &window2, &temp_var, (char*)" 0:", window2.rect.x + kiss_up.w, window2.rect.y + 10);
-	kiss_hex4edit_new(&hex4edit2feat, &window2, &temp_var, (char*)" 2:", window2.rect.x + kiss_up.w, window2.rect.y + 30);
+	kiss_hex4edit_new(&hex4edit1feat, &window2, &temp_var, (char*)"TP:", window2.rect.x + kiss_up.w, window2.rect.y + 10);
+	kiss_hex4edit_new(&hex4edit2feat, &window2, &temp_var, (char*)"ST:", window2.rect.x + kiss_up.w, window2.rect.y + 30);
 	kiss_hex4edit_new(&hex4edit3feat, &window2, &temp_var, (char*)" X:", window2.rect.x + kiss_up.w, window2.rect.y + 50);
 	kiss_hex4edit_new(&hex4edit4feat, &window2, &temp_var, (char*)" Y:", window2.rect.x + kiss_up.w, window2.rect.y + 70);
 	kiss_hex4edit_new(&hex4edit5feat, &window2, &temp_var, (char*)" Z:", window2.rect.x + kiss_up.w, window2.rect.y + 90);
 	kiss_hex4edit_new(&hex4edit6feat, &window2, &temp_var, (char*)"10:", window2.rect.x + kiss_up.w, window2.rect.y + 110);
-	kiss_hex4edit_new(&hex4edit7feat, &window2, &temp_var, (char*)"12:", window2.rect.x + kiss_up.w, window2.rect.y + 130);
+	kiss_hex4edit_new(&hex4edit7feat, &window2, &temp_var, (char*)"IN:", window2.rect.x + kiss_up.w, window2.rect.y + 130);
 	kiss_hex4edit_new(&hex4edit8feat, &window2, &temp_var, (char*)"14:", window2.rect.x + kiss_up.w, window2.rect.y + 150);
 	kiss_hex4edit_new(&hex4edit9feat, &window2, &temp_var, (char*)"16:", window2.rect.x + kiss_up.w, window2.rect.y + 170);
 	kiss_hex4edit_new(&hex4edit10feat, &window2, &temp_var, (char*)"18:", window2.rect.x + kiss_up.w, window2.rect.y + 190);
