@@ -683,6 +683,34 @@ static void button_cancel_event(kiss_button* button, SDL_Event* e,
 	}//*quit = 1;
 }
 
+static void button_savelevel_event(kiss_button* button, SDL_Event* e,int* draw)
+{
+	if (kiss_button_event(button, e, draw))
+	{
+		char path2[512];
+		FixDir(path2, (char*)"editor\\testsave.sav");
+		FILE* file = fopen(path2,"wb");
+		fwrite(&D41A0_BYTESTR_0.str_2FECE,sizeof(D41A0_BYTESTR_0.str_2FECE),1, file);
+		fclose;
+	}//*quit = 1;
+}
+
+static int button_cleanlevelfeat_event(kiss_button* button, SDL_Event* e, int* draw)
+{
+	if (kiss_button_event(button, e, draw))
+	{
+		for (int i = 2; i < 0x4b0; i++)
+		{
+			memset(&temparray_0x30311[i],0,sizeof(temparray_0x30311[i]));
+			temparray_0x30311_inactive[i]=false;
+			temparray_0x30311_selected[i] = false;
+			D41A0_BYTESTR_0.str_2FECE.array_0x30311[i] = temparray_0x30311[i];
+		}
+		return 1;
+	}
+	return 0;
+}
+
 static void button_ok_event(kiss_button* button, SDL_Event* e,
 	int* quit, int* draw)
 {
@@ -1075,7 +1103,7 @@ int main_x(/*int argc, char** argv*/)
 
 	kiss_label label_terfeat = { 0 };
 	kiss_label label_terfeat2 = { 0 };
-	kiss_button /*button_ok1 = { 0 }, button_ok2 = { 0 }, */button_cancel = { 0 };
+	kiss_button /*button_ok1 = { 0 }, button_ok2 = { 0 }, */button_cancel = { 0 }, button_levelsave = { 0 }, button_cleanlevelfeat = {0};
 	kiss_textbox textbox1 = { 0 };
 	kiss_vscrollbar vscrollbar1 = { 0 };
 	//kiss_progressbar progressbar = { 0 };
@@ -1300,7 +1328,9 @@ int main_x(/*int argc, char** argv*/)
 	//kiss_label_new(&label2, &window1, (char*)"Files", textbox2.rect.x +	kiss_edge, textbox1.rect.y - kiss_textfont.lineheight);
 	//kiss_label_new(&label_sel, &window1, (char*)"", textbox1.rect.x +kiss_edge, textbox1.rect.y + textbox_height +kiss_normal.h);
 	//kiss_entry_new(&entry, &window1, 1, (char*)"kiss", textbox1.rect.x,label_sel.rect.y + kiss_textfont.lineheight,2 * textbox_width + 2 * kiss_up.w + kiss_edge);
-	kiss_button_new(&button_cancel, &window1, (char*)"EXIT",530,750);
+	kiss_button_new(&button_cancel, &window1, (char*)"EXIT",530,740);
+	kiss_button_new(&button_levelsave, &window1, (char*)"SAVE", 530, 720);
+	kiss_button_new(&button_cleanlevelfeat, &window1, (char*)"CLEAN FEATURES", 530, 700);
 	//kiss_button_new(&button_ok1, &window1, (char*)"OK", button_cancel.rect.x -2 * kiss_normal.w, button_cancel.rect.y);
 
 	/*for (int i = 0; i < count_features; i++)
@@ -1523,6 +1553,11 @@ int main_x(/*int argc, char** argv*/)
 
 			button_ok_event(&button_ok1feat, &e, &quit, &draw);
 			button_cancel_event(&button_cancel, &e, &quit, &draw);
+			button_savelevel_event(&button_levelsave, &e,&draw);
+			if (button_cleanlevelfeat_event(&button_cleanlevelfeat, &e, &draw))
+			{
+				changed2 = true; changed = true; zoomchanged = true;
+			}
 
 			for (int i = 0; i < 16; i++)
 			{
@@ -1613,6 +1648,9 @@ int main_x(/*int argc, char** argv*/)
 		kiss_entry_draw(&entry, editor_renderer);
 		//kiss_button_draw(&button_ok1, editor_renderer);
 		kiss_button_draw(&button_cancel, editor_renderer);		
+		kiss_button_draw(&button_cleanlevelfeat, editor_renderer);
+
+		kiss_button_draw(&button_levelsave, editor_renderer);
 		//kiss_label_draw(&label_res, editor_renderer);
 		//kiss_progressbar_draw(&progressbar, editor_renderer);
 		//kiss_button_draw(&button_ok2, editor_renderer);
