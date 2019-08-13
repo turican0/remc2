@@ -7893,3 +7893,5 @@ D41A0_BYTESTR_0.struct_0x3654C[0].str_36552_dword6
 239d28
 
 void sub_58940(/*Bit8u* a1*/)//239940 //init games objectives
+
+xy_DWORD_17DED4_spritestr[39]

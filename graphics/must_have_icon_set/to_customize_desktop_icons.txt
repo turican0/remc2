@@ -1,0 +1,12 @@
+To Customize Desktop Icons:
+
+Windows XP
+- Click Start
+- Ñlick Control Panel
+- Ñlick Appearance and Themes, and under Pick a task, click Change the desktop background
+- On the Desktop tab of the Display Properties dialog box, click Customize Desktop
+
+
+Window Vista
+- Open Personalization by clicking the Start button, clicking Control Panel, ñlicking Appearance and Personalization, and then clicking Personalization
+- Click Change Desktop icons

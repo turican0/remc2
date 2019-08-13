@@ -119,7 +119,7 @@ int kiss_button_new(kiss_button* button, kiss_window* wdw, char* text, int x, in
 		button->prelightimg = kiss_prelight;
 	kiss_makerect(&button->rect, x, y, button->normalimg.w,
 		button->normalimg.h);
-	button->textcolor = kiss_white;
+	button->textcolor = kiss_black;
 	kiss_string_copy(button->text, KISS_MAX_LENGTH, text, NULL);
 	button->textx = x + button->normalimg.w / 2 -
 		kiss_textwidth(button->font, text, NULL) / 2;
@@ -359,6 +359,14 @@ int kiss_hex4edit_update_adress(kiss_hex4edit* hex4edit, void* adress)
 	kiss_string_copy(hex4edit->valuetext, KISS_MAX_LENGTH, buf, NULL);	
 	return 0;
 }
+
+void kiss_hex4edit_set(kiss_hex4edit* hex4edit,int value)
+{	
+		*(Bit16u*)hex4edit->valueadress = value;
+		char buf[256];
+		sprintf(buf, "%04X", *(Bit16u*)hex4edit->valueadress);
+		kiss_string_copy(hex4edit->valuetext, KISS_MAX_LENGTH, buf, NULL);
+	}
 
 int kiss_hex4edit_event(kiss_hex4edit* hex4edit, SDL_Event* event, int* draw)
 {

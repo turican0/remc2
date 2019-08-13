@@ -477,6 +477,7 @@ extern "C" {
 	int kiss_hex4edit_update_adress(kiss_hex4edit* hex4edit, void* adress);
 	int kiss_hex4edit_event(kiss_hex4edit* hex4edit, SDL_Event* event, int* draw);
 	int kiss_hex4edit_draw(kiss_hex4edit* hex4edit, SDL_Renderer* renderer);
+	void kiss_hex4edit_set(kiss_hex4edit* hex4edit, int value);
 
 	int kiss_dec1edit_new(kiss_dec1edit* hex4edit, kiss_window* wdw, void* adress, char* text,int min,int max, int x, int y);
 	int kiss_dec1edit_event(kiss_dec1edit* hex4edit, SDL_Event* event, int* draw);
