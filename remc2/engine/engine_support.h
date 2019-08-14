@@ -1220,7 +1220,7 @@ typedef struct {//lenght 0x6604u
 	type_str_0x30311 array_0x30311[0x4b0];//end(next entity) - 0x360d1
 	Bit8u next_0x360D1;
 
-	type_str_0x360D2 next_0x360D2[8];//lenght 110
+	type_str_0x360D2 next_0x360D2[8];//lenght 110  /spells?
 	//mozna by to melo zacit az 0x30311
 
 	//type_str_0x3030E array_0x3030E[0xb];//fix array lenght;
@@ -1233,7 +1233,7 @@ typedef struct {//lenght 0x6604u
 	
 	//36479
 	//type_str_0x360FB str_0x360FB[8];//asi zacina o 40 driv
-	type_str_0x36442 str_0x36442[8];
+	type_str_0x36442 str_0x36442[8];//stages(checkpoints)
 	//0x36443 - 70 + 110 * 7
 	type_str_0x3647Ac array_0x3647A[0xb];//8x11	
 	//konec 6604

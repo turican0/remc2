@@ -229,9 +229,9 @@ void fillterrain(kiss_terrain* terrain, float zoom, int beginx, int beginy) {
 		{
 			terrfeatlayer[i + j * 256] = 0;
 		}
-	for (int i = 0; i < 0x4B0; i++)
+	for (int i = first_terrain_feature; i < 0x4B0; i++)
 	{
-		type_str_0x30311 actfeat = temparray_0x30311[first_terrain_feature + i];
+		type_str_0x30311 actfeat = temparray_0x30311[i];
 		if ((actfeat.axis3d_4.x > -1) && (actfeat.axis3d_4.x < 256) && (actfeat.axis3d_4.y > -1) && (actfeat.axis3d_4.y < 256))
 			terrfeatlayer[actfeat.axis3d_4.x + actfeat.axis3d_4.y * 256] = actfeat.str_0x30311_word_0;//all entites
 	}
@@ -334,6 +334,98 @@ void fillterrain(kiss_terrain* terrain, float zoom, int beginx, int beginy) {
 				scrbuff[4 * (j * 512 + i) + 3] = 255;
 			}
 		}
+	for (int i = 0; i < 0x4B0; i++)
+	{
+		type_str_0x30311 actfeat = temparray_0x30311[i];
+		if ((actfeat.str_0x30311_word_0 == 0xa) && (actfeat.str_0x30311_word_2 == 0x1d)&&(actfeat.word_14>0))
+		{
+			int startx = (actfeat.axis3d_4.x-beginx)* (zoom * 2);
+			int starty = (actfeat.axis3d_4.y - beginy) * (zoom * 2);
+			int endx = (temparray_0x30311[actfeat.word_14].axis3d_4.x - beginx) * (zoom * 2);
+			int endy = (temparray_0x30311[actfeat.word_14].axis3d_4.y - beginy) * (zoom * 2);
+			int lenx = abs(startx - endx);
+			int leny = abs(starty - endy);
+			if (lenx > 0 || leny > 0)
+			{
+				float stepx,stepy;
+				if (lenx > leny)
+				{
+					stepy = (endy - starty) / (float)(endx - startx);
+					if (endx > startx)
+						stepx = 1;
+					else
+					{
+						stepx = -1;
+						stepy *= -1;
+					}
+					float acty = starty;
+					for (float actx = startx; abs(endx - actx) > 1.5; actx += stepx)
+					{
+						acty = stepy;
+						if (actx >= 0 && acty >= 0 && actx < 512 && acty < 512)
+						{
+							scrbuff[4 * ((int)acty * 512 + (int)actx)] = 255 - scrbuff[4 * ((int)acty * 512 + (int)actx)];//set invert
+							scrbuff[4 * ((int)acty * 512 + (int)actx) + 1] = 255 - scrbuff[4 * ((int)acty * 512 + (int)actx) + 1];
+							scrbuff[4 * ((int)acty * 512 + (int)actx) + 2] = 255 - scrbuff[4 * ((int)acty * 512 + (int)actx) + 2];
+							//scrbuff[4 * ((int)acty * 512 + (int)actx) + 3] = 255;
+						}
+					}
+				}
+				else
+				{
+					stepx = (endx - startx) / (float)(endy - starty);
+					if (endy > starty)
+						stepy = 1;
+					else
+					{					
+						stepy = -1;
+						stepx *= -1;
+					}					
+					float actx = startx;
+					for (float acty = starty; abs(endy - acty) > 1.5; acty += stepy)
+					{
+						actx += stepx;
+						if (actx >= 0 && acty >= 0 && actx < 512 && acty < 512)
+						{
+							scrbuff[4 * ((int)acty * 512 + (int)actx)] = 255- scrbuff[4 * ((int)acty * 512 + (int)actx)];//set invert
+							scrbuff[4 * ((int)acty * 512 + (int)actx) + 1] = 255- scrbuff[4 * ((int)acty * 512 + (int)actx) + 1];
+							scrbuff[4 * ((int)acty * 512 + (int)actx) + 2] = 255- scrbuff[4 * ((int)acty * 512 + (int)actx) + 2];
+							//scrbuff[4 * ((int)acty * 512 + (int)actx) + 3] = 255;
+						}
+					}
+				}
+			}
+		}		
+	}
+
+	for (int i = 0; i < 0x8; i++)
+	{
+		type_str_0x36442 actstage = D41A0_BYTESTR_0.str_2FECE.str_0x36442[i];
+		if (actstage.byte_0 == 5)
+		{
+			for (int i = -8; i <= 8; i++)
+			{
+				int actx = (actstage.word_3 - beginx) * (zoom * 2)+i;
+				int acty = (actstage.word_5 - beginy) * (zoom * 2)-i;
+				if (actx >= 0 && acty >= 0 && actx < 512 && acty < 512)
+				{
+					scrbuff[4 * (acty * 512 + actx)] = 255;//setyellow
+					scrbuff[4 * (acty * 512 + actx) + 1] = 255;
+					scrbuff[4 * (acty * 512 + actx) + 2] = 0;					
+				}
+				actx = (actstage.word_3 - beginx) * (zoom * 2) + i;
+				acty = (actstage.word_5 - beginy) * (zoom * 2) + i;
+				if (actx >= 0 && acty >= 0 && actx < 512 && acty < 512)
+				{
+					scrbuff[4 * (acty * 512 + actx)] = 255;//setyellow
+					scrbuff[4 * (acty * 512 + actx) + 1] = 255;
+					scrbuff[4 * (acty * 512 + actx) + 2] = 0;
+				}
+			}
+		}
+		//sprintf(temp, "%01X |%02X|%04X|%04X|%04X", i, (Bit8u)actstage.byte_0, actstage.word_1, actstage.word_3, actstage.word_5);
+	}
+
 	if (terrain->movingactive == 2)
 	{
 		int pxminx = (terrain->posx - beginx) * (zoom * 2);
@@ -463,6 +555,97 @@ void fillterrainfeat(float zoom, int beginx, int beginy) {
 				scrbuff[4 * (j * 512 + i) + 3] = 255;
 			}
 		}
+
+	for (int i = 0; i < 0x4B0; i++)
+	{
+		type_str_0x30311 actfeat = temparray_0x30311[i];
+		if ((actfeat.str_0x30311_word_0 == 0xa) && (actfeat.str_0x30311_word_2 == 0x1d) && (actfeat.word_14 > 0))
+		{
+			int startx = (actfeat.axis3d_4.x - beginx) * (zoom * 2);
+			int starty = (actfeat.axis3d_4.y - beginy) * (zoom * 2);
+			int endx = (temparray_0x30311[actfeat.word_14].axis3d_4.x - beginx) * (zoom * 2);
+			int endy = (temparray_0x30311[actfeat.word_14].axis3d_4.y - beginy) * (zoom * 2);
+			int lenx = abs(startx - endx);
+			int leny = abs(starty - endy);
+			if (lenx > 0 || leny > 0)
+			{
+				float stepx, stepy;
+				if (lenx > leny)
+				{
+					stepy = (endy - starty) / (float)(endx - startx);
+					if (endx > startx)
+						stepx = 1;
+					else
+					{
+						stepx = -1;
+						stepy *= -1;
+					}
+					float acty = starty;
+					for (float actx = startx; abs(endx - actx) > 1.5; actx += stepx)
+					{
+						acty = stepy;
+						if (actx >= 0 && acty >= 0 && actx < 512 && acty < 512)
+						{
+							scrbuff[4 * ((int)acty * 512 + (int)actx)] = 255 - scrbuff[4 * ((int)acty * 512 + (int)actx)];//set invert
+							scrbuff[4 * ((int)acty * 512 + (int)actx) + 1] = 255 - scrbuff[4 * ((int)acty * 512 + (int)actx) + 1];
+							scrbuff[4 * ((int)acty * 512 + (int)actx) + 2] = 255 - scrbuff[4 * ((int)acty * 512 + (int)actx) + 2];
+							//scrbuff[4 * ((int)acty * 512 + (int)actx) + 3] = 255;
+						}
+					}
+				}
+				else
+				{
+					stepx = (endx - startx) / (float)(endy - starty);
+					if (endy > starty)
+						stepy = 1;
+					else
+					{
+						stepy = -1;
+						stepx *= -1;
+					}
+					float actx = startx;
+					for (float acty = starty; abs(endy - acty) > 1.5; acty += stepy)
+					{
+						actx += stepx;
+						if (actx >= 0 && acty >= 0 && actx < 512 && acty < 512)
+						{
+							scrbuff[4 * ((int)acty * 512 + (int)actx)] = 255 - scrbuff[4 * ((int)acty * 512 + (int)actx)];//set invert
+							scrbuff[4 * ((int)acty * 512 + (int)actx) + 1] = 255 - scrbuff[4 * ((int)acty * 512 + (int)actx) + 1];
+							scrbuff[4 * ((int)acty * 512 + (int)actx) + 2] = 255 - scrbuff[4 * ((int)acty * 512 + (int)actx) + 2];
+							//scrbuff[4 * ((int)acty * 512 + (int)actx) + 3] = 255;
+						}
+					}
+				}
+			}
+		}
+	}
+	for (int i = 0; i < 0x8; i++)
+	{
+		type_str_0x36442 actstage = D41A0_BYTESTR_0.str_2FECE.str_0x36442[i];
+		if (actstage.byte_0 == 5)
+		{
+			for (int i = -8; i <= 8; i++)
+			{
+				int actx = (actstage.word_3 - beginx) * (zoom * 2) + i;
+				int acty = (actstage.word_5 - beginy) * (zoom * 2) - i;
+				if (actx >= 0 && acty >= 0 && actx < 512 && acty < 512)
+				{
+					scrbuff[4 * (acty * 512 + actx)] = 255;//setyellow
+					scrbuff[4 * (acty * 512 + actx) + 1] = 255;
+					scrbuff[4 * (acty * 512 + actx) + 2] = 0;
+				}
+				actx = (actstage.word_3 - beginx) * (zoom * 2) + i;
+				acty = (actstage.word_5 - beginy) * (zoom * 2) + i;
+				if (actx >= 0 && acty >= 0 && actx < 512 && acty < 512)
+				{
+					scrbuff[4 * (acty * 512 + actx)] = 255;//setyellow
+					scrbuff[4 * (acty * 512 + actx) + 1] = 255;
+					scrbuff[4 * (acty * 512 + actx) + 2] = 0;
+				}
+			}
+		}
+		//sprintf(temp, "%01X |%02X|%04X|%04X|%04X", i, (Bit8u)actstage.byte_0, actstage.word_1, actstage.word_3, actstage.word_5);
+	}
 };
 
 /*
@@ -549,16 +732,31 @@ static void terrain_feat_append(kiss_textbox* textbox1, kiss_vscrollbar* vscroll
 	kiss_array_new(textbox1->array);
 	char temp[256];
 	//VGA_Draw_stringXYtoBuffer(temp, 304, 32, x_DWORD_180628b_screen_buffer);
-	for (int i = 0; i < 0x4B0; i++)
+	for (int i = first_terrain_feature; i < 0x4B0; i++)
 	{
-		type_str_0x30311 actfeat = temparray_0x30311[first_terrain_feature + i];//D41A0_BYTESTR_0.str_2FECE.array_0x30311[first_terrain_feature + i];
-		sprintf(temp, "%04X|%04X|%04X|%04X|%04X|%04X|%04X|%04X|%04X|%04XNA", actfeat.str_0x30311_word_0, actfeat.str_0x30311_word_2, actfeat.axis3d_4.x, actfeat.axis3d_4.y, actfeat.axis3d_4.z, actfeat.word_10, actfeat.word_12, actfeat.word_14, actfeat.word_16, actfeat.word_18);		
-		if(temparray_0x30311_inactive[first_terrain_feature + i])temp[strlen(temp) - 1] = 'I';//set last char as inactive
-		if(temparray_0x30311_selected[first_terrain_feature + i])temp[strlen(temp) - 2] = 'S';//set last char as inactive
+		type_str_0x30311 actfeat = temparray_0x30311[i];//D41A0_BYTESTR_0.str_2FECE.array_0x30311[first_terrain_feature + i];
+		sprintf(temp, "%03X|%04X|%04X|%04X|%04X|%04X|%04X|%04X|%04X|%04X|%04XNA", i,actfeat.str_0x30311_word_0, actfeat.str_0x30311_word_2, actfeat.axis3d_4.x, actfeat.axis3d_4.y, actfeat.axis3d_4.z, actfeat.word_10, actfeat.word_12, actfeat.word_14, actfeat.word_16, actfeat.word_18);		
+		if(temparray_0x30311_inactive[i])temp[strlen(temp) - 1] = 'I';//set last char as inactive
+		if(temparray_0x30311_selected[i])temp[strlen(temp) - 2] = 'S';//set last char as inactive
 		kiss_array_appendstring(textbox1->array, 0, (char*)"", temp);
 	}		
 	//text_reset(textbox1, vscrollbar1);
 }
+
+static void terrain_stages_append(kiss_textbox* textbox) {
+	kiss_array_free(textbox->array);
+	kiss_array_new(textbox->array);
+	char temp[256];
+	//VGA_Draw_stringXYtoBuffer(temp, 304, 32, x_DWORD_180628b_screen_buffer);
+	for (int i = 0; i < 8; i++)
+	{
+		type_str_0x36442 actstage = D41A0_BYTESTR_0.str_2FECE.str_0x36442[i];
+		sprintf(temp, "%01X |%02X|%04X|%04X|%04X", i, (Bit8u)actstage.byte_0, actstage.word_1, actstage.word_3, actstage.word_5);
+		kiss_array_appendstring(textbox->array, 0, (char*)"", temp);
+	}
+	//text_reset(textbox1, vscrollbar1);
+}
+
 
 /* The widget arguments are widgets that this widget talks with */
 static int textbox1_event(kiss_textbox* textbox, SDL_Event* e,	kiss_vscrollbar* vscrollbar1,int mousex,int mousey,int* draw)
@@ -744,6 +942,8 @@ static void button_selecttype_event(kiss_button* button, SDL_Event* e, int* draw
 }
 
 kiss_image img_creature;
+kiss_image img_type05_01;
+kiss_image img_type05_04;
 int max_subtype_buttons = 64;
 
 static void button_selectsubtype_event(kiss_button* button,kiss_button* buttons, SDL_Event* e, int* draw)
@@ -757,7 +957,10 @@ static void button_selectsubtype_event(kiss_button* button,kiss_button* buttons,
 			window_selectsubtype.visible = 1;
 			window2.focus = 0;
 			window_selectsubtype.focus = 1;
-			buttons[0].normalimg = img_creature; buttons[0].prelightimg = img_creature; buttons[0].activeimg = img_creature;
+			//buttons[0].normalimg = img_creature; buttons[0].prelightimg = img_creature; buttons[0].activeimg = img_creature;
+			buttons[1].normalimg = img_type05_01; buttons[1].prelightimg = img_type05_01; buttons[1].activeimg = img_type05_01;
+			buttons[4].normalimg = img_type05_04; buttons[4].prelightimg = img_type05_04; buttons[4].activeimg = img_type05_04;
+
 			max_subtype_buttons = 10;
 			break;
 		}
@@ -770,8 +973,14 @@ static int button_del_event(kiss_button* button, SDL_Event* e,	int* quit, int* d
 {
 	if (kiss_button_event(button, e, draw))
 	{
-		for (int i = edited_line2 + 2; i < 0x4b0; i++)
+		for (int i = edited_line2 + 2; i < 0x4b0; i++)		
 		{		
+			for (int j = 0; j < 0x4b0; j++)
+			{
+				if((temparray_0x30311[j].str_0x30311_word_0==0xa)&& (temparray_0x30311[j].str_0x30311_word_2 == 0x1d))
+				if (temparray_0x30311[j].word_14 == i)
+					temparray_0x30311[j].word_14--;
+			}
 			temparray_0x30311[i - 1] = temparray_0x30311[i];
 			temparray_0x30311_inactive[i-1] = temparray_0x30311_inactive[i];
 			temparray_0x30311_selected[i - 1] = temparray_0x30311_selected[i];
@@ -790,6 +999,12 @@ static int button_add_event(kiss_button* button, SDL_Event* e,	int* quit, int* d
 	{
 		for (int i = 0x4b0 - 1; i > edited_line2 + 1; i--)
 		{
+			for (int j = 0; j < 0x4b0; j++)
+			{
+				if((temparray_0x30311[j].str_0x30311_word_0==0xa)&& (temparray_0x30311[j].str_0x30311_word_2 == 0x1d))
+				if (temparray_0x30311[j].word_14 == i-1)
+					temparray_0x30311[j].word_14++;
+			}
 			temparray_0x30311[i] = temparray_0x30311[i - 1];
 			temparray_0x30311_inactive[i] = temparray_0x30311_inactive[i-1];
 			temparray_0x30311_selected[i] = temparray_0x30311_selected[i - 1];
@@ -1099,16 +1314,20 @@ int main_x(/*int argc, char** argv*/)
 {
 	SDL_Event e;
 	kiss_array objects/*, a1, a2*/;
+	kiss_array obj_stages/*, a1, a2*/;
 	//kiss_label label2 = { 0 },label_res = { 0 };
 
 	kiss_label label_terfeat = { 0 };
 	kiss_label label_terfeat2 = { 0 };
+	kiss_label label_stages = { 0 };
+	kiss_label label_stages2 = { 0 };
 	kiss_button /*button_ok1 = { 0 }, button_ok2 = { 0 }, */button_cancel = { 0 }, button_levelsave = { 0 }, button_cleanlevelfeat = {0};
 	kiss_textbox textbox1 = { 0 };
+	kiss_textbox textbox2 = { 0 };
 	kiss_vscrollbar vscrollbar1 = { 0 };
 	//kiss_progressbar progressbar = { 0 };
 	kiss_entry entry = { 0 };
-	int textbox_width, textbox_height, window2_width, window2_height;
+	int textbox_width, textbox_height, textbox2_width, textbox2_height,window2_width, window2_height;
 	int	window_selecttype_width, window_selecttype_height, window_selectsubtype_width, window_selectsubtype_height;
 	int	draw, quit;
 
@@ -1138,7 +1357,10 @@ int main_x(/*int argc, char** argv*/)
 
 	kiss_label labelXY = { 0 };
 
-	const int count_features = 35;
+	kiss_label labelIndexWind2 = { 0 };
+
+	const int count_features = 24;
+	const int count_stages = 8;
 	/*kiss_button button_del[count_features];
 	for (int i = 0; i < count_features; i++) button_del[i] = { 0 };
 	kiss_button button_add[count_features];
@@ -1155,24 +1377,28 @@ int main_x(/*int argc, char** argv*/)
 	SDL_ShowCursor(true);
 	quit = 0;
 	draw = 1;
-	textbox_width = 460;
+	textbox_width = 490;
 	textbox_height = count_features * 18 + 12;
+	textbox2_width = 200;
+	textbox2_height = count_stages * 18 + 12;
 	window2_width = 532;
 	window2_height = 740;//300;
 	window_selecttype_width = 165;
 	window_selecttype_height = 165;
 	window_selectsubtype_width = 330;
 	window_selectsubtype_height = 330;
-	editor_renderer = kiss_init((char*)"REMC2 Editor", &objects, 1024, 768);
+	editor_renderer = kiss_init((char*)"REMC2 Editor", &objects, 1100, 768);
 	if (!editor_renderer) return 1;
 	//kiss_array_new(&a1);
 	//kiss_array_append(&objects, ARRAY_TYPE, &a1);
 	//kiss_array_new(&a2);
 	//kiss_array_append(&objects, ARRAY_TYPE, &a2);
 	kiss_array_new(&objects);
+	kiss_array_new(&obj_stages);
 	/* Arrange the widgets nicely relative to each other */
 	kiss_window_new(&window1, NULL, 1, 0, 0, kiss_screen_width, kiss_screen_height);
 	kiss_textbox_new(&textbox1, &window1, 1, &objects, 530, 50, textbox_width, textbox_height);
+	kiss_textbox_new(&textbox2, &window1, 1, &obj_stages, 530, 540, textbox2_width, textbox2_height);
 
 
 #if SDL_BYTEORDER == SDL_BIG_ENDIAN
@@ -1319,12 +1545,27 @@ int main_x(/*int argc, char** argv*/)
 	img_search.magic = KISS_MAGIC;
 	img_search.image = IMG_LoadTexture(editor_renderer, path2);
 
+	FixDir(path2, (char*)"kiss\\type05-01_goat.png");
+	img_type05_01.w = 32;
+	img_type05_01.h = 32;
+	img_type05_01.magic = KISS_MAGIC;
+	img_type05_01.image = IMG_LoadTexture(editor_renderer, path2);
+
+	FixDir(path2, (char*)"kiss\\type05-04-archer.png");
+	img_type05_04.w = 32;
+	img_type05_04.h = 32;
+	img_type05_04.magic = KISS_MAGIC;
+	img_type05_04.image = IMG_LoadTexture(editor_renderer, path2);
+
 
 	kiss_vscrollbar_new(&vscrollbar1, &window1, textbox1.rect.x + textbox_width, textbox1.rect.y, textbox_height);
 	//kiss_textbox_new(&textbox2, &window1, 1, &a2,vscrollbar1.uprect.x + kiss_up.w, textbox1.rect.y,	textbox_width, textbox_height);
 	//kiss_vscrollbar_new(&vscrollbar2, &window1, textbox2.rect.x +textbox_width, vscrollbar1.uprect.y, textbox_height);
-	kiss_label_new(&label_terfeat, &window1, (char*)"TERRAN FEATURES:", 13 + textbox1.rect.x + kiss_edge, 10);
-	kiss_label_new(&label_terfeat2, &window1, (char*)"TYPE|SUBT| X  | Y  | Z  | 10 |INIT| 14 | 16 | 18", 13 + textbox1.rect.x + kiss_edge, textbox1.rect.y - kiss_textfont.lineheight);
+	kiss_label_new(&label_terfeat, &window1, (char*)"TERRAN FEATURES:", 5 + textbox1.rect.x + kiss_edge, textbox1.rect.y - kiss_textfont.lineheight*2);
+	kiss_label_new(&label_terfeat2, &window1, (char*)"IDX|TYPE|SUBT| X  | Y  | Z  | 10 |STAG| 14 | 16 | 18", 5 + textbox1.rect.x + kiss_edge, textbox1.rect.y - kiss_textfont.lineheight);
+
+	kiss_label_new(&label_stages, &window1, (char*)"TERRAN STAGES:", 5 + textbox2.rect.x + kiss_edge, textbox2.rect.y - kiss_textfont.lineheight * 2);
+	kiss_label_new(&label_stages2, &window1, (char*)"IX|STG| 01 | 03 | 05", 5 + textbox2.rect.x + kiss_edge, textbox2.rect.y - kiss_textfont.lineheight);
 	//kiss_label_new(&label2, &window1, (char*)"Files", textbox2.rect.x +	kiss_edge, textbox1.rect.y - kiss_textfont.lineheight);
 	//kiss_label_new(&label_sel, &window1, (char*)"", textbox1.rect.x +kiss_edge, textbox1.rect.y + textbox_height +kiss_normal.h);
 	//kiss_entry_new(&entry, &window1, 1, (char*)"kiss", textbox1.rect.x,label_sel.rect.y + kiss_textfont.lineheight,2 * textbox_width + 2 * kiss_up.w + kiss_edge);
@@ -1383,13 +1624,15 @@ int main_x(/*int argc, char** argv*/)
 	kiss_label_new(&labelXY, &window1, (char*)"", 900, 740);
 
 	Bit16u temp_var;
+	kiss_label_new(&labelIndexWind2, &window2, (char*)"IX:", 300 + window2.rect.x + kiss_up.w, window2.rect.y + 10);
+
 	kiss_hex4edit_new(&hex4edit1feat, &window2, &temp_var, (char*)"TP:", window2.rect.x + kiss_up.w, window2.rect.y + 10);
 	kiss_hex4edit_new(&hex4edit2feat, &window2, &temp_var, (char*)"ST:", window2.rect.x + kiss_up.w, window2.rect.y + 30);
 	kiss_hex4edit_new(&hex4edit3feat, &window2, &temp_var, (char*)" X:", window2.rect.x + kiss_up.w, window2.rect.y + 50);
 	kiss_hex4edit_new(&hex4edit4feat, &window2, &temp_var, (char*)" Y:", window2.rect.x + kiss_up.w, window2.rect.y + 70);
 	kiss_hex4edit_new(&hex4edit5feat, &window2, &temp_var, (char*)" Z:", window2.rect.x + kiss_up.w, window2.rect.y + 90);
 	kiss_hex4edit_new(&hex4edit6feat, &window2, &temp_var, (char*)"10:", window2.rect.x + kiss_up.w, window2.rect.y + 110);
-	kiss_hex4edit_new(&hex4edit7feat, &window2, &temp_var, (char*)"IN:", window2.rect.x + kiss_up.w, window2.rect.y + 130);
+	kiss_hex4edit_new(&hex4edit7feat, &window2, &temp_var, (char*)"SG:", window2.rect.x + kiss_up.w, window2.rect.y + 130);
 	kiss_hex4edit_new(&hex4edit8feat, &window2, &temp_var, (char*)"14:", window2.rect.x + kiss_up.w, window2.rect.y + 150);
 	kiss_hex4edit_new(&hex4edit9feat, &window2, &temp_var, (char*)"16:", window2.rect.x + kiss_up.w, window2.rect.y + 170);
 	kiss_hex4edit_new(&hex4edit10feat, &window2, &temp_var, (char*)"18:", window2.rect.x + kiss_up.w, window2.rect.y + 190);
@@ -1399,16 +1642,16 @@ int main_x(/*int argc, char** argv*/)
 	kiss_button_new(&button_selectsubtype, &window2, (char*)" ", window2.rect.x + kiss_up.w + 270, window2.rect.y + 30, &img_search);
 	button_selectsubtype.activeimg = img_search; button_selectsubtype.prelightimg = img_search;
 
-	kiss_label_new(&levelSelFeat, &window2, (char*)"Active:", 300 + window2.rect.x + kiss_up.w, window2.rect.y + 10);
-	kiss_selectbutton_new(&select1feat, &window2, 300 + window2.rect.x + kiss_up.w + 80, window2.rect.y + 10);
-	kiss_label_new(&label_plusFeat, &window2, (char*)"Add:", 300 + window2.rect.x + kiss_up.w, window2.rect.y + 30);
-	kiss_button_new(&button_plusfeat, &window2, (char*)" ", 300 + window2.rect.x + kiss_up.w + 80, window2.rect.y + 30, &img_add_normal);
+	kiss_label_new(&levelSelFeat, &window2, (char*)"Active:", 300 + window2.rect.x + kiss_up.w, window2.rect.y + 30);
+	kiss_selectbutton_new(&select1feat, &window2, 300 + window2.rect.x + kiss_up.w + 80, window2.rect.y + 30);
+	kiss_label_new(&label_plusFeat, &window2, (char*)"Add:", 300 + window2.rect.x + kiss_up.w, window2.rect.y + 50);
+	kiss_button_new(&button_plusfeat, &window2, (char*)" ", 300 + window2.rect.x + kiss_up.w + 80, window2.rect.y + 50, &img_add_normal);
 	button_plusfeat.prelightimg = img_add_prelight;
-	kiss_button_new(&button_deletefeat, &window2, (char*)" ", 300 + window2.rect.x + kiss_up.w + 80, window2.rect.y + 50, &img_delete_normal);
+	kiss_button_new(&button_deletefeat, &window2, (char*)" ", 300 + window2.rect.x + kiss_up.w + 80, window2.rect.y + 70, &img_delete_normal);
 	button_deletefeat.prelightimg = img_delete_prelight;
-	kiss_button_new(&button_cleanfeat, &window2, (char*)" ", 300 + window2.rect.x + kiss_up.w + 80, window2.rect.y + 70, &img_clean_normal);
+	kiss_button_new(&button_cleanfeat, &window2, (char*)" ", 300 + window2.rect.x + kiss_up.w + 80, window2.rect.y + 90, &img_clean_normal);
 	button_cleanfeat.prelightimg = img_clean_prelight;
-	kiss_button_new(&button_ok1feat, &window2, (char*)"OK", 300 + window2.rect.x + kiss_up.w + 80, window2.rect.y + 110);
+	kiss_button_new(&button_ok1feat, &window2, (char*)"OK", 300 + window2.rect.x + kiss_up.w + 80, window2.rect.y + 130);
 	//kiss_button_new(&button_cancelfeat, &window2, (char*)"CANCEL", window2.rect.x + window2.rect.w-100-kiss_normal.w / 2, window2.rect.y + 250);
 	kiss_terrain_new(&terrainfeat, &window2, mapsurfacefeat, window2.rect.x + kiss_border, window2.rect.y + window2.rect.h - mapimagefeat.h - kiss_border, &terrainzoomfeat, &terrainbeginxfeat, &terrainbeginyfeat);
 
@@ -1455,6 +1698,7 @@ int main_x(/*int argc, char** argv*/)
 	//dirent_read(&textbox1, &vscrollbar1, &textbox2, &vscrollbar2,&label_sel);
 	
 	terrain_feat_append(&textbox1, &vscrollbar1);
+	terrain_stages_append(&textbox2);
 
 	select1.selected = 1;
 	/* Do that, and all widgets associated with the window will show */
@@ -1465,6 +1709,7 @@ int main_x(/*int argc, char** argv*/)
 		/* Some code may be written here */
 		bool changed = false;
 		bool changed2 = false;
+		bool changed3 = false;
 		bool zoomchanged = false;
 		bool zoomchangedfeat = false;
 		SDL_Delay(10);
@@ -1477,27 +1722,28 @@ int main_x(/*int argc, char** argv*/)
 			sprintf(labelXY.text, "%d,%d", mousex, mousey);
 
 			if (e.type == SDL_QUIT) quit = 1;
-			
+
 			kiss_window_event(&window2, &e, &draw);
 			kiss_window_event(&window1, &e, &draw);
-			edited_line=textbox1_event(&textbox1, &e, &vscrollbar1,	mousex,mousey,&draw);
+			edited_line = textbox1_event(&textbox1, &e, &vscrollbar1, mousex, mousey, &draw);
 			if (edited_line == -2) { changed2 = true; zoomchanged = true; }
-			if (edited_line>=0)
+			if (edited_line >= 0)
 			{
 				edited_line2 = edited_line;
 				window2.visible = 1;
 				window2.focus = 1;
 				window1.focus = 0;
-				kiss_hex4edit_update_adress(&hex4edit1feat,&temparray_0x30311[edited_line2+1].str_0x30311_word_0);
-				kiss_hex4edit_update_adress(&hex4edit2feat,&temparray_0x30311[edited_line2 + 1].str_0x30311_word_2);
-				kiss_hex4edit_update_adress(&hex4edit3feat,&temparray_0x30311[edited_line2 + 1].axis3d_4.x);
-				kiss_hex4edit_update_adress(&hex4edit4feat,&temparray_0x30311[edited_line2 + 1].axis3d_4.y);
-				kiss_hex4edit_update_adress(&hex4edit5feat,&temparray_0x30311[edited_line2 + 1].axis3d_4.z);
-				kiss_hex4edit_update_adress(&hex4edit6feat,&temparray_0x30311[edited_line2 + 1].word_10);
-				kiss_hex4edit_update_adress(&hex4edit7feat,&temparray_0x30311[edited_line2 + 1].word_12);
-				kiss_hex4edit_update_adress(&hex4edit8feat,&temparray_0x30311[edited_line2 + 1].word_14);
-				kiss_hex4edit_update_adress(&hex4edit9feat,&temparray_0x30311[edited_line2 + 1].word_16);
-				kiss_hex4edit_update_adress(&hex4edit10feat,&temparray_0x30311[edited_line2 + 1].word_18);
+				sprintf(labelIndexWind2.text, "INDEX:%03X", edited_line2 + 1);
+				kiss_hex4edit_update_adress(&hex4edit1feat, &temparray_0x30311[edited_line2 + 1].str_0x30311_word_0);
+				kiss_hex4edit_update_adress(&hex4edit2feat, &temparray_0x30311[edited_line2 + 1].str_0x30311_word_2);
+				kiss_hex4edit_update_adress(&hex4edit3feat, &temparray_0x30311[edited_line2 + 1].axis3d_4.x);
+				kiss_hex4edit_update_adress(&hex4edit4feat, &temparray_0x30311[edited_line2 + 1].axis3d_4.y);
+				kiss_hex4edit_update_adress(&hex4edit5feat, &temparray_0x30311[edited_line2 + 1].axis3d_4.z);
+				kiss_hex4edit_update_adress(&hex4edit6feat, &temparray_0x30311[edited_line2 + 1].word_10);
+				kiss_hex4edit_update_adress(&hex4edit7feat, &temparray_0x30311[edited_line2 + 1].word_12);
+				kiss_hex4edit_update_adress(&hex4edit8feat, &temparray_0x30311[edited_line2 + 1].word_14);
+				kiss_hex4edit_update_adress(&hex4edit9feat, &temparray_0x30311[edited_line2 + 1].word_16);
+				kiss_hex4edit_update_adress(&hex4edit10feat, &temparray_0x30311[edited_line2 + 1].word_18);
 				char* textbuff = (char*)objects.data[edited_line2];
 				if (textbuff[strlen(textbuff) - 1] == 'I')
 					select1feat.selected = false;
@@ -1507,15 +1753,15 @@ int main_x(/*int argc, char** argv*/)
 				terrainzoomfeat = 4;
 				float cursorpixx = temparray_0x30311[edited_line2 + 1].axis3d_4.x;
 				float cursorpixy = temparray_0x30311[edited_line2 + 1].axis3d_4.y;
-				terrainbeginxfeat = cursorpixx - (terrainfeat.rect.w/2) / (terrainzoomfeat * 2);
+				terrainbeginxfeat = cursorpixx - (terrainfeat.rect.w / 2) / (terrainzoomfeat * 2);
 				terrainbeginyfeat = cursorpixy - (terrainfeat.rect.h / 2) / (terrainzoomfeat * 2);
 			}
 
-			vscrollbar1_event(&vscrollbar1, &e, &textbox1,	&draw);
+			vscrollbar1_event(&vscrollbar1, &e, &textbox1, &draw);
 			//textbox2_event(&textbox2, &e, &vscrollbar2, &entry,	&draw);
 			//vscrollbar2_event(&vscrollbar2, &e, &textbox2, &draw);
 			//button_ok1_event(&button_ok1, &e, &window1, &window2,&label_sel, &entry, &label_res, &progressbar,&draw);
-			
+
 			kiss_entry_event(&entry, &e, &draw);
 			//button_ok2_event(&button_ok2, &e, &window1, &window2,&progressbar, &draw);			
 			if (kiss_hex4edit_event(&hex4edit1, &e, &draw) > 10)changed = true;
@@ -1531,10 +1777,10 @@ int main_x(/*int argc, char** argv*/)
 			if (kiss_hex4edit_event(&hex4edit11, &e, &draw) > 10)changed = true;
 			if (kiss_hex4edit_event(&hex4edit12, &e, &draw) > 10)changed = true;
 
-			if(select1_event(&select1, &e, &select2, &select3, &select4, &draw))zoomchanged = true;
-			if(select2_event(&select2, &e, &select1, &select3, &select4, &draw))zoomchanged = true;
-			if(select3_event(&select3, &e, &select1, &select2, &select4, &draw))zoomchanged = true;
-			if(select4_event(&select4, &e, &select1, &select2, &select3, &draw))zoomchanged = true;
+			if (select1_event(&select1, &e, &select2, &select3, &select4, &draw))zoomchanged = true;
+			if (select2_event(&select2, &e, &select1, &select3, &select4, &draw))zoomchanged = true;
+			if (select3_event(&select3, &e, &select1, &select2, &select4, &draw))zoomchanged = true;
+			if (select4_event(&select4, &e, &select1, &select2, &select3, &draw))zoomchanged = true;
 			//window2
 			if (kiss_hex4edit_event(&hex4edit1feat, &e, &draw) > 10)changed2 = true;
 			if (kiss_hex4edit_event(&hex4edit2feat, &e, &draw) > 10)changed2 = true;
@@ -1545,15 +1791,15 @@ int main_x(/*int argc, char** argv*/)
 			if (kiss_hex4edit_event(&hex4edit7feat, &e, &draw) > 10)changed2 = true;
 			if (kiss_hex4edit_event(&hex4edit8feat, &e, &draw) > 10)changed2 = true;
 			if (kiss_hex4edit_event(&hex4edit9feat, &e, &draw) > 10)changed2 = true;
-			if (kiss_hex4edit_event(&hex4edit10feat, &e, &draw) > 10)changed2 = true;		
+			if (kiss_hex4edit_event(&hex4edit10feat, &e, &draw) > 10)changed2 = true;
 
 
 			button_selecttype_event(&button_selecttype, &e, &draw);
-			button_selectsubtype_event(&button_selectsubtype, button_subtype,&e, &draw);
+			button_selectsubtype_event(&button_selectsubtype, button_subtype, &e, &draw);
 
 			button_ok_event(&button_ok1feat, &e, &quit, &draw);
 			button_cancel_event(&button_cancel, &e, &quit, &draw);
-			button_savelevel_event(&button_levelsave, &e,&draw);
+			button_savelevel_event(&button_levelsave, &e, &draw);
 			if (button_cleanlevelfeat_event(&button_cleanlevelfeat, &e, &draw))
 			{
 				changed2 = true; changed = true; zoomchanged = true;
@@ -1561,7 +1807,7 @@ int main_x(/*int argc, char** argv*/)
 
 			for (int i = 0; i < 16; i++)
 			{
-				int retvar=button_type_event(&button_type[i], &e, &draw, i, &window2, &window_selecttype);
+				int retvar = button_type_event(&button_type[i], &e, &draw, i, &window2, &window_selecttype);
 				if (retvar > -1)
 				{
 					kiss_hex4edit_set(&hex4edit1feat, i);
@@ -1575,9 +1821,19 @@ int main_x(/*int argc, char** argv*/)
 						kiss_hex4edit_set(&hex4edit9feat, 0);//16
 						kiss_hex4edit_set(&hex4edit10feat, 0);//18
 					}
-					changed2 = true;
+					changed2 = true; zoomchanged = true;
 				}
 			}
+			for (int i = 0; i < max_subtype_buttons; i++)
+			{
+				int retvar = button_type_event(&button_subtype[i], &e, &draw, i, &window2, &window_selecttype);
+				if (retvar > -1)
+				{
+					kiss_hex4edit_set(&hex4edit2feat, i);
+					changed2 = true; zoomchanged = true;
+				}
+			}
+
 
 			/*for(int i=0;i<count_features;i++)
 				button_del_event(&button_del[i], &e, &quit, &draw);
@@ -1585,22 +1841,22 @@ int main_x(/*int argc, char** argv*/)
 			for (int i = 0; i < count_features; i++)
 				button_add_event(&button_add[i], &e, &quit, &draw);*/
 
-			int terev=kiss_terrain_event(&terrain1, &e, &draw, mousex, mousey, temparray_0x30311, temparray_0x30311_selected);
+			int terev = kiss_terrain_event(&terrain1, &e, &draw, mousex, mousey, temparray_0x30311, temparray_0x30311_selected);
 
-			if (kiss_dec1edit_event(&levelSel, &e, &draw) > 0) { loadlevel(actlevel-1); changed = true; }
+			if (kiss_dec1edit_event(&levelSel, &e, &draw) > 0) { loadlevel(actlevel - 1); changed = true; changed2 = true; changed3 = true;	}
 
 			if (terev >= 1)
 			{
-				zoomchanged = true;				
-			}			
+				zoomchanged = true;
+			}
 			if (terev == 14)changed2 = true;
 
 			int tersetposx, tersetposy;
-			int terevfeat = kiss_terrain_eventfeat(&terrainfeat, &e, &draw, mousex, mousey,&tersetposx, &tersetposy);
+			int terevfeat = kiss_terrain_eventfeat(&terrainfeat, &e, &draw, mousex, mousey, &tersetposx, &tersetposy);
 			if (terevfeat == 20)
 			{
-				temparray_0x30311[edited_line2 + 1].axis3d_4.x= tersetposx;
-				temparray_0x30311[edited_line2 + 1].axis3d_4.y= tersetposy;
+				temparray_0x30311[edited_line2 + 1].axis3d_4.x = tersetposx;
+				temparray_0x30311[edited_line2 + 1].axis3d_4.y = tersetposy;
 				kiss_hex4edit_update_adress(&hex4edit3feat, &temparray_0x30311[edited_line2 + 1].axis3d_4.x);
 				kiss_hex4edit_update_adress(&hex4edit4feat, &temparray_0x30311[edited_line2 + 1].axis3d_4.y);
 				changed2 = true;
@@ -1611,16 +1867,25 @@ int main_x(/*int argc, char** argv*/)
 				zoomchangedfeat = true;
 			}
 
-			if(button_del_event(&button_deletefeat, &e, &quit, &draw))
-				changed2=true;
-			if(button_add_event(&button_plusfeat, &e, &quit, &draw))
-				changed2=true;
+			if (button_del_event(&button_deletefeat, &e, &quit, &draw))
+			{
+				changed2 = true; zoomchanged = true;
+			}
+			if (button_add_event(&button_plusfeat, &e, &quit, &draw))
+			{
+				changed2 = true; zoomchanged = true;
+			}
 			if (button_clean_event(&button_cleanfeat, &e, &quit, &draw))
-				changed2 = true;
-			if (select1_feat_event(&select1feat, &e, &objects,&draw))
-				changed2 = true;
+			{
+				changed2 = true; zoomchanged = true;
+			}
+			if (select1_feat_event(&select1feat, &e, &objects, &draw))
+			{
+				changed2 = true; zoomchanged = true;
+			}
 
 			if (changed2)terrain_feat_append(&textbox1, &vscrollbar1);
+			if(changed3)terrain_stages_append(&textbox2);
 		}
 		if (first) { changed = true; changed2 = true;}
 		if (changed|| changed2)
@@ -1639,8 +1904,11 @@ int main_x(/*int argc, char** argv*/)
 		kiss_window_draw(&window1, editor_renderer);
 		kiss_label_draw(&label_terfeat, editor_renderer);
 		kiss_label_draw(&label_terfeat2, editor_renderer);
+		kiss_label_draw(&label_stages, editor_renderer);
+		kiss_label_draw(&label_stages2, editor_renderer);
 		//kiss_label_draw(&label2, editor_renderer);
 		kiss_textbox_draw(&textbox1, editor_renderer);
+		kiss_textbox_draw(&textbox2, editor_renderer);
 		kiss_vscrollbar_draw(&vscrollbar1, editor_renderer);
 		//kiss_textbox_draw(&textbox2, editor_renderer);
 		//kiss_vscrollbar_draw(&vscrollbar2, editor_renderer);
@@ -1706,6 +1974,8 @@ int main_x(/*int argc, char** argv*/)
 
 		kiss_button_draw(&button_selecttype, editor_renderer);
 		kiss_button_draw(&button_selectsubtype, editor_renderer);
+
+		kiss_label_draw(&labelIndexWind2, editor_renderer);
 
 		kiss_selectbutton_draw(&select1feat, editor_renderer);
 		kiss_button_draw(&button_ok1feat, editor_renderer);
