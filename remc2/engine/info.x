@@ -7931,3 +7931,5 @@ void sub_57CF0(type_str_0x6E8E* a1x, axis_3d* a2x)//238cf0
 char sub_59DC0(type_str_0x6E8E* a1x)//23adc0
 
 x_DWORD_DDF50_texture_adresses[147]-256
+
+spell moving

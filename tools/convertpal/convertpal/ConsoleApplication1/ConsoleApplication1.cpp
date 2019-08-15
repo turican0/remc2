@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define RGBA
+//#define RGBA
 #define level4
 //#define level2
 /* run this program using the console pauser or add your own getch, system("pause") or input loop */
@@ -240,7 +240,7 @@ int main(int argc, char* argv[]) {
 								score += abs(content_data[i * 4 + 0] - content_stdpal[j * 3 + 0]);
 								score += abs(content_data[i * 4 + 1] - content_stdpal[j * 3 + 1]);
 								score += abs(content_data[i * 4 + 2] - content_stdpal[j * 3 + 2]);
-				#elif
+				#else
 								score += abs(content_data[i * 3 + 0] - content_stdpal[j * 3 + 0]);
 								score += abs(content_data[i * 3 + 1] - content_stdpal[j * 3 + 1]);
 								score += abs(content_data[i * 3 + 2] - content_stdpal[j * 3 + 2]);
@@ -301,7 +301,7 @@ int main(int argc, char* argv[]) {
 
 #ifdef RGBA
 		for (int i = 0; i < szdata / 4; i++)
-#elif
+#else
 		for (int i = 0; i < szdata / 3; i++)
 #endif
 	{
@@ -353,7 +353,7 @@ int main(int argc, char* argv[]) {
 				score += abs(content_data[i * 4 + 0] - content_stdpal[j * 3 + 0]);
 				score += abs(content_data[i * 4 + 1] - content_stdpal[j * 3 + 1]);
 				score += abs(content_data[i * 4 + 2] - content_stdpal[j * 3 + 2]);
-#elif
+#else
 				score += abs(content_data[i * 3 + 0] - content_stdpal[j * 3 + 0]);
 				score += abs(content_data[i * 3 + 1] - content_stdpal[j * 3 + 1]);
 				score += abs(content_data[i * 3 + 2] - content_stdpal[j * 3 + 2]);
@@ -429,7 +429,7 @@ int main(int argc, char* argv[]) {
 	}
 #ifdef RGBA
 	for (int i = szdata / 4; i < 160 * 128 * 128; i++)
-#elif
+#else
 	for (int i = szdata / 3; i < 160 * 128 * 128; i++)
 #endif
 	{
