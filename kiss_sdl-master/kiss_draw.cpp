@@ -30,7 +30,7 @@ kiss_up, kiss_down, kiss_left, kiss_left_sel, kiss_right, kiss_right_sel, kiss_v
 kiss_hslider, kiss_selected, kiss_unselected, kiss_combo;
 int kiss_screen_width, kiss_screen_height;
 int kiss_textfont_size = 15;
-int kiss_buttonfont_size = 30;
+int kiss_buttonfont_size = 20;
 int kiss_click_interval = 140;
 int kiss_progress_interval = 50;
 int kiss_slider_padding = 2;

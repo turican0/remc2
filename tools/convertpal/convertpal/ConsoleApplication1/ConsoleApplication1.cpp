@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define RGBA
 #define level4
 //#define level2
 /* run this program using the console pauser or add your own getch, system("pause") or input loop */
@@ -235,9 +236,15 @@ int main(int argc, char* argv[]) {
 			for (int j = 0; j < szstd / 3; j++)
 			{
 				int score = 0;
-				score += abs(content_data[i * 3 + 0] - content_stdpal[j * 3 + 0]);
-				score += abs(content_data[i * 3 + 1] - content_stdpal[j * 3 + 1]);
-				score += abs(content_data[i * 3 + 2] - content_stdpal[j * 3 + 2]);
+				#ifdef RGBA
+								score += abs(content_data[i * 4 + 0] - content_stdpal[j * 3 + 0]);
+								score += abs(content_data[i * 4 + 1] - content_stdpal[j * 3 + 1]);
+								score += abs(content_data[i * 4 + 2] - content_stdpal[j * 3 + 2]);
+				#elif
+								score += abs(content_data[i * 3 + 0] - content_stdpal[j * 3 + 0]);
+								score += abs(content_data[i * 3 + 1] - content_stdpal[j * 3 + 1]);
+								score += abs(content_data[i * 3 + 2] - content_stdpal[j * 3 + 2]);
+				#endif
 				bool notinremoved = true;
 				/*for (int kk = 0; kk < counterremoved; kk++)
 					if (removed[kk] == j)notinremoved = false;*/
@@ -292,7 +299,11 @@ int main(int argc, char* argv[]) {
 	FILE* fptw_outdata;
 	fopen_s(&fptw_outdata, outdata_filename, "wb");
 
-	for (int i = 0; i < szdata / 3; i++)
+#ifdef RGBA
+		for (int i = 0; i < szdata / 4; i++)
+#elif
+		for (int i = 0; i < szdata / 3; i++)
+#endif
 	{
 
 		if (i % 1000)
@@ -326,6 +337,7 @@ int main(int argc, char* argv[]) {
 			int best = 1000;
 			x = 0;
 			for (int j = 0; j < szstd / 3; j++)
+
 #ifdef level1
 				//if ((j != 0x3d)&& (j != 0x3e))
 #endif level1
@@ -337,9 +349,15 @@ int main(int argc, char* argv[]) {
 #endif level4
 			{
 				int score = 0;
+#ifdef RGBA
+				score += abs(content_data[i * 4 + 0] - content_stdpal[j * 3 + 0]);
+				score += abs(content_data[i * 4 + 1] - content_stdpal[j * 3 + 1]);
+				score += abs(content_data[i * 4 + 2] - content_stdpal[j * 3 + 2]);
+#elif
 				score += abs(content_data[i * 3 + 0] - content_stdpal[j * 3 + 0]);
 				score += abs(content_data[i * 3 + 1] - content_stdpal[j * 3 + 1]);
 				score += abs(content_data[i * 3 + 2] - content_stdpal[j * 3 + 2]);
+#endif
 				/*bool skip = false;
 				if (tileindex == 0)
 				{
@@ -409,7 +427,11 @@ int main(int argc, char* argv[]) {
 		*/
 		fwrite(&x, 1, 1, fptw_outdata);
 	}
+#ifdef RGBA
+	for (int i = szdata / 4; i < 160 * 128 * 128; i++)
+#elif
 	for (int i = szdata / 3; i < 160 * 128 * 128; i++)
+#endif
 	{
 		unsigned char x = 0xff;
 		fwrite(&x, 1, 1, fptw_outdata);

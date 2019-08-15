@@ -361,7 +361,7 @@ void fillterrain(kiss_terrain* terrain, float zoom, int beginx, int beginy) {
 					float acty = starty;
 					for (float actx = startx; abs(endx - actx) > 1.5; actx += stepx)
 					{
-						acty = stepy;
+						acty += stepy;
 						if (actx >= 0 && acty >= 0 && actx < 512 && acty < 512)
 						{
 							scrbuff[4 * ((int)acty * 512 + (int)actx)] = 255 - scrbuff[4 * ((int)acty * 512 + (int)actx)];//set invert
@@ -583,7 +583,7 @@ void fillterrainfeat(float zoom, int beginx, int beginy) {
 					float acty = starty;
 					for (float actx = startx; abs(endx - actx) > 1.5; actx += stepx)
 					{
-						acty = stepy;
+						acty += stepy;
 						if (actx >= 0 && acty >= 0 && actx < 512 && acty < 512)
 						{
 							scrbuff[4 * ((int)acty * 512 + (int)actx)] = 255 - scrbuff[4 * ((int)acty * 512 + (int)actx)];//set invert
@@ -920,12 +920,15 @@ static void button_ok_event(kiss_button* button, SDL_Event* e,
 	}//*quit = 1;
 }
 
-static int button_type_event(kiss_button* button, SDL_Event* e, int* draw, int index, kiss_window* window2, kiss_window* window_selecttype) {
+static int button_type_event(kiss_button* button, SDL_Event* e, int* draw, int index, kiss_window* oldwindow, kiss_window* window, kiss_window* window_selecttype) {
 	if (kiss_button_event(button, e, draw))
 	{
-		window_selecttype->visible = 0;
+		/*window_selecttype->visible = 0;
 		window2->focus = 1;
-		window_selecttype->focus = 0;
+		window_selecttype->focus = 0;*/
+		window->visible = 0;
+		oldwindow->focus = 1;
+		window->focus = 0;
 		return index;
 	}
 	return -1;
@@ -944,6 +947,18 @@ static void button_selecttype_event(kiss_button* button, SDL_Event* e, int* draw
 kiss_image img_creature;
 kiss_image img_type05_01;
 kiss_image img_type05_04;
+kiss_image img_type05_0D;
+kiss_image img_type05_13;
+
+kiss_image img_type0A_01;
+kiss_image img_type0A_3B;
+kiss_image img_type0A_3C;
+kiss_image img_type0A_1D;
+
+kiss_image img_castle;
+kiss_image img_trigger;
+
+kiss_image img_none;
 int max_subtype_buttons = 64;
 
 static void button_selectsubtype_event(kiss_button* button,kiss_button* buttons, SDL_Event* e, int* draw)
@@ -957,11 +972,28 @@ static void button_selectsubtype_event(kiss_button* button,kiss_button* buttons,
 			window_selectsubtype.visible = 1;
 			window2.focus = 0;
 			window_selectsubtype.focus = 1;
-			//buttons[0].normalimg = img_creature; buttons[0].prelightimg = img_creature; buttons[0].activeimg = img_creature;
-			buttons[1].normalimg = img_type05_01; buttons[1].prelightimg = img_type05_01; buttons[1].activeimg = img_type05_01;
-			buttons[4].normalimg = img_type05_04; buttons[4].prelightimg = img_type05_04; buttons[4].activeimg = img_type05_04;
-
-			max_subtype_buttons = 10;
+			max_subtype_buttons = 0x14;
+			for (int i = 0; i < max_subtype_buttons; i++) { buttons[i].normalimg = img_none; buttons[i].prelightimg = img_none; buttons[i].activeimg = img_none; }
+			buttons[0x01].normalimg = img_type05_01; buttons[0x01].prelightimg = img_type05_01; buttons[0x01].activeimg = img_type05_01;
+			buttons[0x04].normalimg = img_type05_04; buttons[0x04].prelightimg = img_type05_04; buttons[0x04].activeimg = img_type05_04;
+			buttons[0x0D].normalimg = img_type05_0D; buttons[0x0D].prelightimg = img_type05_0D; buttons[0x0D].activeimg = img_type05_0D;
+			buttons[0x13].normalimg = img_type05_13; buttons[0x13].prelightimg = img_type05_13; buttons[0x13].activeimg = img_type05_13;
+			
+			break;
+		}
+		case 0xa:
+		{
+			window_selectsubtype.visible = 1;
+			window2.focus = 0;
+			window_selectsubtype.focus = 1;
+			max_subtype_buttons = 0x3D;
+			for (int i = 0; i < max_subtype_buttons; i++) { buttons[i].normalimg = img_none; buttons[i].prelightimg = img_none; buttons[i].activeimg = img_none; }
+			buttons[0x01].normalimg = img_type0A_01; buttons[0x01].prelightimg = img_type0A_01; buttons[0x01].activeimg = img_type0A_01;
+			buttons[0x05].normalimg = img_trigger; buttons[0x05].prelightimg = img_trigger; buttons[0x05].activeimg = img_trigger;
+			buttons[0x1d].normalimg = img_type0A_1D; buttons[0x1d].prelightimg = img_type0A_1D; buttons[0x1d].activeimg = img_type0A_1D;
+			buttons[0x2d].normalimg = img_castle; buttons[0x2d].prelightimg = img_castle; buttons[0x2d].activeimg = img_castle;
+			buttons[0x3B].normalimg = img_type0A_3B; buttons[0x3B].prelightimg = img_type0A_3B; buttons[0x3B].activeimg = img_type0A_3B;
+			buttons[0x3C].normalimg = img_type0A_3C; buttons[0x3C].prelightimg = img_type0A_3C; buttons[0x3C].activeimg = img_type0A_3C;
 			break;
 		}
 		}
@@ -1490,7 +1522,6 @@ int main_x(/*int argc, char** argv*/)
 	img_player.magic = KISS_MAGIC;
 	img_player.image = IMG_LoadTexture(editor_renderer, path2);
 
-	kiss_image img_none;
 	FixDir(path2, (char*)"kiss\\kiss_none32.png");
 	img_none.w = 32;
 	img_none.h = 32;
@@ -1503,14 +1534,19 @@ int main_x(/*int argc, char** argv*/)
 	img_creature.magic = KISS_MAGIC;
 	img_creature.image = IMG_LoadTexture(editor_renderer, path2);
 
-	kiss_image img_castle;
 	FixDir(path2, (char*)"kiss\\kiss_castle32.png");
 	img_castle.w = 32;
 	img_castle.h = 32;
 	img_castle.magic = KISS_MAGIC;
 	img_castle.image = IMG_LoadTexture(editor_renderer, path2);
 
-	kiss_image img_trigger;
+	kiss_image img_weather;
+	FixDir(path2, (char*)"kiss\\kiss_weather32.png");
+	img_weather.w = 32;
+	img_weather.h = 32;
+	img_weather.magic = KISS_MAGIC;
+	img_weather.image = IMG_LoadTexture(editor_renderer, path2);
+
 	FixDir(path2, (char*)"kiss\\kiss_trigger32.png");
 	img_trigger.w = 32;
 	img_trigger.h = 32;
@@ -1545,7 +1581,7 @@ int main_x(/*int argc, char** argv*/)
 	img_search.magic = KISS_MAGIC;
 	img_search.image = IMG_LoadTexture(editor_renderer, path2);
 
-	FixDir(path2, (char*)"kiss\\type05-01_goat.png");
+	FixDir(path2, (char*)"kiss\\type05-01-goat.png");
 	img_type05_01.w = 32;
 	img_type05_01.h = 32;
 	img_type05_01.magic = KISS_MAGIC;
@@ -1557,12 +1593,55 @@ int main_x(/*int argc, char** argv*/)
 	img_type05_04.magic = KISS_MAGIC;
 	img_type05_04.image = IMG_LoadTexture(editor_renderer, path2);
 
+	FixDir(path2, (char*)"kiss\\type05-13-fly.png");
+	img_type05_13.w = 32;
+	img_type05_13.h = 32;
+	img_type05_13.magic = KISS_MAGIC;
+	img_type05_13.image = IMG_LoadTexture(editor_renderer, path2);
+
+	FixDir(path2, (char*)"kiss\\type05-0D-townie.png");
+	img_type05_0D.w = 32;
+	img_type05_0D.h = 32;
+	img_type05_0D.magic = KISS_MAGIC;
+	img_type05_0D.image = IMG_LoadTexture(editor_renderer, path2);
+
+	FixDir(path2, (char*)"kiss\\type0A-01-explosion.png");
+	img_type0A_01.w = 32;
+	img_type0A_01.h = 32;
+	img_type0A_01.magic = KISS_MAGIC;
+	img_type0A_01.image = IMG_LoadTexture(editor_renderer, path2);
+
+	FixDir(path2, (char*)"kiss\\type0A-3B-smooke2.png");
+	img_type0A_3B.w = 32;
+	img_type0A_3B.h = 32;
+	img_type0A_3B.magic = KISS_MAGIC;
+	img_type0A_3B.image = IMG_LoadTexture(editor_renderer, path2);
+
+	FixDir(path2, (char*)"kiss\\type0A-3C-smooke.png");
+	img_type0A_3C.w = 32;
+	img_type0A_3C.h = 32;
+	img_type0A_3C.magic = KISS_MAGIC;
+	img_type0A_3C.image = IMG_LoadTexture(editor_renderer, path2);
+
+	FixDir(path2, (char*)"kiss\\type0A-1D-path.png");
+	img_type0A_1D.w = 32;
+	img_type0A_1D.h = 32;
+	img_type0A_1D.magic = KISS_MAGIC;
+	img_type0A_1D.image = IMG_LoadTexture(editor_renderer, path2);
+
+	kiss_image img_type2D;
+	FixDir(path2, (char*)"kiss\\type2D.png");
+	img_type2D.w = 32;
+	img_type2D.h = 32;
+	img_type2D.magic = KISS_MAGIC;
+	img_type2D.image = IMG_LoadTexture(editor_renderer, path2);
+
 
 	kiss_vscrollbar_new(&vscrollbar1, &window1, textbox1.rect.x + textbox_width, textbox1.rect.y, textbox_height);
 	//kiss_textbox_new(&textbox2, &window1, 1, &a2,vscrollbar1.uprect.x + kiss_up.w, textbox1.rect.y,	textbox_width, textbox_height);
 	//kiss_vscrollbar_new(&vscrollbar2, &window1, textbox2.rect.x +textbox_width, vscrollbar1.uprect.y, textbox_height);
 	kiss_label_new(&label_terfeat, &window1, (char*)"TERRAN FEATURES:", 5 + textbox1.rect.x + kiss_edge, textbox1.rect.y - kiss_textfont.lineheight*2);
-	kiss_label_new(&label_terfeat2, &window1, (char*)"IDX|TYPE|SUBT| X  | Y  | Z  | 10 |STAG| 14 | 16 | 18", 5 + textbox1.rect.x + kiss_edge, textbox1.rect.y - kiss_textfont.lineheight);
+	kiss_label_new(&label_terfeat2, &window1, (char*)"IDX|TYPE|SUBT| X  | Y  | Z  | 10 |STAG| 14 |PARN|CHLD", 5 + textbox1.rect.x + kiss_edge, textbox1.rect.y - kiss_textfont.lineheight);
 
 	kiss_label_new(&label_stages, &window1, (char*)"TERRAN STAGES:", 5 + textbox2.rect.x + kiss_edge, textbox2.rect.y - kiss_textfont.lineheight * 2);
 	kiss_label_new(&label_stages2, &window1, (char*)"IX|STG| 01 | 03 | 05", 5 + textbox2.rect.x + kiss_edge, textbox2.rect.y - kiss_textfont.lineheight);
@@ -1571,7 +1650,7 @@ int main_x(/*int argc, char** argv*/)
 	//kiss_entry_new(&entry, &window1, 1, (char*)"kiss", textbox1.rect.x,label_sel.rect.y + kiss_textfont.lineheight,2 * textbox_width + 2 * kiss_up.w + kiss_edge);
 	kiss_button_new(&button_cancel, &window1, (char*)"EXIT",530,740);
 	kiss_button_new(&button_levelsave, &window1, (char*)"SAVE", 530, 720);
-	kiss_button_new(&button_cleanlevelfeat, &window1, (char*)"CLEAN FEATURES", 530, 700);
+	kiss_button_new(&button_cleanlevelfeat, &window1, (char*)"CLEAR", 530, 700);
 	//kiss_button_new(&button_ok1, &window1, (char*)"OK", button_cancel.rect.x -2 * kiss_normal.w, button_cancel.rect.y);
 
 	/*for (int i = 0; i < count_features; i++)
@@ -1634,8 +1713,8 @@ int main_x(/*int argc, char** argv*/)
 	kiss_hex4edit_new(&hex4edit6feat, &window2, &temp_var, (char*)"10:", window2.rect.x + kiss_up.w, window2.rect.y + 110);
 	kiss_hex4edit_new(&hex4edit7feat, &window2, &temp_var, (char*)"SG:", window2.rect.x + kiss_up.w, window2.rect.y + 130);
 	kiss_hex4edit_new(&hex4edit8feat, &window2, &temp_var, (char*)"14:", window2.rect.x + kiss_up.w, window2.rect.y + 150);
-	kiss_hex4edit_new(&hex4edit9feat, &window2, &temp_var, (char*)"16:", window2.rect.x + kiss_up.w, window2.rect.y + 170);
-	kiss_hex4edit_new(&hex4edit10feat, &window2, &temp_var, (char*)"18:", window2.rect.x + kiss_up.w, window2.rect.y + 190);
+	kiss_hex4edit_new(&hex4edit9feat, &window2, &temp_var, (char*)"PR:", window2.rect.x + kiss_up.w, window2.rect.y + 170);
+	kiss_hex4edit_new(&hex4edit10feat, &window2, &temp_var, (char*)"CH:", window2.rect.x + kiss_up.w, window2.rect.y + 190);
 	kiss_button_new(&button_selecttype, &window2, (char*)" ", window2.rect.x + kiss_up.w + 270, window2.rect.y + 10, &img_search);
 	button_selecttype.activeimg = img_search; button_selecttype.prelightimg = img_search;
 
@@ -1670,14 +1749,14 @@ int main_x(/*int argc, char** argv*/)
 	button_type[5].activeimg = img_creature; button_type[5].prelightimg = img_creature;
 	kiss_button_new(&button_type[6], &window_selecttype, (char*)"6", window_selecttype.rect.x + kiss_border + 80, window_selecttype.rect.y + kiss_border + 40, &img_none);
 	button_type[6].activeimg = img_none; button_type[6].prelightimg = img_none;
-	kiss_button_new(&button_type[7], &window_selecttype, (char*)"7", window_selecttype.rect.x + kiss_border + 120, window_selecttype.rect.y + kiss_border + 40, &img_none);
-	button_type[7].activeimg = img_none; button_type[7].prelightimg = img_none;
+	kiss_button_new(&button_type[7], &window_selecttype, (char*)" ", window_selecttype.rect.x + kiss_border + 120, window_selecttype.rect.y + kiss_border + 40, &img_weather);
+	button_type[7].activeimg = img_weather; button_type[7].prelightimg = img_weather;
 	kiss_button_new(&button_type[8], &window_selecttype, (char*)"8", window_selecttype.rect.x + kiss_border + 0, window_selecttype.rect.y + kiss_border + 80, &img_none);
 	button_type[8].activeimg = img_none; button_type[8].prelightimg = img_none;
 	kiss_button_new(&button_type[9], &window_selecttype, (char*)"9", window_selecttype.rect.x + kiss_border + 40, window_selecttype.rect.y + kiss_border + 80, &img_none);
 	button_type[9].activeimg = img_none; button_type[9].prelightimg = img_none;
-	kiss_button_new(&button_type[0xa], &window_selecttype, (char*)" ", window_selecttype.rect.x + kiss_border + 80, window_selecttype.rect.y + kiss_border + 80, &img_castle);
-	button_type[0xa].activeimg = img_castle; button_type[0xa].prelightimg = img_castle;
+	kiss_button_new(&button_type[0xa], &window_selecttype, (char*)" ", window_selecttype.rect.x + kiss_border + 80, window_selecttype.rect.y + kiss_border + 80, &img_type2D);
+	button_type[0xa].activeimg = img_type2D; button_type[0xa].prelightimg = img_type2D;
 	kiss_button_new(&button_type[0xb], &window_selecttype, (char*)" ", window_selecttype.rect.x + kiss_border + 120, window_selecttype.rect.y + kiss_border + 80, &img_trigger);
 	button_type[0xb].activeimg = img_trigger; button_type[0xb].prelightimg = img_trigger;
 	kiss_button_new(&button_type[0xc], &window_selecttype, (char*)"C", window_selecttype.rect.x + kiss_border + 0, window_selecttype.rect.y + kiss_border + 120, &img_none);
@@ -1692,6 +1771,7 @@ int main_x(/*int argc, char** argv*/)
 	for (int i = 0; i < max_subtype_buttons; i++)
 	{
 		kiss_button_new(&button_subtype[i], &window_selectsubtype, (char*)" ", window_selectsubtype.rect.x + kiss_border + ((i % 8) * 40), window_selectsubtype.rect.y + kiss_border + ((i / 8) * 40), &img_none);
+		//button_type[i].activeimg = img_none; button_type[i].prelightimg = img_none;
 	}
 
 
@@ -1807,7 +1887,7 @@ int main_x(/*int argc, char** argv*/)
 
 			for (int i = 0; i < 16; i++)
 			{
-				int retvar = button_type_event(&button_type[i], &e, &draw, i, &window2, &window_selecttype);
+				int retvar = button_type_event(&button_type[i], &e, &draw, i, &window2,&window_selecttype, &window_selecttype);
 				if (retvar > -1)
 				{
 					kiss_hex4edit_set(&hex4edit1feat, i);
@@ -1826,7 +1906,7 @@ int main_x(/*int argc, char** argv*/)
 			}
 			for (int i = 0; i < max_subtype_buttons; i++)
 			{
-				int retvar = button_type_event(&button_subtype[i], &e, &draw, i, &window2, &window_selecttype);
+				int retvar = button_type_event(&button_subtype[i], &e, &draw, i, &window2, &window_selectsubtype, &window_selecttype);
 				if (retvar > -1)
 				{
 					kiss_hex4edit_set(&hex4edit2feat, i);
