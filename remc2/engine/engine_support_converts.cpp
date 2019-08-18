@@ -201,6 +201,13 @@ void convert_struct_to_array_164(type_str_164* input, Bit8u* output) {
 	//type_str_611 str_611;
 }
 
+void convert_struct_to_array_axis_2d(axis_2du* input, Bit8u* output) {
+	//Bit16u x;
+	memcpy(output + 0x0, &input->x, 2);
+	//Bit16u y;
+	memcpy(output + 0x2, &input->y, 2);
+}
+
 void convert_struct_to_array_axis_3d(axis_3d* input, Bit8u* output) {
 	//Bit16u x;
 	memcpy(output + 0x0, &input->x, 2);
@@ -468,12 +475,14 @@ void convert_struct_to_array_0x6E3E(type_str_0x6E3E* input, Bit8u* output) {//10
 }
 
 void convert_struct_to_array_0x30311(type_str_0x30311* input, Bit8u* output) {//lenght 20
-	//Bit16u str_0x30311_word_0;//type_str_0x30311//type_str_0x30325//1091
-	memcpy(output + 0, &input->str_0x30311_word_0, 2);
-	//Bit16s str_0x30311_word_2;//type_str_0x30313//type_str_0x30327//1091
-	memcpy(output + 2, &input->str_0x30311_word_2, 2);
+	//Bit16u str_0x30311_type;//type_str_0x30311//type_str_0x30325//1091
+	memcpy(output + 0, &input->str_0x30311_type, 2);
+	//Bit16s str_0x30311_subtype;//type_str_0x30313//type_str_0x30327//1091
+	memcpy(output + 2, &input->str_0x30311_subtype, 2);
 	//axis_3d axis3d_4;//type_str_0x30315//type_str_0x30329
-	convert_struct_to_array_axis_3d(&input->axis3d_4, output + 0x4);
+	//convert_struct_to_array_axis_3d(&input->axis3d_4, output + 0x4);
+	convert_struct_to_array_axis_2d(&input->axis2d_4, output + 0x4);
+	memcpy(output + 8, &input->DisId, 2);
 	//Bit16u word_10;//type_str_0x3031b//type_str_0x3032f
 	memcpy(output + 10, &input->word_10, 2);
 	//Bit16u word_12;//type_str_0x3031d//type_str_0x30331

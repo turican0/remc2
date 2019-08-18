@@ -79,6 +79,7 @@ AIL_DRIVER;
 
 typedef int(*EOS_callback_type)(void);
 
+const int sample_mark = 100;
 
 typedef MSS_STRUCT _SAMPLE           // Sample instance
 {
@@ -114,6 +115,7 @@ Bit32s sam_var[1000];
    int index_sample = -1;
 
    void* start_44mhz;//8
+   Bit8u mark44mark[sample_mark];
    //Mix_Chunk chunk;
 }
 SAMPLE;

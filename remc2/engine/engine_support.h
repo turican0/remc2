@@ -268,7 +268,7 @@ typedef struct {//begin 611//str_611
 	Bit16s word_0x453_1107;//496 act right spell index//word_0x839_2BDE
 	Bit8s byte_0x455_1109;//498
 	Bit8s byte_0x456_1110;//499
-	Bit8s byte_0x457_1111;//500//byte_0x83D_2BDE
+	Bit8s byte_0x457_1111;//500//byte_0x83D_2BDE //select spell/type spell
 	Bit8s byte_0x458_1112;//501//byte_0x83E_2BDE
 	Bit8s byte_0x459_1113;//502
 	Bit8s byte_0x45A_1114;
@@ -345,7 +345,7 @@ typedef struct {//size 1136
 	Bit32s dword_0x17D_381;
 	Bit32s dword_0x181_385;
 	Bit32s dword_0x185_389;
-	Bit32s dword_0x189_393;
+	Bit32s dword_0x189_393;//clock
 	Bit32s dword_0x18D_397;
 	Bit8u stubi[4];
 	Bit8s byte_0x195_405;
@@ -367,11 +367,11 @@ typedef struct {//size 1136
 	Bit16s word_0x1C2_450;
 	Bit8u stubl[56];
 	//Bit8s array_0x1D4_468[0x1a];
-	Bit16s array_0x1FC_508[32];//1ca
+	Bit16u array_0x1FC_508[32];//1ca
 	//Bit16s word_0x204_516[32];
 	//Bit16s word_0x242_578;//word_0x204_516[31]
 	Bit8u stubm[6];
-	Bit16s word_0x242_578;
+	Bit16s word_0x242_578=-1;
 	Bit16s word_0x244_580;
 	Bit16s word_0x246_582;
 	Bit16s word_0x248_584;
@@ -1040,11 +1040,13 @@ typedef struct {//lenght 20
 type_str_0x30310;*/
 typedef struct {//lenght 20
 	//Bit8u byte_0;//type_str_0x30310//type_str_0x30324
-	Bit16u str_0x30311_word_0;//type_str_0x30311//type_str_0x30325//1091
+	Bit16u str_0x30311_type;//type_str_0x30311//type_str_0x30325//1091
 	//Bit8u byte_1;//type_str_0x30312//type_str_0x30326
-	Bit16s str_0x30311_word_2;//type_str_0x30313//type_str_0x30327//1091
+	Bit16s str_0x30311_subtype;//type_str_0x30313//type_str_0x30327//1091
 	//Bit8u byte_4;//type_str_0x30314//type_str_0x30328
-	axis_3d axis3d_4;//type_str_0x30315//type_str_0x30329
+	//axis_3d axis3d_4;//type_str_0x30315//type_str_0x30329
+	axis_2du axis2d_4;
+	Bit16u DisId;
 	//Bit8u byte_5;//type_str_0x30316//type_str_0x3032a
 	//Bit16u word_6;//type_str_0x30317//type_str_0x3032b
 	//Bit8u byte_7;//type_str_0x30318//type_str_0x3032c

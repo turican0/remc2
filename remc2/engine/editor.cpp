@@ -232,8 +232,8 @@ void fillterrain(kiss_terrain* terrain, float zoom, int beginx, int beginy) {
 	for (int i = first_terrain_feature; i < 0x4B0; i++)
 	{
 		type_str_0x30311 actfeat = temparray_0x30311[i];
-		if ((actfeat.axis3d_4.x > -1) && (actfeat.axis3d_4.x < 256) && (actfeat.axis3d_4.y > -1) && (actfeat.axis3d_4.y < 256))
-			terrfeatlayer[actfeat.axis3d_4.x + actfeat.axis3d_4.y * 256] = actfeat.str_0x30311_word_0;//all entites
+		if ((actfeat.axis2d_4.x > -1) && (actfeat.axis2d_4.x < 256) && (actfeat.axis2d_4.y > -1) && (actfeat.axis2d_4.y < 256))
+			terrfeatlayer[actfeat.axis2d_4.x + actfeat.axis2d_4.y * 256] = actfeat.str_0x30311_type;//all entites
 	}
 
 	for (int i = 0; i < 0x4B0; i++)
@@ -241,8 +241,8 @@ void fillterrain(kiss_terrain* terrain, float zoom, int beginx, int beginy) {
 		if (temparray_0x30311_selected[i])
 		{
 			type_str_0x30311 actfeat = temparray_0x30311[i];
-			if ((actfeat.axis3d_4.x > -1) && (actfeat.axis3d_4.x < 256) && (actfeat.axis3d_4.y > -1) && (actfeat.axis3d_4.y < 256))
-				terrfeatlayer[actfeat.axis3d_4.x + actfeat.axis3d_4.y * 256] = 0xf0;//selected entity
+			if ((actfeat.axis2d_4.x > -1) && (actfeat.axis2d_4.x < 256) && (actfeat.axis2d_4.y > -1) && (actfeat.axis2d_4.y < 256))
+				terrfeatlayer[actfeat.axis2d_4.x + actfeat.axis2d_4.y * 256] = 0xf0;//selected entity
 		}
 	}
 
@@ -337,12 +337,12 @@ void fillterrain(kiss_terrain* terrain, float zoom, int beginx, int beginy) {
 	for (int i = 0; i < 0x4B0; i++)
 	{
 		type_str_0x30311 actfeat = temparray_0x30311[i];
-		if ((actfeat.str_0x30311_word_0 == 0xa) && (actfeat.str_0x30311_word_2 == 0x1d)&&(actfeat.word_14>0))
+		if ((actfeat.str_0x30311_type == 0xa) && (actfeat.str_0x30311_subtype == 0x1d)&&(actfeat.word_14>0))
 		{
-			int startx = (actfeat.axis3d_4.x-beginx)* (zoom * 2);
-			int starty = (actfeat.axis3d_4.y - beginy) * (zoom * 2);
-			int endx = (temparray_0x30311[actfeat.word_14].axis3d_4.x - beginx) * (zoom * 2);
-			int endy = (temparray_0x30311[actfeat.word_14].axis3d_4.y - beginy) * (zoom * 2);
+			int startx = (actfeat.axis2d_4.x-beginx)* (zoom * 2);
+			int starty = (actfeat.axis2d_4.y - beginy) * (zoom * 2);
+			int endx = (temparray_0x30311[actfeat.word_14].axis2d_4.x - beginx) * (zoom * 2);
+			int endy = (temparray_0x30311[actfeat.word_14].axis2d_4.y - beginy) * (zoom * 2);
 			int lenx = abs(startx - endx);
 			int leny = abs(starty - endy);
 			if (lenx > 0 || leny > 0)
@@ -466,13 +466,13 @@ void fillterrainfeat(float zoom, int beginx, int beginy) {
 	for (int i = 0; i < 0x4B0; i++)
 	{
 		type_str_0x30311 actfeat = temparray_0x30311[first_terrain_feature + i];
-		if ((actfeat.axis3d_4.x > -1) && (actfeat.axis3d_4.x < 256) && (actfeat.axis3d_4.y > -1) && (actfeat.axis3d_4.y < 256))
-			terrfeatlayer[actfeat.axis3d_4.x + actfeat.axis3d_4.y * 256] = actfeat.str_0x30311_word_0;//all entites
+		if ((actfeat.axis2d_4.x > -1) && (actfeat.axis2d_4.x < 256) && (actfeat.axis2d_4.y > -1) && (actfeat.axis2d_4.y < 256))
+			terrfeatlayer[actfeat.axis2d_4.x + actfeat.axis2d_4.y * 256] = actfeat.str_0x30311_type;//all entites
 	}
 
 	type_str_0x30311 actfeat = temparray_0x30311[edited_line2 + 1];
-	if ((actfeat.axis3d_4.x > -1) && (actfeat.axis3d_4.x < 256) && (actfeat.axis3d_4.y > -1) && (actfeat.axis3d_4.y < 256))
-		terrfeatlayer[actfeat.axis3d_4.x + actfeat.axis3d_4.y * 256] = 0xf0;//selected entity
+	if ((actfeat.axis2d_4.x > -1) && (actfeat.axis2d_4.x < 256) && (actfeat.axis2d_4.y > -1) && (actfeat.axis2d_4.y < 256))
+		terrfeatlayer[actfeat.axis2d_4.x + actfeat.axis2d_4.y * 256] = 0xf0;//selected entity
 
 	Bit8u* scrbuff = (Bit8u*)mapsurfacefeat->pixels;
 	for (int j = 0; j < 512; j++)
@@ -559,12 +559,12 @@ void fillterrainfeat(float zoom, int beginx, int beginy) {
 	for (int i = 0; i < 0x4B0; i++)
 	{
 		type_str_0x30311 actfeat = temparray_0x30311[i];
-		if ((actfeat.str_0x30311_word_0 == 0xa) && (actfeat.str_0x30311_word_2 == 0x1d) && (actfeat.word_14 > 0))
+		if ((actfeat.str_0x30311_type == 0xa) && (actfeat.str_0x30311_subtype == 0x1d) && (actfeat.word_14 > 0))
 		{
-			int startx = (actfeat.axis3d_4.x - beginx) * (zoom * 2);
-			int starty = (actfeat.axis3d_4.y - beginy) * (zoom * 2);
-			int endx = (temparray_0x30311[actfeat.word_14].axis3d_4.x - beginx) * (zoom * 2);
-			int endy = (temparray_0x30311[actfeat.word_14].axis3d_4.y - beginy) * (zoom * 2);
+			int startx = (actfeat.axis2d_4.x - beginx) * (zoom * 2);
+			int starty = (actfeat.axis2d_4.y - beginy) * (zoom * 2);
+			int endx = (temparray_0x30311[actfeat.word_14].axis2d_4.x - beginx) * (zoom * 2);
+			int endy = (temparray_0x30311[actfeat.word_14].axis2d_4.y - beginy) * (zoom * 2);
 			int lenx = abs(startx - endx);
 			int leny = abs(starty - endy);
 			if (lenx > 0 || leny > 0)
@@ -735,7 +735,7 @@ static void terrain_feat_append(kiss_textbox* textbox1, kiss_vscrollbar* vscroll
 	for (int i = first_terrain_feature; i < 0x4B0; i++)
 	{
 		type_str_0x30311 actfeat = temparray_0x30311[i];//D41A0_BYTESTR_0.str_2FECE.array_0x30311[first_terrain_feature + i];
-		sprintf(temp, "%03X|%04X|%04X|%04X|%04X|%04X|%04X|%04X|%04X|%04X|%04XNA", i,actfeat.str_0x30311_word_0, actfeat.str_0x30311_word_2, actfeat.axis3d_4.x, actfeat.axis3d_4.y, actfeat.axis3d_4.z, actfeat.word_10, actfeat.word_12, actfeat.word_14, actfeat.word_16, actfeat.word_18);		
+		sprintf(temp, "%03X|%04X|%04X|%04X|%04X|%04X|%04X|%04X|%04X|%04X|%04XNA", i,actfeat.str_0x30311_type, actfeat.str_0x30311_subtype, actfeat.axis2d_4.x, actfeat.axis2d_4.y, actfeat.DisId, actfeat.word_10, actfeat.word_12, actfeat.word_14, actfeat.word_16, actfeat.word_18);		
 		if(temparray_0x30311_inactive[i])temp[strlen(temp) - 1] = 'I';//set last char as inactive
 		if(temparray_0x30311_selected[i])temp[strlen(temp) - 2] = 'S';//set last char as inactive
 		kiss_array_appendstring(textbox1->array, 0, (char*)"", temp);
@@ -929,6 +929,7 @@ static int button_type_event(kiss_button* button, SDL_Event* e, int* draw, int i
 		window->visible = 0;
 		oldwindow->focus = 1;
 		window->focus = 0;
+		window->focus = 0;
 		return index;
 	}
 	return -1;
@@ -946,11 +947,17 @@ static void button_selecttype_event(kiss_button* button, SDL_Event* e, int* draw
 
 kiss_image img_creature;
 kiss_image img_type05_01;
+kiss_image img_type05_02;
+kiss_image img_type05_03;
 kiss_image img_type05_04;
+kiss_image img_type05_09;
 kiss_image img_type05_0D;
 kiss_image img_type05_13;
 
 kiss_image img_type0A_01;
+kiss_image img_type0A_06;
+kiss_image img_type0A_16;
+kiss_image img_type0A_27;
 kiss_image img_type0A_3B;
 kiss_image img_type0A_3C;
 kiss_image img_type0A_1D;
@@ -975,7 +982,10 @@ static void button_selectsubtype_event(kiss_button* button,kiss_button* buttons,
 			max_subtype_buttons = 0x14;
 			for (int i = 0; i < max_subtype_buttons; i++) { buttons[i].normalimg = img_none; buttons[i].prelightimg = img_none; buttons[i].activeimg = img_none; }
 			buttons[0x01].normalimg = img_type05_01; buttons[0x01].prelightimg = img_type05_01; buttons[0x01].activeimg = img_type05_01;
+			buttons[0x02].normalimg = img_type05_02; buttons[0x02].prelightimg = img_type05_02; buttons[0x02].activeimg = img_type05_02;
+			buttons[0x03].normalimg = img_type05_03; buttons[0x03].prelightimg = img_type05_03; buttons[0x03].activeimg = img_type05_03;
 			buttons[0x04].normalimg = img_type05_04; buttons[0x04].prelightimg = img_type05_04; buttons[0x04].activeimg = img_type05_04;
+			buttons[0x09].normalimg = img_type05_09; buttons[0x09].prelightimg = img_type05_09; buttons[0x09].activeimg = img_type05_09;
 			buttons[0x0D].normalimg = img_type05_0D; buttons[0x0D].prelightimg = img_type05_0D; buttons[0x0D].activeimg = img_type05_0D;
 			buttons[0x13].normalimg = img_type05_13; buttons[0x13].prelightimg = img_type05_13; buttons[0x13].activeimg = img_type05_13;
 			
@@ -990,7 +1000,10 @@ static void button_selectsubtype_event(kiss_button* button,kiss_button* buttons,
 			for (int i = 0; i < max_subtype_buttons; i++) { buttons[i].normalimg = img_none; buttons[i].prelightimg = img_none; buttons[i].activeimg = img_none; }
 			buttons[0x01].normalimg = img_type0A_01; buttons[0x01].prelightimg = img_type0A_01; buttons[0x01].activeimg = img_type0A_01;
 			buttons[0x05].normalimg = img_trigger; buttons[0x05].prelightimg = img_trigger; buttons[0x05].activeimg = img_trigger;
+			buttons[0x06].normalimg = img_type0A_06; buttons[0x06].prelightimg = img_type0A_06; buttons[0x06].activeimg = img_type0A_06;
+			buttons[0x16].normalimg = img_type0A_16; buttons[0x16].prelightimg = img_type0A_16; buttons[0x16].activeimg = img_type0A_16;
 			buttons[0x1d].normalimg = img_type0A_1D; buttons[0x1d].prelightimg = img_type0A_1D; buttons[0x1d].activeimg = img_type0A_1D;
+			buttons[0x27].normalimg = img_type0A_27; buttons[0x27].prelightimg = img_type0A_27; buttons[0x27].activeimg = img_type0A_27;
 			buttons[0x2d].normalimg = img_castle; buttons[0x2d].prelightimg = img_castle; buttons[0x2d].activeimg = img_castle;
 			buttons[0x3B].normalimg = img_type0A_3B; buttons[0x3B].prelightimg = img_type0A_3B; buttons[0x3B].activeimg = img_type0A_3B;
 			buttons[0x3C].normalimg = img_type0A_3C; buttons[0x3C].prelightimg = img_type0A_3C; buttons[0x3C].activeimg = img_type0A_3C;
@@ -1009,7 +1022,7 @@ static int button_del_event(kiss_button* button, SDL_Event* e,	int* quit, int* d
 		{		
 			for (int j = 0; j < 0x4b0; j++)
 			{
-				if((temparray_0x30311[j].str_0x30311_word_0==0xa)&& (temparray_0x30311[j].str_0x30311_word_2 == 0x1d))
+				if((temparray_0x30311[j].str_0x30311_type==0xa)&& (temparray_0x30311[j].str_0x30311_subtype == 0x1d))
 				if (temparray_0x30311[j].word_14 == i)
 					temparray_0x30311[j].word_14--;
 			}
@@ -1033,7 +1046,7 @@ static int button_add_event(kiss_button* button, SDL_Event* e,	int* quit, int* d
 		{
 			for (int j = 0; j < 0x4b0; j++)
 			{
-				if((temparray_0x30311[j].str_0x30311_word_0==0xa)&& (temparray_0x30311[j].str_0x30311_word_2 == 0x1d))
+				if((temparray_0x30311[j].str_0x30311_type==0xa)&& (temparray_0x30311[j].str_0x30311_subtype == 0x1d))
 				if (temparray_0x30311[j].word_14 == i-1)
 					temparray_0x30311[j].word_14++;
 			}
@@ -1044,11 +1057,11 @@ static int button_add_event(kiss_button* button, SDL_Event* e,	int* quit, int* d
 		//memset(&temparray_0x30311[edited_line2+1], 0, sizeof(temparray_0x30311[edited_line2+1]));
 		temparray_0x30311_inactive[edited_line2 + 1] = false;
 		temparray_0x30311_selected[edited_line2 + 1] = false;
-		kiss_hex4edit_update_adress(&hex4edit1feat, &temparray_0x30311[edited_line2 + 1].str_0x30311_word_0);
-		kiss_hex4edit_update_adress(&hex4edit2feat, &temparray_0x30311[edited_line2 + 1].str_0x30311_word_2);
-		kiss_hex4edit_update_adress(&hex4edit3feat, &temparray_0x30311[edited_line2 + 1].axis3d_4.x);
-		kiss_hex4edit_update_adress(&hex4edit4feat, &temparray_0x30311[edited_line2 + 1].axis3d_4.y);
-		kiss_hex4edit_update_adress(&hex4edit5feat, &temparray_0x30311[edited_line2 + 1].axis3d_4.z);
+		kiss_hex4edit_update_adress(&hex4edit1feat, &temparray_0x30311[edited_line2 + 1].str_0x30311_type);
+		kiss_hex4edit_update_adress(&hex4edit2feat, &temparray_0x30311[edited_line2 + 1].str_0x30311_subtype);
+		kiss_hex4edit_update_adress(&hex4edit3feat, &temparray_0x30311[edited_line2 + 1].axis2d_4.x);
+		kiss_hex4edit_update_adress(&hex4edit4feat, &temparray_0x30311[edited_line2 + 1].axis2d_4.y);
+		kiss_hex4edit_update_adress(&hex4edit5feat, &temparray_0x30311[edited_line2 + 1].DisId);
 		kiss_hex4edit_update_adress(&hex4edit6feat, &temparray_0x30311[edited_line2 + 1].word_10);
 		kiss_hex4edit_update_adress(&hex4edit7feat, &temparray_0x30311[edited_line2 + 1].word_12);
 		kiss_hex4edit_update_adress(&hex4edit8feat, &temparray_0x30311[edited_line2 + 1].word_14);
@@ -1066,11 +1079,11 @@ static int button_clean_event(kiss_button* button, SDL_Event* e, int* quit, int*
 		memset(&temparray_0x30311[edited_line2 + 1], 0, sizeof(temparray_0x30311[edited_line2 + 1]));
 		temparray_0x30311_inactive[edited_line2 + 1] = false;
 		temparray_0x30311_selected[edited_line2 + 1] = false;
-		kiss_hex4edit_update_adress(&hex4edit1feat, &temparray_0x30311[edited_line2 + 1].str_0x30311_word_0);
-		kiss_hex4edit_update_adress(&hex4edit2feat, &temparray_0x30311[edited_line2 + 1].str_0x30311_word_2);
-		kiss_hex4edit_update_adress(&hex4edit3feat, &temparray_0x30311[edited_line2 + 1].axis3d_4.x);
-		kiss_hex4edit_update_adress(&hex4edit4feat, &temparray_0x30311[edited_line2 + 1].axis3d_4.y);
-		kiss_hex4edit_update_adress(&hex4edit5feat, &temparray_0x30311[edited_line2 + 1].axis3d_4.z);
+		kiss_hex4edit_update_adress(&hex4edit1feat, &temparray_0x30311[edited_line2 + 1].str_0x30311_type);
+		kiss_hex4edit_update_adress(&hex4edit2feat, &temparray_0x30311[edited_line2 + 1].str_0x30311_subtype);
+		kiss_hex4edit_update_adress(&hex4edit3feat, &temparray_0x30311[edited_line2 + 1].axis2d_4.x);
+		kiss_hex4edit_update_adress(&hex4edit4feat, &temparray_0x30311[edited_line2 + 1].axis2d_4.y);
+		kiss_hex4edit_update_adress(&hex4edit5feat, &temparray_0x30311[edited_line2 + 1].DisId);
 		kiss_hex4edit_update_adress(&hex4edit6feat, &temparray_0x30311[edited_line2 + 1].word_10);
 		kiss_hex4edit_update_adress(&hex4edit7feat, &temparray_0x30311[edited_line2 + 1].word_12);
 		kiss_hex4edit_update_adress(&hex4edit8feat, &temparray_0x30311[edited_line2 + 1].word_14);
@@ -1178,10 +1191,10 @@ void SetSelected(kiss_terrain* terrain, type_str_0x30311* temp303array, bool* se
 	int count = 0;
 	for (int i = 0; i < 0x4b0; i++)
 	{
-		if ((temp303array[i].axis3d_4.x <= xmax) &&
-			(temp303array[i].axis3d_4.x >= xmin) &&
-			(temp303array[i].axis3d_4.y <= ymax) &&
-			(temp303array[i].axis3d_4.y >= ymin))
+		if ((temp303array[i].axis2d_4.x <= xmax) &&
+			(temp303array[i].axis2d_4.x >= xmin) &&
+			(temp303array[i].axis2d_4.y <= ymax) &&
+			(temp303array[i].axis2d_4.y >= ymin))
 		{
 			selecedarray[i] = true;
 			count++;
@@ -1200,7 +1213,7 @@ void SetSelected(kiss_terrain* terrain, type_str_0x30311* temp303array, bool* se
 		int finded = -1;
 		for (int i = 0; i < 0x4b0; i++)
 		{
-			int actdist = abs(findx - temp303array[i].axis3d_4.x) + abs(findy - temp303array[i].axis3d_4.y);
+			int actdist = abs(findx - temp303array[i].axis2d_4.x) + abs(findy - temp303array[i].axis2d_4.y);
 			if (actdist < dist) {
 				finded = i;
 				dist = actdist;
@@ -1587,11 +1600,29 @@ int main_x(/*int argc, char** argv*/)
 	img_type05_01.magic = KISS_MAGIC;
 	img_type05_01.image = IMG_LoadTexture(editor_renderer, path2);
 
+	FixDir(path2, (char*)"kiss\\type05-02-bee.png");
+	img_type05_02.w = 32;
+	img_type05_02.h = 32;
+	img_type05_02.magic = KISS_MAGIC;
+	img_type05_02.image = IMG_LoadTexture(editor_renderer, path2);
+
+	FixDir(path2, (char*)"kiss\\type05-03-worm.png");
+	img_type05_03.w = 32;
+	img_type05_03.h = 32;
+	img_type05_03.magic = KISS_MAGIC;
+	img_type05_03.image = IMG_LoadTexture(editor_renderer, path2);
+
 	FixDir(path2, (char*)"kiss\\type05-04-archer.png");
 	img_type05_04.w = 32;
 	img_type05_04.h = 32;
 	img_type05_04.magic = KISS_MAGIC;
 	img_type05_04.image = IMG_LoadTexture(editor_renderer, path2);
+
+	FixDir(path2, (char*)"kiss\\type05-09-skeleton.png");
+	img_type05_09.w = 32;
+	img_type05_09.h = 32;
+	img_type05_09.magic = KISS_MAGIC;
+	img_type05_09.image = IMG_LoadTexture(editor_renderer, path2);
 
 	FixDir(path2, (char*)"kiss\\type05-13-fly.png");
 	img_type05_13.w = 32;
@@ -1610,6 +1641,24 @@ int main_x(/*int argc, char** argv*/)
 	img_type0A_01.h = 32;
 	img_type0A_01.magic = KISS_MAGIC;
 	img_type0A_01.image = IMG_LoadTexture(editor_renderer, path2);
+
+	FixDir(path2, (char*)"kiss\\type0A-06-fire.png");
+	img_type0A_06.w = 32;
+	img_type0A_06.h = 32;
+	img_type0A_06.magic = KISS_MAGIC;
+	img_type0A_06.image = IMG_LoadTexture(editor_renderer, path2);
+
+	FixDir(path2, (char*)"kiss\\type0A-16-vortex.png");
+	img_type0A_16.w = 32;
+	img_type0A_16.h = 32;
+	img_type0A_16.magic = KISS_MAGIC;
+	img_type0A_16.image = IMG_LoadTexture(editor_renderer, path2);
+
+	FixDir(path2, (char*)"kiss\\type0A-27-mana.png");
+	img_type0A_27.w = 32;
+	img_type0A_27.h = 32;
+	img_type0A_27.magic = KISS_MAGIC;
+	img_type0A_27.image = IMG_LoadTexture(editor_renderer, path2);
 
 	FixDir(path2, (char*)"kiss\\type0A-3B-smooke2.png");
 	img_type0A_3B.w = 32;
@@ -1814,11 +1863,11 @@ int main_x(/*int argc, char** argv*/)
 				window2.focus = 1;
 				window1.focus = 0;
 				sprintf(labelIndexWind2.text, "INDEX:%03X", edited_line2 + 1);
-				kiss_hex4edit_update_adress(&hex4edit1feat, &temparray_0x30311[edited_line2 + 1].str_0x30311_word_0);
-				kiss_hex4edit_update_adress(&hex4edit2feat, &temparray_0x30311[edited_line2 + 1].str_0x30311_word_2);
-				kiss_hex4edit_update_adress(&hex4edit3feat, &temparray_0x30311[edited_line2 + 1].axis3d_4.x);
-				kiss_hex4edit_update_adress(&hex4edit4feat, &temparray_0x30311[edited_line2 + 1].axis3d_4.y);
-				kiss_hex4edit_update_adress(&hex4edit5feat, &temparray_0x30311[edited_line2 + 1].axis3d_4.z);
+				kiss_hex4edit_update_adress(&hex4edit1feat, &temparray_0x30311[edited_line2 + 1].str_0x30311_type);
+				kiss_hex4edit_update_adress(&hex4edit2feat, &temparray_0x30311[edited_line2 + 1].str_0x30311_subtype);
+				kiss_hex4edit_update_adress(&hex4edit3feat, &temparray_0x30311[edited_line2 + 1].axis2d_4.x);
+				kiss_hex4edit_update_adress(&hex4edit4feat, &temparray_0x30311[edited_line2 + 1].axis2d_4.y);
+				kiss_hex4edit_update_adress(&hex4edit5feat, &temparray_0x30311[edited_line2 + 1].DisId);
 				kiss_hex4edit_update_adress(&hex4edit6feat, &temparray_0x30311[edited_line2 + 1].word_10);
 				kiss_hex4edit_update_adress(&hex4edit7feat, &temparray_0x30311[edited_line2 + 1].word_12);
 				kiss_hex4edit_update_adress(&hex4edit8feat, &temparray_0x30311[edited_line2 + 1].word_14);
@@ -1831,8 +1880,8 @@ int main_x(/*int argc, char** argv*/)
 					select1feat.selected = true;
 				changed2 = true;
 				terrainzoomfeat = 4;
-				float cursorpixx = temparray_0x30311[edited_line2 + 1].axis3d_4.x;
-				float cursorpixy = temparray_0x30311[edited_line2 + 1].axis3d_4.y;
+				float cursorpixx = temparray_0x30311[edited_line2 + 1].axis2d_4.x;
+				float cursorpixy = temparray_0x30311[edited_line2 + 1].axis2d_4.y;
 				terrainbeginxfeat = cursorpixx - (terrainfeat.rect.w / 2) / (terrainzoomfeat * 2);
 				terrainbeginyfeat = cursorpixy - (terrainfeat.rect.h / 2) / (terrainzoomfeat * 2);
 			}
@@ -1935,10 +1984,10 @@ int main_x(/*int argc, char** argv*/)
 			int terevfeat = kiss_terrain_eventfeat(&terrainfeat, &e, &draw, mousex, mousey, &tersetposx, &tersetposy);
 			if (terevfeat == 20)
 			{
-				temparray_0x30311[edited_line2 + 1].axis3d_4.x = tersetposx;
-				temparray_0x30311[edited_line2 + 1].axis3d_4.y = tersetposy;
-				kiss_hex4edit_update_adress(&hex4edit3feat, &temparray_0x30311[edited_line2 + 1].axis3d_4.x);
-				kiss_hex4edit_update_adress(&hex4edit4feat, &temparray_0x30311[edited_line2 + 1].axis3d_4.y);
+				temparray_0x30311[edited_line2 + 1].axis2d_4.x = tersetposx;
+				temparray_0x30311[edited_line2 + 1].axis2d_4.y = tersetposy;
+				kiss_hex4edit_update_adress(&hex4edit3feat, &temparray_0x30311[edited_line2 + 1].axis2d_4.x);
+				kiss_hex4edit_update_adress(&hex4edit4feat, &temparray_0x30311[edited_line2 + 1].axis2d_4.y);
 				changed2 = true;
 			}
 

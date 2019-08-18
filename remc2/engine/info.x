@@ -7933,3 +7933,74 @@ char sub_59DC0(type_str_0x6E8E* a1x)//23adc0
 x_DWORD_DDF50_texture_adresses[147]-256
 
 spell moving
+
+(Bit8u*)&D41A0_BYTESTR_0+0x4a31 0x4f 
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x4a31 0xbe
+0x356038 +0x4a31
+
+(Bit8u*)&D41A0_BYTESTR_0+0x16654 0xb0 90
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x16654 0x00
+0x356038 +0x16654
+
+(Bit8u*)&D41A0_BYTESTR_0+0x14fb2 0x1d
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x14fb2 0x0d
+0x356038 +0x14fb2
+
+(Bit8u*)&D41A0_BYTESTR_0+0x1601a 0x1c
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x1601a 0x0c
+0x356038 +0x1601a
+v1==3
+
+void sub_A38E0_init_sample(HSAMPLE S/*S32     format,U32     flags*/)//2848e0
+
+x_DWORD_181E10
+
+x_DWORD_180B48
+
+adress 230fb0
+
+(Bit8u*)&D41A0_BYTESTR_0+0x4aac 0x1f
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x4aac 0x97
+0x356038 +0x4aac
+
+void sub_159E0()//1f69e0
+
+v2x->dword_0xA4_164x->word_0x242_578
+x_DWORD_EA3E4[0xb]->dword_0xA4_164x->word_0x242_578
+versus
+035d6a2->2c75e28
+281f26
+
+int sub_A0F06(int a1, int a2, int a3, int a4, int a5, int a6, int a7)//281f06
+
+(Bit8u*)&D41A0_BYTESTR_0+0x4aac 0x1f
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x4aac 0x97
+0x356038 +0x4aac
+
+memory_readable
+
+(Bit8u*)&D41A0_BYTESTR_0+0x4aac 0x1f
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x4aac 0x97
+0x356038 +0x4aac
+
+x_DWORD_EA3E4[i] = &D41A0_BYTESTR_0.struct_0x6E8E[i]
+&D41A0_BYTESTR_0.struct_0x6E8E[0]
+
+x_DWORD_EA3E4[0xb]->dword_0xA4_164x tj.
+D41A0_BYTESTR_0.struct_0x6E8E[0xb].dword_0xA4_164x
+
+unk_F42B0x
+0x2c75e28-D41A0_BYTESTR_0.dword_0x36DF6
+
+	for (int indexx = 1; x_DWORD_EA3E4[indexx] < x_DWORD_EA3E4[0x3e8]; indexx++)
+		//if (memory_readable(x_DWORD_EA3E4[indexx]->dword_0xA4_164x,4))
+		{
+			if ((Bit32u)x_DWORD_EA3E4[indexx]->dword_0xA4_164x == 0x2c75e28)//0x014F82E8//0x2c75e28-(Bit32u)&D41A0_BYTESTR_0
+				x_DWORD_EA3E4[indexx]->dword_0xA4_164x = unk_F42B0x;
+		}
+
+adress 2321e6
+
+int sub_6D4F0(type_str_611* a1x, __int16 a2)//24e4f0
+char sub_88D40()//269d40
+void sub_2ECC0_draw_bottom_menu()//20fcc0
