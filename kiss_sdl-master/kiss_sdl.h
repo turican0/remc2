@@ -148,6 +148,51 @@ typedef struct kiss_button {
 	kiss_window* wdw;
 } kiss_button;
 
+typedef struct kiss_hex2edit {
+	int visible;
+	int focus;
+
+	SDL_Rect leftrect1;
+	SDL_Rect leftrect2;
+
+	SDL_Rect rightrect1;
+	SDL_Rect rightrect2;
+
+	int left1active;
+	int left2active;
+	int right1active;
+	int right2active;
+
+	int left1prelight;
+	int left2prelight;
+	int right1prelight;
+	int right2prelight;
+
+	int textx;
+	int texty;
+	char text[KISS_MAX_LENGTH];
+	//int prelight;
+	SDL_Color textcolor;
+	kiss_font font;
+
+	int valuetextx;
+	int valuetexty;
+	char valuetext[KISS_MAX_LENGTH];
+	SDL_Color valuetextcolor;
+	kiss_font valuefont;
+
+	void* valueadress;
+
+	/*kiss_image normalimg;
+	kiss_image activeimg;
+	kiss_image prelightimg;*/
+	kiss_image left;
+	kiss_image left_sel;
+	kiss_image right;
+	kiss_image right_sel;
+	kiss_window* wdw;
+} kiss_hex2edit;
+
 typedef struct kiss_hex4edit {
 	int visible;
 	int focus;
@@ -473,6 +518,12 @@ extern "C" {
 	int kiss_hscrollbar_event(kiss_hscrollbar* hscrollbar, SDL_Event* event,int* draw);
 	int kiss_hscrollbar_draw(kiss_hscrollbar* hscrollbar,SDL_Renderer* renderer);
 
+	int kiss_hex2edit_new(kiss_hex2edit* hex2edit, kiss_window* wdw, void* adress, char* text, int x, int y);
+	int kiss_hex2edit_update_adress(kiss_hex2edit* hex2edit, void* adress);
+	int kiss_hex2edit_event(kiss_hex2edit* hex2edit, SDL_Event* event, int* draw);
+	int kiss_hex2edit_draw(kiss_hex2edit* hex2edit, SDL_Renderer* renderer);
+	void kiss_hex2edit_set(kiss_hex2edit* hex2edit, int value);
+
 	int kiss_hex4edit_new(kiss_hex4edit* hex4edit, kiss_window* wdw, void* adress, char* text, int x, int y);
 	int kiss_hex4edit_update_adress(kiss_hex4edit* hex4edit, void* adress);
 	int kiss_hex4edit_event(kiss_hex4edit* hex4edit, SDL_Event* event, int* draw);
@@ -500,6 +551,7 @@ extern "C" {
 		kiss_array* a, int x, int y, int w, int h);
 	int kiss_textbox_event(kiss_textbox* textbox, SDL_Event* event, int mousex,int mousey,int* draw);
 	int kiss_textbox_draw(kiss_textbox* textbox, SDL_Renderer* renderer);
+	void kiss_textbox_setviewon(kiss_textbox* textbox, int position);
 	int kiss_combobox_new(kiss_combobox* combobox, kiss_window* wdw,
 		char* text, kiss_array* a, int x, int y, int w, int h);
 	int kiss_combobox_event(kiss_combobox* combobox, SDL_Event* event,

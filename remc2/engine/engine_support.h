@@ -1167,11 +1167,24 @@ typedef struct {//lenght 110 //word_0x360D2
 }
 type_str_0x360D2;
 
+//objective type
+//0 - collect mana
+//1 - kill creature2 - must fix entites
+//2 -
+//3 - kill enemy player
+//4 -
+//5 - release point
+//6 -
+//7 - kill creature - must fix entites
+//8 - kill all players
+//9 - destroy building - must fix entites
+
 typedef struct {
 	Bit8s byte_0;
 	Bit16s word_1;//25973//word_0
-	Bit16s word_3;//25975//word_2
-	Bit16s word_5; //25977//word_4
+	axis_2d axis_2d;
+	//Bit16s word_3;//25975//word_2
+	//Bit16s word_5; //25977//word_4
 	/*
 	Bit16s word_0;//25973
 	Bit16s word_2;//25975
@@ -1241,14 +1254,22 @@ typedef struct {//lenght 0x6604u
 	//konec 6604
 } type_str_2FECE;//compress level 
 
+typedef union{
+	Bit32s dword;
+	Bit16u* ptr16u;
+	type_str_0x30311* ptr0x30311;
+	type_str_0x6E8E* ptr0x6E8E;
+}
+un_str_36552;
 typedef struct {//size 10 count 8
 	Bit8s str_3654C_byte0;//222540
 	Bit8s str_3654D_byte1;
-	Bit16s str_3654E_word2;//objective parametres
+	axis_2d str_3654E_axis;
+	//Bit16s str_3654E_word2;//objective parametres
 	//Bit8s str_3654F_byte3;
-	Bit16s str_36550_word4;
+	//Bit16s str_36550_word4;
 	//Bit8s str_36551_byte5;
-	Bit32s str_36552_dword6; //pointer sometimes
+	un_str_36552 str_36552_un; //pointer sometimes
 	//Bit8s str_36553_byte7;
 	//Bit8s str_36554_byte8;
 	//Bit8s str_36555_byte9;

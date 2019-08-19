@@ -19,13 +19,22 @@ float terrainzoomfeat = 1;
 int terrainbeginxfeat = 0;
 int terrainbeginyfeat = 0;
 
+float terrainzoomcheck = 1;
+int terrainbeginxcheck = 0;
+int terrainbeginycheck = 0;
+
 int edited_line = -1;
+int edited_line_old = -1;
+
 int edited_line2 = -1;
+int edited_line2_old = -1;
 
 SDL_Surface* mapsurface;
 SDL_Surface* mapsurfacefeat;
+SDL_Surface* mapsurfacecheck;
 kiss_image mapimage;
 kiss_image mapimagefeat;
+kiss_image mapimagecheck;
 SDL_Renderer* editor_renderer;
 
 type_str_0x30311 temparray_0x30311[0x4b0];
@@ -62,6 +71,24 @@ void SetPixelMapSurfacefeat(int x, int y, int nx, int ny, Bit8u* adress) {
 	}
 	int color = adress[nx + ny * 256];
 	Bit8u* scrbuff = (Bit8u*)mapsurfacefeat->pixels;
+	scrbuff[4 * (y * 512 + x)] = color;
+	scrbuff[4 * (y * 512 + x) + 1] = color;
+	scrbuff[4 * (y * 512 + x) + 2] = color;
+	scrbuff[4 * (y * 512 + x) + 3] = 255;
+}
+
+void SetPixelMapSurfacecheck(int x, int y, int nx, int ny, Bit8u* adress) {
+	if (nx < 0 || nx>255 || ny < 0 || ny>255)
+	{
+		Bit8u* scrbuff = (Bit8u*)mapsurfacecheck->pixels;
+		scrbuff[4 * (y * 512 + x)] = 255;
+		scrbuff[4 * (y * 512 + x) + 1] = 0;
+		scrbuff[4 * (y * 512 + x) + 2] = 0;
+		scrbuff[4 * (y * 512 + x) + 3] = 255;
+		return;
+	}
+	int color = adress[nx + ny * 256];
+	Bit8u* scrbuff = (Bit8u*)mapsurfacecheck->pixels;
 	scrbuff[4 * (y * 512 + x)] = color;
 	scrbuff[4 * (y * 512 + x) + 1] = color;
 	scrbuff[4 * (y * 512 + x) + 2] = color;
@@ -405,16 +432,16 @@ void fillterrain(kiss_terrain* terrain, float zoom, int beginx, int beginy) {
 		{
 			for (int i = -8; i <= 8; i++)
 			{
-				int actx = (actstage.word_3 - beginx) * (zoom * 2)+i;
-				int acty = (actstage.word_5 - beginy) * (zoom * 2)-i;
+				int actx = (actstage.axis_2d.x - beginx) * (zoom * 2)+i;
+				int acty = (actstage.axis_2d.y - beginy) * (zoom * 2)-i;
 				if (actx >= 0 && acty >= 0 && actx < 512 && acty < 512)
 				{
 					scrbuff[4 * (acty * 512 + actx)] = 255;//setyellow
 					scrbuff[4 * (acty * 512 + actx) + 1] = 255;
 					scrbuff[4 * (acty * 512 + actx) + 2] = 0;					
 				}
-				actx = (actstage.word_3 - beginx) * (zoom * 2) + i;
-				acty = (actstage.word_5 - beginy) * (zoom * 2) + i;
+				actx = (actstage.axis_2d.x - beginx) * (zoom * 2) + i;
+				acty = (actstage.axis_2d.y - beginy) * (zoom * 2) + i;
 				if (actx >= 0 && acty >= 0 && actx < 512 && acty < 512)
 				{
 					scrbuff[4 * (acty * 512 + actx)] = 255;//setyellow
@@ -456,7 +483,199 @@ void fillterrain(kiss_terrain* terrain, float zoom, int beginx, int beginy) {
 	}
 };
 
-void fillterrainfeat(float zoom, int beginx, int beginy) {	
+void fillterraincheck(float zoom, int beginx, int beginy) {	
+	Bit8u terrchecklayer[256 * 256];
+	for (int j = 0; j < 256; j++)
+		for (int i = 0; i < 256; i++)
+		{
+			terrchecklayer[i + j * 256] = 0;
+		}
+	for (int i = 0; i < 0x4B0; i++)
+	{
+		type_str_0x30311 actfeat = temparray_0x30311[first_terrain_feature + i];
+		if ((actfeat.axis2d_4.x > -1) && (actfeat.axis2d_4.x < 256) && (actfeat.axis2d_4.y > -1) && (actfeat.axis2d_4.y < 256))
+			terrchecklayer[actfeat.axis2d_4.x + actfeat.axis2d_4.y * 256] = actfeat.str_0x30311_type;//all entites
+	}
+
+	type_str_0x30311 actfeat = temparray_0x30311[edited_line_old + 1];
+	if ((actfeat.axis2d_4.x > -1) && (actfeat.axis2d_4.x < 256) && (actfeat.axis2d_4.y > -1) && (actfeat.axis2d_4.y < 256))
+		terrchecklayer[actfeat.axis2d_4.x + actfeat.axis2d_4.y * 256] = 0xf0;//selected entity
+
+	Bit8u* scrbuff = (Bit8u*)mapsurfacecheck->pixels;
+	for (int j = 0; j < 512; j++)
+		for (int i = 0; i < 512; i++)
+		{
+			int nx = beginx + i / (zoom * 2);
+			int ny = beginy + j / (zoom * 2);			
+			if ((nx > -1 && nx<256 && ny > -1 && ny < 256))
+			{				
+				switch (terrchecklayer[nx + ny * 256])
+				{
+				case 0:
+					switch (maptypefeat)
+					{
+					case 0:
+						SetPixelMapSurfacecheck(i, j, nx, ny, x_BYTE_10B4E0_terraintype);
+						break;
+					case 1:
+						SetPixelMapSurfacecheck(i, j, nx, ny, x_BYTE_11B4E0_height);
+						break;
+					case 2:
+						SetPixelMapSurfacecheck(i, j, nx, ny, x_BYTE_12B4E0_shading);
+						break;
+					case 3:
+						SetPixelMapSurfacecheck(i, j, nx, ny, x_BYTE_13B4E0_angle);
+						break;
+					}
+					break;
+
+				case 0x5:
+					scrbuff[4 * (j * 512 + i)] = 0;//setgreen
+					scrbuff[4 * (j * 512 + i) + 1] = 255;
+					scrbuff[4 * (j * 512 + i) + 2] = 0;
+					scrbuff[4 * (j * 512 + i) + 3] = 255;
+					break;
+				case 0xa:
+					scrbuff[4 * (j * 512 + i)] = 0;//setblue
+					scrbuff[4 * (j * 512 + i) + 1] = 0;
+					scrbuff[4 * (j * 512 + i) + 2] = 255;
+					scrbuff[4 * (j * 512 + i) + 3] = 255;
+					break;
+				case 0xf0:
+					scrbuff[4 * (j * 512 + i)] = 255;//setwhite
+					scrbuff[4 * (j * 512 + i) + 1] = 255;
+					scrbuff[4 * (j * 512 + i) + 2] = 255;
+					scrbuff[4 * (j * 512 + i) + 3] = 255;
+					break;
+				case 0x2:
+				case 0x3:
+					scrbuff[4 * (j * 512 + i)] = 255;//set brow
+					scrbuff[4 * (j * 512 + i) + 1] = 255;
+					scrbuff[4 * (j * 512 + i) + 2] = 0;
+					scrbuff[4 * (j * 512 + i) + 3] = 255;
+					break;
+				case 0xb:
+					scrbuff[4 * (j * 512 + i)] = 0;//set cyan
+					scrbuff[4 * (j * 512 + i) + 1] = 255;
+					scrbuff[4 * (j * 512 + i) + 2] = 255;
+					scrbuff[4 * (j * 512 + i) + 3] = 255;
+					break;
+				case 0xe:
+					scrbuff[4 * (j * 512 + i)] = 255;//set magenta
+					scrbuff[4 * (j * 512 + i) + 1] = 0;
+					scrbuff[4 * (j * 512 + i) + 2] = 255;
+					scrbuff[4 * (j * 512 + i) + 3] = 255;
+					break;
+				default:
+					scrbuff[4 * (j * 512 + i)] = 255;//setred
+					scrbuff[4 * (j * 512 + i) + 1] = 0;
+					scrbuff[4 * (j * 512 + i) + 2] = 0;
+					scrbuff[4 * (j * 512 + i) + 3] = 255;
+					break;
+				}
+			}
+			else
+			{
+				scrbuff[4 * (j * 512 + i)] = 255;//setred
+				scrbuff[4 * (j * 512 + i) + 1] = 0;
+				scrbuff[4 * (j * 512 + i) + 2] = 0;
+				scrbuff[4 * (j * 512 + i) + 3] = 255;
+			}
+		}
+
+	for (int i = 0; i < 0x4B0; i++)
+	{
+		type_str_0x30311 actfeat = temparray_0x30311[i];
+		if ((actfeat.str_0x30311_type == 0xa) && (actfeat.str_0x30311_subtype == 0x1d) && (actfeat.word_14 > 0))
+		{
+			int startx = (actfeat.axis2d_4.x - beginx) * (zoom * 2);
+			int starty = (actfeat.axis2d_4.y - beginy) * (zoom * 2);
+			int endx = (temparray_0x30311[actfeat.word_14].axis2d_4.x - beginx) * (zoom * 2);
+			int endy = (temparray_0x30311[actfeat.word_14].axis2d_4.y - beginy) * (zoom * 2);
+			int lenx = abs(startx - endx);
+			int leny = abs(starty - endy);
+			if (lenx > 0 || leny > 0)
+			{
+				float stepx, stepy;
+				if (lenx > leny)
+				{
+					stepy = (endy - starty) / (float)(endx - startx);
+					if (endx > startx)
+						stepx = 1;
+					else
+					{
+						stepx = -1;
+						stepy *= -1;
+					}
+					float acty = starty;
+					for (float actx = startx; abs(endx - actx) > 1.5; actx += stepx)
+					{
+						acty += stepy;
+						if (actx >= 0 && acty >= 0 && actx < 512 && acty < 512)
+						{
+							scrbuff[4 * ((int)acty * 512 + (int)actx)] = 255 - scrbuff[4 * ((int)acty * 512 + (int)actx)];//set invert
+							scrbuff[4 * ((int)acty * 512 + (int)actx) + 1] = 255 - scrbuff[4 * ((int)acty * 512 + (int)actx) + 1];
+							scrbuff[4 * ((int)acty * 512 + (int)actx) + 2] = 255 - scrbuff[4 * ((int)acty * 512 + (int)actx) + 2];
+							//scrbuff[4 * ((int)acty * 512 + (int)actx) + 3] = 255;
+						}
+					}
+				}
+				else
+				{
+					stepx = (endx - startx) / (float)(endy - starty);
+					if (endy > starty)
+						stepy = 1;
+					else
+					{
+						stepy = -1;
+						stepx *= -1;
+					}
+					float actx = startx;
+					for (float acty = starty; abs(endy - acty) > 1.5; acty += stepy)
+					{
+						actx += stepx;
+						if (actx >= 0 && acty >= 0 && actx < 512 && acty < 512)
+						{
+							scrbuff[4 * ((int)acty * 512 + (int)actx)] = 255 - scrbuff[4 * ((int)acty * 512 + (int)actx)];//set invert
+							scrbuff[4 * ((int)acty * 512 + (int)actx) + 1] = 255 - scrbuff[4 * ((int)acty * 512 + (int)actx) + 1];
+							scrbuff[4 * ((int)acty * 512 + (int)actx) + 2] = 255 - scrbuff[4 * ((int)acty * 512 + (int)actx) + 2];
+							//scrbuff[4 * ((int)acty * 512 + (int)actx) + 3] = 255;
+						}
+					}
+				}
+			}
+		}
+	}
+	for (int i = 0; i < 0x8; i++)
+	{
+		type_str_0x36442 actstage = D41A0_BYTESTR_0.str_2FECE.str_0x36442[i];
+		if (actstage.byte_0 == 5)
+		{
+			for (int i = -8; i <= 8; i++)
+			{
+				int actx = (actstage.axis_2d.x - beginx) * (zoom * 2) + i;
+				int acty = (actstage.axis_2d.y - beginy) * (zoom * 2) - i;
+				if (actx >= 0 && acty >= 0 && actx < 512 && acty < 512)
+				{
+					scrbuff[4 * (acty * 512 + actx)] = 255;//setyellow
+					scrbuff[4 * (acty * 512 + actx) + 1] = 255;
+					scrbuff[4 * (acty * 512 + actx) + 2] = 0;
+				}
+				actx = (actstage.axis_2d.x - beginx) * (zoom * 2) + i;
+				acty = (actstage.axis_2d.y - beginy) * (zoom * 2) + i;
+				if (actx >= 0 && acty >= 0 && actx < 512 && acty < 512)
+				{
+					scrbuff[4 * (acty * 512 + actx)] = 255;//setyellow
+					scrbuff[4 * (acty * 512 + actx) + 1] = 255;
+					scrbuff[4 * (acty * 512 + actx) + 2] = 0;
+				}
+			}
+		}
+		//sprintf(temp, "%01X |%02X|%04X|%04X|%04X", i, (Bit8u)actstage.byte_0, actstage.word_1, actstage.word_3, actstage.word_5);
+	}
+};
+
+void fillterrainfeat(float zoom, int beginx, int beginy) {
 	Bit8u terrfeatlayer[256 * 256];
 	for (int j = 0; j < 256; j++)
 		for (int i = 0; i < 256; i++)
@@ -470,7 +689,7 @@ void fillterrainfeat(float zoom, int beginx, int beginy) {
 			terrfeatlayer[actfeat.axis2d_4.x + actfeat.axis2d_4.y * 256] = actfeat.str_0x30311_type;//all entites
 	}
 
-	type_str_0x30311 actfeat = temparray_0x30311[edited_line2 + 1];
+	type_str_0x30311 actfeat = temparray_0x30311[edited_line_old + 1];
 	if ((actfeat.axis2d_4.x > -1) && (actfeat.axis2d_4.x < 256) && (actfeat.axis2d_4.y > -1) && (actfeat.axis2d_4.y < 256))
 		terrfeatlayer[actfeat.axis2d_4.x + actfeat.axis2d_4.y * 256] = 0xf0;//selected entity
 
@@ -479,9 +698,9 @@ void fillterrainfeat(float zoom, int beginx, int beginy) {
 		for (int i = 0; i < 512; i++)
 		{
 			int nx = beginx + i / (zoom * 2);
-			int ny = beginy + j / (zoom * 2);			
+			int ny = beginy + j / (zoom * 2);
 			if ((nx > -1 && nx<256 && ny > -1 && ny < 256))
-			{				
+			{
 				switch (terrfeatlayer[nx + ny * 256])
 				{
 				case 0:
@@ -626,16 +845,16 @@ void fillterrainfeat(float zoom, int beginx, int beginy) {
 		{
 			for (int i = -8; i <= 8; i++)
 			{
-				int actx = (actstage.word_3 - beginx) * (zoom * 2) + i;
-				int acty = (actstage.word_5 - beginy) * (zoom * 2) - i;
+				int actx = (actstage.axis_2d.x - beginx) * (zoom * 2) + i;
+				int acty = (actstage.axis_2d.y - beginy) * (zoom * 2) - i;
 				if (actx >= 0 && acty >= 0 && actx < 512 && acty < 512)
 				{
 					scrbuff[4 * (acty * 512 + actx)] = 255;//setyellow
 					scrbuff[4 * (acty * 512 + actx) + 1] = 255;
 					scrbuff[4 * (acty * 512 + actx) + 2] = 0;
 				}
-				actx = (actstage.word_3 - beginx) * (zoom * 2) + i;
-				acty = (actstage.word_5 - beginy) * (zoom * 2) + i;
+				actx = (actstage.axis_2d.x - beginx) * (zoom * 2) + i;
+				acty = (actstage.axis_2d.y - beginy) * (zoom * 2) + i;
 				if (actx >= 0 && acty >= 0 && actx < 512 && acty < 512)
 				{
 					scrbuff[4 * (acty * 512 + actx)] = 255;//setyellow
@@ -751,7 +970,7 @@ static void terrain_stages_append(kiss_textbox* textbox) {
 	for (int i = 0; i < 8; i++)
 	{
 		type_str_0x36442 actstage = D41A0_BYTESTR_0.str_2FECE.str_0x36442[i];
-		sprintf(temp, "%01X |%02X|%04X|%04X|%04X", i, (Bit8u)actstage.byte_0, actstage.word_1, actstage.word_3, actstage.word_5);
+		sprintf(temp, "%01X |%02X|%04X|%04X|%04X", i, (Bit8u)actstage.byte_0, actstage.word_1, actstage.axis_2d.x, actstage.axis_2d.y);
 		kiss_array_appendstring(textbox->array, 0, (char*)"", temp);
 	}
 	//text_reset(textbox1, vscrollbar1);
@@ -783,6 +1002,39 @@ static int textbox1_event(kiss_textbox* textbox, SDL_Event* e,	kiss_vscrollbar* 
 					temparray_0x30311_selected[index +1] = false;
 				else
 					temparray_0x30311_selected[index +1] = true;
+				textbox->selectedline = -1;
+				*draw = 1;
+				result = -2;
+			}
+		}
+	return result;
+}
+
+static int textbox2_event(kiss_textbox* textbox, SDL_Event* e, int mousex, int mousey, int* draw)
+{
+	int index;
+	int result = -1;
+	int textret = kiss_textbox_event(textbox, e, mousex, mousey, draw);
+	if (textret == 1) {
+		index = textbox->firstline + textbox->selectedline;
+		if (strcmp((char*)kiss_array_data(textbox->array, index), "")) {
+			textbox->selectedline = -1;
+			//kiss_chdir((char*)kiss_array_data(textbox->array,index));
+			result = index;
+			//dirent_read(textbox, vscrollbar1, textbox2,	vscrollbar2, label_sel);
+			*draw = 1;
+		}
+	}
+	else
+		if (textret == 40)
+		{
+			if (textbox->selectedline != -1)
+			{
+				index = textbox->firstline + textbox->selectedline;
+				if (temparray_0x30311_selected[index + 1])
+					temparray_0x30311_selected[index + 1] = false;
+				else
+					temparray_0x30311_selected[index + 1] = true;
 				textbox->selectedline = -1;
 				*draw = 1;
 				result = -2;
@@ -860,7 +1112,8 @@ static void button_ok1_event(kiss_button* button, SDL_Event* e,	kiss_window* win
 	}
 }
 
-kiss_window window1, window2,window_selecttype, window_selectsubtype;
+
+kiss_window window1, window2, window3,window_selecttype, window_selectsubtype, window_selectcheck;
 kiss_hex4edit hex4edit1feat = { 0 };
 kiss_hex4edit hex4edit2feat = { 0 };
 kiss_hex4edit hex4edit3feat = { 0 };
@@ -871,6 +1124,12 @@ kiss_hex4edit hex4edit7feat = { 0 };
 kiss_hex4edit hex4edit8feat = { 0 };
 kiss_hex4edit hex4edit9feat = { 0 };
 kiss_hex4edit hex4edit10feat = { 0 };
+
+kiss_hex2edit hex2edit1check = { 0 };
+kiss_hex4edit hex4edit2check = { 0 };
+kiss_hex4edit hex4edit3check = { 0 };
+kiss_hex4edit hex4edit4check = { 0 };
+
 
 static void button_cancel_event(kiss_button* button, SDL_Event* e,
 	int* quit, int* draw)
@@ -920,7 +1179,18 @@ static void button_ok_event(kiss_button* button, SDL_Event* e,
 	}//*quit = 1;
 }
 
-static int button_type_event(kiss_button* button, SDL_Event* e, int* draw, int index, kiss_window* oldwindow, kiss_window* window, kiss_window* window_selecttype) {
+static void button_ok_check_event(kiss_button* button, SDL_Event* e,
+	int* quit, int* draw)
+{
+	if (kiss_button_event(button, e, draw))
+	{
+		window3.visible = 0;
+		window3.focus = 0;
+		window1.focus = 1;
+	}//*quit = 1;
+}
+
+static int button_type_event(kiss_button* button, SDL_Event* e, int* draw, int index, kiss_window* oldwindow, kiss_window* window) {
 	if (kiss_button_event(button, e, draw))
 	{
 		/*window_selecttype->visible = 0;
@@ -928,7 +1198,6 @@ static int button_type_event(kiss_button* button, SDL_Event* e, int* draw, int i
 		window_selecttype->focus = 0;*/
 		window->visible = 0;
 		oldwindow->focus = 1;
-		window->focus = 0;
 		window->focus = 0;
 		return index;
 	}
@@ -944,6 +1213,17 @@ static void button_selecttype_event(kiss_button* button, SDL_Event* e, int* draw
 		window_selecttype.focus = 1;
 	}
 }
+
+static void button_selectcheck_event(kiss_button* button, SDL_Event* e, int* draw)
+{
+	if (kiss_button_event(button, e, draw))
+	{
+		window_selectcheck.visible = 1;
+		window3.focus = 0;
+		window_selectcheck.focus = 1;
+	}
+}
+
 
 kiss_image img_creature;
 kiss_image img_type05_01;
@@ -1018,14 +1298,23 @@ static int button_del_event(kiss_button* button, SDL_Event* e,	int* quit, int* d
 {
 	if (kiss_button_event(button, e, draw))
 	{
-		for (int i = edited_line2 + 2; i < 0x4b0; i++)		
+		for (int i = edited_line_old + 2; i < 0x4b0; i++)
 		{		
 			for (int j = 0; j < 0x4b0; j++)
 			{
-				if((temparray_0x30311[j].str_0x30311_type==0xa)&& (temparray_0x30311[j].str_0x30311_subtype == 0x1d))
+				if((temparray_0x30311[j].str_0x30311_type==0xa)&&(temparray_0x30311[j].str_0x30311_subtype == 0x1d))
 				if (temparray_0x30311[j].word_14 == i)
 					temparray_0x30311[j].word_14--;
 			}
+			for (int j = 0; j < 8; j++)
+			{
+				if ((D41A0_BYTESTR_0.str_2FECE.str_0x36442[j].byte_0 == 1) ||
+					(D41A0_BYTESTR_0.str_2FECE.str_0x36442[j].byte_0 == 7) ||
+					(D41A0_BYTESTR_0.str_2FECE.str_0x36442[j].byte_0 == 9))
+					if (D41A0_BYTESTR_0.str_2FECE.str_0x36442[j].word_1 == i)
+						D41A0_BYTESTR_0.str_2FECE.str_0x36442[j].word_1--;					
+			}
+
 			temparray_0x30311[i - 1] = temparray_0x30311[i];
 			temparray_0x30311_inactive[i-1] = temparray_0x30311_inactive[i];
 			temparray_0x30311_selected[i - 1] = temparray_0x30311_selected[i];
@@ -1042,7 +1331,7 @@ static int button_add_event(kiss_button* button, SDL_Event* e,	int* quit, int* d
 {
 	if (kiss_button_event(button, e, draw))
 	{
-		for (int i = 0x4b0 - 1; i > edited_line2 + 1; i--)
+		for (int i = 0x4b0 - 1; i > edited_line_old + 1; i--)
 		{
 			for (int j = 0; j < 0x4b0; j++)
 			{
@@ -1050,23 +1339,31 @@ static int button_add_event(kiss_button* button, SDL_Event* e,	int* quit, int* d
 				if (temparray_0x30311[j].word_14 == i-1)
 					temparray_0x30311[j].word_14++;
 			}
+			for (int j = 0; j < 8; j++)
+			{
+				if ((D41A0_BYTESTR_0.str_2FECE.str_0x36442[j].byte_0 == 1) ||
+					(D41A0_BYTESTR_0.str_2FECE.str_0x36442[j].byte_0 == 7) ||
+					(D41A0_BYTESTR_0.str_2FECE.str_0x36442[j].byte_0 == 9))
+					if (D41A0_BYTESTR_0.str_2FECE.str_0x36442[j].word_1 == i)
+						D41A0_BYTESTR_0.str_2FECE.str_0x36442[j].word_1++;
+			}
 			temparray_0x30311[i] = temparray_0x30311[i - 1];
 			temparray_0x30311_inactive[i] = temparray_0x30311_inactive[i-1];
 			temparray_0x30311_selected[i] = temparray_0x30311_selected[i - 1];
 		}
-		//memset(&temparray_0x30311[edited_line2+1], 0, sizeof(temparray_0x30311[edited_line2+1]));
-		temparray_0x30311_inactive[edited_line2 + 1] = false;
-		temparray_0x30311_selected[edited_line2 + 1] = false;
-		kiss_hex4edit_update_adress(&hex4edit1feat, &temparray_0x30311[edited_line2 + 1].str_0x30311_type);
-		kiss_hex4edit_update_adress(&hex4edit2feat, &temparray_0x30311[edited_line2 + 1].str_0x30311_subtype);
-		kiss_hex4edit_update_adress(&hex4edit3feat, &temparray_0x30311[edited_line2 + 1].axis2d_4.x);
-		kiss_hex4edit_update_adress(&hex4edit4feat, &temparray_0x30311[edited_line2 + 1].axis2d_4.y);
-		kiss_hex4edit_update_adress(&hex4edit5feat, &temparray_0x30311[edited_line2 + 1].DisId);
-		kiss_hex4edit_update_adress(&hex4edit6feat, &temparray_0x30311[edited_line2 + 1].word_10);
-		kiss_hex4edit_update_adress(&hex4edit7feat, &temparray_0x30311[edited_line2 + 1].word_12);
-		kiss_hex4edit_update_adress(&hex4edit8feat, &temparray_0x30311[edited_line2 + 1].word_14);
-		kiss_hex4edit_update_adress(&hex4edit9feat, &temparray_0x30311[edited_line2 + 1].word_16);
-		kiss_hex4edit_update_adress(&hex4edit10feat, &temparray_0x30311[edited_line2 + 1].word_18);
+		//memset(&temparray_0x30311[edited_line_old+1], 0, sizeof(temparray_0x30311[edited_line_old+1]));
+		temparray_0x30311_inactive[edited_line_old + 1] = false;
+		temparray_0x30311_selected[edited_line_old + 1] = false;
+		kiss_hex4edit_update_adress(&hex4edit1feat, &temparray_0x30311[edited_line_old + 1].str_0x30311_type);
+		kiss_hex4edit_update_adress(&hex4edit2feat, &temparray_0x30311[edited_line_old + 1].str_0x30311_subtype);
+		kiss_hex4edit_update_adress(&hex4edit3feat, &temparray_0x30311[edited_line_old + 1].axis2d_4.x);
+		kiss_hex4edit_update_adress(&hex4edit4feat, &temparray_0x30311[edited_line_old + 1].axis2d_4.y);
+		kiss_hex4edit_update_adress(&hex4edit5feat, &temparray_0x30311[edited_line_old + 1].DisId);
+		kiss_hex4edit_update_adress(&hex4edit6feat, &temparray_0x30311[edited_line_old + 1].word_10);
+		kiss_hex4edit_update_adress(&hex4edit7feat, &temparray_0x30311[edited_line_old + 1].word_12);
+		kiss_hex4edit_update_adress(&hex4edit8feat, &temparray_0x30311[edited_line_old + 1].word_14);
+		kiss_hex4edit_update_adress(&hex4edit9feat, &temparray_0x30311[edited_line_old + 1].word_16);
+		kiss_hex4edit_update_adress(&hex4edit10feat, &temparray_0x30311[edited_line_old + 1].word_18);
 		return 1;
 	}
 	return 0;
@@ -1076,19 +1373,19 @@ static int button_clean_event(kiss_button* button, SDL_Event* e, int* quit, int*
 {
 	if (kiss_button_event(button, e, draw))
 	{
-		memset(&temparray_0x30311[edited_line2 + 1], 0, sizeof(temparray_0x30311[edited_line2 + 1]));
-		temparray_0x30311_inactive[edited_line2 + 1] = false;
-		temparray_0x30311_selected[edited_line2 + 1] = false;
-		kiss_hex4edit_update_adress(&hex4edit1feat, &temparray_0x30311[edited_line2 + 1].str_0x30311_type);
-		kiss_hex4edit_update_adress(&hex4edit2feat, &temparray_0x30311[edited_line2 + 1].str_0x30311_subtype);
-		kiss_hex4edit_update_adress(&hex4edit3feat, &temparray_0x30311[edited_line2 + 1].axis2d_4.x);
-		kiss_hex4edit_update_adress(&hex4edit4feat, &temparray_0x30311[edited_line2 + 1].axis2d_4.y);
-		kiss_hex4edit_update_adress(&hex4edit5feat, &temparray_0x30311[edited_line2 + 1].DisId);
-		kiss_hex4edit_update_adress(&hex4edit6feat, &temparray_0x30311[edited_line2 + 1].word_10);
-		kiss_hex4edit_update_adress(&hex4edit7feat, &temparray_0x30311[edited_line2 + 1].word_12);
-		kiss_hex4edit_update_adress(&hex4edit8feat, &temparray_0x30311[edited_line2 + 1].word_14);
-		kiss_hex4edit_update_adress(&hex4edit9feat, &temparray_0x30311[edited_line2 + 1].word_16);
-		kiss_hex4edit_update_adress(&hex4edit10feat, &temparray_0x30311[edited_line2 + 1].word_18);
+		memset(&temparray_0x30311[edited_line_old + 1], 0, sizeof(temparray_0x30311[edited_line_old + 1]));
+		temparray_0x30311_inactive[edited_line_old + 1] = false;
+		temparray_0x30311_selected[edited_line_old + 1] = false;
+		kiss_hex4edit_update_adress(&hex4edit1feat, &temparray_0x30311[edited_line_old + 1].str_0x30311_type);
+		kiss_hex4edit_update_adress(&hex4edit2feat, &temparray_0x30311[edited_line_old + 1].str_0x30311_subtype);
+		kiss_hex4edit_update_adress(&hex4edit3feat, &temparray_0x30311[edited_line_old + 1].axis2d_4.x);
+		kiss_hex4edit_update_adress(&hex4edit4feat, &temparray_0x30311[edited_line_old + 1].axis2d_4.y);
+		kiss_hex4edit_update_adress(&hex4edit5feat, &temparray_0x30311[edited_line_old + 1].DisId);
+		kiss_hex4edit_update_adress(&hex4edit6feat, &temparray_0x30311[edited_line_old + 1].word_10);
+		kiss_hex4edit_update_adress(&hex4edit7feat, &temparray_0x30311[edited_line_old + 1].word_12);
+		kiss_hex4edit_update_adress(&hex4edit8feat, &temparray_0x30311[edited_line_old + 1].word_14);
+		kiss_hex4edit_update_adress(&hex4edit9feat, &temparray_0x30311[edited_line_old + 1].word_16);
+		kiss_hex4edit_update_adress(&hex4edit10feat, &temparray_0x30311[edited_line_old + 1].word_18);
 		return 1;
 	}
 	return 0;
@@ -1110,6 +1407,7 @@ static void button_ok2_event(kiss_button* button, SDL_Event* e,
 
 static int select1_event(kiss_selectbutton* select1, SDL_Event* e, kiss_selectbutton* select2, kiss_selectbutton* select3, kiss_selectbutton* select4, int* draw)
 {
+	if(!select1->selected)
 	if (kiss_selectbutton_event(select1, e, draw))
 	{
 		select2->selected = select1->selected^1;
@@ -1123,6 +1421,7 @@ static int select1_event(kiss_selectbutton* select1, SDL_Event* e, kiss_selectbu
 
 static int select2_event(kiss_selectbutton* select2, SDL_Event* e, kiss_selectbutton* select1, kiss_selectbutton* select3, kiss_selectbutton* select4, int* draw)
 {
+	if (!select2->selected)
 	if (kiss_selectbutton_event(select2, e, draw))
 	{
 		select1->selected = select2->selected ^ 1;
@@ -1136,6 +1435,7 @@ static int select2_event(kiss_selectbutton* select2, SDL_Event* e, kiss_selectbu
 
 static int select3_event(kiss_selectbutton* select3, SDL_Event* e, kiss_selectbutton* select1, kiss_selectbutton* select2, kiss_selectbutton* select4, int* draw)
 {
+	if (!select3->selected)
 	if (kiss_selectbutton_event(select3, e, draw))
 	{
 		select1->selected = select3->selected ^ 1;
@@ -1149,6 +1449,7 @@ static int select3_event(kiss_selectbutton* select3, SDL_Event* e, kiss_selectbu
 
 static int select4_event(kiss_selectbutton* select4, SDL_Event* e, kiss_selectbutton* select1, kiss_selectbutton* select2, kiss_selectbutton* select3, int* draw)
 {
+	if (!select4->selected)
 	if (kiss_selectbutton_event(select4, e, draw))
 	{
 		select1->selected = select4->selected ^ 1;
@@ -1164,12 +1465,12 @@ static int select1_feat_event(kiss_selectbutton* select, SDL_Event* e, kiss_arra
 {
 	if (kiss_selectbutton_event(select, e, draw))
 	{
-		//char** buff = (char**)(&objects->data[edited_line2]);
+		//char** buff = (char**)(&objects->data[edited_line_old]);
 		if (select->selected)
-			temparray_0x30311_inactive[edited_line2 + 1] = false;
+			temparray_0x30311_inactive[edited_line_old + 1] = false;
 			//*buff[strlen(*buff)] = 'A';
 		else
-			temparray_0x30311_inactive[edited_line2 + 1] = true;
+			temparray_0x30311_inactive[edited_line_old + 1] = true;
 			//*buff[strlen(*buff)] = 'I';
 		return 1;
 	}
@@ -1317,7 +1618,7 @@ int kiss_terrain_event(kiss_terrain* terrain, SDL_Event* event, int* draw, int m
 			}
 		terrain->active = 0;
 		*draw = 1;
-		return 1;
+		return 20;
 	}
 	else if (event->type == SDL_MOUSEMOTION && kiss_pointinrect(event->motion.x, event->motion.y, &terrain->rect)) {
 		if (terrain->movingactive == 1) {
@@ -1354,6 +1655,12 @@ int kiss_terrain_event(kiss_terrain* terrain, SDL_Event* event, int* draw, int m
 	return 0;
 }
 
+int findFirstSelected(bool* selected) {
+	for (int i = 1; i < 0x4b0; i++)
+		if (selected[i])return i;
+	return -1;
+}
+
 bool first = true;
 int main_x(/*int argc, char** argv*/)
 {
@@ -1372,8 +1679,9 @@ int main_x(/*int argc, char** argv*/)
 	kiss_vscrollbar vscrollbar1 = { 0 };
 	//kiss_progressbar progressbar = { 0 };
 	kiss_entry entry = { 0 };
-	int textbox_width, textbox_height, textbox2_width, textbox2_height,window2_width, window2_height;
-	int	window_selecttype_width, window_selecttype_height, window_selectsubtype_width, window_selectsubtype_height;
+	int textbox_width, textbox_height, textbox2_width, textbox2_height,window2_width, window2_height, window3_width, window3_height;
+	int	window_selecttype_width, window_selecttype_height, window_selectsubtype_width, window_selectsubtype_height,
+		window_selectcheck_width, window_selectcheck_height;
 	int	draw, quit;
 
 	kiss_hex4edit hex4edit1 = { 0 };
@@ -1391,6 +1699,7 @@ int main_x(/*int argc, char** argv*/)
 
 	kiss_terrain terrain1 = { 0 };
 	kiss_terrain terrainfeat = { 0 };
+	kiss_terrain terraincheck = { 0 };
 
 	kiss_label labelSel = { 0 };
 	kiss_selectbutton select1 = { 0 };
@@ -1403,6 +1712,7 @@ int main_x(/*int argc, char** argv*/)
 	kiss_label labelXY = { 0 };
 
 	kiss_label labelIndexWind2 = { 0 };
+	kiss_label labelIndexWind3 = { 0 };
 
 	const int count_features = 24;
 	const int count_stages = 8;
@@ -1413,10 +1723,12 @@ int main_x(/*int argc, char** argv*/)
 
 	kiss_label levelSelFeat = { 0 };
 	kiss_selectbutton select1feat = { 0 };
-	kiss_button button_ok1feat = { 0 }, button_plusfeat = { 0 }, button_deletefeat = { 0 }, button_cleanfeat = { 0 }, button_selecttype = { 0 },
+	kiss_button button_ok1feat = { 0 }, button_ok1check = { 0 },button_plusfeat = { 0 }, button_deletefeat = { 0 }, button_cleanfeat = { 0 },
+		button_selecttype = { 0 }, button_selectcheck = {0},
 		button_selectsubtype = {0};
 	kiss_button button_type[16]; for (int i = 0; i < 16; i++)button_type[i] = { 0 };
 	kiss_button button_subtype[64]; for (int i = 0; i < 16; i++)button_subtype[i] = { 0 };
+	kiss_button button_check[16]; for (int i = 0; i < 16; i++)button_check[i] = { 0 };
 	kiss_label label_plusFeat = { 0 };
 
 	SDL_ShowCursor(true);
@@ -1428,10 +1740,14 @@ int main_x(/*int argc, char** argv*/)
 	textbox2_height = count_stages * 18 + 12;
 	window2_width = 532;
 	window2_height = 740;//300;
+	window3_width = 532;
+	window3_height = 740;//300;
 	window_selecttype_width = 165;
 	window_selecttype_height = 165;
 	window_selectsubtype_width = 330;
 	window_selectsubtype_height = 330;
+	window_selectcheck_width = 165;
+	window_selectcheck_height = 165;
 	editor_renderer = kiss_init((char*)"REMC2 Editor", &objects, 1100, 768);
 	if (!editor_renderer) return 1;
 	//kiss_array_new(&a1);
@@ -1467,6 +1783,11 @@ int main_x(/*int argc, char** argv*/)
 		fprintf(stderr, "CreateRGBSurface failed: %s\n", SDL_GetError());
 		exit(1);
 	}
+	mapsurfacecheck = SDL_CreateRGBSurface(SDL_SWSURFACE, 512, 512, 32, rmask, gmask, bmask, amask);
+	if (mapsurfacecheck == NULL) {
+		fprintf(stderr, "CreateRGBSurface failed: %s\n", SDL_GetError());
+		exit(1);
+	}
 	/*Bit8u* scrbuff = (Bit8u*)mapsurface->pixels;
 	for (int j = 0; j < 256; j++)
 		for (int i = 0; i < 256; i++) {
@@ -1484,6 +1805,11 @@ int main_x(/*int argc, char** argv*/)
 	mapimagefeat.h = 512;
 	mapimagefeat.magic = KISS_MAGIC;
 	mapimagefeat.image = SDL_CreateTextureFromSurface(editor_renderer, mapsurfacefeat);
+
+	mapimagecheck.w = 512;
+	mapimagecheck.h = 512;
+	mapimagecheck.magic = KISS_MAGIC;
+	mapimagecheck.image = SDL_CreateTextureFromSurface(editor_renderer, mapsurfacecheck);
 
 	char path2[512];
 	kiss_image img_delete_normal;
@@ -1686,6 +2012,49 @@ int main_x(/*int argc, char** argv*/)
 	img_type2D.image = IMG_LoadTexture(editor_renderer, path2);
 
 
+	kiss_image img_check00;
+	FixDir(path2, (char*)"kiss\\check-00.png");
+	img_check00.w = 32;
+	img_check00.h = 32;
+	img_check00.magic = KISS_MAGIC;
+	img_check00.image = IMG_LoadTexture(editor_renderer, path2);
+
+	kiss_image img_check03;
+	FixDir(path2, (char*)"kiss\\check-03.png");
+	img_check03.w = 32;
+	img_check03.h = 32;
+	img_check03.magic = KISS_MAGIC;
+	img_check03.image = IMG_LoadTexture(editor_renderer, path2);
+
+	kiss_image img_check05;
+	FixDir(path2, (char*)"kiss\\check-05.png");
+	img_check05.w = 32;
+	img_check05.h = 32;
+	img_check05.magic = KISS_MAGIC;
+	img_check05.image = IMG_LoadTexture(editor_renderer, path2);
+
+	kiss_image img_check07;
+	FixDir(path2, (char*)"kiss\\check-07.png");
+	img_check07.w = 32;
+	img_check07.h = 32;
+	img_check07.magic = KISS_MAGIC;
+	img_check07.image = IMG_LoadTexture(editor_renderer, path2);
+
+	kiss_image img_check08;
+	FixDir(path2, (char*)"kiss\\check-08.png");
+	img_check08.w = 32;
+	img_check08.h = 32;
+	img_check08.magic = KISS_MAGIC;
+	img_check08.image = IMG_LoadTexture(editor_renderer, path2);
+
+	kiss_image img_check09;
+	FixDir(path2, (char*)"kiss\\check-09.png");
+	img_check09.w = 32;
+	img_check09.h = 32;
+	img_check09.magic = KISS_MAGIC;
+	img_check09.image = IMG_LoadTexture(editor_renderer, path2);
+
+
 	kiss_vscrollbar_new(&vscrollbar1, &window1, textbox1.rect.x + textbox_width, textbox1.rect.y, textbox_height);
 	//kiss_textbox_new(&textbox2, &window1, 1, &a2,vscrollbar1.uprect.x + kiss_up.w, textbox1.rect.y,	textbox_width, textbox_height);
 	//kiss_vscrollbar_new(&vscrollbar2, &window1, textbox2.rect.x +textbox_width, vscrollbar1.uprect.y, textbox_height);
@@ -1716,6 +2085,19 @@ int main_x(/*int argc, char** argv*/)
 	kiss_window_new(&window2, NULL, 1, kiss_screen_width / 2 - window2_width / 2, kiss_screen_height / 2 - window2_height / 2, window2_width, window2_height);
 	kiss_window_new(&window_selecttype, NULL, 1, window2.rect.x + 300, window2.rect.y + 10, window_selecttype_width, window_selecttype_height);
 	kiss_window_new(&window_selectsubtype, NULL, 1, window2.rect.x + 300, window2.rect.y + 30, window_selectsubtype_width, window_selectsubtype_height);
+	
+	Bit16u temp_var;
+	kiss_window_new(&window3, NULL, 1, kiss_screen_width / 2 - window3_width / 2, kiss_screen_height / 2 - window3_height / 2, window3_width, window3_height);
+	kiss_window_new(&window_selectcheck, NULL, 1, window3.rect.x + 300, window3.rect.y + 10, window_selectcheck_width, window_selectcheck_height);
+	kiss_label_new(&labelIndexWind3, &window3, (char*)"IX:", 300 + window3.rect.x + kiss_up.w, window3.rect.y + 10);
+
+	kiss_hex2edit_new(&hex2edit1check, &window3, &temp_var, (char*)"ST:", window3.rect.x + kiss_up.w, window3.rect.y + 10);
+	kiss_hex4edit_new(&hex4edit2check, &window3, &temp_var, (char*)"01:", window3.rect.x + kiss_up.w, window3.rect.y + 30);
+	kiss_hex4edit_new(&hex4edit3check, &window3, &temp_var, (char*)" X:", window3.rect.x + kiss_up.w, window3.rect.y + 50);
+	kiss_hex4edit_new(&hex4edit4check, &window3, &temp_var, (char*)" Y:", window3.rect.x + kiss_up.w, window3.rect.y + 70);
+	kiss_button_new(&button_selectcheck, &window3, (char*)" ", window3.rect.x + kiss_up.w + 270, window3.rect.y + 10, &img_search);
+	button_selectcheck.activeimg = img_search; button_selectcheck.prelightimg = img_search;
+	kiss_button_new(&button_ok1check, &window3, (char*)"OK", 300 + window3.rect.x + kiss_up.w + 80, window3.rect.y + 130);
 
 	//kiss_label_new(&label_res, &window2, (char*)"", window2.rect.x +kiss_up.w, window2.rect.y + kiss_vslider.h);
 	//label_res.textcolor = kiss_blue;
@@ -1751,7 +2133,7 @@ int main_x(/*int argc, char** argv*/)
 
 	kiss_label_new(&labelXY, &window1, (char*)"", 900, 740);
 
-	Bit16u temp_var;
+	
 	kiss_label_new(&labelIndexWind2, &window2, (char*)"IX:", 300 + window2.rect.x + kiss_up.w, window2.rect.y + 10);
 
 	kiss_hex4edit_new(&hex4edit1feat, &window2, &temp_var, (char*)"TP:", window2.rect.x + kiss_up.w, window2.rect.y + 10);
@@ -1823,6 +2205,29 @@ int main_x(/*int argc, char** argv*/)
 		//button_type[i].activeimg = img_none; button_type[i].prelightimg = img_none;
 	}
 
+	kiss_button_new(&button_check[0], &window_selectcheck, (char*)" ", window_selectcheck.rect.x + kiss_border + 0, window_selectcheck.rect.y + kiss_border + 0, &img_check00);
+	button_check[0].activeimg = img_check00; button_check[0].prelightimg = img_check00;
+	kiss_button_new(&button_check[1], &window_selectcheck, (char*)"1", window_selectcheck.rect.x + kiss_border + 40, window_selectcheck.rect.y + kiss_border + 0, &img_none);
+	button_check[1].activeimg = img_none; button_check[1].prelightimg = img_none;
+	kiss_button_new(&button_check[2], &window_selectcheck, (char*)"2", window_selectcheck.rect.x + kiss_border + 80, window_selectcheck.rect.y + kiss_border + 0, &img_none);
+	button_check[2].activeimg = img_none; button_check[2].prelightimg = img_none;
+	kiss_button_new(&button_check[3], &window_selectcheck, (char*)" ", window_selectcheck.rect.x + kiss_border + 120, window_selectcheck.rect.y + kiss_border + 0, &img_check03);
+	button_check[3].activeimg = img_check03; button_check[3].prelightimg = img_check03;
+	kiss_button_new(&button_check[4], &window_selectcheck, (char*)"4", window_selectcheck.rect.x + kiss_border + 0, window_selectcheck.rect.y + kiss_border + 40, &img_none);
+	button_check[4].activeimg = img_none; button_check[4].prelightimg = img_none;
+	kiss_button_new(&button_check[5], &window_selectcheck, (char*)" ", window_selectcheck.rect.x + kiss_border + 40, window_selectcheck.rect.y + kiss_border + 40, &img_check05);
+	button_check[5].activeimg = img_check05; button_check[5].prelightimg = img_check05;
+	kiss_button_new(&button_check[6], &window_selectcheck, (char*)"6", window_selectcheck.rect.x + kiss_border + 80, window_selectcheck.rect.y + kiss_border + 40, &img_none);
+	button_check[6].activeimg = img_none; button_check[6].prelightimg = img_none;
+	kiss_button_new(&button_check[7], &window_selectcheck, (char*)" ", window_selectcheck.rect.x + kiss_border + 120, window_selectcheck.rect.y + kiss_border + 40, &img_check07);
+	button_check[7].activeimg = img_check07; button_check[7].prelightimg = img_check07;
+	kiss_button_new(&button_check[8], &window_selectcheck, (char*)" ", window_selectcheck.rect.x + kiss_border + 0, window_selectcheck.rect.y + kiss_border + 80, &img_check08);
+	button_check[8].activeimg = img_check08; button_check[8].prelightimg = img_check08;
+	kiss_button_new(&button_check[9], &window_selectcheck, (char*)" ", window_selectcheck.rect.x + kiss_border + 40, window_selectcheck.rect.y + kiss_border + 80, &img_check09);
+	button_check[9].activeimg = img_check09; button_check[9].prelightimg = img_check09;
+	
+
+	kiss_terrain_new(&terraincheck, &window3, mapsurfacecheck, window3.rect.x + kiss_border, window3.rect.y + window3.rect.h - mapimagecheck.h - kiss_border, &terrainzoomcheck, &terrainbeginxcheck, &terrainbeginycheck);
 
 	//dirent_read(&textbox1, &vscrollbar1, &textbox2, &vscrollbar2,&label_sel);
 	
@@ -1841,6 +2246,7 @@ int main_x(/*int argc, char** argv*/)
 		bool changed3 = false;
 		bool zoomchanged = false;
 		bool zoomchangedfeat = false;
+		bool zoomchangedcheck = false;
 		SDL_Delay(10);
 		while (SDL_PollEvent(&e)) {
 
@@ -1852,41 +2258,65 @@ int main_x(/*int argc, char** argv*/)
 
 			if (e.type == SDL_QUIT) quit = 1;
 
+			kiss_window_event(&window3, &e, &draw);
 			kiss_window_event(&window2, &e, &draw);
 			kiss_window_event(&window1, &e, &draw);
 			edited_line = textbox1_event(&textbox1, &e, &vscrollbar1, mousex, mousey, &draw);
 			if (edited_line == -2) { changed2 = true; zoomchanged = true; }
 			if (edited_line >= 0)
 			{
-				edited_line2 = edited_line;
+				edited_line_old = edited_line;
 				window2.visible = 1;
 				window2.focus = 1;
 				window1.focus = 0;
-				sprintf(labelIndexWind2.text, "INDEX:%03X", edited_line2 + 1);
-				kiss_hex4edit_update_adress(&hex4edit1feat, &temparray_0x30311[edited_line2 + 1].str_0x30311_type);
-				kiss_hex4edit_update_adress(&hex4edit2feat, &temparray_0x30311[edited_line2 + 1].str_0x30311_subtype);
-				kiss_hex4edit_update_adress(&hex4edit3feat, &temparray_0x30311[edited_line2 + 1].axis2d_4.x);
-				kiss_hex4edit_update_adress(&hex4edit4feat, &temparray_0x30311[edited_line2 + 1].axis2d_4.y);
-				kiss_hex4edit_update_adress(&hex4edit5feat, &temparray_0x30311[edited_line2 + 1].DisId);
-				kiss_hex4edit_update_adress(&hex4edit6feat, &temparray_0x30311[edited_line2 + 1].word_10);
-				kiss_hex4edit_update_adress(&hex4edit7feat, &temparray_0x30311[edited_line2 + 1].word_12);
-				kiss_hex4edit_update_adress(&hex4edit8feat, &temparray_0x30311[edited_line2 + 1].word_14);
-				kiss_hex4edit_update_adress(&hex4edit9feat, &temparray_0x30311[edited_line2 + 1].word_16);
-				kiss_hex4edit_update_adress(&hex4edit10feat, &temparray_0x30311[edited_line2 + 1].word_18);
-				char* textbuff = (char*)objects.data[edited_line2];
+				sprintf(labelIndexWind2.text, "INDEX:%03X", edited_line_old + 1);
+				kiss_hex4edit_update_adress(&hex4edit1feat, &temparray_0x30311[edited_line_old + 1].str_0x30311_type);
+				kiss_hex4edit_update_adress(&hex4edit2feat, &temparray_0x30311[edited_line_old + 1].str_0x30311_subtype);
+				kiss_hex4edit_update_adress(&hex4edit3feat, &temparray_0x30311[edited_line_old + 1].axis2d_4.x);
+				kiss_hex4edit_update_adress(&hex4edit4feat, &temparray_0x30311[edited_line_old + 1].axis2d_4.y);
+				kiss_hex4edit_update_adress(&hex4edit5feat, &temparray_0x30311[edited_line_old + 1].DisId);
+				kiss_hex4edit_update_adress(&hex4edit6feat, &temparray_0x30311[edited_line_old + 1].word_10);
+				kiss_hex4edit_update_adress(&hex4edit7feat, &temparray_0x30311[edited_line_old + 1].word_12);
+				kiss_hex4edit_update_adress(&hex4edit8feat, &temparray_0x30311[edited_line_old + 1].word_14);
+				kiss_hex4edit_update_adress(&hex4edit9feat, &temparray_0x30311[edited_line_old + 1].word_16);
+				kiss_hex4edit_update_adress(&hex4edit10feat, &temparray_0x30311[edited_line_old + 1].word_18);
+				char* textbuff = (char*)objects.data[edited_line_old];
 				if (textbuff[strlen(textbuff) - 1] == 'I')
 					select1feat.selected = false;
 				else
 					select1feat.selected = true;
 				changed2 = true;
 				terrainzoomfeat = 4;
-				float cursorpixx = temparray_0x30311[edited_line2 + 1].axis2d_4.x;
-				float cursorpixy = temparray_0x30311[edited_line2 + 1].axis2d_4.y;
+				float cursorpixx = temparray_0x30311[edited_line_old + 1].axis2d_4.x;
+				float cursorpixy = temparray_0x30311[edited_line_old + 1].axis2d_4.y;
 				terrainbeginxfeat = cursorpixx - (terrainfeat.rect.w / 2) / (terrainzoomfeat * 2);
 				terrainbeginyfeat = cursorpixy - (terrainfeat.rect.h / 2) / (terrainzoomfeat * 2);
 			}
 
 			vscrollbar1_event(&vscrollbar1, &e, &textbox1, &draw);
+
+			edited_line2 = textbox2_event(&textbox2, &e, mousex, mousey, &draw);
+			if (edited_line2 == -2) { changed2 = true; zoomchanged = true; }
+			if (edited_line2 >= 0)
+			{
+				edited_line2_old = edited_line2;
+				window3.visible = 1;
+				window3.focus = 1;
+				window1.focus = 0;
+				sprintf(labelIndexWind3.text, "INDEX:%03X", edited_line2_old);
+				//type_str_0x36442 actstage = D41A0_BYTESTR_0.str_2FECE.str_0x36442[edited_line2_old];
+				kiss_hex2edit_update_adress(&hex2edit1check, &D41A0_BYTESTR_0.str_2FECE.str_0x36442[edited_line2_old].byte_0);
+				kiss_hex4edit_update_adress(&hex4edit2check, &D41A0_BYTESTR_0.str_2FECE.str_0x36442[edited_line2_old].word_1);
+				kiss_hex4edit_update_adress(&hex4edit3check, &D41A0_BYTESTR_0.str_2FECE.str_0x36442[edited_line2_old].axis_2d.x);
+				kiss_hex4edit_update_adress(&hex4edit4check, &D41A0_BYTESTR_0.str_2FECE.str_0x36442[edited_line2_old].axis_2d.y);
+				changed2 = true;
+				terrainzoomcheck = 4;
+				float cursorpixx = D41A0_BYTESTR_0.str_2FECE.str_0x36442[edited_line2_old].axis_2d.x;
+				float cursorpixy = D41A0_BYTESTR_0.str_2FECE.str_0x36442[edited_line2_old].axis_2d.y;
+				terrainbeginxcheck = cursorpixx - (terraincheck.rect.w / 2) / (terrainzoomcheck * 2);
+				terrainbeginycheck = cursorpixy - (terraincheck.rect.h / 2) / (terrainzoomcheck * 2);
+			}
+
 			//textbox2_event(&textbox2, &e, &vscrollbar2, &entry,	&draw);
 			//vscrollbar2_event(&vscrollbar2, &e, &textbox2, &draw);
 			//button_ok1_event(&button_ok1, &e, &window1, &window2,&label_sel, &entry, &label_res, &progressbar,&draw);
@@ -1922,6 +2352,12 @@ int main_x(/*int argc, char** argv*/)
 			if (kiss_hex4edit_event(&hex4edit9feat, &e, &draw) > 10)changed2 = true;
 			if (kiss_hex4edit_event(&hex4edit10feat, &e, &draw) > 10)changed2 = true;
 
+			//window3
+			if (kiss_hex2edit_event(&hex2edit1check, &e, &draw) > 10)changed3 = true;
+			if (kiss_hex4edit_event(&hex4edit2check, &e, &draw) > 10)changed3 = true;
+			if (kiss_hex4edit_event(&hex4edit3check, &e, &draw) > 10)changed3 = true;
+			if (kiss_hex4edit_event(&hex4edit4check, &e, &draw) > 10)changed3 = true;
+			button_selectcheck_event(&button_selectcheck, &e, &draw);
 
 			button_selecttype_event(&button_selecttype, &e, &draw);
 			button_selectsubtype_event(&button_selectsubtype, button_subtype, &e, &draw);
@@ -1929,6 +2365,7 @@ int main_x(/*int argc, char** argv*/)
 			button_ok_event(&button_ok1feat, &e, &quit, &draw);
 			button_cancel_event(&button_cancel, &e, &quit, &draw);
 			button_savelevel_event(&button_levelsave, &e, &draw);
+
 			if (button_cleanlevelfeat_event(&button_cleanlevelfeat, &e, &draw))
 			{
 				changed2 = true; changed = true; zoomchanged = true;
@@ -1936,7 +2373,7 @@ int main_x(/*int argc, char** argv*/)
 
 			for (int i = 0; i < 16; i++)
 			{
-				int retvar = button_type_event(&button_type[i], &e, &draw, i, &window2,&window_selecttype, &window_selecttype);
+				int retvar = button_type_event(&button_type[i], &e, &draw, i, &window2, &window_selecttype);
 				if (retvar > -1)
 				{
 					kiss_hex4edit_set(&hex4edit1feat, i);
@@ -1955,11 +2392,21 @@ int main_x(/*int argc, char** argv*/)
 			}
 			for (int i = 0; i < max_subtype_buttons; i++)
 			{
-				int retvar = button_type_event(&button_subtype[i], &e, &draw, i, &window2, &window_selectsubtype, &window_selecttype);
+				int retvar = button_type_event(&button_subtype[i], &e, &draw, i, &window2, &window_selectsubtype);
 				if (retvar > -1)
 				{
 					kiss_hex4edit_set(&hex4edit2feat, i);
 					changed2 = true; zoomchanged = true;
+				}
+			}
+
+			for (int i = 0; i < 9; i++)
+			{
+				int retvar = button_type_event(&button_check[i], &e, &draw, i, &window3, &window_selectcheck);
+				if (retvar > -1)
+				{
+					kiss_hex2edit_set(&hex2edit1check, i);
+					changed3 = true; zoomchanged = true;
 				}
 			}
 
@@ -1972,37 +2419,58 @@ int main_x(/*int argc, char** argv*/)
 
 			int terev = kiss_terrain_event(&terrain1, &e, &draw, mousex, mousey, temparray_0x30311, temparray_0x30311_selected);
 
-			if (kiss_dec1edit_event(&levelSel, &e, &draw) > 0) { loadlevel(actlevel - 1); changed = true; changed2 = true; changed3 = true;	}
+			if (kiss_dec1edit_event(&levelSel, &e, &draw) > 0) { loadlevel(actlevel - 1); changed = true; changed2 = true; changed3 = true; }
 
 			if (terev >= 1)
 			{
 				zoomchanged = true;
 			}
-			if (terev == 14)changed2 = true;
+			if ((terev == 14) || (terev == 20))
+			{			
+				kiss_textbox_setviewon(&textbox1,findFirstSelected(temparray_0x30311_selected));
+				changed2 = true;
+			}
+
+			button_ok_check_event(&button_ok1check, &e, &quit, &draw);
 
 			int tersetposx, tersetposy;
 			int terevfeat = kiss_terrain_eventfeat(&terrainfeat, &e, &draw, mousex, mousey, &tersetposx, &tersetposy);
 			if (terevfeat == 20)
 			{
-				temparray_0x30311[edited_line2 + 1].axis2d_4.x = tersetposx;
-				temparray_0x30311[edited_line2 + 1].axis2d_4.y = tersetposy;
-				kiss_hex4edit_update_adress(&hex4edit3feat, &temparray_0x30311[edited_line2 + 1].axis2d_4.x);
-				kiss_hex4edit_update_adress(&hex4edit4feat, &temparray_0x30311[edited_line2 + 1].axis2d_4.y);
+				temparray_0x30311[edited_line_old + 1].axis2d_4.x = tersetposx;
+				temparray_0x30311[edited_line_old + 1].axis2d_4.y = tersetposy;
+				kiss_hex4edit_update_adress(&hex4edit3feat, &temparray_0x30311[edited_line_old + 1].axis2d_4.x);
+				kiss_hex4edit_update_adress(&hex4edit4feat, &temparray_0x30311[edited_line_old + 1].axis2d_4.y);
 				changed2 = true;
 			}
-
 			if (terevfeat >= 10)
 			{
 				zoomchangedfeat = true;
 			}
 
+			int terevcheck = kiss_terrain_eventfeat(&terraincheck, &e, &draw, mousex, mousey, &tersetposx, &tersetposy);
+			if (terevcheck == 20)
+			{
+				//type_str_0x36442 actstage = D41A0_BYTESTR_0.str_2FECE.str_0x36442[edited_line2_old];
+				D41A0_BYTESTR_0.str_2FECE.str_0x36442[edited_line2_old].axis_2d.x = tersetposx;
+				D41A0_BYTESTR_0.str_2FECE.str_0x36442[edited_line2_old].axis_2d.y = tersetposy;
+				kiss_hex4edit_update_adress(&hex4edit3check, &D41A0_BYTESTR_0.str_2FECE.str_0x36442[edited_line2_old].axis_2d.x);
+				kiss_hex4edit_update_adress(&hex4edit4check, &D41A0_BYTESTR_0.str_2FECE.str_0x36442[edited_line2_old].axis_2d.y);
+				changed2 = true;
+			}
+			if (terevcheck >= 10)
+			{
+				zoomchangedcheck = true;
+			}
+			
+
 			if (button_del_event(&button_deletefeat, &e, &quit, &draw))
 			{
-				changed2 = true; zoomchanged = true;
+				changed3 = true; changed2 = true; zoomchanged = true;
 			}
 			if (button_add_event(&button_plusfeat, &e, &quit, &draw))
 			{
-				changed2 = true; zoomchanged = true;
+				changed3 = true; changed2 = true; zoomchanged = true;
 			}
 			if (button_clean_event(&button_cleanfeat, &e, &quit, &draw))
 			{
@@ -2014,10 +2482,10 @@ int main_x(/*int argc, char** argv*/)
 			}
 
 			if (changed2)terrain_feat_append(&textbox1, &vscrollbar1);
-			if(changed3)terrain_stages_append(&textbox2);
+			if (changed3)terrain_stages_append(&textbox2);
 		}
-		if (first) { changed = true; changed2 = true;}
-		if (changed|| changed2)
+		if (first) { changed = true; changed2 = true; }
+		if (changed || changed2)
 			terrain_recalculate();
 
 		vscrollbar1_event(&vscrollbar1, NULL, &textbox1, &draw);
@@ -2027,9 +2495,9 @@ int main_x(/*int argc, char** argv*/)
 		if (!draw) continue;
 		SDL_RenderClear(editor_renderer);
 
-		
 
-		
+
+
 		kiss_window_draw(&window1, editor_renderer);
 		kiss_label_draw(&label_terfeat, editor_renderer);
 		kiss_label_draw(&label_terfeat2, editor_renderer);
@@ -2044,7 +2512,7 @@ int main_x(/*int argc, char** argv*/)
 		//kiss_label_draw(&label_sel, editor_renderer);
 		kiss_entry_draw(&entry, editor_renderer);
 		//kiss_button_draw(&button_ok1, editor_renderer);
-		kiss_button_draw(&button_cancel, editor_renderer);		
+		kiss_button_draw(&button_cancel, editor_renderer);
 		kiss_button_draw(&button_cleanlevelfeat, editor_renderer);
 
 		kiss_button_draw(&button_levelsave, editor_renderer);
@@ -2081,11 +2549,14 @@ int main_x(/*int argc, char** argv*/)
 		for (int i = 0; i < count_features; i++)
 			kiss_button_draw(&button_add[i], editor_renderer);*/
 
-		if(changed||zoomchanged)
-			fillterrain(&terrain1,terrainzoom, terrainbeginx, terrainbeginy);//set terrain
+		if (changed || zoomchanged)
+			fillterrain(&terrain1, terrainzoom, terrainbeginx, terrainbeginy);//set terrain
 
-		if (changed2 || zoomchangedfeat)
+		if (changed2 || zoomchangedfeat|| zoomchangedcheck)
+		{
 			fillterrainfeat(terrainzoomfeat, terrainbeginxfeat, terrainbeginyfeat);//set terrain2
+			fillterraincheck(terrainzoomcheck, terrainbeginxcheck, terrainbeginycheck);//set terrain3
+		}
 
 		kiss_terrain_draw(&terrain1, editor_renderer);
 
@@ -2108,6 +2579,8 @@ int main_x(/*int argc, char** argv*/)
 
 		kiss_selectbutton_draw(&select1feat, editor_renderer);
 		kiss_button_draw(&button_ok1feat, editor_renderer);
+
+		
 		//kiss_button_draw(&button_cancelfeat, editor_renderer);
 		kiss_button_draw(&button_plusfeat, editor_renderer);	
 		kiss_button_draw(&button_deletefeat, editor_renderer);		
@@ -2116,12 +2589,30 @@ int main_x(/*int argc, char** argv*/)
 		kiss_label_draw(&label_plusFeat, editor_renderer);
 		kiss_terrain_draw(&terrainfeat, editor_renderer);
 
+		kiss_window_draw(&window3, editor_renderer);
+		kiss_hex2edit_draw(&hex2edit1check, editor_renderer);
+		kiss_hex4edit_draw(&hex4edit2check, editor_renderer);
+		kiss_hex4edit_draw(&hex4edit3check, editor_renderer);
+		kiss_hex4edit_draw(&hex4edit4check, editor_renderer);
+		kiss_button_draw(&button_selectcheck, editor_renderer);
+		
+		kiss_label_draw(&labelIndexWind3, editor_renderer);
+
+		kiss_terrain_draw(&terraincheck, editor_renderer);
+
+		kiss_button_draw(&button_ok1check, editor_renderer);
+		
+
 
 		kiss_window_draw(&window_selecttype, editor_renderer);
+
+		kiss_window_draw(&window_selectcheck, editor_renderer);
 		
 		for(int i=0;i<16;i++)kiss_button_draw(&button_type[i], editor_renderer);
 		kiss_window_draw(&window_selectsubtype, editor_renderer);
 		for (int i = 0; i < max_subtype_buttons; i++)kiss_button_draw(&button_subtype[i], editor_renderer);
+
+		for (int i = 0; i < 9; i++)kiss_button_draw(&button_check[i], editor_renderer);
 
 
 		/*SDL_Rect r; r.x = 50; r.y = 50; r.w = 50; r.h = 50; SDL_Color color = { 0, 0, 0 };

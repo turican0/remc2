@@ -275,6 +275,239 @@ int kiss_vscrollbar_new(kiss_vscrollbar *vscrollbar, kiss_window *wdw,
 	return 0;
 }
 
+int kiss_hex2edit_new(kiss_hex2edit* hex2edit, kiss_window* wdw, void* adress, char* text, int x, int y)
+//int kiss_hex4edit_new(kiss_button* button, kiss_window* wdw, char* text,	int x, int y)
+{
+	if (!hex2edit || !text) return -1;
+
+	hex2edit->valueadress = adress;
+
+	if (hex2edit->font.magic != KISS_MAGIC) hex2edit->font = kiss_textfont;
+	if (hex2edit->valuefont.magic != KISS_MAGIC) hex2edit->valuefont = kiss_textfont;
+
+	if (hex2edit->left.magic != KISS_MAGIC)
+		hex2edit->left = kiss_left;
+	if (hex2edit->left_sel.magic != KISS_MAGIC)
+		hex2edit->left_sel = kiss_left_sel;
+
+	if (hex2edit->right.magic != KISS_MAGIC)
+		hex2edit->right = kiss_right;
+	if (hex2edit->right_sel.magic != KISS_MAGIC)
+		hex2edit->right_sel = kiss_right_sel;
+
+	hex2edit->textcolor = kiss_black;
+	kiss_string_copy(hex2edit->text, KISS_MAX_LENGTH, text, NULL);
+	hex2edit->textx = x /*+ hex4edit->normalimg.w / 2 -	kiss_textwidth(hex4edit->font, text, NULL) / 2*/;
+	hex2edit->texty = y + hex2edit->left.h / 2 - hex2edit->font.fontheight / 2;
+
+	int basic_shift_x = 110;
+	kiss_makerect(&hex2edit->leftrect1, basic_shift_x + x, y, hex2edit->left.w, hex2edit->left.h);
+	kiss_makerect(&hex2edit->leftrect2, basic_shift_x + x + hex2edit->left.w, y, hex2edit->left.w, hex2edit->left.h);
+	
+	char buf[256];
+	sprintf(buf, "%02X", *(Bit8u*)adress);
+	hex2edit->valuetextcolor = kiss_black;
+	kiss_string_copy(hex2edit->valuetext, KISS_MAX_LENGTH, buf, NULL);
+	hex2edit->valuetextx = basic_shift_x + x + hex2edit->left.w * 2;
+	hex2edit->valuetexty = y + hex2edit->left.h / 2 - hex2edit->font.fontheight / 2;
+
+	int second_shift_x = basic_shift_x + 53;
+	kiss_makerect(&hex2edit->rightrect1, second_shift_x + x, y, hex2edit->right.w, hex2edit->right.h);
+	kiss_makerect(&hex2edit->rightrect2, second_shift_x + x + hex2edit->right.w, y, hex2edit->right.w, hex2edit->right.h);
+	
+	hex2edit->left1active = 0;
+	hex2edit->left1prelight = 0;
+	hex2edit->left2active = 0;
+	hex2edit->left2prelight = 0;
+	hex2edit->right1active = 0;
+	hex2edit->right1prelight = 0;
+	hex2edit->right2active = 0;
+	hex2edit->right2prelight = 0;
+
+
+	hex2edit->visible = 0;
+	hex2edit->focus = 0;
+	hex2edit->wdw = wdw;
+	return 0;
+}
+
+int kiss_hex2edit_update_adress(kiss_hex2edit* hex2edit, void* adress)
+{
+	if (!hex2edit) return -1;
+	hex2edit->valueadress = adress;
+	char buf[256];
+	sprintf(buf, "%02X", *(Bit8u*)adress);
+	kiss_string_copy(hex2edit->valuetext, KISS_MAX_LENGTH, buf, NULL);
+	return 0;
+}
+
+void kiss_hex2edit_set(kiss_hex2edit* hex2edit, int value)
+{
+	*(Bit8u*)hex2edit->valueadress = value;
+	char buf[256];
+	sprintf(buf, "%02X", *(Bit8u*)hex2edit->valueadress);
+	kiss_string_copy(hex2edit->valuetext, KISS_MAX_LENGTH, buf, NULL);
+}
+
+int kiss_hex2edit_event(kiss_hex2edit* hex2edit, SDL_Event* event, int* draw)
+{
+	if (!hex2edit || !hex2edit->visible || !event) return 0;
+	if (event->type == SDL_WINDOWEVENT &&
+		event->window.event == SDL_WINDOWEVENT_EXPOSED)
+		* draw = 1;
+	if (!hex2edit->focus && (!hex2edit->wdw || (hex2edit->wdw && !hex2edit->wdw->focus)))
+		return 0;
+	if (event->type == SDL_MOUSEBUTTONDOWN && kiss_pointinrect(event->button.x, event->button.y, &hex2edit->leftrect1)) {
+		hex2edit->left1active = 1;
+		*draw = 1;
+		*(Bit8u*)hex2edit->valueadress -= 16;
+		char buf[256];
+		sprintf(buf, "%02X", *(Bit8u*)hex2edit->valueadress);
+		kiss_string_copy(hex2edit->valuetext, KISS_MAX_LENGTH, buf, NULL);
+		return 11;
+	}
+	else if (event->type == SDL_MOUSEBUTTONUP && kiss_pointinrect(event->button.x, event->button.y, &hex2edit->leftrect1) && hex2edit->left1active) {
+		hex2edit->left1active = 0;
+		*draw = 1;
+		return 1;
+	}
+	else if (event->type == SDL_MOUSEMOTION && kiss_pointinrect(event->motion.x, event->motion.y, &hex2edit->leftrect1)) {
+		hex2edit->left1prelight = 1;
+		*draw = 1;
+	}
+	else if (event->type == SDL_MOUSEMOTION && !kiss_pointinrect(event->motion.x, event->motion.y, &hex2edit->leftrect1)) {
+		hex2edit->left1prelight = 0;
+		*draw = 1;
+		if (hex2edit->left1active) {
+			hex2edit->left1active = 0;
+			return 1;
+		}
+	}
+
+	if (event->type == SDL_MOUSEBUTTONDOWN && kiss_pointinrect(event->button.x, event->button.y, &hex2edit->leftrect2)) {
+		hex2edit->left2active = 1;
+		*draw = 1;
+		*(Bit8u*)hex2edit->valueadress -= 1;
+		char buf[256];
+		sprintf(buf, "%02X", *(Bit8u*)hex2edit->valueadress);
+		kiss_string_copy(hex2edit->valuetext, KISS_MAX_LENGTH, buf, NULL);
+		return 12;
+	}
+	else if (event->type == SDL_MOUSEBUTTONUP && kiss_pointinrect(event->button.x, event->button.y, &hex2edit->leftrect2) && hex2edit->left2active) {
+		hex2edit->left2active = 0;
+		*draw = 1;
+		return 1;
+	}
+	else if (event->type == SDL_MOUSEMOTION && kiss_pointinrect(event->motion.x, event->motion.y, &hex2edit->leftrect2)) {
+		hex2edit->left2prelight = 1;
+		*draw = 1;
+	}
+	else if (event->type == SDL_MOUSEMOTION && !kiss_pointinrect(event->motion.x, event->motion.y, &hex2edit->leftrect2)) {
+		hex2edit->left2prelight = 0;
+		*draw = 1;
+		if (hex2edit->left2active) {
+			hex2edit->left2active = 0;
+			return 1;
+		}
+	}
+		
+
+	if (event->type == SDL_MOUSEBUTTONDOWN && kiss_pointinrect(event->button.x, event->button.y, &hex2edit->rightrect1)) {
+		hex2edit->right1active = 1;
+		*draw = 1;
+		*(Bit8u*)hex2edit->valueadress += 1;
+		char buf[256];
+		sprintf(buf, "%02X", *(Bit8u*)hex2edit->valueadress);
+		kiss_string_copy(hex2edit->valuetext, KISS_MAX_LENGTH, buf, NULL);
+		return 15;
+	}
+	else if (event->type == SDL_MOUSEBUTTONUP && kiss_pointinrect(event->button.x, event->button.y, &hex2edit->rightrect1) && hex2edit->right1active) {
+		hex2edit->right1active = 0;
+		*draw = 1;
+		return 1;
+	}
+	else if (event->type == SDL_MOUSEMOTION && kiss_pointinrect(event->motion.x, event->motion.y, &hex2edit->rightrect1)) {
+		hex2edit->right1prelight = 1;
+		*draw = 1;
+	}
+	else if (event->type == SDL_MOUSEMOTION && !kiss_pointinrect(event->motion.x, event->motion.y, &hex2edit->rightrect1)) {
+		hex2edit->right1prelight = 0;
+		*draw = 1;
+		if (hex2edit->right1active) {
+			hex2edit->right1active = 0;
+			return 1;
+		}
+	}
+
+	if (event->type == SDL_MOUSEBUTTONDOWN && kiss_pointinrect(event->button.x, event->button.y, &hex2edit->rightrect2)) {
+		hex2edit->right2active = 1;
+		*draw = 1;
+		*(Bit8u*)hex2edit->valueadress += 16;
+		char buf[256];
+		sprintf(buf, "%02X", *(Bit8u*)hex2edit->valueadress);
+		kiss_string_copy(hex2edit->valuetext, KISS_MAX_LENGTH, buf, NULL);
+		return 16;
+	}
+	else if (event->type == SDL_MOUSEBUTTONUP && kiss_pointinrect(event->button.x, event->button.y, &hex2edit->rightrect2) && hex2edit->right2active) {
+		hex2edit->right2active = 0;
+		*draw = 1;
+		return 1;
+	}
+	else if (event->type == SDL_MOUSEMOTION && kiss_pointinrect(event->motion.x, event->motion.y, &hex2edit->rightrect2)) {
+		hex2edit->right2prelight = 1;
+		*draw = 1;
+	}
+	else if (event->type == SDL_MOUSEMOTION && !kiss_pointinrect(event->motion.x, event->motion.y, &hex2edit->rightrect2)) {
+		hex2edit->right2prelight = 0;
+		*draw = 1;
+		if (hex2edit->right2active) {
+			hex2edit->right2active = 0;
+			return 1;
+		}
+	}
+	
+	return 0;
+}
+
+int kiss_hex2edit_draw(kiss_hex2edit* hex2edit, SDL_Renderer* renderer)
+{
+	if (hex2edit && hex2edit->wdw) hex2edit->visible = hex2edit->wdw->visible;
+	if (!hex2edit || !hex2edit->visible || !renderer) return 0;
+
+	if (hex2edit->left1active)
+		kiss_renderimage(renderer, hex2edit->left_sel, hex2edit->leftrect1.x, hex2edit->leftrect1.y, NULL);
+	else if (hex2edit->left1prelight && !hex2edit->left1active)
+		kiss_renderimage(renderer, hex2edit->left_sel, hex2edit->leftrect1.x, hex2edit->leftrect1.y, NULL);
+	else
+		kiss_renderimage(renderer, hex2edit->left, hex2edit->leftrect1.x, hex2edit->leftrect1.y, NULL);
+
+	if (hex2edit->left2active)
+		kiss_renderimage(renderer, hex2edit->left_sel, hex2edit->leftrect2.x, hex2edit->leftrect2.y, NULL);
+	else if (hex2edit->left2prelight && !hex2edit->left2active)
+		kiss_renderimage(renderer, hex2edit->left_sel, hex2edit->leftrect2.x, hex2edit->leftrect2.y, NULL);
+	else
+		kiss_renderimage(renderer, hex2edit->left, hex2edit->leftrect2.x, hex2edit->leftrect2.y, NULL);
+
+	if (hex2edit->right1active)
+		kiss_renderimage(renderer, hex2edit->right_sel, hex2edit->rightrect1.x, hex2edit->rightrect1.y, NULL);
+	else if (hex2edit->right1prelight && !hex2edit->right1active)
+		kiss_renderimage(renderer, hex2edit->right_sel, hex2edit->rightrect1.x, hex2edit->rightrect1.y, NULL);
+	else
+		kiss_renderimage(renderer, hex2edit->right, hex2edit->rightrect1.x, hex2edit->rightrect1.y, NULL);
+	if (hex2edit->right2active)
+		kiss_renderimage(renderer, hex2edit->right_sel, hex2edit->rightrect2.x, hex2edit->rightrect2.y, NULL);
+	else if (hex2edit->right2prelight && !hex2edit->right2active)
+		kiss_renderimage(renderer, hex2edit->right_sel, hex2edit->rightrect2.x, hex2edit->rightrect2.y, NULL);
+	else
+		kiss_renderimage(renderer, hex2edit->right, hex2edit->rightrect2.x, hex2edit->rightrect2.y, NULL);
+
+	kiss_rendertext(renderer, hex2edit->text, hex2edit->textx, hex2edit->texty, hex2edit->font, hex2edit->textcolor);
+	kiss_rendertext(renderer, hex2edit->valuetext, hex2edit->valuetextx, hex2edit->valuetexty, hex2edit->valuefont, hex2edit->valuetextcolor);
+	return 1;
+}
+
+
+
 int kiss_hex4edit_new(kiss_hex4edit* hex4edit, kiss_window* wdw, void* adress, char* text, int x, int y)
 //int kiss_hex4edit_new(kiss_button* button, kiss_window* wdw, char* text,	int x, int y)
 {
@@ -1487,6 +1720,10 @@ int kiss_textbox_draw(kiss_textbox *textbox, SDL_Renderer *renderer)
 			textbox->textcolor);
 	}
 	return 1;
+}
+
+void kiss_textbox_setviewon(kiss_textbox* textbox,int position) {
+	if (position < 0)return;
 }
 
 int kiss_combobox_new(kiss_combobox *combobox, kiss_window *wdw,
