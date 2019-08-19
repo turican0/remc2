@@ -1616,7 +1616,7 @@ typedef struct {//lenght 0x36e16
 	Bit16s word_0x36DEC_mousex;
 	Bit16s word_0x36DEE_mousey;
 	Bit16s word_0x36DF0_mousexx;
-	Bit32s dword_0x36DF2;//index
+	Bit32u dword_0x36DF2;//index
 	Bit32u dword_0x36DF6;//pointer
 	Bit16s word_0x36DFA;
 	Bit16s word_0x36DFC;

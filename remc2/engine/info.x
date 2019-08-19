@@ -8018,3 +8018,17 @@ case 0x21b8b0: {
 
 	case 0x22b810: {
 
+(Bit8u*)&x_BYTE_12B4E0_shading+0xd74c 0x18
+0x2fc4e0+0xd74c 0x1f
+
+18181519
+void sub_44D00()//225d00
+
+1f
+265f98 - call 265ea0
+void sub_84B80()//265b80
+
+for (iy = 0; v8 < 50; iy++)
+step cca 12
+
+void sub_84EA0(unsigned __int16 a1, type_str_0x3664C* a2x, char a3, __int16 a4)//265ea0
