@@ -2058,10 +2058,10 @@ int main_x(/*int argc, char** argv*/)
 	kiss_vscrollbar_new(&vscrollbar1, &window1, textbox1.rect.x + textbox_width, textbox1.rect.y, textbox_height);
 	//kiss_textbox_new(&textbox2, &window1, 1, &a2,vscrollbar1.uprect.x + kiss_up.w, textbox1.rect.y,	textbox_width, textbox_height);
 	//kiss_vscrollbar_new(&vscrollbar2, &window1, textbox2.rect.x +textbox_width, vscrollbar1.uprect.y, textbox_height);
-	kiss_label_new(&label_terfeat, &window1, (char*)"TERRAN FEATURES:", 5 + textbox1.rect.x + kiss_edge, textbox1.rect.y - kiss_textfont.lineheight*2);
+	kiss_label_new(&label_terfeat, &window1, (char*)"LEVEL ENTITES:", 5 + textbox1.rect.x + kiss_edge, textbox1.rect.y - kiss_textfont.lineheight*2);
 	kiss_label_new(&label_terfeat2, &window1, (char*)"IDX|TYPE|SUBT| X  | Y  | Z  | 10 |STAG| 14 |PARN|CHLD", 5 + textbox1.rect.x + kiss_edge, textbox1.rect.y - kiss_textfont.lineheight);
 
-	kiss_label_new(&label_stages, &window1, (char*)"TERRAN STAGES:", 5 + textbox2.rect.x + kiss_edge, textbox2.rect.y - kiss_textfont.lineheight * 2);
+	kiss_label_new(&label_stages, &window1, (char*)"LEVEL STAGES:", 5 + textbox2.rect.x + kiss_edge, textbox2.rect.y - kiss_textfont.lineheight * 2);
 	kiss_label_new(&label_stages2, &window1, (char*)"IX|STG| 01 | 03 | 05", 5 + textbox2.rect.x + kiss_edge, textbox2.rect.y - kiss_textfont.lineheight);
 	//kiss_label_new(&label2, &window1, (char*)"Files", textbox2.rect.x +	kiss_edge, textbox1.rect.y - kiss_textfont.lineheight);
 	//kiss_label_new(&label_sel, &window1, (char*)"", textbox1.rect.x +kiss_edge, textbox1.rect.y + textbox_height +kiss_normal.h);
@@ -2104,18 +2104,18 @@ int main_x(/*int argc, char** argv*/)
 	//kiss_progressbar_new(&progressbar, &window2, window2.rect.x +kiss_up.w - kiss_edge, window2.rect.y + window2.rect.h / 2 -kiss_bar.h / 2 - kiss_border,window2.rect.w - 2 * kiss_up.w + 2 * kiss_edge);
 	//kiss_button_new(&button_ok2, &window2, (char*)"OK", window2.rect.x +window2.rect.w / 2 - kiss_normal.w / 2,progressbar.rect.y + progressbar.rect.h +2 * kiss_vslider.h);
 
-	kiss_hex4edit_new(&hex4edit1, &window1, &D41A0_BYTESTR_0.str_2FECE.word_0x2FEE5, (char*)"RANDOM SEED:", 10, 10);
-	kiss_hex4edit_new(&hex4edit2, &window1, &D41A0_BYTESTR_0.str_2FECE.word_0x2FEE9, (char*)"SHIFT:", 10, 30);
-	kiss_hex4edit_new(&hex4edit3, &window1, &D41A0_BYTESTR_0.str_2FECE.word_0x2FEED, (char*)"HEIGHT:", 10, 50);
-	kiss_hex4edit_new(&hex4edit4, &window1, &D41A0_BYTESTR_0.str_2FECE.word_0x2FEF1, (char*)"NOISE:", 10, 70);
-	kiss_hex4edit_new(&hex4edit5, &window1, &D41A0_BYTESTR_0.str_2FECE.word_0x2FEF5, (char*)"RIVERS:", 10, 90);
-	kiss_hex4edit_new(&hex4edit6, &window1, &D41A0_BYTESTR_0.str_2FECE.word_0x2FEF9, (char*)"RIVERSH:", 10, 110);
-	kiss_hex4edit_new(&hex4edit7, &window1, &D41A0_BYTESTR_0.str_2FECE.word_0x2FEFD, (char*)"0x2FEFD:", 10, 130);
-	kiss_hex4edit_new(&hex4edit8, &window1, &D41A0_BYTESTR_0.str_2FECE.word_0x2FF01, (char*)"0x2FF01:", 10, 150);
-	kiss_hex4edit_new(&hex4edit9, &window1, &D41A0_BYTESTR_0.str_2FECE.word_0x2FF05, (char*)"0x2FF05:", 10, 170);
-	kiss_hex4edit_new(&hex4edit10, &window1, &D41A0_BYTESTR_0.str_2FECE.word_0x2FF09, (char*)"0x2FF09:", 10, 190);
-	kiss_hex4edit_new(&hex4edit11, &window1, &D41A0_BYTESTR_0.str_2FECE.word_0x2FF0D, (char*)"0x2FF0D:", 10, 210);
-	kiss_hex4edit_new(&hex4edit12, &window1, &D41A0_BYTESTR_0.str_2FECE.word_0x2FF11, (char*)"0x2FF11:", 10, 230);
+	kiss_hex4edit_new(&hex4edit1, &window1, &D41A0_BYTESTR_0.str_2FECE.word_0x2FEE5, (char*)"SEED:", 10, 10);
+	kiss_hex4edit_new(&hex4edit2, &window1, &D41A0_BYTESTR_0.str_2FECE.word_0x2FEE9, (char*)"OFFSET:", 10, 30);
+	kiss_hex4edit_new(&hex4edit3, &window1, &D41A0_BYTESTR_0.str_2FECE.word_0x2FEED, (char*)"RAISE:", 10, 50);
+	kiss_hex4edit_new(&hex4edit4, &window1, &D41A0_BYTESTR_0.str_2FECE.word_0x2FEF1, (char*)"GNARL:", 10, 70);
+	kiss_hex4edit_new(&hex4edit5, &window1, &D41A0_BYTESTR_0.str_2FECE.word_0x2FEF5, (char*)"RIVER:", 10, 90);
+	kiss_hex4edit_new(&hex4edit6, &window1, &D41A0_BYTESTR_0.str_2FECE.word_0x2FEF9, (char*)"LRIVER:", 10, 110);
+	kiss_hex4edit_new(&hex4edit7, &window1, &D41A0_BYTESTR_0.str_2FECE.word_0x2FEFD, (char*)"SOURCE:", 10, 130);
+	kiss_hex4edit_new(&hex4edit8, &window1, &D41A0_BYTESTR_0.str_2FECE.word_0x2FF01, (char*)"SnLin:", 10, 150);
+	kiss_hex4edit_new(&hex4edit9, &window1, &D41A0_BYTESTR_0.str_2FECE.word_0x2FF05, (char*)"SnFlt:", 10, 170);
+	kiss_hex4edit_new(&hex4edit10, &window1, &D41A0_BYTESTR_0.str_2FECE.word_0x2FF09, (char*)"BhLin:", 10, 190);
+	kiss_hex4edit_new(&hex4edit11, &window1, &D41A0_BYTESTR_0.str_2FECE.word_0x2FF0D, (char*)"BhFlt:", 10, 210);
+	kiss_hex4edit_new(&hex4edit12, &window1, &D41A0_BYTESTR_0.str_2FECE.word_0x2FF11, (char*)"RkSte:", 10, 230);
 
 	//drawterrain2(0, window1.rect.h - mapimage.h, 10, 0, 0);
 	kiss_terrain_new(&terrain1, &window1, mapsurface, kiss_border, window1.rect.h - mapimage.h - kiss_border, &terrainzoom, &terrainbeginx, &terrainbeginy);

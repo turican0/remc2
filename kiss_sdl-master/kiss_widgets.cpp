@@ -501,6 +501,9 @@ int kiss_hex2edit_draw(kiss_hex2edit* hex2edit, SDL_Renderer* renderer)
 	else
 		kiss_renderimage(renderer, hex2edit->right, hex2edit->rightrect2.x, hex2edit->rightrect2.y, NULL);
 
+	char buf[256];
+	sprintf(buf, "%02X", *(Bit8u*)hex2edit->valueadress);
+	kiss_string_copy(hex2edit->valuetext, KISS_MAX_LENGTH, buf, NULL);
 	kiss_rendertext(renderer, hex2edit->text, hex2edit->textx, hex2edit->texty, hex2edit->font, hex2edit->textcolor);
 	kiss_rendertext(renderer, hex2edit->valuetext, hex2edit->valuetextx, hex2edit->valuetexty, hex2edit->valuefont, hex2edit->valuetextcolor);
 	return 1;
@@ -886,8 +889,9 @@ int kiss_hex4edit_draw(kiss_hex4edit* hex4edit, SDL_Renderer* renderer)
 	else
 		kiss_renderimage(renderer, hex4edit->right, hex4edit->rightrect4.x, hex4edit->rightrect4.y, NULL);
 
-
-
+	char buf[256];
+	sprintf(buf, "%04X", *(Bit16u*)hex4edit->valueadress);
+	kiss_string_copy(hex4edit->valuetext, KISS_MAX_LENGTH, buf, NULL);
 	kiss_rendertext(renderer, hex4edit->text, hex4edit->textx, hex4edit->texty,hex4edit->font, hex4edit->textcolor);
 	kiss_rendertext(renderer, hex4edit->valuetext, hex4edit->valuetextx, hex4edit->valuetexty, hex4edit->valuefont, hex4edit->valuetextcolor);
 	return 1;
@@ -1724,6 +1728,9 @@ int kiss_textbox_draw(kiss_textbox *textbox, SDL_Renderer *renderer)
 
 void kiss_textbox_setviewon(kiss_textbox* textbox,int position) {
 	if (position < 0)return;
+	textbox->firstline = position-1;
+	if (textbox->firstline < 0) textbox->firstline = 0;
+	if (textbox->firstline > textbox->array->length - textbox->maxlines) textbox->firstline = textbox->array->length - textbox->maxlines;
 }
 
 int kiss_combobox_new(kiss_combobox *combobox, kiss_window *wdw,

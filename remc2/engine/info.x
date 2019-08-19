@@ -8005,3 +8005,16 @@ int sub_6D4F0(type_str_611* a1x, __int16 a2)//24e4f0
 char sub_88D40()//269d40
 void sub_2ECC0_draw_bottom_menu()//20fcc0
 
+resultx = pre_sub_4A190(0x2321a0 + 14 * a1x->byte_0x40_64, (Bit16s*)&a1x->array_0x4C_76,2);//result = (*(int(**)(Bit8u*))((char *)&off_D781E + 14 * *(char *)(a1 + 64)))(a1 + 76);
+
+21bf00
+
+case 0x21b8b0: {
+		return (type_str_0x6E8E*)sub_3A8B0((type_str_0x6E8E*)a1);
+		break;
+	}
+
+
+
+	case 0x22b810: {
+
