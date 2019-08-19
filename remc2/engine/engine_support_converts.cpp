@@ -528,9 +528,9 @@ void convert_struct_to_array_0x36442(type_str_0x36442* input, Bit8u* output) {
 	//Bit16s word_1;//25973//word_0
 	memcpy(output + 1, &input->word_1, 2);
 	//Bit16s word_3;//25975//word_2
-	memcpy(output + 3, &input->word_3, 2);
+	memcpy(output + 3, &input->axis_2d.x, 2);
 	//Bit16s word_5; //25977//word_4
-	memcpy(output + 5, &input->word_5, 2);
+	memcpy(output + 5, &input->axis_2d.y, 2);
 }
 
 
@@ -639,11 +639,11 @@ void convert_struct_to_array_3654C(type_str_3654C* input, Bit8u* output){ //size
 	//Bit8s str_3654D_byte1;
 	memcpy(output + 1, &input->str_3654D_byte1, 1);
 	//Bit16s str_3654E_word2;//objective parametres
-	memcpy(output + 2, &input->str_3654E_word2, 2);
+	memcpy(output + 2, &input->str_3654E_axis.x, 2);
 	//Bit16s str_36550_word4;
-	memcpy(output + 4, &input->str_36550_word4, 2);
+	memcpy(output + 4, &input->str_3654E_axis.y, 2);
 	//Bit32s str_36552_dword6; //pointer sometimes
-	memcpy(output + 6, &input->str_36552_dword6, 4);
+	memcpy(output + 6, &input->str_36552_un.dword, 4);
 }
 
 void convert_struct_to_array_0x3664C(type_str_0x3664C* input, Bit8u* output) {//lenght 39

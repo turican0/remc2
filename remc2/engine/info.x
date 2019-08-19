@@ -8004,3 +8004,4 @@ adress 2321e6
 int sub_6D4F0(type_str_611* a1x, __int16 a2)//24e4f0
 char sub_88D40()//269d40
 void sub_2ECC0_draw_bottom_menu()//20fcc0
+
