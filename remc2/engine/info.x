@@ -8035,3 +8035,31 @@ void sub_84EA0(unsigned __int16 a1, type_str_0x3664C* a2x, char a3, __int16 a4)/
 
 
 void sub_loc_1B5BC(Bit16u a1) {//1fc5bc
+
+(Bit8u*)&D41A0_BYTESTR_0+0x235 0x1
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x235 0x0
+0x356038 +0x235
+
+(Bit8u*)&D41A0_BYTESTR_0+0x36656 0xa6
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x36656 0xd6
+0x356038 +0x36656
+
+(Bit8u*)&x_BYTE_12B4E0_shading+0xb03 0x1e
+0x2fc4e0+0xb03 0x20
+
+(Bit8u*)&x_BYTE_12B4E0_shading+0x25 0x16
+0x2fc4e0+0x25 0x22
+
+void sub_848A0()//2658a0
+
+(Bit8u*)&x_BYTE_12B4E0_shading+0xd84b 0x29
+0x2fc4e0+0xd84b 0x2d
+
+265f98
+void sub_84EA0(uaxis_2d a1x, type_str_0x3664C* a2x, char a3, __int16 a4)//265ea0
+
+ma byt 0x20, ale je 0x18
+D41A0_BYTESTR_0.word_0x36DFA
+
+sequence
+void sub_84B80()//265b80

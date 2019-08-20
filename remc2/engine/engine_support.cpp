@@ -270,10 +270,26 @@ int test_D41A0_id_pointer(Bit32u adress) {
 	if ((adress >= 0x41e5) && (adress < 0x41e8))return 2;//clock3
 	if ((adress >= 0x4a31) && (adress < 0x4a34))return 2;//clock4
 
+	if ((adress >= 0x235) && (adress < 0x236))return 2;//music
+
 	if ((adress >= 0x246)&& (adress < 0x2186))return 1;
+
 	if ((adress >= 0x3655c) && (adress < 0x3655d))return 1;
 	if ((adress >= 0x36608) && (adress < 0x36609))return 1;
 	if ((adress >= 0x36552) && (adress < 0x36553))return 1;
+
+	/*if ((adress >= 0x36656) && (adress < 0x36657))return 1;
+	if ((adress >= 0x3667d) && (adress < 0x3667e))return 1;
+	if ((adress >= 0x366a4) && (adress < 0x366a5))return 1;
+	if ((adress >= 0x366cb) && (adress < 0x366cc))return 1;
+	if ((adress >= 0x366f2) && (adress < 0x366f3))return 1;
+	if ((adress >= 0x36719) && (adress < 0x3671a))return 1;
+	if ((adress >= 0x36740) && (adress < 0x36741))return 1;
+	if ((adress >= 0x36767) && (adress < 0x36768))return 1;
+	if ((adress >= 0x3678e) && (adress < 0x3678f))return 1;*/
+	for (Bit32u i = 0; i < 32; i++) {
+		if ((adress >= 0x36656 + i * 39) && (adress < 0x36657 + i * 39))return 1;
+	}
 	/*if ((adress >= 0x6f32) && (adress < 0x6f37))return 1;
 	if ((adress >= 0x6fd6) && (adress < 0x6fdb))return 1;
 	if ((adress >= 0x707e) && (adress < 0x707f))return 1;

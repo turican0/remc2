@@ -1423,7 +1423,7 @@ type_uni_0x21B6;*/
 typedef struct{//lenght 39
 	Bit8s byte_0;
 	Bit8s byte_1;
-	Bit8s byte_2;
+	Bit8u byte_2;
 	Bit8s byte_3;
 	axis_3d axis3d_4;
 	/*Bit16s word_6;
