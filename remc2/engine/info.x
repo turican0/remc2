@@ -8032,3 +8032,6 @@ for (iy = 0; v8 < 50; iy++)
 step cca 12
 
 void sub_84EA0(unsigned __int16 a1, type_str_0x3664C* a2x, char a3, __int16 a4)//265ea0
+
+
+void sub_loc_1B5BC(Bit16u a1) {//1fc5bc

@@ -275,7 +275,7 @@ int kiss_vscrollbar_new(kiss_vscrollbar *vscrollbar, kiss_window *wdw,
 	return 0;
 }
 
-int kiss_hex2edit_new(kiss_hex2edit* hex2edit, kiss_window* wdw, void* adress, char* text, int x, int y)
+int kiss_hex2edit_new(kiss_hex2edit* hex2edit, kiss_window* wdw, void* adress, char* text, int x, int y,int shift)
 //int kiss_hex4edit_new(kiss_button* button, kiss_window* wdw, char* text,	int x, int y)
 {
 	if (!hex2edit || !text) return -1;
@@ -300,7 +300,8 @@ int kiss_hex2edit_new(kiss_hex2edit* hex2edit, kiss_window* wdw, void* adress, c
 	hex2edit->textx = x /*+ hex4edit->normalimg.w / 2 -	kiss_textwidth(hex4edit->font, text, NULL) / 2*/;
 	hex2edit->texty = y + hex2edit->left.h / 2 - hex2edit->font.fontheight / 2;
 
-	int basic_shift_x = 110;
+	//int basic_shift_x = 110;
+	int basic_shift_x = shift;
 	kiss_makerect(&hex2edit->leftrect1, basic_shift_x + x, y, hex2edit->left.w, hex2edit->left.h);
 	kiss_makerect(&hex2edit->leftrect2, basic_shift_x + x + hex2edit->left.w, y, hex2edit->left.w, hex2edit->left.h);
 	
@@ -511,7 +512,7 @@ int kiss_hex2edit_draw(kiss_hex2edit* hex2edit, SDL_Renderer* renderer)
 
 
 
-int kiss_hex4edit_new(kiss_hex4edit* hex4edit, kiss_window* wdw, void* adress, char* text, int x, int y)
+int kiss_hex4edit_new(kiss_hex4edit* hex4edit, kiss_window* wdw, void* adress, char* text, int x, int y,int shift)
 //int kiss_hex4edit_new(kiss_button* button, kiss_window* wdw, char* text,	int x, int y)
 {
 	if (!hex4edit || !text) return -1;	
@@ -543,7 +544,8 @@ int kiss_hex4edit_new(kiss_hex4edit* hex4edit, kiss_window* wdw, void* adress, c
 	hex4edit->textx = x /*+ hex4edit->normalimg.w / 2 -	kiss_textwidth(hex4edit->font, text, NULL) / 2*/;
 	hex4edit->texty = y + hex4edit->left.h / 2 -	hex4edit->font.fontheight / 2;
 
-	int basic_shift_x = 110;
+	//int basic_shift_x = 110;
+	int basic_shift_x = shift;
 	kiss_makerect(&hex4edit->leftrect1, basic_shift_x + x, y, hex4edit->left.w, hex4edit->left.h);
 	kiss_makerect(&hex4edit->leftrect2, basic_shift_x + x + hex4edit->left.w, y, hex4edit->left.w, hex4edit->left.h);
 	kiss_makerect(&hex4edit->leftrect3, basic_shift_x + x + hex4edit->left.w * 2, y, hex4edit->left.w, hex4edit->left.h);

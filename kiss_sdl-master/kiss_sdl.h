@@ -518,13 +518,13 @@ extern "C" {
 	int kiss_hscrollbar_event(kiss_hscrollbar* hscrollbar, SDL_Event* event,int* draw);
 	int kiss_hscrollbar_draw(kiss_hscrollbar* hscrollbar,SDL_Renderer* renderer);
 
-	int kiss_hex2edit_new(kiss_hex2edit* hex2edit, kiss_window* wdw, void* adress, char* text, int x, int y);
+	int kiss_hex2edit_new(kiss_hex2edit* hex2edit, kiss_window* wdw, void* adress, char* text, int x, int y,int shift=110);
 	int kiss_hex2edit_update_adress(kiss_hex2edit* hex2edit, void* adress);
 	int kiss_hex2edit_event(kiss_hex2edit* hex2edit, SDL_Event* event, int* draw);
 	int kiss_hex2edit_draw(kiss_hex2edit* hex2edit, SDL_Renderer* renderer);
 	void kiss_hex2edit_set(kiss_hex2edit* hex2edit, int value);
 
-	int kiss_hex4edit_new(kiss_hex4edit* hex4edit, kiss_window* wdw, void* adress, char* text, int x, int y);
+	int kiss_hex4edit_new(kiss_hex4edit* hex4edit, kiss_window* wdw, void* adress, char* text, int x, int y, int shift = 110);
 	int kiss_hex4edit_update_adress(kiss_hex4edit* hex4edit, void* adress);
 	int kiss_hex4edit_event(kiss_hex4edit* hex4edit, SDL_Event* event, int* draw);
 	int kiss_hex4edit_draw(kiss_hex4edit* hex4edit, SDL_Renderer* renderer);

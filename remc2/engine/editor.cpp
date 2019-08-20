@@ -976,6 +976,19 @@ static void terrain_stages_append(kiss_textbox* textbox) {
 	//text_reset(textbox1, vscrollbar1);
 }
 
+static void terrain_vars_append(kiss_textbox* textbox) {
+kiss_array_free(textbox->array);
+kiss_array_new(textbox->array);
+char temp[256];
+//VGA_Draw_stringXYtoBuffer(temp, 304, 32, x_DWORD_180628b_screen_buffer);
+for (int i = 0; i < 0xb; i++)
+{
+	type_str_0x3647Ac actstage = D41A0_BYTESTR_0.str_2FECE.array_0x3647A[i];
+	sprintf(temp, "%01X |%02X|%02X|%02X|%02X|%04X|%04X", i, (Bit8u)actstage.str_0x3647A_byte_0, (Bit8u)actstage.str_0x3647A_byte_1, actstage.str_0x3647A_2.axis_2d.x, actstage.str_0x3647A_2.axis_2d.y,actstage.str_0x3647C_4.axis.x, actstage.str_0x3647C_4.axis.y);
+	kiss_array_appendstring(textbox->array, 0, (char*)"", temp);
+}
+//text_reset(textbox1, vscrollbar1);
+}
 
 /* The widget arguments are widgets that this widget talks with */
 static int textbox1_event(kiss_textbox* textbox, SDL_Event* e,	kiss_vscrollbar* vscrollbar1,int mousex,int mousey,int* draw)
@@ -1665,21 +1678,26 @@ bool first = true;
 int main_x(/*int argc, char** argv*/)
 {
 	SDL_Event e;
-	kiss_array objects/*, a1, a2*/;
-	kiss_array obj_stages/*, a1, a2*/;
+	kiss_array objects;
+	kiss_array obj_stages;
+	kiss_array obj_vars;
 	//kiss_label label2 = { 0 },label_res = { 0 };
 
 	kiss_label label_terfeat = { 0 };
 	kiss_label label_terfeat2 = { 0 };
 	kiss_label label_stages = { 0 };
 	kiss_label label_stages2 = { 0 };
+	kiss_label label_vars = { 0 };
+	kiss_label label_vars2 = { 0 };
 	kiss_button /*button_ok1 = { 0 }, button_ok2 = { 0 }, */button_cancel = { 0 }, button_levelsave = { 0 }, button_cleanlevelfeat = {0};
 	kiss_textbox textbox1 = { 0 };
 	kiss_textbox textbox2 = { 0 };
+	kiss_textbox textbox3 = { 0 };
 	kiss_vscrollbar vscrollbar1 = { 0 };
 	//kiss_progressbar progressbar = { 0 };
 	kiss_entry entry = { 0 };
-	int textbox_width, textbox_height, textbox2_width, textbox2_height,window2_width, window2_height, window3_width, window3_height;
+	int textbox_width, textbox_height, textbox2_width, textbox2_height, textbox3_width, textbox3_height,
+		window2_width,window2_height, window3_width, window3_height;
 	int	window_selecttype_width, window_selecttype_height, window_selectsubtype_width, window_selectsubtype_height,
 		window_selectcheck_width, window_selectcheck_height;
 	int	draw, quit;
@@ -1696,6 +1714,23 @@ int main_x(/*int argc, char** argv*/)
 	kiss_hex4edit hex4edit10 = { 0 };
 	kiss_hex4edit hex4edit11 = { 0 };
 	kiss_hex4edit hex4edit12 = { 0 };
+
+	kiss_hex4edit hex4edit13 = { 0 };
+	kiss_hex4edit hex4edit14 = { 0 };
+	kiss_hex2edit hex2edit15 = { 0 };
+	kiss_hex2edit hex2edit16 = { 0 };
+	kiss_hex2edit hex2edit17 = { 0 };
+	kiss_hex4edit hex4edit18 = { 0 };
+	kiss_hex4edit hex4edit19 = { 0 };
+
+	kiss_hex2edit hex2edit20 = { 0 };
+	kiss_hex2edit hex2edit21 = { 0 };
+	kiss_hex2edit hex2edit22 = { 0 };
+	kiss_hex2edit hex2edit23 = { 0 };
+	kiss_hex2edit hex2edit24 = { 0 };
+	kiss_hex2edit hex2edit25 = { 0 };
+	kiss_hex2edit hex2edit26 = { 0 };
+	kiss_hex2edit hex2edit27 = { 0 };
 
 	kiss_terrain terrain1 = { 0 };
 	kiss_terrain terrainfeat = { 0 };
@@ -1716,6 +1751,7 @@ int main_x(/*int argc, char** argv*/)
 
 	const int count_features = 24;
 	const int count_stages = 8;
+	const int count_variables = 0xb;
 	/*kiss_button button_del[count_features];
 	for (int i = 0; i < count_features; i++) button_del[i] = { 0 };
 	kiss_button button_add[count_features];
@@ -1738,6 +1774,8 @@ int main_x(/*int argc, char** argv*/)
 	textbox_height = count_features * 18 + 12;
 	textbox2_width = 200;
 	textbox2_height = count_stages * 18 + 12;
+	textbox3_width = 250;
+	textbox3_height = count_variables * 18 + 12;
 	window2_width = 532;
 	window2_height = 740;//300;
 	window3_width = 532;
@@ -1756,10 +1794,12 @@ int main_x(/*int argc, char** argv*/)
 	//kiss_array_append(&objects, ARRAY_TYPE, &a2);
 	kiss_array_new(&objects);
 	kiss_array_new(&obj_stages);
+	kiss_array_new(&obj_vars);
 	/* Arrange the widgets nicely relative to each other */
 	kiss_window_new(&window1, NULL, 1, 0, 0, kiss_screen_width, kiss_screen_height);
 	kiss_textbox_new(&textbox1, &window1, 1, &objects, 530, 50, textbox_width, textbox_height);
 	kiss_textbox_new(&textbox2, &window1, 1, &obj_stages, 530, 540, textbox2_width, textbox2_height);
+	kiss_textbox_new(&textbox3, &window1, 1, &obj_vars, 750, 540, textbox3_width, textbox3_height);
 
 
 #if SDL_BYTEORDER == SDL_BIG_ENDIAN
@@ -2063,6 +2103,9 @@ int main_x(/*int argc, char** argv*/)
 
 	kiss_label_new(&label_stages, &window1, (char*)"LEVEL STAGES:", 5 + textbox2.rect.x + kiss_edge, textbox2.rect.y - kiss_textfont.lineheight * 2);
 	kiss_label_new(&label_stages2, &window1, (char*)"IX|STG| 01 | 03 | 05", 5 + textbox2.rect.x + kiss_edge, textbox2.rect.y - kiss_textfont.lineheight);
+
+	kiss_label_new(&label_vars, &window1, (char*)"LEVEL VARS:", 5 + textbox3.rect.x + kiss_edge, textbox3.rect.y - kiss_textfont.lineheight * 2);
+	kiss_label_new(&label_vars2, &window1, (char*)"IX|STG| 01 | 03 | 05", 5 + textbox3.rect.x + kiss_edge, textbox3.rect.y - kiss_textfont.lineheight);
 	//kiss_label_new(&label2, &window1, (char*)"Files", textbox2.rect.x +	kiss_edge, textbox1.rect.y - kiss_textfont.lineheight);
 	//kiss_label_new(&label_sel, &window1, (char*)"", textbox1.rect.x +kiss_edge, textbox1.rect.y + textbox_height +kiss_normal.h);
 	//kiss_entry_new(&entry, &window1, 1, (char*)"kiss", textbox1.rect.x,label_sel.rect.y + kiss_textfont.lineheight,2 * textbox_width + 2 * kiss_up.w + kiss_edge);
@@ -2104,32 +2147,62 @@ int main_x(/*int argc, char** argv*/)
 	//kiss_progressbar_new(&progressbar, &window2, window2.rect.x +kiss_up.w - kiss_edge, window2.rect.y + window2.rect.h / 2 -kiss_bar.h / 2 - kiss_border,window2.rect.w - 2 * kiss_up.w + 2 * kiss_edge);
 	//kiss_button_new(&button_ok2, &window2, (char*)"OK", window2.rect.x +window2.rect.w / 2 - kiss_normal.w / 2,progressbar.rect.y + progressbar.rect.h +2 * kiss_vslider.h);
 
-	kiss_hex4edit_new(&hex4edit1, &window1, &D41A0_BYTESTR_0.str_2FECE.word_0x2FEE5, (char*)"SEED:", 10, 10);
-	kiss_hex4edit_new(&hex4edit2, &window1, &D41A0_BYTESTR_0.str_2FECE.word_0x2FEE9, (char*)"OFFSET:", 10, 30);
-	kiss_hex4edit_new(&hex4edit3, &window1, &D41A0_BYTESTR_0.str_2FECE.word_0x2FEED, (char*)"RAISE:", 10, 50);
-	kiss_hex4edit_new(&hex4edit4, &window1, &D41A0_BYTESTR_0.str_2FECE.word_0x2FEF1, (char*)"GNARL:", 10, 70);
-	kiss_hex4edit_new(&hex4edit5, &window1, &D41A0_BYTESTR_0.str_2FECE.word_0x2FEF5, (char*)"RIVER:", 10, 90);
-	kiss_hex4edit_new(&hex4edit6, &window1, &D41A0_BYTESTR_0.str_2FECE.word_0x2FEF9, (char*)"LRIVER:", 10, 110);
-	kiss_hex4edit_new(&hex4edit7, &window1, &D41A0_BYTESTR_0.str_2FECE.word_0x2FEFD, (char*)"SOURCE:", 10, 130);
-	kiss_hex4edit_new(&hex4edit8, &window1, &D41A0_BYTESTR_0.str_2FECE.word_0x2FF01, (char*)"SnLin:", 10, 150);
-	kiss_hex4edit_new(&hex4edit9, &window1, &D41A0_BYTESTR_0.str_2FECE.word_0x2FF05, (char*)"SnFlt:", 10, 170);
-	kiss_hex4edit_new(&hex4edit10, &window1, &D41A0_BYTESTR_0.str_2FECE.word_0x2FF09, (char*)"BhLin:", 10, 190);
-	kiss_hex4edit_new(&hex4edit11, &window1, &D41A0_BYTESTR_0.str_2FECE.word_0x2FF0D, (char*)"BhFlt:", 10, 210);
-	kiss_hex4edit_new(&hex4edit12, &window1, &D41A0_BYTESTR_0.str_2FECE.word_0x2FF11, (char*)"RkSte:", 10, 230);
+
+
+	kiss_hex4edit_new(&hex4edit1, &window1, &D41A0_BYTESTR_0.str_2FECE.word_0x2FEE5, (char*)"SEED:", 10, 10, 70);
+	kiss_hex4edit_new(&hex4edit2, &window1, &D41A0_BYTESTR_0.str_2FECE.word_0x2FEE9, (char*)"OFFSET:", 10, 30, 70);
+	kiss_hex4edit_new(&hex4edit3, &window1, &D41A0_BYTESTR_0.str_2FECE.word_0x2FEED, (char*)"RAISE:", 10, 50, 70);
+	kiss_hex4edit_new(&hex4edit4, &window1, &D41A0_BYTESTR_0.str_2FECE.word_0x2FEF1, (char*)"GNARL:", 10, 70, 70);
+	kiss_hex4edit_new(&hex4edit5, &window1, &D41A0_BYTESTR_0.str_2FECE.word_0x2FEF5, (char*)"RIVER:", 10, 90, 70);
+	kiss_hex4edit_new(&hex4edit6, &window1, &D41A0_BYTESTR_0.str_2FECE.word_0x2FEF9, (char*)"LRIVER:", 10, 110, 70);
+	kiss_hex4edit_new(&hex4edit7, &window1, &D41A0_BYTESTR_0.str_2FECE.word_0x2FEFD, (char*)"SOURCE:", 10, 130, 70);
+	kiss_hex4edit_new(&hex4edit8, &window1, &D41A0_BYTESTR_0.str_2FECE.word_0x2FF01, (char*)"SnLin:", 10, 150, 70);
+	kiss_hex4edit_new(&hex4edit9, &window1, &D41A0_BYTESTR_0.str_2FECE.word_0x2FF05, (char*)"SnFlt:", 10, 170, 70);
+	kiss_hex4edit_new(&hex4edit10, &window1, &D41A0_BYTESTR_0.str_2FECE.word_0x2FF09, (char*)"BhLin:", 10, 190, 70);
+	kiss_hex4edit_new(&hex4edit11, &window1, &D41A0_BYTESTR_0.str_2FECE.word_0x2FF0D, (char*)"BhFlt:", 10, 210, 70);
+	kiss_hex4edit_new(&hex4edit12, &window1, &D41A0_BYTESTR_0.str_2FECE.word_0x2FF11, (char*)"RkSte:", 10, 230, 70);
+
+	kiss_hex4edit_new(&hex4edit13, &window1, &D41A0_BYTESTR_0.str_2FECE.word_2FECE, (char*)"2FECE:", 250, 10,80);
+	kiss_hex4edit_new(&hex4edit14, &window1, &D41A0_BYTESTR_0.str_2FECE.word_2FED0, (char*)"2FED0:", 250, 30, 80);
+	kiss_hex2edit_new(&hex2edit15, &window1, &D41A0_BYTESTR_0.str_2FECE.byte_0x2FED2, (char*)"2FED2:", 250, 50, 80);
+	kiss_hex2edit_new(&hex2edit16, &window1, &D41A0_BYTESTR_0.str_2FECE.byte_0x2FED3, (char*)"2FED3:", 250, 70, 80);
+	kiss_hex2edit_new(&hex2edit17, &window1, &D41A0_BYTESTR_0.str_2FECE.byte_0x2FED4, (char*)"DY/NG/CV:", 250, 90, 80);
+	kiss_hex4edit_new(&hex4edit18, &window1, &D41A0_BYTESTR_0.str_2FECE.word_0x2FED5, (char*)"2FED5:", 250, 110, 80);
+	kiss_hex4edit_new(&hex4edit19, &window1, &D41A0_BYTESTR_0.str_2FECE.word_0x2FED7, (char*)"2FED7:", 250, 130, 80);
+
+	kiss_hex2edit_new(&hex2edit20, &window1, &D41A0_BYTESTR_0.str_2FECE.array_0x2FED9[0], (char*)"D9-0", 250, 150, 40);
+	kiss_hex2edit_new(&hex2edit21, &window1, &D41A0_BYTESTR_0.str_2FECE.array_0x2FED9[1], (char*)"D9-1", 385, 150, 40);
+	kiss_hex2edit_new(&hex2edit22, &window1, &D41A0_BYTESTR_0.str_2FECE.array_0x2FED9[2], (char*)"D9-2", 250, 170, 40);
+	kiss_hex2edit_new(&hex2edit23, &window1, &D41A0_BYTESTR_0.str_2FECE.array_0x2FED9[3], (char*)"D9-3", 385, 170, 40);
+	kiss_hex2edit_new(&hex2edit24, &window1, &D41A0_BYTESTR_0.str_2FECE.array_0x2FED9[4], (char*)"D9-4", 250, 190, 40);
+	kiss_hex2edit_new(&hex2edit25, &window1, &D41A0_BYTESTR_0.str_2FECE.array_0x2FED9[5], (char*)"D9-5", 385, 190, 40);
+	kiss_hex2edit_new(&hex2edit26, &window1, &D41A0_BYTESTR_0.str_2FECE.array_0x2FED9[6], (char*)"D9-6", 250, 210, 40);
+	kiss_hex2edit_new(&hex2edit27, &window1, &D41A0_BYTESTR_0.str_2FECE.array_0x2FED9[7], (char*)"D9-7", 385, 210, 40);
+
+	/*
+	Bit16u word_2FECE;
+	Bit16u word_2FED0;
+	Bit8u byte_0x2FED2;//x_D41A0_BYTEARRAY_0[196306] // type of level graphics
+	Bit8u byte_0x2FED3;
+	Bit8u byte_0x2FED4;//x_D41A0_BYTEARRAY_0[196308]//GraphicsType
+	Bit16s word_0x2FED5;
+	Bit16s word_0x2FED7;
+	Bit8s array_0x2FED9[8];
+	*/
 
 	//drawterrain2(0, window1.rect.h - mapimage.h, 10, 0, 0);
 	kiss_terrain_new(&terrain1, &window1, mapsurface, kiss_border, window1.rect.h - mapimage.h - kiss_border, &terrainzoom, &terrainbeginx, &terrainbeginy);
 	kiss_array combo1ar;
 
 	//kiss_selectbutton_new(&selectbutton1, &window2,50, 50);
-	kiss_label_new(&labelSel, &window1, (char*)"Map layer:", 290, 226);
-	kiss_selectbutton_new(&select1, &window1, labelSel.rect.x + 110, labelSel.rect.y);
+	kiss_label_new(&labelSel, &window1, (char*)"Layer:", 380, 230);
+	kiss_selectbutton_new(&select1, &window1, labelSel.rect.x + 60, labelSel.rect.y);
 	kiss_selectbutton_new(&select2, &window1, select1.rect.x + 20, labelSel.rect.y);
 	kiss_selectbutton_new(&select3, &window1, select2.rect.x + 20, labelSel.rect.y);
 	kiss_selectbutton_new(&select4, &window1, select3.rect.x + 20, labelSel.rect.y);
 
 
-	kiss_dec1edit_new(&levelSel, &window1, &actlevel, (char*)"Level:", 1, 24, 290, 206);
+	kiss_dec1edit_new(&levelSel, &window1, &actlevel, (char*)"Level:", 1, 24, 250, 230);
 
 	kiss_label_new(&labelXY, &window1, (char*)"", 900, 740);
 
@@ -2233,6 +2306,7 @@ int main_x(/*int argc, char** argv*/)
 	
 	terrain_feat_append(&textbox1, &vscrollbar1);
 	terrain_stages_append(&textbox2);
+	terrain_vars_append(&textbox3);
 
 	select1.selected = 1;
 	/* Do that, and all widgets associated with the window will show */
@@ -2335,6 +2409,23 @@ int main_x(/*int argc, char** argv*/)
 			if (kiss_hex4edit_event(&hex4edit10, &e, &draw) > 10)changed = true;
 			if (kiss_hex4edit_event(&hex4edit11, &e, &draw) > 10)changed = true;
 			if (kiss_hex4edit_event(&hex4edit12, &e, &draw) > 10)changed = true;
+
+			if (kiss_hex4edit_event(&hex4edit13, &e, &draw) > 10)changed = true;
+			if (kiss_hex4edit_event(&hex4edit14, &e, &draw) > 10)changed = true;
+			if (kiss_hex2edit_event(&hex2edit15, &e, &draw) > 10)changed = true;
+			if (kiss_hex2edit_event(&hex2edit16, &e, &draw) > 10)changed = true;
+			if (kiss_hex2edit_event(&hex2edit17, &e, &draw) > 10)changed = true;
+			if (kiss_hex4edit_event(&hex4edit18, &e, &draw) > 10)changed = true;
+			if (kiss_hex4edit_event(&hex4edit19, &e, &draw) > 10)changed = true;
+
+			if (kiss_hex2edit_event(&hex2edit20, &e, &draw) > 10)changed = true;
+			if (kiss_hex2edit_event(&hex2edit21, &e, &draw) > 10)changed = true;
+			if (kiss_hex2edit_event(&hex2edit22, &e, &draw) > 10)changed = true;
+			if (kiss_hex2edit_event(&hex2edit23, &e, &draw) > 10)changed = true;
+			if (kiss_hex2edit_event(&hex2edit24, &e, &draw) > 10)changed = true;
+			if (kiss_hex2edit_event(&hex2edit25, &e, &draw) > 10)changed = true;
+			if (kiss_hex2edit_event(&hex2edit26, &e, &draw) > 10)changed = true;
+			if (kiss_hex2edit_event(&hex2edit27, &e, &draw) > 10)changed = true;
 
 			if (select1_event(&select1, &e, &select2, &select3, &select4, &draw))zoomchanged = true;
 			if (select2_event(&select2, &e, &select1, &select3, &select4, &draw))zoomchanged = true;
@@ -2482,7 +2573,7 @@ int main_x(/*int argc, char** argv*/)
 			}
 
 			if (changed2)terrain_feat_append(&textbox1, &vscrollbar1);
-			if (changed3)terrain_stages_append(&textbox2);
+			if (changed3) { terrain_stages_append(&textbox2); terrain_vars_append(&textbox3); }
 		}
 		if (first) { changed = true; changed2 = true; }
 		if (changed || changed2)
@@ -2503,9 +2594,12 @@ int main_x(/*int argc, char** argv*/)
 		kiss_label_draw(&label_terfeat2, editor_renderer);
 		kiss_label_draw(&label_stages, editor_renderer);
 		kiss_label_draw(&label_stages2, editor_renderer);
+		kiss_label_draw(&label_vars, editor_renderer);
+		kiss_label_draw(&label_vars2, editor_renderer);
 		//kiss_label_draw(&label2, editor_renderer);
 		kiss_textbox_draw(&textbox1, editor_renderer);
 		kiss_textbox_draw(&textbox2, editor_renderer);
+		kiss_textbox_draw(&textbox3, editor_renderer);
 		kiss_vscrollbar_draw(&vscrollbar1, editor_renderer);
 		//kiss_textbox_draw(&textbox2, editor_renderer);
 		//kiss_vscrollbar_draw(&vscrollbar2, editor_renderer);
@@ -2532,6 +2626,23 @@ int main_x(/*int argc, char** argv*/)
 		kiss_hex4edit_draw(&hex4edit10, editor_renderer);
 		kiss_hex4edit_draw(&hex4edit11, editor_renderer);
 		kiss_hex4edit_draw(&hex4edit12, editor_renderer);
+
+		kiss_hex4edit_draw(&hex4edit13, editor_renderer);
+		kiss_hex4edit_draw(&hex4edit14, editor_renderer);
+		kiss_hex2edit_draw(&hex2edit15, editor_renderer);
+		kiss_hex2edit_draw(&hex2edit16, editor_renderer);
+		kiss_hex2edit_draw(&hex2edit17, editor_renderer);
+		kiss_hex4edit_draw(&hex4edit18, editor_renderer);
+		kiss_hex4edit_draw(&hex4edit19, editor_renderer);
+
+		kiss_hex2edit_draw(&hex2edit20, editor_renderer);
+		kiss_hex2edit_draw(&hex2edit21, editor_renderer);
+		kiss_hex2edit_draw(&hex2edit22, editor_renderer);
+		kiss_hex2edit_draw(&hex2edit23, editor_renderer);
+		kiss_hex2edit_draw(&hex2edit24, editor_renderer);
+		kiss_hex2edit_draw(&hex2edit25, editor_renderer);
+		kiss_hex2edit_draw(&hex2edit26, editor_renderer);
+		kiss_hex2edit_draw(&hex2edit27, editor_renderer);
 
 		kiss_selectbutton_draw(&select1, editor_renderer);
 		kiss_selectbutton_draw(&select2, editor_renderer);
