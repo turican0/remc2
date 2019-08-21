@@ -265,6 +265,8 @@ int test_D41A0_4_id_pointer(Bit32u adress) {
 }
 
 int test_D41A0_id_pointer(Bit32u adress) {
+	if ((adress >= 0x2fc4) && (adress < 0x2fc5))return 2;//event
+
 	if ((adress >= 0x314d) && (adress < 0x3151))return 2;//clock
 	if ((adress >= 0x3999) && (adress < 0x399c))return 2;//clock2
 	if ((adress >= 0x41e5) && (adress < 0x41e8))return 2;//clock3

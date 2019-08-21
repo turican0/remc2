@@ -8070,3 +8070,41 @@ if (!(x_BYTE_13B4E0_angle[v111] & 8) || (v114x = v25z, /*v25z = (Bit32u*)(str_E9
 	memset(x_DWORD_F66F0, 0, 2016);//*(Bit32u*)x_DWORD_F66F0[1]
 	memset(x_DWORD_F5F10, 0, 2016);//*(Bit32u*)x_DWORD_F5F10[1]
 	memset(x_DWORD_F5730, 0, 2016);//*(Bit32u*)x_DWORD_F5730[1]
+
+(Bit8u*)&D41A0_BYTESTR_0+0x2fbd 0x6
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x2fbd 0x0
+0x356038 +0x2fbd
+
+D41A0_BYTESTR_0.word_0x36DFA
+versus
+38ce32
+36dfa
+
+x_DWORD_180628b_screen_buffer+ 0x6b73 0x63
+versus
+0x3aa0a4+ 0x6b73  0x21
+
+x_DWORD_180628b_screen_buffer+ 0xbdcd 0x01
+versus
+0x3aa0a4+ 0xbdcd  0x40
+
+x_DWORD_180628b_screen_buffer+ 0x2fc4 0x10
+versus
+0x3aa0a4+ 0x2fc4  0x00
+
+(Bit8u*)&D41A0_BYTESTR_0+0x2fc4 0x10
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x2fc4 0x0
+0x356038 +0x2fc4
+
+v113x->dword_0xA4_164x->dword_0x0_0 = D41A0_BYTESTR_0.array_0x6E3E[0].str_0x6E3E_byte5;
+
+void sub_18F80(type_str_0x6E8E* a1x)//1f9f80
+
+sub_191B0(6, 16);
+
+(Bit8u*)&x_BYTE_12B4E0_shading+0xd74d 0x1e
+0x2fc4e0+0xd74d 0x22
+
+void sub_848A0()//2658a0
+
+void sub_84B80()//265b80
