@@ -8063,3 +8063,10 @@ D41A0_BYTESTR_0.word_0x36DFA
 
 sequence
 void sub_84B80()//265b80
+
+fix this:
+if (!(x_BYTE_13B4E0_angle[v111] & 8) || (v114x = v25z, /*v25z = (Bit32u*)(str_E9C38_smalltit[v25z].dword4 - (v113 >> 10)),*/ v115 = v248x[31], str_E9C38_smalltit[v114x].dword4 = (x_DWORD)&str_E9C38_smalltit[v25z], v115 >= 14464))
+
+	memset(x_DWORD_F66F0, 0, 2016);//*(Bit32u*)x_DWORD_F66F0[1]
+	memset(x_DWORD_F5F10, 0, 2016);//*(Bit32u*)x_DWORD_F5F10[1]
+	memset(x_DWORD_F5730, 0, 2016);//*(Bit32u*)x_DWORD_F5730[1]
