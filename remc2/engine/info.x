@@ -8114,3 +8114,7 @@ x_DWORD_180628b_screen_buffer+0x8C81
 x_DWORD_180628b_screen_buffer+0x8EF9
 
 x_DWORD_180628b_screen_buffer+0x8DAA
+
+x_DWORD_180628b_screen_buffer+0x8C81
+
+x_DWORD_180628b_screen_buffer+0x90B4
