@@ -8108,3 +8108,9 @@ sub_191B0(6, 16);
 void sub_848A0()//2658a0
 
 void sub_84B80()//265b80
+
+x_DWORD_180628b_screen_buffer+0x8C81
+
+x_DWORD_180628b_screen_buffer+0x8EF9
+
+x_DWORD_180628b_screen_buffer+0x8DAA

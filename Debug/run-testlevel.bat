@@ -1,1 +1,1 @@
-remc2.exe --testlevel
+remc2.exe -testlevel
