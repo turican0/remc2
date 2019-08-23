@@ -3,7 +3,8 @@
 #include <stdlib.h>
 
 //#define RGBA
-#define level4
+#define level1
+//#define level4
 //#define level2
 /* run this program using the console pauser or add your own getch, system("pause") or input loop */
 
@@ -339,7 +340,7 @@ int main(int argc, char* argv[]) {
 			for (int j = 0; j < szstd / 3; j++)
 
 #ifdef level1
-				//if ((j != 0x3d)&& (j != 0x3e))
+				if ((j != 0x24) && (j != 0x3D) && (j != 0x41) && (j != 0xC7) && (j != 0x22) && (j != 0x23)&&(j != 0xa1) && (j != 0x3e))
 #endif level1
 #ifdef level2
 				if ((j != 0x67))
