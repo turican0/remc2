@@ -8118,3 +8118,5 @@ x_DWORD_180628b_screen_buffer+0x8DAA
 x_DWORD_180628b_screen_buffer+0x8C81
 
 x_DWORD_180628b_screen_buffer+0x90B4
+
+if (!x_DWORD_F66F0[(unsigned __int16)* v9] && !sub_71520_mainInitTmaps(*v9))

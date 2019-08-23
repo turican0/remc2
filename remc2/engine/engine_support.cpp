@@ -1112,9 +1112,9 @@ void write_posistruct_to_png(Bit8u* buffer,int width, int height, char* filename
 		/*buffer2[i * 4 + 0] = buffer[i];
 		buffer2[i * 4 + 1] = buffer[i];
 		buffer2[i * 4 + 2] = buffer[i];*/
-		buffer2[i * 4 + 0] = pallettebuffer[buffer[(width * height) - 1 - i] * 3];
+		buffer2[i * 4 + 0] = pallettebuffer[buffer[(width * height) - 1 - i] * 3+2];
 		buffer2[i * 4 + 1] = pallettebuffer[buffer[(width * height) - 1 - i] * 3+1];
-		buffer2[i * 4 + 2] = pallettebuffer[buffer[(width * height) - 1 - i] * 3+2];
+		buffer2[i * 4 + 2] = pallettebuffer[buffer[(width * height) - 1 - i] * 3];
 
 		if (buffer[(width * height) - 1 - i] != 0xff)buffer2[i * 4 + 3]=255;
 	}
