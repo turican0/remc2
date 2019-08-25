@@ -958,7 +958,7 @@ void write_posistruct_to_png(Bit8u* buffer, int width, int height, char* filenam
 			else
 			{
 				if ((buffer2[i * 4 + 0] == 0) && (buffer2[i * 4 + 1] == 0) && (buffer2[i * 4 + 2] == 0))
-					buffer2[i * 4 + 3] = 0;
+					buffer2[i * 4 + 3] = 255;
 				else
 					buffer2[i * 4 + 3] = 255;
 			}
