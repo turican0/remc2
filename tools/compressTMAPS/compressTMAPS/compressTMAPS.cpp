@@ -209,6 +209,7 @@ int main()
 	const char* alpha_filename = "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\big\\";
 	//const char* alpha_filename = "c:\\prenos\remc2\tools\\decompressTMAPS\\out\\alpha\\";
 	const char* out_filename = "c:\\prenos\\remc2\\tools\\compressTMAPS\\compressTMAPS\\out\\";
+	const char* orig_filename = "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\";
 #endif level2
 #ifdef level4
 	const char* standartpal_filename = "c:\\prenos\\remc2\\tools\\palletelight\\Debug\\out-c.pal";
@@ -235,8 +236,7 @@ int main()
 	fread(content_data32, szstdorig32, 1, fptr_stdorig32);
 	fclose(fptr_stdorig32);*/
 
-
-	/*char buffer[512];
+	/*
 	sprintf_s(buffer,"%s", data_filename);
 	FILE* fptr_data;
 	fopen_s(&fptr_data, buffer, "rb");
@@ -256,19 +256,31 @@ int main()
 	unsigned char* content_alphadata = (unsigned char*)malloc(szalpha * sizeof(char*));
 	fread(content_alphadata, szalpha, 1, fptr_alphadata);
 	fclose(fptr_alphadata);*/
-
+		
 	for(int fileindex=0; fileindex<1000; fileindex++)
 	{
 		
 		char buffer[512];
 		sprintf_s(buffer, "%sTMAPS2-0-%03d_cartoonpainted_400000.png", data_filename, fileindex);
 		if (!file_exist(buffer))break;
+
 		read_png_file(buffer);
 
 
 		sprintf_s(buffer, "%sTMAPS2-0-%03d-alpha_cartoonpainted_400000_gaus.png", alpha_filename, fileindex);//gaus 3x3
 		//sprintf_s(buffer, "%sTMAPS2-0-%03d-alpha_cartoonpainted_400000.png", alpha_filename, fileindex);
 		read_pngalpha_file(buffer);
+
+		sprintf_s(buffer, "%sTMAPS2-0-%03d.data", orig_filename, fileindex);
+		FILE* fptr_origdata;
+		fopen_s(&fptr_origdata, buffer, "rb");
+		fseek(fptr_origdata, 0L, SEEK_END);
+		long szorig = ftell(fptr_origdata);
+		fseek(fptr_origdata, 0L, SEEK_SET);
+		unsigned char* content_origdata = (unsigned char*)malloc(szorig * sizeof(char*));
+		fread(content_origdata, szorig, 1, fptr_origdata);
+		fclose(fptr_origdata);
+
 
 		/*
 		void process_png_file() {
@@ -308,6 +320,24 @@ int main()
 			png_bytep row = row_pointers[yy];
 			png_bytep rowalpha = row_alphapointers[yy];
 			for (int xx = 0; xx < width; xx++) {
+
+				int origx = (xx + 2) / 4;
+				int origy = (yy + 2) / 4;
+				int origindex = 0;
+				Bit8u origcolor[100];
+				int origwidth = width / 4;
+				int origheight = height / 4;				
+				for (int oy = origy - 2; oy <= origy + 2; oy++)
+					for (int ox = origx - 2; ox <= origx + 2; ox++)
+					{							
+						if ((ox < 0) || (oy < 0) || (ox >= origwidth) || (oy >= origheight))
+							origcolor[origindex] = 0;
+						else
+							origcolor[origindex] = (content_origdata+6)[origwidth * oy + ox];
+						origindex++;
+					}
+
+
 				//int bmpx = xx;// widthimg - xx - 1;
 				//int bmpy = heightimg- yy - 1;
 				//Bit8u alphablue = alphaimg[3 * (bmpy * widthimg + bmpx)];
@@ -315,20 +345,26 @@ int main()
 				png_bytep alpx = &(rowalpha[xx * 4]);
 				Bit8u alphablue = alpx[2];
 				Bit8u wrbyte = 0;
-				if (alphablue > alphaweight) {
+				//if (alphablue > alphaweight)
+				{
 					Bit8u datared = px[0];
 					Bit8u datagreen = px[1];
 					Bit8u datablue = px[2];
 
 					int best = 1000;
 					unsigned char x = 0;
-					for (int j = 0; j < szstd / 3; j++)
+					//for (int j = 0; j < szstd / 3; j++)
+					for (int j = 0; j < origindex; j++)
 					{
 						int score = 0;
 
-						score += abs(px[0] - content_stdpal[j * 3 + 0]);
+						/*score += abs(px[0] - content_stdpal[j * 3 + 0]);
 						score += abs(px[1] - content_stdpal[j * 3 + 1]);
 						score += abs(px[2] - content_stdpal[j * 3 + 2]);
+						*/
+						score += abs(px[0] - content_stdpal[origcolor[j]*3+0]);
+						score += abs(px[1] - content_stdpal[origcolor[j] * 3 + 1]);
+						score += abs(px[2] - content_stdpal[origcolor[j] * 3 + 2]);
 
 						bool notinremoved = true;
 						/*for (int kk = 0; kk < counterremoved; kk++)
@@ -337,7 +373,7 @@ int main()
 							if (score < best)
 							{
 								best = score;
-								x = j;
+								x = origcolor[j];
 							}
 					}
 

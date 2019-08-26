@@ -1025,8 +1025,16 @@ int main()
 	int index=0;
 	while (indextab < sztab)
 	{
-		int size = *(Bit32u*)&contentTMAPStab[indextab];
+		if (index == 77)
+		{
+			index++;
+			index--;
+		}
+		//int size = *(Bit32u*)&contentTMAPStab[indextab];
 		int shift = *(Bit32u*)&contentTMAPStab[indextab+4];
+		Bit8u* stmpdat = &contentTMAPSdat[shift];
+		Bit32u size = stmpdat[11] + (stmpdat[10] << 8) + (stmpdat[9] << 16) + (stmpdat[8] << 24)+12;
+		Bit32u unpacksize = stmpdat[7] + (stmpdat[6] << 8) + (stmpdat[5] << 16) + (stmpdat[4] << 24);
 
 		FILE* fptw;
 		char filename[300];
@@ -1045,7 +1053,7 @@ int main()
 		char filenamedata[300];
 		sprintf_s(filenamedata, "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\TMAPS2-0-%03i.data", index);
 		fopen_s(&fptw2, filenamedata, "wb");
-		fwrite(buffer, width* height, 1, fptw2);
+		fwrite(buffer, unpacksize, 1, fptw2);
 		fclose(fptw2);
 
 		char outname[512];
