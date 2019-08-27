@@ -1016,12 +1016,12 @@ void write_posistruct_to_bmp(Bit8u* buffer, int width, int height, char* filenam
 
 
 __int16 x_WORD_E130C = 0; // weak
-Bit8u* TMAPS00TAB_BEGIN_BUFFER;
+Bit8u* TMAPS00TAB_BEGIN_BUFFER;// ?? must set
 char x_BYTE_E2A20 = 0; // weak
 int x_DWORD_E1304 = 0; // weak
 int x_DWORD_E1308 = 0; // weak
-int x_DWORD_E9C08; // weak
-int x_DWORD_F66F0[504]; // idb//2c76f0
+int x_DWORD_E9C08; // weak ?? must set
+int x_DWORD_F66F0[504]; // idb//2c76f0 ?? must set
 __int16 x_WORD_E130E = 0; // weak
 __int16 x_WORD_E1310 = 0; // weak
 __int16 x_WORD_E1312ar[2] = { 0,0 }; // weak
@@ -1439,7 +1439,7 @@ int main()
 		int width = *(Bit16u*)&buffer[2];
 		int height = *(Bit16u*)&buffer[4];
 
-		int sub_715B0();
+		sub_715B0();
 
 		FILE* fptw2;
 		char filenamedata[300];
