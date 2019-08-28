@@ -1620,6 +1620,59 @@ type_x_DWORD_E9C28_str* sub_71B40(int a1, unsigned __int16 a2, type_x_DWORD_E9C2
 	return v7y;
 }
 
+
+int sub_721C0_initTmap(unsigned __int16* a1, int* a2, __int16 a3)//2531c0
+{
+	signed __int16 v3; // cx
+	signed __int16 v4; // si
+	signed __int16 i; // bx
+	x_DWORD* v6; // edx
+	int v7; // ebx
+	int v8; // ecx
+	__int16 v9; // ST08_2
+	int v10; // edx
+	signed __int16 v12; // [esp+Ch] [ebp-4h]
+
+	v3 = -1;
+	v4 = -1;
+	if (!*a1)
+		return 0;
+	for (i = 0; i < (signed int)* a1; i++)
+	{
+		v6 = (x_DWORD*)(28 * i + *(x_DWORD*)(a1 + 1));
+		if (v6[1])
+		{
+			if (!*v6)
+				v4 = i;
+		}
+		else
+		{
+			v3 = i;
+		}
+	}
+	v12 = v3 <= 0 ? v4 : v3;
+	if (v12 <= -1)
+		return 0;
+	v7 = *a2;
+	v8 = *(unsigned __int16*)(*a2 + 4) * *(unsigned __int16*)(*a2 + 2);
+	v9 = *(x_WORD*)(v8 + *a2 + 6);
+	v10 = 28 * v12;
+	*(x_DWORD*)(v10 + *(x_DWORD*)(a1 + 1) + 4) = (x_DWORD)a2;
+	*(x_WORD*)(v10 + *(x_DWORD*)(a1 + 1) + 12) = 6;
+	*(x_WORD*)(v10 + *(x_DWORD*)(a1 + 1) + 14) = v8 + 6;
+	*(x_WORD*)(v10 + *(x_DWORD*)(a1 + 1) + 16) = v9;
+	*(x_WORD*)(v10 + *(x_DWORD*)(a1 + 1) + 18) = *(x_WORD*)(v7 + 2);
+	*(x_WORD*)(v10 + *(x_DWORD*)(a1 + 1) + 20) = *(x_WORD*)(v7 + 4);
+	*(x_DWORD*)(v10 + *(x_DWORD*)(a1 + 1) + 8) = v8 + 6;
+	*(x_WORD*)(v10 + *(x_DWORD*)(a1 + 1) + 22) = 1;
+	*(x_DWORD*)(v10 + *(x_DWORD*)(a1 + 1)) = 1;
+	*(x_WORD*)(v10 + *(x_DWORD*)(a1 + 1) + 24) = v12;
+	*(x_WORD*)(v10 + *(x_DWORD*)(a1 + 1) + 26) = a3;
+	return v10 + *(x_DWORD*)(a1 + 1);
+}
+
+
+
 int main()
 {
 	FILE* fptrTMAPSdata;
@@ -1678,9 +1731,14 @@ int main()
 		
 		Bit8u* index2 = 10 * index + TMAPS00TAB_BEGIN_BUFFER;
 		x_DWORD_F66F0[index] = (int)sub_71E70(x_DWORD_E9C28_str, (unsigned __int16)(4 * ((unsigned int)(*(x_DWORD*)index2 + 13) >> 2)), index);
-		Bit8u* subpointer = *(Bit8u **)x_DWORD_F66F0[index];
-		subpointer = (Bit8u*)malloc(unpacksize);
-		memcpy(subpointer, buffer, unpacksize);
+		int index6 = x_DWORD_F66F0[index];		
+		Bit8u** subpointer = (Bit8u **)x_DWORD_F66F0[index];
+		*subpointer = (Bit8u*)malloc(unpacksize);
+		memcpy(*subpointer, buffer, unpacksize);
+		/*
+		if (**(x_BYTE **)index6 & 1)
+			index = sub_721C0_initTmap((unsigned __int16*)x_DWORD_E9C08, (int*)index6, index);
+			*/
 
 
 		int width = *(Bit16u*)&buffer[2];
@@ -1713,7 +1771,12 @@ int main()
 		index++;
 	}
 
-
+	index = 0;
+	while (index < 504) {
+		Bit8u* subpointer = *(Bit8u **)x_DWORD_F66F0[index];
+		subpointer[0] |= 8;
+		index++;
+	}
 	
 	sub_715B0();
 
@@ -1725,10 +1788,15 @@ int main()
 		Bit8u* subpointer = *(Bit8u **)x_DWORD_F66F0[index];
 		//memcpy(buffer, subpointer, unpacksize);
 
-		int shift = *(Bit32u*)&contentTMAPStab[indextab + 4];
-		Bit8u* stmpdat = &subpointer[shift];
-		Bit32u size = stmpdat[11] + (stmpdat[10] << 8) + (stmpdat[9] << 16) + (stmpdat[8] << 24) + 12;
-		Bit32u unpacksize = stmpdat[7] + (stmpdat[6] << 8) + (stmpdat[5] << 16) + (stmpdat[4] << 24);
+		//int shift = *(Bit32u*)&contentTMAPStab[indextab + 4];
+		Bit8u* stmpdat = &subpointer[0/*shift*/];
+		//Bit32u size = stmpdat[11] + (stmpdat[10] << 8) + (stmpdat[9] << 16) + (stmpdat[8] << 24) + 12;
+		//Bit32u unpacksize = stmpdat[7] + (stmpdat[6] << 8) + (stmpdat[5] << 16) + (stmpdat[4] << 24);
+
+		int width = *(Bit16u*)& stmpdat[2];
+		int height = *(Bit16u*)& stmpdat[4];
+
+		memcpy(buffer, stmpdat, width* height+6);
 		/*
 		FILE* fptw;
 		char filename[300];
@@ -1747,20 +1815,13 @@ int main()
 		Bit8u* subpointer = *(Bit8u * *)x_DWORD_F66F0[index];
 		subpointer = (Bit8u*)malloc(unpacksize);
 		memcpy(subpointer, buffer, unpacksize);
-		*/
-
-		
-
-
-
-		int width = *(Bit16u*)& buffer[2];
-		int height = *(Bit16u*)& buffer[4];
+		*/		
 
 		FILE* fptw2;
 		char filenamedata[300];
 		sprintf_s(filenamedata, "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\TMAPS2-0-%03i-2.data", index);
 		fopen_s(&fptw2, filenamedata, "wb");
-		fwrite(buffer, unpacksize, 1, fptw2);
+		fwrite(buffer, width* height + 6, 1, fptw2);
 		fclose(fptw2);
 
 		char outname[512];
