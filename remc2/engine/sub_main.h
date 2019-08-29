@@ -271,7 +271,28 @@ extern __int16 x_WORD_15B4E0_source[0x10000]; // idb//32C4E0	//map array5
 extern Bit16u x_WORD_17B4E0; // 34c4e0
 
 extern char x_BYTE_D41B6;
+#pragma pack (1)
+typedef struct {//lenght 28
+	Bit32s dword_0;
+	Bit32s dword_4;
+	Bit32s dword_8;
+	Bit16s word_12;
+	Bit16u word_14;
+	Bit16s word_16;
+	Bit16s word_18;
+	Bit16s word_20;
+	Bit16s word_22;
+	Bit16s word_24;
+	Bit16s word_26;
+}
+type_animations1;
 
+typedef struct {
+	Bit16s word_0;
+	type_animations1* dword_2;
+}
+type_E9C08;
+#pragma pack (16)
 void /*__spoils<ecx>*/ sub_B5E70_decompress_terrain_map_level(__int16 a1, unsigned __int16 a2, __int16 a3, Bit32s a4);
 void sub_44DB0_truncTerrainHeight();
 void sub_44E40(int a1, unsigned __int8 a2);

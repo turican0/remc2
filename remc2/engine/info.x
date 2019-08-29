@@ -8127,3 +8127,8 @@ result-*(Bit32u *)(a1 + 2)
 
 *(Bit32u *)(a1 + 2)+0x3544
 *(Bit32u *)(x_DWORD_E9C08 + 2)+0x3544
+
+&(x_DWORD_E9C08x->dword_2[488])
+
+in init mao
+type_animations1* sub_721C0_initTmap(type_E9C08* a1x, int *a2, __int16 a3)//2531c0
