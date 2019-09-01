@@ -11,7 +11,10 @@
 #else
 #endif
 
-#define level2 // TMAPS0
+#define level1 //TMAPS1 night
+//#define level2 //TMAPS0 day
+//#define level4 //TMAPS2 cave
+
 
 #define SIZEOF_UNSIGNED_INT 4
 
@@ -199,23 +202,21 @@ int main()
 {
 #ifdef level1
 	const char* standartpal_filename = "c:\\prenos\\remc2\\tools\\palletelight\\Debug\\\out-n.pal";
-	const char* data_filename = "c:\\prenos\\remc2\\Debug\\biggraphics\\bl32n0-0-src.data";
-	const char* outdata_filename = "c:\\prenos\\remc2\\Debug\\biggraphics\\bl128n0-0.data";
-	const char* orig32_filename = "c:\\prenos\\remc2\\Debug\\biggraphics\\bl32n0-0.data";
+	const char* data_filename = "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\big\\TMAPS2-1-";
+	const char* out_filename = "c:\\prenos\\remc2\\tools\\compressTMAPS\\compressTMAPS\\out\\TMAPS2-1-";
+	const char* orig_filename = "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\TMAPS2-1-";
 #endif level1
 #ifdef level2
 	const char* standartpal_filename = "c:\\prenos\\remc2\\tools\\palletelight\\Debug\\out-block.pal";
-	const char* data_filename = "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\big\\";
-	//const char* alpha_filename = "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\big\\";
-	//const char* alpha_filename = "c:\\prenos\remc2\tools\\decompressTMAPS\\out\\alpha\\";
-	const char* out_filename = "c:\\prenos\\remc2\\tools\\compressTMAPS\\compressTMAPS\\out\\";
-	const char* orig_filename = "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\";
+	const char* data_filename = "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\big\\TMAPS2-0-";
+	const char* out_filename = "c:\\prenos\\remc2\\tools\\compressTMAPS\\compressTMAPS\\out\\TMAPS2-0-";
+	const char* orig_filename = "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\TMAPS2-0-";
 #endif level2
 #ifdef level4
 	const char* standartpal_filename = "c:\\prenos\\remc2\\tools\\palletelight\\Debug\\out-c.pal";
-	const char* data_filename = "c:\\prenos\\remc2\\Debug\\biggraphics\\bl32c0-0-src.data";
-	const char* outdata_filename = "c:\\prenos\\remc2\\Debug\\biggraphics\\bl128c0-0.data";
-	const char* orig32_filename = "c:\\prenos\\remc2\\Debug\\biggraphics\\bl32c0-0.data";
+	const char* data_filename = "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\big\\TMAPS2-2-";
+	const char* out_filename = "c:\\prenos\\remc2\\tools\\compressTMAPS\\compressTMAPS\\out\\TMAPS2-2-";
+	const char* orig_filename = "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\TMAPS2-2-";
 #endif level4
 
 	FILE* fptr_stdpal;
@@ -261,7 +262,7 @@ int main()
 	{
 		
 		char buffer[512];
-		sprintf_s(buffer, "%sTMAPS2-0-%03d_cartoonpainted_400000.png", data_filename, fileindex);
+		sprintf_s(buffer, "%s%03d_lionking_60000.png", data_filename, fileindex);
 		if (!file_exist(buffer))break;
 
 		read_png_file(buffer);
@@ -271,7 +272,7 @@ int main()
 		//sprintf_s(buffer, "%sTMAPS2-0-%03d-alpha_cartoonpainted_400000.png", alpha_filename, fileindex);
 		//read_pngalpha_file(buffer);
 
-		sprintf_s(buffer, "%sTMAPS2-0-%03d.data", orig_filename, fileindex);
+		sprintf_s(buffer, "%s%03d.data", orig_filename, fileindex);
 		FILE* fptr_origdata;
 		fopen_s(&fptr_origdata, buffer, "rb");
 		fseek(fptr_origdata, 0L, SEEK_END);
@@ -295,7 +296,7 @@ int main()
 	}
 		*/
 
-		sprintf_s(buffer, "%sTMAPS2-0-%03d.data", out_filename, fileindex);
+		sprintf_s(buffer, "%s%03d.data", out_filename, fileindex);
 		FILE* fptr_outdata;
 		fopen_s(&fptr_outdata, buffer, "wb");
 
@@ -403,7 +404,7 @@ int main()
 	{
 
 		char buffer[512];
-		sprintf_s(buffer, "%sTMAPS2-0-%03d-2_cartoonpainted_400000.png", data_filename, fileindex);
+		sprintf_s(buffer, "%s%03d-2_lionking_60000.png", data_filename, fileindex);
 		if (!file_exist(buffer))continue;
 
 		read_png_file(buffer);
@@ -413,7 +414,7 @@ int main()
 		//sprintf_s(buffer, "%sTMAPS2-0-%03d-alpha_cartoonpainted_400000.png", alpha_filename, fileindex);
 		//read_pngalpha_file(buffer);
 
-		sprintf_s(buffer, "%sTMAPS2-0-%03d.data", orig_filename, fileindex);
+		sprintf_s(buffer, "%s%03d.data", orig_filename, fileindex);
 		FILE* fptr_origdata;
 		fopen_s(&fptr_origdata, buffer, "rb");
 		fseek(fptr_origdata, 0L, SEEK_END);
@@ -437,7 +438,7 @@ int main()
 	}
 		*/
 
-		sprintf_s(buffer, "%sTMAPS2-0-%03d-2.data", out_filename, fileindex);
+		sprintf_s(buffer, "%s%03d-2.data", out_filename, fileindex);
 		FILE* fptr_outdata;
 		fopen_s(&fptr_outdata, buffer, "wb");
 
