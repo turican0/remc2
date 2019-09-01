@@ -8132,3 +8132,26 @@ result-*(Bit32u *)(a1 + 2)
 
 in init mao
 type_animations1* sub_721C0_initTmap(type_E9C08* a1x, int *a2, __int16 a3)//2531c0
+
+ (Bit8u*)&x_WORD_15B4E0_source+0x6ec0 0x19
+ 0x32c4e0+0x6ec0 0x00
+
+ &D41A0_BYTESTR_0.dword_0x35 - 0x389
+ (Bit8u*)x_D41A0_BYTEARRAY_0+0x35 0x389
+ 0x356038 +0x35 0x389
+
+ void sub_5FA70(type_str_0x6E8E* a1x)//240a70
+
+ (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v4].width
+
+ &(*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[1].width
+  &(*filearray_2aa18c[filearrayindex_BUILD00DATTAB].posistruct)[1].width
+ versus
+ 0x1a7092
+
+ 27973e
+ 279709
+
+ x_BYTE_10B4E0_terraintype+0x66 0x06
+versus
+2dc4e0+0x66 0x4d
