@@ -279,6 +279,9 @@ int test_D41A0_id_pointer(Bit32u adress) {
 	if ((adress >= 0x3655c) && (adress < 0x3655d))return 1;
 	if ((adress >= 0x36608) && (adress < 0x36609))return 1;
 	if ((adress >= 0x36552) && (adress < 0x36553))return 1;
+	if ((adress >= 0x3655f) && (adress < 0x36560))return 1;
+	if ((adress >= 0x36566) && (adress < 0x36567))return 1;
+	if ((adress >= 0x36570) && (adress < 0x36571))return 1;
 
 	/*if ((adress >= 0x36656) && (adress < 0x36657))return 1;
 	if ((adress >= 0x3667d) && (adress < 0x3667e))return 1;
@@ -395,7 +398,7 @@ Bit32u compare_with_snapshot_D41A0(char* filename, Bit8u* adress, Bit32u adressd
 	return(i);
 };
 
-Bit32u compare_with_sequence_E7EE0(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u count, Bit32u size1, Bit32u size2, Bit8u* origbyte, Bit8u* copybyte, int offset){
+Bit32u compare_with_sequence_E7EE0(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u count, Bit32u size1, Bit32u size2, Bit8u* origbyte, Bit8u* copybyte, long offset){
 	char findnamec[500];
 	Bit8u* buffer = (Bit8u*)malloc(size2);
 	FILE* fptestepc;
@@ -444,7 +447,7 @@ Bit32u compare_with_sequence_E7EE0(char* filename, Bit8u* adress, Bit32u adressd
 	return(i);
 };
 
-Bit32u compare_with_sequence_D41A0(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u count, Bit32u size, Bit8u* origbyte, Bit8u* copybyte,int offset) {
+Bit32u compare_with_sequence_D41A0(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u count, Bit32u size, Bit8u* origbyte, Bit8u* copybyte, long offset) {
 
 	char findnamec[500];
 	Bit8u* buffer = (Bit8u*)malloc(size);
@@ -495,7 +498,7 @@ Bit32u compare_with_sequence_D41A0(char* filename, Bit8u* adress, Bit32u adressd
 	return(i);
 };
 
-Bit32u compare_with_sequence_D41A0_4(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u count, Bit32u size, Bit8u* origbyte, Bit8u* copybyte, int offset) {
+Bit32u compare_with_sequence_D41A0_4(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u count, Bit32u size, Bit8u* origbyte, Bit8u* copybyte, long offset) {
 
 	char findnamec[500];
 	Bit8u* buffer = (Bit8u*)malloc(size);
@@ -603,7 +606,7 @@ Bit32u compare_with_sequence_x_DWORD_F2C20ar(char* filename, Bit8u* adress, Bit3
 	return(diffindex);
 };
 
-Bit32u compare_with_sequence_array_E2A74(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u count, Bit32u size1,Bit32u size2, Bit8u* origbyte, Bit8u* copybyte, int offset) {
+Bit32u compare_with_sequence_array_E2A74(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u count, Bit32u size1,Bit32u size2, Bit8u* origbyte, Bit8u* copybyte, long offset) {
 
 	char findnamec[500];
 	Bit8u* buffer = (Bit8u*)malloc(size2);
@@ -705,7 +708,7 @@ Bit32u compare_with_sequence_array_222BD3(char* filename, Bit8u* adress, Bit32u 
 	return(i);
 };
 
-Bit32u compare_with_sequence(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u count, Bit32u size1, Bit32u size2, Bit8u* origbyte, Bit8u* copybyte,int offset) {
+Bit32u compare_with_sequence(char* filename, Bit8u* adress, Bit32u adressdos, long count, long size1, Bit32u size2, Bit8u* origbyte, Bit8u* copybyte,long offset) {
 
 	char findnamec[500];
 	Bit8u* buffer = (Bit8u*)malloc(size2);
@@ -717,7 +720,7 @@ Bit32u compare_with_sequence(char* filename, Bit8u* adress, Bit32u adressdos, Bi
 		mydelay(100);
 		fopen_s(&fptestepc, findnamec, "rb");
 	}
-	fseek(fptestepc, count*size1+ offset, SEEK_SET);
+	_fseeki64(fptestepc, (long long)count* (long long)size1+ offset, SEEK_SET);
 	
 	Bit32u i;
 	/*for (i = 0; i < count; i++)

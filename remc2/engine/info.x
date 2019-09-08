@@ -8155,3 +8155,140 @@ type_animations1* sub_721C0_initTmap(type_E9C08* a1x, int *a2, __int16 a3)//2531
  x_BYTE_10B4E0_terraintype+0x66 0x06
 versus
 2dc4e0+0x66 0x4d
+
+
+x_BYTE_10B4E0_terraintype+0xcdc 0x01
+versus
+2dc4e0+0xcdc 0x32
+01
+33
+01
+32
+01
+32
+01
+32
+
+(Bit8u*)&x_BYTE_11B4E0_height+0 - 0x59
+versus
+002ec4e0 +  0 - 0x1
+
+(Bit8u*)&x_BYTE_11B4E0_height+0x5db - 0x52
+versus
+002ec4e0 +  0x5db - 0x5e
+
+237fa1
+char sub_56F10(__int16 a1, __int16 a2, __int16 a3, char a4)//237f10
+char sub_572C0(type_str_0x6E8E* a1x, __int16 a2, __int16 a3, __int16 a4, char a5)//2382c0
+
+(Bit8u*)&D41A0_BYTESTR_0+0x35 0xbf
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x35 0xc0
+0x356038+0x35 0xc0
+
+237f12
+void sub_57F20(type_str_0x6E8E* a1x)//238f20
+void sub_498A0()//22a8a0
+char sub_56F10(__int16 a1, __int16 a2, __int16 a3, char a4)//237f10
+
+f20
+
+x_DWORD_D4C52ar + 0xb4 00742a00
+2a5c52 + 0xb4
+
+22a977
+238f20
+
+x_BYTE_10B4E0_terraintype+0x6565 0x03
+versus
+2dc4e0+0x6565 0x1b
+
+(Bit8u*)&D41A0_BYTESTR_0+0x35 0xdc
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x35 0xbf
+0x356038+0x35 0xbf
+
+(Bit8u*)&D41A0_BYTESTR_0+0x36566 0xae
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x36566 0x3e
+0x356038+0x36566 0xbf
+
+(Bit8u*)&D41A0_BYTESTR_0+0x36570 0x1e
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x36570 0xae
+0x356038+0x36570 0xbf
+
+ (Bit8u*)&x_WORD_15B4E0_source+0x6f06 0x06
+ x_WORD_15B4E0+0x6f06 0xc3
+ 32c4e0+0x6f06 0xc3
+
+ 238e3c
+ void sub_57D70_clean_event(type_str_0x6E8E* a1x, axis_3d* a2x)//238d70 // register object on axis
+ type_str_0x6E8E* sub_4E570(axis_3d* a1x)//22f570 - 22f5be
+ call near dword
+ 22b190
+ 2077c2
+
+ void sub_265A0(type_str_0x6E8E* a1x)//2075a0
+
+ void sub_265A0(type_str_0x6E8E* a1x)//2075a0
+
+(Bit8u*)&D41A0_BYTESTR_0+0x2f77 0xaf
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x2f77 0xb0
+0x356038+0x2f77 0xb0
+
+test
+char sub_57B20(type_str_0x2BDE* a1x, type_str_0x6E8E* a2x)//238b20 //copy position and rotation
+
+(Bit8u*)&D41A0_BYTESTR_0+0x6f86 0x20
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x6f86 0x00
+0x356038+0x6f86 0x00
+207768
+
+(Bit8u*)&x_WORD_15B4E0_source+0xdcdc 0xa6
+x_WORD_15B4E0+0xdcdc 0x02
+ 32c4e0+0xdcdc 0x02
+
+ 238e3c
+void sub_57D70_clean_event(type_str_0x6E8E* a1x, axis_3d* a2x)//238d70 // register object on axis
+near
+22b190
+2077c2
+void sub_265A0(type_str_0x6E8E* a1x)//2075a0
+
+&a1x->array_0x4C_76 218c 0c3d e3fa
+versus 
+35cfba d885 8b3b 4aff
+
+250d3f d885 8b3b 4aff
+
+sub_55A10(fileindex)
+
+
+(Bit8u*)&D41A0_BYTESTR_0+0x6F82
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x6F82
+0x356038+0x6F82
+
+versus 0x356038+0x70d2
+
+(Bit8u*)mx-(Bit8u*)&D41A0_BYTESTR_0
+
+void sub_26470(type_str_0x6E8E* a1x)//207470
+
+void sub_26470(type_str_0x6E8E* a1x)//207470
+
+(Bit8u*)&x_WORD_15B4E0_source+0x7718 0x00
+x_WORD_15B4E0+0x7718 0x19
+ 32c4e0+0x7718 0x19
+
+ 238ec4 void sub_57D70_clean_event(type_str_0x6E8E* a1x, axis_3d* a2x)//238d70 // register object on axis
+ 238d28 void sub_57CF0(type_str_0x6E8E* a1x, axis_3d* a2x)//238cf0
+ 1fca1e signed int sub_1B8C0(type_str_0x6E8E* a1x)//1fc8c0
+
+ (Bit8u*)&D41A0_BYTESTR_0+0x6Ff4 a6
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x6Ff4 00
+0x356038+0x6Ff4 00
+
+(Bit8u*)&x_WORD_15B4E0_source+0xe0de 0x02
+x_WORD_15B4E0+0xe0de 0x0
+ 32c4e0+0xe0de 0x0
+
+ (Bit8u*)&x_WORD_15B4E0_source+0xe0e0 0x02
+x_WORD_15B4E0+0xe0e0 0xa7
+ 32c4e0+0xe0e0 0xa7
