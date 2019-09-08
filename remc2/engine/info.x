@@ -8296,3 +8296,13 @@ x_WORD_15B4E0+0xe0e0 0xa7
  for(int ea=0;ea<0x3E9;ea++)
 	
  save x_DWORD_EA3E4
+
+ (Bit8u*)&x_WORD_15B4E0_source+0xdcdc 0xa6
+x_WORD_15B4E0+0xdcdc 0x02
+ 32c4e0+0xdcdc 0x02
+
+ 238e3c
+ 238ec4 void sub_57D70_clean_event(type_str_0x6E8E* a1x, axis_3d* a2x)//238d70 // register object on axis
+ 22f5b9
+ type_str_0x6E8E* sub_4A190(axis_3d* a1x, int a2, int a3)//22b190
+ void sub_265A0(type_str_0x6E8E* a1x)//2075a0
