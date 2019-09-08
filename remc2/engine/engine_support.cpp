@@ -263,6 +263,12 @@ int test_D41A0_4_id_pointer(Bit32u adress) {
 	if ((adress >= 0x954) && (adress < 0x95a))return 2;
 	return 0;
 }
+int test_EA3E4_id_pointer(Bit32u adress) {
+	if ((adress >= 0x0) && (adress < 0x1))return 1;
+	if ((adress >= 0xa0) && (adress < 0xa1))return 1;
+	if ((adress >= 0xa4) && (adress < 0xa5))return 1;
+	return 0;
+}
 
 int test_D41A0_id_pointer(Bit32u adress) {
 	if ((adress >= 0x2fc4) && (adress < 0x2fc5))return 2;//event
@@ -496,6 +502,65 @@ Bit32u compare_with_sequence_D41A0(char* filename, Bit8u* adress, Bit32u adressd
 	if (i < size)
 		allert_error();
 	return(i);
+};
+
+Bit32u compare_with_sequence_EA3E4(char* filename, type_str_0x6E8E** adress, Bit32u count, Bit32u size, Bit8u* origbyte, Bit8u* copybyte) {
+
+	char findnamec[500];
+	Bit8u* buffer = (Bit8u*)malloc(size * 0x3E9);
+	FILE* fptestepc;
+	sprintf(findnamec, "c:/prenos/dosbox-x-remc2/vs2015/seq_D41A0-%s.bin", filename);
+	fopen_s(&fptestepc, findnamec, "rb");
+	if (fptestepc == NULL)
+	{
+		mydelay(100);
+		fopen_s(&fptestepc, findnamec, "rb");
+	}
+	fseek(fptestepc, count * size * 0x3E9/* + offset*/, SEEK_SET);
+
+	fread_s(buffer, size * 0x3E9, 1, size * 0x3E9, fptestepc);
+
+	for (int ea = 0; ea < 0x3E9; ea++)
+	{
+		Bit32u i;
+		bool testa, testb;
+		for (i = 0; i < size; i++)
+		{
+			int testx = test_EA3E4_id_pointer(i);
+			if (testx == 1)
+			{
+				if (*(Bit32u*)& buffer[i+ ea * size])testa = true;
+				else testa = false;
+				if (*(Bit32u*)((Bit8u*)adress[ea] + i))testb = true;
+				else testb = false;
+				if (testa != testb)
+				{
+					*origbyte = buffer[i + ea * size];
+					*copybyte = *((Bit8u*)adress[ea] + i);
+					break;
+				}
+				i += 3;
+			}
+			else if (testx == 0) {
+				if (buffer[i + ea * size] != *((Bit8u*)adress[ea]+i) )
+				{
+					*origbyte = buffer[i + ea * size];
+					*copybyte = *((Bit8u*)adress[ea] + i);
+					break;
+				}
+			}
+		}
+		if (i < size)
+			allert_error();
+	}
+
+
+	free(buffer);
+
+
+	fclose(fptestepc);
+	
+	return(1);
 };
 
 Bit32u compare_with_sequence_D41A0_4(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u count, Bit32u size, Bit8u* origbyte, Bit8u* copybyte, long offset) {

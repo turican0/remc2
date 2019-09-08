@@ -8292,3 +8292,7 @@ x_WORD_15B4E0+0xe0de 0x0
  (Bit8u*)&x_WORD_15B4E0_source+0xe0e0 0x02
 x_WORD_15B4E0+0xe0e0 0xa7
  32c4e0+0xe0e0 0xa7
+
+ for(int ea=0;ea<0x3E9;ea++)
+	
+ save x_DWORD_EA3E4
