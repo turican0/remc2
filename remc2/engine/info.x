@@ -8306,3 +8306,11 @@ x_WORD_15B4E0+0xdcdc 0x02
  22f5b9
  type_str_0x6E8E* sub_4A190(axis_3d* a1x, int a2, int a3)//22b190
  void sub_265A0(type_str_0x6E8E* a1x)//2075a0
+
+ compare_with_sequence((char*)"00238A8A
+
+ 2318e0 create castle lighting
+ 21bf00 event castle lighting
+
+ 9e00 2200 0980
+ &a1x->array_0x4C_76+4
