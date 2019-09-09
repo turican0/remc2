@@ -270,6 +270,13 @@ int test_EA3E4_id_pointer(Bit32u adress) {
 	return 0;
 }
 
+
+int test_0x6E8E_id_pointer(Bit32u adress) {
+	if ((adress >= 0x0) && (adress < 0x1))return 1;
+	if ((adress >= 0xa0) && (adress < 0xa1))return 1;
+	if ((adress >= 0xa4) && (adress < 0xa5))return 1;
+	return 0;
+}
 int test_D41A0_id_pointer(Bit32u adress) {
 	if ((adress >= 0x2fc4) && (adress < 0x2fc5))return 2;//event
 
@@ -478,6 +485,57 @@ Bit32u compare_with_sequence_D41A0(char* filename, Bit8u* adress, Bit32u adressd
 			if (*(Bit32u*)&buffer[i])testa = true;
 			else testa = false;
 			if (*(Bit32u*)&adress[i])testb = true;
+			else testb = false;
+			if (testa != testb)
+			{
+				*origbyte = buffer[i];
+				*copybyte = adress[i];
+				break;
+			}
+			i += 3;
+		}
+		else if (testx == 0) {
+			if (buffer[i] != adress[i])
+			{
+				*origbyte = buffer[i];
+				*copybyte = adress[i];
+				break;
+			}
+		}
+	}
+
+	free(buffer);
+	fclose(fptestepc);
+	if (i < size)
+		allert_error();
+	return(i);
+};
+
+Bit32u compare_0x6E8E(char* filename, Bit8u* adress, Bit32u count, Bit32u size, Bit8u* origbyte, Bit8u* copybyte, long offset) {
+
+	char findnamec[500];
+	Bit8u* buffer = (Bit8u*)malloc(size);
+	FILE* fptestepc;
+	sprintf(findnamec, "c:/prenos/dosbox-x-remc2/vs2015/sequence-%s.bin", filename);
+	fopen_s(&fptestepc, findnamec, "rb");
+	if (fptestepc == NULL)
+	{
+		mydelay(100);
+		fopen_s(&fptestepc, findnamec, "rb");
+	}
+	fseek(fptestepc, count * size + offset, SEEK_SET);
+
+	fread_s(buffer, size, 1, size, fptestepc);
+	Bit32u i;
+	bool testa, testb;
+	for (i = 0; i < size; i++)
+	{
+		int testx = test_0x6E8E_id_pointer(i);
+		if (testx == 1)
+		{
+			if (*(Bit32u*)& buffer[i])testa = true;
+			else testa = false;
+			if (*(Bit32u*)& adress[i])testb = true;
 			else testb = false;
 			if (testa != testb)
 			{
