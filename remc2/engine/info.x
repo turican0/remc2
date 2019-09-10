@@ -8314,3 +8314,38 @@ x_WORD_15B4E0+0xdcdc 0x02
 
  9e00 2200 0980
  &a1x->array_0x4C_76+4
+
+ x_BYTE_10B4E0_terraintype+0x2e87 0x01
+versus
+2dc4e0+0x2e87 0x48
+
+(Bit8u*)&D41A0_BYTESTR_0+0xb05a 00
+(Bit8u*)x_D41A0_BYTEARRAY_0+0xb05a 80
+0x356038+0xb05a
+216acf
+
+void sub_35940(type_str_0x6E8E* a1x)//216940 //move mana sphere
+
+(Bit8u*)&D41A0_BYTESTR_0+0x75d3 04
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x75d3 00
+0x356038+0x75d3
+
+void sub_57F10(type_str_0x6E8E* a1x)//238f10
+void sub_31100(type_str_0x6E8E* a1x)//212100 // zrychleni
+
+(Bit8u*)&x_WORD_15B4E0_source+0x6104 0x00
+x_WORD_15B4E0+0x6104 0xa5
+ 32c4e0+0x6104 0xa5
+
+ 238e3c
+ sub_57D70_actualize_event(a1x, a2x);
+ void sub_57CF0(type_str_0x6E8E* a1x, axis_3d* a2x)//238cf0
+
+(Bit8u*)&x_WORD_15B4E0_source+0x5d04 79
+x_WORD_15B4E0+0x5d04 0xa5
+ 32c4e0+0x5d04 0xa5
+
+ debugcounter_1f56f0==0x20ed
+
+ save and test 
+ 0x1f56f4
