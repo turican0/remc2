@@ -40,8 +40,8 @@ void convert_struct_to_array_164(type_str_164* input, Bit8u* output) {
 	memset(output + 0x12, 0, 2);
 	//type_str_164_pos position_20;//position
 	convert_struct_to_array_164_pos(&input->position_backup_20, output + 0x14);
-	//Bit16s word_0x18_24;
-	memcpy(output + 0x24, &input->word_0x18_24, 2);
+	//Bit16s word_0x18_24_next_entity;
+	memcpy(output + 0x24, &input->word_0x18_24_next_entity, 2);
 	//Bit16s word_0x1A_26;
 	memcpy(output + 0x26, &input->word_0x1A_26, 2);
 	//Bit8u stubc[2];
@@ -349,8 +349,8 @@ void convert_struct_to_array_0x6E8E(type_str_0x6E8E* input, Bit8u* output) {
 	memcpy(output + 20, &input->word_0x14_20, 2);
 	//Bit16u word_0x16_22;//22
 	memcpy(output + 22, &input->word_0x16_22, 2);
-	//Bit16u word_0x18_24;//24
-	memcpy(output + 24, &input->word_0x18_24, 2);
+	//Bit16u word_0x18_24_next_entity;//24
+	memcpy(output + 24, &input->word_0x18_24_next_entity, 2);
 	//Bit16u word_0x1A_26;//26 // index - owner //ID last index
 	memcpy(output + 26, &input->word_0x1A_26, 2);
 	//Bit16s word_0x1C_28;//28//rotate1

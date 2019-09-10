@@ -498,7 +498,11 @@ void sub_B5F8F(__int16 a1, Bit16u* a2, Bit32s a3, __int16* a4);
 int sub_BD320(int result, x_BYTE *a2, x_BYTE *a3, int a4, int a5, int a6);
 void sub_B5EFA(__int16 a1, Bit16u* a2, Bit32s a3, __int16* a4);
 
-type_str_0x6E8E* pre_sub_4A190(Bit32u adress, Bit16s* a1,int type);
+//type_str_0x6E8E* pre_sub_4A190(Bit32u adress, Bit16s* a1,int type);
+type_str_0x6E8E* pre_sub_4A190_axis_3d(Bit32u adress, axis_3d* a1, int type);//pre 22b190
+
+
+type_str_0x6E8E* pre_sub_4A190_0x6E8E(Bit32u adress, type_str_0x6E8E* a1, int type);//pre 22b190
 
 //---------------------------
 

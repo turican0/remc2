@@ -298,7 +298,7 @@ typedef struct {//size 1136
 	//Bit8s byte_0x11_17;
 	Bit8u stubb[2];
 	axis_2d position_backup_20;//position //mouse backup
-	Bit16s word_0x18_24;
+	Bit16s word_0x18_24_next_entity;
 	Bit16s word_0x1A_26;
 	Bit8u stubc[2];
 	Bit16s word_0x1E_30;
@@ -447,7 +447,7 @@ typedef struct _str_0x6E8E {//lenght a8//THING
 	Bit32s dword_0x10_16;//16 // index of array
 	Bit16u word_0x14_20;//20 //random seed adress
 	Bit16u word_0x16_22;//22
-	Bit16u word_0x18_24;//24
+	Bit16u word_0x18_24_next_entity;//24 //next entity index
 	Bit16u word_0x1A_26;//26 // index - owner //ID last index
 	Bit16s word_0x1C_28;//28//rotate1
 	Bit16s word_0x1E_30;//30//rotate2
