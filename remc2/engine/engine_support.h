@@ -479,7 +479,7 @@ typedef struct _str_0x6E8E {//lenght a8//THING
 	Bit8s byte_0x42_66;//66 //subtype subentity
 	Bit8s byte_0x43_67;//67
 	Bit8s byte_0x44_68;//68	
-	Bit8u byte_0x45_69;//69 // index of structure with lenght 14//STATE
+	Bit8u byte_0x45_69;//69 // index of structure with lenght 14//STATE-
 	Bit8s byte_0x46_70;//70 // index of bitmap // index of ending sequence
 	Bit8s byte_0x47_71_xx;//71
 	Bit8s byte_0x48_72;//72
