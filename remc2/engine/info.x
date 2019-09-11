@@ -8351,3 +8351,31 @@ x_WORD_15B4E0+0x5d04 0xa5
  0x1f56f4
 
  x_DWORD_D4C52a
+
+ (Bit8u*)&x_WORD_15B4E0_source+0x5d04 79
+x_WORD_15B4E0+0x5d04 0xa5
+ 32c4e0+0x5d04 0xa5
+
+ 238ec4 void sub_57D70_clean_event(type_str_0x6E8E* a1x, axis_3d* a2x)//238d70 // register object on axis
+ 22e34e
+ type_str_0x6E8E* sub_4E320(axis_3d* a1x)//22f320
+ pre_sub_4A190_axis_3d
+ 24ed4e
+ type_str_0x6E8E* sub_6DCA0(type_str_0x6E8E* a1x, axis_3d* a2x, unsigned __int16 a3, __int16 *a4, __int16 a5, char a6)//24eca0
+ 24a48a
+ void sub_693F0(type_str_0x6E8E* a1x)//24a3f0//spell fire
+ void sub_57730()//238730
+
+ (Bit8u*)&D41A0_BYTESTR_0+0x3b77 00
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x3b77 02
+0x356038+0x3b77
+
+1f6021
+signed int sub_14E10(type_str_0x6E8E* a1x, unsigned __int8 a2)//1f5e10
+
+signed int sub_161A0(type_str_0x6E8E* a1x)//1f71a0
+
+ void sub_57730()//238730
+
+ difference
+ char sub_15790(type_str_0x6E8E* a1x)//1f6790
