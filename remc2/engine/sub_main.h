@@ -502,7 +502,7 @@ void sub_B5EFA(__int16 a1, Bit16u* a2, Bit32s a3, __int16* a4);
 type_str_0x6E8E* pre_sub_4A190_axis_3d(Bit32u adress, axis_3d* a1, int type);//pre 22b190
 
 
-type_str_0x6E8E* pre_sub_4A190_0x6E8E(Bit32u adress, type_str_0x6E8E* a1, int type);//pre 22b190
+void pre_sub_4A190_0x6E8E(Bit32u adress, type_str_0x6E8E* a1, int type);//pre 22b190
 
 //---------------------------
 
