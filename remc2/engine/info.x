@@ -8379,3 +8379,14 @@ signed int sub_161A0(type_str_0x6E8E* a1x)//1f71a0
 
  difference
  char sub_15790(type_str_0x6E8E* a1x)//1f6790
+
+(Bit8u*)&D41A0_BYTESTR_0+0xdd83 04
+(Bit8u*)x_D41A0_BYTEARRAY_0+0xdd83 00
+0x356038+0xdd83
+
+ (Bit8u*)&D41A0_BYTESTR_0+0x3b77 00
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x3b77 02
+0x356038+0x3b77
+
+char sub_15790(type_str_0x6E8E* a1x)//1f6790
+Bit8u unk_D3F80x[0x9] = { 0x10,0x12,0x09,*0x07*,0x14,0x15,0x13,0x00,0xFF };
