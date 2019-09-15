@@ -8390,3 +8390,59 @@ signed int sub_161A0(type_str_0x6E8E* a1x)//1f71a0
 
 char sub_15790(type_str_0x6E8E* a1x)//1f6790
 Bit8u unk_D3F80x[0x9] = { 0x10,0x12,0x09,*0x07*,0x14,0x15,0x13,0x00,0xFF };
+
+x_DWORD_DA750ar[0xd2] + v23
+
+*xadataspellsdat.var28_begin_buffer .... x_DWORD_DA750ar
+
+test
+type_str_0x6E8E* sub_15170(type_str_0x6E8E* a1x, unsigned __int8 a2)//1f6170
+compare 2ab822+0x230 versus
+x_DWORD_DA750ar[0xd2+0x230]
+SPELLS_BEGIN_BUFFER_DA818[0xa+0x230]
+
+2818ac read
+2798bf - size_t sub_988A7_read(FILE* a1, Bit8u* a2, int a3)//2798a7
+234e8b
+int sub_53E60_readfile_and_decompress(const char* path, Bit8u** a2)//234E60
+23ca50
+void sub_5B8D0_initialize()//23c8d0
+
+load *0x2ab818* 0x2a1b5c
+
+Bit8u* SPELLS_BEGIN_BUFFER = 0;
+x_BYTE_DA818
+
+
+(Bit8u*)&x_BYTE_13B4E0_angle+0x4185(0x10)
+versus
+0x30c4e0+0x4185(0x60)
+
+(Bit8u*)&x_BYTE_13B4E0_angle+0x4185(0x60)
+versus
+0x30c4e0+0x4185(0x40)
+
+x_WORD_17B4E0 ?? 0xae5b0500
+
+&x_WORD_17B4E0 34c4e0
+0x2368e2
+
+22743c
+void sub_462A0(uaxis_2d a1x, uaxis_2d a2x)//2272a0
+
+(Bit8u*)&D41A0_BYTESTR_0+0xe456 46
+(Bit8u*)x_D41A0_BYTEARRAY_0+0xe456 20
+0x356038+0xe456
+
+&D41A0_BYTESTR_0.struct_0x6E8E[0x4b].word_0x1A_26
+nesmi byt 0x17a7
+
+add adress 216fb0
+add adress 22f750
+
+v123
+72a9c0 rozdil 0x60680
+78b040
+
+v123 = x_DWORD_DE558 + x_DWORD_DE560_ScreenWidth * (str_F2C20ar.dword0x26 - 1) + v170;
+can not write 0
