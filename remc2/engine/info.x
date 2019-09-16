@@ -8446,3 +8446,11 @@ v123
 
 v123 = x_DWORD_DE558 + x_DWORD_DE560_ScreenWidth * (str_F2C20ar.dword0x26 - 1) + v170;
 can not write 0
+
+(Bit8u*)&x_WORD_15B4E0_source+0x12a50 0x03
+x_WORD_15B4E0+0x12a50 0x05
+ 32c4e0+0xb12a 0x05
+
+ void sub_57D70_actualize_event(type_str_0x6E8E* a1x, axis_3d* a2x)//238d70 // register object on axis
+ void sub_57CF0(type_str_0x6E8E* a1x, axis_3d* a2x)//238cf0
+ sequence 00238CF0
