@@ -1327,11 +1327,11 @@ Bit16u fixchar(Bit16u loclastchar) {
 		loclastchar = 0x0d3d;
 		break;
 	case SDL_SCANCODE_BACKSPACE://backspace
-		loclastchar = 0x0b30;
+		loclastchar = 0x0E08;
 		break;
 	case SDL_SCANCODE_TAB://tab
 	case SDL_SCANCODE_KP_TAB:
-		loclastchar = 0x0b30;
+		loclastchar = 0x0F09;
 		break;
 	case SDL_SCANCODE_Q://q
 		loclastchar = 0x1071;
@@ -1558,8 +1558,8 @@ Bit16u VGA_read_char_from_buffer() {
 	Bit16u loclastchar = lastchar;
 	lastchar = 0;
 	loclastchar = fixchar(loclastchar);
-	if (loclastchar == 0x0b30)
-		loclastchar = 0x0e08;
+	//if (loclastchar == 0x0b30)
+	//	loclastchar = 0x0e08;
 	return loclastchar;
 }
 
