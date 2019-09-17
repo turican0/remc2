@@ -8454,3 +8454,11 @@ x_WORD_15B4E0+0x12a50 0x05
  void sub_57D70_actualize_event(type_str_0x6E8E* a1x, axis_3d* a2x)//238d70 // register object on axis
  void sub_57CF0(type_str_0x6E8E* a1x, axis_3d* a2x)//238cf0
  sequence 00238CF0
+
+ SPELLS_BEGIN_BUFFER_str
+
+((Bit8u*)SPELLS_BEGIN_BUFFER_str)+80*4+22
+((Bit8u*)SPELLS_BEGIN_BUFFER_DA818)+80*4+22
+compare void sub_5C0A0()//23d0a0
+
+spell 4
