@@ -8462,3 +8462,12 @@ x_WORD_15B4E0+0x12a50 0x05
 compare void sub_5C0A0()//23d0a0
 
 spell 4
+
+x_DWORD_EA3E4[1]->dword_0xA4_164x->str_611.word_0x451_110
+
+&D41A0_BYTESTR_0.array_0x2BDE[0].dword_0x3E6_2BE4_12228.str_611.array_0x333_819x
+aa misto 01
+
+
+&x_DWORD_EA3E4[0xab]->dword_0x88_136
+
