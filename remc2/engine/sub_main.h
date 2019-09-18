@@ -206,10 +206,10 @@ typedef struct {//lenght 30
 	Bit8s byte_21;
 	Bit16s word_22;
 	Bit16s word_24;
-	Bit8s byte_26;
-	Bit8s stuba[1];
-	Bit8s byte_28;
-	Bit8s stubb[1];
+	Bit16s word_26;
+	//Bit8s stuba[1];
+	Bit16s word_28;
+	//Bit8s stubb[1];
 } type_x_BYTE_E25ED_db_str;
 #pragma pack (16)
 
