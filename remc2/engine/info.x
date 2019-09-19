@@ -8471,3 +8471,36 @@ aa misto 01
 
 &x_DWORD_EA3E4[0xab]->dword_0x88_136
 
+(Bit8u*)&D41A0_BYTESTR_0+0x6f46 00
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x6f46 0x17
+0x356038+0x6f46
+
+00
+01 - char sub_2B860(type_str_0x6E8E* a1x, unsigned __int8 a2)//20c860
+00 - char sub_2B260(type_str_0x6E8E* a1x)//20c260
+
+20c95d
+
+problem je zde
+a1x->dword_0x10_16 = *(unsigned __int16 *)(sub_724F0(x_DWORD_E9C08x, v5) + 16);
+
+x_DWORD_F66F0x[0x137]
+*(Bit8u * *)x_DWORD_F66F0x[0x137]
+
+*(Bit8u * *)x_DWORD_F66F0x[0x137]+0x1194
+0x5a1123
+
+&a1x->word_16
+
+x_BYTE_10B4E0_terraintype+0x3c 0x06
+versus
+2dc4e0+0x3c 0x4d
+
+problem here:
+	sub_70910_print_string((char*)"Generate features\0");
+	if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 4))
+		sub_49270_generate_level_features(&D41A0_BYTESTR_0.str_2FECE);
+	sub_70910_print_string((char*)"Initialise Models\0");
+	memset(&x_WORD_EB398ar, 0, 6);
+	sub_49F90();
+

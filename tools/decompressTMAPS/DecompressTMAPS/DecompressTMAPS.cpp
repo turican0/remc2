@@ -5,7 +5,7 @@
 
 //#define level1 //night
 //#define level2 //day
-#define level4 //cave
+#define level2 //cave
 
 #ifdef level1
 char palfilename[] = "c:\\prenos\\remc2\\tools\\palletelight\\Debug\\out-n.pal";
@@ -1777,7 +1777,7 @@ int main()
 			index--;
 		}
 		//int size = *(Bit32u*)&contentTMAPStab[indextab];
-		int shift = *(Bit32u*)&contentTMAPStab[indextab + 4];
+		int shift = *(Bit32u*)& contentTMAPStab[indextab + 4];
 		//if (shift > 500)shift = shift - 500;
 		Bit8u* stmpdat = &contentTMAPSdat[shift];
 
@@ -1789,7 +1789,7 @@ int main()
 #ifdef write_rnc
 		FILE* fptw;
 		char filename[300];
-		sprintf_s(filename, "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\%s%03i.rnc", tmapsstr,index);
+		sprintf_s(filename, "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\%s%03i.rnc", tmapsstr, index);
 		fopen_s(&fptw, filename, "wb");
 		fwrite(&contentTMAPSdat[shift], size, 1, fptw);
 		fclose(fptw);
@@ -1822,7 +1822,7 @@ int main()
 #ifdef write_data
 		FILE* fptw2;
 		char filenamedata[300];
-		sprintf_s(filenamedata, "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\%s%03i.data", tmapsstr, index);
+		sprintf_s(filenamedata, "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\%s%03i-00.data", tmapsstr, index);
 		fopen_s(&fptw2, filenamedata, "wb");
 		fwrite(buffer, unpacksize, 1, fptw2);
 		fclose(fptw2);
@@ -1830,125 +1830,157 @@ int main()
 
 
 #ifdef write_bmp
-		sprintf_s(outname, "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\%s%03i.bmp", tmapsstr,index);
+		sprintf_s(outname, "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\%s%03i-00.bmp", tmapsstr, index);
 		write_posistruct_to_bmp(buffer + 6, width, height, outname);//test write
 #endif
 
 #ifdef write_png
-		sprintf_s(outname, "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\%s%03i.png", tmapsstr,index);
+		sprintf_s(outname, "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\%s%03i-00.png", tmapsstr, index);
 
 		sprintf_s(title, "%s%03i", tmapsstr, index);
 		write_posistruct_to_png(buffer + 6, width, height, outname, title, 0);//test write
 #endif
 #ifdef write_alphapng
-		sprintf_s(outname, "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\%s%03i-alpha.png", tmapsstr, index);
+		sprintf_s(outname, "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\%s%03i-alpha-00.png", tmapsstr, index);
 		sprintf_s(title, "%s%03i", tmapsstr, index);
-		write_posistruct_to_png(buffer + 6, width, height, outname, title, 1);//test write
-#endif
-
-#ifdef level4
-		if (index<452)
-#endif
-		indextab += 10;
-		index++;
-	}
-
-	index = 0;
-	while (index < 504) {
-		Bit8u* subpointer = *(Bit8u * *)x_DWORD_F66F0[index];
-		subpointer[0] |= 8;
-		index++;
-	}
-
-	sub_715B0();
-
-	indextab = 0;
-	index = 0;
-	while (index < 504)
-	{
-
-		Bit8u* subpointer = *(Bit8u * *)x_DWORD_F66F0[index];
-		//memcpy(buffer, subpointer, unpacksize);
-
-		//int shift = *(Bit32u*)&contentTMAPStab[indextab + 4];
-		Bit8u* stmpdat = &subpointer[0/*shift*/];
-		//Bit32u size = stmpdat[11] + (stmpdat[10] << 8) + (stmpdat[9] << 16) + (stmpdat[8] << 24) + 12;
-		//Bit32u unpacksize = stmpdat[7] + (stmpdat[6] << 8) + (stmpdat[5] << 16) + (stmpdat[4] << 24);
-
-		int width = *(Bit16u*)& stmpdat[2];
-		int height = *(Bit16u*)& stmpdat[4];
-
-		memcpy(buffer, stmpdat, width * height + 6);
-		/*
-		FILE* fptw;
-		char filename[300];
-		sprintf_s(filename, "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\TMAPS2-0-%03i.rnc", index);
-		fopen_s(&fptw, filename, "wb");
-		fwrite(&contentTMAPSdat[shift], size, 1, fptw);
-		fclose(fptw);
-
-		int decompsize = *(Bit32u*)&contentTMAPSdat[shift + 6];
-		sub_5C3D0_file_decompress(&contentTMAPSdat[shift], buffer);
-
-
-
-		Bit8u* index2 = 10 * index + TMAPS00TAB_BEGIN_BUFFER;
-		x_DWORD_F66F0[index] = (int)sub_71E70(x_DWORD_E9C28_str, (unsigned __int16)(4 * ((unsigned int)(*(x_DWORD*)index2 + 13) >> 2)), index);
-		Bit8u* subpointer = *(Bit8u * *)x_DWORD_F66F0[index];
-		subpointer = (Bit8u*)malloc(unpacksize);
-		memcpy(subpointer, buffer, unpacksize);
-		*/
-
-#ifdef write_data
-
-		FILE* fptw2_prev;
-		char filenamedata[300];
-		sprintf_s(filenamedata, "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\%s%03i.data", tmapsstr, index);
-		fopen_s(&fptw2_prev, filenamedata, "rb");
-		fread(prevbuffer, width * height + 6, 1, fptw2_prev);
-		fclose(fptw2_prev);
-
-		bool same = true;
-		for (int kk = 0; kk < width * height + 6; kk++)
-		{
-			if (buffer[kk] != prevbuffer[kk])
-				same = false;
-		}
-		if (same)
-		{
-			index++; continue;		
-		}
-
-		FILE* fptw2;
-		sprintf_s(filenamedata, "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\%s%03i-2.data", tmapsstr, index);
-		fopen_s(&fptw2, filenamedata, "wb");
-		fwrite(buffer, width* height + 6, 1, fptw2);
-		fclose(fptw2);
-#endif
-
-#ifdef write_bmp
-		char outname[512];
-		sprintf_s(outname, "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\%s%03i-2.bmp", tmapsstr, index);
-		write_posistruct_to_bmp(buffer + 6, width, height, outname);//test write
-#endif
-
-#ifdef write_png
-		sprintf_s(outname, "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\%s%03i-2.png", tmapsstr, index);
-		sprintf_s(title, "%s%03i", tmapsstr, index);
-		write_posistruct_to_png(buffer + 6, width, height, outname, title, 0);//test write
-#endif
-#ifdef write_alphapng
-		sprintf_s(outname, "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\%s%03i-alpha-2.png", tmapsstr, index);
-		sprintf_s(title, "%s%03i", tmapsstr,index);
 		write_posistruct_to_png(buffer + 6, width, height, outname, title, 1);//test write
 #endif
 
 #ifdef level4
 		if (index < 452)
 #endif
-		indextab += 10;
+			indextab += 10;
 		index++;
 	}
+
+	for(int mainindex=0; mainindex<40; mainindex++)
+	{
+		
+
+		index = 0;
+		while (index < 504) {
+			Bit8u* subpointer = *(Bit8u * *)x_DWORD_F66F0[index];
+			subpointer[0] |= 8;
+			index++;
+		}
+
+		sub_715B0();
+		//image2
+		indextab = 0;
+		index = 0;
+		while (index < 504)
+		{
+
+			Bit8u* subpointer = *(Bit8u * *)x_DWORD_F66F0[index];
+			//memcpy(buffer, subpointer, unpacksize);
+
+			//int shift = *(Bit32u*)&contentTMAPStab[indextab + 4];
+			Bit8u* stmpdat = &subpointer[0/*shift*/];
+			//Bit32u size = stmpdat[11] + (stmpdat[10] << 8) + (stmpdat[9] << 16) + (stmpdat[8] << 24) + 12;
+			//Bit32u unpacksize = stmpdat[7] + (stmpdat[6] << 8) + (stmpdat[5] << 16) + (stmpdat[4] << 24);
+
+			int width = *(Bit16u*)& stmpdat[2];
+			int height = *(Bit16u*)& stmpdat[4];
+
+			memcpy(buffer, stmpdat, width * height + 6);
+			/*
+			FILE* fptw;
+			char filename[300];
+			sprintf_s(filename, "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\TMAPS2-0-%03i.rnc", index);
+			fopen_s(&fptw, filename, "wb");
+			fwrite(&contentTMAPSdat[shift], size, 1, fptw);
+			fclose(fptw);
+
+			int decompsize = *(Bit32u*)&contentTMAPSdat[shift + 6];
+			sub_5C3D0_file_decompress(&contentTMAPSdat[shift], buffer);
+
+
+
+			Bit8u* index2 = 10 * index + TMAPS00TAB_BEGIN_BUFFER;
+			x_DWORD_F66F0[index] = (int)sub_71E70(x_DWORD_E9C28_str, (unsigned __int16)(4 * ((unsigned int)(*(x_DWORD*)index2 + 13) >> 2)), index);
+			Bit8u* subpointer = *(Bit8u * *)x_DWORD_F66F0[index];
+			subpointer = (Bit8u*)malloc(unpacksize);
+			memcpy(subpointer, buffer, unpacksize);
+			*/
+
+	#ifdef write_data
+
+			FILE* fptw2_prev;
+			char filenamedata[300];
+			sprintf_s(filenamedata, "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\%s%03i-00.data", tmapsstr, index);
+			fopen_s(&fptw2_prev, filenamedata, "rb");
+			fread(prevbuffer, width * height + 6, 1, fptw2_prev);
+			fclose(fptw2_prev);
+
+			bool same = true;
+			for (int kk = 0; kk < width * height + 6; kk++)
+			{
+				if (buffer[kk] != prevbuffer[kk])
+					same = false;
+			}
+			if (same)
+			{
+				index++; continue;
+			}
+
+			//FILE* fptw2_prev;
+			//char filenamedata[300];
+			sprintf_s(filenamedata, "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\%s%03i-%02i.data", tmapsstr, index, mainindex);
+			fopen_s(&fptw2_prev, filenamedata, "rb");
+			if(fptw2_prev==NULL)
+			{
+				index++; continue;
+			}
+			fread(prevbuffer, width* height + 6, 1, fptw2_prev);
+			fclose(fptw2_prev);
+
+			same = true;
+			for (int kk = 0; kk < width * height + 6; kk++)
+			{
+				if (buffer[kk] != prevbuffer[kk])
+					same = false;
+			}
+			if (same)
+			{
+				index++; continue;
+			}
+
+
+			FILE* fptw2;
+			sprintf_s(filenamedata, "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\%s%03i-%02i.data", tmapsstr, index, mainindex+1);
+			fopen_s(&fptw2, filenamedata, "wb");
+			fwrite(buffer, width * height + 6, 1, fptw2);
+			fclose(fptw2);
+	#endif
+
+	#ifdef write_bmp
+			char outname[512];
+			sprintf_s(outname, "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\%s%03i-%02i.bmp", tmapsstr, index, mainindex + 1);
+			write_posistruct_to_bmp(buffer + 6, width, height, outname);//test write
+	#endif
+
+	#ifdef write_png
+			sprintf_s(outname, "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\%s%03i-%02i.png", tmapsstr, index, mainindex+1);
+			sprintf_s(title, "%s%03i", tmapsstr, index);
+			write_posistruct_to_png(buffer + 6, width, height, outname, title, 0);//test write
+	#endif
+	#ifdef write_alphapng
+			sprintf_s(outname, "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\%s%03i-alpha-%02i.png", tmapsstr, index, mainindex + 1);
+			sprintf_s(title, "%s%03i", tmapsstr, index);
+			write_posistruct_to_png(buffer + 6, width, height, outname, title, 1);//test write
+	#endif
+
+	#ifdef level4
+			if (index < 452)
+	#endif
+				indextab += 10;
+			index++;
+		}
+
+
+
+}
+
 	/*
 	sub_715B0();
 
