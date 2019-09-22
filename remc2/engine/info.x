@@ -8504,3 +8504,84 @@ problem here:
 	memset(&x_WORD_EB398ar, 0, 6);
 	sub_49F90();
 
+2272dd
+void sub_462A0(uaxis_2d a1x, uaxis_2d a2x)//2272a0
+215af8
+215b00
+237f10
+2153f0
+
+x_BYTE_10B4E0_terraintype+0x4f6f 0x01
+versus
+2dc4e0+0x4f6f 0x06
+
+int sub_34910(type_str_0x6E8E* a1x)//215910
+
+test
+
+void sub_46570(uaxis_2d a1x, uaxis_2d a2x)//227570
+
+2276b8
+
+x_BYTE_10B4E0_terraintype+0x3c 0x06
+versus
+2dc4e0+0x3c 0x4d
+
+sub_498A0();//adress 22a3d7
+
+&D41A0_BYTESTR_0.struct_0x6E8E[0x3d].byte_0x3F_63 - 0xe
+0x356038+0x96d5
+
+516c0
+4a190
+49540
+49290
+49270
+versus
+
+type_str_0x6E8E* sub_516C0(axis_3d* a1x)//2326c0 - 0xe
+versus
+230b4c
+type_str_0x6E8E* sub_4FB20(axis_3d* a1x)//230b20 -0xa
+22b1c6 - type_str_0x6E8E* sub_4A190(axis_3d* a1x, int a2, int a3)//22b190
+type_str_0x6E8E* sub_48930(__int16 a1, __int16 a2, __int16 a3, __int16 a4, char a5)//229930
+22a215 -void sub_49090(type_str_2FECE* a1x, type_str_0x30311* a2x)//22a090
+
+sub_31FB0(a1_6E8E);		 
+
+(Bit8u*)&D41A0_BYTESTR_0+0x35 0xe6
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x35 0xb3
+0x356038 +0x35
+
+22b100 type_str_0x6E8E* sub_4A050_new_event()//22b050
+230b37 type_str_0x6E8E* sub_4FB20(axis_3d* a1x)//230b20
+22b1cd
+229968 type_str_0x6E8E* sub_48930(__int16 a1, __int16 a2, __int16 a3, __int16 a4, char a5)//229930
+22a215 void sub_49090(type_str_2FECE* a1x, type_str_0x30311* a2x)//22a090
+22a635 void sub_49540(type_str_2FECE* a1x, type_str_0x30311* a2x)//22a540
+22a3ae void sub_49290(type_str_2FECE* a1x, char a2)//22a290
+
+(Bit8u*)&D41A0_BYTESTR_0+0x768e 0xc6
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x768e 0x49
+0x356038 +0x768e
+
+1fef05
+void sub_1DDA0(type_str_0x6E8E* a1x, __int16 a2)//1feda0
+1feda0 void sub_1DBF0(type_str_0x6E8E* a1x, unsigned __int16 a2)//1febf0
+1fe611 void sub_1D5D0(type_str_0x6E8E* a1x, __int16 a2)//1fe5d0
+20747d void sub_26470(type_str_0x6E8E* a1x)//207470
+238a8b
+void sub_57730()//238730
+
+a1x->word_0x96_150 - nemuze byt 0x6e0
+
+&x_DWORD_EA3E4[140]->word_0x96_150
+
+&x_DWORD_EA3E4[140]->word_0x26_38
+
+&x_DWORD_EA3E4[140]->str_0x5E_94.word_0x62_98
+
+test void sub_2CB30(type_str_0x6E8E* a1x, __int16 a2, int a3, __int16 a4)//20db30
+
+analyze:
+void sub_87610()//268610
