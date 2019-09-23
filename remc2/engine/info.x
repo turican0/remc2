@@ -8585,3 +8585,5 @@ test void sub_2CB30(type_str_0x6E8E* a1x, __int16 a2, int a3, __int16 a4)//20db3
 
 analyze:
 void sub_87610()//268610
+
+fix Bit8u unk_E3522ar[0x7c]; // weak//array_E2A74[0xaae]

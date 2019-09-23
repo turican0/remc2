@@ -12,3 +12,7 @@ void mydelay(int milliseconds) {
 long mygethundredths() {
 	return clock()/ (CLOCKS_PER_SEC/100);
 };
+
+long mygetthousandths() {
+	return clock();
+};
