@@ -8587,3 +8587,11 @@ analyze:
 void sub_87610()//268610
 
 fix Bit8u unk_E3522ar[0x7c]; // weak//array_E2A74[0xaae]
+
+(Bit8u*)&D41A0_BYTESTR_0+0x36dec 0x28
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x36dec 0x2a
+0x356038+0x36dec
+
+D41A0_BYTESTR_0.word_0x36DEC_mousex
+
+debugcounter_47560 == 5
