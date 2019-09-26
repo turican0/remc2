@@ -8595,3 +8595,57 @@ fix Bit8u unk_E3522ar[0x7c]; // weak//array_E2A74[0xaae]
 D41A0_BYTESTR_0.word_0x36DEC_mousex
 
 debugcounter_47560 == 5
+
+add adress 208950
+
+(Bit8u*)&D41A0_BYTESTR_0+0xc2df 0xaf
+(Bit8u*)x_D41A0_BYTEARRAY_0+0xc2df 0x00
+0x356038+0xc2df
+
+void sub_652C0(type_str_0x6E8E* a1x)//2462c0
+
+&D41A0_BYTESTR_0.str_2FECE.array_0x30311[1].str_0x30311_subtype
+
+(Bit8u*)&D41A0_BYTESTR_0+0x23a 0x00
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x23a 0x01
+0x356038+0x23a
+
+(Bit8u*)&x_BYTE_11B4E0_height+0xf8 - 0x95
+versus
+002ec4e0 +  0xf8 - 0x94
+
+v41x.word = v37x.word;//adress 218389
+9b
+
+void sub_48B90(int a1)//229b90
+
+(Bit8u*)&x_BYTE_11B4E0_height+0xebe7 - 0x77
+versus
+002ec4e0 +  0xebe7 - 0x7c
+
+(Bit8u*)&x_BYTE_11B4E0_height+0xf2f0 - 0x86
+versus
+002ec4e0 +  0xf2f0 - 0x85
+
+v41x.word = v37x.word;//adress 218389
+
+step 0xb9
+(Bit8u*)&x_BYTE_13B4E0_angle+0xf36e(0xe1)
+versus
+0x30c4e0+0xf36e(0xb1)
+
+0x719
+
+testuj
+void sub_37240(type_str_0x6E8E* a1x)//218240
+
+#ifdef DEBUG_SEQUENCES
+	add_compare(0x226dc4, debugafterload, 0x710);
+#endif DEBUG_SEQUENCES
+
+add_compare(0x22A977, debugafterload,0xb8);
+add_compare(0x218244, debugafterload,0xb8);
+add_compare(0x226dc4, debugafterload, 0x71e);
+
+71b
+71e - zde je mozna chyba

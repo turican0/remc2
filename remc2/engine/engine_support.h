@@ -928,6 +928,23 @@ extern x_BYTE x_BYTE_355238;//aMusic2//3551CE+6a BYTE*/
 
 extern Bit8u* x_DWORD_180628b_screen_buffer;
 
+typedef struct {//lenght 30
+	Bit16s word_0;//str_E2A74[].word_0
+	Bit16s axis_2[5]; //str_E2A74[].axis_2[0]
+	//Bit16s axis_4[3];//?? str_E2A74[].axis_2[0]
+	//Bit16s stuba;
+	Bit32s dword_12;//str_E2A74[].dword_12
+	Bit32s dword_16;
+	Bit32s dword_20;//str_E2A74[].dword_20
+	Bit32s dword_24;//str_E2A74[].dword_24
+	//Bit8s byte_25;
+	Bit8s byte_28;
+	Bit8s byte_29;
+}
+type_str_E2A74;
+
+extern type_str_E2A74 str_E2A74[0x69];
+
 //extern char* char_355198;
 //void pathfix(char* path, char* path2);
 void support_begin();
@@ -946,6 +963,7 @@ Bit32u compare_with_sequence_array_222BD3(char* filename, Bit8u* adress, Bit32u 
 Bit32u compare_with_sequence_D41A0_4(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u count, Bit32u size, Bit8u* origbyte, Bit8u* copybyte, long offset = 0);
 Bit32u compare_with_sequence_EA3E4(char* filename, type_str_0x6E8E** adress, Bit32u count, Bit32u size, Bit8u* origbyte, Bit8u* copybyte);
 Bit32u compare_0x6E8E(char* filename, Bit8u* adress, Bit32u count, Bit32u size, Bit8u* origbyte, Bit8u* copybyte, long offset=0);
+void add_compare(Bit32u adress, bool debugafterload,int stopstep=-1);
 
 void writehex(Bit8u* buffer,Bit32u count);
 
