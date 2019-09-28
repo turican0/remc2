@@ -1011,7 +1011,7 @@ int getcompindex(Bit32u adress) {
 	}
 };
 void add_compare(Bit32u adress,bool debugafterload,int stopstep) {
-	int index = getcompindex(adress);
+
 
 	Bit8u origbyte20 = 0;
 	Bit8u remakebyte20 = 0;
@@ -1029,6 +1029,7 @@ void add_compare(Bit32u adress,bool debugafterload,int stopstep) {
 
 	if (debugafterload)
 	{
+		int index = getcompindex(adress);
 		if (index >= stopstep)
 		{
 		comp20 = compare_with_sequence(buffer1, (Bit8u*)x_BYTE_10B4E0_terraintype, 0x2dc4e0, index, 0x70000, 0x10000, &origbyte20, &remakebyte20);

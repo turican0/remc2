@@ -8649,3 +8649,52 @@ add_compare(0x226dc4, debugafterload, 0x71e);
 
 71b
 71e - zde je mozna chyba
+
+(Bit8u*)&D41A0_BYTESTR_0+0x6f3e 0x14
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x6f3e 0x19
+0x356038+0x6f3e
+
+226dc4
+
+(Bit8u*)&D41A0_BYTESTR_0+0x3227 0xe0
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x3227 0x00
+0x356038+0x3227
+
+add_compare(0x22A977, debugafterload,0xb8);
+
+x_BYTE_10B4E0_terraintype+0xb04a 0x05
+versus
+0x2dc4e0+0xb04a 0x37
+
+(Bit8u*)&x_BYTE_13B4E0_angle+0x2d2e(0x58)
+versus
+0x30c4e0+0x2d2e(0x50)
+
+void sub_45DC0(Bit8u a1, Bit8u a2, uaxis_2d a3x, unsigned __int8 a4)//226dc0
+
+(Bit8u*)&D41A0_BYTESTR_0+0x6fe6 0x5
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x6fe6 0x19
+0x356038 +0x6fe6
+
+pre_sub_4A190_0x6E8E counter
+
+(Bit8u*)&x_BYTE_13B4E0_angle+0xa9aa(0x40)
+versus
+0x30c4e0+0xa9aa(0x48)
+
+(Bit8u*)&D41A0_BYTESTR_0+0x6f3e 0x05
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x6f3e 0x14
+0x356038 +0x6f3e
+
+(Bit8u*)&x_BYTE_11B4E0_height+0xf8 - 0x95
+versus
+002ec4e0 +  0xf8 - 0x94
+
+229c84 -95 9a a1 a1
+        94 9a 9f a0
+		94 99 9d 9f
+void sub_48B90(uaxis_2d a1x)//229b90
+
+00001C3D
+
+229c84
