@@ -8698,3 +8698,29 @@ void sub_48B90(uaxis_2d a1x)//229b90
 00001C3D
 
 229c84
+
+(Bit8u*)&x_BYTE_11B4E0_height+0x0 - 0x64
+versus
+002ec4e0 +  0x0 - 0xad
+
+1d5e
+
+add_compare(0x237BC7, debugafterload);
+
+x_BYTE_10B4E0_terraintype+0xa 0x01
+versus
+2dc4e0+0xa 0x32
+
+
+(Bit8u*)&x_BYTE_12B4E0_shading+0x9f90 0x24
+0x2fc4e0+0x9f90 0x20
+
+23b194
+void sub_59F60(type_str_0x6E8E* a1x)//23af60
+
+23b3af
+23b194
+
+test
+23af64
+23b129
