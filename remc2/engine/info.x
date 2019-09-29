@@ -8724,3 +8724,15 @@ void sub_59F60(type_str_0x6E8E* a1x)//23af60
 test
 23af64
 23b129
+
+#ifdef DEBUG_SEQUENCES
+	add_compare(0x23af64,debugafterload);
+	#endif DEBUG_SEQUENCES
+	#ifdef DEBUG_SEQUENCES
+	add_compare(0x23b129,debugafterload);
+	#endif DEBUG_SEQUENCES
+
+
+x_BYTE_10B4E0_terraintype+0x12 00
+versus
+2dc4e0+0x12 0x08

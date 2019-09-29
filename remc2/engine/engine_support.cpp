@@ -1042,7 +1042,7 @@ void add_compare(Bit32u adress,bool debugafterload,int stopstep) {
 
 		comp20 = compare_with_sequence_array_E2A74(buffer3, (Bit8u*)& str_E2A74, 0x2b3a74, index, 0xc4e, 0xc4e, &origbyte20, &remakebyte20);
 		//if(debugcounter_271478>5)
-		comp20 = compare_with_sequence(buffer4, x_DWORD_180628b_screen_buffer, 0x3aa0a4, index, 320 * 200, 320 * 200, &origbyte20, &remakebyte20);
+		//comp20 = compare_with_sequence(buffer4, x_DWORD_180628b_screen_buffer, 0x3aa0a4, index, 320 * 200, 320 * 200, &origbyte20, &remakebyte20);
 		if (stopstep > -1)
 		{
 			comp20 = index;
