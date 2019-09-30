@@ -8733,6 +8733,24 @@ test
 	#endif DEBUG_SEQUENCES
 
 
-x_BYTE_10B4E0_terraintype+0x12 00
+step 2
+x_BYTE_10B4E0_terraintype+0x9d90 00
 versus
-2dc4e0+0x12 0x08
+2dc4e0+0x9d90 0x08
+
+(Bit8u*)&x_BYTE_12B4E0_shading+0x9f90 0x24
+0x2fc4e0+0x9f90 0x20
+
+23b194
+
+x_BYTE_10B4E0_terraintype+0xa0bb 08
+versus
+2dc4e0+0xa0bb 0x33
+
+step 9
+(Bit8u*)&D41A0_BYTESTR_0+0xc2de 0xf2
+(Bit8u*)x_D41A0_BYTEARRAY_0+0xc2de 0xa2
+0x356038+0xc2de
+
+void sub_652C0(type_str_0x6E8E* a1x)//2462c0
+sub_652C0(a1x);
