@@ -8738,6 +8738,14 @@ x_BYTE_10B4E0_terraintype+0x9d90 00
 versus
 2dc4e0+0x9d90 0x08
 
+x_BYTE_10B4E0_terraintype+0x12 00
+versus
+2dc4e0+0x12 0x08
+
+sub_1A970_change_game_settings(16, 0, 0);
+x_DWORD_18062C_resolution_x
+x_DWORD_180624_resolution_y
+
 (Bit8u*)&x_BYTE_12B4E0_shading+0x9f90 0x24
 0x2fc4e0+0x9f90 0x20
 
