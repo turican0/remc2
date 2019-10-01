@@ -366,6 +366,7 @@ void sub_56A30_init_game_level(unsigned int a1);
 void sub_47320_in_game_loop(signed int a1);
 void sub_56D60(unsigned int a1, char a2);
 void sub_75200_VGA_Blit640(Bit16u height);
+void VGA_BlitAny();
 char sub_7A060_get_mouse_and_keyboard_events();
 void sub_47560_draw_and_events_in_game(/*Bit8u* a1, int a2, */Bit32u a3, signed int a4, __int16 a5);
 void sub_51BB0_game_events(/*Bit8u* a1*/);
