@@ -984,14 +984,19 @@ Bit32u compare_with_sequence(char* filename, Bit8u* adress, Bit32u adressdos, lo
 };
 
 int countcompindexes = 0;
-int compindexes[100];
-int compadresses[100];
+typedef struct {
+	int index;
+	int adress;
+} type_compstr;
+//int compindexes[100];//compstr[i].index
+//int compadresses[100];//compstr[i].adress
+type_compstr compstr[100];
 int getcompindex(Bit32u adress) {
 	bool finded = false;
 	int findindex=0;
 	for (int i = 0; i < countcompindexes; i++)
 	{
-		if (compadresses[i] == adress)
+		if (compstr[i].adress == adress)
 		{
 			finded = true;
 			findindex = i;
@@ -1000,12 +1005,12 @@ int getcompindex(Bit32u adress) {
 	}
 	if (finded)
 	{
-		compindexes[findindex]++;
-		return compindexes[findindex];
+		compstr[findindex].index++;
+		return compstr[findindex].index;
 	}
 	else
 	{
-		compadresses[countcompindexes] = adress;
+		compstr[countcompindexes].adress = adress;
 		countcompindexes++;
 		return 0;
 	}

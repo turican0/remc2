@@ -8762,3 +8762,23 @@ step 9
 
 void sub_652C0(type_str_0x6E8E* a1x)//2462c0
 sub_652C0(a1x);
+
+(Bit8u*)&D41A0_BYTESTR_0+0x982b 0x6d
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x982b 0x6c
+0x356038 +0x982b
+
+0x238A8A -small array
+
+problem:
+void sub_871F0()//2681f0
+void sub_87860()//268860
+
+a2x->array_0x4C_76.x = 0x8c07;
+a2x->array_0x4C_76.y = 0xb427;
+
+x_BYTE_10B4E0_terraintype+0xa391 0x08
+versus
+2dc4e0+0xa391 0x00
+
+23bda9
+void sub_59F60(type_str_0x6E8E* a1x)//23af60
