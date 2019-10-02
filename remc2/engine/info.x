@@ -8784,3 +8784,22 @@ versus
 void sub_59F60(type_str_0x6E8E* a1x)//23af60
 
 x_WORD_180660_VGA_type_resolution
+
+ (Bit8u*)&x_WORD_15B4E0_source+0x2c0 0x00
+ x_WORD_15B4E0+0x2c0 0x2c
+ 32c4e0+0x2c0 0x2c
+
+ 238e3c
+ void sub_57D70_actualize_event(type_str_0x6E8E* a1x, axis_3d* a2x)//238d70 // register object on axis
+ void sub_57CF0(type_str_0x6E8E* a1x, axis_3d* a2x)//238cf0
+ 1fca19
+ signed int sub_1B8C0(type_str_0x6E8E* a1x)//1fc8c0
+  void sub_1DDA0(type_str_0x6E8E* a1x, __int16 a2)//1feda0
+ void sub_1D5D0(type_str_0x6E8E* a1x, __int16 a2)//1fe5d0
+ void sub_23750(type_str_0x6E8E* a1x)//204750
+
+ v3x->word_0x96_150
+
+ &x_DWORD_EA3E4[0xe4]->word_0x96_150
+
+ void sub_66FD0(type_str_0x6E8E* a1x)//247fd0
