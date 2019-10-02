@@ -173,8 +173,8 @@ typedef struct {
 */
 typedef struct {
 	Bit16s aa;
-	Bit16s bb;
-	Bit16s cc;
+	Bit16s xshift;
+	Bit16s yshift;
 	Bit16s dd;
 }axis_4d;
 

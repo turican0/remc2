@@ -220,9 +220,9 @@ void convert_struct_to_array_axis_4d(axis_4d* input, Bit8u* output) {
 	//Bit16s aa;
 	memcpy(output + 0x0, &input->aa, 2);
 	//Bit16s bb;
-	memcpy(output + 0x2, &input->bb, 2);
+	memcpy(output + 0x2, &input->xshift, 2);
 	//Bit16s cc;
-	memcpy(output + 0x4, &input->cc, 2);
+	memcpy(output + 0x4, &input->yshift, 2);
 	//Bit16s dd;
 	memcpy(output + 0x6, &input->dd, 2);
 }

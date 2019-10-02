@@ -8782,3 +8782,5 @@ versus
 
 23bda9
 void sub_59F60(type_str_0x6E8E* a1x)//23af60
+
+x_WORD_180660_VGA_type_resolution
