@@ -8803,3 +8803,107 @@ x_WORD_180660_VGA_type_resolution
  &x_DWORD_EA3E4[0xe4]->word_0x96_150
 
  void sub_66FD0(type_str_0x6E8E* a1x)//247fd0
+
+ test procedure 2484c0
+
+ 
+
+void sub_674C0(type_str_0x6E8E* a1x)//2484c0
+
+void sub_1A7A0_fly_asistant()//1fb7a0 // fly asistant
+
+x_D41A0_BYTEARRAY_4_struct.setting_byte3_24
+
+#define FIX_FLYASISTANT
+
+(Bit8u*)&x_WORD_15B4E0_source+0x3f12 0x00
+x_WORD_15B4E0+0x3f12 0x34
+ 32c4e0+0x3f12 0x34
+ 238e3c
+
+ void sub_57D70_actualize_event(type_str_0x6E8E* a1x, axis_3d* a2x)//238d70 // register object on axis
+ void sub_57CF0(type_str_0x6E8E* a1x, axis_3d* a2x)//238cf0
+signed int sub_68E50(type_str_0x6E8E* a1x, type_str_0x6E8E* a2x, type_str_0x6E8E* a3x)//249e50
+ void sub_69640(type_str_0x6E8E* a1x)//24a640//spell posses
+
+ 36779c
+
+ 2407c2
+
+unsigned __int8 sub_5F7B0(type_str_0x6E8E* a1x, type_str_0x6E8E* a2x, int a3)//2407b0
+{
+	a1x->word_0x2E_46 = a1x->word_0x30_48;
+	a2x->struct_byte_0xc_12_15.byte[1] &= 0xFCu;
+	a2x->struct_byte_0xc_12_15.dword |= a3;
+	return sub_5F7E0(a1x, a2x);
+}
+
+240761
+char sub_5F660(type_str_0x6E8E* a1x, type_str_0x6E8E* a2x, int a3)//240660
+void sub_5F380(type_str_0x6E8E* a1x)//240380
+void sub_5E010(type_str_0x6E8E* a1x)//23f010
+void sub_57730()//238730
+
+x_DWORD_EA3E4[0x101]->word_0x2E_46
+
+&x_DWORD_EA3E4[0xff]->array_0x4C_76
+36766a
+
+&x_DWORD_EA3E4[0xff]->array_0x4C_76
+&v4x->array_0x4C_76
+35f132
+
+(Bit8u*)&D41A0_BYTESTR_0+0x9130 0x81
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x9130 0x80
+0x356038 +0x80
+
+x_BYTE_10B4E0_terraintype+0x1c 0x4c
+versus
+2dc4e0+0x1c 0x4d
+
+x_BYTE_10B4E0_terraintype+0x6822 0x4f
+versus
+2dc4e0+0x6822 0x4d
+
+(Bit8u*)&x_BYTE_13B4E0_angle+0x23(0x19)
+versus
+0x30c4e0+0x23(0xe)
+
+(Bit8u*)&D41A0_BYTESTR_0+0x35 0xa5
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x35 0xa6
+0x356038 +0x35
+
+(Bit8u*)&D41A0_BYTESTR_0+0x36620 66
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x36620 ae
+0x356038+0x36620
+
+x_BYTE_10B4E0_terraintype+0x1c 0x4d
+versus
+2dc4e0+0x1c 0x6
+
+(Bit8u*)&D41A0_BYTESTR_0+0xa198 18
+(Bit8u*)x_D41A0_BYTEARRAY_0+0xa198 30
+0x356038+0xa198
+
+2097ff
+void sub_287B0(type_str_0x6E8E* a1x)//2097b0
+238a8b
+
+(Bit8u*)&D41A0_BYTESTR_0+0xdfa7 0xc
+(Bit8u*)x_D41A0_BYTEARRAY_0+0xdfa7 0xd
+0x356038+0xdfa7
+
+363efe+8
+35cec6
+&x_D41A0_BYTEARRAY_4_struct.bytearray_38403x[0x16]
+x_D41A0_BYTEARRAY_4_struct.bytearray_38403x[0x16]->next_0
+&x_D41A0_BYTEARRAY_4_struct.bytearray_38403x[0x16]->next_0
+
+(Bit8u*)&D41A0_BYTESTR_0+0x9 0xc8
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x9 0xab
+0x356038+0x9
+
+23ec2f
+void sub_5D530(type_str_0x6E8E* a1x)//*(x_DWORD *)(a1 + 160)//23e530
+void sub_5E010(type_str_0x6E8E* a1x)//23f010
+0x238A8A
