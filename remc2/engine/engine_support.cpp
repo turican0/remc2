@@ -397,6 +397,8 @@ int test_D41A0_id_pointer(Bit32u adress) {
 	if ((adress >= 0x3999) && (adress < 0x399c))return 2;//clock2
 	if ((adress >= 0x41e5) && (adress < 0x41e8))return 2;//clock3
 	if ((adress >= 0x4a31) && (adress < 0x4a34))return 2;//clock4
+	if ((adress >= 0x527d) && (adress < 0x5280))return 2;//clock5
+	if ((adress >= 0x5ac9) && (adress < 0x5acc))return 2;//clock6
 
 	if ((adress >= 0x235) && (adress < 0x236))return 2;//music
 
@@ -1016,7 +1018,9 @@ int getcompindex(Bit32u adress) {
 		return 0;
 	}
 };
-void add_compare(Bit32u adress,bool debugafterload,int stopstep) {
+
+type_compstr lastcompstr;
+void add_compare(Bit32u adress,bool debugafterload,int stopstep,bool skip) {
 
 
 	Bit8u origbyte20 = 0;
@@ -1038,21 +1042,28 @@ void add_compare(Bit32u adress,bool debugafterload,int stopstep) {
 		int index = getcompindex(adress);
 		if (index >= stopstep)
 		{
-		comp20 = compare_with_sequence(buffer1, (Bit8u*)x_BYTE_10B4E0_terraintype, 0x2dc4e0, index, 0x70000, 0x10000, &origbyte20, &remakebyte20);
-		comp20 = compare_with_sequence(buffer1, (Bit8u*)x_BYTE_11B4E0_height, 0x2dc4e0, index, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x10000);
-		comp20 = compare_with_sequence(buffer1, (Bit8u*)x_BYTE_12B4E0_shading, 0x2dc4e0, index, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x20000);
-		comp20 = compare_with_sequence(buffer1, (Bit8u*)x_BYTE_13B4E0_angle, 0x2dc4e0, index, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x30000);
-		comp20 = compare_with_sequence(buffer1, (Bit8u*)x_WORD_15B4E0_source, 0x2dc4e0, index, 0x70000, 0x20000, &origbyte20, &remakebyte20, 0x50000);
+			if (!skip)
+			{
+				comp20 = compare_with_sequence(buffer1, (Bit8u*)x_BYTE_10B4E0_terraintype, 0x2dc4e0, index, 0x70000, 0x10000, &origbyte20, &remakebyte20);
+				comp20 = compare_with_sequence(buffer1, (Bit8u*)x_BYTE_11B4E0_height, 0x2dc4e0, index, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x10000);
+				comp20 = compare_with_sequence(buffer1, (Bit8u*)x_BYTE_12B4E0_shading, 0x2dc4e0, index, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x20000);
+				comp20 = compare_with_sequence(buffer1, (Bit8u*)x_BYTE_13B4E0_angle, 0x2dc4e0, index, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x30000);
+				comp20 = compare_with_sequence(buffer1, (Bit8u*)x_WORD_15B4E0_source, 0x2dc4e0, index, 0x70000, 0x20000, &origbyte20, &remakebyte20, 0x50000);
 
-		comp20 = compare_with_sequence_D41A0(buffer2, (Bit8u*)& D41A0_BYTESTR_0, 0x356038, index, 0x36e16, &origbyte20, &remakebyte20);
+				comp20 = compare_with_sequence_D41A0(buffer2, (Bit8u*)& D41A0_BYTESTR_0, 0x356038, index, 0x36e16, &origbyte20, &remakebyte20);
 
-		comp20 = compare_with_sequence_array_E2A74(buffer3, (Bit8u*)& str_E2A74, 0x2b3a74, index, 0xc4e, 0xc4e, &origbyte20, &remakebyte20);
+				comp20 = compare_with_sequence_array_E2A74(buffer3, (Bit8u*)& str_E2A74, 0x2b3a74, index, 0xc4e, 0xc4e, &origbyte20, &remakebyte20);
+			}
 		//if(debugcounter_271478>5)
 		//comp20 = compare_with_sequence(buffer4, x_DWORD_180628b_screen_buffer, 0x3aa0a4, index, 320 * 200, 320 * 200, &origbyte20, &remakebyte20);
 		if (stopstep > -1)
 		{
 			comp20 = index;
 		}
+
+		lastcompstr.index = index;
+		lastcompstr.adress = adress;
+
 	}
 
 	}

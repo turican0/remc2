@@ -842,7 +842,7 @@ typedef struct {
 
 	Bit8u setting_38402;//0x9602//x_D41A0_BYTEARRAY_4_struct.setting_38402
 
-	type_str_0x6E8E* bytearray_38403x[29];//array 116//0x9603//x_D41A0_BYTEARRAY_4_struct.bytearray_38403	
+	type_str_0x6E8E* bytearray_38403x[30];//array 116//0x9603//x_D41A0_BYTEARRAY_4_struct.bytearray_38403	
 	/*
 	creatures
 		8-dead
@@ -963,7 +963,7 @@ Bit32u compare_with_sequence_array_222BD3(char* filename, Bit8u* adress, Bit32u 
 Bit32u compare_with_sequence_D41A0_4(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u count, Bit32u size, Bit8u* origbyte, Bit8u* copybyte, long offset = 0);
 Bit32u compare_with_sequence_EA3E4(char* filename, type_str_0x6E8E** adress, Bit32u count, Bit32u size, Bit8u* origbyte, Bit8u* copybyte);
 Bit32u compare_0x6E8E(char* filename, Bit8u* adress, Bit32u count, Bit32u size, Bit8u* origbyte, Bit8u* copybyte, long offset=0);
-void add_compare(Bit32u adress, bool debugafterload,int stopstep=-1);
+void add_compare(Bit32u adress, bool debugafterload,int stopstep=-1,bool skip=false);
 
 void writehex(Bit8u* buffer,Bit32u count);
 
