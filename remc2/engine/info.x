@@ -9009,4 +9009,28 @@ void sub_57CF0(type_str_0x6E8E* a1x, axis_3d* a2x)//238cf0
 
 (Bit8u*)&x_WORD_15B4E0_source+0x1c880 0x38
 x_WORD_15B4E0+0x1c880 0x3a
- 32c4e0+0xb12a 0x3a
+ 32c4e0+0x1c880 0x3a
+
+
+(Bit8u*)&D41A0_BYTESTR_0+0x94e4 0x02
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x94e4 0x01
+0x356038 +0x94e4
+
+(Bit8u*)&x_WORD_15B4E0_source+0x1c2a 0xfd
+x_WORD_15B4E0+0x1c2a 0x00
+ 32c4e0+0x1c2a 0x00
+
+ 238ec4
+ void sub_57E50(type_str_0x6E8E* a1x)//238e50
+ void sub_57CF0(type_str_0x6E8E* a1x, axis_3d* a2x)//238cf0
+ a8a
+
+ (Bit8u*)&D41A0_BYTESTR_0+0x118dd 0x09
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x118dd 0x04
+0x356038 +0x118dd
+
+void sub_32530(type_str_0x6E8E* a1x)//213530
+
+ (Bit8u*)&D41A0_BYTESTR_0+0x44ba 0x02
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x44ba 0x01
+0x356038 +0x44ba
