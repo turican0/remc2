@@ -9034,3 +9034,20 @@ void sub_32530(type_str_0x6E8E* a1x)//213530
  (Bit8u*)&D41A0_BYTESTR_0+0x44ba 0x02
 (Bit8u*)x_D41A0_BYTEARRAY_0+0x44ba 0x01
 0x356038 +0x44ba
+
+int x_DWORD_D40BC[] = { 0 }; // weak
+int x_DWORD_D40C0[] = { 0 }; // weak
+
+ (Bit8u*)&D41A0_BYTESTR_0+0x1169e 0x00
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x1169e 0x09
+0x356038 +0x1169e
+
+ (Bit8u*)&D41A0_BYTESTR_0+0x35 0x2d
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x35 0x2c
+0x356038 +0x35
+
+22b100
+type_str_0x6E8E* sub_4A050_new_event()//22b050
+22b1ca - near
+22b190
+238a8a
