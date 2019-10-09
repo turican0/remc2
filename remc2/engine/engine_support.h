@@ -1344,8 +1344,8 @@ type_str_0x218A;
 type_uni_0x8586;*/
 
 typedef struct {
-	Bit8u icons_0x218E;//8590 icons//str_0x218E.str.icons_0x218E
-	Bit8u xxxx_0x218F;//8591 ??//str_0x218E.str.xxxx_0x218F
+	Bit8u minimap_0x218E;//8590 icons//str_0x218E.str.icons_0x218E
+	Bit8u topbar_0x218F;//8591 ??//str_0x218E.str.xxxx_0x218F
 	Bit8u scr_size_0x2190;//8592 screen size?//str_0x218E.str.scr_size_0x2190
 	Bit8u xxxx_0x2191;//8593//str_0x218E.str.xxxx_0x2191
 }
