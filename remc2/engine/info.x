@@ -9059,3 +9059,21 @@ type_str_0x6E8E* sub_4A050_new_event()//22b050
 0x2a26
 0x2a6c
 D41A0_BYTESTR_0.array_0x6E3E[0].str_0x6E3E_byte0==0x2a
+
+ (Bit8u*)&D41A0_BYTESTR_0+0x18568 0xfd
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x18568 0x65
+0x356038 +0x18568
+
+23900e
+238fa0
+axis_3d* sub_57FA0(axis_3d* a1, unsigned __int16 a2, __int16 a3, __int16 a4)//238fa0 // move player
+
+(Bit8u*)&D41A0_BYTESTR_0+0x5ae2 0xfe
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x5ae2 0xfd
+0x356038 +0x5ae2
+
+(Bit8u*)&D41A0_BYTESTR_0+0x17d84 0xd2
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x17d84 0x02
+0x356038 +0x17d84
+
+

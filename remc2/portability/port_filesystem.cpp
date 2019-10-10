@@ -53,6 +53,7 @@ void pathfix(char* path, char* path2)
 			path2[i] = fixstring[i];
 		path2[fixlen] = '\\';
 	}
+	delete[] buffer;
 }
 
 void get_exe_path(char* retpath) {
@@ -64,6 +65,7 @@ void get_exe_path(char* retpath) {
 	sprintf(retpath,"%s", (char*)strpathx.c_str());
 	//retpath = (char*)strpathx.c_str();
 	//return pathx;
+	delete[] buffer;
 };
 
 
@@ -99,7 +101,7 @@ void pathfix2(char* path, char* path2)
 		for (int i = 0;i < fixlen;i++)
 			path2[i] = fixstring[i];
 	}
-	free(buffer);
+	delete[] buffer;
 }
 
 void unpathfix(char* path, char* path2)
