@@ -9076,4 +9076,10 @@ axis_3d* sub_57FA0(axis_3d* a1, unsigned __int16 a2, __int16 a3, __int16 a4)//23
 (Bit8u*)x_D41A0_BYTEARRAY_0+0x17d84 0x02
 0x356038 +0x17d84
 
+void sub_1B280_run_intro_events(Bit8u* a1)//1fc280
+void sub_76160_play_intro(__int16 a1, __int16 a2, Bit8u* a3)//257160
+void sub_82670()//263670
+
+x_BYTE_10B4E0_terraintype
+
 

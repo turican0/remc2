@@ -10,6 +10,7 @@ char fixsound[512] = "fix-sound\\";
 char fixsoundout[512];
 
 
+
 std::string utf8_encode(const std::wstring &wstr)
 {
 	if (wstr.empty()) return std::string();
@@ -19,17 +20,26 @@ std::string utf8_encode(const std::wstring &wstr)
 	return strTo;
 }
 
+char oldpathx[512];
+bool firstrun = true;
+
 void pathfix(char* path, char* path2)
 {
-	LPWSTR buffer = new WCHAR[MAX_PATH];
-	GetModuleFileName(NULL, buffer, MAX_PATH);
-	std::string locstr = utf8_encode(buffer);
-	std::string::size_type pos = std::string(locstr).find_last_of("\\/");
-	std::string strpathx = std::string(locstr).substr(0, pos)/*+"\\system.exe"*/;
-	char* pathx = (char*)strpathx.c_str();
+	if (firstrun)
+	{
+		LPWSTR buffer = new WCHAR[MAX_PATH];
+		GetModuleFileName(NULL, buffer, MAX_PATH);
+		std::string locstr = utf8_encode(buffer);
+		std::string::size_type pos = std::string(locstr).find_last_of("\\/");
+		std::string strpathx = std::string(locstr).substr(0, pos)/*+"\\system.exe"*/;
+		char* pathx = (char*)strpathx.c_str();
+		delete[] buffer;
+		strcpy(oldpathx, pathx);
+		firstrun = false;
+	}
 
-	sprintf(fixsoundout, "%s\\%s", pathx, fixsound);
-	sprintf(gamepathout, "%s\\%s", pathx, gamepath);
+	sprintf(fixsoundout, "%s\\%s", oldpathx, fixsound);
+	sprintf(gamepathout, "%s\\%s", oldpathx, gamepath);
 	
 
 	if ((path[0] == 'c') || (path[0] == 'C'))
@@ -53,7 +63,7 @@ void pathfix(char* path, char* path2)
 			path2[i] = fixstring[i];
 		path2[fixlen] = '\\';
 	}
-	delete[] buffer;
+
 }
 
 void get_exe_path(char* retpath) {
