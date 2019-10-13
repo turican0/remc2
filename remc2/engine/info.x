@@ -9140,3 +9140,21 @@ if ((adress >= 0x36b36) && (adress < 0x36b37))return 1;
 (Bit8u*)&D41A0_BYTESTR_0+0x36650 0x00
 (Bit8u*)x_D41A0_BYTEARRAY_0+0x36650 0x8c
 0x356038+0x36650
+
+38c688
+000000
+versus
+8ce9f00ce6
+
+38c68e
+
+8ce900f00ce6
+
+&D41A0_BYTESTR_0.str_0x3664C[1].dword_A
+
+(Bit8u*)&x_BYTE_12B4E0_shading+0xff 0x3f
+0x2fc4e0+0xff 0x27
+
+(Bit8u*)&D41A0_BYTESTR_0+0x3667d 0x00
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x3667d 0x58
+0x356038+0x36650
