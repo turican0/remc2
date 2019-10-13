@@ -411,6 +411,18 @@ int test_D41A0_id_pointer(Bit32u adress) {
 	if ((adress >= 0x36566) && (adress < 0x36567))return 1;
 	if ((adress >= 0x36570) && (adress < 0x36571))return 1;
 
+	/*if ((adress >= 0x36b36) && (adress < 0x36b37))return 1;
+	if ((adress >= 0x36b5d) && (adress < 0x36b5e))return 1;
+	if ((adress >= 0x36b84) && (adress < 0x36b85))return 1;
+	if ((adress >= 0x36bab) && (adress < 0x36bac))return 1;
+	if ((adress >= 0x36bd2) && (adress < 0x36bd3))return 1;
+	*/
+	for (int j = 1; j < 50; j++)
+	{
+		if ((adress >= 0x3664C+0xa +39*j) && (adress < 0x3664C + 0xa +1 + 39 * j))return 1;
+	}
+
+
 	/*if ((adress >= 0x36656) && (adress < 0x36657))return 1;
 	if ((adress >= 0x3667d) && (adress < 0x3667e))return 1;
 	if ((adress >= 0x366a4) && (adress < 0x366a5))return 1;

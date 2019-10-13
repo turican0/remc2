@@ -9082,4 +9082,61 @@ void sub_82670()//263670
 
 x_BYTE_10B4E0_terraintype
 
+			/*LOWORD(v5) = */sub_90B27_VGA_pal_fadein_fadeout(*xadatapald0dat2.var28_begin_buffer, 0x20u, 0);
 
+&D41A0_BYTESTR_0.str_0x3664C[0].dword_A
+0x38C68E
+bool sub_558E0_InGameLoad(Bit8u fileindex)//2368e0
+
+		//fix
+		for (int iy = 0; iy < 50; iy++)
+		{
+			D41A0_BYTESTR_0.str_0x3664C[iy].dword_A=NULL;
+		}
+		//fix
+
+(Bit8u*)&D41A0_BYTESTR_0+0x41 0x00
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x41 0x01
+0x356038+0x41
+void sub_47760(/*int a1,*/Bit32u user/* int a2, int a3*/)//228760
+void sub_57640()//238640
+sub_55100(1);
+int sub_71930()//252930
+
+x_BYTE_10B4E0_terraintype +0x6064 (0x1)
+versus
+0x2dc4e0 +0x6064 (0x6)
+
+(Bit8u*)&D41A0_BYTESTR_0+0x36650 0x00
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x36650 0x8c
+0x356038+0x36650
+
+265c02
+
+void sub_84B80()//265b80
+
+(Bit8u*)&D41A0_BYTESTR_0+0x36b36 0x00
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x36b36 0x58
+0x356038+0x36b36
+
+36b5d
+
+2818ac
+
+if ((adress >= 0x36b36) && (adress < 0x36b37))return 1;
+	if ((adress >= 0x36b5d) && (adress < 0x36b5e))return 1;
+	if ((adress >= 0x36b84) && (adress < 0x36b85))return 1;
+	if ((adress >= 0x36bab) && (adress < 0x36bac))return 1;
+	if ((adress >= 0x36bd2) && (adress < 0x36bd3))return 1;
+
+	for (int j = 1; j < 50; j++)
+	{
+
+	}
+
+	D41A0_BYTESTR_0.str_0x3664C[j].dword_A lenght 39
+
+
+(Bit8u*)&D41A0_BYTESTR_0+0x36650 0x00
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x36650 0x8c
+0x356038+0x36650
