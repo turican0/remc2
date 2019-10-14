@@ -9172,3 +9172,14 @@ versus
 			D41A0_BYTESTR_0.str_0x3664C[j].dword_A = NULL;*/
 		//fix
 	}
+
+
+x_BYTE_10B4E0_terraintype+0x0 0x3c
+versus
+2dc4e0+0x0 0x1b
+
+227023
+void sub_45DC0(Bit8u a1, Bit8u a2, uaxis_2d a3x, unsigned __int8 a4)//226dc0
+void sub_36FC0(type_str_0x6E8E* a1x)//217fc0
+
+add_compare(0x23d954, debugafterload,5); ?
