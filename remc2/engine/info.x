@@ -9183,3 +9183,15 @@ void sub_45DC0(Bit8u a1, Bit8u a2, uaxis_2d a3x, unsigned __int8 a4)//226dc0
 void sub_36FC0(type_str_0x6E8E* a1x)//217fc0
 
 add_compare(0x23d954, debugafterload,5); ?
+
+sub_51BB0_game_events(/*(Bit8u*)a4*/);//nothing draw
+
+add_compare(0x23d954, debugafterload);
+add_compare(0x233d56, debugafterload);
+0x233d56
+
+(Bit8u*)&D41A0_BYTESTR_0+0x31d0 0x00
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x31d0 0xdf
+0x356038 +0x31d0
+
+sub_5C950(&D41A0_BYTESTR_0.array_0x2BDE[v18x], v113x);
