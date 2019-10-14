@@ -9158,3 +9158,17 @@ versus
 (Bit8u*)&D41A0_BYTESTR_0+0x3667d 0x00
 (Bit8u*)x_D41A0_BYTEARRAY_0+0x3667d 0x58
 0x356038+0x36650
+
+#define DETECT_DWORD_A
+
+	for (j = 1; j < 50; j++)
+	{
+		//result = x_D41A0_BYTEARRAY_0 + 39 * j;
+		//D41A0_BYTESTR_0.array_0x3664C[j].byte0
+		if (D41A0_BYTESTR_0.str_0x3664C[j].byte_0)
+			D41A0_BYTESTR_0.str_0x3664C[j].dword_A = (type_str_0x6E8E*)((int)D41A0_BYTESTR_0.str_0x3664C[j].dword_A+ (int)v3);//0x36656
+		//fix
+		/*if (((int)v2 == 1) && (((Bit32u)D41A0_BYTESTR_0.str_0x3664C[j].dword_A < (Bit32u)D41A0_BYTESTR_0.struct_0x6E8E) || ((Bit32u)D41A0_BYTESTR_0.str_0x3664C[j].dword_A >= (Bit32u)& D41A0_BYTESTR_0.struct_0x6E8E[0x3e8])))
+			D41A0_BYTESTR_0.str_0x3664C[j].dword_A = NULL;*/
+		//fix
+	}
