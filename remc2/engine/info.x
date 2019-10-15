@@ -9194,4 +9194,42 @@ add_compare(0x233d56, debugafterload);
 (Bit8u*)x_D41A0_BYTEARRAY_0+0x31d0 0xdf
 0x356038 +0x31d0
 
+23de52
+
+
 sub_5C950(&D41A0_BYTESTR_0.array_0x2BDE[v18x], v113x);
+
+kx = x_D41A0_BYTEARRAY_4_struct.dword_38519
+versus
+0x360a7e
+
+0x012e5e4e
+x_DWORD_EA3E4[0x58]
+
+
+
+0x360a7e
+
+0x2bb3e4
+0x2bb544+c
+
+versus x_DWORD_EA3E4[0x5B] -ma byt
+
+x_D41A0_BYTEARRAY_4_struct.dword_38519
+
+adress 3965c7
+3965c7->360886
+
+x_BYTE_10B4E0_terraintype+0 0x3c
+versus
+2dc4e0+0 0x1b
+227023
+
+void sub_45DC0(Bit8u a1, Bit8u a2, uaxis_2d a3x, unsigned __int8 a4)//226dc0
+
+(Bit8u*)&x_BYTE_11B4E0_height+0x0 - 0x8d
+versus
+002ec4e0 +  0x0 - 0x5b
+
+add_compare(0x217fc4, debugafterload);
+
