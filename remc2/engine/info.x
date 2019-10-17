@@ -9233,3 +9233,114 @@ versus
 
 add_compare(0x217fc4, debugafterload);
 
+add_compare(0x23d954, debugafterload,6);-ok
+sub_36FC0(v20x);-problem
+
+(Bit8u*)&D41A0_BYTESTR_0+0x6315 0x99
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x6315 0x27
+0x356038 +0x6315
+
+sub_616D0(v2x->dword_0xA4_164x->word_0x38_56)-problem zde
+
+(Bit8u*)&x_BYTE_11B4E0_height+0x0 - 0x8d
+versus
+002ec4e0 +  0x0 - 0x5b
+
+add_compare(0x217fc4, debugafterload,1);
+add_compare(0x226dc4, debugafterload);//1cf0-problem
+
+0x1a7092
+
+sub_6EB90(&filearray_2aa18c[?]);//2aa1d4
+
+void sub_5B8D0_initialize()//23c8d0
+
+x_BYTE_10B4E0_terraintype+0x66 0x06
+versus
+2dc4e0+0x66 0x4d
+
+0x15
+
+x_BYTE_10B4E0_terraintype+0x0 3c
+versus
+2dc4e0+0x0 1b
+
+70
+
+(Bit8u*)&x_BYTE_12B4E0_shading+0xf413 0x20
+0x2fc4e0+0xf413 0x22
+
+void sub_84EA0(uaxis_2d a1x, type_str_0x3664C* a2x, char a3, __int16 a4)//265ea0
+
+fix
+FIXx.dword_0x8 = -1;
+
+	//fix
+	if (D41A0_BYTESTR_0.str_0x3664C[0].byte_0)
+		D41A0_BYTESTR_0.str_0x3664C[0].dword_A = (type_str_0x6E8E*)((Bit32u)D41A0_BYTESTR_0.str_0x3664C[0].dword_A + (Bit32u)v3);//0x36656
+	//fix
+	if(adress=0x23620A)
+	if(read(0x356038+3664c))
+	write(0x356038+0x3664c+0xa,read(0x356038+0x3664c+0xa)+v3);
+
+(Bit8u*)&x_BYTE_12B4E0_shading+0xef16 0x1c
+0x2fc4e0+0xef16 0x22
+
+265f98
+void sub_84EA0(uaxis_2d a1x, type_str_0x3664C* a2x, char a3, __int16 a4)//265ea0
+void sub_84B80()//265b80
+
+
+(Bit8u*)&D41A0_BYTESTR_0+0x52b5 0x0d
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x52b5 0x03
+0x356038+0x52b5
+
+(Bit8u*)&D41A0_BYTESTR_0+0x6ea8 0xa3
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x6ea8 0x82
+0x356038+0x6ea8
+
+(Bit8u*)&x_BYTE_12B4E0_shading+0xe91b 0x2c
+0x2fc4e0+0xe91b 0x2d
+
+(Bit8u*)&D41A0_BYTESTR_0+0x3664c 0x01
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x3664c 0x00
+0x356038+0x3664c
+
+265889
+void sub_84880(type_str_0x3664C* a1x)//265880
+265e6a
+
+void sub_84880(type_str_0x3664C* a1x)//265880
+void sub_84B80()//265b80
+
+D41A0_BYTESTR_0.str_0x3664C[0].dword_A
+versus
+0x38c684+0xa .. 0x1409a04
+
+(Bit8u*)&D41A0_BYTESTR_0+0xe818 0x22
+(Bit8u*)x_D41A0_BYTEARRAY_0+0xe818 0x24
+0x356038+0xe818
+
+(Bit8u*)&x_BYTE_12B4E0_shading+0xe818 0x22
+0x2fc4e0+0xe818 0x24
+
+250d3f
+
+void sub_6FD30() {}//00250d30
+
+265f98
+void sub_84EA0(uaxis_2d a1x, type_str_0x3664C* a2x, char a3, __int16 a4)//265ea0
+void sub_84B80()//265b80
+
+(Bit8u*)&D41A0_BYTESTR_0+0x3664c 0x01
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x3664c 0x00
+0x356038+0x3664c
+
+265889
+void sub_84880(type_str_0x3664C* a1x)//265880
+265e6a
+
+(Bit8u*)&x_BYTE_12B4E0_shading+0xfe0e 0x29
+0x2fc4e0+0xfe0e 0x21
+
+last step 170

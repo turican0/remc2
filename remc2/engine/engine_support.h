@@ -933,7 +933,7 @@ typedef struct {//lenght 30
 	Bit16s axis_2[5]; //str_E2A74[].axis_2[0]
 	//Bit16s axis_4[3];//?? str_E2A74[].axis_2[0]
 	//Bit16s stuba;
-	Bit32s dword_12;//str_E2A74[].dword_12
+	type_str_0x6E8E* dword_12;//str_E2A74[].dword_12
 	Bit32s dword_16;
 	Bit32s dword_20;//str_E2A74[].dword_20
 	Bit32s dword_24;//str_E2A74[].dword_24
