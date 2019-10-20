@@ -9358,3 +9358,95 @@ unk_E17CC_str_0x194[0x12].byte_18_act==2
 (Bit8u*)&D41A0_BYTESTR_0+0x18e1e 0xc5
 (Bit8u*)x_D41A0_BYTEARRAY_0+0x18e1e 0x2d
 0x356038+0x18e1e
+
+(Bit8u*)&D41A0_BYTESTR_0+0x3139 0x7b
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x3139 0x7c
+0x356038+0x3139
+
+ (Bit8u*)&x_WORD_15B4E0_source+0x46bc 0x5b
+ x_WORD_15B4E0+0x46bc 0x5d
+ 32c4e0+0x46bc 0x5d
+
+  (Bit8u*)&x_WORD_15B4E0_source+0x18fea 0x5e
+ x_WORD_15B4E0+0x18fea 0x5b
+ 32c4e0+0x18fea 0x5b
+
+ 238e3c
+
+ 238d70
+ void sub_57D70_actualize_event(type_str_0x6E8E* a1x, axis_3d* a2x)//238d70 // register object on axis
+ type_str_0x6E8E* pre_sub_4A190_axis_3d(Bit32u adress, axis_3d* a1_axis3d, int type)//pre 22b190
+ void sub_35FB0(type_str_0x6E8E* a1x)//216FB0
+
+(Bit8u*)&D41A0_BYTESTR_0+0xadba 0x00
+(Bit8u*)x_D41A0_BYTEARRAY_0+0xadba 0x20
+0x356038+0xadba
+
+first problem
+v25 = -((signed int)(a1x->word_0x2A_44
+217541
+
+(Bit8u*)&D41A0_BYTESTR_0+0xae28 0xa5
+(Bit8u*)x_D41A0_BYTEARRAY_0+0xae28 0xa6
+0x356038+0xae28
+
+(Bit8u*)&D41A0_BYTESTR_0+0xac6a 0xe0
+(Bit8u*)x_D41A0_BYTEARRAY_0+0xac6a 0x00
+0x356038+0xac6a
+
+217560
+void sub_35FB0(type_str_0x6E8E* a1x)//216FB0
+
+x_BYTE_10B4E0_terraintype+0x0 01
+versus
+2dc4e0+0x0 cd
+
+x_DWORD_EA3E4[0x59]
+ix->word_0x16_22 ==0
+x_DWORD_EA3E4[0]
+ix->word_0x16_22 ==0
+
+x_WORD_15B4E0_source[0xf552] nesmi byt 0
+110
+
+(Bit8u*)&D41A0_BYTESTR_0+0x8 0x3e
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x8 0x97
+0x356038+0x8
+
+x_BYTE_10B4E0_terraintype+0x66 0x06
+versus
+2dc4e0+0x66 0x4d
+
+150
+
+(Bit8u*)&D41A0_BYTESTR_0+0xac6a 0xd0
+(Bit8u*)x_D41A0_BYTEARRAY_0+0xac6a 0x00
+0x356038+0xac6a
+
+217554
+
+void sub_35FB0(type_str_0x6E8E* a1x)//216FB0
+
+0x216FB4
+238A8A
+
+(Bit8u*)&D41A0_BYTESTR_0+0x2715e 0x9c
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x2715e 0x5c
+0x356038+0x2715e
+
+(Bit8u*)&D41A0_BYTESTR_0+0x1b9fe 0x99
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x1b9fe 0x37
+0x356038+0x1b9fe
+
+260
+
+(Bit8u*)&D41A0_BYTESTR_0+0x2fbd 0x00
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x2fbd 0x05
+0x356038+0x2fbd
+
+(Bit8u*)&D41A0_BYTESTR_0+0x10bfc 0x00
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x10bfc 0x2b
+0x356038+0x10bfc
+
+1fd660
+void sub_1C560(type_str_0x6E8E* a1x, unsigned __int16 a2)//1fd560
