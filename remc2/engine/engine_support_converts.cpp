@@ -369,8 +369,8 @@ void convert_struct_to_array_0x6E8E(type_str_0x6E8E* input, Bit8u* output) {
 	memcpy(output + 40, &input->word_0x28_40, 2);
 	//Bit16u word_0x2A_42;//42 //maybe Bit16s
 	memcpy(output + 42, &input->word_0x2A_42, 2);
-	//Bit16s word_0x2A_44;//44 //add to z
-	memcpy(output + 44, &input->word_0x2A_44, 2);
+	//Bit16s word_0x2C_44;//44 //add to z
+	memcpy(output + 44, &input->word_0x2C_44, 2);
 	//Bit16s word_0x2E_46;//46
 	memcpy(output + 46, &input->word_0x2E_46, 2);
 	//Bit16u word_0x30_48;//48

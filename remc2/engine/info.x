@@ -9469,3 +9469,20 @@ sub_4A1E0(a1x->word_0x1A_26, 1);
  (Bit8u*)&D41A0_BYTESTR_0+0x7c70 0x23
 (Bit8u*)x_D41A0_BYTEARRAY_0+0x7c70 0x15
 0x356038 +0x7c70
+
+ (Bit8u*)&x_WORD_15B4E0_source+0x10a94 0x00
+ x_WORD_15B4E0+0x10a94 0x97
+ 32c4e0+0x10a94 0x97
+
+  (Bit8u*)&x_WORD_15B4E0_source+0x10290 0x00
+ x_WORD_15B4E0+0x10290 0x8c
+ 32c4e0+0x10290 0x8c
+
+   (Bit8u*)&x_WORD_15B4E0_source+0x10294 0x23
+ x_WORD_15B4E0+0x10294 0x68
+ 32c4e0+0x10294 0x68
+
+ sub_2AA90(ix, a1x, ix);
+
+ sub_2A940(a1x, ix);
+ zmena je u zde
