@@ -9486,3 +9486,8 @@ sub_4A1E0(a1x->word_0x1A_26, 1);
 
  sub_2A940(a1x, ix);
  zmena je u zde
+
+ 331 - úroveň kouzla
+ str_unk_1804B0ar.uni_0x8a.word[2]==331
+
+ sub_89A30_draw_line

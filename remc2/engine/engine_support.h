@@ -945,6 +945,8 @@ type_str_E2A74;
 
 extern type_str_E2A74 str_E2A74[0x69];
 
+//extern Bit8u test_str_E2A74[];
+
 //extern char* char_355198;
 //void pathfix(char* path, char* path2);
 void support_begin();

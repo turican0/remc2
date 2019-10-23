@@ -214,12 +214,12 @@ template<class T> int8 __MKCSHL__(T value, uint count)
 
   return (value >> (nbits-count)) & 1;
 }
-
+/*
 // carry flag of right shift
 template<class T> int8 __MKCSHR__(T value, uint count)
 {
   return (value >> (count-1)) & 1;
-}
+}*/
 
 // sign flag
 template<class T> int8 __SETS__(T x)
