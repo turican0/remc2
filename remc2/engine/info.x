@@ -9491,3 +9491,52 @@ sub_4A1E0(a1x->word_0x1A_26, 1);
  str_unk_1804B0ar.uni_0x8a.word[2]==331
 
  sub_89A30_draw_line
+
+ a1x->word_0x1C_28 !=0x6d1
+
+
+(Bit8u*)&D41A0_BYTESTR_0+0x7cb8 0x00	
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x7cb8 0x3e
+0x356038 +0x7cb8
+
+20b660
+void sub_2A660(type_str_0x6E8E* a1x, type_str_0x6E8E* a2x)//20b660
+
+(Bit8u*)&D41A0_BYTESTR_0+0xca82 0x65
+(Bit8u*)x_D41A0_BYTEARRAY_0+0xca82 0xb1
+0x356038 +0xca82
+
+fcf9
+00f9
+0000
+b19b
+type_str_0x6E8E* sub_4A050_new_event()//22b050
+4d2e0()
+650477
+
+(Bit8u*)&D41A0_BYTESTR_0+0xf1ea 0x59
+(Bit8u*)x_D41A0_BYTEARRAY_0+0xf1ea 0xd6
+0x356038 +0xf1ea
+
+(Bit8u*)&D41A0_BYTESTR_0+0xc4cc 0x01
+(Bit8u*)x_D41A0_BYTEARRAY_0+0xc4cc 0x04
+0x356038 +0xc4cc
+
+v34x
+versus
+ebp-10
+0x35dc8e
+
+0x355170
+
+(Bit8u*)&D41A0_BYTESTR_0+0xab0e 0x14
+(Bit8u*)x_D41A0_BYTEARRAY_0+0xab0e 0xd9
+0x356038 +0xab0e
+
+(Bit8u*)&x_WORD_15B4E0_source+0x1c6a0 0x38
+x_WORD_15B4E0+0x1c6a0 0x2f
+32c4e0+0x1c6a0 0xa5
+
+(Bit8u*)&D41A0_BYTESTR_0+0x7f0e 0x2f
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x7f0e 0x00
+0x356038 +0x7f0e
