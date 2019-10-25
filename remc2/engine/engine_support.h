@@ -486,7 +486,7 @@ typedef struct _str_0x6E8E {//lenght a8//THING
 	Bit8s byte_0x49_73;//70
 	Bit16s word_0x4A_74;
 	axis_3d array_0x4C_76;//position//ACTUAL X Y Z
-	axis_4d array_0x54_82;
+	axis_4d array_0x52_82;
 	Bit16s word_0x5A_90;
 	Bit8s byte_0x5C_92;
 	Bit8s byte_0x5D_93;

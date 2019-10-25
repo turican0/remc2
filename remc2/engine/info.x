@@ -9540,3 +9540,20 @@ x_WORD_15B4E0+0x1c6a0 0x2f
 (Bit8u*)&D41A0_BYTESTR_0+0x7f0e 0x2f
 (Bit8u*)x_D41A0_BYTEARRAY_0+0x7f0e 0x00
 0x356038 +0x7f0e
+
+(Bit8u*)&D41A0_BYTESTR_0+0x13f4b 0x01
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x13f4b 0x11
+0x356038 +0x13f4b
+
+(Bit8u*)&D41A0_BYTESTR_0+0x13f4a 0x1d
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x13f4a 0x0d
+0x356038 +0x13f4a
+
+x_BYTE_10B4E0_terraintype+0x9748 47
+versus
+2dc4e0+0x9748 46
+
+sub_572C0(a1x, 0, 0, 0 - (a1x->word_0x14_20 % 7u), 1);
+
+(Bit8u*)&x_WORD_15B4E0_source+0x2aa 0x19
+x_WORD_15B4E0+0x2aa 0x00
