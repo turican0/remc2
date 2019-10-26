@@ -9557,3 +9557,23 @@ sub_572C0(a1x, 0, 0, 0 - (a1x->word_0x14_20 % 7u), 1);
 
 (Bit8u*)&x_WORD_15B4E0_source+0x2aa 0x19
 x_WORD_15B4E0+0x2aa 0x00
+32c4e0+0x2aa 0x00
+
+(Bit8u*)&D41A0_BYTESTR_0+0x2fbd 0x00
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x2fbd 0x05
+0x356038 +0x2fbd
+
+0x20a8b0 x
+0x20a8d0 x
+0x246080 y
+0x2500b0 y
+0x246080 x
+0x23ac40
+0x2502b0
+0x240ca0
+
+problem
+str_unk_1804B0ar.type_sub_0[0].word_0x1c = str_E2A74[str_unk_1804B0ar.word_0x86].axis_2[3];
+
+str_E2A74[0x2a].axis_2[3]
+str_E2A74[0x2a].axis_2[4]
