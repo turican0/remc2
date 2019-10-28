@@ -9577,3 +9577,43 @@ str_unk_1804B0ar.type_sub_0[0].word_0x1c = str_E2A74[str_unk_1804B0ar.word_0x86]
 
 str_E2A74[0x2a].axis_2[3]
 str_E2A74[0x2a].axis_2[4]
+
+x_BYTE_10B4E0_terraintype+0x2979 0x01
+versus
+2dc4e0+0x2979 0x27
+
+(Bit8u*)&D41A0_BYTESTR_0+0x35 0xb5
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x35 0x9d
+0x356038+0x35
+
+(Bit8u*)&x_BYTE_12B4E0_shading+0x7a7b 0x3f
+0x2fc4e0+0x7a7b 0x01
+
+x_BYTE_10B4E0_terraintype+0x2979 0x01
+versus
+2dc4e0+0x2979 0x27
+
+(Bit8u*)&D41A0_BYTESTR_0+0x35 0xd5
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x35 0xd3
+0x356038 +0x35
+
+(Bit8u*)&D41A0_BYTESTR_0+0x36628 0xd5
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x36628 0xd3
+0x356038 +0x36628
+
+(Bit8u*)&D41A0_BYTESTR_0+0x7dba 0x35
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x7dba 0x96
+0x356038 +0x7dba
+
+ebp-10 = 0x1000002b
+0x355170
+
+(Bit8u*)&D41A0_BYTESTR_0+0x1066e 0x06
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x1066e 0x07
+0x356038 +0x1066e
+
+1f33aa
+void sub_12330(type_str_0x6E8E* a1x, __int16 a2)//1f3330
+void sub_12410(type_str_0x6E8E* a1x, char a2)//1f3410
+void sub_12500(type_str_0x6E8E* a1x)//1f3500
+
