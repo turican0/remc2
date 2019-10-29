@@ -9617,3 +9617,13 @@ void sub_12330(type_str_0x6E8E* a1x, __int16 a2)//1f3330
 void sub_12410(type_str_0x6E8E* a1x, char a2)//1f3410
 void sub_12500(type_str_0x6E8E* a1x)//1f3500
 
+(Bit8u*)&D41A0_BYTESTR_0+0x36625 0x01
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x36625 0x05
+0x356038 +0x36625
+
+(Bit8u*)&D41A0_BYTESTR_0+0x36628 0x1e
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x36628 0x16
+0x356038 +0x36628
+
+1f3826
+
