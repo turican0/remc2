@@ -9627,3 +9627,7 @@ void sub_12500(type_str_0x6E8E* a1x)//1f3500
 
 1f3826
 
+(Bit8u*)&D41A0_BYTESTR_0+0x2fbd 0x0
+(Bit8u*)x_D41A0_BYTEARRAY_0+0x2fbd 0x05
+0x356038 +0x2fbd
+
