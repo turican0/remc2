@@ -661,6 +661,7 @@ int test_D41A0_id_pointer(Bit32u adress) {
 	if ((adress >= 0x527d) && (adress < 0x5280))return 2;//clock5
 	if ((adress >= 0x5ac9) && (adress < 0x5acc))return 2;//clock6
 	if ((adress >= 0x6315) && (adress < 0x6318))return 2;//clock7
+	if ((adress >= 0x6b61) && (adress < 0x6b64))return 2;//clock8
 
 	if ((adress >= 0x235) && (adress < 0x236))return 2;//music
 
