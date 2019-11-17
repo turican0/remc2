@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 //#define RGBA
-#define level1
+#define level25
 //#define level4
 //#define level2
 /* run this program using the console pauser or add your own getch, system("pause") or input loop */
@@ -138,6 +138,12 @@ int main(int argc, char* argv[]) {
 	const char* outdata_filename = "c:\\prenos\\remc2\\Debug\\biggraphics\\bl128c0-0.data";
 	const char* orig32_filename = "c:\\prenos\\remc2\\Debug\\biggraphics\\bl32c0-0.data";
 #endif level4
+#ifdef level25
+	const char* standartpal_filename = "c:\\prenos\\remc2\\tools\\palletelight\\Debug\\\out-f.pal";
+	const char* data_filename = "c:\\prenos\\remc2\\Debug\\biggraphics\\bl32f0-0-src.data";
+	const char* outdata_filename = "c:\\prenos\\remc2\\Debug\\biggraphics\\bl128f0-0.data";
+	const char* orig32_filename = "c:\\prenos\\remc2\\Debug\\biggraphics\\bl32f0-0.data";
+#endif level25
 
 
 	FILE* fptr_stdpal;
@@ -296,6 +302,10 @@ int main(int argc, char* argv[]) {
 	//outwatercolor[outwatercolorindex++] = 0x5b;
 	//outwatercolor[outwatercolorindex++] = 0xaf;
 #endif level2
+#ifdef level25
+//watercolor2[watercolorindex2++] = 0x9e;
+//watercolor2[watercolorindex2++] = 0xa2;
+#endif level25
 
 	FILE* fptw_outdata;
 	fopen_s(&fptw_outdata, outdata_filename, "wb");

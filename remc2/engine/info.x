@@ -9643,3 +9643,70 @@ void sub_12500(type_str_0x6E8E* a1x)//1f3500
 (Bit8u*)x_D41A0_BYTEARRAY_0+0x3c6e 0x01
 0x356038 +0x3c6e
 
+D41A0_BYTESTR_0.array_0x6E3E[D41A0_BYTESTR_0.word_0xc].str_0x6E3E_byte0
+
+case 0x2A:
+//v97 = v113x->dword_0xA4_164;
+//a1 = x_DWORD_EA3E4[0];
+v98x = x_DWORD_EA3E4[v113x->dword_0xA4_164x->word_0x3A_58];
+if (v98x > x_DWORD_EA3E4[0])
+{
+	if (v98x->dword_0x10_16 == 1)
+		v113x->dword_0xA4_164x->byte_0x1BE_446 = 1;
+	v98x->dword_0x8 = -1;
+}
+goto LABEL_215;
+
+void sub_5FCA0_destroy_castle_level(type_str_0x6E8E* a1x)//240ca0
+
+case 0x240ca0: {
+		sub_5FCA0_destroy_castle_level(a1_6E8E);
+
+byte_0x3F_63 == 3
+byte_0x45_69 == 6
+
+switch (D41A0_BYTESTR_0.array_0x6E3E[v114x].str_0x6E3E_byte0)
+
+v98x = x_DWORD_EA3E4[v113x->dword_0xA4_164x->word_0x3A_58];
+
+BIG_SPRITES_BUFFERx[8].actdata
+
+(Bit8u*)&D41A0_BYTESTR_0+0xb382 0xd
+(Bit8u*)x_D41A0_BYTEARRAY_0+0xb382 0x5
+0x356038 +0xb382
+
+02040a
+00000a
+000000
+080000
+010000 versus 09
+
+sub_4A1E0(a1x->word_0x1A_26, 1);
+
+(Bit8u*)&D41A0_BYTESTR_0+0xb3bb 0x4a
+(Bit8u*)x_D41A0_BYTEARRAY_0+0xb3bb 0x49
+0x356038 +0xb3bb
+
+(Bit8u*)&D41A0_BYTESTR_0+0xcb98 0x3f
+(Bit8u*)x_D41A0_BYTEARRAY_0+0xcb98 0x48
+0x356038 +0xcb98
+
+(Bit8u*)&D41A0_BYTESTR_0+0xcb64 0xd0
+(Bit8u*)x_D41A0_BYTEARRAY_0+0xcb64 0x70
+0x356038 +0xcb64
+
+(Bit8u*)&D41A0_BYTESTR_0+0xcbb2 0xf0
+(Bit8u*)x_D41A0_BYTEARRAY_0+0xcbb2 0xf1
+0x356038 +0xcbb2
+
+
+ (Bit8u*)&x_WORD_15B4E0_source+0x1aa50 0xbf
+ x_WORD_15B4E0+0x1aa50 0xb9
+ 0x32c4e0+0x1aa50 0x00
+
+ 238e3c
+ void sub_57D70_actualize_event(type_str_0x6E8E* a1x, axis_3d* a2x)//238d70 // register object on axis
+ type_str_0x6E8E* sub_4BD00(axis_3d* a1x)//22cd00
+
+ if (*(x_WORD *)(0x36543 + v6 + 1) < 28)
+
