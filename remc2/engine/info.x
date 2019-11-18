@@ -9710,3 +9710,26 @@ sub_4A1E0(a1x->word_0x1A_26, 1);
 
  if (*(x_WORD *)(0x36543 + v6 + 1) < 28)
 
+ v1x->word_0x94_148 = 0;
+
+ if (!_stricmp(v11, "!"))
+
+ (Bit8u*)&D41A0_BYTESTR_0+0xa4ae 0x40
+(Bit8u*)x_D41A0_BYTEARRAY_0+0xa4ae 0xa0
+0x356038 +0xa4ae
+
+0000
+400a
+400a1c
+
+2179df
+Bit32u sub_49A20_remove_event(type_str_0x6E8E* a1x)//22aa20
+type_str_0x6E8E* sub_500C0(axis_3d* a1x, __int16 a2)//2310c0
+type_str_0x6E8E* sub_50080(axis_3d* a1x)//231080
+22b1ca
+type_str_0x6E8E* sub_4A190(axis_3d* a1x, int a2, int a3)//22b190
+void sub_32CF0(type_str_0x6E8E* a1x)//213cf0
+
+problem :
+sub_49CD0(v1x, v8 + v9);
+
