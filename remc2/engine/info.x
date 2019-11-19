@@ -9733,3 +9733,36 @@ void sub_32CF0(type_str_0x6E8E* a1x)//213cf0
 problem :
 sub_49CD0(v1x, v8 + v9);
 
+if (!v95)//adress 2614e2 (804e2) discoverwhich
+
+xy_DWORD_17DEC0_spritestr[65].width .. a e
+versus
+45334B/45334D
+453351 080e
+34eec0->4531c1
+4531c7 + 18a
+
+279a59
+signed int sub_5C3D0_file_decompress(Bit8u* input, Bit8u* output)//23d3d0
+
+
+sub_7AA70_load_and_decompres_dat_file((char*)"DATA/SCREENS/HSCREEN0.DAT", x_DWORD_17DEC0, 0x1646BA, 589);
+if (x_WORD_180660_VGA_type_resolution & 1)
+			{
+				sub_98709_create_index_dattab_power(x_DWORD_17DED4, x_DWORD_17DED8, x_DWORD_17DE48c, xy_DWORD_17DED4_spritestr);
+				sub_98709_create_index_dattab_power(x_DWORD_17DEC0, x_DWORD_17DEC4, x_DWORD_17DE54, xy_DWORD_17DEC0_spritestr);//here
+				sub_98709_create_index_dattab_power(x_DWORD_17DEC8, x_DWORD_17DECC, x_DWORD_17DE58, xy_DWORD_17DEC8_spritestr);
+			}
+			else
+			{
+				sub_9874D_create_index_dattab(x_DWORD_17DED4, x_DWORD_17DED8, x_DWORD_17DE48c, xy_DWORD_17DED4_spritestr);
+				sub_9874D_create_index_dattab(x_DWORD_17DEC0, x_DWORD_17DEC4, x_DWORD_17DE54, xy_DWORD_17DEC0_spritestr);//here
+				//34eec0 34eec4 34ee54
+				sub_9874D_create_index_dattab(x_DWORD_17DEC8, x_DWORD_17DECC, x_DWORD_17DE58, xy_DWORD_17DEC8_spritestr);
+			}
+
+
+sub_9874D_create_index_dattab(x_DWORD_17DEC0, x_DWORD_17DEC4, x_DWORD_17DE54, xy_DWORD_17DEC0_spritestr);
+
+
+x_DWORD_17DEC0, x_DWORD_17DEC4, x_DWORD_17DE54
