@@ -1,0 +1,3 @@
+C:/prenos/remc2/remc2-cmake/out/build/x86-Debug/CMakeFiles/edit_cache.dir
+C:/prenos/remc2/remc2-cmake/out/build/x86-Debug/CMakeFiles/remc2-cmake.dir
+C:/prenos/remc2/remc2-cmake/out/build/x86-Debug/CMakeFiles/rebuild_cache.dir

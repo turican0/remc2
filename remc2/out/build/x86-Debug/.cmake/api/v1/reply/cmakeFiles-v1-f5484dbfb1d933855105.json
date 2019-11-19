@@ -16,7 +16,7 @@
 		},
 		{
 			"isGenerated" : true,
-			"path" : "out/build/x64-Debug/CMakeFiles/3.15.19080502-MSVC_2/CMakeSystem.cmake"
+			"path" : "out/build/x86-Debug/CMakeFiles/3.15.19080502-MSVC_2/CMakeSystem.cmake"
 		},
 		{
 			"isCMake" : true,
@@ -235,7 +235,7 @@
 		},
 		{
 			"isGenerated" : true,
-			"path" : "out/build/x64-Debug/CMakeFiles/3.15.19080502-MSVC_2/CMakeCCompiler.cmake"
+			"path" : "out/build/x86-Debug/CMakeFiles/3.15.19080502-MSVC_2/CMakeCCompiler.cmake"
 		},
 		{
 			"isCMake" : true,
@@ -444,7 +444,7 @@
 		},
 		{
 			"isGenerated" : true,
-			"path" : "out/build/x64-Debug/CMakeFiles/3.15.19080502-MSVC_2/CMakeCXXCompiler.cmake"
+			"path" : "out/build/x86-Debug/CMakeFiles/3.15.19080502-MSVC_2/CMakeCXXCompiler.cmake"
 		},
 		{
 			"isCMake" : true,
@@ -508,7 +508,7 @@
 		},
 		{
 			"isGenerated" : true,
-			"path" : "out/build/x64-Debug/CMakeFiles/3.15.19080502-MSVC_2/CMakeRCCompiler.cmake"
+			"path" : "out/build/x86-Debug/CMakeFiles/3.15.19080502-MSVC_2/CMakeRCCompiler.cmake"
 		},
 		{
 			"isCMake" : true,
@@ -577,7 +577,7 @@
 		},
 		{
 			"isGenerated" : true,
-			"path" : "out/build/x64-Debug/CMakeFiles/3.15.19080502-MSVC_2/CMakeCCompiler.cmake"
+			"path" : "out/build/x86-Debug/CMakeFiles/3.15.19080502-MSVC_2/CMakeCCompiler.cmake"
 		},
 		{
 			"isCMake" : true,
@@ -666,13 +666,13 @@
 		},
 		{
 			"isGenerated" : true,
-			"path" : "out/build/x64-Debug/CMakeFiles/3.15.19080502-MSVC_2/CMakeCXXCompiler.cmake"
+			"path" : "out/build/x86-Debug/CMakeFiles/3.15.19080502-MSVC_2/CMakeCXXCompiler.cmake"
 		}
 	],
 	"kind" : "cmakeFiles",
 	"paths" : 
 	{
-		"build" : "C:/prenos/remc2/remc2-cmake/out/build/x64-Debug",
+		"build" : "C:/prenos/remc2/remc2-cmake/out/build/x86-Debug",
 		"source" : "C:/prenos/remc2/remc2-cmake"
 	},
 	"version" : 
