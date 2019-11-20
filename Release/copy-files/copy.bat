@@ -1,4 +1,6 @@
-copy ..\..\Debug\remc2.exe ..
+del ..\remc2.iobj
+del ..\remc2.pdb
+del ..\remc2.ipdb
 copy ..\..\Debug\config.ini ..
 copy ..\..\Debug\*.dll ..
 xcopy ..\..\Debug\original-game ..

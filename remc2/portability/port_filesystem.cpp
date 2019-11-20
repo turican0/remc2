@@ -185,8 +185,7 @@ bool file_exists(const char * filename) {
 	}
 	return false;*/
 	FILE* file;
-	file=fopen(filename, "r");
-	if (file==NULL) {
+	if ((file = fopen(filename, "r")) != NULL) {
 		fclose(file);
 		return true;
 	}
