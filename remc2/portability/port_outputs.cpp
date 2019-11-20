@@ -19,7 +19,7 @@ void myprintf(const char * format, ...) {
 	va_list arg;
 	int done;
 	va_start(arg, format);
-	done = vsprintf_s(prbuffer, format, arg);
+	done = vsprintf(prbuffer, format, arg);
 	va_end(arg);
 
 #ifdef USE_DOSBOX

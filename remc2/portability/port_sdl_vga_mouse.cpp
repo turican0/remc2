@@ -714,14 +714,14 @@ void VGA_Resize(int width, int height, int bpp, Uint32 flags) {
 FILE* fptpal;
 void SavePal(Uint8* pallettebuffer,char* filename)
 {
-	fopen_s(&fptpal, filename, "wb");
+	fptpal=fopen(filename, "wb");
 	fwrite(pallettebuffer, 768,1, fptpal);
 	fclose(fptpal);
 }
 
 void VGA_Set_file_pallette(char* filename) {
 	Bit8u pallettebuffer[768];
-	fopen_s(&fptpal, filename, "rb");
+	fptpal=fopen(filename, "rb");
 	fread(pallettebuffer, 768, 1, fptpal);
 	fclose(fptpal);
 

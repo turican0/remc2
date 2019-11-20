@@ -88,7 +88,7 @@ int kiss_label_draw(kiss_label *label, SDL_Renderer *renderer)
 	if (len > KISS_MAX_LABEL - 2)
 		label->text[len - 1] = '\n';
 	else
-		strcat_s(label->text, strlen("\n")+strlen(label->text)+1,"\n");
+		strcat(label->text, "\n");
 	for (p = label->text; *p; p = strchr(p, '\n') + 1) {
 		kiss_string_copy(buf, strcspn(p, "\n")+1, p, NULL);
 		kiss_rendertext(renderer, buf, label->rect.x, y,
@@ -1539,7 +1539,7 @@ int kiss_entry_event(kiss_entry *entry, SDL_Event *event, int *draw)
 			event->text.text) < entry->textwidth &&
 			strlen(entry->text) + strlen(event->text.text) <
 			KISS_MAX_LENGTH)
-			strcat_s(entry->text, strlen(event->text.text)+1,event->text.text);
+			strcat(entry->text, event->text.text);
 		*draw = 1;
 	} else if (event->type == SDL_KEYDOWN && entry->active &&
 		event->key.keysym.scancode == SDL_SCANCODE_BACKSPACE) {
@@ -1548,12 +1548,12 @@ int kiss_entry_event(kiss_entry *entry, SDL_Event *event, int *draw)
 	} else if (event->type == SDL_KEYDOWN && entry->active &&
 		(event->key.keysym.mod & KMOD_CTRL) &&
 		event->key.keysym.scancode == SDL_SCANCODE_U) {
-		strcpy_s(entry->text, strlen("")+1,"");
+		strcpy(entry->text, "");
 		*draw = 1;
 	} else if (event->type == SDL_MOUSEBUTTONDOWN && entry->active &&
 		kiss_pointinrect(event->button.x, event->button.y,
 		&entry->rect)) {
-		strcpy_s(entry->text, strlen("")+1,"");
+		strcpy(entry->text, "");
 		*draw = 1;
 	}
 	return 0;
@@ -1742,7 +1742,7 @@ int kiss_combobox_new(kiss_combobox *combobox, kiss_window *wdw,
 	if (combobox->combo.magic != KISS_MAGIC)
 		combobox->combo = kiss_combo;
 	kiss_entry_new(&combobox->entry, wdw, 1, text, x, y, w);
-	strcpy_s(combobox->text, strlen(combobox->entry.text)+1,combobox->entry.text);
+	strcpy(combobox->text, combobox->entry.text);
 	kiss_window_new(&combobox->window, NULL, 0, x,
 		y + combobox->entry.rect.h, w +
 		combobox->vscrollbar.up.w, h);
@@ -1795,7 +1795,7 @@ int kiss_combobox_event(kiss_combobox *combobox, SDL_Event *event, int *draw)
 	}
 	if (kiss_entry_event(&combobox->entry, event, draw)) {
 		combobox->window.visible = 0;
-		strcpy_s(combobox->text, strlen(combobox->entry.text)+1,combobox->entry.text);
+		strcpy(combobox->text, combobox->entry.text);
 		*draw = 1;
 		SDL_StopTextInput();
 		return 1;

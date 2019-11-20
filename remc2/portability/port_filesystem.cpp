@@ -1,6 +1,10 @@
 #include "port_filesystem.h"
 #include <string>
-
+/*
+#ifndef DIR
+#define DIR __dirstream_t *
+#endif
+*/
 
 //char gamepath[512] = "c:\\prenos\\Magic2\\mc2-orig-copy";
 char gamepath[512] = "..\\..\\Magic2\\mc2-orig-copy";
@@ -27,11 +31,18 @@ void pathfix(char* path, char* path2)
 {
 	if (firstrun)
 	{
+		#ifdef _MSC_VER
 		LPWSTR buffer = new WCHAR[MAX_PATH];
 		GetModuleFileName(NULL, buffer, MAX_PATH);
 		std::string locstr = utf8_encode(buffer);
 		std::string::size_type pos = std::string(locstr).find_last_of("\\/");
 		std::string strpathx = std::string(locstr).substr(0, pos)/*+"\\system.exe"*/;
+		#else
+		char* buffer = new char[MAX_PATH];
+		GetModuleFileName(NULL, buffer, MAX_PATH);
+		std::string::size_type pos = std::string(buffer).find_last_of("\\/");
+		std::string strpathx = std::string(buffer).substr(0, pos)/*+"\\system.exe"*/;
+		#endif
 		char* pathx = (char*)strpathx.c_str();
 		delete[] buffer;
 		strcpy(oldpathx, pathx);
@@ -67,11 +78,18 @@ void pathfix(char* path, char* path2)
 }
 
 void get_exe_path(char* retpath) {
+	#ifdef _MSC_VER
 	LPWSTR buffer = new WCHAR[MAX_PATH];
 	GetModuleFileName(NULL, buffer, MAX_PATH);
 	std::string locstr = utf8_encode(buffer);
 	std::string::size_type pos = std::string(locstr).find_last_of("\\/");
 	std::string strpathx = std::string(locstr).substr(0, pos)/*+"\\system.exe"*/;
+	#else
+	char* buffer = new char[MAX_PATH];
+	GetModuleFileName(NULL, buffer, MAX_PATH);
+	std::string::size_type pos = std::string(buffer).find_last_of("\\/");
+	std::string strpathx = std::string(buffer).substr(0, pos)/*+"\\system.exe"*/;
+	#endif
 	sprintf(retpath,"%s", (char*)strpathx.c_str());
 	//retpath = (char*)strpathx.c_str();
 	//return pathx;
@@ -81,11 +99,18 @@ void get_exe_path(char* retpath) {
 
 void pathfix2(char* path, char* path2)
 {
-	LPWSTR buffer= new WCHAR[MAX_PATH];
+	#ifdef _MSC_VER
+	LPWSTR buffer = new WCHAR[MAX_PATH];
 	GetModuleFileName(NULL, buffer, MAX_PATH);
-	std::string locstr= utf8_encode(buffer);
+	std::string locstr = utf8_encode(buffer);
 	std::string::size_type pos = std::string(locstr).find_last_of("\\/");
 	std::string strpathx = std::string(locstr).substr(0, pos)/*+"\\system.exe"*/;
+	#else
+	char* buffer = new char[MAX_PATH];
+	GetModuleFileName(NULL, buffer, MAX_PATH);
+	std::string::size_type pos = std::string(buffer).find_last_of("\\/");
+	std::string strpathx = std::string(buffer).substr(0, pos)/*+"\\system.exe"*/;
+	#endif
 	char* pathx = (char*)strpathx.c_str();
 	sprintf(fixsoundout,"%s\\%s", pathx,fixsound);
 	sprintf(gamepathout, "%s\\%s", pathx, gamepath);
@@ -160,7 +185,8 @@ bool file_exists(const char * filename) {
 	}
 	return false;*/
 	FILE* file;
-	if (fopen_s(&file, filename, "r")==NULL) {
+	file=fopen(filename, "r");
+	if (file==NULL) {
 		fclose(file);
 		return true;
 	}
@@ -233,7 +259,7 @@ FILE* myopen(char* path, int pmode, Bit32u flags) {
 	pathfix(path, path2);//only for DOSBOX version
 	//if(file_exists(path2))
 
-	fopen_s(&fp, path2, type);
+	fp=fopen(path2, type);
 	return fp;
 };
 int myclose(FILE* descriptor) {
@@ -274,7 +300,7 @@ FILE* myopent(char* path, char* type) {
 	pathfix2(path, path2);//only for DOSBOX version
 	//if(file_exists(path2))
 
-	fopen_s(&fp, path2, type);
+	fp=fopen(path2, type);
 	return fp;
 };
 
@@ -440,7 +466,7 @@ void AdvReadfile(const char* path, Bit8u* buffer) {
 	*/
 	FILE* file;
 	//fopen_s(&file, (char*)"c:\\prenos\\remc2\\biggraphics\\out_rlt-n-out.data", (char*)"rb");
-	fopen_s(&file, path2, (char*)"rb");
+	file=fopen(path2, (char*)"rb");
 	fseek(file, 0L, SEEK_END);
 	long szdata = ftell(file);
 	fseek(file, 0L, SEEK_SET);
@@ -464,7 +490,7 @@ void ReadGraphicsfile(const char* path, Bit8u* buffer) {
 	
 	FILE* file;
 	//fopen_s(&file, (char*)"c:\\prenos\\remc2\\biggraphics\\out_rlt-n-out.data", (char*)"rb");
-	fopen_s(&file, path2, (char*)"rb");
+	file=fopen(path2, (char*)"rb");
 	fseek(file, 0L, SEEK_END);
 	long szdata = ftell(file);
 	fseek(file, 0L, SEEK_SET);

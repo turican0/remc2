@@ -26,6 +26,10 @@
 #ifndef FILE_AND_MEM_READER_HHHH
 #define FILE_AND_MEM_READER_HHHH
 
+#ifdef _MSC_VER
+#define _CRT_SECURE_NO_WARNINGS
+#endif
+
 #include <string> // std::string
 #include <cstdio> // std::fopen, std::fread, std::fseek, std::ftell, std::fclose, std::feof
 #include <stdint.h> // uint*_t
@@ -99,7 +103,7 @@ public:
         wchar_t widePath[MAX_PATH];
         int size = MultiByteToWideChar(CP_UTF8, 0, path, static_cast<int>(std::strlen(path)), widePath, MAX_PATH);
         widePath[size] = '\0';
-        /*m_fp =*/ _wfopen_s(&m_fp,widePath, L"rb");
+#pragma warning(suppress : 4996) /*m_fp =*/ m_fp=_wfopen(widePath, L"rb");
 #endif
         m_file_name = path;
         m_mp = NULL;

@@ -7,7 +7,11 @@
 #include <io.h>  
 
 #include <windows.h>
-#include "../portability/dirent.h"
+#ifdef _MSC_VER
+#include "../portability/dirent-x.h"
+#else
+#include "dirent.h"
+#endif
 #include "../portability/port_time.h"
 #include "../portability/port_filesystem.h"
 #include "../portability/port_sdl_sound.h"

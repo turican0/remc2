@@ -47,7 +47,11 @@
 
 //#include <sys/statvfs.h>
 #include <windows.h>
-#include "../portability/dirent.h"
+#ifdef _MSC_VER
+#include "../portability/dirent-x.h"
+#else
+#include "dirent.h"
+#endif
 #include "../portability/port_time.h"
 #include "../portability/port_filesystem.h"
 #include "defs.h"
@@ -101,6 +105,76 @@ x_DWORD * sub_A5850(int a1, char a2, unsigned int a3, signed int a4, int a5);*/
 #include "engine_support.h"
 
 #include "read_config.h"
+
+#ifdef _MSC_VER
+
+#include <stdlib.h>
+#define bswap_16(x) _byteswap_ushort(x)
+#define bswap_32(x) _byteswap_ulong(x)
+#define bswap_64(x) _byteswap_uint64(x)
+
+#elif defined(__APPLE__)
+
+// Mac OS X / Darwin features
+#include <libkern/OSByteOrder.h>
+#define bswap_16(x) OSSwapInt16(x)
+#define bswap_32(x) OSSwapInt32(x)
+#define bswap_64(x) OSSwapInt64(x)
+
+#elif defined(__sun) || defined(sun)
+
+#include <sys/byteorder.h>
+#define bswap_16(x) BSWAP_16(x)
+#define bswap_32(x) BSWAP_32(x)
+#define bswap_64(x) BSWAP_64(x)
+
+#elif defined(__FreeBSD__)
+
+#include <sys/endian.h>
+#define bswap_16(x) bswap16(x)
+#define bswap_32(x) bswap32(x)
+#define bswap_64(x) bswap64(x)
+
+#elif defined(__OpenBSD__)
+
+#include <sys/types.h>
+#define bswap_16(x) swap16(x)
+#define bswap_32(x) swap32(x)
+#define bswap_64(x) swap64(x)
+
+#elif defined(__NetBSD__)
+
+#include <sys/types.h>
+#include <machine/bswap.h>
+#if defined(__BSWAP_RENAME) && !defined(__bswap_32)
+#define bswap_16(x) bswap16(x)
+#define bswap_32(x) bswap32(x)
+#define bswap_64(x) bswap64(x)
+#endif
+
+#else
+
+#define bswap_16(x) ((Bit16u) ((((x) >> 8) & 0xff) | (((x) & 0xff) << 8)))
+#define bswap_32(x)					\
+  ((((x) & 0xff000000u) >> 24) | (((x) & 0x00ff0000u) >> 8)	\
+   | (((x) & 0x0000ff00u) << 8) | (((x) & 0x000000ffu) << 24))
+#define bswap_64(x)			\
+  ((((x) & 0xff00000000000000ull) >> 56)	\
+   | (((x) & 0x00ff000000000000ull) >> 40)	\
+   | (((x) & 0x0000ff0000000000ull) >> 24)	\
+   | (((x) & 0x000000ff00000000ull) >> 8)	\
+   | (((x) & 0x00000000ff000000ull) << 8)	\
+   | (((x) & 0x0000000000ff0000ull) << 24)	\
+   | (((x) & 0x000000000000ff00ull) << 40)	\
+   | (((x) & 0x00000000000000ffull) << 56))
+
+
+#endif
+
+#ifndef _countof
+#define _countof(arr) sizeof(arr) / sizeof(arr[0])
+//dirty
+#endif
 
 //#if !defined(_M_I86) && !defined(__WINDOWS_386__)
 

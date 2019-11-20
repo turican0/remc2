@@ -255,11 +255,11 @@ int sub_9E3A0_AIL_API_read_INI(AIL_INI* INI, char* filename/*,char* a8*/)//27f3a
 			{
 				if (!_strnicmp(v15, "DRIVER", 7))
 				{
-					strcpy_s(INI->driver_name, strlen(v16) + 1, v16);
+					strcpy(INI->driver_name, strlen(v16) + 1, v16);
 				}
 				else if (!_strnicmp(v15, "DEVICE", 7))
 				{
-					strcpy_s(INI->device_name, strlen(v16) + 1, v16);
+					strcpy(INI->device_name, strlen(v16) + 1, v16);
 				}
 				else if (!_strnicmp(v15, "IO_ADDR", 8))
 				{
@@ -470,7 +470,7 @@ AIL_DRIVER* sub_9E720_AIL_API_install_driver(/*int a1, */Bit8u* driver_image, Bi
 	}
 	else
 	{
-		strcpy_s(x_BYTE_181C90, strlen("Insufficient memory for driver descriptor\n") + 1, "Insufficient memory for driver descriptor\n");
+		strcpy(x_BYTE_181C90, strlen("Insufficient memory for driver descriptor\n") + 1, "Insufficient memory for driver descriptor\n");
 		result = 0;
 	}
 	return result;
@@ -533,7 +533,7 @@ IO_PARMS* sub_9EB60_AIL_API_get_IO_environment(AIL_DRIVER *drvr)
 	v3 = mygetenv(v4);
 	if (!v3)
 		return 0;
-	strncpy_s((char*)*(x_DWORD *)(drvr + 16) + 58, sizeof((drvr + 16) + 58), (const char*)v3, 128);
+	strncpy((char*)*(x_DWORD *)(drvr + 16) + 58, sizeof((drvr + 16) + 58), (const char*)v3, 128);
 	if (sub_91F70_AIL_call_driver(drvr, 771, 0, 0) == -1)
 		return 0;
 	qmemcpy(&unk_181DF8, (void *)(*(x_DWORD *)(drvr + 16) + 22), 0x18u);
@@ -1927,7 +1927,7 @@ HDIGDRIVER sub_A3600_AIL_API_install_DIG_driver_file(/*int a1,*/ char* filename,
 	}
 	else
 	{
-		strcpy_s(x_BYTE_181C90, strlen("Driver file not found\n") + 1, "Driver file not found\n");
+		strcpy(x_BYTE_181C90, strlen("Driver file not found\n") + 1, "Driver file not found\n");
 		result = 0;
 	}
 	return result;
@@ -2114,7 +2114,7 @@ void sub_93830_AIL_init_sample(HSAMPLE S/*HSAMPLE S*/)//AIL_init_sample //274830
 	x_DWORD_181C04++;
 	v2 = x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2() && sub_916F0_sound_proc24();
 	if (v2)
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "AIL_init_sample(0x%X)\n", (char)S);
+		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "AIL_init_sample(0x%X)\n"/*, (char)S*/);
 	/*result = */sub_A38E0_init_sample(S);
 	x_DWORD_181C04--;
 	//return result;
@@ -4541,7 +4541,7 @@ HSAMPLE sub_A4970(int a1, Bit8u* a2, int a3)//285970
 	}
 	if (v6->sam_var[547] != -1)
 		return v6;
-	strcpy_s(x_BYTE_181C90, strlen("Invalid or missing data block\n") + 1, "Invalid or missing data block\n");
+	strcpy(x_BYTE_181C90, strlen("Invalid or missing data block\n") + 1, "Invalid or missing data block\n");
 
 	return 0;
 }
@@ -4585,7 +4585,7 @@ Bit32s sub_A4B20_set_sample_file(HSAMPLE S, Bit8u* file_image, Bit32s block)//28
 	}
 	if (S->sam_var[547] != -1)
 		return 1;
-	strcpy_s(x_BYTE_181C90, strlen("Invalid or missing data block\n") + 1, "Invalid or missing data block\n");
+	strcpy(x_BYTE_181C90, strlen("Invalid or missing data block\n") + 1, "Invalid or missing data block\n");
 	return 0;
 }
 // 99B23: using guessed type x_DWORD strnicmp(x_DWORD, x_DWORD, x_DWORD);
@@ -5736,7 +5736,7 @@ HMDIDRIVER sub_A6FB0_sound_proc26(AIL_DRIVER* a1, IO_PARMS *a2)//287fb0
 					if (v15)
 					{
 						if (*v15)
-							strncpy_s((char*)v12->DST_2, strlen((const char*)v12->DST_2) + 1, v15, 128);
+							strncpy((char*)v12->DST_2, strlen((const char*)v12->DST_2) + 1, v15, 128);
 					}
 				}
 			}
@@ -5744,8 +5744,8 @@ HMDIDRIVER sub_A6FB0_sound_proc26(AIL_DRIVER* a1, IO_PARMS *a2)//287fb0
 
 			if (v11x && *v11x)
 			{
-				strcpy_s((char*)v12->DST_2->GTL_filename, strlen((const char*)aSample) + 1, aSample);
-				strcpy_s((char*)v12->DST_2->GTL_filename + strlen((const char*)aSample), strlen((const char*)v11x) + 1, (const char*)v11x);
+				strcpy((char*)v12->DST_2->GTL_filename, strlen((const char*)aSample) + 1, aSample);
+				strcpy((char*)v12->DST_2->GTL_filename + strlen((const char*)aSample), strlen((const char*)v11x) + 1, (const char*)v11x);
 			}
 			else
 			{
@@ -5952,7 +5952,7 @@ HMDIDRIVER sub_A77D0_AIL_API_install_MDI_INI(char* filename, IO_PARMS *IO)//2887
 	}
 	else
 	{
-		strcpy_s(x_BYTE_181C90, strlen("Driver file not found\n") + 1, "Driver file not found\n");
+		strcpy(x_BYTE_181C90, strlen("Driver file not found\n") + 1, "Driver file not found\n");
 		v5 = 0;
 	}
 	return v5;
@@ -6044,7 +6044,7 @@ void sub_A7AA0_AIL_API_set_GTL_filename_prefix(Bit8u* a1)//288aa0
 	int samplesize; // eax
 	int i; // [esp+0h] [ebp-4h]
 
-	strcpy_s(aSample, 512, (const char*)a1);
+	strcpy(aSample, 512, (const char*)a1);
 	samplesize = strlen(aSample) - 1;
 	for (i = samplesize; i; i--)
 	{
@@ -6258,7 +6258,7 @@ Bit32s sub_A7C20_AIL_API_init_sequence_orig(HSEQUENCE S, void* start, Bit32s seq
 				{
 					if (sub_92160())
 					{
-						strcpy_s(x_BYTE_181C90, strlen("No timbres loaded\n") + 1, "No timbres loaded\n");
+						strcpy(x_BYTE_181C90, strlen("No timbres loaded\n") + 1, "No timbres loaded\n");
 						v6 = -1;
 					}
 					else
@@ -6274,7 +6274,7 @@ Bit32s sub_A7C20_AIL_API_init_sequence_orig(HSEQUENCE S, void* start, Bit32s seq
 						}
 						else
 						{
-							sprintf_s(x_BYTE_181C90, 512, "Driver could not install timbre bank %u, patch %u\n", v5 >> 8, v5);
+							sprintf(x_BYTE_181C90, 512, "Driver could not install timbre bank %u, patch %u\n", v5 >> 8, v5);
 							v6 = -1;
 						}
 					}
@@ -6651,7 +6651,7 @@ VDI_CALL sub_A85B0_sound_proc40(int *a1, int a2, int a3)
 	sub_91F70_AIL_call_driver((AIL_DRIVER*)*a1, 1283, 0, &result);
 	--a1[5];
 	if (!result.AX)
-		sprintf_s(x_BYTE_181C90, 512, "Driver could not install timbre bank %u, patch %u\n", v5 >> 8, v5);
+		sprintf(x_BYTE_181C90, 512, "Driver could not install timbre bank %u, patch %u\n", v5 >> 8, v5);
 	return result;
 }
 // 8E3D5: using guessed type x_DWORD sprintf_s(x_DWORD, const char *, ...);

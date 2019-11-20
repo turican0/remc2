@@ -75,9 +75,6 @@
     <ClInclude Include="engine\sub_main_mouse.h">
       <Filter>Zdrojové soubory\engine</Filter>
     </ClInclude>
-    <ClInclude Include="portability\dirent.h">
-      <Filter>Zdrojové soubory\portability</Filter>
-    </ClInclude>
     <ClInclude Include="portability\mctypes.h">
       <Filter>Zdrojové soubory\portability</Filter>
     </ClInclude>
@@ -339,6 +336,9 @@
     <ClInclude Include="..\kiss_sdl-master\kiss_sdl.h">
       <Filter>Zdrojové soubory\libs\kiss-sdl</Filter>
     </ClInclude>
+    <ClInclude Include="portability\dirent-x.h">
+      <Filter>Zdrojové soubory\portability</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -352,9 +352,6 @@
     </ClCompile>
     <ClCompile Include="engine\sub_main.cpp">
       <Filter>Zdrojové soubory\engine</Filter>
-    </ClCompile>
-    <ClCompile Include="portability\dirent.c">
-      <Filter>Zdrojové soubory\portability</Filter>
     </ClCompile>
     <ClCompile Include="portability\port_filesystem.cpp">
       <Filter>Zdrojové soubory\portability</Filter>
@@ -583,6 +580,9 @@
     </ClCompile>
     <ClCompile Include="..\kiss_sdl-master\kiss_widgets.cpp">
       <Filter>Zdrojové soubory\libs\kiss-sdl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\dirent.c">
+      <Filter>Zdrojové soubory\portability</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

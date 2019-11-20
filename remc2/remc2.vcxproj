@@ -242,7 +242,7 @@
     <ClInclude Include="engine\read_config.h" />
     <ClInclude Include="engine\sub_main.h" />
     <ClInclude Include="engine\sub_main_mouse.h" />
-    <ClInclude Include="portability\dirent.h" />
+    <ClInclude Include="portability\dirent-x.h" />
     <ClInclude Include="portability\mctypes.h" />
     <ClInclude Include="portability\port_filesystem.h" />
     <ClInclude Include="portability\port_inputs.h" />
@@ -320,13 +320,13 @@
     <ClCompile Include="..\SDL-Mixer-X-master\src\mixer_x_deprecated.c" />
     <ClCompile Include="..\SDL-Mixer-X-master\src\music.c" />
     <ClCompile Include="..\SDL-Mixer-X-master\src\vb6_binding\vb6_sdl_binds.c" />
+    <ClCompile Include="..\temp\dirent.c" />
     <ClCompile Include="engine\cd_utils.cpp" />
     <ClCompile Include="engine\editor.cpp" />
     <ClCompile Include="engine\engine_support.cpp" />
     <ClCompile Include="engine\engine_support_converts.cpp" />
     <ClCompile Include="engine\read_config.cpp" />
     <ClCompile Include="engine\sub_main.cpp" />
-    <ClCompile Include="portability\dirent.c" />
     <ClCompile Include="portability\port_filesystem.cpp" />
     <ClCompile Include="portability\port_inputs.cpp" />
     <ClCompile Include="portability\port_outputs.cpp" />

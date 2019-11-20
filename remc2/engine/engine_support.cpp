@@ -576,9 +576,9 @@ void loadfromsnapshot(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u si
 	char findnamec[500];
 	FILE* fptestepc;
 	sprintf(findnamec, "../remc2/memimages/engine-memory-%s", filename);
-	fopen_s(&fptestepc, findnamec, "rb");	
+	fptestepc=fopen(findnamec, "rb");
 	fseek(fptestepc, adressdos, SEEK_SET);
-	fread_s(adress, size, 1, size, fptestepc);
+	fread(adress, size, 1, fptestepc);
 	fclose(fptestepc);
 };
 
@@ -587,11 +587,11 @@ void loadfromsnapshot2(char* filename, Bit8u* adress, Bit32u adressdos, Bit32u s
 	FILE* fptestepc;
 	Bit32u subadress;
 	sprintf(findnamec, "../remc2/memimages/engine-memory-%s", filename);
-	fopen_s(&fptestepc, findnamec, "rb");
+	fptestepc=fopen(findnamec, "rb");
 	fseek(fptestepc, adressdos, SEEK_SET);
-	fread_s(&subadress, 4, 1, 4, fptestepc);
+	fread(&subadress, 4, 1, fptestepc);
 	fseek(fptestepc, subadress, SEEK_SET);
-	fread_s(adress, size, 1, size, fptestepc);
+	fread(adress, size, 1, fptestepc);
 
 	fclose(fptestepc);
 };
@@ -603,15 +603,15 @@ Bit32u compare_with_snapshot(char* filename, Bit8u* adress, Bit32u adressdos, Bi
 	Bit8u* buffer = (Bit8u*)malloc(size);
 	FILE* fptestepc;
 	sprintf(findnamec, "c:/prenos/remc2/remc2/memimages/engine-memory-%s", filename);
-	fopen_s(&fptestepc, findnamec, "rb");
+	fptestepc=fopen(findnamec, "rb");
 	if (fptestepc == NULL)
 	{
 		mydelay(100);
-		fopen_s(&fptestepc, findnamec, "rb");
+		fptestepc=fopen(findnamec, "rb");
 	}
 	fseek(fptestepc, adressdos, SEEK_SET);
 	
-	fread_s(buffer, size, 1, size, fptestepc);
+	fread(buffer, size, 1, fptestepc);
 	Bit32u i;
 	for (i = 0;i < size;i++)
 	{
@@ -761,15 +761,15 @@ Bit32u compare_with_snapshot_D41A0(char* filename, Bit8u* adress, Bit32u adressd
 	Bit8u* buffer = (Bit8u*)malloc(size);
 	FILE* fptestepc;
 	sprintf(findnamec, "c:/prenos/dosbox-x-remc2/vs2015/engine-memory-%s", filename);
-	fopen_s(&fptestepc, findnamec, "rb");
+	fptestepc=fopen(findnamec, "rb");
 	if (fptestepc == NULL)
 	{
 		mydelay(100);
-		fopen_s(&fptestepc, findnamec, "rb");
+		fptestepc=fopen(findnamec, "rb");
 	}
 	fseek(fptestepc, adressdos, SEEK_SET);
 
-	fread_s(buffer, size, 1, size, fptestepc);
+	fread(buffer, size, 1, fptestepc);
 	Bit32u i;
 	bool testa, testb;
 	for (i = 0; i < size; i++)
@@ -809,15 +809,15 @@ Bit32u compare_with_sequence_E7EE0(char* filename, Bit8u* adress, Bit32u adressd
 	Bit8u* buffer = (Bit8u*)malloc(size2);
 	FILE* fptestepc;
 	sprintf(findnamec, "c:/prenos/dosbox-x-remc2/vs2015/sequence-%s.bin", filename);
-	fopen_s(&fptestepc, findnamec, "rb");
+	fptestepc=fopen(findnamec, "rb");
 	if (fptestepc == NULL)
 	{
 		mydelay(100);
-		fopen_s(&fptestepc, findnamec, "rb");
+		fptestepc=fopen(findnamec, "rb");
 	}
 	fseek(fptestepc, count * size1 + offset, SEEK_SET);
 
-	fread_s(buffer, size2, 1, size2, fptestepc);
+	fread(buffer, size2, 1, fptestepc);
 	Bit32u i;
 	bool testa, testb;
 	int diffindex = 0;
@@ -859,15 +859,15 @@ Bit32u compare_with_sequence_D41A0(char* filename, Bit8u* adress, Bit32u adressd
 	Bit8u* buffer = (Bit8u*)malloc(size);
 	FILE* fptestepc;
 	sprintf(findnamec, "c:/prenos/dosbox-x-remc2/vs2015/sequence-%s.bin", filename);
-	fopen_s(&fptestepc, findnamec, "rb");
+	fptestepc=fopen(findnamec, "rb");
 	if (fptestepc == NULL)
 	{
 		mydelay(100);
-		fopen_s(&fptestepc, findnamec, "rb");
+		fptestepc=fopen(findnamec, "rb");
 	}
 	fseek(fptestepc, count*size+ offset, SEEK_SET);
 
-	fread_s(buffer, size, 1, size, fptestepc);
+	fread(buffer, size, 1, fptestepc);
 	Bit32u i;
 	bool testa, testb;
 	for (i = 0; i < size; i++)
@@ -910,15 +910,15 @@ Bit32u compare_0x6E8E(char* filename, Bit8u* adress, Bit32u count, Bit32u size, 
 	Bit8u* buffer = (Bit8u*)malloc(size);
 	FILE* fptestepc;
 	sprintf(findnamec, "c:/prenos/dosbox-x-remc2/vs2015/sequence-%s.bin", filename);
-	fopen_s(&fptestepc, findnamec, "rb");
+	fptestepc=fopen(findnamec, "rb");
 	if (fptestepc == NULL)
 	{
 		mydelay(100);
-		fopen_s(&fptestepc, findnamec, "rb");
+		fptestepc=fopen(findnamec, "rb");
 	}
 	fseek(fptestepc, count * size + offset, SEEK_SET);
 
-	fread_s(buffer, size, 1, size, fptestepc);
+	fread(buffer, size, 1, fptestepc);
 	Bit32u i;
 	bool testa, testb;
 	for (i = 0; i < size; i++)
@@ -961,15 +961,15 @@ Bit32u compare_with_sequence_EA3E4(char* filename, type_str_0x6E8E** adress, Bit
 	Bit8u* buffer = (Bit8u*)malloc(size * 0x3E9);
 	FILE* fptestepc;
 	sprintf(findnamec, "c:/prenos/dosbox-x-remc2/vs2015/seq_D41A0-%s.bin", filename);
-	fopen_s(&fptestepc, findnamec, "rb");
+	fptestepc=fopen(findnamec, "rb");
 	if (fptestepc == NULL)
 	{
 		mydelay(100);
-		fopen_s(&fptestepc, findnamec, "rb");
+		fptestepc=fopen(findnamec, "rb");
 	}
 	fseek(fptestepc, count * size * 0x3E9/* + offset*/, SEEK_SET);
 
-	fread_s(buffer, size * 0x3E9, 1, size * 0x3E9, fptestepc);
+	fread(buffer, size * 0x3E9, 1, fptestepc);
 
 	for (int ea = 0; ea < 0x3E9; ea++)
 	{
@@ -1020,15 +1020,15 @@ Bit32u compare_with_sequence_D41A0_4(char* filename, Bit8u* adress, Bit32u adres
 	Bit8u* buffer = (Bit8u*)malloc(size);
 	FILE* fptestepc;
 	sprintf(findnamec, "c:/prenos/dosbox-x-remc2/vs2015/sequence-%s.bin", filename);
-	fopen_s(&fptestepc, findnamec, "rb");
+	fptestepc=fopen(findnamec, "rb");
 	if (fptestepc == NULL)
 	{
 		mydelay(100);
-		fopen_s(&fptestepc, findnamec, "rb");
+		fptestepc=fopen(findnamec, "rb");
 	}
 	fseek(fptestepc, count * size + offset, SEEK_SET);
 
-	fread_s(buffer, size, 1, size, fptestepc);
+	fread(buffer, size, 1,fptestepc);
 	Bit32u i;
 	bool testa, testb;
 	for (i = 0; i < size; i++)
@@ -1076,15 +1076,15 @@ Bit32u compare_with_sequence_x_DWORD_F2C20ar(char* filename, Bit8u* adress, Bit3
 	Bit8u* buffer = (Bit8u*)malloc(size);
 	FILE* fptestepc;
 	sprintf(findnamec, "c:/prenos/dosbox-x-remc2/vs2015/sequence-%s.bin", filename);
-	fopen_s(&fptestepc, findnamec, "rb");
+	fptestepc=fopen(findnamec, "rb");
 	if (fptestepc == NULL)
 	{
 		mydelay(100);
-		fopen_s(&fptestepc, findnamec, "rb");
+		fptestepc=fopen(findnamec, "rb");
 	}
 	fseek(fptestepc, count*size, SEEK_SET);
 
-	fread_s(buffer, size, 1, size, fptestepc);
+	fread(buffer, size, 1, fptestepc);
 	Bit32u i;
 	bool testa, testb;
 	int diffindex = 0;
@@ -1128,15 +1128,15 @@ Bit32u compare_with_sequence_array_E2A74(char* filename, Bit8u* adress, Bit32u a
 	Bit8u* buffer = (Bit8u*)malloc(size2);
 	FILE* fptestepc;
 	sprintf(findnamec, "c:/prenos/dosbox-x-remc2/vs2015/sequence-%s.bin", filename);
-	fopen_s(&fptestepc, findnamec, "rb");
+	fptestepc=fopen(findnamec, "rb");
 	if (fptestepc == NULL)
 	{
 		mydelay(100);
-		fopen_s(&fptestepc, findnamec, "rb");
+		fptestepc=fopen(findnamec, "rb");
 	}
 	fseek(fptestepc, count * size1 + offset, SEEK_SET);
 
-	fread_s(buffer, size2, 1, size2, fptestepc);
+	fread(buffer, size2, 1,fptestepc);
 	Bit32u i;
 	bool testa, testb;
 	int diffindex=0;
@@ -1178,15 +1178,15 @@ Bit32u compare_with_sequence_array_222BD3(char* filename, Bit8u* adress, Bit32u 
 	Bit8u* buffer = (Bit8u*)malloc(size);
 	FILE* fptestepc;
 	sprintf(findnamec, "c:/prenos/dosbox-x-remc2/vs2015/sequence-%s.bin", filename);
-	fopen_s(&fptestepc, findnamec, "rb");
+	fptestepc=fopen(findnamec, "rb");
 	if (fptestepc == NULL)
 	{
 		mydelay(100);
-		fopen_s(&fptestepc, findnamec, "rb");
+		fptestepc=fopen(findnamec, "rb");
 	}
 	fseek(fptestepc, count*size, SEEK_SET);
 
-	fread_s(buffer, size, 1, size, fptestepc);
+	fread(buffer, size, 1, fptestepc);
 	Bit32u i;
 	bool testa, testb;
 	int diffindex = 0;
@@ -1230,11 +1230,11 @@ Bit32u compare_with_sequence(char* filename, Bit8u* adress, Bit32u adressdos, lo
 	Bit8u* buffer = (Bit8u*)malloc(size2);
 	FILE* fptestepc;
 	sprintf(findnamec, "c:/prenos/dosbox-x-remc2/vs2015/sequence-%s.bin", filename);
-	fopen_s(&fptestepc, findnamec, "rb");
+	fptestepc=fopen(findnamec, "rb");
 	if (fptestepc == NULL)
 	{
 		mydelay(100);
-		fopen_s(&fptestepc, findnamec, "rb");
+		fptestepc=fopen(findnamec, "rb");
 	}
 	_fseeki64(fptestepc, (long long)count* (long long)size1+ offset, SEEK_SET);
 	
@@ -1244,7 +1244,7 @@ Bit32u compare_with_sequence(char* filename, Bit8u* adress, Bit32u adressdos, lo
 		fread_s(buffer,size,1,size, fptestepc);
 	}*/
 
-	fread_s(buffer, size2, 1, size2, fptestepc);
+	fread(buffer, size2, 1, fptestepc);
 	//for (i = size-1; i >0; i--)
 	for (i = 0; i < size2; i++)
 	{
@@ -1355,28 +1355,28 @@ void mine_texts(char* filename, Bit32u adressdos, Bit32u count, char* outfilenam
 	char outtext[2048];
 	char outtext2[2048];
 	sprintf(findnamec, "c:/prenos/dosbox-x-remc2/vs2015/engine-memory-%s", filename);
-	fopen_s(&fptestepc, findnamec, "rb");
-	fopen_s(&fileout, outfilename, "wb");
+	fptestepc=fopen(findnamec, "rb");
+	fileout=fopen(outfilename, "wb");
 	if (fptestepc == NULL)
 	{
 		mydelay(100);
-		fopen_s(&fptestepc, findnamec, "rb");
+		fptestepc=fopen(findnamec, "rb");
 	}
 	fseek(fptestepc, adressdos, SEEK_SET);
 	long adressadd;
 	long adressaddall=0;
-	fread_s(&actchar, 1, 1, 1, fptestepc);
+	fread(&actchar, 1,1, fptestepc);
 	for (Bit32u i = 0; i < count; i++)
 	{
 		adressadd = 0;
 		while ((adressaddall % 4)||(actchar==0))
 		{
-			fread_s(&actchar, 1, 1, 1, fptestepc);
+			fread(&actchar, 1,1, fptestepc);
 			adressaddall++;
 		}
 		while(actchar!=0){
 			outtext[adressadd] = actchar;
-			fread_s(&actchar, 1, 1, 1, fptestepc);
+			fread(&actchar, 1,1, fptestepc);
 			adressadd++;
 			adressaddall++;
 		}
@@ -1704,7 +1704,7 @@ void write_posistruct_to_png(Bit8u* buffer,int width, int height, char* filename
 	Bit8u pallettebuffer[768];
 	FILE* palfile;
 	//fopen_s(&palfile, "c:\\prenos\\remc2\\testpal.pal", "rb");
-	fopen_s(&palfile, "c:\\prenos\\remc2\\tools\\palletelight\\Debug\\out-n.pal", "rb");
+	palfile=fopen("c:\\prenos\\remc2\\tools\\palletelight\\Debug\\out-n.pal", "rb");
 	fread(pallettebuffer, 768, 1, palfile);
 	fclose(palfile);
 
@@ -1781,7 +1781,7 @@ void buff_posistruct_to_png(Bit8u* buffer, int width, int height, char* filename
 	png_bytep row = NULL;
 	Bit8u pallettebuffer[768];
 	FILE* palfile;
-	fopen_s(&palfile, "c:\\prenos\\remc2\\testpal.pal", "rb");
+	palfile=fopen("c:\\prenos\\remc2\\testpal.pal", "rb");
 	fread(pallettebuffer, 768, 1, palfile);
 	fclose(palfile);
 

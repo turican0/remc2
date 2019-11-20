@@ -59,10 +59,10 @@ typedef ull             uint64;
 #endif
 
 #ifndef _WINDOWS_
-typedef int8 BYTE;
-typedef int16 WORD;
-typedef int32 DWORD;
-typedef int32 LONG;
+//typedef unsigned char BYTE;
+//typedef int16 WORD;
+//typedef int32 DWORD;
+//typedef int32 LONG;
 #endif
 typedef int64 x_QWORD;
 #ifndef __cplusplus
