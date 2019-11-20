@@ -45,7 +45,7 @@
                             							
                             <tool id="cdt.managedbuild.tool.gnu.archiver.mingw.base.618523428" name="GCC Archiver" superClass="cdt.managedbuild.tool.gnu.archiver.mingw.base"/>
                             							
-                            <tool command="g++ -m32 -fpermissive -Wno-narrowing -mwindows" id="cdt.managedbuild.tool.gnu.cpp.compiler.mingw.exe.debug.1185580200" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.mingw.exe.debug">
+                            <tool command="g++ -m32 -fpermissive -Wno-narrowing -mwindows -lmingw32 -lSDLmain -lSDL" id="cdt.managedbuild.tool.gnu.cpp.compiler.mingw.exe.debug.1185580200" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.mingw.exe.debug">
                                 								
                                 <option id="gnu.cpp.compiler.mingw.exe.debug.option.optimization.level.624328540" name="Optimization Level" superClass="gnu.cpp.compiler.mingw.exe.debug.option.optimization.level" useByScannerDiscovery="false" value="gnu.cpp.compiler.optimization.level.none" valueType="enumerated"/>
                                 								
