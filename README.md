@@ -1,6 +1,6 @@
 # remc2
 # Reverse engineering of game Magic Carpet 2 from assembler to c/c++ language<br />
-## STATUS: unplayable, in development<br />
+## STATUS: full playable, in testing<br />
 <br />
 To start the game, it needs data from the original distribution, which you can download at the minimum fee here:<br />
 https://www.gog.com/game/magic_carpet_2_the_netherworlds<br />
