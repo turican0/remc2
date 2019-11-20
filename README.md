@@ -27,6 +27,10 @@ simple dev blog:https://github.com/turican0/remc2/wiki<br />
 <h3>MILLSTONE 1 - PASSED</h3><br />
 -Can Play whole First level same as in original in 320x200<br />
 <br />
+## 0.9(included binary version):<br />
+Beta version 0.9 Published!<br />
+-game is full playable without big bugs(maybe :)<br />
+-added WIN32 Binary for testing<br />
 ## 0.50(included binary version):<br />
 -fixed levels 6 and 7<br />
 -fixed select spell type<br />
