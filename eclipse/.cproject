@@ -7,7 +7,11 @@
             			
             <storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="cdt.managedbuild.config.gnu.mingw.exe.debug.1657640566" moduleId="org.eclipse.cdt.core.settings" name="Debug">
                 				
-                <externalSettings/>
+                <externalSettings>
+                    					
+                    <externalSetting/>
+                    				
+                </externalSettings>
                 				
                 <extensions>
                     					
@@ -45,7 +49,7 @@
                             							
                             <tool id="cdt.managedbuild.tool.gnu.archiver.mingw.base.618523428" name="GCC Archiver" superClass="cdt.managedbuild.tool.gnu.archiver.mingw.base"/>
                             							
-                            <tool command="g++ -m32 -fpermissive -Wno-narrowing -mwindows -lmingw32 -lSDLmain -lSDL" id="cdt.managedbuild.tool.gnu.cpp.compiler.mingw.exe.debug.1185580200" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.mingw.exe.debug">
+                            <tool command="g++ -m32 -fpermissive -Wno-narrowing -lmingw32 -lSDLmain -lSDL" id="cdt.managedbuild.tool.gnu.cpp.compiler.mingw.exe.debug.1185580200" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.mingw.exe.debug">
                                 								
                                 <option id="gnu.cpp.compiler.mingw.exe.debug.option.optimization.level.624328540" name="Optimization Level" superClass="gnu.cpp.compiler.mingw.exe.debug.option.optimization.level" useByScannerDiscovery="false" value="gnu.cpp.compiler.optimization.level.none" valueType="enumerated"/>
                                 								
@@ -72,6 +76,14 @@
                                     <listOptionValue builtIn="false" value="&quot;C:\prenos\remc2\SDL2_image-2.0.5\include&quot;"/>
                                     									
                                     <listOptionValue builtIn="false" value="&quot;C:\prenos\remc2\libADLMIDI-master\include&quot;"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="&quot;C:\prenos\remc2\SDL-Mixer-X-master\include&quot;"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="&quot;c:\prenos\remc2\SDL-Mixer-X-master\include\SDL_mixer_ext\&quot;"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="&quot;c:\prenos\remc2\sdl2-2.0.8\include&quot;"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="&quot;c:\prenos\remc2\SDL-Mixer-X-master\src&quot;"/>
                                     								
                                 </option>
                                 								
@@ -83,11 +95,29 @@
                                 							
                             </tool>
                             							
-                            <tool id="cdt.managedbuild.tool.gnu.c.compiler.mingw.exe.debug.1151229737" name="GCC C Compiler" superClass="cdt.managedbuild.tool.gnu.c.compiler.mingw.exe.debug">
+                            <tool command="gcc -m32 -fpermissive -Wno-narrowing -lmingw32 -lSDLmain -lSDL" id="cdt.managedbuild.tool.gnu.c.compiler.mingw.exe.debug.1151229737" name="GCC C Compiler" superClass="cdt.managedbuild.tool.gnu.c.compiler.mingw.exe.debug">
                                 								
                                 <option defaultValue="gnu.c.optimization.level.none" id="gnu.c.compiler.mingw.exe.debug.option.optimization.level.1509625570" name="Optimization Level" superClass="gnu.c.compiler.mingw.exe.debug.option.optimization.level" useByScannerDiscovery="false" valueType="enumerated"/>
                                 								
                                 <option defaultValue="gnu.c.debugging.level.max" id="gnu.c.compiler.mingw.exe.debug.option.debugging.level.1874413458" name="Debug Level" superClass="gnu.c.compiler.mingw.exe.debug.option.debugging.level" useByScannerDiscovery="false" valueType="enumerated"/>
+                                								
+                                <option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.c.compiler.option.include.paths.2020181488" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
+                                    									
+                                    <listOptionValue builtIn="false" value="&quot;c:\prenos\remc2\sdl2-2.0.8\include&quot;"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="&quot;c:\prenos\remc2\SDL-Mixer-X-master\src&quot;"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="&quot;C:\prenos\remc2\SDL-Mixer-X-master\include&quot;"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="&quot;c:\prenos\remc2\SDL-Mixer-X-master\include\SDL_mixer_ext\&quot;"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="&quot;C:\prenos\remc2\sdl2_mixer\external\libvorbis-1.3.5\include&quot;"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="&quot;c:\prenos\remc2\libogg\include&quot;"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="&quot;c:\prenos\remc2\libvorbis\lib&quot;"/>
+                                    								
+                                </option>
                                 								
                                 <inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.1513436135" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
                                 							
@@ -112,12 +142,14 @@
                                     <listOptionValue builtIn="false" value="&quot;c:\prenos\remc2\SDL2_image-2.0.5\lib\x86\&quot;"/>
                                     									
                                     <listOptionValue builtIn="false" value="&quot;C:\prenos\remc2\SDL2_ttf-2.0.15\lib\x86&quot;"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="&quot;C:\prenos\remc2\zlib\lib&quot;"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="&quot;C:\prenos\remc2\libpng2\libpng-master\projects\vstudio2017\Debug&quot;"/>
                                     								
                                 </option>
                                 								
                                 <option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.cpp.link.option.libs.142979220" name="Libraries (-l)" superClass="gnu.cpp.link.option.libs" useByScannerDiscovery="false" valueType="libs">
-                                    									
-                                    <listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="mingw32"/>
                                     									
                                     <listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="SDL2"/>
                                     									
@@ -125,11 +157,13 @@
                                     									
                                     <listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="SDL2_ttf"/>
                                     									
-                                    <listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="libvorbis_static"/>
+                                    <listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="SDL2main"/>
                                     									
-                                    <listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="libvorbisfile_static"/>
+                                    <listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="libpng15"/>
                                     									
-                                    <listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="libogg_static"/>
+                                    <listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="libz"/>
+                                    									
+                                    <listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="winmm"/>
                                     								
                                 </option>
                                 								
@@ -183,7 +217,7 @@
             			
             <storageModule moduleId="cdtBuildSystem" version="4.0.0">
                 				
-                <configuration artifactName="${ProjName}" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.exe" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.exe,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release" cleanCommand="rm -rf" description="" id="cdt.managedbuild.config.gnu.mingw.exe.release.1873068281" name="Release" parent="cdt.managedbuild.config.gnu.mingw.exe.release">
+                <configuration artifactName="${ProjName}" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.exe" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.exe,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release" cleanCommand="rm -rf" description="" id="cdt.managedbuild.config.gnu.mingw.exe.release.1873068281" name="Release" optionalBuildProperties="" parent="cdt.managedbuild.config.gnu.mingw.exe.release">
                     					
                     <folderInfo id="cdt.managedbuild.config.gnu.mingw.exe.release.1873068281." name="/" resourcePath="">
                         						

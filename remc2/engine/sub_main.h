@@ -313,6 +313,83 @@ extern filearray_struct x_DWORD_E9B20[4];
 extern __int16 x_WORD_E29DA_type_resolution; // weak
 extern __int16 x_WORD_180660_VGA_type_resolution; // weak
 
+#pragma pack (1)
+typedef struct//lenght 613 // end 17E09D
+{
+	Bit8u* x_DWORD_17DE38; // weak
+	Bit8u* x_DWORD_17DE3C; // weak//1
+	Bit8u* x_DWORD_17DE40; // weak//2
+	Bit8u* x_DWORD_17DE44; // weak//3
+	Bit8u* x_DWORD_17DE48c; // weak//4
+	Bit8u* x_DWORD_17DE4C; // weak
+	char* x_DWORD_17DE50; // weak
+	Bit8u* x_DWORD_17DE54; // weak
+	Bit8u* x_DWORD_17DE58; // weak
+	Bit8u* x_DWORD_17DE5C_border_bitmap; // weak
+	Bit8u* x_DWORD_17DE60; // weak
+	Bit8u* x_DWORD_17DE64_game_world_map; // weak
+	Bit8u x_BYTE_17DE68x[88]; // fix it -  weak
+	//char x_BYTE_17DE69[1]; //x_BYTE_17DE68x[0x1] fix it -  weak
+	//char x_BYTE_17DE71[1]; //x_BYTE_17DE68x[0x9] fix it -  weak
+	//char x_BYTE_17DE72[78]; //x_BYTE_17DE68x[0xa] idb
+	Bit8u* x_DWORD_17DEC0; // weak
+	Bit8u* x_DWORD_17DEC4; // weak
+	Bit8u* x_DWORD_17DEC8; // weak
+	Bit8u* x_DWORD_17DECC; // weak
+	int x_DWORD_17DED0; // weak
+	Bit8u* x_DWORD_17DED4; // weak
+	Bit8u* x_DWORD_17DED8; // weak
+	int x_DWORD_17DEDC; // weak
+	FILE* x_DWORD_17DEE0_filedesc; // weak
+	Bit16s x_DWORD_17DEE4_mouse_positionx; // weak
+	char stub0[2];
+	Bit16s x_DWORD_17DEE8_mouse_positiony; // weak
+	char stub1[2];
+	__int16 x_WORD_17DEEC; // weak
+	__int16 x_WORD_17DEEE_mouse_buttons; // weak
+	__int16 x_WORD_17DEF0; // weak
+	__int16 x_WORD_17DEF2; // weak
+	__int16 x_WORD_17DEF4; // weak
+	__int16 x_WORD_17DEF6; // weak
+	__int16 x_WORD_17DEF8; // weak
+	__int16 x_WORD_17DEFA; // weak
+	__int16 x_WORD_17DEFC; // weak
+	__int16 x_WORD_17DEFE; // weak
+	__int16 x_WORD_17DF00; // weak
+	__int16 x_WORD_17DF02; // weak
+	__int16 x_WORD_17DF04; // weak
+	__int16 x_WORD_17DF06; // weak
+	__int16 x_WORD_17DF08; // weak
+	__int16 x_WORD_17DF0A; // weak
+	__int16 x_WORD_17DF0C; // weak
+	__int16 x_WORD_17DF0E; // weak
+	char x_BYTE_17DF10_get_key_scancode; // weak
+	char x_BYTE_17DF11_last_key_status; // weak
+	char stuba[1];
+	char x_BYTE_17DF13; // weak
+	char x_BYTE_17DF14[344]; // idb// 34*8
+	//char x_BYTE_17DF3C[400]; // fix it -  weak//&x_BYTE_17DF14[40]
+	//char x_BYTE_17DF3D[400]; // fix it -  weak//&x_BYTE_17DF14[41]
+	//char x_BYTE_17DF3E[400]; // idb//&x_BYTE_17DF14[42]
+	__int16 x_WORD_17E06C; // weak
+	__int16 x_WORD_17E06E; // weak
+	__int16 x_WORD_17E070; // weak
+	__int16 x_WORD_17E072; // weak
+	__int16 x_WORD_17E074; // weak
+	__int16 x_WORD_17E076; // weak
+	Bit8s unk_17E078x[0xc]; // weak [11]
+	//__int16 x_WORD_17E07C; // weak unk_17E078x[4]
+	//__int16 x_WORD_17E07E; // weak unk_17E078x[6]
+	//__int16 x_WORD_17E080; // weak unk_17E078x[8]
+	//char x_BYTE_17E082; // weak unk_17E078x[0xa]
+	//char x_BYTE_17E083; // weak unk_17E078x[0xb]
+	Bit16s unk_17E084x[0xc]; // weak [11]
+	char x_BYTE_17E09C; // weak
+} type_x_DWORD_17DE38str;
+#pragma pack (16)
+
+extern type_x_DWORD_17DE38str x_DWORD_17DE38str;
+/*
 extern Bit16s x_DWORD_17DEE4_mouse_positionx; // weak
 extern Bit16s x_DWORD_17DEE4_mouse_positiony; // weak
 extern __int16 x_WORD_17DEEC; // weak
@@ -335,6 +412,7 @@ extern __int16 x_WORD_17DF0C; // weak
 extern __int16 x_WORD_17DF0E; // weak
 extern char x_BYTE_17DF10_get_key_scancode; // weak
 extern char x_BYTE_17DF11_last_key_status; // weak
+*/
 
 extern Bit8u x_BYTE_10B4E0_terraintype[0x10000]; // idb// x_BYTE_10B1E0[0x300]//2DC4E0 //map array1
 extern Bit8u x_BYTE_11B4E0_height[0x10000]; // idb		//2EC4E0    	//map array2 // heightmap
