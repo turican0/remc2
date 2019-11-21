@@ -11,6 +11,7 @@
 #include "SDL.h"
 
 #include "port_sdl_sound.h"
+#include "port_filesystem.h"
 
 typedef struct
 {
