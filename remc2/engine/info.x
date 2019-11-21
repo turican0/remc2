@@ -9768,3 +9768,6 @@ sub_9874D_create_index_dattab(x_DWORD_17DEC0, x_DWORD_17DEC4, x_DWORD_17DE54, xy
 x_DWORD_17DEC0, x_DWORD_17DEC4, x_DWORD_17DE54
 
 fix x_DWORD_17DE38
+
+fix 
+void sub_3E360_draw_particlesB(Bit8u* a1, Bit8u* a2)//21f360
