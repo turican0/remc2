@@ -27,6 +27,11 @@ simple dev blog:https://github.com/turican0/remc2/wiki<br />
 <h3>MILLSTONE 1 - PASSED</h3><br />
 -Can Play whole First level same as in original in 320x200<br />
 <br />
+## 0.91(included binary version):<br />
+-added missing DLL<br />
+-added setting for game and video speed<br />
+-added script for GOG version game data extract<br />
+(bug - in first run game crash somebody)<br />
 ## 0.9(included binary version):<br />
 Beta version 0.9 Published!<br />
 -game is full playable without big bugs(maybe :)<br />
