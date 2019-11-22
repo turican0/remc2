@@ -29,6 +29,8 @@ typedef struct
 }*/
 int config_skip_screen;
 int texturepixels;
+int speedGame;
+int speedAnim;
 bool res640x480 = false;
 void readini(char* filename) {
 	/*configuration config;
@@ -83,4 +85,7 @@ void readini(char* filename) {
 
 	std::string readstr2 = reader.GetString("main", "gamepath", "");
 	strcpy((char*)gamepath, (char*)readstr2.c_str());
+
+	speedGame = reader.GetInteger("game", "speed", 35);
+	speedAnim = reader.GetInteger("game", "animspeed", 100);
 };
