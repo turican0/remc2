@@ -1,6 +1,8 @@
 del ..\remc2.iobj
 del ..\remc2.pdb
 del ..\remc2.ipdb
+del ..\remc2.lib
+del ..\remc2.exp
 copy ..\..\Debug\config.ini ..
 copy ..\..\Debug\*.dll ..
 xcopy ..\..\Debug\original-game ..
@@ -32,3 +34,4 @@ copy .\lang\l5.txt ..\original-game\language\
 copy .\lang\l6.txt ..\original-game\language\
 copy .\lang\d2.txt ..\original-game\language\
 copy ..\..\tools\makeczmc2\makeczmc2\l7.txt ..\original-game\language\
+copy .\XXCOPY16.exe ..\original-game\
