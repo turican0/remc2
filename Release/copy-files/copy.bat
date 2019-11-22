@@ -10,6 +10,10 @@ copy .\run-editor.bat ..
 copy .\run-testlevel.bat ..
 copy .\extract-GOG-CD.bat ..
 copy .\dosbox-copy.conf ..
+copy .\VC_redist.x86.exe ..
+copy .\msvcp140d.dll ..
+copy .\ucrtbased.dll ..
+copy .\vcruntime140d.dll ..
 del SDL.dll
 del SDL_mixer.dll
 mkdir ..\original-game-GOG
