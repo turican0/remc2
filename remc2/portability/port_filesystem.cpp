@@ -13,7 +13,7 @@ char gamepathout[512];
 char fixsound[512] = "fix-sound\\";
 char fixsoundout[512];
 
-
+#define DEBUG_MKDIR
 
 std::string utf8_encode(const std::wstring &wstr)
 {
@@ -203,8 +203,17 @@ FILE* mycreate(char* path, Bit32u flags) {
 Bit32s myaccess(char* path, Bit32u flags) {
 	DIR *dir;
 	char path2[2048] = "\0";
+	#ifdef DEBUG_MKDIR
+		printf("myaccess:orig path:%s\n", path);
+	#endif //DEBUG_MKDIR
 	pathfix(path, path2);//only for DOSBOX version
+	#ifdef DEBUG_MKDIR
+		printf("myaccess:fix path:%s\n", path2);
+	#endif //DEBUG_MKDIR
 	dir = opendir(path2);
+	#ifdef DEBUG_MKDIR
+		printf("myaccess:exit:%p %d\n", dir, errno);
+	#endif //DEBUG_MKDIR
 	if (dir)
 	{
 		/* Directory exists. */
@@ -220,8 +229,14 @@ Bit32s myaccess(char* path, Bit32u flags) {
 
 Bit32s /*__cdecl*/ mymkdir(char* path) {
 	char path2[512] = "\0";
+	#ifdef DEBUG_MKDIR
+		printf("mymkdir:path: %s\n", path);
+	#endif //DEBUG_MKDIR
 	pathfix(path, path2);//only for DOSBOX version
 
+	#ifdef DEBUG_MKDIR
+		printf("mymkdir:path2: %s\n", path2);
+	#endif //DEBUG_MKDIR
 
 	const WCHAR *pwcsName;
 	// required size
@@ -231,7 +246,9 @@ Bit32s /*__cdecl*/ mymkdir(char* path) {
 	MultiByteToWideChar(CP_ACP, 0, path2, -1, (LPWSTR)pwcsName, nChars);
 	// use it....
 
-
+#ifdef DEBUG_MKDIR
+	printf("mymkdir:path3: %s\n", pwcsName);
+#endif //DEBUG_MKDIR
 
 
 
@@ -243,6 +260,10 @@ Bit32s /*__cdecl*/ mymkdir(char* path) {
 #endif
 	// delete it
 	delete[] pwcsName;
+
+#ifdef DEBUG_MKDIR
+	printf("mymkdir:end: %d\n", result);
+#endif //DEBUG_MKDIR
 	return result;
 };
 
