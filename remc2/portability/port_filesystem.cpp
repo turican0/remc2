@@ -13,7 +13,6 @@ char gamepathout[512];
 char fixsound[512] = "fix-sound\\";
 char fixsoundout[512];
 
-#define DEBUG_MKDIR
 
 std::string utf8_encode(const std::wstring &wstr)
 {
@@ -166,12 +165,26 @@ void unpathfix(char* path, char* path2)
 
 long my_findfirst(char* path, _finddata_t* c_file){
 	char path2[2048] = "\0";
+	#ifdef DEBUG_START
+		debug_printf("my_findfirst:%s\n", path);
+	#endif //DEBUG_START
 	pathfix(path, path2);//only for DOSBOX version
-	return _findfirst(path2, c_file);
+	#ifdef DEBUG_START
+		debug_printf("my_findfirst:fixed:%s\n", path);
+	#endif //DEBUG_START
+	long result= _findfirst(path2, c_file);
+	#ifdef DEBUG_START
+			debug_printf("my_findfirst:end:%d\n", result);
+	#endif //DEBUG_START
+	return result;
 }
 
 long my_findnext(long hFile, _finddata_t* c_file){
-return _findnext(hFile, c_file);
+	long result = _findnext(hFile, c_file);
+	#ifdef DEBUG_START
+		debug_printf("my_findnext:end:%d\n", result);
+	#endif //DEBUG_START
+	return result;
 }
 
 void my_findclose(long hFile){
@@ -187,8 +200,14 @@ bool file_exists(const char * filename) {
 	FILE* file;
 	if ((file = fopen(filename, "r")) != NULL) {
 		fclose(file);
+		#ifdef DEBUG_START
+				debug_printf("file_exists:true\n");
+		#endif //DEBUG_START
 		return true;
 	}
+	#ifdef DEBUG_START
+		debug_printf("file_exists:false\n");
+	#endif //DEBUG_START
 	return false;
 }
 
@@ -197,23 +216,50 @@ FILE* mycreate(char* path, Bit32u flags) {
 	char path2[512] = "\0";
 	pathfix(path, path2);//only for DOSBOX version
 	fp = fopen(path2, "wb+");
+	#ifdef DEBUG_START
+		debug_printf("mycreate:%p\n",fp);
+	#endif //DEBUG_START
 	return fp;
 };
+
+FILE* debug_output;
+
+bool debug_first = true;
+
+void debug_printf(const char* format, ...) {
+	char prbuffer[1024];
+	va_list arg;
+	int done;
+	va_start(arg, format);
+	done = vsprintf(prbuffer, format, arg);
+	va_end(arg);
+
+
+	if (debug_first)
+	{
+		debug_output = fopen("debug.txt", "wt");
+		debug_first = false;
+	}
+	else
+		debug_output = fopen("debug.txt", "at");
+	fprintf(debug_output, prbuffer);
+	fclose(debug_output);
+}
 
 Bit32s myaccess(char* path, Bit32u flags) {
 	DIR *dir;
 	char path2[2048] = "\0";
-	#ifdef DEBUG_MKDIR
-		printf("myaccess:orig path:%s\n", path);
-	#endif //DEBUG_MKDIR
+	#ifdef DEBUG_FILEOPS
+		debug_printf("myaccess:orig path:%s\n", path);
+	#endif //DEBUG_FILEOPS
 	pathfix(path, path2);//only for DOSBOX version
-	#ifdef DEBUG_MKDIR
-		printf("myaccess:fix path:%s\n", path2);
-	#endif //DEBUG_MKDIR
+	#ifdef DEBUG_FILEOPS
+		debug_printf("myaccess:fix path:%s\n", path2);
+	#endif //DEBUG_FILEOPS
 	dir = opendir(path2);
-	#ifdef DEBUG_MKDIR
-		printf("myaccess:exit:%p %d\n", dir, errno);
-	#endif //DEBUG_MKDIR
+	#ifdef DEBUG_FILEOPS
+		debug_printf("myaccess:exit:%p %d\n", dir, errno);
+	#endif //DEBUG_FILEOPS
 	if (dir)
 	{
 		/* Directory exists. */
@@ -229,14 +275,14 @@ Bit32s myaccess(char* path, Bit32u flags) {
 
 Bit32s /*__cdecl*/ mymkdir(char* path) {
 	char path2[512] = "\0";
-	#ifdef DEBUG_MKDIR
-		printf("mymkdir:path: %s\n", path);
-	#endif //DEBUG_MKDIR
+	#ifdef DEBUG_FILEOPS
+		debug_printf("mymkdir:path: %s\n", path);
+	#endif //DEBUG_FILEOPS
 	pathfix(path, path2);//only for DOSBOX version
 
-	#ifdef DEBUG_MKDIR
-		printf("mymkdir:path2: %s\n", path2);
-	#endif //DEBUG_MKDIR
+	#ifdef DEBUG_FILEOPS
+		debug_printf("mymkdir:path2: %s\n", path2);
+	#endif //DEBUG_FILEOPS
 
 	const WCHAR *pwcsName;
 	// required size
@@ -246,9 +292,9 @@ Bit32s /*__cdecl*/ mymkdir(char* path) {
 	MultiByteToWideChar(CP_ACP, 0, path2, -1, (LPWSTR)pwcsName, nChars);
 	// use it....
 
-#ifdef DEBUG_MKDIR
-	printf("mymkdir:path3: %s\n", pwcsName);
-#endif //DEBUG_MKDIR
+#ifdef DEBUG_FILEOPS
+	debug_printf("mymkdir:path3: %s\n", pwcsName);
+#endif //DEBUG_FILEOPS
 
 
 
@@ -261,13 +307,16 @@ Bit32s /*__cdecl*/ mymkdir(char* path) {
 	// delete it
 	delete[] pwcsName;
 
-#ifdef DEBUG_MKDIR
-	printf("mymkdir:end: %d\n", result);
-#endif //DEBUG_MKDIR
+#ifdef DEBUG_FILEOPS
+	debug_printf("mymkdir:end: %d\n", result);
+#endif //DEBUG_FILEOPS
 	return result;
 };
 
 FILE* myopen(char* path, int pmode, Bit32u flags) {
+	#ifdef DEBUG_START
+		debug_printf("myopen:open file:%s\n", path);
+	#endif //DEBUG_START
 	//bool localDrive::FileOpen(DOS_File * * file, const char * name, Bit32u flags) {
 	const char * type;
 	if ((pmode == 0x222) && (flags == 0x40))type = "rb+";
@@ -277,9 +326,15 @@ FILE* myopen(char* path, int pmode, Bit32u flags) {
 	FILE *fp;
 	char path2[512] = "\0";
 	pathfix(path, path2);//only for DOSBOX version
+	#ifdef DEBUG_START
+		debug_printf("myopen:open file:fixed:%s\n", path);
+	#endif //DEBUG_START
 	//if(file_exists(path2))
 
 	fp=fopen(path2, type);
+	#ifdef DEBUG_START
+		debug_printf("myopen:open end %p\n", fp);
+	#endif //DEBUG_START
 	return fp;
 };
 int myclose(FILE* descriptor) {
@@ -321,6 +376,9 @@ FILE* myopent(char* path, char* type) {
 	//if(file_exists(path2))
 
 	fp=fopen(path2, type);
+	#ifdef DEBUG_FILEOPS
+		debug_printf("myopent:end: %p\n", fp);
+	#endif //DEBUG_FILEOPS
 	return fp;
 };
 

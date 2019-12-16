@@ -18,6 +18,10 @@
 //#include <string.h>
 //#include <ctype.h>
 
+#define DEBUG_MKDIR
+#define DEBUG_START
+#define DEBUG_FILEOPS
+
 extern char gamepath[512];
 extern char biggraphicspath[512];
 
@@ -59,4 +63,6 @@ int dos_getdrive(int* a);
 void get_exe_path(char*);
 
 unsigned __int64 dos_getdiskfree(__int16 a1, __int16 a2, Bit8u a, short* b);
+
+void debug_printf(const char* format, ...);
 #endif //PORT_FILESYSTEM

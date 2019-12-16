@@ -35,3 +35,5 @@ void myprintf(const char * format, ...) {
 	unsigned char b = 'a';
 	DOS_CON->Write(&b, &sz);*/
 }
+
+
