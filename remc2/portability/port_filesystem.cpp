@@ -225,6 +225,8 @@ FILE* mycreate(char* path, Bit32u flags) {
 FILE* debug_output;
 
 bool debug_first = true;
+const char* debug_filename = "debug.txt";
+char path2[2048] = "\0";
 
 void debug_printf(const char* format, ...) {
 	char prbuffer[1024];
@@ -234,14 +236,15 @@ void debug_printf(const char* format, ...) {
 	done = vsprintf(prbuffer, format, arg);
 	va_end(arg);
 
+	pathfix((char*)debug_filename, path2);//only for DOSBOX version
 
 	if (debug_first)
 	{
-		debug_output = fopen("debug.txt", "wt");
+		debug_output = fopen(path2, "wt");
 		debug_first = false;
 	}
 	else
-		debug_output = fopen("debug.txt", "at");
+		debug_output = fopen(path2, "at");
 	fprintf(debug_output, prbuffer);
 	fclose(debug_output);
 }

@@ -1,0 +1,204 @@
+file_exists:true
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:/netherw
+myaccess:fix path:C:\prenos\remc2\Debug\../../Magic2/mc2-orig-copy/netherw
+myaccess:exit:027571B0 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:/netherw/save
+myaccess:fix path:C:\prenos\remc2\Debug\../../Magic2/mc2-orig-copy/netherw/save
+myaccess:exit:027571B0 0
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:/netherw
+myaccess:fix path:C:\prenos\remc2\Debug\../../Magic2/mc2-orig-copy/netherw
+myaccess:exit:027571B0 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:/netherw/cdata
+myaccess:fix path:C:\prenos\remc2\Debug\../../Magic2/mc2-orig-copy/netherw/cdata
+myaccess:exit:027571B0 0
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:/netherw
+myaccess:fix path:C:\prenos\remc2\Debug\../../Magic2/mc2-orig-copy/netherw
+myaccess:exit:027571B0 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:/netherw/clevels
+myaccess:fix path:C:\prenos\remc2\Debug\../../Magic2/mc2-orig-copy/netherw/clevels
+myaccess:exit:027571B0 0
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:/netherw
+myaccess:fix path:C:\prenos\remc2\Debug\../../Magic2/mc2-orig-copy/netherw
+myaccess:exit:027571B0 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:/netherw/sound
+myaccess:fix path:C:\prenos\remc2\Debug\../../Magic2/mc2-orig-copy/netherw/sound
+myaccess:exit:027571B0 0
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:/netherw
+myaccess:fix path:C:\prenos\remc2\Debug\../../Magic2/mc2-orig-copy/netherw
+myaccess:exit:027571B0 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:/netherw/language
+myaccess:fix path:C:\prenos\remc2\Debug\../../Magic2/mc2-orig-copy/netherw/language
+myaccess:exit:027571B0 0
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:/netherw
+myaccess:fix path:C:\prenos\remc2\Debug\../../Magic2/mc2-orig-copy/netherw
+myaccess:exit:027571B0 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:/netherw/shots
+myaccess:fix path:C:\prenos\remc2\Debug\../../Magic2/mc2-orig-copy/netherw/shots
+myaccess:exit:027571B0 0
+sub_53D10:End value 3
+myopen:open file:C:/netherw/sound/dig.ini
+myopen:open file:fixed:C:/netherw/sound/dig.ini
+myopen:open end 026C0520
+myopen:open file:C:/netherw/sound/mdi.ini
+myopen:open file:fixed:C:/netherw/sound/mdi.ini
+myopen:open end 026C0520
+myopen:open file:data/font0.dat
+myopen:open file:fixed:data/font0.dat
+myopen:open end 026C0520
+myopen:open file:data/font0.dat
+myopen:open file:fixed:data/font0.dat
+myopen:open end 026C0520
+myopen:open file:data/font0.tab
+myopen:open file:fixed:data/font0.tab
+myopen:open end 026C0520
+myopen:open file:data/font0.tab
+myopen:open file:fixed:data/font0.tab
+myopen:open end 026C0520
+myopen:open file:data/font1.dat
+myopen:open file:fixed:data/font1.dat
+myopen:open end 026C0520
+myopen:open file:data/font1.dat
+myopen:open file:fixed:data/font1.dat
+myopen:open end 026C0520
+myopen:open file:data/font1.tab
+myopen:open file:fixed:data/font1.tab
+myopen:open end 026C0520
+myopen:open file:data/font1.tab
+myopen:open file:fixed:data/font1.tab
+myopen:open end 026C0520
+myopen:open file:data/tmaps0-0.tab
+myopen:open file:fixed:data/tmaps0-0.tab
+myopen:open end 026C0520
+myopen:open file:data/tmaps0-0.tab
+myopen:open file:fixed:data/tmaps0-0.tab
+myopen:open end 026C0520
+myopen:open file:data/pointers.dat
+myopen:open file:fixed:data/pointers.dat
+myopen:open end 026C0520
+myopen:open file:data/pointers.dat
+myopen:open file:fixed:data/pointers.dat
+myopen:open end 026C0520
+myopen:open file:data/pointers.tab
+myopen:open file:fixed:data/pointers.tab
+myopen:open end 026C0520
+myopen:open file:data/pointers.tab
+myopen:open file:fixed:data/pointers.tab
+myopen:open end 026C0520
+myopen:open file:data/build0-0.dat
+myopen:open file:fixed:data/build0-0.dat
+myopen:open end 026C0520
+myopen:open file:data/build0-0.dat
+myopen:open file:fixed:data/build0-0.dat
+myopen:open end 026C0520
+myopen:open file:data/build0-0.tab
+myopen:open file:fixed:data/build0-0.tab
+myopen:open end 026C0520
+myopen:open file:data/build0-0.tab
+myopen:open file:fixed:data/build0-0.tab
+myopen:open end 026C0520
+myopen:open file:data/bldgprm.dat
+myopen:open file:fixed:data/bldgprm.dat
+myopen:open end 026C0520
+myopen:open file:data/pald-0.dat
+myopen:open file:fixed:data/pald-0.dat
+myopen:open end 026C0520
+myopen:open file:data/pald-0.dat
+myopen:open file:fixed:data/pald-0.dat
+myopen:open end 026C0520
+myopen:open file:data/block32.dat
+myopen:open file:fixed:data/block32.dat
+myopen:open end 026C0520
+myopen:open file:data/block32.dat
+myopen:open file:fixed:data/block32.dat
+myopen:open end 026C0520
+myopen:open file:data/pald-0.dat
+myopen:open file:fixed:data/pald-0.dat
+myopen:open end 026C0520
+myopen:open file:data/clrd-0.dat
+myopen:open file:fixed:data/clrd-0.dat
+myopen:open end 026C0520
+myopen:open file:C:/netherw/cdata/version.dat
+myopen:open file:fixed:C:/netherw/cdata/version.dat
+myopen:open end 026C0520
+myopen:open file:C:/netherw/cdata/tmaps0-0.dat
+myopen:open file:fixed:C:/netherw/cdata/tmaps0-0.dat
+myopen:open end 026C0520
+myopen:open file:data/tmaps0-0.dat
+myopen:open file:fixed:data/tmaps0-0.dat
+myopen:open end 027A9FA0
+myopen:open file:C:/netherw/cdata/tmaps1-0.dat
+myopen:open file:fixed:C:/netherw/cdata/tmaps1-0.dat
+myopen:open end 026C0520
+myopen:open file:data/tmaps1-0.dat
+myopen:open file:fixed:data/tmaps1-0.dat
+myopen:open end 027A9FA0
+myopen:open file:C:/netherw/cdata/tmaps2-0.dat
+myopen:open file:fixed:C:/netherw/cdata/tmaps2-0.dat
+myopen:open end 026C0520
+myopen:open file:data/tmaps2-0.dat
+myopen:open file:fixed:data/tmaps2-0.dat
+myopen:open end 027A9FA0
+myaccess:orig path:levels
+myaccess:fix path:C:\prenos\remc2\Debug\../../Magic2/mc2-orig-copy\levels
+myaccess:exit:027571B0 0
+myaccess:orig path:C:/netherw/clevels
+myaccess:fix path:C:\prenos\remc2\Debug\../../Magic2/mc2-orig-copy/netherw/clevels
+myaccess:exit:027571B0 0
+myopen:open file:levels/levels.tab
+myopen:open file:fixed:levels/levels.tab
+myopen:open end 026C0520
+mycreate:027A9FA0
+myopen:open file:C:/netherw/clevels/levels.tab
+myopen:open file:fixed:C:/netherw/clevels/levels.tab
+myopen:open end 027A9FA0
+myopen:open file:levels/levels.dat
+myopen:open file:fixed:levels/levels.dat
+myopen:open end 026C0520
+mycreate:027A9FA0
+myopen:open file:C:/netherw/clevels/levels.dat
+myopen:open file:fixed:C:/netherw/clevels/levels.dat
+myopen:open end 027A9FA0
+myopen:open file:C:/netherw/cdata/tmaps0-0.dat
+myopen:open file:fixed:C:/netherw/cdata/tmaps0-0.dat
+myopen:open end 026C0520
+myopen:open file:C:/netherw/cdata/tmaps1-0.dat
+myopen:open file:fixed:C:/netherw/cdata/tmaps1-0.dat
+myopen:open end 027A9FA0
+myopen:open file:C:/netherw/cdata/tmaps2-0.dat
+myopen:open file:fixed:C:/netherw/cdata/tmaps2-0.dat
+myopen:open end 027A9E68
+myopen:open file:data/search.dat
+myopen:open file:fixed:data/search.dat
+myopen:open end 026C0520
+myopen:open file:data/spells.dat
+myopen:open file:fixed:data/spells.dat
+myopen:open end 026C0520
