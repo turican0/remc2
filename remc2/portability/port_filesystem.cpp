@@ -225,7 +225,7 @@ FILE* mycreate(char* path, Bit32u flags) {
 FILE* debug_output;
 
 bool debug_first = true;
-const char* debug_filename = "debug.txt";
+const char* debug_filename = "../debug.txt";
 char path2[2048] = "\0";
 
 void debug_printf(const char* format, ...) {
