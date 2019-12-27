@@ -247,6 +247,9 @@ void debug_printf(const char* format, ...) {
 		debug_output = fopen(path2, "at");
 	fprintf(debug_output, prbuffer);
 	fclose(debug_output);
+	#ifdef DEBUG_PRINT_DEBUG_TO_SCREEN
+		printf(prbuffer);
+	#endif
 }
 
 Bit32s myaccess(char* path, Bit32u flags) {

@@ -21,6 +21,9 @@
 #define DEBUG_MKDIR
 #define DEBUG_START
 #define DEBUG_FILEOPS
+#define DEBUG_LOADSAVE
+
+//#define DEBUG_PRINT_DEBUG_TO_SCREEN
 
 extern char gamepath[512];
 extern char biggraphicspath[512];
