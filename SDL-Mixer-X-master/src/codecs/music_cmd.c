@@ -21,7 +21,7 @@
 #include "SDL_config.h"
 
 /* This file supports an external command for playing music */
-#include "mixer.h"
+
 #ifdef MUSIC_CMD
 
 #include <sys/types.h>

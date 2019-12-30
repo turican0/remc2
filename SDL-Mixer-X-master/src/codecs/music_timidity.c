@@ -22,7 +22,7 @@
 /* This file supports playing MIDI files with timidity */
 
 #include "music_timidity.h"
-#include "mixer.h"
+
 #ifdef MUSIC_MID_TIMIDITY
 #include <timidity.h>
 #endif

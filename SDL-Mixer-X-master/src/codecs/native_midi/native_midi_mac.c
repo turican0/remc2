@@ -20,7 +20,7 @@
 */
 #include "SDL_config.h"
 #include "SDL_endian.h"
-#include "mixer.h"
+#include "../mixer.h"
 
 #if __MACOS__ /*|| __MACOSX__ */
 

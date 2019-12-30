@@ -30,8 +30,8 @@
 #include "SDL_mixer_ext.h"
 #include "mixer.h"
 #include "music.h"
-#include "./codecs/load_aiff.h"
-#include "./codecs/load_voc.h"
+#include "load_aiff.h"
+#include "load_voc.h"
 
 #define __MIX_INTERNAL_EFFECT__
 #include "effects_internal.h"
@@ -379,43 +379,45 @@ static void PrintFormat(char *title, SDL_AudioSpec *fmt)
 }
 #endif
 
-/* Cleanup the existing  */
-static SDL_bool MIXSDLCALL
-is_already_initialized(const SDL_AudioSpec spec)
+/* Open the mixer with a certain desired audio format */
+int SDLCALLCC Mix_OpenAudioDevice(int frequency, Uint16 format, int nchannels, int chunksize,
+                        const char* device, int allowed_changes)
 {
-    /* assume false until proven otherwise */
-    SDL_bool initialized_state = SDL_FALSE;
+    int i;
+    SDL_AudioSpec desired;
 
-    /* If the mixer is already initialized ... */
+    /* This used to call SDL_OpenAudio(), which initializes the audio
+       subsystem if necessary. Since SDL_OpenAudioDevice() doesn't,
+       we have to handle this case here. */
+    if (!SDL_WasInit(SDL_INIT_AUDIO)) {
+        if (SDL_InitSubSystem(SDL_INIT_AUDIO) < 0) {
+            return -1;
+        }
+    }
+
+    /* If the mixer is already opened, increment open count */
     if (audio_opened) {
-        /* ... with our desired spec, then we're initialized */
-        if (spec.format == mixer.format && spec.channels == mixer.channels) {
+        if (format == mixer.format && nchannels == mixer.channels) {
             ++audio_opened;
-            initialized_state = SDL_TRUE;
+            return(0);
         }
-        /* ... otherwise free the existing mixer */
         while (audio_opened) {
-            Mix_FreeMixer();
+            Mix_CloseAudio();
         }
     }
-    return(initialized_state);
-}
 
-/*
-   Initialize the Mixer internals (channels, chunk and music decoders)
-   with an existing AudioSpec, without taking over the callback.
+    /* Set the desired format and frequency */
+    desired.freq = frequency;
+    desired.format = format;
+    desired.channels = nchannels;
+    desired.samples = chunksize;
+    desired.callback = mix_channels;
+    desired.userdata = NULL;
 
-   Allows the calling to use their spec and audio callback.
-   The caller must manage AudioOpen and CloseAudio externally.
-*/
-int SDLCALLCC Mix_InitMixer(const SDL_AudioSpec spec, SDL_bool skip_init_check)
-{
-    /* Check if we can skip initalization */
-    if (!skip_init_check && is_already_initialized(spec)) {
-        return(0);
+    /* Accept nearly any audio format */
+    if ((audio_device = SDL_OpenAudioDevice(device, 0, &desired, &mixer, allowed_changes)) == 0) {
+        return(-1);
     }
-    mixer = spec;
-
 #if 0
     PrintFormat("Audio device", &mixer);
 #endif
@@ -424,7 +426,6 @@ int SDLCALLCC Mix_InitMixer(const SDL_AudioSpec spec, SDL_bool skip_init_check)
     mix_channel = (struct _Mix_Channel *) SDL_malloc(num_channels * sizeof(struct _Mix_Channel));
 
     /* Clear out the audio channels */
-    int i;
     for (i=0; i<num_channels; ++i) {
         mix_channel[i].chunk = NULL;
         mix_channel[i].playing = 0;
@@ -438,7 +439,7 @@ int SDLCALLCC Mix_InitMixer(const SDL_AudioSpec spec, SDL_bool skip_init_check)
         mix_channel[i].effects = NULL;
         mix_channel[i].paused = 0;
     }
-    Mix_VolumeMusicStream(NULL, SDL_MIX_MAXVOLUME);
+    Mix_VolumeMusic(SDL_MIX_MAXVOLUME);
 
     _Mix_InitEffects();
 
@@ -448,41 +449,8 @@ int SDLCALLCC Mix_InitMixer(const SDL_AudioSpec spec, SDL_bool skip_init_check)
 
     /* Initialize the music players */
     open_music(&mixer);
+
     audio_opened = 1;
-    return(0);
-}
-
-/* Open the mixer with a certain desired audio format and initialize internals */
-int SDLCALLCC Mix_OpenAudioDevice(int frequency, Uint16 format, int nchannels, int chunksize,
-                        const char* device, int allowed_changes)
-{
-    /* This used to call SDL_OpenAudio(), which initializes the audio
-       subsystem if necessary. Since SDL_OpenAudioDevice() doesn't,
-       we have to handle this case here. */
-    if (!SDL_WasInit(SDL_INIT_AUDIO)) {
-        if (SDL_InitSubSystem(SDL_INIT_AUDIO) < 0) {
-            return -1;
-        }
-    }
-
-    SDL_AudioSpec desired;
-    /* Set the desired format and channel */
-    desired.format   = format;
-    desired.freq     = frequency;
-    desired.samples  = chunksize;
-    desired.channels = nchannels;
-    desired.callback = mix_channels;
-    desired.userdata = NULL;
-
-    /* Check if we can skip initalization */
-    if (is_already_initialized(desired)) return(0);
-
-    /* Accept nearly any audio format */
-    if ((audio_device = SDL_OpenAudioDevice(device, 0, &desired, &mixer, allowed_changes)) == 0) {
-        return(-1);
-    }
-
-    Mix_InitMixer(mixer, SDL_TRUE);
     SDL_PauseAudioDevice(audio_device, 0);
     return(0);
 }
@@ -908,13 +876,6 @@ void SDLCALLCC Mix_SetPostMix(void (SDLCALL *mix_func)
     Mix_UnlockAudio();
 }
 
-
-/* returns a pointer to the music mixer that can be used as a callback */
-common_mixer SDLCALLCC Mix_GetMusicMixer()
-{
-	return mix_music;
-}
-
 /* Add your own music player or mixer function.
    If 'mix_func' is NULL, the default music player is re-enabled.
  */
@@ -1294,12 +1255,8 @@ Mix_Chunk * SDLCALLCC Mix_GetChunk(int channel)
     return(retval);
 }
 
-/*
-   Stops streams and music and frees all channels and decoders.
-   Doesn't call SDL_CloseAudioDevice, which is the responsbility
-   of the external application.
-*/
-void SDLCALLCC Mix_FreeMixer(void)
+/* Close the mixer, halting all playing audio */
+void SDLCALLCC Mix_CloseAudio(void)
 {
     int i;
 
@@ -1313,6 +1270,8 @@ void SDLCALLCC Mix_FreeMixer(void)
             Mix_SetMusicCMD(NULL);
             Mix_HaltChannel(-1);
             _Mix_DeinitEffects();
+            SDL_CloseAudioDevice(audio_device);
+            audio_device = 0;
             SDL_free(mix_channel);
             mix_channel = NULL;
 
@@ -1323,16 +1282,6 @@ void SDLCALLCC Mix_FreeMixer(void)
         }
         --audio_opened;
     }
-}
-
-/* Close the audio device, stop, and free all our mixer elements */
-void SDLCALLCC Mix_CloseAudio(void)
-{
-    if (audio_device) {
-        SDL_CloseAudioDevice(audio_device);
-        audio_device = 0;
-    }
-    Mix_FreeMixer();
 }
 
 /* Pause a particular channel (or all) */

@@ -191,6 +191,28 @@ void my_findclose(long hFile){
 	_findclose(hFile);
 };
 
+bool fix_file_exists(const char* filename) {
+	/*if (FILE * file = fopen(filename, "r")) {
+		fclose(file);
+		return true;
+	}
+	return false;*/
+	char path2[512] = "\0";
+	pathfix2((char*)filename, path2);//only for DOSBOX version
+	FILE* file;
+	if ((file = fopen(path2, "r")) != NULL) {
+		fclose(file);
+#ifdef DEBUG_START
+		debug_printf("ffile_exists:true-%s\n%s\n", filename, path2);
+#endif //DEBUG_START
+		return true;
+	}
+#ifdef DEBUG_START
+	debug_printf("ffile_exists:false-%s\n%s\n", filename, path2);
+#endif //DEBUG_START
+	return false;
+}
+
 bool file_exists(const char * filename) {
 	/*if (FILE * file = fopen(filename, "r")) {
 		fclose(file);
@@ -201,12 +223,12 @@ bool file_exists(const char * filename) {
 	if ((file = fopen(filename, "r")) != NULL) {
 		fclose(file);
 		#ifdef DEBUG_START
-				debug_printf("file_exists:true\n");
+				debug_printf("file_exists:true-%s\n", filename);
 		#endif //DEBUG_START
 		return true;
 	}
 	#ifdef DEBUG_START
-		debug_printf("file_exists:false\n");
+		debug_printf("file_exists:false-%s\n", filename);
 	#endif //DEBUG_START
 	return false;
 }
@@ -333,7 +355,7 @@ FILE* myopen(char* path, int pmode, Bit32u flags) {
 	char path2[512] = "\0";
 	pathfix(path, path2);//only for DOSBOX version
 	#ifdef DEBUG_START
-		debug_printf("myopen:open file:fixed:%s\n", path);
+		debug_printf("myopen:open file:fixed:%s\n", path2);
 	#endif //DEBUG_START
 	//if(file_exists(path2))
 
@@ -558,26 +580,52 @@ void AdvReadfile(const char* path, Bit8u* buffer) {
 	myclose(file);
 };
 
-void ReadGraphicsfile(const char* path, Bit8u* buffer) {
+bool ExistGraphicsfile(const char* path) {
 
 
 	char pathexe[512] = "\0";
 	get_exe_path(pathexe);
 	char path2[512];
 	sprintf(path2, "%s/%s%s", pathexe, biggraphicspath, path);
-	
+
+	FILE* file;
+
+	if ((file = fopen(path2, "r")) != NULL) {
+		fclose(file);
+#ifdef DEBUG_START
+		debug_printf("ffile_exists:true-%s\n", path2);
+#endif //DEBUG_START
+		return true;
+	}
+#ifdef DEBUG_START
+	debug_printf("ffile_exists:false-%s\n", path2);
+#endif //DEBUG_START
+	return false;
+}
+
+void ReadGraphicsfile(const char* path, Bit8u* buffer, long size) {
+
+
+	char pathexe[512] = "\0";
+	get_exe_path(pathexe);
+	char path2[512];
+	sprintf(path2, "%s/%s%s", pathexe, biggraphicspath, path);
+
 	/*FILE* file0;
 	fopen_s(&file0, path2, (char*)"wb");
 	char x = 1;
 	fwrite(&x, 1, 1, file0);
 	myclose(file0);*/
-	
+
 	FILE* file;
 	//fopen_s(&file, (char*)"c:\\prenos\\remc2\\biggraphics\\out_rlt-n-out.data", (char*)"rb");
-	file=fopen(path2, (char*)"rb");
-	fseek(file, 0L, SEEK_END);
-	long szdata = ftell(file);
-	fseek(file, 0L, SEEK_SET);
-	fread(buffer, szdata, 1, file);
+	file = fopen(path2, (char*)"rb");
+	if (size == -1)
+	{
+		fseek(file, 0L, SEEK_END);
+		size = ftell(file);
+		fseek(file, 0L, SEEK_SET);
+	}
+	fread(buffer, size, 1, file);
 	myclose(file);
 };

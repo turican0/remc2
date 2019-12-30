@@ -90,7 +90,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\prenos\remc2\sdl2\include;C:\prenos\remc2\fluidsynth\include;C:\prenos\remc2\libADLMIDI-master\include;C:\prenos\remc2\libOPNMIDI-master\include;C:\prenos\remc2\SDL-Mixer-X-master\include\SDL_mixer_ext;C:\prenos\remc2\SDL-Mixer-X-master\src;C:\prenos\remc2\inih;C:\prenos\remc2\libvorbis\include;C:\prenos\remc2\libogg\include;C:\Program Files %28x86%29\Visual Leak Detector\include;C:\prenos\remc2\libpng2\libpng-master;C:\prenos\remc2\zlib\include;C:\prenos\remc2\kiss_sdl-master;C:\prenos\remc2\SDL2_image-2.0.5\include;C:\prenos\remc2\SDL2_ttf-2.0.15\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\prenos\remc2\sdl2\include;C:\prenos\remc2\fluidsynth\include;C:\prenos\remc2\libADLMIDI-master\include;C:\prenos\remc2\libOPNMIDI-master\include;C:\prenos\remc2\SDL-Mixer-X-master\include\SDL_mixer_ext;C:\prenos\remc2\SDL-Mixer-X-master\src;C:\prenos\remc2\inih;C:\prenos\remc2\libvorbis\include;C:\prenos\remc2\libogg\include;C:\Program Files %28x86%29\Visual Leak Detector\include;C:\prenos\remc2\libpng2\libpng-master;C:\prenos\remc2\zlib\include;C:\prenos\remc2\kiss_sdl-master;C:\prenos\remc2\SDL2_image-2.0.5\include;C:\prenos\remc2\SDL2_ttf-2.0.15\include;c:\prenos\remc2\SDL-Mixer-X-master\include\;c:\prenos\remc2\SDL-Mixer-X-master\src\codecs\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
     </ClCompile>
     <Link>
@@ -131,7 +131,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\prenos\remc2\sdl2\include;C:\prenos\remc2\fluidsynth\include;C:\prenos\remc2\libADLMIDI-master\include;C:\prenos\remc2\libOPNMIDI-master\include;C:\prenos\remc2\SDL-Mixer-X-master\include\SDL_mixer_ext;C:\prenos\remc2\SDL-Mixer-X-master\src;C:\prenos\remc2\inih;C:\prenos\remc2\libvorbis\include;C:\prenos\remc2\libogg\include;C:\prenos\remc2\libpng2\libpng-master;C:\prenos\remc2\zlib\include;C:\prenos\remc2\kiss_sdl-master;C:\prenos\remc2\SDL2_image-2.0.5\include;C:\prenos\remc2\SDL2_ttf-2.0.15\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\prenos\remc2\sdl2\include;C:\prenos\remc2\fluidsynth\include;C:\prenos\remc2\libADLMIDI-master\include;C:\prenos\remc2\libOPNMIDI-master\include;C:\prenos\remc2\SDL-Mixer-X-master\include\SDL_mixer_ext;C:\prenos\remc2\SDL-Mixer-X-master\src;C:\prenos\remc2\inih;C:\prenos\remc2\libvorbis\include;C:\prenos\remc2\libogg\include;C:\prenos\remc2\libpng2\libpng-master;C:\prenos\remc2\zlib\include;C:\prenos\remc2\kiss_sdl-master;C:\prenos\remc2\SDL2_image-2.0.5\include;C:\prenos\remc2\SDL2_ttf-2.0.15\include;c:\prenos\remc2\SDL-Mixer-X-master\include\;c:\prenos\remc2\SDL-Mixer-X-master\src\codecs\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
     </ClCompile>
     <Link>
@@ -212,6 +212,7 @@
     <ClInclude Include="..\libOPNMIDI-master\src\opnmidi_private.hpp" />
     <ClInclude Include="..\libOPNMIDI-master\src\opnmidi_ptr.hpp" />
     <ClInclude Include="..\libOPNMIDI-master\src\wopn\wopn_file.h" />
+    <ClInclude Include="..\SDL-Mixer-X-master\include\SDL_mixer_ext\SDL_mixer_ext.h" />
     <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\load_aiff.h" />
     <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\load_voc.h" />
     <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_cmd.h" />
@@ -220,19 +221,17 @@
     <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_gme.h" />
     <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_id3tag.h" />
     <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_mad.h" />
-    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_midi_adl.h" />
-    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_midi_opn.h" />
     <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_mikmod.h" />
     <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_modplug.h" />
     <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_mpg123.h" />
     <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_nativemidi.h" />
     <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_ogg.h" />
     <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_opus.h" />
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_smpeg.h" />
     <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_timidity.h" />
     <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_wav.h" />
     <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\native_midi\native_midi.h" />
     <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\native_midi\native_midi_common.h" />
-    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\OPNMIDI\gm_opn_bank.h" />
     <ClInclude Include="..\SDL-Mixer-X-master\src\effects_internal.h" />
     <ClInclude Include="..\SDL-Mixer-X-master\src\mixer.h" />
     <ClInclude Include="..\SDL-Mixer-X-master\src\music.h" />
@@ -302,14 +301,13 @@
     <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_gme.c" />
     <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_id3tag.c" />
     <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_mad.c" />
-    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_midi_adl.c" />
-    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_midi_opn.c" />
     <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_mikmod.c" />
     <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_modplug.c" />
     <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_mpg123.c" />
     <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_nativemidi.c" />
     <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_ogg.c" />
     <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_opus.c" />
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_smpeg.c" />
     <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_timidity.c" />
     <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_wav.c" />
     <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\native_midi\native_midi_common.c" />
@@ -323,7 +321,6 @@
     <ClCompile Include="..\SDL-Mixer-X-master\src\mixer.c" />
     <ClCompile Include="..\SDL-Mixer-X-master\src\mixer_x_deprecated.c" />
     <ClCompile Include="..\SDL-Mixer-X-master\src\music.c" />
-    <ClCompile Include="..\SDL-Mixer-X-master\src\vb6_binding\vb6_sdl_binds.c" />
     <ClCompile Include="..\temp\dirent.c" />
     <ClCompile Include="engine\cd_utils.cpp" />
     <ClCompile Include="engine\editor.cpp" />
@@ -352,6 +349,22 @@
     <None Include="..\libADLMIDI-master\src\chips\opl_chip_base.tcc" />
     <None Include="..\libOPNMIDI-master\src\chips\opn_chip_base.tcc" />
     <None Include="..\libOPNMIDI-master\src\opnmidi_bankmap.tcc" />
+    <None Include="..\SDL-Mixer-X-master\src\codecs\play_cmdmusic.pri" />
+    <None Include="..\SDL-Mixer-X-master\src\codecs\play_flac.pri" />
+    <None Include="..\SDL-Mixer-X-master\src\codecs\play_gme.pri" />
+    <None Include="..\SDL-Mixer-X-master\src\codecs\play_id3tag.pri" />
+    <None Include="..\SDL-Mixer-X-master\src\codecs\play_mad.pri" />
+    <None Include="..\SDL-Mixer-X-master\src\codecs\play_midi_adl.pri" />
+    <None Include="..\SDL-Mixer-X-master\src\codecs\play_midi_fluid.pri" />
+    <None Include="..\SDL-Mixer-X-master\src\codecs\play_midi_native.pri" />
+    <None Include="..\SDL-Mixer-X-master\src\codecs\play_midi_opn.pri" />
+    <None Include="..\SDL-Mixer-X-master\src\codecs\play_midi_timidity.pri" />
+    <None Include="..\SDL-Mixer-X-master\src\codecs\play_mikmod.pri" />
+    <None Include="..\SDL-Mixer-X-master\src\codecs\play_modplug.pri" />
+    <None Include="..\SDL-Mixer-X-master\src\codecs\play_mpg123.pri" />
+    <None Include="..\SDL-Mixer-X-master\src\codecs\play_ogg.pri" />
+    <None Include="..\SDL-Mixer-X-master\src\codecs\play_smpeg.pri" />
+    <None Include="..\SDL-Mixer-X-master\src\codecs\play_wave.pri" />
     <None Include="engine\bytearrays.x" />
     <None Include="engine\info.x" />
     <None Include="engine\structures.x" />

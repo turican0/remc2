@@ -4,6 +4,11 @@
 /*This source code copyrighted by Lazy Foo' Productions (2004-2013)
 and may not be redistributed without written permission.*/
 
+#define DEBUG_SOUND
+#ifdef DEBUG_SOUND
+	bool debug_first_sound = true;
+#endif //DEBUG_SOUND
+
 bool hqsound=false;
 bool oggmusic=false;
 bool oggmusicalternative = false;
@@ -408,11 +413,23 @@ void SOUND_set_sample_volume(HSAMPLE S, Bit32s volume) {
 void SOUND_start_sample(HSAMPLE S) {
 	if (hqsound)
 	{
+		#ifdef DEBUG_SOUND
+			if (debug_first_sound) {
+				debug_printf("SOUND_start_sample-hq:%08X\n", S->start_44mhz);
+				debug_first_sound = false;
+			}
+		#endif //DEBUG_SOUND
 		gamechunk[S->index_sample].abuf = (Bit8u*)S->start_44mhz;
 		gamechunk[S->index_sample].alen = S->len_4_5[0]*8;
 	}
 	else
 	{
+		#ifdef DEBUG_SOUND
+			if (debug_first_sound) {
+				debug_printf("SOUND_start_sample:%08X\n", S->start_44mhz);
+				debug_first_sound = false;
+			}
+		#endif //DEBUG_SOUND
 		gamechunk[S->index_sample].abuf = (Bit8u*)S->start_2_3[0];
 		gamechunk[S->index_sample].alen = S->len_4_5[0];
 	}

@@ -1,6 +1,6 @@
 /*
   Simple DirectMedia Layer
-  Copyright (C) 1997-2018 Sam Lantinga <slouken@libsdl.org>
+  Copyright (C) 1997-2019 Sam Lantinga <slouken@libsdl.org>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -700,6 +700,12 @@ DARWIN_JoystickGetDeviceName(int device_index)
     return device ? device->product : "UNKNOWN";
 }
 
+static int
+DARWIN_JoystickGetDevicePlayerIndex(int device_index)
+{
+    return -1;
+}
+
 static SDL_JoystickGUID
 DARWIN_JoystickGetDeviceGUID( int device_index )
 {
@@ -998,6 +1004,7 @@ SDL_JoystickDriver SDL_DARWIN_JoystickDriver =
     DARWIN_JoystickGetCount,
     DARWIN_JoystickDetect,
     DARWIN_JoystickGetDeviceName,
+    DARWIN_JoystickGetDevicePlayerIndex,
     DARWIN_JoystickGetDeviceGUID,
     DARWIN_JoystickGetDeviceInstanceID,
     DARWIN_JoystickOpen,

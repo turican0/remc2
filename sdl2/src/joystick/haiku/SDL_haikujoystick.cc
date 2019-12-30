@@ -1,6 +1,6 @@
 /*
   Simple DirectMedia Layer
-  Copyright (C) 1997-2018 Sam Lantinga <slouken@libsdl.org>
+  Copyright (C) 1997-2019 Sam Lantinga <slouken@libsdl.org>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -97,6 +97,11 @@ extern "C"
     static const char *HAIKU_JoystickGetDeviceName(int device_index)
     {
         return SDL_joyname[device_index];
+    }
+
+    static int HAIKU_JoystickGetDevicePlayerIndex(int device_index)
+    {
+        return -1;
     }
 
 /* Function to perform the mapping from device index to the instance id for this index */
@@ -256,6 +261,7 @@ extern "C"
         HAIKU_JoystickGetCount,
         HAIKU_JoystickDetect,
         HAIKU_JoystickGetDeviceName,
+        HAIKU_JoystickGetDevicePlayerIndex,
         HAIKU_JoystickGetDeviceGUID,
         HAIKU_JoystickGetDeviceInstanceID,
         HAIKU_JoystickOpen,

@@ -243,78 +243,6 @@
     <ClInclude Include="..\libOPNMIDI-master\src\chips\nuked\ym3438.h">
       <Filter>Zdrojové soubory\libs\libOPL</Filter>
     </ClInclude>
-    <ClInclude Include="..\SDL-Mixer-X-master\src\effects_internal.h">
-      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
-    </ClInclude>
-    <ClInclude Include="..\SDL-Mixer-X-master\src\mixer.h">
-      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
-    </ClInclude>
-    <ClInclude Include="..\SDL-Mixer-X-master\src\music.h">
-      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
-    </ClInclude>
-    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\load_aiff.h">
-      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
-    </ClInclude>
-    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\load_voc.h">
-      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
-    </ClInclude>
-    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_cmd.h">
-      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
-    </ClInclude>
-    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_flac.h">
-      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
-    </ClInclude>
-    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_fluidsynth.h">
-      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
-    </ClInclude>
-    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_gme.h">
-      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
-    </ClInclude>
-    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_id3tag.h">
-      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
-    </ClInclude>
-    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_mad.h">
-      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
-    </ClInclude>
-    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_midi_adl.h">
-      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
-    </ClInclude>
-    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_midi_opn.h">
-      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
-    </ClInclude>
-    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_mikmod.h">
-      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
-    </ClInclude>
-    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_modplug.h">
-      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
-    </ClInclude>
-    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_mpg123.h">
-      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
-    </ClInclude>
-    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_nativemidi.h">
-      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
-    </ClInclude>
-    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_ogg.h">
-      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
-    </ClInclude>
-    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_opus.h">
-      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
-    </ClInclude>
-    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_timidity.h">
-      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
-    </ClInclude>
-    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_wav.h">
-      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
-    </ClInclude>
-    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\OPNMIDI\gm_opn_bank.h">
-      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
-    </ClInclude>
-    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\native_midi\native_midi.h">
-      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
-    </ClInclude>
-    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\native_midi\native_midi_common.h">
-      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
-    </ClInclude>
     <ClInclude Include="..\inih\ini.h">
       <Filter>Zdrojové soubory\libs\inih</Filter>
     </ClInclude>
@@ -338,6 +266,75 @@
     </ClInclude>
     <ClInclude Include="portability\dirent-x.h">
       <Filter>Zdrojové soubory\portability</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SDL-Mixer-X-master\src\music.h">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SDL-Mixer-X-master\src\mixer.h">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SDL-Mixer-X-master\src\effects_internal.h">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_wav.h">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_timidity.h">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_smpeg.h">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_opus.h">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_ogg.h">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_nativemidi.h">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_mpg123.h">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_modplug.h">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_mikmod.h">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_mad.h">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_id3tag.h">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_gme.h">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_fluidsynth.h">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_flac.h">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_cmd.h">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\load_voc.h">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\load_aiff.h">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\native_midi\native_midi_common.h">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\native_midi\native_midi.h">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SDL-Mixer-X-master\include\SDL_mixer_ext\SDL_mixer_ext.h">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -461,96 +458,6 @@
     <ClCompile Include="..\libOPNMIDI-master\src\chips\nuked\ym3438.c">
       <Filter>Zdrojové soubory\libs\libOPL</Filter>
     </ClCompile>
-    <ClCompile Include="..\SDL-Mixer-X-master\src\effect_position.c">
-      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
-    </ClCompile>
-    <ClCompile Include="..\SDL-Mixer-X-master\src\effect_stereoreverse.c">
-      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
-    </ClCompile>
-    <ClCompile Include="..\SDL-Mixer-X-master\src\effects_internal.c">
-      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
-    </ClCompile>
-    <ClCompile Include="..\SDL-Mixer-X-master\src\mixer.c">
-      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
-    </ClCompile>
-    <ClCompile Include="..\SDL-Mixer-X-master\src\mixer_x_deprecated.c">
-      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
-    </ClCompile>
-    <ClCompile Include="..\SDL-Mixer-X-master\src\music.c">
-      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
-    </ClCompile>
-    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\load_aiff.c">
-      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
-    </ClCompile>
-    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\load_voc.c">
-      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
-    </ClCompile>
-    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_cmd.c">
-      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
-    </ClCompile>
-    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_flac.c">
-      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
-    </ClCompile>
-    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_fluidsynth.c">
-      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
-    </ClCompile>
-    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_gme.c">
-      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
-    </ClCompile>
-    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_id3tag.c">
-      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
-    </ClCompile>
-    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_mad.c">
-      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
-    </ClCompile>
-    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_midi_adl.c">
-      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
-    </ClCompile>
-    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_midi_opn.c">
-      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
-    </ClCompile>
-    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_mikmod.c">
-      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
-    </ClCompile>
-    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_modplug.c">
-      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
-    </ClCompile>
-    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_mpg123.c">
-      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
-    </ClCompile>
-    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_nativemidi.c">
-      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
-    </ClCompile>
-    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_ogg.c">
-      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
-    </ClCompile>
-    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_opus.c">
-      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
-    </ClCompile>
-    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_timidity.c">
-      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
-    </ClCompile>
-    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_wav.c">
-      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
-    </ClCompile>
-    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\native_midi\native_midi_common.c">
-      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
-    </ClCompile>
-    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\native_midi\native_midi_haiku.cpp">
-      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
-    </ClCompile>
-    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\native_midi\native_midi_mac.c">
-      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
-    </ClCompile>
-    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\native_midi\native_midi_macosx.c">
-      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
-    </ClCompile>
-    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\native_midi\native_midi_win32.c">
-      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
-    </ClCompile>
-    <ClCompile Include="..\SDL-Mixer-X-master\src\vb6_binding\vb6_sdl_binds.c">
-      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
-    </ClCompile>
     <ClCompile Include="..\inih\ini.c">
       <Filter>Zdrojové soubory\libs\inih</Filter>
     </ClCompile>
@@ -584,6 +491,90 @@
     <ClCompile Include="..\temp\dirent.c">
       <Filter>Zdrojové soubory\portability</Filter>
     </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\music.c">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\mixer_x_deprecated.c">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\mixer.c">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\effects_internal.c">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\effect_stereoreverse.c">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\effect_position.c">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_wav.c">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_timidity.c">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_smpeg.c">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_opus.c">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_ogg.c">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_nativemidi.c">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_mpg123.c">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_modplug.c">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_mikmod.c">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_mad.c">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_id3tag.c">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_gme.c">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_fluidsynth.c">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_flac.c">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_cmd.c">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\load_voc.c">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\load_aiff.c">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\native_midi\native_midi_win32.c">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\native_midi\native_midi_macosx.c">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\native_midi\native_midi_mac.c">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\native_midi\native_midi_haiku.cpp">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\native_midi\native_midi_common.c">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="engine\info.x">
@@ -609,6 +600,54 @@
     </None>
     <None Include="engine\bytearrays.x">
       <Filter>Zdrojové soubory\engine</Filter>
+    </None>
+    <None Include="..\SDL-Mixer-X-master\src\codecs\play_wave.pri">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </None>
+    <None Include="..\SDL-Mixer-X-master\src\codecs\play_smpeg.pri">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </None>
+    <None Include="..\SDL-Mixer-X-master\src\codecs\play_ogg.pri">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </None>
+    <None Include="..\SDL-Mixer-X-master\src\codecs\play_mpg123.pri">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </None>
+    <None Include="..\SDL-Mixer-X-master\src\codecs\play_modplug.pri">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </None>
+    <None Include="..\SDL-Mixer-X-master\src\codecs\play_mikmod.pri">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </None>
+    <None Include="..\SDL-Mixer-X-master\src\codecs\play_midi_timidity.pri">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </None>
+    <None Include="..\SDL-Mixer-X-master\src\codecs\play_midi_opn.pri">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </None>
+    <None Include="..\SDL-Mixer-X-master\src\codecs\play_midi_native.pri">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </None>
+    <None Include="..\SDL-Mixer-X-master\src\codecs\play_midi_fluid.pri">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </None>
+    <None Include="..\SDL-Mixer-X-master\src\codecs\play_midi_adl.pri">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </None>
+    <None Include="..\SDL-Mixer-X-master\src\codecs\play_mad.pri">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </None>
+    <None Include="..\SDL-Mixer-X-master\src\codecs\play_id3tag.pri">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </None>
+    <None Include="..\SDL-Mixer-X-master\src\codecs\play_gme.pri">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </None>
+    <None Include="..\SDL-Mixer-X-master\src\codecs\play_flac.pri">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
+    </None>
+    <None Include="..\SDL-Mixer-X-master\src\codecs\play_cmdmusic.pri">
+      <Filter>Zdrojové soubory\libs\sdl-mixer-x</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

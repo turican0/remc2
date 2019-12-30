@@ -18,7 +18,7 @@
      misrepresented as being the original software.
   3. This notice may not be removed or altered from any source distribution.
 */
-#include "mixer.h"
+#include "SDL_mixer_ext.h"
 #ifdef MUSIC_MID_NATIVE
 
 /* This file supports playing MIDI files with OS APIs */

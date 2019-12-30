@@ -33,6 +33,7 @@ long my_findfirst(char* path, _finddata_t* c_file);
 long my_findnext(long hFile, _finddata_t* c_file);
 void my_findclose(long hFile);
 bool file_exists(const char * filename);
+bool fix_file_exists(const char* filename);
 FILE* mycreate(char* path, Bit32u flags);
 Bit32s myaccess(char* path, Bit32u flags);
 Bit32s mymkdir(char* path);
@@ -43,7 +44,8 @@ Bit32s mylseek(FILE* filedesc, x_DWORD position, char type);
 Bit32s myfseek(FILE* filedesc, x_DWORD position, char type);
 
 void AdvReadfile(const char* path, Bit8u* buffer);
-void ReadGraphicsfile(const char* path, Bit8u* buffer);
+void ReadGraphicsfile(const char* path, Bit8u* buffer,long size=-1);
+bool ExistGraphicsfile(const char* path);
 
 long myftell(FILE* decriptor);
 

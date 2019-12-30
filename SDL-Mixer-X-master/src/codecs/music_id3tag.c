@@ -20,7 +20,7 @@
 */
 
 #include "music_id3tag.h"
-#include "mixer.h"
+
 #ifdef MUSIC_MP3_ID3TAG
 
 #include "id3tag.h"

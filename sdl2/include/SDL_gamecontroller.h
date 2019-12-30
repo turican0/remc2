@@ -1,6 +1,6 @@
 /*
   Simple DirectMedia Layer
-  Copyright (C) 1997-2018 Sam Lantinga <slouken@libsdl.org>
+  Copyright (C) 1997-2019 Sam Lantinga <slouken@libsdl.org>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -203,6 +203,13 @@ extern DECLSPEC SDL_GameController *SDLCALL SDL_GameControllerFromInstanceID(SDL
  *  Return the name for this currently opened controller
  */
 extern DECLSPEC const char *SDLCALL SDL_GameControllerName(SDL_GameController *gamecontroller);
+
+/**
+ *  Get the player index of an opened game controller, or -1 if it's not available
+ *
+ *  For XInput controllers this returns the XInput user index.
+ */
+extern DECLSPEC int SDLCALL SDL_GameControllerGetPlayerIndex(SDL_GameController *gamecontroller);
 
 /**
  *  Get the USB vendor ID of an opened controller, if available.

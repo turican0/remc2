@@ -1,6 +1,6 @@
 /*
   Simple DirectMedia Layer
-  Copyright (C) 1997-2018 Sam Lantinga <slouken@libsdl.org>
+  Copyright (C) 1997-2019 Sam Lantinga <slouken@libsdl.org>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -18,6 +18,10 @@
      misrepresented as being the original software.
   3. This notice may not be removed or altered from any source distribution.
 */
+
+#ifndef SDL_events_c_h_
+#define SDL_events_c_h_
+
 #include "../SDL_internal.h"
 
 /* Useful functions and variables from SDL_events.c */
@@ -43,10 +47,16 @@ extern int SDL_SendAppEvent(SDL_EventType eventType);
 extern int SDL_SendSysWMEvent(SDL_SysWMmsg * message);
 extern int SDL_SendKeymapChangedEvent(void);
 
-extern int SDL_QuitInit(void);
 extern int SDL_SendQuit(void);
+
+extern int SDL_EventsInit(void);
+extern void SDL_EventsQuit(void);
+
+extern void SDL_SendPendingSignalEvents(void);
+
+extern int SDL_QuitInit(void);
 extern void SDL_QuitQuit(void);
 
-extern void SDL_SendPendingQuit(void);
+#endif /* SDL_events_c_h_ */
 
 /* vi: set ts=4 sw=4 expandtab: */

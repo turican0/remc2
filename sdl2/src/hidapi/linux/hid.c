@@ -20,6 +20,9 @@
  code repository located at:
         http://github.com/signal11/hidapi .
 ********************************************************/
+#include "../../SDL_internal.h"
+
+#ifdef SDL_JOYSTICK_HIDAPI
 
 #ifndef _GNU_SOURCE
 #define _GNU_SOURCE /* needed for wcsdup() before glibc 2.10 */
@@ -544,7 +547,7 @@ struct hid_device_info  HID_API_EXPORT *hid_enumerate(unsigned short vendor_id, 
 			struct hid_device_info *tmp;
 
 			/* VID/PID match. Create the record. */
-			tmp = (struct hid_device_info *)malloc(sizeof(struct hid_device_info));
+			tmp = (struct hid_device_info *)calloc(1, sizeof(struct hid_device_info));
 			if (cur_dev) {
 				cur_dev->next = tmp;
 			}
@@ -891,3 +894,5 @@ HID_API_EXPORT const wchar_t * HID_API_CALL  hid_error(hid_device *dev)
 #ifdef NAMESPACE
 }
 #endif
+
+#endif /* SDL_JOYSTICK_HIDAPI */

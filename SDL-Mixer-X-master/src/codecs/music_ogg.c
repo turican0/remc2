@@ -18,7 +18,7 @@
      misrepresented as being the original software.
   3. This notice may not be removed or altered from any source distribution.
 */
-#include "mixer.h"
+#include "SDL_mixer_ext.h"
 #ifdef MUSIC_OGG
 
 /* This file supports Ogg Vorbis music streams */
@@ -26,7 +26,7 @@
 #include "SDL_loadso.h"
 
 #include "music_ogg.h"
-
+ 
 #if defined(OGG_HEADER)
 #include OGG_HEADER
 #elif defined(OGG_USE_TREMOR)

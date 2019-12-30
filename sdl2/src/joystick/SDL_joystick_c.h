@@ -1,6 +1,6 @@
 /*
   Simple DirectMedia Layer
-  Copyright (C) 1997-2018 Sam Lantinga <slouken@libsdl.org>
+  Copyright (C) 1997-2019 Sam Lantinga <slouken@libsdl.org>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -18,6 +18,10 @@
      misrepresented as being the original software.
   3. This notice may not be removed or altered from any source distribution.
 */
+
+#ifndef SDL_joystick_c_h_
+#define SDL_joystick_c_h_
+
 #include "../SDL_internal.h"
 
 /* Useful functions and variables from SDL_joystick.c */
@@ -96,5 +100,7 @@ extern void SDL_PrivateJoystickBatteryLevel(SDL_Joystick * joystick,
 
 /* Internal sanity checking functions */
 extern int SDL_PrivateJoystickValid(SDL_Joystick * joystick);
+
+#endif /* SDL_joystick_c_h_ */
 
 /* vi: set ts=4 sw=4 expandtab: */
