@@ -562,8 +562,12 @@ void VGA_Init(int width, int height, int bpp, Uint32 flags)
 			SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");
 
 			//gWindow = SDL_CreateWindow(default_caption, SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_SHOWN);
-
-			gWindow = SDL_CreateWindow(default_caption,	SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_SHOWN);
+			SDL_DisplayMode dm;
+			if (SDL_GetDesktopDisplayMode(0, &dm) != 0) {
+				SDL_Log("SDL_GetDesktopDisplayMode failed: %s", SDL_GetError());
+				return;
+			}
+			gWindow = SDL_CreateWindow(default_caption,	SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, dm.w, dm.h, SDL_WINDOW_FULLSCREEN/*SDL_WINDOW_SHOWN*/);
 
 			renderer =
 				SDL_CreateRenderer(gWindow, -1, SDL_RENDERER_ACCELERATED |
@@ -923,8 +927,27 @@ bool alt_enter(SDL_Event* event) {
 
 void ToggleFullscreen(SDL_Window* Window) {
 	Uint32 FullscreenFlag = SDL_WINDOW_FULLSCREEN;
-	bool IsFullscreen = SDL_GetWindowFlags(Window) & FullscreenFlag;
-	SDL_SetWindowFullscreen(Window, IsFullscreen ? 0 : FullscreenFlag);
+	bool IsFullscreen = SDL_GetWindowFlags(Window) & FullscreenFlag;	
+
+	SDL_DisplayMode dm;
+	if (SDL_GetDesktopDisplayMode(0, &dm) != 0) {
+		SDL_Log("SDL_GetDesktopDisplayMode failed: %s", SDL_GetError());
+		return;
+	}
+	if (!(IsFullscreen ? 0 : FullscreenFlag))
+	{
+		dm.w = 640;
+		dm.h = 480;
+		SDL_SetWindowFullscreen(Window, IsFullscreen ? 0 : FullscreenFlag);
+		SDL_SetWindowSize(Window, dm.w, dm.h);
+	}
+	else
+	{
+		SDL_SetWindowFullscreen(Window, IsFullscreen ? 0 : FullscreenFlag);
+		SDL_SetWindowDisplayMode(Window, &dm);
+	}
+	printf("%d\n", dm.w);
+	
 	//SDL_ShowCursor(IsFullscreen);
 
 	/*

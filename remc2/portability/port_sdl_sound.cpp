@@ -4,10 +4,10 @@
 /*This source code copyrighted by Lazy Foo' Productions (2004-2013)
 and may not be redistributed without written permission.*/
 
-#define DEBUG_SOUND
-#ifdef DEBUG_SOUND
-	bool debug_first_sound = true;
-#endif //DEBUG_SOUND
+bool debug_first_sound=true;
+/*#ifdef DEBUG_SOUND
+	debug_first_sound = true;
+#endif //DEBUG_SOUND*/
 
 bool hqsound=false;
 bool oggmusic=false;

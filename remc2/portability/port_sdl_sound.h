@@ -15,6 +15,9 @@
 
 #define USE_SDL2
 
+#define DEBUG_SOUND
+extern bool debug_first_sound;
+
 extern bool hqsound;
 extern bool oggmusic;
 extern char oggmusicpath[512];
