@@ -22,6 +22,8 @@ SDL_Surface *screen;
 
 int width = 640;
 int height = 480;
+int test_width = 800;
+int test_height = 200;
 int SCREEN_WIDTH = 640;
 int SCREEN_HEIGHT = 480;
 const char* default_caption = "Remake Magic Carpet 2";
@@ -567,7 +569,9 @@ void VGA_Init(int width, int height, int bpp, Uint32 flags)
 				SDL_Log("SDL_GetDesktopDisplayMode failed: %s", SDL_GetError());
 				return;
 			}
-			gWindow = SDL_CreateWindow(default_caption,	SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, dm.w, dm.h, SDL_WINDOW_FULLSCREEN/*SDL_WINDOW_SHOWN*/);
+			test_width = dm.w;
+			test_height = dm.h;
+			gWindow = SDL_CreateWindow(default_caption,	SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, test_width/*dm.w*/, test_height/*dm.h*/, SDL_WINDOW_FULLSCREEN/*SDL_WINDOW_SHOWN*/);
 
 			renderer =
 				SDL_CreateRenderer(gWindow, -1, SDL_RENDERER_ACCELERATED |
@@ -584,7 +588,7 @@ void VGA_Init(int width, int height, int bpp, Uint32 flags)
 
 			helper_surface =
 				SDL_CreateRGBSurface(
-					SDL_SWSURFACE, width, height, 24,
+					SDL_SWSURFACE, test_width, test_height, 24,
 					redMask, greenMask, blueMask, alphaMask);
 
 			helper_surface =
@@ -593,7 +597,7 @@ void VGA_Init(int width, int height, int bpp, Uint32 flags)
 
 			screen =
 				SDL_CreateRGBSurface(
-					SDL_SWSURFACE, width, height, 24,
+					SDL_SWSURFACE, test_width, test_height, 24,
 					redMask, greenMask, blueMask, alphaMask);
 
 			screen =
@@ -1103,17 +1107,45 @@ void VGA_Blit(int width, int height, Uint8* buffer) {
 	}
 	else//any resolution
 	{
-		int k = 0;
-		int l = 0;
-		float xscale = (float)origw / (float)screen->w;
-		float yscale = (float)origh / (float)screen->h;
+		int native_shift_w = 0;
+		int native_shift_h = 0;
+		int native_res_w = 640;
+		int native_res_h = 480;
+
 		for (int i = 0; i < screen->w; i++)
 		{
-			for (int j = 0; j < screen->h; j++)//49+1 - final size
+			for (int j = 0; j < screen->h; j++)
+			{
+				((Bit8u*)screen->pixels)[i + j * screen->w] = 0;
+			}
+		}
+		double compx = screen->w / 640;
+		double compy = screen->h / 480;
+		if (compx > compy) {
+			native_res_w = 640 * screen->h / 480;
+			native_res_h = screen->h;
+			native_shift_w = (screen->w - native_res_w) / 2;
+			native_shift_h = 0;
+		}
+		else
+		{
+			native_res_w = screen->w;
+			native_res_h = 480 * screen->w / 640;
+			native_shift_w = 0;
+			native_shift_h = (screen->h - native_res_h) / 2;
+		}
+
+		int k = 0;
+		int l = 0;
+		float xscale = (float)origw / (float)native_res_w;
+		float yscale = (float)origh / (float)native_res_h;
+		for (int i = 0; i < native_res_w; i++)
+		{
+			for (int j = 0; j < native_res_h; j++)//49+1 - final size
 			{
 				k = (int)(i * xscale);
 				l = (int)(j * yscale);
-				((Bit8u*)screen->pixels)[i + j * screen->w] = buffer[k + l * origw];
+				((Bit8u*)screen->pixels)[(i+ native_shift_w) + (j+ native_shift_h) * screen->w] = buffer[k + l * origw];
 			}
 		}
 	}
