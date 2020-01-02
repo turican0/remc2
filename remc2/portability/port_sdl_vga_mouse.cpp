@@ -942,16 +942,54 @@ void ToggleFullscreen(SDL_Window* Window) {
 	if (SDL_GetDesktopDisplayMode(0, &dm) != 0) {
 		SDL_Log("SDL_GetDesktopDisplayMode failed: %s", SDL_GetError());
 		return;
-	}
+	}	
 	if (!(IsFullscreen ? 0 : FullscreenFlag))
 	{
 		dm.w = 640;
 		dm.h = 480;
+		SDL_FreeSurface(helper_surface);
+		SDL_FreeSurface(screen);
+		helper_surface =
+			SDL_CreateRGBSurface(
+				SDL_SWSURFACE, dm.w, dm.h, 24,
+				redMask, greenMask, blueMask, alphaMask);
+
+		helper_surface =
+			SDL_ConvertSurfaceFormat(
+				helper_surface, SDL_PIXELFORMAT_RGB888/*SDL_PIXELFORMAT_ARGB8888*/, 0);
+
+		screen =
+			SDL_CreateRGBSurface(
+				SDL_SWSURFACE, dm.w, dm.h, 24,
+				redMask, greenMask, blueMask, alphaMask);
+
+		screen =
+			SDL_ConvertSurfaceFormat(
+				screen, SDL_PIXELFORMAT_INDEX8, 0);
 		SDL_SetWindowFullscreen(Window, IsFullscreen ? 0 : FullscreenFlag);
 		SDL_SetWindowSize(Window, dm.w, dm.h);
 	}
 	else
 	{
+		SDL_FreeSurface(helper_surface);
+		SDL_FreeSurface(screen);
+		helper_surface =
+			SDL_CreateRGBSurface(
+				SDL_SWSURFACE, dm.w, dm.h, 24,
+				redMask, greenMask, blueMask, alphaMask);
+
+		helper_surface =
+			SDL_ConvertSurfaceFormat(
+				helper_surface, SDL_PIXELFORMAT_RGB888/*SDL_PIXELFORMAT_ARGB8888*/, 0);
+
+		screen =
+			SDL_CreateRGBSurface(
+				SDL_SWSURFACE, dm.w, dm.h, 24,
+				redMask, greenMask, blueMask, alphaMask);
+
+		screen =
+			SDL_ConvertSurfaceFormat(
+				screen, SDL_PIXELFORMAT_INDEX8, 0);
 		SDL_SetWindowFullscreen(Window, IsFullscreen ? 0 : FullscreenFlag);
 		SDL_SetWindowDisplayMode(Window, &dm);
 	}
