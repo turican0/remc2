@@ -569,9 +569,14 @@ void VGA_Init(int width, int height, int bpp, Uint32 flags)
 				SDL_Log("SDL_GetDesktopDisplayMode failed: %s", SDL_GetError());
 				return;
 			}
-			test_width = dm.w;
+			/*test_width = dm.w;
 			test_height = dm.h;
-			gWindow = SDL_CreateWindow(default_caption,	SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, test_width/*dm.w*/, test_height/*dm.h*/, SDL_WINDOW_FULLSCREEN/*SDL_WINDOW_SHOWN*/);
+			int test_fullscr = SDL_WINDOW_FULLSCREEN;
+			*/
+			test_width = 320;
+			test_height = 200;
+			SDL_WindowFlags test_fullscr = SDL_WINDOW_SHOWN;
+			gWindow = SDL_CreateWindow(default_caption,	SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, test_width/*dm.w*/, test_height/*dm.h*/, test_fullscr);
 
 			renderer =
 				SDL_CreateRenderer(gWindow, -1, SDL_RENDERER_ACCELERATED |
@@ -1089,7 +1094,7 @@ void VGA_Blit(int width, int height, Uint8* buffer) {
 		}
 	}
 	if ((origw == screen->w) && (origh == screen->h))//same resolution
-		memcpy(screen->pixels, buffer, width*height);
+		memcpy(screen->pixels, buffer, screen->h * screen->w);
 	else if ((origw * 2 == screen->w) && (origh * 2 == screen->h))//2x resolution
 	{
 		int k = 0;

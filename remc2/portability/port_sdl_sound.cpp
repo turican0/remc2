@@ -475,7 +475,8 @@ bool init_sound()
 	//Initialize SDL_mixer
 	srand(time(NULL));
 	if (hqsound) {
-		if (Mix_OpenAudio(44100, AUDIO_S16, 2, 4096) == -1)//4096
+		if (Mix_OpenAudio(44100, AUDIO_S16, 1, 4096) == -1)//4096
+		//if (Mix_OpenAudio(44100, AUDIO_S16, 2, 4096) == -1)//4096
 		//if (Mix_OpenAudio(11025, AUDIO_S8, 1, 4096) == -1)//4096
 		{
 			return false;
@@ -483,7 +484,8 @@ bool init_sound()
 	}
 	else
 	{
-		if (Mix_OpenAudio(11025/*22050*/, AUDIO_U8/*MIX_DEFAULT_FORMAT*/, 1, 4096) == -1)//4096
+		if (Mix_OpenAudio(22050, AUDIO_U8/*MIX_DEFAULT_FORMAT*/, 1, 4096) == -1)//4096
+		//if (Mix_OpenAudio(11025/*22050*/, AUDIO_U8/*MIX_DEFAULT_FORMAT*/, 1, 4096) == -1)//4096
 		{
 			return false;
 		}
