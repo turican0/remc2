@@ -88,7 +88,26 @@ void SubBlit() {
 
 	SDL_UpdateTexture(texture, NULL/*&rect*/, helper_surface->pixels, helper_surface->pitch);
 
-	SDL_RenderCopy(renderer, texture, NULL, NULL);
+	//SDL_Rect srcrect;
+	SDL_Rect dscrect;
+	float test_h = helper_surface->h / 480;
+	float test_w = helper_surface->w / 640;
+	if (test_w > test_h)
+	{
+		dscrect.w = helper_surface->w * helper_surface->h / 480;
+		dscrect.h = helper_surface->h * helper_surface->h / 480;
+		dscrect.x = (helper_surface->w - (640.0 / 480.0 * helper_surface->h)) / 2;
+		dscrect.y = 0;
+	}
+	else
+	{
+		dscrect.w = helper_surface->w * helper_surface->w / 640;
+		dscrect.h = helper_surface->h * helper_surface->w / 640;
+		dscrect.x = 0;
+		dscrect.y = (helper_surface->h - (480.0 / 640.0 * helper_surface->w)) / 2;
+	}
+
+	SDL_RenderCopy(renderer, texture, NULL, &dscrect);
 	SDL_RenderPresent(renderer);
 
 	//SDL_UpdateWindowSurface(gWindow);
@@ -557,7 +576,8 @@ void VGA_Init(Uint32 flags)
 			}
 			test_width = dm.w;
 			test_height = dm.h;
-			SDL_WindowFlags test_fullscr = SDL_WINDOW_FULLSCREEN;
+			//SDL_WindowFlags test_fullscr = SDL_WINDOW_FULLSCREEN;
+			SDL_WindowFlags test_fullscr = SDL_WINDOW_SHOWN;
 			
 			/*test_width = 320;
 			test_height = 200;
@@ -587,7 +607,7 @@ void VGA_Init(Uint32 flags)
 					helper_surface, SDL_PIXELFORMAT_RGB888/*SDL_PIXELFORMAT_ARGB8888*/, 0);
 			screen =
 				SDL_CreateRGBSurface(
-					SDL_SWSURFACE, test_width, test_height, 24,
+					SDL_SWSURFACE, 640/*test_width*/, 480/*test_height*/, 24,
 					redMask, greenMask, blueMask, alphaMask);
 			screen =
 				SDL_ConvertSurfaceFormat(
@@ -893,63 +913,19 @@ void ToggleFullscreen() {
 		test_fullscr = SDL_WINDOW_FULLSCREEN;
 	}
 
-	//-----
-	SDL_FreeSurface(screen);
-	screen = NULL;
-	SDL_FreeSurface(helper_surface);
-	helper_surface = NULL;
-	SDL_DestroyTexture(texture);
-	texture = NULL;
-	SDL_DestroyRenderer(renderer);
-	renderer = NULL;
-	SDL_DestroyWindow(gWindow);
-	gWindow = NULL;
-	//-----
-	//-----
-	test_width = dm.w;
-	test_height = dm.h;
-	gWindow = SDL_CreateWindow(default_caption, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, test_width/*dm.w*/, test_height/*dm.h*/, test_fullscr);
 
-	renderer =
-		SDL_CreateRenderer(gWindow, -1, SDL_RENDERER_ACCELERATED |
-			SDL_RENDERER_TARGETTEXTURE);
-	SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0xFF);
-	helper_surface =
-		SDL_CreateRGBSurface(
-			SDL_SWSURFACE, test_width, test_height, 24,
-			redMask, greenMask, blueMask, alphaMask);
-
-	helper_surface =
-		SDL_ConvertSurfaceFormat(
-			helper_surface, SDL_PIXELFORMAT_RGB888/*SDL_PIXELFORMAT_ARGB8888*/, 0);
-	screen =
-		SDL_CreateRGBSurface(
-			SDL_SWSURFACE, test_width, test_height, 24,
-			redMask, greenMask, blueMask, alphaMask);
-	screen =
-		SDL_ConvertSurfaceFormat(
-			screen, SDL_PIXELFORMAT_INDEX8, 0);
-	texture = SDL_CreateTexture(renderer,
-		SDL_PIXELFORMAT_RGB888/*SDL_PIXELFORMAT_ARGB8888*/,
-		SDL_TEXTUREACCESS_STREAMING,
-		helper_surface->w, helper_surface->h);
-	SDL_SetTextureBlendMode(texture, SDL_BLENDMODE_BLEND);
-	SDL_RenderClear(renderer);
-	SDL_RenderPresent(renderer);
-	//-----
-	/*
 	if (!(IsFullscreen ? 0 : FullscreenFlag))
 	{
 		//dm.w = 640;
 		//dm.h = 480;		
-		SDL_SetWindowFullscreen(Window, IsFullscreen ? 0 : FullscreenFlag);
-		SDL_SetWindowSize(Window, dm.w, dm.h);
+		SDL_SetWindowFullscreen(gWindow, IsFullscreen ? 0 : FullscreenFlag);
+		SDL_SetWindowSize(gWindow, dm.w, dm.h);
 	}
 	else
 	{		
-		SDL_SetWindowFullscreen(Window, IsFullscreen ? 0 : FullscreenFlag);
-		SDL_SetWindowDisplayMode(Window, &dm);
-	}*/
+		SDL_SetWindowFullscreen(gWindow, IsFullscreen ? 0 : FullscreenFlag);
+		SDL_SetWindowDisplayMode(gWindow, &dm);
+	}
 	//printf("%d\n", dm.w);
 	
 	//SDL_ShowCursor(IsFullscreen);
@@ -1107,7 +1083,7 @@ void VGA_Blit(int width, int height, Uint8* buffer) {
 	}
 	else//any resolution
 	{
-		int native_shift_w = 0;
+		/*int native_shift_w = 0;
 		int native_shift_h = 0;
 		int native_res_w = 640;
 		int native_res_h = 480;
@@ -1134,18 +1110,18 @@ void VGA_Blit(int width, int height, Uint8* buffer) {
 			native_shift_w = 0;
 			native_shift_h = (screen->h - native_res_h) / 2;
 		}
-
+		*/
 		int k = 0;
 		int l = 0;
-		float xscale = (float)origw / (float)native_res_w;
-		float yscale = (float)origh / (float)native_res_h;
-		for (int i = 0; i < native_res_w; i++)
+		float xscale = (float)origw / (float)screen->w;
+		float yscale = (float)origh / (float)screen->h;
+		for (int i = 0; i < screen->w; i++)
 		{
-			for (int j = 0; j < native_res_h; j++)//49+1 - final size
+			for (int j = 0; j < screen->h; j++)//49+1 - final size
 			{
 				k = (int)(i * xscale);
 				l = (int)(j * yscale);
-				((Bit8u*)screen->pixels)[(i+ native_shift_w) + (j+ native_shift_h) * screen->w] = buffer[k + l * origw];
+				((Bit8u*)screen->pixels)[i + j * screen->w] = buffer[k + l * origw];
 			}
 		}
 	}
