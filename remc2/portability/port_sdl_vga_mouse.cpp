@@ -934,66 +934,83 @@ bool alt_enter(SDL_Event* event) {
 	return false;
 }
 
-void ToggleFullscreen(SDL_Window* Window) {
+void ToggleFullscreen() {
 	Uint32 FullscreenFlag = SDL_WINDOW_FULLSCREEN;
-	bool IsFullscreen = SDL_GetWindowFlags(Window) & FullscreenFlag;	
+	bool IsFullscreen = SDL_GetWindowFlags(gWindow) & FullscreenFlag;
 
 	SDL_DisplayMode dm;
 	if (SDL_GetDesktopDisplayMode(0, &dm) != 0) {
 		SDL_Log("SDL_GetDesktopDisplayMode failed: %s", SDL_GetError());
 		return;
 	}	
+	SDL_WindowFlags test_fullscr;
+	if (!(IsFullscreen ? 0 : FullscreenFlag))
+	{
+		dm.w = 640;
+		dm.h = 480;			
+		test_fullscr = SDL_WINDOW_SHOWN;
+	}
+	else
+	{
+		test_fullscr = SDL_WINDOW_FULLSCREEN;
+	}
+
+	//-----
+	SDL_FreeSurface(screen);
+	screen = NULL;
+	SDL_DestroyTexture(texture);
+	texture = NULL;
+	SDL_DestroyRenderer(renderer);
+	renderer = NULL;
+	SDL_DestroyWindow(gWindow);
+	gWindow = NULL;
+	//-----
+	//-----
+	test_width = dm.w;
+	test_height = dm.h;
+	gWindow = SDL_CreateWindow(default_caption, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, test_width/*dm.w*/, test_height/*dm.h*/, test_fullscr);
+
+	renderer =
+		SDL_CreateRenderer(gWindow, -1, SDL_RENDERER_ACCELERATED |
+			SDL_RENDERER_TARGETTEXTURE);
+	SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0xFF);
+	helper_surface =
+		SDL_CreateRGBSurface(
+			SDL_SWSURFACE, test_width, test_height, 24,
+			redMask, greenMask, blueMask, alphaMask);
+
+	helper_surface =
+		SDL_ConvertSurfaceFormat(
+			helper_surface, SDL_PIXELFORMAT_RGB888/*SDL_PIXELFORMAT_ARGB8888*/, 0);
+	screen =
+		SDL_CreateRGBSurface(
+			SDL_SWSURFACE, test_width, test_height, 24,
+			redMask, greenMask, blueMask, alphaMask);
+	screen =
+		SDL_ConvertSurfaceFormat(
+			screen, SDL_PIXELFORMAT_INDEX8, 0);
+	texture = SDL_CreateTexture(renderer,
+		SDL_PIXELFORMAT_RGB888/*SDL_PIXELFORMAT_ARGB8888*/,
+		SDL_TEXTUREACCESS_STREAMING,
+		helper_surface->w, helper_surface->h);
+	SDL_SetTextureBlendMode(texture, SDL_BLENDMODE_BLEND);
+	SDL_RenderClear(renderer);
+	SDL_RenderPresent(renderer);
+	//-----
+	/*
 	if (!(IsFullscreen ? 0 : FullscreenFlag))
 	{
 		//dm.w = 640;
-		//dm.h = 480;
-		/*SDL_FreeSurface(helper_surface);
-		SDL_FreeSurface(screen);
-		helper_surface =
-			SDL_CreateRGBSurface(
-				SDL_SWSURFACE, dm.w, dm.h, 24,
-				redMask, greenMask, blueMask, alphaMask);
-
-		helper_surface =
-			SDL_ConvertSurfaceFormat(
-				helper_surface, SDL_PIXELFORMAT_RGB888, 0);
-
-		screen =
-			SDL_CreateRGBSurface(
-				SDL_SWSURFACE, dm.w, dm.h, 24,
-				redMask, greenMask, blueMask, alphaMask);
-
-		screen =
-			SDL_ConvertSurfaceFormat(
-				screen, SDL_PIXELFORMAT_INDEX8, 0);*/
+		//dm.h = 480;		
 		SDL_SetWindowFullscreen(Window, IsFullscreen ? 0 : FullscreenFlag);
 		SDL_SetWindowSize(Window, dm.w, dm.h);
 	}
 	else
-	{
-		/*SDL_FreeSurface(helper_surface);
-		SDL_FreeSurface(screen);
-		helper_surface =
-			SDL_CreateRGBSurface(
-				SDL_SWSURFACE, dm.w, dm.h, 24,
-				redMask, greenMask, blueMask, alphaMask);
-
-		helper_surface =
-			SDL_ConvertSurfaceFormat(
-				helper_surface, SDL_PIXELFORMAT_RGB888, 0);
-
-		screen =
-			SDL_CreateRGBSurface(
-				SDL_SWSURFACE, dm.w, dm.h, 24,
-				redMask, greenMask, blueMask, alphaMask);
-
-		screen =
-			SDL_ConvertSurfaceFormat(
-				screen, SDL_PIXELFORMAT_INDEX8, 0);*/
+	{		
 		SDL_SetWindowFullscreen(Window, IsFullscreen ? 0 : FullscreenFlag);
 		SDL_SetWindowDisplayMode(Window, &dm);
-	}
-	printf("%d\n", dm.w);
+	}*/
+	//printf("%d\n", dm.w);
 	
 	//SDL_ShowCursor(IsFullscreen);
 
@@ -1022,7 +1039,7 @@ int events()
 			lastchar = (event.key.keysym.scancode << 8) + event.key.keysym.sym;
 
 			if (alt_enter(&event))
-				ToggleFullscreen(gWindow);
+				ToggleFullscreen();
 			else
 				setPress(true, lastchar);
 			printf("Key press detected\n");//test
