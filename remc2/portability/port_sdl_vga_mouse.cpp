@@ -22,8 +22,8 @@ SDL_Surface *screen;
 
 int width = 640;
 int height = 480;
-int test_width = 800;
-int test_height = 200;
+int test_width = 640;
+int test_height = 480;
 int SCREEN_WIDTH = 640;
 int SCREEN_HEIGHT = 480;
 const char* default_caption = "Remake Magic Carpet 2";
@@ -289,10 +289,10 @@ void Draw_letter(int letter_number, int pozx, int pozy) {
 	srcrect.y = 16 * (int)(letter_number / 16);
 	srcrect.w = 16;
 	srcrect.h = 16;
-	dstrect.x = (screen->w / textwidth)*pozx;
-	dstrect.y = (screen->h / textheight)*pozy;
-	dstrect.w = screen->w / textwidth;
-	dstrect.h = screen->h / textheight;
+	dstrect.x = 16*pozx;
+	dstrect.y = 16*pozy;
+	dstrect.w = 16;//screen->w / textwidth;
+	dstrect.h = 16;//screen->h / textheight;
 	//SDL_RenderCopy(screen, surface_font, &srcrect, &dstrect);
 	SDL_BlitSurface(surface_font, &srcrect, screen, &dstrect);
 };
@@ -319,8 +319,8 @@ void Draw_letterToBuffer(int letter_number, int pozx, int pozy, Bit8u* buffer) {
 	srcrect.h = 16;
 	dstrect.x = pozx;
 	dstrect.y = pozy;
-	dstrect.w = screen->w / textwidth;
-	dstrect.h = screen->h / textheight;
+	dstrect.w = 16;
+	dstrect.h = 16;
 	//SDL_RenderCopy(screen, surface_font, &srcrect, &dstrect);	
 	for (int yy = 0; yy < dstrect.h; yy++)
 		for (int xx = 0; xx < dstrect.w; xx++)
@@ -391,7 +391,7 @@ void VGA_Draw_stringXYtoBuffer(char* wrstring,int x, int y, Bit8u* buffer) {
 		}
 		else
 		{
-			Draw_letterToBuffer(wrstring[i], x+(loclastpoz % textwidth)*14, y+((int)(loclastpoz / textwidth))*14, buffer);
+			Draw_letterToBuffer(wrstring[i], x+(loclastpoz % textwidth)*16, y+((int)(loclastpoz / textwidth))*16, buffer);
 			loclastpoz++;
 		}
 	}
@@ -571,7 +571,7 @@ void VGA_Init(int width, int height, int bpp, Uint32 flags)
 			}
 			test_width = dm.w;
 			test_height = dm.h;
-			int test_fullscr = SDL_WINDOW_FULLSCREEN;
+			SDL_WindowFlags test_fullscr = SDL_WINDOW_FULLSCREEN;
 			
 			/*test_width = 320;
 			test_height = 200;
@@ -599,12 +599,10 @@ void VGA_Init(int width, int height, int bpp, Uint32 flags)
 			helper_surface =
 				SDL_ConvertSurfaceFormat(
 					helper_surface, SDL_PIXELFORMAT_RGB888/*SDL_PIXELFORMAT_ARGB8888*/, 0);
-
 			screen =
 				SDL_CreateRGBSurface(
 					SDL_SWSURFACE, test_width, test_height, 24,
 					redMask, greenMask, blueMask, alphaMask);
-
 			screen =
 				SDL_ConvertSurfaceFormat(
 					screen, SDL_PIXELFORMAT_INDEX8, 0);
