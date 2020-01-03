@@ -958,6 +958,8 @@ void ToggleFullscreen() {
 	//-----
 	SDL_FreeSurface(screen);
 	screen = NULL;
+	SDL_FreeSurface(helper_surface);
+	helper_surface = NULL;
 	SDL_DestroyTexture(texture);
 	texture = NULL;
 	SDL_DestroyRenderer(renderer);
@@ -1289,6 +1291,8 @@ void VGA_close()
 	surface_font = NULL;
 	SDL_FreeSurface(screen);
 	screen = NULL;
+	SDL_FreeSurface(helper_surface);
+	helper_surface = NULL;
 	SDL_DestroyTexture(texture);
 	texture = NULL;
 	SDL_DestroyRenderer(renderer);
