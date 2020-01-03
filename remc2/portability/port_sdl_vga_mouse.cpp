@@ -8,12 +8,10 @@
 extern DOS_Device *DOS_CON;
 #endif //USE_DOSBOX
 
-#ifdef USE_SDL2
 SDL_Window* gWindow = NULL;
 SDL_Renderer *renderer = NULL;
 SDL_Texture *texture = NULL;
 SDL_Surface *helper_surface = NULL;
-#endif
 
 Bit8u x_BYTE_1806E4; // weak//3516e4
 Bit8s x_BYTE_180664[128]; // idb
@@ -86,7 +84,6 @@ Uint8* VGA_Get_pallette() {
 }
 
 void SubBlit() {
-#ifdef USE_SDL2
 	SDL_BlitSurface(screen, NULL, helper_surface, NULL);
 
 	SDL_UpdateTexture(texture, NULL/*&rect*/, helper_surface->pixels, helper_surface->pitch);
@@ -95,18 +92,11 @@ void SubBlit() {
 	SDL_RenderPresent(renderer);
 
 	//SDL_UpdateWindowSurface(gWindow);
-#else
-	SDL_UpdateRect(screen, 0, 0, 0, 0);
-#endif
 }
 
 void SubSet_pallette(SDL_Color* colors) {
-#ifdef USE_SDL2
 	SDL_SetPaletteColors(screen->format->palette, colors, 0, 256);
 	SubBlit();
-#else
-	SDL_SetPalette(screen, SDL_LOGPAL | SDL_PHYSPAL, colors, 0, 256);
-#endif
 }
 
 void Set_basic_pallette0() {
@@ -399,10 +389,8 @@ void VGA_Draw_stringXYtoBuffer(char* wrstring,int x, int y, Bit8u* buffer) {
 
 
 void VGA_Init() {
-#ifdef USE_SDL2
 #define SDL_HWPALETTE 0
-#endif
-	VGA_Init(SCREEN_WIDTH, SCREEN_HEIGHT, 8, SDL_HWPALETTE | SDL_INIT_AUDIO);
+VGA_Init(SDL_HWPALETTE | SDL_INIT_AUDIO);
 }
 
 SDL_Rect dst;
@@ -524,8 +512,6 @@ void VGA_Set_Cursor2() {
 
 };*/
 
-#ifdef USE_SDL2
-
 
 // Initalize Color Masks. 
 #if SDL_BYTEORDER == SDL_BIG_ENDIAN 
@@ -539,7 +525,7 @@ Uint32 greenMask = 0x0000ff00;
 Uint32 blueMask = 0x00ff0000;
 Uint32 alphaMask = 0xff000000;
 #endif 
-void VGA_Init(int width, int height, int bpp, Uint32 flags)
+void VGA_Init(Uint32 flags)
 {
 	if (!inited)
 	{
@@ -656,47 +642,6 @@ void VGA_Init(int width, int height, int bpp, Uint32 flags)
 	}
 	//return success;
 }
-#else
-void VGA_Init(int width, int height, int bpp, Uint32 flags) {
-	if (!inited)
-	{
-		SDL_Init(SDL_INIT_TIMER | SDL_INIT_VIDEO);
-		init_sound();
-		SDL_EnableUNICODE(SDL_DISABLE);
-
-		SDL_ShowCursor(0);
-
-		atexit(SDL_Quit);
-
-		screen = SDL_SetVideoMode(width, height, bpp, flags);
-
-		if (!screen) {
-			printf("Couldn't set video mode: %s\n", SDL_GetError());
-			exit(-1);
-		}
-
-		//Set the window caption
-
-		SDL_WM_SetCaption(default_caption, NULL);
-
-		if (!VGA_LoadFont())
-		{
-			printf("Failed to load font!\n");
-			exit(-1);
-		}
-
-		//debug
-		Set_basic_pallette1();
-		Draw_debug_matrix1();
-		//Draw_debug_matrix();	
-		//Draw_letter(0x42,15,15);
-		//VGA_Draw_string((char*)"test textx");
-		//degug
-		inited = true;
-		//mydelay(3000);
-	}
-}
-#endif
 
 
 int origw = 640;
@@ -710,11 +655,6 @@ void VGA_Resize(int width, int height) {
 void VGA_Resize(int width, int height, int bpp, Uint32 flags) {
 	/*SDL_FreeSurface(screen);
 
-	#ifdef USE_SDL2
-		//screen = SDL_SetVideoMode(width, height, bpp, flags);
-	#else
-	screen = SDL_SetVideoMode(width, height, bpp, flags);
-	#endif
 	if (!screen) {
 		printf("Couldn't set video mode: %s\n", SDL_GetError());
 		exit(-1);
@@ -1237,11 +1177,6 @@ void VGA_Init_test() {
 
 	/* Create display */
 
-#ifdef USE_SDL2
-	//screen = SDL_SetVideoMode(640, 480, 8, SDL_HWPALETTE);
-#else
-	screen = SDL_SetVideoMode(640, 480, 8, SDL_HWPALETTE);
-#endif
 	if (!screen) {
 		printf("Couldn't set video mode: %s\n", SDL_GetError());
 		exit(-1);
@@ -1249,11 +1184,7 @@ void VGA_Init_test() {
 
 	/* Set palette */
 
-#ifdef USE_SDL2
 	SDL_SetPaletteColors(screen->format->palette, colors, 0, 256);
-#else
-	SDL_SetPalette(screen, SDL_LOGPAL | SDL_PHYSPAL, colors, 0, 256);
-#endif
 
 	int x = screen->w / 2;
 	int y = screen->h / 2;
@@ -1275,13 +1206,9 @@ void VGA_Init_test() {
 	}
 	/* Update just the part of the display that we've changed */
 
-#ifdef USE_SDL2
 	SDL_UpdateWindowSurface(gWindow);
-#else
-	SDL_UpdateRect(screen, 0, 0, 0, 0);
-#endif
 }
-#ifdef USE_SDL2
+
 void VGA_close()
 {
 	clean_up_sound();
@@ -1299,17 +1226,7 @@ void VGA_close()
 	gWindow = NULL;
 	SDL_Quit();
 }
-#else
-void VGA_close()
-{
-	clean_up_sound();
-	SDL_FreeSurface(surface_font);
-	surface_font = NULL;
-	SDL_FreeSurface(screen);
-	screen = NULL;
-	SDL_Quit();
-}
-#endif
+
 /*
 change resolution
 #include <SDL.h>
