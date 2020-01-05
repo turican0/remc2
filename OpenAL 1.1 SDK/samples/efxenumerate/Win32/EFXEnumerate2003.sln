@@ -1,0 +1,21 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EnumerateEFX2003", "EFXEnumerate2003.vcproj", "{C456FD44-A5DA-4797-9D2F-129C9BC29AFD}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{C456FD44-A5DA-4797-9D2F-129C9BC29AFD}.Debug.ActiveCfg = Debug|Win32
+		{C456FD44-A5DA-4797-9D2F-129C9BC29AFD}.Debug.Build.0 = Debug|Win32
+		{C456FD44-A5DA-4797-9D2F-129C9BC29AFD}.Release.ActiveCfg = Release|Win32
+		{C456FD44-A5DA-4797-9D2F-129C9BC29AFD}.Release.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

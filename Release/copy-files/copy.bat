@@ -25,6 +25,7 @@ copy .\vcruntime140.dll ..
 copy .\vcruntime140d.dll ..
 copy .\VC_redist.x86.exe ..
 copy .\vcredist_x86.exe ..
+copy .\oalinst.exe ..
 del SDL.dll
 del SDL_mixer.dll
 mkdir ..\original-game-GOG

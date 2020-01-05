@@ -1,10 +1,20 @@
 #ifndef PORT_SDL_SOUND
 #define PORT_SDL_SOUND
+
+#define SOUND_SDLMIXER
+//#define SOUND_OPENAL
+
 #include "mctypes.h"
 #include "SDL.h"
-#include "SDL_mixer_ext.h"
-#include "music.h"
-#include "mixer.h"
+#ifdef SOUND_SDLMIXER
+	#include "SDL_mixer_ext.h"
+	#include "music.h"
+	#include "mixer.h"
+#endif//SOUND_SDLMIXER
+#ifdef SOUND_OPENAL
+	#include <al.h>
+	#include <alc.h>
+#endif//SOUND_OPENAL
 //#include "music_timidity.h"
 #include "xmi2mid.h"
 #include <time.h>       /* time */
@@ -12,6 +22,15 @@
 
 #include "../engine/ail_sound.h"
 #include "port_filesystem.h"
+
+#ifndef SOUND_SDLMIXER
+typedef struct {
+	int allocated;
+	Uint8* abuf;
+	Uint32 alen;
+	Uint8 volume;       /* Per-sample volume, 0-128 */
+} Mix_Chunk;
+#endif//SOUND_SDLMIXER
 
 #define USE_SDL2
 
@@ -58,7 +77,11 @@ void SOUND_set_sample_volume(HSAMPLE S, Bit32s volume);
 void SOUND_set_sequence_volume(Bit32s volume);
 void SOUND_set_master_volume(Bit32s volume);
 //void test_midi_play(Bit8u* data, Bit8u* header, Bit32s track_number);
-
+#ifdef SOUND_OPENAL
+void ALSOUND_load_wav(char* alBuffer, long alBufferLen);
+void ALSOUND_play(Mix_Chunk gamechunk);
+void ALSOUND_init();
+#endif//SOUND_OPENAL
 
 
 

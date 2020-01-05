@@ -52,6 +52,9 @@
     <Filter Include="Zdrojové soubory\libs\sdl-ttf">
       <UniqueIdentifier>{1d61dcf1-3c1a-4a47-8271-a8ce53ef3ff8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Zdrojové soubory\libs\openAL">
+      <UniqueIdentifier>{9447dd76-12e2-4526-b425-7c337c70567d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -668,6 +671,9 @@
     </Library>
     <Library Include="..\SDL2_ttf-2.0.15\lib\x86\SDL2_ttf.lib">
       <Filter>Zdrojové soubory\libs\sdl-ttf</Filter>
+    </Library>
+    <Library Include="..\OpenAL 1.1 SDK\libs\Win32\OpenAL32.lib">
+      <Filter>Zdrojové soubory\libs\openAL</Filter>
     </Library>
   </ItemGroup>
 </Project>

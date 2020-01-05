@@ -1,0 +1,21 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PlayFilter2003", "EFXFilter2003.vcproj", "{9C61A72D-C70F-4FC5-B3A2-50983A406A88}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{9C61A72D-C70F-4FC5-B3A2-50983A406A88}.Debug.ActiveCfg = Debug|Win32
+		{9C61A72D-C70F-4FC5-B3A2-50983A406A88}.Debug.Build.0 = Debug|Win32
+		{9C61A72D-C70F-4FC5-B3A2-50983A406A88}.Release.ActiveCfg = Release|Win32
+		{9C61A72D-C70F-4FC5-B3A2-50983A406A88}.Release.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

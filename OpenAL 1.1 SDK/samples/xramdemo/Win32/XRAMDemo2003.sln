@@ -1,0 +1,21 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "XRAMTest2003", "XRAMDemo2003.vcproj", "{DE7CC028-5FE9-4A59-9792-E04872120562}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{DE7CC028-5FE9-4A59-9792-E04872120562}.Debug.ActiveCfg = Debug|Win32
+		{DE7CC028-5FE9-4A59-9792-E04872120562}.Debug.Build.0 = Debug|Win32
+		{DE7CC028-5FE9-4A59-9792-E04872120562}.Release.ActiveCfg = Release|Win32
+		{DE7CC028-5FE9-4A59-9792-E04872120562}.Release.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

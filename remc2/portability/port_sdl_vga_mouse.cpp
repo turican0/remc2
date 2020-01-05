@@ -574,14 +574,14 @@ void VGA_Init(Uint32 flags)
 				SDL_Log("SDL_GetDesktopDisplayMode failed: %s", SDL_GetError());
 				return;
 			}
-			test_width = dm.w;
+			/*test_width = dm.w;
 			test_height = dm.h;
-			//SDL_WindowFlags test_fullscr = SDL_WINDOW_FULLSCREEN;
-			SDL_WindowFlags test_fullscr = SDL_WINDOW_SHOWN;
+			SDL_WindowFlags test_fullscr = SDL_WINDOW_FULLSCREEN;*/
+			//SDL_WindowFlags test_fullscr = SDL_WINDOW_SHOWN;
 			
-			/*test_width = 320;
-			test_height = 200;
-			SDL_WindowFlags test_fullscr = SDL_WINDOW_SHOWN;*/
+			test_width = 640;
+			test_height = 480;
+			SDL_WindowFlags test_fullscr = SDL_WINDOW_SHOWN;
 			gWindow = SDL_CreateWindow(default_caption,	SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, test_width/*dm.w*/, test_height/*dm.h*/, test_fullscr);
 
 			renderer =
