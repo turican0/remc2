@@ -672,8 +672,5 @@
     <Library Include="..\SDL2_ttf-2.0.15\lib\x86\SDL2_ttf.lib">
       <Filter>Zdrojové soubory\libs\sdl-ttf</Filter>
     </Library>
-    <Library Include="..\OpenAL 1.1 SDK\libs\Win32\OpenAL32.lib">
-      <Filter>Zdrojové soubory\libs\openAL</Filter>
-    </Library>
   </ItemGroup>
 </Project>

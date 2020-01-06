@@ -376,7 +376,6 @@
     <Library Include="..\libpng3\lib\libpng16_static.lib">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </Library>
-    <Library Include="..\OpenAL 1.1 SDK\libs\Win32\OpenAL32.lib" />
     <Library Include="..\SDL2_image-2.0.5\lib\x86\SDL2_image.lib" />
     <Library Include="..\SDL2_ttf-2.0.15\lib\x86\SDL2_ttf.lib" />
     <Library Include="..\zlib-64\lib\zlib.lib">

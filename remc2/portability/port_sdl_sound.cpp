@@ -438,8 +438,29 @@ void SOUND_start_sample(HSAMPLE S) {
 #ifdef SOUND_SDLMIXER
 	if (hqsound)
 	{
-		gamechunk[S->index_sample].abuf = (Bit8u*)S->start_44mhz;
-		gamechunk[S->index_sample].alen = S->len_4_5[0] * 4;
+		/*
+		// load sample.wav in to sample
+		Bit8u* presample = malloc(S->len_4_5[0] * 4 + 10);
+		Mix_Chunk* sample;
+		sample = Mix_LoadWAV_RW(presample, 0);
+		if (!sample) {
+			printf("Mix_LoadWAV_RW: %s\n", Mix_GetError());
+			// handle error
+		}
+		*/
+
+		//44100, AUDIO_S16, 2, 4096
+		//src/dst
+		/*SDL_AudioCVT cvt;
+		SDL_BuildAudioCVT(&cvt, AUDIO_U8, 1, S->playback_rate_15, AUDIO_S16, 2, 44100);
+		SDL_assert(cvt.needed); // obviously, this one is always needed.
+		cvt.len = S->len_4_5[0];// 1024 * 2 * 4;  // 1024 stereo float32 sample frames.
+		cvt.buf = (Uint8*)S->start_2_3[0];//(Uint8*)SDL_malloc(cvt.len * cvt.len_mult);
+		// read your float32 data into cvt.buf here.
+		SDL_ConvertAudio(&cvt);*/
+
+		gamechunk[S->index_sample].abuf = /*sample->abuf;//*/ (Bit8u*)S->start_44mhz;
+		gamechunk[S->index_sample].alen = /*sample->alen;//*/S->len_4_5[0] * 8;
 		#ifdef DEBUG_SOUND
 			if (debug_first_sound) {
 				debug_printf("SOUND_start_sample-hq:%08X\n", S->start_44mhz);
@@ -527,7 +548,7 @@ bool init_sound()
 	srand(time(NULL));
 #ifdef SOUND_SDLMIXER
 	if (hqsound) {
-		if (Mix_OpenAudio(44100, AUDIO_S16, 1, 4096) == -1)//4096
+		if (Mix_OpenAudio(44100, AUDIO_S16, 2, 4096) == -1)//4096
 		//if (Mix_OpenAudio(44100, AUDIO_S16, 2, 4096) == -1)//4096
 		//if (Mix_OpenAudio(11025, AUDIO_S8, 1, 4096) == -1)//4096
 		{
@@ -536,7 +557,7 @@ bool init_sound()
 	}
 	else
 	{
-		if (Mix_OpenAudio(22050, AUDIO_U8/*MIX_DEFAULT_FORMAT*/, 1, 4096) == -1)//4096
+		if (Mix_OpenAudio(22050, AUDIO_U8/*MIX_DEFAULT_FORMAT*/, 2, 4096) == -1)//4096
 		//if (Mix_OpenAudio(11025/*22050*/, AUDIO_U8/*MIX_DEFAULT_FORMAT*/, 1, 4096) == -1)//4096
 		{
 			return false;
