@@ -43,16 +43,16 @@ extern char oggmusicpath[512];
 extern bool oggmusicalternative;
 
 bool init_sound();
-bool load_sound_files();
+//bool load_sound_files();
 void clean_up_sound();
-int playsound1();
+/*int playsound1();
 int playsound2();
 int playsound3();
 int playsound4();
 void playmusic1();
 void stopmusic1();
+*/
 void playmusic2(Bit32s track_number);
-
 extern Bit8u sound_buffer[4][20000];
 //extern HSAMPLE last_sample;
 
@@ -79,8 +79,8 @@ void SOUND_set_master_volume(Bit32s volume);
 void SOUND_UPDATE();
 //void test_midi_play(Bit8u* data, Bit8u* header, Bit32s track_number);
 #ifdef SOUND_OPENAL
-void ALSOUND_load_wav(char* alBuffer, long alBufferLen);
-void ALSOUND_play(Mix_Chunk gamechunk);
+//void ALSOUND_load_wav(char* alBuffer, long alBufferLen);
+void ALSOUND_play(int which, Mix_Chunk* chunk, int loops);
 void ALSOUND_init();
 #endif//SOUND_OPENAL
 

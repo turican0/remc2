@@ -20,8 +20,9 @@ Mix_Music* GAME_music[20] = { NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,
 #endif//SOUND_SDLMIXER
 #ifdef SOUND_OPENAL
 //Mix_Music* GAME_music[20] = { NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL };
-
-//bool AL_inited = false;
+ALint source_state[32];
+ALuint alSource[32];      //source
+ALuint alSampleSet[32];
 #endif//SOUND_OPENAL
 Mix_Chunk gamechunk[32];
 HSAMPLE gamechunkHSAMPLE[32];
@@ -478,7 +479,7 @@ void SOUND_start_sample(HSAMPLE S) {
 
 	gamechunk[S->index_sample].volume = S->volume_16;
 	gamechunkHSAMPLE[S->index_sample] = S;
-	ALSOUND_play(gamechunk[S->index_sample]);
+	ALSOUND_play(S->index_sample,&gamechunk[S->index_sample],0);
 #endif//SOUND_OPENAL
 };
 
@@ -696,19 +697,27 @@ void my_audio_callback(void *midi_player, Uint8 *stream, int len)
 	SDL_memcpy(stream, (Uint8*)buffer, samples_count * 2);
 }
 
+#define TEST_ERROR(_msg)		\
+	error = alGetError();		\
+	if (error != AL_NO_ERROR) {	\
+		fprintf(stderr, _msg "\n");	\
+		return;		\
+	}
+//------------------
+
 void SOUND_UPDATE() {
 #ifdef SOUND_OPENAL
-	for (int i = 0; i < sound_count; i++)
+	for (int i = 0; i < 32; i++)
 	{
-		if (source_state == AL_PLAYING)
+		if (source_state[i] == AL_PLAYING)
 		{
-			alGetSourcei(alSource, AL_SOURCE_STATE, &source_state);
-			TEST_ERROR("source state get");
+			alGetSourcei(alSource[i], AL_SOURCE_STATE, &source_state[i]);
+			//TEST_ERROR("source state get");
 		}
 		else
 		{
-			alDeleteSources(1, &alSource);
-			alDeleteBuffers(1, &alSampleSet);
+			alDeleteSources(1, &alSource[i]);
+			alDeleteBuffers(1, &alSampleSet[i]);
 		}
 	}
 	/*while (source_state == AL_PLAYING) {
@@ -718,20 +727,12 @@ void SOUND_UPDATE() {
 #endif//SOUND_OPENAL
 };
 
-#define TEST_ERROR(_msg)		\
-	error = alGetError();		\
-	if (error != AL_NO_ERROR) {	\
-		fprintf(stderr, _msg "\n");	\
-		return;		\
-	}
-//------------------
+
 #ifdef SOUND_OPENAL
 ALCcontext* context;
 ALCdevice* device;
 const ALCchar* defaultDeviceName;
 ALCenum error;
-ALuint alSource;      //source
-ALuint alSampleSet;
 
 static void list_audio_devices(const ALCchar* devices)
 {
@@ -766,7 +767,6 @@ void ALSOUND_init()
 	//ALuint buffer, source;
 	ALfloat listenerOri[] = { 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f };
 	ALboolean loop = AL_FALSE;
-	ALint source_state;
 
 	//fprintf(stdout, "Using " BACKEND " as audio backend\n");
 
@@ -777,7 +777,7 @@ void ALSOUND_init()
 	list_audio_devices(alcGetString(NULL, ALC_DEVICE_SPECIFIER));
 
 	//if (!defaultDeviceName)
-		defaultDeviceName = alcGetString(NULL, ALC_DEFAULT_DEVICE_SPECIFIER);
+	defaultDeviceName = alcGetString(NULL, ALC_DEFAULT_DEVICE_SPECIFIER);
 
 	device = alcOpenDevice(defaultDeviceName);
 	if (!device) {
@@ -803,29 +803,32 @@ void ALSOUND_init()
 	TEST_ERROR("listener velocity");
 	alListenerfv(AL_ORIENTATION, listenerOri);
 	TEST_ERROR("listener orientation");
+	/*
+	for (int i = 0; i < 32; i++)
+	{
+		alGenSources((ALuint)1, &alSource[i]);
+		TEST_ERROR("source generation");
 
-	alGenSources((ALuint)1, &alSource);
-	TEST_ERROR("source generation");
+		alSourcef(alSource[i], AL_PITCH, 1);
+		TEST_ERROR("source pitch");
+		alSourcef(alSource[i], AL_GAIN, 1);
+		TEST_ERROR("source gain");
+		alSource3f(alSource[i], AL_POSITION, 0, 0, 0);
+		TEST_ERROR("source position");
+		alSource3f(alSource[i], AL_VELOCITY, 0, 0, 0);
+		TEST_ERROR("source velocity");
+		alSourcei(alSource[i], AL_LOOPING, AL_FALSE);
+		TEST_ERROR("source looping");
 
-	alSourcef(alSource, AL_PITCH, 1);
-	TEST_ERROR("source pitch");
-	alSourcef(alSource, AL_GAIN, 1);
-	TEST_ERROR("source gain");
-	alSource3f(alSource, AL_POSITION, 0, 0, 0);
-	TEST_ERROR("source position");
-	alSource3f(alSource, AL_VELOCITY, 0, 0, 0);
-	TEST_ERROR("source velocity");
-	alSourcei(alSource, AL_LOOPING, AL_FALSE);
-	TEST_ERROR("source looping");
-
-	alGenBuffers(1, &alSampleSet);
-	TEST_ERROR("buffer generation");
+		alGenBuffers(1, &alSampleSet[i]);
+		TEST_ERROR("buffer generation");
+	}*/
 }
 
 ALenum alFormatBuffer = AL_FORMAT_MONO16/*AL_FORMAT_MONO16*/;    //buffer format
 ALsizei alFreqBuffer = 44100;       //frequency
-ALint source_state;
-void ALSOUND_load_wav(char* alBuffer,long alBufferLen)
+//ALint source_state;
+/*void ALSOUND_load_wav(char* alBuffer,long alBufferLen)
 {
 	//Now for the second part, loading a wav file.You have to open a file, fill buffers with dataand then attach it to a source.
 
@@ -836,7 +839,7 @@ void ALSOUND_load_wav(char* alBuffer,long alBufferLen)
 
 
 	//load the wave file
-	//alutLoadWAVFile("my_music.wav", alFormatBuffer, (void**) alBuffer, (unsigned int*) alBufferLen, alFreqBuffer/*, alLoop*/);
+	//alutLoadWAVFile("my_music.wav", alFormatBuffer, (void**) alBuffer, (unsigned int*) alBufferLen, alFreqBuffer);//, alLoop);
 
 	//create a source
 	alGenSources(1, &alSource);
@@ -852,8 +855,8 @@ void ALSOUND_load_wav(char* alBuffer,long alBufferLen)
 
 	//release the data
 	//alutUnloadWAV(alFormatBuffer, alBuffer, alBufferLen, alFreqBuffer);
-}
-void ALSOUND_play(Mix_Chunk mixchunk)
+}*/
+void ALSOUND_play(int which, Mix_Chunk* mixchunk, int loops)
 {
 	/*
 	//Once the sound is loaded we can play it.To do this we use alSourcePlay.
@@ -883,17 +886,35 @@ void ALSOUND_play(Mix_Chunk mixchunk)
 	//delete our buffer
 	//alDeleteBuffers(1, &alSampleSet);
     //----
+	alGenSources((ALuint)1, &alSource[which]);
+	TEST_ERROR("source generation");
 
-	alBufferData(alSampleSet, alFormatBuffer, mixchunk.abuf, mixchunk.alen, alFreqBuffer);
+	alSourcef(alSource[which], AL_PITCH, 1);
+	TEST_ERROR("source pitch");
+	alSourcef(alSource[which], AL_GAIN, 1);
+	TEST_ERROR("source gain");
+	alSource3f(alSource[which], AL_POSITION, 0, 0, 0);
+	TEST_ERROR("source position");
+	alSource3f(alSource[which], AL_VELOCITY, 0, 0, 0);
+	TEST_ERROR("source velocity");
+	alSourcei(alSource[which], AL_LOOPING, AL_FALSE);
+	TEST_ERROR("source looping");
+
+	alGenBuffers(1, &alSampleSet[which]);
+	TEST_ERROR("buffer generation");
+	//------
+
+
+	alBufferData(alSampleSet[which], alFormatBuffer, mixchunk->abuf, mixchunk->alen, alFreqBuffer);
 	TEST_ERROR("buffer copy");
 
-	alSourcei(alSource, AL_BUFFER, alSampleSet);
+	alSourcei(alSource[which], AL_BUFFER, alSampleSet[which]);
 	TEST_ERROR("buffer binding");
 
-	alSourcePlay(alSource);
+	alSourcePlay(alSource[which]);
 	TEST_ERROR("source playing");
 
-	alGetSourcei(alSource, AL_SOURCE_STATE, &source_state);
+	alGetSourcei(alSource[which], AL_SOURCE_STATE, &source_state[which]);
 	TEST_ERROR("source state get");
 	/*while (source_state == AL_PLAYING) {
 		alGetSourcei(alSource, AL_SOURCE_STATE, &source_state);
@@ -908,10 +929,10 @@ void ALSOUND_delete()
 {
 	//Once you’ve finished don’t forget to clean memoryand release OpenAL contextand device
 
-	alDeleteSources(1, &alSource);
+	//alDeleteSources(1, &alSource);
 
 	//delete our buffer
-	alDeleteBuffers(1, &alSampleSet);
+	//alDeleteBuffers(1, &alSampleSet);
 
 	context = alcGetCurrentContext();
 
