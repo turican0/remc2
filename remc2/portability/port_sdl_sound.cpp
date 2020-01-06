@@ -696,6 +696,28 @@ void my_audio_callback(void *midi_player, Uint8 *stream, int len)
 	SDL_memcpy(stream, (Uint8*)buffer, samples_count * 2);
 }
 
+void SOUND_UPDATE() {
+#ifdef SOUND_OPENAL
+	for (int i = 0; i < sound_count; i++)
+	{
+		if (source_state == AL_PLAYING)
+		{
+			alGetSourcei(alSource, AL_SOURCE_STATE, &source_state);
+			TEST_ERROR("source state get");
+		}
+		else
+		{
+			alDeleteSources(1, &alSource);
+			alDeleteBuffers(1, &alSampleSet);
+		}
+	}
+	/*while (source_state == AL_PLAYING) {
+		alGetSourcei(alSource, AL_SOURCE_STATE, &source_state);
+		TEST_ERROR("source state get");
+	}*/
+#endif//SOUND_OPENAL
+};
+
 #define TEST_ERROR(_msg)		\
 	error = alGetError();		\
 	if (error != AL_NO_ERROR) {	\
@@ -873,13 +895,13 @@ void ALSOUND_play(Mix_Chunk mixchunk)
 
 	alGetSourcei(alSource, AL_SOURCE_STATE, &source_state);
 	TEST_ERROR("source state get");
-	while (source_state == AL_PLAYING) {
+	/*while (source_state == AL_PLAYING) {
 		alGetSourcei(alSource, AL_SOURCE_STATE, &source_state);
 		TEST_ERROR("source state get");
 	}
 
 	alDeleteSources(1, &alSource);
-	alDeleteBuffers(1, &alSampleSet);
+	alDeleteBuffers(1, &alSampleSet);*/
 }
 
 void ALSOUND_delete()

@@ -1131,6 +1131,7 @@ void VGA_Blit(int width, int height, Uint8* buffer) {
 	SubBlit();
 
 	//Set_basic_pallette();
+	SOUND_UPDATE();
 }
 
 void VGA_Debug_Blit(int width, int height, Uint8* buffer) {

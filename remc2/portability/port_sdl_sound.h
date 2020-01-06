@@ -76,6 +76,7 @@ Bit32u SOUND_sample_status(HSAMPLE S);
 void SOUND_set_sample_volume(HSAMPLE S, Bit32s volume);
 void SOUND_set_sequence_volume(Bit32s volume);
 void SOUND_set_master_volume(Bit32s volume);
+void SOUND_UPDATE();
 //void test_midi_play(Bit8u* data, Bit8u* header, Bit32s track_number);
 #ifdef SOUND_OPENAL
 void ALSOUND_load_wav(char* alBuffer, long alBufferLen);
