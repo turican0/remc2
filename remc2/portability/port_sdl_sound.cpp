@@ -438,7 +438,7 @@ void SOUND_start_sample(HSAMPLE S) {
 	if (hqsound)
 	{
 		gamechunk[S->index_sample].abuf = (Bit8u*)S->start_44mhz;
-		gamechunk[S->index_sample].alen = S->len_4_5[0] * 8;
+		gamechunk[S->index_sample].alen = S->len_4_5[0] * 4;
 		#ifdef DEBUG_SOUND
 			if (debug_first_sound) {
 				debug_printf("SOUND_start_sample-hq:%08X\n", S->start_44mhz);
@@ -468,7 +468,7 @@ void SOUND_start_sample(HSAMPLE S) {
 	if (hqsound)
 	{
 		gamechunk[S->index_sample].abuf = (Bit8u*)S->start_44mhz;
-		gamechunk[S->index_sample].alen = S->len_4_5[0] * 8;
+		gamechunk[S->index_sample].alen = S->len_4_5[0] * 4;
 	}
 	else
 	{
@@ -800,7 +800,7 @@ void ALSOUND_init()
 	TEST_ERROR("buffer generation");
 }
 
-ALenum alFormatBuffer = AL_FORMAT_STEREO16/*AL_FORMAT_MONO16*/;    //buffer format
+ALenum alFormatBuffer = AL_FORMAT_MONO16/*AL_FORMAT_MONO16*/;    //buffer format
 ALsizei alFreqBuffer = 44100;       //frequency
 ALint source_state;
 void ALSOUND_load_wav(char* alBuffer,long alBufferLen)
