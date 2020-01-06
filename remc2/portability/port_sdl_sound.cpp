@@ -526,7 +526,7 @@ bool init_sound()
 	srand(time(NULL));
 #ifdef SOUND_SDLMIXER
 	if (hqsound) {
-		if (Mix_OpenAudio(44100, AUDIO_S16, 2, 4096) == -1)//4096
+		if (Mix_OpenAudio(44100, AUDIO_S16, 1, 4096) == -1)//4096
 		//if (Mix_OpenAudio(44100, AUDIO_S16, 2, 4096) == -1)//4096
 		//if (Mix_OpenAudio(11025, AUDIO_S8, 1, 4096) == -1)//4096
 		{
