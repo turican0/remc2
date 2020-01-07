@@ -1,4 +1,5 @@
 makeczmc2
+copy l7.txt ..\..\..\Release\copy-files\lang\
 copy l7.txt ..\..\..\..\Magic2\mc2-orig\language\
 copy l7.txt ..\..\..\..\Magic2\mc2-orig\NETHERW\LANGUAGE\
 copy l7.txt ..\..\..\..\Magic2\mc2-orig-c2\language\
