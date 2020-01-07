@@ -41,6 +41,7 @@ extern bool hqsound;
 extern bool oggmusic;
 extern char oggmusicpath[512];
 extern bool oggmusicalternative;
+extern bool fixspeedsound;
 
 bool init_sound();
 //bool load_sound_files();

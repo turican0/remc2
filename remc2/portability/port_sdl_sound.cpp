@@ -14,6 +14,8 @@ bool oggmusic=false;
 bool oggmusicalternative = false;
 char oggmusicpath[512];
 
+bool fixspeedsound = false;
+
 //The music that will be played
 #ifdef SOUND_SDLMIXER
 Mix_Music* GAME_music[20] = { NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL };
@@ -460,7 +462,10 @@ void SOUND_start_sample(HSAMPLE S) {
 		SDL_ConvertAudio(&cvt);*/
 
 		gamechunk[S->index_sample].abuf = /*sample->abuf;//*/ (Bit8u*)S->start_44mhz;
-		gamechunk[S->index_sample].alen = /*sample->alen;//*/S->len_4_5[0] * 8;
+		if (fixspeedsound)
+			gamechunk[S->index_sample].alen = /*sample->alen;//*/S->len_4_5[0] * 16;
+		else
+			gamechunk[S->index_sample].alen = /*sample->alen;//*/S->len_4_5[0] * 8;
 		#ifdef DEBUG_SOUND
 			if (debug_first_sound) {
 				debug_printf("SOUND_start_sample-hq:%08X\n", S->start_44mhz);

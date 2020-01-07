@@ -58,6 +58,11 @@ void readini(char* filename) {
 	else
 		hqsound = false;
 
+	if (reader.GetBoolean("sound", "fixspeedsound", true))
+		fixspeedsound = true;
+	else
+		fixspeedsound = false;
+
 	if (reader.GetBoolean("sound", "oggmusic", true))
 	{
 		oggmusic = true;
