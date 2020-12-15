@@ -652,6 +652,7 @@
     <None Include="..\SDL-Mixer-X-master\src\codecs\play_cmdmusic.pri">
       <Filter>Source Files\libs\sdl-mixer-x</Filter>
     </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\zlib\lib\zlib.lib">
