@@ -90,7 +90,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\prenos\remc2\sdl2\include;C:\prenos\remc2\fluidsynth\include;C:\prenos\remc2\libADLMIDI-master\include;C:\prenos\remc2\libOPNMIDI-master\include;C:\prenos\remc2\SDL-Mixer-X-master\include\SDL_mixer_ext;C:\prenos\remc2\SDL-Mixer-X-master\src;C:\prenos\remc2\inih;C:\prenos\remc2\libvorbis\include;C:\prenos\remc2\libogg\include;C:\Program Files %28x86%29\Visual Leak Detector\include;C:\prenos\remc2\libpng2\libpng-master;C:\prenos\remc2\zlib\include;C:\prenos\remc2\kiss_sdl-master;C:\prenos\remc2\SDL2_image-2.0.5\include;C:\prenos\remc2\SDL2_ttf-2.0.15\include;c:\prenos\remc2\SDL-Mixer-X-master\include\;c:\prenos\remc2\SDL-Mixer-X-master\src\codecs\;C:\prenos\remc2\OpenAL 1.1 SDK\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\sdl2\include;$(SolutionDir)\fluidsynth\include;$(SolutionDir)\libADLMIDI-master\include;$(SolutionDir)\libOPNMIDI-master\include;$(SolutionDir)\SDL-Mixer-X-master\include\SDL_mixer_ext;$(SolutionDir)\SDL-Mixer-X-master\src;$(SolutionDir)\inih;$(SolutionDir)\libvorbis\include;$(SolutionDir)\libogg\include;C:\Program Files %28x86%29\Visual Leak Detector\include;$(SolutionDir)\libpng2\libpng-master;$(SolutionDir)\zlib\include;$(SolutionDir)\kiss_sdl-master;$(SolutionDir)\SDL2_image-2.0.5\include;$(SolutionDir)\SDL2_ttf-2.0.15\include;$(SolutionDir)\SDL-Mixer-X-master\include\;$(SolutionDir)\SDL-Mixer-X-master\src\codecs\;$(SolutionDir)\OpenAL 1.1 SDK\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
     </ClCompile>
     <Link>
@@ -368,7 +368,6 @@
     <None Include="engine\bytearrays.x" />
     <None Include="engine\info.x" />
     <None Include="engine\structures.x" />
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\libpng2\libpng-master\projects\vstudio2017\Debug\libpng15.lib">
@@ -387,15 +386,5 @@
     </Library>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
-  <ImportGroup Label="ExtensionTargets">
-    <Import Project="..\packages\sdl2.nuget.redist.2.0.12\build\native\sdl2.nuget.redist.targets" Condition="Exists('..\packages\sdl2.nuget.redist.2.0.12\build\native\sdl2.nuget.redist.targets')" />
-    <Import Project="..\packages\sdl2.nuget.2.0.12\build\native\sdl2.nuget.targets" Condition="Exists('..\packages\sdl2.nuget.2.0.12\build\native\sdl2.nuget.targets')" />
-  </ImportGroup>
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\sdl2.nuget.redist.2.0.12\build\native\sdl2.nuget.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\sdl2.nuget.redist.2.0.12\build\native\sdl2.nuget.redist.targets'))" />
-    <Error Condition="!Exists('..\packages\sdl2.nuget.2.0.12\build\native\sdl2.nuget.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\sdl2.nuget.2.0.12\build\native\sdl2.nuget.targets'))" />
-  </Target>
+  <ImportGroup Label="ExtensionTargets" />
 </Project>
