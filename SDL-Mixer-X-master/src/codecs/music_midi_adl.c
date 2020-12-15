@@ -22,7 +22,7 @@
 /* This file supports libADLMIDI music streams */
 
 #include "music_midi_adl.h"
-
+#include "mixer.h"
 #ifdef MUSIC_MID_ADLMIDI
 #include <adlmidi.h>
 #include <stdio.h>
@@ -34,7 +34,6 @@ typedef struct {
     int vibrato;
     int scalemod;
     int adlibdrums;
-    int log_volumes;
     int volume_model;
     int chips_count;
     int four_op_channels;
@@ -44,7 +43,7 @@ typedef struct {
 } AdlMidi_Setup;
 
 static AdlMidi_Setup adlmidi_setup = {
-    58, -1, -1, -1, -1, 0, 0, 4, -1, 0, -1, ""
+    58, -1, -1, -1, -1, 0, 4, -1, 0, -1, ""
 };
 
 static void ADLMIDI_SetDefault(AdlMidi_Setup *setup)
@@ -54,7 +53,6 @@ static void ADLMIDI_SetDefault(AdlMidi_Setup *setup)
     setup->vibrato     = -1;
     setup->scalemod    = -1;
     setup->adlibdrums  = -1;
-    setup->log_volumes  = 0;
     setup->volume_model = 0;
     setup->chips_count = 4;
     setup->four_op_channels = -1;
@@ -101,8 +99,12 @@ void SDLCALLCC Mix_ADLMIDI_setBankID(int bnk)
 }
 
 int SDLCALLCC Mix_ADLMIDI_getTremolo()
-{
-    return adlmidi_setup.tremolo;
+{    
+	#ifdef MUSIC_MID_ADLMIDI
+		return adlmidi_setup.tremolo;
+	#else
+		return 0;
+	#endif
 }
 void SDLCALLCC Mix_ADLMIDI_setTremolo(int tr)
 {
@@ -171,7 +173,7 @@ void SDLCALLCC Mix_ADLMIDI_setScaleMod(int sc)
 int SDLCALLCC Mix_ADLMIDI_getLogarithmicVolumes()
 {
     #ifdef MUSIC_MID_ADLMIDI
-    return adlmidi_setup.log_volumes;
+    return (adlmidi_setup.volume_model == ADLMIDI_VolumeModel_NativeOPL3);
     #else
     return -1;
     #endif
@@ -180,7 +182,7 @@ int SDLCALLCC Mix_ADLMIDI_getLogarithmicVolumes()
 void SDLCALLCC Mix_ADLMIDI_setLogarithmicVolumes(int vm)
 {
     #ifdef MUSIC_MID_ADLMIDI
-    adlmidi_setup.log_volumes = vm;
+    adlmidi_setup.volume_model = vm ? ADLMIDI_VolumeModel_NativeOPL3 : ADLMIDI_VolumeModel_AUTO;
     #else
     MIX_UNUSED(vm);
     #endif
@@ -474,7 +476,6 @@ static AdlMIDI_Music *ADLMIDI_LoadSongRW(SDL_RWops *src, const char *args)
             adl_switchEmulator( music->adlmidi, setup.emulator );
         adl_setScaleModulators(music->adlmidi, setup.scalemod);
         adl_setPercMode(music->adlmidi, setup.adlibdrums);
-        adl_setLogarithmicVolumes(music->adlmidi, setup.log_volumes);
         adl_setVolumeRangeModel(music->adlmidi, setup.volume_model);
         adl_setFullRangeBrightness( music->adlmidi, setup.full_brightness_range );
         adl_setNumChips(music->adlmidi, setup.chips_count);

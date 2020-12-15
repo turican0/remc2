@@ -18,7 +18,7 @@
      misrepresented as being the original software.
   3. This notice may not be removed or altered from any source distribution.
 */
-
+#include "mixer.h"
 #ifdef MUSIC_OPUS
 
 /* This file supports Ogg Opus music streams */
@@ -152,7 +152,7 @@ static int sdl_read_func(void *datasource, unsigned char *ptr, int size)
     return (int)SDL_RWread((SDL_RWops*)datasource, ptr, 1, size);
 }
 
-static int sdl_seek_func(void *datasource, ogg_int64_t offset, int whence)
+static int sdl_seek_func(void *datasource, opus_int64 offset, int whence)
 {
     return (SDL_RWseek((SDL_RWops*)datasource, offset, whence) < 0)? -1 : 0;
 }

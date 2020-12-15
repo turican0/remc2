@@ -25,10 +25,11 @@ extern void Mix_UnlockAudio(void);
 
 extern void add_chunk_decoder(const char *decoder);
 
-/* vi: set ts=4 sw=4 expandtab: */
 #define MUSIC_WAV
 //#define MUSIC_MID_OPNMIDI
 //#define MUSIC_MID_ADLMIDI
 //#define MUSIC_MID_FLUIDSYNTH
 #define MUSIC_OGG
 #define MUSIC_MID_NATIVE
+
+/* vi: set ts=4 sw=4 expandtab: */

@@ -30,7 +30,7 @@ void SDLCALLCC MIX_Timidity_addToPathList(const char *path)
 {
     Mix_Timidity_addToPathList(path);
 }
-/*
+
 const char *const *SDLCALLCC  MIX_ADLMIDI_getBankNames()
 {
     return Mix_ADLMIDI_getBankNames();
@@ -115,7 +115,7 @@ void SDLCALLCC MIX_ADLMIDI_setVolumeModel(int vm)
 void SDLCALLCC MIX_OPNMIDI_setCustomBankFile(const char *bank_wonp_path)
 {
     Mix_OPNMIDI_setCustomBankFile(bank_wonp_path);
-}*/
+}
 
 
 int SDLCALLCC MIX_SetMidiDevice(int device)

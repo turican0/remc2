@@ -20,7 +20,7 @@
 */
 
 /* This file supports playing MP3 files with mpg123 */
-
+#include "mixer.h"
 #ifdef MUSIC_MP3_MPG123
 
 #include <stdio.h>      /* For SEEK_SET */

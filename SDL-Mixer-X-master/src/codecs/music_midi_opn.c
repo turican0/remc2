@@ -22,7 +22,7 @@
 /* This file supports libOPNMIDI music streams */
 
 #include "music_midi_opn.h"
-
+#include "mixer.h"
 #ifdef MUSIC_MID_OPNMIDI
 #include <opnmidi.h>
 #include "OPNMIDI/gm_opn_bank.h"
@@ -30,7 +30,6 @@
 
 /* Global OPNMIDI flags which are applying on initializing of MIDI player with a file */
 typedef struct {
-    int log_volumes;
     int volume_model;
     int chips_count;
     int full_brightness_range;
@@ -39,12 +38,11 @@ typedef struct {
 } OpnMidi_Setup;
 
 static OpnMidi_Setup opnmidi_setup = {
-    0, 0, 4, 0, -1, ""
+    0, 4, 0, -1, ""
 };
 
 static void OPNMIDI_SetDefault(OpnMidi_Setup *setup)
 {
-    setup->log_volumes  = 0;
     setup->volume_model = 0;
     setup->chips_count = 6;
     setup->full_brightness_range = 0;
@@ -56,10 +54,30 @@ static void OPNMIDI_SetDefault(OpnMidi_Setup *setup)
 
 int SDLCALLCC Mix_OPNMIDI_getFullRangeBrightness()
 {
-    #ifdef MUSIC_MID_ADLMIDI
+    #ifdef MUSIC_MID_OPNMIDI
     return opnmidi_setup.full_brightness_range;
     #else
     return -1;
+    #endif
+}
+
+int SDLCALLCC Mix_OPNMIDI_getVolumeModel()
+{
+    #ifdef MUSIC_MID_OPNMIDI
+    return opnmidi_setup.volume_model;
+    #else
+    return -1;
+    #endif
+}
+
+void SDLCALLCC Mix_OPNMIDI_setVolumeModel(int vm)
+{
+    #ifdef MUSIC_MID_OPNMIDI
+    opnmidi_setup.volume_model = vm;
+    if(vm < 0)
+        opnmidi_setup.volume_model = 0;
+    #else
+    MIX_UNUSED(vm);
     #endif
 }
 
@@ -74,7 +92,7 @@ void SDLCALLCC Mix_OPNMIDI_setFullRangeBrightness(int frb)
 
 int SDLCALLCC Mix_OPNMIDI_getEmulator()
 {
-    #ifdef MUSIC_MID_ADLMIDI
+    #ifdef MUSIC_MID_OPNMIDI
     return opnmidi_setup.emulator;
     #else
     return -1;
@@ -105,7 +123,7 @@ void SDLCALLCC Mix_OPNMIDI_setCustomBankFile(const char *bank_wonp_path)
     else
         opnmidi_setup.custom_bank_path[0] = '\0';
     #else
-    MIX_UNUSED(bank_wopn_path);
+		//MIX_UNUSED(bank_wopn_path);
     #endif
 }
 
@@ -166,7 +184,7 @@ static void process_args(const char *args, OpnMidi_Setup *setup)
                     setup->chips_count = value;
                     break;
                 case 'v':
-                    setup->log_volumes = value;
+                    setup->volume_model = value;
                     break;
                 case 'l':
                     setup->volume_model = value;
@@ -305,7 +323,6 @@ static OpnMIDI_Music *OPNMIDI_LoadSongRW(SDL_RWops *src, const char *args)
 
         if (setup.emulator >= 0)
             opn2_switchEmulator( music->opnmidi, setup.emulator );
-        opn2_setLogarithmicVolumes( music->opnmidi, setup.log_volumes );
         opn2_setVolumeRangeModel( music->opnmidi, setup.volume_model );
         opn2_setFullRangeBrightness( music->opnmidi, setup.full_brightness_range );
         opn2_setNumChips( music->opnmidi, setup.chips_count );

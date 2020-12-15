@@ -20,7 +20,6 @@
 */
 #include "SDL_mixer_ext.h"
 
-
 #ifndef MUSIC_H_
 #define MUSIC_H_
 
@@ -47,7 +46,6 @@ typedef enum
     MIX_MUSIC_OGG,
     MIX_MUSIC_MPG123,
     MIX_MUSIC_MAD,
-    MIX_MUSIC_SMPEG,
     MIX_MUSIC_FLAC,
     MIX_MUSIC_OPUS,
     MIX_MUSIC_GME,/*MIXER-X*/
@@ -121,6 +119,8 @@ typedef struct
 
     /* Set the volume */
     void (*SetVolume)(void *music, int volume);
+
+    /*TODO: Implement "GetVolume" call*/
 
     /* Start playing music from the beginning with an optional loop count */
     int (*Play)(void *music, int play_count);

@@ -21,7 +21,7 @@
   James Le Cuirot
   chewi@aura-online.co.uk
 */
-
+#include "mixer.h"
 #ifdef MUSIC_MID_FLUIDSYNTH
 
 #include <stdio.h>
@@ -126,7 +126,8 @@ typedef struct {
 
 static int SDLCALL fluidsynth_check_soundfont(const char *path, void *data)
 {
-    FILE *file = fopen(path, "r");
+	FILE *file=NULL;
+    /*FILE *file = */fopen_s(file,path, "r");
 
     if (file) {
         fclose(file);

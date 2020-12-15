@@ -21,7 +21,7 @@
   This file is used to support SDL_LoadMUS playback of FLAC files.
     ~ Austen Dicken (admin@cvpcs.org)
 */
-
+#include "mixer.h"
 #ifdef MUSIC_FLAC
 
 #include "SDL_assert.h"
