@@ -18,7 +18,7 @@
      misrepresented as being the original software.
   3. This notice may not be removed or altered from any source distribution.
 */
-#include "mixer.h"
+
 #ifdef MUSIC_MOD_MODPLUG
 
 #include "SDL_loadso.h"

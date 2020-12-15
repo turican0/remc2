@@ -90,7 +90,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\SDL-Mixer-X-master\include\SDL_mixer_ext;$(SolutionDir)\SDL-Mixer-X-master\src;$(SolutionDir)\SDL-Mixer-X-master\include\;$(SolutionDir)\SDL-Mixer-X-master\src\codecs\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\prenos\remc2\sdl2\include;C:\prenos\remc2\fluidsynth\include;C:\prenos\remc2\libADLMIDI-master\include;C:\prenos\remc2\libOPNMIDI-master\include;C:\prenos\remc2\SDL-Mixer-X-master\include\SDL_mixer_ext;C:\prenos\remc2\SDL-Mixer-X-master\src;C:\prenos\remc2\inih;C:\prenos\remc2\libvorbis\include;C:\prenos\remc2\libogg\include;C:\Program Files %28x86%29\Visual Leak Detector\include;C:\prenos\remc2\libpng2\libpng-master;C:\prenos\remc2\zlib\include;C:\prenos\remc2\kiss_sdl-master;C:\prenos\remc2\SDL2_image-2.0.5\include;C:\prenos\remc2\SDL2_ttf-2.0.15\include;c:\prenos\remc2\SDL-Mixer-X-master\include\;c:\prenos\remc2\SDL-Mixer-X-master\src\codecs\;C:\prenos\remc2\OpenAL 1.1 SDK\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
     </ClCompile>
     <Link>

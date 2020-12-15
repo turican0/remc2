@@ -39,6 +39,7 @@ DEFAULT_CODECS += \
     MUSIC_MID_OPNMIDI \
     MUSIC_OGG \
     MUSIC_FLAC \
+    #MUSIC_MP3_SMPEG \
     #MUSIC_MP3_MPG123 \
     MUSIC_MP3_ID3TAG\
     MUSIC_MP3_MAD \
@@ -179,6 +180,9 @@ disable-mp3-mad: DEFAULT_CODECS -= MUSIC_MP3_MAD
 enable-mp3-mpg123:  DEFAULT_CODECS += MUSIC_MP3_MPG123
 disable-mp3-mpg123: DEFAULT_CODECS -= MUSIC_MP3_MPG123
 
+enable-mp3-smpeg:  DEFAULT_CODECS += MUSIC_MP3_SMPEG
+disable-mp3-smpeg: DEFAULT_CODECS -= MUSIC_MP3_SMPEG
+
 enable-ogg:  DEFAULT_CODECS += MUSIC_OGG
 disable-ogg: DEFAULT_CODECS -= MUSIC_OGG
 
@@ -227,6 +231,7 @@ contains(DEFINES, MUSIC_MOD_MODPLUG):   include($$PWD/src/codecs/play_modplug.pr
 contains(DEFINES, MUSIC_MP3_ID3TAG):    include($$PWD/src/codecs/play_id3tag.pri)
 contains(DEFINES, MUSIC_MP3_MAD):       include($$PWD/src/codecs/play_mad.pri)
 contains(DEFINES, MUSIC_MP3_MPG123):    include($$PWD/src/codecs/play_mpg123.pri)
+contains(DEFINES, MUSIC_MP3_SMPEG):     include($$PWD/src/codecs/play_smpeg.pri)
 contains(DEFINES, MUSIC_GME):           include($$PWD/src/codecs/play_gme.pri)
 contains(DEFINES, MUSIC_CMD):           include($$PWD/src/codecs/play_cmdmusic.pri)
 
