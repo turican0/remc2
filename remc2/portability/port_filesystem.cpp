@@ -351,11 +351,11 @@ FILE* myopen(char* path, int pmode, Bit32u flags) {
 	else
 		exit(1);//error - DOSSetError(DOSERR_ACCESS_CODE_INVALID);
 	FILE *fp;
-	char path2[512] = "\0";
-	pathfix(path, path2);//only for DOSBOX version
-	#ifdef DEBUG_START
-		debug_printf("myopen:open file:fixed:%s\n", path2);
-	#endif //DEBUG_START
+	//char path2[512] = "\0";
+	//pathfix(path, path2);//only for DOSBOX version
+	//#ifdef DEBUG_START
+	//	debug_printf("myopen:open file:fixed:%s\n", path2);
+	//#endif //DEBUG_START
 	//if(file_exists(path2))
 
 	fp=fopen(path2, type);
@@ -628,3 +628,31 @@ void ReadGraphicsfile(const char* path, Bit8u* buffer, long size) {
 	fread(buffer, size, 1, file);
 	myclose(file);
 };
+
+char* GetSubDirectoryPath(char* gamepath, char* subDirectory)
+{
+	char buffer[MAX_PATH];
+	char exepath[MAX_PATH];
+	get_exe_path(exepath);
+	sprintf(buffer, "%s\\%s\\%s", exepath, gamepath, subDirectory);
+
+	return buffer;
+}
+
+char* GetSubDirectoryFile(char* gamepath, char* subDirectory, char* fileName)
+{
+	char buffer[MAX_PATH];
+	char* subDirPath = GetSubDirectoryPath(gamepath, subDirectory);
+	sprintf(buffer, "%s\\%s", subDirPath, fileName);
+
+	return buffer;
+}
+
+char* GetSaveGameFile(char* gamepath, __int16 index)
+{
+	char buffer[MAX_PATH];
+	char* subDirPath = GetSubDirectoryPath(gamepath, "save");
+	sprintf(buffer, "%s\\save%d.gam", subDirPath, index);
+
+	return buffer;
+}

@@ -55,6 +55,12 @@
     <Filter Include="Source Files\libs\openAL">
       <UniqueIdentifier>{9447dd76-12e2-4526-b425-7c337c70567d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\utilities">
+      <UniqueIdentifier>{406b38cd-1900-498f-bf6d-e704a8be936a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\portability">
+      <UniqueIdentifier>{d5e291bd-a3ae-41a5-a8f1-7b30c46a8bce}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -81,29 +87,8 @@
     <ClInclude Include="portability\mctypes.h">
       <Filter>Source Files\portability</Filter>
     </ClInclude>
-    <ClInclude Include="portability\port_filesystem.h">
-      <Filter>Source Files\portability</Filter>
-    </ClInclude>
-    <ClInclude Include="portability\port_inputs.h">
-      <Filter>Source Files\portability</Filter>
-    </ClInclude>
-    <ClInclude Include="portability\port_outputs.h">
-      <Filter>Source Files\portability</Filter>
-    </ClInclude>
-    <ClInclude Include="portability\port_sdl_vga_mouse.h">
-      <Filter>Source Files\portability</Filter>
-    </ClInclude>
-    <ClInclude Include="portability\port_time.h">
-      <Filter>Source Files\portability</Filter>
-    </ClInclude>
-    <ClInclude Include="portability\port_sdl_sound.h">
-      <Filter>Source Files\portability</Filter>
-    </ClInclude>
     <ClInclude Include="engine\ail_sound.h">
       <Filter>Source Files\engine</Filter>
-    </ClInclude>
-    <ClInclude Include="portability\xmi2mid.h">
-      <Filter>Source Files\portability</Filter>
     </ClInclude>
     <ClInclude Include="..\libADLMIDI-master\src\adldata.hh">
       <Filter>Source Files\libs\libADL</Filter>
@@ -267,9 +252,6 @@
     <ClInclude Include="..\kiss_sdl-master\kiss_sdl.h">
       <Filter>Source Files\libs\kiss-sdl</Filter>
     </ClInclude>
-    <ClInclude Include="portability\dirent-x.h">
-      <Filter>Source Files\portability</Filter>
-    </ClInclude>
     <ClInclude Include="..\SDL-Mixer-X-master\src\music.h">
       <Filter>Source Files\libs\sdl-mixer-x</Filter>
     </ClInclude>
@@ -338,6 +320,30 @@
     </ClInclude>
     <ClInclude Include="..\SDL-Mixer-X-master\include\SDL_mixer_ext\SDL_mixer_ext.h">
       <Filter>Source Files\libs\sdl-mixer-x</Filter>
+    </ClInclude>
+    <ClInclude Include="portability\port_filesystem.h">
+      <Filter>Header Files\portability</Filter>
+    </ClInclude>
+    <ClInclude Include="portability\dirent-x.h">
+      <Filter>Header Files\portability</Filter>
+    </ClInclude>
+    <ClInclude Include="portability\port_inputs.h">
+      <Filter>Header Files\portability</Filter>
+    </ClInclude>
+    <ClInclude Include="portability\port_sdl_sound.h">
+      <Filter>Header Files\portability</Filter>
+    </ClInclude>
+    <ClInclude Include="portability\port_outputs.h">
+      <Filter>Header Files\portability</Filter>
+    </ClInclude>
+    <ClInclude Include="portability\port_time.h">
+      <Filter>Header Files\portability</Filter>
+    </ClInclude>
+    <ClInclude Include="portability\xmi2mid.h">
+      <Filter>Header Files\portability</Filter>
+    </ClInclude>
+    <ClInclude Include="portability\port_sdl_vga_mouse.h">
+      <Filter>Header Files\portability</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
