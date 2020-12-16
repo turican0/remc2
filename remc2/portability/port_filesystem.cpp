@@ -7,7 +7,7 @@
 */
 
 //char gamepath[512] = "c:\\prenos\\Magic2\\mc2-orig-copy";
-char gamepath[512] = "..\\..\\Magic2\\mc2-orig-copy";
+char gamepath[512] = "..\\NETHERW";
 char biggraphicspath[512] = "biggraphics/";
 char gamepathout[512];
 char fixsound[512] = "fix-sound\\";
@@ -55,7 +55,7 @@ void pathfix(char* path, char* path2)
 	if ((path[0] == 'c') || (path[0] == 'C'))
 	{
 		long len = strlen(path);
-		char* fixstring = (char*)gamepathout;//(char*)"c:/prenos/Magic2/mc2-orig-copy";
+		char* fixstring = (char*)gamepathout;
 		long fixlen = strlen(fixstring);
 		for (int i = len;i > 1;i--)
 			path2[i + fixlen - 2] = path[i];
@@ -65,7 +65,7 @@ void pathfix(char* path, char* path2)
 	else
 	{
 		long len = strlen(path);
-		char* fixstring = (char*)gamepathout;//(char*)"c:/prenos/Magic2/mc2-orig-copy/";
+		char* fixstring = (char*)gamepathout;
 		long fixlen = strlen(fixstring);
 		for (int i = len;i > -1;i--)
 			path2[i + fixlen+1] = path[i];
@@ -117,7 +117,7 @@ void pathfix2(char* path, char* path2)
 	if ((path[0] == 'c') || (path[0] == 'C'))
 	{
 		long len = strlen(path);
-		char* fixstring = (char*)gamepath;//(char*)"c:/prenos/Magic2/mc2-orig-copy";
+		char* fixstring = (char*)gamepath;
 		long fixlen = strlen(fixstring);
 		for (int i = len;i > 1;i--)
 			path2[i + fixlen - 2] = path[i];
@@ -127,8 +127,7 @@ void pathfix2(char* path, char* path2)
 	else
 	{
 		long len = strlen(path);
-		char* fixstring = (char*)fixsoundout;//(char*)"c:/prenos/Magic2/mc2-orig-copy/NETHERW/sound/";
-		//char* fixstring = (char*)"c:/prenos/Magic2/mc2-orig-copy/NETHERW/sound/";
+		char* fixstring = (char*)fixsoundout;
 		long fixlen = strlen(fixstring);
 		for (int i = len;i > -1;i--)
 			path2[i + fixlen] = path[i];
@@ -246,7 +245,7 @@ FILE* mycreate(char* path, Bit32u flags) {
 
 FILE* debug_output;
 
-bool debug_first = true;
+bool debug_first = false;
 const char* debug_filename = "../debug.txt";
 char path2[2048] = "\0";
 
