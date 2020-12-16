@@ -96,7 +96,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>c:\prenos\remc2\sdl2\VisualC\Win32\Debug\;C:\prenos\remc2\Debug;C:\prenos\remc2\fluidsynth\lib;C:\prenos\remc2\libvorbis\win32\VS2010\Win32\Debug;C:\prenos\remc2\libogg\win32\VS2015\Win32\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)\sdl2\VisualC\Win32\Debug\;$(SolutionDir)\Debug;$(SolutionDir)\fluidsynth\lib;$(SolutionDir)\libvorbis\win32\VS2010\Win32\Debug;$(SolutionDir)\libogg\win32\VS2015\Win32\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>SDL2.lib;SDL2main.lib;winmm.lib;libvorbis_static.lib;libvorbisfile_static.lib;libogg_static.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
