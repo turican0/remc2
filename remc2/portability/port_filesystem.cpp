@@ -629,30 +629,23 @@ void ReadGraphicsfile(const char* path, Bit8u* buffer, long size) {
 	myclose(file);
 };
 
-char* GetSubDirectoryPath(char* gamepath, char* subDirectory)
+void GetSubDirectoryPath(char* buffer, char* gamepath, char* subDirectory)
 {
-	char buffer[MAX_PATH];
 	char exepath[MAX_PATH];
 	get_exe_path(exepath);
 	sprintf(buffer, "%s\\%s\\%s", exepath, gamepath, subDirectory);
-
-	return buffer;
 }
 
-char* GetSubDirectoryFile(char* gamepath, char* subDirectory, char* fileName)
+void GetSubDirectoryFile(char* buffer, char* gamepath, char* subDirectory, char* fileName)
 {
-	char buffer[MAX_PATH];
-	char* subDirPath = GetSubDirectoryPath(gamepath, subDirectory);
+	char subDirPath[MAX_PATH]; 
+	GetSubDirectoryPath(subDirPath, gamepath, subDirectory);
 	sprintf(buffer, "%s\\%s", subDirPath, fileName);
-
-	return buffer;
 }
 
-char* GetSaveGameFile(char* gamepath, __int16 index)
+void GetSaveGameFile(char* buffer, char* gamepath, __int16 index)
 {
-	char buffer[MAX_PATH];
-	char* subDirPath = GetSubDirectoryPath(gamepath, "save");
+	char subDirPath[MAX_PATH];
+	GetSubDirectoryPath(subDirPath, gamepath, "save");
 	sprintf(buffer, "%s\\save%d.gam", subDirPath, index);
-
-	return buffer;
 }

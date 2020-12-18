@@ -71,10 +71,10 @@ unsigned __int64 dos_getdiskfree(__int16 a1, __int16 a2, Bit8u a, short* b);
 
 void debug_printf(const char* format, ...);
 
-char* GetSubDirectoryPath(char* gamepath, char* subDirectory);
+void GetSubDirectoryPath(char* buffer, char* gamepath, char* subDirectory);
 
-char* GetSubDirectoryFile(char* gamepath, char* subDirectory, char* fileName);
+void GetSubDirectoryFile(char* buffer, char* gamepath, char* subDirectory, char* fileName);
 
-char* GetSaveGameFile(char* gamepath, __int16 index);
+void GetSaveGameFile(char* buffer, char* gamepath, __int16 index);
 
 #endif //PORT_FILESYSTEM
