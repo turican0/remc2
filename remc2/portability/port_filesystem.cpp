@@ -7,7 +7,7 @@
 */
 
 //char gamepath[512] = "c:\\prenos\\Magic2\\mc2-orig-copy";
-char gamepath[512] = "..\\NETHERW";
+char gamepath[512] = "NETHERW";
 char biggraphicspath[512] = "biggraphics/";
 char gamepathout[512];
 char fixsound[512] = "fix-sound\\";
@@ -30,18 +30,18 @@ void pathfix(char* path, char* path2)
 {
 	if (firstrun)
 	{
-		#ifdef _MSC_VER
+#ifdef _MSC_VER
 		LPWSTR buffer = new WCHAR[MAX_PATH];
 		GetModuleFileName(NULL, buffer, MAX_PATH);
 		std::string locstr = utf8_encode(buffer);
 		std::string::size_type pos = std::string(locstr).find_last_of("\\/");
 		std::string strpathx = std::string(locstr).substr(0, pos)/*+"\\system.exe"*/;
-		#else
+#else
 		char* buffer = new char[MAX_PATH];
 		GetModuleFileName(NULL, buffer, MAX_PATH);
 		std::string::size_type pos = std::string(buffer).find_last_of("\\/");
 		std::string strpathx = std::string(buffer).substr(0, pos)/*+"\\system.exe"*/;
-		#endif
+#endif
 		char* pathx = (char*)strpathx.c_str();
 		delete[] buffer;
 		strcpy(oldpathx, pathx);
@@ -50,16 +50,16 @@ void pathfix(char* path, char* path2)
 
 	sprintf(fixsoundout, "%s\\%s", oldpathx, fixsound);
 	sprintf(gamepathout, "%s\\%s", oldpathx, gamepath);
-	
+
 
 	if ((path[0] == 'c') || (path[0] == 'C'))
 	{
 		long len = strlen(path);
 		char* fixstring = (char*)gamepathout;
 		long fixlen = strlen(fixstring);
-		for (int i = len;i > 1;i--)
+		for (int i = len; i > 1; i--)
 			path2[i + fixlen - 2] = path[i];
-		for (int i = 0;i < fixlen;i++)
+		for (int i = 0; i < fixlen; i++)
 			path2[i] = fixstring[i];
 	}
 	else
@@ -67,9 +67,9 @@ void pathfix(char* path, char* path2)
 		long len = strlen(path);
 		char* fixstring = (char*)gamepathout;
 		long fixlen = strlen(fixstring);
-		for (int i = len;i > -1;i--)
-			path2[i + fixlen+1] = path[i];
-		for (int i = 0;i < fixlen;i++)
+		for (int i = len; i > -1; i--)
+			path2[i + fixlen + 1] = path[i];
+		for (int i = 0; i < fixlen; i++)
 			path2[i] = fixstring[i];
 		path2[fixlen] = '\\';
 	}
@@ -163,15 +163,13 @@ void unpathfix(char* path, char* path2)
 }
 
 long my_findfirst(char* path, _finddata_t* c_file){
-	char path2[2048] = "\0";
 	#ifdef DEBUG_START
 		debug_printf("my_findfirst:%s\n", path);
 	#endif //DEBUG_START
-	pathfix(path, path2);//only for DOSBOX version
 	#ifdef DEBUG_START
 		debug_printf("my_findfirst:fixed:%s\n", path);
 	#endif //DEBUG_START
-	long result= _findfirst(path2, c_file);
+	long result= _findfirst(path, c_file);
 	#ifdef DEBUG_START
 			debug_printf("my_findfirst:end:%d\n", result);
 	#endif //DEBUG_START
@@ -234,9 +232,7 @@ bool file_exists(const char * filename) {
 
 FILE* mycreate(char* path, Bit32u flags) {
 	FILE *fp;
-	char path2[512] = "\0";
-	pathfix(path, path2);//only for DOSBOX version
-	fp = fopen(path2, "wb+");
+	fp = fopen(path, "wb+");
 	#ifdef DEBUG_START
 		debug_printf("mycreate:%p\n",fp);
 	#endif //DEBUG_START
@@ -247,7 +243,7 @@ FILE* debug_output;
 
 bool debug_first = false;
 const char* debug_filename = "../debug.txt";
-char path2[2048] = "\0";
+char path[2048] = "\0";
 
 void debug_printf(const char* format, ...) {
 	char prbuffer[1024];
@@ -257,15 +253,17 @@ void debug_printf(const char* format, ...) {
 	done = vsprintf(prbuffer, format, arg);
 	va_end(arg);
 
-	pathfix((char*)debug_filename, path2);//only for DOSBOX version
+	char exepath[MAX_PATH];
+	get_exe_path(exepath);
+	sprintf(path, "%s\\%s", exepath, (char*)debug_filename);
 
 	if (debug_first)
 	{
-		debug_output = fopen(path2, "wt");
+		debug_output = fopen(path, "wt");
 		debug_first = false;
 	}
 	else
-		debug_output = fopen(path2, "at");
+		debug_output = fopen(path, "at");
 	fprintf(debug_output, prbuffer);
 	fclose(debug_output);
 	#ifdef DEBUG_PRINT_DEBUG_TO_SCREEN
@@ -275,15 +273,15 @@ void debug_printf(const char* format, ...) {
 
 Bit32s myaccess(char* path, Bit32u flags) {
 	DIR *dir;
-	char path2[2048] = "\0";
+	//char path2[2048] = "\0";
 	#ifdef DEBUG_FILEOPS
 		debug_printf("myaccess:orig path:%s\n", path);
 	#endif //DEBUG_FILEOPS
-	pathfix(path, path2);//only for DOSBOX version
-	#ifdef DEBUG_FILEOPS
-		debug_printf("myaccess:fix path:%s\n", path2);
-	#endif //DEBUG_FILEOPS
-	dir = opendir(path2);
+	//pathfix(path, path2);//only for DOSBOX version
+	//#ifdef DEBUG_FILEOPS
+	//	debug_printf("myaccess:fix path:%s\n", path2);
+	//#endif //DEBUG_FILEOPS
+	dir = opendir(path);
 	#ifdef DEBUG_FILEOPS
 		debug_printf("myaccess:exit:%p %d\n", dir, errno);
 	#endif //DEBUG_FILEOPS
@@ -301,22 +299,22 @@ Bit32s myaccess(char* path, Bit32u flags) {
 };
 
 Bit32s /*__cdecl*/ mymkdir(char* path) {
-	char path2[512] = "\0";
+	//char path2[512] = "\0";
 	#ifdef DEBUG_FILEOPS
 		debug_printf("mymkdir:path: %s\n", path);
 	#endif //DEBUG_FILEOPS
-	pathfix(path, path2);//only for DOSBOX version
+	//pathfix(path, path2);//only for DOSBOX version
 
-	#ifdef DEBUG_FILEOPS
-		debug_printf("mymkdir:path2: %s\n", path2);
-	#endif //DEBUG_FILEOPS
+	//#ifdef DEBUG_FILEOPS
+	//	debug_printf("mymkdir:path2: %s\n", path2);
+	//#endif //DEBUG_FILEOPS
 
 	const WCHAR *pwcsName;
 	// required size
-	int nChars = MultiByteToWideChar(CP_ACP, 0, path2, -1, NULL, 0);
+	int nChars = MultiByteToWideChar(CP_ACP, 0, path, -1, NULL, 0);
 	// allocate it
 	pwcsName = new WCHAR[nChars];
-	MultiByteToWideChar(CP_ACP, 0, path2, -1, (LPWSTR)pwcsName, nChars);
+	MultiByteToWideChar(CP_ACP, 0, path, -1, (LPWSTR)pwcsName, nChars);
 	// use it....
 
 #ifdef DEBUG_FILEOPS
@@ -358,7 +356,7 @@ FILE* myopen(char* path, int pmode, Bit32u flags) {
 	//#endif //DEBUG_START
 	//if(file_exists(path2))
 
-	fp=fopen(path2, type);
+	fp=fopen(path, type);
 	#ifdef DEBUG_START
 		debug_printf("myopen:open end %p\n", fp);
 	#endif //DEBUG_START
@@ -398,11 +396,7 @@ char* x_getcwd(x_DWORD a, x_DWORD b) {
 
 FILE* myopent(char* path, char* type) {
 	FILE *fp;
-	char path2[512] = "\0";
-	pathfix2(path, path2);//only for DOSBOX version
-	//if(file_exists(path2))
-
-	fp=fopen(path2, type);
+	fp=fopen(path, type);
 	#ifdef DEBUG_FILEOPS
 		debug_printf("myopent:end: %p\n", fp);
 	#endif //DEBUG_FILEOPS
