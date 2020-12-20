@@ -623,6 +623,13 @@ void ReadGraphicsfile(const char* path, Bit8u* buffer, long size) {
 	myclose(file);
 };
 
+void GetSubDirectoryPath(char* buffer, char* subDirectory)
+{
+	char exepath[MAX_PATH];
+	get_exe_path(exepath);
+	sprintf(buffer, "%s\\%s", exepath, subDirectory);
+}
+
 void GetSubDirectoryPath(char* buffer, char* gamepath, char* subDirectory)
 {
 	char exepath[MAX_PATH];
