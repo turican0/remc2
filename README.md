@@ -17,7 +17,7 @@ https://www.gog.com/game/magic_carpet_2_the_netherworlds<br />
 - 4: Copy the "Extract" folder to your Game Directory, run extract-GOG-CD.bat. The CD Data will now be copied to a directory called "CD_Files" in the Extract directory<br />
 - 5: Move "CD_Files" directory into the "remc2\Debug" Folder<br />
 - 6: Run<br />
-<h2>ROADMAP:</h2><
+<h2>ROADMAP:</h2>
 <h3>MILLSTONE 1</h3>
 - Get solution runnable from Visual Studio 2019 build, with minimum of setup<br />
 - Refactor reverse engineered code into seperate classes where possible<br />
