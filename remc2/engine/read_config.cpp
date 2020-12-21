@@ -90,6 +90,8 @@ void readini(char* filename) {
 
 	std::string readstr2 = reader.GetString("main", "gamepath", "");
 	strcpy((char*)gamepath, (char*)readstr2.c_str());
+	std::string readstr4 = reader.GetString("main", "cddatapath", "");
+	strcpy((char*)cddatapath, (char*)readstr4.c_str());
 
 	speedGame = reader.GetInteger("game", "speed", 35);
 	speedAnim = reader.GetInteger("game", "animspeed", 100);
