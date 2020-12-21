@@ -8,6 +8,7 @@
 
 //char gamepath[512] = "c:\\prenos\\Magic2\\mc2-orig-copy";
 char gamepath[512] = "NETHERW";
+char cddatapath[512] = "CD_Files";
 char biggraphicspath[512] = "biggraphics/";
 char gamepathout[512];
 char fixsound[512] = "fix-sound\\";
