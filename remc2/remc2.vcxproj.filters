@@ -72,17 +72,8 @@
     <ClInclude Include="engine\defs.h">
       <Filter>Source Files\engine</Filter>
     </ClInclude>
-    <ClInclude Include="engine\engine_support.h">
-      <Filter>Source Files\engine</Filter>
-    </ClInclude>
-    <ClInclude Include="engine\sub_main.h">
-      <Filter>Source Files\engine</Filter>
-    </ClInclude>
     <ClInclude Include="dosbox_files\config.h">
       <Filter>Source Files\dosbox_files</Filter>
-    </ClInclude>
-    <ClInclude Include="engine\sub_main_mouse.h">
-      <Filter>Source Files\engine</Filter>
     </ClInclude>
     <ClInclude Include="portability\mctypes.h">
       <Filter>Source Files\portability</Filter>
@@ -237,18 +228,6 @@
     <ClInclude Include="..\inih\INIReader.h">
       <Filter>Source Files\libs\inih</Filter>
     </ClInclude>
-    <ClInclude Include="engine\read_config.h">
-      <Filter>Source Files\engine</Filter>
-    </ClInclude>
-    <ClInclude Include="engine\cd_utils.h">
-      <Filter>Source Files\engine</Filter>
-    </ClInclude>
-    <ClInclude Include="engine\engine_support_converts.h">
-      <Filter>Source Files\engine</Filter>
-    </ClInclude>
-    <ClInclude Include="engine\editor.h">
-      <Filter>Source Files\engine</Filter>
-    </ClInclude>
     <ClInclude Include="..\kiss_sdl-master\kiss_sdl.h">
       <Filter>Source Files\libs\kiss-sdl</Filter>
     </ClInclude>
@@ -343,6 +322,24 @@
       <Filter>Header Files\portability</Filter>
     </ClInclude>
     <ClInclude Include="portability\port_sdl_vga_mouse.h">
+      <Filter>Header Files\portability</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\engine_support.h">
+      <Filter>Header Files\portability</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\editor.h">
+      <Filter>Header Files\portability</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\engine_support_converts.h">
+      <Filter>Header Files\portability</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\read_config.h">
+      <Filter>Header Files\portability</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\sub_main.h">
+      <Filter>Header Files\portability</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\sub_main_mouse.h">
       <Filter>Header Files\portability</Filter>
     </ClInclude>
   </ItemGroup>
@@ -474,9 +471,6 @@
       <Filter>Source Files\libs\inih</Filter>
     </ClCompile>
     <ClCompile Include="engine\read_config.cpp">
-      <Filter>Source Files\engine</Filter>
-    </ClCompile>
-    <ClCompile Include="engine\cd_utils.cpp">
       <Filter>Source Files\engine</Filter>
     </ClCompile>
     <ClCompile Include="engine\engine_support_converts.cpp">

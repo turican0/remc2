@@ -7,8 +7,8 @@
 */
 
 //char gamepath[512] = "c:\\prenos\\Magic2\\mc2-orig-copy";
-char gamepath[512] = "NETHERW";
-char cddatapath[512] = "CD_Files";
+char gameFolder[512] = "Netherw";
+char cdFolder[512] = "CD_Files";
 char biggraphicspath[512] = "biggraphics/";
 char gamepathout[512];
 char fixsound[512] = "fix-sound\\";
@@ -50,7 +50,7 @@ void pathfix(char* path, char* path2)
 	}
 
 	sprintf(fixsoundout, "%s\\%s", oldpathx, fixsound);
-	sprintf(gamepathout, "%s\\%s", oldpathx, gamepath);
+	sprintf(gamepathout, "%s\\%s", oldpathx, gameFolder);
 
 
 	if ((path[0] == 'c') || (path[0] == 'C'))
@@ -113,12 +113,12 @@ void pathfix2(char* path, char* path2)
 	#endif
 	char* pathx = (char*)strpathx.c_str();
 	sprintf(fixsoundout,"%s\\%s", pathx,fixsound);
-	sprintf(gamepathout, "%s\\%s", pathx, gamepath);
+	sprintf(gamepathout, "%s\\%s", pathx, gameFolder);
 
 	if ((path[0] == 'c') || (path[0] == 'C'))
 	{
 		long len = strlen(path);
-		char* fixstring = (char*)gamepath;
+		char* fixstring = (char*)gameFolder;
 		long fixlen = strlen(fixstring);
 		for (int i = len;i > 1;i--)
 			path2[i + fixlen - 2] = path[i];

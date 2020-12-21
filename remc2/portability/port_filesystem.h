@@ -25,8 +25,8 @@
 
 //#define DEBUG_PRINT_DEBUG_TO_SCREEN
 
-extern char gamepath[512];
-extern char cddatapath[512];
+extern char gameFolder[512];
+extern char cdFolder[512];
 extern char biggraphicspath[512];
 
 
