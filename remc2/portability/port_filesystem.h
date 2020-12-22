@@ -27,7 +27,7 @@
 
 extern char gameFolder[512];
 extern char cdFolder[512];
-extern char biggraphicspath[512];
+extern char bigGraphicsFolder[512];
 
 
 long my_findfirst(char* path, _finddata_t* c_file);

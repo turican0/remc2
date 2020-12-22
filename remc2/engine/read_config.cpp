@@ -83,8 +83,8 @@ void readini(char* filename) {
 	if(!strcmp("640x480", (char*)readstrgd.c_str()))
 		res640x480=true;
 
-	std::string readstr3 = reader.GetString("graphics", "biggraphicspath", "");
-	strcpy(biggraphicspath, (char*)readstr3.c_str());
+	std::string readstr3 = reader.GetString("graphics", "bigGraphicsFolder", "");
+	strcpy(bigGraphicsFolder, (char*)readstr3.c_str());
 
 	texturepixels=reader.GetInteger("graphics", "texturepixels", 32);
 

@@ -9,7 +9,7 @@
 //char gamepath[512] = "c:\\prenos\\Magic2\\mc2-orig-copy";
 char gameFolder[512] = "Netherw";
 char cdFolder[512] = "CD_Files";
-char biggraphicspath[512] = "biggraphics/";
+char bigGraphicsFolder[512] = "bigGraphics";
 char gamepathout[512];
 char fixsound[512] = "fix-sound\\";
 char fixsoundout[512];
@@ -576,44 +576,25 @@ void AdvReadfile(const char* path, Bit8u* buffer) {
 
 bool ExistGraphicsfile(const char* path) {
 
-
-	char pathexe[512] = "\0";
-	get_exe_path(pathexe);
-	char path2[512];
-	sprintf(path2, "%s/%s%s", pathexe, biggraphicspath, path);
-
 	FILE* file;
 
-	if ((file = fopen(path2, "r")) != NULL) {
+	if ((file = fopen(path, "r")) != NULL) {
 		fclose(file);
 #ifdef DEBUG_START
-		debug_printf("ffile_exists:true-%s\n", path2);
+		debug_printf("ffile_exists:true-%s\n", path);
 #endif //DEBUG_START
 		return true;
 	}
 #ifdef DEBUG_START
-	debug_printf("ffile_exists:false-%s\n", path2);
+	debug_printf("ffile_exists:false-%s\n", path);
 #endif //DEBUG_START
 	return false;
 }
 
-void ReadGraphicsfile(const char* path, Bit8u* buffer, long size) {
-
-
-	char pathexe[512] = "\0";
-	get_exe_path(pathexe);
-	char path2[512];
-	sprintf(path2, "%s/%s%s", pathexe, biggraphicspath, path);
-
-	/*FILE* file0;
-	fopen_s(&file0, path2, (char*)"wb");
-	char x = 1;
-	fwrite(&x, 1, 1, file0);
-	myclose(file0);*/
-
+void ReadGraphicsfile(const char* path, Bit8u* buffer, long size) 
+{
 	FILE* file;
-	//fopen_s(&file, (char*)"c:\\prenos\\remc2\\biggraphics\\out_rlt-n-out.data", (char*)"rb");
-	file = fopen(path2, (char*)"rb");
+	file = fopen(path, (char*)"rb");
 	if (size == -1)
 	{
 		fseek(file, 0L, SEEK_END);
