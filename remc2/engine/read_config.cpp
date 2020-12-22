@@ -76,8 +76,8 @@ void readini(char* filename) {
 	}
 	else
 		oggmusicalternative = false;
-	std::string readstr = reader.GetString("sound", "oggmusicpath", "");
-	strcpy(oggmusicpath, (char*)readstr.c_str());
+	std::string readstr = reader.GetString("sound", "oggmusicFolder", "");
+	strcpy(oggmusicFolder, (char*)readstr.c_str());
 
 	std::string readstrgd = reader.GetString("graphics", "defaultresolution", "");
 	if(!strcmp("640x480", (char*)readstrgd.c_str()))
