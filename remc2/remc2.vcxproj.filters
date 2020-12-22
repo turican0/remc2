@@ -336,11 +336,11 @@
     <ClInclude Include="engine\read_config.h">
       <Filter>Header Files\portability</Filter>
     </ClInclude>
-    <ClInclude Include="engine\sub_main.h">
-      <Filter>Header Files\portability</Filter>
-    </ClInclude>
     <ClInclude Include="engine\sub_main_mouse.h">
       <Filter>Header Files\portability</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\sub_main.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -351,9 +351,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="engine\engine_support.cpp">
-      <Filter>Source Files\engine</Filter>
-    </ClCompile>
-    <ClCompile Include="engine\sub_main.cpp">
       <Filter>Source Files\engine</Filter>
     </ClCompile>
     <ClCompile Include="portability\port_filesystem.cpp">
@@ -577,6 +574,9 @@
     </ClCompile>
     <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\native_midi\native_midi_common.c">
       <Filter>Source Files\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\sub_main.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
