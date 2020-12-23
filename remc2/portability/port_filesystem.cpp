@@ -11,10 +11,6 @@ using namespace std;
 char gameFolder[512] = "Netherw";
 char cdFolder[512] = "CD_Files";
 char bigGraphicsFolder[512] = "bigGraphics";
-char gamepathout[512];
-char fixsound[512] = "fix-sound\\";
-char fixsoundout[512];
-
 
 std::string utf8_encode(const std::wstring &wstr)
 {
@@ -25,58 +21,7 @@ std::string utf8_encode(const std::wstring &wstr)
 	return strTo;
 }
 
-char oldpathx[512];
 bool firstrun = true;
-
-void pathfix(char* path, char* path2)
-{
-	if (firstrun)
-	{
-#ifdef _MSC_VER
-		LPWSTR buffer = new WCHAR[MAX_PATH];
-		GetModuleFileName(NULL, buffer, MAX_PATH);
-		std::string locstr = utf8_encode(buffer);
-		std::string::size_type pos = std::string(locstr).find_last_of("\\/");
-		std::string strpathx = std::string(locstr).substr(0, pos)/*+"\\system.exe"*/;
-#else
-		char* buffer = new char[MAX_PATH];
-		GetModuleFileName(NULL, buffer, MAX_PATH);
-		std::string::size_type pos = std::string(buffer).find_last_of("\\/");
-		std::string strpathx = std::string(buffer).substr(0, pos)/*+"\\system.exe"*/;
-#endif
-		char* pathx = (char*)strpathx.c_str();
-		delete[] buffer;
-		strcpy(oldpathx, pathx);
-		firstrun = false;
-	}
-
-	sprintf(fixsoundout, "%s\\%s", oldpathx, fixsound);
-	sprintf(gamepathout, "%s\\%s", oldpathx, gameFolder);
-
-
-	if ((path[0] == 'c') || (path[0] == 'C'))
-	{
-		long len = strlen(path);
-		char* fixstring = (char*)gamepathout;
-		long fixlen = strlen(fixstring);
-		for (int i = len; i > 1; i--)
-			path2[i + fixlen - 2] = path[i];
-		for (int i = 0; i < fixlen; i++)
-			path2[i] = fixstring[i];
-	}
-	else
-	{
-		long len = strlen(path);
-		char* fixstring = (char*)gamepathout;
-		long fixlen = strlen(fixstring);
-		for (int i = len; i > -1; i--)
-			path2[i + fixlen + 1] = path[i];
-		for (int i = 0; i < fixlen; i++)
-			path2[i] = fixstring[i];
-		path2[fixlen] = '\\';
-	}
-
-}
 
 void get_exe_path(char* retpath) {
 	#ifdef _MSC_VER
@@ -96,73 +41,6 @@ void get_exe_path(char* retpath) {
 	//return pathx;
 	delete[] buffer;
 };
-
-
-void pathfix2(char* path, char* path2)
-{
-	#ifdef _MSC_VER
-	LPWSTR buffer = new WCHAR[MAX_PATH];
-	GetModuleFileName(NULL, buffer, MAX_PATH);
-	std::string locstr = utf8_encode(buffer);
-	std::string::size_type pos = std::string(locstr).find_last_of("\\/");
-	std::string strpathx = std::string(locstr).substr(0, pos)/*+"\\system.exe"*/;
-	#else
-	char* buffer = new char[MAX_PATH];
-	GetModuleFileName(NULL, buffer, MAX_PATH);
-	std::string::size_type pos = std::string(buffer).find_last_of("\\/");
-	std::string strpathx = std::string(buffer).substr(0, pos)/*+"\\system.exe"*/;
-	#endif
-	char* pathx = (char*)strpathx.c_str();
-	sprintf(fixsoundout,"%s\\%s", pathx,fixsound);
-	sprintf(gamepathout, "%s\\%s", pathx, gameFolder);
-
-	if ((path[0] == 'c') || (path[0] == 'C'))
-	{
-		long len = strlen(path);
-		char* fixstring = (char*)gameFolder;
-		long fixlen = strlen(fixstring);
-		for (int i = len;i > 1;i--)
-			path2[i + fixlen - 2] = path[i];
-		for (int i = 0;i < fixlen;i++)
-			path2[i] = fixstring[i];
-	}
-	else
-	{
-		long len = strlen(path);
-		char* fixstring = (char*)fixsoundout;
-		long fixlen = strlen(fixstring);
-		for (int i = len;i > -1;i--)
-			path2[i + fixlen] = path[i];
-		for (int i = 0;i < fixlen;i++)
-			path2[i] = fixstring[i];
-	}
-	delete[] buffer;
-}
-
-void unpathfix(char* path, char* path2)
-{
-	/*if ((path[0] == 'c') || (path[0] == 'C'))
-	{
-		long len = strlen(path);
-		char* fixstring = (char*)"c:/prenos/Magic2/mc2-orig-copy";
-		long fixlen = strlen(fixstring);
-		for (int i = len;i > 1;i--)
-			path2[i + fixlen - 2] = path[i];
-		for (int i = 0;i < fixlen;i++)
-			path2[i] = fixstring[i];
-	}
-	else
-	{
-		long len = strlen(path);
-		char* fixstring = (char*)"c:/prenos/Magic2/mc2-orig-copy/";
-		long fixlen = strlen(fixstring);
-		for (int i = len;i > -1;i--)
-			path2[i + fixlen] = path[i];
-		for (int i = 0;i < fixlen;i++)
-			path2[i] = fixstring[i];
-	}*/
-	strcpy(path2, "c:/");//fix this
-}
 
 long my_findfirst(char* path, _finddata_t* c_file){
 	#ifdef DEBUG_START
@@ -189,28 +67,6 @@ long my_findnext(long hFile, _finddata_t* c_file){
 void my_findclose(long hFile){
 	_findclose(hFile);
 };
-
-bool fix_file_exists(const char* filename) {
-	/*if (FILE * file = fopen(filename, "r")) {
-		fclose(file);
-		return true;
-	}
-	return false;*/
-	char path2[512] = "\0";
-	pathfix2((char*)filename, path2);//only for DOSBOX version
-	FILE* file;
-	if ((file = fopen(path2, "r")) != NULL) {
-		fclose(file);
-#ifdef DEBUG_START
-		debug_printf("ffile_exists:true-%s\n%s\n", filename, path2);
-#endif //DEBUG_START
-		return true;
-	}
-#ifdef DEBUG_START
-	debug_printf("ffile_exists:false-%s\n%s\n", filename, path2);
-#endif //DEBUG_START
-	return false;
-}
 
 bool file_exists(const char * filename) {
 	/*if (FILE * file = fopen(filename, "r")) {
