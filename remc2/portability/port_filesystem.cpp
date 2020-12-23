@@ -378,22 +378,22 @@ long myftell(FILE* decriptor) {
 	return ftell(decriptor);
 };
 
+int DirExists(const char* path)
+{
+	struct stat info;
 
+	if (stat(path, &info) != 0)
+		return 0;
+	else if (info.st_mode & S_IFDIR)
+		return 1;
+	else
+		return -1;
+}
 
 int x_chdir(const char* path) {
-	char path2[2048] = "\0";
-	pathfix((char*)path, path2);
-	int result = _chdir(path2);
+	int result = _chdir(path);
 	return result;
 };// weak
-char* x_getcwd(x_DWORD a, x_DWORD b) {
-	char cwd[512] = "\0";	
-	if (getcwd(cwd, 512) == NULL)
-		perror("getcwd() error");
-	char* path2 = (char*)malloc(512);
-	unpathfix(cwd, path2);	
-	return path2;
-};
 
 FILE* myopent(char* path, char* type) {
 	FILE *fp;

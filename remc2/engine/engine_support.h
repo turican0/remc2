@@ -766,7 +766,6 @@ typedef struct {
 	Bit8u byteindex_179;
 	Bit8u byteindex_180;//0xb4//x_D41A0_BYTEARRAY_4_struct.byteindex_180
 	Bit8u byteindex_181;//0xb5//x_D41A0_BYTEARRAY_4_struct.byteindex_181
-	Bit8u harddiskchar_byte4_182;
 	Bit8u byteindex_183;//0xb7//x_D41A0_BYTEARRAY_4_struct.byteindex_183
 	Bit16u byteindex_184w;//0xb8//x_D41A0_BYTEARRAY_4_struct.byteindex_184
 	//Bit8u stubj[1];

@@ -51,7 +51,7 @@ bool ExistGraphicsfile(const char* path);
 long myftell(FILE* decriptor);
 
 int x_chdir(const char* path);
-char* x_getcwd(x_DWORD a, x_DWORD b);
+int DirExists(const char* path);
 
 FILE* myopent(char* path, char* type);
 
