@@ -391,11 +391,6 @@ int DirExists(const char* path)
 		return -1;
 }
 
-int x_chdir(const char* path) {
-	int result = _chdir(path);
-	return result;
-};// weak
-
 FILE* myopent(char* path, char* type) {
 	FILE *fp;
 	fp=fopen(path, type);
