@@ -398,6 +398,7 @@ typedef MSS_STRUCT                   // Initialization file structure
 {
    char     device_name[128];    // Device name
    char     driver_name[128];    // Driver filename
+   char     driver_path[260];    // Full Driver path
    IO_PARMS IO;                  // I/O parameters for driver
 }
 AIL_INI;

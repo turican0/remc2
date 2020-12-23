@@ -1,5 +1,6 @@
 #include "port_filesystem.h"
 #include <string>
+using namespace std;
 /*
 #ifndef DIR
 #define DIR __dirstream_t *
@@ -631,4 +632,17 @@ void GetSaveGameFile(char* buffer, char* gamepath, __int16 index)
 	char subDirPath[MAX_PATH];
 	GetSubDirectoryPath(subDirPath, gamepath, "save");
 	sprintf(buffer, "%s\\save%d.gam", subDirPath, index);
+}
+
+int GetDirectory(char* directory, const char* filePath)
+{
+	string str = string(filePath);
+	size_t found = str.find_last_of("/\\");
+
+	if (found)
+	{
+		directory = strcpy(directory, str.substr(0, found).c_str());
+		return 0;
+	}
+	return - 1;
 }

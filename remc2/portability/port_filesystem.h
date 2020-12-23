@@ -80,4 +80,6 @@ void GetSubDirectoryFile(char* buffer, char* gamepath, char* subDirectory, char*
 
 void GetSaveGameFile(char* buffer, char* gamepath, __int16 index);
 
+int GetDirectory(char* directory, const char* filePath);
+
 #endif //PORT_FILESYSTEM
