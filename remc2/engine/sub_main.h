@@ -578,7 +578,7 @@ HDIGDRIVER sub_93330_AIL_install_DIG_driver_file(/*int a1, */char* filename, IO_
 char sub_9AE90(int eax0, int edx0, int ebx0, int *a1, x_BYTE *a2, int a3, int a4);
 int sub_931F0_AIL_install_DIG_INI(HDIGDRIVER* a2,char* digPath);
 HMDIDRIVER sub_95850_AIL_install_MDI_driver_file(char* filename, IO_PARMS* IO);
-Bit32s sub_95710_AIL_install_MDI_INI(/*int a1, */HMDIDRIVER *mdi);
+Bit32s sub_95710_AIL_install_MDI_INI(HMDIDRIVER *mdi, char* fileName);
 Bit32u /*__cdecl*/ x_read(FILE* descriptor, Bit8u* data, Bit32u size);// weak
 double IF_DPOW(double, double);// weak
 x_DWORD x_dos_setdrive(Bit32s a, Bit32s* b);
@@ -589,7 +589,7 @@ x_DWORD /*__cdecl*/ x_inp(x_DWORD);// weak
 //x_DWORD *sub_9E720(int a1, int a2, int a3);
 int sub_A3720_AIL_API_install_DIG_INI(/*int a1, */HDIGDRIVER* dig, char* digPath);
 HDIGDRIVER sub_A3600_AIL_API_install_DIG_driver_file(/*int a1, */char* filename, IO_PARMS* IO);
-Bit32s sub_A78F0_AIL_API_install_MDI_INI(HMDIDRIVER *mdi);
+Bit32s sub_A78F0_AIL_API_install_MDI_INI(HMDIDRIVER *mdi, char* fileName);
 HMDIDRIVER sub_A77D0_AIL_API_install_MDI_INI(char* filename, IO_PARMS* IO);
 FILE* /*__cdecl*/ x_creat(char* path, Bit32u flags);//
 x_DWORD /*__cdecl*/ x_setmode(FILE* path, int mode);// weak
