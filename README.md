@@ -1,7 +1,7 @@
 # Magic Carpet 2 Modern PC Patch
-# Based off the Reverse engineering of game Magic Carpet 2 from assembler to c/c++ language by Tomas Versly
-## Forked from Tomas Vesely's repo here: https://github.com/turican0/remc2
-## Tomas has done amazing work, not only reverse engineering this code but updating it to use more modern memory allocation and use the SDL library for input and sound. He has even increased the sprite resolutions.
+Based off the Reverse engineering of game Magic Carpet 2 from assembler to c/c++ language by Tomas Versly <br />
+Forked from Tomas Vesely's repo here: https://github.com/turican0/remc2 <br /><br />
+Tomas has done amazing work, not only reverse engineering this code but updating it to use more modern memory allocation and use the SDL library for input and sound. He has even increased the sprite resolutions.
 ## My intention is to make a patch for Magic Carpet 1 and 2 (GOG editions) that initially will:
 - Add more screen resolution options
 - Increase draw distance
