@@ -10,7 +10,7 @@ Tomas has done amazing work, not only reverse engineering this code but updating
 - Enable local multiplayer without NETBIOS
 ## STATUS: Code now runs though the first level and more. Anyone with the GOG edition can download this repo, extract the Game Assets (from a legal GOG copy of the game) and run it.
 ## Steps: to build and run this code:
-- 1: Pull the vc-2019-build branch
+- 1: Pull the development branch
 - 2: Build the code (you can only compile only 32-bit binary version atm)
 - 3: Purchase a copy of Magic Carpet 2 from GOG here: https://www.gog.com/game/magic_carpet_2_the_netherworlds
 - 4: Install the Game. Copy the "NETHERW" directory to "remc2\Debug" Folder
