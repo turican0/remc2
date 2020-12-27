@@ -25,15 +25,15 @@
 
 //#define DEBUG_PRINT_DEBUG_TO_SCREEN
 
-extern char gamepath[512];
-extern char biggraphicspath[512];
+extern char gameFolder[512];
+extern char cdFolder[512];
+extern char bigGraphicsFolder[512];
 
 
 long my_findfirst(char* path, _finddata_t* c_file);
 long my_findnext(long hFile, _finddata_t* c_file);
 void my_findclose(long hFile);
 bool file_exists(const char * filename);
-bool fix_file_exists(const char* filename);
 FILE* mycreate(char* path, Bit32u flags);
 Bit32s myaccess(char* path, Bit32u flags);
 Bit32s mymkdir(char* path);
@@ -49,8 +49,7 @@ bool ExistGraphicsfile(const char* path);
 
 long myftell(FILE* decriptor);
 
-int x_chdir(const char* path);
-char* x_getcwd(x_DWORD a, x_DWORD b);
+int DirExists(const char* path);
 
 FILE* myopent(char* path, char* type);
 
@@ -70,4 +69,15 @@ void get_exe_path(char*);
 unsigned __int64 dos_getdiskfree(__int16 a1, __int16 a2, Bit8u a, short* b);
 
 void debug_printf(const char* format, ...);
+
+void GetSubDirectoryPath(char* buffer, char* subDirectory);
+
+void GetSubDirectoryPath(char* buffer, char* gamepath, char* subDirectory);
+
+void GetSubDirectoryFile(char* buffer, char* gamepath, char* subDirectory, char* fileName);
+
+void GetSaveGameFile(char* buffer, char* gamepath, __int16 index);
+
+int GetDirectory(char* directory, const char* filePath);
+
 #endif //PORT_FILESYSTEM

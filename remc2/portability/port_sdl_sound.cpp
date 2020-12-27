@@ -12,7 +12,7 @@ bool debug_first_sound=true;
 bool hqsound=false;
 bool oggmusic=false;
 bool oggmusicalternative = false;
-char oggmusicpath[512];
+char oggmusicFolder[512];
 
 bool fixspeedsound = false;
 
@@ -130,60 +130,61 @@ void SOUND_init_MIDI_sequence(Bit8u* data, Bit8u* header, Bit32s track_number)
 	dirsstruct helpdirsstruct;
 
 	if (oggmusic) {
-		char buffer1[512]="";
-		char buffer2[512] = "";
-		char buffer3[512] = "";
-		char buffer4[512] = "";
+
+		char oggmusicPath[MAX_PATH];
+
+		GetSubDirectoryPath(oggmusicPath, oggmusicFolder);
+		char alternativeMusicPath[512] = "";
+		char selectedTrackPath[512] = "";
 		//if (track_number > 1)track_number = 0;
 		if (oggmusicalternative)///&&track_number==4
-		{			
+		{
 			if (track_number == 0)
 			{
-				sprintf(buffer2, "%salternative\\cave\\", oggmusicpath);
+				sprintf(alternativeMusicPath, "%s\\alternative\\day", oggmusicPath);
 			}
 			else if (track_number == 1)
 			{
-				sprintf(buffer2, "%salternative\\cave\\", oggmusicpath);
+				sprintf(alternativeMusicPath, "%s\\alternative\\night", oggmusicPath);
 			}
 			else if (track_number == 2)
 			{
-				sprintf(buffer2, "%salternative\\cave\\", oggmusicpath);
+				sprintf(alternativeMusicPath, "%s\\alternative\\cave", oggmusicPath);
 			}
 			else if (track_number == 3)
 			{
-				sprintf(buffer2, "%salternative\\cave\\", oggmusicpath);
+				sprintf(alternativeMusicPath, "%s\\alternative\\cave", oggmusicPath);
 			}
 			else if (track_number == 4)
 			{
-				sprintf(buffer2, "%salternative\\cave\\", oggmusicpath);
+				sprintf(alternativeMusicPath, "%s\\alternative\\cave", oggmusicPath);
 			}
 			else if (track_number == 5)
 			{
-				sprintf(buffer2, "%salternative\\cave\\", oggmusicpath);
+				sprintf(alternativeMusicPath, "%s\\alternative\\cave", oggmusicPath);
 			}
 			else
-				sprintf(buffer2, "%salternative\\cave\\", oggmusicpath);
+			{
+				sprintf(alternativeMusicPath, "%\\salternative\\cave", oggmusicPath);
+			}
 
-			sprintf(buffer1, "%s", oggmusicpath);
+			helpdirsstruct = getListDir(alternativeMusicPath);
 
-			FixDir(buffer3, buffer2);
-			FixDir(buffer4, buffer1);
-
-			helpdirsstruct = getListDir(buffer3);
 			if (helpdirsstruct.number > 0)
 			{
 				int randtrack = rand()%(helpdirsstruct.number + 1);
-				if(randtrack==0)sprintf(buffer4, "%smusic%d.ogg", oggmusicpath, track_number);
+				if(randtrack==0)
+					sprintf(selectedTrackPath, "%s\\music%d.ogg", oggmusicPath, track_number);
 				else
-					sprintf(buffer4, "%s%s", buffer3,helpdirsstruct.dir[randtrack-1]);
+					sprintf(selectedTrackPath, "%s\\%s", alternativeMusicPath ,helpdirsstruct.dir[randtrack-1]);
 			}
 			else
-				sprintf(buffer4, "%smusic%d.ogg", oggmusicpath, track_number);
+				sprintf(selectedTrackPath, "%s\\music%d.ogg", oggmusicPath, track_number);
 		}
 		else
-			sprintf(buffer4, "%smusic%d.ogg", oggmusicpath, track_number);
+			sprintf(selectedTrackPath, "%s\\music%d.ogg", oggmusicPath, track_number);
 #ifdef SOUND_SDLMIXER
-		GAME_music[track_number] = Mix_LoadMUS(buffer4);
+		GAME_music[track_number] = Mix_LoadMUS(selectedTrackPath);
 #endif//SOUND_SDLMIXER
 	}
 	else

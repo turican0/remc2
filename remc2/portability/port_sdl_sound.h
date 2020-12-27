@@ -39,7 +39,7 @@ extern bool debug_first_sound;
 
 extern bool hqsound;
 extern bool oggmusic;
-extern char oggmusicpath[512];
+extern char oggmusicFolder[512];
 extern bool oggmusicalternative;
 extern bool fixspeedsound;
 

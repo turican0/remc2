@@ -76,20 +76,22 @@ void readini(char* filename) {
 	}
 	else
 		oggmusicalternative = false;
-	std::string readstr = reader.GetString("sound", "oggmusicpath", "");
-	strcpy(oggmusicpath, (char*)readstr.c_str());
+	std::string readstr = reader.GetString("sound", "oggmusicFolder", "");
+	strcpy(oggmusicFolder, (char*)readstr.c_str());
 
 	std::string readstrgd = reader.GetString("graphics", "defaultresolution", "");
 	if(!strcmp("640x480", (char*)readstrgd.c_str()))
 		res640x480=true;
 
-	std::string readstr3 = reader.GetString("graphics", "biggraphicspath", "");
-	strcpy(biggraphicspath, (char*)readstr3.c_str());
+	std::string readstr3 = reader.GetString("graphics", "bigGraphicsFolder", "");
+	strcpy(bigGraphicsFolder, (char*)readstr3.c_str());
 
 	texturepixels=reader.GetInteger("graphics", "texturepixels", 32);
 
-	std::string readstr2 = reader.GetString("main", "gamepath", "");
-	strcpy((char*)gamepath, (char*)readstr2.c_str());
+	std::string readstr2 = reader.GetString("main", "gameFolder", "");
+	strcpy((char*)gameFolder, (char*)readstr2.c_str());
+	std::string readstr4 = reader.GetString("main", "cdFolder", "");
+	strcpy((char*)cdFolder, (char*)readstr4.c_str());
 
 	speedGame = reader.GetInteger("game", "speed", 35);
 	speedAnim = reader.GetInteger("game", "animspeed", 100);

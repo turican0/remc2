@@ -24,4 +24,7 @@
 **/remc2.exe
 **/remc2.exp
 **/remc2.lib
-
+/packages
+**/Netherw
+/debug.txt
+**/CD_Files

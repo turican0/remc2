@@ -255,11 +255,9 @@ bool VGA_LoadFont()
 
 	//Load splash image
 	//surface_font = SDL_LoadBMP("c:/prenos/remc2/font/xterm714.bmp");	
-	char path[512]; 
-	char path2[512];
-	sprintf(path2, "./font/16x16-font.bmp");
-	FixDir(path, path2);
-	surface_font = SDL_LoadBMP(path);
+	char fontPath[512]; 
+	GetSubDirectoryPath(fontPath, "font\\16x16-font.bmp");
+	surface_font = SDL_LoadBMP(fontPath);
 	if (surface_font == NULL)
 	{
 		printf("Unable to load image %s! SDL Error: %s\n", "16x16-font.bmp", SDL_GetError());
