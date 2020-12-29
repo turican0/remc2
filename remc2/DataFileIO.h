@@ -76,7 +76,7 @@ private:
 		huftable_t len_table[16];
 	} vars_t;
 
-	static uint16 crc_table[];
+	static uint16 crc_table[256];
 
 public:
 	static int ReadFileAndDecompress(const char* path, Bit8u** data); //Reads the file path passed in into "data" array of 1 byte elements
