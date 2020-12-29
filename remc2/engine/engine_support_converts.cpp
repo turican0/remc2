@@ -554,7 +554,7 @@ void convert_struct_to_array_2FECE(type_str_2FECE* input, Bit8u* output) {//leng
 	//Bit8u stuba[1];//5
 	memset(output + 5, 0, 1);
 	//Bit8u byte_0x2FED4;//x_D41A0_BYTEARRAY_0[196308]//6
-	memcpy(output + 6, &input->byte_0x2FED4, 1);
+	memcpy(output + 6, &input->MapType, 1);
 	//Bit16s word_0x2FED5;//7
 	memcpy(output + 7, &input->word_0x2FED5, 2);
 	//Bit16s word_0x2FED7;//9

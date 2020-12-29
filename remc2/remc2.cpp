@@ -1,7 +1,7 @@
 //#include "stdafx.h"
 
 #include "engine/engine_support.h"
-#include "engine/sub_main.h"
+#include "sub_main.h"
 
 using namespace std;
 
