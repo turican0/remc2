@@ -31,5 +31,7 @@ extern int texturepixels;
 extern int speedGame;
 extern int speedAnim;
 extern bool res640x480;
+extern int gameResWidth;
+extern int gameResHeight;
 
 #endif //READ_CONFIG

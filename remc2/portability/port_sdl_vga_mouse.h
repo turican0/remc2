@@ -19,8 +19,8 @@ typedef struct
 	Bit32s y;
 } POSITION;
 
-void VGA_Init();
-void VGA_Init(Uint32 flags);
+void VGA_Init(int width, int height);
+void VGA_Init(Uint32 flags, int width, int height);
 void VGA_Resize(int width, int height);
 void VGA_Resize(int width, int height, int bpp, Uint32 flags);
 void VGA_Blit(int width, int height, Uint8* buffer);

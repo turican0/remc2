@@ -18,12 +18,9 @@ Bit8s x_BYTE_180664[128]; // idb
 
 SDL_Surface *screen;
 
-int width = 640;
-int height = 480;
-int test_width = 640;
-int test_height = 480;
-int SCREEN_WIDTH = 640;
-int SCREEN_HEIGHT = 480;
+int screenWidth = 640;
+int screenHeight = 480;
+
 const char* default_caption = "Remake Magic Carpet 2";
 
 
@@ -405,9 +402,12 @@ void VGA_Draw_stringXYtoBuffer(char* wrstring,int x, int y, Bit8u* buffer) {
 }
 
 
-void VGA_Init() {
+void VGA_Init(int width, int height) {
+	screenWidth = width;
+	screenHeight = height;
+
 #define SDL_HWPALETTE 0
-VGA_Init(SDL_HWPALETTE | SDL_INIT_AUDIO);
+VGA_Init(SDL_HWPALETTE | SDL_INIT_AUDIO, width, height);
 }
 
 SDL_Rect dst;
@@ -542,8 +542,12 @@ Uint32 greenMask = 0x0000ff00;
 Uint32 blueMask = 0x00ff0000;
 Uint32 alphaMask = 0xff000000;
 #endif 
-void VGA_Init(Uint32 flags)
+
+void VGA_Init(Uint32 flags, int width, int height)
 {
+	screenWidth = width;
+	screenHeight = height;
+
 	if (!inited)
 	{
 		//Initialization flag
@@ -577,10 +581,8 @@ void VGA_Init(Uint32 flags)
 			SDL_WindowFlags test_fullscr = SDL_WINDOW_FULLSCREEN;*/
 			//SDL_WindowFlags test_fullscr = SDL_WINDOW_SHOWN;
 			
-			test_width = 640;
-			test_height = 480;
 			SDL_WindowFlags test_fullscr = SDL_WINDOW_SHOWN;
-			gWindow = SDL_CreateWindow(default_caption,	SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, test_width/*dm.w*/, test_height/*dm.h*/, test_fullscr);
+			gWindow = SDL_CreateWindow(default_caption,	SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, screenWidth/*dm.w*/, screenHeight/*dm.h*/, test_fullscr);
 
 			renderer =
 				SDL_CreateRenderer(gWindow, -1, SDL_RENDERER_ACCELERATED |
@@ -597,7 +599,7 @@ void VGA_Init(Uint32 flags)
 
 			helper_surface =
 				SDL_CreateRGBSurface(
-					SDL_SWSURFACE, test_width, test_height, 24,
+					SDL_SWSURFACE, screenWidth, screenHeight, 24,
 					redMask, greenMask, blueMask, alphaMask);
 
 			helper_surface =

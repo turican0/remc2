@@ -32,6 +32,9 @@ int texturepixels;
 int speedGame;
 int speedAnim;
 bool res640x480 = false;
+int gameResWidth = 640;
+int gameResHeight = 480;
+
 void readini(char* filename) {
 	/*configuration config;
 
@@ -75,7 +78,10 @@ void readini(char* filename) {
 		oggmusicalternative = true;
 	}
 	else
+	{
 		oggmusicalternative = false;
+	}
+
 	std::string readstr = reader.GetString("sound", "oggmusicFolder", "");
 	strcpy(oggmusicFolder, (char*)readstr.c_str());
 
@@ -87,6 +93,14 @@ void readini(char* filename) {
 	strcpy(bigGraphicsFolder, (char*)readstr3.c_str());
 
 	texturepixels=reader.GetInteger("graphics", "texturepixels", 32);
+	gameResWidth = reader.GetInteger("graphics", "gameResWidth", 640);
+	gameResHeight = reader.GetInteger("graphics", "gameResHeight", 480);
+
+	if (gameResWidth < 640 || gameResHeight < 480)
+	{
+		gameResWidth = 640;
+		gameResHeight = 480;
+	}
 
 	std::string readstr2 = reader.GetString("main", "gameFolder", "");
 	strcpy((char*)gameFolder, (char*)readstr2.c_str());
