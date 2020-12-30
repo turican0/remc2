@@ -762,7 +762,7 @@ typedef struct {
 	char byteindex_145ar[32];//x_D41A0_BYTEARRAY_4_struct.byteindex_145ar
 
 	Bit8u byteindex_177;//0xb1//x_D41A0_BYTEARRAY_4_struct.byteindex_177
-	Bit8u byteindex_178;//0xb2//x_D41A0_BYTEARRAY_4_struct.byteindex_178
+	Bit8u speedIndex;//0xb2//x_D41A0_BYTEARRAY_4_struct.byteindex_178
 	Bit8u SelectedLangIndex;
 	Bit8u byteindex_180;//0xb4//x_D41A0_BYTEARRAY_4_struct.byteindex_180
 	Bit8u byteindex_181;//0xb5//x_D41A0_BYTEARRAY_4_struct.byteindex_181
