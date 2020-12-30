@@ -8444,7 +8444,7 @@ v123
 72a9c0 rozdil 0x60680
 78b040
 
-v123 = x_DWORD_DE558 + x_DWORD_DE560_ScreenWidth * (str_F2C20ar.dword0x26 - 1) + v170;
+v123 = x_DWORD_DE558 + iScreenWidth * (str_F2C20ar.dword0x26 - 1) + v170;
 can not write 0
 
 (Bit8u*)&x_WORD_15B4E0_source+0x12a50 0x03
