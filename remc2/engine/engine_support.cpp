@@ -476,7 +476,7 @@ Bit8u test_str_E2A74[] = {
 };*/
 
 
-Bit8u* x_DWORD_180628b_screen_buffer; //351628
+Bit8u* pdwScreenBuffer; //351628
 
 Bit8u* off_D41A8_sky;//graphics buffer// = (Bit8u*)&x_BYTE_14B4E0; // weak
 Bit8u* x_BYTE_14B4E0;//31C4E0
@@ -496,7 +496,7 @@ doublebyte doublebyte_conv(Bit16u a2) {
 	return result;
 };
 
-Bit8u* pre_x_DWORD_180628b_screen_buffer;
+Bit8u* pre_pdwScreenBuffer;
 
 void allert_error() {
 	int a = 10;
@@ -509,9 +509,9 @@ void support_begin() {
     printbuffer = (char*)malloc(4096);
     //printbuffer[0] = '\0';
     printbuffer2 = (char*)malloc(4096);
-	pre_x_DWORD_180628b_screen_buffer = (Bit8u*)malloc(0x220000);
-	//x_DWORD_180628b_screen_buffer = (Bit8u*)malloc(320000);
-	x_DWORD_180628b_screen_buffer = &pre_x_DWORD_180628b_screen_buffer[0x110000];
+	pre_pdwScreenBuffer = (Bit8u*)malloc(0x220000);
+	//pdwScreenBuffer = (Bit8u*)malloc(320000);
+	pdwScreenBuffer = &pre_pdwScreenBuffer[0x110000];
 
 	//x_DWORD_E9C38_smalltit= (Bit8u*)malloc(64000);
 	//x_D41A0_BYTEARRAY_4_0xDE_heapbuffer= (Bit8u*)malloc(64000);
@@ -549,7 +549,7 @@ void support_end() {
 	if(readbuffer)free(readbuffer);
 	if(printbuffer)free(printbuffer);//char* buffer; // [esp+0h] [ebp-2h]
     if(printbuffer2)free(printbuffer2);//char v11; // [esp+40h] [ebp+3Eh]
-	if(pre_x_DWORD_180628b_screen_buffer)free(pre_x_DWORD_180628b_screen_buffer);
+	if(pre_pdwScreenBuffer)free(pre_pdwScreenBuffer);
 	//free(x_DWORD_E9C38_smalltit);
 	/*for (int i = 0;i < 0x1c;i++)
 		free(off_D918C[i]);*/
@@ -1330,7 +1330,7 @@ void add_compare(Bit32u adress,bool debugafterload,int stopstep,bool skip) {
 				comp20 = compare_with_sequence_array_E2A74(buffer3, (Bit8u*)& str_E2A74, 0x2b3a74, index, 0xc4e, 0xc4e, &origbyte20, &remakebyte20);
 			}
 		//if(debugcounter_271478>5)
-		//comp20 = compare_with_sequence(buffer4, x_DWORD_180628b_screen_buffer, 0x3aa0a4, index, 320 * 200, 320 * 200, &origbyte20, &remakebyte20);
+		//comp20 = compare_with_sequence(buffer4, pdwScreenBuffer, 0x3aa0a4, index, 320 * 200, 320 * 200, &origbyte20, &remakebyte20);
 		if (stopstep > -1)
 		{
 			comp20 = index;

@@ -925,7 +925,7 @@ extern x_BYTE x_BYTE_35523C;//Detectoff//3551CE+6e BYTE
 extern x_BYTE x_BYTE_355220;//Langcheck//3551CE+52 BYTE
 extern x_BYTE x_BYTE_355238;//aMusic2//3551CE+6a BYTE*/
 
-extern Bit8u* x_DWORD_180628b_screen_buffer;
+extern Bit8u* pdwScreenBuffer;
 
 typedef struct {//lenght 30
 	Bit16s word_0;//str_E2A74[].word_0
