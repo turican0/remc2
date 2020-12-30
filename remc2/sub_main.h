@@ -656,7 +656,7 @@ void pre_sub_4A190_0x6E8E(Bit32u adress, type_str_0x6E8E* a1, int type);//pre 22
 
 //char sub_54200();
 void sub_71410_process_tmaps();
-void sub_5B8D0_initialize();
+void Initialize();
 int /*__cdecl*/ main(int argc, char **argv, char **envp);
 
 
