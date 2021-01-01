@@ -58,13 +58,13 @@ set(SOURCE_FILES__libs__inih
 )
 source_group("Source Files\\libs\\inih" FILES ${SOURCE_FILES__libs__inih})
 
-#set(SOURCE_FILES__libs__findfirst
-#    "../findfirst/findfirst.c"
-#    "../findfirst/findfirst.h"
-#    "../findfirst/spec.c"
-#    "../findfirst/spec.h"
-#)
-#source_group("Source Files\\libs\\findfirst" FILES ${SOURCE_FILES__libs__findfirst})
+set(SOURCE_FILES__libs__findfirst
+    "../findfirst/findfirst.c"
+    "../findfirst/findfirst.h"
+    "../findfirst/spec.c"
+    "../findfirst/spec.h"
+)
+source_group("Source Files\\libs\\findfirst" FILES ${SOURCE_FILES__libs__findfirst})
 
 
 set(SOURCE_FILES__portability
@@ -100,7 +100,7 @@ set(ALL_FILES
 ################################################################################
 # target
 ################################################################################
-#add_library(findfirst ${SOURCE_FILES__libs__findfirst})
+add_library(findfirst ${SOURCE_FILES__libs__findfirst})
 add_executable(${PROJECT_NAME} ${ALL_FILES})
 set_target_properties(${PROJECT_NAME} PROPERTIES COMPILE_FLAGS "-m32" LINK_FLAGS "-m32")
 
