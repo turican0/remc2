@@ -1,32 +1,4 @@
 #include "read_config.h"
-/*
-typedef struct
-{
-	int version;
-	const char* name;
-	const char* email;
-} configuration;
-*/
-/*static int handler(void* user, const char* section, const char* name,
-	const char* value)
-{
-	configuration* pconfig = (configuration*)user;
-
-#define MATCH(s, n) strcmp(section, s) == 0 && strcmp(name, n) == 0
-	if (MATCH("protocol", "version")) {
-		pconfig->version = atoi(value);
-	}
-	else if (MATCH("user", "name")) {
-		pconfig->name = strdup(value);
-	}
-	else if (MATCH("user", "email")) {
-		pconfig->email = strdup(value);
-	}
-	else {
-		return 0;
-	}
-	return 1;
-}*/
 int config_skip_screen;
 int texturepixels;
 int speedGame;
@@ -36,15 +8,7 @@ int gameResWidth = 640;
 int gameResHeight = 480;
 
 void readini(char* filename) {
-	/*configuration config;
 
-	if (ini_parse(filename, handler, &config) < 0) {
-		printf("Can't load '%s'\n", filename);
-		return;
-	}
-	printf("Config loaded from '%s': version=%d, name=%s, email=%s\n", filename,
-		config.version, config.name, config.email);
-		*/
 	INIReader reader(filename);
 
 	if (reader.ParseError() < 0) {
