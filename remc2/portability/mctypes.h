@@ -28,5 +28,5 @@ typedef struct {
 	Bit8u* data;
 	Bit8u width;
 	Bit8u height;
-} posistruct;
+} posistruct_t;
 #endif //ENGINE_TYPES

@@ -184,7 +184,7 @@ typedef struct {
 } baxis_2d;
 
 typedef union {
-	baxis_2d axis_2d;
+	baxis_2d _axis_2d;
 	Bit16u word;
 }
 uaxis_2d;
@@ -901,11 +901,11 @@ extern Bit16s x_D41A0_WORDARRAY[];
 
 //xx extern Bit8u* dword_E9C30[]; // weak
 
-extern posistruct* xy_DWORD_17DED4_spritestr;
-extern posistruct* xy_DWORD_17DEC0_spritestr;
-extern posistruct* xy_DWORD_17DEC8_spritestr;
+extern posistruct_t* xy_DWORD_17DED4_spritestr;
+extern posistruct_t* xy_DWORD_17DEC0_spritestr;
+extern posistruct_t* xy_DWORD_17DEC8_spritestr;
 
-extern posistruct* x_DWORD_D4188t_spritestr;
+extern posistruct_t* x_DWORD_D4188t_spritestr;
 
 
 /*extern x_DWORD x_DWORD_355208;//3551CE+3A DWORD
@@ -1203,7 +1203,7 @@ type_str_0x360D2;
 typedef struct {
 	Bit8s byte_0;
 	Bit16s word_1;//25973//word_0
-	axis_2d axis_2d;
+	axis_2d _axis_2d;
 	//Bit16s word_3;//25975//word_2
 	//Bit16s word_5; //25977//word_4
 	/*

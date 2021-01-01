@@ -4,6 +4,7 @@
 #include <stdlib.h>  
 #include <string.h>
 #include "mctypes.h"
+
 #ifdef _MSC_VER
 	#include <windows.h>
 	#include <direct.h>
@@ -11,7 +12,13 @@
 	#include "dirent-x.h"
 #else
 	#include "dirent.h"
+	#include "findfirst.h"
+	#include <limits.h>
+
+	#define MAX_PATH PATH_MAX
+	#define _chdir chdir
 #endif
+
 //#include <stdlib.h>
 //#include <string.h>
 //#include <ctype.h>
@@ -64,7 +71,7 @@ int dos_getdrive(int* a);
 
 void get_exe_path(char*);
 
-unsigned __int64 dos_getdiskfree(__int16 a1, __int16 a2, Bit8u a, short* b);
+uint64_t dos_getdiskfree(int16_t a1, int16_t a2, Bit8u a, short* b);
 
 void debug_printf(const char* format, ...);
 
@@ -74,7 +81,7 @@ void GetSubDirectoryPath(char* buffer, char* gamepath, char* subDirectory);
 
 void GetSubDirectoryFile(char* buffer, char* gamepath, char* subDirectory, char* fileName);
 
-void GetSaveGameFile(char* buffer, char* gamepath, __int16 index);
+void GetSaveGameFile(char* buffer, char* gamepath, int16_t index);
 
 int GetDirectory(char* directory, const char* filePath);
 

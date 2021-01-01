@@ -432,16 +432,16 @@ void fillterrain(kiss_terrain* terrain, float zoom, int beginx, int beginy) {
 		{
 			for (int i = -8; i <= 8; i++)
 			{
-				int actx = (actstage.axis_2d.x - beginx) * (zoom * 2)+i;
-				int acty = (actstage.axis_2d.y - beginy) * (zoom * 2)-i;
+				int actx = (actstage._axis_2d.x - beginx) * (zoom * 2)+i;
+				int acty = (actstage._axis_2d.y - beginy) * (zoom * 2)-i;
 				if (actx >= 0 && acty >= 0 && actx < 512 && acty < 512)
 				{
 					scrbuff[4 * (acty * 512 + actx)] = 255;//setyellow
 					scrbuff[4 * (acty * 512 + actx) + 1] = 255;
 					scrbuff[4 * (acty * 512 + actx) + 2] = 0;					
 				}
-				actx = (actstage.axis_2d.x - beginx) * (zoom * 2) + i;
-				acty = (actstage.axis_2d.y - beginy) * (zoom * 2) + i;
+				actx = (actstage._axis_2d.x - beginx) * (zoom * 2) + i;
+				acty = (actstage._axis_2d.y - beginy) * (zoom * 2) + i;
 				if (actx >= 0 && acty >= 0 && actx < 512 && acty < 512)
 				{
 					scrbuff[4 * (acty * 512 + actx)] = 255;//setyellow
@@ -653,16 +653,16 @@ void fillterraincheck(float zoom, int beginx, int beginy) {
 		{
 			for (int i = -8; i <= 8; i++)
 			{
-				int actx = (actstage.axis_2d.x - beginx) * (zoom * 2) + i;
-				int acty = (actstage.axis_2d.y - beginy) * (zoom * 2) - i;
+				int actx = (actstage._axis_2d.x - beginx) * (zoom * 2) + i;
+				int acty = (actstage._axis_2d.y - beginy) * (zoom * 2) - i;
 				if (actx >= 0 && acty >= 0 && actx < 512 && acty < 512)
 				{
 					scrbuff[4 * (acty * 512 + actx)] = 255;//setyellow
 					scrbuff[4 * (acty * 512 + actx) + 1] = 255;
 					scrbuff[4 * (acty * 512 + actx) + 2] = 0;
 				}
-				actx = (actstage.axis_2d.x - beginx) * (zoom * 2) + i;
-				acty = (actstage.axis_2d.y - beginy) * (zoom * 2) + i;
+				actx = (actstage._axis_2d.x - beginx) * (zoom * 2) + i;
+				acty = (actstage._axis_2d.y - beginy) * (zoom * 2) + i;
 				if (actx >= 0 && acty >= 0 && actx < 512 && acty < 512)
 				{
 					scrbuff[4 * (acty * 512 + actx)] = 255;//setyellow
@@ -845,16 +845,16 @@ void fillterrainfeat(float zoom, int beginx, int beginy) {
 		{
 			for (int i = -8; i <= 8; i++)
 			{
-				int actx = (actstage.axis_2d.x - beginx) * (zoom * 2) + i;
-				int acty = (actstage.axis_2d.y - beginy) * (zoom * 2) - i;
+				int actx = (actstage._axis_2d.x - beginx) * (zoom * 2) + i;
+				int acty = (actstage._axis_2d.y - beginy) * (zoom * 2) - i;
 				if (actx >= 0 && acty >= 0 && actx < 512 && acty < 512)
 				{
 					scrbuff[4 * (acty * 512 + actx)] = 255;//setyellow
 					scrbuff[4 * (acty * 512 + actx) + 1] = 255;
 					scrbuff[4 * (acty * 512 + actx) + 2] = 0;
 				}
-				actx = (actstage.axis_2d.x - beginx) * (zoom * 2) + i;
-				acty = (actstage.axis_2d.y - beginy) * (zoom * 2) + i;
+				actx = (actstage._axis_2d.x - beginx) * (zoom * 2) + i;
+				acty = (actstage._axis_2d.y - beginy) * (zoom * 2) + i;
 				if (actx >= 0 && acty >= 0 && actx < 512 && acty < 512)
 				{
 					scrbuff[4 * (acty * 512 + actx)] = 255;//setyellow
@@ -970,7 +970,7 @@ static void terrain_stages_append(kiss_textbox* textbox) {
 	for (int i = 0; i < 8; i++)
 	{
 		type_str_0x36442 actstage = D41A0_BYTESTR_0.str_2FECE.str_0x36442[i];
-		sprintf(temp, "%01X |%02X|%04X|%04X|%04X", i, (Bit8u)actstage.byte_0, actstage.word_1, actstage.axis_2d.x, actstage.axis_2d.y);
+		sprintf(temp, "%01X |%02X|%04X|%04X|%04X", i, (Bit8u)actstage.byte_0, actstage.word_1, actstage._axis_2d.x, actstage._axis_2d.y);
 		kiss_array_appendstring(textbox->array, 0, (char*)"", temp);
 	}
 	//text_reset(textbox1, vscrollbar1);
@@ -984,7 +984,7 @@ char temp[256];
 for (int i = 0; i < 0xb; i++)
 {
 	type_str_0x3647Ac actstage = D41A0_BYTESTR_0.str_2FECE.array_0x3647A[i];
-	sprintf(temp, "%01X |%02X|%02X|%02X|%02X|%04X|%04X", i, (Bit8u)actstage.str_0x3647A_byte_0, (Bit8u)actstage.str_0x3647A_byte_1, actstage.str_0x3647A_2.axis_2d.x, actstage.str_0x3647A_2.axis_2d.y,actstage.str_0x3647C_4.axis.x, actstage.str_0x3647C_4.axis.y);
+	sprintf(temp, "%01X |%02X|%02X|%02X|%02X|%04X|%04X", i, (Bit8u)actstage.str_0x3647A_byte_0, (Bit8u)actstage.str_0x3647A_byte_1, actstage.str_0x3647A_2._axis_2d.x, actstage.str_0x3647A_2._axis_2d.y,actstage.str_0x3647C_4.axis.x, actstage.str_0x3647C_4.axis.y);
 	kiss_array_appendstring(textbox->array, 0, (char*)"", temp);
 }
 //text_reset(textbox1, vscrollbar1);
@@ -2381,12 +2381,12 @@ int main_x(/*int argc, char** argv*/)
 				//type_str_0x36442 actstage = D41A0_BYTESTR_0.str_2FECE.str_0x36442[edited_line2_old];
 				kiss_hex2edit_update_adress(&hex2edit1check, &D41A0_BYTESTR_0.str_2FECE.str_0x36442[edited_line2_old].byte_0);
 				kiss_hex4edit_update_adress(&hex4edit2check, &D41A0_BYTESTR_0.str_2FECE.str_0x36442[edited_line2_old].word_1);
-				kiss_hex4edit_update_adress(&hex4edit3check, &D41A0_BYTESTR_0.str_2FECE.str_0x36442[edited_line2_old].axis_2d.x);
-				kiss_hex4edit_update_adress(&hex4edit4check, &D41A0_BYTESTR_0.str_2FECE.str_0x36442[edited_line2_old].axis_2d.y);
+				kiss_hex4edit_update_adress(&hex4edit3check, &D41A0_BYTESTR_0.str_2FECE.str_0x36442[edited_line2_old]._axis_2d.x);
+				kiss_hex4edit_update_adress(&hex4edit4check, &D41A0_BYTESTR_0.str_2FECE.str_0x36442[edited_line2_old]._axis_2d.y);
 				changed2 = true;
 				terrainzoomcheck = 4;
-				float cursorpixx = D41A0_BYTESTR_0.str_2FECE.str_0x36442[edited_line2_old].axis_2d.x;
-				float cursorpixy = D41A0_BYTESTR_0.str_2FECE.str_0x36442[edited_line2_old].axis_2d.y;
+				float cursorpixx = D41A0_BYTESTR_0.str_2FECE.str_0x36442[edited_line2_old]._axis_2d.x;
+				float cursorpixy = D41A0_BYTESTR_0.str_2FECE.str_0x36442[edited_line2_old]._axis_2d.y;
 				terrainbeginxcheck = cursorpixx - (terraincheck.rect.w / 2) / (terrainzoomcheck * 2);
 				terrainbeginycheck = cursorpixy - (terraincheck.rect.h / 2) / (terrainzoomcheck * 2);
 			}
@@ -2543,10 +2543,10 @@ int main_x(/*int argc, char** argv*/)
 			if (terevcheck == 20)
 			{
 				//type_str_0x36442 actstage = D41A0_BYTESTR_0.str_2FECE.str_0x36442[edited_line2_old];
-				D41A0_BYTESTR_0.str_2FECE.str_0x36442[edited_line2_old].axis_2d.x = tersetposx;
-				D41A0_BYTESTR_0.str_2FECE.str_0x36442[edited_line2_old].axis_2d.y = tersetposy;
-				kiss_hex4edit_update_adress(&hex4edit3check, &D41A0_BYTESTR_0.str_2FECE.str_0x36442[edited_line2_old].axis_2d.x);
-				kiss_hex4edit_update_adress(&hex4edit4check, &D41A0_BYTESTR_0.str_2FECE.str_0x36442[edited_line2_old].axis_2d.y);
+				D41A0_BYTESTR_0.str_2FECE.str_0x36442[edited_line2_old]._axis_2d.x = tersetposx;
+				D41A0_BYTESTR_0.str_2FECE.str_0x36442[edited_line2_old]._axis_2d.y = tersetposy;
+				kiss_hex4edit_update_adress(&hex4edit3check, &D41A0_BYTESTR_0.str_2FECE.str_0x36442[edited_line2_old]._axis_2d.x);
+				kiss_hex4edit_update_adress(&hex4edit4check, &D41A0_BYTESTR_0.str_2FECE.str_0x36442[edited_line2_old]._axis_2d.y);
 				changed2 = true;
 			}
 			if (terevcheck >= 10)
