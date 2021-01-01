@@ -1,18 +1,16 @@
 #ifndef PORT_FILESYSTEM
 #define PORT_FILESYSTEM
-#include <io.h>
 #include <stdio.h>
 #include <stdlib.h>  
 #include <string.h>
-#include <windows.h>
-//#ifdef _MSC_VER
-#include <direct.h>
-//#endif
 #include "mctypes.h"
 #ifdef _MSC_VER
-#include "dirent-x.h"
+	#include <windows.h>
+	#include <direct.h>
+	#include <io.h>
+	#include "dirent-x.h"
 #else
-#include "dirent.h"
+	#include "dirent.h"
 #endif
 //#include <stdlib.h>
 //#include <string.h>

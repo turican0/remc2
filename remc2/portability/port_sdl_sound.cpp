@@ -1,5 +1,8 @@
 #include "port_sdl_sound.h"
-#include <adlmidi.h>
+
+#ifndef NO_ADLMIDI
+	#include <adlmidi.h>
+#endif
 
 /*This source code copyrighted by Lazy Foo' Productions (2004-2013)
 and may not be redistributed without written permission.*/
@@ -954,7 +957,7 @@ void ALSOUND_play(int which, Mix_Chunk* mixchunk, int loops)
 
 void ALSOUND_delete()
 {
-	//Once you’ve finished don’t forget to clean memoryand release OpenAL contextand device
+	//Once youï¿½ve finished donï¿½t forget to clean memoryand release OpenAL contextand device
 
 	//alDeleteSources(1, &alSource);
 
