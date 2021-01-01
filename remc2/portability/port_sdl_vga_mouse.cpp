@@ -21,7 +21,7 @@ SDL_Surface *screen;
 int screenWidth = 640;
 int screenHeight = 480;
 
-const char* default_caption = "Remake Magic Carpet 2";
+const char* default_caption = "Magic Carpet 2 - Community Update";
 
 
 bool inited = false;
