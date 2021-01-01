@@ -1056,7 +1056,7 @@ void VGA_Set_mouse(Bit16s x, Bit16s y) {
 //SDL_Surface *output_surface = NULL;
 
 
-void VGA_Blit(int width, int height, Uint8* buffer) {
+void VGA_Blit(int width, int height, Uint8* srcBuffer) {
 	events();
 	if (SDL_MUSTLOCK(screen)) {
 		if (SDL_LockSurface(screen) < 0) {
@@ -1064,9 +1064,12 @@ void VGA_Blit(int width, int height, Uint8* buffer) {
 			return;
 		}
 	}
-	if ((origw == screen->w) && (origh == screen->h))//same resolution
-		memcpy(screen->pixels, buffer, screen->h * screen->w);
-	else if ((origw * 2 == screen->w) && (origh * 2 == screen->h))//2x resolution
+
+	if ((origw == screen->w) && (origh == screen->h)) //If same Resolution direct copy
+	{
+		memcpy(screen->pixels, srcBuffer, screen->h * screen->w);
+	}
+	else if ((origw * 2 == screen->w) && (origh * 2 == screen->h)) //2x resolution
 	{
 		int k = 0;
 		int l = 0;
@@ -1074,7 +1077,7 @@ void VGA_Blit(int width, int height, Uint8* buffer) {
 		{
 			for (int j = 0;j < screen->h;j++)
 			{
-				((Bit8u*)screen->pixels)[i + j * screen->w] = buffer[k + l * origw];
+				((Bit8u*)screen->pixels)[i + j * screen->w] = srcBuffer[k + l * origw];
 				l += j % 2;
 			}
 			k += i % 2;
@@ -1083,34 +1086,6 @@ void VGA_Blit(int width, int height, Uint8* buffer) {
 	}
 	else//any resolution
 	{
-		/*int native_shift_w = 0;
-		int native_shift_h = 0;
-		int native_res_w = 640;
-		int native_res_h = 480;
-
-		for (int i = 0; i < screen->w; i++)
-		{
-			for (int j = 0; j < screen->h; j++)
-			{
-				((Bit8u*)screen->pixels)[i + j * screen->w] = 0;
-			}
-		}
-		double compx = screen->w / 640;
-		double compy = screen->h / 480;
-		if (compx > compy) {
-			native_res_w = 640 * screen->h / 480;
-			native_res_h = screen->h;
-			native_shift_w = (screen->w - native_res_w) / 2;
-			native_shift_h = 0;
-		}
-		else
-		{
-			native_res_w = screen->w;
-			native_res_h = 480 * screen->w / 640;
-			native_shift_w = 0;
-			native_shift_h = (screen->h - native_res_h) / 2;
-		}
-		*/
 		int k = 0;
 		int l = 0;
 		float xscale = (float)origw / (float)screen->w;
@@ -1121,7 +1096,7 @@ void VGA_Blit(int width, int height, Uint8* buffer) {
 			{
 				k = (int)(i * xscale);
 				l = (int)(j * yscale);
-				((Bit8u*)screen->pixels)[i + j * screen->w] = buffer[k + l * origw];
+				((Bit8u*)screen->pixels)[i + j * screen->w] = srcBuffer[k + l * origw];
 			}
 		}
 	}

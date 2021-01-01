@@ -494,9 +494,9 @@ signed int sub_369F0(/*signed int a1,*/ __int16 a2);
 void qmemcpy(void* a, void* b, size_t c);
 void sub_2A340(/*int a1, type_str_0x6E8E* a2, type_str_0x6E8E* a3, int a4, *//*type_str_0x6E8E* a5, */type_str_0x6E8E* a6);
 void sub_2AA90(/*type_str_0x6E8E* a1, */type_str_0x6E8E* a2, type_str_0x6E8E* a3);
-void /*__spoils<ecx>*/ sub_72883_clear_graphics_320(/*int a1, */void *a2, unsigned __int16 a3, char a4);
-void /*__spoils<ecx>*/ sub_728A9_clear_graphics_640(void *a2, unsigned __int16 a3, char a4);
-void sub_728A9_clear_graphics_alt(void* a2, unsigned __int16 a3, char a4);
+void ClearGraphicsBuffer320(void* ptrBuffer, unsigned __int16 height, char value);
+void ClearGraphicsBuffer640(void* ptrBuffer, unsigned __int16 height, char value);
+void ClearGraphicsBuffer(void* ptrBuffer, unsigned __int16 width, unsigned __int16 height, char value);
 void sub_303D0(/*signed int a1*/);
 int _wcpp_1_unwind_leave__62(void); //weak
 int sub_7FCB0_draw_text_with_border(int a1, char* a2, Bit32s a3, Bit32s a4, int a5, Bit8u a6, unsigned __int8 a7, Bit32u a8);//560cb0
