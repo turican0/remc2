@@ -19,8 +19,8 @@ typedef struct
 	Bit32s y;
 } POSITION;
 
-void VGA_Init(int width, int height);
-void VGA_Init(Uint32 flags, int width, int height);
+void VGA_Init(int width, int height, bool maintainAspectRatio);
+void VGA_Init(Uint32 flags, int width, int height, bool maintainAspectRatio);
 void VGA_Resize(int width, int height);
 void VGA_Blit(int width, int height, Uint8* srcBuffer);
 void VGA_Debug_Blit(int width, int height, Uint8* srcBuffer);

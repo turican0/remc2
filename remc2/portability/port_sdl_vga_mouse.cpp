@@ -17,8 +17,12 @@ Bit8s x_BYTE_180664[128]; // idb
 
 SDL_Surface* screen;
 
-int screenWidth = 640;
-int screenHeight = 480;
+unsigned __int16 m_iOrigw = 640;
+unsigned __int16 m_iOrigh = 480;
+
+unsigned __int16 m_iScreenWidth = 640;
+unsigned __int16 m_iScreenHeight = 480;
+bool m_bMaintainAspectRatio = true;
 
 const char* default_caption = "Magic Carpet 2 - Community Update";
 
@@ -29,36 +33,49 @@ Uint8* VGA_Get_pallette() {
 	return temppallettebuffer;
 }
 
-void SubBlit() {
+void SubBlit(unsigned __int16 originalResWidth, unsigned __int16 originalResHeight) {
+
 	SDL_BlitSurface(screen, NULL, helper_surface, NULL);
-
 	SDL_UpdateTexture(texture, NULL/*&rect*/, helper_surface->pixels, helper_surface->pitch);
-
+	
 	SDL_Rect dscrect;
-	float test_h = helper_surface->h / 480;
-	float test_w = helper_surface->w / 640;
-	if (test_w > test_h)
+	if (m_bMaintainAspectRatio)
 	{
-		dscrect.w = helper_surface->w * helper_surface->h / 480;
-		dscrect.h = helper_surface->h * helper_surface->h / 480;
-		dscrect.x = (helper_surface->w - (640.0 / 480.0 * helper_surface->h)) / 2;
-		dscrect.y = 0;
+		float widthRatio = (float)helper_surface->w / (float)originalResWidth;
+		float heightRatio = (float)helper_surface->h / (float)originalResHeight;
+
+		if (widthRatio >= heightRatio)
+		{
+			dscrect.w = (int)((float)originalResWidth * heightRatio);
+			dscrect.h = (int)((float)originalResHeight * heightRatio);
+			dscrect.x = (helper_surface->w - dscrect.w) /2;
+			dscrect.y = 0;
+		}
+		else
+		{
+			dscrect.w = (int)((float)originalResWidth * widthRatio);
+			dscrect.h = (int)((float)originalResHeight * widthRatio);
+			dscrect.x = 0;
+			dscrect.y = (helper_surface->h - dscrect.h) / 2;
+		}
+		SDL_RenderCopy(renderer, texture, NULL, &dscrect);
 	}
 	else
 	{
-		dscrect.w = helper_surface->w * helper_surface->w / 640;
-		dscrect.h = helper_surface->h * helper_surface->w / 640;
+
+		dscrect.w = helper_surface->w;
+		dscrect.h = helper_surface->h;
 		dscrect.x = 0;
-		dscrect.y = (helper_surface->h - (480.0 / 640.0 * helper_surface->w)) / 2;
+		dscrect.y = 0;
+		SDL_RenderCopy(renderer, texture, NULL, &dscrect);
 	}
 
-	SDL_RenderCopy(renderer, texture, NULL, &dscrect);
 	SDL_RenderPresent(renderer);
 }
 
 void SubSet_pallette(SDL_Color* colors) {
 	SDL_SetPaletteColors(screen->format->palette, colors, 0, 256);
-	SubBlit();
+	SubBlit(m_iOrigw, m_iOrigh);
 }
 
 void Set_basic_pallette0() {
@@ -161,7 +178,7 @@ void Draw_debug_matrix0() {
 	if (SDL_MUSTLOCK(screen)) {
 		SDL_UnlockSurface(screen);
 	}
-	SubBlit();
+	SubBlit(m_iOrigw, m_iOrigh);
 };
 
 void Draw_debug_matrix1() {
@@ -186,7 +203,7 @@ void Draw_debug_matrix1() {
 	if (SDL_MUSTLOCK(screen)) {
 		SDL_UnlockSurface(screen);
 	}
-	SubBlit();
+	SubBlit(m_iOrigw, m_iOrigh);
 };
 
 Bit8u fontbuffer[256 * 256];
@@ -298,7 +315,7 @@ void VGA_Draw_string(char* wrstring) {
 	if (SDL_MUSTLOCK(screen)) {
 		SDL_UnlockSurface(screen);
 	}
-	SubBlit();
+	SubBlit(m_iOrigw, m_iOrigh);
 	mydelay(10);
 }
 
@@ -318,12 +335,13 @@ void VGA_Draw_stringXYtoBuffer(char* wrstring, int x, int y, Bit8u* buffer) {
 	}
 }
 
-void VGA_Init(int width, int height) {
-	screenWidth = width;
-	screenHeight = height;
+void VGA_Init(int width, int height, bool maintainAspectRatio) {
+	m_iScreenWidth = width;
+	m_iScreenHeight = height;
+	m_bMaintainAspectRatio = maintainAspectRatio;
 
 #define SDL_HWPALETTE 0
-	VGA_Init(SDL_HWPALETTE | SDL_INIT_AUDIO, width, height);
+	VGA_Init(SDL_HWPALETTE | SDL_INIT_AUDIO, width, height, maintainAspectRatio);
 }
 
 SDL_Rect dst;
@@ -341,10 +359,11 @@ Uint32 blueMask = 0x00ff0000;
 Uint32 alphaMask = 0xff000000;
 #endif
 
-void VGA_Init(Uint32 flags, int width, int height)
+void VGA_Init(Uint32 flags, int width, int height, bool maintainAspectRatio)
 {
-	screenWidth = width;
-	screenHeight = height;
+	m_iScreenWidth = width;
+	m_iScreenHeight = height;
+	m_bMaintainAspectRatio = maintainAspectRatio;
 
 	if (!inited)
 	{
@@ -372,7 +391,7 @@ void VGA_Init(Uint32 flags, int width, int height)
 			}
 
 			SDL_WindowFlags test_fullscr = SDL_WINDOW_SHOWN;
-			gWindow = SDL_CreateWindow(default_caption, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, screenWidth/*dm.w*/, screenHeight/*dm.h*/, test_fullscr);
+			gWindow = SDL_CreateWindow(default_caption, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width/*dm.w*/, height/*dm.h*/, test_fullscr);
 
 			renderer =
 				SDL_CreateRenderer(gWindow, -1, SDL_RENDERER_ACCELERATED |
@@ -387,15 +406,16 @@ void VGA_Init(Uint32 flags, int width, int height)
 
 			helper_surface =
 				SDL_CreateRGBSurface(
-					SDL_SWSURFACE, screenWidth, screenHeight, 24,
+					SDL_SWSURFACE, width, height, 24,
 					redMask, greenMask, blueMask, alphaMask);
 
 			helper_surface =
 				SDL_ConvertSurfaceFormat(
 					helper_surface, SDL_PIXELFORMAT_RGB888/*SDL_PIXELFORMAT_ARGB8888*/, 0);
+
 			screen =
 				SDL_CreateRGBSurface(
-					SDL_SWSURFACE, 640/*test_width*/, 480/*test_height*/, 24,
+					SDL_SWSURFACE, width, height, 24,
 					redMask, greenMask, blueMask, alphaMask);
 			screen =
 				SDL_ConvertSurfaceFormat(
@@ -424,12 +444,9 @@ void VGA_Init(Uint32 flags, int width, int height)
 	}
 }
 
-int origw = 640;
-int origh = 480;
-
 void VGA_Resize(int width, int height) {
-	origw = width;
-	origh = height;
+	m_iOrigw = width;
+	m_iOrigh = height;
 }
 
 FILE* fptpal;
@@ -504,7 +521,7 @@ void VGA_test() {
 	}
 	/* Update just the part of the display that we've changed */
 
-	SubBlit();
+	SubBlit(m_iOrigw, m_iOrigh);
 }
 
 /*
@@ -776,11 +793,11 @@ void VGA_Blit(int width, int height, Uint8* srcBuffer) {
 		}
 	}
 
-	if ((origw == screen->w) && (origh == screen->h)) //If same Resolution direct copy
+	if ((m_iOrigw == screen->w) && (m_iOrigh == screen->h)) //If same Resolution direct copy
 	{
 		memcpy(screen->pixels, srcBuffer, screen->h * screen->w);
 	}
-	else if ((origw * 2 == screen->w) && (origh * 2 == screen->h)) //2x resolution
+	else if ((m_iOrigw * 2 == screen->w) && (m_iOrigh * 2 == screen->h)) //2x resolution
 	{
 		int k = 0;
 		int l = 0;
@@ -788,7 +805,7 @@ void VGA_Blit(int width, int height, Uint8* srcBuffer) {
 		{
 			for (int j = 0; j < screen->h; j++)
 			{
-				((Bit8u*)screen->pixels)[i + j * screen->w] = srcBuffer[k + l * origw];
+				((Bit8u*)screen->pixels)[i + j * screen->w] = srcBuffer[k + l * m_iOrigw];
 				l += j % 2;
 			}
 			k += i % 2;
@@ -799,22 +816,22 @@ void VGA_Blit(int width, int height, Uint8* srcBuffer) {
 	{
 		int k = 0;
 		int l = 0;
-		float xscale = (float)origw / (float)screen->w;
-		float yscale = (float)origh / (float)screen->h;
+		float xscale = (float)m_iOrigw / (float)screen->w;
+		float yscale = (float)m_iOrigh / (float)screen->h;
 		for (int i = 0; i < screen->w; i++)
 		{
 			for (int j = 0; j < screen->h; j++)//49+1 - final size
 			{
 				k = (int)(i * xscale);
 				l = (int)(j * yscale);
-				((Bit8u*)screen->pixels)[i + j * screen->w] = srcBuffer[k + l * origw];
+				((Bit8u*)screen->pixels)[i + j * screen->w] = srcBuffer[k + l * m_iOrigw];
 			}
 		}
 	}
 	if (SDL_MUSTLOCK(screen)) {
 		SDL_UnlockSurface(screen);
 	}
-	SubBlit();
+	SubBlit(m_iOrigw, m_iOrigh);
 	SOUND_UPDATE();
 }
 
