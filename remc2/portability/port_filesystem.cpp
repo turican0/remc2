@@ -21,10 +21,6 @@ char bigGraphicsFolder[512] = "bigGraphics";
     #include <filesystem>
     #include <cstdio>
 
-	extern "C" {
-    	#include "findfirst.h"
-	}
-
 	std::string getExePath() {
 		std::string strpathx;
 		char result[ PATH_MAX ];

@@ -12,7 +12,9 @@
 	#include "dirent-x.h"
 #else
 	#include "dirent.h"
-	#include "findfirst.h"
+	extern "C" {
+    	#include "findfirst.h"
+	}
 	#include <limits.h>
 
 	#define MAX_PATH PATH_MAX
@@ -71,7 +73,9 @@ int dos_getdrive(int* a);
 
 void get_exe_path(char*);
 
+#ifdef _MSC_VER
 uint64_t dos_getdiskfree(int16_t a1, int16_t a2, Bit8u a, short* b);
+#endif
 
 void debug_printf(const char* format, ...);
 
