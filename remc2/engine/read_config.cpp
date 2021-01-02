@@ -67,7 +67,7 @@ void readini(char* filename) {
 		gameResHeight = 480;
 	}
 	
-	maintainAspectRatio = reader.GetBoolean("graphics", "maintainAspectRatio ", true);
+	maintainAspectRatio = reader.GetBoolean("graphics", "maintainAspectRatio", true);
 
 	std::string readstr2 = reader.GetString("main", "gameFolder", "");
 	strcpy((char*)gameFolder, (char*)readstr2.c_str());
