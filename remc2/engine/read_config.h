@@ -33,5 +33,6 @@ extern int speedAnim;
 extern bool res640x480;
 extern int gameResWidth;
 extern int gameResHeight;
+extern bool maintainAspectRatio;
 
 #endif //READ_CONFIG

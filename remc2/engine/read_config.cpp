@@ -6,6 +6,7 @@ int speedAnim;
 bool res640x480 = false;
 int gameResWidth = 640;
 int gameResHeight = 480;
+bool maintainAspectRatio = false;
 
 void readini(char* filename) {
 
@@ -65,6 +66,8 @@ void readini(char* filename) {
 		gameResWidth = 640;
 		gameResHeight = 480;
 	}
+	
+	maintainAspectRatio = reader.GetBoolean("graphics", "maintainAspectRatio ", true);
 
 	std::string readstr2 = reader.GetString("main", "gameFolder", "");
 	strcpy((char*)gameFolder, (char*)readstr2.c_str());
