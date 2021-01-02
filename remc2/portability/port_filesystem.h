@@ -1,5 +1,7 @@
 #ifndef PORT_FILESYSTEM
 #define PORT_FILESYSTEM
+
+#include <cstdint>
 #include <stdio.h>
 #include <stdlib.h>  
 #include <string.h>
