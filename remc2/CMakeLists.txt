@@ -47,10 +47,6 @@ set(SOURCE_FILES_ENGINE
     "sub_main.cpp"
     "sub_main.h"
     "engine/sub_main_mouse.h"
-    "../findfirst/findfirst.c"
-    "../findfirst/findfirst.h"
-    "../findfirst/spec.c"
-    "../findfirst/spec.h"
 )
 source_group("Source Files\\engine" FILES ${SOURCE_FILES_ENGINE})
 
@@ -62,13 +58,13 @@ set(SOURCE_FILES__libs__inih
 )
 source_group("Source Files\\libs\\inih" FILES ${SOURCE_FILES__libs__inih})
 
-#set(SOURCE_FILES__libs__findfirst
-#    "../findfirst/findfirst.c"
-#    "../findfirst/findfirst.h"
-#    "../findfirst/spec.c"
-#    "../findfirst/spec.h"
-#)
-#source_group("Source Files\\libs\\findfirst" FILES ${SOURCE_FILES__libs__findfirst})
+set(SOURCE_FILES__libs__findfirst
+    "../findfirst/findfirst.c"
+    "../findfirst/findfirst.h"
+    "../findfirst/spec.c"
+    "../findfirst/spec.h"
+)
+source_group("Source Files\\libs\\findfirst" FILES ${SOURCE_FILES__libs__findfirst})
 
 
 set(SOURCE_FILES__portability
@@ -102,10 +98,10 @@ set(ALL_FILES
 )
 
 ################################################################################
-# target
+# targets
 ################################################################################
-#add_library(findfirst ${SOURCE_FILES__libs__findfirst})
-#set_target_properties(findfirst PROPERTIES COMPILE_FLAGS "-m32" LINK_FLAGS "-m32")
+add_library(findfirst ${SOURCE_FILES__libs__findfirst})
+set_target_properties(findfirst PROPERTIES COMPILE_FLAGS "-m32" LINK_FLAGS "-m32")
 add_executable(${PROJECT_NAME} ${ALL_FILES})
 set_target_properties(${PROJECT_NAME} PROPERTIES COMPILE_FLAGS "-m32" LINK_FLAGS "-m32")
 
@@ -157,9 +153,8 @@ if (UNIX)
         ${SDL_MIXER_LIBRARY}
     	SDL2
         ${PNG_LIBRARY}
-#        findfirst
+        findfirst
     )
     target_link_directories(${PROJECT_NAME} PUBLIC
     )
 endif ()
-
