@@ -1,6 +1,8 @@
 #include "port_sdl_vga_mouse.h"
 #include "port_time.h"
 
+#include <cstdint>
+
 #include "../engine/sub_main_mouse.h"
 
 #ifdef USE_DOSBOX
@@ -17,11 +19,11 @@ Bit8s x_BYTE_180664[128]; // idb
 
 SDL_Surface* screen;
 
-unsigned __int16 m_iOrigw = 640;
-unsigned __int16 m_iOrigh = 480;
+uint16_t m_iOrigw = 640;
+uint16_t m_iOrigh = 480;
 
-unsigned __int16 m_iScreenWidth = 640;
-unsigned __int16 m_iScreenHeight = 480;
+uint16_t m_iScreenWidth = 640;
+uint16_t m_iScreenHeight = 480;
 bool m_bMaintainAspectRatio = true;
 
 const char* default_caption = "Magic Carpet 2 - Community Update";
@@ -33,7 +35,7 @@ Uint8* VGA_Get_pallette() {
 	return temppallettebuffer;
 }
 
-void SubBlit(unsigned __int16 originalResWidth, unsigned __int16 originalResHeight) {
+void SubBlit(uint16_t originalResWidth, uint16_t originalResHeight) {
 
 	SDL_BlitSurface(screen, NULL, helper_surface, NULL);
 	SDL_UpdateTexture(texture, NULL/*&rect*/, helper_surface->pixels, helper_surface->pitch);
