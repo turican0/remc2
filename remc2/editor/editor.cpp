@@ -126,7 +126,7 @@ void loadlevel(int levelnumber) {
 
 void editor_run()
 {	
-	//Bit8u* back_x_DWORD_180628b_screen_buffer=x_DWORD_180628b_screen_buffer;
+	//Bit8u* back_pdwScreenBuffer=pdwScreenBuffer;
 	sub_6EBF0(&filearray_2aa18c[filearrayindex_POINTERSDATTAB]);
 	x_WORD_180660_VGA_type_resolution = 1;
 	x_WORD_E29DA_type_resolution = 1;
@@ -149,7 +149,7 @@ void editor_run()
 	//terrain_recalculate();
 
 	main_x(/*int argc, char** argv*/);
-	//x_DWORD_180628b_screen_buffer= back_x_DWORD_180628b_screen_buffer;
+	//pdwScreenBuffer= back_pdwScreenBuffer;
 	
 	sub_47320_in_game_loop(0);//run game	
 
@@ -950,7 +950,7 @@ static void terrain_feat_append(kiss_textbox* textbox1, kiss_vscrollbar* vscroll
 	kiss_array_free(textbox1->array);
 	kiss_array_new(textbox1->array);
 	char temp[256];
-	//VGA_Draw_stringXYtoBuffer(temp, 304, 32, x_DWORD_180628b_screen_buffer);
+	//VGA_Draw_stringXYtoBuffer(temp, 304, 32, pdwScreenBuffer);
 	for (int i = first_terrain_feature; i < 0x4B0; i++)
 	{
 		type_str_0x30311 actfeat = temparray_0x30311[i];//D41A0_BYTESTR_0.str_2FECE.array_0x30311[first_terrain_feature + i];
@@ -966,7 +966,7 @@ static void terrain_stages_append(kiss_textbox* textbox) {
 	kiss_array_free(textbox->array);
 	kiss_array_new(textbox->array);
 	char temp[256];
-	//VGA_Draw_stringXYtoBuffer(temp, 304, 32, x_DWORD_180628b_screen_buffer);
+	//VGA_Draw_stringXYtoBuffer(temp, 304, 32, pdwScreenBuffer);
 	for (int i = 0; i < 8; i++)
 	{
 		type_str_0x36442 actstage = D41A0_BYTESTR_0.str_2FECE.str_0x36442[i];
@@ -980,7 +980,7 @@ static void terrain_vars_append(kiss_textbox* textbox) {
 kiss_array_free(textbox->array);
 kiss_array_new(textbox->array);
 char temp[256];
-//VGA_Draw_stringXYtoBuffer(temp, 304, 32, x_DWORD_180628b_screen_buffer);
+//VGA_Draw_stringXYtoBuffer(temp, 304, 32, pdwScreenBuffer);
 for (int i = 0; i < 0xb; i++)
 {
 	type_str_0x3647Ac actstage = D41A0_BYTESTR_0.str_2FECE.array_0x3647A[i];
