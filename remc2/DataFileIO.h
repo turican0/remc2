@@ -95,13 +95,13 @@ public:
 	static uint16 read_word_be(uint8* buf, size_t* offset);
 	static uint32 read_dword_be(uint8* buf, size_t* offset);
 	static int unpack_data_m1(vars_t* v);
-	static int DataFileIO::unpack_data_m2(vars_t* v);
+	static int unpack_data_m2(vars_t* v);
 	static uint16 crc_block(uint8* buf, size_t offset, int size);
 	static int input_bits(vars_t* v, short count);
 	static uint32 input_bits_m1(vars_t* v, short count);
 	static uint32 input_bits_m2(vars_t* v, short count);
-	static void DataFileIO::decode_match_count(vars_t* v);
-	static void DataFileIO::decode_match_offset(vars_t* v);
+	static void decode_match_count(vars_t* v);
+	static void decode_match_offset(vars_t* v);
 	static void write_decoded_byte(vars_t* v, uint8 b);
 	static void write_buf(uint8* dest, size_t* offset, uint8* source, int size);
 	static uint8 read_source_byte(vars_t* v);

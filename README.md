@@ -24,16 +24,29 @@ Tomas has done amazing work, not only reverse engineering this code but updating
 - 7: Run
 
 ### Linux:
-- 1: Pull the development branch
-- 2: WIP: Build the code (you can only compile only 32-bit binary version atm)
-- 3: Purchase a copy of Magic Carpet 2 from GOG here: https://www.gog.com/game/magic_carpet_2_the_netherworlds
-- 4: Download the Windows "Offline Backup Game Installer"
-- 5: Make sure that you have `innoextract` and `dosbox` installed
-- 6: Run the `extract-GOG-CD.sh` script and provide the path to the GOG installer and the build directory like
+1. Pull the development branch
+2. Make sure that you have the following dependencies as x86 development packages
+ - SDL2
+ - SDL2_MIXER
+ - libpng
+3. Make sure that you have `CMake`, `make` and a recent `GCC` installed
+4. Build the code
+```bash
+export BUILDTYPE=Debug # or Release
+mkdir build_${BUILDTYPE}
+cd build_${BUILDTYPE}
+cmake -DCMAKE_BUILD_TYPE=${BUILDTYPE} [SOURCE_DIR]
+make
+make install
 ```
-./extract-GOG-CD.sh ~/Downloads/setup_magic_carpet_2_1.0_\(28044\).exe ~/dev/remc2_release
+5. Purchase a copy of Magic Carpet 2 from GOG here: https://www.gog.com/game/magic_carpet_2_the_netherworlds
+6. Download the Windows "Offline Backup Game Installer"
+7. Make sure that you have `innoextract` and `dosbox` installed
+8. Run the `extract-GOG-CD.sh` script and provide the path to the GOG installer and the build directory like
 ```
-- 7: Run
+./extract-GOG-CD.sh ~/Downloads/setup_magic_carpet_2_1.0_\(28044\).exe ~/dev/remc2_release/remc2
+```
+9. Run
 
 # ROADMAP:
 

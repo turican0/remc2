@@ -12,6 +12,27 @@ char gameFolder[512] = "Netherw";
 char cdFolder[512] = "CD_Files";
 char bigGraphicsFolder[512] = "bigGraphics";
 
+#ifndef _MSC_VER
+	#include <libgen.h>
+	#include <iostream>
+	#include <unistd.h>
+	#include <stdarg.h>
+	#include <sys/stat.h>
+    #include <filesystem>
+    #include <cstdio>
+
+	std::string getExePath() {
+		std::string strpathx;
+		char result[ PATH_MAX ];
+		ssize_t count = readlink("/proc/self/exe", result, PATH_MAX);
+		if (count != -1) {
+			strpathx = dirname(result);
+		}
+		return strpathx;
+	}
+#endif
+
+#ifdef _MSC_VER
 std::string utf8_encode(const std::wstring &wstr)
 {
 	if (wstr.empty()) return std::string();
@@ -20,6 +41,7 @@ std::string utf8_encode(const std::wstring &wstr)
 	WideCharToMultiByte(CP_UTF8, 0, &wstr[0], (int)wstr.size(), &strTo[0], size_needed, NULL, NULL);
 	return strTo;
 }
+#endif
 
 bool firstrun = true;
 
@@ -30,16 +52,11 @@ void get_exe_path(char* retpath) {
 	std::string locstr = utf8_encode(buffer);
 	std::string::size_type pos = std::string(locstr).find_last_of("\\/");
 	std::string strpathx = std::string(locstr).substr(0, pos)/*+"\\system.exe"*/;
-	#else
-	char* buffer = new char[MAX_PATH];
-	GetModuleFileName(NULL, buffer, MAX_PATH);
-	std::string::size_type pos = std::string(buffer).find_last_of("\\/");
-	std::string strpathx = std::string(buffer).substr(0, pos)/*+"\\system.exe"*/;
-	#endif
 	sprintf(retpath,"%s", (char*)strpathx.c_str());
-	//retpath = (char*)strpathx.c_str();
-	//return pathx;
 	delete[] buffer;
+	#else
+	sprintf(retpath,"%s", (char*)getExePath().c_str());
+	#endif
 };
 
 long my_findfirst(char* path, _finddata_t* c_file){
@@ -167,6 +184,7 @@ Bit32s /*__cdecl*/ mymkdir(char* path) {
 	//	debug_printf("mymkdir:path2: %s\n", path2);
 	//#endif //DEBUG_FILEOPS
 
+#ifdef WIN32
 	const WCHAR *pwcsName;
 	// required size
 	int nChars = MultiByteToWideChar(CP_ACP, 0, path, -1, NULL, 0);
@@ -178,17 +196,18 @@ Bit32s /*__cdecl*/ mymkdir(char* path) {
 #ifdef DEBUG_FILEOPS
 	debug_printf("mymkdir:path3: %s\n", pwcsName);
 #endif //DEBUG_FILEOPS
+#endif
 
 
 
 	int result;
 #if defined (WIN32)						/* MS Visual C++ */
 	result = _wmkdir(pwcsName);
+	delete[] pwcsName;
 #else
-	result = mkdir(pwcsName, 0700);
+	result = mkdir(path, 0700);
 #endif
 	// delete it
-	delete[] pwcsName;
 
 #ifdef DEBUG_FILEOPS
 	debug_printf("mymkdir:end: %d\n", result);
@@ -318,10 +337,16 @@ dirsstruct getListDirFix(char* indirname)
 }
 */
 int dos_getdrive(int* a) {
+#ifdef WIN32
 	*a = _getdrive();
+#else
+	*a = 0;
+	std::cerr << "STUB: dos_getdrive on Linux" << std::endl;
+#endif
 	return *a;
 };
 
+#ifdef _MSC_VER
 struct space_info
 {
 	// all values are byte counts
@@ -401,6 +426,7 @@ unsigned __int64 dos_getdiskfree(__int16 a1, __int16 a2, Bit8u a, short* b) {
 	a4[3] = a1;
 	*/
 };
+#endif
 
 void AdvReadfile(const char* path, Bit8u* buffer) {
 
@@ -478,7 +504,7 @@ void GetSubDirectoryFile(char* buffer, char* gamepath, char* subDirectory, char*
 	sprintf(buffer, "%s\\%s", subDirPath, fileName);
 }
 
-void GetSaveGameFile(char* buffer, char* gamepath, __int16 index)
+void GetSaveGameFile(char* buffer, char* gamepath, int16_t index)
 {
 	char subDirPath[MAX_PATH];
 	GetSubDirectoryPath(subDirPath, gamepath, "save");
