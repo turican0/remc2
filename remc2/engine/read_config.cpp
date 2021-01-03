@@ -1,47 +1,15 @@
 #include "read_config.h"
-/*
-typedef struct
-{
-	int version;
-	const char* name;
-	const char* email;
-} configuration;
-*/
-/*static int handler(void* user, const char* section, const char* name,
-	const char* value)
-{
-	configuration* pconfig = (configuration*)user;
-
-#define MATCH(s, n) strcmp(section, s) == 0 && strcmp(name, n) == 0
-	if (MATCH("protocol", "version")) {
-		pconfig->version = atoi(value);
-	}
-	else if (MATCH("user", "name")) {
-		pconfig->name = strdup(value);
-	}
-	else if (MATCH("user", "email")) {
-		pconfig->email = strdup(value);
-	}
-	else {
-		return 0;
-	}
-	return 1;
-}*/
 int config_skip_screen;
 int texturepixels;
 int speedGame;
 int speedAnim;
 bool res640x480 = false;
-void readini(char* filename) {
-	/*configuration config;
+int gameResWidth = 640;
+int gameResHeight = 480;
+bool maintainAspectRatio = false;
 
-	if (ini_parse(filename, handler, &config) < 0) {
-		printf("Can't load '%s'\n", filename);
-		return;
-	}
-	printf("Config loaded from '%s': version=%d, name=%s, email=%s\n", filename,
-		config.version, config.name, config.email);
-		*/
+void readini(char* filename) {
+
 	INIReader reader(filename);
 
 	if (reader.ParseError() < 0) {
@@ -75,7 +43,10 @@ void readini(char* filename) {
 		oggmusicalternative = true;
 	}
 	else
+	{
 		oggmusicalternative = false;
+	}
+
 	std::string readstr = reader.GetString("sound", "oggmusicFolder", "");
 	strcpy(oggmusicFolder, (char*)readstr.c_str());
 
@@ -87,6 +58,16 @@ void readini(char* filename) {
 	strcpy(bigGraphicsFolder, (char*)readstr3.c_str());
 
 	texturepixels=reader.GetInteger("graphics", "texturepixels", 32);
+	gameResWidth = reader.GetInteger("graphics", "gameResWidth", 640);
+	gameResHeight = reader.GetInteger("graphics", "gameResHeight", 480);
+
+	if (gameResWidth < 640 || gameResHeight < 480)
+	{
+		gameResWidth = 640;
+		gameResHeight = 480;
+	}
+	
+	maintainAspectRatio = reader.GetBoolean("graphics", "maintainAspectRatio", true);
 
 	std::string readstr2 = reader.GetString("main", "gameFolder", "");
 	strcpy((char*)gameFolder, (char*)readstr2.c_str());
