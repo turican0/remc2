@@ -11,6 +11,12 @@ Tomas has done amazing work, not only reverse engineering this code but updating
 - Enable local multiplayer without NETBIOS
 
 ## STATUS: Code now runs though the first level and more. Anyone with the GOG edition can download this repo, extract the Game Assets (from a legal GOG copy of the game) and run it.
+## Build Status:
+
+|Branch|Windows|Linux|
+|------|:-----:|:---:|
+|master|![MSBuild](https://github.com/GrimSqueaker/remc2/workflows/MSBuild/badge.svg?branch=master)|![MSBuild](https://github.com/GrimSqueaker/remc2/workflows/Linux/badge.svg?branch=master)|
+|development|![MSBuild](https://github.com/GrimSqueaker/remc2/workflows/MSBuild/badge.svg?branch=development)|![MSBuild](https://github.com/GrimSqueaker/remc2/workflows/Linux/badge.svg?branch=development)|
 
 ## Steps: to build and run this code
 
