@@ -22,12 +22,14 @@ Tomas has done amazing work, not only reverse engineering this code but updating
 
 ### Windows:
 - 1: Pull the development branch
-- 2: Build the code (you can only compile only 32-bit binary version atm)
-- 3: Purchase a copy of Magic Carpet 2 from GOG here: https://www.gog.com/game/magic_carpet_2_the_netherworlds
-- 4: Install the Game. Copy the "NETHERW" directory to "remc2\Debug" Folder
-- 5: Copy the "Extract" folder to your Game Directory, run extract-GOG-CD.bat. The CD Data will now be copied to a directory called "CD_Files" in the "Extract" directory
-- 6: Move "CD_Files" directory into the "remc2\Debug" Folder
-- 7: Run
+- 2: Open the Solution file "\libogg\win32\VS2015\libogg_static.sln" and build it. This builds the libogg library
+- 3: Close that solution and open "remc2.sln" Select "x86" in build config.
+- 4: Build the code (you can only compile only 32-bit binary version atm)
+- 5: Purchase a copy of Magic Carpet 2 from GOG here: https://www.gog.com/game/magic_carpet_2_the_netherworlds
+- 6: Install the Game. Copy the "NETHERW" directory to "remc2\Debug" Folder
+- 7: Copy the "Extract" folder to your Game Directory, run extract-GOG-CD.bat. The CD Data will now be copied to a directory called "CD_Files" in the "Extract" directory
+- 8: Move "CD_Files" directory into the "remc2\Debug" Folder
+- 9: Run
 
 ### Linux:
 1. Pull the development branch
