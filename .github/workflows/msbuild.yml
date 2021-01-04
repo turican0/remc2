@@ -1,6 +1,7 @@
-name: MSBuild
+name: MSBuild CI
 
-on: [push, pull_request]
+on: 
+  [push, pull_request]
 
 env:
   # Path to the solution file relative to the root of the project.

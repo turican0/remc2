@@ -1,7 +1,10 @@
-name: C/C++ CI
+name: Linux CI
 
 on:
   [push, pull_request]
+
+env:
+  COMPATIBILITY_32_PATH: /usr/lib/i386-linux-gnu
 
 jobs:
   build:
@@ -24,7 +27,7 @@ jobs:
         cd ${{ github.workspace }}
         mkdir build_release
         cd build_release
-        cmake -DCMAKE_BUILD_TYPE=Release -DCOMPATIBILITY_32_PATH="/usr/lib/i386-linux-gnu" ..
+        cmake -DCMAKE_BUILD_TYPE=Release -DCOMPATIBILITY_32_PATH="${{env.COMPATIBILITY_32_PATH}}" ..
     - name: make release
       run: |
         cd ${{ github.workspace }}
