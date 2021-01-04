@@ -21,7 +21,7 @@ int main(int argc, char** argv)
 	//mine_texts((char*)"0160-0022A288", 0x2a1000, 1000, (char*)"mined-texts.txt");
 
 	support_begin();
-	int retval = main(argc, argv, envp);
+	int retval = sub_main(argc, argv, envp);
 	support_end();
 	//saveactstate();
     return 0;

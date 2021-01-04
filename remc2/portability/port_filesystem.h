@@ -1,19 +1,28 @@
 #ifndef PORT_FILESYSTEM
 #define PORT_FILESYSTEM
-#include <io.h>
+
+#include <cstdint>
 #include <stdio.h>
 #include <stdlib.h>  
 #include <string.h>
-#include <windows.h>
-//#ifdef _MSC_VER
-#include <direct.h>
-//#endif
 #include "mctypes.h"
+
 #ifdef _MSC_VER
-#include "dirent-x.h"
+	#include <windows.h>
+	#include <direct.h>
+	#include <io.h>
+	#include "dirent-x.h"
 #else
-#include "dirent.h"
+	#include "dirent.h"
+	extern "C" {
+    	#include "findfirst.h"
+	}
+	#include <limits.h>
+
+	#define MAX_PATH PATH_MAX
+	#define _chdir chdir
 #endif
+
 //#include <stdlib.h>
 //#include <string.h>
 //#include <ctype.h>
@@ -66,7 +75,9 @@ int dos_getdrive(int* a);
 
 void get_exe_path(char*);
 
-unsigned __int64 dos_getdiskfree(__int16 a1, __int16 a2, Bit8u a, short* b);
+#ifdef _MSC_VER
+uint64_t dos_getdiskfree(int16_t a1, int16_t a2, Bit8u a, short* b);
+#endif
 
 void debug_printf(const char* format, ...);
 
@@ -76,7 +87,7 @@ void GetSubDirectoryPath(char* buffer, char* gamepath, char* subDirectory);
 
 void GetSubDirectoryFile(char* buffer, char* gamepath, char* subDirectory, char* fileName);
 
-void GetSaveGameFile(char* buffer, char* gamepath, __int16 index);
+void GetSaveGameFile(char* buffer, char* gamepath, int16_t index);
 
 int GetDirectory(char* directory, const char* filePath);
 

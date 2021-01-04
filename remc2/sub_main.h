@@ -37,21 +37,22 @@
 #include <string.h>
 #include <ctype.h>
 
-#include <direct.h>
 //#include <dir.h>
-#include <io.h>
 
 //#include <vld.h>//only for debug
 
 #include "portability/port_outputs.h"
 
 //#include <sys/statvfs.h>
-#include <windows.h>
 #ifdef _MSC_VER
-#include "portability/dirent-x.h"
+	#include <direct.h>  
+	#include <io.h>  
+	#include <windows.h>
+	#include "portability/dirent-x.h"
 #else
-#include "dirent.h"
+	#include "dirent.h"
 #endif
+
 #include "portability/port_time.h"
 #include "portability/port_filesystem.h"
 #include "engine/defs.h"
@@ -298,7 +299,7 @@ typedef struct {
 	Bit8u** begin_buffer;
 	Bit8u** end_buffer;
 	Bit8u** dat_buffer;
-	posistruct** posistruct;
+	posistruct_t** posistruct;
 } filearray_struct;
 #pragma pack (16)
 
@@ -649,7 +650,8 @@ void pre_sub_4A190_0x6E8E(Bit32u adress, type_str_0x6E8E* a1, int type);//pre 22
 
 //char sub_54200();
 void sub_71410_process_tmaps();
+
 void Initialize();
-int /*__cdecl*/ main(int argc, char** argv, char** envp);
+int /*__cdecl*/ sub_main(int argc, char **argv, char **envp);
 
 #endif //SUB_MAIN_ACTIVE

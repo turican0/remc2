@@ -1,5 +1,13 @@
 #include "port_sdl_sound.h"
-#include <adlmidi.h>
+
+#ifndef NO_ADLMIDI // FIXME
+	#include <adlmidi.h>
+#endif
+
+#ifdef __linux__
+    #include <limits>
+    #define MAX_PATH PATH_MAX
+#endif
 
 /*This source code copyrighted by Lazy Foo' Productions (2004-2013)
 and may not be redistributed without written permission.*/
@@ -617,10 +625,10 @@ void test_music()
 {
 }
 
-void my_audio_callback(void *midi_player, Uint8 *stream, int len);
+void my_audio_callback(void *midi_player, uint8_t *stream, int len);
 
 /* variable declarations */
-static Uint32 is_playing = 0; /* remaining length of the sample we have to play */
+static uint32_t is_playing = 0; /* remaining length of the sample we have to play */
 static short buffer[4096]; /* Audio buffer */
 
 int run()
@@ -642,6 +650,7 @@ int run()
 	spec.samples = 2048;
 
 	/* Initialize ADLMIDI */
+#ifndef NO_ADLMIDI // FIXME
 	midi_player = adl_init(spec.freq);
 	if (!midi_player)
 	{
@@ -693,6 +702,7 @@ int run()
 	/* shut everything down */
 	SDL_CloseAudio();
 	adl_close(midi_player);
+#endif
 
 	return 0;
 }
@@ -703,7 +713,7 @@ int run()
  requesting audio buffer (stream)
  you should only copy as much as the requested length (len)
 */
-void my_audio_callback(void *midi_player, Uint8 *stream, int len)
+void my_audio_callback(void *midi_player, uint8_t *stream, int len)
 {
 	struct ADL_MIDIPlayer* p = (struct ADL_MIDIPlayer*)midi_player;
 
@@ -711,7 +721,9 @@ void my_audio_callback(void *midi_player, Uint8 *stream, int len)
 	int samples_count = len / 2;
 
 	/* Take some samples from the ADLMIDI */
+#ifndef NO_ADLMIDI // FIXME
 	samples_count = adl_play(p, samples_count, (short*)buffer);
+#endif
 
 	if (samples_count <= 0)
 	{
@@ -721,7 +733,7 @@ void my_audio_callback(void *midi_player, Uint8 *stream, int len)
 	}
 
 	/* Send buffer to the audio device */
-	SDL_memcpy(stream, (Uint8*)buffer, samples_count * 2);
+	SDL_memcpy(stream, (uint8_t*)buffer, samples_count * 2);
 }
 
 #define TEST_ERROR(_msg)		\
@@ -954,7 +966,7 @@ void ALSOUND_play(int which, Mix_Chunk* mixchunk, int loops)
 
 void ALSOUND_delete()
 {
-	//Once you’ve finished don’t forget to clean memoryand release OpenAL contextand device
+	//Once youï¿½ve finished donï¿½t forget to clean memoryand release OpenAL contextand device
 
 	//alDeleteSources(1, &alSource);
 
