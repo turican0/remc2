@@ -34,10 +34,10 @@ endif()
 # Dependencies
 ################################################################################
 
-set(Boost_USE_STATIC_LIBS OFF) 
-set(Boost_USE_MULTITHREADED ON)  
-set(Boost_USE_STATIC_RUNTIME OFF) 
-find_package(Boost COMPONENTS filesystem)
+if (COMPATIBILITY_32_PATH)
+    set(SDL2_DIR "${COMPATIBILITY_32_PATH}/cmake/SDL2")
+    set(CMAKE_LIBRARY_PATH "${COMPATIBILITY_32_PATH}")
+endif ()
 find_package(SDL2 REQUIRED)
 find_package(PNG REQUIRED)
 find_library(SDL_MIXER_LIBRARY
