@@ -15,8 +15,8 @@ Tomas has done amazing work, not only reverse engineering this code but updating
 
 |Branch|Windows|Linux|
 |------|:-----:|:---:|
-|master|![MSBuild](https://github.com/GrimSqueaker/remc2/workflows/MSBuild/badge.svg?branch=master)|![MSBuild](https://github.com/GrimSqueaker/remc2/workflows/Linux/badge.svg?branch=master)|
-|development|![MSBuild](https://github.com/GrimSqueaker/remc2/workflows/MSBuild/badge.svg?branch=development)|![MSBuild](https://github.com/GrimSqueaker/remc2/workflows/Linux/badge.svg?branch=development)|
+|master|![Windows master CI status](https://github.com/GrimSqueaker/remc2/workflows/MSBuild/badge.svg?branch=master)|![Linux master CI status](https://github.com/GrimSqueaker/remc2/workflows/Linux/badge.svg?branch=master)|
+|development|![Windows development CI status](https://github.com/GrimSqueaker/remc2/workflows/MSBuild/badge.svg?branch=development)|![Linux development CI status](https://github.com/GrimSqueaker/remc2/workflows/Linux/badge.svg?branch=development)|
 
 ## Steps: to build and run this code
 
