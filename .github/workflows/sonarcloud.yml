@@ -1,11 +1,12 @@
 name: SonarCloud
 
-on:
-  push:
-    branches:
-      [ master, development, CI ]
-  pull_request:
-      types: [opened, synchronize, reopened]
+# NOTE: no automatic runs for the moment, because it does not work
+#on:
+#  push:
+#    branches:
+#      [ master, development, ci ]
+#  pull_request:
+#      types: [opened, synchronize, reopened]
 
 jobs:
   sonarcloud:
@@ -14,7 +15,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-      # we cannot disable shallow cloning with huge binary history
+      # NOTE: we cannot disable shallow cloning with huge binary history
       #with:
       #  # Disabling shallow clone is recommended for improving relevancy of reporting
       #  fetch-depth: 0

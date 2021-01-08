@@ -1,7 +1,11 @@
 name: MSBuild CI
 
 on: 
-  [push, pull_request]
+  push:
+    branches:
+      [ master, development ]
+  pull_request:
+      types: [opened, synchronize, reopened]
 
 env:
   # Path to the solution file relative to the root of the project.
