@@ -1,0 +1,37 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "(gdb) Launch",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/debug/inst/bin/remc2",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/build/debug/inst/bin",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            //"setupCommands": [
+            //    {
+            //        "description": "Enable pretty-printing for gdb",
+            //        "text": "-enable-pretty-printing",
+            //        "ignoreFailures": true
+            //    }
+            //],
+            "miDebuggerPath": "/usr/bin/gdb"
+        },
+        {
+            "name": "Attach to gdbserver",
+            "type": "gdb",
+            "request": "attach",
+            "executable": "${workspaceRoot}/build/debug/inst/bin/remc2",
+            "target": ":9999",
+            "remote": true,
+            "cwd": "${workspaceRoot}/build/debug/inst/bin",
+            "autorun": [ ],
+            "printCalls": true,
+            "showDevDebugOutput": true 
+        }
+    ]
+}
