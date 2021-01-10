@@ -8,7 +8,7 @@ using namespace std;
 */
 
 //char gamepath[512] = "c:\\prenos\\Magic2\\mc2-orig-copy";
-char gameFolder[512] = "Netherw";
+char gameFolder[512] = "NETHERW";
 char cdFolder[512] = "CD_Files";
 char bigGraphicsFolder[512] = "bigGraphics";
 
@@ -20,16 +20,6 @@ char bigGraphicsFolder[512] = "bigGraphics";
 	#include <sys/stat.h>
     #include <filesystem>
     #include <cstdio>
-
-	std::string getExePath() {
-		std::string strpathx;
-		char result[ PATH_MAX ];
-		ssize_t count = readlink("/proc/self/exe", result, PATH_MAX);
-		if (count != -1) {
-			strpathx = dirname(result);
-		}
-		return strpathx;
-	}
 #endif
 
 #ifdef _MSC_VER
@@ -45,8 +35,8 @@ std::string utf8_encode(const std::wstring &wstr)
 
 bool firstrun = true;
 
-void get_exe_path(char* retpath) {
-	#ifdef _MSC_VER
+std::string get_exe_path() {
+#ifdef _MSC_VER
 	LPWSTR buffer = new WCHAR[MAX_PATH];
 	GetModuleFileName(NULL, buffer, MAX_PATH);
 	std::string locstr = utf8_encode(buffer);
@@ -54,9 +44,17 @@ void get_exe_path(char* retpath) {
 	std::string strpathx = std::string(locstr).substr(0, pos)/*+"\\system.exe"*/;
 	sprintf(retpath,"%s", (char*)strpathx.c_str());
 	delete[] buffer;
-	#else
-	sprintf(retpath,"%s", (char*)getExePath().c_str());
-	#endif
+	return strpathx;
+#else
+	std::string strpathx;
+	char result[ PATH_MAX ];
+	ssize_t count = readlink("/proc/self/exe", result, PATH_MAX);
+	if (count != -1) {
+		result[count] = '\0';
+		strpathx = dirname(result);
+	}
+	return strpathx;
+#endif
 };
 
 long my_findfirst(char* path, _finddata_t* c_file){
@@ -118,7 +116,7 @@ FILE* debug_output;
 
 bool debug_first = false;
 const char* debug_filename = "../debug.txt";
-char path[2048] = "\0";
+std::string path = {};
 
 void debug_printf(const char* format, ...) {
 	char prbuffer[1024];
@@ -128,17 +126,16 @@ void debug_printf(const char* format, ...) {
 	done = vsprintf(prbuffer, format, arg);
 	va_end(arg);
 
-	char exepath[MAX_PATH];
-	get_exe_path(exepath);
-	sprintf(path, "%s\\%s", exepath, (char*)debug_filename);
+	std::string exepath = get_exe_path();
+	path = exepath + "/" + debug_filename;
 
 	if (debug_first)
 	{
-		debug_output = fopen(path, "wt");
+		debug_output = fopen(path.c_str(), "wt");
 		debug_first = false;
 	}
 	else
-		debug_output = fopen(path, "at");
+		debug_output = fopen(path.c_str(), "at");
 	fprintf(debug_output, prbuffer);
 	fclose(debug_output);
 	#ifdef DEBUG_PRINT_DEBUG_TO_SCREEN
@@ -300,10 +297,8 @@ dirsstruct getListDir(char* dirname)
 }
 
 void FixDir(char* outdirname, char* indirname) {
-	//char outdirname[512] = "\0";
-	char pathexe[512] = "\0";
-	get_exe_path(pathexe);
-	sprintf(outdirname, "%s/%s", pathexe, indirname);
+	std::string pathexe = get_exe_path();
+	sprintf(outdirname, "%s/%s", pathexe.c_str(), indirname);
 };
 /*
 
@@ -429,12 +424,8 @@ unsigned __int64 dos_getdiskfree(__int16 a1, __int16 a2, Bit8u a, short* b) {
 #endif
 
 void AdvReadfile(const char* path, Bit8u* buffer) {
-
-	
-	char pathexe[512] = "\0";
-	get_exe_path(pathexe);
-	char path2[512];
-	sprintf(path2, "%s/%s", pathexe, path);
+	std::string pathexe = get_exe_path();
+	std::string path2 = pathexe + "/" + std::string(path);
 	/*
 	FILE* file0;
 	fopen_s(&file0, path2, (char*)"wb");
@@ -444,7 +435,7 @@ void AdvReadfile(const char* path, Bit8u* buffer) {
 	*/
 	FILE* file;
 	//fopen_s(&file, (char*)"c:\\prenos\\remc2\\biggraphics\\out_rlt-n-out.data", (char*)"rb");
-	file=fopen(path2, (char*)"rb");
+	file=fopen(path2.c_str(), (char*)"rb");
 	fseek(file, 0L, SEEK_END);
 	long szdata = ftell(file);
 	fseek(file, 0L, SEEK_SET);
@@ -485,30 +476,28 @@ void ReadGraphicsfile(const char* path, Bit8u* buffer, long size)
 
 void GetSubDirectoryPath(char* buffer, char* subDirectory)
 {
-	char exepath[MAX_PATH];
-	get_exe_path(exepath);
-	sprintf(buffer, "%s\\%s", exepath, subDirectory);
+	std::string exepath = get_exe_path();
+	sprintf(buffer, "%s/%s", exepath.c_str(), subDirectory);
 }
 
 void GetSubDirectoryPath(char* buffer, char* gamepath, char* subDirectory)
 {
-	char exepath[MAX_PATH];
-	get_exe_path(exepath);
-	sprintf(buffer, "%s\\%s\\%s", exepath, gamepath, subDirectory);
+	std::string exepath = get_exe_path();
+	sprintf(buffer, "%s/%s/%s", exepath.c_str(), gamepath, subDirectory);
 }
 
 void GetSubDirectoryFile(char* buffer, char* gamepath, char* subDirectory, char* fileName)
 {
 	char subDirPath[MAX_PATH]; 
 	GetSubDirectoryPath(subDirPath, gamepath, subDirectory);
-	sprintf(buffer, "%s\\%s", subDirPath, fileName);
+	sprintf(buffer, "%s/%s", subDirPath, fileName);
 }
 
 void GetSaveGameFile(char* buffer, char* gamepath, int16_t index)
 {
 	char subDirPath[MAX_PATH];
 	GetSubDirectoryPath(subDirPath, gamepath, "save");
-	sprintf(buffer, "%s\\save%d.gam", subDirPath, index);
+	sprintf(buffer, "%s/save%d.gam", subDirPath, index);
 }
 
 int GetDirectory(char* directory, const char* filePath)

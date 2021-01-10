@@ -6,6 +6,7 @@
 #include <stdlib.h>  
 #include <string.h>
 #include "mctypes.h"
+#include <string>
 
 #ifdef _MSC_VER
 	#include <windows.h>
@@ -73,7 +74,7 @@ void FixDir(char* outdirname, char* indirname);
 
 int dos_getdrive(int* a);
 
-void get_exe_path(char*);
+std::string get_exe_path();
 
 #ifdef _MSC_VER
 uint64_t dos_getdiskfree(int16_t a1, int16_t a2, Bit8u a, short* b);

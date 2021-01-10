@@ -8,7 +8,7 @@ int gameResWidth = 640;
 int gameResHeight = 480;
 bool maintainAspectRatio = false;
 
-void readini(char* filename) {
+void readini(const std::string& filename) {
 
 	INIReader reader(filename);
 
