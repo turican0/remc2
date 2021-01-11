@@ -1,12 +1,14 @@
 #include "read_config.h"
 int config_skip_screen;
-int texturepixels;
-int speedGame;
-int speedAnim;
+int texturepixels = 32;
+int speedGame = 35;
+int speedAnim = 100;
 bool res640x480 = false;
 int gameResWidth = 640;
 int gameResHeight = 480;
 bool maintainAspectRatio = false;
+bool bigTextures = false;
+bool bigSprites = false;
 
 void readini(char* filename) {
 
@@ -51,13 +53,23 @@ void readini(char* filename) {
 	strcpy(oggmusicFolder, (char*)readstr.c_str());
 
 	std::string readstrgd = reader.GetString("graphics", "defaultresolution", "");
-	if(!strcmp("640x480", (char*)readstrgd.c_str()))
-		res640x480=true;
+	if (!strcmp("640x480", (char*)readstrgd.c_str()))
+		res640x480 = true;
 
 	std::string readstr3 = reader.GetString("graphics", "bigGraphicsFolder", "");
 	strcpy(bigGraphicsFolder, (char*)readstr3.c_str());
 
-	texturepixels=reader.GetInteger("graphics", "texturepixels", 32);
+	if (reader.GetBoolean("graphics", "useEnhancedGraphics", false) && strlen(bigGraphicsFolder) > 0)
+	{
+		bigSprites = true;
+		bigTextures = true;
+		texturepixels = 128;
+	}
+	else
+	{
+		texturepixels = 32;
+	}
+
 	gameResWidth = reader.GetInteger("graphics", "gameResWidth", 640);
 	gameResHeight = reader.GetInteger("graphics", "gameResHeight", 480);
 
