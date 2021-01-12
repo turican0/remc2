@@ -1312,7 +1312,7 @@ typedef struct {
 	Bit8u reflections_0x218A;//8586 reflections
 	Bit8u shadows_0x218B;//8587 shadows
 	Bit8u sky_0x218C;//8588 sky
-	Bit8u alter_0x218D;//8589 alter screen size
+	Bit8u m_wViewPortSize;//8589 alter screen size
 }
 type_str_0x218A;
 
