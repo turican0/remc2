@@ -9,6 +9,8 @@ int gameResHeight = 480;
 bool maintainAspectRatio = false;
 bool bigTextures = false;
 bool bigSprites = false;
+bool sky = true;
+bool reflections = true;
 
 void readini(char* filename) {
 
@@ -80,6 +82,8 @@ void readini(char* filename) {
 	}
 	
 	maintainAspectRatio = reader.GetBoolean("graphics", "maintainAspectRatio", true);
+	sky = reader.GetBoolean("graphics", "sky", true);
+	reflections = reader.GetBoolean("graphics", "reflections", true);
 
 	std::string readstr2 = reader.GetString("main", "gameFolder", "");
 	strcpy((char*)gameFolder, (char*)readstr2.c_str());

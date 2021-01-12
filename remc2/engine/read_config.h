@@ -36,5 +36,7 @@ extern int gameResHeight;
 extern bool maintainAspectRatio;
 extern bool bigTextures;
 extern bool bigSprites;
+extern bool sky;
+extern bool reflections;
 
 #endif //READ_CONFIG
