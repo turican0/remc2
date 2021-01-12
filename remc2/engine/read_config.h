@@ -34,5 +34,7 @@ extern bool res640x480;
 extern int gameResWidth;
 extern int gameResHeight;
 extern bool maintainAspectRatio;
+extern bool bigTextures;
+extern bool bigSprites;
 
 #endif //READ_CONFIG
