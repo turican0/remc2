@@ -40,10 +40,9 @@ std::string get_exe_path() {
 	LPWSTR buffer = new WCHAR[MAX_PATH];
 	GetModuleFileName(NULL, buffer, MAX_PATH);
 	std::string locstr = utf8_encode(buffer);
+	delete[] buffer;
 	std::string::size_type pos = std::string(locstr).find_last_of("\\/");
 	std::string strpathx = std::string(locstr).substr(0, pos)/*+"\\system.exe"*/;
-	sprintf(retpath,"%s", (char*)strpathx.c_str());
-	delete[] buffer;
 	return strpathx;
 #else
 	std::string strpathx;
