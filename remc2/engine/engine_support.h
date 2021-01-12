@@ -1452,7 +1452,7 @@ typedef struct {
 	type_str_0x2192 str_0x2192;
 	type_str_0x2196 str_0x2196;
 }
-SettingsStruct_t;
+GameSettingsStruct_t;
 
 typedef struct {//lenght 0x36e16
 	Bit8u stub0[4];
@@ -1487,7 +1487,7 @@ typedef struct {//lenght 0x36e16
 	type_str_0x6E8E* dword_0x11EA[0x3e8];//??4586
 	//Bit8u stub3[0xfa0];
 
-	SettingsStruct_t str_0x218A_settings;
+	GameSettingsStruct_t m_GameSettings;
 
 	Bit32u dword_0x219A;//8602
 	Bit32u dword_0x219E;//8606
