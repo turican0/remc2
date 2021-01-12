@@ -1309,12 +1309,12 @@ typedef struct {
 typedef_str_0x6E3E;*/
 
 typedef struct {
-	Bit8u reflections_0x218A;//8586 reflections
-	Bit8u shadows_0x218B;//8587 shadows
-	Bit8u sky_0x218C;//8588 sky
-	Bit8u m_wViewPortSize;//8589 alter screen size
+	Bit8u m_wReflections;
+	Bit8u m_wShadows;
+	Bit8u m_wSky;
+	Bit8u m_wViewPortSize;
 }
-type_str_0x218A;
+GraphicsStruct_t;
 
 /*typedef union {
 	type_str_0x8586 str;
@@ -1328,7 +1328,7 @@ typedef struct {
 	Bit8u scr_size_0x2190;//8592 screen size?//str_0x218E.str.scr_size_0x2190
 	Bit8u xxxx_0x2191;//8593//str_0x218E.str.xxxx_0x2191
 }
-type_str_0x218E;
+DisplayStruct_t;
 
 /*typedef union {
 	type_str_0x218E str;
@@ -1447,12 +1447,12 @@ typedef struct {//lenght 7
 type_str_0x6574;
 
 typedef struct {
-	type_str_0x218A str_0x218A;
+	GraphicsStruct_t str_0x218A;
 	//Bit8u byte_0x218A;//8586 reflections
 	//Bit8u byte_0x218B;//8587 shadows
 	//Bit8u byte_0x218C;//8588 sky
 	//Bit8u byte_0x218D;//8589 alter screen size
-	type_str_0x218E str_0x218E;
+	DisplayStruct_t str_0x218E;
 	//Bit8u byte_0x218E;//8590 icons
 	//Bit8u byte_0x218F;//8591 ??
 	//Bit8u byte_0x2190;//8592 screen size?
@@ -1468,7 +1468,7 @@ typedef struct {
 	//Bit8u byte_0x2198;//8600 transparency
 	//Bit8u byte_0x2199;//8601 flat
 }
-type_str_0x218A_settings;
+SettingsStruct_t;
 
 typedef struct {//lenght 0x36e16
 	Bit8u stub0[4];
@@ -1503,7 +1503,7 @@ typedef struct {//lenght 0x36e16
 	type_str_0x6E8E* dword_0x11EA[0x3e8];//??4586
 	//Bit8u stub3[0xfa0];
 
-	type_str_0x218A_settings str_0x218A_settings;
+	SettingsStruct_t str_0x218A_settings;
 
 	Bit32u dword_0x219A;//8602
 	Bit32u dword_0x219E;//8606
