@@ -528,9 +528,9 @@ void convert_struct_to_array_0x36442(type_str_0x36442* input, Bit8u* output) {
 	//Bit16s word_1;//25973//word_0
 	memcpy(output + 1, &input->word_1, 2);
 	//Bit16s word_3;//25975//word_2
-	memcpy(output + 3, &input->axis_2d.x, 2);
+	memcpy(output + 3, &input->_axis_2d.x, 2);
 	//Bit16s word_5; //25977//word_4
-	memcpy(output + 5, &input->axis_2d.y, 2);
+	memcpy(output + 5, &input->_axis_2d.y, 2);
 }
 
 

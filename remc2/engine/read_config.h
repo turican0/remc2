@@ -3,15 +3,15 @@
 #include <string.h>
 #include <ctype.h>
 
-#include <direct.h>  
-#include <io.h>  
-
-#include <windows.h>
 #ifdef _MSC_VER
-#include "../portability/dirent-x.h"
+    #include <direct.h>  
+    #include <io.h>  
+    #include <windows.h>
+    #include "../portability/dirent-x.h"
 #else
-#include "dirent.h"
+    #include "dirent.h"
 #endif
+
 #include "../portability/port_time.h"
 #include "../portability/port_filesystem.h"
 #include "../portability/port_sdl_sound.h"
@@ -34,5 +34,7 @@ extern bool res640x480;
 extern int gameResWidth;
 extern int gameResHeight;
 extern bool maintainAspectRatio;
+extern bool bigTextures;
+extern bool bigSprites;
 
 #endif //READ_CONFIG

@@ -101,7 +101,7 @@ Bit8u x_BYTE_10B4E0_terraintype[0x10000]; // idb// x_BYTE_10B1E0[0x300]//2DC4E0 
 Bit8u x_BYTE_11B4E0_height[0x10000]; // idb		//2EC4E0    	//map array2 // heightmap
 Bit8u x_BYTE_12B4E0_shading[0x10000]; // fix it -  weak	//2FC4E0    //map array3
 Bit8u x_BYTE_13B4E0_angle[0x10000]; // idb//30C4E0	//map array4 // water
-__int16 x_WORD_15B4E0_source[0x10000]; // idb//32C4E0	//map array5
+int16_t x_WORD_15B4E0_source[0x10000]; // idb//32C4E0	//map array5
 
 type_str_E2A74 str_E2A74[0x69] = {//2b3a74
 {0x0000,{0x0000,0x0000,0x0000,0x0000,0x0000},0x00000000,0x00000000,0x00000000,0x00000000,0x00,0x00},
@@ -475,13 +475,13 @@ Bit8u* pdwScreenBuffer; //351628
 Bit8u* off_D41A8_sky;//graphics buffer// = (Bit8u*)&x_BYTE_14B4E0; // weak
 Bit8u* x_BYTE_14B4E0;//31C4E0
 
-posistruct* xy_DWORD_17DED4_spritestr;
-posistruct* xy_DWORD_17DEC0_spritestr;
-posistruct* xy_DWORD_17DEC8_spritestr;
+posistruct_t* xy_DWORD_17DED4_spritestr;
+posistruct_t* xy_DWORD_17DEC0_spritestr;
+posistruct_t* xy_DWORD_17DEC8_spritestr;
 
-posistruct* x_DWORD_D4188t_spritestr;
+posistruct_t* x_DWORD_D4188t_spritestr;
 
-posistruct* xy_DWORD_17DEC0_spritestr_orig;
+posistruct_t* xy_DWORD_17DEC0_spritestr_orig;
 
 doublebyte doublebyte_conv(Bit16u a2) {
 	doublebyte result;
@@ -529,12 +529,12 @@ void support_begin() {
 	off_D41A8_sky = new Bit8u[65536];
 	memcpy(off_D41A8_sky, &x_BYTE_14B4E0, 4);
 
-	xy_DWORD_17DED4_spritestr = new posistruct[1000];
-	xy_DWORD_17DEC0_spritestr_orig = new posistruct[1000];
+	xy_DWORD_17DED4_spritestr = new posistruct_t[1000];
+	xy_DWORD_17DEC0_spritestr_orig = new posistruct_t[1000];
 	xy_DWORD_17DEC0_spritestr = xy_DWORD_17DEC0_spritestr_orig;
-	xy_DWORD_17DEC8_spritestr = new posistruct[1000];
+	xy_DWORD_17DEC8_spritestr = new posistruct_t[1000];
 
-	x_DWORD_D4188t_spritestr = new posistruct[1000];
+	x_DWORD_D4188t_spritestr = new posistruct_t[1000];
 	//x_D41A0_BYTEARRAY_4_struct.player_name_57 = 0;
 
 	//printbuffer2[0] = '\0';
@@ -1212,8 +1212,13 @@ Bit32u compare_with_sequence(char* filename, Bit8u* adress, Bit32u adressdos, lo
 		mydelay(100);
 		fptestepc = fopen(findnamec, "rb");
 	}
-	_fseeki64(fptestepc, (long long)count * (long long)size1 + offset, SEEK_SET);
 
+#ifdef __linux__
+	fseek(fptestepc, (long long)count * (long long)size1 + offset, SEEK_SET);
+#else
+	_fseeki64(fptestepc, (long long)count * (long long)size1 + offset, SEEK_SET);
+#endif
+	
 	Bit32u i;
 	/*for (i = 0; i < count; i++)
 	{

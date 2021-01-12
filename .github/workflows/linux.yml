@@ -1,0 +1,42 @@
+name: Linux CI
+
+on:
+  push:
+    branches:
+      [ master, development ]
+  pull_request:
+      types: [opened, synchronize, reopened]
+
+env:
+  COMPATIBILITY_32_PATH: /usr/lib/i386-linux-gnu
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+          submodules: recursive
+
+    - name: prepare for 32 bit libraries
+      run: |
+        sudo dpkg --add-architecture i386
+        sudo apt-get update -y
+
+    - name: install dependencies
+      run: |
+        sudo apt-get -y install cmake gcc-multilib g++-multilib libsdl2-dev:i386 libsdl2-mixer-dev:i386 libpng-dev:i386 libpng++-dev:i386 libz-dev:i386
+
+    - name: cmake release
+      run: |
+        cd ${{ github.workspace }}
+        mkdir build_release
+        cd build_release
+        cmake -DCMAKE_BUILD_TYPE=Release -DCOMPATIBILITY_32_PATH="${{env.COMPATIBILITY_32_PATH}}" ..
+
+    - name: make release
+      run: |
+        cd ${{ github.workspace }}
+        cd build_release
+        make
