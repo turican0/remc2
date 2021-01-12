@@ -814,7 +814,7 @@ void convert_struct_to_array_D41A0_0(type_D41A0_BYTESTR_0* input,Bit8u* output) 
 };
 
 void test_converts_D41A0_0(type_D41A0_BYTESTR_0* str) {
-	int size = 0x36e16;
+	int size = 224790;
 	Bit8u* arr = (Bit8u*)malloc(size);
 
 	convert_struct_to_array_D41A0_0(str, arr);

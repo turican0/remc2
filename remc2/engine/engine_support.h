@@ -1454,7 +1454,7 @@ typedef struct {
 }
 GameSettingsStruct_t;
 
-typedef struct {//lenght 0x36e16
+typedef struct {//lenght 224790
 	Bit8u stub0[4];
 	Bit32u dword_0x4;
 	Bit32u dword_0x8;
