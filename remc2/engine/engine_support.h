@@ -724,7 +724,7 @@ typedef struct {
 	Bit8u setting_30;//x_D41A0_BYTEARRAY_4_struct.setting_30
 	Bit8u stubd[3];
 	//FILE* moviemvidatfile_byte4_33;
-	Bit8u byteindex_34;//0x22//x_D41A0_BYTEARRAY_4_struct.byteindex_34
+	Bit8u m_wHighSpeedSystem;
 	FILE* moviemvidatfile_byte4_35;
 	Bit16u moviemvinumber_byte4_39;//x_D41A0_BYTEARRAY_4_struct.moviemvinumber_byte4_39
 	Bit8u stube[2];
@@ -1351,7 +1351,7 @@ type_str_0x2192;
 type_uni_0x2192;*/
 
 typedef struct {
-	Bit8u lights_0x2196;//8598 lights//str_0x2196.str.lights_0x2196
+	Bit8u m_wDynamicLighting;//8598 lights//str_0x2196.str.lights_0x2196
 	Bit8u setting_0x2197;//8599 setting//str_0x2196.str.setting_0x2197
 	Bit8u transparency_0x2198;//8600 transparency//str_0x2196.str.transparency_0x2198
 	Bit8u flat_0x2199;//8601 flat//str_0x2196.str.flat_0x2199
