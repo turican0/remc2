@@ -113,8 +113,14 @@ install(
     ARCHIVE DESTINATION lib/static
 )
 install(
-    FILES ${CMAKE_SOURCE_DIR}/resources/font/16x16-font.bmp
+    FILES 
+    ${CMAKE_SOURCE_DIR}/Debug/font/16x16-font.bmp
     DESTINATION bin/font
+)
+install(
+    FILES 
+    ${CMAKE_SOURCE_DIR}/Debug/config.ini
+    DESTINATION bin
 )
 
 if (WIN32)

@@ -13,7 +13,7 @@ bool sky = true;
 bool reflections = false;
 bool dynamicLighting = false;
 
-void readini(char* filename) {
+void readini(const std::string& filename) {
 
 	INIReader reader(filename);
 

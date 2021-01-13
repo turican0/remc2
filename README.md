@@ -41,18 +41,18 @@ Tomas has done amazing work, not only reverse engineering this code but updating
 4. Build the code
 ```bash
 export BUILDTYPE=Debug # or Release
-mkdir build_${BUILDTYPE}
-cd build_${BUILDTYPE}
-cmake -DCMAKE_BUILD_TYPE=${BUILDTYPE} [SOURCE_DIR]
+mkdir -p build/${BUILDTYPE}
+cd build/${BUILDTYPE}
+cmake -DCMAKE_BUILD_TYPE=${BUILDTYPE} -DCMAKE_INSTALL_PREFIX=./inst [SOURCE_DIR]
 make
 make install
 ```
 5. Purchase a copy of Magic Carpet 2 from GOG here: https://www.gog.com/game/magic_carpet_2_the_netherworlds
 6. Download the Windows "Offline Backup Game Installer"
 7. Make sure that you have `innoextract` and `dosbox` installed
-8. Run the `extract-GOG-CD.sh` script and provide the path to the GOG installer and the build directory like
+8. Run the `extract-GOG-CD.sh` script and provide the path to the GOG installer and the install bin directory like
 ```
-./extract-GOG-CD.sh ~/Downloads/setup_magic_carpet_2_1.0_\(28044\).exe ~/dev/remc2_release/remc2
+./extract-GOG-CD.sh ~/Downloads/setup_magic_carpet_2_1.0_\(28044\).exe ~/dev/remc2/build/Debug/inst/bin
 ```
 9. Run
 
