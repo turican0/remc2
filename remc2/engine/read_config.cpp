@@ -10,7 +10,7 @@ bool maintainAspectRatio = false;
 bool bigTextures = false;
 bool bigSprites = false;
 
-void readini(char* filename) {
+void readini(const std::string& filename) {
 
 	INIReader reader(filename);
 
