@@ -724,7 +724,7 @@ typedef struct {
 	Bit8u setting_30;//x_D41A0_BYTEARRAY_4_struct.setting_30
 	Bit8u stubd[3];
 	//FILE* moviemvidatfile_byte4_33;
-	Bit8u byteindex_34;//0x22//x_D41A0_BYTEARRAY_4_struct.byteindex_34
+	Bit8u m_wHighSpeedSystem;
 	FILE* moviemvidatfile_byte4_35;
 	Bit16u moviemvinumber_byte4_39;//x_D41A0_BYTEARRAY_4_struct.moviemvinumber_byte4_39
 	Bit8u stube[2];
@@ -1309,12 +1309,12 @@ typedef struct {
 typedef_str_0x6E3E;*/
 
 typedef struct {
-	Bit8u reflections_0x218A;//8586 reflections
-	Bit8u shadows_0x218B;//8587 shadows
-	Bit8u sky_0x218C;//8588 sky
-	Bit8u alter_0x218D;//8589 alter screen size
+	Bit8u m_wReflections;
+	Bit8u m_wShadows;
+	Bit8u m_wSky;
+	Bit8u m_wViewPortSize;
 }
-type_str_0x218A;
+GraphicsStruct_t;
 
 /*typedef union {
 	type_str_0x8586 str;
@@ -1323,12 +1323,12 @@ type_str_0x218A;
 type_uni_0x8586;*/
 
 typedef struct {
-	Bit8u minimap_0x218E;//8590 icons//str_0x218E.str.icons_0x218E
-	Bit8u topbar_0x218F;//8591 ??//str_0x218E.str.xxxx_0x218F
+	Bit8u m_wMiniMap;//8590 icons//str_0x218E.str.icons_0x218E
+	Bit8u m_wTopBar;//8591 ??//str_0x218E.str.xxxx_0x218F
 	Bit8u scr_size_0x2190;//8592 screen size?//str_0x218E.str.scr_size_0x2190
 	Bit8u xxxx_0x2191;//8593//str_0x218E.str.xxxx_0x2191
 }
-type_str_0x218E;
+DisplayStruct_t;
 
 /*typedef union {
 	type_str_0x218E str;
@@ -1339,7 +1339,7 @@ type_uni_0x218E;*/
 typedef struct {
 	Bit8u xxxx_0x2192;//8594 ??//str_0x2192.str.xxxx_0x2192
 	Bit8u xxxx_0x2193;//8595 ??//str_0x2192.str.xxxx_0x2193
-	Bit8u resolution_0x2194;//8596 resolution//str_0x2192.str.resolution_0x2194
+	Bit8u m_wResolution;//8596 resolution//str_0x2192.str.resolution_0x2194
 	Bit8u shadows_0x2195;//8593 shadows//str_0x2192.str.shadows_0x2195
 }
 type_str_0x2192;
@@ -1351,7 +1351,7 @@ type_str_0x2192;
 type_uni_0x2192;*/
 
 typedef struct {
-	Bit8u lights_0x2196;//8598 lights//str_0x2196.str.lights_0x2196
+	Bit8u m_wDynamicLighting;//8598 lights//str_0x2196.str.lights_0x2196
 	Bit8u setting_0x2197;//8599 setting//str_0x2196.str.setting_0x2197
 	Bit8u transparency_0x2198;//8600 transparency//str_0x2196.str.transparency_0x2198
 	Bit8u flat_0x2199;//8601 flat//str_0x2196.str.flat_0x2199
@@ -1447,30 +1447,14 @@ typedef struct {//lenght 7
 type_str_0x6574;
 
 typedef struct {
-	type_str_0x218A str_0x218A;
-	//Bit8u byte_0x218A;//8586 reflections
-	//Bit8u byte_0x218B;//8587 shadows
-	//Bit8u byte_0x218C;//8588 sky
-	//Bit8u byte_0x218D;//8589 alter screen size
-	type_str_0x218E str_0x218E;
-	//Bit8u byte_0x218E;//8590 icons
-	//Bit8u byte_0x218F;//8591 ??
-	//Bit8u byte_0x2190;//8592 screen size?
-	//Bit8u byte_0x2191;//8593
+	GraphicsStruct_t m_Graphics;
+	DisplayStruct_t m_Display;
 	type_str_0x2192 str_0x2192;
-	//Bit8u byte_0x2192;//8594
-	//Bit8u byte_0x2193;//8595
-	//Bit8u byte_0x2194;//8596 resolution
-	//Bit8u byte_0x2195;//8597 shadows
 	type_str_0x2196 str_0x2196;
-	//Bit8u byte_0x2196;//8598 lights
-	//Bit8u byte_0x2197;//setting
-	//Bit8u byte_0x2198;//8600 transparency
-	//Bit8u byte_0x2199;//8601 flat
 }
-type_str_0x218A_settings;
+GameSettingsStruct_t;
 
-typedef struct {//lenght 0x36e16
+typedef struct {//lenght 224790
 	Bit8u stub0[4];
 	Bit32u dword_0x4;
 	Bit32u dword_0x8;
@@ -1503,7 +1487,7 @@ typedef struct {//lenght 0x36e16
 	type_str_0x6E8E* dword_0x11EA[0x3e8];//??4586
 	//Bit8u stub3[0xfa0];
 
-	type_str_0x218A_settings str_0x218A_settings;
+	GameSettingsStruct_t m_GameSettings;
 
 	Bit32u dword_0x219A;//8602
 	Bit32u dword_0x219E;//8606

@@ -1305,7 +1305,7 @@ void add_compare(Bit32u adress, bool debugafterload, int stopstep, bool skip) {
 				comp20 = compare_with_sequence(buffer1, (Bit8u*)x_BYTE_13B4E0_angle, 0x2dc4e0, index, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x30000);
 				comp20 = compare_with_sequence(buffer1, (Bit8u*)x_WORD_15B4E0_source, 0x2dc4e0, index, 0x70000, 0x20000, &origbyte20, &remakebyte20, 0x50000);
 
-				comp20 = compare_with_sequence_D41A0(buffer2, (Bit8u*)&D41A0_BYTESTR_0, 0x356038, index, 0x36e16, &origbyte20, &remakebyte20);
+				comp20 = compare_with_sequence_D41A0(buffer2, (Bit8u*)&D41A0_BYTESTR_0, 0x356038, index, 224790, &origbyte20, &remakebyte20);
 
 				comp20 = compare_with_sequence_array_E2A74(buffer3, (Bit8u*)&str_E2A74, 0x2b3a74, index, 0xc4e, 0xc4e, &origbyte20, &remakebyte20);
 			}

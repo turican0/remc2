@@ -5770,7 +5770,7 @@ versus
 D41A0_BYTESTR_0.pointers_0x246[0x3e6]
 de5c6e00 !=6e5cde
 
-comp20 = compare_with_sequence_D41A0((char*)"00237BB9-00356038", (Bit8u*)& D41A0_BYTESTR_0, 0x356038, debugcounter11, 0x36e16, &origbyte20, &remakebyte20);
+comp20 = compare_with_sequence_D41A0((char*)"00237BB9-00356038", (Bit8u*)& D41A0_BYTESTR_0, 0x356038, debugcounter11, 224790, &origbyte20, &remakebyte20);
 0x8f97
 (Bit8u*)&D41A0_BYTESTR_0+0x8f97 0xf1
 (Bit8u*)x_D41A0_BYTEARRAY_0+0x8f97 0x21

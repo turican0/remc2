@@ -9,6 +9,9 @@ int gameResHeight = 480;
 bool maintainAspectRatio = false;
 bool bigTextures = false;
 bool bigSprites = false;
+bool sky = true;
+bool reflections = false;
+bool dynamicLighting = false;
 
 void readini(const std::string& filename) {
 
@@ -80,12 +83,15 @@ void readini(const std::string& filename) {
 	}
 	
 	maintainAspectRatio = reader.GetBoolean("graphics", "maintainAspectRatio", true);
+	sky = reader.GetBoolean("graphics", "sky", true);
+	reflections = reader.GetBoolean("graphics", "reflections", false);
+	dynamicLighting = reader.GetBoolean("graphics", "dynamicLighting", false);
 
 	std::string readstr2 = reader.GetString("main", "gameFolder", "");
 	strcpy((char*)gameFolder, (char*)readstr2.c_str());
 	std::string readstr4 = reader.GetString("main", "cdFolder", "");
 	strcpy((char*)cdFolder, (char*)readstr4.c_str());
 
-	speedGame = reader.GetInteger("game", "speed", 35);
+	speedGame = reader.GetInteger("game", "speed", 30);
 	speedAnim = reader.GetInteger("game", "animspeed", 100);
 };
