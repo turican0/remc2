@@ -9,7 +9,6 @@
 	#define SOUND_SDLMIXER
 	#include "SDL.h"
 #else
-	#define NO_ADLMIDI
     #include "SDL2/SDL.h"
 #endif
 

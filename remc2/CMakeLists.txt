@@ -165,6 +165,7 @@ if (UNIX)
     	SDL2
         ${PNG_LIBRARY}
         findfirst
+        ADLMIDI_static
     )
     target_link_directories(${PROJECT_NAME} PUBLIC
     )

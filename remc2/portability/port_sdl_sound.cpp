@@ -1,8 +1,6 @@
 #include "port_sdl_sound.h"
 
-#ifndef NO_ADLMIDI // FIXME
-	#include <adlmidi.h>
-#endif
+#include <adlmidi.h>
 
 #ifdef __linux__
     #include <limits>
@@ -650,7 +648,6 @@ int run()
 	spec.samples = 2048;
 
 	/* Initialize ADLMIDI */
-#ifndef NO_ADLMIDI // FIXME
 	midi_player = adl_init(spec.freq);
 	if (!midi_player)
 	{
@@ -702,7 +699,6 @@ int run()
 	/* shut everything down */
 	SDL_CloseAudio();
 	adl_close(midi_player);
-#endif
 
 	return 0;
 }
@@ -721,9 +717,7 @@ void my_audio_callback(void *midi_player, uint8_t *stream, int len)
 	int samples_count = len / 2;
 
 	/* Take some samples from the ADLMIDI */
-#ifndef NO_ADLMIDI // FIXME
 	samples_count = adl_play(p, samples_count, (short*)buffer);
-#endif
 
 	if (samples_count <= 0)
 	{
