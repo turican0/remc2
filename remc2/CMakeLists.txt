@@ -122,6 +122,11 @@ install(
     ${CMAKE_SOURCE_DIR}/Debug/config.ini
     DESTINATION bin
 )
+install(
+    DIRECTORY
+    ${CMAKE_SOURCE_DIR}/Debug/music-ogg
+    DESTINATION bin
+)
 
 if (WIN32)
     add_precompiled_header(${PROJECT_NAME} "stdafx.h" "stdafx.cpp")

@@ -149,31 +149,31 @@ void SOUND_init_MIDI_sequence(Bit8u* data, Bit8u* header, Bit32s track_number)
 		{
 			if (track_number == 0)
 			{
-				sprintf(alternativeMusicPath, "%s\\alternative\\day", oggmusicPath);
+				sprintf(alternativeMusicPath, "%s/alternative/day", oggmusicPath);
 			}
 			else if (track_number == 1)
 			{
-				sprintf(alternativeMusicPath, "%s\\alternative\\night", oggmusicPath);
+				sprintf(alternativeMusicPath, "%s/alternative/night", oggmusicPath);
 			}
 			else if (track_number == 2)
 			{
-				sprintf(alternativeMusicPath, "%s\\alternative\\cave", oggmusicPath);
+				sprintf(alternativeMusicPath, "%s/alternative/cave", oggmusicPath);
 			}
 			else if (track_number == 3)
 			{
-				sprintf(alternativeMusicPath, "%s\\alternative\\cave", oggmusicPath);
+				sprintf(alternativeMusicPath, "%s/alternative/cave", oggmusicPath);
 			}
 			else if (track_number == 4)
 			{
-				sprintf(alternativeMusicPath, "%s\\alternative\\cave", oggmusicPath);
+				sprintf(alternativeMusicPath, "%s/alternative/cave", oggmusicPath);
 			}
 			else if (track_number == 5)
 			{
-				sprintf(alternativeMusicPath, "%s\\alternative\\cave", oggmusicPath);
+				sprintf(alternativeMusicPath, "%s/alternative/cave", oggmusicPath);
 			}
 			else
 			{
-				sprintf(alternativeMusicPath, "%\\salternative\\cave", oggmusicPath);
+				sprintf(alternativeMusicPath, "%/salternative/cave", oggmusicPath);
 			}
 
 			helpdirsstruct = getListDir(alternativeMusicPath);
@@ -182,15 +182,15 @@ void SOUND_init_MIDI_sequence(Bit8u* data, Bit8u* header, Bit32s track_number)
 			{
 				int randtrack = rand()%(helpdirsstruct.number + 1);
 				if(randtrack==0)
-					sprintf(selectedTrackPath, "%s\\music%d.ogg", oggmusicPath, track_number);
+					sprintf(selectedTrackPath, "%s/music%d.ogg", oggmusicPath, track_number);
 				else
-					sprintf(selectedTrackPath, "%s\\%s", alternativeMusicPath ,helpdirsstruct.dir[randtrack-1]);
+					sprintf(selectedTrackPath, "%s/%s", alternativeMusicPath ,helpdirsstruct.dir[randtrack-1]);
 			}
 			else
-				sprintf(selectedTrackPath, "%s\\music%d.ogg", oggmusicPath, track_number);
+				sprintf(selectedTrackPath, "%s/music%d.ogg", oggmusicPath, track_number);
 		}
 		else
-			sprintf(selectedTrackPath, "%s\\music%d.ogg", oggmusicPath, track_number);
+			sprintf(selectedTrackPath, "%s/music%d.ogg", oggmusicPath, track_number);
 #ifdef SOUND_SDLMIXER
 		GAME_music[track_number] = Mix_LoadMUS(selectedTrackPath);
 #endif//SOUND_SDLMIXER
