@@ -125,6 +125,7 @@ install(
 install(
     DIRECTORY
     ${CMAKE_SOURCE_DIR}/Debug/music-ogg
+    ${CMAKE_SOURCE_DIR}/Debug/biggraphics
     DESTINATION bin
 )
 
