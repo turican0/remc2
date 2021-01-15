@@ -5,18 +5,21 @@
 
 #include "mctypes.h"
 
-#ifdef _MSC_VER
-	#define SOUND_SDLMIXER
-	#include "SDL.h"
-#else
-    #include "SDL2/SDL.h"
-#endif
+#define SOUND_SDLMIXER
 
+#ifdef _MSC_VER
+	#include "SDL.h"
 #ifdef SOUND_SDLMIXER
 	#include "SDL_mixer_ext.h"
 	#include "music.h"
 	#include "mixer.h"
-#endif//SOUND_SDLMIXER
+#endif
+#else
+    #include "SDL2/SDL.h"
+#ifdef SOUND_SDLMIXER
+	#include "SDL2/SDL_mixer.h"
+#endif
+#endif
 
 #ifdef SOUND_OPENAL
 	#include <al.h>
