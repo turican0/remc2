@@ -137,7 +137,7 @@ int WOPN_BanksCmp(const WOPNFile *bank1, const WOPNFile *bank2)
 static void WOPN_parseInstrument(WOPNInstrument *ins, uint8_t *cursor, uint16_t version, uint8_t has_sounding_delays)
 {
     int l;
-    strncpy(ins->inst_name, (const char*)cursor, 32);
+    strncpy_s(ins->inst_name,34, (const char*)cursor, 32);
     ins->inst_name[32] = '\0';
     ins->note_offset = toSint16BE(cursor + 32);
     ins->midi_velocity_offset = 0;  /* TODO: for future version > 2 */
@@ -170,7 +170,7 @@ static void WOPN_parseInstrument(WOPNInstrument *ins, uint8_t *cursor, uint16_t 
 static void WOPN_writeInstrument(WOPNInstrument *ins, uint8_t *cursor, uint16_t version, uint8_t has_sounding_delays)
 {
     int l;
-    strncpy((char*)cursor, ins->inst_name, 32);
+    strncpy_s((char*)cursor,33, ins->inst_name, 32);
     fromSint16BE(ins->note_offset, cursor + 32);
     cursor[34] = ins->percussion_key_number;
     cursor[35] = ins->fbalg;
@@ -305,7 +305,7 @@ WOPNFile *WOPN_LoadBankFromMem(void *mem, size_t length, int *error)
                     SET_ERROR(WOPN_ERR_UNEXPECTED_ENDING);
                     return NULL;
                 }
-                strncpy(bankslots[i][j].bank_name, (const char*)cursor, 32);
+                strncpy_s(bankslots[i][j].bank_name,33, (const char*)cursor, 32);
                 bankslots[i][j].bank_name[32] = '\0';
                 bankslots[i][j].bank_midi_lsb = cursor[32];
                 bankslots[i][j].bank_midi_msb = cursor[33];
@@ -532,7 +532,7 @@ int WOPN_SaveBankToMem(WOPNFile *file, void *dest_mem, size_t length, uint16_t v
             {
                 if(length < 34)
                     return WOPN_ERR_UNEXPECTED_ENDING;
-                strncpy((char*)cursor, bankslots[i][j].bank_name, 32);
+                strncpy_s((char*)cursor,33, bankslots[i][j].bank_name, 32);
                 cursor[32] = bankslots[i][j].bank_midi_lsb;
                 cursor[33] = bankslots[i][j].bank_midi_msb;
                 GO_FORWARD(34);
