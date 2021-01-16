@@ -3,6 +3,8 @@
 #include "../dosbox_files/config.h"
 //#include "SDL_mixer.h"
 
+#include <string>
+
 #define MSS_STRUCT struct
 
 typedef MSS_STRUCT                     // VDI interface register structure
@@ -320,10 +322,10 @@ MDI_DDT;
 
 typedef struct
 {
-	Bit8s     library_directory[128];
-	Bit8s     GTL_filename[128];
+	std::string library_directory;
+	std::string GTL_filename;
 
-	Bit8s     MIDI_data[512];
+	Bit8s       MIDI_data[512];
 }
 MDI_DST;
 
