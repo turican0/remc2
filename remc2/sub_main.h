@@ -83,7 +83,6 @@ Detected compiler: Watcom C++
 int sub_97F90(x_DWORD *a1);
 int sub_980D0(x_DWORD *a1, int a2);
 int sub_98170(x_DWORD *a1, int a2, int a3);
-bool sub_9EDD0();
 int sub_A158B(int a1, __int16 a2, x_WORD *a3, x_WORD *a4);
 bool sub_A4CB0();
 int sub_A4F10(int a1, char a2, char a3, char a4);
