@@ -47,6 +47,7 @@ cmake -DCMAKE_BUILD_TYPE=${BUILDTYPE} -DCMAKE_INSTALL_PREFIX=./inst [SOURCE_DIR]
 make
 make install
 ```
+  - You can also run the code with sanitizers (leak, address, undefined behaviour, pointers) by passing `-DUSE_SANITIZERS=True` to CMake
 5. Purchase a copy of Magic Carpet 2 from GOG here: https://www.gog.com/game/magic_carpet_2_the_netherworlds
 6. Download the Windows "Offline Backup Game Installer"
 7. Make sure that you have `innoextract` and `dosbox` installed
@@ -54,7 +55,7 @@ make install
 ```
 ./extract-GOG-CD.sh ~/Downloads/setup_magic_carpet_2_1.0_\(28044\).exe ~/dev/remc2/build/Debug/inst/bin
 ```
-9. Run
+9. Run the `remc2` executable in install directory
 
 # ROADMAP:
 
