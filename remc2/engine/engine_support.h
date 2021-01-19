@@ -1615,7 +1615,7 @@ typedef struct {//lenght 224790
 	//*(0x365F2 + x_D41A0_BYTEARRAY_0 + 8 * (signed __int16)result + 2)
 
 	Bit8u stubend[0xa];
-} type_D41A0_BYTESTR_0;
+} type_D41A0_BYTESTR_0; // level data (gets saved to and loaded from SAVE/SLEVxx.dat) was originally forced to 224791 on load/save which is out of bounds
 
 struct {//lenght 0x33
 	Bit16s word_0x0;//0 //0
