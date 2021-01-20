@@ -82,13 +82,13 @@ uint64_t dos_getdiskfree(int16_t a1, int16_t a2, Bit8u a, short* b);
 
 void debug_printf(const char* format, ...);
 
-void GetSubDirectoryPath(char* buffer, char* subDirectory);
+void GetSubDirectoryPath(char* buffer, const char* subDirectory);
 
-void GetSubDirectoryPath(char* buffer, char* gamepath, char* subDirectory);
+void GetSubDirectoryPath(char* buffer, const char* gamepath, const char* subDirectory);
 
-void GetSubDirectoryFile(char* buffer, char* gamepath, char* subDirectory, char* fileName);
+void GetSubDirectoryFile(char* buffer, const char* gamepath, const char* subDirectory, const char* fileName);
 
-void GetSaveGameFile(char* buffer, char* gamepath, int16_t index);
+void GetSaveGameFile(char* buffer, const char* gamepath, int16_t index);
 
 int GetDirectory(char* directory, const char* filePath);
 
