@@ -7,6 +7,10 @@ extern DOS_Device* DOS_CON;
 //delete after finalization
 Bit8u* readbuffer;
 
+const int HIGHCOLOR_BYTES_PER_PIXEL = 2; /// 16 bit color
+const int HIGHCOLOR_FILE_HEADER_SIZE = 14;
+const int HIGHCOLOR_INFO_HEADER_SIZE = 40;
+
 char* printbuffer;//char* buffer; // [esp+0h] [ebp-2h]
 char* printbuffer2;//char v11; // [esp+40h] [ebp+3Eh]
 /*Bit32s x_DWORD_D41A4_x6x = 0;
@@ -503,9 +507,9 @@ void support_begin() {
 	printbuffer = (char*)malloc(4096);
 	//printbuffer[0] = '\0';
 	printbuffer2 = (char*)malloc(4096);
-	pre_pdwScreenBuffer = (Bit8u*)malloc(0x220000);
+	pre_pdwScreenBuffer = (Bit8u*)malloc(2228224);
 	//pdwScreenBuffer = (Bit8u*)malloc(320000);
-	pdwScreenBuffer = &pre_pdwScreenBuffer[0x110000];
+	pdwScreenBuffer = &pre_pdwScreenBuffer[1114112];
 
 	//x_DWORD_E9C38_smalltit= (Bit8u*)malloc(64000);
 	//x_D41A0_BYTEARRAY_4_0xDE_heapbuffer= (Bit8u*)malloc(64000);
@@ -1593,9 +1597,9 @@ unsigned char* createBitmapInfoHeader(int height, int width) {
 
 void writeImageBMP(char* imageFileName, int width, int height, Bit8u* image)
 {
-	int pitch = bytesPerPixel * width;
+	int pitch = 3 * width;
 	unsigned char padding[3] = { 0, 0, 0 };
-	int paddingSize = (4 - (/*width*bytesPerPixel*/ pitch) % 4) % 4;
+	int paddingSize = (4 - (pitch) % 4) % 4;
 
 	unsigned char* fileHeader = createBitmapFileHeader(height, width, pitch, paddingSize);
 	unsigned char* infoHeader = createBitmapInfoHeader(height, width);
@@ -1605,15 +1609,120 @@ void writeImageBMP(char* imageFileName, int width, int height, Bit8u* image)
 	fwrite(fileHeader, 1, fileHeaderSize, imageFile);
 	fwrite(infoHeader, 1, infoHeaderSize, imageFile);
 
-	int i;
-	for (i = 0; i < height; i++) {
-		fwrite(image + (i * pitch /*width*bytesPerPixel*/), bytesPerPixel, width, imageFile);
+	for (int i = 0; i < height; i++) {
+		fwrite(image + (i * pitch), bytesPerPixel, width, imageFile);
 		fwrite(padding, 1, paddingSize, imageFile);
 	}
 
 	fclose(imageFile);
 	//free(fileHeader);
 	//free(infoHeader);
+}
+
+unsigned char* createBitBitmapFileHeader(int fileHeaderSize, int infoHeaderSize, int height, int stride) {
+	int fileSize = fileHeaderSize + infoHeaderSize + (stride * height);
+
+	static unsigned char fileHeader[] = {
+		0,0,     /// signature
+		0,0,0,0, /// image file size in bytes
+		0,0,0,0, /// reserved
+		0,0,0,0 /// start of pixel array
+	};
+
+	fileHeader[0] = (unsigned char)('B');
+	fileHeader[1] = (unsigned char)('M');
+	fileHeader[2] = (unsigned char)(fileSize);
+	fileHeader[3] = (unsigned char)(fileSize >> 8);
+	fileHeader[4] = (unsigned char)(fileSize >> 16);
+	fileHeader[5] = (unsigned char)(fileSize >> 24);
+	fileHeader[10] = (unsigned char)(fileHeaderSize + infoHeaderSize);
+
+	return fileHeader;
+}
+
+unsigned char* createBitBitmapInfoHeader(int infoHeaderSize, int width, int height, int bytesPerPixel) {
+	static unsigned char infoHeader[] = {
+		0,0,0,0, /// header size
+		0,0,0,0, /// image width
+		0,0,0,0, /// image height
+		0,0,     /// number of color planes
+		0,0,     /// bits per pixel
+		0,0,0,0, /// compression
+		0,0,0,0, /// image size
+		0,0,0,0, /// horizontal resolution
+		0,0,0,0, /// vertical resolution
+		0,0,0,0, /// colors in color table
+		0,0,0,0 /// important color count
+		//0,0,0,0, /// Red mask
+		//0,0,0,0, /// Blue mask
+		//0,0,0,0 /// Green mask
+	};
+
+	infoHeader[0] = (unsigned char)(infoHeaderSize);
+	infoHeader[4] = (unsigned char)(width);
+	infoHeader[5] = (unsigned char)(width >> 8);
+	infoHeader[6] = (unsigned char)(width >> 16);
+	infoHeader[7] = (unsigned char)(width >> 24);
+	infoHeader[8] = (unsigned char)(height);
+	infoHeader[9] = (unsigned char)(height >> 8);
+	infoHeader[10] = (unsigned char)(height >> 16);
+	infoHeader[11] = (unsigned char)(height >> 24);
+	infoHeader[12] = (unsigned char)(1);
+	infoHeader[14] = (unsigned char)(bytesPerPixel * 8);
+
+	//Uint32 redMask = 0x000000ff;
+	//Uint32 greenMask = 0x0000ff00;
+	//Uint32 blueMask = 0x00ff0000;
+	//Uint32 alphaMask = 0xff000000;
+
+	//infoHeader[40] = (unsigned char)(0);
+	//infoHeader[41] = (unsigned char)(0 >> 8);
+	//infoHeader[42] = (unsigned char)(0 >> 16);
+	//infoHeader[43] = (unsigned char)(255 >> 24);
+	//infoHeader[44] = (unsigned char)(greenMask);
+	//infoHeader[45] = (unsigned char)(greenMask >> 8);
+	//infoHeader[46] = (unsigned char)(greenMask >> 16);
+	//infoHeader[47] = (unsigned char)(greenMask >> 24);
+	//infoHeader[48] = (unsigned char)(blueMask);
+	//infoHeader[49] = (unsigned char)(blueMask >> 8);
+	//infoHeader[50] = (unsigned char)(blueMask >> 16);
+	//infoHeader[51] = (unsigned char)(blueMask >> 24);
+	//infoHeader[52] = (unsigned char)(alphaMask);
+	//infoHeader[53] = (unsigned char)(alphaMask >> 8);
+	//infoHeader[54] = (unsigned char)(alphaMask >> 16);
+	//infoHeader[55] = (unsigned char)(alphaMask >> 24);
+
+	return infoHeader;
+}
+
+void writeImageBufferAsImageBMP(char* imageFileName, int width, int height, Bit8u* image)
+{
+	int widthInBytes = (width * HIGHCOLOR_BYTES_PER_PIXEL);
+
+	unsigned char padding[3] = { 255, 255, 255 };
+	int paddingSize = (4 - (widthInBytes) % 4) % 4;
+
+	int stride = (widthInBytes) + paddingSize;
+
+	FILE* imageFile = fopen(imageFileName, "wb");
+
+	unsigned char* fileHeader = createBitBitmapFileHeader(HIGHCOLOR_FILE_HEADER_SIZE, HIGHCOLOR_INFO_HEADER_SIZE, height, stride);
+	fwrite(fileHeader, 1, HIGHCOLOR_FILE_HEADER_SIZE, imageFile);
+
+	unsigned char* infoHeader = createBitBitmapInfoHeader(HIGHCOLOR_INFO_HEADER_SIZE, width, height, HIGHCOLOR_BYTES_PER_PIXEL);
+	fwrite(infoHeader, 1, HIGHCOLOR_INFO_HEADER_SIZE, imageFile);
+
+	//16-bit high color
+	for (int i = 0; i < height; i++) {
+
+		fwrite(image + (i * width), HIGHCOLOR_BYTES_PER_PIXEL, width, imageFile);
+		if (paddingSize > 0)
+		{
+			fwrite(padding, 1, paddingSize, imageFile);
+		}
+	}
+
+	fclose(imageFile);
 }
 
 void write_posistruct_to_png(Bit8u* buffer, int width, int height, char* filename) {
