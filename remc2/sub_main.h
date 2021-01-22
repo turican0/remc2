@@ -57,7 +57,8 @@
 #include "portability/port_filesystem.h"
 #include "engine/defs.h"
 
-#include "DataFileIO.h"
+#include "utilities/DataFileIO.h"
+#include "utilities/BitmapIO.h"
 
 #define __CFSHL__(x, y) (x<<y)
 //#define __CFSHL__(x, y) 1

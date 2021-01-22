@@ -1,0 +1,111 @@
+#include "BitmapIO.h"
+
+const int BitmapIO::HIGHCOLOR_BYTES_PER_PIXEL = 2;
+const int BitmapIO::HIGHCOLOR_FILE_HEADER_SIZE = 14;
+const int BitmapIO::HIGHCOLOR_INFO_HEADER_SIZE = 40;
+
+unsigned char* BitmapIO::CreateBitBitmapFileHeader(int fileHeaderSize, int infoHeaderSize, int height, int stride) {
+	int fileSize = fileHeaderSize + infoHeaderSize + (stride * height);
+
+	static unsigned char fileHeader[] = {
+		0,0,     /// signature
+		0,0,0,0, /// image file size in bytes
+		0,0,0,0, /// reserved
+		0,0,0,0 /// start of pixel array
+	};
+
+	fileHeader[0] = (unsigned char)('B');
+	fileHeader[1] = (unsigned char)('M');
+	fileHeader[2] = (unsigned char)(fileSize);
+	fileHeader[3] = (unsigned char)(fileSize >> 8);
+	fileHeader[4] = (unsigned char)(fileSize >> 16);
+	fileHeader[5] = (unsigned char)(fileSize >> 24);
+	fileHeader[10] = (unsigned char)(fileHeaderSize + infoHeaderSize);
+
+	return fileHeader;
+}
+
+unsigned char* BitmapIO::CreateBitBitmapInfoHeader(int infoHeaderSize, int width, int height, int bytesPerPixel) {
+	static unsigned char infoHeader[] = {
+		0,0,0,0, /// header size
+		0,0,0,0, /// image width
+		0,0,0,0, /// image height
+		0,0,     /// number of color planes
+		0,0,     /// bits per pixel
+		0,0,0,0, /// compression
+		0,0,0,0, /// image size
+		0,0,0,0, /// horizontal resolution
+		0,0,0,0, /// vertical resolution
+		0,0,0,0, /// colors in color table
+		0,0,0,0 /// important color count
+		//0,0,0,0, /// Red mask
+		//0,0,0,0, /// Blue mask
+		//0,0,0,0 /// Green mask
+	};
+
+	infoHeader[0] = (unsigned char)(infoHeaderSize);
+	infoHeader[4] = (unsigned char)(width);
+	infoHeader[5] = (unsigned char)(width >> 8);
+	infoHeader[6] = (unsigned char)(width >> 16);
+	infoHeader[7] = (unsigned char)(width >> 24);
+	infoHeader[8] = (unsigned char)(height);
+	infoHeader[9] = (unsigned char)(height >> 8);
+	infoHeader[10] = (unsigned char)(height >> 16);
+	infoHeader[11] = (unsigned char)(height >> 24);
+	infoHeader[12] = (unsigned char)(1);
+	infoHeader[14] = (unsigned char)(bytesPerPixel * 8);
+
+	//Uint32 redMask = 0x000000ff;
+	//Uint32 greenMask = 0x0000ff00;
+	//Uint32 blueMask = 0x00ff0000;
+	//Uint32 alphaMask = 0xff000000;
+
+	//infoHeader[40] = (unsigned char)(0);
+	//infoHeader[41] = (unsigned char)(0 >> 8);
+	//infoHeader[42] = (unsigned char)(0 >> 16);
+	//infoHeader[43] = (unsigned char)(255 >> 24);
+	//infoHeader[44] = (unsigned char)(greenMask);
+	//infoHeader[45] = (unsigned char)(greenMask >> 8);
+	//infoHeader[46] = (unsigned char)(greenMask >> 16);
+	//infoHeader[47] = (unsigned char)(greenMask >> 24);
+	//infoHeader[48] = (unsigned char)(blueMask);
+	//infoHeader[49] = (unsigned char)(blueMask >> 8);
+	//infoHeader[50] = (unsigned char)(blueMask >> 16);
+	//infoHeader[51] = (unsigned char)(blueMask >> 24);
+	//infoHeader[52] = (unsigned char)(alphaMask);
+	//infoHeader[53] = (unsigned char)(alphaMask >> 8);
+	//infoHeader[54] = (unsigned char)(alphaMask >> 16);
+	//infoHeader[55] = (unsigned char)(alphaMask >> 24);
+
+	return infoHeader;
+}
+
+void BitmapIO::WriteImageBufferAsImageBMP(char* path, int width, int height, Bit8u* ptrBuffer)
+{
+	int widthInBytes = (width * BitmapIO::HIGHCOLOR_BYTES_PER_PIXEL);
+
+	unsigned char padding[3] = { 255, 255, 255 };
+	int paddingSize = (4 - (widthInBytes) % 4) % 4;
+
+	int stride = (widthInBytes)+paddingSize;
+
+	FILE* imageFile = fopen(path, "wb");
+
+	unsigned char* fileHeader = CreateBitBitmapFileHeader(BitmapIO::HIGHCOLOR_FILE_HEADER_SIZE, BitmapIO::HIGHCOLOR_INFO_HEADER_SIZE, height, stride);
+	fwrite(fileHeader, 1, BitmapIO::HIGHCOLOR_FILE_HEADER_SIZE, imageFile);
+
+	unsigned char* infoHeader = CreateBitBitmapInfoHeader(BitmapIO::HIGHCOLOR_INFO_HEADER_SIZE, width, height, BitmapIO::HIGHCOLOR_BYTES_PER_PIXEL);
+	fwrite(infoHeader, 1, BitmapIO::HIGHCOLOR_INFO_HEADER_SIZE, imageFile);
+
+	//16-bit high color
+	for (int i = 0; i < height; i++) {
+
+		fwrite(ptrBuffer + (i * width), BitmapIO::HIGHCOLOR_BYTES_PER_PIXEL, width, imageFile);
+		if (paddingSize > 0)
+		{
+			fwrite(padding, 1, paddingSize, imageFile);
+		}
+	}
+
+	fclose(imageFile);
+}
