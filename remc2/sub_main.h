@@ -443,7 +443,7 @@ typedef struct {
 type_E9C08;
 #pragma pack (16)
 
-void WriteBufferToBMP(Bit8u* ptrBuffer, unsigned __int16 width, unsigned __int16 height);
+void WriteBufferToBMP(unsigned __int16 width, unsigned __int16 height, Bit8u* ptrPalette, Bit8u* ptrBuffer);
 
 void /*__spoils<ecx>*/ sub_B5E70_decompress_terrain_map_level(__int16 a1, unsigned __int16 a2, __int16 a3, Bit32s a4);
 void sub_44DB0_truncTerrainHeight();
