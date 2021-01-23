@@ -38,9 +38,6 @@ unsigned char* BitmapIO::CreateBitBitmapInfoHeader(int infoHeaderSize, int width
 		0,0,0,0, /// vertical resolution
 		0,0,0,0, /// colors in color table
 		0,0,0,0 /// important color count
-		//0,0,0,0, /// Red mask
-		//0,0,0,0, /// Blue mask
-		//0,0,0,0 /// Green mask
 	};
 
 	infoHeader[0] = (unsigned char)(infoHeaderSize);
@@ -54,28 +51,6 @@ unsigned char* BitmapIO::CreateBitBitmapInfoHeader(int infoHeaderSize, int width
 	infoHeader[11] = (unsigned char)(height >> 24);
 	infoHeader[12] = (unsigned char)(1);
 	infoHeader[14] = (unsigned char)(bytesPerPixel * 8);
-
-	//Uint32 redMask = 0x000000ff;
-	//Uint32 greenMask = 0x0000ff00;
-	//Uint32 blueMask = 0x00ff0000;
-	//Uint32 alphaMask = 0xff000000;
-
-	//infoHeader[40] = (unsigned char)(0);
-	//infoHeader[41] = (unsigned char)(0 >> 8);
-	//infoHeader[42] = (unsigned char)(0 >> 16);
-	//infoHeader[43] = (unsigned char)(255 >> 24);
-	//infoHeader[44] = (unsigned char)(greenMask);
-	//infoHeader[45] = (unsigned char)(greenMask >> 8);
-	//infoHeader[46] = (unsigned char)(greenMask >> 16);
-	//infoHeader[47] = (unsigned char)(greenMask >> 24);
-	//infoHeader[48] = (unsigned char)(blueMask);
-	//infoHeader[49] = (unsigned char)(blueMask >> 8);
-	//infoHeader[50] = (unsigned char)(blueMask >> 16);
-	//infoHeader[51] = (unsigned char)(blueMask >> 24);
-	//infoHeader[52] = (unsigned char)(alphaMask);
-	//infoHeader[53] = (unsigned char)(alphaMask >> 8);
-	//infoHeader[54] = (unsigned char)(alphaMask >> 16);
-	//infoHeader[55] = (unsigned char)(alphaMask >> 24);
 
 	return infoHeader;
 }
@@ -106,9 +81,9 @@ void BitmapIO::WriteImageBufferAsImageBMP(char* path, int width, int height, Bit
 			Bit8u colorPaletteIdx = *(ptrBuffer + ((i * width) + x));
 
 			int truColorIdx = (x * 3);
-			truColorBuffer[truColorIdx] = (unsigned char)(4 * ptrPalette[colorPaletteIdx]); //Blue
-			truColorBuffer[truColorIdx + 1] = (unsigned char)(4 * ptrPalette[colorPaletteIdx + 1]); //Green
-			truColorBuffer[truColorIdx + 2] = (unsigned char)(4 * ptrPalette[colorPaletteIdx + 2]); //Red
+			truColorBuffer[truColorIdx] = (unsigned char)(4 * ptrPalette[(colorPaletteIdx * 3) + 2]); //Blue
+			truColorBuffer[truColorIdx + 1] = (unsigned char)(4 * ptrPalette[(colorPaletteIdx * 3) + 1]); //Green
+			truColorBuffer[truColorIdx + 2] = (unsigned char)(4 * ptrPalette[(colorPaletteIdx * 3)]); //Red
 		}
 
 		fwrite(truColorBuffer, BitmapIO::TRUECOLOR_BYTES_PER_PIXEL, width, imageFile);
