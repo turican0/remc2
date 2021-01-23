@@ -72,11 +72,11 @@ void BitmapIO::WriteImageBufferAsImageBMP(char* path, int width, int height, Bit
 	unsigned char* infoHeader = CreateBitBitmapInfoHeader(BitmapIO::BITMAP_INFO_HEADER_SIZE, width, height, BitmapIO::TRUECOLOR_BYTES_PER_PIXEL);
 	fwrite(infoHeader, 1, BitmapIO::BITMAP_INFO_HEADER_SIZE, imageFile);
 
-	for (int i = 0; i < height; i++) {
+	for (int i = (height-1); i > -1; i--) {
 
 		Bit8u* truColorBuffer = new Bit8u[widthInBytes];
 
-		for (int x = 0; x < width; x++)
+		for (int x = (width-1); x > -1; x--)
 		{
 			Bit8u colorPaletteIdx = *(ptrBuffer + ((i * width) + x));
 
