@@ -7,6 +7,8 @@
 class BitmapIO
 {
 private:
+	static uint32_t vgaPallet[256];
+
 	static unsigned char* CreateBitBitmapFileHeader(int fileHeaderSize, int infoHeaderSize, int height, int stride);
 	static unsigned char* CreateBitBitmapInfoHeader(int infoHeaderSize, int width, int height, int bytesPerPixel);
 

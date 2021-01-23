@@ -355,10 +355,10 @@
       <Filter>Header Files\editor</Filter>
     </ClInclude>
     <ClInclude Include="utilities\BitmapIO.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\utilities</Filter>
     </ClInclude>
     <ClInclude Include="utilities\DataFileIO.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\utilities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
