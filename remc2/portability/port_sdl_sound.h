@@ -1,20 +1,29 @@
 #ifndef PORT_SDL_SOUND
 #define PORT_SDL_SOUND
 
-#define SOUND_SDLMIXER
 //#define SOUND_OPENAL
 
 #include "mctypes.h"
-#include "SDL.h"
+
+#ifdef _MSC_VER
+	#define SOUND_SDLMIXER
+	#include "SDL.h"
+#else
+	#define NO_ADLMIDI
+    #include "SDL2/SDL.h"
+#endif
+
 #ifdef SOUND_SDLMIXER
 	#include "SDL_mixer_ext.h"
 	#include "music.h"
 	#include "mixer.h"
 #endif//SOUND_SDLMIXER
+
 #ifdef SOUND_OPENAL
 	#include <al.h>
 	#include <alc.h>
 #endif//SOUND_OPENAL
+
 //#include "music_timidity.h"
 #include "xmi2mid.h"
 #include <time.h>       /* time */
@@ -39,7 +48,7 @@ extern bool debug_first_sound;
 
 extern bool hqsound;
 extern bool oggmusic;
-extern char oggmusicpath[512];
+extern char oggmusicFolder[512];
 extern bool oggmusicalternative;
 extern bool fixspeedsound;
 

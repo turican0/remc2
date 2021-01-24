@@ -528,9 +528,9 @@ void convert_struct_to_array_0x36442(type_str_0x36442* input, Bit8u* output) {
 	//Bit16s word_1;//25973//word_0
 	memcpy(output + 1, &input->word_1, 2);
 	//Bit16s word_3;//25975//word_2
-	memcpy(output + 3, &input->axis_2d.x, 2);
+	memcpy(output + 3, &input->_axis_2d.x, 2);
 	//Bit16s word_5; //25977//word_4
-	memcpy(output + 5, &input->axis_2d.y, 2);
+	memcpy(output + 5, &input->_axis_2d.y, 2);
 }
 
 
@@ -554,7 +554,7 @@ void convert_struct_to_array_2FECE(type_str_2FECE* input, Bit8u* output) {//leng
 	//Bit8u stuba[1];//5
 	memset(output + 5, 0, 1);
 	//Bit8u byte_0x2FED4;//x_D41A0_BYTEARRAY_0[196308]//6
-	memcpy(output + 6, &input->byte_0x2FED4, 1);
+	memcpy(output + 6, &input->MapType, 1);
 	//Bit16s word_0x2FED5;//7
 	memcpy(output + 7, &input->word_0x2FED5, 2);
 	//Bit16s word_0x2FED7;//9
@@ -705,13 +705,13 @@ void convert_struct_to_array_D41A0_0(type_D41A0_BYTESTR_0* input,Bit8u* output) 
 	for (int i = 0; i < 0x3e8; i++)
 		memcpy(output + 0x11ea + 4 * i, &input->dword_0x11EA[i], 4);
 	//type_str_0x218A str_0x218A;
-	memcpy(output + 0x218A, &input->str_0x218A_settings.str_0x218A, 4);
+	memcpy(output + 0x218A, &input->m_GameSettings.m_Graphics, 4);
 	//type_str_0x218E str_0x218E;
-	memcpy(output + 0x218E, &input->str_0x218A_settings.str_0x218E, 4);
+	memcpy(output + 0x218E, &input->m_GameSettings.m_Display, 4);
 	//type_str_0x2192 str_0x2192;
-	memcpy(output + 0x2192, &input->str_0x218A_settings.str_0x2192, 4);
+	memcpy(output + 0x2192, &input->m_GameSettings.str_0x2192, 4);
 	//type_str_0x2196 str_0x2196;
-	memcpy(output + 0x2196, &input->str_0x218A_settings.str_0x2196, 4);
+	memcpy(output + 0x2196, &input->m_GameSettings.str_0x2196, 4);
 	//Bit32u dword_0x219A;//8602
 	memcpy(output + 0x219A, &input->dword_0x219A, 4);
 	//Bit32u dword_0x219E;//8606
@@ -814,7 +814,7 @@ void convert_struct_to_array_D41A0_0(type_D41A0_BYTESTR_0* input,Bit8u* output) 
 };
 
 void test_converts_D41A0_0(type_D41A0_BYTESTR_0* str) {
-	int size = 0x36e16;
+	int size = 224790;
 	Bit8u* arr = (Bit8u*)malloc(size);
 
 	convert_struct_to_array_D41A0_0(str, arr);

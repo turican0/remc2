@@ -1,47 +1,20 @@
 #include "read_config.h"
-/*
-typedef struct
-{
-	int version;
-	const char* name;
-	const char* email;
-} configuration;
-*/
-/*static int handler(void* user, const char* section, const char* name,
-	const char* value)
-{
-	configuration* pconfig = (configuration*)user;
-
-#define MATCH(s, n) strcmp(section, s) == 0 && strcmp(name, n) == 0
-	if (MATCH("protocol", "version")) {
-		pconfig->version = atoi(value);
-	}
-	else if (MATCH("user", "name")) {
-		pconfig->name = strdup(value);
-	}
-	else if (MATCH("user", "email")) {
-		pconfig->email = strdup(value);
-	}
-	else {
-		return 0;
-	}
-	return 1;
-}*/
 int config_skip_screen;
-int texturepixels;
-int speedGame;
-int speedAnim;
+int texturepixels = 32;
+int speedGame = 35;
+int speedAnim = 100;
 bool res640x480 = false;
-void readini(char* filename) {
-	/*configuration config;
+int gameResWidth = 640;
+int gameResHeight = 480;
+bool maintainAspectRatio = false;
+bool bigTextures = false;
+bool bigSprites = false;
+bool sky = true;
+bool reflections = false;
+bool dynamicLighting = false;
 
-	if (ini_parse(filename, handler, &config) < 0) {
-		printf("Can't load '%s'\n", filename);
-		return;
-	}
-	printf("Config loaded from '%s': version=%d, name=%s, email=%s\n", filename,
-		config.version, config.name, config.email);
-		*/
+void readini(const std::string& filename) {
+
 	INIReader reader(filename);
 
 	if (reader.ParseError() < 0) {
@@ -75,22 +48,50 @@ void readini(char* filename) {
 		oggmusicalternative = true;
 	}
 	else
+	{
 		oggmusicalternative = false;
-	std::string readstr = reader.GetString("sound", "oggmusicpath", "");
-	strcpy(oggmusicpath, (char*)readstr.c_str());
+	}
+
+	std::string readstr = reader.GetString("sound", "oggmusicFolder", "");
+	strcpy(oggmusicFolder, (char*)readstr.c_str());
 
 	std::string readstrgd = reader.GetString("graphics", "defaultresolution", "");
-	if(!strcmp("640x480", (char*)readstrgd.c_str()))
-		res640x480=true;
+	if (!strcmp("640x480", (char*)readstrgd.c_str()))
+		res640x480 = true;
 
-	std::string readstr3 = reader.GetString("graphics", "biggraphicspath", "");
-	strcpy(biggraphicspath, (char*)readstr3.c_str());
+	std::string readstr3 = reader.GetString("graphics", "bigGraphicsFolder", "");
+	strcpy(bigGraphicsFolder, (char*)readstr3.c_str());
 
-	texturepixels=reader.GetInteger("graphics", "texturepixels", 32);
+	if (reader.GetBoolean("graphics", "useEnhancedGraphics", false) && strlen(bigGraphicsFolder) > 0)
+	{
+		bigSprites = true;
+		bigTextures = true;
+		texturepixels = 128;
+	}
+	else
+	{
+		texturepixels = 32;
+	}
 
-	std::string readstr2 = reader.GetString("main", "gamepath", "");
-	strcpy((char*)gamepath, (char*)readstr2.c_str());
+	gameResWidth = reader.GetInteger("graphics", "gameResWidth", 640);
+	gameResHeight = reader.GetInteger("graphics", "gameResHeight", 480);
 
-	speedGame = reader.GetInteger("game", "speed", 35);
+	if (gameResWidth < 640 || gameResHeight < 480)
+	{
+		gameResWidth = 640;
+		gameResHeight = 480;
+	}
+	
+	maintainAspectRatio = reader.GetBoolean("graphics", "maintainAspectRatio", true);
+	sky = reader.GetBoolean("graphics", "sky", true);
+	reflections = reader.GetBoolean("graphics", "reflections", false);
+	dynamicLighting = reader.GetBoolean("graphics", "dynamicLighting", false);
+
+	std::string readstr2 = reader.GetString("main", "gameFolder", "");
+	strcpy((char*)gameFolder, (char*)readstr2.c_str());
+	std::string readstr4 = reader.GetString("main", "cdFolder", "");
+	strcpy((char*)cdFolder, (char*)readstr4.c_str());
+
+	speedGame = reader.GetInteger("game", "speed", 30);
 	speedAnim = reader.GetInteger("game", "animspeed", 100);
 };
