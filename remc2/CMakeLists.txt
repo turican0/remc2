@@ -122,6 +122,12 @@ install(
     ${CMAKE_SOURCE_DIR}/Debug/config.ini
     DESTINATION bin
 )
+install(
+    DIRECTORY
+    ${CMAKE_SOURCE_DIR}/Debug/music-ogg
+    ${CMAKE_SOURCE_DIR}/Debug/biggraphics
+    DESTINATION bin
+)
 
 if (WIN32)
     add_precompiled_header(${PROJECT_NAME} "stdafx.h" "stdafx.cpp")
@@ -160,6 +166,7 @@ if (UNIX)
     	SDL2
         ${PNG_LIBRARY}
         findfirst
+        ADLMIDI_static
     )
     target_link_directories(${PROJECT_NAME} PUBLIC
     )
