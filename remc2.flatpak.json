@@ -1,0 +1,43 @@
+{
+    "app-id": "net.remc2.MagicCarpet2CommunityPatch",
+    "default-branch": "stable",
+    "runtime": "org.freedesktop.Platform",
+    "runtime-version": "20.08",
+    "sdk": "org.freedesktop.Sdk",
+    "sdk-extensions": [
+        "org.freedesktop.Sdk.Compat.i386",
+        "org.freedesktop.Sdk.Extension.toolchain-i386"
+    ],
+    "command": "remc2",
+    "finish-args": [
+        "--share=ipc",
+        "--socket=x11",
+        "--socket=wayland",
+        "--socket=pulseaudio",
+        "--share=network",
+        "--device=all"
+    ],
+    "build-options" : {
+        "env": {
+            "V": "1"
+        }
+    },
+    "cleanup": ["/include", "/lib/pkgconfig",
+                "/share/pkgconfig", "/share/aclocal",
+                "/man", "/share/man", "/share/gtk-doc",
+                "/share/vala",
+                "*.la", "*.a"],
+    "modules": [
+        {
+            "name": "remc2",
+            "buildsystem": "cmake-ninja",
+            "config-opts": ["-DCMAKE_BUILD_TYPE=Release", "-DUSE_SANITIZERS=False", "-DUSE_CLANG_TIDY=False", "-DALL_WARNINGS=False"],
+            "sources": [
+                {
+                    "type": "dir",
+                    "path": "."
+                }
+            ]
+        }
+    ]
+}
