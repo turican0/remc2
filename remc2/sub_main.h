@@ -57,7 +57,8 @@
 #include "portability/port_filesystem.h"
 #include "engine/defs.h"
 
-#include "DataFileIO.h"
+#include "utilities/DataFileIO.h"
+#include "utilities/BitmapIO.h"
 
 #define __CFSHL__(x, y) (x<<y)
 //#define __CFSHL__(x, y) 1
@@ -441,6 +442,9 @@ typedef struct {
 }
 type_E9C08;
 #pragma pack (16)
+
+void WriteBufferToBMP(unsigned __int16 width, unsigned __int16 height, Bit8u* ptrPalette, Bit8u* ptrBuffer);
+
 void /*__spoils<ecx>*/ sub_B5E70_decompress_terrain_map_level(__int16 a1, unsigned __int16 a2, __int16 a3, Bit32s a4);
 void sub_44DB0_truncTerrainHeight();
 void sub_44E40(int a1, unsigned __int8 a2);
