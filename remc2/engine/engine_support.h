@@ -387,7 +387,7 @@ typedef struct {//size 1136
 type_str_164;
 
 typedef struct {//lenght 34
-	Bit8u stub[2];
+	Bit16s word_160_0x0_0;
 	Bit16s word_160_0x2_2;
 	Bit16s word_160_0x4_4;
 	Bit16s word_160_0x6_6;
@@ -1597,7 +1597,7 @@ typedef struct {//lenght 224790
 	Bit16s word_0x36DEE_mousey;
 	Bit16s word_0x36DF0_mousexx;
 	Bit32u dword_0x36DF2;//index
-	Bit32u dword_0x36DF6;//pointer
+	type_str_160* dword_0x36DF6;//pointer
 	Bit16s word_0x36DFA;
 	Bit16s word_0x36DFC;
 	Bit16s word_0x36DFE;
