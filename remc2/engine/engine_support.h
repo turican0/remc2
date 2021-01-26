@@ -953,7 +953,6 @@ void writehex(Bit8u* buffer, Bit32u count);
 void mine_texts(char* filename, Bit32u adressdos, Bit32u count, char* outfilename);
 int writeImage(char* filename, int width, int height, Bit8u* buffer, char* title);
 void writeImageBMP(char* imageFileName, int width, int height, Bit8u* image);
-void writeImageBufferAsImageBMP(char* imageFileName, int width, int height, Bit8u* image);
 
 /*
 typedef struct {//lenght 8

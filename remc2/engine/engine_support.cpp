@@ -1593,9 +1593,9 @@ unsigned char* createBitmapInfoHeader(int height, int width) {
 
 void writeImageBMP(char* imageFileName, int width, int height, Bit8u* image)
 {
-	int pitch = 3 * width;
+	int pitch = bytesPerPixel * width;
 	unsigned char padding[3] = { 0, 0, 0 };
-	int paddingSize = (4 - (pitch) % 4) % 4;
+	int paddingSize = (4 - (/*width*bytesPerPixel*/ pitch) % 4) % 4;
 
 	unsigned char* fileHeader = createBitmapFileHeader(height, width, pitch, paddingSize);
 	unsigned char* infoHeader = createBitmapInfoHeader(height, width);
@@ -1605,8 +1605,9 @@ void writeImageBMP(char* imageFileName, int width, int height, Bit8u* image)
 	fwrite(fileHeader, 1, fileHeaderSize, imageFile);
 	fwrite(infoHeader, 1, infoHeaderSize, imageFile);
 
-	for (int i = 0; i < height; i++) {
-		fwrite(image + (i * pitch), bytesPerPixel, width, imageFile);
+	int i;
+	for (i = 0; i < height; i++) {
+		fwrite(image + (i * pitch /*width*bytesPerPixel*/), bytesPerPixel, width, imageFile);
 		fwrite(padding, 1, paddingSize, imageFile);
 	}
 
