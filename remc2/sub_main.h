@@ -421,13 +421,13 @@ extern char x_BYTE_D41B6;
 #pragma pack (1)
 typedef struct {//lenght 28
 	Bit32s dword_0;
-	Bit32s dword_4;
+	Bit32s dword_4;//mayby type_particle_str*
 	Bit32s dword_8;
 	Bit16s word_12;
 	Bit16u word_14;
 	Bit16s word_16_maxframes;
-	Bit16s word_18;
-	Bit16s word_20;
+	Bit16s word_18;//width
+	Bit16s word_20;//height
 	Bit16s word_22;//anim frame index
 	Bit16s word_24;
 	Bit16s word_26;
