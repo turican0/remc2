@@ -503,9 +503,9 @@ void support_begin() {
 	printbuffer = (char*)malloc(4096);
 	//printbuffer[0] = '\0';
 	printbuffer2 = (char*)malloc(4096);
-	pre_pdwScreenBuffer = (Bit8u*)malloc(0x220000);
+	pre_pdwScreenBuffer = (Bit8u*)malloc(2228224);
 	//pdwScreenBuffer = (Bit8u*)malloc(320000);
-	pdwScreenBuffer = &pre_pdwScreenBuffer[0x110000];
+	pdwScreenBuffer = &pre_pdwScreenBuffer[1114112];
 
 	//x_DWORD_E9C38_smalltit= (Bit8u*)malloc(64000);
 	//x_D41A0_BYTEARRAY_4_0xDE_heapbuffer= (Bit8u*)malloc(64000);
