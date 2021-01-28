@@ -323,7 +323,7 @@ typedef struct//lenght 613 // end 17E09D
 	Bit8u* x_DWORD_17DE5C_border_bitmap; // weak
 	Bit8u* x_DWORD_17DE60; // weak
 	Bit8u* x_DWORD_17DE64_game_world_map; // weak
-	Bit8u x_BYTE_17DE68x[88]; // fix it -  weak
+	Bit8u x_BYTE_17DE68x[88]; // fix it -  weak //8*11
 	//char x_BYTE_17DE69[1]; //x_BYTE_17DE68x[0x1] fix it -  weak
 	//char x_BYTE_17DE71[1]; //x_BYTE_17DE68x[0x9] fix it -  weak
 	//char x_BYTE_17DE72[78]; //x_BYTE_17DE68x[0xa] idb
