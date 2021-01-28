@@ -67,6 +67,12 @@
     <Filter Include="Header Files\editor">
       <UniqueIdentifier>{c6723a58-ab58-4cf4-abba-4a430c08f7b7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\utilities">
+      <UniqueIdentifier>{15c82538-965f-4690-ab35-edbdb3acb34c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\utilities">
+      <UniqueIdentifier>{3087ce82-d2a1-473b-92b8-cc3d22463f94}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -327,9 +333,6 @@
     <ClInclude Include="engine\defs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DataFileIO.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="engine\ail_sound.h">
       <Filter>Header Files\engine</Filter>
     </ClInclude>
@@ -350,6 +353,12 @@
     </ClInclude>
     <ClInclude Include="editor\editor.h">
       <Filter>Header Files\editor</Filter>
+    </ClInclude>
+    <ClInclude Include="utilities\BitmapIO.h">
+      <Filter>Header Files\utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="utilities\DataFileIO.h">
+      <Filter>Header Files\utilities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -584,11 +593,14 @@
     <ClCompile Include="sub_main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="DataFileIO.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="editor\editor.cpp">
       <Filter>Source Files\editor</Filter>
+    </ClCompile>
+    <ClCompile Include="utilities\BitmapIO.cpp">
+      <Filter>Source Files\utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="utilities\DataFileIO.cpp">
+      <Filter>Source Files\utilities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

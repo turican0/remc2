@@ -29,4 +29,5 @@
 /debug.txt
 **/CD_Files
 
-build
+build*
+.flatpak*

@@ -57,7 +57,8 @@
 #include "portability/port_filesystem.h"
 #include "engine/defs.h"
 
-#include "DataFileIO.h"
+#include "utilities/DataFileIO.h"
+#include "utilities/BitmapIO.h"
 
 #define __CFSHL__(x, y) (x<<y)
 //#define __CFSHL__(x, y) 1
@@ -440,6 +441,9 @@ typedef struct {
 }
 type_E9C08;
 #pragma pack (16)
+
+void WriteBufferToBMP(unsigned __int16 width, unsigned __int16 height, Bit8u* ptrPalette, Bit8u* ptrBuffer);
+
 void /*__spoils<ecx>*/ sub_B5E70_decompress_terrain_map_level(__int16 a1, unsigned __int16 a2, __int16 a3, Bit32s a4);
 void sub_44DB0_truncTerrainHeight();
 void sub_44E40(int a1, unsigned __int8 a2);
@@ -493,7 +497,7 @@ void sub_2AA90(/*type_str_0x6E8E* a1, */type_str_0x6E8E* a2, type_str_0x6E8E* a3
 void ClearGraphicsBuffer(void* ptrBuffer, unsigned __int16 width, unsigned __int16 height, char value);
 void sub_303D0(/*signed int a1*/);
 int _wcpp_1_unwind_leave__62(void); //weak
-int sub_7FCB0_draw_text_with_border(int a1, char* a2, Bit32s a3, Bit32s a4, int a5, Bit8u a6, unsigned __int8 a7, Bit32u a8);//560cb0
+int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* a2, Bit32s a3, Bit32s a4, int a5, Bit8u a6, unsigned __int8 a7, Bit32u a8);//560cb0
 void sub_45DC0(Bit8u a1, Bit8u a2, uaxis_2d a3, unsigned __int8 a4);
 signed int sub_36A50(/*signed int a1, */char a2);
 void sub_36920(/*signed __int16 a1, */type_str_0x6E8E* a2);

@@ -387,7 +387,7 @@ typedef struct {//size 1136
 type_str_164;
 
 typedef struct {//lenght 34
-	Bit8u stub[2];
+	Bit16s word_160_0x0_0;
 	Bit16s word_160_0x2_2;
 	Bit16s word_160_0x4_4;
 	Bit16s word_160_0x6_6;
@@ -951,6 +951,9 @@ void add_compare(Bit32u adress, bool debugafterload, int stopstep = -1, bool ski
 void writehex(Bit8u* buffer, Bit32u count);
 
 void mine_texts(char* filename, Bit32u adressdos, Bit32u count, char* outfilename);
+int writeImage(char* filename, int width, int height, Bit8u* buffer, char* title);
+void writeImageBMP(char* imageFileName, int width, int height, Bit8u* image);
+
 /*
 typedef struct {//lenght 8
 	Bit8u byte_0;//array_0x365F4
@@ -1597,7 +1600,7 @@ typedef struct {//lenght 224790
 	Bit16s word_0x36DEE_mousey;
 	Bit16s word_0x36DF0_mousexx;
 	Bit32u dword_0x36DF2;//index
-	Bit32u dword_0x36DF6;//pointer
+	type_str_160* dword_0x36DF6;//pointer
 	Bit16s word_0x36DFA;
 	Bit16s word_0x36DFC;
 	Bit16s word_0x36DFE;
