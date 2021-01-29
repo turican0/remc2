@@ -453,8 +453,8 @@ type_E9C08;
 
 #pragma pack (1)
 typedef struct {//lenght 44
-	Bit16s word_0;
-	Bit16s word_2;
+	Bit32u dword_0;
+	//Bit16s word_2;
 	Bit32s dword_4;//4 dword
 	//Bit16s word_6;//remove it
 	Bit16s word_8;
@@ -464,10 +464,10 @@ typedef struct {//lenght 44
 	Bit16s sizey_16;
 	Bit16s word_18;
 	Bit8s byte_20;
-	Bit8s byte_21;
+	Bit8u byte_21;//index of sprite
 	Bit8s byte_22;
 	Bit8s byte_23;
-	Bit8s byte_24;
+	Bit8s gold_color_24;
 	Bit8s byte_25;
 	//Bit16s word_24;//23 and 24 byte
 	Bit16s word_26;
@@ -481,6 +481,20 @@ typedef struct {//lenght 44
 	Bit16s nocl_42;
 }
 type_WORD_E1F84;
+#pragma pack (16)
+
+#pragma pack (1)
+typedef struct {//lenght 24
+Bit32u dword_0;
+Bit32u dword_4;
+Bit32u dword_8;
+Bit32u dword_12;
+Bit16u word_16;
+Bit16u word_18;
+Bit16u word_20;
+Bit16u word_22;
+}
+type_E1BAC_0x3c4;
 #pragma pack (16)
 
 void /*__spoils<ecx>*/ sub_B5E70_decompress_terrain_map_level(__int16 a1, unsigned __int16 a2, __int16 a3, Bit32s a4);
