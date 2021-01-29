@@ -309,6 +309,15 @@ extern __int16 x_WORD_E29DA_type_resolution; // weak
 extern __int16 x_WORD_180660_VGA_type_resolution; // weak
 
 #pragma pack (1)
+typedef struct {//lenght 7
+	Bit16s word_0;
+	Bit8s byte_2;
+	Bit32s dword_3;
+}
+type_E17CC_0;
+#pragma pack (16)
+
+#pragma pack (1)
 typedef struct//lenght 613 // end 17E09D
 {
 	Bit8u* x_DWORD_17DE38; // weak
@@ -441,6 +450,39 @@ typedef struct {
 }
 type_E9C08;
 #pragma pack (16)
+
+#pragma pack (1)
+typedef struct {//lenght 44
+	Bit16s word_0;
+	Bit16s word_2;
+	Bit32s dword_4;//4 dword
+	//Bit16s word_6;//remove it
+	Bit16s word_8;
+	Bit16s xmin_10;
+	Bit16s ymin_12;
+	Bit16s sizex_14;
+	Bit16s sizey_16;
+	Bit16s word_18;
+	Bit8s byte_20;
+	Bit8s byte_21;
+	Bit8s byte_22;
+	Bit8s byte_23;
+	Bit8s byte_24;
+	Bit8s byte_25;
+	//Bit16s word_24;//23 and 24 byte
+	Bit16s word_26;
+	Bit16s word_28;
+	Bit16s word_30;
+	Bit16s word_32;
+	Bit16s word_34;
+	Bit16s word_36;
+	Bit16s word_38;
+	Bit16s click_40;
+	Bit16s nocl_42;
+}
+type_WORD_E1F84;
+#pragma pack (16)
+
 void /*__spoils<ecx>*/ sub_B5E70_decompress_terrain_map_level(__int16 a1, unsigned __int16 a2, __int16 a3, Bit32s a4);
 void sub_44DB0_truncTerrainHeight();
 void sub_44E40(int a1, unsigned __int8 a2);
@@ -471,7 +513,7 @@ void sub_6EBF0(filearray_struct* a1);
 
 char sub_533B0_decompress_levels(__int16 a1, type_str_2FECE* a2);
 
-bool sub_7B200_in_region(Bit16s* a1, Bit16s testx, Bit16s testy);
+bool sub_7B200_in_region(type_WORD_E1F84* a1x, Bit16s testx, Bit16s testy);
 void sub_2BC10_draw_text(char* text, __int16 a2, __int16 a3, unsigned __int8 a4);
 void sub_6F940_sub_draw_text(char* a1, int a2, int a3, Bit8u color);
 //int /*__noreturn*/ sub_10000(); // weak
