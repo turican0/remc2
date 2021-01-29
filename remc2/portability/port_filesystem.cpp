@@ -495,8 +495,8 @@ void GetSubDirectoryFile(char* buffer, char* gamepath, char* subDirectory, char*
 void GetSaveGameFile(char* buffer, char* gamepath, int16_t index)
 {
 	char subDirPath[MAX_PATH];
-	GetSubDirectoryPath(subDirPath, gamepath, "save");
-	sprintf(buffer, "%s/save%d.gam", subDirPath, index);
+	GetSubDirectoryPath(subDirPath, gamepath, "SAVE");
+	sprintf(buffer, "%s/SAVE%d.GAM", subDirPath, index);
 }
 
 int GetDirectory(char* directory, const char* filePath)
