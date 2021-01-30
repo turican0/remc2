@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.13.0 FATAL_ERROR)
 
 set(CMAKE_SYSTEM_VERSION 10.0 CACHE STRING "" FORCE)
 
-project(remc2 C CXX)
+project(remc2 LANGUAGES C CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -117,5 +117,12 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 ################################################################################
 # Sub-projects
 ################################################################################
+
+# dependencies
+set(libADLMIDI_STATIC TRUE)
+add_subdirectory(libADLMIDI-master)
+set_target_properties(ADLMIDI_static PROPERTIES COMPILE_FLAGS "-m32" LINK_FLAGS "-m32")
+        
+# remc2
 add_subdirectory(remc2)
 
