@@ -40,8 +40,10 @@ set(SOURCE_FILES_ENGINE
     "engine/engine_support.h"
     "engine/engine_support_converts.cpp"
     "engine/engine_support_converts.h"
-    "DataFileIO.cpp"
-    "DataFileIO.h"
+    "utilities/BitmapIO.cpp"
+    "utilities/BitmapIO.h"
+    "utilities/DataFileIO.cpp"
+    "utilities/DataFileIO.h"
     "engine/read_config.cpp"
     "engine/read_config.h"
     "sub_main.cpp"
@@ -122,6 +124,12 @@ install(
     ${CMAKE_SOURCE_DIR}/Debug/config.ini
     DESTINATION bin
 )
+install(
+    DIRECTORY
+    ${CMAKE_SOURCE_DIR}/Debug/music-ogg
+    ${CMAKE_SOURCE_DIR}/Debug/biggraphics
+    DESTINATION bin
+)
 
 if (WIN32)
     add_precompiled_header(${PROJECT_NAME} "stdafx.h" "stdafx.cpp")
@@ -160,6 +168,7 @@ if (UNIX)
     	SDL2
         ${PNG_LIBRARY}
         findfirst
+        ADLMIDI_static
     )
     target_link_directories(${PROJECT_NAME} PUBLIC
     )

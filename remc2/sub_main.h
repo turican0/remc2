@@ -84,7 +84,6 @@ Detected compiler: Watcom C++
 int sub_97F90(x_DWORD *a1);
 int sub_980D0(x_DWORD *a1, int a2);
 int sub_98170(x_DWORD *a1, int a2, int a3);
-bool sub_9EDD0();
 int sub_A158B(int a1, __int16 a2, x_WORD *a3, x_WORD *a4);
 bool sub_A4CB0();
 int sub_A4F10(int a1, char a2, char a3, char a4);
@@ -498,7 +497,7 @@ void sub_2AA90(/*type_str_0x6E8E* a1, */type_str_0x6E8E* a2, type_str_0x6E8E* a3
 void ClearGraphicsBuffer(void* ptrBuffer, unsigned __int16 width, unsigned __int16 height, char value);
 void sub_303D0(/*signed int a1*/);
 int _wcpp_1_unwind_leave__62(void); //weak
-int sub_7FCB0_draw_text_with_border(int a1, char* a2, Bit32s a3, Bit32s a4, int a5, Bit8u a6, unsigned __int8 a7, Bit32u a8);//560cb0
+int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* a2, Bit32s a3, Bit32s a4, int a5, Bit8u a6, unsigned __int8 a7, Bit32u a8);//560cb0
 void sub_45DC0(Bit8u a1, Bit8u a2, uaxis_2d a3, unsigned __int8 a4);
 signed int sub_36A50(/*signed int a1, */char a2);
 void sub_36920(/*signed __int16 a1, */type_str_0x6E8E* a2);
@@ -558,7 +557,7 @@ signed int sub_7E5A0_pre_draw(int a1, int a2, __int16 a3, __int16 a4, Bit8u* a5,
 void sub_81260(int a1, int a2, Bit8s* a3, __int16 a4, __int16 a5);
 void sub_82510(/*__int16 a1*//*, int *a2*/);
 signed __int16 sub_81EE0(int a1, int a2, int a3, signed __int16 a4, __int16 a5, __int16 a6);
-signed int sub_80D40_move_graphics_and_play_sounds(__int16 a1, __int16 a2, __int16 a3, __int16 a4, __int16 a5, char a6);
+bool sub_80D40_move_graphics_and_play_sounds(__int16 a2, __int16 a3, __int16 a4, __int16 a5, char a6);
 void sub_85CC3_draw_round_frame(/*unsigned int a1, int a2, */unsigned __int16* a3);
 //void sub_840B8(char a1, bool a2, char a3, char a4);
 //unsigned     int __readeflags(void);
