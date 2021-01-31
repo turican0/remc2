@@ -318,6 +318,22 @@ type_E17CC_0;
 #pragma pack (16)
 
 #pragma pack (1)
+typedef struct {//lenght 18
+	Bit16s word_0;
+	Bit16s word_2;
+	Bit16s word_4;
+	Bit16s word_6;
+	Bit16s word_8;
+	Bit16s word_10;
+	Bit16s word_12;
+	Bit16s word_14;
+	Bit8s byte_16;
+	Bit8s byte_17;
+}
+type_E24BCx;
+#pragma pack (16)
+
+#pragma pack (1)
 typedef struct//lenght 613 // end 17E09D
 {
 	Bit8u* x_DWORD_17DE38; // weak
