@@ -334,6 +334,15 @@ type_E24BCx;
 #pragma pack (16)
 
 #pragma pack (1)
+typedef struct//lenght 11
+{
+	Bit8s byte_0;
+	Bit8u array_byte_1[8];
+	Bit8s byte_9;
+	Bit8s byte_10;
+} type_BYTE_17DE68x;
+#pragma pack (16)
+
 typedef struct//lenght 613 // end 17E09D
 {
 	Bit8u* x_DWORD_17DE38; // weak
@@ -348,7 +357,15 @@ typedef struct//lenght 613 // end 17E09D
 	Bit8u* x_DWORD_17DE5C_border_bitmap; // weak
 	Bit8u* x_DWORD_17DE60; // weak
 	Bit8u* x_DWORD_17DE64_game_world_map; // weak
-	Bit8u x_BYTE_17DE68x[88]; // fix it -  weak //8*11
+
+	/*
+	Bit8s byte_0
+	Bit8s array_byte_1[8];
+	Bit8s byte_9;
+	Bit8s byte_10;
+	*/
+	type_BYTE_17DE68x array_BYTE_17DE68x[8];
+	//Bit8u x_BYTE_17DE68x[88]; // fix it -  weak //8*11
 	//char x_BYTE_17DE69[1]; //x_BYTE_17DE68x[0x1] fix it -  weak
 	//char x_BYTE_17DE71[1]; //x_BYTE_17DE68x[0x9] fix it -  weak
 	//char x_BYTE_17DE72[78]; //x_BYTE_17DE68x[0xa] idb
@@ -479,8 +496,8 @@ typedef struct {//lenght 44
 	Bit16s sizex_14;
 	Bit16s sizey_16;
 	Bit16s word_18;
-	Bit8s byte_20;
-	Bit8u byte_21;//index of sprite
+	Bit8u byte_20;//index of gold sprite
+	Bit8u byte_21;//index of gray sprite
 	Bit8s byte_22;
 	Bit8s byte_23;
 	Bit8s gold_color_24;
