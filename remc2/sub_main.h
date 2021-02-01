@@ -405,7 +405,7 @@ typedef struct//lenght 613 // end 17E09D
 	char x_BYTE_17DF11_last_key_status; // weak
 	char stuba[1];
 	char x_BYTE_17DF13; // weak
-	char x_BYTE_17DF14[344]; // idb// 34*8
+	char x_BYTE_17DF14[344]; // 43*8, used for load_dialog_dialog
 	//char x_BYTE_17DF3C[400]; // fix it -  weak//&x_BYTE_17DF14[40]
 	//char x_BYTE_17DF3D[400]; // fix it -  weak//&x_BYTE_17DF14[41]
 	//char x_BYTE_17DF3E[400]; // idb//&x_BYTE_17DF14[42]
