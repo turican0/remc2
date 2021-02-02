@@ -43,14 +43,13 @@ jobs:
     - name: copy build wrapper
       run: |
         cd ${{ github.workspace }}
-        cp -R ./tools/build-wrapper-linux-x86 build_release
+        cp -a ./tools/build-wrapper-linux-x86/. /build_release/
         
     - name: make release
       run: |
         cd ${{ github.workspace }}
         cd build_release
         ls
-        pwd
         build-wrapper-linux-x86-64 --out-dir build_wrapper_output_directory make
 
     - name: SonarCloud Scan
