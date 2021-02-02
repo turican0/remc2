@@ -36,7 +36,7 @@ jobs:
     - name: copy build wrapper
       run:
         cd ${{ github.workspace }}
-        cp -R build/build-wrapper-linux-x86 build_release
+        cp -R tools/build-wrapper-linux-x86 build_release
         
     - name: cmake release
       run: |
