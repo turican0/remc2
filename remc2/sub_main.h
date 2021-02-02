@@ -57,7 +57,8 @@
 #include "portability/port_filesystem.h"
 #include "engine/defs.h"
 
-#include "DataFileIO.h"
+#include "utilities/DataFileIO.h"
+#include "utilities/BitmapIO.h"
 
 #define __CFSHL__(x, y) (x<<y)
 //#define __CFSHL__(x, y) 1
@@ -404,7 +405,7 @@ typedef struct//lenght 613 // end 17E09D
 	char x_BYTE_17DF11_last_key_status; // weak
 	char stuba[1];
 	char x_BYTE_17DF13; // weak
-	char x_BYTE_17DF14[344]; // idb// 34*8
+	char x_BYTE_17DF14[344]; // 43*8, used for load_dialog_dialog
 	//char x_BYTE_17DF3C[400]; // fix it -  weak//&x_BYTE_17DF14[40]
 	//char x_BYTE_17DF3D[400]; // fix it -  weak//&x_BYTE_17DF14[41]
 	//char x_BYTE_17DF3E[400]; // idb//&x_BYTE_17DF14[42]
@@ -529,6 +530,9 @@ Bit16u word_22;
 }
 type_E1BAC_0x3c4;
 #pragma pack (16)
+
+
+void WriteBufferToBMP(unsigned __int16 width, unsigned __int16 height, Bit8u* ptrPalette, Bit8u* ptrBuffer);
 
 void /*__spoils<ecx>*/ sub_B5E70_decompress_terrain_map_level(__int16 a1, unsigned __int16 a2, __int16 a3, Bit32s a4);
 void sub_44DB0_truncTerrainHeight();

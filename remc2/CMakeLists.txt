@@ -1,5 +1,10 @@
 project(remc2 C CXX)
 
+if (USE_CLANG_TIDY)
+    #set(CMAKE_CXX_CLANG_TIDY "clang-tidy;-checks=*")
+    set(CMAKE_CXX_CLANG_TIDY "clang-tidy;-checks=misc-unused-parameters")
+endif ()
+
 ################################################################################
 # Source groups
 ################################################################################
@@ -40,8 +45,10 @@ set(SOURCE_FILES_ENGINE
     "engine/engine_support.h"
     "engine/engine_support_converts.cpp"
     "engine/engine_support_converts.h"
-    "DataFileIO.cpp"
-    "DataFileIO.h"
+    "utilities/BitmapIO.cpp"
+    "utilities/BitmapIO.h"
+    "utilities/DataFileIO.cpp"
+    "utilities/DataFileIO.h"
     "engine/read_config.cpp"
     "engine/read_config.h"
     "sub_main.cpp"

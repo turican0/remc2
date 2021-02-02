@@ -473,30 +473,30 @@ void ReadGraphicsfile(const char* path, Bit8u* buffer, long size)
 	myclose(file);
 };
 
-void GetSubDirectoryPath(char* buffer, char* subDirectory)
+void GetSubDirectoryPath(char* buffer, const char* subDirectory)
 {
 	std::string exepath = get_exe_path();
 	sprintf(buffer, "%s/%s", exepath.c_str(), subDirectory);
 }
 
-void GetSubDirectoryPath(char* buffer, char* gamepath, char* subDirectory)
+void GetSubDirectoryPath(char* buffer, const char* gamepath, const char* subDirectory)
 {
 	std::string exepath = get_exe_path();
 	sprintf(buffer, "%s/%s/%s", exepath.c_str(), gamepath, subDirectory);
 }
 
-void GetSubDirectoryFile(char* buffer, char* gamepath, char* subDirectory, char* fileName)
+void GetSubDirectoryFile(char* buffer, const char* gamepath, const char* subDirectory, const char* fileName)
 {
 	char subDirPath[MAX_PATH]; 
 	GetSubDirectoryPath(subDirPath, gamepath, subDirectory);
 	sprintf(buffer, "%s/%s", subDirPath, fileName);
 }
 
-void GetSaveGameFile(char* buffer, char* gamepath, int16_t index)
+void GetSaveGameFile(char* buffer, const char* gamepath, int16_t index)
 {
 	char subDirPath[MAX_PATH];
-	GetSubDirectoryPath(subDirPath, gamepath, "save");
-	sprintf(buffer, "%s/save%d.gam", subDirPath, index);
+	GetSubDirectoryPath(subDirPath, gamepath, "SAVE");
+	sprintf(buffer, "%s/SAVE%d.GAM", subDirPath, index);
 }
 
 int GetDirectory(char* directory, const char* filePath)
