@@ -405,7 +405,7 @@ typedef struct//lenght 613 // end 17E09D
 	char x_BYTE_17DF11_last_key_status; // weak
 	char stuba[1];
 	char x_BYTE_17DF13; // weak
-	char x_BYTE_17DF14[344]; // 43*8, used for load_dialog_dialog
+	char xx_BYTE_17DF14[8][43]; // 43*8, used for load_dialog_dialog
 	//char x_BYTE_17DF3C[400]; // fix it -  weak//&x_BYTE_17DF14[40]
 	//char x_BYTE_17DF3D[400]; // fix it -  weak//&x_BYTE_17DF14[41]
 	//char x_BYTE_17DF3E[400]; // idb//&x_BYTE_17DF14[42]
@@ -486,6 +486,18 @@ type_E9C08;
 #pragma pack (16)
 
 #pragma pack (1)
+typedef struct {//lenght 16
+	Bit16s word_26_0;//0 x
+	Bit16s word_28_1;//1 y
+	Bit16s word_30_2;//2
+	Bit16s word_32_3;//3
+	Bit16s word_34_4;//4
+	Bit16s word_36_5;//5
+	Bit16s word_38_6;//6
+	Bit16s click_40_7;//7
+	Bit16s nocl_42_8;//8
+} type_str_word_26;
+
 typedef struct {//lenght 44
 	Bit32u dword_0;
 	//Bit16s word_2;
@@ -504,15 +516,15 @@ typedef struct {//lenght 44
 	Bit8s gold_color_24;
 	Bit8s byte_25;
 	//Bit16s word_24;//23 and 24 byte
-	Bit16s word_26;
-	Bit16s word_28;
-	Bit16s word_30;
-	Bit16s word_32;
-	Bit16s word_34;
-	Bit16s word_36;
-	Bit16s word_38;
-	Bit16s click_40;
-	Bit16s nocl_42;
+	type_str_word_26 str_26;//0
+	//Bit16s word_28;//1
+	//Bit16s word_30;//2
+	//Bit16s word_32;//3
+	//Bit16s word_34;//4
+	//Bit16s word_36;//5
+	//Bit16s word_38;//6
+	//Bit16s click_40;//7
+	//Bit16s nocl_42;
 }
 type_WORD_E1F84;
 #pragma pack (16)
