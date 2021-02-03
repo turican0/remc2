@@ -44,13 +44,15 @@ jobs:
       run: |
         cd ${{ github.workspace }}
         cp -a ./tools/build-wrapper-linux-x86/. build_release
+        cd build_release
+        mkdir build_wrapper_output
         
     - name: make release
       run: |
         cd ${{ github.workspace }}
         cd build_release
         ls
-        ./build-wrapper-linux-x86-64 --out-dir build_output make
+        .build-wrapper-linux-x86-64 --out-dir build_wrapper_output make
 
     - name: SonarCloud Scan
       uses: SonarSource/sonarcloud-github-action@master
