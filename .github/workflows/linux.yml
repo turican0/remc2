@@ -51,8 +51,9 @@ jobs:
       run: |
         cd ${{ github.workspace }}
         cd build_release
-        ls
-        .build-wrapper-linux-x86-64 --out-dir build_wrapper_output make
+        curl -L -O https://sonarcloud.io/static/cpp/build-wrapper-linux-x86.zip
+        unzip -o build-wrapper-linux-x86.zip
+        build-wrapper-linux-x86/build-wrapper-linux-x86-64 --out-dir build_wrapper_output make
 
     - name: SonarCloud Scan
       uses: SonarSource/sonarcloud-github-action@master
