@@ -39,13 +39,6 @@ jobs:
         mkdir build_release
         cd build_release
         cmake -DCMAKE_BUILD_TYPE=Release -DCOMPATIBILITY_32_PATH="${{env.COMPATIBILITY_32_PATH}}" ..
-
-    - name: copy build wrapper
-      run: |
-        cd ${{ github.workspace }}
-        cp -a ./tools/build-wrapper-linux-x86/. build_release
-        cd build_release
-        mkdir build_wrapper_output
         
     - name: make release
       run: |
