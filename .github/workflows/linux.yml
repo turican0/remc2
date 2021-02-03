@@ -50,7 +50,7 @@ jobs:
         cd ${{ github.workspace }}
         cd build_release
         ls
-        build-wrapper-linux-x86-64 --out-dir build_output make
+        ./build-wrapper-linux-x86-64 --out-dir build_output make
 
     - name: SonarCloud Scan
       uses: SonarSource/sonarcloud-github-action@master
