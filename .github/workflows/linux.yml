@@ -49,7 +49,6 @@ jobs:
         build-wrapper-linux-x86/build-wrapper-linux-x86-64 --out-dir build_wrapper_output make
 
     - name: sonarcloud scan
-      uses: SonarSource/sonarcloud-github-action@master
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
