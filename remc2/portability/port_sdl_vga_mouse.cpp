@@ -394,6 +394,7 @@ void VGA_Init(Uint32 flags, int width, int height, bool maintainAspectRatio)
 
 			SDL_WindowFlags test_fullscr = SDL_WINDOW_SHOWN;
 			gWindow = SDL_CreateWindow(default_caption, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width/*dm.w*/, height/*dm.h*/, test_fullscr);
+			SDL_SetWindowGrab(gWindow, SDL_TRUE);
 
 			renderer =
 				SDL_CreateRenderer(gWindow, -1, SDL_RENDERER_ACCELERATED |

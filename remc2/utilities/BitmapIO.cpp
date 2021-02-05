@@ -92,7 +92,7 @@ void BitmapIO::WriteImageBufferAsImageBMP(char* path, int width, int height, Bit
 			fwrite(padding, 1, paddingSize, imageFile);
 		}
 
-		delete truColorBuffer;
+		delete[] truColorBuffer;
 	}
 
 	fclose(imageFile);
@@ -131,7 +131,7 @@ void BitmapIO::WritePaletteAsImageBMP(char* path, int numColors, Bit8u* ptrPalet
 		}
 	}
 
-	delete truColorBuffer;
+	delete[] truColorBuffer;
 
 	fclose(imageFile);
 }
