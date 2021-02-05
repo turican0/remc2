@@ -563,6 +563,22 @@ typedef struct {//lenght 66
 type_DWORD_E12AE;
 #pragma pack (16)
 
+#pragma pack (1)
+typedef struct {//lenght 10
+	Bit16s word_0;
+	//8 size 10*x
+
+}
+type_str_8_TMAPS00TAB_BEGIN_BUFFER;
+
+typedef struct {//lenght 0
+	type_str_8_TMAPS00TAB_BEGIN_BUFFER str_8[0];
+	//8 size 10*x
+
+}
+type_TMAPS00TAB_BEGIN_BUFFER;
+#pragma pack (16)
+
 
 void WriteBufferToBMP(unsigned __int16 width, unsigned __int16 height, Bit8u* ptrPalette, Bit8u* ptrBuffer);
 
