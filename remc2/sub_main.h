@@ -564,17 +564,17 @@ type_DWORD_E12AE;
 #pragma pack (16)
 
 #pragma pack (1)
-typedef struct {//lenght 10
+/*typedef struct {//lenght 10
 	Bit16s word_0;
 	//8 size 10*x
 
 }
 type_str_8_TMAPS00TAB_BEGIN_BUFFER;
-
-typedef struct {//lenght 0
-	type_str_8_TMAPS00TAB_BEGIN_BUFFER str_8[0];
-	//8 size 10*x
-
+*/
+typedef struct {//lenght 10
+	Bit32s dword_0;
+	Bit32s dword_4;
+	Bit16s word_8;
 }
 type_TMAPS00TAB_BEGIN_BUFFER;
 #pragma pack (16)
