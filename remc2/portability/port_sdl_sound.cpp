@@ -53,16 +53,16 @@ uint8_t sound_buffer[4][20000];
  2
 
 */
-void test_midi_play(uint8_t* data, uint8_t* header, Bit32s track_number)
+void test_midi_play(uint8_t* data, uint8_t* header, int32_t track_number)
 {
 	uint8_t* acttrack = &header[32 + track_number * 32];
-	//int testsize = *(Bit32u*)(&header[32 + (track_number + 1) * 32] + 18) - *(Bit32u*)(acttrack + 18);
-	int testsize2 = *(Bit32u*)(acttrack + 26);
+	//int testsize = *(uint32_t*)(&header[32 + (track_number + 1) * 32] + 18) - *(uint32_t*)(acttrack + 18);
+	int testsize2 = *(uint32_t*)(acttrack + 26);
 
 	//unsigned char* TranscodeXmiToMid(const unsigned char* pXmiData,	size_t iXmiLength, size_t* pMidLength);
 	size_t iXmiLength = testsize2;
 	size_t pMidLength;
-	uint8_t* outmidi = TranscodeXmiToMid((const uint8_t*)*(Bit32u*)(acttrack + 18), iXmiLength, &pMidLength);
+	uint8_t* outmidi = TranscodeXmiToMid((const uint8_t*)*(uint32_t*)(acttrack + 18), iXmiLength, &pMidLength);
 	SDL_RWops* rwmidi = SDL_RWFromMem(outmidi, pMidLength);
 
 	//Timidity_Init();
@@ -77,7 +77,7 @@ void test_midi_play(uint8_t* data, uint8_t* header, Bit32s track_number)
 	playmusic2(track_number);
 }
 
-void SOUND_start_sequence(Bit32s sequence_num) {
+void SOUND_start_sequence(int32_t sequence_num) {
 	//3 - menu
 	//4 - intro
 #ifdef SOUND_SDLMIXER
@@ -101,34 +101,34 @@ void SOUND_start_sequence(Bit32s sequence_num) {
 #endif//SOUND_SDLMIXER
 };
 
-void SOUND_pause_sequence(Bit32s sequence_num) {
+void SOUND_pause_sequence(int32_t sequence_num) {
 #ifdef SOUND_SDLMIXER
 	Mix_PauseMusic();
 #endif//SOUND_SDLMIXER
 };
 
-void SOUND_stop_sequence(Bit32s sequence_num) {
+void SOUND_stop_sequence(int32_t sequence_num) {
 #ifdef SOUND_SDLMIXER
 	Mix_HaltMusic();
 #endif//SOUND_SDLMIXER
 };
-void SOUND_resume_sequence(Bit32s sequence_num) {
+void SOUND_resume_sequence(int32_t sequence_num) {
 #ifdef SOUND_SDLMIXER
 	Mix_ResumeMusic();
 #endif//SOUND_SDLMIXER
 };
 
-void SOUND_set_sequence_volume(Bit32s volume) {
+void SOUND_set_sequence_volume(int32_t volume) {
 #ifdef SOUND_SDLMIXER
 	Mix_VolumeMusic(volume);
 #endif//SOUND_SDLMIXER
 };
 
-void SOUND_init_MIDI_sequence(uint8_t* data, uint8_t* header, Bit32s track_number)
+void SOUND_init_MIDI_sequence(uint8_t* data, uint8_t* header, int32_t track_number)
 {
 	uint8_t* acttrack = &header[32 + track_number * 32];
-	//int testsize = *(Bit32u*)(&header[32 + (track_number + 1) * 32] + 18) - *(Bit32u*)(acttrack + 18);
-	int testsize2 = *(Bit32u*)(acttrack + 26);
+	//int testsize = *(uint32_t*)(&header[32 + (track_number + 1) * 32] + 18) - *(uint32_t*)(acttrack + 18);
+	int testsize2 = *(uint32_t*)(acttrack + 26);
 
 	//unsigned char* TranscodeXmiToMid(const unsigned char* pXmiData,	size_t iXmiLength, size_t* pMidLength);
 	size_t iXmiLength = testsize2;
@@ -195,7 +195,7 @@ void SOUND_init_MIDI_sequence(uint8_t* data, uint8_t* header, Bit32s track_numbe
 	}
 	else
 	{
-		uint8_t* outmidi = TranscodeXmiToMid((const uint8_t*)*(Bit32u*)(acttrack + 18), iXmiLength, &pMidLength);
+		uint8_t* outmidi = TranscodeXmiToMid((const uint8_t*)*(uint32_t*)(acttrack + 18), iXmiLength, &pMidLength);
 		SDL_RWops* rwmidi = SDL_RWFromMem(outmidi, pMidLength);
 
 		//Timidity_Init();
@@ -327,7 +327,7 @@ void stopmusic1()
 	Mix_HaltMusic();
 }
 */
-void playmusic2(Bit32s track_number)
+void playmusic2(int32_t track_number)
 {
 #ifdef SOUND_SDLMIXER
 	if (Mix_PlayingMusic() == 0)
@@ -361,12 +361,12 @@ int num_IO_configurations = 3;
 int service_rate = -1;
 //HSAMPLE last_sample;
 
-Bit32s ac_sound_call_driver(AIL_DRIVER* drvr, Bit32s fn, VDI_CALL* in, VDI_CALL* out)/*AIL_DRIVER *drvr,S32 fn, VDI_CALL*in,VDI_CALL *out)*/ {
+int32_t ac_sound_call_driver(AIL_DRIVER* drvr, int32_t fn, VDI_CALL* in, VDI_CALL* out)/*AIL_DRIVER *drvr,S32 fn, VDI_CALL*in,VDI_CALL *out)*/ {
 	switch (fn) {
 	case 0x300: {//AIL_API_install_driver
 		drvr->VHDR_4->VDI_HDR_var10 = (void*)&common_IO_configurations;
 		drvr->VHDR_4->num_IO_configurations_14 = num_IO_configurations;
-		drvr->VHDR_4->environment_string_16 = (Bit32u)&environment_string;
+		drvr->VHDR_4->environment_string_16 = (uint32_t)&environment_string;
 		drvr->VHDR_4->VDI_HDR_var46 = service_rate;
 		/*out->AX = 0;
 		out->BX = 0;
@@ -426,7 +426,7 @@ Bit32s ac_sound_call_driver(AIL_DRIVER* drvr, Bit32s fn, VDI_CALL* in, VDI_CALL*
 	return 1;
 };
 
-void SOUND_set_master_volume(Bit32s volume) {
+void SOUND_set_master_volume(int32_t volume) {
 	//gamechunk[S->index_sample].volume = volume;
 #ifdef SOUND_SDLMIXER
 	Mix_Volume(-1, volume);
@@ -436,7 +436,7 @@ void SOUND_set_master_volume(Bit32s volume) {
 
 }
 
-void SOUND_set_sample_volume(HSAMPLE S, Bit32s volume) {
+void SOUND_set_sample_volume(HSAMPLE S, int32_t volume) {
 #ifdef SOUND_SDLMIXER
 	gamechunk[S->index_sample].volume = volume;
 	Mix_Volume(S->index_sample, volume);
@@ -516,7 +516,7 @@ void SOUND_start_sample(HSAMPLE S) {
 #endif//SOUND_OPENAL
 };
 
-Bit32u SOUND_sample_status(HSAMPLE S) {
+uint32_t SOUND_sample_status(HSAMPLE S) {
 #ifdef SOUND_SDLMIXER
 	if (Mix_Playing(S->index_sample)==0)return 2;
 #endif//SOUND_SDLMIXER
@@ -608,13 +608,13 @@ AIL_DRIVER* ac_AIL_API_install_driver(int a1, uint8_t* a2, int a3)/*driver_image
 
 uint16_t actvect[0x1000];
 
-void ac_set_real_vect(Bit32u vectnum, uint16_t real_ptr)
+void ac_set_real_vect(uint32_t vectnum, uint16_t real_ptr)
 {
 	actvect[vectnum] = real_ptr;
 	//66
 };
 
-uint16_t ac_get_real_vect(Bit32u vectnum)
+uint16_t ac_get_real_vect(uint32_t vectnum)
 {
 	return actvect[vectnum];
 };

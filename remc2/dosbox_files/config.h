@@ -313,10 +313,7 @@ typedef         double     Real64;
 #  error "sizeof (unsigned short) != 2"
 #endif
 
-#if SIZEOF_UNSIGNED_INT == 4
-  typedef unsigned int Bit32u;
-  typedef   signed int Bit32s;
-#elif SIZEOF_UNSIGNED_LONG == 4
+#if SIZEOF_UNSIGNED_LONG == 4
   typedef unsigned long Bit32u;
   typedef   signed long Bit32s;
 #else
@@ -334,8 +331,8 @@ typedef         double     Real64;
 #endif
 
 #if SIZEOF_INT_P == 4
-  typedef Bit32u Bitu;
-  typedef Bit32s Bits;
+  typedef uint32_t Bitu;
+  typedef int32_t Bits;
 #else
   typedef Bit64u Bitu;
   typedef Bit64s Bits;

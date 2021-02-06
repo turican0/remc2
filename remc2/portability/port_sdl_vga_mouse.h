@@ -9,8 +9,6 @@
 #include <stddef.h>
 #include <stdarg.h>     /* va_list, va_start, va_arg, va_end */
 
-#include "mctypes.h"
-
 #ifdef _MSC_VER
 	#include "SDL.h"
 #else
@@ -22,8 +20,8 @@
 
 typedef struct
 {
-	Bit32s x;
-	Bit32s y;
+	int32_t x;
+	int32_t y;
 } POSITION;
 
 void VGA_Init(int width, int height, bool maintainAspectRatio);

@@ -63,7 +63,7 @@
 
 #define __CFSHL__(x, y) (x<<y)
 //#define __CFSHL__(x, y) 1
-/*Bit32s __CFSHL__(Bit32u x, Bit32u y) {
+/*int32_t __CFSHL__(uint32_t x, uint32_t y) {
 	return 1;
 }*/
 //myprintf("invalid_operation:__CFSHL__(x, y)")
@@ -256,7 +256,7 @@ extern char IsTable[];
 
 #pragma pack (1)
 typedef struct {
-	Bit32s dword_0;
+	int32_t dword_0;
 	int16_t word_4;
 	int16_t word_6;
 	int16_t word_8;//act sprite
@@ -265,8 +265,8 @@ typedef struct {
 }type_str_unk_E1748;
 
 typedef struct {//lenght 30
-	Bit32s dword_0;
-	Bit32s dword_4;
+	int32_t dword_0;
+	int32_t dword_4;
 	int16_t word_8;
 	int16_t word_10;
 	int16_t word_12;
@@ -314,7 +314,7 @@ extern __int16 x_WORD_180660_VGA_type_resolution; // weak
 typedef struct {//lenght 7
 	int16_t word_0;
 	int8_t byte_2;
-	Bit32s dword_3;
+	int32_t dword_3;
 }
 type_E17CC_0;
 #pragma pack (16)
@@ -465,9 +465,9 @@ extern char x_BYTE_D41B6;
 
 #pragma pack (1)
 typedef struct {//lenght 28
-	Bit32s dword_0;
-	Bit32s dword_4;//mayby type_particle_str*
-	Bit32s dword_8;
+	int32_t dword_0;
+	int32_t dword_4;//mayby type_particle_str*
+	int32_t dword_8;
 	int16_t word_12;
 	uint16_t word_14;
 	int16_t word_16_maxframes;
@@ -500,9 +500,9 @@ typedef struct {//lenght 16
 } type_str_word_26;
 
 typedef struct {//lenght 44
-	Bit32u dword_0;
+	uint32_t dword_0;
 	//int16_t word_2;
-	Bit32s dword_4;//4 dword
+	int32_t dword_4;//4 dword
 	//int16_t word_6;//remove it
 	int16_t word_8;
 	int16_t xmin_10;
@@ -532,10 +532,10 @@ type_WORD_E1F84;
 
 #pragma pack (1)
 typedef struct {//lenght 24
-Bit32u dword_0;
-Bit32u dword_4;
-Bit32u dword_8;
-Bit32u dword_12;
+uint32_t dword_0;
+uint32_t dword_4;
+uint32_t dword_8;
+uint32_t dword_12;
 uint16_t word_16;
 uint16_t word_18;
 uint16_t word_20;
@@ -547,7 +547,7 @@ type_E1BAC_0x3c4;
 
 void WriteBufferToBMP(unsigned __int16 width, unsigned __int16 height, uint8_t* ptrPalette, uint8_t* ptrBuffer);
 
-void /*__spoils<ecx>*/ sub_B5E70_decompress_terrain_map_level(__int16 a1, unsigned __int16 a2, __int16 a3, Bit32s a4);
+void /*__spoils<ecx>*/ sub_B5E70_decompress_terrain_map_level(__int16 a1, unsigned __int16 a2, __int16 a3, int32_t a4);
 void sub_44DB0_truncTerrainHeight();
 void sub_44E40(int a1, unsigned __int8 a2);
 void sub_45AA0_setMax4Tiles();
@@ -586,11 +586,11 @@ char sub_15D40(__int16 a1, type_str_0x6E8E* a2, type_str_0x6E8E* a3); // weak
 int16_t sub_16730(/*int a1,*/ type_str_0x6E8E* a2, char a3); // weak
 int16_t sub_16CA0(baxis_2d* a2, __int16 a3, char a4); // weak
 void sub_17A00(int8_t* a1, signed int a2, __int16 a3); // weak
-int _wcpp_1_unwind_leave__120(Bit32s a, Bit32s b, Bit32s c);// weak
+int _wcpp_1_unwind_leave__120(int32_t a, int32_t b, int32_t c);// weak
 void sub_1A070(signed int a1, __int16 a2);
 void JUMPOUT(int* adr);
-void JUMPOUT(Bit32s cs, int* adr);
-void JUMPOUT(Bit32s cs, int a, int* adr);
+void JUMPOUT(int32_t cs, int* adr);
+void JUMPOUT(int32_t cs, int a, int* adr);
 void sub_1F0C0(/*type_str_0x6E8E* a1,*/ type_str_0x6E8E* a2);
 int sub_253B0(/*int result, */type_str_0x6E8E* a2, unsigned __int8 a3, unsigned __int8 a4);
 signed int sub_369F0(/*signed int a1,*/ __int16 a2);
@@ -600,7 +600,7 @@ void sub_2AA90(/*type_str_0x6E8E* a1, */type_str_0x6E8E* a2, type_str_0x6E8E* a3
 void ClearGraphicsBuffer(void* ptrBuffer, unsigned __int16 width, unsigned __int16 height, char value);
 void sub_303D0(/*signed int a1*/);
 int _wcpp_1_unwind_leave__62(void); //weak
-int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* a2, Bit32s a3, Bit32s a4, int a5, uint8_t a6, unsigned __int8 a7, Bit32u a8);//560cb0
+int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* a2, int32_t a3, int32_t a4, int a5, uint8_t a6, unsigned __int8 a7, uint32_t a8);//560cb0
 void sub_45DC0(/*uint8_t a1,*/ uint8_t a2, uaxis_2d a3, unsigned __int8 a4);
 signed int sub_36A50(/*signed int a1, */char a2);
 void sub_36920(/*signed __int16 a1, */type_str_0x6E8E* a2);
@@ -619,30 +619,30 @@ void sub_56D60(unsigned int a1, char a2);
 void sub_75200_VGA_Blit640(uint16_t height);
 void VGA_BlitAny();
 void sub_7A060_get_mouse_and_keyboard_events();
-void sub_47560_draw_and_events_in_game(/*uint8_t* a1, int a2, */Bit32u a3, signed int a4, __int16 a5);
+void sub_47560_draw_and_events_in_game(/*uint8_t* a1, int a2, */uint32_t a3, signed int a4, __int16 a5);
 void sub_51BB0_game_events(/*uint8_t* a1*/);
 //x_DWORD /*__cdecl*/ toupper(x_DWORD); //weak
 void sub_55C60(/*int a1, int a2,*/ type_str_0x2BDE* a3);
-Bit32s /*__cdecl*/ fix_filelength(Bit32s);// weak
-//x_DWORD /*__cdecl*/ access(char* path, Bit32u flags);// weak
+int32_t /*__cdecl*/ fix_filelength(int32_t);// weak
+//x_DWORD /*__cdecl*/ access(char* path, uint32_t flags);// weak
 //x_DWORD /*__cdecl*/ mkdir(char* path);
-Bit32s /*__cdecl*/ settextposition(Bit32s, Bit32s);// weak
-Bit32s /*__cdecl*/ outtext(char* text);// weak
+int32_t /*__cdecl*/ settextposition(int32_t, int32_t);// weak
+int32_t /*__cdecl*/ outtext(char* text);// weak
 //x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);// weak
 //int int386(int intno, REGS *inregs, REGS *outregs);
-int /*__fastcall*/ gettextposition(Bit32s, Bit32s, Bit32s);// weak
-Bit32s /*__cdecl*/ signal(Bit32s, Bit32s);// weak
+int /*__fastcall*/ gettextposition(int32_t, int32_t, int32_t);// weak
+int32_t /*__cdecl*/ signal(int32_t, int32_t);// weak
 //int __cdecl unknown_libname_1(char *a1);
 //void _disable();
 //void _enable();
-int /*__fastcall*/ _wcpp_1_unwind_leave__93(Bit32s, Bit32s, Bit32s, Bit32s, Bit32s, Bit32s);// weak
-int /*__cdecl*/ _wcpp_1_unwind_leave__100(Bit32s, Bit32s);// weak
+int /*__fastcall*/ _wcpp_1_unwind_leave__93(int32_t, int32_t, int32_t, int32_t, int32_t, int32_t);// weak
+int /*__cdecl*/ _wcpp_1_unwind_leave__100(int32_t, int32_t);// weak
 //long _InterlockedExchange(long volatile * Target, long Value);
-int /*__cdecl*/ _wcpp_1_unwind_leave__98(Bit32s);// weak
+int /*__cdecl*/ _wcpp_1_unwind_leave__98(int32_t);// weak
 //x_DWORD /*__cdecl*/ dos_getvect(x_DWORD);// weak
 //void(*dos_getvect(x_DWORD number))();
 //x_DWORD /*__cdecl*/ dos_setvect(x_DWORD number, void(*actcall)(), x_DWORD);// weak
-int /*__fastcall*/ _wcpp_1_unwind_leave__130(Bit32s);// weak
+int /*__fastcall*/ _wcpp_1_unwind_leave__130(int32_t);// weak
 //unsigned char _BitScanReverse(unsigned long * Index, unsigned long Mask);
 void sub_8F920(uint8_t a1byte1, uint8_t a1byte2, int16_t posx, int16_t posy, uint8_t* a4, unsigned __int8 a5, char a6);
 void sub_8F935_bitmap_draw_final(uint8_t a1byte1, uint8_t a1byte2, uint16_t a2, int a3, uint8_t* a4, uint8_t setbyte, char a6);
@@ -667,40 +667,40 @@ void sub_85CC3_draw_round_frame(/*unsigned int a1, int a2, */unsigned __int16* a
 __int16 sub_840D3(char _CF, bool _ZF, char _SF, char _OF);
 void  sub_841CE(__int16 a1);
 //void __writeeflags(unsigned Value);
-Bit32s /*__cdecl*/ gets(Bit32s);// weak
+int32_t /*__cdecl*/ gets(int32_t);// weak
 //x_DWORD /*__cdecl*/ fix_tell(x_DWORD);// weak
-Bit32s /*__cdecl*/ expand(Bit32s, Bit32s);// weak
+int32_t /*__cdecl*/ expand(int32_t, int32_t);// weak
 //int /*__fastcall*/ _wcpp_1_unwind_leave__132(x_DWORD);// weak
 char sub_8BA10(int a1, int a2, int* a3, char* a4, int a5);
-double /*__fastcall*/ _CHP(Bit32s);// weak
-char sub_8B980(int a1, int a2, Bit32s** a3, int a4);
+double /*__fastcall*/ _CHP(int32_t);// weak
+char sub_8B980(int a1, int a2, int32_t** a3, int a4);
 bool sub_9AE04(/*int eax0, */int edx0, int a3, int a1, int a2);
 HDIGDRIVER sub_93330_AIL_install_DIG_driver_file(/*int a1, */char* filename, IO_PARMS* IO);
 char sub_9AE90(int eax0, int edx0, int ebx0, int* a1, int8_t* a2, int a3, int a4);
 int sub_931F0_AIL_install_DIG_INI(HDIGDRIVER* a2, char* digPath);
 HMDIDRIVER sub_95850_AIL_install_MDI_driver_file(char* filename, IO_PARMS* IO);
-Bit32s sub_95710_AIL_install_MDI_INI(HMDIDRIVER* mdi, char* fileName);
-Bit32u /*__cdecl*/ x_read(FILE* descriptor, uint8_t* data, Bit32u size);// weak
+int32_t sub_95710_AIL_install_MDI_INI(HMDIDRIVER* mdi, char* fileName);
+uint32_t /*__cdecl*/ x_read(FILE* descriptor, uint8_t* data, uint32_t size);// weak
 double IF_DPOW(double, double);// weak
-Bit32s x_dos_setdrive(Bit32s a, Bit32s* b);
+int32_t x_dos_setdrive(int32_t a, int32_t* b);
 //int /*__cdecl*/ x_chdir(const char* path);
 //char* /*__cdecl*/ x_getcwd(x_DWORD a, x_DWORD b);// weak
-Bit32s /*__cdecl*/ x_outp(Bit32s, char);// weak
-Bit32s /*__cdecl*/ x_inp(Bit32s);// weak
+int32_t /*__cdecl*/ x_outp(int32_t, char);// weak
+int32_t /*__cdecl*/ x_inp(int32_t);// weak
 //x_DWORD *sub_9E720(int a1, int a2, int a3);
 int sub_A3720_AIL_API_install_DIG_INI(/*int a1, */HDIGDRIVER* dig, char* digPath);
 HDIGDRIVER sub_A3600_AIL_API_install_DIG_driver_file(/*int a1, */char* filename, IO_PARMS* IO);
-Bit32s sub_A78F0_AIL_API_install_MDI_INI(HMDIDRIVER* mdi, char* fileName);
+int32_t sub_A78F0_AIL_API_install_MDI_INI(HMDIDRIVER* mdi, char* fileName);
 HMDIDRIVER sub_A77D0_AIL_API_install_MDI_INI(char* filename, IO_PARMS* IO);
-Bit32s /*__cdecl*/ x_setmode(FILE* path, int mode);// weak
-//Bit32u sub_98AE0(uint8_t *a1);
+int32_t /*__cdecl*/ x_setmode(FILE* path, int mode);// weak
+//uint32_t sub_98AE0(uint8_t *a1);
 __int16 sub_98B2C(unsigned __int8 a1, int a2);
 //char sub_98BAF(int a1);
 __int16 sub_98AE9(__int16* a1, int a2);
 unsigned __CFRCR__(__int16 a, unsigned __int8 b);
 unsigned __CFRCL__(__int16 a, unsigned __int8 b);
-Bit32u /*__cdecl*/ x_write(FILE* descriptor, uint8_t* buffer, Bit32u size_t);
-Bit32s /*__cdecl*/ x_tolower(Bit32s);// weak
+uint32_t /*__cdecl*/ x_write(FILE* descriptor, uint8_t* buffer, uint32_t size_t);
+int32_t /*__cdecl*/ x_tolower(int32_t);// weak
 FILE* x_open(char* path, int pmodex);
 void __writegsx_WORD(unsigned long Offset, unsigned short Data);
 void __writegsx_DWORD(unsigned long Offset, unsigned long Data);
@@ -709,7 +709,7 @@ unsigned long __readgsx_DWORD(unsigned long Offset);
 void __inx_BYTEstring(unsigned short Port, unsigned char* Buffer, unsigned long Count);
 //int* MK_FP(unsigned int segment, unsigned int offset);
 //unsigned int __getcallerseflags(void);
-int /*__fastcall*/ _hook387(Bit32s, Bit32s, Bit32s);// weak
+int /*__fastcall*/ _hook387(int32_t, int32_t, int32_t);// weak
 //void __sidt(void *Destination);
 //unsigned long __readcr0(void);
 //void __writecr0(unsigned __int32 Data);
@@ -734,7 +734,7 @@ int sub_B423C(int a1, int8_t* a2);
 void sub_B49D8(int a1, int a2);
 int _DOS4G_hook_init(void);// weak
 int _Phar_hook_init(void);// weak
-int /*__cdecl*/ _Ergo_hook_init(Bit32s, Bit32s);// weak
+int /*__cdecl*/ _Ergo_hook_init(int32_t, int32_t);// weak
 //int _Intel_hook_init(void);// weak
 //int _DOS4G_hook_fini(void);// weak
 double sub_B5250(char a1, double* a2, double result);
@@ -743,14 +743,14 @@ __int64 sub_B522B(int a1, __int16 a2, int _ESI);
 //int _Intel_hook_fini(void);// weak
 //int _Phar_hook_fini(void);// weak
 //int /*__cdecl*/ _Ergo_hook_fini(x_DWORD);// weak
-void sub_B5F8F(__int16 a1, uint16_t* a2, Bit32s a3, __int16* a4);
+void sub_B5F8F(__int16 a1, uint16_t* a2, int32_t a3, __int16* a4);
 int sub_BD320(int result, int8_t* a2, int8_t* a3, int a4, int a5, int a6);
-void sub_B5EFA(__int16 a1, uint16_t* a2, Bit32s a3, __int16* a4);
+void sub_B5EFA(__int16 a1, uint16_t* a2, int32_t a3, __int16* a4);
 
-//type_str_0x6E8E* pre_sub_4A190(Bit32u adress, int16_t* a1,int type);
-type_str_0x6E8E* pre_sub_4A190_axis_3d(Bit32u adress, axis_3d* a1, int type);//pre 22b190
+//type_str_0x6E8E* pre_sub_4A190(uint32_t adress, int16_t* a1,int type);
+type_str_0x6E8E* pre_sub_4A190_axis_3d(uint32_t adress, axis_3d* a1, int type);//pre 22b190
 
-void pre_sub_4A190_0x6E8E(Bit32u adress, type_str_0x6E8E* a1, int type);//pre 22b190
+void pre_sub_4A190_0x6E8E(uint32_t adress, type_str_0x6E8E* a1, int type);//pre 22b190
 
 //---------------------------
 

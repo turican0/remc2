@@ -46,7 +46,7 @@ int DataFileIO::ReadFileAndDecompress(const char* path, uint8_t** data)
 {
 	x_DWORD result; // eax
 	FILE* file; // ebx
-	Bit32u length; // esi
+	uint32_t length; // esi
 	file = CreateOrOpenFile((char*)path, 0x200);
 	result = (x_DWORD)file;
 
@@ -88,10 +88,10 @@ int DataFileIO::Decompress(uint8_t* src, uint8_t* a2) {
 	v->file_size = MAX_BUF_SIZE;
 	v->input = (uint8*)malloc(MAX_BUF_SIZE);
 
-	Bit32u signature = src[0] + (src[1] << 8) + (src[2] << 16);
+	uint32_t signature = src[0] + (src[1] << 8) + (src[2] << 16);
 	if (signature == 0x434e52)
 	{
-		Bit32u inputsize = src[11] + (src[10] << 8) + (src[9] << 16) + (src[8] << 24);
+		uint32_t inputsize = src[11] + (src[10] << 8) + (src[9] << 16) + (src[8] << 24);
 		memmove(v->input, src, inputsize + 0x12);
 	}
 	else
@@ -242,12 +242,12 @@ FILE* DataFileIO::CreateOrOpenFile(char* pathname, int __pmode)
 	return Open(pathname, __pmode, 0x40);
 }
 
-FILE* DataFileIO::CreateFile(char* path, Bit32u flags) 
+FILE* DataFileIO::CreateFile(char* path, uint32_t flags) 
 {
 	return mycreate(path, flags);
 }
 
-FILE* DataFileIO::Open(char* path, int pmode, Bit32u flags) {
+FILE* DataFileIO::Open(char* path, int pmode, uint32_t flags) {
 	return myopen(path, pmode, flags);
 }
 
@@ -259,7 +259,7 @@ int32 DataFileIO::Seek(FILE* file, x_DWORD position, char type) {
 	return mylseek(file, position, type);
 }
 
-size_t DataFileIO::Read(FILE* file, uint8_t* data, Bit32u length) {
+size_t DataFileIO::Read(FILE* file, uint8_t* data, uint32_t length) {
 	size_t result = fread(data, 1, length, file);
 	return result;
 };

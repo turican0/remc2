@@ -9,12 +9,12 @@ uint8_t* readbuffer;
 
 char* printbuffer;//char* buffer; // [esp+0h] [ebp-2h]
 char* printbuffer2;//char v11; // [esp+40h] [ebp+3Eh]
-/*Bit32s x_DWORD_D41A4_x6x = 0;
-Bit32s x_DWORD_D41A4_x8x = 0;
-Bit32s x_DWORD_D41A4_xAx = -1;
-Bit32s x_DWORD_D41A4_xBx = -1;
-Bit32s x_DWORD_D41A4_xCx = -1;
-Bit32s x_DWORD_D41A4_xDx = -1;
+/*int32_t x_DWORD_D41A4_x6x = 0;
+int32_t x_DWORD_D41A4_x8x = 0;
+int32_t x_DWORD_D41A4_xAx = -1;
+int32_t x_DWORD_D41A4_xBx = -1;
+int32_t x_DWORD_D41A4_xCx = -1;
+int32_t x_DWORD_D41A4_xDx = -1;
 char x_DWORD_D41A4_xB6 = 'C';//2A1644 b6=182
 char x_DWORD_D41A4_x16x = '5';//2A15A4 16=22
 uint8_t x_DWORD_D41A4_x17x = 0;
@@ -23,58 +23,58 @@ char x_DWORD_D41A4_x19x=0;//2A51BD 19=25
 uint8_t x_DWORD_D41A4_x1Ex = 0;
 uint8_t x_DWORD_D41A4_x2Bx=0;
 uint8_t x_DWORD_D41A4_x2Dx = 0;
-Bit32s x_DWORD_D41A4_x33x = 0;
-Bit32s x_DWORD_D41A4_x59x = 0;
-Bit32s x_DWORD_D41A4_x79x = 0;
-Bit32s x_DWORD_D41A4_x7Ax = 0;
-Bit32s x_DWORD_D41A4_x7Bx = 0;
-Bit32s x_DWORD_D41A4_x7Cx = 0;
-Bit32s x_DWORD_D41A4_x7Dx = 0;
-Bit32s x_DWORD_D41A4_x7Fx = 0;
+int32_t x_DWORD_D41A4_x33x = 0;
+int32_t x_DWORD_D41A4_x59x = 0;
+int32_t x_DWORD_D41A4_x79x = 0;
+int32_t x_DWORD_D41A4_x7Ax = 0;
+int32_t x_DWORD_D41A4_x7Bx = 0;
+int32_t x_DWORD_D41A4_x7Cx = 0;
+int32_t x_DWORD_D41A4_x7Dx = 0;
+int32_t x_DWORD_D41A4_x7Fx = 0;
 //char* char_355198 = "8R5";
-Bit32s x_DWORD_D41A4_xB2 = 0;
-Bit32s x_DWORD_D41A4_xB4 = 0;
-Bit32s x_DWORD_D41A4_xB7 = 0;
-Bit32s x_DWORD_D41A4_xBA = 0;
-Bit32s x_DWORD_D41A4_xC0 = 0;
-Bit32s x_DWORD_D41A4_xCE = 0;
-Bit32s x_DWORD_D41A4_xCF = 0;
-Bit32s x_DWORD_D41A4_xCD = 0;
-Bit32s x_DWORD_D41A4_xD0 = 0;
-Bit32s x_DWORD_D41A4_xD8=0;
-Bit32s x_DWORD_D41A4_xDC = 0;
-Bit32s x_DWORD_D41A4_xE0 = -1;
-Bit32s x_DWORD_D41A4_xE1 = -1;
-Bit32s x_DWORD_D41A4_xE2=-1;
-Bit32s x_DWORD_D41A4_xE6 = -1;
-Bit32s x_DWORD_D41A4_xF2 = -1;
-Bit32s x_DWORD_D41A4_xF6 = -1;
-Bit32s x_DWORD_D41A4_x100 = -1;
-Bit32s x_DWORD_D41A4_x235 = -1;
-Bit32s x_DWORD_D41A4_x749 = -1;
-Bit32s x_DWORD_D41A4_x8CF = -1;
-Bit32s x_DWORD_D41A4_x94C = -1;
-Bit32s x_DWORD_D41A4_x954 = -1;
-Bit32s x_DWORD_D41A4_x21AA = -1;
-Bit32s x_DWORD_D41A4_x00 = -1;
-Bit32s x_DWORD_D41A4_x9602 = -1;
-Bit32s x_DWORD_D41A4_x9603 = -1;
-Bit32s x_DWORD_D41A4_x9677 = -1;
-Bit32s x_DWORD_D41A4_x967B = -1;
-Bit32s x_DWORD_D41A4_x967F = -1;
-Bit32s x_DWORD_D41A4_x4 = -1;
-Bit32s x_DWORD_D41A4_x965B = -1;
-Bit32s x_DWORD_D41A4_x966F = -1;
-Bit32s x_DWORD_D41A4_x9683 = -1;
-Bit32s x_DWORD_D41A4_x96BF = -1;
-Bit32s x_DWORD_D41A4_x9691 = -1;
-Bit32s x_DWORD_D41A4_x9692 = -1;*/
+int32_t x_DWORD_D41A4_xB2 = 0;
+int32_t x_DWORD_D41A4_xB4 = 0;
+int32_t x_DWORD_D41A4_xB7 = 0;
+int32_t x_DWORD_D41A4_xBA = 0;
+int32_t x_DWORD_D41A4_xC0 = 0;
+int32_t x_DWORD_D41A4_xCE = 0;
+int32_t x_DWORD_D41A4_xCF = 0;
+int32_t x_DWORD_D41A4_xCD = 0;
+int32_t x_DWORD_D41A4_xD0 = 0;
+int32_t x_DWORD_D41A4_xD8=0;
+int32_t x_DWORD_D41A4_xDC = 0;
+int32_t x_DWORD_D41A4_xE0 = -1;
+int32_t x_DWORD_D41A4_xE1 = -1;
+int32_t x_DWORD_D41A4_xE2=-1;
+int32_t x_DWORD_D41A4_xE6 = -1;
+int32_t x_DWORD_D41A4_xF2 = -1;
+int32_t x_DWORD_D41A4_xF6 = -1;
+int32_t x_DWORD_D41A4_x100 = -1;
+int32_t x_DWORD_D41A4_x235 = -1;
+int32_t x_DWORD_D41A4_x749 = -1;
+int32_t x_DWORD_D41A4_x8CF = -1;
+int32_t x_DWORD_D41A4_x94C = -1;
+int32_t x_DWORD_D41A4_x954 = -1;
+int32_t x_DWORD_D41A4_x21AA = -1;
+int32_t x_DWORD_D41A4_x00 = -1;
+int32_t x_DWORD_D41A4_x9602 = -1;
+int32_t x_DWORD_D41A4_x9603 = -1;
+int32_t x_DWORD_D41A4_x9677 = -1;
+int32_t x_DWORD_D41A4_x967B = -1;
+int32_t x_DWORD_D41A4_x967F = -1;
+int32_t x_DWORD_D41A4_x4 = -1;
+int32_t x_DWORD_D41A4_x965B = -1;
+int32_t x_DWORD_D41A4_x966F = -1;
+int32_t x_DWORD_D41A4_x9683 = -1;
+int32_t x_DWORD_D41A4_x96BF = -1;
+int32_t x_DWORD_D41A4_x9691 = -1;
+int32_t x_DWORD_D41A4_x9692 = -1;*/
 
-//Bit32s x2124_x_DWORD_D41A4_xCx_x_DWORD_D41A0_11234 = 0;
+//int32_t x2124_x_DWORD_D41A4_xCx_x_DWORD_D41A0_11234 = 0;
 
 //uint8_t* x_DWORD_E9C38_smalltit; // weak
 
-//Bit32s x_DWORD_D41A4 = -1;
+//int32_t x_DWORD_D41A4 = -1;
 
 //uint8_t* x_DWORD_D41A0; // weak
 
@@ -90,10 +90,10 @@ type_x_D41A0_BYTEARRAY_4_struct x_D41A0_BYTEARRAY_4_struct;
 
 int16_t x_D41A0_WORDARRAY[10000];
 
-//Bit32u x_D41A0_BYTEARRAY_4_0xE6_heapsize;
+//uint32_t x_D41A0_BYTEARRAY_4_0xE6_heapsize;
 //uint8_t* x_D41A0_BYTEARRAY_4_0xE2_heapbuffer;
 //uint8_t* x_D41A0_BYTEARRAY_4_0xDE_heapbuffer;
-//Bit32u* off_D918C[0x7c];//turn off - fix it
+//uint32_t* off_D918C[0x7c];//turn off - fix it
 
 //xx uint8_t* dword_E9C30[1000]; // weak
 
@@ -511,7 +511,7 @@ void support_begin() {
 	//x_D41A0_BYTEARRAY_4_0xDE_heapbuffer= (uint8_t*)malloc(64000);
 
 	/*for (int i = 0;i < 0x1c+0x60;i++)
-		off_D918C[i] = new Bit32u;*/
+		off_D918C[i] = new uint32_t;*/
 		//2aa18c
 		//0 2bc394
 		//1
@@ -564,7 +564,7 @@ void support_end() {
 	if (x_DWORD_D4188t_spritestr)delete(x_DWORD_D4188t_spritestr);
 }
 
-void loadfromsnapshot(char* filename, uint8_t* adress, Bit32u adressdos, Bit32u size) {
+void loadfromsnapshot(char* filename, uint8_t* adress, uint32_t adressdos, uint32_t size) {
 	char findnamec[500];
 	FILE* fptestepc;
 	sprintf(findnamec, "../remc2/memimages/engine-memory-%s", filename);
@@ -574,10 +574,10 @@ void loadfromsnapshot(char* filename, uint8_t* adress, Bit32u adressdos, Bit32u 
 	fclose(fptestepc);
 };
 
-void loadfromsnapshot2(char* filename, uint8_t* adress, Bit32u adressdos, Bit32u size) {
+void loadfromsnapshot2(char* filename, uint8_t* adress, uint32_t adressdos, uint32_t size) {
 	char findnamec[500];
 	FILE* fptestepc;
-	Bit32u subadress;
+	uint32_t subadress;
 	sprintf(findnamec, "../remc2/memimages/engine-memory-%s", filename);
 	fptestepc = fopen(findnamec, "rb");
 	fseek(fptestepc, adressdos, SEEK_SET);
@@ -588,7 +588,7 @@ void loadfromsnapshot2(char* filename, uint8_t* adress, Bit32u adressdos, Bit32u
 	fclose(fptestepc);
 };
 
-Bit32u compare_with_snapshot(char* filename, uint8_t* adress, Bit32u adressdos, Bit32u size, uint8_t* origbyte, uint8_t* copybyte) {
+uint32_t compare_with_snapshot(char* filename, uint8_t* adress, uint32_t adressdos, uint32_t size, uint8_t* origbyte, uint8_t* copybyte) {
 	char findnamec[500];
 	uint8_t* buffer = (uint8_t*)malloc(size);
 	FILE* fptestepc;
@@ -602,7 +602,7 @@ Bit32u compare_with_snapshot(char* filename, uint8_t* adress, Bit32u adressdos, 
 	fseek(fptestepc, adressdos, SEEK_SET);
 
 	fread(buffer, size, 1, fptestepc);
-	Bit32u i;
+	uint32_t i;
 	for (i = 0; i < size; i++)
 	{
 		if (buffer[i] != adress[i])
@@ -617,30 +617,30 @@ Bit32u compare_with_snapshot(char* filename, uint8_t* adress, Bit32u adressdos, 
 	fclose(fptestepc);
 	return(i);
 };
-int test_E7EE0_id_pointer(Bit32u adress) {
+int test_E7EE0_id_pointer(uint32_t adress) {
 	if ((adress >= 0x28) && (adress < 0x29))return 1;
 	return 0;
 }
 
-int test_D41A0_4_id_pointer(Bit32u adress) {
+int test_D41A0_4_id_pointer(uint32_t adress) {
 	if ((adress >= 0xe2) && (adress < 0xe3))return 1;
 	if ((adress >= 0x954) && (adress < 0x95a))return 2;
 	return 0;
 }
-int test_EA3E4_id_pointer(Bit32u adress) {
+int test_EA3E4_id_pointer(uint32_t adress) {
 	if ((adress >= 0x0) && (adress < 0x1))return 1;
 	if ((adress >= 0xa0) && (adress < 0xa1))return 1;
 	if ((adress >= 0xa4) && (adress < 0xa5))return 1;
 	return 0;
 }
 
-int test_0x6E8E_id_pointer(Bit32u adress) {
+int test_0x6E8E_id_pointer(uint32_t adress) {
 	if ((adress >= 0x0) && (adress < 0x1))return 1;
 	if ((adress >= 0xa0) && (adress < 0xa1))return 1;
 	if ((adress >= 0xa4) && (adress < 0xa5))return 1;
 	return 0;
 }
-int test_D41A0_id_pointer(Bit32u adress) {
+int test_D41A0_id_pointer(uint32_t adress) {
 	if ((adress >= 0x2fc4) && (adress < 0x2fc5))return 2;//event
 
 	if ((adress >= 0x314d) && (adress < 0x3151))return 2;//clock
@@ -686,7 +686,7 @@ int test_D41A0_id_pointer(Bit32u adress) {
 	if ((adress >= 0x36767) && (adress < 0x36768))return 1;
 	if ((adress >= 0x3678e) && (adress < 0x3678f))return 1;*/
 	if ((adress >= 0x36620) && (adress < 0x36621))return 1;
-	for (Bit32u i = 0; i < 32; i++) {
+	for (uint32_t i = 0; i < 32; i++) {
 		if ((adress >= 0x36656 + i * 39) && (adress < 0x36657 + i * 39))return 1;
 	}
 	/*if ((adress >= 0x6f32) && (adress < 0x6f37))return 1;
@@ -719,14 +719,14 @@ int test_D41A0_id_pointer(Bit32u adress) {
 	if ((adress >= 0x79ae) && (adress < 0x79b3))return 1;
 	if ((adress >= 0x7a56) && (adress < 0x7a5b))return 1;
 	if ((adress >= 0x7afe) && (adress < 0x7b03))return 1;*/
-	for (Bit32u i = 0; i < 0x3e8; i++) {
+	for (uint32_t i = 0; i < 0x3e8; i++) {
 		if ((adress >= 0x6f2e + i * 168) && (adress < 0x6f37 + i * 168))return 1;
 	}
 	if ((adress >= 0x36df6) && (adress < 0x36df7))return 1;
 	return 0;
 }
 
-int test_E2A74_id_pointer(Bit32u adress) {
+int test_E2A74_id_pointer(uint32_t adress) {
 	if ((adress >= 0x246) && (adress < 0x247))return 1;
 	if ((adress >= 0x282) && (adress < 0x283))return 1;
 	if ((adress >= 0x2a0) && (adress < 0x2a1))return 1;
@@ -734,7 +734,7 @@ int test_E2A74_id_pointer(Bit32u adress) {
 	return 0;
 }
 
-int test_222BD3_id_pointer(Bit32u adress) {
+int test_222BD3_id_pointer(uint32_t adress) {
 	if ((adress >= 0x8) && (adress < 0x9))return 1;
 	if ((adress >= 0x50) && (adress < 0x51))return 1;
 	if ((adress >= 0x68) && (adress < 0x69))return 1;
@@ -742,7 +742,7 @@ int test_222BD3_id_pointer(Bit32u adress) {
 	return 0;
 }
 
-Bit32u compare_with_snapshot_D41A0(char* filename, uint8_t* adress, Bit32u adressdos, Bit32u size, uint8_t* origbyte, uint8_t* copybyte) {
+uint32_t compare_with_snapshot_D41A0(char* filename, uint8_t* adress, uint32_t adressdos, uint32_t size, uint8_t* origbyte, uint8_t* copybyte) {
 	char findnamec[500];
 	uint8_t* buffer = (uint8_t*)malloc(size);
 	FILE* fptestepc;
@@ -756,16 +756,16 @@ Bit32u compare_with_snapshot_D41A0(char* filename, uint8_t* adress, Bit32u adres
 	fseek(fptestepc, adressdos, SEEK_SET);
 
 	fread(buffer, size, 1, fptestepc);
-	Bit32u i;
+	uint32_t i;
 	bool testa, testb;
 	for (i = 0; i < size; i++)
 	{
 		int testx = test_D41A0_id_pointer(i);
 		if (testx == 1)
 		{
-			if (*(Bit32u*)&buffer[i])testa = true;
+			if (*(uint32_t*)&buffer[i])testa = true;
 			else testa = false;
-			if (*(Bit32u*)&adress[i])testb = true;
+			if (*(uint32_t*)&adress[i])testb = true;
 			else testb = false;
 			if (testa != testb)
 			{
@@ -790,7 +790,7 @@ Bit32u compare_with_snapshot_D41A0(char* filename, uint8_t* adress, Bit32u adres
 	return(i);
 };
 
-Bit32u compare_with_sequence_E7EE0(char* filename, uint8_t* adress, Bit32u adressdos, Bit32u count, Bit32u size1, Bit32u size2, uint8_t* origbyte, uint8_t* copybyte, long offset) {
+uint32_t compare_with_sequence_E7EE0(char* filename, uint8_t* adress, uint32_t adressdos, uint32_t count, uint32_t size1, uint32_t size2, uint8_t* origbyte, uint8_t* copybyte, long offset) {
 	char findnamec[500];
 	uint8_t* buffer = (uint8_t*)malloc(size2);
 	FILE* fptestepc;
@@ -804,7 +804,7 @@ Bit32u compare_with_sequence_E7EE0(char* filename, uint8_t* adress, Bit32u adres
 	fseek(fptestepc, count * size1 + offset, SEEK_SET);
 
 	fread(buffer, size2, 1, fptestepc);
-	Bit32u i;
+	uint32_t i;
 	bool testa, testb;
 	int diffindex = 0;
 	for (i = 0; i < size2; i++)
@@ -812,9 +812,9 @@ Bit32u compare_with_sequence_E7EE0(char* filename, uint8_t* adress, Bit32u adres
 		int testx = test_E7EE0_id_pointer(i);
 		if (testx == 1)
 		{
-			if (*(Bit32u*)&buffer[i])testa = true;
+			if (*(uint32_t*)&buffer[i])testa = true;
 			else testa = false;
-			if (*(Bit32u*)&adress[i])testb = true;
+			if (*(uint32_t*)&adress[i])testb = true;
 			else testb = false;
 			if (testa != testb)
 			{
@@ -839,7 +839,7 @@ Bit32u compare_with_sequence_E7EE0(char* filename, uint8_t* adress, Bit32u adres
 	return(i);
 };
 
-Bit32u compare_with_sequence_D41A0(char* filename, uint8_t* adress, Bit32u adressdos, Bit32u count, Bit32u size, uint8_t* origbyte, uint8_t* copybyte, long offset) {
+uint32_t compare_with_sequence_D41A0(char* filename, uint8_t* adress, uint32_t adressdos, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte, long offset) {
 	char findnamec[500];
 	uint8_t* buffer = (uint8_t*)malloc(size);
 	FILE* fptestepc;
@@ -853,16 +853,16 @@ Bit32u compare_with_sequence_D41A0(char* filename, uint8_t* adress, Bit32u adres
 	fseek(fptestepc, count * size + offset, SEEK_SET);
 
 	fread(buffer, size, 1, fptestepc);
-	Bit32u i;
+	uint32_t i;
 	bool testa, testb;
 	for (i = 0; i < size; i++)
 	{
 		int testx = test_D41A0_id_pointer(i);
 		if (testx == 1)
 		{
-			if (*(Bit32u*)&buffer[i])testa = true;
+			if (*(uint32_t*)&buffer[i])testa = true;
 			else testa = false;
-			if (*(Bit32u*)&adress[i])testb = true;
+			if (*(uint32_t*)&adress[i])testb = true;
 			else testb = false;
 			if (testa != testb)
 			{
@@ -889,7 +889,7 @@ Bit32u compare_with_sequence_D41A0(char* filename, uint8_t* adress, Bit32u adres
 	return(i);
 };
 
-Bit32u compare_0x6E8E(char* filename, uint8_t* adress, Bit32u count, Bit32u size, uint8_t* origbyte, uint8_t* copybyte, long offset) {
+uint32_t compare_0x6E8E(char* filename, uint8_t* adress, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte, long offset) {
 	char findnamec[500];
 	uint8_t* buffer = (uint8_t*)malloc(size);
 	FILE* fptestepc;
@@ -903,16 +903,16 @@ Bit32u compare_0x6E8E(char* filename, uint8_t* adress, Bit32u count, Bit32u size
 	fseek(fptestepc, count * size + offset, SEEK_SET);
 
 	fread(buffer, size, 1, fptestepc);
-	Bit32u i;
+	uint32_t i;
 	bool testa, testb;
 	for (i = 0; i < size; i++)
 	{
 		int testx = test_0x6E8E_id_pointer(i);
 		if (testx == 1)
 		{
-			if (*(Bit32u*)&buffer[i])testa = true;
+			if (*(uint32_t*)&buffer[i])testa = true;
 			else testa = false;
-			if (*(Bit32u*)&adress[i])testb = true;
+			if (*(uint32_t*)&adress[i])testb = true;
 			else testb = false;
 			if (testa != testb)
 			{
@@ -939,7 +939,7 @@ Bit32u compare_0x6E8E(char* filename, uint8_t* adress, Bit32u count, Bit32u size
 	return(i);
 };
 
-Bit32u compare_with_sequence_EA3E4(char* filename, type_str_0x6E8E** adress, Bit32u count, Bit32u size, uint8_t* origbyte, uint8_t* copybyte) {
+uint32_t compare_with_sequence_EA3E4(char* filename, type_str_0x6E8E** adress, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte) {
 	char findnamec[500];
 	uint8_t* buffer = (uint8_t*)malloc(size * 0x3E9);
 	FILE* fptestepc;
@@ -956,16 +956,16 @@ Bit32u compare_with_sequence_EA3E4(char* filename, type_str_0x6E8E** adress, Bit
 
 	for (int ea = 0; ea < 0x3E9; ea++)
 	{
-		Bit32u i;
+		uint32_t i;
 		bool testa, testb;
 		for (i = 0; i < size; i++)
 		{
 			int testx = test_EA3E4_id_pointer(i);
 			if (testx == 1)
 			{
-				if (*(Bit32u*)&buffer[i + ea * size])testa = true;
+				if (*(uint32_t*)&buffer[i + ea * size])testa = true;
 				else testa = false;
-				if (*(Bit32u*)((uint8_t*)adress[ea] + i))testb = true;
+				if (*(uint32_t*)((uint8_t*)adress[ea] + i))testb = true;
 				else testb = false;
 				if (testa != testb)
 				{
@@ -995,7 +995,7 @@ Bit32u compare_with_sequence_EA3E4(char* filename, type_str_0x6E8E** adress, Bit
 	return(1);
 };
 
-Bit32u compare_with_sequence_D41A0_4(char* filename, uint8_t* adress, Bit32u adressdos, Bit32u count, Bit32u size, uint8_t* origbyte, uint8_t* copybyte, long offset) {
+uint32_t compare_with_sequence_D41A0_4(char* filename, uint8_t* adress, uint32_t adressdos, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte, long offset) {
 	char findnamec[500];
 	uint8_t* buffer = (uint8_t*)malloc(size);
 	FILE* fptestepc;
@@ -1009,16 +1009,16 @@ Bit32u compare_with_sequence_D41A0_4(char* filename, uint8_t* adress, Bit32u adr
 	fseek(fptestepc, count * size + offset, SEEK_SET);
 
 	fread(buffer, size, 1, fptestepc);
-	Bit32u i;
+	uint32_t i;
 	bool testa, testb;
 	for (i = 0; i < size; i++)
 	{
 		int testx = test_D41A0_4_id_pointer(i);
 		if (testx == 1)
 		{
-			if (*(Bit32u*)&buffer[i])testa = true;
+			if (*(uint32_t*)&buffer[i])testa = true;
 			else testa = false;
-			if (*(Bit32u*)&adress[i])testb = true;
+			if (*(uint32_t*)&adress[i])testb = true;
 			else testb = false;
 			if (testa != testb)
 			{
@@ -1045,12 +1045,12 @@ Bit32u compare_with_sequence_D41A0_4(char* filename, uint8_t* adress, Bit32u adr
 	return(i);
 };
 
-int test_F2C20ar_id_pointer(Bit32u adress) {
+int test_F2C20ar_id_pointer(uint32_t adress) {
 	if ((adress >= 0x8) && (adress < 0x9))return 1;
 	return 0;
 }
 
-Bit32u compare_with_sequence_x_DWORD_F2C20ar(char* filename, uint8_t* adress, Bit32u adressdos, Bit32u count, Bit32u size, uint8_t* origbyte, uint8_t* copybyte, int* posdiff) {
+uint32_t compare_with_sequence_x_DWORD_F2C20ar(char* filename, uint8_t* adress, uint32_t adressdos, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte, int* posdiff) {
 	char findnamec[500];
 	uint8_t* buffer = (uint8_t*)malloc(size);
 	FILE* fptestepc;
@@ -1064,7 +1064,7 @@ Bit32u compare_with_sequence_x_DWORD_F2C20ar(char* filename, uint8_t* adress, Bi
 	fseek(fptestepc, count * size, SEEK_SET);
 
 	fread(buffer, size, 1, fptestepc);
-	Bit32u i;
+	uint32_t i;
 	bool testa, testb;
 	int diffindex = 0;
 	for (i = 0; i < size; i++)
@@ -1072,9 +1072,9 @@ Bit32u compare_with_sequence_x_DWORD_F2C20ar(char* filename, uint8_t* adress, Bi
 		int testx = test_F2C20ar_id_pointer(i);
 		if (testx == 1)
 		{
-			if (*(Bit32u*)&buffer[i])testa = true;
+			if (*(uint32_t*)&buffer[i])testa = true;
 			else testa = false;
-			if (*(Bit32u*)&adress[i])testb = true;
+			if (*(uint32_t*)&adress[i])testb = true;
 			else testb = false;
 			if (testa != testb)
 			{
@@ -1101,7 +1101,7 @@ Bit32u compare_with_sequence_x_DWORD_F2C20ar(char* filename, uint8_t* adress, Bi
 	return(diffindex);
 };
 
-Bit32u compare_with_sequence_array_E2A74(char* filename, uint8_t* adress, Bit32u adressdos, Bit32u count, Bit32u size1, Bit32u size2, uint8_t* origbyte, uint8_t* copybyte, long offset) {
+uint32_t compare_with_sequence_array_E2A74(char* filename, uint8_t* adress, uint32_t adressdos, uint32_t count, uint32_t size1, uint32_t size2, uint8_t* origbyte, uint8_t* copybyte, long offset) {
 	char findnamec[500];
 	uint8_t* buffer = (uint8_t*)malloc(size2);
 	FILE* fptestepc;
@@ -1115,7 +1115,7 @@ Bit32u compare_with_sequence_array_E2A74(char* filename, uint8_t* adress, Bit32u
 	fseek(fptestepc, count * size1 + offset, SEEK_SET);
 
 	fread(buffer, size2, 1, fptestepc);
-	Bit32u i;
+	uint32_t i;
 	bool testa, testb;
 	int diffindex = 0;
 	for (i = 0; i < size2; i++)
@@ -1123,9 +1123,9 @@ Bit32u compare_with_sequence_array_E2A74(char* filename, uint8_t* adress, Bit32u
 		int testx = test_E2A74_id_pointer(i);
 		if (testx == 1)
 		{
-			if (*(Bit32u*)&buffer[i])testa = true;
+			if (*(uint32_t*)&buffer[i])testa = true;
 			else testa = false;
-			if (*(Bit32u*)&adress[i])testb = true;
+			if (*(uint32_t*)&adress[i])testb = true;
 			else testb = false;
 			if (testa != testb)
 			{
@@ -1150,7 +1150,7 @@ Bit32u compare_with_sequence_array_E2A74(char* filename, uint8_t* adress, Bit32u
 	return(i);
 };
 
-Bit32u compare_with_sequence_array_222BD3(char* filename, uint8_t* adress, Bit32u adressdos, Bit32u count, Bit32u size, uint8_t* origbyte, uint8_t* copybyte, int* posdiff) {
+uint32_t compare_with_sequence_array_222BD3(char* filename, uint8_t* adress, uint32_t adressdos, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte, int* posdiff) {
 	char findnamec[500];
 	uint8_t* buffer = (uint8_t*)malloc(size);
 	FILE* fptestepc;
@@ -1164,7 +1164,7 @@ Bit32u compare_with_sequence_array_222BD3(char* filename, uint8_t* adress, Bit32
 	fseek(fptestepc, count * size, SEEK_SET);
 
 	fread(buffer, size, 1, fptestepc);
-	Bit32u i;
+	uint32_t i;
 	bool testa, testb;
 	int diffindex = 0;
 	for (i = 0; i < size; i++)
@@ -1172,9 +1172,9 @@ Bit32u compare_with_sequence_array_222BD3(char* filename, uint8_t* adress, Bit32
 		int testx = test_222BD3_id_pointer(i);
 		if (testx == 1)
 		{
-			if (*(Bit32u*)&buffer[i])testa = true;
+			if (*(uint32_t*)&buffer[i])testa = true;
 			else testa = false;
-			if (*(Bit32u*)&adress[i])testb = true;
+			if (*(uint32_t*)&adress[i])testb = true;
 			else testb = false;
 			if (testa != testb)
 			{
@@ -1201,7 +1201,7 @@ Bit32u compare_with_sequence_array_222BD3(char* filename, uint8_t* adress, Bit32
 	return(i);
 };
 
-Bit32u compare_with_sequence(char* filename, uint8_t* adress, Bit32u adressdos, long count, long size1, Bit32u size2, uint8_t* origbyte, uint8_t* copybyte, long offset) {
+uint32_t compare_with_sequence(char* filename, uint8_t* adress, uint32_t adressdos, long count, long size1, uint32_t size2, uint8_t* origbyte, uint8_t* copybyte, long offset) {
 	char findnamec[500];
 	uint8_t* buffer = (uint8_t*)malloc(size2);
 	FILE* fptestepc;
@@ -1219,7 +1219,7 @@ Bit32u compare_with_sequence(char* filename, uint8_t* adress, Bit32u adressdos, 
 	_fseeki64(fptestepc, (long long)count * (long long)size1 + offset, SEEK_SET);
 #endif
 	
-	Bit32u i;
+	uint32_t i;
 	/*for (i = 0; i < count; i++)
 	{
 		fread_s(buffer,size,1,size, fptestepc);
@@ -1252,7 +1252,7 @@ typedef struct {
 //int compindexes[100];//compstr[i].index
 //int compadresses[100];//compstr[i].adress
 type_compstr compstr[100];
-int getcompindex(Bit32u adress) {
+int getcompindex(uint32_t adress) {
 	bool finded = false;
 	int findindex = 0;
 	for (int i = 0; i < countcompindexes; i++)
@@ -1278,7 +1278,7 @@ int getcompindex(Bit32u adress) {
 };
 
 type_compstr lastcompstr;
-void add_compare(Bit32u adress, bool debugafterload, int stopstep, bool skip) {
+void add_compare(uint32_t adress, bool debugafterload, int stopstep, bool skip) {
 	uint8_t origbyte20 = 0;
 	uint8_t remakebyte20 = 0;
 	int comp20;
@@ -1322,7 +1322,7 @@ void add_compare(Bit32u adress, bool debugafterload, int stopstep, bool skip) {
 	}
 };
 
-void mine_texts(char* filename, Bit32u adressdos, Bit32u count, char* outfilename) {
+void mine_texts(char* filename, uint32_t adressdos, uint32_t count, char* outfilename) {
 	char findnamec[500];
 	FILE* fptestepc;
 	FILE* fileout;
@@ -1341,7 +1341,7 @@ void mine_texts(char* filename, Bit32u adressdos, Bit32u count, char* outfilenam
 	long adressadd;
 	long adressaddall = 0;
 	fread(&actchar, 1, 1, fptestepc);
-	for (Bit32u i = 0; i < count; i++)
+	for (uint32_t i = 0; i < count; i++)
 	{
 		adressadd = 0;
 		while ((adressaddall % 4) || (actchar == 0))
@@ -1366,8 +1366,8 @@ void mine_texts(char* filename, Bit32u adressdos, Bit32u count, char* outfilenam
 	fclose(fileout);
 };
 
-void writehex(uint8_t* buffer, Bit32u count) {
-	for (Bit32u i = 0; i < count; i++)
+void writehex(uint8_t* buffer, uint32_t count) {
+	for (uint32_t i = 0; i < count; i++)
 	{
 		if (i % 32 == 0)printf("\n");
 		printf("%02X", buffer[i]);
@@ -1380,7 +1380,7 @@ type_D41A0_BYTESTR_0 D41A0_BYTESTR_0;
 void x_D41A0_BYTEARRAY_0_to_x_D41A0_BYTESTR_0()
 {
 	D41A0_BYTESTR_0.word_0xc = *(int16_t*)&x_D41A0_BYTEARRAY_0[0xc];
-	D41A0_BYTESTR_0.dword_0x235 = *(Bit32s*)&x_D41A0_BYTEARRAY_0[0x235];
+	D41A0_BYTESTR_0.dword_0x235 = *(int32_t*)&x_D41A0_BYTEARRAY_0[0x235];
 
 	D41A0_BYTESTR_0.byte_0x218D = x_D41A0_BYTEARRAY_0[0x218D];
 	D41A0_BYTESTR_0.byte_0x2190 = x_D41A0_BYTEARRAY_0[0x2190];
@@ -1415,7 +1415,7 @@ void x_D41A0_BYTEARRAY_0_to_x_D41A0_BYTESTR_0()
 void x_D41A0_BYTESTR_0_to_x_D41A0_BYTEARRAY_0()
 {
 	*(int16_t*)&x_D41A0_BYTEARRAY_0[0xc]= D41A0_BYTESTR_0.word_0xc;
-	*(Bit32s*)&x_D41A0_BYTEARRAY_0[0x235] = D41A0_BYTESTR_0.dword_0x235;
+	*(int32_t*)&x_D41A0_BYTEARRAY_0[0x235] = D41A0_BYTESTR_0.dword_0x235;
 
 	x_D41A0_BYTEARRAY_0[0x218D] = D41A0_BYTESTR_0.byte_0x218D;
 	x_D41A0_BYTEARRAY_0[0x2190] = D41A0_BYTESTR_0.byte_0x2190;
@@ -1768,7 +1768,7 @@ void buff_posistruct_to_png(uint8_t* buffer, int width, int height, char* filena
 	writeImage(filename, width, height, buffer2, (char*)"test");
 }
 
-void testdword(Bit32s* val1, Bit32s* val2) {
+void testdword(int32_t* val1, int32_t* val2) {
 	if (*val1 != *val2)
 	{
 		printf("x_D41A0_BYTEARRAY_0_error");
@@ -1805,22 +1805,22 @@ void testbyte(uint8_t* val1, uint8_t* val2) {
 	}
 }
 
-/*Bit32s get_x_D41A0_BYTEARRAY_0_4() {
-	testdword((Bit32s*)(x_D41A0_BYTEARRAY_0 + 4), &D41A0_BYTESTR_0.dword_0x4);
-	return *(Bit32s*)(x_D41A0_BYTEARRAY_0 + 4);
+/*int32_t get_x_D41A0_BYTEARRAY_0_4() {
+	testdword((int32_t*)(x_D41A0_BYTEARRAY_0 + 4), &D41A0_BYTESTR_0.dword_0x4);
+	return *(int32_t*)(x_D41A0_BYTEARRAY_0 + 4);
 };
-void set_x_D41A0_BYTEARRAY_0_4(Bit32s value) {
-	*(Bit32s*)(x_D41A0_BYTEARRAY_0 + 4) = value;
+void set_x_D41A0_BYTEARRAY_0_4(int32_t value) {
+	*(int32_t*)(x_D41A0_BYTEARRAY_0 + 4) = value;
 	D41A0_BYTESTR_0.dword_0x4 = value;
 };
 
-Bit32s get_x_D41A0_BYTEARRAY_0_8() {
-	testdword((Bit32s*)(x_D41A0_BYTEARRAY_0 + 8), &D41A0_BYTESTR_0.dword_0x8);
-	return *(Bit32s*)(x_D41A0_BYTEARRAY_0 + 8);
+int32_t get_x_D41A0_BYTEARRAY_0_8() {
+	testdword((int32_t*)(x_D41A0_BYTEARRAY_0 + 8), &D41A0_BYTESTR_0.dword_0x8);
+	return *(int32_t*)(x_D41A0_BYTEARRAY_0 + 8);
 };
-void set_x_D41A0_BYTEARRAY_0_8(Bit32s value) {
+void set_x_D41A0_BYTEARRAY_0_8(int32_t value) {
 	D41A0_BYTESTR_0.dword_0x8 = value;
-	*(Bit32s*)(x_D41A0_BYTEARRAY_0 + 8) = value;
+	*(int32_t*)(x_D41A0_BYTEARRAY_0 + 8) = value;
 };
 
 int16_t get_x_D41A0_BYTEARRAY_0_0xe() {
@@ -1855,63 +1855,63 @@ void set_x_D41A0_BYTEARRAY_0_0x22(uint8_t value) {
 	D41A0_BYTESTR_0.byte_0x22 = value;
 };
 
-Bit32s get_x_D41A0_BYTEARRAY_0_0x35() {
-	testdword((Bit32s*)&x_D41A0_BYTEARRAY_0[0x35], &D41A0_BYTESTR_0.dword_0x35);
+int32_t get_x_D41A0_BYTEARRAY_0_0x35() {
+	testdword((int32_t*)&x_D41A0_BYTEARRAY_0[0x35], &D41A0_BYTESTR_0.dword_0x35);
 	return D41A0_BYTESTR_0.dword_0x35;
 };
-void set_x_D41A0_BYTEARRAY_0_0x35(Bit32s value) {
-	*(Bit32s*)&x_D41A0_BYTEARRAY_0[0x35] = value;
+void set_x_D41A0_BYTEARRAY_0_0x35(int32_t value) {
+	*(int32_t*)&x_D41A0_BYTEARRAY_0[0x35] = value;
 	D41A0_BYTESTR_0.dword_0x35 = value;
 };
 
 void plus_x_D41A0_BYTEARRAY_0_0x35() {
-	(*(Bit32s*)&x_D41A0_BYTEARRAY_0[0x35])++;
-	D41A0_BYTESTR_0.dword_0x35 = *(Bit32s*)&x_D41A0_BYTEARRAY_0[0x35];
+	(*(int32_t*)&x_D41A0_BYTEARRAY_0[0x35])++;
+	D41A0_BYTESTR_0.dword_0x35 = *(int32_t*)&x_D41A0_BYTEARRAY_0[0x35];
 };
 
 void minus_x_D41A0_BYTEARRAY_0_0x35() {
-	(*(Bit32s*)&x_D41A0_BYTEARRAY_0[0x35])--;
-	D41A0_BYTESTR_0.dword_0x35 = *(Bit32s*)&x_D41A0_BYTEARRAY_0[0x35];
+	(*(int32_t*)&x_D41A0_BYTEARRAY_0[0x35])--;
+	D41A0_BYTESTR_0.dword_0x35 = *(int32_t*)&x_D41A0_BYTEARRAY_0[0x35];
 };
 
-Bit32s get_x_D41A0_BYTEARRAY_0_235() {
-	testdword((Bit32s*)&x_D41A0_BYTEARRAY_0[0x235], &D41A0_BYTESTR_0.dword_0x235);
+int32_t get_x_D41A0_BYTEARRAY_0_235() {
+	testdword((int32_t*)&x_D41A0_BYTEARRAY_0[0x235], &D41A0_BYTESTR_0.dword_0x235);
 	return D41A0_BYTESTR_0.dword_0x235;
 };
-void set_x_D41A0_BYTEARRAY_0_235(Bit32s value) {
-	*(Bit32s*)&x_D41A0_BYTEARRAY_0[0x235] = value;
+void set_x_D41A0_BYTEARRAY_0_235(int32_t value) {
+	*(int32_t*)&x_D41A0_BYTEARRAY_0[0x235] = value;
 	D41A0_BYTESTR_0.dword_0x235 = value;
 };
 
-Bit32s get_x_D41A0_BYTEARRAY_0_23a() {
-	testdword((Bit32s*)&x_D41A0_BYTEARRAY_0[0x23a], &D41A0_BYTESTR_0.dword_0x23a);
+int32_t get_x_D41A0_BYTEARRAY_0_23a() {
+	testdword((int32_t*)&x_D41A0_BYTEARRAY_0[0x23a], &D41A0_BYTESTR_0.dword_0x23a);
 	return D41A0_BYTESTR_0.dword_0x23a;
 };
-void set_x_D41A0_BYTEARRAY_0_23a(Bit32s value) {
-	*(Bit32s*)&x_D41A0_BYTEARRAY_0[0x23a] = value;
+void set_x_D41A0_BYTEARRAY_0_23a(int32_t value) {
+	*(int32_t*)&x_D41A0_BYTEARRAY_0[0x23a] = value;
 	D41A0_BYTESTR_0.dword_0x23a = value;
 };
 
-Bit32s get_x_D41A0_BYTEARRAY_0_23e() {
-	testdword((Bit32s*)&x_D41A0_BYTEARRAY_0[0x23e], &D41A0_BYTESTR_0.dword_0x23e);
+int32_t get_x_D41A0_BYTEARRAY_0_23e() {
+	testdword((int32_t*)&x_D41A0_BYTEARRAY_0[0x23e], &D41A0_BYTESTR_0.dword_0x23e);
 	return D41A0_BYTESTR_0.dword_0x23e;
 };
-void set_x_D41A0_BYTEARRAY_0_23e(Bit32s value) {
-	*(Bit32s*)&x_D41A0_BYTEARRAY_0[0x23e] = value;
+void set_x_D41A0_BYTEARRAY_0_23e(int32_t value) {
+	*(int32_t*)&x_D41A0_BYTEARRAY_0[0x23e] = value;
 	D41A0_BYTESTR_0.dword_0x23e = value;
 };
 
-Bit32s get_x_D41A0_BYTEARRAY_0_242() {
-	testdword((Bit32s*)&x_D41A0_BYTEARRAY_0[0x242], &D41A0_BYTESTR_0.dword_0x242);
+int32_t get_x_D41A0_BYTEARRAY_0_242() {
+	testdword((int32_t*)&x_D41A0_BYTEARRAY_0[0x242], &D41A0_BYTESTR_0.dword_0x242);
 	return D41A0_BYTESTR_0.dword_0x242;
 };
-void set_x_D41A0_BYTEARRAY_0_242(Bit32s value) {
-	*(Bit32s*)&x_D41A0_BYTEARRAY_0[0x242] = value;
+void set_x_D41A0_BYTEARRAY_0_242(int32_t value) {
+	*(int32_t*)&x_D41A0_BYTEARRAY_0[0x242] = value;
 	D41A0_BYTESTR_0.dword_0x242 = value;
 };
 
 type_str_0x6E8E* get_x_D41A0_BYTEARRAY_0_0x246(int number) {
-	testdword((Bit32s*)&x_D41A0_BYTEARRAY_0[4*number + 0x246], (Bit32s*)&D41A0_BYTESTR_0.pointers_0x246[number]);
+	testdword((int32_t*)&x_D41A0_BYTEARRAY_0[4*number + 0x246], (int32_t*)&D41A0_BYTESTR_0.pointers_0x246[number]);
 	return D41A0_BYTESTR_0.pointers_0x246[number];
 };
 void set_x_D41A0_BYTEARRAY_0_0x246(int number, type_str_0x6E8E* value) {
@@ -1919,12 +1919,12 @@ void set_x_D41A0_BYTEARRAY_0_0x246(int number, type_str_0x6E8E* value) {
 	D41A0_BYTESTR_0.pointers_0x246[number] = value;
 };
 
-Bit32s get_x_D41A0_BYTEARRAY_0_0x11e6() {
-	testdword((Bit32s*)&x_D41A0_BYTEARRAY_0[0x11e6], (Bit32s*)&D41A0_BYTESTR_0.dword_0x11e6);
+int32_t get_x_D41A0_BYTEARRAY_0_0x11e6() {
+	testdword((int32_t*)&x_D41A0_BYTEARRAY_0[0x11e6], (int32_t*)&D41A0_BYTESTR_0.dword_0x11e6);
 	return D41A0_BYTESTR_0.dword_0x11e6;
 };
-void set_x_D41A0_BYTEARRAY_0_0x11e6(Bit32s value) {
-	*(Bit32s*)&x_D41A0_BYTEARRAY_0[0x11e6] = value;
+void set_x_D41A0_BYTEARRAY_0_0x11e6(int32_t value) {
+	*(int32_t*)&x_D41A0_BYTEARRAY_0[0x11e6] = value;
 	D41A0_BYTESTR_0.dword_0x11e6= value;
 };
 
@@ -2140,12 +2140,12 @@ void set_x_D41A0_BYTEARRAY_0_0x21b8(uint8_t value) {
 
 axis_3d get_x_D41A0_BYTEARRAY_0_0x2362(int number) {
 	testcbyte(6, (uint8_t*)&x_D41A0_BYTEARRAY_0[6 * number + 0x2362], (uint8_t*)&D41A0_BYTESTR_0.array_0x2362[number]);
-	//testdword((Bit32s*)&x_D41A0_BYTEARRAY_0[6*number+0x2362], &D41A0_BYTESTR_0.array_0x2362[number]);
+	//testdword((int32_t*)&x_D41A0_BYTEARRAY_0[6*number+0x2362], &D41A0_BYTESTR_0.array_0x2362[number]);
 	return D41A0_BYTESTR_0.array_0x2362[number];
 };
 void set_x_D41A0_BYTEARRAY_0_0x2362(int number, axis_3d value) {
 	memcpy(&x_D41A0_BYTEARRAY_0[6 * number + 0x2362],&value,6);
-	//*(Bit32s*)&x_D41A0_BYTEARRAY_0[6 * number + 0x2362] = value;
+	//*(int32_t*)&x_D41A0_BYTEARRAY_0[6 * number + 0x2362] = value;
 	D41A0_BYTESTR_0.array_0x2362[number] = value;
 };
 */
@@ -2249,8 +2249,8 @@ void set_x_D41A0_BYTEARRAY_0_0x2BDE_0x10(int number, int16_t value) {
 	D41A0_BYTESTR_0.array_0x2BDE[number].word_0x010_2BDE_11246 = value;
 };
 
-void set_x_D41A0_BYTEARRAY_0_0x2BDE_0x18(int number, Bit32s value) {
-	*(Bit32s*)&x_D41A0_BYTEARRAY_0[0x2BDE + 2124 * number + 0x18]=value;
+void set_x_D41A0_BYTEARRAY_0_0x2BDE_0x18(int number, int32_t value) {
+	*(int32_t*)&x_D41A0_BYTEARRAY_0[0x2BDE + 2124 * number + 0x18]=value;
 	D41A0_BYTESTR_0.array_0x2BDE[number].dword_0x018_2BDE_11254 = value;
 };
 
@@ -2259,30 +2259,30 @@ void set_x_D41A0_BYTEARRAY_0_0x2BDE_0x3e1(int number, int8_t value) {
 	D41A0_BYTESTR_0.array_0x2BDE[number].byte_0x3E1_2BE4_12223 = value;
 };
 
-Bit32s get_x_D41A0_BYTEARRAY_0_0x2BDE_0x1d1_2BDE_11707(int index, int subindex) {
-	testdword((Bit32s*)&x_D41A0_BYTEARRAY_0[0x84c * index +0x1d1+ 0x2BDE + 0xe * subindex + 0], &D41A0_BYTESTR_0.array_0x2BDE[index].struct_0x1d1_2BDE_11695[subindex].dword_0x1d1_2BDE_11695);
+int32_t get_x_D41A0_BYTEARRAY_0_0x2BDE_0x1d1_2BDE_11707(int index, int subindex) {
+	testdword((int32_t*)&x_D41A0_BYTEARRAY_0[0x84c * index +0x1d1+ 0x2BDE + 0xe * subindex + 0], &D41A0_BYTESTR_0.array_0x2BDE[index].struct_0x1d1_2BDE_11695[subindex].dword_0x1d1_2BDE_11695);
 	return D41A0_BYTESTR_0.array_0x2BDE[index].struct_0x1d1_2BDE_11695[subindex].dword_0x1d1_2BDE_11695;
 };//465
-void set_x_D41A0_BYTEARRAY_0_0x2BDE_0x1d1_2BDE_11707(int index, int subindex, Bit32s value) {
-	*(Bit32s*)&x_D41A0_BYTEARRAY_0[0x2BDE + 2124 * index + 0x1d1 + 0xe * subindex + 0] = value;
+void set_x_D41A0_BYTEARRAY_0_0x2BDE_0x1d1_2BDE_11707(int index, int subindex, int32_t value) {
+	*(int32_t*)&x_D41A0_BYTEARRAY_0[0x2BDE + 2124 * index + 0x1d1 + 0xe * subindex + 0] = value;
 	D41A0_BYTESTR_0.array_0x2BDE[index].struct_0x1d1_2BDE_11695[subindex].dword_0x1d1_2BDE_11695 = value;
 };//465
 
-Bit32s get_x_D41A0_BYTEARRAY_0_0x2BDE_0x1d5_2BDE_11707(int index, int subindex) {
-	testdword((Bit32s*)&x_D41A0_BYTEARRAY_0[0x84c * index + 0x1d1 + 0x2BDE + 0xe * subindex + 4], &D41A0_BYTESTR_0.array_0x2BDE[index].struct_0x1d1_2BDE_11695[subindex].dword_0x1d5_2BDE_11699);
+int32_t get_x_D41A0_BYTEARRAY_0_0x2BDE_0x1d5_2BDE_11707(int index, int subindex) {
+	testdword((int32_t*)&x_D41A0_BYTEARRAY_0[0x84c * index + 0x1d1 + 0x2BDE + 0xe * subindex + 4], &D41A0_BYTESTR_0.array_0x2BDE[index].struct_0x1d1_2BDE_11695[subindex].dword_0x1d5_2BDE_11699);
 	return D41A0_BYTESTR_0.array_0x2BDE[index].struct_0x1d1_2BDE_11695[subindex].dword_0x1d5_2BDE_11699;
 };//469
-void set_x_D41A0_BYTEARRAY_0_0x2BDE_0x1d5_2BDE_11707(int index, int subindex, Bit32s value) {
-	*(Bit32s*)&x_D41A0_BYTEARRAY_0[0x2BDE + 2124 * index + 0x1d1 + 0xe * subindex + 4] = value;
+void set_x_D41A0_BYTEARRAY_0_0x2BDE_0x1d5_2BDE_11707(int index, int subindex, int32_t value) {
+	*(int32_t*)&x_D41A0_BYTEARRAY_0[0x2BDE + 2124 * index + 0x1d1 + 0xe * subindex + 4] = value;
 	D41A0_BYTESTR_0.array_0x2BDE[index].struct_0x1d1_2BDE_11695[subindex].dword_0x1d5_2BDE_11699 = value;
 };//469
 
-Bit32s get_x_D41A0_BYTEARRAY_0_0x2BDE_0x1d9_2BDE_11707(int index, int subindex) {
-	testdword((Bit32s*)&x_D41A0_BYTEARRAY_0[0x84c * index + 0x1d1 + 0x2BDE + 0xe * subindex + 8], &D41A0_BYTESTR_0.array_0x2BDE[index].struct_0x1d1_2BDE_11695[subindex].dword_0x1d9_2BDE_11703);
+int32_t get_x_D41A0_BYTEARRAY_0_0x2BDE_0x1d9_2BDE_11707(int index, int subindex) {
+	testdword((int32_t*)&x_D41A0_BYTEARRAY_0[0x84c * index + 0x1d1 + 0x2BDE + 0xe * subindex + 8], &D41A0_BYTESTR_0.array_0x2BDE[index].struct_0x1d1_2BDE_11695[subindex].dword_0x1d9_2BDE_11703);
 	return D41A0_BYTESTR_0.array_0x2BDE[index].struct_0x1d1_2BDE_11695[subindex].dword_0x1d9_2BDE_11703;
 };//473
-void set_x_D41A0_BYTEARRAY_0_0x2BDE_0x1d9_2BDE_11707(int index, int subindex, Bit32s value) {
-	*(Bit32s*)&x_D41A0_BYTEARRAY_0[0x2BDE + 2124 * index + 0x1d1 + 0xe * subindex + 8] = value;
+void set_x_D41A0_BYTEARRAY_0_0x2BDE_0x1d9_2BDE_11707(int index, int subindex, int32_t value) {
+	*(int32_t*)&x_D41A0_BYTEARRAY_0[0x2BDE + 2124 * index + 0x1d1 + 0xe * subindex + 8] = value;
 	D41A0_BYTESTR_0.array_0x2BDE[index].struct_0x1d1_2BDE_11695[subindex].dword_0x1d9_2BDE_11703 = value;
 };//473
 int16_t get_x_D41A0_BYTEARRAY_0_0x2BDE_0x1dd_2BDE_11707(int index, int subindex) {
@@ -2307,8 +2307,8 @@ uint8_t* get_x_D41A0_BYTEARRAY_0_0x2BDE_0x649(int number) {
 	return (uint8_t*)&D41A0_BYTESTR_0.array_0x2BDE[number].struct_0x649_2BDE_12839;
 };
 
-void set_x_D41A0_BYTEARRAY_0_0x2BDE_0x649(int index, int subindex, Bit32s value) {
-	*(Bit32s*)&x_D41A0_BYTEARRAY_0[0x84c * index + 0x2BDE+0x649 + 4 * subindex] = value;
+void set_x_D41A0_BYTEARRAY_0_0x2BDE_0x649(int index, int subindex, int32_t value) {
+	*(int32_t*)&x_D41A0_BYTEARRAY_0[0x84c * index + 0x2BDE+0x649 + 4 * subindex] = value;
 	D41A0_BYTESTR_0.array_0x2BDE[index].struct_0x649_2BDE_12839.dword_0x649_2BDE[subindex] = value;
 };
 
@@ -2400,7 +2400,7 @@ type_str_0x6E8E* get_x_D41A0_BYTEARRAY_0_0x6E8E_adr() {
 */
 /*
 uint8_t* get_x_D41A0_BYTEARRAY_0_0x6F32() {
-	testdword((Bit32s*)&x_D41A0_BYTEARRAY_0[0x6F32], (Bit32s*)&D41A0_BYTESTR_0.pointer_0x6F32);
+	testdword((int32_t*)&x_D41A0_BYTEARRAY_0[0x6F32], (int32_t*)&D41A0_BYTESTR_0.pointer_0x6F32);
 	return D41A0_BYTESTR_0.pointer_0x6F32;
 };
 void set_x_D41A0_BYTEARRAY_0_0x6F32(uint8_t* value) {
@@ -2445,7 +2445,7 @@ void test_x_D41A0_BYTEARRAY_0() {
 };
 */
 
-int my_sign32(Bit32s var)
+int my_sign32(int32_t var)
 {
 	if (var < 0)return -1;
 	return 0;

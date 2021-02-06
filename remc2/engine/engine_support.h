@@ -16,10 +16,8 @@
 #else
 #endif
 
-#include"../portability/port_time.h"
-
+#include "../portability/port_time.h"
 #include "../portability/port_sdl_vga_mouse.h"
-#include "../portability/mctypes.h"
 //#define USE_DOSBOX
 
 /*
@@ -58,12 +56,12 @@ extern uint8_t* readbuffer;
 extern char* printbuffer;//char* buffer; // [esp+0h] [ebp-2h]
 extern char* printbuffer2;//char v11; // [esp+40h] [ebp+3Eh]
 //extern uint8_t *x_DWORD_E9C38_smalltit; // weak
-/*extern Bit32s x_DWORD_D41A4_x6x;
-extern Bit32s x_DWORD_D41A4_x8x;
-extern Bit32s x_DWORD_D41A4_xAx;
-extern Bit32s x_DWORD_D41A4_xBx;
-extern Bit32s x_DWORD_D41A4_xCx;
-extern Bit32s x_DWORD_D41A4_xDx;
+/*extern int32_t x_DWORD_D41A4_x6x;
+extern int32_t x_DWORD_D41A4_x8x;
+extern int32_t x_DWORD_D41A4_xAx;
+extern int32_t x_DWORD_D41A4_xBx;
+extern int32_t x_DWORD_D41A4_xCx;
+extern int32_t x_DWORD_D41A4_xDx;
 extern char x_DWORD_D41A4_xB6;//2A1644 b6=182
 extern char x_DWORD_D41A4_x16x;//2A15A4 16=22
 extern uint8_t x_DWORD_D41A4_x17x;
@@ -72,55 +70,55 @@ extern char x_DWORD_D41A4_x19x;//2A51BD 19=25
 extern uint8_t x_DWORD_D41A4_x1Ex;
 extern uint8_t x_DWORD_D41A4_x2Bx;
 extern uint8_t x_DWORD_D41A4_x2Dx;
-extern Bit32s x_DWORD_D41A4_x33x;
-extern Bit32s x_DWORD_D41A4_x59x;
-extern Bit32s x_DWORD_D41A4_x79x;
-extern Bit32s x_DWORD_D41A4_x7Ax;
-extern Bit32s x_DWORD_D41A4_x7Bx;
-extern Bit32s x_DWORD_D41A4_x7Cx;
-extern Bit32s x_DWORD_D41A4_x7Dx;
-extern Bit32s x_DWORD_D41A4_x7Fx;
-extern Bit32s x_DWORD_D41A4_xB2;
-extern Bit32s x_DWORD_D41A4_xB4;
-extern Bit32s x_DWORD_D41A4_xB7;
-extern Bit32s x_DWORD_D41A4_xBA;
-extern Bit32s x_DWORD_D41A4_xC0;
-extern Bit32s x_DWORD_D41A4_xCE;
-extern Bit32s x_DWORD_D41A4_xCD;
-extern Bit32s x_DWORD_D41A4_xCF;
-extern Bit32s x_DWORD_D41A4_xD0;
-extern Bit32s x_DWORD_D41A4_xD8;
-extern Bit32s x_DWORD_D41A4_xDC;
-extern Bit32s x_DWORD_D41A4_xE0;
-extern Bit32s x_DWORD_D41A4_xE1;
-extern Bit32s x_DWORD_D41A4_xE2;
-extern Bit32s x_DWORD_D41A4_xE6;
-extern Bit32s x_DWORD_D41A4_xF2;
-extern Bit32s x_DWORD_D41A4_xF6;
-extern Bit32s x_DWORD_D41A4_x100;
-extern Bit32s x_DWORD_D41A4_x235;
-extern Bit32s x_DWORD_D41A4_x749;
-extern Bit32s x_DWORD_D41A4_x8CF;
-extern Bit32s x_DWORD_D41A4_x94C;
-extern Bit32s x_DWORD_D41A4_x954;
-extern Bit32s x_DWORD_D41A4_x21AA;
-extern Bit32s x_DWORD_D41A4_x00;
-extern Bit32s x_DWORD_D41A4_x9602;
-extern Bit32s x_DWORD_D41A4_x9603;
-extern Bit32s x_DWORD_D41A4_x966F;
-extern Bit32s x_DWORD_D41A4_x9677;
-extern Bit32s x_DWORD_D41A4_x967B;
-extern Bit32s x_DWORD_D41A4_x967F;
-extern Bit32s x_DWORD_D41A4_x9691;
-extern Bit32s x_DWORD_D41A4_x9692;
-extern Bit32s x_DWORD_D41A4_x4;
-extern Bit32s x_DWORD_D41A4_x965B;
-extern Bit32s x_DWORD_D41A4_x9683;
-extern Bit32s x_DWORD_D41A4_x96BF;*/
+extern int32_t x_DWORD_D41A4_x33x;
+extern int32_t x_DWORD_D41A4_x59x;
+extern int32_t x_DWORD_D41A4_x79x;
+extern int32_t x_DWORD_D41A4_x7Ax;
+extern int32_t x_DWORD_D41A4_x7Bx;
+extern int32_t x_DWORD_D41A4_x7Cx;
+extern int32_t x_DWORD_D41A4_x7Dx;
+extern int32_t x_DWORD_D41A4_x7Fx;
+extern int32_t x_DWORD_D41A4_xB2;
+extern int32_t x_DWORD_D41A4_xB4;
+extern int32_t x_DWORD_D41A4_xB7;
+extern int32_t x_DWORD_D41A4_xBA;
+extern int32_t x_DWORD_D41A4_xC0;
+extern int32_t x_DWORD_D41A4_xCE;
+extern int32_t x_DWORD_D41A4_xCD;
+extern int32_t x_DWORD_D41A4_xCF;
+extern int32_t x_DWORD_D41A4_xD0;
+extern int32_t x_DWORD_D41A4_xD8;
+extern int32_t x_DWORD_D41A4_xDC;
+extern int32_t x_DWORD_D41A4_xE0;
+extern int32_t x_DWORD_D41A4_xE1;
+extern int32_t x_DWORD_D41A4_xE2;
+extern int32_t x_DWORD_D41A4_xE6;
+extern int32_t x_DWORD_D41A4_xF2;
+extern int32_t x_DWORD_D41A4_xF6;
+extern int32_t x_DWORD_D41A4_x100;
+extern int32_t x_DWORD_D41A4_x235;
+extern int32_t x_DWORD_D41A4_x749;
+extern int32_t x_DWORD_D41A4_x8CF;
+extern int32_t x_DWORD_D41A4_x94C;
+extern int32_t x_DWORD_D41A4_x954;
+extern int32_t x_DWORD_D41A4_x21AA;
+extern int32_t x_DWORD_D41A4_x00;
+extern int32_t x_DWORD_D41A4_x9602;
+extern int32_t x_DWORD_D41A4_x9603;
+extern int32_t x_DWORD_D41A4_x966F;
+extern int32_t x_DWORD_D41A4_x9677;
+extern int32_t x_DWORD_D41A4_x967B;
+extern int32_t x_DWORD_D41A4_x967F;
+extern int32_t x_DWORD_D41A4_x9691;
+extern int32_t x_DWORD_D41A4_x9692;
+extern int32_t x_DWORD_D41A4_x4;
+extern int32_t x_DWORD_D41A4_x965B;
+extern int32_t x_DWORD_D41A4_x9683;
+extern int32_t x_DWORD_D41A4_x96BF;*/
 
-//extern Bit32s x2124_x_DWORD_D41A4_xCx_x_DWORD_D41A0_11234;
+//extern int32_t x2124_x_DWORD_D41A4_xCx_x_DWORD_D41A0_11234;
 
-//extern Bit32s x_DWORD_D41A4;
+//extern int32_t x_DWORD_D41A4;
 //extern uint8_t* x_DWORD_D41A0;
 
 //extern int8_t x_D41A0_BYTEARRAY[];
@@ -152,8 +150,8 @@ typedef struct {
 }axis_2d;
 
 typedef struct {
-	Bit32s x;
-	Bit32s y;
+	int32_t x;
+	int32_t y;
 }axis_2d_32;
 
 typedef struct {
@@ -217,7 +215,7 @@ typedef struct {
 type_16_1a;
 
 typedef struct {
-	Bit32s dword[0x1a];
+	int32_t dword[0x1a];
 	//uint16_t word_2279;
 }
 type_32_1a;
@@ -225,7 +223,7 @@ type_32_1a;
 typedef union {
 	uint8_t byte[4];
 	uint16_t word[2];
-	Bit32u dword;
+	uint32_t dword;
 }
 dw_w_b;
 typedef struct {//begin 611//str_611
@@ -284,7 +282,7 @@ typedef struct {//lenght 18
 }type_str_0x1AC_428;
 
 typedef struct {//size 1136
-	Bit32s dword_0x0_0;
+	int32_t dword_0x0_0;
 	int16_t word_0x4_4;
 	int16_t word_0x6_6;
 	uint8_t stuba[4];
@@ -312,12 +310,12 @@ typedef struct {//size 1136
 	/*int8_t byte_0xD3_211;
 	int8_t byte_0xD4_212;
 	int8_t byte_0xD5_213;*/
-	Bit32s dword_0x12A_298;
-	Bit32s dword_0x12E_302;
+	int32_t dword_0x12A_298;
+	int32_t dword_0x12E_302;
 	uint8_t stube[10];
-	Bit32s dword_0x13C_316;
+	int32_t dword_0x13C_316;
 	uint8_t stubf[2];
-	Bit32s dword_0x142_322;
+	int32_t dword_0x142_322;
 	int16_t word_0x146_326;
 	int16_t word_0x148_328;
 	int16_t word_0x14A_330;
@@ -325,31 +323,31 @@ typedef struct {//size 1136
 	int8_t byte_0x14D_333;
 	int8_t byte_0x14E_334;
 	int8_t byte_0x14F_335;
-	Bit32s byte_0x150_336;
+	int32_t byte_0x150_336;
 	uint8_t byte_0x154_340;
 	int16_t word_0x155_341;
 	int16_t word_0x157_343;
 	int16_t word_0x159_345;
 	int8_t array_0x15B_347[8];
 	int16_t word_0x163_355;
-	Bit32s dword_0x165_357;
-	Bit32s dword_0x169_361;
-	Bit32s dword_0x16D_365;
+	int32_t dword_0x165_357;
+	int32_t dword_0x169_361;
+	int32_t dword_0x16D_365;
 	uint8_t stubg[4];
-	Bit32s dword_0x175_373;
-	Bit32s dword_0x179_377;
-	Bit32s dword_0x17D_381;
-	Bit32s dword_0x181_385;
-	Bit32s dword_0x185_389;
-	Bit32s dword_0x189_393;//clock
-	Bit32s dword_0x18D_397;
+	int32_t dword_0x175_373;
+	int32_t dword_0x179_377;
+	int32_t dword_0x17D_381;
+	int32_t dword_0x181_385;
+	int32_t dword_0x185_389;
+	int32_t dword_0x189_393;//clock
+	int32_t dword_0x18D_397;
 	uint8_t stubi[4];
 	int8_t byte_0x195_405;
 	int8_t byte_0x196_406;
 	int8_t byte_0x197_407;
 	uint8_t stubj[2];
-	Bit32s dword_0x19A_410;
-	Bit32s dword_0x19E_414;
+	int32_t dword_0x19A_410;
+	int32_t dword_0x19E_414;
 	int16_t word_0x1A2_418;
 	int16_t word_0x1A4_420;
 	int16_t word_0x1A6_422;//211 x add
@@ -400,7 +398,7 @@ typedef struct {//lenght 34
 	int16_t word_160_0xe_14;
 	int16_t word_160_0x10_16;//->dword_0xA0_160x->word_160_0x10_16
 	int16_t word_160_0x12_18;
-	Bit32s dword_160_0x14_20;
+	int32_t dword_160_0x14_20;
 	uint8_t stuba[2];
 	int16_t word_160_0x1a_26;
 	int16_t word_160_0x1c_28;
@@ -414,12 +412,12 @@ type_str_160;
 
 typedef struct
 {
-	Bit32s dword_0x5E_94;//94 //36 lenght
+	int32_t dword_0x5E_94;//94 //36 lenght
 	int16_t word_0x62_98;//98 //4 // index subentity
-	Bit32s dword_0x64_100;//100 //6
+	int32_t dword_0x64_100;//100 //6
 	int16_t word_0x68_104;//104 //10
 	uint8_t stub5b[6];
-	Bit32s dword_0x70_112;//112
+	int32_t dword_0x70_112;//112
 	int16_t word_0x74_116;//116
 	int16_t word_0x76_118;//118
 	int16_t word_0x78_120;//120
@@ -431,15 +429,15 @@ typedef struct
 
 typedef struct _str_0x6E8E {//lenght a8//THING
 	struct _str_0x6E8E* next_0;
-	Bit32s dword_0x4;//4 //?bitmap//LIVE
-	Bit32s dword_0x8;//8 // this is Bit32s ?bitmap//MAX LIVE
+	int32_t dword_0x4;//4 //?bitmap//LIVE
+	int32_t dword_0x8;//8 // this is int32_t ?bitmap//MAX LIVE
 	dw_w_b struct_byte_0xc_12_15;//12
 						//12//struct_byte_0xc_12_15.dbyte1_2.byte1
 	//0xfe - all spell
 	//int8_t byte_0xd_13;//13//struct_byte_0xc_12_15.dbyte1_2.byte2
 	//int8_t byte_0xe_14;//14//struct_byte_0xc_12_15.dbyte3_4.byte1
 	//int8_t byte_0xf_15;//15//struct_byte_0xc_12_15.dbyte3_4.byte2
-	Bit32s dword_0x10_16;//16 // index of array
+	int32_t dword_0x10_16;//16 // index of array
 	uint16_t word_0x14_20;//20 //random seed adress
 	uint16_t word_0x16_22;//22
 	uint16_t word_0x18_24_next_entity;//24 //next entity index
@@ -490,9 +488,9 @@ typedef struct _str_0x6E8E {//lenght a8//THING
 	int16_t word_0x82_130;//130 //add to z//ACTUAL SPEED
 	int16_t word_0x84_132;//132//MIN SPEED
 	int16_t word_0x86_134;//134//MAX SPEED
-	Bit32s dword_0x88_136;//136
-	Bit32s dword_0x8C_140;//140 //wiz name?//ACTUAL MANA
-	Bit32s dword_0x90_144;//144 0-1000//MAX MANA
+	int32_t dword_0x88_136;//136
+	int32_t dword_0x8C_140;//140 //wiz name?//ACTUAL MANA
+	int32_t dword_0x90_144;//144 0-1000//MAX MANA
 	uint16_t word_0x94_148;//148
 	int16_t word_0x96_150;//150 // index subentity
 	uint16_t word_0x98_152;//152
@@ -515,7 +513,7 @@ type_str_0x6E8E;
 */
 
 typedef struct {
-	Bit32s dword[0x1a];
+	int32_t dword[0x1a];
 }
 type_dword_0x649_2BDE;
 
@@ -559,7 +557,7 @@ typedef struct {//begin 0x649 //lenght 0x1F9
 /*typedef struct {//lenght 2124?
 	type_str_0x6E3E str_0x256_0;
 	uint8_t stub[14];
-	Bit32u str0x256_24;//??lenght
+	uint32_t str0x256_24;//??lenght
 	uint8_t stubc[1581];
 	//uint8_t str0x256_24[1585];//??lenght
 	type_str_611 str0x256_1609;//??lenght
@@ -580,15 +578,15 @@ type_str_0x256;*/
 
 typedef struct { // 479 // size 14 tj 0xe
 	axis_3d axis_2BDE_11695;//11709 0 2 4
-	//Bit32s dword_0x1d1_2BDE_11695; //465 //0
-	//Bit32s dword_0x1d5_2BDE_11699; //469 //4
-	//Bit32s dword_0x1d9_2BDE_11703; //473 //8
+	//int32_t dword_0x1d1_2BDE_11695; //465 //0
+	//int32_t dword_0x1d5_2BDE_11699; //469 //4
+	//int32_t dword_0x1d9_2BDE_11703; //473 //8
 	axis_4d rotation__2BDE_11701;//_2BDE_11715 6 8 10 12 //aa
 	//int16_t word_0x1dd_2BDE_11707; //477 //12 //dd
 	/*
-	Bit32s dword_0x1df_2BDE_11709; //479
-	Bit32s dword_0x1e3_2BDE_11713; //483
-	Bit32s dword_0x1e7_2BDE_11717; //487
+	int32_t dword_0x1df_2BDE_11709; //479
+	int32_t dword_0x1e3_2BDE_11713; //483
+	int32_t dword_0x1e7_2BDE_11717; //487
 	int16_t word_0x1eb_2BDE_11721; //491*/
 } type_struct_0x1d1_2BDE_11695;
 
@@ -608,14 +606,14 @@ typedef struct {//lenght 2124=0x84C
 	uint8_t byte_0x00d_2BE0_11243_xx;
 	int16_t word_0x00e_2BDE_11244; //14
 	int16_t word_0x010_2BDE_11246; //16
-	Bit32s dword_0x012_2BE0_11248;//18 ??
+	int32_t dword_0x012_2BE0_11248;//18 ??
 	//uint8_t byte_0x013_2BE0_11249_xx;
 	//uint8_t byte_0x014_2BE0_11250_xx;
 	//uint8_t byte_0x015_2BE0_11251_xx;
 
 	uint8_t byte_0x016_2BE0_11252_xx;//22
 	uint8_t byte_0x017_2BE0_11253_xx;//23
-	Bit32s dword_0x018_2BDE_11254; //24 //pointer
+	int32_t dword_0x018_2BDE_11254; //24 //pointer
 	char array_0x01c_2BFA_11258[49];//28//11258 - byte* jmeno2?
 	int16_t word_0x04d_2C2B_11307;//77 //11307 - word
 	uint16_t word_0x04f_2C2D_11309;//79 //11309 - word
@@ -623,20 +621,20 @@ typedef struct {//lenght 2124=0x84C
 	//uint8_t stub2[384];
 
 	type_struct_0x1d1_2BDE_11695 struct_0x1d1_2BDE_11695[0x21];//465
-	/*Bit32s dword_0x1d1_2BDE_11695; //465
-	Bit32s dword_0x1d5_2BDE_11699; //465
-	Bit32s dword_0x1d9_2BDE_11703; //465
+	/*int32_t dword_0x1d1_2BDE_11695; //465
+	int32_t dword_0x1d5_2BDE_11699; //465
+	int32_t dword_0x1d9_2BDE_11703; //465
 	int16_t word_0x1dd_2BDE_11707; //465*/
 	/*array 0x1d1 // 479 // size 14 tj 0xe
 	{
-		Bit32s dword_0x1d1_2BDE_11695; //465
-		Bit32s dword_0x1d5_2BDE_11699; //465
-		Bit32s dword_0x1d9_2BDE_11703; //465
+		int32_t dword_0x1d1_2BDE_11695; //465
+		int32_t dword_0x1d5_2BDE_11699; //465
+		int32_t dword_0x1d9_2BDE_11703; //465
 		int16_t word_0x1dd_2BDE_11707; //465
 
-		//Bit32s dword_0x1df_2BDE_11709; //479
-		//Bit32s dword_0x1e3_2BDE_11713; //483
-		//Bit32s dword_0x1e7_2BDE_11717; //487
+		//int32_t dword_0x1df_2BDE_11709; //479
+		//int32_t dword_0x1e3_2BDE_11713; //483
+		//int32_t dword_0x1e7_2BDE_11717; //487
 		//int16_t word_0x1eb_2BDE_11721; //491
 	}*/
 	//uint8_t stub2b[308];
@@ -661,13 +659,13 @@ typedef struct {//lenght 2124=0x84C
 	//uint8_t stub4[282];
 	//uint16_t word_0x53B_2BDE;// 1339 //dword_0x3E6_2BE4_12228.word_0x155_341
 	//uint8_t stub4b[30];
-	//Bit32u dword_0x55B_2BDE;//1371 dword//12601//dword_0x3E6_2BE4_12228.dword_0x175_373
-	//Bit32u dword_0x55F_2BDE;//1375 dword//12605//dword_0x3E6_2BE4_12228.dword_0x179_377
-	//Bit32u dword_0x563_2BDE;//1379 dword//12609//dword_0x3E6_2BE4_12228.dword_0x17D_381
-	//Bit32u dword_0x567_2BDE;//1383 dword//12613//dword_0x3E6_2BE4_12228.dword_0x181_385
-	//Bit32u dword_0x56B_2BDE;//1387 dword//12617//dword_0x3E6_2BE4_12228.dword_0x185_389
-	//Bit32u dword_0x56F_2BDE;//1391 dword//12621//dword_0x3E6_2BE4_12228.dword_0x189_393
-	//Bit32u dword_2BDE_12621;//1391
+	//uint32_t dword_0x55B_2BDE;//1371 dword//12601//dword_0x3E6_2BE4_12228.dword_0x175_373
+	//uint32_t dword_0x55F_2BDE;//1375 dword//12605//dword_0x3E6_2BE4_12228.dword_0x179_377
+	//uint32_t dword_0x563_2BDE;//1379 dword//12609//dword_0x3E6_2BE4_12228.dword_0x17D_381
+	//uint32_t dword_0x567_2BDE;//1383 dword//12613//dword_0x3E6_2BE4_12228.dword_0x181_385
+	//uint32_t dword_0x56B_2BDE;//1387 dword//12617//dword_0x3E6_2BE4_12228.dword_0x185_389
+	//uint32_t dword_0x56F_2BDE;//1391 dword//12621//dword_0x3E6_2BE4_12228.dword_0x189_393
+	//uint32_t dword_2BDE_12621;//1391
 	//uint8_t stub4d[33];
 	//int16_t word_2BDE_12658[8];//1428//430 dword_0x3E6_2BE4_12228.str_0x1AC_428.word_2BDE_12658
 	//uint8_t stub4e[2];
@@ -689,23 +687,23 @@ typedef struct {//lenght 2124=0x84C
 } type_str_0x2BDE;//11230 // 84c lenght
 
 typedef struct {//size 26
-	Bit32s dword_0;
-	Bit32s dword_4;
+	int32_t dword_0;
+	int32_t dword_4;
 	uint8_t* dword_8_data;
-	Bit32u* dword_12x;//Bit32u*
-	Bit32u* dword_16x;//Bit32u*
+	uint32_t* dword_12x;//uint32_t*
+	uint32_t* dword_16x;//uint32_t*
 	int16_t word_20;
 	int16_t word_22;
 	int16_t word_24;
 	uint8_t data[];
-	//Bit32u dword_26;
+	//uint32_t dword_26;
 } type_x_DWORD_E9C28_str;
 
 typedef struct {
 	//uint8_t harddisk_number;
 
 	//uint8_t setting_byte5_19;
-	Bit32u dwordindex_0;//x_D41A0_BYTEARRAY_4_struct.dwordindex_0
+	uint32_t dwordindex_0;//x_D41A0_BYTEARRAY_4_struct.dwordindex_0
 	uint16_t wordindex_4;//x_D41A0_BYTEARRAY_4_struct.byteindex_4
 	uint16_t wordindex_6;//x_D41A0_BYTEARRAY_4_struct.wordindex_6
 	uint16_t wordindex_8;//x_D41A0_BYTEARRAY_4_struct.wordindex_8
@@ -714,7 +712,7 @@ typedef struct {
 	int8_t byte_brightness_12;//0xc//x_D41A0_BYTEARRAY_4_struct.byteindex_12
 	int8_t byte_brightness_13;//0xd//x_D41A0_BYTEARRAY_4_struct.byteindex_13
 	uint16_t wordindex_14;
-	Bit32u dwordindex_16;//0x10//x_D41A0_BYTEARRAY_4_struct.dwordindex_16
+	uint32_t dwordindex_16;//0x10//x_D41A0_BYTEARRAY_4_struct.dwordindex_16
 	uint8_t stubb[2];
 	uint8_t setting_byte1_22;//x_D41A0_BYTEARRAY_4_struct.setting_byte1_22
 	int8_t setting_byte2_23;//0x17//x_D41A0_BYTEARRAY_4_struct.setting_byte2_23
@@ -761,7 +759,7 @@ typedef struct {
 	//uint8_t stubj[1];
 	uint8_t byteindex_186;//0xba//x_D41A0_BYTEARRAY_4_struct.byteindex_186
 	uint8_t stubk[1];
-	Bit32u dwordindex_188;//x_D41A0_BYTEARRAY_4_struct.byteindex_188
+	uint32_t dwordindex_188;//x_D41A0_BYTEARRAY_4_struct.byteindex_188
 	//uint8_t byteindex_189;//x_D41A0_BYTEARRAY_4_struct.byteindex_189
 	//uint8_t byteindex_190;//x_D41A0_BYTEARRAY_4_struct.byteindex_190
 
@@ -769,7 +767,7 @@ typedef struct {
 	//9(0x100)-reflection//10(0x200)-sky//11(0x400)-shadows//12(0x800)-light/13(0x1000)-icons//14(0x2000)-transparency//15(0x4000)-flat	//16(0x8000)-resolution
 	//17(0x10000)-names
 
-	Bit32u dwordindex_192;//0xc0//x_D41A0_BYTEARRAY_4_struct.byteindex_192
+	uint32_t dwordindex_192;//0xc0//x_D41A0_BYTEARRAY_4_struct.byteindex_192
 	//uint8_t byteindex_193;//0xc1//x_D41A0_BYTEARRAY_4_struct.byteindex_193
 	//uint8_t byteindex_194;//0xc2//x_D41A0_BYTEARRAY_4_struct.byteindex_194
 
@@ -787,7 +785,7 @@ typedef struct {
 	uint8_t byteindex_207;//0xcf//x_D41A0_BYTEARRAY_4_struct.byteindex_207
 	uint8_t byteindex_208;//0xd0//x_D41A0_BYTEARRAY_4_struct.byteindex_208
 	uint8_t stubmm[1];
-	Bit32u byteindex_210d;//0xd2//x_D41A0_BYTEARRAY_4_struct.byteindex_210
+	uint32_t byteindex_210d;//0xd2//x_D41A0_BYTEARRAY_4_struct.byteindex_210
 	//uint8_t stubn[3];
 	uint16_t byteindex_214w;//0xd6//x_D41A0_BYTEARRAY_4_struct.byteindex_214
 	//uint8_t stubo[1];
@@ -801,7 +799,7 @@ typedef struct {
 	uint8_t byteindex_224;//0xe0//x_D41A0_BYTEARRAY_4_struct.byteindex_224
 	uint8_t byteindex_225;//0xe1//x_D41A0_BYTEARRAY_4_struct.byteindex_225
 	uint8_t* pointer_0xE2_heapbuffer_226;//x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226
-	Bit32u dword_0xE6_heapsize_230;//x_D41A0_BYTEARRAY_4_struct.dword_0xE6_heapsize_230
+	uint32_t dword_0xE6_heapsize_230;//x_D41A0_BYTEARRAY_4_struct.dword_0xE6_heapsize_230
 	uint8_t stubr[8];
 	uint8_t byteindex_242ar[14];//0xf2//x_D41A0_BYTEARRAY_4_struct.byteindex_242ar
 	//uint8_t byteindex_246;//0xf6//x_D41A0_BYTEARRAY_4_struct.byteindex_242ar[4]
@@ -817,10 +815,10 @@ typedef struct {
 	//type_2255ar str_2255ar;
 	//end 2281
 	//uint8_t stubs[9];
-	Bit32u dwordindex_2380;//0x94c//x_D41A0_BYTEARRAY_4_struct.dwordindex_2380
+	uint32_t dwordindex_2380;//0x94c//x_D41A0_BYTEARRAY_4_struct.dwordindex_2380
 	uint8_t stubt[4];
-	Bit32u dwordindex_2388;//0x954//x_D41A0_BYTEARRAY_4_struct.dwordindex_2388
-	Bit32u dwordindex_2392;//0x958//x_D41A0_BYTEARRAY_4_struct.dwordindex_2392
+	uint32_t dwordindex_2388;//0x954//x_D41A0_BYTEARRAY_4_struct.dwordindex_2388
+	uint32_t dwordindex_2392;//0x958//x_D41A0_BYTEARRAY_4_struct.dwordindex_2392
 
 	//uint8_t byteindex_8618;//0x21aa//x_D41A0_BYTEARRAY_4_struct.byteindex_8618
 	//uint8_t setting_38545;
@@ -839,7 +837,7 @@ typedef struct {
 	*/
 	//bytearray_38419=bytearray_38403[16]//0x965b//x_D41A0_BYTEARRAY_4_struct.bytearray_38403[16]
 	//bytearray_38439=bytearray_38403[36]//0x965b//x_D41A0_BYTEARRAY_4_struct.bytearray_38403[36]
-	//bytearray_38403[88]//Bit32u dword_38491;//0x965b//x_D41A0_BYTEARRAY_4_struct.bytearray_38403[88]
+	//bytearray_38403[88]//uint32_t dword_38491;//0x965b//x_D41A0_BYTEARRAY_4_struct.bytearray_38403[88]
 
 	//bytearray_38451=bytearray_38403[48]//0x965b//x_D41A0_BYTEARRAY_4_struct.bytearray_38403[48]
 	//bytearray_38455=bytearray_38403[52]//0x965b//x_D41A0_BYTEARRAY_4_struct.bytearray_38403[52]
@@ -872,7 +870,7 @@ typedef struct {
 	uint8_t stubw[44];
 	uint8_t byte_38591;//0x96BF//x_D41A0_BYTEARRAY_4_struct.byte_38591
 
-	//Bit32u dword_616432;
+	//uint32_t dword_616432;
 }type_x_D41A0_BYTEARRAY_4_struct;
 
 doublebyte doublebyte_conv(uint16_t a2);
@@ -880,10 +878,10 @@ doublebyte doublebyte_conv(uint16_t a2);
 extern type_x_D41A0_BYTEARRAY_4_struct x_D41A0_BYTEARRAY_4_struct;
 extern int16_t x_D41A0_WORDARRAY[];
 
-//extern Bit32u x_D41A0_BYTEARRAY_4_0xE6_heapsize;
+//extern uint32_t x_D41A0_BYTEARRAY_4_0xE6_heapsize;
 //extern uint8_t* x_D41A0_BYTEARRAY_4_0xE2_heapbuffer;
 //extern uint8_t* x_D41A0_BYTEARRAY_4_0xDE_heapbuffer;
-//extern Bit32u* off_D918C[0x7c];
+//extern uint32_t* off_D918C[0x7c];
 
 //xx extern uint8_t* dword_E9C30[]; // weak
 
@@ -918,9 +916,9 @@ typedef struct {//lenght 30
 	//int16_t axis_4[3];//?? str_E2A74[].axis_2[0]
 	//int16_t stuba;
 	type_str_0x6E8E* dword_12;//str_E2A74[].dword_12
-	Bit32s dword_16;
-	Bit32s dword_20;//str_E2A74[].dword_20
-	Bit32s dword_24;//str_E2A74[].dword_24
+	int32_t dword_16;
+	int32_t dword_20;//str_E2A74[].dword_20
+	int32_t dword_24;//str_E2A74[].dword_24
 	//int8_t byte_25;
 	int8_t byte_28;
 	int8_t byte_29;
@@ -936,24 +934,24 @@ extern type_str_E2A74 str_E2A74[0x69];
 void support_begin();
 void support_end();
 
-void loadfromsnapshot(char* filename, uint8_t* adress, Bit32u adressdos, Bit32u size);
-void loadfromsnapshot2(char* filename, uint8_t* adress, Bit32u adressdos, Bit32u size);
-Bit32u compare_with_snapshot(char* filename, uint8_t* adress, Bit32u adressdos, Bit32u size, uint8_t* origbyte, uint8_t* copybyte);
-Bit32u compare_with_sequence(char* filename, uint8_t* adress, Bit32u adressdos, long count, long size1, Bit32u size2, uint8_t* origbyte, uint8_t* copybyte, long offset = 0);
-Bit32u compare_with_sequence_E7EE0(char* filename, uint8_t* adress, Bit32u adressdos, Bit32u count, Bit32u size1, Bit32u size2, uint8_t* origbyte, uint8_t* copybyte, long offset = 0);
-Bit32u compare_with_snapshot_D41A0(char* filename, uint8_t* adress, Bit32u adressdos, Bit32u size, uint8_t* origbyte, uint8_t* copybyte);
-Bit32u compare_with_sequence_D41A0(char* filename, uint8_t* adress, Bit32u adressdos, Bit32u count, Bit32u size, uint8_t* origbyte, uint8_t* copybyte, long offset = 0);
-Bit32u compare_with_sequence_array_E2A74(char* filename, uint8_t* adress, Bit32u adressdos, Bit32u count, Bit32u size1, Bit32u size2, uint8_t* origbyte, uint8_t* copybyte, long offset = 0);
-Bit32u compare_with_sequence_x_DWORD_F2C20ar(char* filename, uint8_t* adress, Bit32u adressdos, Bit32u count, Bit32u size, uint8_t* origbyte, uint8_t* copybyte, int* posdiff);
-Bit32u compare_with_sequence_array_222BD3(char* filename, uint8_t* adress, Bit32u adressdos, Bit32u count, Bit32u size, uint8_t* origbyte, uint8_t* copybyte, int* posdiff);
-Bit32u compare_with_sequence_D41A0_4(char* filename, uint8_t* adress, Bit32u adressdos, Bit32u count, Bit32u size, uint8_t* origbyte, uint8_t* copybyte, long offset = 0);
-Bit32u compare_with_sequence_EA3E4(char* filename, type_str_0x6E8E** adress, Bit32u count, Bit32u size, uint8_t* origbyte, uint8_t* copybyte);
-Bit32u compare_0x6E8E(char* filename, uint8_t* adress, Bit32u count, Bit32u size, uint8_t* origbyte, uint8_t* copybyte, long offset = 0);
-void add_compare(Bit32u adress, bool debugafterload, int stopstep = -1, bool skip = false);
+void loadfromsnapshot(char* filename, uint8_t* adress, uint32_t adressdos, uint32_t size);
+void loadfromsnapshot2(char* filename, uint8_t* adress, uint32_t adressdos, uint32_t size);
+uint32_t compare_with_snapshot(char* filename, uint8_t* adress, uint32_t adressdos, uint32_t size, uint8_t* origbyte, uint8_t* copybyte);
+uint32_t compare_with_sequence(char* filename, uint8_t* adress, uint32_t adressdos, long count, long size1, uint32_t size2, uint8_t* origbyte, uint8_t* copybyte, long offset = 0);
+uint32_t compare_with_sequence_E7EE0(char* filename, uint8_t* adress, uint32_t adressdos, uint32_t count, uint32_t size1, uint32_t size2, uint8_t* origbyte, uint8_t* copybyte, long offset = 0);
+uint32_t compare_with_snapshot_D41A0(char* filename, uint8_t* adress, uint32_t adressdos, uint32_t size, uint8_t* origbyte, uint8_t* copybyte);
+uint32_t compare_with_sequence_D41A0(char* filename, uint8_t* adress, uint32_t adressdos, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte, long offset = 0);
+uint32_t compare_with_sequence_array_E2A74(char* filename, uint8_t* adress, uint32_t adressdos, uint32_t count, uint32_t size1, uint32_t size2, uint8_t* origbyte, uint8_t* copybyte, long offset = 0);
+uint32_t compare_with_sequence_x_DWORD_F2C20ar(char* filename, uint8_t* adress, uint32_t adressdos, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte, int* posdiff);
+uint32_t compare_with_sequence_array_222BD3(char* filename, uint8_t* adress, uint32_t adressdos, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte, int* posdiff);
+uint32_t compare_with_sequence_D41A0_4(char* filename, uint8_t* adress, uint32_t adressdos, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte, long offset = 0);
+uint32_t compare_with_sequence_EA3E4(char* filename, type_str_0x6E8E** adress, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte);
+uint32_t compare_0x6E8E(char* filename, uint8_t* adress, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte, long offset = 0);
+void add_compare(uint32_t adress, bool debugafterload, int stopstep = -1, bool skip = false);
 
-void writehex(uint8_t* buffer, Bit32u count);
+void writehex(uint8_t* buffer, uint32_t count);
 
-void mine_texts(char* filename, Bit32u adressdos, Bit32u count, char* outfilename);
+void mine_texts(char* filename, uint32_t adressdos, uint32_t count, char* outfilename);
 int writeImage(char* filename, int width, int height, uint8_t* buffer, char* title);
 void writeImageBMP(char* imageFileName, int width, int height, uint8_t* image);
 
@@ -985,7 +983,7 @@ typedef struct {//lenght 8
 typedef union {
 	axis_2du axis;
 	type_str_0x6E8E* pointer_0x6E8E;
-	//Bit32u dword;
+	//uint32_t dword;
 }
 un1;
 
@@ -1008,7 +1006,7 @@ typedef struct {//lenght 8
 	uint8_t str_0x3647A_byte_0;//array_0x3647a
 	uint8_t str_0x3647A_byte_1;//array_0x3647b
 	int16_t str_0x3647A_word_2;//array_0x3647c
-	Bit32u str_0x3647A_dword_4;//array_0x3647e
+	uint32_t str_0x3647A_dword_4;//array_0x3647e
 	//int16_t str_0x3647A_word_6;//array_0x36480
 } type_str_0x3647Ab;
 /*
@@ -1086,7 +1084,7 @@ typedef struct {//lenght 20
 */
 /*
 typedef struct {//begin 0x649 //lenght min 0x1ee
-	Bit32s dword_0x649_2BDE[0x33];//1609
+	int32_t dword_0x649_2BDE[0x33];//1609
 	uint8_t stub1[2];
 	int16_t word_0x717_2BDE[0x1a];// -2xa1 tj 2x 26//1815
 	//1817
@@ -1218,7 +1216,7 @@ typedef struct {//lenght 0x6604u
 	uint8_t stubc2[2];
 	uint16_t word_0x2FEF1;//2FEF1//35 //random seed
 	uint8_t stubc3[2];
-	Bit32u word_0x2FEF5;//2FEF5//39
+	uint32_t word_0x2FEF5;//2FEF5//39
 	//uint8_t stubd[2];
 	uint16_t word_0x2FEF9;//2FEF9//43
 	uint8_t stube[2];
@@ -1260,7 +1258,7 @@ typedef struct {//lenght 0x6604u
 } type_str_2FECE;//compress level
 
 typedef union {
-	Bit32s dword;
+	int32_t dword;
 	uint16_t* ptr16u;
 	type_str_0x30311* ptr0x30311;
 	type_str_0x6E8E* ptr0x6E8E;
@@ -1296,7 +1294,7 @@ typedef struct {//size 11 count 6
 } type_str_3659C;
 /*
 typedef struct {
-	Bit32s dw;
+	int32_t dw;
 	int16_t w;
 } dw_ws;
 */
@@ -1324,7 +1322,7 @@ GraphicsStruct_t;
 
 /*typedef union {
 	type_str_0x8586 str;
-	Bit32u dword;
+	uint32_t dword;
 }
 type_uni_0x8586;*/
 
@@ -1338,7 +1336,7 @@ DisplayStruct_t;
 
 /*typedef union {
 	type_str_0x218E str;
-	Bit32u dword;
+	uint32_t dword;
 }
 type_uni_0x218E;*/
 
@@ -1352,7 +1350,7 @@ type_str_0x2192;
 
 /*typedef union {
 	type_str_0x2192 str;
-	Bit32u dword;
+	uint32_t dword;
 }
 type_uni_0x2192;*/
 
@@ -1366,7 +1364,7 @@ type_str_0x2196;
 
 /*typedef union {
 	type_str_0x2196 str;
-	Bit32u dword;
+	uint32_t dword;
 }
 type_uni_0x2196;*/
 
@@ -1380,7 +1378,7 @@ type_str_0x21AA;
 
 /*typedef union {
 	type_str_0x21AA str;
-	Bit32u dword;
+	uint32_t dword;
 }
 type_uni_0x21AA;*/
 
@@ -1394,7 +1392,7 @@ type_str_0x21AE;
 
 /*typedef union {
 	type_str_0x21AE str;
-	Bit32u dword;
+	uint32_t dword;
 }
 type_uni_0x21AE;*/
 
@@ -1408,7 +1406,7 @@ type_str_0x21B2;
 
 /*typedef union {
 	type_str_0x21B2 str;
-	Bit32u dword;
+	uint32_t dword;
 }
 type_uni_0x21B2;*/
 
@@ -1422,7 +1420,7 @@ type_str_0x21B6;
 
 /*typedef union {
 	type_str_0x21B6 str;
-	Bit32u dword;
+	uint32_t dword;
 }
 type_uni_0x21B6;*/
 typedef struct {//lenght 39
@@ -1440,8 +1438,8 @@ typedef struct {//lenght 39
 type_str_0x3664C;
 
 typedef struct {//lenght 108
-	Bit32u dword_0x364D2;//lenght 108
-	Bit32u dword_0x364D6[0x1a];// lenght 0x68=104 end 0x3653e
+	uint32_t dword_0x364D2;//lenght 108
+	uint32_t dword_0x364D6[0x1a];// lenght 0x68=104 end 0x3653e
 }
 type_str_0x364D2;
 
@@ -1462,25 +1460,25 @@ GameSettingsStruct_t;
 
 typedef struct {//lenght 224790
 	uint8_t stub0[4];
-	Bit32u dword_0x4;
-	Bit32u dword_0x8;
+	uint32_t dword_0x4;
+	uint32_t dword_0x8;
 
 	int16_t word_0xc;//player_index?
 	int16_t word_0xe;
 	//word 0xe - 14
 	uint8_t array_0x10[0x1d]; //0x10, next 0x2d(45)
-	Bit32s dword_0x2d;//45
+	int32_t dword_0x2d;//45
 	//uint8_t byte_0x22;
 	uint16_t word_0x31;//49
 	uint16_t word_0x33;//51
-	Bit32s dword_0x35;//53//entity counter(max 1000 entity changes per step)
+	int32_t dword_0x35;//53//entity counter(max 1000 entity changes per step)
 	uint8_t array_0x39[508];//57
 	//uint8_t stub2[0x1fc];
-	Bit32s dword_0x235;//act music
+	int32_t dword_0x235;//act music
 	uint8_t byte_0x239;//569
-	Bit32s dword_0x23a;
-	Bit32s dword_0x23e;
-	Bit32s dword_0x242;
+	int32_t dword_0x23a;
+	int32_t dword_0x23e;
+	int32_t dword_0x242;
 	type_str_0x6E8E* pointers_0x246[0x3e8];//pointers
 	//0x81d 2077
 	/*
@@ -1489,16 +1487,16 @@ typedef struct {//lenght 224790
 	*(x_DWORD *)(x_D41A0_BYTEARRAY_0 + 578) = 0;//0x242
 	*/
 	//uint8_t stub3[0x1f44];
-	Bit32s dword_0x11e6;//second entity counter
+	int32_t dword_0x11e6;//second entity counter
 	type_str_0x6E8E* dword_0x11EA[0x3e8];//??4586
 	//uint8_t stub3[0xfa0];
 
 	GameSettingsStruct_t m_GameSettings;
 
-	Bit32u dword_0x219A;//8602
-	Bit32u dword_0x219E;//8606
-	Bit32u dword_0x21A2;//8610
-	Bit32u dword_0x21A6;//8614
+	uint32_t dword_0x219A;//8602
+	uint32_t dword_0x219E;//8606
+	uint32_t dword_0x21A2;//8610
+	uint32_t dword_0x21A6;//8614
 
 	type_str_0x21AA str_0x21AA;
 	//uint8_t byte_0x21AA;//8618 can reflections
@@ -1526,7 +1524,7 @@ typedef struct {//lenght 224790
 	uint8_t stub3b[0x1a8];
 
 	axis_3d array_0x2362[8];//0x30
-	//Bit32s dword_0x2362;
+	//int32_t dword_0x2362;
 	//int16_t word_0x2366;
 	uint8_t stub3c[0x14d];
 	///*??*/type_str_0x24DF array_0x24DF[0xb];//?lenght
@@ -1573,7 +1571,7 @@ typedef struct {//lenght 224790
 	*/
 
 	type_str_0x364D2 str_0x364D2;//lenght 108
-	/*Bit32u dword_0x364D2;//lenght 108
+	/*uint32_t dword_0x364D2;//lenght 108
 	uint8_t array_0x364D6[0x68];// lenght 0x68=104 end 0x3653e*/
 
 	//uint8_t stub3f[0x831];
@@ -1602,7 +1600,7 @@ typedef struct {//lenght 224790
 	int16_t word_0x36DEC_mousex;
 	int16_t word_0x36DEE_mousey;
 	int16_t word_0x36DF0_mousexx;
-	Bit32u dword_0x36DF2;//index
+	uint32_t dword_0x36DF2;//index
 	type_str_160* dword_0x36DF6;//pointer
 	int16_t word_0x36DFA;
 	int16_t word_0x36DFC;
@@ -1654,7 +1652,7 @@ struct {//lenght 0x33
 typedef type_sub_str_unk_1804B0ar;
 
 typedef union {//lenght 12
-	Bit32s dword[3];
+	int32_t dword[3];
 	int16_t word[6];
 }
 type_uni_0x8a;
@@ -1672,18 +1670,18 @@ struct {//0xb0 nebo spis 171(0xab)
 	//0x66
 	*/
 
-	Bit32s dword_0x66;//66
-	Bit32s dword_0x6a;//6a
-	Bit32s dword_0x6e;//6e
-	Bit32s dword_0x72;//72
-	Bit32s dword_0x76;//76
-	Bit32s dword_0x7a;//7a
+	int32_t dword_0x66;//66
+	int32_t dword_0x6a;//6a
+	int32_t dword_0x6e;//6e
+	int32_t dword_0x72;//72
+	int32_t dword_0x76;//76
+	int32_t dword_0x7a;//7a
 	int8_t stub[4];
-	Bit32s dword_0x82;//82
+	int32_t dword_0x82;//82
 	int16_t word_0x86;//86
 	int16_t word_0x88;//88
 	type_uni_0x8a uni_0x8a;
-	//Bit32s dword_0x8a;//8a
+	//int32_t dword_0x8a;//8a
 	//int16_t array_0x8e[4];//8e //text lines
 	int16_t word_0x96;//96
 	int16_t word_0x98;//98
@@ -1723,7 +1721,7 @@ typedef type_str_unk_1804B0ar;
 //memset((void*)(x_D41A0_BYTEARRAY_0 + 0x3664C), 0, 0x79E);
 
 /*
-*(Bit32s*)&x_D41A0_BYTEARRAY_0[0x341c]
+*(int32_t*)&x_D41A0_BYTEARRAY_0[0x341c]
 -selected bottom spell
 
 x_D41A0_BYTEARRAY_0[28302]-168 arrays
@@ -1731,11 +1729,11 @@ x_D41A0_BYTEARRAY_0[0x6e8e]-0xa8 arrays
 */
 
 /*
-Bit32s get_x_D41A0_BYTEARRAY_0_4();
-void set_x_D41A0_BYTEARRAY_0_4(Bit32s value);
+int32_t get_x_D41A0_BYTEARRAY_0_4();
+void set_x_D41A0_BYTEARRAY_0_4(int32_t value);
 
-Bit32s get_x_D41A0_BYTEARRAY_0_8();
-void set_x_D41A0_BYTEARRAY_0_8(Bit32s value);
+int32_t get_x_D41A0_BYTEARRAY_0_8();
+void set_x_D41A0_BYTEARRAY_0_8(int32_t value);
 
 int16_t get_x_D41A0_BYTEARRAY_0_0xe();
 void set_x_D41A0_BYTEARRAY_0_0xe(int16_t value);
@@ -1747,28 +1745,28 @@ void plus_x_D41A0_BYTEARRAY_0_0x10(int number);
 uint8_t get_x_D41A0_BYTEARRAY_0_0x22();
 void set_x_D41A0_BYTEARRAY_0_0x22(uint8_t value);
 
-Bit32s get_x_D41A0_BYTEARRAY_0_0x35();
-void set_x_D41A0_BYTEARRAY_0_0x35(Bit32s value);
+int32_t get_x_D41A0_BYTEARRAY_0_0x35();
+void set_x_D41A0_BYTEARRAY_0_0x35(int32_t value);
 void plus_x_D41A0_BYTEARRAY_0_0x35();
 void minus_x_D41A0_BYTEARRAY_0_0x35();
 
-Bit32s get_x_D41A0_BYTEARRAY_0_235();
-void set_x_D41A0_BYTEARRAY_0_235(Bit32s value);
+int32_t get_x_D41A0_BYTEARRAY_0_235();
+void set_x_D41A0_BYTEARRAY_0_235(int32_t value);
 
-Bit32s get_x_D41A0_BYTEARRAY_0_23a();
-void set_x_D41A0_BYTEARRAY_0_23a(Bit32s value);
+int32_t get_x_D41A0_BYTEARRAY_0_23a();
+void set_x_D41A0_BYTEARRAY_0_23a(int32_t value);
 
-Bit32s get_x_D41A0_BYTEARRAY_0_23e();
-void set_x_D41A0_BYTEARRAY_0_23e(Bit32s value);
+int32_t get_x_D41A0_BYTEARRAY_0_23e();
+void set_x_D41A0_BYTEARRAY_0_23e(int32_t value);
 
-Bit32s get_x_D41A0_BYTEARRAY_0_242();
-void set_x_D41A0_BYTEARRAY_0_242(Bit32s value);
+int32_t get_x_D41A0_BYTEARRAY_0_242();
+void set_x_D41A0_BYTEARRAY_0_242(int32_t value);
 
 type_str_0x6E8E* get_x_D41A0_BYTEARRAY_0_0x246(int number);
 void set_x_D41A0_BYTEARRAY_0_0x246(int number, type_str_0x6E8E* value);
 
-Bit32s get_x_D41A0_BYTEARRAY_0_0x11e6();
-void set_x_D41A0_BYTEARRAY_0_0x11e6(Bit32s value);
+int32_t get_x_D41A0_BYTEARRAY_0_0x11e6();
+void set_x_D41A0_BYTEARRAY_0_0x11e6(int32_t value);
 
 uint8_t get_x_D41A0_BYTEARRAY_0_0x218a();
 void set_x_D41A0_BYTEARRAY_0_0x218a(uint8_t value);
@@ -1842,18 +1840,18 @@ void set_x_D41A0_BYTEARRAY_0_0x2BDE_0x9(int number, int8_t value);
 void set_x_D41A0_BYTEARRAY_0_0x2BDE_0xe(int number, int16_t value);
 int16_t get_x_D41A0_BYTEARRAY_0_0x2BDE_0x10(int number);
 void set_x_D41A0_BYTEARRAY_0_0x2BDE_0x10(int number, int16_t value);
-void set_x_D41A0_BYTEARRAY_0_0x2BDE_0x18(int number, Bit32s value);
+void set_x_D41A0_BYTEARRAY_0_0x2BDE_0x18(int number, int32_t value);
 
 void set_x_D41A0_BYTEARRAY_0_0x2BDE_0x3e1(int number, int8_t value);
 
-Bit32s get_x_D41A0_BYTEARRAY_0_0x2BDE_0x1d1_2BDE_11707(int index, int subindex);//465
-void set_x_D41A0_BYTEARRAY_0_0x2BDE_0x1d1_2BDE_11707(int index, int subindex, Bit32s value);//465
+int32_t get_x_D41A0_BYTEARRAY_0_0x2BDE_0x1d1_2BDE_11707(int index, int subindex);//465
+void set_x_D41A0_BYTEARRAY_0_0x2BDE_0x1d1_2BDE_11707(int index, int subindex, int32_t value);//465
 
-Bit32s get_x_D41A0_BYTEARRAY_0_0x2BDE_0x1d5_2BDE_11707(int index, int subindex);//469
-void set_x_D41A0_BYTEARRAY_0_0x2BDE_0x1d5_2BDE_11707(int index, int subindex, Bit32s value);//469
+int32_t get_x_D41A0_BYTEARRAY_0_0x2BDE_0x1d5_2BDE_11707(int index, int subindex);//469
+void set_x_D41A0_BYTEARRAY_0_0x2BDE_0x1d5_2BDE_11707(int index, int subindex, int32_t value);//469
 
-Bit32s get_x_D41A0_BYTEARRAY_0_0x2BDE_0x1d9_2BDE_11707(int index, int subindex);//473
-void set_x_D41A0_BYTEARRAY_0_0x2BDE_0x1d9_2BDE_11707(int index, int subindex, Bit32s value);//473
+int32_t get_x_D41A0_BYTEARRAY_0_0x2BDE_0x1d9_2BDE_11707(int index, int subindex);//473
+void set_x_D41A0_BYTEARRAY_0_0x2BDE_0x1d9_2BDE_11707(int index, int subindex, int32_t value);//473
 
 int16_t get_x_D41A0_BYTEARRAY_0_0x2BDE_0x1dd_2BDE_11707(int index, int subindex);//477
 void set_x_D41A0_BYTEARRAY_0_0x2BDE_0x1dd_2BDE_11707(int index, int subindex, int16_t value);//477
@@ -1863,7 +1861,7 @@ int8_t* get_x_D41A0_BYTEARRAY_0_0x2BDE_0x39f_2BFA_12157(int index);
 void set_x_D41A0_BYTEARRAY_0_0x2BDE_0x5a6(int number, int8_t value);
 
 uint8_t* get_x_D41A0_BYTEARRAY_0_0x2BDE_0x649(int number);
-void set_x_D41A0_BYTEARRAY_0_0x2BDE_0x649(int number,int subindex, Bit32s value);
+void set_x_D41A0_BYTEARRAY_0_0x2BDE_0x649(int number,int subindex, int32_t value);
 
 void set_x_D41A0_BYTEARRAY_0_0x2BDE_0x717(int index, int subindex, int16_t value);
 void set_x_D41A0_BYTEARRAY_0_0x2BDE_0x781(int index, int subindex, int8_t value);
@@ -1909,7 +1907,7 @@ extern type_D41A0_BYTESTR_0 D41A0_BYTESTR_0;
 void x_D41A0_BYTESTR_0_to_x_D41A0_BYTEARRAY_0();*/
 void write_posistruct_to_png(uint8_t* buffer, int width, int height, char* filename);
 
-int my_sign32(Bit32s var);
+int my_sign32(int32_t var);
 int my_sign16(int16_t var);
 
 #endif //ENGINE_SUPPORT_ACTIVE

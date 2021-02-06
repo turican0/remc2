@@ -300,7 +300,7 @@ void VGA_Draw_string(char* wrstring) {
 		}
 	}
 
-	for (Bit32u i = 0; i < strlen(wrstring); i++)
+	for (uint32_t i = 0; i < strlen(wrstring); i++)
 	{
 		if (wrstring[i] == '\n')
 		{
@@ -323,7 +323,7 @@ void VGA_Draw_string(char* wrstring) {
 
 void VGA_Draw_stringXYtoBuffer(char* wrstring, int x, int y, uint8_t* buffer) {
 	int loclastpoz = 0;
-	for (Bit32u i = 0; i < strlen(wrstring); i++)
+	for (uint32_t i = 0; i < strlen(wrstring); i++)
 	{
 		if (wrstring[i] == '\n')
 		{
@@ -690,7 +690,7 @@ int events()
 	SDL_Event event;
 	Uint8 buttonindex;
 	Uint8 buttonstate;
-	Bit32u buttonresult;
+	uint32_t buttonresult;
 	while (SDL_PollEvent(&event))
 	{
 		switch (event.type)

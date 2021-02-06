@@ -102,7 +102,7 @@ bool file_exists(const char * filename) {
 	return false;
 }
 
-FILE* mycreate(char* path, Bit32u flags) {
+FILE* mycreate(char* path, uint32_t flags) {
 	FILE *fp;
 	fp = fopen(path, "wb+");
 	#ifdef DEBUG_START
@@ -142,7 +142,7 @@ void debug_printf(const char* format, ...) {
 	#endif
 }
 
-Bit32s myaccess(char* path, Bit32u flags) {
+int32_t myaccess(char* path, uint32_t flags) {
 	DIR *dir;
 	//char path2[2048] = "\0";
 	#ifdef DEBUG_FILEOPS
@@ -169,7 +169,7 @@ Bit32s myaccess(char* path, Bit32u flags) {
 	return -1;
 };
 
-Bit32s /*__cdecl*/ mymkdir(char* path) {
+int32_t /*__cdecl*/ mymkdir(char* path) {
 	//char path2[512] = "\0";
 	#ifdef DEBUG_FILEOPS
 		debug_printf("mymkdir:path: %s\n", path);
@@ -211,11 +211,11 @@ Bit32s /*__cdecl*/ mymkdir(char* path) {
 	return result;
 };
 
-FILE* myopen(char* path, int pmode, Bit32u flags) {
+FILE* myopen(char* path, int pmode, uint32_t flags) {
 	#ifdef DEBUG_START
 		debug_printf("myopen:open file:%s\n", path);
 	#endif //DEBUG_START
-	//bool localDrive::FileOpen(DOS_File * * file, const char * name, Bit32u flags) {
+	//bool localDrive::FileOpen(DOS_File * * file, const char * name, uint32_t flags) {
 	const char * type;
 	if ((pmode == 0x222) && (flags == 0x40))type = "rb+";
 	else if ((pmode == 0x200) && (flags == 0x40))type = "rb+";
@@ -238,11 +238,11 @@ FILE* myopen(char* path, int pmode, Bit32u flags) {
 int myclose(FILE* descriptor) {
 	return fclose(descriptor);
 };
-Bit32s mylseek(FILE* filedesc, x_DWORD position, char type) {
+int32_t mylseek(FILE* filedesc, x_DWORD position, char type) {
 	return fseek(filedesc, position, type);
 };
 
-Bit32s myfseek(FILE* filedesc, x_DWORD position, char type) {
+int32_t myfseek(FILE* filedesc, x_DWORD position, char type) {
 	return fseek(filedesc, position, type);
 };
 
@@ -373,7 +373,7 @@ space_info space(char* path, int* ec)
 
 	std::wstring widestring;
 
-	for (Bit32u i = 0; i < strlen(path); i++)
+	for (uint32_t i = 0; i < strlen(path); i++)
 		widestring += (wchar_t)path[i];
 
 	LPCWSTR lpcwpath = widestring.c_str();

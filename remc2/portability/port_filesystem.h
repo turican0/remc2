@@ -6,8 +6,8 @@
 #include <stdio.h>
 #include <stdlib.h>  
 #include <string.h>
-#include "mctypes.h"
 #include <string>
+#include "mctypes.h"
 
 #ifdef _MSC_VER
 	#include <windows.h>
@@ -45,14 +45,14 @@ long my_findfirst(char* path, _finddata_t* c_file);
 long my_findnext(long hFile, _finddata_t* c_file);
 void my_findclose(long hFile);
 bool file_exists(const char * filename);
-FILE* mycreate(char* path, Bit32u flags);
-Bit32s myaccess(char* path, Bit32u flags);
-Bit32s mymkdir(char* path);
+FILE* mycreate(char* path, uint32_t flags);
+int32_t myaccess(char* path, uint32_t flags);
+int32_t mymkdir(char* path);
 
-FILE* myopen(char* path, int pmode, Bit32u flags);
+FILE* myopen(char* path, int pmode, uint32_t flags);
 int myclose(FILE* descriptor);
-Bit32s mylseek(FILE* filedesc, x_DWORD position, char type);
-Bit32s myfseek(FILE* filedesc, x_DWORD position, char type);
+int32_t mylseek(FILE* filedesc, x_DWORD position, char type);
+int32_t myfseek(FILE* filedesc, x_DWORD position, char type);
 
 void AdvReadfile(const char* path, uint8_t* buffer);
 void ReadGraphicsfile(const char* path, uint8_t* buffer,long size=-1);

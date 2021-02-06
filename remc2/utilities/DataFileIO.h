@@ -4,8 +4,6 @@
 
 #include <cstdio>
 #include <cstdint>
-#include "../dosbox_files/config.h"
-#include "../portability/mctypes.h"
 #include "../portability/port_filesystem.h"
 #include "../portability/port_outputs.h"
 
@@ -87,11 +85,11 @@ public:
 	static int UnpackData(vars_t* v);
 	static int Unpack(vars_t* v);
 	static FILE* CreateOrOpenFile(char* pathname, int __pmode);
-	static FILE* CreateFile(char* path, Bit32u flags);
-	static FILE* Open(char* path, int pmode, Bit32u flags);
+	static FILE* CreateFile(char* path, uint32_t flags);
+	static FILE* Open(char* path, int pmode, uint32_t flags);
 	static int32 Close(FILE* file);
 	static int32 Seek(FILE* file, x_DWORD position, char type);
-	static size_t Read(FILE* file, uint8_t* data, Bit32u length);
+	static size_t Read(FILE* file, uint8_t* data, uint32_t length);
 	static long FileLengthBytes(FILE* file);
 	static uint8 read_byte(uint8* buf, size_t* offset);
 	static uint16 read_word_be(uint8* buf, size_t* offset);
