@@ -110,16 +110,16 @@ struct_222620[8]
 }
 
 test:
-void sub_12100(Bit8u* a1, Bit8u* a2, char a3)//1f3100		
-void sub_11EE0(Bit8u* a1)//1f2ee0
+void sub_12100(uint8_t* a1, uint8_t* a2, char a3)//1f3100		
+void sub_11EE0(uint8_t* a1)//1f2ee0
 
-void sub_17A00(Bit8u* a1, signed int a2, __int16 a3)//1f8a00
+void sub_17A00(uint8_t* a1, signed int a2, __int16 a3)//1f8a00
 
 		v3 = x_DWORD_EA3E4[*(unsigned __int16 *)(2124 * D41A0_BYTESTR_0.word_0xc + x_D41A0_BYTEARRAY_0 + 11240)];
 &x_D41A0_BYTEARRAY_0[0x6e8e + (168 * 0)]
 
 *(x_WORD *)(a1 + 10) = (v2 - &x_D41A0_BYTEARRAY_0[28302]) / 168;
-sub_5C950(v18, (Bit8u*)v113);
+sub_5C950(v18, (uint8_t*)v113);
 
 
 

@@ -42,7 +42,7 @@ uint16 DataFileIO::crc_table[256] = {
 
 DataFileIO::DataFileIO() {};
 
-int DataFileIO::ReadFileAndDecompress(const char* path, Bit8u** data)
+int DataFileIO::ReadFileAndDecompress(const char* path, uint8_t** data)
 {
 	x_DWORD result; // eax
 	FILE* file; // ebx
@@ -70,7 +70,7 @@ int DataFileIO::ReadFileAndDecompress(const char* path, Bit8u** data)
 	return result;
 }
 
-int DataFileIO::Decompress(Bit8u* src, Bit8u* a2) {
+int DataFileIO::Decompress(uint8_t* src, uint8_t* a2) {
 	vars_t* v = init_vars();
 	if (v->method == 1)
 	{
@@ -259,7 +259,7 @@ int32 DataFileIO::Seek(FILE* file, x_DWORD position, char type) {
 	return mylseek(file, position, type);
 }
 
-size_t DataFileIO::Read(FILE* file, Bit8u* data, Bit32u length) {
+size_t DataFileIO::Read(FILE* file, uint8_t* data, Bit32u length) {
 	size_t result = fread(data, 1, length, file);
 	return result;
 };

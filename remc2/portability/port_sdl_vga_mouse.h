@@ -1,5 +1,8 @@
-#ifndef PORT_SDL_VGA_MOUSE
-#define PORT_SDL_VGA_MOUSE
+#pragma once
+#ifndef PORT_SDL_VGA_MOUSE_H
+#define PORT_SDL_VGA_MOUSE_H
+
+#include <cstdint>
 #include <stdio.h>
 #include <assert.h>
 #include <sstream>
@@ -33,7 +36,7 @@ void VGA_Set_pallette2(Uint8* pallettebuffer);
 void VGA_Write_basic_pallette(Uint8* pallettebuffer);
 Uint8* VGA_Get_pallette();
 void VGA_Draw_string(char* wrstring);
-void VGA_Draw_stringXYtoBuffer(char* wrstring, int x, int y, Bit8u* buffer);
+void VGA_Draw_stringXYtoBuffer(char* wrstring, int x, int y, uint8_t* buffer);
 //void VGA_Set_Cursor(posistruct posstrcursor,int count);
 void VGA_GotoXY(int x, int y);
 int VGA_WhereX(); //returns current text cursor (x) coordinate
@@ -51,7 +54,7 @@ void setPress(bool locpressed, Bit16u loclastchar);
 void VGA_mouse_clear_keys();
 void VGA_cleanKeyBuffer();
 
-extern Bit8u x_BYTE_1806E4; // weak//3516e4
+extern uint8_t x_BYTE_1806E4; // weak//3516e4
 extern Bit8s x_BYTE_180664[128]; // idb
 
 #endif //PORT_SDL_VGA_MOUSE

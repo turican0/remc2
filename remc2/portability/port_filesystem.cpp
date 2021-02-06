@@ -401,10 +401,10 @@ space_info space(char* path, int* ec)
 	return info;
 }
 
-unsigned __int64 dos_getdiskfree(__int16 a1, __int16 a2, Bit8u a, short* b) {
+unsigned __int64 dos_getdiskfree(__int16 a1, __int16 a2, uint8_t a, short* b) {
 	unsigned long wanted_size = 0;//fix it
 	char drivename[10];
-	sprintf(drivename, "%c:", (Bit8u)(a + 64));
+	sprintf(drivename, "%c:", (uint8_t)(a + 64));
 	int ec;
 	space_info myspaceinfo = space(drivename, &ec);
 	if (ec)
@@ -422,7 +422,7 @@ unsigned __int64 dos_getdiskfree(__int16 a1, __int16 a2, Bit8u a, short* b) {
 };
 #endif
 
-void AdvReadfile(const char* path, Bit8u* buffer) {
+void AdvReadfile(const char* path, uint8_t* buffer) {
 	std::string pathexe = get_exe_path();
 	std::string path2 = pathexe + "/" + std::string(path);
 	/*
@@ -459,7 +459,7 @@ bool ExistGraphicsfile(const char* path) {
 	return false;
 }
 
-void ReadGraphicsfile(const char* path, Bit8u* buffer, long size) 
+void ReadGraphicsfile(const char* path, uint8_t* buffer, long size) 
 {
 	FILE* file;
 	file = fopen(path, (char*)"rb");

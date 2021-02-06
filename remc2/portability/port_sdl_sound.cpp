@@ -35,7 +35,7 @@ ALuint alSampleSet[32];
 Mix_Chunk gamechunk[32];
 HSAMPLE gamechunkHSAMPLE[32];
 
-Bit8u sound_buffer[4][20000];
+uint8_t sound_buffer[4][20000];
 /*
 10
 29
@@ -53,16 +53,16 @@ Bit8u sound_buffer[4][20000];
  2
 
 */
-void test_midi_play(Bit8u* data, Bit8u* header, Bit32s track_number)
+void test_midi_play(uint8_t* data, uint8_t* header, Bit32s track_number)
 {
-	Bit8u* acttrack = &header[32 + track_number * 32];
+	uint8_t* acttrack = &header[32 + track_number * 32];
 	//int testsize = *(Bit32u*)(&header[32 + (track_number + 1) * 32] + 18) - *(Bit32u*)(acttrack + 18);
 	int testsize2 = *(Bit32u*)(acttrack + 26);
 
 	//unsigned char* TranscodeXmiToMid(const unsigned char* pXmiData,	size_t iXmiLength, size_t* pMidLength);
 	size_t iXmiLength = testsize2;
 	size_t pMidLength;
-	Bit8u* outmidi = TranscodeXmiToMid((const Bit8u*)*(Bit32u*)(acttrack + 18), iXmiLength, &pMidLength);
+	uint8_t* outmidi = TranscodeXmiToMid((const uint8_t*)*(Bit32u*)(acttrack + 18), iXmiLength, &pMidLength);
 	SDL_RWops* rwmidi = SDL_RWFromMem(outmidi, pMidLength);
 
 	//Timidity_Init();
@@ -124,9 +124,9 @@ void SOUND_set_sequence_volume(Bit32s volume) {
 #endif//SOUND_SDLMIXER
 };
 
-void SOUND_init_MIDI_sequence(Bit8u* data, Bit8u* header, Bit32s track_number)
+void SOUND_init_MIDI_sequence(uint8_t* data, uint8_t* header, Bit32s track_number)
 {
-	Bit8u* acttrack = &header[32 + track_number * 32];
+	uint8_t* acttrack = &header[32 + track_number * 32];
 	//int testsize = *(Bit32u*)(&header[32 + (track_number + 1) * 32] + 18) - *(Bit32u*)(acttrack + 18);
 	int testsize2 = *(Bit32u*)(acttrack + 26);
 
@@ -195,7 +195,7 @@ void SOUND_init_MIDI_sequence(Bit8u* data, Bit8u* header, Bit32s track_number)
 	}
 	else
 	{
-		Bit8u* outmidi = TranscodeXmiToMid((const Bit8u*)*(Bit32u*)(acttrack + 18), iXmiLength, &pMidLength);
+		uint8_t* outmidi = TranscodeXmiToMid((const uint8_t*)*(Bit32u*)(acttrack + 18), iXmiLength, &pMidLength);
 		SDL_RWops* rwmidi = SDL_RWFromMem(outmidi, pMidLength);
 
 		//Timidity_Init();
@@ -399,7 +399,7 @@ Bit32s ac_sound_call_driver(AIL_DRIVER* drvr, Bit32s fn, VDI_CALL* in, VDI_CALL*
 		break;
 	}
 	case 0x401: {
-		/*		mychunk.abuf=(Bit8u*)last_sample->start_2_3[0];
+		/*		mychunk.abuf=(uint8_t*)last_sample->start_2_3[0];
 				mychunk.alen = last_sample->len_4_5[0];
 				mychunk.volume = last_sample->volume_16;
 				//mychunk.allocated = 0;
@@ -449,7 +449,7 @@ void SOUND_start_sample(HSAMPLE S) {
 	{
 		/*
 		// load sample.wav in to sample
-		Bit8u* presample = malloc(S->len_4_5[0] * 4 + 10);
+		uint8_t* presample = malloc(S->len_4_5[0] * 4 + 10);
 		Mix_Chunk* sample;
 		sample = Mix_LoadWAV_RW(presample, 0);
 		if (!sample) {
@@ -468,7 +468,7 @@ void SOUND_start_sample(HSAMPLE S) {
 		// read your float32 data into cvt.buf here.
 		SDL_ConvertAudio(&cvt);*/
 
-		gamechunk[S->index_sample].abuf = /*sample->abuf;//*/ (Bit8u*)S->start_44mhz;
+		gamechunk[S->index_sample].abuf = /*sample->abuf;//*/ (uint8_t*)S->start_44mhz;
 		if (fixspeedsound)
 			gamechunk[S->index_sample].alen = /*sample->alen;//*/S->len_4_5[0] * 16;
 		else
@@ -488,7 +488,7 @@ void SOUND_start_sample(HSAMPLE S) {
 				debug_first_sound = false;
 			}
 		#endif //DEBUG_SOUND
-		gamechunk[S->index_sample].abuf = (Bit8u*)S->start_2_3[0];
+		gamechunk[S->index_sample].abuf = (uint8_t*)S->start_2_3[0];
 		gamechunk[S->index_sample].alen = S->len_4_5[0];
 	}
 	
@@ -501,12 +501,12 @@ void SOUND_start_sample(HSAMPLE S) {
 	//sound_load_wav((char*)S->start_44mhz, sizeof(S->start_44mhz));
 	if (hqsound)
 	{
-		gamechunk[S->index_sample].abuf = (Bit8u*)S->start_44mhz;
+		gamechunk[S->index_sample].abuf = (uint8_t*)S->start_44mhz;
 		gamechunk[S->index_sample].alen = S->len_4_5[0] * 4;
 	}
 	else
 	{
-		gamechunk[S->index_sample].abuf = (Bit8u*)S->start_2_3[0];
+		gamechunk[S->index_sample].abuf = (uint8_t*)S->start_2_3[0];
 		gamechunk[S->index_sample].alen = S->len_4_5[0];
 	}
 
@@ -598,7 +598,7 @@ Mix_HookMusicFinished(void (SDLCALL *music_finished)(void));
 	return true;
 }
 
-AIL_DRIVER* ac_AIL_API_install_driver(int a1, Bit8u* a2, int a3)/*driver_image,n_bytes*///27f720
+AIL_DRIVER* ac_AIL_API_install_driver(int a1, uint8_t* a2, int a3)/*driver_image,n_bytes*///27f720
 {
 
 

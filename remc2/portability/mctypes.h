@@ -1,8 +1,10 @@
-#ifndef ENGINE_TYPES
-#define ENGINE_TYPES
+#include <string>
+#ifndef ENGINE_TYPES_H
+#define ENGINE_TYPES_H
+
+#include <cstdint>
 
 #ifdef USE_DOSBOX
-#include "dosbox.h"
 #include "logging.h"
 #include "dos_system.h"
 #else
@@ -25,8 +27,9 @@ typedef unsigned int    uint32;
 #define x_LONG int32
 
 typedef struct {
-	Bit8u* data;
-	Bit8u width;
-	Bit8u height;
+	uint8_t* data;
+	uint8_t width;
+	uint8_t height;
 } posistruct_t;
-#endif //ENGINE_TYPES
+
+#endif //ENGINE_TYPES_H

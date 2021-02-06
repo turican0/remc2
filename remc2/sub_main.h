@@ -36,6 +36,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include <cstdint>
 
 //#include <dir.h>
 
@@ -296,9 +297,9 @@ extern int filearrayindex_ZERO4;
 
 #pragma pack (1)
 typedef struct {
-	Bit8u** begin_buffer;
-	Bit8u** end_buffer;
-	Bit8u** dat_buffer;
+	uint8_t** begin_buffer;
+	uint8_t** end_buffer;
+	uint8_t** dat_buffer;
 	posistruct_t** posistruct;
 } filearray_struct;
 #pragma pack (16)
@@ -338,7 +339,7 @@ type_E24BCx;
 typedef struct//lenght 11
 {
 	Bit8s byte_0;
-	Bit8u array_byte_1[8];
+	uint8_t array_byte_1[8];
 	Bit8s byte_9;
 	Bit8s byte_10;
 } type_BYTE_17DE68x;
@@ -346,18 +347,18 @@ typedef struct//lenght 11
 
 typedef struct//lenght 613 // end 17E09D
 {
-	Bit8u* x_DWORD_17DE38; // weak
-	Bit8u* x_DWORD_17DE3C; // weak//1
-	Bit8u* x_DWORD_17DE40; // weak//2
-	Bit8u* x_DWORD_17DE44; // weak//3
-	Bit8u* x_DWORD_17DE48c; // weak//4
-	Bit8u* x_DWORD_17DE4C; // weak
+	uint8_t* x_DWORD_17DE38; // weak
+	uint8_t* x_DWORD_17DE3C; // weak//1
+	uint8_t* x_DWORD_17DE40; // weak//2
+	uint8_t* x_DWORD_17DE44; // weak//3
+	uint8_t* x_DWORD_17DE48c; // weak//4
+	uint8_t* x_DWORD_17DE4C; // weak
 	char* x_DWORD_17DE50; // weak
-	Bit8u* x_DWORD_17DE54; // weak
-	Bit8u* x_DWORD_17DE58; // weak
-	Bit8u* x_DWORD_17DE5C_border_bitmap; // weak
-	Bit8u* x_DWORD_17DE60; // weak
-	Bit8u* x_DWORD_17DE64_game_world_map; // weak
+	uint8_t* x_DWORD_17DE54; // weak
+	uint8_t* x_DWORD_17DE58; // weak
+	uint8_t* x_DWORD_17DE5C_border_bitmap; // weak
+	uint8_t* x_DWORD_17DE60; // weak
+	uint8_t* x_DWORD_17DE64_game_world_map; // weak
 
 	/*
 	Bit8s byte_0
@@ -366,17 +367,17 @@ typedef struct//lenght 613 // end 17E09D
 	Bit8s byte_10;
 	*/
 	type_BYTE_17DE68x array_BYTE_17DE68x[8];
-	//Bit8u x_BYTE_17DE68x[88]; // fix it -  weak //8*11
+	//uint8_t x_BYTE_17DE68x[88]; // fix it -  weak //8*11
 	//char x_BYTE_17DE69[1]; //x_BYTE_17DE68x[0x1] fix it -  weak
 	//char x_BYTE_17DE71[1]; //x_BYTE_17DE68x[0x9] fix it -  weak
 	//char x_BYTE_17DE72[78]; //x_BYTE_17DE68x[0xa] idb
-	Bit8u* x_DWORD_17DEC0; // weak
-	Bit8u* x_DWORD_17DEC4; // weak
-	Bit8u* x_DWORD_17DEC8; // weak
-	Bit8u* x_DWORD_17DECC; // weak
+	uint8_t* x_DWORD_17DEC0; // weak
+	uint8_t* x_DWORD_17DEC4; // weak
+	uint8_t* x_DWORD_17DEC8; // weak
+	uint8_t* x_DWORD_17DECC; // weak
 	int x_DWORD_17DED0; // weak
-	Bit8u* x_DWORD_17DED4; // weak
-	Bit8u* x_DWORD_17DED8; // weak
+	uint8_t* x_DWORD_17DED4; // weak
+	uint8_t* x_DWORD_17DED8; // weak
 	int x_DWORD_17DEDC; // weak
 	FILE* x_DWORD_17DEE0_filedesc; // weak
 	Bit16s x_DWORD_17DEE4_mouse_positionx; // weak
@@ -452,10 +453,10 @@ extern char x_BYTE_17DF10_get_key_scancode; // weak
 extern char x_BYTE_17DF11_last_key_status; // weak
 */
 
-extern Bit8u x_BYTE_10B4E0_terraintype[0x10000]; // idb// x_BYTE_10B1E0[0x300]//2DC4E0 //map array1
-extern Bit8u x_BYTE_11B4E0_height[0x10000]; // idb		//2EC4E0    	//map array2 // heightmap
-extern Bit8u x_BYTE_12B4E0_shading[0x10000]; // fix it -  weak	//2FC4E0    //map array3
-extern Bit8u x_BYTE_13B4E0_angle[0x10000]; // idb//30C4E0	//map array4 // water
+extern uint8_t x_BYTE_10B4E0_terraintype[0x10000]; // idb// x_BYTE_10B1E0[0x300]//2DC4E0 //map array1
+extern uint8_t x_BYTE_11B4E0_height[0x10000]; // idb		//2EC4E0    	//map array2 // heightmap
+extern uint8_t x_BYTE_12B4E0_shading[0x10000]; // fix it -  weak	//2FC4E0    //map array3
+extern uint8_t x_BYTE_13B4E0_angle[0x10000]; // idb//30C4E0	//map array4 // water
 extern __int16 x_WORD_15B4E0_source[0x10000]; // idb//32C4E0	//map array5
 
 extern Bit16u x_WORD_17B4E0; // 34c4e0
@@ -509,8 +510,8 @@ typedef struct {//lenght 44
 	Bit16s sizex_14;
 	Bit16s sizey_16;
 	Bit16s word_18;
-	Bit8u byte_20;//index of gold sprite
-	Bit8u byte_21;//index of gray sprite
+	uint8_t byte_20;//index of gold sprite
+	uint8_t byte_21;//index of gray sprite
 	Bit8s byte_22;
 	Bit8s byte_23;
 	Bit8s gold_color_24;
@@ -544,7 +545,7 @@ type_E1BAC_0x3c4;
 #pragma pack (16)
 
 
-void WriteBufferToBMP(unsigned __int16 width, unsigned __int16 height, Bit8u* ptrPalette, Bit8u* ptrBuffer);
+void WriteBufferToBMP(unsigned __int16 width, unsigned __int16 height, uint8_t* ptrPalette, uint8_t* ptrBuffer);
 
 void /*__spoils<ecx>*/ sub_B5E70_decompress_terrain_map_level(__int16 a1, unsigned __int16 a2, __int16 a3, Bit32s a4);
 void sub_44DB0_truncTerrainHeight();
@@ -578,7 +579,7 @@ char sub_533B0_decompress_levels(__int16 a1, type_str_2FECE* a2);
 
 bool sub_7B200_in_region(type_WORD_E1F84* a1x, Bit16s testx, Bit16s testy);
 void sub_2BC10_draw_text(const char* text, __int16 a2, __int16 a3, unsigned __int8 a4);
-void sub_6F940_sub_draw_text(const char* a1, int a2, int a3, Bit8u color);
+void sub_6F940_sub_draw_text(const char* a1, int a2, int a3, uint8_t color);
 //int /*__noreturn*/ sub_10000(); // weak
 type_str_0x6E8E* sub_15CB0(/*type_str_0x6E8E* a1,*/ type_str_0x6E8E* a2); // weak
 char sub_15D40(__int16 a1, type_str_0x6E8E* a2, type_str_0x6E8E* a3); // weak
@@ -599,8 +600,8 @@ void sub_2AA90(/*type_str_0x6E8E* a1, */type_str_0x6E8E* a2, type_str_0x6E8E* a3
 void ClearGraphicsBuffer(void* ptrBuffer, unsigned __int16 width, unsigned __int16 height, char value);
 void sub_303D0(/*signed int a1*/);
 int _wcpp_1_unwind_leave__62(void); //weak
-int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* a2, Bit32s a3, Bit32s a4, int a5, Bit8u a6, unsigned __int8 a7, Bit32u a8);//560cb0
-void sub_45DC0(/*Bit8u a1,*/ Bit8u a2, uaxis_2d a3, unsigned __int8 a4);
+int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* a2, Bit32s a3, Bit32s a4, int a5, uint8_t a6, unsigned __int8 a7, Bit32u a8);//560cb0
+void sub_45DC0(/*uint8_t a1,*/ uint8_t a2, uaxis_2d a3, unsigned __int8 a4);
 signed int sub_36A50(/*signed int a1, */char a2);
 void sub_36920(/*signed __int16 a1, */type_str_0x6E8E* a2);
 void sub_48A20(int a1, char a2, char a3, int a4, int a5, unsigned __int8 a6);
@@ -618,8 +619,8 @@ void sub_56D60(unsigned int a1, char a2);
 void sub_75200_VGA_Blit640(Bit16u height);
 void VGA_BlitAny();
 void sub_7A060_get_mouse_and_keyboard_events();
-void sub_47560_draw_and_events_in_game(/*Bit8u* a1, int a2, */Bit32u a3, signed int a4, __int16 a5);
-void sub_51BB0_game_events(/*Bit8u* a1*/);
+void sub_47560_draw_and_events_in_game(/*uint8_t* a1, int a2, */Bit32u a3, signed int a4, __int16 a5);
+void sub_51BB0_game_events(/*uint8_t* a1*/);
 //x_DWORD /*__cdecl*/ toupper(x_DWORD); //weak
 void sub_55C60(/*int a1, int a2,*/ type_str_0x2BDE* a3);
 Bit32s /*__cdecl*/ fix_filelength(Bit32s);// weak
@@ -643,9 +644,9 @@ int /*__cdecl*/ _wcpp_1_unwind_leave__98(Bit32s);// weak
 //x_DWORD /*__cdecl*/ dos_setvect(x_DWORD number, void(*actcall)(), x_DWORD);// weak
 int /*__fastcall*/ _wcpp_1_unwind_leave__130(Bit32s);// weak
 //unsigned char _BitScanReverse(unsigned long * Index, unsigned long Mask);
-void sub_8F920(Bit8u a1byte1, Bit8u a1byte2, Bit16s posx, Bit16s posy, Bit8u* a4, unsigned __int8 a5, char a6);
-void sub_8F935_bitmap_draw_final(Bit8u a1byte1, Bit8u a1byte2, Bit16u a2, int a3, Bit8u* a4, Bit8u setbyte, char a6);
-signed int sub_74767(signed __int16* a1, char* a2, Bit8u* a3);
+void sub_8F920(uint8_t a1byte1, uint8_t a1byte2, Bit16s posx, Bit16s posy, uint8_t* a4, unsigned __int8 a5, char a6);
+void sub_8F935_bitmap_draw_final(uint8_t a1byte1, uint8_t a1byte2, Bit16u a2, int a3, uint8_t* a4, uint8_t setbyte, char a6);
+signed int sub_74767(signed __int16* a1, char* a2, uint8_t* a3);
 //x_DWORD /*__cdecl*/ segread(SREGS*); //weak
 //x_DWORD /*__cdecl*/ int386x(x_DWORD, x_DWORD, x_DWORD, x_DWORD);// weak
 //int int386x(int, REGS *, REGS *, struct SREGS *);
@@ -655,7 +656,7 @@ unsigned short __readgsx_WORD(unsigned long Offset);
 void sub_7AB00_draw_menu_animations(/*__int16 a1,*/ /*int a2,*/ /*type_str_unk_E1748* a3,*/ unsigned __int8 a4);
 int sub_7F6A0(int a1, int a2, __int16 a3, __int16 a4, char* a5, Bit8s* a6, unsigned __int8 a7);
 unsigned int sub_81CA0(int a1, int a2, __int16 a3, __int16 a4, type_x_BYTE_E25ED_db_str* a5);
-signed int sub_7E5A0_pre_draw(int a1, int a2, __int16 a3, __int16 a4, Bit8u* a5, __int16 a6, __int16 a7);
+signed int sub_7E5A0_pre_draw(int a1, int a2, __int16 a3, __int16 a4, uint8_t* a5, __int16 a6, __int16 a7);
 void sub_81260(int a1, int a2, Bit8s* a3, __int16 a4, __int16 a5);
 void sub_82510(/*__int16 a1*//*, int *a2*/);
 signed __int16 sub_81EE0(int a1, int a2, int a3, signed __int16 a4, __int16 a5, __int16 a6);
@@ -679,7 +680,7 @@ char sub_9AE90(int eax0, int edx0, int ebx0, int* a1, Bit8s* a2, int a3, int a4)
 int sub_931F0_AIL_install_DIG_INI(HDIGDRIVER* a2, char* digPath);
 HMDIDRIVER sub_95850_AIL_install_MDI_driver_file(char* filename, IO_PARMS* IO);
 Bit32s sub_95710_AIL_install_MDI_INI(HMDIDRIVER* mdi, char* fileName);
-Bit32u /*__cdecl*/ x_read(FILE* descriptor, Bit8u* data, Bit32u size);// weak
+Bit32u /*__cdecl*/ x_read(FILE* descriptor, uint8_t* data, Bit32u size);// weak
 double IF_DPOW(double, double);// weak
 Bit32s x_dos_setdrive(Bit32s a, Bit32s* b);
 //int /*__cdecl*/ x_chdir(const char* path);
@@ -692,13 +693,13 @@ HDIGDRIVER sub_A3600_AIL_API_install_DIG_driver_file(/*int a1, */char* filename,
 Bit32s sub_A78F0_AIL_API_install_MDI_INI(HMDIDRIVER* mdi, char* fileName);
 HMDIDRIVER sub_A77D0_AIL_API_install_MDI_INI(char* filename, IO_PARMS* IO);
 Bit32s /*__cdecl*/ x_setmode(FILE* path, int mode);// weak
-//Bit32u sub_98AE0(Bit8u *a1);
+//Bit32u sub_98AE0(uint8_t *a1);
 __int16 sub_98B2C(unsigned __int8 a1, int a2);
 //char sub_98BAF(int a1);
 __int16 sub_98AE9(__int16* a1, int a2);
 unsigned __CFRCR__(__int16 a, unsigned __int8 b);
 unsigned __CFRCL__(__int16 a, unsigned __int8 b);
-Bit32u /*__cdecl*/ x_write(FILE* descriptor, Bit8u* buffer, Bit32u size_t);
+Bit32u /*__cdecl*/ x_write(FILE* descriptor, uint8_t* buffer, Bit32u size_t);
 Bit32s /*__cdecl*/ x_tolower(Bit32s);// weak
 FILE* x_open(char* path, int pmodex);
 void __writegsx_WORD(unsigned long Offset, unsigned short Data);

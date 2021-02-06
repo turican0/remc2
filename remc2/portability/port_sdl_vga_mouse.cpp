@@ -14,7 +14,7 @@ SDL_Renderer* renderer = NULL;
 SDL_Texture* texture = NULL;
 SDL_Surface* helper_surface = NULL;
 
-Bit8u x_BYTE_1806E4; // weak//3516e4
+uint8_t x_BYTE_1806E4; // weak//3516e4
 Bit8s x_BYTE_180664[128]; // idb
 
 SDL_Surface* screen;
@@ -208,7 +208,7 @@ void Draw_debug_matrix1() {
 	SubBlit(m_iOrigw, m_iOrigh);
 };
 
-Bit8u fontbuffer[256 * 256];
+uint8_t fontbuffer[256 * 256];
 SDL_Surface* surface_font = NULL;
 bool VGA_LoadFont()
 {
@@ -225,7 +225,7 @@ bool VGA_LoadFont()
 		success = false;
 	}
 
-	Bit8u* pixels = (Bit8u*)surface_font->pixels;
+	uint8_t* pixels = (uint8_t*)surface_font->pixels;
 	for (int yy = 0; yy < 256; yy++)
 		for (int xx = 0; xx < 256; xx++)
 			fontbuffer[yy * 256 + xx] = pixels[(yy * 256 + xx) * 3];
@@ -251,7 +251,7 @@ void Draw_letter(int letter_number, int pozx, int pozy) {
 	SDL_BlitSurface(surface_font, &srcrect, screen, &dstrect);
 };
 
-void Draw_letterToBuffer(int letter_number, int pozx, int pozy, Bit8u* buffer) {
+void Draw_letterToBuffer(int letter_number, int pozx, int pozy, uint8_t* buffer) {
 	SDL_Rect srcrect;
 	SDL_Rect dstrect;
 
@@ -321,7 +321,7 @@ void VGA_Draw_string(char* wrstring) {
 	mydelay(10);
 }
 
-void VGA_Draw_stringXYtoBuffer(char* wrstring, int x, int y, Bit8u* buffer) {
+void VGA_Draw_stringXYtoBuffer(char* wrstring, int x, int y, uint8_t* buffer) {
 	int loclastpoz = 0;
 	for (Bit32u i = 0; i < strlen(wrstring); i++)
 	{
@@ -461,7 +461,7 @@ void SavePal(Uint8* pallettebuffer, char* filename)
 }
 
 void VGA_Set_file_pallette(char* filename) {
-	Bit8u pallettebuffer[768];
+	uint8_t pallettebuffer[768];
 	fptpal = fopen(filename, "rb");
 	fread(pallettebuffer, 768, 1, fptpal);
 	fclose(fptpal);
@@ -808,7 +808,7 @@ void VGA_Blit(int width, int height, Uint8* srcBuffer) {
 		{
 			for (int j = 0; j < screen->h; j++)
 			{
-				((Bit8u*)screen->pixels)[i + j * screen->w] = srcBuffer[k + l * m_iOrigw];
+				((uint8_t*)screen->pixels)[i + j * screen->w] = srcBuffer[k + l * m_iOrigw];
 				l += j % 2;
 			}
 			k += i % 2;
@@ -827,7 +827,7 @@ void VGA_Blit(int width, int height, Uint8* srcBuffer) {
 			{
 				k = (int)(i * xscale);
 				l = (int)(j * yscale);
-				((Bit8u*)screen->pixels)[i + j * screen->w] = srcBuffer[k + l * m_iOrigw];
+				((uint8_t*)screen->pixels)[i + j * screen->w] = srcBuffer[k + l * m_iOrigw];
 			}
 		}
 	}

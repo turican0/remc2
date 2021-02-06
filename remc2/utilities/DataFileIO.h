@@ -3,6 +3,7 @@
 #define DataFileIO_H
 
 #include <cstdio>
+#include <cstdint>
 #include "../dosbox_files/config.h"
 #include "../portability/mctypes.h"
 #include "../portability/port_filesystem.h"
@@ -80,8 +81,8 @@ private:
 	static uint16 crc_table[256];
 
 public:
-	static int ReadFileAndDecompress(const char* path, Bit8u** data); //Reads the file path passed in into "data" array of 1 byte elements
-	static int Decompress(Bit8u* a1, Bit8u* a2);
+	static int ReadFileAndDecompress(const char* path, uint8_t** data); //Reads the file path passed in into "data" array of 1 byte elements
+	static int Decompress(uint8_t* a1, uint8_t* a2);
 	static vars_t* init_vars();
 	static int UnpackData(vars_t* v);
 	static int Unpack(vars_t* v);
@@ -90,7 +91,7 @@ public:
 	static FILE* Open(char* path, int pmode, Bit32u flags);
 	static int32 Close(FILE* file);
 	static int32 Seek(FILE* file, x_DWORD position, char type);
-	static size_t Read(FILE* file, Bit8u* data, Bit32u length);
+	static size_t Read(FILE* file, uint8_t* data, Bit32u length);
 	static long FileLengthBytes(FILE* file);
 	static uint8 read_byte(uint8* buf, size_t* offset);
 	static uint16 read_word_be(uint8* buf, size_t* offset);

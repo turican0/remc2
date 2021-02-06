@@ -41,10 +41,10 @@ type_str_0x30311 temparray_0x30311[0x4b0];
 bool temparray_0x30311_inactive[0x4b0];
 bool temparray_0x30311_selected[0x4b0];
 
-void SetPixelMapSurface(int x,int y,int nx,int ny,Bit8u* adress) {
+void SetPixelMapSurface(int x,int y,int nx,int ny,uint8_t* adress) {
 	if (nx < 0 || nx>255 || ny < 0 || ny>255)
 	{
-		Bit8u* scrbuff = (Bit8u*)mapsurface->pixels;
+		uint8_t* scrbuff = (uint8_t*)mapsurface->pixels;
 		scrbuff[4 * (y * 512 + x)] = 255;
 		scrbuff[4 * (y * 512 + x) + 1] = 0;
 		scrbuff[4 * (y * 512 + x) + 2] = 0;
@@ -52,17 +52,17 @@ void SetPixelMapSurface(int x,int y,int nx,int ny,Bit8u* adress) {
 		return;
 	}
 	int color = adress[nx+ny* 256];
-	Bit8u* scrbuff = (Bit8u*)mapsurface->pixels;
+	uint8_t* scrbuff = (uint8_t*)mapsurface->pixels;
 	scrbuff[4 * (y * 512 + x)] = color;
 	scrbuff[4 * (y * 512 + x) + 1] = color;
 	scrbuff[4 * (y * 512 + x) + 2] = color;
 	scrbuff[4 * (y * 512 + x) + 3] = 255;
 }
 
-void SetPixelMapSurfacefeat(int x, int y, int nx, int ny, Bit8u* adress) {
+void SetPixelMapSurfacefeat(int x, int y, int nx, int ny, uint8_t* adress) {
 	if (nx < 0 || nx>255 || ny < 0 || ny>255)
 	{
-		Bit8u* scrbuff = (Bit8u*)mapsurfacefeat->pixels;
+		uint8_t* scrbuff = (uint8_t*)mapsurfacefeat->pixels;
 		scrbuff[4 * (y * 512 + x)] = 255;
 		scrbuff[4 * (y * 512 + x) + 1] = 0;
 		scrbuff[4 * (y * 512 + x) + 2] = 0;
@@ -70,17 +70,17 @@ void SetPixelMapSurfacefeat(int x, int y, int nx, int ny, Bit8u* adress) {
 		return;
 	}
 	int color = adress[nx + ny * 256];
-	Bit8u* scrbuff = (Bit8u*)mapsurfacefeat->pixels;
+	uint8_t* scrbuff = (uint8_t*)mapsurfacefeat->pixels;
 	scrbuff[4 * (y * 512 + x)] = color;
 	scrbuff[4 * (y * 512 + x) + 1] = color;
 	scrbuff[4 * (y * 512 + x) + 2] = color;
 	scrbuff[4 * (y * 512 + x) + 3] = 255;
 }
 
-void SetPixelMapSurfacecheck(int x, int y, int nx, int ny, Bit8u* adress) {
+void SetPixelMapSurfacecheck(int x, int y, int nx, int ny, uint8_t* adress) {
 	if (nx < 0 || nx>255 || ny < 0 || ny>255)
 	{
-		Bit8u* scrbuff = (Bit8u*)mapsurfacecheck->pixels;
+		uint8_t* scrbuff = (uint8_t*)mapsurfacecheck->pixels;
 		scrbuff[4 * (y * 512 + x)] = 255;
 		scrbuff[4 * (y * 512 + x) + 1] = 0;
 		scrbuff[4 * (y * 512 + x) + 2] = 0;
@@ -88,7 +88,7 @@ void SetPixelMapSurfacecheck(int x, int y, int nx, int ny, Bit8u* adress) {
 		return;
 	}
 	int color = adress[nx + ny * 256];
-	Bit8u* scrbuff = (Bit8u*)mapsurfacecheck->pixels;
+	uint8_t* scrbuff = (uint8_t*)mapsurfacecheck->pixels;
 	scrbuff[4 * (y * 512 + x)] = color;
 	scrbuff[4 * (y * 512 + x) + 1] = color;
 	scrbuff[4 * (y * 512 + x) + 2] = color;
@@ -96,7 +96,7 @@ void SetPixelMapSurfacecheck(int x, int y, int nx, int ny, Bit8u* adress) {
 }
 
 void init_pal() {
-	Bit8u temppal[0x300];
+	uint8_t temppal[0x300];
 	for (int i = 0; i < 256; i++)
 	{
 		temppal[i * 3] = i;
@@ -126,7 +126,7 @@ void loadlevel(int levelnumber) {
 
 void editor_run()
 {	
-	//Bit8u* back_pdwScreenBuffer=pdwScreenBuffer;
+	//uint8_t* back_pdwScreenBuffer=pdwScreenBuffer;
 	sub_6EBF0(&filearray_2aa18c[filearrayindex_POINTERSDATTAB]);
 	x_WORD_180660_VGA_type_resolution = 1;
 	x_WORD_E29DA_type_resolution = 1;
@@ -250,7 +250,7 @@ void terrain_recalculate() {
 };
 
 void fillterrain(kiss_terrain* terrain, float zoom, int beginx, int beginy) {
-	Bit8u terrfeatlayer[256 * 256];
+	uint8_t terrfeatlayer[256 * 256];
 	for (int j = 0; j < 256; j++)
 		for (int i = 0; i < 256; i++)
 		{
@@ -273,7 +273,7 @@ void fillterrain(kiss_terrain* terrain, float zoom, int beginx, int beginy) {
 		}
 	}
 
-	Bit8u* scrbuff = (Bit8u*)mapsurface->pixels;
+	uint8_t* scrbuff = (uint8_t*)mapsurface->pixels;
 
 	for (int j = 0; j < 512; j++)
 		for (int i = 0; i < 512; i++)
@@ -450,7 +450,7 @@ void fillterrain(kiss_terrain* terrain, float zoom, int beginx, int beginy) {
 				}
 			}
 		}
-		//sprintf(temp, "%01X |%02X|%04X|%04X|%04X", i, (Bit8u)actstage.byte_0, actstage.word_1, actstage.word_3, actstage.word_5);
+		//sprintf(temp, "%01X |%02X|%04X|%04X|%04X", i, (uint8_t)actstage.byte_0, actstage.word_1, actstage.word_3, actstage.word_5);
 	}
 
 	if (terrain->movingactive == 2)
@@ -484,7 +484,7 @@ void fillterrain(kiss_terrain* terrain, float zoom, int beginx, int beginy) {
 };
 
 void fillterraincheck(float zoom, int beginx, int beginy) {	
-	Bit8u terrchecklayer[256 * 256];
+	uint8_t terrchecklayer[256 * 256];
 	for (int j = 0; j < 256; j++)
 		for (int i = 0; i < 256; i++)
 		{
@@ -501,7 +501,7 @@ void fillterraincheck(float zoom, int beginx, int beginy) {
 	if ((actfeat.axis2d_4.x > -1) && (actfeat.axis2d_4.x < 256) && (actfeat.axis2d_4.y > -1) && (actfeat.axis2d_4.y < 256))
 		terrchecklayer[actfeat.axis2d_4.x + actfeat.axis2d_4.y * 256] = 0xf0;//selected entity
 
-	Bit8u* scrbuff = (Bit8u*)mapsurfacecheck->pixels;
+	uint8_t* scrbuff = (uint8_t*)mapsurfacecheck->pixels;
 	for (int j = 0; j < 512; j++)
 		for (int i = 0; i < 512; i++)
 		{
@@ -671,12 +671,12 @@ void fillterraincheck(float zoom, int beginx, int beginy) {
 				}
 			}
 		}
-		//sprintf(temp, "%01X |%02X|%04X|%04X|%04X", i, (Bit8u)actstage.byte_0, actstage.word_1, actstage.word_3, actstage.word_5);
+		//sprintf(temp, "%01X |%02X|%04X|%04X|%04X", i, (uint8_t)actstage.byte_0, actstage.word_1, actstage.word_3, actstage.word_5);
 	}
 };
 
 void fillterrainfeat(float zoom, int beginx, int beginy) {
-	Bit8u terrfeatlayer[256 * 256];
+	uint8_t terrfeatlayer[256 * 256];
 	for (int j = 0; j < 256; j++)
 		for (int i = 0; i < 256; i++)
 		{
@@ -693,7 +693,7 @@ void fillterrainfeat(float zoom, int beginx, int beginy) {
 	if ((actfeat.axis2d_4.x > -1) && (actfeat.axis2d_4.x < 256) && (actfeat.axis2d_4.y > -1) && (actfeat.axis2d_4.y < 256))
 		terrfeatlayer[actfeat.axis2d_4.x + actfeat.axis2d_4.y * 256] = 0xf0;//selected entity
 
-	Bit8u* scrbuff = (Bit8u*)mapsurfacefeat->pixels;
+	uint8_t* scrbuff = (uint8_t*)mapsurfacefeat->pixels;
 	for (int j = 0; j < 512; j++)
 		for (int i = 0; i < 512; i++)
 		{
@@ -863,7 +863,7 @@ void fillterrainfeat(float zoom, int beginx, int beginy) {
 				}
 			}
 		}
-		//sprintf(temp, "%01X |%02X|%04X|%04X|%04X", i, (Bit8u)actstage.byte_0, actstage.word_1, actstage.word_3, actstage.word_5);
+		//sprintf(temp, "%01X |%02X|%04X|%04X|%04X", i, (uint8_t)actstage.byte_0, actstage.word_1, actstage.word_3, actstage.word_5);
 	}
 };
 
@@ -970,7 +970,7 @@ static void terrain_stages_append(kiss_textbox* textbox) {
 	for (int i = 0; i < 8; i++)
 	{
 		type_str_0x36442 actstage = D41A0_BYTESTR_0.str_2FECE.str_0x36442[i];
-		sprintf(temp, "%01X |%02X|%04X|%04X|%04X", i, (Bit8u)actstage.byte_0, actstage.word_1, actstage._axis_2d.x, actstage._axis_2d.y);
+		sprintf(temp, "%01X |%02X|%04X|%04X|%04X", i, (uint8_t)actstage.byte_0, actstage.word_1, actstage._axis_2d.x, actstage._axis_2d.y);
 		kiss_array_appendstring(textbox->array, 0, (char*)"", temp);
 	}
 	//text_reset(textbox1, vscrollbar1);
@@ -984,7 +984,7 @@ char temp[256];
 for (int i = 0; i < 0xb; i++)
 {
 	type_str_0x3647Ac actstage = D41A0_BYTESTR_0.str_2FECE.array_0x3647A[i];
-	sprintf(temp, "%01X |%02X|%02X|%02X|%02X|%04X|%04X", i, (Bit8u)actstage.str_0x3647A_byte_0, (Bit8u)actstage.str_0x3647A_byte_1, actstage.str_0x3647A_2._axis_2d.x, actstage.str_0x3647A_2._axis_2d.y,actstage.str_0x3647C_4.axis.x, actstage.str_0x3647C_4.axis.y);
+	sprintf(temp, "%01X |%02X|%02X|%02X|%02X|%04X|%04X", i, (uint8_t)actstage.str_0x3647A_byte_0, (uint8_t)actstage.str_0x3647A_byte_1, actstage.str_0x3647A_2._axis_2d.x, actstage.str_0x3647A_2._axis_2d.y,actstage.str_0x3647C_4.axis.x, actstage.str_0x3647C_4.axis.y);
 	kiss_array_appendstring(textbox->array, 0, (char*)"", temp);
 }
 //text_reset(textbox1, vscrollbar1);
@@ -1828,7 +1828,7 @@ int main_x(/*int argc, char** argv*/)
 		fprintf(stderr, "CreateRGBSurface failed: %s\n", SDL_GetError());
 		exit(1);
 	}
-	/*Bit8u* scrbuff = (Bit8u*)mapsurface->pixels;
+	/*uint8_t* scrbuff = (uint8_t*)mapsurface->pixels;
 	for (int j = 0; j < 256; j++)
 		for (int i = 0; i < 256; i++) {
 			scrbuff[4 * (i * 256 + j)] = 128;
@@ -2182,9 +2182,9 @@ int main_x(/*int argc, char** argv*/)
 	/*
 	Bit16u word_2FECE;
 	Bit16u word_2FED0;
-	Bit8u byte_0x2FED2;//x_D41A0_BYTEARRAY_0[196306] // type of level graphics
-	Bit8u byte_0x2FED3;
-	Bit8u byte_0x2FED4;//x_D41A0_BYTEARRAY_0[196308]//GraphicsType
+	uint8_t byte_0x2FED2;//x_D41A0_BYTEARRAY_0[196306] // type of level graphics
+	uint8_t byte_0x2FED3;
+	uint8_t byte_0x2FED4;//x_D41A0_BYTEARRAY_0[196308]//GraphicsType
 	Bit16s word_0x2FED5;
 	Bit16s word_0x2FED7;
 	Bit8s array_0x2FED9[8];

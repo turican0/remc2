@@ -1,5 +1,6 @@
-#ifndef PORT_FILESYSTEM
-#define PORT_FILESYSTEM
+#pragma once
+#ifndef PORT_FILESYSTEM_H
+#define PORT_FILESYSTEM_H
 
 #include <cstdint>
 #include <stdio.h>
@@ -53,8 +54,8 @@ int myclose(FILE* descriptor);
 Bit32s mylseek(FILE* filedesc, x_DWORD position, char type);
 Bit32s myfseek(FILE* filedesc, x_DWORD position, char type);
 
-void AdvReadfile(const char* path, Bit8u* buffer);
-void ReadGraphicsfile(const char* path, Bit8u* buffer,long size=-1);
+void AdvReadfile(const char* path, uint8_t* buffer);
+void ReadGraphicsfile(const char* path, uint8_t* buffer,long size=-1);
 bool ExistGraphicsfile(const char* path);
 
 long myftell(FILE* decriptor);
@@ -77,7 +78,7 @@ int dos_getdrive(int* a);
 std::string get_exe_path();
 
 #ifdef _MSC_VER
-uint64_t dos_getdiskfree(int16_t a1, int16_t a2, Bit8u a, short* b);
+uint64_t dos_getdiskfree(int16_t a1, int16_t a2, uint8_t a, short* b);
 #endif
 
 void debug_printf(const char* format, ...);

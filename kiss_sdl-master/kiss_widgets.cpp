@@ -306,7 +306,7 @@ int kiss_hex2edit_new(kiss_hex2edit* hex2edit, kiss_window* wdw, void* adress, c
 	kiss_makerect(&hex2edit->leftrect2, basic_shift_x + x + hex2edit->left.w, y, hex2edit->left.w, hex2edit->left.h);
 	
 	char buf[256];
-	sprintf(buf, "%02X", *(Bit8u*)adress);
+	sprintf(buf, "%02X", *(uint8_t*)adress);
 	hex2edit->valuetextcolor = kiss_black;
 	kiss_string_copy(hex2edit->valuetext, KISS_MAX_LENGTH, buf, NULL);
 	hex2edit->valuetextx = basic_shift_x + x + hex2edit->left.w * 2;
@@ -337,16 +337,16 @@ int kiss_hex2edit_update_adress(kiss_hex2edit* hex2edit, void* adress)
 	if (!hex2edit) return -1;
 	hex2edit->valueadress = adress;
 	char buf[256];
-	sprintf(buf, "%02X", *(Bit8u*)adress);
+	sprintf(buf, "%02X", *(uint8_t*)adress);
 	kiss_string_copy(hex2edit->valuetext, KISS_MAX_LENGTH, buf, NULL);
 	return 0;
 }
 
 void kiss_hex2edit_set(kiss_hex2edit* hex2edit, int value)
 {
-	*(Bit8u*)hex2edit->valueadress = value;
+	*(uint8_t*)hex2edit->valueadress = value;
 	char buf[256];
-	sprintf(buf, "%02X", *(Bit8u*)hex2edit->valueadress);
+	sprintf(buf, "%02X", *(uint8_t*)hex2edit->valueadress);
 	kiss_string_copy(hex2edit->valuetext, KISS_MAX_LENGTH, buf, NULL);
 }
 
@@ -361,9 +361,9 @@ int kiss_hex2edit_event(kiss_hex2edit* hex2edit, SDL_Event* event, int* draw)
 	if (event->type == SDL_MOUSEBUTTONDOWN && kiss_pointinrect(event->button.x, event->button.y, &hex2edit->leftrect1)) {
 		hex2edit->left1active = 1;
 		*draw = 1;
-		*(Bit8u*)hex2edit->valueadress -= 16;
+		*(uint8_t*)hex2edit->valueadress -= 16;
 		char buf[256];
-		sprintf(buf, "%02X", *(Bit8u*)hex2edit->valueadress);
+		sprintf(buf, "%02X", *(uint8_t*)hex2edit->valueadress);
 		kiss_string_copy(hex2edit->valuetext, KISS_MAX_LENGTH, buf, NULL);
 		return 11;
 	}
@@ -388,9 +388,9 @@ int kiss_hex2edit_event(kiss_hex2edit* hex2edit, SDL_Event* event, int* draw)
 	if (event->type == SDL_MOUSEBUTTONDOWN && kiss_pointinrect(event->button.x, event->button.y, &hex2edit->leftrect2)) {
 		hex2edit->left2active = 1;
 		*draw = 1;
-		*(Bit8u*)hex2edit->valueadress -= 1;
+		*(uint8_t*)hex2edit->valueadress -= 1;
 		char buf[256];
-		sprintf(buf, "%02X", *(Bit8u*)hex2edit->valueadress);
+		sprintf(buf, "%02X", *(uint8_t*)hex2edit->valueadress);
 		kiss_string_copy(hex2edit->valuetext, KISS_MAX_LENGTH, buf, NULL);
 		return 12;
 	}
@@ -416,9 +416,9 @@ int kiss_hex2edit_event(kiss_hex2edit* hex2edit, SDL_Event* event, int* draw)
 	if (event->type == SDL_MOUSEBUTTONDOWN && kiss_pointinrect(event->button.x, event->button.y, &hex2edit->rightrect1)) {
 		hex2edit->right1active = 1;
 		*draw = 1;
-		*(Bit8u*)hex2edit->valueadress += 1;
+		*(uint8_t*)hex2edit->valueadress += 1;
 		char buf[256];
-		sprintf(buf, "%02X", *(Bit8u*)hex2edit->valueadress);
+		sprintf(buf, "%02X", *(uint8_t*)hex2edit->valueadress);
 		kiss_string_copy(hex2edit->valuetext, KISS_MAX_LENGTH, buf, NULL);
 		return 15;
 	}
@@ -443,9 +443,9 @@ int kiss_hex2edit_event(kiss_hex2edit* hex2edit, SDL_Event* event, int* draw)
 	if (event->type == SDL_MOUSEBUTTONDOWN && kiss_pointinrect(event->button.x, event->button.y, &hex2edit->rightrect2)) {
 		hex2edit->right2active = 1;
 		*draw = 1;
-		*(Bit8u*)hex2edit->valueadress += 16;
+		*(uint8_t*)hex2edit->valueadress += 16;
 		char buf[256];
-		sprintf(buf, "%02X", *(Bit8u*)hex2edit->valueadress);
+		sprintf(buf, "%02X", *(uint8_t*)hex2edit->valueadress);
 		kiss_string_copy(hex2edit->valuetext, KISS_MAX_LENGTH, buf, NULL);
 		return 16;
 	}
@@ -503,7 +503,7 @@ int kiss_hex2edit_draw(kiss_hex2edit* hex2edit, SDL_Renderer* renderer)
 		kiss_renderimage(renderer, hex2edit->right, hex2edit->rightrect2.x, hex2edit->rightrect2.y, NULL);
 
 	char buf[256];
-	sprintf(buf, "%02X", *(Bit8u*)hex2edit->valueadress);
+	sprintf(buf, "%02X", *(uint8_t*)hex2edit->valueadress);
 	kiss_string_copy(hex2edit->valuetext, KISS_MAX_LENGTH, buf, NULL);
 	kiss_rendertext(renderer, hex2edit->text, hex2edit->textx, hex2edit->texty, hex2edit->font, hex2edit->textcolor);
 	kiss_rendertext(renderer, hex2edit->valuetext, hex2edit->valuetextx, hex2edit->valuetexty, hex2edit->valuefont, hex2edit->valuetextcolor);

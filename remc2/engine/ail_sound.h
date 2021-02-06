@@ -1,9 +1,9 @@
+#pragma once
 #ifndef AIL_SOUND_ACTIVE
 #define AIL_SOUND_ACTIVE
-#include "../dosbox_files/config.h"
-//#include "SDL_mixer.h"
 
 #include <string>
+#include <cstdint>
 
 #define MSS_STRUCT struct
 
@@ -113,11 +113,11 @@ Bit32s vol_scale_18[2][256];
 //534 CALLBACK EOS;                 // End-of-sample callback function
 EOS_callback_type sam_var532_EOS_ptr;
 Bit32s sam_var[1000];
-   Bit8u* sam_var542;
+   uint8_t* sam_var542;
    int index_sample = -1;
 
    void* start_44mhz;//8
-   Bit8u mark44mark[sample_mark];
+   uint8_t mark44mark[sample_mark];
    //Mix_Chunk chunk;
 }
 SAMPLE;
@@ -138,7 +138,7 @@ DIG_MODE;
 
 typedef struct
 {
-	Bit8u    format_supported[16];
+	uint8_t    format_supported[16];
 	DIG_MODE format_data[16];
 }
 DIG_DDT;
@@ -184,7 +184,7 @@ HTIMER timer_3;
   /*13*/Bit32u var46_aildrv;
 
   ///*28/*/ Bit16s var28_aildrv;
-  /*4*/	Bit8u scratch[144];
+  /*4*/	uint8_t scratch[144];
 }
 DIG_DRIVER;
 
@@ -233,12 +233,12 @@ typedef struct                            // XMIDI sequence state table
 	/*1*/Bit32u status_1;                       // SEQ_ flags
 
 	/*2*/void* TIMB_2;                         // XMIDI IFF chunk pointers
-	/*3*/Bit8u* RBRN_3;
+	/*3*/uint8_t* RBRN_3;
 	/*4*/void* EVNT_4;
 
-	/*5*/Bit8u* EVNT_ptr_5;                     // Current event pointer
+	/*5*/uint8_t* EVNT_ptr_5;                     // Current event pointer
 
-	/*6*/Bit8u* ICA_6;                          // Indirect Controller Array
+	/*6*/uint8_t* ICA_6;                          // Indirect Controller Array
 
 	/*7*/xCALLBACK prefix_callback_7;              // XMIDI Callback Prefix handler
 	/*8*/xCALLBACK trigger_callback_8_32;             // XMIDI Callback Trigger handler
@@ -269,7 +269,7 @@ typedef struct                            // XMIDI sequence state table
 	/*27*/Bit32s     beat_fraction_27;
 	/*28*/Bit32s     time_per_beat_28;
 
-	/*29*/Bit8u* FOR_ptrs[FOR_NEST];    // Loop stack
+	/*29*/uint8_t* FOR_ptrs[FOR_NEST];    // Loop stack
 	/*33*/Bit32s     FOR_loop_count_33[FOR_NEST];
 
 	/*37*/Bit32s     chan_map_37[NUM_CHANS];   // Physical channel map for sequence
@@ -364,14 +364,14 @@ typedef struct _MDI_DRIVER          // Handle to XMIDI driver
  ///*13*/Bit32u var10_aildrv;
   //Bit32u var11_aildrv;
   //Bit32u var12_aildrv;
-  ///*13*/Bit8u* var13_aildrv;
+  ///*13*/uint8_t* var13_aildrv;
   ///*13*/Bit32u var14_aildrv;
   ///*13*/Bit32u var15_aildrv;
   ///*13*/Bit32u var16_aildrv;
   ///*13*/Bit32u var17_aildrv;
   ///*13*/Bit32u var18_aildrv;
   ///*13*/Bit32u var19_aildrv;
-  ///*20*/ Bit8u* var20_aildrv_dig_drv;
+  ///*20*/ uint8_t* var20_aildrv_dig_drv;
   ///*13*/Bit32u var21_aildrv;
   ///*13*/Bit32u var22_aildrv;
   /*13*/HSEQUENCE var23_aildrvx[NUM_CHANS];
@@ -388,7 +388,7 @@ typedef struct _MDI_DRIVER          // Handle to XMIDI driver
  Bit16s var106_aildrv;
  Bit16s var107_aildrv;
  Bit16s var108_aildrv;
-  /*4*/	Bit8u scratch[144];
+  /*4*/	uint8_t scratch[144];
 }
 MDI_DRIVER;
 
@@ -407,8 +407,8 @@ AIL_INI;
 /*
 typedef struct _XMIDISUB
 {
-	Bit8u trackname[18];//0
-	Bit8u* data_buffer_4b;//18
+	uint8_t trackname[18];//0
+	uint8_t* data_buffer_4b;//18
 	Bit16u var5b;//22
 	Bit32u var6;//24
 	//Bit32u var7;//28
@@ -417,9 +417,9 @@ XMIDISUBHEADER;
 
 typedef struct _XMIDIHEADER
 {
-	Bit8u sign[4];//RNC
+	uint8_t sign[4];//RNC
 	Bit32u size;
-	Bit8u x[32-8];
+	uint8_t x[32-8];
 	XMIDISUBHEADER track[6];
 }
 XMIDIHEADER;*/
