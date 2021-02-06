@@ -110,9 +110,11 @@ set(ALL_FILES
 # targets
 ################################################################################
 add_library(findfirst ${SOURCE_FILES__libs__findfirst})
-set_target_properties(findfirst PROPERTIES COMPILE_FLAGS "-m32" LINK_FLAGS "-m32")
 add_executable(${PROJECT_NAME} ${ALL_FILES})
-set_target_properties(${PROJECT_NAME} PROPERTIES COMPILE_FLAGS "-m32" LINK_FLAGS "-m32")
+if (NOT USE_64_BIT)
+    set_target_properties(findfirst PROPERTIES COMPILE_FLAGS "-m32" LINK_FLAGS "-m32")
+    set_target_properties(${PROJECT_NAME} PROPERTIES COMPILE_FLAGS "-m32" LINK_FLAGS "-m32")
+endif ()
 
 install(
     TARGETS ${PROJECT_NAME}

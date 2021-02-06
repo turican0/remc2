@@ -121,7 +121,9 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 # dependencies
 set(libADLMIDI_STATIC TRUE)
 add_subdirectory(libADLMIDI-master)
-set_target_properties(ADLMIDI_static PROPERTIES COMPILE_FLAGS "-m32" LINK_FLAGS "-m32")
+if (NOT USE_64_BIT)
+    set_target_properties(ADLMIDI_static PROPERTIES COMPILE_FLAGS "-m32" LINK_FLAGS "-m32")
+endif ()
         
 # remc2
 add_subdirectory(remc2)
