@@ -39,18 +39,18 @@ IO_PARMS;
 typedef MSS_STRUCT                      // Standard MSS 3.X VDI driver header
 {
 	/*0*/int8_t ID_8[8];
-	/*8*/Bit16u driver_version_8;
+	/*8*/uint16_t driver_version_8;
 	/*10*/void* VDI_HDR_var10;
-	/*12*/Bit16u VDI_HDR_var12;
-	/*14*/Bit16u num_IO_configurations_14;//03
+	/*12*/uint16_t VDI_HDR_var12;
+	/*14*/uint16_t num_IO_configurations_14;//03
 	/*16*/Bit32u environment_string_16;//2c380506	
 	//20
 	/*22*/IO_PARMS IO;//22
-	/*20*/Bit16u scratch0;
+	/*20*/uint16_t scratch0;
 	/*46*/Bit16s VDI_HDR_var46;//busy
-	/*48*/Bit16u VDI_HDR_var48;//driver_num
-	/*50*/Bit16u VDI_HDR_var50;
-	/*52*/Bit16u VDI_HDR_var52_this_ISR;
+	/*48*/uint16_t VDI_HDR_var48;//driver_num
+	/*50*/uint16_t VDI_HDR_var50;
+	/*52*/uint16_t VDI_HDR_var52_this_ISR;
 	/*54*/Bit32u VDI_HDR_var54_prev_ISR;
    /*58*/int8_t scratch[128];           // Shared scratch workspace   
    int8_t dev_name[80];           // Device name (VDI version >= 1.12 only)
@@ -125,12 +125,12 @@ typedef MSS_STRUCT _SAMPLE * HSAMPLE;           // Handle to sample
 
 typedef struct
 {
-	Bit16u minimum_physical_sample_rate;
-	Bit16u nominal_physical_sample_rate;
-	Bit16u maximum_physical_sample_rate;
+	uint16_t minimum_physical_sample_rate;
+	uint16_t nominal_physical_sample_rate;
+	uint16_t maximum_physical_sample_rate;
 
-	Bit16u minimum_DMA_half_buffer_size;
-	Bit16u maximum_DMA_half_buffer_size;
+	uint16_t minimum_DMA_half_buffer_size;
+	uint16_t maximum_DMA_half_buffer_size;
 
 	Bit32u flags;
 }
@@ -147,7 +147,7 @@ typedef struct
 {
 	void*  DMA_buffer_A;//0
 	void*  DMA_buffer_B;//4
-	Bit16u     active_buffer;//8
+	uint16_t     active_buffer;//8
 }
 DIG_DST;
 
@@ -312,11 +312,11 @@ typedef struct
 	void*  library_environment;
 	void*  GTL_suffix;
 
-	Bit16u    num_voices;
+	uint16_t    num_voices;
 
-	Bit16u    max_melodic_channel;
-	Bit16u    min_melodic_channel;
-	Bit16u    percussion_channel;
+	uint16_t    max_melodic_channel;
+	uint16_t    min_melodic_channel;
+	uint16_t    percussion_channel;
 }
 MDI_DDT;
 
@@ -409,7 +409,7 @@ typedef struct _XMIDISUB
 {
 	uint8_t trackname[18];//0
 	uint8_t* data_buffer_4b;//18
-	Bit16u var5b;//22
+	uint16_t var5b;//22
 	Bit32u var6;//24
 	//Bit32u var7;//28
 }

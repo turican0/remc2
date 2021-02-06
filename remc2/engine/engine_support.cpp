@@ -483,7 +483,7 @@ posistruct_t* x_DWORD_D4188t_spritestr;
 
 posistruct_t* xy_DWORD_17DEC0_spritestr_orig;
 
-doublebyte doublebyte_conv(Bit16u a2) {
+doublebyte doublebyte_conv(uint16_t a2) {
 	doublebyte result;
 	result.byte1 = a2 && 0xff;
 	result.byte2 = a2 && 0xff00;

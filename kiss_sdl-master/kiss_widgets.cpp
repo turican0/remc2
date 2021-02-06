@@ -552,7 +552,7 @@ int kiss_hex4edit_new(kiss_hex4edit* hex4edit, kiss_window* wdw, void* adress, c
 	kiss_makerect(&hex4edit->leftrect4, basic_shift_x + x + hex4edit->left.w * 3, y, hex4edit->left.w, hex4edit->left.h);
 
 	char buf[256];
-	sprintf(buf,"%04X", *(Bit16u*)adress);
+	sprintf(buf,"%04X", *(uint16_t*)adress);
 	hex4edit->valuetextcolor = kiss_black;
 	kiss_string_copy(hex4edit->valuetext, KISS_MAX_LENGTH, buf, NULL);
 	hex4edit->valuetextx = basic_shift_x + x + hex4edit->left.w * 4;
@@ -593,16 +593,16 @@ int kiss_hex4edit_update_adress(kiss_hex4edit* hex4edit, void* adress)
 	if (!hex4edit) return -1;
 	hex4edit->valueadress = adress;	
 	char buf[256];
-	sprintf(buf, "%04X", *(Bit16u*)adress);
+	sprintf(buf, "%04X", *(uint16_t*)adress);
 	kiss_string_copy(hex4edit->valuetext, KISS_MAX_LENGTH, buf, NULL);	
 	return 0;
 }
 
 void kiss_hex4edit_set(kiss_hex4edit* hex4edit,int value)
 {	
-		*(Bit16u*)hex4edit->valueadress = value;
+		*(uint16_t*)hex4edit->valueadress = value;
 		char buf[256];
-		sprintf(buf, "%04X", *(Bit16u*)hex4edit->valueadress);
+		sprintf(buf, "%04X", *(uint16_t*)hex4edit->valueadress);
 		kiss_string_copy(hex4edit->valuetext, KISS_MAX_LENGTH, buf, NULL);
 	}
 
@@ -617,9 +617,9 @@ int kiss_hex4edit_event(kiss_hex4edit* hex4edit, SDL_Event* event, int* draw)
 	if (event->type == SDL_MOUSEBUTTONDOWN && kiss_pointinrect(event->button.x, event->button.y,&hex4edit->leftrect1)) {
 		hex4edit->left1active = 1;
 		*draw = 1;
-		*(Bit16u*)hex4edit->valueadress -= 4096;
+		*(uint16_t*)hex4edit->valueadress -= 4096;
 		char buf[256];
-		sprintf(buf, "%04X", *(Bit16u*)hex4edit->valueadress);
+		sprintf(buf, "%04X", *(uint16_t*)hex4edit->valueadress);
 		kiss_string_copy(hex4edit->valuetext, KISS_MAX_LENGTH, buf, NULL);
 		return 11;
 	}
@@ -644,9 +644,9 @@ int kiss_hex4edit_event(kiss_hex4edit* hex4edit, SDL_Event* event, int* draw)
 	if (event->type == SDL_MOUSEBUTTONDOWN && kiss_pointinrect(event->button.x, event->button.y, &hex4edit->leftrect2)) {
 		hex4edit->left2active = 1;
 		*draw = 1;
-		*(Bit16u*)hex4edit->valueadress -= 256;
+		*(uint16_t*)hex4edit->valueadress -= 256;
 		char buf[256];
-		sprintf(buf, "%04X", *(Bit16u*)hex4edit->valueadress);
+		sprintf(buf, "%04X", *(uint16_t*)hex4edit->valueadress);
 		kiss_string_copy(hex4edit->valuetext, KISS_MAX_LENGTH, buf, NULL);
 		return 12;
 	}
@@ -671,9 +671,9 @@ int kiss_hex4edit_event(kiss_hex4edit* hex4edit, SDL_Event* event, int* draw)
 	if (event->type == SDL_MOUSEBUTTONDOWN && kiss_pointinrect(event->button.x, event->button.y, &hex4edit->leftrect3)) {
 		hex4edit->left3active = 1;
 		*draw = 1;
-		*(Bit16u*)hex4edit->valueadress -= 16;
+		*(uint16_t*)hex4edit->valueadress -= 16;
 		char buf[256];
-		sprintf(buf, "%04X", *(Bit16u*)hex4edit->valueadress);
+		sprintf(buf, "%04X", *(uint16_t*)hex4edit->valueadress);
 		kiss_string_copy(hex4edit->valuetext, KISS_MAX_LENGTH, buf, NULL);
 		return 13;
 	}
@@ -698,9 +698,9 @@ int kiss_hex4edit_event(kiss_hex4edit* hex4edit, SDL_Event* event, int* draw)
 	if (event->type == SDL_MOUSEBUTTONDOWN && kiss_pointinrect(event->button.x, event->button.y, &hex4edit->leftrect4)) {
 		hex4edit->left4active = 1;
 		*draw = 1;
-		*(Bit16u*)hex4edit->valueadress -= 1;
+		*(uint16_t*)hex4edit->valueadress -= 1;
 		char buf[256];
-		sprintf(buf, "%04X", *(Bit16u*)hex4edit->valueadress);
+		sprintf(buf, "%04X", *(uint16_t*)hex4edit->valueadress);
 		kiss_string_copy(hex4edit->valuetext, KISS_MAX_LENGTH, buf, NULL);
 		return 14;
 	}
@@ -725,9 +725,9 @@ int kiss_hex4edit_event(kiss_hex4edit* hex4edit, SDL_Event* event, int* draw)
 	if (event->type == SDL_MOUSEBUTTONDOWN && kiss_pointinrect(event->button.x, event->button.y, &hex4edit->rightrect1)) {
 		hex4edit->right1active = 1;
 		*draw = 1;
-		*(Bit16u*)hex4edit->valueadress += 1;
+		*(uint16_t*)hex4edit->valueadress += 1;
 		char buf[256];
-		sprintf(buf, "%04X", *(Bit16u*)hex4edit->valueadress);
+		sprintf(buf, "%04X", *(uint16_t*)hex4edit->valueadress);
 		kiss_string_copy(hex4edit->valuetext, KISS_MAX_LENGTH, buf, NULL);
 		return 15;
 	}
@@ -752,9 +752,9 @@ int kiss_hex4edit_event(kiss_hex4edit* hex4edit, SDL_Event* event, int* draw)
 	if (event->type == SDL_MOUSEBUTTONDOWN && kiss_pointinrect(event->button.x, event->button.y, &hex4edit->rightrect2)) {
 		hex4edit->right2active = 1;
 		*draw = 1;
-		*(Bit16u*)hex4edit->valueadress += 16;
+		*(uint16_t*)hex4edit->valueadress += 16;
 		char buf[256];
-		sprintf(buf, "%04X", *(Bit16u*)hex4edit->valueadress);
+		sprintf(buf, "%04X", *(uint16_t*)hex4edit->valueadress);
 		kiss_string_copy(hex4edit->valuetext, KISS_MAX_LENGTH, buf, NULL);
 		return 16;
 	}
@@ -779,9 +779,9 @@ int kiss_hex4edit_event(kiss_hex4edit* hex4edit, SDL_Event* event, int* draw)
 	if (event->type == SDL_MOUSEBUTTONDOWN && kiss_pointinrect(event->button.x, event->button.y, &hex4edit->rightrect3)) {
 		hex4edit->right3active = 1;
 		*draw = 1;
-		*(Bit16u*)hex4edit->valueadress += 256;
+		*(uint16_t*)hex4edit->valueadress += 256;
 		char buf[256];
-		sprintf(buf, "%04X", *(Bit16u*)hex4edit->valueadress);
+		sprintf(buf, "%04X", *(uint16_t*)hex4edit->valueadress);
 		kiss_string_copy(hex4edit->valuetext, KISS_MAX_LENGTH, buf, NULL);
 		return 17;
 	}
@@ -806,9 +806,9 @@ int kiss_hex4edit_event(kiss_hex4edit* hex4edit, SDL_Event* event, int* draw)
 	if (event->type == SDL_MOUSEBUTTONDOWN && kiss_pointinrect(event->button.x, event->button.y, &hex4edit->rightrect4)) {
 		hex4edit->right4active = 1;
 		*draw = 1;
-		*(Bit16u*)hex4edit->valueadress += 4096;
+		*(uint16_t*)hex4edit->valueadress += 4096;
 		char buf[256];
-		sprintf(buf, "%04X", *(Bit16u*)hex4edit->valueadress);
+		sprintf(buf, "%04X", *(uint16_t*)hex4edit->valueadress);
 		kiss_string_copy(hex4edit->valuetext, KISS_MAX_LENGTH, buf, NULL);
 		return 18;
 	}
@@ -892,7 +892,7 @@ int kiss_hex4edit_draw(kiss_hex4edit* hex4edit, SDL_Renderer* renderer)
 		kiss_renderimage(renderer, hex4edit->right, hex4edit->rightrect4.x, hex4edit->rightrect4.y, NULL);
 
 	char buf[256];
-	sprintf(buf, "%04X", *(Bit16u*)hex4edit->valueadress);
+	sprintf(buf, "%04X", *(uint16_t*)hex4edit->valueadress);
 	kiss_string_copy(hex4edit->valuetext, KISS_MAX_LENGTH, buf, NULL);
 	kiss_rendertext(renderer, hex4edit->text, hex4edit->textx, hex4edit->texty,hex4edit->font, hex4edit->textcolor);
 	kiss_rendertext(renderer, hex4edit->valuetext, hex4edit->valuetextx, hex4edit->valuetexty, hex4edit->valuefont, hex4edit->valuetextcolor);
@@ -929,7 +929,7 @@ int kiss_dec1edit_new(kiss_dec1edit* dec1edit, kiss_window* wdw, void* adress, c
 	int basic_shift_x = 70;
 	kiss_makerect(&dec1edit->leftrect1, basic_shift_x + x, y, dec1edit->left.w, dec1edit->left.h);
 	char buf[256];
-	sprintf(buf, "%d", *(Bit16u*)adress);
+	sprintf(buf, "%d", *(uint16_t*)adress);
 	dec1edit->valuetextcolor = kiss_black;
 	kiss_string_copy(dec1edit->valuetext, KISS_MAX_LENGTH, buf, NULL);
 	dec1edit->valuetextx = basic_shift_x + x + dec1edit->left.w;
@@ -960,10 +960,10 @@ int kiss_dec1edit_event(kiss_dec1edit* dec1edit, SDL_Event* event, int* draw)
 	if (event->type == SDL_MOUSEBUTTONDOWN && kiss_pointinrect(event->button.x, event->button.y, &dec1edit->leftrect1)) {
 		dec1edit->left1active = 1;
 		*draw = 1;
-		*(Bit16u*)dec1edit->valueadress -=1;
-		if (*(Bit16u*)dec1edit->valueadress < dec1edit->min)* (Bit16u*)dec1edit->valueadress = dec1edit->min;
+		*(uint16_t*)dec1edit->valueadress -=1;
+		if (*(uint16_t*)dec1edit->valueadress < dec1edit->min)* (uint16_t*)dec1edit->valueadress = dec1edit->min;
 		char buf[256];
-		sprintf(buf, "%d", *(Bit16u*)dec1edit->valueadress);
+		sprintf(buf, "%d", *(uint16_t*)dec1edit->valueadress);
 		kiss_string_copy(dec1edit->valuetext, KISS_MAX_LENGTH, buf, NULL);
 		return 11;
 	}
@@ -988,10 +988,10 @@ int kiss_dec1edit_event(kiss_dec1edit* dec1edit, SDL_Event* event, int* draw)
 	if (event->type == SDL_MOUSEBUTTONDOWN && kiss_pointinrect(event->button.x, event->button.y, &dec1edit->rightrect1)) {
 		dec1edit->right1active = 1;
 		*draw = 1;
-		*(Bit16u*)dec1edit->valueadress += 1;
-		if (*(Bit16u*)dec1edit->valueadress > dec1edit->max)* (Bit16u*)dec1edit->valueadress = dec1edit->max;
+		*(uint16_t*)dec1edit->valueadress += 1;
+		if (*(uint16_t*)dec1edit->valueadress > dec1edit->max)* (uint16_t*)dec1edit->valueadress = dec1edit->max;
 		char buf[256];
-		sprintf(buf, "%d", *(Bit16u*)dec1edit->valueadress);
+		sprintf(buf, "%d", *(uint16_t*)dec1edit->valueadress);
 		kiss_string_copy(dec1edit->valuetext, KISS_MAX_LENGTH, buf, NULL);
 		return 15;
 	}

@@ -71,8 +71,8 @@ extern uint8_t sound_buffer[4][20000];
 
 Bit32s ac_sound_call_driver(AIL_DRIVER* drvr, Bit32s fn, VDI_CALL* in, VDI_CALL* out);
 
-void ac_set_real_vect(Bit32u vectnum, Bit16u real_ptr);
-Bit16u ac_get_real_vect(Bit32u vectnum);
+void ac_set_real_vect(Bit32u vectnum, uint16_t real_ptr);
+uint16_t ac_get_real_vect(Bit32u vectnum);
 AIL_DRIVER* ac_AIL_API_install_driver(int a1, uint8_t* a2, int a3);
 
 void SOUND_init_MIDI_sequence(uint8_t* data, uint8_t* header, Bit32s track_number);

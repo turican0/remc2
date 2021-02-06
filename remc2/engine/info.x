@@ -208,17 +208,17 @@ sub_7FCB0 - 260cb0
 56210 237210
 
 repair this function:
-void sub_8F935(Bit16u a1, signed int a2, int a3, uint8_t* a4, unsigned __int8 a5, char a6)//270935
+void sub_8F935(uint16_t a1, signed int a2, int a3, uint8_t* a4, unsigned __int8 a5, char a6)//270935
 
 oprava
 int /*__cdecl*/ sub_81360(int a1, int a2, int a3, int a4, __int16 a5)//262360
 oprava4
-__int16 /*__cdecl*/ /*__spoils<>*/ sub_72633(Bit16u a1, Bit16u a2)//253633
+__int16 /*__cdecl*/ /*__spoils<>*/ sub_72633(uint16_t a1, uint16_t a2)//253633
 
 int /*__cdecl*/ sub_81360(Bit32s a1, Bit32s a2, Bit32s a3, Bit32s a4, __int16 a5)//262360
 
 ladeni:
-void sub_8F935(Bit16u a1, signed int a2, int a3, uint8_t* a4, unsigned __int8 a5, char a6)//270935
+void sub_8F935(uint16_t a1, signed int a2, int a3, uint8_t* a4, unsigned __int8 a5, char a6)//270935
 
 divne -  x_WORD_E36D4 = x_WORD_E36D4;//355230
 
@@ -231,7 +231,7 @@ int sub_7FCB0(int a1, x_BYTE *a2, int a3, int a4, int a5, uint8_t a6, unsigned _
 
 test
 
-void /*__cdecl*/ sub_90164(Bit16u x1, Bit16u y1, Bit16u x2, Bit16u y2, uint8_t a5)
+void /*__cdecl*/ sub_90164(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint8_t a5)
 
 0:
 0,0,0
@@ -306,7 +306,7 @@ repair this function:
 signed int sub_7E0E0()//25f0e0
 
 repair this
-void sub_8F935(doublebyte a1, Bit16u tilex, int a3, uint8_t* a4, unsigned __int8 a5, char a6)//270935
+void sub_8F935(doublebyte a1, uint16_t tilex, int a3, uint8_t* a4, unsigned __int8 a5, char a6)//270935
 
 texture - 47be3b
 sub_7AA70((char*)"DATA/SCREENS/HSCREEN0.DAT", &x_D41A0_BYTEARRAY_4_ E2_heapbuffer[ 4D54A], 168849, 102213);
@@ -332,7 +332,7 @@ pdwScreenBuffer
 texture
 a dalsi
 v
-void sub_8F935(doublebyte a1, Bit16u tiley, int tilex, uint8_t* texture, unsigned __int8 a5, char a6)//270935
+void sub_8F935(doublebyte a1, uint16_t tiley, int tilex, uint8_t* texture, unsigned __int8 a5, char a6)//270935
 diagnostika dalsich typu spritu
 
 najit puvod a1 v 270935
@@ -1647,7 +1647,7 @@ if ( !byte_E3766 )
     sub_8CACD(v1); - urcite prida kursor
 
 	je nekde zde:
-	void /*__cdecl*/ sub_75200_VGA_Blit640(Bit16u height)//256200
+	void /*__cdecl*/ sub_75200_VGA_Blit640(uint16_t height)//256200
 
 	zjistit zmeny x_WORD_18072C - 35172c
 
@@ -1797,7 +1797,7 @@ Kafkar... 0 276 154 0
 
 setbyte is color
 
-void sub_8F935_bitmap_draw_final(uint8_t a1byte1,uint8_t a1byte2, Bit16u tiley, int tilex, uint8_t* texture, uint8_t setbyte, char a6)//270935
+void sub_8F935_bitmap_draw_final(uint8_t a1byte1,uint8_t a1byte2, uint16_t tiley, int tilex, uint8_t* texture, uint8_t setbyte, char a6)//270935
 
 	memset(pdwScreenBuffer, 127, 320*200);//debug
 		//VGA_Blit(320, 200, pdwScreenBuffer);
@@ -1805,7 +1805,7 @@ void sub_8F935_bitmap_draw_final(uint8_t a1byte1,uint8_t a1byte2, Bit16u tiley, 
 	sub_90478_VGA_Blit320();//debug
 }
 
-void sub_loc_1B5BC(Bit16u a1) {
+void sub_loc_1B5BC(uint16_t a1) {
 	memset(pdwScreenBuffer, 200, 320*200);//debug
 	Set_basic_pallette();
 	sub_2EBB0_draw_text_with_border_63 340(x_DWORD_E9C4C_langindexbuffer[a1]);//fix it - edx
@@ -2318,9 +2318,9 @@ void sub_8E160_sound_proc15_startsequence(__int16 a1, unsigned __int8 a2)//26f16
 call 270710 - 1e1000
 
 -melo byt to byt zde
-void sub_loc_1B54A(Bit16u a1, uint8_t* a2) {
+void sub_loc_1B54A(uint16_t a1, uint8_t* a2) {
 problem je zde -
-if ( x_WORD_17DB60 != *(Bit16u*)v2 )
+if ( x_WORD_17DB60 != *(uint16_t*)v2 )
 
 a2 = 0;//debug
 
@@ -2400,7 +2400,7 @@ signed int sub_7E320_draw_bitmaps_and_play_sounds(__int16 a1, int a2)//25f320
 helps
 
 int sub_82510(__int16 a1, int *a2)//263510
-sub_7E840_draw_textbox_with_line((Bit16u*)&v10, 238, 264);//draw help
+sub_7E840_draw_textbox_with_line((uint16_t*)&v10, 238, 264);//draw help
 
 find 34eba8 respektive 34ebb6
 &unk_17DBA8str.unk_17DBA8
@@ -2422,7 +2422,7 @@ if (a4 == 3 && x_D41A0_BYTEARRAY_4_struct.byteindex_A == 1)
 sub_7FAE0_draw_text(v87, v99, a4, v98, 0/*v86*/);//adress 261197 (80197)
 int sub_7FCB0_draw_text_with_border(int a1, uint8_t* a2, Bit32s a3, Bit32s a4, int a5, uint8_t a6, unsigned __int8 a7, Bit32u a8)//260cb0
 25f8b1 - 7e8b1
-int sub_7E840_draw_textbox_with_line(Bit16u* a1, __int16 a2, __int16 a3)//25f840
+int sub_7E840_draw_textbox_with_line(uint16_t* a1, __int16 a2, __int16 a3)//25f840
 25e8c2 - 7d8c2
 
 sub_7E840(&v22, 238, 264);
@@ -2452,7 +2452,7 @@ x_BYTE_12B4E0 - 2fc4e0
 	00 00 05 05 05 05
 
 	-sem se to ani nedostane
-void sub_44EE0(int a1, Bit16u a2)//225ee0
+void sub_44EE0(int a1, uint16_t a2)//225ee0
 x_BYTE_10B4E0 - 2dc4e0
 
 find
@@ -2567,7 +2567,7 @@ versus
  35cf6e -00000000 1e000000
 -find 35cf72
 231266 -near - x_WORD *sub_50250(int a1)//231250
-int pre_sub_4A190(Bit16u functionnumber, uint8_t* adress)//22a97e
+int pre_sub_4A190(uint16_t functionnumber, uint8_t* adress)//22a97e
 void sub_49540(uint8_t* a1, uint8_t* a2)//22a540
 
 
@@ -2641,7 +2641,7 @@ next problem:
 35d02a(35d016)=2789 versus 9494
 eb2a - 22b17b in 22b050-sub_4A050
 2789 - 22b17b in 22b050-sub_4A050
-*(Bit16u*)(v1 + 20) = v6;//this is it line
+*(uint16_t*)(v1 + 20) = v6;//this is it line
 
 356040->e92a711b - *(Bit32u*)(x_D41A0_BYTEARRAY_0 + 8)
 22a8c2 - void sub_498A0()//22a8a0
@@ -2713,11 +2713,11 @@ void sub_4A310(unsigned __int16 *a1)//22b310
 22b36c - adress maybe 8a36c
 22b310
 posxy = v11 + (v12 << 16);
-v13 = sub_10C40((Bit16u*)&posxy);
+v13 = sub_10C40((uint16_t*)&posxy);
 
 22b379 adress
 
-int sub_B5C60(Bit16u a1, Bit16u a2)//296c60
+int sub_B5C60(uint16_t a1, uint16_t a2)//296c60
 
 
 x_BYTE_11B4E0[ df4d]= 98
@@ -2908,13 +2908,13 @@ comp2 = compare_with_snapshot((char*)"0160-00229B94", x_BYTE_11B4E0
 signed int sub_5C8D0(uint8_t* a1)//23d8d0
 363286->35cec6
 versus
-x_DWORD_EA3E4[*(Bit16u*)(2124 * x_D41A0_BYTEARRAY_4_struct.byteindex_12 + x_D41A0_BYTEARRAY_0 + 11240)];
+x_DWORD_EA3E4[*(uint16_t*)(2124 * x_D41A0_BYTEARRAY_4_struct.byteindex_12 + x_D41A0_BYTEARRAY_0 + 11240)];
 238989 in void sub_57730()//238730
 
 find
 3632d6->a0136400
 tj.
-(Bit16u*)(v1 + 76)//+4
+(uint16_t*)(v1 + 76)//+4
 238e42 - void sub_57D70(uint8_t* a1, uint8_t* a2)//238d70
 
 fix
@@ -3361,7 +3361,7 @@ versus
 void sub_2E260_draw_spell(__int16 a1, __int16 a2, uint8_t* a3, char a4)//20f260
 
 270ca4 
-call void sub_8F935_bitmap_draw_final(uint8_t a1byte1, uint8_t a1byte2, Bit16u tiley, int tilex, uint8_t* texture, uint8_t setbyte, char a6)//270935
+call void sub_8F935_bitmap_draw_final(uint8_t a1byte1, uint8_t a1byte2, uint16_t tiley, int tilex, uint8_t* texture, uint8_t setbyte, char a6)//270935
 call void sub_8F920(uint8_t a1byte1, uint8_t a1byte2, Bit16s posx, Bit16s posy, uint8_t* a4, unsigned __int8 a5, char a6)//270920
 call void sub_72C40_draw_bitmap_640_setcolor(Bit16s posx, Bit16s posy, posistruct a3, uint8_t color)//253c40
 call void sub_6F940_sub_draw_text(uint8_t* textbuffer, int posx, int posy, uint8_t color)//250940
@@ -3376,7 +3376,7 @@ versus
 
 20ef2b call void sub_2DE80_draw_bitmapxx(__int16 a1, __int16 a2, posistruct a3)//20ee80
 
-270a97 call void sub_8F935_bitmap_draw_final(uint8_t a1byte1, uint8_t a1byte2, Bit16u tiley, int tilex, uint8_t* texture, uint8_t setbyte, char a6)//270935
+270a97 call void sub_8F935_bitmap_draw_final(uint8_t a1byte1, uint8_t a1byte2, uint16_t tiley, int tilex, uint8_t* texture, uint8_t setbyte, char a6)//270935
 
 
 *(char *)(a3 + 64) tj  3633d6+ 40
@@ -3696,7 +3696,7 @@ versus
 x_BYTE_10B4E0+ dc4b
 
 //03
-225ef6 call void sub_44EE0(int a1, Bit16u a2)//225ee0
+225ef6 call void sub_44EE0(int a1, uint16_t a2)//225ee0
 void sub_44E40(int a1, uint8_t a2)//225e40
 
 //00040506
@@ -3902,7 +3902,7 @@ versus
 --- 314d
 //x_D41A0_BYTEARRAY_0+ 314d
 23db6d void sub_5C950(uint8_t* a1, uint8_t* a2)//23d950
----x_D41A0_BYTEARRAY_0+ 6f32 void sub_49EC0(Bit16u* a1, __int16 a2)//22aec0
+---x_D41A0_BYTEARRAY_0+ 6f32 void sub_49EC0(uint16_t* a1, __int16 a2)//22aec0
 ---x_D41A0_BYTEARRAY_0+ 796e //x_D41A0_BYTEARRAY_0+ 796e
 1f1e82 int sub_10C80(uint8_t* a1, unsigned __int8 a2, unsigned __int16 a3)//1f1c80
 void sub_30D50(uint8_t* a1, uint8_t v2, uint8_t v4)//211d50
@@ -3975,7 +3975,7 @@ versus
 x_D41A0_BYTEARRAY_0 + 28222
 
 sub_17060
-x_D41A0_BYTEARRAY_0[10 * *(Bit16u*)&x_D41A0_BYTEARRAY_0[12] + 28226] = v4;
+x_D41A0_BYTEARRAY_0[10 * *(uint16_t*)&x_D41A0_BYTEARRAY_0[12] + 28226] = v4;
 sub_17060(x_DWORD_1805B0, x_DWORD_1805B4);
 sub_17A00((uint8_t*)a3, a4, a5);//fix it//nothing draw
 ---------------------------------------------------
@@ -4396,7 +4396,7 @@ char x_BYTE_18069C; // weak
 
 x_DWORD_180730_cursor_data
 82c714
-270aa0 call void sub_8F935_bitmap_draw_final(uint8_t a1byte1, uint8_t a1byte2, Bit16u tiley, int tilex, uint8_t* texture, uint8_t setbyte, char a6)//270935
+270aa0 call void sub_8F935_bitmap_draw_final(uint8_t a1byte1, uint8_t a1byte2, uint16_t tiley, int tilex, uint8_t* texture, uint8_t setbyte, char a6)//270935
 2708d7 call void sub_8F8B0_draw_bitmap320(Bit16s posx, Bit16s posy, posistruct temppstr)//2708B0
 26de71 call void sub_8CD27_set_cursor(posistruct a2)//26dd27
 1f9c2c call void sub_18BB0()//1f9bb0
@@ -4647,11 +4647,11 @@ versus
 
 
  player position:
-*(Bit16s*)(x_D41A0_BYTEARRAY_0 + 2124 * *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] + 14 * *(Bit16u*)(x_D41A0_BYTEARRAY_0 + 2124 * *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] + 11244) + 11709),//position of player
-*(Bit16s*)(x_D41A0_BYTEARRAY_0 + 2124 * *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] + 14 * *(Bit16u*)(x_D41A0_BYTEARRAY_0 + 2124 * *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] + 11244) + 11711),//position of player
-*(Bit16s*)(x_D41A0_BYTEARRAY_0 + 2124 * *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] + 14 * *(Bit16u*)(x_D41A0_BYTEARRAY_0 + 2124 * *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] + 11244) + 11715),//rotation of player z 
-*(Bit16s*)(x_D41A0_BYTEARRAY_0 + 2124 * *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] + 14 * *(Bit16u*)(x_D41A0_BYTEARRAY_0 + 2124 * *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] + 11244) + 11717),//rotation of player
-*(Bit16s*)(x_D41A0_BYTEARRAY_0 + 2124 * *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] + 14 * *(Bit16u*)(x_D41A0_BYTEARRAY_0 + 2124 * *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] + 11244) + 11719),//rotation of player
+*(Bit16s*)(x_D41A0_BYTEARRAY_0 + 2124 * *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] + 14 * *(uint16_t*)(x_D41A0_BYTEARRAY_0 + 2124 * *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] + 11244) + 11709),//position of player
+*(Bit16s*)(x_D41A0_BYTEARRAY_0 + 2124 * *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] + 14 * *(uint16_t*)(x_D41A0_BYTEARRAY_0 + 2124 * *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] + 11244) + 11711),//position of player
+*(Bit16s*)(x_D41A0_BYTEARRAY_0 + 2124 * *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] + 14 * *(uint16_t*)(x_D41A0_BYTEARRAY_0 + 2124 * *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] + 11244) + 11715),//rotation of player z 
+*(Bit16s*)(x_D41A0_BYTEARRAY_0 + 2124 * *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] + 14 * *(uint16_t*)(x_D41A0_BYTEARRAY_0 + 2124 * *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] + 11244) + 11717),//rotation of player
+*(Bit16s*)(x_D41A0_BYTEARRAY_0 + 2124 * *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] + 14 * *(uint16_t*)(x_D41A0_BYTEARRAY_0 + 2124 * *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] + 11244) + 11719),//rotation of player
 
 
 
@@ -5202,7 +5202,7 @@ filearray_2aa18c[filearrayindex_BUILD00DATTAB][2].dat_buffer
 
 *(&filearray_2aa18c[filearrayindex_BUILD00DATTAB])[0].dat_buffer
 
-void sub_49EC0(Bit16u* a1, __int16 a2)//22aec0 // get castle data
+void sub_49EC0(uint16_t* a1, __int16 a2)//22aec0 // get castle data
 -test
 
 create castle
@@ -5523,12 +5523,12 @@ missing adress 0x24c3a0
 
 void sub_8E160_sound_proc15_startsequence(__int16 a1, unsigned __int8 a2)//26f160
 
-*(Bit16u*)(x_D41A0_BYTEARRAY_0 + 565) musi byt 1
+*(uint16_t*)(x_D41A0_BYTEARRAY_0 + 565) musi byt 1
 [2a51a0]+235
 
 356038 +235
 
-*(Bit16u*)(x_D41A0_BYTEARRAY_0 + 565)
+*(uint16_t*)(x_D41A0_BYTEARRAY_0 + 565)
 D41A0_BYTESTR_0.dword_0x235
 versus
 35626d
@@ -5689,7 +5689,7 @@ x_BYTE_12B4E0+0x51 0x24 orig:0x15
 
 sub_37240
 
-x_BYTE_11B4E0[v46] += ((Bit32s)((uint8_t)v34[1] + (Bit16u)v35 - x_BYTE_11B4E0[v46]))/ a1x->dword_0x8;
+x_BYTE_11B4E0[v46] += ((Bit32s)((uint8_t)v34[1] + (uint16_t)v35 - x_BYTE_11B4E0[v46]))/ a1x->dword_0x8;
 
 D41A0_BYTESTR_0.struct_0x6E8E[2].byte_0x45_69 - neni 0x34, ale 0x33
 
@@ -6811,7 +6811,7 @@ versus
 3aa0a4+ 0x74e1  00(ma byt) versus  63
 
 draw square
-void sub_90164(Bit16u x1, Bit16u y1, Bit16u x2, Bit16u y2, uint8_t a5)//271164
+void sub_90164(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint8_t a5)//271164
 v23 ?
 
 BLOCK32DAT_BEGIN_BUFFER
@@ -8034,7 +8034,7 @@ step cca 12
 void sub_84EA0(unsigned __int16 a1, type_str_0x3664C* a2x, char a3, __int16 a4)//265ea0
 
 
-void sub_loc_1B5BC(Bit16u a1) {//1fc5bc
+void sub_loc_1B5BC(uint16_t a1) {//1fc5bc
 
 (uint8_t*)&D41A0_BYTESTR_0+0x235 0x1
 (uint8_t*)x_D41A0_BYTEARRAY_0+0x235 0x0

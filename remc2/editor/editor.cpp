@@ -2129,7 +2129,7 @@ int main_x(/*int argc, char** argv*/)
 	kiss_window_new(&window_selecttype, NULL, 1, window2.rect.x + 300, window2.rect.y + 10, window_selecttype_width, window_selecttype_height);
 	kiss_window_new(&window_selectsubtype, NULL, 1, window2.rect.x + 300, window2.rect.y + 30, window_selectsubtype_width, window_selectsubtype_height);
 	
-	Bit16u temp_var;
+	uint16_t temp_var;
 	kiss_window_new(&window3, NULL, 1, kiss_screen_width / 2 - window3_width / 2, kiss_screen_height / 2 - window3_height / 2, window3_width, window3_height);
 	kiss_window_new(&window_selectcheck, NULL, 1, window3.rect.x + 300, window3.rect.y + 10, window_selectcheck_width, window_selectcheck_height);
 	kiss_label_new(&labelIndexWind3, &window3, (char*)"IX:", 300 + window3.rect.x + kiss_up.w, window3.rect.y + 10);
@@ -2180,8 +2180,8 @@ int main_x(/*int argc, char** argv*/)
 	kiss_hex2edit_new(&hex2edit27, &window1, &D41A0_BYTESTR_0.str_2FECE.array_0x2FED9[7], (char*)"D9-7", 385, 210, 40);
 
 	/*
-	Bit16u word_2FECE;
-	Bit16u word_2FED0;
+	uint16_t word_2FECE;
+	uint16_t word_2FED0;
 	uint8_t byte_0x2FED2;//x_D41A0_BYTEARRAY_0[196306] // type of level graphics
 	uint8_t byte_0x2FED3;
 	uint8_t byte_0x2FED4;//x_D41A0_BYTEARRAY_0[196308]//GraphicsType

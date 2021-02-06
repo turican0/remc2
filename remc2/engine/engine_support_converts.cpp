@@ -61,10 +61,10 @@ void convert_struct_to_array_164(type_str_164* input, uint8_t* output) {
 	memcpy(output + 0x36, &input->word_0x38_56, 2);
 	//Bit16s word_0x3A_58;
 	memcpy(output + 0x3a, &input->word_0x3A_58, 2);
-	//Bit16u array_0x3C_60[16];//size??
+	//uint16_t array_0x3C_60[16];//size??
 	for (int i = 0; i < 16; i++)
 		memcpy(output + 0x3c + 2 * i, &input->array_0x3C_60[i], 2);
-	//Bit16u array_0x5C_92[16];
+	//uint16_t array_0x5C_92[16];
 	for (int i = 0; i < 16; i++)
 		memcpy(output + 0x5c + 2 * i, &input->array_0x5C_92[i], 2);
 	//uint8_t stubd[174];
@@ -200,18 +200,18 @@ void convert_struct_to_array_164(type_str_164* input, uint8_t* output) {
 }
 
 void convert_struct_to_array_axis_2d(axis_2du* input, uint8_t* output) {
-	//Bit16u x;
+	//uint16_t x;
 	memcpy(output + 0x0, &input->x, 2);
-	//Bit16u y;
+	//uint16_t y;
 	memcpy(output + 0x2, &input->y, 2);
 }
 
 void convert_struct_to_array_axis_3d(axis_3d* input, uint8_t* output) {
-	//Bit16u x;
+	//uint16_t x;
 	memcpy(output + 0x0, &input->x, 2);
-	//Bit16u y;
+	//uint16_t y;
 	memcpy(output + 0x2, &input->y, 2);
-	//Bit16u z;
+	//uint16_t z;
 	memcpy(output + 0x4, &input->z, 2);
 }
 void convert_struct_to_array_axis_4d(axis_4d* input, uint8_t* output) {
@@ -245,7 +245,7 @@ void convert_struct_to_array_0x2BDE(type_str_0x2BDE* input, uint8_t* output) {
 	memcpy(output + 0x7, &input->word_0x007_2BE4_11237, 2);
 	//int8_t byte_0x009_2BE4_11239;
 	memcpy(output + 0x9, &input->byte_0x009_2BE4_11239, 1);
-	//Bit16u word_0x00a_2BE4_11240;//10 //11240 - word - index z EA3E4 //0xa
+	//uint16_t word_0x00a_2BE4_11240;//10 //11240 - word - index z EA3E4 //0xa
 	memcpy(output + 0xa, &input->word_0x00a_2BE4_11240, 2);
 	//uint8_t byte_0x00c_2BE0_11242_xx;
 	memcpy(output + 0xc, &input->byte_0x00c_2BE0_11242_xx, 1);
@@ -265,9 +265,9 @@ void convert_struct_to_array_0x2BDE(type_str_0x2BDE* input, uint8_t* output) {
 	memcpy(output + 0x18, &input->dword_0x018_2BDE_11254, 4);
 	//char array_0x01c_2BFA_11258[49];//28//11258 - byte* jmeno2?
 	memcpy(output + 0x1c, input->array_0x01c_2BFA_11258, 49);
-	//Bit16u word_0x04d_2C2B_11307;//77 //11307 - word
+	//uint16_t word_0x04d_2C2B_11307;//77 //11307 - word
 	memcpy(output + 0x4d, &input->word_0x04d_2C2B_11307, 2);
-	//Bit16u word_0x04f_2C2D_11309;//79 //11309 - word
+	//uint16_t word_0x04f_2C2D_11309;//79 //11309 - word
 	memcpy(output + 0x4f, &input->word_0x04f_2C2D_11309, 2);
 	//char names_81[8][48];//81 ?8
 	for(int i=0;i<8;i++)
@@ -328,7 +328,7 @@ void convert_struct_to_array_0x5E_94(type_str_0x5E_94* input, uint8_t* output) {
 	memcpy(output + 0x1e, &input->word_0x7C_124, 2);
 	//uint8_t stub5d[2];
 	memset(output + 0x20, 0, 2);
-	//Bit16u word_0x80_128;//128
+	//uint16_t word_0x80_128;//128
 	memcpy(output + 0x22, &input->word_0x80_128, 2);
 }
 
@@ -343,13 +343,13 @@ void convert_struct_to_array_0x6E8E(type_str_0x6E8E* input, uint8_t* output) {
 	memcpy(output + 12, &input->struct_byte_0xc_12_15.dword, 4);
 	//Bit32s dword_0x10_16;//16 // index of array
 	memcpy(output + 16, &input->dword_0x10_16, 4);
-	//Bit16u word_0x14_20;//20 //random seed adress
+	//uint16_t word_0x14_20;//20 //random seed adress
 	memcpy(output + 20, &input->word_0x14_20, 2);
-	//Bit16u word_0x16_22;//22
+	//uint16_t word_0x16_22;//22
 	memcpy(output + 22, &input->word_0x16_22, 2);
-	//Bit16u word_0x18_24_next_entity;//24
+	//uint16_t word_0x18_24_next_entity;//24
 	memcpy(output + 24, &input->word_0x18_24_next_entity, 2);
-	//Bit16u word_0x1A_26;//26 // index - owner //ID last index
+	//uint16_t word_0x1A_26;//26 // index - owner //ID last index
 	memcpy(output + 26, &input->word_0x1A_26, 2);
 	//Bit16s word_0x1C_28;//28//rotate1
 	memcpy(output + 28, &input->word_0x1C_28, 2);
@@ -363,21 +363,21 @@ void convert_struct_to_array_0x6E8E(type_str_0x6E8E* input, uint8_t* output) {
 	memcpy(output + 36, &input->word_0x24_36, 2);
 	//Bit16s word_0x26_38;//38 // index subentity
 	memcpy(output + 38, &input->word_0x26_38, 2);
-	//Bit16u word_0x28_40;//40//WHO OWNS ME
+	//uint16_t word_0x28_40;//40//WHO OWNS ME
 	memcpy(output + 40, &input->word_0x28_40, 2);
-	//Bit16u word_0x2A_42;//42 //maybe Bit16s
+	//uint16_t word_0x2A_42;//42 //maybe Bit16s
 	memcpy(output + 42, &input->word_0x2A_42, 2);
 	//Bit16s word_0x2C_44;//44 //add to z
 	memcpy(output + 44, &input->word_0x2C_44, 2);
 	//Bit16s word_0x2E_46;//46
 	memcpy(output + 46, &input->word_0x2E_46, 2);
-	//Bit16u word_0x30_48;//48
+	//uint16_t word_0x30_48;//48
 	memcpy(output + 48, &input->word_0x30_48, 2);
-	//Bit16u word_0x32_50;//50
+	//uint16_t word_0x32_50;//50
 	memcpy(output + 50, &input->word_0x32_50, 2);
-	//Bit16u word_0x34_52;//52 // index subentity
+	//uint16_t word_0x34_52;//52 // index subentity
 	memcpy(output + 52, &input->word_0x34_52, 2);
-	//Bit16u word_0x36_54;//54
+	//uint16_t word_0x36_54;//54
 	memcpy(output + 54, &input->word_0x36_54, 2);
 	//int8_t byte_0x38_56;//56
 	memcpy(output + 56, &input->byte_0x38_56, 1);
@@ -439,11 +439,11 @@ void convert_struct_to_array_0x6E8E(type_str_0x6E8E* input, uint8_t* output) {
 	memcpy(output + 140, &input->dword_0x8C_140, 4);
 	//Bit32s dword_0x90_144;//144 0-1000//MAX MANA
 	memcpy(output + 144, &input->dword_0x90_144, 4);
-	//Bit16u word_0x94_148;//148
+	//uint16_t word_0x94_148;//148
 	memcpy(output + 0x94, &input->word_0x94_148, 2);
 	//Bit16s word_0x96_150;//150 // index subentity
 	memcpy(output + 0x96, &input->word_0x96_150, 2);
-	//Bit16u word_0x98_152;//152
+	//uint16_t word_0x98_152;//152
 	memcpy(output + 0x98, &input->word_0x98_152, 2);
 	//axis_3d word_0x9A_154x;//154
 	convert_struct_to_array_axis_3d(&input->word_0x9A_154x, output + 0x9a);
@@ -466,14 +466,14 @@ void convert_struct_to_array_0x6E3E(type_str_0x6E3E* input, uint8_t* output) {//
 	memcpy(output + 4, &input->str_0x6E3E_byte4, 1);
 	//int8_t str_0x6E3E_byte5;//0x6E43-28227
 	memcpy(output + 5, &input->str_0x6E3E_byte5, 1);
-	//Bit16u str_0x6E3E_word6;//0x6E44-28228
+	//uint16_t str_0x6E3E_word6;//0x6E44-28228
 	memcpy(output + 6, &input->str_0x6E3E_word6, 2);
-	//Bit16u str_0x6E3E_word8;//0x6E46-28230
+	//uint16_t str_0x6E3E_word8;//0x6E46-28230
 	memcpy(output + 8, &input->str_0x6E3E_word8, 2);
 }
 
 void convert_struct_to_array_0x30311(type_str_0x30311* input, uint8_t* output) {//lenght 20
-	//Bit16u str_0x30311_type;//type_str_0x30311//type_str_0x30325//1091
+	//uint16_t str_0x30311_type;//type_str_0x30311//type_str_0x30325//1091
 	memcpy(output + 0, &input->str_0x30311_type, 2);
 	//Bit16s str_0x30311_subtype;//type_str_0x30313//type_str_0x30327//1091
 	memcpy(output + 2, &input->str_0x30311_subtype, 2);
@@ -481,15 +481,15 @@ void convert_struct_to_array_0x30311(type_str_0x30311* input, uint8_t* output) {
 	//convert_struct_to_array_axis_3d(&input->axis3d_4, output + 0x4);
 	convert_struct_to_array_axis_2d(&input->axis2d_4, output + 0x4);
 	memcpy(output + 8, &input->DisId, 2);
-	//Bit16u word_10;//type_str_0x3031b//type_str_0x3032f
+	//uint16_t word_10;//type_str_0x3031b//type_str_0x3032f
 	memcpy(output + 10, &input->word_10, 2);
-	//Bit16u word_12;//type_str_0x3031d//type_str_0x30331
+	//uint16_t word_12;//type_str_0x3031d//type_str_0x30331
 	memcpy(output + 12, &input->word_12, 2);
-	//Bit16u word_14;//type_str_0x3031f//type_str_0x30333//1105
+	//uint16_t word_14;//type_str_0x3031f//type_str_0x30333//1105
 	memcpy(output + 14, &input->word_14, 2);
-	//Bit16u word_16;//type_str_0x30321//type_str_0x30335
+	//uint16_t word_16;//type_str_0x30321//type_str_0x30335
 	memcpy(output + 16, &input->word_16, 2);
-	//Bit16u word_18;//type_str_0x30323//type_str_0x30337
+	//uint16_t word_18;//type_str_0x30323//type_str_0x30337
 	memcpy(output + 18, &input->word_18, 2);
 }
 
@@ -561,49 +561,49 @@ void convert_struct_to_array_2FECE(type_str_2FECE* input, uint8_t* output) {//le
 	memcpy(output + 17, input->array_0x2FED9, 8);
 	//uint8_t stubb[4];//21
 	memset(output + 0x21, 0, 4);
-	//Bit16u word_0x2FEE5;//2FEE5//23
+	//uint16_t word_0x2FEE5;//2FEE5//23
 	memcpy(output + 23, &input->word_0x2FEE5, 2);
 	//uint8_t stubb2[2];//25
 	memset(output + 0x20, 0, 2);
-	//Bit16u word_0x2FEE9;//2FEE9//27 //first seed position
+	//uint16_t word_0x2FEE9;//2FEE9//27 //first seed position
 	memcpy(output + 5, &input->word_0x2FEE9, 2);
 	//uint8_t stubc[2];//29
 	memset(output + 0x20, 0, 2);
-	//Bit16u word_0x2FEED;//2FEED//31 //first seed height
+	//uint16_t word_0x2FEED;//2FEED//31 //first seed height
 	memcpy(output + 31, &input->word_0x2FEED, 2);
 	//uint8_t stubc2[2];//33
 	memset(output + 0x20, 0, 2);
-	//Bit16u word_0x2FEF1;//2FEF1//35
+	//uint16_t word_0x2FEF1;//2FEF1//35
 	memcpy(output + 35, &input->word_0x2FEF1, 2);
 	//uint8_t stubc3[2];//37
 	memset(output + 0x20, 0, 2);
 	//Bit32u word_0x2FEF5;//2FEF5//39
 	memcpy(output + 37, &input->word_0x2FEF5, 4);
-	//Bit16u word_0x2FEF9;//2FEF9//43
+	//uint16_t word_0x2FEF9;//2FEF9//43
 	memcpy(output + 43, &input->word_0x2FEF9, 2);
 	//uint8_t stube[2];//45
 	memset(output + 45, 0, 2);
-	//Bit16u word_0x2FEFD;//2FEFD//47
+	//uint16_t word_0x2FEFD;//2FEFD//47
 	memcpy(output + 47, &input->word_0x2FEFD, 2);
 	//uint8_t stubf[2];//49
 	memset(output + 49, 0, 2);
-	//Bit16u word_0x2FF01;//2FF01//51
+	//uint16_t word_0x2FF01;//2FF01//51
 	memcpy(output + 51, &input->word_0x2FF01, 2);
 	//uint8_t stubg[2];//53
 	memset(output + 0x20, 0, 2);
-	//Bit16u word_0x2FF05;//2FF05//55
+	//uint16_t word_0x2FF05;//2FF05//55
 	memcpy(output + 55, &input->word_0x2FF05, 2);
 	//uint8_t stubh[2];//57
 	memset(output + 57, 0, 2);
-	//Bit16u word_0x2FF09;//2FF09//59
+	//uint16_t word_0x2FF09;//2FF09//59
 	memcpy(output + 59, &input->word_0x2FF09, 2);
 	//uint8_t stubi[2];//61
 	memset(output + 61, 0, 2);
-	//Bit16u word_0x2FF0D;//2FF0D//63
+	//uint16_t word_0x2FF0D;//2FF0D//63
 	memcpy(output + 63, &input->word_0x2FF0D, 2);
 	//uint8_t stubj[2];//65
 	memset(output + 65, 0, 2);
-	//Bit16u word_0x2FF11;//2FF11//67
+	//uint16_t word_0x2FF11;//2FF11//67
 	memcpy(output + 5, &input->word_0x2FF11, 2);
 	//uint8_t stubk[1022];//69
 	memset(output + 69, 0, 1022);
@@ -676,9 +676,9 @@ void convert_struct_to_array_D41A0_0(type_D41A0_BYTESTR_0* input,uint8_t* output
 	memcpy(output + 0x10, input->array_0x10, 0x1d);
 	//Bit32s dword_0x2d;//45
 	memcpy(output + 0x2d, &input->dword_0x2d, 4);
-	//Bit16u word_0x31;//49
+	//uint16_t word_0x31;//49
 	memcpy(output + 0x31, &input->word_0x31, 2);
-	//Bit16u word_0x33;//51
+	//uint16_t word_0x33;//51
 	memcpy(output + 0x33, &input->word_0x33, 2);
 	//Bit32s dword_0x35;//53//entity counter(max 1000 entity changes per step)
 	memcpy(output + 0x35, &input->dword_0x35, 4);

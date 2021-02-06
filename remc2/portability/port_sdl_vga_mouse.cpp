@@ -684,7 +684,7 @@ void ToggleFullscreen() {
 
 int mousex, mousey;
 bool pressed = false;
-Bit16u lastchar = 0;
+uint16_t lastchar = 0;
 int events()
 {
 	SDL_Event event;
@@ -910,12 +910,12 @@ Bit16s VGA_get_shift_status() {
 }
 bool VGA_check_standart_input_status() {
 	bool locpressed = pressed;
-	Bit16u loclastchar = lastchar;
+	uint16_t loclastchar = lastchar;
 	pressed = false;
 	return locpressed;
 }
 
-Bit16u fixchar(Bit16u loclastchar) {
+uint16_t fixchar(uint16_t loclastchar) {
 	switch ((loclastchar & 0xff00) >> 8)
 	{
 	case SDL_SCANCODE_ESCAPE://esc
@@ -1173,7 +1173,7 @@ Bit16u fixchar(Bit16u loclastchar) {
 }
 
 void VGA_cleanKeyBuffer() {
-	Bit16u loclastchar = lastchar;
+	uint16_t loclastchar = lastchar;
 	lastchar = 0;
 	loclastchar = fixchar(loclastchar);
 	while (loclastchar != 0)
@@ -1184,15 +1184,15 @@ void VGA_cleanKeyBuffer() {
 	}
 }
 
-Bit16u VGA_read_char_from_buffer() {
+uint16_t VGA_read_char_from_buffer() {
 	bool locpressed = pressed;
-	Bit16u loclastchar = lastchar;
+	uint16_t loclastchar = lastchar;
 	lastchar = 0;
 	loclastchar = fixchar(loclastchar);
 	return loclastchar;
 }
 
-void setPress(bool locpressed, Bit16u loclastchar) {
+void setPress(bool locpressed, uint16_t loclastchar) {
 	loclastchar = fixchar(loclastchar);
 
 	if (locpressed)

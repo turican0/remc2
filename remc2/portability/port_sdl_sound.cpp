@@ -606,15 +606,15 @@ AIL_DRIVER* ac_AIL_API_install_driver(int a1, uint8_t* a2, int a3)/*driver_image
 	return 0;
 }
 
-Bit16u actvect[0x1000];
+uint16_t actvect[0x1000];
 
-void ac_set_real_vect(Bit32u vectnum, Bit16u real_ptr)
+void ac_set_real_vect(Bit32u vectnum, uint16_t real_ptr)
 {
 	actvect[vectnum] = real_ptr;
 	//66
 };
 
-Bit16u ac_get_real_vect(Bit32u vectnum)
+uint16_t ac_get_real_vect(Bit32u vectnum)
 {
 	return actvect[vectnum];
 };

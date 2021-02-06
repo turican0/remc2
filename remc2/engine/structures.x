@@ -61,7 +61,7 @@ x_D41A0_BYTEARRAY_0
 *(x_BYTE *)(x_D41A0_BYTEARRAY_0 + v10 + 0x365F5) |= 0x20u;
 *(x_BYTE *)(x_D41A0_BYTEARRAY_0 + v11 + 0x365F5) |= 0x40u;
 
-*(Bit16u*)(8 * v3+ &x_D41A0_BYTEARRAY_0[0x3647C]))
+*(uint16_t*)(8 * v3+ &x_D41A0_BYTEARRAY_0[0x3647C]))
 *(x_BYTE *)(x_D41A0_BYTEARRAY_0 + 8 * (signed __int16)result + 0x365F6) = *(x_BYTE *)(8 * (signed __int16)result + a1 + 0x65AD)
 *(_WORD *)(&x_D41A0_BYTEARRAY_0[0x30313	+ 20 * *(_WORD *)(&x_D41A0_BYTEARRAY_0[0x3647c + 8 * v6])])
 
