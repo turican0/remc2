@@ -37,6 +37,7 @@
 #include <string.h>
 #include <ctype.h>
 #include <cstdint>
+#include <functional>
 
 //#include <dir.h>
 

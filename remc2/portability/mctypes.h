@@ -1,7 +1,8 @@
-#include <string>
+#pragma once
 #ifndef ENGINE_TYPES_H
 #define ENGINE_TYPES_H
 
+#include <string>
 #include <cstdint>
 
 #ifdef USE_DOSBOX
