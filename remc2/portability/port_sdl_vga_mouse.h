@@ -45,10 +45,10 @@ POSITION VGA_WhereXY();
 void Set_basic_pallette0();
 void Set_basic_pallette1();
 void VGA_Set_file_pallette(char* filename);
-Bit16s VGA_get_shift_status();
+int16_t VGA_get_shift_status();
 bool VGA_check_standart_input_status();
 uint16_t VGA_read_char_from_buffer();
-void VGA_Set_mouse(Bit16s a1, Bit16s a2);
+void VGA_Set_mouse(int16_t a1, int16_t a2);
 void setPress(bool locpressed, uint16_t loclastchar);
 
 void VGA_mouse_clear_keys();

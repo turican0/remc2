@@ -783,7 +783,7 @@ int events()
 	return 1;
 }
 
-void VGA_Set_mouse(Bit16s x, Bit16s y) {
+void VGA_Set_mouse(int16_t x, int16_t y) {
 	SDL_WarpMouseInWindow(gWindow, x, y);
 };
 
@@ -905,7 +905,7 @@ void VGA_close()
 	SDL_Quit();
 }
 
-Bit16s VGA_get_shift_status() {
+int16_t VGA_get_shift_status() {
 	return 0;
 }
 bool VGA_check_standart_input_status() {

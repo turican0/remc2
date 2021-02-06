@@ -1265,7 +1265,7 @@ static void button_selectsubtype_event(kiss_button* button,kiss_button* buttons,
 {
 	if (kiss_button_event(button, e, draw))
 	{
-		switch (*(Bit16s*)hex4edit1feat.valueadress)
+		switch (*(int16_t*)hex4edit1feat.valueadress)
 		{
 		case 5:		
 		{
@@ -2185,8 +2185,8 @@ int main_x(/*int argc, char** argv*/)
 	uint8_t byte_0x2FED2;//x_D41A0_BYTEARRAY_0[196306] // type of level graphics
 	uint8_t byte_0x2FED3;
 	uint8_t byte_0x2FED4;//x_D41A0_BYTEARRAY_0[196308]//GraphicsType
-	Bit16s word_0x2FED5;
-	Bit16s word_0x2FED7;
+	int16_t word_0x2FED5;
+	int16_t word_0x2FED7;
 	int8_t array_0x2FED9[8];
 	*/
 

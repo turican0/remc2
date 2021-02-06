@@ -257,9 +257,9 @@ extern char IsTable[];
 #pragma pack (1)
 typedef struct {
 	Bit32s dword_0;
-	Bit16s word_4;
-	Bit16s word_6;
-	Bit16s word_8;//act sprite
+	int16_t word_4;
+	int16_t word_6;
+	int16_t word_8;//act sprite
 	int8_t byte_10;//first sprite
 	int8_t byte_11;//last sprite
 }type_str_unk_E1748;
@@ -267,19 +267,19 @@ typedef struct {
 typedef struct {//lenght 30
 	Bit32s dword_0;
 	Bit32s dword_4;
-	Bit16s word_8;
-	Bit16s word_10;
-	Bit16s word_12;
-	Bit16s word_14;
-	Bit16s word_16;
-	Bit16s word_18;
+	int16_t word_8;
+	int16_t word_10;
+	int16_t word_12;
+	int16_t word_14;
+	int16_t word_16;
+	int16_t word_18;
 	int8_t byte_20;
 	int8_t byte_21;
-	Bit16s word_22;
-	Bit16s word_24;
-	Bit16s word_26;
+	int16_t word_22;
+	int16_t word_24;
+	int16_t word_26;
 	//int8_t stuba[1];
-	Bit16s word_28;
+	int16_t word_28;
 	//int8_t stubb[1];
 } type_x_BYTE_E25ED_db_str;
 #pragma pack (16)
@@ -312,7 +312,7 @@ extern __int16 x_WORD_180660_VGA_type_resolution; // weak
 
 #pragma pack (1)
 typedef struct {//lenght 7
-	Bit16s word_0;
+	int16_t word_0;
 	int8_t byte_2;
 	Bit32s dword_3;
 }
@@ -321,14 +321,14 @@ type_E17CC_0;
 
 #pragma pack (1)
 typedef struct {//lenght 18
-	Bit16s word_0;
-	Bit16s word_2;
-	Bit16s word_4;
-	Bit16s word_6;
-	Bit16s word_8;
-	Bit16s word_10;
-	Bit16s word_12;
-	Bit16s word_14;
+	int16_t word_0;
+	int16_t word_2;
+	int16_t word_4;
+	int16_t word_6;
+	int16_t word_8;
+	int16_t word_10;
+	int16_t word_12;
+	int16_t word_14;
 	int8_t byte_16;
 	int8_t byte_17;
 }
@@ -380,9 +380,9 @@ typedef struct//lenght 613 // end 17E09D
 	uint8_t* x_DWORD_17DED8; // weak
 	int x_DWORD_17DEDC; // weak
 	FILE* x_DWORD_17DEE0_filedesc; // weak
-	Bit16s x_DWORD_17DEE4_mouse_positionx; // weak
+	int16_t x_DWORD_17DEE4_mouse_positionx; // weak
 	char stub0[2];
-	Bit16s x_DWORD_17DEE8_mouse_positiony; // weak
+	int16_t x_DWORD_17DEE8_mouse_positiony; // weak
 	char stub1[2];
 	__int16 x_WORD_17DEEC; // weak
 	__int16 x_WORD_17DEEE_mouse_buttons; // weak
@@ -422,15 +422,15 @@ typedef struct//lenght 613 // end 17E09D
 	//__int16 x_WORD_17E080; // weak unk_17E078x[8]
 	//char x_BYTE_17E082; // weak unk_17E078x[0xa]
 	//char x_BYTE_17E083; // weak unk_17E078x[0xb]
-	Bit16s unk_17E084x[0xc]; // weak [11]
+	int16_t unk_17E084x[0xc]; // weak [11]
 	char x_BYTE_17E09C; // weak
 } type_x_DWORD_17DE38str;
 #pragma pack (16)
 
 extern type_x_DWORD_17DE38str x_DWORD_17DE38str;
 /*
-extern Bit16s x_DWORD_17DEE4_mouse_positionx; // weak
-extern Bit16s x_DWORD_17DEE4_mouse_positiony; // weak
+extern int16_t x_DWORD_17DEE4_mouse_positionx; // weak
+extern int16_t x_DWORD_17DEE4_mouse_positiony; // weak
 extern __int16 x_WORD_17DEEC; // weak
 extern __int16 x_WORD_17DEEE; // weak
 extern __int16 x_WORD_17DEF0; // weak
@@ -468,19 +468,19 @@ typedef struct {//lenght 28
 	Bit32s dword_0;
 	Bit32s dword_4;//mayby type_particle_str*
 	Bit32s dword_8;
-	Bit16s word_12;
+	int16_t word_12;
 	uint16_t word_14;
-	Bit16s word_16_maxframes;
-	Bit16s word_18;//width
-	Bit16s word_20;//height
-	Bit16s word_22;//anim frame index
-	Bit16s word_24;
-	Bit16s word_26;
+	int16_t word_16_maxframes;
+	int16_t word_18;//width
+	int16_t word_20;//height
+	int16_t word_22;//anim frame index
+	int16_t word_24;
+	int16_t word_26;
 }
 type_animations1;
 
 typedef struct {
-	Bit16s word_0;
+	int16_t word_0;
 	type_animations1* dword_2;
 }
 type_E9C08;
@@ -488,44 +488,44 @@ type_E9C08;
 
 #pragma pack (1)
 typedef struct {//lenght 16
-	Bit16s word_26_0;//0 x
-	Bit16s word_28_1;//1 y
-	Bit16s word_30_2;//2
-	Bit16s word_32_3;//3
-	Bit16s word_34_4;//4
-	Bit16s word_36_5;//5
-	Bit16s word_38_6;//6
-	Bit16s click_40_7;//7
-	Bit16s nocl_42_8;//8
+	int16_t word_26_0;//0 x
+	int16_t word_28_1;//1 y
+	int16_t word_30_2;//2
+	int16_t word_32_3;//3
+	int16_t word_34_4;//4
+	int16_t word_36_5;//5
+	int16_t word_38_6;//6
+	int16_t click_40_7;//7
+	int16_t nocl_42_8;//8
 } type_str_word_26;
 
 typedef struct {//lenght 44
 	Bit32u dword_0;
-	//Bit16s word_2;
+	//int16_t word_2;
 	Bit32s dword_4;//4 dword
-	//Bit16s word_6;//remove it
-	Bit16s word_8;
-	Bit16s xmin_10;
-	Bit16s ymin_12;
-	Bit16s sizex_14;
-	Bit16s sizey_16;
-	Bit16s word_18;
+	//int16_t word_6;//remove it
+	int16_t word_8;
+	int16_t xmin_10;
+	int16_t ymin_12;
+	int16_t sizex_14;
+	int16_t sizey_16;
+	int16_t word_18;
 	uint8_t byte_20;//index of gold sprite
 	uint8_t byte_21;//index of gray sprite
 	int8_t byte_22;
 	int8_t byte_23;
 	int8_t gold_color_24;
 	int8_t byte_25;
-	//Bit16s word_24;//23 and 24 byte
+	//int16_t word_24;//23 and 24 byte
 	type_str_word_26 str_26;//0
-	//Bit16s word_28;//1
-	//Bit16s word_30;//2
-	//Bit16s word_32;//3
-	//Bit16s word_34;//4
-	//Bit16s word_36;//5
-	//Bit16s word_38;//6
-	//Bit16s click_40;//7
-	//Bit16s nocl_42;
+	//int16_t word_28;//1
+	//int16_t word_30;//2
+	//int16_t word_32;//3
+	//int16_t word_34;//4
+	//int16_t word_36;//5
+	//int16_t word_38;//6
+	//int16_t click_40;//7
+	//int16_t nocl_42;
 }
 type_WORD_E1F84;
 #pragma pack (16)
@@ -577,14 +577,14 @@ void sub_6EBF0(filearray_struct* a1);
 
 char sub_533B0_decompress_levels(__int16 a1, type_str_2FECE* a2);
 
-bool sub_7B200_in_region(type_WORD_E1F84* a1x, Bit16s testx, Bit16s testy);
+bool sub_7B200_in_region(type_WORD_E1F84* a1x, int16_t testx, int16_t testy);
 void sub_2BC10_draw_text(const char* text, __int16 a2, __int16 a3, unsigned __int8 a4);
 void sub_6F940_sub_draw_text(const char* a1, int a2, int a3, uint8_t color);
 //int /*__noreturn*/ sub_10000(); // weak
 type_str_0x6E8E* sub_15CB0(/*type_str_0x6E8E* a1,*/ type_str_0x6E8E* a2); // weak
 char sub_15D40(__int16 a1, type_str_0x6E8E* a2, type_str_0x6E8E* a3); // weak
-Bit16s sub_16730(/*int a1,*/ type_str_0x6E8E* a2, char a3); // weak
-Bit16s sub_16CA0(baxis_2d* a2, __int16 a3, char a4); // weak
+int16_t sub_16730(/*int a1,*/ type_str_0x6E8E* a2, char a3); // weak
+int16_t sub_16CA0(baxis_2d* a2, __int16 a3, char a4); // weak
 void sub_17A00(int8_t* a1, signed int a2, __int16 a3); // weak
 int _wcpp_1_unwind_leave__120(Bit32s a, Bit32s b, Bit32s c);// weak
 void sub_1A070(signed int a1, __int16 a2);
@@ -644,7 +644,7 @@ int /*__cdecl*/ _wcpp_1_unwind_leave__98(Bit32s);// weak
 //x_DWORD /*__cdecl*/ dos_setvect(x_DWORD number, void(*actcall)(), x_DWORD);// weak
 int /*__fastcall*/ _wcpp_1_unwind_leave__130(Bit32s);// weak
 //unsigned char _BitScanReverse(unsigned long * Index, unsigned long Mask);
-void sub_8F920(uint8_t a1byte1, uint8_t a1byte2, Bit16s posx, Bit16s posy, uint8_t* a4, unsigned __int8 a5, char a6);
+void sub_8F920(uint8_t a1byte1, uint8_t a1byte2, int16_t posx, int16_t posy, uint8_t* a4, unsigned __int8 a5, char a6);
 void sub_8F935_bitmap_draw_final(uint8_t a1byte1, uint8_t a1byte2, uint16_t a2, int a3, uint8_t* a4, uint8_t setbyte, char a6);
 signed int sub_74767(signed __int16* a1, char* a2, uint8_t* a3);
 //x_DWORD /*__cdecl*/ segread(SREGS*); //weak
@@ -713,7 +713,7 @@ int /*__fastcall*/ _hook387(Bit32s, Bit32s, Bit32s);// weak
 //void __sidt(void *Destination);
 //unsigned long __readcr0(void);
 //void __writecr0(unsigned __int32 Data);
-int sub_ACE8D(Bit16s* a1, int a2, int* a3);
+int sub_ACE8D(int16_t* a1, int a2, int* a3);
 void sub_AD0E2(int8_t* a1, int a2, int* a3, int8_t** a4);
 void sub_ACF1A(int8_t* a1, int a2, int* a3);
 int _FDFS(void);// weak
@@ -747,7 +747,7 @@ void sub_B5F8F(__int16 a1, uint16_t* a2, Bit32s a3, __int16* a4);
 int sub_BD320(int result, int8_t* a2, int8_t* a3, int a4, int a5, int a6);
 void sub_B5EFA(__int16 a1, uint16_t* a2, Bit32s a3, __int16* a4);
 
-//type_str_0x6E8E* pre_sub_4A190(Bit32u adress, Bit16s* a1,int type);
+//type_str_0x6E8E* pre_sub_4A190(Bit32u adress, int16_t* a1,int type);
 type_str_0x6E8E* pre_sub_4A190_axis_3d(Bit32u adress, axis_3d* a1, int type);//pre 22b190
 
 void pre_sub_4A190_0x6E8E(Bit32u adress, type_str_0x6E8E* a1, int type);//pre 22b190

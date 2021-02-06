@@ -9,12 +9,12 @@
 
 typedef MSS_STRUCT                     // VDI interface register structure
 {
-	Bit16s AX;
-	Bit16s BX;
-	Bit16s CX;
-	Bit16s DX;
-	Bit16s SI;
-	Bit16s DI;
+	int16_t AX;
+	int16_t BX;
+	int16_t CX;
+	int16_t DX;
+	int16_t SI;
+	int16_t DI;
 }
 VDI_CALL;
 
@@ -27,10 +27,10 @@ typedef Bit32s HTIMER;            // Handle to timer
 
 typedef MSS_STRUCT                      // I/O parameters structure
 {
-	/*0*/Bit16s IO;
-	/*2*/Bit16s IRQ;
-	/*4*/Bit16s DMA_8_bit;
-	/*6*/Bit16s DMA_16_bit;
+	/*0*/int16_t IO;
+	/*2*/int16_t IRQ;
+	/*4*/int16_t DMA_8_bit;
+	/*6*/int16_t DMA_16_bit;
 	/*8*/Bit32s IO_reserved[4];
 	//24
 }
@@ -47,7 +47,7 @@ typedef MSS_STRUCT                      // Standard MSS 3.X VDI driver header
 	//20
 	/*22*/IO_PARMS IO;//22
 	/*20*/uint16_t scratch0;
-	/*46*/Bit16s VDI_HDR_var46;//busy
+	/*46*/int16_t VDI_HDR_var46;//busy
 	/*48*/uint16_t VDI_HDR_var48;//driver_num
 	/*50*/uint16_t VDI_HDR_var50;
 	/*52*/uint16_t VDI_HDR_var52_this_ISR;
@@ -165,7 +165,7 @@ HTIMER timer_3;
  /*13*/Bit32u DMA_sel_9;
  /*13*/void* DMA_buf_10;
   void* DMA_11_12[2];
-  /*13*/Bit16s* buffer_flag_13;
+  /*13*/int16_t* buffer_flag_13;
   /*13*/Bit32s last_buffer_14;
   /*13*/Bit32s channels_per_sample_15;
   /*13*/Bit32s bytes_per_channel_16;
@@ -183,7 +183,7 @@ HTIMER timer_3;
   /*13*/Bit32u var40_aildrv;
   /*13*/Bit32u var46_aildrv;
 
-  ///*28/*/ Bit16s var28_aildrv;
+  ///*28/*/ int16_t var28_aildrv;
   /*4*/	uint8_t scratch[144];
 }
 DIG_DRIVER;
@@ -382,12 +382,12 @@ typedef struct _MDI_DRIVER          // Handle to XMIDI driver
   ///*13*/Bit32u var40_aildrv;
   ///*13*/Bit32u var46_aildrv;
 
-  ///*28/*/ Bit16s var28_aildrv;
- Bit16s var104_aildrv;
- Bit16s var105_aildrv;
- Bit16s var106_aildrv;
- Bit16s var107_aildrv;
- Bit16s var108_aildrv;
+  ///*28/*/ int16_t var28_aildrv;
+ int16_t var104_aildrv;
+ int16_t var105_aildrv;
+ int16_t var106_aildrv;
+ int16_t var107_aildrv;
+ int16_t var108_aildrv;
   /*4*/	uint8_t scratch[144];
 }
 MDI_DRIVER;

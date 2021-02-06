@@ -311,8 +311,6 @@ typedef         double     Real64;
 
 #if SIZEOF_UNSIGNED_SHORT != 2
 #  error "sizeof (unsigned short) != 2"
-#else
-  typedef   signed short Bit16s;
 #endif
 
 #if SIZEOF_UNSIGNED_INT == 4

@@ -1615,8 +1615,8 @@ sjednotit
 	  x_WORD_E3760 = temp_mouse_x; //nastav x
 	  x_WORD_E3762 = temp_mouse_y; //nastav y
 
-Bit16s x_WORD_E3760_mousex;
-Bit16s x_WORD_E3762_mousey;
+int16_t x_WORD_E3760_mousex;
+int16_t x_WORD_E3762_mousey;
 
 
 int8_t x_DWORD_1806E8_mousex; // weak
@@ -1625,8 +1625,8 @@ int8_t x_DWORD_1806E8_mousey; // weak
 x_DWORD_180730 - fix xy
 x_DWORD_1806F8 - fix xy
 
-Bit16s x_DWORD_1806F8_mousex; // weak
-Bit16s x_DWORD_1806F8_mousey; // weak
+int16_t x_DWORD_1806F8_mousex; // weak
+int16_t x_DWORD_1806F8_mousey; // weak
 
 x_WORD_180660_VGA_type_resolution//351660 - ma by 8? asi ne, je to nejspis textovy mod
 
@@ -1839,7 +1839,7 @@ sub_7A110_load_hscreen(x_WORD_180660_VGA_type_resolution, 4);
 void sub_81360_draw_bitmap_line(Bit32s minx, Bit32s miny, Bit32s maxx, Bit32s maxy, __int16 a5)//262360
 
 problem:
-      v21 = sub_7AB00(v19, v20, (Bit16s*)a3x, 4u);
+      v21 = sub_7AB00(v19, v20, (int16_t*)a3x, 4u);
       if ( sub_7B250((int)v21, v22, a3x) )
 
 sub_8CD27_set_cursor(*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct);//anything with vga, maybe mouse cursor//26dd27 //xadatapointersdat asi 1a6f44
@@ -2381,7 +2381,7 @@ sub edi,eax - 1da
 
 
 a pak tento -color ma byt nula
-void sub_7FB90_draw_text(char* textbuffer, Bit16s posx, Bit16s posy, uint8_t color)
+void sub_7FB90_draw_text(char* textbuffer, int16_t posx, int16_t posy, uint8_t color)
 
 xy_DWORD_17DEC0_spritestr[0]
 se neshoduje s [34eec0]->4531c7 + 394 = 453351
@@ -2594,7 +2594,7 @@ problem
 void sub_49540(uint8_t* a1, uint8_t* a2)//22a540
 
 problem:
-x_WORD_EB398ar[0] = *(Bit16s*)(a2 + 4) << 8;//adress 22a5af
+x_WORD_EB398ar[0] = *(int16_t*)(a2 + 4) << 8;//adress 22a5af
 1a70ee - 75a5390060607eb7
 27971f - call 279709
 call 24fb90
@@ -3362,10 +3362,10 @@ void sub_2E260_draw_spell(__int16 a1, __int16 a2, uint8_t* a3, char a4)//20f260
 
 270ca4 
 call void sub_8F935_bitmap_draw_final(uint8_t a1byte1, uint8_t a1byte2, uint16_t tiley, int tilex, uint8_t* texture, uint8_t setbyte, char a6)//270935
-call void sub_8F920(uint8_t a1byte1, uint8_t a1byte2, Bit16s posx, Bit16s posy, uint8_t* a4, unsigned __int8 a5, char a6)//270920
-call void sub_72C40_draw_bitmap_640_setcolor(Bit16s posx, Bit16s posy, posistruct a3, uint8_t color)//253c40
+call void sub_8F920(uint8_t a1byte1, uint8_t a1byte2, int16_t posx, int16_t posy, uint8_t* a4, unsigned __int8 a5, char a6)//270920
+call void sub_72C40_draw_bitmap_640_setcolor(int16_t posx, int16_t posy, posistruct a3, uint8_t color)//253c40
 call void sub_6F940_sub_draw_text(uint8_t* textbuffer, int posx, int posy, uint8_t color)//250940
-call void sub_2BC10_draw_text(uint8_t* textbuffer, Bit16s posx, Bit16s posy, uint8_t color)//20cc10
+call void sub_2BC10_draw_text(uint8_t* textbuffer, int16_t posx, int16_t posy, uint8_t color)//20cc10
 20f401 void sub_2E260_draw_spell(__int16 a1, __int16 a2, uint8_t* a3, char a4)//20f260
 
 void sub_2E260_draw_spell(__int16 a1, __int16 a2, uint8_t* a3, char a4)//20f260
@@ -4012,10 +4012,10 @@ versus
 322d0a void sub_51BB0_game_events(uint8_t* a1)//232bb0
 
 byteindex_12
-*(Bit16s*)&x_D41A0_BYTEARRAY_0[12]
+*(int16_t*)&x_D41A0_BYTEARRAY_0[12]
 
 x_D41A0_BYTEARRAY_4_struct.byteindex_12
-v16 = *(x_DWORD *)(2124 * *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] + x_D41A0_BYTEARRAY_0 + 11248) / (unsigned int)v15 & 1;
+v16 = *(x_DWORD *)(2124 * *(int16_t*)&x_D41A0_BYTEARRAY_0[12] + x_D41A0_BYTEARRAY_0 + 11248) / (unsigned int)v15 & 1;
 
 ---x_D41A0_BYTEARRAY_0+ 7b // 356038+ 7b
 
@@ -4182,7 +4182,7 @@ c203 - 1fc9d8 call sub_1B8C0(uint8_t* a1)//1fc8c0
 porovnat x_DWORD_EA3E4 tj 2bb3e4
 
 void sub_41A90_VGA_pallette_install(uint8_t* buffer)//222a90
-271c10 call Bit16s sub_90B27_VGA_pal_fadein_fadeout(uint8_t *newpalbuffer, uint8_t shadow_levels, bool singlestep)//271B27 init and nightfall
+271c10 call int16_t sub_90B27_VGA_pal_fadein_fadeout(uint8_t *newpalbuffer, uint8_t shadow_levels, bool singlestep)//271B27 init and nightfall
 void sub_47760(/*int a1,*/Bit32u user/* int a2, int a3*/)//228760
 fix:
 outbuffer[i] = x_BYTE_181544_oldpalbuffer[i] + (j* (newpalbuffer[i] - x_BYTE_181544_oldpalbuffer[i]) / shadow_levels);
@@ -4292,7 +4292,7 @@ versus
 29e851 call void /*__spoils<ecx>*/ sub_BD542(unsigned __int16 a1, unsigned __int16 a2, unsigned __int16 a3, unsigned __int16 a4, char a5)//29e542
 20cd54
 
-*(Bit16s*)&unk_1804B0ar[ 8e] - proc je nula
+*(int16_t*)&unk_1804B0ar[ 8e] - proc je nula
 
 &array_E2A74[30 *  5c + 4]
 
@@ -4397,7 +4397,7 @@ char x_BYTE_18069C; // weak
 x_DWORD_180730_cursor_data
 82c714
 270aa0 call void sub_8F935_bitmap_draw_final(uint8_t a1byte1, uint8_t a1byte2, uint16_t tiley, int tilex, uint8_t* texture, uint8_t setbyte, char a6)//270935
-2708d7 call void sub_8F8B0_draw_bitmap320(Bit16s posx, Bit16s posy, posistruct temppstr)//2708B0
+2708d7 call void sub_8F8B0_draw_bitmap320(int16_t posx, int16_t posy, posistruct temppstr)//2708B0
 26de71 call void sub_8CD27_set_cursor(posistruct a2)//26dd27
 1f9c2c call void sub_18BB0()//1f9bb0
 
@@ -4436,8 +4436,8 @@ x_BYTE_EB3A8
 versus
 2bc3a8
 
-compare - *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] ==1
-x_DWORD_EA3E4[*(unsigned __int16 *)(2124 * *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] + x_D41A0_BYTEARRAY_0 + 11240)]
+compare - *(int16_t*)&x_D41A0_BYTEARRAY_0[12] ==1
+x_DWORD_EA3E4[*(unsigned __int16 *)(2124 * *(int16_t*)&x_D41A0_BYTEARRAY_0[12] + x_D41A0_BYTEARRAY_0 + 11240)]
 
 void sub_752C0()//2562c0
 
@@ -4467,7 +4467,7 @@ char sub_1A970_change_game_settings(char a1, int a2, int a3)//1fb970
 
 356044
 versus
-*(Bit16s*)&x_D41A0_BYTEARRAY_0[12]
+*(int16_t*)&x_D41A0_BYTEARRAY_0[12]
 
 x_DWORD_17DB54_game_turn2
 versus
@@ -4490,7 +4490,7 @@ x_WORD_EB398ar - position and rotation
 
 x_BYTE_EB39E_keys[0]
 x_WORD_1805C0
-x_D41A0_BYTEARRAY_0[10 * *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] + 28227]
+x_D41A0_BYTEARRAY_0[10 * *(int16_t*)&x_D41A0_BYTEARRAY_0[12] + 28227]
 
 *(x_WORD *)(a1 + 28)
 ------------------
@@ -4647,11 +4647,11 @@ versus
 
 
  player position:
-*(Bit16s*)(x_D41A0_BYTEARRAY_0 + 2124 * *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] + 14 * *(uint16_t*)(x_D41A0_BYTEARRAY_0 + 2124 * *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] + 11244) + 11709),//position of player
-*(Bit16s*)(x_D41A0_BYTEARRAY_0 + 2124 * *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] + 14 * *(uint16_t*)(x_D41A0_BYTEARRAY_0 + 2124 * *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] + 11244) + 11711),//position of player
-*(Bit16s*)(x_D41A0_BYTEARRAY_0 + 2124 * *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] + 14 * *(uint16_t*)(x_D41A0_BYTEARRAY_0 + 2124 * *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] + 11244) + 11715),//rotation of player z 
-*(Bit16s*)(x_D41A0_BYTEARRAY_0 + 2124 * *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] + 14 * *(uint16_t*)(x_D41A0_BYTEARRAY_0 + 2124 * *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] + 11244) + 11717),//rotation of player
-*(Bit16s*)(x_D41A0_BYTEARRAY_0 + 2124 * *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] + 14 * *(uint16_t*)(x_D41A0_BYTEARRAY_0 + 2124 * *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] + 11244) + 11719),//rotation of player
+*(int16_t*)(x_D41A0_BYTEARRAY_0 + 2124 * *(int16_t*)&x_D41A0_BYTEARRAY_0[12] + 14 * *(uint16_t*)(x_D41A0_BYTEARRAY_0 + 2124 * *(int16_t*)&x_D41A0_BYTEARRAY_0[12] + 11244) + 11709),//position of player
+*(int16_t*)(x_D41A0_BYTEARRAY_0 + 2124 * *(int16_t*)&x_D41A0_BYTEARRAY_0[12] + 14 * *(uint16_t*)(x_D41A0_BYTEARRAY_0 + 2124 * *(int16_t*)&x_D41A0_BYTEARRAY_0[12] + 11244) + 11711),//position of player
+*(int16_t*)(x_D41A0_BYTEARRAY_0 + 2124 * *(int16_t*)&x_D41A0_BYTEARRAY_0[12] + 14 * *(uint16_t*)(x_D41A0_BYTEARRAY_0 + 2124 * *(int16_t*)&x_D41A0_BYTEARRAY_0[12] + 11244) + 11715),//rotation of player z 
+*(int16_t*)(x_D41A0_BYTEARRAY_0 + 2124 * *(int16_t*)&x_D41A0_BYTEARRAY_0[12] + 14 * *(uint16_t*)(x_D41A0_BYTEARRAY_0 + 2124 * *(int16_t*)&x_D41A0_BYTEARRAY_0[12] + 11244) + 11717),//rotation of player
+*(int16_t*)(x_D41A0_BYTEARRAY_0 + 2124 * *(int16_t*)&x_D41A0_BYTEARRAY_0[12] + 14 * *(uint16_t*)(x_D41A0_BYTEARRAY_0 + 2124 * *(int16_t*)&x_D41A0_BYTEARRAY_0[12] + 11244) + 11719),//rotation of player
 
 
 
@@ -4926,12 +4926,12 @@ versus
 238f10
 21922b call void sub_37BC0(uint8_t* a1)//218bc0
 
-(x_D41A0_BYTEARRAY_0 + 2124 * *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] + 12244)-position y
-(x_D41A0_BYTEARRAY_0 + 2124 * *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] + 12593)-position x
-(x_D41A0_BYTEARRAY_0 + 2124 * *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] + 12149)-rotate 1
-(x_D41A0_BYTEARRAY_0 + 2124 * *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] + 12568)-rotate 2
-(x_D41A0_BYTEARRAY_0 + 2124 * *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] + 12573)-rotate 3
-(x_D41A0_BYTEARRAY_0 + 2124 * *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] + 12593)-rotate 4
+(x_D41A0_BYTEARRAY_0 + 2124 * *(int16_t*)&x_D41A0_BYTEARRAY_0[12] + 12244)-position y
+(x_D41A0_BYTEARRAY_0 + 2124 * *(int16_t*)&x_D41A0_BYTEARRAY_0[12] + 12593)-position x
+(x_D41A0_BYTEARRAY_0 + 2124 * *(int16_t*)&x_D41A0_BYTEARRAY_0[12] + 12149)-rotate 1
+(x_D41A0_BYTEARRAY_0 + 2124 * *(int16_t*)&x_D41A0_BYTEARRAY_0[12] + 12568)-rotate 2
+(x_D41A0_BYTEARRAY_0 + 2124 * *(int16_t*)&x_D41A0_BYTEARRAY_0[12] + 12573)-rotate 3
+(x_D41A0_BYTEARRAY_0 + 2124 * *(int16_t*)&x_D41A0_BYTEARRAY_0[12] + 12593)-rotate 4
 
 void sub_17A00(uint8_t* a1, signed int a2, __int16 a3)//1f8a00
 
@@ -4989,7 +4989,7 @@ x_DWORD_F2C20ar[0x01] - typ rotace
 
 x_DWORD_F2C20ar[0x01] = v45;
 
-(Bit16s*)(&x_DWORD_E9C38_smalltit[45920])
+(int16_t*)(&x_DWORD_E9C38_smalltit[45920])
 versus
 [2bac38]+b360=400604
 
@@ -5052,7 +5052,7 @@ x_WORD_D951C
 void sub_71410_process_tmaps()//252410
 
 
-*(Bit16s*)&x_BYTE_D951C[
+*(int16_t*)&x_BYTE_D951C[
 
 test all x_BYTE_D951C
 fix:
@@ -6077,7 +6077,7 @@ sub_871F0();
 
  str_unk_1804B0ar.array_0x8e[0]
  versus
-*(Bit16s*)&unk_1804B0ar[0x8e]
+*(int16_t*)&unk_1804B0ar[0x8e]
 
 str_unk_1804B0ar.uni_0x8a.word[2]
 word_18054E
@@ -6276,7 +6276,7 @@ void sub_30D50(type_str_0x6E8E* a1x, uint8_t v2, uint8_t v4)//211d50
 
 20c
 
-axis_3d word_0x9A_154x;//154 - mozna dat jako Bit16s
+axis_3d word_0x9A_154x;//154 - mozna dat jako int16_t
 
 0x18e
 
@@ -6778,7 +6778,7 @@ while (v0 < D41A0_BYTESTR_0.word_0xe)
  22e349
  190
  22b1ca
-  type_str_0x6E8E* pre_sub_4A190(Bit32u adress, Bit16s* a1,int type)//pre 22b190
+  type_str_0x6E8E* pre_sub_4A190(Bit32u adress, int16_t* a1,int type)//pre 22b190
  24ed4e
  type_str_0x6E8E* sub_6DCA0(type_str_0x6E8E* a1x, axis_3d* a2x, unsigned __int16 a3, __int16 *a4, __int16 a5, char a6)//24eca0
  24a48a
@@ -7262,7 +7262,7 @@ sub_2BC10_draw_text(v11x, v9, v13, v8); ?
 sub_2BC10_draw_text(printbuffer, v4x, v2, (*xadataclrd0dat.var28_begin_buffer)[0xf00]);
 
 v83 = D41A0_BYTESTR_0.array_0x2BDE[v18x].array_0x01c_2BFA_11258;
-v84 = x_DWORD_E9C4C_langindexbuffer[*(Bit16s*)&x_DWORD_DA750ar[0xde+2*40 * v82 + 13 * D41A0_BYTESTR_0.array_0x6E3E[v114x].str_0x6E3E_byte2]];
+v84 = x_DWORD_E9C4C_langindexbuffer[*(int16_t*)&x_DWORD_DA750ar[0xde+2*40 * v82 + 13 * D41A0_BYTESTR_0.array_0x6E3E[v114x].str_0x6E3E_byte2]];
 strcpy(v83,v84);
 
 //fixing
@@ -8005,7 +8005,7 @@ int sub_6D4F0(type_str_611* a1x, __int16 a2)//24e4f0
 char sub_88D40()//269d40
 void sub_2ECC0_draw_bottom_menu()//20fcc0
 
-resultx = pre_sub_4A190(0x2321a0 + 14 * a1x->byte_0x40_64, (Bit16s*)&a1x->array_0x4C_76,2);//result = (*(int(**)(uint8_t*))((char *)&off_D781E + 14 * *(char *)(a1 + 64)))(a1 + 76);
+resultx = pre_sub_4A190(0x2321a0 + 14 * a1x->byte_0x40_64, (int16_t*)&a1x->array_0x4C_76,2);//result = (*(int(**)(uint8_t*))((char *)&off_D781E + 14 * *(char *)(a1 + 64)))(a1 + 76);
 
 21bf00
 
