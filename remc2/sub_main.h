@@ -545,6 +545,42 @@ uint16_t word_22;
 type_E1BAC_0x3c4;
 #pragma pack (16)
 
+#pragma pack (1)
+typedef struct {//lenght 66
+	int8_t byte_0;
+	int8_t byte_1;
+	int8_t byte_2;
+	int8_t byte_3;
+	int16_t word_4;
+	int16_t word_6;
+	int16_t word_8;
+	char arr_byte_10[15];
+	char arr_byte_26[15];
+	int8_t byte_42;
+	int8_t byte_43;
+	int8_t stubd_44[5];
+	int8_t byte_49;
+	int8_t stube_50[16];	
+}
+type_DWORD_E12AE;
+#pragma pack (16)
+
+#pragma pack (1)
+/*typedef struct {//lenght 10
+	int16_t word_0;
+	//8 size 10*x
+
+}
+type_str_8_TMAPS00TAB_BEGIN_BUFFER;
+*/
+typedef struct {//lenght 10
+	int32_t dword_0;
+	int32_t dword_4;
+	int16_t word_8;
+}
+type_TMAPS00TAB_BEGIN_BUFFER;
+#pragma pack (16)
+
 
 void WriteBufferToBMP(unsigned __int16 width, unsigned __int16 height, uint8_t* ptrPalette, uint8_t* ptrBuffer);
 
@@ -647,7 +683,7 @@ int /*__fastcall*/ _wcpp_1_unwind_leave__130(int32_t);// weak
 //unsigned char _BitScanReverse(unsigned long * Index, unsigned long Mask);
 void sub_8F920(uint8_t a1byte1, uint8_t a1byte2, int16_t posx, int16_t posy, uint8_t* a4, unsigned __int8 a5, char a6);
 void sub_8F935_bitmap_draw_final(uint8_t a1byte1, uint8_t a1byte2, uint16_t a2, int a3, uint8_t* a4, uint8_t setbyte, char a6);
-signed int sub_74767(signed __int16* a1, char* a2, uint8_t* a3);
+signed int sub_74767(signed __int16* a1, type_DWORD_E12AE* a2x, uint8_t* a3);
 //x_DWORD /*__cdecl*/ segread(SREGS*); //weak
 //x_DWORD /*__cdecl*/ int386x(x_DWORD, x_DWORD, x_DWORD, x_DWORD);// weak
 //int int386x(int, REGS *, REGS *, struct SREGS *);
