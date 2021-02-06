@@ -1619,8 +1619,8 @@ Bit16s x_WORD_E3760_mousex;
 Bit16s x_WORD_E3762_mousey;
 
 
-Bit8s x_DWORD_1806E8_mousex; // weak
-Bit8s x_DWORD_1806E8_mousey; // weak
+int8_t x_DWORD_1806E8_mousex; // weak
+int8_t x_DWORD_1806E8_mousey; // weak
 
 x_DWORD_180730 - fix xy
 x_DWORD_1806F8 - fix xy
@@ -6156,8 +6156,8 @@ sub_57B20
 
 (uint8_t*)x_WORD_15B4E0+0x1ba98 orig 0 remake ce
 
-((Bit8s*)a1)+28
-((Bit8s*)a1)+28
+((int8_t*)a1)+28
+((int8_t*)a1)+28
 
 sub_69640
 

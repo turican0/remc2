@@ -15,7 +15,7 @@ SDL_Texture* texture = NULL;
 SDL_Surface* helper_surface = NULL;
 
 uint8_t x_BYTE_1806E4; // weak//3516e4
-Bit8s x_BYTE_180664[128]; // idb
+int8_t x_BYTE_180664[128]; // idb
 
 SDL_Surface* screen;
 

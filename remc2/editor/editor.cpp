@@ -2187,7 +2187,7 @@ int main_x(/*int argc, char** argv*/)
 	uint8_t byte_0x2FED4;//x_D41A0_BYTEARRAY_0[196308]//GraphicsType
 	Bit16s word_0x2FED5;
 	Bit16s word_0x2FED7;
-	Bit8s array_0x2FED9[8];
+	int8_t array_0x2FED9[8];
 	*/
 
 	//drawterrain2(0, window1.rect.h - mapimage.h, 10, 0, 0);

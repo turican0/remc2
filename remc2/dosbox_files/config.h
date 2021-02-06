@@ -307,8 +307,6 @@ typedef         double     Real64;
 
 #if SIZEOF_UNSIGNED_CHAR != 1
 #  error "sizeof (unsigned char) != 1"
-#else
-  typedef   signed char Bit8s;
 #endif
 
 #if SIZEOF_UNSIGNED_SHORT != 2

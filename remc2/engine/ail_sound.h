@@ -38,7 +38,7 @@ IO_PARMS;
 
 typedef MSS_STRUCT                      // Standard MSS 3.X VDI driver header
 {
-	/*0*/Bit8s ID_8[8];
+	/*0*/int8_t ID_8[8];
 	/*8*/Bit16u driver_version_8;
 	/*10*/void* VDI_HDR_var10;
 	/*12*/Bit16u VDI_HDR_var12;
@@ -52,9 +52,9 @@ typedef MSS_STRUCT                      // Standard MSS 3.X VDI driver header
 	/*50*/Bit16u VDI_HDR_var50;
 	/*52*/Bit16u VDI_HDR_var52_this_ISR;
 	/*54*/Bit32u VDI_HDR_var54_prev_ISR;
-   /*58*/Bit8s scratch[128];           // Shared scratch workspace   
-   Bit8s dev_name[80];           // Device name (VDI version >= 1.12 only)
-   Bit8s scratch2[1692];
+   /*58*/int8_t scratch[128];           // Shared scratch workspace   
+   int8_t dev_name[80];           // Device name (VDI version >= 1.12 only)
+   int8_t scratch2[1692];
    char mdiapplendix[4];   
 }
 VDI_HDR;
@@ -106,8 +106,8 @@ Bit32s volume_16 = 0;
 Bit32s pan_17 = 0;
 Bit32s vol_scale_18[2][256];
 //Bit32u sam_varw18x[256];
-//Bit8s sam_varb20 = 0;//maybe sam_varw18x[0][1]?
-//Bit8s sam_varb21 = 0;//maybe sam_varw18x[0][2]?
+//int8_t sam_varb20 = 0;//maybe sam_varw18x[0][1]?
+//int8_t sam_varb21 = 0;//maybe sam_varw18x[0][2]?
 //530 CALLBACK SOB
 //532 CALLBACK EOB;                 // End-of-buffer callback function
 //534 CALLBACK EOS;                 // End-of-sample callback function
@@ -325,7 +325,7 @@ typedef struct
 	std::string library_directory;
 	std::string GTL_filename;
 
-	Bit8s       MIDI_data[512];
+	int8_t       MIDI_data[512];
 }
 MDI_DST;
 

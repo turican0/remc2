@@ -260,8 +260,8 @@ typedef struct {
 	Bit16s word_4;
 	Bit16s word_6;
 	Bit16s word_8;//act sprite
-	Bit8s byte_10;//first sprite
-	Bit8s byte_11;//last sprite
+	int8_t byte_10;//first sprite
+	int8_t byte_11;//last sprite
 }type_str_unk_E1748;
 
 typedef struct {//lenght 30
@@ -273,14 +273,14 @@ typedef struct {//lenght 30
 	Bit16s word_14;
 	Bit16s word_16;
 	Bit16s word_18;
-	Bit8s byte_20;
-	Bit8s byte_21;
+	int8_t byte_20;
+	int8_t byte_21;
 	Bit16s word_22;
 	Bit16s word_24;
 	Bit16s word_26;
-	//Bit8s stuba[1];
+	//int8_t stuba[1];
 	Bit16s word_28;
-	//Bit8s stubb[1];
+	//int8_t stubb[1];
 } type_x_BYTE_E25ED_db_str;
 #pragma pack (16)
 
@@ -313,7 +313,7 @@ extern __int16 x_WORD_180660_VGA_type_resolution; // weak
 #pragma pack (1)
 typedef struct {//lenght 7
 	Bit16s word_0;
-	Bit8s byte_2;
+	int8_t byte_2;
 	Bit32s dword_3;
 }
 type_E17CC_0;
@@ -329,8 +329,8 @@ typedef struct {//lenght 18
 	Bit16s word_10;
 	Bit16s word_12;
 	Bit16s word_14;
-	Bit8s byte_16;
-	Bit8s byte_17;
+	int8_t byte_16;
+	int8_t byte_17;
 }
 type_E24BCx;
 #pragma pack (16)
@@ -338,10 +338,10 @@ type_E24BCx;
 #pragma pack (1)
 typedef struct//lenght 11
 {
-	Bit8s byte_0;
+	int8_t byte_0;
 	uint8_t array_byte_1[8];
-	Bit8s byte_9;
-	Bit8s byte_10;
+	int8_t byte_9;
+	int8_t byte_10;
 } type_BYTE_17DE68x;
 #pragma pack (16)
 
@@ -361,10 +361,10 @@ typedef struct//lenght 613 // end 17E09D
 	uint8_t* x_DWORD_17DE64_game_world_map; // weak
 
 	/*
-	Bit8s byte_0
-	Bit8s array_byte_1[8];
-	Bit8s byte_9;
-	Bit8s byte_10;
+	int8_t byte_0
+	int8_t array_byte_1[8];
+	int8_t byte_9;
+	int8_t byte_10;
 	*/
 	type_BYTE_17DE68x array_BYTE_17DE68x[8];
 	//uint8_t x_BYTE_17DE68x[88]; // fix it -  weak //8*11
@@ -416,7 +416,7 @@ typedef struct//lenght 613 // end 17E09D
 	__int16 x_WORD_17E072; // weak
 	__int16 x_WORD_17E074; // weak
 	__int16 x_WORD_17E076; // weak
-	Bit8s unk_17E078x[0xc]; // weak [11]
+	int8_t unk_17E078x[0xc]; // weak [11]
 	//__int16 x_WORD_17E07C; // weak unk_17E078x[4]
 	//__int16 x_WORD_17E07E; // weak unk_17E078x[6]
 	//__int16 x_WORD_17E080; // weak unk_17E078x[8]
@@ -512,10 +512,10 @@ typedef struct {//lenght 44
 	Bit16s word_18;
 	uint8_t byte_20;//index of gold sprite
 	uint8_t byte_21;//index of gray sprite
-	Bit8s byte_22;
-	Bit8s byte_23;
-	Bit8s gold_color_24;
-	Bit8s byte_25;
+	int8_t byte_22;
+	int8_t byte_23;
+	int8_t gold_color_24;
+	int8_t byte_25;
 	//Bit16s word_24;//23 and 24 byte
 	type_str_word_26 str_26;//0
 	//Bit16s word_28;//1
@@ -585,7 +585,7 @@ type_str_0x6E8E* sub_15CB0(/*type_str_0x6E8E* a1,*/ type_str_0x6E8E* a2); // wea
 char sub_15D40(__int16 a1, type_str_0x6E8E* a2, type_str_0x6E8E* a3); // weak
 Bit16s sub_16730(/*int a1,*/ type_str_0x6E8E* a2, char a3); // weak
 Bit16s sub_16CA0(baxis_2d* a2, __int16 a3, char a4); // weak
-void sub_17A00(Bit8s* a1, signed int a2, __int16 a3); // weak
+void sub_17A00(int8_t* a1, signed int a2, __int16 a3); // weak
 int _wcpp_1_unwind_leave__120(Bit32s a, Bit32s b, Bit32s c);// weak
 void sub_1A070(signed int a1, __int16 a2);
 void JUMPOUT(int* adr);
@@ -654,10 +654,10 @@ unsigned char __readgsx_BYTE(unsigned long Offset);
 unsigned short __readgsx_WORD(unsigned long Offset);
 //int /*__fastcall*/ _wcpp_1_unwind_leave__131(x_DWORD);// weak
 void sub_7AB00_draw_menu_animations(/*__int16 a1,*/ /*int a2,*/ /*type_str_unk_E1748* a3,*/ unsigned __int8 a4);
-int sub_7F6A0(int a1, int a2, __int16 a3, __int16 a4, char* a5, Bit8s* a6, unsigned __int8 a7);
+int sub_7F6A0(int a1, int a2, __int16 a3, __int16 a4, char* a5, int8_t* a6, unsigned __int8 a7);
 unsigned int sub_81CA0(int a1, int a2, __int16 a3, __int16 a4, type_x_BYTE_E25ED_db_str* a5);
 signed int sub_7E5A0_pre_draw(int a1, int a2, __int16 a3, __int16 a4, uint8_t* a5, __int16 a6, __int16 a7);
-void sub_81260(int a1, int a2, Bit8s* a3, __int16 a4, __int16 a5);
+void sub_81260(int a1, int a2, int8_t* a3, __int16 a4, __int16 a5);
 void sub_82510(/*__int16 a1*//*, int *a2*/);
 signed __int16 sub_81EE0(int a1, int a2, int a3, signed __int16 a4, __int16 a5, __int16 a6);
 bool sub_80D40_move_graphics_and_play_sounds(__int16 a2, __int16 a3, __int16 a4, __int16 a5, char a6);
@@ -676,7 +676,7 @@ double /*__fastcall*/ _CHP(Bit32s);// weak
 char sub_8B980(int a1, int a2, Bit32s** a3, int a4);
 bool sub_9AE04(/*int eax0, */int edx0, int a3, int a1, int a2);
 HDIGDRIVER sub_93330_AIL_install_DIG_driver_file(/*int a1, */char* filename, IO_PARMS* IO);
-char sub_9AE90(int eax0, int edx0, int ebx0, int* a1, Bit8s* a2, int a3, int a4);
+char sub_9AE90(int eax0, int edx0, int ebx0, int* a1, int8_t* a2, int a3, int a4);
 int sub_931F0_AIL_install_DIG_INI(HDIGDRIVER* a2, char* digPath);
 HMDIDRIVER sub_95850_AIL_install_MDI_driver_file(char* filename, IO_PARMS* IO);
 Bit32s sub_95710_AIL_install_MDI_INI(HMDIDRIVER* mdi, char* fileName);
@@ -714,23 +714,23 @@ int /*__fastcall*/ _hook387(Bit32s, Bit32s, Bit32s);// weak
 //unsigned long __readcr0(void);
 //void __writecr0(unsigned __int32 Data);
 int sub_ACE8D(Bit16s* a1, int a2, int* a3);
-void sub_AD0E2(Bit8s* a1, int a2, int* a3, Bit8s** a4);
-void sub_ACF1A(Bit8s* a1, int a2, int* a3);
+void sub_AD0E2(int8_t* a1, int a2, int* a3, int8_t** a4);
+void sub_ACF1A(int8_t* a1, int a2, int* a3);
 int _FDFS(void);// weak
 int sub_B33D6(unsigned __int64 a1, int a2, int a3, int a4);
 //int _sigfpe_handler();// weak
 int sub_B337C(int a1, int a2, int a3);
 int sub_B37B0(int a1, int a2, int a3);
-int sub_B35DB(int a1, int a2, Bit8s* a3, int a4);
-int sub_B39E0(__int64 a1, int a2, Bit8s* a3);
-int sub_B41F9(int a1, Bit8s* a2, int a3);
-int sub_B3ADF(__int64* a1, Bit8s* a2);
-int sub_B3605(unsigned __int64 a1, int a2, unsigned int a3, Bit8s* a4, int a5);
+int sub_B35DB(int a1, int a2, int8_t* a3, int a4);
+int sub_B39E0(__int64 a1, int a2, int8_t* a3);
+int sub_B41F9(int a1, int8_t* a2, int a3);
+int sub_B3ADF(__int64* a1, int8_t* a2);
+int sub_B3605(unsigned __int64 a1, int a2, unsigned int a3, int8_t* a4, int a5);
 int sub_B37DA(unsigned __int64 a1, unsigned int a2, unsigned int a3, int a4);
-__int16 /*__spoils<ecx>*/ sub_B3EAE(int a1, Bit8s* a2, int a3);
+__int16 /*__spoils<ecx>*/ sub_B3EAE(int a1, int8_t* a2, int a3);
 int sub_B4A2A(int* a1, int a2, int a3);
 int sub_B4077(__int64 a1, unsigned int a2, unsigned int a3, __int16 a4, __int16 a5);
-int sub_B423C(int a1, Bit8s* a2);
+int sub_B423C(int a1, int8_t* a2);
 void sub_B49D8(int a1, int a2);
 int _DOS4G_hook_init(void);// weak
 int _Phar_hook_init(void);// weak
@@ -744,7 +744,7 @@ __int64 sub_B522B(int a1, __int16 a2, int _ESI);
 //int _Phar_hook_fini(void);// weak
 //int /*__cdecl*/ _Ergo_hook_fini(x_DWORD);// weak
 void sub_B5F8F(__int16 a1, Bit16u* a2, Bit32s a3, __int16* a4);
-int sub_BD320(int result, Bit8s* a2, Bit8s* a3, int a4, int a5, int a6);
+int sub_BD320(int result, int8_t* a2, int8_t* a3, int a4, int a5, int a6);
 void sub_B5EFA(__int16 a1, Bit16u* a2, Bit32s a3, __int16* a4);
 
 //type_str_0x6E8E* pre_sub_4A190(Bit32u adress, Bit16s* a1,int type);
