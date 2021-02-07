@@ -2,6 +2,7 @@
 #ifndef BitmapIO_H
 #define BitmapIO_H
 
+#include <cstdint>
 #include "../portability/port_filesystem.h"
 
 class BitmapIO
@@ -15,8 +16,8 @@ public:
 	static const int BITMAP_FILE_HEADER_SIZE;
 	static const int BITMAP_INFO_HEADER_SIZE;
 
-	static void WriteImageBufferAsImageBMP(char* path, int width, int height, Bit8u* ptrPalette , Bit8u* ptrBuffer);
-	static void WritePaletteAsImageBMP(char* path, int numColors, Bit8u* ptrPalette);
+	static void WriteImageBufferAsImageBMP(char* path, int width, int height, uint8_t* ptrPalette , uint8_t* ptrBuffer);
+	static void WritePaletteAsImageBMP(char* path, int numColors, uint8_t* ptrPalette);
 };
 
 #endif

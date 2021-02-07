@@ -1,5 +1,6 @@
-#ifndef PORT_SDL_SOUND
-#define PORT_SDL_SOUND
+#pragma once
+#ifndef PORT_SDL_SOUND_H
+#define PORT_SDL_SOUND_H
 
 //#define SOUND_OPENAL
 
@@ -64,32 +65,32 @@ int playsound4();
 void playmusic1();
 void stopmusic1();
 */
-void playmusic2(Bit32s track_number);
-extern Bit8u sound_buffer[4][20000];
+void playmusic2(int32_t track_number);
+extern uint8_t sound_buffer[4][20000];
 //extern HSAMPLE last_sample;
 
-Bit32s ac_sound_call_driver(AIL_DRIVER* drvr, Bit32s fn, VDI_CALL* in, VDI_CALL* out);
+int32_t ac_sound_call_driver(AIL_DRIVER* drvr, int32_t fn, VDI_CALL* in, VDI_CALL* out);
 
-void ac_set_real_vect(Bit32u vectnum, Bit16u real_ptr);
-Bit16u ac_get_real_vect(Bit32u vectnum);
-AIL_DRIVER* ac_AIL_API_install_driver(int a1, Bit8u* a2, int a3);
+void ac_set_real_vect(uint32_t vectnum, uint16_t real_ptr);
+uint16_t ac_get_real_vect(uint32_t vectnum);
+AIL_DRIVER* ac_AIL_API_install_driver(int a1, uint8_t* a2, int a3);
 
-void SOUND_init_MIDI_sequence(Bit8u* data, Bit8u* header, Bit32s track_number);
+void SOUND_init_MIDI_sequence(uint8_t* data, uint8_t* header, int32_t track_number);
 
 void SOUND_start_sample(HSAMPLE S);
 void SOUND_end_sample(HSAMPLE S);
 
-void SOUND_start_sequence(Bit32s sequence_num);
-void SOUND_pause_sequence(Bit32s sequence_num);
-void SOUND_stop_sequence(Bit32s sequence_num);
-void SOUND_resume_sequence(Bit32s sequence_num);
-Bit32u SOUND_sample_status(HSAMPLE S);
+void SOUND_start_sequence(int32_t sequence_num);
+void SOUND_pause_sequence(int32_t sequence_num);
+void SOUND_stop_sequence(int32_t sequence_num);
+void SOUND_resume_sequence(int32_t sequence_num);
+uint32_t SOUND_sample_status(HSAMPLE S);
 
-void SOUND_set_sample_volume(HSAMPLE S, Bit32s volume);
-void SOUND_set_sequence_volume(Bit32s volume);
-void SOUND_set_master_volume(Bit32s volume);
+void SOUND_set_sample_volume(HSAMPLE S, int32_t volume);
+void SOUND_set_sequence_volume(int32_t volume);
+void SOUND_set_master_volume(int32_t volume);
 void SOUND_UPDATE();
-//void test_midi_play(Bit8u* data, Bit8u* header, Bit32s track_number);
+//void test_midi_play(uint8_t* data, uint8_t* header, int32_t track_number);
 #ifdef SOUND_OPENAL
 //void ALSOUND_load_wav(char* alBuffer, long alBufferLen);
 void ALSOUND_play(int which, Mix_Chunk* chunk, int loops);

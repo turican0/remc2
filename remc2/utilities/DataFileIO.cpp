@@ -5,7 +5,7 @@
 //dirty
 #endif
 
-uint16 DataFileIO::crc_table[256] = {
+uint16_t DataFileIO::crc_table[256] = {
 		0x0000, 0xC0C1, 0xC181, 0x0140, 0xC301, 0x03C0, 0x0280, 0xC241,
 		0xC601, 0x06C0, 0x0780, 0xC741, 0x0500, 0xC5C1, 0xC481, 0x0440,
 		0xCC01, 0x0CC0, 0x0D80, 0xCD41, 0x0F00, 0xCFC1, 0xCE81, 0x0E40,
@@ -42,11 +42,11 @@ uint16 DataFileIO::crc_table[256] = {
 
 DataFileIO::DataFileIO() {};
 
-int DataFileIO::ReadFileAndDecompress(const char* path, Bit8u** data)
+int DataFileIO::ReadFileAndDecompress(const char* path, uint8_t** data)
 {
 	x_DWORD result; // eax
 	FILE* file; // ebx
-	Bit32u length; // esi
+	uint32_t length; // esi
 	file = CreateOrOpenFile((char*)path, 0x200);
 	result = (x_DWORD)file;
 
@@ -70,7 +70,7 @@ int DataFileIO::ReadFileAndDecompress(const char* path, Bit8u** data)
 	return result;
 }
 
-int DataFileIO::Decompress(Bit8u* src, Bit8u* a2) {
+int DataFileIO::Decompress(uint8_t* src, uint8_t* a2) {
 	vars_t* v = init_vars();
 	if (v->method == 1)
 	{
@@ -86,12 +86,12 @@ int DataFileIO::Decompress(Bit8u* src, Bit8u* a2) {
 	}
 
 	v->file_size = MAX_BUF_SIZE;
-	v->input = (uint8*)malloc(MAX_BUF_SIZE);
+	v->input = (uint8_t*)malloc(MAX_BUF_SIZE);
 
-	Bit32u signature = src[0] + (src[1] << 8) + (src[2] << 16);
+	uint32_t signature = src[0] + (src[1] << 8) + (src[2] << 16);
 	if (signature == 0x434e52)
 	{
-		Bit32u inputsize = src[11] + (src[10] << 8) + (src[9] << 16) + (src[8] << 24);
+		uint32_t inputsize = src[11] + (src[10] << 8) + (src[9] << 16) + (src[8] << 24);
 		memmove(v->input, src, inputsize + 0x12);
 	}
 	else
@@ -99,7 +99,7 @@ int DataFileIO::Decompress(Bit8u* src, Bit8u* a2) {
 		v->input[0] = 0;
 	}
 	v->output = a2;
-	v->temp = (uint8*)malloc(MAX_BUF_SIZE);
+	v->temp = (uint8_t*)malloc(MAX_BUF_SIZE);
 
 	int error_code = 0;
 	error_code = Unpack(v);
@@ -151,7 +151,7 @@ int DataFileIO::UnpackData(vars_t* v)
 {
 	int start_pos = v->input_offset;
 
-	uint32 sign = read_dword_be(v->input, &v->input_offset);
+	uint32_t sign = read_dword_be(v->input, &v->input_offset);
 	if ((sign >> 8) != RNC_SIGN)
 		return 6;
 
@@ -169,8 +169,8 @@ int DataFileIO::UnpackData(vars_t* v)
 	if (crc_block(v->input, v->input_offset, v->packed_size) != v->packed_crc)
 		return 4;
 
-	v->mem1 = (uint8*)malloc(0x10000);
-	v->decoded = (uint8*)malloc(0x10000);
+	v->mem1 = (uint8_t*)malloc(0x10000);
+	v->decoded = (uint8_t*)malloc(0x10000);
 	v->pack_block_start = &v->mem1[0xFFFD];
 	v->window = &v->decoded[v->dict_size];
 
@@ -179,7 +179,7 @@ int DataFileIO::UnpackData(vars_t* v)
 	v->bit_buffer = 0;
 	v->processed_size = 0;
 
-	uint16 specified_key = v->enc_key;
+	uint16_t specified_key = v->enc_key;
 
 	int error_code = 0;
 	if (input_bits(v, 1) && !v->pus_mode)
@@ -242,24 +242,24 @@ FILE* DataFileIO::CreateOrOpenFile(char* pathname, int __pmode)
 	return Open(pathname, __pmode, 0x40);
 }
 
-FILE* DataFileIO::CreateFile(char* path, Bit32u flags) 
+FILE* DataFileIO::CreateFile(char* path, uint32_t flags) 
 {
 	return mycreate(path, flags);
 }
 
-FILE* DataFileIO::Open(char* path, int pmode, Bit32u flags) {
+FILE* DataFileIO::Open(char* path, int pmode, uint32_t flags) {
 	return myopen(path, pmode, flags);
 }
 
-int32 DataFileIO::Close(FILE* file) {
+int32_t DataFileIO::Close(FILE* file) {
 	return myclose(file);
 }
 
-int32 DataFileIO::Seek(FILE* file, x_DWORD position, char type) {
+int32_t DataFileIO::Seek(FILE* file, x_DWORD position, char type) {
 	return mylseek(file, position, type);
 }
 
-size_t DataFileIO::Read(FILE* file, Bit8u* data, Bit32u length) {
+size_t DataFileIO::Read(FILE* file, uint8_t* data, uint32_t length) {
 	size_t result = fread(data, 1, length, file);
 	return result;
 };
@@ -273,23 +273,23 @@ long DataFileIO::FileLengthBytes(FILE* file)
 	return size;
 }
 
-uint8 DataFileIO::read_byte(uint8* buf, size_t* offset)
+uint8_t DataFileIO::read_byte(uint8_t* buf, size_t* offset)
 {
 	return buf[(*offset)++];
 }
 
-uint16 DataFileIO::read_word_be(uint8* buf, size_t* offset)
+uint16_t DataFileIO::read_word_be(uint8_t* buf, size_t* offset)
 {
-	uint8 b1 = read_byte(buf, offset);
-	uint8 b2 = read_byte(buf, offset);
+	uint8_t b1 = read_byte(buf, offset);
+	uint8_t b2 = read_byte(buf, offset);
 
 	return (b1 << 8) | b2;
 }
 
-uint32 DataFileIO::read_dword_be(uint8* buf, size_t* offset)
+uint32_t DataFileIO::read_dword_be(uint8_t* buf, size_t* offset)
 {
-	uint16 w1 = read_word_be(buf, offset);
-	uint16 w2 = read_word_be(buf, offset);
+	uint16_t w1 = read_word_be(buf, offset);
+	uint16_t w2 = read_word_be(buf, offset);
 
 	return (w1 << 16) | w2;
 }
@@ -306,7 +306,7 @@ int DataFileIO::unpack_data_m1(vars_t* v)
 
 		while (subchunks--)
 		{
-			uint32 data_length = decode_table_data(v, v->raw_table);
+			uint32_t data_length = decode_table_data(v, v->raw_table);
 			v->processed_size += data_length;
 
 			if (data_length)
@@ -395,7 +395,7 @@ int DataFileIO::unpack_data_m2(vars_t* v)
 					}
 					else
 					{
-						uint32 data_length = (input_bits_m2(v, 4) << 2) + 12;
+						uint32_t data_length = (input_bits_m2(v, 4) << 2) + 12;
 						v->processed_size += data_length;
 
 						while (data_length--)
@@ -441,9 +441,9 @@ void DataFileIO::decode_match_offset(vars_t* v)
 	v->match_offset = ((v->match_offset << 8) | read_source_byte(v)) + 1;
 }
 
-uint16  DataFileIO::crc_block(uint8* buf, size_t offset, int size)
+uint16_t DataFileIO::crc_block(uint8_t* buf, size_t offset, int size)
 {
-	uint16 crc = 0;
+	uint16_t crc = 0;
 
 	while (size--)
 	{
@@ -454,17 +454,17 @@ uint16  DataFileIO::crc_block(uint8* buf, size_t offset, int size)
 	return crc;
 }
 
-uint32  DataFileIO::input_bits_m1(vars_t* v, short count)
+uint32_t DataFileIO::input_bits_m1(vars_t* v, short count)
 {
-	uint32 bits = 0;
-	uint32 prev_bits = 1;
+	uint32_t bits = 0;
+	uint32_t prev_bits = 1;
 
 	while (count--)
 	{
 		if (!v->bit_count)
 		{
-			uint8 b1 = read_source_byte(v);
-			uint8 b2 = read_source_byte(v);
+			uint8_t b1 = read_source_byte(v);
+			uint8_t b2 = read_source_byte(v);
 			v->bit_buffer = (v->pack_block_start[1] << 24) | (v->pack_block_start[0] << 16) | (b2 << 8) | b1;
 
 			v->bit_count = 16;
@@ -481,9 +481,9 @@ uint32  DataFileIO::input_bits_m1(vars_t* v, short count)
 	return bits;
 }
 
-uint32  DataFileIO::input_bits_m2(vars_t* v, short count)
+uint32_t DataFileIO::input_bits_m2(vars_t* v, short count)
 {
-	uint32 bits = 0;
+	uint32_t bits = 0;
 
 	while (count--)
 	{
@@ -505,7 +505,7 @@ uint32  DataFileIO::input_bits_m2(vars_t* v, short count)
 	return bits;
 }
 
-int  DataFileIO::input_bits(vars_t* v, short count)
+int DataFileIO::input_bits(vars_t* v, short count)
 {
 	if (v->method != 2)
 		return input_bits_m1(v, count);
@@ -513,7 +513,7 @@ int  DataFileIO::input_bits(vars_t* v, short count)
 		return input_bits_m2(v, count);
 }
 
-void  DataFileIO::write_decoded_byte(vars_t* v, uint8 b)
+void DataFileIO::write_decoded_byte(vars_t* v, uint8_t b)
 {
 	if (&v->decoded[0xFFFF] == v->window)
 	{
@@ -526,13 +526,13 @@ void  DataFileIO::write_decoded_byte(vars_t* v, uint8 b)
 	v->unpacked_crc_real = crc_table[(v->unpacked_crc_real ^ b) & 0xFF] ^ (v->unpacked_crc_real >> 8);
 }
 
-void  DataFileIO::write_buf(uint8* dest, size_t* offset, uint8* source, int size)
+void DataFileIO::write_buf(uint8_t* dest, size_t* offset, uint8_t* source, int size)
 {
 	memmove(&dest[*offset], source, size);
 	*offset += size;
 }
 
-uint8  DataFileIO::read_source_byte(vars_t* v)
+uint8_t DataFileIO::read_source_byte(vars_t* v)
 {
 	if (v->pack_block_start == &v->mem1[0xFFFD])
 	{
@@ -558,13 +558,13 @@ uint8  DataFileIO::read_source_byte(vars_t* v)
 	return *v->pack_block_start++;
 }
 
-void  DataFileIO::read_buf(uint8* dest, uint8* source, size_t* offset, int size)
+void DataFileIO::read_buf(uint8_t* dest, uint8_t* source, size_t* offset, int size)
 {
 	memmove(dest, &source[*offset], size);
 	*offset += size;
 }
 
-void  DataFileIO::ror_w(uint16* x)
+void DataFileIO::ror_w(uint16_t* x)
 {
 	if (*x & 1)
 		*x = 0x8000 | (*x >> 1);
@@ -572,7 +572,7 @@ void  DataFileIO::ror_w(uint16* x)
 		*x >>= 1;
 }
 
-uint32  DataFileIO::inverse_bits(uint32 value, int count)
+uint32_t  DataFileIO::inverse_bits(uint32_t value, int count)
 {
 	int i = 0;
 	while (count--)
@@ -591,7 +591,7 @@ uint32  DataFileIO::inverse_bits(uint32 value, int count)
 void  DataFileIO::proc_20(huftable_t* data, int count)
 {
 	int val = 0;
-	uint32 div = 0x80000000;
+	uint32_t div = 0x80000000;
 	int bits_count = 1;
 
 	while (bits_count <= 16)
@@ -636,9 +636,9 @@ void  DataFileIO::make_huftable(vars_t* v, huftable_t* data, int count)
 	}
 }
 
-uint32  DataFileIO::decode_table_data(vars_t* v, huftable_t* data)
+uint32_t DataFileIO::decode_table_data(vars_t* v, huftable_t* data)
 {
-	uint32 i = 0;
+	uint32_t i = 0;
 
 	while (1)
 	{
@@ -656,7 +656,7 @@ uint32  DataFileIO::decode_table_data(vars_t* v, huftable_t* data)
 	}
 }
 
-void  DataFileIO::clear_table(huftable_t* data, int count)
+void DataFileIO::clear_table(huftable_t* data, int count)
 {
 	for (int i = 0; i < count; ++i)
 	{

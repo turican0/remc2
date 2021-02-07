@@ -3,8 +3,7 @@
 #define DataFileIO_H
 
 #include <cstdio>
-#include "../dosbox_files/config.h"
-#include "../portability/mctypes.h"
+#include <cstdint>
 #include "../portability/port_filesystem.h"
 #include "../portability/port_outputs.h"
 
@@ -17,101 +16,101 @@ class DataFileIO
 private:
 
 	typedef struct huftable_s {
-		uint32 l1; // +0
-		uint16 l2; // +4
-		uint32 l3; // +6
-		uint16 bit_depth; // +A
+		uint32_t l1; // +0
+		uint16_t l2; // +4
+		uint32_t l3; // +6
+		uint16_t bit_depth; // +A
 	} huftable_t;
 
 	typedef struct vars_s {
-		uint16 max_matches;
-		uint16 enc_key;
-		uint32 pack_block_size;
-		uint16 dict_size;
-		uint32 method;
-		uint32 pus_mode;
-		uint32 input_size;
-		uint32 file_size;
+		uint16_t max_matches;
+		uint16_t enc_key;
+		uint32_t pack_block_size;
+		uint16_t dict_size;
+		uint32_t method;
+		uint32_t pus_mode;
+		uint32_t input_size;
+		uint32_t file_size;
 
 		// inner
-		uint32 bytes_left;
-		uint32 packed_size;
-		uint32 processed_size;
-		uint32 v7;
-		uint32 pack_block_pos;
-		uint16 pack_token, bit_count, v11;
-		uint16 last_min_offset;
-		uint32 v17;
-		uint32 pack_block_left_size;
-		uint16 match_count;
-		uint16 match_offset;
-		uint32 v20, v21;
-		uint32 bit_buffer;
+		uint32_t bytes_left;
+		uint32_t packed_size;
+		uint32_t processed_size;
+		uint32_t v7;
+		uint32_t pack_block_pos;
+		uint16_t pack_token, bit_count, v11;
+		uint16_t last_min_offset;
+		uint32_t v17;
+		uint32_t pack_block_left_size;
+		uint16_t match_count;
+		uint16_t match_offset;
+		uint32_t v20, v21;
+		uint32_t bit_buffer;
 
-		uint32 unpacked_size;
-		uint32 rnc_data_size;
-		uint16 unpacked_crc, unpacked_crc_real;
-		uint16 packed_crc;
-		uint32 leeway;
-		uint32 chunks_count;
+		uint32_t unpacked_size;
+		uint32_t rnc_data_size;
+		uint16_t unpacked_crc, unpacked_crc_real;
+		uint16_t packed_crc;
+		uint32_t leeway;
+		uint32_t chunks_count;
 
-		uint8* mem1;
-		uint8* pack_block_start;
-		uint8* pack_block_max;
-		uint8* pack_block_end;
-		uint16* mem2;
-		uint16* mem3;
-		uint16* mem4;
-		uint16* mem5;
+		uint8_t* mem1;
+		uint8_t* pack_block_start;
+		uint8_t* pack_block_max;
+		uint8_t* pack_block_end;
+		uint16_t* mem2;
+		uint16_t* mem3;
+		uint16_t* mem4;
+		uint16_t* mem5;
 
-		uint8* decoded;
-		uint8* window;
+		uint8_t* decoded;
+		uint8_t* window;
 
 		size_t read_start_offset, write_start_offset;
-		uint8* input, * output, * temp;
+		uint8_t* input, * output, * temp;
 		size_t input_offset, output_offset, temp_offset;
 
-		uint8 tmp_crc_data[2048];
+		uint8_t tmp_crc_data[2048];
 		huftable_t raw_table[16];
 		huftable_t pos_table[16];
 		huftable_t len_table[16];
 	} vars_t;
 
-	static uint16 crc_table[256];
+	static uint16_t crc_table[256];
 
 public:
-	static int ReadFileAndDecompress(const char* path, Bit8u** data); //Reads the file path passed in into "data" array of 1 byte elements
-	static int Decompress(Bit8u* a1, Bit8u* a2);
+	static int ReadFileAndDecompress(const char* path, uint8_t** data); //Reads the file path passed in into "data" array of 1 byte elements
+	static int Decompress(uint8_t* a1, uint8_t* a2);
 	static vars_t* init_vars();
 	static int UnpackData(vars_t* v);
 	static int Unpack(vars_t* v);
 	static FILE* CreateOrOpenFile(char* pathname, int __pmode);
-	static FILE* CreateFile(char* path, Bit32u flags);
-	static FILE* Open(char* path, int pmode, Bit32u flags);
-	static int32 Close(FILE* file);
-	static int32 Seek(FILE* file, x_DWORD position, char type);
-	static size_t Read(FILE* file, Bit8u* data, Bit32u length);
+	static FILE* CreateFile(char* path, uint32_t flags);
+	static FILE* Open(char* path, int pmode, uint32_t flags);
+	static int32_t Close(FILE* file);
+	static int32_t Seek(FILE* file, x_DWORD position, char type);
+	static size_t Read(FILE* file, uint8_t* data, uint32_t length);
 	static long FileLengthBytes(FILE* file);
-	static uint8 read_byte(uint8* buf, size_t* offset);
-	static uint16 read_word_be(uint8* buf, size_t* offset);
-	static uint32 read_dword_be(uint8* buf, size_t* offset);
+	static uint8_t read_byte(uint8_t* buf, size_t* offset);
+	static uint16_t read_word_be(uint8_t* buf, size_t* offset);
+	static uint32_t read_dword_be(uint8_t* buf, size_t* offset);
 	static int unpack_data_m1(vars_t* v);
 	static int unpack_data_m2(vars_t* v);
-	static uint16 crc_block(uint8* buf, size_t offset, int size);
+	static uint16_t crc_block(uint8_t* buf, size_t offset, int size);
 	static int input_bits(vars_t* v, short count);
-	static uint32 input_bits_m1(vars_t* v, short count);
-	static uint32 input_bits_m2(vars_t* v, short count);
+	static uint32_t input_bits_m1(vars_t* v, short count);
+	static uint32_t input_bits_m2(vars_t* v, short count);
 	static void decode_match_count(vars_t* v);
 	static void decode_match_offset(vars_t* v);
-	static void write_decoded_byte(vars_t* v, uint8 b);
-	static void write_buf(uint8* dest, size_t* offset, uint8* source, int size);
-	static uint8 read_source_byte(vars_t* v);
-	static void read_buf(uint8* dest, uint8* source, size_t* offset, int size);
-	static void ror_w(uint16* x);
-	static uint32 inverse_bits(uint32 value, int count);
+	static void write_decoded_byte(vars_t* v, uint8_t b);
+	static void write_buf(uint8_t* dest, size_t* offset, uint8_t* source, int size);
+	static uint8_t read_source_byte(vars_t* v);
+	static void read_buf(uint8_t* dest, uint8_t* source, size_t* offset, int size);
+	static void ror_w(uint16_t* x);
+	static uint32_t inverse_bits(uint32_t value, int count);
 	static void proc_20(huftable_t* data, int count);
 	static void make_huftable(vars_t* v, huftable_t* data, int count);
-	static uint32 decode_table_data(vars_t* v, huftable_t* data);
+	static uint32_t decode_table_data(vars_t* v, huftable_t* data);
 	static void clear_table(huftable_t* data, int count);
 
 

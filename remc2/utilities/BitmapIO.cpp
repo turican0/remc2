@@ -55,7 +55,7 @@ unsigned char* BitmapIO::CreateBitBitmapInfoHeader(int infoHeaderSize, int width
 	return infoHeader;
 }
 
-void BitmapIO::WriteImageBufferAsImageBMP(char* path, int width, int height, Bit8u* ptrPalette, Bit8u* ptrBuffer)
+void BitmapIO::WriteImageBufferAsImageBMP(char* path, int width, int height, uint8_t* ptrPalette, uint8_t* ptrBuffer)
 {
 	int widthInBytes = (width * BitmapIO::TRUECOLOR_BYTES_PER_PIXEL);
 
@@ -74,11 +74,11 @@ void BitmapIO::WriteImageBufferAsImageBMP(char* path, int width, int height, Bit
 
 	for (int i = (height-1); i > -1; i--) {
 
-		Bit8u* truColorBuffer = new Bit8u[widthInBytes];
+		uint8_t* truColorBuffer = new uint8_t[widthInBytes];
 
 		for (int x = (width-1); x > -1; x--)
 		{
-			Bit8u colorPaletteIdx = *(ptrBuffer + ((i * width) + x));
+			uint8_t colorPaletteIdx = *(ptrBuffer + ((i * width) + x));
 
 			int truColorIdx = (x * 3);
 			truColorBuffer[truColorIdx] = (unsigned char)(4 * ptrPalette[(colorPaletteIdx * 3) + 2]); //Blue
@@ -98,7 +98,7 @@ void BitmapIO::WriteImageBufferAsImageBMP(char* path, int width, int height, Bit
 	fclose(imageFile);
 }
 
-void BitmapIO::WritePaletteAsImageBMP(char* path, int numColors, Bit8u* ptrPalette)
+void BitmapIO::WritePaletteAsImageBMP(char* path, int numColors, uint8_t* ptrPalette)
 {
 	int widthInBytes = (numColors * BitmapIO::TRUECOLOR_BYTES_PER_PIXEL);
 
@@ -115,7 +115,7 @@ void BitmapIO::WritePaletteAsImageBMP(char* path, int numColors, Bit8u* ptrPalet
 	unsigned char* infoHeader = CreateBitBitmapInfoHeader(BitmapIO::BITMAP_INFO_HEADER_SIZE, numColors, 100, BitmapIO::TRUECOLOR_BYTES_PER_PIXEL);
 	fwrite(infoHeader, 1, BitmapIO::BITMAP_INFO_HEADER_SIZE, imageFile);
 
-	Bit8u* truColorBuffer = new Bit8u[widthInBytes];
+	uint8_t* truColorBuffer = new uint8_t[widthInBytes];
 
 	for (int x = 0; x < widthInBytes; x++)
 	{
