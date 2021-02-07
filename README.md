@@ -7,10 +7,9 @@ Tomas has done amazing work, not only reverse engineering this code but updating
 - Add more screen resolution options
 - Increase draw distance
 - Seperate Render and Simulation code so that game speed is not dependent of FPS (or fix FPS)
-- Add configuration options for Anaglyph 3D stereoscopic render (because you cannot get the original glasses anymore)
 - Enable local multiplayer without NETBIOS
 
-## STATUS: Code now runs though the first level and more. Anyone with the GOG edition can download this repo, extract the Game Assets (from a legal GOG copy of the game) and run it.
+## STATUS: Code now runs though the first level of MC2 (in both Windows and Linux). Anyone with the GOG edition can download this repo, extract the Game Assets (from a legal GOG copy of the game) and run it.
 ## Build Status:
 
 |Branch|Windows|Linux|
@@ -73,4 +72,4 @@ make install
 - Add VR support back into the game (yes it was originally supported! This game was waaay ahead of its time)<br />
 - Support Linux and Mac OS versions.
 
-## If you know a bit about game development or want to help out, branch away or email me via GitHub
+## If you know a bit about game development or want to help out, branch away or email me here: thobbsinteractive@gmail.com

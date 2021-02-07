@@ -58,9 +58,6 @@
     <Filter Include="Header Files\engine">
       <UniqueIdentifier>{d66c5d79-ce86-490d-b4a9-d0e8bb9146e2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\dosbox_files">
-      <UniqueIdentifier>{f6116152-6e55-4742-8355-4b589d207084}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\editor">
       <UniqueIdentifier>{0837e4e0-01f0-4c0c-beb1-ba41cdf17b6c}</UniqueIdentifier>
     </Filter>
@@ -80,9 +77,6 @@
     </ClInclude>
     <ClInclude Include="targetver.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="dosbox_files\config.h">
-      <Filter>Header Files\dosbox_files</Filter>
     </ClInclude>
     <ClInclude Include="..\libADLMIDI-master\src\adldata.hh">
       <Filter>Source Files\libs\libADL</Filter>
