@@ -354,6 +354,9 @@
     <ClInclude Include="utilities\DataFileIO.h">
       <Filter>Header Files\utilities</Filter>
     </ClInclude>
+    <ClInclude Include="Sound.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -595,6 +598,9 @@
     </ClCompile>
     <ClCompile Include="utilities\DataFileIO.cpp">
       <Filter>Source Files\utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="Sound.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
