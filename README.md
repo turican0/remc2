@@ -72,4 +72,4 @@ make install
 - Add VR support back into the game (yes it was originally supported! This game was waaay ahead of its time)<br />
 - Support Linux and Mac OS versions.
 
-## If you know a bit about game development or want to help out, branch away or email me via GitHub
+## If you know a bit about game development or want to help out, branch away or email me here: thobbsinteractive@gmail.com

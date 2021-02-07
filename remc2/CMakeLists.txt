@@ -31,11 +31,6 @@ else()
 endif()
 source_group("Source Files" FILES ${SOURCE_FILES})
 
-set(SOURCE_FILES__dosbox_files
-    "dosbox_files/config.h"
-)
-source_group("Source Files\\dosbox_files" FILES ${SOURCE_FILES__dosbox_files})
-
 set(SOURCE_FILES_ENGINE
     "engine/ail_sound.h"
     "engine/defs.h"
@@ -98,7 +93,6 @@ source_group("Source Files\\portability" FILES ${SOURCE_FILES__portability})
 set(ALL_FILES
     ${HEADER_FILES}
     ${SOURCE_FILES}
-    ${SOURCE_FILES__dosbox_files}
     ${SOURCE_FILES_ENGINE}
     ${SOURCE_FILES__libs__inih}
     ${SOURCE_FILES__portability}
