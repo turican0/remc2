@@ -1226,6 +1226,13 @@ Bit32u compare_with_sequence(char* filename, Bit8u* adress, Bit32u adressdos, lo
 	}*/
 
 	fread(buffer, size2, 1, fptestepc);
+	if (size2 == 320 * 200)
+	{
+		VGA_Debug_Blit(320, 200, pdwScreenBuffer);
+		for (int iii = 0; iii < 320 * 200; iii++)pdwScreenBuffer[iii] = buffer[iii];
+		VGA_Debug_Blit(320, 200, pdwScreenBuffer);
+		VGA_Debug_Blit(320, 200, pdwScreenBuffer);
+	}
 	//for (i = size-1; i >0; i--)
 	for (i = 0; i < size2; i++)
 	{
@@ -1308,6 +1315,10 @@ void add_compare(Bit32u adress, bool debugafterload, int stopstep, bool skip) {
 				comp20 = compare_with_sequence_D41A0(buffer2, (Bit8u*)&D41A0_BYTESTR_0, 0x356038, index, 224790, &origbyte20, &remakebyte20);
 
 				comp20 = compare_with_sequence_array_E2A74(buffer3, (Bit8u*)&str_E2A74, 0x2b3a74, index, 0xc4e, 0xc4e, &origbyte20, &remakebyte20);
+
+				comp20 = compare_with_sequence_array_E2A74(buffer3, (Bit8u*)&str_E2A74, 0x2b3a74, index, 0xc4e, 0xc4e, &origbyte20, &remakebyte20);
+				//screen
+				//comp20 = compare_with_sequence(buffer4, pdwScreenBuffer, 0x3aa0a4, index, 320 * 200, 320 * 200, &origbyte20, &remakebyte20);
 			}
 			//if(debugcounter_271478>5)
 			//comp20 = compare_with_sequence(buffer4, pdwScreenBuffer, 0x3aa0a4, index, 320 * 200, 320 * 200, &origbyte20, &remakebyte20);
