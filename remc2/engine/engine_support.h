@@ -1458,7 +1458,7 @@ typedef struct {
 }
 GameSettingsStruct_t;
 
-typedef struct {//lenght 224790
+typedef struct {//lenght 224791
 	uint8_t stub0[4];
 	uint32_t dword_0x4;
 	uint32_t dword_0x8;
@@ -1618,7 +1618,7 @@ typedef struct {//lenght 224790
 	//type_str_0x365F2 array_str_0x365F2[0x10];//fix it
 	//*(0x365F2 + x_D41A0_BYTEARRAY_0 + 8 * (signed __int16)result + 2)
 
-	uint8_t stubend[0xa];
+	uint8_t stubend[0xb];
 } type_D41A0_BYTESTR_0; // level data (gets saved to and loaded from SAVE/SLEVxx.dat) was originally forced to 224791 on load/save which is out of bounds
 
 struct {//lenght 0x33
