@@ -235,6 +235,8 @@
     <ClInclude Include="..\SDL-Mixer-X-master\src\effects_internal.h" />
     <ClInclude Include="..\SDL-Mixer-X-master\src\mixer.h" />
     <ClInclude Include="..\SDL-Mixer-X-master\src\music.h" />
+    <ClInclude Include="Animation.h" />
+    <ClInclude Include="Basic.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="utilities\BitmapIO.h" />
     <ClInclude Include="utilities\DataFileIO.h" />
@@ -323,6 +325,8 @@
     <ClCompile Include="..\SDL-Mixer-X-master\src\mixer_x_deprecated.c" />
     <ClCompile Include="..\SDL-Mixer-X-master\src\music.c" />
     <ClCompile Include="..\temp\dirent.c" />
+    <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="Basic.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="utilities\BitmapIO.cpp" />
     <ClCompile Include="utilities\DataFileIO.cpp" />
