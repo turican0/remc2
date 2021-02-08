@@ -51,7 +51,7 @@ int x_DWORD_E3880 = 0; // weak
 int x_DWORD_E3884 = 0; // weak
 int x_DWORD_E3888 = 0; // weak
 char x_BYTE_E388D = 0; // weak
-int x_DWORD_E3890 = 0; // weak
+//int x_DWORD_E3890 = 0; // weak
 
 int x_DWORD_181DAC[19]; // fix it -  weak
 

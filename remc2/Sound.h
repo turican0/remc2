@@ -34,7 +34,6 @@ extern uint8_t* x_DWORD_E3808_music_header; // weak
 extern uint8_t* x_DWORD_E380C; // weak
 extern uint8_t* x_DWORD_E3810_music_data; // weak
 extern char x_BYTE_180C84_drivertype; // weak
-extern int x_DWORD_E3890;
 extern int16_t x_WORD_181B44; // weak
 
 extern signed int x_DWORD_182188[]; // idb

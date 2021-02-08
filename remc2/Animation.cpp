@@ -35,10 +35,9 @@ uint16_t x_WORD_17D726; // weak 6
 
 int x_DWORD_17DB54_game_turn2; // weak
 
-uint8_t* x_DWORD_17DB50; // weak
-
 char x_BYTE_17D738[0x100]; // idb
-uint8_t unk_17D838[0x300]; // weak
+
+__int16 x_WORD_E12FE = 0; // weak
 
 //----- (00076160) --------------------------------------------------------
 void PlayInfoFmv(__int16 a1, __int16 a2, type_E17CC_0* a3x, char* path)//257160
@@ -648,22 +647,6 @@ void sub_2EC60()//20fc60
 	}
 }
 
-//----- (00075D70) --------------------------------------------------------
-void sub_75D70(uint8_t* a1, uint32_t a2)//256d70
-{
-	//unsigned int result; // eax
-
-	if (a1)
-	{
-		//result = a2;
-		qmemcpy(a1, (void*)x_DWORD_17DB50, a2);
-		//qmemcpy(a1+a2, (void *)(x_DWORD_17DB50+a2), a2&3);
-	}
-	x_DWORD_17DB50 += a2;
-	//return result;
-}
-// 17DB50: using guessed type int x_DWORD_17DB50;
-
 //----- (00076300) --------------------------------------------------------
 void sub_76300()//257300
 {
@@ -911,5 +894,71 @@ void sub_9A0FC_wait_to_screen_beam()//27B0fc
 	return result;*/
 	mydelay(10);
 }
+
+//----- (000473E0) --------------------------------------------------------
+int sub_473E0()//2283e0
+{
+	char v0; // bl
+	__int16 v1; // ax
+
+	v0 = 0;
+	if (x_DWORD_EA3B4)
+		return x_DWORD_EA3B4;
+	if (x_WORD_F42A8)
+		--x_WORD_F42A8;
+	if (!x_WORD_18074C_mouse_left2_button && !x_WORD_18074A_mouse_right2_button)
+	{
+		if (x_BYTE_180664[0x2a] || x_BYTE_180664[0x36])
+		{
+			if (x_BYTE_1806E4 < 0x36u)
+			{
+				if (x_BYTE_1806E4 != 0x2a)
+					goto LABEL_24;
+			}
+			else if (x_BYTE_1806E4 > 0x36u
+				&& (x_BYTE_1806E4 < 0x3Bu || x_BYTE_1806E4 > 0x3Fu && x_BYTE_1806E4 != 66))
+			{
+				goto LABEL_24;
+			}
+		}
+		else if (x_BYTE_1806E4 < 0x3Bu)
+		{
+			if (x_BYTE_1806E4 != 19)
+				goto LABEL_24;
+		}
+		else if (x_BYTE_1806E4 > 0x3Bu
+			&& (x_BYTE_1806E4 < 0x3Fu || x_BYTE_1806E4 > 0x41u))
+		{
+		LABEL_24:
+			HIBYTE(v1) = HIBYTE(x_WORD_F42A8);
+			if (x_WORD_F42A8)
+			{
+				x_WORD_F42AE = x_BYTE_1806E4;
+			}
+			else
+			{
+				LOBYTE(v1) = x_BYTE_1806E4;
+				if (v1 != x_WORD_F42AE)
+					v0 = 1;
+			}
+			goto LABEL_28;
+		}
+		sub_473B0();
+		goto LABEL_24;
+	}
+	v0 = 1;
+LABEL_28:
+	if (v0)
+		x_DWORD_EA3B4 = 1;
+	return x_DWORD_EA3B4;
+}
+// EA3B4: using guessed type int x_DWORD_EA3B4;
+// F42A8: using guessed type __int16 x_WORD_F42A8;
+// F42AE: using guessed type __int16 x_WORD_F42AE;
+// 18068E: using guessed type char x_BYTE_18068E;
+// 18069A: using guessed type char x_BYTE_18069A;
+// 1806E4: using guessed type char x_BYTE_1806E4;
+// 18074A: using guessed type __int16 x_WORD_18074A_mouse_right2_button;
+// 18074C: using guessed type __int16 x_WORD_18074C_mouse_left2_button;
 
 

@@ -15,6 +15,14 @@ typedef struct {//lenght 7
 type_E17CC_0;
 #pragma pack (16)
 
+extern int x_DWORD_17DB54_game_turn2; // weak
+extern int x_DWORD_EA3B4; // weak?x_DWORD_E9C4C_langindexbuffer[474]
+extern __int16 x_WORD_F42AE; // weak
+extern __int16 x_WORD_F42A8; // weak
+extern uint8_t* x_DWORD_E12F4; // weak
+extern int16_t x_WORD_17DB48; // weak
+extern char x_BYTE_D41C0; // weak
+
 void PlayInfoFmv(__int16 a1, __int16 a2, type_E17CC_0* a3x, char* path);//257160
 void sub_473B0();
 void sub_1B280_run_intro_events(type_E17CC_0* a1x);
@@ -44,8 +52,8 @@ void sub_loc_1B5BC(uint16_t a1);
 void sub_loc_1B5CB();
 //void sub_loc_1B5D7();
 void sub_2EC60();
+int sub_473E0();
 
-void sub_75D70(uint8_t* a1, uint32_t a2);
 void sub_76300();
 int sub_76430();
 int sub_76540();
