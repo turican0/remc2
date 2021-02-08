@@ -42,7 +42,7 @@ int x_DWORD_E3824 = 0; // weak
 __int16 x_WORD_E3828 = 0; // weak
 __int16 x_WORD_E3834 = 0; // weak
 int x_DWORD_E383C = 0; // weak
-int x_DWORD_E3840 = 0; // weak
+FILE* x_FILE_E3840 = 0; // weak
 int x_DWORD_E3844 = 5; // weak
 //_UNKNOWN unk_E3848; // weak
 __int16 x_WORD_E387A = 0; // weak
@@ -9325,14 +9325,14 @@ char LoadMusicTrack(FILE* filehandle, uint8_t drivernumber)//26fd00
 // 8ED00: using guessed type char var_5C[64];
 
 //----- (0008F023) --------------------------------------------------------
-int sub_8F023(int a1, int a2, unsigned int a3)//270023
+int sub_8F023(FILE* a1x, int a2, unsigned int a3)//270023
 {
 	x_BYTE* v3; // eax
 	x_BYTE* v4; // edx
 	unsigned int i; // [esp+4h] [ebp-4h]
 
 	if (!x_DWORD_E387C)
-		return DataFileIO::Read((FILE*)a1, (uint8_t*)a2, a3);
+		return DataFileIO::Read(a1x, (uint8_t*)a2, a3);
 	for (i = 0; i < a3 && x_DWORD_E3888 + i < x_DWORD_E3884; i++)
 	{
 		v3 = (x_BYTE*)x_DWORD_E3880++;

@@ -3,12 +3,12 @@
 __int16 x_WORD_E12FC = 1; // weak
 __int16 x_WORD_D4004 = 0; // weak//index of act key in anim
 __int16 x_WORD_17DB58; // weak
-uint16_t x_WORD_17DB60; // weak
+uint16_t ActualKeyframe_17DB60; // weak
 uint8_t* x_DWORD_E12F4 = 0; // weak
 FILE* x_DWORD_17DB38_intro_file_handle; // weak
 uint8_t unk_17DB40[12]; // weak
 
-int16_t x_WORD_17DB46; // weak
+int16_t LastKeyframe_17DB46; // weak
 int16_t x_WORD_17DB48; // weak
 int16_t x_WORD_17DB4A; // weak
 
@@ -18,7 +18,7 @@ __int16 x_WORD_17DB5A; // weak
 
 __int16 x_WORD_17DB5C; // weak
 
-int x_DWORD_EA3B4; // weak?x_DWORD_E9C4C_langindexbuffer[474]
+int x_DWORD_EA3B4; // bool
 
 __int16 x_WORD_F42AE; // weak
 
@@ -50,46 +50,46 @@ void PlayInfoFmv(__int16 a1, __int16 a2, type_E17CC_0* a3x, char* path)//257160
 	x_WORD_E12FC = a2;
 	x_WORD_D4004 = 0;
 	x_WORD_17DB58 = 0;
-	x_WORD_17DB60 = 0;
+	ActualKeyframe_17DB60 = 0;
 	x_DWORD_E12F4 = pdwScreenBuffer;
 	tempfile = DataFileIO::CreateOrOpenFile(path, 512);
 	x_DWORD_17DB38_intro_file_handle = tempfile;
 	if (tempfile)
 	{
 		DataFileIO::Read(tempfile, unk_17DB40, 12);//ecx=12
-		x_WORD_17DB46 = *(int16_t*)&unk_17DB40[6];
+		LastKeyframe_17DB46 = *(int16_t*)&unk_17DB40[6];
 		x_WORD_17DB48 = *(int16_t*)&unk_17DB40[8];
 		x_WORD_17DB4A = *(int16_t*)&unk_17DB40[0xa];
 
 		x_WORD_180744_mouse_right_button = 0;
 		x_WORD_180746_mouse_left_button = 0;
 		x_DWORD_E1300 += 12;
-		x_BYTE_1806E4 = 0;
+		LastPressedKey_1806E4 = 0;
 		x_WORD_17DB5A = 0;
-		sub_473B0();//2283b0
+		FlvInitSet_473B0();//2283b0
 		x_WORD_17DB5C = a1;
 		do
 		{
 			if (x_WORD_17DB5A)
 				break;
-			if (x_WORD_17DB60 >= x_WORD_17DB46 - 1)//34eb60 a 34eb46
+			if (ActualKeyframe_17DB60 >= LastKeyframe_17DB46 - 1)//34eb60 a 34eb46
 				break;
 			sub_1B280_run_intro_events(a3x);//1fc280 - draw text maybe
 			sub_75DB0();//256db0 - read header
 
 			sub_75E70();//256e70 - draw intro frame
 
-			x_WORD_17DB60++;
-		} while (x_BYTE_1806E4 != 1);
+			ActualKeyframe_17DB60++;
+		} while (LastPressedKey_1806E4 != 1);//while not key pressed
 		DataFileIO::Close(x_DWORD_17DB38_intro_file_handle);
 	}
 }
 
 //----- (000473B0) --------------------------------------------------------
-void sub_473B0()//2283b0
+void FlvInitSet_473B0()//2283b0
 {
 	x_DWORD_EA3B4 = 0;
-	x_WORD_F42AE = x_BYTE_1806E4;
+	x_WORD_F42AE = LastPressedKey_1806E4;
 	x_WORD_F42A8 = 64;
 }
 
@@ -104,7 +104,7 @@ void sub_1B280_run_intro_events(type_E17CC_0* a1x)//1fc280
 	{
 		v1 = 7 * x_WORD_D4004;//2a5004
 		//v2x = &a1x[x_WORD_D4004];
-		if (x_WORD_17DB60 != a1x[x_WORD_D4004].word_0)
+		if (ActualKeyframe_17DB60 != a1x[x_WORD_D4004].word_0)
 			break;
 		v1 = a1x[x_WORD_D4004].dword_3;
 		if (v1 == -1)
@@ -306,13 +306,13 @@ void sub_loc_1B2E6() {//1fc2e6
 	x_DWORD_E3844 = 0;
 	//x_WORD_D4004++;
 }
-void sub_loc_1B2F7(type_E17CC_0* a2x) {//1fc2f7
+void sub_loc_1B2F7(type_E17CC_0* a2x) {//1fc2f7//LoadMusic
 	sub_8E020_sound_proc14_stopsequence();
 	//LoadMusic(*(uint32_t*)(a2 + x_WORD_D4004 * 7 + 3));
 	LoadMusic(a2x[x_WORD_D4004].dword_3);
 	//x_WORD_D4004++;
 }
-void sub_loc_1B316(uint8_t a1) {//1fc316
+void sub_loc_1B316(uint8_t a1) {//1fc316//LoadSound
 	sub_8D8F0_sound_proc3_endsample();
 	sub_84300_load_sound(a1);
 	//x_WORD_D4004++;
@@ -321,7 +321,7 @@ void sub_loc_1B334(type_E17CC_0* a2x) {//1fc334
 	if (x_DWORD_E387C)sub_loc_1B352(a2x);
 	else
 	{
-		sub_8F0AB((FILE*)x_DWORD_E3840, /**(uint32_t*)(a2 + x_WORD_D4004 * 7 + 2),*/a2x[x_WORD_D4004].dword_3/* *(uint32_t*)(a2 + x_WORD_D4004 * 7 + 3)*/);
+		sub_8F0AB(x_FILE_E3840, /**(uint32_t*)(a2 + x_WORD_D4004 * 7 + 2),*/a2x[x_WORD_D4004].dword_3/* *(uint32_t*)(a2 + x_WORD_D4004 * 7 + 3)*/);
 	}
 }
 void sub_loc_1B352(type_E17CC_0* a2x) {//1fc352
@@ -332,7 +332,7 @@ void sub_loc_1B36C() {//1fc36c
 	sub_2EC30_clear_img_mem();
 	//x_WORD_D4004++;
 }
-void sub_loc_1B37D(type_E17CC_0* a2x) {//1fc37d // intro text
+void sub_loc_1B37D(type_E17CC_0* a2x) {//1fc37d // Draw text
 	sub_2EBB0_draw_text_with_border_630x340(x_DWORD_E9C4C_langindexbuffer[a2x[x_WORD_D4004].byte_2]);
 	//x_WORD_D4004++;
 }
@@ -416,7 +416,7 @@ void sub_loc_1B54A(uint16_t a1, type_E17CC_0* a2x) {//1fc54a
 	sub_8F100_sound_proc19(0, a2x[x_WORD_D4004].dword_3, 0, 0x40, 0x64, 0xFFFFFFFF, 2);
 	//x_WORD_D4004++;
 }
-void sub_loc_1B589() {//1fc589
+void sub_loc_1B589() {//1fc589//Draw 40 lines after normal image
 	if (x_BYTE_D41C0 == 0)sub_loc_1B5CB();
 	else
 	{
@@ -462,20 +462,20 @@ void /*__fastcall*/ sub_75E70()//256e70
 	unsigned int v2; // ebx
 	char* v3; // esi
 	char* v4; // edi
-	char v5; // al
-	char v6; // al
+	//char v5; // al
+	//char v6; // al
 	char* v7; // esi
 	char* v8; // esi
 	char* v9; // edi
-	char v10; // al
-	char v11; // al
+	//char v10; // al
+	//char v11; // al
 	char* v12; // esi
 	char* v13; // edi
-	char v14; // al
-	char v15; // al
+	//char v14; // al
+	//char v15; // al
 	char* v16; // edi
-	char v17; // al
-	char v18; // al
+	//char v17; // al
+	//char v18; // al
 	char v19; // al
 	uint8_t v20x[6]; // [esp+0h] [ebp-10h]
 	uint32_t v20y; // [esp+0h] [ebp-10h]
@@ -515,7 +515,8 @@ void /*__fastcall*/ sub_75E70()//256e70
 				v3 = (char*)"COLOUR256 ";
 				sub_76260_read_intro_pallette(0x100);
 				v4 = &x_BYTE_17D738[strlen(x_BYTE_17D738)];
-				do
+				strcpy(v4,v3);
+				/*do
 				{
 					v5 = v3[0];
 					v4[0] = v3[0];
@@ -525,65 +526,15 @@ void /*__fastcall*/ sub_75E70()//256e70
 					v3 += 2;
 					v4[1] = v6;
 					v4 += 2;
-				} while (v6);
+				} while (v6);*/
 				v23 = 1;
 				break;
 			case 7:
 				v7 = (char*)"SS2 ";
 				sub_76300();//257300 - uz by mel byt vykreslen text
-				goto LABEL_23;
-			case 0xB:
-				sub_76260_read_intro_pallette(0x40);
-				v8 = (char*)"COLOUR ";
-				v9 = &x_BYTE_17D738[strlen(x_BYTE_17D738)];
-				do
-				{
-					v10 = *v8;
-					*v9 = *v8;
-					if (!v10)
-						break;
-					v11 = v8[1];
-					v8 += 2;
-					v9[1] = v11;
-					v9 += 2;
-				} while (v11);
-				v23 = 1;
-				break;
-			case 0xC:
-				v7 = (char*)"LC ";
-				sub_76430();
-				goto LABEL_23;
-			case 0xD:
-				memset((void*)x_DWORD_E12F4, 0, x_WORD_17DB48 * x_WORD_17DB4A);
-				v7 = (char*)"BLACK ";
-				goto LABEL_23;
-			case 0xF:
-				v7 = (char*)"BRUN ";//ok
-				sub_76540();//257540
-				goto LABEL_23;
-			case 0x10:
-				sub_75D70(x_DWORD_E12F4, x_WORD_17DB4A * x_WORD_17DB48);
-				v12 = (char*)"COPY ";
-				v13 = &x_BYTE_17D738[strlen(x_BYTE_17D738)];
-				do
-				{
-					v14 = *v12;
-					*v13 = *v12;
-					if (!v14)
-						break;
-					v15 = v12[1];
-					v12 += 2;
-					v13[1] = v15;
-					v13 += 2;
-				} while (v15);
-				v20y = x_WORD_17DB4A * x_WORD_17DB48;
-				break;
-			case 0x12:
-				sub_75D70(0, v20y - 6);
-				v7 = (char*)"PSTAMP ";
-			LABEL_23:
 				v16 = &x_BYTE_17D738[strlen(x_BYTE_17D738)];
-				do
+				strcpy(v16, v7);
+				/*do
 				{
 					v17 = v7[0];
 					v16[0] = v7[0];
@@ -593,7 +544,112 @@ void /*__fastcall*/ sub_75E70()//256e70
 					v7 += 2;
 					v16[1] = v18;
 					v16 += 2;
-				} while (v18);
+				} while (v18);*/
+				break;
+			case 0xB:
+				sub_76260_read_intro_pallette(0x40);
+				v8 = (char*)"COLOUR ";
+				v9 = &x_BYTE_17D738[strlen(x_BYTE_17D738)];
+				strcpy(v9, v8);
+				/*do
+				{
+					v10 = *v8;
+					*v9 = *v8;
+					if (!v10)
+						break;
+					v11 = v8[1];
+					v8 += 2;
+					v9[1] = v11;
+					v9 += 2;
+				} while (v11);*/
+				v23 = 1;
+				break;
+			case 0xC:
+				v7 = (char*)"LC ";
+				sub_76430();
+				v16 = &x_BYTE_17D738[strlen(x_BYTE_17D738)];
+				strcpy(v16, v7);
+				/*do
+				{
+					v17 = v7[0];
+					v16[0] = v7[0];
+					if (!v17)
+						break;
+					v18 = v7[1];
+					v7 += 2;
+					v16[1] = v18;
+					v16 += 2;
+				} while (v18);*/
+				break;
+			case 0xD:
+				memset((void*)x_DWORD_E12F4, 0, x_WORD_17DB48 * x_WORD_17DB4A);
+				v7 = (char*)"BLACK ";
+				v16 = &x_BYTE_17D738[strlen(x_BYTE_17D738)];
+				strcpy(v16, v7);
+				/*do
+				{
+					v17 = v7[0];
+					v16[0] = v7[0];
+					if (!v17)
+						break;
+					v18 = v7[1];
+					v7 += 2;
+					v16[1] = v18;
+					v16 += 2;
+				} while (v18);*/
+				break;
+			case 0xF:
+				v7 = (char*)"BRUN ";//ok
+				sub_76540();//257540
+				v16 = &x_BYTE_17D738[strlen(x_BYTE_17D738)];
+				strcpy(v16, v7);
+				/*do
+				{
+					v17 = v7[0];
+					v16[0] = v7[0];
+					if (!v17)
+						break;
+					v18 = v7[1];
+					v7 += 2;
+					v16[1] = v18;
+					v16 += 2;
+				} while (v18);*/
+				break;
+			case 0x10:
+				sub_75D70(x_DWORD_E12F4, x_WORD_17DB4A * x_WORD_17DB48);
+				v12 = (char*)"COPY ";
+				v13 = &x_BYTE_17D738[strlen(x_BYTE_17D738)];
+				strcpy(v12, v13);
+				/*do
+				{
+					v14 = *v12;
+					*v13 = *v12;
+					if (!v14)
+						break;
+					v15 = v12[1];
+					v12 += 2;
+					v13[1] = v15;
+					v13 += 2;
+				} while (v15);*/
+				v20y = x_WORD_17DB4A * x_WORD_17DB48;
+				break;
+			case 0x12:
+				sub_75D70(0, v20y - 6);
+				v7 = (char*)"PSTAMP ";
+			//LABEL_23:
+				v16 = &x_BYTE_17D738[strlen(x_BYTE_17D738)];
+				strcpy(v16, v7);
+				/*do
+				{
+					v17 = v7[0];
+					v16[0] = v7[0];
+					if (!v17)
+						break;
+					v18 = v7[1];
+					v7 += 2;
+					v16[1] = v18;
+					v16 += 2;
+				} while (v18);*/
 				break;
 			default:
 				break;
@@ -852,7 +908,7 @@ void sub_75CB0()//256cb0
 	{
 		x_WORD_17DB5A = 1;
 	}
-	else if (x_WORD_17DB5C && (x_BYTE_1806E4 || x_WORD_180746_mouse_left_button || x_WORD_180744_mouse_right_button))
+	else if (x_WORD_17DB5C && (LastPressedKey_1806E4 || x_WORD_180746_mouse_left_button || x_WORD_180744_mouse_right_button))
 	{
 		x_WORD_17DB5A = 1;
 	}
@@ -865,7 +921,7 @@ void sub_75CB0()//256cb0
 				x_WORD_17DB5A = 1;
 				return;
 			}
-			if (x_WORD_17DB5C && (x_BYTE_1806E4 || x_WORD_180746_mouse_left_button || x_WORD_180744_mouse_right_button))
+			if (x_WORD_17DB5C && (LastPressedKey_1806E4 || x_WORD_180746_mouse_left_button || x_WORD_180744_mouse_right_button))
 			{
 				x_WORD_17DB5A = 1;
 				return;
@@ -899,7 +955,7 @@ void sub_9A0FC_wait_to_screen_beam()//27B0fc
 int sub_473E0()//2283e0
 {
 	char v0; // bl
-	__int16 v1; // ax
+	//__int16 v1; // ax
 
 	v0 = 0;
 	if (x_DWORD_EA3B4)
@@ -910,40 +966,40 @@ int sub_473E0()//2283e0
 	{
 		if (x_BYTE_180664[0x2a] || x_BYTE_180664[0x36])
 		{
-			if (x_BYTE_1806E4 < 0x36u)
+			if (LastPressedKey_1806E4 < 0x36u)
 			{
-				if (x_BYTE_1806E4 != 0x2a)
+				if (LastPressedKey_1806E4 != 0x2a)
 					goto LABEL_24;
 			}
-			else if (x_BYTE_1806E4 > 0x36u
-				&& (x_BYTE_1806E4 < 0x3Bu || x_BYTE_1806E4 > 0x3Fu && x_BYTE_1806E4 != 66))
+			else if (LastPressedKey_1806E4 > 0x36u
+				&& (LastPressedKey_1806E4 < 0x3Bu || LastPressedKey_1806E4 > 0x3Fu && LastPressedKey_1806E4 != 66))
 			{
 				goto LABEL_24;
 			}
 		}
-		else if (x_BYTE_1806E4 < 0x3Bu)
+		else if (LastPressedKey_1806E4 < 0x3Bu)
 		{
-			if (x_BYTE_1806E4 != 19)
+			if (LastPressedKey_1806E4 != 19)
 				goto LABEL_24;
 		}
-		else if (x_BYTE_1806E4 > 0x3Bu
-			&& (x_BYTE_1806E4 < 0x3Fu || x_BYTE_1806E4 > 0x41u))
+		else if (LastPressedKey_1806E4 > 0x3Bu
+			&& (LastPressedKey_1806E4 < 0x3Fu || LastPressedKey_1806E4 > 0x41u))
 		{
 		LABEL_24:
-			HIBYTE(v1) = HIBYTE(x_WORD_F42A8);
+			//HIBYTE(v1) = HIBYTE(x_WORD_F42A8);
 			if (x_WORD_F42A8)
 			{
-				x_WORD_F42AE = x_BYTE_1806E4;
+				x_WORD_F42AE = LastPressedKey_1806E4;
 			}
 			else
 			{
-				LOBYTE(v1) = x_BYTE_1806E4;
-				if (v1 != x_WORD_F42AE)
+				//LOBYTE(v1) = LastPressedKey_1806E4;
+				if (LastPressedKey_1806E4 != x_WORD_F42AE)
 					v0 = 1;
 			}
 			goto LABEL_28;
 		}
-		sub_473B0();
+		FlvInitSet_473B0();
 		goto LABEL_24;
 	}
 	v0 = 1;

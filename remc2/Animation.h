@@ -24,7 +24,7 @@ extern int16_t x_WORD_17DB48; // weak
 extern char x_BYTE_D41C0; // weak
 
 void PlayInfoFmv(__int16 a1, __int16 a2, type_E17CC_0* a3x, char* path);//257160
-void sub_473B0();
+void FlvInitSet_473B0();
 void sub_1B280_run_intro_events(type_E17CC_0* a1x);
 void sub_75DB0();
 void sub_75E70();
