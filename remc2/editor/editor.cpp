@@ -124,14 +124,36 @@ void loadlevel(int levelnumber) {
 		temparray_0x30311_selected[i] = 0;
 }
 
+
 void editor_run()
 {	
-	//uint8_t* back_pdwScreenBuffer=pdwScreenBuffer;
+	*xadataclrd0dat.var28_begin_buffer = (uint8_t*)malloc(4096);//fix it
+
+	initposistruct();
+
+	//x_DWORD_EA3E4[D41A0_BYTESTR_0.array_0x2BDE[D41A0_BYTESTR_0.word_0xc].word_0x00a_2BE4_11240]->dword_0xA4_164x->str_611.word_0x451_1105
+
+	GetSubDirectoryPath(gameDataPath, gameFolder);
+	GetSubDirectoryPath(cdDataPath, cdFolder);
+	SetCDFilePaths(cdDataPath, pstr);
+	//init
+	sub_5BCC0_set_any_variables1();//23C9F2 - 23CCC0
+	if (!sub_5BF50_load_psxdata())//23C9F7 - 23CF50 //something with files about their loading, or just a set of palettes
+		exit(-1);
+	sub_5C1B0_set_any_variables2();
+
+	sub_71410_process_tmaps();//252410
+
+	sub_6EB90(&filearray_2aa18c[filearrayindex_POINTERSDATTAB]);//24fb90
+	sub_6EB90(&filearray_2aa18c[filearrayindex_BUILD00DATTAB]);//24fb90 adress 0x23ca2e
+	sub_101C0();//23CA36 - 1f11c0 //sem se to vubec nedostane
+
+	//init
 	sub_6EBF0(&filearray_2aa18c[filearrayindex_POINTERSDATTAB]);
 	x_WORD_180660_VGA_type_resolution = 1;
 	x_WORD_E29DA_type_resolution = 1;
 
-	sub_6FC50(1);
+	//sub_6FC50(1);//only for fonts?
 
 	//save D41A0_BYTESTR_0
 	D41A0_BYTESTR_0.str_2FECE.word_0x2FEE5 = 0;
@@ -146,12 +168,12 @@ void editor_run()
 	//init_pal();
 	clean_tarrain();
 	loadlevel(0);
-	//terrain_recalculate();
+	terrain_recalculate();
 
 	main_x(/*int argc, char** argv*/);
 	//pdwScreenBuffer= back_pdwScreenBuffer;
 	
-	sub_47320_in_game_loop(0);//run game	
+	//sub_47320_in_game_loop(0);//run game	
 
 	//restore D41A0_BYTESTR_0
 }
@@ -946,9 +968,9 @@ static void text_reset(kiss_textbox* textbox, kiss_vscrollbar* vscrollbar)
 }*/
 
 /* Read directory entries into the textboxes */
-static void terrain_feat_append(kiss_textbox* textbox1, kiss_vscrollbar* vscrollbar1){
-	kiss_array_free(textbox1->array);
-	kiss_array_new(textbox1->array);
+static void terrain_feat_append(kiss_textbox* textbox, kiss_vscrollbar* vscrollbar1){
+	kiss_array_free(textbox->array);
+	kiss_array_new(textbox->array);
 	char temp[256];
 	//VGA_Draw_stringXYtoBuffer(temp, 304, 32, pdwScreenBuffer);
 	for (int i = first_terrain_feature; i < 0x4B0; i++)
@@ -957,7 +979,7 @@ static void terrain_feat_append(kiss_textbox* textbox1, kiss_vscrollbar* vscroll
 		sprintf(temp, "%03X|%04X|%04X|%04X|%04X|%04X|%04X|%04X|%04X|%04X|%04XNA", i,actfeat.str_0x30311_type, actfeat.str_0x30311_subtype, actfeat.axis2d_4.x, actfeat.axis2d_4.y, actfeat.DisId, actfeat.word_10, actfeat.word_12, actfeat.word_14, actfeat.word_16, actfeat.word_18);		
 		if(temparray_0x30311_inactive[i])temp[strlen(temp) - 1] = 'I';//set last char as inactive
 		if(temparray_0x30311_selected[i])temp[strlen(temp) - 2] = 'S';//set last char as inactive
-		kiss_array_appendstring(textbox1->array, 0, (char*)"", temp);
+		kiss_array_appendstring(textbox->array, 0, (char*)"", temp);
 	}		
 	//text_reset(textbox1, vscrollbar1);
 }
@@ -2588,18 +2610,23 @@ int main_x(/*int argc, char** argv*/)
 
 
 
-
+		
 		kiss_window_draw(&window1, editor_renderer);
-		kiss_label_draw(&label_terfeat, editor_renderer);
-		kiss_label_draw(&label_terfeat2, editor_renderer);
-		kiss_label_draw(&label_stages, editor_renderer);
-		kiss_label_draw(&label_stages2, editor_renderer);
-		kiss_label_draw(&label_vars, editor_renderer);
-		kiss_label_draw(&label_vars2, editor_renderer);
-		//kiss_label_draw(&label2, editor_renderer);
-		kiss_textbox_draw(&textbox1, editor_renderer);
-		kiss_textbox_draw(&textbox2, editor_renderer);
+		//kiss_textbox_draw(&textbox1, editor_renderer);
+		//kiss_textbox_draw2(&textbox2, editor_renderer);
 		kiss_textbox_draw(&textbox3, editor_renderer);
+		kiss_rendertext(editor_renderer, "aaa", textbox1.textrect.x,
+			textbox1.textrect.y + textbox1.font.lineheight +
+			textbox1.font.spacing / 2, textbox1.font,
+			textbox1.textcolor);
+		kiss_label_draw(&label_terfeat, editor_renderer);//fix ter feat
+		kiss_label_draw(&label_terfeat2, editor_renderer);//fix ter feat
+		kiss_label_draw(&label_stages, editor_renderer);//fix ter feat
+		kiss_label_draw(&label_stages2, editor_renderer);//fix ter feat
+		kiss_label_draw(&label_vars, editor_renderer);//fix ter feat
+		kiss_label_draw(&label_vars2, editor_renderer);//fix ter feat
+		//kiss_label_draw(&label2, editor_renderer);
+		
 		kiss_vscrollbar_draw(&vscrollbar1, editor_renderer);
 		//kiss_textbox_draw(&textbox2, editor_renderer);
 		//kiss_vscrollbar_draw(&vscrollbar2, editor_renderer);
@@ -2654,12 +2681,12 @@ int main_x(/*int argc, char** argv*/)
 
 		kiss_label_draw(&labelXY, editor_renderer);
 
-		/*for (int i = 0; i < count_features; i++)
-			kiss_button_draw(&button_del[i], editor_renderer);
-
-		for (int i = 0; i < count_features; i++)
-			kiss_button_draw(&button_add[i], editor_renderer);*/
-
+		//for (int i = 0; i < count_features; i++)
+		//	kiss_button_draw(&button_del[i], editor_renderer);
+		//
+		//for (int i = 0; i < count_features; i++)
+		//	kiss_button_draw(&button_add[i], editor_renderer);
+		
 		if (changed || zoomchanged)
 			fillterrain(&terrain1, terrainzoom, terrainbeginx, terrainbeginy);//set terrain
 
@@ -2724,7 +2751,7 @@ int main_x(/*int argc, char** argv*/)
 		for (int i = 0; i < max_subtype_buttons; i++)kiss_button_draw(&button_subtype[i], editor_renderer);
 
 		for (int i = 0; i < 9; i++)kiss_button_draw(&button_check[i], editor_renderer);
-
+		
 
 		/*SDL_Rect r; r.x = 50; r.y = 50; r.w = 50; r.h = 50; SDL_Color color = { 0, 0, 0 };
 		kiss_fillrect(editor_renderer, &r, color);*/

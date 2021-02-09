@@ -1701,6 +1701,7 @@ int kiss_textbox_draw(kiss_textbox *textbox, SDL_Renderer *renderer)
 	for (i = 0; i < numoflines; i++) {
 		kiss_string_copy(buf, kiss_maxlength(textbox->font,	textbox->textwidth,	(char *) kiss_array_data(textbox->array,textbox->firstline + i), NULL),
 			(char *) kiss_array_data(textbox->array,textbox->firstline + i), NULL);
+		//strcpy(buf,"aaa");
 		char* textbuff = (char*)textbox->array->data[textbox->firstline+i];
 		if((textbuff[strlen(textbuff) - 1] == 'I')&& (textbuff[strlen(textbuff) - 2] == 'S'))
 			kiss_rendertext(renderer, buf, textbox->textrect.x,
@@ -1720,10 +1721,10 @@ int kiss_textbox_draw(kiss_textbox *textbox, SDL_Renderer *renderer)
 				textbox->font.spacing / 2, textbox->font,
 				kiss_blue);
 		else
-		kiss_rendertext(renderer, buf, textbox->textrect.x,
-			textbox->textrect.y + i * textbox->font.lineheight +
-			textbox->font.spacing / 2, textbox->font,
-			textbox->textcolor);
+			kiss_rendertext(renderer, buf, textbox->textrect.x,
+				textbox->textrect.y + i * textbox->font.lineheight +
+				textbox->font.spacing / 2, textbox->font,
+				textbox->textcolor);
 	}
 	return 1;
 }

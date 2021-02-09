@@ -23,7 +23,13 @@ using namespace std;
 int main(int argc, char* argv[])
 //int SDLmain(int argc, char** argv)
 {	
+	VGA_Init(gameResWidth, gameResHeight, maintainAspectRatio);
+
+	support_begin();
+	//(*filearray_2aa18c[filearrayindex_BUILD00DATTAB].posistruct)[0x11].data
+
     editor_run();
+	VGA_close();
     return 0;
 }
 

@@ -312,12 +312,6 @@ extern char x_BYTE_17DF10_get_key_scancode; // weak
 extern char x_BYTE_17DF11_last_key_status; // weak
 */
 
-extern uint8_t x_BYTE_10B4E0_terraintype[0x10000]; // idb// x_BYTE_10B1E0[0x300]//2DC4E0 //map array1
-extern uint8_t x_BYTE_11B4E0_height[0x10000]; // idb		//2EC4E0    	//map array2 // heightmap
-extern uint8_t x_BYTE_12B4E0_shading[0x10000]; // fix it -  weak	//2FC4E0    //map array3
-extern uint8_t x_BYTE_13B4E0_angle[0x10000]; // idb//30C4E0	//map array4 // water
-extern __int16 x_WORD_15B4E0_source[0x10000]; // idb//32C4E0	//map array5
-
 extern uint16_t x_WORD_17B4E0; // 34c4e0
 
 extern char x_BYTE_D41B6;
@@ -422,6 +416,8 @@ typedef struct {//lenght 66
 }
 type_DWORD_E12AE;
 #pragma pack (16)
+
+extern Pathstruct pstr[];
 
 
 void WriteBufferToBMP(unsigned __int16 width, unsigned __int16 height, uint8_t* ptrPalette, uint8_t* ptrBuffer);
@@ -630,6 +626,13 @@ void sub_B5F8F(__int16 a1, uint16_t* a2, int32_t a3, __int16* a4);
 int sub_BD320(int result, int8_t* a2, int8_t* a3, int a4, int a5, int a6);
 void sub_B5EFA(__int16 a1, uint16_t* a2, int32_t a3, __int16* a4);
 
+void sub_101C0();
+void sub_5BCC0_set_any_variables1();
+signed int sub_5C1B0_set_any_variables2();
+signed int sub_5BF50_load_psxdata();
+
+void sub_6EB90(filearray_struct* a1);
+
 //type_str_0x6E8E* pre_sub_4A190(uint32_t adress, int16_t* a1,int type);
 type_str_0x6E8E* pre_sub_4A190_axis_3d(uint32_t adress, axis_3d* a1, int type);//pre 22b190
 
@@ -638,7 +641,10 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_str_0x6E8E* a1, int type);//pre 
 //---------------------------
 
 //char sub_54200();
+
 void sub_71410_process_tmaps();
+void SetCDFilePaths(char* cdDataPath, Pathstruct pstr[]);
+void initposistruct();
 
 void Initialize();
 int /*__cdecl*/ sub_main(int argc, char **argv, char **envp);

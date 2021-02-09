@@ -1372,7 +1372,7 @@ void sub_7C140_draw_text_background(int16_t x1, int16_t y1, int16_t x2, int16_t 
 }
 
 //----- (0006FC50) --------------------------------------------------------
-void sub_6FC50(__int16 a1)//250c50
+void sub_6FC50(__int16 a1)//250c50 //font and graphics init
 {
 	//int result; // eax
 	posistruct_t* v2; // edx
