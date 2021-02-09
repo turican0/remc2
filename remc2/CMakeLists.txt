@@ -48,6 +48,14 @@ set(SOURCE_FILES_ENGINE
     "engine/read_config.h"
     "sub_main.cpp"
     "sub_main.h"
+    "Sound.cpp"
+    "Sound.h"
+    "Basic.cpp"
+    "Basic.h"
+    "Animation.cpp"
+    "Animation.h"
+    "Terrain.cpp"
+    "Terrain.h"
     "engine/sub_main_mouse.h"
 )
 source_group("Source Files\\engine" FILES ${SOURCE_FILES_ENGINE})

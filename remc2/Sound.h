@@ -1,3 +1,5 @@
+#pragma once
+
 #ifndef MAIN_SOUND
 #define MAIN_SOUND
 
