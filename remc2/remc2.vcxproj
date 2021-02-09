@@ -238,6 +238,7 @@
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Basic.h" />
     <ClInclude Include="Sound.h" />
+    <ClInclude Include="Terrain.h" />
     <ClInclude Include="utilities\BitmapIO.h" />
     <ClInclude Include="utilities\DataFileIO.h" />
     <ClInclude Include="editor\editor.h" />
@@ -328,6 +329,7 @@
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Basic.cpp" />
     <ClCompile Include="Sound.cpp" />
+    <ClCompile Include="Terrain.cpp" />
     <ClCompile Include="utilities\BitmapIO.cpp" />
     <ClCompile Include="utilities\DataFileIO.cpp" />
     <ClCompile Include="editor\editor.cpp" />
