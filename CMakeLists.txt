@@ -38,6 +38,11 @@ if (COMPATIBILITY_32_PATH)
     set(SDL2_DIR "${COMPATIBILITY_32_PATH}/cmake/SDL2")
     set(CMAKE_LIBRARY_PATH "${COMPATIBILITY_32_PATH}")
 endif ()
+
+if (USE_64_BIT)
+    set(FIND_LIBRARY_USE_LIB64_PATHS True)
+endif ()
+
 find_package(SDL2 REQUIRED)
 find_package(PNG REQUIRED)
 find_library(SDL_MIXER_LIBRARY
