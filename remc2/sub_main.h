@@ -265,17 +265,6 @@ typedef struct {//lenght 30
 } type_x_BYTE_E25ED_db_str;
 #pragma pack (16)
 
-extern int filearrayindex_POINTERSDATTAB;
-extern int filearrayindex_FONTS0DATTAB;
-extern int filearrayindex_MSPRDDATTAB;
-extern int filearrayindex_ZERO1;
-extern int filearrayindex_MSPRD00DATTAB;
-extern int filearrayindex_ZERO2;
-extern int filearrayindex_HFONT3DATTAB;
-extern int filearrayindex_ZERO3;
-extern int filearrayindex_BUILD00DATTAB;
-extern int filearrayindex_ZERO4;
-
 extern filearray_struct x_DWORD_E9B20[4];
 
 extern __int16 x_WORD_E29DA_type_resolution; // weak

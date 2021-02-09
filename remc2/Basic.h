@@ -228,6 +228,17 @@ typedef struct {//lenght 3
 TColor;
 #pragma pack (16)
 
+extern int filearrayindex_POINTERSDATTAB;
+extern int filearrayindex_FONTS0DATTAB;
+extern int filearrayindex_MSPRDDATTAB;
+extern int filearrayindex_ZERO1;
+extern int filearrayindex_MSPRD00DATTAB;
+extern int filearrayindex_ZERO2;
+extern int filearrayindex_HFONT3DATTAB;
+extern int filearrayindex_ZERO3;
+extern int filearrayindex_BUILD00DATTAB;
+extern int filearrayindex_ZERO4;
+
 extern uint8_t* ZERO_BUFFER;
 
 extern uint8_t* SEARCH_BEGIN_BUFFER;
