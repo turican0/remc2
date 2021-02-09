@@ -121,7 +121,9 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 # dependencies
 set(libADLMIDI_STATIC TRUE)
 add_subdirectory(libADLMIDI-master)
-if (NOT USE_64_BIT)
+if (USE_64_BIT)
+    add_compile_definitions(COMPILE_FOR_64BIT)
+else ()
     set_target_properties(ADLMIDI_static PROPERTIES COMPILE_FLAGS "-m32" LINK_FLAGS "-m32")
 endif ()
         
