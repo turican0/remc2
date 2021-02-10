@@ -9,6 +9,15 @@
 
 */
 
+#ifdef __linux__
+#define _stricmp strcasecmp
+#define _strnicmp strncasecmp
+#define strnicmp strncasecmp
+#define __cdecl
+#include <cstring>
+#endif
+
+
 #if defined(__GNUC__)
   typedef          long long ll;
   typedef unsigned long long ull;

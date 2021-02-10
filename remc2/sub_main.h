@@ -1,35 +1,6 @@
-/*#include <stdio.h>
-#include <assert.h>
-#include <sstream>
-#include <stddef.h>
+#pragma once
 
-#include "dosbox.h"
-#include "engine.h"
-#include "mem.h"
-
-#include "cpu.h"
-#include "memory.h"
-#include "debug.h"
-#include "mapper.h"
-#include "setup.h"
-#include "programs.h"
-#include "paging.h"
-#include "callback.h"
-#include "cpu/lazyflags.h"
-#include "support.h"
-#include "control.h"
-
-//#include "engine.h"
-
-#include "inout.h"
-#include "callback.h"
-#include "pic.h"
-#include "fpu.h"
-#include "mmx.h"
-
-#include "debug.h"
-
-*/
+#include "engine/defs.h"
 
 //#include "stdafx.h"
 

@@ -1,6 +1,7 @@
 #include "port_sdl_sound.h"
 
 #include <adlmidi.h>
+#include <iostream>
 
 #ifdef __linux__
     #include <limits>
@@ -366,7 +367,12 @@ int32_t ac_sound_call_driver(AIL_DRIVER* drvr, int32_t fn, VDI_CALL* in, VDI_CAL
 	case 0x300: {//AIL_API_install_driver
 		drvr->VHDR_4->VDI_HDR_var10 = (void*)&common_IO_configurations;
 		drvr->VHDR_4->num_IO_configurations_14 = num_IO_configurations;
+#ifdef COMPILE_FOR_64BIT
+		std::cout << "FIXME: 32 bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+		drvr->VHDR_4->environment_string_16 = 0; //FIXME
+#else
 		drvr->VHDR_4->environment_string_16 = (uint32_t)&environment_string;
+#endif
 		drvr->VHDR_4->VDI_HDR_var46 = service_rate;
 		/*out->AX = 0;
 		out->BX = 0;

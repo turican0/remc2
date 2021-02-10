@@ -1,3 +1,5 @@
+#pragma once
+
 #ifndef MAIN_ANIMATION
 #define MAIN_ANIMATION
 

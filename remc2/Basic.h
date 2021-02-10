@@ -1,3 +1,5 @@
+#pragma once
+
 #ifndef MAIN_BASIC
 #define MAIN_BASIC
 

@@ -44,18 +44,17 @@ DataFileIO::DataFileIO() {};
 
 int DataFileIO::ReadFileAndDecompress(const char* path, uint8_t** data)
 {
-	x_DWORD result; // eax
+	int result = 0; // eax // length of file or 0 on error
 	FILE* file; // ebx
 	uint32_t length; // esi
 	file = CreateOrOpenFile((char*)path, 0x200);
-	result = (x_DWORD)file;
 
-	if (result != NULL)
+	if (file)
 	{
 		length = FileLengthBytes(file);
 		Read(file, *data, length);
 		Close(file);
-		result = (x_DWORD)Decompress(*data, *data);
+		result = (int)Decompress(*data, *data);
 		if (result >= 0)
 		{
 			if (!result)
