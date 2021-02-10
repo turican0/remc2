@@ -714,5 +714,11 @@
     <Library Include="..\SDL2_ttf-2.0.15\lib\x86\SDL2_ttf.lib">
       <Filter>Source Files\libs\sdl-ttf</Filter>
     </Library>
+    <Library Include="..\SDL2_ttf-2.0.15\lib\x64\SDL2_ttf.lib">
+      <Filter>Source Files\libs\sdl-ttf</Filter>
+    </Library>
+    <Library Include="..\SDL2_image-2.0.5\lib\x64\SDL2_image.lib">
+      <Filter>Source Files\libs\sdl-image</Filter>
+    </Library>
   </ItemGroup>
 </Project>
