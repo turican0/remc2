@@ -6,6 +6,44 @@
 #include "engine/ail_sound.h"
 
 #include "Basic.h"
+/*
+typedef struct  WAV_HEADER{
+	char                RIFF[4];        // RIFF Header      Magic header
+	unsigned long       ChunkSize;      // RIFF Chunk Size//4
+	char                WAVE[4];        // WAVE Header//8
+	char                fmt[4];         // FMT header//16
+	unsigned long       Subchunk1Size;  // Size of the fmt chunk//20
+	unsigned short      AudioFormat;    // Audio format 1=PCM,6=mulaw,7=alaw, 257=IBM Mu-Law, 258=IBM A-Law, 259=ADPCM
+	unsigned short      NumOfChan;      // Number of channels 1=Mono 2=Sterio
+	unsigned long       SamplesPerSec;  // Sampling Frequency in Hz
+	unsigned long       bytesPerSec;    // bytes per second
+	unsigned short      blockAlign;     // 2=16-bit mono, 4=16-bit stereo
+	unsigned short      bitsPerSample;  // Number of bits per sample
+	char                Subchunk2ID[4]; // "data"  string
+	unsigned long       Subchunk2Size;  // Sampled data length
+
+}wav_hdr;
+*/
+#pragma pack (1)
+typedef struct {//lenght xx
+	int8_t byte_0[10];	
+}
+subtype_E37A0_sound_buffer2;
+typedef struct {//lenght 32 - this is may be format of wav sound file
+	int8_t byte_0;
+	int8_t byte_1;
+	int8_t byte_2;
+	int8_t byte_3;
+	int8_t byte_4;
+	int8_t byte_5;
+	int8_t byte_6;
+	int8_t byte_7;
+	subtype_E37A0_sound_buffer2 str_8;
+	uint8_t* dword_18;//sample
+	int8_t stub_22[10];
+}
+type_E37A0_sound_buffer2;
+#pragma pack (16)
 
 extern char x_BYTE_E3799_sound_card;
 extern char x_BYTE_E37FD;
@@ -117,7 +155,7 @@ AIL_DRIVER* sub_93010_AIL_install_driver(/*int a1, */uint8_t* driver_image, int3
 int sub_93160_AIL_uninstall_driver(AIL_DRIVER* a1);
 // int sub_931F0_AIL_install_DIG_INI(int a1, int **a2);
 // int *sub_93330_AIL_install_DIG_driver_file_AIL_install_DIG_driver_file(int a1, int a2, const void *a3);
-int sub_93480_AIL_uninstall_DIG_driver(unsigned int* a1);
+int sub_93480_AIL_uninstall_DIG_driver(HDIGDRIVER a1);
 HSAMPLE sub_93510_AIL_allocate_sample_handle(HDIGDRIVER a1);
 int sub_937A0_AIL_release_sample_handle(int a1);
 void sub_93830_AIL_init_sample(HSAMPLE a1);
@@ -233,7 +271,7 @@ HDIGDRIVER sub_A2EA0(AIL_DRIVER* a1, IO_PARMS IO);
 // int *sub_A3600_AIL_API_install_DIG_driver_file(int a1, int a2, const void *a3);
 // int *sub_A36B0(int a1, int a2, int a3, const void *a4);
 // int sub_A3720_AIL_API_install_DIG_INI(int a1, int **a2);
-int sub_A37A0(unsigned int* a1);
+int sub_A37A0(HDIGDRIVER a1);
 int sub_A37C0(int a1);
 HSAMPLE sub_A3820_allocate_sample_handle(HDIGDRIVER dig);
 int sub_A38C0_AIL_API_release_sample_handle(int a1);
