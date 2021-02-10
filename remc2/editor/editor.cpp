@@ -2522,13 +2522,13 @@ int main_x(/*int argc, char** argv*/)
 					changed3 = true; zoomchanged = true;
 				}
 			}
+			
 
+			//for(int i=0;i<count_features;i++)
+			//	button_del_event(&button_del[i], &e, &quit, &draw);
 
-			/*for(int i=0;i<count_features;i++)
-				button_del_event(&button_del[i], &e, &quit, &draw);
-
-			for (int i = 0; i < count_features; i++)
-				button_add_event(&button_add[i], &e, &quit, &draw);*/
+			//for (int i = 0; i < count_features; i++)
+			//		button_add_event(&button_add[i], &e, &quit, &draw);
 
 			int terev = kiss_terrain_event(&terrain1, &e, &draw, mousex, mousey, temparray_0x30311, temparray_0x30311_selected);
 
@@ -2596,6 +2596,7 @@ int main_x(/*int argc, char** argv*/)
 
 			if (changed2)terrain_feat_append(&textbox1, &vscrollbar1);
 			if (changed3) { terrain_stages_append(&textbox2); terrain_vars_append(&textbox3); }
+			
 		}
 		if (first) { changed = true; changed2 = true; }
 		if (changed || changed2)
@@ -2604,21 +2605,21 @@ int main_x(/*int argc, char** argv*/)
 		vscrollbar1_event(&vscrollbar1, NULL, &textbox1, &draw);
 		//vscrollbar2_event(&vscrollbar2, NULL, &textbox2, &draw);
 		//kiss_progressbar_event(&progressbar, NULL, &draw);
-
+		
 		if (!draw) continue;
 		SDL_RenderClear(editor_renderer);
-
+		
 
 
 		
 		kiss_window_draw(&window1, editor_renderer);
-		//kiss_textbox_draw(&textbox1, editor_renderer);
-		//kiss_textbox_draw2(&textbox2, editor_renderer);
-		kiss_textbox_draw(&textbox3, editor_renderer);
-		kiss_rendertext(editor_renderer, "aaa", textbox1.textrect.x,
+		kiss_textbox_draw2(&textbox1, editor_renderer);
+		kiss_textbox_draw2(&textbox2, editor_renderer);
+		kiss_textbox_draw2(&textbox3, editor_renderer);
+		/*kiss_rendertext(editor_renderer, "aaa", textbox1.textrect.x,
 			textbox1.textrect.y + textbox1.font.lineheight +
 			textbox1.font.spacing / 2, textbox1.font,
-			textbox1.textcolor);
+			textbox1.textcolor);*/
 		kiss_label_draw(&label_terfeat, editor_renderer);//fix ter feat
 		kiss_label_draw(&label_terfeat2, editor_renderer);//fix ter feat
 		kiss_label_draw(&label_stages, editor_renderer);//fix ter feat

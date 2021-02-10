@@ -551,6 +551,7 @@ extern "C" {
 		kiss_array* a, int x, int y, int w, int h);
 	int kiss_textbox_event(kiss_textbox* textbox, SDL_Event* event, int mousex,int mousey,int* draw);
 	int kiss_textbox_draw(kiss_textbox* textbox, SDL_Renderer* renderer);
+	int kiss_textbox_draw2(kiss_textbox* textbox, SDL_Renderer* renderer);
 	void kiss_textbox_setviewon(kiss_textbox* textbox, int position);
 	int kiss_combobox_new(kiss_combobox* combobox, kiss_window* wdw,
 		char* text, kiss_array* a, int x, int y, int w, int h);
