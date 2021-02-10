@@ -424,7 +424,11 @@ void sub_8D290_init_sound(/*char* a1*//*, int a2, int a3*/)//26e290
 	v7 = mygetenv("MDSOUND");
 	if (v7)
 	{
+#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
+  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+#else
 		sscanf((char* const)v7, "%s %x %d %d %d", (unsigned int)&v6);
+#endif
 		hDigSoundEffectsDriver = sub_93330_AIL_install_DIG_driver_file(/*(int)a1, */&v6, &v5);
 		if (!hDigSoundEffectsDriver)
 		{
@@ -760,7 +764,11 @@ void /*__fastcall*/ sub_8D970_init_music(/*char* a1*//*int a1, int a2, char* a3*
 	v7 = mygetenv("MDMUSIC");
 	if (v7)
 	{
+#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
+  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+#else
 		sscanf((char* const)v7, "%s %x %d %d %d", (unsigned int)&v6);
+#endif
 		hMdiMusicDriver = sub_95850_AIL_install_MDI_driver_file(/*a1,*/ &v6, &v5);
 		if (!hMdiMusicDriver)
 		{
@@ -1658,8 +1666,12 @@ void sub_93830_AIL_init_sample(HSAMPLE S/*HSAMPLE S*/)//AIL_init_sample //274830
 
 	x_DWORD_181C04++;
 	v2 = x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2() && sub_916F0_sound_proc24();
+#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
+  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+#else
 	if (v2)
 		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "AIL_init_sample(0x%X)\n", (int)S);
+#endif
 	/*result = */sub_A38E0_init_sample(S);
 	x_DWORD_181C04--;
 	//return result;
@@ -2648,7 +2660,11 @@ void sub_98709_create_index_dattab_power_add(uint8_t* tabbuffer, uint8_t* tabbuf
 {
 	for (uint32_t i = 0; i < (tabbufferend - (tabbuffer + add)) / 6; i++)
 	{
+#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
+  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+#else
 		dattabindex[i].data = (uint8_t*)(*(uint32_t*)((tabbuffer + add) + 6 * i)) + (int32_t)datbuffer;
+#endif
 		dattabindex[i].width = (tabbuffer + add)[6 * i + 4] * 2;
 		dattabindex[i].height = (tabbuffer + add)[6 * i + 5] * 2;
 	}
@@ -2669,7 +2685,11 @@ void sub_9874D_create_index_dattab(uint8_t* tabbuffer, uint8_t* tabbufferend, ui
 	{
 		for (uint32_t i = 0; i < (tabbufferend - tabbuffer) / 6; i++)
 		{
+#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
+  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+#else
 			dattabindex[i].data = (uint8_t*)(*(uint32_t*)(tabbuffer + 6 * i)) + (int32_t)datbuffer;
+#endif
 			dattabindex[i].width = tabbuffer[6 * i + 4];
 			dattabindex[i].height = tabbuffer[6 * i + 5];
 		}
@@ -2682,7 +2702,11 @@ void sub_9874D_create_index_dattab_add(uint8_t* tabbuffer, uint8_t* tabbufferend
 {
 	for (uint32_t i = 0; i < (tabbufferend - (tabbuffer + add)) / 6; i++)
 	{
+#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
+  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+#else
 		dattabindex[i].data = (uint8_t*)(*(uint32_t*)((tabbuffer + add) + 6 * i)) + (int32_t)datbuffer;
+#endif
 		dattabindex[i].width = (tabbuffer + add)[6 * i + 4];
 		dattabindex[i].height = (tabbuffer + add)[6 * i + 5];
 	}
@@ -2897,7 +2921,11 @@ void sub_844A0_sound_proc5()//2654a0
 			v2 = *(x_DWORD*)(v1 + 18);
 			v1 += 32;
 			++v0;
+#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
+  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+#else
 			*(x_DWORD*)(v1 - 14) = (int32)x_DWORD_E37A8_sound_buffer1 + v2;
+#endif
 		}
 	}
 	x_WORD_180B50 = v0;
@@ -3647,6 +3675,9 @@ void sub_9F740(char* a1)//280740
 					*(x_DWORD*)v5 = x_DWORD_181E2C;
 					__writegsx_DWORD(x_DWORD_181E2C, 0);
 					__writegsx_DWORD(*(x_DWORD*)v5 + 4, v7);
+#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
+  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+#else
 					if (sub_9F2E0((int*)hMdiMusicDriver, *(int*)v5, *(unsigned __int16*)&v5[4], 2u).AX == -1//fix
 						&& !dos_read(file, x_DWORD_181E2C, (unsigned __int16)x_WORD_181E30, 512, (x_DWORD)&v8))
 					{
@@ -3684,6 +3715,7 @@ void sub_9F740(char* a1)//280740
 							}
 						}
 					}
+#endif
 				}
 			}
 		}
@@ -4025,7 +4057,11 @@ signed int sub_A12C5_sound_proc_irq(int a1, int a2, __int16 a3)//2822c5
 		  lar     ecx, edx
 		  int     31h; DPMI Services   ax=func xxxxh
 		}*/
+#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
+  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+#else
 		x_DWORD_A128C = (int)((char*)&unk_E4004 - ((unsigned int)&unk_E4004 & 0xFFFFFFF0) + 512);
+#endif
 		x_WORD_A1286 = 0;
 		x_WORD_A1277 = 0;
 		x_WORD_A12AC = 0;
@@ -4734,7 +4770,11 @@ LABEL_33:
 			a1->half_buffer_size_4 = v18;
 		if (a1->half_buffer_size_4 > v17)
 			a1->half_buffer_size_4 = v17;
+#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
+  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+#else
 		v12 = (int)a1->DMA_seg_8;
+#endif
 		if (x_DWORD_181DAC[18])
 		{
 			v12 >>= 12;
@@ -4971,12 +5011,20 @@ HDIGDRIVER sub_A2EA0(AIL_DRIVER* a1, IO_PARMS IO)//283ea0
 					if (v26->DMA_buf_10)
 					{
 						v2 = v26->DMA_sel_9;
+#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
+  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+#else
 						v3 = (int)v26->DMA_seg_8;
+#endif
 						sub_9D560((uint8_t*)v26->DMA_buf_10);
 					}
 					v26->DMA_buf_10 = (void*)v30;
 					v26->DMA_sel_9 = v22;
+#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
+  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+#else
 					v26->DMA_seg_8 = (void*)v21;
+#endif
 					v27 = v22 >> 12;
 					v24 = 0xF0000 & (v22 >> 12);
 					v23 = 0xF0000 & (v25 + (v22 >> 12) - 1);
@@ -5014,7 +5062,11 @@ HDIGDRIVER sub_A2EA0(AIL_DRIVER* a1, IO_PARMS IO)//283ea0
 								sub_91F70_AIL_call_driver(v26->drvr_0, 774, 0, 0);
 								v26->n_samples_24 = 0;
 								v12 = v26->DMA_sel_9;
+#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
+  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+#else
 								v13 = (int)v26->DMA_seg_8;
+#endif
 								sub_9D560((uint8_t*)v26->DMA_buf_10);
 								sub_9D490_free4(v26->samples_23, sizeof(_SAMPLE) * v26->n_samples_24);
 								sub_9D490_free4(v26->build_buffer_20, v26->build_size_19);
@@ -5026,8 +5078,12 @@ HDIGDRIVER sub_A2EA0(AIL_DRIVER* a1, IO_PARMS IO)//283ea0
 								//sub_92740_AIL_set_timer_user(v26->timer_3, (signed __int32)v26);
 								//sub_92930_AIL_set_timer_frequency(v26->timer_3, x_DWORD_181DAC[0]);//00352DAC not zero!
 								//sub_92BA0_AIL_start_timer(v26->timer_3);
+#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
+  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+#else
 								v26->var36_aildrv = (x_DWORD)sub_A2DE0;
 								v26->var40_aildrv = (x_DWORD)v26;
+#endif
 								sub_B0C1A(v26);
 								//dma sub_B0B87(v26, 0);//fix
 								//dma sub_B0B87(v26, 1);//fix
@@ -5042,7 +5098,11 @@ HDIGDRIVER sub_A2EA0(AIL_DRIVER* a1, IO_PARMS IO)//283ea0
 							sub_91F70_AIL_call_driver(v26->drvr_0, 774, 0, 0);
 							v26->n_samples_24 = 0;
 							v9 = v26->DMA_sel_9;
+#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
+  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+#else
 							v10 = (int)v26->DMA_seg_8;
+#endif
 							sub_9D560((uint8_t*)v26->DMA_buf_10);
 							sub_9D490_free4(v26->samples_23, v26->build_size_19);
 							sub_9D490_free4(v26, 140);
@@ -5057,7 +5117,11 @@ HDIGDRIVER sub_A2EA0(AIL_DRIVER* a1, IO_PARMS IO)//283ea0
 						sub_91F70_AIL_call_driver(v26->drvr_0, 774, 0, 0);
 						v26->n_samples_24 = 0;
 						v7 = v26->DMA_sel_9;
+#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
+  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+#else
 						v8 = (int)v26->DMA_seg_8;
+#endif
 						sub_9D560((uint8_t*)v26->DMA_buf_10);
 						sub_9D490_free4(v26, 140);
 						result = 0;
@@ -5066,7 +5130,11 @@ HDIGDRIVER sub_A2EA0(AIL_DRIVER* a1, IO_PARMS IO)//283ea0
 				else
 				{
 					v4 = v26->DMA_sel_9;
+#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
+  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+#else
 					v5 = (int)v26->DMA_seg_8;
+#endif
 					sub_9D560((uint8_t*)v26->DMA_buf_10);
 					sub_9D490_free4(v26, 140);
 					result = 0;
@@ -5835,7 +5903,11 @@ void sub_A43E0(HSAMPLE S)//2853e0
 		v1 = *(x_DWORD**)(S + 2168);
 		if (*(x_BYTE*)v1 <= 9u)
 			break;
+#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
+  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+#else
 		*(x_DWORD*)(S + 2168) = (x_DWORD)(char*)v1 + sub_A4370(v1) + 4;
+#endif
 	}
 	//JUMPOUT(__CS__, (int*) *(&off_A4400 + *(unsigned __int8 *)v1));
 }
@@ -5911,7 +5983,11 @@ HSAMPLE sub_A4970(int a1, uint8_t* a2, int a3)//285970
 	}
 	else
 	{
+#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
+  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+#else
 		v6->sam_var[542] = *(unsigned __int16*)(a2 + 20) + (int)a2;
+#endif
 		v6->sam_var[545] = a3;
 		v6->sam_var[546] = a3 == -1;
 		v6->sam_var[547] = 1;
@@ -6385,8 +6461,12 @@ void sub_A5850(HSEQUENCE hSequence, char a2, unsigned int a3, signed int a4, int
 	v8 = a2 & 0xF;
 	//result = S->chan_map_37[4 * v8];
 	v9 = hSequence->chan_map_37[4 * v8];
+#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
+  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+#else
 	if (v13 == 176 || v13 == 192 || v13 == 224)
 		result = (HMDIDRIVER)sub_A5530((int)&hSequence->shadow_53, v8 | v13, a3, a4);
+#endif
 	if (v13 != 176)
 		goto LABEL_79;
 	if (a5)
@@ -6451,9 +6531,13 @@ void sub_A5850(HSEQUENCE hSequence, char a2, unsigned int a3, signed int a4, int
 				v12 = (int32*)result;
 				if (result)
 				{
+#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
+  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+#else
 					sub_98170_AIL_map_sequence_channel((int32*)hSequence, v8 + 1, (int)result);
 					result = (HMDIDRIVER)(x_DWORD*)hSequence;
 					v7->var23_aildrvx[(int)v12] = hSequence;
+#endif
 				}
 			}
 		}
@@ -6787,7 +6871,11 @@ void sub_A6530(HMDIDRIVER a1)//287530
 								x_DWORD_181EB0 = *(_DWORD*)(x_DWORD_181EB8 + 20) + 1;
 								x_DWORD_181ED8 = sub_A5040(&x_DWORD_181EB0);
 								x_DWORD_181ED8 += x_DWORD_181EB0 - *(_DWORD*)(x_DWORD_181EB8 + 20);
+#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
+  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+#else
 								sub_A4FD0((int)a1, *(_DWORD*)(x_DWORD_181EB8 + 20), x_DWORD_181ED8);
+#endif
 								*(_DWORD*)(x_DWORD_181EB8 + 20) += x_DWORD_181ED8;
 							}
 							if ((unsigned int)x_DWORD_181ED0 <= 0xF7)
@@ -7756,8 +7844,12 @@ void sub_A8180_AIL_API_resume_sequence_orig(x_DWORD* a1)//289180
 				a1[i + 37] = v1;
 			}
 		}
+#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
+  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+#else
 		for (j = 0; j < 16; j++)
 			sub_A5FD0((int)a1, j);
+#endif
 		a1[1] = 4;
 	}
 }
@@ -8324,7 +8416,11 @@ int sub_A8EA0(x_DWORD* a1, int a2)
 	int v6; // [esp+Ch] [ebp-4h]
 
 	v4 = a2 - 1;
+#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
+  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+#else
 	result = (int)&a1[a2 - 1];
+#endif
 	if (*(x_DWORD*)(result + 32) == 1)
 	{
 		++a1[5];
@@ -8354,7 +8450,11 @@ int sub_A8EA0(x_DWORD* a1, int a2)
 			if (*(x_DWORD*)(a1[v4 + 40] + 4) != 1)
 				sub_A5FD0(a1[v4 + 40], v4);
 		}
+#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
+  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+#else
 		result = (int)a1;
+#endif
 		--* (x_DWORD*)(result + 20);
 	}
 	return result;
@@ -8374,8 +8474,12 @@ int sub_A9080(x_DWORD* a1, int a2, int a3)
 			result = *(x_DWORD*)(4 * a3 + *a1 + 92);
 			if ((x_DWORD*)result != a1)
 			{
+#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
+  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+#else
 				result = (int)a1;
 				*(x_DWORD*)(*a1 + 4 * a3 + 92) = (x_DWORD)a1;
+#endif
 			}
 		}
 	}
@@ -8667,9 +8771,13 @@ x_DWORD* sub_AA310(int a1, int a2, int a3, signed int a4)//28b310
 		v10[1] = a1;
 		*v10 = a2;
 		v10[2] = a3;
+#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
+  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+#else
 		v10[3] = sub_97A60_AIL_register_event_callback(a2, (int)sub_A9C50);
 		v10[4] = sub_97BB0_AIL_register_timbre_callback(a2, (int)sub_A9C00);
 		*(x_DWORD*)(a2 + 436) = (x_DWORD)v10;
+#endif
 		for (i = 0; i < 16; i++)
 		{
 			v10[i + 5] = 0;
@@ -8686,7 +8794,11 @@ x_DWORD* sub_AA310(int a1, int a2, int a3, signed int a4)//28b310
 			v5 = a4 <= 16 ? a4 : 16;
 			if (v10[325] >= v5)
 				break;
+#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
+  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+#else
 			v10[v10[325] + 309] = (x_DWORD)sub_93510_AIL_allocate_sample_handle((HDIGDRIVER)v10[1]);
+#endif
 			if (!v10[v10[325] + 309])
 				break;
 		}
@@ -8926,8 +9038,12 @@ int sub_9E2B0(char* a1, int a2, x_DWORD* a3)
 				break;
 		}
 	}
+#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
+  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+#else
 	if (a3)
 		*a3 = i + (int)a1;
+#endif
 	return v5 * v6;
 }
 // 98805: using guessed type x_DWORD x_toupper(x_DWORD);
@@ -9091,7 +9207,11 @@ int sub_B0B87(HDIGDRIVER a1, int a2)
 	if (a1->hw_mode_flags_7 & 0x20)
 	{
 		x_DWORD_E4E1C |= 8u;
+#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
+  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+#else
 		v5 = (uint8_t*)(a2 * (a1->half_buffer_size_4 >> 1) + (int)a1->DMA_11_12[0]);//fix
+#endif
 	}
 	else
 	{
@@ -9226,7 +9346,11 @@ void GetMusicSequenceCount()//26fc90 // set index
 		v1 = (uint8_t*)x_DWORD_E3808_music_header + 32;
 		for (m_iNumberOfTracks = 0; v1 < x_DWORD_E380C; m_iNumberOfTracks++)
 		{
+#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
+  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+#else
 			*(x_DWORD*)(v1 + 18) += (int)x_DWORD_E3810_music_data;
+#endif
 			v1 += 32;
 		}
 	}
