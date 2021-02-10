@@ -6,6 +6,7 @@
 /.vs/remc2/v15
 /.vs/remc2/v16
 /remc2/Debug
+/outimg
 **/vc141.idb
 **/vc141.pdb
 **/*.log
@@ -24,4 +25,11 @@
 **/remc2.exe
 **/remc2.exp
 **/remc2.lib
+/packages
+**/Netherw
+/debug.txt
+**/CD_Files
+
+/build*
+.flatpak*
 

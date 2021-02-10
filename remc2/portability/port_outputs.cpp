@@ -9,7 +9,7 @@ void myWriteOut(const char * format, ...) {
 	VGA_Draw_string((char*)format);
 #endif //USE_DOSBOX
 
-	/*Bit16u sz = 1;
+	/*uint16_t sz = 1;
 	unsigned char b = 'a';
 	DOS_CON->Write(&b, &sz);*/
 }
@@ -31,7 +31,7 @@ void myprintf(const char * format, ...) {
 
 	//return strlen(prbuffer);
 	//return done;
-	/*Bit16u sz = 1;
+	/*uint16_t sz = 1;
 	unsigned char b = 'a';
 	DOS_CON->Write(&b, &sz);*/
 }
