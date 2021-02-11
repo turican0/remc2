@@ -6,30 +6,29 @@
 #include "engine/ail_sound.h"
 
 #include "Basic.h"
-/*
-typedef struct  WAV_HEADER{
-	char                RIFF[4];        // RIFF Header      Magic header
-	unsigned long       ChunkSize;      // RIFF Chunk Size//4
-	char                WAVE[4];        // WAVE Header//8
-	char                fmt[4];         // FMT header//16
-	unsigned long       Subchunk1Size;  // Size of the fmt chunk//20
-	unsigned short      AudioFormat;    // Audio format 1=PCM,6=mulaw,7=alaw, 257=IBM Mu-Law, 258=IBM A-Law, 259=ADPCM
-	unsigned short      NumOfChan;      // Number of channels 1=Mono 2=Sterio
-	unsigned long       SamplesPerSec;  // Sampling Frequency in Hz
-	unsigned long       bytesPerSec;    // bytes per second
-	unsigned short      blockAlign;     // 2=16-bit mono, 4=16-bit stereo
-	unsigned short      bitsPerSample;  // Number of bits per sample
-	char                Subchunk2ID[4]; // "data"  string
-	unsigned long       Subchunk2Size;  // Sampled data length
-
-}wav_hdr;
-*/
 #pragma pack (1)
-typedef struct {//lenght xx
+/*typedef struct {//lenght xx
 	int8_t byte_0[10];	
 }
-subtype_E37A0_sound_buffer2;
+subtype_E37A0_sound_buffer2;*/
+#pragma pack (1)
 typedef struct {//lenght 32 - this is may be format of wav sound file
+	uint8_t* dword_0;//data of wav//18
+	int8_t stub_4[4];//22
+	int32_t dword_8;//24
+	int16_t word_12;//28
+	int8_t filename_14[18];//first 18 chars - name//30
+}
+sub2type_E37A0_sound_buffer2;
+
+typedef struct {//lenght 2072
+	int8_t stub[10];
+	sub2type_E37A0_sound_buffer2 wavs_10[64];	
+	int8_t stubb[14];
+}
+sub1type_E37A0_sound_buffer2;
+
+typedef struct {//lenght 3100
 	int8_t byte_0;
 	int8_t byte_1;
 	int8_t byte_2;
@@ -38,11 +37,18 @@ typedef struct {//lenght 32 - this is may be format of wav sound file
 	int8_t byte_5;
 	int8_t byte_6;
 	int8_t byte_7;
-	subtype_E37A0_sound_buffer2 str_8;
-	uint8_t* dword_18;//sample
-	int8_t stub_22[10];
+	sub1type_E37A0_sound_buffer2 str_8;//2072 lenght
+	int8_t next_str[1020];
 }
 type_E37A0_sound_buffer2;
+
+typedef struct {//lenght 16*6=96
+	int32_t dword_0;
+	int32_t dword_4;
+	int32_t dword_8;
+	int32_t dword_12;	
+}
+type_v8;
 #pragma pack (16)
 
 extern char x_BYTE_E3799_sound_card;

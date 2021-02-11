@@ -9,7 +9,7 @@ char x_BYTE_E379C = 1; // weak
 
 type_E37A0_sound_buffer2* str_E37A0_sound_buffer2 = 0;
 //uint8_t* x_DWORD_E37A0_sound_buffer2 = 0; // weak
-type_E37A0_sound_buffer2* str_E37A4_sound_buffer3 = 0; // weak
+int8_t* str2_E37A4_sound_buffer3 = 0; // weak
 uint8_t* x_DWORD_E37A8_sound_buffer1 = 0; // weak
 char x_BYTE_E37AC = 0; // weak
 int8_t x_BYTE_E37AD_actual_sound = -1; // weak
@@ -579,7 +579,7 @@ void sub_8D290_init_sound(/*char* a1*//*, int a2, int a3*/)//26e290
 			x_BYTE_E3798_sound_active2 = 0;
 			x_BYTE_E3799_sound_card = 0;
 			sub_83E80_freemem4((uint8_t*)str_E37A0_sound_buffer2);
-			str_E37A4_sound_buffer3 = 0;
+			str2_E37A4_sound_buffer3 = 0;
 			sub_83E80_freemem4(x_DWORD_E37A8_sound_buffer1);
 		}
 	}
@@ -1407,7 +1407,7 @@ void sub_99C10_sound_proc4()//27ac10
 		if (str_E37A0_sound_buffer2)
 		{
 			sub_83E80_freemem4((uint8_t*)str_E37A0_sound_buffer2);
-			str_E37A4_sound_buffer3 = 0;
+			str2_E37A4_sound_buffer3 = 0;
 		}
 		if (x_DWORD_E37A8_sound_buffer1)
 			sub_83E80_freemem4(x_DWORD_E37A8_sound_buffer1);
@@ -2896,12 +2896,12 @@ void sub_844A0_sound_proc5()//2654a0
 		//v1x = &str_E37A0_sound_buffer2[1];
 		v1y = 1;
 		v0 = 0;
-		while (&str_E37A0_sound_buffer2[v1y] < str_E37A4_sound_buffer3)
+		while (str_E37A0_sound_buffer2->str_8.wavs_10[v1y].filename_14 < str2_E37A4_sound_buffer3)
 		{
 			//v2 = *(x_DWORD*)(v1 + 18);
 			//v2 = str_E37A0_sound_buffer2[v1y].dword_18;
 			//v1 += 32;
-			str_E37A0_sound_buffer2[v1y].dword_18 += (int32)x_DWORD_E37A8_sound_buffer1;
+			str_E37A0_sound_buffer2->str_8.wavs_10[v1y].dword_0 += (int32)x_DWORD_E37A8_sound_buffer1;
 			v1y++;
 			v0++;
 		}
@@ -2916,26 +2916,28 @@ void sub_844A0_sound_proc5()//2654a0
 //----- (000844F0) --------------------------------------------------------
 char ReadAndDecompressSound(FILE* file, unsigned __int8 a2)//2654f0
 {
-	int v2; // ebx
+	//int v2; // ebx
 	//uint8_t* v3; // eax
 	char result; // al
-	int v5; // eax
+	//int v5; // eax
 	type_E37A0_sound_buffer2* v6x; // ebx
 	uint8_t* v7; // esi
-	char v8[96]; // [esp+0h] [ebp-60h]//3550d8
+	//char v8[96]; // [esp+0h] [ebp-60h]//3550d8
+	type_v8 v8x[6];
 	//char _4[96]; // [esp+4h] [ebp-5Ch]//3550dc
 	//char _8[96]; // [esp+8h] [ebp-58h]
 	//char _C[96]; // [esp+Ch] [ebp-54h]
 
 	myftell(file);
-	v2 = 16 * a2;
+	//v2 = 16 * a2;
 	//3550d8 60
-	DataFileIO::Read(file, (uint8_t*)v8, 96);
-	if (*(x_DWORD*)&v8[v2 + 4] == -1)//ebp-5c
+	DataFileIO::Read(file, (uint8_t*)v8x, 96);
+	//if (*(x_DWORD*)&v8[v2 + 4] == -1)//ebp-5c
+	if (v8x[a2].dword_4 == -1)//ebp-5c
 		return 0;
 	if (!x_WORD_E2A14_sound_activeh)
 	{
-		x_DWORD_E37A8_sound_buffer1 = (uint8_t*)sub_83CD0_malloc2(*(x_DWORD*)&v8[v2 + 12] + 256);
+		x_DWORD_E37A8_sound_buffer1 = (uint8_t*)sub_83CD0_malloc2(v8x[a2].dword_12 + 256);
 		str_E37A0_sound_buffer2 = (type_E37A0_sound_buffer2*)sub_83CD0_malloc2(3100);
 		x_WORD_E2A14_sound_activel = 1;
 		if (!x_DWORD_E37A8_sound_buffer1 || !str_E37A0_sound_buffer2)
@@ -2947,7 +2949,7 @@ char ReadAndDecompressSound(FILE* file, unsigned __int8 a2)//2654f0
 			x_BYTE_E37AD_actual_sound = -1;
 			return result;
 		}
-		x_DWORD_E2A18 = *(x_DWORD*)&v8[v2 + 12] + 256;
+		x_DWORD_E2A18 = v8x[a2].dword_12 + 256;
 		x_WORD_E2A14_sound_activeh = 1;
 		x_DWORD_E2A1C = 3100;
 	}
@@ -2956,15 +2958,15 @@ char ReadAndDecompressSound(FILE* file, unsigned __int8 a2)//2654f0
 		return 0;
 	memset((void*)x_DWORD_E37A8_sound_buffer1, 0, x_DWORD_E2A18);
 	memset((void*)str_E37A0_sound_buffer2, 0, x_DWORD_E2A1C);
-	v5 = 16 * a2;
+	//v5 = 16 * a2;
 	v6x = str_E37A0_sound_buffer2;
-	str_E37A4_sound_buffer3 = str_E37A0_sound_buffer2 + *(x_DWORD*)&v8[v5 + 8];
+	str2_E37A4_sound_buffer3 = str_E37A0_sound_buffer2->next_str + v8x[a2].dword_8;
 	v7 = x_DWORD_E37A8_sound_buffer1;
-	DataFileIO::Seek(file, *(x_DWORD*)&v8[v5 + 4], 0);
+	DataFileIO::Seek(file, v8x[a2].dword_4, 0);
 	DataFileIO::Read(file, x_DWORD_E37A8_sound_buffer1, 8);
 	if (v7[0] != 82 || v7[1] != 78 || v7[2] != 67)
 	{
-		DataFileIO::Read(file, (x_DWORD_E37A8_sound_buffer1 + 8), *(x_DWORD*)&v8[16 * a2 + 12] - 8);
+		DataFileIO::Read(file, (x_DWORD_E37A8_sound_buffer1 + 8), v8x[a2].dword_12 - 8);
 	}
 	else
 	{
@@ -2976,11 +2978,11 @@ char ReadAndDecompressSound(FILE* file, unsigned __int8 a2)//2654f0
 			- 8);
 		DataFileIO::Decompress(v7, v7);
 	}
-	DataFileIO::Seek(file, *(x_DWORD*)&v8[16 * a2], 0);
+	DataFileIO::Seek(file, v8x[a2].dword_0, 0);
 	DataFileIO::Read(file, (uint8_t*)str_E37A0_sound_buffer2, 8);
-	if (v6x->byte_0 != 82 || v6x->byte_1 != 78 || v6x->byte_2 != 67)//A N C
+	if (v6x->byte_0 != 'R' || v6x->byte_1 != 'N' || v6x->byte_2 != 'Ç')//R N C
 	{
-		DataFileIO::Read(file, (uint8_t*)&str_E37A0_sound_buffer2->str_8, *(x_DWORD*)&v8[16 * a2 + 8] - 8);
+		DataFileIO::Read(file, (uint8_t*)&str_E37A0_sound_buffer2->str_8, v8x[a2].dword_8 - 8);
 	}
 	else
 	{
@@ -3371,7 +3373,7 @@ int sub_9EE70()
 		sub_95140_AIL_register_EOS_callback(x_DWORD_181E10, sub_9EE70);
 		v0 = sub_95480_AIL_sample_user_data(x_DWORD_181E10, x_DWORD_E3E40);
 		//sub_938C0_AIL_set_sample_file(x_DWORD_181E10, (uint8_t*)*(x_DWORD*)(x_DWORD_E37A0_sound_buffer2 + 32 * v0 + 18), 1);
-		sub_938C0_AIL_set_sample_file(x_DWORD_181E10, str_E37A0_sound_buffer2[v0].dword_18, 1);
+		sub_938C0_AIL_set_sample_file(x_DWORD_181E10, str_E37A0_sound_buffer2->str_8.wavs_10[v0].dword_0, 1);
 		++x_DWORD_E3E40;
 		sub_93B50_AIL_start_sample(x_DWORD_181E10);
 	}
@@ -9393,7 +9395,7 @@ HSAMPLE* sub_8F100_sound_proc19(uint32_t a1, __int16 a2, int a3, int a4, unsigne
 		|| !x_BYTE_E3799_sound_card
 		|| a2 > (signed int)x_WORD_180B50
 		//|| !_stricmp((const char*)(32 * a2 + x_DWORD_E37A0_sound_buffer2), "null.wav"))
-		|| !_stricmp((const char*)&str_E37A0_sound_buffer2[a2], "null.wav"))
+		|| !_stricmp((const char*)&str_E37A0_sound_buffer2->str_8.wavs_10[a2].filename_14, "null.wav"))
 	{
 		return 0;
 	}
@@ -9474,14 +9476,14 @@ HSAMPLE* sub_8F100_sound_proc19(uint32_t a1, __int16 a2, int a3, int a4, unsigne
 #ifdef DEBUG_SOUND
 		if (debug_first_sound) {
 			//uint8_t* debug_sound_buff = (uint8_t*)*(uint32_t*)(x_DWORD_E37A0_sound_buffer2 + 32 * a2 + 18);
-			uint8_t* debug_sound_buff = str_E37A0_sound_buffer2[a2].dword_18;
+			uint8_t* debug_sound_buff = str_E37A0_sound_buffer2->str_8.wavs_10[a2].dword_0;
 			debug_printf("sub_8F100_sound_proc19:buff:\n");
 			for (int i = 0; i < 100; i++)
 				debug_printf("%02X", debug_sound_buff[i]);
 			debug_printf("\n");
 		}
 #endif //DEBUG_SOUND
-		sub_938C0_AIL_set_sample_file(*v14, str_E37A0_sound_buffer2[a2].dword_18, 1);
+		sub_938C0_AIL_set_sample_file(*v14, str_E37A0_sound_buffer2->str_8.wavs_10[a2].dword_0, 1);
 		//last_sample = v14[0];
 	}
 	sub_93E30_AIL_set_sample_volume(*v14, a3);
@@ -9490,7 +9492,7 @@ HSAMPLE* sub_8F100_sound_proc19(uint32_t a1, __int16 a2, int a3, int a4, unsigne
 	sub_93F70_AIL_set_sample_loop_count(*v14, a6 + 1);
 #ifdef DEBUG_SOUND
 	if (debug_first_sound) {
-		uint8_t* debug_sound_buff = str_E37A0_sound_buffer2[a2].dword_18;
+		uint8_t* debug_sound_buff = str_E37A0_sound_buffer2->str_8.wavs_10[a2].dword_0;
 		debug_printf("sub_8F100_sound_proc19:44mhz:\n");
 		//for (int i = 0; i < 100; i++)
 		//	debug_printf("%02X", ((uint8_t*)((*v14)->start_44mhz))[i]);
