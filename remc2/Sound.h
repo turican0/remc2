@@ -6,50 +6,6 @@
 #include "engine/ail_sound.h"
 
 #include "Basic.h"
-#pragma pack (1)
-/*typedef struct {//lenght xx
-	int8_t byte_0[10];	
-}
-subtype_E37A0_sound_buffer2;*/
-#pragma pack (1)
-typedef struct {//lenght 32 - this is may be format of wav sound file
-	uint8_t* dword_0;//data of wav//18
-	int8_t stub_4[4];//22
-	int32_t dword_8;//24
-	int16_t word_12;//28
-	int8_t filename_14[18];//first 18 chars - name//30
-}
-sub2type_E37A0_sound_buffer2;
-
-typedef struct {//lenght 2072
-	int8_t stub[10];
-	sub2type_E37A0_sound_buffer2 wavs_10[64];	
-	int8_t stubb[14];
-}
-sub1type_E37A0_sound_buffer2;
-
-typedef struct {//lenght 3100
-	int8_t byte_0;
-	int8_t byte_1;
-	int8_t byte_2;
-	int8_t byte_3;
-	int8_t byte_4;
-	int8_t byte_5;
-	int8_t byte_6;
-	int8_t byte_7;
-	sub1type_E37A0_sound_buffer2 str_8;//2072 lenght
-	int8_t next_str[1020];
-}
-type_E37A0_sound_buffer2;
-
-typedef struct {//lenght 16*6=96
-	int32_t dword_0;
-	int32_t dword_4;
-	int32_t dword_8;
-	int32_t dword_12;	
-}
-type_v8;
-#pragma pack (16)
 
 extern char x_BYTE_E3799_sound_card;
 extern char x_BYTE_E37FD;
@@ -76,8 +32,9 @@ extern __int16 x_WORD_E387A; // weak
 extern __int16 x_WORD_E387A; // weak
 extern int x_DWORD_E383C; // weak
 extern __int16 x_WORD_E3834; // weak
-extern uint8_t* x_DWORD_E3808_music_header; // weak
-extern uint8_t* x_DWORD_E380C; // weak
+extern type_E3808_music_header* str_E3808_music_header;
+//extern uint8_t* x_DWORD_E3808_music_header; // weak
+extern int8_t* x_DWORD_E380C; // weak
 extern uint8_t* x_DWORD_E3810_music_data; // weak
 extern char x_BYTE_180C84_drivertype; // weak
 extern int16_t x_WORD_181B44; // weak
