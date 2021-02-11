@@ -172,9 +172,8 @@ if (UNIX)
     )
     endif ()
     target_link_libraries(${PROJECT_NAME} PUBLIC 
-        ${SDL2_LIBRARIES}
-        ${SDL_MIXER_LIBRARY}
-    	SDL2
+        SDL2::Main
+        SDL2::Mixer
         ${PNG_LIBRARY}
         findfirst
         ADLMIDI_static
