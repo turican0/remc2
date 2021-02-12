@@ -132,6 +132,7 @@ void SOUND_init_MIDI_sequence(type_E3810_music_data* datax, type_E3808_music_hea
 	//int testsize = *(uint32_t*)(&header[32 + (track_number + 1) * 32] + 18) - *(uint32_t*)(acttrack + 18);
 	int testsize2 = *(uint32_t*)(acttrack + 26);
 
+	//we can translate datax from xmi to mid and play(with bad quality or slow midi emulators), at now but we use ogg samples
 	//unsigned char* TranscodeXmiToMid(const unsigned char* pXmiData,	size_t iXmiLength, size_t* pMidLength);
 	size_t iXmiLength = testsize2;
 	size_t pMidLength;

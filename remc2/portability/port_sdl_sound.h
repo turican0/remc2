@@ -114,8 +114,7 @@ typedef struct {//lenght 80656
 	int8_t byte_5;
 	int8_t byte_6;
 	int8_t byte_7;
-	sub1type_E3808_music_header str_8;//2072 lenght
-	int8_t next_str[1020];
+	int8_t data_8[];
 }
 type_E3810_music_data;
 #pragma pack (16)
