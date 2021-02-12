@@ -125,12 +125,14 @@ void SOUND_set_sequence_volume(int32_t volume) {
 #endif//SOUND_SDLMIXER
 };
 
-void SOUND_init_MIDI_sequence(uint8_t* data, uint8_t* header, int32_t track_number)
+void SOUND_init_MIDI_sequence(type_E3810_music_data* datax, type_E3808_music_header* headerx, int32_t track_number)
 {
-	uint8_t* acttrack = &header[32 + track_number * 32];
+	//uint8_t* acttrack = &header[32 + track_number * 32];
+	uint8_t* acttrack = headerx->str_8.track_10[track_number].dword_0;
 	//int testsize = *(uint32_t*)(&header[32 + (track_number + 1) * 32] + 18) - *(uint32_t*)(acttrack + 18);
 	int testsize2 = *(uint32_t*)(acttrack + 26);
 
+	//we can translate datax from xmi to mid and play(with bad quality or slow midi emulators), at now but we use ogg samples
 	//unsigned char* TranscodeXmiToMid(const unsigned char* pXmiData,	size_t iXmiLength, size_t* pMidLength);
 	size_t iXmiLength = testsize2;
 	size_t pMidLength;
