@@ -196,6 +196,7 @@ target_include_directories(remc2unittests PUBLIC
 target_link_libraries(remc2unittests PUBLIC 
     findfirst
     gtest
+    pthread
 )
 if (USE_64_BIT)
     add_compile_definitions(COMPILE_FOR_64BIT)
