@@ -181,3 +181,29 @@ if (UNIX)
     target_link_directories(${PROJECT_NAME} PUBLIC
     )
 endif ()
+
+
+################################################################################
+# Unit tests
+################################################################################
+include(GoogleTest)
+
+add_executable(remc2unittests UnitTests.cpp)
+target_include_directories(remc2unittests PUBLIC
+    "${CMAKE_SOURCE_DIR}/findfirst"
+)
+target_link_libraries(remc2unittests PUBLIC 
+    findfirst
+    gtest
+    pthread
+)
+if (USE_64_BIT)
+    add_compile_definitions(COMPILE_FOR_64BIT)
+else ()
+    set_target_properties(remc2unittests PROPERTIES COMPILE_FLAGS "-m32" LINK_FLAGS "-m32")
+endif ()
+gtest_add_tests(TARGET      remc2unittests
+                TEST_SUFFIX .noArgs
+                TEST_LIST   noArgsTests
+)
+set_tests_properties(${noArgsTests}   PROPERTIES TIMEOUT 10)

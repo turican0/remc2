@@ -30,7 +30,7 @@ jobs:
           cmake gcc-multilib g++-multilib \
           libsdl2-dev:i386 libsdl2-mixer-dev:i386 \
           libpng-dev:i386 libpng++-dev:i386 \
-          libz-dev:i386 \
+          libz-dev:i386 libgtest-dev:i386 \
           -o APT::Immediate-Configure=0
         
     - name: cmake release
@@ -47,6 +47,12 @@ jobs:
         curl -L -O https://sonarcloud.io/static/cpp/build-wrapper-linux-x86.zip
         unzip -o build-wrapper-linux-x86.zip
         build-wrapper-linux-x86/build-wrapper-linux-x86-64 --out-dir build_wrapper_output make
+        
+    - name: run unit tests
+      run: |
+        cd ${{ github.workspace }}
+        cd build_release
+        ./remc2/remc2unittests
 
     - name: sonarcloud scan
       env:
