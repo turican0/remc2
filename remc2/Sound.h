@@ -32,9 +32,12 @@ extern __int16 x_WORD_E387A; // weak
 extern __int16 x_WORD_E387A; // weak
 extern int x_DWORD_E383C; // weak
 extern __int16 x_WORD_E3834; // weak
-extern uint8_t* x_DWORD_E3808_music_header; // weak
-extern uint8_t* x_DWORD_E380C; // weak
-extern uint8_t* x_DWORD_E3810_music_data; // weak
+extern type_E3808_music_header* str_E3808_music_header;
+//extern uint8_t* x_DWORD_E3808_music_header; // weak
+//extern int8_t* x_DWORD_E380C; // weak
+//extern int index_E380C_MaxMusic;
+//extern uint8_t* x_DWORD_E3810_music_data; // weak
+extern type_E3810_music_data* str_E3810_music_data; // weak
 extern char x_BYTE_180C84_drivertype; // weak
 extern int16_t x_WORD_181B44; // weak
 
@@ -117,7 +120,7 @@ AIL_DRIVER* sub_93010_AIL_install_driver(/*int a1, */uint8_t* driver_image, int3
 int sub_93160_AIL_uninstall_driver(AIL_DRIVER* a1);
 // int sub_931F0_AIL_install_DIG_INI(int a1, int **a2);
 // int *sub_93330_AIL_install_DIG_driver_file_AIL_install_DIG_driver_file(int a1, int a2, const void *a3);
-int sub_93480_AIL_uninstall_DIG_driver(unsigned int* a1);
+int sub_93480_AIL_uninstall_DIG_driver(HDIGDRIVER a1);
 HSAMPLE sub_93510_AIL_allocate_sample_handle(HDIGDRIVER a1);
 int sub_937A0_AIL_release_sample_handle(int a1);
 void sub_93830_AIL_init_sample(HSAMPLE a1);
@@ -233,7 +236,7 @@ HDIGDRIVER sub_A2EA0(AIL_DRIVER* a1, IO_PARMS IO);
 // int *sub_A3600_AIL_API_install_DIG_driver_file(int a1, int a2, const void *a3);
 // int *sub_A36B0(int a1, int a2, int a3, const void *a4);
 // int sub_A3720_AIL_API_install_DIG_INI(int a1, int **a2);
-int sub_A37A0(unsigned int* a1);
+int sub_A37A0(HDIGDRIVER a1);
 int sub_A37C0(int a1);
 HSAMPLE sub_A3820_allocate_sample_handle(HDIGDRIVER dig);
 int sub_A38C0_AIL_API_release_sample_handle(int a1);
