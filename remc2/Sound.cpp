@@ -1,6 +1,9 @@
 #include "Sound.h"
 
 //fix str2_E37A4_sound_buffer3 = str_E37A0_sound_buffer2->next_str + v8x[a2].dword_8;
+//fix x_DWORD_E380C = str_E3808_music_header->next_str + headerx[drivernumber].dword_8;
+//replace str2_E37A4_sound_buffer3 and x_DWORD_E380C with equvivalent index_E37A4_MaxSound and index_E380C_MaxMusic
+
 
 int x_DWORD_E3794_sound_buffer3_lenght = 10; // weak
 char x_BYTE_E3798_sound_active2 = 1; // weak
@@ -31,7 +34,7 @@ __int16 m_iNumberOfTracks = 0;
 type_E3808_music_header* str_E3808_music_header = 0; // weak
 //uint8_t* x_DWORD_E3808_music_header = 0; // weak
 int8_t* x_DWORD_E380C = 0; // weak
-uint8_t* x_DWORD_E3810_music_data = 0; // weak
+type_E3810_music_data* str_E3810_music_data = 0; // weak
 uint8_t x_BYTE_E3814 = 0; // weak
 char x_BYTE_E3815 = 0; // weak
 char x_BYTE_E3816 = 0; // weak
@@ -1448,8 +1451,8 @@ void sub_99C90()//27ac90
 			sub_83E80_freemem4((uint8_t*)str_E3808_music_header);
 			x_DWORD_E380C = 0;
 		}
-		if (x_DWORD_E3810_music_data)
-			sub_83E80_freemem4(x_DWORD_E3810_music_data);
+		if (str_E3810_music_data)
+			sub_83E80_freemem4((uint8_t*)str_E3810_music_data);
 		x_BYTE_E37FC_music = 0;
 		x_BYTE_E37FD = 0;
 		x_BYTE_E37FE = 0;
@@ -2964,7 +2967,10 @@ char ReadAndDecompressSound(FILE* file, unsigned __int8 a2)//2654f0
 	memset((void*)str_E37A0_sound_buffer2, 0, x_DWORD_E2A1C);
 	//v5 = 16 * a2;
 	v6x = str_E37A0_sound_buffer2;
-	str2_E37A4_sound_buffer3 = str_E37A0_sound_buffer2->next_str + v8x[a2].dword_8;
+	//if (v8x[a2].dword_8 != 2080)allert_error();//when not is allways same
+	//str2_E37A4_sound_buffer3 = str_E37A0_sound_buffer2->next_str + v8x[a2].dword_8;
+	//str2_E37A4_sound_buffer3 = (int8_t*)str_E37A0_sound_buffer2+ v8x[a2].dword_8;
+	str2_E37A4_sound_buffer3 = (int8_t*)str_E37A0_sound_buffer2 + v8x[a2].dword_8;	
 	v7 = x_DWORD_E37A8_sound_buffer1;
 	DataFileIO::Seek(file, v8x[a2].dword_4, 0);
 	DataFileIO::Read(file, x_DWORD_E37A8_sound_buffer1, 8);
@@ -7498,7 +7504,7 @@ int32_t sub_A7C20_AIL_API_init_sequence(HSEQUENCE hSequence, void* start, int32_
 	S->tempo_accum_20 = 0;
 	S->tempo_error_22 = 0;*/
 	hSequence->sequence_num = sequence_num;
-	SOUND_init_MIDI_sequence(x_DWORD_E3810_music_data, str_E3808_music_header, track - 1);
+	SOUND_init_MIDI_sequence(str_E3810_music_data, str_E3808_music_header, track - 1);
 	return 1;
 }
 
@@ -9235,13 +9241,13 @@ void GetMusicSequenceCount()//26fc90 // set index
 	//uint8_t* v1; // [esp+0h] [ebp-4h]
 	int v1x;
 
-	if (str_E3808_music_header && x_DWORD_E3810_music_data)
+	if (str_E3808_music_header && str_E3810_music_data)
 	{
 		//v1 = (uint8_t*)x_DWORD_E3808_music_header + 32;
 		v1x = 0;
 		for (m_iNumberOfTracks = 0; str_E3808_music_header->str_8.track_10[v1x].filename_14 < x_DWORD_E380C; m_iNumberOfTracks++)
 		{
-			str_E3808_music_header->str_8.track_10[v1x].dword_0+= (int)x_DWORD_E3810_music_data;
+			str_E3808_music_header->str_8.track_10[v1x].dword_0+= (int)str_E3810_music_data;
 			//*(x_DWORD*)(v1 + 18) += (int)x_DWORD_E3810_music_data;
 			//v1 += 32;
 			v1x++;
@@ -9269,9 +9275,9 @@ char LoadMusicTrack(FILE* filehandle, uint8_t drivernumber)//26fd00
 	//if (header[1 + 4 * drivernumber] == -1)
 	if (headerx[drivernumber].dword_4 == -1)
 		return 0;
-	if (x_DWORD_E3810_music_data)
+	if (str_E3810_music_data)
 	{
-		sub_83E80_freemem4(x_DWORD_E3810_music_data);
+		sub_83E80_freemem4((uint8_t*)str_E3810_music_data);
 		x_BYTE_E37FC_music = 0;
 	}
 	if (str_E3808_music_header)
@@ -9280,37 +9286,39 @@ char LoadMusicTrack(FILE* filehandle, uint8_t drivernumber)//26fd00
 		x_BYTE_E37FC_music = 0;
 	}
 	//x_DWORD_E3810_music_data = (uint8_t*)sub_83CD0_malloc2(header[3 + 4 * drivernumber]);
-	x_DWORD_E3810_music_data = (uint8_t*)sub_83CD0_malloc2(headerx[drivernumber].dword_12);
-	if (!x_DWORD_E3810_music_data)
+	str_E3810_music_data = (type_E3810_music_data*)sub_83CD0_malloc2(headerx[drivernumber].dword_12);
+	if (!str_E3810_music_data)
 		return 0;
 	//str_E3808_music_header = (type_E3808_music_header*)sub_83CD0_malloc2(header[2 + 4 * drivernumber]);
 	str_E3808_music_header = (type_E3808_music_header*)sub_83CD0_malloc2(headerx[drivernumber].dword_8);
 	if (!str_E3808_music_header)
 	{
-		sub_83E80_freemem4(x_DWORD_E3810_music_data);
+		sub_83E80_freemem4((uint8_t*)str_E3810_music_data);
 		return 0;
 	}
 	//midibuffer1 = x_DWORD_E3810_music_data;
 	//midibuffer2 = x_DWORD_E3808_music_header;
 	//x_DWORD_E380C = (uint8_t*)&x_DWORD_E3808_music_header[header[2 + 4 * drivernumber]];//?
-	x_DWORD_E380C = str_E3808_music_header->next_str + headerx[drivernumber].dword_8;
+	//x_DWORD_E380C = str_E3808_music_header + headerx[drivernumber].dword_8;
+	x_DWORD_E380C = (int8_t*)str_E3808_music_header + headerx[drivernumber].dword_8;
 	DataFileIO::Seek(filehandle, headerx[drivernumber].dword_4, 0);
-	DataFileIO::Read(filehandle, x_DWORD_E3810_music_data, 8);
-	if (x_DWORD_E3810_music_data[0] == 'R' && x_DWORD_E3810_music_data[1] == 'N' && x_DWORD_E3810_music_data[2] == 'C')//RNC
+	DataFileIO::Read(filehandle, (uint8_t*)str_E3810_music_data, 8);
+	if (str_E3810_music_data->byte_0 == 'R' && str_E3810_music_data->byte_1 == 'N' && str_E3810_music_data->byte_2 == 'C')//RNC
 	{
-		rncsize = x_DWORD_E3810_music_data[4];
+		rncsize = str_E3810_music_data->byte_4;
 		rncsize <<= 8;
-		rncsize += x_DWORD_E3810_music_data[5];
+		rncsize += str_E3810_music_data->byte_5;
 		rncsize <<= 8;
-		rncsize += x_DWORD_E3810_music_data[6];
+		rncsize += str_E3810_music_data->byte_6;
 		rncsize <<= 8;
-		rncsize += x_DWORD_E3810_music_data[7];
-		DataFileIO::Read(filehandle, (x_DWORD_E3810_music_data + 8), rncsize - 8);
-		DataFileIO::Decompress(x_DWORD_E3810_music_data, x_DWORD_E3810_music_data);
+		rncsize += str_E3810_music_data->byte_7;
+		//DataFileIO::Read(filehandle, (x_DWORD_E3810_music_data + 8), rncsize - 8);
+		DataFileIO::Read(filehandle, (uint8_t*)&str_E3810_music_data->str_8, rncsize - 8);
+		DataFileIO::Decompress((uint8_t*)str_E3810_music_data, (uint8_t*)str_E3810_music_data);
 	}
 	else
 	{
-		DataFileIO::Read(filehandle, (x_DWORD_E3810_music_data + 8), headerx[drivernumber].dword_12 - 8);
+		DataFileIO::Read(filehandle, (uint8_t*)&str_E3810_music_data->str_8, headerx[drivernumber].dword_12 - 8);
 	}
 	DataFileIO::Seek(filehandle, headerx[drivernumber].dword_0, 0);
 	DataFileIO::Read(filehandle, (uint8_t*)str_E3808_music_header, 8);

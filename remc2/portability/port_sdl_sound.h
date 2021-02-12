@@ -85,14 +85,27 @@ typedef struct {//lenght 32 - this is may be format of wav sound file
 }
 sub2type_E3808_music_header;
 
-typedef struct {//lenght 2072
+typedef struct {//lenght 216
 	int8_t stub[10];
-	sub2type_E3808_music_header track_10[64];
+	sub2type_E3808_music_header track_10[6];
 	int8_t stubb[14];
 }
 sub1type_E3808_music_header;
 
-typedef struct {//lenght xxx
+typedef struct {//lenght 224
+	int8_t byte_0;
+	int8_t byte_1;
+	int8_t byte_2;
+	int8_t byte_3;
+	int8_t byte_4;
+	int8_t byte_5;
+	int8_t byte_6;
+	int8_t byte_7;
+	sub1type_E3808_music_header str_8;//216 lenght
+}
+type_E3808_music_header;
+
+typedef struct {//lenght 80656
 	int8_t byte_0;
 	int8_t byte_1;
 	int8_t byte_2;
@@ -104,7 +117,7 @@ typedef struct {//lenght xxx
 	sub1type_E3808_music_header str_8;//2072 lenght
 	int8_t next_str[1020];
 }
-type_E3808_music_header;
+type_E3810_music_data;
 #pragma pack (16)
 
 #ifndef SOUND_SDLMIXER
@@ -147,7 +160,7 @@ void ac_set_real_vect(uint32_t vectnum, uint16_t real_ptr);
 uint16_t ac_get_real_vect(uint32_t vectnum);
 AIL_DRIVER* ac_AIL_API_install_driver(int a1, uint8_t* a2, int a3);
 
-void SOUND_init_MIDI_sequence(uint8_t* data, type_E3808_music_header* headerx, int32_t track_number);
+void SOUND_init_MIDI_sequence(type_E3810_music_data* datax, type_E3808_music_header* headerx, int32_t track_number);
 
 void SOUND_start_sample(HSAMPLE S);
 void SOUND_end_sample(HSAMPLE S);

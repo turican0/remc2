@@ -125,7 +125,7 @@ void SOUND_set_sequence_volume(int32_t volume) {
 #endif//SOUND_SDLMIXER
 };
 
-void SOUND_init_MIDI_sequence(uint8_t* data, type_E3808_music_header* headerx, int32_t track_number)
+void SOUND_init_MIDI_sequence(type_E3810_music_data* datax, type_E3808_music_header* headerx, int32_t track_number)
 {
 	//uint8_t* acttrack = &header[32 + track_number * 32];
 	uint8_t* acttrack = headerx->str_8.track_10[track_number].dword_0;
