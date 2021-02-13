@@ -55,6 +55,7 @@ jobs:
         ./remc2/remc2unittests
 
     - name: sonarcloud scan
+      if: github.repository_owner == 'thobbsinteractive'
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
