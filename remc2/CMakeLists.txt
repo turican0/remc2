@@ -130,13 +130,13 @@ install(
 )
 install(
     FILES 
-    ${CMAKE_SOURCE_DIR}/Debug/config.ini
+    ${CMAKE_SOURCE_DIR}/config.ini
     DESTINATION bin
 )
 install(
     DIRECTORY
-    ${CMAKE_SOURCE_DIR}/Debug/music-ogg
-    ${CMAKE_SOURCE_DIR}/Debug/biggraphics
+    ${CMAKE_SOURCE_DIR}/enhancedassets/music-ogg
+    ${CMAKE_SOURCE_DIR}/enhancedassets/biggraphics
     DESTINATION bin
 )
 
