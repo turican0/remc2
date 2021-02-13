@@ -100,7 +100,8 @@
       <AdditionalDependencies>SDL2.lib;SDL2main.lib;winmm.lib;libvorbis_static.lib;libvorbisfile_static.lib;libogg_static.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>XCOPY "$(SolutionDir)biggraphics" "$(TargetDir)biggraphics\" /S /Y</Command>
+      <Command>XCOPY "$(SolutionDir)biggraphics" "$(TargetDir)biggraphics\" /S /Y
+XCOPY "$(SolutionDir)config.ini" "$(TargetDir)config.ini" /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -125,7 +126,8 @@
       <AdditionalLibraryDirectories>$(SolutionDir)\sdl2\VisualC\x64\Debug\;$(SolutionDir)\x64\Debug;$(SolutionDir)\fluidsynth\lib;$(SolutionDir)\libvorbis\win32\VS2010\x64\Debug;$(SolutionDir)\libogg\win32\VS2015\x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>XCOPY "$(SolutionDir)biggraphics" "$(TargetDir)biggraphics\" /S /Y</Command>
+      <Command>XCOPY "$(SolutionDir)biggraphics" "$(TargetDir)biggraphics\" /S /Y
+XCOPY "$(SolutionDir)config.ini" "$(TargetDir)config.ini" /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
