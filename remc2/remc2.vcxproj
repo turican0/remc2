@@ -102,7 +102,7 @@
     <PostBuildEvent>
       <Command>XCOPY "$(SolutionDir)enhancedassets\biggraphics" "$(TargetDir)biggraphics\" /S /Y
 XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
-XCOPY "$(SolutionDir)config.ini" "$(TargetDir)config.ini" /Y</Command>
+COPY "$(SolutionDir)config.ini" "$(TargetDir)config.ini" /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -129,7 +129,7 @@ XCOPY "$(SolutionDir)config.ini" "$(TargetDir)config.ini" /Y</Command>
     <PostBuildEvent>
       <Command>XCOPY "$(SolutionDir)enhancedassets\biggraphics" "$(TargetDir)biggraphics\" /S /Y
 XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
-XCOPY "$(SolutionDir)config.ini" "$(TargetDir)config.ini" /Y</Command>
+COPY "$(SolutionDir)config.ini" "$(TargetDir)config.ini" /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
