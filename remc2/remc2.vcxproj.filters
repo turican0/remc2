@@ -354,6 +354,18 @@
     <ClInclude Include="utilities\DataFileIO.h">
       <Filter>Header Files\utilities</Filter>
     </ClInclude>
+    <ClInclude Include="engine\Basic.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\Animation.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\Sound.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\Terrain.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -596,6 +608,18 @@
     <ClCompile Include="utilities\DataFileIO.cpp">
       <Filter>Source Files\utilities</Filter>
     </ClCompile>
+    <ClCompile Include="engine\Animation.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\Basic.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\Sound.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\Terrain.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="engine\info.x">
@@ -615,9 +639,6 @@
     </None>
     <None Include="..\libOPNMIDI-master\src\chips\opn_chip_base.tcc">
       <Filter>Source Files\libs\libOPL</Filter>
-    </None>
-    <None Include="..\Debug\config.ini">
-      <Filter>Source Files</Filter>
     </None>
     <None Include="engine\bytearrays.x">
       <Filter>Source Files\engine</Filter>
@@ -670,6 +691,7 @@
     <None Include="..\SDL-Mixer-X-master\src\codecs\play_cmdmusic.pri">
       <Filter>Source Files\libs\sdl-mixer-x</Filter>
     </None>
+    <None Include="..\config.ini" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\zlib\lib\zlib.lib">
@@ -689,6 +711,12 @@
     </Library>
     <Library Include="..\SDL2_ttf-2.0.15\lib\x86\SDL2_ttf.lib">
       <Filter>Source Files\libs\sdl-ttf</Filter>
+    </Library>
+    <Library Include="..\SDL2_ttf-2.0.15\lib\x64\SDL2_ttf.lib">
+      <Filter>Source Files\libs\sdl-ttf</Filter>
+    </Library>
+    <Library Include="..\SDL2_image-2.0.5\lib\x64\SDL2_image.lib">
+      <Filter>Source Files\libs\sdl-image</Filter>
     </Library>
   </ItemGroup>
 </Project>

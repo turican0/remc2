@@ -96,13 +96,13 @@ int16_t x_D41A0_WORDARRAY[10000];
 //uint32_t* off_D918C[0x7c];//turn off - fix it
 
 //xx uint8_t* dword_E9C30[1000]; // weak
-
+/*
 uint8_t x_BYTE_10B4E0_terraintype[0x10000]; // idb// x_BYTE_10B1E0[0x300]//2DC4E0 //map array1
 uint8_t x_BYTE_11B4E0_height[0x10000]; // idb		//2EC4E0    	//map array2 // heightmap
 uint8_t x_BYTE_12B4E0_shading[0x10000]; // fix it -  weak	//2FC4E0    //map array3
 uint8_t x_BYTE_13B4E0_angle[0x10000]; // idb//30C4E0	//map array4 // water
 int16_t x_WORD_15B4E0_source[0x10000]; // idb//32C4E0	//map array5
-
+*/
 type_str_E2A74 str_E2A74[0x69] = {//2b3a74
 {0x0000,{0x0000,0x0000,0x0000,0x0000,0x0000},0x00000000,0x00000000,0x00000000,0x00000000,0x00,0x00},
 {0x0001,{0x0004,0x011E,0x0032,0x0140,0x0050},0x00000000,0x00000000,0x00000000,0x00000258,0x02,0x00},
@@ -1226,6 +1226,13 @@ uint32_t compare_with_sequence(char* filename, uint8_t* adress, uint32_t adressd
 	}*/
 
 	fread(buffer, size2, 1, fptestepc);
+	if (size2 == 320 * 200)
+	{
+		VGA_Debug_Blit(320, 200, pdwScreenBuffer);
+		for (int iii = 0; iii < 320 * 200; iii++)pdwScreenBuffer[iii] = buffer[iii];
+		VGA_Debug_Blit(320, 200, pdwScreenBuffer);
+		VGA_Debug_Blit(320, 200, pdwScreenBuffer);
+	}
 	//for (i = size-1; i >0; i--)
 	for (i = 0; i < size2; i++)
 	{
@@ -1242,84 +1249,6 @@ uint32_t compare_with_sequence(char* filename, uint8_t* adress, uint32_t adressd
 	if (i < size2)
 		allert_error();
 	return(i);
-};
-
-int countcompindexes = 0;
-typedef struct {
-	int index;
-	int adress;
-} type_compstr;
-//int compindexes[100];//compstr[i].index
-//int compadresses[100];//compstr[i].adress
-type_compstr compstr[100];
-int getcompindex(uint32_t adress) {
-	bool finded = false;
-	int findindex = 0;
-	for (int i = 0; i < countcompindexes; i++)
-	{
-		if (compstr[i].adress == adress)
-		{
-			finded = true;
-			findindex = i;
-			break;
-		}
-	}
-	if (finded)
-	{
-		compstr[findindex].index++;
-		return compstr[findindex].index;
-	}
-	else
-	{
-		compstr[countcompindexes].adress = adress;
-		countcompindexes++;
-		return 0;
-	}
-};
-
-type_compstr lastcompstr;
-void add_compare(uint32_t adress, bool debugafterload, int stopstep, bool skip) {
-	uint8_t origbyte20 = 0;
-	uint8_t remakebyte20 = 0;
-	int comp20;
-
-	char buffer1[500];
-	sprintf(buffer1, "%08X-002DC4E0", adress);
-	char buffer2[500];
-	sprintf(buffer2, "%08X-00356038", adress);
-	char buffer3[500];
-	sprintf(buffer3, "%08X-002B3A74", adress);
-	char buffer4[500];
-	sprintf(buffer4, "%08X-003AA0A4", adress);
-
-	if (debugafterload)
-	{
-		int index = getcompindex(adress);
-		if (index >= stopstep)
-		{
-			if (!skip)
-			{
-				comp20 = compare_with_sequence(buffer1, (uint8_t*)x_BYTE_10B4E0_terraintype, 0x2dc4e0, index, 0x70000, 0x10000, &origbyte20, &remakebyte20);
-				comp20 = compare_with_sequence(buffer1, (uint8_t*)x_BYTE_11B4E0_height, 0x2dc4e0, index, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x10000);
-				comp20 = compare_with_sequence(buffer1, (uint8_t*)x_BYTE_12B4E0_shading, 0x2dc4e0, index, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x20000);
-				comp20 = compare_with_sequence(buffer1, (uint8_t*)x_BYTE_13B4E0_angle, 0x2dc4e0, index, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x30000);
-				comp20 = compare_with_sequence(buffer1, (uint8_t*)x_WORD_15B4E0_source, 0x2dc4e0, index, 0x70000, 0x20000, &origbyte20, &remakebyte20, 0x50000);
-
-				comp20 = compare_with_sequence_D41A0(buffer2, (uint8_t*)&D41A0_BYTESTR_0, 0x356038, index, 224790, &origbyte20, &remakebyte20);
-
-				comp20 = compare_with_sequence_array_E2A74(buffer3, (uint8_t*)&str_E2A74, 0x2b3a74, index, 0xc4e, 0xc4e, &origbyte20, &remakebyte20);
-			}
-			//if(debugcounter_271478>5)
-			//comp20 = compare_with_sequence(buffer4, pdwScreenBuffer, 0x3aa0a4, index, 320 * 200, 320 * 200, &origbyte20, &remakebyte20);
-			if (stopstep > -1)
-			{
-				comp20 = index;
-			}
-
-			lastcompstr.index = index;
-			lastcompstr.adress = adress;
-		}
-	}
 };
 
 void mine_texts(char* filename, uint32_t adressdos, uint32_t count, char* outfilename) {

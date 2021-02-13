@@ -4,6 +4,8 @@
 
 #include "kiss_sdl.h"
 #include "../sub_main.h"
+//#include "../engine/engine_support.h"
+//#include "../Terrain.h"
 
 void editor_run();
 

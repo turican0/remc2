@@ -5,7 +5,7 @@
 #include <string>
 #include <cstdint>
 
-#if defined(WIN32)
+#if defined(WIN32) || defined(_WIN64)
 # pragma warning(disable:4996)
 #endif
 
