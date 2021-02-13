@@ -48,16 +48,14 @@ jobs:
         unzip -o build-wrapper-linux-x86.zip
         build-wrapper-linux-x86/build-wrapper-linux-x86-64 --out-dir build_wrapper_output make
         
-  test:
     - name: run unit tests
       run: |
         cd ${{ github.workspace }}
         cd build_release
         ./remc2/remc2unittests
 
-  sonar:
-    if: github.repository_owner == 'thobbsinteractive'
     - name: sonarcloud scan
+      if: github.repository_owner == 'thobbsinteractive'
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
