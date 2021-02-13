@@ -66,6 +66,38 @@ typedef struct {//lenght 3100
 }
 type_E37A0_sound_buffer2;
 
+//shadow type_E37A0_sound_buffer2
+typedef struct {//lenght 32 - this is may be format of wav sound file
+	int32_t dword_0;//data of wav//18
+	int8_t stub_4[4];//22
+	int32_t dword_8;//24
+	int16_t word_12;//28
+	int8_t filename_14[18];//first 18 chars - name//30
+}
+shadow_sub2type_E37A0_sound_buffer2;
+
+typedef struct {//lenght 2072
+	int8_t stub[10];
+	shadow_sub2type_E37A0_sound_buffer2 wavs_10[64];
+	int8_t stubb[14];
+}
+shadow_sub1type_E37A0_sound_buffer2;
+
+typedef struct {//lenght 3100
+	int8_t byte_0;
+	int8_t byte_1;
+	int8_t byte_2;
+	int8_t byte_3;
+	int8_t byte_4;
+	int8_t byte_5;
+	int8_t byte_6;
+	int8_t byte_7;
+	shadow_sub1type_E37A0_sound_buffer2 str_8;//2072 lenght
+	int8_t next_str[1020];
+}
+shadow_type_E37A0_sound_buffer2;
+//shadow type_E37A0_sound_buffer2
+
 typedef struct {//lenght 16*6=96
 	int32_t dword_0;
 	int32_t dword_4;
@@ -104,7 +136,7 @@ typedef struct {//lenght 224
 	sub1type_E3808_music_header str_8;//216 lenght
 }
 type_E3808_music_header;
-
+/*
 typedef struct {//lenght 80656
 	int8_t byte_0;
 	int8_t byte_1;
@@ -116,9 +148,9 @@ typedef struct {//lenght 80656
 	int8_t byte_7;
 	int8_t data_8[];
 }
-type_E3810_music_data;
+type_E3810_music_data;*/
 
-//shadow structures
+//shadow shadow_type_E3808_music_header
 typedef struct {//lenght 32 - this is may be format of wav sound file
 	int32_t dword_0;//data of wav//18
 	int8_t stub_4[4];//22
@@ -147,6 +179,7 @@ typedef struct {//lenght 224
 	shadow_sub1type_E3808_music_header str_8;//216 lenght
 }
 shadow_type_E3808_music_header;
+//shadow shadow_type_E3808_music_header
 #pragma pack (16)
 
 #ifndef SOUND_SDLMIXER
@@ -189,7 +222,7 @@ void ac_set_real_vect(uint32_t vectnum, uint16_t real_ptr);
 uint16_t ac_get_real_vect(uint32_t vectnum);
 AIL_DRIVER* ac_AIL_API_install_driver(int a1, uint8_t* a2, int a3);
 
-void SOUND_init_MIDI_sequence(type_E3810_music_data* datax, type_E3808_music_header* headerx, int32_t track_number);
+void SOUND_init_MIDI_sequence(uint8_t* datax, type_E3808_music_header* headerx, int32_t track_number);
 
 void SOUND_start_sample(HSAMPLE S);
 void SOUND_end_sample(HSAMPLE S);
