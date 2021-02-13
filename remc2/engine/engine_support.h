@@ -18,6 +18,7 @@
 
 #include "../portability/port_time.h"
 #include "../portability/port_sdl_vga_mouse.h"
+
 //#define USE_DOSBOX
 
 /*

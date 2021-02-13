@@ -48,6 +48,14 @@ set(SOURCE_FILES_ENGINE
     "engine/read_config.h"
     "sub_main.cpp"
     "sub_main.h"
+    "engine/Sound.cpp"
+    "engine/Sound.h"
+    "engine/Basic.cpp"
+    "engine/Basic.h"
+    "engine/Animation.cpp"
+    "engine/Animation.h"
+    "engine/Terrain.cpp"
+    "engine/Terrain.h"
     "engine/sub_main_mouse.h"
 )
 source_group("Source Files\\engine" FILES ${SOURCE_FILES_ENGINE})
@@ -102,9 +110,11 @@ set(ALL_FILES
 # targets
 ################################################################################
 add_library(findfirst ${SOURCE_FILES__libs__findfirst})
-set_target_properties(findfirst PROPERTIES COMPILE_FLAGS "-m32" LINK_FLAGS "-m32")
 add_executable(${PROJECT_NAME} ${ALL_FILES})
-set_target_properties(${PROJECT_NAME} PROPERTIES COMPILE_FLAGS "-m32" LINK_FLAGS "-m32")
+if (NOT USE_64_BIT)
+    set_target_properties(findfirst PROPERTIES COMPILE_FLAGS "-m32" LINK_FLAGS "-m32")
+    set_target_properties(${PROJECT_NAME} PROPERTIES COMPILE_FLAGS "-m32" LINK_FLAGS "-m32")
+endif ()
 
 install(
     TARGETS ${PROJECT_NAME}
@@ -120,13 +130,13 @@ install(
 )
 install(
     FILES 
-    ${CMAKE_SOURCE_DIR}/Debug/config.ini
+    ${CMAKE_SOURCE_DIR}/config.ini
     DESTINATION bin
 )
 install(
     DIRECTORY
-    ${CMAKE_SOURCE_DIR}/Debug/music-ogg
-    ${CMAKE_SOURCE_DIR}/Debug/biggraphics
+    ${CMAKE_SOURCE_DIR}/enhancedassets/music-ogg
+    ${CMAKE_SOURCE_DIR}/enhancedassets/biggraphics
     DESTINATION bin
 )
 
@@ -172,3 +182,29 @@ if (UNIX)
     target_link_directories(${PROJECT_NAME} PUBLIC
     )
 endif ()
+
+
+################################################################################
+# Unit tests
+################################################################################
+include(GoogleTest)
+
+add_executable(remc2unittests UnitTests.cpp)
+target_include_directories(remc2unittests PUBLIC
+    "${CMAKE_SOURCE_DIR}/findfirst"
+)
+target_link_libraries(remc2unittests PUBLIC 
+    findfirst
+    gtest
+    pthread
+)
+if (USE_64_BIT)
+    add_compile_definitions(COMPILE_FOR_64BIT)
+else ()
+    set_target_properties(remc2unittests PROPERTIES COMPILE_FLAGS "-m32" LINK_FLAGS "-m32")
+endif ()
+gtest_add_tests(TARGET      remc2unittests
+                TEST_SUFFIX .noArgs
+                TEST_LIST   noArgsTests
+)
+set_tests_properties(${noArgsTests}   PROPERTIES TIMEOUT 10)

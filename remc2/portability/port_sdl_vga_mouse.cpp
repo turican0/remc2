@@ -14,7 +14,7 @@ SDL_Renderer* renderer = NULL;
 SDL_Texture* texture = NULL;
 SDL_Surface* helper_surface = NULL;
 
-uint8_t x_BYTE_1806E4; // weak//3516e4
+uint8_t LastPressedKey_1806E4; //3516e4
 int8_t x_BYTE_180664[128]; // idb
 
 SDL_Surface* screen;
@@ -1197,8 +1197,8 @@ void setPress(bool locpressed, uint16_t loclastchar) {
 
 	if (locpressed)
 	{
-		x_BYTE_1806E4 = (loclastchar & 0xff00) >> 8;// VGA_read_char_from_buffer();
-		x_BYTE_180664[x_BYTE_1806E4 & 0x7F] = x_BYTE_1806E4;
+		LastPressedKey_1806E4 = (loclastchar & 0xff00) >> 8;// VGA_read_char_from_buffer();
+		x_BYTE_180664[LastPressedKey_1806E4 & 0x7F] = LastPressedKey_1806E4;
 	}
 	else
 	{

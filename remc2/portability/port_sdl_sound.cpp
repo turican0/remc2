@@ -1,6 +1,7 @@
 #include "port_sdl_sound.h"
 
 #include <adlmidi.h>
+#include <iostream>
 
 #ifdef __linux__
     #include <limits>
@@ -124,12 +125,14 @@ void SOUND_set_sequence_volume(int32_t volume) {
 #endif//SOUND_SDLMIXER
 };
 
-void SOUND_init_MIDI_sequence(uint8_t* data, uint8_t* header, int32_t track_number)
+void SOUND_init_MIDI_sequence(type_E3810_music_data* datax, type_E3808_music_header* headerx, int32_t track_number)
 {
-	uint8_t* acttrack = &header[32 + track_number * 32];
+	//uint8_t* acttrack = &header[32 + track_number * 32];
+	uint8_t* acttrack = headerx->str_8.track_10[track_number].dword_0;
 	//int testsize = *(uint32_t*)(&header[32 + (track_number + 1) * 32] + 18) - *(uint32_t*)(acttrack + 18);
 	int testsize2 = *(uint32_t*)(acttrack + 26);
 
+	//we can translate datax from xmi to mid and play(with bad quality or slow midi emulators), at now but we use ogg samples
 	//unsigned char* TranscodeXmiToMid(const unsigned char* pXmiData,	size_t iXmiLength, size_t* pMidLength);
 	size_t iXmiLength = testsize2;
 	size_t pMidLength;
@@ -366,7 +369,12 @@ int32_t ac_sound_call_driver(AIL_DRIVER* drvr, int32_t fn, VDI_CALL* in, VDI_CAL
 	case 0x300: {//AIL_API_install_driver
 		drvr->VHDR_4->VDI_HDR_var10 = (void*)&common_IO_configurations;
 		drvr->VHDR_4->num_IO_configurations_14 = num_IO_configurations;
+#ifdef COMPILE_FOR_64BIT
+		std::cout << "FIXME: 32 bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+		drvr->VHDR_4->environment_string_16 = 0; //FIXME
+#else
 		drvr->VHDR_4->environment_string_16 = (uint32_t)&environment_string;
+#endif
 		drvr->VHDR_4->VDI_HDR_var46 = service_rate;
 		/*out->AX = 0;
 		out->BX = 0;
