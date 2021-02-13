@@ -418,20 +418,28 @@ void sub_83E80_freemem4(uint8_t* a1)//264e80
 		v2 = 0;
 		while (v1)
 		{
+#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
+  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+#else
 			if ((int)a1 == v1[0])//fix
 			{
 				v2 = 1;
 				*((x_BYTE*)v1 + 16) = 0;
 				break;
 			}
+#endif
 			v1 = (uint8_t*)(int*)v1[2];
 		}
 		if (v2 == 1)
 		{
 			for (i = (int*)&x_DWORD_17ECA0; i; i = (int*)i[2])
 			{
+#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
+  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+#else
 				if (!*((x_BYTE*)i + 16))
 					sub_84000((int)i);
+#endif
 			}
 		}
 		//sub_85350(); //fix
@@ -544,15 +552,27 @@ int sub_9D770(char* a1, char a2)//27e770
 		if (v10 == NULL)
 			return 0;
 	}
+#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
+  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+#else
 	v12 = sub_9D380(v10, 60, a2, (int)&v8, 4);
 	v12 = sub_9D380(v10, v8, a2, (int)&v13, 2);
+#endif
 	if (!strcmp((const char*)&v13, "LX"))
 	{
+#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
+  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+#else
 		sub_9D380(v10, v8, a2, (int)&v3, 172);
+#endif
 		v12 = v4 + v8;
 		for (i = 0; i < v5; i++)
 		{
+#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
+  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+#else
 			v12 = sub_9D380(v10, v12, a2, (int)&v6, 24);
+#endif
 			v7 += v6;
 		}
 		if (!(a2 & 1))
@@ -1073,7 +1093,11 @@ int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* a2, int32_t a3, int32_t a4
 			{
 				sub_6FC50(1/*v86*/);
 				v58 = (x_BYTE*)(v99 + 640 * a1);
+#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
+  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+#else
 				v59 = (int)pdwScreenBuffer;
+#endif
 				for (v57 = 0; v57 < xy_DWORD_17DED4_spritestr[274].height; v57++)
 				{
 					v58 += v59;

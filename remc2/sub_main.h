@@ -8,6 +8,8 @@
 
 //#include <vld.h>//only for debug
 
+#include <array>
+
 #include "utilities/DataFileIO.h"
 #include "utilities/BitmapIO.h"
 
