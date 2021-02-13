@@ -36,3 +36,4 @@
 /build*
 .flatpak*
 
+!enhancedassets/*
