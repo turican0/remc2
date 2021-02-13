@@ -101,8 +101,7 @@
     </Link>
     <PostBuildEvent>
       <Command>XCOPY "$(SolutionDir)enhancedassets\biggraphics" "$(TargetDir)biggraphics\" /S /Y
-XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
-COPY "$(SolutionDir)config.ini" "$(TargetDir)config.ini" /Y</Command>
+XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -128,8 +127,7 @@ COPY "$(SolutionDir)config.ini" "$(TargetDir)config.ini" /Y</Command>
     </Link>
     <PostBuildEvent>
       <Command>XCOPY "$(SolutionDir)enhancedassets\biggraphics" "$(TargetDir)biggraphics\" /S /Y
-XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
-COPY "$(SolutionDir)config.ini" "$(TargetDir)config.ini" /Y</Command>
+XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -364,7 +362,11 @@ COPY "$(SolutionDir)config.ini" "$(TargetDir)config.ini" /Y</Command>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\config.ini" />
+    <None Include="..\config.ini">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <FileType>Text</FileType>
+    </None>
     <None Include="..\libADLMIDI-master\src\adlmidi_bankmap.tcc" />
     <None Include="..\libADLMIDI-master\src\chips\opl_chip_base.tcc" />
     <None Include="..\libOPNMIDI-master\src\chips\opn_chip_base.tcc" />

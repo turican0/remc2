@@ -640,9 +640,6 @@
     <None Include="..\libOPNMIDI-master\src\chips\opn_chip_base.tcc">
       <Filter>Source Files\libs\libOPL</Filter>
     </None>
-    <None Include="..\Debug\config.ini">
-      <Filter>Source Files</Filter>
-    </None>
     <None Include="engine\bytearrays.x">
       <Filter>Source Files\engine</Filter>
     </None>
@@ -694,6 +691,7 @@
     <None Include="..\SDL-Mixer-X-master\src\codecs\play_cmdmusic.pri">
       <Filter>Source Files\libs\sdl-mixer-x</Filter>
     </None>
+    <None Include="..\config.ini" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\zlib\lib\zlib.lib">
