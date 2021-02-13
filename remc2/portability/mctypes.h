@@ -18,10 +18,18 @@
 #define x_WORD short
 #define x_DWORD int
 
+#pragma pack (1)
 typedef struct {
 	uint8_t* data;
 	uint8_t width;
 	uint8_t height;
 } posistruct_t;
+
+typedef struct {
+	uint32_t data;
+	uint8_t width;
+	uint8_t height;
+} posistruct2_t;
+#pragma pack (16)
 
 #endif //ENGINE_TYPES_H

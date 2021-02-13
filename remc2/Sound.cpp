@@ -3,6 +3,8 @@
 //fix str2_E37A4_sound_buffer3 = str_E37A0_sound_buffer2->next_str + v8x[a2].dword_8;
 //fix x_DWORD_E380C = str_E3808_music_header->next_str + headerx[drivernumber].dword_8;
 //replace str2_E37A4_sound_buffer3 and x_DWORD_E380C with equvivalent index_E37A4_MaxSound and index_E380C_MaxMusic
+//tabbuffer rewrite tostruct
+//remove index functions
 
 
 int x_DWORD_E3794_sound_buffer3_lenght = 10; // weak
@@ -2655,125 +2657,6 @@ void sub_986E0()//2796e0
 		sub_91420();
 }
 // E39B8: using guessed type char x_BYTE_E39B8;
-
-//----- (00098709) --------------------------------------------------------
-void sub_98709_create_index_dattab_power(uint8_t* tabbuffer, uint8_t* tabbufferend, uint8_t* datbuffer, posistruct_t* dattabindex)//279709
-{
-	int length = (tabbufferend - tabbuffer) / 6;
-	for (int i = 0; i < length; i++)
-	{
-		int index = *reinterpret_cast<uint32_t*>(&tabbuffer[6 * i]);
-		dattabindex[i].data = (datbuffer + index);
-		dattabindex[i].width = tabbuffer[6 * i + 4] * 2;
-		dattabindex[i].height = tabbuffer[6 * i + 5] * 2;
-	}
-}
-
-void sub_98709_create_index_dattab_power_add(uint8_t* tabbuffer, uint8_t* tabbufferend, uint8_t* datbuffer, posistruct_t* dattabindex, int add)//279709
-{
-	for (uint32_t i = 0; i < (tabbufferend - (tabbuffer + add)) / 6; i++)
-	{
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-		dattabindex[i].data = (uint8_t*)(*(uint32_t*)((tabbuffer + add) + 6 * i)) + (int32_t)datbuffer;
-#endif
-		dattabindex[i].width = (tabbuffer + add)[6 * i + 4] * 2;
-		dattabindex[i].height = (tabbuffer + add)[6 * i + 5] * 2;
-	}
-}
-
-//----- (0009874D) --------------------------------------------------------
-void sub_9874D_create_index_dattab(uint8_t* tabbuffer, uint8_t* tabbufferend, uint8_t* datbuffer, posistruct_t* dattabindex)//27974d
-{
-	//uint32_t testadr = *(uint32_t*)tabbuffer;
-	/*if (testadr == 0x9999)
-	{
-		for (uint32_t i = 0;i < (tabbufferend - tabbuffer) / 6;i++)
-		{
-			dattabindex[i].data += (int32_t)datbuffer;
-		}
-	}
-	else*/
-	{
-		for (uint32_t i = 0; i < (tabbufferend - tabbuffer) / 6; i++)
-		{
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-			dattabindex[i].data = (uint8_t*)(*(uint32_t*)(tabbuffer + 6 * i)) + (int32_t)datbuffer;
-#endif
-			dattabindex[i].width = tabbuffer[6 * i + 4];
-			dattabindex[i].height = tabbuffer[6 * i + 5];
-		}
-		//testadr = 0x9999;
-		//memcpy(tabbuffer, &testadr, 4);
-	}
-}
-
-void sub_9874D_create_index_dattab_add(uint8_t* tabbuffer, uint8_t* tabbufferend, uint8_t* datbuffer, posistruct_t* dattabindex, int add)//27974d
-{
-	for (uint32_t i = 0; i < (tabbufferend - (tabbuffer + add)) / 6; i++)
-	{
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-		dattabindex[i].data = (uint8_t*)(*(uint32_t*)((tabbuffer + add) + 6 * i)) + (int32_t)datbuffer;
-#endif
-		dattabindex[i].width = (tabbuffer + add)[6 * i + 4];
-		dattabindex[i].height = (tabbuffer + add)[6 * i + 5];
-	}
-}
-
-//----- (00099A77) --------------------------------------------------------
-void sub_99A77_create_index_dattab_div(uint8_t* tabbuffer, uint8_t* tabbufferend, uint8_t* datbuffer, posistruct_t* dattabindex)//280a77
-{
-	//uint32_t testadr = *(uint32_t*)tabbuffer;
-	/*if (testadr == 0x9999)
-	{
-		for (uint32_t i = 0;i < (tabbufferend - tabbuffer) / 6;i++)
-		{
-			dattabindex[i].data -= (int32_t)datbuffer;
-			dattabindex[i].width /= 2;
-			dattabindex[i].height /= 2;
-		}
-	}
-	else*/
-	{
-		for (uint32_t i = 0; i < (tabbufferend - tabbuffer) / 6; i++)
-		{
-			dattabindex[i].data = (uint8_t*)(*(uint32_t*)(tabbuffer + 6 * i))/* + (int32_t)datbuffer*/;//fixed
-			dattabindex[i].width = tabbuffer[6 * i + 4] / 2;
-			dattabindex[i].height = tabbuffer[6 * i + 5] / 2;
-		}
-		//testadr = 0x9999;
-		//memcpy(tabbuffer, &testadr, 4);
-	}
-}
-
-//----- (00099AEB) --------------------------------------------------------
-void sub_99AEB_create_index_dattab_minus(uint8_t* tabbuffer, uint8_t* tabbufferend, uint8_t* datbuffer, posistruct_t* dattabindex)//280aeb
-{
-	//uint32_t testadr = *(uint32_t*)tabbuffer;
-	/*if (testadr == 0x9999)
-	{
-		for (uint32_t i = 0;i < (tabbufferend - tabbuffer) / 6;i++)
-		{
-			dattabindex[i].data -= (int32_t)datbuffer;
-		}
-	}
-	else*/
-	{
-		for (uint32_t i = 0; i < (tabbufferend - tabbuffer) / 6; i++)
-		{
-			dattabindex[i].data = (uint8_t*)(*(uint32_t*)(tabbuffer + 6 * i))/* + (int32_t)datbuffer*/;//fixed
-			dattabindex[i].width = tabbuffer[6 * i + 4];
-			dattabindex[i].height = tabbuffer[6 * i + 5];
-		}
-		//testadr = 0x9999;
-		//memcpy(tabbuffer, &testadr, 4);
-	}
-}
 
 //----- (00098790) --------------------------------------------------------
 void sub_98790(unsigned __int16 milliseconds, unsigned __int8 volume)//279790
