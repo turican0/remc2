@@ -13,10 +13,10 @@
 #include "utilities/DataFileIO.h"
 #include "utilities/BitmapIO.h"
 
-#include "Basic.h"
-#include "Sound.h"
-#include "Animation.h"
-#include "Terrain.h"
+#include "engine/Basic.h"
+#include "engine/Sound.h"
+#include "engine/Animation.h"
+#include "engine/Terrain.h"
 
 //#define __CFSHL__(x, y) (x<<y)
 //#define __CFSHL__(x, y) 1

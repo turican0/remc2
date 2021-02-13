@@ -246,10 +246,10 @@ COPY "$(SolutionDir)config.ini" "$(TargetDir)config.ini" /Y</Command>
     <ClInclude Include="..\SDL-Mixer-X-master\src\effects_internal.h" />
     <ClInclude Include="..\SDL-Mixer-X-master\src\mixer.h" />
     <ClInclude Include="..\SDL-Mixer-X-master\src\music.h" />
-    <ClInclude Include="Animation.h" />
-    <ClInclude Include="Basic.h" />
-    <ClInclude Include="Sound.h" />
-    <ClInclude Include="Terrain.h" />
+    <ClInclude Include="engine\Animation.h" />
+    <ClInclude Include="engine\Basic.h" />
+    <ClInclude Include="engine\Sound.h" />
+    <ClInclude Include="engine\Terrain.h" />
     <ClInclude Include="utilities\BitmapIO.h" />
     <ClInclude Include="utilities\DataFileIO.h" />
     <ClInclude Include="editor\editor.h" />
@@ -337,10 +337,10 @@ COPY "$(SolutionDir)config.ini" "$(TargetDir)config.ini" /Y</Command>
     <ClCompile Include="..\SDL-Mixer-X-master\src\mixer_x_deprecated.c" />
     <ClCompile Include="..\SDL-Mixer-X-master\src\music.c" />
     <ClCompile Include="..\temp\dirent.c" />
-    <ClCompile Include="Animation.cpp" />
-    <ClCompile Include="Basic.cpp" />
-    <ClCompile Include="Sound.cpp" />
-    <ClCompile Include="Terrain.cpp" />
+    <ClCompile Include="engine\Animation.cpp" />
+    <ClCompile Include="engine\Basic.cpp" />
+    <ClCompile Include="engine\Sound.cpp" />
+    <ClCompile Include="engine\Terrain.cpp" />
     <ClCompile Include="utilities\BitmapIO.cpp" />
     <ClCompile Include="utilities\DataFileIO.cpp" />
     <ClCompile Include="editor\editor.cpp" />
@@ -364,7 +364,7 @@ COPY "$(SolutionDir)config.ini" "$(TargetDir)config.ini" /Y</Command>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Debug\config.ini" />
+    <None Include="..\config.ini" />
     <None Include="..\libADLMIDI-master\src\adlmidi_bankmap.tcc" />
     <None Include="..\libADLMIDI-master\src\chips\opl_chip_base.tcc" />
     <None Include="..\libOPNMIDI-master\src\chips\opn_chip_base.tcc" />

@@ -16,19 +16,19 @@
 #include <direct.h>  
 #include <io.h>  
 #include <windows.h>
-#include "portability/dirent-x.h"
+#include "../portability/dirent-x.h"
 #else
 #include "dirent.h"
 #endif
 
-#include "portability/port_outputs.h"
-#include "portability/port_time.h"
-#include "portability/port_filesystem.h"
-#include "engine/engine_support.h"
-#include "engine/read_config.h"
-#include "engine/defs.h"
+#include "../portability/port_outputs.h"
+#include "../portability/port_time.h"
+#include "../portability/port_filesystem.h"
+#include "engine_support.h"
+#include "read_config.h"
+#include "defs.h"
 
-#include "utilities/DataFileIO.h"
+#include "../utilities/DataFileIO.h"
 
 #define __CFSHL__(x, y) (x<<y)
 

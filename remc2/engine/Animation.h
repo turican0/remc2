@@ -3,7 +3,7 @@
 #ifndef MAIN_ANIMATION
 #define MAIN_ANIMATION
 
-#include "engine/ail_sound.h"
+#include "ail_sound.h"
 
 #include "Basic.h"
 #include "Sound.h"
