@@ -29,6 +29,9 @@
 **/Netherw
 /debug.txt
 **/CD_Files
+**/biggraphics
+**/music-ogg
+**/config.ini
 
 /build*
 .flatpak*
