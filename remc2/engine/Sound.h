@@ -37,7 +37,7 @@ extern type_E3808_music_header* str_E3808_music_header;
 //extern int8_t* x_DWORD_E380C; // weak
 //extern int index_E380C_MaxMusic;
 //extern uint8_t* x_DWORD_E3810_music_data; // weak
-extern type_E3810_music_data* str_E3810_music_data; // weak
+//extern type_E3810_music_data* str_E3810_music_data; // weak
 extern char x_BYTE_180C84_drivertype; // weak
 extern int16_t x_WORD_181B44; // weak
 
