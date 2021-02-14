@@ -41,6 +41,11 @@ install(
     LIBRARY DESTINATION lib
     ARCHIVE DESTINATION lib/static
 )
+install(
+    DIRECTORY
+    ${CMAKE_SOURCE_DIR}/Debug/kiss
+    DESTINATION bin
+)
 
 if (UNIX)
     target_include_directories(${PROJECT_NAME} PUBLIC
