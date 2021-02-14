@@ -354,17 +354,17 @@
     <ClInclude Include="utilities\DataFileIO.h">
       <Filter>Header Files\utilities</Filter>
     </ClInclude>
-    <ClInclude Include="Sound.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="engine\Basic.h">
+      <Filter>Header Files\engine</Filter>
     </ClInclude>
-    <ClInclude Include="Basic.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="engine\Animation.h">
+      <Filter>Header Files\engine</Filter>
     </ClInclude>
-    <ClInclude Include="Animation.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="engine\Sound.h">
+      <Filter>Header Files\engine</Filter>
     </ClInclude>
-    <ClInclude Include="Terrain.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="engine\Terrain.h">
+      <Filter>Header Files\engine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -608,17 +608,17 @@
     <ClCompile Include="utilities\DataFileIO.cpp">
       <Filter>Source Files\utilities</Filter>
     </ClCompile>
-    <ClCompile Include="Sound.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="engine\Animation.cpp">
+      <Filter>Source Files\engine</Filter>
     </ClCompile>
-    <ClCompile Include="Basic.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="engine\Basic.cpp">
+      <Filter>Source Files\engine</Filter>
     </ClCompile>
-    <ClCompile Include="Animation.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="engine\Sound.cpp">
+      <Filter>Source Files\engine</Filter>
     </ClCompile>
-    <ClCompile Include="Terrain.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="engine\Terrain.cpp">
+      <Filter>Source Files\engine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -639,9 +639,6 @@
     </None>
     <None Include="..\libOPNMIDI-master\src\chips\opn_chip_base.tcc">
       <Filter>Source Files\libs\libOPL</Filter>
-    </None>
-    <None Include="..\Debug\config.ini">
-      <Filter>Source Files</Filter>
     </None>
     <None Include="engine\bytearrays.x">
       <Filter>Source Files\engine</Filter>
@@ -694,6 +691,7 @@
     <None Include="..\SDL-Mixer-X-master\src\codecs\play_cmdmusic.pri">
       <Filter>Source Files\libs\sdl-mixer-x</Filter>
     </None>
+    <None Include="..\config.ini" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\zlib\lib\zlib.lib">

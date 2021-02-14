@@ -48,14 +48,14 @@ set(SOURCE_FILES_ENGINE
     "engine/read_config.h"
     "sub_main.cpp"
     "sub_main.h"
-    "Sound.cpp"
-    "Sound.h"
-    "Basic.cpp"
-    "Basic.h"
-    "Animation.cpp"
-    "Animation.h"
-    "Terrain.cpp"
-    "Terrain.h"
+    "engine/Sound.cpp"
+    "engine/Sound.h"
+    "engine/Basic.cpp"
+    "engine/Basic.h"
+    "engine/Animation.cpp"
+    "engine/Animation.h"
+    "engine/Terrain.cpp"
+    "engine/Terrain.h"
     "engine/sub_main_mouse.h"
 )
 source_group("Source Files\\engine" FILES ${SOURCE_FILES_ENGINE})
@@ -130,13 +130,13 @@ install(
 )
 install(
     FILES 
-    ${CMAKE_SOURCE_DIR}/Debug/config.ini
+    ${CMAKE_SOURCE_DIR}/config.ini
     DESTINATION bin
 )
 install(
     DIRECTORY
-    ${CMAKE_SOURCE_DIR}/Debug/music-ogg
-    ${CMAKE_SOURCE_DIR}/Debug/biggraphics
+    ${CMAKE_SOURCE_DIR}/enhancedassets/music-ogg
+    ${CMAKE_SOURCE_DIR}/enhancedassets/biggraphics
     DESTINATION bin
 )
 
