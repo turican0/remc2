@@ -2820,7 +2820,11 @@ void sub_844A0_sound_proc5()//2654a0
 			//v2 = *(x_DWORD*)(v1 + 18);
 			//v2 = str_E37A0_sound_buffer2[v1y].dword_18;
 			//v1 += 32;
+#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
+  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << ", file " << __FILE__ << std::endl;
+#else
 			str_E37A0_sound_buffer2->str_8.wavs_10[v1y].dword_0 = (int)str_E37A0_sound_buffer2->str_8.wavs_10[v1y].dword_0 +x_DWORD_E37A8_sound_buffer1;
+#endif
 			v1y++;
 			v0++;
 		}
@@ -9301,7 +9305,11 @@ void GetMusicSequenceCount()//26fc90 // set index
 		for (m_iNumberOfTracks = 0; v1x < index_E380C_CountOfMusic; m_iNumberOfTracks++)
 		{
 			//str_E3808_music_header->str_8.track_10[v1x].dword_0+= (int)str_E3810_music_data;
+#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
+  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << ", file " << __FILE__ << std::endl;
+#else
 			str_E3808_music_header->str_8.track_10[v1x].dword_0 =(int)str_E3808_music_header->str_8.track_10[v1x].dword_0 + array_E3810_music_data;
+#endif
 			//*(x_DWORD*)(v1 + 18) += (int)x_DWORD_E3810_music_data;
 			//v1 += 32;
 			v1x++;
