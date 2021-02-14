@@ -207,3 +207,6 @@ gtest_add_tests(TARGET      remc2unittests
                 TEST_LIST   noArgsTests
 )
 set_tests_properties(${noArgsTests}   PROPERTIES TIMEOUT 10)
+
+# editor
+add_subdirectory(editor)
