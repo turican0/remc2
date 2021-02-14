@@ -9772,4 +9772,4 @@ fix x_DWORD_17DE38
 fix 
 void sub_3E360_draw_particlesB(uint8_t* a1, uint8_t* a2)//21f360
 
-init xy_DWORD_17DED4_spritestr in x64 sub_76930_menus_and_intros
+init xy_DWORD_17DED4_spritestr in x64 sub_76930_menus_and_intros->sub_76D10_intros
