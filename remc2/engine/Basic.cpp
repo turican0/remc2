@@ -3414,9 +3414,10 @@ void sub_8F920(uint8_t a1byte1, uint8_t a1byte2, int16_t posx, int16_t posy, uin
 }
 
 //----- (00098709) --------------------------------------------------------
-void sub_98709_create_index_dattab_power(posistruct2_t* tabbuffer, uint8_t* tabbufferend, uint8_t* datbuffer, posistruct_t* dattabindex)//279709
+void sub_98709_create_index_dattab_power(posistruct2_t* tabbuffer, posistruct2_t* tabbufferend, uint8_t* datbuffer, posistruct_t* dattabindex)//279709
 {
-	int length = (tabbufferend - ((uint8_t*)tabbuffer)) / 6;
+	//int length = (tabbufferend - ((uint8_t*)tabbuffer)) / 6;
+	int length = tabbufferend - tabbuffer;
 	for (int i = 0; i < length; i++)
 	{
 		//int index = tabbuffer[i].data;

@@ -70,12 +70,12 @@ typedef struct//lenght 613 // end 17E09D
 	//char x_BYTE_17DE71[1]; //x_BYTE_17DE68x[0x9] fix it -  weak
 	//char x_BYTE_17DE72[78]; //x_BYTE_17DE68x[0xa] idb
 	posistruct2_t* x_DWORD_17DEC0; // weak
-	uint8_t* x_DWORD_17DEC4; // weak
+	posistruct2_t* x_DWORD_17DEC4; // weak
 	posistruct2_t* x_DWORD_17DEC8; // weak
-	uint8_t* x_DWORD_17DECC; // weak
+	posistruct2_t* x_DWORD_17DECC; // weak
 	int x_DWORD_17DED0; // weak
 	posistruct2_t* x_DWORD_17DED4; // weak
-	uint8_t* x_DWORD_17DED8; // weak
+	posistruct2_t* x_DWORD_17DED8; // weak
 	int x_DWORD_17DEDC; // weak
 	FILE* x_DWORD_17DEE0_filedesc; // weak
 	int16_t x_DWORD_17DEE4_mouse_positionx; // weak
@@ -541,7 +541,7 @@ void sub_8F920(uint8_t a1byte1, uint8_t a1byte2, int16_t posx, int16_t posy, uin
 
 void sub_99A77_create_index_dattab_div(uint8_t* a1, uint8_t* a2, uint8_t* a3, posistruct_t* a4);
 void sub_99AEB_create_index_dattab_minus(uint8_t* a1, uint8_t* a2, uint8_t* a3, posistruct_t* a4);
-void sub_98709_create_index_dattab_power(posistruct2_t* a1, uint8_t* a2, uint8_t* a3, posistruct_t* a4);
+void sub_98709_create_index_dattab_power(posistruct2_t* a1, posistruct2_t* a2, uint8_t* a3, posistruct_t* a4);
 void sub_98709_create_index_dattab_power_add(uint8_t* a1, uint8_t* a2, uint8_t* a3, posistruct_t* a4, int add);
 void sub_9874D_create_index_dattab(uint8_t* a1, uint8_t* a2, uint8_t* a3, posistruct_t* a4);
 void sub_9874D_create_index_dattab_add(uint8_t* a1, uint8_t* a2, uint8_t* a3, posistruct_t* a4, int add);
