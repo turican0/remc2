@@ -34,24 +34,38 @@ endif()
 # Dependencies
 ################################################################################
 
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/sdl2)
+
 if (COMPATIBILITY_32_PATH)
     set(SDL2_DIR "${COMPATIBILITY_32_PATH}/cmake/SDL2")
     set(CMAKE_LIBRARY_PATH "${COMPATIBILITY_32_PATH}")
 endif ()
 
+list(INSERT 0 CMAKE_PREFIX_PATH /usr)
 if (USE_64_BIT)
+    message("Use 64 bit")
     set(FIND_LIBRARY_USE_LIB64_PATHS True)
+    set(PNG_LIBRARY "/usr/lib64/libpng.so")
+    set(SDL2_LIBRARY "/usr/lib64/libSDL2.so")
+    set(SDL2_MIXER_LIBRARY "/usr/lib64/libSDL2_mixer.so")
+    set(SDL2_TTF_LIBRARY "/usr/lib64/libSDL2_ttf.so")
+    set(SDL2_IMAGE_LIBRARY "/usr/lib64/libSDL2_image.so")
+    set(CMAKE_LIBRARY_ARCHITECTURE x86_64)
+else ()
+    message("Use 32 bit")
+    set(PNG_LIBRARY "/usr/lib/libpng.so")
+    set(SDL2_LIBRARY "/usr/lib/libSDL2.so")
+    set(SDL2_MIXER_LIBRARY "/usr/lib/libSDL2_mixer.so")
+    set(SDL2_TTF_LIBRARY "/usr/lib/libSDL2_ttf.so")
+    set(SDL2_IMAGE_LIBRARY "/usr/lib/libSDL2_image.so")
+    set(CMAKE_LIBRARY_ARCHITECTURE i686)
 endif ()
 
 find_package(SDL2 REQUIRED)
+find_package(SDL2_mixer REQUIRED)
+find_package(SDL2_ttf REQUIRED)
+find_package(SDL2_image REQUIRED)
 find_package(PNG REQUIRED)
-find_library(SDL_MIXER_LIBRARY
-  NAMES SDL2_mixer
-  HINTS
-    ENV SDLMIXERDIR
-    ENV SDLDIR
-  PATH_SUFFIXES lib
-)
 
 
 ################################################################################
@@ -135,4 +149,3 @@ endif ()
         
 # remc2
 add_subdirectory(remc2)
-
