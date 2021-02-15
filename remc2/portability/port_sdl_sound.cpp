@@ -198,7 +198,7 @@ void SOUND_init_MIDI_sequence(uint8_t* datax, type_E3808_music_header* headerx, 
 	}
 	else
 	{
-		uint8_t* outmidi = TranscodeXmiToMid((const uint8_t*)*(uint32_t*)(acttrack + 18), iXmiLength, &pMidLength);
+		uint8_t* outmidi = TranscodeXmiToMid(/*(const uint8_t*)*(uint32_t*)(*/acttrack/* + 18)*/, iXmiLength, &pMidLength);
 		SDL_RWops* rwmidi = SDL_RWFromMem(outmidi, pMidLength);
 
 		//Timidity_Init();

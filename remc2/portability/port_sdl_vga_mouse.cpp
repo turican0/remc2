@@ -823,9 +823,9 @@ void VGA_Blit(int width, int height, Uint8* srcBuffer) {
 		float yscale = (float)m_iOrigh / (float)screen->h;
 		for (int i = 0; i < screen->w; i++)
 		{
+			k = (int)(i * xscale);
 			for (int j = 0; j < screen->h; j++)//49+1 - final size
-			{
-				k = (int)(i * xscale);
+			{				
 				l = (int)(j * yscale);
 				((uint8_t*)screen->pixels)[i + j * screen->w] = srcBuffer[k + l * m_iOrigw];
 			}
