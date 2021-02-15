@@ -209,6 +209,11 @@ extern x_WORD __SS__;*/
 //extern char IsTable[];
 
 #pragma pack (1)
+typedef struct {//lenght 12
+	int32_t dword_0;
+}
+subx_BYTE_E7EE0x;
+
 typedef struct {
 	int32_t dword_0;
 	int16_t word_4;

@@ -688,7 +688,7 @@ typedef struct {//lenght 2124=0x84C
 } type_str_0x2BDE;//11230 // 84c lenght
 
 typedef struct {//size 14
-	int32_t dword_0;//type_particle_str?
+	uint32_t* dword_0;//type_particle_str?
 	int32_t dword_4;
 	int16_t word_8;
 	int16_t word_10;
@@ -697,15 +697,23 @@ typedef struct {//size 14
 subtype_x_DWORD_E9C28_str;
 
 typedef struct {//size 26
+	int8_t byte_0;
+	int8_t byte_1;
+	int8_t byte_2;
+	int8_t byte_3;
+}
+subtype_x_DWORD_E9C28_str2;
+
+typedef struct {//size 26
 	int32_t dword_0;
 	int32_t dword_4;
 	subtype_x_DWORD_E9C28_str* str_8_data;
-	uint32_t* dword_12x;//uint32_t*
+	subtype_x_DWORD_E9C28_str** dword_12x;//uint32_t*
 	uint32_t* dword_16x;//uint32_t*
 	int16_t word_20;
 	int16_t word_22;
 	int16_t word_24;
-	uint8_t data[];
+	subtype_x_DWORD_E9C28_str2 data[];
 	//uint32_t dword_26;
 } type_x_DWORD_E9C28_str;
 

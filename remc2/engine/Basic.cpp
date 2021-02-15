@@ -3421,9 +3421,9 @@ void sub_98709_create_index_dattab_power(posistruct2_t* tabbuffer, posistruct2_t
 	for (int i = 0; i < tabbufferend - tabbuffer; i++)
 	{
 		//int index = tabbuffer[i].data;
-		dattabindex[i].data = (datbuffer + tabbuffer[i].data);
-		dattabindex[i].width = tabbuffer[i].width * 2;
-		dattabindex[i].height = tabbuffer[i].height * 2;
+		dattabindex[i].data = (datbuffer + tabbuffer[i].data_0);
+		dattabindex[i].width = tabbuffer[i].width_4 * 2;
+		dattabindex[i].height = tabbuffer[i].height_5 * 2;
 	}
 }
 
@@ -3466,9 +3466,9 @@ void sub_9874D_create_index_dattab(posistruct2_t* tabbuffer, posistruct2_t* tabb
 		}*/
 		for (uint32_t i = 0; i < tabbufferend - tabbuffer; i++)
 		{
-			dattabindex[i].data = (datbuffer + tabbuffer[i].data);
-			dattabindex[i].width = tabbuffer[i].width;
-			dattabindex[i].height = tabbuffer[i].height;
+			dattabindex[i].data = (datbuffer + tabbuffer[i].data_0);
+			dattabindex[i].width = tabbuffer[i].width_4;
+			dattabindex[i].height = tabbuffer[i].height_5;
 		}
 
 		//testadr = 0x9999;
