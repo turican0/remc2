@@ -26,9 +26,9 @@ typedef struct {
 } posistruct_t;
 
 typedef struct {
-	uint32_t data;
-	uint8_t width;
-	uint8_t height;
+	uint32_t data_0;
+	uint8_t width_4;
+	uint8_t height_5;
 } posistruct2_t;
 #pragma pack (16)
 
