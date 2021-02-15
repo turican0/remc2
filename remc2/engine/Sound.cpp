@@ -4975,11 +4975,7 @@ HDIGDRIVER sub_A2EA0(AIL_DRIVER* a1, IO_PARMS IO)//283ea0
 					}
 					v26->DMA_buf_10 = (void*)v30;
 					v26->DMA_sel_9 = v22;
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
 					v26->DMA_seg_8 = (void*)v21;
-#endif
 					v27 = v22 >> 12;
 					v24 = 0xF0000 & (v22 >> 12);
 					v23 = 0xF0000 & (v25 + (v22 >> 12) - 1);
@@ -9302,9 +9298,9 @@ void GetMusicSequenceCount()//26fc90 // set index
 		{
 			//str_E3808_music_header->str_8.track_10[v1x].dword_0+= (int)str_E3810_music_data;
 #ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << ", file " << __FILE__ << std::endl;
+			str_E3808_music_header->str_8.track_10[v1x].dword_0 = reinterpret_cast<uint64_t>(str_E3808_music_header->str_8.track_10[v1x].dword_0) + array_E3810_music_data;
 #else
-			str_E3808_music_header->str_8.track_10[v1x].dword_0 =(int)str_E3808_music_header->str_8.track_10[v1x].dword_0 + array_E3810_music_data;
+			str_E3808_music_header->str_8.track_10[v1x].dword_0 = (int)str_E3808_music_header->str_8.track_10[v1x].dword_0 + array_E3810_music_data;
 #endif
 			//*(x_DWORD*)(v1 + 18) += (int)x_DWORD_E3810_music_data;
 			//v1 += 32;
