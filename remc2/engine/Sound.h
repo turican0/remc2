@@ -360,7 +360,7 @@ HMDIDRIVER sub_A77D0_AIL_API_install_MDI_INI(char* filename, IO_PARMS* IO);
 
 __int16 sub_98B2C(unsigned __int8 a1, int a2);
 
-int sub_9E2B0(char* a1, int a2, x_DWORD* a3);
+int sub_9E2B0(char* a1, int a2/*, x_DWORD* a3*/);
 
 signed int sub_9D4D0(int a1, uint8_t** a2, uint32_t* a3, uint32_t* a4);//27e4d0
 
