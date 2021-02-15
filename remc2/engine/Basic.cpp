@@ -112,21 +112,21 @@ uint8_t* SEARCH_BEGIN_BUFFER = 0;
 uint8_t* SEARCH_END_BUFFER = 0;
 uint8_t* FONTS0DAT_BEGIN_BUFFER = 0;
 posistruct2_t* FONTS0TAB_BEGIN_BUFFER = 0;
-uint8_t* FONTS0TAB_END_BUFFER = 0;
+posistruct2_t* FONTS0TAB_END_BUFFER = 0;
 uint8_t* FONTS1DAT_BEGIN_BUFFER = 0;//2baa94
 posistruct2_t* FONTS1TAB_BEGIN_BUFFER = 0;//2bab24
-uint8_t* FONTS1TAB_END_BUFFER = 0;//2bab04
+posistruct2_t* FONTS1TAB_END_BUFFER = 0;//2bab04
 type_TMAPS00TAB_BEGIN_BUFFER* str_TMAPS00TAB_BEGIN_BUFFER;
 //uint8_t* TMAPS00TAB_BEGIN_BUFFER = 0;//2c7ed0
 TColor* str_PALDATA_BEGIN_BUFFER = 0;//2bb3c8
 TColor* str_PALMEM_BEGIN_BUFFER = 0;//6d654d
 uint8_t* POINTERSDAT_BEGIN_BUFFER = 0;//2bc390
 posistruct2_t* POINTERSTAB_BEGIN_BUFFER = 0;//2bc394
-uint8_t* POINTERSTAB_END_BUFFER = 0;//2bc388*/
+posistruct2_t* POINTERSTAB_END_BUFFER = 0;//2bc388*/
 
 uint8_t* BUILD00DAT_BEGIN_BUFFER = 0;
 posistruct2_t* BUILD00TAB_BEGIN_BUFFER = 0;
-uint8_t* BUILD00TAB_END_BUFFER = 0;
+posistruct2_t* BUILD00TAB_END_BUFFER = 0;
 
 uint8_t* ETEXT_BEGIN_BUFFER = 0;
 uint8_t* FTEXT_BEGIN_BUFFER = 0;
@@ -150,15 +150,15 @@ uint8_t* BSCREEN2_END_BUFFER = 0;
 
 uint8_t* MSPRD00DAT_BEGIN_BUFFER = 0;
 posistruct2_t* MSPRD00TAB_BEGIN_BUFFER = 0;
-uint8_t* MSPRD00TAB_END_BUFFER = 0;
+posistruct2_t* MSPRD00TAB_END_BUFFER = 0;
 
 uint8_t* HSPRD00DAT_BEGIN_BUFFER = 0;
 posistruct2_t* HSPRD00TAB_BEGIN_BUFFER = 0;
-uint8_t* HSPRD00TAB_END_BUFFER = 0;
+posistruct2_t* HSPRD00TAB_END_BUFFER = 0;
 
 uint8_t* HFONT3DAT_BEGIN_BUFFER = 0;
 posistruct2_t* HFONT3TAB_BEGIN_BUFFER = 0;
-uint8_t* HFONT3TAB_END_BUFFER = 0;
+posistruct2_t* HFONT3TAB_END_BUFFER = 0;
 
 uint8_t* CLRD0DAT_BEGIN_BUFFER = 0;
 
@@ -183,14 +183,14 @@ filearray_struct filearray_2aa18c[] = {
 	{ &POINTERSTAB_BEGIN_BUFFER,&POINTERSTAB_END_BUFFER,&POINTERSDAT_BEGIN_BUFFER,&posistruct1 },
 { &FONTS0TAB_BEGIN_BUFFER,&FONTS0TAB_END_BUFFER,&FONTS0DAT_BEGIN_BUFFER,&posistruct2 },
 { &FONTS1TAB_BEGIN_BUFFER,&FONTS1TAB_END_BUFFER,&FONTS1DAT_BEGIN_BUFFER,&posistruct3 },
-{ &ZERO_BUFFER_PST2,&ZERO_BUFFER,&ZERO_BUFFER,&posistruct4 },
+{ &ZERO_BUFFER_PST2,&ZERO_BUFFER_PST2,&ZERO_BUFFER,&posistruct4 },
 { &MSPRD00TAB_BEGIN_BUFFER,&MSPRD00TAB_END_BUFFER,&MSPRD00DAT_BEGIN_BUFFER,&posistruct5 },
-{ &ZERO_BUFFER_PST2,&ZERO_BUFFER,&ZERO_BUFFER,&posistruct6 },
+{ &ZERO_BUFFER_PST2,&ZERO_BUFFER_PST2,&ZERO_BUFFER,&posistruct6 },
 { &HFONT3TAB_BEGIN_BUFFER,&HFONT3TAB_END_BUFFER,&HFONT3DAT_BEGIN_BUFFER,&posistruct7 },
-{ &ZERO_BUFFER_PST2,&ZERO_BUFFER,&ZERO_BUFFER,&posistruct8 },
+{ &ZERO_BUFFER_PST2,&ZERO_BUFFER_PST2,&ZERO_BUFFER,&posistruct8 },
 { &BUILD00TAB_BEGIN_BUFFER,&BUILD00TAB_END_BUFFER,&BUILD00DAT_BEGIN_BUFFER,&posistruct9 },
-{ &ZERO_BUFFER_PST2,&ZERO_BUFFER,&ZERO_BUFFER,&posistruct10 },
-{ &ZERO_BUFFER_PST2,&ZERO_BUFFER,&ZERO_BUFFER,&posistruct11 }
+{ &ZERO_BUFFER_PST2,&ZERO_BUFFER_PST2,&ZERO_BUFFER,&posistruct10 },
+{ &ZERO_BUFFER_PST2,&ZERO_BUFFER_PST2,&ZERO_BUFFER,&posistruct11 }
 };
 
 filearray_struct x_DWORD_E9B20[4] = { filearray_2aa18c[filearrayindex_FONTS0DATTAB],filearray_2aa18c[filearrayindex_MSPRDDATTAB],
@@ -312,11 +312,11 @@ Pathstruct xasearchd_2bac30 = { "*SearchD\0",(uint8_t**)&SEARCH_BEGIN_BUFFER,&SE
 //#define psxasearchd_2bac30 0
 Pathstruct xafonts0dat = { "DATA/FONT0.DAT\0",&FONTS0DAT_BEGIN_BUFFER,NULL,NULL,NULL };
 //#define psxafonts0dat 1
-Pathstruct xafonts0tab = { "DATA/FONT0.TAB\0",(uint8_t**)&FONTS0TAB_BEGIN_BUFFER,&FONTS0TAB_END_BUFFER,NULL,NULL };
+Pathstruct xafonts0tab = { "DATA/FONT0.TAB\0",(uint8_t**)&FONTS0TAB_BEGIN_BUFFER,(uint8_t**)&FONTS0TAB_END_BUFFER,NULL,NULL };
 //#define psxafonts0tab 2
 Pathstruct xafonts1dat = { "DATA/FONT1.DAT\0",&FONTS1DAT_BEGIN_BUFFER,NULL,NULL,NULL };
 //#define psxafonts1dat 3
-Pathstruct xafonts1tab = { "DATA/FONT1.TAB\0",(uint8_t**)&FONTS1TAB_BEGIN_BUFFER,&FONTS1TAB_END_BUFFER,NULL,NULL };
+Pathstruct xafonts1tab = { "DATA/FONT1.TAB\0",(uint8_t**)&FONTS1TAB_BEGIN_BUFFER,(uint8_t**)&FONTS1TAB_END_BUFFER,NULL,NULL };
 //#define psxafonts1tab 4
 Pathstruct xadatatmaps00tab = { "DATA/TMAPS0-0.TAB",(uint8_t**)&str_TMAPS00TAB_BEGIN_BUFFER,NULL,NULL,NULL };
 //#define psxadatatmaps00tab 5
@@ -326,13 +326,13 @@ Pathstruct xapalmem = { "*PalMem\0",(uint8_t**)&str_PALMEM_BEGIN_BUFFER,NULL,NUL
 //#define psxapalmem 7
 Pathstruct xadatapointersdat = { "DATA/POINTERS.DAT\0",&POINTERSDAT_BEGIN_BUFFER,NULL,NULL,NULL };
 //#define psxadatapointersdat 8
-Pathstruct xadatapointerstab = { "DATA/POINTERS.TAB\0",(uint8_t**)&POINTERSTAB_BEGIN_BUFFER,&POINTERSTAB_END_BUFFER,NULL,NULL };
+Pathstruct xadatapointerstab = { "DATA/POINTERS.TAB\0",(uint8_t**)&POINTERSTAB_BEGIN_BUFFER,(uint8_t**)&POINTERSTAB_END_BUFFER,NULL,NULL };
 //#define psxadatapointerstab 9
 Pathstruct xazero = { "\0",NULL,NULL,NULL,NULL };
 //#define psxazero0 10
 Pathstruct xadatabuild00dat = { "DATA/BUILD0-0.DAT\0",&BUILD00DAT_BEGIN_BUFFER,NULL,NULL,NULL };
 //#define psxadatabuild00dat 11
-Pathstruct xadatabuild00tab = { "DATA/BUILD0-0.TAB\0",(uint8_t**)&BUILD00TAB_BEGIN_BUFFER,&BUILD00TAB_END_BUFFER,NULL,NULL };
+Pathstruct xadatabuild00tab = { "DATA/BUILD0-0.TAB\0",(uint8_t**)&BUILD00TAB_BEGIN_BUFFER,(uint8_t**)&BUILD00TAB_END_BUFFER,NULL,NULL };
 //#define psxadatabuild00tab 12
 //zero
 //#define psxazero1 13
@@ -375,17 +375,17 @@ Pathstruct xadatapald0dat2 = { "DATA/PALD-0.DAT\0",&PALD0DAT2_BEGIN_BUFFER,NULL,
 //#define psxazero8 31
 Pathstruct xadatamsprd00dat = { "DATA/MSPRD0-0.DAT\0",&MSPRD00DAT_BEGIN_BUFFER,NULL,NULL,NULL };
 //#define psxadatamsprd00dat 32
-Pathstruct xadatamsprd00tab = { "DATA/MSPRD0-0.TAB\0",(uint8_t**)&MSPRD00TAB_BEGIN_BUFFER,&MSPRD00TAB_END_BUFFER,NULL,NULL };
+Pathstruct xadatamsprd00tab = { "DATA/MSPRD0-0.TAB\0",(uint8_t**)&MSPRD00TAB_BEGIN_BUFFER,(uint8_t**)&MSPRD00TAB_END_BUFFER,NULL,NULL };
 //#define psxadatamsprd00tab 33
 //zero
 //#define psxazero9 34
 Pathstruct xadatahsprd00dat = { "DATA/HSPRD0-0.DAT\0",&HSPRD00DAT_BEGIN_BUFFER,NULL,NULL,NULL };
 //#define psxadatahsprd00dat 35
-Pathstruct xadatahsprd00tab = { "DATA/HSPRD0-0.TAB\0",(uint8_t**)&HSPRD00TAB_BEGIN_BUFFER,&HSPRD00TAB_END_BUFFER,NULL,NULL };
+Pathstruct xadatahsprd00tab = { "DATA/HSPRD0-0.TAB\0",(uint8_t**)&HSPRD00TAB_BEGIN_BUFFER,(uint8_t**)&HSPRD00TAB_END_BUFFER,NULL,NULL };
 //#define psxadatahsprd00tab 36
 Pathstruct xadatahfont3dat = { "DATA/HFONT3.DAT\0",&HFONT3DAT_BEGIN_BUFFER,NULL,NULL,NULL };
 //#define psxadatahfont3dat 37
-Pathstruct xadatahfont3tab = { "DATA/HFONT3.TAB\0",(uint8_t**)&HFONT3TAB_BEGIN_BUFFER,&HFONT3TAB_END_BUFFER,NULL,NULL };
+Pathstruct xadatahfont3tab = { "DATA/HFONT3.TAB\0",(uint8_t**)&HFONT3TAB_BEGIN_BUFFER,(uint8_t**)&HFONT3TAB_END_BUFFER,NULL,NULL };
 //#define psxadatahfont3tab 38
 //zero
 //#define psxazero10 39
@@ -3417,8 +3417,8 @@ void sub_8F920(uint8_t a1byte1, uint8_t a1byte2, int16_t posx, int16_t posy, uin
 void sub_98709_create_index_dattab_power(posistruct2_t* tabbuffer, posistruct2_t* tabbufferend, uint8_t* datbuffer, posistruct_t* dattabindex)//279709
 {
 	//int length = (tabbufferend - ((uint8_t*)tabbuffer)) / 6;
-	int length = tabbufferend - tabbuffer;
-	for (int i = 0; i < length; i++)
+	//int length = tabbufferend - tabbuffer;
+	for (int i = 0; i < tabbufferend - tabbuffer; i++)
 	{
 		//int index = tabbuffer[i].data;
 		dattabindex[i].data = (datbuffer + tabbuffer[i].data);
@@ -3442,7 +3442,7 @@ void sub_98709_create_index_dattab_power_add(uint8_t* tabbuffer, uint8_t* tabbuf
 }
 
 //----- (0009874D) --------------------------------------------------------
-void sub_9874D_create_index_dattab(uint8_t* tabbuffer, uint8_t* tabbufferend, uint8_t* datbuffer, posistruct_t* dattabindex)//27974d
+void sub_9874D_create_index_dattab(posistruct2_t* tabbuffer, posistruct2_t* tabbufferend, uint8_t* datbuffer, posistruct_t* dattabindex)//27974d
 {
 	//uint32_t testadr = *(uint32_t*)tabbuffer;
 	/*if (testadr == 0x9999)
@@ -3454,7 +3454,7 @@ void sub_9874D_create_index_dattab(uint8_t* tabbuffer, uint8_t* tabbufferend, ui
 	}
 	else*/
 	{
-		for (uint32_t i = 0; i < (tabbufferend - tabbuffer) / 6; i++)
+		/*for (uint32_t i = 0; i < (tabbufferend - tabbuffer) / 6; i++)
 		{
 #ifdef COMPILE_FOR_64BIT // FIXME: 64bit
 			std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
@@ -3463,7 +3463,14 @@ void sub_9874D_create_index_dattab(uint8_t* tabbuffer, uint8_t* tabbufferend, ui
 #endif
 			dattabindex[i].width = tabbuffer[6 * i + 4];
 			dattabindex[i].height = tabbuffer[6 * i + 5];
+		}*/
+		for (uint32_t i = 0; i < tabbufferend - tabbuffer; i++)
+		{
+			dattabindex[i].data = (datbuffer + tabbuffer[i].data);
+			dattabindex[i].width = tabbuffer[i].width;
+			dattabindex[i].height = tabbuffer[i].height;
 		}
+
 		//testadr = 0x9999;
 		//memcpy(tabbuffer, &testadr, 4);
 	}

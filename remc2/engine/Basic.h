@@ -175,7 +175,7 @@ extern uint8_t unk_17D838[]; // weak
 #pragma pack (1)
 typedef struct {
 	posistruct2_t** begin_buffer;
-	uint8_t** end_buffer;
+	posistruct2_t** end_buffer;
 	uint8_t** dat_buffer;
 	posistruct_t** posistruct;
 } filearray_struct;
@@ -249,21 +249,21 @@ extern uint8_t* SEARCH_BEGIN_BUFFER;
 extern uint8_t* SEARCH_END_BUFFER;
 extern uint8_t* FONTS0DAT_BEGIN_BUFFER;
 extern posistruct2_t* FONTS0TAB_BEGIN_BUFFER;
-extern uint8_t* FONTS0TAB_END_BUFFER;
+extern posistruct2_t* FONTS0TAB_END_BUFFER;
 extern uint8_t* FONTS1DAT_BEGIN_BUFFER;//2baa94
 extern posistruct2_t* FONTS1TAB_BEGIN_BUFFER;//2bab24
-extern uint8_t* FONTS1TAB_END_BUFFER;//2bab04
+extern posistruct2_t* FONTS1TAB_END_BUFFER;//2bab04
 extern type_TMAPS00TAB_BEGIN_BUFFER* str_TMAPS00TAB_BEGIN_BUFFER;
 //uint8_t* TMAPS00TAB_BEGIN_BUFFER;//2c7ed0
 extern TColor* str_PALDATA_BEGIN_BUFFER;//2bb3c8
 extern TColor* str_PALMEM_BEGIN_BUFFER;//6d654d
 extern uint8_t* POINTERSDAT_BEGIN_BUFFER;//2bc390
 extern posistruct2_t* POINTERSTAB_BEGIN_BUFFER;//2bc394
-extern uint8_t* POINTERSTAB_END_BUFFER;//2bc388*/
+extern posistruct2_t* POINTERSTAB_END_BUFFER;//2bc388*/
 
 extern uint8_t* BUILD00DAT_BEGIN_BUFFER;
 extern posistruct2_t* BUILD00TAB_BEGIN_BUFFER;
-extern uint8_t* BUILD00TAB_END_BUFFER;
+extern posistruct2_t* BUILD00TAB_END_BUFFER;
 
 extern uint8_t* ETEXT_BEGIN_BUFFER;
 extern uint8_t* FTEXT_BEGIN_BUFFER;
@@ -287,15 +287,15 @@ extern uint8_t* BSCREEN2_END_BUFFER;
 
 extern uint8_t* MSPRD00DAT_BEGIN_BUFFER;
 extern posistruct2_t* MSPRD00TAB_BEGIN_BUFFER;
-extern uint8_t* MSPRD00TAB_END_BUFFER;
+extern posistruct2_t* MSPRD00TAB_END_BUFFER;
 
 extern uint8_t* HSPRD00DAT_BEGIN_BUFFER;
 extern posistruct2_t* HSPRD00TAB_BEGIN_BUFFER;
-extern uint8_t* HSPRD00TAB_END_BUFFER;
+extern posistruct2_t* HSPRD00TAB_END_BUFFER;
 
 extern uint8_t* HFONT3DAT_BEGIN_BUFFER;
 extern posistruct2_t* HFONT3TAB_BEGIN_BUFFER;
-extern uint8_t* HFONT3TAB_END_BUFFER;
+extern posistruct2_t* HFONT3TAB_END_BUFFER;
 
 extern uint8_t* CLRD0DAT_BEGIN_BUFFER;
 
@@ -543,6 +543,6 @@ void sub_99A77_create_index_dattab_div(uint8_t* a1, uint8_t* a2, uint8_t* a3, po
 void sub_99AEB_create_index_dattab_minus(uint8_t* a1, uint8_t* a2, uint8_t* a3, posistruct_t* a4);
 void sub_98709_create_index_dattab_power(posistruct2_t* a1, posistruct2_t* a2, uint8_t* a3, posistruct_t* a4);
 void sub_98709_create_index_dattab_power_add(uint8_t* a1, uint8_t* a2, uint8_t* a3, posistruct_t* a4, int add);
-void sub_9874D_create_index_dattab(uint8_t* a1, uint8_t* a2, uint8_t* a3, posistruct_t* a4);
+void sub_9874D_create_index_dattab(posistruct2_t* a1, posistruct2_t* a2, uint8_t* a3, posistruct_t* a4);
 void sub_9874D_create_index_dattab_add(uint8_t* a1, uint8_t* a2, uint8_t* a3, posistruct_t* a4, int add);
 #endif //MAIN_BASIC
