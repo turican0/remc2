@@ -519,7 +519,7 @@ signed int sub_74767(signed __int16* a1, type_DWORD_E12AE* a2x, uint8_t* a3);
 //int /*__fastcall*/ _wcpp_1_unwind_leave__131(x_DWORD);// weak
 void sub_7AB00_draw_menu_animations(/*__int16 a1,*/ /*int a2,*/ /*type_str_unk_E1748* a3,*/ unsigned __int8 a4);
 int sub_7F6A0(int a1, int a2, __int16 a3, __int16 a4, char* a5, int8_t* a6, unsigned __int8 a7);
-unsigned int sub_81CA0(int a1, int a2, __int16 a3, __int16 a4, type_x_BYTE_E25ED_db_str* a5);
+void sub_81CA0(int a1, int a2, __int16 a3, __int16 a4, type_x_BYTE_E25ED_db_str* a5);
 signed int sub_7E5A0_pre_draw(int a1, int a2, __int16 a3, __int16 a4, uint8_t* a5, __int16 a6, __int16 a7);
 void sub_81260(int a1, int a2, int8_t* a3, __int16 a4, __int16 a5);
 void sub_82510(/*__int16 a1*//*, int *a2*/);
