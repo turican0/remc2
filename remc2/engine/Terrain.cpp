@@ -161,7 +161,7 @@ void add_compare(uint32_t adress, bool debugafterload, int stopstep, bool skip) 
 
 int debugcounter_224959 = 0;
 //----- (00043830) --------------------------------------------------------
-void sub_43830_generate_level_map(unsigned int a1, type_str_2FECE* a2x)//224830
+void GenerateLevelMap_43830(unsigned int a1, type_str_2FECE* a2x)//224830
 {
 	//uint8_t* v2; // ebx
 	//int32_t v3; // ST0C_4

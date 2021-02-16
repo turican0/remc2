@@ -884,7 +884,7 @@ typedef struct {
 	uint8_t stubv[5];
 	uint8_t byte_38544;//x_D41A0_BYTEARRAY_4_struct.byte_38544
 	uint8_t setting_38545;//0x9691//x_D41A0_BYTEARRAY_4_struct.setting_38545
-	uint8_t byte_38546;//0x9692//x_D41A0_BYTEARRAY_4_struct.byte_38546
+	uint8_t SelectedMenuItem_38546;//0x9692//x_D41A0_BYTEARRAY_4_struct.byte_38546
 	uint8_t stubw[44];
 	uint8_t byte_38591;//0x96BF//x_D41A0_BYTEARRAY_4_struct.byte_38591
 
@@ -1480,119 +1480,40 @@ typedef struct {//lenght 224791
 	uint8_t stub0[4];
 	uint32_t dword_0x4;
 	uint32_t dword_0x8;
-
 	int16_t word_0xc;//player_index?
 	int16_t word_0xe;
-	//word 0xe - 14
 	uint8_t array_0x10[0x1d]; //0x10, next 0x2d(45)
 	int32_t dword_0x2d;//45
-	//uint8_t byte_0x22;
 	uint16_t word_0x31;//49
 	uint16_t word_0x33;//51
 	int32_t dword_0x35;//53//entity counter(max 1000 entity changes per step)
 	uint8_t array_0x39[508];//57
-	//uint8_t stub2[0x1fc];
 	int32_t dword_0x235;//act music
 	uint8_t byte_0x239;//569
 	int32_t dword_0x23a;
 	int32_t dword_0x23e;
 	int32_t dword_0x242;
 	type_str_0x6E8E* pointers_0x246[0x3e8];//pointers
-	//0x81d 2077
-	/*
-	*(x_DWORD *)(x_D41A0_BYTEARRAY_0 + 570) = 1;//0x23a
-	*(x_DWORD *)(x_D41A0_BYTEARRAY_0 + 574) = 0;//0x23e
-	*(x_DWORD *)(x_D41A0_BYTEARRAY_0 + 578) = 0;//0x242
-	*/
-	//uint8_t stub3[0x1f44];
 	int32_t dword_0x11e6;//second entity counter
 	type_str_0x6E8E* dword_0x11EA[0x3e8];//??4586
-	//uint8_t stub3[0xfa0];
-
 	GameSettingsStruct_t m_GameSettings;
-
 	uint32_t dword_0x219A;//8602
 	uint32_t dword_0x219E;//8606
 	uint32_t dword_0x21A2;//8610
 	uint32_t dword_0x21A6;//8614
-
 	type_str_0x21AA str_0x21AA;
-	//uint8_t byte_0x21AA;//8618 can reflections
-	//uint8_t byte_0x21AB;//8619 can shadows
-	//uint8_t byte_0x21AC;//8620 can sky
-	//uint8_t byte_0x21AD;//8621
 	type_str_0x21AE str_0x21AE;
-	//uint8_t byte_0x21AE;//8622
-	//uint8_t byte_0x21AF;//8623
-	//uint8_t byte_0x21B0;//8624
-	//uint8_t byte_0x21B1;//8625
 	type_str_0x21B2 str_0x21B2;
-	//uint8_t byte_0x21B2;//8626
-	//uint8_t byte_0x21B3;//8627
-	//uint8_t byte_0x21B4;//resolution//8628
-	//uint8_t byte_0x21B5;//8629
 	type_str_0x21B6 str_0x21B6;
-	//uint8_t byte_0x21B6;//8630 can lights
-	//uint8_t byte_0x21B7;//8631
-	//uint8_t byte_0x21B8;//8632 can transparency
-	//uint8_t byte_0x21B9;//8633 can flat
-
-	//uint8_t byte_0x21BA;//
-
 	uint8_t stub3b[0x1a8];
-
-	axis_3d array_0x2362[8];//0x30
-	//int32_t dword_0x2362;
-	//int16_t word_0x2366;
+	axis_3d array_0x2362[8];
 	uint8_t stub3c[0x14d];
-	///*??*/type_str_0x24DF array_0x24DF[0xb];//?lenght
 	uint8_t stub3d[0x6ff];
-	//2BEC
-
-	//x_D41A0_BYTEARRAY_0[2124 * D41A0_BYTESTR_0.word_12 + 11234])
-	//x_D41A0_BYTEARRAY_0[0x84C * D41A0_BYTESTR_0.word_12 + 0x2BE2])
-	type_str_0x2BDE array_0x2BDE[0x8]; //0x84c*0x8 ??
-	//0x4260
-	//type_str_0x6574 str_0x6574[8];//25972
-	//type_str_0x65ac array_0x65ac[0xb];//??
-	/*
-	3-bit-28225
-	4-bit-28226
-	5-bit-28227
-	6-2bit-28228
-	8-2bit-28230
-	*/
-
+	type_str_0x2BDE array_0x2BDE[0x8];
 	type_str_0x6E3E array_0x6E3E[8];//28222	lenght 0xa size 0x8// game events
 	type_str_0x6E8E struct_0x6E8E[0x3e8];//28302 a8*3e8
-	//1 - 6F36 - 28470
-	//2 - 6FDE
-	//3 - 7086
-	//4 - 712e
-
-	//uint8_t stub3ee[0xa4];
-	//uint8_t* pointer_0x6F32;
-
-	//type_str_0x6E8E struct_0x6F36[8];//lenght 168
-
-	//uint8_t stub3e[0x28f98];
-
 	type_str_2FECE str_2FECE;// a1 = &x_D41A0_BYTEARRAY_0[0x2FECE/*196302*/];//fix - size 0x6604u//compress level
-	/*//podpolozky
-	uint8_t byte_0x2FED4;//x_D41A0_BYTEARRAY_0[196308]
-	type_str_0x3030E array_0x3030E[0xb];//fix array lenght;
-	type_str_0x30325 array_0x30325[0x4af];
-	////0x30325 0x360d1 tj rozdil 23980=1199*20
-	//36479
-	type_str_0x3647A array_0x3647A[0xb];//8x11
-	//konec 6604
-	*/
-
 	type_str_0x364D2 str_0x364D2;//lenght 108
-	/*uint32_t dword_0x364D2;//lenght 108
-	uint8_t array_0x364D6[0x68];// lenght 0x68=104 end 0x3653e*/
-
-	//uint8_t stub3f[0x831];
 	int16_t word_0x3653E;//
 	int16_t word_0x36540;//
 	int16_t word_0x36542;//
@@ -1602,17 +1523,8 @@ typedef struct {//lenght 224791
 	int16_t word_0x3654A;//
 	type_str_3654C struct_0x3654C[0x8];//size 10 count 8
 	type_str_3659C struct_0x3659C[0x8];//size 11 count 8 C-0 D-1 E-2 F-3
-
-	//int16_t word_0x365E0;
-	//uint8_t stub3g[0x12];
-
 	type_str_0x3647Ac array_0x365F4[0xb];//8x11	//set 0x58 // end 0x3664c
-
-	//int8_t byte_0x365FC;//array_0x365F4[1].byte_0
-	//int8_t byte_0x365FD;//array_0x365F4[1].byte_1
-
 	type_str_0x3664C str_0x3664C[0x32];// lenght 0x79e//39x50 (end-0x36dea)
-	//uint8_t stub3h[0x79e];
 	int8_t byte_0x36DEA_fly_asistant;
 	int8_t byte_0x36DEB_xx;
 	int16_t word_0x36DEC_mousex;
@@ -1630,12 +1542,6 @@ typedef struct {//lenght 224791
 	int8_t byte_0x36E04;
 	uint8_t stub3k[0x6];
 	int8_t byte_0x36E0B;
-
-	//&x_D41A0_BYTEARRAY_0[197413]; ix < &x_D41A0_BYTEARRAY_0[221393]; ix += 20)
-
-	//type_str_0x365F2 array_str_0x365F2[0x10];//fix it
-	//*(0x365F2 + x_D41A0_BYTEARRAY_0 + 8 * (signed __int16)result + 2)
-
 	uint8_t stubend[0xb];
 } type_D41A0_BYTESTR_0; // level data (gets saved to and loaded from SAVE/SLEVxx.dat) was originally forced to 224791 on load/save which is out of bounds
 
