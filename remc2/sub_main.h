@@ -320,6 +320,7 @@ typedef struct {
 	int8_t data_6[];
 }
 type_particle_str;
+
 #pragma pack (16)
 
 #pragma pack (1)
