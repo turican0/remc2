@@ -8153,3 +8153,1676 @@ InGameSave-end-0
 mycreate:0000020786224280
 myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/SAVE/SVER2.dat
 myopen:open end 0000020786224280
+file_exists:true-C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS0-0.DAT
+Init:Begin of creating dirs
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:000001C749E50DB0 2
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/SAVE
+myaccess:exit:000001C749E50DB0 2
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:000001C749E50DB0 2
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA
+myaccess:exit:000001C749E50DB0 2
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:000001C749E50DB0 2
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS
+myaccess:exit:000001C749E50DB0 2
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:000001C749E50DB0 2
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/SOUND
+myaccess:exit:000001C749E50DB0 2
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:000001C749E50DB0 2
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/LANGUAGE
+myaccess:exit:000001C749E50DB0 2
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:000001C749E50DB0 2
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/SHOTS
+myaccess:exit:000001C749E50DB0 2
+sub_53D10:End value 3
+Init:End of creating dirs
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/SOUND/DIG.INI
+myopen:open end 000001C742F407D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/SOUND/MDI.INI
+myopen:open end 000001C742F407D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT0.DAT
+myopen:open end 000001C742F407D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT0.DAT
+myopen:open end 000001C742F407D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT0.TAB
+myopen:open end 000001C742F407D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT0.TAB
+myopen:open end 000001C742F407D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT1.DAT
+myopen:open end 000001C742F407D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT1.DAT
+myopen:open end 000001C742F407D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT1.TAB
+myopen:open end 000001C742F407D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT1.TAB
+myopen:open end 000001C742F407D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS0-0.TAB
+myopen:open end 000001C742F407D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS0-0.TAB
+myopen:open end 000001C742F407D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/POINTERS.DAT
+myopen:open end 000001C742F407D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/POINTERS.DAT
+myopen:open end 000001C742F407D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/POINTERS.TAB
+myopen:open end 000001C742F407D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/POINTERS.TAB
+myopen:open end 000001C742F407D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BUILD0-0.DAT
+myopen:open end 000001C742F407D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BUILD0-0.DAT
+myopen:open end 000001C742F407D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BUILD0-0.TAB
+myopen:open end 000001C742F407D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BUILD0-0.TAB
+myopen:open end 000001C742F407D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BLDGPRM.DAT
+myopen:open end 000001C742F407D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/PALD-0.DAT
+myopen:open end 000001C742F407D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/PALD-0.DAT
+myopen:open end 000001C742F407D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BLOCK32.DAT
+myopen:open end 000001C742F407D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BLOCK32.DAT
+myopen:open end 000001C742F407D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/PALD-0.DAT
+myopen:open end 000001C742F407D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/CLRD-0.DAT
+myopen:open end 000001C742F407D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/VERSION.DAT
+myopen:open end 000001C742F407D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS0-0.DAT
+myopen:open end 000001C742F407D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS0-0.DAT
+myopen:open end 000001C742FDD780
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS1-0.DAT
+myopen:open end 000001C742F407D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS1-0.DAT
+myopen:open end 000001C742FDD780
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS2-0.DAT
+myopen:open end 000001C742F407D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS2-0.DAT
+myopen:open end 000001C742FDD780
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/CD_Files/LEVELS
+myaccess:exit:000001C749EB7AE0 2
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS
+myaccess:exit:000001C749EB7AE0 2
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/LEVELS/LEVELS.TAB
+myopen:open end 000001C742F407D0
+mycreate:000001C742FDD780
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS/LEVELS.TAB
+myopen:open end 000001C742FDD780
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/LEVELS/LEVELS.DAT
+myopen:open end 000001C742F407D0
+mycreate:000001C742FDD780
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS/LEVELS.DAT
+myopen:open end 000001C742FDD780
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS0-0.DAT
+myopen:open end 000001C742F407D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS1-0.DAT
+myopen:open end 000001C742FDD780
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS2-0.DAT
+myopen:open end 000001C742FDD280
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SEARCH.DAT
+myopen:open end 000001C742F407D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SPELLS.DAT
+myopen:open end 000001C742F407D0
+myopent:end: 000001C742F407D0
+myopent:end: 000001C742F407D0
+myopent:end: 000001C742F407D0
+myopent:end: 000001C742F407D0
+myopent:end: 000001C742F407D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/SOUND/SOUND.DAT
+myopen:open end 000001C742F407D0
+myopent:end: 000001C742F407D0
+myopent:end: 000001C742F407D0
+myopent:end: 000001C742F407D0
+myopent:end: 000001C742F407D0
+myopent:end: 000001C742F407D0
+myopent:end: 000001C742F407D0
+myopent:end: 000001C742F407D0
+myopent:end: 000001C742F407D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/SOUND/MUSIC.DAT
+myopen:open end 000001C742F407D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CONFIG.DAT
+myopen:open end 000001C742F407D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/LANGUAGE/L2.TXT
+myopen:open end 000001C742F407D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SCREENS/HSCREEN0.DAT
+myopen:open end 000001C742F407D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SCREENS/HSCREEN0.DAT
+myopen:open end 000001C742F407D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/INTRO/INTRO.DAT
+myopen:open end 000001C742F407D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/SOUND/SOUND.DAT
+myopen:open end 000001C742FDD780
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/INTRO/INTRO2.DAT
+myopen:open end 000001C742F407D0
+sub_8F100_sound_proc19:buff:
+52494646745C000057415645666D7420100000000100010022560000225600000100080064617461A15B0000FFFFF6F5EEE2EAE5D0DBE4DFF2E5EEF9EDD7E3ECEAF1FBEAEBFDF6E7ECEDE8F2FFFFFFFFEFE2F3F5E4E1E8E8EAE5D4CADCFFEEAEA5B6B0B3
+sub_8F100_sound_proc19:44mhz:
+
+sub_8F100_sound_proc19:rate:22050
+SOUND_start_sample:00000000
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/SOUND/SOUND.DAT
+myopen:open end 000001C742F407D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SCREENS/HSCREEN0.DAT
+myopen:open end 000001C742F407D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SCREENS/HSCREEN0.DAT
+myopen:open end 000001C742F407D0
+sub_46830_main_loop:before load scr
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SMATITLE.DAT
+myopen:open end 000001C742F407D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SMATITLE.PAL
+myopen:open end 000001C742F407D0
+sub_46830_main_loop:load scr passed
+sub_56A30_init_game_level:before sub_6EB90
+sub_56A30_init_game_level:sub_6EB90 passed
+sub_56A30_init_game_level:before sub_533B0_decompress_levels
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS/LEVELS.DAT
+myopen:open end 000001C742F407D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS/LEVELS.TAB
+myopen:open end 000001C742FDD780
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/SOUND/SOUND.DAT
+myopen:open end 000001C742F407D0
+sub_56A30_init_game_level:sub_533B0_decompress_levels passed
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BL32N0-0.DAT
+myopen:open end 000001C742F407D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SKYN0-0.DAT
+myopen:open end 000001C742F407D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS1-0.TAB
+myopen:open end 000001C742F407D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TABLESN.DAT
+myopen:open end 000001C742F407D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS0-0.DAT
+myopen:open end 000001C742F407D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS1-0.DAT
+myopen:open end 000001C742FDD780
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS2-0.DAT
+myopen:open end 000001C742FDD280
+sub_46830_main_loop:init game level passed
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/MSPRN0-0.DAT
+myopen:open end 000001C742FDD820
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/MSPRN0-0.DAT
+myopen:open end 000001C742FDD820
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/MSPRN0-0.TAB
+myopen:open end 000001C742FDD820
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/MSPRN0-0.TAB
+myopen:open end 000001C742FDD820
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/MWEBN0-0.DAT
+myopen:open end 000001C742FDD820
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/MWEBN0-0.TAB
+myopen:open end 000001C742FDD820
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/data/pald-0.dat
+myopen:open end 000001C742FDD820
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/data/clrd-0.dat
+myopen:open end 000001C742FDD820
+file_exists:true-C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS0-0.DAT
+Init:Begin of creating dirs
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:0000020A6EB60800 2
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/SAVE
+myaccess:exit:0000020A6EB60800 2
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:0000020A6EB60800 2
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA
+myaccess:exit:0000020A6EB60800 2
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:0000020A6EB60800 2
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS
+myaccess:exit:0000020A6EB60800 2
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:0000020A6EB60800 2
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/SOUND
+myaccess:exit:0000020A6EB60800 2
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:0000020A6EB60800 2
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/LANGUAGE
+myaccess:exit:0000020A6EB60800 2
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:0000020A6EB60800 2
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/SHOTS
+myaccess:exit:0000020A6EB60800 2
+sub_53D10:End value 3
+Init:End of creating dirs
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/SOUND/DIG.INI
+myopen:open end 0000020A67CD07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/SOUND/MDI.INI
+myopen:open end 0000020A67CD07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT0.DAT
+myopen:open end 0000020A67CD07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT0.DAT
+myopen:open end 0000020A67CD07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT0.TAB
+myopen:open end 0000020A67CD07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT0.TAB
+myopen:open end 0000020A67CD07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT1.DAT
+myopen:open end 0000020A67CD07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT1.DAT
+myopen:open end 0000020A67CD07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT1.TAB
+myopen:open end 0000020A67CD07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT1.TAB
+myopen:open end 0000020A67CD07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS0-0.TAB
+myopen:open end 0000020A67CD07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS0-0.TAB
+myopen:open end 0000020A67CD07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/POINTERS.DAT
+myopen:open end 0000020A67CD07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/POINTERS.DAT
+myopen:open end 0000020A67CD07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/POINTERS.TAB
+myopen:open end 0000020A67CD07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/POINTERS.TAB
+myopen:open end 0000020A67CD07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BUILD0-0.DAT
+myopen:open end 0000020A67CD07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BUILD0-0.DAT
+myopen:open end 0000020A67CD07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BUILD0-0.TAB
+myopen:open end 0000020A67CD07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BUILD0-0.TAB
+myopen:open end 0000020A67CD07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BLDGPRM.DAT
+myopen:open end 0000020A67CD07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/PALD-0.DAT
+myopen:open end 0000020A67CD07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/PALD-0.DAT
+myopen:open end 0000020A67CD07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BLOCK32.DAT
+myopen:open end 0000020A67CD07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BLOCK32.DAT
+myopen:open end 0000020A67CD07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/PALD-0.DAT
+myopen:open end 0000020A67CD07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/CLRD-0.DAT
+myopen:open end 0000020A67CD07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/VERSION.DAT
+myopen:open end 0000020A67CD07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS0-0.DAT
+myopen:open end 0000020A67CD07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS0-0.DAT
+myopen:open end 0000020A67D71380
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS1-0.DAT
+myopen:open end 0000020A67CD07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS1-0.DAT
+myopen:open end 0000020A67D71380
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS2-0.DAT
+myopen:open end 0000020A67CD07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS2-0.DAT
+myopen:open end 0000020A67D71380
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/CD_Files/LEVELS
+myaccess:exit:0000020A6EBC7530 2
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS
+myaccess:exit:0000020A6EBC7530 2
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/LEVELS/LEVELS.TAB
+myopen:open end 0000020A67CD07D0
+mycreate:0000020A67D71380
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS/LEVELS.TAB
+myopen:open end 0000020A67D71380
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/LEVELS/LEVELS.DAT
+myopen:open end 0000020A67CD07D0
+mycreate:0000020A67D71380
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS/LEVELS.DAT
+myopen:open end 0000020A67D71380
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS0-0.DAT
+myopen:open end 0000020A67CD07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS1-0.DAT
+myopen:open end 0000020A67D71380
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS2-0.DAT
+myopen:open end 0000020A67D6FC60
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SEARCH.DAT
+myopen:open end 0000020A67CD07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SPELLS.DAT
+myopen:open end 0000020A67CD07D0
+myopent:end: 0000020A67CD07D0
+myopent:end: 0000020A67CD07D0
+myopent:end: 0000020A67CD07D0
+myopent:end: 0000020A67CD07D0
+myopent:end: 0000020A67CD07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/SOUND/SOUND.DAT
+myopen:open end 0000020A67CD07D0
+myopent:end: 0000020A67CD07D0
+myopent:end: 0000020A67CD07D0
+myopent:end: 0000020A67CD07D0
+myopent:end: 0000020A67CD07D0
+myopent:end: 0000020A67CD07D0
+myopent:end: 0000020A67CD07D0
+myopent:end: 0000020A67CD07D0
+myopent:end: 0000020A67CD07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/SOUND/MUSIC.DAT
+myopen:open end 0000020A67CD07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CONFIG.DAT
+myopen:open end 0000020A67CD07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/LANGUAGE/L2.TXT
+myopen:open end 0000020A67CD07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SCREENS/HSCREEN0.DAT
+myopen:open end 0000020A67CD07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SCREENS/HSCREEN0.DAT
+myopen:open end 0000020A67CD07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/INTRO/INTRO.DAT
+myopen:open end 0000020A67CD07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/SOUND/SOUND.DAT
+myopen:open end 0000020A67D71380
+sub_8F100_sound_proc19:buff:
+52494646D4EC050057415645666D742010000000010001002256000022560000010008006461746101EC050080807E807E7E7E808080807E807E7E807E7E80807E7E80807E7E807E7E80807E807E7E807E80808080808080808080808080808080808080
+sub_8F100_sound_proc19:44mhz:
+
+sub_8F100_sound_proc19:rate:22050
+SOUND_start_sample:00000000
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/INTRO/INTRO2.DAT
+myopen:open end 0000020A67CD07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/SOUND/SOUND.DAT
+myopen:open end 0000020A67CD07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SCREENS/HSCREEN0.DAT
+myopen:open end 0000020A67CD07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SCREENS/HSCREEN0.DAT
+myopen:open end 0000020A67CD07D0
+sub_46830_main_loop:before load scr
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SMATITLE.DAT
+myopen:open end 0000020A67CD07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SMATITLE.PAL
+myopen:open end 0000020A67CD07D0
+sub_46830_main_loop:load scr passed
+sub_56A30_init_game_level:before sub_6EB90
+sub_56A30_init_game_level:sub_6EB90 passed
+sub_56A30_init_game_level:before sub_533B0_decompress_levels
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS/LEVELS.DAT
+myopen:open end 0000020A67CD07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS/LEVELS.TAB
+myopen:open end 0000020A67D71380
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/SOUND/SOUND.DAT
+myopen:open end 0000020A67CD07D0
+sub_56A30_init_game_level:sub_533B0_decompress_levels passed
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BL32N0-0.DAT
+myopen:open end 0000020A67CD07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SKYN0-0.DAT
+myopen:open end 0000020A67CD07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS1-0.TAB
+myopen:open end 0000020A67CD07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TABLESN.DAT
+myopen:open end 0000020A67CD07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS0-0.DAT
+myopen:open end 0000020A67CD07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS1-0.DAT
+myopen:open end 0000020A67D71380
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS2-0.DAT
+myopen:open end 0000020A67D6FC60
+sub_46830_main_loop:init game level passed
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/MSPRN0-0.DAT
+myopen:open end 0000020A67D6FD00
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/MSPRN0-0.DAT
+myopen:open end 0000020A67D6FD00
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/MSPRN0-0.TAB
+myopen:open end 0000020A67D6FD00
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/MSPRN0-0.TAB
+myopen:open end 0000020A67D6FD00
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/MWEBN0-0.DAT
+myopen:open end 0000020A67D6FD00
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/MWEBN0-0.TAB
+myopen:open end 0000020A67D6FD00
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/data/pald-0.dat
+myopen:open end 0000020A67D6FD00
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/data/clrd-0.dat
+myopen:open end 0000020A67D6FD00
+file_exists:true-C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS0-0.DAT
+Init:Begin of creating dirs
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:0000013191A4D3F0 2
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/SAVE
+myaccess:exit:0000013191A4D3F0 2
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:0000013191A4D3F0 2
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA
+myaccess:exit:0000013191A4D3F0 2
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:0000013191A4D3F0 2
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS
+myaccess:exit:0000013191A4D3F0 2
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:0000013191A4D3F0 2
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/SOUND
+myaccess:exit:0000013191A4D3F0 2
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:0000013191A4D3F0 2
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/LANGUAGE
+myaccess:exit:0000013191A4D3F0 2
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:0000013191A4D3F0 2
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/SHOTS
+myaccess:exit:0000013191A4D3F0 2
+sub_53D10:End value 3
+Init:End of creating dirs
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/SOUND/DIG.INI
+myopen:open end 000001318AC207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/SOUND/MDI.INI
+myopen:open end 000001318AC207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT0.DAT
+myopen:open end 000001318AC207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT0.DAT
+myopen:open end 000001318AC207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT0.TAB
+myopen:open end 000001318AC207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT0.TAB
+myopen:open end 000001318AC207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT1.DAT
+myopen:open end 000001318AC207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT1.DAT
+myopen:open end 000001318AC207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT1.TAB
+myopen:open end 000001318AC207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT1.TAB
+myopen:open end 000001318AC207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS0-0.TAB
+myopen:open end 000001318AC207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS0-0.TAB
+myopen:open end 000001318AC207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/POINTERS.DAT
+myopen:open end 000001318AC207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/POINTERS.DAT
+myopen:open end 000001318AC207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/POINTERS.TAB
+myopen:open end 000001318AC207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/POINTERS.TAB
+myopen:open end 000001318AC207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BUILD0-0.DAT
+myopen:open end 000001318AC207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BUILD0-0.DAT
+myopen:open end 000001318AC207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BUILD0-0.TAB
+myopen:open end 000001318AC207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BUILD0-0.TAB
+myopen:open end 000001318AC207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BLDGPRM.DAT
+myopen:open end 000001318AC207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/PALD-0.DAT
+myopen:open end 000001318AC207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/PALD-0.DAT
+myopen:open end 000001318AC207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BLOCK32.DAT
+myopen:open end 000001318AC207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BLOCK32.DAT
+myopen:open end 000001318AC207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/PALD-0.DAT
+myopen:open end 000001318AC207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/CLRD-0.DAT
+myopen:open end 000001318AC207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/VERSION.DAT
+myopen:open end 000001318AC207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS0-0.DAT
+myopen:open end 000001318AC207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS0-0.DAT
+myopen:open end 000001318ACBF7C0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS1-0.DAT
+myopen:open end 000001318AC207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS1-0.DAT
+myopen:open end 000001318ACBF7C0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS2-0.DAT
+myopen:open end 000001318AC207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS2-0.DAT
+myopen:open end 000001318ACBF7C0
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/CD_Files/LEVELS
+myaccess:exit:0000013191AB0EB0 2
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS
+myaccess:exit:0000013191AB0EB0 2
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/LEVELS/LEVELS.TAB
+myopen:open end 000001318AC207D0
+mycreate:000001318ACBF7C0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS/LEVELS.TAB
+myopen:open end 000001318ACBF7C0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/LEVELS/LEVELS.DAT
+myopen:open end 000001318AC207D0
+mycreate:000001318ACBF7C0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS/LEVELS.DAT
+myopen:open end 000001318ACBF7C0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS0-0.DAT
+myopen:open end 000001318AC207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS1-0.DAT
+myopen:open end 000001318ACBF7C0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS2-0.DAT
+myopen:open end 000001318ACBF0E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SEARCH.DAT
+myopen:open end 000001318AC207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SPELLS.DAT
+myopen:open end 000001318AC207D0
+myopent:end: 000001318AC207D0
+myopent:end: 000001318AC207D0
+myopent:end: 000001318AC207D0
+myopent:end: 000001318AC207D0
+myopent:end: 000001318AC207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/SOUND/SOUND.DAT
+myopen:open end 000001318AC207D0
+myopent:end: 000001318AC207D0
+myopent:end: 000001318AC207D0
+myopent:end: 000001318AC207D0
+myopent:end: 000001318AC207D0
+myopent:end: 000001318AC207D0
+myopent:end: 000001318AC207D0
+myopent:end: 000001318AC207D0
+myopent:end: 000001318AC207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/SOUND/MUSIC.DAT
+myopen:open end 000001318AC207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CONFIG.DAT
+myopen:open end 000001318AC207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/LANGUAGE/L2.TXT
+myopen:open end 000001318AC207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SCREENS/HSCREEN0.DAT
+myopen:open end 000001318AC207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SCREENS/HSCREEN0.DAT
+myopen:open end 000001318AC207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/INTRO/INTRO.DAT
+myopen:open end 000001318AC207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/SOUND/SOUND.DAT
+myopen:open end 000001318ACBF7C0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/INTRO/INTRO2.DAT
+myopen:open end 000001318AC207D0
+sub_8F100_sound_proc19:buff:
+52494646745C000057415645666D7420100000000100010022560000225600000100080064617461A15B0000FFFFF6F5EEE2EAE5D0DBE4DFF2E5EEF9EDD7E3ECEAF1FBEAEBFDF6E7ECEDE8F2FFFFFFFFEFE2F3F5E4E1E8E8EAE5D4CADCFFEEAEA5B6B0B3
+sub_8F100_sound_proc19:44mhz:
+
+sub_8F100_sound_proc19:rate:22050
+SOUND_start_sample:00000000
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/SOUND/SOUND.DAT
+myopen:open end 000001318AC207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SCREENS/HSCREEN0.DAT
+myopen:open end 000001318AC207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SCREENS/HSCREEN0.DAT
+myopen:open end 000001318AC207D0
+sub_46830_main_loop:before load scr
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SMATITLE.DAT
+myopen:open end 000001318AC207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SMATITLE.PAL
+myopen:open end 000001318AC207D0
+sub_46830_main_loop:load scr passed
+sub_56A30_init_game_level:before sub_6EB90
+sub_56A30_init_game_level:sub_6EB90 passed
+sub_56A30_init_game_level:before sub_533B0_decompress_levels
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS/LEVELS.DAT
+myopen:open end 000001318AC207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS/LEVELS.TAB
+myopen:open end 000001318ACBF7C0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/SOUND/SOUND.DAT
+myopen:open end 000001318AC207D0
+sub_56A30_init_game_level:sub_533B0_decompress_levels passed
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BL32N0-0.DAT
+myopen:open end 000001318AC207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SKYN0-0.DAT
+myopen:open end 000001318AC207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS1-0.TAB
+myopen:open end 000001318AC207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TABLESN.DAT
+myopen:open end 000001318AC207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS0-0.DAT
+myopen:open end 000001318AC207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS1-0.DAT
+myopen:open end 000001318ACBF7C0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS2-0.DAT
+myopen:open end 000001318ACBF0E0
+sub_46830_main_loop:init game level passed
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/MSPRN0-0.DAT
+myopen:open end 000001318ACBFAE0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/MSPRN0-0.DAT
+myopen:open end 000001318ACBFAE0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/MSPRN0-0.TAB
+myopen:open end 000001318ACBFAE0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/MSPRN0-0.TAB
+myopen:open end 000001318ACBFAE0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/MWEBN0-0.DAT
+myopen:open end 000001318ACBFAE0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/MWEBN0-0.TAB
+myopen:open end 000001318ACBFAE0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/data/pald-0.dat
+myopen:open end 000001318ACBFAE0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/data/clrd-0.dat
+myopen:open end 000001318ACBFAE0
+file_exists:true-C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS0-0.DAT
+Init:Begin of creating dirs
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:0000018B9A978C00 2
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/SAVE
+myaccess:exit:0000018B9A978C00 2
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:0000018B9A978C00 2
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA
+myaccess:exit:0000018B9A978C00 2
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:0000018B9A978C00 2
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS
+myaccess:exit:0000018B9A978C00 2
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:0000018B9A978C00 2
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/SOUND
+myaccess:exit:0000018B9A978C00 2
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:0000018B9A978C00 2
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/LANGUAGE
+myaccess:exit:0000018B9A978C00 2
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:0000018B9A978C00 2
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/SHOTS
+myaccess:exit:0000018B9A978C00 2
+sub_53D10:End value 3
+Init:End of creating dirs
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/SOUND/DIG.INI
+myopen:open end 0000018B97C307D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/SOUND/MDI.INI
+myopen:open end 0000018B97C307D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT0.DAT
+myopen:open end 0000018B97C307D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT0.DAT
+myopen:open end 0000018B97C307D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT0.TAB
+myopen:open end 0000018B97C307D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT0.TAB
+myopen:open end 0000018B97C307D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT1.DAT
+myopen:open end 0000018B97C307D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT1.DAT
+myopen:open end 0000018B97C307D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT1.TAB
+myopen:open end 0000018B97C307D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT1.TAB
+myopen:open end 0000018B97C307D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS0-0.TAB
+myopen:open end 0000018B97C307D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS0-0.TAB
+myopen:open end 0000018B97C307D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/POINTERS.DAT
+myopen:open end 0000018B97C307D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/POINTERS.DAT
+myopen:open end 0000018B97C307D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/POINTERS.TAB
+myopen:open end 0000018B97C307D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/POINTERS.TAB
+myopen:open end 0000018B97C307D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BUILD0-0.DAT
+myopen:open end 0000018B97C307D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BUILD0-0.DAT
+myopen:open end 0000018B97C307D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BUILD0-0.TAB
+myopen:open end 0000018B97C307D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BUILD0-0.TAB
+myopen:open end 0000018B97C307D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BLDGPRM.DAT
+myopen:open end 0000018B97C307D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/PALD-0.DAT
+myopen:open end 0000018B97C307D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/PALD-0.DAT
+myopen:open end 0000018B97C307D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BLOCK32.DAT
+myopen:open end 0000018B97C307D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BLOCK32.DAT
+myopen:open end 0000018B97C307D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/PALD-0.DAT
+myopen:open end 0000018B97C307D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/CLRD-0.DAT
+myopen:open end 0000018B97C307D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/VERSION.DAT
+myopen:open end 0000018B97C307D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS0-0.DAT
+myopen:open end 0000018B97C307D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS0-0.DAT
+myopen:open end 0000018B97CCBAC0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS1-0.DAT
+myopen:open end 0000018B97C307D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS1-0.DAT
+myopen:open end 0000018B97CCBAC0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS2-0.DAT
+myopen:open end 0000018B97C307D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS2-0.DAT
+myopen:open end 0000018B97CCBAC0
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/CD_Files/LEVELS
+myaccess:exit:0000018B9A978C00 2
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS
+myaccess:exit:0000018B9A978C00 2
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/LEVELS/LEVELS.TAB
+myopen:open end 0000018B97C307D0
+mycreate:0000018B97CCBAC0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS/LEVELS.TAB
+myopen:open end 0000018B97CCBAC0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/LEVELS/LEVELS.DAT
+myopen:open end 0000018B97C307D0
+mycreate:0000018B97CCBAC0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS/LEVELS.DAT
+myopen:open end 0000018B97CCBAC0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS0-0.DAT
+myopen:open end 0000018B97C307D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS1-0.DAT
+myopen:open end 0000018B97CCBAC0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS2-0.DAT
+myopen:open end 0000018B97CCB8E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SEARCH.DAT
+myopen:open end 0000018B97C307D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SPELLS.DAT
+myopen:open end 0000018B97C307D0
+myopent:end: 0000018B97C307D0
+myopent:end: 0000018B97C307D0
+myopent:end: 0000018B97C307D0
+myopent:end: 0000018B97C307D0
+myopent:end: 0000018B97C307D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/SOUND/SOUND.DAT
+myopen:open end 0000018B97C307D0
+myopent:end: 0000018B97C307D0
+myopent:end: 0000018B97C307D0
+myopent:end: 0000018B97C307D0
+myopent:end: 0000018B97C307D0
+myopent:end: 0000018B97C307D0
+myopent:end: 0000018B97C307D0
+myopent:end: 0000018B97C307D0
+myopent:end: 0000018B97C307D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/SOUND/MUSIC.DAT
+myopen:open end 0000018B97C307D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CONFIG.DAT
+myopen:open end 0000018B97C307D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/LANGUAGE/L2.TXT
+myopen:open end 0000018B97C307D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SCREENS/HSCREEN0.DAT
+myopen:open end 0000018B97C307D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SCREENS/HSCREEN0.DAT
+myopen:open end 0000018B97C307D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/INTRO/INTRO.DAT
+myopen:open end 0000018B97C307D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/SOUND/SOUND.DAT
+myopen:open end 0000018B97CCBAC0
+sub_8F100_sound_proc19:buff:
+52494646D4EC050057415645666D742010000000010001002256000022560000010008006461746101EC050080807E807E7E7E808080807E807E7E807E7E80807E7E80807E7E807E7E80807E807E7E807E80808080808080808080808080808080808080
+sub_8F100_sound_proc19:44mhz:
+
+sub_8F100_sound_proc19:rate:22050
+SOUND_start_sample:00000000
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/INTRO/INTRO2.DAT
+myopen:open end 0000018B97C307D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/SOUND/SOUND.DAT
+myopen:open end 0000018B97C307D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SCREENS/HSCREEN0.DAT
+myopen:open end 0000018B97C307D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SCREENS/HSCREEN0.DAT
+myopen:open end 0000018B97C307D0
+sub_46830_main_loop:before load scr
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SMATITLE.DAT
+myopen:open end 0000018B97C307D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SMATITLE.PAL
+myopen:open end 0000018B97C307D0
+sub_46830_main_loop:load scr passed
+sub_56A30_init_game_level:before sub_6EB90
+sub_56A30_init_game_level:sub_6EB90 passed
+sub_56A30_init_game_level:before sub_533B0_decompress_levels
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS/LEVELS.DAT
+myopen:open end 0000018B97C307D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS/LEVELS.TAB
+myopen:open end 0000018B97CCBAC0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/SOUND/SOUND.DAT
+myopen:open end 0000018B97C307D0
+sub_56A30_init_game_level:sub_533B0_decompress_levels passed
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BL32N0-0.DAT
+myopen:open end 0000018B97C307D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SKYN0-0.DAT
+myopen:open end 0000018B97C307D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS1-0.TAB
+myopen:open end 0000018B97C307D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TABLESN.DAT
+myopen:open end 0000018B97C307D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS0-0.DAT
+myopen:open end 0000018B97C307D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS1-0.DAT
+myopen:open end 0000018B97CCBAC0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS2-0.DAT
+myopen:open end 0000018B97CCB8E0
+sub_46830_main_loop:init game level passed
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/MSPRN0-0.DAT
+myopen:open end 0000018B97CCBB60
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/MSPRN0-0.DAT
+myopen:open end 0000018B97CCBB60
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/MSPRN0-0.TAB
+myopen:open end 0000018B97CCBB60
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/MSPRN0-0.TAB
+myopen:open end 0000018B97CCBB60
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/MWEBN0-0.DAT
+myopen:open end 0000018B97CCBB60
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/MWEBN0-0.TAB
+myopen:open end 0000018B97CCBB60
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/data/pald-0.dat
+myopen:open end 0000018B97CCBB60
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/data/clrd-0.dat
+myopen:open end 0000018B97CCBB60
+file_exists:true-C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS0-0.DAT
+Init:Begin of creating dirs
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:0000020DBB709B90 2
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/SAVE
+myaccess:exit:0000020DBB709B90 2
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:0000020DBB709B90 2
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA
+myaccess:exit:0000020DBB709B90 2
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:0000020DBB709B90 2
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS
+myaccess:exit:0000020DBB709B90 2
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:0000020DBB709B90 2
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/SOUND
+myaccess:exit:0000020DBB709B90 2
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:0000020DBB709B90 2
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/LANGUAGE
+myaccess:exit:0000020DBB709B90 2
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:0000020DBB709B90 2
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/SHOTS
+myaccess:exit:0000020DBB709B90 2
+sub_53D10:End value 3
+Init:End of creating dirs
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/SOUND/DIG.INI
+myopen:open end 0000020DB89A07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/SOUND/MDI.INI
+myopen:open end 0000020DB89A07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT0.DAT
+myopen:open end 0000020DB89A07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT0.DAT
+myopen:open end 0000020DB89A07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT0.TAB
+myopen:open end 0000020DB89A07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT0.TAB
+myopen:open end 0000020DB89A07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT1.DAT
+myopen:open end 0000020DB89A07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT1.DAT
+myopen:open end 0000020DB89A07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT1.TAB
+myopen:open end 0000020DB89A07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT1.TAB
+myopen:open end 0000020DB89A07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS0-0.TAB
+myopen:open end 0000020DB89A07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS0-0.TAB
+myopen:open end 0000020DB89A07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/POINTERS.DAT
+myopen:open end 0000020DB89A07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/POINTERS.DAT
+myopen:open end 0000020DB89A07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/POINTERS.TAB
+myopen:open end 0000020DB89A07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/POINTERS.TAB
+myopen:open end 0000020DB89A07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BUILD0-0.DAT
+myopen:open end 0000020DB89A07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BUILD0-0.DAT
+myopen:open end 0000020DB89A07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BUILD0-0.TAB
+myopen:open end 0000020DB89A07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BUILD0-0.TAB
+myopen:open end 0000020DB89A07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BLDGPRM.DAT
+myopen:open end 0000020DB89A07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/PALD-0.DAT
+myopen:open end 0000020DB89A07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/PALD-0.DAT
+myopen:open end 0000020DB89A07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BLOCK32.DAT
+myopen:open end 0000020DB89A07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BLOCK32.DAT
+myopen:open end 0000020DB89A07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/PALD-0.DAT
+myopen:open end 0000020DB89A07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/CLRD-0.DAT
+myopen:open end 0000020DB89A07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/VERSION.DAT
+myopen:open end 0000020DB89A07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS0-0.DAT
+myopen:open end 0000020DB89A07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS0-0.DAT
+myopen:open end 0000020DB8A3A710
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS1-0.DAT
+myopen:open end 0000020DB89A07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS1-0.DAT
+myopen:open end 0000020DB8A3A710
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS2-0.DAT
+myopen:open end 0000020DB89A07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS2-0.DAT
+myopen:open end 0000020DB8A3A710
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/CD_Files/LEVELS
+myaccess:exit:0000020DBB709B90 2
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS
+myaccess:exit:0000020DBB709B90 2
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/LEVELS/LEVELS.TAB
+myopen:open end 0000020DB89A07D0
+mycreate:0000020DB8A3A710
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS/LEVELS.TAB
+myopen:open end 0000020DB8A3A710
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/LEVELS/LEVELS.DAT
+myopen:open end 0000020DB89A07D0
+mycreate:0000020DB8A3A710
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS/LEVELS.DAT
+myopen:open end 0000020DB8A3A710
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS0-0.DAT
+myopen:open end 0000020DB89A07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS1-0.DAT
+myopen:open end 0000020DB8A3A710
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS2-0.DAT
+myopen:open end 0000020DB8A3A0D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SEARCH.DAT
+myopen:open end 0000020DB89A07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SPELLS.DAT
+myopen:open end 0000020DB89A07D0
+myopent:end: 0000020DB89A07D0
+myopent:end: 0000020DB89A07D0
+myopent:end: 0000020DB89A07D0
+myopent:end: 0000020DB89A07D0
+myopent:end: 0000020DB89A07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/SOUND/SOUND.DAT
+myopen:open end 0000020DB89A07D0
+myopent:end: 0000020DB89A07D0
+myopent:end: 0000020DB89A07D0
+myopent:end: 0000020DB89A07D0
+myopent:end: 0000020DB89A07D0
+myopent:end: 0000020DB89A07D0
+myopent:end: 0000020DB89A07D0
+myopent:end: 0000020DB89A07D0
+myopent:end: 0000020DB89A07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/SOUND/MUSIC.DAT
+myopen:open end 0000020DB89A07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CONFIG.DAT
+myopen:open end 0000020DB89A07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/LANGUAGE/L2.TXT
+myopen:open end 0000020DB89A07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SCREENS/HSCREEN0.DAT
+myopen:open end 0000020DB89A07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SCREENS/HSCREEN0.DAT
+myopen:open end 0000020DB89A07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/INTRO/INTRO.DAT
+myopen:open end 0000020DB89A07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/SOUND/SOUND.DAT
+myopen:open end 0000020DB8A3A710
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/INTRO/INTRO2.DAT
+myopen:open end 0000020DB89A07D0
+sub_8F100_sound_proc19:buff:
+52494646745C000057415645666D7420100000000100010022560000225600000100080064617461A15B0000FFFFF6F5EEE2EAE5D0DBE4DFF2E5EEF9EDD7E3ECEAF1FBEAEBFDF6E7ECEDE8F2FFFFFFFFEFE2F3F5E4E1E8E8EAE5D4CADCFFEEAEA5B6B0B3
+sub_8F100_sound_proc19:44mhz:
+
+sub_8F100_sound_proc19:rate:22050
+SOUND_start_sample:00000000
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/SOUND/SOUND.DAT
+myopen:open end 0000020DB89A07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SCREENS/HSCREEN0.DAT
+myopen:open end 0000020DB89A07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SCREENS/HSCREEN0.DAT
+myopen:open end 0000020DB89A07D0
+sub_46830_main_loop:before load scr
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SMATITLE.DAT
+myopen:open end 0000020DB89A07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SMATITLE.PAL
+myopen:open end 0000020DB89A07D0
+sub_46830_main_loop:load scr passed
+sub_56A30_init_game_level:before sub_6EB90
+sub_56A30_init_game_level:sub_6EB90 passed
+sub_56A30_init_game_level:before sub_533B0_decompress_levels
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS/LEVELS.DAT
+myopen:open end 0000020DB89A07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS/LEVELS.TAB
+myopen:open end 0000020DB8A3A710
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/SOUND/SOUND.DAT
+myopen:open end 0000020DB89A07D0
+sub_56A30_init_game_level:sub_533B0_decompress_levels passed
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BL32N0-0.DAT
+myopen:open end 0000020DB89A07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SKYN0-0.DAT
+myopen:open end 0000020DB89A07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS1-0.TAB
+myopen:open end 0000020DB89A07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TABLESN.DAT
+myopen:open end 0000020DB89A07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS0-0.DAT
+myopen:open end 0000020DB89A07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS1-0.DAT
+myopen:open end 0000020DB8A3A710
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS2-0.DAT
+myopen:open end 0000020DB8A3A0D0
+sub_46830_main_loop:init game level passed
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/MSPRN0-0.DAT
+myopen:open end 0000020DB8A3A170
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/MSPRN0-0.DAT
+myopen:open end 0000020DB8A3A170
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/MSPRN0-0.TAB
+myopen:open end 0000020DB8A3A170
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/MSPRN0-0.TAB
+myopen:open end 0000020DB8A3A170
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/MWEBN0-0.DAT
+myopen:open end 0000020DB8A3A170
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/MWEBN0-0.TAB
+myopen:open end 0000020DB8A3A170
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/data/pald-0.dat
+myopen:open end 0000020DB8A3A170
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/data/clrd-0.dat
+myopen:open end 0000020DB8A3A170
+file_exists:true-C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS0-0.DAT
+Init:Begin of creating dirs
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:0000015644799980 2
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/SAVE
+myaccess:exit:0000015644799980 2
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:0000015644799980 2
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA
+myaccess:exit:0000015644799980 2
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:0000015644799980 2
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS
+myaccess:exit:0000015644799980 2
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:0000015644799980 2
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/SOUND
+myaccess:exit:0000015644799980 2
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:0000015644799980 2
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/LANGUAGE
+myaccess:exit:0000015644799980 2
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:0000015644799980 2
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/SHOTS
+myaccess:exit:0000015644799980 2
+sub_53D10:End value 3
+Init:End of creating dirs
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/SOUND/DIG.INI
+myopen:open end 000001563E2207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/SOUND/MDI.INI
+myopen:open end 000001563E2207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT0.DAT
+myopen:open end 000001563E2207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT0.DAT
+myopen:open end 000001563E2207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT0.TAB
+myopen:open end 000001563E2207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT0.TAB
+myopen:open end 000001563E2207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT1.DAT
+myopen:open end 000001563E2207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT1.DAT
+myopen:open end 000001563E2207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT1.TAB
+myopen:open end 000001563E2207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT1.TAB
+myopen:open end 000001563E2207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS0-0.TAB
+myopen:open end 000001563E2207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS0-0.TAB
+myopen:open end 000001563E2207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/POINTERS.DAT
+myopen:open end 000001563E2207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/POINTERS.DAT
+myopen:open end 000001563E2207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/POINTERS.TAB
+myopen:open end 000001563E2207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/POINTERS.TAB
+myopen:open end 000001563E2207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BUILD0-0.DAT
+myopen:open end 000001563E2207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BUILD0-0.DAT
+myopen:open end 000001563E2207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BUILD0-0.TAB
+myopen:open end 000001563E2207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BUILD0-0.TAB
+myopen:open end 000001563E2207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BLDGPRM.DAT
+myopen:open end 000001563E2207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/PALD-0.DAT
+myopen:open end 000001563E2207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/PALD-0.DAT
+myopen:open end 000001563E2207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BLOCK32.DAT
+myopen:open end 000001563E2207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BLOCK32.DAT
+myopen:open end 000001563E2207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/PALD-0.DAT
+myopen:open end 000001563E2207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/CLRD-0.DAT
+myopen:open end 000001563E2207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/VERSION.DAT
+myopen:open end 000001563E2207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS0-0.DAT
+myopen:open end 000001563E2207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS0-0.DAT
+myopen:open end 000001563E2C2AA0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS1-0.DAT
+myopen:open end 000001563E2207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS1-0.DAT
+myopen:open end 000001563E2C2AA0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS2-0.DAT
+myopen:open end 000001563E2207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS2-0.DAT
+myopen:open end 000001563E2C2AA0
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/CD_Files/LEVELS
+myaccess:exit:0000015644799AC0 2
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS
+myaccess:exit:0000015644799AC0 2
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/LEVELS/LEVELS.TAB
+myopen:open end 000001563E2207D0
+mycreate:000001563E2C2AA0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS/LEVELS.TAB
+myopen:open end 000001563E2C2AA0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/LEVELS/LEVELS.DAT
+myopen:open end 000001563E2207D0
+mycreate:000001563E2C2AA0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS/LEVELS.DAT
+myopen:open end 000001563E2C2AA0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS0-0.DAT
+myopen:open end 000001563E2207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS1-0.DAT
+myopen:open end 000001563E2C2AA0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS2-0.DAT
+myopen:open end 000001563E2C2F00
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SEARCH.DAT
+myopen:open end 000001563E2207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SPELLS.DAT
+myopen:open end 000001563E2207D0
+myopent:end: 000001563E2207D0
+myopent:end: 000001563E2207D0
+myopent:end: 000001563E2207D0
+myopent:end: 000001563E2207D0
+myopent:end: 000001563E2207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/SOUND/SOUND.DAT
+myopen:open end 000001563E2207D0
+myopent:end: 000001563E2207D0
+myopent:end: 000001563E2207D0
+myopent:end: 000001563E2207D0
+myopent:end: 000001563E2207D0
+myopent:end: 000001563E2207D0
+myopent:end: 000001563E2207D0
+myopent:end: 000001563E2207D0
+myopent:end: 000001563E2207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/SOUND/MUSIC.DAT
+myopen:open end 000001563E2207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CONFIG.DAT
+myopen:open end 000001563E2207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/LANGUAGE/L2.TXT
+myopen:open end 000001563E2207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SCREENS/HSCREEN0.DAT
+myopen:open end 000001563E2207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SCREENS/HSCREEN0.DAT
+myopen:open end 000001563E2207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/INTRO/INTRO.DAT
+myopen:open end 000001563E2207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/SOUND/SOUND.DAT
+myopen:open end 000001563E2C2AA0
+sub_8F100_sound_proc19:buff:
+52494646D4EC050057415645666D742010000000010001002256000022560000010008006461746101EC050080807E807E7E7E808080807E807E7E807E7E80807E7E80807E7E807E7E80807E807E7E807E80808080808080808080808080808080808080
+sub_8F100_sound_proc19:44mhz:
+
+sub_8F100_sound_proc19:rate:22050
+SOUND_start_sample:00000000
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/INTRO/INTRO2.DAT
+myopen:open end 000001563E2207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/SOUND/SOUND.DAT
+myopen:open end 000001563E2207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SCREENS/HSCREEN0.DAT
+myopen:open end 000001563E2207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SCREENS/HSCREEN0.DAT
+myopen:open end 000001563E2207D0
+sub_46830_main_loop:before load scr
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SMATITLE.DAT
+myopen:open end 000001563E2207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SMATITLE.PAL
+myopen:open end 000001563E2207D0
+sub_46830_main_loop:load scr passed
+sub_56A30_init_game_level:before sub_6EB90
+sub_56A30_init_game_level:sub_6EB90 passed
+sub_56A30_init_game_level:before sub_533B0_decompress_levels
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS/LEVELS.DAT
+myopen:open end 000001563E2207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS/LEVELS.TAB
+myopen:open end 000001563E2C2AA0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/SOUND/SOUND.DAT
+myopen:open end 000001563E2207D0
+sub_56A30_init_game_level:sub_533B0_decompress_levels passed
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BL32N0-0.DAT
+myopen:open end 000001563E2207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SKYN0-0.DAT
+myopen:open end 000001563E2207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS1-0.TAB
+myopen:open end 000001563E2207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TABLESN.DAT
+myopen:open end 000001563E2207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS0-0.DAT
+myopen:open end 000001563E2207D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS1-0.DAT
+myopen:open end 000001563E2C2AA0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS2-0.DAT
+myopen:open end 000001563E2C2F00
+sub_46830_main_loop:init game level passed
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/MSPRN0-0.DAT
+myopen:open end 000001563E2C2FA0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/MSPRN0-0.DAT
+myopen:open end 000001563E2C2FA0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/MSPRN0-0.TAB
+myopen:open end 000001563E2C2FA0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/MSPRN0-0.TAB
+myopen:open end 000001563E2C2FA0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/MWEBN0-0.DAT
+myopen:open end 000001563E2C2FA0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/MWEBN0-0.TAB
+myopen:open end 000001563E2C2FA0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/data/pald-0.dat
+myopen:open end 000001563E2C2FA0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/data/clrd-0.dat
+myopen:open end 000001563E2C2FA0
+file_exists:true-C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS0-0.DAT
+Init:Begin of creating dirs
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:000002189431EB40 2
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/SAVE
+myaccess:exit:000002189431EB40 2
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:000002189431EB40 2
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA
+myaccess:exit:000002189431EB40 2
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:000002189431EB40 2
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS
+myaccess:exit:000002189431EB40 2
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:000002189431EB40 2
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/SOUND
+myaccess:exit:000002189431EB40 2
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:000002189431EB40 2
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/LANGUAGE
+myaccess:exit:000002189431EB40 2
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:000002189431EB40 2
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/SHOTS
+myaccess:exit:000002189431EB40 2
+sub_53D10:End value 3
+Init:End of creating dirs
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/SOUND/DIG.INI
+myopen:open end 000002188D3E07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/SOUND/MDI.INI
+myopen:open end 000002188D3E07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT0.DAT
+myopen:open end 000002188D3E07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT0.DAT
+myopen:open end 000002188D3E07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT0.TAB
+myopen:open end 000002188D3E07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT0.TAB
+myopen:open end 000002188D3E07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT1.DAT
+myopen:open end 000002188D3E07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT1.DAT
+myopen:open end 000002188D3E07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT1.TAB
+myopen:open end 000002188D3E07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT1.TAB
+myopen:open end 000002188D3E07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS0-0.TAB
+myopen:open end 000002188D3E07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS0-0.TAB
+myopen:open end 000002188D3E07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/POINTERS.DAT
+myopen:open end 000002188D3E07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/POINTERS.DAT
+myopen:open end 000002188D3E07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/POINTERS.TAB
+myopen:open end 000002188D3E07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/POINTERS.TAB
+myopen:open end 000002188D3E07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BUILD0-0.DAT
+myopen:open end 000002188D3E07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BUILD0-0.DAT
+myopen:open end 000002188D3E07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BUILD0-0.TAB
+myopen:open end 000002188D3E07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BUILD0-0.TAB
+myopen:open end 000002188D3E07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BLDGPRM.DAT
+myopen:open end 000002188D3E07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/PALD-0.DAT
+myopen:open end 000002188D3E07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/PALD-0.DAT
+myopen:open end 000002188D3E07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BLOCK32.DAT
+myopen:open end 000002188D3E07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BLOCK32.DAT
+myopen:open end 000002188D3E07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/PALD-0.DAT
+myopen:open end 000002188D3E07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/CLRD-0.DAT
+myopen:open end 000002188D3E07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/VERSION.DAT
+myopen:open end 000002188D3E07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS0-0.DAT
+myopen:open end 000002188D3E07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS0-0.DAT
+myopen:open end 000002188D484670
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS1-0.DAT
+myopen:open end 000002188D3E07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS1-0.DAT
+myopen:open end 000002188D484670
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS2-0.DAT
+myopen:open end 000002188D3E07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS2-0.DAT
+myopen:open end 000002188D484670
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/CD_Files/LEVELS
+myaccess:exit:000002189431EB40 2
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS
+myaccess:exit:000002189431EB40 2
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/LEVELS/LEVELS.TAB
+myopen:open end 000002188D3E07D0
+mycreate:000002188D484670
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS/LEVELS.TAB
+myopen:open end 000002188D484670
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/LEVELS/LEVELS.DAT
+myopen:open end 000002188D3E07D0
+mycreate:000002188D484670
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS/LEVELS.DAT
+myopen:open end 000002188D484670
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS0-0.DAT
+myopen:open end 000002188D3E07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS1-0.DAT
+myopen:open end 000002188D484670
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS2-0.DAT
+myopen:open end 000002188D484490
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SEARCH.DAT
+myopen:open end 000002188D3E07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SPELLS.DAT
+myopen:open end 000002188D3E07D0
+myopent:end: 000002188D3E07D0
+myopent:end: 000002188D3E07D0
+myopent:end: 000002188D3E07D0
+myopent:end: 000002188D3E07D0
+myopent:end: 000002188D3E07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/SOUND/SOUND.DAT
+myopen:open end 000002188D3E07D0
+myopent:end: 000002188D3E07D0
+myopent:end: 000002188D3E07D0
+myopent:end: 000002188D3E07D0
+myopent:end: 000002188D3E07D0
+myopent:end: 000002188D3E07D0
+myopent:end: 000002188D3E07D0
+myopent:end: 000002188D3E07D0
+myopent:end: 000002188D3E07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/SOUND/MUSIC.DAT
+myopen:open end 000002188D3E07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CONFIG.DAT
+myopen:open end 000002188D3E07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/LANGUAGE/L2.TXT
+myopen:open end 000002188D3E07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SCREENS/HSCREEN0.DAT
+myopen:open end 000002188D3E07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SCREENS/HSCREEN0.DAT
+myopen:open end 000002188D3E07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/INTRO/INTRO.DAT
+myopen:open end 000002188D3E07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/SOUND/SOUND.DAT
+myopen:open end 000002188D484670
+sub_8F100_sound_proc19:buff:
+52494646D4EC050057415645666D742010000000010001002256000022560000010008006461746101EC050080807E807E7E7E808080807E807E7E807E7E80807E7E80807E7E807E7E80807E807E7E807E80808080808080808080808080808080808080
+sub_8F100_sound_proc19:44mhz:
+
+sub_8F100_sound_proc19:rate:22050
+SOUND_start_sample:00000000
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/INTRO/INTRO2.DAT
+myopen:open end 000002188D3E07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/SOUND/SOUND.DAT
+myopen:open end 000002188D3E07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SCREENS/HSCREEN0.DAT
+myopen:open end 000002188D3E07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SCREENS/HSCREEN0.DAT
+myopen:open end 000002188D3E07D0
+sub_46830_main_loop:before load scr
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SMATITLE.DAT
+myopen:open end 000002188D3E07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SMATITLE.PAL
+myopen:open end 000002188D3E07D0
+sub_46830_main_loop:load scr passed
+sub_56A30_init_game_level:before sub_6EB90
+sub_56A30_init_game_level:sub_6EB90 passed
+sub_56A30_init_game_level:before sub_533B0_decompress_levels
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS/LEVELS.DAT
+myopen:open end 000002188D3E07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS/LEVELS.TAB
+myopen:open end 000002188D484670
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/SOUND/SOUND.DAT
+myopen:open end 000002188D3E07D0
+sub_56A30_init_game_level:sub_533B0_decompress_levels passed
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BL32N0-0.DAT
+myopen:open end 000002188D3E07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SKYN0-0.DAT
+myopen:open end 000002188D3E07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS1-0.TAB
+myopen:open end 000002188D3E07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TABLESN.DAT
+myopen:open end 000002188D3E07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS0-0.DAT
+myopen:open end 000002188D3E07D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS1-0.DAT
+myopen:open end 000002188D484670
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS2-0.DAT
+myopen:open end 000002188D484490
+sub_46830_main_loop:init game level passed
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/MSPRN0-0.DAT
+myopen:open end 000002188D484710
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/MSPRN0-0.DAT
+myopen:open end 000002188D484710
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/MSPRN0-0.TAB
+myopen:open end 000002188D484710
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/MSPRN0-0.TAB
+myopen:open end 000002188D484710
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/MWEBN0-0.DAT
+myopen:open end 000002188D484710
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/MWEBN0-0.TAB
+myopen:open end 000002188D484710
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/data/pald-0.dat
+myopen:open end 000002188D484710
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/data/clrd-0.dat
+myopen:open end 000002188D484710

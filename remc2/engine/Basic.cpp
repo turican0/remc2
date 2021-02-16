@@ -84,7 +84,7 @@ char* x_DWORD_D41D0 = 0; // weak
 __int16 x_WORD_E36D4 = 0; // weak
 char x_BYTE_EB3B6; // weak
 type_x_DWORD_17DE38str x_DWORD_17DE38str;
-uint8_t* x_DWORD_E9C38_smalltit;
+uint8_t* x_DWORD_E9C38_smalltit;//*(x_DWORD*)(x_DWORD_E9C38_smalltit + 36964)
 
 int help_VGA_type_resolution = 0;
 
