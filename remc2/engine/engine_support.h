@@ -687,8 +687,17 @@ typedef struct {//lenght 2124=0x84C
 	//uint8_t stub5[17];
 } type_str_0x2BDE;//11230 // 84c lenght
 
+typedef struct {
+	//type_particle_str_0 un_0;//lenght?
+	uint16_t word_0;
+	uint16_t word_2;//width?
+	uint16_t word_4;//height?
+	int8_t data_6[];
+}
+type_particle_str;
+
 typedef struct {//size 14
-	uint32_t* dword_0;//type_particle_str?
+	type_particle_str* partstr_0;//type_particle_str?
 	int32_t dword_4;
 	int16_t word_8;
 	int16_t word_10;

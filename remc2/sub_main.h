@@ -306,18 +306,6 @@ extern uint16_t x_WORD_17B4E0; // 34c4e0
 extern char x_BYTE_D41B6;
 
 #pragma pack (1)
-typedef struct {
-	//type_particle_str_0 un_0;//lenght?
-	uint16_t word_0;
-	uint16_t word_2;//width?
-	uint16_t word_4;//height?
-	int8_t data_6[];
-}
-type_particle_str;
-
-#pragma pack (16)
-
-#pragma pack (1)
 typedef struct {//lenght 28
 	int32_t dword_0;
 	type_particle_str* particle_str_4;//mayby type_particle_str*
