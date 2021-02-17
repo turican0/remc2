@@ -474,11 +474,18 @@ void sub_8D290_init_sound(/*char* a1*//*, int a2, int a3*/)//26e290
 				x_BYTE_E3799_sound_card = 0;
 				return;
 			}
-			if (!sub_931F0_AIL_install_DIG_INI(/*(int)a1, */&hDigSoundEffectsDriver, digPath))//351b48
+			if (!sub_931F0_AIL_install_DIG_INI(&hDigSoundEffectsDriver, digPath))//351b48
 			{
 				sub_93480_AIL_uninstall_DIG_driver(hDigSoundEffectsDriver);
 				v10 = 1;
 			}
+			
+			//fix sound
+			/*
+			v10 = 1;*/
+			//fix sound
+
+
 			//fix hqsound
 			for (int i = 0; i < hDigSoundEffectsDriver->n_samples_24; i++)
 				hDigSoundEffectsDriver->samples_23[i].start_44mhz = NULL;

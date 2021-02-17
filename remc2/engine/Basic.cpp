@@ -4,7 +4,9 @@ char gameDataPath[MAX_PATH];
 char cdDataPath[MAX_PATH];
 char bigGraphicsPath[MAX_PATH];
 
-uint8_t x_DWORD_17ECA0[4608]; // weak
+//lenght 18
+//type_17ECA0 str_17ECA0[256]; // weak
+//uint8_t x_DWORD_17ECA0[4608]; // weak
 
 uint8_t unk_17D838[0x300]; // weak
 
@@ -409,6 +411,9 @@ Pathstruct xadatatables = { "",(uint8_t**)&x_DWORD_D41BC_langbuffer,&LANG_BEGIN_
 //----- (00083E80) --------------------------------------------------------
 void sub_83E80_freemem4(uint8_t* a1)//264e80
 {
+	if (a1)x_free(a1);
+	//return result;
+	/*
 	uint8_t* v1; // eax
 	char v2; // bl
 	int* i; // ebx
@@ -419,32 +424,24 @@ void sub_83E80_freemem4(uint8_t* a1)//264e80
 		v2 = 0;
 		while (v1)
 		{
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
 			if ((int)a1 == v1[0])//fix
 			{
 				v2 = 1;
 				*((x_BYTE*)v1 + 16) = 0;
 				break;
 			}
-#endif
 			v1 = (uint8_t*)(int*)v1[2];
 		}
 		if (v2 == 1)
 		{
 			for (i = (int*)&x_DWORD_17ECA0; i; i = (int*)i[2])
 			{
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
 				if (!*((x_BYTE*)i + 16))
 					sub_84000((int)i);
-#endif
 			}
 		}
 		//sub_85350(); //fix
-	}
+	}*/
 }
 // 17ECA0: using guessed type int x_DWORD_17ECA0;
 

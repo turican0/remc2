@@ -40,6 +40,10 @@ typedef struct//lenght 11
 	int8_t byte_9;
 	int8_t byte_10;
 } type_BYTE_17DE68x;
+
+typedef struct {//lenght 18
+	int32_t dword_0;
+}type_17ECA0;
 #pragma pack (16)
 
 #pragma pack (1)
@@ -130,7 +134,8 @@ extern char gameDataPath[];
 extern char cdDataPath[];
 extern char bigGraphicsPath[];
 
-extern uint8_t x_DWORD_17ECA0[];
+//extern type_17ECA0 str_17ECA0[];
+//extern uint8_t x_DWORD_17ECA0[];
 
 extern long oldmillis;
 
@@ -179,6 +184,7 @@ typedef struct {
 	uint8_t** dat_buffer;
 	posistruct_t** posistruct;
 } filearray_struct;
+
 #pragma pack (16)
 
 #pragma pack (1)
