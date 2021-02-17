@@ -306,12 +306,6 @@ extern uint16_t x_WORD_17B4E0; // 34c4e0
 extern char x_BYTE_D41B6;
 
 #pragma pack (1)
-/*
-typedef union {
-	uint8_t byte[2];
-	uint16_t word;
-}
-type_particle_str_0;*/
 typedef struct {
 	//type_particle_str_0 un_0;//lenght?
 	uint16_t word_0;
