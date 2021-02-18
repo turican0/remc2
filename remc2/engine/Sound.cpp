@@ -9592,7 +9592,7 @@ int sub_8F0AB(FILE* a1, /*int a2,*/ int a3)//26f0ab
 // E3888: using guessed type int x_DWORD_E3888;
 
 //----- (0008F100) --------------------------------------------------------
-HSAMPLE* sub_8F100_sound_proc19(uint32_t a1, __int16 a2, int a3, int a4, unsigned __int16 a5, char a6, unsigned __int8 a7)//270100
+void sub_8F100_sound_proc19(uint32_t a1, __int16 a2, int a3, int a4, unsigned __int16 a5, char a6, unsigned __int8 a7)//270100
 {
 	char v8; // [esp+0h] [ebp-18h]
 	uint32_t i; // [esp+8h] [ebp-10h]
@@ -9615,7 +9615,7 @@ HSAMPLE* sub_8F100_sound_proc19(uint32_t a1, __int16 a2, int a3, int a4, unsigne
 		//|| !_stricmp((const char*)(32 * a2 + x_DWORD_E37A0_sound_buffer2), "null.wav"))
 		|| !_stricmp((const char*)&str_E37A0_sound_buffer2->str_8.wavs_10[a2-1].filename_14, "null.wav"))
 	{
-		return 0;
+		return;
 	}
 	v8 = 0;
 	if (a7 == 1)
@@ -9683,7 +9683,7 @@ HSAMPLE* sub_8F100_sound_proc19(uint32_t a1, __int16 a2, int a3, int a4, unsigne
 		}
 	}
 	if (!v14 || v15)
-		return 0;
+		return;
 	if (!v8)
 	{
 		sub_93830_AIL_init_sample(*v14);
@@ -9715,7 +9715,7 @@ HSAMPLE* sub_8F100_sound_proc19(uint32_t a1, __int16 a2, int a3, int a4, unsigne
 		//for (int i = 0; i < 100; i++)
 		//	debug_printf("%02X", ((uint8_t*)((*v14)->start_44mhz))[i]);
 		debug_printf("\n");
-		debug_printf("sub_8F100_sound_proc19:rate:%d\n", ((*v14)->playback_rate_15));
+		debug_printf("sub_8F100_sound_proc19:rate:%d\n", v14[0]->playback_rate_15);
 	}
 #endif //DEBUG_SOUND
 	sub_93B50_AIL_start_sample(*v14);
@@ -9726,7 +9726,7 @@ HSAMPLE* sub_8F100_sound_proc19(uint32_t a1, __int16 a2, int a3, int a4, unsigne
 	//v14[0]->len_4_5[0] = a5;
 	v14[0]->vol_scale_18[0][2] = 0;
 	v14[0]->vol_scale_18[0][3] = 0; //fixed
-	return v14;
+	//return v14;
 }
 // 98F5D: using guessed type x_DWORD stricmp(x_DWORD, x_DWORD);
 // E3798: using guessed type char x_BYTE_E3798_sound_active2;
