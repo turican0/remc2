@@ -550,6 +550,9 @@ int sub_9D770(char* a1, char a2)//27e770
 		if (v10 == NULL)
 			return 0;
 	}
+#ifdef TEST_x64
+	allert_error();
+#endif
 #ifdef COMPILE_FOR_64BIT // FIXME: 64bit
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
@@ -558,6 +561,9 @@ int sub_9D770(char* a1, char a2)//27e770
 #endif
 	if (!strcmp((const char*)&v13, "LX"))
 	{
+#ifdef TEST_x64
+	allert_error();
+#endif
 #ifdef COMPILE_FOR_64BIT // FIXME: 64bit
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
@@ -566,6 +572,9 @@ int sub_9D770(char* a1, char a2)//27e770
 		v12 = v4 + v8;
 		for (i = 0; i < v5; i++)
 		{
+#ifdef TEST_x64
+	allert_error();
+#endif
 #ifdef COMPILE_FOR_64BIT // FIXME: 64bit
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
@@ -1091,6 +1100,9 @@ int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* a2, int32_t a3, int32_t a4
 			{
 				sub_6FC50(1/*v86*/);
 				v58 = (x_BYTE*)(v99 + 640 * a1);
+#ifdef TEST_x64
+	allert_error();
+#endif
 #ifdef COMPILE_FOR_64BIT // FIXME: 64bit
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
@@ -3428,6 +3440,9 @@ void sub_98709_create_index_dattab_power_add(uint8_t* tabbuffer, uint8_t* tabbuf
 {
 	for (uint32_t i = 0; i < (tabbufferend - (tabbuffer + add)) / 6; i++)
 	{
+#ifdef TEST_x64
+	allert_error();
+#endif
 #ifdef COMPILE_FOR_64BIT // FIXME: 64bit
 		std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
@@ -3453,6 +3468,9 @@ void sub_9874D_create_index_dattab(posistruct2_t* tabbuffer, posistruct2_t* tabb
 	{
 		/*for (uint32_t i = 0; i < (tabbufferend - tabbuffer) / 6; i++)
 		{
+#ifdef TEST_x64
+	allert_error();
+#endif
 #ifdef COMPILE_FOR_64BIT // FIXME: 64bit
 			std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
@@ -3477,6 +3495,9 @@ void sub_9874D_create_index_dattab_add(uint8_t* tabbuffer, uint8_t* tabbufferend
 {
 	for (uint32_t i = 0; i < (tabbufferend - (tabbuffer + add)) / 6; i++)
 	{
+#ifdef TEST_x64
+	allert_error();
+#endif
 #ifdef COMPILE_FOR_64BIT // FIXME: 64bit
 		std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else

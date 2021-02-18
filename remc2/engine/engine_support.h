@@ -726,6 +726,13 @@ typedef struct {//size 26
 	//uint32_t dword_26;
 } type_x_DWORD_E9C28_str;
 
+typedef struct {//lenght 14
+	int8_t stuba[4];
+	uint32_t dword_4;
+	uint32_t dword_8;
+	int8_t stubb[2];
+} type_index_242ar;
+
 typedef struct {
 	//uint8_t harddisk_number;
 
@@ -828,7 +835,7 @@ typedef struct {
 	uint8_t* pointer_0xE2_heapbuffer_226;//x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226
 	uint32_t dword_0xE6_heapsize_230;//x_D41A0_BYTEARRAY_4_struct.dword_0xE6_heapsize_230
 	uint8_t stubr[8];
-	uint8_t byteindex_242ar[14];//0xf2//x_D41A0_BYTEARRAY_4_struct.byteindex_242ar
+	type_index_242ar str_index_242ar;//0xf2//x_D41A0_BYTEARRAY_4_struct.byteindex_242ar
 	//uint8_t byteindex_246;//0xf6//x_D41A0_BYTEARRAY_4_struct.byteindex_242ar[4]
 	//uint8_t byteindex_250;//x_D41A0_BYTEARRAY_4_struct.byteindex_242ar[8]
 

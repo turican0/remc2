@@ -308,14 +308,14 @@ extern char x_BYTE_D41B6;
 #pragma pack (1)
 typedef struct {//lenght 28
 	int32_t dword_0;
-	type_particle_str* particle_str_4;//mayby type_particle_str*
+	type_particle_str* Particles_4;//mayby type_particle_str*
 	int32_t dword_8;
 	int16_t word_12;
 	uint16_t word_14;
-	int16_t word_16_maxframes;
-	int16_t word_18;//width
-	int16_t word_20;//height
-	int16_t word_22;//anim frame index
+	int16_t CountOfFrames_16;
+	int16_t Width_18;//width
+	int16_t Height_20;//height
+	int16_t FrameIndex_22;//anim frame index
 	int16_t word_24;
 	int16_t word_26;
 }
