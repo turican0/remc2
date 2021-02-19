@@ -1497,34 +1497,10 @@ uint32_t sub_7FAE0_draw_text(char* text, int16_t a2, int16_t a3, int16_t posy, u
 //----- (00090478) --------------------------------------------------------
 void sub_90478_VGA_Blit320()//271478
 {
-#ifdef DEBUG_SEQUENCES
-	uint8_t origbyte20 = 0;
-	uint8_t remakebyte20 = 0;
-	int comp20;
-	if (debugafterload)
-	{
-		//comp20 = compare_with_sequence((char*)"0022860F-002DC4E0", (uint8_t*)x_BYTE_10B4E0_terraintype, 0x2dc4e0, debugcounter_47560, 0x70000, 0x10000, &origbyte20, &remakebyte20);
-		//comp20 = compare_with_sequence((char*)"0022860F-002DC4E0", (uint8_t*)x_BYTE_11B4E0_height, 0x2dc4e0, debugcounter_47560, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x10000);
-		//comp20 = compare_with_sequence((char*)"0022860F-002DC4E0", (uint8_t*)x_BYTE_12B4E0_shading, 0x2dc4e0, debugcounter_47560, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x20000);
-		//comp20 = compare_with_sequence((char*)"0022860F-002DC4E0", (uint8_t*)x_BYTE_13B4E0_angle, 0x2dc4e0, debugcounter_47560, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x30000);
-		//comp20 = compare_with_sequence((char*)"0022860F-002DC4E0", (uint8_t*)x_WORD_15B4E0_source, 0x2dc4e0, debugcounter_47560, 0x70000, 0x20000, &origbyte20, &remakebyte20, 0x50000);
-
-		//comp20 = compare_with_sequence_D41A0((char*)"0022860F-00356038", (uint8_t*)&D41A0_BYTESTR_0, 0x356038, debugcounter_271478, 224790, &origbyte20, &remakebyte20);
-
-		//comp20 = compare_with_sequence_array_E2A74((char*)"0022860F-002B3A74", (uint8_t*)&array_E2A74, 0x2b3a74, debugcounter_271478, 0xc4e, 0xc4e, &origbyte20, &remakebyte20);
-		//if(debugcounter_271478>5)
-		//comp20 = compare_with_sequence((char*)"0022860F-003AA0A4", pdwScreenBuffer, 0x3aa0a4, debugcounter_271478, 320 * 200, 320 * 200, &origbyte20, &remakebyte20);
-
-		debugcounter_271478++;
-	}
-#endif DEBUG_SEQUENCES
 	if (!x_BYTE_E3766)
 		sub_8CACD_draw_cursor2();
-#ifndef debug_hide_graphics
+
 	VGA_Blit(320, 200, pdwScreenBuffer);
-#endif
-	//if(dos_key_vect_9)dos_key_vect_9();
-	//VGA_mouse_clear_keys();
 
 	//set speed
 	long actmillis = mygetthousandths();
@@ -1534,14 +1510,7 @@ void sub_90478_VGA_Blit320()//271478
 	mydelay(newdelay);//set speed
 	oldmillis = actmillis;
 	//set speed
-
-	/*
-	qmemcpy(&loc_A0000_vga_buffer, (void *)pdwScreenBuffer, 0xFA00u);
-	if ( !x_BYTE_E3766 )
-	  sub_8CB1F();*/
 }
-// E3766: using guessed type char x_BYTE_E3766;
-// 180628: using guessed type int pdwScreenBuffer;
 
 //----- (0006FC30) --------------------------------------------------------
 uint8_t sub_6FC30_get34_height()//250c30
