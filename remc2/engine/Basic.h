@@ -3,6 +3,8 @@
 #ifndef MAIN_BASIC
 #define MAIN_BASIC
 
+#define  TEST_x64//only for x64 testing
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

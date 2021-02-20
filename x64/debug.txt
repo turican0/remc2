@@ -19558,3 +19558,3096 @@ InGameSave-end-0
 mycreate:0000018B929FA320
 myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/SAVE/SVER2.dat
 myopen:open end 0000018B929FA320
+file_exists:true-C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS0-0.DAT
+Init:Begin of creating dirs
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:000002B2887B9850 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/SAVE
+myaccess:exit:000002B2887B9850 0
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:000002B2887B9850 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA
+myaccess:exit:000002B2887B9850 0
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:000002B2887B9850 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS
+myaccess:exit:000002B2887B9850 0
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:000002B2887B9850 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/SOUND
+myaccess:exit:000002B2887B9850 0
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:000002B2887B9850 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/LANGUAGE
+myaccess:exit:000002B2887B9850 0
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:000002B2887B9850 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/SHOTS
+myaccess:exit:000002B2887B9850 0
+sub_53D10:End value 3
+Init:End of creating dirs
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/SOUND/DIG.INI
+myopen:open end 000002B2FF97C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/SOUND/MDI.INI
+myopen:open end 000002B2FF97C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT0.DAT
+myopen:open end 000002B2FF97C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT0.DAT
+myopen:open end 000002B2FF97C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT0.TAB
+myopen:open end 000002B2FF97C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT0.TAB
+myopen:open end 000002B2FF97C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT1.DAT
+myopen:open end 000002B2FF97C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT1.DAT
+myopen:open end 000002B2FF97C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT1.TAB
+myopen:open end 000002B2FF97C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT1.TAB
+myopen:open end 000002B2FF97C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS0-0.TAB
+myopen:open end 000002B2FF97C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS0-0.TAB
+myopen:open end 000002B2FF97C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/POINTERS.DAT
+myopen:open end 000002B2FF97C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/POINTERS.DAT
+myopen:open end 000002B2FF97C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/POINTERS.TAB
+myopen:open end 000002B2FF97C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/POINTERS.TAB
+myopen:open end 000002B2FF97C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BUILD0-0.DAT
+myopen:open end 000002B2FF97C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BUILD0-0.DAT
+myopen:open end 000002B2FF97C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BUILD0-0.TAB
+myopen:open end 000002B2FF97C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BUILD0-0.TAB
+myopen:open end 000002B2FF97C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BLDGPRM.DAT
+myopen:open end 000002B2FF97C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/PALD-0.DAT
+myopen:open end 000002B2FF97C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/PALD-0.DAT
+myopen:open end 000002B2FF97C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BLOCK32.DAT
+myopen:open end 000002B2FF97C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BLOCK32.DAT
+myopen:open end 000002B2FF97C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/PALD-0.DAT
+myopen:open end 000002B2FF97C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/CLRD-0.DAT
+myopen:open end 000002B2FF97C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/VERSION.DAT
+myopen:open end 000002B2FF97C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS0-0.DAT
+myopen:open end 000002B2FF97C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS0-0.DAT
+myopen:open end 000002B2887B3570
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS1-0.DAT
+myopen:open end 000002B2FF97C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS1-0.DAT
+myopen:open end 000002B2887B3570
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS2-0.DAT
+myopen:open end 000002B2FF97C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS2-0.DAT
+myopen:open end 000002B2887B3570
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/CD_Files/LEVELS
+myaccess:exit:000002B2887B9FD0 0
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS
+myaccess:exit:000002B2887B9FD0 0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/LEVELS/LEVELS.TAB
+myopen:open end 000002B2FF97C1E0
+mycreate:000002B2887B3570
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS/LEVELS.TAB
+myopen:open end 000002B2887B3570
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/LEVELS/LEVELS.DAT
+myopen:open end 000002B2FF97C1E0
+mycreate:000002B2887B3570
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS/LEVELS.DAT
+myopen:open end 000002B2887B3570
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS0-0.DAT
+myopen:open end 000002B2FF97C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS1-0.DAT
+myopen:open end 000002B2887B3570
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS2-0.DAT
+myopen:open end 000002B2887B32F0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SEARCH.DAT
+myopen:open end 000002B2FF97C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SPELLS.DAT
+myopen:open end 000002B2FF97C1E0
+myopent:end: 000002B2FF97C1E0
+myopent:end: 000002B2FF97C1E0
+myopent:end: 000002B2FF97C1E0
+myopent:end: 000002B2FF97C1E0
+myopent:end: 000002B2FF97C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/SOUND/SOUND.DAT
+myopen:open end 000002B2FF97C1E0
+myopent:end: 000002B2FF97C1E0
+myopent:end: 000002B2FF97C1E0
+myopent:end: 000002B2FF97C1E0
+myopent:end: 000002B2FF97C1E0
+myopent:end: 000002B2FF97C1E0
+myopent:end: 000002B2FF97C1E0
+myopent:end: 000002B2FF97C1E0
+myopent:end: 000002B2FF97C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/SOUND/MUSIC.DAT
+myopen:open end 000002B2FF97C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CONFIG.DAT
+myopen:open end 000002B2FF97C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/LANGUAGE/L7.TXT
+myopen:open end 000002B2FF97C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SCREENS/HSCREEN0.DAT
+myopen:open end 000002B2FF97C1E0
+sub_8F100_sound_proc19:buff:
+524946466643000057415645666D742010000000010001002256000022560000010008006461746141430000698CA6B4C0C4C4C3BCB2A7A4A39A94938F8783807266615C564F4F56606D7B8A9EB2BCBCBCB8AC9E897869594F49433E41474A49484F585C
+sub_8F100_sound_proc19:44mhz:
+
+sub_8F100_sound_proc19:rate:22050
+SOUND_start_sample-hq:88D30D40
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SCREENS/HSCREEN0.DAT
+myopen:open end 000002B2FF97C1E0
+sub_46830_main_loop:before load scr
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SMATITLE.DAT
+myopen:open end 000002B2FF97C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SMATITLE.PAL
+myopen:open end 000002B2FF97C1E0
+sub_46830_main_loop:load scr passed
+sub_56A30_init_game_level:before sub_6EB90
+sub_56A30_init_game_level:sub_6EB90 passed
+sub_56A30_init_game_level:before sub_533B0_decompress_levels
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS/LEVELS.DAT
+myopen:open end 000002B2FF97C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS/LEVELS.TAB
+myopen:open end 000002B2887B3570
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/SOUND/SOUND.DAT
+myopen:open end 000002B2FF97C1E0
+sub_56A30_init_game_level:sub_533B0_decompress_levels passed
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SKYN0-0.DAT
+myopen:open end 000002B2FF97C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS1-0.TAB
+myopen:open end 000002B2FF97C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TABLESN.DAT
+myopen:open end 000002B2FF97C1E0
+file_exists:true-C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS0-0.DAT
+Init:Begin of creating dirs
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:000002475E8D9190 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/SAVE
+myaccess:exit:000002475E8D9190 0
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:000002475E8D9190 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA
+myaccess:exit:000002475E8D9190 0
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:000002475E8D9190 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS
+myaccess:exit:000002475E8D9190 0
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:000002475E8D9190 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/SOUND
+myaccess:exit:000002475E8D9190 0
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:000002475E8D9610 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/LANGUAGE
+myaccess:exit:000002475E8D9190 0
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:000002475E8D9190 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/SHOTS
+myaccess:exit:000002475E8D9190 0
+sub_53D10:End value 3
+Init:End of creating dirs
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/SOUND/DIG.INI
+myopen:open end 0000024755C0C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/SOUND/MDI.INI
+myopen:open end 0000024755C0C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT0.DAT
+myopen:open end 0000024755C0C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT0.DAT
+myopen:open end 0000024755C0C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT0.TAB
+myopen:open end 0000024755C0C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT0.TAB
+myopen:open end 0000024755C0C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT1.DAT
+myopen:open end 0000024755C0C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT1.DAT
+myopen:open end 0000024755C0C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT1.TAB
+myopen:open end 0000024755C0C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT1.TAB
+myopen:open end 0000024755C0C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS0-0.TAB
+myopen:open end 0000024755C0C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS0-0.TAB
+myopen:open end 0000024755C0C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/POINTERS.DAT
+myopen:open end 0000024755C0C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/POINTERS.DAT
+myopen:open end 0000024755C0C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/POINTERS.TAB
+myopen:open end 0000024755C0C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/POINTERS.TAB
+myopen:open end 0000024755C0C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BUILD0-0.DAT
+myopen:open end 0000024755C0C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BUILD0-0.DAT
+myopen:open end 0000024755C0C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BUILD0-0.TAB
+myopen:open end 0000024755C0C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BUILD0-0.TAB
+myopen:open end 0000024755C0C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BLDGPRM.DAT
+myopen:open end 0000024755C0C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/PALD-0.DAT
+myopen:open end 0000024755C0C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/PALD-0.DAT
+myopen:open end 0000024755C0C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BLOCK32.DAT
+myopen:open end 0000024755C0C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BLOCK32.DAT
+myopen:open end 0000024755C0C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/PALD-0.DAT
+myopen:open end 0000024755C0C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/CLRD-0.DAT
+myopen:open end 0000024755C0C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/VERSION.DAT
+myopen:open end 0000024755C0C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS0-0.DAT
+myopen:open end 0000024755C0C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS0-0.DAT
+myopen:open end 000002475E8D37B0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS1-0.DAT
+myopen:open end 0000024755C0C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS1-0.DAT
+myopen:open end 000002475E8D37B0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS2-0.DAT
+myopen:open end 0000024755C0C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS2-0.DAT
+myopen:open end 000002475E8D37B0
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/CD_Files/LEVELS
+myaccess:exit:000002475E8D7C90 0
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS
+myaccess:exit:000002475E8D7C90 0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/LEVELS/LEVELS.TAB
+myopen:open end 0000024755C0C1E0
+mycreate:000002475E8D37B0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS/LEVELS.TAB
+myopen:open end 000002475E8D37B0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/LEVELS/LEVELS.DAT
+myopen:open end 0000024755C0C1E0
+mycreate:000002475E8D37B0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS/LEVELS.DAT
+myopen:open end 000002475E8D37B0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS0-0.DAT
+myopen:open end 0000024755C0C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS1-0.DAT
+myopen:open end 000002475E8D37B0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS2-0.DAT
+myopen:open end 000002475E8D4430
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SEARCH.DAT
+myopen:open end 0000024755C0C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SPELLS.DAT
+myopen:open end 0000024755C0C1E0
+myopent:end: 0000024755C0C1E0
+myopent:end: 0000024755C0C1E0
+myopent:end: 0000024755C0C1E0
+myopent:end: 0000024755C0C1E0
+myopent:end: 0000024755C0C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/SOUND/SOUND.DAT
+myopen:open end 0000024755C0C1E0
+myopent:end: 0000024755C0C1E0
+myopent:end: 0000024755C0C1E0
+myopent:end: 0000024755C0C1E0
+myopent:end: 0000024755C0C1E0
+myopent:end: 0000024755C0C1E0
+myopent:end: 0000024755C0C1E0
+myopent:end: 0000024755C0C1E0
+myopent:end: 0000024755C0C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/SOUND/MUSIC.DAT
+myopen:open end 0000024755C0C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CONFIG.DAT
+myopen:open end 0000024755C0C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/LANGUAGE/L7.TXT
+myopen:open end 0000024755C0C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SCREENS/HSCREEN0.DAT
+myopen:open end 0000024755C0C1E0
+file_exists:true-C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS0-0.DAT
+Init:Begin of creating dirs
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:00000270A7AEEF20 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/SAVE
+myaccess:exit:00000270A7AEF220 0
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:00000270A7AEEF20 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA
+myaccess:exit:00000270A7AEDBA0 0
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:00000270A7AEDBA0 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS
+myaccess:exit:00000270A7AEEF20 0
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:00000270A7AEF220 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/SOUND
+myaccess:exit:00000270A7AEDBA0 0
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:00000270A7AEEF20 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/LANGUAGE
+myaccess:exit:00000270A7AEEF20 0
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:00000270A7AEEF20 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/SHOTS
+myaccess:exit:00000270A7AEDBA0 0
+sub_53D10:End value 3
+Init:End of creating dirs
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/SOUND/DIG.INI
+myopen:open end 000002709EDAC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/SOUND/MDI.INI
+myopen:open end 000002709EDAC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT0.DAT
+myopen:open end 000002709EDAC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT0.DAT
+myopen:open end 000002709EDAC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT0.TAB
+myopen:open end 000002709EDAC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT0.TAB
+myopen:open end 000002709EDAC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT1.DAT
+myopen:open end 000002709EDAC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT1.DAT
+myopen:open end 000002709EDAC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT1.TAB
+myopen:open end 000002709EDAC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT1.TAB
+myopen:open end 000002709EDAC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS0-0.TAB
+myopen:open end 000002709EDAC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS0-0.TAB
+myopen:open end 000002709EDAC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/POINTERS.DAT
+myopen:open end 000002709EDAC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/POINTERS.DAT
+myopen:open end 000002709EDAC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/POINTERS.TAB
+myopen:open end 000002709EDAC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/POINTERS.TAB
+myopen:open end 000002709EDAC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BUILD0-0.DAT
+myopen:open end 000002709EDAC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BUILD0-0.DAT
+myopen:open end 000002709EDAC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BUILD0-0.TAB
+myopen:open end 000002709EDAC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BUILD0-0.TAB
+myopen:open end 000002709EDAC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BLDGPRM.DAT
+myopen:open end 000002709EDAC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/PALD-0.DAT
+myopen:open end 000002709EDAC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/PALD-0.DAT
+myopen:open end 000002709EDAC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BLOCK32.DAT
+myopen:open end 000002709EDAC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BLOCK32.DAT
+myopen:open end 000002709EDAC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/PALD-0.DAT
+myopen:open end 000002709EDAC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/CLRD-0.DAT
+myopen:open end 000002709EDAC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/VERSION.DAT
+myopen:open end 000002709EDAC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS0-0.DAT
+myopen:open end 000002709EDAC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS0-0.DAT
+myopen:open end 00000270A7B2ACF0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS1-0.DAT
+myopen:open end 000002709EDAC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS1-0.DAT
+myopen:open end 00000270A7B2ACF0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS2-0.DAT
+myopen:open end 000002709EDAC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS2-0.DAT
+myopen:open end 00000270A7B2ACF0
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/CD_Files/LEVELS
+myaccess:exit:00000270A7AEDBA0 0
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS
+myaccess:exit:00000270A7AEDBA0 0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/LEVELS/LEVELS.TAB
+myopen:open end 000002709EDAC1E0
+mycreate:00000270A7B2ACF0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS/LEVELS.TAB
+myopen:open end 00000270A7B2ACF0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/LEVELS/LEVELS.DAT
+myopen:open end 000002709EDAC1E0
+mycreate:00000270A7B2ACF0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS/LEVELS.DAT
+myopen:open end 00000270A7B2ACF0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS0-0.DAT
+myopen:open end 000002709EDAC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS1-0.DAT
+myopen:open end 00000270A7B2ACF0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS2-0.DAT
+myopen:open end 00000270A7B2B1F0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SEARCH.DAT
+myopen:open end 000002709EDAC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SPELLS.DAT
+myopen:open end 000002709EDAC1E0
+myopent:end: 000002709EDAC1E0
+file_exists:true-C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS0-0.DAT
+Init:Begin of creating dirs
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:000002420AF30B30 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/SAVE
+myaccess:exit:000002420AF303B0 0
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:000002420AF31430 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA
+myaccess:exit:000002420AF30E30 0
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:000002420AF30B30 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS
+myaccess:exit:000002420AF2FDB0 0
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:000002420AF312B0 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/SOUND
+myaccess:exit:000002420AF30E30 0
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:000002420AF31130 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/LANGUAGE
+myaccess:exit:000002420AF306B0 0
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:000002420AF31130 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/SHOTS
+myaccess:exit:000002420AF31730 0
+sub_53D10:End value 3
+Init:End of creating dirs
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/SOUND/DIG.INI
+myopen:open end 0000024201DDC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/SOUND/MDI.INI
+myopen:open end 0000024201DDC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT0.DAT
+myopen:open end 0000024201DDC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT0.DAT
+myopen:open end 0000024201DDC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT0.TAB
+myopen:open end 0000024201DDC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT0.TAB
+myopen:open end 0000024201DDC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT1.DAT
+myopen:open end 0000024201DDC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT1.DAT
+myopen:open end 0000024201DDC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT1.TAB
+myopen:open end 0000024201DDC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT1.TAB
+myopen:open end 0000024201DDC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS0-0.TAB
+myopen:open end 0000024201DDC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS0-0.TAB
+myopen:open end 0000024201DDC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/POINTERS.DAT
+myopen:open end 0000024201DDC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/POINTERS.DAT
+myopen:open end 0000024201DDC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/POINTERS.TAB
+myopen:open end 0000024201DDC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/POINTERS.TAB
+myopen:open end 0000024201DDC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BUILD0-0.DAT
+myopen:open end 0000024201DDC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BUILD0-0.DAT
+myopen:open end 0000024201DDC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BUILD0-0.TAB
+myopen:open end 0000024201DDC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BUILD0-0.TAB
+myopen:open end 0000024201DDC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BLDGPRM.DAT
+myopen:open end 0000024201DDC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/PALD-0.DAT
+myopen:open end 0000024201DDC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/PALD-0.DAT
+myopen:open end 0000024201DDC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BLOCK32.DAT
+myopen:open end 0000024201DDC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BLOCK32.DAT
+myopen:open end 0000024201DDC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/PALD-0.DAT
+myopen:open end 0000024201DDC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/CLRD-0.DAT
+myopen:open end 0000024201DDC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/VERSION.DAT
+myopen:open end 0000024201DDC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS0-0.DAT
+myopen:open end 0000024201DDC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS0-0.DAT
+myopen:open end 000002420ACC2A10
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS1-0.DAT
+myopen:open end 0000024201DDC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS1-0.DAT
+myopen:open end 000002420ACC2A10
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS2-0.DAT
+myopen:open end 0000024201DDC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS2-0.DAT
+myopen:open end 000002420ACC2A10
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/CD_Files/LEVELS
+myaccess:exit:000002420AF31BB0 0
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS
+myaccess:exit:000002420AF30530 0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/LEVELS/LEVELS.TAB
+myopen:open end 0000024201DDC1E0
+mycreate:000002420ACC2A10
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS/LEVELS.TAB
+myopen:open end 000002420ACC2A10
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/LEVELS/LEVELS.DAT
+myopen:open end 0000024201DDC1E0
+mycreate:000002420ACC2A10
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS/LEVELS.DAT
+myopen:open end 000002420ACC2A10
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS0-0.DAT
+myopen:open end 0000024201DDC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS1-0.DAT
+myopen:open end 000002420ACC2A10
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS2-0.DAT
+myopen:open end 000002420ACC2330
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SEARCH.DAT
+myopen:open end 0000024201DDC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SPELLS.DAT
+myopen:open end 0000024201DDC1E0
+myopent:end: 0000024201DDC1E0
+file_exists:true-C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS0-0.DAT
+Init:Begin of creating dirs
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:000002565069F7F0 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/SAVE
+myaccess:exit:000002565069F7F0 0
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:00000256506A0870 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA
+myaccess:exit:000002565069F7F0 0
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:00000256506A0870 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS
+myaccess:exit:00000256506A0870 0
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:00000256506A0870 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/SOUND
+myaccess:exit:00000256506A0870 0
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:000002565069F7F0 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/LANGUAGE
+myaccess:exit:000002565069F7F0 0
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:00000256506A0870 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/SHOTS
+myaccess:exit:000002565069F7F0 0
+sub_53D10:End value 3
+Init:End of creating dirs
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/SOUND/DIG.INI
+myopen:open end 000002564993C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/SOUND/MDI.INI
+myopen:open end 000002564993C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT0.DAT
+myopen:open end 000002564993C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT0.DAT
+myopen:open end 000002564993C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT0.TAB
+myopen:open end 000002564993C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT0.TAB
+myopen:open end 000002564993C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT1.DAT
+myopen:open end 000002564993C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT1.DAT
+myopen:open end 000002564993C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT1.TAB
+myopen:open end 000002564993C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT1.TAB
+myopen:open end 000002564993C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS0-0.TAB
+myopen:open end 000002564993C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS0-0.TAB
+myopen:open end 000002564993C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/POINTERS.DAT
+myopen:open end 000002564993C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/POINTERS.DAT
+myopen:open end 000002564993C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/POINTERS.TAB
+myopen:open end 000002564993C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/POINTERS.TAB
+myopen:open end 000002564993C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BUILD0-0.DAT
+myopen:open end 000002564993C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BUILD0-0.DAT
+myopen:open end 000002564993C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BUILD0-0.TAB
+myopen:open end 000002564993C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BUILD0-0.TAB
+myopen:open end 000002564993C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BLDGPRM.DAT
+myopen:open end 000002564993C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/PALD-0.DAT
+myopen:open end 000002564993C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/PALD-0.DAT
+myopen:open end 000002564993C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BLOCK32.DAT
+myopen:open end 000002564993C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BLOCK32.DAT
+myopen:open end 000002564993C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/PALD-0.DAT
+myopen:open end 000002564993C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/CLRD-0.DAT
+myopen:open end 000002564993C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/VERSION.DAT
+myopen:open end 000002564993C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS0-0.DAT
+myopen:open end 000002564993C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS0-0.DAT
+myopen:open end 0000025650693390
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS1-0.DAT
+myopen:open end 000002564993C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS1-0.DAT
+myopen:open end 0000025650693390
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS2-0.DAT
+myopen:open end 000002564993C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS2-0.DAT
+myopen:open end 0000025650693390
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/CD_Files/LEVELS
+myaccess:exit:000002565069FC70 0
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS
+myaccess:exit:000002565069FC70 0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/LEVELS/LEVELS.TAB
+myopen:open end 000002564993C1E0
+mycreate:0000025650693390
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS/LEVELS.TAB
+myopen:open end 0000025650693390
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/LEVELS/LEVELS.DAT
+myopen:open end 000002564993C1E0
+mycreate:0000025650693390
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS/LEVELS.DAT
+myopen:open end 0000025650693390
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS0-0.DAT
+myopen:open end 000002564993C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS1-0.DAT
+myopen:open end 0000025650693390
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS2-0.DAT
+myopen:open end 00000256506934D0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SEARCH.DAT
+myopen:open end 000002564993C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SPELLS.DAT
+myopen:open end 000002564993C1E0
+myopent:end: 000002564993C1E0
+myopent:end: 000002564993C1E0
+myopent:end: 000002564993C1E0
+myopent:end: 000002564993C1E0
+myopent:end: 000002564993C1E0
+file_exists:true-C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS0-0.DAT
+Init:Begin of creating dirs
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:00000202A03F48D0 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/SAVE
+myaccess:exit:00000202A03F5350 0
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:00000202A03F5050 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA
+myaccess:exit:00000202A03F4750 0
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:00000202A03F4A50 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS
+myaccess:exit:00000202A03F48D0 0
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:00000202A03F5050 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/SOUND
+myaccess:exit:00000202A03F4ED0 0
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:00000202A03F5050 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/LANGUAGE
+myaccess:exit:00000202A03F4750 0
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:00000202A03F4750 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/SHOTS
+myaccess:exit:00000202A03F48D0 0
+sub_53D10:End value 3
+Init:End of creating dirs
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/SOUND/DIG.INI
+myopen:open end 00000202973BC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/SOUND/MDI.INI
+myopen:open end 00000202973BC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT0.DAT
+myopen:open end 00000202973BC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT0.DAT
+myopen:open end 00000202973BC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT0.TAB
+myopen:open end 00000202973BC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT0.TAB
+myopen:open end 00000202973BC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT1.DAT
+myopen:open end 00000202973BC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT1.DAT
+myopen:open end 00000202973BC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT1.TAB
+myopen:open end 00000202973BC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT1.TAB
+myopen:open end 00000202973BC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS0-0.TAB
+myopen:open end 00000202973BC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS0-0.TAB
+myopen:open end 00000202973BC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/POINTERS.DAT
+myopen:open end 00000202973BC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/POINTERS.DAT
+myopen:open end 00000202973BC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/POINTERS.TAB
+myopen:open end 00000202973BC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/POINTERS.TAB
+myopen:open end 00000202973BC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BUILD0-0.DAT
+myopen:open end 00000202973BC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BUILD0-0.DAT
+myopen:open end 00000202973BC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BUILD0-0.TAB
+myopen:open end 00000202973BC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BUILD0-0.TAB
+myopen:open end 00000202973BC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BLDGPRM.DAT
+myopen:open end 00000202973BC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/PALD-0.DAT
+myopen:open end 00000202973BC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/PALD-0.DAT
+myopen:open end 00000202973BC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BLOCK32.DAT
+myopen:open end 00000202973BC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BLOCK32.DAT
+myopen:open end 00000202973BC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/PALD-0.DAT
+myopen:open end 00000202973BC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/CLRD-0.DAT
+myopen:open end 00000202973BC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/VERSION.DAT
+myopen:open end 00000202973BC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS0-0.DAT
+myopen:open end 00000202973BC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS0-0.DAT
+myopen:open end 00000202A0398DB0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS1-0.DAT
+myopen:open end 00000202973BC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS1-0.DAT
+myopen:open end 00000202A0398DB0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS2-0.DAT
+myopen:open end 00000202973BC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS2-0.DAT
+myopen:open end 00000202A0398DB0
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/CD_Files/LEVELS
+myaccess:exit:00000202A03F4750 0
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS
+myaccess:exit:00000202A03F5050 0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/LEVELS/LEVELS.TAB
+myopen:open end 00000202973BC1E0
+mycreate:00000202A0398DB0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS/LEVELS.TAB
+myopen:open end 00000202A0398DB0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/LEVELS/LEVELS.DAT
+myopen:open end 00000202973BC1E0
+mycreate:00000202A0398DB0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS/LEVELS.DAT
+myopen:open end 00000202A0398DB0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS0-0.DAT
+myopen:open end 00000202973BC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS1-0.DAT
+myopen:open end 00000202A0398DB0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS2-0.DAT
+myopen:open end 00000202A0398EF0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SEARCH.DAT
+myopen:open end 00000202973BC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SPELLS.DAT
+myopen:open end 00000202973BC1E0
+myopent:end: 00000202973BC1E0
+myopent:end: 00000202973BC1E0
+myopent:end: 00000202973BC1E0
+myopent:end: 00000202973BC1E0
+myopent:end: 00000202973BC1E0
+file_exists:true-C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS0-0.DAT
+Init:Begin of creating dirs
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:00000201319B6F50 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/SAVE
+myaccess:exit:00000201319B8750 0
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:00000201319B8750 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA
+myaccess:exit:00000201319B8750 0
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:00000201319B8750 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS
+myaccess:exit:00000201319B6F50 0
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:00000201319B8750 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/SOUND
+myaccess:exit:00000201319B6F50 0
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:00000201319B8750 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/LANGUAGE
+myaccess:exit:00000201319B6F50 0
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:00000201319B8750 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/SHOTS
+myaccess:exit:00000201319B8750 0
+sub_53D10:End value 3
+Init:End of creating dirs
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/SOUND/DIG.INI
+myopen:open end 0000020128C6C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/SOUND/MDI.INI
+myopen:open end 0000020128C6C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT0.DAT
+myopen:open end 0000020128C6C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT0.DAT
+myopen:open end 0000020128C6C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT0.TAB
+myopen:open end 0000020128C6C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT0.TAB
+myopen:open end 0000020128C6C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT1.DAT
+myopen:open end 0000020128C6C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT1.DAT
+myopen:open end 0000020128C6C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT1.TAB
+myopen:open end 0000020128C6C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT1.TAB
+myopen:open end 0000020128C6C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS0-0.TAB
+myopen:open end 0000020128C6C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS0-0.TAB
+myopen:open end 0000020128C6C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/POINTERS.DAT
+myopen:open end 0000020128C6C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/POINTERS.DAT
+myopen:open end 0000020128C6C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/POINTERS.TAB
+myopen:open end 0000020128C6C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/POINTERS.TAB
+myopen:open end 0000020128C6C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BUILD0-0.DAT
+myopen:open end 0000020128C6C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BUILD0-0.DAT
+myopen:open end 0000020128C6C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BUILD0-0.TAB
+myopen:open end 0000020128C6C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BUILD0-0.TAB
+myopen:open end 0000020128C6C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BLDGPRM.DAT
+myopen:open end 0000020128C6C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/PALD-0.DAT
+myopen:open end 0000020128C6C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/PALD-0.DAT
+myopen:open end 0000020128C6C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BLOCK32.DAT
+myopen:open end 0000020128C6C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BLOCK32.DAT
+myopen:open end 0000020128C6C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/PALD-0.DAT
+myopen:open end 0000020128C6C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/CLRD-0.DAT
+myopen:open end 0000020128C6C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/VERSION.DAT
+myopen:open end 0000020128C6C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS0-0.DAT
+myopen:open end 0000020128C6C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS0-0.DAT
+myopen:open end 0000020131A6A9B0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS1-0.DAT
+myopen:open end 0000020128C6C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS1-0.DAT
+myopen:open end 0000020131A6A9B0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS2-0.DAT
+myopen:open end 0000020128C6C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS2-0.DAT
+myopen:open end 0000020131A6A9B0
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/CD_Files/LEVELS
+myaccess:exit:00000201319B73D0 0
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS
+myaccess:exit:00000201319B73D0 0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/LEVELS/LEVELS.TAB
+myopen:open end 0000020128C6C1E0
+mycreate:0000020131A6A9B0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS/LEVELS.TAB
+myopen:open end 0000020131A6A9B0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/LEVELS/LEVELS.DAT
+myopen:open end 0000020128C6C1E0
+mycreate:0000020131A6A9B0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS/LEVELS.DAT
+myopen:open end 0000020131A6A9B0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS0-0.DAT
+myopen:open end 0000020128C6C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS1-0.DAT
+myopen:open end 0000020131A6A9B0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS2-0.DAT
+myopen:open end 0000020131A6A690
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SEARCH.DAT
+myopen:open end 0000020128C6C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SPELLS.DAT
+myopen:open end 0000020128C6C1E0
+myopent:end: 0000020128C6C1E0
+myopent:end: 0000020128C6C1E0
+myopent:end: 0000020128C6C1E0
+myopent:end: 0000020128C6C1E0
+myopent:end: 0000020128C6C1E0
+file_exists:true-C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS0-0.DAT
+Init:Begin of creating dirs
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:000002999A2C0FF0 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/SAVE
+myaccess:exit:000002999A2C0FF0 0
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:000002999A2C0FF0 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA
+myaccess:exit:000002999A2C0FF0 0
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:000002999A2C15F0 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS
+myaccess:exit:000002999A2C0FF0 0
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:000002999A2C0FF0 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/SOUND
+myaccess:exit:000002999A2C0FF0 0
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:000002999A2C0FF0 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/LANGUAGE
+myaccess:exit:000002999A2C15F0 0
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:000002999A2C0FF0 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/SHOTS
+myaccess:exit:000002999A2C15F0 0
+sub_53D10:End value 3
+Init:End of creating dirs
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/SOUND/DIG.INI
+myopen:open end 000002999142C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/SOUND/MDI.INI
+myopen:open end 000002999142C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT0.DAT
+myopen:open end 000002999142C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT0.DAT
+myopen:open end 000002999142C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT0.TAB
+myopen:open end 000002999142C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT0.TAB
+myopen:open end 000002999142C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT1.DAT
+myopen:open end 000002999142C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT1.DAT
+myopen:open end 000002999142C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT1.TAB
+myopen:open end 000002999142C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT1.TAB
+myopen:open end 000002999142C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS0-0.TAB
+myopen:open end 000002999142C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS0-0.TAB
+myopen:open end 000002999142C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/POINTERS.DAT
+myopen:open end 000002999142C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/POINTERS.DAT
+myopen:open end 000002999142C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/POINTERS.TAB
+myopen:open end 000002999142C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/POINTERS.TAB
+myopen:open end 000002999142C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BUILD0-0.DAT
+myopen:open end 000002999142C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BUILD0-0.DAT
+myopen:open end 000002999142C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BUILD0-0.TAB
+myopen:open end 000002999142C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BUILD0-0.TAB
+myopen:open end 000002999142C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BLDGPRM.DAT
+myopen:open end 000002999142C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/PALD-0.DAT
+myopen:open end 000002999142C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/PALD-0.DAT
+myopen:open end 000002999142C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BLOCK32.DAT
+myopen:open end 000002999142C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BLOCK32.DAT
+myopen:open end 000002999142C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/PALD-0.DAT
+myopen:open end 000002999142C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/CLRD-0.DAT
+myopen:open end 000002999142C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/VERSION.DAT
+myopen:open end 000002999142C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS0-0.DAT
+myopen:open end 000002999142C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS0-0.DAT
+myopen:open end 000002999A1A9E60
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS1-0.DAT
+myopen:open end 000002999142C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS1-0.DAT
+myopen:open end 000002999A1A9E60
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS2-0.DAT
+myopen:open end 000002999142C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS2-0.DAT
+myopen:open end 000002999A1A9E60
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/CD_Files/LEVELS
+myaccess:exit:000002999A2C1470 0
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS
+myaccess:exit:000002999A2C1470 0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/LEVELS/LEVELS.TAB
+myopen:open end 000002999142C1E0
+mycreate:000002999A1A9E60
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS/LEVELS.TAB
+myopen:open end 000002999A1A9E60
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/LEVELS/LEVELS.DAT
+myopen:open end 000002999142C1E0
+mycreate:000002999A1A9E60
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS/LEVELS.DAT
+myopen:open end 000002999A1A9E60
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS0-0.DAT
+myopen:open end 000002999142C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS1-0.DAT
+myopen:open end 000002999A1A9E60
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS2-0.DAT
+myopen:open end 000002999A1AA400
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SEARCH.DAT
+myopen:open end 000002999142C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SPELLS.DAT
+myopen:open end 000002999142C1E0
+myopent:end: 000002999142C1E0
+myopent:end: 000002999142C1E0
+myopent:end: 000002999142C1E0
+myopent:end: 000002999142C1E0
+myopent:end: 000002999142C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/SOUND/SOUND.DAT
+myopen:open end 000002999142C1E0
+myopent:end: 000002999142C1E0
+myopent:end: 000002999142C1E0
+myopent:end: 000002999142C1E0
+file_exists:true-C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS0-0.DAT
+Init:Begin of creating dirs
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:000001B47E5A2C00 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/SAVE
+myaccess:exit:000001B47E5A2C00 0
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:000001B47E5A2C00 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA
+myaccess:exit:000001B47E5A2C00 0
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:000001B47E5A2C00 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS
+myaccess:exit:000001B47E5A2C00 0
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:000001B47E5A2C00 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/SOUND
+myaccess:exit:000001B47E5A2C00 0
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:000001B47E5A2C00 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/LANGUAGE
+myaccess:exit:000001B47E5A2C00 0
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:000001B47E5A2F00 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/SHOTS
+myaccess:exit:000001B47E5A2C00 0
+sub_53D10:End value 3
+Init:End of creating dirs
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/SOUND/DIG.INI
+myopen:open end 000001B47B7FC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/SOUND/MDI.INI
+myopen:open end 000001B47B7FC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT0.DAT
+myopen:open end 000001B47B7FC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT0.DAT
+myopen:open end 000001B47B7FC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT0.TAB
+myopen:open end 000001B47B7FC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT0.TAB
+myopen:open end 000001B47B7FC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT1.DAT
+myopen:open end 000001B47B7FC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT1.DAT
+myopen:open end 000001B47B7FC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT1.TAB
+myopen:open end 000001B47B7FC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT1.TAB
+myopen:open end 000001B47B7FC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS0-0.TAB
+myopen:open end 000001B47B7FC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS0-0.TAB
+myopen:open end 000001B47B7FC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/POINTERS.DAT
+myopen:open end 000001B47B7FC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/POINTERS.DAT
+myopen:open end 000001B47B7FC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/POINTERS.TAB
+myopen:open end 000001B47B7FC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/POINTERS.TAB
+myopen:open end 000001B47B7FC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BUILD0-0.DAT
+myopen:open end 000001B47B7FC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BUILD0-0.DAT
+myopen:open end 000001B47B7FC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BUILD0-0.TAB
+myopen:open end 000001B47B7FC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BUILD0-0.TAB
+myopen:open end 000001B47B7FC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BLDGPRM.DAT
+myopen:open end 000001B47B7FC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/PALD-0.DAT
+myopen:open end 000001B47B7FC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/PALD-0.DAT
+myopen:open end 000001B47B7FC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BLOCK32.DAT
+myopen:open end 000001B47B7FC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BLOCK32.DAT
+myopen:open end 000001B47B7FC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/PALD-0.DAT
+myopen:open end 000001B47B7FC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/CLRD-0.DAT
+myopen:open end 000001B47B7FC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/VERSION.DAT
+myopen:open end 000001B47B7FC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS0-0.DAT
+myopen:open end 000001B47B7FC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS0-0.DAT
+myopen:open end 000001B47E5DEDA0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS1-0.DAT
+myopen:open end 000001B47B7FC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS1-0.DAT
+myopen:open end 000001B47E5DEDA0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS2-0.DAT
+myopen:open end 000001B47B7FC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS2-0.DAT
+myopen:open end 000001B47E5DEDA0
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/CD_Files/LEVELS
+myaccess:exit:000001B47E5A1D00 0
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS
+myaccess:exit:000001B47E5A1D00 0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/LEVELS/LEVELS.TAB
+myopen:open end 000001B47B7FC1E0
+mycreate:000001B47E5DEDA0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS/LEVELS.TAB
+myopen:open end 000001B47E5DEDA0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/LEVELS/LEVELS.DAT
+myopen:open end 000001B47B7FC1E0
+mycreate:000001B47E5DEDA0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS/LEVELS.DAT
+myopen:open end 000001B47E5DEDA0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS0-0.DAT
+myopen:open end 000001B47B7FC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS1-0.DAT
+myopen:open end 000001B47E5DEDA0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS2-0.DAT
+myopen:open end 000001B47E5DF660
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SEARCH.DAT
+myopen:open end 000001B47B7FC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SPELLS.DAT
+myopen:open end 000001B47B7FC1E0
+myopent:end: 000001B47B7FC1E0
+myopent:end: 000001B47B7FC1E0
+myopent:end: 000001B47B7FC1E0
+myopent:end: 000001B47B7FC1E0
+myopent:end: 000001B47B7FC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/SOUND/SOUND.DAT
+myopen:open end 000001B47B7FC1E0
+myopent:end: 000001B47B7FC1E0
+myopent:end: 000001B47B7FC1E0
+myopent:end: 000001B47B7FC1E0
+myopent:end: 000001B47B7FC1E0
+myopent:end: 000001B47B7FC1E0
+myopent:end: 000001B47B7FC1E0
+myopent:end: 000001B47B7FC1E0
+myopent:end: 000001B47B7FC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/SOUND/MUSIC.DAT
+myopen:open end 000001B47B7FC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CONFIG.DAT
+myopen:open end 000001B47B7FC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/LANGUAGE/L7.TXT
+myopen:open end 000001B47B7FC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SCREENS/HSCREEN0.DAT
+myopen:open end 000001B47B7FC1E0
+sub_8F100_sound_proc19:buff:
+524946466643000057415645666D742010000000010001002256000022560000010008006461746141430000698CA6B4C0C4C4C3BCB2A7A4A39A94938F8783807266615C564F4F56606D7B8A9EB2BCBCBCB8AC9E897869594F49433E41474A49484F585C
+sub_8F100_sound_proc19:44mhz:
+
+sub_8F100_sound_proc19:rate:22050
+SOUND_start_sample-hq:7EBA33C0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SCREENS/HSCREEN0.DAT
+myopen:open end 000001B47B7FC1E0
+sub_46830_main_loop:before load scr
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SMATITLE.DAT
+myopen:open end 000001B47B7FC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SMATITLE.PAL
+myopen:open end 000001B47B7FC1E0
+sub_46830_main_loop:load scr passed
+sub_56A30_init_game_level:before sub_6EB90
+sub_56A30_init_game_level:sub_6EB90 passed
+sub_56A30_init_game_level:before sub_533B0_decompress_levels
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS/LEVELS.DAT
+myopen:open end 000001B47B7FC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS/LEVELS.TAB
+myopen:open end 000001B47E5DEDA0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/SOUND/SOUND.DAT
+myopen:open end 000001B47B7FC1E0
+sub_56A30_init_game_level:sub_533B0_decompress_levels passed
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SKYN0-0.DAT
+myopen:open end 000001B47B7FC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS1-0.TAB
+myopen:open end 000001B47B7FC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TABLESN.DAT
+myopen:open end 000001B47B7FC1E0
+file_exists:true-C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS0-0.DAT
+Init:Begin of creating dirs
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:0000014E9D705A90 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/SAVE
+myaccess:exit:0000014E9D705A90 0
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:0000014E9D705A90 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA
+myaccess:exit:0000014E9D705610 0
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:0000014E9D705610 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS
+myaccess:exit:0000014E9D705610 0
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:0000014E9D705610 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/SOUND
+myaccess:exit:0000014E9D705610 0
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:0000014E9D705610 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/LANGUAGE
+myaccess:exit:0000014E9D705610 0
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:0000014E9D705610 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/SHOTS
+myaccess:exit:0000014E9D705610 0
+sub_53D10:End value 3
+Init:End of creating dirs
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/SOUND/DIG.INI
+myopen:open end 0000014E9495C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/SOUND/MDI.INI
+myopen:open end 0000014E9495C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT0.DAT
+myopen:open end 0000014E9495C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT0.DAT
+myopen:open end 0000014E9495C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT0.TAB
+myopen:open end 0000014E9495C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT0.TAB
+myopen:open end 0000014E9495C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT1.DAT
+myopen:open end 0000014E9495C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT1.DAT
+myopen:open end 0000014E9495C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT1.TAB
+myopen:open end 0000014E9495C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT1.TAB
+myopen:open end 0000014E9495C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS0-0.TAB
+myopen:open end 0000014E9495C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS0-0.TAB
+myopen:open end 0000014E9495C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/POINTERS.DAT
+myopen:open end 0000014E9495C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/POINTERS.DAT
+myopen:open end 0000014E9495C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/POINTERS.TAB
+myopen:open end 0000014E9495C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/POINTERS.TAB
+myopen:open end 0000014E9495C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BUILD0-0.DAT
+myopen:open end 0000014E9495C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BUILD0-0.DAT
+myopen:open end 0000014E9495C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BUILD0-0.TAB
+myopen:open end 0000014E9495C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BUILD0-0.TAB
+myopen:open end 0000014E9495C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BLDGPRM.DAT
+myopen:open end 0000014E9495C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/PALD-0.DAT
+myopen:open end 0000014E9495C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/PALD-0.DAT
+myopen:open end 0000014E9495C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BLOCK32.DAT
+myopen:open end 0000014E9495C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BLOCK32.DAT
+myopen:open end 0000014E9495C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/PALD-0.DAT
+myopen:open end 0000014E9495C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/CLRD-0.DAT
+myopen:open end 0000014E9495C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/VERSION.DAT
+myopen:open end 0000014E9495C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS0-0.DAT
+myopen:open end 0000014E9495C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS0-0.DAT
+myopen:open end 0000014E9D6A9680
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS1-0.DAT
+myopen:open end 0000014E9495C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS1-0.DAT
+myopen:open end 0000014E9D6A9680
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS2-0.DAT
+myopen:open end 0000014E9495C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS2-0.DAT
+myopen:open end 0000014E9D6A9680
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/CD_Files/LEVELS
+myaccess:exit:0000014E9D706510 0
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS
+myaccess:exit:0000014E9D706510 0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/LEVELS/LEVELS.TAB
+myopen:open end 0000014E9495C1E0
+mycreate:0000014E9D6A9680
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS/LEVELS.TAB
+myopen:open end 0000014E9D6A9680
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/LEVELS/LEVELS.DAT
+myopen:open end 0000014E9495C1E0
+mycreate:0000014E9D6A9680
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS/LEVELS.DAT
+myopen:open end 0000014E9D6A9680
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS0-0.DAT
+myopen:open end 0000014E9495C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS1-0.DAT
+myopen:open end 0000014E9D6A9680
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS2-0.DAT
+myopen:open end 0000014E9D6A9860
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SEARCH.DAT
+myopen:open end 0000014E9495C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SPELLS.DAT
+myopen:open end 0000014E9495C1E0
+myopent:end: 0000014E9495C1E0
+myopent:end: 0000014E9495C1E0
+myopent:end: 0000014E9495C1E0
+myopent:end: 0000014E9495C1E0
+myopent:end: 0000014E9495C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/SOUND/SOUND.DAT
+myopen:open end 0000014E9495C1E0
+myopent:end: 0000014E9495C1E0
+myopent:end: 0000014E9495C1E0
+myopent:end: 0000014E9495C1E0
+myopent:end: 0000014E9495C1E0
+myopent:end: 0000014E9495C1E0
+myopent:end: 0000014E9495C1E0
+myopent:end: 0000014E9495C1E0
+myopent:end: 0000014E9495C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/SOUND/MUSIC.DAT
+myopen:open end 0000014E9495C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CONFIG.DAT
+myopen:open end 0000014E9495C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/LANGUAGE/L7.TXT
+myopen:open end 0000014E9495C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SCREENS/HSCREEN0.DAT
+myopen:open end 0000014E9495C1E0
+sub_8F100_sound_proc19:buff:
+524946466643000057415645666D742010000000010001002256000022560000010008006461746141430000698CA6B4C0C4C4C3BCB2A7A4A39A94938F8783807266615C564F4F56606D7B8A9EB2BCBCBCB8AC9E897869594F49433E41474A49484F585C
+sub_8F100_sound_proc19:44mhz:
+
+sub_8F100_sound_proc19:rate:22050
+SOUND_start_sample-hq:9DC8A9F0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SCREENS/HSCREEN0.DAT
+myopen:open end 0000014E9495C1E0
+sub_46830_main_loop:before load scr
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SMATITLE.DAT
+myopen:open end 0000014E9495C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SMATITLE.PAL
+myopen:open end 0000014E9495C1E0
+sub_46830_main_loop:load scr passed
+sub_56A30_init_game_level:before sub_6EB90
+sub_56A30_init_game_level:sub_6EB90 passed
+sub_56A30_init_game_level:before sub_533B0_decompress_levels
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS/LEVELS.DAT
+myopen:open end 0000014E9495C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS/LEVELS.TAB
+myopen:open end 0000014E9D6A9680
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/SOUND/SOUND.DAT
+myopen:open end 0000014E9495C1E0
+sub_56A30_init_game_level:sub_533B0_decompress_levels passed
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SKYN0-0.DAT
+myopen:open end 0000014E9495C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS1-0.TAB
+myopen:open end 0000014E9495C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TABLESN.DAT
+myopen:open end 0000014E9495C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS0-0.DAT
+myopen:open end 0000014E9495C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS1-0.DAT
+myopen:open end 0000014E9D6A9680
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS2-0.DAT
+myopen:open end 0000014E9D6A9860
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-000-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-000-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-001-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-001-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-002-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-002-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-003-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-003-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-004-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-004-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-005-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-005-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-006-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-006-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-007-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-007-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-038-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-038-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-039-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-039-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-040-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-040-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-041-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-041-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-042-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-042-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-043-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-043-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-044-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-044-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-045-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-045-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-046-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-046-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-047-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-047-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-048-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-048-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-049-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-049-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-050-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-050-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-051-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-051-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-052-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-052-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-053-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-053-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-054-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-054-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-055-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-055-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-056-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-056-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-057-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-057-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-058-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-058-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-059-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-059-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-060-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-060-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-062-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-062-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-065-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-065-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-067-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-067-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-068-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-068-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-069-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-069-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-070-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-070-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-071-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-071-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-072-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-072-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-073-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-073-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-074-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-074-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-077-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-077-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-077-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-077-03.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-077-04.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-077-05.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-077-06.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-077-07.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-077-08.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-078-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-078-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-081-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-081-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-082-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-082-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-082-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-082-03.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-082-04.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-082-05.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-082-06.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-082-07.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-082-08.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-085-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-085-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-086-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-086-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-096-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-096-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-097-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-097-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-098-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-098-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-104-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-104-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-105-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-105-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-106-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-106-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-107-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-107-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-108-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-108-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-109-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-109-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-116-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-116-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-117-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-117-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-118-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-118-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-119-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-119-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-120-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-120-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-144-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-144-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-144-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-144-03.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-144-04.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-144-05.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-144-06.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-144-07.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-144-08.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-145-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-145-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-146-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-146-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-147-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-147-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-148-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-148-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-149-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-149-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-150-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-150-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-151-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-151-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-155-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-155-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-155-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-155-03.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-155-04.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-156-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-156-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-156-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-156-03.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-156-04.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-157-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-157-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-157-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-157-03.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-157-04.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-180-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-180-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-180-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-180-03.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-180-04.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-181-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-181-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-181-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-181-03.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-181-04.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-182-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-182-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-182-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-182-03.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-182-04.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-183-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-183-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-183-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-183-03.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-183-04.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-184-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-184-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-184-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-184-03.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-184-04.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-185-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-185-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-185-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-185-03.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-185-04.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-186-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-186-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-187-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-187-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-188-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-188-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-189-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-189-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-190-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-190-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-191-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-191-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-192-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-192-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-193-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-193-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-194-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-194-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-195-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-195-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-196-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-196-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-197-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-197-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-199-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-199-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-199-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-199-03.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-199-04.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-200-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-200-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-200-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-200-03.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-200-04.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-201-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-201-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-201-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-201-03.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-201-04.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-211-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-211-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-212-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-212-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-213-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-213-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-214-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-214-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-215-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-215-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-216-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-216-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-217-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-217-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-218-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-218-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-243-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-243-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-244-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-244-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-245-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-245-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-246-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-246-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-247-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-247-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-248-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-248-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-249-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-249-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-250-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-250-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-259-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-259-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-008-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-008-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-008-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-008-03.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-008-04.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-009-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-009-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-009-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-009-03.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-009-04.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-010-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-010-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-010-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-010-03.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-010-04.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-011-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-011-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-012-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-012-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-013-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-013-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-030-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-030-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-030-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-030-03.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-030-04.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-030-05.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-031-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-031-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-031-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-031-03.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-031-04.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-031-05.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-031-06.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-032-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-032-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-032-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-032-03.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-032-04.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-032-05.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-033-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-033-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-033-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-033-03.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-033-04.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-033-05.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-033-06.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-034-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-034-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-034-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-034-03.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-034-04.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-034-05.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-035-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-035-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-035-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-035-03.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-035-04.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-035-05.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-036-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-036-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-036-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-036-03.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-036-04.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-036-05.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-037-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-037-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-037-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-037-03.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-037-04.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-037-05.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-066-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-066-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-121-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-121-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-122-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-122-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-123-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-123-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-132-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-132-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-132-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-132-03.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-132-04.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-133-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-133-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-133-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-133-03.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-133-04.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-134-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-134-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-134-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-134-03.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-134-04.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-135-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-135-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-135-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-135-03.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-135-04.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-136-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-136-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-136-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-136-03.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-136-04.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-137-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-137-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-137-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-137-03.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-137-04.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-152-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-152-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-152-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-152-03.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-152-04.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-153-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-153-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-153-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-153-03.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-153-04.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-154-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-154-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-154-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-154-03.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-154-04.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-279-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-279-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-279-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-279-03.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-279-04.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-279-05.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-279-06.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-280-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-280-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-280-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-280-03.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-280-04.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-280-05.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-280-06.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-281-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-281-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-281-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-281-03.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-281-04.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-281-05.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-281-06.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-282-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-282-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-282-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-282-03.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-282-04.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-282-05.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-282-06.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-283-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-283-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-283-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-283-03.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-283-04.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-283-05.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-283-06.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-284-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-284-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-284-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-284-03.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-284-04.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-284-05.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-284-06.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-285-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-285-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-285-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-285-03.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-285-04.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-285-05.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-285-06.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-286-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-286-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-286-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-286-03.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-286-04.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-286-05.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-286-06.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-463-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-463-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-463-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-463-03.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-463-04.data
+sub_46830_main_loop:init game level passed
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/MSPRN0-0.DAT
+myopen:open end 0000014E9D6A9AE0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/MSPRN0-0.DAT
+myopen:open end 0000014E9D6A9AE0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/MSPRN0-0.TAB
+myopen:open end 0000014E9D6A9AE0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/MSPRN0-0.TAB
+myopen:open end 0000014E9D6A9AE0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/MWEBN0-0.DAT
+myopen:open end 0000014E9D6A9AE0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/MWEBN0-0.TAB
+myopen:open end 0000014E9D6A9AE0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/data/pald-0.dat
+myopen:open end 0000014E9D6A9AE0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/data/clrd-0.dat
+myopen:open end 0000014E9D6A9AE0
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-063-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-063-01.data
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/data/pald-0.dat
+myopen:open end 0000014E9D6A9AE0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/data/clrd-0.dat
+myopen:open end 0000014E9D6A9AE0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/PALN-0.DAT
+myopen:open end 0000014E9D6A9AE0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/CLRN-0.DAT
+myopen:open end 0000014E9D6A9AE0
+mycreate:0000014E9D6A9AE0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/SAVE/SLEV2.dat
+myopen:open end 0000014E9D6A9AE0
+InGameSave-begin
+mycreate:0000014E9D6A9AE0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/SAVE/SMAP2.dat
+myopen:open end 0000014E9D6A9AE0
+InGameSave-end-0
+mycreate:0000014E9D6A9AE0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/SAVE/SVER2.dat
+myopen:open end 0000014E9D6A9AE0
+file_exists:true-C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS0-0.DAT
+Init:Begin of creating dirs
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:0000028F29A96CD0 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/SAVE
+myaccess:exit:0000028F29A96CD0 0
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:0000028F29A96CD0 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA
+myaccess:exit:0000028F29A96CD0 0
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:0000028F29A96CD0 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS
+myaccess:exit:0000028F29A96CD0 0
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:0000028F29A96CD0 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/SOUND
+myaccess:exit:0000028F29A96CD0 0
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:0000028F29A96CD0 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/LANGUAGE
+myaccess:exit:0000028F29A96CD0 0
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:0000028F29A96CD0 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/SHOTS
+myaccess:exit:0000028F29A96CD0 0
+sub_53D10:End value 3
+Init:End of creating dirs
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/SOUND/DIG.INI
+myopen:open end 0000028F20C3C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/SOUND/MDI.INI
+myopen:open end 0000028F20C3C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT0.DAT
+myopen:open end 0000028F20C3C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT0.DAT
+myopen:open end 0000028F20C3C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT0.TAB
+myopen:open end 0000028F20C3C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT0.TAB
+myopen:open end 0000028F20C3C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT1.DAT
+myopen:open end 0000028F20C3C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT1.DAT
+myopen:open end 0000028F20C3C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT1.TAB
+myopen:open end 0000028F20C3C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT1.TAB
+myopen:open end 0000028F20C3C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS0-0.TAB
+myopen:open end 0000028F20C3C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS0-0.TAB
+myopen:open end 0000028F20C3C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/POINTERS.DAT
+myopen:open end 0000028F20C3C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/POINTERS.DAT
+myopen:open end 0000028F20C3C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/POINTERS.TAB
+myopen:open end 0000028F20C3C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/POINTERS.TAB
+myopen:open end 0000028F20C3C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BUILD0-0.DAT
+myopen:open end 0000028F20C3C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BUILD0-0.DAT
+myopen:open end 0000028F20C3C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BUILD0-0.TAB
+myopen:open end 0000028F20C3C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BUILD0-0.TAB
+myopen:open end 0000028F20C3C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BLDGPRM.DAT
+myopen:open end 0000028F20C3C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/PALD-0.DAT
+myopen:open end 0000028F20C3C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/PALD-0.DAT
+myopen:open end 0000028F20C3C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BLOCK32.DAT
+myopen:open end 0000028F20C3C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BLOCK32.DAT
+myopen:open end 0000028F20C3C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/PALD-0.DAT
+myopen:open end 0000028F20C3C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/CLRD-0.DAT
+myopen:open end 0000028F20C3C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/VERSION.DAT
+myopen:open end 0000028F20C3C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS0-0.DAT
+myopen:open end 0000028F20C3C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS0-0.DAT
+myopen:open end 0000028F29AF2C10
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS1-0.DAT
+myopen:open end 0000028F20C3C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS1-0.DAT
+myopen:open end 0000028F29AF2C10
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS2-0.DAT
+myopen:open end 0000028F20C3C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS2-0.DAT
+myopen:open end 0000028F29AF2C10
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/CD_Files/LEVELS
+myaccess:exit:0000028F29A978D0 0
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS
+myaccess:exit:0000028F29A978D0 0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/LEVELS/LEVELS.TAB
+myopen:open end 0000028F20C3C1E0
+mycreate:0000028F29AF2C10
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS/LEVELS.TAB
+myopen:open end 0000028F29AF2C10
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/LEVELS/LEVELS.DAT
+myopen:open end 0000028F20C3C1E0
+mycreate:0000028F29AF2C10
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS/LEVELS.DAT
+myopen:open end 0000028F29AF2C10
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS0-0.DAT
+myopen:open end 0000028F20C3C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS1-0.DAT
+myopen:open end 0000028F29AF2C10
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS2-0.DAT
+myopen:open end 0000028F29AF2DF0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SEARCH.DAT
+myopen:open end 0000028F20C3C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SPELLS.DAT
+myopen:open end 0000028F20C3C1E0
+myopent:end: 0000028F20C3C1E0
+myopent:end: 0000028F20C3C1E0
+myopent:end: 0000028F20C3C1E0
+myopent:end: 0000028F20C3C1E0
+myopent:end: 0000028F20C3C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/SOUND/SOUND.DAT
+myopen:open end 0000028F20C3C1E0
+myopent:end: 0000028F20C3C1E0
+myopent:end: 0000028F20C3C1E0
+myopent:end: 0000028F20C3C1E0
+myopent:end: 0000028F20C3C1E0
+myopent:end: 0000028F20C3C1E0
+myopent:end: 0000028F20C3C1E0
+myopent:end: 0000028F20C3C1E0
+myopent:end: 0000028F20C3C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/SOUND/MUSIC.DAT
+myopen:open end 0000028F20C3C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CONFIG.DAT
+myopen:open end 0000028F20C3C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/LANGUAGE/L7.TXT
+myopen:open end 0000028F20C3C1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SCREENS/HSCREEN0.DAT
+myopen:open end 0000028F20C3C1E0
+sub_8F100_sound_proc19:buff:
+524946466643000057415645666D742010000000010001002256000022560000010008006461746141430000698CA6B4C0C4C4C3BCB2A7A4A39A94938F8783807266615C564F4F56606D7B8A9EB2BCBCBCB8AC9E897869594F49433E41474A49484F585C
+sub_8F100_sound_proc19:44mhz:
+
+sub_8F100_sound_proc19:rate:22050
+SOUND_start_sample-hq:29DA1C30
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SCREENS/HSCREEN0.DAT
+myopen:open end 0000028F20C3C1E0
+file_exists:true-C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS0-0.DAT
+Init:Begin of creating dirs
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:0000024DD5369E50 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/SAVE
+myaccess:exit:0000024DD5369E50 0
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:0000024DD536A2D0 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA
+myaccess:exit:0000024DD5369FD0 0
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:0000024DD536A150 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS
+myaccess:exit:0000024DD5369FD0 0
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:0000024DD536A450 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/SOUND
+myaccess:exit:0000024DD536A450 0
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:0000024DD536A150 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/LANGUAGE
+myaccess:exit:0000024DD5369E50 0
+sub_53D10:End value 3
+sub_53D10:Begin
+sub_53D10:Disc Free
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW
+myaccess:exit:0000024DD5369FD0 0
+sub_53D10:After access and mkdir
+sub_53D10:Before second access and mkdir
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/SHOTS
+myaccess:exit:0000024DD536A150 0
+sub_53D10:End value 3
+Init:End of creating dirs
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/SOUND/DIG.INI
+myopen:open end 0000024DCC4EC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/SOUND/MDI.INI
+myopen:open end 0000024DCC4EC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT0.DAT
+myopen:open end 0000024DCC4EC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT0.DAT
+myopen:open end 0000024DCC4EC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT0.TAB
+myopen:open end 0000024DCC4EC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT0.TAB
+myopen:open end 0000024DCC4EC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT1.DAT
+myopen:open end 0000024DCC4EC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT1.DAT
+myopen:open end 0000024DCC4EC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT1.TAB
+myopen:open end 0000024DCC4EC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/FONT1.TAB
+myopen:open end 0000024DCC4EC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS0-0.TAB
+myopen:open end 0000024DCC4EC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS0-0.TAB
+myopen:open end 0000024DCC4EC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/POINTERS.DAT
+myopen:open end 0000024DCC4EC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/POINTERS.DAT
+myopen:open end 0000024DCC4EC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/POINTERS.TAB
+myopen:open end 0000024DCC4EC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/POINTERS.TAB
+myopen:open end 0000024DCC4EC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BUILD0-0.DAT
+myopen:open end 0000024DCC4EC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BUILD0-0.DAT
+myopen:open end 0000024DCC4EC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BUILD0-0.TAB
+myopen:open end 0000024DCC4EC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BUILD0-0.TAB
+myopen:open end 0000024DCC4EC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BLDGPRM.DAT
+myopen:open end 0000024DCC4EC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/PALD-0.DAT
+myopen:open end 0000024DCC4EC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/PALD-0.DAT
+myopen:open end 0000024DCC4EC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BLOCK32.DAT
+myopen:open end 0000024DCC4EC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/BLOCK32.DAT
+myopen:open end 0000024DCC4EC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/PALD-0.DAT
+myopen:open end 0000024DCC4EC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/CLRD-0.DAT
+myopen:open end 0000024DCC4EC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/VERSION.DAT
+myopen:open end 0000024DCC4EC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS0-0.DAT
+myopen:open end 0000024DCC4EC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS0-0.DAT
+myopen:open end 0000024DD56305E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS1-0.DAT
+myopen:open end 0000024DCC4EC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS1-0.DAT
+myopen:open end 0000024DD56305E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS2-0.DAT
+myopen:open end 0000024DCC4EC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS2-0.DAT
+myopen:open end 0000024DD56305E0
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/CD_Files/LEVELS
+myaccess:exit:0000024DD5369FD0 0
+myaccess:orig path:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS
+myaccess:exit:0000024DD5369E50 0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/LEVELS/LEVELS.TAB
+myopen:open end 0000024DCC4EC1E0
+mycreate:0000024DD56305E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS/LEVELS.TAB
+myopen:open end 0000024DD56305E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/LEVELS/LEVELS.DAT
+myopen:open end 0000024DCC4EC1E0
+mycreate:0000024DD56305E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS/LEVELS.DAT
+myopen:open end 0000024DD56305E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS0-0.DAT
+myopen:open end 0000024DCC4EC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS1-0.DAT
+myopen:open end 0000024DD56305E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS2-0.DAT
+myopen:open end 0000024DD562FE60
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SEARCH.DAT
+myopen:open end 0000024DCC4EC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SPELLS.DAT
+myopen:open end 0000024DCC4EC1E0
+myopent:end: 0000024DCC4EC1E0
+myopent:end: 0000024DCC4EC1E0
+myopent:end: 0000024DCC4EC1E0
+myopent:end: 0000024DCC4EC1E0
+myopent:end: 0000024DCC4EC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/SOUND/SOUND.DAT
+myopen:open end 0000024DCC4EC1E0
+myopent:end: 0000024DCC4EC1E0
+myopent:end: 0000024DCC4EC1E0
+myopent:end: 0000024DCC4EC1E0
+myopent:end: 0000024DCC4EC1E0
+myopent:end: 0000024DCC4EC1E0
+myopent:end: 0000024DCC4EC1E0
+myopent:end: 0000024DCC4EC1E0
+myopent:end: 0000024DCC4EC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/SOUND/MUSIC.DAT
+myopen:open end 0000024DCC4EC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CONFIG.DAT
+myopen:open end 0000024DCC4EC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/LANGUAGE/L7.TXT
+myopen:open end 0000024DCC4EC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SCREENS/HSCREEN0.DAT
+myopen:open end 0000024DCC4EC1E0
+sub_8F100_sound_proc19:buff:
+524946466643000057415645666D742010000000010001002256000022560000010008006461746141430000698CA6B4C0C4C4C3BCB2A7A4A39A94938F8783807266615C564F4F56606D7B8A9EB2BCBCBCB8AC9E897869594F49433E41474A49484F585C
+sub_8F100_sound_proc19:44mhz:
+
+sub_8F100_sound_proc19:rate:22050
+SOUND_start_sample-hq:D5837150
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SCREENS/HSCREEN0.DAT
+myopen:open end 0000024DCC4EC1E0
+sub_46830_main_loop:before load scr
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SMATITLE.DAT
+myopen:open end 0000024DCC4EC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SMATITLE.PAL
+myopen:open end 0000024DCC4EC1E0
+sub_46830_main_loop:load scr passed
+sub_56A30_init_game_level:before sub_6EB90
+sub_56A30_init_game_level:sub_6EB90 passed
+sub_56A30_init_game_level:before sub_533B0_decompress_levels
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS/LEVELS.DAT
+myopen:open end 0000024DCC4EC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CLEVELS/LEVELS.TAB
+myopen:open end 0000024DD56305E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/SOUND/SOUND.DAT
+myopen:open end 0000024DCC4EC1E0
+sub_56A30_init_game_level:sub_533B0_decompress_levels passed
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/SKYN0-0.DAT
+myopen:open end 0000024DCC4EC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TMAPS1-0.TAB
+myopen:open end 0000024DCC4EC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/TABLESN.DAT
+myopen:open end 0000024DCC4EC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS0-0.DAT
+myopen:open end 0000024DCC4EC1E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS1-0.DAT
+myopen:open end 0000024DD56305E0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/CDATA/TMAPS2-0.DAT
+myopen:open end 0000024DD562FE60
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-000-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-000-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-001-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-001-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-002-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-002-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-003-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-003-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-004-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-004-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-005-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-005-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-006-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-006-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-007-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-007-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-038-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-038-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-039-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-039-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-040-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-040-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-041-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-041-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-042-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-042-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-043-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-043-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-044-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-044-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-045-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-045-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-046-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-046-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-047-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-047-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-048-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-048-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-049-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-049-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-050-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-050-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-051-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-051-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-052-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-052-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-053-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-053-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-054-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-054-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-055-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-055-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-056-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-056-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-057-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-057-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-058-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-058-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-059-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-059-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-060-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-060-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-062-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-062-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-065-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-065-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-067-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-067-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-068-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-068-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-069-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-069-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-070-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-070-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-071-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-071-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-072-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-072-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-073-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-073-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-074-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-074-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-077-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-077-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-077-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-077-03.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-077-04.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-077-05.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-077-06.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-077-07.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-077-08.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-078-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-078-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-081-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-081-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-082-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-082-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-082-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-082-03.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-082-04.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-082-05.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-082-06.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-082-07.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-082-08.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-085-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-085-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-086-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-086-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-096-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-096-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-097-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-097-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-098-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-098-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-104-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-104-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-105-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-105-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-106-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-106-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-107-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-107-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-108-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-108-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-109-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-109-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-116-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-116-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-117-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-117-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-118-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-118-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-119-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-119-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-120-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-120-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-144-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-144-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-144-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-144-03.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-144-04.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-144-05.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-144-06.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-144-07.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-144-08.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-145-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-145-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-146-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-146-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-147-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-147-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-148-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-148-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-149-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-149-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-150-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-150-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-151-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-151-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-155-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-155-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-155-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-155-03.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-155-04.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-156-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-156-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-156-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-156-03.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-156-04.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-157-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-157-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-157-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-157-03.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-157-04.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-180-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-180-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-180-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-180-03.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-180-04.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-181-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-181-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-181-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-181-03.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-181-04.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-182-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-182-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-182-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-182-03.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-182-04.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-183-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-183-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-183-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-183-03.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-183-04.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-184-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-184-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-184-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-184-03.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-184-04.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-185-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-185-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-185-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-185-03.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-185-04.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-186-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-186-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-187-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-187-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-188-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-188-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-189-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-189-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-190-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-190-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-191-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-191-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-192-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-192-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-193-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-193-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-194-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-194-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-195-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-195-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-196-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-196-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-197-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-197-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-199-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-199-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-199-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-199-03.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-199-04.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-200-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-200-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-200-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-200-03.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-200-04.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-201-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-201-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-201-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-201-03.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-201-04.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-211-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-211-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-212-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-212-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-213-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-213-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-214-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-214-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-215-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-215-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-216-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-216-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-217-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-217-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-218-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-218-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-243-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-243-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-244-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-244-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-245-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-245-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-246-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-246-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-247-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-247-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-248-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-248-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-249-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-249-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-250-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-250-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-259-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-259-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-008-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-008-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-008-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-008-03.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-008-04.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-009-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-009-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-009-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-009-03.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-009-04.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-010-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-010-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-010-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-010-03.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-010-04.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-011-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-011-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-012-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-012-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-013-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-013-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-030-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-030-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-030-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-030-03.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-030-04.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-030-05.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-031-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-031-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-031-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-031-03.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-031-04.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-031-05.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-031-06.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-032-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-032-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-032-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-032-03.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-032-04.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-032-05.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-033-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-033-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-033-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-033-03.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-033-04.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-033-05.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-033-06.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-034-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-034-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-034-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-034-03.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-034-04.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-034-05.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-035-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-035-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-035-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-035-03.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-035-04.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-035-05.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-036-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-036-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-036-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-036-03.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-036-04.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-036-05.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-037-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-037-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-037-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-037-03.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-037-04.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-037-05.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-066-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-066-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-121-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-121-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-122-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-122-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-123-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-123-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-132-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-132-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-132-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-132-03.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-132-04.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-133-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-133-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-133-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-133-03.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-133-04.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-134-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-134-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-134-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-134-03.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-134-04.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-135-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-135-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-135-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-135-03.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-135-04.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-136-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-136-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-136-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-136-03.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-136-04.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-137-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-137-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-137-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-137-03.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-137-04.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-152-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-152-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-152-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-152-03.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-152-04.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-153-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-153-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-153-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-153-03.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-153-04.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-154-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-154-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-154-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-154-03.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-154-04.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-279-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-279-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-279-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-279-03.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-279-04.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-279-05.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-279-06.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-280-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-280-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-280-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-280-03.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-280-04.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-280-05.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-280-06.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-281-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-281-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-281-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-281-03.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-281-04.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-281-05.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-281-06.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-282-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-282-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-282-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-282-03.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-282-04.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-282-05.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-282-06.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-283-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-283-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-283-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-283-03.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-283-04.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-283-05.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-283-06.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-284-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-284-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-284-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-284-03.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-284-04.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-284-05.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-284-06.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-285-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-285-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-285-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-285-03.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-285-04.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-285-05.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-285-06.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-286-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-286-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-286-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-286-03.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-286-04.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-286-05.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-286-06.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-463-00.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-463-01.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-463-02.data
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-463-03.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-463-04.data
+sub_46830_main_loop:init game level passed
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/MSPRN0-0.DAT
+myopen:open end 0000024DD56302C0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/MSPRN0-0.DAT
+myopen:open end 0000024DD56302C0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/MSPRN0-0.TAB
+myopen:open end 0000024DD56302C0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/MSPRN0-0.TAB
+myopen:open end 0000024DD56302C0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/MWEBN0-0.DAT
+myopen:open end 0000024DD56302C0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/MWEBN0-0.TAB
+myopen:open end 0000024DD56302C0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/data/pald-0.dat
+myopen:open end 0000024DD56302C0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/data/clrd-0.dat
+myopen:open end 0000024DD56302C0
+ffile_exists:true-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-063-00.data
+ffile_exists:false-C:\prenos\remc2-dev\x64\Debug/biggraphics/TMAPS/TMAPS2-1-063-01.data
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/data/pald-0.dat
+myopen:open end 0000024DD56302C0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/data/clrd-0.dat
+myopen:open end 0000024DD56302C0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/PALN-0.DAT
+myopen:open end 0000024DD56302C0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/CD_Files/DATA/CLRN-0.DAT
+myopen:open end 0000024DD56302C0
+mycreate:0000024DD56302C0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/SAVE/SLEV2.dat
+myopen:open end 0000024DD56302C0
+InGameSave-begin
+mycreate:0000024DD56302C0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/SAVE/SMAP2.dat
+myopen:open end 0000024DD56302C0
+InGameSave-end-0
+mycreate:0000024DD56302C0
+myopen:open file:C:\prenos\remc2-dev\x64\Debug/NETHERW/SAVE/SVER2.dat
+myopen:open end 0000024DD56302C0

@@ -1601,6 +1601,165 @@ typedef struct {//lenght 224791
 	uint8_t stubend[0xb];
 } type_D41A0_BYTESTR_0; // level data (gets saved to and loaded from SAVE/SLEVxx.dat) was originally forced to 224791 on load/save which is out of bounds
 
+typedef struct {//lenght a8//THING
+	uint32_t next_0;
+	int32_t dword_0x4;//4 //?bitmap//LIVE
+	int32_t dword_0x8;//8 // this is int32_t ?bitmap//MAX LIVE
+	dw_w_b struct_byte_0xc_12_15;//12
+	int32_t dword_0x10_16;//16 // index of array
+	uint16_t word_0x14_20;//20 //random seed adress
+	uint16_t word_0x16_22;//22
+	uint16_t word_0x18_24_next_entity;//24 //next entity index
+	uint16_t word_0x1A_26;//26 // index - owner //ID last index
+	int16_t word_0x1C_28;//28//rotate1
+	int16_t word_0x1E_30;//30//rotate2
+	int16_t word_0x20_32;//32//rotate3
+	int16_t word_0x22_34;//34//rotate4
+	int16_t word_0x24_36;//36 // index subentity
+	int16_t word_0x26_38;//38 // index subentity
+	uint16_t word_0x28_40;//40//WHO OWNS ME
+	uint16_t word_0x2A_42;//42 //maybe int16_t
+	int16_t word_0x2C_44;//44 //add to z
+	int16_t word_0x2E_46;//46
+	uint16_t word_0x30_48;//48
+	uint16_t word_0x32_50;//50
+	uint16_t word_0x34_52;//52 // index subentity
+	uint16_t word_0x36_54;//54
+	int8_t byte_0x38_56;//56
+	int8_t byte_0x39_57;//57
+	int8_t byte_0x3A_58;//58
+	int8_t byte_0x3B_59;//59
+	int8_t byte_0x3C_60;//60
+	int8_t byte_0x3D_61;//61
+	uint8_t byte_0x3E_62;//62 //index
+	int8_t byte_0x3F_63;//63 //type//MODEL
+	int8_t byte_0x40_64;//64 //subtype//CLASS
+	int8_t byte_0x41_65;//65 //type subentity
+	int8_t byte_0x42_66;//66 //subtype subentity
+	int8_t byte_0x43_67;//67
+	int8_t byte_0x44_68;//68
+	uint8_t byte_0x45_69;//69 // index of structure with lenght 14//STATE-
+	int8_t byte_0x46_70;//70 // index of bitmap // index of ending sequence
+	int8_t byte_0x47_71_xx;//71
+	int8_t byte_0x48_72;//72
+	int8_t byte_0x49_73;//70
+	int16_t word_0x4A_74;
+	axis_3d array_0x4C_76;//position//ACTUAL X Y Z
+	axis_4d array_0x52_82;
+	int16_t word_0x5A_90;
+	int8_t byte_0x5C_92;
+	int8_t byte_0x5D_93;
+	type_str_0x5E_94 str_0x5E_94;
+	int16_t word_0x82_130;//130 //add to z//ACTUAL SPEED
+	int16_t word_0x84_132;//132//MIN SPEED
+	int16_t word_0x86_134;//134//MAX SPEED
+	int32_t dword_0x88_136;//136
+	int32_t dword_0x8C_140;//140 //wiz name?//ACTUAL MANA
+	int32_t dword_0x90_144;//144 0-1000//MAX MANA
+	uint16_t word_0x94_148;//148
+	int16_t word_0x96_150;//150 // index subentity
+	uint16_t word_0x98_152;//152
+	axis_3d word_0x9A_154x;//154
+	uint32_t dword_0xA0_160x;//160 //special settings
+	uint32_t dword_0xA4_164x;//100 // adress of xx
+}
+type_shadow_str_0x6E8E;
+
+typedef union {
+	int32_t dword;
+	uint32_t ptr16u;
+	uint32_t ptr0x30311;
+	uint32_t ptr0x6E8E;
+}
+un_shadow_str_36552;
+
+typedef struct {//size 10 count 8
+	int8_t str_3654C_byte0;//222540
+	int8_t str_3654D_byte1;
+	axis_2d str_3654E_axis;
+	un_shadow_str_36552 str_36552_un; //pointer sometimes
+} type_shadow_str_3654C;
+
+typedef struct {//lenght 39
+	int8_t byte_0;
+	int8_t byte_1;
+	uint8_t byte_2;
+	int8_t byte_3;
+	axis_3d axis3d_4;
+	uint32_t dword_A;
+	uint8_t array_E[25];
+}
+type_shadow_str_0x3664C;
+
+typedef struct {//lenght 224791
+	uint8_t stub0[4];
+	uint32_t dword_0x4;
+	uint32_t dword_0x8;
+	int16_t word_0xc;
+	int16_t word_0xe;
+	uint8_t array_0x10[0x1d];
+	int32_t dword_0x2d;
+	uint16_t word_0x31;
+	uint16_t word_0x33;
+	int32_t dword_0x35;
+	uint8_t array_0x39[508];
+	int32_t dword_0x235;
+	uint8_t byte_0x239;
+	int32_t dword_0x23a;
+	int32_t dword_0x23e;
+	int32_t dword_0x242;
+	uint32_t pointers_0x246[0x3e8];
+	int32_t dword_0x11e6;
+	uint32_t dword_0x11EA[0x3e8];
+	GameSettingsStruct_t m_GameSettings;
+	uint32_t dword_0x219A;
+	uint32_t dword_0x219E;
+	uint32_t dword_0x21A2;
+	uint32_t dword_0x21A6;
+	type_str_0x21AA str_0x21AA;
+	type_str_0x21AE str_0x21AE;
+	type_str_0x21B2 str_0x21B2;
+	type_str_0x21B6 str_0x21B6;
+	uint8_t stub3b[0x1a8];
+	axis_3d array_0x2362[8];
+	uint8_t stub3c[0x14d];
+	uint8_t stub3d[0x6ff];
+	type_str_0x2BDE array_0x2BDE[0x8];
+	type_str_0x6E3E array_0x6E3E[8];
+	type_shadow_str_0x6E8E struct_0x6E8E[0x3e8];
+	type_shadow_str_2FECE str_2FECE;
+	type_str_0x364D2 str_0x364D2;
+	int16_t word_0x3653E;
+	int16_t word_0x36540;
+	int16_t word_0x36542;
+	int16_t word_0x36544;
+	int16_t word_0x36546;
+	int16_t word_0x36548;
+	int16_t word_0x3654A;
+	type_shadow_str_3654C struct_0x3654C[0x8];
+	type_str_3659C struct_0x3659C[0x8];
+	type_shadow_str_0x3647Ac array_0x365F4[0xb];
+	type_shadow_str_0x3664C str_0x3664C[0x32];
+	int8_t byte_0x36DEA_fly_asistant;
+	int8_t byte_0x36DEB_xx;
+	int16_t word_0x36DEC_mousex;
+	int16_t word_0x36DEE_mousey;
+	int16_t word_0x36DF0_mousexx;
+	uint32_t dword_0x36DF2;
+	uint32_t dword_0x36DF6;
+	int16_t word_0x36DFA;
+	int16_t word_0x36DFC;
+	int16_t word_0x36DFE;
+	uint8_t byte_0x36E00;
+	uint8_t byte_0x36E01;
+	int8_t byte_0x36E02;
+	int8_t byte_0x36E03;
+	int8_t byte_0x36E04;
+	uint8_t stub3k[0x6];
+	int8_t byte_0x36E0B;
+	uint8_t stubend[0xb];
+} type_shadow_D41A0_BYTESTR_0;
+
 struct {//lenght 0x33
 	int16_t word_0x0;//0 //0
 	int16_t word_0x2;//2 //1
