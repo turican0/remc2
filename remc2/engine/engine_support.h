@@ -19,6 +19,15 @@
 #include "../portability/port_time.h"
 #include "../portability/port_sdl_vga_mouse.h"
 
+#pragma pack (1)
+typedef struct {//lenght 3
+	uint8_t red;
+	uint8_t green;
+	uint8_t blue;
+}
+TColor;
+#pragma pack (16)
+
 //#define USE_DOSBOX
 
 /*
