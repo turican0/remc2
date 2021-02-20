@@ -409,9 +409,25 @@ Pathstruct xadatatables = { "",(uint8_t**)&x_DWORD_D41BC_langbuffer,&LANG_BEGIN_
 //#define psxazero14 47
 
 //----- (00083E80) --------------------------------------------------------
-void sub_83E80_freemem4(uint8_t* a1)//264e80
+void sub_83E80_freemem4(uint8_t* ptr)//264e80
 {
-	if (a1)x_free(a1);
+	/*if (*ptr != NULL)
+	{
+		free((void*)*ptr);
+		*ptr = NULL;
+	}
+	
+	or
+
+	free((void*)ptr);
+
+	may must rewrite with garbage collector
+	*/
+
+	//
+
+	//if (*a1)x_free((void*)*a1);
+	//*a1 = NULL;
 	//return result;
 	/*
 	uint8_t* v1; // eax
