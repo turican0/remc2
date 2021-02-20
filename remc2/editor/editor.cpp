@@ -144,8 +144,8 @@ void editor_run()
 
 	sub_71410_process_tmaps();//252410
 
-	sub_6EB90(&filearray_2aa18c[filearrayindex_POINTERSDATTAB]);//24fb90
-	sub_6EB90(&filearray_2aa18c[filearrayindex_BUILD00DATTAB]);//24fb90 adress 0x23ca2e
+	CreateIndexes_6EB90(&filearray_2aa18c[filearrayindex_POINTERSDATTAB]);//24fb90
+	CreateIndexes_6EB90(&filearray_2aa18c[filearrayindex_BUILD00DATTAB]);//24fb90 adress 0x23ca2e
 	sub_101C0();//23CA36 - 1f11c0 //sem se to vubec nedostane
 
 	//init

@@ -4,9 +4,11 @@ char gameDataPath[MAX_PATH];
 char cdDataPath[MAX_PATH];
 char bigGraphicsPath[MAX_PATH];
 
-uint8_t x_DWORD_17ECA0[4608]; // weak
+//lenght 18
+//type_17ECA0 str_17ECA0[256]; // weak
+//uint8_t x_DWORD_17ECA0[4608]; // weak
 
-uint8_t unk_17D838[0x300]; // weak
+TColor unk_17D838x[0x100]; // weak
 
 int x_DWORD_E3E2C = 0; // weak
 
@@ -84,7 +86,7 @@ char* x_DWORD_D41D0 = 0; // weak
 __int16 x_WORD_E36D4 = 0; // weak
 char x_BYTE_EB3B6; // weak
 type_x_DWORD_17DE38str x_DWORD_17DE38str;
-uint8_t* x_DWORD_E9C38_smalltit;
+uint8_t* x_DWORD_E9C38_smalltit;//*(x_DWORD*)(x_DWORD_E9C38_smalltit + 36964)
 
 int help_VGA_type_resolution = 0;
 
@@ -407,8 +409,27 @@ Pathstruct xadatatables = { "",(uint8_t**)&x_DWORD_D41BC_langbuffer,&LANG_BEGIN_
 //#define psxazero14 47
 
 //----- (00083E80) --------------------------------------------------------
-void sub_83E80_freemem4(uint8_t* a1)//264e80
+void sub_83E80_freemem4(uint8_t* ptr)//264e80
 {
+	/*if (*ptr != NULL)
+	{
+		free((void*)*ptr);
+		*ptr = NULL;
+	}
+	
+	or
+
+	free((void*)ptr);
+
+	may must rewrite with garbage collector
+	*/
+
+	//
+
+	//if (*a1)x_free((void*)*a1);
+	//*a1 = NULL;
+	//return result;
+	/*
 	uint8_t* v1; // eax
 	char v2; // bl
 	int* i; // ebx
@@ -419,32 +440,24 @@ void sub_83E80_freemem4(uint8_t* a1)//264e80
 		v2 = 0;
 		while (v1)
 		{
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
 			if ((int)a1 == v1[0])//fix
 			{
 				v2 = 1;
 				*((x_BYTE*)v1 + 16) = 0;
 				break;
 			}
-#endif
 			v1 = (uint8_t*)(int*)v1[2];
 		}
 		if (v2 == 1)
 		{
 			for (i = (int*)&x_DWORD_17ECA0; i; i = (int*)i[2])
 			{
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
 				if (!*((x_BYTE*)i + 16))
 					sub_84000((int)i);
-#endif
 			}
 		}
 		//sub_85350(); //fix
-	}
+	}*/
 }
 // 17ECA0: using guessed type int x_DWORD_17ECA0;
 
@@ -553,6 +566,9 @@ int sub_9D770(char* a1, char a2)//27e770
 		if (v10 == NULL)
 			return 0;
 	}
+#ifdef TEST_x64
+	allert_error();
+#endif
 #ifdef COMPILE_FOR_64BIT // FIXME: 64bit
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
@@ -561,6 +577,9 @@ int sub_9D770(char* a1, char a2)//27e770
 #endif
 	if (!strcmp((const char*)&v13, "LX"))
 	{
+#ifdef TEST_x64
+	allert_error();
+#endif
 #ifdef COMPILE_FOR_64BIT // FIXME: 64bit
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
@@ -569,6 +588,9 @@ int sub_9D770(char* a1, char a2)//27e770
 		v12 = v4 + v8;
 		for (i = 0; i < v5; i++)
 		{
+#ifdef TEST_x64
+	allert_error();
+#endif
 #ifdef COMPILE_FOR_64BIT // FIXME: 64bit
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
@@ -915,7 +937,7 @@ int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* a2, int32_t a3, int32_t a4
 		v10 = xy_DWORD_17DED4_spritestr[a8].height;//adress 260da7
 		v11 = v10 + a5;
 		v98 += v10;
-		v12 = sub_5BE80_test_pallette(x_DWORD_17DE38str.x_DWORD_17DE38, 0, 0, v86);
+		v12 = sub_5BE80_test_pallette(x_DWORD_17DE38str.x_DWORD_17DE38x, 0, 0, v86);
 		v86 = v12;
 		v13 = 6 * (a8 - 1);
 		v14 = xy_DWORD_17DED4_spritestr[v13 / 6].height;
@@ -1043,7 +1065,7 @@ int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* a2, int32_t a3, int32_t a4
 					{
 						if (!a6)
 						{
-							v27 = sub_5BE80_test_pallette(x_DWORD_17DE38str.x_DWORD_17DE38, 0, 0, v86);
+							v27 = sub_5BE80_test_pallette(x_DWORD_17DE38str.x_DWORD_17DE38x, 0, 0, v86);
 							v86 = v27;
 							v28 = 6 * (a8 - 1);
 							v29 = xy_DWORD_17DED4_spritestr[v28 / 6].height;
@@ -1094,6 +1116,9 @@ int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* a2, int32_t a3, int32_t a4
 			{
 				sub_6FC50(1/*v86*/);
 				v58 = (x_BYTE*)(v99 + 640 * a1);
+#ifdef TEST_x64
+	allert_error();
+#endif
 #ifdef COMPILE_FOR_64BIT // FIXME: 64bit
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
@@ -1218,7 +1243,7 @@ int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* a2, int32_t a3, int32_t a4
 		{
 			if (!a6)
 			{
-				v45 = sub_5BE80_test_pallette(x_DWORD_17DE38str.x_DWORD_17DE38, 0, 0, v86);
+				v45 = sub_5BE80_test_pallette(x_DWORD_17DE38str.x_DWORD_17DE38x, 0, 0, v86);
 				v86 = v45;
 				v46 = 6 * (a8 - 1);
 				v47 = xy_DWORD_17DED4_spritestr[v46 / 6].height;
@@ -1233,7 +1258,7 @@ int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* a2, int32_t a3, int32_t a4
 				//HIWORD(v50) = HIWORD(xy_DWORD_17DED4_spritestr);
 				v50 = xy_DWORD_17DED4_spritestr[v46 / 6].height;
 				v51 = v50 + a1;
-				v52 = sub_5BE80_test_pallette(x_DWORD_17DE38str.x_DWORD_17DE38, 0, 0, v86);//?
+				v52 = sub_5BE80_test_pallette(x_DWORD_17DE38str.x_DWORD_17DE38x, 0, 0, v86);//?
 				v86 = v52;
 				v53 = xy_DWORD_17DED4_spritestr[v46 / 6].height;
 				v54 = v91;
@@ -1275,7 +1300,7 @@ void sub_7C120_draw_bitmap_640(int16_t posx, int16_t posy, posistruct_t tempstr)
 //----- (00076260) --------------------------------------------------------
 void sub_76260_read_intro_pallette(uint8_t a1)
 {
-	uint8_t* v0; // ebx
+	TColor* v0x; // ebx
 	int v1; // esi
 	//unsigned int result; // eax
 	unsigned __int16 v3; // di
@@ -1283,23 +1308,25 @@ void sub_76260_read_intro_pallette(uint8_t a1)
 	int32_t v5; // [esp+4h] [ebp-8h]
 	unsigned __int8 v6; // [esp+8h] [ebp-4h]
 
-	v0 = unk_17D838;
+	v0x = unk_17D838x;
 	v1 = 0;
-	/*result = */sub_75D70((uint8_t*)&v4, 2u);
+	/*result = */sub_75D70((int8_t*)&v4, 2u);
 	if (v4 > 0u)
 	{
 		do
 		{
-			sub_75D70(&v6, 1u);
-			v0 += 3 * v6;
+			sub_75D70((int8_t*)&v6, 1u);
+			//v0 += 3 * v6;
+			v0x += v6;
 			v5 = 0;
-			/*result = */sub_75D70((uint8_t*)&v5, 1u);
+			/*result = */sub_75D70((int8_t*)&v5, 1u);
 			if (!v5)
 				v5 = 256;
 			for (v3 = 0; v3 < v5; v3++)//mybe read pallette
 			{
-				sub_75D70(v0, 3u);
-				v0 += 3;
+				sub_75D70((int8_t*)v0x, 3u);
+				//v0 += 3;
+				v0x++;
 			}
 			v1++;
 		} while (v1 < v4);
@@ -1308,7 +1335,7 @@ void sub_76260_read_intro_pallette(uint8_t a1)
 }
 
 //----- (0005BE80) --------------------------------------------------------
-uint8_t sub_5BE80_test_pallette(uint8_t* pallette, uint8_t a2, uint8_t a3, uint8_t a4)//23ce80
+uint8_t sub_5BE80_test_pallette(TColor* pallettex, uint8_t red_color, uint8_t green_color, uint8_t blue_color)//23ce80
 {
 	//uint8_t *v4; // eax
 	uint16_t count_of_colors; // edx
@@ -1337,16 +1364,17 @@ uint8_t sub_5BE80_test_pallette(uint8_t* pallette, uint8_t a2, uint8_t a3, uint8
 	//{
 	for (uint16_t i = 0; i < count_of_colors; i++)
 	{
-		v9 = a3 - pallette[pallette_index + 1];//eax[1]
-		v10 = (a2 - pallette[pallette_index]) * (a2 - pallette[pallette_index]) + v9 * v9;
-		v11 = a4 - pallette[pallette_index + 2];
+		v9 = green_color - pallettex[pallette_index].green;//eax[1]
+		v10 = (red_color - pallettex[pallette_index].red) * (red_color - pallettex[pallette_index].red) + v9 * v9;
+		v11 = blue_color - pallettex[pallette_index].blue;
 		if (v10 + v11 * v11 < v6)
 		{
 			v6 = v10 + v11 * v11;
 			result = i;
 		}
 		//v7++;
-		pallette_index += 3;
+		//pallette_index += 3;
+		pallette_index ++;
 	} //while (v7 < count_of_colors);
 //}
 	return result;
@@ -1449,7 +1477,7 @@ unsigned int sub_6FC80_pre_draw_text(char* a1, __int16 a2, __int16 a3, __int16 a
 void sub_417A0_install_pal_and_mouse_minmax()//2227a0
 {
 	//sub_90810();
-	sub_41A90_VGA_pallette_install(*xadatapald0dat2.var28_begin_buffer);
+	sub_41A90_VGA_pallette_install((TColor*)*xadatapald0dat2.var28_begin_buffer);
 	sub_6EF10_set_mouse_minmax(0, 640, 0, 400);
 }
 // EA3D8: using guessed type int *xadatapald0dat2.var28_begin_buffer;
@@ -1598,14 +1626,14 @@ void sub_2BB40_draw_bitmap(int16_t posx, int16_t posy, posistruct_t tempposstr)/
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
 //----- (00075D70) --------------------------------------------------------
-void sub_75D70(uint8_t* a1, uint32_t a2)//256d70
+void sub_75D70(int8_t* a1y, uint32_t a2)//256d70
 {
 	//unsigned int result; // eax
 
-	if (a1)
+	if (a1y)
 	{
 		//result = a2;
-		qmemcpy(a1, (void*)x_DWORD_17DB50, a2);
+		qmemcpy(a1y, (void*)x_DWORD_17DB50, a2);
 		//qmemcpy(a1+a2, (void *)(x_DWORD_17DB50+a2), a2&3);
 	}
 	x_DWORD_17DB50 += a2;
@@ -3431,6 +3459,9 @@ void sub_98709_create_index_dattab_power_add(uint8_t* tabbuffer, uint8_t* tabbuf
 {
 	for (uint32_t i = 0; i < (tabbufferend - (tabbuffer + add)) / 6; i++)
 	{
+#ifdef TEST_x64
+	allert_error();
+#endif
 #ifdef COMPILE_FOR_64BIT // FIXME: 64bit
 		std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
@@ -3456,6 +3487,9 @@ void sub_9874D_create_index_dattab(posistruct2_t* tabbuffer, posistruct2_t* tabb
 	{
 		/*for (uint32_t i = 0; i < (tabbufferend - tabbuffer) / 6; i++)
 		{
+#ifdef TEST_x64
+	allert_error();
+#endif
 #ifdef COMPILE_FOR_64BIT // FIXME: 64bit
 			std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
@@ -3480,6 +3514,9 @@ void sub_9874D_create_index_dattab_add(uint8_t* tabbuffer, uint8_t* tabbufferend
 {
 	for (uint32_t i = 0; i < (tabbufferend - (tabbuffer + add)) / 6; i++)
 	{
+#ifdef TEST_x64
+	allert_error();
+#endif
 #ifdef COMPILE_FOR_64BIT // FIXME: 64bit
 		std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else

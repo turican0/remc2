@@ -3,6 +3,10 @@
 #ifndef MAIN_BASIC
 #define MAIN_BASIC
 
+#if !defined(__linux__) || defined(COMPILE_FOR_64BIT)
+  #define TEST_x64//only for x64 testing
+#endif
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -32,6 +36,7 @@
 
 #define __CFSHL__(x, y) (x<<y)
 
+
 #pragma pack (1)
 typedef struct//lenght 11
 {
@@ -40,12 +45,16 @@ typedef struct//lenght 11
 	int8_t byte_9;
 	int8_t byte_10;
 } type_BYTE_17DE68x;
+
+typedef struct {//lenght 18
+	int32_t dword_0;
+}type_17ECA0;
 #pragma pack (16)
 
 #pragma pack (1)
 typedef struct//lenght 613 // end 17E09D
 {
-	uint8_t* x_DWORD_17DE38; // weak
+	TColor* x_DWORD_17DE38x; // weak
 	uint8_t* x_DWORD_17DE3C; // weak//1
 	uint8_t* x_DWORD_17DE40; // weak//2
 	uint8_t* x_DWORD_17DE44; // weak//3
@@ -130,7 +139,8 @@ extern char gameDataPath[];
 extern char cdDataPath[];
 extern char bigGraphicsPath[];
 
-extern uint8_t x_DWORD_17ECA0[];
+//extern type_17ECA0 str_17ECA0[];
+//extern uint8_t x_DWORD_17ECA0[];
 
 extern long oldmillis;
 
@@ -170,7 +180,7 @@ extern __int16 x_WORD_18074C_mouse_left2_button; // weak//35174c
 extern type_x_DWORD_17DE38str x_DWORD_17DE38str;
 extern uint8_t* x_DWORD_E9C38_smalltit;
 
-extern uint8_t unk_17D838[]; // weak
+extern TColor unk_17D838x[]; // weak
 
 #pragma pack (1)
 typedef struct {
@@ -179,6 +189,7 @@ typedef struct {
 	uint8_t** dat_buffer;
 	posistruct_t** posistruct;
 } filearray_struct;
+
 #pragma pack (16)
 
 #pragma pack (1)
@@ -220,15 +231,6 @@ typedef struct {//lenght 10
 	int16_t word_8;
 }
 type_TMAPS00TAB_BEGIN_BUFFER;
-#pragma pack (16)
-
-#pragma pack (1)
-typedef struct {//lenght 3
-	uint8_t red;
-	uint8_t green;
-	uint8_t blue;
-}
-TColor;
 #pragma pack (16)
 
 extern int filearrayindex_POINTERSDATTAB;
@@ -511,9 +513,9 @@ void sub_2EBB0_draw_text_with_border_630x340(char* a1);
 int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* a2, int32_t a3, int32_t a4, int a5, uint8_t a6, unsigned __int8 a7, uint32_t a8);//560cb0
 void sub_7C120_draw_bitmap_640(int16_t posx, int16_t posy, posistruct_t tempstr);
 void sub_76260_read_intro_pallette(uint8_t a1);
-uint8_t sub_5BE80_test_pallette(uint8_t* a1, uint8_t a2, uint8_t a3, uint8_t a4);
+uint8_t sub_5BE80_test_pallette(TColor* a1x, uint8_t a2, uint8_t a3, uint8_t a4);
 void sub_7C140_draw_text_background(int16_t a1, int16_t a2, int16_t a3, int16_t a4, uint8_t a5);
-void sub_41A90_VGA_pallette_install(uint8_t* a1);
+void sub_41A90_VGA_pallette_install(TColor* a1x);
 void sub_2EC90(char a1);
 uint32_t sub_7FAE0_draw_text(char* a1, __int16 a2, __int16 a3, __int16 a4, unsigned __int8 a5);
 void sub_90478_VGA_Blit320();
@@ -523,7 +525,7 @@ void sub_2BB40_draw_bitmap(int16_t posx, int16_t posy, posistruct_t temposstr);
 void sub_6FC50(__int16 a1);//250c50
 uint8_t sub_6FC10_letter_width();
 unsigned int sub_6FC80_pre_draw_text(char* a1, __int16 a2, __int16 a3, __int16 a4, unsigned __int8 a5);
-void sub_75D70(uint8_t* a1, uint32_t a2);
+void sub_75D70(int8_t* a1, uint32_t a2);
 void sub_2BC80(int16_t a1, int16_t a2, int16_t a3, int16_t a4, uint8_t a5);
 void sub_2BC10_draw_text(const char* textbuffer, int16_t posx, int16_t posy, uint8_t color);//20cc10
 void sub_6EF10_set_mouse_minmax(__int16 a1, signed __int16 a2, __int16 a3, signed __int16 a4);
