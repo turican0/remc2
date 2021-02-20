@@ -1240,8 +1240,6 @@ typedef struct {
 type_str_0x36442;
 
 typedef struct {//lenght 0x6604u
-		//podpolozky
-	//type_str_0x6E8E* dword_2FECE;//D41A0_BYTESTR_0.str_2FECE.dword_2FECE
 	uint16_t word_2FECE;
 	uint16_t word_2FED0;
 	uint8_t byte_0x2FED2;//x_D41A0_BYTEARRAY_0[196306] // type of level graphics
@@ -1260,7 +1258,6 @@ typedef struct {//lenght 0x6604u
 	uint16_t word_0x2FEF1;//2FEF1//35 //random seed
 	uint8_t stubc3[2];
 	uint32_t word_0x2FEF5;//2FEF5//39
-	//uint8_t stubd[2];
 	uint16_t word_0x2FEF9;//2FEF9//43
 	uint8_t stube[2];
 	uint16_t word_0x2FEFD;//2FEFD//47
@@ -1274,31 +1271,65 @@ typedef struct {//lenght 0x6604u
 	uint16_t word_0x2FF0D;//2FF0D//63
 	uint8_t stubj[2];
 	uint16_t word_0x2FF11;//2FF11//67
-	//0x30331 - end of structure lenght 20
-	/*197413 - 0x30324*/
-	/*221393 - 0x360D1*/
 	uint8_t stubk[1022];
 	type_str_0x30311 array_0x30311[0x4b0];//end(next entity) - 0x360d1
 	uint8_t next_0x360D1;
-
 	type_str_0x360D2 next_0x360D2[8];//lenght 110  /spells?
-	//mozna by to melo zacit az 0x30311
-
-	//type_str_0x3030E array_0x3030E[0xb];//fix array lenght;
-	//0x3030e
-	//0x30322
-	//0x30336
-	//type_str_0x30325 array_0x30325[0x4af];
-
-	////0x30325 0x360d1 tj rozdil 23980=1199*20
-
-	//36479
-	//type_str_0x360FB str_0x360FB[8];//asi zacina o 40 driv
 	type_str_0x36442 str_0x36442[8];//stages(checkpoints)
-	//0x36443 - 70 + 110 * 7
 	type_str_0x3647Ac array_0x3647A[0xb];//8x11
-	//konec 6604
 } type_str_2FECE;//compress level
+
+typedef union {
+	axis_2du axis;
+}
+shadow_un1;
+
+typedef struct {//lenght 8
+	int8_t str_0x3647A_byte_0;//array_0x3647a
+	int8_t str_0x3647A_byte_1;//array_0x3647b
+	uaxis_2d str_0x3647A_2;//array_0x3647c//str_0x3647A_2.word
+	shadow_un1 str_0x3647C_4;//array_0x3647e
+} type_shadow_str_0x3647Ac;
+
+typedef struct {//lenght 0x6604u
+	uint16_t word_2FECE;
+	uint16_t word_2FED0;
+	uint8_t byte_0x2FED2;//x_D41A0_BYTEARRAY_0[196306] // type of level graphics
+	uint8_t byte_0x2FED3;
+	uint8_t MapType;//x_D41A0_BYTEARRAY_0[196308]//GraphicsType
+	int16_t word_0x2FED5;
+	int16_t word_0x2FED7;
+	int8_t array_0x2FED9[8];
+	uint8_t stubb[4];
+	uint16_t word_0x2FEE5;//2FEE5//23
+	uint8_t stubb2[2];
+	uint16_t word_0x2FEE9;//2FEE9//27 //first seed position
+	uint8_t stubc[2];
+	uint16_t word_0x2FEED;//2FEED//31 //first seed height
+	uint8_t stubc2[2];
+	uint16_t word_0x2FEF1;//2FEF1//35 //random seed
+	uint8_t stubc3[2];
+	uint32_t word_0x2FEF5;//2FEF5//39
+	uint16_t word_0x2FEF9;//2FEF9//43
+	uint8_t stube[2];
+	uint16_t word_0x2FEFD;//2FEFD//47
+	uint8_t stubf[2];
+	uint16_t word_0x2FF01;//2FF01//51
+	uint8_t stubg[2];
+	uint16_t word_0x2FF05;//2FF05//55
+	uint8_t stubh[2];
+	uint16_t word_0x2FF09;//2FF09//59
+	uint8_t stubi[2];
+	uint16_t word_0x2FF0D;//2FF0D//63
+	uint8_t stubj[2];
+	uint16_t word_0x2FF11;//2FF11//67
+	uint8_t stubk[1022];
+	type_str_0x30311 array_0x30311[1200];//end(next entity) - 0x360d1
+	uint8_t next_0x360D1;
+	type_str_0x360D2 next_0x360D2[8];//lenght 110  /spells?
+	type_str_0x36442 str_0x36442[8];//stages(checkpoints)
+	type_shadow_str_0x3647Ac array_0x3647A[11];//8x11
+} type_shadow_str_2FECE;//compress level
 
 typedef union {
 	int32_t dword;
