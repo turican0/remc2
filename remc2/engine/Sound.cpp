@@ -1694,15 +1694,8 @@ void sub_93830_AIL_init_sample(HSAMPLE S/*HSAMPLE S*/)//AIL_init_sample //274830
 
 	x_DWORD_181C04++;
 	v2 = x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2() && sub_916F0_sound_proc24();
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
 	if (v2)
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "AIL_init_sample(0x%X)\n", (int)S);
-#endif
+		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "AIL_init_sample(0x%X)\n", S);
 	/*result = */sub_A38E0_init_sample(S);
 	x_DWORD_181C04--;
 	//return result;
@@ -4743,14 +4736,7 @@ LABEL_33:
 			a1->half_buffer_size_4 = v18;
 		if (a1->half_buffer_size_4 > v17)
 			a1->half_buffer_size_4 = v17;
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-		v12 = (int)a1->DMA_seg_8;
-#endif
+		v12 = a1->DMA_seg_8;
 		if (x_DWORD_181DAC[18])
 		{
 			v12 >>= 12;
@@ -4877,15 +4863,15 @@ HDIGDRIVER sub_A2EA0(AIL_DRIVER* a1, IO_PARMS IO)//283ea0
 	//unsigned __int16 v18; // [esp+1Ch] [ebp-34h]
 	//unsigned __int16 v19; // [esp+1Eh] [ebp-32h]
 	HDIGDRIVER result; // [esp+24h] [ebp-2Ch]
-	int v21; // [esp+28h] [ebp-28h]
+	int32_t v21; // [esp+28h] [ebp-28h]
 	unsigned int v22; // [esp+2Ch] [ebp-24h]
 	unsigned int v23; // [esp+30h] [ebp-20h]
 	unsigned int v24; // [esp+34h] [ebp-1Ch]
-	int v25; // [esp+38h] [ebp-18h]
+	int32_t v25; // [esp+38h] [ebp-18h]
 	HDIGDRIVER v26 = NULL; // [esp+3Ch] [ebp-14h]
 	unsigned int v27; // [esp+40h] [ebp-10h]
-	int v28; // [esp+44h] [ebp-Ch]
-	int i; // [esp+48h] [ebp-8h]
+	int32_t v28; // [esp+44h] [ebp-Ch]
+	int32_t i; // [esp+48h] [ebp-8h]
 	uint8_t* v30; // [esp+4Ch] [ebp-4h]
 	IO_PARMS* v31; // [esp+64h] [ebp+14h]
 	IO_PARMS* v32; // [esp+64h] [ebp+14h]
@@ -4987,26 +4973,12 @@ HDIGDRIVER sub_A2EA0(AIL_DRIVER* a1, IO_PARMS IO)//283ea0
 					if (v26->DMA_buf_10)
 					{
 						v2 = v26->DMA_sel_9;
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-						v3 = (int)v26->DMA_seg_8;
-#endif
+						v3 = v26->DMA_seg_8;
 						sub_9D560((uint8_t*)v26->DMA_buf_10);
 					}
 					v26->DMA_buf_10 = (void*)v30;
 					v26->DMA_sel_9 = v22;
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-					v26->DMA_seg_8 = (void*)v21;
-#endif
+					v26->DMA_seg_8 = v21;
 					v27 = v22 >> 12;
 					v24 = 0xF0000 & (v22 >> 12);
 					v23 = 0xF0000 & (v25 + (v22 >> 12) - 1);
@@ -5063,15 +5035,9 @@ HDIGDRIVER sub_A2EA0(AIL_DRIVER* a1, IO_PARMS IO)//283ea0
 								//sub_92740_AIL_set_timer_user(v26->timer_3, (signed __int32)v26);
 								//sub_92930_AIL_set_timer_frequency(v26->timer_3, x_DWORD_181DAC[0]);//00352DAC not zero!
 								//sub_92BA0_AIL_start_timer(v26->timer_3);
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-								v26->var36_aildrv = (x_DWORD)sub_A2DE0;
-								v26->var40_aildrv = (x_DWORD)v26;
-#endif
+								
+								//fix v26->var36_aildrv = (x_DWORD)sub_A2DE0;
+								//fix v26->var40_aildrv = (x_DWORD)v26;
 								sub_B0C1A(v26);
 								//dma sub_B0B87(v26, 0);//fix
 								//dma sub_B0B87(v26, 1);//fix
@@ -9068,15 +9034,8 @@ int sub_9E2B0(char* a1, int a2, x_DWORD* a3)
 				break;
 		}
 	}
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-	if (a3)
-		*a3 = i + (int)a1;
-#endif
+	//if (a3)
+	//	*a3 = i + (int)a1;
 	return v5 * v6;
 }
 // 98805: using guessed type x_DWORD x_toupper(x_DWORD);

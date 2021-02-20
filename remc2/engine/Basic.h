@@ -3,6 +3,10 @@
 #ifndef MAIN_BASIC
 #define MAIN_BASIC
 
+#if !defined(__linux__) || defined(COMPILE_FOR_64BIT)
+  #define TEST_x64//only for x64 testing
+#endif
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
