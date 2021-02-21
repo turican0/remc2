@@ -314,7 +314,7 @@ void fillterrain(kiss_terrain* terrain, float zoom, int beginx, int beginy) {
 						SetPixelMapSurface(i, j, nx, ny, x_BYTE_10B4E0_terraintype);
 						break;
 					case 1:
-						SetPixelMapSurface(i, j, nx, ny, x_BYTE_11B4E0_height);
+						SetPixelMapSurface(i, j, nx, ny, x_BYTE_11B4E0_heightmap);
 						break;
 					case 2:
 						SetPixelMapSurface(i, j, nx, ny, x_BYTE_12B4E0_shading);
@@ -540,7 +540,7 @@ void fillterraincheck(float zoom, int beginx, int beginy) {
 						SetPixelMapSurfacecheck(i, j, nx, ny, x_BYTE_10B4E0_terraintype);
 						break;
 					case 1:
-						SetPixelMapSurfacecheck(i, j, nx, ny, x_BYTE_11B4E0_height);
+						SetPixelMapSurfacecheck(i, j, nx, ny, x_BYTE_11B4E0_heightmap);
 						break;
 					case 2:
 						SetPixelMapSurfacecheck(i, j, nx, ny, x_BYTE_12B4E0_shading);
@@ -732,7 +732,7 @@ void fillterrainfeat(float zoom, int beginx, int beginy) {
 						SetPixelMapSurfacefeat(i, j, nx, ny, x_BYTE_10B4E0_terraintype);
 						break;
 					case 1:
-						SetPixelMapSurfacefeat(i, j, nx, ny, x_BYTE_11B4E0_height);
+						SetPixelMapSurfacefeat(i, j, nx, ny, x_BYTE_11B4E0_heightmap);
 						break;
 					case 2:
 						SetPixelMapSurfacefeat(i, j, nx, ny, x_BYTE_12B4E0_shading);
