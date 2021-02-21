@@ -473,7 +473,7 @@ uint8_t test_str_E2A74[] = {
 uint8_t* pdwScreenBuffer; //351628
 
 uint8_t* off_D41A8_sky;//graphics buffer// = (uint8_t*)&x_BYTE_14B4E0; // weak
-uint8_t* x_BYTE_14B4E0;//31C4E0
+uint8_t* x_BYTE_14B4E0_second_heightmap;//31C4E0
 
 posistruct_t* xy_DWORD_17DED4_spritestr;
 posistruct_t* xy_DWORD_17DEC0_spritestr;
@@ -525,9 +525,9 @@ void support_begin() {
 		//x_D41A0_BYTEARRAY_4_struct.player_name_57 =new char[256];
 		//x_D41A0_BYTEARRAY_4_struct.savestring_89 = new char[256];
 
-	x_BYTE_14B4E0 = new uint8_t[65536];
+	x_BYTE_14B4E0_second_heightmap = new uint8_t[65536];
 	off_D41A8_sky = new uint8_t[65536];
-	memcpy(off_D41A8_sky, &x_BYTE_14B4E0, 4);
+	memcpy(off_D41A8_sky, &x_BYTE_14B4E0_second_heightmap, 4);
 
 	xy_DWORD_17DED4_spritestr = new posistruct_t[1000];
 	xy_DWORD_17DEC0_spritestr_orig = new posistruct_t[1000];
@@ -554,7 +554,7 @@ void support_end() {
 		//free(x_D41A0_BYTEARRAY_4_struct.player_name_57);
 		//if(x_D41A0_BYTEARRAY_4_struct.savestring_89)delete(x_D41A0_BYTEARRAY_4_struct.savestring_89);
 
-	if (x_BYTE_14B4E0)delete(x_BYTE_14B4E0);
+	if (x_BYTE_14B4E0_second_heightmap)delete(x_BYTE_14B4E0_second_heightmap);
 	if (off_D41A8_sky)delete(off_D41A8_sky);
 
 	if (xy_DWORD_17DED4_spritestr)delete(xy_DWORD_17DED4_spritestr);

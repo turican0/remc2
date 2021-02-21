@@ -136,7 +136,7 @@ extern int32_t x_DWORD_D41A4_x96BF;*/
 //extern uint8_t* x_D41A0_BYTEARRAY_4;
 
 extern uint8_t* off_D41A8_sky;
-extern uint8_t* x_BYTE_14B4E0;
+extern uint8_t* x_BYTE_14B4E0_second_heightmap;
 
 #pragma pack (1)
 typedef struct {
