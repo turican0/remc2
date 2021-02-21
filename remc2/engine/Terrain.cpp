@@ -452,7 +452,7 @@ void GenerateLevelMap_43830(unsigned int a1, type_str_2FECE* a2x)//224830
 
 		debugcounter_224959++;
 	}*/
-#endif DEBUG_SEQUENCES
+#endif //DEBUG_SEQUENCES
 
 	sub_44D00();//225d00
 	//debug
