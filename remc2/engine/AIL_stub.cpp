@@ -147,7 +147,6 @@ int sub_A9C00() { stub_fix_it(); return 0; }; // weak
 int sub_A9C50() { stub_fix_it(); return 0; }; // weak
 void sub_A6F30(void* a/*HDIGDRIVER a*/) { stub_fix_it();/*return 0; */ }; // weak
 int sub_B1DC8() { stub_fix_it(); return 0; }; // weak
-int sub_B46F0() { stub_fix_it(); return 0; }; // weak
 int /*__far*/ sub_C0000() { stub_fix_it(); return 0; }; // weak
 
 
@@ -342,7 +341,7 @@ void* sub_83D70_malloc1(int a1)//264d70
 	if ( !v3 || !sub_83E00((int)v3, v4) )
 	  return 0;
 	sub_85350();
-	memset((void*)*v3, 0, v4);//problém
+	memset((void*)*v3, 0, v4);//problï¿½m
 	return (void*)*v3;*/
 	return malloc(a1);
 }

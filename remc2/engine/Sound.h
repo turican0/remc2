@@ -192,7 +192,6 @@ VDI_CALL sub_9F6D0(int* a1, __int16 a2);
 
 void sub_A0EEC_s_plus2();
 void sub_A0EF9_s_minus2();
-// int sub_A0F06(int a1, int a2, int a3, int a4, int a5, int a6, int a7);
 char sub_A102C(int a1);
 char sub_A105C(unsigned int a1);
 void sub_A108F();

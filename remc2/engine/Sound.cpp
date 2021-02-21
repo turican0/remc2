@@ -322,7 +322,6 @@ int sub_A9C00() { stub_fix_it(); return 0; }; // weak
 int sub_A9C50() { stub_fix_it(); return 0; }; // weak
 void sub_A6F30(void* a) { stub_fix_it(); }; // weak
 int sub_B1DC8() { stub_fix_it(); return 0; }; // weak
-int sub_B46F0() { stub_fix_it(); return 0; }; // weak
 
 //----- (0008D290) --------------------------------------------------------
 void sub_8D290_init_sound(/*char* a1*//*, int a2, int a3*/)//26e290
@@ -3717,116 +3716,6 @@ void sub_A0EF9_s_minus2()//281ef9
 	x_DWORD_E3FF2--;
 }
 // E3FF2: using guessed type int x_DWORD_E3FF2;
-
-//----- (000A0F06) --------------------------------------------------------
-/*int sub_A0F06(int a1, int a2, int a3, int a4, int a5, int a6, int a7)//281f06
-{
-	int v7; // edx
-	unsigned int v8; // edi
-	unsigned int v9; // eax
-	unsigned int v10; // edi
-	signed __int32 v11; // eax
-	signed __int32 v12; // ecx
-	signed __int32 v13; // eax
-	int v15; // eax
-	int v16; // [esp-30h] [ebp-30h]
-	int v17; // [esp-2Ch] [ebp-2Ch]
-	int v18; // [esp-28h] [ebp-28h]
-	int v19; // [esp-24h] [ebp-24h]
-	int v20; // [esp-20h] [ebp-20h]
-	int v21; // [esp-1Ch] [ebp-1Ch]
-	int v22; // [esp-18h] [ebp-18h]
-	int v23; // [esp-14h] [ebp-14h]
-	void **v24; // [esp-10h] [ebp-10h]
-	int v25; // [esp-Ch] [ebp-Ch]
-	int v26; // [esp-8h] [ebp-8h]
-	int v27; // [esp-4h] [ebp-4h]
-	void *retaddr[2]; // [esp+0h] [ebp+0h]
-
-	if (x_DWORD_E3FEE)
-	{
-		v27 = a1;
-		//__outx_BYTE(0x20u, 0x20u);
-		//__asm { iret }
-	}
-	v27 = a7;
-	v26 = a6;
-	v25 = a5;
-	v24 = retaddr;
-	v23 = a4;
-	v22 = a3;
-	v21 = a2;
-	v20 = a1;
-	v19 = (unsigned __int16)__DS__;
-	v18 = (unsigned __int16)__ES__;
-	v17 = (unsigned __int16)__FS__;
-	v16 = (unsigned __int16)__GS__;
-	__DS__ = x_WORD_E3FF6;
-	x_DWORD_E3FEE++;
-	x_WORD_E4A04 = __SS__;
-	x_DWORD_E4A08 = (int)&v16;
-	v7 = x_DWORD_E3FEA;
-	v8 = 0;
-	do
-	{
-		if (x_DWORD_E3E9C[v8] == 2)
-		{
-			v9 = v7 + x_DWORD_E3EDC[v8];
-			if (v9 >= x_DWORD_E3F1C[v8])
-			{
-				v9 -= x_DWORD_E3F1C[v8];
-				x_DWORD_E3F5C[v8]++;
-			}
-			x_DWORD_E3EDC[v8] = v9;
-		}
-		v8++;
-	} while (v8 < 16);
-	//__outx_BYTE(0x20u, 0x20u);
-	//_enable();
-	if (x_DWORD_E3FF2 <= 0)
-	{
-		v10 = 0;
-		do
-		{
-			while (x_DWORD_E3F5C[v10])
-			{
-				x_DWORD_E3F5C[v10]--;
-				x_DWORD_E3E5C_timer[v10]((HMDIDRIVER)x_DWORD_E3F9C[v10]);//fix maybe
-			}
-			v10++;
-		} while (v10 < 15);
-	}
-	if (!x_DWORD_E3F5C[0xf])
-	{
-		x_DWORD_E3FEE--;
-		v15 = *MK_FP(x_WORD_E4A04, (unsigned int)&v20);
-		//__asm { iret }
-	}
-	x_DWORD_E3F5C[0xf]--;
-	x_DWORD_E3FEE--;
-	v11 = (unsigned __int16)x_WORD_E3FE0;
-	v12 = x_InterlockedExchange((long*)&v26, x_DWORD_E3FDC);
-	v13 = x_InterlockedExchange((long*)&v27, v11);
-	return 0;//fix it: return MK_FP((unsigned int)retaddr[0], (unsigned int)retaddr[0])(v13, v27, v26, v12);
-}*/
-// A0F06: could not find valid save-restore pair for ebp
-// A0F06: could not find valid save-restore pair for edi
-// A0F06: could not find valid save-restore pair for esi
-// E3E5C: using guessed type int x_DWORD_E3E5C[];
-// E3E9C: using guessed type int x_DWORD_E3E9C[];
-// E3EDC: using guessed type int x_DWORD_E3EDC[];
-// E3F1C: using guessed type int x_DWORD_E3F1C[];
-// E3F5C: using guessed type int x_DWORD_E3F5C[];
-// E3F98: using guessed type int x_DWORD_E3F98;
-// E3F9C: using guessed type int x_DWORD_E3F9C[];
-// E3FDC: using guessed type int x_DWORD_E3FDC;
-// E3FE0: using guessed type __int16 x_WORD_E3FE0;
-// E3FEA: using guessed type int x_DWORD_E3FEA;
-// E3FEE: using guessed type int x_DWORD_E3FEE;
-// E3FF2: using guessed type int x_DWORD_E3FF2;
-// E3FF6: using guessed type __int16 x_WORD_E3FF6;
-// E4A04: using guessed type __int16 x_WORD_E4A04;
-// E4A08: using guessed type int x_DWORD_E4A08;
 
 //----- (000A102C) --------------------------------------------------------
 char sub_A102C(int a1)//28202c //fix
@@ -10167,7 +10056,6 @@ signed int sub_ACB61(int a1, unsigned __int8* a2, int* a3)//28db61
 					else if (v10 <= 0x45 || v10 == 71)
 					{
 					LABEL_45:
-						//sub_AD1E8(a1, v3);
 						goto LABEL_50;
 					}
 				}

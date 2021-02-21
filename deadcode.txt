@@ -1,0 +1,71 @@
+MK_FP removed
+_DOS4G_hook_fini removed
+_DOS4G_hook_init removed
+_Ergo_hook_fini removed
+_Ergo_hook_init removed
+_FDFS removed
+_Intel_hook_fini removed
+_Intel_hook_init removed
+_Phar_hook_fini removed
+_Phar_hook_init removed
+__CFRCL__ removed
+__CFRCR__
+__inx_BYTEstring
+__readgsx_DWORD
+_hook387
+_nmemneed
+_nmemneed_0
+_sigfpe_handler
+_wcpp_1_unwind_leave__99 removed
+dos_read
+nullsub_1
+sub_365F8
+sub_48930
+sub_6FD30
+sub_6FE90 removed
+sub_752C0
+sub_76F40
+sub_8E0D0
+sub_8F4B0
+sub_98BAF_read_huftable removed
+sub_A0F06 removed
+sub_AC70E removed
+sub_AC7D9
+sub_AC7D9
+sub_AC7F6
+sub_AC843
+sub_AD1E8 removed
+sub_B0D52
+sub_B1C58
+sub_B1C58
+sub_B1C58
+sub_B1C58 removed
+sub_B1D8C
+sub_B1DC8
+sub_B2121
+sub_B2B6C removed
+sub_B2F8A
+sub_B337C
+sub_B33A6
+sub_B33A6
+sub_B33D6
+sub_B3605
+sub_B37DA
+sub_B37DA
+sub_B37DA
+sub_B37DA
+sub_B41F9
+sub_B44D4
+sub_B44D4
+sub_B44D4
+sub_B46D5
+sub_B46E2
+sub_B46F0 removed
+sub_B4718 removed
+x_InterlockedExchange
+x__getcallerseflags
+x__readcr0
+x__sidt
+x__writecr0
+x_setmode
+x_write2
