@@ -7,6 +7,9 @@ on:
   pull_request:
       types: [opened, synchronize, reopened]
 
+env:
+  GITHUB_CI_COMPATIBILITY_PATH: /usr/lib/x86_64-linux-gnu
+
 jobs:
   build:
     runs-on: ubuntu-20.04
@@ -31,7 +34,7 @@ jobs:
         cd ${{ github.workspace }}
         mkdir build_release
         cd build_release
-        cmake -DCMAKE_BUILD_TYPE=Release -DUSE_64_BIT=True ..
+        cmake -DCMAKE_BUILD_TYPE=Release -DUSE_64_BIT=True -DGITHUB_CI_COMPATIBILITY_PATH="${{env.GITHUB_CI_COMPATIBILITY_PATH}}" ..
         
     - name: make release
       run: |
