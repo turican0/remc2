@@ -174,7 +174,7 @@ void SOUND_init_MIDI_sequence(uint8_t* datax, type_E3808_music_header* headerx, 
 			}
 			else
 			{
-				sprintf(alternativeMusicPath, "%/salternative/cave", oggmusicPath);
+				sprintf(alternativeMusicPath, "%s/alternative/cave", oggmusicPath);
 			}
 
 			helpdirsstruct = getListDir(alternativeMusicPath);
