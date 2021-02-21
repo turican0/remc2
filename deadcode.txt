@@ -12,10 +12,8 @@ __CFRCL__ removed
 __CFRCR__
 __inx_BYTEstring
 __readgsx_DWORD
-_hook387
-_nmemneed
-_nmemneed_0
-_sigfpe_handler
+_hook387 removed
+_sigfpe_handler removed
 _wcpp_1_unwind_leave__99 removed
 dos_read
 nullsub_1
@@ -30,12 +28,11 @@ sub_8F4B0
 sub_98BAF_read_huftable removed
 sub_A0F06 removed
 sub_AC70E removed
-sub_AC7D9
-sub_AC7D9
+sub_AC7D9 removed
 sub_AC7F6
 sub_AC843
 sub_AD1E8 removed
-sub_B0D52
+sub_B0D52 removed
 sub_B1C58
 sub_B1C58
 sub_B1C58
@@ -47,16 +44,10 @@ sub_B2B6C removed
 sub_B2F8A
 sub_B337C
 sub_B33A6
-sub_B33A6
 sub_B33D6
 sub_B3605
 sub_B37DA
-sub_B37DA
-sub_B37DA
-sub_B37DA
 sub_B41F9
-sub_B44D4
-sub_B44D4
 sub_B44D4
 sub_B46D5
 sub_B46E2

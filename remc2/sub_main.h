@@ -572,10 +572,8 @@ uint32_t /*__cdecl*/ x_write(FILE* descriptor, uint8_t* buffer, uint32_t size_t)
 //void __writegsx_WORD(unsigned long Offset, unsigned short Data);
 //void __writegsx_DWORD(unsigned long Offset, unsigned long Data);
 //x_DWORD /*__cdecl*/ dos_read(x_DWORD, char, x_DWORD, x_DWORD, x_DWORD);// weak
-//unsigned long __readgsx_DWORD(unsigned long Offset);
 void __inx_BYTEstring(unsigned short Port, unsigned char* Buffer, unsigned long Count);
 //unsigned int __getcallerseflags(void);
-int /*__fastcall*/ _hook387(int32_t, int32_t, int32_t);// weak
 //void __sidt(void *Destination);
 //unsigned long __readcr0(void);
 //void __writecr0(unsigned __int32 Data);
@@ -583,7 +581,6 @@ int sub_ACE8D(int16_t* a1, int a2, int* a3);
 void sub_AD0E2(int8_t* a1, int a2, int* a3, int8_t** a4);
 void sub_ACF1A(int8_t* a1, int a2, int* a3);
 int sub_B33D6(unsigned __int64 a1, int a2, int a3, int a4);
-//int _sigfpe_handler();// weak
 int sub_B337C(int a1, int a2, int a3);
 int sub_B37B0(int a1, int a2, int a3);
 int sub_B35DB(int a1, int a2, int8_t* a3, int a4);
