@@ -2829,7 +2829,11 @@ void sub_844A0_sound_proc5()//2654a0
 			//v2 = *(x_DWORD*)(v1 + 18);
 			//v2 = str_E37A0_sound_buffer2[v1y].dword_18;
 			//v1 += 32;
-			str_E37A0_sound_buffer2->str_8.wavs_10[v1y].dword_0 = (int)str_E37A0_sound_buffer2->str_8.wavs_10[v1y].dword_0 +x_DWORD_E37A8_sound_buffer1;
+#ifdef COMPILE_FOR_64BIT
+			str_E37A0_sound_buffer2->str_8.wavs_10[v1y].dword_0 = reinterpret_cast<uint64_t>(str_E37A0_sound_buffer2->str_8.wavs_10[v1y].dword_0) + x_DWORD_E37A8_sound_buffer1;
+#else
+			str_E37A0_sound_buffer2->str_8.wavs_10[v1y].dword_0 = reinterpret_cast<uint32_t>(str_E37A0_sound_buffer2->str_8.wavs_10[v1y].dword_0) + x_DWORD_E37A8_sound_buffer1;
+#endif
 			v1y++;
 			v0++;
 		}
@@ -3067,19 +3071,19 @@ int sub_9E3A0_AIL_API_read_INI(AIL_INI* INI, char* filename/*,char* a8*/)//27f3a
 				}
 				else if (!_strnicmp(key, "IO_ADDR", 8))
 				{
-					INI->IO.IO = sub_9E2B0(value, 16, 0);
+					INI->IO.IO = sub_9E2B0(value, 16/*, 0*/);
 				}
 				else if (!_strnicmp(key, "IRQ", 4))
 				{
-					INI->IO.IRQ = sub_9E2B0(value, 10, 0);
+					INI->IO.IRQ = sub_9E2B0(value, 10/*, 0*/);
 				}
 				else if (!_strnicmp(key, "DMA_8_bit", 10))
 				{
-					INI->IO.DMA_8_bit = sub_9E2B0(value, 10, 0);
+					INI->IO.DMA_8_bit = sub_9E2B0(value, 10/*, 0*/);
 				}
 				else if (!_strnicmp(key, "DMA_16_bit", 11))
 				{
-					INI->IO.DMA_16_bit = sub_9E2B0(value, 10, 0);
+					INI->IO.DMA_16_bit = sub_9E2B0(value, 10/*, 0*/);
 				}
 			}
 		}
@@ -9003,7 +9007,7 @@ signed int sub_916F0_sound_proc24()
 }
 
 //----- (0009E2B0) --------------------------------------------------------
-int sub_9E2B0(char* a1, int a2, x_DWORD* a3)
+int sub_9E2B0(char* a1, int a2/*, x_DWORD* a3*/)
 {
 	int v3; // ebx
 	int v5; // [esp+4h] [ebp-10h]
@@ -9345,7 +9349,11 @@ void GetMusicSequenceCount()//26fc90 // set index
 		for (m_iNumberOfTracks = 0; v1x < index_E380C_CountOfMusic; m_iNumberOfTracks++)
 		{
 			//str_E3808_music_header->str_8.track_10[v1x].dword_0+= (int)str_E3810_music_data;
-			str_E3808_music_header->str_8.track_10[v1x].dword_0 =(int)str_E3808_music_header->str_8.track_10[v1x].dword_0 + array_E3810_music_data;
+#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
+			str_E3808_music_header->str_8.track_10[v1x].dword_0 = reinterpret_cast<uint64_t>(str_E3808_music_header->str_8.track_10[v1x].dword_0) + array_E3810_music_data;
+#else
+			str_E3808_music_header->str_8.track_10[v1x].dword_0 = (int)str_E3808_music_header->str_8.track_10[v1x].dword_0 + array_E3810_music_data;
+#endif
 			//*(x_DWORD*)(v1 + 18) += (int)x_DWORD_E3810_music_data;
 			//v1 += 32;
 			v1x++;
