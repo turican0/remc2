@@ -9640,7 +9640,6 @@ void sub_8F710_sound_proc21(int a1, __int16 a2, signed int a3, unsigned __int8 a
 						x_BYTE_E388D = 1;
 						if (a4 <= 4u)
 						{
-							//x_DWORD_180CA0[0] = sub_92600_AIL_register_timer(sub_8F4B0);
 							//sub_92930_AIL_set_timer_frequency(x_DWORD_180CA0[0], 30 * a4);
 							//sub_92BA0_AIL_start_timer(x_DWORD_180CA0[0]);
 						}
@@ -9651,7 +9650,6 @@ void sub_8F710_sound_proc21(int a1, __int16 a2, signed int a3, unsigned __int8 a
 		}
 	}
 }
-// 8F4B0: using guessed type int sub_8F4B0();
 // E3798: using guessed type char x_BYTE_E3798_sound_active2;
 // E3799: using guessed type char x_BYTE_E3799_sound_card;
 // E388D: using guessed type char x_BYTE_E388D;

@@ -21,32 +21,102 @@ sub_365F8
 sub_48930
 sub_6FD30 removed
 sub_6FE90 removed
-sub_752C0
-sub_76F40
-sub_8E0D0
-sub_8F4B0
+sub_752C0 removed
+sub_76F40 removed
+sub_8F4B0 removed
 sub_98BAF_read_huftable removed
 sub_A0F06 removed
 sub_AC70E removed
 sub_AC7D9 removed
-sub_AC7F6
-sub_AC843
+sub_AC7F6 removed
+sub_AC843 removed
+sub_AC8DD removed
+sub_AC918 removed
 sub_AD1E8 removed
 sub_B0D52 removed
-sub_B1C58
-sub_B1C58
-sub_B1C58
-sub_B1C58 removed
-sub_B1D8C
+sub_B1C58 removed -
+sub_B20F2 removed
+sub_B1D8C removed
 sub_B1DC8
+sub_B1E11
+sub_B1FF3 removed
+sub_B20A7 removed
+sub_B20E1 removed
+sub_B2103 removed
 sub_B2121
+sub_B2161 removed
+sub_B2175
+sub_B2183 removed
+sub_B21A2 removed
+sub_B21C1 removed
+sub_B21DD removed
+sub_B21F9 removed
+sub_B2218 removed
+sub_B2237 removed
+sub_B2256 removed
+sub_B2275
+sub_B22AF
+sub_B22EB
+sub_B230F
+sub_B2332
+sub_B2355
+sub_B2375
+sub_B2395
+sub_B23B8
+sub_B23DB
+sub_B23FE
+sub_B2421
+sub_B2468
+sub_B24A6
+sub_B24BB
+sub_B24D9
+sub_B24EE
+sub_B2535
+sub_B2560
+sub_B256E
+sub_B258F
+sub_B25B0
+sub_B25CE
+sub_B25EC
+sub_B260D
+sub_B262E
+sub_B264F
+sub_B2670
+sub_B26AC
+sub_B26F4
+sub_B2729
+sub_B2768
+sub_B2791
+sub_B27BE
+sub_B27D3
+sub_B27E8
+sub_B27FA
+sub_B280C
+sub_B2821
+sub_B2836
 sub_B2B6C removed
 sub_B2F8A
+sub_B336E
 sub_B337C
 sub_B33A6
 sub_B33D6
+sub_B3542
+sub_B35DB
 sub_B3605
+sub_B37B0
 sub_B37DA
+sub_B392B
+sub_B3930
+sub_B399A
+sub_B39AB
+sub_B39E0
+sub_B3A60
+sub_B3A60
+sub_B3ADF
+sub_B3ADF
+sub_B3BA6
+sub_B3BA6
+sub_B3C6B
 sub_B41F9
 sub_B44D4
 sub_B46D5
