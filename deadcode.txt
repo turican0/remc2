@@ -55,17 +55,16 @@ sub_B2218 removed
 sub_B2237 removed
 sub_B2256 removed
 sub_B2275
-sub_B22AF
-sub_B22EB
-sub_B230F
-sub_B2332
-sub_B2355
-sub_B2375
-sub_B2395
-sub_B23B8
-sub_B23DB
-sub_B23FE
-sub_B2421
+sub_B22AF removed
+sub_B22EB removed
+sub_B2332 removed
+sub_B2355 removed
+sub_B2375 removed
+sub_B2395 removed
+sub_B23B8 removed
+sub_B23DB removed
+sub_B23FE removed
+sub_B2421 removed
 sub_B2468
 sub_B24A6
 sub_B24BB
@@ -130,3 +129,49 @@ x__sidt
 x__writecr0
 x_setmode
 x_write2
+sub_B2088 removed
+sub_B3BA6
+sub_B35DB
+sub_B2069 removed
+sub_B3BA6
+sub_B35DB
+sub_B399A
+sub_B200F removed
+sub_B3BA6
+sub_B3542
+sub_B1E11
+loc_A0000_vga_buffer
+sub_AEF40
+sub_AEF51
+sub_AFB7E
+sub_AFB9F
+sub_B1EB6
+sub_B1EBC
+sub_B1EC2
+sub_B1EC8
+sub_B1ED6
+sub_B1EDC
+sub_B1EE2
+sub_B1EE8
+sub_B1EF0
+sub_B1EF8
+sub_B1F00
+sub_B1F12 removed
+sub_B1F1C removed
+sub_B1F24 removed
+sub_B1F2C removed
+sub_B1F35 removed
+sub_B1F3E removed
+sub_B1F47 removed
+sub_B1F5B removed
+sub_B1F66 removed
+sub_B1F6F
+sub_B1ECE
+sub_B1F08 removed
+sub_B1F50 removed
+sub_B1FB5 removed
+sub_B230F removed
+sub_B2468
+sub_B256E
+sub_B2670
+sub_B1FD4
