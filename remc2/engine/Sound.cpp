@@ -313,14 +313,14 @@ void sub_9E250(HMDIDRIVER mdidrv) {
 		x_DWORD_E3E38 = 0;
 	}
 }; // weak
-void sub_A2450(HMDIDRIVER user) { stub_fix_it(); }; // weak
+void sub_A2450(HMDIDRIVER  /*user*/) { stub_fix_it(); }; // weak
 int sub_A2DE0() { stub_fix_it(); return 0; }; // weak
 int sub_A47A0() { stub_fix_it(); return 0; }; // weak
 int sub_A4920() { stub_fix_it(); return 0; }; // weak
 //void sub_A6530(uint32_t user) { stub_fix_it();}; // weak
 int sub_A9C00() { stub_fix_it(); return 0; }; // weak
 int sub_A9C50() { stub_fix_it(); return 0; }; // weak
-void sub_A6F30(void* a) { stub_fix_it(); }; // weak
+void sub_A6F30(void*  /*a*/) { stub_fix_it(); }; // weak
 int sub_B1DC8() { stub_fix_it(); return 0; }; // weak
 
 //----- (0008D290) --------------------------------------------------------
@@ -1943,7 +1943,7 @@ uint32_t sub_94010_AIL_sample_status_orig(HSAMPLE S)//AIL_sample_status
 // 181BF8: using guessed type int x_DWORD_181BF8;
 // 181C04: using guessed type int x_DWORD_181C04;
 
-void sub_94650_AIL_set_digital_master_volume(x_DWORD* a1, int32_t master_volume)//AIL_set_digital_master_volume
+void sub_94650_AIL_set_digital_master_volume(x_DWORD*  /*a1*/, int32_t master_volume)//AIL_set_digital_master_volume
 {
 	SOUND_set_master_volume(master_volume);
 }
@@ -2286,7 +2286,7 @@ void sub_95F00_AIL_end_sequence(HSEQUENCE hSequence/*HSEQUENCE S*/)//AIL_end_seq
 // 181BF8: using guessed type int x_DWORD_181BF8;
 // 181C04: using guessed type int x_DWORD_181C04;
 
-void SetAilSequenceVolume(HSEQUENCE hSequence, int32_t volume, int32_t milliseconds)//AIL_set_sequence_volume
+void SetAilSequenceVolume(HSEQUENCE  /*hSequence*/, int32_t volume, int32_t  /*milliseconds*/)//AIL_set_sequence_volume
 {
 	SOUND_set_sequence_volume(volume);
 }
@@ -2346,7 +2346,7 @@ int sub_96170_AIL_sequence_status(HSEQUENCE hSequence/*HSEQUENCE S*/)//AIL_seque
 // 181C04: using guessed type int x_DWORD_181C04;
 
 //----- (00096670) --------------------------------------------------------
-void sub_96670_AIL_set_XMIDI_master_volume(HMDIDRIVER mdi, int32_t master_volume)//AIL_set_XMIDI_master_volume
+void sub_96670_AIL_set_XMIDI_master_volume(HMDIDRIVER  /*mdi*/, int32_t master_volume)//AIL_set_XMIDI_master_volume
 {
 	SOUND_set_sequence_volume(master_volume);
 	/*
@@ -3436,7 +3436,7 @@ int sub_9F280(int* a1)//a1 bude nejaky driver
 }
 
 //----- (0009F2E0) --------------------------------------------------------
-VDI_CALL sub_9F2E0(int* a1, int a2, unsigned __int16 a3, unsigned __int16 a4)
+VDI_CALL sub_9F2E0(int* a1, int  /*a2*/, unsigned __int16 a3, unsigned __int16 a4)
 {
 	signed __int64 v4; // rax
 	unsigned __int16 v5; // ax
@@ -3469,7 +3469,7 @@ VDI_CALL sub_9F2E0(int* a1, int a2, unsigned __int16 a3, unsigned __int16 a4)
 }
 
 //----- (0009F3D0) --------------------------------------------------------
-__int64 sub_9F3D0(int* a1, int a2, unsigned __int16 a3, unsigned __int16 a4)
+__int64 sub_9F3D0(int* a1, int  /*a2*/, unsigned __int16 a3, unsigned __int16 a4)
 {
 	signed __int64 v4; // rax
 	unsigned __int16 v5; // ax
@@ -3515,7 +3515,7 @@ __int64 sub_9F3D0(int* a1, int a2, unsigned __int16 a3, unsigned __int16 a4)
 }
 
 //----- (0009F4F0) --------------------------------------------------------
-VDI_CALL sub_9F4F0(int* a1, int a2, unsigned __int16 a3, unsigned __int16 a4)
+VDI_CALL sub_9F4F0(int* a1, int  /*a2*/, unsigned __int16 a3, unsigned __int16 a4)
 {
 	signed __int64 v4; // rax
 	unsigned __int16 v5; // ax
@@ -3548,7 +3548,7 @@ VDI_CALL sub_9F4F0(int* a1, int a2, unsigned __int16 a3, unsigned __int16 a4)
 }
 
 //----- (0009F5E0) --------------------------------------------------------
-VDI_CALL sub_9F5E0(int* a1, int a2, unsigned __int16 a3, unsigned __int16 a4)
+VDI_CALL sub_9F5E0(int* a1, int  /*a2*/, unsigned __int16 a3, unsigned __int16 a4)
 {
 	signed __int64 v4; // rax
 	unsigned __int16 v5; // ax
@@ -3884,7 +3884,7 @@ void sub_A1249_AIL_API_set_real_vect(uint32_t vectnum, uint16_t real_ptr)//28224
 
 //----- (000A12C5) --------------------------------------------------------
 // write access to const memory has been detected, the output may be wrong!
-signed int sub_A12C5_sound_proc_irq(int a1, int a2, __int16 a3)//2822c5
+signed int sub_A12C5_sound_proc_irq(int a1, int  /*a2*/, __int16 a3)//2822c5
 {
 	signed int result; // eax
 
@@ -4236,7 +4236,7 @@ void sub_A1810_set_timer_period(HTIMER timer, uint32_t microseconds)//282810
 // E3F1C: using guessed type int x_DWORD_E3F1C[];
 
 //----- (000A1840) --------------------------------------------------------
-void sub_A1840_AIL_API_set_timer_frequency(HTIMER timer, uint32_t hertz)//282840
+void sub_A1840_AIL_API_set_timer_frequency(HTIMER  /*timer*/, uint32_t  /*hertz*/)//282840
 {
 	sub_91BD0_s_plus();
 	//sub_92890_AIL_set_timer_period(timer, 1000000 / hertz);
@@ -4244,7 +4244,7 @@ void sub_A1840_AIL_API_set_timer_frequency(HTIMER timer, uint32_t hertz)//282840
 }
 
 //----- (000A1870) --------------------------------------------------------
-void sub_A1870(int a1, unsigned int a2)//282870
+void sub_A1870(int  /*a1*/, unsigned int a2)//282870
 {
 	int v2; // eax
 
@@ -4671,7 +4671,7 @@ int16_t envstring[0x18] = {
 };
 
 //----- (000A2C80) --------------------------------------------------------
-int sub_A2C80(HDIGDRIVER a1, IO_PARMS* a2)//283c80
+int sub_A2C80(HDIGDRIVER a1, IO_PARMS*  /*a2*/)//283c80
 {
 	int16_t v3[0x18]; // [esp+0h] [ebp-30h]
 	//__int16 v4; // [esp+2h] [ebp-2Eh]
@@ -5066,7 +5066,7 @@ HDIGDRIVER sub_A3600_AIL_API_install_DIG_driver_file(/*int a1,*/ char* filename,
 // 181C90: using guessed type char x_BYTE_181C90;
 
 //----- (000A36B0) --------------------------------------------------------
-HDIGDRIVER sub_A36B0(int a1, uint8_t* a2, int a3, IO_PARMS a4)
+HDIGDRIVER sub_A36B0(int  /*a1*/, uint8_t* a2, int a3, IO_PARMS a4)
 {
 	HDIGDRIVER result; // [esp+4h] [ebp-8h]
 	AIL_DRIVER* v7; // [esp+8h] [ebp-4h]
@@ -5602,7 +5602,7 @@ EOS_callback_type sub_A3EB0_register_EOS_callback(HSAMPLE S, EOS_callback_type E
 }
 
 //----- (000A3F00) --------------------------------------------------------
-void sub_A3F00_set_sample_user_data(HSAMPLE S, int index, int a3)//284f00
+void sub_A3F00_set_sample_user_data(HSAMPLE S, int index, int  /*a3*/)//284f00
 {
 	//int result; // eax
 
@@ -6009,7 +6009,7 @@ void sub_A4F10(HMDIDRIVER a1, char a2, char a3, char a4)//285f10
 }
 
 //----- (000A4FD0) --------------------------------------------------------
-void sub_A4FD0(int a1, int a2, unsigned int a3)//285fd0
+void sub_A4FD0(int a1, int  /*a2*/, unsigned int a3)//285fd0
 {
 	sub_A4EB0((HMDIDRIVER)a1);
 	if (a3 <= 0x200)
@@ -7242,7 +7242,7 @@ HMDIDRIVER sub_A77D0_AIL_API_install_MDI_INI(char* filename, IO_PARMS* IO)//2887
 // 181C90: using guessed type char x_BYTE_181C90;
 
 //----- (000A7880) --------------------------------------------------------
-HMDIDRIVER sub_A7880_sound_proc27(int a1, uint8_t* a2, int a3, IO_PARMS* a4)
+HMDIDRIVER sub_A7880_sound_proc27(int  /*a1*/, uint8_t* a2, int a3, IO_PARMS* a4)
 {
 	HMDIDRIVER v6; // [esp+4h] [ebp-8h]
 	AIL_DRIVER* v7; // [esp+8h] [ebp-4h]
@@ -7427,7 +7427,7 @@ void sub_A7BF0_sound_proc33(HSEQUENCE hSequence)//288bf0
 	//return result;
 }
 
-int32_t sub_A7C20_AIL_API_init_sequence(HSEQUENCE hSequence, void* start, int32_t sequence_num, uint32_t track) {
+int32_t sub_A7C20_AIL_API_init_sequence(HSEQUENCE hSequence, void*  /*start*/, int32_t sequence_num, uint32_t track) {
 	//S->ICA_6 = 0;
 	//S->prefix_callback_7 = 0;
 	//S->trigger_callback_8_32 = 0;
@@ -8991,7 +8991,7 @@ signed __int64 sub_9F110(int a1)
 // 98D52: using guessed type x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);
 
 //----- (0009F170) --------------------------------------------------------
-int sub_9F170(int a1, unsigned __int16 a2)
+int sub_9F170(int  /*a1*/, unsigned __int16 a2)
 {
 	int v3; // [esp+0h] [ebp-20h]
 	int v4; // [esp+Ch] [ebp-14h]

@@ -291,6 +291,7 @@ POSITION VGA_WhereXY() {
 };
 
 void VGA_Draw_string(char* wrstring) {
+	if(!screen)return;
 	SDL_Rect srcrect = { 0,0,0,0 };
 	SDL_Rect dstrect = { 0,0,0,0 };
 	if (SDL_MUSTLOCK(screen)) {
@@ -361,7 +362,7 @@ Uint32 blueMask = 0x00ff0000;
 Uint32 alphaMask = 0xff000000;
 #endif
 
-void VGA_Init(Uint32 flags, int width, int height, bool maintainAspectRatio)
+void VGA_Init(Uint32  /*flags*/, int width, int height, bool maintainAspectRatio)
 {
 	m_iScreenWidth = width;
 	m_iScreenHeight = height;
@@ -787,7 +788,7 @@ void VGA_Set_mouse(int16_t x, int16_t y) {
 	SDL_WarpMouseInWindow(gWindow, x, y);
 };
 
-void VGA_Blit(int width, int height, Uint8* srcBuffer) {
+void VGA_Blit(int  /*width*/, int  /*height*/, Uint8* srcBuffer) {
 	events();
 	if (SDL_MUSTLOCK(screen)) {
 		if (SDL_LockSurface(screen) < 0) {
