@@ -492,7 +492,7 @@ void stub_fix_it() { allert_error(); };
 
 void dbgfprintf(FILE* file, const char* format, ...) {
 	//void dbgfprintf(FILE* file,char* str) {
-	fprintf(file, "%s", format);
+	fprintf(file, format);
 	fprintf(file, "\n");
 }
 
