@@ -3831,9 +3831,17 @@ void Convert_to_shadow_D41A0_BYTESTR_0(type_D41A0_BYTESTR_0* from, type_shadow_D
 	to->dword_0x23a = from->dword_0x23a;
 	to->dword_0x23e = from->dword_0x23e;
 	to->dword_0x242 = from->dword_0x242;
+#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
+  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << ", file " << __FILE__ << std::endl;
+#else
 	for (int i = 0; i < 0x3e8; i++)to->pointers_0x246[i] = (uint32_t)from->pointers_0x246[i];
+#endif
 	to->dword_0x11e6 = from->dword_0x11e6;
+#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
+  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << ", file " << __FILE__ << std::endl;
+#else
 	for (int i = 0; i < 0x3e8; i++)to->dword_0x11EA[i] = (uint32_t)from->dword_0x11EA[i];
+#endif
 	to->m_GameSettings = from->m_GameSettings;
 	to->dword_0x219A = from->dword_0x219A;
 	to->dword_0x219E = from->dword_0x219E;
@@ -3850,7 +3858,11 @@ void Convert_to_shadow_D41A0_BYTESTR_0(type_D41A0_BYTESTR_0* from, type_shadow_D
 	for (int i = 0; i < 8; i++)to->array_0x2BDE[i] = from->array_0x2BDE[i];
 	for (int i = 0; i < 8; i++)to->array_0x6E3E[i] = from->array_0x6E3E[i];
 	for (int i = 0; i < 0x3e8; i++) {
+#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
+  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << ", file " << __FILE__ << std::endl;
+#else
 		to->struct_0x6E8E[i].next_0 = (uint32_t)from->struct_0x6E8E[i].next_0;
+#endif
 		to->struct_0x6E8E[i].dword_0x4 = from->struct_0x6E8E[i].dword_0x4;
 		to->struct_0x6E8E[i].dword_0x8 = from->struct_0x6E8E[i].dword_0x8;
 		to->struct_0x6E8E[i].struct_byte_0xc_12_15 = from->struct_0x6E8E[i].struct_byte_0xc_12_15;
@@ -3908,8 +3920,12 @@ void Convert_to_shadow_D41A0_BYTESTR_0(type_D41A0_BYTESTR_0* from, type_shadow_D
 		to->struct_0x6E8E[i].word_0x96_150 = from->struct_0x6E8E[i].word_0x96_150;
 		to->struct_0x6E8E[i].word_0x98_152 = from->struct_0x6E8E[i].word_0x98_152;
 		to->struct_0x6E8E[i].word_0x9A_154x = from->struct_0x6E8E[i].word_0x9A_154x;
+#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
+  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << ", file " << __FILE__ << std::endl;
+#else
 		to->struct_0x6E8E[i].dword_0xA0_160x = (uint32_t)from->struct_0x6E8E[i].dword_0xA0_160x;
 		to->struct_0x6E8E[i].dword_0xA4_164x = (uint32_t)from->struct_0x6E8E[i].dword_0xA4_164x;
+#endif
 	}
 
 	to->str_2FECE.word_2FECE = from->str_2FECE.word_2FECE;
@@ -3982,7 +3998,11 @@ void Convert_to_shadow_D41A0_BYTESTR_0(type_D41A0_BYTESTR_0* from, type_shadow_D
 		to->str_0x3664C[i].byte_2 = from->str_0x3664C[i].byte_2;
 		to->str_0x3664C[i].byte_3 = from->str_0x3664C[i].byte_3;
 		to->str_0x3664C[i].axis3d_4 = from->str_0x3664C[i].axis3d_4;
+#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
+  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << ", file " << __FILE__ << std::endl;
+#else
 		to->str_0x3664C[i].dword_A = (uint32_t)from->str_0x3664C[i].dword_A;
+#endif
 		for (int j = 0; j < 25; j++)to->str_0x3664C[i].array_E[j] = from->str_0x3664C[i].array_E[j];
 	}
 	to->byte_0x36DEA_fly_asistant = from->byte_0x36DEA_fly_asistant;
@@ -3991,7 +4011,11 @@ void Convert_to_shadow_D41A0_BYTESTR_0(type_D41A0_BYTESTR_0* from, type_shadow_D
 	to->word_0x36DEE_mousey = from->word_0x36DEE_mousey;
 	to->word_0x36DF0_mousexx = from->word_0x36DF0_mousexx;
 	to->dword_0x36DF2 = from->dword_0x36DF2;
+#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
+  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << ", file " << __FILE__ << std::endl;
+#else
 	to->dword_0x36DF6 = (uint32_t)from->dword_0x36DF6;
+#endif
 	to->word_0x36DFA = from->word_0x36DFA;
 	to->word_0x36DFC = from->word_0x36DFC;
 	to->word_0x36DFE = from->word_0x36DFE;
