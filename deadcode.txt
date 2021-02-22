@@ -19,7 +19,7 @@ dos_read
 nullsub_1
 sub_365F8
 sub_48930
-sub_6FD30
+sub_6FD30 removed
 sub_6FE90 removed
 sub_752C0
 sub_76F40
