@@ -5,7 +5,7 @@ void myWriteOut(const char * format, ...) {
 #ifdef USE_DOSBOX
 	DEBUG_ShowMsg(format);
 #else
-	printf(format);
+	printf("%s", format);
 	VGA_Draw_string((char*)format);
 #endif //USE_DOSBOX
 
@@ -25,7 +25,7 @@ void myprintf(const char * format, ...) {
 #ifdef USE_DOSBOX
 	DEBUG_ShowMsg(prbuffer);
 #else
-	printf(prbuffer);
+	printf("%s", prbuffer);
 	VGA_Draw_string(prbuffer);
 #endif //USE_DOSBOX
 
