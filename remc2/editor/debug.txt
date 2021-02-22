@@ -6462,3 +6462,323 @@ myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/NETHERW/CLEVELS/LEVELS.T
 myopen:open end 019FA7B8
 myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/SOUND/SOUND.DAT
 myopen:open end 019FA750
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/FONT0.DAT
+myopen:open end 01BB2CB0
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/FONT0.DAT
+myopen:open end 01BB2CB0
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/FONT0.TAB
+myopen:open end 01BB2CB0
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/FONT0.TAB
+myopen:open end 01BB2CB0
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/FONT1.DAT
+myopen:open end 01BB2CB0
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/FONT1.DAT
+myopen:open end 01BB2CB0
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/FONT1.TAB
+myopen:open end 01BB2CB0
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/FONT1.TAB
+myopen:open end 01BB2CB0
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/TMAPS0-0.TAB
+myopen:open end 01BB2CB0
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/TMAPS0-0.TAB
+myopen:open end 01BB2CB0
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/POINTERS.DAT
+myopen:open end 01BB2CB0
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/POINTERS.DAT
+myopen:open end 01BB2CB0
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/POINTERS.TAB
+myopen:open end 01BB2CB0
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/POINTERS.TAB
+myopen:open end 01BB2CB0
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/BUILD0-0.DAT
+myopen:open end 01BB2CB0
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/BUILD0-0.DAT
+myopen:open end 01BB2CB0
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/BUILD0-0.TAB
+myopen:open end 01BB2CB0
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/BUILD0-0.TAB
+myopen:open end 01BB2CB0
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/BLDGPRM.DAT
+myopen:open end 01BB2CB0
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/PALD-0.DAT
+myopen:open end 01BB2CB0
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/PALD-0.DAT
+myopen:open end 01BB2CB0
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/BLOCK32.DAT
+myopen:open end 01BB2CB0
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/BLOCK32.DAT
+myopen:open end 01BB2CB0
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/PALD-0.DAT
+myopen:open end 01BB2CB0
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/CLRD-0.DAT
+myopen:open end 01BB2CB0
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/NETHERW/CDATA/TMAPS0-0.DAT
+myopen:open end 01BB2CB0
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/NETHERW/CDATA/TMAPS1-0.DAT
+myopen:open end 01BB2DE8
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/NETHERW/CDATA/TMAPS2-0.DAT
+myopen:open end 01BB29D8
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/SEARCH.DAT
+myopen:open end 01BB2CB0
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/NETHERW/CLEVELS/LEVELS.DAT
+myopen:open end 01BB2CB0
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/NETHERW/CLEVELS/LEVELS.TAB
+myopen:open end 01BB2DE8
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/SOUND/SOUND.DAT
+myopen:open end 01BB2CB0
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/FONT0.DAT
+myopen:open end 01D47F08
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/FONT0.DAT
+myopen:open end 01D47F08
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/FONT0.TAB
+myopen:open end 01D47F08
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/FONT0.TAB
+myopen:open end 01D47F08
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/FONT1.DAT
+myopen:open end 01D47F08
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/FONT1.DAT
+myopen:open end 01D47F08
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/FONT1.TAB
+myopen:open end 01D47F08
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/FONT1.TAB
+myopen:open end 01D47F08
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/TMAPS0-0.TAB
+myopen:open end 01D47F08
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/TMAPS0-0.TAB
+myopen:open end 01D47F08
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/POINTERS.DAT
+myopen:open end 01D47F08
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/POINTERS.DAT
+myopen:open end 01D47F08
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/POINTERS.TAB
+myopen:open end 01D47F08
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/POINTERS.TAB
+myopen:open end 01D47F08
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/BUILD0-0.DAT
+myopen:open end 01D47F08
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/BUILD0-0.DAT
+myopen:open end 01D47F08
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/BUILD0-0.TAB
+myopen:open end 01D47F08
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/BUILD0-0.TAB
+myopen:open end 01D47F08
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/BLDGPRM.DAT
+myopen:open end 01D47F08
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/PALD-0.DAT
+myopen:open end 01D47F08
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/PALD-0.DAT
+myopen:open end 01D47F08
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/BLOCK32.DAT
+myopen:open end 01D47F08
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/BLOCK32.DAT
+myopen:open end 01D47F08
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/PALD-0.DAT
+myopen:open end 01D47F08
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/CLRD-0.DAT
+myopen:open end 01D47F08
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/NETHERW/CDATA/TMAPS0-0.DAT
+myopen:open end 01D47F08
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/NETHERW/CDATA/TMAPS1-0.DAT
+myopen:open end 01DB4E70
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/NETHERW/CDATA/TMAPS2-0.DAT
+myopen:open end 01DB4D38
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/SEARCH.DAT
+myopen:open end 01D47F08
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/NETHERW/CLEVELS/LEVELS.DAT
+myopen:open end 01D47F08
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/NETHERW/CLEVELS/LEVELS.TAB
+myopen:open end 01DB4E70
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/SOUND/SOUND.DAT
+myopen:open end 01D47F08
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/FONT0.DAT
+myopen:open end 01C83AE0
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/FONT0.DAT
+myopen:open end 01C83AE0
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/FONT0.TAB
+myopen:open end 01C83AE0
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/FONT0.TAB
+myopen:open end 01C83AE0
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/FONT1.DAT
+myopen:open end 01C83AE0
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/FONT1.DAT
+myopen:open end 01C83AE0
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/FONT1.TAB
+myopen:open end 01C83AE0
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/FONT1.TAB
+myopen:open end 01C83AE0
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/TMAPS0-0.TAB
+myopen:open end 01C83AE0
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/TMAPS0-0.TAB
+myopen:open end 01C83AE0
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/POINTERS.DAT
+myopen:open end 01C83AE0
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/POINTERS.DAT
+myopen:open end 01C83AE0
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/POINTERS.TAB
+myopen:open end 01C83AE0
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/POINTERS.TAB
+myopen:open end 01C83AE0
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/BUILD0-0.DAT
+myopen:open end 01C83AE0
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/BUILD0-0.DAT
+myopen:open end 01C83AE0
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/BUILD0-0.TAB
+myopen:open end 01C83AE0
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/BUILD0-0.TAB
+myopen:open end 01C83AE0
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/BLDGPRM.DAT
+myopen:open end 01C83AE0
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/PALD-0.DAT
+myopen:open end 01C83AE0
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/PALD-0.DAT
+myopen:open end 01C83AE0
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/BLOCK32.DAT
+myopen:open end 01C83AE0
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/BLOCK32.DAT
+myopen:open end 01C83AE0
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/PALD-0.DAT
+myopen:open end 01C83AE0
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/CLRD-0.DAT
+myopen:open end 01C83AE0
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/NETHERW/CDATA/TMAPS0-0.DAT
+myopen:open end 01C83AE0
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/NETHERW/CDATA/TMAPS1-0.DAT
+myopen:open end 01C83CE8
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/NETHERW/CDATA/TMAPS2-0.DAT
+myopen:open end 01C83DB8
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/SEARCH.DAT
+myopen:open end 01C83AE0
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/NETHERW/CLEVELS/LEVELS.DAT
+myopen:open end 01C83AE0
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/NETHERW/CLEVELS/LEVELS.TAB
+myopen:open end 01C83CE8
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/SOUND/SOUND.DAT
+myopen:open end 01C83AE0
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/FONT0.DAT
+myopen:open end 01FA6808
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/FONT0.DAT
+myopen:open end 01FA6808
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/FONT0.TAB
+myopen:open end 01FA6808
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/FONT0.TAB
+myopen:open end 01FA6808
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/FONT1.DAT
+myopen:open end 01FA6808
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/FONT1.DAT
+myopen:open end 01FA6808
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/FONT1.TAB
+myopen:open end 01FA6808
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/FONT1.TAB
+myopen:open end 01FA6808
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/TMAPS0-0.TAB
+myopen:open end 01FA6808
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/TMAPS0-0.TAB
+myopen:open end 01FA6808
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/POINTERS.DAT
+myopen:open end 01FA6808
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/POINTERS.DAT
+myopen:open end 01FA6808
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/POINTERS.TAB
+myopen:open end 01FA6808
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/POINTERS.TAB
+myopen:open end 01FA6808
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/BUILD0-0.DAT
+myopen:open end 01FA6808
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/BUILD0-0.DAT
+myopen:open end 01FA6808
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/BUILD0-0.TAB
+myopen:open end 01FA6808
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/BUILD0-0.TAB
+myopen:open end 01FA6808
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/BLDGPRM.DAT
+myopen:open end 01FA6808
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/PALD-0.DAT
+myopen:open end 01FA6808
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/PALD-0.DAT
+myopen:open end 01FA6808
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/BLOCK32.DAT
+myopen:open end 01FA6808
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/BLOCK32.DAT
+myopen:open end 01FA6808
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/PALD-0.DAT
+myopen:open end 01FA6808
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/CLRD-0.DAT
+myopen:open end 01FA6808
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/NETHERW/CDATA/TMAPS0-0.DAT
+myopen:open end 01FA6808
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/NETHERW/CDATA/TMAPS1-0.DAT
+myopen:open end 01FA6668
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/NETHERW/CDATA/TMAPS2-0.DAT
+myopen:open end 01FA66D0
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/SEARCH.DAT
+myopen:open end 01FA6808
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/NETHERW/CLEVELS/LEVELS.DAT
+myopen:open end 01FA6808
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/NETHERW/CLEVELS/LEVELS.TAB
+myopen:open end 01FA6668
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/SOUND/SOUND.DAT
+myopen:open end 01FA6808
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/FONT0.DAT
+myopen:open end 01E50560
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/FONT0.DAT
+myopen:open end 01E50560
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/FONT0.TAB
+myopen:open end 01E50560
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/FONT0.TAB
+myopen:open end 01E50560
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/FONT1.DAT
+myopen:open end 01E50560
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/FONT1.DAT
+myopen:open end 01E50560
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/FONT1.TAB
+myopen:open end 01E50560
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/FONT1.TAB
+myopen:open end 01E50560
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/TMAPS0-0.TAB
+myopen:open end 01E50560
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/TMAPS0-0.TAB
+myopen:open end 01E50560
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/POINTERS.DAT
+myopen:open end 01E50560
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/POINTERS.DAT
+myopen:open end 01E50560
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/POINTERS.TAB
+myopen:open end 01E50560
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/POINTERS.TAB
+myopen:open end 01E50560
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/BUILD0-0.DAT
+myopen:open end 01E50560
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/BUILD0-0.DAT
+myopen:open end 01E50560
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/BUILD0-0.TAB
+myopen:open end 01E50560
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/BUILD0-0.TAB
+myopen:open end 01E50560
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/BLDGPRM.DAT
+myopen:open end 01E50560
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/PALD-0.DAT
+myopen:open end 01E50560
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/PALD-0.DAT
+myopen:open end 01E50560
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/BLOCK32.DAT
+myopen:open end 01E50560
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/BLOCK32.DAT
+myopen:open end 01E50560
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/PALD-0.DAT
+myopen:open end 01E50560
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/CLRD-0.DAT
+myopen:open end 01E50560
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/NETHERW/CDATA/TMAPS0-0.DAT
+myopen:open end 01E50560
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/NETHERW/CDATA/TMAPS1-0.DAT
+myopen:open end 01E50700
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/NETHERW/CDATA/TMAPS2-0.DAT
+myopen:open end 01EB6980
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/DATA/SEARCH.DAT
+myopen:open end 01E50560
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/NETHERW/CLEVELS/LEVELS.DAT
+myopen:open end 01E50560
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/NETHERW/CLEVELS/LEVELS.TAB
+myopen:open end 01E50700
+myopen:open file:C:\prenos\remc2-dev\remc2\editor\Debug/CD_Files/SOUND/SOUND.DAT
+myopen:open end 01E50560
