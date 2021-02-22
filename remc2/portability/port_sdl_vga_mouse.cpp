@@ -291,6 +291,7 @@ POSITION VGA_WhereXY() {
 };
 
 void VGA_Draw_string(char* wrstring) {
+	if(!screen)return;
 	SDL_Rect srcrect = { 0,0,0,0 };
 	SDL_Rect dstrect = { 0,0,0,0 };
 	if (SDL_MUSTLOCK(screen)) {

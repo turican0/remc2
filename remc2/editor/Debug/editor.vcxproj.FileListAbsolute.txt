@@ -1,2 +1,0 @@
-c:\prenos\remc2-dev\remc2\editor\Debug\editor.exe
-c:\prenos\remc2-dev\remc2\editor\Debug\editor.pdb
