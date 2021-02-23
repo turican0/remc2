@@ -194,7 +194,7 @@ typedef union {
 }
 uaxis_2d;
 
-typedef struct {
+typedef struct {//lenght 10
 	int8_t str_0x6E3E_byte0;//0x6E3E-28222//D41A0_BYTESTR_0.array_0x6E3E[xx].str_0x6E3E_byte0
 	int8_t str_0x6E3E_byte1;//0x6E3F-28223
 	int8_t str_0x6E3E_byte2;//0x6E40-28224
