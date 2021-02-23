@@ -499,14 +499,10 @@ int32_t /*__cdecl*/ signal(int32_t, int32_t);// weak
 //int __cdecl unknown_libname_1(char *a1);
 //void _disable();
 //void _enable();
-int /*__fastcall*/ _wcpp_1_unwind_leave__93(int32_t, int32_t, int32_t, int32_t, int32_t, int32_t);// weak
-int /*__cdecl*/ _wcpp_1_unwind_leave__100(int32_t, int32_t);// weak
 //long _InterlockedExchange(long volatile * Target, long Value);
-int /*__cdecl*/ _wcpp_1_unwind_leave__98(int32_t);// weak
 //x_DWORD /*__cdecl*/ dos_getvect(x_DWORD);// weak
 //void(*dos_getvect(x_DWORD number))();
 //x_DWORD /*__cdecl*/ dos_setvect(x_DWORD number, void(*actcall)(), x_DWORD);// weak
-int /*__fastcall*/ _wcpp_1_unwind_leave__130(int32_t);// weak
 //unsigned char _BitScanReverse(unsigned long * Index, unsigned long Mask);
 //void sub_8F920(uint8_t a1byte1, uint8_t a1byte2, int16_t posx, int16_t posy, uint8_t* a4, unsigned __int8 a5, char a6);
 //void sub_8F935_bitmap_draw_final(uint8_t a1byte1, uint8_t a1byte2, uint16_t a2, int a3, uint8_t* a4, uint8_t setbyte, char a6);
@@ -580,23 +576,6 @@ void __inx_BYTEstring(unsigned short Port, unsigned char* Buffer, unsigned long 
 int sub_ACE8D(int16_t* a1, int a2, int* a3);
 void sub_AD0E2(int8_t* a1, int a2, int* a3, int8_t** a4);
 void sub_ACF1A(int8_t* a1, int a2, int* a3);
-int sub_B33D6(unsigned __int64 a1, int a2, int a3, int a4);
-int sub_B337C(int a1, int a2, int a3);
-int sub_B37B0(int a1, int a2, int a3);
-int sub_B35DB(int a1, int a2, int8_t* a3, int a4);
-int sub_B39E0(__int64 a1, int a2, int8_t* a3);
-int sub_B41F9(int a1, int8_t* a2, int a3);
-int sub_B3ADF(__int64* a1, int8_t* a2);
-int sub_B3605(unsigned __int64 a1, int a2, unsigned int a3, int8_t* a4, int a5);
-int sub_B37DA(unsigned __int64 a1, unsigned int a2, unsigned int a3, int a4);
-__int16 /*__spoils<ecx>*/ sub_B3EAE(int a1, int8_t* a2, int a3);
-int sub_B4A2A(int* a1, int a2, int a3);
-int sub_B4077(__int64 a1, unsigned int a2, unsigned int a3, __int16 a4, __int16 a5);
-int sub_B423C(int a1, int8_t* a2);
-void sub_B49D8(int a1, int a2);
-double sub_B5250(char a1, double* a2, double result);
-double sub_B5205(char a1, int a2, __int16 a3, double a4);
-__int64 sub_B522B(int a1, __int16 a2, int _ESI);
 void sub_B5F8F(__int16 a1, uint16_t* a2, int32_t a3, __int16* a4);
 int sub_BD320(int result, int8_t* a2, int8_t* a3, int a4, int a5, int a6);
 void sub_B5EFA(__int16 a1, uint16_t* a2, int32_t a3, __int16* a4);

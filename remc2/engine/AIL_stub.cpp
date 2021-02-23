@@ -146,7 +146,6 @@ int sub_A4920() { stub_fix_it(); return 0; }; // weak
 int sub_A9C00() { stub_fix_it(); return 0; }; // weak
 int sub_A9C50() { stub_fix_it(); return 0; }; // weak
 void sub_A6F30(void* a/*HDIGDRIVER a*/) { stub_fix_it();/*return 0; */ }; // weak
-int sub_B1DC8() { stub_fix_it(); return 0; }; // weak
 int /*__far*/ sub_C0000() { stub_fix_it(); return 0; }; // weak
 
 

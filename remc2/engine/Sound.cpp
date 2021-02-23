@@ -321,7 +321,6 @@ int sub_A4920() { stub_fix_it(); return 0; }; // weak
 int sub_A9C00() { stub_fix_it(); return 0; }; // weak
 int sub_A9C50() { stub_fix_it(); return 0; }; // weak
 void sub_A6F30(void*  /*a*/) { stub_fix_it(); }; // weak
-int sub_B1DC8() { stub_fix_it(); return 0; }; // weak
 
 //----- (0008D290) --------------------------------------------------------
 void sub_8D290_init_sound(/*char* a1*//*, int a2, int a3*/)//26e290
