@@ -3589,30 +3589,30 @@ void Convert_from_shadow_str_2FECE(type_shadow_str_2FECE* from, type_str_2FECE* 
 	to->MapType = from->MapType;
 	to->word_0x2FED5 = from->word_0x2FED5;
 	to->word_0x2FED7 = from->word_0x2FED7;
-	for (int i = 0; i < 8; i++)to->array_0x2FED9[i] = from->array_0x2FED9[i];
+	for (int i = 0; i < 8; i++)to->player_0x2FED9[i] = from->array_0x2FED9[i];
 	for (int i = 0; i < 4; i++)to->stubb[i] = from->stubb[i];
-	to->word_0x2FEE5 = from->word_0x2FEE5;
+	to->seed_0x2FEE5 = from->word_0x2FEE5;
 	for (int i = 0; i < 2; i++)to->stubb2[i] = from->stubb2[i];
-	to->word_0x2FEE9 = from->word_0x2FEE9;
+	to->offset_0x2FEE9 = from->word_0x2FEE9;
 	for (int i = 0; i < 2; i++)to->stubc[i] = from->stubc[i];
-	to->word_0x2FEED = from->word_0x2FEED;
+	to->raise_0x2FEED = from->word_0x2FEED;
 	for (int i = 0; i < 2; i++)to->stubc2[i] = from->stubc2[i];
-	to->word_0x2FEF1 = from->word_0x2FEF1;
+	to->gnarl_0x2FEF1 = from->word_0x2FEF1;
 	for (int i = 0; i < 2; i++)to->stubc3[i] = from->stubc3[i];
-	to->word_0x2FEF5 = from->word_0x2FEF5;
-	to->word_0x2FEF9 = from->word_0x2FEF9;
+	to->river_0x2FEF5 = from->word_0x2FEF5;
+	to->lriver_0x2FEF9 = from->word_0x2FEF9;
 	for (int i = 0; i < 2; i++)to->stube[i] = from->stube[i];
-	to->word_0x2FEFD = from->word_0x2FEFD;
+	to->source_0x2FEFD = from->word_0x2FEFD;
 	for (int i = 0; i < 2; i++)to->stubf[i] = from->stubf[i];
-	to->word_0x2FF01 = from->word_0x2FF01;
+	to->snLin_0x2FF01 = from->word_0x2FF01;
 	for (int i = 0; i < 2; i++)to->stubg[i] = from->stubg[i];
-	to->word_0x2FF05 = from->word_0x2FF05;
+	to->snFlt_0x2FF05 = from->word_0x2FF05;
 	for (int i = 0; i < 2; i++)to->stubh[i] = from->stubh[i];
-	to->word_0x2FF09 = from->word_0x2FF09;
+	to->bhLin_0x2FF09 = from->word_0x2FF09;
 	for (int i = 0; i < 2; i++)to->stubi[i] = from->stubi[i];
-	to->word_0x2FF0D = from->word_0x2FF0D;
+	to->bhFlt_0x2FF0D = from->word_0x2FF0D;
 	for (int i = 0; i < 2; i++)to->stubj[i] = from->stubj[i];
-	to->word_0x2FF11 = from->word_0x2FF11;
+	to->rkSte_0x2FF11 = from->word_0x2FF11;
 	for (int i = 0; i < 1022; i++)to->stubk[i] = from->stubk[i];
 	for (int i = 0; i < 1200; i++)to->array_0x30311[i] = from->array_0x30311[i];
 	to->next_0x360D1 = from->next_0x360D1;
@@ -3620,8 +3620,8 @@ void Convert_from_shadow_str_2FECE(type_shadow_str_2FECE* from, type_str_2FECE* 
 	for (int i = 0; i < 8; i++)to->str_0x36442[i] = from->str_0x36442[i];
 	for (int i = 0; i < 11; i++)
 	{
-		to->array_0x3647A[i].str_0x3647A_byte_0 = from->array_0x3647A[i].str_0x3647A_byte_0;
-		to->array_0x3647A[i].str_0x3647A_byte_1 = from->array_0x3647A[i].str_0x3647A_byte_1;
+		to->array_0x3647A[i].index_0x3647A_0 = from->array_0x3647A[i].str_0x3647A_byte_0;
+		to->array_0x3647A[i].stage_0x3647A_1 = from->array_0x3647A[i].str_0x3647A_byte_1;
 		to->array_0x3647A[i].str_0x3647A_2 = from->array_0x3647A[i].str_0x3647A_2;
 		to->array_0x3647A[i].str_0x3647C_4.axis = from->array_0x3647A[i].str_0x3647C_4.axis;
 	}
@@ -3725,48 +3725,48 @@ void Convert_from_shadow_D41A0_BYTESTR_0(type_shadow_D41A0_BYTESTR_0* from, type
 		to->struct_0x6E8E[i].dword_0xA4_164x = (type_str_164*)from->struct_0x6E8E[i].dword_0xA4_164x;
 	}
 
-	to->str_2FECE.word_2FECE = from->str_2FECE.word_2FECE;
-	to->str_2FECE.word_2FED0 = from->str_2FECE.word_2FED0;
-	to->str_2FECE.byte_0x2FED2 = from->str_2FECE.byte_0x2FED2;
-	to->str_2FECE.byte_0x2FED3 = from->str_2FECE.byte_0x2FED3;
-	to->str_2FECE.MapType = from->str_2FECE.MapType;
-	to->str_2FECE.word_0x2FED5 = from->str_2FECE.word_0x2FED5;
-	to->str_2FECE.word_0x2FED7 = from->str_2FECE.word_0x2FED7;
-	for (int i = 0; i < 8; i++)to->str_2FECE.array_0x2FED9[i] = from->str_2FECE.array_0x2FED9[i];
-	for (int i = 0; i < 4; i++)to->str_2FECE.stubb[i] = from->str_2FECE.stubb[i];
-	to->str_2FECE.word_0x2FEE5 = from->str_2FECE.word_0x2FEE5;
-	for (int i = 0; i < 2; i++)to->str_2FECE.stubb2[i] = from->str_2FECE.stubb2[i];
-	to->str_2FECE.word_0x2FEE9 = from->str_2FECE.word_0x2FEE9;
-	for (int i = 0; i < 2; i++)to->str_2FECE.stubc[i] = from->str_2FECE.stubc[i];
-	to->str_2FECE.word_0x2FEED = from->str_2FECE.word_0x2FEED;
-	for (int i = 0; i < 2; i++)to->str_2FECE.stubc2[i] = from->str_2FECE.stubc2[i];
-	to->str_2FECE.word_0x2FEF1 = from->str_2FECE.word_0x2FEF1;
-	for (int i = 0; i < 2; i++)to->str_2FECE.stubc3[i] = from->str_2FECE.stubc3[i];
-	to->str_2FECE.word_0x2FEF5 = from->str_2FECE.word_0x2FEF5;
-	to->str_2FECE.word_0x2FEF9 = from->str_2FECE.word_0x2FEF9;
-	for (int i = 0; i < 2; i++)to->str_2FECE.stube[i] = from->str_2FECE.stube[i];
-	to->str_2FECE.word_0x2FEFD = from->str_2FECE.word_0x2FEFD;
-	for (int i = 0; i < 2; i++)to->str_2FECE.stubf[i] = from->str_2FECE.stubf[i];
-	to->str_2FECE.word_0x2FF01 = from->str_2FECE.word_0x2FF01;
-	for (int i = 0; i < 2; i++)to->str_2FECE.stubg[i] = from->str_2FECE.stubg[i];
-	to->str_2FECE.word_0x2FF05 = from->str_2FECE.word_0x2FF05;
-	for (int i = 0; i < 2; i++)to->str_2FECE.stubh[i] = from->str_2FECE.stubh[i];
-	to->str_2FECE.word_0x2FF09 = from->str_2FECE.word_0x2FF09;
-	for (int i = 0; i < 2; i++)to->str_2FECE.stubi[i] = from->str_2FECE.stubi[i];
-	to->str_2FECE.word_0x2FF0D = from->str_2FECE.word_0x2FF0D;
-	for (int i = 0; i < 2; i++)to->str_2FECE.stubj[i] = from->str_2FECE.stubj[i];
-	to->str_2FECE.word_0x2FF11 = from->str_2FECE.word_0x2FF11;
-	for (int i = 0; i < 1022; i++)to->str_2FECE.stubk[i] = from->str_2FECE.stubk[i];
-	for (int i = 0; i < 1200; i++)to->str_2FECE.array_0x30311[i] = from->str_2FECE.array_0x30311[i];
-	to->str_2FECE.next_0x360D1 = from->str_2FECE.next_0x360D1;
-	for (int i = 0; i < 8; i++)to->str_2FECE.next_0x360D2[i] = from->str_2FECE.next_0x360D2[i];
-	for (int i = 0; i < 8; i++)to->str_2FECE.str_0x36442[i] = from->str_2FECE.str_0x36442[i];
+	to->terrain_2FECE.word_2FECE = from->str_2FECE.word_2FECE;
+	to->terrain_2FECE.word_2FED0 = from->str_2FECE.word_2FED0;
+	to->terrain_2FECE.byte_0x2FED2 = from->str_2FECE.byte_0x2FED2;
+	to->terrain_2FECE.byte_0x2FED3 = from->str_2FECE.byte_0x2FED3;
+	to->terrain_2FECE.MapType = from->str_2FECE.MapType;
+	to->terrain_2FECE.word_0x2FED5 = from->str_2FECE.word_0x2FED5;
+	to->terrain_2FECE.word_0x2FED7 = from->str_2FECE.word_0x2FED7;
+	for (int i = 0; i < 8; i++)to->terrain_2FECE.player_0x2FED9[i] = from->str_2FECE.array_0x2FED9[i];
+	for (int i = 0; i < 4; i++)to->terrain_2FECE.stubb[i] = from->str_2FECE.stubb[i];
+	to->terrain_2FECE.seed_0x2FEE5 = from->str_2FECE.word_0x2FEE5;
+	for (int i = 0; i < 2; i++)to->terrain_2FECE.stubb2[i] = from->str_2FECE.stubb2[i];
+	to->terrain_2FECE.offset_0x2FEE9 = from->str_2FECE.word_0x2FEE9;
+	for (int i = 0; i < 2; i++)to->terrain_2FECE.stubc[i] = from->str_2FECE.stubc[i];
+	to->terrain_2FECE.raise_0x2FEED = from->str_2FECE.word_0x2FEED;
+	for (int i = 0; i < 2; i++)to->terrain_2FECE.stubc2[i] = from->str_2FECE.stubc2[i];
+	to->terrain_2FECE.gnarl_0x2FEF1 = from->str_2FECE.word_0x2FEF1;
+	for (int i = 0; i < 2; i++)to->terrain_2FECE.stubc3[i] = from->str_2FECE.stubc3[i];
+	to->terrain_2FECE.river_0x2FEF5 = from->str_2FECE.word_0x2FEF5;
+	to->terrain_2FECE.lriver_0x2FEF9 = from->str_2FECE.word_0x2FEF9;
+	for (int i = 0; i < 2; i++)to->terrain_2FECE.stube[i] = from->str_2FECE.stube[i];
+	to->terrain_2FECE.source_0x2FEFD = from->str_2FECE.word_0x2FEFD;
+	for (int i = 0; i < 2; i++)to->terrain_2FECE.stubf[i] = from->str_2FECE.stubf[i];
+	to->terrain_2FECE.snLin_0x2FF01 = from->str_2FECE.word_0x2FF01;
+	for (int i = 0; i < 2; i++)to->terrain_2FECE.stubg[i] = from->str_2FECE.stubg[i];
+	to->terrain_2FECE.snFlt_0x2FF05 = from->str_2FECE.word_0x2FF05;
+	for (int i = 0; i < 2; i++)to->terrain_2FECE.stubh[i] = from->str_2FECE.stubh[i];
+	to->terrain_2FECE.bhLin_0x2FF09 = from->str_2FECE.word_0x2FF09;
+	for (int i = 0; i < 2; i++)to->terrain_2FECE.stubi[i] = from->str_2FECE.stubi[i];
+	to->terrain_2FECE.bhFlt_0x2FF0D = from->str_2FECE.word_0x2FF0D;
+	for (int i = 0; i < 2; i++)to->terrain_2FECE.stubj[i] = from->str_2FECE.stubj[i];
+	to->terrain_2FECE.rkSte_0x2FF11 = from->str_2FECE.word_0x2FF11;
+	for (int i = 0; i < 1022; i++)to->terrain_2FECE.stubk[i] = from->str_2FECE.stubk[i];
+	for (int i = 0; i < 1200; i++)to->terrain_2FECE.array_0x30311[i] = from->str_2FECE.array_0x30311[i];
+	to->terrain_2FECE.next_0x360D1 = from->str_2FECE.next_0x360D1;
+	for (int i = 0; i < 8; i++)to->terrain_2FECE.next_0x360D2[i] = from->str_2FECE.next_0x360D2[i];
+	for (int i = 0; i < 8; i++)to->terrain_2FECE.str_0x36442[i] = from->str_2FECE.str_0x36442[i];
 	for (int i = 0; i < 11; i++)
 	{
-		to->str_2FECE.array_0x3647A[i].str_0x3647A_byte_0 = from->str_2FECE.array_0x3647A[i].str_0x3647A_byte_0;
-		to->str_2FECE.array_0x3647A[i].str_0x3647A_byte_1 = from->str_2FECE.array_0x3647A[i].str_0x3647A_byte_1;
-		to->str_2FECE.array_0x3647A[i].str_0x3647A_2 = from->str_2FECE.array_0x3647A[i].str_0x3647A_2;
-		to->str_2FECE.array_0x3647A[i].str_0x3647C_4.axis = from->str_2FECE.array_0x3647A[i].str_0x3647C_4.axis;
+		to->terrain_2FECE.array_0x3647A[i].index_0x3647A_0 = from->str_2FECE.array_0x3647A[i].str_0x3647A_byte_0;
+		to->terrain_2FECE.array_0x3647A[i].stage_0x3647A_1 = from->str_2FECE.array_0x3647A[i].str_0x3647A_byte_1;
+		to->terrain_2FECE.array_0x3647A[i].str_0x3647A_2 = from->str_2FECE.array_0x3647A[i].str_0x3647A_2;
+		to->terrain_2FECE.array_0x3647A[i].str_0x3647C_4.axis = from->str_2FECE.array_0x3647A[i].str_0x3647C_4.axis;
 	}
 	to->str_0x364D2 = from->str_0x364D2;
 	to->word_0x3653E = from->word_0x3653E;
@@ -3784,8 +3784,8 @@ void Convert_from_shadow_D41A0_BYTESTR_0(type_shadow_D41A0_BYTESTR_0* from, type
 	}
 	for (int i = 0; i < 8; i++)to->struct_0x3659C[i] = from->struct_0x3659C[i];
 	for (int i = 0; i < 11; i++) {
-		to->array_0x365F4[i].str_0x3647A_byte_0 = from->array_0x365F4[i].str_0x3647A_byte_0;
-		to->array_0x365F4[i].str_0x3647A_byte_1 = from->array_0x365F4[i].str_0x3647A_byte_1;
+		to->array_0x365F4[i].index_0x3647A_0 = from->array_0x365F4[i].str_0x3647A_byte_0;
+		to->array_0x365F4[i].stage_0x3647A_1 = from->array_0x365F4[i].str_0x3647A_byte_1;
 		to->array_0x365F4[i].str_0x3647A_2 = from->array_0x365F4[i].str_0x3647A_2;
 		to->array_0x365F4[i].str_0x3647C_4.axis = from->array_0x365F4[i].str_0x3647C_4.axis;
 	}
@@ -3932,48 +3932,48 @@ void Convert_to_shadow_D41A0_BYTESTR_0(type_D41A0_BYTESTR_0* from, type_shadow_D
 #endif
 	}
 
-	to->str_2FECE.word_2FECE = from->str_2FECE.word_2FECE;
-	to->str_2FECE.word_2FED0 = from->str_2FECE.word_2FED0;
-	to->str_2FECE.byte_0x2FED2 = from->str_2FECE.byte_0x2FED2;
-	to->str_2FECE.byte_0x2FED3 = from->str_2FECE.byte_0x2FED3;
-	to->str_2FECE.MapType = from->str_2FECE.MapType;
-	to->str_2FECE.word_0x2FED5 = from->str_2FECE.word_0x2FED5;
-	to->str_2FECE.word_0x2FED7 = from->str_2FECE.word_0x2FED7;
-	for (int i = 0; i < 8; i++)to->str_2FECE.array_0x2FED9[i] = from->str_2FECE.array_0x2FED9[i];
-	for (int i = 0; i < 4; i++)to->str_2FECE.stubb[i] = from->str_2FECE.stubb[i];
-	to->str_2FECE.word_0x2FEE5 = from->str_2FECE.word_0x2FEE5;
-	for (int i = 0; i < 2; i++)to->str_2FECE.stubb2[i] = from->str_2FECE.stubb2[i];
-	to->str_2FECE.word_0x2FEE9 = from->str_2FECE.word_0x2FEE9;
-	for (int i = 0; i < 2; i++)to->str_2FECE.stubc[i] = from->str_2FECE.stubc[i];
-	to->str_2FECE.word_0x2FEED = from->str_2FECE.word_0x2FEED;
-	for (int i = 0; i < 2; i++)to->str_2FECE.stubc2[i] = from->str_2FECE.stubc2[i];
-	to->str_2FECE.word_0x2FEF1 = from->str_2FECE.word_0x2FEF1;
-	for (int i = 0; i < 2; i++)to->str_2FECE.stubc3[i] = from->str_2FECE.stubc3[i];
-	to->str_2FECE.word_0x2FEF5 = from->str_2FECE.word_0x2FEF5;
-	to->str_2FECE.word_0x2FEF9 = from->str_2FECE.word_0x2FEF9;
-	for (int i = 0; i < 2; i++)to->str_2FECE.stube[i] = from->str_2FECE.stube[i];
-	to->str_2FECE.word_0x2FEFD = from->str_2FECE.word_0x2FEFD;
-	for (int i = 0; i < 2; i++)to->str_2FECE.stubf[i] = from->str_2FECE.stubf[i];
-	to->str_2FECE.word_0x2FF01 = from->str_2FECE.word_0x2FF01;
-	for (int i = 0; i < 2; i++)to->str_2FECE.stubg[i] = from->str_2FECE.stubg[i];
-	to->str_2FECE.word_0x2FF05 = from->str_2FECE.word_0x2FF05;
-	for (int i = 0; i < 2; i++)to->str_2FECE.stubh[i] = from->str_2FECE.stubh[i];
-	to->str_2FECE.word_0x2FF09 = from->str_2FECE.word_0x2FF09;
-	for (int i = 0; i < 2; i++)to->str_2FECE.stubi[i] = from->str_2FECE.stubi[i];
-	to->str_2FECE.word_0x2FF0D = from->str_2FECE.word_0x2FF0D;
-	for (int i = 0; i < 2; i++)to->str_2FECE.stubj[i] = from->str_2FECE.stubj[i];
-	to->str_2FECE.word_0x2FF11 = from->str_2FECE.word_0x2FF11;
-	for (int i = 0; i < 1022; i++)to->str_2FECE.stubk[i] = from->str_2FECE.stubk[i];
-	for (int i = 0; i < 1200; i++)to->str_2FECE.array_0x30311[i] = from->str_2FECE.array_0x30311[i];
-	to->str_2FECE.next_0x360D1 = from->str_2FECE.next_0x360D1;
-	for (int i = 0; i < 8; i++)to->str_2FECE.next_0x360D2[i] = from->str_2FECE.next_0x360D2[i];
-	for (int i = 0; i < 8; i++)to->str_2FECE.str_0x36442[i] = from->str_2FECE.str_0x36442[i];
+	to->str_2FECE.word_2FECE = from->terrain_2FECE.word_2FECE;
+	to->str_2FECE.word_2FED0 = from->terrain_2FECE.word_2FED0;
+	to->str_2FECE.byte_0x2FED2 = from->terrain_2FECE.byte_0x2FED2;
+	to->str_2FECE.byte_0x2FED3 = from->terrain_2FECE.byte_0x2FED3;
+	to->str_2FECE.MapType = from->terrain_2FECE.MapType;
+	to->str_2FECE.word_0x2FED5 = from->terrain_2FECE.word_0x2FED5;
+	to->str_2FECE.word_0x2FED7 = from->terrain_2FECE.word_0x2FED7;
+	for (int i = 0; i < 8; i++)to->str_2FECE.array_0x2FED9[i] = from->terrain_2FECE.player_0x2FED9[i];
+	for (int i = 0; i < 4; i++)to->str_2FECE.stubb[i] = from->terrain_2FECE.stubb[i];
+	to->str_2FECE.word_0x2FEE5 = from->terrain_2FECE.seed_0x2FEE5;
+	for (int i = 0; i < 2; i++)to->str_2FECE.stubb2[i] = from->terrain_2FECE.stubb2[i];
+	to->str_2FECE.word_0x2FEE9 = from->terrain_2FECE.offset_0x2FEE9;
+	for (int i = 0; i < 2; i++)to->str_2FECE.stubc[i] = from->terrain_2FECE.stubc[i];
+	to->str_2FECE.word_0x2FEED = from->terrain_2FECE.raise_0x2FEED;
+	for (int i = 0; i < 2; i++)to->str_2FECE.stubc2[i] = from->terrain_2FECE.stubc2[i];
+	to->str_2FECE.word_0x2FEF1 = from->terrain_2FECE.gnarl_0x2FEF1;
+	for (int i = 0; i < 2; i++)to->str_2FECE.stubc3[i] = from->terrain_2FECE.stubc3[i];
+	to->str_2FECE.word_0x2FEF5 = from->terrain_2FECE.river_0x2FEF5;
+	to->str_2FECE.word_0x2FEF9 = from->terrain_2FECE.lriver_0x2FEF9;
+	for (int i = 0; i < 2; i++)to->str_2FECE.stube[i] = from->terrain_2FECE.stube[i];
+	to->str_2FECE.word_0x2FEFD = from->terrain_2FECE.source_0x2FEFD;
+	for (int i = 0; i < 2; i++)to->str_2FECE.stubf[i] = from->terrain_2FECE.stubf[i];
+	to->str_2FECE.word_0x2FF01 = from->terrain_2FECE.snLin_0x2FF01;
+	for (int i = 0; i < 2; i++)to->str_2FECE.stubg[i] = from->terrain_2FECE.stubg[i];
+	to->str_2FECE.word_0x2FF05 = from->terrain_2FECE.snFlt_0x2FF05;
+	for (int i = 0; i < 2; i++)to->str_2FECE.stubh[i] = from->terrain_2FECE.stubh[i];
+	to->str_2FECE.word_0x2FF09 = from->terrain_2FECE.bhLin_0x2FF09;
+	for (int i = 0; i < 2; i++)to->str_2FECE.stubi[i] = from->terrain_2FECE.stubi[i];
+	to->str_2FECE.word_0x2FF0D = from->terrain_2FECE.bhFlt_0x2FF0D;
+	for (int i = 0; i < 2; i++)to->str_2FECE.stubj[i] = from->terrain_2FECE.stubj[i];
+	to->str_2FECE.word_0x2FF11 = from->terrain_2FECE.rkSte_0x2FF11;
+	for (int i = 0; i < 1022; i++)to->str_2FECE.stubk[i] = from->terrain_2FECE.stubk[i];
+	for (int i = 0; i < 1200; i++)to->str_2FECE.array_0x30311[i] = from->terrain_2FECE.array_0x30311[i];
+	to->str_2FECE.next_0x360D1 = from->terrain_2FECE.next_0x360D1;
+	for (int i = 0; i < 8; i++)to->str_2FECE.next_0x360D2[i] = from->terrain_2FECE.next_0x360D2[i];
+	for (int i = 0; i < 8; i++)to->str_2FECE.str_0x36442[i] = from->terrain_2FECE.str_0x36442[i];
 	for (int i = 0; i < 11; i++)
 	{
-		to->str_2FECE.array_0x3647A[i].str_0x3647A_byte_0 = from->str_2FECE.array_0x3647A[i].str_0x3647A_byte_0;
-		to->str_2FECE.array_0x3647A[i].str_0x3647A_byte_1 = from->str_2FECE.array_0x3647A[i].str_0x3647A_byte_1;
-		to->str_2FECE.array_0x3647A[i].str_0x3647A_2 = from->str_2FECE.array_0x3647A[i].str_0x3647A_2;
-		to->str_2FECE.array_0x3647A[i].str_0x3647C_4.axis = from->str_2FECE.array_0x3647A[i].str_0x3647C_4.axis;
+		to->str_2FECE.array_0x3647A[i].str_0x3647A_byte_0 = from->terrain_2FECE.array_0x3647A[i].index_0x3647A_0;
+		to->str_2FECE.array_0x3647A[i].str_0x3647A_byte_1 = from->terrain_2FECE.array_0x3647A[i].stage_0x3647A_1;
+		to->str_2FECE.array_0x3647A[i].str_0x3647A_2 = from->terrain_2FECE.array_0x3647A[i].str_0x3647A_2;
+		to->str_2FECE.array_0x3647A[i].str_0x3647C_4.axis = from->terrain_2FECE.array_0x3647A[i].str_0x3647C_4.axis;
 	}
 	to->str_0x364D2 = from->str_0x364D2;
 	to->word_0x3653E = from->word_0x3653E;
@@ -3991,8 +3991,8 @@ void Convert_to_shadow_D41A0_BYTESTR_0(type_D41A0_BYTESTR_0* from, type_shadow_D
 	}
 	for (int i = 0; i < 8; i++)to->struct_0x3659C[i] = from->struct_0x3659C[i];
 	for (int i = 0; i < 11; i++) {
-		to->array_0x365F4[i].str_0x3647A_byte_0 = from->array_0x365F4[i].str_0x3647A_byte_0;
-		to->array_0x365F4[i].str_0x3647A_byte_1 = from->array_0x365F4[i].str_0x3647A_byte_1;
+		to->array_0x365F4[i].str_0x3647A_byte_0 = from->array_0x365F4[i].index_0x3647A_0;
+		to->array_0x365F4[i].str_0x3647A_byte_1 = from->array_0x365F4[i].stage_0x3647A_1;
 		to->array_0x365F4[i].str_0x3647A_2 = from->array_0x365F4[i].str_0x3647A_2;
 		to->array_0x365F4[i].str_0x3647C_4.axis = from->array_0x365F4[i].str_0x3647C_4.axis;
 	}

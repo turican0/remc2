@@ -173,31 +173,31 @@ void GenerateLevelMap_43830(unsigned int a1, type_str_2FECE* a2x)//224830
 	//int32_t v3; // ST0C_4
 	//test_x_D41A0_BYTEARRAY_0();
 	//v2 = a2;
-	x_WORD_17B4E0 = a2x->word_0x2FEE5;
+	x_WORD_17B4E0 = a2x->seed_0x2FEE5;
 	//*(uint32_t*)(x_D41A0_BYTEARRAY_0 + 8) = *(uint32_t*)(a2 + 23);
-	D41A0_BYTESTR_0.dword_0x8 = a2x->word_0x2FEE5;
+	D41A0_BYTESTR_0.dword_0x8 = a2x->seed_0x2FEE5;
 	memset((void*)x_WORD_15B4E0_source, 0, 0x20000);
 	//v3 = *(uint16_t*)(v2 + 35);
-	sub_B5E70_decompress_terrain_map_level(x_WORD_17B4E0, a2x->word_0x2FEE9, a2x->word_0x2FEED, a2x->word_0x2FEF1);
+	sub_B5E70_decompress_terrain_map_level(x_WORD_17B4E0, a2x->offset_0x2FEE9, a2x->raise_0x2FEED, a2x->gnarl_0x2FEF1);
 
 	sub_44DB0_truncTerrainHeight();//225db0 //trunc and create
 
 	memset((void*)x_WORD_15B4E0_source, 0, 0x20000);
-	sub_44E40(a2x->word_0x2FEF5, a2x->word_0x2FEF9);//225e40 //add any fields
+	sub_44E40(a2x->river_0x2FEF5, a2x->lriver_0x2FEF9);//225e40 //add any fields
 
 	sub_45AA0_setMax4Tiles();//226aa0
 
-	sub_440D0(a2x->word_0x2FF01);//2250d0
+	sub_440D0(a2x->snLin_0x2FF01);//2250d0
 
-	sub_45060(a2x->word_0x2FF05, a2x->word_0x2FF09);//226060
+	sub_45060(a2x->snFlt_0x2FF05, a2x->bhLin_0x2FF09);//226060
 
 	sub_44320();//225320
 
-	sub_45210(a2x->word_0x2FF05, a2x->word_0x2FF09);//226210
+	sub_45210(a2x->snFlt_0x2FF05, a2x->bhLin_0x2FF09);//226210
 
-	sub_454F0(a2x->word_0x2FEFD, a2x->word_0x2FF11);//2264f0
+	sub_454F0(a2x->source_0x2FEFD, a2x->rkSte_0x2FF11);//2264f0
 
-	sub_45600(a2x->word_0x2FF0D);//226600
+	sub_45600(a2x->bhFlt_0x2FF0D);//226600
 
 	sub_43FC0();//224fc0
 	memset((void*)x_BYTE_10B4E0_terraintype, 0, 0x10000);
@@ -1746,7 +1746,7 @@ void sub_44D00()//225d00
 		{
 			indexx._axis_2d.x = (indexx._axis_2d.x & 3) + 28;
 		}
-		if (D41A0_BYTESTR_0.str_2FECE.MapType)
+		if (D41A0_BYTESTR_0.terrain_2FECE.MapType)
 		{
 			//index = 32 - (index & 0xff);
 			//v5 = (32 - (indexx._axis_2d.x)) + 32;
