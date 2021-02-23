@@ -310,100 +310,100 @@ uint8_t* LANG_BEGIN_BUFFER = 0;
 
 char* x_DWORD_D41BC_langbuffer; // fix it
 
-Pathstruct xasearchd_2bac30 = { "*SearchD\0",(uint8_t**)&SEARCH_BEGIN_BUFFER,&SEARCH_END_BUFFER,0x1000,NULL };
+Pathstruct xasearchd_2bac30 = { "*SearchD\0",(uint8_t**)&SEARCH_BEGIN_BUFFER,&SEARCH_END_BUFFER,0x1000,0 };
 //#define psxasearchd_2bac30 0
-Pathstruct xafonts0dat = { "DATA/FONT0.DAT\0",&FONTS0DAT_BEGIN_BUFFER,NULL,NULL,NULL };
+Pathstruct xafonts0dat = { "DATA/FONT0.DAT\0",&FONTS0DAT_BEGIN_BUFFER,NULL,0,0 };
 //#define psxafonts0dat 1
-Pathstruct xafonts0tab = { "DATA/FONT0.TAB\0",(uint8_t**)&FONTS0TAB_BEGIN_BUFFER,(uint8_t**)&FONTS0TAB_END_BUFFER,NULL,NULL };
+Pathstruct xafonts0tab = { "DATA/FONT0.TAB\0",(uint8_t**)&FONTS0TAB_BEGIN_BUFFER,(uint8_t**)&FONTS0TAB_END_BUFFER,0,0 };
 //#define psxafonts0tab 2
-Pathstruct xafonts1dat = { "DATA/FONT1.DAT\0",&FONTS1DAT_BEGIN_BUFFER,NULL,NULL,NULL };
+Pathstruct xafonts1dat = { "DATA/FONT1.DAT\0",&FONTS1DAT_BEGIN_BUFFER,NULL,0,0 };
 //#define psxafonts1dat 3
-Pathstruct xafonts1tab = { "DATA/FONT1.TAB\0",(uint8_t**)&FONTS1TAB_BEGIN_BUFFER,(uint8_t**)&FONTS1TAB_END_BUFFER,NULL,NULL };
+Pathstruct xafonts1tab = { "DATA/FONT1.TAB\0",(uint8_t**)&FONTS1TAB_BEGIN_BUFFER,(uint8_t**)&FONTS1TAB_END_BUFFER,0,0 };
 //#define psxafonts1tab 4
-Pathstruct xadatatmaps00tab = { "DATA/TMAPS0-0.TAB",(uint8_t**)&str_TMAPS00TAB_BEGIN_BUFFER,NULL,NULL,NULL };
+Pathstruct xadatatmaps00tab = { "DATA/TMAPS0-0.TAB",(uint8_t**)&str_TMAPS00TAB_BEGIN_BUFFER,NULL,0,0 };
 //#define psxadatatmaps00tab 5
-Pathstruct xapaldata = { "*PalData\0",(uint8_t**)&str_PALDATA_BEGIN_BUFFER,NULL,0x400,NULL };
+Pathstruct xapaldata = { "*PalData\0",(uint8_t**)&str_PALDATA_BEGIN_BUFFER,NULL,0x400,0 };
 //#define psxapaldata 6
-Pathstruct xapalmem = { "*PalMem\0",(uint8_t**)&str_PALMEM_BEGIN_BUFFER,NULL,NULL,NULL };
+Pathstruct xapalmem = { "*PalMem\0",(uint8_t**)&str_PALMEM_BEGIN_BUFFER,NULL,0,0 };
 //#define psxapalmem 7
-Pathstruct xadatapointersdat = { "DATA/POINTERS.DAT\0",&POINTERSDAT_BEGIN_BUFFER,NULL,NULL,NULL };
+Pathstruct xadatapointersdat = { "DATA/POINTERS.DAT\0",&POINTERSDAT_BEGIN_BUFFER,NULL,0,0 };
 //#define psxadatapointersdat 8
-Pathstruct xadatapointerstab = { "DATA/POINTERS.TAB\0",(uint8_t**)&POINTERSTAB_BEGIN_BUFFER,(uint8_t**)&POINTERSTAB_END_BUFFER,NULL,NULL };
+Pathstruct xadatapointerstab = { "DATA/POINTERS.TAB\0",(uint8_t**)&POINTERSTAB_BEGIN_BUFFER,(uint8_t**)&POINTERSTAB_END_BUFFER,0,0 };
 //#define psxadatapointerstab 9
-Pathstruct xazero = { "\0",NULL,NULL,NULL,NULL };
+Pathstruct xazero = { "\0",NULL,NULL,0,0 };
 //#define psxazero0 10
-Pathstruct xadatabuild00dat = { "DATA/BUILD0-0.DAT\0",&BUILD00DAT_BEGIN_BUFFER,NULL,NULL,NULL };
+Pathstruct xadatabuild00dat = { "DATA/BUILD0-0.DAT\0",&BUILD00DAT_BEGIN_BUFFER,NULL,0,0 };
 //#define psxadatabuild00dat 11
-Pathstruct xadatabuild00tab = { "DATA/BUILD0-0.TAB\0",(uint8_t**)&BUILD00TAB_BEGIN_BUFFER,(uint8_t**)&BUILD00TAB_END_BUFFER,NULL,NULL };
+Pathstruct xadatabuild00tab = { "DATA/BUILD0-0.TAB\0",(uint8_t**)&BUILD00TAB_BEGIN_BUFFER,(uint8_t**)&BUILD00TAB_END_BUFFER,0,0 };
 //#define psxadatabuild00tab 12
 //zero
 //#define psxazero1 13
-Pathstruct xadataetextdat = { "DATA/ETEXT.DAT\0",&ETEXT_BEGIN_BUFFER,NULL,NULL,NULL };
+Pathstruct xadataetextdat = { "DATA/ETEXT.DAT\0",&ETEXT_BEGIN_BUFFER,NULL,0,0 };
 //#define psxadataetextdat 14
 //zero
 //#define psxazero2 15
-Pathstruct xadataftextdat = { "DATA/FTEXT.DAT\0",&FTEXT_BEGIN_BUFFER,NULL,NULL,NULL };
+Pathstruct xadataftextdat = { "DATA/FTEXT.DAT\0",&FTEXT_BEGIN_BUFFER,NULL,0,0 };
 //#define psxadataftextdat 16
 //zero
 //#define psxazero3 17
-Pathstruct xadatagtextdat = { "DATA/GTEXT.DAT\0",&GTEXT_BEGIN_BUFFER,NULL,NULL,NULL };
+Pathstruct xadatagtextdat = { "DATA/GTEXT.DAT\0",&GTEXT_BEGIN_BUFFER,NULL,0,0 };
 //#define psxadatagtextdat 18
 //zero
 //#define psxazero4 19
-Pathstruct xadataitextdat = { "DATA/ITEXT.DAT\0",&ITEXT_BEGIN_BUFFER,NULL,NULL,NULL };
+Pathstruct xadataitextdat = { "DATA/ITEXT.DAT\0",&ITEXT_BEGIN_BUFFER,NULL,0,0 };
 //#define psxadataitextdat 20
 //zero
 //#define psxazero5 21
-Pathstruct xadatablock16dat = { "DATA/BLOCK16.DAT\0",&BLOCK16DAT_BEGIN_BUFFER,NULL,NULL,NULL };
+Pathstruct xadatablock16dat = { "DATA/BLOCK16.DAT\0",&BLOCK16DAT_BEGIN_BUFFER,NULL,0,0 };
 //#define psxadatablock16dat 22
-Pathstruct xadatablock32dat = { "DATA/BLOCK32.DAT\0",&BLOCK32DAT_BEGIN_BUFFER,NULL,NULL,NULL };
+Pathstruct xadatablock32dat = { "DATA/BLOCK32.DAT\0",&BLOCK32DAT_BEGIN_BUFFER,NULL,0,0 };
 //#define psxadatablock32dat 23
 //zero
 //#define psxazero6 24
-Pathstruct xabscreen = { "*BScreen\0",&BSCREEN_BEGIN_BUFFER,&BSCREEN_END_BUFFER,0x011508,NULL };
+Pathstruct xabscreen = { "*BScreen\0",&BSCREEN_BEGIN_BUFFER,&BSCREEN_END_BUFFER,0x011508,0 };
 //#define psxabscreen 25
-Pathstruct xadatapald0dat = { "DATA/PALD-0.DAT\0",&PALD0DAT_BEGIN_BUFFER,NULL,NULL,NULL };
+Pathstruct xadatapald0dat = { "DATA/PALD-0.DAT\0",&PALD0DAT_BEGIN_BUFFER,NULL,0,0 };
 //#define psxadatapald0dat 26
 //zero
 //#define psxazero7 27
-Pathstruct xawscreen_351628 = { "*WScreen\0",&WSCREEN_BEGIN_BUFFER,&WSCREEN_END_BUFFER,0x04b100,NULL };
+Pathstruct xawscreen_351628 = { "*WScreen\0",&WSCREEN_BEGIN_BUFFER,&WSCREEN_END_BUFFER,0x04b100,0 };
 //#define psxawscreen_351628 28
-Pathstruct xabscreen2 = { "*BScreen\0",&x_DWORD_E9C38_smalltit,&BSCREEN2_END_BUFFER,0x11170/*0x011508*/,NULL };
+Pathstruct xabscreen2 = { "*BScreen\0",&x_DWORD_E9C38_smalltit,&BSCREEN2_END_BUFFER,0x11170/*0x011508*/,0 };
 //#define psxabscreen2 29
 
-Pathstruct xadatapald0dat2 = { "DATA/PALD-0.DAT\0",&PALD0DAT2_BEGIN_BUFFER,NULL,NULL,NULL };
+Pathstruct xadatapald0dat2 = { "DATA/PALD-0.DAT\0",&PALD0DAT2_BEGIN_BUFFER,NULL,0,0 };
 //#define psxadatapald0dat2 30
 //zero
 //#define psxazero8 31
-Pathstruct xadatamsprd00dat = { "DATA/MSPRD0-0.DAT\0",&MSPRD00DAT_BEGIN_BUFFER,NULL,NULL,NULL };
+Pathstruct xadatamsprd00dat = { "DATA/MSPRD0-0.DAT\0",&MSPRD00DAT_BEGIN_BUFFER,NULL,0,0 };
 //#define psxadatamsprd00dat 32
-Pathstruct xadatamsprd00tab = { "DATA/MSPRD0-0.TAB\0",(uint8_t**)&MSPRD00TAB_BEGIN_BUFFER,(uint8_t**)&MSPRD00TAB_END_BUFFER,NULL,NULL };
+Pathstruct xadatamsprd00tab = { "DATA/MSPRD0-0.TAB\0",(uint8_t**)&MSPRD00TAB_BEGIN_BUFFER,(uint8_t**)&MSPRD00TAB_END_BUFFER,0,0 };
 //#define psxadatamsprd00tab 33
 //zero
 //#define psxazero9 34
-Pathstruct xadatahsprd00dat = { "DATA/HSPRD0-0.DAT\0",&HSPRD00DAT_BEGIN_BUFFER,NULL,NULL,NULL };
+Pathstruct xadatahsprd00dat = { "DATA/HSPRD0-0.DAT\0",&HSPRD00DAT_BEGIN_BUFFER,NULL,0,0 };
 //#define psxadatahsprd00dat 35
-Pathstruct xadatahsprd00tab = { "DATA/HSPRD0-0.TAB\0",(uint8_t**)&HSPRD00TAB_BEGIN_BUFFER,(uint8_t**)&HSPRD00TAB_END_BUFFER,NULL,NULL };
+Pathstruct xadatahsprd00tab = { "DATA/HSPRD0-0.TAB\0",(uint8_t**)&HSPRD00TAB_BEGIN_BUFFER,(uint8_t**)&HSPRD00TAB_END_BUFFER,0,0 };
 //#define psxadatahsprd00tab 36
-Pathstruct xadatahfont3dat = { "DATA/HFONT3.DAT\0",&HFONT3DAT_BEGIN_BUFFER,NULL,NULL,NULL };
+Pathstruct xadatahfont3dat = { "DATA/HFONT3.DAT\0",&HFONT3DAT_BEGIN_BUFFER,NULL,0,0 };
 //#define psxadatahfont3dat 37
-Pathstruct xadatahfont3tab = { "DATA/HFONT3.TAB\0",(uint8_t**)&HFONT3TAB_BEGIN_BUFFER,(uint8_t**)&HFONT3TAB_END_BUFFER,NULL,NULL };
+Pathstruct xadatahfont3tab = { "DATA/HFONT3.TAB\0",(uint8_t**)&HFONT3TAB_BEGIN_BUFFER,(uint8_t**)&HFONT3TAB_END_BUFFER,0,0 };
 //#define psxadatahfont3tab 38
 //zero
 //#define psxazero10 39
-Pathstruct xadataclrd0dat = { "DATA/CLRD-0.DAT\0",&CLRD0DAT_BEGIN_BUFFER,NULL,NULL,NULL };
+Pathstruct xadataclrd0dat = { "DATA/CLRD-0.DAT\0",&CLRD0DAT_BEGIN_BUFFER,NULL,0,0 };
 //#define psxadataclrd0dat 40
 //zero
 //#define psxazero11 41
-Pathstruct xadataspellsdatx = { "DATA/SPELLS.DAT\0",&SPELLS_BEGIN_BUFFER_ptr,NULL,NULL,NULL };
+Pathstruct xadataspellsdatx = { "DATA/SPELLS.DAT\0",&SPELLS_BEGIN_BUFFER_ptr,NULL,0,0 };
 //#define psxadataspellsdat 42
 //zero
 //#define psxazero12 43
-Pathstruct xadatalang = { "",(uint8_t**)&x_DWORD_D41BC_langbuffer,&LANG_BEGIN_BUFFER,NULL,NULL };
+Pathstruct xadatalang = { "",(uint8_t**)&x_DWORD_D41BC_langbuffer,&LANG_BEGIN_BUFFER,0,0 };
 //#define psxadatalangbuffer 44
 //zero
 //#define psxazero13 45
-Pathstruct xadatatables = { "",(uint8_t**)&x_DWORD_D41BC_langbuffer,&LANG_BEGIN_BUFFER,NULL,NULL };
+Pathstruct xadatatables = { "",(uint8_t**)&x_DWORD_D41BC_langbuffer,&LANG_BEGIN_BUFFER,0,0 };
 //#define psxadatalangbuffer2 46
 //zero
 //#define psxazero14 47
@@ -506,7 +506,7 @@ void qmemcpy(void* a, void* b, size_t c) {
 };
 
 //----- (0009D490) --------------------------------------------------------
-int sub_9D490_free4(void* a1, int a2)//27e490
+int sub_9D490_free4(void* a1, int  /*a2*/)//27e490
 {
 	int result; // eax
 
@@ -523,13 +523,13 @@ int sub_9D490_free4(void* a1, int a2)//27e490
 
 int x_free(void* ptr) { free(ptr); return 0; };
 
-void __writegsx_WORD(unsigned long Offset, unsigned short Data) { stub_fix_it(); };
-void __writegsx_DWORD(unsigned long Offset, unsigned long Data) { stub_fix_it(); };
-unsigned long __readgsx_DWORD(unsigned long Offset) { stub_fix_it(); return 0; };
-unsigned char __readgsx_BYTE(unsigned long Offset) { stub_fix_it(); return 0; };
-unsigned short __readgsx_WORD(unsigned long Offset) { stub_fix_it(); return 0; };
+void __writegsx_WORD(unsigned long  /*Offset*/, unsigned short  /*Data*/) { stub_fix_it(); };
+void __writegsx_DWORD(unsigned long  /*Offset*/, unsigned long  /*Data*/) { stub_fix_it(); };
+unsigned long __readgsx_DWORD(unsigned long  /*Offset*/) { stub_fix_it(); return 0; };
+unsigned char __readgsx_BYTE(unsigned long  /*Offset*/) { stub_fix_it(); return 0; };
+unsigned short __readgsx_WORD(unsigned long  /*Offset*/) { stub_fix_it(); return 0; };
 unsigned     int x__readeflags(void) { stub_fix_it(); return 0; };
-void x__writeeflags(unsigned Value) { stub_fix_it(); };
+void x__writeeflags(unsigned  /*Value*/) { stub_fix_it(); };
 unsigned int x__getcallerseflags(void) { stub_fix_it(); return 0; };
 
 x_DWORD dos_read(FILE*, char, x_DWORD, x_DWORD, x_DWORD) { stub_fix_it(); return 0; };// weak
@@ -641,7 +641,7 @@ signed int sub_9DE20_get_file_lenght(char* a1)//27ee20
 // A0855: using guessed type x_DWORD close(x_DWORD);
 // E3E2C: using guessed type int x_DWORD_E3E2C;
 
-FILE* x_open(char* path, int pmodex) {
+FILE* x_open(char* path, int  /*pmodex*/) {
 	return myopent(path, (char*)"rb");
 };
 
@@ -1298,7 +1298,7 @@ void sub_7C120_draw_bitmap_640(int16_t posx, int16_t posy, posistruct_t tempstr)
 }
 
 //----- (00076260) --------------------------------------------------------
-void sub_76260_read_intro_pallette(uint8_t a1)
+void sub_76260_read_intro_pallette(uint8_t  /*a1*/)
 {
 	TColor* v0x; // ebx
 	int v1; // esi
@@ -1546,7 +1546,7 @@ void sub_90478_VGA_Blit320()//271478
 
 		debugcounter_271478++;
 	}
-#endif DEBUG_SEQUENCES
+#endif //DEBUG_SEQUENCES
 	if (!x_BYTE_E3766)
 		sub_8CACD_draw_cursor2();
 #ifndef debug_hide_graphics
@@ -3528,7 +3528,7 @@ void sub_9874D_create_index_dattab_add(uint8_t* tabbuffer, uint8_t* tabbufferend
 }
 
 //----- (00099A77) --------------------------------------------------------
-void sub_99A77_create_index_dattab_div(uint8_t* tabbuffer, uint8_t* tabbufferend, uint8_t* datbuffer, posistruct_t* dattabindex)//280a77
+void sub_99A77_create_index_dattab_div(uint8_t* tabbuffer, uint8_t* tabbufferend, uint8_t*  /*datbuffer*/, posistruct_t* dattabindex)//280a77
 {
 	//uint32_t testadr = *(uint32_t*)tabbuffer;
 	/*if (testadr == 0x9999)
@@ -3554,7 +3554,7 @@ void sub_99A77_create_index_dattab_div(uint8_t* tabbuffer, uint8_t* tabbufferend
 }
 
 //----- (00099AEB) --------------------------------------------------------
-void sub_99AEB_create_index_dattab_minus(uint8_t* tabbuffer, uint8_t* tabbufferend, uint8_t* datbuffer, posistruct_t* dattabindex)//280aeb
+void sub_99AEB_create_index_dattab_minus(uint8_t* tabbuffer, uint8_t* tabbufferend, uint8_t*  /*datbuffer*/, posistruct_t* dattabindex)//280aeb
 {
 	//uint32_t testadr = *(uint32_t*)tabbuffer;
 	/*if (testadr == 0x9999)
@@ -3831,9 +3831,17 @@ void Convert_to_shadow_D41A0_BYTESTR_0(type_D41A0_BYTESTR_0* from, type_shadow_D
 	to->dword_0x23a = from->dword_0x23a;
 	to->dword_0x23e = from->dword_0x23e;
 	to->dword_0x242 = from->dword_0x242;
+#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
+  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << ", file " << __FILE__ << std::endl;
+#else
 	for (int i = 0; i < 0x3e8; i++)to->pointers_0x246[i] = (uint32_t)from->pointers_0x246[i];
+#endif
 	to->dword_0x11e6 = from->dword_0x11e6;
+#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
+  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << ", file " << __FILE__ << std::endl;
+#else
 	for (int i = 0; i < 0x3e8; i++)to->dword_0x11EA[i] = (uint32_t)from->dword_0x11EA[i];
+#endif
 	to->m_GameSettings = from->m_GameSettings;
 	to->dword_0x219A = from->dword_0x219A;
 	to->dword_0x219E = from->dword_0x219E;
@@ -3850,7 +3858,11 @@ void Convert_to_shadow_D41A0_BYTESTR_0(type_D41A0_BYTESTR_0* from, type_shadow_D
 	for (int i = 0; i < 8; i++)to->array_0x2BDE[i] = from->array_0x2BDE[i];
 	for (int i = 0; i < 8; i++)to->array_0x6E3E[i] = from->array_0x6E3E[i];
 	for (int i = 0; i < 0x3e8; i++) {
+#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
+  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << ", file " << __FILE__ << std::endl;
+#else
 		to->struct_0x6E8E[i].next_0 = (uint32_t)from->struct_0x6E8E[i].next_0;
+#endif
 		to->struct_0x6E8E[i].dword_0x4 = from->struct_0x6E8E[i].dword_0x4;
 		to->struct_0x6E8E[i].dword_0x8 = from->struct_0x6E8E[i].dword_0x8;
 		to->struct_0x6E8E[i].struct_byte_0xc_12_15 = from->struct_0x6E8E[i].struct_byte_0xc_12_15;
@@ -3908,8 +3920,12 @@ void Convert_to_shadow_D41A0_BYTESTR_0(type_D41A0_BYTESTR_0* from, type_shadow_D
 		to->struct_0x6E8E[i].word_0x96_150 = from->struct_0x6E8E[i].word_0x96_150;
 		to->struct_0x6E8E[i].word_0x98_152 = from->struct_0x6E8E[i].word_0x98_152;
 		to->struct_0x6E8E[i].word_0x9A_154x = from->struct_0x6E8E[i].word_0x9A_154x;
+#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
+  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << ", file " << __FILE__ << std::endl;
+#else
 		to->struct_0x6E8E[i].dword_0xA0_160x = (uint32_t)from->struct_0x6E8E[i].dword_0xA0_160x;
 		to->struct_0x6E8E[i].dword_0xA4_164x = (uint32_t)from->struct_0x6E8E[i].dword_0xA4_164x;
+#endif
 	}
 
 	to->str_2FECE.word_2FECE = from->str_2FECE.word_2FECE;
@@ -3982,7 +3998,11 @@ void Convert_to_shadow_D41A0_BYTESTR_0(type_D41A0_BYTESTR_0* from, type_shadow_D
 		to->str_0x3664C[i].byte_2 = from->str_0x3664C[i].byte_2;
 		to->str_0x3664C[i].byte_3 = from->str_0x3664C[i].byte_3;
 		to->str_0x3664C[i].axis3d_4 = from->str_0x3664C[i].axis3d_4;
+#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
+  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << ", file " << __FILE__ << std::endl;
+#else
 		to->str_0x3664C[i].dword_A = (uint32_t)from->str_0x3664C[i].dword_A;
+#endif
 		for (int j = 0; j < 25; j++)to->str_0x3664C[i].array_E[j] = from->str_0x3664C[i].array_E[j];
 	}
 	to->byte_0x36DEA_fly_asistant = from->byte_0x36DEA_fly_asistant;
@@ -3991,7 +4011,11 @@ void Convert_to_shadow_D41A0_BYTESTR_0(type_D41A0_BYTESTR_0* from, type_shadow_D
 	to->word_0x36DEE_mousey = from->word_0x36DEE_mousey;
 	to->word_0x36DF0_mousexx = from->word_0x36DF0_mousexx;
 	to->dword_0x36DF2 = from->dword_0x36DF2;
+#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
+  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << ", file " << __FILE__ << std::endl;
+#else
 	to->dword_0x36DF6 = (uint32_t)from->dword_0x36DF6;
+#endif
 	to->word_0x36DFA = from->word_0x36DFA;
 	to->word_0x36DFC = from->word_0x36DFC;
 	to->word_0x36DFE = from->word_0x36DFE;

@@ -102,7 +102,7 @@ bool file_exists(const char * filename) {
 	return false;
 }
 
-FILE* mycreate(char* path, uint32_t flags) {
+FILE* mycreate(char* path, uint32_t  /*flags*/) {
 	FILE *fp;
 	fp = fopen(path, "wb+");
 	#ifdef DEBUG_START
@@ -135,14 +135,14 @@ void debug_printf(const char* format, ...) {
 	}
 	else
 		debug_output = fopen(path.c_str(), "at");
-	fprintf(debug_output, prbuffer);
+	fprintf(debug_output, "%s", prbuffer);
 	fclose(debug_output);
 	#ifdef DEBUG_PRINT_DEBUG_TO_SCREEN
 		printf(prbuffer);
 	#endif
 }
 
-int32_t myaccess(char* path, uint32_t flags) {
+int32_t myaccess(char* path, uint32_t  /*flags*/) {
 	DIR *dir;
 	//char path2[2048] = "\0";
 	#ifdef DEBUG_FILEOPS
