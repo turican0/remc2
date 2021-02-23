@@ -57,11 +57,6 @@ void sub_8E160_sound_proc15_startsequence(__int16 track, unsigned __int8 volume)
 // x_DWORD sprintf(x_DWORD, const char *, ...); weak
 void sub_8E410_sound_proc16_xmidivolume(int32_t master_volume);
 int sub_8E470_sound_proc17_volume(int a1);
-void sub_8E7FC();
-__int16 sub_8E871();
-int sub_8E948();
-char sub_8E9EF();
-void /*__fastcall*/ sub_8EA7B(int a1, unsigned __int16 a2);
 signed int LoadMusic(int channel);
 void GetMusicSequenceCount();
 char LoadMusicTrack(FILE* file, unsigned __int8 drivernumber);

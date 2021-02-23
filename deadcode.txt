@@ -27,13 +27,10 @@ sub_76F40 removed
 sub_8E799 removed
 sub_8E7B7 removed
 sub_8E7D5 removed
-sub_8E871
-sub_8E948
-sub_8E9EF
-sub_8F023
-sub_8F023
-sub_8F023
-sub_8F023
+sub_8E871 removed
+sub_8E948 removed
+sub_8E9EF removed
+sub_8F023 removed
 sub_8F4B0 removed
 sub_98BAF_read_huftable removed
 sub_A0F06 removed
