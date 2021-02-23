@@ -9407,29 +9407,6 @@ char LoadMusicTrack(FILE* filehandle, uint8_t drivernumber)//26fd00
 // 180C78: using guessed type int x_DWORD_180C78;
 // 8ED00: using guessed type char var_5C[64];
 
-//----- (0008F023) --------------------------------------------------------
-int sub_8F023(FILE* a1x, int a2, unsigned int a3)//270023
-{
-	x_BYTE* v3; // eax
-	x_BYTE* v4; // edx
-	unsigned int i; // [esp+4h] [ebp-4h]
-
-	if (!x_DWORD_E387C)
-		return DataFileIO::Read(a1x, (uint8_t*)a2, a3);
-	for (i = 0; i < a3 && x_DWORD_E3888 + i < x_DWORD_E3884; i++)
-	{
-		v3 = (x_BYTE*)x_DWORD_E3880++;
-		v4 = (x_BYTE*)a2++;
-		*v4 = *v3;
-	}
-	x_DWORD_E3888 += a3;
-	return i;
-}
-// E387C: using guessed type int x_DWORD_E387C;
-// E3880: using guessed type int x_DWORD_E3880;
-// E3884: using guessed type int x_DWORD_E3884;
-// E3888: using guessed type int x_DWORD_E3888;
-
 //----- (0008F0AB) --------------------------------------------------------
 int sub_8F0AB(FILE* a1, /*int a2,*/ int a3)//26f0ab
 {
