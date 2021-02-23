@@ -16,6 +16,7 @@ _hook387 removed
 _sigfpe_handler removed
 _wcpp_1_unwind_leave__99 removed
 dos_read
+loc_A0000_vga_buffer
 nullsub_1
 sub_365F8
 sub_48930
@@ -23,6 +24,16 @@ sub_6FD30 removed
 sub_6FE90 removed
 sub_752C0 removed
 sub_76F40 removed
+sub_8E799 removed
+sub_8E7B7 removed
+sub_8E7D5 removed
+sub_8E871
+sub_8E948
+sub_8E9EF
+sub_8F023
+sub_8F023
+sub_8F023
+sub_8F023
 sub_8F4B0 removed
 sub_98BAF_read_huftable removed
 sub_A0F06 removed
@@ -33,15 +44,49 @@ sub_AC843 removed
 sub_AC8DD removed
 sub_AC918 removed
 sub_AD1E8 removed
+sub_AEF40
+sub_AEF51
+sub_AFB7E
+sub_AFB9F
 sub_B0D52 removed
 sub_B1C58 removed -
-sub_B20F2 removed
 sub_B1D8C removed
 sub_B1DC8
 sub_B1E11
+sub_B1E11
+sub_B1EB6 removed
+sub_B1EBC removed
+sub_B1EC2 removed
+sub_B1EC8 removed
+sub_B1ECE removed
+sub_B1ED6 removed
+sub_B1EDC removed
+sub_B1EE2 removed
+sub_B1EE8 removed
+sub_B1EF0 removed
+sub_B1EF8 removed
+sub_B1F00
+sub_B1F08 removed
+sub_B1F12 removed
+sub_B1F1C removed
+sub_B1F24 removed
+sub_B1F2C removed
+sub_B1F35 removed
+sub_B1F3E removed
+sub_B1F47 removed
+sub_B1F50 removed
+sub_B1F5B removed
+sub_B1F66 removed
+sub_B1F6F
+sub_B1FB5 removed
+sub_B1FD4
 sub_B1FF3 removed
+sub_B200F removed
+sub_B2069 removed
+sub_B2088 removed
 sub_B20A7 removed
 sub_B20E1 removed
+sub_B20F2 removed
 sub_B2103 removed
 sub_B2121
 sub_B2161 removed
@@ -57,6 +102,7 @@ sub_B2256 removed
 sub_B2275
 sub_B22AF removed
 sub_B22EB removed
+sub_B230F removed
 sub_B2332 removed
 sub_B2355 removed
 sub_B2375 removed
@@ -66,33 +112,39 @@ sub_B23DB removed
 sub_B23FE removed
 sub_B2421 removed
 sub_B2468
+sub_B2468
 sub_B24A6
 sub_B24BB
 sub_B24D9
 sub_B24EE
 sub_B2535
-sub_B2560
-sub_B256E
-sub_B258F
-sub_B25B0
-sub_B25CE
-sub_B25EC
-sub_B260D
-sub_B262E
-sub_B264F
-sub_B2670
-sub_B26AC
-sub_B26F4
-sub_B2729
-sub_B2768
-sub_B2791
-sub_B27BE
-sub_B27D3
-sub_B27E8
-sub_B27FA
-sub_B280C
-sub_B2821
-sub_B2836
+sub_B2560 removed
+sub_B256E removed
+sub_B258F removed
+sub_B25B0 removed
+sub_B25CE removed
+sub_B25EC removed
+sub_B260D removed
+sub_B262E removed
+sub_B264F removed
+sub_B2670 removed
+sub_B26AC removed
+sub_B26F4 removed
+sub_B2729 removed
+sub_B2768 removed
+sub_B2791 removed
+sub_B27BE removed
+sub_B27D3 removed
+sub_B27E8 removed
+sub_B27FA removed
+sub_B280C removed
+sub_B2821 removed
+sub_B2836 removed
+sub_B284B removed
+sub_B2860 removed
+sub_B28A8 removed
+sub_B2912 removed
+sub_B2951 removed
 sub_B2B6C removed
 sub_B2F8A
 sub_B336E
@@ -100,12 +152,17 @@ sub_B337C
 sub_B33A6
 sub_B33D6
 sub_B3542
+sub_B3542
 sub_B35DB
+sub_B35DB
+sub_B35DB
+sub_B3605
 sub_B3605
 sub_B37B0
 sub_B37DA
 sub_B392B
 sub_B3930
+sub_B399A
 sub_B399A
 sub_B39AB
 sub_B39E0
@@ -113,6 +170,9 @@ sub_B3A60
 sub_B3A60
 sub_B3ADF
 sub_B3ADF
+sub_B3BA6
+sub_B3BA6
+sub_B3BA6
 sub_B3BA6
 sub_B3BA6
 sub_B3C6B
@@ -129,49 +189,3 @@ x__sidt
 x__writecr0
 x_setmode
 x_write2
-sub_B2088 removed
-sub_B3BA6
-sub_B35DB
-sub_B2069 removed
-sub_B3BA6
-sub_B35DB
-sub_B399A
-sub_B200F removed
-sub_B3BA6
-sub_B3542
-sub_B1E11
-loc_A0000_vga_buffer
-sub_AEF40
-sub_AEF51
-sub_AFB7E
-sub_AFB9F
-sub_B1EB6
-sub_B1EBC
-sub_B1EC2
-sub_B1EC8
-sub_B1ED6
-sub_B1EDC
-sub_B1EE2
-sub_B1EE8
-sub_B1EF0
-sub_B1EF8
-sub_B1F00
-sub_B1F12 removed
-sub_B1F1C removed
-sub_B1F24 removed
-sub_B1F2C removed
-sub_B1F35 removed
-sub_B1F3E removed
-sub_B1F47 removed
-sub_B1F5B removed
-sub_B1F66 removed
-sub_B1F6F
-sub_B1ECE
-sub_B1F08 removed
-sub_B1F50 removed
-sub_B1FB5 removed
-sub_B230F removed
-sub_B2468
-sub_B256E
-sub_B2670
-sub_B1FD4

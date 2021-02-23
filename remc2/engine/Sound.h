@@ -57,11 +57,6 @@ void sub_8E160_sound_proc15_startsequence(__int16 track, unsigned __int8 volume)
 // x_DWORD sprintf(x_DWORD, const char *, ...); weak
 void sub_8E410_sound_proc16_xmidivolume(int32_t master_volume);
 int sub_8E470_sound_proc17_volume(int a1);
-__int16 sub_8E673();
-__int16 sub_8E736();
-int sub_8E799();
-int sub_8E7B7();
-int sub_8E7D5();
 void sub_8E7FC();
 __int16 sub_8E871();
 int sub_8E948();
