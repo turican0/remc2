@@ -214,6 +214,7 @@
     <ClCompile Include="..\engine\Animation.cpp" />
     <ClCompile Include="..\engine\Basic.cpp" />
     <ClCompile Include="..\engine\engine_support.cpp" />
+    <ClCompile Include="..\engine\engine_support_converts.cpp" />
     <ClCompile Include="..\engine\read_config.cpp" />
     <ClCompile Include="..\engine\Sound.cpp" />
     <ClCompile Include="..\engine\Terrain.cpp" />

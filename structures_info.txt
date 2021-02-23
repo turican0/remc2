@@ -1,0 +1,43 @@
+types of entites
+0 - flying worm
+1 - goat
+2 - bee
+3 - worm
+4 - archer1
+6 -
+7 -
+8 -
+9 - archer2
+10 -
+11 -
+12 - villiger1
+13 - villiger2(stadart)
+14 - villiger3(with bag)
+15 - exploded humans(with hair flag)
+16 - little dragon
+17 - strong leon creature
+18 - head
+19 - light beatle
+20 - spider
+21 - skiping diablos
+22 - flying mana
+23 - ballons
+24 -
+25 - flying creatures
+26 - mumie
+27 - big dragon
+28 - mana
+29 -
+30 -
+
+fix entites:
+0-8
+- tree
+- statue1
+- stonehange
+- statue2
+- small carpet1
+- small carpet2
+- sud
+- vase
+

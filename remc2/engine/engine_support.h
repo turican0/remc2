@@ -194,7 +194,7 @@ typedef union {
 }
 uaxis_2d;
 
-typedef struct {
+typedef struct {//lenght 10
 	int8_t str_0x6E3E_byte0;//0x6E3E-28222//D41A0_BYTESTR_0.array_0x6E3E[xx].str_0x6E3E_byte0
 	int8_t str_0x6E3E_byte1;//0x6E3F-28223
 	int8_t str_0x6E3E_byte2;//0x6E40-28224
@@ -1032,8 +1032,8 @@ un1;
 
 typedef struct {//lenght 8
 	//uint8_t byte_0;//array_0x36479
-	int8_t str_0x3647A_byte_0;//array_0x3647a
-	int8_t str_0x3647A_byte_1;//array_0x3647b
+	int8_t index_0x3647A_0;//array_0x3647a
+	int8_t stage_0x3647A_1;//array_0x3647b
 	uaxis_2d str_0x3647A_2;//array_0x3647c//str_0x3647A_2.word
 	un1 str_0x3647C_4;//array_0x3647e
 	/*
@@ -1090,9 +1090,9 @@ typedef struct {//lenght 20
 type_str_0x30310;*/
 typedef struct {//lenght 20
 	//uint8_t byte_0;//type_str_0x30310//type_str_0x30324
-	uint16_t str_0x30311_type;//type_str_0x30311//type_str_0x30325//1091
+	uint16_t type_0x30311;//type_str_0x30311//type_str_0x30325//1091
 	//uint8_t byte_1;//type_str_0x30312//type_str_0x30326
-	int16_t str_0x30311_subtype;//type_str_0x30313//type_str_0x30327//1091
+	int16_t subtype_0x30311;//type_str_0x30313//type_str_0x30327//1091
 	//uint8_t byte_4;//type_str_0x30314//type_str_0x30328
 	//axis_3d axis3d_4;//type_str_0x30315//type_str_0x30329
 	axis_2du axis2d_4;
@@ -1103,16 +1103,16 @@ typedef struct {//lenght 20
 	//uint16_t word_8;//type_str_0x30319//type_str_0x3032d
 	uint16_t word_10;//type_str_0x3031b//type_str_0x3032f
 	//uint8_t byte_11;//type_str_0x3031c//type_str_0x30330
-	uint16_t word_12;//type_str_0x3031d//type_str_0x30331
+	uint16_t sTag_12;//type_str_0x3031d//type_str_0x30331
 	//uint8_t byte_13;//type_str_0x3031e//type_str_0x30332
 	uint16_t word_14;//type_str_0x3031f//type_str_0x30333//1105
 	//uint8_t byte_15;//type_str_0x30320//type_str_0x30334
-	uint16_t word_16;//type_str_0x30321//type_str_0x30335
+	uint16_t parent_16;//type_str_0x30321//type_str_0x30335
 	//uint8_t byte_17;//type_str_0x30322//type_str_0x30336
-	uint16_t word_18;//type_str_0x30323//type_str_0x30337
+	uint16_t child_18;//type_str_0x30323//type_str_0x30337
 	//uint8_t byte_19;//type_str_0x30324//type_str_0x30338
 }
-type_str_0x30311;
+type_entity_0x30311;
 
 /*
 typedef struct {//lenght 20
@@ -1226,8 +1226,8 @@ type_str_0x360D2;
 //9 - destroy building - must fix entites
 
 typedef struct {
-	int8_t byte_0;
-	int16_t word_1;//25973//word_0
+	int8_t index_0;
+	int16_t stage_1;//25973//word_0
 	axis_2d _axis_2d;
 	//int16_t word_3;//25975//word_2
 	//int16_t word_5; //25977//word_4
@@ -1247,32 +1247,32 @@ typedef struct {//lenght 0x6604u
 	uint8_t MapType;//x_D41A0_BYTEARRAY_0[196308]//GraphicsType
 	int16_t word_0x2FED5;
 	int16_t word_0x2FED7;
-	int8_t array_0x2FED9[8];
+	int8_t player_0x2FED9[8];
 	uint8_t stubb[4];
-	uint16_t word_0x2FEE5;//2FEE5//23
+	uint16_t seed_0x2FEE5;//2FEE5//23
 	uint8_t stubb2[2];
-	uint16_t word_0x2FEE9;//2FEE9//27 //first seed position
+	uint16_t offset_0x2FEE9;//2FEE9//27 //first seed position
 	uint8_t stubc[2];
-	uint16_t word_0x2FEED;//2FEED//31 //first seed height
+	uint16_t raise_0x2FEED;//2FEED//31 //first seed height
 	uint8_t stubc2[2];
-	uint16_t word_0x2FEF1;//2FEF1//35 //random seed
+	uint16_t gnarl_0x2FEF1;//2FEF1//35 //random seed
 	uint8_t stubc3[2];
-	uint32_t word_0x2FEF5;//2FEF5//39
-	uint16_t word_0x2FEF9;//2FEF9//43
+	uint32_t river_0x2FEF5;//2FEF5//39
+	uint16_t lriver_0x2FEF9;//2FEF9//43
 	uint8_t stube[2];
-	uint16_t word_0x2FEFD;//2FEFD//47
+	uint16_t source_0x2FEFD;//2FEFD//47
 	uint8_t stubf[2];
-	uint16_t word_0x2FF01;//2FF01//51
+	uint16_t snLin_0x2FF01;//2FF01//51
 	uint8_t stubg[2];
-	uint16_t word_0x2FF05;//2FF05//55
+	uint16_t snFlt_0x2FF05;//2FF05//55
 	uint8_t stubh[2];
-	uint16_t word_0x2FF09;//2FF09//59
+	uint16_t bhLin_0x2FF09;//2FF09//59
 	uint8_t stubi[2];
-	uint16_t word_0x2FF0D;//2FF0D//63
+	uint16_t bhFlt_0x2FF0D;//2FF0D//63
 	uint8_t stubj[2];
-	uint16_t word_0x2FF11;//2FF11//67
+	uint16_t rkSte_0x2FF11;//2FF11//67
 	uint8_t stubk[1022];
-	type_str_0x30311 array_0x30311[0x4b0];//end(next entity) - 0x360d1
+	type_entity_0x30311 array_0x30311[0x4b0];//end(next entity) - 0x360d1
 	uint8_t next_0x360D1;
 	type_str_0x360D2 next_0x360D2[8];//lenght 110  /spells?
 	type_str_0x36442 str_0x36442[8];//stages(checkpoints)
@@ -1324,7 +1324,7 @@ typedef struct {//lenght 0x6604u
 	uint8_t stubj[2];
 	uint16_t word_0x2FF11;//2FF11//67
 	uint8_t stubk[1022];
-	type_str_0x30311 array_0x30311[1200];//end(next entity) - 0x360d1
+	type_entity_0x30311 array_0x30311[1200];//end(next entity) - 0x360d1
 	uint8_t next_0x360D1;
 	type_str_0x360D2 next_0x360D2[8];//lenght 110  /spells?
 	type_str_0x36442 str_0x36442[8];//stages(checkpoints)
@@ -1334,7 +1334,7 @@ typedef struct {//lenght 0x6604u
 typedef union {
 	int32_t dword;
 	uint16_t* ptr16u;
-	type_str_0x30311* ptr0x30311;
+	type_entity_0x30311* ptr0x30311;
 	type_str_0x6E8E* ptr0x6E8E;
 }
 un_str_36552;
@@ -1568,7 +1568,7 @@ typedef struct {//lenght 224791
 	type_str_0x2BDE array_0x2BDE[0x8];
 	type_str_0x6E3E array_0x6E3E[8];//28222	lenght 0xa size 0x8// game events
 	type_str_0x6E8E struct_0x6E8E[0x3e8];//28302 a8*3e8
-	type_str_2FECE str_2FECE;// a1 = &x_D41A0_BYTEARRAY_0[0x2FECE/*196302*/];//fix - size 0x6604u//compress level
+	type_str_2FECE terrain_2FECE;// a1 = &x_D41A0_BYTEARRAY_0[0x2FECE/*196302*/];//fix - size 0x6604u//compress level
 	type_str_0x364D2 str_0x364D2;//lenght 108
 	int16_t word_0x3653E;//
 	int16_t word_0x36540;//
