@@ -57,24 +57,12 @@ void sub_8E160_sound_proc15_startsequence(__int16 track, unsigned __int8 volume)
 // x_DWORD sprintf(x_DWORD, const char *, ...); weak
 void sub_8E410_sound_proc16_xmidivolume(int32_t master_volume);
 int sub_8E470_sound_proc17_volume(int a1);
-__int16 sub_8E673();
-__int16 sub_8E736();
-int sub_8E799();
-int sub_8E7B7();
-int sub_8E7D5();
-void sub_8E7FC();
-__int16 sub_8E871();
-int sub_8E948();
-char sub_8E9EF();
-void /*__fastcall*/ sub_8EA7B(int a1, unsigned __int16 a2);
 signed int LoadMusic(int channel);
 void GetMusicSequenceCount();
 char LoadMusicTrack(FILE* file, unsigned __int8 drivernumber);
-int sub_8F023(FILE* a1x, int a2, unsigned int a3);
 int sub_8F0AB(FILE* a1, /*int a2,*/ int a3);
 void sub_8F100_sound_proc19(uint32_t a1, __int16 a2, int a3, int a4, unsigned __int16 a5, char a6, unsigned __int8 a7);
 void sub_8F420_sound_proc20(int a1, __int16 a2);
-int sub_8F4B0(); // weak
 void sub_8F710_sound_proc21(int a1, __int16 a2, signed int a3, unsigned __int8 a4, char a5);
 void sub_8F850_sound_proc22();
 
@@ -192,7 +180,6 @@ VDI_CALL sub_9F6D0(int* a1, __int16 a2);
 
 void sub_A0EEC_s_plus2();
 void sub_A0EF9_s_minus2();
-// int sub_A0F06(int a1, int a2, int a3, int a4, int a5, int a6, int a7);
 char sub_A102C(int a1);
 char sub_A105C(unsigned int a1);
 void sub_A108F();
