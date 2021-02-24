@@ -484,7 +484,7 @@ void convert_struct_to_array_0x30311(type_entity_0x30311* input, uint8_t* output
 	//uint16_t word_10;//type_str_0x3031b//type_str_0x3032f
 	memcpy(output + 10, &input->word_10, 2);
 	//uint16_t word_12;//type_str_0x3031d//type_str_0x30331
-	memcpy(output + 12, &input->sTag_12, 2);
+	memcpy(output + 12, &input->stageTag_12, 2);
 	//uint16_t word_14;//type_str_0x3031f//type_str_0x30333//1105
 	memcpy(output + 14, &input->word_14, 2);
 	//uint16_t word_16;//type_str_0x30321//type_str_0x30335

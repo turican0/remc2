@@ -53402,7 +53402,7 @@ void sub_49090(type_str_2FECE* a1x, type_entity_0x30311* a2x)//22a090
 			if (v3 != a2x->subtype_0x30311)
 				break;
 			v6 = v2x->parent_16;
-			v2x->sTag_12 = 0;
+			v2x->stageTag_12 = 0;
 			if (!v6)
 				break;
 			v7 = v2x->axis2d_4.y;
@@ -53767,7 +53767,7 @@ void sub_49540(type_str_2FECE* a1x, type_entity_0x30311* a2x)//22a540
 	}*/
 	if ((v2 == 0x1Cu) || (v2 == 0x1Du) || (v2 == 0x1Fu) || (v2 == 0x32u) || (v2 == 0x50u))
 	{
-		if (a2x->sTag_12)//only 1c,1d,1f, 32 and 50
+		if (a2x->stageTag_12)//only 1c,1d,1f, 32 and 50
 			sub_49090(a1x, a2x);
 		return;
 	}
@@ -53905,7 +53905,7 @@ void sub_49830(type_str_2FECE* a1x)//22a830 //set v1x->word_12
 					goto LABEL_13;
 				}*/
 				if ((v3 == 0x1c) || (v3 == 0x1d) || (v3 == 0x1f) || (v3 == 0x32) || (v3 == 0x50))
-					v1x->sTag_12 = 1;
+					v1x->stageTag_12 = 1;
 			}
 			//LABEL_13:
 			v1x++;
@@ -59428,7 +59428,7 @@ debugcounter_22b310++;*/
 				}
 				if (v4 <= 4u)
 				{
-					v2x->word_0x1A_26 = a1x->sTag_12;
+					v2x->word_0x1A_26 = a1x->stageTag_12;
 					sub_49EA0(v2x, a1x->word_10 << 8, a1x->word_10 << 8);
 					sub_49A20_remove_event(v3x);
 					sub_58DA0(a1x, v3x);
@@ -59479,8 +59479,8 @@ debugcounter_22b310++;*/
 				}
 				else if (v4 <= 0x36u)
 				{
-					v3x->dword_0x10_16 = (a1x->sTag_12 << 8) * (a1x->sTag_12 << 8);
-					v5 = 8 * a1x->sTag_12 + 16;
+					v3x->dword_0x10_16 = (a1x->stageTag_12 << 8) * (a1x->stageTag_12 << 8);
+					v5 = 8 * a1x->stageTag_12 + 16;
 					v3x->dword_0x4 = v5;
 					if (v5 < 128)
 						v3x->dword_0x4 = 128;
@@ -59583,7 +59583,7 @@ debugcounter_22b310++;*/
 		sub_58DA0(a1x, v3x);
 		return;
 	case 0xB:
-		indexx->word_0x1A_26 = a1x->sTag_12;
+		indexx->word_0x1A_26 = a1x->stageTag_12;
 		if (indexx->byte_0x40_64 == 32)
 			indexx->byte_0x46_70 = a1x->word_14;
 		else
@@ -59594,8 +59594,8 @@ debugcounter_22b310++;*/
 		return;
 	case 0xC:
 	case 0xF:
-		indexx->byte_0x45_69 += a1x->sTag_12;
-		if (a1x->sTag_12 < 3u)
+		indexx->byte_0x45_69 += a1x->stageTag_12;
+		if (a1x->stageTag_12 < 3u)
 		{
 			sub_58DA0(a1x, v3x);
 			return;

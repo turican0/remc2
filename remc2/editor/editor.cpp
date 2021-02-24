@@ -976,7 +976,7 @@ static void terrain_feat_append(kiss_textbox* textbox, kiss_vscrollbar* vscrollb
 	for (int i = first_terrain_feature; i < 0x4B0; i++)
 	{
 		type_entity_0x30311 actfeat = temparray_0x30311[i];//D41A0_BYTESTR_0.str_2FECE.array_0x30311[first_terrain_feature + i];
-		sprintf(temp, "%03X|%04X|%04X|%04X|%04X|%04X|%04X|%04X|%04X|%04X|%04XNA", i,actfeat.type_0x30311, actfeat.subtype_0x30311, actfeat.axis2d_4.x, actfeat.axis2d_4.y, actfeat.DisId, actfeat.word_10, actfeat.sTag_12, actfeat.word_14, actfeat.parent_16, actfeat.child_18);		
+		sprintf(temp, "%03X|%04X|%04X|%04X|%04X|%04X|%04X|%04X|%04X|%04X|%04XNA", i,actfeat.type_0x30311, actfeat.subtype_0x30311, actfeat.axis2d_4.x, actfeat.axis2d_4.y, actfeat.DisId, actfeat.word_10, actfeat.stageTag_12, actfeat.word_14, actfeat.parent_16, actfeat.child_18);		
 		if(temparray_0x30311_inactive[i])temp[strlen(temp) - 1] = 'I';//set last char as inactive
 		if(temparray_0x30311_selected[i])temp[strlen(temp) - 2] = 'S';//set last char as inactive
 		kiss_array_appendstring(textbox->array, 0, (char*)"", temp);
@@ -1197,7 +1197,7 @@ static void button_savelevelcsv_event(kiss_button* button, SDL_Event* e, int* dr
 		for (int i = 0; i < 0x4B0; i++)
 		{
 			type_entity_0x30311 actfeat = temparray_0x30311[i];//D41A0_BYTESTR_0.str_2FECE.array_0x30311[first_terrain_feature + i];
-			fprintf(file, "0x%03X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X\n", i, actfeat.type_0x30311, actfeat.subtype_0x30311, actfeat.axis2d_4.x, actfeat.axis2d_4.y, actfeat.DisId, actfeat.word_10, actfeat.sTag_12, actfeat.word_14, actfeat.parent_16, actfeat.child_18);			
+			fprintf(file, "0x%03X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X\n", i, actfeat.type_0x30311, actfeat.subtype_0x30311, actfeat.axis2d_4.x, actfeat.axis2d_4.y, actfeat.DisId, actfeat.word_10, actfeat.stageTag_12, actfeat.word_14, actfeat.parent_16, actfeat.child_18);			
 		}
 		fclose;
 	}//*quit = 1;
@@ -1277,12 +1277,17 @@ static void button_selectcheck_event(kiss_button* button, SDL_Event* e, int* dra
 
 
 kiss_image img_creature;
+kiss_image img_type02_00;
+kiss_image img_type02_01;
+kiss_image img_type02_02;
+kiss_image img_type02_03;
 kiss_image img_type05_01;
 kiss_image img_type05_02;
 kiss_image img_type05_03;
 kiss_image img_type05_04;
 kiss_image img_type05_09;
 kiss_image img_type05_0D;
+kiss_image img_type05_11;
 kiss_image img_type05_13;
 
 kiss_image img_type0A_01;
@@ -1305,6 +1310,19 @@ static void button_selectsubtype_event(kiss_button* button,kiss_button* buttons,
 	{
 		switch (*(int16_t*)hex4edit1feat.valueadress)
 		{
+		case 2:
+		{
+			window_selectsubtype.visible = 1;
+			window2.focus = 0;
+			window_selectsubtype.focus = 1;
+			max_subtype_buttons = 0x14;
+			for (int i = 0; i < max_subtype_buttons; i++) { buttons[i].normalimg = img_none; buttons[i].prelightimg = img_none; buttons[i].activeimg = img_none; }
+			buttons[0x00].normalimg = img_type02_00; buttons[0x00].prelightimg = img_type02_00; buttons[0x00].activeimg = img_type02_00;
+			buttons[0x01].normalimg = img_type02_01; buttons[0x01].prelightimg = img_type02_01; buttons[0x01].activeimg = img_type02_01;
+			buttons[0x02].normalimg = img_type02_02; buttons[0x02].prelightimg = img_type02_02; buttons[0x02].activeimg = img_type02_02;
+			buttons[0x03].normalimg = img_type02_03; buttons[0x03].prelightimg = img_type02_03; buttons[0x03].activeimg = img_type02_03;
+			break;
+		}
 		case 5:		
 		{
 			window_selectsubtype.visible = 1;
@@ -1316,8 +1334,9 @@ static void button_selectsubtype_event(kiss_button* button,kiss_button* buttons,
 			buttons[0x02].normalimg = img_type05_02; buttons[0x02].prelightimg = img_type05_02; buttons[0x02].activeimg = img_type05_02;
 			buttons[0x03].normalimg = img_type05_03; buttons[0x03].prelightimg = img_type05_03; buttons[0x03].activeimg = img_type05_03;
 			buttons[0x04].normalimg = img_type05_04; buttons[0x04].prelightimg = img_type05_04; buttons[0x04].activeimg = img_type05_04;
-			buttons[0x09].normalimg = img_type05_09; buttons[0x09].prelightimg = img_type05_09; buttons[0x09].activeimg = img_type05_09;
+			buttons[0x09].normalimg = img_type05_09; buttons[0x09].prelightimg = img_type05_09; buttons[0x09].activeimg = img_type05_09;			
 			buttons[0x0D].normalimg = img_type05_0D; buttons[0x0D].prelightimg = img_type05_0D; buttons[0x0D].activeimg = img_type05_0D;
+			buttons[0x11].normalimg = img_type05_11; buttons[0x11].prelightimg = img_type05_11; buttons[0x11].activeimg = img_type05_11;
 			buttons[0x13].normalimg = img_type05_13; buttons[0x13].prelightimg = img_type05_13; buttons[0x13].activeimg = img_type05_13;
 			
 			break;
@@ -1433,7 +1452,7 @@ static int button_add_event(kiss_button* button, SDL_Event* e,	int* quit, int* d
 		kiss_hex4edit_update_adress(&hex4edit4feat, &temparray_0x30311[edited_line_old + 1].axis2d_4.y);
 		kiss_hex4edit_update_adress(&hex4edit5feat, &temparray_0x30311[edited_line_old + 1].DisId);
 		kiss_hex4edit_update_adress(&hex4edit6feat, &temparray_0x30311[edited_line_old + 1].word_10);
-		kiss_hex4edit_update_adress(&hex4edit7feat, &temparray_0x30311[edited_line_old + 1].sTag_12);
+		kiss_hex4edit_update_adress(&hex4edit7feat, &temparray_0x30311[edited_line_old + 1].stageTag_12);
 		kiss_hex4edit_update_adress(&hex4edit8feat, &temparray_0x30311[edited_line_old + 1].word_14);
 		kiss_hex4edit_update_adress(&hex4edit9feat, &temparray_0x30311[edited_line_old + 1].parent_16);
 		kiss_hex4edit_update_adress(&hex4edit10feat, &temparray_0x30311[edited_line_old + 1].child_18);
@@ -1455,7 +1474,7 @@ static int button_clean_event(kiss_button* button, SDL_Event* e, int* quit, int*
 		kiss_hex4edit_update_adress(&hex4edit4feat, &temparray_0x30311[edited_line_old + 1].axis2d_4.y);
 		kiss_hex4edit_update_adress(&hex4edit5feat, &temparray_0x30311[edited_line_old + 1].DisId);
 		kiss_hex4edit_update_adress(&hex4edit6feat, &temparray_0x30311[edited_line_old + 1].word_10);
-		kiss_hex4edit_update_adress(&hex4edit7feat, &temparray_0x30311[edited_line_old + 1].sTag_12);
+		kiss_hex4edit_update_adress(&hex4edit7feat, &temparray_0x30311[edited_line_old + 1].stageTag_12);
 		kiss_hex4edit_update_adress(&hex4edit8feat, &temparray_0x30311[edited_line_old + 1].word_14);
 		kiss_hex4edit_update_adress(&hex4edit9feat, &temparray_0x30311[edited_line_old + 1].parent_16);
 		kiss_hex4edit_update_adress(&hex4edit10feat, &temparray_0x30311[edited_line_old + 1].child_18);
@@ -2020,6 +2039,30 @@ int main_x(/*int argc, char** argv*/)
 	img_search.magic = KISS_MAGIC;
 	img_search.image = IMG_LoadTexture(editor_renderer, path2);
 
+	FixDir(path2, (char*)"kiss\\type02-00-tree.png");
+	img_type02_00.w = 32;
+	img_type02_00.h = 32;
+	img_type02_00.magic = KISS_MAGIC;
+	img_type02_00.image = IMG_LoadTexture(editor_renderer, path2);
+
+	FixDir(path2, (char*)"kiss\\type02-03-badstone.png");
+	img_type02_01.w = 32;
+	img_type02_01.h = 32;
+	img_type02_01.magic = KISS_MAGIC;
+	img_type02_01.image = IMG_LoadTexture(editor_renderer, path2);
+
+	FixDir(path2, (char*)"kiss\\type02-02-stonehange.png");
+	img_type02_02.w = 32;
+	img_type02_02.h = 32;
+	img_type02_02.magic = KISS_MAGIC;
+	img_type02_02.image = IMG_LoadTexture(editor_renderer, path2);
+
+	FixDir(path2, (char*)"kiss\\type02-03-badstone.png");
+	img_type02_03.w = 32;
+	img_type02_03.h = 32;
+	img_type02_03.magic = KISS_MAGIC;
+	img_type02_03.image = IMG_LoadTexture(editor_renderer, path2);
+
 	FixDir(path2, (char*)"kiss\\type05-01-goat.png");
 	img_type05_01.w = 32;
 	img_type05_01.h = 32;
@@ -2050,17 +2093,23 @@ int main_x(/*int argc, char** argv*/)
 	img_type05_09.magic = KISS_MAGIC;
 	img_type05_09.image = IMG_LoadTexture(editor_renderer, path2);
 
-	FixDir(path2, (char*)"kiss\\type05-13-fly.png");
-	img_type05_13.w = 32;
-	img_type05_13.h = 32;
-	img_type05_13.magic = KISS_MAGIC;
-	img_type05_13.image = IMG_LoadTexture(editor_renderer, path2);
-
 	FixDir(path2, (char*)"kiss\\type05-0D-townie.png");
 	img_type05_0D.w = 32;
 	img_type05_0D.h = 32;
 	img_type05_0D.magic = KISS_MAGIC;
 	img_type05_0D.image = IMG_LoadTexture(editor_renderer, path2);
+
+	FixDir(path2, (char*)"kiss\\type05-11-leon.png");
+	img_type05_11.w = 32;
+	img_type05_11.h = 32;
+	img_type05_11.magic = KISS_MAGIC;
+	img_type05_11.image = IMG_LoadTexture(editor_renderer, path2);
+
+	FixDir(path2, (char*)"kiss\\type05-13-fly.png");
+	img_type05_13.w = 32;
+	img_type05_13.h = 32;
+	img_type05_13.magic = KISS_MAGIC;
+	img_type05_13.image = IMG_LoadTexture(editor_renderer, path2);	
 
 	FixDir(path2, (char*)"kiss\\type0A-01-explosion.png");
 	img_type0A_01.w = 32;
@@ -2159,7 +2208,7 @@ int main_x(/*int argc, char** argv*/)
 	//kiss_textbox_new(&textbox2, &window1, 1, &a2,vscrollbar1.uprect.x + kiss_up.w, textbox1.rect.y,	textbox_width, textbox_height);
 	//kiss_vscrollbar_new(&vscrollbar2, &window1, textbox2.rect.x +textbox_width, vscrollbar1.uprect.y, textbox_height);
 	kiss_label_new(&label_terfeat, &window1, (char*)"LEVEL ENTITES:", 5 + textbox1.rect.x + kiss_edge, textbox1.rect.y - kiss_textfont.lineheight*2);
-	kiss_label_new(&label_terfeat2, &window1, (char*)"IDX|TYPE|SUBT| X  | Y  | Z  | 10 |STAG| 14 |PARN|CHLD", 5 + textbox1.rect.x + kiss_edge, textbox1.rect.y - kiss_textfont.lineheight);
+	kiss_label_new(&label_terfeat2, &window1, (char*)"IDX|TYPE|SUBT| X  | Y  |DIID| 10 |STAG| 14 |PARN|CHLD", 5 + textbox1.rect.x + kiss_edge, textbox1.rect.y - kiss_textfont.lineheight);
 
 	kiss_label_new(&label_stages, &window1, (char*)"LEVEL STAGES:", 5 + textbox2.rect.x + kiss_edge, textbox2.rect.y - kiss_textfont.lineheight * 2);
 	kiss_label_new(&label_stages2, &window1, (char*)"IX|ST|01| 03 | 05", 5 + textbox2.rect.x + kiss_edge, textbox2.rect.y - kiss_textfont.lineheight);
@@ -2411,7 +2460,7 @@ int main_x(/*int argc, char** argv*/)
 				kiss_hex4edit_update_adress(&hex4edit4feat, &temparray_0x30311[edited_line_old + 1].axis2d_4.y);
 				kiss_hex4edit_update_adress(&hex4edit5feat, &temparray_0x30311[edited_line_old + 1].DisId);
 				kiss_hex4edit_update_adress(&hex4edit6feat, &temparray_0x30311[edited_line_old + 1].word_10);
-				kiss_hex4edit_update_adress(&hex4edit7feat, &temparray_0x30311[edited_line_old + 1].sTag_12);
+				kiss_hex4edit_update_adress(&hex4edit7feat, &temparray_0x30311[edited_line_old + 1].stageTag_12);
 				kiss_hex4edit_update_adress(&hex4edit8feat, &temparray_0x30311[edited_line_old + 1].word_14);
 				kiss_hex4edit_update_adress(&hex4edit9feat, &temparray_0x30311[edited_line_old + 1].parent_16);
 				kiss_hex4edit_update_adress(&hex4edit10feat, &temparray_0x30311[edited_line_old + 1].child_18);
