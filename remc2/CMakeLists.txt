@@ -159,18 +159,6 @@ if (UNIX)
     #)
     #target_compile_options(${PROJECT_NAME} PRIVATE
     #)
-    if (USE_SANITIZERS)
-    target_link_options(${PROJECT_NAME} PRIVATE
-        -fsanitize=address
-        -fsanitize=pointer-compare
-        -fsanitize=pointer-subtract
-        -fsanitize=leak
-        -fsanitize=undefined
-        -static-libasan
-        -static-liblsan
-        -static-libubsan
-    )
-    endif ()
     target_link_libraries(${PROJECT_NAME} PUBLIC 
         SDL2::Main
         SDL2::Mixer
@@ -211,3 +199,22 @@ set_tests_properties(${noArgsTests}   PROPERTIES TIMEOUT 10)
 
 # editor
 add_subdirectory(editor)
+
+
+if (UNIX)
+    if (USE_SANITIZERS)
+        set(SANITIZER_OPTIONS
+            -fsanitize=address
+            -fsanitize=pointer-compare
+            -fsanitize=pointer-subtract
+            -fsanitize=leak
+            -fsanitize=undefined
+            -static-libasan
+            -static-liblsan
+            -static-libubsan
+        )
+        target_link_options(remc2 PRIVATE ${SANITIZER_OPTIONS})
+        target_link_options(remc2unittests PRIVATE ${SANITIZER_OPTIONS})
+        target_link_options(remc2editor PRIVATE ${SANITIZER_OPTIONS})
+    endif ()
+endif ()
