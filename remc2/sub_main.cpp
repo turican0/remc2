@@ -69313,7 +69313,11 @@ void sub_56A30_init_game_level(unsigned int a1)//237a30
 		FixDir(path2, (char*)"../remc2/editor/Debug/testsave.sav");
 		FILE* file = fopen(path2, "rb");
 		if (file)
-			fread(&D41A0_BYTESTR_0.terrain_2FECE, sizeof(D41A0_BYTESTR_0.terrain_2FECE), 1, file);
+		{
+			type_shadow_str_2FECE shadow_2FECE;
+			fread(&shadow_2FECE, sizeof(type_shadow_str_2FECE), 1, file);
+			Convert_from_shadow_str_2FECE(&shadow_2FECE, &D41A0_BYTESTR_0.terrain_2FECE);
+		}
 		fclose;
 	}
 #endif //LOAD_EDITED_LEVEL

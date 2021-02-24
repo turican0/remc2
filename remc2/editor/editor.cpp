@@ -1187,6 +1187,22 @@ static void button_savelevel_event(kiss_button* button, SDL_Event* e,int* draw)
 	}//*quit = 1;
 }
 
+static void button_savelevelcsv_event(kiss_button* button, SDL_Event* e, int* draw)
+{
+	if (kiss_button_event(button, e, draw))
+	{
+		char path2[512];
+		FixDir(path2, (char*)"testsave.csv");
+		FILE* file = fopen(path2, "wt");
+		for (int i = 0; i < 0x4B0; i++)
+		{
+			type_entity_0x30311 actfeat = temparray_0x30311[i];//D41A0_BYTESTR_0.str_2FECE.array_0x30311[first_terrain_feature + i];
+			fprintf(file, "0x%03X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X\n", i, actfeat.type_0x30311, actfeat.subtype_0x30311, actfeat.axis2d_4.x, actfeat.axis2d_4.y, actfeat.DisId, actfeat.word_10, actfeat.sTag_12, actfeat.word_14, actfeat.parent_16, actfeat.child_18);			
+		}
+		fclose;
+	}//*quit = 1;
+}
+
 static int button_cleanlevelfeat_event(kiss_button* button, SDL_Event* e, int* draw)
 {
 	if (kiss_button_event(button, e, draw))
@@ -1733,7 +1749,7 @@ int main_x(/*int argc, char** argv*/)
 	kiss_label label_stages2 = { 0 };
 	kiss_label label_vars = { 0 };
 	kiss_label label_vars2 = { 0 };
-	kiss_button /*button_ok1 = { 0 }, button_ok2 = { 0 }, */button_cancel = { 0 }, button_levelsave = { 0 }, button_cleanlevelfeat = {0};
+	kiss_button /*button_ok1 = { 0 }, button_ok2 = { 0 }, */button_cancel = { 0 }, button_levelsave = { 0 }, button_levelsavecsv = { 0 }, button_cleanlevelfeat = {0};
 	kiss_textbox textbox1 = { 0 };
 	kiss_textbox textbox2 = { 0 };
 	kiss_textbox textbox3 = { 0 };
@@ -2155,6 +2171,7 @@ int main_x(/*int argc, char** argv*/)
 	//kiss_entry_new(&entry, &window1, 1, (char*)"kiss", textbox1.rect.x,label_sel.rect.y + kiss_textfont.lineheight,2 * textbox_width + 2 * kiss_up.w + kiss_edge);
 	kiss_button_new(&button_cancel, &window1, (char*)"EXIT",530,740);
 	kiss_button_new(&button_levelsave, &window1, (char*)"SAVE", 530, 720);
+	kiss_button_new(&button_levelsavecsv, &window1, (char*)"SCSV", 600, 720);
 	kiss_button_new(&button_cleanlevelfeat, &window1, (char*)"CLEAR", 530, 700);
 	//kiss_button_new(&button_ok1, &window1, (char*)"OK", button_cancel.rect.x -2 * kiss_normal.w, button_cancel.rect.y);
 
@@ -2500,6 +2517,7 @@ int main_x(/*int argc, char** argv*/)
 			button_ok_event(&button_ok1feat, &e, &quit, &draw);
 			button_cancel_event(&button_cancel, &e, &quit, &draw);
 			button_savelevel_event(&button_levelsave, &e, &draw);
+			button_savelevelcsv_event(&button_levelsavecsv, &e, &draw);
 
 			if (button_cleanlevelfeat_event(&button_cleanlevelfeat, &e, &draw))
 			{
@@ -2660,6 +2678,7 @@ int main_x(/*int argc, char** argv*/)
 		kiss_button_draw(&button_cleanlevelfeat, editor_renderer);
 
 		kiss_button_draw(&button_levelsave, editor_renderer);
+		kiss_button_draw(&button_levelsavecsv, editor_renderer);
 		//kiss_label_draw(&label_res, editor_renderer);
 		//kiss_progressbar_draw(&progressbar, editor_renderer);
 		//kiss_button_draw(&button_ok2, editor_renderer);
