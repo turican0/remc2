@@ -39,7 +39,7 @@ void _strupr(char* s)
 //adress 2285ff
 
 #if defined(RELEASE_GAME) //this is standard setting
-  #define AUTO_CHANGE_RES
+  //#define AUTO_CHANGE_RES
   #define FIX_FLYASISTANT
 #elif defined(PLAYING_GAME) //this is setting for autosavegame
   #define AUTO_CHANGE_RES
@@ -820,7 +820,12 @@ x_DWORD signal(x_DWORD, x_DWORD) { stub_fix_it(); return 0; };// weak
 }*/
 //void _disable() { stub_fix_it(); };
 //void _enable() { stub_fix_it(); };
-long x_InterlockedExchange(long volatile*  /*Target*/, long  /*Value*/) { stub_fix_it(); return 0; };
+char* x_InterlockedExchange(char**  Target, char*  Value)
+{
+	char* temp = *Target;
+	*Target = Value;
+	return temp;
+};
 /*void(*dos_key_vect_9)();
 void(*dos_getvect(x_DWORD number))() {
 	if (number == 9)
@@ -80089,12 +80094,12 @@ void sub_63670_draw_minimap_a(int a1, int a2, int a3, int a4, int a5, int a6, __
 	__int16 v19; // ax
 	__int16* v20; // edx
 	__int16 v21; // ax
-	int v22; // edx
+	int8_t* v22x; // edx
 	int v23; // ebx
 	int v24; // esi
 	int v25; // eax
 	int v26; // eax
-	int index; // eax
+	//int indexx; // eax
 	int v28; // ebx
 	int v29; // ecx
 	char* v30; // edi
@@ -80131,14 +80136,14 @@ void sub_63670_draw_minimap_a(int a1, int a2, int a3, int a4, int a5, int a6, __
 	int v61; // edx
 	char v62; // al
 	char* v63; // edi
-	int v64; // [esp+0h] [ebp-60h]
+	uint8_t* v64x; // [esp+0h] [ebp-60h]
 	int v65; // [esp+4h] [ebp-5Ch]
 	int v66; // [esp+8h] [ebp-58h]
 	int v67; // [esp+Ch] [ebp-54h]
 	int v68; // [esp+10h] [ebp-50h]
 	int v69; // [esp+14h] [ebp-4Ch]
-	int v70; // [esp+18h] [ebp-48h]
-	int v71; // [esp+1Ch] [ebp-44h]
+	uint8_t* v70x; // [esp+18h] [ebp-48h]
+	uint8_t* v71x; // [esp+1Ch] [ebp-44h]
 	int l; // [esp+20h] [ebp-40h]
 	int v73; // [esp+24h] [ebp-3Ch]
 	int i; // [esp+28h] [ebp-38h]
@@ -80148,10 +80153,11 @@ void sub_63670_draw_minimap_a(int a1, int a2, int a3, int a4, int a5, int a6, __
 	int v78; // [esp+38h] [ebp-28h]
 	__int16* v79; // [esp+3Ch] [ebp-24h]
 	int v80; // [esp+40h] [ebp-20h]
-	int v81; // [esp+44h] [ebp-1Ch]
-	int v82; // [esp+48h] [ebp-18h]
+	//uint8_t* v81z; // [esp+44h] [ebp-1Ch]
+	int v81y; // [esp+44h] [ebp-1Ch]
+	uint8_t* v82x; // [esp+48h] [ebp-18h]
 	int v83; // [esp+4Ch] [ebp-14h]
-	int v84; // [esp+50h] [ebp-10h]
+	uint8_t* v84x; // [esp+50h] [ebp-10h]
 	int v85; // [esp+54h] [ebp-Ch]
 	__int16* v86; // [esp+58h] [ebp-8h]
 	bool v87; // [esp+5Ch] [ebp-4h]
@@ -80170,15 +80176,10 @@ void sub_63670_draw_minimap_a(int a1, int a2, int a3, int a4, int a5, int a6, __
 		v13 = a6 >> 1;
 		a8 *= 2;
 	}
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-	v70 = v11 * x_DWORD_18062C_resolution_x + (int)pdwScreenBuffer + v10;
-	v71 = (int)(v11 * x_DWORD_18062C_resolution_x + x_DWORD_E9C3C + v10);
-#endif
+	/*v70 = v11 * x_DWORD_18062C_resolution_x + (int)pdwScreenBuffer + v10;
+	v71 = (int)(v11 * x_DWORD_18062C_resolution_x + x_DWORD_E9C3C + v10);*/
+	v70x = &pdwScreenBuffer[v11 * x_DWORD_18062C_resolution_x + v10];
+	v71x = &x_DWORD_E9C3C[v11 * x_DWORD_18062C_resolution_x + v10];
 	if (a10)
 	{
 		v15 = x_WORD_F4960;
@@ -80208,17 +80209,10 @@ void sub_63670_draw_minimap_a(int a1, int a2, int a3, int a4, int a5, int a6, __
 			*v17 = v18 + v65;
 			*v20 = v19;
 			v21 = v18 - v65;
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-			v22 = (int)v79;
-#endif
+			v22x = (int8_t*)v79;
 			v17[1] = v18 - v65;
-			*(x_WORD*)(v22 + 2) = v21;
-			v79 = (__int16*)(v22 - 4);
+			*(x_WORD*)(v22x + 2) = v21;
+			v79 = (__int16*)(v22x - 4);
 			v17 += 2;
 			v73 += v69;
 			v78--;
@@ -80228,16 +80222,16 @@ void sub_63670_draw_minimap_a(int a1, int a2, int a3, int a4, int a5, int a6, __
 	v24 = v13 * (a8 * x_DWORD_DB750[v23] >> 16);
 	v25 = a8 * (signed int)x_DWORD_DB750[0x200 + v23] >> 16;
 	v80 = a8 * x_DWORD_DB750[v23] >> 16;
-	v81 = v25;
+	v81y = v25;
 	v67 = v24 / v12;
 	v26 = v13 * v25;
 	v66 = v26 / v12;
 	v85 = a3 - (v12 * (v26 / v12) - v24) / 2;
 	v86 = x_WORD_F4960;
 	v83 = a4 - (v26 + v12 * (v24 / v12)) / 2;
-	v84 = v70;
-	index = v71;
-	v82 = v71;
+	v84x = v70x;
+	//indexx = v71x;
+	v82x = v71x;
 	if (x_BYTE_D41B6)
 	{
 		if (a10)
@@ -80247,8 +80241,8 @@ void sub_63670_draw_minimap_a(int a1, int a2, int a3, int a4, int a5, int a6, __
 				v33 = v86[1];
 				v28 = v85 + v33 * v66;
 				v29 = v83 + v33 * v67;
-				v30 = (char*)(v33 + v84);
-				v64 = v33 + v82;
+				v30 = (char*)(v33 + v84x);
+				v64x = v33 + v82x;
 				v31 = *v86 - v86[1];
 				v32 = 0;
 				HIWORD(v33) = 0;
@@ -80269,12 +80263,12 @@ void sub_63670_draw_minimap_a(int a1, int a2, int a3, int a4, int a5, int a6, __
 					LOWORD(v29) = v67 + v29;
 					v31--;
 				} while (v31);
-				v84 += x_DWORD_18062C_resolution_x;
-				v82 += x_DWORD_18062C_resolution_x;
+				v84x += x_DWORD_18062C_resolution_x;
+				v82x += x_DWORD_18062C_resolution_x;
 				v86 += 2;
 				v85 -= v80;
-				index = i - 1;
-				v83 += v81;
+				//indexx = i - 1;
+				v83 += v81y;
 			}
 		}
 		else if (v87)
@@ -80283,8 +80277,8 @@ void sub_63670_draw_minimap_a(int a1, int a2, int a3, int a4, int a5, int a6, __
 			{
 				v35 = v86[1];
 				v36 = v85 + v35 * v66;
-				v37 = (x_BYTE*)(v35 + v84);
-				v64 = v35 + v82;
+				v37 = (x_BYTE*)(v35 + v84x);
+				v64x = v35 + v82x;
 				v38 = v83 + v35 * v67;
 				v39 = *v86 - v86[1];
 				v40 = 0;
@@ -80307,23 +80301,23 @@ void sub_63670_draw_minimap_a(int a1, int a2, int a3, int a4, int a5, int a6, __
 					LOWORD(v38) = v67 + v38;
 					v39--;
 				} while (v39);
-				v84 += x_DWORD_18062C_resolution_x;
-				v82 += x_DWORD_18062C_resolution_x;
+				v84x += x_DWORD_18062C_resolution_x;
+				v82x += x_DWORD_18062C_resolution_x;
 				v86 += 2;
 				v85 -= v80;
-				index = j - 1;
-				v83 += v81;
+				//indexx = j - 1;
+				v83 += v81y;
 			}
 		}
 		else
 		{
-			for (k = v13; k; v83 += v81)
+			for (k = v13; k; v83 += v81y)
 			{
 				v47 = v86[1];
 				v42 = v85 + v47 * v66;
-				v43 = (char*)(v47 + v84);
+				v43 = (char*)(v47 + v84x);
 				v44 = v83 + v47 * v67;
-				v64 = v47 + v82;
+				v64x = v47 + v82x;
 				v45 = *v86 - v86[1];
 				v46 = 0;
 				HIWORD(v47) = 0;
@@ -80347,10 +80341,10 @@ void sub_63670_draw_minimap_a(int a1, int a2, int a3, int a4, int a5, int a6, __
 					LOWORD(v44) = v67 + v44;
 					v45--;
 				} while (v45);
-				v84 += x_DWORD_18062C_resolution_x;
-				v82 += x_DWORD_18062C_resolution_x;
+				v84x += x_DWORD_18062C_resolution_x;
+				v82x += x_DWORD_18062C_resolution_x;
 				v86 += 2;
-				index = v81;
+				//indexx = v81y;
 				v85 -= v80;
 				k--;
 			}
@@ -80362,8 +80356,8 @@ void sub_63670_draw_minimap_a(int a1, int a2, int a3, int a4, int a5, int a6, __
 		{
 			v49 = v86[1];
 			v50 = v85 + v49 * v66;
-			v51 = (x_BYTE*)(v49 + v84);
-			v64 = v49 + v82;
+			v51 = (x_BYTE*)(v49 + v84x);
+			v64x = v49 + v82x;
 			v52 = v83 + v49 * v67;
 			v53 = *v86 - v86[1];
 			v54 = 0;
@@ -80380,23 +80374,23 @@ void sub_63670_draw_minimap_a(int a1, int a2, int a3, int a4, int a5, int a6, __
 				v52 += v67;
 				--v53;
 			} while (v53);
-			v84 += x_DWORD_18062C_resolution_x;
-			v82 += x_DWORD_18062C_resolution_x;
+			v84x += x_DWORD_18062C_resolution_x;
+			v82x += x_DWORD_18062C_resolution_x;
 			v86 += 2;
 			v85 -= v80;
-			index = l - 1;
-			v83 += v81;
+			//indexx = l - 1;
+			v83 += v81y;
 		}
 	}
 	else
 	{
-		for (m = v13; m; v83 += v81)
+		for (m = v13; m; v83 += v81y)
 		{
 			v61 = v86[1];
 			v56 = v85 + v61 * v66;
-			v57 = (char*)(v61 + v84);
+			v57 = (char*)(v61 + v84x);
 			v58 = v83 + v61 * v67;
-			v64 = v61 + v82;
+			v64x = v61 + v82x;
 			v59 = *v86 - v86[1];
 			v60 = 0;
 			HIWORD(v61) = 0;
@@ -80411,24 +80405,17 @@ void sub_63670_draw_minimap_a(int a1, int a2, int a3, int a4, int a5, int a6, __
 				BYTE1(v61) = *v57;
 				v62 = x_BYTE_F6EE0_tablesx[0x4000 + v61];
 				*v57 = v62;
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-				v63 = (char*)x_InterlockedExchange((long*)&v64, (signed __int32)(v57 + 1));
+				v63 = x_InterlockedExchange((char**)&v64x, (v57 + 1));
 				*v63 = v62;
-				v57 = (char*)x_InterlockedExchange((long*)&v64, (signed __int32)(v63 + 1));
-#endif
+				v57 = x_InterlockedExchange((char**)&v64x, (v63 + 1));
 				v56 += v66;
 				v58 += v67;
 				v59--;
 			} while (v59);
-			v84 += x_DWORD_18062C_resolution_x;
-			v82 += x_DWORD_18062C_resolution_x;
+			v84x += x_DWORD_18062C_resolution_x;
+			v82x += x_DWORD_18062C_resolution_x;
 			v86 += 2;
-			index = v81;
+			//indexx = v81y;
 			v85 -= v80;
 			m--;
 		}
@@ -110231,7 +110218,7 @@ int sub_9025C(__int16 a1, __int16 a2, __int16 a3, __int16 a4, unsigned __int16 a
 	__int16 v6; // bx
 	__int16 v7; // cx
 	__int16 v8; // dx
-	x_BYTE* v10; // edi
+	uint8_t* v10; // edi
 	int v11; // eax
 	unsigned int v12; // ecx
 	int v13; // ecx
@@ -110262,16 +110249,10 @@ int sub_9025C(__int16 a1, __int16 a2, __int16 a3, __int16 a4, unsigned __int16 a
 		return v16;
 	if (a4 >= v8)
 		a4 = 2 * x_DWORD_180630_screen_height;
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-	v10 = (x_BYTE*)(320 * ((unsigned int)(unsigned __int16)a2 >> 1)
+	/*v10 = (x_BYTE*)(320 * ((unsigned int)(unsigned __int16)a2 >> 1)
 		+ (int)pdwScreenBuffer
-		+ ((unsigned int)(unsigned __int16)a1 >> 1));
-#endif
+		+ ((unsigned int)(unsigned __int16)a1 >> 1));*/
+	v10 = &pdwScreenBuffer[320*(a2 >> 1)+(a1 >> 1)];
 	v11 = a5;
 	v12 = (unsigned __int16)a3;
 	if (a3 == a1)
