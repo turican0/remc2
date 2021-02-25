@@ -39,7 +39,7 @@ void _strupr(char* s)
 //adress 2285ff
 
 #if defined(RELEASE_GAME) //this is standard setting
-  //#define AUTO_CHANGE_RES
+  #define AUTO_CHANGE_RES
   #define FIX_FLYASISTANT
 #elif defined(PLAYING_GAME) //this is setting for autosavegame
   #define AUTO_CHANGE_RES
