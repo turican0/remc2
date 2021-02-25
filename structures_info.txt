@@ -1,20 +1,38 @@
-types of entites
+Entity Types:
+00 00 : 0 ?
+00 01 : N/A
+00 02 : Scenery
+00 03 : Player Spawn
+00 04 : N/A
+00 05 : Creatures
+00 06 : N/A
+00 07 : Weather
+00 08 : N/A
+00 09 : N/A
+00 0A : Effects
+00 0B : Switches
+00 0C : Spells
+00 0D : N/A
+00 0E : N/A
+00 0F : N/A 
+
+Creatures Subtypes
 0 - flying worm
 1 - goat
 2 - bee
 3 - worm
-4 - archer1
-6 -
-7 -
-8 -
-9 - archer2
-10 -
-11 -
-12 - villiger1
-13 - villiger2(stadard)
-14 - villiger3(with bag)
+4 - archer
+6 - ?Crab?
+7 - ?Kraken?
+8 - ?Griffon?
+9 - ?skeleton? archer2
+10 - ?Emu?
+11 - ?Genie?
+12 - Builder(villiger)
+13 - Townie(villiger)
+14 - Trader(villiger)
 15 - exploded humans(with hair flag)
-16 - little dragon
+16 - wyvern
 17 - strong leon creature
 18 - head
 19 - firefly
@@ -30,13 +48,15 @@ types of entites
 29 -
 30 -
 
+Scenery Subtypes
 fix entites:
 0- tree
 1- statue1
 2- stonehange
 3- statue2
-- small carpet1
-- small carpet2
-- sud
-- vase
+4- small carpet1
+5- small carpet2
+6-
+7- barrel
+8- vase
 
