@@ -1,4 +1,5 @@
 #include "sub_main.h"
+#include "engine/engine_support.h"
 
 #ifdef __linux__
 #include <strings.h>
@@ -13,6 +14,7 @@
 #include <filesystem>
 #include <iostream>
 #include <functional>
+#include <type_traits>
 void _strupr(char* s)
 {
 	char* p = s;
@@ -1770,7 +1772,7 @@ void sub_46B40();
 void sub_46B40_alt();
 void /*__fastcall*/ sub_46DD0_init_sound_and_music(/*int a1, int a2, char* a3*/);
 void sub_46F50_sound_proc7();
-void LoadTextureData(__int16 vgaTypeResolution, uint8_t MapType, uint8_t* pdwScreenBuffer);
+void LoadTextureData(__int16 vgaTypeResolution, MapType_t MapType, uint8_t* pdwScreenBuffer);
 void sub_47130();
 void sub_47160();
 // int sub_47320_in_game_loop(signed int a1);
@@ -2080,8 +2082,8 @@ char LoadFilesFromCDAndGameData(char* cdPath, char* gamePath, char* fileName);
 
 void sub_54600_mouse_reset();
 void sub_54630_load_psxblock(uint16_t TextSize);
-void sub_54660_read_and_decompress_sky_and_blocks(uint8_t a1, uint8_t a2);
-void sub_54800_read_and_decompress_tables(uint8_t a1);
+void sub_54660_read_and_decompress_sky_and_blocks(MapType_t a1, uint8_t a2);
+void sub_54800_read_and_decompress_tables(MapType_t a1);
 void sub_548B0(type_str_0x2BDE* a1);
 void sub_548F0(type_str_0x2BDE* a1);
 void sub_54960();
@@ -2493,7 +2495,7 @@ void sub_71890();
 void sub_718F0();
 void sub_71930();
 void sub_71990();
-void sub_71A70_setTmaps(unsigned __int8 a1);
+void sub_71A70_setTmaps(MapType_t a1);
 void sub_71AB0(__int16 a1, char a2);
 type_x_DWORD_E9C28_str* sub_71B40(int a1, unsigned __int16 a2, type_x_DWORD_E9C28_str* a3);
 signed int sub_71CD0(type_x_DWORD_E9C28_str* a1);
@@ -15795,7 +15797,7 @@ void sub_1A970_change_game_settings(char a1, int a2, int a3)//1fb970
 	unsigned __int8 v14; // al
 	__int16 v15; // ST04_2
 	//char v16; // dl
-	unsigned __int8 v17; // bl
+	MapType_t v17; // bl
 	//char v18; // bl
 	//char v19; // cl
 	//char v20; // bl
@@ -15870,46 +15872,41 @@ void sub_1A970_change_game_settings(char a1, int a2, int a3)//1fb970
 			return;
 		x_D41A0_BYTEARRAY_4_struct.setting_38402 = 1;
 		v17 = D41A0_BYTESTR_0.terrain_2FECE.MapType;
-		if (v17 < 1u)
+		if (v17 == MapType_t::Day)
 		{
-			if (!v17)//v17==0
-			{
-				if (a2)
-				{
-					//v3 = x_D41A0_BYTEARRAY_4_struct.dwordindex_0;
-					//v19 = x_D41A0_BYTEARRAY_4[0xB] - 1;
-					x_D41A0_BYTEARRAY_4_struct.byte_brightness_11--;// = v19;
-					if (x_D41A0_BYTEARRAY_4_struct.byte_brightness_11 >= 0)
-						goto LABEL_86;
-					if (!a3)
-					{
-						x_D41A0_BYTEARRAY_4_struct.byte_brightness_11 = 4;
-						goto LABEL_86;
-					}
-				}
-				else
-				{
-					//v3 = x_D41A0_BYTEARRAY_4_struct.dwordindex_0;
-					//v18 = x_D41A0_BYTEARRAY_4[0xB] + 1;
-					x_D41A0_BYTEARRAY_4_struct.byte_brightness_11++;// = v18;
-					if (x_D41A0_BYTEARRAY_4_struct.byte_brightness_11 <= 4)
-						goto LABEL_86;
-					if (a3)
-					{
-						x_D41A0_BYTEARRAY_4_struct.byte_brightness_11 = 4;
-						goto LABEL_86;
-					}
-				}
-				x_D41A0_BYTEARRAY_4_struct.byte_brightness_11 = 0;
-			}
+      if (a2)
+      {
+        //v3 = x_D41A0_BYTEARRAY_4_struct.dwordindex_0;
+        //v19 = x_D41A0_BYTEARRAY_4[0xB] - 1;
+        x_D41A0_BYTEARRAY_4_struct.byte_brightness_11--;// = v19;
+        if (x_D41A0_BYTEARRAY_4_struct.byte_brightness_11 >= 0)
+          goto LABEL_86;
+        if (!a3)
+        {
+          x_D41A0_BYTEARRAY_4_struct.byte_brightness_11 = 4;
+          goto LABEL_86;
+        }
+      }
+      else
+      {
+        //v3 = x_D41A0_BYTEARRAY_4_struct.dwordindex_0;
+        //v18 = x_D41A0_BYTEARRAY_4[0xB] + 1;
+        x_D41A0_BYTEARRAY_4_struct.byte_brightness_11++;// = v18;
+        if (x_D41A0_BYTEARRAY_4_struct.byte_brightness_11 <= 4)
+          goto LABEL_86;
+        if (a3)
+        {
+          x_D41A0_BYTEARRAY_4_struct.byte_brightness_11 = 4;
+          goto LABEL_86;
+        }
+      }
+      x_D41A0_BYTEARRAY_4_struct.byte_brightness_11 = 0;
 		LABEL_86:
 			sub_47650(a3/*, a2*/);
 			return;
 		}
-		if (v17 > 1u)
+		if (v17 == MapType_t::Cave)
 		{
-			if (v17 != 2)
-				goto LABEL_86;
 			if (a2)//v17==1
 			{
 				//v23 = x_D41A0_BYTEARRAY_4_struct.dwordindex_0;
@@ -29876,7 +29873,7 @@ void sub_2CB30(type_str_0x6E8E* a1x, __int16 a2, int a3, __int16 a4)//20db30 //m
 	v36 = x_BYTE_E88E0x[3 * sub_61790(v25)];//c
 	v35 = (*xadataclrd0dat.var28_begin_buffer)[0];//10 //v19
 	v34 = x_BYTE_E88E0x[3 * sub_61790(v25)];	//14 //v18
-	v8 = 5 * D41A0_BYTESTR_0.terrain_2FECE.MapType;
+	v8 = 5 * static_cast<std::underlying_type<MapType_t>::type>(D41A0_BYTESTR_0.terrain_2FECE.MapType);
 	v33 = x_WORD_D93C0_bldgprmbuffer[2 + 0x130 + v8];//18 v14
 	v38 = x_WORD_D93C0_bldgprmbuffer[2 + 0x131 + v8];//4 v15
 	v37 = x_WORD_D93C0_bldgprmbuffer[2 + 0x12e + v8];//?v22
@@ -30797,7 +30794,7 @@ void sub_2E260_draw_spell(__int16 a1, __int16 a2, type_str_0x6E8E* a3x, char a4)
 					v11 = v15x->dword_0xA4_164x->word_0x3A_58;
 					if (!v11 || a3x->dword_0x88_136 > x_DWORD_EA3E4[v11]->dword_0x90_144)
 					{
-						if (D41A0_BYTESTR_0.terrain_2FECE.MapType)
+						if (D41A0_BYTESTR_0.terrain_2FECE.MapType != MapType_t::Day)
 							v12 = 16;
 						else
 							v12 = 48;
@@ -31363,7 +31360,7 @@ void sub_2F6B0()//2106b0
 		v0 = 480;
 	v40 = v0 - 72;
 	v36 = 0;
-	v1 = 5 * D41A0_BYTESTR_0.terrain_2FECE.MapType;
+	v1 = 5 * static_cast<std::underlying_type<MapType_t>::type>(D41A0_BYTESTR_0.terrain_2FECE.MapType);
 	v2 = x_WORD_D93C0_bldgprmbuffer[2 + 0x12e + v1];
 	v47 = x_WORD_D93C0_bldgprmbuffer[2 + 0x12f + v1];
 	v3 = x_WORD_D93C0_bldgprmbuffer[2 + 0x130 + v1];
@@ -31873,9 +31870,10 @@ void sub_303D0(/*signed int a1*/)//2113d0
 	signed int a1 = 0;//fix this
 
 	//v1 = *(unsigned __int8 *)(x_D41A0_BYTEARRAY_0 + 196308);//D41A0_BYTESTR_0.str_2FECE.MapType
-	v2 = x_WORD_D93C0_bldgprmbuffer[2 + 0x12e + 5 * D41A0_BYTESTR_0.terrain_2FECE.MapType];
-	v3 = x_WORD_D93C0_bldgprmbuffer[2 + 0x130 + 5 * D41A0_BYTESTR_0.terrain_2FECE.MapType];
-	v15 = x_WORD_D93C0_bldgprmbuffer[2 + 0x131 + 5 * D41A0_BYTESTR_0.terrain_2FECE.MapType];
+  int maptypeindex = static_cast<std::underlying_type<MapType_t>::type>(D41A0_BYTESTR_0.terrain_2FECE.MapType);
+	v2 = x_WORD_D93C0_bldgprmbuffer[2 + 0x12e + 5 * maptypeindex];
+	v3 = x_WORD_D93C0_bldgprmbuffer[2 + 0x130 + 5 * maptypeindex];
+	v15 = x_WORD_D93C0_bldgprmbuffer[2 + 0x131 + 5 * maptypeindex];
 	sub_2FFE0(&v12, &v11, &v10, &v9);
 	v4 = x_D41A0_BYTEARRAY_4_struct.byte_38591;
 	if (v4 >= 1u)
@@ -32866,7 +32864,7 @@ void sub_31940(type_str_0x6E8E* a1x)//212940
 				while (v28 < 2)
 				{
 					x_BYTE_11B4E0_heightmap[v26x.word] = v43 - 16;
-					if (D41A0_BYTESTR_0.terrain_2FECE.MapType)
+					if (D41A0_BYTESTR_0.terrain_2FECE.MapType != MapType_t::Day)
 						v36 = 1;
 					else
 						v36 = 63;
@@ -32971,7 +32969,7 @@ void sub_31940(type_str_0x6E8E* a1x)//212940
 				while (v18 < 2)
 				{
 					x_BYTE_11B4E0_heightmap[v16x.word] = v43 - 16;
-					if (D41A0_BYTESTR_0.terrain_2FECE.MapType)
+					if (D41A0_BYTESTR_0.terrain_2FECE.MapType != MapType_t::Day)
 						v35 = 1;
 					else
 						v35 = 63;
@@ -38531,7 +38529,7 @@ void sub_39040(type_str_0x6E8E* a1x)//21a040
 							{
 								v20 = (v20 & 3) + 28;
 							}
-							if (D41A0_BYTESTR_0.terrain_2FECE.MapType)
+							if (D41A0_BYTESTR_0.terrain_2FECE.MapType != MapType_t::Day)
 								v21 = 32 - v20 + 32;
 							else
 								LOBYTE(v21) = v20;
@@ -38577,7 +38575,7 @@ void sub_39040(type_str_0x6E8E* a1x)//21a040
 							x_BYTE_11B4E0_heightmap[v26x.word] = v27;
 							v28 = a1x->dword_0x10_16;
 							v29 = 31 / v28 + 32;
-							if (D41A0_BYTESTR_0.terrain_2FECE.MapType)
+							if (D41A0_BYTESTR_0.terrain_2FECE.MapType != MapType_t::Day)
 								v29 = -31 / v28 + 32;
 							x_BYTE_12B4E0_shading[v26x.word] = v29;
 							v26x._axis_2d.x++;
@@ -38625,7 +38623,7 @@ void sub_39040(type_str_0x6E8E* a1x)//21a040
 					v35x._axis_2d.x = v52x._axis_2d.x - 1;
 					while (v37 < 2)
 					{
-						if (D41A0_BYTESTR_0.terrain_2FECE.MapType)
+						if (D41A0_BYTESTR_0.terrain_2FECE.MapType != MapType_t::Day)
 							v45 = 1;
 						else
 							v45 = 63;
@@ -38868,7 +38866,7 @@ unsigned __int8 sub_396D0(type_str_0x6E8E* a1x)//21a6d0
 					{
 						v18 = (v18 & 3) + 28;
 					}
-					if (D41A0_BYTESTR_0.terrain_2FECE.MapType)
+					if (D41A0_BYTESTR_0.terrain_2FECE.MapType != MapType_t::Day)
 						v19 = 32 - v18 + 32;
 					else
 						LOBYTE(v19) = v18;
@@ -41505,7 +41503,7 @@ void DrawTerrainAndParticles(__int16 a3, __int16 a4, __int16 a5, signed int a6, 
 	*/
 
 	x_BYTE_F2CC7 = D41A0_BYTESTR_0.m_GameSettings.m_Graphics.m_wShadows;//21d080
-	x_BYTE_D4320 = D41A0_BYTESTR_0.terrain_2FECE.MapType != 0;
+	x_BYTE_D4320 = D41A0_BYTESTR_0.terrain_2FECE.MapType != MapType_t::Day;
 	str_F2C20ar.dword0x10 = (signed int)(unsigned __int16)iViewPortHeight >> 1;
 	x_WORD_F2CC4 = a3;
 	x_WORD_F2CC0 = a5 & 0x7FF;
@@ -43441,7 +43439,7 @@ void sub_3C080_draw_terrain_and_particles_old(/*int a1, int a2,*/ __int16 a3, __
 	*/
 
 	x_BYTE_F2CC7 = D41A0_BYTESTR_0.m_GameSettings.m_Graphics.m_wShadows;//21d080
-	x_BYTE_D4320 = D41A0_BYTESTR_0.terrain_2FECE.MapType != 0;
+	x_BYTE_D4320 = D41A0_BYTESTR_0.terrain_2FECE.MapType != MapType_t::Day;
 	str_F2C20ar.dword0x10 = (signed int)(unsigned __int16)iViewPortHeight >> 1;
 	x_WORD_F2CC4 = a3;
 	x_WORD_F2CC0 = a5 & 0x7FF;
@@ -50256,7 +50254,7 @@ unsigned __int16 sub_46180(unsigned __int16 a1, char a2)//227180
 			{
 				LOBYTE(v10) = (v10 & 3) + 28;
 			}
-			if (D41A0_BYTESTR_0.terrain_2FECE.MapType)
+			if (D41A0_BYTESTR_0.terrain_2FECE.MapType != MapType_t::Day)
 				v10 = 32 - (char)v10 + 32;
 			x_BYTE_12B4E0_shading[result] = v10;
 			if (x_BYTE_D41B6 && (unsigned __int8)x_BYTE_14B4E0_second_heightmap[result] <= x_BYTE_11B4E0_heightmap[result])
@@ -50469,7 +50467,7 @@ void sub_462A0(uaxis_2d a1x, uaxis_2d a2x)//2272a0
 				{
 					v18 = (v18 & 3) + 28;
 				}
-				if (D41A0_BYTESTR_0.terrain_2FECE.MapType)
+				if (D41A0_BYTESTR_0.terrain_2FECE.MapType != MapType_t::Day)
 					v19 = 32 - v18 + 32;
 				else
 					v19 = v18;
@@ -50658,7 +50656,7 @@ void sub_46570(uaxis_2d a1x, uaxis_2d a2x)//227570
 				{
 					v22 = (v22 & 3) + 28;
 				}
-				if (D41A0_BYTESTR_0.terrain_2FECE.MapType)
+				if (D41A0_BYTESTR_0.terrain_2FECE.MapType != MapType_t::Day)
 					v23 = 32 - v22 + 32;
 				else
 					v23 = v22;
@@ -50857,13 +50855,13 @@ void sub_46830_main_loop(/*int16_t* a1, */signed int a2, unsigned __int16 a3)//2
 				{
 					//v8 = x_D41A0_BYTEARRAY_0[196308];
 					switch (D41A0_BYTESTR_0.terrain_2FECE.MapType) {
-					case 0:
+					case MapType_t::Day:
 						D41A0_BYTESTR_0.dword_0x235 = 2;
 						break;
-					case 1:
+					case MapType_t::Night:
 						D41A0_BYTESTR_0.dword_0x235 = 1;
 						break;
-					case 2:
+					case MapType_t::Cave:
 						D41A0_BYTESTR_0.dword_0x235 = 3;
 						break;
 					}
@@ -51173,9 +51171,9 @@ void sub_46F50_sound_proc7()//227f50
 // F42A4: using guessed type int x_DWORD_F42A4_sound_timer;
 
 //----- (00046F80) --------------------------------------------------------
-void LoadTextureData(__int16 vgaTypeResolution, uint8_t MapType, uint8_t* pdwScreenBuffer)//227f80
+void LoadTextureData(__int16 vgaTypeResolution, MapType_t MapType, uint8_t* pdwScreenBuffer)//227f80
 {
-	unsigned __int8 v0; // al
+	MapType_t v0; // al
 	//char* v1;
 	//int v2; // esi
 	int32_t file2lenght; // eax
@@ -51200,7 +51198,7 @@ void LoadTextureData(__int16 vgaTypeResolution, uint8_t MapType, uint8_t* pdwScr
 	v0 = MapType;
 	switch (v0)
 	{
-	case 1:
+	case MapType_t::Night:
 			{
 				if (vgaTypeResolution == 1)
 				{
@@ -51214,7 +51212,7 @@ void LoadTextureData(__int16 vgaTypeResolution, uint8_t MapType, uint8_t* pdwScr
 				}
 				break;
 			}
-	case 2:
+	case MapType_t::Cave:
 			{
 				if (vgaTypeResolution == 1)
 				{
@@ -51228,7 +51226,7 @@ void LoadTextureData(__int16 vgaTypeResolution, uint8_t MapType, uint8_t* pdwScr
 				}
 				break;
 			}
-	case 0:
+	case MapType_t::Day:
 		{
 			if (vgaTypeResolution == 1)
 			{
@@ -51303,21 +51301,21 @@ void sub_47160()//228160
 
 	//v0 = x_D41A0_BYTEARRAY_0[196308];
 
-	if (D41A0_BYTESTR_0.terrain_2FECE.MapType == 0)
+	if (D41A0_BYTESTR_0.terrain_2FECE.MapType == MapType_t::Day)
 	{
 		sprintf(xadatamsprd00dat.path, "%s/%s", cdDataPath, "DATA/MSPRD0-0.DAT");
 		sprintf(xadatamsprd00tab.path, "%s/%s", cdDataPath, "DATA/MSPRD0-0.TAB");
 		sprintf(xadatahsprd00dat.path, "%s/%s", cdDataPath, "DATA/HSPRD0-0.DAT");
 		sprintf(xadatahsprd00tab.path, "%s/%s", cdDataPath, "DATA/HSPRD0-0.TAB");
 	}
-	else if (D41A0_BYTESTR_0.terrain_2FECE.MapType == 1)
+	else if (D41A0_BYTESTR_0.terrain_2FECE.MapType == MapType_t::Night)
 	{
 		sprintf(xadatamsprd00dat.path, "%s/%s", cdDataPath, "DATA/MSPRN0-0.DAT");
 		sprintf(xadatamsprd00tab.path, "%s/%s", cdDataPath, "DATA/MSPRN0-0.TAB");
 		sprintf(xadatahsprd00dat.path, "%s/%s", cdDataPath, "DATA/HSPRN0-0.DAT");
 		sprintf(xadatahsprd00tab.path, "%s/%s", cdDataPath, "DATA/HSPRN0-0.TAB");
 	}
-	else if (D41A0_BYTESTR_0.terrain_2FECE.MapType == 2)
+	else if (D41A0_BYTESTR_0.terrain_2FECE.MapType == MapType_t::Cave)
 	{
 		sprintf(xadatamsprd00dat.path, "%s/%s", cdDataPath, "DATA/MSPRC0-0.DAT");
 		sprintf(xadatamsprd00tab.path, "%s/%s", cdDataPath, "DATA/MSPRC0-0.TAB");
@@ -51780,7 +51778,7 @@ int comp21 = compare_with_sequence_D41A0((char*)"00228583", x_D41A0_BYTEARRAY_0,
 //----- (00047650) --------------------------------------------------------
 void sub_47650(int  /*a1*//*, int a2*/)//228650
 {
-	unsigned __int8 v2; // al
+	MapType_t v2; // al
 	signed int v3; // esi
 	int v4; // edx
 	signed int v5; // ebx
@@ -51792,13 +51790,13 @@ void sub_47650(int  /*a1*//*, int a2*/)//228650
 
 	qmemcpy((void*)*xadatapald0dat2.var28_begin_buffer, (void*)x_DWORD_EA3B8x, 0x300u);
 	v2 = D41A0_BYTESTR_0.terrain_2FECE.MapType;
-	if (v2 == 0)
+	if (v2 == MapType_t::Day)
 		v8 = x_D41A0_BYTEARRAY_4_struct.byte_brightness_11;
-	else if (v2 == 1)
+	else if (v2 == MapType_t::Night)
 	{
 		v8 = x_D41A0_BYTEARRAY_4_struct.byte_brightness_12;
 	}
-	else if (v2 == 2)
+	else if (v2 == MapType_t::Cave)
 	{
 		v8 = x_D41A0_BYTEARRAY_4_struct.byte_brightness_13;
 	}
@@ -51888,7 +51886,7 @@ void PaletteChanges_47760(/*int a1,*/uint32_t  /*user*//* int a2, int a3*/)//228
 		//v7 = D41A0_BYTESTR_0.str_2FECE.MapType;
 		switch (D41A0_BYTESTR_0.terrain_2FECE.MapType)
 		{
-			case 0:
+			case MapType_t::Day:
 			{
 				sprintf(dataPath, "%s/%s", cdDataPath, "DATA/PALD-0.DAT");
 				DataFileIO::ReadFileAndDecompress(dataPath, xadatapald0dat2.var28_begin_buffer);
@@ -51896,7 +51894,7 @@ void PaletteChanges_47760(/*int a1,*/uint32_t  /*user*//* int a2, int a3*/)//228
 				DataFileIO::ReadFileAndDecompress(dataPath, xadataclrd0dat.var28_begin_buffer);
 			}
 				break;
-			case 1:
+			case MapType_t::Night:
 			{
 				if (D41A0_BYTESTR_0.terrain_2FECE.byte_0x2FED2 & 2)
 				{
@@ -51912,7 +51910,7 @@ void PaletteChanges_47760(/*int a1,*/uint32_t  /*user*//* int a2, int a3*/)//228
 				DataFileIO::ReadFileAndDecompress(dataPath, xadataclrd0dat.var28_begin_buffer);
 				break;
 			}
-			case 2:
+			case MapType_t::Cave:
 			{
 				sprintf(dataPath, "%s/%s", cdDataPath, "DATA/PALC-0.DAT");
 				DataFileIO::ReadFileAndDecompress(dataPath, xadatapald0dat2.var28_begin_buffer);
@@ -52244,11 +52242,10 @@ void sub_480A0_set_clear_pallette(/*int a1, int a2, int a3*/)//2290a0
 //----- (00048120) --------------------------------------------------------
 void sub_48120()//229120
 {
-	unsigned __int8 result; // al
-	result = D41A0_BYTESTR_0.terrain_2FECE.MapType;
-	if (result >= 1u)
+	MapType_t result = D41A0_BYTESTR_0.terrain_2FECE.MapType;
+	if (result != MapType_t::Day)
 	{
-		if (result <= 1u)//1
+		if (result == MapType_t::Night)//1
 		{
 			x_BYTE_E88E0x[0x0] = 0xA4;
 			x_BYTE_E88E0x[0x1] = 0xAA;
@@ -52267,8 +52264,6 @@ void sub_48120()//229120
 		}
 		else
 		{
-			if (result != 2)
-				return;
 			x_BYTE_E88E0x[0x0] = 0xE0;
 			x_BYTE_E88E0x[0x1] = 0x58;
 			x_BYTE_E88E0x[0x3] = 0x77;
@@ -52290,42 +52285,39 @@ void sub_48120()//229120
 		x_BYTE_E88E0x[0xd] = 0x9D;
 		x_BYTE_E88E0x[0xe] = 0x7B;
 		x_BYTE_E88E0x[0x12] = 0x69;
-		result = 0x7B;
 		x_BYTE_E88E0x[0x14] = 0x7B;
 		x_BYTE_E88E0x[0x15] = 0xC9;
 		x_BYTE_E88E0x[0x17] = 0x7B;
 		x_BYTE_E88E0x[0x16] = 0xCF;
-		return;
 	}
-	if (!result)
-	{
-		x_BYTE_E88E0x[0x0] = 0x60;
-		x_BYTE_E88E0x[0x1] = 0x64;
-		x_BYTE_E88E0x[0x6] = 0x1C;
-		x_BYTE_E88E0x[0x2] = 0x7B;
-		x_BYTE_E88E0x[0x3] = 0x7B;
-		x_BYTE_E88E0x[0x5] = 0x7B;
-		x_BYTE_E88E0x[0x7] = 0x18;
-		x_BYTE_E88E0x[0x8] = 0x7B;
-		x_BYTE_E88E0x[0xd] = 0x97;
-		result = 0xDB;
-		x_BYTE_E88E0x[0x4] = 0x77;
-		x_BYTE_E88E0x[0x9] = 0x5B;
-		x_BYTE_E88E0x[0xb] = 0x7B;
-		x_BYTE_E88E0x[0xf] = 0xDB;
-		x_BYTE_E88E0x[0x15] = 0x3D;
-		x_BYTE_E88E0x[0xa] = 0x57;
-		x_BYTE_E88E0x[0xc] = 0x9A;
-		x_BYTE_E88E0x[0xe] = 0x7B;
-		x_BYTE_E88E0x[0x10] = 0xD8;
-		x_BYTE_E88E0x[0x11] = 0x7B;
-		x_BYTE_E88E0x[0x16] = 0x3A;
-		x_BYTE_E88E0x[0x12] = 0x76;
-		x_BYTE_E88E0x[0x13] = 0xA0;
-		x_BYTE_E88E0x[0x17] = 0x7B;
-		x_BYTE_E88E0x[0x14] = 0x7B;
-	}
-	//return result;
+  // NOTE: In the original this is a code path that should never have been taken
+	//if (!result)
+	//{
+	//	x_BYTE_E88E0x[0x0] = 0x60;
+	//	x_BYTE_E88E0x[0x1] = 0x64;
+	//	x_BYTE_E88E0x[0x6] = 0x1C;
+	//	x_BYTE_E88E0x[0x2] = 0x7B;
+	//	x_BYTE_E88E0x[0x3] = 0x7B;
+	//	x_BYTE_E88E0x[0x5] = 0x7B;
+	//	x_BYTE_E88E0x[0x7] = 0x18;
+	//	x_BYTE_E88E0x[0x8] = 0x7B;
+	//	x_BYTE_E88E0x[0xd] = 0x97;
+	//	x_BYTE_E88E0x[0x4] = 0x77;
+	//	x_BYTE_E88E0x[0x9] = 0x5B;
+	//	x_BYTE_E88E0x[0xb] = 0x7B;
+	//	x_BYTE_E88E0x[0xf] = 0xDB;
+	//	x_BYTE_E88E0x[0x15] = 0x3D;
+	//	x_BYTE_E88E0x[0xa] = 0x57;
+	//	x_BYTE_E88E0x[0xc] = 0x9A;
+	//	x_BYTE_E88E0x[0xe] = 0x7B;
+	//	x_BYTE_E88E0x[0x10] = 0xD8;
+	//	x_BYTE_E88E0x[0x11] = 0x7B;
+	//	x_BYTE_E88E0x[0x16] = 0x3A;
+	//	x_BYTE_E88E0x[0x12] = 0x76;
+	//	x_BYTE_E88E0x[0x13] = 0xA0;
+	//	x_BYTE_E88E0x[0x17] = 0x7B;
+	//	x_BYTE_E88E0x[0x14] = 0x7B;
+	//}
 }
 // D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
 // E88E3: using guessed type char x_BYTE_E88E3;
@@ -59738,7 +59730,7 @@ type_str_0x6E8E* sub_4A920(axis_3d* a1x)//22b920 - add player 0
 		v1x->word_0x84_132 = 80;
 		v1x->byte_0x38_56 = 29;
 		v1x->word_0x1A_26 = v1x - D41A0_BYTESTR_0.struct_0x6E8E;
-		if (D41A0_BYTESTR_0.terrain_2FECE.MapType == 2)
+		if (D41A0_BYTESTR_0.terrain_2FECE.MapType == MapType_t::Cave)
 			v1x->dword_0xA0_160x = &str_D7BD6[104]; //(type_str_160*)&unk_D7BD6[0xdd0];
 		else
 			v1x->dword_0xA0_160x = &str_D7BD6[66]; //(type_str_160*)&unk_D7BD6[0x8c4];
@@ -60045,7 +60037,7 @@ type_str_0x6E8E* sub_4AFE0(axis_3d* a1x)//22bfe0 //Spawn Creture Bee
 	axis_3d v6x; // [esp+0h] [ebp-8h]
 	//__int16 v7; // [esp+4h] [ebp-4h]
 
-	if (D41A0_BYTESTR_0.terrain_2FECE.MapType != 2)
+	if (D41A0_BYTESTR_0.terrain_2FECE.MapType != MapType_t::Cave)
 		return 0;
 	v1x = sub_4A050_new_event();
 	v2x = v1x;
@@ -60078,7 +60070,7 @@ type_str_0x6E8E* sub_4B0F0(axis_3d* a1x)//22c0f0
 {
 	type_str_0x6E8E* resultx; // eax
 
-	if (D41A0_BYTESTR_0.terrain_2FECE.MapType == 2)
+	if (D41A0_BYTESTR_0.terrain_2FECE.MapType == MapType_t::Cave)
 		resultx = 0;
 	else
 		resultx = sub_4B150(a1x, 7, 20, 322);
@@ -60091,7 +60083,7 @@ type_str_0x6E8E* sub_4B120(axis_3d* a1x)//22c120
 {
 	type_str_0x6E8E* resultx; // eax
 
-	if (D41A0_BYTESTR_0.terrain_2FECE.MapType == 2)
+	if (D41A0_BYTESTR_0.terrain_2FECE.MapType == MapType_t::Cave)
 		resultx = 0;
 	else
 		resultx = sub_4B150(a1x, 8, 21, 323);
@@ -60285,7 +60277,7 @@ type_str_0x6E8E* sub_4B590(axis_3d* a1x)//22c590
 	//int v7; // edx
 	int v8; // ecx
 
-	if (D41A0_BYTESTR_0.terrain_2FECE.MapType)
+	if (D41A0_BYTESTR_0.terrain_2FECE.MapType != MapType_t::Day)
 		return 0;
 	v1x = sub_4A050_new_event();
 	v2x = v1x;
@@ -61301,7 +61293,7 @@ type_str_0x6E8E* sub_4CCF0(axis_3d* a1x)//22dcf0
 	//int v6; // eax
 	//uint8_t* v7; // eax
 
-	if (D41A0_BYTESTR_0.terrain_2FECE.MapType != 2)
+	if (D41A0_BYTESTR_0.terrain_2FECE.MapType != MapType_t::Cave)
 		return 0;
 	v1x = sub_4A050_new_event();
 	//v2 = v1;
@@ -61462,7 +61454,7 @@ type_str_0x6E8E* sub_4D000(/*uint8_t* a1,*/ axis_3d* a2x)//22e000
 	//fix
 
 	v16 = 0;
-	if (D41A0_BYTESTR_0.terrain_2FECE.MapType == 2)
+	if (D41A0_BYTESTR_0.terrain_2FECE.MapType == MapType_t::Cave)
 	{
 		v16 = 1;
 	}
@@ -64543,7 +64535,7 @@ type_str_0x6E8E* sub_50A20(axis_3d* a1x)//231a20
 	//uint8_t* v2; // ebx
 	//char v3; // dl
 
-	if (D41A0_BYTESTR_0.terrain_2FECE.MapType != 2)
+	if (D41A0_BYTESTR_0.terrain_2FECE.MapType != MapType_t::Cave)
 		return 0;
 	v1x = sub_4A050_new_event();
 	//v2 = v1;
@@ -67192,7 +67184,7 @@ void sub_54630_load_psxblock(uint16_t TextSize)//235630
 }
 
 //----- (00054660) --------------------------------------------------------
-void sub_54660_read_and_decompress_sky_and_blocks(uint8_t GraphicsType, uint8_t GraphicsSize)//235660
+void sub_54660_read_and_decompress_sky_and_blocks(MapType_t GraphicsType, uint8_t GraphicsSize)//235660
 {
 	char dataPath[MAX_PATH];
 	//int result; // eax
@@ -67201,7 +67193,7 @@ void sub_54660_read_and_decompress_sky_and_blocks(uint8_t GraphicsType, uint8_t 
 
 	switch (GraphicsType)
 	{
-	case 0://basic graphics
+	case MapType_t::Day://basic graphics
 	{
 		switch (GraphicsSize)
 		{
@@ -67232,7 +67224,7 @@ void sub_54660_read_and_decompress_sky_and_blocks(uint8_t GraphicsType, uint8_t 
 		DataFileIO::ReadFileAndDecompress(dataPath, (uint8_t**)&str_TMAPS00TAB_BEGIN_BUFFER);//2c7ed0
 		break;
 	}
-	case 1://? and night
+	case MapType_t::Night://? and night
 	{
 		switch (GraphicsSize)
 		{
@@ -67285,7 +67277,7 @@ void sub_54660_read_and_decompress_sky_and_blocks(uint8_t GraphicsType, uint8_t 
 		DataFileIO::ReadFileAndDecompress(dataPath, (uint8_t**)&str_TMAPS00TAB_BEGIN_BUFFER);//2c7ed0
 		break;
 	}
-	case 2://cave
+	case MapType_t::Cave://cave
 	{
 		switch (GraphicsSize)
 		{
@@ -67321,25 +67313,25 @@ void sub_54660_read_and_decompress_sky_and_blocks(uint8_t GraphicsType, uint8_t 
 // F6ED0: using guessed type int TMAPS00TAB_BEGIN_BUFFER;
 
 //----- (00054800) --------------------------------------------------------
-void sub_54800_read_and_decompress_tables(uint8_t a1)//235800
+void sub_54800_read_and_decompress_tables(MapType_t a1)//235800
 {
 	char dataPath[MAX_PATH];
 
-	if (a1 == 0)
+	if (a1 == MapType_t::Day)
 	{
 		sprintf(dataPath, "%s/%s", cdDataPath, "DATA/TABLESD.DAT");
 		DataFileIO::ReadFileAndDecompress(dataPath, &x_BYTE_F6EE0_tablesx_pre);//2c7ee0
 		x_WORD_D4B7E = 0;
 		x_WORD_D4B7C = 254;
 	}
-	else if (a1 == 1)
+	else if (a1 == MapType_t::Night)
 	{
 		sprintf(dataPath, "%s/%s", cdDataPath, "DATA/TABLESN.DAT");
 		DataFileIO::ReadFileAndDecompress(dataPath, &x_BYTE_F6EE0_tablesx_pre);
 		x_WORD_D4B7E = 255;
 		x_WORD_D4B7C = 0;
 	}
-	else if (a1 == 2)
+	else if (a1 == MapType_t::Cave)
 	{
 		sprintf(dataPath, "%s/%s", cdDataPath, "DATA/TABLESC.DAT");
 		DataFileIO::ReadFileAndDecompress(dataPath, &x_BYTE_F6EE0_tablesx_pre);
@@ -69369,7 +69361,7 @@ void sub_56A30_init_game_level(unsigned int a1)//237a30
 //----- (00056C00) --------------------------------------------------------
 void sub_56C00_sound_proc2(type_str_2FECE* a1x)//237c00
 {
-	unsigned __int8 v1; // al
+	MapType_t v1; // al
 	//int v2; // eax
 	char v3; // cl
 	//int result; // eax
@@ -69384,30 +69376,27 @@ void sub_56C00_sound_proc2(type_str_2FECE* a1x)//237c00
 	v1 = a1x->MapType;// *(x_BYTE*)(a1 + 6);
 	//SPELLS_BEGIN_BUFFER_DA818[0x60a] = 19;
 	SPELLS_BEGIN_BUFFER_str[19].subspell[0].byte_0x1A = 19;
-	if (v1 < 1u)
+	if (v1 == MapType_t::Day)
 	{
-		if (!v1)
-		{
-			//SPELLS_BEGIN_BUFFER_DA818[0x15a] = 2;
-			SPELLS_BEGIN_BUFFER_str[4].subspell[0].byte_0x1A = 2;
-			//*(int16_t*)& SPELLS_BEGIN_BUFFER_DA818[0x156] = 198;
-			SPELLS_BEGIN_BUFFER_str[4].subspell[0].word_0x16x = 198;
-			//SPELLS_BEGIN_BUFFER_DA818[0x60a] = 2;
-			SPELLS_BEGIN_BUFFER_str[19].subspell[0].byte_0x1A = 2;
-			//*(uint8_t*)& SPELLS_BEGIN_BUFFER_DA818[0x606] = 244;
-			SPELLS_BEGIN_BUFFER_str[19].subspell[0].word_0x16x = 244;
-			D41A0_BYTESTR_0.m_GameSettings.str_0x2196.transparency_0x2198 = 0;
-			sub_84300_load_sound(0);
-			x_BYTE_D419E = 1;
-		}
+    //SPELLS_BEGIN_BUFFER_DA818[0x15a] = 2;
+    SPELLS_BEGIN_BUFFER_str[4].subspell[0].byte_0x1A = 2;
+    //*(int16_t*)& SPELLS_BEGIN_BUFFER_DA818[0x156] = 198;
+    SPELLS_BEGIN_BUFFER_str[4].subspell[0].word_0x16x = 198;
+    //SPELLS_BEGIN_BUFFER_DA818[0x60a] = 2;
+    SPELLS_BEGIN_BUFFER_str[19].subspell[0].byte_0x1A = 2;
+    //*(uint8_t*)& SPELLS_BEGIN_BUFFER_DA818[0x606] = 244;
+    SPELLS_BEGIN_BUFFER_str[19].subspell[0].word_0x16x = 244;
+    D41A0_BYTESTR_0.m_GameSettings.str_0x2196.transparency_0x2198 = 0;
+    sub_84300_load_sound(0);
+    x_BYTE_D419E = 1;
 	}
-	else if (v1 <= 1u)
+	else if (v1 == MapType_t::Night)
 	{
 		D41A0_BYTESTR_0.m_GameSettings.str_0x2196.transparency_0x2198 = 0;
 		sub_84300_load_sound(1u);
 		x_BYTE_D419E = 9;
 	}
-	else if (v1 == 2)
+	else if (v1 == MapType_t::Cave)
 	{
 		D41A0_BYTESTR_0.m_GameSettings.str_0x2196.transparency_0x2198 = 1;
 		x_BYTE_D41B6 = 1;
@@ -72277,7 +72266,7 @@ void sub_59F60(type_str_0x6E8E* a1x)//23af60
 						{
 							v54 = (v54 & 3) + 28;
 						}
-						if (D41A0_BYTESTR_0.terrain_2FECE.MapType)
+						if (D41A0_BYTESTR_0.terrain_2FECE.MapType != MapType_t::Day)
 							v55 = 32 - v54 + 32;
 						else
 							v55 = v54;
@@ -72430,7 +72419,7 @@ void sub_59F60(type_str_0x6E8E* a1x)//23af60
 					{
 						v24 = (v24 & 3) + 28;
 					}
-					if (D41A0_BYTESTR_0.terrain_2FECE.MapType)
+					if (D41A0_BYTESTR_0.terrain_2FECE.MapType != MapType_t::Day)
 						v26 = 32 - v24 + 32;
 					else
 						v26 = v24;
@@ -72744,7 +72733,7 @@ void sub_59F60(type_str_0x6E8E* a1x)//23af60
 							{
 								v127 = (v127 & 3) + 28;
 							}
-							if (D41A0_BYTESTR_0.terrain_2FECE.MapType)
+							if (D41A0_BYTESTR_0.terrain_2FECE.MapType != MapType_t::Day)
 								v129 = 32 - v127 + 32;
 							else
 								v129 = v127;
@@ -72785,7 +72774,7 @@ void sub_59F60(type_str_0x6E8E* a1x)//23af60
 						{
 							v119 = (v119 & 3) + 28;
 						}
-						if (D41A0_BYTESTR_0.terrain_2FECE.MapType)
+						if (D41A0_BYTESTR_0.terrain_2FECE.MapType != MapType_t::Day)
 							v121 = 32 - v119 + 32;
 						else
 							v121 = v119;
@@ -75729,7 +75718,7 @@ LABEL_27:
 		}
 	}
 	//v46 = (int)x_D41A0_BYTEARRAY_0;
-	if (D41A0_BYTESTR_0.terrain_2FECE.MapType == 2)
+	if (D41A0_BYTESTR_0.terrain_2FECE.MapType == MapType_t::Cave)
 	{
 		//v47 = 9377 * *(x_DWORD *)(x_D41A0_BYTEARRAY_0 + 8) + 9439;
 		//*(x_DWORD *)(x_D41A0_BYTEARRAY_0 + 8) = v47;
@@ -76437,7 +76426,7 @@ signed int sub_5E8C0_endGameSeq(type_str_0x6E8E* a1x)//23f8c0 //end game sequenc
 				a1x->byte_0x46_70 = 6;
 			else
 				a1x->byte_0x46_70 = 8;
-			if (x_DWORD_E9C3C && !D41A0_BYTESTR_0.terrain_2FECE.MapType)
+			if (x_DWORD_E9C3C && (D41A0_BYTESTR_0.terrain_2FECE.MapType == MapType_t::Day))
 			{
 				sub_86860_speak_Sound(x_WORD_1803EC);
 				sprintf(dataPath, "%s/%s", cdDataPath, "DATA/GTD2.DAT");
@@ -78712,7 +78701,7 @@ void sub_61A00_draw_minimap_entites_b(int a1, int a2, __int16 a3, __int16 a4, in
 	int v8; // edx
 	int v9; // esi
 	int v10; // ebx
-	unsigned __int8 v11; // al
+	MapType_t v11; // al
 	__int64 v12; // rtt
 	int v13; // ebx
 	int v14; // edx
@@ -78808,21 +78797,21 @@ void sub_61A00_draw_minimap_entites_b(int a1, int a2, __int16 a3, __int16 a4, in
 	v10 = a8;
 	v11 = D41A0_BYTESTR_0.terrain_2FECE.MapType;
 	v83 = 0;
-	if (v11 == 0u)
+	if (v11 == MapType_t::Day)
 	{
 		v92 = (*xadataclrd0dat.var28_begin_buffer)[0];
 		v93 = (*xadataclrd0dat.var28_begin_buffer)[0];
 		v91 = 0xe8;
 		v90 = 0x1c;
 	}
-	else if (v11 == 1u)
+	else if (v11 == MapType_t::Night)
 	{
 		v92 = (*xadataclrd0dat.var28_begin_buffer)[0xfff];
 		v93 = (*xadataclrd0dat.var28_begin_buffer)[0xfff];
 		v91 = 0xe8;//0xe8
 		v90 = 0x84;//0x84
 	}
-	else if (v11 == 2)
+	else if (v11 == MapType_t::Cave)
 	{
 		v92 = (*xadataclrd0dat.var28_begin_buffer)[0xfff];
 		v93 = (*xadataclrd0dat.var28_begin_buffer)[0xfff];
@@ -79321,7 +79310,7 @@ void sub_627F0_draw_minimap_entites_a(int a1, int a2, __int16 a3, __int16 a4, in
 	int v8; // edx
 	int v9; // esi
 	int v10; // ebx
-	unsigned __int8 v11; // al
+	MapType_t v11; // al
 	char v12; // al
 	__int64 v13; // rtt
 	int v14; // ebx
@@ -79427,35 +79416,30 @@ void sub_627F0_draw_minimap_entites_a(int a1, int a2, __int16 a3, __int16 a4, in
 	v10 = a8;
 	v11 = D41A0_BYTESTR_0.terrain_2FECE.MapType;
 	v93 = 0;
-	if (v11 < 1u)
+	if (v11 == MapType_t::Day)
 	{
-		if (!v11)
-		{
-			v109 = (*xadataclrd0dat.var28_begin_buffer)[0x000];
-			v106 = (*xadataclrd0dat.var28_begin_buffer)[0x000];
-			v108 = 28;
-			v107 = -24;
-		}
-		goto LABEL_10;
+    v109 = (*xadataclrd0dat.var28_begin_buffer)[0x000];
+    v106 = (*xadataclrd0dat.var28_begin_buffer)[0x000];
+    v108 = 28;
+    v107 = -24;
 	}
-	if (v11 <= 1u)
+	else if (v11 == MapType_t::Night)
 	{
 		v109 = (*xadataclrd0dat.var28_begin_buffer)[0xfff];
 		v106 = (*xadataclrd0dat.var28_begin_buffer)[0xfff];
 		v12 = -124;
 		v107 = -24;
+	  v108 = v12;
 	}
-	else
+	else // Cave
 	{
-		if (v11 != 2)
-			goto LABEL_10;
 		v109 = (*xadataclrd0dat.var28_begin_buffer)[0xfff];
 		v106 = (*xadataclrd0dat.var28_begin_buffer)[0xfff];
 		v107 = 28;
 		v12 = (*xadataclrd0dat.var28_begin_buffer)[0xf0];
+	  v108 = v12;
 	}
-	v108 = v12;
-LABEL_10:
+
 	if (x_WORD_180660_VGA_type_resolution & 1)
 	{
 		v8 = a1 >> 1;
@@ -80107,7 +80091,7 @@ void sub_63670_draw_minimap_a(int a1, int a2, int a3, int a4, int a5, int a6, __
 	v11 = a2;
 	v12 = a5;
 	v13 = a6;
-	v14 = !D41A0_BYTESTR_0.m_GameSettings.str_0x2196.transparency_0x2198 && D41A0_BYTESTR_0.terrain_2FECE.MapType != 2;
+	v14 = !D41A0_BYTESTR_0.m_GameSettings.str_0x2196.transparency_0x2198 && D41A0_BYTESTR_0.terrain_2FECE.MapType != MapType_t::Cave;
 	v87 = v14;
 	if (x_WORD_180660_VGA_type_resolution & 1)
 	{
@@ -80559,7 +80543,7 @@ void sub_63C90_draw_minimap_b(int a1, int a2, int a3, int a4, int a5, int a6, __
 				v72 -= v70;
 			}
 		}
-		else if (!D41A0_BYTESTR_0.m_GameSettings.str_0x2196.transparency_0x2198 && D41A0_BYTESTR_0.terrain_2FECE.MapType != 2)
+		else if (!D41A0_BYTESTR_0.m_GameSettings.str_0x2196.transparency_0x2198 && D41A0_BYTESTR_0.terrain_2FECE.MapType != MapType_t::Cave)
 		{
 			for (j = v13; j; v73 += v69)
 			{
@@ -89636,15 +89620,15 @@ void InitTmaps(unsigned __int16 a1)//251f50
 		}
 
 		switch (D41A0_BYTESTR_0.terrain_2FECE.MapType) {
-		case 0: {
+		case MapType_t::Day: {
 			sprintf(tmapsdirpost, "%s/%s", spritePath, "TMAPS/TMAPS2-0-");
 			break;
 		}
-		case 1: {
+		case MapType_t::Night: {
 			sprintf(tmapsdirpost, "%s/%s", spritePath, "TMAPS/TMAPS2-1-");
 			break;
 		}
-		case 2: {
+		case MapType_t::Cave: {
 			sprintf(tmapsdirpost, "%s/%s", spritePath, "TMAPS/TMAPS2-2-");
 			break;
 		}
@@ -90334,7 +90318,7 @@ void sub_71990()//252990
 // E9C28: using guessed type int x_DWORD_E9C28;
 
 //----- (00071A70) --------------------------------------------------------
-void sub_71A70_setTmaps(unsigned __int8 a1)//252a70
+void sub_71A70_setTmaps(MapType_t a1)//252a70
 {
 	FILE* v1; // edx
 	//unsigned __int8 result; // al
@@ -90343,17 +90327,17 @@ void sub_71A70_setTmaps(unsigned __int8 a1)//252a70
 	//result = a1;
 	switch (a1)
 	{
-	case 0:
+	case MapType_t::Day:
 	{
 		v1 = x_DWORD_DB740_tmaps00file;
 		break;
 	}
-	case 1:
+	case MapType_t::Night:
 	{
 		v1 = x_DWORD_DB744_tmaps10file;
 		break;
 	}
-	case 2:
+	case MapType_t::Cave:
 	{
 		v1 = x_DWORD_DB748_tmaps20file;
 		break;
@@ -102279,14 +102263,14 @@ void sub_84790()//265790
 char sub_847D0(type_str_0x6E8E* a1x, char a2, char a3, char a4)//2657d0
 {
 	__int16 v4; // dx
-	unsigned __int8 v5; // dh
+	MapType_t v5; // dh
 	int v6x; // eax
 
 	LOBYTE(v4) = 0;
 	if (D41A0_BYTESTR_0.m_GameSettings.str_0x2196.m_wDynamicLighting)
 	{
 		v5 = D41A0_BYTESTR_0.terrain_2FECE.MapType;
-		if (v5 >= 1u && v5 <= 2u && D41A0_BYTESTR_0.word_0x36DFA < 50)
+		if ((v5 == MapType_t::Night || v5 == MapType_t::Cave) && D41A0_BYTESTR_0.word_0x36DFA < 50)
 		{
 			//v6 = (int)x_D41A0_BYTEARRAY_0 + 222796;
 			v6x = 0;
@@ -102369,7 +102353,7 @@ void sub_848A0()//2658a0
 #endif //DEBUG_SEQUENCES
 
 	//LOBYTE(v0) = D41A0_BYTESTR_0.str_2FECE.MapType;
-	if (D41A0_BYTESTR_0.terrain_2FECE.MapType >= 1u && D41A0_BYTESTR_0.terrain_2FECE.MapType <= 2u)
+	if (D41A0_BYTESTR_0.terrain_2FECE.MapType == MapType_t::Night || D41A0_BYTESTR_0.terrain_2FECE.MapType == MapType_t::Cave)
 	{
 		//v0 = D41A0_BYTESTR_0.word_0x36DFA;
 		v31 = D41A0_BYTESTR_0.word_0x36DFA;
@@ -102524,7 +102508,7 @@ void sub_84B80()//265b80
 
 	//index = (int)x_D41A0_BYTEARRAY_0;
 	//v1 = D41A0_BYTESTR_0.str_2FECE.MapType;
-	if (D41A0_BYTESTR_0.terrain_2FECE.MapType >= 1u && D41A0_BYTESTR_0.terrain_2FECE.MapType <= 2u)
+	if (D41A0_BYTESTR_0.terrain_2FECE.MapType == MapType_t::Night || D41A0_BYTESTR_0.terrain_2FECE.MapType == MapType_t::Cave)
 	{
 		v9 = D41A0_BYTESTR_0.word_0x36DFA;
 		if (D41A0_BYTESTR_0.word_0x36DFA)
@@ -105775,7 +105759,7 @@ void sub_88D40()//269d40
 		v7_ebx = v5;
 		v41_66 = x_BYTE_D94FF_spell_index[v36_52x->dword_0xA4_164x->str_611.byte_0x458_1112];
 		v46_7E = v36_52x->dword_0xA4_164x->str_611.array_0x333_819x.word[v41_66] != 0;
-		if (D41A0_BYTESTR_0.terrain_2FECE.MapType != 2 && v41_66 == 25)
+		if (D41A0_BYTESTR_0.terrain_2FECE.MapType != MapType_t::Cave && v41_66 == 25)
 			v46_7E = 0;
 		v35_4E = v36_52x->dword_0xA4_164x->str_611.array_0x41D_1053z.byte[v41_66];
 		//v8 = *(char *)(v30_3A + 501);
