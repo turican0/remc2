@@ -1,6 +1,7 @@
 #include "port_sdl_vga_mouse.h"
 #include "port_time.h"
 
+#include <SDL2/SDL_scancode.h>
 #include <cstdint>
 
 #include "../engine/sub_main_mouse.h"
@@ -25,6 +26,9 @@ uint16_t m_iOrigh = 480;
 uint16_t m_iScreenWidth = 640;
 uint16_t m_iScreenHeight = 480;
 bool m_bMaintainAspectRatio = true;
+
+bool settingWindowGrabbed = true;
+bool settingWASD = false;
 
 const char* default_caption = "Magic Carpet 2 - Community Update";
 
@@ -395,7 +399,7 @@ void VGA_Init(Uint32  /*flags*/, int width, int height, bool maintainAspectRatio
 
 			SDL_WindowFlags test_fullscr = SDL_WINDOW_SHOWN;
 			gWindow = SDL_CreateWindow(default_caption, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width/*dm.w*/, height/*dm.h*/, test_fullscr);
-			SDL_SetWindowGrab(gWindow, SDL_TRUE);
+			SDL_SetWindowGrab(gWindow, settingWindowGrabbed ? SDL_TRUE : SDL_FALSE);
 
 			renderer =
 				SDL_CreateRenderer(gWindow, -1, SDL_RENDERER_ACCELERATED |
@@ -644,12 +648,6 @@ Right Ctrl (101-key)      *       *       *       *       *       *       *     
 # Alt-keypad number returns the specified character code and scan code 0
 */
 
-bool alt_enter(SDL_Event* event) {
-	if ((event->key.keysym.sym == SDLK_RETURN) && (event->key.keysym.mod & KMOD_ALT))
-		return true;
-	return false;
-}
-
 void ToggleFullscreen() {
 	Uint32 FullscreenFlag = SDL_WINDOW_FULLSCREEN;
 	bool IsFullscreen = SDL_GetWindowFlags(gWindow) & FullscreenFlag;
@@ -683,6 +681,27 @@ void ToggleFullscreen() {
 	}
 }
 
+bool handleSpecialKeys(const SDL_Event &event) {
+	bool specialKey = false;
+	if ((event.key.keysym.sym == SDLK_RETURN) && (event.key.keysym.mod & KMOD_ALT)) {
+		ToggleFullscreen();
+		specialKey = true;
+	}
+	else if ((event.key.keysym.sym == SDLK_F10) && (event.key.keysym.mod & KMOD_CTRL)) {
+		settingWindowGrabbed = !settingWindowGrabbed;
+		SDL_SetWindowGrab(gWindow, settingWindowGrabbed ? SDL_TRUE : SDL_FALSE);
+		std::cout << "Set window grab to " << (settingWindowGrabbed ? "true" : "false") << std::endl;
+		specialKey = true;
+	}
+	else if ((event.key.keysym.sym == SDLK_F11) && (event.key.keysym.mod & KMOD_CTRL)) {
+		settingWASD = !settingWASD;
+		std::cout << "Set WASD to " << (settingWindowGrabbed ? "true" : "false") << std::endl;
+		specialKey = true;
+	}
+
+	return specialKey;
+}
+
 int mousex, mousey;
 bool pressed = false;
 uint16_t lastchar = 0;
@@ -700,10 +719,9 @@ int events()
 			pressed = true;
 			lastchar = (event.key.keysym.scancode << 8) + event.key.keysym.sym;
 
-			if (alt_enter(&event))
-				ToggleFullscreen();
-			else
+			if (!handleSpecialKeys(event)) {
 				setPress(true, lastchar);
+			}
 			printf("Key press detected\n");//test
 			break;
 
@@ -917,7 +935,28 @@ bool VGA_check_standart_input_status() {
 }
 
 uint16_t fixchar(uint16_t loclastchar) {
-	switch ((loclastchar & 0xff00) >> 8)
+	auto sdl_char = (loclastchar & 0xff00) >> 8;
+	if (settingWASD) {
+		switch (sdl_char) {
+        case SDL_SCANCODE_W:
+			sdl_char = SDL_SCANCODE_UP;
+			break;
+        case SDL_SCANCODE_A:
+			sdl_char = SDL_SCANCODE_LEFT;
+			break;
+        case SDL_SCANCODE_S:
+			sdl_char = SDL_SCANCODE_DOWN;
+			break;
+        case SDL_SCANCODE_D:
+			sdl_char = SDL_SCANCODE_RIGHT;
+			break;
+        case SDL_SCANCODE_LSHIFT:
+			sdl_char = SDL_SCANCODE_RCTRL;
+			break;
+		}
+	}
+
+	switch (sdl_char)
 	{
 	case SDL_SCANCODE_ESCAPE://esc
 		loclastchar = 0x011b;
