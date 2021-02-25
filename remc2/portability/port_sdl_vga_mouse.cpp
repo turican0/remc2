@@ -1,7 +1,6 @@
 #include "port_sdl_vga_mouse.h"
 #include "port_time.h"
 
-#include <SDL2/SDL_scancode.h>
 #include <cstdint>
 
 #include "../engine/sub_main_mouse.h"
