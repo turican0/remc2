@@ -2711,7 +2711,7 @@ int sub_84FB0_3dim_scalar(axis_3d* a1, axis_3d* a2);
 int sub_85060(int a1);
 void sub_85070();
 int sub_85B20_copy_bitmap(x_BYTE* a1, x_WORD* a2, unsigned __int16 a3);
-int sub_85BF5(x_BYTE* a1, int a2, int a3, int a4, int a5, int a6);
+int sub_85BF5(x_BYTE* a1, uint8_t* a2, int a3, int a4, int a5, int a6);
 int sub_85C42(int a1, int a2, int a3, int a4, int a5, unsigned __int8 a6);
 void sub_85C8B_draw_new_game_map_background(uint8_t* a1, uint8_t* a2, int a3, int a4, int a5, int a6);
 int sub_85E40();
@@ -97073,15 +97073,8 @@ signed int sub_7C390()//25d390
 			v2x++;
 		}
 		sub_7C140_draw_text_background(382, 18, 16, 16, 0);
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-		sprintf((char* const)(int)x_DWORD_17DE38str.x_DWORD_17DE50, "%d", (unsigned __int16)x_DWORD_17DE38str.x_WORD_17DEFA);
-		sub_7FAE0_draw_text((char*)(int)x_DWORD_17DE38str.x_DWORD_17DE50, 382, 398, 18, 0);
-#endif
+		sprintf((char* const)x_DWORD_17DE38str.x_DWORD_17DE50, "%d", (unsigned __int16)x_DWORD_17DE38str.x_WORD_17DEFA);
+		sub_7FAE0_draw_text((char*)x_DWORD_17DE38str.x_DWORD_17DE50, 382, 398, 18, 0);
 		sub_7D380();
 		sub_7D310();
 		v4 = 0;
@@ -97146,15 +97139,7 @@ int sub_7C720(unsigned __int8 a1, x_BYTE* a2)//25d720
 		v6 = 480 - v3;
 	if (v5 + v4 > 640)
 		v4 = v5 + v4 - 640;
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-  return 0;
-#else
-	return sub_85BF5(a2, (int)x_DWORD_E9C38_smalltit, v4, v3, v5, v6);
-#endif
+	return sub_85BF5(a2, x_DWORD_E9C38_smalltit, v4, v3, v5, v6);
 }
 // E1E98: using guessed type void *off_E1E98;
 // E9C38: using guessed type int x_DWORD_E9C38_smalltit;
@@ -102848,7 +102833,7 @@ int sub_85B20_copy_bitmap(x_BYTE* a1, x_WORD* a2, unsigned __int16 a3)//266b20
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
 //----- (00085BF5) --------------------------------------------------------
-int sub_85BF5(x_BYTE* a1, int a2, int a3, int a4, int a5, int a6)//266bf5
+int sub_85BF5(x_BYTE* a1, uint8_t* a2, int a3, int a4, int a5, int a6)//266bf5
 {
 	x_BYTE* v6; // esi
 	x_BYTE* v7; // edi
@@ -102861,7 +102846,7 @@ int sub_85BF5(x_BYTE* a1, int a2, int a3, int a4, int a5, int a6)//266bf5
 	//fix it
 
 	v6 = a1;
-	v7 = (x_BYTE*)(a3 + 640 * a4 + a2);
+	v7 = (x_BYTE*)&a2[a3 + 640 * a4];  // a2 == x_DWORD_E9C38_smalltit
 	v8 = a6;
 	do
 	{
