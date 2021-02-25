@@ -1,4 +1,5 @@
 #include "sub_main.h"
+#include "engine/engine_support.h"
 
 #ifdef __linux__
 #include <strings.h>
@@ -13,6 +14,7 @@
 #include <filesystem>
 #include <iostream>
 #include <functional>
+#include <type_traits>
 void _strupr(char* s)
 {
 	char* p = s;
@@ -1156,43 +1158,13 @@ long /*__fastcall*/ j___clock() {
 }; // weak
 void sub_99830(HMDIDRIVER  /*user*/) { stub_fix_it(); }; // weak
 void j___delay(x_DWORD x) { mydelay(x);}; // weak
-int /*__fastcall*/ j_j___clock(x_DWORD, x_DWORD, x_DWORD) { stub_fix_it(); return 0; }; // weak
-//int x_DWORD_E3E38 = 0; // weak
-//int x_DWORD_181DA8; // weak
-//unsigned int sub_91F20();
-/*
-int32_t sub_91F70_AIL_call_driver(AIL_DRIVER* drvr, int32_t fn, VDI_CALL* in, VDI_CALL* out);//AIL_call_driver
-void sub_91F50(unsigned int a1);
-void sub_9E250(HMDIDRIVER mdidrv) {
-	if (!x_DWORD_E3E38)
-	{
-		x_DWORD_E3E38 = 1;
-		x_DWORD_181DA8 = sub_91F20();
-		sub_91F70_AIL_call_driver(mdidrv->drvr_0, 770, 0, 0);
-		sub_91F50(x_DWORD_181DA8);
-		x_DWORD_E3E38 = 0;
-	}
-}; // weak
-void sub_A2450(HMDIDRIVER user) { stub_fix_it(); }; // weak
-int sub_A2DE0() { stub_fix_it(); return 0; }; // weak
-int sub_A47A0() { stub_fix_it(); return 0; }; // weak
-int sub_A4920() { stub_fix_it(); return 0; }; // weak
-//void sub_A6530(uint32_t user) { stub_fix_it();}; // weak
-int sub_A9C00() { stub_fix_it(); return 0; }; // weak
-int sub_A9C50() { stub_fix_it(); return 0; }; // weak
-void sub_A6F30(void* a) { stub_fix_it(); }; // weak
-*/
-//int /*__far*/ sub_C0000() { stub_fix_it();return 0; }; // weak
-
-//char sounddir[512];
+int j_j___clock(x_DWORD, x_DWORD, x_DWORD) { stub_fix_it(); return 0; }; // weak
 
 // Function declarations
-/*void __noreturn sub_10000(); // weak*/
 signed __int16 sub_10010();
 unsigned int sub_10080(int32_t a1, int32_t a2);
 void sub_10100(int a1);
 signed int sub_10130(int a1, x_DWORD* a2, x_DWORD* a3);
-//void sub_101C0();
 int sub_102D0(type_str_0x6E8E* a1, axis_3d* a2, char a3);
 signed int sub_104A0(axis_3d* a1);
 uint32_t sub_104D0_terrain_tile_is_water(axis_3d* a1);
@@ -1805,7 +1777,7 @@ void sub_46B40();
 void sub_46B40_alt();
 void /*__fastcall*/ sub_46DD0_init_sound_and_music(/*int a1, int a2, char* a3*/);
 void sub_46F50_sound_proc7();
-void LoadTextureData(__int16 vgaTypeResolution, uint8_t MapType, uint8_t* pdwScreenBuffer);
+void LoadTextureData(__int16 vgaTypeResolution, MapType_t MapType, uint8_t* pdwScreenBuffer);
 void sub_47130();
 void sub_47160();
 // int sub_47320_in_game_loop(signed int a1);
@@ -2115,8 +2087,8 @@ char LoadFilesFromCDAndGameData(char* cdPath, char* gamePath, char* fileName);
 
 void sub_54600_mouse_reset();
 void sub_54630_load_psxblock(uint16_t TextSize);
-void sub_54660_read_and_decompress_sky_and_blocks(uint8_t a1, uint8_t a2);
-void sub_54800_read_and_decompress_tables(uint8_t a1);
+void sub_54660_read_and_decompress_sky_and_blocks(MapType_t a1, uint8_t a2);
+void sub_54800_read_and_decompress_tables(MapType_t a1);
 void sub_548B0(type_str_0x2BDE* a1);
 void sub_548F0(type_str_0x2BDE* a1);
 void sub_54960();
@@ -2528,7 +2500,7 @@ void sub_71890();
 void sub_718F0();
 void sub_71930();
 void sub_71990();
-void sub_71A70_setTmaps(unsigned __int8 a1);
+void sub_71A70_setTmaps(MapType_t a1);
 void sub_71AB0(__int16 a1, char a2);
 type_x_DWORD_E9C28_str* sub_71B40(int a1, unsigned __int16 a2, type_x_DWORD_E9C28_str* a3);
 signed int sub_71CD0(type_x_DWORD_E9C28_str* a1);
@@ -2731,19 +2703,9 @@ void sub_833C0();
 void sub_83850_show_welcome_screen();
 void sub_83B50();
 void sub_83CC0(char a1);
-//void* sub_83CD0_malloc2(size_t a1);
-//void* sub_83D70_malloc1(int a1);
 char sub_83E00(int a1, int a2);
-//void sub_83E80_freemem4(uint8_t* a1);
-//int sub_84000(int a1);
 void GetSystemSpeed();
-// void sub_840B8(char a1, bool a2, char a3, char a4);
-// __int16 sub_840D3(char _CF, bool _ZF, char _SF, char _OF);
-// void /*__spoils<st0>*/ sub_841CE(__int16 a1);
 bool sub_84250_load_file_array(int psindex);
-/*int32_t sub_84300_load_sound(uint8_t a1);
-void sub_844A0_sound_proc5();
-char ReadAndDecompressSound(FILE* a1, unsigned __int8 a2);*/
 void sub_84790();
 char sub_847D0(type_str_0x6E8E* a1, char a2, char a3, char a4);
 void sub_84880(type_str_0x3664C* a1);
@@ -2753,20 +2715,13 @@ void sub_84EA0(uaxis_2d a1x, type_str_0x3664C* a2, char a3, __int16 a4);
 int sub_84FB0_3dim_scalar(axis_3d* a1, axis_3d* a2);
 int sub_85060(int a1);
 void sub_85070();
-//int *sub_85350(); //fix
-void* sub_85450_allocate_mem_pool(unsigned int a1);
-__int16 sub_856D0(int a1, int a2, __int16 a3, int a4);
-unsigned int* sub_85AF0(int a1);
 int sub_85B20_copy_bitmap(x_BYTE* a1, x_WORD* a2, unsigned __int16 a3);
-int sub_85BF5(x_BYTE* a1, int a2, int a3, int a4, int a5, int a6);
+int sub_85BF5(x_BYTE* a1, uint8_t* a2, int a3, int a4, int a5, int a6);
 int sub_85C42(int a1, int a2, int a3, int a4, int a5, unsigned __int8 a6);
 void sub_85C8B_draw_new_game_map_background(uint8_t* a1, uint8_t* a2, int a3, int a4, int a5, int a6);
-// void /*__spoils<ecx>*/ sub_85CC3_draw_round_frame(unsigned int a1, int a2, unsigned __int16 *a3);
 int sub_85E40();
-//__int16 sub_85EB0_alloc_memory(__int16 a1);
 __int16 sub_85F00_free_memory(__int16 a1);
 int sub_85F60(int a1);
-//bool sub_85FD0();
 int sub_86010();
 __int16 sub_86180(unsigned __int16 a1);
 __int16 sub_86270(unsigned __int16 a1);
@@ -2856,8 +2811,7 @@ signed int sub_8B790(type_unk_18058Cstr a1);
 char sub_8B880(int* a1, char a2, signed int a3, int a4);
 // char sub_8B980(int a1, int a2, x_DWORD **a3, int a4);
 // char sub_8BA10(int a1, int a2, int *a3, char *a4, int a5);
-int sub_8BB10(int a1);
-int sub_8BB40(int a1, char a2);
+void sub_8BB40(uint8_t *a1, char a2);
 signed int sub_8BBE0(int a1);
 void sub_8C0E0(unsigned __int8(/*__fastcall*/ *a1)(signed int));
 char sub_8C140(unsigned __int16 a1, int a2);
@@ -2938,7 +2892,6 @@ void sub_9B688(int a1);
 int sub_9B7E8(int a1);
 void sub_9BAB0();
 int sub_9BAC4(int a1, signed int a2);
-int sub_9BBFC_unlock_and_free_memory(int a1);
 signed int sub_9BC68_allocate_and_lock_memory(x_WORD* a1, int a2, unsigned int a3);
 int sub_9BE18(int a1, int a2, char a3, unsigned int a4, unsigned int a5);
 signed int sub_9C810(x_DWORD* a1, char a2);
@@ -2956,7 +2909,7 @@ void sub_A0D2C_VGA_get_pallette(TColor* a1);
 void sub_A0D50_set_viewport(__int16 a1, __int16 a2, __int16 a3, __int16 a4);
 signed int sub_AB9E1_get_file_unpack_size(char* a1);
 int sub_AC24B();
-signed int sub_AC250(int a1, int a2, int a3, int a4, int a5, x_DWORD* a6, x_DWORD* a7, signed int* a8);
+void sub_AC250(int a1, int a2, int a3, int a4, int a5, x_DWORD* a6, x_DWORD* a7, signed int* a8);
 x_BYTE* sub_AD09E(x_BYTE* a1, int a2);
 int sub_AD754(signed int a1);
 signed int sub_B1138(signed int* a1, signed int a2);
@@ -15849,7 +15802,7 @@ void sub_1A970_change_game_settings(char a1, int a2, int a3)//1fb970
 	unsigned __int8 v14; // al
 	__int16 v15; // ST04_2
 	//char v16; // dl
-	unsigned __int8 v17; // bl
+	MapType_t v17; // bl
 	//char v18; // bl
 	//char v19; // cl
 	//char v20; // bl
@@ -15924,46 +15877,41 @@ void sub_1A970_change_game_settings(char a1, int a2, int a3)//1fb970
 			return;
 		x_D41A0_BYTEARRAY_4_struct.setting_38402 = 1;
 		v17 = D41A0_BYTESTR_0.terrain_2FECE.MapType;
-		if (v17 < 1u)
+		if (v17 == MapType_t::Day)
 		{
-			if (!v17)//v17==0
-			{
-				if (a2)
-				{
-					//v3 = x_D41A0_BYTEARRAY_4_struct.dwordindex_0;
-					//v19 = x_D41A0_BYTEARRAY_4[0xB] - 1;
-					x_D41A0_BYTEARRAY_4_struct.byte_brightness_11--;// = v19;
-					if (x_D41A0_BYTEARRAY_4_struct.byte_brightness_11 >= 0)
-						goto LABEL_86;
-					if (!a3)
-					{
-						x_D41A0_BYTEARRAY_4_struct.byte_brightness_11 = 4;
-						goto LABEL_86;
-					}
-				}
-				else
-				{
-					//v3 = x_D41A0_BYTEARRAY_4_struct.dwordindex_0;
-					//v18 = x_D41A0_BYTEARRAY_4[0xB] + 1;
-					x_D41A0_BYTEARRAY_4_struct.byte_brightness_11++;// = v18;
-					if (x_D41A0_BYTEARRAY_4_struct.byte_brightness_11 <= 4)
-						goto LABEL_86;
-					if (a3)
-					{
-						x_D41A0_BYTEARRAY_4_struct.byte_brightness_11 = 4;
-						goto LABEL_86;
-					}
-				}
-				x_D41A0_BYTEARRAY_4_struct.byte_brightness_11 = 0;
-			}
+      if (a2)
+      {
+        //v3 = x_D41A0_BYTEARRAY_4_struct.dwordindex_0;
+        //v19 = x_D41A0_BYTEARRAY_4[0xB] - 1;
+        x_D41A0_BYTEARRAY_4_struct.byte_brightness_11--;// = v19;
+        if (x_D41A0_BYTEARRAY_4_struct.byte_brightness_11 >= 0)
+          goto LABEL_86;
+        if (!a3)
+        {
+          x_D41A0_BYTEARRAY_4_struct.byte_brightness_11 = 4;
+          goto LABEL_86;
+        }
+      }
+      else
+      {
+        //v3 = x_D41A0_BYTEARRAY_4_struct.dwordindex_0;
+        //v18 = x_D41A0_BYTEARRAY_4[0xB] + 1;
+        x_D41A0_BYTEARRAY_4_struct.byte_brightness_11++;// = v18;
+        if (x_D41A0_BYTEARRAY_4_struct.byte_brightness_11 <= 4)
+          goto LABEL_86;
+        if (a3)
+        {
+          x_D41A0_BYTEARRAY_4_struct.byte_brightness_11 = 4;
+          goto LABEL_86;
+        }
+      }
+      x_D41A0_BYTEARRAY_4_struct.byte_brightness_11 = 0;
 		LABEL_86:
 			sub_47650(a3/*, a2*/);
 			return;
 		}
-		if (v17 > 1u)
+		if (v17 == MapType_t::Cave)
 		{
-			if (v17 != 2)
-				goto LABEL_86;
 			if (a2)//v17==1
 			{
 				//v23 = x_D41A0_BYTEARRAY_4_struct.dwordindex_0;
@@ -29930,7 +29878,7 @@ void sub_2CB30(type_str_0x6E8E* a1x, __int16 a2, int a3, __int16 a4)//20db30 //m
 	v36 = x_BYTE_E88E0x[3 * sub_61790(v25)];//c
 	v35 = (*xadataclrd0dat.var28_begin_buffer)[0];//10 //v19
 	v34 = x_BYTE_E88E0x[3 * sub_61790(v25)];	//14 //v18
-	v8 = 5 * D41A0_BYTESTR_0.terrain_2FECE.MapType;
+	v8 = 5 * static_cast<std::underlying_type<MapType_t>::type>(D41A0_BYTESTR_0.terrain_2FECE.MapType);
 	v33 = x_WORD_D93C0_bldgprmbuffer[2 + 0x130 + v8];//18 v14
 	v38 = x_WORD_D93C0_bldgprmbuffer[2 + 0x131 + v8];//4 v15
 	v37 = x_WORD_D93C0_bldgprmbuffer[2 + 0x12e + v8];//?v22
@@ -30851,7 +30799,7 @@ void sub_2E260_draw_spell(__int16 a1, __int16 a2, type_str_0x6E8E* a3x, char a4)
 					v11 = v15x->dword_0xA4_164x->word_0x3A_58;
 					if (!v11 || a3x->dword_0x88_136 > x_DWORD_EA3E4[v11]->dword_0x90_144)
 					{
-						if (D41A0_BYTESTR_0.terrain_2FECE.MapType)
+						if (D41A0_BYTESTR_0.terrain_2FECE.MapType != MapType_t::Day)
 							v12 = 16;
 						else
 							v12 = 48;
@@ -31417,7 +31365,7 @@ void sub_2F6B0()//2106b0
 		v0 = 480;
 	v40 = v0 - 72;
 	v36 = 0;
-	v1 = 5 * D41A0_BYTESTR_0.terrain_2FECE.MapType;
+	v1 = 5 * static_cast<std::underlying_type<MapType_t>::type>(D41A0_BYTESTR_0.terrain_2FECE.MapType);
 	v2 = x_WORD_D93C0_bldgprmbuffer[2 + 0x12e + v1];
 	v47 = x_WORD_D93C0_bldgprmbuffer[2 + 0x12f + v1];
 	v3 = x_WORD_D93C0_bldgprmbuffer[2 + 0x130 + v1];
@@ -31927,9 +31875,10 @@ void sub_303D0(/*signed int a1*/)//2113d0
 	signed int a1 = 0;//fix this
 
 	//v1 = *(unsigned __int8 *)(x_D41A0_BYTEARRAY_0 + 196308);//D41A0_BYTESTR_0.str_2FECE.MapType
-	v2 = x_WORD_D93C0_bldgprmbuffer[2 + 0x12e + 5 * D41A0_BYTESTR_0.terrain_2FECE.MapType];
-	v3 = x_WORD_D93C0_bldgprmbuffer[2 + 0x130 + 5 * D41A0_BYTESTR_0.terrain_2FECE.MapType];
-	v15 = x_WORD_D93C0_bldgprmbuffer[2 + 0x131 + 5 * D41A0_BYTESTR_0.terrain_2FECE.MapType];
+  int maptypeindex = static_cast<std::underlying_type<MapType_t>::type>(D41A0_BYTESTR_0.terrain_2FECE.MapType);
+	v2 = x_WORD_D93C0_bldgprmbuffer[2 + 0x12e + 5 * maptypeindex];
+	v3 = x_WORD_D93C0_bldgprmbuffer[2 + 0x130 + 5 * maptypeindex];
+	v15 = x_WORD_D93C0_bldgprmbuffer[2 + 0x131 + 5 * maptypeindex];
 	sub_2FFE0(&v12, &v11, &v10, &v9);
 	v4 = x_D41A0_BYTEARRAY_4_struct.byte_38591;
 	if (v4 >= 1u)
@@ -32920,7 +32869,7 @@ void sub_31940(type_str_0x6E8E* a1x)//212940
 				while (v28 < 2)
 				{
 					x_BYTE_11B4E0_heightmap[v26x.word] = v43 - 16;
-					if (D41A0_BYTESTR_0.terrain_2FECE.MapType)
+					if (D41A0_BYTESTR_0.terrain_2FECE.MapType != MapType_t::Day)
 						v36 = 1;
 					else
 						v36 = 63;
@@ -33025,7 +32974,7 @@ void sub_31940(type_str_0x6E8E* a1x)//212940
 				while (v18 < 2)
 				{
 					x_BYTE_11B4E0_heightmap[v16x.word] = v43 - 16;
-					if (D41A0_BYTESTR_0.terrain_2FECE.MapType)
+					if (D41A0_BYTESTR_0.terrain_2FECE.MapType != MapType_t::Day)
 						v35 = 1;
 					else
 						v35 = 63;
@@ -38585,7 +38534,7 @@ void sub_39040(type_str_0x6E8E* a1x)//21a040
 							{
 								v20 = (v20 & 3) + 28;
 							}
-							if (D41A0_BYTESTR_0.terrain_2FECE.MapType)
+							if (D41A0_BYTESTR_0.terrain_2FECE.MapType != MapType_t::Day)
 								v21 = 32 - v20 + 32;
 							else
 								LOBYTE(v21) = v20;
@@ -38631,7 +38580,7 @@ void sub_39040(type_str_0x6E8E* a1x)//21a040
 							x_BYTE_11B4E0_heightmap[v26x.word] = v27;
 							v28 = a1x->dword_0x10_16;
 							v29 = 31 / v28 + 32;
-							if (D41A0_BYTESTR_0.terrain_2FECE.MapType)
+							if (D41A0_BYTESTR_0.terrain_2FECE.MapType != MapType_t::Day)
 								v29 = -31 / v28 + 32;
 							x_BYTE_12B4E0_shading[v26x.word] = v29;
 							v26x._axis_2d.x++;
@@ -38679,7 +38628,7 @@ void sub_39040(type_str_0x6E8E* a1x)//21a040
 					v35x._axis_2d.x = v52x._axis_2d.x - 1;
 					while (v37 < 2)
 					{
-						if (D41A0_BYTESTR_0.terrain_2FECE.MapType)
+						if (D41A0_BYTESTR_0.terrain_2FECE.MapType != MapType_t::Day)
 							v45 = 1;
 						else
 							v45 = 63;
@@ -38922,7 +38871,7 @@ unsigned __int8 sub_396D0(type_str_0x6E8E* a1x)//21a6d0
 					{
 						v18 = (v18 & 3) + 28;
 					}
-					if (D41A0_BYTESTR_0.terrain_2FECE.MapType)
+					if (D41A0_BYTESTR_0.terrain_2FECE.MapType != MapType_t::Day)
 						v19 = 32 - v18 + 32;
 					else
 						LOBYTE(v19) = v18;
@@ -41559,7 +41508,7 @@ void DrawTerrainAndParticles(__int16 a3, __int16 a4, __int16 a5, signed int a6, 
 	*/
 
 	x_BYTE_F2CC7 = D41A0_BYTESTR_0.m_GameSettings.m_Graphics.m_wShadows;//21d080
-	x_BYTE_D4320 = D41A0_BYTESTR_0.terrain_2FECE.MapType != 0;
+	x_BYTE_D4320 = D41A0_BYTESTR_0.terrain_2FECE.MapType != MapType_t::Day;
 	str_F2C20ar.dword0x10 = (signed int)(unsigned __int16)iViewPortHeight >> 1;
 	x_WORD_F2CC4 = a3;
 	x_WORD_F2CC0 = a5 & 0x7FF;
@@ -43495,7 +43444,7 @@ void sub_3C080_draw_terrain_and_particles_old(/*int a1, int a2,*/ __int16 a3, __
 	*/
 
 	x_BYTE_F2CC7 = D41A0_BYTESTR_0.m_GameSettings.m_Graphics.m_wShadows;//21d080
-	x_BYTE_D4320 = D41A0_BYTESTR_0.terrain_2FECE.MapType != 0;
+	x_BYTE_D4320 = D41A0_BYTESTR_0.terrain_2FECE.MapType != MapType_t::Day;
 	str_F2C20ar.dword0x10 = (signed int)(unsigned __int16)iViewPortHeight >> 1;
 	x_WORD_F2CC4 = a3;
 	x_WORD_F2CC0 = a5 & 0x7FF;
@@ -50310,7 +50259,7 @@ unsigned __int16 sub_46180(unsigned __int16 a1, char a2)//227180
 			{
 				LOBYTE(v10) = (v10 & 3) + 28;
 			}
-			if (D41A0_BYTESTR_0.terrain_2FECE.MapType)
+			if (D41A0_BYTESTR_0.terrain_2FECE.MapType != MapType_t::Day)
 				v10 = 32 - (char)v10 + 32;
 			x_BYTE_12B4E0_shading[result] = v10;
 			if (x_BYTE_D41B6 && (unsigned __int8)x_BYTE_14B4E0_second_heightmap[result] <= x_BYTE_11B4E0_heightmap[result])
@@ -50523,7 +50472,7 @@ void sub_462A0(uaxis_2d a1x, uaxis_2d a2x)//2272a0
 				{
 					v18 = (v18 & 3) + 28;
 				}
-				if (D41A0_BYTESTR_0.terrain_2FECE.MapType)
+				if (D41A0_BYTESTR_0.terrain_2FECE.MapType != MapType_t::Day)
 					v19 = 32 - v18 + 32;
 				else
 					v19 = v18;
@@ -50712,7 +50661,7 @@ void sub_46570(uaxis_2d a1x, uaxis_2d a2x)//227570
 				{
 					v22 = (v22 & 3) + 28;
 				}
-				if (D41A0_BYTESTR_0.terrain_2FECE.MapType)
+				if (D41A0_BYTESTR_0.terrain_2FECE.MapType != MapType_t::Day)
 					v23 = 32 - v22 + 32;
 				else
 					v23 = v22;
@@ -50911,13 +50860,13 @@ void sub_46830_main_loop(/*int16_t* a1, */signed int a2, unsigned __int16 a3)//2
 				{
 					//v8 = x_D41A0_BYTEARRAY_0[196308];
 					switch (D41A0_BYTESTR_0.terrain_2FECE.MapType) {
-					case 0:
+					case MapType_t::Day:
 						D41A0_BYTESTR_0.dword_0x235 = 2;
 						break;
-					case 1:
+					case MapType_t::Night:
 						D41A0_BYTESTR_0.dword_0x235 = 1;
 						break;
-					case 2:
+					case MapType_t::Cave:
 						D41A0_BYTESTR_0.dword_0x235 = 3;
 						break;
 					}
@@ -51227,9 +51176,9 @@ void sub_46F50_sound_proc7()//227f50
 // F42A4: using guessed type int x_DWORD_F42A4_sound_timer;
 
 //----- (00046F80) --------------------------------------------------------
-void LoadTextureData(__int16 vgaTypeResolution, uint8_t MapType, uint8_t* pdwScreenBuffer)//227f80
+void LoadTextureData(__int16 vgaTypeResolution, MapType_t MapType, uint8_t* pdwScreenBuffer)//227f80
 {
-	unsigned __int8 v0; // al
+	MapType_t v0; // al
 	//char* v1;
 	//int v2; // esi
 	int32_t file2lenght; // eax
@@ -51254,7 +51203,7 @@ void LoadTextureData(__int16 vgaTypeResolution, uint8_t MapType, uint8_t* pdwScr
 	v0 = MapType;
 	switch (v0)
 	{
-	case 1:
+	case MapType_t::Night:
 			{
 				if (vgaTypeResolution == 1)
 				{
@@ -51268,7 +51217,7 @@ void LoadTextureData(__int16 vgaTypeResolution, uint8_t MapType, uint8_t* pdwScr
 				}
 				break;
 			}
-	case 2:
+	case MapType_t::Cave:
 			{
 				if (vgaTypeResolution == 1)
 				{
@@ -51282,7 +51231,7 @@ void LoadTextureData(__int16 vgaTypeResolution, uint8_t MapType, uint8_t* pdwScr
 				}
 				break;
 			}
-	case 0:
+	case MapType_t::Day:
 		{
 			if (vgaTypeResolution == 1)
 			{
@@ -51357,21 +51306,21 @@ void sub_47160()//228160
 
 	//v0 = x_D41A0_BYTEARRAY_0[196308];
 
-	if (D41A0_BYTESTR_0.terrain_2FECE.MapType == 0)
+	if (D41A0_BYTESTR_0.terrain_2FECE.MapType == MapType_t::Day)
 	{
 		sprintf(xadatamsprd00dat.path, "%s/%s", cdDataPath, "DATA/MSPRD0-0.DAT");
 		sprintf(xadatamsprd00tab.path, "%s/%s", cdDataPath, "DATA/MSPRD0-0.TAB");
 		sprintf(xadatahsprd00dat.path, "%s/%s", cdDataPath, "DATA/HSPRD0-0.DAT");
 		sprintf(xadatahsprd00tab.path, "%s/%s", cdDataPath, "DATA/HSPRD0-0.TAB");
 	}
-	else if (D41A0_BYTESTR_0.terrain_2FECE.MapType == 1)
+	else if (D41A0_BYTESTR_0.terrain_2FECE.MapType == MapType_t::Night)
 	{
 		sprintf(xadatamsprd00dat.path, "%s/%s", cdDataPath, "DATA/MSPRN0-0.DAT");
 		sprintf(xadatamsprd00tab.path, "%s/%s", cdDataPath, "DATA/MSPRN0-0.TAB");
 		sprintf(xadatahsprd00dat.path, "%s/%s", cdDataPath, "DATA/HSPRN0-0.DAT");
 		sprintf(xadatahsprd00tab.path, "%s/%s", cdDataPath, "DATA/HSPRN0-0.TAB");
 	}
-	else if (D41A0_BYTESTR_0.terrain_2FECE.MapType == 2)
+	else if (D41A0_BYTESTR_0.terrain_2FECE.MapType == MapType_t::Cave)
 	{
 		sprintf(xadatamsprd00dat.path, "%s/%s", cdDataPath, "DATA/MSPRC0-0.DAT");
 		sprintf(xadatamsprd00tab.path, "%s/%s", cdDataPath, "DATA/MSPRC0-0.TAB");
@@ -51834,7 +51783,7 @@ int comp21 = compare_with_sequence_D41A0((char*)"00228583", x_D41A0_BYTEARRAY_0,
 //----- (00047650) --------------------------------------------------------
 void sub_47650(int  /*a1*//*, int a2*/)//228650
 {
-	unsigned __int8 v2; // al
+	MapType_t v2; // al
 	signed int v3; // esi
 	int v4; // edx
 	signed int v5; // ebx
@@ -51846,13 +51795,13 @@ void sub_47650(int  /*a1*//*, int a2*/)//228650
 
 	qmemcpy((void*)*xadatapald0dat2.var28_begin_buffer, (void*)x_DWORD_EA3B8x, 0x300u);
 	v2 = D41A0_BYTESTR_0.terrain_2FECE.MapType;
-	if (v2 == 0)
+	if (v2 == MapType_t::Day)
 		v8 = x_D41A0_BYTEARRAY_4_struct.byte_brightness_11;
-	else if (v2 == 1)
+	else if (v2 == MapType_t::Night)
 	{
 		v8 = x_D41A0_BYTEARRAY_4_struct.byte_brightness_12;
 	}
-	else if (v2 == 2)
+	else if (v2 == MapType_t::Cave)
 	{
 		v8 = x_D41A0_BYTEARRAY_4_struct.byte_brightness_13;
 	}
@@ -51942,7 +51891,7 @@ void PaletteChanges_47760(/*int a1,*/uint32_t  /*user*//* int a2, int a3*/)//228
 		//v7 = D41A0_BYTESTR_0.str_2FECE.MapType;
 		switch (D41A0_BYTESTR_0.terrain_2FECE.MapType)
 		{
-			case 0:
+			case MapType_t::Day:
 			{
 				sprintf(dataPath, "%s/%s", cdDataPath, "DATA/PALD-0.DAT");
 				DataFileIO::ReadFileAndDecompress(dataPath, xadatapald0dat2.var28_begin_buffer);
@@ -51950,7 +51899,7 @@ void PaletteChanges_47760(/*int a1,*/uint32_t  /*user*//* int a2, int a3*/)//228
 				DataFileIO::ReadFileAndDecompress(dataPath, xadataclrd0dat.var28_begin_buffer);
 			}
 				break;
-			case 1:
+			case MapType_t::Night:
 			{
 				if (D41A0_BYTESTR_0.terrain_2FECE.byte_0x2FED2 & 2)
 				{
@@ -51966,7 +51915,7 @@ void PaletteChanges_47760(/*int a1,*/uint32_t  /*user*//* int a2, int a3*/)//228
 				DataFileIO::ReadFileAndDecompress(dataPath, xadataclrd0dat.var28_begin_buffer);
 				break;
 			}
-			case 2:
+			case MapType_t::Cave:
 			{
 				sprintf(dataPath, "%s/%s", cdDataPath, "DATA/PALC-0.DAT");
 				DataFileIO::ReadFileAndDecompress(dataPath, xadatapald0dat2.var28_begin_buffer);
@@ -52298,11 +52247,10 @@ void sub_480A0_set_clear_pallette(/*int a1, int a2, int a3*/)//2290a0
 //----- (00048120) --------------------------------------------------------
 void sub_48120()//229120
 {
-	unsigned __int8 result; // al
-	result = D41A0_BYTESTR_0.terrain_2FECE.MapType;
-	if (result >= 1u)
+	MapType_t result = D41A0_BYTESTR_0.terrain_2FECE.MapType;
+	if (result != MapType_t::Day)
 	{
-		if (result <= 1u)//1
+		if (result == MapType_t::Night)//1
 		{
 			x_BYTE_E88E0x[0x0] = 0xA4;
 			x_BYTE_E88E0x[0x1] = 0xAA;
@@ -52321,8 +52269,6 @@ void sub_48120()//229120
 		}
 		else
 		{
-			if (result != 2)
-				return;
 			x_BYTE_E88E0x[0x0] = 0xE0;
 			x_BYTE_E88E0x[0x1] = 0x58;
 			x_BYTE_E88E0x[0x3] = 0x77;
@@ -52344,42 +52290,39 @@ void sub_48120()//229120
 		x_BYTE_E88E0x[0xd] = 0x9D;
 		x_BYTE_E88E0x[0xe] = 0x7B;
 		x_BYTE_E88E0x[0x12] = 0x69;
-		result = 0x7B;
 		x_BYTE_E88E0x[0x14] = 0x7B;
 		x_BYTE_E88E0x[0x15] = 0xC9;
 		x_BYTE_E88E0x[0x17] = 0x7B;
 		x_BYTE_E88E0x[0x16] = 0xCF;
-		return;
 	}
-	if (!result)
-	{
-		x_BYTE_E88E0x[0x0] = 0x60;
-		x_BYTE_E88E0x[0x1] = 0x64;
-		x_BYTE_E88E0x[0x6] = 0x1C;
-		x_BYTE_E88E0x[0x2] = 0x7B;
-		x_BYTE_E88E0x[0x3] = 0x7B;
-		x_BYTE_E88E0x[0x5] = 0x7B;
-		x_BYTE_E88E0x[0x7] = 0x18;
-		x_BYTE_E88E0x[0x8] = 0x7B;
-		x_BYTE_E88E0x[0xd] = 0x97;
-		result = 0xDB;
-		x_BYTE_E88E0x[0x4] = 0x77;
-		x_BYTE_E88E0x[0x9] = 0x5B;
-		x_BYTE_E88E0x[0xb] = 0x7B;
-		x_BYTE_E88E0x[0xf] = 0xDB;
-		x_BYTE_E88E0x[0x15] = 0x3D;
-		x_BYTE_E88E0x[0xa] = 0x57;
-		x_BYTE_E88E0x[0xc] = 0x9A;
-		x_BYTE_E88E0x[0xe] = 0x7B;
-		x_BYTE_E88E0x[0x10] = 0xD8;
-		x_BYTE_E88E0x[0x11] = 0x7B;
-		x_BYTE_E88E0x[0x16] = 0x3A;
-		x_BYTE_E88E0x[0x12] = 0x76;
-		x_BYTE_E88E0x[0x13] = 0xA0;
-		x_BYTE_E88E0x[0x17] = 0x7B;
-		x_BYTE_E88E0x[0x14] = 0x7B;
-	}
-	//return result;
+  // NOTE: In the original this is a code path that should never have been taken
+	//if (!result)
+	//{
+	//	x_BYTE_E88E0x[0x0] = 0x60;
+	//	x_BYTE_E88E0x[0x1] = 0x64;
+	//	x_BYTE_E88E0x[0x6] = 0x1C;
+	//	x_BYTE_E88E0x[0x2] = 0x7B;
+	//	x_BYTE_E88E0x[0x3] = 0x7B;
+	//	x_BYTE_E88E0x[0x5] = 0x7B;
+	//	x_BYTE_E88E0x[0x7] = 0x18;
+	//	x_BYTE_E88E0x[0x8] = 0x7B;
+	//	x_BYTE_E88E0x[0xd] = 0x97;
+	//	x_BYTE_E88E0x[0x4] = 0x77;
+	//	x_BYTE_E88E0x[0x9] = 0x5B;
+	//	x_BYTE_E88E0x[0xb] = 0x7B;
+	//	x_BYTE_E88E0x[0xf] = 0xDB;
+	//	x_BYTE_E88E0x[0x15] = 0x3D;
+	//	x_BYTE_E88E0x[0xa] = 0x57;
+	//	x_BYTE_E88E0x[0xc] = 0x9A;
+	//	x_BYTE_E88E0x[0xe] = 0x7B;
+	//	x_BYTE_E88E0x[0x10] = 0xD8;
+	//	x_BYTE_E88E0x[0x11] = 0x7B;
+	//	x_BYTE_E88E0x[0x16] = 0x3A;
+	//	x_BYTE_E88E0x[0x12] = 0x76;
+	//	x_BYTE_E88E0x[0x13] = 0xA0;
+	//	x_BYTE_E88E0x[0x17] = 0x7B;
+	//	x_BYTE_E88E0x[0x14] = 0x7B;
+	//}
 }
 // D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
 // E88E3: using guessed type char x_BYTE_E88E3;
@@ -59792,7 +59735,7 @@ type_str_0x6E8E* sub_4A920(axis_3d* a1x)//22b920 - add player 0
 		v1x->word_0x84_132 = 80;
 		v1x->byte_0x38_56 = 29;
 		v1x->word_0x1A_26 = v1x - D41A0_BYTESTR_0.struct_0x6E8E;
-		if (D41A0_BYTESTR_0.terrain_2FECE.MapType == 2)
+		if (D41A0_BYTESTR_0.terrain_2FECE.MapType == MapType_t::Cave)
 			v1x->dword_0xA0_160x = &str_D7BD6[104]; //(type_str_160*)&unk_D7BD6[0xdd0];
 		else
 			v1x->dword_0xA0_160x = &str_D7BD6[66]; //(type_str_160*)&unk_D7BD6[0x8c4];
@@ -60099,7 +60042,7 @@ type_str_0x6E8E* sub_4AFE0(axis_3d* a1x)//22bfe0 //Spawn Creture Bee
 	axis_3d v6x; // [esp+0h] [ebp-8h]
 	//__int16 v7; // [esp+4h] [ebp-4h]
 
-	if (D41A0_BYTESTR_0.terrain_2FECE.MapType != 2)
+	if (D41A0_BYTESTR_0.terrain_2FECE.MapType != MapType_t::Cave)
 		return 0;
 	v1x = sub_4A050_new_event();
 	v2x = v1x;
@@ -60132,7 +60075,7 @@ type_str_0x6E8E* sub_4B0F0(axis_3d* a1x)//22c0f0
 {
 	type_str_0x6E8E* resultx; // eax
 
-	if (D41A0_BYTESTR_0.terrain_2FECE.MapType == 2)
+	if (D41A0_BYTESTR_0.terrain_2FECE.MapType == MapType_t::Cave)
 		resultx = 0;
 	else
 		resultx = sub_4B150(a1x, 7, 20, 322);
@@ -60145,7 +60088,7 @@ type_str_0x6E8E* sub_4B120(axis_3d* a1x)//22c120
 {
 	type_str_0x6E8E* resultx; // eax
 
-	if (D41A0_BYTESTR_0.terrain_2FECE.MapType == 2)
+	if (D41A0_BYTESTR_0.terrain_2FECE.MapType == MapType_t::Cave)
 		resultx = 0;
 	else
 		resultx = sub_4B150(a1x, 8, 21, 323);
@@ -60339,7 +60282,7 @@ type_str_0x6E8E* sub_4B590(axis_3d* a1x)//22c590
 	//int v7; // edx
 	int v8; // ecx
 
-	if (D41A0_BYTESTR_0.terrain_2FECE.MapType)
+	if (D41A0_BYTESTR_0.terrain_2FECE.MapType != MapType_t::Day)
 		return 0;
 	v1x = sub_4A050_new_event();
 	v2x = v1x;
@@ -61355,7 +61298,7 @@ type_str_0x6E8E* sub_4CCF0(axis_3d* a1x)//22dcf0
 	//int v6; // eax
 	//uint8_t* v7; // eax
 
-	if (D41A0_BYTESTR_0.terrain_2FECE.MapType != 2)
+	if (D41A0_BYTESTR_0.terrain_2FECE.MapType != MapType_t::Cave)
 		return 0;
 	v1x = sub_4A050_new_event();
 	//v2 = v1;
@@ -61516,7 +61459,7 @@ type_str_0x6E8E* sub_4D000(/*uint8_t* a1,*/ axis_3d* a2x)//22e000
 	//fix
 
 	v16 = 0;
-	if (D41A0_BYTESTR_0.terrain_2FECE.MapType == 2)
+	if (D41A0_BYTESTR_0.terrain_2FECE.MapType == MapType_t::Cave)
 	{
 		v16 = 1;
 	}
@@ -64597,7 +64540,7 @@ type_str_0x6E8E* sub_50A20(axis_3d* a1x)//231a20
 	//uint8_t* v2; // ebx
 	//char v3; // dl
 
-	if (D41A0_BYTESTR_0.terrain_2FECE.MapType != 2)
+	if (D41A0_BYTESTR_0.terrain_2FECE.MapType != MapType_t::Cave)
 		return 0;
 	v1x = sub_4A050_new_event();
 	//v2 = v1;
@@ -67246,7 +67189,7 @@ void sub_54630_load_psxblock(uint16_t TextSize)//235630
 }
 
 //----- (00054660) --------------------------------------------------------
-void sub_54660_read_and_decompress_sky_and_blocks(uint8_t GraphicsType, uint8_t GraphicsSize)//235660
+void sub_54660_read_and_decompress_sky_and_blocks(MapType_t GraphicsType, uint8_t GraphicsSize)//235660
 {
 	char dataPath[MAX_PATH];
 	//int result; // eax
@@ -67255,7 +67198,7 @@ void sub_54660_read_and_decompress_sky_and_blocks(uint8_t GraphicsType, uint8_t 
 
 	switch (GraphicsType)
 	{
-	case 0://basic graphics
+	case MapType_t::Day://basic graphics
 	{
 		switch (GraphicsSize)
 		{
@@ -67286,7 +67229,7 @@ void sub_54660_read_and_decompress_sky_and_blocks(uint8_t GraphicsType, uint8_t 
 		DataFileIO::ReadFileAndDecompress(dataPath, (uint8_t**)&str_TMAPS00TAB_BEGIN_BUFFER);//2c7ed0
 		break;
 	}
-	case 1://? and night
+	case MapType_t::Night://? and night
 	{
 		switch (GraphicsSize)
 		{
@@ -67339,7 +67282,7 @@ void sub_54660_read_and_decompress_sky_and_blocks(uint8_t GraphicsType, uint8_t 
 		DataFileIO::ReadFileAndDecompress(dataPath, (uint8_t**)&str_TMAPS00TAB_BEGIN_BUFFER);//2c7ed0
 		break;
 	}
-	case 2://cave
+	case MapType_t::Cave://cave
 	{
 		switch (GraphicsSize)
 		{
@@ -67375,25 +67318,25 @@ void sub_54660_read_and_decompress_sky_and_blocks(uint8_t GraphicsType, uint8_t 
 // F6ED0: using guessed type int TMAPS00TAB_BEGIN_BUFFER;
 
 //----- (00054800) --------------------------------------------------------
-void sub_54800_read_and_decompress_tables(uint8_t a1)//235800
+void sub_54800_read_and_decompress_tables(MapType_t a1)//235800
 {
 	char dataPath[MAX_PATH];
 
-	if (a1 == 0)
+	if (a1 == MapType_t::Day)
 	{
 		sprintf(dataPath, "%s/%s", cdDataPath, "DATA/TABLESD.DAT");
 		DataFileIO::ReadFileAndDecompress(dataPath, &x_BYTE_F6EE0_tablesx_pre);//2c7ee0
 		x_WORD_D4B7E = 0;
 		x_WORD_D4B7C = 254;
 	}
-	else if (a1 == 1)
+	else if (a1 == MapType_t::Night)
 	{
 		sprintf(dataPath, "%s/%s", cdDataPath, "DATA/TABLESN.DAT");
 		DataFileIO::ReadFileAndDecompress(dataPath, &x_BYTE_F6EE0_tablesx_pre);
 		x_WORD_D4B7E = 255;
 		x_WORD_D4B7C = 0;
 	}
-	else if (a1 == 2)
+	else if (a1 == MapType_t::Cave)
 	{
 		sprintf(dataPath, "%s/%s", cdDataPath, "DATA/TABLESC.DAT");
 		DataFileIO::ReadFileAndDecompress(dataPath, &x_BYTE_F6EE0_tablesx_pre);
@@ -69427,7 +69370,7 @@ void sub_56A30_init_game_level(unsigned int a1)//237a30
 //----- (00056C00) --------------------------------------------------------
 void sub_56C00_sound_proc2(type_str_2FECE* a1x)//237c00
 {
-	unsigned __int8 v1; // al
+	MapType_t v1; // al
 	//int v2; // eax
 	char v3; // cl
 	//int result; // eax
@@ -69442,30 +69385,27 @@ void sub_56C00_sound_proc2(type_str_2FECE* a1x)//237c00
 	v1 = a1x->MapType;// *(x_BYTE*)(a1 + 6);
 	//SPELLS_BEGIN_BUFFER_DA818[0x60a] = 19;
 	SPELLS_BEGIN_BUFFER_str[19].subspell[0].byte_0x1A = 19;
-	if (v1 < 1u)
+	if (v1 == MapType_t::Day)
 	{
-		if (!v1)
-		{
-			//SPELLS_BEGIN_BUFFER_DA818[0x15a] = 2;
-			SPELLS_BEGIN_BUFFER_str[4].subspell[0].byte_0x1A = 2;
-			//*(int16_t*)& SPELLS_BEGIN_BUFFER_DA818[0x156] = 198;
-			SPELLS_BEGIN_BUFFER_str[4].subspell[0].word_0x16x = 198;
-			//SPELLS_BEGIN_BUFFER_DA818[0x60a] = 2;
-			SPELLS_BEGIN_BUFFER_str[19].subspell[0].byte_0x1A = 2;
-			//*(uint8_t*)& SPELLS_BEGIN_BUFFER_DA818[0x606] = 244;
-			SPELLS_BEGIN_BUFFER_str[19].subspell[0].word_0x16x = 244;
-			D41A0_BYTESTR_0.m_GameSettings.str_0x2196.transparency_0x2198 = 0;
-			sub_84300_load_sound(0);
-			x_BYTE_D419E = 1;
-		}
+    //SPELLS_BEGIN_BUFFER_DA818[0x15a] = 2;
+    SPELLS_BEGIN_BUFFER_str[4].subspell[0].byte_0x1A = 2;
+    //*(int16_t*)& SPELLS_BEGIN_BUFFER_DA818[0x156] = 198;
+    SPELLS_BEGIN_BUFFER_str[4].subspell[0].word_0x16x = 198;
+    //SPELLS_BEGIN_BUFFER_DA818[0x60a] = 2;
+    SPELLS_BEGIN_BUFFER_str[19].subspell[0].byte_0x1A = 2;
+    //*(uint8_t*)& SPELLS_BEGIN_BUFFER_DA818[0x606] = 244;
+    SPELLS_BEGIN_BUFFER_str[19].subspell[0].word_0x16x = 244;
+    D41A0_BYTESTR_0.m_GameSettings.str_0x2196.transparency_0x2198 = 0;
+    sub_84300_load_sound(0);
+    x_BYTE_D419E = 1;
 	}
-	else if (v1 <= 1u)
+	else if (v1 == MapType_t::Night)
 	{
 		D41A0_BYTESTR_0.m_GameSettings.str_0x2196.transparency_0x2198 = 0;
 		sub_84300_load_sound(1u);
 		x_BYTE_D419E = 9;
 	}
-	else if (v1 == 2)
+	else if (v1 == MapType_t::Cave)
 	{
 		D41A0_BYTESTR_0.m_GameSettings.str_0x2196.transparency_0x2198 = 1;
 		x_BYTE_D41B6 = 1;
@@ -72335,7 +72275,7 @@ void sub_59F60(type_str_0x6E8E* a1x)//23af60
 						{
 							v54 = (v54 & 3) + 28;
 						}
-						if (D41A0_BYTESTR_0.terrain_2FECE.MapType)
+						if (D41A0_BYTESTR_0.terrain_2FECE.MapType != MapType_t::Day)
 							v55 = 32 - v54 + 32;
 						else
 							v55 = v54;
@@ -72488,7 +72428,7 @@ void sub_59F60(type_str_0x6E8E* a1x)//23af60
 					{
 						v24 = (v24 & 3) + 28;
 					}
-					if (D41A0_BYTESTR_0.terrain_2FECE.MapType)
+					if (D41A0_BYTESTR_0.terrain_2FECE.MapType != MapType_t::Day)
 						v26 = 32 - v24 + 32;
 					else
 						v26 = v24;
@@ -72802,7 +72742,7 @@ void sub_59F60(type_str_0x6E8E* a1x)//23af60
 							{
 								v127 = (v127 & 3) + 28;
 							}
-							if (D41A0_BYTESTR_0.terrain_2FECE.MapType)
+							if (D41A0_BYTESTR_0.terrain_2FECE.MapType != MapType_t::Day)
 								v129 = 32 - v127 + 32;
 							else
 								v129 = v127;
@@ -72843,7 +72783,7 @@ void sub_59F60(type_str_0x6E8E* a1x)//23af60
 						{
 							v119 = (v119 & 3) + 28;
 						}
-						if (D41A0_BYTESTR_0.terrain_2FECE.MapType)
+						if (D41A0_BYTESTR_0.terrain_2FECE.MapType != MapType_t::Day)
 							v121 = 32 - v119 + 32;
 						else
 							v121 = v119;
@@ -75787,7 +75727,7 @@ LABEL_27:
 		}
 	}
 	//v46 = (int)x_D41A0_BYTEARRAY_0;
-	if (D41A0_BYTESTR_0.terrain_2FECE.MapType == 2)
+	if (D41A0_BYTESTR_0.terrain_2FECE.MapType == MapType_t::Cave)
 	{
 		//v47 = 9377 * *(x_DWORD *)(x_D41A0_BYTEARRAY_0 + 8) + 9439;
 		//*(x_DWORD *)(x_D41A0_BYTEARRAY_0 + 8) = v47;
@@ -76495,7 +76435,7 @@ signed int sub_5E8C0_endGameSeq(type_str_0x6E8E* a1x)//23f8c0 //end game sequenc
 				a1x->byte_0x46_70 = 6;
 			else
 				a1x->byte_0x46_70 = 8;
-			if (x_DWORD_E9C3C && !D41A0_BYTESTR_0.terrain_2FECE.MapType)
+			if (x_DWORD_E9C3C && (D41A0_BYTESTR_0.terrain_2FECE.MapType == MapType_t::Day))
 			{
 				sub_86860_speak_Sound(x_WORD_1803EC);
 				sprintf(dataPath, "%s/%s", cdDataPath, "DATA/GTD2.DAT");
@@ -78770,7 +78710,7 @@ void sub_61A00_draw_minimap_entites_b(int a1, int a2, __int16 a3, __int16 a4, in
 	int v8; // edx
 	int v9; // esi
 	int v10; // ebx
-	unsigned __int8 v11; // al
+	MapType_t v11; // al
 	__int64 v12; // rtt
 	int v13; // ebx
 	int v14; // edx
@@ -78866,21 +78806,21 @@ void sub_61A00_draw_minimap_entites_b(int a1, int a2, __int16 a3, __int16 a4, in
 	v10 = a8;
 	v11 = D41A0_BYTESTR_0.terrain_2FECE.MapType;
 	v83 = 0;
-	if (v11 == 0u)
+	if (v11 == MapType_t::Day)
 	{
 		v92 = (*xadataclrd0dat.var28_begin_buffer)[0];
 		v93 = (*xadataclrd0dat.var28_begin_buffer)[0];
 		v91 = 0xe8;
 		v90 = 0x1c;
 	}
-	else if (v11 == 1u)
+	else if (v11 == MapType_t::Night)
 	{
 		v92 = (*xadataclrd0dat.var28_begin_buffer)[0xfff];
 		v93 = (*xadataclrd0dat.var28_begin_buffer)[0xfff];
 		v91 = 0xe8;//0xe8
 		v90 = 0x84;//0x84
 	}
-	else if (v11 == 2)
+	else if (v11 == MapType_t::Cave)
 	{
 		v92 = (*xadataclrd0dat.var28_begin_buffer)[0xfff];
 		v93 = (*xadataclrd0dat.var28_begin_buffer)[0xfff];
@@ -79379,7 +79319,7 @@ void sub_627F0_draw_minimap_entites_a(int a1, int a2, __int16 a3, __int16 a4, in
 	int v8; // edx
 	int v9; // esi
 	int v10; // ebx
-	unsigned __int8 v11; // al
+	MapType_t v11; // al
 	char v12; // al
 	__int64 v13; // rtt
 	int v14; // ebx
@@ -79485,35 +79425,30 @@ void sub_627F0_draw_minimap_entites_a(int a1, int a2, __int16 a3, __int16 a4, in
 	v10 = a8;
 	v11 = D41A0_BYTESTR_0.terrain_2FECE.MapType;
 	v93 = 0;
-	if (v11 < 1u)
+	if (v11 == MapType_t::Day)
 	{
-		if (!v11)
-		{
-			v109 = (*xadataclrd0dat.var28_begin_buffer)[0x000];
-			v106 = (*xadataclrd0dat.var28_begin_buffer)[0x000];
-			v108 = 28;
-			v107 = -24;
-		}
-		goto LABEL_10;
+    v109 = (*xadataclrd0dat.var28_begin_buffer)[0x000];
+    v106 = (*xadataclrd0dat.var28_begin_buffer)[0x000];
+    v108 = 28;
+    v107 = -24;
 	}
-	if (v11 <= 1u)
+	else if (v11 == MapType_t::Night)
 	{
 		v109 = (*xadataclrd0dat.var28_begin_buffer)[0xfff];
 		v106 = (*xadataclrd0dat.var28_begin_buffer)[0xfff];
 		v12 = -124;
 		v107 = -24;
+	  v108 = v12;
 	}
-	else
+	else // Cave
 	{
-		if (v11 != 2)
-			goto LABEL_10;
 		v109 = (*xadataclrd0dat.var28_begin_buffer)[0xfff];
 		v106 = (*xadataclrd0dat.var28_begin_buffer)[0xfff];
 		v107 = 28;
 		v12 = (*xadataclrd0dat.var28_begin_buffer)[0xf0];
+	  v108 = v12;
 	}
-	v108 = v12;
-LABEL_10:
+
 	if (x_WORD_180660_VGA_type_resolution & 1)
 	{
 		v8 = a1 >> 1;
@@ -80166,7 +80101,7 @@ void sub_63670_draw_minimap_a(int a1, int a2, int a3, int a4, int a5, int a6, __
 	v11 = a2;
 	v12 = a5;
 	v13 = a6;
-	v14 = !D41A0_BYTESTR_0.m_GameSettings.str_0x2196.transparency_0x2198 && D41A0_BYTESTR_0.terrain_2FECE.MapType != 2;
+	v14 = !D41A0_BYTESTR_0.m_GameSettings.str_0x2196.transparency_0x2198 && D41A0_BYTESTR_0.terrain_2FECE.MapType != MapType_t::Cave;
 	v87 = v14;
 	if (x_WORD_180660_VGA_type_resolution & 1)
 	{
@@ -80599,7 +80534,7 @@ void sub_63C90_draw_minimap_b(int a1, int a2, int a3, int a4, int a5, int a6, __
 				v72 -= v70;
 			}
 		}
-		else if (!D41A0_BYTESTR_0.m_GameSettings.str_0x2196.transparency_0x2198 && D41A0_BYTESTR_0.terrain_2FECE.MapType != 2)
+		else if (!D41A0_BYTESTR_0.m_GameSettings.str_0x2196.transparency_0x2198 && D41A0_BYTESTR_0.terrain_2FECE.MapType != MapType_t::Cave)
 		{
 			for (j = v13; j; v73 += v69)
 			{
@@ -89676,15 +89611,15 @@ void InitTmaps(unsigned __int16 a1)//251f50
 		}
 
 		switch (D41A0_BYTESTR_0.terrain_2FECE.MapType) {
-		case 0: {
+		case MapType_t::Day: {
 			sprintf(tmapsdirpost, "%s/%s", spritePath, "TMAPS/TMAPS2-0-");
 			break;
 		}
-		case 1: {
+		case MapType_t::Night: {
 			sprintf(tmapsdirpost, "%s/%s", spritePath, "TMAPS/TMAPS2-1-");
 			break;
 		}
-		case 2: {
+		case MapType_t::Cave: {
 			sprintf(tmapsdirpost, "%s/%s", spritePath, "TMAPS/TMAPS2-2-");
 			break;
 		}
@@ -90374,7 +90309,7 @@ void sub_71990()//252990
 // E9C28: using guessed type int x_DWORD_E9C28;
 
 //----- (00071A70) --------------------------------------------------------
-void sub_71A70_setTmaps(unsigned __int8 a1)//252a70
+void sub_71A70_setTmaps(MapType_t a1)//252a70
 {
 	FILE* v1; // edx
 	//unsigned __int8 result; // al
@@ -90383,17 +90318,17 @@ void sub_71A70_setTmaps(unsigned __int8 a1)//252a70
 	//result = a1;
 	switch (a1)
 	{
-	case 0:
+	case MapType_t::Day:
 	{
 		v1 = x_DWORD_DB740_tmaps00file;
 		break;
 	}
-	case 1:
+	case MapType_t::Night:
 	{
 		v1 = x_DWORD_DB744_tmaps10file;
 		break;
 	}
-	case 2:
+	case MapType_t::Cave:
 	{
 		v1 = x_DWORD_DB748_tmaps20file;
 		break;
@@ -97129,15 +97064,8 @@ signed int sub_7C390()//25d390
 			v2x++;
 		}
 		sub_7C140_draw_text_background(382, 18, 16, 16, 0);
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-		sprintf((char* const)(int)x_DWORD_17DE38str.x_DWORD_17DE50, "%d", (unsigned __int16)x_DWORD_17DE38str.x_WORD_17DEFA);
-		sub_7FAE0_draw_text((char*)(int)x_DWORD_17DE38str.x_DWORD_17DE50, 382, 398, 18, 0);
-#endif
+		sprintf((char* const)x_DWORD_17DE38str.x_DWORD_17DE50, "%d", (unsigned __int16)x_DWORD_17DE38str.x_WORD_17DEFA);
+		sub_7FAE0_draw_text((char*)x_DWORD_17DE38str.x_DWORD_17DE50, 382, 398, 18, 0);
 		sub_7D380();
 		sub_7D310();
 		v4 = 0;
@@ -97202,15 +97130,7 @@ int sub_7C720(unsigned __int8 a1, x_BYTE* a2)//25d720
 		v6 = 480 - v3;
 	if (v5 + v4 > 640)
 		v4 = v5 + v4 - 640;
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-  return 0;
-#else
-	return sub_85BF5(a2, (int)x_DWORD_E9C38_smalltit, v4, v3, v5, v6);
-#endif
+	return sub_85BF5(a2, x_DWORD_E9C38_smalltit, v4, v3, v5, v6);
 }
 // E1E98: using guessed type void *off_E1E98;
 // E9C38: using guessed type int x_DWORD_E9C38_smalltit;
@@ -101267,9 +101187,7 @@ void sub_82670()//263670
 	int v3x;
 	__int16 v4; // cx
 	type_x_WORD_E2970* v5x; // edi
-	int v6; // eax
 	int v7; // eax
-	int v8; // eax
 	//char v10; // [esp+0h] [ebp-54h]
 	unsigned __int8 v11; // [esp+50h] [ebp-4h]
 
@@ -101376,14 +101294,7 @@ void sub_82670()//263670
 					if (x_WORD_180660_VGA_type_resolution != 1)
 					{
 						sub_54600_mouse_reset();
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-						v6 = (int)memset((void*)*xadatapald0dat2.var28_begin_buffer, 0, 768);
-#endif
+						memset((void*)*xadatapald0dat2.var28_begin_buffer, 0, 768);
 						if (x_WORD_180660_VGA_type_resolution & 1)
 							ClearGraphicsBuffer((void*)pdwScreenBuffer, 320, 200, 0);
 						else
@@ -101437,14 +101348,7 @@ void sub_82670()//263670
 					if (v11 != x_WORD_180660_VGA_type_resolution)
 					{
 						sub_54600_mouse_reset();
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-						v8 = (int)memset((void*)*xadatapald0dat2.var28_begin_buffer, 0, 768);
-#endif
+						memset((void*)*xadatapald0dat2.var28_begin_buffer, 0, 768);
 						if (x_WORD_180660_VGA_type_resolution & 1)
 							ClearGraphicsBuffer(/*v8, */(void*)pdwScreenBuffer, 320, 200, 0);
 						else
@@ -102246,95 +102150,6 @@ void sub_83CC0(char a1)//264cc0
 }
 // E29E8: using guessed type char x_BYTE_E29E8;
 
-/*
-//----- (00083CD0) --------------------------------------------------------
-void* sub_83CD0_malloc2_orig(int a1)//264cd0
-{
-	int* v1; // eax
-	int v2; // ecx
-	int* v3; // ebx
-	unsigned int v4; // esi
-	//unsigned int v5; // edx
-
-	sub_85070();//tady se to nakrmi
-	v1 = (int*)x_DWORD_17ECA0;// fix it 34FCA0 +4 //prvne zjisteny problem uz zde
-	v2 = -1;
-	v4 = a1 + 0x103;
-	v3 = 0;
-	LOWORD(v4) = (a1 + 0x103) & 0xFFFC;
-	while ( v1 )
-	{
-	  v5 = v1[1];
-	  if ( v4 <= v5 &&
-		  v2 > v5 &&
-		  !*((x_BYTE *)v1 + 16) &&
-		  !x_DWORD_17E0A4[3 * *((unsigned __int8 *)v1 + 17)] )
-	  {
-		v3 = v1;
-		v2 = v1[1];
-	  }
-	  v1 = (int *)v1[2];
-	  //v1 = &(v1[2]);
-	} //fix it
-
-	//v3 nesmi byt 0
-	if ( !v3 || !sub_83E00((int)v3, v4) )//problem je uz tady
-	  return sub_83D70_malloc1(v4);//problem?
-	sub_85350();
-	memset((void*)*v3, 0, v4); //fix ti
-	return (void*)*v3;
-	//return malloc(a1*sizeof(uint8_t));
-}
-// 8C250: using guessed type x_DWORD memset(x_DWORD, x_DWORD, x_DWORD);
-// 17E0A4: using guessed type int x_DWORD_17E0A4[];
-// 17ECA0: using guessed type int x_DWORD_17ECA0;
-*/
-
-/*
-//----- (00083E00) --------------------------------------------------------
-char sub_83E00(int a1, int a2)//264e00
-{
-	int* i; // eax
-	char v4; // bl
-	int v5; // edi
-
-	if (a2 == *(x_DWORD*)(a1 + 4))
-	{
-		*(x_BYTE*)(a1 + 16) = x_BYTE_E29E8;
-	}
-	else
-	{
-		for (i = (int*)&x_DWORD_17ECA0; i < &x_DWORD_17FEA0 && i[1]; i = (int*)((char*)i + 18))
-			;
-		if (i == &x_DWORD_17FEA0)//problem problem
-			return 0;
-		i[1] = *(x_DWORD*)(a1 + 4) - a2;
-		*i = a2 + *(x_DWORD*)a1;
-		v4 = x_BYTE_E29E8;
-		*(x_DWORD*)(a1 + 4) = a2;
-		*(x_BYTE*)(a1 + 16) = v4;
-		*((x_BYTE*)i + 17) = *(x_BYTE*)(a1 + 17);
-		i[2] = *(x_DWORD*)(a1 + 8);
-		i[3] = a1;
-		v5 = *(x_DWORD*)(a1 + 8);
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-		if (v5)
-			*(x_DWORD*)(v5 + 12) = (x_DWORD)i;
-		*(x_DWORD*)(a1 + 8) = (x_DWORD)i;
-#endif
-	}
-	return 1;
-}
-// E29E8: using guessed type char x_BYTE_E29E8;
-// 17ECA0: using guessed type int x_DWORD_17ECA0;
-// 17FEA0: using guessed type int x_DWORD_17FEA0;
-*/
-
 void GetSystemSpeed()
 {
 	//Just assume High spec for now
@@ -102348,147 +102163,6 @@ void GetSystemSpeed()
 // E29EE: using guessed type char x_BYTE_E29EE;
 // E29EF: using guessed type char x_BYTE_E29EF;
 // E29F0: using guessed type char x_BYTE_E29F0;
-
-/*//----- (000840B8) --------------------------------------------------------
-void sub_840B8(char a1, bool a2, char a3, char a4)//2650b8
-{
-	unsigned int v4; // et0
-	__int16 v5; // fps
-
-	//fix it
-	v5 = 0;
-	//fix it
-
-	v4 = x__readeflags();
-	sub_840D3(a1, a2, a3, a4);
-	sub_841CE(v5);
-	x__writeeflags(v4);
-}*/
-
-/*//----- (000840D3) --------------------------------------------------------
-__int16 sub_840D3(char _CF, bool _ZF, char _SF, char _OF)//2650d3
-{
-	unsigned int v5; // et0
-	unsigned int v6; // ecx
-	unsigned int v7; // et0
-	unsigned int v8; // et0
-	unsigned int v9; // ecx
-	unsigned int v10; // et0
-	int *v16; // esi
-	x_BYTE *v17; // edi
-	signed int v18; // ecx
-	__int16 v24; // [esp-6h] [ebp-Ah]
-
-	//fix it
-	v24 = 0;
-	//fix it
-
-	// fix this - __asm { pushfw }
-	LOWORD(_EAX) = (v24 | 0xF000) & 0xF000;
-	x_BYTE_E29EC = 2;
-	if ((x_WORD)_EAX)
-	{
-		v5 = x__readeflags();
-		v6 = v5;
-		x__writeeflags(0x40000 ^ v5);
-		v7 = x__readeflags();
-		LOWORD(_EAX) = v6 ^ v7;
-		x_BYTE_E29EC = 3;
-		if (v6 != v7)
-		{
-			x_BYTE_E29EC = 4;
-			v8 = x__readeflags();
-			v9 = v8;
-			x__writeeflags(v8 ^ 0x200000);
-			v10 = x__readeflags();
-			LOWORD(_EAX) = v9 ^ v10;
-			if (v9 != v10)
-			{
-				x_BYTE_E2A06 = 1;
-				_EAX = 0;
-				//__asm { cpuid }
-				x_DWORD_E29FA = _EBX;
-				x_DWORD_E29FE = _EDX;
-				x_DWORD_E2A02 = _ECX;
-				v16 = &x_DWORD_E29FA;
-				v17 = &unk_E2A08;
-				v18 = 1;
-				do
-				{
-					if (!v18)
-						break;
-					_ZF = *(x_BYTE *)v16 == *v17;
-					v16 = (int *)((char *)v16 + 1);
-					v17++;
-					v18--;
-				} while (_ZF);
-				if (!v18)
-					x_BYTE_E29ED = 1;
-				_EAX = 1;
-				//__asm { cpuid }
-				x_DWORD_E29F6 = _EAX;
-				x_BYTE_E29EC = (unsigned __int16)(_EAX & 0xF00) >> 8;
-				x_BYTE_E29EF = _EAX & 0xF;
-				x_BYTE_E29EE = (unsigned __int8)(_EAX & 0xF0) >> 4;
-			}
-		}
-	}
-	return _EAX;
-}*/
-// E29EC: using guessed type char x_BYTE_E29EC;
-// E29ED: using guessed type char x_BYTE_E29ED;
-// E29EE: using guessed type char x_BYTE_E29EE;
-// E29EF: using guessed type char x_BYTE_E29EF;
-// E29F6: using guessed type int x_DWORD_E29F6;
-// E29FA: using guessed type int x_DWORD_E29FA;
-// E29FE: using guessed type int x_DWORD_E29FE;
-// E2A02: using guessed type int x_DWORD_E2A02;
-// E2A06: using guessed type char x_BYTE_E2A06;
-
-/*//----- (000841CE) --------------------------------------------------------
-void sub_841CE(__int16 a1)//2651ce
-{
-	__int16 v1; // fps
-	double v2; // st6
-	bool v3; // c0
-	char v4; // c2
-	bool v5; // c3
-
-	//fix
-	v1 = 0;
-	//fix
-
-	//__asm { fninit }
-	x_WORD_E29F4 = a1;
-	if ((x_BYTE)a1)
-	{
-		x_BYTE_E29F0 = 0;
-	}
-	else if ((x_WORD_E29F4 & 0x103F) == 63)
-	{
-		x_BYTE_E29F0 = 1;
-		if (x_BYTE_E29EC == 3)
-		{
-			v2 = 0;// fix it: -(1.0 / 0.0);
-			v3 = v2 < 0;//fix it: v3 = v2 < 1.0 / 0.0;
-			v4 = 0;
-			v5 = v2 == 0.0;//fix it: v5 = v2 == 1.0 / 0.0;
-			x_WORD_E29F4 = v1;
-			x_BYTE_E29F1 = 2;
-			if (v2 != 0.0)//if ( v2 != 1.0 / 0.0 )
-				x_BYTE_E29F1 = 3;
-		}
-	}
-	else
-	{
-		x_BYTE_E29F0 = 0;
-	}
-}
-*/
-// E29EC: using guessed type char x_BYTE_E29EC;
-// E29F0: using guessed type char x_BYTE_E29F0;
-// E29F1: using guessed type char x_BYTE_E29F1;
-// E29F4: using guessed type __int16 x_WORD_E29F4;
 
 //----- (00084250) --------------------------------------------------------
 bool sub_84250_load_file_array(int psindex)//265250
@@ -102565,14 +102239,14 @@ void sub_84790()//265790
 char sub_847D0(type_str_0x6E8E* a1x, char a2, char a3, char a4)//2657d0
 {
 	__int16 v4; // dx
-	unsigned __int8 v5; // dh
+	MapType_t v5; // dh
 	int v6x; // eax
 
 	LOBYTE(v4) = 0;
 	if (D41A0_BYTESTR_0.m_GameSettings.str_0x2196.m_wDynamicLighting)
 	{
 		v5 = D41A0_BYTESTR_0.terrain_2FECE.MapType;
-		if (v5 >= 1u && v5 <= 2u && D41A0_BYTESTR_0.word_0x36DFA < 50)
+		if ((v5 == MapType_t::Night || v5 == MapType_t::Cave) && D41A0_BYTESTR_0.word_0x36DFA < 50)
 		{
 			//v6 = (int)x_D41A0_BYTEARRAY_0 + 222796;
 			v6x = 0;
@@ -102655,7 +102329,7 @@ void sub_848A0()//2658a0
 #endif //DEBUG_SEQUENCES
 
 	//LOBYTE(v0) = D41A0_BYTESTR_0.str_2FECE.MapType;
-	if (D41A0_BYTESTR_0.terrain_2FECE.MapType >= 1u && D41A0_BYTESTR_0.terrain_2FECE.MapType <= 2u)
+	if (D41A0_BYTESTR_0.terrain_2FECE.MapType == MapType_t::Night || D41A0_BYTESTR_0.terrain_2FECE.MapType == MapType_t::Cave)
 	{
 		//v0 = D41A0_BYTESTR_0.word_0x36DFA;
 		v31 = D41A0_BYTESTR_0.word_0x36DFA;
@@ -102810,7 +102484,7 @@ void sub_84B80()//265b80
 
 	//index = (int)x_D41A0_BYTEARRAY_0;
 	//v1 = D41A0_BYTESTR_0.str_2FECE.MapType;
-	if (D41A0_BYTESTR_0.terrain_2FECE.MapType >= 1u && D41A0_BYTESTR_0.terrain_2FECE.MapType <= 2u)
+	if (D41A0_BYTESTR_0.terrain_2FECE.MapType == MapType_t::Night || D41A0_BYTESTR_0.terrain_2FECE.MapType == MapType_t::Cave)
 	{
 		v9 = D41A0_BYTESTR_0.word_0x36DFA;
 		if (D41A0_BYTESTR_0.word_0x36DFA)
@@ -103016,723 +102690,6 @@ int sub_85060(int a1)//266060
 	return *(x_DWORD*)(a1 + 4);
 }
 
-
-/*
-//----- (00085070) --------------------------------------------------------
-void sub_85070()//266070 // fix it 34FCA0
-{
-	signed int v0; // ebx
-	//int *v1; // ST04_4
-	signed int v2; // ebx
-	//char *v3; // ST04_4
-	unsigned int v4; // ebx
-	int v5; // esi
-	//void* v6; // eax
-	//int v7; // edi
-	//int v8; // edx
-	int v9; // eax
-	signed int i; // ebx
-	//char* v11; // eax
-	signed int j; // edi
-	int k; // ebx
-	int v14; // edx
-	int v15; // eax
-	signed int v16; // ebx
-	int v17; // eax
-	int l; // ebx
-	int v19; // edx
-	int v20; // eax
-	void* v21; // [esp+0h] [ebp-Ch]
-	int v22; // [esp+8h] [ebp-4h]
-
-	//fix
-	v9 = 0;
-	//fix
-
-	if (!x_DWORD_17E0A8)//34f0a8
-	{
-		v21 = sub_85450_allocate_mem_pool(0x10000);
-
-		//v0 = 0;
-		v0 = 0;
-		do
-		{
-			memset(&x_DWORD_17E0A0[3 * v0++], 0, 12);
-		} while (v0 < 0x100);
-		v2 = 0;
-		while (v2 < 0x100)
-		{
-			memset(&x_DWORD_17ECA0[18 * v2++], 0, 18);
-		}
-		v4 = 0xA0000;//(char *)&loc_A0000_vga_buffer; fix it 34FCA0 +4 //2660F9
-		v5 = 0;
-		
-		while ( (signed int)v4 >= 0x400 )//fix it maybe
-		{
-		  v6 = sub_85450_allocate_mem_pool(v4);//vraci same nuly
-		  if ( v6 )
-		  {
-			v7 = (unsigned __int16)v6;//vraci nulu
-			v8 = (int)v6 >> 16;
-			v9 = 3 * v5;
-			x_DWORD_17E0A8[v9] = (int)v4;
-			++v5;
-			x_DWORD_17E0A4[v9] = v8;
-			v4 += 0x400;
-			x_DWORD_17E0A0[v9] = 16 * v7;
-		  }
-		  v4 -= 0x400;
-		}
-		for (i = 0x1000000; i >= 0x1000; i -= 0x1000)
-		{
-			x_DWORD_17E0A0[3 * v5] = (char*)malloc(i * sizeof(uint8_t));
-			if (x_DWORD_17E0A0[3 * v5])
-			{
-				for (j = 4096; j > 0; j -= 16)
-				{
-					v22 = 3 * v5;
-					if (x_expand(x_DWORD_17E0A0[3 * v5], i + j))
-					{
-						x_DWORD_17E0A8[v22] = i + j;
-						x_DWORD_17E0A4[v22] = 0;
-						break;
-					}
-				}
-				i += 4096;
-				v5++;
-			}
-		}
-		for (k = 4096; k >= 16; k -= 16)
-		{
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-			v14 = (int)malloc(k * sizeof(uint8_t));
-#endif
-			v15 = 3 * v5;
-			x_DWORD_17E0A0[3 * v5] = (char*)v14;
-			if (v14)
-			{
-				v5++;
-				x_DWORD_17E0A8[v15] = k;
-				k += 0x1000;
-				x_DWORD_17E0A4[v15] = 0;
-			}
-		}
-		v16 = 0;
-		qsort(x_DWORD_17E0A0, v5, 12, (int(*)(const void*, const void*))sub_85060);
-		do
-		{
-			v17 = 9 * v16++;
-			*(int*)((char*)&x_DWORD_17ECA4 + 2 * v17) = 0;
-		} while (v16 < 0x100);
-		for (l = 0; l < v5; l++)
-		{
-			v19 = 18 * l;
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-			*(int*)((char*)&x_DWORD_17ECA0 + v19) = (int)x_DWORD_17E0A0[3 * l];
-			*(int*)((char*)&x_DWORD_17ECA4 + v19) = x_DWORD_17E0A8[3 * l];
-			if (l)
-				*(int*)((char*)&x_DWORD_17ECAC + v19) = (int)&x_DWORD_17ECA0 + 18 * (l - 1);
-			else
-				*(int*)((char*)&x_DWORD_17ECAC + v19) = 0;
-			v20 = 9 * l;
-			*(int*)((char*)&x_DWORD_17ECA8 + 2 * v20) = (int)&x_DWORD_17ECA0 + 18 * (l + 1);
-#endif
-			x_BYTE_17ECB0[2 * v20] = 0;
-			x_BYTE_17ECB1[2 * v20] = l;
-		}
-		*(int*)((char*)&x_DWORD_17ECA8 + 18 * (v5 - 1)) = 0;
-		sub_9AD16_free_mem_pool(v21);
-	}
-}
-// 10000: using guessed type void sub_10000();
-// 8C250: using guessed type x_DWORD memset(x_DWORD, x_DWORD, x_DWORD);
-// 9A522: using guessed type x_DWORD malloc(x_DWORD);
-// 9A61E: using guessed type x_DWORD expand(x_DWORD, x_DWORD);
-// 9A8EE: using guessed type x_DWORD qsort(x_DWORD, x_DWORD, x_DWORD, x_DWORD);
-// 17E0A0: using guessed type int x_DWORD_17E0A0[];
-// 17E0A4: using guessed type int x_DWORD_17E0A4[];
-// 17ECA0: using guessed type int x_DWORD_17ECA0;
-// 17ECA4: using guessed type int x_DWORD_17ECA4;
-// 17ECA8: using guessed type int x_DWORD_17ECA8;
-// 17ECAC: using guessed type int x_DWORD_17ECAC;
-*/
-
-/*
-//----- (00085350) --------------------------------------------------------
-int *sub_85350()//266350
-{
-  int *result; // eax
-  unsigned int v1; // edx
-  int v2; // edx
-
-  result = (int*)&x_DWORD_17ECA0;
-  x_DWORD_17FEA0 = 0;
-  x_DWORD_17FEA4_mem_free = 0;
-  x_DWORD_17FEA8_mem_used = 0;
-  x_DWORD_17FEAC = 0;
-  x_DWORD_17FEB0 = -1;
-  while ( result )
-  {
-	if ( *((x_BYTE *)result + 16) )
-	{
-	  v2 = result[1];
-	  x_DWORD_17FEA8_mem_used += v2;
-	  x_DWORD_17FEA0 += v2;
-	}
-	else
-	{
-	  v1 = result[1];
-	  x_DWORD_17FEA4_mem_free += v1;
-	  if ( v1 > x_DWORD_17FEAC )
-		x_DWORD_17FEAC = v1;
-	  if ( result[1] < (unsigned int)x_DWORD_17FEB0 )
-		x_DWORD_17FEB0 = result[1];
-	  x_DWORD_17FEA0 += result[1];
-	}
-	result = (int *)result[2];
-  }
-  LOBYTE(x_DWORD_17FEA0) = x_DWORD_17FEA0 & 0xFC;
-  LOBYTE(x_DWORD_17FEA4_mem_free) = x_DWORD_17FEA4_mem_free & 0xFC;
-  LOBYTE(x_DWORD_17FEAC) = x_DWORD_17FEAC & 0xFC;
-  LOBYTE(x_DWORD_17FEA8_mem_used) = x_DWORD_17FEA8_mem_used & 0xFC;
-  LOBYTE(x_DWORD_17FEB0) = x_DWORD_17FEB0 & 0xFC;
-  return result;
-}
-// 17ECA0: using guessed type int x_DWORD_17ECA0;
-// 17FEA0: using guessed type int x_DWORD_17FEA0;
-// 17FEA4: using guessed type int x_DWORD_17FEA4_mem_free;
-// 17FEA8: using guessed type int x_DWORD_17FEA8_mem_used;
-// 17FEAC: using guessed type int x_DWORD_17FEAC;
-// 17FEB0: using guessed type int x_DWORD_17FEB0;
-*/
-//----- (00085450) --------------------------------------------------------
-//void *dpmi_real_malloc( int size, ushort *selector )
-void* sub_85450_allocate_mem_pool(unsigned int size)//266450 //nutno doresit
-{
-	/*int v1; // ebx
-	int v3; // [esp+0h] [ebp-38h]
-	unsigned int v4; // [esp+4h] [ebp-34h]
-	int v5; // [esp+1Ch] [ebp-1Ch]
-	int v6; // [esp+28h] [ebp-10h]
-	int v7; // [esp+34h] [ebp-4h]
-
-	//fix it
-	v6 = 0;
-	v7 = 0;
-	//fix it
-
-	v1 = 0;
-	if ( a1 < 0xA0000 )
-	{
-	  v4 = (a1 + 15) >> 4;
-	  v3 = 0x0100;
-	  int386(49, (REGS*)&v3, (REGS*)&v5);
-	  if ( !v7 )
-		v1 = v5 | (v6 << 16);
-	}
-	return v1;*/
-	//
-	/*REGS r;
-
-	memset(&r, 0, sizeof(r));
-	r.eax = 0x0100;				// DPMI allocate DOS memory
-	r.ebx = (size + 15) >> 4;	// Number of paragraphs requested
-	int386(0x31, &r, &r);
-
-	if (r.cflag)  // Failed
-		return ((uint)0);
-
-	if (selector != NULL)
-		*selector = r.edx & 0xFFFF;
-
-	return (void *)((r.eax & 0xFFFF) << 4);*/
-
-	if (size < 0xA0000)
-		return malloc(size * 16 * sizeof(uint8_t));
-	else
-		return 0;
-	/*
-	100
-	1000
-	35513C
-	168 --selector
-
-	1C02 --base adress
-	1000 --size
-	35513C
-	1F0 - selector
-
-	*/
-}
-// 98D52: using guessed type x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);
-
-//----- (000856D0) --------------------------------------------------------
-__int16 sub_856D0(int a1, int a2, __int16 a3, int a4)//2666d0
-{
-	unsigned __int8 v4; // dl
-	unsigned __int8 v5; // dh
-	__int16 v6; // di
-	__int16 v7; // si
-	int v8; // eax
-	int v9; // ecx
-	unsigned __int8 v10; // cl
-	x_BYTE* v11; // edx
-	__int16 v12; // si
-	char v13; // cl
-	int v14; // edi
-	int v15; // esi
-	x_BYTE* v16; // eax
-	char v17; // ch
-	bool v18; // zf
-	int v19; // edx
-	char v20; // cl
-	char v21; // cl
-	unsigned __int8 v22; // cl
-	int v23; // edi
-	int v24; // eax
-	x_BYTE* v25; // eax
-	char v26; // ch
-	unsigned __int8 v27; // ch
-	int v29; // [esp+0h] [ebp-38h]
-	int v30; // [esp+8h] [ebp-30h]
-	int v31; // [esp+Ch] [ebp-2Ch]
-	int v32; // [esp+10h] [ebp-28h]
-	int v33; // [esp+14h] [ebp-24h]
-	int v34; // [esp+1Ch] [ebp-1Ch]
-	__int16 v35; // [esp+24h] [ebp-14h]
-	unsigned __int8 v36; // [esp+28h] [ebp-10h]
-	unsigned __int8 v37; // [esp+2Ch] [ebp-Ch]
-	unsigned __int8 v38; // [esp+30h] [ebp-8h]
-
-	v4 = *(x_BYTE*)(a4 + 4);
-	v5 = *(x_BYTE*)(a4 + 5);
-	v6 = x_DWORD_17FEC0 + a2;
-	v7 = x_DWORD_17FEC8 + a3;
-	v8 = -a2;
-	if ((-(signed __int16)a2 & 0x8000u) != 0 || (x_WORD)a2 == 0)
-	{
-		v36 = 0;
-	}
-	else
-	{
-		if ((signed __int16)v8 >= v4)
-			return v8;
-		v36 = -(char)a2;
-	}
-	v9 = v4;
-	LOWORD(v8) = v4 + v6 - x_DWORD_17FEC4;
-	if ((signed __int16)v8 > 0)
-	{
-		if ((signed __int16)v8 >= v4)
-			return v8;
-		v4 = x_DWORD_17FEC4 - v6;
-	}
-	LOWORD(v8) = -a3;
-	if (a3 >= 0)
-	{
-		v10 = 0;
-	}
-	else
-	{
-		v9 = v5;
-		if ((signed __int16)v8 >= v5)
-			return v8;
-		v10 = -(char)a3;
-	}
-	LOWORD(v8) = v7 + v5 - x_DWORD_17FECC;
-	if ((signed __int16)v8 > 0)
-	{
-		if ((signed __int16)v8 >= v5)
-			return v8;
-		v5 = x_DWORD_17FECC - v7;
-	}
-	v37 = v4 - v36;
-	BYTE1(v9) = v5 - v10;
-	v8 = *(x_DWORD*)a4;
-	v35 = x_DWORD_18062C_resolution_x;
-	v11 = (x_BYTE*)(x_DWORD_18062C_resolution_x * (v7 + (unsigned __int8)v9) + pdwScreenBuffer + v6 + v36);
-	if ((x_BYTE)v9)
-	{
-		v12 = v10;
-		do
-		{
-			while (*(x_BYTE*)v8 > 0)
-				v8 += *(char*)v8 + 1;
-			v13 = *(x_BYTE*)v8++;
-		} while (v13 || --v12);
-	}
-	v14 = (signed __int16)x_DWORD_18062C_resolution_x;
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-	v15 = (int)&v11[(signed __int16)x_DWORD_18062C_resolution_x];
-	v29 = (int)&v11[(signed __int16)x_DWORD_18062C_resolution_x];
-#endif
-	LOWORD(v15) = v37;
-	LOWORD(v9) = BYTE1(v9);
-	v34 = v9;
-	if (v36)
-	{
-	LABEL_68:
-		if (!v36)
-			goto LABEL_22;
-		v38 = v36;
-		while (1)
-		{
-			while (1)
-			{
-				v21 = *(x_BYTE*)v8;
-				if (*(x_BYTE*)v8 > 0)
-					break;
-				if (!*(x_BYTE*)v8)
-				{
-					v15 = 0;
-					goto LABEL_22;
-				}
-				v14 = v21;
-				v9 = -v38;
-				if (v14 < v9)
-				{
-					LOBYTE(v9) = -*(x_BYTE*)v8 - v38;
-					if ((unsigned __int8)v9 > v37)
-						LOBYTE(v9) = v37;
-					v14 = (unsigned __int8)v9;
-					v8++;
-					v11 += (unsigned __int8)v9;
-					BYTE1(v9) = 0;
-					v15 -= v9;
-					goto LABEL_22;
-				}
-				v27 = *(x_BYTE*)v8++ + v38;
-				v38 = v27;
-				if (!v27)
-					goto LABEL_22;
-			}
-			v14 = v21;
-			v9 = v38;
-			if (v38 < v14)
-				break;
-			v38 -= *(x_BYTE*)v8;
-			v9 = v14 + 1;
-			v8 += v14 + 1;
-			if (!v38)
-				goto LABEL_22;
-		}
-		v22 = *(x_BYTE*)v8 - v38;
-		if (v22 > v37)
-			v22 = v37;
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-		v31 = (int)&v11[v22];
-#endif
-		v23 = *(char*)v8;
-		v24 = v8 + 1;
-		v33 = v24 + v23;
-		v25 = (x_BYTE*)(v38 + v24);
-		v15 -= v22;
-		v14 = *(x_WORD*)(a1 + 4) & 0xC000;
-		if ((unsigned __int16)v14 >= 0x4000u)
-		{
-			if ((unsigned __int16)v14 > 0x4000u)
-			{
-				if ((x_WORD)v14 != -32768)
-					goto LABEL_105;
-				while (1)
-				{
-					if (*v25 >= 1u)
-					{
-						if (*v25 > 1u)
-						{
-							if (*v25 != 2)
-								goto LABEL_104;
-						LABEL_103:
-							v18 = (*(x_BYTE*)(a1 + 4) & 2) == 0;
-							goto LABEL_104;
-						}
-						if (!(*(x_BYTE*)(a1 + 4) & 1))
-							goto LABEL_103;
-					}
-				LABEL_104:
-					v25++;
-					v11++;
-					if (!--v22)
-						goto LABEL_105;
-				}
-			}
-			while (1)
-			{
-				if (*v25 >= 1u)
-				{
-					if (*v25 > 1u)
-					{
-						if (*v25 != 2)
-							goto LABEL_96;
-					LABEL_95:
-						v18 = (*(x_BYTE*)(a1 + 4) & 2) == 0;
-						goto LABEL_96;
-					}
-					if (!(*(x_BYTE*)(a1 + 4) & 1))
-						goto LABEL_95;
-				}
-			LABEL_96:
-				v25++;
-				v11++;
-				if (!--v22)
-				{
-					v8 = v33;
-					v11 = (x_BYTE*)v31;
-					goto LABEL_22;
-				}
-			}
-		}
-		if ((x_WORD)v14)
-		{
-		LABEL_105:
-			v8 = v33;
-			v11 = (x_BYTE*)v31;
-			goto LABEL_22;
-		}
-		while (1)
-		{
-			if (*v25 >= 1u)
-			{
-				if (*v25 > 1u)
-				{
-					if (*v25 != 2 || !(*(x_BYTE*)(a1 + 4) & 2))
-						goto LABEL_88;
-					v26 = *(x_BYTE*)(a1 + 7);
-					goto LABEL_87;
-				}
-				if (*(x_BYTE*)(a1 + 4) & 1)
-				{
-					v26 = *(x_BYTE*)(a1 + 6);
-				LABEL_87:
-					*v11 = v26;
-					goto LABEL_88;
-				}
-			}
-		LABEL_88:
-			v25++;
-			v11++;
-			if (!--v22)
-				goto LABEL_105;
-		}
-	}
-LABEL_22:
-	while (2)
-	{
-		while (2)
-		{
-			if ((signed __int16)v15 <= 0)
-			{
-				HIWORD(v15) = HIWORD(v34);
-				LOWORD(v15) = v34 - 1;
-				v18 = (x_WORD)v34 == 1;
-				v34 = v15;
-				if (v18)
-					return v8;
-				do
-				{
-					while (*(x_BYTE*)v8 > 0)
-						v8 += *(char*)v8 + 1;
-					v20 = *(x_BYTE*)v8++;
-				} while (v20);
-				v11 = (x_BYTE*)v29;
-				v9 = v35;
-				v14 = v29 + v35;
-				LOWORD(v15) = v37;
-				v29 += v35;
-				goto LABEL_68;
-			}
-			LOBYTE(v9) = *(x_BYTE*)v8;
-			if (*(x_BYTE*)v8 > 0)
-			{
-				if ((char)v9 >= (signed __int16)v15)
-					v9 = (signed __int16)v15;
-				else
-					v9 = *(char*)v8;
-				LOWORD(v14) = *(char*)v8;
-				v15 -= v14;
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-				v32 = (int)&v11[(unsigned __int8)v9];
-#endif
-				v30 = *(char*)v8 + v8 + 1;
-				v14 = *(x_WORD*)(a1 + 4) & 0xC000;
-				v16 = (x_BYTE*)(v8 + 1);
-				if ((unsigned __int16)v14 >= 0x4000u)
-				{
-					if ((unsigned __int16)v14 > 0x4000u)
-					{
-						if ((x_WORD)v14 != -32768)
-							goto LABEL_58;
-						while (1)
-						{
-							if (*v16 >= 1u)
-							{
-								if (*v16 > 1u)
-								{
-									if (*v16 != 2)
-										goto LABEL_57;
-								LABEL_56:
-									v18 = (*(x_BYTE*)(a1 + 4) & 2) == 0;
-									goto LABEL_57;
-								}
-								if (!(*(x_BYTE*)(a1 + 4) & 1))
-									goto LABEL_56;
-							}
-						LABEL_57:
-							v16++;
-							v11++;
-							LOBYTE(v9) = v9 - 1;
-							if (!(x_BYTE)v9)
-								goto LABEL_58;
-						}
-					}
-					while (1)
-					{
-						if (*v16 >= 1u)
-						{
-							if (*v16 > 1u)
-							{
-								if (*v16 != 2)
-									goto LABEL_49;
-							LABEL_48:
-								v18 = (*(x_BYTE*)(a1 + 4) & 2) == 0;
-								goto LABEL_49;
-							}
-							if (!(*(x_BYTE*)(a1 + 4) & 1))
-								goto LABEL_48;
-						}
-					LABEL_49:
-						v16++;
-						v11++;
-						LOBYTE(v9) = v9 - 1;
-						if (!(x_BYTE)v9)
-						{
-							v11 = (x_BYTE*)v32;
-							v8 = v30;
-							goto LABEL_22;
-						}
-					}
-				}
-				if ((x_WORD)v14)
-				{
-				LABEL_58:
-					v11 = (x_BYTE*)v32;
-					v8 = v30;
-					continue;
-				}
-				while (1)
-				{
-					if (*v16 >= 1u)
-					{
-						if (*v16 > 1u)
-						{
-							if (*v16 != 2 || !(*(x_BYTE*)(a1 + 4) & 2))
-								goto LABEL_41;
-							v17 = *(x_BYTE*)(a1 + 7);
-							goto LABEL_40;
-						}
-						if (*(x_BYTE*)(a1 + 4) & 1)
-						{
-							v17 = *(x_BYTE*)(a1 + 6);
-						LABEL_40:
-							*v11 = v17;
-							goto LABEL_41;
-						}
-					}
-				LABEL_41:
-					v16++;
-					v11++;
-					LOBYTE(v9)--;
-					if (!(x_BYTE)v9)
-						goto LABEL_58;
-				}
-			}
-			break;
-		}
-		if (*(x_BYTE*)v8 < 0)
-		{
-			LOWORD(v9) = (char)v9;
-			v15 += v9;
-			v9 = *(char*)v8++;
-			v11 -= v9;
-			continue;
-		}
-		break;
-	}
-	HIWORD(v19) = HIWORD(v34);
-	LOWORD(v19) = v34 - 1;
-	v18 = (x_WORD)v34 == 1;
-	v34 = v19;
-	if (!v18)
-	{
-		v11 = (x_BYTE*)v29;
-		v9 = v35;
-		v15 = v29 + v35;
-		v8++;
-		v29 += v35;
-		LOWORD(v15) = v37;
-		goto LABEL_68;
-	}
-	return v8;
-}
-// 17FEC0: using guessed type int x_DWORD_17FEC0;
-// 17FEC4: using guessed type int x_DWORD_17FEC4;
-// 17FEC8: using guessed type int x_DWORD_17FEC8;
-// 17FECC: using guessed type int x_DWORD_17FECC;
-// 180628: using guessed type int pdwScreenBuffer;
-// 18062C: using guessed type int x_DWORD_18062C_resolution_x;
-
-//----- (00085AF0) --------------------------------------------------------
-unsigned int* sub_85AF0(int a1)//266af0
-{
-	unsigned int* result; // eax
-	unsigned int v2; // ecx
-
-	result = *(unsigned int**)a1;
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-	if (*(x_DWORD*)a1 < *(x_DWORD*)(a1 + 4))
-	{
-		do
-		{
-			v2 = *(x_DWORD*)(a1 + 8);
-			if (*result < v2)
-				*result += v2;
-			result = (unsigned int*)((char*)result + 6);
-		} while ((unsigned int)result < *(x_DWORD*)(a1 + 4));
-	}
-#endif
-	return result;
-}
-
 //----- (00085B20) --------------------------------------------------------
 int sub_85B20_copy_bitmap(x_BYTE* a1, x_WORD* a2, unsigned __int16 a3)//266b20
 {
@@ -103867,7 +102824,7 @@ int sub_85B20_copy_bitmap(x_BYTE* a1, x_WORD* a2, unsigned __int16 a3)//266b20
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
 //----- (00085BF5) --------------------------------------------------------
-int sub_85BF5(x_BYTE* a1, int a2, int a3, int a4, int a5, int a6)//266bf5
+int sub_85BF5(x_BYTE* a1, uint8_t* a2, int a3, int a4, int a5, int a6)//266bf5
 {
 	x_BYTE* v6; // esi
 	x_BYTE* v7; // edi
@@ -103880,7 +102837,7 @@ int sub_85BF5(x_BYTE* a1, int a2, int a3, int a4, int a5, int a6)//266bf5
 	//fix it
 
 	v6 = a1;
-	v7 = (x_BYTE*)(a3 + 640 * a4 + a2);
+	v7 = (x_BYTE*)&a2[a3 + 640 * a4];  // a2 == x_DWORD_E9C38_smalltit
 	v8 = a6;
 	do
 	{
@@ -106778,7 +105735,7 @@ void sub_88D40()//269d40
 		v7_ebx = v5;
 		v41_66 = x_BYTE_D94FF_spell_index[v36_52x->dword_0xA4_164x->str_611.byte_0x458_1112];
 		v46_7E = v36_52x->dword_0xA4_164x->str_611.array_0x333_819x.word[v41_66] != 0;
-		if (D41A0_BYTESTR_0.terrain_2FECE.MapType != 2 && v41_66 == 25)
+		if (D41A0_BYTESTR_0.terrain_2FECE.MapType != MapType_t::Cave && v41_66 == 25)
 			v46_7E = 0;
 		v35_4E = v36_52x->dword_0xA4_164x->str_611.array_0x41D_1053z.byte[v41_66];
 		//v8 = *(char *)(v30_3A + 501);
@@ -107468,14 +106425,7 @@ int16_t sub_89B60_aplicate_setting(uint8_t a1)//26ab60
 		break;
 	case 4u:
 		memset(unk_180560x, 0, 44);//fix it
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-		sub_8BB40((int)unk_180560x, 8);
-#endif
+		sub_8BB40(unk_180560x, 8);
 		v3 = unk_180560x[0x18] == 0;
 		goto LABEL_10;
 	case 6u:
@@ -107494,14 +106444,7 @@ int16_t sub_89B60_aplicate_setting(uint8_t a1)//26ab60
 		break;
 	case 0xBu:
 		memset(unk_180560x, 0, 44);//fix it
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-		sub_8BB40((int)unk_180560x, 4);
-#endif
+		sub_8BB40(unk_180560x, 4);
 		v3 = unk_180560x[0x18] == 0;
 	LABEL_10:
 		if (!v3)//fix it
@@ -109013,34 +107956,20 @@ char sub_8BA10(int a1, int a2, int* a3, char* a4, int a5)//26ca10
 // D1F7C: using guessed type double dbl_D1F7C;
 // E36C8: using guessed type int x_DWORD_E36C8;
 
-//----- (0008BB10) --------------------------------------------------------
-int sub_8BB10(int a1)//26cb10
-{
-	int result; // eax
-
-	result = a1;
-	*(x_BYTE*)(a1 + 36) = 2;
-	*(x_DWORD*)(a1 + 8) = 10000000;
-	*(x_DWORD*)(a1 + 20) = 10000000;
-	*(x_DWORD*)(a1 + 12) = 0;
-	*(x_DWORD*)(a1 + 24) = 0;
-	return result;
-}
-
 //----- (0008BB40) --------------------------------------------------------
-int sub_8BB40(int a1, char a2)//26cb40
+void sub_8BB40(uint8_t *a1, char a2)//26cb40
 {
-	int result; // eax
-
-	*(x_BYTE*)(a1 + 37) = a2;
-	result = sub_8BB10(a1);
-	BYTE1(result) = a2;
+	a1[37] = a2;
+	a1[36] = 2;
+	*(x_DWORD*)&a1[8] = 10000000;
+	*(x_DWORD*)&a1[20] = 10000000;
+	*(x_DWORD*)&a1[12] = 0;
+	*(x_DWORD*)&a1[24] = 0;
 	if (a2 == 8)
 	{
-		*(x_BYTE*)(a1 + 37) = 7;
-		*(x_BYTE*)(a1 + 36) = 3;
+		a1[37] = 7;
+		a1[36] = 3;
 	}
-	return result;
 }
 
 //----- (0008BBE0) --------------------------------------------------------
@@ -111977,32 +110906,6 @@ int sub_9BAC4(int a1, signed int a2)//27CAC4
 }
 // A0ED7: using guessed type x_DWORD outp(x_DWORD, char);
 
-//----- (0009BBFC) --------------------------------------------------------
-int sub_9BBFC_unlock_and_free_memory(int a1)//27CBFC
-{
-	int v2; // [esp+0h] [ebp-1Ch]
-	__int16 v3; // [esp+Ch] [ebp-10h]
-
-	if (*(x_DWORD*)(a1 + 4))
-	{
-		v2 = 0x101;
-		v3 = *(x_WORD*)(a1 + 8);
-		//int386(0x31, (REGS*)&v2, (REGS*)&v2);//Free DOS Memory Block
-		sub_9B5B4_unlock_mem_region(*(x_DWORD*)(a1 + 4), *(x_DWORD*)(*(x_DWORD*)a1 + 4) >> 16);
-	}
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-  return 0;
-#else
-	return (int)memset((void*)a1, 0, 10);
-#endif
-}
-// 8C250: using guessed type x_DWORD memset(x_DWORD, x_DWORD, x_DWORD);
-// 98D52: using guessed type x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);
-
 //----- (0009BC68) --------------------------------------------------------
 signed int sub_9BC68_allocate_and_lock_memory(x_WORD* a1, int a2, unsigned int a3)//27CC68
 {
@@ -112240,70 +111143,6 @@ int sub_9BE18(int a1, int a2, char a3, unsigned int a4, unsigned int a5)//27CE18
 // E3E10: using guessed type void (/*__noreturn*/ *off_E3E10)();
 // E3E14: using guessed type __int16 seg_E3E14[];
 
-/*
-//----- (0009C58C) --------------------------------------------------------
-int sub_9C58C(int a1)
-{
-	int result; // eax
-	char v2; // ST4C_1
-	int v3; // [esp+5Ch] [ebp-1Ch]
-	char v4; // [esp+60h] [ebp-18h]
-	int v5; // [esp+64h] [ebp-14h]
-	int v6; // [esp+68h] [ebp-10h]
-
-	result = a1;
-	if (*(x_DWORD *)(a1 + 28))
-	{
-		//sub_AC449();
-		exit(0);//fix
-		//if (*(x_DWORD *)(a1 + 60) || *(x_WORD *)(a1 + 64))
-		//	dos_setvect(*(x_DWORD *)(a1 + 36), *(x_DWORD *)(a1 + 60), *(unsigned __int16 *)(a1 + 64));
-		sub_9B5B4_unlock_mem_region((unsigned int)sub_9B628, (char *)sub_9BAB0 - (char *)sub_9B628);
-		if (*(x_DWORD *)(a1 + 44))
-		{
-			v3 = 0x201;
-			v4 = *(x_BYTE *)(a1 + 36);
-			v5 = *(unsigned __int16 *)(a1 + 50);
-			v6 = *(unsigned __int16 *)(a1 + 52);
-			//int386(0x31, (REGS*)&v3, (REGS*)&v3);//Set Real Mode Interrupt Vector
-		}
-		if (*(x_WORD *)(a1 + 48))
-		{
-			v3 = 0x101;
-			LOWORD(v6) = *(x_WORD *)(a1 + 48);
-			//int386(0x31, (REGS*)&v3, (REGS*)&v3);//Free DOS Memory Block
-			sub_9B5B4_unlock_mem_region(*(x_DWORD *)(a1 + 44), x_BYTE_C0134 - 0xC0000);
-		}
-		x_outp(*(x_DWORD *)(a1 + 28) + 4, *(x_DWORD *)(a1 + 70));
-		if (*(x_DWORD *)(a1 + 74) & *(x_DWORD *)(a1 + 40))
-		{
-			v2 = x_inp(33);
-			x_outp(33, *(x_BYTE *)(a1 + 40) | v2);
-		}
-		x_outp(*(x_DWORD *)(a1 + 28) + 1, *(x_DWORD *)(a1 + 78));
-		if ((*(x_DWORD *)(a1 + 82) & 0xF8) != 192)
-		{
-			if (*(x_DWORD *)(a1 + 24))
-				x_outp(*(x_DWORD *)(a1 + 28) + 2, 0);
-		}
-		sub_9BAC4(a1, *(x_DWORD *)(a1 + 86));
-		x_outp(*(x_DWORD *)(a1 + 28) + 3, *(x_DWORD *)(a1 + 66));
-		//sub_AC44B();
-		sub_9BBFC_unlock_and_free_memory(a1);
-		sub_9BBFC_unlock_and_free_memory(a1 + 10);
-		x_DWORD_E3DFC[*(x_DWORD *)(a1 + 32)] = 0;
-		result = (int)memset((void*)a1, 0, 90);
-	}
-	return result;
-}
-// 8C250: using guessed type x_DWORD memset(x_DWORD, x_DWORD, x_DWORD);
-// 98D52: using guessed type x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);
-// 99BDB: using guessed type x_DWORD dos_setvect(x_DWORD, x_DWORD, x_DWORD);
-// A0ED7: using guessed type x_DWORD outp(x_DWORD, char);
-// A0EE1: using guessed type x_DWORD inp(x_DWORD);
-// C0000: using guessed type int  sub_C0000();
-// E3DFC: using guessed type int x_DWORD_E3DFC[];
-*/
 //----- (0009C810) --------------------------------------------------------
 signed int sub_9C810(x_DWORD* a1, char a2)
 {
@@ -112750,7 +111589,7 @@ int sub_AC24B()//28d24b
 }
 
 //----- (000AC250) --------------------------------------------------------
-signed int sub_AC250(int a1, int a2, int a3, int a4, int a5, x_DWORD* a6, x_DWORD* a7, signed int* a8)//28d250
+void sub_AC250(int a1, int a2, int a3, int a4, int a5, x_DWORD* a6, x_DWORD* a7, signed int* a8)//28d250
 {
 	signed int result; // eax
 	int v9; // ebx
@@ -112827,13 +111666,11 @@ signed int sub_AC250(int a1, int a2, int a3, int a4, int a5, x_DWORD* a6, x_DWOR
 							+ ((unsigned __int64)((signed int)&unk_E52EE * (signed __int64)v12) >> 14);
 #endif
 						*a8 = result;
-						return result;
 					}
 				}
 			}
 		}
 	}
-	return result;
 }
 // E4CCC: using guessed type int x_DWORD_E4CCC;
 

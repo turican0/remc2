@@ -1239,12 +1239,14 @@ typedef struct {
 }
 type_str_0x36442;
 
+enum class MapType_t : std::uint8_t { Day = 0, Night = 1, Cave = 2 };
+
 typedef struct {//lenght 0x6604u
 	uint16_t word_2FECE;
 	uint16_t word_2FED0;
 	uint8_t byte_0x2FED2;//x_D41A0_BYTEARRAY_0[196306] // type of level graphics
 	uint8_t byte_0x2FED3;
-	uint8_t MapType;//x_D41A0_BYTEARRAY_0[196308]//GraphicsType
+	MapType_t MapType;//x_D41A0_BYTEARRAY_0[196308]//GraphicsType
 	int16_t word_0x2FED5;
 	int16_t word_0x2FED7;
 	int8_t player_0x2FED9[8];
