@@ -41,6 +41,9 @@ type_entity_0x30311 temparray_0x30311[0x4b0];
 bool temparray_0x30311_inactive[0x4b0];
 bool temparray_0x30311_selected[0x4b0];
 
+int max_subtype_buttons = 64;
+int max_subsubtype_buttons = 64;
+
 void SetPixelMapSurface(int x,int y,int nx,int ny,uint8_t* adress) {
 	if (nx < 0 || nx>255 || ny < 0 || ny>255)
 	{
@@ -976,7 +979,7 @@ static void terrain_feat_append(kiss_textbox* textbox, kiss_vscrollbar* vscrollb
 	for (int i = first_terrain_feature; i < 0x4B0; i++)
 	{
 		type_entity_0x30311 actfeat = temparray_0x30311[i];//D41A0_BYTESTR_0.str_2FECE.array_0x30311[first_terrain_feature + i];
-		sprintf(temp, "%03X|%04X|%04X|%04X|%04X|%04X|%04X|%04X|%04X|%04X|%04XNA", i,actfeat.type_0x30311, actfeat.subtype_0x30311, actfeat.axis2d_4.x, actfeat.axis2d_4.y, actfeat.DisId, actfeat.word_10, actfeat.sTag_12, actfeat.word_14, actfeat.parent_16, actfeat.child_18);		
+		sprintf(temp, "%03X|%04X|%04X|%04X|%04X|%04X|%04X|%04X|%04X|%04X|%04XNA", i,actfeat.type_0x30311, actfeat.subtype_0x30311, actfeat.axis2d_4.x, actfeat.axis2d_4.y, actfeat.DisId, actfeat.word_10, actfeat.stageTag_12, actfeat.word_14, actfeat.parent_16, actfeat.child_18);		
 		if(temparray_0x30311_inactive[i])temp[strlen(temp) - 1] = 'I';//set last char as inactive
 		if(temparray_0x30311_selected[i])temp[strlen(temp) - 2] = 'S';//set last char as inactive
 		kiss_array_appendstring(textbox->array, 0, (char*)"", temp);
@@ -1148,7 +1151,7 @@ static void button_ok1_event(kiss_button* button, SDL_Event* e,	kiss_window* win
 }
 
 
-kiss_window window1, window2, window3,window_selecttype, window_selectsubtype, window_selectcheck;
+kiss_window window1, window2, window3,window_selecttype, window_selectsubtype, window_selectsubsubtype, window_selectcheck;
 kiss_hex4edit hex4edit1feat = { 0 };
 kiss_hex4edit hex4edit2feat = { 0 };
 kiss_hex4edit hex4edit3feat = { 0 };
@@ -1183,6 +1186,22 @@ static void button_savelevel_event(kiss_button* button, SDL_Event* e,int* draw)
 		FixDir(path2, (char*)"testsave.sav");
 		FILE* file = fopen(path2,"wb");
 		fwrite(&D41A0_BYTESTR_0.terrain_2FECE,sizeof(D41A0_BYTESTR_0.terrain_2FECE),1, file);
+		fclose;
+	}//*quit = 1;
+}
+
+static void button_savelevelcsv_event(kiss_button* button, SDL_Event* e, int* draw)
+{
+	if (kiss_button_event(button, e, draw))
+	{
+		char path2[512];
+		FixDir(path2, (char*)"testsave.csv");
+		FILE* file = fopen(path2, "wt");
+		for (int i = 0; i < 0x4B0; i++)
+		{
+			type_entity_0x30311 actfeat = temparray_0x30311[i];//D41A0_BYTESTR_0.str_2FECE.array_0x30311[first_terrain_feature + i];
+			fprintf(file, "0x%03X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X\n", i, actfeat.type_0x30311, actfeat.subtype_0x30311, actfeat.axis2d_4.x, actfeat.axis2d_4.y, actfeat.DisId, actfeat.word_10, actfeat.stageTag_12, actfeat.word_14, actfeat.parent_16, actfeat.child_18);			
+		}
 		fclose;
 	}//*quit = 1;
 }
@@ -1261,12 +1280,20 @@ static void button_selectcheck_event(kiss_button* button, SDL_Event* e, int* dra
 
 
 kiss_image img_creature;
+kiss_image img_type02_00;
+kiss_image img_type02_01;
+kiss_image img_type02_02;
+kiss_image img_type02_03;
+kiss_image img_type02_04;
+kiss_image img_type02_07;
+kiss_image img_type02_08;
 kiss_image img_type05_01;
 kiss_image img_type05_02;
 kiss_image img_type05_03;
 kiss_image img_type05_04;
 kiss_image img_type05_09;
 kiss_image img_type05_0D;
+kiss_image img_type05_11;
 kiss_image img_type05_13;
 
 kiss_image img_type0A_01;
@@ -1277,11 +1304,13 @@ kiss_image img_type0A_3B;
 kiss_image img_type0A_3C;
 kiss_image img_type0A_1D;
 
+kiss_image img_type0A_2D_01;
+
 kiss_image img_castle;
 kiss_image img_trigger;
 
 kiss_image img_none;
-int max_subtype_buttons = 64;
+
 
 static void button_selectsubtype_event(kiss_button* button,kiss_button* buttons, SDL_Event* e, int* draw)
 {
@@ -1289,6 +1318,23 @@ static void button_selectsubtype_event(kiss_button* button,kiss_button* buttons,
 	{
 		switch (*(int16_t*)hex4edit1feat.valueadress)
 		{
+		case 2:
+		{
+			window_selectsubtype.visible = 1;
+			window2.focus = 0;
+			window_selectsubtype.focus = 1;
+			max_subtype_buttons = 0x14;
+			for (int i = 0; i < max_subtype_buttons; i++) { buttons[i].normalimg = img_none; buttons[i].prelightimg = img_none; buttons[i].activeimg = img_none; }
+			buttons[0x00].normalimg = img_type02_00; buttons[0x00].prelightimg = img_type02_00; buttons[0x00].activeimg = img_type02_00;
+			buttons[0x01].normalimg = img_type02_01; buttons[0x01].prelightimg = img_type02_01; buttons[0x01].activeimg = img_type02_01;
+			buttons[0x02].normalimg = img_type02_02; buttons[0x02].prelightimg = img_type02_02; buttons[0x02].activeimg = img_type02_02;
+			buttons[0x03].normalimg = img_type02_03; buttons[0x03].prelightimg = img_type02_03; buttons[0x03].activeimg = img_type02_03;
+			buttons[0x04].normalimg = img_type02_04; buttons[0x04].prelightimg = img_type02_04; buttons[0x04].activeimg = img_type02_04;
+			buttons[0x05].normalimg = img_type02_04; buttons[0x05].prelightimg = img_type02_04; buttons[0x05].activeimg = img_type02_04;
+			buttons[0x07].normalimg = img_type02_07; buttons[0x07].prelightimg = img_type02_07; buttons[0x07].activeimg = img_type02_07;
+			buttons[0x08].normalimg = img_type02_08; buttons[0x08].prelightimg = img_type02_08; buttons[0x08].activeimg = img_type02_08;
+			break;
+		}
 		case 5:		
 		{
 			window_selectsubtype.visible = 1;
@@ -1300,8 +1346,9 @@ static void button_selectsubtype_event(kiss_button* button,kiss_button* buttons,
 			buttons[0x02].normalimg = img_type05_02; buttons[0x02].prelightimg = img_type05_02; buttons[0x02].activeimg = img_type05_02;
 			buttons[0x03].normalimg = img_type05_03; buttons[0x03].prelightimg = img_type05_03; buttons[0x03].activeimg = img_type05_03;
 			buttons[0x04].normalimg = img_type05_04; buttons[0x04].prelightimg = img_type05_04; buttons[0x04].activeimg = img_type05_04;
-			buttons[0x09].normalimg = img_type05_09; buttons[0x09].prelightimg = img_type05_09; buttons[0x09].activeimg = img_type05_09;
+			buttons[0x09].normalimg = img_type05_09; buttons[0x09].prelightimg = img_type05_09; buttons[0x09].activeimg = img_type05_09;			
 			buttons[0x0D].normalimg = img_type05_0D; buttons[0x0D].prelightimg = img_type05_0D; buttons[0x0D].activeimg = img_type05_0D;
+			buttons[0x11].normalimg = img_type05_11; buttons[0x11].prelightimg = img_type05_11; buttons[0x11].activeimg = img_type05_11;
 			buttons[0x13].normalimg = img_type05_13; buttons[0x13].prelightimg = img_type05_13; buttons[0x13].activeimg = img_type05_13;
 			
 			break;
@@ -1326,6 +1373,25 @@ static void button_selectsubtype_event(kiss_button* button,kiss_button* buttons,
 		}
 		}
 
+	}
+}
+
+static void button_selectsubsubtype_event(kiss_button* button, kiss_button* buttons, SDL_Event* e, int* draw) {
+	if (kiss_button_event(button, e, draw))
+	{
+		switch (*(int16_t*)hex4edit2feat.valueadress)
+		{
+		case 0x2d:
+		{
+			window_selectsubsubtype.visible = 1;
+			window2.focus = 0;
+			window_selectsubsubtype.focus = 1;
+			max_subsubtype_buttons = 0x14;
+			for (int i = 0; i < max_subsubtype_buttons; i++) { buttons[i].normalimg = img_none; buttons[i].prelightimg = img_none; buttons[i].activeimg = img_none; }
+			buttons[0x01].normalimg = img_type0A_2D_01; buttons[0x01].prelightimg = img_type0A_2D_01; buttons[0x01].activeimg = img_type0A_2D_01;
+			break;
+		}
+		}
 	}
 }
 
@@ -1417,7 +1483,7 @@ static int button_add_event(kiss_button* button, SDL_Event* e,	int* quit, int* d
 		kiss_hex4edit_update_adress(&hex4edit4feat, &temparray_0x30311[edited_line_old + 1].axis2d_4.y);
 		kiss_hex4edit_update_adress(&hex4edit5feat, &temparray_0x30311[edited_line_old + 1].DisId);
 		kiss_hex4edit_update_adress(&hex4edit6feat, &temparray_0x30311[edited_line_old + 1].word_10);
-		kiss_hex4edit_update_adress(&hex4edit7feat, &temparray_0x30311[edited_line_old + 1].sTag_12);
+		kiss_hex4edit_update_adress(&hex4edit7feat, &temparray_0x30311[edited_line_old + 1].stageTag_12);
 		kiss_hex4edit_update_adress(&hex4edit8feat, &temparray_0x30311[edited_line_old + 1].word_14);
 		kiss_hex4edit_update_adress(&hex4edit9feat, &temparray_0x30311[edited_line_old + 1].parent_16);
 		kiss_hex4edit_update_adress(&hex4edit10feat, &temparray_0x30311[edited_line_old + 1].child_18);
@@ -1439,7 +1505,7 @@ static int button_clean_event(kiss_button* button, SDL_Event* e, int* quit, int*
 		kiss_hex4edit_update_adress(&hex4edit4feat, &temparray_0x30311[edited_line_old + 1].axis2d_4.y);
 		kiss_hex4edit_update_adress(&hex4edit5feat, &temparray_0x30311[edited_line_old + 1].DisId);
 		kiss_hex4edit_update_adress(&hex4edit6feat, &temparray_0x30311[edited_line_old + 1].word_10);
-		kiss_hex4edit_update_adress(&hex4edit7feat, &temparray_0x30311[edited_line_old + 1].sTag_12);
+		kiss_hex4edit_update_adress(&hex4edit7feat, &temparray_0x30311[edited_line_old + 1].stageTag_12);
 		kiss_hex4edit_update_adress(&hex4edit8feat, &temparray_0x30311[edited_line_old + 1].word_14);
 		kiss_hex4edit_update_adress(&hex4edit9feat, &temparray_0x30311[edited_line_old + 1].parent_16);
 		kiss_hex4edit_update_adress(&hex4edit10feat, &temparray_0x30311[edited_line_old + 1].child_18);
@@ -1733,7 +1799,7 @@ int main_x(/*int argc, char** argv*/)
 	kiss_label label_stages2 = { 0 };
 	kiss_label label_vars = { 0 };
 	kiss_label label_vars2 = { 0 };
-	kiss_button /*button_ok1 = { 0 }, button_ok2 = { 0 }, */button_cancel = { 0 }, button_levelsave = { 0 }, button_cleanlevelfeat = {0};
+	kiss_button /*button_ok1 = { 0 }, button_ok2 = { 0 }, */button_cancel = { 0 }, button_levelsave = { 0 }, button_levelsavecsv = { 0 }, button_cleanlevelfeat = {0};
 	kiss_textbox textbox1 = { 0 };
 	kiss_textbox textbox2 = { 0 };
 	kiss_textbox textbox3 = { 0 };
@@ -1743,6 +1809,7 @@ int main_x(/*int argc, char** argv*/)
 	int textbox_width, textbox_height, textbox2_width, textbox2_height, textbox3_width, textbox3_height,
 		window2_width,window2_height, window3_width, window3_height;
 	int	window_selecttype_width, window_selecttype_height, window_selectsubtype_width, window_selectsubtype_height,
+		window_selectsubsubtype_width, window_selectsubsubtype_height,
 		window_selectcheck_width, window_selectcheck_height;
 	int	draw, quit;
 
@@ -1805,9 +1872,10 @@ int main_x(/*int argc, char** argv*/)
 	kiss_selectbutton select1feat = { 0 };
 	kiss_button button_ok1feat = { 0 }, button_ok1check = { 0 },button_plusfeat = { 0 }, button_deletefeat = { 0 }, button_cleanfeat = { 0 },
 		button_selecttype = { 0 }, button_selectcheck = {0},
-		button_selectsubtype = {0};
+		button_selectsubtype = { 0 }, button_selectsubsubtype = {0};
 	kiss_button button_type[16]; for (int i = 0; i < 16; i++)button_type[i] = { 0 };
 	kiss_button button_subtype[64]; for (int i = 0; i < 16; i++)button_subtype[i] = { 0 };
+	kiss_button button_subsubtype[64]; for (int i = 0; i < 16; i++)button_subsubtype[i] = { 0 };
 	kiss_button button_check[16]; for (int i = 0; i < 16; i++)button_check[i] = { 0 };
 	kiss_label label_plusFeat = { 0 };
 
@@ -1828,6 +1896,8 @@ int main_x(/*int argc, char** argv*/)
 	window_selecttype_height = 165;
 	window_selectsubtype_width = 330;
 	window_selectsubtype_height = 330;
+	window_selectsubsubtype_width = 330;
+	window_selectsubsubtype_height = 330;
 	window_selectcheck_width = 165;
 	window_selectcheck_height = 165;
 	editor_renderer = kiss_init((char*)"REMC2 Editor", &objects, 1100, 768);
@@ -2004,6 +2074,48 @@ int main_x(/*int argc, char** argv*/)
 	img_search.magic = KISS_MAGIC;
 	img_search.image = IMG_LoadTexture(editor_renderer, path2);
 
+	FixDir(path2, (char*)"kiss\\type02-00-tree.png");
+	img_type02_00.w = 32;
+	img_type02_00.h = 32;
+	img_type02_00.magic = KISS_MAGIC;
+	img_type02_00.image = IMG_LoadTexture(editor_renderer, path2);
+
+	FixDir(path2, (char*)"kiss\\type02-03-badstone.png");
+	img_type02_01.w = 32;
+	img_type02_01.h = 32;
+	img_type02_01.magic = KISS_MAGIC;
+	img_type02_01.image = IMG_LoadTexture(editor_renderer, path2);
+
+	FixDir(path2, (char*)"kiss\\type02-02-stonehange.png");
+	img_type02_02.w = 32;
+	img_type02_02.h = 32;
+	img_type02_02.magic = KISS_MAGIC;
+	img_type02_02.image = IMG_LoadTexture(editor_renderer, path2);
+
+	FixDir(path2, (char*)"kiss\\type02-04-carpet.png");
+	img_type02_04.w = 32;
+	img_type02_04.h = 32;
+	img_type02_04.magic = KISS_MAGIC;
+	img_type02_04.image = IMG_LoadTexture(editor_renderer, path2);
+
+	FixDir(path2, (char*)"kiss\\type02-07-barrel.png");
+	img_type02_07.w = 32;
+	img_type02_07.h = 32;
+	img_type02_07.magic = KISS_MAGIC;
+	img_type02_07.image = IMG_LoadTexture(editor_renderer, path2);
+
+	FixDir(path2, (char*)"kiss\\type02-08-vase.png");
+	img_type02_08.w = 32;
+	img_type02_08.h = 32;
+	img_type02_08.magic = KISS_MAGIC;
+	img_type02_08.image = IMG_LoadTexture(editor_renderer, path2);
+
+	FixDir(path2, (char*)"kiss\\type02-03-badstone.png");
+	img_type02_03.w = 32;
+	img_type02_03.h = 32;
+	img_type02_03.magic = KISS_MAGIC;
+	img_type02_03.image = IMG_LoadTexture(editor_renderer, path2);
+
 	FixDir(path2, (char*)"kiss\\type05-01-goat.png");
 	img_type05_01.w = 32;
 	img_type05_01.h = 32;
@@ -2034,17 +2146,23 @@ int main_x(/*int argc, char** argv*/)
 	img_type05_09.magic = KISS_MAGIC;
 	img_type05_09.image = IMG_LoadTexture(editor_renderer, path2);
 
-	FixDir(path2, (char*)"kiss\\type05-13-fly.png");
-	img_type05_13.w = 32;
-	img_type05_13.h = 32;
-	img_type05_13.magic = KISS_MAGIC;
-	img_type05_13.image = IMG_LoadTexture(editor_renderer, path2);
-
 	FixDir(path2, (char*)"kiss\\type05-0D-townie.png");
 	img_type05_0D.w = 32;
 	img_type05_0D.h = 32;
 	img_type05_0D.magic = KISS_MAGIC;
 	img_type05_0D.image = IMG_LoadTexture(editor_renderer, path2);
+
+	FixDir(path2, (char*)"kiss\\type05-11-leon.png");
+	img_type05_11.w = 32;
+	img_type05_11.h = 32;
+	img_type05_11.magic = KISS_MAGIC;
+	img_type05_11.image = IMG_LoadTexture(editor_renderer, path2);
+
+	FixDir(path2, (char*)"kiss\\type05-13-fly.png");
+	img_type05_13.w = 32;
+	img_type05_13.h = 32;
+	img_type05_13.magic = KISS_MAGIC;
+	img_type05_13.image = IMG_LoadTexture(editor_renderer, path2);	
 
 	FixDir(path2, (char*)"kiss\\type0A-01-explosion.png");
 	img_type0A_01.w = 32;
@@ -2083,8 +2201,8 @@ int main_x(/*int argc, char** argv*/)
 	img_type0A_3C.image = IMG_LoadTexture(editor_renderer, path2);
 
 	FixDir(path2, (char*)"kiss\\type0A-1D-path.png");
-	img_type0A_1D.w = 32;
-	img_type0A_1D.h = 32;
+	img_type0A_2D_01.w = 32;
+	img_type0A_2D_01.h = 32;
 	img_type0A_1D.magic = KISS_MAGIC;
 	img_type0A_1D.image = IMG_LoadTexture(editor_renderer, path2);
 
@@ -2095,6 +2213,11 @@ int main_x(/*int argc, char** argv*/)
 	img_type2D.magic = KISS_MAGIC;
 	img_type2D.image = IMG_LoadTexture(editor_renderer, path2);
 
+	FixDir(path2, (char*)"kiss\\type0A-2D-01.png");
+	img_type0A_2D_01.w = 32;
+	img_type0A_2D_01.h = 32;
+	img_type0A_2D_01.magic = KISS_MAGIC;
+	img_type0A_2D_01.image = IMG_LoadTexture(editor_renderer, path2);
 
 	kiss_image img_check00;
 	FixDir(path2, (char*)"kiss\\check-00.png");
@@ -2143,7 +2266,7 @@ int main_x(/*int argc, char** argv*/)
 	//kiss_textbox_new(&textbox2, &window1, 1, &a2,vscrollbar1.uprect.x + kiss_up.w, textbox1.rect.y,	textbox_width, textbox_height);
 	//kiss_vscrollbar_new(&vscrollbar2, &window1, textbox2.rect.x +textbox_width, vscrollbar1.uprect.y, textbox_height);
 	kiss_label_new(&label_terfeat, &window1, (char*)"LEVEL ENTITES:", 5 + textbox1.rect.x + kiss_edge, textbox1.rect.y - kiss_textfont.lineheight*2);
-	kiss_label_new(&label_terfeat2, &window1, (char*)"IDX|TYPE|SUBT| X  | Y  | Z  | 10 |STAG| 14 |PARN|CHLD", 5 + textbox1.rect.x + kiss_edge, textbox1.rect.y - kiss_textfont.lineheight);
+	kiss_label_new(&label_terfeat2, &window1, (char*)"IDX|TYPE|SUBT| X  | Y  |DIID| 10 |STAG| 14 |PARN|CHLD", 5 + textbox1.rect.x + kiss_edge, textbox1.rect.y - kiss_textfont.lineheight);
 
 	kiss_label_new(&label_stages, &window1, (char*)"LEVEL STAGES:", 5 + textbox2.rect.x + kiss_edge, textbox2.rect.y - kiss_textfont.lineheight * 2);
 	kiss_label_new(&label_stages2, &window1, (char*)"IX|ST|01| 03 | 05", 5 + textbox2.rect.x + kiss_edge, textbox2.rect.y - kiss_textfont.lineheight);
@@ -2155,6 +2278,7 @@ int main_x(/*int argc, char** argv*/)
 	//kiss_entry_new(&entry, &window1, 1, (char*)"kiss", textbox1.rect.x,label_sel.rect.y + kiss_textfont.lineheight,2 * textbox_width + 2 * kiss_up.w + kiss_edge);
 	kiss_button_new(&button_cancel, &window1, (char*)"EXIT",530,740);
 	kiss_button_new(&button_levelsave, &window1, (char*)"SAVE", 530, 720);
+	kiss_button_new(&button_levelsavecsv, &window1, (char*)"SCSV", 600, 720);
 	kiss_button_new(&button_cleanlevelfeat, &window1, (char*)"CLEAR", 530, 700);
 	//kiss_button_new(&button_ok1, &window1, (char*)"OK", button_cancel.rect.x -2 * kiss_normal.w, button_cancel.rect.y);
 
@@ -2172,6 +2296,7 @@ int main_x(/*int argc, char** argv*/)
 	kiss_window_new(&window2, NULL, 1, kiss_screen_width / 2 - window2_width / 2, kiss_screen_height / 2 - window2_height / 2, window2_width, window2_height);
 	kiss_window_new(&window_selecttype, NULL, 1, window2.rect.x + 300, window2.rect.y + 10, window_selecttype_width, window_selecttype_height);
 	kiss_window_new(&window_selectsubtype, NULL, 1, window2.rect.x + 300, window2.rect.y + 30, window_selectsubtype_width, window_selectsubtype_height);
+	kiss_window_new(&window_selectsubsubtype, NULL, 1, window2.rect.x + 300, window2.rect.y + 150, window_selectsubsubtype_width, window_selectsubsubtype_height);
 	
 	uint16_t temp_var;
 	kiss_window_new(&window3, NULL, 1, kiss_screen_width / 2 - window3_width / 2, kiss_screen_height / 2 - window3_height / 2, window3_width, window3_height);
@@ -2269,6 +2394,9 @@ int main_x(/*int argc, char** argv*/)
 	kiss_button_new(&button_selectsubtype, &window2, (char*)" ", window2.rect.x + kiss_up.w + 270, window2.rect.y + 30, &img_search);
 	button_selectsubtype.activeimg = img_search; button_selectsubtype.prelightimg = img_search;
 
+	kiss_button_new(&button_selectsubsubtype, &window2, (char*)" ", window2.rect.x + kiss_up.w + 270, window2.rect.y + 150, &img_search);
+	button_selectsubsubtype.activeimg = img_search; button_selectsubsubtype.prelightimg = img_search;
+
 	kiss_label_new(&levelSelFeat, &window2, (char*)"Active:", 300 + window2.rect.x + kiss_up.w, window2.rect.y + 30);
 	kiss_selectbutton_new(&select1feat, &window2, 300 + window2.rect.x + kiss_up.w + 80, window2.rect.y + 30);
 	kiss_label_new(&label_plusFeat, &window2, (char*)"Add:", 300 + window2.rect.x + kiss_up.w, window2.rect.y + 50);
@@ -2319,6 +2447,11 @@ int main_x(/*int argc, char** argv*/)
 	for (int i = 0; i < max_subtype_buttons; i++)
 	{
 		kiss_button_new(&button_subtype[i], &window_selectsubtype, (char*)" ", window_selectsubtype.rect.x + kiss_border + ((i % 8) * 40), window_selectsubtype.rect.y + kiss_border + ((i / 8) * 40), &img_none);
+		//button_type[i].activeimg = img_none; button_type[i].prelightimg = img_none;
+	}
+	for (int i = 0; i < max_subsubtype_buttons; i++)
+	{
+		kiss_button_new(&button_subsubtype[i], &window_selectsubsubtype, (char*)" ", window_selectsubsubtype.rect.x + kiss_border + ((i % 8) * 40), window_selectsubsubtype.rect.y + kiss_border + ((i / 8) * 40), &img_none);
 		//button_type[i].activeimg = img_none; button_type[i].prelightimg = img_none;
 	}
 
@@ -2394,7 +2527,7 @@ int main_x(/*int argc, char** argv*/)
 				kiss_hex4edit_update_adress(&hex4edit4feat, &temparray_0x30311[edited_line_old + 1].axis2d_4.y);
 				kiss_hex4edit_update_adress(&hex4edit5feat, &temparray_0x30311[edited_line_old + 1].DisId);
 				kiss_hex4edit_update_adress(&hex4edit6feat, &temparray_0x30311[edited_line_old + 1].word_10);
-				kiss_hex4edit_update_adress(&hex4edit7feat, &temparray_0x30311[edited_line_old + 1].sTag_12);
+				kiss_hex4edit_update_adress(&hex4edit7feat, &temparray_0x30311[edited_line_old + 1].stageTag_12);
 				kiss_hex4edit_update_adress(&hex4edit8feat, &temparray_0x30311[edited_line_old + 1].word_14);
 				kiss_hex4edit_update_adress(&hex4edit9feat, &temparray_0x30311[edited_line_old + 1].parent_16);
 				kiss_hex4edit_update_adress(&hex4edit10feat, &temparray_0x30311[edited_line_old + 1].child_18);
@@ -2496,10 +2629,12 @@ int main_x(/*int argc, char** argv*/)
 
 			button_selecttype_event(&button_selecttype, &e, &draw);
 			button_selectsubtype_event(&button_selectsubtype, button_subtype, &e, &draw);
+			button_selectsubsubtype_event(&button_selectsubsubtype, button_subsubtype, &e, &draw);
 
 			button_ok_event(&button_ok1feat, &e, &quit, &draw);
 			button_cancel_event(&button_cancel, &e, &quit, &draw);
 			button_savelevel_event(&button_levelsave, &e, &draw);
+			button_savelevelcsv_event(&button_levelsavecsv, &e, &draw);
 
 			if (button_cleanlevelfeat_event(&button_cleanlevelfeat, &e, &draw))
 			{
@@ -2531,6 +2666,15 @@ int main_x(/*int argc, char** argv*/)
 				if (retvar > -1)
 				{
 					kiss_hex4edit_set(&hex4edit2feat, i);
+					changed2 = true; zoomchanged = true;
+				}
+			}
+			for (int i = 0; i < max_subsubtype_buttons; i++)
+			{
+				int retvar = button_type_event(&button_subsubtype[i], &e, &draw, i, &window2, &window_selectsubsubtype);
+				if (retvar > -1)
+				{
+					kiss_hex4edit_set(&hex4edit8feat, i);
 					changed2 = true; zoomchanged = true;
 				}
 			}
@@ -2660,6 +2804,7 @@ int main_x(/*int argc, char** argv*/)
 		kiss_button_draw(&button_cleanlevelfeat, editor_renderer);
 
 		kiss_button_draw(&button_levelsave, editor_renderer);
+		kiss_button_draw(&button_levelsavecsv, editor_renderer);
 		//kiss_label_draw(&label_res, editor_renderer);
 		//kiss_progressbar_draw(&progressbar, editor_renderer);
 		//kiss_button_draw(&button_ok2, editor_renderer);
@@ -2735,6 +2880,7 @@ int main_x(/*int argc, char** argv*/)
 
 		kiss_button_draw(&button_selecttype, editor_renderer);
 		kiss_button_draw(&button_selectsubtype, editor_renderer);
+		kiss_button_draw(&button_selectsubsubtype, editor_renderer);
 
 		kiss_label_draw(&labelIndexWind2, editor_renderer);
 
@@ -2763,15 +2909,17 @@ int main_x(/*int argc, char** argv*/)
 
 		kiss_button_draw(&button_ok1check, editor_renderer);
 		
-
-
-		kiss_window_draw(&window_selecttype, editor_renderer);
-
 		kiss_window_draw(&window_selectcheck, editor_renderer);
-		
+
+		kiss_window_draw(&window_selecttype, editor_renderer);		
 		for(int i=0;i<16;i++)kiss_button_draw(&button_type[i], editor_renderer);
+
 		kiss_window_draw(&window_selectsubtype, editor_renderer);
 		for (int i = 0; i < max_subtype_buttons; i++)kiss_button_draw(&button_subtype[i], editor_renderer);
+
+		kiss_window_draw(&window_selectsubsubtype, editor_renderer);
+		for (int i = 0; i < max_subsubtype_buttons; i++)kiss_button_draw(&button_subsubtype[i], editor_renderer);
+
 
 		for (int i = 0; i < 9; i++)kiss_button_draw(&button_check[i], editor_renderer);
 		

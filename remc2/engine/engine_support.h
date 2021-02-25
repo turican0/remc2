@@ -1103,7 +1103,7 @@ typedef struct {//lenght 20
 	//uint16_t word_8;//type_str_0x30319//type_str_0x3032d
 	uint16_t word_10;//type_str_0x3031b//type_str_0x3032f
 	//uint8_t byte_11;//type_str_0x3031c//type_str_0x30330
-	uint16_t sTag_12;//type_str_0x3031d//type_str_0x30331
+	uint16_t stageTag_12;//type_str_0x3031d//type_str_0x30331
 	//uint8_t byte_13;//type_str_0x3031e//type_str_0x30332
 	uint16_t word_14;//type_str_0x3031f//type_str_0x30333//1105
 	//uint8_t byte_15;//type_str_0x30320//type_str_0x30334
