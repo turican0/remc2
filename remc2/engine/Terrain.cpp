@@ -1,4 +1,5 @@
 #include "Terrain.h"
+#include "engine_support.h"
 
 uint16_t x_WORD_17B4E0; // 34c4e0
 
@@ -1746,7 +1747,7 @@ void sub_44D00()//225d00
 		{
 			indexx._axis_2d.x = (indexx._axis_2d.x & 3) + 28;
 		}
-		if (D41A0_BYTESTR_0.terrain_2FECE.MapType)
+		if (D41A0_BYTESTR_0.terrain_2FECE.MapType != MapType_t::Day)
 		{
 			//index = 32 - (index & 0xff);
 			//v5 = (32 - (indexx._axis_2d.x)) + 32;

@@ -1,4 +1,5 @@
 ﻿#include "Basic.h"
+#include "engine_support.h"
 
 char gameDataPath[MAX_PATH];
 char cdDataPath[MAX_PATH];
@@ -3586,7 +3587,7 @@ void Convert_from_shadow_str_2FECE(type_shadow_str_2FECE* from, type_str_2FECE* 
 	to->word_2FED0 = from->word_2FED0;
 	to->byte_0x2FED2 = from->byte_0x2FED2;
 	to->byte_0x2FED3 = from->byte_0x2FED3;
-	to->MapType = from->MapType;
+	to->MapType = (from->MapType == 2) ? MapType_t::Cave : (from->MapType == 1) ? MapType_t::Night : MapType_t::Day;
 	to->word_0x2FED5 = from->word_0x2FED5;
 	to->word_0x2FED7 = from->word_0x2FED7;
 	for (int i = 0; i < 8; i++)to->player_0x2FED9[i] = from->array_0x2FED9[i];
@@ -3729,7 +3730,7 @@ void Convert_from_shadow_D41A0_BYTESTR_0(type_shadow_D41A0_BYTESTR_0* from, type
 	to->terrain_2FECE.word_2FED0 = from->str_2FECE.word_2FED0;
 	to->terrain_2FECE.byte_0x2FED2 = from->str_2FECE.byte_0x2FED2;
 	to->terrain_2FECE.byte_0x2FED3 = from->str_2FECE.byte_0x2FED3;
-	to->terrain_2FECE.MapType = from->str_2FECE.MapType;
+	to->terrain_2FECE.MapType = (from->str_2FECE.MapType == 2) ? MapType_t::Cave : (from->str_2FECE.MapType == 1) ? MapType_t::Night : MapType_t::Day;
 	to->terrain_2FECE.word_0x2FED5 = from->str_2FECE.word_0x2FED5;
 	to->terrain_2FECE.word_0x2FED7 = from->str_2FECE.word_0x2FED7;
 	for (int i = 0; i < 8; i++)to->terrain_2FECE.player_0x2FED9[i] = from->str_2FECE.array_0x2FED9[i];
@@ -3936,7 +3937,7 @@ void Convert_to_shadow_D41A0_BYTESTR_0(type_D41A0_BYTESTR_0* from, type_shadow_D
 	to->str_2FECE.word_2FED0 = from->terrain_2FECE.word_2FED0;
 	to->str_2FECE.byte_0x2FED2 = from->terrain_2FECE.byte_0x2FED2;
 	to->str_2FECE.byte_0x2FED3 = from->terrain_2FECE.byte_0x2FED3;
-	to->str_2FECE.MapType = from->terrain_2FECE.MapType;
+	to->str_2FECE.MapType = static_cast<std::underlying_type<MapType_t>::type>(from->terrain_2FECE.MapType);
 	to->str_2FECE.word_0x2FED5 = from->terrain_2FECE.word_0x2FED5;
 	to->str_2FECE.word_0x2FED7 = from->terrain_2FECE.word_0x2FED7;
 	for (int i = 0; i < 8; i++)to->str_2FECE.array_0x2FED9[i] = from->terrain_2FECE.player_0x2FED9[i];
