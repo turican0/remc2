@@ -6029,40 +6029,42 @@ HSAMPLE sub_A4970(int a1, uint8_t* a2, int a3)//285970
 //----- (000A4B20) --------------------------------------------------------
 int32_t sub_A4B20_set_sample_file(HSAMPLE S, uint8_t* file_image, int32_t block)//285b20
 {
-	signed int v5; // [esp+8h] [ebp-4h]
-	if (!_strnicmp((const char*)file_image, "Creative", 8))
+	if (file_image != NULL)
 	{
-		v5 = 0;
-	}
-	else
-	{
-		if (_strnicmp((const char*)(file_image + 8), "WAVE", 4))
+		signed int v5; // [esp+8h] [ebp-4h]
+		if (!_strnicmp((const char*)file_image, "Creative", 8))
 		{
-			qmemcpy(x_BYTE_181C90, (void*)"Unrecognized digital audio file type\n", 0x26u);
-			return 0;
+			v5 = 0;
 		}
-		v5 = 1;
-	}
-	if (v5)
-	{
-		if (v5 == 1)
+		else
 		{
+			if (_strnicmp((const char*)(file_image + 8), "WAVE", 4))
+			{
+				qmemcpy(x_BYTE_181C90, (void*)"Unrecognized digital audio file type\n", 0x26u);
+				return 0;
+			}
+			v5 = 1;
+		}
+		if (v5)
+		{
+			if (v5 == 1)
+			{
+				S->sam_var[547] = 0;
+				sub_A47C0_sub_set_sample_file(file_image, S);
+			}
+		}
+		else
+		{
+			S->sam_var542 = (uint8_t*)(*(unsigned __int16*)(file_image + 20) + file_image);
+			S->sam_var[545] = block;
+			S->sam_var[546] = block == -1;
 			S->sam_var[547] = 0;
-			sub_A47C0_sub_set_sample_file(file_image, S);
+			sub_A43E0(S);
 		}
+		if (S->sam_var[547] != -1)
+			return 1;
+		strcpy(x_BYTE_181C90, "Invalid or missing data block\n");
 	}
-	else
-	{
-		S->sam_var542 = (uint8_t*)(*(unsigned __int16*)(file_image + 20) + file_image);
-		S->sam_var[545] = block;
-		S->sam_var[546] = block == -1;
-		S->sam_var[547] = 0;
-		sub_A43E0(S);
-	}
-	if (S->sam_var[547] != -1)
-		return 1;
-	strcpy(x_BYTE_181C90, "Invalid or missing data block\n");
-
 	return 0;
 }
 // 99B23: using guessed type x_DWORD strnicmp(x_DWORD, x_DWORD, x_DWORD);
