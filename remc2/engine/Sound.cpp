@@ -1709,6 +1709,7 @@ int32_t sub_938C0_AIL_set_sample_file(HSAMPLE S/*HSAMPLE S*/, uint8_t* file_imag
 	v6 = x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2() && sub_916F0_sound_proc24();
 	if (v6)
 		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "AIL_set_sample_file(0x%X,0x%X,%d)\n", S, file_image, block);
+
 	result = sub_A4B20_set_sample_file(S, file_image, block);
 	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2())
 	{
@@ -2918,27 +2919,26 @@ int32_t sub_84300_load_sound(uint8_t a1)//265300
 // 84300: using guessed type __int16 var_14[6];
 
 //----- (000844A0) --------------------------------------------------------
-void sub_844A0_sound_proc5()//2654a0
+void sub_844A0_sound_proc5(uint16_t count)//2654a0
 {
 	__int16 v0; // bx
 	//type_E37A0_sound_buffer2* v1x; // eax
-	int v1y;
 	int v2; // esi
 
 	v0 = x_WORD_180B50;
 	if (str_E37A0_sound_buffer2 && x_DWORD_E37A8_sound_buffer1)
 	{
 		//v1x = &str_E37A0_sound_buffer2[1];
-		v1y = 0;
+		uint16_t index = 0;
 		v0 = 0;
 		//while (str_E37A0_sound_buffer2->str_8.wavs_10[v1y].filename_14 < str2_E37A4_sound_buffer3)
-		while (v1y < index_E37A4_CountOfSounds)
+		while (index < count)
 		{
 			//v2 = *(x_DWORD*)(v1 + 18);
 			//v2 = str_E37A0_sound_buffer2[v1y].dword_18;
 			//v1 += 32;
-			str_E37A0_sound_buffer2->str_8.wavs_10[v1y].dword_0 += (int32)x_DWORD_E37A8_sound_buffer1;
-			v1y++;
+			str_E37A0_sound_buffer2->str_8.wavs_10[index].dword_0 += (int32)x_DWORD_E37A8_sound_buffer1;
+			index++;
 			v0++;
 		}
 	}
@@ -3034,7 +3034,7 @@ char ReadAndDecompressSound(FILE* file, unsigned __int8 a2)//2654f0
 			- 8);
 		DataFileIO::Decompress((uint8_t*)v6x, (uint8_t*)v6x);
 	}
-	sub_844A0_sound_proc5();
+	sub_844A0_sound_proc5(index_E37A4_CountOfSounds);
 	x_BYTE_E3798_sound_active2 = 1;
 	return 1;
 }
@@ -6062,6 +6062,7 @@ int32_t sub_A4B20_set_sample_file(HSAMPLE S, uint8_t* file_image, int32_t block)
 	if (S->sam_var[547] != -1)
 		return 1;
 	strcpy(x_BYTE_181C90, "Invalid or missing data block\n");
+
 	return 0;
 }
 // 99B23: using guessed type x_DWORD strnicmp(x_DWORD, x_DWORD, x_DWORD);
