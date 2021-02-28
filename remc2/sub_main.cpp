@@ -78,13 +78,16 @@ int count_begin = 1;//1
 //int debugnextlevel = 0;
 
 bool config_EDITOR = false;
-bool config_LOAD_EDITED_LEVEL = true;
+bool config_LOAD_EDITED_LEVEL = false;
 #define EDITOR
 #define LOAD_EDITED_LEVEL
 
 #define OLD_PARTICLES
 
 /*arrays for fix:
+fix x_WORD_F4FE0 lenght 6
+fix sub_4A050_new_event
+
 x_DWORD_F66F0x[504]; ok, rewrited to type_particle_str// idb//2c76f0 //type_particle_str
 int x_DWORD_F5730[504]; must rewrite later!!!
 int x_DWORD_F5F10[504]; not used? // idb ?
@@ -70031,8 +70034,8 @@ void sub_57730()//238730
 	type_str_0x6E8E* v3x; // ecx
 	type_str_0x6E8E* v4x; // edx
 	type_str_0x6E8E* jx; // eax
-	char v6; // bl
-	unsigned __int8 v7; // bl
+	//char v6; // bl
+	//unsigned __int8 v7; // bl
 	bool v8; // zf
 	//int v9; // ebx
 	//type_str_0x6E8E* v10x; // edi
@@ -70096,12 +70099,12 @@ void sub_57730()//238730
 		}*/
 		debugcounter28++;
 
-		v6 = jx->type_0x3F_63;
-		if (v6)
+		//v6 = jx->type_0x3F_63;
+		if (jx->type_0x3F_63)
 		{
-			switch (v6)
+			switch (jx->type_0x3F_63)
 			{
-			case 3:
+			case 0x03:
 				if (jx->dword_0x8 >= 0)
 				{
 					if (v3x)
@@ -70114,19 +70117,19 @@ void sub_57730()//238730
 					continue;
 				}
 				continue;
-			case 5:
+			case 0x5:
 				if (jx->dword_0x8 < 0)
 					continue;
-				v7 = jx->byte_0x45_69;
-				if (v7 < 0xE8u)
+				//v7 = jx->byte_0x45_69;
+				if (jx->byte_0x45_69 < 0xE8)
 				{
-					v8 = v7 == 0xb4u;
+					v8 = 0xB4;
 				}
 				else
 				{
-					if (v7 <= 0xE8u)
+					if (jx->byte_0x45_69 == 0xE8)
 						continue;
-					v8 = v7 == 0xeau;
+					v8 = 0xEA;
 				}
 				if (!v8)
 				{
@@ -70140,7 +70143,7 @@ void sub_57730()//238730
 					v22x[jx->subtype_0x40_64] = jx;
 				}
 				continue;
-			case 9:
+			case 0x09:
 				if (v23x)
 					v23x->next_0 = jx;
 				else
@@ -70149,13 +70152,13 @@ void sub_57730()//238730
 				v23x = jx;
 				jx->next_0 = x_DWORD_EA3E4[0];
 				continue;
-			case 10:
+			case 0x0A:
 				//v11 = jx->byte_0x40_64;
-				if (jx->subtype_0x40_64 < 0x2Du)
+				if (jx->subtype_0x40_64 < 0x2D)
 				{
-					if (jx->subtype_0x40_64 < 0x27u)
+					if (jx->subtype_0x40_64 < 0x27)
 						continue;
-					if (jx->subtype_0x40_64 <= 0x28u)
+					if (jx->subtype_0x40_64 <= 0x28)
 					{
 						if (v2x)
 							v2x->next_0 = jx;
@@ -70165,7 +70168,7 @@ void sub_57730()//238730
 						jx->next_0 = x_DWORD_EA3E4[0];
 						continue;
 					}
-					if (jx->subtype_0x40_64 != 42)
+					if (jx->subtype_0x40_64 != 0x2A)
 						continue;
 				//LABEL_40:
 					if (v4x)
@@ -70176,7 +70179,7 @@ void sub_57730()//238730
 					v4x = jx;
 					continue;
 				}
-				if (jx->subtype_0x40_64 <= 0x2Du)
+				if (jx->subtype_0x40_64 <= 0x2D)
 				{
 					if (v24x)
 						v24x->next_0 = jx;
@@ -70187,9 +70190,9 @@ void sub_57730()//238730
 					jx->next_0 = x_DWORD_EA3E4[0];
 					continue;
 				}
-				if (jx->subtype_0x40_64 < 0x43u)
+				if (jx->subtype_0x40_64 < 0x43)
 				{
-					if (jx->subtype_0x40_64 != 57)
+					if (jx->subtype_0x40_64 != 0x39)
 						continue;
 				//LABEL_32:
 					if (v2x)
@@ -70200,7 +70203,7 @@ void sub_57730()//238730
 					jx->next_0 = x_DWORD_EA3E4[0];
 					continue;
 				}
-				if (jx->subtype_0x40_64 <= 0x43u || jx->subtype_0x40_64 == 78)
+				if (jx->subtype_0x40_64 <= 0x43 || jx->subtype_0x40_64 == 0x4E)
 				{
 					if (v4x)
 						v4x->next_0 = jx;
@@ -70211,7 +70214,7 @@ void sub_57730()//238730
 					continue;
 				}
 				break;
-			case 11:
+			case 0x0B:
 				//v13 = jx->subtype_0x40_64;
 				//if (v13 >= 0xCu && (v13 <= 0xCu || v13 == 31))
 				if (jx->subtype_0x40_64==0x0C || jx->subtype_0x40_64 == 0x1F)
