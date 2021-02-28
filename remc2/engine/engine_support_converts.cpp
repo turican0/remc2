@@ -394,9 +394,9 @@ void convert_struct_to_array_0x6E8E(type_str_0x6E8E* input, uint8_t* output) {
 	//int8_t byte_0x3E_62;//62 //index
 	memcpy(output + 62, &input->byte_0x3E_62, 1);
 	//int8_t byte_0x3F_63;//63 //type//MODEL
-	memcpy(output + 63, &input->byte_0x3F_63, 1);
+	memcpy(output + 63, &input->type_0x3F_63, 1);
 	//int8_t byte_0x40_64;//64 //subtype//CLASS
-	memcpy(output + 64, &input->byte_0x40_64, 1);
+	memcpy(output + 64, &input->subtype_0x40_64, 1);
 	//int8_t byte_0x41_65;//65 //type subentity
 	memcpy(output + 65, &input->byte_0x41_65, 1);
 	//int8_t byte_0x42_66;//66 //subtype subentity

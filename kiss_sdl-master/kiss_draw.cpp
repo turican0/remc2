@@ -111,11 +111,80 @@ int kiss_rendertext(SDL_Renderer* renderer, char* text, int x, int y,
 	return 0;
 }
 
-int kiss_fillrect(SDL_Renderer* renderer, SDL_Rect* rect, SDL_Color color)
+/*int kiss_fillrect(SDL_Renderer* renderer, SDL_Rect* rect, SDL_Color color)
 {
 	if (!renderer || !rect) return -1;
 	SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
 	SDL_RenderFillRect(renderer, rect);
+	return 0;
+}*/
+
+int kiss_fillrect2(SDL_Renderer* renderer, SDL_Rect* rect, SDL_Color color)
+{
+	Uint32 rmask, gmask, bmask, amask;
+
+	/* SDL interprets each pixel as a 32-bit number, so our masks must depend
+	   on the endianness (byte order) of the machine */
+#if SDL_BYTEORDER == SDL_BIG_ENDIAN
+	rmask = 0xff000000;
+	gmask = 0x00ff0000;
+	bmask = 0x0000ff00;
+	amask = 0x000000ff;
+#else
+	rmask = 0x000000ff;
+	gmask = 0x0000ff00;
+	bmask = 0x00ff0000;
+	amask = 0xff000000;
+#endif
+
+	SDL_Rect dst;
+	SDL_Rect highlightrect2;
+	//SDL_Texture* texture;
+	Uint32* pixels = nullptr;
+	int pitch = 0;
+
+	kiss_makerect(&highlightrect2, 0, 0, rect->w, rect->h);
+	//texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, 1, 1);
+	
+	SDL_Surface* surface = SDL_CreateRGBSurface(0, 1, 1, 32, rmask, gmask, bmask, amask);
+
+	if (surface == NULL) {
+		fprintf(stderr, "CreateRGBSurface failed: %s\n", SDL_GetError());
+		exit(1);
+	}
+	((Uint8*)surface->pixels)[0] = color.r;
+	((Uint8*)surface->pixels)[1] = color.g;
+	((Uint8*)surface->pixels)[2] = color.b;
+	((Uint8*)surface->pixels)[3] = color.a;
+
+
+	SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
+
+	if (texture == NULL) {
+		fprintf(stderr, "CreateTextureFromSurface failed: %s\n", SDL_GetError());
+		exit(1);
+	}
+
+
+	/*
+	Uint32 format;
+	int w, h;
+	SDL_QueryTexture(texture, &format, nullptr, &w, &h);
+	if (SDL_LockTexture(texture, nullptr, (void**)&pixels, &pitch))
+	{
+		// If the locking fails, you might want to handle it somehow. SDL_GetError(); or something here.
+	}
+	pixels[0] = color.r;
+	pixels[1] = color.g;
+	pixels[2] = color.b;
+	pixels[3] = color.a;
+	SDL_UnlockTexture(texture);
+	*/
+	if (!renderer || !texture) return -1;
+	kiss_makerect(&dst, 0, 0, rect->w, rect->h);
+	SDL_RenderCopy(renderer, texture, &highlightrect2, rect);
+	SDL_DestroyTexture(texture);
+	SDL_FreeSurface(surface);
 	return 0;
 }
 

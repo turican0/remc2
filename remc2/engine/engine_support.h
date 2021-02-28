@@ -474,9 +474,9 @@ typedef struct _str_0x6E8E {//lenght a8//THING
 	int8_t byte_0x3C_60;//60
 	int8_t byte_0x3D_61;//61
 	uint8_t byte_0x3E_62;//62 //index
-	int8_t byte_0x3F_63;//63 //type//MODEL
+	int8_t type_0x3F_63;//63 //type//MODEL
 	//11 - spell
-	int8_t byte_0x40_64;//64 //subtype//CLASS
+	int8_t subtype_0x40_64;//64 //subtype//CLASS
 	//0 or 1 - player, 2 - castle,3-ballon
 	int8_t byte_0x41_65;//65 //type subentity
 	int8_t byte_0x42_66;//66 //subtype subentity

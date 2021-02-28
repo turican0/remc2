@@ -3694,8 +3694,8 @@ void Convert_from_shadow_D41A0_BYTESTR_0(type_shadow_D41A0_BYTESTR_0* from, type
 		to->struct_0x6E8E[i].byte_0x3C_60 = from->struct_0x6E8E[i].byte_0x3C_60;
 		to->struct_0x6E8E[i].byte_0x3D_61 = from->struct_0x6E8E[i].byte_0x3D_61;
 		to->struct_0x6E8E[i].byte_0x3E_62 = from->struct_0x6E8E[i].byte_0x3E_62;
-		to->struct_0x6E8E[i].byte_0x3F_63 = from->struct_0x6E8E[i].byte_0x3F_63;
-		to->struct_0x6E8E[i].byte_0x40_64 = from->struct_0x6E8E[i].byte_0x40_64;
+		to->struct_0x6E8E[i].type_0x3F_63 = from->struct_0x6E8E[i].byte_0x3F_63;
+		to->struct_0x6E8E[i].subtype_0x40_64 = from->struct_0x6E8E[i].byte_0x40_64;
 		to->struct_0x6E8E[i].byte_0x41_65 = from->struct_0x6E8E[i].byte_0x41_65;
 		to->struct_0x6E8E[i].byte_0x42_66 = from->struct_0x6E8E[i].byte_0x42_66;
 		to->struct_0x6E8E[i].byte_0x43_67 = from->struct_0x6E8E[i].byte_0x43_67;
@@ -3897,8 +3897,8 @@ void Convert_to_shadow_D41A0_BYTESTR_0(type_D41A0_BYTESTR_0* from, type_shadow_D
 		to->struct_0x6E8E[i].byte_0x3C_60 = from->struct_0x6E8E[i].byte_0x3C_60;
 		to->struct_0x6E8E[i].byte_0x3D_61 = from->struct_0x6E8E[i].byte_0x3D_61;
 		to->struct_0x6E8E[i].byte_0x3E_62 = from->struct_0x6E8E[i].byte_0x3E_62;
-		to->struct_0x6E8E[i].byte_0x3F_63 = from->struct_0x6E8E[i].byte_0x3F_63;
-		to->struct_0x6E8E[i].byte_0x40_64 = from->struct_0x6E8E[i].byte_0x40_64;
+		to->struct_0x6E8E[i].byte_0x3F_63 = from->struct_0x6E8E[i].type_0x3F_63;
+		to->struct_0x6E8E[i].byte_0x40_64 = from->struct_0x6E8E[i].subtype_0x40_64;
 		to->struct_0x6E8E[i].byte_0x41_65 = from->struct_0x6E8E[i].byte_0x41_65;
 		to->struct_0x6E8E[i].byte_0x42_66 = from->struct_0x6E8E[i].byte_0x42_66;
 		to->struct_0x6E8E[i].byte_0x43_67 = from->struct_0x6E8E[i].byte_0x43_67;

@@ -53,15 +53,15 @@ int kiss_window_event(kiss_window *window, SDL_Event *event, int *draw)
 	return 0;
 }
 
-int kiss_window_draw(kiss_window *window, SDL_Renderer *renderer, kiss_image* img)
+int kiss_window_draw(kiss_window *window, SDL_Renderer *renderer)
 {
 	if (window && window->wdw) window->visible = window->wdw->visible;
 	if (!window || !window->visible || !renderer) return 0;
-	//kiss_fillrect(renderer, &window->rect, window->bg);
+	kiss_fillrect2(renderer, &window->rect, window->bg);
 
-	SDL_Rect highlightrect2;
+	/*SDL_Rect highlightrect2;
 	kiss_makerect(&highlightrect2, 0, 0, window->rect.w, window->rect.h);
-	kiss_renderimage(renderer, *img, window->rect.x, window->rect.y, &highlightrect2);
+	kiss_renderimage(renderer, *img, window->rect.x, window->rect.y, &highlightrect2);*/
 
 	if (window->decorate)
 		kiss_decorate(renderer, &window->rect, kiss_blue, kiss_edge);
@@ -1479,7 +1479,7 @@ int kiss_progressbar_draw(kiss_progressbar *progressbar,
 		progressbar->visible = progressbar->wdw->visible;
 	if (!progressbar || !progressbar->visible || !renderer)
 		return 0;
-	kiss_fillrect(renderer, &progressbar->rect, progressbar->bg);
+	kiss_fillrect2(renderer, &progressbar->rect, progressbar->bg);
 	kiss_decorate(renderer, &progressbar->rect, kiss_blue, kiss_edge);
 	progressbar->barrect.w = (int) (progressbar->width *
 		progressbar->fraction + 0.5);
@@ -1570,7 +1570,7 @@ int kiss_entry_draw(kiss_entry *entry, SDL_Renderer *renderer)
 
 	if (entry && entry->wdw) entry->visible = entry->wdw->visible;
 	if (!entry || !entry->visible || !renderer) return 0;
-	kiss_fillrect(renderer, &entry->rect, entry->bg);
+	kiss_fillrect2(renderer, &entry->rect, entry->bg);
 	color = kiss_blue;
 	if (entry->active) color = kiss_green;
 	if (entry->decorate)
@@ -1691,7 +1691,7 @@ int kiss_textbox_draw(kiss_textbox *textbox, SDL_Renderer *renderer)
 	if (textbox && textbox->wdw)
 		textbox->visible = textbox->wdw->visible;
 	if (!textbox || !textbox->visible || !renderer) return 0;
-	kiss_fillrect(renderer, &textbox->rect, textbox->bg);
+	kiss_fillrect2(renderer, &textbox->rect, textbox->bg);
 	if (textbox->decorate)
 		kiss_decorate(renderer, &textbox->rect, kiss_blue,
 			kiss_edge);
@@ -1700,7 +1700,7 @@ int kiss_textbox_draw(kiss_textbox *textbox, SDL_Renderer *renderer)
 			textbox->textrect.y +
 			textbox->highlightline * textbox->font.lineheight,
 			textbox->textrect.w, textbox->font.lineheight);
-		kiss_fillrect(renderer, &highlightrect, textbox->hlcolor);
+		kiss_fillrect2(renderer, &highlightrect, textbox->hlcolor);
 	}
 	if (!textbox->array || !textbox->array->length) return 0;
 	for (int i = 0; i < numoflines; i++) {
@@ -1733,9 +1733,9 @@ int kiss_textbox_draw(kiss_textbox *textbox, SDL_Renderer *renderer)
 	return 1;
 }
 
-int kiss_textbox_draw2(kiss_textbox* textbox, SDL_Renderer* renderer, kiss_image* img)
+int kiss_textbox_draw2(kiss_textbox* textbox, SDL_Renderer* renderer)
 {
-	SDL_Rect highlightrect, highlightrect2;
+	SDL_Rect highlightrect;
 	char buf[KISS_MAX_LENGTH];
 	int numoflines = textbox_numoflines(textbox);	
 	char textbuff[256];
@@ -1756,9 +1756,10 @@ int kiss_textbox_draw2(kiss_textbox* textbox, SDL_Renderer* renderer, kiss_image
 			textbox->highlightline * textbox->font.lineheight,
 			textbox->textrect.w, textbox->font.lineheight);
 
-		kiss_makerect(&highlightrect2, 0,0,	textbox->textrect.w, textbox->font.lineheight);
+		/*kiss_makerect(&highlightrect2, 0,0,	textbox->textrect.w, textbox->font.lineheight);
 		//kiss_renderimage(renderer, *img, highlightrect.x, highlightrect.y, &highlightrect);
-		kiss_renderimage(renderer, *img, highlightrect.x, highlightrect.y, &highlightrect2);
+		kiss_renderimage(renderer, *img, highlightrect.x, highlightrect.y, &highlightrect2);*/
+		kiss_fillrect2(renderer, &highlightrect, textbox->hlcolor);
 		//kiss_fillrect(renderer, &highlightrect, textbox->hlcolor);
 	}
 	if (!textbox->array || !textbox->array->length) return 0;	
@@ -1886,7 +1887,7 @@ int kiss_combobox_event(kiss_combobox *combobox, SDL_Event *event, int *draw)
 
 int kiss_combobox_draw(kiss_combobox *combobox, SDL_Renderer *renderer)
 {
-	/*if (combobox && combobox->wdw)
+	if (combobox && combobox->wdw)
 		combobox->visible = combobox->wdw->visible;
 	if (!combobox || !combobox->visible || !renderer) return 0;
 	kiss_renderimage(renderer, combobox->combo,
@@ -1896,7 +1897,7 @@ int kiss_combobox_draw(kiss_combobox *combobox, SDL_Renderer *renderer)
 	kiss_entry_draw(&combobox->entry, renderer);
 	kiss_window_draw(&combobox->window, renderer);
 	kiss_vscrollbar_draw(&combobox->vscrollbar, renderer);
-	kiss_textbox_draw(&combobox->textbox, renderer);*/
+	kiss_textbox_draw(&combobox->textbox, renderer);
 	return 1;
 }
 
