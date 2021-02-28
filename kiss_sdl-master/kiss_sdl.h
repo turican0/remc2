@@ -495,7 +495,7 @@ extern "C" {
 	int kiss_window_new(kiss_window* window, kiss_window* wdw, int decorate,
 		int x, int y, int w, int h);
 	int kiss_window_event(kiss_window* window, SDL_Event* event, int* draw);
-	int kiss_window_draw(kiss_window* window, SDL_Renderer* renderer);
+	int kiss_window_draw(kiss_window* window, SDL_Renderer* renderer, kiss_image* img);
 	int kiss_label_new(kiss_label* label, kiss_window* wdw, char* text,
 		int x, int y);
 	int kiss_label_draw(kiss_label* label, SDL_Renderer* renderer);
@@ -551,7 +551,7 @@ extern "C" {
 		kiss_array* a, int x, int y, int w, int h);
 	int kiss_textbox_event(kiss_textbox* textbox, SDL_Event* event, int mousex,int mousey,int* draw);
 	int kiss_textbox_draw(kiss_textbox* textbox, SDL_Renderer* renderer);
-	int kiss_textbox_draw2(kiss_textbox* textbox, SDL_Renderer* renderer);
+	int kiss_textbox_draw2(kiss_textbox* textbox, SDL_Renderer* renderer, kiss_image* img);
 	void kiss_textbox_setviewon(kiss_textbox* textbox, int position);
 	int kiss_combobox_new(kiss_combobox* combobox, kiss_window* wdw,
 		char* text, kiss_array* a, int x, int y, int w, int h);

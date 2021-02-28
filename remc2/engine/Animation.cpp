@@ -878,7 +878,7 @@ int sub_473E0()//2283e0
 		--x_WORD_F42A8;
 	if (!x_WORD_18074C_mouse_left2_button && !x_WORD_18074A_mouse_right2_button)
 	{
-		if (x_BYTE_180664[0x2a] || x_BYTE_180664[0x36])
+		if (pressedKeys_180664[0x2a] || pressedKeys_180664[0x36])
 		{
 			if (LastPressedKey_1806E4 < 0x36u)
 			{

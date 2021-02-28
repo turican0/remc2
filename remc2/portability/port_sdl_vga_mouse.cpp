@@ -15,7 +15,7 @@ SDL_Texture* texture = NULL;
 SDL_Surface* helper_surface = NULL;
 
 uint8_t LastPressedKey_1806E4; //3516e4
-int8_t x_BYTE_180664[128]; // idb
+int8_t pressedKeys_180664[128]; // idb
 
 SDL_Surface* screen;
 
@@ -1237,15 +1237,15 @@ void setPress(bool locpressed, uint16_t loclastchar) {
 	if (locpressed)
 	{
 		LastPressedKey_1806E4 = (loclastchar & 0xff00) >> 8;// VGA_read_char_from_buffer();
-		x_BYTE_180664[LastPressedKey_1806E4 & 0x7F] = LastPressedKey_1806E4;
+		pressedKeys_180664[LastPressedKey_1806E4 & 0x7F] = LastPressedKey_1806E4;
 	}
 	else
 	{
-		x_BYTE_180664[((loclastchar & 0xff00) >> 8) & 0x7F] = 0;
+		pressedKeys_180664[((loclastchar & 0xff00) >> 8) & 0x7F] = 0;
 	}
 }
 
 void VGA_mouse_clear_keys() {
 	for (int i = 0; i < 128; i++)
-		x_BYTE_180664[i] = 0;
+		pressedKeys_180664[i] = 0;
 }
