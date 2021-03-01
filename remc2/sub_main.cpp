@@ -4787,14 +4787,18 @@ const char* off_D93A0_wizards_names2[8] = { "Zanzamar","Nyphur","Rahn","Belix","
 #pragma pack (1)
 typedef struct {//lenght 4
 	uint16_t word_0;
-	uint8_t byte_1;
 	uint8_t byte_2;
+	uint8_t byte_3;
 }
 type_D93C0_bldgprmbuffer;
 #pragma pack (16)
 
 type_D93C0_bldgprmbuffer str_D93C0_bldgprmbuffer[76];
-//str_D94F0_bldgprmbuffer // lenght 5*3
+uint8_t str_D94F0_bldgprmbuffer[3][5] = {
+	{0xAA,0x00,0x63,0x0D,0x00},
+	{0x33,0x00,0x11,0x3B,0x00},
+	{0x33,0x00,0x88,0x3B,0x00}
+}; // lenght 5*3
 /*uint8_t x_WORD_D93C0_bldgprmbuffer[0x13f] = { 
 0x02,0x00,0x03,0x00,//0
 0x02,0x00,0x03,0x00,//1
@@ -8168,7 +8172,7 @@ type_str_0x6E8E* sub_108B0(type_str_0x6E8E* a1x)//1f18b0
 						}
 						goto LABEL_22;
 					}
-					if (x_WORD_D93C0_bldgprmbuffer[2 + 4 * v8x->byte_0x46_70] & 8)
+					if (str_D93C0_bldgprmbuffer[v8x->byte_0x46_70].byte_2 & 8)
 						goto LABEL_22;
 				}
 			}
@@ -22179,7 +22183,7 @@ char sub_232C0()//2042c0
 	D41A0_BYTESTR_0.dword_0x8 = 9377 * D41A0_BYTESTR_0.dword_0x8 + 9439;
 	v1 = 0;
 	v2 = D41A0_BYTESTR_0.dword_0x8 % 0x3Cu + 17;
-	while (!(x_WORD_D93C0_bldgprmbuffer[2 + 4 * (unsigned __int8)v2] & 2) && v1 < 0x4Du)
+	while (!(str_D93C0_bldgprmbuffer[v2].byte_2 & 2) && v1 < 0x4Du)
 	{
 		LOBYTE(v2) = v2 + 1;
 		v1++;
@@ -22313,7 +22317,7 @@ void sub_23340(type_str_0x6E8E* a1x)//204340
 		v9x = 0;
 		for (jx = x_D41A0_BYTEARRAY_4_struct.dword_38527; jx > x_DWORD_EA3E4[0]; jx = jx->next_0)
 		{
-			if (x_WORD_D93C0_bldgprmbuffer[2 + 4 * jx->byte_0x46_70] & 1)
+			if (str_D93C0_bldgprmbuffer[jx->byte_0x46_70].byte_2 & 1)
 			{
 				v10 = (jx->array_0x4C_76.x - a1x->array_0x4C_76.x);
 				v11 = v10 * v10
@@ -22541,8 +22545,8 @@ void sub_237B0(type_str_0x6E8E* a1x)//2047b0
 		v1x = x_D41A0_BYTEARRAY_4_struct.dword_38527;
 		v10x = 0;
 		while (v1x > x_DWORD_EA3E4[0])
-		{
-			if (x_WORD_D93C0_bldgprmbuffer[2 + 4 * v1x->byte_0x46_70] & 1)
+		{			
+			if (str_D93C0_bldgprmbuffer[v1x->byte_0x46_70].byte_2 & 1)
 			{
 				v11 = (signed __int16)(v1x->array_0x4C_76.x - a1x->array_0x4C_76.x);
 				v12 = v11 * v11
@@ -29834,7 +29838,7 @@ void sub_2CB30(type_str_0x6E8E* a1x, __int16 a2, int a3, __int16 a4)//20db30 //m
 	char* v5; // esi
 	//char v6; // al
 	//char v7; // al
-	int v8; // esi
+	//int v8; // esi
 	int v9x; // eax
 	int v9y; // eax
 	__int16 v10; // bx
@@ -29900,10 +29904,10 @@ void sub_2CB30(type_str_0x6E8E* a1x, __int16 a2, int a3, __int16 a4)//20db30 //m
 	v36 = x_BYTE_E88E0x[3 * sub_61790(v25)];//c
 	v35 = (*xadataclrd0dat.var28_begin_buffer)[0];//10 //v19
 	v34 = x_BYTE_E88E0x[3 * sub_61790(v25)];	//14 //v18
-	v8 = 5 * static_cast<std::underlying_type<MapType_t>::type>(D41A0_BYTESTR_0.terrain_2FECE.MapType);
-	v33 = x_WORD_D93C0_bldgprmbuffer[2 + 0x130 + v8];//18 v14
-	v38 = x_WORD_D93C0_bldgprmbuffer[2 + 0x131 + v8];//4 v15
-	v37 = x_WORD_D93C0_bldgprmbuffer[2 + 0x12e + v8];//?v22
+	//v8 = 5 * static_cast<std::underlying_type<MapType_t>::type>(D41A0_BYTESTR_0.terrain_2FECE.MapType);
+	v33 = str_D94F0_bldgprmbuffer[static_cast<std::underlying_type<MapType_t>::type>(D41A0_BYTESTR_0.terrain_2FECE.MapType)][2];//18 v14
+	v38 = str_D94F0_bldgprmbuffer[static_cast<std::underlying_type<MapType_t>::type>(D41A0_BYTESTR_0.terrain_2FECE.MapType)][3];//4 v15
+	v37 = str_D94F0_bldgprmbuffer[static_cast<std::underlying_type<MapType_t>::type>(D41A0_BYTESTR_0.terrain_2FECE.MapType)][0];//?v22
 	//v9 = a4 >> 1;
 	v10 = (a4 >> 1) + a2;
 	if (x_WORD_180660_VGA_type_resolution & 1)
@@ -31328,7 +31332,7 @@ void sub_2ECC0_draw_bottom_menu()//20fcc0
 void sub_2F6B0()//2106b0
 {
 	signed int v0; // eax
-	int v1; // eax
+	//int v1; // eax
 	unsigned __int8 v2; // dl
 	char v3; // dh
 	__int16 v4; // bx
@@ -31387,11 +31391,11 @@ void sub_2F6B0()//2106b0
 		v0 = 480;
 	v40 = v0 - 72;
 	v36 = 0;
-	v1 = 5 * static_cast<std::underlying_type<MapType_t>::type>(D41A0_BYTESTR_0.terrain_2FECE.MapType);
-	v2 = x_WORD_D93C0_bldgprmbuffer[2 + 0x12e + v1];
-	v47 = x_WORD_D93C0_bldgprmbuffer[2 + 0x12f + v1];
-	v3 = x_WORD_D93C0_bldgprmbuffer[2 + 0x130 + v1];
-	v48 = x_WORD_D93C0_bldgprmbuffer[2 + 0x131 + v1];
+	//v1 = 5 * static_cast<std::underlying_type<MapType_t>::type>(D41A0_BYTESTR_0.terrain_2FECE.MapType);
+	v2 = str_D94F0_bldgprmbuffer[static_cast<std::underlying_type<MapType_t>::type>(D41A0_BYTESTR_0.terrain_2FECE.MapType)][0];
+	v47 = str_D94F0_bldgprmbuffer[static_cast<std::underlying_type<MapType_t>::type>(D41A0_BYTESTR_0.terrain_2FECE.MapType)][1];
+	v3 = str_D94F0_bldgprmbuffer[static_cast<std::underlying_type<MapType_t>::type>(D41A0_BYTESTR_0.terrain_2FECE.MapType)][2];
+	v48 = str_D94F0_bldgprmbuffer[static_cast<std::underlying_type<MapType_t>::type>(D41A0_BYTESTR_0.terrain_2FECE.MapType)][3];
 	v42 = (*xadataclrd0dat.var28_begin_buffer)[0xfff];
 	v44 = (*xadataclrd0dat.var28_begin_buffer)[0];
 	v49 = v3;
@@ -31897,10 +31901,11 @@ void sub_303D0(/*signed int a1*/)//2113d0
 	signed int a1 = 0;//fix this
 
 	//v1 = *(unsigned __int8 *)(x_D41A0_BYTEARRAY_0 + 196308);//D41A0_BYTESTR_0.str_2FECE.MapType
-  int maptypeindex = static_cast<std::underlying_type<MapType_t>::type>(D41A0_BYTESTR_0.terrain_2FECE.MapType);
-	v2 = x_WORD_D93C0_bldgprmbuffer[2 + 0x12e + 5 * maptypeindex];
-	v3 = x_WORD_D93C0_bldgprmbuffer[2 + 0x130 + 5 * maptypeindex];
-	v15 = x_WORD_D93C0_bldgprmbuffer[2 + 0x131 + 5 * maptypeindex];
+  //int maptypeindex = static_cast<std::underlying_type<MapType_t>::type>(D41A0_BYTESTR_0.terrain_2FECE.MapType);
+	v2 = str_D94F0_bldgprmbuffer[static_cast<std::underlying_type<MapType_t>::type>(D41A0_BYTESTR_0.terrain_2FECE.MapType)][0];
+	v3 = str_D94F0_bldgprmbuffer[static_cast<std::underlying_type<MapType_t>::type>(D41A0_BYTESTR_0.terrain_2FECE.MapType)][2];
+	v15 = str_D94F0_bldgprmbuffer[static_cast<std::underlying_type<MapType_t>::type>(D41A0_BYTESTR_0.terrain_2FECE.MapType)][3];
+
 	sub_2FFE0(&v12, &v11, &v10, &v9);
 	v4 = x_D41A0_BYTEARRAY_4_struct.byte_38591;
 	if (v4 >= 1u)
@@ -36832,7 +36837,7 @@ void sub_36FC0(type_str_0x6E8E* a1x)//217fc0
 			v3 >>= 1;
 			v4 >>= 1;
 		}
-		if (x_BYTE_D41B6 && !(x_WORD_D93C0_bldgprmbuffer[2 + 4 * v1] & 4))
+		if (x_BYTE_D41B6 && !(str_D93C0_bldgprmbuffer[v1].byte_2 & 4))
 			v29 = 1;
 		v27x._axis_2d.x = v26 - (v4 >> 1);
 		v27x._axis_2d.y = v28 - (v3 >> 1);
@@ -37011,7 +37016,7 @@ void sub_37240(type_str_0x6E8E* a1x)//218240
 			v3 >>= 1;
 			v4 >>= 1;
 		}
-		if (x_BYTE_D41B6 && !(x_WORD_D93C0_bldgprmbuffer[2 + 4 * v1] & 4))
+		if (x_BYTE_D41B6 && !(str_D93C0_bldgprmbuffer[v1].byte_2 & 4))
 			v50 = 1;
 		v22 = v3 >> 1;
 		//v5 = *(uint32_t*)(a1 + 8) - 1;
@@ -37826,7 +37831,7 @@ int sub_38330(type_str_0x6E8E* a1x)//219330
 		{
 			v3 = a1x->byte_0x46_70;
 			a1x->dword_0x10_16 = v2 - 1;
-			if (x_WORD_D93C0_bldgprmbuffer[2 + 4 * v3] & 1)
+			if (str_D93C0_bldgprmbuffer[v3].byte_2 & 1)
 			{
 				x_WORD_EB398ar = a1x->array_0x4C_76;
 				x_WORD_EB398ar.x += a1x->array_0x52_82.xshift;
@@ -37876,7 +37881,7 @@ int sub_38330(type_str_0x6E8E* a1x)//219330
 	}
 	if (!(a1x->byte_0x3E_62 & 0x1F))
 	{
-		if (x_WORD_D93C0_bldgprmbuffer[2 + 4 * a1x->byte_0x46_70] & 1)
+		if (str_D93C0_bldgprmbuffer[a1x->byte_0x46_70].byte_2 & 1)
 		{
 			v9 = a1x->word_0x84_132;
 			if (v9 > 5 && v9 == a1x->dword_0x10_16)
@@ -37894,7 +37899,7 @@ int sub_38330(type_str_0x6E8E* a1x)//219330
 			}
 		}
 	}
-	if (x_WORD_D93C0_bldgprmbuffer[2 + 4 * a1x->byte_0x46_70] & 1)
+	if (str_D93C0_bldgprmbuffer[a1x->byte_0x46_70].byte_2 & 1)
 		sub_5C8D0(a1x);
 LABEL_31:
 	result = sub_10C40_getTerrainAlt(&a1x->array_0x4C_76);
@@ -37985,7 +37990,7 @@ void sub_385C0_remove_castle_stage(type_str_0x6E8E* a1x)//2195c0 //remove castle
 					if (v4 > 0)
 					{
 						a1x->dword_0x10_16 = v4 - 1;
-						if (x_WORD_D93C0_bldgprmbuffer[2 + 4 * a1x->byte_0x46_70] & 1)
+						if (str_D93C0_bldgprmbuffer[a1x->byte_0x46_70].byte_2 & 1)
 						{
 							v5 = a1x->dword_0x10_16;
 							if (v5)
@@ -53615,7 +53620,7 @@ void sub_49290(type_str_2FECE* terrain, char a2)//22a290
 	//for (n = (uint16_t*)(a1 + 1111); (uint8_t*)n < a1 + 25091; n += 10)
 	for (nx = 1; nx < 0x4b0; nx++)
 	{
-		if (terrain->entity_0x30311[nx].DisId == -1 && terrain->entity_0x30311[nx].type_0x30311 == 0x000a && terrain->entity_0x30311[nx].subtype_0x30311 == 0x002d && x_WORD_D93C0_bldgprmbuffer[2 + 4 * terrain->entity_0x30311[nx].word_14] & 0x10)
+		if (terrain->entity_0x30311[nx].DisId == -1 && terrain->entity_0x30311[nx].type_0x30311 == 0x000a && terrain->entity_0x30311[nx].subtype_0x30311 == 0x002d && str_D93C0_bldgprmbuffer[terrain->entity_0x30311[nx].word_14].byte_2 & 0x10)
 		{
 			sub_49540(terrain, &terrain->entity_0x30311[nx]);
 			if (a2)
@@ -53635,7 +53640,7 @@ void sub_49290(type_str_2FECE* terrain, char a2)//22a290
 	//for (ii = (uint16_t*)(a1 + 1111); (uint8_t*)ii < a1 + 25091; ii += 10)
 	for (iix = 1; iix < 0x4b0; iix++)
 	{
-		if (terrain->entity_0x30311[iix].DisId == -1 && terrain->entity_0x30311[iix].type_0x30311 == 0x000a && terrain->entity_0x30311[iix].subtype_0x30311 == 0x002d && !(x_WORD_D93C0_bldgprmbuffer[2 + 4 * terrain->entity_0x30311[iix].word_14] & 0x10))
+		if (terrain->entity_0x30311[iix].DisId == -1 && terrain->entity_0x30311[iix].type_0x30311 == 0x000a && terrain->entity_0x30311[iix].subtype_0x30311 == 0x002d && !(str_D93C0_bldgprmbuffer[terrain->entity_0x30311[iix].word_14].byte_2 & 0x10))
 		{
 			sub_49540(terrain, &terrain->entity_0x30311[iix]);
 			if (a2)
@@ -54013,12 +54018,12 @@ void sub_49A30(type_str_0x6E8E* a1x, unsigned __int16 a2)//22aa30
 	a1x->byte_0x46_70 = a2;
 	//LOWORD(v4) = a2;
 	a1x->dword_0x8 = 30;
-	a1x->word_0x2A_42 = *(uint16_t*)&x_WORD_D93C0_bldgprmbuffer[4 * a2];
-	v5 = x_WORD_D93C0_bldgprmbuffer[2 + 1 + 4 * a2];
+	a1x->word_0x2A_42 = str_D93C0_bldgprmbuffer[a2].word_0;
+	v5 = str_D93C0_bldgprmbuffer[a2].byte_3;
 	a1x->byte_0x41_65 = 0;
 	a1x->dword_0x90_144 = 0;
 	a1x->byte_0x3D_61 = v5;
-	if (!(x_WORD_D93C0_bldgprmbuffer[2 + 4 * a2] & 8))
+	if (!(str_D93C0_bldgprmbuffer[a2].byte_2 & 8))
 	{
 		v6 = a1x->dword_0x90_144;
 		a1x->byte_0x38_56 |= 2u;
@@ -66629,7 +66634,7 @@ void sub_539A0_load_bldgprm()//2349a0
 	FILE* bldgprmfile = DataFileIO::CreateOrOpenFile(bldPath, 512);
 	if (bldgprmfile)
 	{
-		DataFileIO::Read(bldgprmfile, x_WORD_D93C0_bldgprmbuffer, 304);
+		DataFileIO::Read(bldgprmfile, (uint8_t*)str_D93C0_bldgprmbuffer, 76*sizeof(type_D93C0_bldgprmbuffer));
 		DataFileIO::Close(bldgprmfile);
 	}
 }
@@ -71301,7 +71306,7 @@ void sub_58F00_game_objectives()//239f00
 									v26 = 0;
 									for (j = D41A0_BYTESTR_0.struct_0x3654C[v3].str_36552_un.dword;
 										j && !v25 && v26 < 8u;
-										j = x_WORD_D93C0_bldgprmbuffer[2 + 1 + 4 * j])
+										j = str_D93C0_bldgprmbuffer[j].byte_3)
 									{
 										if (j == v8x->byte_0x46_70)
 											v25 = 1;
@@ -79013,7 +79018,7 @@ void sub_61A00_draw_minimap_entites_b(int a1, int a2, __int16 a3, __int16 a4, in
 							goto LABEL_121;
 						}
 					}
-					if (!(x_WORD_D93C0_bldgprmbuffer[2 + 4 * jy->byte_0x46_70] & 8))
+					if (!(str_D93C0_bldgprmbuffer[jy->byte_0x46_70].byte_2 & 8))
 						v88 = 21;
 				LABEL_56:
 					v39x = x_DWORD_EA3E4[jy->word_0x1A_26];
@@ -79628,7 +79633,7 @@ void sub_627F0_draw_minimap_entites_a(int a1, int a2, __int16 a3, __int16 a4, in
 						}
 						else
 						{
-							if (!(x_WORD_D93C0_bldgprmbuffer[2 + 4 * iy->byte_0x46_70] & 8))
+							if (!(str_D93C0_bldgprmbuffer[iy->byte_0x46_70].byte_2 & 8))
 								v104 = 21;
 							v105 = 1;
 						}
@@ -80934,7 +80939,7 @@ void sub_644F0_draw_minimap_marks(int a1, int a2, __int16 a3, __int16 a4, int a5
 						v67x = v72x->array_0x4C_76;
 					}
 				}
-				v79 = x_WORD_D93C0_bldgprmbuffer[2 + 1 + 4 * v79];
+				v79 = str_D93C0_bldgprmbuffer[v79].byte_3;
 			}
 		}
 		break;
@@ -83825,7 +83830,7 @@ signed int sub_67CB0(type_str_0x6E8E* a1x)//248cb0
 		{
 			if (i3x->byte_0x39_57)
 			{
-				if (!(x_WORD_D93C0_bldgprmbuffer[2 + 4 * i3x->byte_0x46_70] & 8))
+				if (!(str_D93C0_bldgprmbuffer[i3x->byte_0x46_70].byte_2 & 8))
 				{
 					if (debugcounter_249226 >= 0x9)
 					{
