@@ -1262,7 +1262,7 @@ char sub_169C0(type_str_0x6E8E* a1);
 int sub_16E70(baxis_2d* a1, baxis_2d* a2);
 type_str_0x6E8E* sub_16FC0(type_str_0x6E8E* a1, type_str_0x6E8E* a2);
 void sub_17060_compute_mouse_relative_pos(__int16 a1, __int16 a2);
-void sub_17190();
+void sub_17190_process_keyboard();
 // char sub_17A00_mouse_and_keys_events(x_BYTE *a1, signed int a2, __int16 a3);
 void sub_18AA0();
 void sub_18B30();
@@ -13265,7 +13265,7 @@ void sub_17060_compute_mouse_relative_pos(__int16 a1, __int16 a2)//1f8060
 int debugcounter_47560 = 0;
 
 //----- (00017190) --------------------------------------------------------
-void sub_17190()//1f8190
+void sub_17190_process_keyboard()//1f8190
 {
 	//int v0; // eaxx_D41A0_BYTEARRAY_4
 	//int v1; // ecx
@@ -13697,7 +13697,7 @@ void sub_17A00_mouse_and_keys_events(/*uint8_t* a1,*/ signed int a2, __int16 a3)
 				goto LABEL_292;
 			if (x_D41A0_BYTEARRAY_4_struct.setting_byte3_24 & 1)
 				sub_197F0();
-			sub_17190();//test FnX
+			sub_17190_process_keyboard();//test FnX
 			//v5 = x_D41A0_BYTEARRAY_0;
 			//v6 = D41A0_BYTESTR_0.word_0xc;
 			//v7 = 5 * D41A0_BYTESTR_0.word_0xc;
@@ -13846,7 +13846,7 @@ void sub_17A00_mouse_and_keys_events(/*uint8_t* a1,*/ signed int a2, __int16 a3)
 			/*LOBYTE(result) = (uint8_t)*/sub_1A7A0_fly_asistant();
 			goto LABEL_306;
 		case 1:
-			sub_17190();
+			sub_17190_process_keyboard();
 			if ((!(unk_18058Cstr.x_DWORD_18059C & 1) || !(unk_18058Cstr.x_DWORD_18059C & 2)) && LastPressedKey_1806E4 != 0x1c)
 				goto LABEL_296;
 			LastPressedKey_1806E4 = 0;
@@ -14012,7 +14012,7 @@ void sub_17A00_mouse_and_keys_events(/*uint8_t* a1,*/ signed int a2, __int16 a3)
 			v33 = 0;
 			v34 = 0;
 			v12x = x_DWORD_EA3E4[D41A0_BYTESTR_0.array_0x2BDE[D41A0_BYTESTR_0.word_0xc].word_0x00a_2BE4_11240];
-			/*LOBYTE(v13) = */sub_17190();
+			/*LOBYTE(v13) = */sub_17190_process_keyboard();
 			if (v12x->dword_0x8 < 0)
 			{
 				v33 = 1;
@@ -14149,7 +14149,7 @@ void sub_17A00_mouse_and_keys_events(/*uint8_t* a1,*/ signed int a2, __int16 a3)
 			v24x = x_DWORD_EA3E4[D41A0_BYTESTR_0.array_0x2BDE[D41A0_BYTESTR_0.word_0xc].word_0x00a_2BE4_11240];
 			if (x_D41A0_BYTEARRAY_4_struct.setting_byte3_24 & 1)
 				sub_197F0();
-			sub_17190();
+			sub_17190_process_keyboard();
 			if (unk_18058Cstr.x_DWORD_18059C & 1 && unk_18058Cstr.x_DWORD_18059C & 2 || LastPressedKey_1806E4 == x_BYTE_EB39E_keys[4] || v24x->dword_0x8 < 0)
 			{
 				sub_191B0(20, 0);
