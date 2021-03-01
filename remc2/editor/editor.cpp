@@ -121,7 +121,7 @@ int main_x(/*int argc, char** argv*/);
 
 void loadlevel(int levelnumber) {
 	sub_533B0_decompress_levels(levelnumber, &D41A0_BYTESTR_0.terrain_2FECE);
-	memcpy(temparray_0x30311, D41A0_BYTESTR_0.terrain_2FECE.array_0x30311,sizeof(D41A0_BYTESTR_0.terrain_2FECE.array_0x30311));
+	memcpy(temparray_0x30311, D41A0_BYTESTR_0.terrain_2FECE.entity_0x30311,sizeof(D41A0_BYTESTR_0.terrain_2FECE.entity_0x30311));
 	for(int i=0;i< 0x4b0;i++)
 		temparray_0x30311_inactive[i]=0;
 	for (int i = 0; i < 0x4b0; i++)
@@ -190,7 +190,7 @@ void terrain_recalculate() {
 			j++;
 		else
 		{
-			D41A0_BYTESTR_0.terrain_2FECE.array_0x30311[j]= temparray_0x30311[i];
+			D41A0_BYTESTR_0.terrain_2FECE.entity_0x30311[j]= temparray_0x30311[i];
 			j++;
 		}
 	}
@@ -1186,7 +1186,7 @@ static void button_savelevel_event(kiss_button* button, SDL_Event* e,int* draw)
 		char path2[512];
 		FixDir(path2, (char*)"testsave.sav");
 		FILE* file = fopen(path2,"wb");
-		memcpy(D41A0_BYTESTR_0.terrain_2FECE.array_0x30311,temparray_0x30311, sizeof(D41A0_BYTESTR_0.terrain_2FECE.array_0x30311));
+		memcpy(D41A0_BYTESTR_0.terrain_2FECE.entity_0x30311,temparray_0x30311, sizeof(D41A0_BYTESTR_0.terrain_2FECE.entity_0x30311));
 		fwrite(&D41A0_BYTESTR_0.terrain_2FECE,sizeof(D41A0_BYTESTR_0.terrain_2FECE),1, file);
 		fclose;
 	}//*quit = 1;
@@ -1217,7 +1217,7 @@ static int button_cleanlevelfeat_event(kiss_button* button, SDL_Event* e, int* d
 			memset(&temparray_0x30311[i],0,sizeof(temparray_0x30311[i]));
 			temparray_0x30311_inactive[i]=false;
 			temparray_0x30311_selected[i] = false;
-			D41A0_BYTESTR_0.terrain_2FECE.array_0x30311[i] = temparray_0x30311[i];
+			D41A0_BYTESTR_0.terrain_2FECE.entity_0x30311[i] = temparray_0x30311[i];
 		}
 		return 1;
 	}

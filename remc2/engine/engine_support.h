@@ -1096,7 +1096,7 @@ typedef struct {//lenght 20
 	//uint8_t byte_4;//type_str_0x30314//type_str_0x30328
 	//axis_3d axis3d_4;//type_str_0x30315//type_str_0x30329
 	axis_2du axis2d_4;
-	uint16_t DisId;
+	int16_t DisId;// must be signed
 	//uint8_t byte_5;//type_str_0x30316//type_str_0x3032a
 	//uint16_t word_6;//type_str_0x30317//type_str_0x3032b
 	//uint8_t byte_7;//type_str_0x30318//type_str_0x3032c
@@ -1274,7 +1274,7 @@ typedef struct {//lenght 0x6604u
 	uint8_t stubj[2];
 	uint16_t rkSte_0x2FF11;//2FF11//67
 	uint8_t stubk[1022];
-	type_entity_0x30311 array_0x30311[0x4b0];//end(next entity) - 0x360d1
+	type_entity_0x30311 entity_0x30311[0x4b0];//end(next entity) - 0x360d1
 	uint8_t next_0x360D1;
 	type_str_0x360D2 next_0x360D2[8];//lenght 110  /spells?
 	type_str_0x36442 str_0x36442[8];//stages(checkpoints)

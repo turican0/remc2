@@ -430,7 +430,7 @@ void sub_45210(unsigned __int8 a1, unsigned __int8 a2);
 void sub_454F0(unsigned __int8 a1, unsigned __int8 a2);
 void sub_45600(unsigned __int8 a1);
 
-void sub_49830(type_str_2FECE* a1);
+void sub_49830(type_str_2FECE* terrain);
 void sub_49290(type_str_2FECE* a1, char a2);
 
 void sub_49F30();
