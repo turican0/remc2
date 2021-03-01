@@ -73,6 +73,7 @@ void SubBlit(uint16_t originalResWidth, uint16_t originalResHeight) {
 	}
 
 	SDL_RenderPresent(renderer);
+	SDL_RenderClear(renderer);
 }
 
 void SubSet_pallette(SDL_Color* colors) {
