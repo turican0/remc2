@@ -1434,6 +1434,16 @@ kiss_image img_castle;
 kiss_image img_trigger;
 
 kiss_image img_none;
+kiss_image img_rock;
+kiss_image img_spell;
+kiss_image img_player;
+kiss_image img_weather;
+kiss_image img_spellB;
+kiss_image img_type2D;
+
+
+
+
 
 //kiss_image backgroundimg1;
 //kiss_image backgroundimg2;
@@ -1487,7 +1497,6 @@ static void button_selectsubtype_event(kiss_button* button,kiss_button* buttons,
 			window_selectsubtype.focus = 1;
 			max_subtype_buttons = 0x3D;
 			for (int i = 0; i < max_subtype_buttons; i++) { buttons[i].normalimg = img_none; buttons[i].prelightimg = img_none; buttons[i].activeimg = img_none; }
-			buttons[0x1D].normalimg = img_type0A_1D; buttons[0x1D].prelightimg = img_type0A_1D; buttons[0x1D].activeimg = img_type0A_1D;
 			buttons[0x05].normalimg = img_trigger; buttons[0x05].prelightimg = img_trigger; buttons[0x05].activeimg = img_trigger;
 			buttons[0x06].normalimg = img_type0A_06; buttons[0x06].prelightimg = img_type0A_06; buttons[0x06].activeimg = img_type0A_06;
 			buttons[0x16].normalimg = img_type0A_16; buttons[0x16].prelightimg = img_type0A_16; buttons[0x16].activeimg = img_type0A_16;
@@ -1506,6 +1515,7 @@ static void button_selectsubtype_event(kiss_button* button,kiss_button* buttons,
 static void button_selectsubsubtype_event(kiss_button* button, kiss_button* buttons, SDL_Event* e, int* draw) {
 	if (kiss_button_event(button, e, draw))
 	{
+		if(*(int16_t*)hex4edit1feat.valueadress==0x0A)
 		switch (*(int16_t*)hex4edit2feat.valueadress)
 		{
 		case 0x2d:
@@ -1651,6 +1661,11 @@ static int button_add_event(kiss_button* button, SDL_Event* e,	int* quit, int* d
 		kiss_hex4edit_update_adress(&hex4edit10feat, &temparray_0x30311[edited_line_old + 1].child_18);
 		return 1;
 	}
+	return 0;
+}
+
+static int button_addcount_event(kiss_button* button, SDL_Event* e, int* quit, int* draw) {
+	allert_error();
 	return 0;
 }
 
@@ -1946,6 +1961,244 @@ int findFirstSelected(bool* selected) {
 	return -1;
 }
 
+void set_button_image(kiss_image** img, uint16_t acttype) {
+	switch (acttype)
+	{
+	case 0:
+	case 1:
+		*img = &img_none;
+		break;
+	case 2:
+		*img = &img_rock;
+		break;
+	case 3:
+		*img = &img_player;
+		break;
+	case 4:
+		*img = &img_none;
+		break;
+	case 5:
+		*img = &img_creature;
+		break;
+	case 6:
+		*img = &img_none;
+		break;
+	case 7:
+		*img = &img_weather;
+		break;
+	case 8:
+		*img = &img_none;
+		break;
+	case 9:
+		*img = &img_none;
+		break;
+	case 0xa:
+		*img = &img_type2D;
+		break;
+	case 0xb:
+		*img = &img_trigger;
+		break;
+	case 0xc:
+		*img = &img_none;
+		break;
+	case 0xd:
+		*img = &img_none;
+		break;
+	case 0xe:
+		*img = &img_spell;
+		break;
+	case 0xf:
+		*img = &img_spellB;
+		break;
+	}
+};
+
+void set_button_image_subtype(kiss_image** img, uint16_t acttype, uint16_t actsubtype)
+{
+	*img = &img_none;
+	switch (acttype)
+	{
+		case 2:
+		{
+			*img = &img_none;
+			switch (actsubtype)
+			{
+				case 0x00:
+					*img = &img_type02_00;
+					break;
+				case 0x1D:
+					*img = &img_type02_1D;
+					break;
+				case 0x02:
+					*img = &img_type02_02;
+					break;
+				case 0x03:
+					*img = &img_type02_03;
+					break;
+				case 0x04:
+					*img = &img_type02_04;
+					break;
+				case 0x05:
+					*img = &img_type02_04;
+					break;
+				case 0x07:
+					*img = &img_type02_07;
+					break;
+				case 0x08:
+					*img = &img_type02_08;
+					break;
+			}
+			break;
+		}
+		case 5:
+		{
+			*img = &img_none;
+			switch (actsubtype)
+			{
+			case 0x1D:
+				*img = &img_type05_1D;
+				break;
+			case 0x02:
+				*img = &img_type05_02;
+				break;
+			case 0x03:
+				*img = &img_type05_03;
+				break;
+			case 0x04:
+				*img = &img_type05_04;
+				break;
+			case 0x09:
+				*img = &img_type05_09;
+				break;
+			case 0x0D:
+				*img = &img_type05_0D;
+				break;
+			case 0x11:
+				*img = &img_type05_11;
+				break;
+			case 0x13:
+				*img = &img_type05_13;
+				break;
+			}
+			break;
+		}
+		case 0xa:
+		{
+			*img = &img_none;
+			switch (actsubtype)
+			{
+			case 0x05:
+				*img = &img_trigger;
+				break;
+			case 0x06:
+				*img = &img_type0A_06;
+				break;
+			case 0x16:
+				*img = &img_type0A_16;
+				break;
+			case 0x1D:
+				*img = &img_type0A_1D;
+				break;
+			case 0x27:
+				*img = &img_type0A_27;
+				break;
+			case 0x2D:
+				*img = &img_castle;
+				break;
+			case 0x3B:
+				*img = &img_type0A_3B;
+				break;
+			case 0x3C:
+				*img = &img_type0A_3C;
+				break;
+			}
+			break;
+		}
+	}	
+};
+
+void set_button_image_subsubtype(kiss_image** img, uint16_t acttype, uint16_t actsubtype, uint16_t actsubsubtype)
+{
+	*img = &img_none;
+	if(acttype==0x0A)
+	switch (actsubtype)
+	{
+		case 0x2d:
+		{
+			switch (actsubsubtype)
+			{
+			case 0x01:*img = &img_type0A_2D_01; break;
+			case 0x02:*img = &img_type0A_2D_02; break;
+			case 0x03:*img = &img_type0A_2D_03; break;
+			case 0x04:*img = &img_type0A_2D_04; break;
+			case 0x05:*img = &img_type0A_2D_05; break;
+			case 0x06:*img = &img_type0A_2D_06; break;
+			case 0x07:*img = &img_type0A_2D_07; break;
+			case 0x11:*img = &img_type0A_2D_11; break;
+			case 0x12:*img = &img_type0A_2D_12; break;
+			case 0x13:*img = &img_type0A_2D_13; break;
+			case 0x14:*img = &img_type0A_2D_14; break;
+			case 0x15:*img = &img_type0A_2D_15; break;
+			case 0x16:*img = &img_type0A_2D_16; break;
+			case 0x17:*img = &img_type0A_2D_17; break;
+			case 0x18:*img = &img_type0A_2D_18; break;
+			case 0x19:*img = &img_type0A_2D_19; break;
+			case 0x1A:*img = &img_type0A_2D_1A; break;
+			case 0x1B:*img = &img_type0A_2D_1B; break;
+			case 0x1C:*img = &img_type0A_2D_1C; break;
+			case 0x1D:*img = &img_type0A_2D_1D; break;
+			case 0x1E:*img = &img_type0A_2D_1E; break;
+			case 0x1F:*img = &img_type0A_2D_1F; break;
+			case 0x20:*img = &img_type0A_2D_20; break;
+			case 0x21:*img = &img_type0A_2D_21; break;
+			case 0x22:*img = &img_type0A_2D_22; break;
+			case 0x23:*img = &img_type0A_2D_23; break;
+			case 0x24:*img = &img_type0A_2D_24; break;
+			case 0x25:*img = &img_type0A_2D_25; break;
+			case 0x26:*img = &img_type0A_2D_26; break;
+			case 0x27:*img = &img_type0A_2D_27; break;
+			case 0x28:*img = &img_type0A_2D_28; break;
+			case 0x29:*img = &img_type0A_2D_29; break;
+			case 0x2A:*img = &img_type0A_2D_2A; break;
+			case 0x2B:*img = &img_type0A_2D_2B; break;
+			case 0x2C:*img = &img_type0A_2D_2C; break;
+			case 0x2D:*img = &img_type0A_2D_2D; break;
+			case 0x2E:*img = &img_type0A_2D_2E; break;
+			case 0x2F:*img = &img_type0A_2D_2F; break;
+			case 0x30:*img = &img_type0A_2D_30; break;
+			case 0x31:*img = &img_type0A_2D_31; break;
+			case 0x32:*img = &img_type0A_2D_32; break;
+			case 0x33:*img = &img_type0A_2D_33; break;
+			case 0x34:*img = &img_type0A_2D_34; break;
+			case 0x35:*img = &img_type0A_2D_35; break;
+			case 0x36:*img = &img_type0A_2D_36; break;
+			case 0x37:*img = &img_type0A_2D_37; break;
+			case 0x38:*img = &img_type0A_2D_38; break;
+			case 0x39:*img = &img_type0A_2D_39; break;
+			case 0x3A:*img = &img_type0A_2D_3A; break;
+			case 0x3B:*img = &img_type0A_2D_3B; break;
+			case 0x3C:*img = &img_type0A_2D_3C; break;
+			case 0x3D:*img = &img_type0A_2D_3D; break;
+			case 0x3E:*img = &img_type0A_2D_3E; break;
+			case 0x3F:*img = &img_type0A_2D_3F; break;
+			case 0x40:*img = &img_type0A_2D_40; break;
+			case 0x41:*img = &img_type0A_2D_41; break;
+			case 0x42:*img = &img_type0A_2D_42; break;
+			case 0x44:*img = &img_type0A_2D_44; break;
+			case 0x45:*img = &img_type0A_2D_45; break;
+			case 0x46:*img = &img_type0A_2D_46; break;
+			case 0x47:*img = &img_type0A_2D_47; break;
+			case 0x48:*img = &img_type0A_2D_48; break;
+			case 0x49:*img = &img_type0A_2D_49; break;
+			case 0x4A:*img = &img_type0A_2D_4A; break;
+			case 0x4B:*img = &img_type0A_2D_4B; break;
+			}
+			break;
+		}
+	}
+}
+
+
 bool first = true;
 int main_x(/*int argc, char** argv*/)
 {
@@ -1963,6 +2216,11 @@ int main_x(/*int argc, char** argv*/)
 	kiss_label label_vars2 = { 0 };
 	kiss_button /*button_ok1 = { 0 }, button_ok2 = { 0 }, */button_cancel = { 0 }, button_levelsave = { 0 },
 		button_levelsavecsv = { 0 }, button_cleanlevelfeat = { 0 }, button_cleanselectedlevelfeat = {0}, button_filter = { 0 };
+	
+	kiss_image* act_img_type = NULL;
+	kiss_image* act_img_subtype = NULL;
+	kiss_image* act_img_subsubtype = NULL;
+	
 	kiss_textbox textbox1 = { 0 };
 	kiss_textbox textbox2 = { 0 };
 	kiss_textbox textbox3 = { 0 };
@@ -2034,7 +2292,7 @@ int main_x(/*int argc, char** argv*/)
 	kiss_label levelSelFeat = { 0 };
 	kiss_selectbutton select1feat = { 0 };
 	kiss_button button_ok1feat = { 0 }, button_ok1check = { 0 },button_plusfeat = { 0 }, button_deletefeat = { 0 }, button_cleanfeat = { 0 },
-		button_selecttype = { 0 }, button_selectcheck = {0},
+		button_plusfeatcount = { 0 }, button_selecttype = { 0 }, button_selectcheck = {0},
 		button_selectsubtype = { 0 }, button_selectsubsubtype = {0};
 	kiss_button button_type[16]; for (int i = 0; i < 16; i++)button_type[i] = { 0 };
 	kiss_button button_subtype[64]; for (int i = 0; i < 16; i++)button_subtype[i] = { 0 };
@@ -2171,7 +2429,6 @@ int main_x(/*int argc, char** argv*/)
 	img_add_prelight.magic = KISS_MAGIC;
 	img_add_prelight.image = IMG_LoadTexture(editor_renderer, path2);
 
-	kiss_image img_player;
 	FixDir(path2, (char*)"kiss\\kiss_player32.png");
 	img_player.w = 32;
 	img_player.h = 32;
@@ -2208,7 +2465,6 @@ int main_x(/*int argc, char** argv*/)
 	img_castle.magic = KISS_MAGIC;
 	img_castle.image = IMG_LoadTexture(editor_renderer, path2);
 
-	kiss_image img_weather;
 	FixDir(path2, (char*)"kiss\\kiss_weather32.png");
 	img_weather.w = 32;
 	img_weather.h = 32;
@@ -2221,21 +2477,18 @@ int main_x(/*int argc, char** argv*/)
 	img_trigger.magic = KISS_MAGIC;
 	img_trigger.image = IMG_LoadTexture(editor_renderer, path2);
 
-	kiss_image img_rock;
 	FixDir(path2, (char*)"kiss\\kiss_rock32.png");
 	img_rock.w = 32;
 	img_rock.h = 32;
 	img_rock.magic = KISS_MAGIC;
 	img_rock.image = IMG_LoadTexture(editor_renderer, path2);
-
-	kiss_image img_spell;
+	
 	FixDir(path2, (char*)"kiss\\kiss_spell32.png");
 	img_spell.w = 32;
 	img_spell.h = 32;
 	img_spell.magic = KISS_MAGIC;
 	img_spell.image = IMG_LoadTexture(editor_renderer, path2);
 
-	kiss_image img_spellB;
 	FixDir(path2, (char*)"kiss\\kiss_spellB32.png");
 	img_spellB.w = 32;
 	img_spellB.h = 32;
@@ -2773,7 +3026,6 @@ int main_x(/*int argc, char** argv*/)
 
 
 
-	kiss_image img_type2D;
 	FixDir(path2, (char*)"kiss\\type2D.png");
 	img_type2D.w = 32;
 	img_type2D.h = 32;
@@ -2843,6 +3095,8 @@ int main_x(/*int argc, char** argv*/)
 	kiss_button_new(&button_cleanlevelfeat, &window1, (char*)"CLEAR", 530, 700);
 	kiss_button_new(&button_cleanselectedlevelfeat, &window1, (char*)"D_SEL", 600, 700);
 	kiss_button_new(&button_filter, &window1, (char*)"FILTR", 670, 700);
+
+	
 	//kiss_button_new(&button_ok1, &window1, (char*)"OK", button_cancel.rect.x -2 * kiss_normal.w, button_cancel.rect.y);
 
 	/*for (int i = 0; i < count_features; i++)
@@ -2969,6 +3223,10 @@ int main_x(/*int argc, char** argv*/)
 	button_deletefeat.prelightimg = img_delete_prelight;
 	kiss_button_new(&button_cleanfeat, &window2, (char*)" ", 300 + window2.rect.x + kiss_up.w + 80, window2.rect.y + 90, &img_clean_normal);
 	button_cleanfeat.prelightimg = img_clean_prelight;
+
+	kiss_button_new(&button_plusfeatcount, &window2, (char*)" ", 300 + window2.rect.x + kiss_up.w + 100, window2.rect.y + 50, &img_add_normal);
+	button_plusfeatcount.prelightimg = img_add_prelight;
+
 	kiss_button_new(&button_ok1feat, &window2, (char*)"OK", 300 + window2.rect.x + kiss_up.w + 80, window2.rect.y + 130);
 	//kiss_button_new(&button_cancelfeat, &window2, (char*)"CANCEL", window2.rect.x + window2.rect.w-100-kiss_normal.w / 2, window2.rect.y + 250);
 	kiss_terrain_new(&terrainfeat, &window2, mapsurfacefeat, window2.rect.x + kiss_border, window2.rect.y + window2.rect.h - mapimagefeat.h - kiss_border, &terrainzoomfeat, &terrainbeginxfeat, &terrainbeginyfeat);
@@ -3085,13 +3343,16 @@ int main_x(/*int argc, char** argv*/)
 				window1.focus = 0;
 				sprintf(labelIndexWind2.text, "INDEX:%03X", edited_line_old + 1);
 				kiss_hex4edit_update_adress(&hex4edit1feat, &temparray_0x30311[edited_line_old + 1].type_0x30311);
+				set_button_image(&act_img_type, temparray_0x30311[edited_line_old + 1].type_0x30311);
 				kiss_hex4edit_update_adress(&hex4edit2feat, &temparray_0x30311[edited_line_old + 1].subtype_0x30311);
+				set_button_image_subtype(&act_img_subtype, temparray_0x30311[edited_line_old + 1].type_0x30311, temparray_0x30311[edited_line_old + 1].subtype_0x30311);
 				kiss_hex4edit_update_adress(&hex4edit3feat, &temparray_0x30311[edited_line_old + 1].axis2d_4.x);
 				kiss_hex4edit_update_adress(&hex4edit4feat, &temparray_0x30311[edited_line_old + 1].axis2d_4.y);
 				kiss_hex4edit_update_adress(&hex4edit5feat, &temparray_0x30311[edited_line_old + 1].DisId);
 				kiss_hex4edit_update_adress(&hex4edit6feat, &temparray_0x30311[edited_line_old + 1].word_10);
 				kiss_hex4edit_update_adress(&hex4edit7feat, &temparray_0x30311[edited_line_old + 1].stageTag_12);
 				kiss_hex4edit_update_adress(&hex4edit8feat, &temparray_0x30311[edited_line_old + 1].word_14);
+				set_button_image_subsubtype(&act_img_subsubtype, temparray_0x30311[edited_line_old + 1].type_0x30311, temparray_0x30311[edited_line_old + 1].subtype_0x30311, temparray_0x30311[edited_line_old + 1].word_14);
 				kiss_hex4edit_update_adress(&hex4edit9feat, &temparray_0x30311[edited_line_old + 1].parent_16);
 				kiss_hex4edit_update_adress(&hex4edit10feat, &temparray_0x30311[edited_line_old + 1].child_18);
 				char* textbuff = (char*)objects.data[edited_line_old];
@@ -3172,14 +3433,27 @@ int main_x(/*int argc, char** argv*/)
 			if (select3_event(&select3, &e, &select1, &select2, &select4, &draw))zoomchanged = true;
 			if (select4_event(&select4, &e, &select1, &select2, &select3, &draw))zoomchanged = true;
 			//window2
-			if (kiss_hex4edit_event(&hex4edit1feat, &e, &draw) > 10)changed2 = true;
-			if (kiss_hex4edit_event(&hex4edit2feat, &e, &draw) > 10)changed2 = true;
+			if (kiss_hex4edit_event(&hex4edit1feat, &e, &draw) > 10)
+			{
+				set_button_image(&act_img_type, *(int16_t*)hex4edit1feat.valueadress);
+				set_button_image_subtype(&act_img_subtype, *(int16_t*)hex4edit1feat.valueadress, *(int16_t*)hex4edit2feat.valueadress);
+				set_button_image_subsubtype(&act_img_subsubtype, *(int16_t*)hex4edit1feat.valueadress, *(int16_t*)hex4edit2feat.valueadress, *(int16_t*)hex4edit8feat.valueadress);
+				changed2 = true;
+			}
+			if (kiss_hex4edit_event(&hex4edit2feat, &e, &draw) > 10) {
+				set_button_image_subtype(&act_img_subtype, *(int16_t*)hex4edit1feat.valueadress,*(int16_t*)hex4edit2feat.valueadress);
+				set_button_image_subsubtype(&act_img_subsubtype, *(int16_t*)hex4edit1feat.valueadress, *(int16_t*)hex4edit2feat.valueadress, *(int16_t*)hex4edit8feat.valueadress);
+				changed2 = true;
+			}
 			if (kiss_hex4edit_event(&hex4edit3feat, &e, &draw) > 10)changed2 = true;
 			if (kiss_hex4edit_event(&hex4edit4feat, &e, &draw) > 10)changed2 = true;
 			if (kiss_hex4edit_event(&hex4edit5feat, &e, &draw) > 10)changed2 = true;
 			if (kiss_hex4edit_event(&hex4edit6feat, &e, &draw) > 10)changed2 = true;
 			if (kiss_hex4edit_event(&hex4edit7feat, &e, &draw) > 10)changed2 = true;
-			if (kiss_hex4edit_event(&hex4edit8feat, &e, &draw) > 10)changed2 = true;
+			if (kiss_hex4edit_event(&hex4edit8feat, &e, &draw) > 10) {
+				set_button_image_subsubtype(&act_img_subsubtype, *(int16_t*)hex4edit1feat.valueadress, *(int16_t*)hex4edit2feat.valueadress, *(int16_t*)hex4edit8feat.valueadress);
+				changed2 = true;
+			}
 			if (kiss_hex4edit_event(&hex4edit9feat, &e, &draw) > 10)changed2 = true;
 			if (kiss_hex4edit_event(&hex4edit10feat, &e, &draw) > 10)changed2 = true;
 
@@ -3215,6 +3489,11 @@ int main_x(/*int argc, char** argv*/)
 				if (retvar > -1)
 				{
 					kiss_hex4edit_set(&hex4edit1feat, i);
+
+					set_button_image(&act_img_type, *(int16_t*)hex4edit1feat.valueadress);
+					set_button_image_subtype(&act_img_subtype, *(int16_t*)hex4edit1feat.valueadress, *(int16_t*)hex4edit2feat.valueadress);
+					set_button_image_subsubtype(&act_img_subsubtype, *(int16_t*)hex4edit1feat.valueadress, *(int16_t*)hex4edit2feat.valueadress, *(int16_t*)hex4edit8feat.valueadress);
+
 					if (i == 0xa)
 					{
 						kiss_hex4edit_set(&hex4edit2feat, 0x2d);//2
@@ -3234,6 +3513,10 @@ int main_x(/*int argc, char** argv*/)
 				if (retvar > -1)
 				{
 					kiss_hex4edit_set(&hex4edit2feat, i);
+
+					set_button_image_subtype(&act_img_subtype, *(int16_t*)hex4edit1feat.valueadress, *(int16_t*)hex4edit2feat.valueadress);
+					set_button_image_subsubtype(&act_img_subsubtype, *(int16_t*)hex4edit1feat.valueadress, *(int16_t*)hex4edit2feat.valueadress, *(int16_t*)hex4edit8feat.valueadress);
+
 					changed2 = true; zoomchanged = true;
 				}
 			}
@@ -3243,6 +3526,9 @@ int main_x(/*int argc, char** argv*/)
 				if (retvar > -1)
 				{
 					kiss_hex4edit_set(&hex4edit8feat, i);
+
+					set_button_image_subsubtype(&act_img_subsubtype, *(int16_t*)hex4edit1feat.valueadress, *(int16_t*)hex4edit2feat.valueadress, *(int16_t*)hex4edit8feat.valueadress);
+
 					changed2 = true; zoomchanged = true;
 				}
 			}
@@ -3323,6 +3609,7 @@ int main_x(/*int argc, char** argv*/)
 			{
 				changed2 = true; zoomchanged = true;
 			}
+			if (button_addcount_event(&button_plusfeatcount, &e, &quit, &draw)){}
 			if (select1_feat_event(&select1feat, &e, &objects, &draw))
 			{
 				changed2 = true; zoomchanged = true;
@@ -3441,6 +3728,13 @@ int main_x(/*int argc, char** argv*/)
 		kiss_terrain_draw(&terrain1, editor_renderer);
 
 		kiss_window_draw(&window2, editor_renderer);
+		
+		//SDL_Rect img_rect;
+		//kiss_makerect(&img_rect, 10, 10,32,32);
+		if((act_img_type!=NULL)&&(window2.visible))
+			kiss_renderimage(editor_renderer, *act_img_type, window2.rect.x + 50, window2.rect.y + 10, NULL);		
+		if ((act_img_subtype != NULL) && (window2.visible))
+			kiss_renderimage(editor_renderer, *act_img_subtype, window2.rect.x + 90, window2.rect.y + 10, NULL);
 		kiss_hex4edit_draw(&hex4edit1feat, editor_renderer);
 		kiss_hex4edit_draw(&hex4edit2feat, editor_renderer);
 		kiss_hex4edit_draw(&hex4edit3feat, editor_renderer);
@@ -3449,6 +3743,8 @@ int main_x(/*int argc, char** argv*/)
 		kiss_hex4edit_draw(&hex4edit6feat, editor_renderer);
 		kiss_hex4edit_draw(&hex4edit7feat, editor_renderer);
 		kiss_hex4edit_draw(&hex4edit8feat, editor_renderer);
+		if ((act_img_subsubtype != NULL) && (window2.visible))
+			kiss_renderimage(editor_renderer, *act_img_subsubtype, window2.rect.x + 50, window2.rect.y + 150, NULL);
 		kiss_hex4edit_draw(&hex4edit9feat, editor_renderer);
 		kiss_hex4edit_draw(&hex4edit10feat, editor_renderer);
 
@@ -3466,6 +3762,7 @@ int main_x(/*int argc, char** argv*/)
 		kiss_button_draw(&button_plusfeat, editor_renderer);	
 		kiss_button_draw(&button_deletefeat, editor_renderer);		
 		kiss_button_draw(&button_cleanfeat, editor_renderer);
+		kiss_button_draw(&button_plusfeatcount, editor_renderer);
 		kiss_label_draw(&levelSelFeat, editor_renderer);
 		kiss_label_draw(&label_plusFeat, editor_renderer);
 		kiss_terrain_draw(&terrainfeat, editor_renderer);
