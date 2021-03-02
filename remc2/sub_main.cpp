@@ -1817,7 +1817,7 @@ signed int sub_48FD0(char a1, char a2, __int16 a3, unsigned __int16 a4, uint8_t*
 void sub_49090(type_str_2FECE* a1, type_str_2FECE* a2);
 void sub_49270_generate_level_features(type_str_2FECE* terrain);
 //void sub_49290(type_str_2FECE* a1, char a2);
-void sub_49540(type_str_2FECE* a1, type_entity_0x30311* a2);
+void sub_49540(type_str_2FECE* terrain, type_entity_0x30311* entity);
 //void sub_49830(type_str_2FECE* a1);
 void sub_498A0();
 void sub_49A20_remove_event(type_str_0x6E8E* a1x);
@@ -53309,7 +53309,7 @@ signed int sub_48FD0(char a1, char a2, __int16 a3, unsigned __int16 a4, uint8_t*
 }
 
 //----- (00049090) --------------------------------------------------------
-void sub_49090(type_str_2FECE* a1x, type_entity_0x30311* a2x)//22a090
+void sub_49090(type_str_2FECE* terrain, type_entity_0x30311* entity)//22a090
 {
 	type_entity_0x30311* v2x; // ebx
 	unsigned __int16 v3; // si
@@ -53321,13 +53321,13 @@ void sub_49090(type_str_2FECE* a1x, type_entity_0x30311* a2x)//22a090
 	int(*v9)(); // [esp+4h] [ebp-10h]
 	unsigned __int16 v10; // [esp+8h] [ebp-Ch]
 
-	v2x = a2x;
-	v3 = a2x->subtype_0x30311;
-	v4 = a2x->type_0x30311;
+	v2x = entity;
+	v3 = entity->subtype_0x30311;
+	v4 = entity->type_0x30311;
 	v9 = 0;
-	if (a2x->type_0x30311 == 0x0A)
+	if (entity->type_0x30311 == 0x0A)
 	{
-		switch (a2x->subtype_0x30311)
+		switch (entity->subtype_0x30311)
 		{
 			case 0x1C:
 			{
@@ -53363,13 +53363,13 @@ void sub_49090(type_str_2FECE* a1x, type_entity_0x30311* a2x)//22a090
 			v5 = v2x->word_14;
 			if (!v5)
 				break;
-			v2x = &a1x->entity_0x30311[v5];
+			v2x = &terrain->entity_0x30311[v5];
 		}
 		do
 		{
-			if (v4 != a2x->type_0x30311)
+			if (v4 != entity->type_0x30311)
 				break;
-			if (v3 != a2x->subtype_0x30311)
+			if (v3 != entity->subtype_0x30311)
 				break;
 			v6 = v2x->parent_16;
 			v2x->stageTag_12 = 0;
@@ -53378,10 +53378,10 @@ void sub_49090(type_str_2FECE* a1x, type_entity_0x30311* a2x)//22a090
 			v7 = v2x->axis2d_4.y;
 			v10 = v2x->axis2d_4.x;
 			v8 = v2x->child_18;
-			v2x = &a1x->entity_0x30311[v2x->parent_16];
-			if (v3 >= 0x1Fu)
+			v2x = &terrain->entity_0x30311[v2x->parent_16];
+			switch (v3)
 			{
-				if (v3 <= 0x1Fu)
+				case 0x1F:
 				{
 					if (v8 <= 3)
 					{
@@ -53401,10 +53401,12 @@ void sub_49090(type_str_2FECE* a1x, type_entity_0x30311* a2x)//22a090
 							break;
 						}
 					}
+					break;
 				}
-				else if (v3 == 80)
+				case 0x50:
 				{
 					v8 = v2x->child_18 & 0xF | 16 * (v8 & 0xF);
+					break;
 				}
 			}
 			((void(*)(x_DWORD, x_DWORD, x_DWORD, x_DWORD, unsigned int))v9)(
@@ -53674,7 +53676,7 @@ int sub_off_D697E(uint16_t functionnumber, uint8_t* adress)//22a97e
 int debugcounter_22a540 = 0;
 
 //----- (00049540) --------------------------------------------------------
-void sub_49540(type_str_2FECE* a1x, type_entity_0x30311* a2x)//22a540
+void sub_49540(type_str_2FECE* terrain, type_entity_0x30311* entity)//22a540
 {
 	//unsigned __int16 v2; // ax
 	__int16 v3; // ax
@@ -53695,30 +53697,30 @@ void sub_49540(type_str_2FECE* a1x, type_entity_0x30311* a2x)//22a540
 #ifdef DEBUG_SEQUENCES
 	//add_compare(0x22a543, debugafterload,0x53);
 #endif //DEBUG_SEQUENCES
-	switch (a2x->type_0x30311)
+	switch (entity->type_0x30311)
 	{
 		case 0x02:
 		case 0x0E:
 		{			
-			x_WORD_EB398ar.x = a2x->axis2d_4.x << 8;//adress 22a7b0
-			x_WORD_EB398ar.y = a2x->axis2d_4.y << 8;
+			x_WORD_EB398ar.x = entity->axis2d_4.x << 8;//adress 22a7b0
+			x_WORD_EB398ar.y = entity->axis2d_4.y << 8;
 			v12 = sub_10C40_getTerrainAlt(&x_WORD_EB398ar);
 			x_WORD_EB398ar.z = v12;
-			v8x = str_x_DWORD_D4C52ar_0x2F22[a2x->subtype_0x30311].dword_6;
+			v8x = str_x_DWORD_D4C52ar_0x2F22[entity->subtype_0x30311].dword_6;
 			if (v8x)
 			{
 				v14x = pre_sub_4A190_axis_3d(v8x, &x_WORD_EB398ar, 1);
 				if (v14x)
 				{
-					v14x->word_0x2C_44 = a2x->word_14;
-					v14x->word_0x96_150 = a2x->child_18;
+					v14x->word_0x2C_44 = entity->word_14;
+					v14x->word_0x96_150 = entity->child_18;
 				}
 			}
 			break;
 		}
 		case 0x0A:
 		{
-			switch (a2x->subtype_0x30311)
+			switch (entity->subtype_0x30311)
 			{
 				case 0x1C:
 				case 0x1D:
@@ -53726,69 +53728,69 @@ void sub_49540(type_str_2FECE* a1x, type_entity_0x30311* a2x)//22a540
 				case 0x32:
 				case 0x50:
 				{
-					if (a2x->stageTag_12)//only 1c,1d,1f, 32 and 50
-						sub_49090(a1x, a2x);
+					if (entity->stageTag_12)//only 1c,1d,1f, 32 and 50
+						sub_49090(terrain, entity);
 					return;
 				}
 				case 0x2D:
 				{
-					x_WORD_EB398ar.x = a2x->axis2d_4.x << 8;//adress 22a5af
-					x_WORD_EB398ar.y = a2x->axis2d_4.y << 8;
+					x_WORD_EB398ar.x = entity->axis2d_4.x << 8;//adress 22a5af
+					x_WORD_EB398ar.y = entity->axis2d_4.y << 8;
 					v3 = sub_10C40_getTerrainAlt(&x_WORD_EB398ar);
 					x_WORD_EB398ar.z = v3;
-					v8x = str_x_DWORD_D4C52ar_0x1D26[a2x->subtype_0x30311].dword_6;
+					v8x = str_x_DWORD_D4C52ar_0x1D26[entity->subtype_0x30311].dword_6;
 					if (v8x)
 					{
 						v5x = pre_sub_4A190_axis_3d(v8x, &x_WORD_EB398ar, 1);//(*(int(**)(int))((char *)&off_D697E + 14 * v4))((int)x_WORD_EB398ar);
 						if (v5x)
-							sub_49A30(v5x, a2x->word_14);
+							sub_49A30(v5x, entity->word_14);
 					}
 					return;
 				}
 			}
-			x_WORD_EB398ar.x = a2x->axis2d_4.x << 8;
-			x_WORD_EB398ar.y = a2x->axis2d_4.y << 8;
+			x_WORD_EB398ar.x = entity->axis2d_4.x << 8;
+			x_WORD_EB398ar.y = entity->axis2d_4.y << 8;
 			x_WORD_EB398ar.z = sub_10C40_getTerrainAlt(&x_WORD_EB398ar);
-			v8x = str_x_DWORD_D4C52ar_0x1D26[a2x->subtype_0x30311].dword_6;
+			v8x = str_x_DWORD_D4C52ar_0x1D26[entity->subtype_0x30311].dword_6;
 			if (v8x)
 			{
 				v8y = pre_sub_4A190_axis_3d(v8x, &x_WORD_EB398ar, 1);
 				if (v8y)
 				{
-					switch (a2x->subtype_0x30311)
+					switch (entity->subtype_0x30311)
 					{
 						case 0x09:
 						case 0x0B:
 						case 0x0F: {
-							v8y->word_0x2A_42 = SPELLS_BEGIN_BUFFER_str[(unsigned __int8)sub_6E020(a2x->subtype_0x30311)].subspell[a2x->word_14].dword_2;
-							if (a2x->subtype_0x30311 == 0x09)//9
-								v8y->dword_0x4 = SPELLS_BEGIN_BUFFER_str[(unsigned __int8)sub_6E020(a2x->subtype_0x30311)].subspell[a2x->word_14].byte_0x1A;
+							v8y->word_0x2A_42 = SPELLS_BEGIN_BUFFER_str[(unsigned __int8)sub_6E020(entity->subtype_0x30311)].subspell[entity->word_14].dword_2;
+							if (entity->subtype_0x30311 == 0x09)//9
+								v8y->dword_0x4 = SPELLS_BEGIN_BUFFER_str[(unsigned __int8)sub_6E020(entity->subtype_0x30311)].subspell[entity->word_14].byte_0x1A;
 							else
-								v8y->dword_0x8 = SPELLS_BEGIN_BUFFER_str[(unsigned __int8)sub_6E020(a2x->subtype_0x30311)].subspell[a2x->word_14].byte_0x1A;
+								v8y->dword_0x8 = SPELLS_BEGIN_BUFFER_str[(unsigned __int8)sub_6E020(entity->subtype_0x30311)].subspell[entity->word_14].byte_0x1A;
 							break;
 						}
 						case 0x52:
 						{
-							v8y->byte_0x46_70 = a2x->child_18;
-							v8y->byte_0x43_67 = a2x->word_14;
-							v8y->byte_0x44_68 = a2x->parent_16;
+							v8y->byte_0x46_70 = entity->child_18;
+							v8y->byte_0x43_67 = entity->word_14;
+							v8y->byte_0x44_68 = entity->parent_16;
 							break;
 						}
 						case 0x53:
 						{
-							v8y->word_0x9A_154x.x = a2x->word_10;
+							v8y->word_0x9A_154x.x = entity->word_10;
 							break;
 						}
 						case 0x55:
 						{
-							v8y->word_0x9A_154x.x = a2x->word_10;
-							v8y->array_0x4C_76.z = a2x->child_18;
+							v8y->word_0x9A_154x.x = entity->word_10;
+							v8y->array_0x4C_76.z = entity->child_18;
 							break;
 						}
 						case 0x58:
 						{
-							v8y->array_0x52_82.xshift = a2x->word_14;
-							v8y->array_0x52_82.yshift = a2x->parent_16;
+							v8y->array_0x52_82.xshift = entity->word_14;
+							v8y->array_0x52_82.yshift = entity->parent_16;
 							break;
 						}
 					}

@@ -45,6 +45,10 @@ bool temparray_0x30311_selected[0x4b0];
 int max_subtype_buttons = 64;
 int max_subsubtype_buttons = 128;
 
+int max_selectdraw_buttons = 7;
+
+int selectedDrawAddCount = 0;
+
 void SetPixelMapSurface(int x,int y,int nx,int ny,uint8_t* adress) {
 	if (nx < 0 || nx>255 || ny < 0 || ny>255)
 	{
@@ -1152,7 +1156,7 @@ static void button_ok1_event(kiss_button* button, SDL_Event* e,	kiss_window* win
 }
 
 
-kiss_window window1, window2, window3,window_selecttype, window_selectsubtype, window_selectsubsubtype, window_selectcheck;
+kiss_window window1, window2, window3,window_selecttype, window_selectsubtype, window_selectsubsubtype, window_selectdraw, window_selectcheck;
 kiss_hex4edit hex4edit1feat = { 0 };
 kiss_hex4edit hex4edit2feat = { 0 };
 kiss_hex4edit hex4edit3feat = { 0 };
@@ -1441,6 +1445,8 @@ kiss_image img_weather;
 kiss_image img_spellB;
 kiss_image img_type2D;
 
+kiss_image img_addcount[7];
+
 
 
 
@@ -1664,9 +1670,19 @@ static int button_add_event(kiss_button* button, SDL_Event* e,	int* quit, int* d
 	return 0;
 }
 
-static int button_addcount_event(kiss_button* button, SDL_Event* e, int* quit, int* draw) {
-	allert_error();
-	return 0;
+static void button_addcount_event(kiss_button* button, kiss_button* buttons, SDL_Event* e, int* draw) {
+	if (kiss_button_event(button, e, draw))
+	{
+		window_selectdraw.visible = 1;
+		window2.focus = 0;
+		window_selectdraw.focus = 1;
+		for (int i = 0; i < 7; i++)
+		{
+			buttons[i].normalimg = img_addcount[i];
+			buttons[i].prelightimg = img_addcount[i];
+			buttons[i].activeimg = img_addcount[i];
+		}	
+	}
 }
 
 static int button_clean_event(kiss_button* button, SDL_Event* e, int* quit, int* draw)
@@ -2231,6 +2247,7 @@ int main_x(/*int argc, char** argv*/)
 		window2_width,window2_height, window3_width, window3_height;
 	int	window_selecttype_width, window_selecttype_height, window_selectsubtype_width, window_selectsubtype_height,
 		window_selectsubsubtype_width, window_selectsubsubtype_height,
+		window_selectdraw_width, window_selectdraw_height,
 		window_selectcheck_width, window_selectcheck_height;
 	int	draw, quit;
 
@@ -2297,6 +2314,7 @@ int main_x(/*int argc, char** argv*/)
 	kiss_button button_type[16]; for (int i = 0; i < 16; i++)button_type[i] = { 0 };
 	kiss_button button_subtype[64]; for (int i = 0; i < 16; i++)button_subtype[i] = { 0 };
 	kiss_button button_subsubtype[128]; for (int i = 0; i < 16; i++)button_subsubtype[i] = { 0 };
+	kiss_button button_selectdraw[7]; for (int i = 0; i < 16; i++)button_subsubtype[i] = { 0 };
 	kiss_button button_check[16]; for (int i = 0; i < 16; i++)button_check[i] = { 0 };
 	kiss_label label_plusFeat = { 0 };
 
@@ -2319,6 +2337,8 @@ int main_x(/*int argc, char** argv*/)
 	window_selectsubtype_height = 330;
 	window_selectsubsubtype_width = 330;
 	window_selectsubsubtype_height = 410;
+	window_selectdraw_width = 85;
+	window_selectdraw_height = 165;
 	window_selectcheck_width = 165;
 	window_selectcheck_height = 165;
 	editor_renderer = kiss_init((char*)"REMC2 Editor", &objects, 1100, 768);
@@ -3075,6 +3095,48 @@ int main_x(/*int argc, char** argv*/)
 	img_check09.image = IMG_LoadTexture(editor_renderer, path2);
 
 
+	FixDir(path2, (char*)"kiss\\draw_1.png");
+	img_addcount[0].w = 32;
+	img_addcount[0].h = 32;
+	img_addcount[0].magic = KISS_MAGIC;
+	img_addcount[0].image = IMG_LoadTexture(editor_renderer, path2);
+
+	FixDir(path2, (char*)"kiss\\draw_5.png");
+	img_addcount[1].w = 32;
+	img_addcount[1].h = 32;
+	img_addcount[1].magic = KISS_MAGIC;
+	img_addcount[1].image = IMG_LoadTexture(editor_renderer, path2);
+
+	FixDir(path2, (char*)"kiss\\draw_5rand.png");
+	img_addcount[2].w = 32;
+	img_addcount[2].h = 32;
+	img_addcount[2].magic = KISS_MAGIC;
+	img_addcount[2].image = IMG_LoadTexture(editor_renderer, path2);
+
+	FixDir(path2, (char*)"kiss\\draw_9.png");
+	img_addcount[3].w = 32;
+	img_addcount[3].h = 32;
+	img_addcount[3].magic = KISS_MAGIC;
+	img_addcount[3].image = IMG_LoadTexture(editor_renderer, path2);
+
+	FixDir(path2, (char*)"kiss\\draw_9rand.png");
+	img_addcount[4].w = 32;
+	img_addcount[4].h = 32;
+	img_addcount[4].magic = KISS_MAGIC;
+	img_addcount[4].image = IMG_LoadTexture(editor_renderer, path2);
+
+	FixDir(path2, (char*)"kiss\\draw_21.png");
+	img_addcount[5].w = 32;
+	img_addcount[5].h = 32;
+	img_addcount[5].magic = KISS_MAGIC;
+	img_addcount[5].image = IMG_LoadTexture(editor_renderer, path2);
+
+	FixDir(path2, (char*)"kiss\\draw_21rand.png");
+	img_addcount[6].w = 32;
+	img_addcount[6].h = 32;
+	img_addcount[6].magic = KISS_MAGIC;
+	img_addcount[6].image = IMG_LoadTexture(editor_renderer, path2);
+
 	kiss_vscrollbar_new(&vscrollbar1, &window1, textbox1.rect.x + textbox_width, textbox1.rect.y, textbox_height);
 	//kiss_textbox_new(&textbox2, &window1, 1, &a2,vscrollbar1.uprect.x + kiss_up.w, textbox1.rect.y,	textbox_width, textbox_height);
 	//kiss_vscrollbar_new(&vscrollbar2, &window1, textbox2.rect.x +textbox_width, vscrollbar1.uprect.y, textbox_height);
@@ -3114,7 +3176,8 @@ int main_x(/*int argc, char** argv*/)
 	kiss_window_new(&window_selecttype, NULL, 1, window2.rect.x + 300, window2.rect.y + 10, window_selecttype_width, window_selecttype_height);
 	kiss_window_new(&window_selectsubtype, NULL, 1, window2.rect.x + 300, window2.rect.y + 30, window_selectsubtype_width, window_selectsubtype_height);
 	kiss_window_new(&window_selectsubsubtype, NULL, 1, window2.rect.x + 300, window2.rect.y + 150, window_selectsubsubtype_width, window_selectsubsubtype_height);
-	
+	kiss_window_new(&window_selectdraw, NULL, 1, window2.rect.x + 450, window2.rect.y + 45, window_selectdraw_width, window_selectdraw_height);
+
 	uint16_t temp_var;
 	kiss_window_new(&window3, NULL, 1, kiss_screen_width / 2 - window3_width / 2, kiss_screen_height / 2 - window3_height / 2, window3_width, window3_height);
 	kiss_window_new(&window_selectcheck, NULL, 1, window3.rect.x + 300, window3.rect.y + 10, window_selectcheck_width, window_selectcheck_height);
@@ -3224,8 +3287,8 @@ int main_x(/*int argc, char** argv*/)
 	kiss_button_new(&button_cleanfeat, &window2, (char*)" ", 300 + window2.rect.x + kiss_up.w + 80, window2.rect.y + 90, &img_clean_normal);
 	button_cleanfeat.prelightimg = img_clean_prelight;
 
-	kiss_button_new(&button_plusfeatcount, &window2, (char*)" ", 300 + window2.rect.x + kiss_up.w + 100, window2.rect.y + 50, &img_add_normal);
-	button_plusfeatcount.prelightimg = img_add_prelight;
+	kiss_button_new(&button_plusfeatcount, &window2, (char*)" ", 300 + window2.rect.x + kiss_up.w + 100, window2.rect.y + 50, &img_addcount[selectedDrawAddCount]);
+	button_plusfeatcount.prelightimg = img_addcount[selectedDrawAddCount];
 
 	kiss_button_new(&button_ok1feat, &window2, (char*)"OK", 300 + window2.rect.x + kiss_up.w + 80, window2.rect.y + 130);
 	//kiss_button_new(&button_cancelfeat, &window2, (char*)"CANCEL", window2.rect.x + window2.rect.w-100-kiss_normal.w / 2, window2.rect.y + 250);
@@ -3273,6 +3336,11 @@ int main_x(/*int argc, char** argv*/)
 	for (int i = 0; i < max_subsubtype_buttons; i++)
 	{
 		kiss_button_new(&button_subsubtype[i], &window_selectsubsubtype, (char*)" ", window_selectsubsubtype.rect.x + kiss_border + ((i % 8) * 40), window_selectsubsubtype.rect.y + kiss_border + ((i / 8) * 40), &img_none);
+		//button_type[i].activeimg = img_none; button_type[i].prelightimg = img_none;
+	}
+	for (int i = 0; i < max_selectdraw_buttons; i++)
+	{
+		kiss_button_new(&button_selectdraw[i], &window_selectdraw, (char*)" ", window_selectdraw.rect.x + kiss_border + ((i % 2) * 40), window_selectdraw.rect.y + kiss_border + ((i / 2) * 40), &img_none);
 		//button_type[i].activeimg = img_none; button_type[i].prelightimg = img_none;
 	}
 
@@ -3468,6 +3536,8 @@ int main_x(/*int argc, char** argv*/)
 			button_selectsubtype_event(&button_selectsubtype, button_subtype, &e, &draw);
 			button_selectsubsubtype_event(&button_selectsubsubtype, button_subsubtype, &e, &draw);
 
+			button_addcount_event(&button_plusfeatcount, button_selectdraw, &e, &draw);
+
 			button_ok_event(&button_ok1feat, &e, &quit, &draw);
 			button_cancel_event(&button_cancel, &e, &quit, &draw);
 			button_savelevel_event(&button_levelsave, &e, &draw);
@@ -3530,6 +3600,16 @@ int main_x(/*int argc, char** argv*/)
 					set_button_image_subsubtype(&act_img_subsubtype, *(int16_t*)hex4edit1feat.valueadress, *(int16_t*)hex4edit2feat.valueadress, *(int16_t*)hex4edit8feat.valueadress);
 
 					changed2 = true; zoomchanged = true;
+				}
+			}
+			for (int i = 0; i < max_selectdraw_buttons; i++)
+			{
+				int retvar = button_type_event(&button_selectdraw[i], &e, &draw, i, &window2, &window_selectdraw);
+				if (retvar > -1)
+				{
+					selectedDrawAddCount = retvar;
+					button_plusfeatcount.prelightimg = img_addcount[retvar];
+					button_plusfeatcount.normalimg = img_addcount[retvar];
 				}
 			}
 
@@ -3609,7 +3689,7 @@ int main_x(/*int argc, char** argv*/)
 			{
 				changed2 = true; zoomchanged = true;
 			}
-			if (button_addcount_event(&button_plusfeatcount, &e, &quit, &draw)){}
+			
 			if (select1_feat_event(&select1feat, &e, &objects, &draw))
 			{
 				changed2 = true; zoomchanged = true;
@@ -3791,6 +3871,8 @@ int main_x(/*int argc, char** argv*/)
 		kiss_window_draw(&window_selectsubsubtype, editor_renderer);
 		for (int i = 0; i < max_subsubtype_buttons; i++)kiss_button_draw(&button_subsubtype[i], editor_renderer);
 
+		kiss_window_draw(&window_selectdraw, editor_renderer);
+		for (int i = 0; i < max_selectdraw_buttons; i++)kiss_button_draw(&button_selectdraw[i], editor_renderer);
 
 		for (int i = 0; i < 9; i++)kiss_button_draw(&button_check[i], editor_renderer);
 		
