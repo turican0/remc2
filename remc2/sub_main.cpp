@@ -52228,9 +52228,9 @@ void sub_480A0_set_clear_pallette(/*int a1, int a2, int a3*/)//2290a0
 	sub_90B27_VGA_pal_fadein_fadeout(0, 0x10u, 0);
 	D41A0_BYTESTR_0.dword_0x23a = 0;
 
-	sprintf(dataPath, "%s/%s", cdDataPath, "data/pald-0.dat");
+	sprintf(dataPath, "%s/%s", cdDataPath, "DATA/PALD-0.DAT");
 	DataFileIO::ReadFileAndDecompress(dataPath, xadatapald0dat2.var28_begin_buffer);
-	sprintf(dataPath, "%s/%s", cdDataPath, "data/clrd-0.dat");
+	sprintf(dataPath, "%s/%s", cdDataPath, "DATA/CLRD-0.DAT");
 	DataFileIO::ReadFileAndDecompress(dataPath, xadataclrd0dat.var28_begin_buffer);
 	sub_48120();
 }
@@ -67649,7 +67649,7 @@ char SaveSMAPSLEVmovie_54D30(__int16 a1)//235d30 //in game load
 	v9 = D41A0_BYTESTR_0.str_0x21AE;
 	v10 = D41A0_BYTESTR_0.str_0x21B2;
 	v11 = D41A0_BYTESTR_0.str_0x21B6;
-	sprintf(printbuffer, "%s/%s%03d.dat", "movie", "SMAP", a1);
+	sprintf(printbuffer, "%s/%s%03d.DAT", "MOVIE", "SMAP", a1);
 	savedfile = DataFileIO::CreateOrOpenFile(printbuffer, 512);
 	//v2 = moviesmapfile;
 	if (savedfile)
@@ -67663,7 +67663,7 @@ char SaveSMAPSLEVmovie_54D30(__int16 a1)//235d30 //in game load
 		DataFileIO::Read(savedfile, (uint8_t*)x_BYTE_F2CD0x, 4802);
 		DataFileIO::Close(savedfile);
 	}
-	sprintf(printbuffer, "%s/%s%03d.dat", "movie", "SLEV", a1);
+	sprintf(printbuffer, "%s/%s%03d.DAT", "MOVIE", "SLEV", a1);
 
 	//fix this !!!!
 	//allert_error();
@@ -67724,14 +67724,14 @@ char SaveSMAPSLEVmovie2_54F00(__int16 a1)//235f00 //in game save
 	success = 1;
 	sub_71930();
 	sub_55100(1);
-	sprintf(printbuffer, "%s/%s%03d.dat", "movie", "SLEV", a1);
+	sprintf(printbuffer, "%s/%s%03d.DAT", "MOVIE", "SLEV", a1);
 	//v1 = (uint8_t*)x_D41A0_BYTEARRAY_0;
 	D41A0_BYTESTR_0.dword_0x36DF6 = &str_D7BD6[59]; //(uint32_t)&unk_D7BD6[0x7d6];
 
   int size = sizeof(type_shadow_D41A0_BYTESTR_0);
 	sub_98C48_open_nwrite_close(printbuffer, (uint8_t*)&D41A0_BYTESTR_0, size);
 
-	sprintf(printbuffer, "%s/%s%03d.dat", "movie", "SMAP", a1);
+	sprintf(printbuffer, "%s/%s%03d.DAT", "MOVIE", "SMAP", a1);
 	file = DataFileIO::CreateOrOpenFile(printbuffer, 546);
 	//v3 = v2;
 	if (file != NULL)
@@ -67921,7 +67921,7 @@ char SaveLevelSLEV_55250(uint8_t savefileindex, char* savefileindex2)//236250 //
 	//fix for saving
 
 	success = 0;
-	sprintf(printbuffer, "%s/%s/%s%d%s.dat", gameDataPath, "SAVE", "SLEV", savefileindex + 1, savefileindex2);
+	sprintf(printbuffer, "%s/%s/%s%d%s.DAT", gameDataPath, "SAVE", "SLEV", savefileindex + 1, savefileindex2);
 	D41A0_BYTESTR_0.dword_0x36DF6 = &str_D7BD6[59]; //(x_DWORD)&unk_D7BD6[0x7d6];
 	temptime = D41A0_BYTESTR_0.array_0x2BDE[D41A0_BYTESTR_0.word_0xc].dword_0x3E6_2BE4_12228.dword_0x189_393;
 	acttime = j___clock();
@@ -67963,7 +67963,7 @@ bool SaveLevelSMAP_55320(uint8_t savefileindex, char* savefileindex2)//236320 //
 	debug_printf("InGameSave-begin\n");
 #endif //DEBUG_START
 
-	sprintf(printbuffer, "%s/%s/%s%d%s.dat", gameDataPath, "SAVE", "SMAP", savefileindex + 1, savefileindex2);
+	sprintf(printbuffer, "%s/%s/%s%d%s.DAT", gameDataPath, "SAVE", "SMAP", savefileindex + 1, savefileindex2);
 	savesmapfile = DataFileIO::CreateOrOpenFile(printbuffer, 546);
 	if (savesmapfile)
 	{
@@ -67993,7 +67993,7 @@ char SaveLevelSVER_55450(uint8_t savefileindex, int32_t levelNumber, char* savef
 	data[1] = levelNumber;
 	data[0] = 15;
 	success = 0;
-	sprintf(printbuffer, "%s/%s/%s%d%s.dat", gameDataPath, "SAVE", "SVER", savefileindex + 1, savefileindex2);
+	sprintf(printbuffer, "%s/%s/%s%d%s.DAT", gameDataPath, "SAVE", "SVER", savefileindex + 1, savefileindex2);
 	if (sub_98C48_open_nwrite_close(printbuffer, (uint8_t*)data, 2*sizeof(int32_t)) == 8)
 		success = 1;
 	return success;
@@ -68227,7 +68227,7 @@ char LoadLevelSLEV_55A10(uint8_t savefileindex)//236a10
 {
 	char success; // bl
 	success = 0;
-	sprintf(printbuffer, "%s/%s/%s%d.dat", gameDataPath, "SAVE", "SLEV", savefileindex + 1);
+	sprintf(printbuffer, "%s/%s/%s%d.DAT", gameDataPath, "SAVE", "SLEV", savefileindex + 1);
 	//x64 fix
 	uint8_t* D41A0_pointer;
 	type_shadow_D41A0_BYTESTR_0 shadow_D41A0_BYTESTR_0;
