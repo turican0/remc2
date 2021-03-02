@@ -79,7 +79,7 @@ uint8_t unk_D4A30[0x120] = {//terrain gen
 int countcompindexes = 0;
 typedef struct {
 	int index;
-	int adress;
+	uint32_t adress;
 } type_compstr;
 //int compindexes[100];//compstr[i].index
 //int compadresses[100];//compstr[i].adress
@@ -764,7 +764,7 @@ void sub_45210(uint8_t a1, uint8_t a2)//226210
 {
 	uint16_t v2; // dx
 	uint16_t v3; // eax
-	char v4; // t1
+	//char v4; // t1
 	uint8_t v5; // bl
 	uint8_t v6; // bh
 	//unsigned __int16 v7; // dx
@@ -779,7 +779,7 @@ void sub_45210(uint8_t a1, uint8_t a2)//226210
 	do
 	{
 		BYTE1(v3) = 0xffu;
-		v4 = x_BYTE_13B4E0_angle[v2];
+		//v4 = x_BYTE_13B4E0_angle[v2];
 		v5 = 0;
 		v6 = 0;
 		if (x_BYTE_11B4E0_heightmap[v2] > 0u)
@@ -947,30 +947,30 @@ void sub_45600(uint8_t a1)//226600
 	__int16 v7; // bx
 	char v8; // dh
 	char v9; // dl
-	char v10; // t0
-	char v11; // t0
-	char v12; // t0
-	char v13; // t0
-	char v14; // t0
-	char v15; // t0
-	char v16; // t0
-	char v17; // t0
-	char v18; // t0
-	char v19; // t0
-	char v20; // t0
-	char v21; // t0
-	char v22; // t0
-	char v23; // t0
-	char v24; // t0
-	char v25; // t0
-	char v26; // t0
-	char v27; // t0
-	char v28; // t0
-	char v29; // t0
-	char v30; // t0
-	char v31; // t0
-	char v32; // t0
-	char v33; // t0
+	//char v10; // t0
+	//char v11; // t0
+	//char v12; // t0
+	//char v13; // t0
+	//char v14; // t0
+	//char v15; // t0
+	//char v16; // t0
+	//char v17; // t0
+	//char v18; // t0
+	//char v19; // t0
+	//char v20; // t0
+	//char v21; // t0
+	//char v22; // t0
+	//char v23; // t0
+	//char v24; // t0
+	//char v25; // t0
+	//char v26; // t0
+	//char v27; // t0
+	//char v28; // t0
+	//char v29; // t0
+	//char v30; // t0
+	//char v31; // t0
+	//char v32; // t0
+	//char v33; // t0
 
 	// fix if begin
 	//v4 = 0;
@@ -1030,11 +1030,11 @@ void sub_45600(uint8_t a1)//226600
 			v9 = 1;
 		if (x_BYTE_13B4E0_angle[index] == 5)
 			LOBYTE(v7) = 1;
-		v10 = x_BYTE_13B4E0_angle[index];
-		v11 = x_BYTE_13B4E0_angle[index];
+		//v10 = x_BYTE_13B4E0_angle[index];
+		//v11 = x_BYTE_13B4E0_angle[index];
 		if (x_BYTE_13B4E0_angle[index] == 4)
 			v8 = 1;
-		v12 = x_BYTE_13B4E0_angle[index];
+		//v12 = x_BYTE_13B4E0_angle[index];
 		LOBYTE(index)++;
 		if (x_BYTE_13B4E0_angle[index] == 3)
 			HIBYTE(v7)++;
@@ -1042,11 +1042,11 @@ void sub_45600(uint8_t a1)//226600
 			v9++;
 		if (x_BYTE_13B4E0_angle[index] == 5)
 			LOBYTE(v7)++;
-		v13 = x_BYTE_13B4E0_angle[index];
-		v14 = x_BYTE_13B4E0_angle[index];
+		//v13 = x_BYTE_13B4E0_angle[index];
+		//v14 = x_BYTE_13B4E0_angle[index];
 		if (x_BYTE_13B4E0_angle[index] == 4)
 			v8++;
-		v15 = x_BYTE_13B4E0_angle[index];
+		//v15 = x_BYTE_13B4E0_angle[index];
 		HIBYTE(index)++;
 		if (x_BYTE_13B4E0_angle[index] == 3)
 			HIBYTE(v7)++;
@@ -1054,11 +1054,11 @@ void sub_45600(uint8_t a1)//226600
 			v9++;
 		if (x_BYTE_13B4E0_angle[index] == 5)
 			LOBYTE(v7)++;
-		v16 = x_BYTE_13B4E0_angle[index];
-		v17 = x_BYTE_13B4E0_angle[index];
+		//v16 = x_BYTE_13B4E0_angle[index];
+		//v17 = x_BYTE_13B4E0_angle[index];
 		if (x_BYTE_13B4E0_angle[index] == 4)
 			v8++;
-		v18 = x_BYTE_13B4E0_angle[index];
+		//v18 = x_BYTE_13B4E0_angle[index];
 		HIBYTE(index)++;
 		if (x_BYTE_13B4E0_angle[index] == 3)
 			HIBYTE(v7)++;
@@ -1066,11 +1066,11 @@ void sub_45600(uint8_t a1)//226600
 			v9++;
 		if (x_BYTE_13B4E0_angle[index] == 5)
 			LOBYTE(v7)++;
-		v19 = x_BYTE_13B4E0_angle[index];
-		v20 = x_BYTE_13B4E0_angle[index];
+		//v19 = x_BYTE_13B4E0_angle[index];
+		//v20 = x_BYTE_13B4E0_angle[index];
 		if (x_BYTE_13B4E0_angle[index] == 4)
 			v8++;
-		v21 = x_BYTE_13B4E0_angle[index];
+		//v21 = x_BYTE_13B4E0_angle[index];
 		LOBYTE(index) = index - 1;
 		if (x_BYTE_13B4E0_angle[index] == 3)
 			HIBYTE(v7)++;
@@ -1078,11 +1078,11 @@ void sub_45600(uint8_t a1)//226600
 			v9++;
 		if (x_BYTE_13B4E0_angle[index] == 5)
 			LOBYTE(v7)++;
-		v22 = x_BYTE_13B4E0_angle[index];
-		v23 = x_BYTE_13B4E0_angle[index];
+		//v22 = x_BYTE_13B4E0_angle[index];
+		//v23 = x_BYTE_13B4E0_angle[index];
 		if (x_BYTE_13B4E0_angle[index] == 4)
 			v8++;
-		v24 = x_BYTE_13B4E0_angle[index];
+		//v24 = x_BYTE_13B4E0_angle[index];
 		LOBYTE(index)--;
 		if (x_BYTE_13B4E0_angle[index] == 3)
 			HIBYTE(v7)++;
@@ -1090,11 +1090,11 @@ void sub_45600(uint8_t a1)//226600
 			v9++;
 		if (x_BYTE_13B4E0_angle[index] == 5)
 			LOBYTE(v7)++;
-		v25 = x_BYTE_13B4E0_angle[index];
-		v26 = x_BYTE_13B4E0_angle[index];
+		//v25 = x_BYTE_13B4E0_angle[index];
+		//v26 = x_BYTE_13B4E0_angle[index];
 		if (x_BYTE_13B4E0_angle[index] == 4)
 			v8++;
-		v27 = x_BYTE_13B4E0_angle[index];
+		//v27 = x_BYTE_13B4E0_angle[index];
 		HIBYTE(index)--;
 		if (x_BYTE_13B4E0_angle[index] == 3)
 			HIBYTE(v7)++;
@@ -1102,11 +1102,11 @@ void sub_45600(uint8_t a1)//226600
 			v9++;
 		if (x_BYTE_13B4E0_angle[index] == 5)
 			LOBYTE(v7)++;
-		v28 = x_BYTE_13B4E0_angle[index];
-		v29 = x_BYTE_13B4E0_angle[index];
+		//v28 = x_BYTE_13B4E0_angle[index];
+		//v29 = x_BYTE_13B4E0_angle[index];
 		if (x_BYTE_13B4E0_angle[index] == 4)
 			v8++;
-		v30 = x_BYTE_13B4E0_angle[index];
+		//v30 = x_BYTE_13B4E0_angle[index];
 		HIBYTE(index)--;
 		if (x_BYTE_13B4E0_angle[index] == 3)
 			HIBYTE(v7)++;
@@ -1114,11 +1114,11 @@ void sub_45600(uint8_t a1)//226600
 			v9++;
 		if (x_BYTE_13B4E0_angle[index] == 5)
 			LOBYTE(v7)++;
-		v31 = x_BYTE_13B4E0_angle[index];
-		v32 = x_BYTE_13B4E0_angle[index];
+		//v31 = x_BYTE_13B4E0_angle[index];
+		//v32 = x_BYTE_13B4E0_angle[index];
 		if (x_BYTE_13B4E0_angle[index] == 4)
 			v8++;
-		v33 = x_BYTE_13B4E0_angle[index];
+		//v33 = x_BYTE_13B4E0_angle[index];
 		LOBYTE(index)++;
 		HIBYTE(index)++;
 		if (HIBYTE(v7))
@@ -1126,7 +1126,7 @@ void sub_45600(uint8_t a1)//226600
 			if (v9 || LOBYTE(v7) || v8)
 				goto LABEL_99;
 		}
-		else if (v9 || LOBYTE(v7) && v8)
+		else if (v9 || (LOBYTE(v7) && v8))
 		{
 		LABEL_99:
 			x_BYTE_13B4E0_angle[index] = 1;
@@ -2077,7 +2077,7 @@ void sub_43BB0()//224bb0
 	unsigned __int16 v1; // cx
 	signed int v2; // ebx
 	unsigned __int16 v3; // bx
-	int v4; // eax
+	//int v4; // eax
 	unsigned __int8 v5; // dh
 	char v6; // cl
 
@@ -2100,7 +2100,7 @@ void sub_43BB0()//224bb0
 	v3 = 0;
 	do
 	{
-		v4 = v3;
+		//v4 = v3;
 		v5 = x_BYTE_11B4E0_heightmap[v3];
 		if ((unsigned __int8)x_BYTE_14B4E0_second_heightmap[v3] > v5)
 		{
