@@ -3615,7 +3615,7 @@ void Convert_from_shadow_str_2FECE(type_shadow_str_2FECE* from, type_str_2FECE* 
 	for (int i = 0; i < 2; i++)to->stubj[i] = from->stubj[i];
 	to->rkSte_0x2FF11 = from->word_0x2FF11;
 	for (int i = 0; i < 1022; i++)to->stubk[i] = from->stubk[i];
-	for (int i = 0; i < 1200; i++)to->array_0x30311[i] = from->array_0x30311[i];
+	for (int i = 0; i < 1200; i++)to->entity_0x30311[i] = from->array_0x30311[i];
 	to->next_0x360D1 = from->next_0x360D1;
 	for (int i = 0; i < 8; i++)to->next_0x360D2[i] = from->next_0x360D2[i];
 	for (int i = 0; i < 8; i++)to->str_0x36442[i] = from->str_0x36442[i];
@@ -3758,7 +3758,7 @@ void Convert_from_shadow_D41A0_BYTESTR_0(type_shadow_D41A0_BYTESTR_0* from, type
 	for (int i = 0; i < 2; i++)to->terrain_2FECE.stubj[i] = from->str_2FECE.stubj[i];
 	to->terrain_2FECE.rkSte_0x2FF11 = from->str_2FECE.word_0x2FF11;
 	for (int i = 0; i < 1022; i++)to->terrain_2FECE.stubk[i] = from->str_2FECE.stubk[i];
-	for (int i = 0; i < 1200; i++)to->terrain_2FECE.array_0x30311[i] = from->str_2FECE.array_0x30311[i];
+	for (int i = 0; i < 1200; i++)to->terrain_2FECE.entity_0x30311[i] = from->str_2FECE.array_0x30311[i];
 	to->terrain_2FECE.next_0x360D1 = from->str_2FECE.next_0x360D1;
 	for (int i = 0; i < 8; i++)to->terrain_2FECE.next_0x360D2[i] = from->str_2FECE.next_0x360D2[i];
 	for (int i = 0; i < 8; i++)to->terrain_2FECE.str_0x36442[i] = from->str_2FECE.str_0x36442[i];
@@ -3965,7 +3965,7 @@ void Convert_to_shadow_D41A0_BYTESTR_0(type_D41A0_BYTESTR_0* from, type_shadow_D
 	for (int i = 0; i < 2; i++)to->str_2FECE.stubj[i] = from->terrain_2FECE.stubj[i];
 	to->str_2FECE.word_0x2FF11 = from->terrain_2FECE.rkSte_0x2FF11;
 	for (int i = 0; i < 1022; i++)to->str_2FECE.stubk[i] = from->terrain_2FECE.stubk[i];
-	for (int i = 0; i < 1200; i++)to->str_2FECE.array_0x30311[i] = from->terrain_2FECE.array_0x30311[i];
+	for (int i = 0; i < 1200; i++)to->str_2FECE.array_0x30311[i] = from->terrain_2FECE.entity_0x30311[i];
 	to->str_2FECE.next_0x360D1 = from->terrain_2FECE.next_0x360D1;
 	for (int i = 0; i < 8; i++)to->str_2FECE.next_0x360D2[i] = from->terrain_2FECE.next_0x360D2[i];
 	for (int i = 0; i < 8; i++)to->str_2FECE.str_0x36442[i] = from->terrain_2FECE.str_0x36442[i];

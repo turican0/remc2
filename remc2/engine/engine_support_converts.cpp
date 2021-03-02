@@ -609,7 +609,7 @@ void convert_struct_to_array_2FECE(type_str_2FECE* input, uint8_t* output) {//le
 	memset(output + 69, 0, 1022);
 	//type_str_0x30311 array_0x30311[0x4b0];//end(next entity) - 0x360d1//1091
 	for (int i = 0; i < 0x4b0; i++)
-		convert_struct_to_array_0x30311(&input->array_0x30311[i], output + 1091+i*20);
+		convert_struct_to_array_0x30311(&input->entity_0x30311[i], output + 1091+i*20);
 	//uint8_t next_0x360D1;//6203
 	memcpy(output + 6203, &input->next_0x360D1, 1);
 	//type_str_0x360D2 next_0x360D2[8];//lenght 110//25092

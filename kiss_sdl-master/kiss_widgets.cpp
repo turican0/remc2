@@ -59,10 +59,6 @@ int kiss_window_draw(kiss_window *window, SDL_Renderer *renderer)
 	if (!window || !window->visible || !renderer) return 0;
 	kiss_fillrect2(renderer, &window->rect, window->bg);
 
-	/*SDL_Rect highlightrect2;
-	kiss_makerect(&highlightrect2, 0, 0, window->rect.w, window->rect.h);
-	kiss_renderimage(renderer, *img, window->rect.x, window->rect.y, &highlightrect2);*/
-
 	if (window->decorate)
 		kiss_decorate(renderer, &window->rect, kiss_blue, kiss_edge);
 	return 1;

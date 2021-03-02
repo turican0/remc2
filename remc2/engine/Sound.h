@@ -7,6 +7,17 @@
 
 #include "Basic.h"
 
+#pragma pack (1)
+typedef struct {//lenght 12
+	int16_t word_0;
+	int16_t word_1;
+	int16_t word_2;
+	int16_t word_3;
+	int16_t word_4;
+	int16_t word_5;
+}type_F4FE0;
+#pragma pack (16)
+
 extern char x_BYTE_E3799_sound_card;
 extern char x_BYTE_E37FD;
 extern char x_BYTE_E3798_sound_active2;
