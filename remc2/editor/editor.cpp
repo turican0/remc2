@@ -49,6 +49,16 @@ int max_selectdraw_buttons = 7;
 
 int selectedDrawAddCount = 0;
 
+int RelPosDrawAddCount = 1;
+
+typedef struct {
+	int x;
+	int y;
+} TypePos;
+
+
+TypePos RelPos[21];
+
 void SetPixelMapSurface(int x,int y,int nx,int ny,uint8_t* adress) {
 	if (nx < 0 || nx>255 || ny < 0 || ny>255)
 	{
@@ -1619,52 +1629,61 @@ static int button_del_event(kiss_button* button, SDL_Event* e,	int* quit, int* d
 	return 0;
 }
 
-static int button_add_event(kiss_button* button, SDL_Event* e,	int* quit, int* draw)
+static int  CloneEvent(int x, int y) {
+	for (int i = 0x4b0 - 1; i > edited_line_old + 1; i--)
+	{
+		/*for (int j = 0; j < 0x4b0; j++)
+		{
+			if ((temparray_0x30311[j].type_0x30311 == 0xa) && (temparray_0x30311[j].subtype_0x30311 == 0x1d))
+				if (temparray_0x30311[j].word_14 == i - 1)
+					temparray_0x30311[j].word_14++;
+		}*/
+		for (int j = 0; j < 8; j++)
+		{
+			if ((D41A0_BYTESTR_0.terrain_2FECE.str_0x36442[j].index_0 == 1) ||
+				(D41A0_BYTESTR_0.terrain_2FECE.str_0x36442[j].index_0 == 7) ||
+				(D41A0_BYTESTR_0.terrain_2FECE.str_0x36442[j].index_0 == 9))
+				if (D41A0_BYTESTR_0.terrain_2FECE.str_0x36442[j].stage_1 == i)
+					D41A0_BYTESTR_0.terrain_2FECE.str_0x36442[j].stage_1++;
+		}
+
+		temparray_0x30311[i] = temparray_0x30311[i - 1];
+		temparray_0x30311_inactive[i] = temparray_0x30311_inactive[i - 1];
+		temparray_0x30311_selected[i] = temparray_0x30311_selected[i - 1];
+	}
+	for (int i = 0; i < 0x4b0; i++) {
+		if ((temparray_0x30311[i].child_18 > edited_line_old) && (temparray_0x30311[i].child_18 != 0))
+			temparray_0x30311[i].child_18++;
+		if ((temparray_0x30311[i].parent_16 > edited_line_old) && (temparray_0x30311[i].parent_16 != 0))
+			temparray_0x30311[i].parent_16++;
+		if ((temparray_0x30311[i].type_0x30311 == 0xa) && (temparray_0x30311[i].subtype_0x30311 == 0x1d))
+			if ((temparray_0x30311[i].word_14 > edited_line_old) && (temparray_0x30311[i].word_14 != 0))
+				temparray_0x30311[i].word_14++;
+	}
+	//memset(&temparray_0x30311[edited_line_old+1], 0, sizeof(temparray_0x30311[edited_line_old+1]));
+	temparray_0x30311_inactive[edited_line_old + 1] = false;
+	temparray_0x30311_selected[edited_line_old + 1] = false;
+	temparray_0x30311[edited_line_old + 1+1].axis2d_4.x+=x;
+	temparray_0x30311[edited_line_old + 1+1].axis2d_4.y+=y;
+	kiss_hex4edit_update_adress(&hex4edit1feat, &temparray_0x30311[edited_line_old + 1].type_0x30311);
+	kiss_hex4edit_update_adress(&hex4edit2feat, &temparray_0x30311[edited_line_old + 1].subtype_0x30311);
+	kiss_hex4edit_update_adress(&hex4edit3feat, &temparray_0x30311[edited_line_old + 1].axis2d_4.x);
+	kiss_hex4edit_update_adress(&hex4edit4feat, &temparray_0x30311[edited_line_old + 1].axis2d_4.y);
+	kiss_hex4edit_update_adress(&hex4edit5feat, &temparray_0x30311[edited_line_old + 1].DisId);
+	kiss_hex4edit_update_adress(&hex4edit6feat, &temparray_0x30311[edited_line_old + 1].word_10);
+	kiss_hex4edit_update_adress(&hex4edit7feat, &temparray_0x30311[edited_line_old + 1].stageTag_12);
+	kiss_hex4edit_update_adress(&hex4edit8feat, &temparray_0x30311[edited_line_old + 1].word_14);
+	kiss_hex4edit_update_adress(&hex4edit9feat, &temparray_0x30311[edited_line_old + 1].parent_16);
+	kiss_hex4edit_update_adress(&hex4edit10feat, &temparray_0x30311[edited_line_old + 1].child_18);
+	return 1;
+};
+
+static int button_clone_event(kiss_button* button, SDL_Event* e,	int* quit, int* draw)
 {
 	if (kiss_button_event(button, e, draw))
 	{
-		for (int i = 0x4b0 - 1; i > edited_line_old + 1; i--)
-		{
-			for (int j = 0; j < 0x4b0; j++)
-			{
-				if((temparray_0x30311[j].type_0x30311==0xa)&& (temparray_0x30311[j].subtype_0x30311 == 0x1d))
-				if (temparray_0x30311[j].word_14 == i-1)
-					temparray_0x30311[j].word_14++;
-			}
-			for (int j = 0; j < 8; j++)
-			{
-				if ((D41A0_BYTESTR_0.terrain_2FECE.str_0x36442[j].index_0 == 1) ||
-					(D41A0_BYTESTR_0.terrain_2FECE.str_0x36442[j].index_0 == 7) ||
-					(D41A0_BYTESTR_0.terrain_2FECE.str_0x36442[j].index_0 == 9))
-					if (D41A0_BYTESTR_0.terrain_2FECE.str_0x36442[j].stage_1 == i)
-						D41A0_BYTESTR_0.terrain_2FECE.str_0x36442[j].stage_1++;
-			}
-
-			temparray_0x30311[i] = temparray_0x30311[i - 1];
-			temparray_0x30311_inactive[i] = temparray_0x30311_inactive[i-1];
-			temparray_0x30311_selected[i] = temparray_0x30311_selected[i - 1];
-		}
-		for (int i = 0; i < 0x4b0; i++) {
-			if ((temparray_0x30311[i].child_18 > edited_line_old) && (temparray_0x30311[i].child_18 != 0))
-				temparray_0x30311[i].child_18++;
-			if ((temparray_0x30311[i].parent_16 > edited_line_old) && (temparray_0x30311[i].parent_16 != 0))
-				temparray_0x30311[i].parent_16++;
-			if ((temparray_0x30311[i].word_14 > edited_line_old) && (temparray_0x30311[i].word_14 != 0))
-				temparray_0x30311[i].word_14++;
-		}
-		//memset(&temparray_0x30311[edited_line_old+1], 0, sizeof(temparray_0x30311[edited_line_old+1]));
-		temparray_0x30311_inactive[edited_line_old + 1] = false;
-		temparray_0x30311_selected[edited_line_old + 1] = false;
-		kiss_hex4edit_update_adress(&hex4edit1feat, &temparray_0x30311[edited_line_old + 1].type_0x30311);
-		kiss_hex4edit_update_adress(&hex4edit2feat, &temparray_0x30311[edited_line_old + 1].subtype_0x30311);
-		kiss_hex4edit_update_adress(&hex4edit3feat, &temparray_0x30311[edited_line_old + 1].axis2d_4.x);
-		kiss_hex4edit_update_adress(&hex4edit4feat, &temparray_0x30311[edited_line_old + 1].axis2d_4.y);
-		kiss_hex4edit_update_adress(&hex4edit5feat, &temparray_0x30311[edited_line_old + 1].DisId);
-		kiss_hex4edit_update_adress(&hex4edit6feat, &temparray_0x30311[edited_line_old + 1].word_10);
-		kiss_hex4edit_update_adress(&hex4edit7feat, &temparray_0x30311[edited_line_old + 1].stageTag_12);
-		kiss_hex4edit_update_adress(&hex4edit8feat, &temparray_0x30311[edited_line_old + 1].word_14);
-		kiss_hex4edit_update_adress(&hex4edit9feat, &temparray_0x30311[edited_line_old + 1].parent_16);
-		kiss_hex4edit_update_adress(&hex4edit10feat, &temparray_0x30311[edited_line_old + 1].child_18);
+		for(int i=0;i< RelPosDrawAddCount;i++)
+			CloneEvent(RelPos[i].x, RelPos[i].y);
 		return 1;
 	}
 	return 0;
@@ -2308,7 +2327,7 @@ int main_x(/*int argc, char** argv*/)
 
 	kiss_label levelSelFeat = { 0 };
 	kiss_selectbutton select1feat = { 0 };
-	kiss_button button_ok1feat = { 0 }, button_ok1check = { 0 },button_plusfeat = { 0 }, button_deletefeat = { 0 }, button_cleanfeat = { 0 },
+	kiss_button button_ok1feat = { 0 }, button_ok1check = { 0 },button_clonefeat = { 0 }, button_deletefeat = { 0 }, button_cleanfeat = { 0 },
 		button_plusfeatcount = { 0 }, button_selecttype = { 0 }, button_selectcheck = {0},
 		button_selectsubtype = { 0 }, button_selectsubsubtype = {0};
 	kiss_button button_type[16]; for (int i = 0; i < 16; i++)button_type[i] = { 0 };
@@ -3280,8 +3299,8 @@ int main_x(/*int argc, char** argv*/)
 	kiss_label_new(&levelSelFeat, &window2, (char*)"Active:", 300 + window2.rect.x + kiss_up.w, window2.rect.y + 30);
 	kiss_selectbutton_new(&select1feat, &window2, 300 + window2.rect.x + kiss_up.w + 80, window2.rect.y + 30);
 	kiss_label_new(&label_plusFeat, &window2, (char*)"Add:", 300 + window2.rect.x + kiss_up.w, window2.rect.y + 50);
-	kiss_button_new(&button_plusfeat, &window2, (char*)" ", 300 + window2.rect.x + kiss_up.w + 80, window2.rect.y + 50, &img_add_normal);
-	button_plusfeat.prelightimg = img_add_prelight;
+	kiss_button_new(&button_clonefeat, &window2, (char*)" ", 300 + window2.rect.x + kiss_up.w + 80, window2.rect.y + 50, &img_add_normal);
+	button_clonefeat.prelightimg = img_add_prelight;
 	kiss_button_new(&button_deletefeat, &window2, (char*)" ", 300 + window2.rect.x + kiss_up.w + 80, window2.rect.y + 70, &img_delete_normal);
 	button_deletefeat.prelightimg = img_delete_prelight;
 	kiss_button_new(&button_cleanfeat, &window2, (char*)" ", 300 + window2.rect.x + kiss_up.w + 80, window2.rect.y + 90, &img_clean_normal);
@@ -3423,6 +3442,10 @@ int main_x(/*int argc, char** argv*/)
 				set_button_image_subsubtype(&act_img_subsubtype, temparray_0x30311[edited_line_old + 1].type_0x30311, temparray_0x30311[edited_line_old + 1].subtype_0x30311, temparray_0x30311[edited_line_old + 1].word_14);
 				kiss_hex4edit_update_adress(&hex4edit9feat, &temparray_0x30311[edited_line_old + 1].parent_16);
 				kiss_hex4edit_update_adress(&hex4edit10feat, &temparray_0x30311[edited_line_old + 1].child_18);
+				selectedDrawAddCount = 0;
+				button_plusfeatcount.normalimg = img_addcount[selectedDrawAddCount];
+				button_plusfeatcount.prelightimg = img_addcount[selectedDrawAddCount];
+				
 				char* textbuff = (char*)objects.data[edited_line_old];
 				if (textbuff[strlen(textbuff) - 1] == 'I')
 					select1feat.selected = false;
@@ -3609,7 +3632,121 @@ int main_x(/*int argc, char** argv*/)
 				{
 					selectedDrawAddCount = retvar;
 					button_plusfeatcount.prelightimg = img_addcount[retvar];
-					button_plusfeatcount.normalimg = img_addcount[retvar];
+					button_plusfeatcount.normalimg = img_addcount[retvar];					
+					switch (retvar)
+					{
+						case 0:
+						{
+							RelPosDrawAddCount = 1;
+							RelPos[0].x = 0;
+							RelPos[0].y = 0;
+							break;
+						}
+						case 1:
+						{
+							RelPosDrawAddCount = 5;
+							int index = 0;
+							for (int i = -1; i <= 1; i++)
+								for (int j = -1; j <= 1; j++)
+									if(((i!=-1)&& (i != 1))||((j != -1)&& (j != 1)))
+									{
+										RelPos[index].x = i;
+										RelPos[index].y = j;
+										index++;
+									}
+							break;
+						}
+						case 2:
+						{
+							RelPosDrawAddCount = 5;
+							int index = 0;
+							while (index < 5)
+							{
+								int testx = (rand() * 9) - 4;
+								int testy = (rand() * 9) - 4;
+								bool different = true;
+								for (int i = 0; i < index; i++)
+									if ((RelPos[index].x == testx) && (RelPos[index].y == testy))
+										different = false;
+								if (different)
+								{
+									RelPos[index].x = testx;
+									RelPos[index].y = testy;
+									index++;
+								}
+							}
+							break;
+						}
+						case 3:
+						{
+							RelPosDrawAddCount = 9;
+							int index = 0;
+							for (int i = -1; i <= 1; i++)
+								for (int j = -1; j <= 1; j++)
+								{
+									RelPos[index].x = i;
+									RelPos[index].y = j;
+									index++;
+								}
+							break;
+						}
+						case 4:
+						{
+							RelPosDrawAddCount = 9;
+							int index = 0;
+							while (index < 9)
+							{
+								int testx = (rand() * 11) - 5;
+								int testy = (rand() * 11) - 5;
+								bool different = true;
+								for (int i = 0; i < index; i++)
+									if ((RelPos[index].x == testx) && (RelPos[index].y == testy))
+										different = false;
+								if (different)
+								{
+									RelPos[index].x = testx;
+									RelPos[index].y = testy;
+									index++;
+								}
+							}
+							break;
+						}
+						case 5:
+						{
+							RelPosDrawAddCount = 21;
+							int index = 0;
+							for (int i = -2; i <= 2; i++)
+								for (int j = -2; j <= 2; j++)
+									if (((i != -2) && (i != 2)) || ((j != -2) && (j != 2)))
+									{
+										RelPos[index].x = i;
+										RelPos[index].y = j;
+										index++;
+									}
+							break;
+						}
+						case 6:
+						{
+							RelPosDrawAddCount = 21;
+							int index = 0;
+							while (index < 21)
+							{
+								int testx = (rand() * 13) - 6;
+								int testy = (rand() * 13) - 6;
+								bool different = true;
+								for (int i = 0; i < index; i++)
+									if ((RelPos[index].x == testx) && (RelPos[index].y == testy))
+										different = false;
+								if (different)
+								{
+									RelPos[index].x = testx;
+									RelPos[index].y = testy;
+									index++;
+								}
+							}
+							break;
+						}
+					}
 				}
 			}
 
@@ -3681,7 +3818,7 @@ int main_x(/*int argc, char** argv*/)
 			{
 				changed3 = true; changed2 = true; zoomchanged = true;
 			}
-			if (button_add_event(&button_plusfeat, &e, &quit, &draw))
+			if (button_clone_event(&button_clonefeat, &e, &quit, &draw))
 			{
 				changed3 = true; changed2 = true; zoomchanged = true;
 			}
@@ -3839,7 +3976,7 @@ int main_x(/*int argc, char** argv*/)
 
 		
 		//kiss_button_draw(&button_cancelfeat, editor_renderer);
-		kiss_button_draw(&button_plusfeat, editor_renderer);	
+		kiss_button_draw(&button_clonefeat, editor_renderer);
 		kiss_button_draw(&button_deletefeat, editor_renderer);		
 		kiss_button_draw(&button_cleanfeat, editor_renderer);
 		kiss_button_draw(&button_plusfeatcount, editor_renderer);
