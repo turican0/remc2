@@ -101307,10 +101307,14 @@ void sub_82670()//263670
 					char cutScenePath[MAX_PATH];
 					sprintf(cutScenePath, "%s/INTRO/CUT%d.DAT", cdDataPath, str_E16E0[v3x].byte_6);
 					sprintf(printbuffer, "%s", cutScenePath);
+
+          // FIXME: cutscenes
 					//PlayInfoFmv(0, 1, str_E16E0[v3x].dword_0 - 0x2b2328 + (uint8_t*)array_E1328, cutScenePath);//FIXME
-					
-					PlayInfoFmv(0, 1, 0/*ONLY HACK*/, cutScenePath);//FIXME
-					stub_fix_it();//now only hacked video not playing now
+          std::cout << "FIXME: cutscenes @ function " << __FUNCTION__ << ", line " << __LINE__ << ", file " << __FILE__ << std::endl;
+          if (false) {
+            PlayInfoFmv(0, 1, 0/*ONLY HACK*/, cutScenePath);//FIXME
+            stub_fix_it();//now only hacked video not playing now
+          }
 					
 					/*sprintf(printbuffer, "intro\\cut4.dat");
 					sub_76160_play_intro(0, 1, 0 + (uint8_t*)array_E1328);*/
