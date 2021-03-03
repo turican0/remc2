@@ -1860,14 +1860,14 @@ type_str_0x6E8E* sub_4B0F0(axis_3d* a1);
 type_str_0x6E8E* sub_4B120(axis_3d* a1);
 type_str_0x6E8E* sub_4B150(axis_3d* a1, char a2, char a3, __int16 a4);
 type_str_0x6E8E* sub_4B240(axis_3d* a1);
-type_str_0x6E8E* sub_4B490(axis_3d* a1);
+type_str_0x6E8E* makeCreature_4B490(axis_3d* a1);
 type_str_0x6E8E* sub_4B590(axis_3d* a1);
 type_str_0x6E8E* sub_4B6F0(axis_3d* a1);
 type_str_0x6E8E* sub_4BA10(axis_3d* a1);
 type_str_0x6E8E* sub_4BBB0(axis_3d* a1);
 type_str_0x6E8E* sub_4BD00(axis_3d* a1);
 type_str_0x6E8E* sub_4BDF0(axis_3d* a1);
-type_str_0x6E8E* sub_4BF40(axis_3d* a1);
+type_str_0x6E8E* makeVilliger_4BF40(axis_3d* a1);
 type_str_0x6E8E* sub_4C0B0(axis_3d* a1);
 type_str_0x6E8E* sub_4C1E0(axis_3d* a1);
 type_str_0x6E8E* sub_4C310(axis_3d* a1);
@@ -1951,7 +1951,7 @@ type_str_0x6E8E* sub_4F860(axis_3d* a1);
 type_str_0x6E8E* sub_4F8B0(axis_3d* a1);
 type_str_0x6E8E* sub_4F900(axis_3d* a1);
 type_str_0x6E8E* sub_4F950(axis_3d* a1);
-type_str_0x6E8E* sub_4F9A0(axis_3d* a1);
+type_str_0x6E8E* addPointToPath_4F9A0(axis_3d* a1);
 type_str_0x6E8E* sub_4FA00(axis_3d* a1);
 type_str_0x6E8E* sub_4FA60(axis_3d* a1);
 type_str_0x6E8E* sub_4FAC0(axis_3d* a1);
@@ -1974,7 +1974,7 @@ type_str_0x6E8E* sub_500A0(axis_3d* a1);
 type_str_0x6E8E* sub_500C0(axis_3d* a1, __int16 a2);
 type_str_0x6E8E* sub_50130(axis_3d* a1);
 type_str_0x6E8E* sub_501D0(axis_3d* a1);
-type_str_0x6E8E* sub_50250(axis_3d* a1);
+type_str_0x6E8E* makeTerrainModification_50250(axis_3d* a1);
 type_str_0x6E8E* sub_502B0(axis_3d* a1);
 type_str_0x6E8E* sub_50320(axis_3d* a1);
 type_str_0x6E8E* sub_50370(axis_3d* a1);
@@ -1995,7 +1995,7 @@ type_str_0x6E8E* sub_50960(axis_3d* a1);
 type_str_0x6E8E* sub_50A20(axis_3d* a1);
 type_str_0x6E8E* sub_50A90(axis_3d* a1, char a2, char a3);
 type_str_0x6E8E* sub_50AE0(axis_3d* a1);
-type_str_0x6E8E* sub_50B00(axis_3d* a1);
+type_str_0x6E8E* addCheckpoint_50B00(axis_3d* a1);
 type_str_0x6E8E* sub_50B20(axis_3d* a1);
 type_str_0x6E8E* sub_50B40(axis_3d* a1);
 type_str_0x6E8E* sub_50B60(axis_3d* a1);
@@ -54528,7 +54528,7 @@ type_str_0x6E8E* pre_sub_4A190_axis_3d(uint32_t adress, axis_3d* a1_axis3d, int 
 		break;
 	}
 	case 0x22c490: {// 1 instance in level 33
-		return sub_4B490(a1_axis3d);
+		return makeCreature_4B490(a1_axis3d);
 		break;
 	}
 	case 0x22c590: {
@@ -54556,7 +54556,7 @@ type_str_0x6E8E* pre_sub_4A190_axis_3d(uint32_t adress, axis_3d* a1_axis3d, int 
 		break;
 	}
 	case 0x22cf40: {// 1 instance in level 28
-		return sub_4BF40(a1_axis3d);
+		return makeVilliger_4BF40(a1_axis3d);
 		break;
 	}
 	case 0x22d0b0: {
@@ -54909,7 +54909,7 @@ type_str_0x6E8E* pre_sub_4A190_axis_3d(uint32_t adress, axis_3d* a1_axis3d, int 
 		break;
 	}
 	case 0x2309a0: {//2 instances in level 1
-		return sub_4F9A0(a1_axis3d);
+		return addPointToPath_4F9A0(a1_axis3d);
 		break;
 	}
 	case 0x230a00: {
@@ -55002,7 +55002,7 @@ type_str_0x6E8E* pre_sub_4A190_axis_3d(uint32_t adress, axis_3d* a1_axis3d, int 
 		break;
 	}
 	case 0x231250: {//47 instances in level 1
-		return sub_50250(a1_axis3d);
+		return makeTerrainModification_50250(a1_axis3d);
 		break;
 	}
 	case 0x2312b0: {//cast castleII
@@ -55091,7 +55091,7 @@ type_str_0x6E8E* pre_sub_4A190_axis_3d(uint32_t adress, axis_3d* a1_axis3d, int 
 		break;
 	}
 	case 0x231b00: {// 1 instance in level 1
-		return sub_50B00(a1_axis3d);
+		return addCheckpoint_50B00(a1_axis3d);//0B-01,0B-00
 		break;
 	}
 	case 0x231b20: {
@@ -60190,7 +60190,7 @@ type_str_0x6E8E* sub_4B240(axis_3d* a1x)//22c240
 // D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
 
 //----- (0004B490) --------------------------------------------------------
-type_str_0x6E8E* sub_4B490(axis_3d* a1x)//22c490 - add creature Vulture(sup?)
+type_str_0x6E8E* makeCreature_4B490(axis_3d* a1x)//22c490 - add creature Vulture(sup?)
 {
 	type_str_0x6E8E* v1x; // eax
 	//uint8_t* v2; // ebx
@@ -60601,7 +60601,7 @@ type_str_0x6E8E* sub_4BDF0(axis_3d* a1x)//22cdf0
 // D8940: using guessed type void *off_D8940;
 
 //----- (0004BF40) --------------------------------------------------------
-type_str_0x6E8E* sub_4BF40(axis_3d* a1x)//22cf40 - add creature Townie
+type_str_0x6E8E* makeVilliger_4BF40(axis_3d* a1x)//22cf40 - add creature Townie
 {
 	type_str_0x6E8E* v1x; // eax
 	//uint8_t* v2; // ebx
@@ -63528,7 +63528,7 @@ type_str_0x6E8E* sub_4F950(axis_3d* a1x)//230950
 }
 
 //----- (0004F9A0) --------------------------------------------------------
-type_str_0x6E8E* sub_4F9A0(axis_3d* a1x)//2309a0 - summon effect black smoke
+type_str_0x6E8E* addPointToPath_4F9A0(axis_3d* a1x)//2309a0 - summon effect black smoke
 {
 	type_str_0x6E8E* v1x; // eax
 	//uint8_t* v2; // ebx
@@ -64038,7 +64038,7 @@ type_str_0x6E8E* sub_501D0(axis_3d* a1x)//2311d0
 // D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
 
 //----- (00050250) --------------------------------------------------------
-type_str_0x6E8E* sub_50250(axis_3d* a1x)//231250 - add effect ?? no in INF
+type_str_0x6E8E* makeTerrainModification_50250(axis_3d* a1x)//231250 - add effect ?? no in INF
 {
 	type_str_0x6E8E* v1x; // eax
 	//x_WORD *v2; // ebx
@@ -64552,7 +64552,7 @@ type_str_0x6E8E* sub_50AE0(axis_3d* a1x)//231ae0
 }
 
 //----- (00050B00) --------------------------------------------------------
-type_str_0x6E8E* sub_50B00(axis_3d* a1x)//231b00
+type_str_0x6E8E* addCheckpoint_50B00(axis_3d* a1x)//231b00
 {
 	return sub_50A90(a1x, 1, 1);
 }
