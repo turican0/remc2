@@ -1931,7 +1931,7 @@ type_str_0x6E8E* sub_4EA20(axis_3d* a1);
 type_str_0x6E8E* sub_4EA60(axis_3d* a1);
 type_str_0x6E8E* sub_4EAA0(axis_3d* a1, char a2, char a3, __int16 a4, int a5);
 type_str_0x6E8E* sub_4EB50(axis_3d* a1);
-type_str_0x6E8E* sub_4EC10(axis_3d* a1);
+type_str_0x6E8E* addSmoke_4EC10(axis_3d* a1);
 type_str_0x6E8E* sub_4ECD0(axis_3d* a1);
 type_str_0x6E8E* sub_4ED70(axis_3d* a1);
 type_str_0x6E8E* sub_4EDC0(axis_3d* a1);
@@ -1993,8 +1993,8 @@ type_str_0x6E8E* sub_50840(axis_3d* a1);
 type_str_0x6E8E* sub_508E0_castle_defend_create(axis_3d* a1);
 type_str_0x6E8E* sub_50960(axis_3d* a1);
 type_str_0x6E8E* sub_50A20(axis_3d* a1);
-type_str_0x6E8E* sub_50A90(axis_3d* a1, char a2, char a3);
-type_str_0x6E8E* sub_50AE0(axis_3d* a1);
+type_str_0x6E8E* addCheckpoint3_50A90(axis_3d* a1, char a2, char a3);
+type_str_0x6E8E* addCheckpoint2_50AE0(axis_3d* a1);
 type_str_0x6E8E* addCheckpoint_50B00(axis_3d* a1);
 type_str_0x6E8E* sub_50B20(axis_3d* a1);
 type_str_0x6E8E* sub_50B40(axis_3d* a1);
@@ -54828,7 +54828,7 @@ type_str_0x6E8E* pre_sub_4A190_axis_3d(uint32_t adress, axis_3d* a1_axis3d, int 
 		break;
 	}
 	case 0x22fc10: {// 1 instance in level 9
-		return sub_4EC10(a1_axis3d);
+		return addSmoke_4EC10(a1_axis3d);
 		break;
 	}
 	case 0x22fcd0: {
@@ -55087,7 +55087,7 @@ type_str_0x6E8E* pre_sub_4A190_axis_3d(uint32_t adress, axis_3d* a1_axis3d, int 
 					 break;
 				 }*/
 	case 0x231ae0: {// 1 instance in level 21
-		return sub_50AE0(a1_axis3d);
+		return addCheckpoint2_50AE0(a1_axis3d);
 		break;
 	}
 	case 0x231b00: {// 1 instance in level 1
@@ -62841,7 +62841,7 @@ type_str_0x6E8E* sub_4EB50(axis_3d* a1x)//22fb50
 }
 
 //----- (0004EC10) --------------------------------------------------------
-type_str_0x6E8E* sub_4EC10(axis_3d* a1x)//22fc10- add effect ??
+type_str_0x6E8E* addSmoke_4EC10(axis_3d* a1x)//22fc10- add effect ??
 {
 	type_str_0x6E8E* v1x; // eax
 	//uint8_t* v2; // ebx
@@ -64522,7 +64522,7 @@ type_str_0x6E8E* sub_50A20(axis_3d* a1x)//231a20
 // D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
 
 //----- (00050A90) --------------------------------------------------------
-type_str_0x6E8E* sub_50A90(axis_3d* a1x, char a2, char a3)//231a90 - add spell
+type_str_0x6E8E* addCheckpoint3_50A90(axis_3d* a1x, char a2, char a3)//231a90 - add spell
 {
 	type_str_0x6E8E* v3x; // eax
 	//uint8_t* v4; // ebx
@@ -64546,225 +64546,225 @@ type_str_0x6E8E* sub_50A90(axis_3d* a1x, char a2, char a3)//231a90 - add spell
 }
 
 //----- (00050AE0) --------------------------------------------------------
-type_str_0x6E8E* sub_50AE0(axis_3d* a1x)//231ae0
+type_str_0x6E8E* addCheckpoint2_50AE0(axis_3d* a1x)//231ae0
 {
-	return sub_50A90(a1x, 0, 0);
+	return addCheckpoint3_50A90(a1x, 0, 0);
 }
 
 //----- (00050B00) --------------------------------------------------------
 type_str_0x6E8E* addCheckpoint_50B00(axis_3d* a1x)//231b00
 {
-	return sub_50A90(a1x, 1, 1);
+	return addCheckpoint3_50A90(a1x, 1, 1);
 }
 
 //----- (00050B20) --------------------------------------------------------
 type_str_0x6E8E* sub_50B20(axis_3d* a1x)//231b20
 {
-	return sub_50A90(a1x, 2, 2);
+	return addCheckpoint3_50A90(a1x, 2, 2);
 }
 
 //----- (00050B40) --------------------------------------------------------
 type_str_0x6E8E* sub_50B40(axis_3d* a1x)//231b40
 {
-	return sub_50A90(a1x, 3, 3);
+	return addCheckpoint3_50A90(a1x, 3, 3);
 }
 
 //----- (00050B60) --------------------------------------------------------
 type_str_0x6E8E* sub_50B60(axis_3d* a1x)//231b60
 {
-	return sub_50A90(a1x, 4, 4);
+	return addCheckpoint3_50A90(a1x, 4, 4);
 }
 
 //----- (00050B80) --------------------------------------------------------
 type_str_0x6E8E* sub_50B80(axis_3d* a1x)//231b80
 {
-	return sub_50A90(a1x, 32, 32);
+	return addCheckpoint3_50A90(a1x, 32, 32);
 }
 
 //----- (00050C10) --------------------------------------------------------
 type_str_0x6E8E* sub_50C10(axis_3d* a1x)//231c10
 {
-	return sub_50A90(a1x, 12, 12);
+	return addCheckpoint3_50A90(a1x, 12, 12);
 }
 
 //----- (00050C30) --------------------------------------------------------
 type_str_0x6E8E* sub_50C30(axis_3d* a1x)//231c30
 {
-	return sub_50A90(a1x, 13, 13);
+	return addCheckpoint3_50A90(a1x, 13, 13);
 }
 
 //----- (00050C50) --------------------------------------------------------
 type_str_0x6E8E* sub_50C50(axis_3d* a1x)//231c50
 {
-	return sub_50A90(a1x, 14, 14);
+	return addCheckpoint3_50A90(a1x, 14, 14);
 }
 
 //----- (00050C70) --------------------------------------------------------
 type_str_0x6E8E* sub_50C70(axis_3d* a1x)//231c70
 {
-	return sub_50A90(a1x, 15, 15);
+	return addCheckpoint3_50A90(a1x, 15, 15);
 }
 
 //----- (00050C90) --------------------------------------------------------
 type_str_0x6E8E* sub_50C90(axis_3d* a1x)//231c90
 {
-	return sub_50A90(a1x, 16, 16);
+	return addCheckpoint3_50A90(a1x, 16, 16);
 }
 
 //----- (00050CB0) --------------------------------------------------------
 type_str_0x6E8E* sub_50CB0(axis_3d* a1x)//231cb0
 {
-	return sub_50A90(a1x, 17, 17);
+	return addCheckpoint3_50A90(a1x, 17, 17);
 }
 
 //----- (00050CD0) --------------------------------------------------------
 type_str_0x6E8E* sub_50CD0(axis_3d* a1x)//231cd0
 {
-	return sub_50A90(a1x, 18, 18);
+	return addCheckpoint3_50A90(a1x, 18, 18);
 }
 
 //----- (00050CF0) --------------------------------------------------------
 type_str_0x6E8E* sub_50CF0(axis_3d* a1x)//231cf0
 {
-	return sub_50A90(a1x, 19, 19);
+	return addCheckpoint3_50A90(a1x, 19, 19);
 }
 
 //----- (00050D10) --------------------------------------------------------
 type_str_0x6E8E* sub_50D10(axis_3d* a1x)//231d10
 {
-	return sub_50A90(a1x, 20, 20);
+	return addCheckpoint3_50A90(a1x, 20, 20);
 }
 
 //----- (00050D30) --------------------------------------------------------
 type_str_0x6E8E* sub_50D30(axis_3d* a1x)//231d30
 {
-	return sub_50A90(a1x, 21, 21);
+	return addCheckpoint3_50A90(a1x, 21, 21);
 }
 
 //----- (00050D50) --------------------------------------------------------
 type_str_0x6E8E* sub_50D50(axis_3d* a1x)//231d50
 {
-	return sub_50A90(a1x, 22, 22);
+	return addCheckpoint3_50A90(a1x, 22, 22);
 }
 
 //----- (00050D70) --------------------------------------------------------
 type_str_0x6E8E* sub_50D70(axis_3d* a1x)//231d70
 {
-	return sub_50A90(a1x, 23, 23);
+	return addCheckpoint3_50A90(a1x, 23, 23);
 }
 
 //----- (00050D90) --------------------------------------------------------
 type_str_0x6E8E* sub_50D90(axis_3d* a1x)//231d90
 {
-	return sub_50A90(a1x, 24, 24);
+	return addCheckpoint3_50A90(a1x, 24, 24);
 }
 
 //----- (00050DB0) --------------------------------------------------------
 type_str_0x6E8E* sub_50DB0(axis_3d* a1x)//231db0
 {
-	return sub_50A90(a1x, 25, 25);
+	return addCheckpoint3_50A90(a1x, 25, 25);
 }
 
 //----- (00050DD0) --------------------------------------------------------
 type_str_0x6E8E* sub_50DD0(axis_3d* a1x)//231dd0
 {
-	return sub_50A90(a1x, 26, 26);
+	return addCheckpoint3_50A90(a1x, 26, 26);
 }
 
 //----- (00050DF0) --------------------------------------------------------
 type_str_0x6E8E* sub_50DF0(axis_3d* a1x)//231df0
 {
-	return sub_50A90(a1x, 27, 27);
+	return addCheckpoint3_50A90(a1x, 27, 27);
 }
 
 //----- (00050E10) --------------------------------------------------------
 type_str_0x6E8E* sub_50E10(axis_3d* a1x)//231e10
 {
-	return sub_50A90(a1x, 28, 28);
+	return addCheckpoint3_50A90(a1x, 28, 28);
 }
 
 //----- (00050E30) --------------------------------------------------------
 type_str_0x6E8E* sub_50E30(axis_3d* a1x)//231e30
 {
-	return sub_50A90(a1x, 29, 29);
+	return addCheckpoint3_50A90(a1x, 29, 29);
 }
 
 //----- (00050E50) --------------------------------------------------------
 type_str_0x6E8E* sub_50E50(axis_3d* a1x)//231e50
 {
-	return sub_50A90(a1x, 33, 33);
+	return addCheckpoint3_50A90(a1x, 33, 33);
 }
 
 //----- (00050E70) --------------------------------------------------------
 type_str_0x6E8E* sub_50E70(axis_3d* a1x)//231e70
 {
-	return sub_50A90(a1x, 34, 34);
+	return addCheckpoint3_50A90(a1x, 34, 34);
 }
 
 //----- (00050E90) --------------------------------------------------------
 type_str_0x6E8E* sub_50E90(axis_3d* a1x)//231e90
 {
-	return sub_50A90(a1x, 35, 35);
+	return addCheckpoint3_50A90(a1x, 35, 35);
 }
 
 //----- (00050EB0) --------------------------------------------------------
 type_str_0x6E8E* sub_50EB0(axis_3d* a1x)//231eb0
 {
-	return sub_50A90(a1x, 36, 36);
+	return addCheckpoint3_50A90(a1x, 36, 36);
 }
 
 //----- (00050ED0) --------------------------------------------------------
 type_str_0x6E8E* sub_50ED0(axis_3d* a1x)//231ed0
 {
-	return sub_50A90(a1x, 37, 37);
+	return addCheckpoint3_50A90(a1x, 37, 37);
 }
 
 //----- (00050EF0) --------------------------------------------------------
 type_str_0x6E8E* sub_50EF0(axis_3d* a1x)//231ef0
 {
-	return sub_50A90(a1x, 38, 38);
+	return addCheckpoint3_50A90(a1x, 38, 38);
 }
 
 //----- (00050F10) --------------------------------------------------------
 type_str_0x6E8E* sub_50F10(axis_3d* a1x)//231f10
 {
-	return sub_50A90(a1x, 39, 39);
+	return addCheckpoint3_50A90(a1x, 39, 39);
 }
 
 //----- (00050F30) --------------------------------------------------------
 type_str_0x6E8E* sub_50F30(axis_3d* a1x)//231f30
 {
-	return sub_50A90(a1x, 40, 40);
+	return addCheckpoint3_50A90(a1x, 40, 40);
 }
 
 //----- (00050F50) --------------------------------------------------------
 type_str_0x6E8E* sub_50F50(axis_3d* a1x)//231f50
 {
-	return sub_50A90(a1x, 41, 41);
+	return addCheckpoint3_50A90(a1x, 41, 41);
 }
 
 //----- (00050F70) --------------------------------------------------------
 type_str_0x6E8E* sub_50F70(axis_3d* a1x)//231f70
 {
-	return sub_50A90(a1x, 42, 42);
+	return addCheckpoint3_50A90(a1x, 42, 42);
 }
 
 //----- (00050F90) --------------------------------------------------------
 type_str_0x6E8E* sub_50F90(axis_3d* a1x)//231f90
 {
-	return sub_50A90(a1x, 43, 43);
+	return addCheckpoint3_50A90(a1x, 43, 43);
 }
 
 //----- (00050FB0) --------------------------------------------------------
 type_str_0x6E8E* sub_50FB0(axis_3d* a1x)//231fb0
 {
-	return sub_50A90(a1x, 44, 44);
+	return addCheckpoint3_50A90(a1x, 44, 44);
 }
 
 //----- (00050FD0) --------------------------------------------------------
 type_str_0x6E8E* sub_50FD0(axis_3d* a1x)//231fd0
 {
-	return sub_50A90(a1x, 30, 30);
+	return addCheckpoint3_50A90(a1x, 30, 30);
 }
 
 //----- (00050FF0) --------------------------------------------------------
@@ -64777,7 +64777,7 @@ type_str_0x6E8E* sub_50FF0(axis_3d* a1x)//231ff0
 	v1x = 0;
 	if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 0x10) && !(x_D41A0_BYTEARRAY_4_struct.setting_38545 & 8))
 	{
-		v1x = sub_50A90(a1x, 31, 31);
+		v1x = addCheckpoint3_50A90(a1x, 31, 31);
 		if (v1x)
 		{
 			//v2 = x_D41A0_BYTEARRAY_0;
