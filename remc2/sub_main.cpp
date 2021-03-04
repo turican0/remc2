@@ -52435,7 +52435,7 @@ int sub_483A0(__int16 a1, int a2, char a3, char a4)//2293a0
 // EB39C: using guessed type __int16 x_WORD_EB398ar[2];
 
 //----- (00048400) --------------------------------------------------------
-int sub_48400(int a1, int a2, int a3, int a4)//229400
+int sub_48400(int posX2, int posY2, int posX, int posY)//229400
 {
 	int v4; // eax
 	int v5; // esi
@@ -52465,23 +52465,23 @@ int sub_48400(int a1, int a2, int a3, int a4)//229400
 	int v29; // [esp+10h] [ebp-4h]
 	int v30; // [esp+10h] [ebp-4h]
 
-	v4 = sub_48370(a1, a3, 256);
+	v4 = sub_48370(posX2, posX, 256);
 	v5 = v4;
 	v6 = v4;
-	result = sub_48370(a2, a4, 256);
+	result = sub_48370(posY2, posY, 256);
 	v8 = result;
 	if (v5 || result)
 	{
 		if (v6 < 0)
 		{
-			v9 = a1;
+			v9 = posX2;
 			v6 = -v6;
 			v8 = -v8;
-			a1 = a3;
-			a3 = v9;
-			v10 = a2;
-			a2 = a4;
-			a4 = v10;
+			posX2 = posX;
+			posX = v9;
+			v10 = posY2;
+			posY2 = posY;
+			posY = v10;
 		}
 		if (v6 <= abs(v8))
 		{
@@ -52495,7 +52495,7 @@ int sub_48400(int a1, int a2, int a3, int a4)//229400
 			v28 = v21;
 			for (i = v6 - result; v18; v28 = 0)
 			{
-				sub_483A0(a1, (unsigned __int16)a2, a3, a4);
+				sub_483A0(posX2, posY2, posX, posY);
 				v22x = sub_4A190(&x_WORD_EB398ar, 10, 27);
 				if (v20 >= 0)
 				{
@@ -52508,14 +52508,14 @@ int sub_48400(int a1, int a2, int a3, int a4)//229400
 					v23 = -v20 - v28;
 				}
 				v22x->dword_0x10_16 = v23;
-				sub_483A0(a1, (unsigned __int16)(v20 + v28 + a2), a3, a4);
+				sub_483A0(posX2, (unsigned __int16)(v20 + v28 + posY2), posX, posY);
 				v18--;
-				a2 += v20 + v28;
+				posY2 += v20 + v28;
 				v24x = sub_4A190(&x_WORD_EB398ar, 10, 27);
 				v24x->byte_0x45_69 = 29;
 				v24x->dword_0x10_16 = i + v30;
 				result = 0;
-				a1 += i + v30;
+				posX2 += i + v30;
 				i = 0;
 			}
 		}
@@ -52531,12 +52531,12 @@ int sub_48400(int a1, int a2, int a3, int a4)//229400
 			{
 				do
 				{
-					sub_483A0(a1, (unsigned __int16)a2, a3, a4);
+					sub_483A0(posX2, posY2, posX, posY);
 					v13x = sub_4A190(&x_WORD_EB398ar, 10, 27);
 					v13x->byte_0x45_69 = 29;
 					v13x->dword_0x10_16 = v25 + v29;
-					a1 += v25 + v29;
-					sub_483A0(a1, (unsigned __int16)a2, a3, a4);
+					posX2 += v25 + v29;
+					sub_483A0(posX2, posY2, posX, posY);
 					v14x = sub_4A190(&x_WORD_EB398ar, 10, 27);
 					if (v12 >= 0)
 					{
@@ -52552,9 +52552,9 @@ int sub_48400(int a1, int a2, int a3, int a4)//229400
 					v11--;
 					result = v12 + v27;
 					v25 = 0;
-					v16 = v12 + v27 + a2;
+					v16 = v12 + v27 + posY2;
 					v27 = 0;
-					a2 = v16;
+					posY2 = v16;
 				} while (v11);
 			}
 		}
@@ -52564,7 +52564,7 @@ int sub_48400(int a1, int a2, int a3, int a4)//229400
 // EB398: using guessed type __int16 x_WORD_EB398;
 
 //----- (00048690) --------------------------------------------------------
-type_str_0x6E8E* sub_48690(int16_t a1, int16_t a2, int16_t a3, int16_t a4)//229690
+type_str_0x6E8E* sub_48690(int16_t posX2, int16_t posY2, int16_t posX, int16_t posY)//229690
 {
 	int v4; // eax
 	int v5; // ebx
@@ -52580,11 +52580,11 @@ type_str_0x6E8E* sub_48690(int16_t a1, int16_t a2, int16_t a3, int16_t a4)//2296
 	signed __int16 v15; // [esp+Ch] [ebp-8h]
 	int v16; // [esp+10h] [ebp-4h]
 
-	v4 = sub_48370(a1, a3, 256);
+	v4 = sub_48370(posX2, posX, 256);
 	v5 = v4;
 	v13 = v4;
 	v6 = 0;
-	v7 = sub_48370(a2, a4, 256);
+	v7 = sub_48370(posY2, posY, 256);
 	if (v5)
 	{
 		v6 = -1;
@@ -52612,8 +52612,8 @@ type_str_0x6E8E* sub_48690(int16_t a1, int16_t a2, int16_t a3, int16_t a4)//2296
 		v14 = v6;
 		v15 = 0;
 	}
-	x_WORD_EB398ar.x = a1 << 8;
-	x_WORD_EB398ar.y = a2 << 8;
+	x_WORD_EB398ar.x = posX2 << 8;
+	x_WORD_EB398ar.y = posY2 << 8;
 	v10x = sub_4A190(&x_WORD_EB398ar, 10, 30);
 	if (v10x)
 	{
@@ -52621,8 +52621,8 @@ type_str_0x6E8E* sub_48690(int16_t a1, int16_t a2, int16_t a3, int16_t a4)//2296
 		v10x->word_0x1C_28 = v6;
 		v10x->word_0x1E_30 = v8;
 	}
-	x_WORD_EB398ar.x = ((x_WORD)v9 * v6 + a1) << 8;
-	x_WORD_EB398ar.y = ((x_WORD)v9 * v8 + a2) << 8;
+	x_WORD_EB398ar.x = ((x_WORD)v9 * v6 + posX2) << 8;
+	x_WORD_EB398ar.y = ((x_WORD)v9 * v8 + posY2) << 8;
 	resultx = sub_4A190(&x_WORD_EB398ar, 10, 30);
 	if (resultx)
 	{
@@ -52636,7 +52636,7 @@ type_str_0x6E8E* sub_48690(int16_t a1, int16_t a2, int16_t a3, int16_t a4)//2296
 // EB39A: using guessed type __int16 x_WORD_EB398ar[1];
 
 //----- (000487D0) --------------------------------------------------------
-type_str_0x6E8E* sub_487D0(unsigned __int16 a1, unsigned __int16 a2, __int16 a3, __int16 a4, char a5)//2297d0
+type_str_0x6E8E* sub_487D0(unsigned __int16 posX2, unsigned __int16 posY2, __int16 posX, __int16 posY, char a5)//2297d0
 {
 	__int16 v5; // si
 	unsigned __int16 v6; // bx
@@ -52647,11 +52647,11 @@ type_str_0x6E8E* sub_487D0(unsigned __int16 a1, unsigned __int16 a2, __int16 a3,
 	axis_3d v11x; // [esp+8h] [ebp-8h]
 	//__int16 v12; // [esp+Ah] [ebp-6h]
 
-	v8x.x = a1 << 8;
-	v8x.y = a2 << 8;
-	v8x.z = 32 * x_BYTE_11B4E0_heightmap[256 * a2 + a1];
-	v11x.x = a3 << 8;
-	v11x.y = a4 << 8;
+	v8x.x = posX2 << 8;
+	v8x.y = posY2 << 8;
+	v8x.z = 32 * x_BYTE_11B4E0_heightmap[256 * posY2 + posX2];
+	v11x.x = posX << 8;
+	v11x.y = posY << 8;
 	v5 = sub_581E0_maybe_tan2(&v8x, &v11x);
 	v6 = sub_58490_radix_3d_2(&v8x, &v11x);
 	resultx = sub_4A190(&v8x, 10, 32);
@@ -52665,7 +52665,7 @@ type_str_0x6E8E* sub_487D0(unsigned __int16 a1, unsigned __int16 a2, __int16 a3,
 }
 
 //----- (00048880) --------------------------------------------------------
-void sub_48880(unsigned __int16 a1, unsigned __int16 a2, __int16 a3, __int16 a4)//229880
+void sub_48880(unsigned __int16 posX2, unsigned __int16 posY2, __int16 posX, __int16 posY)//229880
 {
 	__int16 v4; // si
 	unsigned __int16 v5; // di
@@ -52678,11 +52678,11 @@ void sub_48880(unsigned __int16 a1, unsigned __int16 a2, __int16 a3, __int16 a4)
 	axis_3d v12x; // [esp+8h] [ebp-8h]
 	//__int16 v13; // [esp+Ah] [ebp-6h]
 
-	v9x.x = a1 << 8;
-	v9x.y = a2 << 8;
-	v9x.z = 16 * x_BYTE_11B4E0_heightmap[256 * a2 + a1];
-	v12x.x = a3 << 8;
-	v12x.y = a4 << 8;
+	v9x.x = posX2 << 8;
+	v9x.y = posY2 << 8;
+	v9x.z = 16 * x_BYTE_11B4E0_heightmap[256 * posY2 + posX2];
+	v12x.x = posX << 8;
+	v12x.y = posY << 8;
 	v4 = sub_581E0_maybe_tan2(&v9x, &v12x);
 	v5 = sub_58490_radix_3d_2(&v9x, &v12x);
 	resultx = sub_4A190(&v9x, 10, 51);
@@ -52700,7 +52700,7 @@ void sub_48880(unsigned __int16 a1, unsigned __int16 a2, __int16 a3, __int16 a4)
 int debugcounter_229930 = 0;
 //uint16_t last_v8x = 0;
 //uint16_t last_a1x = 0;
-type_str_0x6E8E* sub_48930(__int16 a1, __int16 a2, __int16 a3, __int16 a4, char a5)//229930
+type_str_0x6E8E* sub_48930(__int16 posX2, __int16 posY2, __int16 posX, __int16 posY, char a5)//229930
 {
 	type_str_0x6E8E* result; // eax
 	__int16 v6; // [esp+0h] [ebp-10h]
@@ -52716,10 +52716,10 @@ type_str_0x6E8E* sub_48930(__int16 a1, __int16 a2, __int16 a3, __int16 a4, char 
 	v8x.z = 0;// 0x52b0;
 	//fixed
 
-	v6 = a1 << 8;
-	v7 = a2 << 8;
-	v8x.x = a3 << 8;
-	v8x.y = a4 << 8;
+	v6 = posX2 << 8;
+	v7 = posY2 << 8;
+	v8x.x = posX << 8;
+	v8x.y = posY << 8;
 
 	//only for debugging
 	/*switch (debugcounter_229930) {
@@ -53311,19 +53311,19 @@ signed int sub_48FD0(char a1, char a2, __int16 a3, unsigned __int16 a4, uint8_t*
 //----- (00049090) --------------------------------------------------------
 void sub_49090(type_str_2FECE* terrain, type_entity_0x30311* entity)//22a090
 {
-	type_entity_0x30311* v2x; // ebx
-	unsigned __int16 v3; // si
-	__int16 v4; // di
-	unsigned __int16 v5; // dx
-	__int16 v6; // dx
-	unsigned __int16 v7; // cx
+	type_entity_0x30311* tempEntity; // ebx
+	int16_t tempSubtype; // si
+	uint16_t tempType; // di
+	//unsigned __int16 v5; // dx
+	//__int16 v6; // dx
+	unsigned __int16 tempY; // cx
 	unsigned int v8; // eax
 	int(*v9)(); // [esp+4h] [ebp-10h]
-	unsigned __int16 v10; // [esp+8h] [ebp-Ch]
+	unsigned __int16 tempX; // [esp+8h] [ebp-Ch]
 
-	v2x = entity;
-	v3 = entity->subtype_0x30311;
-	v4 = entity->type_0x30311;
+	tempEntity = entity;
+	tempSubtype = entity->subtype_0x30311;
+	tempType = entity->type_0x30311;
 	v9 = 0;
 	if (entity->type_0x30311 == 0x0A)
 	{
@@ -53360,62 +53360,58 @@ void sub_49090(type_str_2FECE* terrain, type_entity_0x30311* entity)//22a090
 	{
 		while (1)
 		{
-			v5 = v2x->word_14;
-			if (!v5)
+			//v5 = tempEntity->word_14;
+			if (!tempEntity->word_14)
 				break;
-			v2x = &terrain->entity_0x30311[v5];
+			tempEntity = &terrain->entity_0x30311[tempEntity->word_14];
 		}
 		do
 		{
-			if (v4 != entity->type_0x30311)
+			if (tempType != entity->type_0x30311)
 				break;
-			if (v3 != entity->subtype_0x30311)
+			if (tempSubtype != entity->subtype_0x30311)
 				break;
-			v6 = v2x->parent_16;
-			v2x->stageTag_12 = 0;
-			if (!v6)
+			//v6 = v2x->parent_16;
+			tempEntity->stageTag_12 = 0;
+			if (!tempEntity->parent_16)
 				break;
-			v7 = v2x->axis2d_4.y;
-			v10 = v2x->axis2d_4.x;
-			v8 = v2x->child_18;
-			v2x = &terrain->entity_0x30311[v2x->parent_16];
-			switch (v3)
+			tempY = tempEntity->axis2d_4.y;
+			tempX = tempEntity->axis2d_4.x;
+			v8 = tempEntity->child_18;
+			tempEntity = &terrain->entity_0x30311[tempEntity->parent_16];
+			switch (tempSubtype)
 			{
 				case 0x1F:
 				{
-					if (v8 <= 3)
+					switch (v8)
 					{
-						switch (v8)
-						{
-						case 0u:
-							v8 = 2;
-							break;
-						case 1u:
-							v8 = 6;
-							break;
-						case 2u:
-							v8 = 16;
-							break;
-						case 3u:
-							v8 = 32;
-							break;
-						}
+					case 0u:
+						v8 = 2;
+						break;
+					case 1u:
+						v8 = 6;
+						break;
+					case 2u:
+						v8 = 16;
+						break;
+					case 3u:
+						v8 = 32;
+						break;
 					}
-					break;
 				}
 				case 0x50:
 				{
-					v8 = v2x->child_18 & 0xF | 16 * (v8 & 0xF);
+					v8 = tempEntity->child_18 & 0xF | 16 * (v8 & 0xF);
 					break;
 				}
 			}
 			((void(*)(x_DWORD, x_DWORD, x_DWORD, x_DWORD, unsigned int))v9)(
-				v10,
-				v7,
-				v2x->axis2d_4.x,
-				v2x->axis2d_4.y,
+				tempX,
+				tempY,
+				tempEntity->axis2d_4.x,
+				tempEntity->axis2d_4.y,
 				v8);
-		} while (v2x);
+		} while (tempEntity);
 	}
 }
 // 48930: using guessed type int sub_48930();
