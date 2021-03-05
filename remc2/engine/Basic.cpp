@@ -88,7 +88,7 @@ uint8_t* x_DWORD_E9C38_smalltit;
 
 int help_VGA_type_resolution = 0;
 
-__int16 x_WORD_180660_VGA_type_resolution; // weak
+int16_t x_WORD_180660_VGA_type_resolution; // weak
 
 //language
 char* x_DWORD_E9C4C_langindexbuffer[1000]; // idb
@@ -1548,7 +1548,7 @@ void sub_2BB40_draw_bitmap(int16_t posx, int16_t posy, posistruct_t tempposstr)/
 	//v6 = v3;
 	//v3(a1, a2, a3);
 	//result = (int)x_D41A0_BYTEARRAY_0;
-	if (D41A0_BYTESTR_0.m_GameSettings.m_Display.scr_size_0x2190 == 1)
+	if (D41A0_BYTESTR_0.m_GameSettings.m_Display.m_uiScreenSize == 1)
 	{
 		temp_screen_buffer = pdwScreenBuffer;
 		pdwScreenBuffer = x_DWORD_E9C3C;
@@ -1598,7 +1598,7 @@ void sub_2BC80(int16_t x1, int16_t y1, int16_t x2, int16_t y2, uint8_t a5)//20cc
 	else
 		sub_901E4(x1, y1, x2, y2, a5);
 	//result = x_D41A0_BYTEARRAY_0;
-	if (D41A0_BYTESTR_0.m_GameSettings.m_Display.scr_size_0x2190 == 1)
+	if (D41A0_BYTESTR_0.m_GameSettings.m_Display.m_uiScreenSize == 1)
 	{
 		temp_screen_buffer = pdwScreenBuffer;
 		pdwScreenBuffer = x_DWORD_E9C3C;
@@ -1624,7 +1624,7 @@ void sub_2BC10_draw_text(const char* textbuffer, int16_t posx, int16_t posy, uin
 
 	sub_6F940_sub_draw_text(textbuffer, posx, posy, color);
 	//result = (int)x_D41A0_BYTEARRAY_0;
-	if (D41A0_BYTESTR_0.m_GameSettings.m_Display.scr_size_0x2190 == 1)//shifted graphics
+	if (D41A0_BYTESTR_0.m_GameSettings.m_Display.m_uiScreenSize == 1)//shifted graphics
 	{
 		temp_screen_buffer = pdwScreenBuffer;
 		pdwScreenBuffer = (uint8_t*)x_DWORD_E9C3C;
