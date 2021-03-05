@@ -177,10 +177,10 @@ typedef struct {
 }axis_3du;
 */
 typedef struct {
-	int16_t aa;
+	int16_t rotation2;
 	int16_t xshift;
 	int16_t yshift;
-	int16_t dd;
+	int16_t rotation;
 }axis_4d;
 
 typedef struct {
@@ -448,7 +448,7 @@ typedef struct _str_0x6E8E {//lenght a8//THING
 	//int8_t byte_0xe_14;//14//struct_byte_0xc_12_15.dbyte3_4.byte1
 	//int8_t byte_0xf_15;//15//struct_byte_0xc_12_15.dbyte3_4.byte2
 	int32_t dword_0x10_16;//16 // index of array
-	uint16_t word_0x14_20;//20 //random seed adress
+	uint16_t rand_0x14_20;//20 //random seed adress
 	uint16_t oldMapEntity_0x16_22;//22
 	uint16_t nextEntity_0x18_24;//24 //next entity index
 	uint16_t word_0x1A_26;//26 // index - owner //ID last index
