@@ -1389,7 +1389,7 @@ void sub_7C140_draw_text_background(int16_t x1, int16_t y1, int16_t x2, int16_t 
 			{
 				//x2d = y1d;
 				if (y1d + y2d >= 1)
-					sub_2BC80(x1d, y1d, x2d, y2d, a5);
+					DrawLine(x1d, y1d, x2d, y2d, a5);
 			}
 		}
 	}
@@ -1582,34 +1582,31 @@ void sub_75D70(uint8_t* a1, uint32_t a2)//256d70
 // 17DB50: using guessed type int x_DWORD_17DB50;
 
 //----- (0002BC80) --------------------------------------------------------
-void sub_2BC80(int16_t x1, int16_t y1, int16_t x2, int16_t y2, uint8_t a5)//20cc80
+void DrawLine(int16_t posStartX, int16_t posStartY, int16_t posEndX, int16_t posEndY, uint8_t colorIdx)//20cc80
 {
-	//void *v5; // ebx
-	//uint8_t* result; // eax
+	DrawLine(posStartX, posStartY, posEndX, posEndY, 640, colorIdx);
+}
+
+void DrawLine(int16_t posStartX, int16_t posStartY, int16_t posEndX, int16_t posEndY, uint16_t pitch, uint8_t colorIdx)//20cc80
+{
 	uint8_t* temp_screen_buffer; // ST14_4
 
-	//debug
-	  //loadfromsnapshot((char*)"0160-00253633", (uint8_t*)&a1, 0x354ef8, 2);//4c
-
-	//debug
-
 	if (x_WORD_180660_VGA_type_resolution & 1)
-		sub_90164(x1, y1, x2, y2, a5);
+		DrawLineLowRes(posStartX, posStartY, posEndX, posEndY, colorIdx);
 	else
-		sub_901E4(x1, y1, x2, y2, a5);
-	//result = x_D41A0_BYTEARRAY_0;
+		DrawLineHighRes(posStartX, posStartY, posEndX, posEndY, pitch, colorIdx);
+
 	if (D41A0_BYTESTR_0.m_GameSettings.m_Display.m_uiScreenSize == 1)
 	{
 		temp_screen_buffer = pdwScreenBuffer;
 		pdwScreenBuffer = x_DWORD_E9C3C;
 		if (x_WORD_180660_VGA_type_resolution & 1)
-			sub_90164(x1, y1, x2, y2, a5);
+			DrawLineLowRes(posStartX, posStartY, posEndX, posEndY, colorIdx);
 		else
-			sub_901E4(x1, y1, x2, y2, a5);
-		//result = (uint8_t)pdwScreenBuffer;
+			DrawLineHighRes(posStartX, posStartY, posEndX, posEndY, pitch, colorIdx);
+
 		pdwScreenBuffer = (uint8_t*)temp_screen_buffer;
 	}
-	//return result;
 }
 // D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
 // E9C3C: using guessed type int x_DWORD_E9C3C;
@@ -1866,7 +1863,7 @@ void sub_8F8E8_draw_bitmap640(int16_t posx, int16_t posy, posistruct_t temppstr)
 // 180628: using guessed type int pdwScreenBuffer;
 
 //----- (00090164) --------------------------------------------------------
-void sub_90164(int16_t x1, int16_t y1, int16_t x2, int16_t y2, uint8_t a5)//271164
+void DrawLineLowRes(int16_t posStartX, int16_t posStartY, int16_t posEndX, int16_t posEndY, uint8_t colorIdx)
 {
 	uint8_t* pixel; // edi
 	uint16_t v6; // dx
@@ -1876,13 +1873,13 @@ void sub_90164(int16_t x1, int16_t y1, int16_t x2, int16_t y2, uint8_t a5)//2711
 	uint16_t v10; // [esp+0h] [ebp-4h]
 	uint16_t v11; // [esp+14h] [ebp+10h]
 
-	pixel = &pdwScreenBuffer[320 * (y1 >> 1) + (x1 >> 1)];
-	v6 = y2 >> 1;
-	v11 = x2 >> 1;
+	pixel = &pdwScreenBuffer[320 * (posStartY >> 1) + (posStartX >> 1)];
+	v6 = posEndY >> 1;
+	v11 = posEndX >> 1;
 	v10 = (320 - v11);
 	if (x_WORD_E36D4 & 4)
 	{
-		v7 = a5;
+		v7 = colorIdx;
 		v8 = x_DWORD_E3890;
 		do
 		{
@@ -1901,7 +1898,7 @@ void sub_90164(int16_t x1, int16_t y1, int16_t x2, int16_t y2, uint8_t a5)//2711
 	{
 		do
 		{
-			memset(pixel, a5, v11);
+			memset(pixel, colorIdx, v11);
 			pixel += v10 + v11;
 			--v6;
 		} while (v6);
@@ -1912,7 +1909,7 @@ void sub_90164(int16_t x1, int16_t y1, int16_t x2, int16_t y2, uint8_t a5)//2711
 // 180628: using guessed type int pdwScreenBuffer;
 
 //----- (000901E4) --------------------------------------------------------
-void sub_901E4(int16_t a1, int16_t a2, int16_t a3, int16_t a4, unsigned __int16 a5)//2711e4
+void DrawLineHighRes(int16_t posStartX, int16_t posStartY, int16_t posEndX, int16_t posEndY, uint16_t pitch, uint8_t colorIdx)//2711e4
 {
 	x_BYTE* v5; // edi
 	__int16 v6; // dx
@@ -1921,16 +1918,16 @@ void sub_901E4(int16_t a1, int16_t a2, int16_t a3, int16_t a4, unsigned __int16 
 	int v9; // ecx
 	int v10; // [esp+0h] [ebp-4h]
 
-	v5 = (x_BYTE*)(640 * a2 + pdwScreenBuffer + a1);
-	v6 = a4;
-	v10 = (unsigned __int16)(640 - a3);
+	v5 = (x_BYTE*)(pitch * posStartY + pdwScreenBuffer + posStartX);
+	v6 = posEndY;
+	v10 = (unsigned __int16)(pitch - posEndX);
 	if (x_WORD_E36D4 & 4)
 	{
-		v7 = a5;
+		v7 = colorIdx;
 		v8 = x_DWORD_E3890;
 		do
 		{
-			v9 = a3;
+			v9 = posEndX;
 			do
 			{
 				BYTE1(v7) = *v5;
@@ -1945,8 +1942,8 @@ void sub_901E4(int16_t a1, int16_t a2, int16_t a3, int16_t a4, unsigned __int16 
 	{
 		do
 		{
-			memset(v5, a5, a3);
-			v5 += v10 + a3;
+			memset(v5, colorIdx, posEndX);
+			v5 += v10 + posEndX;
 			v6--;
 		} while (v6);
 	}
