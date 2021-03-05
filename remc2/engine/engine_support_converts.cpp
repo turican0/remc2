@@ -346,9 +346,9 @@ void convert_struct_to_array_0x6E8E(type_str_0x6E8E* input, uint8_t* output) {
 	//uint16_t word_0x14_20;//20 //random seed adress
 	memcpy(output + 20, &input->word_0x14_20, 2);
 	//uint16_t word_0x16_22;//22
-	memcpy(output + 22, &input->word_0x16_22, 2);
+	memcpy(output + 22, &input->oldMapEntity_0x16_22, 2);
 	//uint16_t word_0x18_24_next_entity;//24
-	memcpy(output + 24, &input->word_0x18_24_next_entity, 2);
+	memcpy(output + 24, &input->nextEntity_0x18_24, 2);
 	//uint16_t word_0x1A_26;//26 // index - owner //ID last index
 	memcpy(output + 26, &input->word_0x1A_26, 2);
 	//int16_t word_0x1C_28;//28//rotate1

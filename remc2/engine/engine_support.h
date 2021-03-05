@@ -449,8 +449,8 @@ typedef struct _str_0x6E8E {//lenght a8//THING
 	//int8_t byte_0xf_15;//15//struct_byte_0xc_12_15.dbyte3_4.byte2
 	int32_t dword_0x10_16;//16 // index of array
 	uint16_t word_0x14_20;//20 //random seed adress
-	uint16_t word_0x16_22;//22
-	uint16_t word_0x18_24_next_entity;//24 //next entity index
+	uint16_t oldMapEntity_0x16_22;//22
+	uint16_t nextEntity_0x18_24;//24 //next entity index
 	uint16_t word_0x1A_26;//26 // index - owner //ID last index
 	int16_t word_0x1C_28;//28//rotate1
 	int16_t word_0x1E_30;//30//rotate2
@@ -488,7 +488,7 @@ typedef struct _str_0x6E8E {//lenght a8//THING
 	int8_t byte_0x48_72;//72
 	int8_t byte_0x49_73;//70
 	int16_t word_0x4A_74;
-	axis_3d array_0x4C_76;//position//ACTUAL X Y Z
+	axis_3d axis_0x4C_76;//position//ACTUAL X Y Z
 	axis_4d array_0x52_82;
 	int16_t word_0x5A_90;
 	int8_t byte_0x5C_92;
