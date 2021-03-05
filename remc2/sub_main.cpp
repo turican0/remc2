@@ -54287,27 +54287,23 @@ void sub_49F90()//22af90
 //----- (0004A050) --------------------------------------------------------
 type_str_0x6E8E* sub_4A050_new_event()//22b050
 {
-	int32_t v0; // edx
-	type_str_0x6E8E* v1x; // ebx
-	v0 = D41A0_BYTESTR_0.dword_0x35;
 	if (D41A0_BYTESTR_0.dword_0x35 >= 0)
 	{
-		D41A0_BYTESTR_0.dword_0x35--;
-		memset(D41A0_BYTESTR_0.pointers_0x246[v0], 0, sizeof(type_str_0x6E8E));
-		D41A0_BYTESTR_0.pointers_0x246[v0]->dword_0x4 = 300;
-		D41A0_BYTESTR_0.pointers_0x246[v0]->struct_byte_0xc_12_15.dword = 8;
-		D41A0_BYTESTR_0.pointers_0x246[v0]->word_0x82_130 = 16;
-		D41A0_BYTESTR_0.pointers_0x246[v0]->word_0x2A_42 = 100;
-		D41A0_BYTESTR_0.pointers_0x246[v0]->word_0x1A_26 = D41A0_BYTESTR_0.pointers_0x246[v0] - D41A0_BYTESTR_0.struct_0x6E8E;
-		D41A0_BYTESTR_0.pointers_0x246[v0]->byte_0x41_65 = -1;
-		D41A0_BYTESTR_0.pointers_0x246[v0]->byte_0x42_66 = -1;
-		D41A0_BYTESTR_0.pointers_0x246[v0]->dword_0xA0_160x = &str_D7BD6[59]; //(type_str_160*)&unk_D7BD6[0x7d6];
-		D41A0_BYTESTR_0.pointers_0x246[v0]->dword_0xA4_164x = unk_F42B0x;
-		D41A0_BYTESTR_0.pointers_0x246[v0]->byte_0x43_67 = 10;
-		D41A0_BYTESTR_0.pointers_0x246[v0]->byte_0x39_57 = -6;
-		D41A0_BYTESTR_0.pointers_0x246[v0]->byte_0x3E_62 = D41A0_BYTESTR_0.pointers_0x246[v0] - D41A0_BYTESTR_0.struct_0x6E8E;
-		D41A0_BYTESTR_0.pointers_0x246[v0]->word_0x14_20 = D41A0_BYTESTR_0.pointers_0x246[v0] - D41A0_BYTESTR_0.struct_0x6E8E + D41A0_BYTESTR_0.dword_0x8;//this is it line
-		return D41A0_BYTESTR_0.pointers_0x246[v0];
+		memset(D41A0_BYTESTR_0.pointers_0x246[D41A0_BYTESTR_0.dword_0x35], 0, sizeof(type_str_0x6E8E));
+		D41A0_BYTESTR_0.pointers_0x246[D41A0_BYTESTR_0.dword_0x35]->dword_0x4 = 300;
+		D41A0_BYTESTR_0.pointers_0x246[D41A0_BYTESTR_0.dword_0x35]->struct_byte_0xc_12_15.dword = 8;
+		D41A0_BYTESTR_0.pointers_0x246[D41A0_BYTESTR_0.dword_0x35]->word_0x82_130 = 16;
+		D41A0_BYTESTR_0.pointers_0x246[D41A0_BYTESTR_0.dword_0x35]->word_0x2A_42 = 100;
+		D41A0_BYTESTR_0.pointers_0x246[D41A0_BYTESTR_0.dword_0x35]->word_0x1A_26 = D41A0_BYTESTR_0.pointers_0x246[D41A0_BYTESTR_0.dword_0x35] - D41A0_BYTESTR_0.struct_0x6E8E;
+		D41A0_BYTESTR_0.pointers_0x246[D41A0_BYTESTR_0.dword_0x35]->byte_0x41_65 = -1;
+		D41A0_BYTESTR_0.pointers_0x246[D41A0_BYTESTR_0.dword_0x35]->byte_0x42_66 = -1;
+		D41A0_BYTESTR_0.pointers_0x246[D41A0_BYTESTR_0.dword_0x35]->dword_0xA0_160x = &str_D7BD6[59]; //(type_str_160*)&unk_D7BD6[0x7d6];
+		D41A0_BYTESTR_0.pointers_0x246[D41A0_BYTESTR_0.dword_0x35]->dword_0xA4_164x = unk_F42B0x;
+		D41A0_BYTESTR_0.pointers_0x246[D41A0_BYTESTR_0.dword_0x35]->byte_0x43_67 = 10;
+		D41A0_BYTESTR_0.pointers_0x246[D41A0_BYTESTR_0.dword_0x35]->byte_0x39_57 = -6;
+		D41A0_BYTESTR_0.pointers_0x246[D41A0_BYTESTR_0.dword_0x35]->byte_0x3E_62 = D41A0_BYTESTR_0.pointers_0x246[D41A0_BYTESTR_0.dword_0x35] - D41A0_BYTESTR_0.struct_0x6E8E;
+		D41A0_BYTESTR_0.pointers_0x246[D41A0_BYTESTR_0.dword_0x35]->word_0x14_20 = D41A0_BYTESTR_0.pointers_0x246[D41A0_BYTESTR_0.dword_0x35] - D41A0_BYTESTR_0.struct_0x6E8E + D41A0_BYTESTR_0.dword_0x8;//this is it line
+		return D41A0_BYTESTR_0.pointers_0x246[D41A0_BYTESTR_0.dword_0x35--];
 	}
 	if (D41A0_BYTESTR_0.dword_0x11e6 >= 0)
 	{
@@ -54317,25 +54313,23 @@ type_str_0x6E8E* sub_4A050_new_event()//22b050
 		x_D41A0_BYTEARRAY_4_struct.dword_38519 = 0;
 		x_D41A0_BYTEARRAY_4_struct.dword_38531 = 0;
 		x_D41A0_BYTEARRAY_4_struct.dword_38535 = 0;
-		v1x = D41A0_BYTESTR_0.dword_0x11EA[D41A0_BYTESTR_0.dword_0x11e6];
-		sub_57E50(v1x);
-		v1x->type_0x3F_63 = 0;
-		D41A0_BYTESTR_0.dword_0x11e6--;
-		memset(v1x, 0, sizeof(type_str_0x6E8E));
-		v1x->dword_0x4 = 300;
-		v1x->struct_byte_0xc_12_15.dword = 8;
-		v1x->word_0x82_130 = 16;
-		v1x->word_0x2A_42 = 100;
-		v1x->word_0x1A_26 = v1x - D41A0_BYTESTR_0.struct_0x6E8E;
-		v1x->byte_0x41_65 = -1;
-		v1x->byte_0x42_66 = -1;
-		v1x->dword_0xA0_160x = &str_D7BD6[59]; //(type_str_160*)&unk_D7BD6[0x7d6];
-		v1x->dword_0xA4_164x = unk_F42B0x;
-		v1x->byte_0x43_67 = 10;
-		v1x->byte_0x39_57 = -6;
-		v1x->byte_0x3E_62 = v1x - D41A0_BYTESTR_0.struct_0x6E8E;
-		v1x->word_0x14_20 = v1x - D41A0_BYTESTR_0.struct_0x6E8E + D41A0_BYTESTR_0.dword_0x8;//this is it line
-		return v1x;
+		sub_57E50(D41A0_BYTESTR_0.dword_0x11EA[D41A0_BYTESTR_0.dword_0x11e6]);
+		D41A0_BYTESTR_0.dword_0x11EA[D41A0_BYTESTR_0.dword_0x11e6]->type_0x3F_63 = 0;
+		memset(D41A0_BYTESTR_0.dword_0x11EA[D41A0_BYTESTR_0.dword_0x11e6], 0, sizeof(type_str_0x6E8E));
+		D41A0_BYTESTR_0.dword_0x11EA[D41A0_BYTESTR_0.dword_0x11e6]->dword_0x4 = 300;
+		D41A0_BYTESTR_0.dword_0x11EA[D41A0_BYTESTR_0.dword_0x11e6]->struct_byte_0xc_12_15.dword = 8;
+		D41A0_BYTESTR_0.dword_0x11EA[D41A0_BYTESTR_0.dword_0x11e6]->word_0x82_130 = 16;
+		D41A0_BYTESTR_0.dword_0x11EA[D41A0_BYTESTR_0.dword_0x11e6]->word_0x2A_42 = 100;
+		D41A0_BYTESTR_0.dword_0x11EA[D41A0_BYTESTR_0.dword_0x11e6]->word_0x1A_26 = D41A0_BYTESTR_0.dword_0x11EA[D41A0_BYTESTR_0.dword_0x11e6] - D41A0_BYTESTR_0.struct_0x6E8E;
+		D41A0_BYTESTR_0.dword_0x11EA[D41A0_BYTESTR_0.dword_0x11e6]->byte_0x41_65 = -1;
+		D41A0_BYTESTR_0.dword_0x11EA[D41A0_BYTESTR_0.dword_0x11e6]->byte_0x42_66 = -1;
+		D41A0_BYTESTR_0.dword_0x11EA[D41A0_BYTESTR_0.dword_0x11e6]->dword_0xA0_160x = &str_D7BD6[59]; //(type_str_160*)&unk_D7BD6[0x7d6];
+		D41A0_BYTESTR_0.dword_0x11EA[D41A0_BYTESTR_0.dword_0x11e6]->dword_0xA4_164x = unk_F42B0x;
+		D41A0_BYTESTR_0.dword_0x11EA[D41A0_BYTESTR_0.dword_0x11e6]->byte_0x43_67 = 10;
+		D41A0_BYTESTR_0.dword_0x11EA[D41A0_BYTESTR_0.dword_0x11e6]->byte_0x39_57 = -6;
+		D41A0_BYTESTR_0.dword_0x11EA[D41A0_BYTESTR_0.dword_0x11e6]->byte_0x3E_62 = D41A0_BYTESTR_0.dword_0x11EA[D41A0_BYTESTR_0.dword_0x11e6] - D41A0_BYTESTR_0.struct_0x6E8E;
+		D41A0_BYTESTR_0.dword_0x11EA[D41A0_BYTESTR_0.dword_0x11e6]->word_0x14_20 = D41A0_BYTESTR_0.dword_0x11EA[D41A0_BYTESTR_0.dword_0x11e6] - D41A0_BYTESTR_0.struct_0x6E8E + D41A0_BYTESTR_0.dword_0x8;//this is it line
+		return D41A0_BYTESTR_0.dword_0x11EA[D41A0_BYTESTR_0.dword_0x11e6--];
 	}
 	return 0;
 }
