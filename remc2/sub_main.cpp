@@ -1795,7 +1795,7 @@ void sub_47FC0_load_screen(char a1);
 void sub_480A0_set_clear_pallette(/*int a1, int a2, int a3*/);
 void sub_48120();
 void sub_48350();
-int sub_48370(__int16 a1, __int16 a2, __int16 a3);
+int shortLenght_48370(__int16 a1, __int16 a2, __int16 a3);
 int sub_483A0(__int16 a1, int a2, char a3, char a4);
 int sub_48400(int a1, int a2, int a3, int a4);
 type_str_0x6E8E* sub_48690(int16_t a1, int16_t a2, int16_t a3, int16_t a4);
@@ -52390,20 +52390,14 @@ void sub_48350()//229350
 // D41A4: using guessed type int x_DWORD_D41A4;
 
 //----- (00048370) --------------------------------------------------------
-int sub_48370(__int16 a1, __int16 a2, __int16 a3)//229370
+int shortLenght_48370(int16_t point1, int16_t point2, int16_t mapSize)//229370
 {
-	int result; // eax
-	int v4; // ebx
-	int v5; // edx
-
-	LOWORD(result) = a2 - a1;
-	v4 = (signed __int16)(a2 - a1);
-	v5 = a3 >> 1;
-	if (v4 > v5)
-		return (signed __int16)(result - a3);
-	if (v4 < -v5)
-		LOWORD(result) = a3 + result;
-	return (signed __int16)result;
+	int result = point2 - point1;
+	if (point2 - point1 > mapSize /2)
+		return (result - mapSize);
+	if (point2 - point1 < -(mapSize / 2))
+		result = mapSize + result;
+	return result;
 }
 
 //----- (000483A0) --------------------------------------------------------
@@ -52465,10 +52459,10 @@ int sub_48400(int posX2, int posY2, int posX, int posY)//229400
 	int v29; // [esp+10h] [ebp-4h]
 	int v30; // [esp+10h] [ebp-4h]
 
-	v4 = sub_48370(posX2, posX, 256);
+	v4 = shortLenght_48370(posX2, posX, 256);
 	v5 = v4;
 	v6 = v4;
-	result = sub_48370(posY2, posY, 256);
+	result = shortLenght_48370(posY2, posY, 256);
 	v8 = result;
 	if (v5 || result)
 	{
@@ -52580,11 +52574,11 @@ type_str_0x6E8E* sub_48690(int16_t posX2, int16_t posY2, int16_t posX, int16_t p
 	signed __int16 v15; // [esp+Ch] [ebp-8h]
 	int v16; // [esp+10h] [ebp-4h]
 
-	v4 = sub_48370(posX2, posX, 256);
+	v4 = shortLenght_48370(posX2, posX, 256);
 	v5 = v4;
 	v13 = v4;
 	v6 = 0;
-	v7 = sub_48370(posY2, posY, 256);
+	v7 = shortLenght_48370(posY2, posY, 256);
 	if (v5)
 	{
 		v6 = -1;
