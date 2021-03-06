@@ -3669,9 +3669,9 @@ void Convert_from_shadow_D41A0_BYTESTR_0(type_shadow_D41A0_BYTESTR_0* from, type
 		to->struct_0x6E8E[i].dword_0x8 = from->struct_0x6E8E[i].dword_0x8;
 		to->struct_0x6E8E[i].struct_byte_0xc_12_15 = from->struct_0x6E8E[i].struct_byte_0xc_12_15;
 		to->struct_0x6E8E[i].dword_0x10_16 = from->struct_0x6E8E[i].dword_0x10_16;
-		to->struct_0x6E8E[i].word_0x14_20 = from->struct_0x6E8E[i].word_0x14_20;
-		to->struct_0x6E8E[i].word_0x16_22 = from->struct_0x6E8E[i].word_0x16_22;
-		to->struct_0x6E8E[i].word_0x18_24_next_entity = from->struct_0x6E8E[i].word_0x18_24_next_entity;
+		to->struct_0x6E8E[i].rand_0x14_20 = from->struct_0x6E8E[i].word_0x14_20;
+		to->struct_0x6E8E[i].oldMapEntity_0x16_22 = from->struct_0x6E8E[i].word_0x16_22;
+		to->struct_0x6E8E[i].nextEntity_0x18_24 = from->struct_0x6E8E[i].word_0x18_24_next_entity;
 		to->struct_0x6E8E[i].word_0x1A_26 = from->struct_0x6E8E[i].word_0x1A_26;
 		to->struct_0x6E8E[i].word_0x1C_28 = from->struct_0x6E8E[i].word_0x1C_28;
 		to->struct_0x6E8E[i].word_0x1E_30 = from->struct_0x6E8E[i].word_0x1E_30;
@@ -3706,7 +3706,7 @@ void Convert_from_shadow_D41A0_BYTESTR_0(type_shadow_D41A0_BYTESTR_0* from, type
 		to->struct_0x6E8E[i].byte_0x48_72 = from->struct_0x6E8E[i].byte_0x48_72;
 		to->struct_0x6E8E[i].byte_0x49_73 = from->struct_0x6E8E[i].byte_0x49_73;
 		to->struct_0x6E8E[i].word_0x4A_74 = from->struct_0x6E8E[i].word_0x4A_74;
-		to->struct_0x6E8E[i].array_0x4C_76 = from->struct_0x6E8E[i].array_0x4C_76;
+		to->struct_0x6E8E[i].axis_0x4C_76 = from->struct_0x6E8E[i].array_0x4C_76;
 		to->struct_0x6E8E[i].array_0x52_82 = from->struct_0x6E8E[i].array_0x52_82;
 		to->struct_0x6E8E[i].word_0x5A_90 = from->struct_0x6E8E[i].word_0x5A_90;
 		to->struct_0x6E8E[i].byte_0x5C_92 = from->struct_0x6E8E[i].byte_0x5C_92;
@@ -3872,9 +3872,9 @@ void Convert_to_shadow_D41A0_BYTESTR_0(type_D41A0_BYTESTR_0* from, type_shadow_D
 		to->struct_0x6E8E[i].dword_0x8 = from->struct_0x6E8E[i].dword_0x8;
 		to->struct_0x6E8E[i].struct_byte_0xc_12_15 = from->struct_0x6E8E[i].struct_byte_0xc_12_15;
 		to->struct_0x6E8E[i].dword_0x10_16 = from->struct_0x6E8E[i].dword_0x10_16;
-		to->struct_0x6E8E[i].word_0x14_20 = from->struct_0x6E8E[i].word_0x14_20;
-		to->struct_0x6E8E[i].word_0x16_22 = from->struct_0x6E8E[i].word_0x16_22;
-		to->struct_0x6E8E[i].word_0x18_24_next_entity = from->struct_0x6E8E[i].word_0x18_24_next_entity;
+		to->struct_0x6E8E[i].word_0x14_20 = from->struct_0x6E8E[i].rand_0x14_20;
+		to->struct_0x6E8E[i].word_0x16_22 = from->struct_0x6E8E[i].oldMapEntity_0x16_22;
+		to->struct_0x6E8E[i].word_0x18_24_next_entity = from->struct_0x6E8E[i].nextEntity_0x18_24;
 		to->struct_0x6E8E[i].word_0x1A_26 = from->struct_0x6E8E[i].word_0x1A_26;
 		to->struct_0x6E8E[i].word_0x1C_28 = from->struct_0x6E8E[i].word_0x1C_28;
 		to->struct_0x6E8E[i].word_0x1E_30 = from->struct_0x6E8E[i].word_0x1E_30;
@@ -3909,7 +3909,7 @@ void Convert_to_shadow_D41A0_BYTESTR_0(type_D41A0_BYTESTR_0* from, type_shadow_D
 		to->struct_0x6E8E[i].byte_0x48_72 = from->struct_0x6E8E[i].byte_0x48_72;
 		to->struct_0x6E8E[i].byte_0x49_73 = from->struct_0x6E8E[i].byte_0x49_73;
 		to->struct_0x6E8E[i].word_0x4A_74 = from->struct_0x6E8E[i].word_0x4A_74;
-		to->struct_0x6E8E[i].array_0x4C_76 = from->struct_0x6E8E[i].array_0x4C_76;
+		to->struct_0x6E8E[i].array_0x4C_76 = from->struct_0x6E8E[i].axis_0x4C_76;
 		to->struct_0x6E8E[i].array_0x52_82 = from->struct_0x6E8E[i].array_0x52_82;
 		to->struct_0x6E8E[i].word_0x5A_90 = from->struct_0x6E8E[i].word_0x5A_90;
 		to->struct_0x6E8E[i].byte_0x5C_92 = from->struct_0x6E8E[i].byte_0x5C_92;

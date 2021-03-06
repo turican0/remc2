@@ -216,13 +216,13 @@ void convert_struct_to_array_axis_3d(axis_3d* input, uint8_t* output) {
 }
 void convert_struct_to_array_axis_4d(axis_4d* input, uint8_t* output) {
 	//int16_t aa;
-	memcpy(output + 0x0, &input->aa, 2);
+	memcpy(output + 0x0, &input->rotation2, 2);
 	//int16_t bb;
 	memcpy(output + 0x2, &input->xshift, 2);
 	//int16_t cc;
 	memcpy(output + 0x4, &input->yshift, 2);
 	//int16_t dd;
-	memcpy(output + 0x6, &input->dd, 2);
+	memcpy(output + 0x6, &input->rotation, 2);
 }
 
 void convert_struct_to_array_0x1d1_2BDE_11695(type_struct_0x1d1_2BDE_11695* input, uint8_t* output) {
@@ -344,11 +344,11 @@ void convert_struct_to_array_0x6E8E(type_str_0x6E8E* input, uint8_t* output) {
 	//int32_t dword_0x10_16;//16 // index of array
 	memcpy(output + 16, &input->dword_0x10_16, 4);
 	//uint16_t word_0x14_20;//20 //random seed adress
-	memcpy(output + 20, &input->word_0x14_20, 2);
+	memcpy(output + 20, &input->rand_0x14_20, 2);
 	//uint16_t word_0x16_22;//22
-	memcpy(output + 22, &input->word_0x16_22, 2);
+	memcpy(output + 22, &input->oldMapEntity_0x16_22, 2);
 	//uint16_t word_0x18_24_next_entity;//24
-	memcpy(output + 24, &input->word_0x18_24_next_entity, 2);
+	memcpy(output + 24, &input->nextEntity_0x18_24, 2);
 	//uint16_t word_0x1A_26;//26 // index - owner //ID last index
 	memcpy(output + 26, &input->word_0x1A_26, 2);
 	//int16_t word_0x1C_28;//28//rotate1
