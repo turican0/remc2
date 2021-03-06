@@ -994,7 +994,7 @@ static void terrain_feat_append(kiss_textbox* textbox, kiss_vscrollbar* vscrollb
 	for (int i = first_terrain_feature; i < 0x4B0; i++)
 	{
 		type_entity_0x30311 actfeat = temparray_0x30311[i];//D41A0_BYTESTR_0.str_2FECE.array_0x30311[first_terrain_feature + i];
-		sprintf(temp, "%03X|%04X|%04X|%04X|%04X|%04X|%04X|%04X|%04X|%04X|%04XNA", i,actfeat.type_0x30311, actfeat.subtype_0x30311, actfeat.axis2d_4.x, actfeat.axis2d_4.y, actfeat.DisId, actfeat.word_10, actfeat.stageTag_12, actfeat.word_14, actfeat.parent_16, actfeat.child_18);		
+		sprintf(temp, "%03X|%04X|%04X|%04X|%04X|%04X|%04X|%04X|%04X|%04X|%04XNA", i,actfeat.type_0x30311, actfeat.subtype_0x30311, actfeat.axis2d_4.x, actfeat.axis2d_4.y, (uint16_t)actfeat.DisId, actfeat.word_10, actfeat.stageTag_12, actfeat.word_14, actfeat.parent_16, actfeat.child_18);
 		if(temparray_0x30311_inactive[i])temp[strlen(temp) - 1] = 'I';//set last char as inactive
 		if(temparray_0x30311_selected[i])temp[strlen(temp) - 2] = 'S';//set last char as inactive
 		kiss_array_appendstring(textbox->array, 0, (char*)"", temp);
