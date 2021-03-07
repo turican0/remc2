@@ -22,8 +22,6 @@ SDL_Surface* screen;
 uint16_t m_iOrigw = 640;
 uint16_t m_iOrigh = 480;
 
-uint16_t m_iScreenWidth = 640;
-uint16_t m_iScreenHeight = 480;
 bool m_bMaintainAspectRatio = true;
 
 const char* default_caption = "Magic Carpet 2 - Community Update";
@@ -339,8 +337,6 @@ void VGA_Draw_stringXYtoBuffer(char* wrstring, int x, int y, uint8_t* buffer) {
 }
 
 void VGA_Init(int width, int height, bool maintainAspectRatio) {
-	m_iScreenWidth = width;
-	m_iScreenHeight = height;
 	m_bMaintainAspectRatio = maintainAspectRatio;
 
 #define SDL_HWPALETTE 0
@@ -364,8 +360,6 @@ Uint32 alphaMask = 0xff000000;
 
 void VGA_Init(Uint32 flags, int width, int height, bool maintainAspectRatio)
 {
-	m_iScreenWidth = width;
-	m_iScreenHeight = height;
 	m_bMaintainAspectRatio = maintainAspectRatio;
 
 	if (!inited)
@@ -716,7 +710,7 @@ int events()
 		case SDL_MOUSEMOTION:
 			mousex = event.motion.x;
 			mousey = event.motion.y;
-			mouse_events(1, event.motion.x, event.motion.y);
+			MouseEvents(1, event.motion.x, event.motion.y, m_iOrigw, m_iOrigh);
 			break;
 		case SDL_MOUSEBUTTONDOWN:
 		case SDL_MOUSEBUTTONUP:
@@ -775,7 +769,7 @@ int events()
 			}
 			}
 
-			mouse_events(buttonresult, event.motion.x, event.motion.y);
+			MouseEvents(buttonresult, event.motion.x, event.motion.y, m_iOrigw, m_iOrigh);
 			break;
 
 		case SDL_QUIT: return 0;
