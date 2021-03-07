@@ -135,7 +135,7 @@ int main_x(/*int argc, char** argv*/);
 
 void loadlevel(int levelnumber) {
 	sub_533B0_decompress_levels(levelnumber, &D41A0_BYTESTR_0.terrain_2FECE);
-	memcpy(temparray_0x30311, D41A0_BYTESTR_0.terrain_2FECE.entity_0x30311,sizeof(D41A0_BYTESTR_0.terrain_2FECE.entity_0x30311));
+	memcpy(temparray_0x30311, D41A0_BYTESTR_0.terrain_2FECE.entity_0x30311,sizeof(type_entity_0x30311)*0x4b0);
 	for(int i=0;i< 0x4b0;i++)
 		temparray_0x30311_inactive[i]=0;
 	for (int i = 0; i < 0x4b0; i++)
@@ -1193,6 +1193,16 @@ static void button_cancel_event(kiss_button* button, SDL_Event* e,
 	}//*quit = 1;
 }
 
+void cyclefwrite(char* buffer,int size,FILE* file)
+{
+	int buffersize = 1000;
+	int buffercount = size / buffersize;
+	int nextbuffer = size % buffersize;
+	for(int i=0;i< buffercount;i++)
+		fwrite(i* buffersize + buffer, 1, buffersize, file);
+	fwrite(buffercount * buffersize + buffer, 1, nextbuffer, file);
+}
+
 static void button_savelevel_event(kiss_button* button, SDL_Event* e,int* draw)
 {
 	if (kiss_button_event(button, e, draw))
@@ -1200,9 +1210,15 @@ static void button_savelevel_event(kiss_button* button, SDL_Event* e,int* draw)
 		char path2[512];
 		FixDir(path2, (char*)"testsave.sav");
 		FILE* file = fopen(path2,"wb");
-		memcpy(D41A0_BYTESTR_0.terrain_2FECE.entity_0x30311,temparray_0x30311, sizeof(D41A0_BYTESTR_0.terrain_2FECE.entity_0x30311));
-		fwrite(&D41A0_BYTESTR_0.terrain_2FECE,sizeof(D41A0_BYTESTR_0.terrain_2FECE),1, file);
-		fclose;
+		memcpy(D41A0_BYTESTR_0.terrain_2FECE.entity_0x30311,temparray_0x30311, sizeof(type_entity_0x30311) *0x4b0);
+		fwrite((void*)&D41A0_BYTESTR_0.terrain_2FECE, 1, sizeof(type_str_2FECE), file);
+		//cyclefwrite((char*)&D41A0_BYTESTR_0.terrain_2FECE, sizeof(type_str_2FECE), file);
+		/*int buffersize = 1000;
+		int buffercount=
+
+
+		cyclefwrite(&D41A0_BYTESTR_0.terrain_2FECE,sizeof(type_str_2FECE), file);*/
+		fclose(file);
 	}//*quit = 1;
 }
 
