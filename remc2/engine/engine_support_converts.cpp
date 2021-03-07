@@ -332,7 +332,7 @@ void convert_struct_to_array_0x5E_94(type_str_0x5E_94* input, uint8_t* output) {
 	memcpy(output + 0x22, &input->word_0x80_128, 2);
 }
 
-void convert_struct_to_array_0x6E8E(type_str_0x6E8E* input, uint8_t* output) {
+void convert_struct_to_array_0x6E8E(type_event_0x6E8E* input, uint8_t* output) {
 	//struct _str_0x6E8E* next_0;
 	memcpy(output + 0, &input->next_0, 4);
 	//int32_t dword_0x4;//4 //?bitmap//LIVE
@@ -486,11 +486,11 @@ void convert_struct_to_array_0x30311(type_entity_0x30311* input, uint8_t* output
 	//uint16_t word_12;//type_str_0x3031d//type_str_0x30331
 	memcpy(output + 12, &input->stageTag_12, 2);
 	//uint16_t word_14;//type_str_0x3031f//type_str_0x30333//1105
-	memcpy(output + 14, &input->word_14, 2);
+	memcpy(output + 14, &input->par1_14, 2);
 	//uint16_t word_16;//type_str_0x30321//type_str_0x30335
-	memcpy(output + 16, &input->parent_16, 2);
+	memcpy(output + 16, &input->par2_16, 2);
 	//uint16_t word_18;//type_str_0x30323//type_str_0x30337
-	memcpy(output + 18, &input->child_18, 2);
+	memcpy(output + 18, &input->par3_18, 2);
 }
 
 void convert_struct_to_array_0x360D2(type_str_0x360D2* input, uint8_t* output) {//lenght 110 //word_0x360D2
@@ -667,7 +667,7 @@ void convert_struct_to_array_D41A0_0(type_D41A0_BYTESTR_0* input,uint8_t* output
 	//int32_t dword_0x4;
 	memcpy(output + 4, &input->dword_0x4, 4);
 	//int32_t dword_0x8;
-	memcpy(output + 8, &input->dword_0x8, 4);
+	memcpy(output + 8, &input->pseudorandom_0x8, 4);
 	//int16_t word_0xc;//player_index?
 	memcpy(output + 0xc, &input->word_0xc, 2);
 	//int16_t word_0xe;

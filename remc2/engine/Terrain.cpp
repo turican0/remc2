@@ -176,7 +176,7 @@ void GenerateLevelMap_43830(unsigned int a1, type_str_2FECE* a2x)//224830
 	//v2 = a2;
 	x_WORD_17B4E0 = a2x->seed_0x2FEE5;
 	//*(uint32_t*)(x_D41A0_BYTEARRAY_0 + 8) = *(uint32_t*)(a2 + 23);
-	D41A0_BYTESTR_0.dword_0x8 = a2x->seed_0x2FEE5;
+	D41A0_BYTESTR_0.pseudorandom_0x8 = a2x->seed_0x2FEE5;
 	memset((void*)mapEntityIndex_15B4E0, 0, 0x20000);
 	//v3 = *(uint16_t*)(v2 + 35);
 	sub_B5E70_decompress_terrain_map_level(x_WORD_17B4E0, a2x->offset_0x2FEE9, a2x->raise_0x2FEED, a2x->gnarl_0x2FEF1);
