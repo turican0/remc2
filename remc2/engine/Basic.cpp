@@ -3796,7 +3796,7 @@ void Convert_from_shadow_D41A0_BYTESTR_0(type_shadow_D41A0_BYTESTR_0* from, type
 		to->str_0x3664C[i].byte_2 = from->str_0x3664C[i].byte_2;
 		to->str_0x3664C[i].byte_3 = from->str_0x3664C[i].byte_3;
 		to->str_0x3664C[i].axis3d_4 = from->str_0x3664C[i].axis3d_4;
-		to->str_0x3664C[i].dword_A = (type_event_0x6E8E*)from->str_0x3664C[i].dword_A;
+		to->str_0x3664C[i].event_A = (type_event_0x6E8E*)from->str_0x3664C[i].dword_A;
 		for (int j = 0; j < 25; j++)to->str_0x3664C[i].array_E[j] = from->str_0x3664C[i].array_E[j];
 	}
 	to->byte_0x36DEA_fly_asistant = from->byte_0x36DEA_fly_asistant;
@@ -4006,7 +4006,7 @@ void Convert_to_shadow_D41A0_BYTESTR_0(type_D41A0_BYTESTR_0* from, type_shadow_D
 #ifdef COMPILE_FOR_64BIT // FIXME: 64bit
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << ", file " << __FILE__ << std::endl;
 #else
-		to->str_0x3664C[i].dword_A = (uint32_t)from->str_0x3664C[i].dword_A;
+		to->str_0x3664C[i].dword_A = (uint32_t)from->str_0x3664C[i].event_A;
 #endif
 		for (int j = 0; j < 25; j++)to->str_0x3664C[i].array_E[j] = from->str_0x3664C[i].array_E[j];
 	}

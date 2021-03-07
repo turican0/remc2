@@ -1507,7 +1507,7 @@ typedef struct {//lenght 39
 	axis_3d axis3d_4;
 	/*int16_t word_6;
 	int16_t word_8;*/
-	type_event_0x6E8E* dword_A;
+	type_event_0x6E8E* event_A;
 	uint8_t array_E[25];
 	//int8_t stub[38];
 }

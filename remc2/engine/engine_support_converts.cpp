@@ -656,7 +656,7 @@ void convert_struct_to_array_0x3664C(type_str_0x3664C* input, uint8_t* output) {
 	//axis_3d axis3d_4;
 	convert_struct_to_array_axis_3d(&input->axis3d_4, output + 0x4);
 	//type_str_0x6E8E* dword_A;
-	memcpy(output + 0xa, &input->dword_A, 4);
+	memcpy(output + 0xa, &input->event_A, 4);
 	//uint8_t array_E[25];
 	memcpy(output + 0xe, input->array_E, 25);
 }
