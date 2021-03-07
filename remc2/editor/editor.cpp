@@ -211,7 +211,7 @@ void terrain_recalculate() {
 
 
 	x_WORD_17B4E0 = D41A0_BYTESTR_0.terrain_2FECE.seed_0x2FEE5;
-	D41A0_BYTESTR_0.pseudorandom_0x8 = D41A0_BYTESTR_0.terrain_2FECE.seed_0x2FEE5;
+	D41A0_BYTESTR_0.rand_0x8 = D41A0_BYTESTR_0.terrain_2FECE.seed_0x2FEE5;
 	memset((void*)mapEntityIndex_15B4E0, 0, 0x20000);
 	sub_B5E70_decompress_terrain_map_level(x_WORD_17B4E0, D41A0_BYTESTR_0.terrain_2FECE.offset_0x2FEE9, D41A0_BYTESTR_0.terrain_2FECE.raise_0x2FEED, D41A0_BYTESTR_0.terrain_2FECE.gnarl_0x2FEF1);
 	sub_44DB0_truncTerrainHeight();//225db0 //trunc and create

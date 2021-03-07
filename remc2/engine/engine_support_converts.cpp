@@ -667,7 +667,7 @@ void convert_struct_to_array_D41A0_0(type_D41A0_BYTESTR_0* input,uint8_t* output
 	//int32_t dword_0x4;
 	memcpy(output + 4, &input->dword_0x4, 4);
 	//int32_t dword_0x8;
-	memcpy(output + 8, &input->pseudorandom_0x8, 4);
+	memcpy(output + 8, &input->rand_0x8, 4);
 	//int16_t word_0xc;//player_index?
 	memcpy(output + 0xc, &input->word_0xc, 2);
 	//int16_t word_0xe;

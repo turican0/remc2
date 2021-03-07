@@ -3631,7 +3631,7 @@ void Convert_from_shadow_str_2FECE(type_shadow_str_2FECE* from, type_str_2FECE* 
 void Convert_from_shadow_D41A0_BYTESTR_0(type_shadow_D41A0_BYTESTR_0* from, type_D41A0_BYTESTR_0* to) {
 	for (int i = 0; i < 4; i++)to->stub0[i] = from->stub0[i];
 	to->dword_0x4 = from->dword_0x4;
-	to->pseudorandom_0x8 = from->dword_0x8;
+	to->rand_0x8 = from->dword_0x8;
 	to->word_0xc = from->word_0xc;
 	to->word_0xe = from->word_0xe;
 	for (int i = 0; i < 0x1d; i++)to->array_0x10[i] = from->array_0x10[i];
@@ -3822,7 +3822,7 @@ void Convert_from_shadow_D41A0_BYTESTR_0(type_shadow_D41A0_BYTESTR_0* from, type
 void Convert_to_shadow_D41A0_BYTESTR_0(type_D41A0_BYTESTR_0* from, type_shadow_D41A0_BYTESTR_0* to) {
 	for (int i = 0; i < 4; i++)to->stub0[i] = from->stub0[i];
 	to->dword_0x4 = from->dword_0x4;
-	to->dword_0x8 = from->pseudorandom_0x8;
+	to->dword_0x8 = from->rand_0x8;
 	to->word_0xc = from->word_0xc;
 	to->word_0xe = from->word_0xe;
 	for (int i = 0; i < 0x1d; i++)to->array_0x10[i] = from->array_0x10[i];

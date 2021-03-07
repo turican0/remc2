@@ -1537,7 +1537,7 @@ GameSettingsStruct_t;
 typedef struct {//lenght 224791
 	uint8_t stub0[4];
 	uint32_t dword_0x4;
-	uint32_t pseudorandom_0x8;
+	uint32_t rand_0x8;
 	int16_t word_0xc;//player_index?
 	int16_t word_0xe;
 	uint8_t array_0x10[0x1d]; //0x10, next 0x2d(45)
