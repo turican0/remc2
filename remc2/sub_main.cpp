@@ -36,7 +36,7 @@ void _strupr(char* s)
 
 #define PLAYING_GAME
 
-#define RELEASE_GAME
+//#define RELEASE_GAME
 
 //adress 2285ff
 
@@ -54100,6 +54100,9 @@ LABEL_2:
 				//v8x = v5->dword_6;
 				if (v5->adress_6 && v5->dword_10)
 				{//adress 22a976
+					#ifdef DEBUG_SEQUENCES
+					//add_compare(0x22A977, debugafterload,2);
+					#endif DEBUG_SEQUENCES
 					pre_sub_4A190_0x6E8E(v5->adress_6, &D41A0_BYTESTR_0.struct_0x6E8E[iy], 2);
 				}
 				goto LABEL_27;
@@ -54264,15 +54267,16 @@ void SetEntityShiftRot_49EA0(type_event_0x6E8E* event, int16_t shift, int16_t ro
 //----- (00049EC0) --------------------------------------------------------
 void sub_49EC0(type_event_0x6E8E* event, int16_t a2)//22aec0 // get castle data
 {
+	posistruct_t v2 = (*filearray_2aa18c[filearrayindex_BUILD00DATTAB].posistruct)[a2];
 	if (x_WORD_180660_VGA_type_resolution == 1)
 	{
-		(*filearray_2aa18c[filearrayindex_BUILD00DATTAB].posistruct)[a2].height >>= 1;
-		(*filearray_2aa18c[filearrayindex_BUILD00DATTAB].posistruct)[a2].width >>= 1;
+		v2.height >>= 1;
+		v2.width >>= 1;
 	}
-	event->array_0x52_82.xshift = (((*filearray_2aa18c[filearrayindex_BUILD00DATTAB].posistruct)[a2].width << 8) + 1280) >> 1;
+	event->array_0x52_82.xshift = ((v2.width << 8) + 1280) >> 1;
 	event->array_0x52_82.rotation2 = 0;
 	event->array_0x52_82.rotation = 256;
-	event->array_0x52_82.yshift = (((*filearray_2aa18c[filearrayindex_BUILD00DATTAB].posistruct)[a2].height << 8) + 1280) >> 1;
+	event->array_0x52_82.yshift = ((v2.height << 8) + 1280) >> 1;
 }
 
 //----- (00049F30) --------------------------------------------------------
@@ -70092,7 +70096,7 @@ void sub_57730()//238730
 					if (v20->dword_10)
 					{
 #ifdef DEBUG_SEQUENCES
-						add_compare(0x238A8A, debugafterload, 0xaf2);//0x9ac
+						add_compare(0x238A8A, debugafterload);//0x9ac
 #endif //DEBUG_SEQUENCES
 
 						//adress 238a8a zacina na 35cf6e 363bb6 =6c48/168=165=a5
@@ -71573,11 +71577,11 @@ char sub_59DC0(type_event_0x6E8E* a1x)//23adc0
 	if (debugafterload)
 	{
 		comp20 = compare_with_sequence((char*)"0023ADC4-002DC4E0", (uint8_t*)x_BYTE_10B4E0_terraintype, 0x2dc4e0, debugcounter_23adc0, 0x70000, 0x10000, &origbyte20, &remakebyte20);
-		comp20 = compare_with_sequence((char*)"0023ADC4-002DC4E0", (uint8_t*)x_BYTE_11B4E0_height, 0x2dc4e0, debugcounter_23adc0, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x10000);
+		comp20 = compare_with_sequence((char*)"0023ADC4-002DC4E0", (uint8_t*)x_BYTE_11B4E0_heightmap, 0x2dc4e0, debugcounter_23adc0, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x10000);
 		comp20 = compare_with_sequence((char*)"0023ADC4-002DC4E0", (uint8_t*)x_BYTE_12B4E0_shading, 0x2dc4e0, debugcounter_23adc0, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x20000);
 		comp20 = compare_with_sequence((char*)"0023ADC4-002DC4E0", (uint8_t*)x_BYTE_13B4E0_angle, 0x2dc4e0, debugcounter_23adc0, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x30000);
 		//comp20 = compare_with_sequence((char*)"00228320", (uint8_t*)x_BYTE_14B4E0, 0x2dc4e0, debugcounter11, 0x70000,0x10000, &origbyte20, &remakebyte20, 0x40000);
-		comp20 = compare_with_sequence((char*)"0023ADC4-002DC4E0", (uint8_t*)x_WORD_15B4E0_source, 0x2dc4e0, debugcounter_23adc0, 0x70000, 0x20000, &origbyte20, &remakebyte20, 0x50000);
+		comp20 = compare_with_sequence((char*)"0023ADC4-002DC4E0", (uint8_t*)mapEntityIndex_15B4E0, 0x2dc4e0, debugcounter_23adc0, 0x70000, 0x20000, &origbyte20, &remakebyte20, 0x50000);
 
 		//uint8_t origbyte20 = 0;
 		//uint8_t remakebyte20 = 0;
