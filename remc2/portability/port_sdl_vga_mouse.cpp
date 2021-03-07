@@ -38,8 +38,14 @@ Uint8* VGA_Get_pallette() {
 	return temppallettebuffer;
 }
 
-void SubBlit(uint16_t originalResWidth, uint16_t originalResHeight) {
+uint16_t lastResHeight=0;
 
+void SubBlit(uint16_t originalResWidth, uint16_t originalResHeight) {
+	if (originalResHeight != lastResHeight)
+	{
+		SDL_RenderClear(renderer);
+		lastResHeight = originalResHeight;
+	}
 	SDL_BlitSurface(screen, NULL, helper_surface, NULL);
 	SDL_UpdateTexture(texture, NULL/*&rect*/, helper_surface->pixels, helper_surface->pitch);
 	
