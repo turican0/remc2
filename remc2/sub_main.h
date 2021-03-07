@@ -221,7 +221,7 @@ typedef struct {//lenght 24
 	int32_t dword_8;
 	int32_t dword_12;
 	sub2x_BYTE_E7EE0x* str_16;
-	int8_t* dword_20;
+	int8_t* dword_20xx;
 }
 subx_BYTE_E7EE0x;
 

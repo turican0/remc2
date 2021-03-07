@@ -1167,7 +1167,7 @@ int j_j___clock(x_DWORD, x_DWORD, x_DWORD) { stub_fix_it(); return 0; }; // weak
 
 // Function declarations
 signed __int16 sub_10010();
-unsigned int sub_10080(int32_t a1, int32_t a2);
+unsigned int AddE7EE0x_10080(int32_t a1, int32_t a2);
 void ResetEvent08_10100(int32_t a1);
 signed int sub_10130(int a1, x_DWORD* a2, x_DWORD* a3);
 int sub_102D0(type_event_0x6E8E* a1, axis_3d* a2, char a3);
@@ -7910,43 +7910,18 @@ signed __int16 sub_10010()
 // D3F48: using guessed type char x_BYTE_D3F48;
 
 //----- (00010080) --------------------------------------------------------
-unsigned int sub_10080(int32_t a1, int32_t a2)//1f1080
+unsigned int AddE7EE0x_10080(int32_t a1, int32_t a2)//1f1080
 {
-	unsigned int i; // edx
-	//int v3; // eax
-	int v4; // ecx
-	sub2x_BYTE_E7EE0x* v5x; // ebx
-
-	//for (i = 1; i < 0x64 && *(int32_t*)&x_BYTE_E7EE0x[8 + 4 * 6 * i] != -1; ++i)
-	for (i = 1; i < 0x64 && str_E7EE0x[i].dword_8 != -1; ++i)
-		;
-	//v3 = 3 * i;
-	/* *(int32_t*)&x_BYTE_E7EE0x[4 * 6 * i] = (uint32_t)a1;
-	*(int32_t*)&x_BYTE_E7EE0x[8 + 4 * 6 * i] = (uint32_t)a1;
-	*(int32_t*)&x_BYTE_E7EE0x[0xc + 4 * 6 * i] = 0;
-	v4 = (int)*(int32_t*)&x_BYTE_E7EE0x[8 + 4 * 6 * i];
-	*(int32_t*)&x_BYTE_E7EE0x[4 + 4 * 6 * i] = a2;
-	v5 = (uint8_t*)&(*(int32_t*)&x_BYTE_E9980x[6 * v4]);
-	*(int32_t*)&x_BYTE_E7EE0x[0x10 + 4 * 6 * i] = (int32_t)v5;
-	*(int32_t*)&x_BYTE_E7EE0x[0x14 + 4 * 6 * i] = *(int32_t*)v5;*/
-
+	unsigned int i;
+	for (i = 1; i < 0x64 && str_E7EE0x[i].dword_8 != -1; ++i);
 	str_E7EE0x[i].dword_0 = a1;
 	str_E7EE0x[i].dword_8 = a1;
 	str_E7EE0x[i].dword_12 = 0;
-	v4 = str_E7EE0x[i].dword_8;
 	str_E7EE0x[i].dword_4 = a2;
-	v5x = &str_E9980x[v4];
-	//v5 = (int8_t*) & (*(int32_t*)&x_BYTE_E9980x[6 * v4]);
-	str_E7EE0x[i].str_16 = v5x;
-	str_E7EE0x[i].dword_20 = v5x->dword_0;
+	str_E7EE0x[i].str_16 = &str_E9980x[str_E7EE0x[i].dword_8];
+	str_E7EE0x[i].dword_20xx = str_E9980x[str_E7EE0x[i].dword_8].dword_0;
 	return i;
 }
-// E7EE0: using guessed type int x_DWORD_E7EE0[];
-// E7EE4: using guessed type int x_DWORD_E7EE4[];
-// E7EE8: using guessed type int x_DWORD_E7EE8[];
-// E7EEC: using guessed type int x_DWORD_E7EEC[];
-// E7EF0: using guessed type int x_DWORD_E7EF0[];
-// E9980: using guessed type int x_DWORD_E9980;
 
 //----- (00010100) --------------------------------------------------------
 void ResetEvent08_10100(int32_t a1)//1f1100
@@ -7959,101 +7934,30 @@ int debugcounter_1f1130;
 //----- (00010130) --------------------------------------------------------
 signed int sub_10130(int a1, x_DWORD* a2, x_DWORD* a3)//1f1130
 {
-	//int *v3; // eax
-	int8_t* v4; // edx
-	sub2x_BYTE_E7EE0x* v5x; // ecx
-	//int32_t v6; // ebx
-	//int8_t* v7; // esi
-	int32_t v8; // edi
-	int32_t v9; // ebx
-	signed int result; // eax
-
-	/*
-	uint8_t origbyte20 = 0;
-	uint8_t remakebyte20 = 0;
-	int comp20;
-
-	comp20 = compare_with_sequence_E7EE0((char*)"001F1130-002B8EE0", (uint8_t*)x_BYTE_E7EE0x, 0x2b8ee0, debugcounter_1f1130, 700 * 4 * 2, 700 * 4 * 2, &origbyte20, &remakebyte20);
-
-	/*if (debugcounter2 >= 0x7d)
-		//if (debugcounter2 >= 0x01)
-	{
-		myprintf("i:%d,", debugcounter2);
-	}
-	debugcounter_1f1130++;
-	*/
-
-	//v3 = (int*)&(x_DWORD_E7EE0x[a1].pointer);
-	//v3[0] x_DWORD_E7EE0x[a1+0].pointer
-	//v3[1] x_DWORD_E7EE0x[a1+0].size
-	//v3[2] x_DWORD_E7EE0x[a1+1].pointer
-	//v3[3] x_DWORD_E7EE0x[a1+1].size
-	//v3[4] x_DWORD_E7EE0x[a1+2].pointer
-	//v3[5] x_DWORD_E7EE0x[a1+2].size
-	//v4 = (char *)v3[5];
-	/*
-	v4 = (uint8_t*)*(int32_t*)&x_BYTE_E7EE0x[4 * 6 * a1 + 4 * 5];
-	v5 = (uint8_t*)*(int32_t*)&x_BYTE_E7EE0x[4 * 6 * a1 + 4 * 4];
-	*a2 = (int8_t)v4[0];
-	*a3 = (int8_t)v4[1];
-	v6 = (uint8_t*)*(int32_t*)&x_BYTE_E7EE0x[4 * 6 * a1 + 4 * 3] + 1;
-	*(int32_t*)&x_BYTE_E7EE0x[4 * 6 * a1 + 4 * 5] += 4;
-	*(int32_t*)&x_BYTE_E7EE0x[4 * 6 * a1 + 4 * 3] = (uint32_t)v6;
-	if (*(uint16_t*)(v5 + 4) > (uint32_t)v6)
-	{
-		result = 1;
-	}
-	else
-	{
-		v7 = (uint8_t*)*(int32_t*)&x_BYTE_E7EE0x[4 * 6 * a1 + 4 * 4];
-		*(int32_t*)&x_BYTE_E7EE0x[4 * 6 * a1 + 4 * 3] = 0;
-		v8 = (uint8_t*)*(int32_t*)&x_BYTE_E7EE0x[4 * 6 * a1 + 4 * 2];
-		*(int32_t*)&x_BYTE_E7EE0x[4 * 6 * a1 + 4 * 4] = (int32_t)v7 + 6;
-		v8++;
-		v9 = (uint8_t*)*(int32_t*)&x_BYTE_E7EE0x[4 * 6 * a1 + 4 * 1];
-		*(int32_t*)&x_BYTE_E7EE0x[4 * 6 * a1 + 4 * 2] = (int32_t)v8;
-		if (v8 <= v9)
-		{
-			result = 1;
-		}
-		else
-		{
-			result = 2;
-		}
-	}*/
-	v4 = str_E7EE0x[a1].dword_20;
-	v5x = str_E7EE0x[a1].str_16;
-	*a2 = (int8_t)v4[0];
-	*a3 = (int8_t)v4[1];
-	//v6 = str_E7EE0x[a1].dword_12+1;
-	str_E7EE0x[a1].dword_20 += 4;
+	*a2 = str_E7EE0x[a1].dword_20xx[0];
+	*a3 = str_E7EE0x[a1].dword_20xx[1];
+	str_E7EE0x[a1].dword_20xx+=sizeof(int8_t*);
 	str_E7EE0x[a1].dword_12++;
-	if (v5x->word_4 > str_E7EE0x[a1].dword_12)
+	if (str_E7EE0x[a1].str_16->word_4 > str_E7EE0x[a1].dword_12)
 	{
-		result = 1;
+		return 1;
 	}
 	else
 	{
-		//v7 = str_E7EE0x[a1].str_16;
 		str_E7EE0x[a1].dword_12 = 0;
-		v8 = (int32_t)str_E7EE0x[a1].dword_8;
-		//str_E7EE0x[a1].dword_16 = (int8_t*)v7 + 6;
 		str_E7EE0x[a1].str_16++;
-		v8++;
-		v9 = (int32_t)str_E7EE0x[a1].dword_4;
-		str_E7EE0x[a1].dword_8 = (int32_t)v8;
-		if (v8 <= v9)
+		str_E7EE0x[a1].dword_8++;
+		if (str_E7EE0x[a1].dword_8 <= str_E7EE0x[a1].dword_4)
 		{
-			result = 1;
+			return 1;
 		}
 		else
 		{
-			result = 2;
+			return 2;
 		}
 	}
-	return result;
+	return 0;
 }
-// E7EE0: using guessed type int x_DWORD_E7EE0[];
 
 //----- (000101C0) --------------------------------------------------------
 void sub_101C0()//1f11c0
@@ -8355,7 +8259,7 @@ type_event_0x6E8E* sub_10780(type_event_0x6E8E* a1x)//1f1780
 	v1 = a1x->array_0x52_82.xshift + 255;
 	v9 = (a1x->axis_0x4C_76.y + 128) >> 8;
 	//v2 = sub_10080(0, (v1 - (__CFSHL__(v1 >> 31, 8) + (v1 >> 31 << 8))) >> 8);
-	v2 = sub_10080(0, ((v1 - (my_sign32(v1) * 255)) >> 8));
+	v2 = AddE7EE0x_10080(0, ((v1 - (my_sign32(v1) * 255)) >> 8));
 	if (v2)
 	{
 		while (sub_10130(v2, &v7, &v6) == 1)
@@ -8406,7 +8310,7 @@ type_event_0x6E8E* sub_108B0(type_event_0x6E8E* a1x)//1f18b0
 	v1 = a1x->array_0x52_82.xshift + 255;
 	v12 = (a1x->axis_0x4C_76.y + 128) >> 8;
 	//v2 = sub_10080(0, (v1 - (__CFSHL__(v1 >> 31, 8) + (v1 >> 31 << 8))) >> 8);
-	v2 = sub_10080(0, ((v1 - (my_sign32(v1) * 255)) >> 8));
+	v2 = AddE7EE0x_10080(0, ((v1 - (my_sign32(v1) * 255)) >> 8));
 	if (v2)
 	{
 	LABEL_29:
@@ -8495,7 +8399,7 @@ type_event_0x6E8E* sub_10A50(type_event_0x6E8E* a1x)//1f1a50
 	v1 = a1x->array_0x52_82.xshift + 255;
 	v9 = (a1x->axis_0x4C_76.y + 128) >> 8;
 	//v2 = sub_10080(0, (v1 - (__CFSHL__(v1 >> 31, 8) + (v1 >> 31 << 8))) >> 8);
-	v2 = sub_10080(0, ((v1 - (my_sign32(v1) * 255)) >> 8));
+	v2 = AddE7EE0x_10080(0, ((v1 - (my_sign32(v1) * 255)) >> 8));
 	if (v2)
 	{
 		while (sub_10130(v2, &v7, &v6) == 1)
@@ -19261,7 +19165,7 @@ void sub_1F0C0(/*type_str_0x6E8E* a1x,*/ type_event_0x6E8E* a2x)//2000c0
 		{
 			v11 = (a2x->axis_0x4C_76.x + 128) >> 8;
 			v12 = (a2x->axis_0x4C_76.y + 128) >> 8;
-			v3 = sub_10080(0, 4);
+			v3 = AddE7EE0x_10080(0, 4);
 			if (v3)
 			{
 				v13 = 0;
@@ -20904,7 +20808,7 @@ char sub_21490(type_event_0x6E8E* a1x)//202490
 		if (v2 < 0)
 		{
 			v28 = 1;
-			v4 = sub_10080(0, 7);
+			v4 = AddE7EE0x_10080(0, 7);
 			if (v4)
 			{
 				while (sub_10130(v4, &v21, &v20) == 1 && v28)
@@ -20930,7 +20834,7 @@ char sub_21490(type_event_0x6E8E* a1x)//202490
 		else
 		{
 			sub_6E450_distance_sound(a1x - D41A0_BYTESTR_0.struct_0x6E8E, -1, 10);
-			v3 = sub_10080(0, 15 - a1x->dword_0x10_16);
+			v3 = AddE7EE0x_10080(0, 15 - a1x->dword_0x10_16);
 			if (v3)
 			{
 				while (sub_10130(v3, &v21, &v20) == 1)
@@ -32609,7 +32513,7 @@ void sub_30F60(type_event_0x6E8E* event)//211f60
 		event->struct_byte_0xc_12_15.byte[0] |= 2u;
 		sub_6E450_distance_sound(event - D41A0_BYTESTR_0.struct_0x6E8E, -1, 3);
 	}
-	v4 = sub_10080(event->dword_0x10_16, event->dword_0x10_16);
+	v4 = AddE7EE0x_10080(event->dword_0x10_16, event->dword_0x10_16);
 	if (v4)
 	{
 		while (sub_10130(v4, &v11, &v10) == 1)
@@ -33321,7 +33225,7 @@ void sub_31F00(type_event_0x6E8E* a1x, __int16 a2, __int16 a3)//212f00
 	if (a3 > ((a1x->array_0x52_82.xshift - (my_sign32(a1x->array_0x52_82.xshift) << 8) + my_sign32(a1x->array_0x52_82.xshift))) >> 8)
 		v3 = ((a1x->array_0x52_82.xshift - (my_sign32(a1x->array_0x52_82.xshift) << 8) + my_sign32(a1x->array_0x52_82.xshift))) >> 8;
 	v10 = -3;
-	v7 = sub_10080(a2, (signed __int16)v3);
+	v7 = AddE7EE0x_10080(a2, (signed __int16)v3);
 	//v7 = result;
 	if (v7)
 	{
@@ -33762,7 +33666,7 @@ void sub_32880(type_event_0x6E8E* a1x)//213880
 	v4 = sub_10C80(a1x, 0, a1x->word_0x2A_42 / a1x->dword_0x4);
 	if (v4)
 		sub_6D8B0(a1x->word_0x1A_26, 9u, v4);
-	v5 = sub_10080(a1x->dword_0x10_16, a1x->dword_0x10_16);
+	v5 = AddE7EE0x_10080(a1x->dword_0x10_16, a1x->dword_0x10_16);
 	if (v5)
 	{
 		while (sub_10130(v5, &v12, &v13) == 1)
@@ -34002,7 +33906,7 @@ void sub_32F40(type_event_0x6E8E* a1x)//213f40
 	if (v1 >= 0)
 	{
 		a1x->dword_0x10_16 = 0;
-		v2 = sub_10080(0, a1x->dword_0x10_16);
+		v2 = AddE7EE0x_10080(0, a1x->dword_0x10_16);
 		if (v2)
 		{
 			while (sub_10130(v2, &v9, &v8) == 1)
@@ -34165,7 +34069,7 @@ void sub_33340(type_event_0x6E8E* a1x)//214340
 	v31 = 0;
 	v32 = (a1x->axis_0x4C_76.x + 128) >> 8;
 	v36 = (a1x->axis_0x4C_76.y + 128) >> 8;
-	v35 = sub_10080(0, 12);
+	v35 = AddE7EE0x_10080(0, 12);
 	if (v35)
 	{
 		while (1)
@@ -34423,7 +34327,7 @@ void sub_338D0(type_event_0x6E8E* a1x)//2148d0
 
 	v1 = a1x->axis_0x4C_76.y + 128;
 	v2 = (a1x->axis_0x4C_76.x + 128) >> 8;
-	v5 = sub_10080(0, 12);
+	v5 = AddE7EE0x_10080(0, 12);
 	v4 = v1 >> 8;
 	//v5 = result;
 	if (v5)
@@ -38441,7 +38345,7 @@ int sub_38B90(type_event_0x6E8E* a1x)//219b90
 				+ 4 * (768 * a1x->dword_0x10_16 >> 31))) >> 2,
 		512);
 	sub_10C80(a1x, 0, (signed int)a1x->word_0x2A_42 / a1x->dword_0x4);
-	v4 = sub_10080(a1x->dword_0x10_16, a1x->dword_0x10_16);
+	v4 = AddE7EE0x_10080(a1x->dword_0x10_16, a1x->dword_0x10_16);
 	if (v4)
 	{
 		a1x->rand_0x14_20 = 9377 * a1x->rand_0x14_20 + 9439;
@@ -39665,7 +39569,7 @@ void sub_3A2D0(type_event_0x6E8E* a1x)//21b2d0
 		{
 			v21 = (unsigned __int16)(a1x->axis_0x4C_76.x + 128) >> 8;
 			v22 = (unsigned __int16)(a1x->axis_0x4C_76.y + 128) >> 8;
-			v18 = sub_10080(0, v6);
+			v18 = AddE7EE0x_10080(0, v6);
 			if (v18)
 			{
 				while (sub_10130(v18, (x_DWORD*)&v17, (x_DWORD*)&v16) == 1)
@@ -39687,7 +39591,7 @@ void sub_3A2D0(type_event_0x6E8E* a1x)//21b2d0
 			}
 			if (v20)
 			{
-				v12 = sub_10080(0, v6 >> 1);
+				v12 = AddE7EE0x_10080(0, v6 >> 1);
 				if (v12)
 				{
 					while (sub_10130(v12, (x_DWORD*)&v17, (x_DWORD*)&v16) == 1)
@@ -40333,7 +40237,7 @@ void sub_3AF00_castle_defend_event(type_event_0x6E8E* a1x)//21bf00
 			goto LABEL_74;
 		v36 = (a1x->axis_0x4C_76.x + 128) >> 8;
 		v35 = (a1x->axis_0x4C_76.y + 128) >> 8;
-		v3.unint = sub_10080(3, 12);
+		v3.unint = AddE7EE0x_10080(3, 12);
 		if (!v3.un_0x6E8E)
 			goto LABEL_74;
 		v39 = 0;
@@ -69235,7 +69139,7 @@ char sub_572C0(type_event_0x6E8E* a1x, __int16 a2, __int16 a3, __int16 a4, char 
 	if (a3 > (a1x->array_0x52_82.xshift - (my_sign32(a1x->array_0x52_82.xshift) << 8) + my_sign32(a1x->array_0x52_82.xshift)) >> 8)
 		v5 = (a1x->array_0x52_82.xshift - (my_sign32(a1x->array_0x52_82.xshift) << 8) + my_sign32(a1x->array_0x52_82.xshift)) >> 8;
 
-	v8 = sub_10080(a2, v5);
+	v8 = AddE7EE0x_10080(a2, v5);
 	if (!v8)
 		return 0;
 	do
@@ -88768,7 +88672,7 @@ void sub_70940()//251940
 	v0x = x_DWORD_EA3E4[D41A0_BYTESTR_0.array_0x2BDE[D41A0_BYTESTR_0.word_0xc].word_0x00a_2BE4_11240];
 	v1 = (v0x->axis_0x4C_76.x + 128) >> 8;
 	v9 = (v0x->axis_0x4C_76.y + 128) >> 8;
-	result = sub_10080(0, 128);
+	result = AddE7EE0x_10080(0, 128);
 	v3 = result;
 	if (result)
 	{
