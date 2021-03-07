@@ -189,8 +189,8 @@ typedef struct {
 	int8_t str_0x6E3E_byte0;//0x6E3E-28222//D41A0_BYTESTR_0.array_0x6E3E[xx].str_0x6E3E_byte0
 	int8_t str_0x6E3E_byte1;//0x6E3F-28223
 	int8_t str_0x6E3E_byte2;//0x6E40-28224
-	int8_t str_0x6E3E_byte3;//0x6E41-28225
-	int8_t str_0x6E3E_byte4;//0x6E42-28226
+	int8_t roll;//0x6E41-28225
+	int8_t pitch;//0x6E42-28226
 	int8_t str_0x6E3E_byte5;//0x6E43-28227
 	uint16_t str_0x6E3E_word6;//0x6E44-28228
 	uint16_t str_0x6E3E_word8;//0x6E46-28230
