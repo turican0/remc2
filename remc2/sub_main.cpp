@@ -78,7 +78,7 @@ int count_begin = 1;//1
 //int debugnextlevel = 0;
 
 bool config_EDITOR = false;
-bool config_LOAD_EDITED_LEVEL = false;
+bool config_LOAD_EDITED_LEVEL = true;
 #define EDITOR
 #define LOAD_EDITED_LEVEL
 

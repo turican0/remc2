@@ -1010,7 +1010,7 @@ static void terrain_stages_append(kiss_textbox* textbox) {
 	for (int i = 0; i < 8; i++)
 	{
 		type_str_0x36442 actstage = D41A0_BYTESTR_0.terrain_2FECE.str_0x36442[i];
-		sprintf(temp, "%1DX |%02X|%04X|%04X|%04X", i, (uint8_t)actstage.index_0, actstage.stage_1, actstage._axis_2d.x, actstage._axis_2d.y);
+		sprintf(temp, "%01X |%02X|%04X|%04X|%04X", i, (uint8_t)actstage.index_0, actstage.stage_1, actstage._axis_2d.x, actstage._axis_2d.y);
 		kiss_array_appendstring(textbox->array, 0, (char*)"", temp);
 	}
 	//text_reset(textbox1, vscrollbar1);
@@ -1314,14 +1314,16 @@ static int button_cleanlevelfeat_event(kiss_button* button, SDL_Event* e, int* d
 bool change_14(type_entity_0x30311* entity) {
 	if ((entity->type_0x30311 == 0xa) && (entity->subtype_0x30311 == 0x2d))
 		return false;
+	if ((entity->type_0x30311 == 0xb))
+		return false;
 	return true;
 }
 
 bool delete_entity(int index) {
 	for (int i = 0; i < 0x4b0; i++)
-		if (((temparray_0x30311[i].par3_18 != 0) && (temparray_0x30311[i].par3_18 == index)) ||
-			((temparray_0x30311[i].par1_14 != 0) && (temparray_0x30311[i].par1_14 == index)) ||
-			((temparray_0x30311[i].par2_16 != 0) && (temparray_0x30311[i].par2_16 == index)&& change_14(&temparray_0x30311[i])))
+		if (((temparray_0x30311[i].par3_18 != 0) && (temparray_0x30311[i].par3_18 == index) && change_14(&temparray_0x30311[i])) ||
+			((temparray_0x30311[i].par1_14 != 0) && (temparray_0x30311[i].par1_14 == index) && change_14(&temparray_0x30311[i])) ||
+			((temparray_0x30311[i].par2_16 != 0) && (temparray_0x30311[i].par2_16 == index) && change_14(&temparray_0x30311[i])))
 			return 0;//can not delete used entity
 	for (int i = index + 1; i < 0x4b0; i++)
 	{
@@ -3362,7 +3364,7 @@ int main_x(/*int argc, char** argv*/)
 
 	kiss_dec1edit_new(&levelSel, &window1, &actlevel, (char*)"Level:", 1, 24, 250, 230);
 
-	kiss_label_new(&labelXY, &window1, (char*)"", 900, 740);
+	kiss_label_new(&labelXY, &window1, (char*)"", 900, 760);
 
 	
 	kiss_label_new(&labelIndexWind2, &window2, (char*)"IX:", 300 + window2.rect.x + kiss_up.w, window2.rect.y + 10);
