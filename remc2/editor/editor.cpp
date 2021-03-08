@@ -1193,7 +1193,6 @@ static void button_cancel_event(kiss_button* button, SDL_Event* e,
 	}//*quit = 1;
 }
 
-<<<<<<< HEAD
 static bool button_loadlevel_event(kiss_button* button, SDL_Event* e, int* draw)
 {
 	if (kiss_button_event(button, e, draw))
@@ -1221,12 +1220,12 @@ static bool button_undo_event(kiss_button* button, SDL_Event* e, int* draw)
 {
 	if (kiss_button_event(button, e, draw))
 	{
-		if (indexUndoPoint > 0)
+		if (indexUndoPoint > 1)
 		{
 			indexUndoPoint--;
-			memcpy(&D41A0_BYTESTR_0.terrain_2FECE, &UndoPoint[indexUndoPoint], sizeof(type_str_2FECE));
-			memcpy(temparray_0x30311_inactive, UndoInactive[indexUndoPoint], sizeof(bool) * 0x4b0);
-			memcpy(temparray_0x30311_selected, UndoSelected[indexUndoPoint], sizeof(bool) * 0x4b0);
+			memcpy(&D41A0_BYTESTR_0.terrain_2FECE, &UndoPoint[indexUndoPoint-1], sizeof(type_str_2FECE));
+			memcpy(temparray_0x30311_inactive, UndoInactive[indexUndoPoint - 1], sizeof(bool) * 0x4b0);
+			memcpy(temparray_0x30311_selected, UndoSelected[indexUndoPoint - 1], sizeof(bool) * 0x4b0);
 			memcpy(temparray_0x30311, D41A0_BYTESTR_0.terrain_2FECE.entity_0x30311, sizeof(D41A0_BYTESTR_0.terrain_2FECE.entity_0x30311));
 		}
 		return true;
@@ -1238,18 +1237,19 @@ static bool button_redo_event(kiss_button* button, SDL_Event* e, int* draw)
 {
 	if (kiss_button_event(button, e, draw))
 	{
-		if (indexUndoPoint < MaxUndoPoints2-1)
+		if (indexUndoPoint < MaxUndoPoints2)
 		{
 			indexUndoPoint++;
-			memcpy(&D41A0_BYTESTR_0.terrain_2FECE, &UndoPoint[indexUndoPoint], sizeof(type_str_2FECE));
-			memcpy(temparray_0x30311_inactive, UndoInactive[indexUndoPoint], sizeof(bool) * 0x4b0);
-			memcpy(temparray_0x30311_selected, UndoSelected[indexUndoPoint], sizeof(bool) * 0x4b0);
+			memcpy(&D41A0_BYTESTR_0.terrain_2FECE, &UndoPoint[indexUndoPoint - 1], sizeof(type_str_2FECE));
+			memcpy(temparray_0x30311_inactive, UndoInactive[indexUndoPoint - 1], sizeof(bool) * 0x4b0);
+			memcpy(temparray_0x30311_selected, UndoSelected[indexUndoPoint - 1], sizeof(bool) * 0x4b0);
 			memcpy(temparray_0x30311, D41A0_BYTESTR_0.terrain_2FECE.entity_0x30311, sizeof(D41A0_BYTESTR_0.terrain_2FECE.entity_0x30311));
 		}
 		return true;
 	}
 	return false;
-=======
+}
+/*
 void cyclefwrite(char* buffer,int size,FILE* file)
 {
 	int buffersize = 1000;
@@ -1258,9 +1258,8 @@ void cyclefwrite(char* buffer,int size,FILE* file)
 	for(int i=0;i< buffercount;i++)
 		fwrite(i* buffersize + buffer, 1, buffersize, file);
 	fwrite(buffercount * buffersize + buffer, 1, nextbuffer, file);
->>>>>>> a535612d9f13e52cdd843d00c1237a53acaecbaa
 }
-
+*/
 static void button_savelevel_event(kiss_button* button, SDL_Event* e,int* draw)
 {
 	if (kiss_button_event(button, e, draw))
@@ -3493,6 +3492,7 @@ int main_x(/*int argc, char** argv*/)
 		/* Some code may be written here */
 		bool changed = false;
 		bool changed2 = false;
+		bool terev14 = false;
 		bool changed3 = false;
 		bool undoredo = false;
 		bool zoomchanged = false;
@@ -3885,6 +3885,8 @@ int main_x(/*int argc, char** argv*/)
 			{			
 				kiss_textbox_setviewon(&textbox1,findFirstSelected(temparray_0x30311_selected));
 				changed2 = true;
+				terev14 = false;
+				if (terev == 14)terev14 = true;
 			}
 
 			button_ok_check_event(&button_ok1check, &e, &quit, &draw);
@@ -3945,7 +3947,7 @@ int main_x(/*int argc, char** argv*/)
 		if (first) { changed = true; changed2 = true; }
 		if (changed || changed2)
 			terrain_recalculate();
-		if ((changed || changed2 || changed3) && !undoredo)
+		if ((changed || changed2 || changed3) && !undoredo && !terev14)
 		{
 			SetUndoPoint();
 		}
