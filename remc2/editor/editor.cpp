@@ -1193,6 +1193,63 @@ static void button_cancel_event(kiss_button* button, SDL_Event* e,
 	}//*quit = 1;
 }
 
+static bool button_loadlevel_event(kiss_button* button, SDL_Event* e, int* draw)
+{
+	if (kiss_button_event(button, e, draw))
+	{
+		char path2[512];
+		FixDir(path2, (char*)"testsave.sav");
+		FILE* file = fopen(path2, "rb");
+		fread(&D41A0_BYTESTR_0.terrain_2FECE, sizeof(D41A0_BYTESTR_0.terrain_2FECE), 1, file);
+		memcpy(temparray_0x30311,D41A0_BYTESTR_0.terrain_2FECE.entity_0x30311, sizeof(D41A0_BYTESTR_0.terrain_2FECE.entity_0x30311));		
+		fclose;
+		return true;
+	}//*quit = 1;
+	return false;
+}
+
+int indexUndoPoint = 0;
+const int MaxUndoPoints = 5000;
+int MaxUndoPoints2 = 0;
+type_str_2FECE UndoPoint[MaxUndoPoints];
+bool UndoInactive[MaxUndoPoints][0x4b0];
+bool UndoSelected[MaxUndoPoints][0x4b0];
+
+
+static bool button_undo_event(kiss_button* button, SDL_Event* e, int* draw)
+{
+	if (kiss_button_event(button, e, draw))
+	{
+		if (indexUndoPoint > 0)
+		{
+			indexUndoPoint--;
+			memcpy(&D41A0_BYTESTR_0.terrain_2FECE, &UndoPoint[indexUndoPoint], sizeof(type_str_2FECE));
+			memcpy(temparray_0x30311_inactive, UndoInactive[indexUndoPoint], sizeof(bool) * 0x4b0);
+			memcpy(temparray_0x30311_selected, UndoSelected[indexUndoPoint], sizeof(bool) * 0x4b0);
+			memcpy(temparray_0x30311, D41A0_BYTESTR_0.terrain_2FECE.entity_0x30311, sizeof(D41A0_BYTESTR_0.terrain_2FECE.entity_0x30311));
+		}
+		return true;
+	}
+	return false;
+}
+
+static bool button_redo_event(kiss_button* button, SDL_Event* e, int* draw)
+{
+	if (kiss_button_event(button, e, draw))
+	{
+		if (indexUndoPoint < MaxUndoPoints2-1)
+		{
+			indexUndoPoint++;
+			memcpy(&D41A0_BYTESTR_0.terrain_2FECE, &UndoPoint[indexUndoPoint], sizeof(type_str_2FECE));
+			memcpy(temparray_0x30311_inactive, UndoInactive[indexUndoPoint], sizeof(bool) * 0x4b0);
+			memcpy(temparray_0x30311_selected, UndoSelected[indexUndoPoint], sizeof(bool) * 0x4b0);
+			memcpy(temparray_0x30311, D41A0_BYTESTR_0.terrain_2FECE.entity_0x30311, sizeof(D41A0_BYTESTR_0.terrain_2FECE.entity_0x30311));
+		}
+		return true;
+	}
+	return false;
+}
+
 static void button_savelevel_event(kiss_button* button, SDL_Event* e,int* draw)
 {
 	if (kiss_button_event(button, e, draw))
@@ -2233,6 +2290,18 @@ void set_button_image_subsubtype(kiss_image** img, uint16_t acttype, uint16_t ac
 	}
 }
 
+void SetUndoPoint() {
+	if (indexUndoPoint <= MaxUndoPoints)
+	{
+		memcpy(D41A0_BYTESTR_0.terrain_2FECE.entity_0x30311, temparray_0x30311, sizeof(D41A0_BYTESTR_0.terrain_2FECE.entity_0x30311));
+		memcpy(UndoInactive[indexUndoPoint], temparray_0x30311_inactive, sizeof(bool) * 0x4b0);
+		memcpy(UndoSelected[indexUndoPoint], temparray_0x30311_selected, sizeof(bool) * 0x4b0);
+		memcpy(&UndoPoint[indexUndoPoint],&D41A0_BYTESTR_0.terrain_2FECE, sizeof(type_str_2FECE));
+		indexUndoPoint++;
+		MaxUndoPoints2 = indexUndoPoint;
+	}
+};
+
 
 bool first = true;
 int main_x(/*int argc, char** argv*/)
@@ -2249,7 +2318,8 @@ int main_x(/*int argc, char** argv*/)
 	kiss_label label_stages2 = { 0 };
 	kiss_label label_vars = { 0 };
 	kiss_label label_vars2 = { 0 };
-	kiss_button /*button_ok1 = { 0 }, button_ok2 = { 0 }, */button_cancel = { 0 }, button_levelsave = { 0 },
+	kiss_button button_cancel = { 0 }, button_levelload = { 0 }, button_levelsave = { 0 },
+		button_undo = { 0 }, button_redo = { 0 },
 		button_levelsavecsv = { 0 }, button_cleanlevelfeat = { 0 }, button_cleanselectedlevelfeat = {0}, button_filter = { 0 };
 	
 	kiss_image* act_img_type = NULL;
@@ -2360,7 +2430,7 @@ int main_x(/*int argc, char** argv*/)
 	window_selectdraw_height = 165;
 	window_selectcheck_width = 165;
 	window_selectcheck_height = 165;
-	editor_renderer = kiss_init((char*)"REMC2 Editor", &objects, 1100, 768);
+	editor_renderer = kiss_init((char*)"REMC2 Editor", &objects, 1100, 800);
 	if (!editor_renderer) return 1;
 	//kiss_array_new(&a1);
 	//kiss_array_append(&objects, ARRAY_TYPE, &a1);
@@ -3172,10 +3242,14 @@ int main_x(/*int argc, char** argv*/)
 	//kiss_entry_new(&entry, &window1, 1, (char*)"kiss", textbox1.rect.x,label_sel.rect.y + kiss_textfont.lineheight,2 * textbox_width + 2 * kiss_up.w + kiss_edge);
 	kiss_button_new(&button_cancel, &window1, (char*)"EXIT",530,740);
 	kiss_button_new(&button_levelsave, &window1, (char*)"SAVE", 530, 720);
+	kiss_button_new(&button_levelload, &window1, (char*)"LOAD", 530, 700);
 	kiss_button_new(&button_levelsavecsv, &window1, (char*)"S_CSV", 600, 720);
-	kiss_button_new(&button_cleanlevelfeat, &window1, (char*)"CLEAR", 530, 700);
+	kiss_button_new(&button_cleanlevelfeat, &window1, (char*)"CLEAR", 600, 740);
 	kiss_button_new(&button_cleanselectedlevelfeat, &window1, (char*)"D_SEL", 600, 700);
 	kiss_button_new(&button_filter, &window1, (char*)"FILTR", 670, 700);
+
+	kiss_button_new(&button_undo, &window1, (char*)"UNDO", 5, 250);
+	kiss_button_new(&button_redo, &window1, (char*)"REDO", 75, 250);
 
 	
 	//kiss_button_new(&button_ok1, &window1, (char*)"OK", button_cancel.rect.x -2 * kiss_normal.w, button_cancel.rect.y);
@@ -3403,6 +3477,7 @@ int main_x(/*int argc, char** argv*/)
 		bool changed = false;
 		bool changed2 = false;
 		bool changed3 = false;
+		bool undoredo = false;
 		bool zoomchanged = false;
 		bool zoomchangedfeat = false;
 		bool zoomchangedcheck = false;
@@ -3563,6 +3638,20 @@ int main_x(/*int argc, char** argv*/)
 
 			button_ok_event(&button_ok1feat, &e, &quit, &draw);
 			button_cancel_event(&button_cancel, &e, &quit, &draw);
+			if (button_loadlevel_event(&button_levelload, &e, &draw))
+			{
+				changed = true; changed2 = true; changed3 = true;
+			};
+			undoredo = false;
+			if (button_undo_event(&button_undo, &e, &draw))
+			{
+				changed = true; changed2 = true; changed3 = true; undoredo = true;
+			};
+			if (button_redo_event(&button_redo, &e, &draw))
+			{
+				changed = true; changed2 = true; changed3 = true; undoredo = true;
+			};
+
 			button_savelevel_event(&button_levelsave, &e, &draw);
 			button_savelevelcsv_event(&button_levelsavecsv, &e, &draw);
 
@@ -3839,6 +3928,10 @@ int main_x(/*int argc, char** argv*/)
 		if (first) { changed = true; changed2 = true; }
 		if (changed || changed2)
 			terrain_recalculate();
+		if ((changed || changed2 || changed3) && !undoredo)
+		{
+			SetUndoPoint();
+		}
 
 		vscrollbar1_event(&vscrollbar1, NULL, &textbox1, &draw);
 		//vscrollbar2_event(&vscrollbar2, NULL, &textbox2, &draw);
@@ -3881,8 +3974,12 @@ int main_x(/*int argc, char** argv*/)
 		kiss_button_draw(&button_cleanselectedlevelfeat, editor_renderer);
 		kiss_button_draw(&button_filter, editor_renderer);
 
+		kiss_button_draw(&button_levelload, editor_renderer);
 		kiss_button_draw(&button_levelsave, editor_renderer);
 		kiss_button_draw(&button_levelsavecsv, editor_renderer);
+
+		kiss_button_draw(&button_undo, editor_renderer);
+		kiss_button_draw(&button_redo, editor_renderer);
 		//kiss_label_draw(&label_res, editor_renderer);
 		//kiss_progressbar_draw(&progressbar, editor_renderer);
 		//kiss_button_draw(&button_ok2, editor_renderer);
