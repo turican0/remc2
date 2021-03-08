@@ -135,7 +135,7 @@ int main_x(/*int argc, char** argv*/);
 
 void loadlevel(int levelnumber) {
 	sub_533B0_decompress_levels(levelnumber, &D41A0_BYTESTR_0.terrain_2FECE);
-	memcpy(temparray_0x30311, D41A0_BYTESTR_0.terrain_2FECE.entity_0x30311,sizeof(D41A0_BYTESTR_0.terrain_2FECE.entity_0x30311));
+	memcpy(temparray_0x30311, D41A0_BYTESTR_0.terrain_2FECE.entity_0x30311,sizeof(type_entity_0x30311)*0x4b0);
 	for(int i=0;i< 0x4b0;i++)
 		temparray_0x30311_inactive[i]=0;
 	for (int i = 0; i < 0x4b0; i++)
@@ -211,13 +211,13 @@ void terrain_recalculate() {
 
 
 	x_WORD_17B4E0 = D41A0_BYTESTR_0.terrain_2FECE.seed_0x2FEE5;
-	D41A0_BYTESTR_0.dword_0x8 = D41A0_BYTESTR_0.terrain_2FECE.seed_0x2FEE5;
-	memset((void*)x_WORD_15B4E0_source, 0, 0x20000);
+	D41A0_BYTESTR_0.rand_0x8 = D41A0_BYTESTR_0.terrain_2FECE.seed_0x2FEE5;
+	memset((void*)mapEntityIndex_15B4E0, 0, 0x20000);
 	sub_B5E70_decompress_terrain_map_level(x_WORD_17B4E0, D41A0_BYTESTR_0.terrain_2FECE.offset_0x2FEE9, D41A0_BYTESTR_0.terrain_2FECE.raise_0x2FEED, D41A0_BYTESTR_0.terrain_2FECE.gnarl_0x2FEF1);
 	sub_44DB0_truncTerrainHeight();//225db0 //trunc and create
 	if (stage > 0)
 	{
-		memset((void*)x_WORD_15B4E0_source, 0, 0x20000);
+		memset((void*)mapEntityIndex_15B4E0, 0, 0x20000);
 		sub_44E40(D41A0_BYTESTR_0.terrain_2FECE.river_0x2FEF5, D41A0_BYTESTR_0.terrain_2FECE.lriver_0x2FEF9);//225e40 //add any fields
 	}
 	if (stage > 1)
@@ -280,7 +280,7 @@ void terrain_recalculate() {
 	sub_49F30();//prepare events pointers
 	if (stage > 14)
 	{
-		sub_49830(&D41A0_BYTESTR_0.terrain_2FECE);
+		SetStagetagForTermod_49830(&D41A0_BYTESTR_0.terrain_2FECE);
 	}
 	if (stage > 15)
 	{
@@ -404,12 +404,12 @@ void fillterrain(kiss_terrain* terrain, float zoom, int beginx, int beginy) {
 	for (int i = 0; i < 0x4B0; i++)
 	{
 		type_entity_0x30311 actfeat = temparray_0x30311[i];
-		if ((actfeat.type_0x30311 == 0xa) && (actfeat.subtype_0x30311 == 0x1d)&&(actfeat.word_14>0))
+		if ((actfeat.type_0x30311 == 0xa) && (actfeat.subtype_0x30311 == 0x1d)&&(actfeat.par1_14>0))
 		{
 			int startx = (actfeat.axis2d_4.x-beginx)* (zoom * 2);
 			int starty = (actfeat.axis2d_4.y - beginy) * (zoom * 2);
-			int endx = (temparray_0x30311[actfeat.word_14].axis2d_4.x - beginx) * (zoom * 2);
-			int endy = (temparray_0x30311[actfeat.word_14].axis2d_4.y - beginy) * (zoom * 2);
+			int endx = (temparray_0x30311[actfeat.par1_14].axis2d_4.x - beginx) * (zoom * 2);
+			int endy = (temparray_0x30311[actfeat.par1_14].axis2d_4.y - beginy) * (zoom * 2);
 			int lenx = abs(startx - endx);
 			int leny = abs(starty - endy);
 			if (lenx > 0 || leny > 0)
@@ -626,12 +626,12 @@ void fillterraincheck(float zoom, int beginx, int beginy) {
 	for (int i = 0; i < 0x4B0; i++)
 	{
 		type_entity_0x30311 actfeat = temparray_0x30311[i];
-		if ((actfeat.type_0x30311 == 0xa) && (actfeat.subtype_0x30311 == 0x1d) && (actfeat.word_14 > 0))
+		if ((actfeat.type_0x30311 == 0xa) && (actfeat.subtype_0x30311 == 0x1d) && (actfeat.par1_14 > 0))
 		{
 			int startx = (actfeat.axis2d_4.x - beginx) * (zoom * 2);
 			int starty = (actfeat.axis2d_4.y - beginy) * (zoom * 2);
-			int endx = (temparray_0x30311[actfeat.word_14].axis2d_4.x - beginx) * (zoom * 2);
-			int endy = (temparray_0x30311[actfeat.word_14].axis2d_4.y - beginy) * (zoom * 2);
+			int endx = (temparray_0x30311[actfeat.par1_14].axis2d_4.x - beginx) * (zoom * 2);
+			int endy = (temparray_0x30311[actfeat.par1_14].axis2d_4.y - beginy) * (zoom * 2);
 			int lenx = abs(startx - endx);
 			int leny = abs(starty - endy);
 			if (lenx > 0 || leny > 0)
@@ -818,12 +818,12 @@ void fillterrainfeat(float zoom, int beginx, int beginy) {
 	for (int i = 0; i < 0x4B0; i++)
 	{
 		type_entity_0x30311 actfeat = temparray_0x30311[i];
-		if ((actfeat.type_0x30311 == 0xa) && (actfeat.subtype_0x30311 == 0x1d) && (actfeat.word_14 > 0))
+		if ((actfeat.type_0x30311 == 0xa) && (actfeat.subtype_0x30311 == 0x1d) && (actfeat.par1_14 > 0))
 		{
 			int startx = (actfeat.axis2d_4.x - beginx) * (zoom * 2);
 			int starty = (actfeat.axis2d_4.y - beginy) * (zoom * 2);
-			int endx = (temparray_0x30311[actfeat.word_14].axis2d_4.x - beginx) * (zoom * 2);
-			int endy = (temparray_0x30311[actfeat.word_14].axis2d_4.y - beginy) * (zoom * 2);
+			int endx = (temparray_0x30311[actfeat.par1_14].axis2d_4.x - beginx) * (zoom * 2);
+			int endy = (temparray_0x30311[actfeat.par1_14].axis2d_4.y - beginy) * (zoom * 2);
 			int lenx = abs(startx - endx);
 			int leny = abs(starty - endy);
 			if (lenx > 0 || leny > 0)
@@ -994,7 +994,7 @@ static void terrain_feat_append(kiss_textbox* textbox, kiss_vscrollbar* vscrollb
 	for (int i = first_terrain_feature; i < 0x4B0; i++)
 	{
 		type_entity_0x30311 actfeat = temparray_0x30311[i];//D41A0_BYTESTR_0.str_2FECE.array_0x30311[first_terrain_feature + i];
-		sprintf(temp, "%03X|%04X|%04X|%04X|%04X|%04X|%04X|%04X|%04X|%04X|%04XNA", i,actfeat.type_0x30311, actfeat.subtype_0x30311, actfeat.axis2d_4.x, actfeat.axis2d_4.y, actfeat.DisId, actfeat.word_10, actfeat.stageTag_12, actfeat.word_14, actfeat.parent_16, actfeat.child_18);		
+		sprintf(temp, "%03X|%04X|%04X|%04X|%04X|%04X|%04X|%04X|%04X|%04X|%04XNA", i,actfeat.type_0x30311, actfeat.subtype_0x30311, actfeat.axis2d_4.x, actfeat.axis2d_4.y, (uint16_t)actfeat.DisId, actfeat.word_10, (uint16_t)actfeat.stageTag_12, actfeat.par1_14, actfeat.par2_16, actfeat.par3_18);
 		if(temparray_0x30311_inactive[i])temp[strlen(temp) - 1] = 'I';//set last char as inactive
 		if(temparray_0x30311_selected[i])temp[strlen(temp) - 2] = 'S';//set last char as inactive
 		kiss_array_appendstring(textbox->array, 0, (char*)"", temp);
@@ -1193,6 +1193,7 @@ static void button_cancel_event(kiss_button* button, SDL_Event* e,
 	}//*quit = 1;
 }
 
+<<<<<<< HEAD
 static bool button_loadlevel_event(kiss_button* button, SDL_Event* e, int* draw)
 {
 	if (kiss_button_event(button, e, draw))
@@ -1248,6 +1249,16 @@ static bool button_redo_event(kiss_button* button, SDL_Event* e, int* draw)
 		return true;
 	}
 	return false;
+=======
+void cyclefwrite(char* buffer,int size,FILE* file)
+{
+	int buffersize = 1000;
+	int buffercount = size / buffersize;
+	int nextbuffer = size % buffersize;
+	for(int i=0;i< buffercount;i++)
+		fwrite(i* buffersize + buffer, 1, buffersize, file);
+	fwrite(buffercount * buffersize + buffer, 1, nextbuffer, file);
+>>>>>>> a535612d9f13e52cdd843d00c1237a53acaecbaa
 }
 
 static void button_savelevel_event(kiss_button* button, SDL_Event* e,int* draw)
@@ -1257,9 +1268,15 @@ static void button_savelevel_event(kiss_button* button, SDL_Event* e,int* draw)
 		char path2[512];
 		FixDir(path2, (char*)"testsave.sav");
 		FILE* file = fopen(path2,"wb");
-		memcpy(D41A0_BYTESTR_0.terrain_2FECE.entity_0x30311,temparray_0x30311, sizeof(D41A0_BYTESTR_0.terrain_2FECE.entity_0x30311));
-		fwrite(&D41A0_BYTESTR_0.terrain_2FECE,sizeof(D41A0_BYTESTR_0.terrain_2FECE),1, file);
-		fclose;
+		memcpy(D41A0_BYTESTR_0.terrain_2FECE.entity_0x30311,temparray_0x30311, sizeof(type_entity_0x30311) *0x4b0);
+		fwrite((void*)&D41A0_BYTESTR_0.terrain_2FECE, 1, sizeof(type_str_2FECE), file);
+		//cyclefwrite((char*)&D41A0_BYTESTR_0.terrain_2FECE, sizeof(type_str_2FECE), file);
+		/*int buffersize = 1000;
+		int buffercount=
+
+
+		cyclefwrite(&D41A0_BYTESTR_0.terrain_2FECE,sizeof(type_str_2FECE), file);*/
+		fclose(file);
 	}//*quit = 1;
 }
 
@@ -1273,7 +1290,7 @@ static void button_savelevelcsv_event(kiss_button* button, SDL_Event* e, int* dr
 		for (int i = 0; i < 0x4B0; i++)
 		{
 			type_entity_0x30311 actfeat = temparray_0x30311[i];//D41A0_BYTESTR_0.str_2FECE.array_0x30311[first_terrain_feature + i];
-			fprintf(file, "0x%03X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X\n", i, actfeat.type_0x30311, actfeat.subtype_0x30311, actfeat.axis2d_4.x, actfeat.axis2d_4.y, actfeat.DisId, actfeat.word_10, actfeat.stageTag_12, actfeat.word_14, actfeat.parent_16, actfeat.child_18);			
+			fprintf(file, "0x%03X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X\n", i, actfeat.type_0x30311, actfeat.subtype_0x30311, actfeat.axis2d_4.x, actfeat.axis2d_4.y, actfeat.DisId, actfeat.word_10, actfeat.stageTag_12, actfeat.par1_14, actfeat.par2_16, actfeat.par3_18);			
 		}
 		fclose;
 	}//*quit = 1;
@@ -1303,9 +1320,9 @@ bool change_14(type_entity_0x30311* entity) {
 
 bool delete_entity(int index) {
 	for (int i = 0; i < 0x4b0; i++)
-		if (((temparray_0x30311[i].child_18 != 0) && (temparray_0x30311[i].child_18 == index)) ||
-			((temparray_0x30311[i].word_14 != 0) && (temparray_0x30311[i].word_14 == index)) ||
-			((temparray_0x30311[i].parent_16 != 0) && (temparray_0x30311[i].parent_16 == index)&& change_14(&temparray_0x30311[i])))
+		if (((temparray_0x30311[i].par3_18 != 0) && (temparray_0x30311[i].par3_18 == index)) ||
+			((temparray_0x30311[i].par1_14 != 0) && (temparray_0x30311[i].par1_14 == index)) ||
+			((temparray_0x30311[i].par2_16 != 0) && (temparray_0x30311[i].par2_16 == index)&& change_14(&temparray_0x30311[i])))
 			return 0;//can not delete used entity
 	for (int i = index + 1; i < 0x4b0; i++)
 	{
@@ -1329,13 +1346,13 @@ bool delete_entity(int index) {
 		temparray_0x30311_selected[i - 1] = temparray_0x30311_selected[i];
 	}
 	for (int i = 0; i < 0x4b0; i++) {
-		if ((temparray_0x30311[i].child_18 > index) && (temparray_0x30311[i].child_18 != 0))
-			temparray_0x30311[i].child_18--;
-		if ((temparray_0x30311[i].parent_16 > index) && (temparray_0x30311[i].parent_16 != 0))
-			temparray_0x30311[i].parent_16--;
+		if ((temparray_0x30311[i].par3_18 > index) && (temparray_0x30311[i].par3_18 != 0))
+			temparray_0x30311[i].par3_18--;
+		if ((temparray_0x30311[i].par2_16 > index) && (temparray_0x30311[i].par2_16 != 0))
+			temparray_0x30311[i].par2_16--;
 		if (change_14(&temparray_0x30311[i]))
-			if ((temparray_0x30311[i].word_14 > index) && (temparray_0x30311[i].word_14 != 0))
-				temparray_0x30311[i].word_14--;
+			if ((temparray_0x30311[i].par1_14 > index) && (temparray_0x30311[i].par1_14 != 0))
+				temparray_0x30311[i].par1_14--;
 	}
 	return 1;
 }
@@ -1709,13 +1726,13 @@ static int  CloneEvent(int x, int y) {
 		temparray_0x30311_selected[i] = temparray_0x30311_selected[i - 1];
 	}
 	for (int i = 0; i < 0x4b0; i++) {
-		if ((temparray_0x30311[i].child_18 > edited_line_old) && (temparray_0x30311[i].child_18 != 0))
-			temparray_0x30311[i].child_18++;
-		if ((temparray_0x30311[i].parent_16 > edited_line_old) && (temparray_0x30311[i].parent_16 != 0))
-			temparray_0x30311[i].parent_16++;
+		if ((temparray_0x30311[i].par3_18 > edited_line_old) && (temparray_0x30311[i].par3_18 != 0))
+			temparray_0x30311[i].par3_18++;
+		if ((temparray_0x30311[i].par2_16 > edited_line_old) && (temparray_0x30311[i].par2_16 != 0))
+			temparray_0x30311[i].par2_16++;
 		if ((temparray_0x30311[i].type_0x30311 == 0xa) && (temparray_0x30311[i].subtype_0x30311 == 0x1d))
-			if ((temparray_0x30311[i].word_14 > edited_line_old) && (temparray_0x30311[i].word_14 != 0))
-				temparray_0x30311[i].word_14++;
+			if ((temparray_0x30311[i].par1_14 > edited_line_old) && (temparray_0x30311[i].par1_14 != 0))
+				temparray_0x30311[i].par1_14++;
 	}
 	//memset(&temparray_0x30311[edited_line_old+1], 0, sizeof(temparray_0x30311[edited_line_old+1]));
 	temparray_0x30311_inactive[edited_line_old + 1] = false;
@@ -1729,9 +1746,9 @@ static int  CloneEvent(int x, int y) {
 	kiss_hex4edit_update_adress(&hex4edit5feat, &temparray_0x30311[edited_line_old + 1].DisId);
 	kiss_hex4edit_update_adress(&hex4edit6feat, &temparray_0x30311[edited_line_old + 1].word_10);
 	kiss_hex4edit_update_adress(&hex4edit7feat, &temparray_0x30311[edited_line_old + 1].stageTag_12);
-	kiss_hex4edit_update_adress(&hex4edit8feat, &temparray_0x30311[edited_line_old + 1].word_14);
-	kiss_hex4edit_update_adress(&hex4edit9feat, &temparray_0x30311[edited_line_old + 1].parent_16);
-	kiss_hex4edit_update_adress(&hex4edit10feat, &temparray_0x30311[edited_line_old + 1].child_18);
+	kiss_hex4edit_update_adress(&hex4edit8feat, &temparray_0x30311[edited_line_old + 1].par1_14);
+	kiss_hex4edit_update_adress(&hex4edit9feat, &temparray_0x30311[edited_line_old + 1].par2_16);
+	kiss_hex4edit_update_adress(&hex4edit10feat, &temparray_0x30311[edited_line_old + 1].par3_18);
 	return 1;
 };
 
@@ -1775,9 +1792,9 @@ static int button_clean_event(kiss_button* button, SDL_Event* e, int* quit, int*
 		kiss_hex4edit_update_adress(&hex4edit5feat, &temparray_0x30311[edited_line_old + 1].DisId);
 		kiss_hex4edit_update_adress(&hex4edit6feat, &temparray_0x30311[edited_line_old + 1].word_10);
 		kiss_hex4edit_update_adress(&hex4edit7feat, &temparray_0x30311[edited_line_old + 1].stageTag_12);
-		kiss_hex4edit_update_adress(&hex4edit8feat, &temparray_0x30311[edited_line_old + 1].word_14);
-		kiss_hex4edit_update_adress(&hex4edit9feat, &temparray_0x30311[edited_line_old + 1].parent_16);
-		kiss_hex4edit_update_adress(&hex4edit10feat, &temparray_0x30311[edited_line_old + 1].child_18);
+		kiss_hex4edit_update_adress(&hex4edit8feat, &temparray_0x30311[edited_line_old + 1].par1_14);
+		kiss_hex4edit_update_adress(&hex4edit9feat, &temparray_0x30311[edited_line_old + 1].par2_16);
+		kiss_hex4edit_update_adress(&hex4edit10feat, &temparray_0x30311[edited_line_old + 1].par3_18);
 		return 1;
 	}
 	return 0;
@@ -3230,10 +3247,10 @@ int main_x(/*int argc, char** argv*/)
 	//kiss_textbox_new(&textbox2, &window1, 1, &a2,vscrollbar1.uprect.x + kiss_up.w, textbox1.rect.y,	textbox_width, textbox_height);
 	//kiss_vscrollbar_new(&vscrollbar2, &window1, textbox2.rect.x +textbox_width, vscrollbar1.uprect.y, textbox_height);
 	kiss_label_new(&label_terfeat, &window1, (char*)"LEVEL ENTITES:", 5 + textbox1.rect.x + kiss_edge, textbox1.rect.y - kiss_textfont.lineheight*2);
-	kiss_label_new(&label_terfeat2, &window1, (char*)"IDX|TYPE|SUBT| X  | Y  |DIID| 10 |STAG| 14 |PARN|CHLD", 5 + textbox1.rect.x + kiss_edge, textbox1.rect.y - kiss_textfont.lineheight);
+	kiss_label_new(&label_terfeat2, &window1, (char*)"IDX|TYPE|SUBT| X  | Y  |DIID| 10 |STAG|PAR1|PAR2|PAR3", 5 + textbox1.rect.x + kiss_edge, textbox1.rect.y - kiss_textfont.lineheight);
 
 	kiss_label_new(&label_stages, &window1, (char*)"LEVEL STAGES:", 5 + textbox2.rect.x + kiss_edge, textbox2.rect.y - kiss_textfont.lineheight * 2);
-	kiss_label_new(&label_stages2, &window1, (char*)"IX|ST|1D| 03 | 05", 5 + textbox2.rect.x + kiss_edge, textbox2.rect.y - kiss_textfont.lineheight);
+	kiss_label_new(&label_stages2, &window1, (char*)"IX|ST|1D| 03 | 05 ", 5 + textbox2.rect.x + kiss_edge, textbox2.rect.y - kiss_textfont.lineheight);
 
 	kiss_label_new(&label_vars, &window1, (char*)"LEVEL VARS:", 5 + textbox3.rect.x + kiss_edge, textbox3.rect.y - kiss_textfont.lineheight * 2);
 	kiss_label_new(&label_vars2, &window1, (char*)"IX|ST|X1|Y1| X2 | Y2 ", 5 + textbox3.rect.x + kiss_edge, textbox3.rect.y - kiss_textfont.lineheight);
@@ -3513,10 +3530,10 @@ int main_x(/*int argc, char** argv*/)
 				kiss_hex4edit_update_adress(&hex4edit5feat, &temparray_0x30311[edited_line_old + 1].DisId);
 				kiss_hex4edit_update_adress(&hex4edit6feat, &temparray_0x30311[edited_line_old + 1].word_10);
 				kiss_hex4edit_update_adress(&hex4edit7feat, &temparray_0x30311[edited_line_old + 1].stageTag_12);
-				kiss_hex4edit_update_adress(&hex4edit8feat, &temparray_0x30311[edited_line_old + 1].word_14);
-				set_button_image_subsubtype(&act_img_subsubtype, temparray_0x30311[edited_line_old + 1].type_0x30311, temparray_0x30311[edited_line_old + 1].subtype_0x30311, temparray_0x30311[edited_line_old + 1].word_14);
-				kiss_hex4edit_update_adress(&hex4edit9feat, &temparray_0x30311[edited_line_old + 1].parent_16);
-				kiss_hex4edit_update_adress(&hex4edit10feat, &temparray_0x30311[edited_line_old + 1].child_18);
+				kiss_hex4edit_update_adress(&hex4edit8feat, &temparray_0x30311[edited_line_old + 1].par1_14);
+				set_button_image_subsubtype(&act_img_subsubtype, temparray_0x30311[edited_line_old + 1].type_0x30311, temparray_0x30311[edited_line_old + 1].subtype_0x30311, temparray_0x30311[edited_line_old + 1].par1_14);
+				kiss_hex4edit_update_adress(&hex4edit9feat, &temparray_0x30311[edited_line_old + 1].par2_16);
+				kiss_hex4edit_update_adress(&hex4edit10feat, &temparray_0x30311[edited_line_old + 1].par3_18);
 				selectedDrawAddCount = 0;
 				button_plusfeatcount.normalimg = img_addcount[selectedDrawAddCount];
 				button_plusfeatcount.prelightimg = img_addcount[selectedDrawAddCount];

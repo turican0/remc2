@@ -3631,7 +3631,7 @@ void Convert_from_shadow_str_2FECE(type_shadow_str_2FECE* from, type_str_2FECE* 
 void Convert_from_shadow_D41A0_BYTESTR_0(type_shadow_D41A0_BYTESTR_0* from, type_D41A0_BYTESTR_0* to) {
 	for (int i = 0; i < 4; i++)to->stub0[i] = from->stub0[i];
 	to->dword_0x4 = from->dword_0x4;
-	to->dword_0x8 = from->dword_0x8;
+	to->rand_0x8 = from->dword_0x8;
 	to->word_0xc = from->word_0xc;
 	to->word_0xe = from->word_0xe;
 	for (int i = 0; i < 0x1d; i++)to->array_0x10[i] = from->array_0x10[i];
@@ -3645,9 +3645,9 @@ void Convert_from_shadow_D41A0_BYTESTR_0(type_shadow_D41A0_BYTESTR_0* from, type
 	to->dword_0x23a = from->dword_0x23a;
 	to->dword_0x23e = from->dword_0x23e;
 	to->dword_0x242 = from->dword_0x242;
-	for (int i = 0; i < 0x3e8; i++)to->pointers_0x246[i] = (type_str_0x6E8E*)from->pointers_0x246[i];
+	for (int i = 0; i < 0x3e8; i++)to->pointers_0x246[i] = (type_event_0x6E8E*)from->pointers_0x246[i];
 	to->dword_0x11e6 = from->dword_0x11e6;
-	for (int i = 0; i < 0x3e8; i++)to->dword_0x11EA[i] = (type_str_0x6E8E*)from->dword_0x11EA[i];
+	for (int i = 0; i < 0x3e8; i++)to->dword_0x11EA[i] = (type_event_0x6E8E*)from->dword_0x11EA[i];
 	to->m_GameSettings = from->m_GameSettings;
 	to->dword_0x219A = from->dword_0x219A;
 	to->dword_0x219E = from->dword_0x219E;
@@ -3669,9 +3669,9 @@ void Convert_from_shadow_D41A0_BYTESTR_0(type_shadow_D41A0_BYTESTR_0* from, type
 		to->struct_0x6E8E[i].dword_0x8 = from->struct_0x6E8E[i].dword_0x8;
 		to->struct_0x6E8E[i].struct_byte_0xc_12_15 = from->struct_0x6E8E[i].struct_byte_0xc_12_15;
 		to->struct_0x6E8E[i].dword_0x10_16 = from->struct_0x6E8E[i].dword_0x10_16;
-		to->struct_0x6E8E[i].word_0x14_20 = from->struct_0x6E8E[i].word_0x14_20;
-		to->struct_0x6E8E[i].word_0x16_22 = from->struct_0x6E8E[i].word_0x16_22;
-		to->struct_0x6E8E[i].word_0x18_24_next_entity = from->struct_0x6E8E[i].word_0x18_24_next_entity;
+		to->struct_0x6E8E[i].rand_0x14_20 = from->struct_0x6E8E[i].word_0x14_20;
+		to->struct_0x6E8E[i].oldMapEntity_0x16_22 = from->struct_0x6E8E[i].word_0x16_22;
+		to->struct_0x6E8E[i].nextEntity_0x18_24 = from->struct_0x6E8E[i].word_0x18_24_next_entity;
 		to->struct_0x6E8E[i].word_0x1A_26 = from->struct_0x6E8E[i].word_0x1A_26;
 		to->struct_0x6E8E[i].word_0x1C_28 = from->struct_0x6E8E[i].word_0x1C_28;
 		to->struct_0x6E8E[i].word_0x1E_30 = from->struct_0x6E8E[i].word_0x1E_30;
@@ -3706,7 +3706,7 @@ void Convert_from_shadow_D41A0_BYTESTR_0(type_shadow_D41A0_BYTESTR_0* from, type
 		to->struct_0x6E8E[i].byte_0x48_72 = from->struct_0x6E8E[i].byte_0x48_72;
 		to->struct_0x6E8E[i].byte_0x49_73 = from->struct_0x6E8E[i].byte_0x49_73;
 		to->struct_0x6E8E[i].word_0x4A_74 = from->struct_0x6E8E[i].word_0x4A_74;
-		to->struct_0x6E8E[i].array_0x4C_76 = from->struct_0x6E8E[i].array_0x4C_76;
+		to->struct_0x6E8E[i].axis_0x4C_76 = from->struct_0x6E8E[i].array_0x4C_76;
 		to->struct_0x6E8E[i].array_0x52_82 = from->struct_0x6E8E[i].array_0x52_82;
 		to->struct_0x6E8E[i].word_0x5A_90 = from->struct_0x6E8E[i].word_0x5A_90;
 		to->struct_0x6E8E[i].byte_0x5C_92 = from->struct_0x6E8E[i].byte_0x5C_92;
@@ -3796,7 +3796,7 @@ void Convert_from_shadow_D41A0_BYTESTR_0(type_shadow_D41A0_BYTESTR_0* from, type
 		to->str_0x3664C[i].byte_2 = from->str_0x3664C[i].byte_2;
 		to->str_0x3664C[i].byte_3 = from->str_0x3664C[i].byte_3;
 		to->str_0x3664C[i].axis3d_4 = from->str_0x3664C[i].axis3d_4;
-		to->str_0x3664C[i].dword_A = (type_str_0x6E8E*)from->str_0x3664C[i].dword_A;
+		to->str_0x3664C[i].event_A = (type_event_0x6E8E*)from->str_0x3664C[i].dword_A;
 		for (int j = 0; j < 25; j++)to->str_0x3664C[i].array_E[j] = from->str_0x3664C[i].array_E[j];
 	}
 	to->byte_0x36DEA_fly_asistant = from->byte_0x36DEA_fly_asistant;
@@ -3822,7 +3822,7 @@ void Convert_from_shadow_D41A0_BYTESTR_0(type_shadow_D41A0_BYTESTR_0* from, type
 void Convert_to_shadow_D41A0_BYTESTR_0(type_D41A0_BYTESTR_0* from, type_shadow_D41A0_BYTESTR_0* to) {
 	for (int i = 0; i < 4; i++)to->stub0[i] = from->stub0[i];
 	to->dword_0x4 = from->dword_0x4;
-	to->dword_0x8 = from->dword_0x8;
+	to->dword_0x8 = from->rand_0x8;
 	to->word_0xc = from->word_0xc;
 	to->word_0xe = from->word_0xe;
 	for (int i = 0; i < 0x1d; i++)to->array_0x10[i] = from->array_0x10[i];
@@ -3872,9 +3872,9 @@ void Convert_to_shadow_D41A0_BYTESTR_0(type_D41A0_BYTESTR_0* from, type_shadow_D
 		to->struct_0x6E8E[i].dword_0x8 = from->struct_0x6E8E[i].dword_0x8;
 		to->struct_0x6E8E[i].struct_byte_0xc_12_15 = from->struct_0x6E8E[i].struct_byte_0xc_12_15;
 		to->struct_0x6E8E[i].dword_0x10_16 = from->struct_0x6E8E[i].dword_0x10_16;
-		to->struct_0x6E8E[i].word_0x14_20 = from->struct_0x6E8E[i].word_0x14_20;
-		to->struct_0x6E8E[i].word_0x16_22 = from->struct_0x6E8E[i].word_0x16_22;
-		to->struct_0x6E8E[i].word_0x18_24_next_entity = from->struct_0x6E8E[i].word_0x18_24_next_entity;
+		to->struct_0x6E8E[i].word_0x14_20 = from->struct_0x6E8E[i].rand_0x14_20;
+		to->struct_0x6E8E[i].word_0x16_22 = from->struct_0x6E8E[i].oldMapEntity_0x16_22;
+		to->struct_0x6E8E[i].word_0x18_24_next_entity = from->struct_0x6E8E[i].nextEntity_0x18_24;
 		to->struct_0x6E8E[i].word_0x1A_26 = from->struct_0x6E8E[i].word_0x1A_26;
 		to->struct_0x6E8E[i].word_0x1C_28 = from->struct_0x6E8E[i].word_0x1C_28;
 		to->struct_0x6E8E[i].word_0x1E_30 = from->struct_0x6E8E[i].word_0x1E_30;
@@ -3909,7 +3909,7 @@ void Convert_to_shadow_D41A0_BYTESTR_0(type_D41A0_BYTESTR_0* from, type_shadow_D
 		to->struct_0x6E8E[i].byte_0x48_72 = from->struct_0x6E8E[i].byte_0x48_72;
 		to->struct_0x6E8E[i].byte_0x49_73 = from->struct_0x6E8E[i].byte_0x49_73;
 		to->struct_0x6E8E[i].word_0x4A_74 = from->struct_0x6E8E[i].word_0x4A_74;
-		to->struct_0x6E8E[i].array_0x4C_76 = from->struct_0x6E8E[i].array_0x4C_76;
+		to->struct_0x6E8E[i].array_0x4C_76 = from->struct_0x6E8E[i].axis_0x4C_76;
 		to->struct_0x6E8E[i].array_0x52_82 = from->struct_0x6E8E[i].array_0x52_82;
 		to->struct_0x6E8E[i].word_0x5A_90 = from->struct_0x6E8E[i].word_0x5A_90;
 		to->struct_0x6E8E[i].byte_0x5C_92 = from->struct_0x6E8E[i].byte_0x5C_92;
@@ -4006,7 +4006,7 @@ void Convert_to_shadow_D41A0_BYTESTR_0(type_D41A0_BYTESTR_0* from, type_shadow_D
 #ifdef COMPILE_FOR_64BIT // FIXME: 64bit
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << ", file " << __FILE__ << std::endl;
 #else
-		to->str_0x3664C[i].dword_A = (uint32_t)from->str_0x3664C[i].dword_A;
+		to->str_0x3664C[i].dword_A = (uint32_t)from->str_0x3664C[i].event_A;
 #endif
 		for (int j = 0; j < 25; j++)to->str_0x3664C[i].array_E[j] = from->str_0x3664C[i].array_E[j];
 	}

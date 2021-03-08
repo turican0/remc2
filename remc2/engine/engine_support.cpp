@@ -939,7 +939,7 @@ uint32_t compare_0x6E8E(char* filename, uint8_t* adress, uint32_t count, uint32_
 	return(i);
 };
 
-uint32_t compare_with_sequence_EA3E4(char* filename, type_str_0x6E8E** adress, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte) {
+uint32_t compare_with_sequence_EA3E4(char* filename, type_event_0x6E8E** adress, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte) {
 	char findnamec[500];
 	uint8_t* buffer = (uint8_t*)malloc(size * 0x3E9);
 	FILE* fptestepc;

@@ -221,7 +221,7 @@ typedef struct {//lenght 24
 	int32_t dword_8;
 	int32_t dword_12;
 	sub2x_BYTE_E7EE0x* str_16;
-	int8_t* dword_20;
+	int8_t* dword_20xx;
 }
 subx_BYTE_E7EE0x;
 
@@ -430,7 +430,7 @@ void sub_45210(unsigned __int8 a1, unsigned __int8 a2);
 void sub_454F0(unsigned __int8 a1, unsigned __int8 a2);
 void sub_45600(unsigned __int8 a1);
 
-void sub_49830(type_str_2FECE* terrain);
+void SetStagetagForTermod_49830(type_str_2FECE* terrain);
 void sub_49290(type_str_2FECE* terrain, char a2);
 
 void sub_49F30();
@@ -445,9 +445,9 @@ bool sub_7B200_in_region(type_WORD_E1F84* a1x, int16_t testx, int16_t testy);
 void sub_2BC10_draw_text(const char* text, __int16 a2, __int16 a3, unsigned __int8 a4);
 void sub_6F940_sub_draw_text(const char* a1, int a2, int a3, uint8_t color);
 //int /*__noreturn*/ sub_10000(); // weak
-type_str_0x6E8E* sub_15CB0(/*type_str_0x6E8E* a1,*/ type_str_0x6E8E* a2); // weak
-char sub_15D40(__int16 a1, type_str_0x6E8E* a2, type_str_0x6E8E* a3); // weak
-int16_t sub_16730(/*int a1,*/ type_str_0x6E8E* a2, char a3); // weak
+type_event_0x6E8E* sub_15CB0(/*type_str_0x6E8E* a1,*/ type_event_0x6E8E* a2); // weak
+char sub_15D40(__int16 a1, type_event_0x6E8E* a2, type_event_0x6E8E* a3); // weak
+int16_t sub_16730(/*int a1,*/ type_event_0x6E8E* a2, char a3); // weak
 int16_t sub_16CA0(baxis_2d* a2, __int16 a3, char a4); // weak
 void sub_17A00(int8_t* a1, signed int a2, __int16 a3); // weak
 int _wcpp_1_unwind_leave__120(int32_t a, int32_t b, int32_t c);// weak
@@ -455,19 +455,19 @@ void sub_1A070(signed int a1, __int16 a2);
 void JUMPOUT(int* adr);
 void JUMPOUT(int32_t cs, int* adr);
 void JUMPOUT(int32_t cs, int a, int* adr);
-void sub_1F0C0(/*type_str_0x6E8E* a1,*/ type_str_0x6E8E* a2);
-void sub_253B0(/*int result, */type_str_0x6E8E* a2, unsigned __int8 a3, unsigned __int8 a4);
+void sub_1F0C0(/*type_str_0x6E8E* a1,*/ type_event_0x6E8E* a2);
+void sub_253B0(/*int result, */type_event_0x6E8E* a2, unsigned __int8 a3, unsigned __int8 a4);
 signed int sub_369F0(/*signed int a1,*/ __int16 a2);
 //void qmemcpy(void* a, void* b, size_t c);
-void sub_2A340(/*int a1, type_str_0x6E8E* a2, type_str_0x6E8E* a3, int a4, *//*type_str_0x6E8E* a5, */type_str_0x6E8E* a6);
-void sub_2AA90(/*type_str_0x6E8E* a1, */type_str_0x6E8E* a2, type_str_0x6E8E* a3);
+void sub_2A340(/*int a1, type_str_0x6E8E* a2, type_str_0x6E8E* a3, int a4, *//*type_str_0x6E8E* a5, */type_event_0x6E8E* a6);
+void sub_2AA90(/*type_str_0x6E8E* a1, */type_event_0x6E8E* a2, type_event_0x6E8E* a3);
 void ClearGraphicsBuffer(void* ptrBuffer, unsigned __int16 width, unsigned __int16 height, char value);
 void sub_303D0(/*signed int a1*/);
 int _wcpp_1_unwind_leave__62(void); //weak
 //int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* a2, int32_t a3, int32_t a4, int a5, uint8_t a6, unsigned __int8 a7, uint32_t a8);//560cb0
 void sub_45DC0(/*uint8_t a1,*/ uint8_t a2, uaxis_2d a3, unsigned __int8 a4);
 signed int sub_36A50(/*signed int a1, */char a2);
-void sub_36920(/*signed __int16 a1, */type_str_0x6E8E* a2);
+void sub_36920(/*signed __int16 a1, */type_event_0x6E8E* a2);
 void sub_48A20(int a1, char a2, char a3, int a4, int a5, unsigned __int8 a6);
 unsigned int sub_439A0(unsigned int a1, unsigned __int16 a2);
 void sub_3E360_draw_particles(/*int a1x, */int a2x);
@@ -588,9 +588,9 @@ signed int sub_5BF50_load_psxdata();
 void CreateIndexes_6EB90(filearray_struct* a1);
 
 //type_str_0x6E8E* pre_sub_4A190(uint32_t adress, int16_t* a1,int type);
-type_str_0x6E8E* pre_sub_4A190_axis_3d(uint32_t adress, axis_3d* a1, int type);//pre 22b190
+type_event_0x6E8E* pre_sub_4A190_axis_3d(uint32_t adress, axis_3d* a1, int type);//pre 22b190
 
-void pre_sub_4A190_0x6E8E(uint32_t adress, type_str_0x6E8E* a1, int type);//pre 22b190
+void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1, int type);//pre 22b190
 
 //---------------------------
 

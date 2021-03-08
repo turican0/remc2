@@ -7,7 +7,7 @@ uint8_t x_BYTE_10B4E0_terraintype[0x10000]; // idb// x_BYTE_10B1E0[0x300]//2DC4E
 uint8_t x_BYTE_11B4E0_heightmap[0x10000]; // idb		//2EC4E0    	//map array2 // heightmap
 uint8_t x_BYTE_12B4E0_shading[0x10000]; // fix it -  weak	//2FC4E0    //map array3
 uint8_t x_BYTE_13B4E0_angle[0x10000]; // idb//30C4E0	//map array4 // water
-int16_t x_WORD_15B4E0_source[0x10000]; // idb//32C4E0	//map array5
+int16_t mapEntityIndex_15B4E0[0x10000]; // idb//32C4E0	//map array5
 
 char x_BYTE_D41B6 = 1; // weak
 
@@ -136,7 +136,7 @@ void add_compare(uint32_t adress, bool debugafterload, int stopstep, bool skip) 
 				comp20 = compare_with_sequence(buffer1, (uint8_t*)x_BYTE_11B4E0_heightmap, 0x2dc4e0, index, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x10000);
 				comp20 = compare_with_sequence(buffer1, (uint8_t*)x_BYTE_12B4E0_shading, 0x2dc4e0, index, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x20000);
 				comp20 = compare_with_sequence(buffer1, (uint8_t*)x_BYTE_13B4E0_angle, 0x2dc4e0, index, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x30000);
-				comp20 = compare_with_sequence(buffer1, (uint8_t*)x_WORD_15B4E0_source, 0x2dc4e0, index, 0x70000, 0x20000, &origbyte20, &remakebyte20, 0x50000);
+				comp20 = compare_with_sequence(buffer1, (uint8_t*)mapEntityIndex_15B4E0, 0x2dc4e0, index, 0x70000, 0x20000, &origbyte20, &remakebyte20, 0x50000);
 
 #ifdef TEST_x64
 				type_shadow_D41A0_BYTESTR_0 shadow_D41A0_BYTESTR_0;
@@ -176,14 +176,14 @@ void GenerateLevelMap_43830(unsigned int a1, type_str_2FECE* a2x)//224830
 	//v2 = a2;
 	x_WORD_17B4E0 = a2x->seed_0x2FEE5;
 	//*(uint32_t*)(x_D41A0_BYTEARRAY_0 + 8) = *(uint32_t*)(a2 + 23);
-	D41A0_BYTESTR_0.dword_0x8 = a2x->seed_0x2FEE5;
-	memset((void*)x_WORD_15B4E0_source, 0, 0x20000);
+	D41A0_BYTESTR_0.rand_0x8 = a2x->seed_0x2FEE5;
+	memset((void*)mapEntityIndex_15B4E0, 0, 0x20000);
 	//v3 = *(uint16_t*)(v2 + 35);
 	sub_B5E70_decompress_terrain_map_level(x_WORD_17B4E0, a2x->offset_0x2FEE9, a2x->raise_0x2FEED, a2x->gnarl_0x2FEF1);
 
 	sub_44DB0_truncTerrainHeight();//225db0 //trunc and create
 
-	memset((void*)x_WORD_15B4E0_source, 0, 0x20000);
+	memset((void*)mapEntityIndex_15B4E0, 0, 0x20000);
 	sub_44E40(a2x->river_0x2FEF5, a2x->lriver_0x2FEF9);//225e40 //add any fields
 
 	sub_45AA0_setMax4Tiles();//226aa0
@@ -271,7 +271,7 @@ void /*__spoils<ecx>*/ sub_B5E70_decompress_terrain_map_level(__int16 a1, unsign
 	int8_t v11; // [esp+3h] [ebp-1h]
 	//uint8_t savedregs[20]; // [esp+4h] [ebp+0h]
 
-	x_WORD_15B4E0_source[a2] = a3;//32c4e0 //first seed
+	mapEntityIndex_15B4E0[a2] = a3;//32c4e0 //first seed
 	v11 = 7;
 	do
 	{
@@ -322,11 +322,11 @@ void sub_44DB0_truncTerrainHeight()//225db0 // map to heightmap
 	v2 = 0;
 	do
 	{
-		v3 = x_WORD_15B4E0_source[v2];
+		v3 = mapEntityIndex_15B4E0[v2];
 		if (v3 > v0)
-			v0 = x_WORD_15B4E0_source[v2];
+			v0 = mapEntityIndex_15B4E0[v2];
 		if (v3 < v1)
-			v1 = x_WORD_15B4E0_source[v2];
+			v1 = mapEntityIndex_15B4E0[v2];
 		v2++;
 	} while (v2);//find min and max height
 	if (v0)
@@ -335,8 +335,8 @@ void sub_44DB0_truncTerrainHeight()//225db0 // map to heightmap
 		v4 = 0;
 	do
 	{
-		x = v4 * x_WORD_15B4E0_source[v2] >> 16;
-		x_WORD_15B4E0_source[v2] = 0;
+		x = v4 * mapEntityIndex_15B4E0[v2] >> 16;
+		mapEntityIndex_15B4E0[v2] = 0;
 		if ((x & 0x8000u) != 0)//water level trunc
 			x = 0;
 		if (x > 196)//trunc max height
@@ -1775,13 +1775,13 @@ void sub_B5EFA(__int16 a1, uint16_t* a2, int32_t a3, __int16* a4)//296EFA
 	uint32_t v8; // di
 	//__int16 result; // ax
 
-	v4 = x_WORD_15B4E0_source[*a2];
+	v4 = mapEntityIndex_15B4E0[*a2];
 	LOBYTE(*a2) += (a1 + a1);
-	v4 += x_WORD_15B4E0_source[*a2];
+	v4 += mapEntityIndex_15B4E0[*a2];
 	*a2 += (a1 + a1) << 8;
-	v4 += x_WORD_15B4E0_source[*a2];
+	v4 += mapEntityIndex_15B4E0[*a2];
 	LOBYTE(*a2) -= (a1 + a1);
-	v4 += x_WORD_15B4E0_source[*a2];
+	v4 += mapEntityIndex_15B4E0[*a2];
 	LOBYTE(*a2) += a1;
 	*a2 -= a1 << 8;
 	v7 = 9377 * *a4 + 9439;
@@ -1792,8 +1792,8 @@ void sub_B5EFA(__int16 a1, uint16_t* a2, int32_t a3, __int16* a4)//296EFA
 		- 32 * a1
 		- a3;
 	//result = v8;
-	if (!x_WORD_15B4E0_source[*a2])
-		x_WORD_15B4E0_source[*a2] = v8;
+	if (!mapEntityIndex_15B4E0[*a2])
+		mapEntityIndex_15B4E0[*a2] = v8;
 	LOBYTE(*a2) += a1;
 	*a2 -= a1 << 8;
 	//return result;
@@ -1815,17 +1815,17 @@ void sub_B5F8F(__int16 a1, uint16_t* a2, int32_t a3, __int16* a4)//296f8f
 	//__int16 result; // ax
 	uint16_t v14; // [esp-2h] [ebp-2h]
 
-	v4 = x_WORD_15B4E0_source[*a2];
+	v4 = mapEntityIndex_15B4E0[*a2];
 	v14 = v4;
 	LOBYTE(*a2) += a1;
 	*a2 -= a1 << 8;
-	v4 += x_WORD_15B4E0_source[*a2];
+	v4 += mapEntityIndex_15B4E0[*a2];
 	LOBYTE(*a2) += a1;
 	*a2 += a1 << 8;
-	v4 += x_WORD_15B4E0_source[*a2];
+	v4 += mapEntityIndex_15B4E0[*a2];
 	LOBYTE(*a2) -= a1;
 	*a2 += a1 << 8;
-	v4 += x_WORD_15B4E0_source[*a2];
+	v4 += mapEntityIndex_15B4E0[*a2];
 	v7 = 9377 * *a4 + 9439;
 	//*a4 = v7;
 	//2ae9*24a1
@@ -1835,17 +1835,17 @@ void sub_B5F8F(__int16 a1, uint16_t* a2, int32_t a3, __int16* a4)//296f8f
 		- 32 * a1
 		- a3;
 	//(uint16_t)(v4 >> 2)-(a1*32)+v7 % (uint16_t)((a1 << 6) + 1)-a3+v7 % (uint16_t)(2 * a3 + 1)
-	v9 = x_WORD_15B4E0_source[*a2];
+	v9 = mapEntityIndex_15B4E0[*a2];
 	*a2 -= a1 << 8;
-	if (!x_WORD_15B4E0_source[*a2])
-		x_WORD_15B4E0_source[*a2] = v8;
+	if (!mapEntityIndex_15B4E0[*a2])
+		mapEntityIndex_15B4E0[*a2] = v8;
 	v9 += v14;
 	LOBYTE(*a2) -= (a1 + a1);
 	*a2 += a1 << 8;
-	v9 += x_WORD_15B4E0_source[*a2];
+	v9 += mapEntityIndex_15B4E0[*a2];
 	LOBYTE(*a2) += a1;
 	*a2 += a1 << 8;
-	v9 += x_WORD_15B4E0_source[*a2];
+	v9 += mapEntityIndex_15B4E0[*a2];
 	*a2 -= a1 << 8;
 	v7b = 9377 * v7 + 9439;
 	*a4 = v7b;
@@ -1855,8 +1855,8 @@ void sub_B5F8F(__int16 a1, uint16_t* a2, int32_t a3, __int16* a4)//296f8f
 		- 32 * a1
 		- a3;
 	//result = v12;
-	if (!x_WORD_15B4E0_source[*a2])
-		x_WORD_15B4E0_source[*a2] = v12;
+	if (!mapEntityIndex_15B4E0[*a2])
+		mapEntityIndex_15B4E0[*a2] = v12;
 	*a2 -= a1 << 8;
 	LOBYTE(*a2) += (a1 + a1);
 	//return result;
