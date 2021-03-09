@@ -53805,15 +53805,46 @@ LABEL_2:
 						sub_57F20(&D41A0_BYTESTR_0.struct_0x6E8E[iy]);
 					goto LABEL_37;
 				}
-				goto LABEL_23;
+				v5 = &str_D4C48ar[D41A0_BYTESTR_0.struct_0x6E8E[iy].type_0x3F_63].dword_10[D41A0_BYTESTR_0.struct_0x6E8E[iy].byte_0x45_69];//ok
+				v1 = 1;
+				if (v5->adress_6 && v5->dword_10)
+				{
+					pre_sub_4A190_0x6E8E(v5->adress_6, &D41A0_BYTESTR_0.struct_0x6E8E[iy]);
+				}
+				D41A0_BYTESTR_0.struct_0x6E8E[iy].byte_0x3E_62++;
+				if (D41A0_BYTESTR_0.struct_0x6E8E[iy].struct_byte_0xc_12_15.byte[1] & 4)
+					sub_57F20(&D41A0_BYTESTR_0.struct_0x6E8E[iy]);
+				goto LABEL_37;
 			}
 			if (v4 == 0x9)
-				goto LABEL_23;
+			{
+				v5 = &str_D4C48ar[D41A0_BYTESTR_0.struct_0x6E8E[iy].type_0x3F_63].dword_10[D41A0_BYTESTR_0.struct_0x6E8E[iy].byte_0x45_69];//ok
+				v1 = 1;//adress 22a93a
+				if (v5->adress_6 && v5->dword_10)
+				{
+					pre_sub_4A190_0x6E8E(v5->adress_6, &D41A0_BYTESTR_0.struct_0x6E8E[iy]);
+				}
+				D41A0_BYTESTR_0.struct_0x6E8E[iy].byte_0x3E_62++;
+				if (D41A0_BYTESTR_0.struct_0x6E8E[iy].struct_byte_0xc_12_15.byte[1] & 4)
+					sub_57F20(&D41A0_BYTESTR_0.struct_0x6E8E[iy]);
+				goto LABEL_37;
+			}
 		}
 		else
 		{
 			if (v4 <= 0x20)
-				goto LABEL_23;
+			{
+				v5 = &str_D4C48ar[D41A0_BYTESTR_0.struct_0x6E8E[iy].type_0x3F_63].dword_10[D41A0_BYTESTR_0.struct_0x6E8E[iy].byte_0x45_69];//ok
+				v1 = 1;//adress 22a93a
+				if (v5->adress_6 && v5->dword_10)
+				{
+					pre_sub_4A190_0x6E8E(v5->adress_6, &D41A0_BYTESTR_0.struct_0x6E8E[iy]);
+				}
+				D41A0_BYTESTR_0.struct_0x6E8E[iy].byte_0x3E_62++;
+				if (D41A0_BYTESTR_0.struct_0x6E8E[iy].struct_byte_0xc_12_15.byte[1] & 4)
+					sub_57F20(&D41A0_BYTESTR_0.struct_0x6E8E[iy]);
+				goto LABEL_37;
+			}
 			if (v4 >= 0x32)
 			{
 				if (v4 > 0x33 && (v4 < 0x50 || v4 > 0x55 && v4 != 0x58))
@@ -53824,15 +53855,10 @@ LABEL_2:
 						sub_57F20(&D41A0_BYTESTR_0.struct_0x6E8E[iy]);
 					goto LABEL_37;
 				}
-			LABEL_23:
 				v5 = &str_D4C48ar[D41A0_BYTESTR_0.struct_0x6E8E[iy].type_0x3F_63].dword_10[D41A0_BYTESTR_0.struct_0x6E8E[iy].byte_0x45_69];//ok
-				v1 = 1;//adress 22a93a
-				//v8x = v5->dword_6;
+				v1 = 1;
 				if (v5->adress_6 && v5->dword_10)
-				{//adress 22a976
-					#ifdef DEBUG_SEQUENCES
-					//add_compare(0x22A977, debugafterload,2);
-					#endif DEBUG_SEQUENCES
+				{
 					pre_sub_4A190_0x6E8E(v5->adress_6, &D41A0_BYTESTR_0.struct_0x6E8E[iy]);
 				}
 				D41A0_BYTESTR_0.struct_0x6E8E[iy].byte_0x3E_62++;
@@ -53849,7 +53875,16 @@ LABEL_2:
 						sub_57F20(&D41A0_BYTESTR_0.struct_0x6E8E[iy]);
 					goto LABEL_37;
 				}
-				goto LABEL_23;
+				v5 = &str_D4C48ar[D41A0_BYTESTR_0.struct_0x6E8E[iy].type_0x3F_63].dword_10[D41A0_BYTESTR_0.struct_0x6E8E[iy].byte_0x45_69];//ok
+				v1 = 1;
+				if (v5->adress_6 && v5->dword_10)
+				{
+					pre_sub_4A190_0x6E8E(v5->adress_6, &D41A0_BYTESTR_0.struct_0x6E8E[iy]);
+				}
+				D41A0_BYTESTR_0.struct_0x6E8E[iy].byte_0x3E_62++;
+				if (D41A0_BYTESTR_0.struct_0x6E8E[iy].struct_byte_0xc_12_15.byte[1] & 4)
+					sub_57F20(&D41A0_BYTESTR_0.struct_0x6E8E[iy]);
+				goto LABEL_37;
 			}
 		}
 		SetEntity04_57F10(&D41A0_BYTESTR_0.struct_0x6E8E[iy]);
