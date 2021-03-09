@@ -78,7 +78,7 @@ int count_begin = 1;//1
 //int debugnextlevel = 0;
 
 bool config_EDITOR = false;
-bool config_LOAD_EDITED_LEVEL = true;
+bool config_LOAD_EDITED_LEVEL = false;
 #define EDITOR
 #define LOAD_EDITED_LEVEL
 
@@ -1993,72 +1993,72 @@ type_event_0x6E8E* sub_50840(axis_3d* a1);
 type_event_0x6E8E* sub_508E0_castle_defend_create(axis_3d* a1);
 type_event_0x6E8E* sub_50960(axis_3d* a1);
 type_event_0x6E8E* sub_50A20(axis_3d* a1);
-type_event_0x6E8E* addCheckpoint3_50A90(axis_3d* a1, char a2, char a3);
-type_event_0x6E8E* addCheckpoint2_50AE0(axis_3d* a1);
-type_event_0x6E8E* addCheckpoint_50B00(axis_3d* a1);
-type_event_0x6E8E* sub_50B20(axis_3d* a1);
-type_event_0x6E8E* sub_50B40(axis_3d* a1);
-type_event_0x6E8E* sub_50B60(axis_3d* a1);
-type_event_0x6E8E* sub_50B80(axis_3d* a1);
-type_event_0x6E8E* sub_50C10(axis_3d* a1);
-type_event_0x6E8E* sub_50C30(axis_3d* a1);
-type_event_0x6E8E* sub_50C50(axis_3d* a1);
-type_event_0x6E8E* sub_50C70(axis_3d* a1);
-type_event_0x6E8E* sub_50C90(axis_3d* a1);
-type_event_0x6E8E* sub_50CB0(axis_3d* a1);
-type_event_0x6E8E* sub_50CD0(axis_3d* a1);
-type_event_0x6E8E* sub_50CF0(axis_3d* a1);
-type_event_0x6E8E* sub_50D10(axis_3d* a1);
-type_event_0x6E8E* sub_50D30(axis_3d* a1);
-type_event_0x6E8E* sub_50D50(axis_3d* a1);
-type_event_0x6E8E* sub_50D70(axis_3d* a1);
-type_event_0x6E8E* sub_50D90(axis_3d* a1);
-type_event_0x6E8E* sub_50DB0(axis_3d* a1);
-type_event_0x6E8E* sub_50DD0(axis_3d* a1);
-type_event_0x6E8E* sub_50DF0(axis_3d* a1);
-type_event_0x6E8E* sub_50E10(axis_3d* a1);
-type_event_0x6E8E* sub_50E30(axis_3d* a1);
-type_event_0x6E8E* sub_50E50(axis_3d* a1);
-type_event_0x6E8E* sub_50E70(axis_3d* a1);
-type_event_0x6E8E* sub_50E90(axis_3d* a1);
-type_event_0x6E8E* sub_50EB0(axis_3d* a1);
-type_event_0x6E8E* sub_50ED0(axis_3d* a1);
-type_event_0x6E8E* sub_50EF0(axis_3d* a1);
-type_event_0x6E8E* sub_50F10(axis_3d* a1);
-type_event_0x6E8E* sub_50F30(axis_3d* a1);
-type_event_0x6E8E* sub_50F50(axis_3d* a1);
-type_event_0x6E8E* sub_50F70(axis_3d* a1);
-type_event_0x6E8E* sub_50F90(axis_3d* a1);
-type_event_0x6E8E* sub_50FB0(axis_3d* a1);
-type_event_0x6E8E* sub_50FD0(axis_3d* a1);
-type_event_0x6E8E* sub_50FF0(axis_3d* a1);
-type_event_0x6E8E* AddSpell_51120(axis_3d* a1, char a2, char a3);
-type_event_0x6E8E* AddSpell0_0_511A0(axis_3d* a1);
-type_event_0x6E8E* sub_511C0(axis_3d* a1);
-type_event_0x6E8E* sub_511E0(axis_3d* a1);
-type_event_0x6E8E* sub_51200(axis_3d* a1);
-type_event_0x6E8E* sub_51220(axis_3d* a1);
-type_event_0x6E8E* sub_51240(axis_3d* a1);
-type_event_0x6E8E* sub_51260(axis_3d* a1);
-type_event_0x6E8E* sub_51280(axis_3d* a1);
-type_event_0x6E8E* sub_512A0(axis_3d* a1);
-type_event_0x6E8E* sub_512C0(axis_3d* a1);
-type_event_0x6E8E* sub_512E0(axis_3d* a1);
-type_event_0x6E8E* sub_51300(axis_3d* a1);
-type_event_0x6E8E* sub_51320(axis_3d* a1);
-type_event_0x6E8E* sub_51340(axis_3d* a1);
-type_event_0x6E8E* sub_51360(axis_3d* a1);
-type_event_0x6E8E* sub_51380(axis_3d* a1);
+type_event_0x6E8E* addCheckpointXX_50A90(axis_3d* a1, char a2, char a3);
+type_event_0x6E8E* addCheckpoint00_50AE0(axis_3d* a1);
+type_event_0x6E8E* addCheckpoint01_50B00(axis_3d* a1);
+type_event_0x6E8E* addCheckpoint02_50B20(axis_3d* a1);
+type_event_0x6E8E* addCheckpoint03_50B40(axis_3d* a1);
+type_event_0x6E8E* addCheckpoint04_50B60(axis_3d* a1);
+type_event_0x6E8E* addCheckpoint32_50B80(axis_3d* a1);
+type_event_0x6E8E* addCheckpoint12_50C10(axis_3d* a1);
+type_event_0x6E8E* addCheckpoint13_50C30(axis_3d* a1);
+type_event_0x6E8E* addCheckpoint14_50C50(axis_3d* a1);
+type_event_0x6E8E* addCheckpoint15_50C70(axis_3d* a1);
+type_event_0x6E8E* addCheckpoint16_50C90(axis_3d* a1);
+type_event_0x6E8E* addCheckpoint17_50CB0(axis_3d* a1);
+type_event_0x6E8E* addCheckpoint18_50CD0(axis_3d* a1);
+type_event_0x6E8E* addCheckpoint19_50CF0(axis_3d* a1);
+type_event_0x6E8E* addCheckpoint20_50D10(axis_3d* a1);
+type_event_0x6E8E* addCheckpoint21_50D30(axis_3d* a1);
+type_event_0x6E8E* addCheckpoint22_50D50(axis_3d* a1);
+type_event_0x6E8E* addCheckpoint23_50D70(axis_3d* a1);
+type_event_0x6E8E* addCheckpoint24_50D90(axis_3d* a1);
+type_event_0x6E8E* addCheckpoint25_50DB0(axis_3d* a1);
+type_event_0x6E8E* addCheckpoint26_50DD0(axis_3d* a1);
+type_event_0x6E8E* addCheckpoint27_50DF0(axis_3d* a1);
+type_event_0x6E8E* addCheckpoint28_50E10(axis_3d* a1);
+type_event_0x6E8E* addCheckpoint29_50E30(axis_3d* a1);
+type_event_0x6E8E* addCheckpoint33_50E50(axis_3d* a1);
+type_event_0x6E8E* addCheckpoint34_50E70(axis_3d* a1);
+type_event_0x6E8E* addCheckpoint35_50E90(axis_3d* a1);
+type_event_0x6E8E* addCheckpoint36_50EB0(axis_3d* a1);
+type_event_0x6E8E* addCheckpoint37_50ED0(axis_3d* a1);
+type_event_0x6E8E* addCheckpoint38_50EF0(axis_3d* a1);
+type_event_0x6E8E* addCheckpoint39_50F10(axis_3d* a1);
+type_event_0x6E8E* addCheckpoint40_50F30(axis_3d* a1);
+type_event_0x6E8E* addCheckpoint41_50F50(axis_3d* a1);
+type_event_0x6E8E* addCheckpoint42_50F70(axis_3d* a1);
+type_event_0x6E8E* addCheckpoint43_50F90(axis_3d* a1);
+type_event_0x6E8E* addCheckpoint44_50FB0(axis_3d* a1);
+type_event_0x6E8E* addCheckpoint30_50FD0(axis_3d* a1);
+type_event_0x6E8E* addCheckpoint31atyp_50FF0(axis_3d* a1);
+type_event_0x6E8E* AddSpellXX_XX_51120(axis_3d* a1, char a2, char a3);
+type_event_0x6E8E* AddSpell00_00_511A0(axis_3d* a1);
+type_event_0x6E8E* AddSpell01_03_511C0(axis_3d* a1);
+type_event_0x6E8E* AddSpell02_06_511E0(axis_3d* a1);
+type_event_0x6E8E* AddSpell03_09_51200(axis_3d* a1);
+type_event_0x6E8E* AddSpell04_12_51220(axis_3d* a1);
+type_event_0x6E8E* AddSpell05_15_51240(axis_3d* a1);
+type_event_0x6E8E* AddSpell06_18_51260(axis_3d* a1);
+type_event_0x6E8E* AddSpell07_21_51280(axis_3d* a1);
+type_event_0x6E8E* AddSpell08_24_512A0(axis_3d* a1);
+type_event_0x6E8E* AddSpell09_27_512C0(axis_3d* a1);
+type_event_0x6E8E* AddSpell10_30_512E0(axis_3d* a1);
+type_event_0x6E8E* AddSpell11_33_51300(axis_3d* a1);
+type_event_0x6E8E* AddSpell12_36_51320(axis_3d* a1);
+type_event_0x6E8E* AddSpell13_39_51340(axis_3d* a1);
+type_event_0x6E8E* AddSpell14_42_51360(axis_3d* a1);
+type_event_0x6E8E* AddSpell15_45_51380(axis_3d* a1);
 type_event_0x6E8E* sub_513A0(axis_3d* a1);
-type_event_0x6E8E* sub_513C0(axis_3d* a1);
-type_event_0x6E8E* sub_513E0(axis_3d* a1);
-type_event_0x6E8E* sub_51400(axis_3d* a1);
-type_event_0x6E8E* sub_51420(axis_3d* a1);
-type_event_0x6E8E* sub_51440(axis_3d* a1);
-type_event_0x6E8E* sub_51460(axis_3d* a1);
-type_event_0x6E8E* sub_51480(axis_3d* a1);
-type_event_0x6E8E* sub_514A0(axis_3d* a1);
-type_event_0x6E8E* sub_514C0(axis_3d* a1);
+type_event_0x6E8E* AddSpell17_51_513C0(axis_3d* a1);
+type_event_0x6E8E* AddSpell18_54_513E0(axis_3d* a1);
+type_event_0x6E8E* AddSpell19_57_51400(axis_3d* a1);
+type_event_0x6E8E* AddSpell20_60_51420(axis_3d* a1);
+type_event_0x6E8E* AddSpell21_63_51440(axis_3d* a1);
+type_event_0x6E8E* AddSpell22_66_51460(axis_3d* a1);
+type_event_0x6E8E* AddSpell23_69_51480(axis_3d* a1);
+type_event_0x6E8E* AddSpell24_72_514A0(axis_3d* a1);
+type_event_0x6E8E* AddSpell25_75_514C0(axis_3d* a1);
 type_event_0x6E8E* sub_514E0(axis_3d* a1, char a2, char a3, __int16 a4);
 type_event_0x6E8E* sub_51530(axis_3d* a1);
 type_event_0x6E8E* sub_51570(axis_3d* a1);
@@ -54808,155 +54808,155 @@ type_event_0x6E8E* pre_sub_4A190_axis_3d(uint32_t adress, axis_3d* a1_axis3d, in
 					 break;
 				 }*/
 	case 0x231ae0: {// 1 instance in level 21
-		return addCheckpoint2_50AE0(a1_axis3d);
+		return addCheckpoint00_50AE0(a1_axis3d);
 		break;
 	}
 	case 0x231b00: {// 1 instance in level 1
-		return addCheckpoint_50B00(a1_axis3d);//0B-01,0B-00
+		return addCheckpoint01_50B00(a1_axis3d);//0B-01,0B-00
 		break;
 	}
 	case 0x231b20: {
-		return sub_50B20(a1_axis3d);
+		return addCheckpoint02_50B20(a1_axis3d);
 		break;
 	}
 	case 0x231b40: {
-		return sub_50B40(a1_axis3d);
+		return addCheckpoint03_50B40(a1_axis3d);
 		break;
 	}
 	case 0x231b60: {// 1 instance in level 1
-		return sub_50B60(a1_axis3d);
+		return addCheckpoint04_50B60(a1_axis3d);
 		break;
 	}
 	case 0x231b80: {
-		return sub_50B80(a1_axis3d);
+		return addCheckpoint32_50B80(a1_axis3d);
 		break;
 	}
 	case 0x231c10: {
-		return sub_50C10(a1_axis3d);
+		return addCheckpoint12_50C10(a1_axis3d);
 		break;
 	}
 	case 0x231c30: {
-		return sub_50C30(a1_axis3d);
+		return addCheckpoint13_50C30(a1_axis3d);
 		break;
 	}
 	case 0x231c50: {
-		return sub_50C50(a1_axis3d);
+		return addCheckpoint14_50C50(a1_axis3d);
 		break;
 	}
 	case 0x231c70: {
-		return sub_50C70(a1_axis3d);
+		return addCheckpoint15_50C70(a1_axis3d);
 		break;
 	}
 	case 0x231c90: {
-		return sub_50C90(a1_axis3d);
+		return addCheckpoint16_50C90(a1_axis3d);
 		break;
 	}
 	case 0x231cb0: {//get scroll2
-		return sub_50CB0(a1_axis3d);
+		return addCheckpoint17_50CB0(a1_axis3d);
 		break;
 	}
 	case 0x231cd0: {
-		return sub_50CD0(a1_axis3d);
+		return addCheckpoint18_50CD0(a1_axis3d);
 		break;
 	}
 	case 0x231cf0: {
-		return sub_50CF0(a1_axis3d);
+		return addCheckpoint19_50CF0(a1_axis3d);
 		break;
 	}
 	case 0x231d10: {
-		return sub_50D10(a1_axis3d);
+		return addCheckpoint20_50D10(a1_axis3d);
 		break;
 	}
 	case 0x231d30: {
-		return sub_50D30(a1_axis3d);
+		return addCheckpoint21_50D30(a1_axis3d);
 		break;
 	}
 	case 0x231d50: {
-		return sub_50D50(a1_axis3d);
+		return addCheckpoint22_50D50(a1_axis3d);
 		break;
 	}
 	case 0x231d70: {
-		return sub_50D70(a1_axis3d);
+		return addCheckpoint23_50D70(a1_axis3d);
 		break;
 	}
 	case 0x231d90: {
-		return sub_50D90(a1_axis3d);
+		return addCheckpoint24_50D90(a1_axis3d);
 		break;
 	}
 	case 0x231db0: {
-		return sub_50DB0(a1_axis3d);
+		return addCheckpoint25_50DB0(a1_axis3d);
 		break;
 	}
 	case 0x231dd0: {
-		return sub_50DD0(a1_axis3d);
+		return addCheckpoint26_50DD0(a1_axis3d);
 		break;
 	}
 	case 0x231df0: {
-		return sub_50DF0(a1_axis3d);
+		return addCheckpoint27_50DF0(a1_axis3d);
 		break;
 	}
 	case 0x231e10: {
-		return sub_50E10(a1_axis3d);
+		return addCheckpoint28_50E10(a1_axis3d);
 		break;
 	}
 	case 0x231e30: {
-		return sub_50E30(a1_axis3d);
+		return addCheckpoint29_50E30(a1_axis3d);
 		break;
 	}
 	case 0x231e50: {
-		return sub_50E50(a1_axis3d);
+		return addCheckpoint33_50E50(a1_axis3d);
 		break;
 	}
 	case 0x231e70: {
-		return sub_50E70(a1_axis3d);
+		return addCheckpoint34_50E70(a1_axis3d);
 		break;
 	}
 	case 0x231e90: {
-		return sub_50E90(a1_axis3d);
+		return addCheckpoint35_50E90(a1_axis3d);
 		break;
 	}
 	case 0x231eb0: {
-		return sub_50EB0(a1_axis3d);
+		return addCheckpoint36_50EB0(a1_axis3d);
 		break;
 	}
 	case 0x231ed0: {
-		return sub_50ED0(a1_axis3d);
+		return addCheckpoint37_50ED0(a1_axis3d);
 		break;
 	}
 	case 0x231ef0: {
-		return sub_50EF0(a1_axis3d);
+		return addCheckpoint38_50EF0(a1_axis3d);
 		break;
 	}
 	case 0x231f10: {
-		return sub_50F10(a1_axis3d);
+		return addCheckpoint39_50F10(a1_axis3d);
 		break;
 	}
 	case 0x231f30: {
-		return sub_50F30(a1_axis3d);
+		return addCheckpoint40_50F30(a1_axis3d);
 		break;
 	}
 	case 0x231f50: {
-		return sub_50F50(a1_axis3d);
+		return addCheckpoint41_50F50(a1_axis3d);
 		break;
 	}
 	case 0x231f70: {
-		return sub_50F70(a1_axis3d);
+		return addCheckpoint42_50F70(a1_axis3d);
 		break;
 	}
 	case 0x231f90: {
-		return sub_50F90(a1_axis3d);
+		return addCheckpoint43_50F90(a1_axis3d);
 		break;
 	}
 	case 0x231fb0: {
-		return sub_50FB0(a1_axis3d);
+		return addCheckpoint44_50FB0(a1_axis3d);
 		break;
 	}
 	case 0x231fd0: {
-		return sub_50FD0(a1_axis3d);
+		return addCheckpoint30_50FD0(a1_axis3d);
 		break;
 	}
 	case 0x231ff0: {
-		return sub_50FF0(a1_axis3d);
+		return addCheckpoint31atyp_50FF0(a1_axis3d);
 		break;
 	}
 				 /*case 0x232120: {
@@ -54964,67 +54964,67 @@ type_event_0x6E8E* pre_sub_4A190_axis_3d(uint32_t adress, axis_3d* a1_axis3d, in
 					 break;
 				 }*/
 	case 0x2321a0: {
-		return AddSpell0_0_511A0(a1_axis3d);
+		return AddSpell00_00_511A0(a1_axis3d);
 		break;
 	}
 	case 0x2321c0: {
-		return sub_511C0(a1_axis3d);
+		return AddSpell01_03_511C0(a1_axis3d);
 		break;
 	}
 	case 0x2321e0: {
-		return sub_511E0(a1_axis3d);
+		return AddSpell02_06_511E0(a1_axis3d);
 		break;
 	}
 	case 0x232200: {
-		return sub_51200(a1_axis3d);
+		return AddSpell03_09_51200(a1_axis3d);
 		break;
 	}
 	case 0x232220: {
-		return sub_51220(a1_axis3d);
+		return AddSpell04_12_51220(a1_axis3d);
 		break;
 	}
 	case 0x232240: {
-		return sub_51240(a1_axis3d);
+		return AddSpell05_15_51240(a1_axis3d);
 		break;
 	}
 	case 0x232260: {
-		return sub_51260(a1_axis3d);
+		return AddSpell06_18_51260(a1_axis3d);
 		break;
 	}
 	case 0x232280: {
-		return sub_51280(a1_axis3d);
+		return AddSpell07_21_51280(a1_axis3d);
 		break;
 	}
 	case 0x2322a0: {
-		return sub_512A0(a1_axis3d);
+		return AddSpell08_24_512A0(a1_axis3d);
 		break;
 	}
 	case 0x2322c0: {
-		return sub_512C0(a1_axis3d);
+		return AddSpell09_27_512C0(a1_axis3d);
 		break;
 	}
 	case 0x2322e0: {
-		return sub_512E0(a1_axis3d);
+		return AddSpell10_30_512E0(a1_axis3d);
 		break;
 	}
 	case 0x232300: {
-		return sub_51300(a1_axis3d);
+		return AddSpell11_33_51300(a1_axis3d);
 		break;
 	}
 	case 0x232320: {
-		return sub_51320(a1_axis3d);
+		return AddSpell12_36_51320(a1_axis3d);
 		break;
 	}
 	case 0x232340: {
-		return sub_51340(a1_axis3d);
+		return AddSpell13_39_51340(a1_axis3d);
 		break;
 	}
 	case 0x232360: {
-		return sub_51360(a1_axis3d);
+		return AddSpell14_42_51360(a1_axis3d);
 		break;
 	}
 	case 0x232380: {
-		return sub_51380(a1_axis3d);
+		return AddSpell15_45_51380(a1_axis3d);
 		break;
 	}
 	case 0x2323a0: {
@@ -55032,39 +55032,39 @@ type_event_0x6E8E* pre_sub_4A190_axis_3d(uint32_t adress, axis_3d* a1_axis3d, in
 		break;
 	}
 	case 0x2323c0: {
-		return sub_513C0(a1_axis3d);
+		return AddSpell17_51_513C0(a1_axis3d);
 		break;
 	}
 	case 0x2323e0: {
-		return sub_513E0(a1_axis3d);
+		return AddSpell18_54_513E0(a1_axis3d);
 		break;
 	}
 	case 0x232400: {
-		return sub_51400(a1_axis3d);
+		return AddSpell19_57_51400(a1_axis3d);
 		break;
 	}
 	case 0x232420: {
-		return sub_51420(a1_axis3d);
+		return AddSpell20_60_51420(a1_axis3d);
 		break;
 	}
 	case 0x232440: {
-		return sub_51440(a1_axis3d);
+		return AddSpell21_63_51440(a1_axis3d);
 		break;
 	}
 	case 0x232460: {
-		return sub_51460(a1_axis3d);
+		return AddSpell22_66_51460(a1_axis3d);
 		break;
 	}
 	case 0x232480: {
-		return sub_51480(a1_axis3d);
+		return AddSpell23_69_51480(a1_axis3d);
 		break;
 	}
 	case 0x2324a0: {
-		return sub_514A0(a1_axis3d);
+		return AddSpell24_72_514A0(a1_axis3d);
 		break;
 	}
 	case 0x2324c0: {
-		return sub_514C0(a1_axis3d);
+		return AddSpell25_75_514C0(a1_axis3d);
 		break;
 	}
 				 /*case 0x2324e0: {
@@ -63003,9 +63003,9 @@ type_event_0x6E8E* addPointToPath_4F9A0(axis_3d* a1x)//2309a0 - summon effect bl
 	if (v1x)
 	{
 		v1x->dword_0x4 = 0;
-		v1x->byte_0x45_69 = 32;
-		v1x->type_0x3F_63 = 10;
-		v1x->subtype_0x40_64 = 30;
+		v1x->byte_0x45_69 = 0x20;
+		v1x->type_0x3F_63 = 0xA;
+		v1x->subtype_0x40_64 = 0x1E;
 		v1x->axis_0x4C_76 = *a1x;
 		v1x->struct_byte_0xc_12_15.byte[0] &= 0xF7u;
 		AddEventToMap_57D70(v1x, a1x);
@@ -63509,7 +63509,7 @@ type_event_0x6E8E* makeTerrainModification_50250(axis_3d* position)//231250 - ad
 	if (event)
 	{
 		event->dword_0x4 = 30;
-		event->byte_0x45_69 = 51;
+		event->byte_0x45_69 = 0x33;
 		event->type_0x3F_63 = 0xA;
 		event->subtype_0x40_64 = 0x2D;
 		event->word_0x2A_42 = 100;
@@ -63983,482 +63983,462 @@ type_event_0x6E8E* sub_50A20(axis_3d* a1x)//231a20
 // D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
 
 //----- (00050A90) --------------------------------------------------------
-type_event_0x6E8E* addCheckpoint3_50A90(axis_3d* a1x, char a2, char a3)//231a90 - add spell
+type_event_0x6E8E* addCheckpointXX_50A90(axis_3d* position, char a2, char a3)//231a90 - add spell
 {
-	type_event_0x6E8E* v3x; // eax
-	//uint8_t* v4; // ebx
-	//char v5; // dl
-
-	v3x = NewEvent_4A050();
-	//v4 = v3;
-	if (v3x)
+	type_event_0x6E8E* event = NewEvent_4A050();
+	if (event)
 	{
-		v3x->type_0x3F_63 = 11;
-		v3x->subtype_0x40_64 = a2;
-		v3x->byte_0x45_69 = a3;
-		v3x->struct_byte_0xc_12_15.byte[0] &= 0xF6u;
-		//v5 = v3x->struct_byte_0xc_12_15.dbyte1_2.byte1;
-		v3x->dword_0x10_16 = 0;
-		v3x->struct_byte_0xc_12_15.byte[0] |= 1;
-		v3x->axis_0x4C_76 = *a1x;
-		CopyEventVar0408_49A20(v3x);
+		event->type_0x3F_63 = 0xB;
+		event->subtype_0x40_64 = a2;
+		event->byte_0x45_69 = a3;
+		event->struct_byte_0xc_12_15.byte[0] &= 0xF6u;
+		event->dword_0x10_16 = 0;
+		event->struct_byte_0xc_12_15.byte[0] |= 1;
+		event->axis_0x4C_76 = *position;
+		CopyEventVar0408_49A20(event);
 	}
-	return v3x;
+	return event;
 }
 
 //----- (00050AE0) --------------------------------------------------------
-type_event_0x6E8E* addCheckpoint2_50AE0(axis_3d* a1x)//231ae0
+type_event_0x6E8E* addCheckpoint00_50AE0(axis_3d* position)//231ae0
 {
-	return addCheckpoint3_50A90(a1x, 0, 0);
+	return addCheckpointXX_50A90(position, 0, 0);
 }
 
 //----- (00050B00) --------------------------------------------------------
-type_event_0x6E8E* addCheckpoint_50B00(axis_3d* a1x)//231b00
+type_event_0x6E8E* addCheckpoint01_50B00(axis_3d* position)//231b00
 {
-	return addCheckpoint3_50A90(a1x, 1, 1);
+	return addCheckpointXX_50A90(position, 1, 1);
 }
 
 //----- (00050B20) --------------------------------------------------------
-type_event_0x6E8E* sub_50B20(axis_3d* a1x)//231b20
+type_event_0x6E8E* addCheckpoint02_50B20(axis_3d* position)//231b20
 {
-	return addCheckpoint3_50A90(a1x, 2, 2);
+	return addCheckpointXX_50A90(position, 2, 2);
 }
 
 //----- (00050B40) --------------------------------------------------------
-type_event_0x6E8E* sub_50B40(axis_3d* a1x)//231b40
+type_event_0x6E8E* addCheckpoint03_50B40(axis_3d* position)//231b40
 {
-	return addCheckpoint3_50A90(a1x, 3, 3);
+	return addCheckpointXX_50A90(position, 3, 3);
 }
 
 //----- (00050B60) --------------------------------------------------------
-type_event_0x6E8E* sub_50B60(axis_3d* a1x)//231b60
+type_event_0x6E8E* addCheckpoint04_50B60(axis_3d* position)//231b60
 {
-	return addCheckpoint3_50A90(a1x, 4, 4);
+	return addCheckpointXX_50A90(position, 4, 4);
 }
 
 //----- (00050B80) --------------------------------------------------------
-type_event_0x6E8E* sub_50B80(axis_3d* a1x)//231b80
+type_event_0x6E8E* addCheckpoint32_50B80(axis_3d* a1x)//231b80
 {
-	return addCheckpoint3_50A90(a1x, 32, 32);
+	return addCheckpointXX_50A90(a1x, 32, 32);
 }
 
 //----- (00050C10) --------------------------------------------------------
-type_event_0x6E8E* sub_50C10(axis_3d* a1x)//231c10
+type_event_0x6E8E* addCheckpoint12_50C10(axis_3d* position)//231c10
 {
-	return addCheckpoint3_50A90(a1x, 12, 12);
+	return addCheckpointXX_50A90(position, 12, 12);
 }
 
 //----- (00050C30) --------------------------------------------------------
-type_event_0x6E8E* sub_50C30(axis_3d* a1x)//231c30
+type_event_0x6E8E* addCheckpoint13_50C30(axis_3d* a1x)//231c30
 {
-	return addCheckpoint3_50A90(a1x, 13, 13);
+	return addCheckpointXX_50A90(a1x, 13, 13);
 }
 
 //----- (00050C50) --------------------------------------------------------
-type_event_0x6E8E* sub_50C50(axis_3d* a1x)//231c50
+type_event_0x6E8E* addCheckpoint14_50C50(axis_3d* position)//231c50
 {
-	return addCheckpoint3_50A90(a1x, 14, 14);
+	return addCheckpointXX_50A90(position, 14, 14);
 }
 
 //----- (00050C70) --------------------------------------------------------
-type_event_0x6E8E* sub_50C70(axis_3d* a1x)//231c70
+type_event_0x6E8E* addCheckpoint15_50C70(axis_3d* position)//231c70
 {
-	return addCheckpoint3_50A90(a1x, 15, 15);
+	return addCheckpointXX_50A90(position, 15, 15);
 }
 
 //----- (00050C90) --------------------------------------------------------
-type_event_0x6E8E* sub_50C90(axis_3d* a1x)//231c90
+type_event_0x6E8E* addCheckpoint16_50C90(axis_3d* position)//231c90
 {
-	return addCheckpoint3_50A90(a1x, 16, 16);
+	return addCheckpointXX_50A90(position, 16, 16);
 }
 
 //----- (00050CB0) --------------------------------------------------------
-type_event_0x6E8E* sub_50CB0(axis_3d* a1x)//231cb0
+type_event_0x6E8E* addCheckpoint17_50CB0(axis_3d* position)//231cb0
 {
-	return addCheckpoint3_50A90(a1x, 17, 17);
+	return addCheckpointXX_50A90(position, 17, 17);
 }
 
 //----- (00050CD0) --------------------------------------------------------
-type_event_0x6E8E* sub_50CD0(axis_3d* a1x)//231cd0
+type_event_0x6E8E* addCheckpoint18_50CD0(axis_3d* position)//231cd0
 {
-	return addCheckpoint3_50A90(a1x, 18, 18);
+	return addCheckpointXX_50A90(position, 18, 18);
 }
 
 //----- (00050CF0) --------------------------------------------------------
-type_event_0x6E8E* sub_50CF0(axis_3d* a1x)//231cf0
+type_event_0x6E8E* addCheckpoint19_50CF0(axis_3d* position)//231cf0
 {
-	return addCheckpoint3_50A90(a1x, 19, 19);
+	return addCheckpointXX_50A90(position, 19, 19);
 }
 
 //----- (00050D10) --------------------------------------------------------
-type_event_0x6E8E* sub_50D10(axis_3d* a1x)//231d10
+type_event_0x6E8E* addCheckpoint20_50D10(axis_3d* position)//231d10
 {
-	return addCheckpoint3_50A90(a1x, 20, 20);
+	return addCheckpointXX_50A90(position, 20, 20);
 }
 
 //----- (00050D30) --------------------------------------------------------
-type_event_0x6E8E* sub_50D30(axis_3d* a1x)//231d30
+type_event_0x6E8E* addCheckpoint21_50D30(axis_3d* position)//231d30
 {
-	return addCheckpoint3_50A90(a1x, 21, 21);
+	return addCheckpointXX_50A90(position, 21, 21);
 }
 
 //----- (00050D50) --------------------------------------------------------
-type_event_0x6E8E* sub_50D50(axis_3d* a1x)//231d50
+type_event_0x6E8E* addCheckpoint22_50D50(axis_3d* position)//231d50
 {
-	return addCheckpoint3_50A90(a1x, 22, 22);
+	return addCheckpointXX_50A90(position, 22, 22);
 }
 
 //----- (00050D70) --------------------------------------------------------
-type_event_0x6E8E* sub_50D70(axis_3d* a1x)//231d70
+type_event_0x6E8E* addCheckpoint23_50D70(axis_3d* position)//231d70
 {
-	return addCheckpoint3_50A90(a1x, 23, 23);
+	return addCheckpointXX_50A90(position, 23, 23);
 }
 
 //----- (00050D90) --------------------------------------------------------
-type_event_0x6E8E* sub_50D90(axis_3d* a1x)//231d90
+type_event_0x6E8E* addCheckpoint24_50D90(axis_3d* position)//231d90
 {
-	return addCheckpoint3_50A90(a1x, 24, 24);
+	return addCheckpointXX_50A90(position, 24, 24);
 }
 
 //----- (00050DB0) --------------------------------------------------------
-type_event_0x6E8E* sub_50DB0(axis_3d* a1x)//231db0
+type_event_0x6E8E* addCheckpoint25_50DB0(axis_3d* a1x)//231db0
 {
-	return addCheckpoint3_50A90(a1x, 25, 25);
+	return addCheckpointXX_50A90(a1x, 25, 25);
 }
 
 //----- (00050DD0) --------------------------------------------------------
-type_event_0x6E8E* sub_50DD0(axis_3d* a1x)//231dd0
+type_event_0x6E8E* addCheckpoint26_50DD0(axis_3d* position)//231dd0
 {
-	return addCheckpoint3_50A90(a1x, 26, 26);
+	return addCheckpointXX_50A90(position, 26, 26);
 }
 
 //----- (00050DF0) --------------------------------------------------------
-type_event_0x6E8E* sub_50DF0(axis_3d* a1x)//231df0
+type_event_0x6E8E* addCheckpoint27_50DF0(axis_3d* position)//231df0
 {
-	return addCheckpoint3_50A90(a1x, 27, 27);
+	return addCheckpointXX_50A90(position, 27, 27);
 }
 
 //----- (00050E10) --------------------------------------------------------
-type_event_0x6E8E* sub_50E10(axis_3d* a1x)//231e10
+type_event_0x6E8E* addCheckpoint28_50E10(axis_3d* position)//231e10
 {
-	return addCheckpoint3_50A90(a1x, 28, 28);
+	return addCheckpointXX_50A90(position, 28, 28);
 }
 
 //----- (00050E30) --------------------------------------------------------
-type_event_0x6E8E* sub_50E30(axis_3d* a1x)//231e30
+type_event_0x6E8E* addCheckpoint29_50E30(axis_3d* position)//231e30
 {
-	return addCheckpoint3_50A90(a1x, 29, 29);
+	return addCheckpointXX_50A90(position, 29, 29);
 }
 
 //----- (00050E50) --------------------------------------------------------
-type_event_0x6E8E* sub_50E50(axis_3d* a1x)//231e50
+type_event_0x6E8E* addCheckpoint33_50E50(axis_3d* position)//231e50
 {
-	return addCheckpoint3_50A90(a1x, 33, 33);
+	return addCheckpointXX_50A90(position, 33, 33);
 }
 
 //----- (00050E70) --------------------------------------------------------
-type_event_0x6E8E* sub_50E70(axis_3d* a1x)//231e70
+type_event_0x6E8E* addCheckpoint34_50E70(axis_3d* position)//231e70
 {
-	return addCheckpoint3_50A90(a1x, 34, 34);
+	return addCheckpointXX_50A90(position, 34, 34);
 }
 
 //----- (00050E90) --------------------------------------------------------
-type_event_0x6E8E* sub_50E90(axis_3d* a1x)//231e90
+type_event_0x6E8E* addCheckpoint35_50E90(axis_3d* position)//231e90
 {
-	return addCheckpoint3_50A90(a1x, 35, 35);
+	return addCheckpointXX_50A90(position, 35, 35);
 }
 
 //----- (00050EB0) --------------------------------------------------------
-type_event_0x6E8E* sub_50EB0(axis_3d* a1x)//231eb0
+type_event_0x6E8E* addCheckpoint36_50EB0(axis_3d* position)//231eb0
 {
-	return addCheckpoint3_50A90(a1x, 36, 36);
+	return addCheckpointXX_50A90(position, 36, 36);
 }
 
 //----- (00050ED0) --------------------------------------------------------
-type_event_0x6E8E* sub_50ED0(axis_3d* a1x)//231ed0
+type_event_0x6E8E* addCheckpoint37_50ED0(axis_3d* position)//231ed0
 {
-	return addCheckpoint3_50A90(a1x, 37, 37);
+	return addCheckpointXX_50A90(position, 37, 37);
 }
 
 //----- (00050EF0) --------------------------------------------------------
-type_event_0x6E8E* sub_50EF0(axis_3d* a1x)//231ef0
+type_event_0x6E8E* addCheckpoint38_50EF0(axis_3d* position)//231ef0
 {
-	return addCheckpoint3_50A90(a1x, 38, 38);
+	return addCheckpointXX_50A90(position, 38, 38);
 }
 
 //----- (00050F10) --------------------------------------------------------
-type_event_0x6E8E* sub_50F10(axis_3d* a1x)//231f10
+type_event_0x6E8E* addCheckpoint39_50F10(axis_3d* position)//231f10
 {
-	return addCheckpoint3_50A90(a1x, 39, 39);
+	return addCheckpointXX_50A90(position, 39, 39);
 }
 
 //----- (00050F30) --------------------------------------------------------
-type_event_0x6E8E* sub_50F30(axis_3d* a1x)//231f30
+type_event_0x6E8E* addCheckpoint40_50F30(axis_3d* position)//231f30
 {
-	return addCheckpoint3_50A90(a1x, 40, 40);
+	return addCheckpointXX_50A90(position, 40, 40);
 }
 
 //----- (00050F50) --------------------------------------------------------
-type_event_0x6E8E* sub_50F50(axis_3d* a1x)//231f50
+type_event_0x6E8E* addCheckpoint41_50F50(axis_3d* position)//231f50
 {
-	return addCheckpoint3_50A90(a1x, 41, 41);
+	return addCheckpointXX_50A90(position, 41, 41);
 }
 
 //----- (00050F70) --------------------------------------------------------
-type_event_0x6E8E* sub_50F70(axis_3d* a1x)//231f70
+type_event_0x6E8E* addCheckpoint42_50F70(axis_3d* position)//231f70
 {
-	return addCheckpoint3_50A90(a1x, 42, 42);
+	return addCheckpointXX_50A90(position, 42, 42);
 }
 
 //----- (00050F90) --------------------------------------------------------
-type_event_0x6E8E* sub_50F90(axis_3d* a1x)//231f90
+type_event_0x6E8E* addCheckpoint43_50F90(axis_3d* position)//231f90
 {
-	return addCheckpoint3_50A90(a1x, 43, 43);
+	return addCheckpointXX_50A90(position, 43, 43);
 }
 
 //----- (00050FB0) --------------------------------------------------------
-type_event_0x6E8E* sub_50FB0(axis_3d* a1x)//231fb0
+type_event_0x6E8E* addCheckpoint44_50FB0(axis_3d* position)//231fb0
 {
-	return addCheckpoint3_50A90(a1x, 44, 44);
+	return addCheckpointXX_50A90(position, 44, 44);
 }
 
 //----- (00050FD0) --------------------------------------------------------
-type_event_0x6E8E* sub_50FD0(axis_3d* a1x)//231fd0
+type_event_0x6E8E* addCheckpoint30_50FD0(axis_3d* position)//231fd0
 {
-	return addCheckpoint3_50A90(a1x, 30, 30);
+	return addCheckpointXX_50A90(position, 30, 30);
 }
 
 //----- (00050FF0) --------------------------------------------------------
-type_event_0x6E8E* sub_50FF0(axis_3d* a1x)//231ff0
+type_event_0x6E8E* addCheckpoint31atyp_50FF0(axis_3d* position)//231ff0
 {
-	type_event_0x6E8E* v1x; // edx
-	//uint8_t* v2; // eax
-	//char v3; // cl
-
-	v1x = 0;
+	type_event_0x6E8E* event = 0;
 	if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 0x10) && !(x_D41A0_BYTEARRAY_4_struct.setting_38545 & 8))
 	{
-		v1x = addCheckpoint3_50A90(a1x, 31, 31);
-		if (v1x)
+		event = addCheckpointXX_50A90(position, 31, 31);
+		if (event)
 		{
-			//v2 = x_D41A0_BYTEARRAY_0;
-			//v3 = *(x_BYTE *)(x_D41A0_BYTEARRAY_0 + 224779);
 			D41A0_BYTESTR_0.byte_0x36E02 = 1;
 			D41A0_BYTESTR_0.byte_0x36E0B |= 1;
 		}
 	}
-	return v1x;
+	return event;
 }
-// D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
-// D41A4: using guessed type int x_DWORD_D41A4;
 
 //----- (00051120) --------------------------------------------------------
-type_event_0x6E8E* AddSpell_51120(axis_3d* position, char type, char a3)//232120 - add any
+type_event_0x6E8E* AddSpellXX_XX_51120(axis_3d* position, char type, char a3)//232120 - add any
 {
-	type_event_0x6E8E* v3x = NewEvent_4A050();
-	if (v3x)
+	type_event_0x6E8E* event = NewEvent_4A050();
+	if (event)
 	{
-		v3x->type_0x3F_63 = 15;
-		v3x->dword_0x4 = 0;
-		v3x->subtype_0x40_64 = type;//zde
-		v3x->byte_0x45_69 = a3;
-		v3x->dword_0x8 = 0;
-		v3x->struct_byte_0xc_12_15.byte[0] &= 0xF7;
-		AddEventToMap_57D70(v3x, position);
-		SetEntityIndexAndRot_49CD0(v3x, 77);
-		SetEntityShiftRot_49EA0(v3x, 768, 1280);
-		CopyEventVar0408_49A20(v3x);
-		SetSpell_6D5E0(v3x, 0);
+		event->type_0x3F_63 = 15;
+		event->dword_0x4 = 0;
+		event->subtype_0x40_64 = type;//zde
+		event->byte_0x45_69 = a3;
+		event->dword_0x8 = 0;
+		event->struct_byte_0xc_12_15.byte[0] &= 0xF7;
+		AddEventToMap_57D70(event, position);
+		SetEntityIndexAndRot_49CD0(event, 77);
+		SetEntityShiftRot_49EA0(event, 768, 1280);
+		CopyEventVar0408_49A20(event);
+		SetSpell_6D5E0(event, 0);
 	}
-	return v3x;
+	return event;
 }
 
 //----- (000511A0) --------------------------------------------------------
-type_event_0x6E8E* AddSpell0_0_511A0(axis_3d* a1x)//2321a0
+type_event_0x6E8E* AddSpell00_00_511A0(axis_3d* position)//2321a0
 {
-	return AddSpell_51120(a1x, 0, 0);
+	return AddSpellXX_XX_51120(position, 0, 0);
 }
 
 //----- (000511C0) --------------------------------------------------------
-type_event_0x6E8E* sub_511C0(axis_3d* a1x)//2321c0
+type_event_0x6E8E* AddSpell01_03_511C0(axis_3d* position)//2321c0
 {
-	return AddSpell_51120(a1x, 1, 3);
+	return AddSpellXX_XX_51120(position, 1, 3);
 }
 
 //----- (000511E0) --------------------------------------------------------
-type_event_0x6E8E* sub_511E0(axis_3d* a1x)//2321e0
+type_event_0x6E8E* AddSpell02_06_511E0(axis_3d* position)//2321e0
 {
-	return AddSpell_51120(a1x, 2, 6);//add scroll to map - castle1
+	return AddSpellXX_XX_51120(position, 2, 6);//add scroll to map - castle1
 }
 
 //----- (00051200) --------------------------------------------------------
-type_event_0x6E8E* sub_51200(axis_3d* a1x)//232200
+type_event_0x6E8E* AddSpell03_09_51200(axis_3d* position)//232200
 {
-	return AddSpell_51120(a1x, 3, 9);
+	return AddSpellXX_XX_51120(position, 3, 9);
 }
 
 //----- (00051220) --------------------------------------------------------
-type_event_0x6E8E* sub_51220(axis_3d* a1x)//232220
+type_event_0x6E8E* AddSpell04_12_51220(axis_3d* position)//232220
 {
-	return AddSpell_51120(a1x, 4, 12);
+	return AddSpellXX_XX_51120(position, 4, 12);
 }
 
 //----- (00051240) --------------------------------------------------------
-type_event_0x6E8E* sub_51240(axis_3d* a1x)//232240
+type_event_0x6E8E* AddSpell05_15_51240(axis_3d* position)//232240
 {
-	return AddSpell_51120(a1x, 5, 15);
+	return AddSpellXX_XX_51120(position, 5, 15);
 }
 
 //----- (00051260) --------------------------------------------------------
-type_event_0x6E8E* sub_51260(axis_3d* a1x)//232260
+type_event_0x6E8E* AddSpell06_18_51260(axis_3d* a1x)//232260
 {
-	return AddSpell_51120(a1x, 6, 18);
+	return AddSpellXX_XX_51120(a1x, 6, 18);
 }
 
 //----- (00051280) --------------------------------------------------------
-type_event_0x6E8E* sub_51280(axis_3d* a1x)//232280
+type_event_0x6E8E* AddSpell07_21_51280(axis_3d* position)//232280
 {
-	return AddSpell_51120(a1x, 7, 21);
+	return AddSpellXX_XX_51120(position, 7, 21);
 }
 
 //----- (000512A0) --------------------------------------------------------
-type_event_0x6E8E* sub_512A0(axis_3d* a1x)//2322a0
+type_event_0x6E8E* AddSpell08_24_512A0(axis_3d* position)//2322a0
 {
-	return AddSpell_51120(a1x, 8, 24);
+	return AddSpellXX_XX_51120(position, 8, 24);
 }
 
 //----- (000512C0) --------------------------------------------------------
-type_event_0x6E8E* sub_512C0(axis_3d* a1x)//2322c0
+type_event_0x6E8E* AddSpell09_27_512C0(axis_3d* position)//2322c0
 {
-	return AddSpell_51120(a1x, 9, 27);
+	return AddSpellXX_XX_51120(position, 9, 27);
 }
 
 //----- (000512E0) --------------------------------------------------------
-type_event_0x6E8E* sub_512E0(axis_3d* a1x)//2322e0
+type_event_0x6E8E* AddSpell10_30_512E0(axis_3d* position)//2322e0
 {
-	return AddSpell_51120(a1x, 10, 30);
+	return AddSpellXX_XX_51120(position, 10, 30);
 }
 
 //----- (00051300) --------------------------------------------------------
-type_event_0x6E8E* sub_51300(axis_3d* a1x)//232300
+type_event_0x6E8E* AddSpell11_33_51300(axis_3d* position)//232300
 {
-	return AddSpell_51120(a1x, 11, 33);
+	return AddSpellXX_XX_51120(position, 11, 33);
 }
 
 //----- (00051320) --------------------------------------------------------
-type_event_0x6E8E* sub_51320(axis_3d* a1x)//232320
+type_event_0x6E8E* AddSpell12_36_51320(axis_3d* position)//232320
 {
-	return AddSpell_51120(a1x, 12, 36);
+	return AddSpellXX_XX_51120(position, 12, 36);
 }
 
 //----- (00051340) --------------------------------------------------------
-type_event_0x6E8E* sub_51340(axis_3d* a1x)//232340
+type_event_0x6E8E* AddSpell13_39_51340(axis_3d* position)//232340
 {
-	return AddSpell_51120(a1x, 13, 39);
+	return AddSpellXX_XX_51120(position, 13, 39);
 }
 
 //----- (00051360) --------------------------------------------------------
-type_event_0x6E8E* sub_51360(axis_3d* a1x)//232360
+type_event_0x6E8E* AddSpell14_42_51360(axis_3d* position)//232360
 {
-	return AddSpell_51120(a1x, 14, 42);
+	return AddSpellXX_XX_51120(position, 14, 42);
 }
 
 //----- (00051380) --------------------------------------------------------
-type_event_0x6E8E* sub_51380(axis_3d* a1x)//232380
+type_event_0x6E8E* AddSpell15_45_51380(axis_3d* position)//232380
 {
-	return AddSpell_51120(a1x, 15, 45);
+	return AddSpellXX_XX_51120(position, 15, 45);
 }
 
 //----- (000513A0) --------------------------------------------------------
-type_event_0x6E8E* sub_513A0(axis_3d* a1x)//2323a0
+type_event_0x6E8E* sub_513A0(axis_3d* position)//2323a0
 {
-	return AddSpell_51120(a1x, 16, 48);
+	return AddSpellXX_XX_51120(position, 16, 48);
 }
 
 //----- (000513C0) --------------------------------------------------------
-type_event_0x6E8E* sub_513C0(axis_3d* a1x)//2323c0
+type_event_0x6E8E* AddSpell17_51_513C0(axis_3d* position)//2323c0
 {
-	return AddSpell_51120(a1x, 17, 51);
+	return AddSpellXX_XX_51120(position, 17, 51);
 }
 
 //----- (000513E0) --------------------------------------------------------
-type_event_0x6E8E* sub_513E0(axis_3d* a1x)//2323e0
+type_event_0x6E8E* AddSpell18_54_513E0(axis_3d* position)//2323e0
 {
-	return AddSpell_51120(a1x, 18, 54);
+	return AddSpellXX_XX_51120(position, 18, 54);
 }
 
 //----- (00051400) --------------------------------------------------------
-type_event_0x6E8E* sub_51400(axis_3d* a1x)//232400
+type_event_0x6E8E* AddSpell19_57_51400(axis_3d* position)//232400
 {
-	return AddSpell_51120(a1x, 19, 57);
+	return AddSpellXX_XX_51120(position, 19, 57);
 }
 
 //----- (00051420) --------------------------------------------------------
-type_event_0x6E8E* sub_51420(axis_3d* a1x)//232420
+type_event_0x6E8E* AddSpell20_60_51420(axis_3d* position)//232420
 {
-	return AddSpell_51120(a1x, 20, 60);
+	return AddSpellXX_XX_51120(position, 20, 60);
 }
 
 //----- (00051440) --------------------------------------------------------
-type_event_0x6E8E* sub_51440(axis_3d* a1x)//232440
+type_event_0x6E8E* AddSpell21_63_51440(axis_3d* position)//232440
 {
-	return AddSpell_51120(a1x, 21, 63);
+	return AddSpellXX_XX_51120(position, 21, 63);
 }
 
 //----- (00051460) --------------------------------------------------------
-type_event_0x6E8E* sub_51460(axis_3d* a1x)//232460
+type_event_0x6E8E* AddSpell22_66_51460(axis_3d* position)//232460
 {
-	return AddSpell_51120(a1x, 22, 66);
+	return AddSpellXX_XX_51120(position, 22, 66);
 }
 
 //----- (00051480) --------------------------------------------------------
-type_event_0x6E8E* sub_51480(axis_3d* a1x)//232480
+type_event_0x6E8E* AddSpell23_69_51480(axis_3d* position)//232480
 {
-	return AddSpell_51120(a1x, 23, 69);
+	return AddSpellXX_XX_51120(position, 23, 69);
 }
 
 //----- (000514A0) --------------------------------------------------------
-type_event_0x6E8E* sub_514A0(axis_3d* a1x)//2324a0
+type_event_0x6E8E* AddSpell24_72_514A0(axis_3d* position)//2324a0
 {
-	return AddSpell_51120(a1x, 24, 72);
+	return AddSpellXX_XX_51120(position, 24, 72);
 }
 
 //----- (000514C0) --------------------------------------------------------
-type_event_0x6E8E* sub_514C0(axis_3d* a1x)//2324c0
+type_event_0x6E8E* AddSpell25_75_514C0(axis_3d* position)//2324c0
 {
-	return AddSpell_51120(a1x, 25, 75);
+	return AddSpellXX_XX_51120(position, 25, 75);
 }
 
 //----- (000514E0) --------------------------------------------------------
-type_event_0x6E8E* sub_514E0(axis_3d* a1x, char a2, char a3, __int16 a4)//2324e0
+type_event_0x6E8E* sub_514E0(axis_3d* position, char a2, char a3, __int16 a4)//2324e0
 {
-	type_event_0x6E8E* v4x; // ebx
-
-	v4x = NewEvent_4A050();
-	if (v4x)
+	type_event_0x6E8E* event = NewEvent_4A050();
+	if (event)
 	{
-		v4x->type_0x3F_63 = 14;
-		v4x->byte_0x46_70 = 0;
-		v4x->byte_0x45_69 = a3;
-		v4x->subtype_0x40_64 = a2;
-		AddEventToMap_57D70(v4x, a1x);
-		CopyEventVar0408_49A20(v4x);
-		SetHalfSpeedEntity_49DA0(v4x, a4);
+		event->type_0x3F_63 = 0xE;
+		event->byte_0x46_70 = 0;
+		event->byte_0x45_69 = a3;
+		event->subtype_0x40_64 = a2;
+		AddEventToMap_57D70(event, position);
+		CopyEventVar0408_49A20(event);
+		SetHalfSpeedEntity_49DA0(event, a4);
 	}
-	return v4x;
+	return event;
 }
 
 //----- (00051530) --------------------------------------------------------
-type_event_0x6E8E* sub_51530(axis_3d* a1x)//232530
+type_event_0x6E8E* sub_51530(axis_3d* position)//232530
 {
-	type_event_0x6E8E* v1x; // eax
-	//x_WORD *v2; // ebx
-
-	v1x = sub_514E0(a1x, 0, 0, 77);
-	//v2 = v1;
-	if (v1x)
-		SetEntityShiftRot_49EA0(v1x, 384, 384);
-	return v1x;
+	type_event_0x6E8E* event = sub_514E0(position, 0, 0, 77);
+	if (event)
+		SetEntityShiftRot_49EA0(event, 384, 384);
+	return event;
 }
 
 //----- (00051570) --------------------------------------------------------
@@ -83935,10 +83915,10 @@ signed int sub_68FF0(type_event_0x6E8E* a1x, char a2, char a3)//249f00
 
 //type_str_0x6E8E* sub_2a881e(axis_3d*)[20] = { sub_511A0 };
 //void (*functptr[])() = { test1, test2, test3 };
-type_event_0x6E8E* (*arsub_2a881e[])(axis_3d*) = { AddSpell0_0_511A0, sub_511C0, sub_511E0,sub_51200,sub_51220,
-sub_51240 ,sub_51260,sub_51280,sub_512A0,sub_512C0,sub_512E0,sub_51300,sub_51320,sub_51340,
-sub_51360,sub_51380,sub_513A0,sub_513C0,sub_513E0,sub_51400,sub_51420,sub_51440,
-sub_51460,sub_51480,sub_514A0,sub_514C0 };
+type_event_0x6E8E* (*arsub_2a881e[])(axis_3d*) = { AddSpell00_00_511A0, AddSpell01_03_511C0, AddSpell02_06_511E0,AddSpell03_09_51200,AddSpell04_12_51220,
+AddSpell05_15_51240 ,AddSpell06_18_51260,AddSpell07_21_51280,AddSpell08_24_512A0,AddSpell09_27_512C0,AddSpell10_30_512E0,AddSpell11_33_51300,AddSpell12_36_51320,AddSpell13_39_51340,
+AddSpell14_42_51360,AddSpell15_45_51380,sub_513A0,AddSpell17_51_513C0,AddSpell18_54_513E0,AddSpell19_57_51400,AddSpell20_60_51420,AddSpell21_63_51440,
+AddSpell22_66_51460,AddSpell23_69_51480,AddSpell24_72_514A0,AddSpell25_75_514C0 };
 
 //----- (00069250) --------------------------------------------------------
 signed int sub_69250(type_event_0x6E8E* a1x)//24a250
