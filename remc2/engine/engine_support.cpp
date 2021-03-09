@@ -1201,31 +1201,50 @@ uint32_t compare_with_sequence_array_222BD3(char* filename, uint8_t* adress, uin
 	return(i);
 };
 
+uint8_t* filebuffer[999];
+char findnamec[500][999];
+int lastbuffer = 0;
+
 uint32_t compare_with_sequence(char* filename, uint8_t* adress, uint32_t  /*adressdos*/, long count, long size1, uint32_t size2, uint8_t* origbyte, uint8_t* copybyte, long offset) {
 	char findnamec[500];
-	uint8_t* buffer = (uint8_t*)malloc(size2);
-	FILE* fptestepc;
-	sprintf(findnamec, "c:/prenos/dosbox-x-remc2/vs2015/sequence-%s.bin", filename);
-	fptestepc = fopen(findnamec, "rb");
-	if (fptestepc == NULL)
-	{
-		mydelay(100);
-		fptestepc = fopen(findnamec, "rb");
-	}
-
-#ifdef __linux__
-	fseek(fptestepc, (long long)count * (long long)size1 + offset, SEEK_SET);
-#else
-	_fseeki64(fptestepc, (long long)count * (long long)size1 + offset, SEEK_SET);
-#endif
-	
+	uint8_t* buffer=NULL;
+	FILE* fptestepc=NULL;
 	uint32_t i;
-	/*for (i = 0; i < count; i++)
+	sprintf(findnamec, "c:/prenos/dosbox-x-remc2/vs2015/sequence-%s.bin", filename);
+	bool existbuffer = false;
+	/*for (int ii = 0; ii < lastbuffer; ii++)
 	{
-		fread_s(buffer,size,1,size, fptestepc);
+		if (strcmp(&findnamec[500], findnamec)) {
+			existbuffer = true;
+			buffer = filebuffer[ii];
+			break;
+		}
 	}*/
 
-	fread(buffer, size2, 1, fptestepc);
+	if (!existbuffer)
+	{
+		buffer = (uint8_t*)malloc(size2);
+		fptestepc = fopen(findnamec, "rb");
+		if (fptestepc == NULL)
+		{
+			mydelay(100);
+			fptestepc = fopen(findnamec, "rb");
+		}
+
+#ifdef __linux__
+		fseek(fptestepc, (long long)count * (long long)size1 + offset, SEEK_SET);
+#else
+		_fseeki64(fptestepc, (long long)count * (long long)size1 + offset, SEEK_SET);
+#endif
+
+		
+		/*for (i = 0; i < count; i++)
+		{
+			fread_s(buffer,size,1,size, fptestepc);
+		}*/
+
+		fread(buffer, size2, 1, fptestepc);
+	}
 	if (size2 == 320 * 200)
 	{
 		VGA_Debug_Blit(320, 200, pdwScreenBuffer);
@@ -1244,8 +1263,10 @@ uint32_t compare_with_sequence(char* filename, uint8_t* adress, uint32_t  /*adre
 		}
 	}
 
-	free(buffer);
-	fclose(fptestepc);
+	if (!existbuffer) {
+		free(buffer);
+		fclose(fptestepc);
+	}
 	if (i < size2)
 		allert_error();
 	return(i);
