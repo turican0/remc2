@@ -53796,7 +53796,13 @@ LABEL_2:
 			if (v4 >= 0xB)
 			{
 				if (v4 > 0xBu && v4 != 0xFu)
-					goto LABEL_26;
+				{
+					SetEntity04_57F10(&D41A0_BYTESTR_0.struct_0x6E8E[iy]);
+					D41A0_BYTESTR_0.struct_0x6E8E[iy].byte_0x3E_62++;
+					if (D41A0_BYTESTR_0.struct_0x6E8E[iy].struct_byte_0xc_12_15.byte[1] & 4)
+						sub_57F20(&D41A0_BYTESTR_0.struct_0x6E8E[iy]);
+					goto LABEL_37;
+				}
 				goto LABEL_23;
 			}
 			if (v4 == 0x9)
@@ -53809,7 +53815,13 @@ LABEL_2:
 			if (v4 >= 0x32)
 			{
 				if (v4 > 0x33 && (v4 < 0x50 || v4 > 0x55 && v4 != 0x58))
-					goto LABEL_26;
+				{
+					SetEntity04_57F10(&D41A0_BYTESTR_0.struct_0x6E8E[iy]);
+					D41A0_BYTESTR_0.struct_0x6E8E[iy].byte_0x3E_62++;
+					if (D41A0_BYTESTR_0.struct_0x6E8E[iy].struct_byte_0xc_12_15.byte[1] & 4)
+						sub_57F20(&D41A0_BYTESTR_0.struct_0x6E8E[iy]);
+					goto LABEL_37;
+				}
 			LABEL_23:
 				v5 = &str_D4C48ar[D41A0_BYTESTR_0.struct_0x6E8E[iy].type_0x3F_63].dword_10[D41A0_BYTESTR_0.struct_0x6E8E[iy].byte_0x45_69];//ok
 				v1 = 1;//adress 22a93a
@@ -53839,7 +53851,6 @@ LABEL_2:
 				goto LABEL_23;
 			}
 		}
-	LABEL_26:
 		SetEntity04_57F10(&D41A0_BYTESTR_0.struct_0x6E8E[iy]);
 		D41A0_BYTESTR_0.struct_0x6E8E[iy].byte_0x3E_62++;
 		if (D41A0_BYTESTR_0.struct_0x6E8E[iy].struct_byte_0xc_12_15.byte[1] & 4)
