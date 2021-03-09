@@ -1822,7 +1822,7 @@ void sub_49540(type_str_2FECE* terrain, type_entity_0x30311* entity);
 void sub_498A0();
 void CopyEventVar0408_49A20(type_event_0x6E8E* event);
 void sub_49A30(type_event_0x6E8E* event, unsigned __int16 a2);
-void sub_49C70(type_event_0x6E8E* event);
+void SetEvent144_49C70(type_event_0x6E8E* event);
 void SetEntityIndex_49C90(type_event_0x6E8E* event, int16_t entityIndex);
 void SetEntityIndexAndRot_49CD0(type_event_0x6E8E* event, int16_t entityIndex);
 void sub_49D50(type_event_0x6E8E* event, int16_t entityIndex);
@@ -1860,7 +1860,7 @@ type_event_0x6E8E* sub_4B0F0(axis_3d* a1);
 type_event_0x6E8E* sub_4B120(axis_3d* a1);
 type_event_0x6E8E* sub_4B150(axis_3d* a1, char a2, char a3, __int16 a4);
 type_event_0x6E8E* sub_4B240(axis_3d* a1);
-type_event_0x6E8E* makeCreature_4B490(axis_3d* a1);
+type_event_0x6E8E* AddCreature_4B490(axis_3d* a1);
 type_event_0x6E8E* sub_4B590(axis_3d* a1);
 type_event_0x6E8E* sub_4B6F0(axis_3d* a1);
 type_event_0x6E8E* sub_4BA10(axis_3d* a1);
@@ -52764,7 +52764,7 @@ type_event_0x6E8E* sub_48930(__int16 posX2, __int16 posY2, __int16 posX, __int16
 		if ((v6 == (int16_t)0xd100) && (v7 == (int16_t)0x2800))a1x[2] = 0x35;*/
 		//only for debugging
 
-		result = pre_sub_4A190_axis_3d(v3x->adress_6 /** (_DWORD*)(v3 + 6)*/, &a1x, 0); //(*(int(__cdecl * *)(int))(v3 + 6))(a1);
+		result = pre_sub_4A190_axis_3d(v3x->adress_6 /** (_DWORD*)(v3 + 6)*/, &a1x); //(*(int(__cdecl * *)(int))(v3 + 6))(a1);
 	}
 	else
 		result = 0;
@@ -53636,7 +53636,7 @@ void sub_49540(type_str_2FECE* terrain, type_entity_0x30311* entity)//22a540
 			v8x = str_x_DWORD_D4C52ar_0x2F22[entity->subtype_0x30311].adress_6;
 			if (v8x)
 			{
-				v14x = pre_sub_4A190_axis_3d(v8x, &x_WORD_EB398ar, 1);
+				v14x = pre_sub_4A190_axis_3d(v8x, &x_WORD_EB398ar);
 				if (v14x)
 				{
 					v14x->word_0x2C_44 = entity->par1_14;
@@ -53668,7 +53668,7 @@ void sub_49540(type_str_2FECE* terrain, type_entity_0x30311* entity)//22a540
 					v8x = str_x_DWORD_D4C52ar_0x1D26[entity->subtype_0x30311].adress_6;
 					if (v8x)
 					{
-						v5x = pre_sub_4A190_axis_3d(v8x, &x_WORD_EB398ar, 1);//(*(int(**)(int))((char *)&off_D697E + 14 * v4))((int)x_WORD_EB398ar);
+						v5x = pre_sub_4A190_axis_3d(v8x, &x_WORD_EB398ar);//(*(int(**)(int))((char *)&off_D697E + 14 * v4))((int)x_WORD_EB398ar);
 						if (v5x)
 							sub_49A30(v5x, entity->par1_14);
 					}
@@ -53681,7 +53681,7 @@ void sub_49540(type_str_2FECE* terrain, type_entity_0x30311* entity)//22a540
 			v8x = str_x_DWORD_D4C52ar_0x1D26[entity->subtype_0x30311].adress_6;
 			if (v8x)
 			{
-				v8y = pre_sub_4A190_axis_3d(v8x, &x_WORD_EB398ar, 1);
+				v8y = pre_sub_4A190_axis_3d(v8x, &x_WORD_EB398ar);
 				if (v8y)
 				{
 					switch (entity->subtype_0x30311)
@@ -53786,7 +53786,7 @@ LABEL_2:
 					//v8x = v6->dword_6;
 					if (v6->adress_6 && v6->dword_10)
 					{
-						pre_sub_4A190_0x6E8E(v6->adress_6, &D41A0_BYTESTR_0.struct_0x6E8E[iy], 2);
+						pre_sub_4A190_0x6E8E(v6->adress_6, &D41A0_BYTESTR_0.struct_0x6E8E[iy]);
 					}
 				}
 			}
@@ -53825,7 +53825,7 @@ LABEL_2:
 					#ifdef DEBUG_SEQUENCES
 					//add_compare(0x22A977, debugafterload,2);
 					#endif DEBUG_SEQUENCES
-					pre_sub_4A190_0x6E8E(v5->adress_6, &D41A0_BYTESTR_0.struct_0x6E8E[iy], 2);
+					pre_sub_4A190_0x6E8E(v5->adress_6, &D41A0_BYTESTR_0.struct_0x6E8E[iy]);
 				}
 				goto LABEL_27;
 			}
@@ -53929,17 +53929,17 @@ void sub_49A30(type_event_0x6E8E* a1x, unsigned __int16 a2)//22aa30
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
 //----- (00049C70) --------------------------------------------------------
-void sub_49C70(type_event_0x6E8E* entity)//22ac70
+void SetEvent144_49C70(type_event_0x6E8E* event)//22ac70
 {
-	entity->dword_0x90_144 = entity->dword_0x4 >> 1;
+	event->dword_0x90_144 = event->dword_0x4 >> 1;
 }
 
 //----- (00049C90) --------------------------------------------------------
-void SetEntityIndex_49C90(type_event_0x6E8E* entity, int16_t entityIndex)//22ac90
+void SetEntityIndex_49C90(type_event_0x6E8E* event, int16_t entityIndex)//22ac90
 {
-	entity->word_0x5A_90 = entityIndex;
-	entity->byte_0x5C_92 = 0;
-	entity->byte_0x5D_93 = x_BYTE_D8A2E[str_WORD_D951C[entityIndex].byte_12];
+	event->word_0x5A_90 = entityIndex;
+	event->byte_0x5C_92 = 0;
+	event->byte_0x5D_93 = x_BYTE_D8A2E[str_WORD_D951C[entityIndex].byte_12];
 }
 
 //----- (00049CD0) --------------------------------------------------------
@@ -53989,16 +53989,16 @@ void SetEntityShiftRot_49EA0(type_event_0x6E8E* event, int16_t shift, int16_t ro
 //----- (00049EC0) --------------------------------------------------------
 void sub_49EC0(type_event_0x6E8E* event, int16_t a2)//22aec0 // get castle data
 {
-	posistruct_t v2 = (*filearray_2aa18c[filearrayindex_BUILD00DATTAB].posistruct)[a2];
+	posistruct_t posistruct = (*filearray_2aa18c[filearrayindex_BUILD00DATTAB].posistruct)[a2];
 	if (x_WORD_180660_VGA_type_resolution == 1)
 	{
-		v2.height >>= 1;
-		v2.width >>= 1;
+		posistruct.height >>= 1;
+		posistruct.width >>= 1;
 	}
-	event->array_0x52_82.xshift = ((v2.width << 8) + 1280) >> 1;
+	event->array_0x52_82.xshift = ((posistruct.width << 8) + 1280) >> 1;
 	event->array_0x52_82.rotation2 = 0;
 	event->array_0x52_82.rotation = 256;
-	event->array_0x52_82.yshift = ((v2.height << 8) + 1280) >> 1;
+	event->array_0x52_82.yshift = ((posistruct.height << 8) + 1280) >> 1;
 }
 
 //----- (00049F30) --------------------------------------------------------
@@ -54139,7 +54139,7 @@ void test_pre_sub_4a190(uint32_t adress)//for debug
 	}
 }
 
-type_event_0x6E8E* pre_sub_4A190_axis_3d(uint32_t adress, axis_3d* a1_axis3d, int  /*type*/)//pre 22b190
+type_event_0x6E8E* pre_sub_4A190_axis_3d(uint32_t adress, axis_3d* a1_axis3d)//pre 22b190
 {
 	switch (adress)
 	{
@@ -54249,7 +54249,7 @@ type_event_0x6E8E* pre_sub_4A190_axis_3d(uint32_t adress, axis_3d* a1_axis3d, in
 		break;
 	}
 	case 0x22c490: {// 1 instance in level 33
-		return makeCreature_4B490(a1_axis3d);
+		return AddCreature_4B490(a1_axis3d);
 		break;
 	}
 	case 0x22c590: {
@@ -55123,7 +55123,7 @@ type_event_0x6E8E* pre_sub_4A190_axis_3d(uint32_t adress, axis_3d* a1_axis3d, in
 	//bad end
 	return 0;
 }
-void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E, int  /*type*/)//pre 22b190
+void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E)//pre 22b190
 {
 #ifndef RELEASE_GAME
 	test_pre_sub_4a190(adress);//for debug
@@ -58860,7 +58860,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E, int  /*ty
 type_event_0x6E8E* IfSubtypeCallAxisEvent_4A190(axis_3d* position, int type, int subtype)//22b190
 {
 	if (str_D4C48ar[type].dword_14[subtype].dword_10 && str_D4C48ar[type].dword_14[subtype].word_4 == subtype)
-		return pre_sub_4A190_axis_3d(str_D4C48ar[type].dword_14[subtype].adress_6, position, 2);
+		return pre_sub_4A190_axis_3d(str_D4C48ar[type].dword_14[subtype].adress_6, position);
 	return 0;
 }
 // D4C56: using guessed type int x_DWORD_D4C56;
@@ -59827,48 +59827,35 @@ type_event_0x6E8E* sub_4B240(axis_3d* a1x)//22c240
 // D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
 
 //----- (0004B490) --------------------------------------------------------
-type_event_0x6E8E* makeCreature_4B490(axis_3d* a1x)//22c490 - add creature Vulture(sup?)
+type_event_0x6E8E* AddCreature_4B490(axis_3d* position)//22c490 - add creature Vulture(sup?)
 {
-	type_event_0x6E8E* v1x; // eax
-	//uint8_t* v2; // ebx
-	//uint8_t* v3; // ecx
-	//int v4; // edx
-	//uint8_t* v5; // ecx
-
-	v1x = NewEvent_4A050();
-	//v2 = v1;
-	if (v1x)
+	type_event_0x6E8E* event = NewEvent_4A050();
+	if (event)
 	{
-		v1x->byte_0x45_69 = 9;
-		v1x->type_0x3F_63 = 5;
-		v1x->subtype_0x40_64 = 1;
-		v1x->word_0x84_132 = 54;
-		v1x->word_0x86_134 = 18;
-		v1x->dword_0x4 = 600;
-		v1x->word_0x82_130 = v1x->word_0x86_134;
-		sub_49C70(v1x);
-		v1x->word_0x20_32 = 0;
-		v1x->word_0x1C_28 = v1x->word_0x20_32;
-		//v3 = x_D41A0_BYTEARRAY_0;
-		v1x->word_0x1E_30 = v1x->word_0x20_32;
-		v1x->dword_0x10_16 = (v1x - D41A0_BYTESTR_0.struct_0x6E8E) % 100;
-		//v4 = *(char *)(v1 + 64);
-		v1x->word_0x22_34 = 0;
-		//v5 = v4 + x_D41A0_BYTEARRAY_0;
-		v1x->byte_0x38_56 = 1;
-		//LOBYTE(v4) = (*(x_BYTE *)(*(char *)(v1 + 64) + x_D41A0_BYTEARRAY_0 + 16))++;
-		//D41A0_BYTESTR_0.array_0x10[v1x->byte_0x40_64]++;
-		v1x->dword_0xA0_160x = &str_D7BD6[98]; //(type_str_160*)&unk_D7BD6[0xd04];
-		v1x->byte_0x3E_62 = D41A0_BYTESTR_0.array_0x10[v1x->subtype_0x40_64]++;
-		v1x->byte_0x39_57 = v1x->dword_0xA0_160x->word_160_0x1a_26 + 1;
-		v1x->byte_0x41_65 = 3;
-		AddEventToMap_57D70(v1x, a1x);
-		CopyEventVar0408_49A20(v1x);
-		SetEntityIndexAndRot_49CD0(v1x, 238);
+		event->byte_0x45_69 = 9;
+		event->type_0x3F_63 = 5;
+		event->subtype_0x40_64 = 1;
+		event->word_0x84_132 = 54;
+		event->word_0x86_134 = 18;
+		event->dword_0x4 = 600;
+		event->word_0x82_130 = event->word_0x86_134;
+		SetEvent144_49C70(event);
+		event->word_0x20_32 = 0;
+		event->word_0x1C_28 = event->word_0x20_32;
+		event->word_0x1E_30 = event->word_0x20_32;
+		event->dword_0x10_16 = (event - D41A0_BYTESTR_0.struct_0x6E8E) % 100;
+		event->word_0x22_34 = 0;
+		event->byte_0x38_56 = 1;
+		event->dword_0xA0_160x = &str_D7BD6[98]; //(type_str_160*)&unk_D7BD6[0xd04];
+		event->byte_0x3E_62 = D41A0_BYTESTR_0.array_0x10[event->subtype_0x40_64]++;
+		event->byte_0x39_57 = event->dword_0xA0_160x->word_160_0x1a_26 + 1;
+		event->byte_0x41_65 = 3;
+		AddEventToMap_57D70(event, position);
+		CopyEventVar0408_49A20(event);
+		SetEntityIndexAndRot_49CD0(event, 238);
 	}
-	return v1x;
+	return event;
 }
-// D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
 
 //----- (0004B590) --------------------------------------------------------
 type_event_0x6E8E* sub_4B590(axis_3d* a1x)//22c590
@@ -59896,7 +59883,7 @@ type_event_0x6E8E* sub_4B590(axis_3d* a1x)//22c590
 	v1x->word_0x86_134 = 30;
 	v1x->dword_0x4 = 3000;
 	v1x->word_0x82_130 = v3 / 2;
-	sub_49C70(v1x);
+	SetEvent144_49C70(v1x);
 	v2x->rand_0x14_20 = 9377 * v2x->rand_0x14_20 + 9439;
 	//v4 = (v2x->word_0x14_20 & 0x7FF) - 1;
 	v2x->word_0x20_32 = (v2x->rand_0x14_20 & 0x7FF) - 1;
@@ -59948,7 +59935,7 @@ type_event_0x6E8E* sub_4B6F0(axis_3d* position)//22c6f0
 		resultx->word_0x86_134 = 16;
 		resultx->word_0x82_130 = 30;
 		resultx->dword_0x4 = 9000;
-		sub_49C70(resultx);
+		SetEvent144_49C70(resultx);
 		resultx->dword_0x8C_140 = resultx->dword_0x90_144;
 		resultx->dword_0x90_144 = resultx->dword_0x90_144 / 2;
 		resultx->rand_0x14_20 = 9377 * resultx->rand_0x14_20 + 9439;
@@ -60033,7 +60020,7 @@ type_event_0x6E8E* sub_4BA10(axis_3d* a1x)//22ca10
 		v1x->word_0x86_134 = 0;
 		v1x->dword_0x4 = 1000;
 		v1x->word_0x82_130 = v1x->word_0x84_132;
-		sub_49C70(v1x);
+		SetEvent144_49C70(v1x);
 		v2x->rand_0x14_20 = 9377 * v2x->rand_0x14_20 + 9439;
 		//v3 = (v2x->word_0x14_20 & 0x7FF) - 1;
 		v2x->word_0x20_32 = (v2x->rand_0x14_20 & 0x7FF) - 1;
@@ -60088,7 +60075,7 @@ type_event_0x6E8E* sub_4BBB0(axis_3d* a1x)//22cbb0
 		v3 = v1x->word_0x84_132;
 		v2x->dword_0x4 = 1000;
 		v2x->word_0x82_130 = v3;
-		sub_49C70(v2x);
+		SetEvent144_49C70(v2x);
 		v2x->rand_0x14_20 = 9377 * v2x->rand_0x14_20 + 9439;
 		v4 = v2x->rand_0x14_20;
 		v2x->word_0x22_34 = 0;
@@ -60143,7 +60130,7 @@ type_event_0x6E8E* sub_4BD00(axis_3d* a1x)//22cd00
 	v1x->type_0x3F_63 = 5;
 	v1x->subtype_0x40_64 = 10;
 	v1x->dword_0x4 = 300000;
-	sub_49C70(v1x);
+	SetEvent144_49C70(v1x);
 	v2x->struct_byte_0xc_12_15.dword |= 0x48800001u;
 	//v3 = (int)x_D41A0_BYTEARRAY_0;
 	//v4 = v2x->byte_0x40_64;
@@ -60435,7 +60422,7 @@ type_event_0x6E8E* sub_4C310(axis_3d* a1x)//22d310
 		//v3 = v1x->word_0x84_132;
 		v1x->dword_0x4 = 60000;
 		v1x->word_0x82_130 = v1x->word_0x84_132;
-		sub_49C70(v1x);
+		SetEvent144_49C70(v1x);
 		v1x->rand_0x14_20 = 9377 * v1x->rand_0x14_20 + 9439;
 		//v4 = (v1x->word_0x14_20 & 0x7FF) - 1;
 		v1x->word_0x20_32 = (v1x->rand_0x14_20 & 0x7FF) - 1;
@@ -60489,7 +60476,7 @@ type_event_0x6E8E* sub_4C460(axis_3d* a1x)//22d460
 		v1x->word_0x86_134 = 20;
 		v1x->dword_0x4 = 10000;
 		v1x->word_0x82_130 = v1x->word_0x84_132;
-		sub_49C70(v1x);
+		SetEvent144_49C70(v1x);
 		v1x->rand_0x14_20 = 9377 * v1x->rand_0x14_20 + 9439;
 		//v3 = (v1x->word_0x14_20 & 0x7FF) - 1;
 		v1x->word_0x20_32 = (v1x->rand_0x14_20 & 0x7FF) - 1;
@@ -60539,7 +60526,7 @@ type_event_0x6E8E* sub_4C590(axis_3d* a1x)//22d590
 		v1x->word_0x86_134 = 6;
 		v1x->dword_0x4 = 36000;
 		v1x->word_0x82_130 = v1x->word_0x84_132;
-		sub_49C70(v1x);
+		SetEvent144_49C70(v1x);
 		v1x->rand_0x14_20 = 9377 * v1x->rand_0x14_20 + 9439;
 		//v3 = (v1x->word_0x14_20 & 0x7FF) - 1;
 		v1x->word_0x20_32 = (v1x->rand_0x14_20 & 0x7FF) - 1;
@@ -60590,7 +60577,7 @@ type_event_0x6E8E* sub_4C6B0(axis_3d* a1x)//22d6b0
 		v1x->word_0x86_134 = 8;
 		v1x->dword_0x4 = 600;
 		v1x->word_0x82_130 = v1x->word_0x84_132;
-		sub_49C70(v1x);
+		SetEvent144_49C70(v1x);
 		v1x->rand_0x14_20 = 9377 * v1x->rand_0x14_20 + 9439;
 		//v3 = (v1x->word_0x14_20 & 0x7FF) - 1;
 		v1x->word_0x20_32 = (v1x->rand_0x14_20 & 0x7FF) - 1;
@@ -60641,7 +60628,7 @@ type_event_0x6E8E* sub_4C7F0(axis_3d* a1x)//22d7f0
 		v1x->word_0x86_134 = 20;
 		v1x->dword_0x4 = 5500;
 		v1x->word_0x82_130 = v1x->word_0x84_132;
-		sub_49C70(v1x);
+		SetEvent144_49C70(v1x);
 		v1x->rand_0x14_20 = 9377 * v1x->rand_0x14_20 + 9439;
 		//v3 = v1x->word_0x14_20 & 0x7FF;
 		v1x->word_0x22_34 = 0;
@@ -60779,7 +60766,7 @@ type_event_0x6E8E* sub_4CA00(axis_3d* a1x)//22da00
 	x_WORD_EB398ar = *a1x;
 	x_WORD_EB398ar.z = getTerrainAlt_10C40(&x_WORD_EB398ar) + 384;
 	AddEventToMap_57D70(v1x, &x_WORD_EB398ar);
-	sub_49C70(v1x);
+	SetEvent144_49C70(v1x);
 	CopyEventVar0408_49A20(v1x);
 	return v1x;
 }
@@ -60899,7 +60886,7 @@ type_event_0x6E8E* sub_4CCF0(axis_3d* a1x)//22dcf0
 	//v3 = v1x->word_0x86_134;
 	v1x->dword_0x4 = 16000;
 	v1x->word_0x82_130 = v1x->word_0x86_134;
-	sub_49C70(v1x);
+	SetEvent144_49C70(v1x);
 	v1x->rand_0x14_20 = 9377 * v1x->rand_0x14_20 + 9439;
 	//v4 = v1x->word_0x14_20 & 0x7FF;
 	v1x->word_0x22_34 = 0;
@@ -60946,7 +60933,7 @@ type_event_0x6E8E* sub_4CE00(axis_3d* a1x)//22de00
 		v1x->word_0x86_134 = 20;
 		v1x->dword_0x4 = 7500;
 		v1x->word_0x82_130 = v1x->word_0x84_132;
-		sub_49C70(v1x);
+		SetEvent144_49C70(v1x);
 		v1x->rand_0x14_20 = 9377 * v1x->rand_0x14_20 + 9439;
 		//v3 = v1x->word_0x14_20 & 0x7FF;
 		v1x->word_0x22_34 = 0;
@@ -60993,7 +60980,7 @@ type_event_0x6E8E* sub_4CF00(axis_3d* a1x)//22df00
 		v1x->word_0x86_134 = 25;
 		v1x->dword_0x4 = 4400;
 		v1x->word_0x82_130 = v1x->word_0x86_134;
-		sub_49C70(v1x);
+		SetEvent144_49C70(v1x);
 		v1x->rand_0x14_20 = 9377 * v1x->rand_0x14_20 + 9439;
 		//v3 = v1x->word_0x14_20 & 0x7FF;
 		v1x->word_0x22_34 = 0;
@@ -61156,7 +61143,7 @@ type_event_0x6E8E* sub_4D1D0(axis_3d* a1x)//22e1d0
 		v1x->word_0x84_132 = 120;
 		v1x->word_0x86_134 = 64;
 		v1x->dword_0x4 = 8000;
-		sub_49C70(v1x);
+		SetEvent144_49C70(v1x);
 		//v3 = v1x->word_0x14_20;
 		v1x->struct_byte_0xc_12_15.byte[3] |= 8u;
 		v1x->rand_0x14_20 = 9377 * v1x->rand_0x14_20 + 9439;
@@ -65211,7 +65198,7 @@ void sub_51BB0_game_events(/*uint8_t* a1*/)//232bb0
 			if (!v113x->dword_0xA4_164x->str_611.array_0x333_819x.word[v112])
 			{
 				//adress 23354c
-				v63x = pre_sub_4A190_axis_3d(0x2321a0 + 14 * v112, &v113x->axis_0x4C_76, 2);//v63 = (uint8_t*)(*(int(**)(uint8_t*))((char *)&off_D781E + 14 * v112))(v113 + 76);
+				v63x = pre_sub_4A190_axis_3d(0x2321a0 + 14 * v112, &v113x->axis_0x4C_76);//v63 = (uint8_t*)(*(int(**)(uint8_t*))((char *)&off_D781E + 14 * v112))(v113 + 76);
 				//v14 = pre_sub_4A190(v8x, (uint8_t*)x_WORD_EB398ar); //(*(int(**)(int))((char *)&off_D7B7A + 14 * v13))((int)x_WORD_EB398ar);
 
 				if (v63x)
@@ -69418,7 +69405,7 @@ void sub_57730()//238730
 #endif //DEBUG_SEQUENCES
 
 						//adress 238a8a zacina na 35cf6e 363bb6 =6c48/168=165=a5
-						pre_sub_4A190_0x6E8E(v20->adress_6, mx, 2);
+						pre_sub_4A190_0x6E8E(v20->adress_6, mx);
 						//(*(void(**)(uint8_t*))(v20 + 6))((uint8_t*)(m));
 						mx->byte_0x3E_62++;
 					}
