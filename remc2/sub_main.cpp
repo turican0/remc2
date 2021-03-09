@@ -53821,13 +53821,15 @@ LABEL_2:
 					#endif DEBUG_SEQUENCES
 					pre_sub_4A190_0x6E8E(v5->adress_6, &D41A0_BYTESTR_0.struct_0x6E8E[iy]);
 				}
-				goto LABEL_27;
+				D41A0_BYTESTR_0.struct_0x6E8E[iy].byte_0x3E_62++;
+				if (D41A0_BYTESTR_0.struct_0x6E8E[iy].struct_byte_0xc_12_15.byte[1] & 4)
+					sub_57F20(&D41A0_BYTESTR_0.struct_0x6E8E[iy]);
+				goto LABEL_37;
 			}
 			if (v4 == 0x2D)
 			{
 				if (D41A0_BYTESTR_0.struct_0x6E8E[iy].byte_0x45_69 != 0x33)
 				{
-				LABEL_27:
 					D41A0_BYTESTR_0.struct_0x6E8E[iy].byte_0x3E_62++;
 				LABEL_35://all without 0xA and 0xE
 					if (D41A0_BYTESTR_0.struct_0x6E8E[iy].struct_byte_0xc_12_15.byte[1] & 4)
@@ -53839,7 +53841,10 @@ LABEL_2:
 		}
 	LABEL_26:
 		SetEntity04_57F10(&D41A0_BYTESTR_0.struct_0x6E8E[iy]);
-		goto LABEL_27;
+		D41A0_BYTESTR_0.struct_0x6E8E[iy].byte_0x3E_62++;
+		if (D41A0_BYTESTR_0.struct_0x6E8E[iy].struct_byte_0xc_12_15.byte[1] & 4)
+			sub_57F20(&D41A0_BYTESTR_0.struct_0x6E8E[iy]);
+		goto LABEL_37;
 	}
 }
 // D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
