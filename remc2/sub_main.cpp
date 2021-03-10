@@ -69199,9 +69199,9 @@ void sub_57730()//238730
 	type_event_0x6E8E* lx; // ebx
 	//int v17; // ST08_4
 	type_event_0x6E8E* mx; // ebx
-	char v19; // cl
-	type_D4C52ar2* v20; // eax
-	__int16 v21; // si
+	//char v19; // cl
+	//type_D4C52ar2* v20; // eax
+	//__int16 v21; // si
 	type_event_0x6E8E* v22x[29]; // [esp+0h] [ebp-7Ch]
 	type_event_0x6E8E* v23x; // [esp+74h] [ebp-8h]
 	type_event_0x6E8E* v24x; // [esp+78h] [ebp-4h]
@@ -69219,7 +69219,7 @@ void sub_57730()//238730
 	{
 		//adress 238756
 #ifdef DEBUG_SEQUENCES
-		add_compare(0x238756, debugafterload);
+		//add_compare(0x238756, debugafterload);
 #endif //DEBUG_SEQUENCES
 		if (ix->type_0x3F_63 && ix->struct_byte_0xc_12_15.byte[1] & 4)
 			sub_57F20(ix);
@@ -69250,6 +69250,11 @@ void sub_57730()//238730
 			}
 		}*/
 		debugcounter28++;
+		if (debugcounter28 == 0x32)
+		{
+			debugcounter28++;
+			debugcounter28--;
+		}
 
 		//v6 = jx->type_0x3F_63;
 		if (jx->type_0x3F_63)
@@ -69275,13 +69280,13 @@ void sub_57730()//238730
 				//v7 = jx->byte_0x45_69;
 				if (jx->byte_0x45_69 < 0xE8)
 				{
-					v8 = 0xB4;
+					v8 = (jx->byte_0x45_69==0xB4);
 				}
 				else
 				{
 					if (jx->byte_0x45_69 == 0xE8)
 						continue;
-					v8 = 0xEA;
+					v8 = (jx->byte_0x45_69==0xEA);
 				}
 				if (!v8)
 				{
@@ -69421,51 +69426,26 @@ void sub_57730()//238730
 				mx--;
 			}
 			//adress 238a3d
-			//!!!!
-			//361f7e-168//35cf6e 0x7a nebo 0x7b nebo 0x79
-			/*if (m == x_DWORD_EA3E4[1] + 168 * 0x79)
-				myprintf("xxx");*/
-				//!!!!
-			//if ((m - x_DWORD_EA3E4[1]) / 168 > 0x3e0)
-
 #ifdef DEBUG_SEQUENCES
-			if (debugafterload)
-			{
-				/*uint8_t origbyte29 = 0;
-				uint8_t remakebyte29 = 0;
-				int comp29=0;
-				if (debugcounter29 >= 0x2)
-				{
-					comp29 = compare_with_sequence((char*)"00238A3D-002DC4E0", (uint8_t*)x_BYTE_10B4E0_terraintype, 0x2dc4e0, debugcounter29, 0x70000, 0x10000, &origbyte29, &remakebyte29);
-					comp29 = compare_with_sequence((char*)"00238A3D-002DC4E0", (uint8_t*)x_BYTE_11B4E0_height, 0x2dc4e0, debugcounter29, 0x70000, 0x10000, &origbyte29, &remakebyte29, 0x10000);
-					comp29 = compare_with_sequence((char*)"00238A3D-002DC4E0", (uint8_t*)x_BYTE_12B4E0_shading, 0x2dc4e0, debugcounter29, 0x70000, 0x10000, &origbyte29, &remakebyte29, 0x20000);
-					comp29 = compare_with_sequence((char*)"00238A3D-002DC4E0", (uint8_t*)x_BYTE_13B4E0_angle, 0x2dc4e0, debugcounter29, 0x70000, 0x10000, &origbyte29, &remakebyte29, 0x30000);
-					//comp20 = compare_with_sequence((char*)"00228320", (uint8_t*)x_BYTE_14B4E0, 0x2dc4e0, debugcounter11, 0x70000,0x10000, &origbyte20, &remakebyte20, 0x40000);
-					comp29 = compare_with_sequence((char*)"00238A3D-002DC4E0", (uint8_t*)x_WORD_15B4E0_source, 0x2dc4e0, debugcounter29, 0x70000, 0x20000, &origbyte29, &remakebyte29, 0x50000);
-
-					comp29 = compare_with_sequence_D41A0((char*)"00238A3D-00356038", (uint8_t*)& D41A0_BYTESTR_0, 0x356038, debugcounter29, 224790, &origbyte29, &remakebyte29);
-					//comp29 = compare_with_sequence_EA3E4((char*)"00238A3D", x_DWORD_EA3E4, debugcounter29, 0xa8, &origbyte29, &remakebyte29);
-				}
-				debugcounter29++;*/
-			}
+			//add_compare(0x238a3d, debugafterload);//0x9ac
 #endif //DEBUG_SEQUENCES
 
-			v19 = mx->type_0x3F_63;
-			if (v19)
+			//v19 = mx->type_0x3F_63;
+			if (mx->type_0x3F_63)
 			{
 				//v20 = &x_DWORD_D4C52ar[14 * mx->byte_0x45_69 + *(uint32_t*)(x_DWORD_D4C52ar + 18 * v19)-0x2a5c52];
 				//v20 = &x_DWORD_D4C52ar[14 * mx->byte_0x45_69 + str_D4C48ar[v19].dword_10 - 0x2a5c52];
-				v20 = &str_D4C48ar[v19].dword_10[mx->byte_0x45_69];
-				if (mx->byte_0x45_69 == v20->word_4)
+				//v20 = &str_D4C48ar[mx->type_0x3F_63].dword_10[mx->byte_0x45_69];
+				if (mx->byte_0x45_69 == str_D4C48ar[mx->type_0x3F_63].dword_10[mx->byte_0x45_69].word_4)
 				{
-					if (v20->dword_10)
+					if (str_D4C48ar[mx->type_0x3F_63].dword_10[mx->byte_0x45_69].dword_10)
 					{
 #ifdef DEBUG_SEQUENCES
-						add_compare(0x238A8A, debugafterload);//0x9ac
+						//add_compare(0x238A8A, debugafterload);//0x9ac
 #endif //DEBUG_SEQUENCES
 
 						//adress 238a8a zacina na 35cf6e 363bb6 =6c48/168=165=a5
-						pre_sub_4A190_0x6E8E(v20->adress_6, mx);
+						pre_sub_4A190_0x6E8E(str_D4C48ar[mx->type_0x3F_63].dword_10[mx->byte_0x45_69].adress_6, mx);
 						//(*(void(**)(uint8_t*))(v20 + 6))((uint8_t*)(m));
 						mx->byte_0x3E_62++;
 					}
@@ -69478,9 +69458,9 @@ void sub_57730()//238730
 		}
 		sub_585D0();
 		//result = (int)x_D41A0_BYTEARRAY_0;
-		v21 = D41A0_BYTESTR_0.word_0x3654A;
-		if (v21)
-			sub_21F60(x_DWORD_EA3E4[v21]);
+		//v21 = D41A0_BYTESTR_0.word_0x3654A;
+		if (D41A0_BYTESTR_0.word_0x3654A)
+			sub_21F60(x_DWORD_EA3E4[D41A0_BYTESTR_0.word_0x3654A]);
 	}
 	//return result;
 }

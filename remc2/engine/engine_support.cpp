@@ -882,10 +882,10 @@ uint32_t compare_with_sequence_D41A0(char* filename, uint8_t* adress, uint32_t  
 		}
 	}
 
-	free(buffer);
-	fclose(fptestepc);
 	if (i < size)
 		allert_error();
+	free(buffer);
+	fclose(fptestepc);
 	return(i);
 };
 
