@@ -1230,20 +1230,18 @@ uint32_t compare_with_sequence(char* filename, uint8_t* adress, uint32_t  /*adre
 			mydelay(100);
 			fptestepc = fopen(findnamec, "rb");
 		}
-
 #ifdef __linux__
 		fseek(fptestepc, (long long)count * (long long)size1 + offset, SEEK_SET);
 #else
 		_fseeki64(fptestepc, (long long)count * (long long)size1 + offset, SEEK_SET);
-#endif
-
-		
+#endif		
 		/*for (i = 0; i < count; i++)
 		{
 			fread_s(buffer,size,1,size, fptestepc);
 		}*/
 
 		fread(buffer, size2, 1, fptestepc);
+		fclose(fptestepc);
 	}
 	if (size2 == 320 * 200)
 	{
@@ -1264,8 +1262,7 @@ uint32_t compare_with_sequence(char* filename, uint8_t* adress, uint32_t  /*adre
 	}
 
 	if (!existbuffer) {
-		free(buffer);
-		fclose(fptestepc);
+		free(buffer);		
 	}
 	if (i < size2)
 		allert_error();

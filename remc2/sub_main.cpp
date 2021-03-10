@@ -53755,14 +53755,14 @@ void sub_498A0()//22a8a0
 
 	v1 = 1;
 	D41A0_BYTESTR_0.rand_0x8 = 9377 * D41A0_BYTESTR_0.rand_0x8 + 9439;
-LABEL_2:
-	if (v1)
+//LABEL_2:
+	while (v1)
 	{
 		v1 = 0;
-		for (iy = 1;; iy++)
+		for (iy = 1;iy< 0x3e8; iy++)
 		{
-			if (iy >= 0x3e8)
-				goto LABEL_2;
+			//if (iy >= 0x3e8)
+//				goto LABEL_2;
 			v3 = D41A0_BYTESTR_0.struct_0x6E8E[iy].type_0x3F_63;
 			if (v3)
 			{
