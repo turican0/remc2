@@ -53491,7 +53491,7 @@ void sub_49290(type_str_2FECE* terrain, char a2)//22a290
 #endif //DEBUG_SEQUENCES
 	sub_498A0();//22a383
 #ifdef DEBUG_SEQUENCES
-	//add_compare(0x22A388, debugafterload);
+	add_compare(0x22A388, debugafterload);
 #endif //DEBUG_SEQUENCES
 	//for (k = (uint16_t*)(a1 + 1111); (uint8_t*)k < a1 + 25091; k += 10)
 	for (kx = 1; kx < 0x4b0; kx++)

@@ -790,12 +790,77 @@ uint32_t compare_with_snapshot_D41A0(char* filename, uint8_t* adress, uint32_t a
 	return(i);
 };
 
-uint32_t compare_with_sequence_E7EE0(char* filename, uint8_t* adress, uint32_t  /*adressdos*/, uint32_t count, uint32_t size1, uint32_t size2, uint8_t* origbyte, uint8_t* copybyte, long offset) {
+const int MaxFiles = 999;
+uint8_t* filebuffer[MaxFiles];
+long long sizefilebuffer[MaxFiles];
+char findnamebuff[MaxFiles][500];
+int lastbuffer = 0;
+
+void GetBufferFromFile_nonuseatnow(char* findnamec, uint8_t** bufferp, long count, long size1, long offset)
+{
+	bool existbuffer = false;
+	uint64_t sz;
+	FILE* fptestepc = NULL;
+
+	for (int ii = 0; ii < lastbuffer; ii++)
+	{
+		if (strcmp(findnamebuff[ii], findnamec)==0) {
+			existbuffer = true;
+			if (((long long)(count + 1) * (long long)size1) > sizefilebuffer[ii])
+			{
+				allert_error();
+			}
+			*bufferp = &filebuffer[ii][(long long)count * (long long)size1 + offset];
+			break;
+		}
+	}
+
+	if (!existbuffer)
+	{
+		fptestepc = fopen(findnamec, "rb");
+		if (fptestepc == NULL)
+		{
+			mydelay(100);
+			fptestepc = fopen(findnamec, "rb");
+		}
+		if (fptestepc == NULL)
+		{
+			allert_error();
+		}
+#ifdef __linux__
+		fseek(fptestepc, 0L, SEEK_END);
+		sz = ftell(fptestepc);
+		fseek(fptestepc, 0L, SEEK_SET);
+#else
+		_fseeki64(fptestepc, 0L, SEEK_END);
+		sz = ftell(fptestepc);
+		_fseeki64(fptestepc, 0L, SEEK_SET);
+#endif		
+		if (sz == -1)
+			sz = 16711568;
+
+		sizefilebuffer[lastbuffer] = sz;
+		filebuffer[lastbuffer] = (uint8_t*)malloc(sz);
+		fread(filebuffer[lastbuffer], 1, sz, fptestepc);
+		if (((long long)(count+1) * (long long)size1)>sz)
+		{
+			allert_error();
+		}
+		*bufferp = &filebuffer[lastbuffer][(long long)count * (long long)size1 + offset];
+		strcpy(findnamebuff[lastbuffer], findnamec);
+		lastbuffer++;
+		//fread(buffer, sz, 1, fptestepc);
+		fclose(fptestepc);
+	}
+}
+
+uint32_t compare_with_sequence_E7EE0_nonuseatnow(char* filename, uint8_t* adress, uint32_t  /*adressdos*/, uint32_t count, uint32_t size1, uint32_t size2, uint8_t* origbyte, uint8_t* copybyte, long offset) {
 	char findnamec[500];
-	uint8_t* buffer = (uint8_t*)malloc(size2);
-	FILE* fptestepc;
+	uint8_t* buffer = NULL;// (uint8_t*)malloc(size2);
+	//FILE* fptestepc;
 	sprintf(findnamec, "c:/prenos/dosbox-x-remc2/vs2015/sequence-%s.bin", filename);
-	fptestepc = fopen(findnamec, "rb");
+	//nonuseatnow GetBufferFromFile(findnamec, &buffer, count, size1, offset);
+	/*fptestepc = fopen(findnamec, "rb");
 	if (fptestepc == NULL)
 	{
 		mydelay(100);
@@ -803,7 +868,7 @@ uint32_t compare_with_sequence_E7EE0(char* filename, uint8_t* adress, uint32_t  
 	}
 	fseek(fptestepc, count * size1 + offset, SEEK_SET);
 
-	fread(buffer, size2, 1, fptestepc);
+	fread(buffer, size2, 1, fptestepc);*/
 	uint32_t i;
 	bool testa, testb;
 	int diffindex = 0;
@@ -834,16 +899,18 @@ uint32_t compare_with_sequence_E7EE0(char* filename, uint8_t* adress, uint32_t  
 		}
 	}
 
-	free(buffer);
-	fclose(fptestepc);
+	//free(buffer);
+	//fclose(fptestepc);
 	return(i);
 };
 
-uint32_t compare_with_sequence_D41A0(char* filename, uint8_t* adress, uint32_t  /*adressdos*/, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte, long offset) {
+uint32_t compare_with_sequence_D41A0_nonuseatnow(char* filename, uint8_t* adress, uint32_t  /*adressdos*/, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte, long offset) {
 	char findnamec[500];
-	uint8_t* buffer = (uint8_t*)malloc(size);
-	FILE* fptestepc;
+	uint8_t* buffer = NULL;// (uint8_t*)malloc(size);
+	//FILE* fptestepc;
 	sprintf(findnamec, "c:/prenos/dosbox-x-remc2/vs2015/sequence-%s.bin", filename);
+	//nonuseatnow GetBufferFromFile(findnamec, &buffer, count, size, offset);
+	/*
 	fptestepc = fopen(findnamec, "rb");
 	if (fptestepc == NULL)
 	{
@@ -853,6 +920,7 @@ uint32_t compare_with_sequence_D41A0(char* filename, uint8_t* adress, uint32_t  
 	fseek(fptestepc, count * size + offset, SEEK_SET);
 
 	fread(buffer, size, 1, fptestepc);
+	*/
 	uint32_t i;
 	bool testa, testb;
 	for (i = 0; i < size; i++)
@@ -881,11 +949,11 @@ uint32_t compare_with_sequence_D41A0(char* filename, uint8_t* adress, uint32_t  
 			}
 		}
 	}
-
-	free(buffer);
-	fclose(fptestepc);
+	
 	if (i < size)
 		allert_error();
+	//free(buffer);
+	//fclose(fptestepc);
 	return(i);
 };
 
@@ -1201,48 +1269,13 @@ uint32_t compare_with_sequence_array_222BD3(char* filename, uint8_t* adress, uin
 	return(i);
 };
 
-uint8_t* filebuffer[999];
-char findnamec[500][999];
-int lastbuffer = 0;
-
-uint32_t compare_with_sequence(char* filename, uint8_t* adress, uint32_t  /*adressdos*/, long count, long size1, uint32_t size2, uint8_t* origbyte, uint8_t* copybyte, long offset) {
+uint32_t compare_with_sequence_nonuseatnow(char* filename, uint8_t* adress, uint32_t  /*adressdos*/, long count, long size1, uint32_t size2, uint8_t* origbyte, uint8_t* copybyte, long offset) {
 	char findnamec[500];
-	uint8_t* buffer=NULL;
-	FILE* fptestepc=NULL;
+	uint8_t* buffer=NULL;	
 	uint32_t i;
+
 	sprintf(findnamec, "c:/prenos/dosbox-x-remc2/vs2015/sequence-%s.bin", filename);
-	bool existbuffer = false;
-	/*for (int ii = 0; ii < lastbuffer; ii++)
-	{
-		if (strcmp(&findnamec[500], findnamec)) {
-			existbuffer = true;
-			buffer = filebuffer[ii];
-			break;
-		}
-	}*/
-
-	if (!existbuffer)
-	{
-		buffer = (uint8_t*)malloc(size2);
-		fptestepc = fopen(findnamec, "rb");
-		if (fptestepc == NULL)
-		{
-			mydelay(100);
-			fptestepc = fopen(findnamec, "rb");
-		}
-#ifdef __linux__
-		fseek(fptestepc, (long long)count * (long long)size1 + offset, SEEK_SET);
-#else
-		_fseeki64(fptestepc, (long long)count * (long long)size1 + offset, SEEK_SET);
-#endif		
-		/*for (i = 0; i < count; i++)
-		{
-			fread_s(buffer,size,1,size, fptestepc);
-		}*/
-
-		fread(buffer, size2, 1, fptestepc);
-		fclose(fptestepc);
-	}
+	//nonuseatnow GetBufferFromFile(findnamec,&buffer,count, size1, offset);
 	if (size2 == 320 * 200)
 	{
 		VGA_Debug_Blit(320, 200, pdwScreenBuffer);
@@ -1261,10 +1294,109 @@ uint32_t compare_with_sequence(char* filename, uint8_t* adress, uint32_t  /*adre
 		}
 	}
 
-	if (!existbuffer) {
+	/*if (!existbuffer) {
 		free(buffer);		
-	}
+	}*/
 	if (i < size2)
+		allert_error();
+	return(i);
+};
+
+uint32_t compare_with_sequence_E7EE0(char* filename, uint8_t* adress, uint32_t  /*adressdos*/, uint32_t count, uint32_t size1, uint32_t size2, uint8_t* origbyte, uint8_t* copybyte, long offset) {
+	char findnamec[500];
+	uint8_t* buffer = (uint8_t*)malloc(size2);
+	FILE* fptestepc;
+	sprintf(findnamec, "c:/prenos/dosbox-x-remc2/vs2015/sequence-%s.bin", filename);
+	fptestepc = fopen(findnamec, "rb");
+	if (fptestepc == NULL)
+	{
+		mydelay(100);
+		fptestepc = fopen(findnamec, "rb");
+	}
+	fseek(fptestepc, count * size1 + offset, SEEK_SET);
+
+	fread(buffer, size2, 1, fptestepc);
+	uint32_t i;
+	bool testa, testb;
+	int diffindex = 0;
+	for (i = 0; i < size2; i++)
+	{
+		int testx = test_E7EE0_id_pointer(i);
+		if (testx == 1)
+		{
+			if (*(uint32_t*)&buffer[i])testa = true;
+			else testa = false;
+			if (*(uint32_t*)&adress[i])testb = true;
+			else testb = false;
+			if (testa != testb)
+			{
+				*origbyte = buffer[i];
+				*copybyte = adress[i];
+				break;
+			}
+			i += 3;
+		}
+		else if (testx == 0) {
+			if (buffer[i] != adress[i])
+			{
+				*origbyte = buffer[i];
+				*copybyte = adress[i];
+				break;
+			}
+		}
+	}
+
+	free(buffer);
+	fclose(fptestepc);
+	return(i);
+};
+
+uint32_t compare_with_sequence_D41A0(char* filename, uint8_t* adress, uint32_t  /*adressdos*/, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte, long offset) {
+	char findnamec[500];
+	uint8_t* buffer = (uint8_t*)malloc(size);
+	FILE* fptestepc;
+	sprintf(findnamec, "c:/prenos/dosbox-x-remc2/vs2015/sequence-%s.bin", filename);
+	fptestepc = fopen(findnamec, "rb");
+	if (fptestepc == NULL)
+	{
+		mydelay(100);
+		fptestepc = fopen(findnamec, "rb");
+	}
+	fseek(fptestepc, count * size + offset, SEEK_SET);
+
+	fread(buffer, size, 1, fptestepc);
+	uint32_t i;
+	bool testa, testb;
+	for (i = 0; i < size; i++)
+	{
+		int testx = test_D41A0_id_pointer(i);
+		if (testx == 1)
+		{
+			if (*(uint32_t*)&buffer[i])testa = true;
+			else testa = false;
+			if (*(uint32_t*)&adress[i])testb = true;
+			else testb = false;
+			if (testa != testb)
+			{
+				*origbyte = buffer[i];
+				*copybyte = adress[i];
+				break;
+			}
+			i += 3;
+		}
+		else if (testx == 0) {
+			if (buffer[i] != adress[i])
+			{
+				*origbyte = buffer[i];
+				*copybyte = adress[i];
+				break;
+			}
+		}
+	}
+
+	free(buffer);
+	fclose(fptestepc);
+	if (i < size)
 		allert_error();
 	return(i);
 };
