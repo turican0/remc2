@@ -53373,14 +53373,11 @@ void sub_49290(type_str_2FECE* terrain, char a2)//22a290
 {
 	int ix;
 	int jx;
-	uint16_t v5; // cx
 	int kx;
-	uint16_t v8; // dx
 	int lx;
 	int mx;
-	uint16_t v13; // ax
 	int nx;
-	int iix;
+	int ox;
 
 	for (ix = 1; ix < 0x4b0; ix++)
 	{
@@ -53400,20 +53397,19 @@ void sub_49290(type_str_2FECE* terrain, char a2)//22a290
 	{
 		if (terrain->entity_0x30311[jx].DisId == -1 && terrain->entity_0x30311[jx].type_0x30311 == 0x000a)
 		{
-			v5 = terrain->entity_0x30311[jx].subtype_0x30311;
-			if (v5 == 0x09
-				|| v5 == 0x53
-				|| v5 == 0x54
-				|| v5 == 0x55
-				|| v5 == 0x0B
-				|| v5 == 0x0F
-				|| v5 == 0x1E
-				|| v5 == 0x1D
-				|| v5 == 0x20
-				|| v5 == 0x1F
-				|| v5 == 0x33
-				|| v5 == 0x32
-				|| v5 == 0x58)
+			if (terrain->entity_0x30311[jx].subtype_0x30311 == 0x09
+				|| terrain->entity_0x30311[jx].subtype_0x30311 == 0x53
+				|| terrain->entity_0x30311[jx].subtype_0x30311 == 0x54
+				|| terrain->entity_0x30311[jx].subtype_0x30311 == 0x55
+				|| terrain->entity_0x30311[jx].subtype_0x30311 == 0x0B
+				|| terrain->entity_0x30311[jx].subtype_0x30311 == 0x0F
+				|| terrain->entity_0x30311[jx].subtype_0x30311 == 0x1E
+				|| terrain->entity_0x30311[jx].subtype_0x30311 == 0x1D
+				|| terrain->entity_0x30311[jx].subtype_0x30311 == 0x20
+				|| terrain->entity_0x30311[jx].subtype_0x30311 == 0x1F
+				|| terrain->entity_0x30311[jx].subtype_0x30311 == 0x33
+				|| terrain->entity_0x30311[jx].subtype_0x30311 == 0x32
+				|| terrain->entity_0x30311[jx].subtype_0x30311 == 0x58)
 			{
 				sub_49540(terrain, &terrain->entity_0x30311[jx]);//22a357
 				if (a2)
@@ -53432,8 +53428,8 @@ void sub_49290(type_str_2FECE* terrain, char a2)//22a290
 	{
 		if (terrain->entity_0x30311[kx].DisId == -1 && terrain->entity_0x30311[kx].type_0x30311 == 0x000a)
 		{
-			v8 = terrain->entity_0x30311[kx].subtype_0x30311;
-			if (v8 == 0x51 || v8 == 0x50)
+			if (terrain->entity_0x30311[kx].subtype_0x30311 == 0x51
+				|| terrain->entity_0x30311[kx].subtype_0x30311 == 0x50)
 			{
 				sub_49540(terrain, &terrain->entity_0x30311[kx]);
 				if (a2)
@@ -53465,8 +53461,8 @@ void sub_49290(type_str_2FECE* terrain, char a2)//22a290
 	{
 		if (terrain->entity_0x30311[mx].DisId == -1 && terrain->entity_0x30311[mx].type_0x30311 == 0x000a)
 		{
-			v13 = terrain->entity_0x30311[mx].subtype_0x30311;
-			if (v13 == 0x1B || v13 == 0x1C)
+			if (terrain->entity_0x30311[mx].subtype_0x30311 == 0x1B 
+				|| terrain->entity_0x30311[mx].subtype_0x30311 == 0x1C)
 			{
 				sub_49540(terrain, &terrain->entity_0x30311[mx]);
 				if (a2)
@@ -53488,13 +53484,13 @@ void sub_49290(type_str_2FECE* terrain, char a2)//22a290
 #ifdef DEBUG_SEQUENCES
 	//add_compare(0x22A4D6, debugafterload);
 #endif //DEBUG_SEQUENCES
-	for (iix = 1; iix < 0x4b0; iix++)
+	for (ox = 1; ox < 0x4b0; ox++)
 	{
-		if (terrain->entity_0x30311[iix].DisId == -1 && terrain->entity_0x30311[iix].type_0x30311 == 0x000a && terrain->entity_0x30311[iix].subtype_0x30311 == 0x002d && !(str_D93C0_bldgprmbuffer[terrain->entity_0x30311[iix].par1_14].byte_2 & 0x10))
+		if (terrain->entity_0x30311[ox].DisId == -1 && terrain->entity_0x30311[ox].type_0x30311 == 0x000a && terrain->entity_0x30311[ox].subtype_0x30311 == 0x002d && !(str_D93C0_bldgprmbuffer[terrain->entity_0x30311[ox].par1_14].byte_2 & 0x10))
 		{
-			sub_49540(terrain, &terrain->entity_0x30311[iix]);
+			sub_49540(terrain, &terrain->entity_0x30311[ox]);
 			if (a2)
-				terrain->entity_0x30311[iix].type_0x30311 = 0;
+				terrain->entity_0x30311[ox].type_0x30311 = 0;
 		}
 	}
 #ifdef DEBUG_SEQUENCES
