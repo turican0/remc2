@@ -53244,45 +53244,45 @@ void sub_49090(type_str_2FECE* terrain, type_entity_0x30311* entity)//22a090
 	uint16_t tempType; // di
 	unsigned __int16 tempY; // cx
 	unsigned int v8; // eax
-	int(*v9)(); // [esp+4h] [ebp-10h]
+	int(*functionPointer)(); // [esp+4h] [ebp-10h]
 	unsigned __int16 tempX; // [esp+8h] [ebp-Ch]
 
 	tempEntity = entity;
 	tempSubtype = entity->subtype_0x30311;
 	tempType = entity->type_0x30311;
-	v9 = 0;
+	functionPointer = NULL;
 	if (entity->type_0x30311 == 0x0A)
 	{
 		switch (entity->subtype_0x30311)
 		{
 			case 0x1C:
 			{
-				v9 = (int(*)())sub_48400;
+				functionPointer = (int(*)())sub_48400;
 				break;
 			}
 			case 0x1D:
 			{
-				v9 = (int(*)())sub_48690;
+				functionPointer = (int(*)())sub_48690;
 				break;
 			}
 			case 0x1F:
 			{
-				v9 = (int(*)())sub_487D0;
+				functionPointer = (int(*)())sub_487D0;
 				break;
 			}
 			case 0x32:
 			{
-				v9 = (int(*)())sub_48880;
+				functionPointer = (int(*)())sub_48880;
 				break;
 			}
 			case 0x50:				
 			{
-				v9 = (int(*)())sub_48930;
+				functionPointer = (int(*)())sub_48930;
 				break;
 			}
 		}
 	}
-	if (v9)
+	if (functionPointer)
 	{
 		while (1)
 		{
@@ -53297,7 +53297,6 @@ void sub_49090(type_str_2FECE* terrain, type_entity_0x30311* entity)//22a090
 				break;
 			if (tempSubtype != entity->subtype_0x30311)
 				break;
-			//v6 = v2x->parent_16;
 			tempEntity->stageTag_12 = 0;
 			if (!tempEntity->par2_16)
 				break;
@@ -53331,7 +53330,7 @@ void sub_49090(type_str_2FECE* terrain, type_entity_0x30311* entity)//22a090
 					break;
 				}
 			}
-			((void(*)(x_DWORD, x_DWORD, x_DWORD, x_DWORD, unsigned int))v9)(
+			((void(*)(x_DWORD, x_DWORD, x_DWORD, x_DWORD, unsigned int))functionPointer)(
 				tempX,
 				tempY,
 				tempEntity->axis2d_4.x,
@@ -53340,17 +53339,10 @@ void sub_49090(type_str_2FECE* terrain, type_entity_0x30311* entity)//22a090
 		} while (tempEntity);
 	}
 }
-// 48930: using guessed type int sub_48930();
 
 //----- (00049270) --------------------------------------------------------
-//01 355248 385f06
-
-int debugcounter_22a270 = 0;
-
 void sub_49270_generate_level_features(type_str_2FECE* terrain)//22a270
 {
-	uint8_t origbyte = 0;
-	uint8_t remakebyte = 0;
 	SetStagetagForTermod_49830(terrain);
 	//adress 22A27D
 #ifdef DEBUG_SEQUENCES
