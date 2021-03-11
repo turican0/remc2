@@ -60959,350 +60959,265 @@ type_event_0x6E8E* sub_4DBC0(axis_3d* position)//22ebc0
 }
 
 //----- (0004DC40) --------------------------------------------------------
-type_event_0x6E8E* sub_4DC40(axis_3d* a1x)//22ec40
+type_event_0x6E8E* sub_4DC40(axis_3d* position)//22ec40
 {
-	type_event_0x6E8E* v1x; // eax
-	//x_WORD *v2; // ebx
-
-	v1x = NewEvent_4A050();
-	//v2 = (x_WORD *)v1;
-	if (v1x)
+	type_event_0x6E8E* event = NewEvent_4A050();
+	if (event)
 	{
-		v1x->byte_0x45_69 = 21;
-		v1x->type_0x3F_63 = 9;
-		v1x->subtype_0x40_64 = 20;
-		v1x->word_0x82_130 = 394;
-		v1x->word_0x84_132 = v1x->word_0x82_130;
-		v1x->dword_0x4 = 7680 / v1x->word_0x82_130;
-		v1x->struct_byte_0xc_12_15.byte[0] &= 0xF7u;
-		AddEventToMap_57D70(v1x, a1x);
-		CopyEventVar0408_49A20(v1x);
-		SetEntityIndexAndRot_49CD0(v1x, 196);
+		event->byte_0x45_69 = 21;
+		event->type_0x3F_63 = 9;
+		event->subtype_0x40_64 = 20;
+		event->word_0x82_130 = 394;
+		event->word_0x84_132 = event->word_0x82_130;
+		event->dword_0x4 = 7680 / event->word_0x82_130;
+		event->struct_byte_0xc_12_15.byte[0] &= 0xF7u;
+		AddEventToMap_57D70(event, position);
+		CopyEventVar0408_49A20(event);
+		SetEntityIndexAndRot_49CD0(event, 196);
 	}
-	return v1x;
+	return event;
 }
 
 //----- (0004DCC0) --------------------------------------------------------
-type_event_0x6E8E* sub_4DCC0(axis_3d* a1x)//22ecc0
+type_event_0x6E8E* sub_4DCC0(axis_3d* position)//22ecc0
 {
-	type_event_0x6E8E* v1x; // eax
-	//x_WORD *v2; // ebx
-
-	v1x = NewEvent_4A050();
-	//v2 = (x_WORD *)v1;
-	if (v1x)
+	type_event_0x6E8E* event = NewEvent_4A050();
+	if (event)
 	{
-		v1x->byte_0x45_69 = 22;
-		v1x->type_0x3F_63 = 9;
-		v1x->subtype_0x40_64 = 21;
-		v1x->word_0x82_130 = 394;
-		v1x->word_0x84_132 = v1x->word_0x82_130;
-		v1x->dword_0x4 = 7680 / v1x->word_0x82_130;
-		v1x->struct_byte_0xc_12_15.byte[0] &= 0xF7u;
-		AddEventToMap_57D70(v1x, a1x);
-		CopyEventVar0408_49A20(v1x);
-		SetEntityIndexAndRot_49CD0(v1x, 319);
-		SetEntityShiftRot_49EA0(v1x, 256, 512);
+		event->byte_0x45_69 = 22;
+		event->type_0x3F_63 = 9;
+		event->subtype_0x40_64 = 21;
+		event->word_0x82_130 = 394;
+		event->word_0x84_132 = event->word_0x82_130;
+		event->dword_0x4 = 7680 / event->word_0x82_130;
+		event->struct_byte_0xc_12_15.byte[0] &= 0xF7u;
+		AddEventToMap_57D70(event, position);
+		CopyEventVar0408_49A20(event);
+		SetEntityIndexAndRot_49CD0(event, 319);
+		SetEntityShiftRot_49EA0(event, 256, 512);
 	}
-	return v1x;
+	return event;
 }
 
 //----- (0004DD50) --------------------------------------------------------
-type_event_0x6E8E* sub_4DD50(axis_3d* a1x)//22ed50
+type_event_0x6E8E* sub_4DD50(axis_3d* position)//22ed50
 {
-	type_event_0x6E8E* v1x; // eax
-	//x_WORD *v2; // ebx
-
-	v1x = NewEvent_4A050();
-	//v2 = (x_WORD *)v1;
-	if (v1x)
+	type_event_0x6E8E* event = NewEvent_4A050();
+	if (event)
 	{
-		v1x->dword_0x4 = 80;
-		v1x->byte_0x45_69 = 16;
-		v1x->type_0x3F_63 = 9;
-		v1x->subtype_0x40_64 = 15;
-		v1x->word_0x82_130 = 128;
-		v1x->word_0x84_132 = 128;
-		v1x->struct_byte_0xc_12_15.byte[0] &= 0xF7u;
-		AddEventToMap_57D70(v1x, a1x);
-		CopyEventVar0408_49A20(v1x);
-		SetEntityIndexAndRot_49CD0(v1x, 215);
+		event->dword_0x4 = 80;
+		event->byte_0x45_69 = 16;
+		event->type_0x3F_63 = 9;
+		event->subtype_0x40_64 = 15;
+		event->word_0x82_130 = 128;
+		event->word_0x84_132 = 128;
+		event->struct_byte_0xc_12_15.byte[0] &= 0xF7u;
+		AddEventToMap_57D70(event, position);
+		CopyEventVar0408_49A20(event);
+		SetEntityIndexAndRot_49CD0(event, 215);
 	}
-	return v1x;
+	return event;
 }
 
 //----- (0004DDD0) --------------------------------------------------------
-type_event_0x6E8E* sub_4DDD0(axis_3d* a1x)//22edd0
+type_event_0x6E8E* sub_4DDD0(axis_3d* position)//22edd0
 {
-	type_event_0x6E8E* v1x; // eax
-	//uint8_t* v2; // ebx
-	//int v3; // eax
-
-	v1x = NewEvent_4A050();
-	//v2 = v1;
-	if (v1x)
+	type_event_0x6E8E* event = NewEvent_4A050();
+	if (event)
 	{
-		v1x->byte_0x45_69 = 18;
-		v1x->type_0x3F_63 = 9;
-		v1x->subtype_0x40_64 = 17;
-		v1x->word_0x82_130 = 384;
-		v1x->word_0x84_132 = 384;
-		//v3 = 4096 / *(signed __int16 *)(v1 + 130);
-		v1x->dword_0x90_144 = 50;
-		v1x->dword_0x4 = 4096 / v1x->word_0x82_130;
-		//BYTE1(v3) = *(x_BYTE *)(v1 + 12);
-		v1x->dword_0xA0_160x = &str_D7BD6[61]; //(type_str_160*)&unk_D7BD6[0x81a];
-		v1x->struct_byte_0xc_12_15.byte[0] &= 0xF7;
-		AddEventToMap_57D70(v1x, a1x);
-		CopyEventVar0408_49A20(v1x);
-		SetEntityIndexAndRot_49CD0(v1x, 209);
-		SetEntityShiftRot_49EA0(v1x, 2 * v1x->array_0x52_82.xshift, 2 * v1x->array_0x52_82.rotation);
+		event->byte_0x45_69 = 18;
+		event->type_0x3F_63 = 9;
+		event->subtype_0x40_64 = 17;
+		event->word_0x82_130 = 384;
+		event->word_0x84_132 = 384;
+		event->dword_0x90_144 = 50;
+		event->dword_0x4 = 4096 / event->word_0x82_130;
+		event->dword_0xA0_160x = &str_D7BD6[61]; //(type_str_160*)&unk_D7BD6[0x81a];
+		event->struct_byte_0xc_12_15.byte[0] &= 0xF7;
+		AddEventToMap_57D70(event, position);
+		CopyEventVar0408_49A20(event);
+		SetEntityIndexAndRot_49CD0(event, 209);
+		SetEntityShiftRot_49EA0(event, 2 * event->array_0x52_82.xshift, 2 * event->array_0x52_82.rotation);
 	}
-	return v1x;
+	return event;
 }
 
 //----- (0004DEA0) --------------------------------------------------------
-type_event_0x6E8E* sub_4DEA0(axis_3d* a1x)//22eea0
+type_event_0x6E8E* sub_4DEA0(axis_3d* position)//22eea0
 {
-	type_event_0x6E8E* v1x; // eax
-	//uint8_t* v2; // ebx
-	//int v3; // eax
-
-	v1x = NewEvent_4A050();
-	//v2 = v1;
-	if (v1x)
+	type_event_0x6E8E* event = NewEvent_4A050();
+	if (event)
 	{
-		v1x->byte_0x45_69 = 23;
-		v1x->type_0x3F_63 = 9;
-		v1x->subtype_0x40_64 = 22;
-		v1x->word_0x82_130 = 384;
-		v1x->word_0x84_132 = 384;
-		//v3 = 0x2000 / *(signed __int16 *)(v1 + 130);
-		v1x->dword_0x90_144 = 50;
-		v1x->dword_0x4 = 0x2000 / v1x->word_0x82_130;
-		//BYTE1(v3) = *(x_BYTE *)(v1 + 12);
-		v1x->dword_0xA0_160x = &str_D7BD6[60]; //(type_str_160*)&unk_D7BD6[0x7f8];
-		v1x->struct_byte_0xc_12_15.byte[0] &= 0xF7;
-		AddEventToMap_57D70(v1x, a1x);
-		CopyEventVar0408_49A20(v1x);
-		SetEntityIndexAndRot_49CD0(v1x, 211);
+		event->byte_0x45_69 = 23;
+		event->type_0x3F_63 = 9;
+		event->subtype_0x40_64 = 22;
+		event->word_0x82_130 = 384;
+		event->word_0x84_132 = 384;
+		event->dword_0x90_144 = 50;
+		event->dword_0x4 = 0x2000 / event->word_0x82_130;
+		event->dword_0xA0_160x = &str_D7BD6[60]; //(type_str_160*)&unk_D7BD6[0x7f8];
+		event->struct_byte_0xc_12_15.byte[0] &= 0xF7;
+		AddEventToMap_57D70(event, position);
+		CopyEventVar0408_49A20(event);
+		SetEntityIndexAndRot_49CD0(event, 211);
 	}
-	return v1x;
+	return event;
 }
-// D83CE: using guessed type void *off_D83CE;
 
 //----- (0004DF30) --------------------------------------------------------
-type_event_0x6E8E* sub_4DF30(axis_3d* a1x)//22ef30
+type_event_0x6E8E* sub_4DF30(axis_3d* position)//22ef30
 {
-	type_event_0x6E8E* v1x; // eax
-	//uint8_t* v2; // ebx
-	//int v3; // eax
-
-	v1x = NewEvent_4A050();
-	//v2 = v1;
-	if (v1x)
+	type_event_0x6E8E* event = NewEvent_4A050();
+	if (event)
 	{
-		v1x->byte_0x45_69 = 28;
-		v1x->type_0x3F_63 = 9;
-		v1x->subtype_0x40_64 = 27;
-		v1x->word_0x82_130 = 384;
-		v1x->word_0x84_132 = 384;
-		//v3 = 0x2000 / *(signed __int16 *)(v1 + 130);
-		v1x->dword_0x90_144 = 50;
-		v1x->dword_0x4 = 0x2000 / v1x->word_0x82_130;
-		//BYTE1(v3) = *(x_BYTE *)(v1 + 12);
-		v1x->dword_0xA0_160x = &str_D7BD6[60]; //(type_str_160*)&unk_D7BD6[0x7f8];
-		v1x->struct_byte_0xc_12_15.byte[0] &= 0xF7;
-		AddEventToMap_57D70(v1x, a1x);
-		CopyEventVar0408_49A20(v1x);
-		SetEntityIndexAndRot_49CD0(v1x, 215);
+		event->byte_0x45_69 = 28;
+		event->type_0x3F_63 = 9;
+		event->subtype_0x40_64 = 27;
+		event->word_0x82_130 = 384;
+		event->word_0x84_132 = 384;
+		event->dword_0x90_144 = 50;
+		event->dword_0x4 = 0x2000 / event->word_0x82_130;
+		event->dword_0xA0_160x = &str_D7BD6[60]; //(type_str_160*)&unk_D7BD6[0x7f8];
+		event->struct_byte_0xc_12_15.byte[0] &= 0xF7;
+		AddEventToMap_57D70(event, position);
+		CopyEventVar0408_49A20(event);
+		SetEntityIndexAndRot_49CD0(event, 215);
 	}
-	return v1x;
+	return event;
 }
-// D83CE: using guessed type void *off_D83CE;
 
 //----- (0004DFC0) --------------------------------------------------------
-type_event_0x6E8E* sub_4DFC0(axis_3d* a1x)//22efc0
+type_event_0x6E8E* sub_4DFC0(axis_3d* position)//22efc0
 {
-	type_event_0x6E8E* v1x; // eax
-	//uint8_t* v2; // ebx
-	//uint8_t* v3; // esi
-	//int v4; // eax
-
-	v1x = NewEvent_4A050();
-	//v2 = v1;
-	//v3 = v1;
-	if (v1x)
+	type_event_0x6E8E* event = NewEvent_4A050();
+	if (event)
 	{
-		v1x->byte_0x45_69 = 24;
-		v1x->type_0x3F_63 = 9;
-		v1x->subtype_0x40_64 = 23;
-		v1x->word_0x82_130 = 384;
-		v1x->word_0x84_132 = 384;
-		//v4 = 0x2000 / *(signed __int16 *)(v1 + 130);
-		v1x->dword_0x90_144 = 50;
-		v1x->dword_0x4 = 0x2000 / v1x->word_0x82_130;
-		//BYTE1(v4) = *(x_BYTE *)(v1 + 12);
-		v1x->dword_0xA0_160x = &str_D7BD6[60]; //(type_str_160*)&unk_D7BD6[0x7f8];
-		v1x->struct_byte_0xc_12_15.byte[0] &= 0xF7;
-		AddEventToMap_57D70(v1x, a1x);
-		CopyEventVar0408_49A20(v1x);
-		SetEntityIndexAndRot_49CD0(v1x, 211);
+		event->byte_0x45_69 = 24;
+		event->type_0x3F_63 = 9;
+		event->subtype_0x40_64 = 23;
+		event->word_0x82_130 = 384;
+		event->word_0x84_132 = 384;
+		event->dword_0x90_144 = 50;
+		event->dword_0x4 = 0x2000 / event->word_0x82_130;
+		event->dword_0xA0_160x = &str_D7BD6[60]; //(type_str_160*)&unk_D7BD6[0x7f8];
+		event->struct_byte_0xc_12_15.byte[0] &= 0xF7;
+		AddEventToMap_57D70(event, position);
+		CopyEventVar0408_49A20(event);
+		SetEntityIndexAndRot_49CD0(event, 211);
 	}
-	return v1x;
+	return event;
 }
-// D83CE: using guessed type void *off_D83CE;
 
 //----- (0004E050) --------------------------------------------------------
-type_event_0x6E8E* sub_4E050(axis_3d* a1x)//22f050
+type_event_0x6E8E* sub_4E050(axis_3d* position)//22f050
 {
-	type_event_0x6E8E* v1x; // eax
-	//uint8_t* v2; // ebx
-	//int v3; // eax
-	//char v4; // dl
-
-	v1x = NewEvent_4A050();
-	//v2 = v1;
-	if (v1x)
+	type_event_0x6E8E* event = NewEvent_4A050();
+	if (event)
 	{
-		v1x->byte_0x45_69 = 25;
-		v1x->type_0x3F_63 = 9;
-		v1x->subtype_0x40_64 = 24;
-		v1x->word_0x82_130 = 384;
-		v1x->word_0x84_132 = 384;
-		//v3 = 0x2000 / *(signed __int16 *)(v1 + 130);
-		v1x->dword_0x90_144 = 50;
-		//v4 = *(x_BYTE *)(v1 + 12);
-		v1x->dword_0x4 = 0x2000 / v1x->word_0x82_130;
-		v1x->struct_byte_0xc_12_15.byte[0] &= 0xF7;
-		//BYTE1(v3) = *(x_BYTE *)(v1 + 4);
-		v1x->dword_0xA0_160x = &str_D7BD6[60]; //(type_str_160*)&unk_D7BD6[0x7f8];
-		v1x->dword_0x4 = v1x->dword_0x4 & 0xFC;
-		AddEventToMap_57D70(v1x, a1x);
-		CopyEventVar0408_49A20(v1x);
-		SetEntityIndexAndRot_49CD0(v1x, 281);
+		event->byte_0x45_69 = 25;
+		event->type_0x3F_63 = 9;
+		event->subtype_0x40_64 = 24;
+		event->word_0x82_130 = 384;
+		event->word_0x84_132 = 384;
+		event->dword_0x90_144 = 50;
+		event->dword_0x4 = 0x2000 / event->word_0x82_130;
+		event->struct_byte_0xc_12_15.byte[0] &= 0xF7;
+		event->dword_0xA0_160x = &str_D7BD6[60]; //(type_str_160*)&unk_D7BD6[0x7f8];
+		event->dword_0x4 = event->dword_0x4 & 0xFC;
+		AddEventToMap_57D70(event, position);
+		CopyEventVar0408_49A20(event);
+		SetEntityIndexAndRot_49CD0(event, 281);
 	}
-	return v1x;
+	return event;
 }
-// D83CE: using guessed type void *off_D83CE;
 
 //----- (0004E0F0) --------------------------------------------------------
-type_event_0x6E8E* sub_4E0F0(axis_3d* a1x)//22f0f0
+type_event_0x6E8E* sub_4E0F0(axis_3d* position)//22f0f0
 {
-	type_event_0x6E8E* v1x; // eax
-	//uint8_t* v2; // ebx
-	//int v3; // eax
-
-	v1x = NewEvent_4A050();
-	//v2 = v1;
-	if (v1x)
+	type_event_0x6E8E* event = NewEvent_4A050();
+	if (event)
 	{
-		v1x->byte_0x45_69 = 26;
-		v1x->type_0x3F_63 = 9;
-		v1x->subtype_0x40_64 = 25;
-		v1x->word_0x82_130 = 384;
-		v1x->word_0x84_132 = 384;
-		//v3 = 4096 / *(signed __int16 *)(v1 + 130);
-		v1x->dword_0x90_144 = 50;
-		v1x->dword_0x4 = 4096 / v1x->word_0x82_130;
-		//BYTE1(v3) = *(x_BYTE *)(v1 + 12);
-		v1x->dword_0xA0_160x = &str_D7BD6[61]; //(type_str_160*)&unk_D7BD6[0x81a];
-		v1x->struct_byte_0xc_12_15.byte[0] &= 0xF7;
-		AddEventToMap_57D70(v1x, a1x);
-		CopyEventVar0408_49A20(v1x);
-		SetEntityIndexAndRot_49CD0(v1x, 321);
+		event->byte_0x45_69 = 26;
+		event->type_0x3F_63 = 9;
+		event->subtype_0x40_64 = 25;
+		event->word_0x82_130 = 384;
+		event->word_0x84_132 = 384;
+		event->dword_0x90_144 = 50;
+		event->dword_0x4 = 4096 / event->word_0x82_130;
+		event->dword_0xA0_160x = &str_D7BD6[61]; //(type_str_160*)&unk_D7BD6[0x81a];
+		event->struct_byte_0xc_12_15.byte[0] &= 0xF7;
+		AddEventToMap_57D70(event, position);
+		CopyEventVar0408_49A20(event);
+		SetEntityIndexAndRot_49CD0(event, 321);
 	}
-	return v1x;
+	return event;
 }
 
 //----- (0004E180) --------------------------------------------------------
-type_event_0x6E8E* sub_4E180(axis_3d* a1x)//22f180
+type_event_0x6E8E* sub_4E180(axis_3d* position)//22f180
 {
-	type_event_0x6E8E* v1x; // eax
-	//uint8_t* v2; // ebx
-	//int v3; // eax
-
-	v1x = NewEvent_4A050();
-	//v2 = v1;
-	if (v1x)
+	type_event_0x6E8E* event = NewEvent_4A050();
+	if (event)
 	{
-		v1x->byte_0x45_69 = 27;
-		v1x->type_0x3F_63 = 9;
-		v1x->subtype_0x40_64 = 26;
-		v1x->word_0x82_130 = 384;
-		v1x->word_0x84_132 = 384;
-		//v3 = 0x2000 / *(signed __int16 *)(v1 + 130);
-		v1x->dword_0x90_144 = 50;
-		v1x->dword_0x4 = 0x2000 / v1x->word_0x82_130;
-		//BYTE1(v3) = *(x_BYTE *)(v1 + 12);
-		v1x->dword_0xA0_160x = &str_D7BD6[60]; //(type_str_160*)&unk_D7BD6[0x7f8];
-		v1x->struct_byte_0xc_12_15.byte[0] &= 0xF7;
-		AddEventToMap_57D70(v1x, a1x);
-		CopyEventVar0408_49A20(v1x);
-		SetEntityIndexAndRot_49CD0(v1x, 320);
+		event->byte_0x45_69 = 27;
+		event->type_0x3F_63 = 9;
+		event->subtype_0x40_64 = 26;
+		event->word_0x82_130 = 384;
+		event->word_0x84_132 = 384;
+		event->dword_0x90_144 = 50;
+		event->dword_0x4 = 0x2000 / event->word_0x82_130;
+		event->dword_0xA0_160x = &str_D7BD6[60]; //(type_str_160*)&unk_D7BD6[0x7f8];
+		event->struct_byte_0xc_12_15.byte[0] &= 0xF7;
+		AddEventToMap_57D70(event, position);
+		CopyEventVar0408_49A20(event);
+		SetEntityIndexAndRot_49CD0(event, 320);
 	}
-	return v1x;
+	return event;
 }
-// D83CE: using guessed type void *off_D83CE;
 
 //----- (0004E210) --------------------------------------------------------
-type_event_0x6E8E* sub_4E210(axis_3d* a1x)//22f210
+type_event_0x6E8E* sub_4E210(axis_3d* position)//22f210
 {
-	type_event_0x6E8E* v1x; // eax
-	//uint8_t* v2; // ebx
-	//int v3; // eax
-
-	v1x = NewEvent_4A050();
-	//v2 = v1;
-	if (v1x)
+	type_event_0x6E8E* event = NewEvent_4A050();
+	if (event)
 	{
-		v1x->byte_0x45_69 = 31;
-		v1x->type_0x3F_63 = 9;
-		v1x->subtype_0x40_64 = 30;
-		v1x->word_0x82_130 = 384;
-		v1x->word_0x84_132 = 384;
-		//v3 = 0x2000 / *(signed __int16 *)(v1 + 130);
-		v1x->dword_0x90_144 = 50;
-		v1x->dword_0x4 = 0x2000 / v1x->word_0x82_130;
-		//BYTE1(v3) = *(x_BYTE *)(v1 + 12);
-		v1x->dword_0xA0_160x = &str_D7BD6[60]; //(type_str_160*)&unk_D7BD6[0x7f8];
-		v1x->struct_byte_0xc_12_15.byte[0] &= 0xF7;
-		AddEventToMap_57D70(v1x, a1x);
-		CopyEventVar0408_49A20(v1x);
-		SetEntityIndexAndRot_49CD0(v1x, 211);
+		event->byte_0x45_69 = 31;
+		event->type_0x3F_63 = 9;
+		event->subtype_0x40_64 = 30;
+		event->word_0x82_130 = 384;
+		event->word_0x84_132 = 384;
+		event->dword_0x90_144 = 50;
+		event->dword_0x4 = 0x2000 / event->word_0x82_130;
+		event->dword_0xA0_160x = &str_D7BD6[60]; //(type_str_160*)&unk_D7BD6[0x7f8];
+		event->struct_byte_0xc_12_15.byte[0] &= 0xF7;
+		AddEventToMap_57D70(event, position);
+		CopyEventVar0408_49A20(event);
+		SetEntityIndexAndRot_49CD0(event, 211);
 	}
-	return v1x;
+	return event;
 }
-// D83CE: using guessed type void *off_D83CE;
 
 //----- (0004E2A0) --------------------------------------------------------
-type_event_0x6E8E* sub_4E2A0(axis_3d* a1x)//22f2a0
+type_event_0x6E8E* sub_4E2A0(axis_3d* position)//22f2a0
 {
-	type_event_0x6E8E* v1x; // eax
-	//uint8_t* v2; // ebx
-	//char v3; // ah
-
-	v1x = NewEvent_4A050();
-	//v2 = v1;
-	if (v1x)
+	type_event_0x6E8E* event = NewEvent_4A050();
+	if (event)
 	{
-		v1x->byte_0x45_69 = 30;
-		v1x->type_0x3F_63 = 9;
-		v1x->subtype_0x40_64 = 29;
-		v1x->word_0x82_130 = 384;
-		v1x->word_0x84_132 = 384;
-		v1x->dword_0x4 = 10;
-		//v3 = *(x_BYTE *)(v1 + 12);
-		v1x->dword_0x90_144 = 50;
-		v1x->dword_0xA0_160x = &str_D7BD6[60]; //(type_str_160*)&unk_D7BD6[0x7f8];
-		v1x->struct_byte_0xc_12_15.byte[0] &= 0xF7;
-		AddEventToMap_57D70(v1x, a1x);
-		CopyEventVar0408_49A20(v1x);
-		SetEntityIndexAndRot_49CD0(v1x, 66);
+		event->byte_0x45_69 = 30;
+		event->type_0x3F_63 = 9;
+		event->subtype_0x40_64 = 29;
+		event->word_0x82_130 = 384;
+		event->word_0x84_132 = 384;
+		event->dword_0x4 = 10;
+		event->dword_0x90_144 = 50;
+		event->dword_0xA0_160x = &str_D7BD6[60]; //(type_str_160*)&unk_D7BD6[0x7f8];
+		event->struct_byte_0xc_12_15.byte[0] &= 0xF7;
+		AddEventToMap_57D70(event, position);
+		CopyEventVar0408_49A20(event);
+		SetEntityIndexAndRot_49CD0(event, 66);
 	}
-	return v1x;
+	return event;
 }
-// D83CE: using guessed type void *off_D83CE;
 
 //----- (0004E320) --------------------------------------------------------
 type_event_0x6E8E* NewAdd0A00_4E320(axis_3d* position)//22f320
