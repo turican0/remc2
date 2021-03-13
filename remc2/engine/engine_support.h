@@ -1277,7 +1277,7 @@ typedef struct {//lenght 0x6604u
 	type_entity_0x30311 entity_0x30311[0x4b0];//end(next entity) - 0x360d1
 	uint8_t next_0x360D1;
 	type_str_0x360D2 next_0x360D2[8];//lenght 110  /spells?
-	type_str_0x36442 str_0x36442[8];//stages(checkpoints)
+	type_str_0x36442 stages_0x36442[8];//stages(checkpoints)
 	type_str_0x3647Ac array_0x3647A[0xb];//8x11
 } type_str_2FECE;//compress level
 
@@ -1341,7 +1341,7 @@ typedef union {
 }
 un_str_36552;
 typedef struct {//size 10 count 8
-	int8_t str_3654C_byte0;//222540
+	int8_t stages_3654C_byte0;//222540
 	int8_t str_3654D_byte1;
 	axis_2d str_3654E_axis;
 	//int16_t str_3654E_word2;//objective parametres
@@ -1354,19 +1354,13 @@ typedef struct {//size 10 count 8
 	//int8_t str_36555_byte9;
 } type_str_3654C;
 
+typedef struct {//size 11
+	uint8_t array_0x3659C_byte[3];//objectives 1-active 2-done
+	uint8_t stage_0x3659F[8];
+} type_substr_3659C;
+
 typedef struct {//size 11 count 6
-	uint8_t array_0x3659C_byte[11];//objectives 1-active 2-done
-	/*int8_t str_3659C_byte0;array_0x3659C_byte[0]
-	int8_t str_3659D_byte1;array_0x3659C_byte[1]
-	int8_t str_3659E_byte2;array_0x3659C_byte[2]
-	int8_t str_3659F_byte3;array_0x3659C_byte[3]
-	int8_t str_365A0_byte4;
-	int8_t str_365A1_byte5;
-	int8_t str_365A2_byte6;
-	int8_t str_365A3_byte7;
-	int8_t str_365A4_byte8;
-	int8_t str_365A5_byte9;
-	int8_t str_365A6_byte10;*/
+	type_substr_3659C substr_3659C;
 } type_str_3659C;
 /*
 typedef struct {
@@ -1505,11 +1499,8 @@ typedef struct {//lenght 39
 	uint8_t byte_2;
 	int8_t byte_3;
 	axis_3d axis3d_4;
-	/*int16_t word_6;
-	int16_t word_8;*/
 	type_event_0x6E8E* event_A;
 	uint8_t array_E[25];
-	//int8_t stub[38];
 }
 type_str_0x3664C;
 

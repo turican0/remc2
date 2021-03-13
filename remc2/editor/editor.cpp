@@ -467,7 +467,7 @@ void fillterrain(kiss_terrain* terrain, float zoom, int beginx, int beginy) {
 
 	for (int i = 0; i < 0x8; i++)
 	{
-		type_str_0x36442 actstage = D41A0_BYTESTR_0.terrain_2FECE.str_0x36442[i];
+		type_str_0x36442 actstage = D41A0_BYTESTR_0.terrain_2FECE.stages_0x36442[i];
 		if (actstage.index_0 == 5)
 		{
 			for (int i = -8; i <= 8; i++)
@@ -688,7 +688,7 @@ void fillterraincheck(float zoom, int beginx, int beginy) {
 	}
 	for (int i = 0; i < 0x8; i++)
 	{
-		type_str_0x36442 actstage = D41A0_BYTESTR_0.terrain_2FECE.str_0x36442[i];
+		type_str_0x36442 actstage = D41A0_BYTESTR_0.terrain_2FECE.stages_0x36442[i];
 		if (actstage.index_0 == 5)
 		{
 			for (int i = -8; i <= 8; i++)
@@ -880,7 +880,7 @@ void fillterrainfeat(float zoom, int beginx, int beginy) {
 	}
 	for (int i = 0; i < 0x8; i++)
 	{
-		type_str_0x36442 actstage = D41A0_BYTESTR_0.terrain_2FECE.str_0x36442[i];
+		type_str_0x36442 actstage = D41A0_BYTESTR_0.terrain_2FECE.stages_0x36442[i];
 		if (actstage.index_0 == 5)
 		{
 			for (int i = -8; i <= 8; i++)
@@ -1009,7 +1009,7 @@ static void terrain_stages_append(kiss_textbox* textbox) {
 	//VGA_Draw_stringXYtoBuffer(temp, 304, 32, pdwScreenBuffer);
 	for (int i = 0; i < 8; i++)
 	{
-		type_str_0x36442 actstage = D41A0_BYTESTR_0.terrain_2FECE.str_0x36442[i];
+		type_str_0x36442 actstage = D41A0_BYTESTR_0.terrain_2FECE.stages_0x36442[i];
 		sprintf(temp, "%01X |%02X|%04X|%04X|%04X", i, (uint8_t)actstage.index_0, actstage.stage_1, actstage._axis_2d.x, actstage._axis_2d.y);
 		kiss_array_appendstring(textbox->array, 0, (char*)"", temp);
 	}
@@ -1335,11 +1335,11 @@ bool delete_entity(int index) {
 		}*/
 		for (int j = 0; j < 8; j++)
 		{
-			if ((D41A0_BYTESTR_0.terrain_2FECE.str_0x36442[j].index_0 == 1) ||
-				(D41A0_BYTESTR_0.terrain_2FECE.str_0x36442[j].index_0 == 7) ||
-				(D41A0_BYTESTR_0.terrain_2FECE.str_0x36442[j].index_0 == 9))
-				if (D41A0_BYTESTR_0.terrain_2FECE.str_0x36442[j].stage_1 == i)
-					D41A0_BYTESTR_0.terrain_2FECE.str_0x36442[j].stage_1--;
+			if ((D41A0_BYTESTR_0.terrain_2FECE.stages_0x36442[j].index_0 == 1) ||
+				(D41A0_BYTESTR_0.terrain_2FECE.stages_0x36442[j].index_0 == 7) ||
+				(D41A0_BYTESTR_0.terrain_2FECE.stages_0x36442[j].index_0 == 9))
+				if (D41A0_BYTESTR_0.terrain_2FECE.stages_0x36442[j].stage_1 == i)
+					D41A0_BYTESTR_0.terrain_2FECE.stages_0x36442[j].stage_1--;
 		}
 
 		temparray_0x30311[i - 1] = temparray_0x30311[i];
@@ -1715,11 +1715,11 @@ static int  CloneEvent(int x, int y) {
 		}*/
 		for (int j = 0; j < 8; j++)
 		{
-			if ((D41A0_BYTESTR_0.terrain_2FECE.str_0x36442[j].index_0 == 1) ||
-				(D41A0_BYTESTR_0.terrain_2FECE.str_0x36442[j].index_0 == 7) ||
-				(D41A0_BYTESTR_0.terrain_2FECE.str_0x36442[j].index_0 == 9))
-				if (D41A0_BYTESTR_0.terrain_2FECE.str_0x36442[j].stage_1 == i)
-					D41A0_BYTESTR_0.terrain_2FECE.str_0x36442[j].stage_1++;
+			if ((D41A0_BYTESTR_0.terrain_2FECE.stages_0x36442[j].index_0 == 1) ||
+				(D41A0_BYTESTR_0.terrain_2FECE.stages_0x36442[j].index_0 == 7) ||
+				(D41A0_BYTESTR_0.terrain_2FECE.stages_0x36442[j].index_0 == 9))
+				if (D41A0_BYTESTR_0.terrain_2FECE.stages_0x36442[j].stage_1 == i)
+					D41A0_BYTESTR_0.terrain_2FECE.stages_0x36442[j].stage_1++;
 		}
 
 		temparray_0x30311[i] = temparray_0x30311[i - 1];
@@ -3565,14 +3565,14 @@ int main_x(/*int argc, char** argv*/)
 				window1.focus = 0;
 				sprintf(labelIndexWind3.text, "INDEX:%03X", edited_line2_old);
 				//type_str_0x36442 actstage = D41A0_BYTESTR_0.str_2FECE.str_0x36442[edited_line2_old];
-				kiss_hex2edit_update_adress(&hex2edit1check, &D41A0_BYTESTR_0.terrain_2FECE.str_0x36442[edited_line2_old].index_0);
-				kiss_hex4edit_update_adress(&hex4edit2check, &D41A0_BYTESTR_0.terrain_2FECE.str_0x36442[edited_line2_old].stage_1);
-				kiss_hex4edit_update_adress(&hex4edit3check, &D41A0_BYTESTR_0.terrain_2FECE.str_0x36442[edited_line2_old]._axis_2d.x);
-				kiss_hex4edit_update_adress(&hex4edit4check, &D41A0_BYTESTR_0.terrain_2FECE.str_0x36442[edited_line2_old]._axis_2d.y);
+				kiss_hex2edit_update_adress(&hex2edit1check, &D41A0_BYTESTR_0.terrain_2FECE.stages_0x36442[edited_line2_old].index_0);
+				kiss_hex4edit_update_adress(&hex4edit2check, &D41A0_BYTESTR_0.terrain_2FECE.stages_0x36442[edited_line2_old].stage_1);
+				kiss_hex4edit_update_adress(&hex4edit3check, &D41A0_BYTESTR_0.terrain_2FECE.stages_0x36442[edited_line2_old]._axis_2d.x);
+				kiss_hex4edit_update_adress(&hex4edit4check, &D41A0_BYTESTR_0.terrain_2FECE.stages_0x36442[edited_line2_old]._axis_2d.y);
 				changed2 = true;
 				terrainzoomcheck = 4;
-				float cursorpixx = D41A0_BYTESTR_0.terrain_2FECE.str_0x36442[edited_line2_old]._axis_2d.x;
-				float cursorpixy = D41A0_BYTESTR_0.terrain_2FECE.str_0x36442[edited_line2_old]._axis_2d.y;
+				float cursorpixx = D41A0_BYTESTR_0.terrain_2FECE.stages_0x36442[edited_line2_old]._axis_2d.x;
+				float cursorpixy = D41A0_BYTESTR_0.terrain_2FECE.stages_0x36442[edited_line2_old]._axis_2d.y;
 				terrainbeginxcheck = cursorpixx - (terraincheck.rect.w / 2) / (terrainzoomcheck * 2);
 				terrainbeginycheck = cursorpixy - (terraincheck.rect.h / 2) / (terrainzoomcheck * 2);
 			}
@@ -3912,10 +3912,10 @@ int main_x(/*int argc, char** argv*/)
 			if (terevcheck == 20)
 			{
 				//type_str_0x36442 actstage = D41A0_BYTESTR_0.str_2FECE.str_0x36442[edited_line2_old];
-				D41A0_BYTESTR_0.terrain_2FECE.str_0x36442[edited_line2_old]._axis_2d.x = tersetposx;
-				D41A0_BYTESTR_0.terrain_2FECE.str_0x36442[edited_line2_old]._axis_2d.y = tersetposy;
-				kiss_hex4edit_update_adress(&hex4edit3check, &D41A0_BYTESTR_0.terrain_2FECE.str_0x36442[edited_line2_old]._axis_2d.x);
-				kiss_hex4edit_update_adress(&hex4edit4check, &D41A0_BYTESTR_0.terrain_2FECE.str_0x36442[edited_line2_old]._axis_2d.y);
+				D41A0_BYTESTR_0.terrain_2FECE.stages_0x36442[edited_line2_old]._axis_2d.x = tersetposx;
+				D41A0_BYTESTR_0.terrain_2FECE.stages_0x36442[edited_line2_old]._axis_2d.y = tersetposy;
+				kiss_hex4edit_update_adress(&hex4edit3check, &D41A0_BYTESTR_0.terrain_2FECE.stages_0x36442[edited_line2_old]._axis_2d.x);
+				kiss_hex4edit_update_adress(&hex4edit4check, &D41A0_BYTESTR_0.terrain_2FECE.stages_0x36442[edited_line2_old]._axis_2d.y);
 				changed2 = true;
 			}
 			if (terevcheck >= 10)

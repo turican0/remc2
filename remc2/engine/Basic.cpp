@@ -3618,7 +3618,7 @@ void Convert_from_shadow_str_2FECE(type_shadow_str_2FECE* from, type_str_2FECE* 
 	for (int i = 0; i < 1200; i++)to->entity_0x30311[i] = from->array_0x30311[i];
 	to->next_0x360D1 = from->next_0x360D1;
 	for (int i = 0; i < 8; i++)to->next_0x360D2[i] = from->next_0x360D2[i];
-	for (int i = 0; i < 8; i++)to->str_0x36442[i] = from->str_0x36442[i];
+	for (int i = 0; i < 8; i++)to->stages_0x36442[i] = from->str_0x36442[i];
 	for (int i = 0; i < 11; i++)
 	{
 		to->array_0x3647A[i].index_0x3647A_0 = from->array_0x3647A[i].str_0x3647A_byte_0;
@@ -3761,7 +3761,7 @@ void Convert_from_shadow_D41A0_BYTESTR_0(type_shadow_D41A0_BYTESTR_0* from, type
 	for (int i = 0; i < 1200; i++)to->terrain_2FECE.entity_0x30311[i] = from->str_2FECE.array_0x30311[i];
 	to->terrain_2FECE.next_0x360D1 = from->str_2FECE.next_0x360D1;
 	for (int i = 0; i < 8; i++)to->terrain_2FECE.next_0x360D2[i] = from->str_2FECE.next_0x360D2[i];
-	for (int i = 0; i < 8; i++)to->terrain_2FECE.str_0x36442[i] = from->str_2FECE.str_0x36442[i];
+	for (int i = 0; i < 8; i++)to->terrain_2FECE.stages_0x36442[i] = from->str_2FECE.str_0x36442[i];
 	for (int i = 0; i < 11; i++)
 	{
 		to->terrain_2FECE.array_0x3647A[i].index_0x3647A_0 = from->str_2FECE.array_0x3647A[i].str_0x3647A_byte_0;
@@ -3778,7 +3778,7 @@ void Convert_from_shadow_D41A0_BYTESTR_0(type_shadow_D41A0_BYTESTR_0* from, type
 	to->word_0x36548 = from->word_0x36548;
 	to->word_0x3654A = from->word_0x3654A;
 	for (int i = 0; i < 8; i++) {
-		to->struct_0x3654C[i].str_3654C_byte0 = from->struct_0x3654C[i].str_3654C_byte0;
+		to->struct_0x3654C[i].stages_3654C_byte0 = from->struct_0x3654C[i].str_3654C_byte0;
 		to->struct_0x3654C[i].str_3654D_byte1 = from->struct_0x3654C[i].str_3654D_byte1;
 		to->struct_0x3654C[i].str_3654E_axis = from->struct_0x3654C[i].str_3654E_axis;
 		to->struct_0x3654C[i].str_36552_un.dword = from->struct_0x3654C[i].str_36552_un.dword;
@@ -3968,7 +3968,7 @@ void Convert_to_shadow_D41A0_BYTESTR_0(type_D41A0_BYTESTR_0* from, type_shadow_D
 	for (int i = 0; i < 1200; i++)to->str_2FECE.array_0x30311[i] = from->terrain_2FECE.entity_0x30311[i];
 	to->str_2FECE.next_0x360D1 = from->terrain_2FECE.next_0x360D1;
 	for (int i = 0; i < 8; i++)to->str_2FECE.next_0x360D2[i] = from->terrain_2FECE.next_0x360D2[i];
-	for (int i = 0; i < 8; i++)to->str_2FECE.str_0x36442[i] = from->terrain_2FECE.str_0x36442[i];
+	for (int i = 0; i < 8; i++)to->str_2FECE.str_0x36442[i] = from->terrain_2FECE.stages_0x36442[i];
 	for (int i = 0; i < 11; i++)
 	{
 		to->str_2FECE.array_0x3647A[i].str_0x3647A_byte_0 = from->terrain_2FECE.array_0x3647A[i].index_0x3647A_0;
@@ -3985,7 +3985,7 @@ void Convert_to_shadow_D41A0_BYTESTR_0(type_D41A0_BYTESTR_0* from, type_shadow_D
 	to->word_0x36548 = from->word_0x36548;
 	to->word_0x3654A = from->word_0x3654A;
 	for (int i = 0; i < 8; i++) {
-		to->struct_0x3654C[i].str_3654C_byte0 = from->struct_0x3654C[i].str_3654C_byte0;
+		to->struct_0x3654C[i].str_3654C_byte0 = from->struct_0x3654C[i].stages_3654C_byte0;
 		to->struct_0x3654C[i].str_3654D_byte1 = from->struct_0x3654C[i].str_3654D_byte1;
 		to->struct_0x3654C[i].str_3654E_axis = from->struct_0x3654C[i].str_3654E_axis;
 		to->struct_0x3654C[i].str_36552_un.dword = from->struct_0x3654C[i].str_36552_un.dword;
