@@ -415,7 +415,7 @@ void sub_454F0(unsigned __int8 a1, unsigned __int8 a2);
 void sub_45600(unsigned __int8 a1);
 
 void sub_49830(type_str_2FECE* a1);
-void sub_49290(type_str_2FECE* a1, char a2, uint16_t width);
+void sub_49290(type_str_2FECE* a1, char a2, uint16_t width, uint16_t height);
 
 void sub_49F30();
 
@@ -468,7 +468,7 @@ void sub_75200_VGA_Blit640(uint16_t height);
 void VGA_BlitAny(uint16_t width, uint16_t height, uint8_t* pScreenBuffer);
 void sub_7A060_get_mouse_and_keyboard_events();
 void DrawAndEventsInGame(uint32_t a3, signed int a4, __int16 a5);
-void sub_51BB0_game_events(/*uint8_t* a1*/);
+void GameEvents(uint16_t width, uint16_t height);
 //x_DWORD /*__cdecl*/ toupper(x_DWORD); //weak
 void sub_55C60(/*int a1, int a2,*/ type_str_0x2BDE* a3);
 int32_t /*__cdecl*/ fix_filelength(int32_t);// weak
@@ -609,7 +609,7 @@ void sub_6EB90(filearray_struct* a1);
 //type_str_0x6E8E* pre_sub_4A190(uint32_t adress, int16_t* a1,int type);
 type_str_0x6E8E* pre_sub_4A190_axis_3d(uint32_t adress, axis_3d* a1, int type);//pre 22b190
 
-void pre_sub_4A190_0x6E8E(uint32_t adress, type_str_0x6E8E* a1, int type, uint16_t width);//pre 22b190
+void pre_sub_4A190_0x6E8E(uint32_t adress, type_str_0x6E8E* a1, int type, uint16_t width, uint16_t height);//pre 22b190
 
 //---------------------------
 

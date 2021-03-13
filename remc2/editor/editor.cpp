@@ -266,7 +266,7 @@ void terrain_recalculate() {
 	}
 	if (stage > 15)
 	{
-		sub_49290(&D41A0_BYTESTR_0.str_2FECE, 1, 640);
+		sub_49290(&D41A0_BYTESTR_0.str_2FECE, 1, 640, 480);
 	}
 	changed = false;
 };
