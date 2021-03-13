@@ -36,7 +36,7 @@ void _strupr(char* s)
 
 //#define PLAYING_GAME
 
-//#define RELEASE_GAME
+#define RELEASE_GAME
 
 //adress 2285ff
 
@@ -78,7 +78,7 @@ int count_begin = 1;//1
 //int debugnextlevel = 0;
 
 bool config_EDITOR = false;
-bool config_LOAD_EDITED_LEVEL = false;
+bool config_LOAD_EDITED_LEVEL = true;
 #define EDITOR
 #define LOAD_EDITED_LEVEL
 
@@ -1633,8 +1633,8 @@ void sub_32120(type_event_0x6E8E* a1);
 void sub_32160(type_event_0x6E8E* a1);
 void sub_322A0(type_event_0x6E8E* a1);
 void sub_323E0(type_event_0x6E8E* a1);
-void SetSmoke_32400(type_event_0x6E8E* a1);
-void SetSmoke2_32420(type_event_0x6E8E* a1);
+void SetParticleSmoke_32400(type_event_0x6E8E* a1);
+void SetParticleSmoke2_32420(type_event_0x6E8E* a1);
 void sub_32530(type_event_0x6E8E* a1);
 void sub_32600(type_event_0x6E8E* a1);
 void sub_32880(type_event_0x6E8E* a1);
@@ -1843,7 +1843,7 @@ type_event_0x6E8E* sub_4AA40(axis_3d* a1);
 type_event_0x6E8E* sub_4ABA0(axis_3d* a1);
 type_event_0x6E8E* sub_4AC40(axis_3d* a1);
 type_event_0x6E8E* sub_4AD70(axis_3d* a1);
-type_event_0x6E8E* sub_4ADF0(axis_3d* a1);
+type_event_0x6E8E* AddDolmen_4ADF0(axis_3d* a1);
 type_event_0x6E8E* sub_4AE80(axis_3d* a1);
 type_event_0x6E8E* sub_4AF00(axis_3d* a1);
 type_event_0x6E8E* sub_4AF70(axis_3d* a1);
@@ -1876,9 +1876,9 @@ type_event_0x6E8E* sub_4CE00(axis_3d* a1);
 type_event_0x6E8E* sub_4CF00(axis_3d* a1);
 type_event_0x6E8E* sub_4D000(axis_3d* a2);
 type_event_0x6E8E* sub_4D1D0(axis_3d* a1);
-type_event_0x6E8E* sub_4D2E0(axis_3d* a1);
+type_event_0x6E8E* SummonFireball_4D2E0(axis_3d* a1);
 type_event_0x6E8E* sub_4D380(axis_3d* a1);
-type_event_0x6E8E* sub_4D3B0(axis_3d* a1);
+type_event_0x6E8E* SummonManaPosession_4D3B0(axis_3d* a1);
 type_event_0x6E8E* sub_4D470(axis_3d* a1);
 type_event_0x6E8E* sub_4D500(axis_3d* a1);
 type_event_0x6E8E* sub_4D590(axis_3d* a1);
@@ -1918,11 +1918,11 @@ type_event_0x6E8E* NewAdd0A0A_4E7D0(axis_3d* a1);
 type_event_0x6E8E* NewAdd0A0B_4E840(axis_3d* a1);
 type_event_0x6E8E* NewAdd0A0C_4E8C0(axis_3d* a1);
 type_event_0x6E8E* NewAdd0A46_4E950(axis_3d* a1);
-type_event_0x6E8E* SetSmoke3B_4E9E0(axis_3d* a1);
-type_event_0x6E8E* SetSmoke3C_4EA20(axis_3d* a1);
+type_event_0x6E8E* SetParticleSmoke3B_4E9E0(axis_3d* a1);
+type_event_0x6E8E* SetParticleSmoke3C_4EA20(axis_3d* a1);
 type_event_0x6E8E* sub_4EA60(axis_3d* a1);
 type_event_0x6E8E* SetSmoke4_4EAA0(axis_3d* a1, char a2, char a3, __int16 a4, int a5);
-type_event_0x6E8E* sub_4EB50(axis_3d* a1);
+type_event_0x6E8E* ArriveCheckpoint_4EB50(axis_3d* a1);
 type_event_0x6E8E* AddSmoke_4EC10(axis_3d* a1);
 type_event_0x6E8E* sub_4ECD0(axis_3d* a1);
 type_event_0x6E8E* sub_4ED70(axis_3d* a1);
@@ -1943,7 +1943,7 @@ type_event_0x6E8E* sub_4F860(axis_3d* a1);
 type_event_0x6E8E* sub_4F8B0(axis_3d* a1);
 type_event_0x6E8E* sub_4F900(axis_3d* a1);
 type_event_0x6E8E* sub_4F950(axis_3d* a1);
-type_event_0x6E8E* addPointToPath_4F9A0(axis_3d* a1);
+type_event_0x6E8E* AddPointToPath_4F9A0(axis_3d* a1);
 type_event_0x6E8E* sub_4FA00(axis_3d* a1);
 type_event_0x6E8E* sub_4FA60(axis_3d* a1);
 type_event_0x6E8E* sub_4FAC0(axis_3d* a1);
@@ -32478,11 +32478,11 @@ void sub_30D50(type_event_0x6E8E* a1x/*, uint8_t v2, uint8_t v4*/)//211d50
 //----- (00030F60) --------------------------------------------------------
 void sub_30F60(type_event_0x6E8E* event)//211f60
 {
-	int v4; // esi
-	type_event_0x6E8E* v5x; // eax
-	axis_3d v7x; // [esp+0h] [ebp-10h]
-	int v10; // [esp+8h] [ebp-8h]
-	int v11; // [esp+Ch] [ebp-4h]
+	int strIndex; // esi
+	type_event_0x6E8E* event2; // eax
+	axis_3d position; // [esp+0h] [ebp-10h]
+	int tempY; // [esp+8h] [ebp-8h]
+	int tempX; // [esp+Ch] [ebp-4h]
 
 	if (event->dword_0x8-- < 0)
 	{
@@ -32494,32 +32494,30 @@ void sub_30F60(type_event_0x6E8E* event)//211f60
 		event->struct_byte_0xc_12_15.byte[0] |= 2u;
 		sub_6E450_distance_sound(event - D41A0_BYTESTR_0.struct_0x6E8E, -1, 3);
 	}
-	v4 = AddE7EE0x_10080(event->dword_0x10_16, event->dword_0x10_16);
-	if (v4)
+	strIndex = AddE7EE0x_10080(event->dword_0x10_16, event->dword_0x10_16);
+	if (strIndex)
 	{
-		while (sub_10130(v4, &v11, &v10) == 1)
+		while (sub_10130(strIndex, &tempX, &tempY) == 1)
 		{
 			//adress 211fd8
 			event->rand_0x14_20 = 9377 * event->rand_0x14_20 + 9439;
 			if (2 * ((signed int)(event->rand_0x14_20 % 0x9Du) / 79) - 1 > 0)
 			{
 				event->rand_0x14_20 = 9377 * event->rand_0x14_20 + 9439;
-				v7x.x = event->axis_0x4C_76.x - 96 + 192 * v11 + event->rand_0x14_20 % 0x81u - 64;
+				position.x = event->axis_0x4C_76.x - 96 + 192 * tempX + event->rand_0x14_20 % 0x81u - 64;
 				event->rand_0x14_20 = 9377 * event->rand_0x14_20 + 9439;
-				v7x.y = event->axis_0x4C_76.y - 96 + 192 * v10 + event->rand_0x14_20 % 0x81u - 64;
-				v7x.z = event->axis_0x4C_76.z;
-				v5x = IfSubtypeCallAxisEvent_4A190(&v7x, 10, 0);
-				if (v5x)
+				position.y = event->axis_0x4C_76.y - 96 + 192 * tempY + event->rand_0x14_20 % 0x81u - 64;
+				position.z = event->axis_0x4C_76.z;
+				event2 = IfSubtypeCallAxisEvent_4A190(&position, 10, 0);
+				if (event2)
 				{
-					v5x->word_0x1A_26 = event->word_0x1A_26;//here
-					v5x->word_0x1C_28 = event->word_0x1C_28;
-					//v6 = 0x10000 & a1x->struct_byte_0xc_12_15.byte[0];
-					//LOBYTE(v6) = v6 | 0x80;
-					v5x->struct_byte_0xc_12_15.byte[0] |= 0x80;//here
+					event2->word_0x1A_26 = event->word_0x1A_26;//here
+					event2->word_0x1C_28 = event->word_0x1C_28;
+					event2->struct_byte_0xc_12_15.byte[0] |= 0x80;//here
 				}
 			}
 		}
-		ResetEvent08_10100(v4);
+		ResetEvent08_10100(strIndex);
 	}
 }
 
@@ -33426,17 +33424,17 @@ void sub_322A0(type_event_0x6E8E* a1x)//2132a0
 //----- (000323E0) --------------------------------------------------------
 void sub_323E0(type_event_0x6E8E* event)//2133e0
 {
-	SetSmoke2_32420(event);
+	SetParticleSmoke2_32420(event);
 }
 
 //----- (00032400) --------------------------------------------------------
-void SetSmoke_32400(type_event_0x6E8E* event)//213400
+void SetParticleSmoke_32400(type_event_0x6E8E* event)//213400
 {
-	SetSmoke2_32420(event);
+	SetParticleSmoke2_32420(event);
 }
 
 //----- (00032420) --------------------------------------------------------
-void SetSmoke2_32420(type_event_0x6E8E* event)//213420
+void SetParticleSmoke2_32420(type_event_0x6E8E* event)//213420
 {
 	type_event_0x6E8E* tempentity=0; // ecx
 
@@ -33452,9 +33450,9 @@ void SetSmoke2_32420(type_event_0x6E8E* event)//213420
 	event->rand_0x14_20 = 9377 * event->rand_0x14_20 + 9439;
 	position.z += event->rand_0x14_20 % 0xA0u;
 	if (event->subtype_0x40_64 == 0x3Bu)
-		tempentity = SetSmoke3B_4E9E0(&position);
+		tempentity = SetParticleSmoke3B_4E9E0(&position);
 	else if (event->subtype_0x40_64 == 0x3Cu)
-		tempentity = SetSmoke3C_4EA20(&position);
+		tempentity = SetParticleSmoke3C_4EA20(&position);
 	if (tempentity)
 	{
 		event->rand_0x14_20 = 9377 * event->rand_0x14_20 + 9439;
@@ -54015,7 +54013,7 @@ type_event_0x6E8E* pre_sub_4A190_axis_3d(uint32_t adress, axis_3d* a1_axis3d)//p
 		break;
 	}
 	case 0x22bdf0: {// 1 instance in level 3
-		return sub_4ADF0(a1_axis3d);
+		return AddDolmen_4ADF0(a1_axis3d);
 		break;
 	}
 	case 0x22be80: {
@@ -54151,7 +54149,7 @@ type_event_0x6E8E* pre_sub_4A190_axis_3d(uint32_t adress, axis_3d* a1_axis3d)//p
 		break;
 	}
 	case 0x22e2e0: {
-		return sub_4D2E0(a1_axis3d);//summon spell fire
+		return SummonFireball_4D2E0(a1_axis3d);//summon spell fire
 		break;
 	}
 	case 0x22e380: {
@@ -54159,7 +54157,7 @@ type_event_0x6E8E* pre_sub_4A190_axis_3d(uint32_t adress, axis_3d* a1_axis3d)//p
 		break;
 	}
 	case 0x22e3b0: {
-		return sub_4D3B0(a1_axis3d);//cast spell posses
+		return SummonManaPosession_4D3B0(a1_axis3d);//cast spell posses
 		break;
 	}
 	case 0x22e470: {
@@ -54332,11 +54330,11 @@ type_event_0x6E8E* pre_sub_4A190_axis_3d(uint32_t adress, axis_3d* a1_axis3d)//p
 		break;
 	}
 	case 0x22f9e0: {
-		return SetSmoke3B_4E9E0(a1_axis3d);
+		return SetParticleSmoke3B_4E9E0(a1_axis3d);
 		break;
 	}
 	case 0x22fa20: {
-		return SetSmoke3C_4EA20(a1_axis3d);
+		return SetParticleSmoke3C_4EA20(a1_axis3d);
 		break;
 	}
 	case 0x22fa60: {
@@ -54349,7 +54347,7 @@ type_event_0x6E8E* pre_sub_4A190_axis_3d(uint32_t adress, axis_3d* a1_axis3d)//p
 					 break;
 				 }*/
 	case 0x22fb50: {//in quest point
-		return sub_4EB50(a1_axis3d);
+		return ArriveCheckpoint_4EB50(a1_axis3d);
 		break;
 	}
 	case 0x22fc10: {// 1 instance in level 9
@@ -54434,7 +54432,7 @@ type_event_0x6E8E* pre_sub_4A190_axis_3d(uint32_t adress, axis_3d* a1_axis3d)//p
 		break;
 	}
 	case 0x2309a0: {//2 instances in level 1
-		return addPointToPath_4F9A0(a1_axis3d);
+		return AddPointToPath_4F9A0(a1_axis3d);
 		break;
 	}
 	case 0x230a00: {
@@ -56777,11 +56775,11 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E)//pre 22b1
 	}
 
 	case 0x213400: {
-		SetSmoke_32400(a1_6E8E);
+		SetParticleSmoke_32400(a1_6E8E);
 		break;
 	}
 	case 0x213420: {
-		SetSmoke2_32420(a1_6E8E);
+		SetParticleSmoke2_32420(a1_6E8E);
 		break;
 	}
 	case 0x213520: {
@@ -59243,22 +59241,22 @@ type_event_0x6E8E* sub_4AD70(axis_3d* position)//22bd70 //Spawn ??
 }
 
 //----- (0004ADF0) --------------------------------------------------------
-type_event_0x6E8E* sub_4ADF0(axis_3d* position)//22bdf0 - add scenery Dolmen(Similar as Obelisk)
+type_event_0x6E8E* AddDolmen_4ADF0(axis_3d* position)//22bdf0 - add scenery Dolmen(Similar as Obelisk)
 {
-	type_event_0x6E8E* v1x = NewEvent_4A050();
-	if (v1x)
+	type_event_0x6E8E* event = NewEvent_4A050();
+	if (event)
 	{
-		v1x->struct_byte_0xc_12_15.byte[0] &= 0xF7u;
-		v1x->dword_0x10_16 = (v1x - D41A0_BYTESTR_0.struct_0x6E8E) % 11;
-		v1x->byte_0x45_69 = 6;
-		v1x->type_0x3F_63 = 2;
-		v1x->subtype_0x40_64 = 2;
-		AddEventToMap_57D70(v1x, position);
-		CopyEventVar0408_49A20(v1x);
-		SetHalfSpeedEntity_49DA0(v1x, 39);
-		SetEntityShiftRot_49EA0(v1x, 1024, 1024);
+		event->struct_byte_0xc_12_15.byte[0] &= 0xF7u;
+		event->dword_0x10_16 = (event - D41A0_BYTESTR_0.struct_0x6E8E) % 11;
+		event->byte_0x45_69 = 6;
+		event->type_0x3F_63 = 2;
+		event->subtype_0x40_64 = 2;
+		AddEventToMap_57D70(event, position);
+		CopyEventVar0408_49A20(event);
+		SetHalfSpeedEntity_49DA0(event, 39);
+		SetEntityShiftRot_49EA0(event, 1024, 1024);
 	}
-	return v1x;
+	return event;
 }
 
 //----- (0004AE80) --------------------------------------------------------
@@ -60495,7 +60493,7 @@ type_event_0x6E8E* sub_4D1D0(axis_3d* position)//22e1d0
 }
 
 //----- (0004D2E0) --------------------------------------------------------
-type_event_0x6E8E* sub_4D2E0(axis_3d* position)//22e2e0
+type_event_0x6E8E* SummonFireball_4D2E0(axis_3d* position)//22e2e0
 {
 	type_event_0x6E8E* v1x = NewEvent_4A050();
 	if (v1x)
@@ -60520,7 +60518,7 @@ type_event_0x6E8E* sub_4D2E0(axis_3d* position)//22e2e0
 //----- (0004D380) --------------------------------------------------------
 type_event_0x6E8E* sub_4D380(axis_3d* position)//22e380
 {
-	type_event_0x6E8E* event = sub_4D2E0(position);
+	type_event_0x6E8E* event = SummonFireball_4D2E0(position);
 	if (event)
 	{
 		event->byte_0x45_69 = 29;
@@ -60530,7 +60528,7 @@ type_event_0x6E8E* sub_4D380(axis_3d* position)//22e380
 }
 
 //----- (0004D3B0) --------------------------------------------------------
-type_event_0x6E8E* sub_4D3B0(axis_3d* position)//22e3b0
+type_event_0x6E8E* SummonManaPosession_4D3B0(axis_3d* position)//22e3b0
 {
 	type_event_0x6E8E* event = NewEvent_4A050();
 	if (event)
@@ -61384,24 +61382,24 @@ type_event_0x6E8E* NewAdd0A46_4E950(axis_3d* position)//22f950
 }
 
 //----- (0004E9E0) --------------------------------------------------------
-type_event_0x6E8E* SetSmoke3B_4E9E0(axis_3d* position)//22f9e0
+type_event_0x6E8E* SetParticleSmoke3B_4E9E0(axis_3d* position)//22f9e0
 {
 	D41A0_BYTESTR_0.rand_0x8 = 9377 * D41A0_BYTESTR_0.rand_0x8 + 9439;
-	return SetSmoke4_4EAA0(position, 13, 13, 67, D41A0_BYTESTR_0.rand_0x8 % 0x17u + 17);
+	return SetSmoke4_4EAA0(position, 0xD, 0xD, 67, D41A0_BYTESTR_0.rand_0x8 % 0x17u + 17);
 }
 
 //----- (0004EA20) --------------------------------------------------------
-type_event_0x6E8E* SetSmoke3C_4EA20(axis_3d* position)//22fa20
+type_event_0x6E8E* SetParticleSmoke3C_4EA20(axis_3d* position)//22fa20
 {
 	D41A0_BYTESTR_0.rand_0x8 = 9377 * D41A0_BYTESTR_0.rand_0x8 + 9439;
-	return SetSmoke4_4EAA0(position, 14, 14, 9, D41A0_BYTESTR_0.rand_0x8 % 0x21u + 28);
+	return SetSmoke4_4EAA0(position, 0xE, 0xE, 9, D41A0_BYTESTR_0.rand_0x8 % 0x21u + 28);
 }
 
 //----- (0004EA60) --------------------------------------------------------
 type_event_0x6E8E* sub_4EA60(axis_3d* position)//22fa60
 {
 	D41A0_BYTESTR_0.rand_0x8 = 9377 * D41A0_BYTESTR_0.rand_0x8 + 9439;
-	return SetSmoke4_4EAA0(position, 87, 94, 67, D41A0_BYTESTR_0.rand_0x8 % 0x17u + 17);
+	return SetSmoke4_4EAA0(position, 0x57, 0x5E, 67, D41A0_BYTESTR_0.rand_0x8 % 0x17u + 17);
 }
 
 //----- (0004EAA0) --------------------------------------------------------
@@ -61415,7 +61413,7 @@ type_event_0x6E8E* SetSmoke4_4EAA0(axis_3d* position, char a2, char a3, __int16 
 		tempevent->subtype_0x40_64 = a2;
 		tempevent->dword_0x4 = a5;
 		tempevent->rand_0x14_20 = 9377 * tempevent->rand_0x14_20 + 9439;//mybe must fix
-		tempevent->type_0x3F_63 = 10;
+		tempevent->type_0x3F_63 = 0xA;
 		tempevent->word_0x86_134 = 30;
 		tempevent->byte_0x41_65 = 10;
 		tempevent->byte_0x42_66 = a2;
@@ -61429,7 +61427,7 @@ type_event_0x6E8E* SetSmoke4_4EAA0(axis_3d* position, char a2, char a3, __int16 
 }
 
 //----- (0004EB50) --------------------------------------------------------
-type_event_0x6E8E* sub_4EB50(axis_3d* position)//22fb50
+type_event_0x6E8E* ArriveCheckpoint_4EB50(axis_3d* position)//22fb50
 {
 	type_event_0x6E8E* tempevent; // eax
 	if (sub_4A810_get_0x35plus() < 32)
@@ -61437,9 +61435,9 @@ type_event_0x6E8E* sub_4EB50(axis_3d* position)//22fb50
 	tempevent = NewEvent_4A050();
 	if (!tempevent)
 		return 0;
-	tempevent->byte_0x45_69 = 64;
-	tempevent->type_0x3F_63 = 10;
-	tempevent->subtype_0x40_64 = 59;
+	tempevent->byte_0x45_69 = 0x40;
+	tempevent->type_0x3F_63 = 0xA;
+	tempevent->subtype_0x40_64 = 0x3B;
 	tempevent->rand_0x14_20 = 9377 * tempevent->rand_0x14_20 + 9439;
 	tempevent->dword_0x4 = tempevent->rand_0x14_20 % 0x64u + 800;
 	tempevent->struct_byte_0xc_12_15.byte[0] = (tempevent->struct_byte_0xc_12_15.byte[0] & 0xF6) | 1;
@@ -62061,7 +62059,7 @@ type_event_0x6E8E* sub_4F950(axis_3d* position)//230950
 }
 
 //----- (0004F9A0) --------------------------------------------------------
-type_event_0x6E8E* addPointToPath_4F9A0(axis_3d* position)//2309a0 - summon effect black smoke
+type_event_0x6E8E* AddPointToPath_4F9A0(axis_3d* position)//2309a0 - summon effect black smoke
 {
 	type_event_0x6E8E* event = NewEvent_4A050();
 	if (event)
@@ -68234,35 +68232,18 @@ void sub_57680_FixPointersAfterLoad()//238680
 // EA3E8: using guessed type int x_DWORD_EA3E8;
 // EB384: using guessed type int x_DWORD_EB384;
 
-int debugcounter_238730 = 0;
-int debugcounter28 = 0;
-int debugcounter29 = 0;
-int debugcounter31x = 0;
 //----- (00057730) --------------------------------------------------------
 void sub_57730()//238730
 {
 	type_event_0x6E8E* ix; // ebx
-	//int v1; // eax
 	type_event_0x6E8E* v2x; // esi
 	type_event_0x6E8E* v3x; // ecx
 	type_event_0x6E8E* v4x; // edx
 	type_event_0x6E8E* jx; // eax
-	//char v6; // bl
-	//unsigned __int8 v7; // bl
 	bool v8; // zf
-	//int v9; // ebx
-	//type_str_0x6E8E* v10x; // edi
-	//unsigned __int8 v11; // bl
-	//type_str_0x6E8E* v12x; // ebx
-	//unsigned __int8 v13; // bl
-	//char result; // al
 	signed int k; // esi
 	type_event_0x6E8E* lx; // ebx
-	//int v17; // ST08_4
 	type_event_0x6E8E* mx; // ebx
-	//char v19; // cl
-	//type_D4C52ar2* v20; // eax
-	//__int16 v21; // si
 	type_event_0x6E8E* v22x[29]; // [esp+0h] [ebp-7Ch]
 	type_event_0x6E8E* v23x; // [esp+74h] [ebp-8h]
 	type_event_0x6E8E* v24x; // [esp+78h] [ebp-4h]
@@ -68271,11 +68252,7 @@ void sub_57730()//238730
 	add_compare(0x238734, debugafterload);
 #endif //DEBUG_SEQUENCES
 
-	//blit and fade and other
-
-	//*(int32_t*)(x_D41A0_BYTEARRAY_0 + 8) = 9377 * *(int32_t*)(x_D41A0_BYTEARRAY_0 + 8) + 9439;
 	D41A0_BYTESTR_0.rand_0x8 = 9377 * D41A0_BYTESTR_0.rand_0x8 + 9439;
-
 	for (ix = x_DWORD_EA3E4[1]; ix < x_DWORD_EA3E4[0x3e8]; ix++)
 	{
 		//adress 238756
@@ -68287,7 +68264,6 @@ void sub_57730()//238730
 	}
 	memset(v22x, 0, 29*sizeof(type_event_0x6E8E*));//adress 238779
 	memset(x_D41A0_BYTEARRAY_4_struct.bytearray_38403x, 0, 29 * sizeof(type_event_0x6E8E*));
-	//v1 = (int)x_D41A0_BYTEARRAY_4;
 	v2x = 0;
 	x_D41A0_BYTEARRAY_4_struct.dword_38523 = 0;
 	v24x = 0;
@@ -68300,24 +68276,6 @@ void sub_57730()//238730
 	v4x = 0;
 	for (jx = x_DWORD_EA3E4[1]; jx < x_DWORD_EA3E4[0x3e8]; jx++)
 	{
-		//adress 2387d9
-		/*if ((j - x_DWORD_EA3E4[1]) / 168 > 0x3e0)
-		{
-			uint8_t origbyte28 = 0;
-			uint8_t remakebyte28 = 0;
-			int comp28 = compare_with_sequence_D41A0((char*)"002387D9", x_D41A0_BYTEARRAY_0, 0x356038, debugcounter28, 224790, &origbyte28, &remakebyte28);
-			if (comp28 < 224790) {
-				myprintf("stop");
-			}
-		}*/
-		debugcounter28++;
-		if (debugcounter28 == 0x32)
-		{
-			debugcounter28++;
-			debugcounter28--;
-		}
-
-		//v6 = jx->type_0x3F_63;
 		if (jx->type_0x3F_63)
 		{
 			switch (jx->type_0x3F_63)
@@ -68329,7 +68287,6 @@ void sub_57730()//238730
 						v3x->next_0 = jx;
 					else
 						x_D41A0_BYTEARRAY_4_struct.dword_38519 = jx;
-					//v12x = x_DWORD_EA3E4[0];
 					v3x = jx;
 					jx->next_0 = x_DWORD_EA3E4[0];
 					continue;
@@ -68338,7 +68295,6 @@ void sub_57730()//238730
 			case 0x5:
 				if (jx->dword_0x8 < 0)
 					continue;
-				//v7 = jx->byte_0x45_69;
 				if (jx->byte_0x45_69 < 0xE8)
 				{
 					v8 = (jx->byte_0x45_69==0xB4);
@@ -68351,8 +68307,6 @@ void sub_57730()//238730
 				}
 				if (!v8)
 				{
-					//v9 = jx->byte_0x40_64;
-					//v10x = v22x[jx->byte_0x40_64];
 					if (v22x[jx->subtype_0x40_64])
 						v22x[jx->subtype_0x40_64]->next_0 = jx;
 					else
@@ -68366,12 +68320,10 @@ void sub_57730()//238730
 					v23x->next_0 = jx;
 				else
 					x_D41A0_BYTEARRAY_4_struct.dword_38531 = jx;
-				//v12x = x_DWORD_EA3E4[0];
 				v23x = jx;
 				jx->next_0 = x_DWORD_EA3E4[0];
 				continue;
 			case 0x0A:
-				//v11 = jx->byte_0x40_64;
 				if (jx->subtype_0x40_64 < 0x2D)
 				{
 					if (jx->subtype_0x40_64 < 0x27)
@@ -68388,7 +68340,6 @@ void sub_57730()//238730
 					}
 					if (jx->subtype_0x40_64 != 0x2A)
 						continue;
-				//LABEL_40:
 					if (v4x)
 						v4x->next_0 = jx;
 					else
@@ -68403,7 +68354,6 @@ void sub_57730()//238730
 						v24x->next_0 = jx;
 					else
 						x_D41A0_BYTEARRAY_4_struct.dword_38527 = jx;
-					//v12x = x_DWORD_EA3E4[0];
 					v24x = jx;
 					jx->next_0 = x_DWORD_EA3E4[0];
 					continue;
@@ -68412,7 +68362,6 @@ void sub_57730()//238730
 				{
 					if (jx->subtype_0x40_64 != 0x39)
 						continue;
-				//LABEL_32:
 					if (v2x)
 						v2x->next_0 = jx;
 					else
@@ -68433,8 +68382,6 @@ void sub_57730()//238730
 				}
 				break;
 			case 0x0B:
-				//v13 = jx->subtype_0x40_64;
-				//if (v13 >= 0xCu && (v13 <= 0xCu || v13 == 31))
 				if (jx->subtype_0x40_64==0x0C || jx->subtype_0x40_64 == 0x1F)
 				{
 					if (v4x)
@@ -68450,7 +68397,6 @@ void sub_57730()//238730
 			}
 		}
 	}
-	//result = (char)x_D41A0_BYTEARRAY_4;
 	//adress 23899a
 	if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte3_24 & 1))
 	{
@@ -68474,29 +68420,15 @@ void sub_57730()//238730
 		sub_159E0();//adress 2389f6
 		if (x_BYTE_D41B6)
 			sub_58630();
-		//fix it - maybe v19= //v17 = x_DWORD_EA3E4[*(unsigned __int16 *)(2124 * D41A0_BYTESTR_0.word_0xc + x_D41A0_BYTEARRAY_0 + 11240)];
 		sub_60F00();
 		for (mx = x_DWORD_EA3E4[1]; mx < x_DWORD_EA3E4[0x3e8]; mx++)
 		{
-			//zde sbirat informace
-			//if (debugcounter29 >= 0x1f6a)
-			if (debugcounter29 >= 0x1b83)
-			{
-				//myprintf("i:%d,", debugcounter29);
-				mx++;
-				mx--;
-			}
 			//adress 238a3d
 #ifdef DEBUG_SEQUENCES
 			//add_compare(0x238a3d, debugafterload);//0x9ac
 #endif //DEBUG_SEQUENCES
-
-			//v19 = mx->type_0x3F_63;
 			if (mx->type_0x3F_63)
 			{
-				//v20 = &x_DWORD_D4C52ar[14 * mx->byte_0x45_69 + *(uint32_t*)(x_DWORD_D4C52ar + 18 * v19)-0x2a5c52];
-				//v20 = &x_DWORD_D4C52ar[14 * mx->byte_0x45_69 + str_D4C48ar[v19].dword_10 - 0x2a5c52];
-				//v20 = &str_D4C48ar[mx->type_0x3F_63].dword_10[mx->byte_0x45_69];
 				if (mx->byte_0x45_69 == str_D4C48ar[mx->type_0x3F_63].dword_10[mx->byte_0x45_69].word_4)
 				{
 					if (str_D4C48ar[mx->type_0x3F_63].dword_10[mx->byte_0x45_69].dword_10)
@@ -68507,7 +68439,6 @@ void sub_57730()//238730
 
 						//adress 238a8a zacina na 35cf6e 363bb6 =6c48/168=165=a5
 						pre_sub_4A190_0x6E8E(str_D4C48ar[mx->type_0x3F_63].dword_10[mx->byte_0x45_69].adress_6, mx);
-						//(*(void(**)(uint8_t*))(v20 + 6))((uint8_t*)(m));
 						mx->byte_0x3E_62++;
 					}
 				}
@@ -68518,12 +68449,9 @@ void sub_57730()//238730
 			}
 		}
 		sub_585D0();
-		//result = (int)x_D41A0_BYTEARRAY_0;
-		//v21 = D41A0_BYTESTR_0.word_0x3654A;
 		if (D41A0_BYTESTR_0.word_0x3654A)
 			sub_21F60(x_DWORD_EA3E4[D41A0_BYTESTR_0.word_0x3654A]);
 	}
-	//return result;
 }
 
 // 8C250: using guessed type x_DWORD memset(x_DWORD, x_DWORD, x_DWORD);
