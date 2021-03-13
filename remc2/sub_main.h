@@ -415,7 +415,7 @@ void sub_454F0(unsigned __int8 a1, unsigned __int8 a2);
 void sub_45600(unsigned __int8 a1);
 
 void sub_49830(type_str_2FECE* a1);
-void sub_49290(type_str_2FECE* a1, char a2);
+void sub_49290(type_str_2FECE* a1, char a2, uint16_t width);
 
 void sub_49F30();
 
@@ -609,7 +609,7 @@ void sub_6EB90(filearray_struct* a1);
 //type_str_0x6E8E* pre_sub_4A190(uint32_t adress, int16_t* a1,int type);
 type_str_0x6E8E* pre_sub_4A190_axis_3d(uint32_t adress, axis_3d* a1, int type);//pre 22b190
 
-void pre_sub_4A190_0x6E8E(uint32_t adress, type_str_0x6E8E* a1, int type);//pre 22b190
+void pre_sub_4A190_0x6E8E(uint32_t adress, type_str_0x6E8E* a1, int type, uint16_t width);//pre 22b190
 
 //---------------------------
 
