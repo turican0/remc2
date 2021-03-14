@@ -1613,7 +1613,7 @@ void sub_2BB40_draw_bitmap(int16_t posx, int16_t posy, posistruct_t tempposstr)/
 	//v6 = v3;
 	//v3(a1, a2, a3);
 	//result = (int)x_D41A0_BYTEARRAY_0;
-	if (D41A0_BYTESTR_0.m_GameSettings.m_Display.scr_size_0x2190 == 1)
+	if (D41A0_0.m_GameSettings.m_Display.scr_size_0x2190 == 1)
 	{
 		temp_screen_buffer = pdwScreenBuffer;
 		pdwScreenBuffer = x_DWORD_E9C3C;
@@ -1663,7 +1663,7 @@ void sub_2BC80(int16_t x1, int16_t y1, int16_t x2, int16_t y2, uint8_t a5)//20cc
 	else
 		sub_901E4(x1, y1, x2, y2, a5);
 	//result = x_D41A0_BYTEARRAY_0;
-	if (D41A0_BYTESTR_0.m_GameSettings.m_Display.scr_size_0x2190 == 1)
+	if (D41A0_0.m_GameSettings.m_Display.scr_size_0x2190 == 1)
 	{
 		temp_screen_buffer = pdwScreenBuffer;
 		pdwScreenBuffer = x_DWORD_E9C3C;
@@ -1689,7 +1689,7 @@ void sub_2BC10_draw_text(const char* textbuffer, int16_t posx, int16_t posy, uin
 
 	sub_6F940_sub_draw_text(textbuffer, posx, posy, color);
 	//result = (int)x_D41A0_BYTEARRAY_0;
-	if (D41A0_BYTESTR_0.m_GameSettings.m_Display.scr_size_0x2190 == 1)//shifted graphics
+	if (D41A0_0.m_GameSettings.m_Display.scr_size_0x2190 == 1)//shifted graphics
 	{
 		temp_screen_buffer = pdwScreenBuffer;
 		pdwScreenBuffer = (uint8_t*)x_DWORD_E9C3C;
@@ -3778,10 +3778,10 @@ void Convert_from_shadow_D41A0_BYTESTR_0(type_shadow_D41A0_BYTESTR_0* from, type
 	to->word_0x36548 = from->word_0x36548;
 	to->word_0x3654A = from->word_0x3654A;
 	for (int i = 0; i < 8; i++) {
-		to->struct_0x3654C[i].stages_3654C_byte0 = from->struct_0x3654C[i].str_3654C_byte0;
-		to->struct_0x3654C[i].str_3654D_byte1 = from->struct_0x3654C[i].str_3654D_byte1;
-		to->struct_0x3654C[i].str_3654E_axis = from->struct_0x3654C[i].str_3654E_axis;
-		to->struct_0x3654C[i].str_36552_un.dword = from->struct_0x3654C[i].str_36552_un.dword;
+		to->stages_0x3654C[i].stages_3654C_byte0 = from->struct_0x3654C[i].str_3654C_byte0;
+		to->stages_0x3654C[i].str_3654D_byte1 = from->struct_0x3654C[i].str_3654D_byte1;
+		to->stages_0x3654C[i].str_3654E_axis = from->struct_0x3654C[i].str_3654E_axis;
+		to->stages_0x3654C[i].str_36552_un.dword = from->struct_0x3654C[i].str_36552_un.dword;
 	}
 	for (int i = 0; i < 8; i++)to->struct_0x3659C[i] = from->struct_0x3659C[i];
 	for (int i = 0; i < 11; i++) {
@@ -3810,7 +3810,7 @@ void Convert_from_shadow_D41A0_BYTESTR_0(type_shadow_D41A0_BYTESTR_0* from, type
 	to->word_0x36DFC = from->word_0x36DFC;
 	to->word_0x36DFE = from->word_0x36DFE;
 	to->byte_0x36E00 = from->byte_0x36E00;
-	to->byte_0x36E01 = from->byte_0x36E01;
+	to->stageIndex_0x36E01 = from->byte_0x36E01;
 	to->byte_0x36E02 = from->byte_0x36E02;
 	to->byte_0x36E03 = from->byte_0x36E03;
 	to->byte_0x36E04 = from->byte_0x36E04;
@@ -3985,10 +3985,10 @@ void Convert_to_shadow_D41A0_BYTESTR_0(type_D41A0_BYTESTR_0* from, type_shadow_D
 	to->word_0x36548 = from->word_0x36548;
 	to->word_0x3654A = from->word_0x3654A;
 	for (int i = 0; i < 8; i++) {
-		to->struct_0x3654C[i].str_3654C_byte0 = from->struct_0x3654C[i].stages_3654C_byte0;
-		to->struct_0x3654C[i].str_3654D_byte1 = from->struct_0x3654C[i].str_3654D_byte1;
-		to->struct_0x3654C[i].str_3654E_axis = from->struct_0x3654C[i].str_3654E_axis;
-		to->struct_0x3654C[i].str_36552_un.dword = from->struct_0x3654C[i].str_36552_un.dword;
+		to->struct_0x3654C[i].str_3654C_byte0 = from->stages_0x3654C[i].stages_3654C_byte0;
+		to->struct_0x3654C[i].str_3654D_byte1 = from->stages_0x3654C[i].str_3654D_byte1;
+		to->struct_0x3654C[i].str_3654E_axis = from->stages_0x3654C[i].str_3654E_axis;
+		to->struct_0x3654C[i].str_36552_un.dword = from->stages_0x3654C[i].str_36552_un.dword;
 	}
 	for (int i = 0; i < 8; i++)to->struct_0x3659C[i] = from->struct_0x3659C[i];
 	for (int i = 0; i < 11; i++) {
@@ -4025,7 +4025,7 @@ void Convert_to_shadow_D41A0_BYTESTR_0(type_D41A0_BYTESTR_0* from, type_shadow_D
 	to->word_0x36DFC = from->word_0x36DFC;
 	to->word_0x36DFE = from->word_0x36DFE;
 	to->byte_0x36E00 = from->byte_0x36E00;
-	to->byte_0x36E01 = from->byte_0x36E01;
+	to->byte_0x36E01 = from->stageIndex_0x36E01;
 	to->byte_0x36E02 = from->byte_0x36E02;
 	to->byte_0x36E03 = from->byte_0x36E03;
 	to->byte_0x36E04 = from->byte_0x36E04;

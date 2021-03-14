@@ -1304,7 +1304,7 @@ void writehex(uint8_t* buffer, uint32_t count) {
 	printf("\n");
 };
 
-type_D41A0_BYTESTR_0 D41A0_BYTESTR_0;
+type_D41A0_BYTESTR_0 D41A0_0;
 /*
 void x_D41A0_BYTEARRAY_0_to_x_D41A0_BYTESTR_0()
 {
@@ -2091,15 +2091,15 @@ void clean_x_D41A0_BYTEARRAY_0_0x2362() {
 	//memset((void*)(&x_D41A0_BYTEARRAY_0[0x2362]), 0, 48);
 	for (int i = 0; i < 8; i++)
 	{
-		D41A0_BYTESTR_0.array_0x2362[i].x = 0;
-		D41A0_BYTESTR_0.array_0x2362[i].y = 0;
-		D41A0_BYTESTR_0.array_0x2362[i].z = 0;
+		D41A0_0.array_0x2362[i].x = 0;
+		D41A0_0.array_0x2362[i].y = 0;
+		D41A0_0.array_0x2362[i].z = 0;
 	}
 };
 
 void clean_x_D41A0_BYTEARRAY_0_0x2BDE(int number) {
 	//memset((void*)(&x_D41A0_BYTEARRAY_0[0x2BDE+2124*number]), 0, 2124);
-	memset((void*)(&D41A0_BYTESTR_0.array_0x2BDE[number]), 0, 2124);
+	memset((void*)(&D41A0_0.array_0x2BDE[number]), 0, 2124);
 	/*for (int i = 0; i < 8; i++)
 	{
 		D41A0_BYTESTR_0.array_0x2BDE[i].byte_0x000_2BDE_11230=0;//0	//11230 - byte? - ne zacatek struktury

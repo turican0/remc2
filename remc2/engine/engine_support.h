@@ -1335,15 +1335,8 @@ un_str_36552;
 typedef struct {//size 10 count 8
 	int8_t stages_3654C_byte0;//222540
 	int8_t str_3654D_byte1;
-	axis_2d str_3654E_axis;
-	//int16_t str_3654E_word2;//objective parametres
-	//int8_t str_3654F_byte3;
-	//int16_t str_36550_word4;
-	//int8_t str_36551_byte5;
+	axis_2d str_3654E_axis;//objective parametres
 	un_str_36552 str_36552_un; //pointer sometimes
-	//int8_t str_36553_byte7;
-	//int8_t str_36554_byte8;
-	//int8_t str_36555_byte9;
 } type_str_3654C;
 
 typedef struct {//size 11
@@ -1562,7 +1555,7 @@ typedef struct {//lenght 224791
 	int16_t word_0x36546;//
 	int16_t word_0x36548;//
 	int16_t word_0x3654A;//
-	type_str_3654C struct_0x3654C[0x8];//size 10 count 8
+	type_str_3654C stages_0x3654C[0x8];//size 10 count 8
 	type_str_3659C struct_0x3659C[0x8];//size 11 count 8 C-0 D-1 E-2 F-3
 	type_str_0x3647Ac array_0x365F4[0xb];//8x11	//set 0x58 // end 0x3664c
 	type_str_0x3664C str_0x3664C[0x32];// lenght 0x79e//39x50 (end-0x36dea)
@@ -1577,7 +1570,7 @@ typedef struct {//lenght 224791
 	int16_t word_0x36DFC;
 	int16_t word_0x36DFE;
 	uint8_t byte_0x36E00;
-	uint8_t byte_0x36E01;//count objectives
+	uint8_t stageIndex_0x36E01;//count objectives
 	int8_t byte_0x36E02;//temp objective
 	int8_t byte_0x36E03;
 	int8_t byte_0x36E04;
@@ -2025,7 +2018,7 @@ void clean_x_D41A0_BYTEARRAY_0();
 void test_x_D41A0_BYTEARRAY_0();
 */
 
-extern type_D41A0_BYTESTR_0 D41A0_BYTESTR_0;
+extern type_D41A0_BYTESTR_0 D41A0_0;
 
 /*void x_D41A0_BYTEARRAY_0_to_x_D41A0_BYTESTR_0();
 void x_D41A0_BYTESTR_0_to_x_D41A0_BYTEARRAY_0();*/

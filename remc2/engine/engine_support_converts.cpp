@@ -764,7 +764,7 @@ void convert_struct_to_array_D41A0_0(type_D41A0_BYTESTR_0* input,uint8_t* output
 	memcpy(output + 0x3654A, &input->word_0x3654A, 2);
 	//type_str_3654C struct_0x3654C[0x8];//size 10 count 8
 	for (int i = 0; i < 0x8; i++)
-		convert_struct_to_array_3654C(&input->struct_0x3654C[i], output + 0x3654C +i*10);
+		convert_struct_to_array_3654C(&input->stages_0x3654C[i], output + 0x3654C +i*10);
 	//type_str_3659C struct_0x3659C[0x8];//size 11 count 8 C-0 D-1 E-2 F-3
 	for (int i = 0; i < 0x8; i++)
 		memcpy(output + 0x3659C+i*11, &input->struct_0x3659C[i].substr_3659C, 11);
@@ -797,7 +797,7 @@ void convert_struct_to_array_D41A0_0(type_D41A0_BYTESTR_0* input,uint8_t* output
 	//uint8_t byte_0x36E00;
 	memcpy(output + 0x36E00, &input->byte_0x36E00, 1);
 	//uint8_t byte_0x36E01;//count objectives
-	memcpy(output + 0x36E01, &input->byte_0x36E01, 1);
+	memcpy(output + 0x36E01, &input->stageIndex_0x36E01, 1);
 	//int8_t byte_0x36E02;//temp objective
 	memcpy(output + 0x36E02, &input->byte_0x36E02, 1);
 	//int8_t byte_0x36E03;

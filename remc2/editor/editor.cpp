@@ -134,8 +134,8 @@ void terrain_recalculate();
 int main_x(/*int argc, char** argv*/);
 
 void loadlevel(int levelnumber) {
-	sub_533B0_decompress_levels(levelnumber, &D41A0_BYTESTR_0.terrain_2FECE);
-	memcpy(temparray_0x30311, D41A0_BYTESTR_0.terrain_2FECE.entity_0x30311,sizeof(type_entity_0x30311)*0x4b0);
+	sub_533B0_decompress_levels(levelnumber, &D41A0_0.terrain_2FECE);
+	memcpy(temparray_0x30311, D41A0_0.terrain_2FECE.entity_0x30311,sizeof(type_entity_0x30311)*0x4b0);
 	for(int i=0;i< 0x4b0;i++)
 		temparray_0x30311_inactive[i]=0;
 	for (int i = 0; i < 0x4b0; i++)
@@ -174,15 +174,15 @@ void editor_run()
 	//sub_6FC50(1);//only for fonts?
 
 	//save D41A0_BYTESTR_0
-	D41A0_BYTESTR_0.terrain_2FECE.seed_0x2FEE5 = 0;
-	D41A0_BYTESTR_0.terrain_2FECE.offset_0x2FEE9 = 0;
-	D41A0_BYTESTR_0.terrain_2FECE.raise_0x2FEED = 0;
-	D41A0_BYTESTR_0.terrain_2FECE.gnarl_0x2FEF1 = 0;
-	D41A0_BYTESTR_0.terrain_2FECE.source_0x2FEFD = 0;
-	D41A0_BYTESTR_0.terrain_2FECE.snLin_0x2FF01 = 0;
-	D41A0_BYTESTR_0.terrain_2FECE.bhFlt_0x2FF0D = 0;
-	D41A0_BYTESTR_0.terrain_2FECE.rkSte_0x2FF11 = 0;
-	D41A0_BYTESTR_0.terrain_2FECE.rkSte_0x2FF11 = 0;
+	D41A0_0.terrain_2FECE.seed_0x2FEE5 = 0;
+	D41A0_0.terrain_2FECE.offset_0x2FEE9 = 0;
+	D41A0_0.terrain_2FECE.raise_0x2FEED = 0;
+	D41A0_0.terrain_2FECE.gnarl_0x2FEF1 = 0;
+	D41A0_0.terrain_2FECE.source_0x2FEFD = 0;
+	D41A0_0.terrain_2FECE.snLin_0x2FF01 = 0;
+	D41A0_0.terrain_2FECE.bhFlt_0x2FF0D = 0;
+	D41A0_0.terrain_2FECE.rkSte_0x2FF11 = 0;
+	D41A0_0.terrain_2FECE.rkSte_0x2FF11 = 0;
 	//init_pal();
 	clean_tarrain();
 	loadlevel(0);
@@ -204,21 +204,21 @@ void terrain_recalculate() {
 			j++;
 		else
 		{
-			D41A0_BYTESTR_0.terrain_2FECE.entity_0x30311[j]= temparray_0x30311[i];
+			D41A0_0.terrain_2FECE.entity_0x30311[j]= temparray_0x30311[i];
 			j++;
 		}
 	}
 
 
-	x_WORD_17B4E0 = D41A0_BYTESTR_0.terrain_2FECE.seed_0x2FEE5;
-	D41A0_BYTESTR_0.rand_0x8 = D41A0_BYTESTR_0.terrain_2FECE.seed_0x2FEE5;
+	x_WORD_17B4E0 = D41A0_0.terrain_2FECE.seed_0x2FEE5;
+	D41A0_0.rand_0x8 = D41A0_0.terrain_2FECE.seed_0x2FEE5;
 	memset((void*)mapEntityIndex_15B4E0, 0, 0x20000);
-	sub_B5E70_decompress_terrain_map_level(x_WORD_17B4E0, D41A0_BYTESTR_0.terrain_2FECE.offset_0x2FEE9, D41A0_BYTESTR_0.terrain_2FECE.raise_0x2FEED, D41A0_BYTESTR_0.terrain_2FECE.gnarl_0x2FEF1);
+	sub_B5E70_decompress_terrain_map_level(x_WORD_17B4E0, D41A0_0.terrain_2FECE.offset_0x2FEE9, D41A0_0.terrain_2FECE.raise_0x2FEED, D41A0_0.terrain_2FECE.gnarl_0x2FEF1);
 	sub_44DB0_truncTerrainHeight();//225db0 //trunc and create
 	if (stage > 0)
 	{
 		memset((void*)mapEntityIndex_15B4E0, 0, 0x20000);
-		sub_44E40(D41A0_BYTESTR_0.terrain_2FECE.river_0x2FEF5, D41A0_BYTESTR_0.terrain_2FECE.lriver_0x2FEF9);//225e40 //add any fields
+		sub_44E40(D41A0_0.terrain_2FECE.river_0x2FEF5, D41A0_0.terrain_2FECE.lriver_0x2FEF9);//225e40 //add any fields
 	}
 	if (stage > 1)
 	{
@@ -227,11 +227,11 @@ void terrain_recalculate() {
 
 	if (stage > 2)
 	{
-		sub_440D0(D41A0_BYTESTR_0.terrain_2FECE.snLin_0x2FF01);//2250d0
+		sub_440D0(D41A0_0.terrain_2FECE.snLin_0x2FF01);//2250d0
 	}
 	if (stage > 3)
 	{
-		sub_45060(D41A0_BYTESTR_0.terrain_2FECE.snFlt_0x2FF05, D41A0_BYTESTR_0.terrain_2FECE.bhLin_0x2FF09);//226060
+		sub_45060(D41A0_0.terrain_2FECE.snFlt_0x2FF05, D41A0_0.terrain_2FECE.bhLin_0x2FF09);//226060
 	}
 	if (stage > 4)
 	{
@@ -239,15 +239,15 @@ void terrain_recalculate() {
 	}
 	if (stage > 5)
 	{
-		sub_45210(D41A0_BYTESTR_0.terrain_2FECE.snFlt_0x2FF05, D41A0_BYTESTR_0.terrain_2FECE.bhLin_0x2FF09);//226210
+		sub_45210(D41A0_0.terrain_2FECE.snFlt_0x2FF05, D41A0_0.terrain_2FECE.bhLin_0x2FF09);//226210
 	}
 	if (stage > 6)
 	{
-		sub_454F0(D41A0_BYTESTR_0.terrain_2FECE.source_0x2FEFD, D41A0_BYTESTR_0.terrain_2FECE.rkSte_0x2FF11);//2264f0
+		sub_454F0(D41A0_0.terrain_2FECE.source_0x2FEFD, D41A0_0.terrain_2FECE.rkSte_0x2FF11);//2264f0
 	}
 	if (stage > 7)
 	{
-		sub_45600(D41A0_BYTESTR_0.terrain_2FECE.bhFlt_0x2FF0D);//226600
+		sub_45600(D41A0_0.terrain_2FECE.bhFlt_0x2FF0D);//226600
 	}
 	if (stage > 8)
 	{
@@ -280,11 +280,11 @@ void terrain_recalculate() {
 	sub_49F30();//prepare events pointers
 	if (stage > 14)
 	{
-		SetStagetagForTermod_49830(&D41A0_BYTESTR_0.terrain_2FECE);
+		SetStagetagForTermod_49830(&D41A0_0.terrain_2FECE);
 	}
 	if (stage > 15)
 	{
-		sub_49290(&D41A0_BYTESTR_0.terrain_2FECE, 1);
+		sub_49290(&D41A0_0.terrain_2FECE, 1);
 	}
 	changed = false;
 };
@@ -467,7 +467,7 @@ void fillterrain(kiss_terrain* terrain, float zoom, int beginx, int beginy) {
 
 	for (int i = 0; i < 0x8; i++)
 	{
-		type_str_0x36442 actstage = D41A0_BYTESTR_0.terrain_2FECE.stages_0x36442[i];
+		type_str_0x36442 actstage = D41A0_0.terrain_2FECE.stages_0x36442[i];
 		if (actstage.index_0 == 5)
 		{
 			for (int i = -8; i <= 8; i++)
@@ -688,7 +688,7 @@ void fillterraincheck(float zoom, int beginx, int beginy) {
 	}
 	for (int i = 0; i < 0x8; i++)
 	{
-		type_str_0x36442 actstage = D41A0_BYTESTR_0.terrain_2FECE.stages_0x36442[i];
+		type_str_0x36442 actstage = D41A0_0.terrain_2FECE.stages_0x36442[i];
 		if (actstage.index_0 == 5)
 		{
 			for (int i = -8; i <= 8; i++)
@@ -880,7 +880,7 @@ void fillterrainfeat(float zoom, int beginx, int beginy) {
 	}
 	for (int i = 0; i < 0x8; i++)
 	{
-		type_str_0x36442 actstage = D41A0_BYTESTR_0.terrain_2FECE.stages_0x36442[i];
+		type_str_0x36442 actstage = D41A0_0.terrain_2FECE.stages_0x36442[i];
 		if (actstage.index_0 == 5)
 		{
 			for (int i = -8; i <= 8; i++)
@@ -1009,7 +1009,7 @@ static void terrain_stages_append(kiss_textbox* textbox) {
 	//VGA_Draw_stringXYtoBuffer(temp, 304, 32, pdwScreenBuffer);
 	for (int i = 0; i < 8; i++)
 	{
-		type_str_0x36442 actstage = D41A0_BYTESTR_0.terrain_2FECE.stages_0x36442[i];
+		type_str_0x36442 actstage = D41A0_0.terrain_2FECE.stages_0x36442[i];
 		sprintf(temp, "%01X |%02X|%04X|%04X|%04X", i, (uint8_t)actstage.index_0, actstage.stage_1, actstage._axis_2d.x, actstage._axis_2d.y);
 		kiss_array_appendstring(textbox->array, 0, (char*)"", temp);
 	}
@@ -1023,7 +1023,7 @@ char temp[256];
 //VGA_Draw_stringXYtoBuffer(temp, 304, 32, pdwScreenBuffer);
 for (int i = 0; i < 0xb; i++)
 {
-	type_str_0x3647Ac actstage = D41A0_BYTESTR_0.terrain_2FECE.array_0x3647A[i];
+	type_str_0x3647Ac actstage = D41A0_0.terrain_2FECE.array_0x3647A[i];
 	sprintf(temp, "%1DX |%02X|%02X|%02X|%04X|%04X", i, (uint8_t)actstage.index_0x3647A_0, (uint8_t)actstage.stage_0x3647A_1, actstage.str_0x3647A_2._axis_2d.x, actstage.str_0x3647A_2._axis_2d.y,actstage.str_0x3647C_4.axis.x, actstage.str_0x3647C_4.axis.y);
 	kiss_array_appendstring(textbox->array, 0, (char*)"", temp);
 }
@@ -1200,8 +1200,8 @@ static bool button_loadlevel_event(kiss_button* button, SDL_Event* e, int* draw)
 		char path2[512];
 		FixDir(path2, (char*)"testsave.sav");
 		FILE* file = fopen(path2, "rb");
-		fread(&D41A0_BYTESTR_0.terrain_2FECE, sizeof(D41A0_BYTESTR_0.terrain_2FECE), 1, file);
-		memcpy(temparray_0x30311,D41A0_BYTESTR_0.terrain_2FECE.entity_0x30311, sizeof(D41A0_BYTESTR_0.terrain_2FECE.entity_0x30311));		
+		fread(&D41A0_0.terrain_2FECE, sizeof(D41A0_0.terrain_2FECE), 1, file);
+		memcpy(temparray_0x30311,D41A0_0.terrain_2FECE.entity_0x30311, sizeof(D41A0_0.terrain_2FECE.entity_0x30311));		
 		fclose;
 		return true;
 	}//*quit = 1;
@@ -1223,10 +1223,10 @@ static bool button_undo_event(kiss_button* button, SDL_Event* e, int* draw)
 		if (indexUndoPoint > 1)
 		{
 			indexUndoPoint--;
-			memcpy(&D41A0_BYTESTR_0.terrain_2FECE, &UndoPoint[indexUndoPoint-1], sizeof(type_str_2FECE));
+			memcpy(&D41A0_0.terrain_2FECE, &UndoPoint[indexUndoPoint-1], sizeof(type_str_2FECE));
 			memcpy(temparray_0x30311_inactive, UndoInactive[indexUndoPoint - 1], sizeof(bool) * 0x4b0);
 			memcpy(temparray_0x30311_selected, UndoSelected[indexUndoPoint - 1], sizeof(bool) * 0x4b0);
-			memcpy(temparray_0x30311, D41A0_BYTESTR_0.terrain_2FECE.entity_0x30311, sizeof(D41A0_BYTESTR_0.terrain_2FECE.entity_0x30311));
+			memcpy(temparray_0x30311, D41A0_0.terrain_2FECE.entity_0x30311, sizeof(D41A0_0.terrain_2FECE.entity_0x30311));
 		}
 		return true;
 	}
@@ -1240,10 +1240,10 @@ static bool button_redo_event(kiss_button* button, SDL_Event* e, int* draw)
 		if (indexUndoPoint < MaxUndoPoints2)
 		{
 			indexUndoPoint++;
-			memcpy(&D41A0_BYTESTR_0.terrain_2FECE, &UndoPoint[indexUndoPoint - 1], sizeof(type_str_2FECE));
+			memcpy(&D41A0_0.terrain_2FECE, &UndoPoint[indexUndoPoint - 1], sizeof(type_str_2FECE));
 			memcpy(temparray_0x30311_inactive, UndoInactive[indexUndoPoint - 1], sizeof(bool) * 0x4b0);
 			memcpy(temparray_0x30311_selected, UndoSelected[indexUndoPoint - 1], sizeof(bool) * 0x4b0);
-			memcpy(temparray_0x30311, D41A0_BYTESTR_0.terrain_2FECE.entity_0x30311, sizeof(D41A0_BYTESTR_0.terrain_2FECE.entity_0x30311));
+			memcpy(temparray_0x30311, D41A0_0.terrain_2FECE.entity_0x30311, sizeof(D41A0_0.terrain_2FECE.entity_0x30311));
 		}
 		return true;
 	}
@@ -1267,8 +1267,8 @@ static void button_savelevel_event(kiss_button* button, SDL_Event* e,int* draw)
 		char path2[512];
 		FixDir(path2, (char*)"testsave.sav");
 		FILE* file = fopen(path2,"wb");
-		memcpy(D41A0_BYTESTR_0.terrain_2FECE.entity_0x30311,temparray_0x30311, sizeof(type_entity_0x30311) *0x4b0);
-		fwrite((void*)&D41A0_BYTESTR_0.terrain_2FECE, 1, sizeof(type_str_2FECE), file);
+		memcpy(D41A0_0.terrain_2FECE.entity_0x30311,temparray_0x30311, sizeof(type_entity_0x30311) *0x4b0);
+		fwrite((void*)&D41A0_0.terrain_2FECE, 1, sizeof(type_str_2FECE), file);
 		//cyclefwrite((char*)&D41A0_BYTESTR_0.terrain_2FECE, sizeof(type_str_2FECE), file);
 		/*int buffersize = 1000;
 		int buffercount=
@@ -1304,7 +1304,7 @@ static int button_cleanlevelfeat_event(kiss_button* button, SDL_Event* e, int* d
 			memset(&temparray_0x30311[i],0,sizeof(temparray_0x30311[i]));
 			temparray_0x30311_inactive[i]=false;
 			temparray_0x30311_selected[i] = false;
-			D41A0_BYTESTR_0.terrain_2FECE.entity_0x30311[i] = temparray_0x30311[i];
+			D41A0_0.terrain_2FECE.entity_0x30311[i] = temparray_0x30311[i];
 		}
 		return 1;
 	}
@@ -1335,11 +1335,11 @@ bool delete_entity(int index) {
 		}*/
 		for (int j = 0; j < 8; j++)
 		{
-			if ((D41A0_BYTESTR_0.terrain_2FECE.stages_0x36442[j].index_0 == 1) ||
-				(D41A0_BYTESTR_0.terrain_2FECE.stages_0x36442[j].index_0 == 7) ||
-				(D41A0_BYTESTR_0.terrain_2FECE.stages_0x36442[j].index_0 == 9))
-				if (D41A0_BYTESTR_0.terrain_2FECE.stages_0x36442[j].stage_1 == i)
-					D41A0_BYTESTR_0.terrain_2FECE.stages_0x36442[j].stage_1--;
+			if ((D41A0_0.terrain_2FECE.stages_0x36442[j].index_0 == 1) ||
+				(D41A0_0.terrain_2FECE.stages_0x36442[j].index_0 == 7) ||
+				(D41A0_0.terrain_2FECE.stages_0x36442[j].index_0 == 9))
+				if (D41A0_0.terrain_2FECE.stages_0x36442[j].stage_1 == i)
+					D41A0_0.terrain_2FECE.stages_0x36442[j].stage_1--;
 		}
 
 		temparray_0x30311[i - 1] = temparray_0x30311[i];
@@ -1715,11 +1715,11 @@ static int  CloneEvent(int x, int y) {
 		}*/
 		for (int j = 0; j < 8; j++)
 		{
-			if ((D41A0_BYTESTR_0.terrain_2FECE.stages_0x36442[j].index_0 == 1) ||
-				(D41A0_BYTESTR_0.terrain_2FECE.stages_0x36442[j].index_0 == 7) ||
-				(D41A0_BYTESTR_0.terrain_2FECE.stages_0x36442[j].index_0 == 9))
-				if (D41A0_BYTESTR_0.terrain_2FECE.stages_0x36442[j].stage_1 == i)
-					D41A0_BYTESTR_0.terrain_2FECE.stages_0x36442[j].stage_1++;
+			if ((D41A0_0.terrain_2FECE.stages_0x36442[j].index_0 == 1) ||
+				(D41A0_0.terrain_2FECE.stages_0x36442[j].index_0 == 7) ||
+				(D41A0_0.terrain_2FECE.stages_0x36442[j].index_0 == 9))
+				if (D41A0_0.terrain_2FECE.stages_0x36442[j].stage_1 == i)
+					D41A0_0.terrain_2FECE.stages_0x36442[j].stage_1++;
 		}
 
 		temparray_0x30311[i] = temparray_0x30311[i - 1];
@@ -2311,10 +2311,10 @@ void set_button_image_subsubtype(kiss_image** img, uint16_t acttype, uint16_t ac
 void SetUndoPoint() {
 	if (indexUndoPoint <= MaxUndoPoints)
 	{
-		memcpy(D41A0_BYTESTR_0.terrain_2FECE.entity_0x30311, temparray_0x30311, sizeof(D41A0_BYTESTR_0.terrain_2FECE.entity_0x30311));
+		memcpy(D41A0_0.terrain_2FECE.entity_0x30311, temparray_0x30311, sizeof(D41A0_0.terrain_2FECE.entity_0x30311));
 		memcpy(UndoInactive[indexUndoPoint], temparray_0x30311_inactive, sizeof(bool) * 0x4b0);
 		memcpy(UndoSelected[indexUndoPoint], temparray_0x30311_selected, sizeof(bool) * 0x4b0);
-		memcpy(&UndoPoint[indexUndoPoint],&D41A0_BYTESTR_0.terrain_2FECE, sizeof(type_str_2FECE));
+		memcpy(&UndoPoint[indexUndoPoint],&D41A0_0.terrain_2FECE, sizeof(type_str_2FECE));
 		indexUndoPoint++;
 		MaxUndoPoints2 = indexUndoPoint;
 	}
@@ -3309,35 +3309,35 @@ int main_x(/*int argc, char** argv*/)
 
 
 
-	kiss_hex4edit_new(&hex4edit1, &window1, &D41A0_BYTESTR_0.terrain_2FECE.seed_0x2FEE5, (char*)"SEED:", 10, 10, 70);
-	kiss_hex4edit_new(&hex4edit2, &window1, &D41A0_BYTESTR_0.terrain_2FECE.offset_0x2FEE9, (char*)"OFFSET:", 10, 30, 70);
-	kiss_hex4edit_new(&hex4edit3, &window1, &D41A0_BYTESTR_0.terrain_2FECE.raise_0x2FEED, (char*)"RAISE:", 10, 50, 70);
-	kiss_hex4edit_new(&hex4edit4, &window1, &D41A0_BYTESTR_0.terrain_2FECE.gnarl_0x2FEF1, (char*)"GNARL:", 10, 70, 70);
-	kiss_hex4edit_new(&hex4edit5, &window1, &D41A0_BYTESTR_0.terrain_2FECE.river_0x2FEF5, (char*)"RIVER:", 10, 90, 70);
-	kiss_hex4edit_new(&hex4edit6, &window1, &D41A0_BYTESTR_0.terrain_2FECE.lriver_0x2FEF9, (char*)"LRIVER:", 10, 110, 70);
-	kiss_hex4edit_new(&hex4edit7, &window1, &D41A0_BYTESTR_0.terrain_2FECE.source_0x2FEFD, (char*)"SOURCE:", 10, 130, 70);
-	kiss_hex4edit_new(&hex4edit8, &window1, &D41A0_BYTESTR_0.terrain_2FECE.snLin_0x2FF01, (char*)"SnLin:", 10, 150, 70);
-	kiss_hex4edit_new(&hex4edit9, &window1, &D41A0_BYTESTR_0.terrain_2FECE.snFlt_0x2FF05, (char*)"SnFlt:", 10, 170, 70);
-	kiss_hex4edit_new(&hex4edit10, &window1, &D41A0_BYTESTR_0.terrain_2FECE.bhLin_0x2FF09, (char*)"BhLin:", 10, 190, 70);
-	kiss_hex4edit_new(&hex4edit11, &window1, &D41A0_BYTESTR_0.terrain_2FECE.bhFlt_0x2FF0D, (char*)"BhFlt:", 10, 210, 70);
-	kiss_hex4edit_new(&hex4edit12, &window1, &D41A0_BYTESTR_0.terrain_2FECE.rkSte_0x2FF11, (char*)"RkSte:", 10, 230, 70);
+	kiss_hex4edit_new(&hex4edit1, &window1, &D41A0_0.terrain_2FECE.seed_0x2FEE5, (char*)"SEED:", 10, 10, 70);
+	kiss_hex4edit_new(&hex4edit2, &window1, &D41A0_0.terrain_2FECE.offset_0x2FEE9, (char*)"OFFSET:", 10, 30, 70);
+	kiss_hex4edit_new(&hex4edit3, &window1, &D41A0_0.terrain_2FECE.raise_0x2FEED, (char*)"RAISE:", 10, 50, 70);
+	kiss_hex4edit_new(&hex4edit4, &window1, &D41A0_0.terrain_2FECE.gnarl_0x2FEF1, (char*)"GNARL:", 10, 70, 70);
+	kiss_hex4edit_new(&hex4edit5, &window1, &D41A0_0.terrain_2FECE.river_0x2FEF5, (char*)"RIVER:", 10, 90, 70);
+	kiss_hex4edit_new(&hex4edit6, &window1, &D41A0_0.terrain_2FECE.lriver_0x2FEF9, (char*)"LRIVER:", 10, 110, 70);
+	kiss_hex4edit_new(&hex4edit7, &window1, &D41A0_0.terrain_2FECE.source_0x2FEFD, (char*)"SOURCE:", 10, 130, 70);
+	kiss_hex4edit_new(&hex4edit8, &window1, &D41A0_0.terrain_2FECE.snLin_0x2FF01, (char*)"SnLin:", 10, 150, 70);
+	kiss_hex4edit_new(&hex4edit9, &window1, &D41A0_0.terrain_2FECE.snFlt_0x2FF05, (char*)"SnFlt:", 10, 170, 70);
+	kiss_hex4edit_new(&hex4edit10, &window1, &D41A0_0.terrain_2FECE.bhLin_0x2FF09, (char*)"BhLin:", 10, 190, 70);
+	kiss_hex4edit_new(&hex4edit11, &window1, &D41A0_0.terrain_2FECE.bhFlt_0x2FF0D, (char*)"BhFlt:", 10, 210, 70);
+	kiss_hex4edit_new(&hex4edit12, &window1, &D41A0_0.terrain_2FECE.rkSte_0x2FF11, (char*)"RkSte:", 10, 230, 70);
 
-	kiss_hex4edit_new(&hex4edit13, &window1, &D41A0_BYTESTR_0.terrain_2FECE.word_2FECE, (char*)"2FECE:", 250, 10,80);
-	kiss_hex4edit_new(&hex4edit14, &window1, &D41A0_BYTESTR_0.terrain_2FECE.word_2FED0, (char*)"2FED0:", 250, 30, 80);
-	kiss_hex2edit_new(&hex2edit15, &window1, &D41A0_BYTESTR_0.terrain_2FECE.byte_0x2FED2, (char*)"2FED2:", 250, 50, 80);
-	kiss_hex2edit_new(&hex2edit16, &window1, &D41A0_BYTESTR_0.terrain_2FECE.byte_0x2FED3, (char*)"2FED3:", 250, 70, 80);
-	kiss_hex2edit_new(&hex2edit17, &window1, &D41A0_BYTESTR_0.terrain_2FECE.MapType, (char*)"DY/NG/CV:", 250, 90, 80);
-	kiss_hex4edit_new(&hex4edit18, &window1, &D41A0_BYTESTR_0.terrain_2FECE.word_0x2FED5, (char*)"2FED5:", 250, 110, 80);
-	kiss_hex4edit_new(&hex4edit19, &window1, &D41A0_BYTESTR_0.terrain_2FECE.word_0x2FED7, (char*)"2FED7:", 250, 130, 80);
+	kiss_hex4edit_new(&hex4edit13, &window1, &D41A0_0.terrain_2FECE.word_2FECE, (char*)"2FECE:", 250, 10,80);
+	kiss_hex4edit_new(&hex4edit14, &window1, &D41A0_0.terrain_2FECE.word_2FED0, (char*)"2FED0:", 250, 30, 80);
+	kiss_hex2edit_new(&hex2edit15, &window1, &D41A0_0.terrain_2FECE.byte_0x2FED2, (char*)"2FED2:", 250, 50, 80);
+	kiss_hex2edit_new(&hex2edit16, &window1, &D41A0_0.terrain_2FECE.byte_0x2FED3, (char*)"2FED3:", 250, 70, 80);
+	kiss_hex2edit_new(&hex2edit17, &window1, &D41A0_0.terrain_2FECE.MapType, (char*)"DY/NG/CV:", 250, 90, 80);
+	kiss_hex4edit_new(&hex4edit18, &window1, &D41A0_0.terrain_2FECE.word_0x2FED5, (char*)"2FED5:", 250, 110, 80);
+	kiss_hex4edit_new(&hex4edit19, &window1, &D41A0_0.terrain_2FECE.word_0x2FED7, (char*)"2FED7:", 250, 130, 80);
 
-	kiss_hex2edit_new(&hex2edit20, &window1, &D41A0_BYTESTR_0.terrain_2FECE.player_0x2FED9[0], (char*)"D9-0", 250, 150, 40);
-	kiss_hex2edit_new(&hex2edit21, &window1, &D41A0_BYTESTR_0.terrain_2FECE.player_0x2FED9[1], (char*)"D9-1", 385, 150, 40);
-	kiss_hex2edit_new(&hex2edit22, &window1, &D41A0_BYTESTR_0.terrain_2FECE.player_0x2FED9[2], (char*)"D9-2", 250, 170, 40);
-	kiss_hex2edit_new(&hex2edit23, &window1, &D41A0_BYTESTR_0.terrain_2FECE.player_0x2FED9[3], (char*)"D9-3", 385, 170, 40);
-	kiss_hex2edit_new(&hex2edit24, &window1, &D41A0_BYTESTR_0.terrain_2FECE.player_0x2FED9[4], (char*)"D9-4", 250, 190, 40);
-	kiss_hex2edit_new(&hex2edit25, &window1, &D41A0_BYTESTR_0.terrain_2FECE.player_0x2FED9[5], (char*)"D9-5", 385, 190, 40);
-	kiss_hex2edit_new(&hex2edit26, &window1, &D41A0_BYTESTR_0.terrain_2FECE.player_0x2FED9[6], (char*)"D9-6", 250, 210, 40);
-	kiss_hex2edit_new(&hex2edit27, &window1, &D41A0_BYTESTR_0.terrain_2FECE.player_0x2FED9[7], (char*)"D9-7", 385, 210, 40);
+	kiss_hex2edit_new(&hex2edit20, &window1, &D41A0_0.terrain_2FECE.player_0x2FED9[0], (char*)"D9-0", 250, 150, 40);
+	kiss_hex2edit_new(&hex2edit21, &window1, &D41A0_0.terrain_2FECE.player_0x2FED9[1], (char*)"D9-1", 385, 150, 40);
+	kiss_hex2edit_new(&hex2edit22, &window1, &D41A0_0.terrain_2FECE.player_0x2FED9[2], (char*)"D9-2", 250, 170, 40);
+	kiss_hex2edit_new(&hex2edit23, &window1, &D41A0_0.terrain_2FECE.player_0x2FED9[3], (char*)"D9-3", 385, 170, 40);
+	kiss_hex2edit_new(&hex2edit24, &window1, &D41A0_0.terrain_2FECE.player_0x2FED9[4], (char*)"D9-4", 250, 190, 40);
+	kiss_hex2edit_new(&hex2edit25, &window1, &D41A0_0.terrain_2FECE.player_0x2FED9[5], (char*)"D9-5", 385, 190, 40);
+	kiss_hex2edit_new(&hex2edit26, &window1, &D41A0_0.terrain_2FECE.player_0x2FED9[6], (char*)"D9-6", 250, 210, 40);
+	kiss_hex2edit_new(&hex2edit27, &window1, &D41A0_0.terrain_2FECE.player_0x2FED9[7], (char*)"D9-7", 385, 210, 40);
 
 	/*
 	uint16_t word_2FECE;
@@ -3565,14 +3565,14 @@ int main_x(/*int argc, char** argv*/)
 				window1.focus = 0;
 				sprintf(labelIndexWind3.text, "INDEX:%03X", edited_line2_old);
 				//type_str_0x36442 actstage = D41A0_BYTESTR_0.str_2FECE.str_0x36442[edited_line2_old];
-				kiss_hex2edit_update_adress(&hex2edit1check, &D41A0_BYTESTR_0.terrain_2FECE.stages_0x36442[edited_line2_old].index_0);
-				kiss_hex4edit_update_adress(&hex4edit2check, &D41A0_BYTESTR_0.terrain_2FECE.stages_0x36442[edited_line2_old].stage_1);
-				kiss_hex4edit_update_adress(&hex4edit3check, &D41A0_BYTESTR_0.terrain_2FECE.stages_0x36442[edited_line2_old]._axis_2d.x);
-				kiss_hex4edit_update_adress(&hex4edit4check, &D41A0_BYTESTR_0.terrain_2FECE.stages_0x36442[edited_line2_old]._axis_2d.y);
+				kiss_hex2edit_update_adress(&hex2edit1check, &D41A0_0.terrain_2FECE.stages_0x36442[edited_line2_old].index_0);
+				kiss_hex4edit_update_adress(&hex4edit2check, &D41A0_0.terrain_2FECE.stages_0x36442[edited_line2_old].stage_1);
+				kiss_hex4edit_update_adress(&hex4edit3check, &D41A0_0.terrain_2FECE.stages_0x36442[edited_line2_old]._axis_2d.x);
+				kiss_hex4edit_update_adress(&hex4edit4check, &D41A0_0.terrain_2FECE.stages_0x36442[edited_line2_old]._axis_2d.y);
 				changed2 = true;
 				terrainzoomcheck = 4;
-				float cursorpixx = D41A0_BYTESTR_0.terrain_2FECE.stages_0x36442[edited_line2_old]._axis_2d.x;
-				float cursorpixy = D41A0_BYTESTR_0.terrain_2FECE.stages_0x36442[edited_line2_old]._axis_2d.y;
+				float cursorpixx = D41A0_0.terrain_2FECE.stages_0x36442[edited_line2_old]._axis_2d.x;
+				float cursorpixy = D41A0_0.terrain_2FECE.stages_0x36442[edited_line2_old]._axis_2d.y;
 				terrainbeginxcheck = cursorpixx - (terraincheck.rect.w / 2) / (terrainzoomcheck * 2);
 				terrainbeginycheck = cursorpixy - (terraincheck.rect.h / 2) / (terrainzoomcheck * 2);
 			}
@@ -3912,10 +3912,10 @@ int main_x(/*int argc, char** argv*/)
 			if (terevcheck == 20)
 			{
 				//type_str_0x36442 actstage = D41A0_BYTESTR_0.str_2FECE.str_0x36442[edited_line2_old];
-				D41A0_BYTESTR_0.terrain_2FECE.stages_0x36442[edited_line2_old]._axis_2d.x = tersetposx;
-				D41A0_BYTESTR_0.terrain_2FECE.stages_0x36442[edited_line2_old]._axis_2d.y = tersetposy;
-				kiss_hex4edit_update_adress(&hex4edit3check, &D41A0_BYTESTR_0.terrain_2FECE.stages_0x36442[edited_line2_old]._axis_2d.x);
-				kiss_hex4edit_update_adress(&hex4edit4check, &D41A0_BYTESTR_0.terrain_2FECE.stages_0x36442[edited_line2_old]._axis_2d.y);
+				D41A0_0.terrain_2FECE.stages_0x36442[edited_line2_old]._axis_2d.x = tersetposx;
+				D41A0_0.terrain_2FECE.stages_0x36442[edited_line2_old]._axis_2d.y = tersetposy;
+				kiss_hex4edit_update_adress(&hex4edit3check, &D41A0_0.terrain_2FECE.stages_0x36442[edited_line2_old]._axis_2d.x);
+				kiss_hex4edit_update_adress(&hex4edit4check, &D41A0_0.terrain_2FECE.stages_0x36442[edited_line2_old]._axis_2d.y);
 				changed2 = true;
 			}
 			if (terevcheck >= 10)
