@@ -9609,13 +9609,11 @@ void sub_122C0(__int16 a1)//1f32c0
 }
 
 //----- (00012330) --------------------------------------------------------
-void sub_12330(type_event_0x6E8E* a1x, __int16 a2)//1f3330
+void sub_12330(type_event_0x6E8E* event, __int16 a2)//1f3330
 {
 	char v3; // dl
 	unsigned __int8 v7; // dh
 	char v8; // cl
-	bool v9; // zf
-	char v11; // bl
 	v3 = 1;
 	if (!a2)
 	{
@@ -9627,47 +9625,40 @@ void sub_12330(type_event_0x6E8E* a1x, __int16 a2)//1f3330
 		D41A0_0.array_0x365F4[a2].str_0x3647A_2._axis_2d.y++;
 		v7 = D41A0_0.array_0x365F4[a2].stage_0x3647A_1 & 0x60;
 		switch (v7) {
+			case 0x20u:
+			{
+				if (v8 != 3)
+					break;
+				v3 = 0;
+				break;
+			}
 			case 0x40u:
 			{
-				v9 = (v8 & 1) == 0;
-				if (v9)
+				if ((v8 & 1) == 0)
 					break;
 				v3 = 0;
 				break;
 			}
 			case 0x60u:
 			{
-				v9 = (v8 & 3) == 0;
-				if (v9)
+				if ((v8 & 3) == 0)
 					break;
 				v3 = 0;
 				break;
-			}
-			default:
-			{
-				if (v7 < 0x40u)
-				{
-					if (v7 != 0x20 || v8 != 3)
-						break;
-					v3 = 0;
-					break;
-				}
-				break;
-			}
+			}			
 		}
 	}
 	if (!v3)
 	{
-		sub_12470(a1x, 8 * a1x->subtype_0x40_64 + 1);
+		sub_12470(event, 8 * event->subtype_0x40_64 + 1);
 		return;
 	}
-	a1x->byte_0x45_69 = 8 * a1x->subtype_0x40_64 + 7;
-	a1x->byte_0x48_72 = a2;
-	a1x->word_0x4A_74 = 0;
-	v11 = D41A0_0.array_0x365F4[a2].index_0x3647A_0;
-	a1x->byte_0x49_73 = v11;
-	if (v11 == 6)
-		a1x->word_0x4A_74 = D41A0_0.array_0x365F4[a2].str_0x3647C_4.axis.x;
+	event->byte_0x45_69 = 8 * event->subtype_0x40_64 + 7;
+	event->byte_0x48_72 = a2;
+	event->word_0x4A_74 = 0;
+	event->byte_0x49_73 = D41A0_0.array_0x365F4[a2].index_0x3647A_0;
+	if (event->byte_0x49_73 == 6)
+		event->word_0x4A_74 = D41A0_0.array_0x365F4[a2].str_0x3647C_4.axis.x;
 }
 
 //----- (00012410) --------------------------------------------------------
