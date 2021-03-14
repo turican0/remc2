@@ -1026,22 +1026,14 @@ typedef struct {//lenght 8
 typedef union {
 	axis_2du axis;
 	type_event_0x6E8E* pointer_0x6E8E;
-	//uint32_t dword;
 }
 un1;
 
 typedef struct {//lenght 8
-	//uint8_t byte_0;//array_0x36479
 	int8_t index_0x3647A_0;//array_0x3647a
 	int8_t stage_0x3647A_1;//array_0x3647b
 	uaxis_2d str_0x3647A_2;//array_0x3647c//str_0x3647A_2.word
 	un1 str_0x3647C_4;//array_0x3647e
-	/*
-	axis_2d axis;//array_0x3647e
-	type_str_0x6E8E* pointer_0x6E8E;//36484
-	*/
-
-	//type_str_0x6E8E* str_0x3647C;//
 } type_str_0x3647Ac;
 
 typedef struct {//lenght 8

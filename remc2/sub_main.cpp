@@ -39,7 +39,6 @@ void _strupr(char* s)
 #define RELEASE_GAME
 
 //adress 2285ff
-
 #if defined(RELEASE_GAME) //this is standard setting
   #define AUTO_CHANGE_RES
   #define FIX_FLYASISTANT
@@ -78,9 +77,8 @@ int count_begin = 1;//1
 //int debugnextlevel = 0;
 
 bool config_EDITOR = false;
-bool config_LOAD_EDITED_LEVEL = true;
+bool config_LOAD_EDITED_LEVEL = false;
 #define EDITOR
-#define LOAD_EDITED_LEVEL
 
 #define OLD_PARTICLES
 
@@ -7708,7 +7706,7 @@ type_F4FE0 str_F4FE0[70];
 //__int16 x_WORD_F4FE0[0x1a8]; // fix it -  weak
 char x_BYTE_F5340[504]; // idb//2c6340
 uint8_t x_BYTE_F5538[504]; // idb
-int x_DWORD_F5730[504]; // idb
+int32_t x_DWORD_F5730[504]; // idb
 type_particle_str** str_F5F10[504];
 type_particle_str** str_DWORD_F66F0x[504]; // idb//2c76f0 //type_particle_str?
 uint8_t x_BYTE_F6EE0_tablesx[0x14600];// (uint8_t*)&x_BYTE_F6EE0_tablesbuff;//animated sprites
@@ -9248,7 +9246,7 @@ void InitStages2_11EE0()//1f2ee0
 	signed int result; // eax
 	v1x = D41A0_BYTESTR_0.array_0x365F4;//;&x_D41A0_BYTEARRAY_0[0x365F4];
 	D41A0_BYTESTR_0.byte_0x36E00 = 0;
-	memset(v1x, 0, 88);
+	memset(v1x, 0, sizeof(type_str_0x3647Ac) * 11);
 	v2 = 10;
 	while (v2 > 0 && !(D41A0_BYTESTR_0.terrain_2FECE.array_0x3647A[v2].index_0x3647A_0 & 0xF))
 		v2--;
@@ -53829,7 +53827,7 @@ type_event_0x6E8E* NewEvent_4A050()//22b050
 	}
 	if (D41A0_BYTESTR_0.dword_0x11e6 >= 0)
 	{
-		memset(x_D41A0_BYTEARRAY_4_struct.bytearray_38403x, 0, 116);
+		memset(x_D41A0_BYTEARRAY_4_struct.bytearray_38403x, 0, sizeof(type_event_0x6E8E*)*29);//type_event_0x6E8E*
 		x_D41A0_BYTEARRAY_4_struct.dword_38523 = 0;
 		x_D41A0_BYTEARRAY_4_struct.dword_38527 = 0;
 		x_D41A0_BYTEARRAY_4_struct.dword_38519 = 0;
@@ -67295,19 +67293,19 @@ void ClearSettings_567C0()//2377c0 // clean level
 	memset(&D41A0_BYTESTR_0.array_0x2362, 0, sizeof(D41A0_BYTESTR_0.array_0x2362));
 	//clean_x_D41A0_BYTEARRAY_0_0x2362();
 	//memset((void*)(&x_D41A0_BYTEARRAY_0[28302]), 0, 168000);
-	memset(D41A0_BYTESTR_0.struct_0x6E8E, 0, 168000);
+	memset(D41A0_BYTESTR_0.struct_0x6E8E, 0, sizeof(type_event_0x6E8E)*0x3e8);
 
 	memset((void*)(&x_D41A0_BYTEARRAY_4_struct.byteindex_51), 0, 1);
 	memset((void*)(x_D41A0_BYTEARRAY_4_struct.byteindex_121), 0, 16);
 	memset((void*)(&x_D41A0_BYTEARRAY_4_struct.speedIndex), 0, 1);
 	memset((void*)(&x_D41A0_BYTEARRAY_4_struct.byteindex_180), 0, 1);
 	memset((void*)(&x_D41A0_BYTEARRAY_4_struct.str_index_242ar), 0, 14);
-	memset((void*)(x_D41A0_BYTEARRAY_4_struct.bytearray_38403x), 0, 116);
-	memset((void*)(&x_D41A0_BYTEARRAY_4_struct.dword_38519), 0, 4);
-	memset((void*)(&x_D41A0_BYTEARRAY_4_struct.dword_38523), 0, 4);
-	memset((void*)(&x_D41A0_BYTEARRAY_4_struct.dword_38527), 0, 4);
-	memset((void*)(&x_D41A0_BYTEARRAY_4_struct.dword_38531), 0, 4);
-	memset((void*)(&x_D41A0_BYTEARRAY_4_struct.dword_38535), 0, 4);
+	memset((void*)(x_D41A0_BYTEARRAY_4_struct.bytearray_38403x), 0, sizeof(type_event_0x6E8E*)*29);
+	memset((void*)(&x_D41A0_BYTEARRAY_4_struct.dword_38519), 0, sizeof(type_event_0x6E8E*));
+	memset((void*)(&x_D41A0_BYTEARRAY_4_struct.dword_38523), 0, sizeof(type_event_0x6E8E*));
+	memset((void*)(&x_D41A0_BYTEARRAY_4_struct.dword_38527), 0, sizeof(type_event_0x6E8E*));
+	memset((void*)(&x_D41A0_BYTEARRAY_4_struct.dword_38531), 0, sizeof(type_event_0x6E8E*));
+	memset((void*)(&x_D41A0_BYTEARRAY_4_struct.dword_38535), 0, sizeof(type_event_0x6E8E*));
 	memset((void*)mapEntityIndex_15B4E0, 0, 0x20000);
 	memset((void*)x_BYTE_10B4E0_terraintype, 0, 0x10000);
 	memset((void*)x_BYTE_11B4E0_heightmap, 0, 0x10000);
@@ -68894,8 +68892,8 @@ void InitStages_58940()//239940 //init games objectives
 {
 	type_str_2FECE* terrain = &D41A0_BYTESTR_0.terrain_2FECE;
 	D41A0_BYTESTR_0.byte_0x36E01 = 0;
-	memset(D41A0_BYTESTR_0.struct_0x3659C, 0, 88);
-	memset(D41A0_BYTESTR_0.struct_0x3654C, 0, 80);
+	memset(D41A0_BYTESTR_0.struct_0x3659C, 0, sizeof(type_str_3654C)*8);
+	memset(D41A0_BYTESTR_0.struct_0x3654C, 0, sizeof(type_str_3654C)*8);
 	D41A0_BYTESTR_0.terrain_2FECE.word_0x2FED5 = 0;
 	if (x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 0x10)
 	{
@@ -90766,7 +90764,7 @@ void sub_76930_menus_and_intros(int  /*a2*/, uint16_t a3)//257930
 		sub_76A40_lang_setting();
 		x_WORD_E29D8 = 4;
 	}
-	memset(&x_DWORD_17DE38str, 0, 613);
+	memset(&x_DWORD_17DE38str, 0, sizeof(type_x_DWORD_17DE38str));
 	x_DWORD_17DE38str.x_DWORD_17DEE0_filedesc = NULL;
 	sub_7BEC0();//25CEC0 // fix this structure
 	sub_6EDB0_set_mouse_position_by_res();//24FDB0
@@ -91454,7 +91452,7 @@ char /*__fastcall*/ sub_77680(/*int a1, */int  /*a2*/, signed __int16* a3)//2586
 		x_DWORD_17DE38str.x_DWORD_17DEDC = 0;
 		x_DWORD_17DE38str.x_WORD_17DEEE_mouse_buttons = 0;
 		sub_7B5A0_disable_enable();
-		memset(x_DWORD_17DE38str.array_BYTE_17DE68x, 0, 88);
+		memset(x_DWORD_17DE38str.array_BYTE_17DE68x, 0, sizeof(type_BYTE_17DE68x)*8);
 		memset(printbuffer, 0, 80);
 		x_DWORD_17DE38str.x_WORD_17DEF6 = 5;
 		x_DWORD_17DE38str.x_WORD_17DEEC = 0;
@@ -96440,7 +96438,7 @@ signed int sub_7E640(type_WORD_E1F84* a1x)//25f640
 			//*(x_WORD *)((char *)j - 3) = 70;
 			x_WORD_E2970x[jj].word_14 = 70;
 		}
-		memset(&D41A0_BYTESTR_0.array_0x2BDE[D41A0_BYTESTR_0.word_0xc].dword_0x3E6_2BE4_12228.str_611, 0, 505);
+		memset(&D41A0_BYTESTR_0.array_0x2BDE[D41A0_BYTESTR_0.word_0xc].dword_0x3E6_2BE4_12228.str_611, 0, sizeof(type_str_611));
 		sub_86860_speak_Sound(x_WORD_1803EC);
 		sub_7AA70_load_and_decompres_dat_file(dataPath, x_DWORD_17DE38str.x_DWORD_17DE64_game_world_map, 0xB2C44 + 3, 0x87D80 + 3);
 		sub_7AA70_load_and_decompres_dat_file(0, 0, 0, 0);
