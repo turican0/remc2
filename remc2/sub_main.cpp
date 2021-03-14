@@ -77,7 +77,7 @@ int count_begin = 1;//1
 //int debugnextlevel = 0;
 
 bool config_EDITOR = false;
-bool config_LOAD_EDITED_LEVEL = false;
+bool config_LOAD_EDITED_LEVEL = true;
 #define EDITOR
 #define LOAD_EDITED_LEVEL
 
@@ -86,6 +86,7 @@ bool config_LOAD_EDITED_LEVEL = false;
 /*arrays for fix:
 fix memcpy,memset, malloc
 add regressions tests
+find changes x_DWORD_EA3E4[0x30]->word_0x1A_26
 
 fix x_WORD_F4FE0 lenght 6 - ok
 fix sub_4A050_new_event
@@ -1857,7 +1858,7 @@ type_event_0x6E8E* sub_4B240(axis_3d* a1);
 type_event_0x6E8E* AddCreature_4B490(axis_3d* a1);
 type_event_0x6E8E* sub_4B590(axis_3d* a1);
 type_event_0x6E8E* sub_4B6F0(axis_3d* a1);
-type_event_0x6E8E* sub_4BA10(axis_3d* a1);
+type_event_0x6E8E* AddArchers_4BA10(axis_3d* a1);
 type_event_0x6E8E* sub_4BBB0(axis_3d* a1);
 type_event_0x6E8E* sub_4BD00(axis_3d* a1);
 type_event_0x6E8E* sub_4BDF0(axis_3d* a1);
@@ -53675,7 +53676,7 @@ type_event_0x6E8E* pre_sub_4A190_axis_3d(uint32_t adress, axis_3d* a1_axis3d)//p
 		break;
 	}
 	case 0x22ca10: {//get scroll1 //create archers
-		return sub_4BA10(a1_axis3d);
+		return AddArchers_4BA10(a1_axis3d);
 		break;
 	}
 	case 0x22cbb0: {
@@ -59221,44 +59222,37 @@ type_event_0x6E8E* sub_4B6F0(axis_3d* position)//22c6f0
 }
 
 //----- (0004BA10) --------------------------------------------------------
-type_event_0x6E8E* sub_4BA10(axis_3d* position)//22ca10
+type_event_0x6E8E* AddArchers_4BA10(axis_3d* position)//22ca10
 {
-	type_event_0x6E8E* v1x; // eax
-	type_event_0x6E8E* v2x; // ebx
-	int v7; // ecx
-
-	v1x = NewEvent_4A050();
-	v2x = v1x;
-	if (v1x)
+	type_event_0x6E8E* entity = NewEvent_4A050();
+	if (entity)
 	{
-		v1x->byte_0x45_69 = 33;
-		v1x->type_0x3F_63 = 5;
-		v1x->subtype_0x40_64 = 4;
-		v1x->word_0x84_132 = 30;
-		v1x->word_0x86_134 = 0;
-		v1x->dword_0x4 = 1000;
-		v1x->word_0x82_130 = v1x->word_0x84_132;
-		SetEvent144_49C70(v1x);
-		v2x->rand_0x14_20 = 9377 * v2x->rand_0x14_20 + 9439;
-		v2x->word_0x20_32 = (v2x->rand_0x14_20 & 0x7FF) - 1;
-		v2x->word_0x1C_28 = (v2x->rand_0x14_20 & 0x7FF) - 1;
-		v2x->word_0x1E_30 = v2x->word_0x20_32;
-		v2x->word_0x22_34 = 0;
-		v2x->dword_0x10_16 = (v2x - D41A0_0.struct_0x6E8E) % 100;
-		v2x->word_0x2A_42 = 500;
-		v2x->byte_0x38_56 = 1;
-		v2x->dword_0xA0_160x = &str_D7BD6[75]; //(type_str_160*)&unk_D7BD6[0x9f6];
-		v2x->byte_0x3E_62 = D41A0_0.array_0x10[v2x->subtype_0x40_64]++;
-		v7 = v2x->dword_0xA0_160x->word_160_0x1a_26
-			- v2x->byte_0x3E_62 % v2x->dword_0xA0_160x->word_160_0x1a_26;
-		v2x->byte_0x41_65 = 3;
-		v2x->byte_0x39_57 = v7 + 4;
-		AddEventToMap_57D70(v2x, position);
-		CopyEventVar0408_49A20(v2x);
-		SetEntityIndexAndRot_49CD0(v2x, 0);
-		SetEntityShiftRot_49EA0(v2x, 128, 256);
+		entity->byte_0x45_69 = 33;
+		entity->type_0x3F_63 = 5;
+		entity->subtype_0x40_64 = 4;
+		entity->word_0x84_132 = 30;
+		entity->word_0x86_134 = 0;
+		entity->dword_0x4 = 1000;
+		entity->word_0x82_130 = entity->word_0x84_132;
+		SetEvent144_49C70(entity);
+		entity->rand_0x14_20 = 9377 * entity->rand_0x14_20 + 9439;
+		entity->word_0x20_32 = (entity->rand_0x14_20 & 0x7FF) - 1;
+		entity->word_0x1C_28 = (entity->rand_0x14_20 & 0x7FF) - 1;
+		entity->word_0x1E_30 = entity->word_0x20_32;
+		entity->word_0x22_34 = 0;
+		entity->dword_0x10_16 = (entity - D41A0_0.struct_0x6E8E) % 100;
+		entity->word_0x2A_42 = 500;
+		entity->byte_0x38_56 = 1;
+		entity->dword_0xA0_160x = &str_D7BD6[75]; //(type_str_160*)&unk_D7BD6[0x9f6];
+		entity->byte_0x3E_62 = D41A0_0.array_0x10[entity->subtype_0x40_64]++;
+		entity->byte_0x41_65 = 3;
+		entity->byte_0x39_57 = (entity->dword_0xA0_160x->word_160_0x1a_26 - entity->byte_0x3E_62 % entity->dword_0xA0_160x->word_160_0x1a_26) + 4;
+		AddEventToMap_57D70(entity, position);
+		CopyEventVar0408_49A20(entity);
+		SetEntityIndexAndRot_49CD0(entity, 0);
+		SetEntityShiftRot_49EA0(entity, 128, 256);
 	}
-	return v2x;
+	return entity;
 }
 
 //----- (0004BBB0) --------------------------------------------------------
