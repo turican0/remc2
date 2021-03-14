@@ -737,7 +737,7 @@ typedef struct {//size 26
 
 typedef struct {//lenght 14
 	int8_t stuba[4];
-	uint32_t dword_4;
+	int32_t dword_4;
 	uint32_t dword_8;
 	int8_t stubb[2];
 } type_index_242ar;
@@ -1340,7 +1340,10 @@ typedef struct {//size 10 count 8
 } type_str_3654C;
 
 typedef struct {//size 11
-	uint8_t array_0x3659C_byte[3];//objectives 1-active 2-done
+	uint8_t IsLevelEnd_0;
+	uint8_t ObjectiveText_1;
+	uint8_t ObjectiveDone_2;
+	//uint8_t array_0x3659C_byte[3];//objectives 1-active 2-done
 	uint8_t stage_0x3659F[8];
 } type_substr_3659C;
 
@@ -1514,7 +1517,7 @@ typedef struct {//lenght 224791
 	uint8_t stub0[4];
 	uint32_t dword_0x4;
 	uint32_t rand_0x8;
-	int16_t word_0xc;//player_index?
+	int16_t LevelIndex_0xc;//player_index?
 	int16_t word_0xe;
 	uint8_t array_0x10[0x1d]; //0x10, next 0x2d(45)
 	int32_t dword_0x2d;//45

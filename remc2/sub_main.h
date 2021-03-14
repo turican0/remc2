@@ -435,7 +435,7 @@ void sub_49290(type_str_2FECE* terrain, char a2);
 
 void sub_49F30();
 
-void sub_6FC50(__int16 a1);
+void DrawHelpText_6FC50(__int16 a1);
 
 void sub_6EBF0(filearray_struct* a1);
 

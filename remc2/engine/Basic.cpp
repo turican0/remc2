@@ -92,6 +92,7 @@ uint8_t* x_DWORD_E9C38_smalltit;//*(x_DWORD*)(x_DWORD_E9C38_smalltit + 36964)
 int help_VGA_type_resolution = 0;
 
 __int16 x_WORD_180660_VGA_type_resolution; // weak
+//&6 - colors 16 versus 256
 
 //language
 char* x_DWORD_E9C4C_langindexbuffer[1000]; // idb
@@ -942,7 +943,7 @@ int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* a2, int32_t a3, int32_t a4
 		v10 = xy_DWORD_17DED4_spritestr[a8].height;//adress 260da7
 		v11 = v10 + a5;
 		v98 += v10;
-		v12 = sub_5BE80_test_pallette(x_DWORD_17DE38str.x_DWORD_17DE38x, 0, 0, v86);
+		v12 = getPalletteIndex_5BE80(x_DWORD_17DE38str.x_DWORD_17DE38x, 0, 0, v86);
 		v86 = v12;
 		v13 = 6 * (a8 - 1);
 		v14 = xy_DWORD_17DED4_spritestr[v13 / 6].height;
@@ -987,7 +988,7 @@ int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* a2, int32_t a3, int32_t a4
 			{
 				if (a6 && a6 != 4 && a6 != 5)//adress 261091
 				{
-					sub_6FC50(1/*v86*/);
+					DrawHelpText_6FC50(1/*v86*/);
 					v25 = sub_6FC10_letter_width();
 				}
 				else
@@ -1007,7 +1008,7 @@ int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* a2, int32_t a3, int32_t a4
 					{
 						if (a6 == 2)
 						{
-							sub_6FC50(1/*v86*/);
+							DrawHelpText_6FC50(1/*v86*/);
 							v31 = &pdwScreenBuffer[v26 + 640 * a1];
 							for (v32 = 0; v32 < xy_DWORD_17DED4_spritestr[274].height; v32++)
 							{
@@ -1070,7 +1071,7 @@ int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* a2, int32_t a3, int32_t a4
 					{
 						if (!a6)
 						{
-							v27 = sub_5BE80_test_pallette(x_DWORD_17DE38str.x_DWORD_17DE38x, 0, 0, v86);
+							v27 = getPalletteIndex_5BE80(x_DWORD_17DE38str.x_DWORD_17DE38x, 0, 0, v86);
 							v86 = v27;
 							v28 = 6 * (a8 - 1);
 							v29 = xy_DWORD_17DED4_spritestr[v28 / 6].height;
@@ -1116,10 +1117,10 @@ int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* a2, int32_t a3, int32_t a4
 	{
 		if (a6 && a6 != 4)
 		{
-			sub_6FC50(1/*v86*/);
+			DrawHelpText_6FC50(1/*v86*/);
 			if (a6 == 2)
 			{
-				sub_6FC50(1/*v86*/);
+				DrawHelpText_6FC50(1/*v86*/);
 				v58 = (x_BYTE*)(v99 + 640 * a1);
 #ifdef TEST_x64
 	allert_error();
@@ -1148,7 +1149,7 @@ int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* a2, int32_t a3, int32_t a4
 				//HIWORD(v62) = HIWORD(xy_DWORD_17DED4_spritestr);
 				v62 = xy_DWORD_17DED4_spritestr[274].height;
 				v63 = v62 + a1;
-				sub_6FC50(1/*v86*/);
+				DrawHelpText_6FC50(1/*v86*/);
 				v64 = &pdwScreenBuffer[640 * v63 + v61];
 				for (v65 = 0; v65 < xy_DWORD_17DED4_spritestr[274].height; v65++)
 				{
@@ -1248,7 +1249,7 @@ int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* a2, int32_t a3, int32_t a4
 		{
 			if (!a6)
 			{
-				v45 = sub_5BE80_test_pallette(x_DWORD_17DE38str.x_DWORD_17DE38x, 0, 0, v86);
+				v45 = getPalletteIndex_5BE80(x_DWORD_17DE38str.x_DWORD_17DE38x, 0, 0, v86);
 				v86 = v45;
 				v46 = 6 * (a8 - 1);
 				v47 = xy_DWORD_17DED4_spritestr[v46 / 6].height;
@@ -1263,7 +1264,7 @@ int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* a2, int32_t a3, int32_t a4
 				//HIWORD(v50) = HIWORD(xy_DWORD_17DED4_spritestr);
 				v50 = xy_DWORD_17DED4_spritestr[v46 / 6].height;
 				v51 = v50 + a1;
-				v52 = sub_5BE80_test_pallette(x_DWORD_17DE38str.x_DWORD_17DE38x, 0, 0, v86);//?
+				v52 = getPalletteIndex_5BE80(x_DWORD_17DE38str.x_DWORD_17DE38x, 0, 0, v86);//?
 				v86 = v52;
 				v53 = xy_DWORD_17DED4_spritestr[v46 / 6].height;
 				v54 = v91;
@@ -1340,51 +1341,32 @@ void sub_76260_read_intro_pallette(uint8_t  /*a1*/)
 }
 
 //----- (0005BE80) --------------------------------------------------------
-uint8_t sub_5BE80_test_pallette(TColor* pallettex, uint8_t red_color, uint8_t green_color, uint8_t blue_color)//23ce80
+uint8_t getPalletteIndex_5BE80(TColor* pallettex, uint8_t red_color, uint8_t green_color, uint8_t blue_color)//23ce80
 {
-	//uint8_t *v4; // eax
 	uint16_t count_of_colors; // edx
-	int16_t v6; // ecx
-	//uint16_t v7; // edx
-	int16_t v9; // esi
-	int16_t v10; // esi
-	int16_t v11; // edi
-	//unsigned int v12; // [esp+0h] [ebp-8h]
-	uint8_t result; // [esp+4h] [ebp-4h]
-
-	//fix it
-	result = 0;
-	//fix it
-
-	//v4 = pallette;//1a7358
+	int16_t oldPalAmbient; // ecx
+	int16_t newPalAmbient; // esi
+	uint8_t result=0; // [esp+4h] [ebp-4h]
 	uint16_t pallette_index = 0;
 	if (x_WORD_180660_VGA_type_resolution & 6)
 		count_of_colors = 16;
 	else
 		count_of_colors = 256;
-	v6 = 9999;
-	//v12 = count_of_colors;
-	//v7 = 0;
-	//if (count_of_colors > 0)
-	//{
+	oldPalAmbient = 9999;
 	for (uint16_t i = 0; i < count_of_colors; i++)
 	{
-		v9 = green_color - pallettex[pallette_index].green;//eax[1]
-		v10 = (red_color - pallettex[pallette_index].red) * (red_color - pallettex[pallette_index].red) + v9 * v9;
-		v11 = blue_color - pallettex[pallette_index].blue;
-		if (v10 + v11 * v11 < v6)
+		newPalAmbient = (red_color - pallettex[pallette_index].red) * (red_color - pallettex[pallette_index].red) +
+			(green_color - pallettex[pallette_index].green)* (green_color - pallettex[pallette_index].green)+
+			(blue_color - pallettex[pallette_index].blue)* (blue_color - pallettex[pallette_index].blue);
+		if (newPalAmbient < oldPalAmbient)
 		{
-			v6 = v10 + v11 * v11;
+			oldPalAmbient = newPalAmbient;
 			result = i;
 		}
-		//v7++;
-		//pallette_index += 3;
-		pallette_index ++;
-	} //while (v7 < count_of_colors);
-//}
+		pallette_index++;
+	}
 	return result;
 }
-// 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
 //----- (0007C140) --------------------------------------------------------
 void sub_7C140_draw_text_background(int16_t x1, int16_t y1, int16_t x2, int16_t y2, unsigned __int8 a5)//25d140
@@ -1430,7 +1412,7 @@ void sub_7C140_draw_text_background(int16_t x1, int16_t y1, int16_t x2, int16_t 
 }
 
 //----- (0006FC50) --------------------------------------------------------
-void sub_6FC50(__int16 a1)//250c50 //font and graphics init
+void DrawHelpText_6FC50(__int16 a1)//250c50 //font and graphics init
 {
 	//int result; // eax
 	posistruct_t* v2; // edx
@@ -3632,7 +3614,7 @@ void Convert_from_shadow_D41A0_BYTESTR_0(type_shadow_D41A0_BYTESTR_0* from, type
 	for (int i = 0; i < 4; i++)to->stub0[i] = from->stub0[i];
 	to->dword_0x4 = from->dword_0x4;
 	to->rand_0x8 = from->dword_0x8;
-	to->word_0xc = from->word_0xc;
+	to->LevelIndex_0xc = from->word_0xc;
 	to->word_0xe = from->word_0xe;
 	for (int i = 0; i < 0x1d; i++)to->array_0x10[i] = from->array_0x10[i];
 	to->dword_0x2d = from->dword_0x2d;
@@ -3823,7 +3805,7 @@ void Convert_to_shadow_D41A0_BYTESTR_0(type_D41A0_BYTESTR_0* from, type_shadow_D
 	for (int i = 0; i < 4; i++)to->stub0[i] = from->stub0[i];
 	to->dword_0x4 = from->dword_0x4;
 	to->dword_0x8 = from->rand_0x8;
-	to->word_0xc = from->word_0xc;
+	to->word_0xc = from->LevelIndex_0xc;
 	to->word_0xe = from->word_0xe;
 	for (int i = 0; i < 0x1d; i++)to->array_0x10[i] = from->array_0x10[i];
 	to->dword_0x2d = from->dword_0x2d;

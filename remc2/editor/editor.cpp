@@ -401,7 +401,7 @@ void fillterrain(kiss_terrain* terrain, float zoom, int beginx, int beginy) {
 				scrbuff[4 * (j * 512 + i) + 3] = 255;
 			}
 		}
-	for (int i = 0; i < 0x4B0; i++)
+	for (int i = 0; i < 0x4B0; i++)//paths
 	{
 		type_entity_0x30311 actfeat = temparray_0x30311[i];
 		if ((actfeat.type_0x30311 == 0xa) && (actfeat.subtype_0x30311 == 0x1d)&&(actfeat.par1_14>0))
@@ -463,6 +463,154 @@ void fillterrain(kiss_terrain* terrain, float zoom, int beginx, int beginy) {
 				}
 			}
 		}		
+	}
+
+	for (int i = 0; i < 0x4B0; i++)//switches
+	{
+		type_entity_0x30311 actfeat = temparray_0x30311[i];
+		if ((actfeat.DisId > 0) && (
+			((actfeat.type_0x30311 == 0xa) && (actfeat.subtype_0x30311 == 0x01)) ||
+			((actfeat.type_0x30311 == 0xa) && (actfeat.subtype_0x30311 == 0x05)) ||
+			((actfeat.type_0x30311 == 0xa) && (actfeat.subtype_0x30311 == 0x2d))
+			))
+		{
+			type_entity_0x30311* actfeat2=NULL;
+			for (int j = 0; j < 0x4B0; j++)//switches
+			{
+				if ((temparray_0x30311[j].stageTag_12 == actfeat.DisId) && (temparray_0x30311[j].type_0x30311 == 0xb) && (temparray_0x30311[j].subtype_0x30311 == 0x00))
+				{
+					actfeat2 = &temparray_0x30311[j];
+					break;
+				}
+			}
+			if (actfeat2 == NULL)break;
+			int startx = (actfeat.axis2d_4.x - beginx) * (zoom * 2);
+			int starty = (actfeat.axis2d_4.y - beginy) * (zoom * 2);
+			int endx = (actfeat2->axis2d_4.x - beginx) * (zoom * 2);
+			int endy = (actfeat2->axis2d_4.y - beginy) * (zoom * 2);
+			int lenx = abs(startx - endx);
+			int leny = abs(starty - endy);
+			if (lenx > 0 || leny > 0)
+			{
+				float stepx, stepy;
+				if (lenx > leny)
+				{
+					stepy = (endy - starty) / (float)(endx - startx);
+					if (endx > startx)
+						stepx = 1;
+					else
+					{
+						stepx = -1;
+						stepy *= -1;
+					}
+					float acty = starty;
+					for (float actx = startx; abs(endx - actx) > 1.5; actx += stepx)
+					{
+						acty += stepy;
+						if (actx >= 0 && acty >= 0 && actx < 512 && acty < 512)
+						{
+							scrbuff[4 * ((int)acty * 512 + (int)actx)] = 255 - scrbuff[4 * ((int)acty * 512 + (int)actx)];//set invert
+							scrbuff[4 * ((int)acty * 512 + (int)actx) + 1] = 255 - scrbuff[4 * ((int)acty * 512 + (int)actx) + 1];
+							scrbuff[4 * ((int)acty * 512 + (int)actx) + 2] = 0;// 255 - scrbuff[4 * ((int)acty * 512 + (int)actx) + 2];
+						}
+					}
+				}
+				else
+				{
+					stepx = (endx - startx) / (float)(endy - starty);
+					if (endy > starty)
+						stepy = 1;
+					else
+					{
+						stepy = -1;
+						stepx *= -1;
+					}
+					float actx = startx;
+					for (float acty = starty; abs(endy - acty) > 1.5; acty += stepy)
+					{
+						actx += stepx;
+						if (actx >= 0 && acty >= 0 && actx < 512 && acty < 512)
+						{
+							scrbuff[4 * ((int)acty * 512 + (int)actx)] = 255 - scrbuff[4 * ((int)acty * 512 + (int)actx)];//set invert
+							scrbuff[4 * ((int)acty * 512 + (int)actx) + 1] = 255 - scrbuff[4 * ((int)acty * 512 + (int)actx) + 1];
+							scrbuff[4 * ((int)acty * 512 + (int)actx) + 2] = 0;// 255 - scrbuff[4 * ((int)acty * 512 + (int)actx) + 2];
+						}
+					}
+				}
+			}
+		}
+	}
+
+	for (int i = 0; i < 0x4B0; i++)//on same stage
+	{
+		type_entity_0x30311 actfeat = temparray_0x30311[i];
+		if ((actfeat.DisId > 0) && ((actfeat.type_0x30311 == 0x5)))
+		{
+			type_entity_0x30311* actfeat2 = NULL;
+			for (int j = 0; j < 0x4B0; j++)//switches
+			{
+				if ((temparray_0x30311[j].DisId == actfeat.DisId)&& (temparray_0x30311[j].type_0x30311 == 0x5))
+				{
+					actfeat2 = &temparray_0x30311[j];
+					break;
+				}
+			}
+			if (actfeat2 == NULL)break;
+			int startx = (actfeat.axis2d_4.x - beginx) * (zoom * 2);
+			int starty = (actfeat.axis2d_4.y - beginy) * (zoom * 2);
+			int endx = (actfeat2->axis2d_4.x - beginx) * (zoom * 2);
+			int endy = (actfeat2->axis2d_4.y - beginy) * (zoom * 2);
+			int lenx = abs(startx - endx);
+			int leny = abs(starty - endy);
+			if (lenx > 0 || leny > 0)
+			{
+				float stepx, stepy;
+				if (lenx > leny)
+				{
+					stepy = (endy - starty) / (float)(endx - startx);
+					if (endx > startx)
+						stepx = 1;
+					else
+					{
+						stepx = -1;
+						stepy *= -1;
+					}
+					float acty = starty;
+					for (float actx = startx; abs(endx - actx) > 1.5; actx += stepx)
+					{
+						acty += stepy;
+						if (actx >= 0 && acty >= 0 && actx < 512 && acty < 512)
+						{
+							scrbuff[4 * ((int)acty * 512 + (int)actx)] = 255 - scrbuff[4 * ((int)acty * 512 + (int)actx)];//set invert
+							scrbuff[4 * ((int)acty * 512 + (int)actx) + 1] = 0;// 255 - scrbuff[4 * ((int)acty * 512 + (int)actx) + 1];
+							scrbuff[4 * ((int)acty * 512 + (int)actx) + 2] = 255 - scrbuff[4 * ((int)acty * 512 + (int)actx) + 2];
+						}
+					}
+				}
+				else
+				{
+					stepx = (endx - startx) / (float)(endy - starty);
+					if (endy > starty)
+						stepy = 1;
+					else
+					{
+						stepy = -1;
+						stepx *= -1;
+					}
+					float actx = startx;
+					for (float acty = starty; abs(endy - acty) > 1.5; acty += stepy)
+					{
+						actx += stepx;
+						if (actx >= 0 && acty >= 0 && actx < 512 && acty < 512)
+						{
+							scrbuff[4 * ((int)acty * 512 + (int)actx)] = 255 - scrbuff[4 * ((int)acty * 512 + (int)actx)];//set invert
+							scrbuff[4 * ((int)acty * 512 + (int)actx) + 1] = 0;// 255 - scrbuff[4 * ((int)acty * 512 + (int)actx) + 1];
+							scrbuff[4 * ((int)acty * 512 + (int)actx) + 2] = 255 - scrbuff[4 * ((int)acty * 512 + (int)actx) + 2];
+						}
+					}
+				}
+			}
+		}
 	}
 
 	for (int i = 0; i < 0x8; i++)
