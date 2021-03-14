@@ -79,6 +79,7 @@ int count_begin = 1;//1
 bool config_EDITOR = false;
 bool config_LOAD_EDITED_LEVEL = false;
 #define EDITOR
+#define LOAD_EDITED_LEVEL
 
 #define OLD_PARTICLES
 
