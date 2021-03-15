@@ -49924,7 +49924,6 @@ void sub_46830_main_loop(/*int16_t* a1, */signed int a2, unsigned __int16 a3)//2
 		int comp12 = compare_with_snapshot_D41A0((char*)"0160-0022787A", x_D41A0_BYTEARRAY_0, 0x356038, 224790, &origbyte3, &remakebyte3);
 		*/
 		//!!!!test area1
-
 		sub_76930_menus_and_intros(v5, 0/*a1*/);//set language, intro, menu, atd. //257930
 		if (!D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x004_2BE0_11234)
 		{
@@ -90401,6 +90400,9 @@ bool sub_77350_new_game_dialog(type_WORD_E1F84* a1x)//258350
 				&x_DWORD_17DB70str.unk_17DB80,
 				&x_DWORD_17DB70str.x_BYTE_17DB8F,
 				&x_DWORD_17DB70str.unk_17DB90);
+			#ifdef TEST_REGRESSIONS_GAME
+			v1 = 1;
+			#endif
 			if (x_WORD_180660_VGA_type_resolution & 1)
 				sub_90478_VGA_Blit320();
 			else
@@ -93042,6 +93044,11 @@ char /*__fastcall*/ sub_7B250_draw_and_serve(/*int a1, int a2*//*, __int16 a3*/)
 	//fix it
 	v12 = 0;
 	//fix it
+
+	#ifdef TEST_REGRESSIONS_GAME
+	str_E1BAC[0].dword_0 = 0x258350;
+	str_E1BAC[0].word_8 = 1;
+	#endif
 
 	//for (i = off_E1BAC; *((int16_t*)i + 5); i += 44)
 	for (iy = 0; str_E1BAC[iy].xmin_10; iy++)
