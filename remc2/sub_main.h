@@ -435,7 +435,7 @@ int16_t sub_16730(/*int a1,*/ type_str_0x6E8E* a2, char a3); // weak
 int16_t sub_16CA0(baxis_2d* a2, __int16 a3, char a4); // weak
 void sub_17A00(int8_t* a1, signed int a2, __int16 a3); // weak
 int _wcpp_1_unwind_leave__120(int32_t a, int32_t b, int32_t c);// weak
-void sub_1A070(signed int a1, __int16 a2);
+void sub_1A070(signed int a1, __int16 a2, uint16_t screenWidth);
 void JUMPOUT(int* adr);
 void JUMPOUT(int32_t cs, int* adr);
 void JUMPOUT(int32_t cs, int a, int* adr);
