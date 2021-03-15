@@ -34,9 +34,9 @@ void _strupr(char* s)
 //#define SET_OBJECTIVE
 //#define SET_LEVEL
 
-//#define PLAYING_GAME
+#define PLAYING_GAME
 //#define RELEASE_GAME
-#define TEST_REGRESSIONS_GAME
+//#define TEST_REGRESSIONS_GAME
 
 //adress 2285ff
 #if defined(RELEASE_GAME) //this is standard setting
@@ -96180,6 +96180,9 @@ int sub_7EAE0_new_game_draw(int16_t* posx, int16_t* posy, __int16* a3, __int16* 
 								sub_80D40_move_graphics_and_play_sounds(*posx, *posy, unk_E17CC_str_0x194[v44x].word_12_x, unk_E17CC_str_0x194[v44x].word_14_y, unk_E17CC_str_0x194[v44x].byte_18_act);
 								x_DWORD_17DB70str.x_BYTE_17DB8E = 1;
 								x_D41A0_BYTEARRAY_4_struct.levelnumber_43w = v68;
+//#ifdef TEST_REGRESSIONS_GAME
+								//x_D41A0_BYTEARRAY_4_struct.levelnumber_43w = 1;
+//#endif
 								if (unk_E17CC_str_0x194[v44x].byte_18_act == 1)
 									x_D41A0_BYTEARRAY_4_struct.setting_38545 |= 4u;
 								v46x = sub_824B0(x_D41A0_BYTEARRAY_4_struct.levelnumber_43w);
@@ -97719,9 +97722,6 @@ void sub_81EE0_draw_and_sound_dragon_and_fire(__int16 a5, __int16 a6)//262ee0
 //----- (000824B0) --------------------------------------------------------
 type_x_WORD_E2970* sub_824B0(__int16 a1)//2634b0
 {
-	//x_WORD *result; // eax
-
-	//result = x_WORD_E2970;
 	int ri = 0;
 	if (!x_WORD_E2970x[ri].word_12)
 		return 0;
