@@ -34,8 +34,8 @@ void _strupr(char* s)
 //#define SET_OBJECTIVE
 //#define SET_LEVEL
 
-#define PLAYING_GAME
-//#define RELEASE_GAME
+//#define PLAYING_GAME
+#define RELEASE_GAME
 //#define TEST_REGRESSIONS_GAME
 
 //adress 2285ff
