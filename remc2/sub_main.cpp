@@ -67,6 +67,8 @@ void _strupr(char* s)
 	//#define RIGHT_BUTTON
 #endif
 
+#define ANALYZE_ENTITY
+
 #ifdef INTERVAL_SAVE
 int save_debugcounter = 0;
 #endif //INTERVAL_SAVE
@@ -50594,6 +50596,23 @@ void sub_47320_in_game_loop(signed int a1)//228320
 // D41A4: using guessed type int x_DWORD_D41A4;
 // 17DB54: using guessed type int x_DWORD_17DB54_game_turn2;
 
+type_event_0x6E8E OldTestEntity[0x100];
+
+void analyzeEntites() {
+	int lastTempEntity=0;
+	for (type_event_0x6E8E* mx = x_DWORD_EA3E4[1]; mx < x_DWORD_EA3E4[0x3e8]; mx++)
+	{
+		if ((mx->type_0x3F_63 == 0xB) && (mx->subtype_0x40_64 == 0x20))
+		{
+			if (memcmp(&OldTestEntity[lastTempEntity], mx, sizeof(type_event_0x6E8E))!=0)
+			{
+				OldTestEntity[lastTempEntity] = *mx;
+			}
+			lastTempEntity++;
+		}
+	}
+};
+
 void intervalsave(int index) {
 	char outname[512];
 	sprintf(outname, "-%d", index % 5000);
@@ -50699,6 +50718,9 @@ void sub_47560_draw_and_events_in_game(/*uint8_t* a1, int a2, */uint32_t a3, sig
 #ifdef TEST_REGRESSION
 	add_compare(0x002285FF, debugafterload, -1, false, 20);
 #endif //TEST_REGRESSION
+#ifdef ANALYZE_ENTITY
+	analyzeEntites();
+#endif //ANALYZE_ENTITY
 	if (x_D41A0_BYTEARRAY_4_struct.byteindex_10)
 		sub_871F0();
 	//adress 22860f

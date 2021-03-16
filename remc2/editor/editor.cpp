@@ -289,6 +289,59 @@ void terrain_recalculate() {
 	changed = false;
 };
 
+void drawTerrainLine(int startx, int starty, int endx, int endy, uint8_t* scrbuff, char red, char green, char blue) {
+	int lenx = abs(startx - endx);
+	int leny = abs(starty - endy);
+	if (lenx > 0 || leny > 0)
+	{
+		float stepx, stepy;
+		if (lenx > leny)
+		{
+			stepy = (endy - starty) / (float)(endx - startx);
+			if (endx > startx)
+				stepx = 1;
+			else
+			{
+				stepx = -1;
+				stepy *= -1;
+			}
+			float acty = starty;
+			for (float actx = startx; abs(endx - actx) > 1.5; actx += stepx)
+			{
+				acty += stepy;
+				if (actx >= 0 && acty >= 0 && actx < 512 && acty < 512)
+				{
+					scrbuff[4 * ((int)acty * 512 + (int)actx)] = red;
+					scrbuff[4 * ((int)acty * 512 + (int)actx) + 1] = green;
+					scrbuff[4 * ((int)acty * 512 + (int)actx) + 2] = blue;
+				}
+			}
+		}
+		else
+		{
+			stepx = (endx - startx) / (float)(endy - starty);
+			if (endy > starty)
+				stepy = 1;
+			else
+			{
+				stepy = -1;
+				stepx *= -1;
+			}
+			float actx = startx;
+			for (float acty = starty; abs(endy - acty) > 1.5; acty += stepy)
+			{
+				actx += stepx;
+				if (actx >= 0 && acty >= 0 && actx < 512 && acty < 512)
+				{
+					scrbuff[4 * ((int)acty * 512 + (int)actx)] = red;
+					scrbuff[4 * ((int)acty * 512 + (int)actx) + 1] = green;
+					scrbuff[4 * ((int)acty * 512 + (int)actx) + 2] = blue;
+				}
+			}
+		}
+	}
+};
+
 void fillterrain(kiss_terrain* terrain, float zoom, int beginx, int beginy) {
 	uint8_t terrfeatlayer[256 * 256];
 	for (int j = 0; j < 256; j++)
@@ -410,58 +463,7 @@ void fillterrain(kiss_terrain* terrain, float zoom, int beginx, int beginy) {
 			int starty = (actfeat.axis2d_4.y - beginy) * (zoom * 2);
 			int endx = (temparray_0x30311[actfeat.par1_14].axis2d_4.x - beginx) * (zoom * 2);
 			int endy = (temparray_0x30311[actfeat.par1_14].axis2d_4.y - beginy) * (zoom * 2);
-			int lenx = abs(startx - endx);
-			int leny = abs(starty - endy);
-			if (lenx > 0 || leny > 0)
-			{
-				float stepx,stepy;
-				if (lenx > leny)
-				{
-					stepy = (endy - starty) / (float)(endx - startx);
-					if (endx > startx)
-						stepx = 1;
-					else
-					{
-						stepx = -1;
-						stepy *= -1;
-					}
-					float acty = starty;
-					for (float actx = startx; abs(endx - actx) > 1.5; actx += stepx)
-					{
-						acty += stepy;
-						if (actx >= 0 && acty >= 0 && actx < 512 && acty < 512)
-						{
-							scrbuff[4 * ((int)acty * 512 + (int)actx)] = 255;// 255-scrbuff[4 * ((int)acty * 512 + (int)actx)];//set invert
-							scrbuff[4 * ((int)acty * 512 + (int)actx) + 1] = 0;//255 -scrbuff[4 * ((int)acty * 512 + (int)actx) + 1];
-							scrbuff[4 * ((int)acty * 512 + (int)actx) + 2] = 0;//255 -scrbuff[4 * ((int)acty * 512 + (int)actx) + 2];
-							//scrbuff[4 * ((int)acty * 512 + (int)actx) + 3] = 255;
-						}
-					}
-				}
-				else
-				{
-					stepx = (endx - startx) / (float)(endy - starty);
-					if (endy > starty)
-						stepy = 1;
-					else
-					{					
-						stepy = -1;
-						stepx *= -1;
-					}					
-					float actx = startx;
-					for (float acty = starty; abs(endy - acty) > 1.5; acty += stepy)
-					{
-						actx += stepx;
-						if (actx >= 0 && acty >= 0 && actx < 512 && acty < 512)
-						{
-							scrbuff[4 * ((int)acty * 512 + (int)actx)] = 255- scrbuff[4 * ((int)acty * 512 + (int)actx)];//set invert
-							scrbuff[4 * ((int)acty * 512 + (int)actx) + 1] = 255- scrbuff[4 * ((int)acty * 512 + (int)actx) + 1];
-							scrbuff[4 * ((int)acty * 512 + (int)actx) + 2] = 255- scrbuff[4 * ((int)acty * 512 + (int)actx) + 2];
-							//scrbuff[4 * ((int)acty * 512 + (int)actx) + 3] = 255;
-						}
-					}
-				}
-			}
+			drawTerrainLine(startx, starty, endx, endy, scrbuff, 255, 255, 255);
 		}		
 	}
 
@@ -488,56 +490,7 @@ void fillterrain(kiss_terrain* terrain, float zoom, int beginx, int beginy) {
 			int starty = (actfeat.axis2d_4.y - beginy) * (zoom * 2);
 			int endx = (actfeat2->axis2d_4.x - beginx) * (zoom * 2);
 			int endy = (actfeat2->axis2d_4.y - beginy) * (zoom * 2);
-			int lenx = abs(startx - endx);
-			int leny = abs(starty - endy);
-			if (lenx > 0 || leny > 0)
-			{
-				float stepx, stepy;
-				if (lenx > leny)
-				{
-					stepy = (endy - starty) / (float)(endx - startx);
-					if (endx > startx)
-						stepx = 1;
-					else
-					{
-						stepx = -1;
-						stepy *= -1;
-					}
-					float acty = starty;
-					for (float actx = startx; abs(endx - actx) > 1.5; actx += stepx)
-					{
-						acty += stepy;
-						if (actx >= 0 && acty >= 0 && actx < 512 && acty < 512)
-						{
-							scrbuff[4 * ((int)acty * 512 + (int)actx)] = 255 - scrbuff[4 * ((int)acty * 512 + (int)actx)];//set invert
-							scrbuff[4 * ((int)acty * 512 + (int)actx) + 1] = 255 - scrbuff[4 * ((int)acty * 512 + (int)actx) + 1];
-							scrbuff[4 * ((int)acty * 512 + (int)actx) + 2] = 0;// 255 - scrbuff[4 * ((int)acty * 512 + (int)actx) + 2];
-						}
-					}
-				}
-				else
-				{
-					stepx = (endx - startx) / (float)(endy - starty);
-					if (endy > starty)
-						stepy = 1;
-					else
-					{
-						stepy = -1;
-						stepx *= -1;
-					}
-					float actx = startx;
-					for (float acty = starty; abs(endy - acty) > 1.5; acty += stepy)
-					{
-						actx += stepx;
-						if (actx >= 0 && acty >= 0 && actx < 512 && acty < 512)
-						{
-							scrbuff[4 * ((int)acty * 512 + (int)actx)] = 255 - scrbuff[4 * ((int)acty * 512 + (int)actx)];//set invert
-							scrbuff[4 * ((int)acty * 512 + (int)actx) + 1] = 255 - scrbuff[4 * ((int)acty * 512 + (int)actx) + 1];
-							scrbuff[4 * ((int)acty * 512 + (int)actx) + 2] = 0;// 255 - scrbuff[4 * ((int)acty * 512 + (int)actx) + 2];
-						}
-					}
-				}
-			}
+			drawTerrainLine(startx, starty, endx, endy, scrbuff, 255, 255, 0);			
 		}
 	}
 
@@ -563,56 +516,7 @@ void fillterrain(kiss_terrain* terrain, float zoom, int beginx, int beginy) {
 			int starty = (actfeat.axis2d_4.y - beginy) * (zoom * 2);
 			int endx = (actfeat2->axis2d_4.x - beginx) * (zoom * 2);
 			int endy = (actfeat2->axis2d_4.y - beginy) * (zoom * 2);
-			int lenx = abs(startx - endx);
-			int leny = abs(starty - endy);
-			if (lenx > 0 || leny > 0)
-			{
-				float stepx, stepy;
-				if (lenx > leny)
-				{
-					stepy = (endy - starty) / (float)(endx - startx);
-					if (endx > startx)
-						stepx = 1;
-					else
-					{
-						stepx = -1;
-						stepy *= -1;
-					}
-					float acty = starty;
-					for (float actx = startx; abs(endx - actx) > 1.5; actx += stepx)
-					{
-						acty += stepy;
-						if (actx >= 0 && acty >= 0 && actx < 512 && acty < 512)
-						{
-							scrbuff[4 * ((int)acty * 512 + (int)actx)] = 255 - scrbuff[4 * ((int)acty * 512 + (int)actx)];//set invert
-							scrbuff[4 * ((int)acty * 512 + (int)actx) + 1] = 0;// 255 - scrbuff[4 * ((int)acty * 512 + (int)actx) + 1];
-							scrbuff[4 * ((int)acty * 512 + (int)actx) + 2] = 255 - scrbuff[4 * ((int)acty * 512 + (int)actx) + 2];
-						}
-					}
-				}
-				else
-				{
-					stepx = (endx - startx) / (float)(endy - starty);
-					if (endy > starty)
-						stepy = 1;
-					else
-					{
-						stepy = -1;
-						stepx *= -1;
-					}
-					float actx = startx;
-					for (float acty = starty; abs(endy - acty) > 1.5; acty += stepy)
-					{
-						actx += stepx;
-						if (actx >= 0 && acty >= 0 && actx < 512 && acty < 512)
-						{
-							scrbuff[4 * ((int)acty * 512 + (int)actx)] = 255 - scrbuff[4 * ((int)acty * 512 + (int)actx)];//set invert
-							scrbuff[4 * ((int)acty * 512 + (int)actx) + 1] = 0;// 255 - scrbuff[4 * ((int)acty * 512 + (int)actx) + 1];
-							scrbuff[4 * ((int)acty * 512 + (int)actx) + 2] = 255 - scrbuff[4 * ((int)acty * 512 + (int)actx) + 2];
-						}
-					}
-				}
-			}
+			drawTerrainLine(startx, starty, endx, endy, scrbuff, 255, 0, 255);
 		}
 	}
 
@@ -624,8 +528,8 @@ void fillterrain(kiss_terrain* terrain, float zoom, int beginx, int beginy) {
 			type_entity_0x30311* actfeat2 = NULL;
 			for (int j = 0; j < 0x4B0; j++)//switches
 			{
-				if (i>j)
-				if ((temparray_0x30311[j].subtype_0x30311 == actfeat.subtype_0x30311) && (temparray_0x30311[j].type_0x30311 == 0xB))
+				//if (i>j)
+				if ((temparray_0x30311[j].subtype_0x30311 == actfeat.subtype_0x30311) && (temparray_0x30311[j].type_0x30311 == 0xB)&& (temparray_0x30311[j].DisId == actfeat.stageTag_12))
 				{
 					actfeat2 = &temparray_0x30311[j];
 					break;
@@ -636,56 +540,7 @@ void fillterrain(kiss_terrain* terrain, float zoom, int beginx, int beginy) {
 			int starty = (actfeat.axis2d_4.y - beginy) * (zoom * 2);
 			int endx = (actfeat2->axis2d_4.x - beginx) * (zoom * 2);
 			int endy = (actfeat2->axis2d_4.y - beginy) * (zoom * 2);
-			int lenx = abs(startx - endx);
-			int leny = abs(starty - endy);
-			if (lenx > 0 || leny > 0)
-			{
-				float stepx, stepy;
-				if (lenx > leny)
-				{
-					stepy = (endy - starty) / (float)(endx - startx);
-					if (endx > startx)
-						stepx = 1;
-					else
-					{
-						stepx = -1;
-						stepy *= -1;
-					}
-					float acty = starty;
-					for (float actx = startx; abs(endx - actx) > 1.5; actx += stepx)
-					{
-						acty += stepy;
-						if (actx >= 0 && acty >= 0 && actx < 512 && acty < 512)
-						{
-							scrbuff[4 * ((int)acty * 512 + (int)actx)] = 0;//255 - scrbuff[4 * ((int)acty * 512 + (int)actx)];//set invert
-							scrbuff[4 * ((int)acty * 512 + (int)actx) + 1] = 255 - scrbuff[4 * ((int)acty * 512 + (int)actx) + 1];
-							scrbuff[4 * ((int)acty * 512 + (int)actx) + 2] = 255 - scrbuff[4 * ((int)acty * 512 + (int)actx) + 2];
-						}
-					}
-				}
-				else
-				{
-					stepx = (endx - startx) / (float)(endy - starty);
-					if (endy > starty)
-						stepy = 1;
-					else
-					{
-						stepy = -1;
-						stepx *= -1;
-					}
-					float actx = startx;
-					for (float acty = starty; abs(endy - acty) > 1.5; acty += stepy)
-					{
-						actx += stepx;
-						if (actx >= 0 && acty >= 0 && actx < 512 && acty < 512)
-						{
-							scrbuff[4 * ((int)acty * 512 + (int)actx)] = 0;// 255 - scrbuff[4 * ((int)acty * 512 + (int)actx)];//set invert
-							scrbuff[4 * ((int)acty * 512 + (int)actx) + 1] = 255 - scrbuff[4 * ((int)acty * 512 + (int)actx) + 1];
-							scrbuff[4 * ((int)acty * 512 + (int)actx) + 2] = 255 - scrbuff[4 * ((int)acty * 512 + (int)actx) + 2];
-						}
-					}
-				}
-			}
+			drawTerrainLine(startx, starty, endx, endy, scrbuff, 0, 255, 255);
 		}
 	}
 
@@ -747,58 +602,7 @@ void fillterrain(kiss_terrain* terrain, float zoom, int beginx, int beginy) {
 	}
 };
 
-void drawTerrainLine(int startx, int starty, int endx, int endy, uint8_t* scrbuff,char red, char green, char blue) {
-	int lenx = abs(startx - endx);
-	int leny = abs(starty - endy);
-	if (lenx > 0 || leny > 0)
-	{
-		float stepx, stepy;
-		if (lenx > leny)
-		{
-			stepy = (endy - starty) / (float)(endx - startx);
-			if (endx > startx)
-				stepx = 1;
-			else
-			{
-				stepx = -1;
-				stepy *= -1;
-			}
-			float acty = starty;
-			for (float actx = startx; abs(endx - actx) > 1.5; actx += stepx)
-			{
-				acty += stepy;
-				if (actx >= 0 && acty >= 0 && actx < 512 && acty < 512)
-				{
-					scrbuff[4 * ((int)acty * 512 + (int)actx)] = red;
-					scrbuff[4 * ((int)acty * 512 + (int)actx) + 1] = green;
-					scrbuff[4 * ((int)acty * 512 + (int)actx) + 2] = blue;
-				}
-			}
-		}
-		else
-		{
-			stepx = (endx - startx) / (float)(endy - starty);
-			if (endy > starty)
-				stepy = 1;
-			else
-			{
-				stepy = -1;
-				stepx *= -1;
-			}
-			float actx = startx;
-			for (float acty = starty; abs(endy - acty) > 1.5; acty += stepy)
-			{
-				actx += stepx;
-				if (actx >= 0 && acty >= 0 && actx < 512 && acty < 512)
-				{
-					scrbuff[4 * ((int)acty * 512 + (int)actx)] = red;
-					scrbuff[4 * ((int)acty * 512 + (int)actx) + 1] = green;
-					scrbuff[4 * ((int)acty * 512 + (int)actx) + 2] = blue;
-				}
-			}
-		}
-	}
-};
+
 
 void fillterraincheck(float zoom, int beginx, int beginy) {	
 	uint8_t terrchecklayer[256 * 256];
