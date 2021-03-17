@@ -398,8 +398,8 @@ typedef struct {//size 1136
 type_str_164;
 
 typedef struct {//lenght 34
-	int16_t word_160_0x0_0;
-	int16_t word_160_0x2_2;
+	int16_t type_160_0x0_0;
+	int16_t subtype_160_0x2_2;
 	int16_t word_160_0x4_4;
 	int16_t word_160_0x6_6;
 	int16_t word_160_0x8_8;

@@ -551,32 +551,6 @@ void fillterrain(kiss_terrain* terrain, float zoom, int beginx, int beginy) {
 		}
 	}
 
-	/*for (int i = 0; i < 0x4B0; i++)//on same stage
-	{
-		type_entity_0x30311 actfeat = temparray_0x30311[i];
-		if (((actfeat.stageTag_12 > 0) && ((actfeat.type_0x30311 == 0x5)))||
-			((actfeat.stageTag_12 > 0) && ((actfeat.type_0x30311 == 0xb))))
-		{
-			type_entity_0x30311* actfeat2 = NULL;
-			for (int j = 0; j < 0x4B0; j++)//switches
-			{
-				if(i!=j)
-				if (((temparray_0x30311[j].stageTag_12 == actfeat.stageTag_12)&& (temparray_0x30311[j].type_0x30311 == 0x5))||
-					((temparray_0x30311[j].stageTag_12 == actfeat.stageTag_12) && (temparray_0x30311[j].type_0x30311 == 0xB)))
-				{
-					actfeat2 = &temparray_0x30311[j];
-					break;
-				}
-			}
-			if (actfeat2 == NULL)continue;
-			int startx = (actfeat.axis2d_4.x - beginx) * (zoom * 2);
-			int starty = (actfeat.axis2d_4.y - beginy) * (zoom * 2);
-			int endx = (actfeat2->axis2d_4.x - beginx) * (zoom * 2);
-			int endy = (actfeat2->axis2d_4.y - beginy) * (zoom * 2);
-			drawTerrainLine(startx, starty, endx, endy, scrbuff, 255, 0, 255);
-		}
-	}*/
-
 	for (int i = 0; i < 0x4B0; i++)//same B
 	{
 		type_entity_0x30311 actfeat = temparray_0x30311[i];
@@ -587,7 +561,7 @@ void fillterrain(kiss_terrain* terrain, float zoom, int beginx, int beginy) {
 			{
 				//if (i>j)
 				if (/*(temparray_0x30311[j].subtype_0x30311 == actfeat.subtype_0x30311) &&*/
-					//(temparray_0x30311[j].type_0x30311 == 0xB)&&
+					//(temparray_0x30311[j].DisId >1)&&
 					(temparray_0x30311[j].DisId == actfeat.stageTag_12))
 				{
 					actfeat2 = &temparray_0x30311[j];

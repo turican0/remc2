@@ -1999,45 +1999,45 @@ type_event_0x6E8E* sub_50840(axis_3d* a1);
 type_event_0x6E8E* sub_508E0_castle_defend_create(axis_3d* a1);
 type_event_0x6E8E* sub_50960(axis_3d* a1);
 type_event_0x6E8E* sub_50A20(axis_3d* a1);
-type_event_0x6E8E* AddCheckpointXX_50A90(axis_3d* a1, char a2, char a3);
-type_event_0x6E8E* AddCheckpoint00_50AE0(axis_3d* a1);
-type_event_0x6E8E* AddCheckpoint01_50B00(axis_3d* a1);
-type_event_0x6E8E* AddCheckpoint02_50B20(axis_3d* a1);
-type_event_0x6E8E* AddCheckpoint03_50B40(axis_3d* a1);
-type_event_0x6E8E* AddCheckpoint04_50B60(axis_3d* a1);
-type_event_0x6E8E* AddCheckpoint32_50B80(axis_3d* a1);
-type_event_0x6E8E* AddCheckpoint12_50C10(axis_3d* a1);
-type_event_0x6E8E* AddCheckpoint13_50C30(axis_3d* a1);
-type_event_0x6E8E* AddCheckpoint14_50C50(axis_3d* a1);
-type_event_0x6E8E* AddCheckpoint15_50C70(axis_3d* a1);
-type_event_0x6E8E* AddCheckpoint16_50C90(axis_3d* a1);
-type_event_0x6E8E* AddCheckpoint17_50CB0(axis_3d* a1);
-type_event_0x6E8E* AddCheckpoint18_50CD0(axis_3d* a1);
-type_event_0x6E8E* AddCheckpoint19_50CF0(axis_3d* a1);
-type_event_0x6E8E* AddCheckpoint20_50D10(axis_3d* a1);
-type_event_0x6E8E* AddCheckpoint21_50D30(axis_3d* a1);
-type_event_0x6E8E* AddCheckpoint22_50D50(axis_3d* a1);
-type_event_0x6E8E* AddCheckpoint23_50D70(axis_3d* a1);
-type_event_0x6E8E* AddCheckpoint24_50D90(axis_3d* a1);
-type_event_0x6E8E* AddCheckpoint25_50DB0(axis_3d* a1);
-type_event_0x6E8E* AddCheckpoint26_50DD0(axis_3d* a1);
-type_event_0x6E8E* AddCheckpoint27_50DF0(axis_3d* a1);
-type_event_0x6E8E* AddCheckpoint28_50E10(axis_3d* a1);
-type_event_0x6E8E* AddCheckpoint29_50E30(axis_3d* a1);
-type_event_0x6E8E* AddCheckpoint33_50E50(axis_3d* a1);
-type_event_0x6E8E* AddCheckpoint34_50E70(axis_3d* a1);
-type_event_0x6E8E* AddCheckpoint35_50E90(axis_3d* a1);
-type_event_0x6E8E* AddCheckpoint36_50EB0(axis_3d* a1);
-type_event_0x6E8E* AddCheckpoint37_50ED0(axis_3d* a1);
-type_event_0x6E8E* AddCheckpoint38_50EF0(axis_3d* a1);
-type_event_0x6E8E* AddCheckpoint39_50F10(axis_3d* a1);
-type_event_0x6E8E* AddCheckpoint40_50F30(axis_3d* a1);
-type_event_0x6E8E* AddCheckpoint41_50F50(axis_3d* a1);
-type_event_0x6E8E* AddCheckpoint42_50F70(axis_3d* a1);
-type_event_0x6E8E* AddCheckpoint43_50F90(axis_3d* a1);
+type_event_0x6E8E* AddSwitchXX_50A90(axis_3d* a1, char a2, char a3);
+type_event_0x6E8E* AddSwitch00_50AE0(axis_3d* a1);
+type_event_0x6E8E* AddSwitch01_50B00(axis_3d* a1);
+type_event_0x6E8E* AddSwitch02_50B20(axis_3d* a1);
+type_event_0x6E8E* AddSwitch03_50B40(axis_3d* a1);
+type_event_0x6E8E* AddSwitch04_50B60(axis_3d* a1);
+type_event_0x6E8E* AddSwitch32_50B80(axis_3d* a1);
+type_event_0x6E8E* AddSwitch12_50C10(axis_3d* a1);
+type_event_0x6E8E* AddSwitch13_50C30(axis_3d* a1);
+type_event_0x6E8E* AddSwitch14_50C50(axis_3d* a1);
+type_event_0x6E8E* AddSwitch15_50C70(axis_3d* a1);
+type_event_0x6E8E* AddSwitch16_50C90(axis_3d* a1);
+type_event_0x6E8E* AddSwitch17_50CB0(axis_3d* a1);
+type_event_0x6E8E* AddSwitch18_50CD0(axis_3d* a1);
+type_event_0x6E8E* AddSwitch19_50CF0(axis_3d* a1);
+type_event_0x6E8E* AddSwitch20_50D10(axis_3d* a1);
+type_event_0x6E8E* AddSwitch21_50D30(axis_3d* a1);
+type_event_0x6E8E* AddSwitch22_50D50(axis_3d* a1);
+type_event_0x6E8E* AddSwitch23_50D70(axis_3d* a1);
+type_event_0x6E8E* AddSwitch24_50D90(axis_3d* a1);
+type_event_0x6E8E* AddSwitch25_50DB0(axis_3d* a1);
+type_event_0x6E8E* AddSwitch26_50DD0(axis_3d* a1);
+type_event_0x6E8E* AddSwitch27_50DF0(axis_3d* a1);
+type_event_0x6E8E* AddSwitch28_50E10(axis_3d* a1);
+type_event_0x6E8E* AddSwitch29_50E30(axis_3d* a1);
+type_event_0x6E8E* AddSwitch33_50E50(axis_3d* a1);
+type_event_0x6E8E* AddSwitch34_50E70(axis_3d* a1);
+type_event_0x6E8E* AddSwitch35_50E90(axis_3d* a1);
+type_event_0x6E8E* AddSwitch36_50EB0(axis_3d* a1);
+type_event_0x6E8E* AddSwitch37_50ED0(axis_3d* a1);
+type_event_0x6E8E* AddSwitch38_50EF0(axis_3d* a1);
+type_event_0x6E8E* AddSwitch39_50F10(axis_3d* a1);
+type_event_0x6E8E* AddSwitch40_50F30(axis_3d* a1);
+type_event_0x6E8E* AddSwitch41_50F50(axis_3d* a1);
+type_event_0x6E8E* AddSwitch42_50F70(axis_3d* a1);
+type_event_0x6E8E* AddSwitch43_50F90(axis_3d* a1);
 type_event_0x6E8E* addCheckpoint44_50FB0(axis_3d* a1);
-type_event_0x6E8E* AddCheckpoint30_50FD0(axis_3d* a1);
-type_event_0x6E8E* AddCheckpoint31atyp_50FF0(axis_3d* a1);
+type_event_0x6E8E* AddSwitch30_50FD0(axis_3d* a1);
+type_event_0x6E8E* AddSwitch31atyp_50FF0(axis_3d* a1);
 type_event_0x6E8E* AddSpellXX_XX_51120(axis_3d* a1, char a2, char a3);
 type_event_0x6E8E* AddSpell00_00_511A0(axis_3d* a1);
 type_event_0x6E8E* AddSpell01_03_511C0(axis_3d* a1);
@@ -2439,7 +2439,7 @@ void sub_6EDB0_set_mouse_position_by_res();
 void sub_6EDE0_set_mouse_position2(signed __int16 a1, signed __int16 a2);
 //void sub_6EF10_set_mouse_minmax(__int16 a1, signed __int16 a2, __int16 a3, signed __int16 a4);
 type_event_0x6E8E* sub_6F030(type_event_0x6E8E* a1);
-type_event_0x6E8E* sub_6F070(type_event_0x6E8E* a1);
+type_event_0x6E8E* CheckpointArrived_6F070(type_event_0x6E8E* a1);
 void sub_6F0B0(type_event_0x6E8E* a1);
 type_event_0x6E8E* sub_6F100(type_event_0x6E8E* a1);
 type_event_0x6E8E* sub_6F150(type_event_0x6E8E* a1);
@@ -2503,9 +2503,9 @@ void sub_713A0();
 //int sub_71410_process_tmaps_process_tmaps();
 bool sub_71520_mainInitTmaps(unsigned __int16 a1);
 void sub_715B0();
-void sub_716A0();
+void CleanF5538_716A0();
 void sub_716C0(unsigned __int16 a1, unsigned __int16 a2, unsigned __int16 a3);
-void sub_71730(unsigned __int16 a1);
+void SetF5538ByStrTMAP00TAB_71730(unsigned __int16 a1);
 void sub_71780();
 void sub_71890();
 void sub_718F0();
@@ -11191,14 +11191,14 @@ void sub_146F0(type_event_0x6E8E* a1x)//1f56f0
 		v16 = v14 / (((v15 - (my_sign32(v15) << 4) + my_sign32(v15)) >> 4) + 8);
 		//v17 = a1x->dword_0xA0_160;
 		v18 = v16;
-		if ((signed __int16)v16 <= a1x->dword_0xA0_160x->word_160_0x2_2)
+		if ((signed __int16)v16 <= a1x->dword_0xA0_160x->subtype_160_0x2_2)
 		{
 			if ((signed __int16)v16 < a1x->dword_0xA0_160x->word_160_0x4_4)
 				v18 = a1x->dword_0xA0_160x->word_160_0x4_4;
 		}
 		else
 		{
-			v18 = a1x->dword_0xA0_160x->word_160_0x2_2;
+			v18 = a1x->dword_0xA0_160x->subtype_160_0x2_2;
 		}
 		v19 = sub_582F0(a1x->word_0x1C_28, a1x->word_0x20_32) * v18;
 		v20 = a1x->word_0x1C_28;
@@ -16411,7 +16411,7 @@ signed int sub_1B8C0(type_event_0x6E8E* a1x)//1fc8c0
 									a1x->word_0x1C_28,
 									a1x->word_0x20_32,
 									a1x->dword_0xA0_160x->word_160_0x4_4,
-									a1x->dword_0xA0_160x->word_160_0x2_2);
+									a1x->dword_0xA0_160x->subtype_160_0x2_2);
 							v35 &= 0x7ffu;
 							a1x->word_0x1C_28 = v35;
 							result = 3;
@@ -16425,7 +16425,7 @@ signed int sub_1B8C0(type_event_0x6E8E* a1x)//1fc8c0
 								a1x->word_0x1C_28,
 								a1x->word_0x20_32,
 								a1x->dword_0xA0_160x->word_160_0x4_4,
-								a1x->dword_0xA0_160x->word_160_0x2_2);
+								a1x->dword_0xA0_160x->subtype_160_0x2_2);
 						v28 &= 0x7ffu;
 						a1x->word_0x1C_28 = v28;
 						result = 3;
@@ -16439,7 +16439,7 @@ signed int sub_1B8C0(type_event_0x6E8E* a1x)//1fc8c0
 							a1x->word_0x1C_28,
 							a1x->word_0x20_32,
 							a1x->dword_0xA0_160x->word_160_0x4_4,
-							a1x->dword_0xA0_160x->word_160_0x2_2);
+							a1x->dword_0xA0_160x->subtype_160_0x2_2);
 					v20 &= 0x7ffu;
 					a1x->word_0x1C_28 = v20;
 					result = 3;
@@ -16453,7 +16453,7 @@ signed int sub_1B8C0(type_event_0x6E8E* a1x)//1fc8c0
 						a1x->word_0x1C_28,
 						a1x->word_0x20_32,
 						a1x->dword_0xA0_160x->word_160_0x4_4,
-						a1x->dword_0xA0_160x->word_160_0x2_2);
+						a1x->dword_0xA0_160x->subtype_160_0x2_2);
 				v11 &= 0x7ffu;
 				v12 = a1x->struct_byte_0xc_12_15.byte[2] & 0xFB;
 				a1x->word_0x1C_28 = v11;
@@ -16469,7 +16469,7 @@ signed int sub_1B8C0(type_event_0x6E8E* a1x)//1fc8c0
 					a1x->word_0x1C_28,
 					a1x->word_0x20_32,
 					a1x->dword_0xA0_160x->word_160_0x4_4,
-					a1x->dword_0xA0_160x->word_160_0x2_2);
+					a1x->dword_0xA0_160x->subtype_160_0x2_2);
 			v9 &= 0x7ffu;
 			a1x->struct_byte_0xc_12_15.byte[2] &= 0xFBu;
 			a1x->word_0x1C_28 = v9;
@@ -28551,7 +28551,7 @@ char sub_2AF10(type_event_0x6E8E* a1x, char a2)//20bf10
 					a1x->word_0x1C_28,
 					a1x->word_0x20_32,
 					a1x->dword_0xA0_160x->word_160_0x4_4,
-					a1x->dword_0xA0_160x->word_160_0x2_2);
+					a1x->dword_0xA0_160x->subtype_160_0x2_2);
 			HIBYTE(v5) &= 7u;
 			a1x->word_0x1C_28 = v5;
 		}
@@ -53728,143 +53728,143 @@ type_event_0x6E8E* pre_sub_4A190_axis_3d(uint32_t adress, axis_3d* a1_axis3d)//p
 					 break;
 				 }*/
 	case 0x231ae0: {// 1 instance in level 21
-		return AddCheckpoint00_50AE0(a1_axis3d);
+		return AddSwitch00_50AE0(a1_axis3d);
 		break;
 	}
 	case 0x231b00: {// 1 instance in level 1
-		return AddCheckpoint01_50B00(a1_axis3d);//0B-01,0B-00
+		return AddSwitch01_50B00(a1_axis3d);//0B-01,0B-00
 		break;
 	}
 	case 0x231b20: {
-		return AddCheckpoint02_50B20(a1_axis3d);
+		return AddSwitch02_50B20(a1_axis3d);
 		break;
 	}
 	case 0x231b40: {
-		return AddCheckpoint03_50B40(a1_axis3d);
+		return AddSwitch03_50B40(a1_axis3d);
 		break;
 	}
 	case 0x231b60: {// 1 instance in level 1
-		return AddCheckpoint04_50B60(a1_axis3d);
+		return AddSwitch04_50B60(a1_axis3d);
 		break;
 	}
 	case 0x231b80: {
-		return AddCheckpoint32_50B80(a1_axis3d);
+		return AddSwitch32_50B80(a1_axis3d);
 		break;
 	}
 	case 0x231c10: {
-		return AddCheckpoint12_50C10(a1_axis3d);
+		return AddSwitch12_50C10(a1_axis3d);
 		break;
 	}
 	case 0x231c30: {
-		return AddCheckpoint13_50C30(a1_axis3d);
+		return AddSwitch13_50C30(a1_axis3d);
 		break;
 	}
 	case 0x231c50: {
-		return AddCheckpoint14_50C50(a1_axis3d);
+		return AddSwitch14_50C50(a1_axis3d);
 		break;
 	}
 	case 0x231c70: {
-		return AddCheckpoint15_50C70(a1_axis3d);
+		return AddSwitch15_50C70(a1_axis3d);
 		break;
 	}
 	case 0x231c90: {
-		return AddCheckpoint16_50C90(a1_axis3d);
+		return AddSwitch16_50C90(a1_axis3d);
 		break;
 	}
 	case 0x231cb0: {//get scroll2
-		return AddCheckpoint17_50CB0(a1_axis3d);
+		return AddSwitch17_50CB0(a1_axis3d);
 		break;
 	}
 	case 0x231cd0: {
-		return AddCheckpoint18_50CD0(a1_axis3d);
+		return AddSwitch18_50CD0(a1_axis3d);
 		break;
 	}
 	case 0x231cf0: {
-		return AddCheckpoint19_50CF0(a1_axis3d);
+		return AddSwitch19_50CF0(a1_axis3d);
 		break;
 	}
 	case 0x231d10: {
-		return AddCheckpoint20_50D10(a1_axis3d);
+		return AddSwitch20_50D10(a1_axis3d);
 		break;
 	}
 	case 0x231d30: {
-		return AddCheckpoint21_50D30(a1_axis3d);
+		return AddSwitch21_50D30(a1_axis3d);
 		break;
 	}
 	case 0x231d50: {
-		return AddCheckpoint22_50D50(a1_axis3d);
+		return AddSwitch22_50D50(a1_axis3d);
 		break;
 	}
 	case 0x231d70: {
-		return AddCheckpoint23_50D70(a1_axis3d);
+		return AddSwitch23_50D70(a1_axis3d);
 		break;
 	}
 	case 0x231d90: {
-		return AddCheckpoint24_50D90(a1_axis3d);
+		return AddSwitch24_50D90(a1_axis3d);
 		break;
 	}
 	case 0x231db0: {
-		return AddCheckpoint25_50DB0(a1_axis3d);
+		return AddSwitch25_50DB0(a1_axis3d);
 		break;
 	}
 	case 0x231dd0: {
-		return AddCheckpoint26_50DD0(a1_axis3d);
+		return AddSwitch26_50DD0(a1_axis3d);
 		break;
 	}
 	case 0x231df0: {
-		return AddCheckpoint27_50DF0(a1_axis3d);
+		return AddSwitch27_50DF0(a1_axis3d);
 		break;
 	}
 	case 0x231e10: {
-		return AddCheckpoint28_50E10(a1_axis3d);
+		return AddSwitch28_50E10(a1_axis3d);
 		break;
 	}
 	case 0x231e30: {
-		return AddCheckpoint29_50E30(a1_axis3d);
+		return AddSwitch29_50E30(a1_axis3d);
 		break;
 	}
 	case 0x231e50: {
-		return AddCheckpoint33_50E50(a1_axis3d);
+		return AddSwitch33_50E50(a1_axis3d);
 		break;
 	}
 	case 0x231e70: {
-		return AddCheckpoint34_50E70(a1_axis3d);
+		return AddSwitch34_50E70(a1_axis3d);
 		break;
 	}
 	case 0x231e90: {
-		return AddCheckpoint35_50E90(a1_axis3d);
+		return AddSwitch35_50E90(a1_axis3d);
 		break;
 	}
 	case 0x231eb0: {
-		return AddCheckpoint36_50EB0(a1_axis3d);
+		return AddSwitch36_50EB0(a1_axis3d);
 		break;
 	}
 	case 0x231ed0: {
-		return AddCheckpoint37_50ED0(a1_axis3d);
+		return AddSwitch37_50ED0(a1_axis3d);
 		break;
 	}
 	case 0x231ef0: {
-		return AddCheckpoint38_50EF0(a1_axis3d);
+		return AddSwitch38_50EF0(a1_axis3d);
 		break;
 	}
 	case 0x231f10: {
-		return AddCheckpoint39_50F10(a1_axis3d);
+		return AddSwitch39_50F10(a1_axis3d);
 		break;
 	}
 	case 0x231f30: {
-		return AddCheckpoint40_50F30(a1_axis3d);
+		return AddSwitch40_50F30(a1_axis3d);
 		break;
 	}
 	case 0x231f50: {
-		return AddCheckpoint41_50F50(a1_axis3d);
+		return AddSwitch41_50F50(a1_axis3d);
 		break;
 	}
 	case 0x231f70: {
-		return AddCheckpoint42_50F70(a1_axis3d);
+		return AddSwitch42_50F70(a1_axis3d);
 		break;
 	}
 	case 0x231f90: {
-		return AddCheckpoint43_50F90(a1_axis3d);
+		return AddSwitch43_50F90(a1_axis3d);
 		break;
 	}
 	case 0x231fb0: {
@@ -53872,11 +53872,11 @@ type_event_0x6E8E* pre_sub_4A190_axis_3d(uint32_t adress, axis_3d* a1_axis3d)//p
 		break;
 	}
 	case 0x231fd0: {
-		return AddCheckpoint30_50FD0(a1_axis3d);
+		return AddSwitch30_50FD0(a1_axis3d);
 		break;
 	}
 	case 0x231ff0: {
-		return AddCheckpoint31atyp_50FF0(a1_axis3d);
+		return AddSwitch31atyp_50FF0(a1_axis3d);
 		break;
 	}
 				 /*case 0x232120: {
@@ -57598,7 +57598,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E)//pre 22b1
 		break;
 	}
 	case 0x250070: {
-		sub_6F070(a1_6E8E);
+		CheckpointArrived_6F070(a1_6E8E);
 		break;
 	}
 	case 0x2500b0: {
@@ -57788,29 +57788,23 @@ int debugcounter_0022B25D = 0;
 //----- (0004A1E0) --------------------------------------------------------
 void sub_4A1E0(int a1, char a2)//22b1e0
 {
-	int v3x;
-	int iy;
-
 	if (!a1)
 	{
 		D41A0_0.str_0x364D2.dword_0x364D2 = 0;
 		memset(D41A0_0.str_0x364D2.dword_0x364D6, 0, 104);
-		sub_716A0();
-		v3x = 1;
-		while (v3x < 0x4b0)
+		CleanF5538_716A0();
+		for (int v3x = 1; v3x < 0x4b0; v3x++)
 		{
 #ifdef DEBUG_SEQUENCES
 			//add_compare(0x22b21a, debugafterload);//0x9ac
 #endif //DEBUG_SEQUENCES			
 			sub_716C0(D41A0_0.terrain_2FECE.entity_0x30311[v3x].type_0x30311, D41A0_0.terrain_2FECE.entity_0x30311[v3x].subtype_0x30311, 0xFFFFu);
-			v3x++;
 		}
 		sub_71780();
 	}
 	sub_49F90();
 	sub_122C0(a1);//adress 22b257
-
-	for (iy = 1; iy < 0x4b0; iy++)
+	for (int iy = 1; iy < 0x4b0; iy++)
 	{
 		//adress 22b26e
 #ifdef DEBUG_SEQUENCES
@@ -57831,8 +57825,6 @@ void sub_4A1E0(int a1, char a2)//22b1e0
 	sub_12870();
 	D41A0_0.dword_0x11e6 = -1;
 }
-// 8C250: using guessed type x_DWORD memset(x_DWORD, x_DWORD, x_DWORD);
-// D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
 
 //----- (0004A310) --------------------------------------------------------
 void sub_4A310(type_entity_0x30311* entity)//22b310
@@ -61948,7 +61940,7 @@ type_event_0x6E8E* sub_50A20(axis_3d* position)//231a20
 // D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
 
 //----- (00050A90) --------------------------------------------------------
-type_event_0x6E8E* AddCheckpointXX_50A90(axis_3d* position, char a2, char a3)//231a90 - add spell
+type_event_0x6E8E* AddSwitchXX_50A90(axis_3d* position, char a2, char a3)//231a90 - add spell
 {
 	type_event_0x6E8E* event = NewEvent_4A050();
 	if (event)
@@ -61966,234 +61958,234 @@ type_event_0x6E8E* AddCheckpointXX_50A90(axis_3d* position, char a2, char a3)//2
 }
 
 //----- (00050AE0) --------------------------------------------------------
-type_event_0x6E8E* AddCheckpoint00_50AE0(axis_3d* position)//231ae0
+type_event_0x6E8E* AddSwitch00_50AE0(axis_3d* position)//231ae0
 {
-	return AddCheckpointXX_50A90(position, 0, 0);
+	return AddSwitchXX_50A90(position, 0, 0);
 }
 
 //----- (00050B00) --------------------------------------------------------
-type_event_0x6E8E* AddCheckpoint01_50B00(axis_3d* position)//231b00
+type_event_0x6E8E* AddSwitch01_50B00(axis_3d* position)//231b00
 {
-	return AddCheckpointXX_50A90(position, 1, 1);
+	return AddSwitchXX_50A90(position, 1, 1);
 }
 
 //----- (00050B20) --------------------------------------------------------
-type_event_0x6E8E* AddCheckpoint02_50B20(axis_3d* position)//231b20
+type_event_0x6E8E* AddSwitch02_50B20(axis_3d* position)//231b20
 {
-	return AddCheckpointXX_50A90(position, 2, 2);
+	return AddSwitchXX_50A90(position, 2, 2);
 }
 
 //----- (00050B40) --------------------------------------------------------
-type_event_0x6E8E* AddCheckpoint03_50B40(axis_3d* position)//231b40
+type_event_0x6E8E* AddSwitch03_50B40(axis_3d* position)//231b40
 {
-	return AddCheckpointXX_50A90(position, 3, 3);
+	return AddSwitchXX_50A90(position, 3, 3);
 }
 
 //----- (00050B60) --------------------------------------------------------
-type_event_0x6E8E* AddCheckpoint04_50B60(axis_3d* position)//231b60
+type_event_0x6E8E* AddSwitch04_50B60(axis_3d* position)//231b60
 {
-	return AddCheckpointXX_50A90(position, 4, 4);
+	return AddSwitchXX_50A90(position, 4, 4);
 }
 
 //----- (00050B80) --------------------------------------------------------
-type_event_0x6E8E* AddCheckpoint32_50B80(axis_3d* a1x)//231b80
+type_event_0x6E8E* AddSwitch32_50B80(axis_3d* a1x)//231b80
 {
-	return AddCheckpointXX_50A90(a1x, 32, 32);
+	return AddSwitchXX_50A90(a1x, 32, 32);
 }
 
 //----- (00050C10) --------------------------------------------------------
-type_event_0x6E8E* AddCheckpoint12_50C10(axis_3d* position)//231c10
+type_event_0x6E8E* AddSwitch12_50C10(axis_3d* position)//231c10
 {
-	return AddCheckpointXX_50A90(position, 12, 12);
+	return AddSwitchXX_50A90(position, 12, 12);
 }
 
 //----- (00050C30) --------------------------------------------------------
-type_event_0x6E8E* AddCheckpoint13_50C30(axis_3d* a1x)//231c30
+type_event_0x6E8E* AddSwitch13_50C30(axis_3d* a1x)//231c30
 {
-	return AddCheckpointXX_50A90(a1x, 13, 13);
+	return AddSwitchXX_50A90(a1x, 13, 13);
 }
 
 //----- (00050C50) --------------------------------------------------------
-type_event_0x6E8E* AddCheckpoint14_50C50(axis_3d* position)//231c50
+type_event_0x6E8E* AddSwitch14_50C50(axis_3d* position)//231c50
 {
-	return AddCheckpointXX_50A90(position, 14, 14);
+	return AddSwitchXX_50A90(position, 14, 14);
 }
 
 //----- (00050C70) --------------------------------------------------------
-type_event_0x6E8E* AddCheckpoint15_50C70(axis_3d* position)//231c70
+type_event_0x6E8E* AddSwitch15_50C70(axis_3d* position)//231c70
 {
-	return AddCheckpointXX_50A90(position, 15, 15);
+	return AddSwitchXX_50A90(position, 15, 15);
 }
 
 //----- (00050C90) --------------------------------------------------------
-type_event_0x6E8E* AddCheckpoint16_50C90(axis_3d* position)//231c90
+type_event_0x6E8E* AddSwitch16_50C90(axis_3d* position)//231c90
 {
-	return AddCheckpointXX_50A90(position, 16, 16);
+	return AddSwitchXX_50A90(position, 16, 16);
 }
 
 //----- (00050CB0) --------------------------------------------------------
-type_event_0x6E8E* AddCheckpoint17_50CB0(axis_3d* position)//231cb0
+type_event_0x6E8E* AddSwitch17_50CB0(axis_3d* position)//231cb0
 {
-	return AddCheckpointXX_50A90(position, 17, 17);
+	return AddSwitchXX_50A90(position, 17, 17);
 }
 
 //----- (00050CD0) --------------------------------------------------------
-type_event_0x6E8E* AddCheckpoint18_50CD0(axis_3d* position)//231cd0
+type_event_0x6E8E* AddSwitch18_50CD0(axis_3d* position)//231cd0
 {
-	return AddCheckpointXX_50A90(position, 18, 18);
+	return AddSwitchXX_50A90(position, 18, 18);
 }
 
 //----- (00050CF0) --------------------------------------------------------
-type_event_0x6E8E* AddCheckpoint19_50CF0(axis_3d* position)//231cf0
+type_event_0x6E8E* AddSwitch19_50CF0(axis_3d* position)//231cf0
 {
-	return AddCheckpointXX_50A90(position, 19, 19);
+	return AddSwitchXX_50A90(position, 19, 19);
 }
 
 //----- (00050D10) --------------------------------------------------------
-type_event_0x6E8E* AddCheckpoint20_50D10(axis_3d* position)//231d10
+type_event_0x6E8E* AddSwitch20_50D10(axis_3d* position)//231d10
 {
-	return AddCheckpointXX_50A90(position, 20, 20);
+	return AddSwitchXX_50A90(position, 20, 20);
 }
 
 //----- (00050D30) --------------------------------------------------------
-type_event_0x6E8E* AddCheckpoint21_50D30(axis_3d* position)//231d30
+type_event_0x6E8E* AddSwitch21_50D30(axis_3d* position)//231d30
 {
-	return AddCheckpointXX_50A90(position, 21, 21);
+	return AddSwitchXX_50A90(position, 21, 21);
 }
 
 //----- (00050D50) --------------------------------------------------------
-type_event_0x6E8E* AddCheckpoint22_50D50(axis_3d* position)//231d50
+type_event_0x6E8E* AddSwitch22_50D50(axis_3d* position)//231d50
 {
-	return AddCheckpointXX_50A90(position, 22, 22);
+	return AddSwitchXX_50A90(position, 22, 22);
 }
 
 //----- (00050D70) --------------------------------------------------------
-type_event_0x6E8E* AddCheckpoint23_50D70(axis_3d* position)//231d70
+type_event_0x6E8E* AddSwitch23_50D70(axis_3d* position)//231d70
 {
-	return AddCheckpointXX_50A90(position, 23, 23);
+	return AddSwitchXX_50A90(position, 23, 23);
 }
 
 //----- (00050D90) --------------------------------------------------------
-type_event_0x6E8E* AddCheckpoint24_50D90(axis_3d* position)//231d90
+type_event_0x6E8E* AddSwitch24_50D90(axis_3d* position)//231d90
 {
-	return AddCheckpointXX_50A90(position, 24, 24);
+	return AddSwitchXX_50A90(position, 24, 24);
 }
 
 //----- (00050DB0) --------------------------------------------------------
-type_event_0x6E8E* AddCheckpoint25_50DB0(axis_3d* a1x)//231db0
+type_event_0x6E8E* AddSwitch25_50DB0(axis_3d* a1x)//231db0
 {
-	return AddCheckpointXX_50A90(a1x, 25, 25);
+	return AddSwitchXX_50A90(a1x, 25, 25);
 }
 
 //----- (00050DD0) --------------------------------------------------------
-type_event_0x6E8E* AddCheckpoint26_50DD0(axis_3d* position)//231dd0
+type_event_0x6E8E* AddSwitch26_50DD0(axis_3d* position)//231dd0
 {
-	return AddCheckpointXX_50A90(position, 26, 26);
+	return AddSwitchXX_50A90(position, 26, 26);
 }
 
 //----- (00050DF0) --------------------------------------------------------
-type_event_0x6E8E* AddCheckpoint27_50DF0(axis_3d* position)//231df0
+type_event_0x6E8E* AddSwitch27_50DF0(axis_3d* position)//231df0
 {
-	return AddCheckpointXX_50A90(position, 27, 27);
+	return AddSwitchXX_50A90(position, 27, 27);
 }
 
 //----- (00050E10) --------------------------------------------------------
-type_event_0x6E8E* AddCheckpoint28_50E10(axis_3d* position)//231e10
+type_event_0x6E8E* AddSwitch28_50E10(axis_3d* position)//231e10
 {
-	return AddCheckpointXX_50A90(position, 28, 28);
+	return AddSwitchXX_50A90(position, 28, 28);
 }
 
 //----- (00050E30) --------------------------------------------------------
-type_event_0x6E8E* AddCheckpoint29_50E30(axis_3d* position)//231e30
+type_event_0x6E8E* AddSwitch29_50E30(axis_3d* position)//231e30
 {
-	return AddCheckpointXX_50A90(position, 29, 29);
+	return AddSwitchXX_50A90(position, 29, 29);
 }
 
 //----- (00050E50) --------------------------------------------------------
-type_event_0x6E8E* AddCheckpoint33_50E50(axis_3d* position)//231e50
+type_event_0x6E8E* AddSwitch33_50E50(axis_3d* position)//231e50
 {
-	return AddCheckpointXX_50A90(position, 33, 33);
+	return AddSwitchXX_50A90(position, 33, 33);
 }
 
 //----- (00050E70) --------------------------------------------------------
-type_event_0x6E8E* AddCheckpoint34_50E70(axis_3d* position)//231e70
+type_event_0x6E8E* AddSwitch34_50E70(axis_3d* position)//231e70
 {
-	return AddCheckpointXX_50A90(position, 34, 34);
+	return AddSwitchXX_50A90(position, 34, 34);
 }
 
 //----- (00050E90) --------------------------------------------------------
-type_event_0x6E8E* AddCheckpoint35_50E90(axis_3d* position)//231e90
+type_event_0x6E8E* AddSwitch35_50E90(axis_3d* position)//231e90
 {
-	return AddCheckpointXX_50A90(position, 35, 35);
+	return AddSwitchXX_50A90(position, 35, 35);
 }
 
 //----- (00050EB0) --------------------------------------------------------
-type_event_0x6E8E* AddCheckpoint36_50EB0(axis_3d* position)//231eb0
+type_event_0x6E8E* AddSwitch36_50EB0(axis_3d* position)//231eb0
 {
-	return AddCheckpointXX_50A90(position, 36, 36);
+	return AddSwitchXX_50A90(position, 36, 36);
 }
 
 //----- (00050ED0) --------------------------------------------------------
-type_event_0x6E8E* AddCheckpoint37_50ED0(axis_3d* position)//231ed0
+type_event_0x6E8E* AddSwitch37_50ED0(axis_3d* position)//231ed0
 {
-	return AddCheckpointXX_50A90(position, 37, 37);
+	return AddSwitchXX_50A90(position, 37, 37);
 }
 
 //----- (00050EF0) --------------------------------------------------------
-type_event_0x6E8E* AddCheckpoint38_50EF0(axis_3d* position)//231ef0
+type_event_0x6E8E* AddSwitch38_50EF0(axis_3d* position)//231ef0
 {
-	return AddCheckpointXX_50A90(position, 38, 38);
+	return AddSwitchXX_50A90(position, 38, 38);
 }
 
 //----- (00050F10) --------------------------------------------------------
-type_event_0x6E8E* AddCheckpoint39_50F10(axis_3d* position)//231f10
+type_event_0x6E8E* AddSwitch39_50F10(axis_3d* position)//231f10
 {
-	return AddCheckpointXX_50A90(position, 39, 39);
+	return AddSwitchXX_50A90(position, 39, 39);
 }
 
 //----- (00050F30) --------------------------------------------------------
-type_event_0x6E8E* AddCheckpoint40_50F30(axis_3d* position)//231f30
+type_event_0x6E8E* AddSwitch40_50F30(axis_3d* position)//231f30
 {
-	return AddCheckpointXX_50A90(position, 40, 40);
+	return AddSwitchXX_50A90(position, 40, 40);
 }
 
 //----- (00050F50) --------------------------------------------------------
-type_event_0x6E8E* AddCheckpoint41_50F50(axis_3d* position)//231f50
+type_event_0x6E8E* AddSwitch41_50F50(axis_3d* position)//231f50
 {
-	return AddCheckpointXX_50A90(position, 41, 41);
+	return AddSwitchXX_50A90(position, 41, 41);
 }
 
 //----- (00050F70) --------------------------------------------------------
-type_event_0x6E8E* AddCheckpoint42_50F70(axis_3d* position)//231f70
+type_event_0x6E8E* AddSwitch42_50F70(axis_3d* position)//231f70
 {
-	return AddCheckpointXX_50A90(position, 42, 42);
+	return AddSwitchXX_50A90(position, 42, 42);
 }
 
 //----- (00050F90) --------------------------------------------------------
-type_event_0x6E8E* AddCheckpoint43_50F90(axis_3d* position)//231f90
+type_event_0x6E8E* AddSwitch43_50F90(axis_3d* position)//231f90
 {
-	return AddCheckpointXX_50A90(position, 43, 43);
+	return AddSwitchXX_50A90(position, 43, 43);
 }
 
 //----- (00050FB0) --------------------------------------------------------
 type_event_0x6E8E* addCheckpoint44_50FB0(axis_3d* position)//231fb0
 {
-	return AddCheckpointXX_50A90(position, 44, 44);
+	return AddSwitchXX_50A90(position, 44, 44);
 }
 
 //----- (00050FD0) --------------------------------------------------------
-type_event_0x6E8E* AddCheckpoint30_50FD0(axis_3d* position)//231fd0
+type_event_0x6E8E* AddSwitch30_50FD0(axis_3d* position)//231fd0
 {
-	return AddCheckpointXX_50A90(position, 30, 30);
+	return AddSwitchXX_50A90(position, 30, 30);
 }
 
 //----- (00050FF0) --------------------------------------------------------
-type_event_0x6E8E* AddCheckpoint31atyp_50FF0(axis_3d* position)//231ff0
+type_event_0x6E8E* AddSwitch31atyp_50FF0(axis_3d* position)//231ff0
 {
 	type_event_0x6E8E* event = 0;
 	if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 0x10) && !(x_D41A0_BYTEARRAY_4_struct.setting_38545 & 8))
 	{
-		event = AddCheckpointXX_50A90(position, 31, 31);
+		event = AddSwitchXX_50A90(position, 31, 31);
 		if (event)
 		{
 			D41A0_0.byte_0x36E02 = 1;
@@ -66457,35 +66449,15 @@ void ClearSettings_567C0()//2377c0 // clean level
 // D41A4: using guessed type int x_DWORD_D41A4;
 // E9C38: using guessed type int x_DWORD_E9C38_smalltit;
 
-int debugcounter_237a30 = 0;
-
 //----- (00056A30) --------------------------------------------------------
 void sub_56A30_init_game_level(unsigned int a1)//237a30
 {
-	char temp_x_BYTE_E3799_sound_card; // bl
-
 #ifdef MOUSE_OFF
 	mouseturnoff = true;
 #endif
-
 #ifdef SET_LEVEL
 	x_D41A0_BYTEARRAY_4_struct.levelnumber_43 = 1;
 #endif
-
-	//fix
-	//int16_t saved_x_WORD_180660_VGA_type_resolution = x_WORD_180660_VGA_type_resolution;
-	//x_WORD_180660_VGA_type_resolution = 1;
-	//fix
-
-	//uint8_t* v2; // eax
-	//uint8_t* v3; // ST08_4
-	/*
-	uint8_t origbyte20 = 0;
-	uint8_t remakebyte20 = 0;
-	int comp20 = compare_with_sequence_D41A0_4((char*)"00237A30-0038CF50", (uint8_t*)&x_D41A0_BYTEARRAY_4_struct, 0x38cf50, debugcounter_237a30, 0x94c, &origbyte20, &remakebyte20);
-	comp20 = compare_with_sequence_D41A0((char*)"00237A30-00356038", (uint8_t*)&D41A0_BYTESTR_0, 0x356038, debugcounter_237a30, 224790, &origbyte20, &remakebyte20);
-	debugcounter_237a30++;
-	*/
 #ifdef DEBUG_START
 	debug_printf("sub_56A30_init_game_level:before sub_6EB90\n");
 #endif //DEBUG_START
@@ -66495,8 +66467,7 @@ void sub_56A30_init_game_level(unsigned int a1)//237a30
 #ifdef DEBUG_START
 	debug_printf("sub_56A30_init_game_level:sub_6EB90 passed\n");
 #endif //DEBUG_START
-
-	temp_x_BYTE_E3799_sound_card = x_BYTE_E3799_sound_card;
+	char temp_x_BYTE_E3799_sound_card = x_BYTE_E3799_sound_card;
 	x_BYTE_E3799_sound_card = 0;
 	ClearSettings_567C0();
 	if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 8))
@@ -66512,45 +66483,27 @@ void sub_56A30_init_game_level(unsigned int a1)//237a30
 	}
 	sub_54660_read_and_decompress_sky_and_blocks(D41A0_0.terrain_2FECE.MapType, x_BYTE_D41B5_texture_size);//235660
 	sub_54800_read_and_decompress_tables(D41A0_0.terrain_2FECE.MapType);//235800
-
 	//237ab3
-	//comp20 = compare_with_sequence_D41A0((char*)"00237AB3", (uint8_t*)& D41A0_BYTESTR_0, 0x356038, debugcounter11, 224790, &origbyte20, &remakebyte20);
-	/*uint8_t origbyte4 = 0;
-	uint8_t remakebyte4 = 0;
-	int comp14 = compare_with_snapshot_D41A0((char*)"0160-00237AB3", x_D41A0_BYTEARRAY_0, 0x356038, 224790, &origbyte4, &remakebyte4);
-	*/
-	/*comp20 = compare_with_sequence((char*)"00237AB3", (uint8_t*)x_BYTE_10B4E0_terraintype, 0x2dc4e0, debugcounter11, 0x70000, 0x10000, &origbyte20, &remakebyte20);
-	comp20 = compare_with_sequence((char*)"00237AB3", (uint8_t*)x_BYTE_11B4E0_height, 0x2dc4e0, debugcounter11, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x10000);
-	comp20 = compare_with_sequence((char*)"00237AB3", (uint8_t*)x_BYTE_12B4E0_shading, 0x2dc4e0, debugcounter11, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x20000);
-	comp20 = compare_with_sequence((char*)"00237AB3", (uint8_t*)x_BYTE_13B4E0_angle, 0x2dc4e0, debugcounter11, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x30000);
-	//comp20 = compare_with_sequence((char*)"00237AB3", (uint8_t*)x_BYTE_14B4E0, 0x2dc4e0, debugcounter11, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x40000);
-	comp20 = compare_with_sequence((char*)"00237AB3", (uint8_t*)x_WORD_15B4E0_source, 0x2dc4e0, debugcounter11, 0x70000, 0x20000, &origbyte20, &remakebyte20, 0x50000);
-	*/
 	if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 0x10))
-		//*(x_WORD *)(x_D41A0_BYTEARRAY_0 + 14) = *(x_WORD *)(x_D41A0_BYTEARRAY_0 + 196311);
 		D41A0_0.word_0xe = D41A0_0.terrain_2FECE.word_0x2FED7;
 	PrintTextMessage_70910((char*)"Generate map\0");
 	if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 4))
 		GenerateLevelMap_43830(a1, &D41A0_0.terrain_2FECE);
 	sub_49F30();//prepare events pointers
-
 	//237B05
 #ifdef DEBUG_SEQUENCES
 	//add_compare(0x237B05, debugafterload);
 #endif //DEBUG_SEQUENCES
-
 	PrintTextMessage_70910((char*)"Generate features\0");
 	if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 4))
 		sub_49270_generate_level_features(&D41A0_0.terrain_2FECE);
 	PrintTextMessage_70910((char*)"Initialise Models\0");
 	memset(&x_WORD_EB398ar, 0, 6);
 	sub_49F90();
-
 	//adress 237B55
 #ifdef DEBUG_SEQUENCES
 	add_compare(0x237B55, debugafterload);
 #endif //DEBUG_SEQUENCES
-
 	D41A0_0.dword_0x11e6 = -1;
 	sub_71A70_setTmaps(D41A0_0.terrain_2FECE.MapType);
 	//adress 237b75
@@ -66564,7 +66517,6 @@ void sub_56A30_init_game_level(unsigned int a1)//237a30
 #ifdef DEBUG_SEQUENCES
 	add_compare(0x237BB0, debugafterload);
 #endif //DEBUG_SEQUENCES
-
 #ifdef SET_OBJECTIVE
 	D41A0_BYTESTR_0.struct_0x3659C[0].substr_3659C.stage_0x3659F[0] = 2;
 	D41A0_BYTESTR_0.struct_0x3659C[0].substr_3659C.stage_0x3659F[1] = 2;
@@ -66575,39 +66527,23 @@ void sub_56A30_init_game_level(unsigned int a1)//237a30
 	//D41A0_BYTESTR_0.struct_0x3654C[0].str_3654E_word2 = 40;
 	//D41A0_BYTESTR_0.struct_0x3654C[0].str_36550_word4 = 40;
 #endif
-
 	sub_4A1E0(0, 1);
 	//adress 237bb9
 #ifdef DEBUG_SEQUENCES
 	add_compare(0x237bb9, debugafterload);
 #endif //DEBUG_SEQUENCES
-
 	x_BYTE_E3799_sound_card = temp_x_BYTE_E3799_sound_card;
 	sub_53160();
 	//adress 237bc7
 #ifdef DEBUG_SEQUENCES
 	add_compare(0x237BC7, debugafterload);
 #endif //DEBUG_SEQUENCES
-	//fixed v3 = x_DWORD_EA3E4[*(unsigned __int16 *)(2124 * D41A0_BYTESTR_0.word_0xc + x_D41A0_BYTEARRAY_0 + 11240)];
 	//adress 237beb
-
 	sub_60F00();
-
 #ifdef DEBUG_SEQUENCES
 	add_compare(0x237BF0, debugafterload);
 #endif //DEBUG_SEQUENCES
-
-	//fix
-	//x_WORD_180660_VGA_type_resolution = saved_x_WORD_180660_VGA_type_resolution;
-	//fix
 }
-// 8C250: using guessed type x_DWORD memset(x_DWORD, x_DWORD, x_DWORD);
-// D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
-// D41A4: using guessed type int x_DWORD_D41A4;
-// D41B5: using guessed type char x_BYTE_D41B5;
-// E3799: using guessed type char x_BYTE_E3799_sound_card;
-// EA3E4: using guessed type int x_DWORD_EA3E4[];
-// EB398: using guessed type __int16 x_WORD_EB398;
 
 //----- (00056C00) --------------------------------------------------------
 void sub_56C00_sound_proc2(type_str_2FECE* a1x)//237c00
@@ -78449,7 +78385,7 @@ void sub_65610(type_event_0x6E8E* a1x, type_event_0x6E8E* a2x)//246610
 	//v4 = a1x->dword_0xA0_160;
 	a1x->word_0x22_34 = v3;
 	v5 = v2x->word_0x1C_28
-		+ sub_58350(v2x->word_0x1C_28, v2x->word_0x20_32, a1x->dword_0xA0_160x->word_160_0x4_4, a1x->dword_0xA0_160x->word_160_0x2_2);
+		+ sub_58350(v2x->word_0x1C_28, v2x->word_0x20_32, a1x->dword_0xA0_160x->word_160_0x4_4, a1x->dword_0xA0_160x->subtype_160_0x2_2);
 	HIBYTE(v5) &= 7u;
 	//v6 = a1x->dword_0xA0_160;
 	a1x->word_0x1C_28 = v5;
@@ -78476,7 +78412,7 @@ __int16 sub_656D0(type_event_0x6E8E* a1x, type_event_0x6E8E* a2x)//2466d0
 	//v4 = a1x->dword_0xA0_160;
 	a1x->word_0x22_34 = v3;
 	v5 = v2x->word_0x1C_28
-		+ sub_58350(v2x->word_0x1C_28, v2x->word_0x20_32, a1x->dword_0xA0_160x->word_160_0x4_4, a1x->dword_0xA0_160x->word_160_0x2_2);
+		+ sub_58350(v2x->word_0x1C_28, v2x->word_0x20_32, a1x->dword_0xA0_160x->word_160_0x4_4, a1x->dword_0xA0_160x->subtype_160_0x2_2);
 	HIBYTE(v5) &= 7u;
 	//v6 = a1x->dword_0xA0_160;
 	a1x->word_0x1C_28 = v5;
@@ -79625,7 +79561,7 @@ void sub_66D00(type_event_0x6E8E* a1x)//247d00
 			a1x->word_0x1C_28,
 			a1x->word_0x20_32,
 			a1x->dword_0xA0_160x->word_160_0x4_4,
-			a1x->dword_0xA0_160x->word_160_0x2_2);
+			a1x->dword_0xA0_160x->subtype_160_0x2_2);
 	HIBYTE(v3) &= 7u;
 	a1x->word_0x1C_28 = v3;
 	v4 = a1x->word_0x1E_30
@@ -85381,17 +85317,15 @@ type_event_0x6E8E* sub_6F030(type_event_0x6E8E* a1x)//250030
 }
 
 //----- (0006F070) --------------------------------------------------------
-type_event_0x6E8E* sub_6F070(type_event_0x6E8E* a1x)//250070
+type_event_0x6E8E* CheckpointArrived_6F070(type_event_0x6E8E* event)//250070
 {
-	type_event_0x6E8E* resultx; // eax
-
-	resultx = sub_6F850(a1x, 0);
-	if (resultx)
+	type_event_0x6E8E* event2 = sub_6F850(event, 0);
+	if (event2)
 	{
-		sub_4A1E0(a1x->word_0x1A_26, 1);
-		SetEntity04_57F10(a1x);
+		sub_4A1E0(event->word_0x1A_26, 1);
+		SetEntity04_57F10(event);
 	}
-	return resultx;
+	return event2;
 }
 
 //----- (0006F0B0) --------------------------------------------------------
@@ -86742,7 +86676,7 @@ void sub_713A0()//2523a0
 {
 	sub_720C0(&x_DWORD_E9C28_str);
 	sub_72550(&x_DWORD_E9C08x);
-	sub_716A0();
+	CleanF5538_716A0();
 	memset(str_DWORD_F66F0x, 0, 504 * sizeof(type_particle_str**));
 	memset(str_F5F10, 0, 504 * sizeof(type_particle_str**));
 	memset(x_DWORD_F5730, 0, 2016);
@@ -86900,47 +86834,24 @@ void sub_715B0()//2525b0
 // F6ED0: using guessed type int TMAPS00TAB_BEGIN_BUFFER;
 
 //----- (000716A0) --------------------------------------------------------
-void sub_716A0()//2526a0
+void CleanF5538_716A0()//2526a0
 {
 	memset(x_BYTE_F5538, 0, 504);
 }
-// 8C250: using guessed type x_DWORD memset(x_DWORD, x_DWORD, x_DWORD);
 
-int debugcounter26 = 0;
 //----- (000716C0) --------------------------------------------------------
-void sub_716C0(unsigned __int16 a1, unsigned __int16 a2, unsigned __int16 a3)//2526c0
+void sub_716C0(unsigned __int16 entityType, unsigned __int16 entitySubtype, unsigned __int16 a3)//2526c0
 {
-	//type_str_160* indexx; // eax
 	int16_t* v4; // ebx
-	//int16_t v4y;
 	int16_t v5; // cx
-	//int v4z;
-
-	if (debugcounter26 >= 306)
-	{
-		//myprintf("i:%d,", debugcounter26);
-	}
-	debugcounter26++;
-
-	//indexx = &str_D7BD6[0]; //(int16_t*)&unk_D7BD6;
 	int index_int = 0;
 	v4 = 0;
-	//v4z = -1;
-	while (str_D7BD6[index_int].word_160_0x0_0 >= 0)
+	while (str_D7BD6[index_int].type_160_0x0_0 >= 0)
 	{
-		if (str_D7BD6[index_int].word_160_0x0_0 == a1 && str_D7BD6[index_int].word_160_0x2_2 == a2)
-			//v4 = &index[2];
-			//v4y = str_D7BD6[index_int].word_160_0x4_4;
-			//v4z = index_int;
+		if (str_D7BD6[index_int].type_160_0x0_0 == entityType && str_D7BD6[index_int].subtype_160_0x2_2 == entitySubtype)
 			v4 = &str_D7BD6[index_int].word_160_0x4_4;
 		index_int++;
 	}
-	/*while (index[0] >= 0)
-	{
-		if (index[0] == a1 && index[1] == a2)
-			v4 = &index[2];
-		index += 17;
-	}*/
 	if (v4)//maybe this must be fixed
 	{
 		while (1)
@@ -86949,34 +86860,22 @@ void sub_716C0(unsigned __int16 a1, unsigned __int16 a2, unsigned __int16 a3)//2
 			if ((v4[0] & 0x8000u) != 0)
 				break;
 			v4++;
-			sub_71730(v5);
+			SetF5538ByStrTMAP00TAB_71730(v5);
 		}
 	}
 	else if ((a3 & 0x8000u) == 0)
 	{
-		sub_71730(a3);
+		SetF5538ByStrTMAP00TAB_71730(a3);
 	}
-	//return result;
 }
 
 //----- (00071730) --------------------------------------------------------
-void sub_71730(unsigned __int16 a1)//252730
+void SetF5538ByStrTMAP00TAB_71730(unsigned __int16 a1)//252730
 {
-	type_WORD_D951C* v1x; // eax
-	//char v2; // bl
-	//int result; // eax
-
-	v1x = &str_WORD_D951C[a1];
-	//v2 = *((x_BYTE *)v1 + 11);
-	//result = *(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER + 10 * (unsigned __int16)*v1 + 8);
-	x_BYTE_F5538[str_TMAPS00TAB_BEGIN_BUFFER[v1x->word_0].word_8] = v1x->byte_11;
-	//return result;
+	x_BYTE_F5538[str_TMAPS00TAB_BEGIN_BUFFER[str_WORD_D951C[a1].word_0].word_8] = str_WORD_D951C[a1].byte_11;
 }
-// D951C: using guessed type __int16 x_WORD_D951C[];
-// F6ED0: using guessed type int TMAPS00TAB_BEGIN_BUFFER;
 
 //----- (00071780) --------------------------------------------------------
-int debugcounter23 = 0;
 void sub_71780()//252780
 {
 	unsigned __int16 v0; // bx
@@ -87015,11 +86914,6 @@ void sub_71780()//252780
 				else
 				{
 					//adress 25283c
-					if (debugcounter23 >= 0x4)//0x234c//0x057e
-					{
-						//myprintf("i:%d,", debugcounter23);
-					}
-					debugcounter23++;
 					InitTmaps(j);
 				}
 			}
