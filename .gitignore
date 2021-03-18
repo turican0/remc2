@@ -25,6 +25,9 @@
 **/remc2.exe
 **/remc2.exp
 **/remc2.lib
+**/remc2_without_xcopy.exe
+**/remc2_without_xcopy.exp
+**/remc2_without_xcopy.lib
 /packages
 **/Netherw
 /debug.txt
