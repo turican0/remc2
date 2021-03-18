@@ -1855,7 +1855,7 @@ type_event_0x6E8E* AddPlayer_4A920(axis_3d* a1);
 type_event_0x6E8E* sub_4A9C0(axis_3d* a1);
 type_event_0x6E8E* sub_4AA40(axis_3d* a1);
 type_event_0x6E8E* sub_4ABA0(axis_3d* a1);
-type_event_0x6E8E* sub_4AC40(axis_3d* a1);
+type_event_0x6E8E* AddTree_4AC40(axis_3d* a1);
 type_event_0x6E8E* sub_4AD70(axis_3d* a1);
 type_event_0x6E8E* AddDolmen_4ADF0(axis_3d* a1);
 type_event_0x6E8E* sub_4AE80(axis_3d* a1);
@@ -1904,7 +1904,7 @@ type_event_0x6E8E* sub_4D860(axis_3d* a1);
 type_event_0x6E8E* sub_4D900(axis_3d* a1);
 type_event_0x6E8E* sub_4D990(axis_3d* a1);
 type_event_0x6E8E* sub_4DA20(axis_3d* a1);
-type_event_0x6E8E* sub_4DAB0(axis_3d* a1);
+type_event_0x6E8E* AddEvent09_0D_4DAB0(axis_3d* a1);
 type_event_0x6E8E* sub_4DBC0(axis_3d* a1);
 type_event_0x6E8E* sub_4DC40(axis_3d* a1);
 type_event_0x6E8E* sub_4DCC0(axis_3d* a1);
@@ -53123,7 +53123,7 @@ type_event_0x6E8E* pre_sub_4A190_axis_3d(uint32_t adress, axis_3d* a1_axis3d)//p
 		break;
 	}
 	case 0x22bc40: {
-		return sub_4AC40(a1_axis3d);
+		return AddTree_4AC40(a1_axis3d);
 		break;
 	}
 	case 0x22bd70: {
@@ -53323,7 +53323,7 @@ type_event_0x6E8E* pre_sub_4A190_axis_3d(uint32_t adress, axis_3d* a1_axis3d)//p
 		break;
 	}
 	case 0x22eab0: {
-		return sub_4DAB0(a1_axis3d);
+		return AddEvent09_0D_4DAB0(a1_axis3d);
 		break;
 	}
 	case 0x22ebc0: {
@@ -58261,49 +58261,36 @@ type_event_0x6E8E* sub_4ABA0(axis_3d* position)//22bba0 //Spawn Creature 3?
 }
 
 //----- (0004AC40) --------------------------------------------------------
-type_event_0x6E8E* sub_4AC40(axis_3d* position)//22bc40 Spawn ??
+type_event_0x6E8E* AddTree_4AC40(axis_3d* position)//22bc40 Spawn ??
 {
-	type_event_0x6E8E* resultx; // eax
-	type_event_0x6E8E* v2x; // ebx
-	//unsigned __int16 v3; // ax
-	int v4; // eax
-	axis_3d v5x; // [esp+0h] [ebp-Ch]
-	type_event_0x6E8E* v7x; // [esp+8h] [ebp-4h]
-
-	resultx = NewEvent_4A050();
-	v2x = resultx;
-	v7x = resultx;
-	if (resultx)
+	type_event_0x6E8E* event = NewEvent_4A050();
+	if (event)
 	{
-		resultx->byte_0x45_69 = 0;
-		resultx->type_0x3F_63 = 2;
-		resultx->subtype_0x40_64 = 0;
-		resultx->dword_0x10_16 = (resultx - D41A0_0.struct_0x6E8E) % 11;
-		resultx->rand_0x14_20 = 9377 * resultx->rand_0x14_20 + 9439;
-		//v3 = resultx->rand_0x14_20;
-		v2x->byte_0x38_56 = 1;
-		v2x->dword_0x8 = resultx->rand_0x14_20 % 0x1388u + 2500;
-		v5x = *position;
-		v2x->rand_0x14_20 = 9377 * v2x->rand_0x14_20 + 9439;
-		v5x.x += (v2x->rand_0x14_20 & 0x3F) - 32;
-		v2x->rand_0x14_20 = 9377 * v2x->rand_0x14_20 + 9439;
-		v5x.y += (v2x->rand_0x14_20 & 0x3F) - 32;
-		AddEventToMap_57D70(v2x, &v5x);
-		CopyEventVar0408_49A20(v2x);
-		v2x->rand_0x14_20 = 9377 * v2x->rand_0x14_20 + 9439;
-		v4 = v2x->rand_0x14_20 & 1;
-		if (v4)
+		event->byte_0x45_69 = 0;
+		event->type_0x3F_63 = 2;
+		event->subtype_0x40_64 = 0;
+		event->dword_0x10_16 = (event - D41A0_0.struct_0x6E8E) % 11;
+		event->rand_0x14_20 = 9377 * event->rand_0x14_20 + 9439;
+		event->byte_0x38_56 = 1;
+		event->dword_0x8 = event->rand_0x14_20 % 0x1388u + 2500;
+		event->rand_0x14_20 = 9377 * event->rand_0x14_20 + 9439;
+		position->x += (event->rand_0x14_20 & 0x3F) - 32;
+		event->rand_0x14_20 = 9377 * event->rand_0x14_20 + 9439;
+		position->y += (event->rand_0x14_20 & 0x3F) - 32;
+		AddEventToMap_57D70(event, position);
+		CopyEventVar0408_49A20(event);
+		event->rand_0x14_20 = 9377 * event->rand_0x14_20 + 9439;
+		if (event->rand_0x14_20 & 1)
 		{
-			if (v4 == 1)
-				SetHalfSpeedEntity_49DA0(v2x, 84);
+			if ((event->rand_0x14_20 & 1) == 1)
+				SetHalfSpeedEntity_49DA0(event, 84);
 		}
 		else
 		{
-			SetHalfSpeedEntity_49DA0(v2x, 83);
+			SetHalfSpeedEntity_49DA0(event, 83);
 		}
-		resultx = v7x;
 	}
-	return resultx;
+	return event;
 }
 
 //----- (0004AD70) --------------------------------------------------------
@@ -59872,14 +59859,14 @@ type_event_0x6E8E* sub_4DA20(axis_3d* position)//22ea20
 }
 
 //----- (0004DAB0) --------------------------------------------------------
-type_event_0x6E8E* sub_4DAB0(axis_3d* position)//22eab0
+type_event_0x6E8E* AddEvent09_0D_4DAB0(axis_3d* position)//22eab0
 {
 	type_event_0x6E8E* event = NewEvent_4A050();
 	if (event)
 	{
-		event->byte_0x45_69 = 13;
+		event->byte_0x45_69 = 0xD;
 		event->type_0x3F_63 = 9;
-		event->subtype_0x40_64 = 13;
+		event->subtype_0x40_64 = 0xD;
 		event->word_0x82_130 = 384;
 		event->word_0x84_132 = 384;
 		event->dword_0x4 = 5120 / event->word_0x82_130;

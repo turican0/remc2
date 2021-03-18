@@ -59,7 +59,7 @@ typedef struct {
 
 TypePos RelPos[21];
 
-void SetPixelMapSurface(int x,int y,int nx,int ny,uint8_t* adress) {
+void SetPixelMapSurface(int x,int y,int nx,int ny,uint8_t* adress, SDL_Surface* mapsurface) {
 	if (nx < 0 || nx>255 || ny < 0 || ny>255)
 	{
 		uint8_t* scrbuff = (uint8_t*)mapsurface->pixels;
@@ -71,42 +71,6 @@ void SetPixelMapSurface(int x,int y,int nx,int ny,uint8_t* adress) {
 	}
 	int color = adress[nx+ny* 256];
 	uint8_t* scrbuff = (uint8_t*)mapsurface->pixels;
-	scrbuff[4 * (y * 512 + x)] = color;
-	scrbuff[4 * (y * 512 + x) + 1] = color;
-	scrbuff[4 * (y * 512 + x) + 2] = color;
-	scrbuff[4 * (y * 512 + x) + 3] = 255;
-}
-
-void SetPixelMapSurfacefeat(int x, int y, int nx, int ny, uint8_t* adress) {
-	if (nx < 0 || nx>255 || ny < 0 || ny>255)
-	{
-		uint8_t* scrbuff = (uint8_t*)mapsurfacefeat->pixels;
-		scrbuff[4 * (y * 512 + x)] = 255;
-		scrbuff[4 * (y * 512 + x) + 1] = 0;
-		scrbuff[4 * (y * 512 + x) + 2] = 0;
-		scrbuff[4 * (y * 512 + x) + 3] = 255;
-		return;
-	}
-	int color = adress[nx + ny * 256];
-	uint8_t* scrbuff = (uint8_t*)mapsurfacefeat->pixels;
-	scrbuff[4 * (y * 512 + x)] = color;
-	scrbuff[4 * (y * 512 + x) + 1] = color;
-	scrbuff[4 * (y * 512 + x) + 2] = color;
-	scrbuff[4 * (y * 512 + x) + 3] = 255;
-}
-
-void SetPixelMapSurfacecheck(int x, int y, int nx, int ny, uint8_t* adress) {
-	if (nx < 0 || nx>255 || ny < 0 || ny>255)
-	{
-		uint8_t* scrbuff = (uint8_t*)mapsurfacecheck->pixels;
-		scrbuff[4 * (y * 512 + x)] = 255;
-		scrbuff[4 * (y * 512 + x) + 1] = 0;
-		scrbuff[4 * (y * 512 + x) + 2] = 0;
-		scrbuff[4 * (y * 512 + x) + 3] = 255;
-		return;
-	}
-	int color = adress[nx + ny * 256];
-	uint8_t* scrbuff = (uint8_t*)mapsurfacecheck->pixels;
 	scrbuff[4 * (y * 512 + x)] = color;
 	scrbuff[4 * (y * 512 + x) + 1] = color;
 	scrbuff[4 * (y * 512 + x) + 2] = color;
@@ -397,7 +361,7 @@ void drawTerrainLine(int startx, int starty, int endx, int endy, uint8_t* scrbuf
 	}
 };
 
-void fillterrain(kiss_terrain* terrain, float zoom, int beginx, int beginy) {
+void fillterrain(kiss_terrain* terrain, SDL_Surface* mapsurface,float zoom, int beginx, int beginy) {
 	uint8_t terrfeatlayer[256 * 256];
 	for (int j = 0; j < 256; j++)
 		for (int i = 0; i < 256; i++)
@@ -408,7 +372,11 @@ void fillterrain(kiss_terrain* terrain, float zoom, int beginx, int beginy) {
 	{
 		type_entity_0x30311 actfeat = temparray_0x30311[i];
 		if ((actfeat.axis2d_4.x > -1) && (actfeat.axis2d_4.x < 256) && (actfeat.axis2d_4.y > -1) && (actfeat.axis2d_4.y < 256))
+		{
 			terrfeatlayer[actfeat.axis2d_4.x + actfeat.axis2d_4.y * 256] = actfeat.type_0x30311;//all entites
+			if ((actfeat.type_0x30311 == 0) && (actfeat.subtype_0x30311 > 0))
+				terrfeatlayer[actfeat.axis2d_4.x + actfeat.axis2d_4.y * 256] = 0xf1;
+		}
 	}
 
 	for (int i = 0; i < 0x4B0; i++)
@@ -437,16 +405,16 @@ void fillterrain(kiss_terrain* terrain, float zoom, int beginx, int beginy) {
 					switch (maptype)
 					{
 					case 0:
-						SetPixelMapSurface(i, j, nx, ny, x_BYTE_10B4E0_terraintype);
+						SetPixelMapSurface(i, j, nx, ny, x_BYTE_10B4E0_terraintype, mapsurface);
 						break;
 					case 1:
-						SetPixelMapSurface(i, j, nx, ny, x_BYTE_11B4E0_heightmap);
+						SetPixelMapSurface(i, j, nx, ny, x_BYTE_11B4E0_heightmap, mapsurface);
 						break;
 					case 2:
-						SetPixelMapSurface(i, j, nx, ny, x_BYTE_12B4E0_shading);
+						SetPixelMapSurface(i, j, nx, ny, x_BYTE_12B4E0_shading, mapsurface);
 						break;
 					case 3:
-						SetPixelMapSurface(i, j, nx, ny, x_BYTE_13B4E0_angle);
+						SetPixelMapSurface(i, j, nx, ny, x_BYTE_13B4E0_angle, mapsurface);
 						break;
 					}
 					break;
@@ -459,6 +427,12 @@ void fillterrain(kiss_terrain* terrain, float zoom, int beginx, int beginy) {
 				case 0x5:
 					scrbuff[4 * (j * 512 + i)] = 0;//setgreen
 					scrbuff[4 * (j * 512 + i) + 1] = 255;
+					scrbuff[4 * (j * 512 + i) + 2] = 0;
+					scrbuff[4 * (j * 512 + i) + 3] = 255;
+					break;
+				case 0xf1:
+					scrbuff[4 * (j * 512 + i)] = 0;//setdarkgreen
+					scrbuff[4 * (j * 512 + i) + 1] = 64;
 					scrbuff[4 * (j * 512 + i) + 2] = 0;
 					scrbuff[4 * (j * 512 + i) + 3] = 255;
 					break;
@@ -576,7 +550,7 @@ void fillterrain(kiss_terrain* terrain, float zoom, int beginx, int beginy) {
 		}
 	}
 
-	for (int i = 0; i < 0x8; i++)
+	for (int i = 0; i < 0x8; i++)//draw stages
 	{
 		type_str_0x36442 actstage = D41A0_0.terrain_2FECE.stages_0x36442[i];
 		if (actstage.index_0 == 5)
@@ -600,427 +574,38 @@ void fillterrain(kiss_terrain* terrain, float zoom, int beginx, int beginy) {
 					scrbuff[4 * (acty * 512 + actx) + 2] = 0;
 				}
 			}
-		}
-		//sprintf(temp, "%1DX |%02X|%04X|%04X|%04X", i, (uint8_t)actstage.byte_0, actstage.word_1, actstage.word_3, actstage.word_5);
-	}
-
-	if (terrain->movingactive == 2)
-	{
-		int pxminx = (terrain->posx - beginx) * (zoom * 2);
-		int pxminy = (terrain->posy - beginy) * (zoom * 2);
-		int pxmaxx = (terrain->oldposx - beginx) * (zoom * 2);
-		int pxmaxy = (terrain->oldposy - beginy) * (zoom * 2);
-		if (pxmaxy < pxminy)
-		{
-			int temp = pxmaxy; pxmaxy = pxminy; pxminy = temp;
-		}
-		if (pxmaxx < pxminx)
-		{
-			int temp = pxmaxx; pxmaxx = pxminx; pxminx = temp;
-		}
-		for (int j = 0; j < 512; j++)
-			for (int i = 0; i < 512; i++)
-			{
-				//if (((i == pxminx) && (j == pxminy)) || ((i == pxmaxx) && (j == pxmaxy)))
-				if ((i >= pxminx) && (i <= pxmaxx) && (j >= pxminy) && (j <= pxmaxy))
-				if ((i == pxminx) || (i == pxmaxx) || (j == pxminy) || (j == pxmaxy))
-				{
-					scrbuff[4 * (j * 512 + i)] = 255;//setwhite
-					scrbuff[4 * (j * 512 + i) + 1] = 255;
-					scrbuff[4 * (j * 512 + i) + 2] = 255;
-					scrbuff[4 * (j * 512 + i) + 3] = 255;
-				}
-			}
-	}
-};
-
-
-
-void fillterraincheck(float zoom, int beginx, int beginy) {	
-	uint8_t terrchecklayer[256 * 256];
-	for (int j = 0; j < 256; j++)
-		for (int i = 0; i < 256; i++)
-		{
-			terrchecklayer[i + j * 256] = 0;
-		}
-	for (int i = 0; i < 0x4B0; i++)
-	{
-		type_entity_0x30311 actfeat = temparray_0x30311[first_terrain_feature + i];
-		if ((actfeat.axis2d_4.x > -1) && (actfeat.axis2d_4.x < 256) && (actfeat.axis2d_4.y > -1) && (actfeat.axis2d_4.y < 256))
-			terrchecklayer[actfeat.axis2d_4.x + actfeat.axis2d_4.y * 256] = actfeat.type_0x30311;//all entites
-	}
-
-	type_entity_0x30311 actfeat = temparray_0x30311[edited_line_old + 1];
-	if ((actfeat.axis2d_4.x > -1) && (actfeat.axis2d_4.x < 256) && (actfeat.axis2d_4.y > -1) && (actfeat.axis2d_4.y < 256))
-		terrchecklayer[actfeat.axis2d_4.x + actfeat.axis2d_4.y * 256] = 0xf0;//selected entity
-
-	uint8_t* scrbuff = (uint8_t*)mapsurfacecheck->pixels;
-	for (int j = 0; j < 512; j++)
-		for (int i = 0; i < 512; i++)
-		{
-			int nx = beginx + i / (zoom * 2);
-			int ny = beginy + j / (zoom * 2);			
-			if ((nx > -1 && nx<256 && ny > -1 && ny < 256))
-			{				
-				switch (terrchecklayer[nx + ny * 256])
-				{
-				case 0:
-					switch (maptypefeat)
-					{
-					case 0:
-						SetPixelMapSurfacecheck(i, j, nx, ny, x_BYTE_10B4E0_terraintype);
-						break;
-					case 1:
-						SetPixelMapSurfacecheck(i, j, nx, ny, x_BYTE_11B4E0_heightmap);
-						break;
-					case 2:
-						SetPixelMapSurfacecheck(i, j, nx, ny, x_BYTE_12B4E0_shading);
-						break;
-					case 3:
-						SetPixelMapSurfacecheck(i, j, nx, ny, x_BYTE_13B4E0_angle);
-						break;
-					}
-					break;
-
-				case 0x5:
-					scrbuff[4 * (j * 512 + i)] = 0;//setgreen
-					scrbuff[4 * (j * 512 + i) + 1] = 255;
-					scrbuff[4 * (j * 512 + i) + 2] = 0;
-					scrbuff[4 * (j * 512 + i) + 3] = 255;
-					break;
-				case 0xa:
-					scrbuff[4 * (j * 512 + i)] = 0;//setblue
-					scrbuff[4 * (j * 512 + i) + 1] = 0;
-					scrbuff[4 * (j * 512 + i) + 2] = 255;
-					scrbuff[4 * (j * 512 + i) + 3] = 255;
-					break;
-				case 0xf0:
-					scrbuff[4 * (j * 512 + i)] = 255;//setwhite
-					scrbuff[4 * (j * 512 + i) + 1] = 255;
-					scrbuff[4 * (j * 512 + i) + 2] = 255;
-					scrbuff[4 * (j * 512 + i) + 3] = 255;
-					break;
-				case 0x2:
-				case 0x3:
-					scrbuff[4 * (j * 512 + i)] = 255;//set brow
-					scrbuff[4 * (j * 512 + i) + 1] = 255;
-					scrbuff[4 * (j * 512 + i) + 2] = 0;
-					scrbuff[4 * (j * 512 + i) + 3] = 255;
-					break;
-				case 0xb:
-					scrbuff[4 * (j * 512 + i)] = 0;//set cyan
-					scrbuff[4 * (j * 512 + i) + 1] = 255;
-					scrbuff[4 * (j * 512 + i) + 2] = 255;
-					scrbuff[4 * (j * 512 + i) + 3] = 255;
-					break;
-				case 0xe:
-					scrbuff[4 * (j * 512 + i)] = 255;//set magenta
-					scrbuff[4 * (j * 512 + i) + 1] = 0;
-					scrbuff[4 * (j * 512 + i) + 2] = 255;
-					scrbuff[4 * (j * 512 + i) + 3] = 255;
-					break;
-				default:
-					scrbuff[4 * (j * 512 + i)] = 255;//setred
-					scrbuff[4 * (j * 512 + i) + 1] = 0;
-					scrbuff[4 * (j * 512 + i) + 2] = 0;
-					scrbuff[4 * (j * 512 + i) + 3] = 255;
-					break;
-				}
-			}
-			else
-			{
-				scrbuff[4 * (j * 512 + i)] = 255;//setred
-				scrbuff[4 * (j * 512 + i) + 1] = 0;
-				scrbuff[4 * (j * 512 + i) + 2] = 0;
-				scrbuff[4 * (j * 512 + i) + 3] = 255;
-			}
-		}
-
-		for (int i = 0; i < 0x4B0; i++)//paths
-	{
-		type_entity_0x30311 actfeat = temparray_0x30311[i];
-		if ((actfeat.type_0x30311 == 0xa) && (actfeat.subtype_0x30311 == 0x1d)&&(actfeat.par1_14>0))
-		{
-			int startx = (actfeat.axis2d_4.x-beginx)* (zoom * 2);
-			int starty = (actfeat.axis2d_4.y - beginy) * (zoom * 2);
-			int endx = (temparray_0x30311[actfeat.par1_14].axis2d_4.x - beginx) * (zoom * 2);
-			int endy = (temparray_0x30311[actfeat.par1_14].axis2d_4.y - beginy) * (zoom * 2);
-			drawTerrainLine(startx, starty, endx, endy, scrbuff, 255, 0, 0);
 		}		
 	}
-
-	for (int i = 0; i < 0x4B0; i++)//switches
+	if (terrain!=NULL)
 	{
-		type_entity_0x30311 actfeat = temparray_0x30311[i];
-		if ((actfeat.DisId > 0) && (
-			((actfeat.type_0x30311 == 0xa) && (actfeat.subtype_0x30311 == 0x01)) ||
-			((actfeat.type_0x30311 == 0xa) && (actfeat.subtype_0x30311 == 0x05)) ||
-			((actfeat.type_0x30311 == 0xa) && (actfeat.subtype_0x30311 == 0x2d))
-			))
+		if (terrain->movingactive == 2)//draw select line
 		{
-			type_entity_0x30311* actfeat2=NULL;
-			for (int j = 0; j < 0x4B0; j++)//switches
+			int pxminx = (terrain->posx - beginx) * (zoom * 2);
+			int pxminy = (terrain->posy - beginy) * (zoom * 2);
+			int pxmaxx = (terrain->oldposx - beginx) * (zoom * 2);
+			int pxmaxy = (terrain->oldposy - beginy) * (zoom * 2);
+			if (pxmaxy < pxminy)
 			{
-				if ((temparray_0x30311[j].stageTag_12 == actfeat.DisId) && (temparray_0x30311[j].type_0x30311 == 0xb) && (temparray_0x30311[j].subtype_0x30311 == 0x00))
-				{
-					actfeat2 = &temparray_0x30311[j];
-					break;
-				}
+				int temp = pxmaxy; pxmaxy = pxminy; pxminy = temp;
 			}
-			if (actfeat2 == NULL)continue;
-			int startx = (actfeat.axis2d_4.x - beginx) * (zoom * 2);
-			int starty = (actfeat.axis2d_4.y - beginy) * (zoom * 2);
-			int endx = (actfeat2->axis2d_4.x - beginx) * (zoom * 2);
-			int endy = (actfeat2->axis2d_4.y - beginy) * (zoom * 2);
-			drawTerrainLine(startx, starty, endx, endy, scrbuff, 255, 255, 0);
-		}
-	}
-
-	for (int i = 0; i < 0x4B0; i++)//on same stage
-	{
-		type_entity_0x30311 actfeat = temparray_0x30311[i];
-		if (((actfeat.stageTag_12 > 0) && ((actfeat.type_0x30311 == 0x5)))||
-			((actfeat.stageTag_12 > 0) && ((actfeat.type_0x30311 == 0xb))))
-		{
-			type_entity_0x30311* actfeat2 = NULL;
-			for (int j = 0; j < 0x4B0; j++)//switches
+			if (pxmaxx < pxminx)
 			{
-				if(i!=j)
-				if (((temparray_0x30311[j].stageTag_12 == actfeat.stageTag_12)&& (temparray_0x30311[j].type_0x30311 == 0x5))||
-					((temparray_0x30311[j].stageTag_12 == actfeat.stageTag_12) && (temparray_0x30311[j].type_0x30311 == 0xB)))
-				{
-					actfeat2 = &temparray_0x30311[j];
-					break;
-				}
+				int temp = pxmaxx; pxmaxx = pxminx; pxminx = temp;
 			}
-			if (actfeat2 == NULL)continue;
-			int startx = (actfeat.axis2d_4.x - beginx) * (zoom * 2);
-			int starty = (actfeat.axis2d_4.y - beginy) * (zoom * 2);
-			int endx = (actfeat2->axis2d_4.x - beginx) * (zoom * 2);
-			int endy = (actfeat2->axis2d_4.y - beginy) * (zoom * 2);
-			drawTerrainLine(startx, starty, endx, endy, scrbuff, 255, 0, 255);
-		}
-	}
-	for (int i = 0; i < 0x8; i++)
-	{
-		type_str_0x36442 actstage = D41A0_0.terrain_2FECE.stages_0x36442[i];
-		if (actstage.index_0 == 5)
-		{
-			for (int i = -8; i <= 8; i++)
-			{
-				int actx = (actstage._axis_2d.x - beginx) * (zoom * 2) + i;
-				int acty = (actstage._axis_2d.y - beginy) * (zoom * 2) - i;
-				if (actx >= 0 && acty >= 0 && actx < 512 && acty < 512)
+			for (int j = 0; j < 512; j++)
+				for (int i = 0; i < 512; i++)
 				{
-					scrbuff[4 * (acty * 512 + actx)] = 255;//setyellow
-					scrbuff[4 * (acty * 512 + actx) + 1] = 255;
-					scrbuff[4 * (acty * 512 + actx) + 2] = 0;
+					//if (((i == pxminx) && (j == pxminy)) || ((i == pxmaxx) && (j == pxmaxy)))
+					if ((i >= pxminx) && (i <= pxmaxx) && (j >= pxminy) && (j <= pxmaxy))
+						if ((i == pxminx) || (i == pxmaxx) || (j == pxminy) || (j == pxmaxy))
+						{
+							scrbuff[4 * (j * 512 + i)] = 255;//setwhite
+							scrbuff[4 * (j * 512 + i) + 1] = 255;
+							scrbuff[4 * (j * 512 + i) + 2] = 255;
+							scrbuff[4 * (j * 512 + i) + 3] = 255;
+						}
 				}
-				actx = (actstage._axis_2d.x - beginx) * (zoom * 2) + i;
-				acty = (actstage._axis_2d.y - beginy) * (zoom * 2) + i;
-				if (actx >= 0 && acty >= 0 && actx < 512 && acty < 512)
-				{
-					scrbuff[4 * (acty * 512 + actx)] = 255;//setyellow
-					scrbuff[4 * (acty * 512 + actx) + 1] = 255;
-					scrbuff[4 * (acty * 512 + actx) + 2] = 0;
-				}
-			}
 		}
-		//sprintf(temp, "%1DX |%02X|%04X|%04X|%04X", i, (uint8_t)actstage.byte_0, actstage.word_1, actstage.word_3, actstage.word_5);
-	}
-};
-
-void fillterrainfeat(float zoom, int beginx, int beginy) {
-	uint8_t terrfeatlayer[256 * 256];
-	for (int j = 0; j < 256; j++)
-		for (int i = 0; i < 256; i++)
-		{
-			terrfeatlayer[i + j * 256] = 0;
-		}
-	for (int i = 0; i < 0x4B0; i++)
-	{
-		type_entity_0x30311 actfeat = temparray_0x30311[first_terrain_feature + i];
-		if ((actfeat.axis2d_4.x > -1) && (actfeat.axis2d_4.x < 256) && (actfeat.axis2d_4.y > -1) && (actfeat.axis2d_4.y < 256))
-			terrfeatlayer[actfeat.axis2d_4.x + actfeat.axis2d_4.y * 256] = actfeat.type_0x30311;//all entites
-	}
-
-	type_entity_0x30311 actfeat = temparray_0x30311[edited_line_old + 1];
-	if ((actfeat.axis2d_4.x > -1) && (actfeat.axis2d_4.x < 256) && (actfeat.axis2d_4.y > -1) && (actfeat.axis2d_4.y < 256))
-		terrfeatlayer[actfeat.axis2d_4.x + actfeat.axis2d_4.y * 256] = 0xf0;//selected entity
-
-	uint8_t* scrbuff = (uint8_t*)mapsurfacefeat->pixels;
-	for (int j = 0; j < 512; j++)
-		for (int i = 0; i < 512; i++)
-		{
-			int nx = beginx + i / (zoom * 2);
-			int ny = beginy + j / (zoom * 2);
-			if ((nx > -1 && nx<256 && ny > -1 && ny < 256))
-			{
-				switch (terrfeatlayer[nx + ny * 256])
-				{
-				case 0:
-					switch (maptypefeat)
-					{
-					case 0:
-						SetPixelMapSurfacefeat(i, j, nx, ny, x_BYTE_10B4E0_terraintype);
-						break;
-					case 1:
-						SetPixelMapSurfacefeat(i, j, nx, ny, x_BYTE_11B4E0_heightmap);
-						break;
-					case 2:
-						SetPixelMapSurfacefeat(i, j, nx, ny, x_BYTE_12B4E0_shading);
-						break;
-					case 3:
-						SetPixelMapSurfacefeat(i, j, nx, ny, x_BYTE_13B4E0_angle);
-						break;
-					}
-					break;
-
-				case 0x5:
-					scrbuff[4 * (j * 512 + i)] = 0;//setgreen
-					scrbuff[4 * (j * 512 + i) + 1] = 255;
-					scrbuff[4 * (j * 512 + i) + 2] = 0;
-					scrbuff[4 * (j * 512 + i) + 3] = 255;
-					break;
-				case 0xa:
-					scrbuff[4 * (j * 512 + i)] = 0;//setblue
-					scrbuff[4 * (j * 512 + i) + 1] = 0;
-					scrbuff[4 * (j * 512 + i) + 2] = 255;
-					scrbuff[4 * (j * 512 + i) + 3] = 255;
-					break;
-				case 0xf0:
-					scrbuff[4 * (j * 512 + i)] = 255;//setwhite
-					scrbuff[4 * (j * 512 + i) + 1] = 255;
-					scrbuff[4 * (j * 512 + i) + 2] = 255;
-					scrbuff[4 * (j * 512 + i) + 3] = 255;
-					break;
-				case 0x2:
-				case 0x3:
-					scrbuff[4 * (j * 512 + i)] = 255;//set brow
-					scrbuff[4 * (j * 512 + i) + 1] = 255;
-					scrbuff[4 * (j * 512 + i) + 2] = 0;
-					scrbuff[4 * (j * 512 + i) + 3] = 255;
-					break;
-				case 0xb:
-					scrbuff[4 * (j * 512 + i)] = 0;//set cyan
-					scrbuff[4 * (j * 512 + i) + 1] = 255;
-					scrbuff[4 * (j * 512 + i) + 2] = 255;
-					scrbuff[4 * (j * 512 + i) + 3] = 255;
-					break;
-				case 0xe:
-					scrbuff[4 * (j * 512 + i)] = 255;//set magenta
-					scrbuff[4 * (j * 512 + i) + 1] = 0;
-					scrbuff[4 * (j * 512 + i) + 2] = 255;
-					scrbuff[4 * (j * 512 + i) + 3] = 255;
-					break;
-				default:
-					scrbuff[4 * (j * 512 + i)] = 255;//setred
-					scrbuff[4 * (j * 512 + i) + 1] = 0;
-					scrbuff[4 * (j * 512 + i) + 2] = 0;
-					scrbuff[4 * (j * 512 + i) + 3] = 255;
-					break;
-				}
-			}
-			else
-			{
-				scrbuff[4 * (j * 512 + i)] = 255;//setred
-				scrbuff[4 * (j * 512 + i) + 1] = 0;
-				scrbuff[4 * (j * 512 + i) + 2] = 0;
-				scrbuff[4 * (j * 512 + i) + 3] = 255;
-			}
-		}
-
-	for (int i = 0; i < 0x4B0; i++)//paths
-	{
-		type_entity_0x30311 actfeat = temparray_0x30311[i];
-		if ((actfeat.type_0x30311 == 0xa) && (actfeat.subtype_0x30311 == 0x1d) && (actfeat.par1_14 > 0))
-		{
-			int startx = (actfeat.axis2d_4.x - beginx) * (zoom * 2);
-			int starty = (actfeat.axis2d_4.y - beginy) * (zoom * 2);
-			int endx = (temparray_0x30311[actfeat.par1_14].axis2d_4.x - beginx) * (zoom * 2);
-			int endy = (temparray_0x30311[actfeat.par1_14].axis2d_4.y - beginy) * (zoom * 2);
-			drawTerrainLine(startx, starty, endx, endy, scrbuff, 255, 0, 0);
-		}
-	}
-
-	for (int i = 0; i < 0x4B0; i++)//switches
-	{
-		type_entity_0x30311 actfeat = temparray_0x30311[i];
-		if ((actfeat.DisId > 0) && (
-			((actfeat.type_0x30311 == 0xa) && (actfeat.subtype_0x30311 == 0x01)) ||
-			((actfeat.type_0x30311 == 0xa) && (actfeat.subtype_0x30311 == 0x05)) ||
-			((actfeat.type_0x30311 == 0xa) && (actfeat.subtype_0x30311 == 0x2d))
-			))
-		{
-			type_entity_0x30311* actfeat2 = NULL;
-			for (int j = 0; j < 0x4B0; j++)//switches
-			{
-				if ((temparray_0x30311[j].stageTag_12 == actfeat.DisId) && (temparray_0x30311[j].type_0x30311 == 0xb) && (temparray_0x30311[j].subtype_0x30311 == 0x00))
-				{
-					actfeat2 = &temparray_0x30311[j];
-					break;
-				}
-			}
-			if (actfeat2 == NULL)continue;
-			int startx = (actfeat.axis2d_4.x - beginx) * (zoom * 2);
-			int starty = (actfeat.axis2d_4.y - beginy) * (zoom * 2);
-			int endx = (actfeat2->axis2d_4.x - beginx) * (zoom * 2);
-			int endy = (actfeat2->axis2d_4.y - beginy) * (zoom * 2);
-			drawTerrainLine(startx, starty, endx, endy, scrbuff, 255, 255, 0);
-		}
-	}
-
-	for (int i = 0; i < 0x4B0; i++)//on same stage
-	{
-		type_entity_0x30311 actfeat = temparray_0x30311[i];
-		if (((actfeat.stageTag_12 > 0) && ((actfeat.type_0x30311 == 0x5))) ||
-			((actfeat.stageTag_12 > 0) && ((actfeat.type_0x30311 == 0xb))))
-		{
-			type_entity_0x30311* actfeat2 = NULL;
-			for (int j = 0; j < 0x4B0; j++)//switches
-			{
-				if (i != j)
-					if (((temparray_0x30311[j].stageTag_12 == actfeat.stageTag_12) && (temparray_0x30311[j].type_0x30311 == 0x5)) ||
-						((temparray_0x30311[j].stageTag_12 == actfeat.stageTag_12) && (temparray_0x30311[j].type_0x30311 == 0xB)))
-					{
-						actfeat2 = &temparray_0x30311[j];
-						break;
-					}
-			}
-			if (actfeat2 == NULL)continue;
-			int startx = (actfeat.axis2d_4.x - beginx) * (zoom * 2);
-			int starty = (actfeat.axis2d_4.y - beginy) * (zoom * 2);
-			int endx = (actfeat2->axis2d_4.x - beginx) * (zoom * 2);
-			int endy = (actfeat2->axis2d_4.y - beginy) * (zoom * 2);
-			drawTerrainLine(startx, starty, endx, endy, scrbuff, 255, 0, 255);
-		}
-	}
-	for (int i = 0; i < 0x8; i++)
-	{
-		type_str_0x36442 actstage = D41A0_0.terrain_2FECE.stages_0x36442[i];
-		if (actstage.index_0 == 5)
-		{
-			for (int i = -8; i <= 8; i++)
-			{
-				int actx = (actstage._axis_2d.x - beginx) * (zoom * 2) + i;
-				int acty = (actstage._axis_2d.y - beginy) * (zoom * 2) - i;
-				if (actx >= 0 && acty >= 0 && actx < 512 && acty < 512)
-				{
-					scrbuff[4 * (acty * 512 + actx)] = 255;//setyellow
-					scrbuff[4 * (acty * 512 + actx) + 1] = 255;
-					scrbuff[4 * (acty * 512 + actx) + 2] = 0;
-				}
-				actx = (actstage._axis_2d.x - beginx) * (zoom * 2) + i;
-				acty = (actstage._axis_2d.y - beginy) * (zoom * 2) + i;
-				if (actx >= 0 && acty >= 0 && actx < 512 && acty < 512)
-				{
-					scrbuff[4 * (acty * 512 + actx)] = 255;//setyellow
-					scrbuff[4 * (acty * 512 + actx) + 1] = 255;
-					scrbuff[4 * (acty * 512 + actx) + 2] = 0;
-				}
-			}
-		}
-		//sprintf(temp, "%1DX |%02X|%04X|%04X|%04X", i, (uint8_t)actstage.byte_0, actstage.word_1, actstage.word_3, actstage.word_5);
 	}
 };
 
@@ -4046,6 +3631,7 @@ int main_x(/*int argc, char** argv*/)
 				kiss_hex4edit_update_adress(&hex4edit3check, &D41A0_0.terrain_2FECE.stages_0x36442[edited_line2_old]._axis_2d.x);
 				kiss_hex4edit_update_adress(&hex4edit4check, &D41A0_0.terrain_2FECE.stages_0x36442[edited_line2_old]._axis_2d.y);
 				changed2 = true;
+				changed3 = true;
 			}
 			if (terevcheck >= 10)
 			{
@@ -4072,7 +3658,9 @@ int main_x(/*int argc, char** argv*/)
 			}
 
 			if (changed2)terrain_feat_append(&textbox1, &vscrollbar1);
-			if (changed3) { terrain_stages_append(&textbox2); terrain_vars_append(&textbox3); }
+			if (changed3) { 
+				terrain_stages_append(&textbox2); terrain_vars_append(&textbox3);
+			}
 			
 		}
 		if (first) { changed = true; changed2 = true; }
@@ -4183,12 +3771,12 @@ int main_x(/*int argc, char** argv*/)
 		//	kiss_button_draw(&button_add[i], editor_renderer);
 		
 		if (changed || zoomchanged)
-			fillterrain(&terrain1, terrainzoom, terrainbeginx, terrainbeginy);//set terrain
+			fillterrain(&terrain1, mapsurface, terrainzoom, terrainbeginx, terrainbeginy);//set terrain
 
 		if (changed2 || zoomchangedfeat|| zoomchangedcheck)
 		{
-			fillterrainfeat(terrainzoomfeat, terrainbeginxfeat, terrainbeginyfeat);//set terrain2
-			fillterraincheck(terrainzoomcheck, terrainbeginxcheck, terrainbeginycheck);//set terrain3
+			fillterrain(NULL, mapsurfacefeat, terrainzoomfeat,terrainbeginxfeat, terrainbeginyfeat);//set terrain2
+			fillterrain(NULL, mapsurfacecheck, terrainzoomcheck,terrainbeginxcheck, terrainbeginycheck);//set terrain3
 		}
 
 		kiss_terrain_draw(&terrain1, editor_renderer);
