@@ -36,7 +36,7 @@ void _strupr(char* s)
 
 //#define PLAYING_GAME
 //#define RELEASE_GAME
-//#define TEST_REGRESSIONS_GAME
+#define TEST_REGRESSIONS_GAME
 
 //adress 2285ff
 #if defined(RELEASE_GAME) //this is standard setting
