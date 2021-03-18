@@ -839,16 +839,21 @@ uint32_t compare_with_sequence_E7EE0(char* filename, uint8_t* adress, uint32_t  
 	return(i);
 };
 
-uint32_t compare_with_sequence_D41A0(char* filename, uint8_t* adress, uint32_t  /*adressdos*/, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte, long offset) {
-	char findnamec[500];
+uint32_t compare_with_sequence_D41A0(char* filename, uint8_t* adress, uint32_t  /*adressdos*/, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte, long offset, bool regressions) {
+	char findnamec[512];
+	char findnamec2[512];
 	uint8_t* buffer = (uint8_t*)malloc(size);
 	FILE* fptestepc;
-	sprintf(findnamec, "c:/prenos/dosbox-x-remc2/vs2015/sequence-%s.bin", filename);
-	fptestepc = fopen(findnamec, "rb");
+	if (regressions)
+		sprintf(findnamec, "../remc2/memimages/regressions/sequence-%s.bin", filename);
+	else
+		sprintf(findnamec, "../../dosbox-x-remc2/vs2015/sequence-%s.bin", filename);
+	GetSubDirectoryPath(findnamec2, findnamec);
+	fptestepc = fopen(findnamec2, "rb");
 	if (fptestepc == NULL)
 	{
 		mydelay(100);
-		fptestepc = fopen(findnamec, "rb");
+		fptestepc = fopen(findnamec2, "rb");
 	}
 	fseek(fptestepc, count * size + offset, SEEK_SET);
 
@@ -1101,16 +1106,21 @@ uint32_t compare_with_sequence_x_DWORD_F2C20ar(char* filename, uint8_t* adress, 
 	return(diffindex);
 };
 
-uint32_t compare_with_sequence_array_E2A74(char* filename, uint8_t* adress, uint32_t  /*adressdos*/, uint32_t count, uint32_t size1, uint32_t size2, uint8_t* origbyte, uint8_t* copybyte, long offset) {
-	char findnamec[500];
+uint32_t compare_with_sequence_array_E2A74(char* filename, uint8_t* adress, uint32_t  /*adressdos*/, uint32_t count, uint32_t size1, uint32_t size2, uint8_t* origbyte, uint8_t* copybyte, long offset, bool regressions) {
+	char findnamec[512];
+	char findnamec2[512];
 	uint8_t* buffer = (uint8_t*)malloc(size2);
 	FILE* fptestepc;
-	sprintf(findnamec, "c:/prenos/dosbox-x-remc2/vs2015/sequence-%s.bin", filename);
-	fptestepc = fopen(findnamec, "rb");
+	if (regressions)
+		sprintf(findnamec, "../remc2/memimages/regressions/sequence-%s.bin", filename);
+	else
+		sprintf(findnamec, "../../dosbox-x-remc2/vs2015/sequence-%s.bin", filename);
+	GetSubDirectoryPath(findnamec2, findnamec);
+	fptestepc = fopen(findnamec2, "rb");
 	if (fptestepc == NULL)
 	{
 		mydelay(100);
-		fptestepc = fopen(findnamec, "rb");
+		fptestepc = fopen(findnamec2, "rb");
 	}
 	fseek(fptestepc, count * size1 + offset, SEEK_SET);
 
@@ -1201,16 +1211,21 @@ uint32_t compare_with_sequence_array_222BD3(char* filename, uint8_t* adress, uin
 	return(i);
 };
 
-uint32_t compare_with_sequence(char* filename, uint8_t* adress, uint32_t  /*adressdos*/, long count, long size1, uint32_t size2, uint8_t* origbyte, uint8_t* copybyte, long offset) {
-	char findnamec[500];
+uint32_t compare_with_sequence(char* filename, uint8_t* adress, uint32_t  /*adressdos*/, long count, long size1, uint32_t size2, uint8_t* origbyte, uint8_t* copybyte, long offset, bool regressions) {
+	char findnamec[512];
+	char findnamec2[512];
 	uint8_t* buffer = (uint8_t*)malloc(size2);
 	FILE* fptestepc;
-	sprintf(findnamec, "c:/prenos/dosbox-x-remc2/vs2015/sequence-%s.bin", filename);
-	fptestepc = fopen(findnamec, "rb");
+	if(regressions)
+		sprintf(findnamec, "../remc2/memimages/regressions/sequence-%s.bin", filename);
+	else
+		sprintf(findnamec, "../../dosbox-x-remc2/vs2015/sequence-%s.bin", filename);
+	GetSubDirectoryPath(findnamec2, findnamec);
+	fptestepc = fopen(findnamec2, "rb");
 	if (fptestepc == NULL)
 	{
 		mydelay(100);
-		fptestepc = fopen(findnamec, "rb");
+		fptestepc = fopen(findnamec2, "rb");
 	}
 
 #ifdef __linux__
@@ -1244,10 +1259,10 @@ uint32_t compare_with_sequence(char* filename, uint8_t* adress, uint32_t  /*adre
 		}
 	}
 
-	free(buffer);
-	fclose(fptestepc);
 	if (i < size2)
 		allert_error();
+	free(buffer);
+	fclose(fptestepc);
 	return(i);
 };
 
@@ -1304,7 +1319,7 @@ void writehex(uint8_t* buffer, uint32_t count) {
 	printf("\n");
 };
 
-type_D41A0_BYTESTR_0 D41A0_BYTESTR_0;
+type_D41A0_BYTESTR_0 D41A0_0;
 /*
 void x_D41A0_BYTEARRAY_0_to_x_D41A0_BYTESTR_0()
 {
@@ -2091,15 +2106,15 @@ void clean_x_D41A0_BYTEARRAY_0_0x2362() {
 	//memset((void*)(&x_D41A0_BYTEARRAY_0[0x2362]), 0, 48);
 	for (int i = 0; i < 8; i++)
 	{
-		D41A0_BYTESTR_0.array_0x2362[i].x = 0;
-		D41A0_BYTESTR_0.array_0x2362[i].y = 0;
-		D41A0_BYTESTR_0.array_0x2362[i].z = 0;
+		D41A0_0.array_0x2362[i].x = 0;
+		D41A0_0.array_0x2362[i].y = 0;
+		D41A0_0.array_0x2362[i].z = 0;
 	}
 };
 
 void clean_x_D41A0_BYTEARRAY_0_0x2BDE(int number) {
 	//memset((void*)(&x_D41A0_BYTEARRAY_0[0x2BDE+2124*number]), 0, 2124);
-	memset((void*)(&D41A0_BYTESTR_0.array_0x2BDE[number]), 0, 2124);
+	memset((void*)(&D41A0_0.array_0x2BDE[number]), 0, 2124);
 	/*for (int i = 0; i < 8; i++)
 	{
 		D41A0_BYTESTR_0.array_0x2BDE[i].byte_0x000_2BDE_11230=0;//0	//11230 - byte? - ne zacatek struktury

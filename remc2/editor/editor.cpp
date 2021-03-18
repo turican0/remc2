@@ -59,7 +59,7 @@ typedef struct {
 
 TypePos RelPos[21];
 
-void SetPixelMapSurface(int x,int y,int nx,int ny,uint8_t* adress) {
+void SetPixelMapSurface(int x,int y,int nx,int ny,uint8_t* adress, SDL_Surface* mapsurface) {
 	if (nx < 0 || nx>255 || ny < 0 || ny>255)
 	{
 		uint8_t* scrbuff = (uint8_t*)mapsurface->pixels;
@@ -71,42 +71,6 @@ void SetPixelMapSurface(int x,int y,int nx,int ny,uint8_t* adress) {
 	}
 	int color = adress[nx+ny* 256];
 	uint8_t* scrbuff = (uint8_t*)mapsurface->pixels;
-	scrbuff[4 * (y * 512 + x)] = color;
-	scrbuff[4 * (y * 512 + x) + 1] = color;
-	scrbuff[4 * (y * 512 + x) + 2] = color;
-	scrbuff[4 * (y * 512 + x) + 3] = 255;
-}
-
-void SetPixelMapSurfacefeat(int x, int y, int nx, int ny, uint8_t* adress) {
-	if (nx < 0 || nx>255 || ny < 0 || ny>255)
-	{
-		uint8_t* scrbuff = (uint8_t*)mapsurfacefeat->pixels;
-		scrbuff[4 * (y * 512 + x)] = 255;
-		scrbuff[4 * (y * 512 + x) + 1] = 0;
-		scrbuff[4 * (y * 512 + x) + 2] = 0;
-		scrbuff[4 * (y * 512 + x) + 3] = 255;
-		return;
-	}
-	int color = adress[nx + ny * 256];
-	uint8_t* scrbuff = (uint8_t*)mapsurfacefeat->pixels;
-	scrbuff[4 * (y * 512 + x)] = color;
-	scrbuff[4 * (y * 512 + x) + 1] = color;
-	scrbuff[4 * (y * 512 + x) + 2] = color;
-	scrbuff[4 * (y * 512 + x) + 3] = 255;
-}
-
-void SetPixelMapSurfacecheck(int x, int y, int nx, int ny, uint8_t* adress) {
-	if (nx < 0 || nx>255 || ny < 0 || ny>255)
-	{
-		uint8_t* scrbuff = (uint8_t*)mapsurfacecheck->pixels;
-		scrbuff[4 * (y * 512 + x)] = 255;
-		scrbuff[4 * (y * 512 + x) + 1] = 0;
-		scrbuff[4 * (y * 512 + x) + 2] = 0;
-		scrbuff[4 * (y * 512 + x) + 3] = 255;
-		return;
-	}
-	int color = adress[nx + ny * 256];
-	uint8_t* scrbuff = (uint8_t*)mapsurfacecheck->pixels;
 	scrbuff[4 * (y * 512 + x)] = color;
 	scrbuff[4 * (y * 512 + x) + 1] = color;
 	scrbuff[4 * (y * 512 + x) + 2] = color;
@@ -134,8 +98,8 @@ void terrain_recalculate();
 int main_x(/*int argc, char** argv*/);
 
 void loadlevel(int levelnumber) {
-	sub_533B0_decompress_levels(levelnumber, &D41A0_BYTESTR_0.terrain_2FECE);
-	memcpy(temparray_0x30311, D41A0_BYTESTR_0.terrain_2FECE.entity_0x30311,sizeof(type_entity_0x30311)*0x4b0);
+	sub_533B0_decompress_levels(levelnumber, &D41A0_0.terrain_2FECE);
+	memcpy(temparray_0x30311, D41A0_0.terrain_2FECE.entity_0x30311,sizeof(type_entity_0x30311)*0x4b0);
 	for(int i=0;i< 0x4b0;i++)
 		temparray_0x30311_inactive[i]=0;
 	for (int i = 0; i < 0x4b0; i++)
@@ -174,15 +138,15 @@ void editor_run()
 	//sub_6FC50(1);//only for fonts?
 
 	//save D41A0_BYTESTR_0
-	D41A0_BYTESTR_0.terrain_2FECE.seed_0x2FEE5 = 0;
-	D41A0_BYTESTR_0.terrain_2FECE.offset_0x2FEE9 = 0;
-	D41A0_BYTESTR_0.terrain_2FECE.raise_0x2FEED = 0;
-	D41A0_BYTESTR_0.terrain_2FECE.gnarl_0x2FEF1 = 0;
-	D41A0_BYTESTR_0.terrain_2FECE.source_0x2FEFD = 0;
-	D41A0_BYTESTR_0.terrain_2FECE.snLin_0x2FF01 = 0;
-	D41A0_BYTESTR_0.terrain_2FECE.bhFlt_0x2FF0D = 0;
-	D41A0_BYTESTR_0.terrain_2FECE.rkSte_0x2FF11 = 0;
-	D41A0_BYTESTR_0.terrain_2FECE.rkSte_0x2FF11 = 0;
+	D41A0_0.terrain_2FECE.seed_0x2FEE5 = 0;
+	D41A0_0.terrain_2FECE.offset_0x2FEE9 = 0;
+	D41A0_0.terrain_2FECE.raise_0x2FEED = 0;
+	D41A0_0.terrain_2FECE.gnarl_0x2FEF1 = 0;
+	D41A0_0.terrain_2FECE.source_0x2FEFD = 0;
+	D41A0_0.terrain_2FECE.snLin_0x2FF01 = 0;
+	D41A0_0.terrain_2FECE.bhFlt_0x2FF0D = 0;
+	D41A0_0.terrain_2FECE.rkSte_0x2FF11 = 0;
+	D41A0_0.terrain_2FECE.rkSte_0x2FF11 = 0;
 	//init_pal();
 	clean_tarrain();
 	loadlevel(0);
@@ -204,21 +168,21 @@ void terrain_recalculate() {
 			j++;
 		else
 		{
-			D41A0_BYTESTR_0.terrain_2FECE.entity_0x30311[j]= temparray_0x30311[i];
+			D41A0_0.terrain_2FECE.entity_0x30311[j]= temparray_0x30311[i];
 			j++;
 		}
 	}
 
 
-	x_WORD_17B4E0 = D41A0_BYTESTR_0.terrain_2FECE.seed_0x2FEE5;
-	D41A0_BYTESTR_0.rand_0x8 = D41A0_BYTESTR_0.terrain_2FECE.seed_0x2FEE5;
+	x_WORD_17B4E0 = D41A0_0.terrain_2FECE.seed_0x2FEE5;
+	D41A0_0.rand_0x8 = D41A0_0.terrain_2FECE.seed_0x2FEE5;
 	memset((void*)mapEntityIndex_15B4E0, 0, 0x20000);
-	sub_B5E70_decompress_terrain_map_level(x_WORD_17B4E0, D41A0_BYTESTR_0.terrain_2FECE.offset_0x2FEE9, D41A0_BYTESTR_0.terrain_2FECE.raise_0x2FEED, D41A0_BYTESTR_0.terrain_2FECE.gnarl_0x2FEF1);
+	sub_B5E70_decompress_terrain_map_level(x_WORD_17B4E0, D41A0_0.terrain_2FECE.offset_0x2FEE9, D41A0_0.terrain_2FECE.raise_0x2FEED, D41A0_0.terrain_2FECE.gnarl_0x2FEF1);
 	sub_44DB0_truncTerrainHeight();//225db0 //trunc and create
 	if (stage > 0)
 	{
 		memset((void*)mapEntityIndex_15B4E0, 0, 0x20000);
-		sub_44E40(D41A0_BYTESTR_0.terrain_2FECE.river_0x2FEF5, D41A0_BYTESTR_0.terrain_2FECE.lriver_0x2FEF9);//225e40 //add any fields
+		sub_44E40(D41A0_0.terrain_2FECE.river_0x2FEF5, D41A0_0.terrain_2FECE.lriver_0x2FEF9);//225e40 //add any fields
 	}
 	if (stage > 1)
 	{
@@ -227,11 +191,11 @@ void terrain_recalculate() {
 
 	if (stage > 2)
 	{
-		sub_440D0(D41A0_BYTESTR_0.terrain_2FECE.snLin_0x2FF01);//2250d0
+		sub_440D0(D41A0_0.terrain_2FECE.snLin_0x2FF01);//2250d0
 	}
 	if (stage > 3)
 	{
-		sub_45060(D41A0_BYTESTR_0.terrain_2FECE.snFlt_0x2FF05, D41A0_BYTESTR_0.terrain_2FECE.bhLin_0x2FF09);//226060
+		sub_45060(D41A0_0.terrain_2FECE.snFlt_0x2FF05, D41A0_0.terrain_2FECE.bhLin_0x2FF09);//226060
 	}
 	if (stage > 4)
 	{
@@ -239,15 +203,15 @@ void terrain_recalculate() {
 	}
 	if (stage > 5)
 	{
-		sub_45210(D41A0_BYTESTR_0.terrain_2FECE.snFlt_0x2FF05, D41A0_BYTESTR_0.terrain_2FECE.bhLin_0x2FF09);//226210
+		sub_45210(D41A0_0.terrain_2FECE.snFlt_0x2FF05, D41A0_0.terrain_2FECE.bhLin_0x2FF09);//226210
 	}
 	if (stage > 6)
 	{
-		sub_454F0(D41A0_BYTESTR_0.terrain_2FECE.source_0x2FEFD, D41A0_BYTESTR_0.terrain_2FECE.rkSte_0x2FF11);//2264f0
+		sub_454F0(D41A0_0.terrain_2FECE.source_0x2FEFD, D41A0_0.terrain_2FECE.rkSte_0x2FF11);//2264f0
 	}
 	if (stage > 7)
 	{
-		sub_45600(D41A0_BYTESTR_0.terrain_2FECE.bhFlt_0x2FF0D);//226600
+		sub_45600(D41A0_0.terrain_2FECE.bhFlt_0x2FF0D);//226600
 	}
 	if (stage > 8)
 	{
@@ -280,16 +244,124 @@ void terrain_recalculate() {
 	sub_49F30();//prepare events pointers
 	if (stage > 14)
 	{
-		SetStagetagForTermod_49830(&D41A0_BYTESTR_0.terrain_2FECE);
+		SetStagetagForTermod_49830(&D41A0_0.terrain_2FECE);
 	}
 	if (stage > 15)
 	{
-		sub_49290(&D41A0_BYTESTR_0.terrain_2FECE, 1);
+		sub_49290(&D41A0_0.terrain_2FECE, 1);
 	}
 	changed = false;
 };
 
-void fillterrain(kiss_terrain* terrain, float zoom, int beginx, int beginy) {
+void drawTerrainLine(int startx, int starty, int endx, int endy, uint8_t* scrbuff, char red, char green, char blue,bool around=false,float zoom=2,float fixx=0,float fixy=0,bool shadow=false) {
+	int lenx = abs(startx - endx);
+	int leny = abs(starty - endy);
+	int templenx = lenx;
+	int templeny = leny;
+
+	float sizemap = 256*zoom;
+	float halfsizemap = 256*zoom/2;
+	if (around)
+	{
+		if (lenx > halfsizemap)
+		{
+			lenx = sizemap - lenx;
+			if (startx > endx)
+				endx += sizemap;
+			else
+				startx += sizemap;
+		};
+		if (leny > halfsizemap) {
+			leny = sizemap - leny;
+			if (starty > endy)
+				endy += sizemap;
+			else
+				starty += sizemap;
+		};
+	}
+	if (lenx > 0 || leny > 0)
+	{
+		float stepx, stepy;
+		if (lenx > leny)
+		{
+			stepy = (endy - starty) / (float)(endx - startx);
+			if (endx > startx)
+				stepx = 1;
+			else
+			{
+				stepx = -1;
+				stepy *= -1;
+			}			
+			float acty = starty;
+			for (float actx = startx; abs(endx - actx) > 1.5; actx += stepx)
+			{
+				acty += stepy;
+				if (around)
+				{
+					if (actx < -fixx)actx += sizemap;
+					if (acty < -fixy)acty += sizemap;
+					if (actx > -fixx+sizemap)actx -= sizemap;
+					if (acty > -fixy+sizemap)acty -= sizemap;
+				}
+				if (actx >= 0 && acty >= 0 && actx < 512 && acty < 512)
+				{
+					if (shadow && (abs(startx - actx) < abs(endx - actx)))
+					{
+						scrbuff[4 * ((int)acty * 512 + (int)actx)] = 128;// (uint8_t)red * 0.75;
+						scrbuff[4 * ((int)acty * 512 + (int)actx) + 1] = 0;//(uint8_t)green * 0.75;
+						scrbuff[4 * ((int)acty * 512 + (int)actx) + 2] = 0;//(uint8_t)blue * 0.75;
+					}
+					else
+					{
+						scrbuff[4 * ((int)acty * 512 + (int)actx)] = red;
+						scrbuff[4 * ((int)acty * 512 + (int)actx) + 1] = green;
+						scrbuff[4 * ((int)acty * 512 + (int)actx) + 2] = blue;
+					}
+				}
+			}
+		}
+		else
+		{
+			stepx = (endx - startx) / (float)(endy - starty);
+			if (endy > starty)
+				stepy = 1;
+			else
+			{
+				stepy = -1;
+				stepx *= -1;
+			}
+			float actx = startx;
+			for (float acty = starty; abs(endy - acty) > 1.5; acty += stepy)
+			{
+				actx += stepx;
+				if (around)
+				{
+					if (actx < -fixx)actx += sizemap;
+					if (acty < -fixy)acty += sizemap;
+					if (actx > -fixx + sizemap)actx -= sizemap;
+					if (acty > -fixy + sizemap)acty -= sizemap;
+				}
+				if (actx >= 0 && acty >= 0 && actx < 512 && acty < 512)
+				{
+					if (shadow && (abs(starty - acty) < abs(endy - acty)))
+					{
+						scrbuff[4 * ((int)acty * 512 + (int)actx)] = 128;// (uint8_t)red * 0.75;
+						scrbuff[4 * ((int)acty * 512 + (int)actx) + 1] = 0;// (uint8_t)green * 0.75;
+						scrbuff[4 * ((int)acty * 512 + (int)actx) + 2] = 0;// (uint8_t)blue * 0.75;
+					}
+					else
+					{
+						scrbuff[4 * ((int)acty * 512 + (int)actx)] = red;
+						scrbuff[4 * ((int)acty * 512 + (int)actx) + 1] = green;
+						scrbuff[4 * ((int)acty * 512 + (int)actx) + 2] = blue;
+					}
+				}
+			}
+		}
+	}
+};
+
+void fillterrain(kiss_terrain* terrain, SDL_Surface* mapsurface,float zoom, int beginx, int beginy) {
 	uint8_t terrfeatlayer[256 * 256];
 	for (int j = 0; j < 256; j++)
 		for (int i = 0; i < 256; i++)
@@ -300,7 +372,11 @@ void fillterrain(kiss_terrain* terrain, float zoom, int beginx, int beginy) {
 	{
 		type_entity_0x30311 actfeat = temparray_0x30311[i];
 		if ((actfeat.axis2d_4.x > -1) && (actfeat.axis2d_4.x < 256) && (actfeat.axis2d_4.y > -1) && (actfeat.axis2d_4.y < 256))
+		{
 			terrfeatlayer[actfeat.axis2d_4.x + actfeat.axis2d_4.y * 256] = actfeat.type_0x30311;//all entites
+			if ((actfeat.type_0x30311 == 0) && (actfeat.subtype_0x30311 > 0))
+				terrfeatlayer[actfeat.axis2d_4.x + actfeat.axis2d_4.y * 256] = 0xf1;
+		}
 	}
 
 	for (int i = 0; i < 0x4B0; i++)
@@ -329,16 +405,16 @@ void fillterrain(kiss_terrain* terrain, float zoom, int beginx, int beginy) {
 					switch (maptype)
 					{
 					case 0:
-						SetPixelMapSurface(i, j, nx, ny, x_BYTE_10B4E0_terraintype);
+						SetPixelMapSurface(i, j, nx, ny, x_BYTE_10B4E0_terraintype, mapsurface);
 						break;
 					case 1:
-						SetPixelMapSurface(i, j, nx, ny, x_BYTE_11B4E0_heightmap);
+						SetPixelMapSurface(i, j, nx, ny, x_BYTE_11B4E0_heightmap, mapsurface);
 						break;
 					case 2:
-						SetPixelMapSurface(i, j, nx, ny, x_BYTE_12B4E0_shading);
+						SetPixelMapSurface(i, j, nx, ny, x_BYTE_12B4E0_shading, mapsurface);
 						break;
 					case 3:
-						SetPixelMapSurface(i, j, nx, ny, x_BYTE_13B4E0_angle);
+						SetPixelMapSurface(i, j, nx, ny, x_BYTE_13B4E0_angle, mapsurface);
 						break;
 					}
 					break;
@@ -351,6 +427,12 @@ void fillterrain(kiss_terrain* terrain, float zoom, int beginx, int beginy) {
 				case 0x5:
 					scrbuff[4 * (j * 512 + i)] = 0;//setgreen
 					scrbuff[4 * (j * 512 + i) + 1] = 255;
+					scrbuff[4 * (j * 512 + i) + 2] = 0;
+					scrbuff[4 * (j * 512 + i) + 3] = 255;
+					break;
+				case 0xf1:
+					scrbuff[4 * (j * 512 + i)] = 0;//setdarkgreen
+					scrbuff[4 * (j * 512 + i) + 1] = 64;
 					scrbuff[4 * (j * 512 + i) + 2] = 0;
 					scrbuff[4 * (j * 512 + i) + 3] = 255;
 					break;
@@ -401,7 +483,7 @@ void fillterrain(kiss_terrain* terrain, float zoom, int beginx, int beginy) {
 				scrbuff[4 * (j * 512 + i) + 3] = 255;
 			}
 		}
-	for (int i = 0; i < 0x4B0; i++)
+	for (int i = 0; i < 0x4B0; i++)//paths
 	{
 		type_entity_0x30311 actfeat = temparray_0x30311[i];
 		if ((actfeat.type_0x30311 == 0xa) && (actfeat.subtype_0x30311 == 0x1d)&&(actfeat.par1_14>0))
@@ -410,64 +492,67 @@ void fillterrain(kiss_terrain* terrain, float zoom, int beginx, int beginy) {
 			int starty = (actfeat.axis2d_4.y - beginy) * (zoom * 2);
 			int endx = (temparray_0x30311[actfeat.par1_14].axis2d_4.x - beginx) * (zoom * 2);
 			int endy = (temparray_0x30311[actfeat.par1_14].axis2d_4.y - beginy) * (zoom * 2);
-			int lenx = abs(startx - endx);
-			int leny = abs(starty - endy);
-			if (lenx > 0 || leny > 0)
-			{
-				float stepx,stepy;
-				if (lenx > leny)
-				{
-					stepy = (endy - starty) / (float)(endx - startx);
-					if (endx > startx)
-						stepx = 1;
-					else
-					{
-						stepx = -1;
-						stepy *= -1;
-					}
-					float acty = starty;
-					for (float actx = startx; abs(endx - actx) > 1.5; actx += stepx)
-					{
-						acty += stepy;
-						if (actx >= 0 && acty >= 0 && actx < 512 && acty < 512)
-						{
-							scrbuff[4 * ((int)acty * 512 + (int)actx)] = 255 - scrbuff[4 * ((int)acty * 512 + (int)actx)];//set invert
-							scrbuff[4 * ((int)acty * 512 + (int)actx) + 1] = 255 - scrbuff[4 * ((int)acty * 512 + (int)actx) + 1];
-							scrbuff[4 * ((int)acty * 512 + (int)actx) + 2] = 255 - scrbuff[4 * ((int)acty * 512 + (int)actx) + 2];
-							//scrbuff[4 * ((int)acty * 512 + (int)actx) + 3] = 255;
-						}
-					}
-				}
-				else
-				{
-					stepx = (endx - startx) / (float)(endy - starty);
-					if (endy > starty)
-						stepy = 1;
-					else
-					{					
-						stepy = -1;
-						stepx *= -1;
-					}					
-					float actx = startx;
-					for (float acty = starty; abs(endy - acty) > 1.5; acty += stepy)
-					{
-						actx += stepx;
-						if (actx >= 0 && acty >= 0 && actx < 512 && acty < 512)
-						{
-							scrbuff[4 * ((int)acty * 512 + (int)actx)] = 255- scrbuff[4 * ((int)acty * 512 + (int)actx)];//set invert
-							scrbuff[4 * ((int)acty * 512 + (int)actx) + 1] = 255- scrbuff[4 * ((int)acty * 512 + (int)actx) + 1];
-							scrbuff[4 * ((int)acty * 512 + (int)actx) + 2] = 255- scrbuff[4 * ((int)acty * 512 + (int)actx) + 2];
-							//scrbuff[4 * ((int)acty * 512 + (int)actx) + 3] = 255;
-						}
-					}
-				}
-			}
+			float fixx = (beginx) * (zoom * 2);
+			float fixy = (beginy) * (zoom * 2);
+			drawTerrainLine(startx, starty, endx, endy, scrbuff, 255, 255, 255,true, zoom * 2,fixx,fixy);
 		}		
 	}
 
-	for (int i = 0; i < 0x8; i++)
+	for (int i = 0; i < 0x4B0; i++)//switches
 	{
-		type_str_0x36442 actstage = D41A0_BYTESTR_0.terrain_2FECE.str_0x36442[i];
+		type_entity_0x30311 actfeat = temparray_0x30311[i];
+		if ((actfeat.DisId > 0) && (
+			((actfeat.type_0x30311 == 0xa) && (actfeat.subtype_0x30311 == 0x01)) ||
+			((actfeat.type_0x30311 == 0xa) && (actfeat.subtype_0x30311 == 0x05)) ||
+			((actfeat.type_0x30311 == 0xa) && (actfeat.subtype_0x30311 == 0x2d))
+			))
+		{
+			type_entity_0x30311* actfeat2=NULL;
+			for (int j = 0; j < 0x4B0; j++)//switches
+			{
+				if ((temparray_0x30311[j].stageTag_12 == actfeat.DisId) && (temparray_0x30311[j].type_0x30311 == 0xb) && (temparray_0x30311[j].subtype_0x30311 == 0x00))
+				{
+					actfeat2 = &temparray_0x30311[j];
+					break;
+				}
+			}
+			if (actfeat2 == NULL)continue;
+			int startx = (actfeat.axis2d_4.x - beginx) * (zoom * 2);
+			int starty = (actfeat.axis2d_4.y - beginy) * (zoom * 2);
+			int endx = (actfeat2->axis2d_4.x - beginx) * (zoom * 2);
+			int endy = (actfeat2->axis2d_4.y - beginy) * (zoom * 2);
+			drawTerrainLine(startx, starty, endx, endy, scrbuff, 255, 255, 0);			
+		}
+	}
+
+	for (int i = 0; i < 0x4B0; i++)//same B
+	{
+		type_entity_0x30311 actfeat = temparray_0x30311[i];
+		if ((actfeat.subtype_0x30311 > 0) && (actfeat.type_0x30311 == 0xB) && (actfeat.word_10))
+		{
+			type_entity_0x30311* actfeat2 = NULL;
+			for (int j = 0; j < 0x4B0; j++)//switches
+			{
+				//if (i>j)
+				if (/*(temparray_0x30311[j].subtype_0x30311 == actfeat.subtype_0x30311) &&*/
+					//(temparray_0x30311[j].DisId >1)&&
+					(temparray_0x30311[j].DisId == actfeat.stageTag_12))
+				{
+					actfeat2 = &temparray_0x30311[j];
+					if (actfeat2 == NULL)continue;
+					int startx = (actfeat.axis2d_4.x - beginx) * (zoom * 2);
+					int starty = (actfeat.axis2d_4.y - beginy) * (zoom * 2);
+					int endx = (actfeat2->axis2d_4.x - beginx) * (zoom * 2);
+					int endy = (actfeat2->axis2d_4.y - beginy) * (zoom * 2);					 
+					drawTerrainLine(startx, starty, endx, endy, scrbuff, 0, 128, 128,false,2,0,0,true);
+				}
+			}			
+		}
+	}
+
+	for (int i = 0; i < 0x8; i++)//draw stages
+	{
+		type_str_0x36442 actstage = D41A0_0.terrain_2FECE.stages_0x36442[i];
 		if (actstage.index_0 == 5)
 		{
 			for (int i = -8; i <= 8; i++)
@@ -489,421 +574,38 @@ void fillterrain(kiss_terrain* terrain, float zoom, int beginx, int beginy) {
 					scrbuff[4 * (acty * 512 + actx) + 2] = 0;
 				}
 			}
-		}
-		//sprintf(temp, "%1DX |%02X|%04X|%04X|%04X", i, (uint8_t)actstage.byte_0, actstage.word_1, actstage.word_3, actstage.word_5);
+		}		
 	}
-
-	if (terrain->movingactive == 2)
+	if (terrain!=NULL)
 	{
-		int pxminx = (terrain->posx - beginx) * (zoom * 2);
-		int pxminy = (terrain->posy - beginy) * (zoom * 2);
-		int pxmaxx = (terrain->oldposx - beginx) * (zoom * 2);
-		int pxmaxy = (terrain->oldposy - beginy) * (zoom * 2);
-		if (pxmaxy < pxminy)
+		if (terrain->movingactive == 2)//draw select line
 		{
-			int temp = pxmaxy; pxmaxy = pxminy; pxminy = temp;
-		}
-		if (pxmaxx < pxminx)
-		{
-			int temp = pxmaxx; pxmaxx = pxminx; pxminx = temp;
-		}
-		for (int j = 0; j < 512; j++)
-			for (int i = 0; i < 512; i++)
+			int pxminx = (terrain->posx - beginx) * (zoom * 2);
+			int pxminy = (terrain->posy - beginy) * (zoom * 2);
+			int pxmaxx = (terrain->oldposx - beginx) * (zoom * 2);
+			int pxmaxy = (terrain->oldposy - beginy) * (zoom * 2);
+			if (pxmaxy < pxminy)
 			{
-				//if (((i == pxminx) && (j == pxminy)) || ((i == pxmaxx) && (j == pxmaxy)))
-				if ((i >= pxminx) && (i <= pxmaxx) && (j >= pxminy) && (j <= pxmaxy))
-				if ((i == pxminx) || (i == pxmaxx) || (j == pxminy) || (j == pxmaxy))
-				{
-					scrbuff[4 * (j * 512 + i)] = 255;//setwhite
-					scrbuff[4 * (j * 512 + i) + 1] = 255;
-					scrbuff[4 * (j * 512 + i) + 2] = 255;
-					scrbuff[4 * (j * 512 + i) + 3] = 255;
-				}
+				int temp = pxmaxy; pxmaxy = pxminy; pxminy = temp;
 			}
-	}
-};
-
-void fillterraincheck(float zoom, int beginx, int beginy) {	
-	uint8_t terrchecklayer[256 * 256];
-	for (int j = 0; j < 256; j++)
-		for (int i = 0; i < 256; i++)
-		{
-			terrchecklayer[i + j * 256] = 0;
-		}
-	for (int i = 0; i < 0x4B0; i++)
-	{
-		type_entity_0x30311 actfeat = temparray_0x30311[first_terrain_feature + i];
-		if ((actfeat.axis2d_4.x > -1) && (actfeat.axis2d_4.x < 256) && (actfeat.axis2d_4.y > -1) && (actfeat.axis2d_4.y < 256))
-			terrchecklayer[actfeat.axis2d_4.x + actfeat.axis2d_4.y * 256] = actfeat.type_0x30311;//all entites
-	}
-
-	type_entity_0x30311 actfeat = temparray_0x30311[edited_line_old + 1];
-	if ((actfeat.axis2d_4.x > -1) && (actfeat.axis2d_4.x < 256) && (actfeat.axis2d_4.y > -1) && (actfeat.axis2d_4.y < 256))
-		terrchecklayer[actfeat.axis2d_4.x + actfeat.axis2d_4.y * 256] = 0xf0;//selected entity
-
-	uint8_t* scrbuff = (uint8_t*)mapsurfacecheck->pixels;
-	for (int j = 0; j < 512; j++)
-		for (int i = 0; i < 512; i++)
-		{
-			int nx = beginx + i / (zoom * 2);
-			int ny = beginy + j / (zoom * 2);			
-			if ((nx > -1 && nx<256 && ny > -1 && ny < 256))
-			{				
-				switch (terrchecklayer[nx + ny * 256])
-				{
-				case 0:
-					switch (maptypefeat)
-					{
-					case 0:
-						SetPixelMapSurfacecheck(i, j, nx, ny, x_BYTE_10B4E0_terraintype);
-						break;
-					case 1:
-						SetPixelMapSurfacecheck(i, j, nx, ny, x_BYTE_11B4E0_heightmap);
-						break;
-					case 2:
-						SetPixelMapSurfacecheck(i, j, nx, ny, x_BYTE_12B4E0_shading);
-						break;
-					case 3:
-						SetPixelMapSurfacecheck(i, j, nx, ny, x_BYTE_13B4E0_angle);
-						break;
-					}
-					break;
-
-				case 0x5:
-					scrbuff[4 * (j * 512 + i)] = 0;//setgreen
-					scrbuff[4 * (j * 512 + i) + 1] = 255;
-					scrbuff[4 * (j * 512 + i) + 2] = 0;
-					scrbuff[4 * (j * 512 + i) + 3] = 255;
-					break;
-				case 0xa:
-					scrbuff[4 * (j * 512 + i)] = 0;//setblue
-					scrbuff[4 * (j * 512 + i) + 1] = 0;
-					scrbuff[4 * (j * 512 + i) + 2] = 255;
-					scrbuff[4 * (j * 512 + i) + 3] = 255;
-					break;
-				case 0xf0:
-					scrbuff[4 * (j * 512 + i)] = 255;//setwhite
-					scrbuff[4 * (j * 512 + i) + 1] = 255;
-					scrbuff[4 * (j * 512 + i) + 2] = 255;
-					scrbuff[4 * (j * 512 + i) + 3] = 255;
-					break;
-				case 0x2:
-				case 0x3:
-					scrbuff[4 * (j * 512 + i)] = 255;//set brow
-					scrbuff[4 * (j * 512 + i) + 1] = 255;
-					scrbuff[4 * (j * 512 + i) + 2] = 0;
-					scrbuff[4 * (j * 512 + i) + 3] = 255;
-					break;
-				case 0xb:
-					scrbuff[4 * (j * 512 + i)] = 0;//set cyan
-					scrbuff[4 * (j * 512 + i) + 1] = 255;
-					scrbuff[4 * (j * 512 + i) + 2] = 255;
-					scrbuff[4 * (j * 512 + i) + 3] = 255;
-					break;
-				case 0xe:
-					scrbuff[4 * (j * 512 + i)] = 255;//set magenta
-					scrbuff[4 * (j * 512 + i) + 1] = 0;
-					scrbuff[4 * (j * 512 + i) + 2] = 255;
-					scrbuff[4 * (j * 512 + i) + 3] = 255;
-					break;
-				default:
-					scrbuff[4 * (j * 512 + i)] = 255;//setred
-					scrbuff[4 * (j * 512 + i) + 1] = 0;
-					scrbuff[4 * (j * 512 + i) + 2] = 0;
-					scrbuff[4 * (j * 512 + i) + 3] = 255;
-					break;
-				}
-			}
-			else
+			if (pxmaxx < pxminx)
 			{
-				scrbuff[4 * (j * 512 + i)] = 255;//setred
-				scrbuff[4 * (j * 512 + i) + 1] = 0;
-				scrbuff[4 * (j * 512 + i) + 2] = 0;
-				scrbuff[4 * (j * 512 + i) + 3] = 255;
+				int temp = pxmaxx; pxmaxx = pxminx; pxminx = temp;
 			}
-		}
-
-	for (int i = 0; i < 0x4B0; i++)
-	{
-		type_entity_0x30311 actfeat = temparray_0x30311[i];
-		if ((actfeat.type_0x30311 == 0xa) && (actfeat.subtype_0x30311 == 0x1d) && (actfeat.par1_14 > 0))
-		{
-			int startx = (actfeat.axis2d_4.x - beginx) * (zoom * 2);
-			int starty = (actfeat.axis2d_4.y - beginy) * (zoom * 2);
-			int endx = (temparray_0x30311[actfeat.par1_14].axis2d_4.x - beginx) * (zoom * 2);
-			int endy = (temparray_0x30311[actfeat.par1_14].axis2d_4.y - beginy) * (zoom * 2);
-			int lenx = abs(startx - endx);
-			int leny = abs(starty - endy);
-			if (lenx > 0 || leny > 0)
-			{
-				float stepx, stepy;
-				if (lenx > leny)
+			for (int j = 0; j < 512; j++)
+				for (int i = 0; i < 512; i++)
 				{
-					stepy = (endy - starty) / (float)(endx - startx);
-					if (endx > startx)
-						stepx = 1;
-					else
-					{
-						stepx = -1;
-						stepy *= -1;
-					}
-					float acty = starty;
-					for (float actx = startx; abs(endx - actx) > 1.5; actx += stepx)
-					{
-						acty += stepy;
-						if (actx >= 0 && acty >= 0 && actx < 512 && acty < 512)
+					//if (((i == pxminx) && (j == pxminy)) || ((i == pxmaxx) && (j == pxmaxy)))
+					if ((i >= pxminx) && (i <= pxmaxx) && (j >= pxminy) && (j <= pxmaxy))
+						if ((i == pxminx) || (i == pxmaxx) || (j == pxminy) || (j == pxmaxy))
 						{
-							scrbuff[4 * ((int)acty * 512 + (int)actx)] = 255 - scrbuff[4 * ((int)acty * 512 + (int)actx)];//set invert
-							scrbuff[4 * ((int)acty * 512 + (int)actx) + 1] = 255 - scrbuff[4 * ((int)acty * 512 + (int)actx) + 1];
-							scrbuff[4 * ((int)acty * 512 + (int)actx) + 2] = 255 - scrbuff[4 * ((int)acty * 512 + (int)actx) + 2];
-							//scrbuff[4 * ((int)acty * 512 + (int)actx) + 3] = 255;
+							scrbuff[4 * (j * 512 + i)] = 255;//setwhite
+							scrbuff[4 * (j * 512 + i) + 1] = 255;
+							scrbuff[4 * (j * 512 + i) + 2] = 255;
+							scrbuff[4 * (j * 512 + i) + 3] = 255;
 						}
-					}
 				}
-				else
-				{
-					stepx = (endx - startx) / (float)(endy - starty);
-					if (endy > starty)
-						stepy = 1;
-					else
-					{
-						stepy = -1;
-						stepx *= -1;
-					}
-					float actx = startx;
-					for (float acty = starty; abs(endy - acty) > 1.5; acty += stepy)
-					{
-						actx += stepx;
-						if (actx >= 0 && acty >= 0 && actx < 512 && acty < 512)
-						{
-							scrbuff[4 * ((int)acty * 512 + (int)actx)] = 255 - scrbuff[4 * ((int)acty * 512 + (int)actx)];//set invert
-							scrbuff[4 * ((int)acty * 512 + (int)actx) + 1] = 255 - scrbuff[4 * ((int)acty * 512 + (int)actx) + 1];
-							scrbuff[4 * ((int)acty * 512 + (int)actx) + 2] = 255 - scrbuff[4 * ((int)acty * 512 + (int)actx) + 2];
-							//scrbuff[4 * ((int)acty * 512 + (int)actx) + 3] = 255;
-						}
-					}
-				}
-			}
 		}
-	}
-	for (int i = 0; i < 0x8; i++)
-	{
-		type_str_0x36442 actstage = D41A0_BYTESTR_0.terrain_2FECE.str_0x36442[i];
-		if (actstage.index_0 == 5)
-		{
-			for (int i = -8; i <= 8; i++)
-			{
-				int actx = (actstage._axis_2d.x - beginx) * (zoom * 2) + i;
-				int acty = (actstage._axis_2d.y - beginy) * (zoom * 2) - i;
-				if (actx >= 0 && acty >= 0 && actx < 512 && acty < 512)
-				{
-					scrbuff[4 * (acty * 512 + actx)] = 255;//setyellow
-					scrbuff[4 * (acty * 512 + actx) + 1] = 255;
-					scrbuff[4 * (acty * 512 + actx) + 2] = 0;
-				}
-				actx = (actstage._axis_2d.x - beginx) * (zoom * 2) + i;
-				acty = (actstage._axis_2d.y - beginy) * (zoom * 2) + i;
-				if (actx >= 0 && acty >= 0 && actx < 512 && acty < 512)
-				{
-					scrbuff[4 * (acty * 512 + actx)] = 255;//setyellow
-					scrbuff[4 * (acty * 512 + actx) + 1] = 255;
-					scrbuff[4 * (acty * 512 + actx) + 2] = 0;
-				}
-			}
-		}
-		//sprintf(temp, "%1DX |%02X|%04X|%04X|%04X", i, (uint8_t)actstage.byte_0, actstage.word_1, actstage.word_3, actstage.word_5);
-	}
-};
-
-void fillterrainfeat(float zoom, int beginx, int beginy) {
-	uint8_t terrfeatlayer[256 * 256];
-	for (int j = 0; j < 256; j++)
-		for (int i = 0; i < 256; i++)
-		{
-			terrfeatlayer[i + j * 256] = 0;
-		}
-	for (int i = 0; i < 0x4B0; i++)
-	{
-		type_entity_0x30311 actfeat = temparray_0x30311[first_terrain_feature + i];
-		if ((actfeat.axis2d_4.x > -1) && (actfeat.axis2d_4.x < 256) && (actfeat.axis2d_4.y > -1) && (actfeat.axis2d_4.y < 256))
-			terrfeatlayer[actfeat.axis2d_4.x + actfeat.axis2d_4.y * 256] = actfeat.type_0x30311;//all entites
-	}
-
-	type_entity_0x30311 actfeat = temparray_0x30311[edited_line_old + 1];
-	if ((actfeat.axis2d_4.x > -1) && (actfeat.axis2d_4.x < 256) && (actfeat.axis2d_4.y > -1) && (actfeat.axis2d_4.y < 256))
-		terrfeatlayer[actfeat.axis2d_4.x + actfeat.axis2d_4.y * 256] = 0xf0;//selected entity
-
-	uint8_t* scrbuff = (uint8_t*)mapsurfacefeat->pixels;
-	for (int j = 0; j < 512; j++)
-		for (int i = 0; i < 512; i++)
-		{
-			int nx = beginx + i / (zoom * 2);
-			int ny = beginy + j / (zoom * 2);
-			if ((nx > -1 && nx<256 && ny > -1 && ny < 256))
-			{
-				switch (terrfeatlayer[nx + ny * 256])
-				{
-				case 0:
-					switch (maptypefeat)
-					{
-					case 0:
-						SetPixelMapSurfacefeat(i, j, nx, ny, x_BYTE_10B4E0_terraintype);
-						break;
-					case 1:
-						SetPixelMapSurfacefeat(i, j, nx, ny, x_BYTE_11B4E0_heightmap);
-						break;
-					case 2:
-						SetPixelMapSurfacefeat(i, j, nx, ny, x_BYTE_12B4E0_shading);
-						break;
-					case 3:
-						SetPixelMapSurfacefeat(i, j, nx, ny, x_BYTE_13B4E0_angle);
-						break;
-					}
-					break;
-
-				case 0x5:
-					scrbuff[4 * (j * 512 + i)] = 0;//setgreen
-					scrbuff[4 * (j * 512 + i) + 1] = 255;
-					scrbuff[4 * (j * 512 + i) + 2] = 0;
-					scrbuff[4 * (j * 512 + i) + 3] = 255;
-					break;
-				case 0xa:
-					scrbuff[4 * (j * 512 + i)] = 0;//setblue
-					scrbuff[4 * (j * 512 + i) + 1] = 0;
-					scrbuff[4 * (j * 512 + i) + 2] = 255;
-					scrbuff[4 * (j * 512 + i) + 3] = 255;
-					break;
-				case 0xf0:
-					scrbuff[4 * (j * 512 + i)] = 255;//setwhite
-					scrbuff[4 * (j * 512 + i) + 1] = 255;
-					scrbuff[4 * (j * 512 + i) + 2] = 255;
-					scrbuff[4 * (j * 512 + i) + 3] = 255;
-					break;
-				case 0x2:
-				case 0x3:
-					scrbuff[4 * (j * 512 + i)] = 255;//set brow
-					scrbuff[4 * (j * 512 + i) + 1] = 255;
-					scrbuff[4 * (j * 512 + i) + 2] = 0;
-					scrbuff[4 * (j * 512 + i) + 3] = 255;
-					break;
-				case 0xb:
-					scrbuff[4 * (j * 512 + i)] = 0;//set cyan
-					scrbuff[4 * (j * 512 + i) + 1] = 255;
-					scrbuff[4 * (j * 512 + i) + 2] = 255;
-					scrbuff[4 * (j * 512 + i) + 3] = 255;
-					break;
-				case 0xe:
-					scrbuff[4 * (j * 512 + i)] = 255;//set magenta
-					scrbuff[4 * (j * 512 + i) + 1] = 0;
-					scrbuff[4 * (j * 512 + i) + 2] = 255;
-					scrbuff[4 * (j * 512 + i) + 3] = 255;
-					break;
-				default:
-					scrbuff[4 * (j * 512 + i)] = 255;//setred
-					scrbuff[4 * (j * 512 + i) + 1] = 0;
-					scrbuff[4 * (j * 512 + i) + 2] = 0;
-					scrbuff[4 * (j * 512 + i) + 3] = 255;
-					break;
-				}
-			}
-			else
-			{
-				scrbuff[4 * (j * 512 + i)] = 255;//setred
-				scrbuff[4 * (j * 512 + i) + 1] = 0;
-				scrbuff[4 * (j * 512 + i) + 2] = 0;
-				scrbuff[4 * (j * 512 + i) + 3] = 255;
-			}
-		}
-
-	for (int i = 0; i < 0x4B0; i++)
-	{
-		type_entity_0x30311 actfeat = temparray_0x30311[i];
-		if ((actfeat.type_0x30311 == 0xa) && (actfeat.subtype_0x30311 == 0x1d) && (actfeat.par1_14 > 0))
-		{
-			int startx = (actfeat.axis2d_4.x - beginx) * (zoom * 2);
-			int starty = (actfeat.axis2d_4.y - beginy) * (zoom * 2);
-			int endx = (temparray_0x30311[actfeat.par1_14].axis2d_4.x - beginx) * (zoom * 2);
-			int endy = (temparray_0x30311[actfeat.par1_14].axis2d_4.y - beginy) * (zoom * 2);
-			int lenx = abs(startx - endx);
-			int leny = abs(starty - endy);
-			if (lenx > 0 || leny > 0)
-			{
-				float stepx, stepy;
-				if (lenx > leny)
-				{
-					stepy = (endy - starty) / (float)(endx - startx);
-					if (endx > startx)
-						stepx = 1;
-					else
-					{
-						stepx = -1;
-						stepy *= -1;
-					}
-					float acty = starty;
-					for (float actx = startx; abs(endx - actx) > 1.5; actx += stepx)
-					{
-						acty += stepy;
-						if (actx >= 0 && acty >= 0 && actx < 512 && acty < 512)
-						{
-							scrbuff[4 * ((int)acty * 512 + (int)actx)] = 255 - scrbuff[4 * ((int)acty * 512 + (int)actx)];//set invert
-							scrbuff[4 * ((int)acty * 512 + (int)actx) + 1] = 255 - scrbuff[4 * ((int)acty * 512 + (int)actx) + 1];
-							scrbuff[4 * ((int)acty * 512 + (int)actx) + 2] = 255 - scrbuff[4 * ((int)acty * 512 + (int)actx) + 2];
-							//scrbuff[4 * ((int)acty * 512 + (int)actx) + 3] = 255;
-						}
-					}
-				}
-				else
-				{
-					stepx = (endx - startx) / (float)(endy - starty);
-					if (endy > starty)
-						stepy = 1;
-					else
-					{
-						stepy = -1;
-						stepx *= -1;
-					}
-					float actx = startx;
-					for (float acty = starty; abs(endy - acty) > 1.5; acty += stepy)
-					{
-						actx += stepx;
-						if (actx >= 0 && acty >= 0 && actx < 512 && acty < 512)
-						{
-							scrbuff[4 * ((int)acty * 512 + (int)actx)] = 255 - scrbuff[4 * ((int)acty * 512 + (int)actx)];//set invert
-							scrbuff[4 * ((int)acty * 512 + (int)actx) + 1] = 255 - scrbuff[4 * ((int)acty * 512 + (int)actx) + 1];
-							scrbuff[4 * ((int)acty * 512 + (int)actx) + 2] = 255 - scrbuff[4 * ((int)acty * 512 + (int)actx) + 2];
-							//scrbuff[4 * ((int)acty * 512 + (int)actx) + 3] = 255;
-						}
-					}
-				}
-			}
-		}
-	}
-	for (int i = 0; i < 0x8; i++)
-	{
-		type_str_0x36442 actstage = D41A0_BYTESTR_0.terrain_2FECE.str_0x36442[i];
-		if (actstage.index_0 == 5)
-		{
-			for (int i = -8; i <= 8; i++)
-			{
-				int actx = (actstage._axis_2d.x - beginx) * (zoom * 2) + i;
-				int acty = (actstage._axis_2d.y - beginy) * (zoom * 2) - i;
-				if (actx >= 0 && acty >= 0 && actx < 512 && acty < 512)
-				{
-					scrbuff[4 * (acty * 512 + actx)] = 255;//setyellow
-					scrbuff[4 * (acty * 512 + actx) + 1] = 255;
-					scrbuff[4 * (acty * 512 + actx) + 2] = 0;
-				}
-				actx = (actstage._axis_2d.x - beginx) * (zoom * 2) + i;
-				acty = (actstage._axis_2d.y - beginy) * (zoom * 2) + i;
-				if (actx >= 0 && acty >= 0 && actx < 512 && acty < 512)
-				{
-					scrbuff[4 * (acty * 512 + actx)] = 255;//setyellow
-					scrbuff[4 * (acty * 512 + actx) + 1] = 255;
-					scrbuff[4 * (acty * 512 + actx) + 2] = 0;
-				}
-			}
-		}
-		//sprintf(temp, "%1DX |%02X|%04X|%04X|%04X", i, (uint8_t)actstage.byte_0, actstage.word_1, actstage.word_3, actstage.word_5);
 	}
 };
 
@@ -1009,7 +711,7 @@ static void terrain_stages_append(kiss_textbox* textbox) {
 	//VGA_Draw_stringXYtoBuffer(temp, 304, 32, pdwScreenBuffer);
 	for (int i = 0; i < 8; i++)
 	{
-		type_str_0x36442 actstage = D41A0_BYTESTR_0.terrain_2FECE.str_0x36442[i];
+		type_str_0x36442 actstage = D41A0_0.terrain_2FECE.stages_0x36442[i];
 		sprintf(temp, "%01X |%02X|%04X|%04X|%04X", i, (uint8_t)actstage.index_0, actstage.stage_1, actstage._axis_2d.x, actstage._axis_2d.y);
 		kiss_array_appendstring(textbox->array, 0, (char*)"", temp);
 	}
@@ -1023,7 +725,7 @@ char temp[256];
 //VGA_Draw_stringXYtoBuffer(temp, 304, 32, pdwScreenBuffer);
 for (int i = 0; i < 0xb; i++)
 {
-	type_str_0x3647Ac actstage = D41A0_BYTESTR_0.terrain_2FECE.array_0x3647A[i];
+	type_str_0x3647Ac actstage = D41A0_0.terrain_2FECE.array_0x3647A[i];
 	sprintf(temp, "%1DX |%02X|%02X|%02X|%04X|%04X", i, (uint8_t)actstage.index_0x3647A_0, (uint8_t)actstage.stage_0x3647A_1, actstage.str_0x3647A_2._axis_2d.x, actstage.str_0x3647A_2._axis_2d.y,actstage.str_0x3647C_4.axis.x, actstage.str_0x3647C_4.axis.y);
 	kiss_array_appendstring(textbox->array, 0, (char*)"", temp);
 }
@@ -1200,8 +902,8 @@ static bool button_loadlevel_event(kiss_button* button, SDL_Event* e, int* draw)
 		char path2[512];
 		FixDir(path2, (char*)"testsave.sav");
 		FILE* file = fopen(path2, "rb");
-		fread(&D41A0_BYTESTR_0.terrain_2FECE, sizeof(D41A0_BYTESTR_0.terrain_2FECE), 1, file);
-		memcpy(temparray_0x30311,D41A0_BYTESTR_0.terrain_2FECE.entity_0x30311, sizeof(D41A0_BYTESTR_0.terrain_2FECE.entity_0x30311));		
+		fread(&D41A0_0.terrain_2FECE, sizeof(D41A0_0.terrain_2FECE), 1, file);
+		memcpy(temparray_0x30311,D41A0_0.terrain_2FECE.entity_0x30311, sizeof(D41A0_0.terrain_2FECE.entity_0x30311));		
 		fclose;
 		return true;
 	}//*quit = 1;
@@ -1223,10 +925,10 @@ static bool button_undo_event(kiss_button* button, SDL_Event* e, int* draw)
 		if (indexUndoPoint > 1)
 		{
 			indexUndoPoint--;
-			memcpy(&D41A0_BYTESTR_0.terrain_2FECE, &UndoPoint[indexUndoPoint-1], sizeof(type_str_2FECE));
+			memcpy(&D41A0_0.terrain_2FECE, &UndoPoint[indexUndoPoint-1], sizeof(type_str_2FECE));
 			memcpy(temparray_0x30311_inactive, UndoInactive[indexUndoPoint - 1], sizeof(bool) * 0x4b0);
 			memcpy(temparray_0x30311_selected, UndoSelected[indexUndoPoint - 1], sizeof(bool) * 0x4b0);
-			memcpy(temparray_0x30311, D41A0_BYTESTR_0.terrain_2FECE.entity_0x30311, sizeof(D41A0_BYTESTR_0.terrain_2FECE.entity_0x30311));
+			memcpy(temparray_0x30311, D41A0_0.terrain_2FECE.entity_0x30311, sizeof(D41A0_0.terrain_2FECE.entity_0x30311));
 		}
 		return true;
 	}
@@ -1240,10 +942,10 @@ static bool button_redo_event(kiss_button* button, SDL_Event* e, int* draw)
 		if (indexUndoPoint < MaxUndoPoints2)
 		{
 			indexUndoPoint++;
-			memcpy(&D41A0_BYTESTR_0.terrain_2FECE, &UndoPoint[indexUndoPoint - 1], sizeof(type_str_2FECE));
+			memcpy(&D41A0_0.terrain_2FECE, &UndoPoint[indexUndoPoint - 1], sizeof(type_str_2FECE));
 			memcpy(temparray_0x30311_inactive, UndoInactive[indexUndoPoint - 1], sizeof(bool) * 0x4b0);
 			memcpy(temparray_0x30311_selected, UndoSelected[indexUndoPoint - 1], sizeof(bool) * 0x4b0);
-			memcpy(temparray_0x30311, D41A0_BYTESTR_0.terrain_2FECE.entity_0x30311, sizeof(D41A0_BYTESTR_0.terrain_2FECE.entity_0x30311));
+			memcpy(temparray_0x30311, D41A0_0.terrain_2FECE.entity_0x30311, sizeof(D41A0_0.terrain_2FECE.entity_0x30311));
 		}
 		return true;
 	}
@@ -1267,8 +969,8 @@ static void button_savelevel_event(kiss_button* button, SDL_Event* e,int* draw)
 		char path2[512];
 		FixDir(path2, (char*)"testsave.sav");
 		FILE* file = fopen(path2,"wb");
-		memcpy(D41A0_BYTESTR_0.terrain_2FECE.entity_0x30311,temparray_0x30311, sizeof(type_entity_0x30311) *0x4b0);
-		fwrite((void*)&D41A0_BYTESTR_0.terrain_2FECE, 1, sizeof(type_str_2FECE), file);
+		memcpy(D41A0_0.terrain_2FECE.entity_0x30311,temparray_0x30311, sizeof(type_entity_0x30311) *0x4b0);
+		fwrite((void*)&D41A0_0.terrain_2FECE, 1, sizeof(type_str_2FECE), file);
 		//cyclefwrite((char*)&D41A0_BYTESTR_0.terrain_2FECE, sizeof(type_str_2FECE), file);
 		/*int buffersize = 1000;
 		int buffercount=
@@ -1304,7 +1006,7 @@ static int button_cleanlevelfeat_event(kiss_button* button, SDL_Event* e, int* d
 			memset(&temparray_0x30311[i],0,sizeof(temparray_0x30311[i]));
 			temparray_0x30311_inactive[i]=false;
 			temparray_0x30311_selected[i] = false;
-			D41A0_BYTESTR_0.terrain_2FECE.entity_0x30311[i] = temparray_0x30311[i];
+			D41A0_0.terrain_2FECE.entity_0x30311[i] = temparray_0x30311[i];
 		}
 		return 1;
 	}
@@ -1335,11 +1037,11 @@ bool delete_entity(int index) {
 		}*/
 		for (int j = 0; j < 8; j++)
 		{
-			if ((D41A0_BYTESTR_0.terrain_2FECE.str_0x36442[j].index_0 == 1) ||
-				(D41A0_BYTESTR_0.terrain_2FECE.str_0x36442[j].index_0 == 7) ||
-				(D41A0_BYTESTR_0.terrain_2FECE.str_0x36442[j].index_0 == 9))
-				if (D41A0_BYTESTR_0.terrain_2FECE.str_0x36442[j].stage_1 == i)
-					D41A0_BYTESTR_0.terrain_2FECE.str_0x36442[j].stage_1--;
+			if ((D41A0_0.terrain_2FECE.stages_0x36442[j].index_0 == 1) ||
+				(D41A0_0.terrain_2FECE.stages_0x36442[j].index_0 == 7) ||
+				(D41A0_0.terrain_2FECE.stages_0x36442[j].index_0 == 9))
+				if (D41A0_0.terrain_2FECE.stages_0x36442[j].stage_1 == i)
+					D41A0_0.terrain_2FECE.stages_0x36442[j].stage_1--;
 		}
 
 		temparray_0x30311[i - 1] = temparray_0x30311[i];
@@ -1715,11 +1417,11 @@ static int  CloneEvent(int x, int y) {
 		}*/
 		for (int j = 0; j < 8; j++)
 		{
-			if ((D41A0_BYTESTR_0.terrain_2FECE.str_0x36442[j].index_0 == 1) ||
-				(D41A0_BYTESTR_0.terrain_2FECE.str_0x36442[j].index_0 == 7) ||
-				(D41A0_BYTESTR_0.terrain_2FECE.str_0x36442[j].index_0 == 9))
-				if (D41A0_BYTESTR_0.terrain_2FECE.str_0x36442[j].stage_1 == i)
-					D41A0_BYTESTR_0.terrain_2FECE.str_0x36442[j].stage_1++;
+			if ((D41A0_0.terrain_2FECE.stages_0x36442[j].index_0 == 1) ||
+				(D41A0_0.terrain_2FECE.stages_0x36442[j].index_0 == 7) ||
+				(D41A0_0.terrain_2FECE.stages_0x36442[j].index_0 == 9))
+				if (D41A0_0.terrain_2FECE.stages_0x36442[j].stage_1 == i)
+					D41A0_0.terrain_2FECE.stages_0x36442[j].stage_1++;
 		}
 
 		temparray_0x30311[i] = temparray_0x30311[i - 1];
@@ -2311,10 +2013,10 @@ void set_button_image_subsubtype(kiss_image** img, uint16_t acttype, uint16_t ac
 void SetUndoPoint() {
 	if (indexUndoPoint <= MaxUndoPoints)
 	{
-		memcpy(D41A0_BYTESTR_0.terrain_2FECE.entity_0x30311, temparray_0x30311, sizeof(D41A0_BYTESTR_0.terrain_2FECE.entity_0x30311));
+		memcpy(D41A0_0.terrain_2FECE.entity_0x30311, temparray_0x30311, sizeof(D41A0_0.terrain_2FECE.entity_0x30311));
 		memcpy(UndoInactive[indexUndoPoint], temparray_0x30311_inactive, sizeof(bool) * 0x4b0);
 		memcpy(UndoSelected[indexUndoPoint], temparray_0x30311_selected, sizeof(bool) * 0x4b0);
-		memcpy(&UndoPoint[indexUndoPoint],&D41A0_BYTESTR_0.terrain_2FECE, sizeof(type_str_2FECE));
+		memcpy(&UndoPoint[indexUndoPoint],&D41A0_0.terrain_2FECE, sizeof(type_str_2FECE));
 		indexUndoPoint++;
 		MaxUndoPoints2 = indexUndoPoint;
 	}
@@ -2401,6 +2103,7 @@ int main_x(/*int argc, char** argv*/)
 	kiss_dec1edit levelSel = { 0 };
 
 	kiss_label labelXY = { 0 };
+	kiss_label terrlabelXY = { 0 };
 
 	kiss_label labelIndexWind2 = { 0 };
 	kiss_label labelIndexWind3 = { 0 };
@@ -3309,35 +3012,35 @@ int main_x(/*int argc, char** argv*/)
 
 
 
-	kiss_hex4edit_new(&hex4edit1, &window1, &D41A0_BYTESTR_0.terrain_2FECE.seed_0x2FEE5, (char*)"SEED:", 10, 10, 70);
-	kiss_hex4edit_new(&hex4edit2, &window1, &D41A0_BYTESTR_0.terrain_2FECE.offset_0x2FEE9, (char*)"OFFSET:", 10, 30, 70);
-	kiss_hex4edit_new(&hex4edit3, &window1, &D41A0_BYTESTR_0.terrain_2FECE.raise_0x2FEED, (char*)"RAISE:", 10, 50, 70);
-	kiss_hex4edit_new(&hex4edit4, &window1, &D41A0_BYTESTR_0.terrain_2FECE.gnarl_0x2FEF1, (char*)"GNARL:", 10, 70, 70);
-	kiss_hex4edit_new(&hex4edit5, &window1, &D41A0_BYTESTR_0.terrain_2FECE.river_0x2FEF5, (char*)"RIVER:", 10, 90, 70);
-	kiss_hex4edit_new(&hex4edit6, &window1, &D41A0_BYTESTR_0.terrain_2FECE.lriver_0x2FEF9, (char*)"LRIVER:", 10, 110, 70);
-	kiss_hex4edit_new(&hex4edit7, &window1, &D41A0_BYTESTR_0.terrain_2FECE.source_0x2FEFD, (char*)"SOURCE:", 10, 130, 70);
-	kiss_hex4edit_new(&hex4edit8, &window1, &D41A0_BYTESTR_0.terrain_2FECE.snLin_0x2FF01, (char*)"SnLin:", 10, 150, 70);
-	kiss_hex4edit_new(&hex4edit9, &window1, &D41A0_BYTESTR_0.terrain_2FECE.snFlt_0x2FF05, (char*)"SnFlt:", 10, 170, 70);
-	kiss_hex4edit_new(&hex4edit10, &window1, &D41A0_BYTESTR_0.terrain_2FECE.bhLin_0x2FF09, (char*)"BhLin:", 10, 190, 70);
-	kiss_hex4edit_new(&hex4edit11, &window1, &D41A0_BYTESTR_0.terrain_2FECE.bhFlt_0x2FF0D, (char*)"BhFlt:", 10, 210, 70);
-	kiss_hex4edit_new(&hex4edit12, &window1, &D41A0_BYTESTR_0.terrain_2FECE.rkSte_0x2FF11, (char*)"RkSte:", 10, 230, 70);
+	kiss_hex4edit_new(&hex4edit1, &window1, &D41A0_0.terrain_2FECE.seed_0x2FEE5, (char*)"SEED:", 10, 10, 70);
+	kiss_hex4edit_new(&hex4edit2, &window1, &D41A0_0.terrain_2FECE.offset_0x2FEE9, (char*)"OFFSET:", 10, 30, 70);
+	kiss_hex4edit_new(&hex4edit3, &window1, &D41A0_0.terrain_2FECE.raise_0x2FEED, (char*)"RAISE:", 10, 50, 70);
+	kiss_hex4edit_new(&hex4edit4, &window1, &D41A0_0.terrain_2FECE.gnarl_0x2FEF1, (char*)"GNARL:", 10, 70, 70);
+	kiss_hex4edit_new(&hex4edit5, &window1, &D41A0_0.terrain_2FECE.river_0x2FEF5, (char*)"RIVER:", 10, 90, 70);
+	kiss_hex4edit_new(&hex4edit6, &window1, &D41A0_0.terrain_2FECE.lriver_0x2FEF9, (char*)"LRIVER:", 10, 110, 70);
+	kiss_hex4edit_new(&hex4edit7, &window1, &D41A0_0.terrain_2FECE.source_0x2FEFD, (char*)"SOURCE:", 10, 130, 70);
+	kiss_hex4edit_new(&hex4edit8, &window1, &D41A0_0.terrain_2FECE.snLin_0x2FF01, (char*)"SnLin:", 10, 150, 70);
+	kiss_hex4edit_new(&hex4edit9, &window1, &D41A0_0.terrain_2FECE.snFlt_0x2FF05, (char*)"SnFlt:", 10, 170, 70);
+	kiss_hex4edit_new(&hex4edit10, &window1, &D41A0_0.terrain_2FECE.bhLin_0x2FF09, (char*)"BhLin:", 10, 190, 70);
+	kiss_hex4edit_new(&hex4edit11, &window1, &D41A0_0.terrain_2FECE.bhFlt_0x2FF0D, (char*)"BhFlt:", 10, 210, 70);
+	kiss_hex4edit_new(&hex4edit12, &window1, &D41A0_0.terrain_2FECE.rkSte_0x2FF11, (char*)"RkSte:", 10, 230, 70);
 
-	kiss_hex4edit_new(&hex4edit13, &window1, &D41A0_BYTESTR_0.terrain_2FECE.word_2FECE, (char*)"2FECE:", 250, 10,80);
-	kiss_hex4edit_new(&hex4edit14, &window1, &D41A0_BYTESTR_0.terrain_2FECE.word_2FED0, (char*)"2FED0:", 250, 30, 80);
-	kiss_hex2edit_new(&hex2edit15, &window1, &D41A0_BYTESTR_0.terrain_2FECE.byte_0x2FED2, (char*)"2FED2:", 250, 50, 80);
-	kiss_hex2edit_new(&hex2edit16, &window1, &D41A0_BYTESTR_0.terrain_2FECE.byte_0x2FED3, (char*)"2FED3:", 250, 70, 80);
-	kiss_hex2edit_new(&hex2edit17, &window1, &D41A0_BYTESTR_0.terrain_2FECE.MapType, (char*)"DY/NG/CV:", 250, 90, 80);
-	kiss_hex4edit_new(&hex4edit18, &window1, &D41A0_BYTESTR_0.terrain_2FECE.word_0x2FED5, (char*)"2FED5:", 250, 110, 80);
-	kiss_hex4edit_new(&hex4edit19, &window1, &D41A0_BYTESTR_0.terrain_2FECE.word_0x2FED7, (char*)"2FED7:", 250, 130, 80);
+	kiss_hex4edit_new(&hex4edit13, &window1, &D41A0_0.terrain_2FECE.word_2FECE, (char*)"2FECE:", 250, 10,80);
+	kiss_hex4edit_new(&hex4edit14, &window1, &D41A0_0.terrain_2FECE.word_2FED0, (char*)"2FED0:", 250, 30, 80);
+	kiss_hex2edit_new(&hex2edit15, &window1, &D41A0_0.terrain_2FECE.byte_0x2FED2, (char*)"2FED2:", 250, 50, 80);
+	kiss_hex2edit_new(&hex2edit16, &window1, &D41A0_0.terrain_2FECE.byte_0x2FED3, (char*)"2FED3:", 250, 70, 80);
+	kiss_hex2edit_new(&hex2edit17, &window1, &D41A0_0.terrain_2FECE.MapType, (char*)"DY/NG/CV:", 250, 90, 80);
+	kiss_hex4edit_new(&hex4edit18, &window1, &D41A0_0.terrain_2FECE.word_0x2FED5, (char*)"2FED5:", 250, 110, 80);
+	kiss_hex4edit_new(&hex4edit19, &window1, &D41A0_0.terrain_2FECE.word_0x2FED7, (char*)"2FED7:", 250, 130, 80);
 
-	kiss_hex2edit_new(&hex2edit20, &window1, &D41A0_BYTESTR_0.terrain_2FECE.player_0x2FED9[0], (char*)"D9-0", 250, 150, 40);
-	kiss_hex2edit_new(&hex2edit21, &window1, &D41A0_BYTESTR_0.terrain_2FECE.player_0x2FED9[1], (char*)"D9-1", 385, 150, 40);
-	kiss_hex2edit_new(&hex2edit22, &window1, &D41A0_BYTESTR_0.terrain_2FECE.player_0x2FED9[2], (char*)"D9-2", 250, 170, 40);
-	kiss_hex2edit_new(&hex2edit23, &window1, &D41A0_BYTESTR_0.terrain_2FECE.player_0x2FED9[3], (char*)"D9-3", 385, 170, 40);
-	kiss_hex2edit_new(&hex2edit24, &window1, &D41A0_BYTESTR_0.terrain_2FECE.player_0x2FED9[4], (char*)"D9-4", 250, 190, 40);
-	kiss_hex2edit_new(&hex2edit25, &window1, &D41A0_BYTESTR_0.terrain_2FECE.player_0x2FED9[5], (char*)"D9-5", 385, 190, 40);
-	kiss_hex2edit_new(&hex2edit26, &window1, &D41A0_BYTESTR_0.terrain_2FECE.player_0x2FED9[6], (char*)"D9-6", 250, 210, 40);
-	kiss_hex2edit_new(&hex2edit27, &window1, &D41A0_BYTESTR_0.terrain_2FECE.player_0x2FED9[7], (char*)"D9-7", 385, 210, 40);
+	kiss_hex2edit_new(&hex2edit20, &window1, &D41A0_0.terrain_2FECE.player_0x2FED9[0], (char*)"D9-0", 250, 150, 40);
+	kiss_hex2edit_new(&hex2edit21, &window1, &D41A0_0.terrain_2FECE.player_0x2FED9[1], (char*)"D9-1", 385, 150, 40);
+	kiss_hex2edit_new(&hex2edit22, &window1, &D41A0_0.terrain_2FECE.player_0x2FED9[2], (char*)"D9-2", 250, 170, 40);
+	kiss_hex2edit_new(&hex2edit23, &window1, &D41A0_0.terrain_2FECE.player_0x2FED9[3], (char*)"D9-3", 385, 170, 40);
+	kiss_hex2edit_new(&hex2edit24, &window1, &D41A0_0.terrain_2FECE.player_0x2FED9[4], (char*)"D9-4", 250, 190, 40);
+	kiss_hex2edit_new(&hex2edit25, &window1, &D41A0_0.terrain_2FECE.player_0x2FED9[5], (char*)"D9-5", 385, 190, 40);
+	kiss_hex2edit_new(&hex2edit26, &window1, &D41A0_0.terrain_2FECE.player_0x2FED9[6], (char*)"D9-6", 250, 210, 40);
+	kiss_hex2edit_new(&hex2edit27, &window1, &D41A0_0.terrain_2FECE.player_0x2FED9[7], (char*)"D9-7", 385, 210, 40);
 
 	/*
 	uint16_t word_2FECE;
@@ -3365,6 +3068,8 @@ int main_x(/*int argc, char** argv*/)
 	kiss_dec1edit_new(&levelSel, &window1, &actlevel, (char*)"Level:", 1, 24, 250, 230);
 
 	kiss_label_new(&labelXY, &window1, (char*)"", 900, 760);
+
+	kiss_label_new(&terrlabelXY, &window1, (char*)"", 1000, 760);
 
 	
 	kiss_label_new(&labelIndexWind2, &window2, (char*)"IX:", 300 + window2.rect.x + kiss_up.w, window2.rect.y + 10);
@@ -3509,6 +3214,15 @@ int main_x(/*int argc, char** argv*/)
 			//updatexystr((char**)&xystr,mousex, mousey);
 			sprintf(labelXY.text, "%d,%d", mousex, mousey);
 
+			//terrainzoom, terrainbeginx, terrainbeginy
+			int terrainx = kiss_border;
+			int terrainy = window1.rect.h - mapimage.h - kiss_border;
+			int terlabelx = ((mousex - terrainx) / (2 * terrainzoom) + terrainbeginx);
+			int terlabely = ((mousey - terrainy) / (2 * terrainzoom) + terrainbeginy);
+			if((terlabelx>0)&&(terlabely>0)&&(terlabelx<256)&&(terlabely<256))
+				sprintf(terrlabelXY.text, "%02X,%02X", terlabelx, terlabely);
+			else
+				sprintf(terrlabelXY.text, "--,--");
 			if (e.type == SDL_QUIT) quit = 1;
 
 			kiss_window_event(&window3, &e, &draw);
@@ -3565,14 +3279,14 @@ int main_x(/*int argc, char** argv*/)
 				window1.focus = 0;
 				sprintf(labelIndexWind3.text, "INDEX:%03X", edited_line2_old);
 				//type_str_0x36442 actstage = D41A0_BYTESTR_0.str_2FECE.str_0x36442[edited_line2_old];
-				kiss_hex2edit_update_adress(&hex2edit1check, &D41A0_BYTESTR_0.terrain_2FECE.str_0x36442[edited_line2_old].index_0);
-				kiss_hex4edit_update_adress(&hex4edit2check, &D41A0_BYTESTR_0.terrain_2FECE.str_0x36442[edited_line2_old].stage_1);
-				kiss_hex4edit_update_adress(&hex4edit3check, &D41A0_BYTESTR_0.terrain_2FECE.str_0x36442[edited_line2_old]._axis_2d.x);
-				kiss_hex4edit_update_adress(&hex4edit4check, &D41A0_BYTESTR_0.terrain_2FECE.str_0x36442[edited_line2_old]._axis_2d.y);
+				kiss_hex2edit_update_adress(&hex2edit1check, &D41A0_0.terrain_2FECE.stages_0x36442[edited_line2_old].index_0);
+				kiss_hex4edit_update_adress(&hex4edit2check, &D41A0_0.terrain_2FECE.stages_0x36442[edited_line2_old].stage_1);
+				kiss_hex4edit_update_adress(&hex4edit3check, &D41A0_0.terrain_2FECE.stages_0x36442[edited_line2_old]._axis_2d.x);
+				kiss_hex4edit_update_adress(&hex4edit4check, &D41A0_0.terrain_2FECE.stages_0x36442[edited_line2_old]._axis_2d.y);
 				changed2 = true;
 				terrainzoomcheck = 4;
-				float cursorpixx = D41A0_BYTESTR_0.terrain_2FECE.str_0x36442[edited_line2_old]._axis_2d.x;
-				float cursorpixy = D41A0_BYTESTR_0.terrain_2FECE.str_0x36442[edited_line2_old]._axis_2d.y;
+				float cursorpixx = D41A0_0.terrain_2FECE.stages_0x36442[edited_line2_old]._axis_2d.x;
+				float cursorpixy = D41A0_0.terrain_2FECE.stages_0x36442[edited_line2_old]._axis_2d.y;
 				terrainbeginxcheck = cursorpixx - (terraincheck.rect.w / 2) / (terrainzoomcheck * 2);
 				terrainbeginycheck = cursorpixy - (terraincheck.rect.h / 2) / (terrainzoomcheck * 2);
 			}
@@ -3912,11 +3626,12 @@ int main_x(/*int argc, char** argv*/)
 			if (terevcheck == 20)
 			{
 				//type_str_0x36442 actstage = D41A0_BYTESTR_0.str_2FECE.str_0x36442[edited_line2_old];
-				D41A0_BYTESTR_0.terrain_2FECE.str_0x36442[edited_line2_old]._axis_2d.x = tersetposx;
-				D41A0_BYTESTR_0.terrain_2FECE.str_0x36442[edited_line2_old]._axis_2d.y = tersetposy;
-				kiss_hex4edit_update_adress(&hex4edit3check, &D41A0_BYTESTR_0.terrain_2FECE.str_0x36442[edited_line2_old]._axis_2d.x);
-				kiss_hex4edit_update_adress(&hex4edit4check, &D41A0_BYTESTR_0.terrain_2FECE.str_0x36442[edited_line2_old]._axis_2d.y);
+				D41A0_0.terrain_2FECE.stages_0x36442[edited_line2_old]._axis_2d.x = tersetposx;
+				D41A0_0.terrain_2FECE.stages_0x36442[edited_line2_old]._axis_2d.y = tersetposy;
+				kiss_hex4edit_update_adress(&hex4edit3check, &D41A0_0.terrain_2FECE.stages_0x36442[edited_line2_old]._axis_2d.x);
+				kiss_hex4edit_update_adress(&hex4edit4check, &D41A0_0.terrain_2FECE.stages_0x36442[edited_line2_old]._axis_2d.y);
 				changed2 = true;
+				changed3 = true;
 			}
 			if (terevcheck >= 10)
 			{
@@ -3943,7 +3658,9 @@ int main_x(/*int argc, char** argv*/)
 			}
 
 			if (changed2)terrain_feat_append(&textbox1, &vscrollbar1);
-			if (changed3) { terrain_stages_append(&textbox2); terrain_vars_append(&textbox3); }
+			if (changed3) { 
+				terrain_stages_append(&textbox2); terrain_vars_append(&textbox3);
+			}
 			
 		}
 		if (first) { changed = true; changed2 = true; }
@@ -4045,6 +3762,8 @@ int main_x(/*int argc, char** argv*/)
 
 		kiss_label_draw(&labelXY, editor_renderer);
 
+		kiss_label_draw(&terrlabelXY, editor_renderer);
+
 		//for (int i = 0; i < count_features; i++)
 		//	kiss_button_draw(&button_del[i], editor_renderer);
 		//
@@ -4052,12 +3771,12 @@ int main_x(/*int argc, char** argv*/)
 		//	kiss_button_draw(&button_add[i], editor_renderer);
 		
 		if (changed || zoomchanged)
-			fillterrain(&terrain1, terrainzoom, terrainbeginx, terrainbeginy);//set terrain
+			fillterrain(&terrain1, mapsurface, terrainzoom, terrainbeginx, terrainbeginy);//set terrain
 
 		if (changed2 || zoomchangedfeat|| zoomchangedcheck)
 		{
-			fillterrainfeat(terrainzoomfeat, terrainbeginxfeat, terrainbeginyfeat);//set terrain2
-			fillterraincheck(terrainzoomcheck, terrainbeginxcheck, terrainbeginycheck);//set terrain3
+			fillterrain(NULL, mapsurfacefeat, terrainzoomfeat,terrainbeginxfeat, terrainbeginyfeat);//set terrain2
+			fillterrain(NULL, mapsurfacecheck, terrainzoomcheck,terrainbeginxcheck, terrainbeginycheck);//set terrain3
 		}
 
 		kiss_terrain_draw(&terrain1, editor_renderer);

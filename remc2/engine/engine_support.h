@@ -398,8 +398,8 @@ typedef struct {//size 1136
 type_str_164;
 
 typedef struct {//lenght 34
-	int16_t word_160_0x0_0;
-	int16_t word_160_0x2_2;
+	int16_t type_160_0x0_0;
+	int16_t subtype_160_0x2_2;
 	int16_t word_160_0x4_4;
 	int16_t word_160_0x6_6;
 	int16_t word_160_0x8_8;
@@ -737,7 +737,7 @@ typedef struct {//size 26
 
 typedef struct {//lenght 14
 	int8_t stuba[4];
-	uint32_t dword_4;
+	int32_t dword_4;
 	uint32_t dword_8;
 	int8_t stubb[2];
 } type_index_242ar;
@@ -980,17 +980,17 @@ void support_end();
 void loadfromsnapshot(char* filename, uint8_t* adress, uint32_t adressdos, uint32_t size);
 void loadfromsnapshot2(char* filename, uint8_t* adress, uint32_t adressdos, uint32_t size);
 uint32_t compare_with_snapshot(char* filename, uint8_t* adress, uint32_t adressdos, uint32_t size, uint8_t* origbyte, uint8_t* copybyte);
-uint32_t compare_with_sequence(char* filename, uint8_t* adress, uint32_t adressdos, long count, long size1, uint32_t size2, uint8_t* origbyte, uint8_t* copybyte, long offset = 0);
+uint32_t compare_with_sequence(char* filename, uint8_t* adress, uint32_t adressdos, long count, long size1, uint32_t size2, uint8_t* origbyte, uint8_t* copybyte, long offset = 0, bool regressions=false);
 uint32_t compare_with_sequence_E7EE0(char* filename, uint8_t* adress, uint32_t adressdos, uint32_t count, uint32_t size1, uint32_t size2, uint8_t* origbyte, uint8_t* copybyte, long offset = 0);
 uint32_t compare_with_snapshot_D41A0(char* filename, uint8_t* adress, uint32_t adressdos, uint32_t size, uint8_t* origbyte, uint8_t* copybyte);
-uint32_t compare_with_sequence_D41A0(char* filename, uint8_t* adress, uint32_t adressdos, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte, long offset = 0);
-uint32_t compare_with_sequence_array_E2A74(char* filename, uint8_t* adress, uint32_t adressdos, uint32_t count, uint32_t size1, uint32_t size2, uint8_t* origbyte, uint8_t* copybyte, long offset = 0);
+uint32_t compare_with_sequence_D41A0(char* filename, uint8_t* adress, uint32_t adressdos, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte, long offset = 0, bool regressions = false);
+uint32_t compare_with_sequence_array_E2A74(char* filename, uint8_t* adress, uint32_t adressdos, uint32_t count, uint32_t size1, uint32_t size2, uint8_t* origbyte, uint8_t* copybyte, long offset = 0, bool regressions = false);
 uint32_t compare_with_sequence_x_DWORD_F2C20ar(char* filename, uint8_t* adress, uint32_t adressdos, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte, int* posdiff);
 uint32_t compare_with_sequence_array_222BD3(char* filename, uint8_t* adress, uint32_t adressdos, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte, int* posdiff);
 uint32_t compare_with_sequence_D41A0_4(char* filename, uint8_t* adress, uint32_t adressdos, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte, long offset = 0);
 uint32_t compare_with_sequence_EA3E4(char* filename, type_event_0x6E8E** adress, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte);
 uint32_t compare_0x6E8E(char* filename, uint8_t* adress, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte, long offset = 0);
-void add_compare(uint32_t adress, bool debugafterload, int stopstep = -1, bool skip = false);
+void add_compare(uint32_t adress, bool debugafterload, int stopstep = -1, bool skip = false,int exitindex=-1);
 
 void writehex(uint8_t* buffer, uint32_t count);
 
@@ -1026,22 +1026,14 @@ typedef struct {//lenght 8
 typedef union {
 	axis_2du axis;
 	type_event_0x6E8E* pointer_0x6E8E;
-	//uint32_t dword;
 }
 un1;
 
 typedef struct {//lenght 8
-	//uint8_t byte_0;//array_0x36479
 	int8_t index_0x3647A_0;//array_0x3647a
 	int8_t stage_0x3647A_1;//array_0x3647b
 	uaxis_2d str_0x3647A_2;//array_0x3647c//str_0x3647A_2.word
 	un1 str_0x3647C_4;//array_0x3647e
-	/*
-	axis_2d axis;//array_0x3647e
-	type_str_0x6E8E* pointer_0x6E8E;//36484
-	*/
-
-	//type_str_0x6E8E* str_0x3647C;//
 } type_str_0x3647Ac;
 
 typedef struct {//lenght 8
@@ -1277,7 +1269,7 @@ typedef struct {//lenght 0x6604u
 	type_entity_0x30311 entity_0x30311[0x4b0];//end(next entity) - 0x360d1
 	uint8_t next_0x360D1;
 	type_str_0x360D2 next_0x360D2[8];//lenght 110  /spells?
-	type_str_0x36442 str_0x36442[8];//stages(checkpoints)
+	type_str_0x36442 stages_0x36442[8];//stages(checkpoints)
 	type_str_0x3647Ac array_0x3647A[0xb];//8x11
 } type_str_2FECE;//compress level
 
@@ -1341,32 +1333,22 @@ typedef union {
 }
 un_str_36552;
 typedef struct {//size 10 count 8
-	int8_t str_3654C_byte0;//222540
+	int8_t stages_3654C_byte0;//222540
 	int8_t str_3654D_byte1;
-	axis_2d str_3654E_axis;
-	//int16_t str_3654E_word2;//objective parametres
-	//int8_t str_3654F_byte3;
-	//int16_t str_36550_word4;
-	//int8_t str_36551_byte5;
+	axis_2d str_3654E_axis;//objective parametres
 	un_str_36552 str_36552_un; //pointer sometimes
-	//int8_t str_36553_byte7;
-	//int8_t str_36554_byte8;
-	//int8_t str_36555_byte9;
 } type_str_3654C;
 
+typedef struct {//size 11
+	uint8_t IsLevelEnd_0;
+	uint8_t ObjectiveText_1;
+	uint8_t ObjectiveDone_2;
+	//uint8_t array_0x3659C_byte[3];//objectives 1-active 2-done
+	uint8_t stage_0x3659F[8];
+} type_substr_3659C;
+
 typedef struct {//size 11 count 6
-	uint8_t array_0x3659C_byte[11];//objectives 1-active 2-done
-	/*int8_t str_3659C_byte0;array_0x3659C_byte[0]
-	int8_t str_3659D_byte1;array_0x3659C_byte[1]
-	int8_t str_3659E_byte2;array_0x3659C_byte[2]
-	int8_t str_3659F_byte3;array_0x3659C_byte[3]
-	int8_t str_365A0_byte4;
-	int8_t str_365A1_byte5;
-	int8_t str_365A2_byte6;
-	int8_t str_365A3_byte7;
-	int8_t str_365A4_byte8;
-	int8_t str_365A5_byte9;
-	int8_t str_365A6_byte10;*/
+	type_substr_3659C substr_3659C;
 } type_str_3659C;
 /*
 typedef struct {
@@ -1505,11 +1487,8 @@ typedef struct {//lenght 39
 	uint8_t byte_2;
 	int8_t byte_3;
 	axis_3d axis3d_4;
-	/*int16_t word_6;
-	int16_t word_8;*/
 	type_event_0x6E8E* event_A;
 	uint8_t array_E[25];
-	//int8_t stub[38];
 }
 type_str_0x3664C;
 
@@ -1538,7 +1517,7 @@ typedef struct {//lenght 224791
 	uint8_t stub0[4];
 	uint32_t dword_0x4;
 	uint32_t rand_0x8;
-	int16_t word_0xc;//player_index?
+	int16_t LevelIndex_0xc;//player_index?
 	int16_t word_0xe;
 	uint8_t array_0x10[0x1d]; //0x10, next 0x2d(45)
 	int32_t dword_0x2d;//45
@@ -1579,7 +1558,7 @@ typedef struct {//lenght 224791
 	int16_t word_0x36546;//
 	int16_t word_0x36548;//
 	int16_t word_0x3654A;//
-	type_str_3654C struct_0x3654C[0x8];//size 10 count 8
+	type_str_3654C stages_0x3654C[0x8];//size 10 count 8
 	type_str_3659C struct_0x3659C[0x8];//size 11 count 8 C-0 D-1 E-2 F-3
 	type_str_0x3647Ac array_0x365F4[0xb];//8x11	//set 0x58 // end 0x3664c
 	type_str_0x3664C str_0x3664C[0x32];// lenght 0x79e//39x50 (end-0x36dea)
@@ -1594,7 +1573,7 @@ typedef struct {//lenght 224791
 	int16_t word_0x36DFC;
 	int16_t word_0x36DFE;
 	uint8_t byte_0x36E00;
-	uint8_t byte_0x36E01;//count objectives
+	uint8_t stageIndex_0x36E01;//count objectives
 	int8_t byte_0x36E02;//temp objective
 	int8_t byte_0x36E03;
 	int8_t byte_0x36E04;
@@ -2042,7 +2021,7 @@ void clean_x_D41A0_BYTEARRAY_0();
 void test_x_D41A0_BYTEARRAY_0();
 */
 
-extern type_D41A0_BYTESTR_0 D41A0_BYTESTR_0;
+extern type_D41A0_BYTESTR_0 D41A0_0;
 
 /*void x_D41A0_BYTEARRAY_0_to_x_D41A0_BYTESTR_0();
 void x_D41A0_BYTESTR_0_to_x_D41A0_BYTEARRAY_0();*/

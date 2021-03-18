@@ -111,7 +111,7 @@ int getcompindex(uint32_t adress) {
 
 
 type_compstr lastcompstr;
-void add_compare(uint32_t adress, bool debugafterload, int stopstep, bool skip) {
+void add_compare(uint32_t adress, bool debugafterload, int stopstep, bool skip, int exitindex) {
 	uint8_t origbyte20 = 0;
 	uint8_t remakebyte20 = 0;
 	int comp20;
@@ -130,23 +130,25 @@ void add_compare(uint32_t adress, bool debugafterload, int stopstep, bool skip) 
 		int index = getcompindex(adress);
 		if (index >= stopstep)
 		{
+			if (index >= exitindex)
+				exit(exitindex);
 			if (!skip)
 			{
-				comp20 = compare_with_sequence(buffer1, (uint8_t*)x_BYTE_10B4E0_terraintype, 0x2dc4e0, index, 0x70000, 0x10000, &origbyte20, &remakebyte20);
-				comp20 = compare_with_sequence(buffer1, (uint8_t*)x_BYTE_11B4E0_heightmap, 0x2dc4e0, index, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x10000);
-				comp20 = compare_with_sequence(buffer1, (uint8_t*)x_BYTE_12B4E0_shading, 0x2dc4e0, index, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x20000);
-				comp20 = compare_with_sequence(buffer1, (uint8_t*)x_BYTE_13B4E0_angle, 0x2dc4e0, index, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x30000);
-				comp20 = compare_with_sequence(buffer1, (uint8_t*)mapEntityIndex_15B4E0, 0x2dc4e0, index, 0x70000, 0x20000, &origbyte20, &remakebyte20, 0x50000);
+				comp20 = compare_with_sequence(buffer1, (uint8_t*)x_BYTE_10B4E0_terraintype, 0x2dc4e0, index, 0x70000, 0x10000, &origbyte20, &remakebyte20,0,(exitindex>0));
+				comp20 = compare_with_sequence(buffer1, (uint8_t*)x_BYTE_11B4E0_heightmap, 0x2dc4e0, index, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x10000, (exitindex > 0));
+				comp20 = compare_with_sequence(buffer1, (uint8_t*)x_BYTE_12B4E0_shading, 0x2dc4e0, index, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x20000, (exitindex > 0));
+				comp20 = compare_with_sequence(buffer1, (uint8_t*)x_BYTE_13B4E0_angle, 0x2dc4e0, index, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x30000, (exitindex > 0));
+				comp20 = compare_with_sequence(buffer1, (uint8_t*)mapEntityIndex_15B4E0, 0x2dc4e0, index, 0x70000, 0x20000, &origbyte20, &remakebyte20, 0x50000, (exitindex > 0));
 
 #ifdef TEST_x64
 				type_shadow_D41A0_BYTESTR_0 shadow_D41A0_BYTESTR_0;
-				Convert_to_shadow_D41A0_BYTESTR_0(&D41A0_BYTESTR_0, &shadow_D41A0_BYTESTR_0);
-				comp20 = compare_with_sequence_D41A0(buffer2, (uint8_t*)&shadow_D41A0_BYTESTR_0, 0x356038, index, 224790, &origbyte20, &remakebyte20);
+				Convert_to_shadow_D41A0_BYTESTR_0(&D41A0_0, &shadow_D41A0_BYTESTR_0);
+				comp20 = compare_with_sequence_D41A0(buffer2, (uint8_t*)&shadow_D41A0_BYTESTR_0, 0x356038, index, 224790, &origbyte20, &remakebyte20, 0, (exitindex > 0));
 #else
 				comp20 = compare_with_sequence_D41A0(buffer2, (uint8_t*)&D41A0_BYTESTR_0, 0x356038, index, 224790, &origbyte20, &remakebyte20);
 #endif
 				
-				comp20 = compare_with_sequence_array_E2A74(buffer3, (uint8_t*)&str_E2A74, 0x2b3a74, index, 0xc4e, 0xc4e, &origbyte20, &remakebyte20);
+				comp20 = compare_with_sequence_array_E2A74(buffer3, (uint8_t*)&str_E2A74, 0x2b3a74, index, 0xc4e, 0xc4e, &origbyte20, &remakebyte20, 0, (exitindex > 0));
 
 				//screen
 				//comp20 = compare_with_sequence(buffer4, pdwScreenBuffer, 0x3aa0a4, index, 320 * 200, 320 * 200, &origbyte20, &remakebyte20);
@@ -176,7 +178,7 @@ void GenerateLevelMap_43830(unsigned int a1, type_str_2FECE* a2x)//224830
 	//v2 = a2;
 	x_WORD_17B4E0 = a2x->seed_0x2FEE5;
 	//*(uint32_t*)(x_D41A0_BYTEARRAY_0 + 8) = *(uint32_t*)(a2 + 23);
-	D41A0_BYTESTR_0.rand_0x8 = a2x->seed_0x2FEE5;
+	D41A0_0.rand_0x8 = a2x->seed_0x2FEE5;
 	memset((void*)mapEntityIndex_15B4E0, 0, 0x20000);
 	//v3 = *(uint16_t*)(v2 + 35);
 	sub_B5E70_decompress_terrain_map_level(x_WORD_17B4E0, a2x->offset_0x2FEE9, a2x->raise_0x2FEED, a2x->gnarl_0x2FEF1);
@@ -1747,7 +1749,7 @@ void sub_44D00()//225d00
 		{
 			indexx._axis_2d.x = (indexx._axis_2d.x & 3) + 28;
 		}
-		if (D41A0_BYTESTR_0.terrain_2FECE.MapType != MapType_t::Day)
+		if (D41A0_0.terrain_2FECE.MapType != MapType_t::Day)
 		{
 			//index = 32 - (index & 0xff);
 			//v5 = (32 - (indexx._axis_2d.x)) + 32;

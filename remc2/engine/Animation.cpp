@@ -586,7 +586,7 @@ void /*__fastcall*/ sub_75E70()//256e70
 			*/
 
 			sub_41A90_VGA_pallette_install(unk_17D838x);
-			v19 = sub_5BE80_test_pallette(unk_17D838x, 0x3Fu, 0x3Fu, 0x3Fu);
+			v19 = getPalletteIndex_5BE80(unk_17D838x, 0x3Fu, 0x3Fu, 0x3Fu);
 			sub_2EC90(v19);//20fc90 -zde se prekresli texty
 		}
 	}
