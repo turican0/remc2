@@ -357,7 +357,7 @@ typedef struct {//size 1136
 	int8_t byte_0x197_407;
 	uint8_t stubj[2];
 	int32_t dword_0x19A_410;
-	int32_t dword_0x19E_414;
+	int32_t maxDistance_0x19E_414;
 	int16_t word_0x1A2_418;
 	int16_t word_0x1A4_420;
 	int16_t word_0x1A6_422;//211 x add

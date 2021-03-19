@@ -145,7 +145,7 @@ void convert_struct_to_array_164(type_str_164* input, uint8_t* output) {
 	//int32_t dword_0x19A_410;
 	memcpy(output + 0x19a, &input->dword_0x19A_410, 4);
 	//int32_t dword_0x19E_414;
-	memcpy(output + 0x19e, &input->dword_0x19E_414, 4);
+	memcpy(output + 0x19e, &input->maxDistance_0x19E_414, 4);
 	//int16_t word_0x1A2_418;
 	memcpy(output + 0x1a2, &input->word_0x1A2_418, 2);
 	//int16_t word_0x1A4_420;

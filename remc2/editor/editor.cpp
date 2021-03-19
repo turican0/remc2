@@ -248,7 +248,7 @@ void terrain_recalculate() {
 	}
 	if (stage > 15)
 	{
-		sub_49290(&D41A0_0.terrain_2FECE, 1);
+		GenerateEvents_49290(&D41A0_0.terrain_2FECE, 1);
 	}
 	changed = false;
 };
