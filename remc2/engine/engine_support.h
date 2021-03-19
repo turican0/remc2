@@ -478,8 +478,8 @@ typedef struct _str_0x6E8E {//lenght a8//THING
 	//11 - spell
 	uint8_t subtype_0x40_64;//64 //subtype//CLASS
 	//0 or 1 - player, 2 - castle,3-ballon
-	int8_t byte_0x41_65;//65 //type subentity
-	int8_t byte_0x42_66;//66 //subtype subentity
+	int8_t xtype_0x41_65;//65 //type subentity
+	int8_t xsubtype_0x42_66;//66 //subtype subentity
 	int8_t byte_0x43_67;//67
 	int8_t byte_0x44_68;//68
 	uint8_t byte_0x45_69;//69 // index of structure with lenght 14//STATE-
