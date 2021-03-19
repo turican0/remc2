@@ -35,8 +35,8 @@ void _strupr(char* s)
 //#define SET_LEVEL
 
 //#define PLAYING_GAME
-//#define RELEASE_GAME
-#define TEST_REGRESSIONS_GAME
+#define RELEASE_GAME
+//#define TEST_REGRESSIONS_GAME
 
 //adress 2285ff
 #if defined(RELEASE_GAME) //this is standard setting
@@ -7942,7 +7942,7 @@ signed int sub_10130(int a1, x_DWORD* a2, x_DWORD* a3)//1f1130
 {
 	*a2 = str_E7EE0x[a1].dword_20xx[0];
 	*a3 = str_E7EE0x[a1].dword_20xx[1];
-	str_E7EE0x[a1].dword_20xx+=sizeof(int8_t*);
+	str_E7EE0x[a1].dword_20xx+=sizeof(int32_t);
 	str_E7EE0x[a1].dword_12++;
 	if (str_E7EE0x[a1].str_16->word_4 > str_E7EE0x[a1].dword_12)
 	{
@@ -52348,11 +52348,11 @@ void sub_49270_generate_level_features(type_str_2FECE* terrain)//22a270
 	SetStagetagForTermod_49830(terrain);
 	//adress 22A27D
 #ifdef DEBUG_SEQUENCES
-	add_compare(0x22A280, debugafterload);
+	//add_compare(0x22A280, debugafterload);
 #endif //DEBUG_SEQUENCES
 	sub_49290(terrain, 1);
 #ifdef DEBUG_SEQUENCES
-	add_compare(0x22A288, debugafterload);
+	//add_compare(0x22A288, debugafterload);
 #endif //DEBUG_SEQUENCES
 }
 
@@ -52410,7 +52410,7 @@ void sub_49290(type_str_2FECE* terrain, char a2)//22a290
 #endif //DEBUG_SEQUENCES
 	ApplyEvents_498A0();//22a383
 #ifdef DEBUG_SEQUENCES
-	add_compare(0x22A388, debugafterload);
+	//add_compare(0x22A388, debugafterload);
 #endif //DEBUG_SEQUENCES
 	for (kx = 1; kx < 0x4b0; kx++)
 	{
@@ -66489,7 +66489,7 @@ void sub_56A30_init_game_level(unsigned int a1)//237a30
 	sub_49F90();
 	//adress 237B55
 #ifdef DEBUG_SEQUENCES
-	add_compare(0x237B55, debugafterload);
+	//add_compare(0x237B55, debugafterload);
 #endif //DEBUG_SEQUENCES
 	D41A0_0.dword_0x11e6 = -1;
 	sub_71A70_setTmaps(D41A0_0.terrain_2FECE.MapType);
@@ -66502,7 +66502,7 @@ void sub_56A30_init_game_level(unsigned int a1)//237a30
 	}
 	//adress 237BB0
 #ifdef DEBUG_SEQUENCES
-	add_compare(0x237BB0, debugafterload);
+	//add_compare(0x237BB0, debugafterload);
 #endif //DEBUG_SEQUENCES
 #ifdef SET_OBJECTIVE
 	D41A0_BYTESTR_0.struct_0x3659C[0].substr_3659C.stage_0x3659F[0] = 2;
@@ -66517,18 +66517,18 @@ void sub_56A30_init_game_level(unsigned int a1)//237a30
 	sub_4A1E0(0, 1);
 	//adress 237bb9
 #ifdef DEBUG_SEQUENCES
-	add_compare(0x237bb9, debugafterload);
+	//add_compare(0x237bb9, debugafterload);
 #endif //DEBUG_SEQUENCES
 	x_BYTE_E3799_sound_card = temp_x_BYTE_E3799_sound_card;
 	sub_53160();
 	//adress 237bc7
 #ifdef DEBUG_SEQUENCES
-	add_compare(0x237BC7, debugafterload);
+	//add_compare(0x237BC7, debugafterload);
 #endif //DEBUG_SEQUENCES
 	//adress 237beb
 	sub_60F00();
 #ifdef DEBUG_SEQUENCES
-	add_compare(0x237BF0, debugafterload);
+	//add_compare(0x237BF0, debugafterload);
 #endif //DEBUG_SEQUENCES
 }
 
@@ -67204,7 +67204,7 @@ void sub_57730()//238730
 	type_event_0x6E8E* v24x; // [esp+78h] [ebp-4h]
 
 #ifdef DEBUG_SEQUENCES
-	add_compare(0x238734, debugafterload);
+	//add_compare(0x238734, debugafterload);
 #endif //DEBUG_SEQUENCES
 
 	D41A0_0.rand_0x8 = 9377 * D41A0_0.rand_0x8 + 9439;
@@ -67380,7 +67380,7 @@ void sub_57730()//238730
 		{
 			//adress 238a3d
 #ifdef DEBUG_SEQUENCES
-			//add_compare(0x238a3d, debugafterload);//0x9ac
+			add_compare(0x238a3d, debugafterload,0x79);//0x9ac
 #endif //DEBUG_SEQUENCES
 			if (mx->type_0x3F_63)
 			{
