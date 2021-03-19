@@ -3019,11 +3019,13 @@ int sub_9E3A0_AIL_API_read_INI(AIL_INI* INI, char* filename/*,char* a8*/)//27f3a
 	memset(&INI->IO, -1, 24);
 	//v9y = myfopen_s(&v9x,a2,(const char*) "rt");
 
+	// original code
+	/*
 	v9x = myopent(filename, (char*)"rt");
 	if (!v9x)
 		return 0;
 
-	while (fgets(v13, 80, v9x) /*&& !(v9x[12] & 0x10)*/)//355140
+	while (fgets(v13, 80, v9x))//355140
 	{
 		for (i = strlen(v13) - 1; (i & 0x80000000) == 0 && IsTable[(v13[i] + 1)] & 2; i--)
 			v13[i] = 0;
@@ -3069,24 +3071,53 @@ int sub_9E3A0_AIL_API_read_INI(AIL_INI* INI, char* filename/*,char* a8*/)//27f3a
 				}
 				else if (!_strnicmp(key, "IO_ADDR", 8))
 				{
-					INI->IO.IO = sub_9E2B0(value, 16/*, 0*/);
+					INI->IO.IO = sub_9E2B0(value, 16);
 				}
 				else if (!_strnicmp(key, "IRQ", 4))
 				{
-					INI->IO.IRQ = sub_9E2B0(value, 10/*, 0*/);
+					INI->IO.IRQ = sub_9E2B0(value, 10);
 				}
 				else if (!_strnicmp(key, "DMA_8_bit", 10))
 				{
-					INI->IO.DMA_8_bit = sub_9E2B0(value, 10/*, 0*/);
+					INI->IO.DMA_8_bit = sub_9E2B0(value, 10);
 				}
 				else if (!_strnicmp(key, "DMA_16_bit", 11))
 				{
-					INI->IO.DMA_16_bit = sub_9E2B0(value, 10/*, 0*/);
+					INI->IO.DMA_16_bit = sub_9E2B0(value, 10);
 				}
 			}
 		}
 	}
 	fclose(v9x);
+	*/
+	//fix
+	if (!strcmp(filename + strlen(filename) - strlen("DIG.INI"), "DIG.INI"))
+	{
+		strcpy(INI->device_name, "Creative Labs Sound Blaster 16 or AWE32");
+		strcpy(INI->driver_name, "SB16.DIG");
+		char workingDir[MAX_PATH];
+		GetDirectory(workingDir, filename);
+		sprintf(INI->driver_path, "%s/%s", workingDir, "SB16.DIG");
+		INI->IO.IO = sub_9E2B0((char*)"220h", 16);
+		INI->IO.IRQ = sub_9E2B0((char*)"-1", 10);
+		INI->IO.DMA_8_bit = sub_9E2B0((char*)"-1", 10);
+		INI->IO.DMA_16_bit = sub_9E2B0((char*)"-1", 10);
+	}
+	if (!strcmp(filename + strlen(filename) - strlen("MDI.INI"), "MDI.INI"))
+	{
+		strcpy(INI->device_name, "Creative Labs Sound Blaster(TM) 16");
+		strcpy(INI->driver_name, "SBPRO2.MDI");
+			char workingDir[MAX_PATH];
+		GetDirectory(workingDir, filename);
+		sprintf(INI->driver_path, "%s/%s", workingDir, "SBPRO2.MDI");
+		INI->IO.IO = sub_9E2B0((char*)"220h", 16);
+		INI->IO.IRQ = sub_9E2B0((char*)"-1", 10);
+		INI->IO.DMA_8_bit = sub_9E2B0((char*)"-1", 10);
+		INI->IO.DMA_16_bit = sub_9E2B0((char*)"-1", 10);
+
+	}
+	//fix
+
 	if (strlen(INI->device_name))
 	{
 		//qmemcpy(filename, INI->device_name, 0x118u);//fix it
