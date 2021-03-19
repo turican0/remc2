@@ -691,7 +691,9 @@
     <None Include="..\SDL-Mixer-X-master\src\codecs\play_cmdmusic.pri">
       <Filter>Source Files\libs\sdl-mixer-x</Filter>
     </None>
-    <None Include="..\config.ini" />
+    <None Include="..\config.ini">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\zlib\lib\zlib.lib">
