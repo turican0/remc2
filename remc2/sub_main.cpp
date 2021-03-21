@@ -34,8 +34,10 @@ void _strupr(char* s)
 //#define SET_OBJECTIVE
 //#define SET_LEVEL
 
-#define PLAYING_GAME
 //#define RELEASE_GAME
+//#define PLAYING_GAME
+#define DEBUG_AFTERLOAD
+//#define DEBUG_ONSTART
 //#define TEST_REGRESSIONS_GAME
 
 //adress 2285ff
@@ -43,12 +45,14 @@ void _strupr(char* s)
 	#define AUTO_CHANGE_RES
 	#define FIX_FLYASISTANT
 	#define LOAD_EDITED_LEVEL
+	int debugafterload = 1;
 #elif defined(PLAYING_GAME) //this is setting for autosavegame
 	#define DETECT_DWORD_A
 	#define AUTO_CHANGE_RES
 	#define INTERVAL_SAVE
 	#define FIX_FLYASISTANT
 	#define LOAD_EDITED_LEVEL
+	int debugafterload = 1;
 #elif defined(TEST_REGRESSIONS_GAME) //this is setting for regressions testing
 	#define DETECT_DWORD_A
 	#define COPY_SKIP_CONFIG
@@ -56,7 +60,16 @@ void _strupr(char* s)
 	#define MOUSE_OFF2
 	#define OFF_PAUSE_5
 	#define TEST_REGRESSION
-#else //this is setting is for compare data with dosbox(can fix mouse move, and etc.)
+	int debugafterload = 1;
+#elif defined(DEBUG_AFTERLOAD) //this is setting is for compare data with dosbox afterload(can fix mouse move, and etc.)
+	#define DETECT_DWORD_A
+	#define COPY_SKIP_CONFIG
+	#define DEBUG_SEQUENCES2
+	#define FIX_MOUSE
+	#define MOUSE_OFF2
+	#define OFF_PAUSE_5
+	int debugafterload = 0;
+#elif defined(DEBUG_ONSTART) //this is setting is for compare data with dosbox(can fix mouse move, and etc.)
 	#define DETECT_DWORD_A
 	#define COPY_SKIP_CONFIG
 	#define DEBUG_SEQUENCES
@@ -65,6 +78,9 @@ void _strupr(char* s)
 	#define OFF_PAUSE_5
 	//#define LOAD_EDITED_LEVEL
 	//#define RIGHT_BUTTON
+	int debugafterload = 1;
+#else
+	int debugafterload = 1;
 #endif
 
 #define ANALYZE_ENTITY
@@ -82,7 +98,6 @@ bool alterscreensize = true;
 int alt_resolution_width = 1024;
 int alt_resolution_height = 768;
 
-int debugafterload = 1;
 //(set in bool sub_558E0_InGameLoad(uint8_t fileindex)//2368e0)
 int count_begin = 1;//1
 //int stage__4A190_0x6E8E = 0;
@@ -16320,9 +16335,9 @@ signed int sub_1B8C0(type_event_0x6E8E* a1x)//1fc8c0
 	//int v36; // ebx
 	__int16 v37; // [esp+0h] [ebp-4h]
 
-#ifdef DEBUG_SEQUENCES
-	//add_compare(0x1fc8c4, debugafterload);
-#endif //DEBUG_SEQUENCES
+#ifdef DEBUG_SEQUENCES2
+	add_compare(0x1fc8c4, debugafterload);
+#endif //DEBUG_SEQUENCES2
 
 	//v1 = a1x->struct_byte_0xc_12_15.byte[1];
 	if (a1x->struct_byte_0xc_12_15.byte[1] & 8)
@@ -17658,13 +17673,13 @@ void sub_1D7C0(type_event_0x6E8E* a1x, __int16 a2)//1fe7c0
 //----- (0001D880) --------------------------------------------------------
 void sub_1D880(type_event_0x6E8E* a1x, __int16 a2)//1fe880
 {
-	/*return */sub_1E1C0(a1x, a2);
+	sub_1E1C0(a1x, a2);
 }
 
 //----- (0001D8A0) --------------------------------------------------------
 void sub_1D8A0(type_event_0x6E8E* a1x, __int16 a2)//1fe8a0
 {
-	/*return */sub_1E1C0(a1x, a2);
+	sub_1E1C0(a1x, a2);
 }
 
 //----- (0001D8C0) --------------------------------------------------------
@@ -50540,6 +50555,10 @@ void sub_47560_draw_and_events_in_game(/*uint8_t* a1, int a2, */uint32_t a3, sig
 	uint8_t speed; // al
 	signed int j; // ebx
 	signed int i; // ebx
+
+	if ((debugafterload == 1) && (count_begin == 1))
+		debugcounter_47560++;
+
 	PaletteChanges_47760(/*a1, a2, (int)a3*/a3);
 	if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte3_24 & 1))
 	{
@@ -50621,16 +50640,15 @@ void sub_47560_draw_and_events_in_game(/*uint8_t* a1, int a2, */uint32_t a3, sig
 #ifdef TEST_REGRESSION
 	add_compare(0x002285FF, debugafterload, -1, false, 20);
 #endif //TEST_REGRESSION
+#ifdef DEBUG_SEQUENCES2
+	add_compare(0x002285FF, debugafterload);
+#endif //DEBUG_SEQUENCES2
 #ifdef ANALYZE_ENTITY
 	analyzeEntites();
 #endif //ANALYZE_ENTITY
 	if (x_D41A0_BYTEARRAY_4_struct.byteindex_10)
 		sub_871F0();
 	//adress 22860f
-#ifdef DEBUG_SEQUENCES
-	//add_compare(0x0022860F, debugafterload && (count_begin == 1), 0x1a);
-	add_compare(0x0022860F, debugafterload);
-#endif //DEBUG_SEQUENCES
 
 #ifdef DETECT_DWORD_A
 	for (int iii = 1; iii < 0x3E9; iii++)
@@ -67003,17 +67021,17 @@ void sub_57730()//238730
 	type_event_0x6E8E* v23x; // [esp+74h] [ebp-8h]
 	type_event_0x6E8E* v24x; // [esp+78h] [ebp-4h]
 
-#ifdef DEBUG_SEQUENCES
-	//add_compare(0x238734, debugafterload);
-#endif //DEBUG_SEQUENCES
+#ifdef DEBUG_SEQUENCES2
+	add_compare(0x238734, debugafterload);
+#endif //DEBUG_SEQUENCES2
 
 	D41A0_0.rand_0x8 = 9377 * D41A0_0.rand_0x8 + 9439;
 	for (ix = x_DWORD_EA3E4[1]; ix < x_DWORD_EA3E4[0x3e8]; ix++)
 	{
 		//adress 238756
-#ifdef DEBUG_SEQUENCES
+#ifdef DEBUG_SEQUENCES2
 		//add_compare(0x238756, debugafterload);
-#endif //DEBUG_SEQUENCES
+#endif //DEBUG_SEQUENCES2
 		if (ix->type_0x3F_63 && ix->struct_byte_0xc_12_15.byte[1] & 4)
 			sub_57F20(ix);
 	}
@@ -67164,14 +67182,14 @@ void sub_57730()//238730
 					sub_12500(lx);
 			}
 		}
-#ifdef DEBUG_SEQUENCES
-		//add_compare(0x2389eb, debugafterload);
-#endif //DEBUG_SEQUENCES
+#ifdef DEBUG_SEQUENCES2
+		add_compare(0x2389eb, debugafterload);
+#endif //DEBUG_SEQUENCES2
 		if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 0x10))
 			sub_68BF0();
-#ifdef DEBUG_SEQUENCES
-		//add_compare(0x2389f6, debugafterload);
-#endif //DEBUG_SEQUENCES
+#ifdef DEBUG_SEQUENCES2
+		add_compare(0x2389f6, debugafterload);
+#endif //DEBUG_SEQUENCES2
 		sub_159E0();//adress 2389f6
 		if (x_BYTE_D41B6)
 			sub_58630();
@@ -67179,18 +67197,18 @@ void sub_57730()//238730
 		for (mx = x_DWORD_EA3E4[1]; mx < x_DWORD_EA3E4[0x3e8]; mx++)
 		{
 			//adress 238a3d
-#ifdef DEBUG_SEQUENCES
-			add_compare(0x238a3d, debugafterload,0x79);//0x9ac
-#endif //DEBUG_SEQUENCES
+#ifdef DEBUG_SEQUENCES2
+			add_compare(0x238a3d, debugafterload);//0x9ac
+#endif //DEBUG_SEQUENCES2
 			if (mx->type_0x3F_63)
 			{
 				if (mx->byte_0x45_69 == str_D4C48ar[mx->type_0x3F_63].dword_10[mx->byte_0x45_69].word_4)
 				{
 					if (str_D4C48ar[mx->type_0x3F_63].dword_10[mx->byte_0x45_69].dword_10)
 					{
-#ifdef DEBUG_SEQUENCES
-						//add_compare(0x238A8A, debugafterload);//0x9ac
-#endif //DEBUG_SEQUENCES
+#ifdef DEBUG_SEQUENCES2
+						add_compare(0x238A8A, debugafterload);//0x9ac
+#endif //DEBUG_SEQUENCES2
 
 						//adress 238a8a zacina na 35cf6e 363bb6 =6c48/168=165=a5
 						pre_sub_4A190_0x6E8E(str_D4C48ar[mx->type_0x3F_63].dword_10[mx->byte_0x45_69].adress_6, mx);
@@ -67315,9 +67333,9 @@ void sub_57B20(type_str_0x2BDE* a1x, type_event_0x6E8E* a2x)//238b20 //copy posi
 //----- (00057CF0) --------------------------------------------------------
 void sub_57CF0(type_event_0x6E8E* entity, axis_3d* position)//238cf0
 {
-#ifdef DEBUG_SEQUENCES
-	//add_compare(0x238cf3, debugafterload,0x1d6);
-#endif //DEBUG_SEQUENCES
+#ifdef DEBUG_SEQUENCES2
+	add_compare(0x238cf3, debugafterload);
+#endif //DEBUG_SEQUENCES2
 
 	if (((entity->axis_0x4C_76.x & 0xff00) == (position->x & 0xff00)) && ((entity->axis_0x4C_76.y & 0xff00) == (position->y & 0xff00)))
 	{
@@ -86911,7 +86929,6 @@ void sub_71F20(type_x_DWORD_E9C28_str* a1y, type_particle_str** a2x)//252f20
 	char* i; // [esp+4h] [ebp-4h]
 
 	allert_error();//fix this code
-
 	v2x = *(x_WORD*)((int8_t*)a2x + 10);
 	if (v2x < a1y->word_22)
 	{
@@ -98642,42 +98659,25 @@ void sub_848A0()//2658a0
 //----- (00084B80) --------------------------------------------------------
 void sub_84B80()//265b80
 {
-	//uint8_t* index; // eax
-	//unsigned __int8 v1; // dl
 	type_event_0x6E8E* v2x; // esi
 	int v3; // esi
-	//axis_3d* v3x; // esi
 	uaxis_2d v4x; // bx
-	//int v5; // eax
-	//uint8_t* i; // [esp+0h] [ebp-10h]
-	//axis_3d* ix;
 	int iy;
-	//uint8_t* v7; // [esp+4h] [ebp-Ch]
 	int16_t v7x;
-	__int16 v8; // [esp+8h] [ebp-8h]
-	int16_t v9; // [esp+Ch] [ebp-4h]
+	//__int16 v8; // [esp+8h] [ebp-8h]
 
 #ifdef DEBUG_SEQUENCES
 	//add_compare(0x265b84, debugafterload);
 #endif //DEBUG_SEQUENCES
-
-	//index = (int)x_D41A0_BYTEARRAY_0;
-	//v1 = D41A0_BYTESTR_0.str_2FECE.MapType;
 	if (D41A0_0.terrain_2FECE.MapType == MapType_t::Night || D41A0_0.terrain_2FECE.MapType == MapType_t::Cave)
 	{
-		v9 = D41A0_0.word_0x36DFA;
 		if (D41A0_0.word_0x36DFA)
 		{
-			//index = x_D41A0_BYTEARRAY_0 + 222796;
-			v8 = 0;
 			v7x = 0;
-			//for (i = x_D41A0_BYTEARRAY_0 + 222796; v8 < 50; i += 39)
-			for (iy = 0; v8 < 50; iy++)
+			for (iy = 0; iy < 50; iy++)
 			{
-				//index = v7;
-				if (v7x >= v9)
+				if (v7x >= D41A0_0.word_0x36DFA)
 					break;
-				//index = i;
 				if (D41A0_0.str_0x3664C[iy].byte_0)
 				{
 					v2x = D41A0_0.str_0x3664C[iy].event_A;
@@ -98711,16 +98711,13 @@ void sub_84B80()//265b80
 
 					if (v2x->dword_0x8 < 0 || v2x->struct_byte_0xc_12_15.byte[1] & 4)
 					{
-						/*index = (uint8_t*)*/sub_84880(&D41A0_0.str_0x3664C[iy]);
+						sub_84880(&D41A0_0.str_0x3664C[iy]);
 					}
 					else
 					{
-						//v3x = &v2x->array_0x4C_76;
 						D41A0_0.str_0x3664C[iy].axis3d_4 = v2x->axis_0x4C_76;
-						//*(x_WORD *)(i + 8) = *(x_WORD *)(v3x + 4);
 						v4x._axis_2d.x = D41A0_0.str_0x3664C[iy].axis3d_4.x >> 8;
 						v4x._axis_2d.y = D41A0_0.str_0x3664C[iy].axis3d_4.y >> 8;
-						//v5 = (int)x_D41A0_BYTEARRAY_0;
 						D41A0_0.dword_0x36DF2 = 9377 * D41A0_0.dword_0x36DF2 + 9439;
 						v3 = D41A0_0.dword_0x36DF2 % D41A0_0.str_0x3664C[iy].byte_3
 							- D41A0_0.str_0x3664C[iy].byte_3 / 2;
@@ -98778,13 +98775,10 @@ void sub_84B80()//265b80
 						sub_84EA0(v4x, &D41A0_0.str_0x3664C[iy], 24, v3);
 					}
 				}
-				v8++;
 			}
 		}
 	}
-	//return result;
 }
-// D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
 
 int debugcounter_265ea0 = 0;
 
