@@ -468,7 +468,7 @@ void sub_75200_VGA_Blit640(uint16_t height);
 void VGA_BlitAny(uint16_t width, uint16_t height, uint8_t* pScreenBuffer);
 void sub_7A060_get_mouse_and_keyboard_events();
 void DrawAndEventsInGame(uint32_t a3, signed int a4, __int16 a5);
-void GameEvents(uint16_t width, uint16_t height);
+void GameEvents(uint16_t screenWidth, uint16_t screenHeight);
 //x_DWORD /*__cdecl*/ toupper(x_DWORD); //weak
 void sub_55C60(/*int a1, int a2,*/ type_str_0x2BDE* a3);
 int32_t /*__cdecl*/ fix_filelength(int32_t);// weak
