@@ -98703,39 +98703,27 @@ void sub_84B80()//265b80
 	uaxis_2d v4x; // bx
 	int iy;
 	int16_t v7x;
-	//__int16 v8; // [esp+8h] [ebp-8h]
+	int16_t v9; // [esp+Ch] [ebp-4h]
 
 #ifdef DEBUG_SEQUENCES
 	//add_compare(0x265b84, debugafterload);
 #endif //DEBUG_SEQUENCES
+
 	if (D41A0_0.terrain_2FECE.MapType == MapType_t::Night || D41A0_0.terrain_2FECE.MapType == MapType_t::Cave)
 	{
+		v9 = D41A0_0.word_0x36DFA;
 		if (D41A0_0.word_0x36DFA)
 		{
 			v7x = 0;
 			for (iy = 0; iy < 50; iy++)
 			{
-				if (v7x >= D41A0_0.word_0x36DFA)
+				if (v7x >= v9)
 					break;
 				if (D41A0_0.str_0x3664C[iy].byte_0)
 				{
 					v2x = D41A0_0.str_0x3664C[iy].event_A.pointer_0x6E8E;
 					v7x++;
-
 					//fix
-					/*if (v2x == NULL)
-					{
-						uint8_t pom[] = {
-							0xCC,0xE4,0x00,0xF0,0x0C,0x00,0x70,0x00,0x08,0x00,0x70,0x00,0x0C,0x00,0x70,0x00,
-							0x08,0x00,0x70,0x00,0xCC,0xE4,0x00,0xF0,0xCC,0xE4,0x00,0xF0,0xCC,0xE4,0x00,0xF0,
-							0x1C,0x11,0x41,0x07,0x20,0x11,0x41,0x07,0x68,0xFF,0x00,0xF0,0x68,0xFF,0x00,0xF0,
-							0x68,0xFF,0x00,0xF0,0x68,0xFF,0x00,0xF0,0x4C,0xE7,0x00,0xF0,0x68,0xFF,0x00,0xF0,
-							0xCC,0xE8,0x00,0xF0,0xAC,0xE5,0x00,0xF0,0xCC,0xE5,0x00,0xF0,0x8C,0xE9,0x00,0xF0,
-						};
-						v2x = (type_str_0x6E8E*)&pom;
-					}*/
-					/*if (v2x == NULL)
-						break;*/
 					if (v2x == 0)
 					{
 						type_event_0x6E8E FIXx;
@@ -98819,6 +98807,119 @@ void sub_84B80()//265b80
 	}
 }
 
+/*
+//int debugcounter_265b80 = 0;
+//----- (00084B80) --------------------------------------------------------
+void sub_84B80()//265b80
+{
+	type_event_0x6E8E* v2x; // esi
+	int v3; // esi
+	uaxis_2d v4x; // bx
+	int iy;
+	int16_t v7x;
+	//__int16 v8; // [esp+8h] [ebp-8h]
+
+#ifdef DEBUG_SEQUENCES
+	//add_compare(0x265b84, debugafterload);
+#endif //DEBUG_SEQUENCES
+	if (D41A0_0.terrain_2FECE.MapType == MapType_t::Night || D41A0_0.terrain_2FECE.MapType == MapType_t::Cave)
+	{
+		if (D41A0_0.word_0x36DFA)
+		{
+			v7x = 0;
+			for (iy = 0; iy < 50; iy++)
+			{
+				if (v7x >= D41A0_0.word_0x36DFA)
+					break;
+				if (D41A0_0.str_0x3664C[iy].byte_0)
+				{
+					v2x = D41A0_0.str_0x3664C[iy].event_A.pointer_0x6E8E;
+					v7x++;
+
+					//fix
+					if (v2x == 0)
+					{
+						type_event_0x6E8E FIXx;
+						FIXx.dword_0x8 = 0x00700008;
+						FIXx.axis_0x4C_76.x = 0xe98c;
+						FIXx.axis_0x4C_76.y = 0xf000;
+						FIXx.axis_0x4C_76.z = 0xe60c;
+						FIXx.struct_byte_0xc_12_15.byte[1] = 0;
+						v2x = &FIXx;
+					}
+					//fix
+
+					if (v2x->dword_0x8 < 0 || v2x->struct_byte_0xc_12_15.byte[1] & 4)
+					{
+						sub_84880(&D41A0_0.str_0x3664C[iy]);
+					}
+					else
+					{
+						D41A0_0.str_0x3664C[iy].axis3d_4 = v2x->axis_0x4C_76;
+						v4x._axis_2d.x = D41A0_0.str_0x3664C[iy].axis3d_4.x >> 8;
+						v4x._axis_2d.y = D41A0_0.str_0x3664C[iy].axis3d_4.y >> 8;
+						D41A0_0.dword_0x36DF2 = 9377 * D41A0_0.dword_0x36DF2 + 9439;
+						v3 = D41A0_0.dword_0x36DF2 % D41A0_0.str_0x3664C[iy].byte_3
+							- D41A0_0.str_0x3664C[iy].byte_3 / 2;
+						v4x._axis_2d.y -= 2;
+						v4x._axis_2d.x -= 2;
+						//adress 265c5d
+						sub_84EA0(v4x, &D41A0_0.str_0x3664C[iy], 0, v3);
+						v4x._axis_2d.x++;
+						sub_84EA0(v4x, &D41A0_0.str_0x3664C[iy], 1, v3);
+						v4x._axis_2d.x++;
+						sub_84EA0(v4x, &D41A0_0.str_0x3664C[iy], 2, v3);
+						v4x._axis_2d.x++;
+						sub_84EA0(v4x, &D41A0_0.str_0x3664C[iy], 3, v3);
+						v4x._axis_2d.x++;
+						sub_84EA0(v4x, &D41A0_0.str_0x3664C[iy], 4, v3);
+						v4x._axis_2d.y++;
+						sub_84EA0(v4x, &D41A0_0.str_0x3664C[iy], 5, v3);
+						v4x._axis_2d.x--;
+						sub_84EA0(v4x, &D41A0_0.str_0x3664C[iy], 6, v3);
+						v4x._axis_2d.x--;
+						sub_84EA0(v4x, &D41A0_0.str_0x3664C[iy], 7, v3);
+						v4x._axis_2d.x--;
+						sub_84EA0(v4x, &D41A0_0.str_0x3664C[iy], 8, v3);
+						v4x._axis_2d.x--;
+						sub_84EA0(v4x, &D41A0_0.str_0x3664C[iy], 9, v3);
+						v4x._axis_2d.y++;
+						sub_84EA0(v4x, &D41A0_0.str_0x3664C[iy], 10, v3);
+						v4x._axis_2d.x++;
+						sub_84EA0(v4x, &D41A0_0.str_0x3664C[iy], 11, v3);
+						v4x._axis_2d.x++;
+						sub_84EA0(v4x, &D41A0_0.str_0x3664C[iy], 12, v3);
+						v4x._axis_2d.x++;
+						sub_84EA0(v4x, &D41A0_0.str_0x3664C[iy], 13, v3);
+						v4x._axis_2d.x++;
+						sub_84EA0(v4x, &D41A0_0.str_0x3664C[iy], 14, v3);
+						v4x._axis_2d.y++;
+						sub_84EA0(v4x, &D41A0_0.str_0x3664C[iy], 15, v3);
+						v4x._axis_2d.x--;
+						sub_84EA0(v4x, &D41A0_0.str_0x3664C[iy], 16, v3);
+						v4x._axis_2d.x--;
+						sub_84EA0(v4x, &D41A0_0.str_0x3664C[iy], 17, v3);
+						v4x._axis_2d.x--;
+						sub_84EA0(v4x, &D41A0_0.str_0x3664C[iy], 18, v3);
+						v4x._axis_2d.x--;
+						sub_84EA0(v4x, &D41A0_0.str_0x3664C[iy], 19, v3);
+						v4x._axis_2d.y++;
+						sub_84EA0(v4x, &D41A0_0.str_0x3664C[iy], 20, v3);
+						v4x._axis_2d.x++;
+						sub_84EA0(v4x, &D41A0_0.str_0x3664C[iy], 21, v3);
+						v4x._axis_2d.x++;
+						sub_84EA0(v4x, &D41A0_0.str_0x3664C[iy], 22, v3);
+						v4x._axis_2d.x++;
+						sub_84EA0(v4x, &D41A0_0.str_0x3664C[iy], 23, v3);
+						v4x._axis_2d.x++;
+						sub_84EA0(v4x, &D41A0_0.str_0x3664C[iy], 24, v3);
+					}
+				}
+			}
+		}
+	}
+}
+*/
 int debugcounter_265ea0 = 0;
 
 //----- (00084EA0) --------------------------------------------------------
