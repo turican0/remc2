@@ -101,7 +101,9 @@
     </Link>
     <PostBuildEvent>
       <Command>XCOPY "$(SolutionDir)enhancedassets\biggraphics" "$(TargetDir)biggraphics\" /S /Y
-XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y</Command>
+XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
+COPY "$(SolutionDir)config.ini" "$(TargetDir)config.ini" /Y
+</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -363,8 +365,7 @@ XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y</C
   </ItemGroup>
   <ItemGroup>
     <None Include="..\config.ini">
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</DeploymentContent>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent>true</DeploymentContent>
       <FileType>Text</FileType>
     </None>
     <None Include="..\libADLMIDI-master\src\adlmidi_bankmap.tcc" />

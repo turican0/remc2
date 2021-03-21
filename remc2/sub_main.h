@@ -393,7 +393,7 @@ type_DWORD_E12AE;
 extern Pathstruct pstr[];
 
 
-void WriteBufferToBMP(unsigned __int16 width, unsigned __int16 height, uint8_t* ptrPalette, uint8_t* ptrBuffer);
+void WriteBufferToBMP(uint16_t width, uint16_t height, uint8_t* ptrPalette, uint8_t* ptrBuffer);
 
 void /*__spoils<ecx>*/ sub_B5E70_decompress_terrain_map_level(__int16 a1, unsigned __int16 a2, __int16 a3, int32_t a4);
 void sub_44DB0_truncTerrainHeight();
@@ -415,7 +415,7 @@ void sub_454F0(unsigned __int8 a1, unsigned __int8 a2);
 void sub_45600(unsigned __int8 a1);
 
 void sub_49830(type_str_2FECE* a1);
-void sub_49290(type_str_2FECE* a1, char a2);
+void sub_49290(type_str_2FECE* a1, char a2, uint16_t width, uint16_t height);
 
 void sub_49F30();
 
@@ -435,7 +435,7 @@ int16_t sub_16730(/*int a1,*/ type_str_0x6E8E* a2, char a3); // weak
 int16_t sub_16CA0(baxis_2d* a2, __int16 a3, char a4); // weak
 void sub_17A00(int8_t* a1, signed int a2, __int16 a3); // weak
 int _wcpp_1_unwind_leave__120(int32_t a, int32_t b, int32_t c);// weak
-void sub_1A070(signed int a1, __int16 a2);
+void sub_1A070(signed int a1, __int16 a2, uint16_t screenWidth);
 void JUMPOUT(int* adr);
 void JUMPOUT(int32_t cs, int* adr);
 void JUMPOUT(int32_t cs, int a, int* adr);
@@ -445,8 +445,8 @@ signed int sub_369F0(/*signed int a1,*/ __int16 a2);
 //void qmemcpy(void* a, void* b, size_t c);
 void sub_2A340(/*int a1, type_str_0x6E8E* a2, type_str_0x6E8E* a3, int a4, *//*type_str_0x6E8E* a5, */type_str_0x6E8E* a6);
 void sub_2AA90(/*type_str_0x6E8E* a1, */type_str_0x6E8E* a2, type_str_0x6E8E* a3);
-void ClearGraphicsBuffer(void* ptrBuffer, unsigned __int16 width, unsigned __int16 height, char value);
-void sub_303D0(/*signed int a1*/);
+void ClearGraphicsBuffer(void* ptrBuffer, uint16_t width, uint16_t height, char value);
+void DrawVolumnSettings(uint16_t width);
 int _wcpp_1_unwind_leave__62(void); //weak
 //int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* a2, int32_t a3, int32_t a4, int a5, uint8_t a6, unsigned __int8 a7, uint32_t a8);//560cb0
 void sub_45DC0(/*uint8_t a1,*/ uint8_t a2, uaxis_2d a3, unsigned __int8 a4);
@@ -465,10 +465,10 @@ void sub_56A30_init_game_level(unsigned int a1);
 void sub_47320_in_game_loop(signed int a1);
 void sub_56D60(unsigned int a1, char a2);
 void sub_75200_VGA_Blit640(uint16_t height);
-void VGA_BlitAny();
+void VGA_BlitAny(uint16_t width, uint16_t height, uint8_t* pScreenBuffer);
 void sub_7A060_get_mouse_and_keyboard_events();
-void sub_47560_draw_and_events_in_game(/*uint8_t* a1, int a2, */uint32_t a3, signed int a4, __int16 a5);
-void sub_51BB0_game_events(/*uint8_t* a1*/);
+void DrawAndEventsInGame(uint32_t a3, signed int a4, __int16 a5);
+void GameEvents(uint16_t width, uint16_t height);
 //x_DWORD /*__cdecl*/ toupper(x_DWORD); //weak
 void sub_55C60(/*int a1, int a2,*/ type_str_0x2BDE* a3);
 int32_t /*__cdecl*/ fix_filelength(int32_t);// weak
@@ -609,7 +609,7 @@ void sub_6EB90(filearray_struct* a1);
 //type_str_0x6E8E* pre_sub_4A190(uint32_t adress, int16_t* a1,int type);
 type_str_0x6E8E* pre_sub_4A190_axis_3d(uint32_t adress, axis_3d* a1, int type);//pre 22b190
 
-void pre_sub_4A190_0x6E8E(uint32_t adress, type_str_0x6E8E* a1, int type);//pre 22b190
+void pre_sub_4A190_0x6E8E(uint32_t adress, type_str_0x6E8E* a1, int type, uint16_t width, uint16_t height);//pre 22b190
 
 //---------------------------
 

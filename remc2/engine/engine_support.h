@@ -189,8 +189,8 @@ typedef struct {
 	int8_t str_0x6E3E_byte0;//0x6E3E-28222//D41A0_BYTESTR_0.array_0x6E3E[xx].str_0x6E3E_byte0
 	int8_t str_0x6E3E_byte1;//0x6E3F-28223
 	int8_t str_0x6E3E_byte2;//0x6E40-28224
-	int8_t str_0x6E3E_byte3;//0x6E41-28225
-	int8_t str_0x6E3E_byte4;//0x6E42-28226
+	int8_t roll;//0x6E41-28225
+	int8_t pitch;//0x6E42-28226
 	int8_t str_0x6E3E_byte5;//0x6E43-28227
 	uint16_t str_0x6E3E_word6;//0x6E44-28228
 	uint16_t str_0x6E3E_word8;//0x6E46-28230
@@ -1330,7 +1330,7 @@ type_uni_0x8586;*/
 typedef struct {
 	uint8_t m_wMiniMap;//8590 icons//str_0x218E.str.icons_0x218E
 	uint8_t m_wTopBar;//8591 ??//str_0x218E.str.xxxx_0x218F
-	uint8_t scr_size_0x2190;//8592 screen size?//str_0x218E.str.scr_size_0x2190
+	uint8_t m_uiScreenSize;//8592 screen size?//str_0x218E.str.scr_size_0x2190
 	uint8_t xxxx_0x2191;//8593//str_0x218E.str.xxxx_0x2191
 }
 DisplayStruct_t;

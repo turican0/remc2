@@ -461,9 +461,9 @@ void convert_struct_to_array_0x6E3E(type_str_0x6E3E* input, uint8_t* output) {//
 	//int8_t str_0x6E3E_byte2;//0x6E40-28224
 	memcpy(output + 2, &input->str_0x6E3E_byte2, 1);
 	//int8_t str_0x6E3E_byte3;//0x6E41-28225
-	memcpy(output + 3, &input->str_0x6E3E_byte3, 1);
+	memcpy(output + 3, &input->roll, 1);
 	//int8_t str_0x6E3E_byte4;//0x6E42-28226
-	memcpy(output + 4, &input->str_0x6E3E_byte4, 1);
+	memcpy(output + 4, &input->pitch, 1);
 	//int8_t str_0x6E3E_byte5;//0x6E43-28227
 	memcpy(output + 5, &input->str_0x6E3E_byte5, 1);
 	//uint16_t str_0x6E3E_word6;//0x6E44-28228

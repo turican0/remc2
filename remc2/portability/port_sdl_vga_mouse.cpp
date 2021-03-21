@@ -22,8 +22,6 @@ SDL_Surface* screen;
 uint16_t m_iOrigw = 640;
 uint16_t m_iOrigh = 480;
 
-uint16_t m_iScreenWidth = 640;
-uint16_t m_iScreenHeight = 480;
 bool m_bMaintainAspectRatio = true;
 
 const char* default_caption = "Magic Carpet 2 - Community Update";
@@ -73,6 +71,7 @@ void SubBlit(uint16_t originalResWidth, uint16_t originalResHeight) {
 	}
 
 	SDL_RenderPresent(renderer);
+	SDL_RenderClear(renderer);
 }
 
 void SubSet_pallette(SDL_Color* colors) {
@@ -338,8 +337,6 @@ void VGA_Draw_stringXYtoBuffer(char* wrstring, int x, int y, uint8_t* buffer) {
 }
 
 void VGA_Init(int width, int height, bool maintainAspectRatio) {
-	m_iScreenWidth = width;
-	m_iScreenHeight = height;
 	m_bMaintainAspectRatio = maintainAspectRatio;
 
 #define SDL_HWPALETTE 0
@@ -363,8 +360,6 @@ Uint32 alphaMask = 0xff000000;
 
 void VGA_Init(Uint32 flags, int width, int height, bool maintainAspectRatio)
 {
-	m_iScreenWidth = width;
-	m_iScreenHeight = height;
 	m_bMaintainAspectRatio = maintainAspectRatio;
 
 	if (!inited)
@@ -715,7 +710,7 @@ int events()
 		case SDL_MOUSEMOTION:
 			mousex = event.motion.x;
 			mousey = event.motion.y;
-			mouse_events(1, event.motion.x, event.motion.y);
+			MouseEvents(1, event.motion.x, event.motion.y, m_iOrigw, m_iOrigh);
 			break;
 		case SDL_MOUSEBUTTONDOWN:
 		case SDL_MOUSEBUTTONUP:
@@ -774,7 +769,7 @@ int events()
 			}
 			}
 
-			mouse_events(buttonresult, event.motion.x, event.motion.y);
+			MouseEvents(buttonresult, event.motion.x, event.motion.y, m_iOrigw, m_iOrigh);
 			break;
 
 		case SDL_QUIT: return 0;
@@ -787,7 +782,7 @@ void VGA_Set_mouse(int16_t x, int16_t y) {
 	SDL_WarpMouseInWindow(gWindow, x, y);
 };
 
-void VGA_Blit(int width, int height, Uint8* srcBuffer) {
+void VGA_Blit(uint16_t width, uint16_t height, Uint8* srcBuffer) {
 	events();
 	if (SDL_MUSTLOCK(screen)) {
 		if (SDL_LockSurface(screen) < 0) {
@@ -796,11 +791,11 @@ void VGA_Blit(int width, int height, Uint8* srcBuffer) {
 		}
 	}
 
-	if ((m_iOrigw == screen->w) && (m_iOrigh == screen->h)) //If same Resolution direct copy
+	if ((width == screen->w) && (height == screen->h)) //If same Resolution direct copy
 	{
 		memcpy(screen->pixels, srcBuffer, screen->h * screen->w);
 	}
-	else if ((m_iOrigw * 2 == screen->w) && (m_iOrigh * 2 == screen->h)) //2x resolution
+	else if ((width * 2 == screen->w) && (height * 2 == screen->h)) //2x resolution
 	{
 		int k = 0;
 		int l = 0;
@@ -808,7 +803,7 @@ void VGA_Blit(int width, int height, Uint8* srcBuffer) {
 		{
 			for (int j = 0; j < screen->h; j++)
 			{
-				((uint8_t*)screen->pixels)[i + j * screen->w] = srcBuffer[k + l * m_iOrigw];
+				((uint8_t*)screen->pixels)[i + j * screen->w] = srcBuffer[k + l * width];
 				l += j % 2;
 			}
 			k += i % 2;
@@ -819,22 +814,22 @@ void VGA_Blit(int width, int height, Uint8* srcBuffer) {
 	{
 		int k = 0;
 		int l = 0;
-		float xscale = (float)m_iOrigw / (float)screen->w;
-		float yscale = (float)m_iOrigh / (float)screen->h;
+		float xscale = (float)width / (float)screen->w;
+		float yscale = (float)height / (float)screen->h;
 		for (int i = 0; i < screen->w; i++)
 		{
 			for (int j = 0; j < screen->h; j++)//49+1 - final size
 			{
 				k = (int)(i * xscale);
 				l = (int)(j * yscale);
-				((uint8_t*)screen->pixels)[i + j * screen->w] = srcBuffer[k + l * m_iOrigw];
+				((uint8_t*)screen->pixels)[i + j * screen->w] = srcBuffer[k + l * width];
 			}
 		}
 	}
 	if (SDL_MUSTLOCK(screen)) {
 		SDL_UnlockSurface(screen);
 	}
-	SubBlit(m_iOrigw, m_iOrigh);
+	SubBlit(width, height);
 	SOUND_UPDATE();
 }
 

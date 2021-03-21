@@ -164,7 +164,7 @@ int sub_98170_AIL_map_sequence_channel(x_DWORD* a1, int a2, int a3);
 void sub_98360_AIL_send_channel_voice_message(HMDIDRIVER mdi, HSEQUENCE hSequence, int32_t status, int32_t data_1, int32_t data_2);
 
 int32_t sub_84300_load_sound(uint8_t a1);
-void sub_844A0_sound_proc5();
+void sub_844A0_sound_proc5(uint16_t count);
 char ReadAndDecompressSound(FILE* a1, unsigned __int8 a2);
 
 //int sub_9E3A0_AIL_API_read_INI(uint8_t* a1, char* a2);
