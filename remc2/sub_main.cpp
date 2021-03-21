@@ -35,10 +35,10 @@ void _strupr(char* s)
 //#define SET_LEVEL
 
 //#define RELEASE_GAME
-#define PLAYING_GAME
+//#define PLAYING_GAME
 //#define DEBUG_AFTERLOAD
 //#define DEBUG_ONSTART
-//#define TEST_REGRESSIONS_GAME
+#define TEST_REGRESSIONS_GAME
 
 //adress 2285ff
 #if defined(RELEASE_GAME) //this is standard setting
@@ -64891,7 +64891,7 @@ void sub_55100(char a1)//236100
 	#else
 		typedef int64_t xBITINT;
 	#endif
-	//xBITINT v3;
+	xBITINT v3;
 	signed int v4; // ebx
 	//xBITINT v5; // esi
 	unsigned __int8 v7; // cl
@@ -64907,7 +64907,7 @@ void sub_55100(char a1)//236100
 
 	//fix !!!!
 	int8_t* ZeroPointer=0;
-	//v3 = v2 * ((int8_t*)D41A0_0.struct_0x6E8E- ZeroPointer);
+	v3 = v2 * ((int8_t*)D41A0_0.struct_0x6E8E- ZeroPointer);
 	v4 = 0;
 	//v5 = v2 * ((int8_t*)D41A0_0.terrain_2FECE.entity_0x30311 - ZeroPointer);
 	//fix
@@ -64959,11 +64959,13 @@ void sub_55100(char a1)//236100
 	for (j = 1; j < 50; j++)
 	{
 		if (D41A0_0.str_0x3664C[j].byte_0)
+		{
+			type_event_0x6E8E* temp_0x6E8E = D41A0_0.str_0x3664C[j].event_A.pointer_0x6E8E;
 			if (v2 == -1)
 			{
 				int diff = D41A0_0.str_0x3664C[j].event_A.pointer_0x6E8E - D41A0_0.struct_0x6E8E;
 				int sizediff = diff * sizeof(type_shadow_str_0x6E8E);
-				if(((char*)D41A0_0.str_0x3664C[j].event_A.pointer_0x6E8E - (char*)D41A0_0.struct_0x6E8E)% sizeof(type_event_0x6E8E)>0)
+				if (((char*)D41A0_0.str_0x3664C[j].event_A.pointer_0x6E8E - (char*)D41A0_0.struct_0x6E8E) % sizeof(type_event_0x6E8E) > 0)
 					allert_error();
 				//int countadd = ((char*)D41A0_0.str_0x3664C[j].event_A.pointer_0x6E8E - (char*)D41A0_0.struct_0x6E8E) - count;
 				D41A0_0.str_0x3664C[j].event_A.ddword = sizediff;//0x36656
@@ -64984,6 +64986,9 @@ void sub_55100(char a1)//236100
 				if (countadd > 0)allert_error();
 				D41A0_0.str_0x3664C[j].event_A.pointer_0x6E8E = &D41A0_0.struct_0x6E8E[count];//0x36656
 			}
+			if (D41A0_0.str_0x3664C[j].event_A.pointer_0x6E8E != (type_event_0x6E8E*)((uint8_t*)temp_0x6E8E + (xBITINT)v3))
+				allert_error();
+		}
 	}
 }
 
