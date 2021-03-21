@@ -1024,6 +1024,7 @@ typedef struct {//lenght 8
 */
 
 typedef union {
+	uint64_t ddword;
 	axis_2du axis;
 	type_event_0x6E8E* pointer_0x6E8E;
 }
@@ -1326,7 +1327,7 @@ typedef struct {//lenght 0x6604u
 } type_shadow_str_2FECE;//compress level
 
 typedef union {
-	int32_t dword;
+	uint64_t ddword;
 	uint16_t* ptr16u;
 	type_entity_0x30311* ptr0x30311;
 	type_event_0x6E8E* ptr0x6E8E;
@@ -1487,7 +1488,8 @@ typedef struct {//lenght 39
 	uint8_t byte_2;
 	int8_t byte_3;
 	axis_3d axis3d_4;
-	type_event_0x6E8E* event_A;
+	//type_event_0x6E8E* event_A;
+	un1 event_A;
 	uint8_t array_E[25];
 }
 type_str_0x3664C;

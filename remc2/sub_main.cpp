@@ -35,8 +35,8 @@ void _strupr(char* s)
 //#define SET_LEVEL
 
 //#define RELEASE_GAME
-//#define PLAYING_GAME
-#define DEBUG_AFTERLOAD
+#define PLAYING_GAME
+//#define DEBUG_AFTERLOAD
 //#define DEBUG_ONSTART
 //#define TEST_REGRESSIONS_GAME
 
@@ -16336,7 +16336,7 @@ signed int sub_1B8C0(type_event_0x6E8E* a1x)//1fc8c0
 	__int16 v37; // [esp+0h] [ebp-4h]
 
 #ifdef DEBUG_SEQUENCES2
-	add_compare(0x1fc8c4, debugafterload);
+	//add_compare(0x1fc8c4, debugafterload);
 #endif //DEBUG_SEQUENCES2
 
 	//v1 = a1x->struct_byte_0xc_12_15.byte[1];
@@ -50657,7 +50657,7 @@ void sub_47560_draw_and_events_in_game(/*uint8_t* a1, int a2, */uint32_t a3, sig
 	for (int jx = 1; jx < 50; jx++)
 	{
 		if (D41A0_0.str_0x3664C[jx].byte_0)
-			if (D41A0_0.str_0x3664C[jx].event_A < D41A0_0.struct_0x6E8E || D41A0_0.str_0x3664C[jx].event_A >= &D41A0_0.struct_0x6E8E[0x3e8])
+			if (D41A0_0.str_0x3664C[jx].event_A.pointer_0x6E8E < D41A0_0.struct_0x6E8E || D41A0_0.str_0x3664C[jx].event_A.pointer_0x6E8E >= &D41A0_0.struct_0x6E8E[0x3e8])
 				allert_error();
 	}
 #endif //DETECT_DWORD_A
@@ -64891,9 +64891,9 @@ void sub_55100(char a1)//236100
 	#else
 		typedef int64_t xBITINT;
 	#endif
-	xBITINT v3;
+	//xBITINT v3;
 	signed int v4; // ebx
-	xBITINT v5; // esi
+	//xBITINT v5; // esi
 	unsigned __int8 v7; // cl
 	signed int i; // ebx
 	unsigned __int8 v9; // al
@@ -64907,25 +64907,32 @@ void sub_55100(char a1)//236100
 
 	//fix !!!!
 	int8_t* ZeroPointer=0;
-	v3 = v2 * ((int8_t*)D41A0_0.struct_0x6E8E- ZeroPointer);
+	//v3 = v2 * ((int8_t*)D41A0_0.struct_0x6E8E- ZeroPointer);
 	v4 = 0;
-	v5 = v2 * ((int8_t*)D41A0_0.terrain_2FECE.entity_0x30311 - ZeroPointer);
+	//v5 = v2 * ((int8_t*)D41A0_0.terrain_2FECE.entity_0x30311 - ZeroPointer);
 	//fix
 
 	while (v4 < D41A0_0.stageIndex_0x36E01)
 	{
-		if (D41A0_0.stages_0x3654C[v4].str_36552_un.dword)
+		if (D41A0_0.stages_0x3654C[v4].str_36552_un.ddword)
 		{
 			v7 = D41A0_0.stages_0x3654C[v4].stages_3654C_byte0;
 			if ((v7 < 5) && (v7 > 0))
 			{
+				allert_error();//test it and fix
 				if (!(D41A0_0.stages_0x3654C[v4].str_3654D_byte1 & 1))
 				{
 					if ((v7 == 1) || (v7 == 2) || (v7 == 4))
-						D41A0_0.stages_0x3654C[v4].str_36552_un.ptr0x30311 = (type_entity_0x30311*)((uint8_t*)D41A0_0.stages_0x3654C[v4].str_36552_un.ptr0x30311 + (xBITINT)v5);
+						if (v2 == -1)
+							D41A0_0.stages_0x3654C[v4].str_36552_un.ddword = (uint8_t*)D41A0_0.stages_0x3654C[v4].str_36552_un.ptr0x30311 - (uint8_t*)D41A0_0.terrain_2FECE.entity_0x30311;
+						else
+							D41A0_0.stages_0x3654C[v4].str_36552_un.ddword = (uint64_t)(uint8_t*)D41A0_0.stages_0x3654C[v4].str_36552_un.ptr0x30311 + (uint64_t)(uint8_t*)D41A0_0.terrain_2FECE.entity_0x30311;
 				}
 				else
-					D41A0_0.stages_0x3654C[v4].str_36552_un.ptr0x6E8E = (type_event_0x6E8E*)((uint8_t*)D41A0_0.stages_0x3654C[v4].str_36552_un.ptr0x6E8E + (xBITINT)v3);
+					if (v2 == -1)
+						D41A0_0.stages_0x3654C[v4].str_36552_un.ddword = ((int8_t*)D41A0_0.stages_0x3654C[v4].str_36552_un.ptr0x6E8E - (int8_t*)D41A0_0.struct_0x6E8E);
+					else
+						D41A0_0.stages_0x3654C[v4].str_36552_un.ddword = (uint64_t)(int8_t*)D41A0_0.stages_0x3654C[v4].str_36552_un.ptr0x6E8E + (uint64_t)(int8_t*)D41A0_0.struct_0x6E8E;
 			}
 		}
 		v4++;
@@ -64940,7 +64947,10 @@ void sub_55100(char a1)//236100
 		{
 			if (!(D41A0_0.array_0x365F4[i].stage_0x3647A_1 & 2))
 			{
-				D41A0_0.array_0x365F4[i].str_0x3647C_4.pointer_0x6E8E = (type_event_0x6E8E*)((uint8_t*)D41A0_0.array_0x365F4[i].str_0x3647C_4.pointer_0x6E8E + (xBITINT)v3);
+				if (v2 == -1)
+					D41A0_0.array_0x365F4[i].str_0x3647C_4.ddword = ((int8_t*)D41A0_0.str_0x3664C[i].event_A.pointer_0x6E8E - (int8_t*)D41A0_0.struct_0x6E8E);
+				else
+					D41A0_0.array_0x365F4[i].str_0x3647C_4.ddword = ((uint64_t)(int8_t*)D41A0_0.str_0x3664C[i].event_A.pointer_0x6E8E + (uint64_t)(int8_t*)D41A0_0.struct_0x6E8E);
 			}
 		}
 	}
@@ -64949,7 +64959,31 @@ void sub_55100(char a1)//236100
 	for (j = 1; j < 50; j++)
 	{
 		if (D41A0_0.str_0x3664C[j].byte_0)
-			D41A0_0.str_0x3664C[j].event_A = (type_event_0x6E8E*)((uint8_t*)D41A0_0.str_0x3664C[j].event_A + (xBITINT)v3);//0x36656
+			if (v2 == -1)
+			{
+				int diff = D41A0_0.str_0x3664C[j].event_A.pointer_0x6E8E - D41A0_0.struct_0x6E8E;
+				int sizediff = diff * sizeof(type_shadow_str_0x6E8E);
+				if(((char*)D41A0_0.str_0x3664C[j].event_A.pointer_0x6E8E - (char*)D41A0_0.struct_0x6E8E)% sizeof(type_event_0x6E8E)>0)
+					allert_error();
+				//int countadd = ((char*)D41A0_0.str_0x3664C[j].event_A.pointer_0x6E8E - (char*)D41A0_0.struct_0x6E8E) - count;
+				D41A0_0.str_0x3664C[j].event_A.ddword = sizediff;//0x36656
+				//D41A0_0.str_0x3664C[j].event_A.ddword -= (uint64_t)(int8_t*)D41A0_0.struct_0x6E8E;//0x36656
+			}
+			else
+			{
+				int count = D41A0_0.str_0x3664C[j].event_A.ddword / sizeof(type_shadow_str_0x6E8E);
+				int countadd = D41A0_0.str_0x3664C[j].event_A.ddword % sizeof(type_shadow_str_0x6E8E);
+				/*if (sizeof(type_shadow_str_0x6E8E) != sizeof(type_event_0x6E8E))
+				{
+					int addnext=0;
+					if (countadd >= 4)addnext += 4;
+					if (countadd >= 0xa4)addnext += 4;
+					if (countadd >= 0xa0)addnext += 4;
+					countadd += addnext;
+				}*/
+				if (countadd > 0)allert_error();
+				D41A0_0.str_0x3664C[j].event_A.pointer_0x6E8E = &D41A0_0.struct_0x6E8E[count];//0x36656
+			}
 	}
 }
 
@@ -66963,7 +66997,7 @@ void sub_57680_FixPointersAfterLoad()//238680
 	//type_str_0x6E8E* indexx; // eax
 	//int32_t i; // edx
 
-	D41A0_0.str_0x3664C[0].event_A = 0;
+	D41A0_0.str_0x3664C[0].event_A.ddword = 0;
 
 	//memset(&ffftype_str_164, -1, sizeof(ffftype_str_164));
 	for (int indexx = 1; x_DWORD_EA3E4[indexx] < x_DWORD_EA3E4[0x3e8]; indexx++)
@@ -67198,7 +67232,7 @@ void sub_57730()//238730
 		{
 			//adress 238a3d
 #ifdef DEBUG_SEQUENCES2
-			add_compare(0x238a3d, debugafterload);//0x9ac
+			//add_compare(0x238a3d, debugafterload);//0x9ac
 #endif //DEBUG_SEQUENCES2
 			if (mx->type_0x3F_63)
 			{
@@ -67207,7 +67241,7 @@ void sub_57730()//238730
 					if (str_D4C48ar[mx->type_0x3F_63].dword_10[mx->byte_0x45_69].dword_10)
 					{
 #ifdef DEBUG_SEQUENCES2
-						add_compare(0x238A8A, debugafterload);//0x9ac
+						//add_compare(0x238A8A, debugafterload);//0x9ac
 #endif //DEBUG_SEQUENCES2
 
 						//adress 238a8a zacina na 35cf6e 363bb6 =6c48/168=165=a5
@@ -67334,7 +67368,7 @@ void sub_57B20(type_str_0x2BDE* a1x, type_event_0x6E8E* a2x)//238b20 //copy posi
 void sub_57CF0(type_event_0x6E8E* entity, axis_3d* position)//238cf0
 {
 #ifdef DEBUG_SEQUENCES2
-	add_compare(0x238cf3, debugafterload);
+	//add_compare(0x238cf3, debugafterload);
 #endif //DEBUG_SEQUENCES2
 
 	if (((entity->axis_0x4C_76.x & 0xff00) == (position->x & 0xff00)) && ((entity->axis_0x4C_76.y & 0xff00) == (position->y & 0xff00)))
@@ -67808,7 +67842,7 @@ void InitStages_58940()//239940 //init games objectives
 				switch (D41A0_0.stages_0x3654C[D41A0_0.stageIndex_0x36E01].stages_3654C_byte0)
 				{
 				case 0:
-					D41A0_0.stages_0x3654C[D41A0_0.stageIndex_0x36E01].str_36552_un.dword = terrain->stages_0x36442[result].stage_1;//25973
+					D41A0_0.stages_0x3654C[D41A0_0.stageIndex_0x36E01].str_36552_un.ddword = terrain->stages_0x36442[result].stage_1;//25973
 					break;
 				case 1:
 				case 2:
@@ -67823,18 +67857,18 @@ void InitStages_58940()//239940 //init games objectives
 				case 5:
 					D41A0_0.stages_0x3654C[D41A0_0.stageIndex_0x36E01].str_3654E_axis.x = terrain->stages_0x36442[result]._axis_2d.x << 8;
 					D41A0_0.stages_0x3654C[D41A0_0.stageIndex_0x36E01].str_3654E_axis.y = terrain->stages_0x36442[result]._axis_2d.y << 8;
-					D41A0_0.stages_0x3654C[D41A0_0.stageIndex_0x36E01].str_36552_un.dword = terrain->stages_0x36442[result].stage_1;//25973
+					D41A0_0.stages_0x3654C[D41A0_0.stageIndex_0x36E01].str_36552_un.ddword = terrain->stages_0x36442[result].stage_1;//25973
 					break;
 				case 7:
-					D41A0_0.stages_0x3654C[D41A0_0.stageIndex_0x36E01].str_36552_un.dword = terrain->entity_0x30311[terrain->stages_0x36442[result].stage_1].subtype_0x30311;
+					D41A0_0.stages_0x3654C[D41A0_0.stageIndex_0x36E01].str_36552_un.ddword = terrain->entity_0x30311[terrain->stages_0x36442[result].stage_1].subtype_0x30311;
 					break;
 				case 8:
 					break;
 				case 9:
-					D41A0_0.stages_0x3654C[D41A0_0.stageIndex_0x36E01].str_36552_un.dword = terrain->entity_0x30311[terrain->stages_0x36442[result].stage_1].par1_14;
+					D41A0_0.stages_0x3654C[D41A0_0.stageIndex_0x36E01].str_36552_un.ddword = terrain->entity_0x30311[terrain->stages_0x36442[result].stage_1].par1_14;
 					break;
 				default:
-					D41A0_0.stages_0x3654C[D41A0_0.stageIndex_0x36E01].str_36552_un.dword = terrain->stages_0x36442[result].stage_1 - 1;
+					D41A0_0.stages_0x3654C[D41A0_0.stageIndex_0x36E01].str_36552_un.ddword = terrain->stages_0x36442[result].stage_1 - 1;
 					break;
 				}
 				D41A0_0.stageIndex_0x36E01++;
@@ -67864,7 +67898,7 @@ void sub_58DA0(type_entity_0x30311* a1x, type_event_0x6E8E* a2x)//239da0
 			{
 				if (!a2x->subtype_0x40_64 || a2x->subtype_0x40_64 == 1)
 				{
-					if (a2x->dword_0xA4_164x->word_0x38_56 == D41A0_0.stages_0x3654C[i].str_36552_un.dword)
+					if (a2x->dword_0xA4_164x->word_0x38_56 == D41A0_0.stages_0x3654C[i].str_36552_un.ddword)
 					{
 						D41A0_0.stages_0x3654C[i].str_36552_un.ptr0x6E8E = a2x;
 						D41A0_0.stages_0x3654C[i].str_3654D_byte1 |= 1;
@@ -67875,7 +67909,7 @@ void sub_58DA0(type_entity_0x30311* a1x, type_event_0x6E8E* a2x)//239da0
 		case 6:
 			if (a1x == D41A0_0.stages_0x3654C[i].str_36552_un.ptr0x30311)
 			{
-				D41A0_0.stages_0x3654C[i].str_36552_un.dword = a2x - D41A0_0.struct_0x6E8E;
+				D41A0_0.stages_0x3654C[i].str_36552_un.ddword = a2x - D41A0_0.struct_0x6E8E;
 				D41A0_0.stages_0x3654C[i].str_3654D_byte1 |= 1;
 			}
 			break;
@@ -67946,7 +67980,7 @@ void sub_58F00_game_objectives()//239f00
 								if (x_D41A0_BYTEARRAY_4_struct.str_index_242ar.dword_4 > 0)
 								{//23a02d
 									if ((100 * (v17x->dword_0xA4_164x->dword_0x13C_316 + x_DWORD_EA3E4[v17x->dword_0xA4_164x->word_0x3A_58]->dword_0x90_144) / x_D41A0_BYTEARRAY_4_struct.str_index_242ar.dword_4)
-										>= D41A0_0.stages_0x3654C[v3].str_36552_un.dword)
+										>= D41A0_0.stages_0x3654C[v3].str_36552_un.ddword)
 									{
 										D41A0_0.struct_0x3659C[v0x].substr_3659C.stage_0x3659F[v3] = 2;
 										achievedGoal = true;
@@ -67955,7 +67989,7 @@ void sub_58F00_game_objectives()//239f00
 								}
 							}
 							if (!D41A0_0.terrain_2FECE.word_0x2FED5 && v3 == D41A0_0.struct_0x3659C[v0x].substr_3659C.ObjectiveText_1 && !achievedGoal)//D41A0_BYTESTR_0.struct_0x3659C[v0x].str_3659D_byte1
-								D41A0_0.terrain_2FECE.word_0x2FED5 = D41A0_0.stages_0x3654C[D41A0_0.struct_0x3659C[v0x].substr_3659C.ObjectiveText_1].str_36552_un.dword;
+								D41A0_0.terrain_2FECE.word_0x2FED5 = D41A0_0.stages_0x3654C[D41A0_0.struct_0x3659C[v0x].substr_3659C.ObjectiveText_1].str_36552_un.ddword;
 							break;
 						case 1:
 							if (D41A0_0.stages_0x3654C[v3].str_3654D_byte1 & 1
@@ -67984,7 +68018,7 @@ void sub_58F00_game_objectives()//239f00
 						case 4:
 							if (D41A0_0.stages_0x3654C[v3].str_3654D_byte1 & 1)
 							{
-								v20 = D41A0_0.stages_0x3654C[v3].str_36552_un.dword;
+								v20 = D41A0_0.stages_0x3654C[v3].str_36552_un.ddword;
 								if (v17x == x_DWORD_EA3E4[*(unsigned __int16*)(v20 + 40)])
 								{
 									v11 = D41A0_0.stages_0x3654C[v3].str_3654E_axis.x - (signed int)*(signed __int16*)(v20 + 76);
@@ -68013,7 +68047,7 @@ void sub_58F00_game_objectives()//239f00
 							if (v3 == D41A0_0.struct_0x3659C[v0x].substr_3659C.ObjectiveText_1 && D41A0_0.stages_0x3654C[v3].str_3654D_byte1 & 1)
 							{
 								v13 = 0;
-								while (D41A0_0.array_0x2BDE[v24].dword_0x3E6_2BE4_12228.str_0x1AC_428.word_2BDE_12658[v13] != D41A0_0.stages_0x3654C[v3].str_36552_un.dword)
+								while (D41A0_0.array_0x2BDE[v24].dword_0x3E6_2BE4_12228.str_0x1AC_428.word_2BDE_12658[v13] != D41A0_0.stages_0x3654C[v3].str_36552_un.ddword)
 								{
 									if (++v13 >= 8)
 										goto LABEL_72;
@@ -68023,7 +68057,7 @@ void sub_58F00_game_objectives()//239f00
 							}
 							break;
 						case 7:
-							if (v3 == D41A0_0.struct_0x3659C[v0x].substr_3659C.ObjectiveText_1 && !x_D41A0_BYTEARRAY_4_struct.bytearray_38403x[D41A0_0.stages_0x3654C[v3].str_36552_un.dword])
+							if (v3 == D41A0_0.struct_0x3659C[v0x].substr_3659C.ObjectiveText_1 && !x_D41A0_BYTEARRAY_4_struct.bytearray_38403x[D41A0_0.stages_0x3654C[v3].str_36552_un.ddword])
 							{
 								achievedGoal = true;
 								D41A0_0.struct_0x3659C[v0x].substr_3659C.stage_0x3659F[v3] = 2;//killed creatures
@@ -68053,7 +68087,7 @@ void sub_58F00_game_objectives()//239f00
 								while (v8x > x_DWORD_EA3E4[0] && !v25)
 								{
 									v26 = 0;
-									for (j = D41A0_0.stages_0x3654C[v3].str_36552_un.dword;
+									for (j = D41A0_0.stages_0x3654C[v3].str_36552_un.ddword;
 										j && !v25 && v26 < 8u;
 										j = str_D93C0_bldgprmbuffer[j].byte_3)
 									{
@@ -68144,7 +68178,7 @@ char sub_59610(type_event_0x6E8E** a1y, __int16 a2)//23a610
 		if (D41A0_0.stages_0x3654C[D41A0_0.struct_0x3659C[a2].substr_3659C.ObjectiveText_1].stages_3654C_byte0 == 6 && D41A0_0.stages_0x3654C[D41A0_0.struct_0x3659C[a2].substr_3659C.ObjectiveText_1].str_3654D_byte1 & 1)
 		{
 			v5 = 1;
-			*a1y = x_DWORD_EA3E4[D41A0_0.stages_0x3654C[D41A0_0.struct_0x3659C[a2].substr_3659C.ObjectiveText_1].str_36552_un.dword];
+			*a1y = x_DWORD_EA3E4[D41A0_0.stages_0x3654C[D41A0_0.struct_0x3659C[a2].substr_3659C.ObjectiveText_1].str_36552_un.ddword];
 			return v5;
 		}
 		return v5;
@@ -77497,7 +77531,7 @@ void sub_644F0_draw_minimap_marks(int a1, int a2, __int16 a3, __int16 a4, int a5
 		}
 		break;
 	case 0xA:
-		v18 = D41A0_0.stages_0x3654C[D41A0_0.struct_0x3659C[D41A0_0.LevelIndex_0xc].substr_3659C.ObjectiveText_1].str_36552_un.dword;
+		v18 = D41A0_0.stages_0x3654C[D41A0_0.struct_0x3659C[D41A0_0.LevelIndex_0xc].substr_3659C.ObjectiveText_1].str_36552_un.ddword;
 		v51x.v64xb_46 = (*xadataclrd0dat.var28_begin_buffer)[0xf00];
 		for (ix = x_D41A0_BYTEARRAY_4_struct.bytearray_38403x[v18]; ; ix = ix->next_0)
 		{
@@ -77518,7 +77552,7 @@ void sub_644F0_draw_minimap_marks(int a1, int a2, __int16 a3, __int16 a4, int a5
 		break;
 	case 0xC:
 		v51x.v64xb_46 = (*xadataclrd0dat.var28_begin_buffer)[0xf00];
-		v76 = D41A0_0.stages_0x3654C[D41A0_0.struct_0x3659C[D41A0_0.LevelIndex_0xc].substr_3659C.ObjectiveText_1].str_36552_un.dword;
+		v76 = D41A0_0.stages_0x3654C[D41A0_0.struct_0x3659C[D41A0_0.LevelIndex_0xc].substr_3659C.ObjectiveText_1].str_36552_un.ddword;
 		for (ix = x_D41A0_BYTEARRAY_4_struct.dword_38527; ; ix = ix->next_0)
 		{
 			v72x = ix;
@@ -98460,7 +98494,7 @@ void AddEvent2_847D0(type_event_0x6E8E* event, char a2, char a3, char a4)//2657d
 			D41A0_0.str_0x3664C[index].byte_2 = a2;
 			D41A0_0.str_0x3664C[index].byte_3 = a3;
 			D41A0_0.str_0x3664C[index].axis3d_4 = event->axis_0x4C_76;
-			D41A0_0.str_0x3664C[index].event_A = event;
+			D41A0_0.str_0x3664C[index].event_A.pointer_0x6E8E = event;
 			event->struct_byte_0xc_12_15.byte[2] |= 8u;
 			memset(D41A0_0.str_0x3664C[index].array_E, 0, 25);
 			D41A0_0.word_0x36DFA++;
@@ -98680,7 +98714,7 @@ void sub_84B80()//265b80
 					break;
 				if (D41A0_0.str_0x3664C[iy].byte_0)
 				{
-					v2x = D41A0_0.str_0x3664C[iy].event_A;
+					v2x = D41A0_0.str_0x3664C[iy].event_A.pointer_0x6E8E;
 					v7x++;
 
 					//fix
@@ -98817,13 +98851,13 @@ void sub_84EA0(uaxis_2d a1x, type_str_0x3664C* a2x, char a3, __int16 a4)//265ea0
 				//a2x->dword_A->dword_0x8
 				//v8 = *(x_DWORD *)(a2 + 10);
 				//v9 = *(x_DWORD *)(v8 + 8);
-				if ((a2x->event_A == 0) || a2x->event_A->dword_0x8 <= 0)
+				if ((a2x->event_A.pointer_0x6E8E == 0) || a2x->event_A.pointer_0x6E8E->dword_0x8 <= 0)
 				{
 					v4 = 0;
 				}
-				else if (a2x->event_A->dword_0x8 < 31)
+				else if (a2x->event_A.pointer_0x6E8E->dword_0x8 < 31)
 				{
-					v4 = a2x->event_A->dword_0x8;
+					v4 = a2x->event_A.pointer_0x6E8E->dword_0x8;
 				}
 			}
 			v10 = 31 * (0x48000 - v7) / 0x48000 * a2x->byte_2;
