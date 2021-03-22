@@ -35,9 +35,9 @@ void _strupr(char* s)
 //#define SET_LEVEL
 
 //#define RELEASE_GAME
-#define PLAYING_GAME
+//#define PLAYING_GAME
 //#define DEBUG_AFTERLOAD
-//#define DEBUG_ONSTART
+#define DEBUG_ONSTART
 //#define TEST_REGRESSIONS_GAME
 int test_regression_level = 1;
 
@@ -50644,6 +50644,9 @@ void sub_47560_draw_and_events_in_game(/*uint8_t* a1, int a2, */uint32_t a3, sig
 #ifdef DEBUG_SEQUENCES2
 	add_compare(0x002285FF, debugafterload);
 #endif //DEBUG_SEQUENCES2
+#ifdef DEBUG_SEQUENCES
+	add_compare(0x002285FF, debugafterload);
+#endif //DEBUG_SEQUENCES
 #ifdef ANALYZE_ENTITY
 	analyzeEntites();
 #endif //ANALYZE_ENTITY
@@ -64894,7 +64897,7 @@ void sub_55100(char a1)//236100
 	#endif
 	xBITINT v3;
 	signed int v4; // ebx
-	//xBITINT v5; // esi
+	xBITINT v5; // esi
 	unsigned __int8 v7; // cl
 	signed int i; // ebx
 	unsigned __int8 v9; // al
@@ -64910,7 +64913,7 @@ void sub_55100(char a1)//236100
 	int8_t* ZeroPointer=0;
 	v3 = v2 * ((int8_t*)D41A0_0.struct_0x6E8E- ZeroPointer);
 	v4 = 0;
-	//v5 = v2 * ((int8_t*)D41A0_0.terrain_2FECE.entity_0x30311 - ZeroPointer);
+	v5 = v2 * ((int8_t*)D41A0_0.terrain_2FECE.entity_0x30311 - ZeroPointer);
 	//fix
 
 	while (v4 < D41A0_0.stageIndex_0x36E01)
@@ -64924,6 +64927,8 @@ void sub_55100(char a1)//236100
 				if (!(D41A0_0.stages_0x3654C[v4].str_3654D_byte1 & 1))
 				{
 					if ((v7 == 1) || (v7 == 2) || (v7 == 4))
+					{
+						type_entity_0x30311* temp_0x30311 = D41A0_0.stages_0x3654C[v4].str_36552_un.ptr0x30311;
 						if (v2 == -1)
 						{
 							int diff = D41A0_0.stages_0x3654C[v4].str_36552_un.ptr0x30311 - D41A0_0.terrain_2FECE.entity_0x30311;
@@ -64931,7 +64936,6 @@ void sub_55100(char a1)//236100
 							if (((char*)D41A0_0.stages_0x3654C[v4].str_36552_un.ptr0x30311 - (char*)D41A0_0.terrain_2FECE.entity_0x30311) % sizeof(type_event_0x6E8E) > 0)
 								allert_error();
 							D41A0_0.stages_0x3654C[v4].str_36552_un.ddword = sizediff;
-							//D41A0_0.stages_0x3654C[v4].str_36552_un.ddword = (uint8_t*)D41A0_0.stages_0x3654C[v4].str_36552_un.ptr0x30311 - (uint8_t*)D41A0_0.terrain_2FECE.entity_0x30311;
 						}
 						else
 						{
@@ -64939,10 +64943,16 @@ void sub_55100(char a1)//236100
 							int countadd = D41A0_0.stages_0x3654C[v4].str_36552_un.ddword % sizeof(type_entity_0x30311);
 							if (countadd > 0)allert_error();
 							D41A0_0.stages_0x3654C[v4].str_36552_un.ptr0x30311 = &D41A0_0.terrain_2FECE.entity_0x30311[count];
-							//D41A0_0.stages_0x3654C[v4].str_36552_un.ddword = (uint64_t)(uint8_t*)D41A0_0.stages_0x3654C[v4].str_36552_un.ptr0x30311 + (uint64_t)(uint8_t*)D41A0_0.terrain_2FECE.entity_0x30311;
 						}
+#ifdef x32_BIT_ENVIRONMENT
+						if (D41A0_0.stages_0x3654C[v4].str_36552_un.ptr0x30311 != (type_entity_0x30311*)((uint8_t*)temp_0x30311 + (xBITINT)v5))
+							allert_error();  // only for x86
+#endif
+					}
 				}
 				else
+				{
+					type_event_0x6E8E* temp_0x6E8E = D41A0_0.stages_0x3654C[v4].str_36552_un.ptr0x6E8E;
 					if (v2 == -1)
 					{
 						int diff = D41A0_0.stages_0x3654C[v4].str_36552_un.ptr0x6E8E - D41A0_0.struct_0x6E8E;
@@ -64950,7 +64960,6 @@ void sub_55100(char a1)//236100
 						if (((char*)D41A0_0.stages_0x3654C[v4].str_36552_un.ptr0x6E8E - (char*)D41A0_0.struct_0x6E8E) % sizeof(type_shadow_str_0x6E8E) > 0)
 							allert_error();
 						D41A0_0.stages_0x3654C[v4].str_36552_un.ddword = sizediff;
-						//D41A0_0.stages_0x3654C[v4].str_36552_un.ddword = ((int8_t*)D41A0_0.stages_0x3654C[v4].str_36552_un.ptr0x6E8E - (int8_t*)D41A0_0.struct_0x6E8E);
 					}
 					else
 					{
@@ -64958,8 +64967,12 @@ void sub_55100(char a1)//236100
 						int countadd = D41A0_0.stages_0x3654C[v4].str_36552_un.ddword % sizeof(type_shadow_str_0x6E8E);
 						if (countadd > 0)allert_error();
 						D41A0_0.stages_0x3654C[v4].str_36552_un.ptr0x6E8E = &D41A0_0.struct_0x6E8E[count];
-						//D41A0_0.stages_0x3654C[v4].str_36552_un.ddword = (uint64_t)(int8_t*)D41A0_0.stages_0x3654C[v4].str_36552_un.ptr0x6E8E + (uint64_t)(int8_t*)D41A0_0.struct_0x6E8E;
 					}
+#ifdef x32_BIT_ENVIRONMENT
+					if (D41A0_0.stages_0x3654C[v4].str_36552_un.ptr0x6E8E != (type_event_0x6E8E*)((uint8_t*)temp_0x6E8E + (xBITINT)v3))
+						allert_error();  // only for x86
+#endif
+				}
 			}
 		}
 		v4++;
@@ -64974,6 +64987,7 @@ void sub_55100(char a1)//236100
 		{
 			if (!(D41A0_0.array_0x365F4[i].stage_0x3647A_1 & 2))
 			{
+				type_event_0x6E8E* temp_0x6E8E = D41A0_0.array_0x365F4[i].str_0x3647C_4.pointer_0x6E8E;
 				if (v2 == -1)
 				{
 					int diff = D41A0_0.array_0x365F4[i].str_0x3647C_4.pointer_0x6E8E - D41A0_0.struct_0x6E8E;
@@ -64981,7 +64995,6 @@ void sub_55100(char a1)//236100
 					if (((char*)D41A0_0.array_0x365F4[i].str_0x3647C_4.pointer_0x6E8E - (char*)D41A0_0.struct_0x6E8E) % sizeof(type_shadow_str_0x6E8E) > 0)
 						allert_error();
 					D41A0_0.array_0x365F4[i].str_0x3647C_4.ddword = sizediff;
-					//D41A0_0.array_0x365F4[i].str_0x3647C_4.ddword = ((int8_t*)D41A0_0.str_0x3664C[i].event_A.pointer_0x6E8E - (int8_t*)D41A0_0.struct_0x6E8E);
 				}
 				else
 				{
@@ -64989,8 +65002,11 @@ void sub_55100(char a1)//236100
 					int countadd = D41A0_0.array_0x365F4[i].str_0x3647C_4.ddword % sizeof(type_shadow_str_0x6E8E);
 					if (countadd > 0)allert_error();
 					D41A0_0.array_0x365F4[i].str_0x3647C_4.pointer_0x6E8E = &D41A0_0.struct_0x6E8E[count];
-					//D41A0_0.array_0x365F4[i].str_0x3647C_4.ddword = ((uint64_t)(int8_t*)D41A0_0.str_0x3664C[i].event_A.pointer_0x6E8E + (uint64_t)(int8_t*)D41A0_0.struct_0x6E8E);
 				}
+#ifdef x32_BIT_ENVIRONMENT
+				if (D41A0_0.array_0x365F4[i].str_0x3647C_4.pointer_0x6E8E != (type_event_0x6E8E*)((uint8_t*)temp_0x6E8E + (xBITINT)v3))
+					allert_error();  // only for x86
+#endif
 			}
 		}
 	}
@@ -65016,8 +65032,10 @@ void sub_55100(char a1)//236100
 				if (countadd > 0)allert_error();
 				D41A0_0.str_0x3664C[j].event_A.pointer_0x6E8E = &D41A0_0.struct_0x6E8E[count];//0x36656
 			}
-			/*if (D41A0_0.str_0x3664C[j].event_A.pointer_0x6E8E != (type_event_0x6E8E*)((uint8_t*)temp_0x6E8E + (xBITINT)v3))
-				allert_error();*/  // only for x86
+#ifdef x32_BIT_ENVIRONMENT
+			if (D41A0_0.str_0x3664C[j].event_A.pointer_0x6E8E != (type_event_0x6E8E*)((uint8_t*)temp_0x6E8E + (xBITINT)v3))
+				allert_error();  // only for x86
+#endif
 		}
 	}
 }
@@ -66356,7 +66374,7 @@ void sub_56A30_init_game_level(unsigned int a1)//237a30
 	sub_49F30();//prepare events pointers
 	//237B05
 #ifdef DEBUG_SEQUENCES
-	//add_compare(0x237B05, debugafterload);
+	add_compare(0x237B05, debugafterload);
 #endif //DEBUG_SEQUENCES
 	PrintTextMessage_70910((char*)"Generate features\0");
 	if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 4))
@@ -66366,7 +66384,7 @@ void sub_56A30_init_game_level(unsigned int a1)//237a30
 	sub_49F90();
 	//adress 237B55
 #ifdef DEBUG_SEQUENCES
-	//add_compare(0x237B55, debugafterload);
+	add_compare(0x237B55, debugafterload);
 #endif //DEBUG_SEQUENCES
 	D41A0_0.dword_0x11e6 = -1;
 	sub_71A70_setTmaps(D41A0_0.terrain_2FECE.MapType);
@@ -66379,7 +66397,7 @@ void sub_56A30_init_game_level(unsigned int a1)//237a30
 	}
 	//adress 237BB0
 #ifdef DEBUG_SEQUENCES
-	//add_compare(0x237BB0, debugafterload);
+	add_compare(0x237BB0, debugafterload);
 #endif //DEBUG_SEQUENCES
 #ifdef SET_OBJECTIVE
 	D41A0_BYTESTR_0.struct_0x3659C[0].substr_3659C.stage_0x3659F[0] = 2;
@@ -66400,12 +66418,12 @@ void sub_56A30_init_game_level(unsigned int a1)//237a30
 	sub_53160();
 	//adress 237bc7
 #ifdef DEBUG_SEQUENCES
-	//add_compare(0x237BC7, debugafterload);
+	add_compare(0x237BC7, debugafterload);
 #endif //DEBUG_SEQUENCES
 	//adress 237beb
 	sub_60F00();
 #ifdef DEBUG_SEQUENCES
-	//add_compare(0x237BF0, debugafterload);
+	add_compare(0x237BF0, debugafterload);
 #endif //DEBUG_SEQUENCES
 }
 
