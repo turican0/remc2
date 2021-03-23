@@ -3603,10 +3603,10 @@ void Convert_from_shadow_str_2FECE(type_shadow_str_2FECE* from, type_str_2FECE* 
 	for (int i = 0; i < 8; i++)to->stages_0x36442[i] = from->str_0x36442[i];
 	for (int i = 0; i < 11; i++)
 	{
-		to->array_0x3647A[i].index_0x3647A_0 = from->array_0x3647A[i].str_0x3647A_byte_0;
-		to->array_0x3647A[i].stage_0x3647A_1 = from->array_0x3647A[i].str_0x3647A_byte_1;
-		to->array_0x3647A[i].str_0x3647A_2 = from->array_0x3647A[i].str_0x3647A_2;
-		to->array_0x3647A[i].str_0x3647C_4.axis = from->array_0x3647A[i].str_0x3647C_4.axis;
+		to->StageVars_0x3647A[i].index_0x3647A_0 = from->array_0x3647A[i].str_0x3647A_byte_0;
+		to->StageVars_0x3647A[i].stage_0x3647A_1 = from->array_0x3647A[i].str_0x3647A_byte_1;
+		to->StageVars_0x3647A[i].str_0x3647A_2 = from->array_0x3647A[i].str_0x3647A_2;
+		to->StageVars_0x3647A[i].str_0x3647C_4.axis = from->array_0x3647A[i].str_0x3647C_4.axis;
 	}
 }
 
@@ -3746,10 +3746,10 @@ void Convert_from_shadow_D41A0_BYTESTR_0(type_shadow_D41A0_BYTESTR_0* from, type
 	for (int i = 0; i < 8; i++)to->terrain_2FECE.stages_0x36442[i] = from->str_2FECE.str_0x36442[i];
 	for (int i = 0; i < 11; i++)
 	{
-		to->terrain_2FECE.array_0x3647A[i].index_0x3647A_0 = from->str_2FECE.array_0x3647A[i].str_0x3647A_byte_0;
-		to->terrain_2FECE.array_0x3647A[i].stage_0x3647A_1 = from->str_2FECE.array_0x3647A[i].str_0x3647A_byte_1;
-		to->terrain_2FECE.array_0x3647A[i].str_0x3647A_2 = from->str_2FECE.array_0x3647A[i].str_0x3647A_2;
-		to->terrain_2FECE.array_0x3647A[i].str_0x3647C_4.axis = from->str_2FECE.array_0x3647A[i].str_0x3647C_4.axis;
+		to->terrain_2FECE.StageVars_0x3647A[i].index_0x3647A_0 = from->str_2FECE.array_0x3647A[i].str_0x3647A_byte_0;
+		to->terrain_2FECE.StageVars_0x3647A[i].stage_0x3647A_1 = from->str_2FECE.array_0x3647A[i].str_0x3647A_byte_1;
+		to->terrain_2FECE.StageVars_0x3647A[i].str_0x3647A_2 = from->str_2FECE.array_0x3647A[i].str_0x3647A_2;
+		to->terrain_2FECE.StageVars_0x3647A[i].str_0x3647C_4.axis = from->str_2FECE.array_0x3647A[i].str_0x3647C_4.axis;
 	}
 	to->str_0x364D2 = from->str_0x364D2;
 	to->word_0x3653E = from->word_0x3653E;
@@ -3767,10 +3767,10 @@ void Convert_from_shadow_D41A0_BYTESTR_0(type_shadow_D41A0_BYTESTR_0* from, type
 	}
 	for (int i = 0; i < 8; i++)to->struct_0x3659C[i] = from->struct_0x3659C[i];
 	for (int i = 0; i < 11; i++) {
-		to->array_0x365F4[i].index_0x3647A_0 = from->array_0x365F4[i].str_0x3647A_byte_0;
-		to->array_0x365F4[i].stage_0x3647A_1 = from->array_0x365F4[i].str_0x3647A_byte_1;
-		to->array_0x365F4[i].str_0x3647A_2 = from->array_0x365F4[i].str_0x3647A_2;
-		to->array_0x365F4[i].str_0x3647C_4.axis = from->array_0x365F4[i].str_0x3647C_4.axis;
+		to->StageVars2_0x365F4[i].index_0x3647A_0 = from->array_0x365F4[i].str_0x3647A_byte_0;
+		to->StageVars2_0x365F4[i].stage_0x3647A_1 = from->array_0x365F4[i].str_0x3647A_byte_1;
+		to->StageVars2_0x365F4[i].str_0x3647A_2 = from->array_0x365F4[i].str_0x3647A_2;
+		to->StageVars2_0x365F4[i].str_0x3647C_4.axis = from->array_0x365F4[i].str_0x3647C_4.axis;
 	}
 	for (int i = 0; i < 0x32; i++) {
 		to->str_0x3664C[i].byte_0 = from->str_0x3664C[i].byte_0;
@@ -3791,7 +3791,7 @@ void Convert_from_shadow_D41A0_BYTESTR_0(type_shadow_D41A0_BYTESTR_0* from, type
 	to->word_0x36DFA = from->word_0x36DFA;
 	to->word_0x36DFC = from->word_0x36DFC;
 	to->word_0x36DFE = from->word_0x36DFE;
-	to->byte_0x36E00 = from->byte_0x36E00;
+	to->countStageVars_0x36E00 = from->byte_0x36E00;
 	to->stageIndex_0x36E01 = from->byte_0x36E01;
 	to->byte_0x36E02 = from->byte_0x36E02;
 	to->byte_0x36E03 = from->byte_0x36E03;
@@ -3953,10 +3953,10 @@ void Convert_to_shadow_D41A0_BYTESTR_0(type_D41A0_BYTESTR_0* from, type_shadow_D
 	for (int i = 0; i < 8; i++)to->str_2FECE.str_0x36442[i] = from->terrain_2FECE.stages_0x36442[i];
 	for (int i = 0; i < 11; i++)
 	{
-		to->str_2FECE.array_0x3647A[i].str_0x3647A_byte_0 = from->terrain_2FECE.array_0x3647A[i].index_0x3647A_0;
-		to->str_2FECE.array_0x3647A[i].str_0x3647A_byte_1 = from->terrain_2FECE.array_0x3647A[i].stage_0x3647A_1;
-		to->str_2FECE.array_0x3647A[i].str_0x3647A_2 = from->terrain_2FECE.array_0x3647A[i].str_0x3647A_2;
-		to->str_2FECE.array_0x3647A[i].str_0x3647C_4.axis = from->terrain_2FECE.array_0x3647A[i].str_0x3647C_4.axis;
+		to->str_2FECE.array_0x3647A[i].str_0x3647A_byte_0 = from->terrain_2FECE.StageVars_0x3647A[i].index_0x3647A_0;
+		to->str_2FECE.array_0x3647A[i].str_0x3647A_byte_1 = from->terrain_2FECE.StageVars_0x3647A[i].stage_0x3647A_1;
+		to->str_2FECE.array_0x3647A[i].str_0x3647A_2 = from->terrain_2FECE.StageVars_0x3647A[i].str_0x3647A_2;
+		to->str_2FECE.array_0x3647A[i].str_0x3647C_4.axis = from->terrain_2FECE.StageVars_0x3647A[i].str_0x3647C_4.axis;
 	}
 	to->str_0x364D2 = from->str_0x364D2;
 	to->word_0x3653E = from->word_0x3653E;
@@ -3974,10 +3974,10 @@ void Convert_to_shadow_D41A0_BYTESTR_0(type_D41A0_BYTESTR_0* from, type_shadow_D
 	}
 	for (int i = 0; i < 8; i++)to->struct_0x3659C[i] = from->struct_0x3659C[i];
 	for (int i = 0; i < 11; i++) {
-		to->array_0x365F4[i].str_0x3647A_byte_0 = from->array_0x365F4[i].index_0x3647A_0;
-		to->array_0x365F4[i].str_0x3647A_byte_1 = from->array_0x365F4[i].stage_0x3647A_1;
-		to->array_0x365F4[i].str_0x3647A_2 = from->array_0x365F4[i].str_0x3647A_2;
-		to->array_0x365F4[i].str_0x3647C_4.axis = from->array_0x365F4[i].str_0x3647C_4.axis;
+		to->array_0x365F4[i].str_0x3647A_byte_0 = from->StageVars2_0x365F4[i].index_0x3647A_0;
+		to->array_0x365F4[i].str_0x3647A_byte_1 = from->StageVars2_0x365F4[i].stage_0x3647A_1;
+		to->array_0x365F4[i].str_0x3647A_2 = from->StageVars2_0x365F4[i].str_0x3647A_2;
+		to->array_0x365F4[i].str_0x3647C_4.axis = from->StageVars2_0x365F4[i].str_0x3647C_4.axis;
 	}
 	for (int i = 0; i < 0x32; i++) {
 		to->str_0x3664C[i].byte_0 = from->str_0x3664C[i].byte_0;
@@ -4006,7 +4006,7 @@ void Convert_to_shadow_D41A0_BYTESTR_0(type_D41A0_BYTESTR_0* from, type_shadow_D
 	to->word_0x36DFA = from->word_0x36DFA;
 	to->word_0x36DFC = from->word_0x36DFC;
 	to->word_0x36DFE = from->word_0x36DFE;
-	to->byte_0x36E00 = from->byte_0x36E00;
+	to->byte_0x36E00 = from->countStageVars_0x36E00;
 	to->byte_0x36E01 = from->stageIndex_0x36E01;
 	to->byte_0x36E02 = from->byte_0x36E02;
 	to->byte_0x36E03 = from->byte_0x36E03;

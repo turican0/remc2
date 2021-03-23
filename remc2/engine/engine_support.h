@@ -1271,7 +1271,7 @@ typedef struct {//lenght 0x6604u
 	uint8_t next_0x360D1;
 	type_str_0x360D2 next_0x360D2[8];//lenght 110  /spells?
 	type_str_0x36442 stages_0x36442[8];//stages(checkpoints)
-	type_str_0x3647Ac array_0x3647A[0xb];//8x11
+	type_str_0x3647Ac StageVars_0x3647A[0xb];//8x11
 } type_str_2FECE;//compress level
 
 typedef union {
@@ -1562,7 +1562,7 @@ typedef struct {//lenght 224791
 	int16_t word_0x3654A;//
 	type_str_3654C stages_0x3654C[0x8];//size 10 count 8
 	type_str_3659C struct_0x3659C[0x8];//size 11 count 8 C-0 D-1 E-2 F-3
-	type_str_0x3647Ac array_0x365F4[0xb];//8x11	//set 0x58 // end 0x3664c
+	type_str_0x3647Ac StageVars2_0x365F4[0xb];//8x11	//set 0x58 // end 0x3664c
 	type_str_0x3664C str_0x3664C[0x32];// lenght 0x79e//39x50 (end-0x36dea)
 	int8_t byte_0x36DEA_fly_asistant;
 	int8_t byte_0x36DEB_xx;
@@ -1574,7 +1574,7 @@ typedef struct {//lenght 224791
 	int16_t word_0x36DFA;
 	int16_t word_0x36DFC;
 	int16_t word_0x36DFE;
-	uint8_t byte_0x36E00;
+	uint8_t countStageVars_0x36E00;
 	uint8_t stageIndex_0x36E01;//count objectives
 	int8_t byte_0x36E02;//temp objective
 	int8_t byte_0x36E03;

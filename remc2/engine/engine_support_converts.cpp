@@ -620,7 +620,7 @@ void convert_struct_to_array_2FECE(type_str_2FECE* input, uint8_t* output) {//le
 		convert_struct_to_array_0x36442(&input->stages_0x36442[i], output + 25972 + i * 7);
 	//type_str_0x3647Ac array_0x3647A[0xb];//8x11//26028
 	for (int i = 0; i < 0xb; i++)
-		convert_struct_to_array_0x3647Ac(&input->array_0x3647A[i], output + 26028 + i * 8);
+		convert_struct_to_array_0x3647Ac(&input->StageVars_0x3647A[i], output + 26028 + i * 8);
 } //compress level 
 
 void convert_struct_to_array_0x364D2(type_str_0x364D2* input, uint8_t* output) {//lenght 108
@@ -770,7 +770,7 @@ void convert_struct_to_array_D41A0_0(type_D41A0_BYTESTR_0* input,uint8_t* output
 		memcpy(output + 0x3659C+i*11, &input->struct_0x3659C[i].substr_3659C, 11);
 	//type_str_0x3647Ac array_0x365F4[0xb];//8x11	//set 0x58 // end 0x3664c
 	for (int i = 0; i < 0x8; i++)
-		convert_struct_to_array_0x3647Ac(&input->array_0x365F4[i], output + 0x365F4 + i * 8);
+		convert_struct_to_array_0x3647Ac(&input->StageVars2_0x365F4[i], output + 0x365F4 + i * 8);
 	//type_str_0x3664C str_0x3664C[0x32];// lenght 0x79e//39x50 (end-0x36dea)
 	for (int i = 0; i < 0x32; i++)
 		convert_struct_to_array_0x3664C(&input->str_0x3664C[i], output + 0x3664C + i * 39);
@@ -795,7 +795,7 @@ void convert_struct_to_array_D41A0_0(type_D41A0_BYTESTR_0* input,uint8_t* output
 	//int16_t word_0x36DFE;
 	memcpy(output + 0x36DFE, &input->word_0x36DFE, 2);
 	//uint8_t byte_0x36E00;
-	memcpy(output + 0x36E00, &input->byte_0x36E00, 1);
+	memcpy(output + 0x36E00, &input->countStageVars_0x36E00, 1);
 	//uint8_t byte_0x36E01;//count objectives
 	memcpy(output + 0x36E01, &input->stageIndex_0x36E01, 1);
 	//int8_t byte_0x36E02;//temp objective
