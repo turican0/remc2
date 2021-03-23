@@ -39,7 +39,7 @@ void _strupr(char* s)
 //#define DEBUG_AFTERLOAD
 //#define DEBUG_ONSTART
 #define TEST_REGRESSIONS_GAME
-int test_regression_level = 1;
+int test_regression_level = 0;
 
 //adress 2285ff
 #if defined(RELEASE_GAME) //this is standard setting
