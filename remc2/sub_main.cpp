@@ -61,8 +61,8 @@ int test_regression_level = 1;
 	#define MOUSE_OFF2
 	#define OFF_PAUSE_5
 	#define TEST_REGRESSION
-	#define DEBUG_SEQUENCES
-	#define DEBUG_SEQUENCES2
+	//#define DEBUG_SEQUENCES
+	//#define DEBUG_SEQUENCES2
 	int debugafterload = 1;
 #elif defined(DEBUG_AFTERLOAD) //this is setting is for compare data with dosbox afterload(can fix mouse move, and etc.)
 	#define DETECT_DWORD_A
@@ -9327,7 +9327,7 @@ void InitStageVars_11EE0()//1f2ee0
 }
 
 //----- (00012100) --------------------------------------------------------
-void sub_12100(type_entity_0x30311* a1x, type_event_0x6E8E* a2x, char a3)//1f3100
+void sub_12100(type_entity_0x30311* entity, type_event_0x6E8E* event, char a3)//1f3100
 {
 	signed __int16 v3; // bx
 	unsigned __int8 v4; // cl
@@ -9345,9 +9345,8 @@ void sub_12100(type_entity_0x30311* a1x, type_event_0x6E8E* a2x, char a3)//1f310
 	{
 		if (D41A0_0.StageVars2_0x365F4[v5 + 1].index_0x3647A_0
 			&& !(D41A0_0.StageVars2_0x365F4[v5 + 1].stage_0x3647A_1 & 1)
-			&& a1x - D41A0_0.terrain_2FECE.entity_0x30311 ==
+			&& entity - D41A0_0.terrain_2FECE.entity_0x30311 ==
 			D41A0_0.terrain_2FECE.StageVars_0x3647A[v3].str_0x3647A_2.word)
-
 		{
 			v4 = v3;
 		}
@@ -9363,7 +9362,7 @@ void sub_12100(type_entity_0x30311* a1x, type_event_0x6E8E* a2x, char a3)//1f310
 			if (D41A0_0.StageVars2_0x365F4[v7 + 1].index_0x3647A_0//*v7
 				&& (D41A0_0.StageVars2_0x365F4[v7 + 1].stage_0x3647A_1 & 1)
 				&& D41A0_0.terrain_2FECE.entity_0x30311[D41A0_0.terrain_2FECE.StageVars_0x3647A[v6].str_0x3647A_2.word].subtype_0x30311 ==
-				a1x->subtype_0x30311)
+				entity->subtype_0x30311)
 			{
 				v4 = v6;
 			}
@@ -9374,9 +9373,9 @@ void sub_12100(type_entity_0x30311* a1x, type_event_0x6E8E* a2x, char a3)//1f310
 	if (v4)
 	{
 		if (a3)
-			a2x->word_0x4A_74 = v4;
+			event->word_0x4A_74 = v4;
 		else
-			sub_12330(a2x, v4);
+			sub_12330(event, v4);
 	}
 	v8 = 1;
 	for (ix = 0/*&x_D41A0_BYTEARRAY_0[0x365FC]*/; ; ix++/* += 8*/)
@@ -9395,10 +9394,10 @@ void sub_12100(type_entity_0x30311* a1x, type_event_0x6E8E* a2x, char a3)//1f310
 			case 9:
 				if (!(D41A0_0.StageVars2_0x365F4[ix + 1].stage_0x3647A_1 & 2)
 					&& D41A0_0.terrain_2FECE.StageVars_0x3647A[v8].str_0x3647C_4.axis.x ==
-					a1x - D41A0_0.terrain_2FECE.entity_0x30311)
+					entity - D41A0_0.terrain_2FECE.entity_0x30311)
 				{
 					//fix it
-					D41A0_0.StageVars2_0x365F4[ix + 1].str_0x3647C_4.pointer_0x6E8E = a2x;
+					D41A0_0.StageVars2_0x365F4[ix + 1].str_0x3647C_4.pointer_0x6E8E = event;
 					//fix it
 					D41A0_0.StageVars2_0x365F4[ix + 1].stage_0x3647A_1 &= 0xFBu;
 				}
