@@ -485,8 +485,8 @@ typedef struct _str_0x6E8E {//lenght a8//THING
 	uint8_t byte_0x45_69;//69 // index of structure with lenght 14//STATE-
 	int8_t byte_0x46_70;//70 // index of bitmap // index of ending sequence
 	int8_t byte_0x47_71_xx;//71
-	int8_t byte_0x48_72;//72
-	int8_t byte_0x49_73;//70
+	int8_t StageVar1_0x48_72;//72
+	int8_t StageVar2_0x49_73;//70
 	int16_t word_0x4A_74;
 	axis_3d axis_0x4C_76;//position//ACTUAL X Y Z
 	axis_4d array_0x52_82;

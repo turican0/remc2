@@ -34,11 +34,11 @@ void _strupr(char* s)
 //#define SET_OBJECTIVE
 //#define SET_LEVEL
 
-//#define RELEASE_GAME
+#define RELEASE_GAME
 //#define PLAYING_GAME
 //#define DEBUG_AFTERLOAD
 //#define DEBUG_ONSTART
-#define TEST_REGRESSIONS_GAME
+//#define TEST_REGRESSIONS_GAME
 int test_regression_level = 0;
 
 //adress 2285ff
@@ -1220,7 +1220,7 @@ char sub_11C80(uaxis_2d a1);
 bool sub_11CB0(axis_3d* a1);
 bool sub_11E20(type_event_0x6E8E* a1, axis_3d* a2);
 bool sub_11E70(type_event_0x6E8E* a1, axis_3d* a2);
-void InitStageVars_11EE0(/*uint8_t* a1*/);
+void InitStageVars_11EE0();
 void sub_12100(type_entity_0x30311* a1, type_event_0x6E8E* a2, char a3);
 void sub_122A0(type_event_0x6E8E* a1);
 void sub_122C0(__int16 a1);
@@ -9332,11 +9332,11 @@ void sub_12100(type_entity_0x30311* entity, type_event_0x6E8E* event, char a3)//
 	signed __int16 v3; // bx
 	unsigned __int8 v4; // cl
 	int v5;
-	signed __int16 v6; // bx
-	int v7; // edx
-	signed __int16 v8; // bx
-	int ix; // ecx
-	__int16 result; // ax
+	//signed __int16 v6; // bx
+	//int v7; // edx
+	//signed __int16 v8; // bx
+	//int ix; // ecx
+	//__int16 result; // ax
 
 	v3 = 1;
 	v4 = 0;
@@ -9355,19 +9355,21 @@ void sub_12100(type_entity_0x30311* entity, type_event_0x6E8E* event, char a3)//
 	}
 	if (!v4)
 	{
-		v6 = 1;
-		v7 = 0;
-		while (v6 <= D41A0_0.countStageVars_0x36E00 && !v4)
+		//v6 = 1;
+		//v7 = 0;
+		for (int index = 1; index <= D41A0_0.countStageVars_0x36E00; index++)
+		//while (v6 <= D41A0_0.countStageVars_0x36E00 && !v4)
 		{
-			if (D41A0_0.StageVars2_0x365F4[v7 + 1].index_0x3647A_0//*v7
-				&& (D41A0_0.StageVars2_0x365F4[v7 + 1].stage_0x3647A_1 & 1)
-				&& D41A0_0.terrain_2FECE.entity_0x30311[D41A0_0.terrain_2FECE.StageVars_0x3647A[v6].str_0x3647A_2.word].subtype_0x30311 ==
+			if (D41A0_0.StageVars2_0x365F4[index].index_0x3647A_0//*v7
+				&& (D41A0_0.StageVars2_0x365F4[index].stage_0x3647A_1 & 1)
+				&& D41A0_0.terrain_2FECE.entity_0x30311[D41A0_0.terrain_2FECE.StageVars_0x3647A[index].str_0x3647A_2.word].subtype_0x30311 ==
 				entity->subtype_0x30311)
 			{
-				v4 = v6;
+				v4 = index;
+				break;
 			}
-			v6++;
-			v7++;
+			//v6++;
+			//v7++;
 		}
 	}
 	if (v4)
@@ -9377,36 +9379,38 @@ void sub_12100(type_entity_0x30311* entity, type_event_0x6E8E* event, char a3)//
 		else
 			sub_12330(event, v4);
 	}
-	v8 = 1;
-	for (ix = 0/*&x_D41A0_BYTEARRAY_0[0x365FC]*/; ; ix++/* += 8*/)
+
+	//v8 = 1;
+	for (int index = 1; index <= D41A0_0.countStageVars_0x36E00; index++)
+	//for (ix = 0/*&x_D41A0_BYTEARRAY_0[0x365FC]*/; ; ix++/* += 8*/)
 	{
-		result = D41A0_0.countStageVars_0x36E00;
-		if (v8 > (unsigned __int8)result)
-			break;
-		if (D41A0_0.StageVars2_0x365F4[ix + 1].index_0x3647A_0)
+		//result = D41A0_0.countStageVars_0x36E00;
+		//if (v8 > D41A0_0.countStageVars_0x36E00)
+		//	break;
+		if (D41A0_0.StageVars2_0x365F4[index].index_0x3647A_0)
 		{
-			switch (D41A0_0.StageVars2_0x365F4[ix + 1].index_0x3647A_0)
+			switch (D41A0_0.StageVars2_0x365F4[index].index_0x3647A_0)
 			{
 			case 3:
 			case 4:
 			case 5:
 			case 8:
 			case 9:
-				if (!(D41A0_0.StageVars2_0x365F4[ix + 1].stage_0x3647A_1 & 2)
-					&& D41A0_0.terrain_2FECE.StageVars_0x3647A[v8].str_0x3647C_4.axis.x ==
+				if (!(D41A0_0.StageVars2_0x365F4[index].stage_0x3647A_1 & 2)
+					&& D41A0_0.terrain_2FECE.StageVars_0x3647A[index].str_0x3647C_4.axis.x ==
 					entity - D41A0_0.terrain_2FECE.entity_0x30311)
 				{
 					//fix it
-					D41A0_0.StageVars2_0x365F4[ix + 1].str_0x3647C_4.pointer_0x6E8E = event;
+					D41A0_0.StageVars2_0x365F4[index].str_0x3647C_4.pointer_0x6E8E = event;
 					//fix it
-					D41A0_0.StageVars2_0x365F4[ix + 1].stage_0x3647A_1 &= 0xFBu;
+					D41A0_0.StageVars2_0x365F4[index].stage_0x3647A_1 &= 0xFBu;
 				}
 				break;
 			default:
 				break;
 			}
 		}
-		v8++;
+		//v8++;
 	}
 }
 
@@ -9678,10 +9682,10 @@ void sub_12330(type_event_0x6E8E* event, __int16 a2)//1f3330
 		return;
 	}
 	event->byte_0x45_69 = 8 * event->subtype_0x40_64 + 7;
-	event->byte_0x48_72 = a2;
+	event->StageVar1_0x48_72 = a2;
 	event->word_0x4A_74 = 0;
-	event->byte_0x49_73 = D41A0_0.StageVars2_0x365F4[a2].index_0x3647A_0;
-	if (event->byte_0x49_73 == 6)
+	event->StageVar2_0x49_73 = D41A0_0.StageVars2_0x365F4[a2].index_0x3647A_0;
+	if (event->StageVar2_0x49_73 == 6)
 		event->word_0x4A_74 = D41A0_0.StageVars2_0x365F4[a2].str_0x3647C_4.axis.x;
 }
 
@@ -9693,8 +9697,8 @@ void sub_12410(type_event_0x6E8E* a1x, char a2)//1f3410
 
 	//v2 = 8 * *(unsigned __int8 *)(a1 + 72);
 	v3 = 0;
-	if (D41A0_0.StageVars2_0x365F4[a1x->byte_0x48_72].str_0x3647A_2._axis_2d.x)
-		sub_12330(a1x, D41A0_0.StageVars2_0x365F4[a1x->byte_0x48_72].str_0x3647A_2._axis_2d.x);
+	if (D41A0_0.StageVars2_0x365F4[a1x->StageVar1_0x48_72].str_0x3647A_2._axis_2d.x)
+		sub_12330(a1x, D41A0_0.StageVars2_0x365F4[a1x->StageVar1_0x48_72].str_0x3647A_2._axis_2d.x);
 	else
 		v3 = 1;
 	if (v3)
@@ -9705,8 +9709,8 @@ void sub_12410(type_event_0x6E8E* a1x, char a2)//1f3410
 //----- (00012470) --------------------------------------------------------
 void sub_12470(type_event_0x6E8E* event, char a2)//1f3470
 {
-	event->byte_0x49_73 = 0;
-	event->byte_0x48_72 = 0;
+	event->StageVar2_0x49_73 = 0;
+	event->StageVar1_0x48_72 = 0;
 	event->word_0x4A_74 = 0;
 	event->byte_0x45_69 = a2;
 }
@@ -9736,12 +9740,12 @@ void sub_12500(type_event_0x6E8E* a1x)//1f3500
 	v11 = 1;
 	if ((a1x->byte_0x45_69 & 7) < 4u || (a1x->byte_0x45_69 & 7) > 5u)
 	{
-		switch (a1x->byte_0x49_73)
+		switch (a1x->StageVar2_0x49_73)
 		{
 		case 0xA:
 			v11 = 0;
 			if (v3 != 2 && v3 != 6)
-				sub_12330(a1x, a1x->byte_0x48_72);
+				sub_12330(a1x, a1x->StageVar1_0x48_72);
 			break;
 		case 0xD:
 		case 0xE:
@@ -9756,26 +9760,26 @@ void sub_12500(type_event_0x6E8E* a1x)//1f3500
 		case 0xF:
 			v11 = 0;
 			if (v3)
-				sub_12330(a1x, a1x->byte_0x48_72);
+				sub_12330(a1x, a1x->StageVar1_0x48_72);
 			break;
 		default:
 			break;
 		}
 		if (v11)
 		{
-			switch (D41A0_0.StageVars2_0x365F4[a1x->byte_0x48_72].index_0x3647A_0)
+			switch (D41A0_0.StageVars2_0x365F4[a1x->StageVar1_0x48_72].index_0x3647A_0)
 			{
 			case 1:
-				v1x = abs(D41A0_0.StageVars2_0x365F4[a1x->byte_0x48_72].str_0x3647C_4.axis.x - a1x->axis_0x4C_76.x);
+				v1x = abs(D41A0_0.StageVars2_0x365F4[a1x->StageVar1_0x48_72].str_0x3647C_4.axis.x - a1x->axis_0x4C_76.x);
 				if (v1x <= 2048)
 				{
-					v1x = abs(D41A0_0.StageVars2_0x365F4[a1x->byte_0x48_72].str_0x3647C_4.axis.y - a1x->axis_0x4C_76.y);
+					v1x = abs(D41A0_0.StageVars2_0x365F4[a1x->StageVar1_0x48_72].str_0x3647C_4.axis.y - a1x->axis_0x4C_76.y);
 					if (v1x <= 2048)
 						goto LABEL_44;
 				}
 				goto LABEL_45;
 			case 3:
-				v1x = D41A0_0.StageVars2_0x365F4[a1x->byte_0x48_72].stage_0x3647A_1;
+				v1x = D41A0_0.StageVars2_0x365F4[a1x->StageVar1_0x48_72].stage_0x3647A_1;
 				if (v1x & 4)
 				{
 					a1x->word_0x4A_74 = 0;
@@ -9797,7 +9801,7 @@ void sub_12500(type_event_0x6E8E* a1x)//1f3500
 			case 5:
 			case 8:
 			case 9:
-				v6 = D41A0_0.StageVars2_0x365F4[a1x->byte_0x48_72].stage_0x3647A_1;
+				v6 = D41A0_0.StageVars2_0x365F4[a1x->StageVar1_0x48_72].stage_0x3647A_1;
 				if (v6 & 4)
 				{
 					v2 = 1;
@@ -9806,14 +9810,14 @@ void sub_12500(type_event_0x6E8E* a1x)//1f3500
 				{
 					if (!(v6 & 2))
 					{
-						if (D41A0_0.StageVars2_0x365F4[a1x->byte_0x48_72].index_0x3647A_0 == 9)
+						if (D41A0_0.StageVars2_0x365F4[a1x->StageVar1_0x48_72].index_0x3647A_0 == 9)
 						{
-							if (D41A0_0.StageVars2_0x365F4[a1x->byte_0x48_72].str_0x3647C_4.axis.x || D41A0_0.StageVars2_0x365F4[a1x->byte_0x48_72].str_0x3647C_4.axis.y)
+							if (D41A0_0.StageVars2_0x365F4[a1x->StageVar1_0x48_72].str_0x3647C_4.axis.x || D41A0_0.StageVars2_0x365F4[a1x->StageVar1_0x48_72].str_0x3647C_4.axis.y)
 							{
-								v1x = abs(D41A0_0.StageVars2_0x365F4[a1x->byte_0x48_72].str_0x3647C_4.axis.x - a1x->axis_0x4C_76.x);
+								v1x = abs(D41A0_0.StageVars2_0x365F4[a1x->StageVar1_0x48_72].str_0x3647C_4.axis.x - a1x->axis_0x4C_76.x);
 								if (v1x <= 3072)
 								{
-									v1x = abs(D41A0_0.StageVars2_0x365F4[a1x->byte_0x48_72].str_0x3647C_4.axis.y - a1x->axis_0x4C_76.y);
+									v1x = abs(D41A0_0.StageVars2_0x365F4[a1x->StageVar1_0x48_72].str_0x3647C_4.axis.y - a1x->axis_0x4C_76.y);
 									if (v1x <= 3072)
 										goto LABEL_44;
 								}
@@ -9821,8 +9825,8 @@ void sub_12500(type_event_0x6E8E* a1x)//1f3500
 						}
 						goto LABEL_45;
 					}
-					if (D41A0_0.StageVars2_0x365F4[a1x->byte_0x48_72].index_0x3647A_0 < 4u
-						|| D41A0_0.StageVars2_0x365F4[a1x->byte_0x48_72].index_0x3647A_0 > 5u
+					if (D41A0_0.StageVars2_0x365F4[a1x->StageVar1_0x48_72].index_0x3647A_0 < 4u
+						|| D41A0_0.StageVars2_0x365F4[a1x->StageVar1_0x48_72].index_0x3647A_0 > 5u
 						|| (v7 = a1x->word_0x4A_74) == 0
 						|| (v1y = x_DWORD_EA3E4[v7], v1y->dword_0x8 >= 0) && !(v1y->struct_byte_0xc_12_15.byte[1] & 4))
 					{
@@ -9840,7 +9844,7 @@ void sub_12500(type_event_0x6E8E* a1x)//1f3500
 					goto LABEL_44;
 				goto LABEL_45;
 			case 7:
-				if (D41A0_0.StageVars2_0x365F4[a1x->byte_0x48_72].stage_0x3647A_1 & 0x18)
+				if (D41A0_0.StageVars2_0x365F4[a1x->StageVar1_0x48_72].stage_0x3647A_1 & 0x18)
 				{
 					sub_12870();
 				LABEL_44:
@@ -17551,7 +17555,7 @@ void sub_1D460(type_event_0x6E8E* a1x, type_event_0x6E8E* a2x)//1fe460
 //----- (0001D5D0) --------------------------------------------------------
 void sub_1D5D0(type_event_0x6E8E* a1x, __int16 a2)//1fe5d0
 {
-	switch (a1x->byte_0x49_73)
+	switch (a1x->StageVar2_0x49_73)
 	{
 	case 1:
 		sub_1DDA0(a1x, a2);
@@ -17612,7 +17616,7 @@ void sub_1D700(type_event_0x6E8E* a1x, __int16 a2)//1fe700
 	sub_1D8C0(a1x, a2);
 	if (!(a1x->byte_0x3E_62 & 7))
 	{
-		v2x = &D41A0_0.StageVars2_0x365F4[a1x->byte_0x48_72];
+		v2x = &D41A0_0.StageVars2_0x365F4[a1x->StageVar1_0x48_72];
 		if (v2x->stage_0x3647A_1 & 2)
 			v3x = x_DWORD_EA3E4[a1x->word_0x4A_74];
 		else
@@ -17629,7 +17633,7 @@ void sub_1D700(type_event_0x6E8E* a1x, __int16 a2)//1fe700
 					if (sub_583F0_distance_3d(&a1x->axis_0x4C_76, &x_DWORD_EA3E4[v4]->axis_0x4C_76) <= v5)
 					{
 						a1x->word_0x96_150 = v3x->word_0x96_150;
-						a1x->byte_0x49_73 = 10;
+						a1x->StageVar2_0x49_73 = 10;
 						sub_1E040(a1x, a2);
 					}
 				}
@@ -17650,7 +17654,7 @@ void sub_1D7C0(type_event_0x6E8E* a1x, __int16 a2)//1fe7c0
 	sub_1D8C0(a1x, a2);
 	if (!(a1x->byte_0x3E_62 & 7))
 	{
-		v2x = &D41A0_0.StageVars2_0x365F4[a1x->byte_0x48_72];
+		v2x = &D41A0_0.StageVars2_0x365F4[a1x->StageVar1_0x48_72];
 		if (v2x->stage_0x3647A_1 & 2)
 			v3x = x_DWORD_EA3E4[a1x->word_0x4A_74];
 		else
@@ -17661,7 +17665,7 @@ void sub_1D7C0(type_event_0x6E8E* a1x, __int16 a2)//1fe7c0
 			if (sub_583F0_distance_3d(&a1x->axis_0x4C_76, &v3x->axis_0x4C_76) <= v4)
 			{
 				a1x->word_0x96_150 = v3x - D41A0_0.struct_0x6E8E;
-				a1x->byte_0x49_73 = 10;
+				a1x->StageVar2_0x49_73 = 10;
 				sub_1E040(a1x, a2);
 			}
 		}
@@ -17746,7 +17750,7 @@ void sub_1D8C0(type_event_0x6E8E* a1x, __int16 a2)//1fe8c0
 			sub_1B8C0(a1x);
 			if (!(a1x->byte_0x3E_62 & 7))
 			{
-				if (D41A0_0.StageVars2_0x365F4[a1x->byte_0x48_72].stage_0x3647A_1 & 2)
+				if (D41A0_0.StageVars2_0x365F4[a1x->StageVar1_0x48_72].stage_0x3647A_1 & 2)
 				{
 					if (!a1x->word_0x4A_74)
 						a1x->word_0x4A_74 = sub_1E3E0(a1x);
@@ -17754,7 +17758,7 @@ void sub_1D8C0(type_event_0x6E8E* a1x, __int16 a2)//1fe8c0
 				}
 				else
 				{
-					v12x = D41A0_0.StageVars2_0x365F4[a1x->byte_0x48_72].str_0x3647C_4.pointer_0x6E8E;
+					v12x = D41A0_0.StageVars2_0x365F4[a1x->StageVar1_0x48_72].str_0x3647C_4.pointer_0x6E8E;
 				}
 				if (v12x && v12x > x_DWORD_EA3E4[0])
 				{
@@ -17809,7 +17813,7 @@ void sub_1D8C0(type_event_0x6E8E* a1x, __int16 a2)//1fe8c0
 		if (v10)
 		{
 			a1x->word_0x96_150 = a1x->word_0x26_38;
-			a1x->byte_0x49_73 = 10;
+			a1x->StageVar2_0x49_73 = 10;
 			sub_1E040(a1x, a2);
 		}
 		sub_1EEE0(a1x);
@@ -17836,7 +17840,7 @@ void sub_1DBF0(type_event_0x6E8E* a1x, unsigned __int16 a2)//1febf0
 	unsigned int v12; // [esp+8h] [ebp-8h]
 	unsigned int v13; // [esp+Ch] [ebp-4h]
 
-	v2x = &D41A0_0.StageVars2_0x365F4[a1x->byte_0x48_72];
+	v2x = &D41A0_0.StageVars2_0x365F4[a1x->StageVar1_0x48_72];
 	if (abs((int16_t)v2x->str_0x3647C_4.axis.x - (int16_t)a1x->axis_0x4C_76.x) > 3072
 		|| abs((int16_t)v2x->str_0x3647C_4.axis.y - (int16_t)a1x->axis_0x4C_76.y) > 3072)
 	{
@@ -17847,7 +17851,7 @@ void sub_1DBF0(type_event_0x6E8E* a1x, unsigned __int16 a2)//1febf0
 		sub_1E1C0(a1x, a2);
 	}
 	//result = a2 + 7;
-	if (a1x->byte_0x45_69 == a2 + 7 && a1x->byte_0x49_73 == 2)
+	if (a1x->byte_0x45_69 == a2 + 7 && a1x->StageVar2_0x49_73 == 2)
 	{
 		if (a1x->byte_0x39_57)
 		{
@@ -17886,7 +17890,7 @@ void sub_1DBF0(type_event_0x6E8E* a1x, unsigned __int16 a2)//1febf0
 				if (v5x)
 				{
 					a1x->word_0x96_150 = v5x - D41A0_0.struct_0x6E8E;
-					a1x->byte_0x49_73 = 10;
+					a1x->StageVar2_0x49_73 = 10;
 					/*result = */sub_1E040(a1x, a2);
 				}
 			}
@@ -17960,8 +17964,8 @@ void sub_1DDA0(type_event_0x6E8E* a1x, __int16 a2)//1feda0
 		sub_1B8C0(a1x);
 		if (!(a1x->byte_0x3E_62 & 7))
 		{
-			v14x.x = D41A0_0.StageVars2_0x365F4[a1x->byte_0x48_72].str_0x3647C_4.axis.x;
-			v14x.y = D41A0_0.StageVars2_0x365F4[a1x->byte_0x48_72].str_0x3647C_4.axis.y;
+			v14x.x = D41A0_0.StageVars2_0x365F4[a1x->StageVar1_0x48_72].str_0x3647C_4.axis.x;
+			v14x.y = D41A0_0.StageVars2_0x365F4[a1x->StageVar1_0x48_72].str_0x3647C_4.axis.y;
 			if (!(a1x->struct_byte_0xc_12_15.byte[2] & 4))
 			{
 				a1x->word_0x20_32 = sub_581E0_maybe_tan2(&a1x->axis_0x4C_76, &v14x);
@@ -18003,7 +18007,7 @@ void sub_1DDA0(type_event_0x6E8E* a1x, __int16 a2)//1feda0
 		if (v10)
 		{
 			a1x->word_0x96_150 = a1x->word_0x26_38;
-			a1x->byte_0x49_73 = 10;
+			a1x->StageVar2_0x49_73 = 10;
 			sub_1E040(a1x, a2);
 		}
 		sub_1EEE0(a1x);
@@ -18123,7 +18127,7 @@ void sub_1E1C0(type_event_0x6E8E* a1x, __int16 a2)//1ff1c0
 		if (v10)
 		{
 			a1x->word_0x96_150 = a1x->word_0x26_38;
-			a1x->byte_0x49_73 = 10;
+			a1x->StageVar2_0x49_73 = 10;
 			sub_1E040(a1x, a2);
 		}
 		/*LOBYTE(v2) = */sub_1EEE0(a1x);
@@ -18175,7 +18179,7 @@ void sub_1E320(type_event_0x6E8E* a1x)//1ff320
 			a1x->word_0x82_130 = 96;
 		}
 	LABEL_14:
-		a1x->byte_0x49_73 = 16;
+		a1x->StageVar2_0x49_73 = 16;
 	}
 }
 // EA3E4: using guessed type int x_DWORD_EA3E4[];
@@ -18193,11 +18197,11 @@ int sub_1E3E0(type_event_0x6E8E* a1x)//1ff3e0
 	v8 = -1;
 	v1x = 0;
 	v2x = 0;
-	if (D41A0_0.StageVars2_0x365F4[a1x->byte_0x48_72].stage_0x3647A_1 & 1)
+	if (D41A0_0.StageVars2_0x365F4[a1x->StageVar1_0x48_72].stage_0x3647A_1 & 1)
 	{
 		for (ix = x_D41A0_BYTEARRAY_4_struct.bytearray_38403x[a1x->subtype_0x40_64]; ix > x_DWORD_EA3E4[0] && !v2x; ix = ix->next_0)
 		{
-			if (ix->byte_0x48_72 == a1x->byte_0x48_72)
+			if (ix->StageVar1_0x48_72 == a1x->StageVar1_0x48_72)
 			{
 				if (ix->word_0x4A_74)
 					v2x = ix->word_0x4A_74;
@@ -18206,7 +18210,7 @@ int sub_1E3E0(type_event_0x6E8E* a1x)//1ff3e0
 	}
 	if (!v2x)
 	{
-		for (jx = x_D41A0_BYTEARRAY_4_struct.bytearray_38403x[D41A0_0.StageVars2_0x365F4[a1x->byte_0x48_72].str_0x3647C_4.axis.x]; jx > x_DWORD_EA3E4[0]; jx = jx->next_0)
+		for (jx = x_D41A0_BYTEARRAY_4_struct.bytearray_38403x[D41A0_0.StageVars2_0x365F4[a1x->StageVar1_0x48_72].str_0x3647C_4.axis.x]; jx > x_DWORD_EA3E4[0]; jx = jx->next_0)
 		{
 			v6 = sub_584D0_SQdistX_SQdistY(&a1x->axis_0x4C_76, &jx->axis_0x4C_76);
 			if (v6 < v8)
@@ -18275,7 +18279,7 @@ void sub_1E580(type_event_0x6E8E* a1x, __int16 a2)//1ff580
 	{
 		a1x->word_0x2E_46 = 0;
 	}
-	else if (a1x->byte_0x49_73 == 13)
+	else if (a1x->StageVar2_0x49_73 == 13)
 	{
 		--a1x->word_0x2E_46;
 	}
@@ -18317,7 +18321,7 @@ void sub_1E580(type_event_0x6E8E* a1x, __int16 a2)//1ff580
 	}
 	if (v6)
 	{
-		if (a1x->byte_0x49_73 == 13)
+		if (a1x->StageVar2_0x49_73 == 13)
 			IfSubtypeCallAxisEvent_4A190(&a1x->axis_0x4C_76, 10, 73);
 		IfSubtypeCallAxisEvent_4A190(&a1x->axis_0x4C_76, 10, 0);
 		SetEntity04_57F10(a1x);
@@ -18556,7 +18560,7 @@ void sub_1E9C0(type_event_0x6E8E* a1x, __int16 a2)//1ff9c0
 		{
 			v10x = x_DWORD_EA3E4[v8];
 			if (v10x > x_DWORD_EA3E4[0]
-				&& (v10x->word_0x28_40 == a1x->word_0x28_40 && v10x->byte_0x49_73 == 14
+				&& (v10x->word_0x28_40 == a1x->word_0x28_40 && v10x->StageVar2_0x49_73 == 14
 					|| v10x->dword_0x8 <= 0
 					|| v10x->struct_byte_0xc_12_15.byte[1] & 4))
 			{
@@ -18577,12 +18581,12 @@ void sub_1E9C0(type_event_0x6E8E* a1x, __int16 a2)//1ff9c0
 	}
 	if (v16)
 	{
-		a1x->byte_0x49_73 = 10;
+		a1x->StageVar2_0x49_73 = 10;
 		a1x->word_0x96_150 = 0;
 		a1x->word_0x28_40 = 0;
 		v12 = a1x->word_0x2E_46;
 		v13 = a1x->word_0x30_48 - 16;
-		a1x->byte_0x48_72 = a1x->word_0x4A_74;
+		a1x->StageVar1_0x48_72 = a1x->word_0x4A_74;
 		if (v12 <= v13)
 			a1x->word_0x2E_46;
 		switch (0)
@@ -18645,7 +18649,7 @@ type_event_0x6E8E* sub_1ED30(type_event_0x6E8E* a1x, type_event_0x6E8E* a2x)//1f
 	unsigned __int16 v10; // ax
 
 	v2x = a2x;
-	if (a1x->byte_0x49_73 == 14)
+	if (a1x->StageVar2_0x49_73 == 14)
 	{
 		v3 = 0;
 		if (a1x->word_0x30_48 - 16 >= a1x->word_0x2E_46 && a1x->word_0x2E_46 >= 16)
@@ -18930,7 +18934,7 @@ void sub_1F300(/*type_str_0x6E8E* a1x,*/ type_event_0x6E8E* a2x)//200300
 
 	sub_1D5D0(a2x, 0);
 	//result = (unsigned __int8)(a2x->byte_0x49_73 - 1);
-	switch (a2x->byte_0x49_73)
+	switch (a2x->StageVar2_0x49_73)
 	{
 	case 1:
 	case 2:
@@ -19142,7 +19146,7 @@ void sub_1F8A0(type_event_0x6E8E* a1x)//2008a0
 	int v1; // esi
 
 	sub_1D5D0(a1x, 16);
-	if (!(a1x->byte_0x3E_62 & 7) && (unsigned __int8)(a1x->byte_0x49_73 - 1) <= 8u)
+	if (!(a1x->byte_0x3E_62 & 7) && (unsigned __int8)(a1x->StageVar2_0x49_73 - 1) <= 8u)
 	{
 		a1x->rand_0x14_20 = 9377 * a1x->rand_0x14_20 + 9439;
 		v1 = 2 * ((a1x->rand_0x14_20 % 0x9Du) / 79);
@@ -20991,7 +20995,7 @@ void sub_21AB0(type_event_0x6E8E* a1x)//202ab0
 					v35x->word_0x96_150 = D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].word_0x00a_2BE4_11240;
 					v12x->word_0x1A_26 = a1x->word_0x1A_26;
 					v13x = v35x;
-					v35x->byte_0x49_73 = 17;
+					v35x->StageVar2_0x49_73 = 17;
 					v13x->word_0x2E_46 = 250;
 					v13x->word_0x82_130 = 320;
 					v13x->word_0x28_40 = a1x - D41A0_0.struct_0x6E8E;
@@ -24504,8 +24508,8 @@ void sub_26470(type_event_0x6E8E* a1x)//207470
 	int result; // eax
 
 	sub_1D5D0(a1x, 168);
-	result = (unsigned __int8)(a1x->byte_0x49_73 - 1);
-	switch (a1x->byte_0x49_73)
+	result = (unsigned __int8)(a1x->StageVar2_0x49_73 - 1);
+	switch (a1x->StageVar2_0x49_73)
 	{
 	case 1:
 	case 2:
@@ -27269,7 +27273,7 @@ void sub_29930(type_event_0x6E8E* a1x)//20a930
 	type_event_0x6E8E* v4x; // eax
 
 	sub_1D5D0(a1x, 216);
-	v1 = a1x->byte_0x49_73;
+	v1 = a1x->StageVar2_0x49_73;
 	if (v1 < 2u || v1 > 2u && (v1 < 6u || v1 > 9u))
 		sub_2AED0(a1x, 315);
 	else
@@ -27279,7 +27283,7 @@ void sub_29930(type_event_0x6E8E* a1x)//20a930
 	if (v2 == -38)
 	{
 		v3 = a1x->word_0x34_52;
-		a1x->byte_0x49_73 = 10;
+		a1x->StageVar2_0x49_73 = 10;
 		while (1)
 		{
 			v4x = x_DWORD_EA3E4[v3];
@@ -27295,7 +27299,7 @@ void sub_29930(type_event_0x6E8E* a1x)//20a930
 	}
 	else if (v2 == -40)
 	{
-		a1x->byte_0x49_73 = 15;
+		a1x->StageVar2_0x49_73 = 15;
 	}
 	sub_29A90(a1x);
 }
@@ -39001,7 +39005,7 @@ void sub_3A5B0(type_event_0x6E8E* a1x)//21b5b0
 		if (v2x)
 		{
 			v3 = 8 * v2x->subtype_0x40_64;
-			v2x->byte_0x49_73 = 13;
+			v2x->StageVar2_0x49_73 = 13;
 			v2x->byte_0x45_69 = v3 + 7;
 			v2x->word_0x28_40 = a1x->word_0x28_40;
 			v4 = a1x->word_0x1A_26;
@@ -39068,9 +39072,9 @@ int sub_3A650(type_event_0x6E8E* a1x)//21b650
 							&& sub_3A7F0(v6x))
 						{
 							PrepareEventSound_6E450(a1x - D41A0_0.struct_0x6E8E, -1, 6);
-							v6x->byte_0x49_73 = 14;
-							v4 = v6x->byte_0x48_72;
-							v6x->byte_0x48_72 = 0;
+							v6x->StageVar2_0x49_73 = 14;
+							v4 = v6x->StageVar1_0x48_72;
+							v6x->StageVar1_0x48_72 = 0;
 							v6x->word_0x4A_74 = v4;
 							v6x->word_0x28_40 = a1x->word_0x1A_26;
 							v5 = a1x->word_0x2A_42;
@@ -39131,7 +39135,7 @@ char sub_3A7F0(type_event_0x6E8E* a1x)//21b7f0
 LABEL_13:
 	if (result)
 	{
-		v3 = a1x->byte_0x49_73;
+		v3 = a1x->StageVar2_0x49_73;
 		if (v3 == 14 || v3 == 13 || v3 == 16 || v3 == 17)
 			result = 0;
 	}
@@ -39770,7 +39774,7 @@ LABEL_33:
 				}
 				else if (v7 == 5 && ix->subtype_0x40_64 != 22 && ix->word_0x1A_26 != a1x->word_0x1A_26)
 				{
-					if (ix->byte_0x49_73 == 14)
+					if (ix->StageVar2_0x49_73 == 14)
 					{
 						v9 = ix->word_0x28_40 == a1x->word_0x1A_26;
 						goto LABEL_26;
@@ -67254,7 +67258,7 @@ void sub_57730()//238730
 		{
 			for (lx = x_D41A0_BYTEARRAY_4_struct.bytearray_38403x[k]; lx > x_DWORD_EA3E4[0]; lx = lx->next_0)
 			{
-				if (lx->byte_0x48_72 || lx->byte_0x49_73)
+				if (lx->StageVar1_0x48_72 || lx->StageVar2_0x49_73)
 					sub_12500(lx);
 			}
 		}
@@ -75655,7 +75659,7 @@ void sub_61A00_draw_minimap_entites_b(int a1, int a2, __int16 a3, __int16 a4, in
 						goto LABEL_102;
 					}
 				}
-				v48 = jy->byte_0x49_73;
+				v48 = jy->StageVar2_0x49_73;
 				v94 = v92;
 				v49 = 1;
 				if ((v48 == 14 || v48 == 13) && jy->word_0x28_40 == v80x->word_0x1A_26)
@@ -76277,7 +76281,7 @@ void sub_627F0_draw_minimap_entites_a(int a1, int a2, __int16 a3, __int16 a4, in
 				}
 				v110 = v109;
 				v53 = 1;
-				v54 = iy->byte_0x49_73;
+				v54 = iy->StageVar2_0x49_73;
 				if ((v54 == 14 || v54 == 13) && iy->word_0x28_40 == v102x->word_0x1A_26)
 					v53 = 0;
 				if (v53)
@@ -80243,7 +80247,7 @@ signed int sub_67CB0(type_event_0x6E8E* a1x)//248cb0
 					v13 = a1x->word_0x1A_26;
 					if (kx->word_0x1A_26 != v13
 						&& kx->byte_0x39_57
-						&& (kx->byte_0x49_73 != 14 || kx->word_0x28_40 != v13))
+						&& (kx->StageVar2_0x49_73 != 14 || kx->word_0x28_40 != v13))
 					{
 						v14 = sub_68490(a1x, kx, 0x71u, 0x71u);
 						if (v14 < v57)
@@ -80349,7 +80353,7 @@ signed int sub_67CB0(type_event_0x6E8E* a1x)//248cb0
 			{
 				if (kkx->word_0x1A_26 != a1x->word_0x1A_26
 					&& kkx->byte_0x39_57
-					&& (kkx->byte_0x49_73 != 14 || kkx->word_0x2C_44 != a1x->word_0x1A_26))
+					&& (kkx->StageVar2_0x49_73 != 14 || kkx->word_0x2C_44 != a1x->word_0x1A_26))
 				{
 					v6 = sub_68490(a1x, kkx, 0x71u, 0x200u);
 					if (v6 < v1)
@@ -80396,7 +80400,7 @@ signed int sub_67CB0(type_event_0x6E8E* a1x)//248cb0
 				v23 = a1x->word_0x1A_26;
 				if (nnx->word_0x1A_26 != v23
 					&& nnx->byte_0x39_57
-					&& (nnx->byte_0x49_73 != 14 || nnx->word_0x28_40 != v23))
+					&& (nnx->StageVar2_0x49_73 != 14 || nnx->word_0x28_40 != v23))
 				{
 					v24 = sub_68490(a1x, nnx, 0x100u, 0x71u);
 					if (v24 < v55)
@@ -81800,7 +81804,7 @@ void sub_6A030(type_event_0x6E8E* a1x)//24b030
 				if (v4x)
 				{
 					v6 = 8 * v4x->subtype_0x40_64;
-					v5x->byte_0x49_73 = 12;
+					v5x->StageVar2_0x49_73 = 12;
 					v5x->byte_0x45_69 = v6 + 7;
 					v5x->word_0x28_40 = a1x->word_0x28_40;
 					v5x->word_0x1A_26 = v2x->word_0x1A_26;
@@ -101626,7 +101630,7 @@ void sub_88740(type_event_0x6E8E* a1x, int a2, int a3)//269740
 			{
 				//v9 = a1x->byte_0x49_73;
 				v10 = 1;
-				if ((a1x->byte_0x49_73 == 14 || a1x->byte_0x49_73 == 13) && a1x->word_0x28_40 == v4x->word_0x1A_26)
+				if ((a1x->StageVar2_0x49_73 == 14 || a1x->StageVar2_0x49_73 == 13) && a1x->word_0x28_40 == v4x->word_0x1A_26)
 					v10 = 0;
 				if (v10)
 					v3 = 19;

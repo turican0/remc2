@@ -412,9 +412,9 @@ void convert_struct_to_array_0x6E8E(type_event_0x6E8E* input, uint8_t* output) {
 	//int8_t byte_0x47_71_xx;//71
 	memcpy(output + 71, &input->byte_0x47_71_xx, 1);
 	//int8_t byte_0x48_72;//72
-	memcpy(output + 72, &input->byte_0x48_72, 1);
+	memcpy(output + 72, &input->StageVar1_0x48_72, 1);
 	//int8_t byte_0x49_73;//70
-	memcpy(output + 73, &input->byte_0x49_73, 1);
+	memcpy(output + 73, &input->StageVar2_0x49_73, 1);
 	//int16_t word_0x4A_74;
 	memcpy(output + 74, &input->word_0x4A_74, 2);
 	//axis_3d array_0x4C_76;//position//ACTUAL X Y Z
