@@ -21,7 +21,7 @@ extern int x_DWORD_17DB54_game_turn2; // weak
 extern int x_DWORD_EA3B4; // weak?x_DWORD_E9C4C_langindexbuffer[474]
 extern __int16 x_WORD_F42AE; // weak
 extern __int16 x_WORD_F42A8; // weak
-extern uint8_t* x_DWORD_E12F4; // weak
+extern TColor* x_DWORD_E12F4x; // weak
 extern int16_t x_WORD_17DB48; // weak
 extern char x_BYTE_D41C0; // weak
 

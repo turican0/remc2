@@ -2,6 +2,7 @@ project(remc2 C CXX)
 
 if (USE_CLANG_TIDY)
     #set(CMAKE_CXX_CLANG_TIDY "clang-tidy;-checks=*")
+    #set(CMAKE_CXX_CLANG_TIDY "clang-tidy;-checks=misc-unused-parameters;-fix")
     set(CMAKE_CXX_CLANG_TIDY "clang-tidy;-checks=misc-unused-parameters")
 endif ()
 
@@ -34,8 +35,6 @@ source_group("Source Files" FILES ${SOURCE_FILES})
 set(SOURCE_FILES_ENGINE
     "engine/ail_sound.h"
     "engine/defs.h"
-#    "engine/editor.cpp"
-#    "engine/editor.h"
     "engine/engine_support.cpp"
     "engine/engine_support.h"
     "engine/engine_support_converts.cpp"
@@ -78,8 +77,6 @@ source_group("Source Files\\libs\\findfirst" FILES ${SOURCE_FILES__libs__findfir
 
 
 set(SOURCE_FILES__portability
-#    "../temp/dirent.c"
-#    "portability/dirent-x.h"
     "portability/mctypes.h"
     "portability/port_filesystem.cpp"
     "portability/port_filesystem.h"
@@ -111,7 +108,10 @@ set(ALL_FILES
 ################################################################################
 add_library(findfirst ${SOURCE_FILES__libs__findfirst})
 add_executable(${PROJECT_NAME} ${ALL_FILES})
-if (NOT USE_64_BIT)
+if (USE_64_BIT)
+    set_target_properties(findfirst PROPERTIES COMPILE_FLAGS "-m64" LINK_FLAGS "-m64")
+    set_target_properties(${PROJECT_NAME} PROPERTIES COMPILE_FLAGS "-m64" LINK_FLAGS "-m64")
+else ()
     set_target_properties(findfirst PROPERTIES COMPILE_FLAGS "-m32" LINK_FLAGS "-m32")
     set_target_properties(${PROJECT_NAME} PROPERTIES COMPILE_FLAGS "-m32" LINK_FLAGS "-m32")
 endif ()
@@ -159,22 +159,9 @@ if (UNIX)
     #)
     #target_compile_options(${PROJECT_NAME} PRIVATE
     #)
-    if (USE_SANITIZERS)
-    target_link_options(${PROJECT_NAME} PRIVATE
-        -fsanitize=address
-        -fsanitize=pointer-compare
-        -fsanitize=pointer-subtract
-        -fsanitize=leak
-        -fsanitize=undefined
-        -static-libasan
-        -static-liblsan
-        -static-libubsan
-    )
-    endif ()
     target_link_libraries(${PROJECT_NAME} PUBLIC 
-        ${SDL2_LIBRARIES}
-        ${SDL_MIXER_LIBRARY}
-    	SDL2
+        SDL2::Main
+        SDL2::Mixer
         ${PNG_LIBRARY}
         findfirst
         ADLMIDI_static
@@ -200,6 +187,7 @@ target_link_libraries(remc2unittests PUBLIC
 )
 if (USE_64_BIT)
     add_compile_definitions(COMPILE_FOR_64BIT)
+    set_target_properties(remc2unittests PROPERTIES COMPILE_FLAGS "-m64" LINK_FLAGS "-m64")
 else ()
     set_target_properties(remc2unittests PROPERTIES COMPILE_FLAGS "-m32" LINK_FLAGS "-m32")
 endif ()
@@ -208,3 +196,25 @@ gtest_add_tests(TARGET      remc2unittests
                 TEST_LIST   noArgsTests
 )
 set_tests_properties(${noArgsTests}   PROPERTIES TIMEOUT 10)
+
+# editor
+add_subdirectory(editor)
+
+
+if (UNIX)
+    if (USE_SANITIZERS)
+        set(SANITIZER_OPTIONS
+            -fsanitize=address
+            -fsanitize=pointer-compare
+            -fsanitize=pointer-subtract
+            -fsanitize=leak
+            -fsanitize=undefined
+            -static-libasan
+            -static-liblsan
+            -static-libubsan
+        )
+        target_link_options(remc2 PRIVATE ${SANITIZER_OPTIONS})
+        target_link_options(remc2unittests PRIVATE ${SANITIZER_OPTIONS})
+        target_link_options(remc2editor PRIVATE ${SANITIZER_OPTIONS})
+    endif ()
+endif ()

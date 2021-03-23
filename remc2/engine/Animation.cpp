@@ -4,7 +4,7 @@ __int16 x_WORD_E12FC = 1; // weak
 __int16 x_WORD_D4004 = 0; // weak//index of act key in anim
 __int16 x_WORD_17DB58; // weak
 uint16_t ActualKeyframe_17DB60; // weak
-uint8_t* x_DWORD_E12F4 = 0; // weak
+TColor* x_DWORD_E12F4x = 0; // weak
 FILE* x_DWORD_17DB38_intro_file_handle; // weak
 uint8_t unk_17DB40[12]; // weak
 
@@ -51,7 +51,7 @@ void PlayInfoFmv(__int16 a1, __int16 a2, type_E17CC_0* a3x, char* path)//257160
 	x_WORD_D4004 = 0;
 	x_WORD_17DB58 = 0;
 	ActualKeyframe_17DB60 = 0;
-	x_DWORD_E12F4 = pdwScreenBuffer;
+	x_DWORD_E12F4x = (TColor*)pdwScreenBuffer;
 	tempfile = DataFileIO::CreateOrOpenFile(path, 512);
 	x_DWORD_17DB38_intro_file_handle = tempfile;
 	if (tempfile)
@@ -477,8 +477,8 @@ void /*__fastcall*/ sub_75E70()//256e70
 	//char v17; // al
 	//char v18; // al
 	char v19; // al
-	uint8_t v20x[6]; // [esp+0h] [ebp-10h]
-	uint32_t v20y; // [esp+0h] [ebp-10h]
+	int16_t v20x[3]; // [esp+0h] [ebp-10h]
+	//uint32_t v20y; // [esp+0h] [ebp-10h]
 	int v21; // [esp+4h] [ebp-Ch]
 	uint8_t* v22; // [esp+8h] [ebp-8h]
 	char v23; // [esp+Ch] [ebp-4h]
@@ -507,26 +507,15 @@ void /*__fastcall*/ sub_75E70()//256e70
 			if (v2 >= x_WORD_17D726)
 				break;
 			v22 = x_DWORD_17DB50;
-			sub_75D70(v20x, 6u);
-			v20y = *(uint32_t*)&v20x;
-			switch (*(uint16_t*)(&v20x[4]))//4? b
+			sub_75D70((int8_t*)v20x, 6);
+			//v20y = *(uint32_t*)&v20x;			
+			switch (v20x[2])//4? b
 			{
 			case 4:
 				v3 = (char*)"COLOUR256 ";
 				sub_76260_read_intro_pallette(0x100);
 				v4 = &x_BYTE_17D738[strlen(x_BYTE_17D738)];
 				strcpy(v4,v3);
-				/*do
-				{
-					v5 = v3[0];
-					v4[0] = v3[0];
-					if (!v5)
-						break;
-					v6 = v3[1];
-					v3 += 2;
-					v4[1] = v6;
-					v4 += 2;
-				} while (v6);*/
 				v23 = 1;
 				break;
 			case 7:
@@ -534,34 +523,12 @@ void /*__fastcall*/ sub_75E70()//256e70
 				sub_76300();//257300 - uz by mel byt vykreslen text
 				v16 = &x_BYTE_17D738[strlen(x_BYTE_17D738)];
 				strcpy(v16, v7);
-				/*do
-				{
-					v17 = v7[0];
-					v16[0] = v7[0];
-					if (!v17)
-						break;
-					v18 = v7[1];
-					v7 += 2;
-					v16[1] = v18;
-					v16 += 2;
-				} while (v18);*/
 				break;
 			case 0xB:
 				sub_76260_read_intro_pallette(0x40);
 				v8 = (char*)"COLOUR ";
 				v9 = &x_BYTE_17D738[strlen(x_BYTE_17D738)];
 				strcpy(v9, v8);
-				/*do
-				{
-					v10 = *v8;
-					*v9 = *v8;
-					if (!v10)
-						break;
-					v11 = v8[1];
-					v8 += 2;
-					v9[1] = v11;
-					v9 += 2;
-				} while (v11);*/
 				v23 = 1;
 				break;
 			case 0xC:
@@ -569,93 +536,40 @@ void /*__fastcall*/ sub_75E70()//256e70
 				sub_76430();
 				v16 = &x_BYTE_17D738[strlen(x_BYTE_17D738)];
 				strcpy(v16, v7);
-				/*do
-				{
-					v17 = v7[0];
-					v16[0] = v7[0];
-					if (!v17)
-						break;
-					v18 = v7[1];
-					v7 += 2;
-					v16[1] = v18;
-					v16 += 2;
-				} while (v18);*/
 				break;
 			case 0xD:
-				memset((void*)x_DWORD_E12F4, 0, x_WORD_17DB48 * x_WORD_17DB4A);
+				memset((void*)x_DWORD_E12F4x, 0, x_WORD_17DB48 * x_WORD_17DB4A);
 				v7 = (char*)"BLACK ";
 				v16 = &x_BYTE_17D738[strlen(x_BYTE_17D738)];
 				strcpy(v16, v7);
-				/*do
-				{
-					v17 = v7[0];
-					v16[0] = v7[0];
-					if (!v17)
-						break;
-					v18 = v7[1];
-					v7 += 2;
-					v16[1] = v18;
-					v16 += 2;
-				} while (v18);*/
 				break;
 			case 0xF:
 				v7 = (char*)"BRUN ";//ok
 				sub_76540();//257540
 				v16 = &x_BYTE_17D738[strlen(x_BYTE_17D738)];
 				strcpy(v16, v7);
-				/*do
-				{
-					v17 = v7[0];
-					v16[0] = v7[0];
-					if (!v17)
-						break;
-					v18 = v7[1];
-					v7 += 2;
-					v16[1] = v18;
-					v16 += 2;
-				} while (v18);*/
 				break;
 			case 0x10:
-				sub_75D70(x_DWORD_E12F4, x_WORD_17DB4A * x_WORD_17DB48);
+				sub_75D70((int8_t*)x_DWORD_E12F4x, x_WORD_17DB4A * x_WORD_17DB48);
 				v12 = (char*)"COPY ";
 				v13 = &x_BYTE_17D738[strlen(x_BYTE_17D738)];
 				strcpy(v12, v13);
-				/*do
-				{
-					v14 = *v12;
-					*v13 = *v12;
-					if (!v14)
-						break;
-					v15 = v12[1];
-					v12 += 2;
-					v13[1] = v15;
-					v13 += 2;
-				} while (v15);*/
-				v20y = x_WORD_17DB4A * x_WORD_17DB48;
+				//v20y = x_WORD_17DB4A * x_WORD_17DB48;
 				break;
 			case 0x12:
-				sub_75D70(0, v20y - 6);
+				/*fix
+					sub_75D70(0, *(uint32_t*)&v20x - 6);
+				*///may be is problem
 				v7 = (char*)"PSTAMP ";
 			//LABEL_23:
 				v16 = &x_BYTE_17D738[strlen(x_BYTE_17D738)];
 				strcpy(v16, v7);
-				/*do
-				{
-					v17 = v7[0];
-					v16[0] = v7[0];
-					if (!v17)
-						break;
-					v18 = v7[1];
-					v7 += 2;
-					v16[1] = v18;
-					v16 += 2;
-				} while (v18);*/
 				break;
 			default:
 				break;
 			}
 			v2++;
-			x_DWORD_17DB50 = v20y + v22;
+			x_DWORD_17DB50 = *(uint32_t*)&v20x + v22;
 		}
 	}
 	if (x_DWORD_17DB3C)
@@ -671,8 +585,8 @@ void /*__fastcall*/ sub_75E70()//256e70
 			long compar = compare_with_snapshot((char*)"0160-00256E70", unk_17D838, 0x34e838, 0x300, &origbyte, &remakebyte);
 			*/
 
-			sub_41A90_VGA_pallette_install(unk_17D838);
-			v19 = sub_5BE80_test_pallette(unk_17D838, 0x3Fu, 0x3Fu, 0x3Fu);
+			sub_41A90_VGA_pallette_install(unk_17D838x);
+			v19 = getPalletteIndex_5BE80(unk_17D838x, 0x3Fu, 0x3Fu, 0x3Fu);
 			sub_2EC90(v19);//20fc90 -zde se prekresli texty
 		}
 	}
@@ -735,33 +649,33 @@ void sub_76300()//257300
 	*/
 
 	v0 = 0;
-	/*result = */sub_75D70((uint8_t*)&v5, 2u);
-	v2 = x_DWORD_E12F4;//2b22f4
+	/*result = */sub_75D70((int8_t*)&v5, 2u);
+	v2 = (uint8_t*)x_DWORD_E12F4x;//2b22f4
 	if (v5 > 0u)
 	{
 		do
 		{
 			v3 = v2;
-			sub_75D70((uint8_t*)&v9, 2u);
+			sub_75D70((int8_t*)&v9, 2u);
 			if ((v9 & 0x8000) == 0)
 			{
 				//v6 = v9;
 				for (i = 0; i < v9; i++)
 				{
-					sub_75D70((uint8_t*)&v11, 1u);
+					sub_75D70((int8_t*)&v11, 1u);
 					v3 += v11;
-					sub_75D70((uint8_t*)&v10, 1u);
+					sub_75D70((int8_t*)&v10, 1u);
 					if (v10 >= 0)
 					{
 						if (v10 > 0)
 						{
-							sub_75D70((uint8_t*)v3, 2 * v10);
+							sub_75D70((int8_t*)v3, 2 * v10);
 							v3 += 2 * v10;
 						}
 					}
 					else
 					{
-						sub_75D70((uint8_t*)&v8, 2u);
+						sub_75D70((int8_t*)&v8, 2u);
 						v4 = 0;
 						while (abs(v10) > v4)
 						{
@@ -806,9 +720,9 @@ int sub_76430()
 	unsigned __int8 v9; // [esp+10h] [ebp-8h]
 	unsigned __int8 v10; // [esp+14h] [ebp-4h]
 
-	sub_75D70((uint8_t*)&v6, 2u);
-	v0 = x_WORD_17DB48 * v6 + x_DWORD_E12F4;
-	sub_75D70((uint8_t*)&v6, 2u);
+	sub_75D70((int8_t*)&v6, 2u);
+	v0 = x_WORD_17DB48 * v6 + (uint8_t*)x_DWORD_E12F4x;
+	sub_75D70((int8_t*)&v6, 2u);
 	v5 = 0;
 	result = 0;
 	if (v6 > 0u)
@@ -817,22 +731,22 @@ int sub_76430()
 		{
 			v2 = (char*)v0;
 			v3 = 0;
-			sub_75D70((uint8_t*)&v9, 1u);
+			sub_75D70((int8_t*)&v9, 1u);
 			while (v3 < (signed int)v9)
 			{
-				sub_75D70((uint8_t*)&v7, 1u);
+				sub_75D70((int8_t*)&v7, 1u);
 				v2 += v7;
-				sub_75D70((uint8_t*)&v8, 1u);
+				sub_75D70((int8_t*)&v8, 1u);
 				if (v8 >= 0)
 				{
 					if (v8 <= 0)
 						goto LABEL_8;
-					sub_75D70((uint8_t*)v2, v8);
+					sub_75D70((int8_t*)v2, v8);
 					v4 = v8;
 				}
 				else
 				{
-					sub_75D70((uint8_t*)&v10, 1u);
+					sub_75D70((int8_t*)&v10, 1u);
 					memset(v2, v10, abs(v8));
 					v4 = abs(v8);
 				}
@@ -862,7 +776,7 @@ int sub_76540()//257540
 	unsigned __int8 v5; // [esp+4h] [ebp-8h]
 	char v6; // [esp+8h] [ebp-4h]
 
-	v0 = x_DWORD_E12F4;
+	v0 = (uint8_t*)x_DWORD_E12F4x;
 	v4 = 0;
 	while (1)
 	{
@@ -874,19 +788,19 @@ int sub_76540()//257540
 		sub_75D70(0, 1u);
 		while (v2 < x_WORD_17DB48)
 		{
-			sub_75D70((uint8_t*)&v6, 1u);
+			sub_75D70((int8_t*)&v6, 1u);
 			if (v6 >= 0)
 			{
 				if (v6 > 0)
 				{
-					sub_75D70((uint8_t*)&v5, 1u);
+					sub_75D70((int8_t*)&v5, 1u);
 					memset(v1, v5, v6);
 				}
 			}
 			else
 			{
 				v6 = abs(v6);
-				sub_75D70((uint8_t*)v1, v6);
+				sub_75D70((int8_t*)v1, v6);
 			}
 			v2 += v6;
 			v1 += v6;
@@ -964,7 +878,7 @@ int sub_473E0()//2283e0
 		--x_WORD_F42A8;
 	if (!x_WORD_18074C_mouse_left2_button && !x_WORD_18074A_mouse_right2_button)
 	{
-		if (x_BYTE_180664[0x2a] || x_BYTE_180664[0x36])
+		if (pressedKeys_180664[0x2a] || pressedKeys_180664[0x36])
 		{
 			if (LastPressedKey_1806E4 < 0x36u)
 			{
