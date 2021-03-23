@@ -34,8 +34,8 @@ void _strupr(char* s)
 //#define SET_OBJECTIVE
 //#define SET_LEVEL
 
-#define RELEASE_GAME
-//#define PLAYING_GAME
+//#define RELEASE_GAME
+#define PLAYING_GAME
 //#define DEBUG_AFTERLOAD
 //#define DEBUG_ONSTART
 //#define TEST_REGRESSIONS_GAME
@@ -2535,8 +2535,8 @@ void sub_71AB0(__int16 a1, char a2);
 type_x_DWORD_E9C28_str* sub_71B40(int a1, unsigned __int16 a2, type_x_DWORD_E9C28_str* a3);
 signed int sub_71CD0(type_x_DWORD_E9C28_str* a1);
 int sub_71E60(type_x_DWORD_E9C28_str* a1);
-type_particle_str** sub_71E70(type_x_DWORD_E9C28_str* a1, unsigned int a2, __int16 a3);
-void sub_71F20(type_x_DWORD_E9C28_str* a1, type_particle_str** a2x);
+subtype_x_DWORD_E9C28_str* sub_71E70(type_x_DWORD_E9C28_str* a1, unsigned int a2, __int16 a3);
+void sub_71F20(type_x_DWORD_E9C28_str* a1, subtype_x_DWORD_E9C28_str* a2x);
 void sub_720C0(type_x_DWORD_E9C28_str** a1);
 type_E9C08* sub_72120(unsigned __int16 a1);
 type_animations1* sub_721C0_initTmap(type_E9C08* a1, type_particle_str** a2x, __int16 a3);
@@ -7742,7 +7742,7 @@ type_F4FE0 str_F4FE0[70];
 char x_BYTE_F5340[504]; // idb//2c6340
 uint8_t x_BYTE_F5538[504]; // idb
 int32_t x_DWORD_F5730[504]; // idb
-type_particle_str** str_F5F10[504];
+subtype_x_DWORD_E9C28_str* str_F5F10[504];
 type_particle_str** str_DWORD_F66F0x[504]; // idb//2c76f0 //type_particle_str?
 uint8_t x_BYTE_F6EE0_tablesx[0x14600];// (uint8_t*)&x_BYTE_F6EE0_tablesbuff;//animated sprites
 uint8_t* x_BYTE_F6EE0_tablesx_pre = (uint8_t*)x_BYTE_F6EE0_tablesx;
@@ -86140,7 +86140,7 @@ void InitTmaps(unsigned __int16 a1)//251f50
 {
 	type_animations1* index; // eax
 	//uint8_t* index2; // eax
-	type_particle_str** index3x; // eax
+	subtype_x_DWORD_E9C28_str* index3x; // eax
 	type_particle_str* index5x; // eax
 	type_particle_str** index6x; // eax
 	unsigned __int16 v2; // bx
@@ -86257,11 +86257,11 @@ void InitTmaps(unsigned __int16 a1)//251f50
 							/*for (int xx = 0; xx < oldwidth*4; xx++)
 								for (int yy = 0; yy < oldheight*4; yy++)
 									* (uint16_t*)(BIG_SPRITES_BUFFER[i] + 6+ yy * oldwidth + xx) = 128;*/
-							*index3x = BIG_SPRITES_BUFFERx[i].actdatax;
+							index3x->partstr_0 = BIG_SPRITES_BUFFERx[i].actdatax;
 						}
 					}
 					str_F5F10[v6] = index3x;
-					str_DWORD_F66F0x[v6] = index3x;
+					str_DWORD_F66F0x[v6] = &index3x->partstr_0;
 					x_DWORD_F5730[v6] = v5;
 					index6x = str_DWORD_F66F0x[v6];
 					//if (**(uint8_t**)index6 & 1)
@@ -86931,14 +86931,14 @@ int sub_71E60(type_x_DWORD_E9C28_str* a1y)//252e60
 }
 
 //----- (00071E70) --------------------------------------------------------
-type_particle_str** sub_71E70(type_x_DWORD_E9C28_str* a1y, unsigned int a2, __int16 a3)//252e70
+subtype_x_DWORD_E9C28_str* sub_71E70(type_x_DWORD_E9C28_str* a1y, unsigned int a2, __int16 a3)//252e70
 {
 	signed __int16 v3; // si
 	signed __int16 v4; // ax
 	signed __int16 v5; // dx
 	//int v6; // ecx
 	//int v7; // eax
-	type_particle_str** result; // eax
+	subtype_x_DWORD_E9C28_str* result; // eax
 
 	v3 = -1;
 	if (a2 < a1y->dword_4)
@@ -86989,12 +86989,12 @@ type_particle_str** sub_71E70(type_x_DWORD_E9C28_str* a1y, unsigned int a2, __in
 		result = 0;
 	else
 		//result = 14 * v3 + a1y->dword_8_data;
-		result = &a1y->str_8_data[v4].partstr_0;
+		result = &a1y->str_8_data[v4];
 	return result;
 }
 
 //----- (00071F20) --------------------------------------------------------
-void sub_71F20(type_x_DWORD_E9C28_str* a1y, type_particle_str** a2x)//252f20
+void sub_71F20(type_x_DWORD_E9C28_str* a1y, subtype_x_DWORD_E9C28_str* a2x)//252f20
 {
 	int v2x; // eax
 	int32_t v2y;
@@ -87008,12 +87008,13 @@ void sub_71F20(type_x_DWORD_E9C28_str* a1y, type_particle_str** a2x)//252f20
 	const void* v10; // esi
 	char* i; // [esp+4h] [ebp-4h]
 
-	allert_error();//fix this code
-	v2x = *(x_WORD*)((int8_t*)a2x + 10);
-	if (v2x < a1y->word_22)
+	//allert_error();//fix this code
+	//a2x->word_10
+	//v2x = *(x_WORD*)((int8_t*)a2x + 10);
+	if (a2x->word_10 < a1y->word_22)
 	{
 		//v2 = 14 * (unsigned __int16)v2;
-		v3x = &a1y->str_8_data[v2x];
+		v3x = &a1y->str_8_data[a2x->word_10];
 		if (v3x->dword_4)
 		{
 			v4 = v3x->word_8;
@@ -87021,7 +87022,7 @@ void sub_71F20(type_x_DWORD_E9C28_str* a1y, type_particle_str** a2x)//252f20
 			v6x = a1y->str_8_data;
 			a1y->dword_4 = v5;
 			//*(x_DWORD*)(v6 + v2 + 4) = 0;
-			v6x[v2x].dword_4 = 0;			
+			v6x[a2x->word_10].dword_4 = 0;
 			//v2 = *(x_DWORD*)(a1y->dword_8_data + v2);
 			v2y = a1y->dword_0;
 			for (i = (char*)v2y; ; i += v2y)
