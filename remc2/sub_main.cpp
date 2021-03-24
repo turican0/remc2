@@ -34,8 +34,8 @@ void _strupr(char* s)
 //#define SET_OBJECTIVE
 //#define SET_LEVEL
 
-//#define RELEASE_GAME
-#define PLAYING_GAME
+#define RELEASE_GAME
+//#define PLAYING_GAME
 //#define DEBUG_AFTERLOAD
 //#define DEBUG_ONSTART
 //#define TEST_REGRESSIONS_GAME
@@ -43,10 +43,11 @@ int test_regression_level = 0;
 
 //adress 2285ff
 #if defined(RELEASE_GAME) //this is standard setting
-	#define AUTO_CHANGE_RES
+	//#define AUTO_CHANGE_RES
 	#define FIX_FLYASISTANT
 	#define LOAD_EDITED_LEVEL
-	int debugafterload = 1;
+	int debugafterload = 0;
+	#define DISABLE_GRAPHICS_ENHANCE
 #elif defined(PLAYING_GAME) //this is setting for autosavegame
 	#define DETECT_DWORD_A
 	#define AUTO_CHANGE_RES
@@ -64,6 +65,7 @@ int test_regression_level = 0;
 	//#define DEBUG_SEQUENCES
 	//#define DEBUG_SEQUENCES2
 	int debugafterload = 1;
+	#define DISABLE_GRAPHICS_ENHANCE
 #elif defined(DEBUG_AFTERLOAD) //this is setting is for compare data with dosbox afterload(can fix mouse move, and etc.)
 	#define DETECT_DWORD_A
 	#define COPY_SKIP_CONFIG
@@ -72,6 +74,7 @@ int test_regression_level = 0;
 	#define MOUSE_OFF2
 	#define OFF_PAUSE_5
 	int debugafterload = 0;
+	#define DISABLE_GRAPHICS_ENHANCE
 #elif defined(DEBUG_ONSTART) //this is setting is for compare data with dosbox(can fix mouse move, and etc.)
 	#define DETECT_DWORD_A
 	#define COPY_SKIP_CONFIG
@@ -82,8 +85,10 @@ int test_regression_level = 0;
 	//#define LOAD_EDITED_LEVEL
 	//#define RIGHT_BUTTON
 	int debugafterload = 1;
+	#define DISABLE_GRAPHICS_ENHANCE
 #else
 	int debugafterload = 1;
+	int graphics_debug = false;
 #endif
 
 #define ANALYZE_ENTITY
@@ -1762,7 +1767,7 @@ void sub_3B560_set_billboards(__int16 a1);
 // char sub_3C080_draw_terrain_and_particles(int a1, int a2, __int16 a3, __int16 a4, __int16 a5, signed int a6, int a7, __int16 a8, int a9);
 // unsigned __int16 sub_3E360_draw_particles(int a1, int a2);
 // unsigned __int16 sub_3FD60(int a1, int a2);
-__int16 DrawSky(__int16 a1);
+void DrawSky(__int16 a1);
 void sub_40BF0(int a1, int a2, int a3, int a4);
 void sub_40C50(int a1);
 int /*__fastcall*/ sub_40D10();
@@ -43102,6 +43107,8 @@ void sub_3C080_draw_terrain_and_particles_old(/*int a1, int a2,*/ __int16 a3, __
 				v124 = x_DWORD_E9C38_smalltit;
 				while (v123)
 				{
+					
+					add_compare2(0x237BC7, x_DWORD_E9C38_smalltit, 0x237BC7, 35200+0,debugafterload);
 					v125 = ((str_F2C20ar.dword0x11 * *(x_DWORD*)(v124 + 16) - str_F2C20ar.dword0x0d * *(x_DWORD*)(v124 + 20)) >> 16) + str_F2C20ar.dword0x24;
 					str_v248.dword_25 = ((str_F2C20ar.dword0x11 * *(x_DWORD*)(v124 + 16) - str_F2C20ar.dword0x0d * *(x_DWORD*)(v124 + 28)) >> 16) + str_F2C20ar.dword0x24;
 					v126 = *(x_DWORD*)(v124 + 16) * str_F2C20ar.dword0x0d;
@@ -46342,7 +46349,7 @@ unsigned __int16 sub_3FD60B(/*int a1, */uint8_t* a2)//220d60
 }
 
 //----- (00040950) --------------------------------------------------------
-__int16 DrawSky(__int16 a1)//221950
+void DrawSky(__int16 a1)//221950
 {
 	int v1; // ebx
 	int v2; // edx
@@ -46454,7 +46461,6 @@ __int16 DrawSky(__int16 a1)//221950
 			v27 += v25;
 		} while (v24);
 	}
-	return result;
 }
 // D41A8: using guessed type char *off_D41A8;
 // DBF50: using guessed type void (/*__noreturn*/ *off_DBF50[2])();
@@ -65900,6 +65906,11 @@ int sub_main(int argc, char** argv, char**  /*envp*/)//236F70
 	//skip signal(6, 1);//236FC1 - 279DC0
 	std::string inifile = get_exe_path() + "/config.ini";
 	readini(inifile);
+#ifdef DISABLE_GRAPHICS_ENHANCE
+		bigSprites = false;
+		bigTextures = false;
+		texturepixels = 32;
+#endif //DISABLE_GRAPHICS_ENHANCE
 
 	//Set Paths for game data
 	GetSubDirectoryPath(gameDataPath, gameFolder);

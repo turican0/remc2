@@ -167,6 +167,37 @@ void add_compare(uint32_t adress, bool debugafterload, int stopstep, bool skip, 
 };
 //for debuging
 
+void add_compare2(uint32_t adress, uint8_t* memadress,uint32_t dosmemadress, uint32_t size,bool debugafterload, int stopstep, bool skip, int exitindex) {
+	uint8_t origbyte20 = 0;
+	uint8_t remakebyte20 = 0;
+	int comp20;
+
+	char buffer1[500];
+	sprintf(buffer1, "%08X-08X", adress, dosmemadress);
+
+	if (debugafterload)
+	{
+		int index = getcompindex(adress);
+		if (index >= stopstep)
+		{
+			if (index >= exitindex)
+				exit(exitindex);
+			if (!skip)
+			{
+				comp20 = compare_with_sequence(buffer1, memadress, dosmemadress, index, size, size, &origbyte20, &remakebyte20);
+			}
+			if (stopstep > -1)
+			{
+				comp20 = index;
+			}
+
+			lastcompstr.index = index;
+			lastcompstr.adress = adress;
+		}
+	}
+};
+//for debuging
+
 
 int debugcounter_224959 = 0;
 //----- (00043830) --------------------------------------------------------
