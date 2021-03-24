@@ -7644,7 +7644,7 @@ int x_DWORD_E9C20; // weak
 int x_DWORD_E9C24_fps; // weak
 
 type_x_DWORD_E9C28_str* x_DWORD_E9C28_str;
-uint8_t* x_DWORD_E9C28x; // weak
+//uint8_t* x_DWORD_E9C28x; // weak
 
 uint8_t* pre_x_DWORD_E9C3C;
 TColor x_DWORD_EA3B8x[0x100]; // weak?x_DWORD_E9C4C_langindexbuffer[475]
@@ -43107,8 +43107,8 @@ void sub_3C080_draw_terrain_and_particles_old(/*int a1, int a2,*/ __int16 a3, __
 				v124 = x_DWORD_E9C38_smalltit;
 				while (v123)
 				{
-					
-					add_compare2(0x237BC7, x_DWORD_E9C38_smalltit, 0x237BC7, 35200+0,debugafterload);
+					//adress 0x21d198
+					//add_compare2(0x21d198, x_DWORD_E9C38_smalltit, 0x2BAC38, 35200+0,debugafterload);
 					v125 = ((str_F2C20ar.dword0x11 * *(x_DWORD*)(v124 + 16) - str_F2C20ar.dword0x0d * *(x_DWORD*)(v124 + 20)) >> 16) + str_F2C20ar.dword0x24;
 					str_v248.dword_25 = ((str_F2C20ar.dword0x11 * *(x_DWORD*)(v124 + 16) - str_F2C20ar.dword0x0d * *(x_DWORD*)(v124 + 28)) >> 16) + str_F2C20ar.dword0x24;
 					v126 = *(x_DWORD*)(v124 + 16) * str_F2C20ar.dword0x0d;
@@ -87019,7 +87019,7 @@ void sub_71F20(type_x_DWORD_E9C28_str* a1y, subtype_x_DWORD_E9C28_str* a2x)//252
 	const void* v10; // esi
 	char* i; // [esp+4h] [ebp-4h]
 
-	//allert_error();//fix this code
+	allert_error();//fix this code
 	//a2x->word_10
 	//v2x = *(x_WORD*)((int8_t*)a2x + 10);
 	if (a2x->word_10 < a1y->word_22)
@@ -87038,6 +87038,20 @@ void sub_71F20(type_x_DWORD_E9C28_str* a1y, subtype_x_DWORD_E9C28_str* a2x)//252
 			v2y = a1y->dword_0;
 			for (i = (char*)v2y; ; i += v2y)
 			{
+				++v4;
+				v7 = a1y->word_20;
+				if (v4 >= v7)
+					break;
+				//v8 = 4 * v4;
+				a1y->dword_12x[v4-1] = a1y->dword_12x[v4];
+				//v9 = a1y->dword_12x[v4];
+				a1y->dword_12x[v4]->word_8 = v4 - 1;
+				//v10 = *(const void**)a1y->dword_12x[v4];
+				a1y->dword_12x[v4]->partstr_0 = (type_particle_str*)i;
+				qmemcpy(i, a1y->dword_12x[v4], a1y->dword_12x[v4]->dword_4);
+				//v2 = *(_DWORD*)(*(_DWORD*)(4 * v4 + a1y->dword_12x) + 4);
+
+				/*
 				v4++;
 				v7 = a1y->word_20;
 				if (v4 >= v7)
@@ -87057,7 +87071,7 @@ void sub_71F20(type_x_DWORD_E9C28_str* a1y, subtype_x_DWORD_E9C28_str* a2x)//252
 				**(x_DWORD**)(v4 + a1y->dword_12x) = (x_DWORD)i;
 #endif
 				qmemcpy(i, (void*)v10, *(x_DWORD*)(*(x_DWORD*)(v4 + a1y->dword_12x) + 4));
-				//v2 = *(x_DWORD*)(*(x_DWORD*)(v4 + a1y->dword_12x) + 4);
+				//v2 = *(x_DWORD*)(*(x_DWORD*)(v4 + a1y->dword_12x) + 4);*/
 			}
 			a1y->word_20 = v7 - 1;
 		}
