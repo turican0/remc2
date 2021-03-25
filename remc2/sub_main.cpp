@@ -43560,7 +43560,13 @@ void sub_3C080_draw_terrain_and_particles_old(/*int a1, int a2,*/ __int16 a3, __
 				v25y = (uint32_t*)v278;
 				*(x_DWORD*)(v278 + 8) = -(v248x[26] * ((v113 >> 4) + 0x8000) >> 10) - a6;
 				if (!(x_BYTE_13B4E0_angle[v111] & 8)
-					|| (v114 = (int32_t*)v25y, v25y = (uint32_t*)(v25y[1] - (v113 >> 10)), v115 = v248x[31], v114[1] = (x_DWORD)v25y, v115 >= 14464))
+					|| (//v114 = (int32_t*)v278,
+						//v25y = (uint32_t*)(((uint32_t*)v278)[1] - (v113 >> 10)),
+						//v115 = v248x[31],
+						((int32_t*)v278)[1] = (((uint32_t*)v278)[1] - (v113 >> 10)),
+						v248x[31] >= 14464))
+				/*if (!(x_BYTE_13B4E0_angle[v111] & 8)
+					|| (v114 = (int32_t*)v25y, v25y = (uint32_t*)(v25y[1] - (v113 >> 10)), v115 = v248x[31], v114[1] = (x_DWORD)v25y, v115 >= 14464))*/
 				{
 					v113 = 0;
 				}
@@ -66521,7 +66527,7 @@ void sub_55100(char a1)//236100
 
 	while (v4 < D41A0_0.stageIndex_0x36E01)
 	{
-		if (D41A0_0.stages_0x3654C[v4].str_36552_un.ddword)
+		if (D41A0_0.stages_0x3654C[v4].str_36552_un.dword)
 		{
 			v7 = D41A0_0.stages_0x3654C[v4].stages_3654C_byte0;
 			if ((v7 < 5) && (v7 > 0))
@@ -66538,12 +66544,12 @@ void sub_55100(char a1)//236100
 							int sizediff = diff * sizeof(type_entity_0x30311);
 							if (((char*)D41A0_0.stages_0x3654C[v4].str_36552_un.ptr0x30311 - (char*)D41A0_0.terrain_2FECE.entity_0x30311) % sizeof(type_entity_0x30311) > 0)
 								allert_error();
-							D41A0_0.stages_0x3654C[v4].str_36552_un.ddword = sizediff;
+							D41A0_0.stages_0x3654C[v4].str_36552_un.dword = sizediff;
 						}
 						else
 						{
-							int count = D41A0_0.stages_0x3654C[v4].str_36552_un.ddword / sizeof(type_entity_0x30311);
-							int countadd = D41A0_0.stages_0x3654C[v4].str_36552_un.ddword % sizeof(type_entity_0x30311);
+							int count = D41A0_0.stages_0x3654C[v4].str_36552_un.dword / sizeof(type_entity_0x30311);
+							int countadd = D41A0_0.stages_0x3654C[v4].str_36552_un.dword % sizeof(type_entity_0x30311);
 							if (countadd > 0)allert_error();
 							D41A0_0.stages_0x3654C[v4].str_36552_un.ptr0x30311 = &D41A0_0.terrain_2FECE.entity_0x30311[count];
 						}
@@ -66562,12 +66568,12 @@ void sub_55100(char a1)//236100
 						int sizediff = diff * sizeof(type_shadow_str_0x6E8E);
 						if (((char*)D41A0_0.stages_0x3654C[v4].str_36552_un.ptr0x6E8E - (char*)D41A0_0.struct_0x6E8E) % sizeof(type_event_0x6E8E) > 0)
 							allert_error();
-						D41A0_0.stages_0x3654C[v4].str_36552_un.ddword = sizediff;
+						D41A0_0.stages_0x3654C[v4].str_36552_un.dword = sizediff;
 					}
 					else
 					{
-						int count = D41A0_0.stages_0x3654C[v4].str_36552_un.ddword / sizeof(type_shadow_str_0x6E8E);
-						int countadd = D41A0_0.stages_0x3654C[v4].str_36552_un.ddword % sizeof(type_shadow_str_0x6E8E);
+						int count = D41A0_0.stages_0x3654C[v4].str_36552_un.dword / sizeof(type_shadow_str_0x6E8E);
+						int countadd = D41A0_0.stages_0x3654C[v4].str_36552_un.dword % sizeof(type_shadow_str_0x6E8E);
 						if (countadd > 0)allert_error();
 						D41A0_0.stages_0x3654C[v4].str_36552_un.ptr0x6E8E = &D41A0_0.struct_0x6E8E[count];
 					}
@@ -69493,7 +69499,7 @@ void InitStages_58940()//239940 //init games objectives
 				switch (D41A0_0.stages_0x3654C[D41A0_0.stageIndex_0x36E01].stages_3654C_byte0)
 				{
 				case 0:
-					D41A0_0.stages_0x3654C[D41A0_0.stageIndex_0x36E01].str_36552_un.ddword = terrain->stages_0x36442[result].stage_1;//25973
+					D41A0_0.stages_0x3654C[D41A0_0.stageIndex_0x36E01].str_36552_un.dword = terrain->stages_0x36442[result].stage_1;//25973
 					break;
 				case 1:
 				case 2:
@@ -69508,18 +69514,18 @@ void InitStages_58940()//239940 //init games objectives
 				case 5:
 					D41A0_0.stages_0x3654C[D41A0_0.stageIndex_0x36E01].str_3654E_axis.x = terrain->stages_0x36442[result]._axis_2d.x << 8;
 					D41A0_0.stages_0x3654C[D41A0_0.stageIndex_0x36E01].str_3654E_axis.y = terrain->stages_0x36442[result]._axis_2d.y << 8;
-					D41A0_0.stages_0x3654C[D41A0_0.stageIndex_0x36E01].str_36552_un.ddword = terrain->stages_0x36442[result].stage_1;//25973
+					D41A0_0.stages_0x3654C[D41A0_0.stageIndex_0x36E01].str_36552_un.dword = terrain->stages_0x36442[result].stage_1;//25973
 					break;
 				case 7:
-					D41A0_0.stages_0x3654C[D41A0_0.stageIndex_0x36E01].str_36552_un.ddword = terrain->entity_0x30311[terrain->stages_0x36442[result].stage_1].subtype_0x30311;
+					D41A0_0.stages_0x3654C[D41A0_0.stageIndex_0x36E01].str_36552_un.dword = terrain->entity_0x30311[terrain->stages_0x36442[result].stage_1].subtype_0x30311;
 					break;
 				case 8:
 					break;
 				case 9:
-					D41A0_0.stages_0x3654C[D41A0_0.stageIndex_0x36E01].str_36552_un.ddword = terrain->entity_0x30311[terrain->stages_0x36442[result].stage_1].par1_14;
+					D41A0_0.stages_0x3654C[D41A0_0.stageIndex_0x36E01].str_36552_un.dword = terrain->entity_0x30311[terrain->stages_0x36442[result].stage_1].par1_14;
 					break;
 				default:
-					D41A0_0.stages_0x3654C[D41A0_0.stageIndex_0x36E01].str_36552_un.ddword = terrain->stages_0x36442[result].stage_1 - 1;
+					D41A0_0.stages_0x3654C[D41A0_0.stageIndex_0x36E01].str_36552_un.dword = terrain->stages_0x36442[result].stage_1 - 1;
 					break;
 				}
 				D41A0_0.stageIndex_0x36E01++;
@@ -69549,7 +69555,7 @@ void sub_58DA0(type_entity_0x30311* a1x, type_event_0x6E8E* a2x)//239da0
 			{
 				if (!a2x->subtype_0x40_64 || a2x->subtype_0x40_64 == 1)
 				{
-					if (a2x->dword_0xA4_164x->word_0x38_56 == D41A0_0.stages_0x3654C[i].str_36552_un.ddword)
+					if (a2x->dword_0xA4_164x->word_0x38_56 == D41A0_0.stages_0x3654C[i].str_36552_un.dword)
 					{
 						D41A0_0.stages_0x3654C[i].str_36552_un.ptr0x6E8E = a2x;
 						D41A0_0.stages_0x3654C[i].str_3654D_byte1 |= 1;
@@ -69560,7 +69566,7 @@ void sub_58DA0(type_entity_0x30311* a1x, type_event_0x6E8E* a2x)//239da0
 		case 6:
 			if (a1x == D41A0_0.stages_0x3654C[i].str_36552_un.ptr0x30311)
 			{
-				D41A0_0.stages_0x3654C[i].str_36552_un.ddword = a2x - D41A0_0.struct_0x6E8E;
+				D41A0_0.stages_0x3654C[i].str_36552_un.dword = a2x - D41A0_0.struct_0x6E8E;
 				D41A0_0.stages_0x3654C[i].str_3654D_byte1 |= 1;
 			}
 			break;
@@ -69631,7 +69637,7 @@ void sub_58F00_game_objectives()//239f00
 								if (x_D41A0_BYTEARRAY_4_struct.str_index_242ar.dword_4 > 0)
 								{//23a02d
 									if ((100 * (v17x->dword_0xA4_164x->dword_0x13C_316 + x_DWORD_EA3E4[v17x->dword_0xA4_164x->word_0x3A_58]->dword_0x90_144) / x_D41A0_BYTEARRAY_4_struct.str_index_242ar.dword_4)
-										>= D41A0_0.stages_0x3654C[v3].str_36552_un.ddword)
+										>= D41A0_0.stages_0x3654C[v3].str_36552_un.dword)
 									{
 										D41A0_0.struct_0x3659C[v0x].substr_3659C.stage_0x3659F[v3] = 2;
 										achievedGoal = true;
@@ -69640,7 +69646,7 @@ void sub_58F00_game_objectives()//239f00
 								}
 							}
 							if (!D41A0_0.terrain_2FECE.word_0x2FED5 && v3 == D41A0_0.struct_0x3659C[v0x].substr_3659C.ObjectiveText_1 && !achievedGoal)//D41A0_BYTESTR_0.struct_0x3659C[v0x].str_3659D_byte1
-								D41A0_0.terrain_2FECE.word_0x2FED5 = D41A0_0.stages_0x3654C[D41A0_0.struct_0x3659C[v0x].substr_3659C.ObjectiveText_1].str_36552_un.ddword;
+								D41A0_0.terrain_2FECE.word_0x2FED5 = D41A0_0.stages_0x3654C[D41A0_0.struct_0x3659C[v0x].substr_3659C.ObjectiveText_1].str_36552_un.dword;
 							break;
 						case 1:
 							if (D41A0_0.stages_0x3654C[v3].str_3654D_byte1 & 1
@@ -69669,7 +69675,7 @@ void sub_58F00_game_objectives()//239f00
 						case 4:
 							if (D41A0_0.stages_0x3654C[v3].str_3654D_byte1 & 1)
 							{
-								v20 = D41A0_0.stages_0x3654C[v3].str_36552_un.ddword;
+								v20 = D41A0_0.stages_0x3654C[v3].str_36552_un.dword;
 								if (v17x == x_DWORD_EA3E4[*(unsigned __int16*)(v20 + 40)])
 								{
 									v11 = D41A0_0.stages_0x3654C[v3].str_3654E_axis.x - (signed int)*(signed __int16*)(v20 + 76);
@@ -69698,7 +69704,7 @@ void sub_58F00_game_objectives()//239f00
 							if (v3 == D41A0_0.struct_0x3659C[v0x].substr_3659C.ObjectiveText_1 && D41A0_0.stages_0x3654C[v3].str_3654D_byte1 & 1)
 							{
 								v13 = 0;
-								while (D41A0_0.array_0x2BDE[v24].dword_0x3E6_2BE4_12228.str_0x1AC_428.word_2BDE_12658[v13] != D41A0_0.stages_0x3654C[v3].str_36552_un.ddword)
+								while (D41A0_0.array_0x2BDE[v24].dword_0x3E6_2BE4_12228.str_0x1AC_428.word_2BDE_12658[v13] != D41A0_0.stages_0x3654C[v3].str_36552_un.dword)
 								{
 									if (++v13 >= 8)
 										goto LABEL_72;
@@ -69708,7 +69714,7 @@ void sub_58F00_game_objectives()//239f00
 							}
 							break;
 						case 7:
-							if (v3 == D41A0_0.struct_0x3659C[v0x].substr_3659C.ObjectiveText_1 && !x_D41A0_BYTEARRAY_4_struct.bytearray_38403x[D41A0_0.stages_0x3654C[v3].str_36552_un.ddword])
+							if (v3 == D41A0_0.struct_0x3659C[v0x].substr_3659C.ObjectiveText_1 && !x_D41A0_BYTEARRAY_4_struct.bytearray_38403x[D41A0_0.stages_0x3654C[v3].str_36552_un.dword])
 							{
 								achievedGoal = true;
 								D41A0_0.struct_0x3659C[v0x].substr_3659C.stage_0x3659F[v3] = 2;//killed creatures
@@ -69738,7 +69744,7 @@ void sub_58F00_game_objectives()//239f00
 								while (v8x > x_DWORD_EA3E4[0] && !v25)
 								{
 									v26 = 0;
-									for (j = D41A0_0.stages_0x3654C[v3].str_36552_un.ddword;
+									for (j = D41A0_0.stages_0x3654C[v3].str_36552_un.dword;
 										j && !v25 && v26 < 8u;
 										j = str_D93C0_bldgprmbuffer[j].byte_3)
 									{
@@ -69829,7 +69835,7 @@ char sub_59610(type_event_0x6E8E** a1y, __int16 a2)//23a610
 		if (D41A0_0.stages_0x3654C[D41A0_0.struct_0x3659C[a2].substr_3659C.ObjectiveText_1].stages_3654C_byte0 == 6 && D41A0_0.stages_0x3654C[D41A0_0.struct_0x3659C[a2].substr_3659C.ObjectiveText_1].str_3654D_byte1 & 1)
 		{
 			v5 = 1;
-			*a1y = x_DWORD_EA3E4[D41A0_0.stages_0x3654C[D41A0_0.struct_0x3659C[a2].substr_3659C.ObjectiveText_1].str_36552_un.ddword];
+			*a1y = x_DWORD_EA3E4[D41A0_0.stages_0x3654C[D41A0_0.struct_0x3659C[a2].substr_3659C.ObjectiveText_1].str_36552_un.dword];
 			return v5;
 		}
 		return v5;
@@ -79182,7 +79188,7 @@ void sub_644F0_draw_minimap_marks(int a1, int a2, __int16 a3, __int16 a4, int a5
 		}
 		break;
 	case 0xA:
-		v18 = D41A0_0.stages_0x3654C[D41A0_0.struct_0x3659C[D41A0_0.LevelIndex_0xc].substr_3659C.ObjectiveText_1].str_36552_un.ddword;
+		v18 = D41A0_0.stages_0x3654C[D41A0_0.struct_0x3659C[D41A0_0.LevelIndex_0xc].substr_3659C.ObjectiveText_1].str_36552_un.dword;
 		v51x.v64xb_46 = (*xadataclrd0dat.var28_begin_buffer)[0xf00];
 		for (ix = x_D41A0_BYTEARRAY_4_struct.bytearray_38403x[v18]; ; ix = ix->next_0)
 		{
@@ -79203,7 +79209,7 @@ void sub_644F0_draw_minimap_marks(int a1, int a2, __int16 a3, __int16 a4, int a5
 		break;
 	case 0xC:
 		v51x.v64xb_46 = (*xadataclrd0dat.var28_begin_buffer)[0xf00];
-		v76 = D41A0_0.stages_0x3654C[D41A0_0.struct_0x3659C[D41A0_0.LevelIndex_0xc].substr_3659C.ObjectiveText_1].str_36552_un.ddword;
+		v76 = D41A0_0.stages_0x3654C[D41A0_0.struct_0x3659C[D41A0_0.LevelIndex_0xc].substr_3659C.ObjectiveText_1].str_36552_un.dword;
 		for (ix = x_D41A0_BYTEARRAY_4_struct.dword_38527; ; ix = ix->next_0)
 		{
 			v72x = ix;

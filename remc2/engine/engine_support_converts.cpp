@@ -641,7 +641,7 @@ void convert_struct_to_array_3654C(type_str_3654C* input, uint8_t* output){ //si
 	//int16_t str_36550_word4;
 	memcpy(output + 4, &input->str_3654E_axis.y, 2);
 	//int32_t str_36552_dword6; //pointer sometimes
-	memcpy(output + 6, &input->str_36552_un.ddword, 4);
+	memcpy(output + 6, &input->str_36552_un.dword, 4);
 }
 
 void convert_struct_to_array_0x3664C(type_str_0x3664C* input, uint8_t* output) {//lenght 39

@@ -1327,7 +1327,7 @@ typedef struct {//lenght 0x6604u
 } type_shadow_str_2FECE;//compress level
 
 typedef union {
-	uint64_t ddword;
+	uint32_t dword;
 	uint16_t* ptr16u;
 	type_entity_0x30311* ptr0x30311;
 	type_event_0x6E8E* ptr0x6E8E;
