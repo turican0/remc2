@@ -1527,7 +1527,7 @@ typedef struct {//lenght 224791
 	uint16_t word_0x33;//51
 	int32_t dword_0x35;//53//entity counter(max 1000 entity changes per step)
 	uint8_t array_0x39[508];//57
-	int32_t dword_0x235;//act music
+	int32_t maptypeMusic_0x235;//act music
 	uint8_t byte_0x239;//569
 	int32_t dword_0x23a;
 	int32_t dword_0x23e;

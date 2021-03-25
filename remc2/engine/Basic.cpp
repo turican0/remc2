@@ -3622,7 +3622,7 @@ void Convert_from_shadow_D41A0_BYTESTR_0(type_shadow_D41A0_BYTESTR_0* from, type
 	to->word_0x33 = from->word_0x33;
 	to->dword_0x35 = from->dword_0x35;
 	for (int i = 0; i < 508; i++)to->array_0x39[i] = from->array_0x39[i];
-	to->dword_0x235 = from->dword_0x235;
+	to->maptypeMusic_0x235 = from->dword_0x235;
 	to->byte_0x239 = from->byte_0x239;
 	to->dword_0x23a = from->dword_0x23a;
 	to->dword_0x23e = from->dword_0x23e;
@@ -3813,7 +3813,7 @@ void Convert_to_shadow_D41A0_BYTESTR_0(type_D41A0_BYTESTR_0* from, type_shadow_D
 	to->word_0x33 = from->word_0x33;
 	to->dword_0x35 = from->dword_0x35;
 	for (int i = 0; i < 508; i++)to->array_0x39[i] = from->array_0x39[i];
-	to->dword_0x235 = from->dword_0x235;
+	to->dword_0x235 = from->maptypeMusic_0x235;
 	to->byte_0x239 = from->byte_0x239;
 	to->dword_0x23a = from->dword_0x23a;
 	to->dword_0x23e = from->dword_0x23e;

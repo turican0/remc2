@@ -685,7 +685,7 @@ void convert_struct_to_array_D41A0_0(type_D41A0_BYTESTR_0* input,uint8_t* output
 	//uint8_t array_0x39[508];//57
 	memcpy(output + 0x39, input->array_0x39, 508);
 	//int32_t dword_0x235;//act music
-	memcpy(output + 0x235, &input->dword_0x235, 4);
+	memcpy(output + 0x235, &input->maptypeMusic_0x235, 4);
 	//uint8_t byte_0x239;//569
 	memcpy(output + 0x239, &input->byte_0x239, 1);
 	//int32_t dword_0x23a;

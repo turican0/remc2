@@ -34,8 +34,8 @@ void _strupr(char* s)
 //#define SET_OBJECTIVE
 //#define SET_LEVEL
 
-#define RELEASE_GAME
-//#define PLAYING_GAME
+//#define RELEASE_GAME
+#define PLAYING_GAME
 //#define DEBUG_AFTERLOAD
 //#define DEBUG_ONSTART
 //#define TEST_REGRESSIONS_GAME
@@ -47,7 +47,7 @@ int test_regression_level = 0;
 	#define FIX_FLYASISTANT
 	#define LOAD_EDITED_LEVEL
 	int debugafterload = 0;
-	#define DISABLE_GRAPHICS_ENHANCE
+	//#define DISABLE_GRAPHICS_ENHANCE
 #elif defined(PLAYING_GAME) //this is setting for autosavegame
 	#define DETECT_DWORD_A
 	#define AUTO_CHANGE_RES
@@ -65,16 +65,16 @@ int test_regression_level = 0;
 	//#define DEBUG_SEQUENCES
 	//#define DEBUG_SEQUENCES2
 	int debugafterload = 1;
-	#define DISABLE_GRAPHICS_ENHANCE
+	//#define DISABLE_GRAPHICS_ENHANCE
 #elif defined(DEBUG_AFTERLOAD) //this is setting is for compare data with dosbox afterload(can fix mouse move, and etc.)
 	#define DETECT_DWORD_A
 	#define COPY_SKIP_CONFIG
-	#define DEBUG_SEQUENCES2
+	//#define DEBUG_SEQUENCES2
 	#define FIX_MOUSE
 	#define MOUSE_OFF2
 	#define OFF_PAUSE_5
 	int debugafterload = 0;
-	#define DISABLE_GRAPHICS_ENHANCE
+	//#define DISABLE_GRAPHICS_ENHANCE
 #elif defined(DEBUG_ONSTART) //this is setting is for compare data with dosbox(can fix mouse move, and etc.)
 	#define DETECT_DWORD_A
 	#define COPY_SKIP_CONFIG
@@ -85,7 +85,7 @@ int test_regression_level = 0;
 	//#define LOAD_EDITED_LEVEL
 	//#define RIGHT_BUTTON
 	int debugafterload = 1;
-	#define DISABLE_GRAPHICS_ENHANCE
+	//#define DISABLE_GRAPHICS_ENHANCE
 #else
 	int debugafterload = 1;
 	int graphics_debug = false;
@@ -2568,7 +2568,7 @@ void sub_7373D(__int16 a1);
 void sub_739AD(__int16 a1);
 void sub_73AA1(__int16 a1);
 void sub_73D11(__int16 a1);
-unsigned __int16 sub_74006(unsigned __int16 a1, int a2, unsigned int a3);
+unsigned __int16 sub_74006(unsigned __int16 a1, uint8_t* a2, unsigned int a3);
 void sub_7404E(unsigned __int16 a1, uint8_t* a2, unsigned int a3);
 __int16 sub_74374();
 void sub_7438A(uint8_t* a1, unsigned int a2);
@@ -2586,8 +2586,8 @@ signed int sub_74B75(__int16 a1);
 int sub_74C9D(type_DWORD_E12AE* a1x, int a2);
 void sub_74D41(type_DWORD_E12AE* a1x, int a2, unsigned int a3);
 signed int sub_74DD4(type_DWORD_E12AE* a1x, int a2, unsigned __int16 a3);
-int sub_74E6D(type_DWORD_E12AE* a1x, int a2, int a3);
-int sub_74EF1(type_DWORD_E12AE* a1x, int a2, unsigned int a3);
+int sub_74E6D(type_DWORD_E12AE* a1x, uint8_t* a2, int a3);
+int sub_74EF1(type_DWORD_E12AE* a1x, uint8_t* a2, unsigned int a3);
 __int16 sub_74F76();
 signed int sub_74FE1(__int16 a1);
 int sub_75044(type_DWORD_E12AE* a1x);
@@ -14410,7 +14410,7 @@ void sub_18BB0()//1f9bb0
 			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x3DF_2BE4_12221,
 			1);
 		if (x_BYTE_E37FD)
-			sub_8E160_sound_proc15_startsequence(D41A0_0.dword_0x235, 0x7Fu);
+			sub_8E160_sound_proc15_startsequence(D41A0_0.maptypeMusic_0x235, 0x7Fu);
 		sub_86930(x_WORD_1803EC);
 		if (x_D41A0_BYTEARRAY_4_struct.byteindex_225)
 			x_D41A0_BYTEARRAY_4_struct.byteindex_225 = 1;
@@ -15006,7 +15006,7 @@ void sub_19CA0_sound_proc5(unsigned __int8 a1)//1faca0
 	else if (a1 == 2 && x_BYTE_E37FC_music)
 	{
 		x_D41A0_BYTEARRAY_4_struct.byte_38591 = 2;
-		v1 = D41A0_0.dword_0x235;
+		v1 = D41A0_0.maptypeMusic_0x235;
 		x_BYTE_E37FD = 1;
 		sub_8E160_sound_proc15_startsequence(v1, 0x7Fu);
 	}
@@ -15824,7 +15824,7 @@ void sub_1A970_change_game_settings(char a1, int a2, int a3)//1fb970
 		}
 		else
 		{
-			v15 = D41A0_0.dword_0x235;
+			v15 = D41A0_0.maptypeMusic_0x235;
 			x_BYTE_E37FD = 1;
 			sub_8E160_sound_proc15_startsequence(v15, 0x7Fu);
 			sub_19760_set_message(x_DWORD_E9C4C_langindexbuffer[392], 3u, 50);//Music On
@@ -51502,13 +51502,13 @@ void sub_46830_main_loop(/*int16_t* a1, */signed int a2, unsigned __int16 a3)//2
 					//v8 = x_D41A0_BYTEARRAY_0[196308];
 					switch (D41A0_0.terrain_2FECE.MapType) {
 					case MapType_t::Day:
-						D41A0_0.dword_0x235 = 2;
+						D41A0_0.maptypeMusic_0x235 = 2;
 						break;
 					case MapType_t::Night:
-						D41A0_0.dword_0x235 = 1;
+						D41A0_0.maptypeMusic_0x235 = 1;
 						break;
 					case MapType_t::Cave:
-						D41A0_0.dword_0x235 = 3;
+						D41A0_0.maptypeMusic_0x235 = 3;
 						break;
 					}
 				}
@@ -52114,7 +52114,7 @@ void sub_47320_in_game_loop(signed int a1)//228320
 		{
 			sub_8E020_sound_proc14_stopsequence();
 			if (v1 == 1)
-				sub_8E160_sound_proc15_startsequence(D41A0_0.dword_0x235, 0x7Fu);
+				sub_8E160_sound_proc15_startsequence(D41A0_0.maptypeMusic_0x235, 0x7Fu);
 			v1++;
 		}
 	}
@@ -52218,6 +52218,9 @@ void sub_47560_draw_and_events_in_game(/*uint8_t* a1, int a2, */uint32_t a3, sig
 	save_debugcounter++;
 #endif //INTERVAL_SAVE
 //adress 228583
+#ifdef DEBUG_SEQUENCES2
+	//add_compare(0x228583, debugafterload);
+#endif //DEBUG_SEQUENCES2
 	sub_51BB0_game_events(/*(uint8_t*)a4*/);//nothing draw
 	//adress 228588
 	sub_848A0();//nothing draw
@@ -64231,9 +64234,9 @@ void sub_51BB0_game_events(/*uint8_t* a1*/)//232bb0
 	while (1)
 	{
 		//adress 233d56
-#ifdef DEBUG_SEQUENCES
-		//add_compare(0x233d56, debugafterload,6);
-#endif //DEBUG_SEQUENCES
+#ifdef DEBUG_SEQUENCES2
+		add_compare(0x233d56, debugafterload);
+#endif //DEBUG_SEQUENCES2
 
 		//index = (int)x_D41A0_BYTEARRAY_0;
 		if ((unsigned __int16)v116 >= D41A0_0.word_0xe)
@@ -73262,9 +73265,9 @@ void sub_5C950(type_str_0x2BDE* a1x, type_event_0x6E8E* a2x)//23d950
 	int j; // [esp+Ch] [ebp-8h]
 	type_event_0x6E8E* v39x; // [esp+10h] [ebp-4h]
 
-#ifdef DEBUG_SEQUENCES
-	//add_compare(0x23d954, debugafterload,6);
-#endif //DEBUG_SEQUENCES
+#ifdef DEBUG_SEQUENCES2
+	add_compare(0x23d954, debugafterload);
+#endif //DEBUG_SEQUENCES2
 
 	//fix it
 	v10 = 0;
@@ -88622,7 +88625,7 @@ void sub_71F20(type_x_DWORD_E9C28_str* a1y, subtype_x_DWORD_E9C28_str* a2x)//252
 	const void* v10; // esi
 	type_particle_str* i; // [esp+4h] [ebp-4h]
 
-	allert_error();//fix this code
+	//allert_error();//fix this code
 	//a2x->word_10
 	//v2x = *(x_WORD*)((int8_t*)a2x + 10);
 	if (a2x->word_10 < a1y->word_22)
@@ -88655,6 +88658,7 @@ void sub_71F20(type_x_DWORD_E9C28_str* a1y, subtype_x_DWORD_E9C28_str* a2x)//252
 				//v10 = *(const void**)a1y->dword_12x[v4];
 				a1y->dword_12x[v4]->partstr_0 = i;
 				qmemcpy(i, a1y->dword_12x[v4], a1y->dword_12x[v4]->dword_4);
+
 				//v2 = *(_DWORD*)(*(_DWORD*)(4 * v4 + a1y->dword_12x) + 4);
 
 				/*
@@ -89384,15 +89388,8 @@ void sub_7373D(__int16 a1)
 					v3[i] = x_BYTE_E12CE[i] == 1;
 				for (i = 0; x_WORD_E127A > i; i++)
 				{
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
 					if (v3[i] == 1)
-						sub_74006(i, (int)v3, 8u);
-#endif
+						sub_74006(i, v3, 8u);
 				}
 				/*result = (uint8_t*)*/sub_73669(a1);
 			}
@@ -89515,15 +89512,8 @@ void sub_73AA1(__int16 a1)
 					v4[i] = x_BYTE_E12CE[i] == 1;
 				for (i = 0; x_WORD_E127A > i; i++)
 				{
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
 					if (v4[i] == 1)
-						sub_74006(i, (int)v4, 8u);
-#endif
+						sub_74006(i, v4, 8u);
 				}
 				/*LOWORD(v1) = */sub_739AD(a1);
 			}
@@ -89625,7 +89615,7 @@ void sub_73D11(__int16 a1)
 // E12A8: using guessed type __int16 x_WORD_E12A8;
 
 //----- (00074006) --------------------------------------------------------
-unsigned __int16 sub_74006(unsigned __int16 a1, int a2, unsigned int a3)
+unsigned __int16 sub_74006(unsigned __int16 a1, uint8_t* a2x, unsigned int a3)
 {
 	unsigned __int16 result; // ax
 
@@ -89633,7 +89623,7 @@ unsigned __int16 sub_74006(unsigned __int16 a1, int a2, unsigned int a3)
 	{
 		result = a1;
 		if (x_BYTE_E12CE[a1] == 1)
-			result = sub_74EF1(str_DWORD_E12AE[a1], a2, a3);
+			result = sub_74EF1(str_DWORD_E12AE[a1], a2x, a3);
 	}
 	return result;
 }
@@ -89688,27 +89678,13 @@ void sub_7438A(uint8_t* a1x, unsigned int a2_lenght)//some allocation?
 				//result = j;
 				if (j >= x_WORD_E1278)
 					break;
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
 				if (j != x_WORD_E1276)
-					sub_74006(j, (int)a1x, a2_lenght * x_WORD_E1278);
-#endif
+					sub_74006(j, a1x, a2_lenght * x_WORD_E1278);
 			}
 		}
 		else
 		{
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-			sub_74006(x_WORD_E12A8, (int)(a1x + a2_lenght * x_WORD_E1276), a2_lenght);
-#endif
+			sub_74006(x_WORD_E12A8, (a1x + a2_lenght * x_WORD_E1276), a2_lenght);
 			/*result = */sub_7404E(x_WORD_E12A8, a1x, a2_lenght * x_WORD_E1278);
 		}
 	}
@@ -90062,9 +90038,9 @@ signed int sub_74DD4(type_DWORD_E12AE* a1x, int  /*a2*/, unsigned __int16 a3)
 }
 
 //----- (00074E6D) --------------------------------------------------------
-int sub_74E6D(type_DWORD_E12AE* a1x, int a2, int a3)
+int sub_74E6D(type_DWORD_E12AE* a1x, uint8_t* a2x, int a3)
 {
-	memcpy((void*)x_DWORD_E127E, (void*)a2, a3);
+	memcpy((void*)x_DWORD_E127E, a2x, a3);
 	a1x->byte_0 = -108;
 #ifdef TEST_x64
 	allert_error();
@@ -90085,13 +90061,13 @@ int sub_74E6D(type_DWORD_E12AE* a1x, int a2, int a3)
 // E127E: using guessed type int x_DWORD_E127E;
 
 //----- (00074EF1) --------------------------------------------------------
-int sub_74EF1(type_DWORD_E12AE* a1x, int a2, unsigned int a3)
+int sub_74EF1(type_DWORD_E12AE* a1x, uint8_t* a2x, unsigned int a3)
 {
 	unsigned int v5; // [esp+4h] [ebp-Ch]
-	int v6; // [esp+8h] [ebp-8h]
+	uint8_t* v6; // [esp+8h] [ebp-8h]
 	__int16 v7; // [esp+Ch] [ebp-4h]
 
-	v6 = a2;
+	v6 = a2x;
 	v5 = 0;
 	while (1)
 	{
