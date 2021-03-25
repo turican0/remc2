@@ -43445,7 +43445,7 @@ void sub_3C080_draw_terrain_and_particles_old(/*int a1, int a2,*/ __int16 a3, __
 							v248x[6] = *(x_DWORD*)(v178 - 1700);
 							v248x[7] = *(x_DWORD*)(v178 - 1696);
 							v181 = v179;
-							v248x[10] = (int)*(x_DWORD**)(v178 - 1684);
+							v248x[10] = *(x_DWORD*)(v178 - 1684);
 							v182 = *(x_BYTE*)(v178 - 1678);
 							v183 = v182 | v180 | v179;
 							v184 = v182 & v180 & v181;
@@ -43741,7 +43741,7 @@ LABEL_259:
 			v248x[7] = *(x_DWORD*)(v218 - 1740);
 			v224 = *(x_DWORD*)(v218 - 1728);
 			v225 = v218 - 1760;
-			v248x[10] = (int)(x_DWORD*)v224;
+			v248x[10] = v224;
 			v226 = *(x_BYTE*)(v225 + 38);
 			v248x[0] = *(x_DWORD*)(v225 - 28);
 			v248x[1] = *(x_DWORD*)(v225 - 24);
