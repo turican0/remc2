@@ -42771,7 +42771,7 @@ void sub_3C080_draw_terrain_and_particles_old(/*int a1, int a2,*/ __int16 a3, __
 						v62 = *(x_BYTE*)(j + 38);
 						v248x[6] = *(x_DWORD*)(j - 1736);
 						v248x[7] = *(x_DWORD*)(j - 1732);
-						v248x[10] = (int)*(x_DWORD**)(j - 1728);
+						v248x[10] = *(x_DWORD*)(j - 1728);
 						v63 = *(x_BYTE*)(j - 1722);
 						v64 = v63 | v62 | v60;
 						v65 = v63 & v62 & v61;
@@ -42837,7 +42837,7 @@ void sub_3C080_draw_terrain_and_particles_old(/*int a1, int a2,*/ __int16 a3, __
 						v73 = *(x_BYTE*)(j + 38);
 						v248x[6] = *(x_DWORD*)(j - 1744);
 						v248x[7] = *(x_DWORD*)(j - 1740);
-						v248x[10] = (int)*(x_DWORD**)(j - 1728);
+						v248x[10] = *(x_DWORD*)(j - 1728);
 						v74 = *(x_BYTE*)(j - 1722);
 						v75 = v74 | v73 | v71;
 						v76 = v74 & v73 & v72;
@@ -42908,7 +42908,7 @@ void sub_3C080_draw_terrain_and_particles_old(/*int a1, int a2,*/ __int16 a3, __
 							v248x[6] = *(x_DWORD*)(v83 - 1692);
 							v248x[7] = *(x_DWORD*)(v83 - 1688);
 							v86 = v84;
-							v248x[10] = (int)*(x_DWORD**)(v83 - 1684);
+							v248x[10] = *(x_DWORD*)(v83 - 1684);
 							v87 = *(x_BYTE*)(v83 - 1678);
 							v88 = v87 | v85 | v84;
 							v89 = v87 & v85 & v86;
@@ -42970,7 +42970,7 @@ void sub_3C080_draw_terrain_and_particles_old(/*int a1, int a2,*/ __int16 a3, __
 							v101 = v99 & v98;
 							v248x[6] = *(x_DWORD*)(v94 - 1700);
 							v248x[7] = *(x_DWORD*)(v94 - 1696);
-							v248x[10] = (int)*(x_DWORD**)(v94 - 1684);
+							v248x[10] = *(x_DWORD*)(v94 - 1684);
 							v102 = *(x_BYTE*)(v94 - 1678);
 							v248x[0] = *(x_DWORD*)(v94 - 1744);
 							v103 = *(x_DWORD*)(v94 - 1740);
@@ -43185,7 +43185,7 @@ void sub_3C080_draw_terrain_and_particles_old(/*int a1, int a2,*/ __int16 a3, __
 							v137 = *(x_BYTE*)(v134 + 38);
 							v248x[6] = *(x_DWORD*)(v134 - 1736);
 							v248x[7] = *(x_DWORD*)(v134 - 1732);
-							v248x[10] = (int)*(x_DWORD**)(v134 - 1728);
+							v248x[10] = *(x_DWORD*)(v134 - 1728);
 							v138 = *(x_BYTE*)(v134 - 1722) | v137 | v136;
 							v248x[0] = *(x_DWORD*)(v134 - 1780);
 							v139 = *(x_DWORD*)(v134 - 1776);
@@ -43264,7 +43264,7 @@ void sub_3C080_draw_terrain_and_particles_old(/*int a1, int a2,*/ __int16 a3, __
 								v248x[7] = v150;
 								v152 = *(x_DWORD*)(v151 - 1728);
 								v151 -= 1760;
-								v248x[10] = (int)(x_DWORD*)v152;
+								v248x[10] = v152;
 								v153 = *(x_BYTE*)(v151 + 38);
 								v248x[0] = *(x_DWORD*)(v151 - 20);
 								v154 = *(x_DWORD*)(v151 - 16);
@@ -43351,7 +43351,7 @@ void sub_3C080_draw_terrain_and_particles_old(/*int a1, int a2,*/ __int16 a3, __
 						v248x[7] = *(x_DWORD*)(v161 - 1740);
 						v168 = *(x_DWORD*)(v161 - 1728);
 						v169 = v161 - 1760;
-						v248x[10] = (int)(x_DWORD*)v168;
+						v248x[10] = v168;
 						v170 = *(x_BYTE*)(v169 + 38);
 						v248x[0] = *(x_DWORD*)(v169 - 28);
 						v171 = *(x_DWORD*)(v169 - 24);
