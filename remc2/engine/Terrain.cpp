@@ -145,7 +145,7 @@ void add_compare(uint32_t adress, bool debugafterload, int stopstep, bool skip, 
 				Convert_to_shadow_D41A0_BYTESTR_0(&D41A0_0, &shadow_D41A0_BYTESTR_0);
 				comp20 = compare_with_sequence_D41A0(buffer2, (uint8_t*)&shadow_D41A0_BYTESTR_0, 0x356038, index, 224790, &origbyte20, &remakebyte20, 0, (exitindex != 1000000));
 #else
-				comp20 = compare_with_sequence_D41A0(buffer2, (uint8_t*)&D41A0_BYTESTR_0, 0x356038, index, 224790, &origbyte20, &remakebyte20);
+				comp20 = compare_with_sequence_D41A0(buffer2, (uint8_t*)&D41A0_0, 0x356038, index, 224790, &origbyte20, &remakebyte20);
 #endif
 				
 				comp20 = compare_with_sequence_array_E2A74(buffer3, (uint8_t*)&str_E2A74, 0x2b3a74, index, 0xc4e, 0xc4e, &origbyte20, &remakebyte20, 0, (exitindex != 1000000));
