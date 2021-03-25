@@ -87882,13 +87882,16 @@ void InitTmaps(unsigned __int16 a1)//251f50
 					{
 						if (v2 != 311)
 							continue;
-					LABEL_14:
 						index5x = *str_DWORD_F66F0x[i];
 						index5x->word_0 |= 0x20u;
 						continue;
 					}
 					if (v2 <= 480 || v2 >= 0x1E8u && (v2 <= 0x1E8u || v2 == 496))
-						goto LABEL_14;
+					{
+						index5x = *str_DWORD_F66F0x[i];
+						index5x->word_0 |= 0x20u;
+						continue;
+					}
 				}
 			}
 		}
@@ -88464,7 +88467,7 @@ type_x_DWORD_E9C28_str* sub_71B40(int a1, unsigned __int16 a2, type_x_DWORD_E9C2
 	uint8_t* v12x; // eax
 	uint8_t* v13x; // eax
 	int v14; // [esp+0h] [ebp-Ch]
-
+	//allert_error();//test a3y->dword_0 and a1
 	v3 = a2;
 	if (a3y)
 	{
@@ -88608,7 +88611,7 @@ subtype_x_DWORD_E9C28_str* sub_71E70(type_x_DWORD_E9C28_str* a1y, unsigned int a
 void sub_71F20(type_x_DWORD_E9C28_str* a1y, subtype_x_DWORD_E9C28_str* a2x)//252f20
 {
 	int v2x; // eax
-	int32_t v2y;
+	type_particle_str* v2y;
 	subtype_x_DWORD_E9C28_str* v3x; // ecx
 	unsigned __int16 v4; // bx
 	int v5; // esi
@@ -88617,7 +88620,7 @@ void sub_71F20(type_x_DWORD_E9C28_str* a1y, subtype_x_DWORD_E9C28_str* a2x)//252
 	//int v8; // edi
 	//int v9; // eax
 	const void* v10; // esi
-	char* i; // [esp+4h] [ebp-4h]
+	type_particle_str* i; // [esp+4h] [ebp-4h]
 
 	allert_error();//fix this code
 	//a2x->word_10
@@ -88634,20 +88637,23 @@ void sub_71F20(type_x_DWORD_E9C28_str* a1y, subtype_x_DWORD_E9C28_str* a2x)//252
 			a1y->dword_4 = v5;
 			//*(x_DWORD*)(v6 + v2 + 4) = 0;
 			v6x[a2x->word_10].dword_4 = 0;
+			//v2 = 14 * (unsigned __int16)v2;
 			//v2 = *(x_DWORD*)(a1y->dword_8_data + v2);
-			v2y = a1y->dword_0;
-			for (i = (char*)v2y; ; i += v2y)
+			//v2y = a1y->dword_0;
+			//v2y = *(_DWORD*)(*(_DWORD*)(a1 + 8) + v2);//a1y->str_8_data
+			v2y = a1y->str_8_data[a2x->word_10].partstr_0;
+			for (i = v2y; ; i += a1y->dword_12x[v4]->dword_4)
 			{
 				++v4;
-				v7 = a1y->word_20;
-				if (v4 >= v7)
+				//v7 = a1y->word_20;
+				if (v4 >= a1y->word_20)
 					break;
 				//v8 = 4 * v4;
 				a1y->dword_12x[v4-1] = a1y->dword_12x[v4];
 				//v9 = a1y->dword_12x[v4];
 				a1y->dword_12x[v4]->word_8 = v4 - 1;
 				//v10 = *(const void**)a1y->dword_12x[v4];
-				a1y->dword_12x[v4]->partstr_0 = (type_particle_str*)i;
+				a1y->dword_12x[v4]->partstr_0 = i;
 				qmemcpy(i, a1y->dword_12x[v4], a1y->dword_12x[v4]->dword_4);
 				//v2 = *(_DWORD*)(*(_DWORD*)(4 * v4 + a1y->dword_12x) + 4);
 
@@ -88673,7 +88679,8 @@ void sub_71F20(type_x_DWORD_E9C28_str* a1y, subtype_x_DWORD_E9C28_str* a2x)//252
 				qmemcpy(i, (void*)v10, *(x_DWORD*)(*(x_DWORD*)(v4 + a1y->dword_12x) + 4));
 				//v2 = *(x_DWORD*)(*(x_DWORD*)(v4 + a1y->dword_12x) + 4);*/
 			}
-			a1y->word_20 = v7 - 1;
+			//a1y->word_20 = v7 - 1;
+			a1y->word_20--;
 		}
 	}
 	//return v2;
