@@ -1024,7 +1024,7 @@ typedef struct {//lenght 8
 */
 
 typedef union {
-	uint64_t ddword;
+	uint32_t dword;
 	axis_2du axis;
 	type_event_0x6E8E* pointer_0x6E8E;
 }

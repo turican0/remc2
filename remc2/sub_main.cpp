@@ -66597,12 +66597,12 @@ void sub_55100(char a1)//236100
 					int sizediff = diff * sizeof(type_shadow_str_0x6E8E);
 					if (((char*)D41A0_0.StageVars2_0x365F4[i].str_0x3647C_4.pointer_0x6E8E - (char*)D41A0_0.struct_0x6E8E) % sizeof(type_event_0x6E8E) > 0)
 						allert_error();
-					D41A0_0.StageVars2_0x365F4[i].str_0x3647C_4.ddword = sizediff;
+					D41A0_0.StageVars2_0x365F4[i].str_0x3647C_4.dword = sizediff;
 				}
 				else
 				{
-					int count = D41A0_0.StageVars2_0x365F4[i].str_0x3647C_4.ddword / sizeof(type_shadow_str_0x6E8E);
-					int countadd = D41A0_0.StageVars2_0x365F4[i].str_0x3647C_4.ddword % sizeof(type_shadow_str_0x6E8E);
+					int count = D41A0_0.StageVars2_0x365F4[i].str_0x3647C_4.dword / sizeof(type_shadow_str_0x6E8E);
+					int countadd = D41A0_0.StageVars2_0x365F4[i].str_0x3647C_4.dword % sizeof(type_shadow_str_0x6E8E);
 					if (countadd > 0)allert_error();
 					D41A0_0.StageVars2_0x365F4[i].str_0x3647C_4.pointer_0x6E8E = &D41A0_0.struct_0x6E8E[count];
 				}
@@ -66626,12 +66626,12 @@ void sub_55100(char a1)//236100
 				int sizediff = diff * sizeof(type_shadow_str_0x6E8E);
 				if (((char*)D41A0_0.str_0x3664C[j].event_A.pointer_0x6E8E - (char*)D41A0_0.struct_0x6E8E) % sizeof(type_event_0x6E8E) > 0)
 					allert_error();
-				D41A0_0.str_0x3664C[j].event_A.ddword = sizediff;//0x36656
+				D41A0_0.str_0x3664C[j].event_A.dword = sizediff;//0x36656
 			}
 			else
 			{
-				int count = D41A0_0.str_0x3664C[j].event_A.ddword / sizeof(type_shadow_str_0x6E8E);
-				int countadd = D41A0_0.str_0x3664C[j].event_A.ddword % sizeof(type_shadow_str_0x6E8E);
+				int count = D41A0_0.str_0x3664C[j].event_A.dword / sizeof(type_shadow_str_0x6E8E);
+				int countadd = D41A0_0.str_0x3664C[j].event_A.dword % sizeof(type_shadow_str_0x6E8E);
 				if (countadd > 0)allert_error();
 				D41A0_0.str_0x3664C[j].event_A.pointer_0x6E8E = &D41A0_0.struct_0x6E8E[count];//0x36656
 			}
@@ -68648,7 +68648,7 @@ void sub_57680_FixPointersAfterLoad()//238680
 	//type_str_0x6E8E* indexx; // eax
 	//int32_t i; // edx
 
-	D41A0_0.str_0x3664C[0].event_A.ddword = 0;
+	D41A0_0.str_0x3664C[0].event_A.pointer_0x6E8E = NULL;
 
 	//memset(&ffftype_str_164, -1, sizeof(ffftype_str_164));
 	for (int indexx = 1; x_DWORD_EA3E4[indexx] < x_DWORD_EA3E4[0x3e8]; indexx++)
