@@ -39,7 +39,7 @@ void _strupr(char* s)
 //#define DEBUG_AFTERLOAD
 //#define DEBUG_ONSTART
 #define TEST_REGRESSIONS_GAME
-int test_regression_level = 0;
+int test_regression_level = 3;
 
 //adress 2285ff
 #if defined(RELEASE_GAME) //this is standard setting
@@ -62,7 +62,7 @@ int test_regression_level = 0;
 	#define MOUSE_OFF2
 	#define OFF_PAUSE_5
 	#define TEST_REGRESSION
-	//#define DEBUG_SEQUENCES
+	#define DEBUG_SEQUENCES
 	//#define DEBUG_SEQUENCES2
 	int debugafterload = 1;
 	//#define DISABLE_GRAPHICS_ENHANCE
@@ -53885,11 +53885,11 @@ void sub_49270_generate_level_features(type_str_2FECE* terrain)//22a270
 	SetStagetagForTermod_49830(terrain);
 	//adress 22A27D
 #ifdef DEBUG_SEQUENCES
-	//add_compare(0x22A280, debugafterload);
+	add_compare(0x22A280, debugafterload);
 #endif //DEBUG_SEQUENCES
 	GenerateEvents_49290(terrain, 1);
 #ifdef DEBUG_SEQUENCES
-	//add_compare(0x22A288, debugafterload);
+	add_compare(0x22A288, debugafterload);
 #endif //DEBUG_SEQUENCES
 }
 
@@ -53915,7 +53915,7 @@ void GenerateEvents_49290(type_str_2FECE* terrain, char a2)//22a290
 	}
 	ApplyEvents_498A0();//adress 22a2de
 #ifdef DEBUG_SEQUENCES
-	//add_compare(0x22A2E3, debugafterload);
+	add_compare(0x22A2E3, debugafterload);
 #endif //DEBUG_SEQUENCES
 
 	for (jx = 1; jx < 0x4b0; jx++)
@@ -53943,11 +53943,11 @@ void GenerateEvents_49290(type_str_2FECE* terrain, char a2)//22a290
 		}
 	}
 #ifdef DEBUG_SEQUENCES
-	//add_compare(0x22A383, debugafterload);
+	add_compare(0x22A383, debugafterload);
 #endif //DEBUG_SEQUENCES
 	ApplyEvents_498A0();//22a383
 #ifdef DEBUG_SEQUENCES
-	//add_compare(0x22A388, debugafterload);
+	add_compare(0x22A388, debugafterload);
 #endif //DEBUG_SEQUENCES
 	for (kx = 1; kx < 0x4b0; kx++)
 	{
@@ -53963,7 +53963,7 @@ void GenerateEvents_49290(type_str_2FECE* terrain, char a2)//22a290
 		}
 	}
 #ifdef DEBUG_SEQUENCES
-	//add_compare(0x22A3D7, debugafterload);
+	add_compare(0x22A3D7, debugafterload);
 #endif //DEBUG_SEQUENCES
 	ApplyEvents_498A0();//adress 22a3d7
 	for (lx = 1; lx < 0x4b0; lx++)
@@ -53976,11 +53976,11 @@ void GenerateEvents_49290(type_str_2FECE* terrain, char a2)//22a290
 		}
 	}
 #ifdef DEBUG_SEQUENCES
-	//add_compare(0x22A422, debugafterload);
+	add_compare(0x22A422, debugafterload);
 #endif //DEBUG_SEQUENCES
 	ApplyEvents_498A0();//22a422
 #ifdef DEBUG_SEQUENCES
-	//add_compare(0x22A427, debugafterload);
+	add_compare(0x22A427, debugafterload);
 #endif //DEBUG_SEQUENCES
 	for (mx = 1; mx < 0x4b0; mx++)
 	{
@@ -54007,7 +54007,7 @@ void GenerateEvents_49290(type_str_2FECE* terrain, char a2)//22a290
 	}
 	ApplyEvents_498A0();//adress 22a4d1
 #ifdef DEBUG_SEQUENCES
-	//add_compare(0x22A4D6, debugafterload);
+	add_compare(0x22A4D6, debugafterload);
 #endif //DEBUG_SEQUENCES
 	for (ox = 1; ox < 0x4b0; ox++)
 	{
@@ -54019,7 +54019,7 @@ void GenerateEvents_49290(type_str_2FECE* terrain, char a2)//22a290
 		}
 	}
 #ifdef DEBUG_SEQUENCES
-	//add_compare(0x22A52C, debugafterload);
+	add_compare(0x22A52C, debugafterload);
 #endif //DEBUG_SEQUENCES
 	ApplyEvents_498A0();//adress 22a52c
 }
@@ -54034,7 +54034,7 @@ void PrepareEvents_49540(type_str_2FECE* terrain, type_entity_0x30311* entity)//
 	uint32_t temp_adress;
 
 #ifdef DEBUG_SEQUENCES
-	//add_compare(0x22a543, debugafterload,0x53);
+	add_compare(0x22a543, debugafterload,0x13);
 #endif //DEBUG_SEQUENCES
 	switch (entity->type_0x30311)
 	{
@@ -54120,6 +54120,7 @@ void PrepareEvents_49540(type_str_2FECE* terrain, type_entity_0x30311* entity)//
 							event->word_0x9A_154x.x = entity->word_10;
 							break;
 						}
+						case 0x54:
 						case 0x55:
 						{
 							event->word_0x9A_154x.x = entity->word_10;
@@ -62749,7 +62750,7 @@ type_event_0x6E8E* sub_4FCD0(axis_3d* position)//230cd0
 //----- (0004FD00) --------------------------------------------------------
 type_event_0x6E8E* sub_4FD00(axis_3d* position)//230d00
 {
-	type_event_0x6E8E* event = 0;
+	type_event_0x6E8E* event = NULL;
 	if (x_BYTE_D41B6)
 	{
 		event = NewEvent_4A050();
