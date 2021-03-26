@@ -145,7 +145,7 @@ void add_compare(uint32_t adress, bool debugafterload, int stopstep, bool skip, 
 				Convert_to_shadow_D41A0_BYTESTR_0(&D41A0_0, &shadow_D41A0_BYTESTR_0);
 				comp20 = compare_with_sequence_D41A0(buffer2, (uint8_t*)&shadow_D41A0_BYTESTR_0, 0x356038, index, 224790, &origbyte20, &remakebyte20, 0, (exitindex != 1000000));
 #else
-				comp20 = compare_with_sequence_D41A0(buffer2, (uint8_t*)&D41A0_BYTESTR_0, 0x356038, index, 224790, &origbyte20, &remakebyte20);
+				comp20 = compare_with_sequence_D41A0(buffer2, (uint8_t*)&D41A0_0, 0x356038, index, 224790, &origbyte20, &remakebyte20);
 #endif
 				
 				comp20 = compare_with_sequence_array_E2A74(buffer3, (uint8_t*)&str_E2A74, 0x2b3a74, index, 0xc4e, 0xc4e, &origbyte20, &remakebyte20, 0, (exitindex != 1000000));
@@ -155,6 +155,37 @@ void add_compare(uint32_t adress, bool debugafterload, int stopstep, bool skip, 
 			}
 			//if(debugcounter_271478>5)
 			//comp20 = compare_with_sequence(buffer4, pdwScreenBuffer, 0x3aa0a4, index, 320 * 200, 320 * 200, &origbyte20, &remakebyte20);
+			if (stopstep > -1)
+			{
+				comp20 = index;
+			}
+
+			lastcompstr.index = index;
+			lastcompstr.adress = adress;
+		}
+	}
+};
+//for debuging
+
+void add_compare2(uint32_t adress, uint8_t* memadress,uint32_t dosmemadress, uint32_t size,bool debugafterload, int stopstep, bool skip, int exitindex) {
+	uint8_t origbyte20 = 0;
+	uint8_t remakebyte20 = 0;
+	int comp20;
+
+	char buffer1[500];
+	sprintf(buffer1, "%08X-08X", adress, dosmemadress);
+
+	if (debugafterload)
+	{
+		int index = getcompindex(adress);
+		if (index >= stopstep)
+		{
+			if (index >= exitindex)
+				exit(exitindex);
+			if (!skip)
+			{
+				comp20 = compare_with_sequence(buffer1, memadress, dosmemadress, index, size, size, &origbyte20, &remakebyte20);
+			}
 			if (stopstep > -1)
 			{
 				comp20 = index;
