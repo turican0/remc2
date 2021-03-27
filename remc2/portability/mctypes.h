@@ -21,8 +21,8 @@
 #pragma pack (1)
 typedef struct {
 	uint8_t* data;
-	uint8_t width;
-	uint8_t height;
+	uint8_t width_4;
+	uint8_t height_5;
 } posistruct_t;
 
 typedef struct {
