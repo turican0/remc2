@@ -35,10 +35,10 @@ void _strupr(char* s)
 //#define SET_LEVEL
 
 //#define RELEASE_GAME
-//#define PLAYING_GAME
+#define PLAYING_GAME
 //#define DEBUG_AFTERLOAD
 //#define DEBUG_ONSTART
-#define TEST_REGRESSIONS_GAME
+//#define TEST_REGRESSIONS_GAME
 int test_regression_level = 3;
 
 //adress 2285ff
@@ -117,7 +117,9 @@ bool config_LOAD_EDITED_LEVEL = false;
 
 #define OLD_PARTICLES
 
-/*arrays for fix:
+/*
+test void sub_71F20(type_x_DWORD_E9C28_str* a1y, subtype_x_DWORD_E9C28_str* a2x)//252f20
+arrays for fix:
 fix memcpy,memset, malloc
 add regressions tests
 find changes x_DWORD_EA3E4[0x30]->word_0x1A_26
