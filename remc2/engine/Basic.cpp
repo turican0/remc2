@@ -2005,7 +2005,7 @@ void sub_901E4(int16_t a1, int16_t a2, int16_t a3, int16_t a4, unsigned __int16 
 //----- (0006F940) --------------------------------------------------------
 void sub_6F940_sub_draw_text(const char* textbuffer, int posx, int posy, uint8_t color)//250940
 {
-	char* v4; // esi
+	uint8_t* v4; // esi
 	int v5; // ebx
 	unsigned __int16 v6; // ax
 	int v7; // eax
@@ -2013,7 +2013,7 @@ void sub_6F940_sub_draw_text(const char* textbuffer, int posx, int posy, uint8_t
 	int v9; // eax
 	int result; // eax
 
-	v4 = const_cast<char*>(textbuffer); // FIXME: temporary const cast hack
+	v4 = (uint8_t*)const_cast<char*>(textbuffer); // FIXME: temporary const cast hack
 	v5 = posx;
 	x_WORD_E36D4 = 64;
 	while (*v4 && v5 < 640)
