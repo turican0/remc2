@@ -3622,7 +3622,7 @@ void Convert_from_shadow_D41A0_BYTESTR_0(type_shadow_D41A0_BYTESTR_0* from, type
 	to->word_0x33 = from->word_0x33;
 	to->dword_0x35 = from->dword_0x35;
 	for (int i = 0; i < 508; i++)to->array_0x39[i] = from->array_0x39[i];
-	to->maptypeMusic_0x235 = from->dword_0x235;
+	to->dword_0x235 = from->dword_0x235;
 	to->byte_0x239 = from->byte_0x239;
 	to->dword_0x23a = from->dword_0x23a;
 	to->dword_0x23e = from->dword_0x23e;
@@ -3763,7 +3763,7 @@ void Convert_from_shadow_D41A0_BYTESTR_0(type_shadow_D41A0_BYTESTR_0* from, type
 		to->stages_0x3654C[i].stages_3654C_byte0 = from->struct_0x3654C[i].str_3654C_byte0;
 		to->stages_0x3654C[i].str_3654D_byte1 = from->struct_0x3654C[i].str_3654D_byte1;
 		to->stages_0x3654C[i].str_3654E_axis = from->struct_0x3654C[i].str_3654E_axis;
-		to->stages_0x3654C[i].str_36552_un.dword = from->struct_0x3654C[i].str_36552_un.dword;
+		to->stages_0x3654C[i].str_36552_un.ddword = from->struct_0x3654C[i].str_36552_un.dword;
 	}
 	for (int i = 0; i < 8; i++)to->struct_0x3659C[i] = from->struct_0x3659C[i];
 	for (int i = 0; i < 11; i++) {
@@ -3813,14 +3813,22 @@ void Convert_to_shadow_D41A0_BYTESTR_0(type_D41A0_BYTESTR_0* from, type_shadow_D
 	to->word_0x33 = from->word_0x33;
 	to->dword_0x35 = from->dword_0x35;
 	for (int i = 0; i < 508; i++)to->array_0x39[i] = from->array_0x39[i];
-	to->dword_0x235 = from->maptypeMusic_0x235;
+	to->dword_0x235 = from->dword_0x235;
 	to->byte_0x239 = from->byte_0x239;
 	to->dword_0x23a = from->dword_0x23a;
 	to->dword_0x23e = from->dword_0x23e;
 	to->dword_0x242 = from->dword_0x242;
-	for (int i = 0; i < 0x3e8; i++)to->pointers_0x246[i] = PtrToUint(from->pointers_0x246[i]);
+#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
+  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << ", file " << __FILE__ << std::endl;
+#else
+	for (int i = 0; i < 0x3e8; i++)to->pointers_0x246[i] = (uint32_t)from->pointers_0x246[i];
+#endif
 	to->dword_0x11e6 = from->dword_0x11e6;
-	for (int i = 0; i < 0x3e8; i++)to->dword_0x11EA[i] = PtrToUint(from->dword_0x11EA[i]);
+#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
+  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << ", file " << __FILE__ << std::endl;
+#else
+	for (int i = 0; i < 0x3e8; i++)to->dword_0x11EA[i] = (uint32_t)from->dword_0x11EA[i];
+#endif
 	to->m_GameSettings = from->m_GameSettings;
 	to->dword_0x219A = from->dword_0x219A;
 	to->dword_0x219E = from->dword_0x219E;
@@ -3837,7 +3845,11 @@ void Convert_to_shadow_D41A0_BYTESTR_0(type_D41A0_BYTESTR_0* from, type_shadow_D
 	for (int i = 0; i < 8; i++)to->array_0x2BDE[i] = from->array_0x2BDE[i];
 	for (int i = 0; i < 8; i++)to->array_0x6E3E[i] = from->array_0x6E3E[i];
 	for (int i = 0; i < 0x3e8; i++) {
-		to->struct_0x6E8E[i].next_0 = PtrToUint(from->struct_0x6E8E[i].next_0);
+#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
+  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << ", file " << __FILE__ << std::endl;
+#else
+		to->struct_0x6E8E[i].next_0 = (uint32_t)from->struct_0x6E8E[i].next_0;
+#endif
 		to->struct_0x6E8E[i].dword_0x4 = from->struct_0x6E8E[i].dword_0x4;
 		to->struct_0x6E8E[i].dword_0x8 = from->struct_0x6E8E[i].dword_0x8;
 		to->struct_0x6E8E[i].struct_byte_0xc_12_15 = from->struct_0x6E8E[i].struct_byte_0xc_12_15;
@@ -3895,8 +3907,12 @@ void Convert_to_shadow_D41A0_BYTESTR_0(type_D41A0_BYTESTR_0* from, type_shadow_D
 		to->struct_0x6E8E[i].word_0x96_150 = from->struct_0x6E8E[i].word_0x96_150;
 		to->struct_0x6E8E[i].word_0x98_152 = from->struct_0x6E8E[i].word_0x98_152;
 		to->struct_0x6E8E[i].word_0x9A_154x = from->struct_0x6E8E[i].word_0x9A_154x;
-		to->struct_0x6E8E[i].dword_0xA0_160x = PtrToUint(from->struct_0x6E8E[i].dword_0xA0_160x);
-		to->struct_0x6E8E[i].dword_0xA4_164x = PtrToUint(from->struct_0x6E8E[i].dword_0xA4_164x);
+#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
+  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << ", file " << __FILE__ << std::endl;
+#else
+		to->struct_0x6E8E[i].dword_0xA0_160x = (uint32_t)from->struct_0x6E8E[i].dword_0xA0_160x;
+		to->struct_0x6E8E[i].dword_0xA4_164x = (uint32_t)from->struct_0x6E8E[i].dword_0xA4_164x;
+#endif
 	}
 
 	to->str_2FECE.word_2FECE = from->terrain_2FECE.word_2FECE;
@@ -3954,7 +3970,7 @@ void Convert_to_shadow_D41A0_BYTESTR_0(type_D41A0_BYTESTR_0* from, type_shadow_D
 		to->struct_0x3654C[i].str_3654C_byte0 = from->stages_0x3654C[i].stages_3654C_byte0;
 		to->struct_0x3654C[i].str_3654D_byte1 = from->stages_0x3654C[i].str_3654D_byte1;
 		to->struct_0x3654C[i].str_3654E_axis = from->stages_0x3654C[i].str_3654E_axis;
-		to->struct_0x3654C[i].str_36552_un.dword = from->stages_0x3654C[i].str_36552_un.dword;
+		to->struct_0x3654C[i].str_36552_un.dword = from->stages_0x3654C[i].str_36552_un.ddword;
 	}
 	for (int i = 0; i < 8; i++)to->struct_0x3659C[i] = from->struct_0x3659C[i];
 	for (int i = 0; i < 11; i++) {
@@ -3969,7 +3985,11 @@ void Convert_to_shadow_D41A0_BYTESTR_0(type_D41A0_BYTESTR_0* from, type_shadow_D
 		to->str_0x3664C[i].byte_2 = from->str_0x3664C[i].byte_2;
 		to->str_0x3664C[i].byte_3 = from->str_0x3664C[i].byte_3;
 		to->str_0x3664C[i].axis3d_4 = from->str_0x3664C[i].axis3d_4;
-		to->str_0x3664C[i].dword_A = PtrToUint(from->str_0x3664C[i].event_A.pointer_0x6E8E);
+#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
+  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << ", file " << __FILE__ << std::endl;
+#else
+		to->str_0x3664C[i].dword_A = (uint32_t)from->str_0x3664C[i].event_A.pointer_0x6E8E;
+#endif
 		for (int j = 0; j < 25; j++)to->str_0x3664C[i].array_E[j] = from->str_0x3664C[i].array_E[j];
 	}
 	to->byte_0x36DEA_fly_asistant = from->byte_0x36DEA_fly_asistant;
@@ -3978,7 +3998,11 @@ void Convert_to_shadow_D41A0_BYTESTR_0(type_D41A0_BYTESTR_0* from, type_shadow_D
 	to->word_0x36DEE_mousey = from->word_0x36DEE_mousey;
 	to->word_0x36DF0_mousexx = from->word_0x36DF0_mousexx;
 	to->dword_0x36DF2 = from->dword_0x36DF2;
-	to->dword_0x36DF6 = PtrToUint(from->dword_0x36DF6);
+#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
+  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << ", file " << __FILE__ << std::endl;
+#else
+	to->dword_0x36DF6 = (uint32_t)from->dword_0x36DF6;
+#endif
 	to->word_0x36DFA = from->word_0x36DFA;
 	to->word_0x36DFC = from->word_0x36DFC;
 	to->word_0x36DFE = from->word_0x36DFE;
