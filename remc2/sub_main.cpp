@@ -34,12 +34,12 @@ void _strupr(char* s)
 //#define SET_OBJECTIVE
 //#define SET_LEVEL
 
-#define RELEASE_GAME
-//#define PLAYING_GAME
+//#define RELEASE_GAME
+#define PLAYING_GAME
 //#define DEBUG_AFTERLOAD
 //#define DEBUG_ONSTART
 //#define TEST_REGRESSIONS_GAME
-int test_regression_level = 3;
+int test_regression_level = 0;
 
 //adress 2285ff
 #if defined(RELEASE_GAME) //this is standard setting
@@ -47,7 +47,7 @@ int test_regression_level = 3;
 	#define FIX_FLYASISTANT
 	#define LOAD_EDITED_LEVEL
 	int debugafterload = 0;
-	//#define DISABLE_GRAPHICS_ENHANCE
+	#define DISABLE_GRAPHICS_ENHANCE
 #elif defined(PLAYING_GAME) //this is setting for autosavegame
 	#define DETECT_DWORD_A
 	#define AUTO_CHANGE_RES
@@ -69,12 +69,12 @@ int test_regression_level = 3;
 #elif defined(DEBUG_AFTERLOAD) //this is setting is for compare data with dosbox afterload(can fix mouse move, and etc.)
 	#define DETECT_DWORD_A
 	#define COPY_SKIP_CONFIG
-	//#define DEBUG_SEQUENCES2
+	#define DEBUG_SEQUENCES2
 	#define FIX_MOUSE
 	#define MOUSE_OFF2
 	#define OFF_PAUSE_5
 	int debugafterload = 0;
-	//#define DISABLE_GRAPHICS_ENHANCE
+	#define DISABLE_GRAPHICS_ENHANCE
 #elif defined(DEBUG_ONSTART) //this is setting is for compare data with dosbox(can fix mouse move, and etc.)
 	#define DETECT_DWORD_A
 	#define COPY_SKIP_CONFIG
@@ -42851,13 +42851,13 @@ void sub_3C080_draw_terrain_and_particles_old(/*int a1, int a2,*/ __int16 a3, __
 								{
 									//v95 = (int*)((char*)unk_D4350 + 32 * *(unsigned __int8*)(v94 + 42));
 									v248x[20] = xunk_D4350[*(unsigned __int8*)(v94 + 42)][0];
-									v248x[20] = xunk_D4350[*(unsigned __int8*)(v94 + 42)][1];
-									v248x[20] = xunk_D4350[*(unsigned __int8*)(v94 + 42)][2];
-									v248x[20] = xunk_D4350[*(unsigned __int8*)(v94 + 42)][3];
-									v248x[20] = xunk_D4350[*(unsigned __int8*)(v94 + 42)][4];
-									v248x[20] = xunk_D4350[*(unsigned __int8*)(v94 + 42)][5];
-									v248x[20] = xunk_D4350[*(unsigned __int8*)(v94 + 42)][6];
-									v248x[20] = xunk_D4350[*(unsigned __int8*)(v94 + 42)][7];
+									v248x[21] = xunk_D4350[*(unsigned __int8*)(v94 + 42)][1];
+									v248x[14] = xunk_D4350[*(unsigned __int8*)(v94 + 42)][2];
+									v248x[15] = xunk_D4350[*(unsigned __int8*)(v94 + 42)][3];
+									v248x[8] = xunk_D4350[*(unsigned __int8*)(v94 + 42)][4];
+									v248x[9] = xunk_D4350[*(unsigned __int8*)(v94 + 42)][5];
+									v248x[2] = xunk_D4350[*(unsigned __int8*)(v94 + 42)][6];
+									v248x[3] = xunk_D4350[*(unsigned __int8*)(v94 + 42)][7];
 									x_DWORD_DE55C_ActTexture = x_DWORD_DDF50_texture_adresses[1];
 									v96 = *(x_BYTE*)(v94 + 38);
 									x_BYTE_E126D = 5;
@@ -68637,7 +68637,7 @@ void sub_57730()//238730
 	type_event_0x6E8E* v24x; // [esp+78h] [ebp-4h]
 
 #ifdef DEBUG_SEQUENCES2
-	add_compare(0x238734, debugafterload);
+	//add_compare(0x238734, debugafterload);
 #endif //DEBUG_SEQUENCES2
 
 	D41A0_0.rand_0x8 = 9377 * D41A0_0.rand_0x8 + 9439;
@@ -68645,7 +68645,7 @@ void sub_57730()//238730
 	{
 		//adress 238756
 #ifdef DEBUG_SEQUENCES2
-		add_compare(0x238756, debugafterload);
+		//add_compare(0x238756, debugafterload);
 #endif //DEBUG_SEQUENCES2
 		if (ix->type_0x3F_63 && ix->struct_byte_0xc_12_15.byte[1] & 4)
 			sub_57F20(ix);
@@ -68798,12 +68798,12 @@ void sub_57730()//238730
 			}
 		}
 #ifdef DEBUG_SEQUENCES2
-		add_compare(0x2389eb, debugafterload);
+		//add_compare(0x2389eb, debugafterload);
 #endif //DEBUG_SEQUENCES2
 		if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 0x10))
 			sub_68BF0();
 #ifdef DEBUG_SEQUENCES2
-		add_compare(0x2389f6, debugafterload);
+		//add_compare(0x2389f6, debugafterload);
 #endif //DEBUG_SEQUENCES2
 		sub_159E0();//adress 2389f6
 		if (x_BYTE_D41B6)
@@ -68813,7 +68813,7 @@ void sub_57730()//238730
 		{
 			//adress 238a3d
 #ifdef DEBUG_SEQUENCES2
-			add_compare(0x238a3d, debugafterload);//0x9ac
+			//add_compare(0x238a3d, debugafterload);//0x9ac
 #endif //DEBUG_SEQUENCES2
 			if (mx->type_0x3F_63)
 			{
@@ -68822,7 +68822,7 @@ void sub_57730()//238730
 					if (str_D4C48ar[mx->type_0x3F_63].dword_10[mx->byte_0x45_69].dword_10)
 					{
 #ifdef DEBUG_SEQUENCES2
-						add_compare(0x238A8A, debugafterload);//0x9ac
+						//add_compare(0x238A8A, debugafterload);//0x9ac
 #endif //DEBUG_SEQUENCES2
 
 						//adress 238a8a zacina na 35cf6e 363bb6 =6c48/168=165=a5
@@ -109871,7 +109871,7 @@ int sub_B5D68(__int16 a1, __int16 a2)//296d68
 
 int debugcounter_297253 = 0;
 //----- (000B6253) --------------------------------------------------------
-void DrawTriangle(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3)//297253
+void DrawTriangle(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3)//sub_B6253 - 297253
 {
 	x_DWORD* v3; // esi
 	x_DWORD* v4; // edi
@@ -111173,14 +111173,15 @@ void DrawTriangle(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3)//297253
 	bool v1300; // [esp+64h] [ebp-24h]
 	bool v1301; // [esp+64h] [ebp-24h]
 
-	//if(debugafterload)
+	/*if(debugafterload)
 	{
-		if (debugcounter_297253 >= 0xd1) {
+		if (debugcounter_297253 >= 0x37) {
 			debugcounter_297253++;
 			debugcounter_297253--;
 		}
 		debugcounter_297253++;
-	}
+	}*/
+	//add_compare(0x297257, debugafterload,0x37);
 
 	//fix it
 	v1045 = 0;
@@ -113545,7 +113546,7 @@ LABEL_129:
 							if ((v375 & 0x8000u) == 0)
 								break;
 							if ((signed __int16)v378 > 0)
-							{
+							{								
 								v380 = (unsigned __int16)-(signed __int16)v375;
 								v381 = v380;
 								v383 = __ROL4__(*((x_DWORD*)v377 + 3) + v1135 * v380, 16);
