@@ -2958,7 +2958,7 @@ char ReadAndDecompressSound(FILE* file, unsigned __int8 a2)//2654f0
 	str_E37A0_sound_buffer2->byte_7 = shadow_str_E37A0_sound_buffer2->byte_7;
 	for(int i=0;i<10;i++)
 		str_E37A0_sound_buffer2->str_8.stub[i] = shadow_str_E37A0_sound_buffer2->str_8.stub[i];
-	for (int i = 0; i < 64; i++)
+	for (int i = 0; i < 96; i++)
 	{
 		str_E37A0_sound_buffer2->str_8.wavs_10[i].dword_0 = (uint8_t*)shadow_str_E37A0_sound_buffer2->str_8.wavs_10[i].dword_0;
 		for (int j = 0; j < 4; j++)
@@ -2968,9 +2968,9 @@ char ReadAndDecompressSound(FILE* file, unsigned __int8 a2)//2654f0
 		for (int j = 18; j < 18; j++)
 			str_E37A0_sound_buffer2->str_8.wavs_10[i].filename_14[j] = shadow_str_E37A0_sound_buffer2->str_8.wavs_10[i].filename_14[j];
 	}
-	for (int i = 0; i < 14; i++)
-		str_E37A0_sound_buffer2->str_8.stubb[i] = shadow_str_E37A0_sound_buffer2->str_8.stubb[i];
-	for (int i = 0; i < 1020; i++)
+	/*for (int i = 0; i < 14; i++)
+		str_E37A0_sound_buffer2->str_8.stubb[i] = shadow_str_E37A0_sound_buffer2->str_8.stubb[i];*/
+	for (int i = 0; i < 10; i++)
 		str_E37A0_sound_buffer2->next_str[i] = shadow_str_E37A0_sound_buffer2->next_str[i];
 	sub_83E80_freemem4((uint8_t*)shadow_str_E37A0_sound_buffer2);
 	//64xfix
