@@ -641,7 +641,7 @@ void convert_struct_to_array_3654C(type_str_3654C* input, uint8_t* output){ //si
 	//int16_t str_36550_word4;
 	memcpy(output + 4, &input->str_3654E_axis.y, 2);
 	//int32_t str_36552_dword6; //pointer sometimes
-	memcpy(output + 6, &input->str_36552_un.ddword, 4);
+	memcpy(output + 6, &input->str_36552_un.dword, 4);
 }
 
 void convert_struct_to_array_0x3664C(type_str_0x3664C* input, uint8_t* output) {//lenght 39
@@ -685,7 +685,7 @@ void convert_struct_to_array_D41A0_0(type_D41A0_BYTESTR_0* input,uint8_t* output
 	//uint8_t array_0x39[508];//57
 	memcpy(output + 0x39, input->array_0x39, 508);
 	//int32_t dword_0x235;//act music
-	memcpy(output + 0x235, &input->dword_0x235, 4);
+	memcpy(output + 0x235, &input->maptypeMusic_0x235, 4);
 	//uint8_t byte_0x239;//569
 	memcpy(output + 0x239, &input->byte_0x239, 1);
 	//int32_t dword_0x23a;

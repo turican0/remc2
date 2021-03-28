@@ -1024,7 +1024,7 @@ typedef struct {//lenght 8
 */
 
 typedef union {
-	uint64_t ddword;
+	uint32_t dword;
 	axis_2du axis;
 	type_event_0x6E8E* pointer_0x6E8E;
 }
@@ -1327,7 +1327,7 @@ typedef struct {//lenght 0x6604u
 } type_shadow_str_2FECE;//compress level
 
 typedef union {
-	uint64_t ddword;
+	uint32_t dword;
 	uint16_t* ptr16u;
 	type_entity_0x30311* ptr0x30311;
 	type_event_0x6E8E* ptr0x6E8E;
@@ -1527,7 +1527,7 @@ typedef struct {//lenght 224791
 	uint16_t word_0x33;//51
 	int32_t dword_0x35;//53//entity counter(max 1000 entity changes per step)
 	uint8_t array_0x39[508];//57
-	int32_t dword_0x235;//act music
+	int32_t maptypeMusic_0x235;//act music
 	uint8_t byte_0x239;//569
 	int32_t dword_0x23a;
 	int32_t dword_0x23e;
