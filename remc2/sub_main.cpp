@@ -35,15 +35,15 @@ void _strupr(char* s)
 //#define SET_LEVEL
 
 //#define RELEASE_GAME
-//#define PLAYING_GAME
-#define DEBUG_AFTERLOAD
+#define PLAYING_GAME
+//#define DEBUG_AFTERLOAD
 //#define DEBUG_ONSTART
 //#define TEST_REGRESSIONS_GAME
 int test_regression_level = 3;
 
 //adress 2285ff
 #if defined(RELEASE_GAME) //this is standard setting
-	#define AUTO_CHANGE_RES
+	//#define AUTO_CHANGE_RES
 	#define FIX_FLYASISTANT
 	#define LOAD_EDITED_LEVEL
 	int debugafterload = 0;
@@ -69,7 +69,7 @@ int test_regression_level = 3;
 #elif defined(DEBUG_AFTERLOAD) //this is setting is for compare data with dosbox afterload(can fix mouse move, and etc.)
 	#define DETECT_DWORD_A
 	#define COPY_SKIP_CONFIG
-	#define DEBUG_SEQUENCES2
+	//#define DEBUG_SEQUENCES2
 	#define FIX_MOUSE
 	#define MOUSE_OFF2
 	#define OFF_PAUSE_5
@@ -3170,7 +3170,7 @@ int32_t xx_DWORD_D40BC[17][3] =  // weak//min 16*3 //2a50bc
 {0x00000000, 0x00000000, 0x00000000} };
 
 posistruct2_t* x_DWORD_D4188 = 0; // weak
-posistruct_t* x_DWORD_D418C = 0; // weak
+posistruct2_t* x_DWORD_D418C = 0; // weak
 posistruct2_t* x_DWORD_D4190 = 0; // weak
 uint8_t* x_DWORD_D4198 = 0; // weak
 char x_BYTE_D419C_level_num = -1; // weak
@@ -29024,7 +29024,7 @@ void debugtestscreen() {
 }
 
 //----- (0002BE30) --------------------------------------------------------
-void DrawGameFrame()//sub_2BE30 - 20CE30
+void DrawGameFrame()//20CE30
 {
 	char v0; // dl
 	void (*v1)(int16_t, int16_t, posistruct_t); // eax
@@ -29151,21 +29151,12 @@ void DrawGameFrame()//sub_2BE30 - 20CE30
 					v36 = 0;
 					v35 = 0;
 					while (v36 < v37)
-<<<<<<< HEAD
 					{
 						sub_2BB40_draw_bitmap(v35, v40, x_DWORD_D4188t_spritestr[v6]);
 						v36++;
 						v6++;
 						v35 += x_DWORD_D4188t_spritestr[v6].width_4;
 						v7 = x_DWORD_D4188t_spritestr[1].height_5;
-=======
-					{//this id123
-						//sub_2BB40_draw_bitmap(v35, v40, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v6]);
-						sub_2BB40_draw_bitmap(v35, v40, x_DWORD_D418C[v6]);
-						v36++;
-						v35 += x_DWORD_D418C[v6++].width_4;
-						v7 = x_DWORD_D418C[1].height_5;
->>>>>>> 41a4045890f27a4d489b7144dae5474784f5fc27
 					}
 					v38++;
 					v40 += v7;
@@ -52179,7 +52170,7 @@ void sub_47560_draw_and_events_in_game(/*uint8_t* a1, int a2, */uint32_t a3, sig
 	add_compare(0x002285FF, debugafterload, -1, false, 20);
 #endif //TEST_REGRESSION
 #ifdef DEBUG_SEQUENCES2
-	//add_compare(0x002285FF, debugafterload);
+	add_compare(0x002285FF, debugafterload);
 #endif //DEBUG_SEQUENCES2
 #ifdef DEBUG_SEQUENCES
 	add_compare(0x002285FF, debugafterload);
@@ -52190,9 +52181,7 @@ void sub_47560_draw_and_events_in_game(/*uint8_t* a1, int a2, */uint32_t a3, sig
 	if (x_D41A0_BYTEARRAY_4_struct.byteindex_10)
 		sub_871F0();
 	//adress 22860f
-#ifdef DEBUG_SEQUENCES2
-	add_compare(0x22860f, debugafterload);
-#endif //DEBUG_SEQUENCES2
+
 #ifdef DETECT_DWORD_A
 	for (int iii = 1; iii < 0x3E9; iii++)
 		if (x_DWORD_EA3E4[iii]->oldMapEntity_0x16_22 == iii)
@@ -68648,7 +68637,7 @@ void sub_57730()//238730
 	type_event_0x6E8E* v24x; // [esp+78h] [ebp-4h]
 
 #ifdef DEBUG_SEQUENCES2
-	//add_compare(0x238734, debugafterload);
+	add_compare(0x238734, debugafterload);
 #endif //DEBUG_SEQUENCES2
 
 	D41A0_0.rand_0x8 = 9377 * D41A0_0.rand_0x8 + 9439;
@@ -68656,7 +68645,7 @@ void sub_57730()//238730
 	{
 		//adress 238756
 #ifdef DEBUG_SEQUENCES2
-		//add_compare(0x238756, debugafterload);
+		add_compare(0x238756, debugafterload);
 #endif //DEBUG_SEQUENCES2
 		if (ix->type_0x3F_63 && ix->struct_byte_0xc_12_15.byte[1] & 4)
 			sub_57F20(ix);
@@ -68809,12 +68798,12 @@ void sub_57730()//238730
 			}
 		}
 #ifdef DEBUG_SEQUENCES2
-		//add_compare(0x2389eb, debugafterload);
+		add_compare(0x2389eb, debugafterload);
 #endif //DEBUG_SEQUENCES2
 		if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 0x10))
 			sub_68BF0();
 #ifdef DEBUG_SEQUENCES2
-		//add_compare(0x2389f6, debugafterload);
+		add_compare(0x2389f6, debugafterload);
 #endif //DEBUG_SEQUENCES2
 		sub_159E0();//adress 2389f6
 		if (x_BYTE_D41B6)
@@ -68824,7 +68813,7 @@ void sub_57730()//238730
 		{
 			//adress 238a3d
 #ifdef DEBUG_SEQUENCES2
-			//add_compare(0x238a3d, debugafterload);//0x9ac
+			add_compare(0x238a3d, debugafterload);//0x9ac
 #endif //DEBUG_SEQUENCES2
 			if (mx->type_0x3F_63)
 			{
@@ -68833,7 +68822,7 @@ void sub_57730()//238730
 					if (str_D4C48ar[mx->type_0x3F_63].dword_10[mx->byte_0x45_69].dword_10)
 					{
 #ifdef DEBUG_SEQUENCES2
-						//add_compare(0x238A8A, debugafterload);//0x9ac
+						add_compare(0x238A8A, debugafterload);//0x9ac
 #endif //DEBUG_SEQUENCES2
 
 						//adress 238a8a zacina na 35cf6e 363bb6 =6c48/168=165=a5
