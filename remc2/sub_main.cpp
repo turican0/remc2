@@ -39,7 +39,7 @@ void _strupr(char* s)
 //#define DEBUG_AFTERLOAD
 //#define DEBUG_ONSTART
 #define TEST_REGRESSIONS_GAME
-int test_regression_level = 0;
+int test_regression_level = 9;
 
 //adress 2285ff
 #if defined(RELEASE_GAME) //this is standard setting
@@ -62,8 +62,8 @@ int test_regression_level = 0;
 	#define MOUSE_OFF2
 	#define OFF_PAUSE_5
 	#define TEST_REGRESSION
-	//#define DEBUG_SEQUENCES
-	//#define DEBUG_SEQUENCES2
+	#define DEBUG_SEQUENCES
+	#define DEBUG_SEQUENCES2
 	int debugafterload = 1;
 	//#define DISABLE_GRAPHICS_ENHANCE
 #elif defined(DEBUG_AFTERLOAD) //this is setting is for compare data with dosbox afterload(can fix mouse move, and etc.)
@@ -52135,7 +52135,7 @@ void sub_47560_draw_and_events_in_game(/*uint8_t* a1, int a2, */uint32_t a3, sig
 #endif //INTERVAL_SAVE
 //adress 228583
 #ifdef DEBUG_SEQUENCES2
-	//add_compare(0x228583, debugafterload);
+	add_compare(0x228583, debugafterload);
 #endif //DEBUG_SEQUENCES2
 	sub_51BB0_game_events(/*(uint8_t*)a4*/);//nothing draw
 	//adress 228588
@@ -53778,6 +53778,7 @@ void sub_49090(type_str_2FECE* terrain, type_entity_0x30311* entity)//22a090
 						v8 = 32;
 						break;
 					}
+					break;
 				}
 				case 0x50:
 				{
@@ -53950,13 +53951,13 @@ void PrepareEvents_49540(type_str_2FECE* terrain, type_entity_0x30311* entity)//
 	uint32_t temp_adress;
 
 #ifdef DEBUG_SEQUENCES
-	/*debugcounter_22a540++;
-	if (debugcounter_22a540 >= 0x115)
+	debugcounter_22a540++;
+	if (debugcounter_22a540 >= 0x14)
 	{
 		debugcounter_22a540++;
 		debugcounter_22a540--;
-	}*/
-	add_compare(0x22a545, debugafterload,0x114);
+	}
+	add_compare(0x22a545, debugafterload,0x13);
 #endif //DEBUG_SEQUENCES
 	switch (entity->type_0x30311)
 	{
