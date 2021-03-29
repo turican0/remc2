@@ -52170,10 +52170,10 @@ void sub_47560_draw_and_events_in_game(/*uint8_t* a1, int a2, */uint32_t a3, sig
 	add_compare(0x002285FF, debugafterload, -1, false, 20);
 #endif //TEST_REGRESSION
 #ifdef DEBUG_SEQUENCES2
-	add_compare(0x002285FF, debugafterload);
+	//add_compare(0x002285FF, debugafterload);
 #endif //DEBUG_SEQUENCES2
 #ifdef DEBUG_SEQUENCES
-	add_compare(0x002285FF, debugafterload);
+	//add_compare(0x002285FF, debugafterload);
 #endif //DEBUG_SEQUENCES
 #ifdef ANALYZE_ENTITY
 	analyzeEntites();
@@ -68950,7 +68950,7 @@ void sub_57B20(type_str_0x2BDE* a1x, type_event_0x6E8E* a2x)//238b20 //copy posi
 void sub_57CF0(type_event_0x6E8E* entity, axis_3d* position)//238cf0
 {
 #ifdef DEBUG_SEQUENCES2
-	//add_compare(0x238cf3, debugafterload);
+	add_compare(0x238cf3, debugafterload,0x348);
 #endif //DEBUG_SEQUENCES2
 
 	if (((entity->axis_0x4C_76.x & 0xff00) == (position->x & 0xff00)) && ((entity->axis_0x4C_76.y & 0xff00) == (position->y & 0xff00)))
