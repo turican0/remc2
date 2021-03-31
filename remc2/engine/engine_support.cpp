@@ -1244,7 +1244,7 @@ uint32_t compare_with_sequence(char* filename, uint8_t* adress, uint32_t  /*adre
 	if (size2 == 320 * 200)
 	{
 		VGA_Debug_Blit(320, 200, pdwScreenBuffer);
-		for (int iii = 0; iii < 320 * 200; iii++)pdwScreenBuffer[iii] = buffer[iii];
+		/*for (int iii = 0; iii < 320 * 200; iii++)pdwScreenBuffer[iii] = buffer[iii];*/
 		VGA_Debug_Blit(320, 200, pdwScreenBuffer);
 		VGA_Debug_Blit(320, 200, pdwScreenBuffer);
 	}
