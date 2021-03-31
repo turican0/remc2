@@ -35,11 +35,11 @@ void _strupr(char* s)
 //#define SET_LEVEL
 
 //#define RELEASE_GAME
-//#define PLAYING_GAME
+#define PLAYING_GAME
 //#define DEBUG_AFTERLOAD
 //#define DEBUG_ONSTART
-#define TEST_REGRESSIONS_GAME
-int test_regression_level = 9;
+//#define TEST_REGRESSIONS_GAME
+int test_regression_level = 0;
 
 //adress 2285ff
 #if defined(RELEASE_GAME) //this is standard setting
@@ -62,8 +62,8 @@ int test_regression_level = 9;
 	#define MOUSE_OFF2
 	#define OFF_PAUSE_5
 	#define TEST_REGRESSION
-	#define DEBUG_SEQUENCES
-	#define DEBUG_SEQUENCES2
+	//#define DEBUG_SEQUENCES
+	//#define DEBUG_SEQUENCES2
 	int debugafterload = 1;
 	//#define DISABLE_GRAPHICS_ENHANCE
 #elif defined(DEBUG_AFTERLOAD) //this is setting is for compare data with dosbox afterload(can fix mouse move, and etc.)
@@ -35563,8 +35563,8 @@ void sub_35FB0(type_event_0x6E8E* a1x)//216FB0
 {
 	char v1; // dl
 	unsigned __int16 v2; // ax
-	int v3; // ST0C_4
-	char v4; // ST04_1
+	//int v3; // ST0C_4
+	//char v4; // ST04_1
 	unsigned __int16 v5; // ax
 	type_event_0x6E8E* v6x; // eax
 	char v7; // dl
@@ -35616,12 +35616,12 @@ void sub_35FB0(type_event_0x6E8E* a1x)//216FB0
 			a1x->word_0x82_130 = 0;
 			v31 = 1;
 			a1x->word_0x1C_28 = sub_581E0_maybe_tan2(&a1x->axis_0x4C_76, &x_DWORD_EA3E4[v2]->axis_0x4C_76);
-			v3 = a1x->str_0x5E_94.word_0x76_118;
-			v4 = a1x->word_0x1C_28;
+			//v3 = a1x->str_0x5E_94.word_0x76_118;
+			//v4 = a1x->word_0x1C_28;
 			x_WORD_EB398ar.x = 0;
 			x_WORD_EB398ar.y = 0;
 			x_WORD_EB398ar.z = 0;
-			MovePlayer_57FA0(&x_WORD_EB398ar, v4, 0, v3);
+			MovePlayer_57FA0(&x_WORD_EB398ar, a1x->word_0x1C_28, 0, a1x->str_0x5E_94.word_0x76_118);
 			a1x->word_0x9A_154x.x = x_WORD_EB398ar.x;
 			a1x->word_0x9A_154x.y = x_WORD_EB398ar.y;
 			a1x->str_0x5E_94.word_0x7A_122 = 0;
@@ -68960,12 +68960,12 @@ void sub_57CF0(type_event_0x6E8E* entity, axis_3d* position)//238cf0
 {
 #ifdef DEBUG_SEQUENCES2
 	add_compare(0x238cf3, debugafterload,0x348);
-	if (debug_sub_57CF0 >= 0x348)
+	/*if (debug_sub_57CF0 >= 0x348)
 	{
 		debug_sub_57CF0++;
 		debug_sub_57CF0--;
 	}
-	debug_sub_57CF0++;
+	debug_sub_57CF0++;*/
 
 #endif //DEBUG_SEQUENCES2
 
