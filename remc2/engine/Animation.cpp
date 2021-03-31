@@ -507,7 +507,7 @@ void /*__fastcall*/ sub_75E70()//256e70
 			if (v2 >= x_WORD_17D726)
 				break;
 			v22 = x_DWORD_17DB50;
-			sub_75D70((int8_t*)v20x, 6);
+			sub_75D70((uint8_t*)v20x, 6);
 			//v20y = *(uint32_t*)&v20x;			
 			switch (v20x[2])//4? b
 			{
@@ -550,7 +550,7 @@ void /*__fastcall*/ sub_75E70()//256e70
 				strcpy(v16, v7);
 				break;
 			case 0x10:
-				sub_75D70((int8_t*)x_DWORD_E12F4x, x_WORD_17DB4A * x_WORD_17DB48);
+				sub_75D70((uint8_t*)x_DWORD_E12F4x, x_WORD_17DB4A * x_WORD_17DB48);
 				v12 = (char*)"COPY ";
 				v13 = &x_BYTE_17D738[strlen(x_BYTE_17D738)];
 				strcpy(v12, v13);
@@ -649,33 +649,33 @@ void sub_76300()//257300
 	*/
 
 	v0 = 0;
-	/*result = */sub_75D70((int8_t*)&v5, 2u);
+	sub_75D70((uint8_t*)&v5, 2u);
 	v2 = (uint8_t*)x_DWORD_E12F4x;//2b22f4
 	if (v5 > 0u)
 	{
 		do
 		{
 			v3 = v2;
-			sub_75D70((int8_t*)&v9, 2u);
+			sub_75D70((uint8_t*)&v9, 2u);
 			if ((v9 & 0x8000) == 0)
 			{
 				//v6 = v9;
 				for (i = 0; i < v9; i++)
 				{
-					sub_75D70((int8_t*)&v11, 1u);
+					sub_75D70((uint8_t*)&v11, 1u);
 					v3 += v11;
-					sub_75D70((int8_t*)&v10, 1u);
+					sub_75D70((uint8_t*)&v10, 1u);
 					if (v10 >= 0)
 					{
 						if (v10 > 0)
 						{
-							sub_75D70((int8_t*)v3, 2 * v10);
+							sub_75D70((uint8_t*)v3, 2 * v10);
 							v3 += 2 * v10;
 						}
 					}
 					else
 					{
-						sub_75D70((int8_t*)&v8, 2u);
+						sub_75D70((uint8_t*)&v8, 2u);
 						v4 = 0;
 						while (abs(v10) > v4)
 						{
@@ -720,9 +720,9 @@ int sub_76430()
 	unsigned __int8 v9; // [esp+10h] [ebp-8h]
 	unsigned __int8 v10; // [esp+14h] [ebp-4h]
 
-	sub_75D70((int8_t*)&v6, 2u);
+	sub_75D70((uint8_t*)&v6, 2u);
 	v0 = x_WORD_17DB48 * v6 + (uint8_t*)x_DWORD_E12F4x;
-	sub_75D70((int8_t*)&v6, 2u);
+	sub_75D70((uint8_t*)&v6, 2u);
 	v5 = 0;
 	result = 0;
 	if (v6 > 0u)
@@ -731,22 +731,22 @@ int sub_76430()
 		{
 			v2 = (char*)v0;
 			v3 = 0;
-			sub_75D70((int8_t*)&v9, 1u);
+			sub_75D70((uint8_t*)&v9, 1u);
 			while (v3 < (signed int)v9)
 			{
-				sub_75D70((int8_t*)&v7, 1u);
+				sub_75D70((uint8_t*)&v7, 1u);
 				v2 += v7;
-				sub_75D70((int8_t*)&v8, 1u);
+				sub_75D70((uint8_t*)&v8, 1u);
 				if (v8 >= 0)
 				{
 					if (v8 <= 0)
 						goto LABEL_8;
-					sub_75D70((int8_t*)v2, v8);
+					sub_75D70((uint8_t*)v2, v8);
 					v4 = v8;
 				}
 				else
 				{
-					sub_75D70((int8_t*)&v10, 1u);
+					sub_75D70((uint8_t*)&v10, 1u);
 					memset(v2, v10, abs(v8));
 					v4 = abs(v8);
 				}
@@ -788,19 +788,19 @@ int sub_76540()//257540
 		sub_75D70(0, 1u);
 		while (v2 < x_WORD_17DB48)
 		{
-			sub_75D70((int8_t*)&v6, 1u);
+			sub_75D70((uint8_t*)&v6, 1u);
 			if (v6 >= 0)
 			{
 				if (v6 > 0)
 				{
-					sub_75D70((int8_t*)&v5, 1u);
+					sub_75D70((uint8_t*)&v5, 1u);
 					memset(v1, v5, v6);
 				}
 			}
 			else
 			{
 				v6 = abs(v6);
-				sub_75D70((int8_t*)v1, v6);
+				sub_75D70((uint8_t*)v1, v6);
 			}
 			v2 += v6;
 			v1 += v6;

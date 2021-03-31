@@ -1315,21 +1315,21 @@ void sub_76260_read_intro_pallette(uint8_t  /*a1*/)
 
 	v0x = unk_17D838x;
 	v1 = 0;
-	/*result = */sub_75D70((int8_t*)&v4, 2u);
+	sub_75D70((uint8_t*)&v4, 2u);
 	if (v4 > 0u)
 	{
 		do
 		{
-			sub_75D70((int8_t*)&v6, 1u);
+			sub_75D70((uint8_t*)&v6, 1u);
 			//v0 += 3 * v6;
 			v0x += v6;
 			v5 = 0;
-			/*result = */sub_75D70((int8_t*)&v5, 1u);
+			sub_75D70((uint8_t*)&v5, 1u);
 			if (!v5)
 				v5 = 256;
 			for (v3 = 0; v3 < v5; v3++)//mybe read pallette
 			{
-				sub_75D70((int8_t*)v0x, 3u);
+				sub_75D70((uint8_t*)v0x, 3u);
 				//v0 += 3;
 				v0x++;
 			}
@@ -1404,7 +1404,7 @@ void sub_7C140_draw_text_background(int16_t x1, int16_t y1, int16_t x2, int16_t 
 			{
 				//x2d = y1d;
 				if (y1d + y2d >= 1)
-					DrawLine(x1d, y1d, x2d, y2d, a5);
+					DrawLine_2BC80(x1d, y1d, x2d, y2d, a5);
 			}
 		}
 	}
@@ -1602,7 +1602,7 @@ void sub_2BB40_draw_bitmap(int16_t posx, int16_t posy, posistruct_t tempposstr)/
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
 //----- (00075D70) --------------------------------------------------------
-void sub_75D70(int8_t* a1y, uint32_t a2)//256d70
+void sub_75D70(uint8_t* a1y, uint32_t a2)//256d70
 {
 	//unsigned int result; // eax
 
@@ -1618,12 +1618,12 @@ void sub_75D70(int8_t* a1y, uint32_t a2)//256d70
 // 17DB50: using guessed type int x_DWORD_17DB50;
 
 //----- (0002BC80) --------------------------------------------------------
-void DrawLine(int16_t posStartX, int16_t posStartY, int16_t posEndX, int16_t posEndY, uint8_t colorIdx)//20cc80
+void DrawLine_2BC80(int16_t posStartX, int16_t posStartY, int16_t posEndX, int16_t posEndY, uint8_t colorIdx)//20cc80
 {
-	DrawLine(posStartX, posStartY, posEndX, posEndY, 640, colorIdx);
+	DrawLine_2BC80(posStartX, posStartY, posEndX, posEndY, 640, colorIdx);
 }
 
-void DrawLine(int16_t posStartX, int16_t posStartY, int16_t posEndX, int16_t posEndY, uint16_t pitch, uint8_t colorIdx)//20cc80
+void DrawLine_2BC80(int16_t posStartX, int16_t posStartY, int16_t posEndX, int16_t posEndY, uint16_t pitch, uint8_t colorIdx)//20cc80
 {
 	uint8_t* temp_screen_buffer; // ST14_4
 
@@ -1632,7 +1632,7 @@ void DrawLine(int16_t posStartX, int16_t posStartY, int16_t posEndX, int16_t pos
 	else
 		DrawLineHighRes(posStartX, posStartY, posEndX, posEndY, pitch, colorIdx);
 
-	if (D41A0_BYTESTR_0.m_GameSettings.m_Display.m_uiScreenSize == 1)
+	if (D41A0_0.m_GameSettings.m_Display.m_uiScreenSize == 1)
 	{
 		temp_screen_buffer = pdwScreenBuffer;
 		pdwScreenBuffer = x_DWORD_E9C3C;

@@ -431,7 +431,7 @@ void sub_454F0(unsigned __int8 a1, unsigned __int8 a2);
 void sub_45600(unsigned __int8 a1);
 
 void SetStagetagForTermod_49830(type_str_2FECE* terrain);
-void sub_49290(type_str_2FECE* terrain, char a2);
+void sub_49290(type_str_2FECE* terrain, char a2, uint16_t width, uint16_t height);
 
 void sub_49F30();
 
@@ -461,8 +461,8 @@ signed int sub_369F0(/*signed int a1,*/ __int16 a2);
 //void qmemcpy(void* a, void* b, size_t c);
 void sub_2A340(/*int a1, type_str_0x6E8E* a2, type_str_0x6E8E* a3, int a4, *//*type_str_0x6E8E* a5, */type_event_0x6E8E* a6);
 void sub_2AA90(/*type_str_0x6E8E* a1, */type_event_0x6E8E* a2, type_event_0x6E8E* a3);
-void ClearGraphicsBuffer(void* ptrBuffer, uint16_t width, uint16_t height, char value);
-void DrawVolumnSettings(uint16_t width);
+void ClearGraphicsBuffer_72883(void* ptrBuffer, uint16_t width, uint16_t height, char value);
+void DrawVolumnSettings_303D0(uint16_t width);
 int _wcpp_1_unwind_leave__62(void); //weak
 //int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* a2, int32_t a3, int32_t a4, int a5, uint8_t a6, unsigned __int8 a7, uint32_t a8);//560cb0
 void sub_45DC0(/*uint8_t a1,*/ uint8_t a2, uaxis_2d a3, unsigned __int8 a4);
@@ -483,8 +483,8 @@ void sub_56D60(unsigned int a1, char a2);
 void sub_75200_VGA_Blit640(uint16_t height);
 void VGA_BlitAny(uint16_t width, uint16_t height, uint8_t* pScreenBuffer);
 void sub_7A060_get_mouse_and_keyboard_events();
-void DrawAndEventsInGame(uint32_t a3, signed int a4, __int16 a5);
-void GameEvents(uint16_t screenWidth, uint16_t screenHeight);
+void DrawAndEventsInGame_47560(uint32_t a3, signed int a4, __int16 a5);
+void GameEvents_51BB0(uint16_t screenWidth, uint16_t screenHeight);
 //x_DWORD /*__cdecl*/ toupper(x_DWORD); //weak
 void sub_55C60(/*int a1, int a2,*/ type_str_0x2BDE* a3);
 int32_t /*__cdecl*/ fix_filelength(int32_t);// weak
@@ -590,7 +590,7 @@ void CreateIndexes_6EB90(filearray_struct* a1);
 //type_str_0x6E8E* pre_sub_4A190(uint32_t adress, int16_t* a1,int type);
 type_event_0x6E8E* pre_sub_4A190_axis_3d(uint32_t adress, axis_3d* a1);//pre 22b190
 
-void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1, int type, uint16_t screenWidth, uint16_t screenHeight);//pre 22b190
+void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1, uint16_t screenWidth, uint16_t screenHeight);//pre 22b190
 
 //---------------------------
 

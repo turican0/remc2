@@ -3,7 +3,7 @@
 #ifndef MAIN_BASIC
 #define MAIN_BASIC
 
-#if !defined(__linux__) || defined(COMPILE_FOR_64BIT)
+#if (!defined(WIN32) && !defined(__linux__)) || defined(COMPILE_FOR_64BIT)
   #define TEST_x64//only for x64 testing
 #endif
 
@@ -532,8 +532,8 @@ void DrawHelpText_6FC50(__int16 a1);//250c50
 uint8_t sub_6FC10_letter_width();
 unsigned int sub_6FC80_pre_draw_text(char* a1, __int16 a2, __int16 a3, __int16 a4, unsigned __int8 a5);
 void sub_75D70(uint8_t* a1, uint32_t a2);
-void DrawLine(int16_t posStartX, int16_t posStartY, int16_t posEndX, int16_t posEndY, uint8_t colorIdx);
-void DrawLine(int16_t posStartX, int16_t posStartY, int16_t posEndX, int16_t posEndY, uint16_t pitch, uint8_t colorIdx);
+void DrawLine_2BC80(int16_t posStartX, int16_t posStartY, int16_t posEndX, int16_t posEndY, uint8_t colorIdx);
+void DrawLine_2BC80(int16_t posStartX, int16_t posStartY, int16_t posEndX, int16_t posEndY, uint16_t pitch, uint8_t colorIdx);
 void sub_2BC10_draw_text(const char* textbuffer, int16_t posx, int16_t posy, uint8_t color);//20cc10
 void sub_6EF10_set_mouse_minmax(__int16 a1, signed __int16 a2, __int16 a3, signed __int16 a4);
 void sub_7FB90_draw_text(char* a1, int16_t a2, int16_t a3, uint8_t a4);

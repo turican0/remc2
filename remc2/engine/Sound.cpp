@@ -2975,7 +2975,7 @@ char ReadAndDecompressSound(FILE* file, unsigned __int8 a2)//2654f0
 	sub_83E80_freemem4((uint8_t*)shadow_str_E37A0_sound_buffer2);
 	//64xfix
 
-	sub_844A0_sound_proc5();
+	sub_844A0_sound_proc5(index_E37A4_CountOfSounds);
 	x_BYTE_E3798_sound_active2 = 1;
 	return 1;
 }

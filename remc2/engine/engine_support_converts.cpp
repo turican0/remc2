@@ -216,7 +216,7 @@ void convert_struct_to_array_axis_3d(axis_3d* input, uint8_t* output) {
 }
 void convert_struct_to_array_axis_4d(axis_4d* input, uint8_t* output) {
 	//int16_t aa;
-	memcpy(output + 0x0, &input->rotation2, 2);
+	memcpy(output + 0x0, &input->yaw, 2);
 	//int16_t bb;
 	memcpy(output + 0x2, &input->xshift, 2);
 	//int16_t cc;
