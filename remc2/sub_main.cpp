@@ -118,6 +118,14 @@ bool config_LOAD_EDITED_LEVEL = false;
 #define OLD_PARTICLES
 
 /*
+MovePlayer_57FA0(&x_WORD_EB398ar, v4, 0, v3);
+(char*)&D41A0_0+0x13de2
+addprocedurestop(0x238cf3, 0x348, true, true, 0x356038 + 0x13de2, 0x12345678);
+
+2a000000 - ok
+d6ff0000
+
+
 test void sub_71F20(type_x_DWORD_E9C28_str* a1y, subtype_x_DWORD_E9C28_str* a2x)//252f20
 arrays for fix:
 fix memcpy,memset, malloc
@@ -68946,11 +68954,19 @@ void sub_57B20(type_str_0x2BDE* a1x, type_event_0x6E8E* a2x)//238b20 //copy posi
 }
 // D41A4: using guessed type int x_DWORD_D41A4;
 
+int debug_sub_57CF0 = 0;
 //----- (00057CF0) --------------------------------------------------------
 void sub_57CF0(type_event_0x6E8E* entity, axis_3d* position)//238cf0
 {
 #ifdef DEBUG_SEQUENCES2
 	add_compare(0x238cf3, debugafterload,0x348);
+	if (debug_sub_57CF0 >= 0x348)
+	{
+		debug_sub_57CF0++;
+		debug_sub_57CF0--;
+	}
+	debug_sub_57CF0++;
+
 #endif //DEBUG_SEQUENCES2
 
 	if (((entity->axis_0x4C_76.x & 0xff00) == (position->x & 0xff00)) && ((entity->axis_0x4C_76.y & 0xff00) == (position->y & 0xff00)))
