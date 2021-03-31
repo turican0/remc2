@@ -484,7 +484,8 @@ extern "C" {
 		int x, int y, SDL_Rect* clip);
 	int kiss_rendertext(SDL_Renderer* renderer, char* text, int x, int y,
 		kiss_font font, SDL_Color color);
-	int kiss_fillrect(SDL_Renderer* renderer, SDL_Rect* rect, SDL_Color color);
+	//int kiss_fillrect(SDL_Renderer* renderer, SDL_Rect* rect, SDL_Color color);
+	int kiss_fillrect2(SDL_Renderer* renderer, SDL_Rect* rect, SDL_Color color);
 	int kiss_decorate(SDL_Renderer* renderer, SDL_Rect* rect, SDL_Color color,
 		int edge);
 	int kiss_image_new(kiss_image* image, char* fname, kiss_array* a,

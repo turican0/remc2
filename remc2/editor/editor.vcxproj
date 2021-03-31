@@ -211,10 +211,13 @@
     <ClCompile Include="..\..\SDL-Mixer-X-master\src\mixer_x_deprecated.c" />
     <ClCompile Include="..\..\SDL-Mixer-X-master\src\music.c" />
     <ClCompile Include="..\..\SDL-Mixer-X-master\src\vb6_binding\vb6_sdl_binds.c" />
-    <ClCompile Include="..\Animation.cpp" />
-    <ClCompile Include="..\Basic.cpp" />
+    <ClCompile Include="..\engine\Animation.cpp" />
+    <ClCompile Include="..\engine\Basic.cpp" />
     <ClCompile Include="..\engine\engine_support.cpp" />
+    <ClCompile Include="..\engine\engine_support_converts.cpp" />
     <ClCompile Include="..\engine\read_config.cpp" />
+    <ClCompile Include="..\engine\Sound.cpp" />
+    <ClCompile Include="..\engine\Terrain.cpp" />
     <ClCompile Include="..\portability\dirent.c" />
     <ClCompile Include="..\portability\port_filesystem.cpp" />
     <ClCompile Include="..\portability\port_inputs.cpp" />
@@ -223,9 +226,7 @@
     <ClCompile Include="..\portability\port_sdl_vga_mouse.cpp" />
     <ClCompile Include="..\portability\port_time.cpp" />
     <ClCompile Include="..\portability\xmi2mid.cpp" />
-    <ClCompile Include="..\Sound.cpp" />
     <ClCompile Include="..\sub_main.cpp" />
-    <ClCompile Include="..\Terrain.cpp" />
     <ClCompile Include="..\utilities\BitmapIO.cpp" />
     <ClCompile Include="..\utilities\DataFileIO.cpp" />
     <ClCompile Include="editor.cpp" />

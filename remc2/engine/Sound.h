@@ -7,6 +7,17 @@
 
 #include "Basic.h"
 
+#pragma pack (1)
+typedef struct {//lenght 12
+	int16_t word_0;
+	int16_t word_1;
+	int16_t word_2;
+	int16_t word_3;
+	int16_t word_4;
+	int16_t word_5;
+}type_F4FE0;
+#pragma pack (16)
+
 extern char x_BYTE_E3799_sound_card;
 extern char x_BYTE_E37FD;
 extern char x_BYTE_E3798_sound_active2;
@@ -37,7 +48,7 @@ extern type_E3808_music_header* str_E3808_music_header;
 //extern int8_t* x_DWORD_E380C; // weak
 //extern int index_E380C_MaxMusic;
 //extern uint8_t* x_DWORD_E3810_music_data; // weak
-extern type_E3810_music_data* str_E3810_music_data; // weak
+//extern type_E3810_music_data* str_E3810_music_data; // weak
 extern char x_BYTE_180C84_drivertype; // weak
 extern int16_t x_WORD_181B44; // weak
 
@@ -57,24 +68,12 @@ void sub_8E160_sound_proc15_startsequence(__int16 track, unsigned __int8 volume)
 // x_DWORD sprintf(x_DWORD, const char *, ...); weak
 void sub_8E410_sound_proc16_xmidivolume(int32_t master_volume);
 int sub_8E470_sound_proc17_volume(int a1);
-__int16 sub_8E673();
-__int16 sub_8E736();
-int sub_8E799();
-int sub_8E7B7();
-int sub_8E7D5();
-void sub_8E7FC();
-__int16 sub_8E871();
-int sub_8E948();
-char sub_8E9EF();
-void /*__fastcall*/ sub_8EA7B(int a1, unsigned __int16 a2);
 signed int LoadMusic(int channel);
 void GetMusicSequenceCount();
 char LoadMusicTrack(FILE* file, unsigned __int8 drivernumber);
-int sub_8F023(FILE* a1x, int a2, unsigned int a3);
 int sub_8F0AB(FILE* a1, /*int a2,*/ int a3);
-HSAMPLE* sub_8F100_sound_proc19(uint32_t a1, __int16 a2, int a3, int a4, unsigned __int16 a5, char a6, unsigned __int8 a7);
+void sub_8F100_sound_proc19(uint32_t a1, __int16 a2, int a3, int a4, unsigned __int16 a5, char a6, unsigned __int8 a7);
 void sub_8F420_sound_proc20(int a1, __int16 a2);
-int sub_8F4B0(); // weak
 void sub_8F710_sound_proc21(int a1, __int16 a2, signed int a3, unsigned __int8 a4, char a5);
 void sub_8F850_sound_proc22();
 
@@ -192,7 +191,6 @@ VDI_CALL sub_9F6D0(int* a1, __int16 a2);
 
 void sub_A0EEC_s_plus2();
 void sub_A0EF9_s_minus2();
-// int sub_A0F06(int a1, int a2, int a3, int a4, int a5, int a6, int a7);
 char sub_A102C(int a1);
 char sub_A105C(unsigned int a1);
 void sub_A108F();
@@ -360,7 +358,7 @@ HMDIDRIVER sub_A77D0_AIL_API_install_MDI_INI(char* filename, IO_PARMS* IO);
 
 __int16 sub_98B2C(unsigned __int8 a1, int a2);
 
-int sub_9E2B0(char* a1, int a2, x_DWORD* a3);
+int sub_9E2B0(char* a1, int a2/*, x_DWORD* a3*/);
 
 signed int sub_9D4D0(int a1, uint8_t** a2, uint32_t* a3, uint32_t* a4);//27e4d0
 

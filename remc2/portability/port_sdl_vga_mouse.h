@@ -54,6 +54,6 @@ void VGA_mouse_clear_keys();
 void VGA_cleanKeyBuffer();
 
 extern uint8_t LastPressedKey_1806E4; // weak//3516e4
-extern int8_t x_BYTE_180664[128]; // idb
+extern int8_t pressedKeys_180664[128]; // idb
 
 #endif //PORT_SDL_VGA_MOUSE

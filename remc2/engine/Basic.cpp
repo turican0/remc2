@@ -1,12 +1,15 @@
 ﻿#include "Basic.h"
+#include "engine_support.h"
 
 char gameDataPath[MAX_PATH];
 char cdDataPath[MAX_PATH];
 char bigGraphicsPath[MAX_PATH];
 
-uint8_t x_DWORD_17ECA0[4608]; // weak
+//lenght 18
+//type_17ECA0 str_17ECA0[256]; // weak
+//uint8_t x_DWORD_17ECA0[4608]; // weak
 
-uint8_t unk_17D838[0x300]; // weak
+TColor unk_17D838x[0x100]; // weak
 
 int x_DWORD_E3E2C = 0; // weak
 
@@ -84,7 +87,7 @@ char* x_DWORD_D41D0 = 0; // weak
 __int16 x_WORD_E36D4 = 0; // weak
 char x_BYTE_EB3B6; // weak
 type_x_DWORD_17DE38str x_DWORD_17DE38str;
-uint8_t* x_DWORD_E9C38_smalltit;
+uint8_t* x_DWORD_E9C38_smalltit;//*(x_DWORD*)(x_DWORD_E9C38_smalltit + 36964)
 
 int help_VGA_type_resolution = 0;
 
@@ -111,22 +114,22 @@ int filearrayindex_ZERO4 = 9;
 uint8_t* SEARCH_BEGIN_BUFFER = 0;
 uint8_t* SEARCH_END_BUFFER = 0;
 uint8_t* FONTS0DAT_BEGIN_BUFFER = 0;
-uint8_t* FONTS0TAB_BEGIN_BUFFER = 0;
-uint8_t* FONTS0TAB_END_BUFFER = 0;
+posistruct2_t* FONTS0TAB_BEGIN_BUFFER = 0;
+posistruct2_t* FONTS0TAB_END_BUFFER = 0;
 uint8_t* FONTS1DAT_BEGIN_BUFFER = 0;//2baa94
-uint8_t* FONTS1TAB_BEGIN_BUFFER = 0;//2bab24
-uint8_t* FONTS1TAB_END_BUFFER = 0;//2bab04
+posistruct2_t* FONTS1TAB_BEGIN_BUFFER = 0;//2bab24
+posistruct2_t* FONTS1TAB_END_BUFFER = 0;//2bab04
 type_TMAPS00TAB_BEGIN_BUFFER* str_TMAPS00TAB_BEGIN_BUFFER;
 //uint8_t* TMAPS00TAB_BEGIN_BUFFER = 0;//2c7ed0
 TColor* str_PALDATA_BEGIN_BUFFER = 0;//2bb3c8
 TColor* str_PALMEM_BEGIN_BUFFER = 0;//6d654d
 uint8_t* POINTERSDAT_BEGIN_BUFFER = 0;//2bc390
-uint8_t* POINTERSTAB_BEGIN_BUFFER = 0;//2bc394
-uint8_t* POINTERSTAB_END_BUFFER = 0;//2bc388*/
+posistruct2_t* POINTERSTAB_BEGIN_BUFFER = 0;//2bc394
+posistruct2_t* POINTERSTAB_END_BUFFER = 0;//2bc388*/
 
 uint8_t* BUILD00DAT_BEGIN_BUFFER = 0;
-uint8_t* BUILD00TAB_BEGIN_BUFFER = 0;
-uint8_t* BUILD00TAB_END_BUFFER = 0;
+posistruct2_t* BUILD00TAB_BEGIN_BUFFER = 0;
+posistruct2_t* BUILD00TAB_END_BUFFER = 0;
 
 uint8_t* ETEXT_BEGIN_BUFFER = 0;
 uint8_t* FTEXT_BEGIN_BUFFER = 0;
@@ -149,16 +152,16 @@ uint8_t* WSCREEN_END_BUFFER = 0;
 uint8_t* BSCREEN2_END_BUFFER = 0;
 
 uint8_t* MSPRD00DAT_BEGIN_BUFFER = 0;
-uint8_t* MSPRD00TAB_BEGIN_BUFFER = 0;
-uint8_t* MSPRD00TAB_END_BUFFER = 0;
+posistruct2_t* MSPRD00TAB_BEGIN_BUFFER = 0;
+posistruct2_t* MSPRD00TAB_END_BUFFER = 0;
 
 uint8_t* HSPRD00DAT_BEGIN_BUFFER = 0;
-uint8_t* HSPRD00TAB_BEGIN_BUFFER = 0;
-uint8_t* HSPRD00TAB_END_BUFFER = 0;
+posistruct2_t* HSPRD00TAB_BEGIN_BUFFER = 0;
+posistruct2_t* HSPRD00TAB_END_BUFFER = 0;
 
 uint8_t* HFONT3DAT_BEGIN_BUFFER = 0;
-uint8_t* HFONT3TAB_BEGIN_BUFFER = 0;
-uint8_t* HFONT3TAB_END_BUFFER = 0;
+posistruct2_t* HFONT3TAB_BEGIN_BUFFER = 0;
+posistruct2_t* HFONT3TAB_END_BUFFER = 0;
 
 uint8_t* CLRD0DAT_BEGIN_BUFFER = 0;
 
@@ -175,6 +178,7 @@ posistruct_t* posistruct10;//fix it
 posistruct_t* posistruct11;//fix it
 
 uint8_t* ZERO_BUFFER = 0;
+posistruct2_t* ZERO_BUFFER_PST2 = 0;
 
 posistruct_t* x_DWORD_EA3D4; // weak
 
@@ -182,14 +186,14 @@ filearray_struct filearray_2aa18c[] = {
 	{ &POINTERSTAB_BEGIN_BUFFER,&POINTERSTAB_END_BUFFER,&POINTERSDAT_BEGIN_BUFFER,&posistruct1 },
 { &FONTS0TAB_BEGIN_BUFFER,&FONTS0TAB_END_BUFFER,&FONTS0DAT_BEGIN_BUFFER,&posistruct2 },
 { &FONTS1TAB_BEGIN_BUFFER,&FONTS1TAB_END_BUFFER,&FONTS1DAT_BEGIN_BUFFER,&posistruct3 },
-{ &ZERO_BUFFER,&ZERO_BUFFER,&ZERO_BUFFER,&posistruct4 },
+{ &ZERO_BUFFER_PST2,&ZERO_BUFFER_PST2,&ZERO_BUFFER,&posistruct4 },
 { &MSPRD00TAB_BEGIN_BUFFER,&MSPRD00TAB_END_BUFFER,&MSPRD00DAT_BEGIN_BUFFER,&posistruct5 },
-{ &ZERO_BUFFER,&ZERO_BUFFER,&ZERO_BUFFER,&posistruct6 },
+{ &ZERO_BUFFER_PST2,&ZERO_BUFFER_PST2,&ZERO_BUFFER,&posistruct6 },
 { &HFONT3TAB_BEGIN_BUFFER,&HFONT3TAB_END_BUFFER,&HFONT3DAT_BEGIN_BUFFER,&posistruct7 },
-{ &ZERO_BUFFER,&ZERO_BUFFER,&ZERO_BUFFER,&posistruct8 },
+{ &ZERO_BUFFER_PST2,&ZERO_BUFFER_PST2,&ZERO_BUFFER,&posistruct8 },
 { &BUILD00TAB_BEGIN_BUFFER,&BUILD00TAB_END_BUFFER,&BUILD00DAT_BEGIN_BUFFER,&posistruct9 },
-{ &ZERO_BUFFER,&ZERO_BUFFER,&ZERO_BUFFER,&posistruct10 },
-{ &ZERO_BUFFER,&ZERO_BUFFER,&ZERO_BUFFER,&posistruct11 }
+{ &ZERO_BUFFER_PST2,&ZERO_BUFFER_PST2,&ZERO_BUFFER,&posistruct10 },
+{ &ZERO_BUFFER_PST2,&ZERO_BUFFER_PST2,&ZERO_BUFFER,&posistruct11 }
 };
 
 filearray_struct x_DWORD_E9B20[4] = { filearray_2aa18c[filearrayindex_FONTS0DATTAB],filearray_2aa18c[filearrayindex_MSPRDDATTAB],
@@ -307,107 +311,126 @@ uint8_t* LANG_BEGIN_BUFFER = 0;
 
 char* x_DWORD_D41BC_langbuffer; // fix it
 
-Pathstruct xasearchd_2bac30 = { "*SearchD\0",&SEARCH_BEGIN_BUFFER,&SEARCH_END_BUFFER,0x1000,NULL };
+Pathstruct xasearchd_2bac30 = { "*SearchD\0",(uint8_t**)&SEARCH_BEGIN_BUFFER,&SEARCH_END_BUFFER,0x1000,0 };
 //#define psxasearchd_2bac30 0
-Pathstruct xafonts0dat = { "DATA/FONT0.DAT\0",&FONTS0DAT_BEGIN_BUFFER,NULL,NULL,NULL };
+Pathstruct xafonts0dat = { "DATA/FONT0.DAT\0",&FONTS0DAT_BEGIN_BUFFER,NULL,0,0 };
 //#define psxafonts0dat 1
-Pathstruct xafonts0tab = { "DATA/FONT0.TAB\0",&FONTS0TAB_BEGIN_BUFFER,&FONTS0TAB_END_BUFFER,NULL,NULL };
+Pathstruct xafonts0tab = { "DATA/FONT0.TAB\0",(uint8_t**)&FONTS0TAB_BEGIN_BUFFER,(uint8_t**)&FONTS0TAB_END_BUFFER,0,0 };
 //#define psxafonts0tab 2
-Pathstruct xafonts1dat = { "DATA/FONT1.DAT\0",&FONTS1DAT_BEGIN_BUFFER,NULL,NULL,NULL };
+Pathstruct xafonts1dat = { "DATA/FONT1.DAT\0",&FONTS1DAT_BEGIN_BUFFER,NULL,0,0 };
 //#define psxafonts1dat 3
-Pathstruct xafonts1tab = { "DATA/FONT1.TAB\0",&FONTS1TAB_BEGIN_BUFFER,&FONTS1TAB_END_BUFFER,NULL,NULL };
+Pathstruct xafonts1tab = { "DATA/FONT1.TAB\0",(uint8_t**)&FONTS1TAB_BEGIN_BUFFER,(uint8_t**)&FONTS1TAB_END_BUFFER,0,0 };
 //#define psxafonts1tab 4
-Pathstruct xadatatmaps00tab = { "DATA/TMAPS0-0.TAB",(uint8_t**)&str_TMAPS00TAB_BEGIN_BUFFER,NULL,NULL,NULL };
+Pathstruct xadatatmaps00tab = { "DATA/TMAPS0-0.TAB",(uint8_t**)&str_TMAPS00TAB_BEGIN_BUFFER,NULL,0,0 };
 //#define psxadatatmaps00tab 5
-Pathstruct xapaldata = { "*PalData\0",(uint8_t**)&str_PALDATA_BEGIN_BUFFER,NULL,0x400,NULL };
+Pathstruct xapaldata = { "*PalData\0",(uint8_t**)&str_PALDATA_BEGIN_BUFFER,NULL,0x400,0 };
 //#define psxapaldata 6
-Pathstruct xapalmem = { "*PalMem\0",(uint8_t**)&str_PALMEM_BEGIN_BUFFER,NULL,NULL,NULL };
+Pathstruct xapalmem = { "*PalMem\0",(uint8_t**)&str_PALMEM_BEGIN_BUFFER,NULL,0,0 };
 //#define psxapalmem 7
-Pathstruct xadatapointersdat = { "DATA/POINTERS.DAT\0",&POINTERSDAT_BEGIN_BUFFER,NULL,NULL,NULL };
+Pathstruct xadatapointersdat = { "DATA/POINTERS.DAT\0",&POINTERSDAT_BEGIN_BUFFER,NULL,0,0 };
 //#define psxadatapointersdat 8
-Pathstruct xadatapointerstab = { "DATA/POINTERS.TAB\0",&POINTERSTAB_BEGIN_BUFFER,&POINTERSTAB_END_BUFFER,NULL,NULL };
+Pathstruct xadatapointerstab = { "DATA/POINTERS.TAB\0",(uint8_t**)&POINTERSTAB_BEGIN_BUFFER,(uint8_t**)&POINTERSTAB_END_BUFFER,0,0 };
 //#define psxadatapointerstab 9
-Pathstruct xazero = { "\0",NULL,NULL,NULL,NULL };
+Pathstruct xazero = { "\0",NULL,NULL,0,0 };
 //#define psxazero0 10
-Pathstruct xadatabuild00dat = { "DATA/BUILD0-0.DAT\0",&BUILD00DAT_BEGIN_BUFFER,NULL,NULL,NULL };
+Pathstruct xadatabuild00dat = { "DATA/BUILD0-0.DAT\0",&BUILD00DAT_BEGIN_BUFFER,NULL,0,0 };
 //#define psxadatabuild00dat 11
-Pathstruct xadatabuild00tab = { "DATA/BUILD0-0.TAB\0",&BUILD00TAB_BEGIN_BUFFER,&BUILD00TAB_END_BUFFER,NULL,NULL };
+Pathstruct xadatabuild00tab = { "DATA/BUILD0-0.TAB\0",(uint8_t**)&BUILD00TAB_BEGIN_BUFFER,(uint8_t**)&BUILD00TAB_END_BUFFER,0,0 };
 //#define psxadatabuild00tab 12
 //zero
 //#define psxazero1 13
-Pathstruct xadataetextdat = { "DATA/ETEXT.DAT\0",&ETEXT_BEGIN_BUFFER,NULL,NULL,NULL };
+Pathstruct xadataetextdat = { "DATA/ETEXT.DAT\0",&ETEXT_BEGIN_BUFFER,NULL,0,0 };
 //#define psxadataetextdat 14
 //zero
 //#define psxazero2 15
-Pathstruct xadataftextdat = { "DATA/FTEXT.DAT\0",&FTEXT_BEGIN_BUFFER,NULL,NULL,NULL };
+Pathstruct xadataftextdat = { "DATA/FTEXT.DAT\0",&FTEXT_BEGIN_BUFFER,NULL,0,0 };
 //#define psxadataftextdat 16
 //zero
 //#define psxazero3 17
-Pathstruct xadatagtextdat = { "DATA/GTEXT.DAT\0",&GTEXT_BEGIN_BUFFER,NULL,NULL,NULL };
+Pathstruct xadatagtextdat = { "DATA/GTEXT.DAT\0",&GTEXT_BEGIN_BUFFER,NULL,0,0 };
 //#define psxadatagtextdat 18
 //zero
 //#define psxazero4 19
-Pathstruct xadataitextdat = { "DATA/ITEXT.DAT\0",&ITEXT_BEGIN_BUFFER,NULL,NULL,NULL };
+Pathstruct xadataitextdat = { "DATA/ITEXT.DAT\0",&ITEXT_BEGIN_BUFFER,NULL,0,0 };
 //#define psxadataitextdat 20
 //zero
 //#define psxazero5 21
-Pathstruct xadatablock16dat = { "DATA/BLOCK16.DAT\0",&BLOCK16DAT_BEGIN_BUFFER,NULL,NULL,NULL };
+Pathstruct xadatablock16dat = { "DATA/BLOCK16.DAT\0",&BLOCK16DAT_BEGIN_BUFFER,NULL,0,0 };
 //#define psxadatablock16dat 22
-Pathstruct xadatablock32dat = { "DATA/BLOCK32.DAT\0",&BLOCK32DAT_BEGIN_BUFFER,NULL,NULL,NULL };
+Pathstruct xadatablock32dat = { "DATA/BLOCK32.DAT\0",&BLOCK32DAT_BEGIN_BUFFER,NULL,0,0 };
 //#define psxadatablock32dat 23
 //zero
 //#define psxazero6 24
-Pathstruct xabscreen = { "*BScreen\0",&BSCREEN_BEGIN_BUFFER,&BSCREEN_END_BUFFER,0x011508,NULL };
+Pathstruct xabscreen = { "*BScreen\0",&BSCREEN_BEGIN_BUFFER,&BSCREEN_END_BUFFER,0x011508,0 };
 //#define psxabscreen 25
-Pathstruct xadatapald0dat = { "DATA/PALD-0.DAT\0",&PALD0DAT_BEGIN_BUFFER,NULL,NULL,NULL };
+Pathstruct xadatapald0dat = { "DATA/PALD-0.DAT\0",&PALD0DAT_BEGIN_BUFFER,NULL,0,0 };
 //#define psxadatapald0dat 26
 //zero
 //#define psxazero7 27
-Pathstruct xawscreen_351628 = { "*WScreen\0",&WSCREEN_BEGIN_BUFFER,&WSCREEN_END_BUFFER,0x04b100,NULL };
+Pathstruct xawscreen_351628 = { "*WScreen\0",&WSCREEN_BEGIN_BUFFER,&WSCREEN_END_BUFFER,0x04b100,0 };
 //#define psxawscreen_351628 28
-Pathstruct xabscreen2 = { "*BScreen\0",&x_DWORD_E9C38_smalltit,&BSCREEN2_END_BUFFER,0x11170/*0x011508*/,NULL };
+Pathstruct xabscreen2 = { "*BScreen\0",&x_DWORD_E9C38_smalltit,&BSCREEN2_END_BUFFER,0x11170/*0x011508*/,0 };
 //#define psxabscreen2 29
 
-Pathstruct xadatapald0dat2 = { "DATA/PALD-0.DAT\0",&PALD0DAT2_BEGIN_BUFFER,NULL,NULL,NULL };
+Pathstruct xadatapald0dat2 = { "DATA/PALD-0.DAT\0",&PALD0DAT2_BEGIN_BUFFER,NULL,0,0 };
 //#define psxadatapald0dat2 30
 //zero
 //#define psxazero8 31
-Pathstruct xadatamsprd00dat = { "DATA/MSPRD0-0.DAT\0",&MSPRD00DAT_BEGIN_BUFFER,NULL,NULL,NULL };
+Pathstruct xadatamsprd00dat = { "DATA/MSPRD0-0.DAT\0",&MSPRD00DAT_BEGIN_BUFFER,NULL,0,0 };
 //#define psxadatamsprd00dat 32
-Pathstruct xadatamsprd00tab = { "DATA/MSPRD0-0.TAB\0",&MSPRD00TAB_BEGIN_BUFFER,&MSPRD00TAB_END_BUFFER,NULL,NULL };
+Pathstruct xadatamsprd00tab = { "DATA/MSPRD0-0.TAB\0",(uint8_t**)&MSPRD00TAB_BEGIN_BUFFER,(uint8_t**)&MSPRD00TAB_END_BUFFER,0,0 };
 //#define psxadatamsprd00tab 33
 //zero
 //#define psxazero9 34
-Pathstruct xadatahsprd00dat = { "DATA/HSPRD0-0.DAT\0",&HSPRD00DAT_BEGIN_BUFFER,NULL,NULL,NULL };
+Pathstruct xadatahsprd00dat = { "DATA/HSPRD0-0.DAT\0",&HSPRD00DAT_BEGIN_BUFFER,NULL,0,0 };
 //#define psxadatahsprd00dat 35
-Pathstruct xadatahsprd00tab = { "DATA/HSPRD0-0.TAB\0",&HSPRD00TAB_BEGIN_BUFFER,&HSPRD00TAB_END_BUFFER,NULL,NULL };
+Pathstruct xadatahsprd00tab = { "DATA/HSPRD0-0.TAB\0",(uint8_t**)&HSPRD00TAB_BEGIN_BUFFER,(uint8_t**)&HSPRD00TAB_END_BUFFER,0,0 };
 //#define psxadatahsprd00tab 36
-Pathstruct xadatahfont3dat = { "DATA/HFONT3.DAT\0",&HFONT3DAT_BEGIN_BUFFER,NULL,NULL,NULL };
+Pathstruct xadatahfont3dat = { "DATA/HFONT3.DAT\0",&HFONT3DAT_BEGIN_BUFFER,NULL,0,0 };
 //#define psxadatahfont3dat 37
-Pathstruct xadatahfont3tab = { "DATA/HFONT3.TAB\0",&HFONT3TAB_BEGIN_BUFFER,&HFONT3TAB_END_BUFFER,NULL,NULL };
+Pathstruct xadatahfont3tab = { "DATA/HFONT3.TAB\0",(uint8_t**)&HFONT3TAB_BEGIN_BUFFER,(uint8_t**)&HFONT3TAB_END_BUFFER,0,0 };
 //#define psxadatahfont3tab 38
 //zero
 //#define psxazero10 39
-Pathstruct xadataclrd0dat = { "DATA/CLRD-0.DAT\0",&CLRD0DAT_BEGIN_BUFFER,NULL,NULL,NULL };
+Pathstruct xadataclrd0dat = { "DATA/CLRD-0.DAT\0",&CLRD0DAT_BEGIN_BUFFER,NULL,0,0 };
 //#define psxadataclrd0dat 40
 //zero
 //#define psxazero11 41
-Pathstruct xadataspellsdatx = { "DATA/SPELLS.DAT\0",&SPELLS_BEGIN_BUFFER_ptr,NULL,NULL,NULL };
+Pathstruct xadataspellsdatx = { "DATA/SPELLS.DAT\0",&SPELLS_BEGIN_BUFFER_ptr,NULL,0,0 };
 //#define psxadataspellsdat 42
 //zero
 //#define psxazero12 43
-Pathstruct xadatalang = { "",(uint8_t**)&x_DWORD_D41BC_langbuffer,&LANG_BEGIN_BUFFER,NULL,NULL };
+Pathstruct xadatalang = { "",(uint8_t**)&x_DWORD_D41BC_langbuffer,&LANG_BEGIN_BUFFER,0,0 };
 //#define psxadatalangbuffer 44
 //zero
 //#define psxazero13 45
-Pathstruct xadatatables = { "",(uint8_t**)&x_DWORD_D41BC_langbuffer,&LANG_BEGIN_BUFFER,NULL,NULL };
+Pathstruct xadatatables = { "",(uint8_t**)&x_DWORD_D41BC_langbuffer,&LANG_BEGIN_BUFFER,0,0 };
 //#define psxadatalangbuffer2 46
 //zero
 //#define psxazero14 47
 
 //----- (00083E80) --------------------------------------------------------
-void sub_83E80_freemem4(uint8_t* a1)//264e80
+void sub_83E80_freemem4(uint8_t* ptr)//264e80
 {
+	/*if (*ptr != NULL)
+	{
+		free((void*)*ptr);
+		*ptr = NULL;
+	}
+	
+	or
+
+	free((void*)ptr);
+
+	may must rewrite with garbage collector
+	*/
+
+	//
+
+	//if (*a1)x_free((void*)*a1);
+	//*a1 = NULL;
+	//return result;
+	/*
 	uint8_t* v1; // eax
 	char v2; // bl
 	int* i; // ebx
@@ -418,32 +441,24 @@ void sub_83E80_freemem4(uint8_t* a1)//264e80
 		v2 = 0;
 		while (v1)
 		{
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
 			if ((int)a1 == v1[0])//fix
 			{
 				v2 = 1;
 				*((x_BYTE*)v1 + 16) = 0;
 				break;
 			}
-#endif
 			v1 = (uint8_t*)(int*)v1[2];
 		}
 		if (v2 == 1)
 		{
 			for (i = (int*)&x_DWORD_17ECA0; i; i = (int*)i[2])
 			{
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
 				if (!*((x_BYTE*)i + 16))
 					sub_84000((int)i);
-#endif
 			}
 		}
 		//sub_85350(); //fix
-	}
+	}*/
 }
 // 17ECA0: using guessed type int x_DWORD_17ECA0;
 
@@ -494,6 +509,10 @@ void qmemcpy(void* a, void* b, size_t c) {
 //----- (0009D490) --------------------------------------------------------
 int sub_9D490_free4(void* a1, int a2)//27e490
 {
+	//fix
+	//a2 may be must used
+	a2 = 0;//
+	//fix
 	int result; // eax
 
 	if (a1)
@@ -509,13 +528,13 @@ int sub_9D490_free4(void* a1, int a2)//27e490
 
 int x_free(void* ptr) { free(ptr); return 0; };
 
-void __writegsx_WORD(unsigned long Offset, unsigned short Data) { stub_fix_it(); };
-void __writegsx_DWORD(unsigned long Offset, unsigned long Data) { stub_fix_it(); };
-unsigned long __readgsx_DWORD(unsigned long Offset) { stub_fix_it(); return 0; };
-unsigned char __readgsx_BYTE(unsigned long Offset) { stub_fix_it(); return 0; };
-unsigned short __readgsx_WORD(unsigned long Offset) { stub_fix_it(); return 0; };
+void __writegsx_WORD(unsigned long  /*Offset*/, unsigned short  /*Data*/) { stub_fix_it(); };
+void __writegsx_DWORD(unsigned long  /*Offset*/, unsigned long  /*Data*/) { stub_fix_it(); };
+unsigned long __readgsx_DWORD(unsigned long  /*Offset*/) { stub_fix_it(); return 0; };
+unsigned char __readgsx_BYTE(unsigned long  /*Offset*/) { stub_fix_it(); return 0; };
+unsigned short __readgsx_WORD(unsigned long  /*Offset*/) { stub_fix_it(); return 0; };
 unsigned     int x__readeflags(void) { stub_fix_it(); return 0; };
-void x__writeeflags(unsigned Value) { stub_fix_it(); };
+void x__writeeflags(unsigned  /*Value*/) { stub_fix_it(); };
 unsigned int x__getcallerseflags(void) { stub_fix_it(); return 0; };
 
 x_DWORD dos_read(FILE*, char, x_DWORD, x_DWORD, x_DWORD) { stub_fix_it(); return 0; };// weak
@@ -552,6 +571,9 @@ int sub_9D770(char* a1, char a2)//27e770
 		if (v10 == NULL)
 			return 0;
 	}
+#ifdef TEST_x64
+	allert_error();
+#endif
 #ifdef COMPILE_FOR_64BIT // FIXME: 64bit
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
@@ -560,6 +582,9 @@ int sub_9D770(char* a1, char a2)//27e770
 #endif
 	if (!strcmp((const char*)&v13, "LX"))
 	{
+#ifdef TEST_x64
+	allert_error();
+#endif
 #ifdef COMPILE_FOR_64BIT // FIXME: 64bit
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
@@ -568,6 +593,9 @@ int sub_9D770(char* a1, char a2)//27e770
 		v12 = v4 + v8;
 		for (i = 0; i < v5; i++)
 		{
+#ifdef TEST_x64
+	allert_error();
+#endif
 #ifdef COMPILE_FOR_64BIT // FIXME: 64bit
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
@@ -618,7 +646,7 @@ signed int sub_9DE20_get_file_lenght(char* a1)//27ee20
 // A0855: using guessed type x_DWORD close(x_DWORD);
 // E3E2C: using guessed type int x_DWORD_E3E2C;
 
-FILE* x_open(char* path, int pmodex) {
+FILE* x_open(char* path, int  /*pmodex*/) {
 	return myopent(path, (char*)"rb");
 };
 
@@ -914,7 +942,7 @@ int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* a2, int32_t a3, int32_t a4
 		v10 = xy_DWORD_17DED4_spritestr[a8].height;//adress 260da7
 		v11 = v10 + a5;
 		v98 += v10;
-		v12 = sub_5BE80_test_pallette(x_DWORD_17DE38str.x_DWORD_17DE38, 0, 0, v86);
+		v12 = getPalletteIndex_5BE80(x_DWORD_17DE38str.x_DWORD_17DE38x, 0, 0, v86);
 		v86 = v12;
 		v13 = 6 * (a8 - 1);
 		v14 = xy_DWORD_17DED4_spritestr[v13 / 6].height;
@@ -959,7 +987,7 @@ int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* a2, int32_t a3, int32_t a4
 			{
 				if (a6 && a6 != 4 && a6 != 5)//adress 261091
 				{
-					sub_6FC50(1/*v86*/);
+					DrawHelpText_6FC50(1/*v86*/);
 					v25 = sub_6FC10_letter_width();
 				}
 				else
@@ -979,7 +1007,7 @@ int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* a2, int32_t a3, int32_t a4
 					{
 						if (a6 == 2)
 						{
-							sub_6FC50(1/*v86*/);
+							DrawHelpText_6FC50(1/*v86*/);
 							v31 = &pdwScreenBuffer[v26 + 640 * a1];
 							for (v32 = 0; v32 < xy_DWORD_17DED4_spritestr[274].height; v32++)
 							{
@@ -1042,7 +1070,7 @@ int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* a2, int32_t a3, int32_t a4
 					{
 						if (!a6)
 						{
-							v27 = sub_5BE80_test_pallette(x_DWORD_17DE38str.x_DWORD_17DE38, 0, 0, v86);
+							v27 = getPalletteIndex_5BE80(x_DWORD_17DE38str.x_DWORD_17DE38x, 0, 0, v86);
 							v86 = v27;
 							v28 = 6 * (a8 - 1);
 							v29 = xy_DWORD_17DED4_spritestr[v28 / 6].height;
@@ -1088,11 +1116,14 @@ int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* a2, int32_t a3, int32_t a4
 	{
 		if (a6 && a6 != 4)
 		{
-			sub_6FC50(1/*v86*/);
+			DrawHelpText_6FC50(1/*v86*/);
 			if (a6 == 2)
 			{
-				sub_6FC50(1/*v86*/);
+				DrawHelpText_6FC50(1/*v86*/);
 				v58 = (x_BYTE*)(v99 + 640 * a1);
+#ifdef TEST_x64
+	allert_error();
+#endif
 #ifdef COMPILE_FOR_64BIT // FIXME: 64bit
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
@@ -1117,7 +1148,7 @@ int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* a2, int32_t a3, int32_t a4
 				//HIWORD(v62) = HIWORD(xy_DWORD_17DED4_spritestr);
 				v62 = xy_DWORD_17DED4_spritestr[274].height;
 				v63 = v62 + a1;
-				sub_6FC50(1/*v86*/);
+				DrawHelpText_6FC50(1/*v86*/);
 				v64 = &pdwScreenBuffer[640 * v63 + v61];
 				for (v65 = 0; v65 < xy_DWORD_17DED4_spritestr[274].height; v65++)
 				{
@@ -1217,7 +1248,7 @@ int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* a2, int32_t a3, int32_t a4
 		{
 			if (!a6)
 			{
-				v45 = sub_5BE80_test_pallette(x_DWORD_17DE38str.x_DWORD_17DE38, 0, 0, v86);
+				v45 = getPalletteIndex_5BE80(x_DWORD_17DE38str.x_DWORD_17DE38x, 0, 0, v86);
 				v86 = v45;
 				v46 = 6 * (a8 - 1);
 				v47 = xy_DWORD_17DED4_spritestr[v46 / 6].height;
@@ -1232,7 +1263,7 @@ int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* a2, int32_t a3, int32_t a4
 				//HIWORD(v50) = HIWORD(xy_DWORD_17DED4_spritestr);
 				v50 = xy_DWORD_17DED4_spritestr[v46 / 6].height;
 				v51 = v50 + a1;
-				v52 = sub_5BE80_test_pallette(x_DWORD_17DE38str.x_DWORD_17DE38, 0, 0, v86);//?
+				v52 = getPalletteIndex_5BE80(x_DWORD_17DE38str.x_DWORD_17DE38x, 0, 0, v86);//?
 				v86 = v52;
 				v53 = xy_DWORD_17DED4_spritestr[v46 / 6].height;
 				v54 = v91;
@@ -1272,9 +1303,9 @@ void sub_7C120_draw_bitmap_640(int16_t posx, int16_t posy, posistruct_t tempstr)
 }
 
 //----- (00076260) --------------------------------------------------------
-void sub_76260_read_intro_pallette(uint8_t a1)
+void sub_76260_read_intro_pallette(uint8_t  /*a1*/)
 {
-	uint8_t* v0; // ebx
+	TColor* v0x; // ebx
 	int v1; // esi
 	//unsigned int result; // eax
 	unsigned __int16 v3; // di
@@ -1282,23 +1313,25 @@ void sub_76260_read_intro_pallette(uint8_t a1)
 	int32_t v5; // [esp+4h] [ebp-8h]
 	unsigned __int8 v6; // [esp+8h] [ebp-4h]
 
-	v0 = unk_17D838;
+	v0x = unk_17D838x;
 	v1 = 0;
-	/*result = */sub_75D70((uint8_t*)&v4, 2u);
+	sub_75D70((uint8_t*)&v4, 2u);
 	if (v4 > 0u)
 	{
 		do
 		{
-			sub_75D70(&v6, 1u);
-			v0 += 3 * v6;
+			sub_75D70((uint8_t*)&v6, 1u);
+			//v0 += 3 * v6;
+			v0x += v6;
 			v5 = 0;
-			/*result = */sub_75D70((uint8_t*)&v5, 1u);
+			sub_75D70((uint8_t*)&v5, 1u);
 			if (!v5)
 				v5 = 256;
 			for (v3 = 0; v3 < v5; v3++)//mybe read pallette
 			{
-				sub_75D70(v0, 3u);
-				v0 += 3;
+				sub_75D70((uint8_t*)v0x, 3u);
+				//v0 += 3;
+				v0x++;
 			}
 			v1++;
 		} while (v1 < v4);
@@ -1307,50 +1340,32 @@ void sub_76260_read_intro_pallette(uint8_t a1)
 }
 
 //----- (0005BE80) --------------------------------------------------------
-uint8_t sub_5BE80_test_pallette(uint8_t* pallette, uint8_t a2, uint8_t a3, uint8_t a4)//23ce80
+uint8_t getPalletteIndex_5BE80(TColor* pallettex, uint8_t red_color, uint8_t green_color, uint8_t blue_color)//23ce80
 {
-	//uint8_t *v4; // eax
 	uint16_t count_of_colors; // edx
-	int16_t v6; // ecx
-	//uint16_t v7; // edx
-	int16_t v9; // esi
-	int16_t v10; // esi
-	int16_t v11; // edi
-	//unsigned int v12; // [esp+0h] [ebp-8h]
-	uint8_t result; // [esp+4h] [ebp-4h]
-
-	//fix it
-	result = 0;
-	//fix it
-
-	//v4 = pallette;//1a7358
+	int16_t oldPalAmbient; // ecx
+	int16_t newPalAmbient; // esi
+	uint8_t result=0; // [esp+4h] [ebp-4h]
 	uint16_t pallette_index = 0;
 	if (x_WORD_180660_VGA_type_resolution & 6)
 		count_of_colors = 16;
 	else
 		count_of_colors = 256;
-	v6 = 9999;
-	//v12 = count_of_colors;
-	//v7 = 0;
-	//if (count_of_colors > 0)
-	//{
+	oldPalAmbient = 9999;
 	for (uint16_t i = 0; i < count_of_colors; i++)
 	{
-		v9 = a3 - pallette[pallette_index + 1];//eax[1]
-		v10 = (a2 - pallette[pallette_index]) * (a2 - pallette[pallette_index]) + v9 * v9;
-		v11 = a4 - pallette[pallette_index + 2];
-		if (v10 + v11 * v11 < v6)
+		newPalAmbient = (red_color - pallettex[pallette_index].red) * (red_color - pallettex[pallette_index].red) +
+			(green_color - pallettex[pallette_index].green)* (green_color - pallettex[pallette_index].green)+
+			(blue_color - pallettex[pallette_index].blue)* (blue_color - pallettex[pallette_index].blue);
+		if (newPalAmbient < oldPalAmbient)
 		{
-			v6 = v10 + v11 * v11;
+			oldPalAmbient = newPalAmbient;
 			result = i;
 		}
-		//v7++;
-		pallette_index += 3;
-	} //while (v7 < count_of_colors);
-//}
+		pallette_index++;
+	}
 	return result;
 }
-// 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
 //----- (0007C140) --------------------------------------------------------
 void sub_7C140_draw_text_background(int16_t x1, int16_t y1, int16_t x2, int16_t y2, unsigned __int8 a5)//25d140
@@ -1389,14 +1404,14 @@ void sub_7C140_draw_text_background(int16_t x1, int16_t y1, int16_t x2, int16_t 
 			{
 				//x2d = y1d;
 				if (y1d + y2d >= 1)
-					DrawLine(x1d, y1d, x2d, y2d, a5);
+					DrawLine_2BC80(x1d, y1d, x2d, y2d, a5);
 			}
 		}
 	}
 }
 
 //----- (0006FC50) --------------------------------------------------------
-void sub_6FC50(__int16 a1)//250c50 //font and graphics init
+void DrawHelpText_6FC50(__int16 a1)//250c50 //font and graphics init
 {
 	//int result; // eax
 	posistruct_t* v2; // edx
@@ -1448,7 +1463,7 @@ unsigned int sub_6FC80_pre_draw_text(char* a1, __int16 a2, __int16 a3, __int16 a
 void sub_417A0_install_pal_and_mouse_minmax()//2227a0
 {
 	//sub_90810();
-	sub_41A90_VGA_pallette_install(*xadatapald0dat2.var28_begin_buffer);
+	sub_41A90_VGA_pallette_install((TColor*)*xadatapald0dat2.var28_begin_buffer);
 	sub_6EF10_set_mouse_minmax(0, 640, 0, 400);
 }
 // EA3D8: using guessed type int *xadatapald0dat2.var28_begin_buffer;
@@ -1497,6 +1512,27 @@ uint32_t sub_7FAE0_draw_text(char* text, int16_t a2, int16_t a3, int16_t posy, u
 //----- (00090478) --------------------------------------------------------
 void sub_90478_VGA_Blit320()//271478
 {
+#ifdef DEBUG_SEQUENCES
+	uint8_t origbyte20 = 0;
+	uint8_t remakebyte20 = 0;
+	int comp20;
+	if (debugafterload)
+	{
+		//comp20 = compare_with_sequence((char*)"0022860F-002DC4E0", (uint8_t*)x_BYTE_10B4E0_terraintype, 0x2dc4e0, debugcounter_47560, 0x70000, 0x10000, &origbyte20, &remakebyte20);
+		//comp20 = compare_with_sequence((char*)"0022860F-002DC4E0", (uint8_t*)x_BYTE_11B4E0_height, 0x2dc4e0, debugcounter_47560, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x10000);
+		//comp20 = compare_with_sequence((char*)"0022860F-002DC4E0", (uint8_t*)x_BYTE_12B4E0_shading, 0x2dc4e0, debugcounter_47560, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x20000);
+		//comp20 = compare_with_sequence((char*)"0022860F-002DC4E0", (uint8_t*)x_BYTE_13B4E0_angle, 0x2dc4e0, debugcounter_47560, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x30000);
+		//comp20 = compare_with_sequence((char*)"0022860F-002DC4E0", (uint8_t*)x_WORD_15B4E0_source, 0x2dc4e0, debugcounter_47560, 0x70000, 0x20000, &origbyte20, &remakebyte20, 0x50000);
+
+		//comp20 = compare_with_sequence_D41A0((char*)"0022860F-00356038", (uint8_t*)&D41A0_BYTESTR_0, 0x356038, debugcounter_271478, 224790, &origbyte20, &remakebyte20);
+
+		//comp20 = compare_with_sequence_array_E2A74((char*)"0022860F-002B3A74", (uint8_t*)&array_E2A74, 0x2b3a74, debugcounter_271478, 0xc4e, 0xc4e, &origbyte20, &remakebyte20);
+		//if(debugcounter_271478>5)
+		//comp20 = compare_with_sequence((char*)"0022860F-003AA0A4", pdwScreenBuffer, 0x3aa0a4, debugcounter_271478, 320 * 200, 320 * 200, &origbyte20, &remakebyte20);
+
+		debugcounter_271478++;
+	}
+#endif //DEBUG_SEQUENCES
 	if (!x_BYTE_E3766)
 		sub_8CACD_draw_cursor2();
 
@@ -1548,7 +1584,7 @@ void sub_2BB40_draw_bitmap(int16_t posx, int16_t posy, posistruct_t tempposstr)/
 	//v6 = v3;
 	//v3(a1, a2, a3);
 	//result = (int)x_D41A0_BYTEARRAY_0;
-	if (D41A0_BYTESTR_0.m_GameSettings.m_Display.m_uiScreenSize == 1)
+	if (D41A0_0.m_GameSettings.m_Display.m_uiScreenSize == 1)
 	{
 		temp_screen_buffer = pdwScreenBuffer;
 		pdwScreenBuffer = x_DWORD_E9C3C;
@@ -1566,14 +1602,14 @@ void sub_2BB40_draw_bitmap(int16_t posx, int16_t posy, posistruct_t tempposstr)/
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
 //----- (00075D70) --------------------------------------------------------
-void sub_75D70(uint8_t* a1, uint32_t a2)//256d70
+void sub_75D70(uint8_t* a1y, uint32_t a2)//256d70
 {
 	//unsigned int result; // eax
 
-	if (a1)
+	if (a1y)
 	{
 		//result = a2;
-		qmemcpy(a1, (void*)x_DWORD_17DB50, a2);
+		qmemcpy(a1y, (void*)x_DWORD_17DB50, a2);
 		//qmemcpy(a1+a2, (void *)(x_DWORD_17DB50+a2), a2&3);
 	}
 	x_DWORD_17DB50 += a2;
@@ -1582,12 +1618,12 @@ void sub_75D70(uint8_t* a1, uint32_t a2)//256d70
 // 17DB50: using guessed type int x_DWORD_17DB50;
 
 //----- (0002BC80) --------------------------------------------------------
-void DrawLine(int16_t posStartX, int16_t posStartY, int16_t posEndX, int16_t posEndY, uint8_t colorIdx)//20cc80
+void DrawLine_2BC80(int16_t posStartX, int16_t posStartY, int16_t posEndX, int16_t posEndY, uint8_t colorIdx)//20cc80
 {
-	DrawLine(posStartX, posStartY, posEndX, posEndY, 640, colorIdx);
+	DrawLine_2BC80(posStartX, posStartY, posEndX, posEndY, 640, colorIdx);
 }
 
-void DrawLine(int16_t posStartX, int16_t posStartY, int16_t posEndX, int16_t posEndY, uint16_t pitch, uint8_t colorIdx)//20cc80
+void DrawLine_2BC80(int16_t posStartX, int16_t posStartY, int16_t posEndX, int16_t posEndY, uint16_t pitch, uint8_t colorIdx)//20cc80
 {
 	uint8_t* temp_screen_buffer; // ST14_4
 
@@ -1596,7 +1632,7 @@ void DrawLine(int16_t posStartX, int16_t posStartY, int16_t posEndX, int16_t pos
 	else
 		DrawLineHighRes(posStartX, posStartY, posEndX, posEndY, pitch, colorIdx);
 
-	if (D41A0_BYTESTR_0.m_GameSettings.m_Display.m_uiScreenSize == 1)
+	if (D41A0_0.m_GameSettings.m_Display.m_uiScreenSize == 1)
 	{
 		temp_screen_buffer = pdwScreenBuffer;
 		pdwScreenBuffer = x_DWORD_E9C3C;
@@ -1621,7 +1657,7 @@ void sub_2BC10_draw_text(const char* textbuffer, int16_t posx, int16_t posy, uin
 
 	sub_6F940_sub_draw_text(textbuffer, posx, posy, color);
 	//result = (int)x_D41A0_BYTEARRAY_0;
-	if (D41A0_BYTESTR_0.m_GameSettings.m_Display.m_uiScreenSize == 1)//shifted graphics
+	if (D41A0_0.m_GameSettings.m_Display.m_uiScreenSize == 1)//shifted graphics
 	{
 		temp_screen_buffer = pdwScreenBuffer;
 		pdwScreenBuffer = (uint8_t*)x_DWORD_E9C3C;
@@ -3376,5 +3412,593 @@ void sub_8F935_bitmap_draw_final(uint8_t a1byte1, uint8_t a1byte2, uint16_t tile
 void sub_8F920(uint8_t a1byte1, uint8_t a1byte2, int16_t posx, int16_t posy, uint8_t* a4, unsigned __int8 a5, char a6)//270920
 {
 	sub_8F935_bitmap_draw_final(a1byte1, a1byte2, posx, posy, a4, a5, a6);//270935
+}
+
+//----- (00098709) --------------------------------------------------------
+void sub_98709_create_index_dattab_power(posistruct2_t* tabbuffer, posistruct2_t* tabbufferend, uint8_t* datbuffer, posistruct_t* dattabindex)//279709
+{
+	//int length = (tabbufferend - ((uint8_t*)tabbuffer)) / 6;
+	//int length = tabbufferend - tabbuffer;
+	for (int i = 0; i < tabbufferend - tabbuffer; i++)
+	{
+		//int index = tabbuffer[i].data;
+		dattabindex[i].data = (datbuffer + tabbuffer[i].data_0);
+		dattabindex[i].width = tabbuffer[i].width_4 * 2;
+		dattabindex[i].height = tabbuffer[i].height_5 * 2;
+	}
+}
+
+void sub_98709_create_index_dattab_power_add(uint8_t* tabbuffer, uint8_t* tabbufferend, uint8_t* datbuffer, posistruct_t* dattabindex, int add)//279709
+{
+	for (uint32_t i = 0; i < (tabbufferend - (tabbuffer + add)) / 6; i++)
+	{
+#ifdef TEST_x64
+	allert_error();
+#endif
+#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
+		std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+#else
+		dattabindex[i].data = (uint8_t*)(*(uint32_t*)((tabbuffer + add) + 6 * i)) + (int32_t)datbuffer;
+#endif
+		dattabindex[i].width = (tabbuffer + add)[6 * i + 4] * 2;
+		dattabindex[i].height = (tabbuffer + add)[6 * i + 5] * 2;
+	}
+}
+
+//----- (0009874D) --------------------------------------------------------
+void sub_9874D_create_index_dattab(posistruct2_t* tabbuffer, posistruct2_t* tabbufferend, uint8_t* datbuffer, posistruct_t* dattabindex)//27974d
+{
+	//uint32_t testadr = *(uint32_t*)tabbuffer;
+	/*if (testadr == 0x9999)
+	{
+		for (uint32_t i = 0;i < (tabbufferend - tabbuffer) / 6;i++)
+		{
+			dattabindex[i].data += (int32_t)datbuffer;
+		}
+	}
+	else*/
+	{
+		/*for (uint32_t i = 0; i < (tabbufferend - tabbuffer) / 6; i++)
+		{
+#ifdef TEST_x64
+	allert_error();
+#endif
+#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
+			std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+#else
+			dattabindex[i].data = (uint8_t*)(*(uint32_t*)(tabbuffer + 6 * i)) + (int32_t)datbuffer;
+#endif
+			dattabindex[i].width = tabbuffer[6 * i + 4];
+			dattabindex[i].height = tabbuffer[6 * i + 5];
+		}*/
+		for (uint32_t i = 0; i < tabbufferend - tabbuffer; i++)
+		{
+			dattabindex[i].data = (datbuffer + tabbuffer[i].data_0);
+			dattabindex[i].width = tabbuffer[i].width_4;
+			dattabindex[i].height = tabbuffer[i].height_5;
+		}
+
+		//testadr = 0x9999;
+		//memcpy(tabbuffer, &testadr, 4);
+	}
+}
+
+void sub_9874D_create_index_dattab_add(uint8_t* tabbuffer, uint8_t* tabbufferend, uint8_t* datbuffer, posistruct_t* dattabindex, int add)//27974d
+{
+	for (uint32_t i = 0; i < (tabbufferend - (tabbuffer + add)) / 6; i++)
+	{
+#ifdef TEST_x64
+	allert_error();
+#endif
+#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
+		std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+#else
+		dattabindex[i].data = (uint8_t*)(*(uint32_t*)((tabbuffer + add) + 6 * i)) + (int32_t)datbuffer;
+#endif
+		dattabindex[i].width = (tabbuffer + add)[6 * i + 4];
+		dattabindex[i].height = (tabbuffer + add)[6 * i + 5];
+	}
+}
+
+//----- (00099A77) --------------------------------------------------------
+void sub_99A77_create_index_dattab_div(uint8_t* tabbuffer, uint8_t* tabbufferend, uint8_t*  /*datbuffer*/, posistruct_t* dattabindex)//280a77
+{
+	//uint32_t testadr = *(uint32_t*)tabbuffer;
+	/*if (testadr == 0x9999)
+	{
+		for (uint32_t i = 0;i < (tabbufferend - tabbuffer) / 6;i++)
+		{
+			dattabindex[i].data -= (int32_t)datbuffer;
+			dattabindex[i].width /= 2;
+			dattabindex[i].height /= 2;
+		}
+	}
+	else*/
+	{
+		for (uint32_t i = 0; i < (tabbufferend - tabbuffer) / 6; i++)
+		{
+			dattabindex[i].data = (uint8_t*)(*(uint32_t*)(tabbuffer + 6 * i))/* + (int32_t)datbuffer*/;//fixed
+			dattabindex[i].width = tabbuffer[6 * i + 4] / 2;
+			dattabindex[i].height = tabbuffer[6 * i + 5] / 2;
+		}
+		//testadr = 0x9999;
+		//memcpy(tabbuffer, &testadr, 4);
+	}
+}
+
+//----- (00099AEB) --------------------------------------------------------
+void sub_99AEB_create_index_dattab_minus(uint8_t* tabbuffer, uint8_t* tabbufferend, uint8_t*  /*datbuffer*/, posistruct_t* dattabindex)//280aeb
+{
+	//uint32_t testadr = *(uint32_t*)tabbuffer;
+	/*if (testadr == 0x9999)
+	{
+		for (uint32_t i = 0;i < (tabbufferend - tabbuffer) / 6;i++)
+		{
+			dattabindex[i].data -= (int32_t)datbuffer;
+		}
+	}
+	else*/
+	{
+		for (uint32_t i = 0; i < (tabbufferend - tabbuffer) / 6; i++)
+		{
+			dattabindex[i].data = (uint8_t*)(*(uint32_t*)(tabbuffer + 6 * i))/* + (int32_t)datbuffer*/;//fixed
+			dattabindex[i].width = tabbuffer[6 * i + 4];
+			dattabindex[i].height = tabbuffer[6 * i + 5];
+		}
+		//testadr = 0x9999;
+		//memcpy(tabbuffer, &testadr, 4);
+	}
+}
+
+void Convert_from_shadow_str_2FECE(type_shadow_str_2FECE* from, type_str_2FECE* to) {
+	to->word_2FECE = from->word_2FECE;
+	to->word_2FED0 = from->word_2FED0;
+	to->byte_0x2FED2 = from->byte_0x2FED2;
+	to->byte_0x2FED3 = from->byte_0x2FED3;
+	to->MapType = (from->MapType == 2) ? MapType_t::Cave : (from->MapType == 1) ? MapType_t::Night : MapType_t::Day;
+	to->word_0x2FED5 = from->word_0x2FED5;
+	to->word_0x2FED7 = from->word_0x2FED7;
+	for (int i = 0; i < 8; i++)to->player_0x2FED9[i] = from->array_0x2FED9[i];
+	for (int i = 0; i < 4; i++)to->stubb[i] = from->stubb[i];
+	to->seed_0x2FEE5 = from->word_0x2FEE5;
+	for (int i = 0; i < 2; i++)to->stubb2[i] = from->stubb2[i];
+	to->offset_0x2FEE9 = from->word_0x2FEE9;
+	for (int i = 0; i < 2; i++)to->stubc[i] = from->stubc[i];
+	to->raise_0x2FEED = from->word_0x2FEED;
+	for (int i = 0; i < 2; i++)to->stubc2[i] = from->stubc2[i];
+	to->gnarl_0x2FEF1 = from->word_0x2FEF1;
+	for (int i = 0; i < 2; i++)to->stubc3[i] = from->stubc3[i];
+	to->river_0x2FEF5 = from->word_0x2FEF5;
+	to->lriver_0x2FEF9 = from->word_0x2FEF9;
+	for (int i = 0; i < 2; i++)to->stube[i] = from->stube[i];
+	to->source_0x2FEFD = from->word_0x2FEFD;
+	for (int i = 0; i < 2; i++)to->stubf[i] = from->stubf[i];
+	to->snLin_0x2FF01 = from->word_0x2FF01;
+	for (int i = 0; i < 2; i++)to->stubg[i] = from->stubg[i];
+	to->snFlt_0x2FF05 = from->word_0x2FF05;
+	for (int i = 0; i < 2; i++)to->stubh[i] = from->stubh[i];
+	to->bhLin_0x2FF09 = from->word_0x2FF09;
+	for (int i = 0; i < 2; i++)to->stubi[i] = from->stubi[i];
+	to->bhFlt_0x2FF0D = from->word_0x2FF0D;
+	for (int i = 0; i < 2; i++)to->stubj[i] = from->stubj[i];
+	to->rkSte_0x2FF11 = from->word_0x2FF11;
+	for (int i = 0; i < 1022; i++)to->stubk[i] = from->stubk[i];
+	for (int i = 0; i < 1200; i++)to->entity_0x30311[i] = from->array_0x30311[i];
+	to->next_0x360D1 = from->next_0x360D1;
+	for (int i = 0; i < 8; i++)to->next_0x360D2[i] = from->next_0x360D2[i];
+	for (int i = 0; i < 8; i++)to->stages_0x36442[i] = from->str_0x36442[i];
+	for (int i = 0; i < 11; i++)
+	{
+		to->array_0x3647A[i].index_0x3647A_0 = from->array_0x3647A[i].str_0x3647A_byte_0;
+		to->array_0x3647A[i].stage_0x3647A_1 = from->array_0x3647A[i].str_0x3647A_byte_1;
+		to->array_0x3647A[i].str_0x3647A_2 = from->array_0x3647A[i].str_0x3647A_2;
+		to->array_0x3647A[i].str_0x3647C_4.axis = from->array_0x3647A[i].str_0x3647C_4.axis;
+	}
+}
+
+void Convert_from_shadow_D41A0_BYTESTR_0(type_shadow_D41A0_BYTESTR_0* from, type_D41A0_BYTESTR_0* to) {
+	for (int i = 0; i < 4; i++)to->stub0[i] = from->stub0[i];
+	to->dword_0x4 = from->dword_0x4;
+	to->rand_0x8 = from->dword_0x8;
+	to->LevelIndex_0xc = from->word_0xc;
+	to->word_0xe = from->word_0xe;
+	for (int i = 0; i < 0x1d; i++)to->array_0x10[i] = from->array_0x10[i];
+	to->dword_0x2d = from->dword_0x2d;
+	to->word_0x31 = from->word_0x31;
+	to->word_0x33 = from->word_0x33;
+	to->dword_0x35 = from->dword_0x35;
+	for (int i = 0; i < 508; i++)to->array_0x39[i] = from->array_0x39[i];
+	to->dword_0x235 = from->dword_0x235;
+	to->byte_0x239 = from->byte_0x239;
+	to->dword_0x23a = from->dword_0x23a;
+	to->dword_0x23e = from->dword_0x23e;
+	to->dword_0x242 = from->dword_0x242;
+	for (int i = 0; i < 0x3e8; i++)to->pointers_0x246[i] = (type_event_0x6E8E*)from->pointers_0x246[i];
+	to->dword_0x11e6 = from->dword_0x11e6;
+	for (int i = 0; i < 0x3e8; i++)to->dword_0x11EA[i] = (type_event_0x6E8E*)from->dword_0x11EA[i];
+	to->m_GameSettings = from->m_GameSettings;
+	to->dword_0x219A = from->dword_0x219A;
+	to->dword_0x219E = from->dword_0x219E;
+	to->dword_0x21A2 = from->dword_0x21A2;
+	to->dword_0x21A6 = from->dword_0x21A6;
+	to->str_0x21AA = from->str_0x21AA;
+	to->str_0x21AE = from->str_0x21AE;
+	to->str_0x21B2 = from->str_0x21B2;
+	to->str_0x21B6 = from->str_0x21B6;
+	for (int i = 0; i < 0x1a8; i++)to->stub3b[i] = from->stub3b[i];
+	for (int i = 0; i < 8; i++)to->array_0x2362[i] = from->array_0x2362[i];
+	for (int i = 0; i < 0x14d; i++)to->stub3c[i] = from->stub3c[i];
+	for (int i = 0; i < 0x6ff; i++)to->stub3d[i] = from->stub3d[i];
+	for (int i = 0; i < 8; i++)to->array_0x2BDE[i] = from->array_0x2BDE[i];
+	for (int i = 0; i < 8; i++)to->array_0x6E3E[i] = from->array_0x6E3E[i];
+	for (int i = 0; i < 0x3e8; i++) {
+		to->struct_0x6E8E[i].next_0 = (_str_0x6E8E*)from->struct_0x6E8E[i].next_0;
+		to->struct_0x6E8E[i].dword_0x4 = from->struct_0x6E8E[i].dword_0x4;
+		to->struct_0x6E8E[i].dword_0x8 = from->struct_0x6E8E[i].dword_0x8;
+		to->struct_0x6E8E[i].struct_byte_0xc_12_15 = from->struct_0x6E8E[i].struct_byte_0xc_12_15;
+		to->struct_0x6E8E[i].dword_0x10_16 = from->struct_0x6E8E[i].dword_0x10_16;
+		to->struct_0x6E8E[i].rand_0x14_20 = from->struct_0x6E8E[i].word_0x14_20;
+		to->struct_0x6E8E[i].oldMapEntity_0x16_22 = from->struct_0x6E8E[i].word_0x16_22;
+		to->struct_0x6E8E[i].nextEntity_0x18_24 = from->struct_0x6E8E[i].word_0x18_24_next_entity;
+		to->struct_0x6E8E[i].word_0x1A_26 = from->struct_0x6E8E[i].word_0x1A_26;
+		to->struct_0x6E8E[i].word_0x1C_28 = from->struct_0x6E8E[i].word_0x1C_28;
+		to->struct_0x6E8E[i].word_0x1E_30 = from->struct_0x6E8E[i].word_0x1E_30;
+		to->struct_0x6E8E[i].word_0x20_32 = from->struct_0x6E8E[i].word_0x20_32;
+		to->struct_0x6E8E[i].word_0x22_34 = from->struct_0x6E8E[i].word_0x22_34;
+		to->struct_0x6E8E[i].word_0x24_36 = from->struct_0x6E8E[i].word_0x24_36;
+		to->struct_0x6E8E[i].word_0x26_38 = from->struct_0x6E8E[i].word_0x26_38;
+		to->struct_0x6E8E[i].word_0x28_40 = from->struct_0x6E8E[i].word_0x28_40;
+		to->struct_0x6E8E[i].word_0x2A_42 = from->struct_0x6E8E[i].word_0x2A_42;
+		to->struct_0x6E8E[i].word_0x2C_44 = from->struct_0x6E8E[i].word_0x2C_44;
+		to->struct_0x6E8E[i].word_0x2E_46 = from->struct_0x6E8E[i].word_0x2E_46;
+		to->struct_0x6E8E[i].word_0x30_48 = from->struct_0x6E8E[i].word_0x30_48;
+		to->struct_0x6E8E[i].word_0x32_50 = from->struct_0x6E8E[i].word_0x32_50;
+		to->struct_0x6E8E[i].word_0x34_52 = from->struct_0x6E8E[i].word_0x34_52;
+		to->struct_0x6E8E[i].word_0x36_54 = from->struct_0x6E8E[i].word_0x36_54;
+		to->struct_0x6E8E[i].byte_0x38_56 = from->struct_0x6E8E[i].byte_0x38_56;
+		to->struct_0x6E8E[i].byte_0x39_57 = from->struct_0x6E8E[i].byte_0x39_57;
+		to->struct_0x6E8E[i].byte_0x3A_58 = from->struct_0x6E8E[i].byte_0x3A_58;
+		to->struct_0x6E8E[i].byte_0x3B_59 = from->struct_0x6E8E[i].byte_0x3B_59;
+		to->struct_0x6E8E[i].byte_0x3C_60 = from->struct_0x6E8E[i].byte_0x3C_60;
+		to->struct_0x6E8E[i].byte_0x3D_61 = from->struct_0x6E8E[i].byte_0x3D_61;
+		to->struct_0x6E8E[i].byte_0x3E_62 = from->struct_0x6E8E[i].byte_0x3E_62;
+		to->struct_0x6E8E[i].type_0x3F_63 = from->struct_0x6E8E[i].type_0x3F_63;
+		to->struct_0x6E8E[i].subtype_0x40_64 = from->struct_0x6E8E[i].subtype_0x40_64;
+		to->struct_0x6E8E[i].byte_0x41_65 = from->struct_0x6E8E[i].byte_0x41_65;
+		to->struct_0x6E8E[i].byte_0x42_66 = from->struct_0x6E8E[i].byte_0x42_66;
+		to->struct_0x6E8E[i].byte_0x43_67 = from->struct_0x6E8E[i].byte_0x43_67;
+		to->struct_0x6E8E[i].byte_0x44_68 = from->struct_0x6E8E[i].byte_0x44_68;
+		to->struct_0x6E8E[i].byte_0x45_69 = from->struct_0x6E8E[i].byte_0x45_69;
+		to->struct_0x6E8E[i].byte_0x46_70 = from->struct_0x6E8E[i].byte_0x46_70;
+		to->struct_0x6E8E[i].byte_0x47_71_xx = from->struct_0x6E8E[i].byte_0x47_71_xx;
+		to->struct_0x6E8E[i].byte_0x48_72 = from->struct_0x6E8E[i].byte_0x48_72;
+		to->struct_0x6E8E[i].byte_0x49_73 = from->struct_0x6E8E[i].byte_0x49_73;
+		to->struct_0x6E8E[i].word_0x4A_74 = from->struct_0x6E8E[i].word_0x4A_74;
+		to->struct_0x6E8E[i].axis_0x4C_76 = from->struct_0x6E8E[i].array_0x4C_76;
+		to->struct_0x6E8E[i].array_0x52_82 = from->struct_0x6E8E[i].array_0x52_82;
+		to->struct_0x6E8E[i].word_0x5A_90 = from->struct_0x6E8E[i].word_0x5A_90;
+		to->struct_0x6E8E[i].byte_0x5C_92 = from->struct_0x6E8E[i].byte_0x5C_92;
+		to->struct_0x6E8E[i].byte_0x5D_93 = from->struct_0x6E8E[i].byte_0x5D_93;
+		to->struct_0x6E8E[i].str_0x5E_94 = from->struct_0x6E8E[i].str_0x5E_94;
+		to->struct_0x6E8E[i].word_0x82_130 = from->struct_0x6E8E[i].word_0x82_130;
+		to->struct_0x6E8E[i].word_0x84_132 = from->struct_0x6E8E[i].word_0x84_132;
+		to->struct_0x6E8E[i].word_0x86_134 = from->struct_0x6E8E[i].word_0x86_134;
+		to->struct_0x6E8E[i].dword_0x88_136 = from->struct_0x6E8E[i].dword_0x88_136;
+		to->struct_0x6E8E[i].dword_0x8C_140 = from->struct_0x6E8E[i].dword_0x8C_140;
+		to->struct_0x6E8E[i].dword_0x90_144 = from->struct_0x6E8E[i].dword_0x90_144;
+		to->struct_0x6E8E[i].word_0x94_148 = from->struct_0x6E8E[i].word_0x94_148;
+		to->struct_0x6E8E[i].word_0x96_150 = from->struct_0x6E8E[i].word_0x96_150;
+		to->struct_0x6E8E[i].word_0x98_152 = from->struct_0x6E8E[i].word_0x98_152;
+		to->struct_0x6E8E[i].word_0x9A_154x = from->struct_0x6E8E[i].word_0x9A_154x;
+		to->struct_0x6E8E[i].dword_0xA0_160x = (type_str_160*)from->struct_0x6E8E[i].dword_0xA0_160x;
+		to->struct_0x6E8E[i].dword_0xA4_164x = (type_str_164*)from->struct_0x6E8E[i].dword_0xA4_164x;
+	}
+
+	to->terrain_2FECE.word_2FECE = from->str_2FECE.word_2FECE;
+	to->terrain_2FECE.word_2FED0 = from->str_2FECE.word_2FED0;
+	to->terrain_2FECE.byte_0x2FED2 = from->str_2FECE.byte_0x2FED2;
+	to->terrain_2FECE.byte_0x2FED3 = from->str_2FECE.byte_0x2FED3;
+	to->terrain_2FECE.MapType = (from->str_2FECE.MapType == 2) ? MapType_t::Cave : (from->str_2FECE.MapType == 1) ? MapType_t::Night : MapType_t::Day;
+	to->terrain_2FECE.word_0x2FED5 = from->str_2FECE.word_0x2FED5;
+	to->terrain_2FECE.word_0x2FED7 = from->str_2FECE.word_0x2FED7;
+	for (int i = 0; i < 8; i++)to->terrain_2FECE.player_0x2FED9[i] = from->str_2FECE.array_0x2FED9[i];
+	for (int i = 0; i < 4; i++)to->terrain_2FECE.stubb[i] = from->str_2FECE.stubb[i];
+	to->terrain_2FECE.seed_0x2FEE5 = from->str_2FECE.word_0x2FEE5;
+	for (int i = 0; i < 2; i++)to->terrain_2FECE.stubb2[i] = from->str_2FECE.stubb2[i];
+	to->terrain_2FECE.offset_0x2FEE9 = from->str_2FECE.word_0x2FEE9;
+	for (int i = 0; i < 2; i++)to->terrain_2FECE.stubc[i] = from->str_2FECE.stubc[i];
+	to->terrain_2FECE.raise_0x2FEED = from->str_2FECE.word_0x2FEED;
+	for (int i = 0; i < 2; i++)to->terrain_2FECE.stubc2[i] = from->str_2FECE.stubc2[i];
+	to->terrain_2FECE.gnarl_0x2FEF1 = from->str_2FECE.word_0x2FEF1;
+	for (int i = 0; i < 2; i++)to->terrain_2FECE.stubc3[i] = from->str_2FECE.stubc3[i];
+	to->terrain_2FECE.river_0x2FEF5 = from->str_2FECE.word_0x2FEF5;
+	to->terrain_2FECE.lriver_0x2FEF9 = from->str_2FECE.word_0x2FEF9;
+	for (int i = 0; i < 2; i++)to->terrain_2FECE.stube[i] = from->str_2FECE.stube[i];
+	to->terrain_2FECE.source_0x2FEFD = from->str_2FECE.word_0x2FEFD;
+	for (int i = 0; i < 2; i++)to->terrain_2FECE.stubf[i] = from->str_2FECE.stubf[i];
+	to->terrain_2FECE.snLin_0x2FF01 = from->str_2FECE.word_0x2FF01;
+	for (int i = 0; i < 2; i++)to->terrain_2FECE.stubg[i] = from->str_2FECE.stubg[i];
+	to->terrain_2FECE.snFlt_0x2FF05 = from->str_2FECE.word_0x2FF05;
+	for (int i = 0; i < 2; i++)to->terrain_2FECE.stubh[i] = from->str_2FECE.stubh[i];
+	to->terrain_2FECE.bhLin_0x2FF09 = from->str_2FECE.word_0x2FF09;
+	for (int i = 0; i < 2; i++)to->terrain_2FECE.stubi[i] = from->str_2FECE.stubi[i];
+	to->terrain_2FECE.bhFlt_0x2FF0D = from->str_2FECE.word_0x2FF0D;
+	for (int i = 0; i < 2; i++)to->terrain_2FECE.stubj[i] = from->str_2FECE.stubj[i];
+	to->terrain_2FECE.rkSte_0x2FF11 = from->str_2FECE.word_0x2FF11;
+	for (int i = 0; i < 1022; i++)to->terrain_2FECE.stubk[i] = from->str_2FECE.stubk[i];
+	for (int i = 0; i < 1200; i++)to->terrain_2FECE.entity_0x30311[i] = from->str_2FECE.array_0x30311[i];
+	to->terrain_2FECE.next_0x360D1 = from->str_2FECE.next_0x360D1;
+	for (int i = 0; i < 8; i++)to->terrain_2FECE.next_0x360D2[i] = from->str_2FECE.next_0x360D2[i];
+	for (int i = 0; i < 8; i++)to->terrain_2FECE.stages_0x36442[i] = from->str_2FECE.str_0x36442[i];
+	for (int i = 0; i < 11; i++)
+	{
+		to->terrain_2FECE.array_0x3647A[i].index_0x3647A_0 = from->str_2FECE.array_0x3647A[i].str_0x3647A_byte_0;
+		to->terrain_2FECE.array_0x3647A[i].stage_0x3647A_1 = from->str_2FECE.array_0x3647A[i].str_0x3647A_byte_1;
+		to->terrain_2FECE.array_0x3647A[i].str_0x3647A_2 = from->str_2FECE.array_0x3647A[i].str_0x3647A_2;
+		to->terrain_2FECE.array_0x3647A[i].str_0x3647C_4.axis = from->str_2FECE.array_0x3647A[i].str_0x3647C_4.axis;
+	}
+	to->str_0x364D2 = from->str_0x364D2;
+	to->word_0x3653E = from->word_0x3653E;
+	to->word_0x36540 = from->word_0x36540;
+	to->word_0x36542 = from->word_0x36542;
+	to->word_0x36544 = from->word_0x36544;
+	to->word_0x36546 = from->word_0x36546;
+	to->word_0x36548 = from->word_0x36548;
+	to->word_0x3654A = from->word_0x3654A;
+	for (int i = 0; i < 8; i++) {
+		to->stages_0x3654C[i].stages_3654C_byte0 = from->struct_0x3654C[i].str_3654C_byte0;
+		to->stages_0x3654C[i].str_3654D_byte1 = from->struct_0x3654C[i].str_3654D_byte1;
+		to->stages_0x3654C[i].str_3654E_axis = from->struct_0x3654C[i].str_3654E_axis;
+		to->stages_0x3654C[i].str_36552_un.dword = from->struct_0x3654C[i].str_36552_un.dword;
+	}
+	for (int i = 0; i < 8; i++)to->struct_0x3659C[i] = from->struct_0x3659C[i];
+	for (int i = 0; i < 11; i++) {
+		to->array_0x365F4[i].index_0x3647A_0 = from->array_0x365F4[i].str_0x3647A_byte_0;
+		to->array_0x365F4[i].stage_0x3647A_1 = from->array_0x365F4[i].str_0x3647A_byte_1;
+		to->array_0x365F4[i].str_0x3647A_2 = from->array_0x365F4[i].str_0x3647A_2;
+		to->array_0x365F4[i].str_0x3647C_4.axis = from->array_0x365F4[i].str_0x3647C_4.axis;
+	}
+	for (int i = 0; i < 0x32; i++) {
+		to->str_0x3664C[i].byte_0 = from->str_0x3664C[i].byte_0;
+		to->str_0x3664C[i].byte_1 = from->str_0x3664C[i].byte_1;
+		to->str_0x3664C[i].byte_2 = from->str_0x3664C[i].byte_2;
+		to->str_0x3664C[i].byte_3 = from->str_0x3664C[i].byte_3;
+		to->str_0x3664C[i].axis3d_4 = from->str_0x3664C[i].axis3d_4;
+		to->str_0x3664C[i].event_A = (type_event_0x6E8E*)from->str_0x3664C[i].dword_A;
+		for (int j = 0; j < 25; j++)to->str_0x3664C[i].array_E[j] = from->str_0x3664C[i].array_E[j];
+	}
+	to->byte_0x36DEA_fly_asistant = from->byte_0x36DEA_fly_asistant;
+	to->byte_0x36DEB_xx = from->byte_0x36DEB_xx;
+	to->word_0x36DEC_mousex = from->word_0x36DEC_mousex;
+	to->word_0x36DEE_mousey = from->word_0x36DEE_mousey;
+	to->word_0x36DF0_mousexx = from->word_0x36DF0_mousexx;
+	to->dword_0x36DF2 = from->dword_0x36DF2;
+	to->dword_0x36DF6 = (type_str_160*)from->dword_0x36DF6;
+	to->word_0x36DFA = from->word_0x36DFA;
+	to->word_0x36DFC = from->word_0x36DFC;
+	to->word_0x36DFE = from->word_0x36DFE;
+	to->byte_0x36E00 = from->byte_0x36E00;
+	to->stageIndex_0x36E01 = from->byte_0x36E01;
+	to->byte_0x36E02 = from->byte_0x36E02;
+	to->byte_0x36E03 = from->byte_0x36E03;
+	to->byte_0x36E04 = from->byte_0x36E04;
+	for (int i = 0; i < 6; i++)to->stub3k[i] = from->stub3k[i];
+	to->byte_0x36E0B = from->byte_0x36E0B;
+	for (int i = 0; i < 11; i++)to->stubend[i] = from->stubend[i];
+}
+
+void Convert_to_shadow_D41A0_BYTESTR_0(type_D41A0_BYTESTR_0* from, type_shadow_D41A0_BYTESTR_0* to) {
+	for (int i = 0; i < 4; i++)to->stub0[i] = from->stub0[i];
+	to->dword_0x4 = from->dword_0x4;
+	to->dword_0x8 = from->rand_0x8;
+	to->word_0xc = from->LevelIndex_0xc;
+	to->word_0xe = from->word_0xe;
+	for (int i = 0; i < 0x1d; i++)to->array_0x10[i] = from->array_0x10[i];
+	to->dword_0x2d = from->dword_0x2d;
+	to->word_0x31 = from->word_0x31;
+	to->word_0x33 = from->word_0x33;
+	to->dword_0x35 = from->dword_0x35;
+	for (int i = 0; i < 508; i++)to->array_0x39[i] = from->array_0x39[i];
+	to->dword_0x235 = from->dword_0x235;
+	to->byte_0x239 = from->byte_0x239;
+	to->dword_0x23a = from->dword_0x23a;
+	to->dword_0x23e = from->dword_0x23e;
+	to->dword_0x242 = from->dword_0x242;
+#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
+  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << ", file " << __FILE__ << std::endl;
+#else
+	for (int i = 0; i < 0x3e8; i++)to->pointers_0x246[i] = (uint32_t)from->pointers_0x246[i];
+#endif
+	to->dword_0x11e6 = from->dword_0x11e6;
+#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
+  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << ", file " << __FILE__ << std::endl;
+#else
+	for (int i = 0; i < 0x3e8; i++)to->dword_0x11EA[i] = (uint32_t)from->dword_0x11EA[i];
+#endif
+	to->m_GameSettings = from->m_GameSettings;
+	to->dword_0x219A = from->dword_0x219A;
+	to->dword_0x219E = from->dword_0x219E;
+	to->dword_0x21A2 = from->dword_0x21A2;
+	to->dword_0x21A6 = from->dword_0x21A6;
+	to->str_0x21AA = from->str_0x21AA;
+	to->str_0x21AE = from->str_0x21AE;
+	to->str_0x21B2 = from->str_0x21B2;
+	to->str_0x21B6 = from->str_0x21B6;
+	for (int i = 0; i < 0x1a8; i++)to->stub3b[i] = from->stub3b[i];
+	for (int i = 0; i < 8; i++)to->array_0x2362[i] = from->array_0x2362[i];
+	for (int i = 0; i < 0x14d; i++)to->stub3c[i] = from->stub3c[i];
+	for (int i = 0; i < 0x6ff; i++)to->stub3d[i] = from->stub3d[i];
+	for (int i = 0; i < 8; i++)to->array_0x2BDE[i] = from->array_0x2BDE[i];
+	for (int i = 0; i < 8; i++)to->array_0x6E3E[i] = from->array_0x6E3E[i];
+	for (int i = 0; i < 0x3e8; i++) {
+#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
+  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << ", file " << __FILE__ << std::endl;
+#else
+		to->struct_0x6E8E[i].next_0 = (uint32_t)from->struct_0x6E8E[i].next_0;
+#endif
+		to->struct_0x6E8E[i].dword_0x4 = from->struct_0x6E8E[i].dword_0x4;
+		to->struct_0x6E8E[i].dword_0x8 = from->struct_0x6E8E[i].dword_0x8;
+		to->struct_0x6E8E[i].struct_byte_0xc_12_15 = from->struct_0x6E8E[i].struct_byte_0xc_12_15;
+		to->struct_0x6E8E[i].dword_0x10_16 = from->struct_0x6E8E[i].dword_0x10_16;
+		to->struct_0x6E8E[i].word_0x14_20 = from->struct_0x6E8E[i].rand_0x14_20;
+		to->struct_0x6E8E[i].word_0x16_22 = from->struct_0x6E8E[i].oldMapEntity_0x16_22;
+		to->struct_0x6E8E[i].word_0x18_24_next_entity = from->struct_0x6E8E[i].nextEntity_0x18_24;
+		to->struct_0x6E8E[i].word_0x1A_26 = from->struct_0x6E8E[i].word_0x1A_26;
+		to->struct_0x6E8E[i].word_0x1C_28 = from->struct_0x6E8E[i].word_0x1C_28;
+		to->struct_0x6E8E[i].word_0x1E_30 = from->struct_0x6E8E[i].word_0x1E_30;
+		to->struct_0x6E8E[i].word_0x20_32 = from->struct_0x6E8E[i].word_0x20_32;
+		to->struct_0x6E8E[i].word_0x22_34 = from->struct_0x6E8E[i].word_0x22_34;
+		to->struct_0x6E8E[i].word_0x24_36 = from->struct_0x6E8E[i].word_0x24_36;
+		to->struct_0x6E8E[i].word_0x26_38 = from->struct_0x6E8E[i].word_0x26_38;
+		to->struct_0x6E8E[i].word_0x28_40 = from->struct_0x6E8E[i].word_0x28_40;
+		to->struct_0x6E8E[i].word_0x2A_42 = from->struct_0x6E8E[i].word_0x2A_42;
+		to->struct_0x6E8E[i].word_0x2C_44 = from->struct_0x6E8E[i].word_0x2C_44;
+		to->struct_0x6E8E[i].word_0x2E_46 = from->struct_0x6E8E[i].word_0x2E_46;
+		to->struct_0x6E8E[i].word_0x30_48 = from->struct_0x6E8E[i].word_0x30_48;
+		to->struct_0x6E8E[i].word_0x32_50 = from->struct_0x6E8E[i].word_0x32_50;
+		to->struct_0x6E8E[i].word_0x34_52 = from->struct_0x6E8E[i].word_0x34_52;
+		to->struct_0x6E8E[i].word_0x36_54 = from->struct_0x6E8E[i].word_0x36_54;
+		to->struct_0x6E8E[i].byte_0x38_56 = from->struct_0x6E8E[i].byte_0x38_56;
+		to->struct_0x6E8E[i].byte_0x39_57 = from->struct_0x6E8E[i].byte_0x39_57;
+		to->struct_0x6E8E[i].byte_0x3A_58 = from->struct_0x6E8E[i].byte_0x3A_58;
+		to->struct_0x6E8E[i].byte_0x3B_59 = from->struct_0x6E8E[i].byte_0x3B_59;
+		to->struct_0x6E8E[i].byte_0x3C_60 = from->struct_0x6E8E[i].byte_0x3C_60;
+		to->struct_0x6E8E[i].byte_0x3D_61 = from->struct_0x6E8E[i].byte_0x3D_61;
+		to->struct_0x6E8E[i].byte_0x3E_62 = from->struct_0x6E8E[i].byte_0x3E_62;
+		to->struct_0x6E8E[i].type_0x3F_63 = from->struct_0x6E8E[i].type_0x3F_63;
+		to->struct_0x6E8E[i].subtype_0x40_64 = from->struct_0x6E8E[i].subtype_0x40_64;
+		to->struct_0x6E8E[i].byte_0x41_65 = from->struct_0x6E8E[i].byte_0x41_65;
+		to->struct_0x6E8E[i].byte_0x42_66 = from->struct_0x6E8E[i].byte_0x42_66;
+		to->struct_0x6E8E[i].byte_0x43_67 = from->struct_0x6E8E[i].byte_0x43_67;
+		to->struct_0x6E8E[i].byte_0x44_68 = from->struct_0x6E8E[i].byte_0x44_68;
+		to->struct_0x6E8E[i].byte_0x45_69 = from->struct_0x6E8E[i].byte_0x45_69;
+		to->struct_0x6E8E[i].byte_0x46_70 = from->struct_0x6E8E[i].byte_0x46_70;
+		to->struct_0x6E8E[i].byte_0x47_71_xx = from->struct_0x6E8E[i].byte_0x47_71_xx;
+		to->struct_0x6E8E[i].byte_0x48_72 = from->struct_0x6E8E[i].byte_0x48_72;
+		to->struct_0x6E8E[i].byte_0x49_73 = from->struct_0x6E8E[i].byte_0x49_73;
+		to->struct_0x6E8E[i].word_0x4A_74 = from->struct_0x6E8E[i].word_0x4A_74;
+		to->struct_0x6E8E[i].array_0x4C_76 = from->struct_0x6E8E[i].axis_0x4C_76;
+		to->struct_0x6E8E[i].array_0x52_82 = from->struct_0x6E8E[i].array_0x52_82;
+		to->struct_0x6E8E[i].word_0x5A_90 = from->struct_0x6E8E[i].word_0x5A_90;
+		to->struct_0x6E8E[i].byte_0x5C_92 = from->struct_0x6E8E[i].byte_0x5C_92;
+		to->struct_0x6E8E[i].byte_0x5D_93 = from->struct_0x6E8E[i].byte_0x5D_93;
+		to->struct_0x6E8E[i].str_0x5E_94 = from->struct_0x6E8E[i].str_0x5E_94;
+		to->struct_0x6E8E[i].word_0x82_130 = from->struct_0x6E8E[i].word_0x82_130;
+		to->struct_0x6E8E[i].word_0x84_132 = from->struct_0x6E8E[i].word_0x84_132;
+		to->struct_0x6E8E[i].word_0x86_134 = from->struct_0x6E8E[i].word_0x86_134;
+		to->struct_0x6E8E[i].dword_0x88_136 = from->struct_0x6E8E[i].dword_0x88_136;
+		to->struct_0x6E8E[i].dword_0x8C_140 = from->struct_0x6E8E[i].dword_0x8C_140;
+		to->struct_0x6E8E[i].dword_0x90_144 = from->struct_0x6E8E[i].dword_0x90_144;
+		to->struct_0x6E8E[i].word_0x94_148 = from->struct_0x6E8E[i].word_0x94_148;
+		to->struct_0x6E8E[i].word_0x96_150 = from->struct_0x6E8E[i].word_0x96_150;
+		to->struct_0x6E8E[i].word_0x98_152 = from->struct_0x6E8E[i].word_0x98_152;
+		to->struct_0x6E8E[i].word_0x9A_154x = from->struct_0x6E8E[i].word_0x9A_154x;
+#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
+  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << ", file " << __FILE__ << std::endl;
+#else
+		to->struct_0x6E8E[i].dword_0xA0_160x = (uint32_t)from->struct_0x6E8E[i].dword_0xA0_160x;
+		to->struct_0x6E8E[i].dword_0xA4_164x = (uint32_t)from->struct_0x6E8E[i].dword_0xA4_164x;
+#endif
+	}
+
+	to->str_2FECE.word_2FECE = from->terrain_2FECE.word_2FECE;
+	to->str_2FECE.word_2FED0 = from->terrain_2FECE.word_2FED0;
+	to->str_2FECE.byte_0x2FED2 = from->terrain_2FECE.byte_0x2FED2;
+	to->str_2FECE.byte_0x2FED3 = from->terrain_2FECE.byte_0x2FED3;
+	to->str_2FECE.MapType = static_cast<std::underlying_type<MapType_t>::type>(from->terrain_2FECE.MapType);
+	to->str_2FECE.word_0x2FED5 = from->terrain_2FECE.word_0x2FED5;
+	to->str_2FECE.word_0x2FED7 = from->terrain_2FECE.word_0x2FED7;
+	for (int i = 0; i < 8; i++)to->str_2FECE.array_0x2FED9[i] = from->terrain_2FECE.player_0x2FED9[i];
+	for (int i = 0; i < 4; i++)to->str_2FECE.stubb[i] = from->terrain_2FECE.stubb[i];
+	to->str_2FECE.word_0x2FEE5 = from->terrain_2FECE.seed_0x2FEE5;
+	for (int i = 0; i < 2; i++)to->str_2FECE.stubb2[i] = from->terrain_2FECE.stubb2[i];
+	to->str_2FECE.word_0x2FEE9 = from->terrain_2FECE.offset_0x2FEE9;
+	for (int i = 0; i < 2; i++)to->str_2FECE.stubc[i] = from->terrain_2FECE.stubc[i];
+	to->str_2FECE.word_0x2FEED = from->terrain_2FECE.raise_0x2FEED;
+	for (int i = 0; i < 2; i++)to->str_2FECE.stubc2[i] = from->terrain_2FECE.stubc2[i];
+	to->str_2FECE.word_0x2FEF1 = from->terrain_2FECE.gnarl_0x2FEF1;
+	for (int i = 0; i < 2; i++)to->str_2FECE.stubc3[i] = from->terrain_2FECE.stubc3[i];
+	to->str_2FECE.word_0x2FEF5 = from->terrain_2FECE.river_0x2FEF5;
+	to->str_2FECE.word_0x2FEF9 = from->terrain_2FECE.lriver_0x2FEF9;
+	for (int i = 0; i < 2; i++)to->str_2FECE.stube[i] = from->terrain_2FECE.stube[i];
+	to->str_2FECE.word_0x2FEFD = from->terrain_2FECE.source_0x2FEFD;
+	for (int i = 0; i < 2; i++)to->str_2FECE.stubf[i] = from->terrain_2FECE.stubf[i];
+	to->str_2FECE.word_0x2FF01 = from->terrain_2FECE.snLin_0x2FF01;
+	for (int i = 0; i < 2; i++)to->str_2FECE.stubg[i] = from->terrain_2FECE.stubg[i];
+	to->str_2FECE.word_0x2FF05 = from->terrain_2FECE.snFlt_0x2FF05;
+	for (int i = 0; i < 2; i++)to->str_2FECE.stubh[i] = from->terrain_2FECE.stubh[i];
+	to->str_2FECE.word_0x2FF09 = from->terrain_2FECE.bhLin_0x2FF09;
+	for (int i = 0; i < 2; i++)to->str_2FECE.stubi[i] = from->terrain_2FECE.stubi[i];
+	to->str_2FECE.word_0x2FF0D = from->terrain_2FECE.bhFlt_0x2FF0D;
+	for (int i = 0; i < 2; i++)to->str_2FECE.stubj[i] = from->terrain_2FECE.stubj[i];
+	to->str_2FECE.word_0x2FF11 = from->terrain_2FECE.rkSte_0x2FF11;
+	for (int i = 0; i < 1022; i++)to->str_2FECE.stubk[i] = from->terrain_2FECE.stubk[i];
+	for (int i = 0; i < 1200; i++)to->str_2FECE.array_0x30311[i] = from->terrain_2FECE.entity_0x30311[i];
+	to->str_2FECE.next_0x360D1 = from->terrain_2FECE.next_0x360D1;
+	for (int i = 0; i < 8; i++)to->str_2FECE.next_0x360D2[i] = from->terrain_2FECE.next_0x360D2[i];
+	for (int i = 0; i < 8; i++)to->str_2FECE.str_0x36442[i] = from->terrain_2FECE.stages_0x36442[i];
+	for (int i = 0; i < 11; i++)
+	{
+		to->str_2FECE.array_0x3647A[i].str_0x3647A_byte_0 = from->terrain_2FECE.array_0x3647A[i].index_0x3647A_0;
+		to->str_2FECE.array_0x3647A[i].str_0x3647A_byte_1 = from->terrain_2FECE.array_0x3647A[i].stage_0x3647A_1;
+		to->str_2FECE.array_0x3647A[i].str_0x3647A_2 = from->terrain_2FECE.array_0x3647A[i].str_0x3647A_2;
+		to->str_2FECE.array_0x3647A[i].str_0x3647C_4.axis = from->terrain_2FECE.array_0x3647A[i].str_0x3647C_4.axis;
+	}
+	to->str_0x364D2 = from->str_0x364D2;
+	to->word_0x3653E = from->word_0x3653E;
+	to->word_0x36540 = from->word_0x36540;
+	to->word_0x36542 = from->word_0x36542;
+	to->word_0x36544 = from->word_0x36544;
+	to->word_0x36546 = from->word_0x36546;
+	to->word_0x36548 = from->word_0x36548;
+	to->word_0x3654A = from->word_0x3654A;
+	for (int i = 0; i < 8; i++) {
+		to->struct_0x3654C[i].str_3654C_byte0 = from->stages_0x3654C[i].stages_3654C_byte0;
+		to->struct_0x3654C[i].str_3654D_byte1 = from->stages_0x3654C[i].str_3654D_byte1;
+		to->struct_0x3654C[i].str_3654E_axis = from->stages_0x3654C[i].str_3654E_axis;
+		to->struct_0x3654C[i].str_36552_un.dword = from->stages_0x3654C[i].str_36552_un.dword;
+	}
+	for (int i = 0; i < 8; i++)to->struct_0x3659C[i] = from->struct_0x3659C[i];
+	for (int i = 0; i < 11; i++) {
+		to->array_0x365F4[i].str_0x3647A_byte_0 = from->array_0x365F4[i].index_0x3647A_0;
+		to->array_0x365F4[i].str_0x3647A_byte_1 = from->array_0x365F4[i].stage_0x3647A_1;
+		to->array_0x365F4[i].str_0x3647A_2 = from->array_0x365F4[i].str_0x3647A_2;
+		to->array_0x365F4[i].str_0x3647C_4.axis = from->array_0x365F4[i].str_0x3647C_4.axis;
+	}
+	for (int i = 0; i < 0x32; i++) {
+		to->str_0x3664C[i].byte_0 = from->str_0x3664C[i].byte_0;
+		to->str_0x3664C[i].byte_1 = from->str_0x3664C[i].byte_1;
+		to->str_0x3664C[i].byte_2 = from->str_0x3664C[i].byte_2;
+		to->str_0x3664C[i].byte_3 = from->str_0x3664C[i].byte_3;
+		to->str_0x3664C[i].axis3d_4 = from->str_0x3664C[i].axis3d_4;
+#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
+  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << ", file " << __FILE__ << std::endl;
+#else
+		to->str_0x3664C[i].dword_A = (uint32_t)from->str_0x3664C[i].event_A;
+#endif
+		for (int j = 0; j < 25; j++)to->str_0x3664C[i].array_E[j] = from->str_0x3664C[i].array_E[j];
+	}
+	to->byte_0x36DEA_fly_asistant = from->byte_0x36DEA_fly_asistant;
+	to->byte_0x36DEB_xx = from->byte_0x36DEB_xx;
+	to->word_0x36DEC_mousex = from->word_0x36DEC_mousex;
+	to->word_0x36DEE_mousey = from->word_0x36DEE_mousey;
+	to->word_0x36DF0_mousexx = from->word_0x36DF0_mousexx;
+	to->dword_0x36DF2 = from->dword_0x36DF2;
+#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
+  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << ", file " << __FILE__ << std::endl;
+#else
+	to->dword_0x36DF6 = (uint32_t)from->dword_0x36DF6;
+#endif
+	to->word_0x36DFA = from->word_0x36DFA;
+	to->word_0x36DFC = from->word_0x36DFC;
+	to->word_0x36DFE = from->word_0x36DFE;
+	to->byte_0x36E00 = from->byte_0x36E00;
+	to->byte_0x36E01 = from->stageIndex_0x36E01;
+	to->byte_0x36E02 = from->byte_0x36E02;
+	to->byte_0x36E03 = from->byte_0x36E03;
+	to->byte_0x36E04 = from->byte_0x36E04;
+	for (int i = 0; i < 6; i++)to->stub3k[i] = from->stub3k[i];
+	to->byte_0x36E0B = from->byte_0x36E0B;
+	for (int i = 0; i < 11; i++)to->stubend[i] = from->stubend[i];
 }
 

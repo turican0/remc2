@@ -3,6 +3,8 @@
 //fix str2_E37A4_sound_buffer3 = str_E37A0_sound_buffer2->next_str + v8x[a2].dword_8;
 //fix x_DWORD_E380C = str_E3808_music_header->next_str + headerx[drivernumber].dword_8;
 //replace str2_E37A4_sound_buffer3 and x_DWORD_E380C with equvivalent index_E37A4_MaxSound and index_E380C_MaxMusic
+//tabbuffer rewrite tostruct
+//remove index functions
 
 
 int x_DWORD_E3794_sound_buffer3_lenght = 10; // weak
@@ -38,7 +40,7 @@ type_E3808_music_header* str_E3808_music_header = 0; // weak
 //int8_t* x_DWORD_E380C = 0; // weak
 int index_E380C_CountOfMusic = 0; // weak
 //replace str2_E37A4_sound_buffer3 and x_DWORD_E380C with equvivalent index_E37A4_MaxSound and index_E380C_MaxMusic
-type_E3810_music_data* str_E3810_music_data = 0; // weak
+uint8_t* array_E3810_music_data = 0; // weak
 uint8_t x_BYTE_E3814 = 0; // weak
 char x_BYTE_E3815 = 0; // weak
 char x_BYTE_E3816 = 0; // weak
@@ -311,16 +313,14 @@ void sub_9E250(HMDIDRIVER mdidrv) {
 		x_DWORD_E3E38 = 0;
 	}
 }; // weak
-void sub_A2450(HMDIDRIVER user) { stub_fix_it(); }; // weak
+void sub_A2450(HMDIDRIVER  /*user*/) { stub_fix_it(); }; // weak
 int sub_A2DE0() { stub_fix_it(); return 0; }; // weak
 int sub_A47A0() { stub_fix_it(); return 0; }; // weak
 int sub_A4920() { stub_fix_it(); return 0; }; // weak
 //void sub_A6530(uint32_t user) { stub_fix_it();}; // weak
 int sub_A9C00() { stub_fix_it(); return 0; }; // weak
 int sub_A9C50() { stub_fix_it(); return 0; }; // weak
-void sub_A6F30(void* a) { stub_fix_it(); }; // weak
-int sub_B1DC8() { stub_fix_it(); return 0; }; // weak
-int sub_B46F0() { stub_fix_it(); return 0; }; // weak
+void sub_A6F30(void*  /*a*/) { stub_fix_it(); }; // weak
 
 //----- (0008D290) --------------------------------------------------------
 void sub_8D290_init_sound(/*char* a1*//*, int a2, int a3*/)//26e290
@@ -436,6 +436,9 @@ void sub_8D290_init_sound(/*char* a1*//*, int a2, int a3*/)//26e290
 	v7 = mygetenv("MDSOUND");
 	if (v7)
 	{
+#ifdef TEST_x64
+	allert_error();
+#endif
 #ifdef COMPILE_FOR_64BIT // FIXME: 64bit
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
@@ -472,11 +475,18 @@ void sub_8D290_init_sound(/*char* a1*//*, int a2, int a3*/)//26e290
 				x_BYTE_E3799_sound_card = 0;
 				return;
 			}
-			if (!sub_931F0_AIL_install_DIG_INI(/*(int)a1, */&hDigSoundEffectsDriver, digPath))//351b48
+			if (!sub_931F0_AIL_install_DIG_INI(&hDigSoundEffectsDriver, digPath))//351b48
 			{
 				sub_93480_AIL_uninstall_DIG_driver(hDigSoundEffectsDriver);
 				v10 = 1;
 			}
+			
+			//fix sound
+			/*
+			v10 = 1;*/
+			//fix sound
+
+
 			//fix hqsound
 			for (int i = 0; i < hDigSoundEffectsDriver->n_samples_24; i++)
 				hDigSoundEffectsDriver->samples_23[i].start_44mhz = NULL;
@@ -776,6 +786,9 @@ void /*__fastcall*/ sub_8D970_init_music(/*char* a1*//*int a1, int a2, char* a3*
 	v7 = mygetenv("MDMUSIC");
 	if (v7)
 	{
+#ifdef TEST_x64
+	allert_error();
+#endif
 #ifdef COMPILE_FOR_64BIT // FIXME: 64bit
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
@@ -1463,8 +1476,8 @@ void sub_99C90()//27ac90
 			sub_83E80_freemem4((uint8_t*)str_E3808_music_header);
 			index_E380C_CountOfMusic = 0;
 		}
-		if (str_E3810_music_data)
-			sub_83E80_freemem4((uint8_t*)str_E3810_music_data);
+		if (array_E3810_music_data)
+			sub_83E80_freemem4(array_E3810_music_data);
 		x_BYTE_E37FC_music = 0;
 		x_BYTE_E37FD = 0;
 		x_BYTE_E37FE = 0;
@@ -1679,12 +1692,8 @@ void sub_93830_AIL_init_sample(HSAMPLE S/*HSAMPLE S*/)//AIL_init_sample //274830
 
 	x_DWORD_181C04++;
 	v2 = x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2() && sub_916F0_sound_proc24();
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
 	if (v2)
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "AIL_init_sample(0x%X)\n", (int)S);
-#endif
+		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "AIL_init_sample(0x%X)\n", S);
 	/*result = */sub_A38E0_init_sample(S);
 	x_DWORD_181C04--;
 	//return result;
@@ -1934,7 +1943,7 @@ uint32_t sub_94010_AIL_sample_status_orig(HSAMPLE S)//AIL_sample_status
 // 181BF8: using guessed type int x_DWORD_181BF8;
 // 181C04: using guessed type int x_DWORD_181C04;
 
-void sub_94650_AIL_set_digital_master_volume(x_DWORD* a1, int32_t master_volume)//AIL_set_digital_master_volume
+void sub_94650_AIL_set_digital_master_volume(x_DWORD*  /*a1*/, int32_t master_volume)//AIL_set_digital_master_volume
 {
 	SOUND_set_master_volume(master_volume);
 }
@@ -2277,7 +2286,7 @@ void sub_95F00_AIL_end_sequence(HSEQUENCE hSequence/*HSEQUENCE S*/)//AIL_end_seq
 // 181BF8: using guessed type int x_DWORD_181BF8;
 // 181C04: using guessed type int x_DWORD_181C04;
 
-void SetAilSequenceVolume(HSEQUENCE hSequence, int32_t volume, int32_t milliseconds)//AIL_set_sequence_volume
+void SetAilSequenceVolume(HSEQUENCE  /*hSequence*/, int32_t volume, int32_t  /*milliseconds*/)//AIL_set_sequence_volume
 {
 	SOUND_set_sequence_volume(volume);
 }
@@ -2337,7 +2346,7 @@ int sub_96170_AIL_sequence_status(HSEQUENCE hSequence/*HSEQUENCE S*/)//AIL_seque
 // 181C04: using guessed type int x_DWORD_181C04;
 
 //----- (00096670) --------------------------------------------------------
-void sub_96670_AIL_set_XMIDI_master_volume(HMDIDRIVER mdi, int32_t master_volume)//AIL_set_XMIDI_master_volume
+void sub_96670_AIL_set_XMIDI_master_volume(HMDIDRIVER  /*mdi*/, int32_t master_volume)//AIL_set_XMIDI_master_volume
 {
 	SOUND_set_sequence_volume(master_volume);
 	/*
@@ -2657,125 +2666,6 @@ void sub_986E0()//2796e0
 }
 // E39B8: using guessed type char x_BYTE_E39B8;
 
-//----- (00098709) --------------------------------------------------------
-void sub_98709_create_index_dattab_power(uint8_t* tabbuffer, uint8_t* tabbufferend, uint8_t* datbuffer, posistruct_t* dattabindex)//279709
-{
-	int length = (tabbufferend - tabbuffer) / 6;
-	for (int i = 0; i < length; i++)
-	{
-		int index = *reinterpret_cast<uint32_t*>(&tabbuffer[6 * i]);
-		dattabindex[i].data = (datbuffer + index);
-		dattabindex[i].width = tabbuffer[6 * i + 4] * 2;
-		dattabindex[i].height = tabbuffer[6 * i + 5] * 2;
-	}
-}
-
-void sub_98709_create_index_dattab_power_add(uint8_t* tabbuffer, uint8_t* tabbufferend, uint8_t* datbuffer, posistruct_t* dattabindex, int add)//279709
-{
-	for (uint32_t i = 0; i < (tabbufferend - (tabbuffer + add)) / 6; i++)
-	{
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-		dattabindex[i].data = (uint8_t*)(*(uint32_t*)((tabbuffer + add) + 6 * i)) + (int32_t)datbuffer;
-#endif
-		dattabindex[i].width = (tabbuffer + add)[6 * i + 4] * 2;
-		dattabindex[i].height = (tabbuffer + add)[6 * i + 5] * 2;
-	}
-}
-
-//----- (0009874D) --------------------------------------------------------
-void sub_9874D_create_index_dattab(uint8_t* tabbuffer, uint8_t* tabbufferend, uint8_t* datbuffer, posistruct_t* dattabindex)//27974d
-{
-	//uint32_t testadr = *(uint32_t*)tabbuffer;
-	/*if (testadr == 0x9999)
-	{
-		for (uint32_t i = 0;i < (tabbufferend - tabbuffer) / 6;i++)
-		{
-			dattabindex[i].data += (int32_t)datbuffer;
-		}
-	}
-	else*/
-	{
-		for (uint32_t i = 0; i < (tabbufferend - tabbuffer) / 6; i++)
-		{
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-			dattabindex[i].data = (uint8_t*)(*(uint32_t*)(tabbuffer + 6 * i)) + (int32_t)datbuffer;
-#endif
-			dattabindex[i].width = tabbuffer[6 * i + 4];
-			dattabindex[i].height = tabbuffer[6 * i + 5];
-		}
-		//testadr = 0x9999;
-		//memcpy(tabbuffer, &testadr, 4);
-	}
-}
-
-void sub_9874D_create_index_dattab_add(uint8_t* tabbuffer, uint8_t* tabbufferend, uint8_t* datbuffer, posistruct_t* dattabindex, int add)//27974d
-{
-	for (uint32_t i = 0; i < (tabbufferend - (tabbuffer + add)) / 6; i++)
-	{
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-		dattabindex[i].data = (uint8_t*)(*(uint32_t*)((tabbuffer + add) + 6 * i)) + (int32_t)datbuffer;
-#endif
-		dattabindex[i].width = (tabbuffer + add)[6 * i + 4];
-		dattabindex[i].height = (tabbuffer + add)[6 * i + 5];
-	}
-}
-
-//----- (00099A77) --------------------------------------------------------
-void sub_99A77_create_index_dattab_div(uint8_t* tabbuffer, uint8_t* tabbufferend, uint8_t* datbuffer, posistruct_t* dattabindex)//280a77
-{
-	//uint32_t testadr = *(uint32_t*)tabbuffer;
-	/*if (testadr == 0x9999)
-	{
-		for (uint32_t i = 0;i < (tabbufferend - tabbuffer) / 6;i++)
-		{
-			dattabindex[i].data -= (int32_t)datbuffer;
-			dattabindex[i].width /= 2;
-			dattabindex[i].height /= 2;
-		}
-	}
-	else*/
-	{
-		for (uint32_t i = 0; i < (tabbufferend - tabbuffer) / 6; i++)
-		{
-			dattabindex[i].data = (uint8_t*)(*(uint32_t*)(tabbuffer + 6 * i))/* + (int32_t)datbuffer*/;//fixed
-			dattabindex[i].width = tabbuffer[6 * i + 4] / 2;
-			dattabindex[i].height = tabbuffer[6 * i + 5] / 2;
-		}
-		//testadr = 0x9999;
-		//memcpy(tabbuffer, &testadr, 4);
-	}
-}
-
-//----- (00099AEB) --------------------------------------------------------
-void sub_99AEB_create_index_dattab_minus(uint8_t* tabbuffer, uint8_t* tabbufferend, uint8_t* datbuffer, posistruct_t* dattabindex)//280aeb
-{
-	//uint32_t testadr = *(uint32_t*)tabbuffer;
-	/*if (testadr == 0x9999)
-	{
-		for (uint32_t i = 0;i < (tabbufferend - tabbuffer) / 6;i++)
-		{
-			dattabindex[i].data -= (int32_t)datbuffer;
-		}
-	}
-	else*/
-	{
-		for (uint32_t i = 0; i < (tabbufferend - tabbuffer) / 6; i++)
-		{
-			dattabindex[i].data = (uint8_t*)(*(uint32_t*)(tabbuffer + 6 * i))/* + (int32_t)datbuffer*/;//fixed
-			dattabindex[i].width = tabbuffer[6 * i + 4];
-			dattabindex[i].height = tabbuffer[6 * i + 5];
-		}
-		//testadr = 0x9999;
-		//memcpy(tabbuffer, &testadr, 4);
-	}
-}
-
 //----- (00098790) --------------------------------------------------------
 void sub_98790(unsigned __int16 milliseconds, unsigned __int8 volume)//279790
 {
@@ -2937,7 +2827,11 @@ void sub_844A0_sound_proc5(uint16_t count)//2654a0
 			//v2 = *(x_DWORD*)(v1 + 18);
 			//v2 = str_E37A0_sound_buffer2[v1y].dword_18;
 			//v1 += 32;
-			str_E37A0_sound_buffer2->str_8.wavs_10[index].dword_0 += (int32)x_DWORD_E37A8_sound_buffer1;
+#ifdef COMPILE_FOR_64BIT
+			str_E37A0_sound_buffer2->str_8.wavs_10[index].dword_0 = reinterpret_cast<uint64_t>(str_E37A0_sound_buffer2->str_8.wavs_10[index].dword_0) + x_DWORD_E37A8_sound_buffer1;
+#else
+			str_E37A0_sound_buffer2->str_8.wavs_10[index].dword_0 = reinterpret_cast<uint32_t>(str_E37A0_sound_buffer2->str_8.wavs_10[index].dword_0) + x_DWORD_E37A8_sound_buffer1;
+#endif
 			index++;
 			v0++;
 		}
@@ -2956,13 +2850,15 @@ char ReadAndDecompressSound(FILE* file, unsigned __int8 a2)//2654f0
 	//uint8_t* v3; // eax
 	char result; // al
 	//int v5; // eax
-	type_E37A0_sound_buffer2* v6x; // ebx
-	uint8_t* v7; // esi
+	//type_E37A0_sound_buffer2* v6x; // ebx
+	//uint8_t* v7; // esi
 	//char v8[96]; // [esp+0h] [ebp-60h]//3550d8
 	type_v8 v8x[6];
 	//char _4[96]; // [esp+4h] [ebp-5Ch]//3550dc
 	//char _8[96]; // [esp+8h] [ebp-58h]
 	//char _C[96]; // [esp+Ch] [ebp-54h]
+
+	shadow_type_E37A0_sound_buffer2* shadow_str_E37A0_sound_buffer2=0;//64x fix
 
 	myftell(file);
 	//v2 = 16 * a2;
@@ -2971,19 +2867,19 @@ char ReadAndDecompressSound(FILE* file, unsigned __int8 a2)//2654f0
 	//if (*(x_DWORD*)&v8[v2 + 4] == -1)//ebp-5c
 	if (v8x[a2].dword_4 == -1)//ebp-5c
 		return 0;
+
 	if (!x_WORD_E2A14_sound_activeh)
 	{
 		x_DWORD_E37A8_sound_buffer1 = (uint8_t*)sub_83CD0_malloc2(v8x[a2].dword_12 + 256);
-		str_E37A0_sound_buffer2 = (type_E37A0_sound_buffer2*)sub_83CD0_malloc2(3100);
+		str_E37A0_sound_buffer2 = (type_E37A0_sound_buffer2*)sub_83CD0_malloc2(sizeof(type_E37A0_sound_buffer2));
 		x_WORD_E2A14_sound_activel = 1;
 		if (!x_DWORD_E37A8_sound_buffer1 || !str_E37A0_sound_buffer2)
 		{
 			sub_83E80_freemem4(x_DWORD_E37A8_sound_buffer1);
 			sub_83E80_freemem4((uint8_t*)str_E37A0_sound_buffer2);
 			x_WORD_E2A14_sound_activel = 0;
-			result = 0;
 			x_BYTE_E37AD_actual_sound = -1;
-			return result;
+			return 0;
 		}
 		x_DWORD_E2A18 = v8x[a2].dword_12 + 256;
 		x_WORD_E2A14_sound_activeh = 1;
@@ -2993,47 +2889,92 @@ char ReadAndDecompressSound(FILE* file, unsigned __int8 a2)//2654f0
 	if (!x_DWORD_E37A8_sound_buffer1 || !str_E37A0_sound_buffer2)
 		return 0;
 	memset((void*)x_DWORD_E37A8_sound_buffer1, 0, x_DWORD_E2A18);
-	memset((void*)str_E37A0_sound_buffer2, 0, x_DWORD_E2A1C);
-	//v5 = 16 * a2;
-	v6x = str_E37A0_sound_buffer2;
-	//if (v8x[a2].dword_8 != 2080)allert_error();//when not is allways same
-	//str2_E37A4_sound_buffer3 = str_E37A0_sound_buffer2->next_str + v8x[a2].dword_8;
-	//str2_E37A4_sound_buffer3 = (int8_t*)str_E37A0_sound_buffer2+ v8x[a2].dword_8;
-	//str2_E37A4_sound_buffer3 = (int8_t*)str_E37A0_sound_buffer2 + v8x[a2].dword_8;
+
+/*	memset((void*)str_E37A0_sound_buffer2, 0, x_DWORD_E2A1C);
 	index_E37A4_CountOfSounds = (v8x[a2].dword_8) / sizeof(sub2type_E37A0_sound_buffer2);
-	v7 = x_DWORD_E37A8_sound_buffer1;
 	DataFileIO::Seek(file, v8x[a2].dword_4, 0);
 	DataFileIO::Read(file, x_DWORD_E37A8_sound_buffer1, 8);
-	if (v7[0] != 82 || v7[1] != 78 || v7[2] != 67)
+	if (x_DWORD_E37A8_sound_buffer1[0] != 82 || x_DWORD_E37A8_sound_buffer1[1] != 78 || x_DWORD_E37A8_sound_buffer1[2] != 67)
 	{
 		DataFileIO::Read(file, (x_DWORD_E37A8_sound_buffer1 + 8), v8x[a2].dword_12 - 8);
 	}
 	else
 	{
-		DataFileIO::Read(
-			file,
-			(x_DWORD_E37A8_sound_buffer1 + 8),
-			v7[7]
-			+ ((v7[6] + ((v7[5] + (v7[4] << 8)) << 8)) << 8)
-			- 8);
-		DataFileIO::Decompress(v7, v7);
+		DataFileIO::Read(file,(x_DWORD_E37A8_sound_buffer1 + 8), x_DWORD_E37A8_sound_buffer1[7]+((x_DWORD_E37A8_sound_buffer1[6]+((x_DWORD_E37A8_sound_buffer1[5]+(x_DWORD_E37A8_sound_buffer1[4]<<8))<<8))<< 8)-8);
+		DataFileIO::Decompress(x_DWORD_E37A8_sound_buffer1, x_DWORD_E37A8_sound_buffer1);
 	}
 	DataFileIO::Seek(file, v8x[a2].dword_0, 0);
 	DataFileIO::Read(file, (uint8_t*)str_E37A0_sound_buffer2, 8);
-	if (v6x->byte_0 != 'R' || v6x->byte_1 != 'N' || v6x->byte_2 != 'C')//R N C
+	if (str_E37A0_sound_buffer2->byte_0 != 'R' || str_E37A0_sound_buffer2->byte_1 != 'N' || str_E37A0_sound_buffer2->byte_2 != 'C')//R N C
 	{
 		DataFileIO::Read(file, (uint8_t*)&str_E37A0_sound_buffer2->str_8, v8x[a2].dword_8 - 8);
 	}
 	else
 	{
-		DataFileIO::Read(
-			file,
-			(uint8_t*)&str_E37A0_sound_buffer2->str_8,
-			v6x->byte_7
-			+ ((v6x->byte_6 + ((v6x->byte_5 + (v6x->byte_4 << 8)) << 8)) << 8)
-			- 8);
-		DataFileIO::Decompress((uint8_t*)v6x, (uint8_t*)v6x);
+		DataFileIO::Read(file,(uint8_t*)&str_E37A0_sound_buffer2->str_8,str_E37A0_sound_buffer2->byte_7+((str_E37A0_sound_buffer2->byte_6+((str_E37A0_sound_buffer2->byte_5+(str_E37A0_sound_buffer2->byte_4<<8))<<8))<<8)-8);
+		DataFileIO::Decompress((uint8_t*)str_E37A0_sound_buffer2, (uint8_t*)str_E37A0_sound_buffer2);
 	}
+	*/
+
+	//64xfix
+	shadow_str_E37A0_sound_buffer2 = (shadow_type_E37A0_sound_buffer2*)sub_83CD0_malloc2(sizeof(shadow_type_E37A0_sound_buffer2));
+	if (!shadow_str_E37A0_sound_buffer2)
+	{
+		sub_83E80_freemem4((uint8_t*)shadow_str_E37A0_sound_buffer2);
+		return 0;
+	}
+
+	memset((void*)shadow_str_E37A0_sound_buffer2, 0, x_DWORD_E2A1C);
+	index_E37A4_CountOfSounds = (v8x[a2].dword_8) / sizeof(shadow_sub2type_E37A0_sound_buffer2);
+	DataFileIO::Seek(file, v8x[a2].dword_4, 0);
+	DataFileIO::Read(file, x_DWORD_E37A8_sound_buffer1, 8);
+	if (x_DWORD_E37A8_sound_buffer1[0] != 82 || x_DWORD_E37A8_sound_buffer1[1] != 78 || x_DWORD_E37A8_sound_buffer1[2] != 67)
+	{
+		DataFileIO::Read(file, (x_DWORD_E37A8_sound_buffer1 + 8), v8x[a2].dword_12 - 8);
+	}
+	else
+	{
+		DataFileIO::Read(file, (x_DWORD_E37A8_sound_buffer1 + 8), x_DWORD_E37A8_sound_buffer1[7] + ((x_DWORD_E37A8_sound_buffer1[6] + ((x_DWORD_E37A8_sound_buffer1[5] + (x_DWORD_E37A8_sound_buffer1[4] << 8)) << 8)) << 8) - 8);
+		DataFileIO::Decompress(x_DWORD_E37A8_sound_buffer1, x_DWORD_E37A8_sound_buffer1);
+	}
+	DataFileIO::Seek(file, v8x[a2].dword_0, 0);
+	DataFileIO::Read(file, (uint8_t*)shadow_str_E37A0_sound_buffer2, 8);
+	if (shadow_str_E37A0_sound_buffer2->byte_0 != 'R' || shadow_str_E37A0_sound_buffer2->byte_1 != 'N' || shadow_str_E37A0_sound_buffer2->byte_2 != 'C')//R N C
+	{
+		DataFileIO::Read(file, (uint8_t*)&shadow_str_E37A0_sound_buffer2->str_8, v8x[a2].dword_8 - 8);
+	}
+	else
+	{
+		DataFileIO::Read(file, (uint8_t*)&shadow_str_E37A0_sound_buffer2->str_8, shadow_str_E37A0_sound_buffer2->byte_7 + ((shadow_str_E37A0_sound_buffer2->byte_6 + ((shadow_str_E37A0_sound_buffer2->byte_5 + (shadow_str_E37A0_sound_buffer2->byte_4 << 8)) << 8)) << 8) - 8);
+		DataFileIO::Decompress((uint8_t*)shadow_str_E37A0_sound_buffer2, (uint8_t*)shadow_str_E37A0_sound_buffer2);
+	}
+	str_E37A0_sound_buffer2->byte_0 = shadow_str_E37A0_sound_buffer2->byte_0;
+	str_E37A0_sound_buffer2->byte_1 = shadow_str_E37A0_sound_buffer2->byte_1;
+	str_E37A0_sound_buffer2->byte_2 = shadow_str_E37A0_sound_buffer2->byte_2;
+	str_E37A0_sound_buffer2->byte_3 = shadow_str_E37A0_sound_buffer2->byte_3;
+	str_E37A0_sound_buffer2->byte_4 = shadow_str_E37A0_sound_buffer2->byte_4;
+	str_E37A0_sound_buffer2->byte_5 = shadow_str_E37A0_sound_buffer2->byte_5;
+	str_E37A0_sound_buffer2->byte_6 = shadow_str_E37A0_sound_buffer2->byte_6;
+	str_E37A0_sound_buffer2->byte_7 = shadow_str_E37A0_sound_buffer2->byte_7;
+	for(int i=0;i<10;i++)
+		str_E37A0_sound_buffer2->str_8.stub[i] = shadow_str_E37A0_sound_buffer2->str_8.stub[i];
+	for (int i = 0; i < 64; i++)
+	{
+		str_E37A0_sound_buffer2->str_8.wavs_10[i].dword_0 = (uint8_t*)shadow_str_E37A0_sound_buffer2->str_8.wavs_10[i].dword_0;
+		for (int j = 0; j < 4; j++)
+			str_E37A0_sound_buffer2->str_8.wavs_10[i].stub_4[j] = shadow_str_E37A0_sound_buffer2->str_8.wavs_10[i].stub_4[j];
+		str_E37A0_sound_buffer2->str_8.wavs_10[i].dword_8 = shadow_str_E37A0_sound_buffer2->str_8.wavs_10[i].dword_8;
+		str_E37A0_sound_buffer2->str_8.wavs_10[i].word_12 = shadow_str_E37A0_sound_buffer2->str_8.wavs_10[i].word_12;
+		for (int j = 18; j < 18; j++)
+			str_E37A0_sound_buffer2->str_8.wavs_10[i].filename_14[j] = shadow_str_E37A0_sound_buffer2->str_8.wavs_10[i].filename_14[j];
+	}
+	for (int i = 0; i < 14; i++)
+		str_E37A0_sound_buffer2->str_8.stubb[i] = shadow_str_E37A0_sound_buffer2->str_8.stubb[i];
+	for (int i = 0; i < 1020; i++)
+		str_E37A0_sound_buffer2->next_str[i] = shadow_str_E37A0_sound_buffer2->next_str[i];
+	sub_83E80_freemem4((uint8_t*)shadow_str_E37A0_sound_buffer2);
+	//64xfix
+
 	sub_844A0_sound_proc5(index_E37A4_CountOfSounds);
 	x_BYTE_E3798_sound_active2 = 1;
 	return 1;
@@ -3078,11 +3019,13 @@ int sub_9E3A0_AIL_API_read_INI(AIL_INI* INI, char* filename/*,char* a8*/)//27f3a
 	memset(&INI->IO, -1, 24);
 	//v9y = myfopen_s(&v9x,a2,(const char*) "rt");
 
+	// original code
+	/*
 	v9x = myopent(filename, (char*)"rt");
 	if (!v9x)
 		return 0;
 
-	while (fgets(v13, 80, v9x) /*&& !(v9x[12] & 0x10)*/)//355140
+	while (fgets(v13, 80, v9x))//355140
 	{
 		for (i = strlen(v13) - 1; (i & 0x80000000) == 0 && IsTable[(v13[i] + 1)] & 2; i--)
 			v13[i] = 0;
@@ -3128,24 +3071,53 @@ int sub_9E3A0_AIL_API_read_INI(AIL_INI* INI, char* filename/*,char* a8*/)//27f3a
 				}
 				else if (!_strnicmp(key, "IO_ADDR", 8))
 				{
-					INI->IO.IO = sub_9E2B0(value, 16, 0);
+					INI->IO.IO = sub_9E2B0(value, 16);
 				}
 				else if (!_strnicmp(key, "IRQ", 4))
 				{
-					INI->IO.IRQ = sub_9E2B0(value, 10, 0);
+					INI->IO.IRQ = sub_9E2B0(value, 10);
 				}
 				else if (!_strnicmp(key, "DMA_8_bit", 10))
 				{
-					INI->IO.DMA_8_bit = sub_9E2B0(value, 10, 0);
+					INI->IO.DMA_8_bit = sub_9E2B0(value, 10);
 				}
 				else if (!_strnicmp(key, "DMA_16_bit", 11))
 				{
-					INI->IO.DMA_16_bit = sub_9E2B0(value, 10, 0);
+					INI->IO.DMA_16_bit = sub_9E2B0(value, 10);
 				}
 			}
 		}
 	}
 	fclose(v9x);
+	*/
+	//fix
+	if (!strcmp(filename + strlen(filename) - strlen("DIG.INI"), "DIG.INI"))
+	{
+		strcpy(INI->device_name, "Creative Labs Sound Blaster 16 or AWE32");
+		strcpy(INI->driver_name, "SB16.DIG");
+		char workingDir[MAX_PATH];
+		GetDirectory(workingDir, filename);
+		sprintf(INI->driver_path, "%s/%s", workingDir, "SB16.DIG");
+		INI->IO.IO = sub_9E2B0((char*)"220h", 16);
+		INI->IO.IRQ = sub_9E2B0((char*)"-1", 10);
+		INI->IO.DMA_8_bit = sub_9E2B0((char*)"-1", 10);
+		INI->IO.DMA_16_bit = sub_9E2B0((char*)"-1", 10);
+	}
+	if (!strcmp(filename + strlen(filename) - strlen("MDI.INI"), "MDI.INI"))
+	{
+		strcpy(INI->device_name, "Creative Labs Sound Blaster(TM) 16");
+		strcpy(INI->driver_name, "SBPRO2.MDI");
+			char workingDir[MAX_PATH];
+		GetDirectory(workingDir, filename);
+		sprintf(INI->driver_path, "%s/%s", workingDir, "SBPRO2.MDI");
+		INI->IO.IO = sub_9E2B0((char*)"220h", 16);
+		INI->IO.IRQ = sub_9E2B0((char*)"-1", 10);
+		INI->IO.DMA_8_bit = sub_9E2B0((char*)"-1", 10);
+		INI->IO.DMA_16_bit = sub_9E2B0((char*)"-1", 10);
+
+	}
+	//fix
+
 	if (strlen(INI->device_name))
 	{
 		//qmemcpy(filename, INI->device_name, 0x118u);//fix it
@@ -3494,7 +3466,7 @@ int sub_9F280(int* a1)//a1 bude nejaky driver
 }
 
 //----- (0009F2E0) --------------------------------------------------------
-VDI_CALL sub_9F2E0(int* a1, int a2, unsigned __int16 a3, unsigned __int16 a4)
+VDI_CALL sub_9F2E0(int* a1, int  /*a2*/, unsigned __int16 a3, unsigned __int16 a4)
 {
 	signed __int64 v4; // rax
 	unsigned __int16 v5; // ax
@@ -3527,7 +3499,7 @@ VDI_CALL sub_9F2E0(int* a1, int a2, unsigned __int16 a3, unsigned __int16 a4)
 }
 
 //----- (0009F3D0) --------------------------------------------------------
-__int64 sub_9F3D0(int* a1, int a2, unsigned __int16 a3, unsigned __int16 a4)
+__int64 sub_9F3D0(int* a1, int  /*a2*/, unsigned __int16 a3, unsigned __int16 a4)
 {
 	signed __int64 v4; // rax
 	unsigned __int16 v5; // ax
@@ -3573,7 +3545,7 @@ __int64 sub_9F3D0(int* a1, int a2, unsigned __int16 a3, unsigned __int16 a4)
 }
 
 //----- (0009F4F0) --------------------------------------------------------
-VDI_CALL sub_9F4F0(int* a1, int a2, unsigned __int16 a3, unsigned __int16 a4)
+VDI_CALL sub_9F4F0(int* a1, int  /*a2*/, unsigned __int16 a3, unsigned __int16 a4)
 {
 	signed __int64 v4; // rax
 	unsigned __int16 v5; // ax
@@ -3606,7 +3578,7 @@ VDI_CALL sub_9F4F0(int* a1, int a2, unsigned __int16 a3, unsigned __int16 a4)
 }
 
 //----- (0009F5E0) --------------------------------------------------------
-VDI_CALL sub_9F5E0(int* a1, int a2, unsigned __int16 a3, unsigned __int16 a4)
+VDI_CALL sub_9F5E0(int* a1, int  /*a2*/, unsigned __int16 a3, unsigned __int16 a4)
 {
 	signed __int64 v4; // rax
 	unsigned __int16 v5; // ax
@@ -3696,6 +3668,9 @@ void sub_9F740(char* a1)//280740
 					*(x_DWORD*)v5 = x_DWORD_181E2C;
 					__writegsx_DWORD(x_DWORD_181E2C, 0);
 					__writegsx_DWORD(*(x_DWORD*)v5 + 4, v7);
+#ifdef TEST_x64
+	allert_error();
+#endif
 #ifdef COMPILE_FOR_64BIT // FIXME: 64bit
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
@@ -3771,116 +3746,6 @@ void sub_A0EF9_s_minus2()//281ef9
 	x_DWORD_E3FF2--;
 }
 // E3FF2: using guessed type int x_DWORD_E3FF2;
-
-//----- (000A0F06) --------------------------------------------------------
-/*int sub_A0F06(int a1, int a2, int a3, int a4, int a5, int a6, int a7)//281f06
-{
-	int v7; // edx
-	unsigned int v8; // edi
-	unsigned int v9; // eax
-	unsigned int v10; // edi
-	signed __int32 v11; // eax
-	signed __int32 v12; // ecx
-	signed __int32 v13; // eax
-	int v15; // eax
-	int v16; // [esp-30h] [ebp-30h]
-	int v17; // [esp-2Ch] [ebp-2Ch]
-	int v18; // [esp-28h] [ebp-28h]
-	int v19; // [esp-24h] [ebp-24h]
-	int v20; // [esp-20h] [ebp-20h]
-	int v21; // [esp-1Ch] [ebp-1Ch]
-	int v22; // [esp-18h] [ebp-18h]
-	int v23; // [esp-14h] [ebp-14h]
-	void **v24; // [esp-10h] [ebp-10h]
-	int v25; // [esp-Ch] [ebp-Ch]
-	int v26; // [esp-8h] [ebp-8h]
-	int v27; // [esp-4h] [ebp-4h]
-	void *retaddr[2]; // [esp+0h] [ebp+0h]
-
-	if (x_DWORD_E3FEE)
-	{
-		v27 = a1;
-		//__outx_BYTE(0x20u, 0x20u);
-		//__asm { iret }
-	}
-	v27 = a7;
-	v26 = a6;
-	v25 = a5;
-	v24 = retaddr;
-	v23 = a4;
-	v22 = a3;
-	v21 = a2;
-	v20 = a1;
-	v19 = (unsigned __int16)__DS__;
-	v18 = (unsigned __int16)__ES__;
-	v17 = (unsigned __int16)__FS__;
-	v16 = (unsigned __int16)__GS__;
-	__DS__ = x_WORD_E3FF6;
-	x_DWORD_E3FEE++;
-	x_WORD_E4A04 = __SS__;
-	x_DWORD_E4A08 = (int)&v16;
-	v7 = x_DWORD_E3FEA;
-	v8 = 0;
-	do
-	{
-		if (x_DWORD_E3E9C[v8] == 2)
-		{
-			v9 = v7 + x_DWORD_E3EDC[v8];
-			if (v9 >= x_DWORD_E3F1C[v8])
-			{
-				v9 -= x_DWORD_E3F1C[v8];
-				x_DWORD_E3F5C[v8]++;
-			}
-			x_DWORD_E3EDC[v8] = v9;
-		}
-		v8++;
-	} while (v8 < 16);
-	//__outx_BYTE(0x20u, 0x20u);
-	//_enable();
-	if (x_DWORD_E3FF2 <= 0)
-	{
-		v10 = 0;
-		do
-		{
-			while (x_DWORD_E3F5C[v10])
-			{
-				x_DWORD_E3F5C[v10]--;
-				x_DWORD_E3E5C_timer[v10]((HMDIDRIVER)x_DWORD_E3F9C[v10]);//fix maybe
-			}
-			v10++;
-		} while (v10 < 15);
-	}
-	if (!x_DWORD_E3F5C[0xf])
-	{
-		x_DWORD_E3FEE--;
-		v15 = *MK_FP(x_WORD_E4A04, (unsigned int)&v20);
-		//__asm { iret }
-	}
-	x_DWORD_E3F5C[0xf]--;
-	x_DWORD_E3FEE--;
-	v11 = (unsigned __int16)x_WORD_E3FE0;
-	v12 = x_InterlockedExchange((long*)&v26, x_DWORD_E3FDC);
-	v13 = x_InterlockedExchange((long*)&v27, v11);
-	return 0;//fix it: return MK_FP((unsigned int)retaddr[0], (unsigned int)retaddr[0])(v13, v27, v26, v12);
-}*/
-// A0F06: could not find valid save-restore pair for ebp
-// A0F06: could not find valid save-restore pair for edi
-// A0F06: could not find valid save-restore pair for esi
-// E3E5C: using guessed type int x_DWORD_E3E5C[];
-// E3E9C: using guessed type int x_DWORD_E3E9C[];
-// E3EDC: using guessed type int x_DWORD_E3EDC[];
-// E3F1C: using guessed type int x_DWORD_E3F1C[];
-// E3F5C: using guessed type int x_DWORD_E3F5C[];
-// E3F98: using guessed type int x_DWORD_E3F98;
-// E3F9C: using guessed type int x_DWORD_E3F9C[];
-// E3FDC: using guessed type int x_DWORD_E3FDC;
-// E3FE0: using guessed type __int16 x_WORD_E3FE0;
-// E3FEA: using guessed type int x_DWORD_E3FEA;
-// E3FEE: using guessed type int x_DWORD_E3FEE;
-// E3FF2: using guessed type int x_DWORD_E3FF2;
-// E3FF6: using guessed type __int16 x_WORD_E3FF6;
-// E4A04: using guessed type __int16 x_WORD_E4A04;
-// E4A08: using guessed type int x_DWORD_E4A08;
 
 //----- (000A102C) --------------------------------------------------------
 char sub_A102C(int a1)//28202c //fix
@@ -4049,7 +3914,7 @@ void sub_A1249_AIL_API_set_real_vect(uint32_t vectnum, uint16_t real_ptr)//28224
 
 //----- (000A12C5) --------------------------------------------------------
 // write access to const memory has been detected, the output may be wrong!
-signed int sub_A12C5_sound_proc_irq(int a1, int a2, __int16 a3)//2822c5
+signed int sub_A12C5_sound_proc_irq(int a1, int  /*a2*/, __int16 a3)//2822c5
 {
 	signed int result; // eax
 
@@ -4078,6 +3943,9 @@ signed int sub_A12C5_sound_proc_irq(int a1, int a2, __int16 a3)//2822c5
 		  lar     ecx, edx
 		  int     31h; DPMI Services   ax=func xxxxh
 		}*/
+#ifdef TEST_x64
+	allert_error();
+#endif
 #ifdef COMPILE_FOR_64BIT // FIXME: 64bit
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
@@ -4398,7 +4266,7 @@ void sub_A1810_set_timer_period(HTIMER timer, uint32_t microseconds)//282810
 // E3F1C: using guessed type int x_DWORD_E3F1C[];
 
 //----- (000A1840) --------------------------------------------------------
-void sub_A1840_AIL_API_set_timer_frequency(HTIMER timer, uint32_t hertz)//282840
+void sub_A1840_AIL_API_set_timer_frequency(HTIMER  /*timer*/, uint32_t  /*hertz*/)//282840
 {
 	sub_91BD0_s_plus();
 	//sub_92890_AIL_set_timer_period(timer, 1000000 / hertz);
@@ -4406,7 +4274,7 @@ void sub_A1840_AIL_API_set_timer_frequency(HTIMER timer, uint32_t hertz)//282840
 }
 
 //----- (000A1870) --------------------------------------------------------
-void sub_A1870(int a1, unsigned int a2)//282870
+void sub_A1870(int  /*a1*/, unsigned int a2)//282870
 {
 	int v2; // eax
 
@@ -4791,11 +4659,7 @@ LABEL_33:
 			a1->half_buffer_size_4 = v18;
 		if (a1->half_buffer_size_4 > v17)
 			a1->half_buffer_size_4 = v17;
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-		v12 = (int)a1->DMA_seg_8;
-#endif
+		v12 = a1->DMA_seg_8;
 		if (x_DWORD_181DAC[18])
 		{
 			v12 >>= 12;
@@ -4837,7 +4701,7 @@ int16_t envstring[0x18] = {
 };
 
 //----- (000A2C80) --------------------------------------------------------
-int sub_A2C80(HDIGDRIVER a1, IO_PARMS* a2)//283c80
+int sub_A2C80(HDIGDRIVER a1, IO_PARMS*  /*a2*/)//283c80
 {
 	int16_t v3[0x18]; // [esp+0h] [ebp-30h]
 	//__int16 v4; // [esp+2h] [ebp-2Eh]
@@ -4922,15 +4786,15 @@ HDIGDRIVER sub_A2EA0(AIL_DRIVER* a1, IO_PARMS IO)//283ea0
 	//unsigned __int16 v18; // [esp+1Ch] [ebp-34h]
 	//unsigned __int16 v19; // [esp+1Eh] [ebp-32h]
 	HDIGDRIVER result; // [esp+24h] [ebp-2Ch]
-	int v21; // [esp+28h] [ebp-28h]
+	int32_t v21; // [esp+28h] [ebp-28h]
 	unsigned int v22; // [esp+2Ch] [ebp-24h]
 	unsigned int v23; // [esp+30h] [ebp-20h]
 	unsigned int v24; // [esp+34h] [ebp-1Ch]
-	int v25; // [esp+38h] [ebp-18h]
+	int32_t v25; // [esp+38h] [ebp-18h]
 	HDIGDRIVER v26 = NULL; // [esp+3Ch] [ebp-14h]
 	unsigned int v27; // [esp+40h] [ebp-10h]
-	int v28; // [esp+44h] [ebp-Ch]
-	int i; // [esp+48h] [ebp-8h]
+	int32_t v28; // [esp+44h] [ebp-Ch]
+	int32_t i; // [esp+48h] [ebp-8h]
 	uint8_t* v30; // [esp+4Ch] [ebp-4h]
 	IO_PARMS* v31; // [esp+64h] [ebp+14h]
 	IO_PARMS* v32; // [esp+64h] [ebp+14h]
@@ -5032,20 +4896,12 @@ HDIGDRIVER sub_A2EA0(AIL_DRIVER* a1, IO_PARMS IO)//283ea0
 					if (v26->DMA_buf_10)
 					{
 						v2 = v26->DMA_sel_9;
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-						v3 = (int)v26->DMA_seg_8;
-#endif
+						v3 = v26->DMA_seg_8;
 						sub_9D560((uint8_t*)v26->DMA_buf_10);
 					}
 					v26->DMA_buf_10 = (void*)v30;
 					v26->DMA_sel_9 = v22;
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-					v26->DMA_seg_8 = (void*)v21;
-#endif
+					v26->DMA_seg_8 = v21;
 					v27 = v22 >> 12;
 					v24 = 0xF0000 & (v22 >> 12);
 					v23 = 0xF0000 & (v25 + (v22 >> 12) - 1);
@@ -5083,6 +4939,9 @@ HDIGDRIVER sub_A2EA0(AIL_DRIVER* a1, IO_PARMS IO)//283ea0
 								sub_91F70_AIL_call_driver(v26->drvr_0, 774, 0, 0);
 								v26->n_samples_24 = 0;
 								v12 = v26->DMA_sel_9;
+#ifdef TEST_x64
+	allert_error();
+#endif
 #ifdef COMPILE_FOR_64BIT // FIXME: 64bit
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
@@ -5099,12 +4958,9 @@ HDIGDRIVER sub_A2EA0(AIL_DRIVER* a1, IO_PARMS IO)//283ea0
 								//sub_92740_AIL_set_timer_user(v26->timer_3, (signed __int32)v26);
 								//sub_92930_AIL_set_timer_frequency(v26->timer_3, x_DWORD_181DAC[0]);//00352DAC not zero!
 								//sub_92BA0_AIL_start_timer(v26->timer_3);
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-								v26->var36_aildrv = (x_DWORD)sub_A2DE0;
-								v26->var40_aildrv = (x_DWORD)v26;
-#endif
+								
+								//fix v26->var36_aildrv = (x_DWORD)sub_A2DE0;
+								//fix v26->var40_aildrv = (x_DWORD)v26;
 								sub_B0C1A(v26);
 								//dma sub_B0B87(v26, 0);//fix
 								//dma sub_B0B87(v26, 1);//fix
@@ -5119,6 +4975,9 @@ HDIGDRIVER sub_A2EA0(AIL_DRIVER* a1, IO_PARMS IO)//283ea0
 							sub_91F70_AIL_call_driver(v26->drvr_0, 774, 0, 0);
 							v26->n_samples_24 = 0;
 							v9 = v26->DMA_sel_9;
+#ifdef TEST_x64
+	allert_error();
+#endif
 #ifdef COMPILE_FOR_64BIT // FIXME: 64bit
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
@@ -5138,6 +4997,9 @@ HDIGDRIVER sub_A2EA0(AIL_DRIVER* a1, IO_PARMS IO)//283ea0
 						sub_91F70_AIL_call_driver(v26->drvr_0, 774, 0, 0);
 						v26->n_samples_24 = 0;
 						v7 = v26->DMA_sel_9;
+#ifdef TEST_x64
+	allert_error();
+#endif
 #ifdef COMPILE_FOR_64BIT // FIXME: 64bit
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
@@ -5151,6 +5013,9 @@ HDIGDRIVER sub_A2EA0(AIL_DRIVER* a1, IO_PARMS IO)//283ea0
 				else
 				{
 					v4 = v26->DMA_sel_9;
+#ifdef TEST_x64
+	allert_error();
+#endif
 #ifdef COMPILE_FOR_64BIT // FIXME: 64bit
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
@@ -5231,7 +5096,7 @@ HDIGDRIVER sub_A3600_AIL_API_install_DIG_driver_file(/*int a1,*/ char* filename,
 // 181C90: using guessed type char x_BYTE_181C90;
 
 //----- (000A36B0) --------------------------------------------------------
-HDIGDRIVER sub_A36B0(int a1, uint8_t* a2, int a3, IO_PARMS a4)
+HDIGDRIVER sub_A36B0(int  /*a1*/, uint8_t* a2, int a3, IO_PARMS a4)
 {
 	HDIGDRIVER result; // [esp+4h] [ebp-8h]
 	AIL_DRIVER* v7; // [esp+8h] [ebp-4h]
@@ -5767,7 +5632,7 @@ EOS_callback_type sub_A3EB0_register_EOS_callback(HSAMPLE S, EOS_callback_type E
 }
 
 //----- (000A3F00) --------------------------------------------------------
-void sub_A3F00_set_sample_user_data(HSAMPLE S, int index, int a3)//284f00
+void sub_A3F00_set_sample_user_data(HSAMPLE S, int index, int  /*a3*/)//284f00
 {
 	//int result; // eax
 
@@ -5924,6 +5789,9 @@ void sub_A43E0(HSAMPLE S)//2853e0
 		v1 = *(x_DWORD**)(S + 2168);
 		if (*(x_BYTE*)v1 <= 9u)
 			break;
+#ifdef TEST_x64
+	allert_error();
+#endif
 #ifdef COMPILE_FOR_64BIT // FIXME: 64bit
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
@@ -6004,6 +5872,9 @@ HSAMPLE sub_A4970(int a1, uint8_t* a2, int a3)//285970
 	}
 	else
 	{
+#ifdef TEST_x64
+	allert_error();
+#endif
 #ifdef COMPILE_FOR_64BIT // FIXME: 64bit
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
@@ -6171,7 +6042,7 @@ void sub_A4F10(HMDIDRIVER a1, char a2, char a3, char a4)//285f10
 }
 
 //----- (000A4FD0) --------------------------------------------------------
-void sub_A4FD0(int a1, int a2, unsigned int a3)//285fd0
+void sub_A4FD0(int a1, int  /*a2*/, unsigned int a3)//285fd0
 {
 	sub_A4EB0((HMDIDRIVER)a1);
 	if (a3 <= 0x200)
@@ -6485,6 +6356,9 @@ void sub_A5850(HSEQUENCE hSequence, char a2, unsigned int a3, signed int a4, int
 	v8 = a2 & 0xF;
 	//result = S->chan_map_37[4 * v8];
 	v9 = hSequence->chan_map_37[4 * v8];
+#ifdef TEST_x64
+	allert_error();
+#endif
 #ifdef COMPILE_FOR_64BIT // FIXME: 64bit
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
@@ -6555,6 +6429,9 @@ void sub_A5850(HSEQUENCE hSequence, char a2, unsigned int a3, signed int a4, int
 				v12 = (int32*)result;
 				if (result)
 				{
+#ifdef TEST_x64
+	allert_error();
+#endif
 #ifdef COMPILE_FOR_64BIT // FIXME: 64bit
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
@@ -6895,6 +6772,9 @@ void sub_A6530(HMDIDRIVER a1)//287530
 								x_DWORD_181EB0 = *(_DWORD*)(x_DWORD_181EB8 + 20) + 1;
 								x_DWORD_181ED8 = sub_A5040(&x_DWORD_181EB0);
 								x_DWORD_181ED8 += x_DWORD_181EB0 - *(_DWORD*)(x_DWORD_181EB8 + 20);
+#ifdef TEST_x64
+	allert_error();
+#endif
 #ifdef COMPILE_FOR_64BIT // FIXME: 64bit
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
@@ -7395,7 +7275,7 @@ HMDIDRIVER sub_A77D0_AIL_API_install_MDI_INI(char* filename, IO_PARMS* IO)//2887
 // 181C90: using guessed type char x_BYTE_181C90;
 
 //----- (000A7880) --------------------------------------------------------
-HMDIDRIVER sub_A7880_sound_proc27(int a1, uint8_t* a2, int a3, IO_PARMS* a4)
+HMDIDRIVER sub_A7880_sound_proc27(int  /*a1*/, uint8_t* a2, int a3, IO_PARMS* a4)
 {
 	HMDIDRIVER v6; // [esp+4h] [ebp-8h]
 	AIL_DRIVER* v7; // [esp+8h] [ebp-4h]
@@ -7580,7 +7460,7 @@ void sub_A7BF0_sound_proc33(HSEQUENCE hSequence)//288bf0
 	//return result;
 }
 
-int32_t sub_A7C20_AIL_API_init_sequence(HSEQUENCE hSequence, void* start, int32_t sequence_num, uint32_t track) {
+int32_t sub_A7C20_AIL_API_init_sequence(HSEQUENCE hSequence, void*  /*start*/, int32_t sequence_num, uint32_t track) {
 	//S->ICA_6 = 0;
 	//S->prefix_callback_7 = 0;
 	//S->trigger_callback_8_32 = 0;
@@ -7597,7 +7477,7 @@ int32_t sub_A7C20_AIL_API_init_sequence(HSEQUENCE hSequence, void* start, int32_
 	S->tempo_accum_20 = 0;
 	S->tempo_error_22 = 0;*/
 	hSequence->sequence_num = sequence_num;
-	SOUND_init_MIDI_sequence(str_E3810_music_data, str_E3808_music_header, track - 1);
+	SOUND_init_MIDI_sequence(array_E3810_music_data, str_E3808_music_header, track - 1);
 	return 1;
 }
 
@@ -7868,6 +7748,9 @@ void sub_A8180_AIL_API_resume_sequence_orig(x_DWORD* a1)//289180
 				a1[i + 37] = v1;
 			}
 		}
+#ifdef TEST_x64
+	allert_error();
+#endif
 #ifdef COMPILE_FOR_64BIT // FIXME: 64bit
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
@@ -8440,6 +8323,9 @@ int sub_A8EA0(x_DWORD* a1, int a2)
 	int v6; // [esp+Ch] [ebp-4h]
 
 	v4 = a2 - 1;
+#ifdef TEST_x64
+	allert_error();
+#endif
 #ifdef COMPILE_FOR_64BIT // FIXME: 64bit
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
@@ -8474,6 +8360,9 @@ int sub_A8EA0(x_DWORD* a1, int a2)
 			if (*(x_DWORD*)(a1[v4 + 40] + 4) != 1)
 				sub_A5FD0(a1[v4 + 40], v4);
 		}
+#ifdef TEST_x64
+	allert_error();
+#endif
 #ifdef COMPILE_FOR_64BIT // FIXME: 64bit
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
@@ -8498,6 +8387,9 @@ int sub_A9080(x_DWORD* a1, int a2, int a3)
 			result = *(x_DWORD*)(4 * a3 + *a1 + 92);
 			if ((x_DWORD*)result != a1)
 			{
+#ifdef TEST_x64
+	allert_error();
+#endif
 #ifdef COMPILE_FOR_64BIT // FIXME: 64bit
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
@@ -8795,6 +8687,9 @@ x_DWORD* sub_AA310(int a1, int a2, int a3, signed int a4)//28b310
 		v10[1] = a1;
 		*v10 = a2;
 		v10[2] = a3;
+#ifdef TEST_x64
+	allert_error();
+#endif
 #ifdef COMPILE_FOR_64BIT // FIXME: 64bit
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
@@ -8818,6 +8713,9 @@ x_DWORD* sub_AA310(int a1, int a2, int a3, signed int a4)//28b310
 			v5 = a4 <= 16 ? a4 : 16;
 			if (v10[325] >= v5)
 				break;
+#ifdef TEST_x64
+	allert_error();
+#endif
 #ifdef COMPILE_FOR_64BIT // FIXME: 64bit
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
@@ -9031,7 +8929,7 @@ signed int sub_916F0_sound_proc24()
 }
 
 //----- (0009E2B0) --------------------------------------------------------
-int sub_9E2B0(char* a1, int a2, x_DWORD* a3)
+int sub_9E2B0(char* a1, int a2/*, x_DWORD* a3*/)
 {
 	int v3; // ebx
 	int v5; // [esp+4h] [ebp-10h]
@@ -9062,12 +8960,8 @@ int sub_9E2B0(char* a1, int a2, x_DWORD* a3)
 				break;
 		}
 	}
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-	if (a3)
-		*a3 = i + (int)a1;
-#endif
+	//if (a3)
+	//	*a3 = i + (int)a1;
 	return v5 * v6;
 }
 // 98805: using guessed type x_DWORD x_toupper(x_DWORD);
@@ -9130,7 +9024,7 @@ signed __int64 sub_9F110(int a1)
 // 98D52: using guessed type x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);
 
 //----- (0009F170) --------------------------------------------------------
-int sub_9F170(int a1, unsigned __int16 a2)
+int sub_9F170(int  /*a1*/, unsigned __int16 a2)
 {
 	int v3; // [esp+0h] [ebp-20h]
 	int v4; // [esp+Ch] [ebp-14h]
@@ -9231,6 +9125,9 @@ int sub_B0B87(HDIGDRIVER a1, int a2)
 	if (a1->hw_mode_flags_7 & 0x20)
 	{
 		x_DWORD_E4E1C |= 8u;
+#ifdef TEST_x64
+	allert_error();
+#endif
 #ifdef COMPILE_FOR_64BIT // FIXME: 64bit
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
@@ -9366,14 +9263,19 @@ void GetMusicSequenceCount()//26fc90 // set index
 	//uint8_t* v1; // [esp+0h] [ebp-4h]
 	int v1x;
 
-	if (str_E3808_music_header && str_E3810_music_data)
+	if (str_E3808_music_header && array_E3810_music_data)
 	{
 		//v1 = (uint8_t*)x_DWORD_E3808_music_header + 32;
 		v1x = 0;
 		//for (m_iNumberOfTracks = 0; str_E3808_music_header->str_8.track_10[v1x].filename_14 < x_DWORD_E380C; m_iNumberOfTracks++)
 		for (m_iNumberOfTracks = 0; v1x < index_E380C_CountOfMusic; m_iNumberOfTracks++)
 		{
-			str_E3808_music_header->str_8.track_10[v1x].dword_0+= (int)str_E3810_music_data;
+			//str_E3808_music_header->str_8.track_10[v1x].dword_0+= (int)str_E3810_music_data;
+#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
+			str_E3808_music_header->str_8.track_10[v1x].dword_0 = reinterpret_cast<uint64_t>(str_E3808_music_header->str_8.track_10[v1x].dword_0) + array_E3810_music_data;
+#else
+			str_E3808_music_header->str_8.track_10[v1x].dword_0 = (int)str_E3808_music_header->str_8.track_10[v1x].dword_0 + array_E3810_music_data;
+#endif
 			//*(x_DWORD*)(v1 + 18) += (int)x_DWORD_E3810_music_data;
 			//v1 += 32;
 			v1x++;
@@ -9401,9 +9303,9 @@ char LoadMusicTrack(FILE* filehandle, uint8_t drivernumber)//26fd00
 	//if (header[1 + 4 * drivernumber] == -1)
 	if (headerx[drivernumber].dword_4 == -1)
 		return 0;
-	if (str_E3810_music_data)
+	if (array_E3810_music_data)
 	{
-		sub_83E80_freemem4((uint8_t*)str_E3810_music_data);
+		sub_83E80_freemem4(array_E3810_music_data);
 		x_BYTE_E37FC_music = 0;
 	}
 	if (str_E3808_music_header)
@@ -9412,15 +9314,15 @@ char LoadMusicTrack(FILE* filehandle, uint8_t drivernumber)//26fd00
 		x_BYTE_E37FC_music = 0;
 	}
 	//x_DWORD_E3810_music_data = (uint8_t*)sub_83CD0_malloc2(header[3 + 4 * drivernumber]);
-	str_E3810_music_data = (type_E3810_music_data*)sub_83CD0_malloc2(headerx[drivernumber].dword_12);
-	if (!str_E3810_music_data)
+	array_E3810_music_data = (uint8_t*)sub_83CD0_malloc2(headerx[drivernumber].dword_12);
+	if (!array_E3810_music_data)
 		return 0;
 	//str_E3808_music_header = (type_E3808_music_header*)sub_83CD0_malloc2(header[2 + 4 * drivernumber]);
 	//str_E3808_music_header = (type_E3808_music_header*)sub_83CD0_malloc2(headerx[drivernumber].dword_8);
 	str_E3808_music_header = (type_E3808_music_header*)sub_83CD0_malloc2((((headerx[drivernumber].dword_8 - 32) / 32) * sizeof(sub2type_E3808_music_header)) + 32);//with 64bit fix
 	if (!str_E3808_music_header)
 	{
-		sub_83E80_freemem4((uint8_t*)str_E3810_music_data);
+		sub_83E80_freemem4(array_E3810_music_data);
 		return 0;
 	}
 	//64xbit fix
@@ -9438,23 +9340,23 @@ char LoadMusicTrack(FILE* filehandle, uint8_t drivernumber)//26fd00
 	//x_DWORD_E380C = (int8_t*)str_E3808_music_header + headerx[drivernumber].dword_8;
 	index_E380C_CountOfMusic = (headerx[drivernumber].dword_8) / sizeof(sub2type_E37A0_sound_buffer2);
 	DataFileIO::Seek(filehandle, headerx[drivernumber].dword_4, 0);
-	DataFileIO::Read(filehandle, (uint8_t*)str_E3810_music_data, 8);
-	if (str_E3810_music_data->byte_0 == 'R' && str_E3810_music_data->byte_1 == 'N' && str_E3810_music_data->byte_2 == 'C')//RNC
+	DataFileIO::Read(filehandle, array_E3810_music_data, 8);
+	if (array_E3810_music_data[0] == 'R' && array_E3810_music_data[1] == 'N' && array_E3810_music_data[2] == 'C')//RNC
 	{
-		rncsize = str_E3810_music_data->byte_4;
+		rncsize = array_E3810_music_data[4];
 		rncsize <<= 8;
-		rncsize += str_E3810_music_data->byte_5;
+		rncsize += array_E3810_music_data[5];
 		rncsize <<= 8;
-		rncsize += str_E3810_music_data->byte_6;
+		rncsize += array_E3810_music_data[6];
 		rncsize <<= 8;
-		rncsize += str_E3810_music_data->byte_7;
+		rncsize += array_E3810_music_data[7];
 		//DataFileIO::Read(filehandle, (x_DWORD_E3810_music_data + 8), rncsize - 8);
-		DataFileIO::Read(filehandle, (uint8_t*)&str_E3810_music_data->data_8, rncsize - 8);
-		DataFileIO::Decompress((uint8_t*)str_E3810_music_data, (uint8_t*)str_E3810_music_data);
+		DataFileIO::Read(filehandle, (uint8_t*)&array_E3810_music_data[8], rncsize - 8);
+		DataFileIO::Decompress(array_E3810_music_data, array_E3810_music_data);
 	}
 	else
 	{
-		DataFileIO::Read(filehandle, (uint8_t*)&str_E3810_music_data->data_8, headerx[drivernumber].dword_12 - 8);
+		DataFileIO::Read(filehandle, (uint8_t*)&array_E3810_music_data[8], headerx[drivernumber].dword_12 - 8);
 	}
 	DataFileIO::Seek(filehandle, headerx[drivernumber].dword_0, 0);
 
@@ -9538,29 +9440,6 @@ char LoadMusicTrack(FILE* filehandle, uint8_t drivernumber)//26fd00
 // 180C78: using guessed type int x_DWORD_180C78;
 // 8ED00: using guessed type char var_5C[64];
 
-//----- (0008F023) --------------------------------------------------------
-int sub_8F023(FILE* a1x, int a2, unsigned int a3)//270023
-{
-	x_BYTE* v3; // eax
-	x_BYTE* v4; // edx
-	unsigned int i; // [esp+4h] [ebp-4h]
-
-	if (!x_DWORD_E387C)
-		return DataFileIO::Read(a1x, (uint8_t*)a2, a3);
-	for (i = 0; i < a3 && x_DWORD_E3888 + i < x_DWORD_E3884; i++)
-	{
-		v3 = (x_BYTE*)x_DWORD_E3880++;
-		v4 = (x_BYTE*)a2++;
-		*v4 = *v3;
-	}
-	x_DWORD_E3888 += a3;
-	return i;
-}
-// E387C: using guessed type int x_DWORD_E387C;
-// E3880: using guessed type int x_DWORD_E3880;
-// E3884: using guessed type int x_DWORD_E3884;
-// E3888: using guessed type int x_DWORD_E3888;
-
 //----- (0008F0AB) --------------------------------------------------------
 int sub_8F0AB(FILE* a1, /*int a2,*/ int a3)//26f0ab
 {
@@ -9579,7 +9458,7 @@ int sub_8F0AB(FILE* a1, /*int a2,*/ int a3)//26f0ab
 // E3888: using guessed type int x_DWORD_E3888;
 
 //----- (0008F100) --------------------------------------------------------
-HSAMPLE* sub_8F100_sound_proc19(uint32_t a1, __int16 a2, int a3, int a4, unsigned __int16 a5, char a6, unsigned __int8 a7)//270100
+void sub_8F100_sound_proc19(uint32_t a1, __int16 a2, int a3, int a4, unsigned __int16 a5, char a6, unsigned __int8 a7)//270100
 {
 	char v8; // [esp+0h] [ebp-18h]
 	uint32_t i; // [esp+8h] [ebp-10h]
@@ -9602,7 +9481,7 @@ HSAMPLE* sub_8F100_sound_proc19(uint32_t a1, __int16 a2, int a3, int a4, unsigne
 		//|| !_stricmp((const char*)(32 * a2 + x_DWORD_E37A0_sound_buffer2), "null.wav"))
 		|| !_stricmp((const char*)&str_E37A0_sound_buffer2->str_8.wavs_10[a2-1].filename_14, "null.wav"))
 	{
-		return 0;
+		return;
 	}
 	v8 = 0;
 	if (a7 == 1)
@@ -9670,7 +9549,7 @@ HSAMPLE* sub_8F100_sound_proc19(uint32_t a1, __int16 a2, int a3, int a4, unsigne
 		}
 	}
 	if (!v14 || v15)
-		return 0;
+		return;
 	if (!v8)
 	{
 		sub_93830_AIL_init_sample(*v14);
@@ -9702,7 +9581,7 @@ HSAMPLE* sub_8F100_sound_proc19(uint32_t a1, __int16 a2, int a3, int a4, unsigne
 		//for (int i = 0; i < 100; i++)
 		//	debug_printf("%02X", ((uint8_t*)((*v14)->start_44mhz))[i]);
 		debug_printf("\n");
-		debug_printf("sub_8F100_sound_proc19:rate:%d\n", ((*v14)->playback_rate_15));
+		debug_printf("sub_8F100_sound_proc19:rate:%d\n", v14[0]->playback_rate_15);
 	}
 #endif //DEBUG_SOUND
 	sub_93B50_AIL_start_sample(*v14);
@@ -9713,7 +9592,7 @@ HSAMPLE* sub_8F100_sound_proc19(uint32_t a1, __int16 a2, int a3, int a4, unsigne
 	//v14[0]->len_4_5[0] = a5;
 	v14[0]->vol_scale_18[0][2] = 0;
 	v14[0]->vol_scale_18[0][3] = 0; //fixed
-	return v14;
+	//return v14;
 }
 // 98F5D: using guessed type x_DWORD stricmp(x_DWORD, x_DWORD);
 // E3798: using guessed type char x_BYTE_E3798_sound_active2;
@@ -9771,7 +9650,6 @@ void sub_8F710_sound_proc21(int a1, __int16 a2, signed int a3, unsigned __int8 a
 						x_BYTE_E388D = 1;
 						if (a4 <= 4u)
 						{
-							//x_DWORD_180CA0[0] = sub_92600_AIL_register_timer(sub_8F4B0);
 							//sub_92930_AIL_set_timer_frequency(x_DWORD_180CA0[0], 30 * a4);
 							//sub_92BA0_AIL_start_timer(x_DWORD_180CA0[0]);
 						}
@@ -9782,7 +9660,6 @@ void sub_8F710_sound_proc21(int a1, __int16 a2, signed int a3, unsigned __int8 a
 		}
 	}
 }
-// 8F4B0: using guessed type int sub_8F4B0();
 // E3798: using guessed type char x_BYTE_E3798_sound_active2;
 // E3799: using guessed type char x_BYTE_E3799_sound_card;
 // E388D: using guessed type char x_BYTE_E388D;
@@ -10187,7 +10064,6 @@ signed int sub_ACB61(int a1, unsigned __int8* a2, int* a3)//28db61
 					else if (v10 <= 0x45 || v10 == 71)
 					{
 					LABEL_45:
-						//sub_AD1E8(a1, v3);
 						goto LABEL_50;
 					}
 				}
