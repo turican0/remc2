@@ -40,7 +40,7 @@ char x_BYTE_17D738[0x100]; // idb
 __int16 x_WORD_E12FE = 0; // weak
 
 //----- (00076160) --------------------------------------------------------
-void PlayInfoFmv(__int16 a1, __int16 a2, type_E17CC_0* a3x, char* path)//257160
+void PlayInfoFmv(__int16 a1, __int16 a2, type_E17CC_0* a3x, char* path)//sub_76160 - 257160
 {
 	//fix
 	//memset(&pdwScreenBuffer[320 * 200], 0, 320*200);
@@ -553,7 +553,7 @@ void /*__fastcall*/ sub_75E70()//256e70
 				sub_75D70((uint8_t*)x_DWORD_E12F4x, x_WORD_17DB4A * x_WORD_17DB48);
 				v12 = (char*)"COPY ";
 				v13 = &x_BYTE_17D738[strlen(x_BYTE_17D738)];
-				strcpy(v12, v13);
+				strcpy(v13, v12);
 				//v20y = x_WORD_17DB4A * x_WORD_17DB48;
 				break;
 			case 0x12:

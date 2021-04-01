@@ -431,7 +431,7 @@ void sub_454F0(unsigned __int8 a1, unsigned __int8 a2);
 void sub_45600(unsigned __int8 a1);
 
 void SetStagetagForTermod_49830(type_str_2FECE* terrain);
-void sub_49290(type_str_2FECE* terrain, char a2, uint16_t width, uint16_t height);
+void GenerateEvents_49290(type_str_2FECE* terrain, char a2, uint16_t width, uint16_t height);
 
 void sub_49F30();
 
@@ -491,7 +491,7 @@ int32_t /*__cdecl*/ fix_filelength(int32_t);// weak
 //x_DWORD /*__cdecl*/ access(char* path, uint32_t flags);// weak
 //x_DWORD /*__cdecl*/ mkdir(char* path);
 int32_t /*__cdecl*/ settextposition(int32_t, int32_t);// weak
-int32_t /*__cdecl*/ outtext(char* text);// weak
+void outtext(char* text);// weak
 //x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);// weak
 //int int386(int intno, REGS *inregs, REGS *outregs);
 int /*__fastcall*/ gettextposition(int32_t, int32_t, int32_t);// weak

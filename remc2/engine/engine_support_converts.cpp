@@ -145,7 +145,7 @@ void convert_struct_to_array_164(type_str_164* input, uint8_t* output) {
 	//int32_t dword_0x19A_410;
 	memcpy(output + 0x19a, &input->dword_0x19A_410, 4);
 	//int32_t dword_0x19E_414;
-	memcpy(output + 0x19e, &input->dword_0x19E_414, 4);
+	memcpy(output + 0x19e, &input->maxDistance_0x19E_414, 4);
 	//int16_t word_0x1A2_418;
 	memcpy(output + 0x1a2, &input->word_0x1A2_418, 2);
 	//int16_t word_0x1A4_420;
@@ -398,9 +398,9 @@ void convert_struct_to_array_0x6E8E(type_event_0x6E8E* input, uint8_t* output) {
 	//int8_t byte_0x40_64;//64 //subtype//CLASS
 	memcpy(output + 64, &input->subtype_0x40_64, 1);
 	//int8_t byte_0x41_65;//65 //type subentity
-	memcpy(output + 65, &input->byte_0x41_65, 1);
+	memcpy(output + 65, &input->xtype_0x41_65, 1);
 	//int8_t byte_0x42_66;//66 //subtype subentity
-	memcpy(output + 66, &input->byte_0x42_66, 1);
+	memcpy(output + 66, &input->xsubtype_0x42_66, 1);
 	//int8_t byte_0x43_67;//67
 	memcpy(output + 67, &input->byte_0x43_67, 1);
 	//int8_t byte_0x44_68;//68	
@@ -412,9 +412,9 @@ void convert_struct_to_array_0x6E8E(type_event_0x6E8E* input, uint8_t* output) {
 	//int8_t byte_0x47_71_xx;//71
 	memcpy(output + 71, &input->byte_0x47_71_xx, 1);
 	//int8_t byte_0x48_72;//72
-	memcpy(output + 72, &input->byte_0x48_72, 1);
+	memcpy(output + 72, &input->StageVar1_0x48_72, 1);
 	//int8_t byte_0x49_73;//70
-	memcpy(output + 73, &input->byte_0x49_73, 1);
+	memcpy(output + 73, &input->StageVar2_0x49_73, 1);
 	//int16_t word_0x4A_74;
 	memcpy(output + 74, &input->word_0x4A_74, 2);
 	//axis_3d array_0x4C_76;//position//ACTUAL X Y Z
@@ -620,7 +620,7 @@ void convert_struct_to_array_2FECE(type_str_2FECE* input, uint8_t* output) {//le
 		convert_struct_to_array_0x36442(&input->stages_0x36442[i], output + 25972 + i * 7);
 	//type_str_0x3647Ac array_0x3647A[0xb];//8x11//26028
 	for (int i = 0; i < 0xb; i++)
-		convert_struct_to_array_0x3647Ac(&input->array_0x3647A[i], output + 26028 + i * 8);
+		convert_struct_to_array_0x3647Ac(&input->StageVars_0x3647A[i], output + 26028 + i * 8);
 } //compress level 
 
 void convert_struct_to_array_0x364D2(type_str_0x364D2* input, uint8_t* output) {//lenght 108
@@ -685,7 +685,7 @@ void convert_struct_to_array_D41A0_0(type_D41A0_BYTESTR_0* input,uint8_t* output
 	//uint8_t array_0x39[508];//57
 	memcpy(output + 0x39, input->array_0x39, 508);
 	//int32_t dword_0x235;//act music
-	memcpy(output + 0x235, &input->dword_0x235, 4);
+	memcpy(output + 0x235, &input->maptypeMusic_0x235, 4);
 	//uint8_t byte_0x239;//569
 	memcpy(output + 0x239, &input->byte_0x239, 1);
 	//int32_t dword_0x23a;
@@ -770,7 +770,7 @@ void convert_struct_to_array_D41A0_0(type_D41A0_BYTESTR_0* input,uint8_t* output
 		memcpy(output + 0x3659C+i*11, &input->struct_0x3659C[i].substr_3659C, 11);
 	//type_str_0x3647Ac array_0x365F4[0xb];//8x11	//set 0x58 // end 0x3664c
 	for (int i = 0; i < 0x8; i++)
-		convert_struct_to_array_0x3647Ac(&input->array_0x365F4[i], output + 0x365F4 + i * 8);
+		convert_struct_to_array_0x3647Ac(&input->StageVars2_0x365F4[i], output + 0x365F4 + i * 8);
 	//type_str_0x3664C str_0x3664C[0x32];// lenght 0x79e//39x50 (end-0x36dea)
 	for (int i = 0; i < 0x32; i++)
 		convert_struct_to_array_0x3664C(&input->str_0x3664C[i], output + 0x3664C + i * 39);
@@ -795,7 +795,7 @@ void convert_struct_to_array_D41A0_0(type_D41A0_BYTESTR_0* input,uint8_t* output
 	//int16_t word_0x36DFE;
 	memcpy(output + 0x36DFE, &input->word_0x36DFE, 2);
 	//uint8_t byte_0x36E00;
-	memcpy(output + 0x36E00, &input->byte_0x36E00, 1);
+	memcpy(output + 0x36E00, &input->countStageVars_0x36E00, 1);
 	//uint8_t byte_0x36E01;//count objectives
 	memcpy(output + 0x36E01, &input->stageIndex_0x36E01, 1);
 	//int8_t byte_0x36E02;//temp objective
