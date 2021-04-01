@@ -507,7 +507,7 @@ void qmemcpy(void* a, void* b, size_t c) {
 };
 
 //----- (0009D490) --------------------------------------------------------
-int sub_9D490_free4(void* a1, int a2)//27e490
+int sub_9D490_free4(void* a1, int  a2)//27e490
 {
 	//fix
 	//a2 may be must used
