@@ -357,7 +357,7 @@ typedef struct {//size 1136
 	int8_t byte_0x197_407;
 	uint8_t stubj[2];
 	int32_t dword_0x19A_410;
-	int32_t dword_0x19E_414;
+	int32_t maxDistance_0x19E_414;
 	int16_t word_0x1A2_418;
 	int16_t word_0x1A4_420;
 	int16_t word_0x1A6_422;//211 x add
@@ -478,15 +478,15 @@ typedef struct _str_0x6E8E {//lenght a8//THING
 	//11 - spell
 	uint8_t subtype_0x40_64;//64 //subtype//CLASS
 	//0 or 1 - player, 2 - castle,3-ballon
-	int8_t byte_0x41_65;//65 //type subentity
-	int8_t byte_0x42_66;//66 //subtype subentity
+	int8_t xtype_0x41_65;//65 //type subentity
+	int8_t xsubtype_0x42_66;//66 //subtype subentity
 	int8_t byte_0x43_67;//67
 	int8_t byte_0x44_68;//68
 	uint8_t byte_0x45_69;//69 // index of structure with lenght 14//STATE-
 	int8_t byte_0x46_70;//70 // index of bitmap // index of ending sequence
 	int8_t byte_0x47_71_xx;//71
-	int8_t byte_0x48_72;//72
-	int8_t byte_0x49_73;//70
+	int8_t StageVar1_0x48_72;//72
+	int8_t StageVar2_0x49_73;//70
 	int16_t word_0x4A_74;
 	axis_3d axis_0x4C_76;//position//ACTUAL X Y Z
 	axis_4d array_0x52_82;
@@ -991,7 +991,7 @@ uint32_t compare_with_sequence_D41A0_4(char* filename, uint8_t* adress, uint32_t
 uint32_t compare_with_sequence_EA3E4(char* filename, type_event_0x6E8E** adress, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte);
 uint32_t compare_0x6E8E(char* filename, uint8_t* adress, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte, long offset = 0);
 void add_compare(uint32_t adress, bool debugafterload, int stopstep = -1, bool skip = false,int exitindex=1000000);
-
+void add_compare2(uint32_t adress, uint8_t* memadress, uint32_t dosmemadress, uint32_t size, bool debugafterload, int stopstep = -1, bool skip = false, int exitindex = 1000000);
 void writehex(uint8_t* buffer, uint32_t count);
 
 void mine_texts(char* filename, uint32_t adressdos, uint32_t count, char* outfilename);
@@ -1024,6 +1024,7 @@ typedef struct {//lenght 8
 */
 
 typedef union {
+	uint32_t dword;
 	axis_2du axis;
 	type_event_0x6E8E* pointer_0x6E8E;
 }
@@ -1270,7 +1271,7 @@ typedef struct {//lenght 0x6604u
 	uint8_t next_0x360D1;
 	type_str_0x360D2 next_0x360D2[8];//lenght 110  /spells?
 	type_str_0x36442 stages_0x36442[8];//stages(checkpoints)
-	type_str_0x3647Ac array_0x3647A[0xb];//8x11
+	type_str_0x3647Ac StageVars_0x3647A[0xb];//8x11
 } type_str_2FECE;//compress level
 
 typedef union {
@@ -1326,7 +1327,7 @@ typedef struct {//lenght 0x6604u
 } type_shadow_str_2FECE;//compress level
 
 typedef union {
-	int32_t dword;
+	uint32_t dword;
 	uint16_t* ptr16u;
 	type_entity_0x30311* ptr0x30311;
 	type_event_0x6E8E* ptr0x6E8E;
@@ -1487,7 +1488,7 @@ typedef struct {//lenght 39
 	uint8_t byte_2;
 	int8_t byte_3;
 	axis_3d axis3d_4;
-	type_event_0x6E8E* event_A;
+	un1 event_A;
 	uint8_t array_E[25];
 }
 type_str_0x3664C;
@@ -1525,7 +1526,7 @@ typedef struct {//lenght 224791
 	uint16_t word_0x33;//51
 	int32_t dword_0x35;//53//entity counter(max 1000 entity changes per step)
 	uint8_t array_0x39[508];//57
-	int32_t dword_0x235;//act music
+	int32_t maptypeMusic_0x235;//act music
 	uint8_t byte_0x239;//569
 	int32_t dword_0x23a;
 	int32_t dword_0x23e;
@@ -1560,7 +1561,7 @@ typedef struct {//lenght 224791
 	int16_t word_0x3654A;//
 	type_str_3654C stages_0x3654C[0x8];//size 10 count 8
 	type_str_3659C struct_0x3659C[0x8];//size 11 count 8 C-0 D-1 E-2 F-3
-	type_str_0x3647Ac array_0x365F4[0xb];//8x11	//set 0x58 // end 0x3664c
+	type_str_0x3647Ac StageVars2_0x365F4[0xb];//8x11	//set 0x58 // end 0x3664c
 	type_str_0x3664C str_0x3664C[0x32];// lenght 0x79e//39x50 (end-0x36dea)
 	int8_t byte_0x36DEA_fly_asistant;
 	int8_t byte_0x36DEB_xx;
@@ -1572,7 +1573,7 @@ typedef struct {//lenght 224791
 	int16_t word_0x36DFA;
 	int16_t word_0x36DFC;
 	int16_t word_0x36DFE;
-	uint8_t byte_0x36E00;
+	uint8_t countStageVars_0x36E00;
 	uint8_t stageIndex_0x36E01;//count objectives
 	int8_t byte_0x36E02;//temp objective
 	int8_t byte_0x36E03;
