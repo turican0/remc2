@@ -47,8 +47,7 @@ sub2type_E37A0_sound_buffer2;
 
 typedef struct {//lenght 2072
 	int8_t stub[10];
-	sub2type_E37A0_sound_buffer2 wavs_10[64];
-	int8_t stubb[14];
+	sub2type_E37A0_sound_buffer2 wavs_10[96];
 }
 sub1type_E37A0_sound_buffer2;
 
@@ -62,7 +61,7 @@ typedef struct {//lenght 3100
 	int8_t byte_6;
 	int8_t byte_7;
 	sub1type_E37A0_sound_buffer2 str_8;//2072 lenght
-	int8_t next_str[1020];
+	int8_t next_str[10];
 }
 type_E37A0_sound_buffer2;
 
@@ -78,8 +77,7 @@ shadow_sub2type_E37A0_sound_buffer2;
 
 typedef struct {//lenght 2072
 	int8_t stub[10];
-	shadow_sub2type_E37A0_sound_buffer2 wavs_10[64];
-	int8_t stubb[14];
+	shadow_sub2type_E37A0_sound_buffer2 wavs_10[96];
 }
 shadow_sub1type_E37A0_sound_buffer2;
 
@@ -93,7 +91,7 @@ typedef struct {//lenght 3100
 	int8_t byte_6;
 	int8_t byte_7;
 	shadow_sub1type_E37A0_sound_buffer2 str_8;//2072 lenght
-	int8_t next_str[1020];
+	int8_t next_str[10];
 }
 shadow_type_E37A0_sound_buffer2;
 //shadow type_E37A0_sound_buffer2

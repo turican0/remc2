@@ -248,7 +248,7 @@ void terrain_recalculate() {
 	}
 	if (stage > 15)
 	{
-		sub_49290(&D41A0_0.terrain_2FECE, 1, 640, 480);
+		GenerateEvents_49290(&D41A0_0.terrain_2FECE, 1, 640, 480);
 	}
 	changed = false;
 };
@@ -725,8 +725,8 @@ char temp[256];
 //VGA_Draw_stringXYtoBuffer(temp, 304, 32, pdwScreenBuffer);
 for (int i = 0; i < 0xb; i++)
 {
-	type_str_0x3647Ac actstage = D41A0_0.terrain_2FECE.array_0x3647A[i];
-	sprintf(temp, "%1DX |%02X|%02X|%02X|%04X|%04X", i, (uint8_t)actstage.index_0x3647A_0, (uint8_t)actstage.stage_0x3647A_1, actstage.str_0x3647A_2._axis_2d.x, actstage.str_0x3647A_2._axis_2d.y,actstage.str_0x3647C_4.axis.x, actstage.str_0x3647C_4.axis.y);
+	type_str_0x3647Ac actstage = D41A0_0.terrain_2FECE.StageVars_0x3647A[i];
+	sprintf(temp, "%02X |%02X|%02X|%02X|%04X|%04X", i, (uint8_t)actstage.index_0x3647A_0, (uint8_t)actstage.stage_0x3647A_1, actstage.str_0x3647A_2._axis_2d.x, actstage.str_0x3647A_2._axis_2d.y,actstage.str_0x3647C_4.axis.x, actstage.str_0x3647C_4.axis.y);
 	kiss_array_appendstring(textbox->array, 0, (char*)"", temp);
 }
 //text_reset(textbox1, vscrollbar1);
