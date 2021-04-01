@@ -34,24 +34,28 @@ endif()
 # Dependencies
 ################################################################################
 
-if (COMPATIBILITY_32_PATH)
-    set(SDL2_DIR "${COMPATIBILITY_32_PATH}/cmake/SDL2")
-    set(CMAKE_LIBRARY_PATH "${COMPATIBILITY_32_PATH}")
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/sdl2)
+
+if (GITHUB_CI_COMPATIBILITY_PATH)
+    set(SDL2_DIR "${GITHUB_CI_COMPATIBILITY_PATH}/cmake/SDL2")
+    set(CMAKE_LIBRARY_PATH "${GITHUB_CI_COMPATIBILITY_PATH}")
 endif ()
 
 if (USE_64_BIT)
+    message("Use 64 bit")
     set(FIND_LIBRARY_USE_LIB64_PATHS True)
+    set(CMAKE_LIBRARY_ARCHITECTURE x86_64)
+else ()
+    message("Use 32 bit")
+    set(CMAKE_FIND_LIBRARY_CUSTOM_LIB_SUFFIX "")
+    set(CMAKE_LIBRARY_ARCHITECTURE i686)
 endif ()
 
 find_package(SDL2 REQUIRED)
+find_package(SDL2_mixer REQUIRED)
+find_package(SDL2_ttf REQUIRED)
+find_package(SDL2_image REQUIRED)
 find_package(PNG REQUIRED)
-find_library(SDL_MIXER_LIBRARY
-  NAMES SDL2_mixer
-  HINTS
-    ENV SDLMIXERDIR
-    ENV SDLDIR
-  PATH_SUFFIXES lib
-)
 
 
 ################################################################################
@@ -129,10 +133,10 @@ set(libADLMIDI_STATIC TRUE)
 add_subdirectory(libADLMIDI-master)
 if (USE_64_BIT)
     add_compile_definitions(COMPILE_FOR_64BIT)
+    set_target_properties(ADLMIDI_static PROPERTIES COMPILE_FLAGS "-m64" LINK_FLAGS "-m64")
 else ()
     set_target_properties(ADLMIDI_static PROPERTIES COMPILE_FLAGS "-m32" LINK_FLAGS "-m32")
 endif ()
         
 # remc2
 add_subdirectory(remc2)
-

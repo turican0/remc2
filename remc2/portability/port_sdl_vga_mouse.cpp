@@ -15,7 +15,7 @@ SDL_Texture* texture = NULL;
 SDL_Surface* helper_surface = NULL;
 
 uint8_t LastPressedKey_1806E4; //3516e4
-int8_t x_BYTE_180664[128]; // idb
+int8_t pressedKeys_180664[128]; // idb
 
 SDL_Surface* screen;
 
@@ -23,6 +23,9 @@ uint16_t m_iOrigw = 640;
 uint16_t m_iOrigh = 480;
 
 bool m_bMaintainAspectRatio = true;
+
+bool settingWindowGrabbed = true;
+bool settingWASD = false;
 
 const char* default_caption = "Magic Carpet 2 - Community Update";
 
@@ -33,8 +36,14 @@ Uint8* VGA_Get_pallette() {
 	return temppallettebuffer;
 }
 
-void SubBlit(uint16_t originalResWidth, uint16_t originalResHeight) {
+uint16_t lastResHeight=0;
 
+void SubBlit(uint16_t originalResWidth, uint16_t originalResHeight) {
+	if (originalResHeight != lastResHeight)
+	{
+		SDL_RenderClear(renderer);
+		lastResHeight = originalResHeight;
+	}
 	SDL_BlitSurface(screen, NULL, helper_surface, NULL);
 	SDL_UpdateTexture(texture, NULL/*&rect*/, helper_surface->pixels, helper_surface->pitch);
 	
@@ -290,6 +299,7 @@ POSITION VGA_WhereXY() {
 };
 
 void VGA_Draw_string(char* wrstring) {
+	if(!screen)return;
 	SDL_Rect srcrect = { 0,0,0,0 };
 	SDL_Rect dstrect = { 0,0,0,0 };
 	if (SDL_MUSTLOCK(screen)) {
@@ -358,7 +368,7 @@ Uint32 blueMask = 0x00ff0000;
 Uint32 alphaMask = 0xff000000;
 #endif
 
-void VGA_Init(Uint32 flags, int width, int height, bool maintainAspectRatio)
+void VGA_Init(Uint32  /*flags*/, int width, int height, bool maintainAspectRatio)
 {
 	m_bMaintainAspectRatio = maintainAspectRatio;
 
@@ -389,7 +399,7 @@ void VGA_Init(Uint32 flags, int width, int height, bool maintainAspectRatio)
 
 			SDL_WindowFlags test_fullscr = SDL_WINDOW_SHOWN;
 			gWindow = SDL_CreateWindow(default_caption, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width/*dm.w*/, height/*dm.h*/, test_fullscr);
-			SDL_SetWindowGrab(gWindow, SDL_TRUE);
+			SDL_SetWindowGrab(gWindow, settingWindowGrabbed ? SDL_TRUE : SDL_FALSE);
 
 			renderer =
 				SDL_CreateRenderer(gWindow, -1, SDL_RENDERER_ACCELERATED |
@@ -638,12 +648,6 @@ Right Ctrl (101-key)      *       *       *       *       *       *       *     
 # Alt-keypad number returns the specified character code and scan code 0
 */
 
-bool alt_enter(SDL_Event* event) {
-	if ((event->key.keysym.sym == SDLK_RETURN) && (event->key.keysym.mod & KMOD_ALT))
-		return true;
-	return false;
-}
-
 void ToggleFullscreen() {
 	Uint32 FullscreenFlag = SDL_WINDOW_FULLSCREEN;
 	bool IsFullscreen = SDL_GetWindowFlags(gWindow) & FullscreenFlag;
@@ -677,6 +681,27 @@ void ToggleFullscreen() {
 	}
 }
 
+bool handleSpecialKeys(const SDL_Event &event) {
+	bool specialKey = false;
+	if ((event.key.keysym.sym == SDLK_RETURN) && (event.key.keysym.mod & KMOD_ALT)) {
+		ToggleFullscreen();
+		specialKey = true;
+	}
+	else if ((event.key.keysym.sym == SDLK_F10) && (event.key.keysym.mod & KMOD_CTRL)) {
+		settingWindowGrabbed = !settingWindowGrabbed;
+		SDL_SetWindowGrab(gWindow, settingWindowGrabbed ? SDL_TRUE : SDL_FALSE);
+		std::cout << "Set window grab to " << (settingWindowGrabbed ? "true" : "false") << std::endl;
+		specialKey = true;
+	}
+	else if ((event.key.keysym.sym == SDLK_F11) && (event.key.keysym.mod & KMOD_CTRL)) {
+		settingWASD = !settingWASD;
+		std::cout << "Set WASD to " << (settingWindowGrabbed ? "true" : "false") << std::endl;
+		specialKey = true;
+	}
+
+	return specialKey;
+}
+
 int mousex, mousey;
 bool pressed = false;
 uint16_t lastchar = 0;
@@ -694,10 +719,9 @@ int events()
 			pressed = true;
 			lastchar = (event.key.keysym.scancode << 8) + event.key.keysym.sym;
 
-			if (alt_enter(&event))
-				ToggleFullscreen();
-			else
+			if (!handleSpecialKeys(event)) {
 				setPress(true, lastchar);
+			}
 			printf("Key press detected\n");//test
 			break;
 
@@ -818,9 +842,9 @@ void VGA_Blit(uint16_t width, uint16_t height, Uint8* srcBuffer) {
 		float yscale = (float)height / (float)screen->h;
 		for (int i = 0; i < screen->w; i++)
 		{
+			k = (int)(i * xscale);
 			for (int j = 0; j < screen->h; j++)//49+1 - final size
-			{
-				k = (int)(i * xscale);
+			{				
 				l = (int)(j * yscale);
 				((uint8_t*)screen->pixels)[i + j * screen->w] = srcBuffer[k + l * width];
 			}
@@ -911,7 +935,28 @@ bool VGA_check_standart_input_status() {
 }
 
 uint16_t fixchar(uint16_t loclastchar) {
-	switch ((loclastchar & 0xff00) >> 8)
+	auto sdl_char = (loclastchar & 0xff00) >> 8;
+	if (settingWASD) {
+		switch (sdl_char) {
+        case SDL_SCANCODE_W:
+			sdl_char = SDL_SCANCODE_UP;
+			break;
+        case SDL_SCANCODE_A:
+			sdl_char = SDL_SCANCODE_LEFT;
+			break;
+        case SDL_SCANCODE_S:
+			sdl_char = SDL_SCANCODE_DOWN;
+			break;
+        case SDL_SCANCODE_D:
+			sdl_char = SDL_SCANCODE_RIGHT;
+			break;
+        case SDL_SCANCODE_LSHIFT:
+			sdl_char = SDL_SCANCODE_RCTRL;
+			break;
+		}
+	}
+
+	switch (sdl_char)
 	{
 	case SDL_SCANCODE_ESCAPE://esc
 		loclastchar = 0x011b;
@@ -1193,15 +1238,15 @@ void setPress(bool locpressed, uint16_t loclastchar) {
 	if (locpressed)
 	{
 		LastPressedKey_1806E4 = (loclastchar & 0xff00) >> 8;// VGA_read_char_from_buffer();
-		x_BYTE_180664[LastPressedKey_1806E4 & 0x7F] = LastPressedKey_1806E4;
+		pressedKeys_180664[LastPressedKey_1806E4 & 0x7F] = LastPressedKey_1806E4;
 	}
 	else
 	{
-		x_BYTE_180664[((loclastchar & 0xff00) >> 8) & 0x7F] = 0;
+		pressedKeys_180664[((loclastchar & 0xff00) >> 8) & 0x7F] = 0;
 	}
 }
 
 void VGA_mouse_clear_keys() {
 	for (int i = 0; i < 128; i++)
-		x_BYTE_180664[i] = 0;
+		pressedKeys_180664[i] = 0;
 }

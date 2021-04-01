@@ -161,7 +161,7 @@ HTIMER timer_3;
  int32_t DMA_rate_5;
  int32_t hw_format_6;
  uint32_t hw_mode_flags_7;
- /*13*/void* DMA_seg_8;
+ /*13*/int32_t DMA_seg_8;
  /*13*/uint32_t DMA_sel_9;
  /*13*/void* DMA_buf_10;
   void* DMA_11_12[2];
