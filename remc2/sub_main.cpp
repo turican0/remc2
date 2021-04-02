@@ -31,13 +31,15 @@ void _strupr(char* s)
 //#define RIGHT_BUTTON
 //#define ROTATE_PLAYER
 //#define MOVE_PLAYER
+//#define FIX_MOUSE
+//#define MOUSE_OFF2
 //#define SET_OBJECTIVE
 //#define SET_LEVEL
 
 //#define RELEASE_GAME
-#define PLAYING_GAME
+//#define PLAYING_GAME
 //#define DEBUG_AFTERLOAD
-//#define DEBUG_ONSTART
+#define DEBUG_ONSTART
 //#define TEST_REGRESSIONS_GAME
 int test_regression_level = 0;
 
@@ -82,10 +84,12 @@ int test_regression_level = 0;
 	#define FIX_MOUSE
 	#define MOUSE_OFF2
 	#define OFF_PAUSE_5
+
 	//#define LOAD_EDITED_LEVEL
 	//#define RIGHT_BUTTON
-	int debugafterload = 1;
+	int debugafterload = 0;
 	//#define DISABLE_GRAPHICS_ENHANCE
+	#define MOVE_PLAYER
 #else
 	int debugafterload = 1;
 	int graphics_debug = false;
@@ -1642,7 +1646,7 @@ void sub_2D190(__int16 a1, __int16 a2, int a3, __int16 a4, int a5, unsigned __in
 int sub_2D1D0();
 void sub_2D710_draw_top_menu(type_event_0x6E8E* a1);
 void sub_2DE80_draw_bitmapxx(__int16 a1, __int16 a2, posistruct_t a3);
-char sub_2DFD0(__int16 a1, __int16 a2, posistruct_t a3, unsigned __int8 a4);
+void sub_2DFD0(__int16 a1, __int16 a2, posistruct_t a3, unsigned __int8 a4);
 void sub_2E260_draw_spell(__int16 a1, __int16 a2, type_event_0x6E8E* a3, char a4);
 int sub_2E790(__int16 a1, int a2, int a3, int a4, unsigned __int8 a5);
 void sub_2E850(__int16 a1, int a2, int a3, int a4, unsigned __int8 a5);
@@ -22827,7 +22831,7 @@ void sub_24190(type_event_0x6E8E* a1x)//205190
 		sub_57CF0(a1x, &x_WORD_EB398ar);
 	}
 	/*return */sub_1EEE0(a1x);
-	return;
+	//return;
 }
 // D41A4: using guessed type int x_DWORD_D41A4;
 // EA3E4: using guessed type int x_DWORD_EA3E4[];
@@ -24431,10 +24435,18 @@ void sub_26400(type_event_0x6E8E* a1x)//207400
 	sub_1C930(a1x);
 }
 
+int debug_sub_26470 = 0;
 //----- (00026470) --------------------------------------------------------
 void sub_26470(type_event_0x6E8E* a1x)//207470
 {
 	int result; // eax
+
+	if (debug_sub_26470 >= 0x153c)
+	{
+		debug_sub_26470++;
+		debug_sub_26470--;
+	}
+	debug_sub_26470++;
 
 	sub_1D5D0(a1x, 168);
 	result = (unsigned __int8)(a1x->StageVar2_0x49_73 - 1);
@@ -30260,84 +30272,72 @@ void sub_2DE80_draw_bitmapxx(__int16 a1, __int16 a2, posistruct_t a3)//20ee80
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
 //----- (0002DFD0) --------------------------------------------------------
-char sub_2DFD0(__int16 a1, __int16 a2, posistruct_t a3, unsigned __int8 a4)//20efd0
+void sub_2DFD0(__int16 a1, __int16 a2, posistruct_t a3, unsigned __int8 a4)//20efd0
 {
-	int v4; // eax
-	x_BYTE* v5; // edi
+	//int v4; // eax
+	uint8_t* v5; // edi
 	uint8_t* v6; // edx
 	int v7; // ebx
 	int v8; // ecx
-	x_BYTE* v9; // edi
+	uint8_t* v9; // edi
 	uint8_t* v10; // edx
 	int v11; // ebx
 	int v12; // ecx
 	int v14; // [esp+0h] [ebp-14h]
 	int v15; // [esp+0h] [ebp-14h]
-	int i; // [esp+4h] [ebp-10h]
-	int v17; // [esp+8h] [ebp-Ch]
+	uint8_t* i; // [esp+4h] [ebp-10h]
+	uint8_t* v17; // [esp+8h] [ebp-Ch]
 	__int16 v18; // [esp+Ch] [ebp-8h]
 	__int16 v19; // [esp+10h] [ebp-4h]
 
 	if (x_WORD_180660_VGA_type_resolution == 1)
 	{
 		v19 = a3.height_5 / 2;
-		v4 = a2 / 2 * x_DWORD_18062C_resolution_x + a1 / 2;
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-		v5 = (x_BYTE*)(v4 + (int)pdwScreenBuffer);
+		//v4 = a2 / 2 * x_DWORD_18062C_resolution_x + a1 / 2;
+		//v5 = (x_BYTE*)(v4 + (int)pdwScreenBuffer);
+		v5 = &pdwScreenBuffer[a2 / 2 * x_DWORD_18062C_resolution_x + a1 / 2];
 		v6 = a3.data;
-		for (i = v4 + (int)pdwScreenBuffer; v19; v6 += v14)
+		for (i = v5; v19; v6 += v14)
 		{
 			while (1)
 			{
 				while (1)
 				{
-					LOBYTE(v4) = *v6++;
-					if ((x_BYTE)v4)
+					if (++(*v6))
 						break;
-					LOBYTE(v4) = x_DWORD_18062C_resolution_x;
+					//LOBYTE(v4) = x_DWORD_18062C_resolution_x;
 					i += x_DWORD_18062C_resolution_x;
-					v5 = (x_BYTE*)i;
+					v5 = i;
 					if (!--v19)
-						return v4;
+						return;// v4;
 				}
-				if ((v4 & 0x80u) == 0)
+				if ((x_DWORD_18062C_resolution_x & 0x80u) == 0)
 					break;
-				v5 -= (char)v4;
+				v5 -= (char)x_DWORD_18062C_resolution_x;
 				if (!v19)
-					return v4;
+					return;// v4;
 			}
 			v7 = a4;
-			v8 = (char)v4;
-			v14 = (char)v4;
+			v8 = (char)x_DWORD_18062C_resolution_x;
+			v14 = (char)x_DWORD_18062C_resolution_x;
 			do
 			{
 				BYTE1(v7) = *v5;
-				LOBYTE(v4) = x_BYTE_F6EE0_tablesx[0x4000 + v7];
-				*v5++ = v4;
+				//LOBYTE(v4) = x_BYTE_F6EE0_tablesx[0x4000 + v7];
+				*v5++ = x_BYTE_F6EE0_tablesx[0x4000 + v7];
 				--v8;
 			} while (v8);
 		}
-#endif
 	}
 	else
 	{
 		v18 = a3.height_5;
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-		LOBYTE(v4) = (int)pdwScreenBuffer;
-		v9 = (x_BYTE*)((int)pdwScreenBuffer + a1 + x_DWORD_18062C_resolution_x * a2);
+		//LOBYTE(v4) = (int)pdwScreenBuffer;
+		//v9 = (x_BYTE*)((int)pdwScreenBuffer + a1 + x_DWORD_18062C_resolution_x * a2);
+		v9 = &pdwScreenBuffer[a1 + x_DWORD_18062C_resolution_x * a2];
 		v10 = a3.data;
-		v17 = (int)pdwScreenBuffer + a1 + x_DWORD_18062C_resolution_x * a2;
-#endif
+		//v17 = (int)pdwScreenBuffer + a1 + x_DWORD_18062C_resolution_x * a2;
+		v17 = &pdwScreenBuffer[a1 + x_DWORD_18062C_resolution_x * a2];
 		if (a3.height_5)
 		{
 			do
@@ -30346,36 +30346,37 @@ char sub_2DFD0(__int16 a1, __int16 a2, posistruct_t a3, unsigned __int8 a4)//20e
 				{
 					while (1)
 					{
-						LOBYTE(v4) = *v10++;
-						if ((x_BYTE)v4)
+						//LOBYTE(v4) = *v10++;
+						if (++(*v10))
 							break;
-						LOBYTE(v4) = x_DWORD_18062C_resolution_x;
-						v9 = (x_BYTE*)(x_DWORD_18062C_resolution_x + v17);
+						//LOBYTE(v4) = x_DWORD_18062C_resolution_x;
+						//v9 = (x_BYTE*)(x_DWORD_18062C_resolution_x + v17);
+						v9 = &x_DWORD_18062C_resolution_x[v17];
 						v17 += x_DWORD_18062C_resolution_x;
 						if (!--v18)
-							return v4;
+							return;// v4;
 					}
-					if ((v4 & 0x80u) == 0)
+					if ((x_DWORD_18062C_resolution_x & 0x80u) == 0)
 						break;
-					v9 -= (char)v4;
+					v9 -= (char)x_DWORD_18062C_resolution_x;
 					if (!v18)
-						return v4;
+						return;// v4;
 				}
 				v11 = a4;
-				v12 = (char)v4;
-				v15 = (char)v4;
+				v12 = (char)x_DWORD_18062C_resolution_x;
+				v15 = (char)x_DWORD_18062C_resolution_x;
 				do
 				{
 					BYTE1(v11) = *v9;
-					LOBYTE(v4) = x_BYTE_F6EE0_tablesx[0x4000 + v11];
-					*v9++ = v4;
+					//LOBYTE(v4) = x_BYTE_F6EE0_tablesx[0x4000 + v11];
+					*v9++ = x_BYTE_F6EE0_tablesx[0x4000 + v11];
 					--v12;
 				} while (v12);
 				v10 += v15;
 			} while (v18);
 		}
 	}
-	return v4;
+	//return v4;
 }
 // 180628: using guessed type int pdwScreenBuffer;
 // 18062C: using guessed type int x_DWORD_18062C_resolution_x;
@@ -42294,7 +42295,8 @@ void sub_3C080_draw_terrain_and_particles_old(/*int a1, int a2,*/ __int16 a3, __
 	int v130; // edx
 	signed int v131; // esi
 	signed int v132; // esi
-	uint8_t* v133; // esi
+	//uint8_t* v133; // esi
+	int v133x;
 	uint8_t* v134; // ebx
 	int v135; // eax
 	char v136; // dl
@@ -42304,7 +42306,8 @@ void sub_3C080_draw_terrain_and_particles_old(/*int a1, int a2,*/ __int16 a3, __
 	uint8_t* v140; // ebx
 	int v141; // eax
 	char v142; // ch
-	uint8_t* v143; // ebx
+	//uint8_t* v143; // ebx
+	int v143x;
 	char v144; // dl
 	int v145; // eax
 	//int* v146; // edx
@@ -43164,8 +43167,13 @@ void sub_3C080_draw_terrain_and_particles_old(/*int a1, int a2,*/ __int16 a3, __
 									}
 								}
 							}
+							if (v143 - &x_DWORD_E9C38_smalltit[35200] == 0xffffffffffff85f8)
+							{
+								v143++;
+								v143--;
+							}
 							if (*(x_WORD*)(v143 + 36))
-								sub_3FD60B(/*(int)v25, */(uint8_t*)v143);
+								sub_3FD60B(v143);
 							v134 = v143 + 44;
 						}
 						if (n)
@@ -43242,7 +43250,7 @@ void sub_3C080_draw_terrain_and_particles_old(/*int a1, int a2,*/ __int16 a3, __
 									}
 								}
 								if (*(x_WORD*)(v155 + 36))
-									sub_3FD60B(/*(int)v25,*/ (uint8_t*)v155);
+									sub_3FD60B(v155);
 								v147 = v155 - 44;
 							} while (v147 >= (uint8_t*)v25y);
 						}
@@ -47099,6 +47107,8 @@ void sub_3E360_draw_particlesB(/*uint8_t* a1,*/ uint8_t* a2)//21f360
 	//return result;
 }
 
+int debug_sub_3FD60B = 0;
+
 //----- (0003FD60) --------------------------------------------------------
 unsigned __int16 sub_3FD60(int a2x)//220d60
 {
@@ -47148,11 +47158,20 @@ unsigned __int16 sub_3FD60(int a2x)//220d60
 	v41x = 0;
 	type_particle_str* a1x=0;
 	//fix
-
 	//result = *(x_WORD *)(a2 + 36);
 	result = str_E9C38_smalltit[a2x].word36;
 	do
 	{
+		//debug
+		if (debug_sub_3FD60B == 0xa89)
+		{
+			result++;
+			result--;
+		}
+		debug_sub_3FD60B++;
+		//debug
+		add_compare(0x220d70, debugafterload);
+
 		if (result < 0x3E8u)
 		{
 			v3x = x_DWORD_EA3E4[result];
@@ -47555,8 +47574,18 @@ unsigned __int16 sub_3FD60B(/*int a1, */uint8_t* a2)//220d60
 	//fix
 
 	result = *(x_WORD*)(a2 + 36);
+
 	do
 	{
+		//debug
+		if (debug_sub_3FD60B == 0xa89)
+		{
+			result++;
+			result--;
+		}
+		debug_sub_3FD60B++;
+		//debug
+		//add_compare(0x220d70, debugafterload);
 		if (result < 0x3E8u)
 		{
 			v3x = x_DWORD_EA3E4[result];
@@ -52082,7 +52111,7 @@ typedef struct type_BIG_SPRITES_BUFFER {
 type_BIG_SPRITES_BUFFER BIG_SPRITES_BUFFERx[max_sprites];
 bool big_sprites_inited = false;
 
-//long debugcounter_47560_2;
+long debugcounter_47560_2=0;
 //----- (00047560) --------------------------------------------------------
 void sub_47560_draw_and_events_in_game(/*uint8_t* a1, int a2, */uint32_t a3, signed int a4, __int16 a5)//228560
 {
@@ -52181,8 +52210,14 @@ void sub_47560_draw_and_events_in_game(/*uint8_t* a1, int a2, */uint32_t a3, sig
 	//add_compare(0x002285FF, debugafterload);
 #endif //DEBUG_SEQUENCES2
 #ifdef DEBUG_SEQUENCES
-	//add_compare(0x002285FF, debugafterload);
+	add_compare(0x002285FF, debugafterload);
 #endif //DEBUG_SEQUENCES
+	if (debugcounter_47560_2>=0x8f)
+	{
+		debugcounter_47560_2++;
+		debugcounter_47560_2--;
+	}
+	debugcounter_47560_2++;
 #ifdef ANALYZE_ENTITY
 	analyzeEntites();
 #endif //ANALYZE_ENTITY
@@ -63952,7 +63987,6 @@ type_event_0x6E8E* sub_51A00(axis_3d* position)//232a00
 // EB398: using guessed type __int16 x_WORD_EB398;
 // EB39C: using guessed type __int16 x_WORD_EB398ar[2];
 
-int debugcounter6 = 0;
 int debugcounter_233d56 = 0;
 //----- (00051BB0) --------------------------------------------------------
 void sub_51BB0_game_events(/*uint8_t* a1*/)//232bb0
@@ -64167,7 +64201,13 @@ void sub_51BB0_game_events(/*uint8_t* a1*/)//232bb0
 	{
 		//adress 233d56
 #ifdef DEBUG_SEQUENCES
-		add_compare(0x233d56, debugafterload);
+		if (debugcounter_233d56 >= 0x365)
+		{
+			debugcounter_233d56++;
+			debugcounter_233d56--;
+		}
+		debugcounter_233d56++;
+		//add_compare(0x233d56, debugafterload,0x365);
 #endif //DEBUG_SEQUENCES
 
 		//index = (int)x_D41A0_BYTEARRAY_0;
@@ -68629,6 +68669,8 @@ void sub_57680_FixPointersAfterLoad()//238680
 // EA3E8: using guessed type int x_DWORD_EA3E8;
 // EB384: using guessed type int x_DWORD_EB384;
 
+int debug_sub_57730 = 0;
+
 //----- (00057730) --------------------------------------------------------
 void sub_57730()//238730
 {
@@ -68830,9 +68872,16 @@ void sub_57730()//238730
 				{
 					if (str_D4C48ar[mx->type_0x3F_63].dword_10[mx->byte_0x45_69].dword_10)
 					{
-#ifdef DEBUG_SEQUENCES2
+#ifdef DEBUG_SEQUENCES
+						if (debug_sub_57730 == 0x72c0)
+						{
+							debug_sub_57730++;
+							debug_sub_57730--;
+						}
+						debug_sub_57730++;
 						//add_compare(0x238A8A, debugafterload);//0x9ac
-#endif //DEBUG_SEQUENCES2
+						//add_compare(0x238A8A,debugafterload);
+#endif //DEBUG_SEQUENCES
 
 						//adress 238a8a zacina na 35cf6e 363bb6 =6c48/168=165=a5
 						pre_sub_4A190_0x6E8E(str_D4C48ar[mx->type_0x3F_63].dword_10[mx->byte_0x45_69].adress_6, mx);
@@ -68876,8 +68925,8 @@ void sub_57B20(type_str_0x2BDE* a1x, type_event_0x6E8E* a2x)//238b20 //copy posi
 #ifdef MOVE_PLAYER
 	if (debugcounter_238b2f == 10)
 	{
-		a2x->array_0x4C_76.x = 0x8c07;
-		a2x->array_0x4C_76.y = 0xb427;
+		a2x->axis_0x4C_76.x = 0x8c07;
+		a2x->axis_0x4C_76.y = 0xb427;
 	}
 	/*if (debugcounter_238b2f == 10) {
 		a2x->array_0x4C_76.x = 0x7249;
@@ -81119,14 +81168,7 @@ void sub_66FD0(type_event_0x6E8E* a1x)//247fd0
 		else
 		{
 			//v8 = (Bit8u*)(*(x_DWORD *)(a1 + 8) - 1);
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-			a1x->dword_0x8 = (x_DWORD)(uint8_t*)(a1x->dword_0x8 - 1);
-#endif
+			a1x->dword_0x8--;
 			if (a1x->dword_0x8 >= 0)
 				goto LABEL_28;
 		}
