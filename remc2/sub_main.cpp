@@ -2970,6 +2970,7 @@ int sub_B5D68(__int16 a1, __int16 a2);
 void DrawTriangle_B6253(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3);
 void DrawSquare(int* vertexs, int index);
 void DrawInverseSquare(int* vertexs, int index);
+void DrawInverseSquare(int* vertexs, int index, uint8_t* ptrTexture);
 void SetRenderViewPortSize_BCD45(uint8_t viewPortSizeSetting, uint16_t width, uint16_t height);
 void SetRenderViewPortSize_BCD45(uint16_t width, uint16_t height, uint16_t viewPortX, uint16_t viewPortY, uint16_t viewPortWidth, uint16_t viewPortHeight);
 void SetRenderViewPortSize_BCD45(uint8_t* ptrScreenBufferStart, uint16_t width, uint16_t viewPortWidth, uint16_t viewPortHeight);
@@ -7583,7 +7584,7 @@ int x_DWORD_EA3C8; // weak?x_DWORD_E9C4C_langindexbuffer[479]
 int x_DWORD_EA3CC; // weak?x_DWORD_E9C4C_langindexbuffer[480]
 int x_DWORD_EA3D0; // weak?x_DWORD_E9C4C_langindexbuffer[481]
 
-type_event_0x6E8E* x_DWORD_EA3E4[0x3E9];//2bb3e4
+type_event_0x6E8E* x_DWORD_EA3E4[1001];//2bb3e4
 
 axis_3d x_WORD_EB398ar; // weak
 uint8_t x_BYTE_EB39E_keys[10]; // weak 0 - setting keys
@@ -40539,6 +40540,7 @@ typedef struct {//lenght 44
 	int32_t dword32;//triangleA and triangleB
 	int32_t word36;//? billboard
 	int16_t word38;
+	int16_t word39;
 	int8_t byte40;
 	uint8_t byte41;//texture index
 	int8_t byte42;
@@ -40558,11 +40560,9 @@ void DrawTerrainAndParticles_3C080(__int16 a3, __int16 a4, __int16 a5, signed in
 	int v12; // edx
 	int v13; // edi
 	char v14; // dh
-	uint8_t* v15;
 	int v15x;
 	char v16; // dl
 	char v17; // dl
-	x_DWORD* v18; // eax
 	int v18x;
 	char v19; // dh
 	int v20; // ebx
@@ -40586,15 +40586,12 @@ void DrawTerrainAndParticles_3C080(__int16 a3, __int16 a4, __int16 a5, signed in
 	__int16 v38; // ax
 	int v39; // eax
 	int v40; // edi
-	uint8_t* v41;
 	int v41x; // edx
 	unsigned __int16 v42; // bx
-	uint8_t* v43; // edx
 	int v43x;
 	uint8_t* v44; // eax
 	char v45; // bh
 	signed int v46; // edx
-	uint8_t* v47;
 	int v47x;
 	int v48; // esi
 	int v49; // ecx
@@ -40605,10 +40602,8 @@ void DrawTerrainAndParticles_3C080(__int16 a3, __int16 a4, __int16 a5, signed in
 	signed int v54; // esi
 	signed int v55; // esi
 	int v56x;
-	uint8_t* v57; // esi
 	int v57x;
 	char v58; // ah
-	uint8_t* j; // ebx
 	int jx;
 	char v60; // dl
 	char v61; // dh
@@ -40618,7 +40613,6 @@ void DrawTerrainAndParticles_3C080(__int16 a3, __int16 a4, __int16 a5, signed in
 	char v65; // dh
 	char v66; // ch
 	char v67; // dl
-	uint8_t* v68; // ebx
 	int v68x;
 	int v69; // eax
 	char v71; // dl
@@ -40630,11 +40624,8 @@ void DrawTerrainAndParticles_3C080(__int16 a3, __int16 a4, __int16 a5, signed in
 	char v77; // ch
 	char v78; // dl
 	char v79; // dh
-	uint8_t* v80; // ebx
 	int v80x;
-	uint8_t* v82; // edi
 	int v82x;
-	uint8_t* v83; // ebx
 	int v83x;
 	char v84; // dl
 	char v85; // cl
@@ -40643,11 +40634,9 @@ void DrawTerrainAndParticles_3C080(__int16 a3, __int16 a4, __int16 a5, signed in
 	char v88; // dl
 	char v89; // dh
 	int v90; // eax
-	uint8_t* v91; // ebx
 	int v91x; // ebx
 	char v92; // cl
 	char v93; // dl
-	uint8_t* v94; // ebx
 	int v94x;
 	char v96; // al
 	char v97; // dl
@@ -40657,11 +40646,9 @@ void DrawTerrainAndParticles_3C080(__int16 a3, __int16 a4, __int16 a5, signed in
 	char v101; // dh
 	char v102; // ch
 	int v103; // eax
-	uint8_t* v104; // ebx
 	int v104x;
 	char v105; // dl
 	char v106; // dh
-	uint8_t* v107; // ebx
 	int v107x;
 	signed int v109; // esi
 	int v110; // ebx
@@ -40861,7 +40848,6 @@ void DrawTerrainAndParticles_3C080(__int16 a3, __int16 a4, __int16 a5, signed in
 	}
 	v14 = 40;//21d231
 	v15x = 0;
-	v15 = x_DWORD_E9C38_smalltit;
 	do//filling first pointer of x_DWORD_E9C38_smalltit(3f52a4)//prepare billboards
 	{
 		v248x[29] = a1 * v13 >> 16;
@@ -40869,32 +40855,25 @@ void DrawTerrainAndParticles_3C080(__int16 a3, __int16 a4, __int16 a5, signed in
 		v248x[28] = a1 * (signed int)v248x[30] >> 16;
 		while (v16)
 		{
-			*(x_DWORD*)v15 = v248x[28];
 			str_E9C38_smalltit[v15x].dword0_rot = v248x[28];
-			*(x_DWORD*)(v15 + 12) = v248x[29];
 			str_E9C38_smalltit[v15x].dword12 = v248x[29];
 			if (a1 < 0)
 			{
-				*(x_WORD*)(v15 + 38) = 0;
 				str_E9C38_smalltit[v15x].word38 = 0;
 			}
 			else
 			{
-				*(x_WORD*)(v15 + 38) = 4;
 				str_E9C38_smalltit[v15x].word38 = 4;
 			}
-			v15 += 1760;
 			v15x += 40;
 			v16--;
 		}
-		v15 -= 36916;
 		v15x -= 839;
 		a1 += 256;
 		v14--;
 	} while (v14);
 
 	v17 = 21;//21d29c not drawing
-	v18 = (x_DWORD*)x_DWORD_E9C38_smalltit;
 	v18x = 0;
 	while (v17)
 	{
@@ -40903,12 +40882,8 @@ void DrawTerrainAndParticles_3C080(__int16 a3, __int16 a4, __int16 a5, signed in
 		v20 = a2 * (signed int)v248x[30] >> 16;
 		while (v19)
 		{
-			*v18 -= v248x[27];
-			v21 = v18[3];
-			v18 += 11;
 			str_E9C38_smalltit[v18x].dword0_rot -= v248x[27];
 			str_E9C38_smalltit[v18x].dword12 += v20;// +v21;
-			*(v18 - 8) = v20 + v21;
 			v18x++;
 			v19--;
 		}
@@ -40916,7 +40891,6 @@ void DrawTerrainAndParticles_3C080(__int16 a3, __int16 a4, __int16 a5, signed in
 		v17--;
 	}
 	str_F2C20ar.dword0x15 = 26214400;//21d2df not drawing
-	v278 = x_DWORD_E9C38_smalltit;
 	v278x = 0;
 	str_F2C20ar.dword0x12 = 8912896;
 	v22 = *v277;
@@ -40960,106 +40934,100 @@ void DrawTerrainAndParticles_3C080(__int16 a3, __int16 a4, __int16 a5, signed in
 			if (!i)
 			{
 				v46 = 840;
-				v47 = x_DWORD_E9C38_smalltit;
 				v47x = 0;
 				while (v46)
 				{
-					v48 = ((*(x_DWORD*)(v47 + 16) * str_F2C20ar.dword0x11 - str_F2C20ar.dword0x0d * *(x_DWORD*)(v47 + 20)) >> 16) + str_F2C20ar.dword0x24;
-					v248x[25] = ((*(x_DWORD*)(v47 + 16) * str_F2C20ar.dword0x11 - str_F2C20ar.dword0x0d * *(x_DWORD*)(v47 + 28)) >> 16) + str_F2C20ar.dword0x24;
-					v49 = *(x_DWORD*)(v47 + 16) * str_F2C20ar.dword0x0d;
-					v248x[24] = str_F2C20ar.dword0x10 - ((v49 + str_F2C20ar.dword0x11 * *(x_DWORD*)(v47 + 20)) >> 16);
-					v50 = str_F2C20ar.dword0x10 - ((v49 + str_F2C20ar.dword0x11 * *(x_DWORD*)(v47 + 28)) >> 16);
-					*(x_DWORD*)(v47 + 16) = v48;
+					v48 = ((str_E9C38_smalltit[v47x].dword16 * str_F2C20ar.dword0x11 - str_F2C20ar.dword0x0d * str_E9C38_smalltit[v47x].dword20) >> 16) + str_F2C20ar.dword0x24;
+					v248x[25] = ((str_E9C38_smalltit[v47x].dword16 * str_F2C20ar.dword0x11 - str_F2C20ar.dword0x0d * str_E9C38_smalltit[v47x].dword28) >> 16) + str_F2C20ar.dword0x24;
+					v49 = str_E9C38_smalltit[v47x].dword16 * str_F2C20ar.dword0x0d;
+					v248x[24] = str_F2C20ar.dword0x10 - ((v49 + str_F2C20ar.dword0x11 * str_E9C38_smalltit[v47x].dword20) >> 16);
+					v50 = str_F2C20ar.dword0x10 - ((v49 + str_F2C20ar.dword0x11 * str_E9C38_smalltit[v47x].dword28) >> 16);
+					str_E9C38_smalltit[v47x].dword16 = v48;
 					v51 = v50;
 					v52 = v248x[24];
-					*(x_DWORD*)(v47 + 28) = v51;
-					*(x_DWORD*)(v47 + 20) = v52;
-					v53 = *(x_DWORD*)(v47 + 16);
-					*(x_DWORD*)(v47 + 24) = v248x[25];
+					str_E9C38_smalltit[v47x].dword28 = v51;
+					str_E9C38_smalltit[v47x].dword20 = v52;
+					v53 = str_E9C38_smalltit[v47x].dword16;
+					str_E9C38_smalltit[v47x].dword24 = v248x[25];
 					if (v53 >= 0)
 					{
-						if ((signed int)(unsigned __int16)iViewPortWidth <= *(x_DWORD*)(v47 + 16))
-							v47[38] |= 0x10u;
+						if ((signed int)(unsigned __int16)iViewPortWidth <= str_E9C38_smalltit[v47x].dword16)
+							str_E9C38_smalltit[v47x].word38 |= 0x10u;
 					}
 					else
 					{
-						v47[38] |= 8u;
+						str_E9C38_smalltit[v47x].word38 |= 8u;
 					}
-					v54 = *(x_DWORD*)(v47 + 20);
+					v54 = str_E9C38_smalltit[v47x].dword20;
 					if (v54 >= 0)
 					{
 						if ((unsigned __int16)iViewPortHeight <= v54)
-							*(x_BYTE*)(v47 + 38) |= 0x40u;
+							str_E9C38_smalltit[v47x].word38 |= 0x40u;
 					}
 					else
 					{
-						*(x_BYTE*)(v47 + 38) |= 0x20u;
+						str_E9C38_smalltit[v47x].word38 |= 0x20u;
 					}
-					if (*(x_DWORD*)(v47 + 24) >= 0)
+					if (str_E9C38_smalltit[v47x].dword24 >= 0)
 					{
-						if ((signed int)(unsigned __int16)iViewPortWidth <= *(x_DWORD*)(v47 + 24))
-							v47[39] |= 2u;
+						if ((signed int)(unsigned __int16)iViewPortWidth <= str_E9C38_smalltit[v47x].dword24)
+							str_E9C38_smalltit[v47x].word39 |= 0x200u;
 					}
 					else
 					{
-						v47[39] |= 1u;
+						str_E9C38_smalltit[v47x].word39 |= 0x100u;
 					}
-					v55 = *(x_DWORD*)(v47 + 28);
+					v55 = str_E9C38_smalltit[v47x].dword28;
 					if (v55 >= 0)
 					{
 						if ((unsigned __int16)iViewPortHeight <= v55)
-							v47[39] |= 8u;
+							str_E9C38_smalltit[v47x].word39 |= 0x800u;
 					}
 					else
 					{
-						v47[39] |= 4u;
+						str_E9C38_smalltit[v47x].word39 |= 0x400u;
 					}
-					v47 += 44;
+					v47x++;
 					v46--;
 				}
-				//LOBYTE(v56b) = 20;
-				v57 = &x_DWORD_E9C38_smalltit[35200];
+				v57x = 800;
 				v281 = 20;
 				do
 				{
 					v58 = 39;
-					for (j = v57; ; j = (v80 + 44))
+					for (jx = v57x; ; jx = (v80x + 1))
 					{
 						v293 = v58;
 						if (!v58)
 							break;
-						v248x[18] = *(x_DWORD*)(j + 24);
-						v248x[19] = *(x_DWORD*)(j + 28);
-						v248x[22] = *(x_DWORD*)(j + 32);
-						j += 44;
-						//v248x[22] = v56b;
-						v60 = *(x_BYTE*)(j - 6);
-						v61 = *(x_BYTE*)(j - 6);
-						if (*(x_BYTE*)(j + 38) & 4)
+						v248x[18] = str_E9C38_smalltit[jx].dword24;
+						v248x[19] = str_E9C38_smalltit[jx].dword28;
+						v248x[22] = str_E9C38_smalltit[jx].dword32;
+						jx++;
+						v60 = str_E9C38_smalltit[jx - 1].word38;
+						v61 = str_E9C38_smalltit[jx - 1].word38;
+						if (str_E9C38_smalltit[jx].word38 & 4)
 							break;
-						v248x[12] = *(x_DWORD*)(j + 24);
-						v248x[13] = *(x_DWORD*)(j + 28);
-						v248x[16] = *(x_DWORD*)(j + 32);
-						v62 = *(x_BYTE*)(j + 38);
-						v248x[6] = *(x_DWORD*)(j - 1736);
-						v248x[7] = *(x_DWORD*)(j - 1732);
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-						std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-						v248x[10] = (int)*(x_DWORD**)(j - 1728);
-#endif
-						v63 = *(x_BYTE*)(j - 1722);
+						v248x[12] = str_E9C38_smalltit[jx].dword24;
+						v248x[13] = str_E9C38_smalltit[jx].dword28;
+						v248x[16] = str_E9C38_smalltit[jx].dword32;
+						v62 = str_E9C38_smalltit[jx].word38;
+						v248x[6] = str_E9C38_smalltit[jx - 40].dword24;
+						v248x[7] = str_E9C38_smalltit[jx - 40].dword28;
+						v248x[10] = str_E9C38_smalltit[jx - 40].dword32;
+
+						v63 = str_E9C38_smalltit[jx - 40].word38;
 						v64 = v63 | v62 | v60;
 						v65 = v63 & v62 & v61;
-						v248x[0] = *(x_DWORD*)(j - 1780);
-						v248x[1] = *(x_DWORD*)(j - 1776);
-						v248x[4] = *(x_DWORD*)(j - 1772);
-						v66 = *(x_BYTE*)(j - 1766);
+						v248x[0] = str_E9C38_smalltit[jx - 41].dword24;
+						v248x[1] = str_E9C38_smalltit[jx - 41].dword28;
+						v248x[4] = str_E9C38_smalltit[jx - 41].dword32;
+						v66 = str_E9C38_smalltit[jx - 41].word38;
 						v67 = v66 | v64;
-						v68 = (uint8_t*)(j - 1804 + 1760);
+						v68x = jx - 1;
 						if ((v66 & v65 & 0x80u) == 0)
 						{
-							if (v68[39] & 0x10)
+							if (str_E9C38_smalltit[v68x].word39 & 0x1000)
 							{
 								x_BYTE_E126D = 7;
 								x_BYTE_E126C = ((signed int)v248x[10] + v248x[16] + v248x[22] + v248x[4]) >> 18;
@@ -41073,68 +41041,40 @@ void DrawTerrainAndParticles_3C080(__int16 a3, __int16 a4, __int16 a5, signed in
 								v69 = 0;
 								if (!(v69 & 0xF00))
 								{
-									LOBYTE(v69) = v68[42];
-									//v70 = (int*)((char*)unk_D4350 + 32 * v69);
-									v248x[20] = xunk_D4350[v69][0];
-									v248x[21] = xunk_D4350[v69][1];
-									v248x[14] = xunk_D4350[v69][2];
-									v248x[15] = xunk_D4350[v69][3];
-									v248x[8] = xunk_D4350[v69][4];
-									v248x[9] = xunk_D4350[v69][5];
-									v248x[2] = xunk_D4350[v69][6];
-									v248x[3] = xunk_D4350[v69][7];
-									x_DWORD_DE55C_ActTexture = x_DWORD_DDF50_texture_adresses[1];
-									x_BYTE_E126D = 5;
-									if (v68[38] & 1)
-									{
-										DrawTriangle_B6253(&v248x[18], &v248x[0], &v248x[12]);
-										DrawTriangle_B6253(&v248x[0], &v248x[6], &v248x[12]);
-									}
-									else
-									{
-										DrawTriangle_B6253(&v248x[18], &v248x[6], &v248x[12]);
-										DrawTriangle_B6253(&v248x[18], &v248x[0], &v248x[6]);
-									}
+									DrawInverseSquare(v248x, v68x, x_DWORD_DDF50_texture_adresses[1]);
 								}
 							}
 						}
-						v248x[18] = *(x_DWORD*)(v68 + 16);
-						v248x[19] = *(x_DWORD*)(v68 + 20);
-						v248x[22] = *(x_DWORD*)(v68 + 32);
-						j = &v68[44];
-						//v248x[22] = v56b;
-						v71 = *(x_BYTE*)(j - 6);
-						v72 = *(x_BYTE*)(j - 6);
-						if (*(x_BYTE*)(j + 38) & 4)
+						v248x[18] = str_E9C38_smalltit[v68x].dword16;
+						v248x[19] = str_E9C38_smalltit[v68x].dword20;
+						v248x[22] = str_E9C38_smalltit[v68x].dword32;
+						jx = v68x + 1;
+						v71 = str_E9C38_smalltit[jx - 1].word38;
+						v72 = str_E9C38_smalltit[jx - 1].word38;
+						if (str_E9C38_smalltit[jx].word38 & 4)
 							break;
-						v248x[12] = *(x_DWORD*)(j + 16);
-						v248x[13] = *(x_DWORD*)(j + 20);
-						v248x[16] = *(x_DWORD*)(j + 32);
-						v73 = *(x_BYTE*)(j + 38);
-						v248x[6] = *(x_DWORD*)(j - 1744);
-						v248x[7] = *(x_DWORD*)(j - 1740);
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-						std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-						v248x[10] = (int)*(x_DWORD**)(j - 1728);
-#endif
-						v74 = *(x_BYTE*)(j - 1722);
+						v248x[12] = str_E9C38_smalltit[jx].dword16;
+						v248x[13] = str_E9C38_smalltit[jx].dword20;
+						v248x[16] = str_E9C38_smalltit[jx].dword32;
+						v73 = str_E9C38_smalltit[jx].word38;
+						v248x[6] = str_E9C38_smalltit[jx - 40].dword16;
+						v248x[7] = str_E9C38_smalltit[jx - 40].dword20;
+						v248x[10] = str_E9C38_smalltit[jx - 40].dword32;
+						v74 = str_E9C38_smalltit[jx - 40].word38;
 						v75 = v74 | v73 | v71;
 						v76 = v74 & v73 & v72;
-						v248x[0] = *(x_DWORD*)(j - 1788);
-						v248x[1] = *(x_DWORD*)(j - 1784);
-						//v56b = *(x_DWORD *)(j - 1772);
-						v248x[4] = *(x_DWORD*)(j - 1772);
-						v77 = *(x_BYTE*)(j - 1766);
+						v248x[0] = str_E9C38_smalltit[jx - 41].dword16;
+						v248x[1] = str_E9C38_smalltit[jx - 41].dword20;
+						v248x[4] = str_E9C38_smalltit[jx - 41].dword32;
+						v77 = str_E9C38_smalltit[jx - 41].word38;
 						v78 = v77 | v75;
 						v79 = v77 & v76;
-						v80 = (uint8_t*)(j - 1804 + 1760);
+						v80x = jx - 1;
 						if (v79 >= 0)
 						{
-							if (*(x_BYTE*)(v80 + 39) & 0x10)
+							if (str_E9C38_smalltit[v80x].word39 & 0x1000)
 							{
 								x_BYTE_E126D = 7;
-								//v56b = ((signed int)v248x[10] + v248x[16] + v248x[22] + v248x[4]) >> 18;
 								x_BYTE_E126C = ((signed int)v248x[10] + v248x[16] + v248x[22] + v248x[4]) >> 18;
 							}
 							else
@@ -41143,68 +41083,45 @@ void DrawTerrainAndParticles_3C080(__int16 a3, __int16 a4, __int16 a5, signed in
 							}
 							if (!(v78 & 2) && !(v79 & 0x78))
 							{
-								//v81 = (int*)((char*)unk_D4350 + 32 * *(unsigned __int8*)(v80 + 42));
-								v248x[20] = xunk_D4350[*(unsigned __int8*)(v80 + 42)][0];
-								v248x[21] = xunk_D4350[*(unsigned __int8*)(v80 + 42)][1];
-								v248x[14] = xunk_D4350[*(unsigned __int8*)(v80 + 42)][2];
-								v248x[15] = xunk_D4350[*(unsigned __int8*)(v80 + 42)][3];
-								v248x[8] = xunk_D4350[*(unsigned __int8*)(v80 + 42)][4];
-								v248x[9] = xunk_D4350[*(unsigned __int8*)(v80 + 42)][5];
-								v248x[2] = xunk_D4350[*(unsigned __int8*)(v80 + 42)][6];
-								v248x[3] = xunk_D4350[*(unsigned __int8*)(v80 + 42)][7];
-								x_DWORD_DE55C_ActTexture = x_DWORD_DDF50_texture_adresses[*(unsigned __int8*)(v80 + 41)];
-								if (v80[38] & 1)
-								{
-									DrawTriangle_B6253(&v248x[18], &v248x[12], &v248x[0]);
-									DrawTriangle_B6253(&v248x[0], &v248x[12], &v248x[6]);
-								}
-								else
-								{
-									DrawTriangle_B6253(&v248x[18], &v248x[12], &v248x[6]);
-									DrawTriangle_B6253(&v248x[18], &v248x[6], &v248x[0]);
-								}
+								DrawSquare(v248x, v80x);
 							}
-							if (*(x_WORD*)(v80 + 36))
-								sub_3E360_draw_particlesB(v80);
+							if (str_E9C38_smalltit[v80x].word36)
+								sub_3E360_draw_particles(v80x);
 						}
 						v58 = v293 - 1;
 					}
 					if (v293)
 					{
-						v82 = j - 44;
-						v83 = v57 + 1672;
+						v82x = jx - 1;
+						v83x = v57x + 38;
 						do
 						{
-							v248x[18] = *(x_DWORD*)(v83 + 24);
-							v248x[19] = *(x_DWORD*)(v83 + 28);
-							v248x[22] = *(x_DWORD*)(v83 + 32);
-							v84 = *(x_BYTE*)(v83 + 38);
-							v248x[12] = *(x_DWORD*)(v83 + 68);
-							v248x[13] = *(x_DWORD*)(v83 + 72);
-							v248x[16] = *(x_DWORD*)(v83 + 76);
-							v85 = *(x_BYTE*)(v83 + 82);
-							v248x[6] = *(x_DWORD*)(v83 - 1692);
-							v248x[7] = *(x_DWORD*)(v83 - 1688);
+							v248x[18] = str_E9C38_smalltit[v83x].dword24;
+							v248x[19] = str_E9C38_smalltit[v83x].dword28;
+							v248x[22] = str_E9C38_smalltit[v83x].dword32;
+							v84 = str_E9C38_smalltit[v83x].word38;
+							v248x[12] = str_E9C38_smalltit[v83x + 1].dword24;
+							v248x[13] = str_E9C38_smalltit[v83x + 1].dword28;
+							v248x[16] = str_E9C38_smalltit[v83x + 1].dword32;
+							v85 = str_E9C38_smalltit[v83x + 1].word38;
+							v248x[6] = str_E9C38_smalltit[v83x - 39].dword24;
+							v248x[7] = str_E9C38_smalltit[v83x - 39].dword28;
 							v86 = v84;
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-							std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-							v248x[10] = (int)*(x_DWORD**)(v83 - 1684);
-#endif
-							v87 = *(x_BYTE*)(v83 - 1678);
+							v248x[10] = str_E9C38_smalltit[v83x - 39].dword32;
+							v87 = str_E9C38_smalltit[v83x - 39].word38;
 							v88 = v87 | v85 | v84;
 							v89 = v87 & v85 & v86;
-							v248x[0] = *(x_DWORD*)(v83 - 1736);
-							v248x[1] = *(x_DWORD*)(v83 - 1732);
-							v90 = *(x_DWORD*)(v83 - 1728);
-							v91 = v83 + 44;
+							v248x[0] = str_E9C38_smalltit[v83x - 40].dword24;
+							v248x[1] = str_E9C38_smalltit[v83x - 40].dword28;
+							v90 = str_E9C38_smalltit[v83x - 40].dword32;
+							v91x = v83x + 1;
 							v248x[4] = v90;
-							v92 = *(x_BYTE*)(v91 - 1766);
+							v92 = str_E9C38_smalltit[v83x - 41].word38;
 							v93 = v92 | v88;
-							v94 = v91 - 1804 + 1760;
+							v94x = v91x - 1;
 							if ((v92 & v89 & 0x80u) == 0)
 							{
-								if (*(x_BYTE*)(v94 + 39) & 0x10)
+								if (str_E9C38_smalltit[v94x].word39 & 0x1000)
 								{
 									x_BYTE_E126D = 7;
 									x_BYTE_E126C = ((signed int)v248x[10] + v248x[16] + v248x[22] + v248x[4]) >> 18;
@@ -41215,65 +41132,39 @@ void DrawTerrainAndParticles_3C080(__int16 a3, __int16 a4, __int16 a5, signed in
 								}
 								if (!(v93 & 2))
 								{
-									//v95 = (int*)((char*)unk_D4350 + 32 * *(unsigned __int8*)(v94 + 42));
-									v248x[20] = xunk_D4350[*(unsigned __int8*)(v94 + 42)][0];
-									v248x[21] = xunk_D4350[*(unsigned __int8*)(v94 + 42)][1];
-									v248x[14] = xunk_D4350[*(unsigned __int8*)(v94 + 42)][2];
-									v248x[15] = xunk_D4350[*(unsigned __int8*)(v94 + 42)][3];
-									v248x[8] = xunk_D4350[*(unsigned __int8*)(v94 + 42)][4];
-									v248x[9] = xunk_D4350[*(unsigned __int8*)(v94 + 42)][5];
-									v248x[2] = xunk_D4350[*(unsigned __int8*)(v94 + 42)][6];
-									v248x[3] = xunk_D4350[*(unsigned __int8*)(v94 + 42)][7];
-									x_DWORD_DE55C_ActTexture = x_DWORD_DDF50_texture_adresses[1];
-									v96 = *(x_BYTE*)(v94 + 38);
-									x_BYTE_E126D = 5;
-									if (v96 & 1)
-									{
-										DrawTriangle_B6253(&v248x[18], &v248x[0], &v248x[12]);
-										DrawTriangle_B6253(&v248x[0], &v248x[6], &v248x[12]);
-									}
-									else
-									{
-										DrawTriangle_B6253(&v248x[18], &v248x[6], &v248x[12]);
-										DrawTriangle_B6253(&v248x[18], &v248x[0], &v248x[6]);
-									}
+
+									DrawInverseSquare(v248x, v94x, x_DWORD_DDF50_texture_adresses[1]);
 								}
 							}
-							v248x[18] = *(x_DWORD*)(v94 + 16);
-							v248x[19] = *(x_DWORD*)(v94 + 20);
-							v248x[22] = *(x_DWORD*)(v94 + 32);
-							v97 = *(x_BYTE*)(v94 + 38);
-							v248x[12] = *(x_DWORD*)(v94 + 60);
-							v248x[13] = *(x_DWORD*)(v94 + 64);
-							v248x[16] = *(x_DWORD*)(v94 + 76);
+							v248x[18] = str_E9C38_smalltit[v94x].dword16;
+							v248x[19] = str_E9C38_smalltit[v94x].dword20;
+							v248x[22] = str_E9C38_smalltit[v94x].dword32;
+							v97 = str_E9C38_smalltit[v94x].word38;
+							v248x[12] = str_E9C38_smalltit[v94x + 1].dword16;
+							v248x[13] = str_E9C38_smalltit[v94x + 1].dword20;
+							v248x[16] = str_E9C38_smalltit[v94x + 1].dword32;
 							v98 = v97;
-							v99 = *(x_BYTE*)(v94 + 82);
+							v99 = str_E9C38_smalltit[v94x + 1].word38;
 							v100 = v99 | v97;
 							v101 = v99 & v98;
-							v248x[6] = *(x_DWORD*)(v94 - 1700);
-							v248x[7] = *(x_DWORD*)(v94 - 1696);
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-							std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-							v248x[10] = (int)*(x_DWORD**)(v94 - 1684);
-#endif
-							v102 = *(x_BYTE*)(v94 - 1678);
-							v248x[0] = *(x_DWORD*)(v94 - 1744);
-							v103 = *(x_DWORD*)(v94 - 1740);
-							v104 = v94 + 44;
+							v248x[6] = str_E9C38_smalltit[v94x - 39].dword16;
+							v248x[7] = str_E9C38_smalltit[v94x - 39].dword20;
+							v248x[10] = str_E9C38_smalltit[v94x - 39].dword32;
+							v102 = str_E9C38_smalltit[v94x - 39].word38;
+
+							v248x[0] = str_E9C38_smalltit[v94x - 40].dword16;
+							v103 = str_E9C38_smalltit[v94x - 40].dword20;
+							v104x = v94x + 1;
 							v248x[1] = v103;
-							//v56b = *(x_DWORD *)(v104 - 1772);
-							v248x[4] = *(x_DWORD*)(v104 - 1772);
-							//BYTE1(v56b) = *(x_BYTE *)(v104 - 1766);
-							v105 = (*(x_BYTE*)(v104 - 1766)) | v102 | v100;
-							v106 = (*(x_BYTE*)(v104 - 1766)) & v102 & v101;
-							v107 = v104 - 1804 + 1760;
+							v248x[4] = str_E9C38_smalltit[v104x - 41].dword32;
+							v105 = (str_E9C38_smalltit[v104x - 41].word38 & 0xff) | v102 | v100;
+							v106 = (str_E9C38_smalltit[v104x - 41].word38 & 0xff) & v102 & v101;
+							v107x = v104x - 1;
 							if (v106 >= 0)
 							{
-								if (*(x_BYTE*)(v107 + 39) & 0x10)
+								if (str_E9C38_smalltit[v107x].word39 & 0x1000)
 								{
 									x_BYTE_E126D = 7;
-									//v56b = ((signed int)v248x[10] + v248x[16] + v248x[22] + v248x[4]) >> 18;
 									x_BYTE_E126C = ((signed int)v248x[10] + v248x[16] + v248x[22] + v248x[4]) >> 18;
 								}
 								else
@@ -41282,63 +41173,43 @@ void DrawTerrainAndParticles_3C080(__int16 a3, __int16 a4, __int16 a5, signed in
 								}
 								if (!(v105 & 2) && !(v106 & 0x78))
 								{
-									//v108 = (int*)((char*)unk_D4350 + 32 * *(unsigned __int8*)(v107 + 42));
-									v248x[20] = xunk_D4350[*(unsigned __int8*)(v107 + 42)][0];
-									v248x[21] = xunk_D4350[*(unsigned __int8*)(v107 + 42)][1];
-									v248x[14] = xunk_D4350[*(unsigned __int8*)(v107 + 42)][2];
-									v248x[15] = xunk_D4350[*(unsigned __int8*)(v107 + 42)][3];
-									v248x[8] = xunk_D4350[*(unsigned __int8*)(v107 + 42)][4];
-									v248x[9] = xunk_D4350[*(unsigned __int8*)(v107 + 42)][5];
-									v248x[2] = xunk_D4350[*(unsigned __int8*)(v107 + 42)][6];
-									v248x[3] = xunk_D4350[*(unsigned __int8*)(v107 + 42)][7];
-									//LOBYTE(v108) = *(x_BYTE*)(v107 + 38);
-									x_DWORD_DE55C_ActTexture = x_DWORD_DDF50_texture_adresses[*(unsigned __int8*)(v107 + 41)];
-									if ((unsigned __int8)*(x_BYTE*)(v107 + 38) & 1)
-									{
-										DrawTriangle_B6253(&v248x[18], &v248x[12], &v248x[0]);
-										DrawTriangle_B6253(&v248x[0], &v248x[12], &v248x[6]);
-									}
-									else
-									{
-										DrawTriangle_B6253(&v248x[18], &v248x[12], &v248x[6]);
-										DrawTriangle_B6253(&v248x[18], &v248x[6], &v248x[0]);
-									}
+									DrawSquare(v248x, v107x);
 								}
-								if (*(x_WORD*)(v107 + 36))
-									sub_3E360_draw_particlesB(v107);
+								if (str_E9C38_smalltit[v107x].word36)
+									sub_3E360_draw_particles(v107x);
 							}
-							v83 = v107 - 44;
-						} while (v83 >= v82);
+							v83x = v107x - 1;
+						} while (v83x >= v82x);
 					}
-					v57 -= 1760;
+					v57x -= 40;
 					v281--;
 				} while (v281);
-				return/* v56b*/;
+				return;
 			}
 			for (k = 40; k; k--)
 			{
 				v33 = ((unsigned __int8)x_BYTE_12B4E0_shading[v279] << 8) + 128;
-				v34 = *(x_DWORD*)(v278 + 12);
-				v35 = v34 * v34 + *(x_DWORD*)v278 * *(x_DWORD*)v278;
-				*(x_WORD*)(v278 + 36) = 0;
+				v34 = str_E9C38_smalltit[v278x].dword12;
+				v35 = v34 * v34 + str_E9C38_smalltit[v278x].dword0_rot * str_E9C38_smalltit[v278x].dword0_rot;
+				str_E9C38_smalltit[v278x].word36 = 0;
 				if (v34 <= -256 || v35 >= str_F2C20ar.dword0x15)
 				{
-					*(x_BYTE*)(v278 + 38) |= 2u;
+					str_E9C38_smalltit[v278x].word38 |= 2u;
 					goto LABEL_46;
 				}
 				if (v34 < 128)
 					v34 = 128;
-				*(x_DWORD*)(v278 + 16) = str_F2C20ar.dword0x18 * *(x_DWORD*)v278 / v34;
+				str_E9C38_smalltit[v278x].dword16 = str_F2C20ar.dword0x18 * str_E9C38_smalltit[v278x].dword0_rot / v34;
 				v36 = v279;
-				*(x_DWORD*)(v278 + 4) = 32 * x_BYTE_11B4E0_heightmap[v279] - a6;
-				*(x_DWORD*)(v278 + 8) = ((unsigned __int8)x_BYTE_14B4E0_second_heightmap[v36] << 15 >> 10) - a6;
+				str_E9C38_smalltit[v278x].dword4 = 32 * x_BYTE_11B4E0_heightmap[v279] - a6;
+				str_E9C38_smalltit[v278x].dword8 = ((unsigned __int8)x_BYTE_14B4E0_second_heightmap[v36] << 15 >> 10) - a6;
 				v37 = 0;
 				if (!x_BYTE_10B4E0_terraintype[v36])
 				{
 					v38 = 32 * D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x012_2BE0_11248;
 					v37 = (x_DWORD_DB750[(v38 + (HIBYTE(v279) << 7)) & 0x7FF] >> 8)
 						* (x_DWORD_DB750[(((unsigned __int8)v279 << 7) + v38) & 0x7FF] >> 8);
-					*(x_DWORD*)(v278 + 4) -= v37 >> 13;
+					str_E9C38_smalltit[v278x].dword4 -= v37 >> 13;
 					if (v33 >= 14464)
 						v37 = 0;
 				}
@@ -41349,34 +41220,34 @@ void DrawTerrainAndParticles_3C080(__int16 a3, __int16 a4, __int16 a5, signed in
 				{
 					v39 = v39 * (signed __int64)(str_F2C20ar.dword0x16 - v35) / str_F2C20ar.dword0x12;
 				LABEL_39:
-					*(x_DWORD*)(v278 + 32) = v39;
+					str_E9C38_smalltit[v278x].dword32 = v39;
 					goto LABEL_40;
 				}
-				*(x_DWORD*)(v278 + 32) = 0;
+				str_E9C38_smalltit[v278x].dword32 = 0;
 			LABEL_40:
 				if (x_BYTE_13B4E0_angle[v279] & 8)
-					*(x_BYTE*)(v278 + 38) |= 0x80u;
+					str_E9C38_smalltit[v278x].word38 |= 0x80u;
 				v40 = str_F2C20ar.dword0x18;
-				v41 = v278;
-				*(x_DWORD*)(v278 + 20) = str_F2C20ar.dword0x22 + str_F2C20ar.dword0x18 * *(x_DWORD*)(v278 + 4) / v34;
-				*(x_DWORD*)(v278 + 28) = str_F2C20ar.dword0x22 + v40 * *(x_DWORD*)(v41 + 8) / v34;
+				v41x = v278x;
+				str_E9C38_smalltit[v278x].dword20 = str_F2C20ar.dword0x22 + str_F2C20ar.dword0x18 * str_E9C38_smalltit[v278x].dword4 / v34;
+				str_E9C38_smalltit[v278x].dword28 = str_F2C20ar.dword0x22 + v40 * str_E9C38_smalltit[v278x].dword8 / v34;
 				LOBYTE(v42) = v277[2] + v279;
 				HIBYTE(v42) = v277[3] + HIBYTE(v279);
-				v43 = v278;
-				*(x_BYTE*)(v278 + 41) = x_BYTE_10B4E0_terraintype[v42];
+				v43x = v278x;
+				str_E9C38_smalltit[v278x].byte41 = x_BYTE_10B4E0_terraintype[v42];
 				if (D41A0_0.m_GameSettings.str_0x2196.flat_0x2199)
-					*(x_BYTE*)(v43 + 39) |= 0x10u;
-				*(x_BYTE*)(v278 + 43) = x_BYTE_D41D8[*(unsigned __int8*)(v278 + 41)];
-				*(x_BYTE*)(v278 + 42) = v248x[32] + (((signed int)(unsigned __int8)x_BYTE_13B4E0_angle[v42] >> 2) & 0x1C);
+					str_E9C38_smalltit[v43x].word39 |= 0x1000u;
+				str_E9C38_smalltit[v278x].byte43 = x_BYTE_D41D8[str_E9C38_smalltit[v278x].byte41];
+				str_E9C38_smalltit[v278x].byte42 = v248x[32] + (((signed int)(unsigned __int8)x_BYTE_13B4E0_angle[v42] >> 2) & 0x1C);
 				LOBYTE(v42) = v277[4] + v42;
 				HIBYTE(v42) += v277[5];
-				*(x_WORD*)(v278 + 36) = mapEntityIndex_15B4E0[v42];
+				str_E9C38_smalltit[v278x].word36 = mapEntityIndex_15B4E0[v42];
 			LABEL_46:
 				v44 = v277;
-				*(x_WORD*)(v278 + 38) |= ((x_BYTE)v279 + HIBYTE(v279)) & 1;
+				str_E9C38_smalltit[v278x].word38 |= ((x_BYTE)v279 + HIBYTE(v279)) & 1;
 				LOBYTE(v279) = v44[8] + v279;
 				HIBYTE(v279) += v277[9];
-				v278 += 44;
+				v278x++;
 			}
 			v45 = v277[6] + v279;
 			HIBYTE(v279) += v277[7];
@@ -42031,6 +41902,11 @@ void DrawSquare(int* vertexs, int index)
 
 void DrawInverseSquare(int* vertexs, int index)
 {
+	DrawInverseSquare(vertexs, index, x_DWORD_DDF50_texture_adresses.at(str_E9C38_smalltit[index].byte41));
+}
+
+void DrawInverseSquare(int* vertexs, int index, uint8_t* ptrTexture)
+{
 	vertexs[20] = xunk_D4350[str_E9C38_smalltit[index].byte42][0];
 	vertexs[21] = xunk_D4350[str_E9C38_smalltit[index].byte42][1];
 	vertexs[14] = xunk_D4350[str_E9C38_smalltit[index].byte42][2];
@@ -42040,7 +41916,7 @@ void DrawInverseSquare(int* vertexs, int index)
 	vertexs[2] = xunk_D4350[str_E9C38_smalltit[index].byte42][6];
 	vertexs[3] = xunk_D4350[str_E9C38_smalltit[index].byte42][7];
 	x_BYTE_E126D = 5;
-	x_DWORD_DE55C_ActTexture = x_DWORD_DDF50_texture_adresses.at(str_E9C38_smalltit[index].byte41);
+	x_DWORD_DE55C_ActTexture = ptrTexture;
 	if (str_E9C38_smalltit[index].word38 & 1)
 	{
 		DrawTriangle_B6253(&vertexs[18], &vertexs[0], &vertexs[12]);
