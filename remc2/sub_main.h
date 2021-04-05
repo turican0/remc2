@@ -470,7 +470,7 @@ signed int sub_36A50(/*signed int a1, */char a2);
 void sub_36920(/*signed __int16 a1, */type_event_0x6E8E* a2);
 void sub_48A20(int a1, char a2, char a3, int a4, int a5, unsigned __int8 a6);
 unsigned int sub_439A0(unsigned int a1, unsigned __int16 a2);
-void sub_3E360_draw_particles(/*int a1x, */int a2x);
+void DrawParticles_3E360(int a2x, uint16_t viewPortWidth);
 unsigned __int16 sub_3FD60(int a2x);
 //void __outx_WORD(unsigned short Port, unsigned short Data);
 //void __outx_BYTE(unsigned short Port, unsigned char Data);
