@@ -90,7 +90,7 @@ int test_regression_level = 0;
 	int debugafterload = 0;
 	#define DISABLE_GRAPHICS_ENHANCE
 	//#define DISABLE_GRAPHICS_ENHANCE
-	//#define MOVE_PLAYER
+	#define MOVE_PLAYER
 #else
 	int debugafterload = 1;
 	int graphics_debug = false;
@@ -119,8 +119,6 @@ int count_begin = 1;//1
 bool config_EDITOR = false;
 bool config_LOAD_EDITED_LEVEL = false;
 #define EDITOR
-
-#define OLD_PARTICLES
 
 /*
 fix sub_3C080_draw_terrain_and_particles_old
@@ -29013,6 +29011,7 @@ void sub_2BD10_draw_line(__int16 a1, __int16 a2, __int16 a3, __int16 a4, unsigne
 // 180628: using guessed type int pdwScreenBuffer;
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
+/*
 void debugtestscreen() {
 	//save
 #ifdef OLD_PARTICLES
@@ -29045,7 +29044,7 @@ void debugtestscreen() {
 
 	//compare
 }
-
+*/
 //----- (0002BE30) --------------------------------------------------------
 void DrawGameFrame()//20CE30
 {
@@ -42107,7 +42106,7 @@ LABEL_259:
 */
 
 void sub_3E360_draw_particlesB(/*uint8_t* a1,*/ int a2x);
-unsigned __int16 sub_3FD60B(/*int a1, */uint8_t* a2);
+//unsigned __int16 sub_3FD60B(/*int a1, */uint8_t* a2);
 
 #pragma pack (1)
 typedef struct//lenght 4*33
@@ -42483,7 +42482,7 @@ void sub_3C080_draw_terrain_and_particles_old(/*int a1, int a2,*/ __int16 a3, __
 	int a1;
 	int a2;
 
-	D41A0_0.m_GameSettings.m_Graphics.m_wReflections = 1;//only for tests
+	//D41A0_0.m_GameSettings.m_Graphics.m_wReflections = 1;//only for tests
 
 	/*
 	#ifdef DEBUG_SEQUENCES
@@ -43188,7 +43187,7 @@ void sub_3C080_draw_terrain_and_particles_old(/*int a1, int a2,*/ __int16 a3, __
 										x_DWORD_DE55C_ActTexture = x_DWORD_DDF50_texture_adresses[str_E9C38_smalltit[v134x].byte41];
 										//LOBYTE(v146) = *(x_BYTE*)(v143 + 38);
 										x_BYTE_E126D = 5;
-										allert_error();
+										//allert_error();
 										if (str_E9C38_smalltit[v134x].word38 & 1)
 										{
 											DrawTriangle(&v248x[18], &v248x[0], &v248x[12]);
@@ -43269,7 +43268,7 @@ void sub_3C080_draw_terrain_and_particles_old(/*int a1, int a2,*/ __int16 a3, __
 											x_BYTE_E126D = 5;
 											//BYTE1(v158) = *(x_BYTE*)(v155 + 38);
 											x_DWORD_DE55C_ActTexture = x_DWORD_DDF50_texture_adresses[str_E9C38_smalltit[v147x].byte41];
-											allert_error();
+											//allert_error();
 											if (str_E9C38_smalltit[v147x].word38 & 1)
 											{
 												DrawTriangle(&v248x[18], &v248x[0], &v248x[12]);
@@ -43315,14 +43314,14 @@ void sub_3C080_draw_terrain_and_particles_old(/*int a1, int a2,*/ __int16 a3, __
 						v166 = v165 | v163;
 						v167 = v165 & v163;
 
-						v248x[6] = str_E9C38_smalltit[v161x-39].dword16;//*(x_DWORD*)(v161 - 1744);
-						v248x[7] = str_E9C38_smalltit[v161x-39].dword20;//*(x_DWORD*)(v161 - 1740);
+						v248x[6] = str_E9C38_smalltit[v161x - 39].dword16;//*(x_DWORD*)(v161 - 1744);
+						v248x[7] = str_E9C38_smalltit[v161x - 39].dword20;//*(x_DWORD*)(v161 - 1740);
 						v248x[10] = str_E9C38_smalltit[v161x - 39].dword32;//*(x_DWORD*)(v161 - 1728);
-						v170 = str_E9C38_smalltit[v161x -39].word38 & 0xff;//*(x_BYTE*)(v169 + 38);
+						v170 = str_E9C38_smalltit[v161x - 39].word38 & 0xff;//*(x_BYTE*)(v169 + 38);
 
-						v248x[0] = str_E9C38_smalltit[v161x -40].dword16;//*(x_DWORD*)(v169 - 28);
+						v248x[0] = str_E9C38_smalltit[v161x - 40].dword16;//*(x_DWORD*)(v169 - 28);
 						v248x[1] = str_E9C38_smalltit[v161x - 40].dword20;//*(x_DWORD*)(v169 - 24);
-						v248x[4] = str_E9C38_smalltit[v161x -40].dword32;
+						v248x[4] = str_E9C38_smalltit[v161x - 40].dword32;
 						v173 = (str_E9C38_smalltit[v161x - 40].word38 & 0xff) | v170 | v166;
 						v174 = (str_E9C38_smalltit[v161x - 40].word38 & 0xff) & v170 & v167;
 
@@ -47122,7 +47121,7 @@ void sub_3E360_draw_particlesB(/*uint8_t* a1,*/ int a2x)//21f360
 	//return result;
 }
 
-int debug_sub_3FD60B = 0;
+//int debug_sub_3FD60B = 0;
 
 //----- (0003FD60) --------------------------------------------------------
 unsigned __int16 sub_3FD60(int a2x)//220d60
@@ -47177,14 +47176,14 @@ unsigned __int16 sub_3FD60(int a2x)//220d60
 	result = str_E9C38_smalltit[a2x].word36;
 	do
 	{
-		//debug
+		/*//debug
 		if (debug_sub_3FD60B == 0xa89)
 		{
 			result++;
 			result--;
 		}
 		debug_sub_3FD60B++;
-		//debug
+		//debug*/
 		add_compare(0x220d70, debugafterload);
 
 		if (result < 0x3E8u)
@@ -47538,8 +47537,8 @@ unsigned __int16 sub_3FD60(int a2x)//220d60
 // F2CC4: using guessed type __int16 x_WORD_F2CC4;
 // F2CC6: using guessed type char x_BYTE_F2CC6;
 // F6ED0: using guessed type int TMAPS00TAB_BEGIN_BUFFER;
-
-unsigned __int16 sub_3FD60B(/*int a1, */uint8_t* a2)//220d60
+/*
+unsigned __int16 sub_3FD60B(uint8_t* a2)//220d60
 {
 	unsigned __int16 result; // ax
 	type_event_0x6E8E* v3x; // eax
@@ -47708,8 +47707,6 @@ unsigned __int16 sub_3FD60B(/*int a1, */uint8_t* a2)//220d60
 						a1x = *str_DWORD_F66F0x[v9x->word_0 + 15 - v26];
 						str_F2C20ar.dword0x08_width = a1x->word_2;
 						str_F2C20ar.dword0x06_height = a1x->word_4;
-						/*str_F2C20ar.dword0x08_width = *(unsigned __int16*)(a1 + 2);
-						str_F2C20ar.dword0x06_height = *(unsigned __int16*)(a1 + 4);*/
 						v28 = (signed __int64)(str_F2C20ar.dword0x18 * v9x->rotSpeed_8) / v40;
 						str_F2C20ar.dword0x0c_realHeight = v28;
 						str_F2C20ar.dword0x09_realWidth = v28 * str_F2C20ar.dword0x08_width / str_F2C20ar.dword0x06_height;
@@ -47731,8 +47728,6 @@ unsigned __int16 sub_3FD60B(/*int a1, */uint8_t* a2)//220d60
 						a1x = *str_DWORD_F66F0x[v9x->word_0 + v29];
 						str_F2C20ar.dword0x08_width = a1x->word_2;
 						str_F2C20ar.dword0x06_height = a1x->word_4;
-						/*str_F2C20ar.dword0x08_width = *(unsigned __int16*)(a1 + 2);
-						str_F2C20ar.dword0x06_height = *(unsigned __int16*)(a1 + 4);*/
 						v31 = (signed __int64)(str_F2C20ar.dword0x18 * v9x->rotSpeed_8) / v40;
 						str_F2C20ar.dword0x0c_realHeight = v31;
 						str_F2C20ar.dword0x09_realWidth = v31 * str_F2C20ar.dword0x08_width / str_F2C20ar.dword0x06_height;
@@ -47753,8 +47748,6 @@ unsigned __int16 sub_3FD60B(/*int a1, */uint8_t* a2)//220d60
 							a1x = *str_DWORD_F66F0x[v9x->word_0 + (unsigned __int8)x_BYTE_D4750[0xc + v19]];
 							str_F2C20ar.dword0x08_width = a1x->word_2;
 							str_F2C20ar.dword0x06_height = a1x->word_4;
-							/*str_F2C20ar.dword0x08_width = *(unsigned __int16*)(a1 + 2);
-							str_F2C20ar.dword0x06_height = *(unsigned __int16*)(a1 + 4);*/
 							v25 = (signed __int64)(str_F2C20ar.dword0x18 * v9x->rotSpeed_8) / v40;
 							str_F2C20ar.dword0x0c_realHeight = v25;
 							str_F2C20ar.dword0x09_realWidth = v25 * str_F2C20ar.dword0x08_width / str_F2C20ar.dword0x06_height;
@@ -47777,8 +47770,6 @@ unsigned __int16 sub_3FD60B(/*int a1, */uint8_t* a2)//220d60
 							a1x = *str_DWORD_F66F0x[v9x->word_0 + (unsigned __int8)x_BYTE_D4750[0xc + v19]];
 							str_F2C20ar.dword0x08_width = a1x->word_2;
 							str_F2C20ar.dword0x06_height = a1x->word_4;
-							/*str_F2C20ar.dword0x08_width = *(unsigned __int16*)(a1 + 2);
-							str_F2C20ar.dword0x06_height = *(unsigned __int16*)(a1 + 4);*/
 							v22 = (signed __int64)(str_F2C20ar.dword0x18 * v9x->rotSpeed_8) / v40;
 							str_F2C20ar.dword0x0c_realHeight = v22;
 							str_F2C20ar.dword0x09_realWidth = v22 * str_F2C20ar.dword0x08_width / str_F2C20ar.dword0x06_height;
@@ -47803,8 +47794,6 @@ unsigned __int16 sub_3FD60B(/*int a1, */uint8_t* a2)//220d60
 							a1x = *str_DWORD_F66F0x[(unsigned __int8)x_BYTE_D4750[0x1c + v32] + v9x->word_0];
 							str_F2C20ar.dword0x08_width = a1x->word_2;
 							str_F2C20ar.dword0x06_height = a1x->word_4;
-							/*str_F2C20ar.dword0x08_width = *(unsigned __int16*)(a1 + 2);
-							str_F2C20ar.dword0x06_height = *(unsigned __int16*)(a1 + 4);*/
 							v36 = (signed __int64)(str_F2C20ar.dword0x18 * v9x->rotSpeed_8) / v40;
 							str_F2C20ar.dword0x0c_realHeight = v36;
 							str_F2C20ar.dword0x09_realWidth = v36 * str_F2C20ar.dword0x08_width / str_F2C20ar.dword0x06_height;
@@ -47826,8 +47815,6 @@ unsigned __int16 sub_3FD60B(/*int a1, */uint8_t* a2)//220d60
 							a1x = *str_DWORD_F66F0x[v9x->word_0 + (unsigned __int8)x_BYTE_D4750[0x1c + v32]];
 							str_F2C20ar.dword0x08_width = a1x->word_2;
 							str_F2C20ar.dword0x06_height = a1x->word_4;
-							/*str_F2C20ar.dword0x08_width = *(unsigned __int16*)(a1 + 2);
-							str_F2C20ar.dword0x06_height = *(unsigned __int16*)(a1 + 4);*/
 							v34 = (signed __int64)(str_F2C20ar.dword0x18 * v9x->rotSpeed_8) / v40;
 							str_F2C20ar.dword0x0c_realHeight = v34;
 							str_F2C20ar.dword0x09_realWidth = v34 * str_F2C20ar.dword0x08_width / str_F2C20ar.dword0x06_height;
@@ -47882,8 +47869,6 @@ unsigned __int16 sub_3FD60B(/*int a1, */uint8_t* a2)//220d60
 					LABEL_47:
 						str_F2C20ar.dword0x08_width = a1x->word_2;
 						str_F2C20ar.dword0x06_height = a1x->word_4;
-						/*str_F2C20ar.dword0x08_width = *(unsigned __int16*)(a1 + 2);
-						str_F2C20ar.dword0x06_height = *(unsigned __int16*)(a1 + 4);*/
 						v27 = (signed __int64)(str_F2C20ar.dword0x18 * v9x->rotSpeed_8) / v40;
 						str_F2C20ar.dword0x0c_realHeight = v27;
 						str_F2C20ar.dword0x09_realWidth = v27 * str_F2C20ar.dword0x08_width / str_F2C20ar.dword0x06_height;
@@ -47893,8 +47878,6 @@ unsigned __int16 sub_3FD60B(/*int a1, */uint8_t* a2)//220d60
 					LABEL_70:
 						str_F2C20ar.dword0x02_data = a1x->data_6;
 						v38 = str_F2C20ar.dword0x00;
-						/*v37 = a1x->un_0.byte[0] | 8;
-						a1x->un_0.byte[0] = v37;*/
 						a1x->word_0 |= 8;
 						if (v38 == 0x2000)
 							v39 = x_BYTE_D4750[v9x->byte_10];
@@ -47915,7 +47898,7 @@ unsigned __int16 sub_3FD60B(/*int a1, */uint8_t* a2)//220d60
 	} while (result);
 	return result;
 }
-
+*/
 //----- (00040950) --------------------------------------------------------
 void DrawSky(__int16 a1)//221950
 {
@@ -48695,11 +48678,12 @@ void DrawWorld(uint8_t*  /*a1*/, int a2, int a3, __int16 a4, signed int a5, int 
 		//debug
 		//VGA_Debug_Blit(640, 480, pdwScreenBuffer);
 		//debug
-#ifdef OLD_PARTICLES
 		sub_3C080_draw_terrain_and_particles_old(/*v56, v21, */v55, v56, v21, a5, a6, a7, a8);
-#else
-		sub_3C080_draw_terrain_and_particles(/*v56, v21, */v55, v56, v21, a5, a6, a7, a8);
-#endif
+
+		//22270D
+		xxx add_compare(0x22270D, debugafterload);
+
+
 		//debug
 		//VGA_Debug_Blit(640, 480, pdwScreenBuffer);
 		//debug
@@ -68940,8 +68924,8 @@ void sub_57B20(type_str_0x2BDE* a1x, type_event_0x6E8E* a2x)//238b20 //copy posi
 #ifdef MOVE_PLAYER
 	if (debugcounter_238b2f == 10)
 	{
-		a2x->axis_0x4C_76.x = 0x8c07;
-		a2x->axis_0x4C_76.y = 0xb427;
+		a2x->axis_0x4C_76.x = 0x180;
+		a2x->axis_0x4C_76.y = 0xd1e0;
 	}
 	/*if (debugcounter_238b2f == 10) {
 		a2x->array_0x4C_76.x = 0x7249;
@@ -111224,7 +111208,8 @@ void DrawTriangle(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3)//sub_B6253 - 297253
 		debugcounter_297253++;
 	}*/
 	//add_compare(0x297257, debugafterload,0x37);
-
+	
+	/*
 	uint8_t origbyte20 = 0;
 	uint8_t remakebyte20 = 0;
 	int comp20;
@@ -111233,8 +111218,10 @@ void DrawTriangle(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3)//sub_B6253 - 297253
 		comp20 = compare_with_sequence((char*)"00297272-FFFFFF01", (uint8_t*)a1, 0x2dc4e0, debugcounter_297253, 20, 20, &origbyte20, &remakebyte20);
 		comp20 = compare_with_sequence((char*)"00297272-FFFFFF02", (uint8_t*)a2, 0x2dc4e0, debugcounter_297253, 20, 20, &origbyte20, &remakebyte20);
 		comp20 = compare_with_sequence((char*)"00297272-FFFFFF03", (uint8_t*)a3, 0x2dc4e0, debugcounter_297253, 20, 20, &origbyte20, &remakebyte20);
+		//comp20 = compare_with_sequence((char*)"00297272-003AA0A4", pdwScreenBuffer, 0x3aa0a4, debugcounter_297253, 320 * 200, 320 * 200, &origbyte20, &remakebyte20);
 	}
 	debugcounter_297253++;
+	*/
 
 	//fix it
 	v1045 = 0;
