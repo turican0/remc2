@@ -1632,7 +1632,7 @@ void sub_2BD10_draw_line(__int16 a1, __int16 a2, __int16 a3, __int16 a4, unsigne
 void DrawGameFrame_2BE30(uint8_t* ptrScreenBuffer, uint16_t width, uint16_t height);
 void sub_2CA60(__int16 a1, __int16 a2, __int16 a3, __int16 a4);
 int ResizeViewPort(__int16 a1);
-void sub_2CB30(type_event_0x6E8E* a1, __int16 a2, int a3, __int16 a4);
+void DrawSorcererNameAndHealthBar_2CB30(type_event_0x6E8E* a1, __int16 a2, int a3, __int16 a4, uint16_t viewPortWidth);
 void sub_2CE30_pause_end_level(int a1, int a2);
 void sub_2D190(int16_t posStartX, int16_t posStartY, int a3, int16_t posEndY, int a5, uint8 colorIdx);
 void sub_2D190(int16_t posStartX, int16_t posStartY, int a3, int16_t posEndY, int a5, uint16_t pitch, uint8 colorIdx);
@@ -1779,14 +1779,14 @@ void sub_40BF0(int a1, int a2, int a3, int a4);
 void sub_40C50(int a1);
 int /*__fastcall*/ sub_40D10();
 void sub_40F80();
-void DrawWorld(uint8_t* ptrScreenBuffer, int posX, int posY, int16_t rot, int16_t z, int16_t xshift, int16_t yshift, int16_t dd, uint16_t width, uint16_t height);
+void DrawWorld(uint8_t* ptrScreenBuffer, int posX, int posY, int16_t rot, int16_t z, int16_t xshift, int16_t yshift, int16_t dd, uint16_t viewPortWidth, uint16_t viewPortHeight);
 void sub_417A0_install_pal_and_mouse_minmax();
 void sub_417D0_install_pal_and_mouse_minmax2();
 //void sub_41A90_VGA_pallette_install(uint8_t* a1);
 void sub_41AF0();
 void sub_41B60();
 void sub_41BC0();
-void DrawSprite_41BD3(uint32 a1);
+void DrawSprite_41BD3(uint32 a1, uint16_t viewPortWidth);
 // int sub_43830_generate_level_map(unsigned int a1, int a2);
 // unsigned int sub_43970(unsigned int a1);
 // unsigned int sub_439A0(unsigned int a1, unsigned __int16 a2);
@@ -29044,7 +29044,7 @@ void DrawGameFrame_2BE30(uint8_t* ptrScreenBuffer, uint16_t screenWidth, uint16_
 			screenWidth,
 			screenHeight);
 
-		//WriteBufferToBMP(width, height, *xadatapald0dat2.var28_begin_buffer, pdwScreenBuffer);
+		//WriteBufferToBMP(screenWidth, screenHeight, *xadatapald0dat2.var28_begin_buffer, pdwScreenBuffer);
 
 		if (v3x->dword_0x8 < 0)
 		{
@@ -29410,7 +29410,7 @@ int ResizeViewPort(__int16 a1)//20da90
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
 //----- (0002CB30) --------------------------------------------------------
-void sub_2CB30(type_event_0x6E8E* a1x, __int16 a2, int a3, __int16 a4)//20db30 //maybe draw sorcerer name
+void DrawSorcererNameAndHealthBar_2CB30(type_event_0x6E8E* a1x, __int16 a2, int a3, __int16 a4, uint16_t viewPortWidth)
 {
 	//char *v4; // edi
 	char* v5; // esi
@@ -29516,15 +29516,15 @@ void sub_2CB30(type_event_0x6E8E* a1x, __int16 a2, int a3, __int16 a4)//20db30 /
 				v32 = v13 + 2;
 				v26 = (signed __int16)(v13 + 2);
 				v30 = v11;
-				DrawLine_2BC80(v11, v39, v13 + 2, 18, v37/*v22*/);//8
+				DrawLine_2BC80(v11, v39, v13 + 2, 18, viewPortWidth, v37);//8
 				v27 = v33;//30// v16
-				DrawLine_2BC80(v30, v39, v26, 2, v33/*v14*/);//18
+				DrawLine_2BC80(v30, v39, v26, 2, viewPortWidth, v33);//18
 				v28 = v38;//2c//v17
-				DrawLine_2BC80(v30, v39 + 16, v26, 2, /*v15*/v38);//4
-				DrawLine_2BC80(v30, v39, 2, 16, v33/*v16*/);//30,tj.18
-				DrawLine_2BC80(v11 + v32 - 2, v39, 2, 18, v38/*v17*/);//2c tj. 4
-				sub_2BC10_draw_text(v24, v11 + 4, v39, v34/*v18*/);//14
-				DrawLine_2BC80(v11 + 2, v39 + 14, v13 - 2, 2, v35/*v19*/);//10
+				DrawLine_2BC80(v30, v39 + 16, v26, 2, viewPortWidth, v38);//4
+				DrawLine_2BC80(v30, v39, 2, 16, viewPortWidth, v33);//30,tj.18
+				DrawLine_2BC80(v11 + v32 - 2, v39, 2, 18, viewPortWidth, v38);//2c tj. 4
+				sub_2BC10_draw_text(v24, v11 + 4, v39, v34);//14
+				DrawLine_2BC80(v11 + 2, v39 + 14, v13 - 2, 2, viewPortWidth, v35);//10
 				//LOWORD(v9) = (x_WORD)a1;
 				if (a1x->dword_0x4)
 				{
@@ -29532,7 +29532,7 @@ void sub_2CB30(type_event_0x6E8E* a1x, __int16 a2, int a3, __int16 a4)//20db30 /
 					if (v30 + 2 + v9y > v31 - 2)
 						v9y = v31 - 2 - (v30 + 2);
 					if (v9y > 0)
-						DrawLine_2BC80(v11 + 2, v39 + 14, v9y, 2, v36/*v23*/);
+						DrawLine_2BC80(v11 + 2, v39 + 14, v9y, 2, viewPortWidth, v36);
 				}
 			}
 		}
@@ -40552,7 +40552,7 @@ type_E9C38_smalltit str_E9C38_smalltit[21 * 40];
 
 int debugcounter_21d080 = 0;
 //----- (0003C080) --------------------------------------------------------
-void DrawTerrainAndParticles_3C080(__int16 a3, __int16 a4, __int16 a5, signed int a6, int a7, int16_t roll, int a9)//21d080
+void DrawTerrainAndParticles_3C080(__int16 a3, __int16 a4, __int16 a5, signed int a6, int a7, int16_t roll, int a9, uint16_t viewPortWidth)//21d080
 {
 	int v9; // eax
 	int v10; // edx
@@ -41086,7 +41086,7 @@ void DrawTerrainAndParticles_3C080(__int16 a3, __int16 a4, __int16 a5, signed in
 								DrawSquare(v248x, v80x);
 							}
 							if (str_E9C38_smalltit[v80x].word36)
-								sub_3E360_draw_particles(v80x);
+								DrawParticles_3E360(v80x, viewPortWidth);
 						}
 						v58 = v293 - 1;
 					}
@@ -41176,7 +41176,7 @@ void DrawTerrainAndParticles_3C080(__int16 a3, __int16 a4, __int16 a5, signed in
 									DrawSquare(v248x, v107x);
 								}
 								if (str_E9C38_smalltit[v107x].word36)
-									sub_3E360_draw_particles(v107x);
+									DrawParticles_3E360(v107x, viewPortWidth);
 							}
 							v83x = v107x - 1;
 						} while (v83x >= v82x);
@@ -41516,7 +41516,7 @@ void DrawTerrainAndParticles_3C080(__int16 a3, __int16 a4, __int16 a5, signed in
 							}
 						}
 						if (str_E9C38_smalltit[v172x].word36)
-							sub_3E360_draw_particles(/*v160,*/ v172x);
+							DrawParticles_3E360(v172x, viewPortWidth);
 						v161 = v172x + 1;
 					}
 					if (ii)
@@ -41585,7 +41585,7 @@ void DrawTerrainAndParticles_3C080(__int16 a3, __int16 a4, __int16 a5, signed in
 								}
 							}
 							if (str_E9C38_smalltit[v190x].word36)
-								sub_3E360_draw_particles(/*v160,*/ v190x);
+								DrawParticles_3E360(v190x, viewPortWidth);
 							v178x = v190x - 1;
 						} while (v178x >= v177x);
 					}
@@ -41818,7 +41818,7 @@ LABEL_259:
 				DrawSquare(v248x, v227x);
 			}
 			if (str_E9C38_smalltit[v227x].word36)
-				sub_3E360_draw_particles(/*v217x,*/ v227x);//21f01b
+				DrawParticles_3E360(v227x, viewPortWidth);//21f01b
 			v218x = v227x + 1;
 		}
 		if (kk)
@@ -41868,7 +41868,7 @@ LABEL_259:
 					DrawSquare(v248x, v243x);
 				}
 				if (str_E9C38_smalltit[v243x].word36)//address 21f1b5 aex 360000 ebx 3f78a0 ecx 0 edx 414eb0
-					sub_3E360_draw_particles(/*v217x,*/ v243x);
+					DrawParticles_3E360(v243x, viewPortWidth);
 				v232x = v243x - 1;
 			} while (v232x >= v231x);
 		}
@@ -41932,7 +41932,7 @@ void DrawInverseSquare(int* vertexs, int index, uint8_t* ptrTexture)
 int debugcountersub_3E360 = 0;
 
 //----- (0003E360) --------------------------------------------------------
-void sub_3E360_draw_particles(/*int a1x, */int a2x)//21f360
+void DrawParticles_3E360(int a2x, uint16_t viewPortWidth)//21f360
 {
 	unsigned __int16 result; // ax
 	type_event_0x6E8E* v3x; // eax
@@ -42345,7 +42345,7 @@ void sub_3E360_draw_particles(/*int a1x, */int a2x)//21f360
 									else
 										str_F2C20ar.dword0x00 = v47 + 0x2000;
 									str_F2C20ar.dword0x01_rotIdx = 8;
-									DrawSprite_41BD3(0);
+									DrawSprite_41BD3(0, viewPortWidth);
 								}
 								break;
 							default:
@@ -42727,7 +42727,7 @@ void sub_3E360_draw_particles(/*int a1x, */int a2x)//21f360
 					}
 					str_F2C20ar.dword0x09_realWidth++;
 					str_F2C20ar.dword0x0c_realHeight++;
-					DrawSprite_41BD3(1u);
+					DrawSprite_41BD3(1u, viewPortWidth);
 					break;
 				default:
 					goto LABEL_164;
@@ -43139,7 +43139,7 @@ unsigned __int16 sub_3FD60(int a2x)//220d60
 						str_F2C20ar.dword0x01_rotIdx = v39;
 						str_F2C20ar.dword0x09_realWidth++;
 						str_F2C20ar.dword0x0c_realHeight++;
-						DrawSprite_41BD3(2u);
+						DrawSprite_41BD3(2u, 640);
 						break;
 					default:
 						goto LABEL_70;
@@ -43539,7 +43539,7 @@ unsigned __int16 sub_3FD60B(/*int a1, */uint8_t* a2)//220d60
 						str_F2C20ar.dword0x01_rotIdx = v39;
 						str_F2C20ar.dword0x09_realWidth++;
 						str_F2C20ar.dword0x0c_realHeight++;
-						DrawSprite_41BD3(2u);
+						DrawSprite_41BD3(2u, 640);
 						break;
 					default:
 						goto LABEL_70;
@@ -44108,7 +44108,7 @@ void sub_40F80()//221f80
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
 //----- (000411A0) --------------------------------------------------------
-void DrawWorld(uint8_t* pdwScreenBuffer, int posX, int posY, int16_t rot, int16_t z, int16_t xshift, int16_t yshift, int16_t dd, uint16_t width, uint16_t height)//2221a0
+void DrawWorld(uint8_t* pdwScreenBuffer, int posX, int posY, int16_t rot, int16_t z, int16_t xshift, int16_t yshift, int16_t dd, uint16_t viewPortWidth, uint16_t viewPortHeight)//2221a0
 {
 	unsigned __int16 v8; // ax
 	int v9; // ecx
@@ -44220,10 +44220,10 @@ void DrawWorld(uint8_t* pdwScreenBuffer, int posX, int posY, int16_t rot, int16_
 		x_DWORD_D4324 = -5;
 		v25 = 4 * v23 >> 16;
 		v26 = 20 * (signed int)v24 >> 16;
-		DrawTerrainAndParticles_3C080(v55 - v26, v56 - v25, v21, z, xshift, yshift, dd);
+		DrawTerrainAndParticles_3C080(v55 - v26, v56 - v25, v21, z, xshift, yshift, dd, viewPortWidth);
 		SetRenderViewPortSize_BCD45(pdwScreenBuffer + x_DWORD_18062C_resolution_x / 2, 0, 0, 0);
 		x_DWORD_D4324 = 5;
-		DrawTerrainAndParticles_3C080(v55 + v26, v56 + v25, v21, z, xshift, yshift, dd);
+		DrawTerrainAndParticles_3C080(v55 + v26, v56 + v25, v21, z, xshift, yshift, dd, viewPortWidth);
 		//result = x_DWORD_18062C_resolution_x;
 		x_DWORD_D4324 = 0;
 		SetRenderViewPortSize_BCD45(pdwScreenBuffer, x_DWORD_18062C_resolution_x, (unsigned __int16)x_DWORD_18062C_resolution_x, (unsigned __int16)x_DWORD_180624_resolution_y);
@@ -44255,7 +44255,7 @@ void DrawWorld(uint8_t* pdwScreenBuffer, int posX, int posY, int16_t rot, int16_
 			//Blurr
 			v35 = ptrViewPortRenderBufferStart;
 			SetRenderViewPortSize_BCD45(x_DWORD_E9C3C, 0, 0, 0);
-			DrawTerrainAndParticles_3C080(v55, v56, v21, z, xshift, yshift, dd);
+			DrawTerrainAndParticles_3C080(v55, v56, v21, z, xshift, yshift, dd, viewPortWidth);
 			SetRenderViewPortSize_BCD45(v35, 0, 0, 0);
 			v51 = (signed int)(unsigned __int16)iViewPortWidth >> 2;
 			v49 = iScreenWidth - (unsigned __int16)iViewPortWidth;
@@ -44313,7 +44313,7 @@ void DrawWorld(uint8_t* pdwScreenBuffer, int posX, int posY, int16_t rot, int16_
 		//VGA_Debug_Blit(640, 480, pdwScreenBuffer);
 		//debug
 #ifdef OLD_PARTICLES
-		DrawTerrainAndParticles_3C080(v55, v56, v21, z, xshift, yshift, dd);
+		DrawTerrainAndParticles_3C080(v55, v56, v21, z, xshift, yshift, dd, viewPortWidth);
 #else
 		sub_3C080_draw_terrain_and_particles(/*v56, v21, */v55, v56, v21, a5, a6, a7, a8);
 #endif
@@ -44357,11 +44357,11 @@ void DrawWorld(uint8_t* pdwScreenBuffer, int posX, int posY, int16_t rot, int16_
 		x_DWORD_D4324 = iScreenWidth / 0x28u;
 		v30 = 4 * v28 >> 16;
 		v31 = 20 * (signed int)v29 >> 16;
-		DrawTerrainAndParticles_3C080(v31 + v55, v30 + v56, v21, z, xshift, yshift, dd);
+		DrawTerrainAndParticles_3C080(v31 + v55, v30 + v56, v21, z, xshift, yshift, dd, viewPortWidth);
 		v32 = ptrViewPortRenderBufferStart;
 		SetRenderViewPortSize_BCD45(x_DWORD_E9C3C, 0, 0, 0);
 		x_DWORD_D4324 = 0 - (iScreenWidth / 0x28u);
-		DrawTerrainAndParticles_3C080(v55 - v31, v56 - v30, v21, z, xshift, yshift, dd);
+		DrawTerrainAndParticles_3C080(v55 - v31, v56 - v30, v21, z, xshift, yshift, dd, viewPortWidth);
 		SetRenderViewPortSize_BCD45(v32, 0, 0, 0);
 		x_DWORD_D4324 = 0;
 	}
@@ -44505,7 +44505,7 @@ void sub_41BC0()//222bc0
 // D47D9: using guessed type char x_BYTE_D47D9;
 
 //----- (00041BD3) --------------------------------------------------------
-void DrawSprite_41BD3(uint32 a1)//222bd3 //draw particle / billboards?
+void DrawSprite_41BD3(uint32 a1, uint16_t viewPortWidth)//222bd3 //draw particle / billboards?
 {
 	//int v1; // eax
 	int8_t* v2x; // ebx
@@ -45666,7 +45666,7 @@ void DrawSprite_41BD3(uint32 a1)//222bd3 //draw particle / billboards?
 						&& str_F2C20ar.dword0x14x->type_0x3F_63 == 3
 						&& (!str_F2C20ar.dword0x14x->subtype_0x40_64 || str_F2C20ar.dword0x14x->subtype_0x40_64 == 1))
 					{
-						sub_2CB30(str_F2C20ar.dword0x14x, str_F2C20ar.dword0x04_screenY, (signed __int16)str_F2C20ar.dword0x03_screenX, str_F2C20ar.dword0x09_realWidth);
+						DrawSorcererNameAndHealthBar_2CB30(str_F2C20ar.dword0x14x, str_F2C20ar.dword0x04_screenY, (signed __int16)str_F2C20ar.dword0x03_screenX, str_F2C20ar.dword0x09_realWidth, viewPortWidth);
 					}
 					if (x_D41A0_BYTEARRAY_4_struct.byteindex_10)
 						sub_88740(
