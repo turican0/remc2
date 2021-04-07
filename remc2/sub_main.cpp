@@ -80,14 +80,14 @@ int test_regression_level = 0;
 #elif defined(DEBUG_ONSTART) //this is setting is for compare data with dosbox(can fix mouse move, and etc.)
 	#define DETECT_DWORD_A
 	#define COPY_SKIP_CONFIG
-	#define DEBUG_SEQUENCES
+	//#define DEBUG_SEQUENCES
 	#define FIX_MOUSE
 	#define MOUSE_OFF2
 	#define OFF_PAUSE_5
 
 	//#define LOAD_EDITED_LEVEL
 	//#define RIGHT_BUTTON
-	int debugafterload = 0;
+	int debugafterload = 1;
 	#define DISABLE_GRAPHICS_ENHANCE
 	//#define DISABLE_GRAPHICS_ENHANCE
 	#define MOVE_PLAYER
@@ -47184,7 +47184,7 @@ unsigned __int16 sub_3FD60(int a2x)//220d60
 		}
 		debug_sub_3FD60B++;
 		//debug*/
-		add_compare(0x220d70, debugafterload);
+		//add_compare(0x220d70, debugafterload);
 
 		if (result < 0x3E8u)
 		{
@@ -48681,7 +48681,7 @@ void DrawWorld(uint8_t*  /*a1*/, int a2, int a3, __int16 a4, signed int a5, int 
 		sub_3C080_draw_terrain_and_particles_old(/*v56, v21, */v55, v56, v21, a5, a6, a7, a8);
 
 		//22270D
-		xxx add_compare(0x22270D, debugafterload);
+		//add_compare(0x22270D, debugafterload);
 
 
 		//debug
@@ -52202,6 +52202,7 @@ void sub_47560_draw_and_events_in_game(/*uint8_t* a1, int a2, */uint32_t a3, sig
 	sub_6E150();//nothing draw
 	DrawGameFrame();
 	//adress 2285ff
+	add_compare(0x002285FF, debugafterload);
 #ifdef TEST_REGRESSION
 	add_compare(0x002285FF, debugafterload, -1, false, 20);
 #endif //TEST_REGRESSION
@@ -111209,7 +111210,7 @@ void DrawTriangle(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3)//sub_B6253 - 297253
 	}*/
 	//add_compare(0x297257, debugafterload,0x37);
 	
-	/*
+	
 	uint8_t origbyte20 = 0;
 	uint8_t remakebyte20 = 0;
 	int comp20;
@@ -111221,7 +111222,12 @@ void DrawTriangle(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3)//sub_B6253 - 297253
 		//comp20 = compare_with_sequence((char*)"00297272-003AA0A4", pdwScreenBuffer, 0x3aa0a4, debugcounter_297253, 320 * 200, 320 * 200, &origbyte20, &remakebyte20);
 	}
 	debugcounter_297253++;
-	*/
+	if (debugcounter_297253 >= 0x15)
+	{
+		debugcounter_297253++;
+		debugcounter_297253--;
+	}
+	add_compare(0x297272, debugafterload);
 
 	//fix it
 	v1045 = 0;

@@ -1508,8 +1508,8 @@ typedef struct {//lenght 7
 type_str_0x6574;
 
 typedef struct {
-	GraphicsStruct_t m_Graphics;
-	DisplayStruct_t m_Display;
+	GraphicsStruct_t m_Graphics;//0x218A
+	DisplayStruct_t m_Display;//0x218E
 	type_str_0x2192 str_0x2192;
 	type_str_0x2196 str_0x2196;
 }
