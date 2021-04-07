@@ -29072,6 +29072,9 @@ void DrawGameFrame_2BE30(uint8_t* ptrScreenBuffer, uint16_t screenWidth, uint16_
 		{
 			if (x_DWORD_D4188 && v3x->dword_0xA4_164x->byte_0x14E_334)
 			{
+				//Draw Spiders Web
+				int16_t offSetX = 0;
+				int16_t offSetY = 0;
 				if (x_WORD_180660_VGA_type_resolution & 1)
 				{
 					v39 = 2;
@@ -29079,6 +29082,8 @@ void DrawGameFrame_2BE30(uint8_t* ptrScreenBuffer, uint16_t screenWidth, uint16_
 				}
 				else
 				{
+					offSetX = (screenWidth - 640) / 2;
+					offSetY = (screenHeight - 480) / 2;
 					v39 = 4;
 					v37 = 6;
 				}
@@ -29092,7 +29097,7 @@ void DrawGameFrame_2BE30(uint8_t* ptrScreenBuffer, uint16_t screenWidth, uint16_
 					v35 = 0;
 					while (v36 < v37)
 					{
-						sub_2BB40_draw_bitmap(v35, v40, x_DWORD_D4188t_spritestr[v6]);
+						sub_2BB40_draw_bitmap(offSetX + v35, offSetY + v40, x_DWORD_D4188t_spritestr[v6]);
 						v36++;
 						v6++;
 						v35 += x_DWORD_D4188t_spritestr[v6].width_4;
