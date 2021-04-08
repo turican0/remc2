@@ -1652,16 +1652,26 @@ void DrawLine_2BC80(int16_t posStartX, int16_t posStartY, int16_t posEndX, int16
 //----- (0002BC10) --------------------------------------------------------
 void sub_2BC10_draw_text(const char* textbuffer, int16_t posx, int16_t posy, uint8_t color)//20cc10
 {
+	sub_2BC10_draw_text(textbuffer, posx, posy, color, 640);
+}
+
+void sub_2BC10_draw_text(const char* textbuffer, int16_t posx, int16_t posy, uint8_t color, uint16_t pitch)//20cc10
+{
 	//int result; // eax
 	uint8_t* temp_screen_buffer; // ST10_4
 
-	sub_6F940_sub_draw_text(textbuffer, posx, posy, color);
+	if (x_WORD_180660_VGA_type_resolution & 1)
+	{
+		pitch = 640;
+	}
+
+	sub_6F940_sub_draw_text(textbuffer, posx, posy, color, pitch);
 	//result = (int)x_D41A0_BYTEARRAY_0;
 	if (D41A0_0.m_GameSettings.m_Display.m_uiScreenSize == 1)//shifted graphics
 	{
 		temp_screen_buffer = pdwScreenBuffer;
 		pdwScreenBuffer = (uint8_t*)x_DWORD_E9C3C;
-		sub_6F940_sub_draw_text(textbuffer, posx, posy, color);
+		sub_6F940_sub_draw_text(textbuffer, posx, posy, color, pitch);
 		//result = v5;
 		pdwScreenBuffer = temp_screen_buffer;
 	}
@@ -1989,7 +1999,7 @@ void DrawLineHighRes(int16_t posStartX, int16_t posStartY, int16_t posEndX, int1
 // 180628: using guessed type int pdwScreenBuffer;
 
 //----- (0006F940) --------------------------------------------------------
-void sub_6F940_sub_draw_text(const char* textbuffer, int posx, int posy, uint8_t color)//250940
+void sub_6F940_sub_draw_text(const char* textbuffer, int posx, int posy, uint8_t color, uint16_t pitch)//250940
 {
 	uint8_t* v4; // esi
 	int v5; // ebx
@@ -2002,7 +2012,7 @@ void sub_6F940_sub_draw_text(const char* textbuffer, int posx, int posy, uint8_t
 	v4 = (uint8_t*)const_cast<char*>(textbuffer); // FIXME: temporary const cast hack
 	v5 = posx;
 	x_WORD_E36D4 = 64;
-	while (*v4 && v5 < 640)
+	while (*v4 && v5 < pitch)
 	{
 		v6 = (unsigned __int8)*v4;
 		if (v6 < 0xAu)

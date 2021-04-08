@@ -1633,7 +1633,7 @@ void DrawGameFrame_2BE30(uint8_t* ptrScreenBuffer, uint16_t width, uint16_t heig
 void sub_2CA60(__int16 a1, __int16 a2, __int16 a3, __int16 a4);
 int ResizeViewPort(__int16 a1);
 void DrawSorcererNameAndHealthBar_2CB30(type_event_0x6E8E* a1, __int16 a2, int a3, __int16 a4, uint16_t viewPortWidth);
-void sub_2CE30_pause_end_level(int a1, int a2);
+void sub_2CE30_pause_end_level(int a1, int a2, uint16_t screenWidth);
 void sub_2D190(int16_t posStartX, int16_t posStartY, int a3, int16_t posEndY, int a5, uint8 colorIdx);
 void sub_2D190(int16_t posStartX, int16_t posStartY, int a3, int16_t posEndY, int a5, uint16_t pitch, uint8 colorIdx);
 int sub_2D1D0();
@@ -1653,7 +1653,7 @@ void DrawBottomMenu_2ECC0(uint16_t screenWidth, uint16_t screenHeight);
 void sub_2F6B0();
 void DrawPauseMenu_2FD90(uint16_t screenWidth, uint16_t screenHeight);
 void GetPauseMenuCoordinates_2FFE0(uint16_t screenWidth, int16_t* a1, int16_t* a2, int16_t* a3, int16_t* a4);
-void DrawInGameOptionsMenu_30050(uint16_t width);
+void DrawInGameOptionsMenu_30050(uint16_t screenWidth);
 // int sub_303D0(signed int a1);
 void sub_30630();
 void sub_30870();
@@ -29182,7 +29182,7 @@ void DrawGameFrame_2BE30(uint8_t* ptrScreenBuffer, uint16_t screenWidth, uint16_
 				DrawPauseMenu_2FD90(screenWidth, screenHeight);
 				break;
 			}
-			sub_2CE30_pause_end_level(132, 50);
+			sub_2CE30_pause_end_level(132, 50, screenWidth);
 			if (D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x3DF_2BE4_12221 == 5)
 				DrawBottomMenu_2ECC0(screenWidth, screenHeight);
 		}
@@ -29282,7 +29282,7 @@ void DrawGameFrame_2BE30(uint8_t* ptrScreenBuffer, uint16_t screenWidth, uint16_
 			DrawPauseMenu_2FD90(screenWidth, screenHeight);
 			break;
 		}
-		sub_2CE30_pause_end_level(6, 6);
+		sub_2CE30_pause_end_level(6, 6, screenWidth);
 		if (x_D41A0_BYTEARRAY_4_struct.byteindex_38400)
 			DrawSpellIcon_2E260(
 				spellLeftPosX,
@@ -29528,7 +29528,7 @@ void DrawSorcererNameAndHealthBar_2CB30(type_event_0x6E8E* a1x, __int16 a2, int 
 				DrawLine_2BC80(v30, v39 + 16, v26, 2, viewPortWidth, v38);//4
 				DrawLine_2BC80(v30, v39, 2, 16, viewPortWidth, v33);//30,tj.18
 				DrawLine_2BC80(v11 + v32 - 2, v39, 2, 18, viewPortWidth, v38);//2c tj. 4
-				sub_2BC10_draw_text(v24, v11 + 4, v39, v34);//14
+				sub_2BC10_draw_text(v24, v11 + 4, v39, v34, viewPortWidth);//14
 				DrawLine_2BC80(v11 + 2, v39 + 14, v13 - 2, 2, viewPortWidth, v35);//10
 				//LOWORD(v9) = (x_WORD)a1;
 				if (a1x->dword_0x4)
@@ -29553,7 +29553,7 @@ void DrawSorcererNameAndHealthBar_2CB30(type_event_0x6E8E* a1x, __int16 a2, int 
 // 2CB30: using guessed type char var_58[32];
 
 //----- (0002CE30) --------------------------------------------------------
-void sub_2CE30_pause_end_level(int a1, int a2)//20de30
+void sub_2CE30_pause_end_level(int a1, int a2, uint16_t screenWidth)//20de30
 {
 	int v2; // esi
 	//int result; // eax
@@ -29588,14 +29588,14 @@ void sub_2CE30_pause_end_level(int a1, int a2)//20de30
 	{
 		if (x_D41A0_BYTEARRAY_4_struct.setting_byte3_24 & 1)
 		{
-			sub_2BC10_draw_text(x_DWORD_E9C4C_langindexbuffer[425], a1, a2, (*xadataclrd0dat.var28_begin_buffer)[0xf0]);//Paused!
+			sub_2BC10_draw_text(x_DWORD_E9C4C_langindexbuffer[425], a1, a2, (*xadataclrd0dat.var28_begin_buffer)[0xf0], screenWidth);//Paused!
 			v4x = 8 * (strlen((const char*)x_DWORD_E9C4C_langindexbuffer[425]) + 2) + a1;//Paused!
 		}
 
 		if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 0x20) && D41A0_0.struct_0x3659C[D41A0_0.LevelIndex_0xc].substr_3659C.IsLevelEnd_0)
 		{
 			sprintf(printbuffer, "%s. %s.", x_DWORD_E9C4C_langindexbuffer[378], x_DWORD_E9C4C_langindexbuffer[379]);//Tasks completed,Fly to the exit point.
-			sub_2BC10_draw_text(printbuffer, v4x, a2, v5);
+			sub_2BC10_draw_text(printbuffer, v4x, a2, v5, screenWidth);
 			v4x = a1;
 			LOWORD(v6) = sub_6FC30_get34_height();
 			v2 = v6 + a2;
@@ -30387,7 +30387,7 @@ void DrawSpellIcon_2E260(int16_t posX, int16_t posY, uint16_t pitch, type_event_
 				sub_2BC10_draw_text((char*)off_DB06C[a3x->byte_0x46_70],
 					(*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[1].width_4 + posX - 8 * strlen((const char*)*(&off_DB06C[a3x->byte_0x46_70])) - 2,//test and fix
 					posY,
-					(*xadataclrd0dat.var28_begin_buffer)[0]);//x_BYTE_E8900//20f3bd//2b9900
+					(*xadataclrd0dat.var28_begin_buffer)[0], pitch);//x_BYTE_E8900//20f3bd//2b9900
 				if (a3x->dword_0x8C_140)
 				{
 					DrawLine_2BC80(
@@ -31328,7 +31328,7 @@ void GetPauseMenuCoordinates_2FFE0(uint16_t screenWidth, int16_t* a1, int16_t* a
 // EA3DC: using guessed type int **filearray_2aa18c[6];
 
 //----- (00030050) --------------------------------------------------------
-void DrawInGameOptionsMenu_30050(uint16_t width)
+void DrawInGameOptionsMenu_30050(uint16_t screenWidth)
 {
 	signed int v0; // esi
 	int v1; // edx
@@ -31358,7 +31358,7 @@ void DrawInGameOptionsMenu_30050(uint16_t width)
 	v0 = 67;
 	v1 = 0;
 
-	int optionMenuXPos = (width - x_D41A0_BYTEARRAY_4_struct.byteindex_186) / 2;
+	int optionMenuXPos = (screenWidth - x_D41A0_BYTEARRAY_4_struct.byteindex_186) / 2;
 	if (x_WORD_180660_VGA_type_resolution & 1)
 	{
 		optionMenuXPos = (640 - x_D41A0_BYTEARRAY_4_struct.byteindex_186) / 2;
@@ -31420,12 +31420,12 @@ void DrawInGameOptionsMenu_30050(uint16_t width)
 		{
 			v7 = (*xadataclrd0dat.var28_begin_buffer)[0x888];
 		}
-		sub_2BC10_draw_text((char*)v18, optionMenuXPos + ((x_D41A0_BYTEARRAY_4_struct.byteindex_186 - 8 * strlen(v18)) >> 1), v0 + 2, v7);
+		sub_2BC10_draw_text((char*)v18, optionMenuXPos + ((x_D41A0_BYTEARRAY_4_struct.byteindex_186 - 8 * strlen(v18)) >> 1), v0 + 2, v7, screenWidth);
 		v0 += 18;
 		v1 = v21 + 1;
 	}
 
-	int okayBtnXPos = (x_D41A0_BYTEARRAY_4_struct.byteindex_186 - 82) / 2 + (width - x_D41A0_BYTEARRAY_4_struct.byteindex_186) / 2;
+	int okayBtnXPos = (x_D41A0_BYTEARRAY_4_struct.byteindex_186 - 82) / 2 + (screenWidth - x_D41A0_BYTEARRAY_4_struct.byteindex_186) / 2;
 	if (x_WORD_180660_VGA_type_resolution & 1)
 	{
 		okayBtnXPos = (x_D41A0_BYTEARRAY_4_struct.byteindex_186 - 82) / 2 + (640 - x_D41A0_BYTEARRAY_4_struct.byteindex_186) / 2;
@@ -31455,7 +31455,7 @@ void DrawInGameOptionsMenu_30050(uint16_t width)
 	}
 
 
-	int okayBtnTextXPos = (width - x_D41A0_BYTEARRAY_4_struct.byteindex_186) / 2 + (x_D41A0_BYTEARRAY_4_struct.byteindex_186 - 82) / 2;
+	int okayBtnTextXPos = (screenWidth - x_D41A0_BYTEARRAY_4_struct.byteindex_186) / 2 + (x_D41A0_BYTEARRAY_4_struct.byteindex_186 - 82) / 2;
 	if (x_WORD_180660_VGA_type_resolution & 1)
 	{
 		okayBtnTextXPos = (640 - x_D41A0_BYTEARRAY_4_struct.byteindex_186) / 2 + (x_D41A0_BYTEARRAY_4_struct.byteindex_186 - 82) / 2;
