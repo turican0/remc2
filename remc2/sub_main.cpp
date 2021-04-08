@@ -121,6 +121,11 @@ bool config_LOAD_EDITED_LEVEL = false;
 #define EDITOR
 
 /*
+//writesequence(0x220D6C, 0x10000, 44, 0xffffff04, 0);//esi
+
+//writesequence(0x21e378, 0x10000, 44*40*21, 0x3f52a4, 0);//esi xxxx
+addprocedurestop(0x227833, 0x0, true, true, 0x3f52a4 + 0xd8, 0x12345678);//0xd8
+
 fix sub_3C080_draw_terrain_and_particles_old
 MovePlayer_57FA0(&x_WORD_EB398ar, v4, 0, v3);
 (char*)&D41A0_0+0x13de2
@@ -36923,6 +36928,30 @@ void sub_377F0(type_event_0x6E8E* a1x)//2187f0
 // EA3E4: using guessed type int x_DWORD_EA3E4[];
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
+#pragma pack (1)
+typedef struct {//lenght 44
+	int32_t dword0_rot;
+	int32_t dword4;//?
+	int32_t dword8;//?
+	int32_t dword12;//?
+	int32_t dword16;//triangleB
+	int32_t dword20;//triangleB
+	int32_t dword24;//triangleA
+	int32_t dword28;//triangleA
+	int32_t dword32;//triangleA and triangleB
+	int16_t word36;//? billboard
+	int16_t word38;
+	//int8_t byte38;
+	//int8_t byte39;
+	int8_t byte40;
+	uint8_t byte41;//texture index
+	int8_t byte42;
+	int8_t byte43;
+}
+type_E9C38_smalltit;
+#pragma pack (16)
+type_E9C38_smalltit str_E9C38_smalltit[21 * 40];
+
 //----- (00037BC0) --------------------------------------------------------
 void AddTerrainMod0A_2A_37BC0(type_event_0x6E8E* a1x)//218bc0 // groove castle
 {
@@ -37179,6 +37208,16 @@ void AddTerrainMod0A_2A_37BC0(type_event_0x6E8E* a1x)//218bc0 // groove castle
 					jx._axis_2d.x = v49 - (v36 >> 1);
 					v14++;
 				}
+
+
+				{
+					int sizecpy = 2 * v4 * v36;//fix for debug
+					if (sizeof(type_E9C38_smalltit) * 40 * 21 < sizecpy)//fix for debug
+						sizecpy = sizeof(type_E9C38_smalltit) * 40 * 21;//fix for debug
+					memcpy(str_E9C38_smalltit, x_DWORD_E9C38_smalltit, sizecpy);//fix for debug
+				}
+
+
 			}
 		}
 	}
@@ -40563,29 +40602,6 @@ uint8_t* x_DWORD_DDF50[0x100] + 4000
 
 uint16_t x_WORD_DE350[0x100] + 4400
 */
-#pragma pack (1)
-typedef struct {//lenght 44
-	int32_t dword0_rot;
-	int32_t dword4;//?
-	int32_t dword8;//?
-	int32_t dword12;//?
-	int32_t dword16;//triangleB
-	int32_t dword20;//triangleB
-	int32_t dword24;//triangleA
-	int32_t dword28;//triangleA
-	int32_t dword32;//triangleA and triangleB
-	int16_t word36;//? billboard
-	int16_t word38;
-	//int8_t byte38;
-	//int8_t byte39;
-	int8_t byte40;
-	uint8_t byte41;//texture index
-	int8_t byte42;
-	int8_t byte43;
-}
-type_E9C38_smalltit;
-#pragma pack (16)
-type_E9C38_smalltit str_E9C38_smalltit[21 * 40];
 /*
 int debugcounter_21d080 = 0;
 //----- (0003C080) --------------------------------------------------------
@@ -42150,6 +42166,8 @@ typedef struct//lenght 4*33
 type_v248x;
 #pragma pack (16)
 
+int debug_sub_3C080 = 0;
+
 void sub_3C080_draw_terrain_and_particles_old(/*int a1, int a2,*/ __int16 a3, __int16 a4, __int16 a5, signed int a6, int a7, __int16 a8, int a9)//21d080
 {
 	int v9; // eax
@@ -43150,14 +43168,33 @@ void sub_3C080_draw_terrain_and_particles_old(/*int a1, int a2,*/ __int16 a3, __
 							v248x[6] = str_E9C38_smalltit[v134x - 39].dword24;//1716 //*(x_DWORD*)(v134 - 1736);
 							v248x[7] = str_E9C38_smalltit[v134x - 39].dword28;//*(x_DWORD*)(v134 - 1732);
 							v248x[10] = str_E9C38_smalltit[v134x - 39].dword32;//*(x_DWORD*)(v134 - 1728);
-							v138 = (str_E9C38_smalltit[v134x - 39].word38 &0xff) | v137 | v136;
+							v138 = (str_E9C38_smalltit[v134x - 39].word38 & 0xff) | v137 | v136;
 
 							v248x[0] = str_E9C38_smalltit[v134x - 40].dword24;//*(x_DWORD*)(v134 - 1780);
 							v248x[1] = str_E9C38_smalltit[v134x - 40].dword28;//*(x_DWORD*)(v134 - 1776);
 							v248x[4] = str_E9C38_smalltit[v134x - 40].dword32;//*(x_DWORD*)(v140 - 12);
 							v142 = str_E9C38_smalltit[v134x - 40].word38 & 0xff;
 							//v143x = v134x;//v140 + 1760;
-							v144 = v142 | v138;							
+							v144 = v142 | v138;			
+
+
+							uint8_t origbyte20 = 0;
+							uint8_t remakebyte20 = 0;
+							int comp20;
+							//if (debug_counter_1f3e70 >= 0xb5)
+							{
+								comp20 = compare_with_sequence((char*)"0021E378-003F52A4", (uint8_t*)str_E9C38_smalltit, 0x2dc4e0, debug_sub_3C080, 44*40*21, 44 * 40 * 21, &origbyte20, &remakebyte20);
+							}
+
+							if (debug_sub_3C080 >= 0xea73)
+							{
+								debug_sub_3C080++;
+								debug_sub_3C080--;
+							}
+							debug_sub_3C080++;
+
+							//0x21e378
+
 							if (str_E9C38_smalltit[v134x].byte41)//(*(x_BYTE*)(v143 + 41))
 							{
 								if (str_E9C38_smalltit[v134x].word38 & 0x1000)
@@ -47127,7 +47164,7 @@ void sub_3E360_draw_particlesB(/*uint8_t* a1,*/ int a2x)//21f360
 	//return result;
 }
 
-//int debug_sub_3FD60B = 0;
+int debug_sub_3FD60B = 0;
 
 //----- (0003FD60) --------------------------------------------------------
 unsigned __int16 sub_3FD60(int a2x)//220d60
@@ -47179,6 +47216,24 @@ unsigned __int16 sub_3FD60(int a2x)//220d60
 	type_particle_str* a1x=0;
 	//fix
 	//result = *(x_WORD *)(a2 + 36);
+	
+
+	uint8_t origbyte20 = 0;
+	uint8_t remakebyte20 = 0;
+	int comp20;
+	//if (debug_counter_1f3e70 >= 0xb5)
+	{
+		comp20 = compare_with_sequence((char*)"00220D6C-FFFFFF04", (uint8_t*)&str_E9C38_smalltit[a2x], 0x2dc4e0, debug_sub_3FD60B, 44, 44, &origbyte20, &remakebyte20);
+	}
+	if (debug_sub_3FD60B >= 0x15)
+	{
+		debug_sub_3FD60B++;
+		debug_sub_3FD60B--;
+	}
+	debug_sub_3FD60B++;
+	//add_compare(0x297272, debugafterload);
+	
+
 	result = str_E9C38_smalltit[a2x].word36;
 	do
 	{
