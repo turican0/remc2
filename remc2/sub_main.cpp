@@ -121,11 +121,6 @@ bool config_LOAD_EDITED_LEVEL = false;
 #define EDITOR
 
 /*
-//writesequence(0x220D6C, 0x10000, 44, 0xffffff04, 0);//esi
-
-//writesequence(0x21e378, 0x10000, 44*40*21, 0x3f52a4, 0);//esi xxxx
-addprocedurestop(0x227833, 0x0, true, true, 0x3f52a4 + 0xd8, 0x12345678);//0xd8
-
 fix sub_3C080_draw_terrain_and_particles_old
 MovePlayer_57FA0(&x_WORD_EB398ar, v4, 0, v3);
 (char*)&D41A0_0+0x13de2
@@ -43183,7 +43178,7 @@ void sub_3C080_draw_terrain_and_particles_old(/*int a1, int a2,*/ __int16 a3, __
 							int comp20;
 							//if (debug_counter_1f3e70 >= 0xb5)
 							{
-								comp20 = compare_with_sequence((char*)"0021E378-003F52A4", (uint8_t*)str_E9C38_smalltit, 0x2dc4e0, debug_sub_3C080, 44*40*21, 44 * 40 * 21, &origbyte20, &remakebyte20);
+								//comp20 = compare_with_sequence((char*)"0021E378-003F52A4", (uint8_t*)str_E9C38_smalltit, 0x2dc4e0, debug_sub_3C080, 44*40*21, 44 * 40 * 21, &origbyte20, &remakebyte20);
 							}
 
 							if (debug_sub_3C080 >= 0xea73)
@@ -47217,7 +47212,7 @@ unsigned __int16 sub_3FD60(int a2x)//220d60
 	//fix
 	//result = *(x_WORD *)(a2 + 36);
 	
-
+	/*
 	uint8_t origbyte20 = 0;
 	uint8_t remakebyte20 = 0;
 	int comp20;
@@ -47232,7 +47227,7 @@ unsigned __int16 sub_3FD60(int a2x)//220d60
 	}
 	debug_sub_3FD60B++;
 	//add_compare(0x297272, debugafterload);
-	
+	*/
 
 	result = str_E9C38_smalltit[a2x].word36;
 	do
@@ -68943,6 +68938,14 @@ void sub_57730()//238730
 						//add_compare(0x238A8A, debugafterload);//0x9ac
 						//add_compare(0x238A8A,debugafterload);
 #endif //DEBUG_SEQUENCES
+						if (debug_sub_57730 == 0x72c9)
+						{
+							debug_sub_57730++;
+							debug_sub_57730--;
+						}
+						debug_sub_57730++;
+						//add_compare(0x238A8A, debugafterload,-1,false,1000000, 0x7d40);
+						add_compare(0x238A8A, debugafterload, -1, false, 1000000, 0x72c0);
 
 						//adress 238a8a zacina na 35cf6e 363bb6 =6c48/168=165=a5
 						pre_sub_4A190_0x6E8E(str_D4C48ar[mx->type_0x3F_63].dword_10[mx->byte_0x45_69].adress_6, mx);
@@ -80323,7 +80326,7 @@ void CastPosses_65F60(type_event_0x6E8E* a1x)//246f60
 			x_WORD_EB398ar.z = v4;
 	}
 	sub_57CF0(a1x, &x_WORD_EB398ar);
-	v5x = sub_108B0(a1x);
+	v5x = sub_108B0(a1x);problem je zde
 	v6x = v5x;
 	v7x = v5x;
 	if (!v5x)

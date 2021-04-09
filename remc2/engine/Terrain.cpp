@@ -153,7 +153,7 @@ void add_compare(uint32_t adress, bool debugafterload, int stopstep, bool skip, 
 					comp20 = compare_with_sequence_array_E2A74(buffer3, (uint8_t*)&str_E2A74, 0x2b3a74, index - skip2, 0xc4e, 0xc4e, &origbyte20, &remakebyte20, 0, (exitindex != 1000000));
 
 					//screen
-					comp20 = compare_with_sequence(buffer4, pdwScreenBuffer, 0x3aa0a4, index, 320 * 200, 320 * 200, &origbyte20, &remakebyte20);
+					//comp20 = compare_with_sequence(buffer4, pdwScreenBuffer, 0x3aa0a4, index, 320 * 200, 320 * 200, &origbyte20, &remakebyte20);
 				}
 				//if(debugcounter_271478>5)
 				//comp20 = compare_with_sequence(buffer4, pdwScreenBuffer, 0x3aa0a4, index, 320 * 200, 320 * 200, &origbyte20, &remakebyte20);
