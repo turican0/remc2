@@ -1636,7 +1636,7 @@ void DrawSorcererNameAndHealthBar_2CB30(type_event_0x6E8E* a1, __int16 a2, int a
 void sub_2CE30_pause_end_level(int a1, int a2, uint16_t screenWidth);
 void sub_2D190(int16_t posStartX, int16_t posStartY, int a3, int16_t posEndY, int a5, uint8 colorIdx);
 void sub_2D190(int16_t posStartX, int16_t posStartY, int a3, int16_t posEndY, int a5, uint16_t pitch, uint8 colorIdx);
-int sub_2D1D0();
+int DrawSorcererScores_2D1D0(uint16_t screenWidth);
 void DrawTopStatusBar_2D710(type_event_0x6E8E* a1, uint16_t pitch);
 void DrawMenuBitmap_2DE80(int16_t posX, int16_t posY, posistruct_t a3);
 char sub_2DFD0(__int16 a1, __int16 a2, posistruct_t a3, unsigned __int8 a4);
@@ -29263,7 +29263,7 @@ void DrawGameFrame_2BE30(uint8_t* ptrScreenBuffer, uint16_t screenWidth, uint16_
 		switch (D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x3DF_2BE4_12221)
 		{
 		case 7:
-			sub_2D1D0();
+			DrawSorcererScores_2D1D0(screenWidth);
 			break;
 		case 8:
 			DrawPauseMenu_2FD90(screenWidth, screenHeight);
@@ -29711,7 +29711,7 @@ void sub_2D190(int16_t posStartX, int16_t posStartY, int a3, int16_t posEndY, in
 }
 
 //----- (0002D1D0) --------------------------------------------------------
-int sub_2D1D0()//20e1d0
+int DrawSorcererScores_2D1D0(uint16_t screenWidth)//20e1d0
 {
 	signed int v0; // esi
 	int v1; // eax
@@ -29761,7 +29761,7 @@ int sub_2D1D0()//20e1d0
 		v2x++;
 	}
 	v3 = v1 * (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[85].height_5;
-	v28 = (640 - (v1 * (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[86].width_4 + (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[85].width_4)) / 2;
+	v28 = (screenWidth - (v1 * (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[86].width_4 + (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[85].width_4)) / 2;
 	if (x_WORD_180660_VGA_type_resolution == 1)
 		v4 = 400;
 	else
@@ -29787,14 +29787,15 @@ int sub_2D1D0()//20e1d0
 				v5 + 4,
 				(*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[85].width_4 - 8,
 				(*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[85].height_5 - 8,
+				screenWidth,
 				v30);
 			v8 = v29;
 			v22 = (signed __int16)(v7 + 8);
-			sub_2BC10_draw_text(D41A0_0.array_0x2BDE[ix].array_0x39f_2BFA_12157, v7 + 8, v5 + 6, v29);//wizard name
+			sub_2BC10_draw_text(D41A0_0.array_0x2BDE[ix].array_0x39f_2BFA_12157, v7 + 8, v5 + 6, v29, screenWidth);//wizard name
 			sprintf(printbuffer, "%d", v23x->dword_0x8C_140);
 			v9 = v8;
 			v10 = v25;
-			sub_2BC10_draw_text(printbuffer, v22, v5 + 20, v9);
+			sub_2BC10_draw_text(printbuffer, v22, v5 + 20, v9, screenWidth);
 			if (!v10 && x_D41A0_BYTEARRAY_4_struct.byteindex_10)
 			{
 				str_unk_1804B0ar.word_0x96 = v7 + 20;
@@ -29835,6 +29836,7 @@ int sub_2D1D0()//20e1d0
 							v26,
 							(*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[86].width_4 - 8,
 							(*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[86].height_5 - 8,
+							screenWidth,
 							(*xadataclrd0dat.var28_begin_buffer)[0]);
 					}
 					else
@@ -29847,9 +29849,10 @@ int sub_2D1D0()//20e1d0
 							v26,
 							(*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[86].width_4 - 8,
 							(*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[86].height_5 - 8,
+							screenWidth,
 							v30);
 						sprintf(printbuffer, "%03d", v23x->dword_0xA4_164x->word_0x26_38[j]);
-						sub_2BC10_draw_text(printbuffer, v12 + 8, v5 + 10, v29);
+						sub_2BC10_draw_text(printbuffer, v12 + 8, v5 + 10, v29, screenWidth);
 						if (x_D41A0_BYTEARRAY_4_struct.byteindex_10 && str_unk_1804B0ar.byte_0xa8 && !v25 && j == (unsigned __int8)str_unk_1804B0ar.byte_0xa8)
 						{
 							str_unk_1804B0ar.word_0x9a = v12 + 20;
