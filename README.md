@@ -70,6 +70,7 @@ make install
 
 ## MILLSTONE 3
 - [ ] Implement Open GL render
+- [ ] Improve sounds and music using updated original scores and directional sounds in game
 
 ## MILLSTONE 4
 - [ ] Get basic LAN/IPv4 multiplayer working again
