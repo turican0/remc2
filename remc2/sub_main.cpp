@@ -31465,7 +31465,7 @@ void DrawInGameOptionsMenu_30050(uint16_t screenWidth)
 	else
 		v12 = (*xadataclrd0dat.var28_begin_buffer)[0xf00];
 	
-	DrawText_2BC10((char*)"OK", okayBtnTextXPos + 33, 379, v12);
+	DrawText_2BC10((char*)"OK", okayBtnTextXPos + 33, 379, v12, screenWidth);
 
 	if (unk_18058Cstr.x_WORD_1805C2_joystick == 8
 		|| unk_18058Cstr.x_WORD_1805C2_joystick == 12
