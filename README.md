@@ -60,16 +60,25 @@ make install
 # ROADMAP:
 
 ## MILLSTONE 1
-- Get solution runnable from Visual Studio 2019 build, with minimum of setup. Cut down on unnecessary extra files and libraries and use nuget instead.
-- Refactor reverse engineered code into seperate classes where possible.
+- [x] Get solution runnable from Visual Studio 2019 build, with minimum of setup. Cut down on unnecessary extra files and libraries and use nuget instead.
+- [x] Refactor reverse engineered code into seperate classes where possible.
 
 ## MILLSTONE 2
-- Add resolution support and increase draw distance
-- Implemented wix sharp .msi installation for new .exe to make patching the and running existing game simple
+- [ ] Add resolution support and increase draw distance
+- [ ] Implement a (platform independent) Launch menu to adjust settings in config.ini before launch
+- [ ] Implement a wix sharp .msi installation for new .exe to make patching the and running existing game simple and something similar for the Linux versions
+
+## MILLSTONE 3
+- [ ] Implement Open GL render
+
+## MILLSTONE 4
+- [ ] Get basic LAN/IPv4 multiplayer working again
+
+## MILLSTONE 5
+- [ ] Get Magic Carpet 1 working using this engine. Ideally with original music and graphics.
 
 ## LONG TERM GOALS
-- I eventually want to implement an Open GL render with multisampling for the terrain and some shadow-mapped lighting (I am not sure what SDL supports as it is middleware not really intended for more advanced rendering, but I will have to investigate)<br />
 - Add VR support back into the game (yes it was originally supported! This game was waaay ahead of its time)<br />
-- Support Linux and Mac OS versions.
+- Implement online multiplayer match making
 
 ## If you know a bit about game development or want to help out, branch away or email me here: thobbsinteractive@gmail.com
