@@ -442,8 +442,6 @@ void sub_6EBF0(filearray_struct* a1);
 char sub_533B0_decompress_levels(__int16 a1, type_str_2FECE* a2);
 
 bool sub_7B200_in_region(type_WORD_E1F84* a1x, int16_t testx, int16_t testy);
-void sub_2BC10_draw_text(const char* text, __int16 a2, __int16 a3, unsigned __int8 a4);
-void sub_6F940_sub_draw_text(const char* a1, int a2, int a3, uint8_t color);
 //int /*__noreturn*/ sub_10000(); // weak
 type_event_0x6E8E* sub_15CB0(/*type_str_0x6E8E* a1,*/ type_event_0x6E8E* a2); // weak
 char sub_15D40(__int16 a1, type_event_0x6E8E* a2, type_event_0x6E8E* a3); // weak
@@ -470,8 +468,8 @@ signed int sub_36A50(/*signed int a1, */char a2);
 void sub_36920(/*signed __int16 a1, */type_event_0x6E8E* a2);
 void sub_48A20(int a1, char a2, char a3, int a4, int a5, unsigned __int8 a6);
 unsigned int sub_439A0(unsigned int a1, unsigned __int16 a2);
-void DrawParticles_3E360(int a2x, uint16_t viewPortWidth);
-unsigned __int16 sub_3FD60(int a2x);
+void DrawParticles_3E360(int a2x, uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t pitch);
+unsigned __int16 sub_3FD60(int a2x, uint16_t viewPortWidth, uint16_t viewPortHeight);
 //void __outx_WORD(unsigned short Port, unsigned short Data);
 //void __outx_BYTE(unsigned short Port, unsigned char Data);
 //unsigned char __inx_BYTE(unsigned short Port);
