@@ -696,7 +696,7 @@ typedef struct {//lenght 2124=0x84C
 	//uint8_t stub5[17];
 } type_str_0x2BDE;//11230 // 84c lenght
 
-typedef struct {
+typedef struct {//size 5152
 	//type_particle_str_0 un_0;//lenght?
 	uint16_t word_0;
 	uint16_t word_2;//width?
