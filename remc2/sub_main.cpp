@@ -1626,7 +1626,6 @@ void sub_2BA50(type_event_0x6E8E* a1, unsigned __int8 a2);
 // int _wcpp_1_unwind_leave__62(void); weak
 //void sub_2BB40_draw_bitmap(int16_t posx, int16_t posy, posistruct_t temposstr);
 void sub_2BBB0(__int16 a1, __int16 a2, posistruct_t a3);
-//void sub_2BC10_draw_text(char* text, __int16 a2, __int16 a3, unsigned __int8 a4);
 //void sub_2BC80(int16_t a1, int16_t a2, int16_t a3, int16_t a4, uint8_t a5);
 void sub_2BD10_draw_line(__int16 a1, __int16 a2, __int16 a3, __int16 a4, unsigned __int8 a5);
 void DrawGameFrame_2BE30(uint8_t* ptrScreenBuffer, uint16_t width, uint16_t height);
@@ -29354,9 +29353,9 @@ void DrawGameFrame_2BE30(uint8_t* ptrScreenBuffer, uint16_t screenWidth, uint16_
 	while (v29 > 0)
 	{
 		if (v30)
-			sub_2BC10_draw_text(off_DB558[v30 + x_D41A0_BYTEARRAY_4_struct.byteindex_214w], 8, v31, (*xadataclrd0dat.var28_begin_buffer)[0]);
+			DrawText_2BC10(off_DB558[v30 + x_D41A0_BYTEARRAY_4_struct.byteindex_214w], 8, v31, (*xadataclrd0dat.var28_begin_buffer)[0]);
 		else
-			sub_2BC10_draw_text(off_DB558[x_D41A0_BYTEARRAY_4_struct.byteindex_214w], 8, v31, (*xadataclrd0dat.var28_begin_buffer)[0xfff]);
+			DrawText_2BC10(off_DB558[x_D41A0_BYTEARRAY_4_struct.byteindex_214w], 8, v31, (*xadataclrd0dat.var28_begin_buffer)[0xfff]);
 		v29--;
 		v30++;
 		v31 += sub_6FC30_get34_height();
@@ -29525,7 +29524,7 @@ void DrawSorcererNameAndHealthBar_2CB30(type_event_0x6E8E* a1x, __int16 a2, int 
 				DrawLine_2BC80(v30, v39 + 16, v26, 2, pitch, v38);//4
 				DrawLine_2BC80(v30, v39, 2, 16, pitch, v33);//30,tj.18
 				DrawLine_2BC80(v11 + v32 - 2, v39, 2, 18, pitch, v38);//2c tj. 4
-				sub_2BC10_draw_text(v24, v11 + 4, v39, v34, pitch);//14
+				DrawText_2BC10(v24, v11 + 4, v39, v34, pitch);//14
 				DrawLine_2BC80(v11 + 2, v39 + 14, v13 - 2, 2, pitch, v35);//10
 				//LOWORD(v9) = (x_WORD)a1;
 				if (a1x->dword_0x4)
@@ -29585,14 +29584,14 @@ void sub_2CE30_pause_end_level(int a1, int a2, uint16_t screenWidth)//20de30
 	{
 		if (x_D41A0_BYTEARRAY_4_struct.setting_byte3_24 & 1)
 		{
-			sub_2BC10_draw_text(x_DWORD_E9C4C_langindexbuffer[425], a1, a2, (*xadataclrd0dat.var28_begin_buffer)[0xf0], screenWidth);//Paused!
+			DrawText_2BC10(x_DWORD_E9C4C_langindexbuffer[425], a1, a2, (*xadataclrd0dat.var28_begin_buffer)[0xf0], screenWidth);//Paused!
 			v4x = 8 * (strlen((const char*)x_DWORD_E9C4C_langindexbuffer[425]) + 2) + a1;//Paused!
 		}
 
 		if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 0x20) && D41A0_0.struct_0x3659C[D41A0_0.LevelIndex_0xc].substr_3659C.IsLevelEnd_0)
 		{
 			sprintf(printbuffer, "%s. %s.", x_DWORD_E9C4C_langindexbuffer[378], x_DWORD_E9C4C_langindexbuffer[379]);//Tasks completed,Fly to the exit point.
-			sub_2BC10_draw_text(printbuffer, v4x, a2, v5, screenWidth);
+			DrawText_2BC10(printbuffer, v4x, a2, v5, screenWidth);
 			v4x = a1;
 			LOWORD(v6) = sub_6FC30_get34_height();
 			v2 = v6 + a2;
@@ -29617,7 +29616,7 @@ void sub_2CE30_pause_end_level(int a1, int a2, uint16_t screenWidth)//20de30
 					if (D41A0_0.array_0x2BDE[v7y].word_0x04d_2C2B_11307 + 1 <= 0)
 						goto LABEL_24;
 					sprintf(printbuffer, "%s %s", D41A0_0.array_0x2BDE[v7y].array_0x39f_2BFA_12157, D41A0_0.array_0x2BDE[v7y].array_0x01c_2BFA_11258);//wizard name
-					sub_2BC10_draw_text(printbuffer, v4x, v2, (*xadataclrd0dat.var28_begin_buffer)[0xf00]);
+					DrawText_2BC10(printbuffer, v4x, v2, (*xadataclrd0dat.var28_begin_buffer)[0xf00]);
 					v4x = a1;
 					LOWORD(v10) = sub_6FC30_get34_height();
 					v2 += v10;
@@ -29637,7 +29636,7 @@ void sub_2CE30_pause_end_level(int a1, int a2, uint16_t screenWidth)//20de30
 						v14 = 4080 * x_D41A0_BYTEARRAY_4_struct.byteindex_121[2];
 						v15 = (*xadataclrd0dat.var28_begin_buffer)[256 * ((signed int)(v14 - (__CFSHL__(HIDWORD(v14), 8) + (HIDWORD(v14) << 8))) >> 8)];
 					}
-					sub_2BC10_draw_text(printbuffer, v4x, v2, v15);
+					DrawText_2BC10(printbuffer, v4x, v2, v15);
 					LOWORD(v16) = sub_6FC30_get34_height();
 					v4x = a1;
 					v2 += v16;
@@ -29651,7 +29650,7 @@ void sub_2CE30_pause_end_level(int a1, int a2, uint16_t screenWidth)//20de30
 					if (D41A0_0.array_0x2BDE[v7y].word_0x04f_2C2D_11309 == 3 || v22 == D41A0_0.LevelIndex_0xc)
 					{
 						sprintf(printbuffer, "%s", D41A0_0.array_0x2BDE[v7y].array_0x01c_2BFA_11258);
-						sub_2BC10_draw_text(printbuffer, v4x, v2, (*xadataclrd0dat.var28_begin_buffer)[0xf00]);
+						DrawText_2BC10(printbuffer, v4x, v2, (*xadataclrd0dat.var28_begin_buffer)[0xf00]);
 						v4x = a1;
 						LOWORD(v12) = sub_6FC30_get34_height();
 						v2 += v12;
@@ -29669,7 +29668,7 @@ void sub_2CE30_pause_end_level(int a1, int a2, uint16_t screenWidth)//20de30
 					{
 						sprintf(printbuffer, "[%s] %s", D41A0_0.array_0x2BDE[v7y].array_0x39f_2BFA_12157, D41A0_0.array_0x2BDE[v7y].array_0x01c_2BFA_11258);//wizard name
 						v18 = 4080 * x_D41A0_BYTEARRAY_4_struct.byteindex_121[2];
-						sub_2BC10_draw_text(printbuffer, v4x, v2, (*xadataclrd0dat.var28_begin_buffer)[16 * ((signed int)(v18 - (__CFSHL__(HIDWORD(v18), 8) + (HIDWORD(v18) << 8))) >> 8)]);
+						DrawText_2BC10(printbuffer, v4x, v2, (*xadataclrd0dat.var28_begin_buffer)[16 * ((signed int)(v18 - (__CFSHL__(HIDWORD(v18), 8) + (HIDWORD(v18) << 8))) >> 8)]);
 						v4x = a1;
 						LOWORD(v19) = sub_6FC30_get34_height();
 						v2 += v19;
@@ -29791,11 +29790,11 @@ int DrawSorcererScores_2D1D0(uint16_t screenWidth)//20e1d0
 				v30);
 			v8 = v29;
 			v22 = (signed __int16)(v7 + 8);
-			sub_2BC10_draw_text(D41A0_0.array_0x2BDE[ix].array_0x39f_2BFA_12157, v7 + 8, v5 + 6, v29, screenWidth);//wizard name
+			DrawText_2BC10(D41A0_0.array_0x2BDE[ix].array_0x39f_2BFA_12157, v7 + 8, v5 + 6, v29, screenWidth);//wizard name
 			sprintf(printbuffer, "%d", v23x->dword_0x8C_140);
 			v9 = v8;
 			v10 = v25;
-			sub_2BC10_draw_text(printbuffer, v22, v5 + 20, v9, screenWidth);
+			DrawText_2BC10(printbuffer, v22, v5 + 20, v9, screenWidth);
 			if (!v10 && x_D41A0_BYTEARRAY_4_struct.byteindex_10)
 			{
 				str_unk_1804B0ar.word_0x96 = v7 + 20;
@@ -29852,7 +29851,7 @@ int DrawSorcererScores_2D1D0(uint16_t screenWidth)//20e1d0
 							screenWidth,
 							v30);
 						sprintf(printbuffer, "%03d", v23x->dword_0xA4_164x->word_0x26_38[j]);
-						sub_2BC10_draw_text(printbuffer, v12 + 8, v5 + 10, v29, screenWidth);
+						DrawText_2BC10(printbuffer, v12 + 8, v5 + 10, v29, screenWidth);
 						if (x_D41A0_BYTEARRAY_4_struct.byteindex_10 && str_unk_1804B0ar.byte_0xa8 && !v25 && j == (unsigned __int8)str_unk_1804B0ar.byte_0xa8)
 						{
 							str_unk_1804B0ar.word_0x9a = v12 + 20;
@@ -30384,7 +30383,7 @@ void DrawSpellIcon_2E260(int16_t posX, int16_t posY, uint16_t pitch, type_event_
 				//20f3b8
 				//"I" 0x234 a6757c->a5b3b0    0xc
 				//adress 20f37a
-				sub_2BC10_draw_text((char*)off_DB06C[a3x->byte_0x46_70],
+				DrawText_2BC10((char*)off_DB06C[a3x->byte_0x46_70],
 					(*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[1].width_4 + posX - 8 * strlen((const char*)*(&off_DB06C[a3x->byte_0x46_70])) - 2,//test and fix
 					posY,
 					(*xadataclrd0dat.var28_begin_buffer)[0], pitch);//x_BYTE_E8900//20f3bd//2b9900
@@ -31030,7 +31029,7 @@ void sub_2F6B0()//2106b0
 	sprintf(printbuffer, "%s", D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].names_81[v46]);
 	v7 += 2;
 	v8 += 6;
-	sub_2BC10_draw_text(printbuffer, v8, v7, v42);
+	DrawText_2BC10(printbuffer, v8, v7, v42);
 	v10 = 8 * strlen(printbuffer) + v8;
 	v11 = v7 + 2;
 	if (x_D41A0_BYTEARRAY_4_struct.byteindex_26 & 8)
@@ -31053,7 +31052,7 @@ void sub_2F6B0()//2106b0
 			v19 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[158];
 		sub_2BB40_draw_bitmap(v18, v17, v19);
 		sprintf(printbuffer, "%d", v39 + 1);
-		sub_2BC10_draw_text(printbuffer, v18 + 4, v17 + 2, v44);
+		DrawText_2BC10(printbuffer, v18 + 4, v17 + 2, v44);
 		if (++v39 == 4)
 		{
 			v18 = 4;
@@ -31151,7 +31150,7 @@ void sub_2F6B0()//2106b0
 	result = v51;
 	if (v51 != -1)
 		//v51
-		/*result = */sub_2BC10_draw_text(D41A0_0.array_0x2BDE[v51].array_0x39f_2BFA_12157, v36 + 390, v40 + 52, v45);//wizard name
+		DrawText_2BC10(D41A0_0.array_0x2BDE[v51].array_0x39f_2BFA_12157, v36 + 390, v40 + 52, v45);//wizard name
 	if (unk_18058Cstr.x_WORD_1805C2_joystick == 8
 		|| unk_18058Cstr.x_WORD_1805C2_joystick == 12
 		|| unk_18058Cstr.x_WORD_1805C2_joystick == 13
@@ -31420,7 +31419,7 @@ void DrawInGameOptionsMenu_30050(uint16_t screenWidth)
 		{
 			v7 = (*xadataclrd0dat.var28_begin_buffer)[0x888];
 		}
-		sub_2BC10_draw_text((char*)v18, optionMenuXPos + ((x_D41A0_BYTEARRAY_4_struct.byteindex_186 - 8 * strlen(v18)) >> 1), v0 + 2, v7, screenWidth);
+		DrawText_2BC10((char*)v18, optionMenuXPos + ((x_D41A0_BYTEARRAY_4_struct.byteindex_186 - 8 * strlen(v18)) >> 1), v0 + 2, v7, screenWidth);
 		v0 += 18;
 		v1 = v21 + 1;
 	}
@@ -31466,7 +31465,7 @@ void DrawInGameOptionsMenu_30050(uint16_t screenWidth)
 	else
 		v12 = (*xadataclrd0dat.var28_begin_buffer)[0xf00];
 	
-	sub_2BC10_draw_text((char*)"OK", okayBtnTextXPos + 33, 379, v12);
+	DrawText_2BC10((char*)"OK", okayBtnTextXPos + 33, 379, v12);
 
 	if (unk_18058Cstr.x_WORD_1805C2_joystick == 8
 		|| unk_18058Cstr.x_WORD_1805C2_joystick == 12
@@ -31654,7 +31653,7 @@ void sub_30870(uint16_t screenWidth)//211870
 
 	DrawLine_2BC80(4, 286, 632, 190, 0);
 	sprintf(printbuffer, "%d", x_WORD_D41D4);
-	sub_2BC10_draw_text(printbuffer, 10, 300, (*xadataclrd0dat.var28_begin_buffer)[0xfff]);
+	DrawText_2BC10(printbuffer, 10, 300, (*xadataclrd0dat.var28_begin_buffer)[0xfff]);
 	v4y.word_0xe = 400;
 	v4y.word_0x14 = 4;
 	v4y.word_0x10 = 8;
@@ -31737,7 +31736,7 @@ void DrawOkCancelMenu_30A60(int16_t posTextX, int16_t posTextY, uint16_t width)/
 		}
 
 		v4 = 4080 * x_D41A0_BYTEARRAY_4_struct.byteindex_121[4];
-		sub_2BC10_draw_text(printbuffer, posTextX, posTextY, (*xadataclrd0dat.var28_begin_buffer)[256 * ((signed int)(v4 - (__CFSHL__(HIDWORD(v4), 8) + (HIDWORD(v4) << 8))) >> 8)]);
+		DrawText_2BC10(printbuffer, posTextX, posTextY, (*xadataclrd0dat.var28_begin_buffer)[256 * ((signed int)(v4 - (__CFSHL__(HIDWORD(v4), 8) + (HIDWORD(v4) << 8))) >> 8)]);
 		GetOkayCancelButtonPositions_30BE0(&posX, &posY, width);
 		sub_2BB40_draw_bitmap(posX, posY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[257]);
 		sub_2BB40_draw_bitmap(posX + 50, posY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[258]);
@@ -52896,7 +52895,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E, uint16_t 
 					 break;
 				 }*/
 	case 0x20cc10: {
-		sub_2BC10_draw_text((char*)a1_6E8E, 0, 0, 0);
+		DrawText_2BC10((char*)a1_6E8E, 0, 0, 0);
 		break;
 	}
 	case 0x20cc80: {
@@ -73106,9 +73105,9 @@ void sub_61A00_draw_minimap_entites_b(int a1, int a2, int16_t posX, int16_t posY
 								v66 = x_BYTE_E88E0x[3 * sub_61790(v60x->dword_0xA4_164x->word_0x38_56)];
 								*v65 = v66;
 								if (x_WORD_180660_VGA_type_resolution == 1)
-									sub_2BC10_draw_text(D41A0_0.array_0x2BDE[v87].array_0x39f_2BFA_12157, 2 * v63 + 4, 2 * v64, v66);//wizard name
+									DrawText_2BC10(D41A0_0.array_0x2BDE[v87].array_0x39f_2BFA_12157, 2 * v63 + 4, 2 * v64, v66);//wizard name
 								else
-									sub_2BC10_draw_text(D41A0_0.array_0x2BDE[v87].array_0x39f_2BFA_12157, v63 + 4, v64, v66);//wizard name
+									DrawText_2BC10(D41A0_0.array_0x2BDE[v87].array_0x39f_2BFA_12157, v63 + 4, v64, v66);//wizard name
 							}
 						}
 					}
@@ -73741,9 +73740,9 @@ void sub_627F0_draw_minimap_entites_a(int a1, int a2, int16_t posX, int16_t posY
 								*v72 = v73;
 								*v71 = v73;
 								if (x_WORD_180660_VGA_type_resolution == 1)
-									sub_2BC10_draw_text(D41A0_0.array_0x2BDE[j].array_0x39f_2BFA_12157, 2 * v69 + 4, 2 * v70, v73);//wizard name
+									DrawText_2BC10(D41A0_0.array_0x2BDE[j].array_0x39f_2BFA_12157, 2 * v69 + 4, 2 * v70, v73);//wizard name
 								else
-									sub_2BC10_draw_text(D41A0_0.array_0x2BDE[j].array_0x39f_2BFA_12157, v69 + 4, v70, v73);//wizard name
+									DrawText_2BC10(D41A0_0.array_0x2BDE[j].array_0x39f_2BFA_12157, v69 + 4, v70, v73);//wizard name
 							}
 						}
 					}
@@ -82905,51 +82904,51 @@ void sub_6FEC0()//250ec0
 	if (D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x005_2BE0_11235 & 8)
 	{
 		DrawHelpText_6FC50(1);
-		sub_2BC10_draw_text((char*)"Product name", 320, 0, (*xadataclrd0dat.var28_begin_buffer)[0xf00]);
+		DrawText_2BC10((char*)"Product name", 320, 0, (*xadataclrd0dat.var28_begin_buffer)[0xf00]);
 		LOWORD(v3) = sub_6FC30_get34_height();
 		v4 = v3;
-		sub_2BC10_draw_text((char*)"Magic Carpet 2 (Netherworlds)", 320, v3, (*xadataclrd0dat.var28_begin_buffer)[0x0f]);
+		DrawText_2BC10((char*)"Magic Carpet 2 (Netherworlds)", 320, v3, (*xadataclrd0dat.var28_begin_buffer)[0x0f]);
 		LOWORD(v5) = sub_6FC30_get34_height();
 		v6 = v5 + v4;
-		sub_2BC10_draw_text((char*)"Version number", 320, v6, (*xadataclrd0dat.var28_begin_buffer)[0xf00]);
+		DrawText_2BC10((char*)"Version number", 320, v6, (*xadataclrd0dat.var28_begin_buffer)[0xf00]);
 		LOWORD(v7) = sub_6FC30_get34_height();
 		v8 = v7 + v6;
-		sub_2BC10_draw_text((char*)"Beta", 320, v8, (*xadataclrd0dat.var28_begin_buffer)[0x0f]);
+		DrawText_2BC10((char*)"Beta", 320, v8, (*xadataclrd0dat.var28_begin_buffer)[0x0f]);
 		LOWORD(v9) = sub_6FC30_get34_height();
 		v10 = v9 + v8;
-		sub_2BC10_draw_text((char*)"Version date", 320, v10, (*xadataclrd0dat.var28_begin_buffer)[0xf00]);
+		DrawText_2BC10((char*)"Version date", 320, v10, (*xadataclrd0dat.var28_begin_buffer)[0xf00]);
 		LOWORD(v11) = sub_6FC30_get34_height();
 		v12 = v11 + v10;
 		sprintf(printbuffer, "%s %s", "03:42:13", "Sep 06 1995");
-		sub_2BC10_draw_text(printbuffer, 320, v12, (*xadataclrd0dat.var28_begin_buffer)[0x0f]);
+		DrawText_2BC10(printbuffer, 320, v12, (*xadataclrd0dat.var28_begin_buffer)[0x0f]);
 		LOWORD(v13) = sub_6FC30_get34_height();
 		v14 = v13 + v12;
-		sub_2BC10_draw_text((char*)"Programmer", 320, v14, (*xadataclrd0dat.var28_begin_buffer)[0xf00]);
+		DrawText_2BC10((char*)"Programmer", 320, v14, (*xadataclrd0dat.var28_begin_buffer)[0xf00]);
 		LOWORD(v15) = sub_6FC30_get34_height();
 		v16 = v15 + v14;
-		sub_2BC10_draw_text((char*)"Bullfrog, Alan Wright.", 320, v16, (*xadataclrd0dat.var28_begin_buffer)[0x0f]);
+		DrawText_2BC10((char*)"Bullfrog, Alan Wright.", 320, v16, (*xadataclrd0dat.var28_begin_buffer)[0x0f]);
 		LOWORD(v17) = sub_6FC30_get34_height();
 		v18 = v17 + v16;
-		sub_2BC10_draw_text((char*)"Supplied to", 320, v18, (*xadataclrd0dat.var28_begin_buffer)[0xf00]);
+		DrawText_2BC10((char*)"Supplied to", 320, v18, (*xadataclrd0dat.var28_begin_buffer)[0xf00]);
 		LOWORD(v19) = sub_6FC30_get34_height();
 		v20 = v19 + v18;
-		sub_2BC10_draw_text((char*)"PUBLIC", 320, v20, (*xadataclrd0dat.var28_begin_buffer)[0x0f]);
+		DrawText_2BC10((char*)"PUBLIC", 320, v20, (*xadataclrd0dat.var28_begin_buffer)[0x0f]);
 		LOWORD(v21) = sub_6FC30_get34_height();
 		v22 = v21 + v20;
-		sub_2BC10_draw_text((char*)"Level Number", 320, v22, (*xadataclrd0dat.var28_begin_buffer)[0xf00]);
+		DrawText_2BC10((char*)"Level Number", 320, v22, (*xadataclrd0dat.var28_begin_buffer)[0xf00]);
 		LOWORD(v23) = sub_6FC30_get34_height();
 		v24 = v23 + v22;
 		sprintf(printbuffer, "%d", x_D41A0_BYTEARRAY_4_struct.levelnumber_43w);
-		sub_2BC10_draw_text((char*)printbuffer, 320, v24, (*xadataclrd0dat.var28_begin_buffer)[0x0f]);
+		DrawText_2BC10((char*)printbuffer, 320, v24, (*xadataclrd0dat.var28_begin_buffer)[0x0f]);
 		LOWORD(v25) = sub_6FC30_get34_height();
 		v26 = v25 + v24;
 		if (x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 0x10)
 		{
-			sub_2BC10_draw_text((char*)"Transfer rate:", 320, v26, (*xadataclrd0dat.var28_begin_buffer)[0xf00]);
+			DrawText_2BC10((char*)"Transfer rate:", 320, v26, (*xadataclrd0dat.var28_begin_buffer)[0xf00]);
 			LOWORD(v27) = sub_6FC30_get34_height();
 			v28 = v27 + v26;
 			sprintf(printbuffer, "%d", x_D41A0_BYTEARRAY_4_struct.transfer_rate_dwordindex_200);
-			sub_2BC10_draw_text(printbuffer, 320, v28, (*xadataclrd0dat.var28_begin_buffer)[0x0f]);
+			DrawText_2BC10(printbuffer, 320, v28, (*xadataclrd0dat.var28_begin_buffer)[0x0f]);
 			LOWORD(v29) = sub_6FC30_get34_height();
 			v26 = v29 + v28;
 		}
@@ -82963,41 +82962,41 @@ void sub_6FEC0()//250ec0
 			x_DWORD_E9C24_fps = x_DWORD_E9C14 - x_DWORD_E9C18;
 			x_DWORD_E9C18 = x_DWORD_E9C14;
 		}
-		sub_2BC10_draw_text((char*)"FPS", 320, v26, (*xadataclrd0dat.var28_begin_buffer)[0xf00]);
+		DrawText_2BC10((char*)"FPS", 320, v26, (*xadataclrd0dat.var28_begin_buffer)[0xf00]);
 		v32 = sub_6FC30_get34_height() + v26;
 		sprintf(printbuffer, "%d", x_DWORD_E9C24_fps);
-		sub_2BC10_draw_text(printbuffer, 320, v32, (*xadataclrd0dat.var28_begin_buffer)[0x0f]);
+		DrawText_2BC10(printbuffer, 320, v32, (*xadataclrd0dat.var28_begin_buffer)[0x0f]);
 		v33 = sub_6FC30_get34_height() + v32;
-		sub_2BC10_draw_text((char*)"Sound Number", 320, v33, (*xadataclrd0dat.var28_begin_buffer)[0xf00]);
+		DrawText_2BC10((char*)"Sound Number", 320, v33, (*xadataclrd0dat.var28_begin_buffer)[0xf00]);
 		v34 = sub_6FC30_get34_height() + v33;
 		sprintf(printbuffer, "%d", x_WORD_E37B6_sound_number);
-		sub_2BC10_draw_text(printbuffer, 320, v34, (*xadataclrd0dat.var28_begin_buffer)[0x0f]);
+		DrawText_2BC10(printbuffer, 320, v34, (*xadataclrd0dat.var28_begin_buffer)[0x0f]);
 		v35 = sub_6FC30_get34_height() + v34;
-		sub_2BC10_draw_text((char*)"Game turn", 320, v35, (*xadataclrd0dat.var28_begin_buffer)[0xf00]);
+		DrawText_2BC10((char*)"Game turn", 320, v35, (*xadataclrd0dat.var28_begin_buffer)[0xf00]);
 		v36 = sub_6FC30_get34_height() + v35;
 		sprintf(printbuffer, "%d %d", D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x012_2BE0_11248, x_DWORD_17DB54_game_turn2);
-		sub_2BC10_draw_text(printbuffer, 320, v36, (*xadataclrd0dat.var28_begin_buffer)[0x0f]);
+		DrawText_2BC10(printbuffer, 320, v36, (*xadataclrd0dat.var28_begin_buffer)[0x0f]);
 		v37 = sub_6FC30_get34_height() + v36;
-		sub_2BC10_draw_text((char*)"Thing", 320, v37, (*xadataclrd0dat.var28_begin_buffer)[0xf00]);
+		DrawText_2BC10((char*)"Thing", 320, v37, (*xadataclrd0dat.var28_begin_buffer)[0xf00]);
 		v38 = sub_6FC30_get34_height() + v37;
 		v39 = sub_4A810_get_0x35plus();
 		sprintf(printbuffer, "Thing %d, Active %d", 168, 1000 - v39);
-		sub_2BC10_draw_text(printbuffer, 320, v38, (*xadataclrd0dat.var28_begin_buffer)[0x0f]);
+		DrawText_2BC10(printbuffer, 320, v38, (*xadataclrd0dat.var28_begin_buffer)[0x0f]);
 		v40 = sub_6FC30_get34_height() + v38;
 		sprintf(printbuffer, "Carpet %d", sizeof(type_shadow_D41A0_BYTESTR_0));
-		sub_2BC10_draw_text(printbuffer, 320, v40, (*xadataclrd0dat.var28_begin_buffer)[0x0f]);
+		DrawText_2BC10(printbuffer, 320, v40, (*xadataclrd0dat.var28_begin_buffer)[0x0f]);
 		v41 = sub_6FC30_get34_height() + v40;
 		sprintf(printbuffer, "Tape %d", 38547);
-		sub_2BC10_draw_text(printbuffer, 320, v41, (*xadataclrd0dat.var28_begin_buffer)[0x0f]);
+		DrawText_2BC10(printbuffer, 320, v41, (*xadataclrd0dat.var28_begin_buffer)[0x0f]);
 		v42 = sub_6FC30_get34_height() + v41;
 		sprintf(printbuffer, "Heap %d", x_D41A0_BYTEARRAY_4_struct.dword_0xE6_heapsize_230);
-		sub_2BC10_draw_text(printbuffer, 320, v42, (*xadataclrd0dat.var28_begin_buffer)[0x0f]);
+		DrawText_2BC10(printbuffer, 320, v42, (*xadataclrd0dat.var28_begin_buffer)[0x0f]);
 		v43 = sub_6FC30_get34_height() + v42;
 		//sub_85350(); fix
-		sub_2BC10_draw_text((char*)"Memory (Used/Free)", 320, v43, (*xadataclrd0dat.var28_begin_buffer)[0xf00]);
+		DrawText_2BC10((char*)"Memory (Used/Free)", 320, v43, (*xadataclrd0dat.var28_begin_buffer)[0xf00]);
 		v44 = sub_6FC30_get34_height() + v43;
 		sprintf(printbuffer, "%d/%d", x_DWORD_17FEA8_mem_used, x_DWORD_17FEA4_mem_free);
-		sub_2BC10_draw_text(printbuffer, 320, v44, (*xadataclrd0dat.var28_begin_buffer)[0x0f]);
+		DrawText_2BC10(printbuffer, 320, v44, (*xadataclrd0dat.var28_begin_buffer)[0x0f]);
 		/*v45 = (int*)&x_DWORD_17ECA0;
 		//LOWORD(result) = sub_6FC30_get34_height();
 		v46 = 0;
@@ -83008,7 +83007,7 @@ void sub_6FEC0()//250ec0
 				v47 = (*xadataclrd0dat.var28_begin_buffer)[0x000];
 			else
 				v47 = (*xadataclrd0dat.var28_begin_buffer)[0xf00];
-			sub_2BC10_draw_text(printbuffer, i, v46, v47);
+			DrawText_2BC10(printbuffer, i, v46, v47);
 			//LOWORD(v48) = sub_6FC30_get34_height();
 			v46 += sub_6FC30_get34_height();
 			//result = 400 - sub_6FC30_get34_height();
@@ -83025,16 +83024,16 @@ void sub_6FEC0()//250ec0
 	else if (D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x005_2BE0_11235 & 0x40)
 	{
 		v50 = 6 * sub_6FC30_get34_height();
-		sub_2BC10_draw_text((char*)"THING", 10, v50, (*xadataclrd0dat.var28_begin_buffer)[0xf00]);
+		DrawText_2BC10((char*)"THING", 10, v50, (*xadataclrd0dat.var28_begin_buffer)[0xf00]);
 		v51 = sub_6FC30_get34_height() + v50;
 		sprintf(
 			printbuffer,
 			"%ld / %d",
 			x_D41A0_BYTEARRAY_4_struct.dwordindex_38396,
 			x_D41A0_BYTEARRAY_4_struct.dwordindex_38396 - D41A0_0.struct_0x6E8E);
-		sub_2BC10_draw_text(printbuffer, 10, v51, (*xadataclrd0dat.var28_begin_buffer)[0xff]);
+		DrawText_2BC10(printbuffer, 10, v51, (*xadataclrd0dat.var28_begin_buffer)[0xff]);
 		v52 = sub_6FC30_get34_height() + v51;
-		sub_2BC10_draw_text((char*)"CLASS / MODEL / STATE", 10, v52, (*xadataclrd0dat.var28_begin_buffer)[0xf00]);
+		DrawText_2BC10((char*)"CLASS / MODEL / STATE", 10, v52, (*xadataclrd0dat.var28_begin_buffer)[0xf00]);
 		v53 = sub_6FC30_get34_height() + v52;
 		sprintf(
 			printbuffer,
@@ -83042,18 +83041,18 @@ void sub_6FEC0()//250ec0
 			x_D41A0_BYTEARRAY_4_struct.dwordindex_38396->type_0x3F_63,
 			x_D41A0_BYTEARRAY_4_struct.dwordindex_38396->subtype_0x40_64,
 			x_D41A0_BYTEARRAY_4_struct.dwordindex_38396->byte_0x45_69);
-		sub_2BC10_draw_text(printbuffer, 10, v53, (*xadataclrd0dat.var28_begin_buffer)[0xff]);
+		DrawText_2BC10(printbuffer, 10, v53, (*xadataclrd0dat.var28_begin_buffer)[0xff]);
 		v54 = sub_6FC30_get34_height() + v53;
-		sub_2BC10_draw_text((char*)"LIFE / MAX LIFE", 10, v54, (*xadataclrd0dat.var28_begin_buffer)[0xf00]);
+		DrawText_2BC10((char*)"LIFE / MAX LIFE", 10, v54, (*xadataclrd0dat.var28_begin_buffer)[0xf00]);
 		v55 = sub_6FC30_get34_height() + v54;
 		sprintf(
 			printbuffer,
 			"%d / %d",
 			x_D41A0_BYTEARRAY_4_struct.dwordindex_38396->dword_0x8,
 			x_D41A0_BYTEARRAY_4_struct.dwordindex_38396->dword_0x4);
-		sub_2BC10_draw_text(printbuffer, 10, v55, (*xadataclrd0dat.var28_begin_buffer)[0xff]);
+		DrawText_2BC10(printbuffer, 10, v55, (*xadataclrd0dat.var28_begin_buffer)[0xff]);
 		v56 = sub_6FC30_get34_height() + v55;
-		sub_2BC10_draw_text((char*)"SPEED ACTUAL / MINIMUM / MAXIMUM", 10, v56, (*xadataclrd0dat.var28_begin_buffer)[0xf00]);
+		DrawText_2BC10((char*)"SPEED ACTUAL / MINIMUM / MAXIMUM", 10, v56, (*xadataclrd0dat.var28_begin_buffer)[0xf00]);
 		v57 = sub_6FC30_get34_height() + v56;
 		sprintf(
 			printbuffer,
@@ -83061,9 +83060,9 @@ void sub_6FEC0()//250ec0
 			x_D41A0_BYTEARRAY_4_struct.dwordindex_38396->word_0x82_130,
 			x_D41A0_BYTEARRAY_4_struct.dwordindex_38396->word_0x84_132,
 			x_D41A0_BYTEARRAY_4_struct.dwordindex_38396->word_0x86_134);
-		sub_2BC10_draw_text(printbuffer, 10, v57, (*xadataclrd0dat.var28_begin_buffer)[0xff]);
+		DrawText_2BC10(printbuffer, 10, v57, (*xadataclrd0dat.var28_begin_buffer)[0xff]);
 		v58 = sub_6FC30_get34_height() + v57;
-		sub_2BC10_draw_text((char*)"ACTUAL X / Y / Z", 10, v58, (*xadataclrd0dat.var28_begin_buffer)[0xf00]);
+		DrawText_2BC10((char*)"ACTUAL X / Y / Z", 10, v58, (*xadataclrd0dat.var28_begin_buffer)[0xf00]);
 		v59 = sub_6FC30_get34_height() + v58;
 		sprintf(
 			printbuffer,
@@ -83071,25 +83070,25 @@ void sub_6FEC0()//250ec0
 			x_D41A0_BYTEARRAY_4_struct.dwordindex_38396->axis_0x4C_76.x,
 			x_D41A0_BYTEARRAY_4_struct.dwordindex_38396->axis_0x4C_76.y,
 			x_D41A0_BYTEARRAY_4_struct.dwordindex_38396->axis_0x4C_76.z);
-		sub_2BC10_draw_text(printbuffer, 10, v59, (*xadataclrd0dat.var28_begin_buffer)[0xff]);
+		DrawText_2BC10(printbuffer, 10, v59, (*xadataclrd0dat.var28_begin_buffer)[0xff]);
 		v60 = sub_6FC30_get34_height() + v59;
-		sub_2BC10_draw_text((char*)"ID / WHO OWNS ME", 10, v60, (*xadataclrd0dat.var28_begin_buffer)[0xf00]);
+		DrawText_2BC10((char*)"ID / WHO OWNS ME", 10, v60, (*xadataclrd0dat.var28_begin_buffer)[0xf00]);
 		v61 = sub_6FC30_get34_height() + v60;
 		sprintf(
 			printbuffer,
 			"%hu / %hu",
 			x_D41A0_BYTEARRAY_4_struct.dwordindex_38396->word_0x1A_26,
 			x_D41A0_BYTEARRAY_4_struct.dwordindex_38396->word_0x28_40);
-		sub_2BC10_draw_text(printbuffer, 10, v61, (*xadataclrd0dat.var28_begin_buffer)[0xff]);
+		DrawText_2BC10(printbuffer, 10, v61, (*xadataclrd0dat.var28_begin_buffer)[0xff]);
 		v62 = sub_6FC30_get34_height() + v61;
-		sub_2BC10_draw_text((char*)"MANA ACTUAL / MAXIMUM", 10, v62, (*xadataclrd0dat.var28_begin_buffer)[0xf00]);
+		DrawText_2BC10((char*)"MANA ACTUAL / MAXIMUM", 10, v62, (*xadataclrd0dat.var28_begin_buffer)[0xf00]);
 		v63 = sub_6FC30_get34_height() + v62;
 		sprintf(
 			printbuffer,
 			"%d / %d",
 			x_D41A0_BYTEARRAY_4_struct.dwordindex_38396->dword_0x90_144,
 			x_D41A0_BYTEARRAY_4_struct.dwordindex_38396->dword_0x8C_140);
-		sub_2BC10_draw_text(printbuffer, 10, v63, (*xadataclrd0dat.var28_begin_buffer)[0xff]);
+		DrawText_2BC10(printbuffer, 10, v63, (*xadataclrd0dat.var28_begin_buffer)[0xff]);
 		//LOWORD(result) = sub_6FC30_get34_height();
 	}
 	if (x_D41A0_BYTEARRAY_4_struct.byteindex_53 == 16273849)
@@ -87969,7 +87968,7 @@ char sub_780F0_load_game_dialog(type_WORD_E1F84* a1x)//0x2590f0
       int16_t savegame_y_pos = a1x->str_26.word_28_1 + 16 * (j + 1);
       int16_t savegame_x_pos = a1x->str_26.word_26_0 + 20;
       uint8_t pal_text_color = (j == x_DWORD_17DE38str.x_WORD_17DF04) ? pal_selected_text : pal_text;
-      sub_2BC10_draw_text(savegame.c_str(), savegame_x_pos, savegame_y_pos, pal_text_color);
+      DrawText_2BC10(savegame.c_str(), savegame_x_pos, savegame_y_pos, pal_text_color);
 		}
 	}
 	if (a1x->str_26.word_36_5 >= a1x->str_26.word_34_4)
@@ -87997,7 +87996,7 @@ char sub_780F0_load_game_dialog(type_WORD_E1F84* a1x)//0x2590f0
           std::string savegame = std::to_string(k) + ". " + std::string(&x_DWORD_17DE38str.xx_BYTE_17DF14[(k - 1)][0]);
 					int16_t savegame_y_pos = a1x->str_26.word_28_1 + 16 * (k + 1);
 					int16_t savegame_x_pos = a1x->str_26.word_26_0 + 20;
-					sub_2BC10_draw_text(savegame.c_str(), savegame_x_pos, savegame_y_pos, pal_selected_text);
+					DrawText_2BC10(savegame.c_str(), savegame_x_pos, savegame_y_pos, pal_selected_text);
 				}
 			}
 		}
@@ -88203,20 +88202,20 @@ char sub_78730_save_game_dialog(type_WORD_E1F84* a1x)//259730
 				//v57 = v68;
 				//v58 = (signed __int16)(v21 + 16 + v62);
 				v61 = v21 + 16 + v62;
-				sub_2BC10_draw_text(printbuffer, v63, v21 + 16 + v62, v68);//draw number
+				DrawText_2BC10(printbuffer, v63, v21 + 16 + v62, v68);//draw number
 				//v22 = v57;
 				//v23 = v58;
 				//v24 = v63 + 3 * sub_6FC10_letter_width();
-				sub_2BC10_draw_text(v16 + 20, v63 + 3 * sub_6FC10_letter_width(), v21 + 16 + v62, v68);//draw text
+				DrawText_2BC10(v16 + 20, v63 + 3 * sub_6FC10_letter_width(), v21 + 16 + v62, v68);//draw text
 			}
 			else
 			{
 				//v57 = v67;
-				sub_2BC10_draw_text(printbuffer, a1x->str_26.word_26_0 + 20, v62 + a1x->str_26.word_28_1 + 16, v67);//draw number
+				DrawText_2BC10(printbuffer, a1x->str_26.word_26_0 + 20, v62 + a1x->str_26.word_28_1 + 16, v67);//draw number
 				//v17 = v67;
 				v18 = v62 + a1x->str_26.word_28_1 + 16;
 				v19 = a1x->str_26.word_26_0 + 20 + 3 * sub_6FC10_letter_width();
-				sub_2BC10_draw_text(v16, v19, v18, v67);//draw text
+				DrawText_2BC10(v16, v19, v18, v67);//draw text
 			}
 		}
 	}
@@ -88268,10 +88267,10 @@ char sub_78730_save_game_dialog(type_WORD_E1F84* a1x)//259730
 					//v31 = 43 * (k - 1);
 					sprintf(printbuffer, "%d.", k);
 					v32 = v68;
-					sub_2BC10_draw_text(printbuffer, a1x->str_26.word_26_0 + 20, v64 + a1x->str_26.word_28_1 + 16, v68);
+					DrawText_2BC10(printbuffer, a1x->str_26.word_26_0 + 20, v64 + a1x->str_26.word_28_1 + 16, v68);
 					v33 = v64 + a1x->str_26.word_28_1 + 16;
 					v34 = sub_6FC10_letter_width();
-					sub_2BC10_draw_text(&x_DWORD_17DE38str.xx_BYTE_17DF14[(k - 1)][0], a1x->str_26.word_26_0 + 20 + 3 * v34, v33, v32);
+					DrawText_2BC10(&x_DWORD_17DE38str.xx_BYTE_17DF14[(k - 1)][0], a1x->str_26.word_26_0 + 20 + 3 * v34, v33, v32);
 				}
 			}
 		}
@@ -88407,7 +88406,7 @@ LABEL_13:
 	if ((v26 - x_DWORD_17DE38str.x_DWORD_17DED0) / 0xCu >= 1)
 	{
 		v12 = getPalletteIndex_5BE80(x_DWORD_17DE38str.x_DWORD_17DE38x, 0x16u, 0x10u, 9u);
-		sub_2BC10_draw_text((char*)"_", v11 + 2, v9, v12);
+		DrawText_2BC10((char*)"_", v11 + 2, v9, v12);
 		x_DWORD_17DE38str.x_DWORD_17DED0 = v26;
 	}
 LABEL_15:
@@ -91922,7 +91921,7 @@ char sub_7DE80(int  /*a1*/, type_WORD_E1F84* a2x)//25ee80
 #ifdef __linux__ // FIXME: types
 		std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
-		sub_2BC10_draw_text((char*)"_", v14 - 2, (__int16)v5, v15);
+		DrawText_2BC10((char*)"_", v14 - 2, (__int16)v5, v15);
 		stub_fix_it();//v5 is mitchasched
 #endif
 		x_DWORD_17DE38str.x_DWORD_17DED0 = v3;
@@ -93155,11 +93154,11 @@ int sub_7F6A0(int  /*a1*/, int  /*a2*/, __int16 a3, __int16 a4, char* a5, int8_t
 	}
 LABEL_16:
 	_strupr(a5);
-	sub_2BC10_draw_text(a5, a3, a4, a7);
+	DrawText_2BC10(a5, a3, a4, a7);
 	if ((v10 - x_DWORD_17DE38str.x_DWORD_17DED0) / 0xCu >= 1)
 	{
 		v8 = sub_6FC10_letter_width();
-		sub_2BC10_draw_text((char*)"_", a3 + v8 * strlen(a5), a4, a7);
+		DrawText_2BC10((char*)"_", a3 + v8 * strlen(a5), a4, a7);
 		x_DWORD_17DE38str.x_DWORD_17DED0 = v10;
 	}
 	return 0;
@@ -97615,7 +97614,7 @@ void sub_87610()//268610
 			else
 				v6 = str_unk_1804B0ar.type_sub_0[0].byte_0x30;
 			//FireBall,Rapid Fire,Fire Storm
-			sub_2BC10_draw_text(x_DWORD_E9C4C_langindexbuffer[str_unk_1804B0ar.uni_0x8a.word[2 + v4++]], str_unk_1804B0ar.type_sub_0[0].word_0x8, v5, v6);
+			DrawText_2BC10(x_DWORD_E9C4C_langindexbuffer[str_unk_1804B0ar.uni_0x8a.word[2 + v4++]], str_unk_1804B0ar.type_sub_0[0].word_0x8, v5, v6);
 			v5 += str_unk_1804B0ar.type_sub_0[0].word_0x12;
 		}
 		sub_89A30_draw_line(&str_unk_1804B0ar.type_sub_0[0]);
@@ -97686,7 +97685,7 @@ void sub_87610()//268610
 				//FireBall
 				//Rapid Fire
 				//Fire Storm
-				sub_2BC10_draw_text(x_DWORD_E9C4C_langindexbuffer[str_unk_1804B0ar.uni_0x8a.word[2+v4++]], str_unk_1804B0ar.type_sub_0[0].word_0x8, v5, v6);
+				DrawText_2BC10(x_DWORD_E9C4C_langindexbuffer[str_unk_1804B0ar.uni_0x8a.word[2+v4++]], str_unk_1804B0ar.type_sub_0[0].word_0x8, v5, v6);
 				v5 += str_unk_1804B0ar.type_sub_0[0].word_0x12;
 			}
 		}
@@ -99440,7 +99439,7 @@ void DrawTextbox_895D0(type_sub_str_unk_1804B0ar* a1y, char* a2, uint16_t pitch)
 			v9 = a1y->word_0x8;
 			v14 = (i + 1);
 			v10 = v13;
-			sub_2BC10_draw_text(v11x, v9, v13, v8, pitch);
+			DrawText_2BC10(v11x, v9, v13, v8, pitch);
 			result = a1y->word_0x12;
 			v13 = result + v10;
 		} while (v2 > v14);
