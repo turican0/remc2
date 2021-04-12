@@ -66,9 +66,9 @@ int test_regression_level = 13;
 	#define MOUSE_OFF2
 	#define OFF_PAUSE_5
 	#define TEST_REGRESSION
-	bool hideGraphics = false;
-	#define DEBUG_SEQUENCES
-	#define DEBUG_SEQUENCES2
+	bool hideGraphics = true;
+	//#define DEBUG_SEQUENCES
+	//#define DEBUG_SEQUENCES2
 	int debugafterload = 1;
 	//#define DISABLE_GRAPHICS_ENHANCE
 #elif defined(DEBUG_AFTERLOAD) //this is setting is for compare data with dosbox afterload(can fix mouse move, and etc.)
@@ -52275,7 +52275,7 @@ void sub_47560_draw_and_events_in_game(/*uint8_t* a1, int a2, */uint32_t a3, sig
 	//add_compare(0x002285FF, debugafterload);
 #endif //DEBUG_SEQUENCES2
 #ifdef DEBUG_SEQUENCES
-	add_compare(0x002285FF, debugafterload);
+	//add_compare(0x002285FF, debugafterload);
 #endif //DEBUG_SEQUENCES
 	if (debugcounter_47560_2>=0x8f)
 	{
@@ -66637,25 +66637,28 @@ void sub_55100(char a1)//236100
 			if (!(D41A0_0.StageVars2_0x365F4[i].stage_0x3647A_1 & 2))
 			{
 				type_event_0x6E8E* temp_0x6E8E = D41A0_0.StageVars2_0x365F4[i].str_0x3647C_4.pointer_0x6E8E;
-				if (v2 == -1)
+				if (temp_0x6E8E >= x_DWORD_EA3E4[0] && temp_0x6E8E < x_DWORD_EA3E4[0x3e8])
 				{
-					int diff = D41A0_0.StageVars2_0x365F4[i].str_0x3647C_4.pointer_0x6E8E - D41A0_0.struct_0x6E8E;
-					int sizediff = diff * sizeof(type_shadow_str_0x6E8E);
-					if (((char*)D41A0_0.StageVars2_0x365F4[i].str_0x3647C_4.pointer_0x6E8E - (char*)D41A0_0.struct_0x6E8E) % sizeof(type_event_0x6E8E) > 0)
-						allert_error();
-					D41A0_0.StageVars2_0x365F4[i].str_0x3647C_4.dword = sizediff;
-				}
-				else
-				{
-					int count = D41A0_0.StageVars2_0x365F4[i].str_0x3647C_4.dword / sizeof(type_shadow_str_0x6E8E);
-					int countadd = D41A0_0.StageVars2_0x365F4[i].str_0x3647C_4.dword % sizeof(type_shadow_str_0x6E8E);
-					if (countadd > 0)allert_error();
-					D41A0_0.StageVars2_0x365F4[i].str_0x3647C_4.pointer_0x6E8E = &D41A0_0.struct_0x6E8E[count];
-				}
+					if (v2 == -1)
+					{
+						int diff = D41A0_0.StageVars2_0x365F4[i].str_0x3647C_4.pointer_0x6E8E - D41A0_0.struct_0x6E8E;
+						int sizediff = diff * sizeof(type_shadow_str_0x6E8E);
+						if (((char*)D41A0_0.StageVars2_0x365F4[i].str_0x3647C_4.pointer_0x6E8E - (char*)D41A0_0.struct_0x6E8E) % sizeof(type_event_0x6E8E) > 0)
+							allert_error();
+						D41A0_0.StageVars2_0x365F4[i].str_0x3647C_4.dword = sizediff;
+					}
+					else
+					{
+						int count = D41A0_0.StageVars2_0x365F4[i].str_0x3647C_4.dword / sizeof(type_shadow_str_0x6E8E);
+						int countadd = D41A0_0.StageVars2_0x365F4[i].str_0x3647C_4.dword % sizeof(type_shadow_str_0x6E8E);
+						if (countadd > 0)allert_error();
+						D41A0_0.StageVars2_0x365F4[i].str_0x3647C_4.pointer_0x6E8E = &D41A0_0.struct_0x6E8E[count];
+					}
 #ifdef x32_BIT_ENVIRONMENT
-				if (D41A0_0.StageVars2_0x365F4[i].str_0x3647C_4.pointer_0x6E8E != (type_event_0x6E8E*)((uint8_t*)temp_0x6E8E + (xBITINT)v3))
-					allert_error();  // only for x86
+					if (D41A0_0.StageVars2_0x365F4[i].str_0x3647C_4.pointer_0x6E8E != (type_event_0x6E8E*)((uint8_t*)temp_0x6E8E + (xBITINT)v3))
+						allert_error();  // only for x86
 #endif
+				}
 			}
 		}
 	}
@@ -68753,7 +68756,7 @@ void sub_57730()//238730
 	type_event_0x6E8E* v24x; // [esp+78h] [ebp-4h]
 
 #ifdef DEBUG_SEQUENCES2
-	//add_compare(0x238734, debugafterload);
+	add_compare(0x238734, debugafterload);
 #endif //DEBUG_SEQUENCES2
 
 	D41A0_0.rand_0x8 = 9377 * D41A0_0.rand_0x8 + 9439;
@@ -68919,7 +68922,7 @@ void sub_57730()//238730
 		if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 0x10))
 			sub_68BF0();
 #ifdef DEBUG_SEQUENCES2
-		//add_compare(0x2389f6, debugafterload);
+		add_compare(0x2389f6, debugafterload);
 #endif //DEBUG_SEQUENCES2
 		sub_159E0();//adress 2389f6
 		if (x_BYTE_D41B6)
@@ -87871,12 +87874,12 @@ void InitTmaps(unsigned __int16 a1)//251f50
 		if (!str_DWORD_F66F0x[i])
 		{
 			//0x251fb9
-			if (debugcount_InitTmaps >= 0xca)
+			/*if (debugcount_InitTmaps >= 0xca)
 			{
 				debugcount_InitTmaps++;
 				debugcount_InitTmaps--;
 			}
-			debugcount_InitTmaps++;
+			debugcount_InitTmaps++;*/
 
 			index3x = sub_71E70(x_DWORD_E9C28_str, (unsigned __int16)(4 * ((unsigned int)(str_TMAPS00TAB_BEGIN_BUFFER[i].dword_0 + 13) >> 2)), i);
 			//v4 = index3;
@@ -100061,7 +100064,7 @@ void sub_83B50()//264B50
 		{
 			x_D41A0_BYTEARRAY_4_struct.dword_0xE6_heapsize_230 = 0x400000;
 			//fix
-			x_D41A0_BYTEARRAY_4_struct.dword_0xE6_heapsize_230 += 0x100000;
+			x_D41A0_BYTEARRAY_4_struct.dword_0xE6_heapsize_230 += 0x400000;
 			//fix
 			sub_9A230_set_x_WORD_E37B4(822);
 		}
