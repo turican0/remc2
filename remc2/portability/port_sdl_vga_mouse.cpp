@@ -9,6 +9,8 @@
 extern DOS_Device* DOS_CON;
 #endif //USE_DOSBOX
 
+//bool hideGraphics = false;
+
 SDL_Window* gWindow = NULL;
 SDL_Renderer* renderer = NULL;
 SDL_Texture* texture = NULL;
@@ -812,6 +814,7 @@ void VGA_Set_mouse(int16_t x, int16_t y) {
 };
 
 void VGA_Blit(int  /*width*/, int  /*height*/, Uint8* srcBuffer) {
+	if (hideGraphics)return;
 	events();
 	if (SDL_MUSTLOCK(screen)) {
 		if (SDL_LockSurface(screen) < 0) {

@@ -37,11 +37,11 @@ void _strupr(char* s)
 //#define SET_LEVEL
 
 //#define RELEASE_GAME
-#define PLAYING_GAME
+//#define PLAYING_GAME
 //#define DEBUG_AFTERLOAD
 //#define DEBUG_ONSTART
-//#define TEST_REGRESSIONS_GAME
-int test_regression_level = 0;
+#define TEST_REGRESSIONS_GAME
+int test_regression_level = 13;
 
 //adress 2285ff
 #if defined(RELEASE_GAME) //this is standard setting
@@ -50,6 +50,7 @@ int test_regression_level = 0;
 	#define LOAD_EDITED_LEVEL
 	int debugafterload = 0;
 	#define DISABLE_GRAPHICS_ENHANCE
+	bool hideGraphics = false;
 #elif defined(PLAYING_GAME) //this is setting for autosavegame
 	#define DETECT_DWORD_A
 	#define AUTO_CHANGE_RES
@@ -57,6 +58,7 @@ int test_regression_level = 0;
 	#define FIX_FLYASISTANT
 	#define LOAD_EDITED_LEVEL
 	int debugafterload = 1;
+	bool hideGraphics = false;
 #elif defined(TEST_REGRESSIONS_GAME) //this is setting for regressions testing
 	#define DETECT_DWORD_A
 	#define COPY_SKIP_CONFIG
@@ -64,8 +66,9 @@ int test_regression_level = 0;
 	#define MOUSE_OFF2
 	#define OFF_PAUSE_5
 	#define TEST_REGRESSION
-	//#define DEBUG_SEQUENCES
-	//#define DEBUG_SEQUENCES2
+	bool hideGraphics = false;
+	#define DEBUG_SEQUENCES
+	#define DEBUG_SEQUENCES2
 	int debugafterload = 1;
 	//#define DISABLE_GRAPHICS_ENHANCE
 #elif defined(DEBUG_AFTERLOAD) //this is setting is for compare data with dosbox afterload(can fix mouse move, and etc.)
@@ -77,6 +80,7 @@ int test_regression_level = 0;
 	#define OFF_PAUSE_5
 	int debugafterload = 0;
 	#define DISABLE_GRAPHICS_ENHANCE
+	bool hideGraphics = false;
 #elif defined(DEBUG_ONSTART) //this is setting is for compare data with dosbox(can fix mouse move, and etc.)
 	#define DETECT_DWORD_A
 	#define COPY_SKIP_CONFIG
@@ -91,9 +95,11 @@ int test_regression_level = 0;
 	//#define DISABLE_GRAPHICS_ENHANCE
 	//#define DISABLE_GRAPHICS_ENHANCE
 	//#define MOVE_PLAYER
+	bool hideGraphics = false;
 #else
 	int debugafterload = 1;
 	int graphics_debug = false;
+	bool hideGraphics = false;
 #endif
 
 #define ANALYZE_ENTITY
@@ -45703,8 +45709,8 @@ if (debugafterload)
 								}
 								x_DWORD_F5730[v30] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 								a1y = *str_DWORD_F66F0x[v7x->word_0 + 15 - v25];
-								str_F2C20ar.dword0x08_width = a1y->word_2;
-								str_F2C20ar.dword0x06_height = a1y->word_4;
+								str_F2C20ar.dword0x08_width = a1y->width_2;
+								str_F2C20ar.dword0x06_height = a1y->height_4;
 								v31 = (signed __int64)(str_F2C20ar.dword0x18 * v7x->rotSpeed_8) / v99;
 								str_F2C20ar.dword0x0c_realHeight = v31;
 								str_F2C20ar.dword0x09_realWidth = v31 * str_F2C20ar.dword0x08_width / str_F2C20ar.dword0x06_height;
@@ -45727,8 +45733,8 @@ if (debugafterload)
 								}
 								x_DWORD_F5730[v35] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 								a1y = *str_DWORD_F66F0x[v32 + v7x->word_0];
-								str_F2C20ar.dword0x08_width = a1y->word_2;
-								str_F2C20ar.dword0x06_height = a1y->word_4;
+								str_F2C20ar.dword0x08_width = a1y->width_2;
+								str_F2C20ar.dword0x06_height = a1y->height_4;
 								v36 = (signed __int64)(str_F2C20ar.dword0x18 * v7x->rotSpeed_8) / v99;
 								str_F2C20ar.dword0x0c_realHeight = v36;
 								str_F2C20ar.dword0x09_realWidth = v36 * str_F2C20ar.dword0x08_width / str_F2C20ar.dword0x06_height;
@@ -45751,8 +45757,8 @@ if (debugafterload)
 										x_DWORD_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v7x->word_0 + (unsigned __int8)x_BYTE_D4750[0xc + v18]].word_8] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 									}
 									a1y = *str_DWORD_F66F0x[v7x->word_0 + (unsigned __int8)x_BYTE_D4750[0xc + v18]];
-									str_F2C20ar.dword0x08_width = a1y->word_2;
-									str_F2C20ar.dword0x06_height = a1y->word_4;
+									str_F2C20ar.dword0x08_width = a1y->width_2;
+									str_F2C20ar.dword0x06_height = a1y->height_4;
 									v24 = (signed __int64)(str_F2C20ar.dword0x18 * v7x->rotSpeed_8) / v99;
 									str_F2C20ar.dword0x0c_realHeight = v24;
 									str_F2C20ar.dword0x09_realWidth = v24 * str_F2C20ar.dword0x08_width / str_F2C20ar.dword0x06_height;
@@ -45772,8 +45778,8 @@ if (debugafterload)
 										x_DWORD_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v7x->word_0 + (unsigned __int8)x_BYTE_D4750[0xc + v18]].word_8] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 									}
 									a1y = *str_DWORD_F66F0x[v7x->word_0 + (unsigned __int8)x_BYTE_D4750[0xc + v18]];
-									str_F2C20ar.dword0x08_width = a1y->word_2;
-									str_F2C20ar.dword0x06_height = a1y->word_4;
+									str_F2C20ar.dword0x08_width = a1y->width_2;
+									str_F2C20ar.dword0x06_height = a1y->height_4;
 									v20 = (signed __int64)(str_F2C20ar.dword0x18 * v7x->rotSpeed_8) / v99;
 									str_F2C20ar.dword0x0c_realHeight = v20;
 									str_F2C20ar.dword0x09_realWidth = v20 * str_F2C20ar.dword0x08_width / str_F2C20ar.dword0x06_height;
@@ -45793,8 +45799,8 @@ if (debugafterload)
 									}									
 									x_DWORD_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v41].word_8] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 									a1y = *str_DWORD_F66F0x[v7x->word_0 + (unsigned __int8)x_BYTE_D4750[0x1c + v37]];
-									str_F2C20ar.dword0x08_width = a1y->word_2;
-									str_F2C20ar.dword0x06_height = a1y->word_4;
+									str_F2C20ar.dword0x08_width = a1y->width_2;
+									str_F2C20ar.dword0x06_height = a1y->height_4;
 									v42 = (signed __int64)(str_F2C20ar.dword0x18 * v7x->rotSpeed_8) / v99;
 									str_F2C20ar.dword0x0c_realHeight = v42;
 									str_F2C20ar.dword0x09_realWidth = v42 * str_F2C20ar.dword0x08_width / str_F2C20ar.dword0x06_height;
@@ -45815,8 +45821,8 @@ if (debugafterload)
 										x_DWORD_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v7x->word_0 + (unsigned __int8)x_BYTE_D4750[0x1c + v37]].word_8] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 									}
 									a1y = *str_DWORD_F66F0x[v7x->word_0 + (unsigned __int8)x_BYTE_D4750[0x1c + v37]];
-									str_F2C20ar.dword0x08_width = a1y->word_2;
-									str_F2C20ar.dword0x06_height = a1y->word_4;
+									str_F2C20ar.dword0x08_width = a1y->width_2;
+									str_F2C20ar.dword0x06_height = a1y->height_4;
 									v40 = (signed __int64)(str_F2C20ar.dword0x18 * v7x->rotSpeed_8) / v99;
 									str_F2C20ar.dword0x0c_realHeight = v40;
 									str_F2C20ar.dword0x09_realWidth = v40 * str_F2C20ar.dword0x08_width / str_F2C20ar.dword0x06_height;
@@ -45870,8 +45876,8 @@ if (debugafterload)
 								}
 								a1y = (type_particle_str*)*str_DWORD_F66F0x[v7x->word_0 + str_F2C20ar.dword0x14x->byte_0x5C_92];
 							LABEL_51:
-								str_F2C20ar.dword0x08_width = a1y->word_2;
-								str_F2C20ar.dword0x06_height = a1y->word_4;
+								str_F2C20ar.dword0x08_width = a1y->width_2;
+								str_F2C20ar.dword0x06_height = a1y->height_4;
 								v28 = (signed __int64)(str_F2C20ar.dword0x18 * v7x->rotSpeed_8) / v99;
 								str_F2C20ar.dword0x0c_realHeight = v28;
 								str_F2C20ar.dword0x09_realWidth = v28 * str_F2C20ar.dword0x08_width / str_F2C20ar.dword0x06_height;
@@ -46057,8 +46063,8 @@ if (debugafterload)
 						x_DWORD_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v52x->word_0 + 15 - v72].word_8] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 					}
 					a1y = *str_DWORD_F66F0x[v52x->word_0 + 15 - v72];
-					str_F2C20ar.dword0x08_width = a1y->word_2;
-					str_F2C20ar.dword0x06_height = a1y->word_4;
+					str_F2C20ar.dword0x08_width = a1y->width_2;
+					str_F2C20ar.dword0x06_height = a1y->height_4;
 					v78 = (signed __int64)(str_F2C20ar.dword0x18 * v52x->rotSpeed_8) / v100;
 					str_F2C20ar.dword0x0c_realHeight = v78;
 					str_F2C20ar.dword0x09_realWidth = v78 * str_F2C20ar.dword0x08_width / str_F2C20ar.dword0x06_height;
@@ -46078,8 +46084,8 @@ if (debugafterload)
 						x_DWORD_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v79 + v52x->word_0].word_8] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 					}
 					a1y = *str_DWORD_F66F0x[v79 + v52x->word_0];
-					str_F2C20ar.dword0x08_width = a1y->word_2;
-					str_F2C20ar.dword0x06_height = a1y->word_4;
+					str_F2C20ar.dword0x08_width = a1y->width_2;
+					str_F2C20ar.dword0x06_height = a1y->height_4;
 					v81 = (signed __int64)(str_F2C20ar.dword0x18 * v52x->rotSpeed_8) / v100;
 					str_F2C20ar.dword0x0c_realHeight = v81;
 					str_F2C20ar.dword0x09_realWidth = v81 * str_F2C20ar.dword0x08_width / str_F2C20ar.dword0x06_height;
@@ -46104,8 +46110,8 @@ if (debugafterload)
 						}
 						x_DWORD_F5730[v70] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 						a1y = *str_DWORD_F66F0x[v52x->word_0 + (unsigned __int8)x_BYTE_D4750[0xc + v62]];
-						str_F2C20ar.dword0x08_width = a1y->word_2;
-						str_F2C20ar.dword0x06_height = a1y->word_4;
+						str_F2C20ar.dword0x08_width = a1y->width_2;
+						str_F2C20ar.dword0x06_height = a1y->height_4;
 						v71 = (signed __int64)(str_F2C20ar.dword0x18 * v52x->rotSpeed_8) / v100;
 						str_F2C20ar.dword0x0c_realHeight = v71;
 						str_F2C20ar.dword0x09_realWidth = v71 * str_F2C20ar.dword0x08_width / str_F2C20ar.dword0x06_height;
@@ -46128,8 +46134,8 @@ if (debugafterload)
 						}
 						x_DWORD_F5730[v65] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 						a1y = *str_DWORD_F66F0x[v52x->word_0 + (unsigned __int8)x_BYTE_D4750[0xc + v62]];
-						str_F2C20ar.dword0x08_width = a1y->word_2;
-						str_F2C20ar.dword0x06_height = a1y->word_4;
+						str_F2C20ar.dword0x08_width = a1y->width_2;
+						str_F2C20ar.dword0x06_height = a1y->height_4;
 						v66 = (signed __int64)(str_F2C20ar.dword0x18 * v52x->rotSpeed_8) / v100;
 						str_F2C20ar.dword0x0c_realHeight = v66;
 						str_F2C20ar.dword0x09_realWidth = v66 * str_F2C20ar.dword0x08_width / str_F2C20ar.dword0x06_height;
@@ -46155,8 +46161,8 @@ if (debugafterload)
 						}
 						x_DWORD_F5730[v88] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 						a1y = *str_DWORD_F66F0x[v52x->word_0 + (unsigned __int8)x_BYTE_D4750[0x1c + v82]];
-						str_F2C20ar.dword0x08_width = a1y->word_2;
-						str_F2C20ar.dword0x06_height = a1y->word_4;
+						str_F2C20ar.dword0x08_width = a1y->width_2;
+						str_F2C20ar.dword0x06_height = a1y->height_4;
 						v89 = (signed __int64)(str_F2C20ar.dword0x18 * v52x->rotSpeed_8) / v100;
 						str_F2C20ar.dword0x0c_realHeight = v89;
 						str_F2C20ar.dword0x09_realWidth = v89 * str_F2C20ar.dword0x08_width / str_F2C20ar.dword0x06_height;
@@ -46177,8 +46183,8 @@ if (debugafterload)
 							x_DWORD_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v52x->word_0 + (unsigned __int8)x_BYTE_D4750[0x1c + v82]].word_8] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 						}
 						a1y = *str_DWORD_F66F0x[v52x->word_0 + (unsigned __int8)x_BYTE_D4750[0x1c + v82]];
-						str_F2C20ar.dword0x08_width = a1y->word_2;
-						str_F2C20ar.dword0x06_height = a1y->word_4;
+						str_F2C20ar.dword0x08_width = a1y->width_2;
+						str_F2C20ar.dword0x06_height = a1y->height_4;
 						v85 = (signed __int64)(str_F2C20ar.dword0x18 * v52x->rotSpeed_8) / v100;
 						str_F2C20ar.dword0x0c_realHeight = v85;
 						str_F2C20ar.dword0x09_realWidth = v85 * str_F2C20ar.dword0x08_width / str_F2C20ar.dword0x06_height;
@@ -46231,8 +46237,8 @@ if (debugafterload)
 					}
 					a1y = *str_DWORD_F66F0x[v52x->word_0 + str_F2C20ar.dword0x14x->byte_0x5C_92];
 				LABEL_141:
-					str_F2C20ar.dword0x08_width = a1y->word_2;
-					str_F2C20ar.dword0x06_height = a1y->word_4;
+					str_F2C20ar.dword0x08_width = a1y->width_2;
+					str_F2C20ar.dword0x06_height = a1y->height_4;
 					v76 = (signed __int64)(str_F2C20ar.dword0x18 * v52x->rotSpeed_8) / v100;
 					str_F2C20ar.dword0x0c_realHeight = v76;
 					str_F2C20ar.dword0x09_realWidth = v76 * str_F2C20ar.dword0x08_width / str_F2C20ar.dword0x06_height;
@@ -46565,8 +46571,8 @@ void sub_3E360_draw_particlesB(/*uint8_t* a1,*/ int a2x)//21f360
 								}
 								x_DWORD_F5730[v30] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 								a1y = *str_DWORD_F66F0x[v7x->word_0 + 15 - v25];
-								str_F2C20ar.dword0x08_width = a1y->word_2;
-								str_F2C20ar.dword0x06_height = a1y->word_4;
+								str_F2C20ar.dword0x08_width = a1y->width_2;
+								str_F2C20ar.dword0x06_height = a1y->height_4;
 								v31 = (signed __int64)(str_F2C20ar.dword0x18 * v7x->rotSpeed_8) / v99;
 								str_F2C20ar.dword0x0c_realHeight = v31;
 								str_F2C20ar.dword0x09_realWidth = v31 * str_F2C20ar.dword0x08_width / str_F2C20ar.dword0x06_height;
@@ -46589,8 +46595,8 @@ void sub_3E360_draw_particlesB(/*uint8_t* a1,*/ int a2x)//21f360
 								}
 								x_DWORD_F5730[v35] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 								a1y = *str_DWORD_F66F0x[v32 + v7x->word_0];
-								str_F2C20ar.dword0x08_width = a1y->word_2;
-								str_F2C20ar.dword0x06_height = a1y->word_4;
+								str_F2C20ar.dword0x08_width = a1y->width_2;
+								str_F2C20ar.dword0x06_height = a1y->height_4;
 								v36 = (signed __int64)(str_F2C20ar.dword0x18 * v7x->rotSpeed_8) / v99;
 								str_F2C20ar.dword0x0c_realHeight = v36;
 								str_F2C20ar.dword0x09_realWidth = v36 * str_F2C20ar.dword0x08_width / str_F2C20ar.dword0x06_height;
@@ -46613,8 +46619,8 @@ void sub_3E360_draw_particlesB(/*uint8_t* a1,*/ int a2x)//21f360
 										x_DWORD_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v7x->word_0 + (unsigned __int8)x_BYTE_D4750[0xc + v18]].word_8] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 									}
 									a1y = *str_DWORD_F66F0x[v7x->word_0 + (unsigned __int8)x_BYTE_D4750[0xc + v18]];
-									str_F2C20ar.dword0x08_width = a1y->word_2;
-									str_F2C20ar.dword0x06_height = a1y->word_4;
+									str_F2C20ar.dword0x08_width = a1y->width_2;
+									str_F2C20ar.dword0x06_height = a1y->height_4;
 									v24 = (signed __int64)(str_F2C20ar.dword0x18 * v7x->rotSpeed_8) / v99;
 									str_F2C20ar.dword0x0c_realHeight = v24;
 									str_F2C20ar.dword0x09_realWidth = v24 * str_F2C20ar.dword0x08_width / str_F2C20ar.dword0x06_height;
@@ -46634,8 +46640,8 @@ void sub_3E360_draw_particlesB(/*uint8_t* a1,*/ int a2x)//21f360
 										x_DWORD_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v7x->word_0 + (unsigned __int8)x_BYTE_D4750[0xc + v18]].word_8] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 									}
 									a1y = *str_DWORD_F66F0x[v7x->word_0 + (unsigned __int8)x_BYTE_D4750[0xc + v18]];
-									str_F2C20ar.dword0x08_width = a1y->word_2;
-									str_F2C20ar.dword0x06_height = a1y->word_4;
+									str_F2C20ar.dword0x08_width = a1y->width_2;
+									str_F2C20ar.dword0x06_height = a1y->height_4;
 									v20 = (signed __int64)(str_F2C20ar.dword0x18 * v7x->rotSpeed_8) / v99;
 									str_F2C20ar.dword0x0c_realHeight = v20;
 									str_F2C20ar.dword0x09_realWidth = v20 * str_F2C20ar.dword0x08_width / str_F2C20ar.dword0x06_height;
@@ -46655,8 +46661,8 @@ void sub_3E360_draw_particlesB(/*uint8_t* a1,*/ int a2x)//21f360
 									}
 									x_DWORD_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v41].word_8] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 									a1y = *str_DWORD_F66F0x[v7x->word_0 + (unsigned __int8)x_BYTE_D4750[0x1c + v37]];
-									str_F2C20ar.dword0x08_width = a1y->word_2;
-									str_F2C20ar.dword0x06_height = a1y->word_4;
+									str_F2C20ar.dword0x08_width = a1y->width_2;
+									str_F2C20ar.dword0x06_height = a1y->height_4;
 									v42 = (signed __int64)(str_F2C20ar.dword0x18 * v7x->rotSpeed_8) / v99;
 									str_F2C20ar.dword0x0c_realHeight = v42;
 									str_F2C20ar.dword0x09_realWidth = v42 * str_F2C20ar.dword0x08_width / str_F2C20ar.dword0x06_height;
@@ -46677,8 +46683,8 @@ void sub_3E360_draw_particlesB(/*uint8_t* a1,*/ int a2x)//21f360
 										x_DWORD_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v7x->word_0 + (unsigned __int8)x_BYTE_D4750[0x1c + v37]].word_8] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 									}
 									a1y = *str_DWORD_F66F0x[v7x->word_0 + (unsigned __int8)x_BYTE_D4750[0x1c + v37]];
-									str_F2C20ar.dword0x08_width = a1y->word_2;
-									str_F2C20ar.dword0x06_height = a1y->word_4;
+									str_F2C20ar.dword0x08_width = a1y->width_2;
+									str_F2C20ar.dword0x06_height = a1y->height_4;
 									v40 = (signed __int64)(str_F2C20ar.dword0x18 * v7x->rotSpeed_8) / v99;
 									str_F2C20ar.dword0x0c_realHeight = v40;
 									str_F2C20ar.dword0x09_realWidth = v40 * str_F2C20ar.dword0x08_width / str_F2C20ar.dword0x06_height;
@@ -46732,8 +46738,8 @@ void sub_3E360_draw_particlesB(/*uint8_t* a1,*/ int a2x)//21f360
 								}
 								a1y = *str_DWORD_F66F0x[v7x->word_0 + str_F2C20ar.dword0x14x->byte_0x5C_92];
 							LABEL_51:
-								str_F2C20ar.dword0x08_width = a1y->word_2;
-								str_F2C20ar.dword0x06_height = a1y->word_4;
+								str_F2C20ar.dword0x08_width = a1y->width_2;
+								str_F2C20ar.dword0x06_height = a1y->height_4;
 								v28 = (signed __int64)(str_F2C20ar.dword0x18 * v7x->rotSpeed_8) / v99;
 								str_F2C20ar.dword0x0c_realHeight = v28;
 								str_F2C20ar.dword0x09_realWidth = v28 * str_F2C20ar.dword0x08_width / str_F2C20ar.dword0x06_height;
@@ -46920,8 +46926,8 @@ void sub_3E360_draw_particlesB(/*uint8_t* a1,*/ int a2x)//21f360
 						x_DWORD_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v52x->word_0 + 15 - v72].word_8] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 					}
 					a1y = *str_DWORD_F66F0x[v52x->word_0 + 15 - v72];
-					str_F2C20ar.dword0x08_width = a1y->word_2;
-					str_F2C20ar.dword0x06_height = a1y->word_4;
+					str_F2C20ar.dword0x08_width = a1y->width_2;
+					str_F2C20ar.dword0x06_height = a1y->height_4;
 					v78 = (signed __int64)(str_F2C20ar.dword0x18 * v52x->rotSpeed_8) / v100;
 					str_F2C20ar.dword0x0c_realHeight = v78;
 					str_F2C20ar.dword0x09_realWidth = v78 * str_F2C20ar.dword0x08_width / str_F2C20ar.dword0x06_height;
@@ -46941,8 +46947,8 @@ void sub_3E360_draw_particlesB(/*uint8_t* a1,*/ int a2x)//21f360
 						x_DWORD_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v79 + v52x->word_0].word_8] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 					}
 					a1y = *str_DWORD_F66F0x[v79 + v52x->word_0];
-					str_F2C20ar.dword0x08_width = a1y->word_2;
-					str_F2C20ar.dword0x06_height = a1y->word_4;
+					str_F2C20ar.dword0x08_width = a1y->width_2;
+					str_F2C20ar.dword0x06_height = a1y->height_4;
 					v81 = (signed __int64)(str_F2C20ar.dword0x18 * v52x->rotSpeed_8) / v100;
 					str_F2C20ar.dword0x0c_realHeight = v81;
 					str_F2C20ar.dword0x09_realWidth = v81 * str_F2C20ar.dword0x08_width / str_F2C20ar.dword0x06_height;
@@ -46967,8 +46973,8 @@ void sub_3E360_draw_particlesB(/*uint8_t* a1,*/ int a2x)//21f360
 						}
 						x_DWORD_F5730[v70] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 						a1y = *str_DWORD_F66F0x[v52x->word_0 + (unsigned __int8)x_BYTE_D4750[0xc + v62]];
-						str_F2C20ar.dword0x08_width = a1y->word_2;
-						str_F2C20ar.dword0x06_height = a1y->word_4;
+						str_F2C20ar.dword0x08_width = a1y->width_2;
+						str_F2C20ar.dword0x06_height = a1y->height_4;
 						v71 = (signed __int64)(str_F2C20ar.dword0x18 * v52x->rotSpeed_8) / v100;
 						str_F2C20ar.dword0x0c_realHeight = v71;
 						str_F2C20ar.dword0x09_realWidth = v71 * str_F2C20ar.dword0x08_width / str_F2C20ar.dword0x06_height;
@@ -46991,8 +46997,8 @@ void sub_3E360_draw_particlesB(/*uint8_t* a1,*/ int a2x)//21f360
 						}
 						x_DWORD_F5730[v65] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 						a1y = *str_DWORD_F66F0x[v52x->word_0 + (unsigned __int8)x_BYTE_D4750[0xc + v62]];
-						str_F2C20ar.dword0x08_width = a1y->word_2;
-						str_F2C20ar.dword0x06_height = a1y->word_4;
+						str_F2C20ar.dword0x08_width = a1y->width_2;
+						str_F2C20ar.dword0x06_height = a1y->height_4;
 						v66 = (signed __int64)(str_F2C20ar.dword0x18 * v52x->rotSpeed_8) / v100;
 						str_F2C20ar.dword0x0c_realHeight = v66;
 						str_F2C20ar.dword0x09_realWidth = v66 * str_F2C20ar.dword0x08_width / str_F2C20ar.dword0x06_height;
@@ -47018,8 +47024,8 @@ void sub_3E360_draw_particlesB(/*uint8_t* a1,*/ int a2x)//21f360
 						}
 						x_DWORD_F5730[v88] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 						a1y = *str_DWORD_F66F0x[v52x->word_0 + (unsigned __int8)x_BYTE_D4750[0x1c + v82]];
-						str_F2C20ar.dword0x08_width = a1y->word_2;
-						str_F2C20ar.dword0x06_height = a1y->word_4;
+						str_F2C20ar.dword0x08_width = a1y->width_2;
+						str_F2C20ar.dword0x06_height = a1y->height_4;
 						v89 = (signed __int64)(str_F2C20ar.dword0x18 * v52x->rotSpeed_8) / v100;
 						str_F2C20ar.dword0x0c_realHeight = v89;
 						str_F2C20ar.dword0x09_realWidth = v89 * str_F2C20ar.dword0x08_width / str_F2C20ar.dword0x06_height;
@@ -47040,8 +47046,8 @@ void sub_3E360_draw_particlesB(/*uint8_t* a1,*/ int a2x)//21f360
 							x_DWORD_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v52x->word_0 + (unsigned __int8)x_BYTE_D4750[0x1c + v82]].word_8] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 						}
 						a1y = *str_DWORD_F66F0x[v52x->word_0 + (unsigned __int8)x_BYTE_D4750[0x1c + v82]];
-						str_F2C20ar.dword0x08_width = a1y->word_2;
-						str_F2C20ar.dword0x06_height = a1y->word_4;
+						str_F2C20ar.dword0x08_width = a1y->width_2;
+						str_F2C20ar.dword0x06_height = a1y->height_4;
 						v85 = (signed __int64)(str_F2C20ar.dword0x18 * v52x->rotSpeed_8) / v100;
 						str_F2C20ar.dword0x0c_realHeight = v85;
 						str_F2C20ar.dword0x09_realWidth = v85 * str_F2C20ar.dword0x08_width / str_F2C20ar.dword0x06_height;
@@ -47094,8 +47100,8 @@ void sub_3E360_draw_particlesB(/*uint8_t* a1,*/ int a2x)//21f360
 					}
 					a1y = *str_DWORD_F66F0x[v52x->word_0 + str_F2C20ar.dword0x14x->byte_0x5C_92];
 				LABEL_141:
-					str_F2C20ar.dword0x08_width = a1y->word_2;
-					str_F2C20ar.dword0x06_height = a1y->word_4;
+					str_F2C20ar.dword0x08_width = a1y->width_2;
+					str_F2C20ar.dword0x06_height = a1y->height_4;
 					v76 = (signed __int64)(str_F2C20ar.dword0x18 * v52x->rotSpeed_8) / v100;
 					str_F2C20ar.dword0x0c_realHeight = v76;
 					str_F2C20ar.dword0x09_realWidth = v76 * str_F2C20ar.dword0x08_width / str_F2C20ar.dword0x06_height;
@@ -47350,8 +47356,8 @@ unsigned __int16 sub_3FD60(int a2x)//220d60
 							x_DWORD_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v9x->word_0 + 15 - v26].word_8] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 						}
 						a1x = *str_DWORD_F66F0x[v9x->word_0 + 15 - v26];
-						str_F2C20ar.dword0x08_width = a1x->word_2;
-						str_F2C20ar.dword0x06_height = a1x->word_4;
+						str_F2C20ar.dword0x08_width = a1x->width_2;
+						str_F2C20ar.dword0x06_height = a1x->height_4;
 						/*str_F2C20ar.dword0x08_width = *(unsigned __int16*)(a1 + 2);
 						str_F2C20ar.dword0x06_height = *(unsigned __int16*)(a1 + 4);*/
 						v28 = (signed __int64)(str_F2C20ar.dword0x18 * v9x->rotSpeed_8) / v40;
@@ -47373,8 +47379,8 @@ unsigned __int16 sub_3FD60(int a2x)//220d60
 							x_DWORD_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v29 + v9x->word_0].word_8] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 						}
 						a1x = *str_DWORD_F66F0x[v9x->word_0 + v29];
-						str_F2C20ar.dword0x08_width = a1x->word_2;
-						str_F2C20ar.dword0x06_height = a1x->word_4;
+						str_F2C20ar.dword0x08_width = a1x->width_2;
+						str_F2C20ar.dword0x06_height = a1x->height_4;
 						/*str_F2C20ar.dword0x08_width = *(unsigned __int16*)(a1 + 2);
 						str_F2C20ar.dword0x06_height = *(unsigned __int16*)(a1 + 4);*/
 						v31 = (signed __int64)(str_F2C20ar.dword0x18 * v9x->rotSpeed_8) / v40;
@@ -47395,8 +47401,8 @@ unsigned __int16 sub_3FD60(int a2x)//220d60
 							}
 							x_DWORD_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v24].word_8] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 							a1x = *str_DWORD_F66F0x[v9x->word_0 + (unsigned __int8)x_BYTE_D4750[0xc + v19]];
-							str_F2C20ar.dword0x08_width = a1x->word_2;
-							str_F2C20ar.dword0x06_height = a1x->word_4;
+							str_F2C20ar.dword0x08_width = a1x->width_2;
+							str_F2C20ar.dword0x06_height = a1x->height_4;
 							/*str_F2C20ar.dword0x08_width = *(unsigned __int16*)(a1 + 2);
 							str_F2C20ar.dword0x06_height = *(unsigned __int16*)(a1 + 4);*/
 							v25 = (signed __int64)(str_F2C20ar.dword0x18 * v9x->rotSpeed_8) / v40;
@@ -47419,8 +47425,8 @@ unsigned __int16 sub_3FD60(int a2x)//220d60
 								x_DWORD_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v9x->word_0 + (unsigned __int8)x_BYTE_D4750[0xc + v19]].word_8] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 							}
 							a1x = *str_DWORD_F66F0x[v9x->word_0 + (unsigned __int8)x_BYTE_D4750[0xc + v19]];
-							str_F2C20ar.dword0x08_width = a1x->word_2;
-							str_F2C20ar.dword0x06_height = a1x->word_4;
+							str_F2C20ar.dword0x08_width = a1x->width_2;
+							str_F2C20ar.dword0x06_height = a1x->height_4;
 							/*str_F2C20ar.dword0x08_width = *(unsigned __int16*)(a1 + 2);
 							str_F2C20ar.dword0x06_height = *(unsigned __int16*)(a1 + 4);*/
 							v22 = (signed __int64)(str_F2C20ar.dword0x18 * v9x->rotSpeed_8) / v40;
@@ -47445,8 +47451,8 @@ unsigned __int16 sub_3FD60(int a2x)//220d60
 								x_DWORD_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v9x->word_0 + (unsigned __int8)x_BYTE_D4750[0x1c + v32]].word_8] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 							}
 							a1x = *str_DWORD_F66F0x[(unsigned __int8)x_BYTE_D4750[0x1c + v32] + v9x->word_0];
-							str_F2C20ar.dword0x08_width = a1x->word_2;
-							str_F2C20ar.dword0x06_height = a1x->word_4;
+							str_F2C20ar.dword0x08_width = a1x->width_2;
+							str_F2C20ar.dword0x06_height = a1x->height_4;
 							/*str_F2C20ar.dword0x08_width = *(unsigned __int16*)(a1 + 2);
 							str_F2C20ar.dword0x06_height = *(unsigned __int16*)(a1 + 4);*/
 							v36 = (signed __int64)(str_F2C20ar.dword0x18 * v9x->rotSpeed_8) / v40;
@@ -47468,8 +47474,8 @@ unsigned __int16 sub_3FD60(int a2x)//220d60
 								x_DWORD_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v9x->word_0 + (unsigned __int8)x_BYTE_D4750[0x1c + v32]].word_8] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 							}
 							a1x = *str_DWORD_F66F0x[v9x->word_0 + (unsigned __int8)x_BYTE_D4750[0x1c + v32]];
-							str_F2C20ar.dword0x08_width = a1x->word_2;
-							str_F2C20ar.dword0x06_height = a1x->word_4;
+							str_F2C20ar.dword0x08_width = a1x->width_2;
+							str_F2C20ar.dword0x06_height = a1x->height_4;
 							/*str_F2C20ar.dword0x08_width = *(unsigned __int16*)(a1 + 2);
 							str_F2C20ar.dword0x06_height = *(unsigned __int16*)(a1 + 4);*/
 							v34 = (signed __int64)(str_F2C20ar.dword0x18 * v9x->rotSpeed_8) / v40;
@@ -47524,8 +47530,8 @@ unsigned __int16 sub_3FD60(int a2x)//220d60
 						}
 						a1x = *str_DWORD_F66F0x[v9x->word_0 + v41x->byte_0x5C_92];
 					LABEL_47:
-						str_F2C20ar.dword0x08_width = a1x->word_2;
-						str_F2C20ar.dword0x06_height = a1x->word_4;
+						str_F2C20ar.dword0x08_width = a1x->width_2;
+						str_F2C20ar.dword0x06_height = a1x->height_4;
 						/*str_F2C20ar.dword0x08_width = *(unsigned __int16*)(a1 + 2);
 						str_F2C20ar.dword0x06_height = *(unsigned __int16*)(a1 + 4);*/
 						v27 = (signed __int64)(str_F2C20ar.dword0x18 * v9x->rotSpeed_8) / v40;
@@ -51362,8 +51368,8 @@ void write_pngs2()
 		{
 			type_particle_str* actimg = *str_DWORD_F66F0x[k];
 			int lenght = actimg->word_0;
-			int width = actimg->word_2;
-			int height = actimg->word_4;
+			int width = actimg->width_2;
+			int height = actimg->height_4;
 			/*int lenght = *(uint16_t*)(actimg + 0);
 			int width = *(uint16_t*)(actimg + 2);
 			int height = *(uint16_t*)(actimg + 4);*/
@@ -87792,6 +87798,9 @@ int sub_70EF0(unsigned __int16 a1)//251ef0
 	return i;
 }
 
+
+int debugcount_InitTmaps = 0;
+
 // F6ED0: using guessed type int TMAPS00TAB_BEGIN_BUFFER;
 //----- (00070F50) --------------------------------------------------------
 void InitTmaps(unsigned __int16 a1)//251f50
@@ -87861,18 +87870,26 @@ void InitTmaps(unsigned __int16 a1)//251f50
 		v6 = i;
 		if (!str_DWORD_F66F0x[i])
 		{
+			//0x251fb9
+			if (debugcount_InitTmaps >= 0xca)
+			{
+				debugcount_InitTmaps++;
+				debugcount_InitTmaps--;
+			}
+			debugcount_InitTmaps++;
+
 			index3x = sub_71E70(x_DWORD_E9C28_str, (unsigned __int16)(4 * ((unsigned int)(str_TMAPS00TAB_BEGIN_BUFFER[i].dword_0 + 13) >> 2)), i);
 			//v4 = index3;
 			if (index3x)
 			{
-				int index4 = sub_70C60_decompress_tmap(i, *(uint8_t**)index3x);
+				int index4 = sub_70C60_decompress_tmap(i, (uint8_t*)index3x->partstr_0);
 				if (index4 != -1)
 				{
 					if (bigSprites)
 					{
-						uint8_t* oldtmap = *(uint8_t**)index3x;
-						int oldwidth = *(uint16_t*)(oldtmap + 2);
-						int oldheight = *(uint16_t*)(oldtmap + 4);
+						type_particle_str* oldtmapx = index3x->partstr_0;
+						int oldwidth = oldtmapx->width_2;
+						int oldheight = oldtmapx->height_4;
 						if ((oldwidth > 0) && (oldwidth < 0x200) && (oldheight > 0) && (oldheight < 0x200))
 						{
 							int actnumber = 0;
@@ -87907,9 +87924,9 @@ void InitTmaps(unsigned __int16 a1)//251f50
 							BIG_SPRITES_BUFFERx[i].actdatax = (type_particle_str*)malloc(oldwidth * 4 * oldheight * 4 + 6 + 2);
 							memcpy(BIG_SPRITES_BUFFERx[i].actdatax->data_6, BIG_SPRITES_BUFFERx[i].frames[0], oldwidth * 4 * oldheight * 4);
 
-							BIG_SPRITES_BUFFERx[i].actdatax->word_0 = *(uint16_t*)oldtmap;
-							BIG_SPRITES_BUFFERx[i].actdatax->word_2 = oldwidth * 4;
-							BIG_SPRITES_BUFFERx[i].actdatax->word_4 = oldheight * 4;
+							BIG_SPRITES_BUFFERx[i].actdatax->word_0 = oldtmapx->word_0;
+							BIG_SPRITES_BUFFERx[i].actdatax->width_2 = oldwidth * 4;
+							BIG_SPRITES_BUFFERx[i].actdatax->height_4 = oldheight * 4;
 							*(uint16_t*)&BIG_SPRITES_BUFFERx[i].actdatax->data_6[oldwidth * 4 * oldheight * 4] = mm;
 
 							/*for (int xx = 0; xx < oldwidth*4; xx++)
@@ -88822,7 +88839,7 @@ type_animations1* sub_721C0_initTmap(type_E9C08* a1x, type_particle_str** a2x, _
 	if (v12 <= -1)
 		return 0;
 	v7x = *a2x;
-	v8 = (*a2x)->word_4 * (*a2x)->word_2;
+	v8 = (*a2x)->height_4 * (*a2x)->width_2;
 	//v9 = *(x_WORD*)(v8 + (*a2x)->un_0.byte[0] + 6);//? is ok
 	v9 = ((*a2x)->data_6)[v8];//? is ok
 	//v10 = 28 * v12;
@@ -88830,8 +88847,8 @@ type_animations1* sub_721C0_initTmap(type_E9C08* a1x, type_particle_str** a2x, _
 	a1x->dword_2[v12].word_12 = 6;
 	a1x->dword_2[v12].word_14 = v8 + 6;
 	a1x->dword_2[v12].CountOfFrames_16 = v9;
-	a1x->dword_2[v12].Width_18 = v7x->word_2;
-	a1x->dword_2[v12].Height_20 = v7x->word_4;
+	a1x->dword_2[v12].Width_18 = v7x->width_2;
+	a1x->dword_2[v12].Height_20 = v7x->height_4;
 	a1x->dword_2[v12].dword_8 = v8 + 6;
 	a1x->dword_2[v12].FrameIndex_22 = 1;
 	a1x->dword_2[v12].dword_0 = 1;
@@ -88863,8 +88880,8 @@ void sub_72350(type_animations1* a1x)//253350 //animates sprite
 			type_particle_str* baseadr = *str_DWORD_F66F0x[a1x->word_26];
 			if (baseadr != NULL)
 			{
-				int animwidth = baseadr->word_2;
-				int animheight = baseadr->word_4;
+				int animwidth = baseadr->width_2;
+				int animheight = baseadr->height_4;
 				if ((animwidth > 0) && (animheight > 0) && (animwidth < 1000) && (animheight < 1000))
 					memcpy(&baseadr->data_6, BIG_SPRITES_BUFFERx[a1x->word_26].frames[a1x->FrameIndex_22 - 1], (animwidth * animheight));
 			}

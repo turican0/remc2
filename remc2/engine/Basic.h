@@ -140,7 +140,6 @@ typedef struct//lenght 613 // end 17E09D
 } type_x_DWORD_17DE38str;
 #pragma pack (16)
 
-
 extern char gameDataPath[];
 extern char cdDataPath[];
 extern char bigGraphicsPath[];

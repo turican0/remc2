@@ -9,6 +9,8 @@ char bigGraphicsPath[MAX_PATH];
 //type_17ECA0 str_17ECA0[256]; // weak
 //uint8_t x_DWORD_17ECA0[4608]; // weak
 
+//bool hideGraphics;
+
 TColor unk_17D838x[0x100]; // weak
 
 int x_DWORD_E3E2C = 0; // weak
