@@ -41,7 +41,7 @@ void _strupr(char* s)
 //#define DEBUG_AFTERLOAD
 //#define DEBUG_ONSTART
 #define TEST_REGRESSIONS_GAME
-int test_regression_level = 13;
+int test_regression_level = 4;
 
 //adress 2285ff
 #if defined(RELEASE_GAME) //this is standard setting
@@ -9798,6 +9798,7 @@ void sub_12500(type_event_0x6E8E* a1x)//1f3500
 	}
 }
 
+int debugcount_sub_12780 = 0;
 //----- (00012780) --------------------------------------------------------
 void sub_12780()//1f3780
 {
@@ -9812,6 +9813,12 @@ void sub_12780()//1f3780
 #ifdef DEBUG_SEQUENCES
 		//add_compare(0x1F3783, debugafterload);
 #endif //DEBUG_SEQUENCES
+	/*if (debugcount_sub_12780 >= 2)
+	{
+		debugcount_sub_12780++;
+		debugcount_sub_12780--;
+	}
+	debugcount_sub_12780++;*/
 
 	v0 = 1;
 	resultx = 0;
@@ -9839,8 +9846,11 @@ void sub_12780()//1f3780
 				goto LABEL_12;
 			}
 			v4x = D41A0_0.StageVars2_0x365F4[resultx + 1].str_0x3647C_4.pointer_0x6E8E;
-			if (v4x && (v4x->dword_0x8 < 0 || v4x->struct_byte_0xc_12_15.byte[1] & 4))
-				goto LABEL_11;
+			if (v4x >= x_DWORD_EA3E4[0])//fix
+			{
+				if (v4x && (v4x->dword_0x8 < 0 || v4x->struct_byte_0xc_12_15.byte[1] & 4))
+					goto LABEL_11;
+			}
 		LABEL_12:
 			if (v2)
 				D41A0_0.StageVars2_0x365F4[resultx + 1].stage_0x3647A_1 |= 4u;
