@@ -41,7 +41,7 @@ void _strupr(char* s)
 //#define DEBUG_AFTERLOAD
 //#define DEBUG_ONSTART
 #define TEST_REGRESSIONS_GAME
-int test_regression_level = 4;
+int test_regression_level = 17;
 
 //adress 2285ff
 #if defined(RELEASE_GAME) //this is standard setting
@@ -9846,7 +9846,7 @@ void sub_12780()//1f3780
 				goto LABEL_12;
 			}
 			v4x = D41A0_0.StageVars2_0x365F4[resultx + 1].str_0x3647C_4.pointer_0x6E8E;
-			if (v4x >= x_DWORD_EA3E4[0])//fix
+			if (v4x >= x_DWORD_EA3E4[0] && v4x < x_DWORD_EA3E4[0x3e8])//fix
 			{
 				if (v4x && (v4x->dword_0x8 < 0 || v4x->struct_byte_0xc_12_15.byte[1] & 4))
 					goto LABEL_11;
