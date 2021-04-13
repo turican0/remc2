@@ -41,7 +41,7 @@ void _strupr(char* s)
 //#define DEBUG_AFTERLOAD
 //#define DEBUG_ONSTART
 #define TEST_REGRESSIONS_GAME
-int test_regression_level = 17;
+int test_regression_level = 21;
 
 //adress 2285ff
 #if defined(RELEASE_GAME) //this is standard setting
@@ -67,8 +67,8 @@ int test_regression_level = 17;
 	#define OFF_PAUSE_5
 	#define TEST_REGRESSION
 	bool hideGraphics = true;
-	//#define DEBUG_SEQUENCES
-	//#define DEBUG_SEQUENCES2
+	#define DEBUG_SEQUENCES
+	#define DEBUG_SEQUENCES2
 	int debugafterload = 1;
 	//#define DISABLE_GRAPHICS_ENHANCE
 #elif defined(DEBUG_AFTERLOAD) //this is setting is for compare data with dosbox afterload(can fix mouse move, and etc.)
@@ -52287,12 +52287,12 @@ void sub_47560_draw_and_events_in_game(/*uint8_t* a1, int a2, */uint32_t a3, sig
 #ifdef DEBUG_SEQUENCES
 	//add_compare(0x002285FF, debugafterload);
 #endif //DEBUG_SEQUENCES
-	if (debugcounter_47560_2>=0x8f)
+	/*if (debugcounter_47560_2>=0x8f)
 	{
 		debugcounter_47560_2++;
 		debugcounter_47560_2--;
 	}
-	debugcounter_47560_2++;
+	debugcounter_47560_2++;*/
 #ifdef ANALYZE_ENTITY
 	analyzeEntites();
 #endif //ANALYZE_ENTITY
@@ -59259,6 +59259,8 @@ type_event_0x6E8E* IfSubtypeCallAxisEvent_4A190(axis_3d* position, int type, int
 		return pre_sub_4A190_axis_3d(str_D4C48ar[type].dword_14[subtype].adress_6, position);
 	return 0;
 }
+
+
 // D4C56: using guessed type int x_DWORD_D4C56;
 int debugcounter_0022B25D = 0;
 //----- (0004A1E0) --------------------------------------------------------
@@ -59279,12 +59281,21 @@ void sub_4A1E0(int a1, char a2)//22b1e0
 		sub_71780();
 	}
 	sub_49F90();
-	sub_122C0(a1);//adress 22b257
+	sub_122C0(a1);
+	//adress 22b257
 	for (int iy = 1; iy < 0x4b0; iy++)
 	{
+
+		/*if (debugcounter_0022B25D >= 0x55)
+		{
+			debugcounter_0022B25D++;
+			debugcounter_0022B25D--;
+		}
+		debugcounter_0022B25D++;*/
+
 		//adress 22b26e
 #ifdef DEBUG_SEQUENCES
-		//add_compare(0x22b268, debugafterload,0xc4);//0x9ac
+		//add_compare(0x22b268, debugafterload,0x54);//0x9ac
 #endif //DEBUG_SEQUENCES
 		if (D41A0_0.terrain_2FECE.entity_0x30311[iy].type_0x30311 && D41A0_0.terrain_2FECE.entity_0x30311[iy].DisId == a1)
 		{//adress 22b278
@@ -60781,7 +60792,7 @@ type_event_0x6E8E* sub_4CBF0(axis_3d* position)//22dbf0
 		v1x->xtype_0x41_65 = 3;
 		v1x->word_0x2C_44 = 0x2000;
 		v1x->byte_0x3E_62 = D41A0_0.array_0x10[v1x->subtype_0x40_64]++;
-		v1x->dword_0x4 = v1x->dword_0x90_144;
+		position->z = v1x->word_0x2C_44;
 		AddEventToMap_57D70(v1x, position);
 		CopyEventVar0408_49A20(v1x);
 		SetEntityIndexAndRot_49CD0(v1x, 289);
@@ -68077,7 +68088,7 @@ void sub_56A30_init_game_level(unsigned int a1)//237a30
 	sub_4A1E0(0, 1);
 	//adress 237bb9
 #ifdef DEBUG_SEQUENCES
-	//add_compare(0x237bb9, debugafterload);
+	add_compare(0x237bb9, debugafterload);
 #endif //DEBUG_SEQUENCES
 	x_BYTE_E3799_sound_card = temp_x_BYTE_E3799_sound_card;
 	sub_53160();
@@ -68958,7 +68969,7 @@ void sub_57730()//238730
 						}
 						debug_sub_57730++;
 						//add_compare(0x238A8A, debugafterload);//0x9ac
-						//add_compare(0x238A8A,debugafterload);
+						add_compare(0x238A8A,debugafterload);
 #endif //DEBUG_SEQUENCES
 						
 						/*if (debug_sub_57730 == 0x84b4)
