@@ -37,10 +37,10 @@ void _strupr(char* s)
 //#define SET_LEVEL
 
 //#define RELEASE_GAME
-//#define PLAYING_GAME
+#define PLAYING_GAME
 //#define DEBUG_AFTERLOAD
 //#define DEBUG_ONSTART
-#define TEST_REGRESSIONS_GAME
+//#define TEST_REGRESSIONS_GAME
 int test_regression_level = 21;
 
 //adress 2285ff
@@ -68759,6 +68759,7 @@ void sub_57680_FixPointersAfterLoad()//238680
 // EB384: using guessed type int x_DWORD_EB384;
 
 int debug_sub_57730 = 0;
+int debug_sub_57730_2 = 0;
 
 //----- (00057730) --------------------------------------------------------
 void sub_57730()//238730
@@ -68953,6 +68954,12 @@ void sub_57730()//238730
 		{
 			//adress 238a3d
 #ifdef DEBUG_SEQUENCES2
+			if (debug_sub_57730_2 >= 0x33)
+			{
+				debug_sub_57730_2++;
+				debug_sub_57730_2--;
+			}
+			debug_sub_57730_2++;
 			//add_compare(0x238a3d, debugafterload);//0x9ac
 #endif //DEBUG_SEQUENCES2
 			if (mx->type_0x3F_63)
@@ -68969,7 +68976,7 @@ void sub_57730()//238730
 						}
 						debug_sub_57730++;
 						//add_compare(0x238A8A, debugafterload);//0x9ac
-						add_compare(0x238A8A,debugafterload);
+						//add_compare(0x238A8A,debugafterload);
 #endif //DEBUG_SEQUENCES
 						
 						/*if (debug_sub_57730 == 0x84b4)
