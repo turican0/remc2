@@ -506,7 +506,7 @@ uint8_t* sub_9DEA0_read_file(char* a1, uint8_t* a2);
 FILE* x_open(char* path, int pmodex);
 
 int sub_9D770(char* a1, char a2);
-int sub_9D380(FILE* a1, int a2, char a3, int a4, int a5);//27e380
+int sub_9D380(FILE* a1, int a2, char a3, uint8_t* a4x, int a5);//27e380
 
 char x_toupper(char inputchar);
 int32_t /*__cdecl*/ x_tolower(int32_t);// weak

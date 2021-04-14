@@ -90050,7 +90050,7 @@ signed int sub_74B75(__int16 a1)
 int sub_74C9D(type_DWORD_E12AE* a1x, uint8_t* a2x)
 {
 	a1x->byte_0 = -107;
-	a1x->word_6 = reinterpret_cast<uint32_t>(x_DWORD_E1282) >> 4;
+	a1x->word_6 = reinterpret_cast<uint16_t>(x_DWORD_E1282) >> 4;
 	a1x->word_8 = 2048;
 	if (sub_75044(a1x) == -1)
 		return -99;

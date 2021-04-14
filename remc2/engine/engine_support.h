@@ -291,7 +291,7 @@ typedef struct {//lenght 18
 	int16_t word_2BDE_12658[8];
 }type_str_0x1AC_428;
 
-typedef struct {//size 1136
+typedef struct _type_str_164 {//size 1136
 	int32_t dword_0x0_0;
 	int16_t word_0x4_4;
 	int16_t word_0x6_6;
@@ -742,7 +742,7 @@ typedef struct {//lenght 14
 	int8_t stubb[2];
 } type_index_242ar;
 
-typedef struct {
+typedef struct _type_x_D41A0_BYTEARRAY_4_struct {
 	//uint8_t harddisk_number;
 
 	//uint8_t setting_byte5_19;

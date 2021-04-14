@@ -574,36 +574,15 @@ int sub_9D770(char* a1, char a2)//27e770
 		if (v10 == NULL)
 			return 0;
 	}
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-	v12 = sub_9D380(v10, 60, a2, (int)&v8, 4);
-	v12 = sub_9D380(v10, v8, a2, (int)&v13, 2);
-#endif
+	v12 = sub_9D380(v10, 60, a2, (uint8_t*)&v8, 4);
+	v12 = sub_9D380(v10, v8, a2, (uint8_t*)&v13, 2);
 	if (!strcmp((const char*)&v13, "LX"))
 	{
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-		sub_9D380(v10, v8, a2, (int)&v3, 172);
-#endif
+		sub_9D380(v10, v8, a2, (uint8_t*)&v3, 172);
 		v12 = v4 + v8;
 		for (i = 0; i < v5; i++)
 		{
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-			v12 = sub_9D380(v10, v12, a2, (int)&v6, 24);
-#endif
+			v12 = sub_9D380(v10, v12, a2, (uint8_t*)&v6, 24);
 			v7 += v6;
 		}
 		if (!(a2 & 1))
@@ -654,16 +633,16 @@ FILE* x_open(char* path, int  /*pmodex*/) {
 };
 
 //----- (0009D380) --------------------------------------------------------
-int sub_9D380(FILE* a1, int a2, char a3, int a4, int a5)//27e380
+int sub_9D380(FILE* a1, int a2, char a3, uint8_t* a4x, int a5)//27e380
 {
 	if (a3 & 1)
 	{
-		memcpy((void*)a4, (const void*)(a2 + a1), a5);
+		memcpy((void*)a4x, (const void*)(a2 + a1), a5);
 	}
 	else
 	{
 		DataFileIO::Seek(a1, a2, 0);
-		DataFileIO::Read(a1, (uint8_t*)a4, a5);
+		DataFileIO::Read(a1, a4x, a5);
 	}
 	return a5 + a2;
 }
