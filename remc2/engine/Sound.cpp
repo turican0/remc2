@@ -436,10 +436,12 @@ void sub_8D290_init_sound(/*char* a1*//*, int a2, int a3*/)//26e290
 	v7 = mygetenv("MDSOUND");
 	if (v7)
 	{
-#ifdef TEST_x64
-	allert_error();
-#endif
+#ifdef x32_BIT_ENVIRONMENT
 		sscanf((char* const)v7, "%s %x %d %d %d", reinterpret_cast<uint32_t>(&v6));
+#endif //x32_BIT_ENVIRONMENT
+#ifdef x64_BIT_ENVIRONMENT
+		sscanf((char* const)v7, "%s %x %d %d %d", reinterpret_cast<uint64_t>(&v6));
+#endif //x64_BIT_ENVIRONMENT
 		hDigSoundEffectsDriver = sub_93330_AIL_install_DIG_driver_file(/*(int)a1, */&v6, &v5);
 		if (!hDigSoundEffectsDriver)
 		{
@@ -782,10 +784,12 @@ void /*__fastcall*/ sub_8D970_init_music(/*char* a1*//*int a1, int a2, char* a3*
 	v7 = mygetenv("MDMUSIC");
 	if (v7)
 	{
-#ifdef TEST_x64
-	allert_error();
-#endif
+#ifdef x32_BIT_ENVIRONMENT
 		sscanf((char* const)v7, "%s %x %d %d %d", reinterpret_cast<uint32_t>(&v6));
+#endif //x32_BIT_ENVIRONMENT
+#ifdef x64_BIT_ENVIRONMENT
+		sscanf((char* const)v7, "%s %x %d %d %d", reinterpret_cast<uint64_t>(&v6));
+#endif //x64_BIT_ENVIRONMENT
 		hMdiMusicDriver = sub_95850_AIL_install_MDI_driver_file(/*a1,*/ &v6, &v5);
 		if (!hMdiMusicDriver)
 		{
@@ -8293,7 +8297,7 @@ int sub_A9080(HSEQUENCE a1x, int a2, int a3)
 			if ((x_DWORD*)result != a1)
 			{
 				//result = (int)a1;
-				*(x_DWORD*)(*a1 + 4 * a3 + 92) = (x_DWORD)a1;
+				//fix it hwen can //*(x_DWORD*)(*a1 + 4 * a3 + 92) = a1;
 			}
 		}
 	}
@@ -8587,7 +8591,7 @@ x_DWORD* sub_AA310(int a1, int a2, int a3, signed int a4)//28b310
 		v10[2] = a3;
 		// fix when wont it // v10[3] = sub_97A60_AIL_register_event_callback(a2, (int(*)(void))sub_A9C50);
 		// fix when wont it  // v10[4] = sub_97BB0_AIL_register_timbre_callback(a2, (int(*)())sub_A9C00);
-		*(x_DWORD*)(a2 + 436) = (x_DWORD)v10;
+		// fix when wont it  // *(x_DWORD*)(a2 + 436) = (x_DWORD)v10;
 		for (i = 0; i < 16; i++)
 		{
 			v10[i + 5] = 0;
