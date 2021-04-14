@@ -67,8 +67,8 @@ int test_regression_level = 21;
 	#define OFF_PAUSE_5
 	#define TEST_REGRESSION
 	bool hideGraphics = true;
-	#define DEBUG_SEQUENCES
-	#define DEBUG_SEQUENCES2
+	//#define DEBUG_SEQUENCES
+	//#define DEBUG_SEQUENCES2
 	int debugafterload = 1;
 	//#define DISABLE_GRAPHICS_ENHANCE
 #elif defined(DEBUG_AFTERLOAD) //this is setting is for compare data with dosbox afterload(can fix mouse move, and etc.)
@@ -68939,7 +68939,7 @@ void sub_57730()//238730
 			}
 		}
 #ifdef DEBUG_SEQUENCES2
-		//add_compare(0x2389eb, debugafterload);
+		add_compare(0x2389eb, debugafterload);
 #endif //DEBUG_SEQUENCES2
 		if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 0x10))
 			sub_68BF0();
@@ -68976,7 +68976,7 @@ void sub_57730()//238730
 						}
 						debug_sub_57730++;
 						//add_compare(0x238A8A, debugafterload);//0x9ac
-						//add_compare(0x238A8A,debugafterload);
+						add_compare(0x238A8A,debugafterload);
 #endif //DEBUG_SEQUENCES
 						
 						/*if (debug_sub_57730 == 0x84b4)
@@ -82615,7 +82615,7 @@ void sub_68BF0()//249bf0
 			if (jx->dword_0x8 >= 0)
 			{
 #ifdef DEBUG_SEQUENCES
-				//add_compare(0x249c1b, debugafterload);
+				add_compare(0x249c1b, debugafterload);
 #endif //DEBUG_SEQUENCES
 				/*result = */sub_68C70(jx);
 			}
@@ -87902,7 +87902,7 @@ void InitTmaps(unsigned __int16 a1)//251f50
 		if (!str_DWORD_F66F0x[i])
 		{
 			//0x251fb9
-			/*if (debugcount_InitTmaps >= 0xca)
+			/*if (debugcount_InitTmaps >= 0x12b)
 			{
 				debugcount_InitTmaps++;
 				debugcount_InitTmaps--;
@@ -95077,28 +95077,21 @@ signed int sub_7C390()//25d390
 	int v3; // esi
 	signed __int16 v4; // dx
 	__int16 i; // ax
-	int v6; // [esp+0h] [ebp-8h]
+	uint8_t* v6x; // [esp+0h] [ebp-8h]
 	//char* v7; // [esp+4h] [ebp-4h]
 
 	char dataPath[MAX_PATH];
 
 	sprintf(dataPath, "%s/%s", cdDataPath, "DATA/SCREENS/HSCREEN0.DAT");
 
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-	v6 = (int)x_DWORD_E9C38_smalltit;
-#endif
-	x_DWORD_E9C38_smalltit = (uint8_t*)x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226;
+	v6x = x_DWORD_E9C38_smalltit;
+	x_DWORD_E9C38_smalltit = x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226;
 	//v7 = (char*)(x_DWORD_E9C38_smalltit[307200]);
 	x_DWORD_17DE38str.x_WORD_17DF00 = x_DWORD_17DE38str.x_WORD_17DEFE;
 	qmemcpy(x_BYTE_E1BA4, x_BYTE_E1B9C, sizeof(x_BYTE_E1BA4));
 	if ((unsigned __int16)sub_7CE50())
 	{
-		x_DWORD_E9C38_smalltit = (uint8_t*)v6;
+		x_DWORD_E9C38_smalltit = v6x;
 		result = 1;
 	}
 	else
@@ -95190,7 +95183,7 @@ signed int sub_7C390()//25d390
 		}
 		if (v4 || x_DWORD_17DE38str.x_WORD_17DF00 != x_DWORD_17DE38str.x_WORD_17DEFE)
 			sub_41A90_VGA_pallette_install(x_DWORD_17DE38str.x_DWORD_17DE38x);
-		x_DWORD_E9C38_smalltit = (uint8_t*)v6;
+		x_DWORD_E9C38_smalltit = v6x;
 		result = v3;
 	}
 	return result;
@@ -100092,7 +100085,7 @@ void sub_83B50()//264B50
 		{
 			x_D41A0_BYTEARRAY_4_struct.dword_0xE6_heapsize_230 = 0x400000;
 			//fix
-			x_D41A0_BYTEARRAY_4_struct.dword_0xE6_heapsize_230 += 0x400000;
+			x_D41A0_BYTEARRAY_4_struct.dword_0xE6_heapsize_230 += 0x1000000;
 			//fix
 			sub_9A230_set_x_WORD_E37B4(822);
 		}
