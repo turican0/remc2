@@ -3422,10 +3422,12 @@ void sub_98709_create_index_dattab_power_add(uint8_t* tabbuffer, uint8_t* tabbuf
 {
 	for (uint32_t i = 0; i < (tabbufferend - (tabbuffer + add)) / 6; i++)
 	{
-#ifdef TEST_x64
-	allert_error();
-#endif
+#ifdef x32_BIT_ENVIRONMENT
 		dattabindex[i].data = (uint8_t*)(*(uint32_t*)((tabbuffer + add) + 6 * i)) + reinterpret_cast<int32_t>(datbuffer);
+#endif //x32_BIT_ENVIRONMENT
+#ifdef x64_BIT_ENVIRONMENT
+		dattabindex[i].data = (uint8_t*)(*(uint32_t*)((tabbuffer + add) + 6 * i)) + (int32_t)reinterpret_cast<int64_t>(datbuffer);
+#endif //x64_BIT_ENVIRONMENT		
 		dattabindex[i].width_4 = (tabbuffer + add)[6 * i + 4] * 2;
 		dattabindex[i].height_5 = (tabbuffer + add)[6 * i + 5] * 2;
 	}
@@ -3473,10 +3475,12 @@ void sub_9874D_create_index_dattab_add(uint8_t* tabbuffer, uint8_t* tabbufferend
 {
 	for (uint32_t i = 0; i < (tabbufferend - (tabbuffer + add)) / 6; i++)
 	{
-#ifdef TEST_x64
-	allert_error();
-#endif
+#ifdef x32_BIT_ENVIRONMENT
 		dattabindex[i].data = (uint8_t*)(*(uint32_t*)((tabbuffer + add) + 6 * i)) + reinterpret_cast<int32_t>(datbuffer);
+#endif //x32_BIT_ENVIRONMENT
+#ifdef x64_BIT_ENVIRONMENT
+		dattabindex[i].data = (uint8_t*)(*(uint32_t*)((tabbuffer + add) + 6 * i)) + (int32_t)reinterpret_cast<int64_t>(datbuffer);
+#endif //x64_BIT_ENVIRONMENT			
 		dattabindex[i].width_4 = (tabbuffer + add)[6 * i + 4];
 		dattabindex[i].height_5 = (tabbuffer + add)[6 * i + 5];
 	}

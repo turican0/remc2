@@ -2580,7 +2580,7 @@ int sub_72CB0(unsigned __int8* a1, int a2);//not used
 void sub_72D04();
 // int sub_72DDE(signed __int16 *a1, int a2);
 int /*__fastcall*/ sub_72E70(int a1, int a2, signed __int16* a3);//not used
-signed int /*__fastcall*/ sub_72FBB(int a1,/* int a2,*/ signed __int16* a3);
+signed int /*__fastcall*/ sub_72FBB();
 void sub_7302E();
 // int sub_7308F(signed __int16 *a1, int a2, __int16 a3);
 void sub_73669(__int16 a1);
@@ -2618,9 +2618,9 @@ void sub_751B0(__int16 a1, __int16 a2, __int16 a3, unsigned __int16 a4, __int16 
 void sub_753D0();
 //int sub_75420();
 int sub_75440();
-int sub_754C0(int a1, x_DWORD* a2, int a3);
-int sub_75540(int a1, int a2);
-int sub_755B0(int a1, x_DWORD* a2, int a3);
+int sub_754C0(int a1, x_DWORD* a2, uint8_t* a3);
+int sub_75540(int a1, uint8_t* a2);
+int sub_755B0(int a1, x_DWORD* a2, uint8_t* a3);
 signed int sub_75650();
 void sub_75900();
 signed int sub_75910();
@@ -2655,7 +2655,7 @@ void sub_76CF0();
 void sub_76D10_intros(char a1);
 void /*__fastcall*/ sub_76FA0_main_menu(/*int a1,*/ int a2, uint16_t a3);
 bool sub_77350_new_game_dialog(type_WORD_E1F84* a1x);
-char /*__fastcall*/ sub_77680(/*int a1, */int a2, signed __int16* a3);
+char /*__fastcall*/ sub_77680();
 char sub_77980_exit_dialog(type_WORD_E1F84* a1x);
 char sub_779E0_lang_setting_dialog(type_WORD_E1F84* a1x);
 char sub_780F0_load_game_dialog(type_WORD_E1F84* a1x);
@@ -2682,7 +2682,7 @@ signed int /*__fastcall*/ sub_7C050_get_keyboard_keys1();
 //void sub_7C120_draw_bitmap_640(int16_t posx, int16_t posy, posistruct_t tempstr);
 //void sub_7C140_draw_text_background(int16_t a1, int16_t a2, int16_t a3, int16_t a4, uint8_t a5);
 //int32_t sub_A7C20_AIL_API_init_sequence(HSEQUENCE hSequence, void* start, int32_t sequence_num, uint32_t track);
-void sub_7C230(/*int a1,*/ int a2, signed __int16* a3);
+void sub_7C230(/*int a1,*/ /*int a2*//*, signed __int16* a3*/);
 signed int sub_7C390();
 void sub_7C710();
 int sub_7C720(unsigned __int8 a1, x_BYTE* a2);
@@ -7699,7 +7699,7 @@ int x_DWORD_17D698; // weak
 int x_DWORD_17D6A0; // weak
 int x_DWORD_17D6A4; // weak
 int x_DWORD_17D6A8; // weak
-int x_DWORD_17D6AC; // weak
+uint8_t** x_DWORD_17D6AC; // weak
 int x_DWORD_17D6B0; // weak
 int x_DWORD_17D6C4; // weak
 int x_DWORD_17D6C8; // weak
@@ -55920,6 +55920,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E)//pre 22b1
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
 		sub_19D60((int)a1_6E8E/*,0*/);
+		allert_error();
 #endif
 		break;
 	}
@@ -55940,6 +55941,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E)//pre 22b1
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
 		sub_1A070((int)a1_6E8E, 0);
+		allert_error();
 #endif
 		break;
 	}
@@ -55960,6 +55962,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E)//pre 22b1
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
 		sub_1A5B0_getLangStrings((int)a1_6E8E, 0, 0);
+		allert_error();
 #endif
 		break;
 	}
@@ -56102,6 +56105,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E)//pre 22b1
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
 		sub_loc_1B5BC((int)a1_6E8E);
+		allert_error();
 #endif
 		break;
 	}
@@ -57557,6 +57561,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E)//pre 22b1
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
 		sub_33F70((int)a1_6E8E);
+		allert_error();
 #endif
 		break;
 	}
@@ -57697,6 +57702,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E)//pre 22b1
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
 		sub_369F0((int)a1_6E8E);
+		allert_error();
 #endif
 		break;
 	}
@@ -57708,6 +57714,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E)//pre 22b1
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
 		sub_36A50((int)a1_6E8E);
+		allert_error();
 #endif
 		break;
 	}
@@ -58106,6 +58113,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E)//pre 22b1
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
 		sub_616D0((int)a1_6E8E);
+		allert_error();
 #endif
 		break;
 	}
@@ -58117,6 +58125,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E)//pre 22b1
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
 		sub_61790((int)a1_6E8E);
+		allert_error();
 #endif
 		break;
 	}
@@ -58133,6 +58142,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E)//pre 22b1
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
 		sub_61880_draw_minimap_entites((int)a1_6E8E, 0, 0, 0, 0, 0, 0, 0);
+		allert_error();
 #endif
 		break;
 	}
@@ -58144,6 +58154,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E)//pre 22b1
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
 		sub_61A00_draw_minimap_entites_b((int)a1_6E8E, 0, 0, 0, 0, 0, 0, 0);
+		allert_error();
 #endif
 		break;
 	}
@@ -58155,6 +58166,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E)//pre 22b1
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
 		sub_627F0_draw_minimap_entites_a((int)a1_6E8E, 0, 0, 0, 0, 0, 0, 0);
+		allert_error();
 #endif
 		break;
 	}
@@ -58170,6 +58182,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E)//pre 22b1
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
 		sub_63600_draw_minimap((int)a1_6E8E, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+		allert_error();
 #endif
 		break;
 	}
@@ -58182,6 +58195,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E)//pre 22b1
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
 		sub_63670_draw_minimap_a((int)a1_6E8E, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+		allert_error();
 #endif
 		break;
 	}
@@ -58193,6 +58207,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E)//pre 22b1
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
 		sub_63C90_draw_minimap_b((int)a1_6E8E, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+		allert_error();
 #endif
 		break;
 	}
@@ -58204,6 +58219,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E)//pre 22b1
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
 		sub_644F0_draw_minimap_marks((int)a1_6E8E, 0, 0, 0, 0, 0, 0, 0);
+		allert_error();
 #endif
 		break;
 	}
@@ -59001,6 +59017,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E)//pre 22b1
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
 		sub_6EA90((int)a1_6E8E, 0);
+		allert_error();
 #endif
 		break;
 	}
@@ -59012,6 +59029,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E)//pre 22b1
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
 		sub_6EAB0((int)a1_6E8E, 0, 0);
+		allert_error();
 #endif
 		break;
 	}
@@ -89173,7 +89191,7 @@ void sub_72D04()
 // E12AA: using guessed type int x_DWORD_E12AA;
 
 //----- (00072DDE) --------------------------------------------------------
-int sub_72DDE(signed __int16* a1, int a2)
+int sub_72DDE(/*signed __int16* a1,*/ int a2)
 {
 	//char v3; // [esp+0h] [ebp-1Ch]
 	int result; // [esp+14h] [ebp-8h]
@@ -89181,7 +89199,7 @@ int sub_72DDE(signed __int16* a1, int a2)
 	sprintf(printbuffer, "%s%d", "TESTER", a2);
 	do
 	{
-		result = sub_74767(a1, str_DWORD_E12AE[a2], (uint8_t*)printbuffer);
+		result = sub_74767(/*a1, */str_DWORD_E12AE[a2], (uint8_t*)printbuffer);
 		if (result && (result == 13))
 			sub_74A86(str_DWORD_E12AE[a2], printbuffer);
 	} while (result == 13 && !x_WORD_E12A6);
@@ -89237,7 +89255,7 @@ int /*__fastcall*/ sub_72E70(int  /*a1*/, int  /*a2*/, signed __int16* a3)
 				}
 			}
 		}
-		sub_7C230(/*x_WORD_E127A,*/ v3, a3);
+		sub_7C230(/*x_WORD_E127A,*/ /*v3, a3*/);
 	}
 	v7 = v9;
 	return v9;
@@ -89250,7 +89268,7 @@ int /*__fastcall*/ sub_72E70(int  /*a1*/, int  /*a2*/, signed __int16* a3)
 // 72E70: using guessed type char var_18[8];
 
 //----- (00072FBB) --------------------------------------------------------
-signed int /*__fastcall*/ sub_72FBB(int  /*a1*//*, int a2*/, signed __int16* a3)
+signed int /*__fastcall*/ sub_72FBB()
 {
 	int v3; // edx
 	int i; // [esp+4h] [ebp-4h]
@@ -89260,7 +89278,7 @@ signed int /*__fastcall*/ sub_72FBB(int  /*a1*//*, int a2*/, signed __int16* a3)
 	//fix it
 
 	sub_74809(0);
-	for (i = x_DWORD_17DB54_game_turn2; ; sub_7C230(/*x_DWORD_17DB54_game_turn2 - i,*/ v3, a3))
+	for (i = x_DWORD_17DB54_game_turn2; ; sub_7C230(/*x_DWORD_17DB54_game_turn2 - i,*/ /*v3, a3*/))
 	{
 		if (str_DWORD_E12AE[i]->byte_49 != -1)
 			return 1;
@@ -89289,7 +89307,7 @@ void sub_7302E()
 // E12A6: using guessed type __int16 x_WORD_E12A6;
 
 //----- (0007308F) --------------------------------------------------------
-int sub_7308F(signed __int16* a1, uint8_t* a2, __int16 a3)
+int sub_7308F(/*signed __int16* a1,*/ uint8_t* a2, __int16 a3)
 {
 	//uint8_t* v3; // edx
 	int v4; // eax
@@ -89325,7 +89343,7 @@ int sub_7308F(signed __int16* a1, uint8_t* a2, __int16 a3)
 	x_WORD_E1276 = -1;
 	while (x_WORD_E127A > i && x_WORD_E1276 == -1 && !x_WORD_E12A6)
 	{
-		v6 = sub_72DDE(a1, i);
+		v6 = sub_72DDE(/*a1,*/ i);
 		if (v6)
 		{
 			if (v6 == 255)
@@ -89366,7 +89384,7 @@ int sub_7308F(signed __int16* a1, uint8_t* a2, __int16 a3)
 	LOWORD(v4) = x_WORD_E1276;
 	if (x_WORD_E1276)
 	{
-		if (!sub_72FBB(v4, /*(int)v3,*/ a1))
+		if (!sub_72FBB())
 			x_WORD_E12A6 = 1;
 	}
 	else
@@ -89808,7 +89826,7 @@ uint8_t sub_74556()//255556 push ebp 355250
 	v2 = 1;
 	if (!x_BYTE_E1274 && !str_DWORD_E12AA)
 	{
-		str_DWORD_E12AA = (type_DWORD_E12AE*)sub_83D70_malloc1(66);
+		str_DWORD_E12AA = (type_DWORD_E12AE*)sub_83D70_malloc1(sizeof(type_DWORD_E12AE));
 		if (str_DWORD_E12AA)
 		{
 			if (sub_74A11() == -1)//255a11
@@ -89877,7 +89895,7 @@ uint8_t sub_74556()//255556 push ebp 355250
 // E12AA: using guessed type int x_DWORD_E12AA;
 
 //----- (00074767) --------------------------------------------------------
-signed int sub_74767(signed __int16* a1, type_DWORD_E12AE* a2x, uint8_t* a3)
+signed int sub_74767(/*signed __int16* a1,*/ type_DWORD_E12AE* a2x, uint8_t* a3)
 {
 	int v3; // edx
 
@@ -89892,7 +89910,7 @@ signed int sub_74767(signed __int16* a1, type_DWORD_E12AE* a2x, uint8_t* a3)
 	if (sub_75044(a2x) == -1)
 		return -99;
 	while (a2x->byte_49 == -1 && !x_WORD_E12A6)
-		sub_7C230(/*a2x,*/ v3, a1);
+		sub_7C230(/*a2x,*/ /*v3, a1*/);
 	return a2x->byte_49;
 }
 // 99D46: using guessed type x_DWORD strcpy(x_DWORD, x_DWORD);
@@ -89927,14 +89945,9 @@ signed int sub_748F7(__int16 a1)
 	if (str_DWORD_E12AE[a1]->byte_49 != -1)
 		return -str_DWORD_E12AE[a1]->byte_49;
 	str_DWORD_E12AA->byte_0 = 53;
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-	str_DWORD_E12AA->word_6 = (unsigned int)str_DWORD_E12AE[a1] >> 4;
-#endif
+
+	str_DWORD_E12AA->word_6 = 0;//fix (unsigned int)str_DWORD_E12AE[a1] >> 4;
+
 	if (sub_75044(str_DWORD_E12AA) != -1)
 	{
 		do
@@ -90397,7 +90410,7 @@ int sub_75440()
 // 17D6F0: using guessed type int x_DWORD_17D6F0;
 
 //----- (000754C0) --------------------------------------------------------
-int sub_754C0(int a1, x_DWORD* a2, int a3)
+int sub_754C0(int a1, x_DWORD* a2, uint8_t* a3)
 {
 	int v3; // eax
 	int v4; // ecx
@@ -90426,7 +90439,7 @@ int sub_754C0(int a1, x_DWORD* a2, int a3)
 // 17D708: using guessed type __int16 x_WORD_17D708;
 
 //----- (00075540) --------------------------------------------------------
-int sub_75540(int a1, int a2)
+int sub_75540(int a1, uint8_t* a2)
 {
 	int v2; // ecx
 	signed int v3; // eax
@@ -90458,7 +90471,7 @@ int sub_75540(int a1, int a2)
 // 17D708: using guessed type __int16 x_WORD_17D708;
 
 //----- (000755B0) --------------------------------------------------------
-int sub_755B0(int a1, x_DWORD* a2, int a3)
+int sub_755B0(int a1, x_DWORD* a2, uint8_t* a3)
 {
 	int v3; // eax
 	int v4; // ecx
@@ -90515,13 +90528,7 @@ signed int sub_75650()//VR something
 		x_DWORD_17D640 = v3;
 		if (v3)
 		{
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-			if (sub_754C0(v3, &x_DWORD_17D648, (int)x_BYTE_17D440))
+			if (sub_754C0(v3, &x_DWORD_17D648, (uint8_t*)x_BYTE_17D440))
 			{
 				sub_75AB0();
 				result = 0;
@@ -90531,7 +90538,7 @@ signed int sub_75650()//VR something
 				x_DWORD_17D644 = 0;
 				x_DWORD_17D6A8 = 0;
 				x_DWORD_17D698 = 0;
-				x_DWORD_17D6AC = (int)&unk_17D540;
+				x_DWORD_17D6AC = (uint8_t**)&unk_17D540;
 				while (x_DWORD_17D698 < x_DWORD_17D648)
 				{
 					x_DWORD_17D6A4 = x_BYTE_17D440[x_DWORD_17D698];
@@ -90539,7 +90546,7 @@ signed int sub_75650()//VR something
 						;//fix it JUMPOUT(__CS__, (int*) * (&off_75628 + (unsigned __int8)x_BYTE_17D440[1 + x_DWORD_17D698]));
 					x_DWORD_17D698 += x_DWORD_17D6A4;
 				}
-				if (sub_75540(x_DWORD_17D640, (int)x_BYTE_17D440))
+				if (sub_75540(x_DWORD_17D640, (uint8_t*)x_BYTE_17D440))
 				{
 					sub_75AB0();
 					result = 0;
@@ -90553,7 +90560,6 @@ signed int sub_75650()//VR something
 					result = 1;
 				}
 			}
-#endif
 		}
 		else
 		{
@@ -90608,13 +90614,7 @@ signed int sub_75910()
 	unsigned __int16 v1; // ax
 	unsigned __int8 v2; // al
 
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-	if (sub_755B0(x_DWORD_17D640, &x_DWORD_17D648, (int)&unk_17D540))
+	if (sub_755B0(x_DWORD_17D640, &x_DWORD_17D648, unk_17D540))
 	{
 		sub_75AB0();
 		result = 0;
@@ -90640,7 +90640,6 @@ signed int sub_75910()
 		}
 		result = 1;
 	}
-#endif
 	return result;
 }
 // E12EC: using guessed type char x_BYTE_E12EC;
@@ -91746,7 +91745,7 @@ bool sub_77350_new_game_dialog(type_WORD_E1F84* a1x)//258350
 }
 
 //----- (00077680) --------------------------------------------------------
-char /*__fastcall*/ sub_77680(/*int a1, */int  /*a2*/, signed __int16* a3)//258680
+char /*__fastcall*/ sub_77680()//258680
 {
 	char result; // al
 	//int v4; // eax
@@ -91774,8 +91773,9 @@ char /*__fastcall*/ sub_77680(/*int a1, */int  /*a2*/, signed __int16* a3)//2586
 	memset(&v12, 0, 16);
 	v15 = 2;
 	sprintf(printbuffer, "NETH%d", (unsigned __int16)x_DWORD_17DE38str.x_WORD_17DEFA + 20);
-	LOWORD(a3) = 0;
-	x_DWORD_17DE38str.x_WORD_17DEFC = sub_7308F(a3, (uint8_t*)printbuffer, 8);
+	int8_t a3a = 0;
+	int8_t a3b = 0;
+	x_DWORD_17DE38str.x_WORD_17DEFC = sub_7308F(/*a3,*/ (uint8_t*)printbuffer, 8);
 	if (x_DWORD_17DE38str.x_WORD_17DEFC == -1)
 	{
 		sub_8CD27_set_cursor(xy_DWORD_17DED4_spritestr[39]);
@@ -91806,7 +91806,7 @@ char /*__fastcall*/ sub_77680(/*int a1, */int  /*a2*/, signed __int16* a3)//2586
 		//x_DWORD_17DE38str.x_BYTE_17DE68x[0x9 + 11 * x_DWORD_17DE38str.x_WORD_17DEFC] = 2;
 		x_DWORD_17DE38str.array_BYTE_17DE68x[x_DWORD_17DE38str.x_WORD_17DEFC].byte_9 = 2;
 		x_DWORD_17DE38str.x_WORD_17DEEE_mouse_buttons = 0;
-		while (!BYTE1(a3))
+		while (!a3a)
 		{
 			if (x_DWORD_17DE38str.x_BYTE_17DF10_get_key_scancode == 59)
 			{
@@ -91814,7 +91814,7 @@ char /*__fastcall*/ sub_77680(/*int a1, */int  /*a2*/, signed __int16* a3)//2586
 				x_D41A0_BYTEARRAY_4_struct.byteindex_10 = x_D41A0_BYTEARRAY_4_struct.byteindex_10 != 1;
 				x_D41A0_BYTEARRAY_4_struct.setting_38402 = 1;
 			}
-			BYTE1(a3) = sub_7C390();
+			a3a = sub_7C390();
 			//v6 = (uint8)x_D41A0_BYTEARRAY_4;
 			if (x_D41A0_BYTEARRAY_4_struct.byteindex_10 == 1)
 			{
@@ -91845,17 +91845,12 @@ char /*__fastcall*/ sub_77680(/*int a1, */int  /*a2*/, signed __int16* a3)//2586
 						v15 = 2;
 				}
 			}
-#ifdef __linux__ // FIXME: types
-			std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-			stub_fix_it();//a3 is mischmasched
-			if (!(x_BYTE)a3)
+			if (!a3b)
 			{
 				sub_90B27_VGA_pal_fadein_fadeout(x_DWORD_17DE38str.x_DWORD_17DE38x, 0x20u, 0);
-				LOBYTE(a3) = 1;
+				a3b = 1;
 				xy_DWORD_17DED4_spritestr[15];
 			}
-#endif
 			if (x_WORD_180660_VGA_type_resolution & 1)
 				sub_90478_VGA_Blit320();
 			else
@@ -94812,7 +94807,7 @@ int sub_7BF20_draw_scroll_dialog(type_str_word_26* a1x)//25cf20
 {
 	char* v1; // esi
 	int result; // eax
-	int v3; // edx
+	//int v3; // edx
 	signed __int16 v4; // di
 	signed __int16 v5; // cx
 	//int v6; // eax
@@ -94859,11 +94854,10 @@ int sub_7BF20_draw_scroll_dialog(type_str_word_26* a1x)//25cf20
 	}
 	a1x->word_36_5 = 0;
 	//v6 = (int)x_D41A0_BYTEARRAY_4;
-	LOWORD(v3) = a1x->click_40_7;
 	a1x->click_40_7 = 0;
 	if (x_D41A0_BYTEARRAY_4_struct.byteindex_10 == 1)
 		x_DWORD_17DE38str.x_BYTE_17DF13 = 1;
-	return v3;
+	return a1x->click_40_7;
 }
 // D41A4: using guessed type int x_DWORD_D41A4;
 // 17DF13: using guessed type char x_BYTE_17DF13;
@@ -94994,7 +94988,7 @@ char sub_7C200(unsigned __int8 a1)//25d200
 }
 
 //----- (0007C230) --------------------------------------------------------
-void sub_7C230(/*int a1,*/ int  /*a2*/, signed __int16* a3)//25d230
+void sub_7C230()//25d230
 {
 	//__int16 v3; // ax
 	int v4; // edx
@@ -95010,7 +95004,7 @@ void sub_7C230(/*int a1,*/ int  /*a2*/, signed __int16* a3)//25d230
 
 	if (x_WORD_180660_VGA_type_resolution & 1)
 	{
-		a3 = (signed __int16*)x_DWORD_E9C38_smalltit;
+		//a3 = (signed __int16*)x_DWORD_E9C38_smalltit;
 		CopyScreen((void*)x_DWORD_E9C38_smalltit, (void*)pdwScreenBuffer, 320, 200);
 	}
 	else
@@ -96335,7 +96329,7 @@ char sub_7DE80(int  /*a1*/, type_WORD_E1F84* a2x)//25ee80
 	int v2; // edx
 	int v3; // edi
 	int v4; // eax
-	signed __int16* v5; // ebx
+	//signed __int16* v5; // ebx
 	int v6; // edx
 	int v7; // esi
 	int v8; // esi
@@ -96400,30 +96394,23 @@ char sub_7DE80(int  /*a1*/, type_WORD_E1F84* a2x)//25ee80
 	DrawHelpText_6FC50(1);
 	v12 = sub_6FC30_get34_height() + v8;
 	v13 = getPalletteIndex_5BE80(x_DWORD_17DE38str.x_DWORD_17DE38x, 0, 0, 0);
-	v5 = (signed __int16*)v12;
+	//v5 = (signed __int16*)v12;
 	v14 = sub_6FC80_pre_draw_text(printbuffer, v22, v20, v12, v13);
 	if ((v3 - x_DWORD_17DE38str.x_DWORD_17DED0) / 0xCu >= 1)
 	{
 		DrawHelpText_6FC50(1);
 		v15 = getPalletteIndex_5BE80(x_DWORD_17DE38str.x_DWORD_17DE38x, 0, 0, 0);
-#ifdef __linux__ // FIXME: types
-		std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-		sub_2BC10_draw_text((char*)"_", v14 - 2, (__int16)v5, v15);
-		stub_fix_it();//v5 is mitchasched
-#endif
+		sub_2BC10_draw_text((char*)"_", v14 - 2, v12, v15);
+		//stub_fix_it();//v5 is mitchasched
 		x_DWORD_17DE38str.x_DWORD_17DED0 = v3;
 	}
 LABEL_13:
 	if (v23)
 	{
-		LOBYTE(v5) = v23;
+		//LOBYTE(v5) = v23;
 		sub_7C020(&a2x->str_26);
-#ifdef __linux__ // FIXME: types
-		std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-		stub_fix_it();//v5 is mitchasched
-		if ((x_BYTE)v5 == 1)
+		//stub_fix_it();//v5 is mitchasched
+		if (v23 == 1)
 		{
 			x_WORD_E131A = 0;
 			x_DWORD_17DE38str.x_WORD_17DEFA = (unsigned __int8)x_BYTE_E29DF_skip_screen;
@@ -96432,7 +96419,7 @@ LABEL_13:
 				v24 = x_DWORD_17DE38str.x_BYTE_17DF13;
 			/*v16 = */sub_8CD27_set_cursor((*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct)[0]);
 			//v16 = 0;  //fix it
-			a2x->dword_4 = sub_77680(/*v16, */v17, v5) != 0;
+			a2x->dword_4 = sub_77680(/*v16, *//*v17, v5*/) != 0;
 			if (x_D41A0_BYTEARRAY_4_struct.byteindex_10 == 1)
 				x_DWORD_17DE38str.x_BYTE_17DF13 = v24;
 		}
@@ -96440,7 +96427,6 @@ LABEL_13:
 		{
 			x_BYTE_E29DF_skip_screen = x_DWORD_17DE38str.x_WORD_17DEFA;
 		}
-#endif
 		v21 = 1;
 	}
 	return v21;
