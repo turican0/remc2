@@ -90050,7 +90050,7 @@ signed int sub_74B75(__int16 a1)
 int sub_74C9D(type_DWORD_E12AE* a1x, uint8_t* a2x)
 {
 	a1x->byte_0 = -107;
-	a1x->word_6 = reinterpret_cast<int16_t>(x_DWORD_E1282) >> 4;
+	a1x->word_6 = reinterpret_cast<uint32_t>(x_DWORD_E1282) >> 4;
 	a1x->word_8 = 2048;
 	if (sub_75044(a1x) == -1)
 		return -99;
@@ -90097,7 +90097,7 @@ signed int sub_74DD4(type_DWORD_E12AE* a1x, unsigned __int16 a3)
 	signed int v4; // [esp+0h] [ebp-4h]
 
 	a1x->byte_0 = -107;
-	a1x->word_6 = reinterpret_cast<uint16_t>(x_DWORD_E1286[a3]) >> 4;
+	a1x->word_6 = reinterpret_cast<uint32_t>(x_DWORD_E1286[a3]) >> 4;
 	a1x->word_8 = 2048;
 	if (sub_75044(a1x) == -1)
 		v4 = -99;
@@ -90111,7 +90111,7 @@ int sub_74E6D(type_DWORD_E12AE* a1x, uint8_t* a2x, int a3)
 {
 	memcpy((void*)x_DWORD_E127E, a2x, a3);
 	a1x->byte_0 = -108;
-	a1x->word_6 = reinterpret_cast<int16_t>(x_DWORD_E127E) >> 4;
+	a1x->word_6 = reinterpret_cast<uint32_t>(x_DWORD_E127E) >> 4;
 	a1x->word_8 = a3;
 	if (sub_75044(a1x) == -1)
 		return -99;

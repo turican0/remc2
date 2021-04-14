@@ -782,8 +782,8 @@ int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* a2, int32_t a3, int32_t a4
 	int v55; // eax
 	signed __int16 v56; // si
 	signed __int16 v57; // si
-	x_BYTE* v58; // ecx
-	int v59; // eax
+	uint8_t* v58x; // ecx
+	int v59y; // eax
 	__int16 v60; // ax
 	int v61; // edi
 	int v62; // eax
@@ -1102,27 +1102,22 @@ int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* a2, int32_t a3, int32_t a4
 			if (a6 == 2)
 			{
 				DrawHelpText_6FC50(1/*v86*/);
-				v58 = (x_BYTE*)(v99 + 640 * a1);
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-				v59 = (int)pdwScreenBuffer;
-#endif
+				//v58 = (x_BYTE*)(v99 + 640 * a1);
+				//v59x = pdwScreenBuffer;
+				v58x = &pdwScreenBuffer[v99 + 640 * a1];
+				v59y = 0;
 				for (v57 = 0; v57 < xy_DWORD_17DED4_spritestr[274].height_5; v57++)
 				{
-					v58 += v59;
+					v58x += v59y;
 					for (v60 = 0; v60 < a4 - (v99 - v91); v60++)
 					{
 						v91 = xy_DWORD_17DED4_spritestr[274].width_4;
 						HIBYTE(v97) = 15;
-						LOBYTE(v97) = *v58;
-						v58++;
-						*(v58 - 1) = x_DWORD_17DE38str.x_DWORD_17DE3C[v97];
+						LOBYTE(v97) = *v58x;						
+						*v58x = x_DWORD_17DE38str.x_DWORD_17DE3C[v97];
+						v58x++;
 					}
-					v59 = 640 - v60;
+					v59y = 640 - v60;
 				}
 				v61 = v99;
 				sub_7C120_draw_bitmap_640(v99, a1, xy_DWORD_17DED4_spritestr[274]);
