@@ -1,5 +1,3 @@
-!!!Project forked to https://github.com/GrimSqueaker/remc2!!!
-
 # remc2
 # Reverse engineering of game Magic Carpet 2 from assembler to c/c++ language<br />
 ## STATUS: full playable, in testing<br />
