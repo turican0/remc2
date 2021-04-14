@@ -439,11 +439,7 @@ void sub_8D290_init_sound(/*char* a1*//*, int a2, int a3*/)//26e290
 #ifdef TEST_x64
 	allert_error();
 #endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-		sscanf((char* const)v7, "%s %x %d %d %d", (unsigned int)&v6);
-#endif
+		sscanf((char* const)v7, "%s %x %d %d %d", reinterpret_cast<uint32_t>(&v6));
 		hDigSoundEffectsDriver = sub_93330_AIL_install_DIG_driver_file(/*(int)a1, */&v6, &v5);
 		if (!hDigSoundEffectsDriver)
 		{
@@ -789,11 +785,7 @@ void /*__fastcall*/ sub_8D970_init_music(/*char* a1*//*int a1, int a2, char* a3*
 #ifdef TEST_x64
 	allert_error();
 #endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-		sscanf((char* const)v7, "%s %x %d %d %d", (unsigned int)&v6);
-#endif
+		sscanf((char* const)v7, "%s %x %d %d %d", reinterpret_cast<uint32_t>(&v6));
 		hMdiMusicDriver = sub_95850_AIL_install_MDI_driver_file(/*a1,*/ &v6, &v5);
 		if (!hMdiMusicDriver)
 		{
@@ -902,7 +894,7 @@ void /*__fastcall*/ sub_8D970_init_music(/*char* a1*//*int a1, int a2, char* a3*
 	if (!_stricmp(musicAILSettings.driver_name, "SBAWE32.MDI"))
 	{
 		x_BYTE_180C84_drivertype = 'w';
-		sub_9F740((char*)"Bullfrog");
+		initAWE32_9F740((char*)"Bullfrog");
 		if (!x_BYTE_E3815)
 			x_BYTE_180C84_drivertype = 'g';
 		goto LABEL_69;
@@ -3627,7 +3619,7 @@ VDI_CALL sub_9F6D0(int* a1, __int16 a2)
 }
 
 //----- (0009F740) --------------------------------------------------------
-void sub_9F740(char* a1)//280740
+void initAWE32_9F740(char* a1)//280740
 {
 	signed __int64 v1; // rax
 	__int64 v2; // rax
@@ -3671,9 +3663,6 @@ void sub_9F740(char* a1)//280740
 #ifdef TEST_x64
 	allert_error();
 #endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
 					if (sub_9F2E0((int*)hMdiMusicDriver, *(int*)v5, *(unsigned __int16*)&v5[4], 2u).AX == -1//fix
 						&& !dos_read(file, x_DWORD_181E2C, (unsigned __int16)x_WORD_181E30, 512, (x_DWORD)&v8))
 					{
@@ -3711,7 +3700,6 @@ void sub_9F740(char* a1)//280740
 							}
 						}
 					}
-#endif
 				}
 			}
 		}

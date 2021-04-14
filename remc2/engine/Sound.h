@@ -180,7 +180,7 @@ void sub_9F040();
 
 void sub_9FA80();
 
-void sub_9F740(char* a1);
+void initAWE32_9F740(char* a1);
 
 int sub_9F280(int* a1);
 VDI_CALL sub_9F2E0(int* a1, int a2, unsigned __int16 a3, unsigned __int16 a4);
@@ -197,7 +197,7 @@ void sub_A108F();
 void sub_A10F4_sound_proc_irq();
 signed int sub_A11E2();
 void sub_A1249_AIL_API_set_real_vect(uint32_t vectnum, uint16_t real_ptr);
-signed int sub_A12C5_sound_proc_irq(int a1, int a2, __int16 a3);
+//signed int sub_A12C5_sound_proc_irq(int a1, int a2, __int16 a3);
 void sub_A14DB_AIL_API_restore_USE16_ISR(int a1);
 unsigned int sub_A1520();
 void sub_A1524(unsigned int a1);

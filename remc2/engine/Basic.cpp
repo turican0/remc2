@@ -3425,11 +3425,7 @@ void sub_98709_create_index_dattab_power_add(uint8_t* tabbuffer, uint8_t* tabbuf
 #ifdef TEST_x64
 	allert_error();
 #endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-		std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-		dattabindex[i].data = (uint8_t*)(*(uint32_t*)((tabbuffer + add) + 6 * i)) + (int32_t)datbuffer;
-#endif
+		dattabindex[i].data = (uint8_t*)(*(uint32_t*)((tabbuffer + add) + 6 * i)) + reinterpret_cast<int32_t>(datbuffer);
 		dattabindex[i].width_4 = (tabbuffer + add)[6 * i + 4] * 2;
 		dattabindex[i].height_5 = (tabbuffer + add)[6 * i + 5] * 2;
 	}
@@ -3480,11 +3476,7 @@ void sub_9874D_create_index_dattab_add(uint8_t* tabbuffer, uint8_t* tabbufferend
 #ifdef TEST_x64
 	allert_error();
 #endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-		std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-		dattabindex[i].data = (uint8_t*)(*(uint32_t*)((tabbuffer + add) + 6 * i)) + (int32_t)datbuffer;
-#endif
+		dattabindex[i].data = (uint8_t*)(*(uint32_t*)((tabbuffer + add) + 6 * i)) + reinterpret_cast<int32_t>(datbuffer);
 		dattabindex[i].width_4 = (tabbuffer + add)[6 * i + 4];
 		dattabindex[i].height_5 = (tabbuffer + add)[6 * i + 5];
 	}
