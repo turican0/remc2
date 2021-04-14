@@ -37,10 +37,10 @@ void _strupr(char* s)
 //#define SET_LEVEL
 
 //#define RELEASE_GAME
-//#define PLAYING_GAME
+#define PLAYING_GAME
 //#define DEBUG_AFTERLOAD
 //#define DEBUG_ONSTART
-#define TEST_REGRESSIONS_GAME
+//#define TEST_REGRESSIONS_GAME
 int test_regression_level = 21;
 
 //adress 2285ff
@@ -94806,7 +94806,7 @@ void sub_7BEC0()//25cec0
 int sub_7BF20_draw_scroll_dialog(type_str_word_26* a1x)//25cf20
 {
 	char* v1; // esi
-	int result; // eax
+	//int result; // eax
 	//int v3; // edx
 	signed __int16 v4; // di
 	signed __int16 v5; // cx
@@ -94814,9 +94814,9 @@ int sub_7BF20_draw_scroll_dialog(type_str_word_26* a1x)//25cf20
 	signed __int16 v7; // ax
 
 	v1 = 0;
-	result = 0;
+	//result = 0;
 	if (!a1x->word_26_0)
-		return result;
+		return 0;
 	if (x_D41A0_BYTEARRAY_4_struct.byteindex_10 == 1)
 		x_DWORD_17DE38str.x_BYTE_17DF13 = 0;
 	DrawHelpText_6FC50(1);
@@ -94854,10 +94854,11 @@ int sub_7BF20_draw_scroll_dialog(type_str_word_26* a1x)//25cf20
 	}
 	a1x->word_36_5 = 0;
 	//v6 = (int)x_D41A0_BYTEARRAY_4;
+	int16_t result = a1x->click_40_7;
 	a1x->click_40_7 = 0;
 	if (x_D41A0_BYTEARRAY_4_struct.byteindex_10 == 1)
 		x_DWORD_17DE38str.x_BYTE_17DF13 = 1;
-	return a1x->click_40_7;
+	return result;
 }
 // D41A4: using guessed type int x_DWORD_D41A4;
 // 17DF13: using guessed type char x_BYTE_17DF13;
