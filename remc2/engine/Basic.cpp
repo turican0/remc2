@@ -540,7 +540,7 @@ unsigned     int x__readeflags(void) { stub_fix_it(); return 0; };
 void x__writeeflags(unsigned  /*Value*/) { stub_fix_it(); };
 unsigned int x__getcallerseflags(void) { stub_fix_it(); return 0; };
 
-x_DWORD dos_read(FILE*, char, x_DWORD, x_DWORD, x_DWORD) { stub_fix_it(); return 0; };// weak
+x_DWORD dos_read(FILE*, char, x_DWORD, x_DWORD, char*) { stub_fix_it(); return 0; };// weak
 
 //----- (0009D770) --------------------------------------------------------
 int sub_9D770(char* a1, char a2)//27e770

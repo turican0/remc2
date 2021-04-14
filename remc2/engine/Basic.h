@@ -498,7 +498,7 @@ extern char* x_DWORD_E9C4C_langindexbuffer[]; // idb
 
 void dbgfprintf(FILE* file, const char* format, ...);
 
-x_DWORD dos_read(FILE*, char, x_DWORD, x_DWORD, x_DWORD);
+x_DWORD dos_read(FILE*, char, x_DWORD, x_DWORD, char*);
 
 signed int sub_9DE20_get_file_lenght(char* a1);
 uint8_t* sub_9DEA0_read_file(char* a1, uint8_t* a2);
