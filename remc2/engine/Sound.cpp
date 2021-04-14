@@ -5835,7 +5835,12 @@ HSAMPLE sub_A4970(int a1, uint8_t* a2, int a3)//285970
 	}
 	else
 	{
+#ifdef x32_BIT_ENVIRONMENT
 		v6->sam_var[542] = *(unsigned __int16*)(a2 + 20) + reinterpret_cast<int32_t>(a2);
+#endif //x32_BIT_ENVIRONMENT
+#ifdef x64_BIT_ENVIRONMENT
+		v6->sam_var[542] = *(unsigned __int16*)(a2 + 20) + reinterpret_cast<int64_t>(a2);
+#endif //x64_BIT_ENVIRONMENT
 		v6->sam_var[545] = a3;
 		v6->sam_var[546] = a3 == -1;
 		v6->sam_var[547] = 1;
@@ -8608,7 +8613,7 @@ x_DWORD* sub_AA310(int a1, int a2, int a3, signed int a4)//28b310
 			v5 = a4 <= 16 ? a4 : 16;
 			if (v10[325] >= v5)
 				break;
-			v10[v10[325] + 309] = (x_DWORD)sub_93510_AIL_allocate_sample_handle((HDIGDRIVER)v10[1]);
+			//fix it when wont it //v10[v10[325] + 309] = sub_93510_AIL_allocate_sample_handle((HDIGDRIVER)v10[1]);
 			if (!v10[v10[325] + 309])
 				break;
 		}

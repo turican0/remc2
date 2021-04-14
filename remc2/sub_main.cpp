@@ -2978,8 +2978,8 @@ int sub_B5C60_getTerrainAlt2(uint16_t a1, uint16_t a2);
 int sub_B5D68(__int16 a1, __int16 a2);
 void DrawTriangle(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3);
 void SetRenderViewPortSize(uint8_t* a1, int a2, int screenWidth, int viewPortWidth, int viewPortHeight);
-void sub_BD1B6(int a1);
-void sub_BD2CB(int a1);
+void sub_BD1B6(uint8_t* a1);
+void sub_BD2CB(uint8_t* a1);
 void sub_BD3DD();
 void sub_BD524(__int16 a1, __int16 a2, __int16 a3, __int16 a4, char a5);
 void sub_BD542(unsigned __int16 a1, unsigned __int16 a2, unsigned __int16 a3, unsigned __int16 a4, char a5);
@@ -13953,14 +13953,6 @@ void sub_17A00_mouse_and_keys_events(/*uint8_t* a1,*/ signed int a2, __int16 a3)
 			else
 			{
 				//v15 = (uint8_t*)v12x->dword_0xA4_164;
-/*#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-				_wcpp_1_unwind_leave__120(v14, (uint32_t)v12x->dword_0xA4_164x);
-#endif*/
 				v16 = v12x->dword_0xA4_164x->str_611.byte_0x457_1111;
 				//a1 = &v15[611];
 				if (v16)
@@ -48492,14 +48484,7 @@ void sub_40F80()//221f80
 	{
 		if (x_BYTE_D478C)
 		{
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-			sub_BD2CB((int)unk_F0A20x);//maybe for virtual head set
-#endif
+			sub_BD2CB(unk_F0A20x);//maybe for virtual head set
 		}
 		else if (x_WORD_180660_VGA_type_resolution & 1)
 		{
@@ -48516,14 +48501,7 @@ void sub_40F80()//221f80
 	}
 	else if (x_BYTE_D478C)
 	{
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-		sub_BD1B6((int)unk_F0A20x);
-#endif
+		sub_BD1B6(unk_F0A20x);
 	}
 	else if (x_WORD_180660_VGA_type_resolution & 1)
 	{
@@ -119166,7 +119144,7 @@ void SetRenderViewPortSize(uint8_t* a1, int  /*a2*/, int screenWidth, int viewPo
 // DE568: using guessed type int iViewPortHeight;
 
 //----- (000BD1B6) --------------------------------------------------------
-void /*__spoils<ecx>*/ sub_BD1B6(int a1)//29e1b6
+void /*__spoils<ecx>*/ sub_BD1B6(uint8_t* a1)//29e1b6
 {
 	int v1; // ecx
 	int v2; // eax
@@ -119323,7 +119301,7 @@ void /*__spoils<ecx>*/ sub_BD1B6(int a1)//29e1b6
 // 180628: using guessed type int pdwScreenBuffer;
 
 //----- (000BD2CB) --------------------------------------------------------
-void /*__spoils<ecx>*/ sub_BD2CB(int a1)//29e2cb
+void /*__spoils<ecx>*/ sub_BD2CB(uint8_t* a1)//29e2cb
 {
 	int v1; // ecx
 	int v2; // eax
@@ -119359,7 +119337,7 @@ void /*__spoils<ecx>*/ sub_BD2CB(int a1)//29e2cb
 // 180628: using guessed type int pdwScreenBuffer;
 
 //----- (000BD320) --------------------------------------------------------
-int sub_BD320(int result, int8_t* a2, int8_t* a3, int a4, int savedregs, int a6)//29e320
+int sub_BD320(int result, int8_t* a2, int8_t* a3, int a4, int savedregs, uint8_t* a6)//29e320
 {
   // FIXME: Is this dead code? Seems to be only used for a strange graphics setting
 
