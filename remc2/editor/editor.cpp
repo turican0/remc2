@@ -726,7 +726,7 @@ char temp[256];
 for (int i = 0; i < 0xb; i++)
 {
 	type_str_0x3647Ac actstage = D41A0_0.terrain_2FECE.StageVars_0x3647A[i];
-	sprintf(temp, "%02X |%02X|%02X|%02X|%04X|%04X", i, (uint8_t)actstage.index_0x3647A_0, (uint8_t)actstage.stage_0x3647A_1, actstage.str_0x3647A_2.word,actstage.str_0x3647C_4.axis.x, actstage.str_0x3647C_4.axis.y);
+	sprintf(temp, "%01X |%02X|%02X|%04X|%04X|%04X", i, (uint8_t)actstage.index_0x3647A_0, (uint8_t)actstage.stage_0x3647A_1, actstage.str_0x3647A_2.word,actstage.str_0x3647C_4.axis.x, actstage.str_0x3647C_4.axis.y);
 	kiss_array_appendstring(textbox->array, 0, (char*)"", temp);
 }
 //text_reset(textbox1, vscrollbar1);
@@ -2135,7 +2135,7 @@ int main_x(/*int argc, char** argv*/)
 	textbox_height = count_features * 18 + 12;
 	textbox2_width = 200;
 	textbox2_height = count_stages * 18 + 12;
-	textbox3_width = 210;
+	textbox3_width = 220;
 	textbox3_height = count_variables * 18 + 12;
 	window2_width = 532;
 	window2_height = 740;//300;
@@ -2954,10 +2954,10 @@ int main_x(/*int argc, char** argv*/)
 	kiss_label_new(&label_terfeat2, &window1, (char*)"IDX|TYPE|SUBT| X  | Y  |DIID| 10 |STAG|PAR1|PAR2|PAR3", 5 + textbox1.rect.x + kiss_edge, textbox1.rect.y - kiss_textfont.lineheight);
 
 	kiss_label_new(&label_stages, &window1, (char*)"LEVEL STAGES:", 5 + textbox2.rect.x + kiss_edge, textbox2.rect.y - kiss_textfont.lineheight * 2);
-	kiss_label_new(&label_stages2, &window1, (char*)"IX|ST|1D| 03 | 05 ", 5 + textbox2.rect.x + kiss_edge, textbox2.rect.y - kiss_textfont.lineheight);
+	kiss_label_new(&label_stages2, &window1, (char*)"IX|ST| 01 | 03 | 05 ", 5 + textbox2.rect.x + kiss_edge, textbox2.rect.y - kiss_textfont.lineheight);
 
 	kiss_label_new(&label_vars, &window1, (char*)"LEVEL VARS:", 5 + textbox3.rect.x + kiss_edge, textbox3.rect.y - kiss_textfont.lineheight * 2);
-	kiss_label_new(&label_vars2, &window1, (char*)"IX|ST|X1|Y1| X2 | Y2 ", 5 + textbox3.rect.x + kiss_edge, textbox3.rect.y - kiss_textfont.lineheight);
+	kiss_label_new(&label_vars2, &window1, (char*)"IX|ST|01| 02 | 4X | 4Y ", 5 + textbox3.rect.x + kiss_edge, textbox3.rect.y - kiss_textfont.lineheight);
 	//kiss_label_new(&label2, &window1, (char*)"Files", textbox2.rect.x +	kiss_edge, textbox1.rect.y - kiss_textfont.lineheight);
 	//kiss_label_new(&label_sel, &window1, (char*)"", textbox1.rect.x +kiss_edge, textbox1.rect.y + textbox_height +kiss_normal.h);
 	//kiss_entry_new(&entry, &window1, 1, (char*)"kiss", textbox1.rect.x,label_sel.rect.y + kiss_textfont.lineheight,2 * textbox_width + 2 * kiss_up.w + kiss_edge);
