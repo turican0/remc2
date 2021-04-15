@@ -827,7 +827,7 @@ void VGA_Blit(int  /*width*/, int  /*height*/, Uint8* srcBuffer) {
 	{
 		memcpy(screen->pixels, srcBuffer, screen->h * screen->w);
 	}
-	else if ((m_iOrigw * 2 == screen->w) && (m_iOrigh * 2 == screen->h)) //2x resolution
+	/*else if ((m_iOrigw * 2 == screen->w) && (m_iOrigh * 2 == screen->h)) //2x resolution
 	{
 		int k = 0;
 		int l = 0;
@@ -841,20 +841,29 @@ void VGA_Blit(int  /*width*/, int  /*height*/, Uint8* srcBuffer) {
 			k += i % 2;
 			l = 0;
 		}
-	}
+	}*/
 	else//any resolution
 	{
 		int k = 0;
-		int l = 0;
+		//int l = 0;
 		float xscale = (float)m_iOrigw / (float)screen->w;
 		float yscale = (float)m_iOrigh / (float)screen->h;
+
+		int tempyj[10000];
+		int tempyl[10000];
+		for (int j = 0; j < screen->h; j++)//49+1 - final size
+		{
+			//l = (int)(j * yscale);
+			tempyj[j]=j* screen->w;
+			tempyl[j]=((int)(j * yscale))* m_iOrigw;
+		}
+
 		for (int i = 0; i < screen->w; i++)
 		{
 			k = (int)(i * xscale);
 			for (int j = 0; j < screen->h; j++)//49+1 - final size
 			{				
-				l = (int)(j * yscale);
-				((uint8_t*)screen->pixels)[i + j * screen->w] = srcBuffer[k + l * m_iOrigw];
+				((uint8_t*)screen->pixels)[i + tempyj[j]] = srcBuffer[k + tempyl[j]];
 			}
 		}
 	}
