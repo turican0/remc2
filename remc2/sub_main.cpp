@@ -36,8 +36,8 @@ void _strupr(char* s)
 //#define SET_OBJECTIVE
 //#define SET_LEVEL
 
-//#define RELEASE_GAME
-#define PLAYING_GAME
+#define RELEASE_GAME
+//#define PLAYING_GAME
 //#define DEBUG_AFTERLOAD
 //#define DEBUG_ONSTART
 //#define TEST_REGRESSIONS_GAME
@@ -90054,7 +90054,10 @@ int sub_74C9D(type_DWORD_E12AE* a1x, uint8_t* a2x)
 		;
 	if (a1x->byte_49)
 		return -a1x->byte_49;
-	memcpy((void*)a2x, (void*)x_DWORD_E1282, a1x->word_8);
+	//allert_error();
+	//fix this: 	memcpy((void*)a2x, (void*)x_DWORD_E1282, a1x->word_8);
+	for (int i = 0; i < a1x->word_8; i++)
+		((char*)a2x)[i] = ((char*)x_DWORD_E1282)[i];
 	return a1x->word_8;
 }
 // 99DBD: using guessed type x_DWORD memcpy(x_DWORD, x_DWORD, x_DWORD);

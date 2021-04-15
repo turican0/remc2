@@ -1,1 +1,2 @@
-.\original-game-GOG\DOSBOX\dosbox.exe -conf ".\dosbox-copy.conf" -c exit
+if not exist "CD_Files" mkdir "..\CD_Files"
+..\DOSBOX\dosbox.exe -conf "dosboxExtract-GOG-CD.conf" -c exit
