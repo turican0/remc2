@@ -832,7 +832,7 @@ typedef struct _type_x_D41A0_BYTEARRAY_4_struct {
 	//uint8_t stubn[3];
 	uint16_t byteindex_214w;//0xd6//x_D41A0_BYTEARRAY_4_struct.byteindex_214
 	//uint8_t stubo[1];
-	uint16_t setting_216w;
+	uint16_t isNetwork_216w;
 	//uint8_t stubp[1];
 	uint16_t byteindex_218w;//0xda//x_D41A0_BYTEARRAY_4_struct.byteindex_218
 	//uint8_t stubq[1];

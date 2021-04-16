@@ -346,7 +346,7 @@ typedef struct {//lenght 44
 	//int16_t word_2;
 	int32_t dword_4;//4 dword
 	//int16_t word_6;//remove it
-	int16_t word_8;
+	int16_t selected_8;
 	int16_t xmin_10;
 	int16_t ymin_12;
 	int16_t sizex_14;
@@ -355,7 +355,7 @@ typedef struct {//lenght 44
 	uint8_t byte_20;//index of gold sprite
 	uint8_t byte_21;//index of gray sprite
 	int8_t byte_22;
-	int8_t byte_23;
+	int8_t canSelect_23;
 	int8_t gold_color_24;
 	int8_t byte_25;
 	//int16_t word_24;//23 and 24 byte
