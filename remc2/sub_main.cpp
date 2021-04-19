@@ -94426,7 +94426,7 @@ char /*__fastcall*/ sub_7B250_draw_and_serve(/*int a1, int a2*//*, __int16 a3*/)
 	//for (i = off_E1BAC; *((int16_t*)i + 5); i += 44)
 	for (iy = 0; str_E1BAC[iy].xmin_10; iy++)
 	{
-		if (str_E1BAC[iy].selected_8 && (str_E1BAC[iy].dword_0 & 0xff))
+		if (str_E1BAC[iy].selected_8 && str_E1BAC[iy].dword_0)
 		{
 			if (pre_sub_7B250_draw_and_serve(str_E1BAC[iy].dword_0, &str_E1BAC[iy]))
 			{
