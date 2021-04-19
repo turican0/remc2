@@ -16,3 +16,24 @@ xy_DWORD_17DED4_spritestr[39]
 *filearray_2aa18c[filearrayindex_POINTERSDATTAB].begin_buffer
 
 46d564 adress
+
+(*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct)[0] .. dword_EB394
+xy_DWORD_17DED4_spritestr[0x25] .. dword_17DED4 + 222
+(*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct)[0] .. dword_EB394
+xy_DWORD_17DED4_spritestr[39] .. dword_17DED4 + 234
+
+sub_8CD27_set_cursor(xy_DWORD_17DED4_spritestr[110]);
+
+46d55f+4
+
+0x2b2e2c
+
+0x0025DCF0//return sub_7CCF0(/*var*/);
+0x0025DD30//return sub_7CD30(/*var*/);
+0x0025DCA0//return sub_7CCA0(/*var*/);
+0x0025DDA0//return sub_7CDA0(/*var*/);
+0x0025DBF0//return sub_7CBF0(/*var*/);
+0x0025DC40//return sub_7CC40(/*var*/);
+0x00000000
+
+pre_sub_7B250_draw_and_serve(str_E1BAC[iy].dword_0, &str_E1BAC[iy])

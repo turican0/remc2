@@ -4743,12 +4743,68 @@ char x_BYTE_D8A2E[38] =
 	1,1,1,1,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,0
 }; // idb
 
-const char* off_D9204_wizards_names1[56] = { "1. Jahwl","2. Kopahk","3. Myrnan Gor","4. Arachnium","5. T'Klom","6. Phyrydia","7. Perilium",
-"8. Ul Buthnen","9. Evirith Gor","10. Cymmeria ","11. Tropolos ","12. Jaleen ","13. Galiphur ","14. Tunuk ","15. Zyggogg "
-"16. Darklava ","17. C'lannesh ","18. Gleph ","19. Baraghan ","20. Ammyridia ","21. Cresidan ","22. Hodor ","23. Jathnar "
-"24. Malak ","25. Uluth ","26. ","27. ","28. ","29. ","30. ","Karakir ","Ymbul","Pav Durivium","Beleem","Ommosyth"
-"36. ","37. ","38. ","40. ","41. ","42. ","43. ","44. ","45. ","46. ","47. ","48. ","49. ","50. ","Thrull",
-"Keevur","Braak","Trapox","Hibren Zhor","Jinople","Dethrem","Canquin","Zephulum","Verune" };
+const char* off_D9204_wizards_names1[61] = {
+	"1. Jahwl",
+	"2. Kopahk",
+	"3. Myrnan Gor",
+	"4. Arachnium",
+	"5. T'Klom",
+	"6. Phyrydia",
+	"7. Perilium",
+	"8. Ul Buthnen",
+	"9. Evirith Gor",
+	"10. Cymmeria ",
+	"11. Tropolos ",
+	"12. Jaleen ",
+	"13. Galiphur ",
+	"14. Tunuk ",
+	"15. Zyggogg ",
+	"16. Darklava ",
+	"17. C'lannesh ",
+	"18. Gleph ",
+	"19. Baraghan ",
+	"20. Ammyridia ",
+	"21. Cresidan ",
+	"22. Hodor ",
+	"23. Jathnar ",
+	"24. Malak ",
+	"25. Uluth ",
+	"26. ",
+	"27. ",
+	"28. ",
+	"29. ",
+	"30. ",
+	"Karakir ",
+	"Ymbul",
+	"Pav Durivium",
+	"Beleem",
+	"Ommosyth",
+	"36. ",
+	"37. ",
+	"38. ",
+	"39. ",
+	"40. ",
+	"41. ",
+	"42. ",
+	"43. ",
+	"44. ",
+	"45. ",
+	"46. ",
+	"47. ",
+	"48. ",
+	"49. ",
+	"50. ",
+	"Thrull",
+	"Keevur",
+	"Braak",
+	"Trapox",
+	"Hibren Zhor",
+	"Jinople",
+	"Dethrem",
+	"Canquin",
+	"Zephulum",
+	"Verune",
+	"0" };
 
 const char* off_D93A0_wizards_names2[8] = { "Zanzamar","Nyphur","Rahn","Belix","Jark","Elyssia","Yragore","Prish" };
 
@@ -95148,7 +95204,11 @@ signed int sub_7C390()//25d390
 			x_DWORD_17DE38str.x_WORD_17DF02 += 16;
 			sub_7C9D0(x_DWORD_17DE38str.x_WORD_17DF02);
 			if ((unsigned __int16)x_DWORD_17DE38str.x_WORD_17DF02 < 0xFFu)
-				goto LABEL_13;
+			{
+				v2x = str_E1BAC_0x1b8;
+				v3 = sub_7CB10();
+				break;
+			}
 			sub_7C7C0(x_DWORD_E9C38_smalltit);
 			x_DWORD_17DE38str.x_WORD_17DEF6 = 1;
 			v2x = str_E1BAC_0x1b8;
@@ -95159,7 +95219,11 @@ signed int sub_7C390()//25d390
 			x_DWORD_17DE38str.x_WORD_17DF02 += 16;
 			sub_7C800(x_DWORD_17DE38str.x_WORD_17DF02);
 			if ((unsigned __int16)x_DWORD_17DE38str.x_WORD_17DF02 <= 0xFEu)
-				goto LABEL_13;
+			{
+				v2x = str_E1BAC_0x1b8;
+				v3 = sub_7CB10();
+				break;
+			}
 			x_DWORD_17DE38str.x_WORD_17DEF6 = 4;
 			v2x = str_E1BAC_0x1b8;
 			v3 = sub_7CB10();
@@ -95170,9 +95234,11 @@ signed int sub_7C390()//25d390
 			sub_7C9D0(255);
 			x_DWORD_17DE38str.x_WORD_17DEF6 = 1;
 			x_DWORD_17DE38str.array_BYTE_17DE68x[x_DWORD_17DE38str.x_WORD_17DEFC].byte_10 = x_DWORD_17DE38str.array_BYTE_17DE68x[sub_74515()].byte_10;
-			goto LABEL_13;
+			v2x = str_E1BAC_0x1b8;
+			v3 = sub_7CB10();
+			break;
 		default:
-		LABEL_13:
+		//LABEL_13:
 			v2x = str_E1BAC_0x1b8;
 			v3 = sub_7CB10();
 			break;
@@ -95394,7 +95460,7 @@ int sub_7CB10()//25db10
 {
 	//int(**i)(); // ebx
 	int ix;
-	int result; // eax
+	//int result; // eax
 	//int(**j)(); // ebx
 	int jx;
 	//int(**v3)(); // ebx
@@ -95405,19 +95471,20 @@ int sub_7CB10()//25db10
 	{
 		if (str_E1BAC_0x1b8[ix].selected_8 && str_E1BAC_0x1b8[ix].dword_0)
 		{
-			//result = str_E1BAC_0x1b8[ix].dword_0;
-			if (str_E1BAC_0x1b8[ix].dword_0)
+			if (pre_sub_7B250_draw_and_serve(str_E1BAC_0x1b8[ix].dword_0, &str_E1BAC_0x1b8[ix]))
 			{
 				str_E1BAC_0x1b8[ix].selected_8 = 0;
 				ResetMouse_7B5A0();
-				result = 1;
+				//result = 1;
+				return 1;
 			}
 			else
 			{
-				result = 0;
+				//result = 0;
 				str_E1BAC_0x1b8[ix].selected_8 = 0;
+				return 0;
 			}
-			return result;
+			//return result;
 		}
 	}
 	//for (j = (int(**)())(int16_t*) & off_E1BAC[0x1b8]; *((x_WORD*)j + 5); *((x_BYTE*)j - 20) = 0)
@@ -95532,7 +95599,7 @@ int sub_7CD30()//25dd30
 	//fix save wizard name to enything
 
 	//v0 = (char*)(&off_D9204_wizards_names1)[1 + x_DWORD_17DE38str.x_BYTE_17DE68x[0xa + 11 * x_DWORD_17DE38str.x_WORD_17DEFC]];//fix it
-	v0 = (char*)(&off_D9204_wizards_names1)[1 + x_DWORD_17DE38str.array_BYTE_17DE68x[x_DWORD_17DE38str.x_WORD_17DEFC].byte_10];
+	v0 = (char*)(off_D9204_wizards_names1)[1+x_DWORD_17DE38str.array_BYTE_17DE68x[x_DWORD_17DE38str.x_WORD_17DEFC].byte_10];
 	//qmemcpy(&v2, v0, 5u);
 	//qmemcpy(&v3, v0 + 4, sizeof(v3));
 	if (v0[0] && v0[0] != 48)
