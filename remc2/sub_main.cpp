@@ -90046,7 +90046,7 @@ int sub_74C9D(myNCB* a1x, uint8_t* a2x)//255c9d
 	a1x->ncb_buffer2_6 = reinterpret_cast<uint32_t>(x_DWORD_E1282) >> 4;
 #endif //x32_BIT_ENVIRONMENT
 #ifdef x64_BIT_ENVIRONMENT
-	a1x->word_6 = reinterpret_cast<uint64_t>(x_DWORD_E1282) >> 4;
+	a1x->ncb_buffer2_6 = reinterpret_cast<uint64_t>(x_DWORD_E1282) >> 4;
 #endif //x64_BIT_ENVIRONMENT
 	a1x->ncb_length_8 = 2048;
 	if (setNetbios_75044(a1x) == -1)
@@ -90101,7 +90101,7 @@ signed int sub_74DD4(myNCB* a1x, unsigned __int16 a3)//255dd4
 	a1x->ncb_buffer2_6 = reinterpret_cast<uint32_t>(x_DWORD_E1286[a3]) >> 4;
 #endif //x32_BIT_ENVIRONMENT
 #ifdef x64_BIT_ENVIRONMENT
-	a1x->word_6 = reinterpret_cast<uint64_t>(x_DWORD_E1286[a3]) >> 4;
+	a1x->ncb_buffer2_6 = reinterpret_cast<uint64_t>(x_DWORD_E1286[a3]) >> 4;
 #endif //x64_BIT_ENVIRONMENT
 	a1x->ncb_length_8 = 2048;
 	if (setNetbios_75044(a1x) == -1)
@@ -90120,7 +90120,7 @@ int sub_74E6D(myNCB* a1x, uint8_t* a2x, int a3)//255e6d
 	a1x->ncb_buffer2_6 = reinterpret_cast<uint32_t>(x_DWORD_E127E) >> 4;
 #endif //x32_BIT_ENVIRONMENT
 #ifdef x64_BIT_ENVIRONMENT
-	a1x->word_6 = reinterpret_cast<uint64_t>(x_DWORD_E127E) >> 4;
+	a1x->ncb_buffer2_6 = reinterpret_cast<uint64_t>(x_DWORD_E127E) >> 4;
 #endif //x64_BIT_ENVIRONMENT
 	a1x->ncb_length_8 = a3;
 	if (setNetbios_75044(a1x) == -1)
