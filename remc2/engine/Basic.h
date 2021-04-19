@@ -94,8 +94,8 @@ typedef struct//lenght 613 // end 17E09D
 	int x_DWORD_17DEDC; // weak
 	FILE* x_DWORD_17DEE0_filedesc; // weak
 	int16_t x_DWORD_17DEE4_mouse_positionx; // weak
+	int16_t x_DWORD_17DEE6_mouse_positiony; // weak
 	char stub0[2];
-	int16_t x_DWORD_17DEE8_mouse_positiony; // weak
 	char stub1[2];
 	__int16 x_WORD_17DEEC; // weak
 	__int16 x_WORD_17DEEE_mouse_buttons; // weak
