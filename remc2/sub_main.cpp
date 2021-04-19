@@ -91225,7 +91225,7 @@ void sub_76930_menus_and_intros(int  /*a2*/, uint16_t a3)//257930
 			/*v3 = */sub_76A40_lang_setting();//257A40 //asi inicializace + rovnou i nastaveni jazyka
 			break;
 		case 1:
-			sub_76CF0();//257cf0 nastavi x_WORD_E29D8 na 3
+			sub_76CF0();//257cf0 nastavi x_WORD_E29D8 na 3hh
 			break;
 		case 2:
 			/*v3 = */_wcpp_1_unwind_leave__131(/*v3*/);//257d00 asi konec
@@ -91863,7 +91863,7 @@ char /*__fastcall*/ sub_77680()//258680
 	{
 		sub_7A110_load_hscreen(x_WORD_180660_VGA_type_resolution, 7);
 		x_DWORD_17DE38str.x_WORD_17DEFE = 0;
-		sub_8CD27_set_cursor((*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct)[0]);
+		sub_8CD27_set_cursor(xy_DWORD_17DED4_spritestr[39]);
 		x_DWORD_17DE38str.x_DWORD_17DEDC = 0;
 		x_DWORD_17DE38str.x_WORD_17DEEE_mouse_buttons = 0;
 		sub_7B5A0_disable_enable();

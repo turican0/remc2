@@ -1,0 +1,18 @@
+&str_E1BAC[jx].selected_8
+if (str_E1BAC[iy].selected_8 && (str_E1BAC[iy].dword_0 & 0xff))
+
+sub_7FCB0_draw_text_with_border 260cb0
+after
+signed int sub_7C390()//25d390
+
+void sub_8C635_draw_cursor()//26d635
+void sub_8CACD_draw_cursor2()//26dacd
+void sub_75200_VGA_Blit640(uint16_t height)//256200
+
+x_WORD_18072C_cursor_sizex .. 35172c
+x_WORD_18072E_cursor_sizey .. 35172e
+
+xy_DWORD_17DED4_spritestr[39]
+*filearray_2aa18c[filearrayindex_POINTERSDATTAB].begin_buffer
+
+46d564 adress
