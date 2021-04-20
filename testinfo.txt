@@ -37,3 +37,8 @@ sub_8CD27_set_cursor(xy_DWORD_17DED4_spritestr[110]);
 0x00000000
 
 pre_sub_7B250_draw_and_serve(str_E1BAC[iy].dword_0, &str_E1BAC[iy])
+
+x_DWORD_E9C38_smalltit+640*300+250
+
+-draw 
+sub_85BF5(a2, x_DWORD_E9C38_smalltit, v4, v3, v5, v6);

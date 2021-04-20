@@ -57,11 +57,16 @@ typedef struct {//lenght 18
 }type_17ECA0;
 #pragma pack (16)
 
+typedef struct {
+	TColor c[256];
+	uint8_t data[];
+}TcolNext;
+
 #pragma pack (1)
 typedef struct//lenght 613 // end 17E09D
 {
 	TColor* x_DWORD_17DE38x; // weak
-	uint8_t* x_DWORD_17DE3C; // weak//1
+	TcolNext* x_DWORD_17DE3C; // weak//1
 	uint8_t* x_DWORD_17DE40; // weak//2
 	uint8_t* x_DWORD_17DE44; // weak//3
 	uint8_t* x_DWORD_17DE48c; // weak//4
@@ -108,7 +113,7 @@ typedef struct//lenght 613 // end 17E09D
 	__int16 x_WORD_17DEFC; // weak
 	__int16 x_WORD_17DEFE; // weak
 	__int16 x_WORD_17DF00; // weak
-	__int16 x_WORD_17DF02; // weak
+	uint16_t palMulti_17DF02; // weak
 	int16_t x_WORD_17DF04; // selected save game number to load/save (set in load/save_game_dialog)
 	__int16 x_WORD_17DF06; // weak
 	__int16 x_WORD_17DF08; // weak

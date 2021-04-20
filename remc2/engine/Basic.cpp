@@ -886,7 +886,7 @@ int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* a2, int32_t a3, int32_t a4
 						HIBYTE(v97) = 15;
 						LOBYTE(v97) = *v19;
 						v19++;
-						*(v19 - 1) = x_DWORD_17DE38str.x_DWORD_17DE3C[v97];
+						*(v19 - 1) = ((uint8_t*)x_DWORD_17DE38str.x_DWORD_17DE3C)[v97];
 					}
 					v19 += 640 - v20;
 				}
@@ -998,7 +998,7 @@ int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* a2, int32_t a3, int32_t a4
 									HIBYTE(v97) = 15;
 									LOBYTE(v97) = *v31;
 									v31++;
-									*(v31 - 1) = x_DWORD_17DE38str.x_DWORD_17DE3C[v97];
+									*(v31 - 1) = ((uint8_t*)x_DWORD_17DE38str.x_DWORD_17DE3C)[v97];
 								}
 								v31 += 640 - v33;
 							}
@@ -1024,7 +1024,7 @@ int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* a2, int32_t a3, int32_t a4
 										HIBYTE(v40) = 15;
 										LOBYTE(v40) = *v38;
 										v38++;
-										*(v38 - 1) = x_DWORD_17DE38str.x_DWORD_17DE3C[v40];
+										*(v38 - 1) = ((uint8_t*)x_DWORD_17DE38str.x_DWORD_17DE3C)[v40];
 									}
 									v38 += 640 - v39;
 								}
@@ -1114,7 +1114,7 @@ int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* a2, int32_t a3, int32_t a4
 						v91 = xy_DWORD_17DED4_spritestr[274].width_4;
 						HIBYTE(v97) = 15;
 						LOBYTE(v97) = *v58x;						
-						*v58x = x_DWORD_17DE38str.x_DWORD_17DE3C[v97];
+						*v58x = ((uint8_t*)x_DWORD_17DE38str.x_DWORD_17DE3C)[v97];
 						v58x++;
 					}
 					v59y = 640 - v60;
@@ -1137,7 +1137,7 @@ int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* a2, int32_t a3, int32_t a4
 						HIBYTE(v97) = 15;
 						LOBYTE(v97) = *v64;
 						v64++;
-						*(v64 - 1) = x_DWORD_17DE38str.x_DWORD_17DE3C[v97];
+						*(v64 - 1) = ((uint8_t*)x_DWORD_17DE38str.x_DWORD_17DE3C)[v97];
 					}
 					v64 += 640 - v66;
 				}
@@ -1172,7 +1172,7 @@ int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* a2, int32_t a3, int32_t a4
 							HIBYTE(v97) = 15;
 							LOBYTE(v97) = *v72;
 							v72++;
-							*(v72 - 1) = x_DWORD_17DE38str.x_DWORD_17DE3C[v97];
+							*(v72 - 1) = ((uint8_t*)x_DWORD_17DE38str.x_DWORD_17DE3C)[v97];
 						}
 						v71 = 640 - v74;
 					}
@@ -1193,7 +1193,7 @@ int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* a2, int32_t a3, int32_t a4
 							HIBYTE(v97) = 15;
 							LOBYTE(v97) = *v78;
 							v78++;
-							*(v78 - 1) = x_DWORD_17DE38str.x_DWORD_17DE3C[v97];
+							*(v78 - 1) = ((uint8_t*)x_DWORD_17DE38str.x_DWORD_17DE3C)[v97];
 						}
 						v78 += 640 - v80;
 					}
