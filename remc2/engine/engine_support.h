@@ -16,8 +16,12 @@
 #else
 #endif
 
+
 #include "../portability/port_time.h"
 #include "../portability/port_sdl_vga_mouse.h"
+
+#include "../portability/port_net.h"
+
 
 #pragma pack (1)
 typedef struct {//lenght 3
@@ -338,7 +342,7 @@ typedef struct _type_str_164 {//size 1136
 	int16_t word_0x155_341;
 	int16_t word_0x157_343;
 	int16_t word_0x159_345;
-	int8_t array_0x15B_347[8];
+	int8_t array_0x15B_347[8] = {0,0,0,0,0,0,0,0};
 	int16_t word_0x163_355;
 	int32_t dword_0x165_357;
 	int32_t dword_0x169_361;

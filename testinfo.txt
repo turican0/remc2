@@ -42,3 +42,24 @@ x_DWORD_E9C38_smalltit+640*300+250
 
 -draw 
 sub_85BF5(a2, x_DWORD_E9C38_smalltit, v4, v3, v5, v6);
+
+network - setNetbios_75044
+0x7f;//?
+0xb0;//ADD_NAME / NETH200 - must add unicate name in network
+0x91;//LISTEN - 8x
+
+
+NetworkCall_74809
+
+sub_72E70
+sub_72FBB
+sub_7373D
+sub_73AA1
+
+sub_7308F
+sub_51BB0_game_events
+sub_7CE50
+
+&x_WORD_E1276
+
+https://stackoverflow.com/questions/28027937/cross-platform-sockets

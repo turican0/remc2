@@ -904,7 +904,7 @@ static bool button_loadlevel_event(kiss_button* button, SDL_Event* e, int* draw)
 		FILE* file = fopen(path2, "rb");
 		fread(&D41A0_0.terrain_2FECE, sizeof(D41A0_0.terrain_2FECE), 1, file);
 		memcpy(temparray_0x30311,D41A0_0.terrain_2FECE.entity_0x30311, sizeof(D41A0_0.terrain_2FECE.entity_0x30311));		
-		fclose;
+		fclose(file);
 		return true;
 	}//*quit = 1;
 	return false;
@@ -993,7 +993,7 @@ static void button_savelevelcsv_event(kiss_button* button, SDL_Event* e, int* dr
 			type_entity_0x30311 actfeat = temparray_0x30311[i];//D41A0_BYTESTR_0.str_2FECE.array_0x30311[first_terrain_feature + i];
 			fprintf(file, "0x%03X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X\n", i, actfeat.type_0x30311, actfeat.subtype_0x30311, actfeat.axis2d_4.x, actfeat.axis2d_4.y, actfeat.DisId, actfeat.word_10, actfeat.stageTag_12, actfeat.par1_14, actfeat.par2_16, actfeat.par3_18);			
 		}
-		fclose;
+		fclose(file);
 	}//*quit = 1;
 }
 

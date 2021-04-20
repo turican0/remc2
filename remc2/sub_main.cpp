@@ -1,6 +1,7 @@
 #include "sub_main.h"
 #include "engine/engine_support.h"
 
+
 #ifdef __linux__
 #include <strings.h>
 #include <cstdlib>
@@ -25,6 +26,7 @@ void _strupr(char* s)
 	}
 }
 #endif
+
 
 //#define MOUSE_OFF
 
@@ -2602,16 +2604,16 @@ int sub_74515();
 int sub_74536();
 uint8_t sub_74556();
 // signed int sub_74767(signed __int16 *a1, x_BYTE *a2, int a3);
-int sub_74809(__int16 a1);
+int NetworkCall_74809(__int16 a1);
 signed int NetworkCancel_748F7(__int16 a1);
-signed int GetNetbiosInfo_74A11();
+signed int NetworkInit_74A11();
 void NetworkDeleteName_74A86(myNCB* a1x, char* a2);
-void sub_74B19(myNCB* a1x);
+void NetworkHangUp_74B19(myNCB* a1x);
 signed int NetworkListen_74B75(__int16 a1);
-int sub_74C9D(myNCB* a1x, uint8_t* a2x);
+int NetworkReceive_74C9D(myNCB* a1x, uint8_t* a2x);
 void sub_74D41(myNCB* a1x, uint8_t* a2x, unsigned int a3);
-signed int sub_74DD4(myNCB* a1x, unsigned __int16 a3);
-int sub_74E6D(myNCB* a1x, uint8_t* a2, int a3);
+signed int NetworkReceive_74DD4(myNCB* a1x, unsigned __int16 a3);
+int NetworkSend_74E6D(myNCB* a1x, uint8_t* a2, int a3);
 void sub_74EF1(myNCB* a1x, uint8_t* a2, unsigned int a3);
 __int16 sub_74F76();
 signed int sub_74FE1(__int16 a1);
@@ -27346,7 +27348,7 @@ void sub_29A90(type_event_0x6E8E* a1x)//20aa90
 	signed int v18; // ecx
 	type_event_0x6E8E* v19x; // edx
 	int j; // eax
-	int v21; // eax
+	//int v21; // eax
 	char v22; // dh
 	signed int v23; // eax
 	signed int v24; // eax
@@ -29057,7 +29059,7 @@ void sub_2BD10_draw_line(__int16 a1, __int16 a2, __int16 a3, __int16 a4, unsigne
 {
 	std::function<void(uint16_t, uint16_t, uint16_t, uint16_t, char)> func_draw;
 
-	void* v5; // ebx
+	//void* v5; // ebx
 
 	//int result; // eax
 	uint8_t* temp_screen_buffer; // ST14_4
@@ -42360,8 +42362,8 @@ void sub_3C080_draw_terrain_and_particles_old(/*int a1, int a2,*/ __int16 a3, __
 	unsigned __int16 v111; // dx
 	__int16 v112; // ax
 	int v113; // eax
-	x_DWORD* v114; // ecx
-	signed int v115; // edx
+	//x_DWORD* v114; // ecx
+	//signed int v115; // edx
 	int v116; // eax
 	//uint8_t* v117; // edx
 	unsigned __int16 v118; // bx
@@ -51898,8 +51900,8 @@ void LoadTextureData(__int16 vgaTypeResolution, MapType_t MapType, uint8_t* pdwS
 	//int v4; // eax
 	//char* v5; // ebx
 	//unsigned int v6; // esi
-	posistruct2_t* v7x; // esi
-	int v8; // [esp+0h] [ebp-2h]
+	//posistruct2_t* v7x; // esi
+	//int v8; // [esp+0h] [ebp-2h]
 	//int v9; // [esp+4h] [ebp+2h]
 	//int v10; // [esp+8h] [ebp+6h]
 	//int v11; // [esp+Ch] [ebp+Ah]
@@ -65442,7 +65444,7 @@ char sub_533B0_decompress_levels(__int16 a1, type_str_2FECE* a2x)//2343b0
 								allert_error();*/
 						Convert_from_shadow_str_2FECE(&shadow_2FECE, &D41A0_0.terrain_2FECE);
 					}
-					fclose;
+					fclose(file);
 				}
 		#endif //LOAD_EDITED_LEVEL
 		//if exist editor generated level
@@ -65696,7 +65698,7 @@ uint8_t sub_53D10_create_nether_subdir(uint8_t* a1, uint8_t* a2, uint8_t* a3)//2
 	//printbuffer -char v16; // [esp+0h] [ebp-12h]
 	//char_355198 -
 	char v17[144]; // [esp+90h] [ebp+7Eh]
-	char v18; // [esp+120h] [ebp+10Eh] //fix it - minimal space or space struct
+	//char v18; // [esp+120h] [ebp+10Eh] //fix it - minimal space or space struct
 
 #ifdef DEBUG_MKDIR
 	debug_printf("sub_53D10:Begin\n");
@@ -66632,7 +66634,7 @@ void sub_55100(char a1)//236100
 	unsigned __int8 v7; // cl
 	signed int i; // ebx
 	unsigned __int8 v9; // al
-	type_event_0x6E8E* v11; // ecx
+	//type_event_0x6E8E* v11; // ecx
 	signed int j; // ebx
 
 	if (a1 == 1)
@@ -73873,7 +73875,7 @@ void sub_5D530(type_event_0x6E8E* a1x)//*(x_DWORD *)(a1 + 160)//23e530
 	int v9; // edx
 	__int16 v10; // ax
 	//int v11; // eax
-	__int16 v12; // dx
+	//__int16 v12; // dx
 	//int v13; // eax
 	unsigned __int8 v14; // cl
 	int v15; // edx
@@ -87386,9 +87388,9 @@ void sub_6FEC0()//250ec0
 	__int16 v42; // bx
 	__int16 v43; // bx
 	__int16 v44; // bx
-	int* v45; // edi
-	int v46; // ebx
-	unsigned __int8 v47; // al
+	//int* v45; // edi
+	//int v46; // ebx
+	//unsigned __int8 v47; // al
 	//int v48; // eax
 	//int v49; // eax
 	__int16 v50; // bx
@@ -88753,16 +88755,16 @@ subtype_x_DWORD_E9C28_str* sub_71E70(type_x_DWORD_E9C28_str* a1y, unsigned int a
 //----- (00071F20) --------------------------------------------------------
 void sub_71F20(type_x_DWORD_E9C28_str* a1y, subtype_x_DWORD_E9C28_str* a2x)//252f20
 {
-	int v2x; // eax
+	//int v2x; // eax
 	type_particle_str* v2y;
 	subtype_x_DWORD_E9C28_str* v3x; // ecx
 	unsigned __int16 v4; // bx
 	int v5; // esi
 	subtype_x_DWORD_E9C28_str* v6x; // ecx
-	unsigned __int16 v7; // cx
+	//unsigned __int16 v7; // cx
 	//int v8; // edi
 	//int v9; // eax
-	const void* v10; // esi
+	//const void* v10; // esi
 	type_particle_str* i; // [esp+4h] [ebp-4h]
 
 	//allert_error();//fix this code
@@ -89273,7 +89275,7 @@ int /*__fastcall*/ sub_72E70(int  /*a1*/, int  /*a2*/, signed __int16* a3)//253e
 	for (i = 0; x_WORD_E127A > i; i++)
 	{
 		if (x_WORD_E1276 != i)
-			sub_74809(i);
+			NetworkCall_74809(i);
 	}
 	memset(v6, 0, 8);
 	v9 = 0;
@@ -89329,7 +89331,7 @@ signed int /*__fastcall*/ sub_72FBB()//253fbb
 	v3 = 0;
 	//fix it
 
-	sub_74809(0);
+	NetworkCall_74809(0);
 	for (i = x_DWORD_17DB54_game_turn2; ; WaitToConnect_7C230(/*x_DWORD_17DB54_game_turn2 - i,*/ /*v3, a3*/))
 	{
 		if (str_DWORD_E12AE[i]->ncb_cmd_cplt_49 != 0xff)
@@ -89477,7 +89479,7 @@ void sub_73669(__int16 a1)//254669
 			if (i != x_WORD_E1276)
 			{
 				NetworkCancel_748F7(i);
-				sub_74B19(str_DWORD_E12AE[i]);
+				NetworkHangUp_74B19(str_DWORD_E12AE[i]);
 			}
 		}
 		sprintf(printbuffer, "%s%d", aTester, x_WORD_E1276);
@@ -89487,7 +89489,7 @@ void sub_73669(__int16 a1)//254669
 	else
 	{
 		NetworkCancel_748F7(a1);
-		/*result = */sub_74B19(str_DWORD_E12AE[a1]);
+		/*result = */NetworkHangUp_74B19(str_DWORD_E12AE[a1]);
 	}
 	//return result;
 }
@@ -89557,7 +89559,7 @@ void sub_7373D(__int16 a1)//25473d
 				{
 					while (1)
 					{
-						sub_74809(x_WORD_E12A8);
+						NetworkCall_74809(x_WORD_E12A8);
 						while (str_DWORD_E12AE[x_WORD_E12A8]->ncb_cmd_cplt_49 == 0xff)
 							;
 						//result = x_DWORD_E12AE[x_WORD_E12A8];
@@ -89597,7 +89599,7 @@ void sub_739AD(__int16 a1)//2549ad
 			if (i != x_WORD_E1276)
 			{
 				NetworkCancel_748F7(i);
-				sub_74B19(str_DWORD_E12AE[i]);
+				NetworkHangUp_74B19(str_DWORD_E12AE[i]);
 			}
 		}
 		sprintf(printbuffer, "%s%d", aTester, x_WORD_E1276);
@@ -89607,7 +89609,7 @@ void sub_739AD(__int16 a1)//2549ad
 	else
 	{
 		NetworkCancel_748F7(a1);
-		sub_74B19(str_DWORD_E12AE[a1]);
+		NetworkHangUp_74B19(str_DWORD_E12AE[a1]);
 		//result = x_WORD_E12A8;
 		if (x_WORD_E1276 == x_WORD_E12A8)
 			/*result = */NetworkListen_74B75(a1);
@@ -89681,7 +89683,7 @@ void sub_73AA1(__int16 a1)//254aa1
 				{
 					while (1)
 					{
-						sub_74809(x_WORD_E12A8);
+						NetworkCall_74809(x_WORD_E12A8);
 						while (str_DWORD_E12AE[x_WORD_E12A8]->ncb_cmd_cplt_49 == 0xff)
 							;
 						//v1 = x_DWORD_E12AE[x_WORD_E12A8];
@@ -89721,7 +89723,7 @@ void sub_73D11(__int16 a1)//254d11
 			if (i != x_WORD_E1276)
 			{
 				NetworkCancel_748F7(i);
-				sub_74B19(str_DWORD_E12AE[i]);
+				NetworkHangUp_74B19(str_DWORD_E12AE[i]);
 			}
 		}
 		sprintf(printbuffer, "%s%d", aTester, x_WORD_E1276);
@@ -89731,7 +89733,7 @@ void sub_73D11(__int16 a1)//254d11
 	else
 	{
 		NetworkCancel_748F7(a1);
-		sub_74B19(str_DWORD_E12AE[a1]);
+		NetworkHangUp_74B19(str_DWORD_E12AE[a1]);
 		//result = x_WORD_E12A8;
 		if (x_WORD_E1276 == x_WORD_E12A8)
 			/*result = */NetworkListen_74B75(a1);
@@ -89875,7 +89877,7 @@ uint8_t sub_74556()//255556 push ebp 355250
 		str_DWORD_E12AA->ncb_cmd_cplt_49 = 0x03;
 		if (str_DWORD_E12AA)
 		{
-			if (GetNetbiosInfo_74A11() == -1)//255a11
+			if (NetworkInit_74A11() == -1)//255a11
 				return 0;
 			x_DWORD_E127E = (uint8_t*)sub_83D70_malloc1(2048);
 			memset(x_DWORD_E127E, 0, 2048);
@@ -89965,7 +89967,7 @@ signed int NetworkAddName_74767(/*signed __int16* a1,*/ myNCB* a2x, char* a3)//2
 // E12A6: using guessed type __int16 x_WORD_E12A6;
 
 //----- (00074809) --------------------------------------------------------
-int sub_74809(__int16 a1)//255809
+int NetworkCall_74809(__int16 a1)//255809
 {
 	int v2; // [esp+14h] [ebp-8h]
 
@@ -90020,7 +90022,7 @@ int dos_getvect(int vector) {
 }
 
 //----- (00074A11) --------------------------------------------------------
-signed int GetNetbiosInfo_74A11()//255a11 // netbios
+signed int NetworkInit_74A11()//255a11 // netbios
 {
 	__int16 v0; // dx
 
@@ -90059,7 +90061,7 @@ void NetworkDeleteName_74A86(myNCB* a1x, char* a2)//255a86
 // 99D84: using guessed type x_DWORD strcat(x_DWORD, x_DWORD);
 
 //----- (00074B19) --------------------------------------------------------
-void sub_74B19(myNCB* a1x)//255b19
+void NetworkHangUp_74B19(myNCB* a1x)//255b19
 {
 	a1x->ncb_command_0 = 0x92;//HANG_UP 
 	if (setNetbios_75044(a1x) == -1)
@@ -90097,7 +90099,7 @@ signed int NetworkListen_74B75(__int16 a1)//255b75
 // 99D84: using guessed type x_DWORD strcat(x_DWORD, x_DWORD);
 
 //----- (00074C9D) --------------------------------------------------------
-int sub_74C9D(myNCB* a1x, uint8_t* a2x)//255c9d
+int NetworkReceive_74C9D(myNCB* a1x, uint8_t* a2x)//255c9d
 {
 	a1x->ncb_command_0 = 0x95;//RECEIVE
 #ifdef x32_BIT_ENVIRONMENT
@@ -90135,13 +90137,13 @@ void sub_74D41(myNCB* a1x, uint8_t* a2x, unsigned int a3)//255d41
 	v7 = 0;
 	while (a3 >> 11 > v7)
 	{
-		v6 = sub_74C9D(a1x, v8x);
+		v6 = NetworkReceive_74C9D(a1x, v8x);
 		if (v6 != 2048)
 			return;
 		v7++;
 		v8x += 2048;
 	}
-	v3 = sub_74C9D(a1x, v8x);
+	v3 = NetworkReceive_74C9D(a1x, v8x);
 	if ((a3 & 0x7FF) == v3)
 		v5 = a3;
 	else
@@ -90150,7 +90152,7 @@ void sub_74D41(myNCB* a1x, uint8_t* a2x, unsigned int a3)//255d41
 }
 
 //----- (00074DD4) --------------------------------------------------------
-signed int sub_74DD4(myNCB* a1x, unsigned __int16 a3)//255dd4
+signed int NetworkReceive_74DD4(myNCB* a1x, unsigned __int16 a3)//255dd4
 {
 	signed int v4; // [esp+0h] [ebp-4h]
 
@@ -90170,7 +90172,7 @@ signed int sub_74DD4(myNCB* a1x, unsigned __int16 a3)//255dd4
 }
 
 //----- (00074E6D) --------------------------------------------------------
-int sub_74E6D(myNCB* a1x, uint8_t* a2x, int a3)//255e6d
+int NetworkSend_74E6D(myNCB* a1x, uint8_t* a2x, int a3)//255e6d
 {
 	memcpy((void*)x_DWORD_E127E, a2x, a3);
 	a1x->ncb_command_0 = 0x94;//SEND 
@@ -90203,10 +90205,10 @@ void sub_74EF1(myNCB* a1x, uint8_t* a2x, unsigned int a3)//255ef1
 	{
 		if (a3 >> 11 <= v5)
 		{
-			sub_74E6D(a1x, v6, a3 & 0x7FF);
+			NetworkSend_74E6D(a1x, v6, a3 & 0x7FF);
 			return;
 		}
-		v7 = sub_74E6D(a1x, v6, 2048);
+		v7 = NetworkSend_74E6D(a1x, v6, 2048);
 		if (v7)
 			break;
 		++v5;
@@ -95115,8 +95117,87 @@ char sub_7C200(unsigned __int8 a1)//25d200
 		result = 1;
 	return result;
 }
-
+/*
+int WSAStartup(
+	_In_  WORD      wVersionRequested,
+	_Out_ LPWSADATA lpWSAData
+);
+*/
 void fake_network_interupt() {
+	WSADATA wsaData;
+	int portno;
+	portno = 5001;
+	const int BufLen = 1024;
+	//-------------------------
+
+	int address_family = AF_INET;
+	int type = SOCK_DGRAM;
+	int protocol = IPPROTO_UDP;
+	SOCKET sock = socket(address_family, type, protocol);
+
+	if (sock == INVALID_SOCKET)
+	{
+		printf("socket failed: %d", WSAGetLastError());
+		return;
+	}
+	//---------------------
+	int iResult;
+
+	// Initialize Winsock
+	iResult = WSAStartup(MAKEWORD(2, 2), &wsaData);
+	if (iResult != 0) {
+		printf("WSAStartup failed: %d\n", iResult);
+		return;// 1;
+	}
+	//--------------------------
+	SOCKADDR_IN local_address;
+	local_address.sin_family = AF_INET;
+	local_address.sin_port = htons(9999);
+	local_address.sin_addr.s_addr = INADDR_ANY;
+	if (bind(sock, (SOCKADDR*)&local_address, sizeof(local_address)) == SOCKET_ERROR)
+	{
+		printf("bind failed: %d", WSAGetLastError());
+		return;
+	}
+	//----------------------------
+	char buffer[BufLen];
+	int flags = 0;
+	SOCKADDR_IN from;
+	int from_size = sizeof(from);
+	int bytes_received = recvfrom(sock, buffer, BufLen, flags, (SOCKADDR*)&from, &from_size);
+
+	if (bytes_received == SOCKET_ERROR)
+	{
+		printf("recvfrom returned SOCKET_ERROR, WSAGetLastError() %d", WSAGetLastError());
+	}
+	else
+	{
+		buffer[bytes_received] = 0;
+		printf("%d.%d.%d.%d:%d - %s",
+			from.sin_addr.S_un.S_un_b.s_b1,
+			from.sin_addr.S_un.S_un_b.s_b2,
+			from.sin_addr.S_un.S_un_b.s_b3,
+			from.sin_addr.S_un.S_un_b.s_b4,
+			from.sin_port,
+			buffer);
+	}
+	//---------------------------------
+	SOCKADDR_IN server_address;
+	server_address.sin_family = AF_INET;
+	server_address.sin_port = htons(portno);
+	server_address.sin_addr.S_un.S_addr = inet_addr("127.0.0.1");
+
+	char message[BufLen];
+	gets_s(message, BufLen);
+
+	int flagsx = 0;
+	if (sendto(sock, message, strlen(message), flagsx, (SOCKADDR*)&server_address, sizeof(server_address)) == SOCKET_ERROR)
+	{
+		printf("sendto failed: %d", WSAGetLastError());
+		return;
+	}
+	//-------------------------------------------
+
 	lastNCB->ncb_cmd_cplt_49 = 0;
 }
 
@@ -95437,7 +95518,7 @@ void PaletteMulti_7C9D0(signed __int16 a1)//25d9d0
 	signed __int16 v1; // cx
 	//uint8_t* i; // eax
 	int ic;
-	__int16 v3; // bx
+	//__int16 v3; // bx
 	//uint8_t* v4x; // eax
 	//uint8_t* v5x; // eax
 	//uint8_t* v7x; // [esp+4h] [ebp-4h]
@@ -95668,7 +95749,7 @@ signed int sub_7CE50()//25de50
 	__int16 i; // bx
 	//int v4; // eax
 	__int16 v5; // di
-	x_BYTE* v6; // esi
+	//x_BYTE* v6; // esi
 	int v7; // edi
 	//int v8; // eax
 	char v9; // ST10_1
@@ -99527,20 +99608,20 @@ void sub_82C20_drawEndGameTable(__int16 a1)//263c20
 		v24x[0] = (char*)LevelsNames_D9204[a1];
 		v24x[1] = x_DWORD_E9C4C_langindexbuffer[386];//Spells found //fix it this variable not used
 		v24x[2] = x_DWORD_E9C4C_langindexbuffer[385];//Accuracy
-		v30x[0] = 0;
 		v24x[3] = x_DWORD_E9C4C_langindexbuffer[384];//Creatures Killed
-		v30x[1] = 0;
 		v24x[4] = x_DWORD_E9C4C_langindexbuffer[377];//Mana
-		v30x[7] = 0;
 		v24x[5] = x_DWORD_E9C4C_langindexbuffer[394];//Time Taken
+		v30x[0] = 0;
+		v30x[1] = 0;
+		v30x[7] = 0;
 		if (a1 > 24)
 		{
 			//v1 = x_WORD_E2970;
-			int v1i = 0;
+			//int v1i = 0;
 			v2 = 0;
-			while (x_WORD_E2970x[v1i].word_12)
+			while (x_WORD_E2970x[v2].word_12)
 			{
-				if (a1 == x_WORD_E2970x[v1i].word_6)
+				if (a1 == x_WORD_E2970x[v2].word_6)
 				{
 					//v3 = 5 * v2;
 					v30x[2] = x_DWORD_17DDBCx[5 * v2];
@@ -99550,7 +99631,7 @@ void sub_82C20_drawEndGameTable(__int16 a1)//263c20
 					v30x[6] = x_DWORD_17DDBCx[4 + 5 * v2];
 				}
 				//v1 = (x_WORD *)((char *)v1 + 17);
-				v1i++;
+				//v1i++;
 				v2++;
 			}
 		}
@@ -99776,7 +99857,7 @@ void sub_83250_play_intros(char a1)//264250
 void sub_833C0()//2643c0
 {
 	//uint8_t* v0; // eax
-	uint8_t* v1; // eax
+	//uint8_t* v1; // eax
 	int v2; // edx
 	signed int v3; // eax
 	signed int v4; // esi
@@ -100003,7 +100084,7 @@ void sub_83850_show_welcome_screen()//264850
 	int v4; // esi
 	int v5; // eax
 	//int v6; // eax
-	signed int v7; // eax
+	//signed int v7; // eax
 
 	char dataPath[MAX_PATH];
 
@@ -101227,9 +101308,9 @@ __int16 sub_86180(unsigned __int16 a1)//267180
 {
 	//int v1; // ecx
 	__int16 result; // ax
-	char* v3; // esi
+	//char* v3; // esi
 	//int v4; // ebx
-	__int16 v5; // ax
+	//__int16 v5; // ax
 
 	//if (!x_DWORD_E2A6C)
 //		return 0;
@@ -101280,7 +101361,7 @@ __int16 sub_86180(unsigned __int16 a1)//267180
 //----- (00086270) --------------------------------------------------------
 __int16 sub_86270(unsigned __int16 a1)//267270
 {
-	int v1; // ecx
+	//int v1; // ecx
 	__int16 result; // ax
 	//char* v3; // esi
 	//int v4; // ebx
@@ -101397,7 +101478,7 @@ void sub_86460(uint16_t a1)//267460
 	//__int16 result; // ax
 	//char* v3; // esi
 	//int v4; // ebx
-	__int16 v5; // ax
+	//__int16 v5; // ax
 
 	/*if (!x_DWORD_E2A6C)
 		return;
@@ -101745,7 +101826,7 @@ void sub_86EB0(unsigned __int8 a1, unsigned __int8 a2, char a3)//267eb0
 {
 	//int v3; // eax
 	unsigned __int8 v4; // dl
-	int v5; // eax
+	//int v5; // eax
 	__int16 v6; // bx
 	__int16 v7; // ax
 
@@ -101992,7 +102073,7 @@ void sub_872A0()//2682a0
 	//int result; // eax
 	//char v11; // ch
 	//__int16 v12; // cx
-	int v13; // ebx
+	//int v13; // ebx
 	//debug
 	/*if (str_unk_1804B0ar.word_0x86==0x51)
 		v0 = 0;*/
@@ -105480,15 +105561,15 @@ int sub_8B5A0()//26c5a0
 //----- (0008B600) --------------------------------------------------------
 signed int sub_8B600(type_unk_18058Cstr a1)//26c600
 {
-	int v1; // edi
-	char v2; // bl
+	//int v1; // edi
+	//char v2; // bl
 	//__int16 v3; // dx
-	char v4; // al
+	//char v4; // al
 	int v5; // edx
-	int v6; // eax
-	int v7; // eax
-	char v9x[60]; // [esp+0h] [ebp-40h]
-	char v10; // [esp+3Ch] [ebp-4h]
+	//int v6; // eax
+	//int v7; // eax
+	//char v9x[60]; // [esp+0h] [ebp-40h]
+	//char v10; // [esp+3Ch] [ebp-4h]
 
 	//fix it
 	v5 = 0;
@@ -105700,13 +105781,13 @@ char sub_8B880(uint8_t** a1, char a2, signed int a3, int a4)//26c880
 //----- (0008B980) --------------------------------------------------------
 char sub_8B980(int a1, int a2, char* a3, int a4)//26c980
 {
-	int v4; // edi
+	//int v4; // edi
 	bool v5; // eax
 	int v6; // edx
-	int v7; // esi
-	int v9; // eax
+	//int v7; // esi
+	//int v9; // eax
 	int v10; // edx
-	int v11; // eax
+	//int v11; // eax
 
 	//fix it
 	v5 = 0;
@@ -106246,7 +106327,7 @@ char sub_8C140(unsigned __int16 a1, uint8_t* a2)//26d140
 {
 	int v3; // [esp+0h] [ebp-28h]
 	int v4; // [esp+4h] [ebp-24h]
-	int v5; // [esp+14h] [ebp-14h]
+	//int v5; // [esp+14h] [ebp-14h]
 	//char v6; // [esp+1Ch] [ebp-Ch]
 
 	memset(&v3, 0, 28);
@@ -108329,13 +108410,13 @@ signed int sub_9B260(x_DWORD** a1)//27C260
 char sub_9B274(int* a1, int a2)//27C274
 {
 	char result=0; // al
-	int v3; // ebp
-	int v4; // esi
-	char v5; // dl
-	int v6; // edi
-	signed int v7; // eax
-	char v8; // dh
-	char v9; // [esp+0h] [ebp-44h]
+	//int v3; // ebp
+	//int v4; // esi
+	//char v5; // dl
+	//int v6; // edi
+	//signed int v7; // eax
+	//char v8; // dh
+	//char v9; // [esp+0h] [ebp-44h]
 	unsigned __int8 v10; // [esp+1h] [ebp-43h]
 	unsigned __int8 v11; // [esp+2h] [ebp-42h]
 	unsigned __int8 v12; // [esp+3h] [ebp-41h]
@@ -108347,11 +108428,11 @@ char sub_9B274(int* a1, int a2)//27C274
 	unsigned __int8 v18; // [esp+9h] [ebp-3Bh]
 	unsigned __int8 v19; // [esp+Ah] [ebp-3Ah]
 	char v20; // [esp+Bh] [ebp-39h]
-	int v21; // [esp+20h] [ebp-24h]
-	int v22; // [esp+24h] [ebp-20h]
-	int v23; // [esp+28h] [ebp-1Ch]
-	int v24; // [esp+2Ch] [ebp-18h]
-	int v25; // [esp+30h] [ebp-14h]
+	//int v21; // [esp+20h] [ebp-24h]
+	//int v22; // [esp+24h] [ebp-20h]
+	//int v23; // [esp+28h] [ebp-1Ch]
+	//int v24; // [esp+2Ch] [ebp-18h]
+	//int v25; // [esp+30h] [ebp-14h]
 
 	//fix it
 	v10 = 0;
@@ -108718,10 +108799,10 @@ int sub_9BAC4(uint8_t* a1, signed int a2)//27CAC4
 //----- (0009BC68) --------------------------------------------------------
 signed int sub_9BC68_allocate_and_lock_memory(x_WORD* a1, uint8_t* a2, unsigned int a3)//27CC68
 {
-	int v4; // [esp+0h] [ebp-20h]
-	int v5; // [esp+4h] [ebp-1Ch]
-	int v6; // [esp+Ch] [ebp-14h]
-	int v7; // [esp+18h] [ebp-8h]
+	//int v4; // [esp+0h] [ebp-20h]
+	//int v5; // [esp+4h] [ebp-1Ch]
+	//int v6; // [esp+Ch] [ebp-14h]
+	//int v7; // [esp+18h] [ebp-8h]
 	/*
 	//fix it
 	v6 = 0;
@@ -108792,18 +108873,18 @@ signed int sub_9BD28_allocate_and_lock_memory2(int a1)
 //----- (0009BE18) --------------------------------------------------------
 int sub_9BE18(uint8_t* a1, int a2, char a3, unsigned int a4, unsigned int a5)//27CE18
 {
-	char v5; // STFC_1
+	//char v5; // STFC_1
 	//void (*v6)(); // eax
 	__int16 v7; // dx
-	char v8; // ST4C_1
-	int v10; // [esp+114h] [ebp-30h]
-	int v11; // [esp+118h] [ebp-2Ch]
+	//char v8; // ST4C_1
+	//int v10; // [esp+114h] [ebp-30h]
+	//int v11; // [esp+118h] [ebp-2Ch]
 	int v12; // [esp+11Ch] [ebp-28h]
 	int v13; // [esp+120h] [ebp-24h]
 	int v14=0; // [esp+130h] [ebp-14h]
-	__int64 v15; // [esp+134h] [ebp-10h]
-	int v16; // [esp+13Ch] [ebp-8h]
-	int v17; // [esp+140h] [ebp-4h]
+	//__int64 v15; // [esp+134h] [ebp-10h]
+	//int v16; // [esp+13Ch] [ebp-8h]
+	//int v17; // [esp+140h] [ebp-4h]
 
 	//fix it
 	v7 = 0;
@@ -108943,9 +109024,9 @@ int sub_9BE18(uint8_t* a1, int a2, char a3, unsigned int a4, unsigned int a5)//2
 //----- (0009C810) --------------------------------------------------------
 signed int sub_9C810(x_DWORD* a1, char a2)
 {
-	__int16 v2; // dx
-	__int16 v3; // t1
-	x_WORD* v5; // [esp+0h] [ebp-8h]
+	//__int16 v2; // dx
+	//__int16 v3; // t1
+	//x_WORD* v5; // [esp+0h] [ebp-8h]
 
 	/*
 	if (!a1[7])
@@ -109077,10 +109158,10 @@ int sub_9CCF8(uint8_t* a1, int a2)//27dcf8
 int sub_9CD9C(uint8_t* a1, int a2)//27dd9c
 {
 	int result=0; // eax
-	int v3; // ST18_4
-	char v4; // al
-	int v5; // ST08_4
-	char v6; // al
+	//int v3; // ST18_4
+	//char v4; // al
+	//int v5; // ST08_4
+	//char v6; // al
 	/*
 	result = a1;
 	if (*(x_DWORD*)(a1 + 28))
@@ -109504,9 +109585,9 @@ uint8_t* sub_B1138(uint8_t** a1, signed int a2)
 {
 	uint8_t* result=0; // eax
 	uint8_t* zero=NULL; // eax
-	signed int v3; // eax
-	int v4; // edx
-	signed int v5; // eax
+	//signed int v3; // eax
+	//int v4; // edx
+	//signed int v5; // eax
 	/*
 	result = (uint8_t*)calloc(a2, 4);
 	a1[0] = result;
@@ -109542,10 +109623,10 @@ uint8_t* sub_B1138(uint8_t** a1, signed int a2)
 //----- (000B11E8) --------------------------------------------------------
 int sub_B11E8(uint32_t* a1, int a2)
 {
-	x_DWORD* v2; // eax
-	x_DWORD* v3; // esi
+	//x_DWORD* v2; // eax
+	//x_DWORD* v3; // esi
 	int v4=0; // edx
-	x_DWORD* v5; // ecx
+	//x_DWORD* v5; // ecx
 	/*
 	v2 = (x_DWORD*)a1[3];
 	v3 = v2;
