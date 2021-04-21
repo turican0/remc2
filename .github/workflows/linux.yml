@@ -27,7 +27,7 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get dist-upgrade
-	sudo apt-get purge libboost-all-dev:i386
+	sudo apt-get purge libboost-all-dev
         sudo apt-get -y install \
           cmake gcc-multilib g++-multilib \
           libsdl2-dev:i386 libsdl2-mixer-dev:i386 \
