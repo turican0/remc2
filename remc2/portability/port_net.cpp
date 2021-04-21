@@ -65,14 +65,25 @@ private:
 
 void NetworkTestServer()
 {
+	try {
+		socket.open(boost::asio::ip::udp::v4());
+		boost::asio::socket_base::broadcast option(true);
+		socket.set_option(option);
+		endpoint = boost::asio::ip::udp::endpoint(
+			boost::asio::ip::address::from_string("192.168.1.255"),
+			port);
+	}
+	catch (std::exception & e) {
+	}
+	/*
 	try
 	{
 		int port = 17505;
-		/*if (argc != 2)
-		{
-			std::cerr << "Usage: async_udp_echo_server <port>\n";
-			return 1;
-		}*/
+		//if (argc != 2)
+		//{
+		//	std::cerr << "Usage: async_udp_echo_server <port>\n";
+		//	return 1;
+		//}
 
 		boost::asio::io_context io_context;
 
@@ -86,5 +97,5 @@ void NetworkTestServer()
 		std::cerr << "Exception: " << e.what() << "\n";
 	}
 
-	//return 0;
+	//return 0;*/
 }
