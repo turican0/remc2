@@ -70,9 +70,6 @@
     <Filter Include="Header Files\utilities">
       <UniqueIdentifier>{3087ce82-d2a1-473b-92b8-cc3d22463f94}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\libs\CppNet">
-      <UniqueIdentifier>{3bf8f29b-860c-4850-88d7-1d18e36da06b}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -726,12 +723,6 @@
     </Library>
     <Library Include="..\SDL2_image-2.0.5\lib\x64\SDL2_image.lib">
       <Filter>Source Files\libs\sdl-image</Filter>
-    </Library>
-    <Library Include="..\CppNet-master\x64\Debug\Cppnet.lib">
-      <Filter>Source Files\libs\CppNet</Filter>
-    </Library>
-    <Library Include="..\CppNet-master\Win32\Debug\Cppnet.lib">
-      <Filter>Source Files\libs\CppNet</Filter>
     </Library>
   </ItemGroup>
 </Project>
