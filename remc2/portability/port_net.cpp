@@ -1,90 +1,90 @@
 #include "port_net.h"
 
-/*
-int sockInit(void)
+//
+// async_udp_echo_server.cpp
+// ~~~~~~~~~~~~~~~~~~~~~~~~~
+//
+// Copyright (c) 2003-2020 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+//
+// Distributed under the Boost Software License, Version 1.0. (See accompanying
+// file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+//
+
+using boost::asio::ip::udp;
+
+class server
 {
-#ifdef _WIN32
-	WSADATA wsa_data;
-	return WSAStartup(MAKEWORD(1, 1), &wsa_data);
-#else
-	return 0;
-#endif
-}
-
-int sockQuit(void)
-{
-#ifdef _WIN32
-	return WSACleanup();
-#else
-	return 0;
-#endif
-}
-
-int sockClose(SOCKET sock)
-{
-
-	int status = 0;
-
-#ifdef _WIN32
-	//status = shutdown(sock, SD_BOTH);
-	status = shutdown(sock, 2);
-	if (status == 0) { status = closesocket(sock); }
-#else
-	status = shutdown(sock, SHUT_RDWR);
-	if (status == 0) { status = close(sock); }
-#endif
-
-	return status;
-
-}
-*/
-using namespace cppnet;
-
-#ifdef _WIN32 || _WIN64
-#include <winsock2.h>
-void SetNoDelay(const uint64_t& sock) {
-	int opt = 1;
-	int ret = setsockopt(sock, SOL_SOCKET, TCP_NODELAY, (const char*)&opt, sizeof(opt));
-}
-#else
-#include <netinet/tcp.h>
-#include <netinet/in.h>
-void SetNoDelay(const uint64_t& sock) {
-	int optval = 1;
-	setsockopt(sock, IPPROTO_TCP, TCP_NODELAY,
-		&optval, static_cast<socklen_t>(sizeof(optval)));
-}
-#endif
-
-static std::atomic_int count;
-
-void OnConnection(const Handle& handle, uint32_t error) {
-
-	count++;
-	if (error == CEC_SUCCESS) {
-		std::cout << " accept a socket. count: " << count << std::endl;
-		//SetNoDelay(handle);
+public:
+	server(boost::asio::io_context& io_context, short port)
+		: socket_(io_context, udp::endpoint(udp::v4(), port))
+	{
+		socket_.async_receive_from(
+			boost::asio::buffer(data_, max_length), sender_endpoint_,
+			boost::bind(&server::handle_receive_from, this,
+				boost::asio::placeholders::error,
+				boost::asio::placeholders::bytes_transferred));
 	}
-}
 
-void OnMessage(const Handle& handle, std::shared_ptr<cppnet::Buffer> data, uint32_t) {
-	char buff[65535];
-
-	while (data->GetCanReadLength()) {
-		int ret = data->Read(buff, 65535);
-		handle->Write(buff, ret);
+	void handle_receive_from(const boost::system::error_code& error,
+		size_t bytes_recvd)
+	{
+		if (!error && bytes_recvd > 0)
+		{
+			socket_.async_send_to(
+				boost::asio::buffer(data_, bytes_recvd), sender_endpoint_,
+				boost::bind(&server::handle_send_to, this,
+					boost::asio::placeholders::error,
+					boost::asio::placeholders::bytes_transferred));
+		}
+		else
+		{
+			socket_.async_receive_from(
+				boost::asio::buffer(data_, max_length), sender_endpoint_,
+				boost::bind(&server::handle_receive_from, this,
+					boost::asio::placeholders::error,
+					boost::asio::placeholders::bytes_transferred));
+		}
 	}
-}
+
+	void handle_send_to(const boost::system::error_code& /*error*/,
+		size_t /*bytes_sent*/)
+	{
+		socket_.async_receive_from(
+			boost::asio::buffer(data_, max_length), sender_endpoint_,
+			boost::bind(&server::handle_receive_from, this,
+				boost::asio::placeholders::error,
+				boost::asio::placeholders::bytes_transferred));
+	}
+
+private:
+	udp::socket socket_;
+	udp::endpoint sender_endpoint_;
+	enum { max_length = 1024 };
+	char data_[max_length];
+};
 
 void NetworkTestServer()
 {
-	cppnet::CppNet net;
-	net.Init(4);
+	try
+	{
+		int port = 5501;
+		/*if (argc != 2)
+		{
+			std::cerr << "Usage: async_udp_echo_server <port>\n";
+			return 1;
+		}*/
 
-	net.SetAcceptCallback(OnConnection);
-	net.SetReadCallback(OnMessage);
+		boost::asio::io_context io_context;
 
-	net.ListenAndAccept("0.0.0.0", 8921);
+		using namespace std; // For atoi.
+		server s(io_context, port);
 
-	net.Join();
+		io_context.run();
+	}
+	catch (std::exception & e)
+	{
+		std::cerr << "Exception: " << e.what() << "\n";
+	}
+
+	//return 0;
 }

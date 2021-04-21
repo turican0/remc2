@@ -20,9 +20,6 @@
 #include "../portability/port_time.h"
 #include "../portability/port_sdl_vga_mouse.h"
 
-#include "../portability/port_net.h"
-
-
 #pragma pack (1)
 typedef struct {//lenght 3
 	uint8_t red;
