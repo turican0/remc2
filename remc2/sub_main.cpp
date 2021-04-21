@@ -95199,7 +95199,7 @@ void fake_network_interupt() {
 	//-------------------------------------------
 	*/
 
-	void NetworkTestServer();
+	NetworkTestServer();
 
 	lastNCB->ncb_cmd_cplt_49 = 0;
 }

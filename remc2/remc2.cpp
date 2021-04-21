@@ -1,6 +1,7 @@
 //#include "stdafx.h"
 
-#include "portability/port_net.h"
+#include <boost/bind/bind.hpp>
+#include <boost/asio.hpp>
 
 #include "engine/engine_support.h"
 #include "sub_main.h"

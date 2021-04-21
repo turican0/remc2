@@ -17,6 +17,8 @@
 #include "engine/Animation.h"
 #include "engine/Terrain.h"
 
+#include "portability/port_net.h"
+
 //#define __CFSHL__(x, y) (x<<y)
 //#define __CFSHL__(x, y) 1
 /*int32_t __CFSHL__(uint32_t x, uint32_t y) {
