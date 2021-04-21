@@ -22,7 +22,7 @@ jobs:
     - name: prepare for 32 bit libraries
       run: |
         sudo dpkg --add-architecture i386
-	sudo apt-get dist-upgrade -y
+        sudo apt-get update -y
 
     - name: install dependencies
       run: |
