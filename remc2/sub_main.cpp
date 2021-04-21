@@ -90116,9 +90116,9 @@ int NetworkReceive_74C9D(myNCB* a1x, uint8_t* a2x)//255c9d
 	if (a1x->ncb_cmd_cplt_49)
 		return -a1x->ncb_cmd_cplt_49;
 	//allert_error();
-	memcpy((void*)a2x, (void*)x_DWORD_E1282, a1x->ncb_length_8);
-	/*for (int i = 0; i < a1x->word_8; i++)
-		((char*)a2x)[i] = ((char*)x_DWORD_E1282)[i];*/
+	//memcpy((void*)a2x, (void*)x_DWORD_E1282, a1x->ncb_length_8);
+	for (int i = 0; i < a1x->ncb_length_8; i++)
+		((char*)a2x)[i] = ((char*)x_DWORD_E1282)[i];
 	return a1x->ncb_length_8;
 }
 // 99DBD: using guessed type x_DWORD memcpy(x_DWORD, x_DWORD, x_DWORD);
