@@ -67,7 +67,7 @@ void NetworkTestServer()
 {
 	try
 	{
-		int port = 5501;
+		int port = 17505;
 		/*if (argc != 2)
 		{
 			std::cerr << "Usage: async_udp_echo_server <port>\n";
