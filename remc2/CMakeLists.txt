@@ -78,6 +78,8 @@ source_group("Source Files\\libs\\findfirst" FILES ${SOURCE_FILES__libs__findfir
 
 set(SOURCE_FILES__portability
     "portability/mctypes.h"
+    "portability/port_net.cpp"
+    "portability/port_net.h"
     "portability/port_filesystem.cpp"
     "portability/port_filesystem.h"
     "portability/port_inputs.cpp"
