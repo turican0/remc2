@@ -95124,7 +95124,7 @@ int WSAStartup(
 );
 */
 void fake_network_interupt() {
-	WSADATA wsaData;
+	/*WSADATA wsaData;
 	int portno;
 	portno = 5001;
 	const int BufLen = 1024;
@@ -95197,7 +95197,7 @@ void fake_network_interupt() {
 		return;
 	}
 	//-------------------------------------------
-
+	*/
 	lastNCB->ncb_cmd_cplt_49 = 0;
 }
 

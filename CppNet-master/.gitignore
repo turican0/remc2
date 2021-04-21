@@ -1,0 +1,19 @@
+# Ignore all files without extension.
+# If you need to git-add a file without extension, add -f
+*
+!*.*
+!*/
+build/
+*.o
+*.a
+*.log
+*.vs
+*64
+*32
+*.db
+*vscode
+*DEBUG
+*RELEASE
+*.pro
+*.user
+*bug

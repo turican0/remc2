@@ -1,5 +1,8 @@
 #include "port_net.h"
 
+#include "include/cppnet.h"
+#include "include/cppnet_socket.h" 
+
 int sockInit(void)
 {
 #ifdef _WIN32
