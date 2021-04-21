@@ -26,7 +26,6 @@ jobs:
 
     - name: install dependencies
       run: |
-        sudo apt-get dist-upgrade -y
         sudo apt-get -y install \
           cmake gcc-multilib g++-multilib \
           libsdl2-dev:i386 libsdl2-mixer-dev:i386 \
