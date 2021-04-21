@@ -23,6 +23,7 @@ jobs:
       run: |
         sudo dpkg --add-architecture i386
         sudo apt-get update -y
+	sudo apt-get dist-upgrade -y
 
     - name: install dependencies
       run: |
