@@ -38,7 +38,6 @@ int sockClose(SOCKET sock)
 
 }
 */
-
 using namespace cppnet;
 
 #ifdef _WIN32 || _WIN64

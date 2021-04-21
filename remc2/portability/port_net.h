@@ -7,5 +7,7 @@
 #include "include/cppnet.h"
 #include "include/cppnet_socket.h" 
 
+void NetworkTestServer();
+
 
 #endif //PORT_TIME
