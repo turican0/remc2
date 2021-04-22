@@ -3,11 +3,11 @@
 
 uint16_t x_WORD_17B4E0; // 34c4e0
 
-uint8_t x_BYTE_10B4E0_terraintype[0x10000]; // idb// x_BYTE_10B1E0[0x300]//2DC4E0 //map array1
-uint8_t x_BYTE_11B4E0_heightmap[0x10000]; // idb		//2EC4E0    	//map array2 // heightmap
-uint8_t x_BYTE_12B4E0_shading[0x10000]; // fix it -  weak	//2FC4E0    //map array3
-uint8_t x_BYTE_13B4E0_angle[0x10000]; // idb//30C4E0	//map array4 // water
-int16_t mapEntityIndex_15B4E0[0x10000]; // idb//32C4E0	//map array5
+uint8_t x_BYTE_10B4E0_terraintype[65536]; // 256x256 //map array1
+uint8_t x_BYTE_11B4E0_heightmap[65536]; // 256x256 //map array2 // heightmap
+uint8_t x_BYTE_12B4E0_shading[65536]; // 256x256 //map array3
+uint8_t x_BYTE_13B4E0_angle[65536]; // 256x256 //map array4 // water
+int16_t mapEntityIndex_15B4E0[65536]; // 256x256 //map array5
 
 char x_BYTE_D41B6 = 1; // weak
 
