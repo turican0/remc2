@@ -387,6 +387,9 @@
     <ClInclude Include="engine\Type_D404C.h">
       <Filter>Header Files\engine</Filter>
     </ClInclude>
+    <ClInclude Include="engine\Type_D93C0_Bldgprmbuffer.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

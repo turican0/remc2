@@ -254,6 +254,7 @@ XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
     <ClInclude Include="engine\Sound.h" />
     <ClInclude Include="engine\Terrain.h" />
     <ClInclude Include="engine\Type_D404C.h" />
+    <ClInclude Include="engine\Type_D93C0_Bldgprmbuffer.h" />
     <ClInclude Include="engine\Type_F2C20ar.h" />
     <ClInclude Include="engine\Type_WORD_D951C.h" />
     <ClInclude Include="engine\ViewPort.h" />
