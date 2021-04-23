@@ -3202,6 +3202,11 @@ char x_BYTE_D419C_level_num = -1; // weak
 char x_BYTE_D419D_fonttype = 1; // weak
 char x_BYTE_D419E = 0; // weak//2a519e
 
+bool Iam_server = false;
+bool Iam_client = false;
+int MultiplayerSession = 0;
+char serverIP[256] = "000.000.000.000";
+
 x_DWORD x_DWORD_D41A4_4 = 0;
 x_DWORD x_DWORD_D41A4_6 = 127;
 x_DWORD x_DWORD_D41A4_8 = 127;
@@ -67600,6 +67605,68 @@ type_SPELLS_BEGIN_BUFFER_str;
 	int8_t SPELLS_BEGIN_BUFFER_DA818x[0x820] = {*/
 }
 
+void InitNetworkInfo() {
+	long MultiplayerTimeout = 10000;
+	long MultiplayerTimeoutHundred = MultiplayerTimeout/10;
+	int clientsCount = 0;
+	if (Iam_server) {
+		myprintf("I listen for clients.\n", serverIP);
+		long begin_time=clock_value();
+		int old_seconds = MultiplayerTimeoutHundred / 100;
+		while ((clock_value() <= begin_time + MultiplayerTimeoutHundred)|| (clientsCount==0))
+		{
+			long testclock = clock_value();
+			char* actclient=NetworkListenForClients();
+			if (actclient != NULL)
+			{
+				myprintf("Detect client on adress %s\n", actclient);
+				clientsCount++;
+			}
+			int actsectime = ((begin_time + MultiplayerTimeoutHundred)- clock_value()) / 100;
+			if (actsectime != old_seconds)
+			{
+				old_seconds = actsectime;
+				if(actsectime<=0)
+					myprintf("Listen again, any client no detected\n");
+				else
+					myprintf("%d\n", actsectime);
+			}
+		}
+		myprintf("Listening is end.\n");
+		/*if (clientsCount==0)
+		{
+			myprintf("Clients no detected\n", serverIP);
+			mydelay(10000);
+			exit(0);
+		}*/
+	}
+	else if (Iam_client) {
+		long begin_time = clock_value();
+		int old_seconds = MultiplayerTimeout / 1000;
+		
+		while (clock_value() <= begin_time + MultiplayerTimeout)
+		{
+			if (NetworkGetInitInfoFromServer(serverIP))
+			{
+				myprintf("Test Server on %s OK.\n", serverIP);
+				break;
+			}
+			int actsectime = (clock_value() - begin_time + MultiplayerTimeout) / 1000;
+			if (actsectime != old_seconds)
+				myprintf("%d\n", actsectime);
+		}
+		if (clock_value() > begin_time + MultiplayerTimeout)
+		{
+			myprintf("Server on %s not reachable, please edit IP adress in file\n \"MultiplayerClient.bat\"\n", serverIP);
+			mydelay(10000);
+			exit(0);
+		}
+	}
+	/*extern bool Iam_server;
+	extern bool Iam_client;
+	extern char serverIP[256];*/
+};
+
 //----- (00055F70) --------------------------------------------------------
 int sub_main(int argc, char** argv, char**  /*envp*/)//236F70
 {
@@ -67708,6 +67775,11 @@ int sub_main(int argc, char** argv, char**  /*envp*/)//236F70
 	initposistruct();
 
 	sub_56210_process_command_line(argc, argv);//236FD4 - 237210
+#ifdef TEST_NETWORK
+	InitNetworkInfo();
+#endif //TEST_NETWORK
+
+
 	//-init 0x2a51a4 je nekde tu
 #ifdef COPY_SKIP_CONFIG
 	x_BYTE_D41AD_skip_screen = config_skip_screen;
@@ -67840,6 +67912,7 @@ void sub_56210_process_command_line(int argc, char** argv)//237210
 	sub_89B60_aplicate_setting(7u);
 	while (argnumber < argc)
 	{
+		strcpy(actarg, argv[argnumber]);
 		arg0 = argv[argnumber][0];// **(x_BYTE **)((int)argv + 4 * v2);
 		if (arg0 == '-' || arg0 == '/')
 		{
@@ -67857,7 +67930,7 @@ void sub_56210_process_command_line(int argc, char** argv)//237210
 			{
 				config_LOAD_EDITED_LEVEL = true;
 			}
-			if (_stricmp("reglevel", (char*)actarg))
+			else if (!_stricmp("reglevel", (char*)actarg))
 			{
 				test_regression_level = atoi(argv[++argnumber]);
 			}
@@ -67931,7 +68004,24 @@ void sub_56210_process_command_line(int argc, char** argv)//237210
 			{
 				x_BYTE_355238_music2 = 1;
 			}
-		}
+			else if (!_stricmp("server", (char*)actarg))
+			{
+				if (!Iam_client)
+				{
+					Iam_server = true;
+					MultiplayerSession = atoi(argv[++argnumber]);
+				}
+			}
+			else if (!_stricmp("client", (char*)actarg))
+			{
+				if (!Iam_server)
+				{
+					Iam_client = true;
+					strcpy(serverIP, (char*)argv[++argnumber][0]);
+					MultiplayerSession = atoi(argv[++argnumber]);
+				}
+			}
+		}		
 		argnumber++;
 	}
 	if (!x_BYTE_35522C_nocd)//if cd

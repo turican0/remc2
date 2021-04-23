@@ -11,4 +11,8 @@
 void NetworkTestServer();
 
 
+bool NetworkGetInitInfoFromServer(char* serverIP);
+char* NetworkListenForClients();
+
+
 #endif //PORT_TIME

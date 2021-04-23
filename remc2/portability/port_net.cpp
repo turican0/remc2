@@ -161,3 +161,10 @@ void NetworkTestServer()
 
 	//return 0;
 }
+
+bool NetworkGetInitInfoFromServer(char* serverIP) {
+	return false;
+};
+char* NetworkListenForClients() {
+	return NULL;
+};

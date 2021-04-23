@@ -428,6 +428,11 @@ typedef struct {//lenght 66
 myNCB;
 #pragma pack (16)
 
+extern bool Iam_server;
+extern bool Iam_client;
+extern int MultiplayerSession;
+extern char serverIP[256];
+
 extern Pathstruct pstr[];
 
 
