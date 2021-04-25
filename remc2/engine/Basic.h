@@ -556,6 +556,7 @@ void sub_98709_create_index_dattab_power(posistruct2_t* a1, posistruct2_t* a2, u
 void sub_98709_create_index_dattab_power_add(uint8_t* a1, uint8_t* a2, uint8_t* a3, posistruct_t* a4, int add);
 void sub_9874D_create_index_dattab(posistruct2_t* a1, posistruct2_t* a2, uint8_t* a3, posistruct_t* a4);
 void sub_9874D_create_index_dattab_add(uint8_t* a1, uint8_t* a2, uint8_t* a3, posistruct_t* a4, int add);
+signed int sub_61790(signed int a1);
 
 void Convert_from_shadow_str_2FECE(type_shadow_str_2FECE* from, type_str_2FECE* to);
 void Convert_from_shadow_D41A0_BYTESTR_0(type_shadow_D41A0_BYTESTR_0* from, type_D41A0_BYTESTR_0* to);
