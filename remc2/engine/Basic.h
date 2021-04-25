@@ -46,7 +46,7 @@
 #pragma pack (1)
 typedef struct//lenght 11
 {
-	int8_t byte_0;
+	int8_t connected_0;
 	uint8_t array_byte_1[8];
 	int8_t byte_9;
 	int8_t byte_10;
@@ -110,7 +110,7 @@ typedef struct//lenght 613 // end 17E09D
 	__int16 x_WORD_17DEF6; // weak
 	__int16 x_WORD_17DEF8; // weak
 	__int16 x_WORD_17DEFA; // weak
-	__int16 x_WORD_17DEFC; // weak
+	__int16 serverIndex_17DEFC; // weak
 	__int16 x_WORD_17DEFE; // weak
 	__int16 x_WORD_17DF00; // weak
 	uint16_t palMulti_17DF02; // weak
