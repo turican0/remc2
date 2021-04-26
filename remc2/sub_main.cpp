@@ -39,15 +39,15 @@ void _strupr(char* s)
 //#define SET_LEVEL
 
 //#define RELEASE_GAME
-#define PLAYING_GAME
+//#define PLAYING_GAME
 //#define DEBUG_AFTERLOAD
 //#define DEBUG_ONSTART
-//#define TEST_REGRESSIONS_GAME
+#define TEST_REGRESSIONS_GAME
 
-#define TEST_NETWORK
+//#define TEST_NETWORK
 int test_regression_level = 0;
-//first multi is 50
-//first hide level is 30
+//first multi is 50(51) 10
+//first hide level is 30(31) 5
 
 //adress 2285ff
 #if defined(RELEASE_GAME) //this is standard setting
@@ -94694,7 +94694,7 @@ char /*__fastcall*/ sub_7B250_draw_and_serve(/*int a1, int a2*//*, __int16 a3*/)
 
 	#ifdef TEST_REGRESSIONS_GAME
 	str_E1BAC[0].dword_0 = 0x258350;
-	str_E1BAC[0].word_8 = 1;
+	str_E1BAC[0].selected_8 = 1;
 	#endif
 
 	//for (i = off_E1BAC; *((int16_t*)i + 5); i += 44)
