@@ -45,7 +45,7 @@ void _strupr(char* s)
 #define TEST_REGRESSIONS_GAME
 
 //#define TEST_NETWORK
-int test_regression_level = 0;
+int test_regression_level = 51;
 //first multi is 50(51) 10
 //first hide level is 30(31) 5
 
@@ -73,8 +73,8 @@ int test_regression_level = 0;
 	#define OFF_PAUSE_5
 	#define TEST_REGRESSION
 	bool hideGraphics = true;
-	//#define DEBUG_SEQUENCES
-	//#define DEBUG_SEQUENCES2
+	#define DEBUG_SEQUENCES
+	#define DEBUG_SEQUENCES2
 	int debugafterload = 1;
 	//#define DISABLE_GRAPHICS_ENHANCE
 #elif defined(DEBUG_AFTERLOAD) //this is setting is for compare data with dosbox afterload(can fix mouse move, and etc.)
@@ -9891,11 +9891,11 @@ void sub_12780()//1f3780
 	v0 = 1;
 	while (v0 <= D41A0_0.countStageVars_0x36E00)
 	{
-		if (!D41A0_0.StageVars2_0x365F4[v0].index_0x3647A_0)
+		/*if (!D41A0_0.StageVars2_0x365F4[v0].index_0x3647A_0)
 		{
 			v0++;
 			break;
-		}
+		}*/
 		v2 = 0;
 		switch (D41A0_0.StageVars2_0x365F4[v0].index_0x3647A_0)
 		{
@@ -9926,7 +9926,7 @@ void sub_12780()//1f3780
 			}
 			if (v2)
 				D41A0_0.StageVars2_0x365F4[v0].stage_0x3647A_1 |= 4u;
-			v0++;
+			//v0++;
 			break;
 		case 7:
 			v5 = D41A0_0.StageVars2_0x365F4[v0].stage_0x3647A_1;
@@ -9937,12 +9937,13 @@ void sub_12780()//1f3780
 				else
 					D41A0_0.StageVars2_0x365F4[v0].stage_0x3647A_1 = v5 & 0xF7;
 			}
-			v0++;
+			//v0++;
 			break;
-		default:
+		/*default:
 			v0++;
-			break;
+			break;*/
 		}
+		v0++;
 	}
 }
 
@@ -69092,7 +69093,7 @@ void sub_57730()//238730
 			}
 		}
 #ifdef DEBUG_SEQUENCES2
-		add_compare(0x2389eb, debugafterload);
+		//add_compare(0x2389eb, debugafterload);
 #endif //DEBUG_SEQUENCES2
 		if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 0x10))
 			sub_68BF0();
@@ -69129,7 +69130,7 @@ void sub_57730()//238730
 						}
 						debug_sub_57730++;
 						//add_compare(0x238A8A, debugafterload);//0x9ac
-						add_compare(0x238A8A,debugafterload);
+						//add_compare(0x238A8A,debugafterload);
 #endif //DEBUG_SEQUENCES
 						
 						/*if (debug_sub_57730 == 0x84b4)
@@ -69266,7 +69267,7 @@ int debug_sub_57CF0 = 0;
 void sub_57CF0(type_event_0x6E8E* entity, axis_3d* position)//238cf0
 {
 #ifdef DEBUG_SEQUENCES2
-	add_compare(0x238cf3, debugafterload,0x348);
+	//add_compare(0x238cf3, debugafterload,0x348);
 	/*if (debug_sub_57CF0 >= 0x348)
 	{
 		debug_sub_57CF0++;
@@ -82755,7 +82756,7 @@ void sub_68BF0()//249bf0
 			if (jx->dword_0x8 >= 0)
 			{
 #ifdef DEBUG_SEQUENCES
-				add_compare(0x249c1b, debugafterload);
+				//add_compare(0x249c1b, debugafterload);
 #endif //DEBUG_SEQUENCES
 				/*result = */sub_68C70(jx);
 			}
