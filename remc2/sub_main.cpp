@@ -9047,8 +9047,8 @@ void sub_11960(type_event_0x6E8E* a1)//1f2960
 	v4 = a1->axis_0x4C_76.y;
 	while (v2x > x_DWORD_EA3E4[0])
 	{
-		if (abs((signed __int16)((int16_t)v2x->axis_0x4C_76.x - (int16_t)v1)) <= v2x->array_0x52_82.xshift + v6
-			&& abs((signed __int16)((int16_t)v2x->axis_0x4C_76.y - (int16_t)v4)) <= v2x->array_0x52_82.yshift + v5)
+		if (abs((signed __int16)(v2x->axis_0x4C_76.x - v1)) <= v2x->array_0x52_82.xshift + v6
+			&& abs((signed __int16)(v2x->axis_0x4C_76.y - v4)) <= v2x->array_0x52_82.yshift + v5)
 		{
 			v2x->dword_0x8 = -1;
 			v2x->byte_0x3D_61 = 0;
@@ -9216,8 +9216,8 @@ bool sub_11CB0(axis_3d* a1x)//1f2cb0
 	while (!v10 && v2x > x_DWORD_EA3E4[0])
 	{
 		if (v2x->subtype_0x40_64 == 2
-			&& abs((signed __int16)((int16_t)v2x->axis_0x4C_76.x - (int16_t)v8)) <= v2x->array_0x52_82.xshift + 2560
-			&& abs((signed __int16)((int16_t)v2x->axis_0x4C_76.y - (int16_t)v1)) <= v2x->array_0x52_82.yshift + 2560)
+			&& abs((signed __int16)(v2x->axis_0x4C_76.x - v8)) <= v2x->array_0x52_82.xshift + 2560
+			&& abs((signed __int16)(v2x->axis_0x4C_76.y - v1)) <= v2x->array_0x52_82.yshift + 2560)
 		{
 			v10 = 1;
 		}
@@ -9227,8 +9227,8 @@ bool sub_11CB0(axis_3d* a1x)//1f2cb0
 	{
 		for (ix = x_D41A0_BYTEARRAY_4_struct.dword_38527; !v10 && ix > x_DWORD_EA3E4[0]; ix = ix->next_0)
 		{
-			if (abs((signed __int16)((int16_t)ix->axis_0x4C_76.x - (int16_t)v8)) <= ix->array_0x52_82.xshift + 2560
-				&& abs((signed __int16)((int16_t)ix->axis_0x4C_76.y - (int16_t)v1)) <= ix->array_0x52_82.yshift + 2560)
+			if (abs((signed __int16)(ix->axis_0x4C_76.x - v8)) <= ix->array_0x52_82.xshift + 2560
+				&& abs((signed __int16)(ix->axis_0x4C_76.y - v1)) <= ix->array_0x52_82.yshift + 2560)
 			{
 				v10 = 1;
 			}
@@ -9778,10 +9778,10 @@ void sub_12500(type_event_0x6E8E* a1x)//1f3500
 			switch (D41A0_0.StageVars2_0x365F4[a1x->StageVar1_0x48_72].index_0x3647A_0)
 			{
 			case 1:
-				v1x = abs((int16_t)D41A0_0.StageVars2_0x365F4[a1x->StageVar1_0x48_72].str_0x3647C_4.axis.x - (int16_t)a1x->axis_0x4C_76.x);
+				v1x = abs(D41A0_0.StageVars2_0x365F4[a1x->StageVar1_0x48_72].str_0x3647C_4.axis.x - a1x->axis_0x4C_76.x);
 				if (v1x <= 2048)
 				{
-					v1x = abs((int16_t)D41A0_0.StageVars2_0x365F4[a1x->StageVar1_0x48_72].str_0x3647C_4.axis.y - (int16_t)a1x->axis_0x4C_76.y);
+					v1x = abs(D41A0_0.StageVars2_0x365F4[a1x->StageVar1_0x48_72].str_0x3647C_4.axis.y - a1x->axis_0x4C_76.y);
 					if (v1x <= 2048)
 						goto LABEL_44;
 				}
@@ -9822,10 +9822,10 @@ void sub_12500(type_event_0x6E8E* a1x)//1f3500
 						{
 							if (D41A0_0.StageVars2_0x365F4[a1x->StageVar1_0x48_72].str_0x3647C_4.axis.x || D41A0_0.StageVars2_0x365F4[a1x->StageVar1_0x48_72].str_0x3647C_4.axis.y)
 							{
-								v1x = abs((int16_t)D41A0_0.StageVars2_0x365F4[a1x->StageVar1_0x48_72].str_0x3647C_4.axis.x - (int16_t)a1x->axis_0x4C_76.x);
+								v1x = abs(D41A0_0.StageVars2_0x365F4[a1x->StageVar1_0x48_72].str_0x3647C_4.axis.x - a1x->axis_0x4C_76.x);
 								if (v1x <= 3072)
 								{
-									v1x = abs((int16_t)D41A0_0.StageVars2_0x365F4[a1x->StageVar1_0x48_72].str_0x3647C_4.axis.y - (int16_t)a1x->axis_0x4C_76.y);
+									v1x = abs(D41A0_0.StageVars2_0x365F4[a1x->StageVar1_0x48_72].str_0x3647C_4.axis.y - a1x->axis_0x4C_76.y);
 									if (v1x <= 3072)
 										goto LABEL_44;
 								}
@@ -16604,9 +16604,9 @@ void sub_1BD90(type_event_0x6E8E* a1x, char a2)//1fcd90
 			{
 				if (!jx->word_0x32_50 && jx != a1x)
 				{
-					v10 = (signed __int16)((int16_t)jx->axis_0x4C_76.x - (int16_t)a1x->axis_0x4C_76.x);
-					v11 = (signed __int16)((int16_t)jx->axis_0x4C_76.y - (int16_t)a1x->axis_0x4C_76.y)
-						* (signed __int16)((int16_t)jx->axis_0x4C_76.y - (int16_t)a1x->axis_0x4C_76.y)
+					v10 = (signed __int16)(jx->axis_0x4C_76.x - a1x->axis_0x4C_76.x);
+					v11 = (signed __int16)(jx->axis_0x4C_76.y - a1x->axis_0x4C_76.y)
+						* (signed __int16)(jx->axis_0x4C_76.y - a1x->axis_0x4C_76.y)
 						+ v10 * v10;
 					if (v11 <= v15)
 					{
@@ -16724,9 +16724,9 @@ void sub_1BF90(type_event_0x6E8E* a1x, char a2)//1fcf90
 					v27 = v11 * v11;
 					while (v12x > x_DWORD_EA3E4[0])
 					{
-						v13 = (signed __int16)((int16_t)v12x->axis_0x4C_76.x - (int16_t)a1x->axis_0x4C_76.x);
-						v14 = (signed __int16)((int16_t)v12x->axis_0x4C_76.y - (int16_t)a1x->axis_0x4C_76.y)
-							* (signed __int16)((int16_t)v12x->axis_0x4C_76.y - (int16_t)a1x->axis_0x4C_76.y)
+						v13 = (signed __int16)(v12x->axis_0x4C_76.x - a1x->axis_0x4C_76.x);
+						v14 = (signed __int16)(v12x->axis_0x4C_76.y - a1x->axis_0x4C_76.y)
+							* (signed __int16)(v12x->axis_0x4C_76.y - a1x->axis_0x4C_76.y)
 							+ v13 * v13;
 						if (v14 <= v27 && !(v12x->struct_byte_0xc_12_15.byte[0] & 0x20))
 						{
@@ -16760,9 +16760,9 @@ void sub_1BF90(type_event_0x6E8E* a1x, char a2)//1fcf90
 							{
 								if (!jx->word_0x32_50 && jx != a1x)
 								{
-									v19 = (signed __int16)((int16_t)jx->axis_0x4C_76.x - (int16_t)a1x->axis_0x4C_76.x);
-									v20 = (signed __int16)((int16_t)jx->axis_0x4C_76.y - (int16_t)a1x->axis_0x4C_76.y)
-										* (signed __int16)((int16_t)jx->axis_0x4C_76.y - (int16_t)a1x->axis_0x4C_76.y)
+									v19 = (signed __int16)(jx->axis_0x4C_76.x - a1x->axis_0x4C_76.x);
+									v20 = (signed __int16)(jx->axis_0x4C_76.y - a1x->axis_0x4C_76.y)
+										* (signed __int16)(jx->axis_0x4C_76.y - a1x->axis_0x4C_76.y)
 										+ v19 * v19;
 									if (v20 <= v26)
 									{
@@ -17235,8 +17235,8 @@ void sub_1C980(type_event_0x6E8E* a1x, char a2)//1fd980
 				for (jx = x_D41A0_BYTEARRAY_4_struct.bytearray_38403x[a1x->subtype_0x40_64]; jx > x_DWORD_EA3E4[0]; jx = jx->next_0)
 				{
 					if (jx->word_0x1A_26 != a1x->word_0x1A_26
-						&& abs((int16_t)a1x->axis_0x4C_76.x - (int16_t)jx->axis_0x4C_76.x) < a1x->array_0x52_82.xshift
-						&& abs((int16_t)a1x->axis_0x4C_76.y - (int16_t)jx->axis_0x4C_76.y) < a1x->array_0x52_82.xshift)
+						&& abs(a1x->axis_0x4C_76.x - jx->axis_0x4C_76.x) < a1x->array_0x52_82.xshift
+						&& abs(a1x->axis_0x4C_76.y - jx->axis_0x4C_76.y) < a1x->array_0x52_82.xshift)
 					{
 						a1x->word_0x20_32 = sub_581E0_maybe_tan2(&jx->axis_0x4C_76, &a1x->axis_0x4C_76);
 						break;
@@ -17794,16 +17794,16 @@ void sub_1D8C0(type_event_0x6E8E* a1x, __int16 a2)//1fe8c0
 					for (jx = x_D41A0_BYTEARRAY_4_struct.bytearray_38403x[a1x->subtype_0x40_64]; jx > x_DWORD_EA3E4[0]; jx = jx->next_0)
 					{
 						if (jx->word_0x1A_26 != a1x->word_0x1A_26
-							&& abs((int16_t)a1x->axis_0x4C_76.x - (int16_t)jx->axis_0x4C_76.x) < a1x->array_0x52_82.xshift
-							&& abs((int16_t)a1x->axis_0x4C_76.y - (int16_t)jx->axis_0x4C_76.y) < a1x->array_0x52_82.xshift)
+							&& abs(a1x->axis_0x4C_76.x - jx->axis_0x4C_76.x) < a1x->array_0x52_82.xshift
+							&& abs(a1x->axis_0x4C_76.y - jx->axis_0x4C_76.y) < a1x->array_0x52_82.xshift)
 						{
 							a1x->word_0x20_32 = sub_581E0_maybe_tan2(&jx->axis_0x4C_76, &a1x->axis_0x4C_76);
 							break;
 						}
 					}
-					if (abs((int16_t)a1x->axis_0x4C_76.x - (int16_t)v12x->axis_0x4C_76.x) < a1x->array_0x52_82.xshift
+					if (abs(a1x->axis_0x4C_76.x - v12x->axis_0x4C_76.x) < a1x->array_0x52_82.xshift
 						+ v12x->array_0x52_82.xshift
-						&& abs((int16_t)a1x->axis_0x4C_76.y - (int16_t)v12x->axis_0x4C_76.y) < a1x->array_0x52_82.xshift
+						&& abs(a1x->axis_0x4C_76.y - v12x->axis_0x4C_76.y) < a1x->array_0x52_82.xshift
 						+ v12x->array_0x52_82.xshift)
 					{
 						a1x->word_0x20_32 = sub_581E0_maybe_tan2(&v12x->axis_0x4C_76, &a1x->axis_0x4C_76);
@@ -17881,8 +17881,8 @@ void sub_1DBF0(type_event_0x6E8E* a1x, unsigned __int16 a2)//1febf0
 				v11 = a1x->dword_0xA0_160x->word_160_0x1c_28 * a1x->dword_0xA0_160x->word_160_0x1c_28;
 				while (v6x > x_DWORD_EA3E4[0])
 				{
-					v7 = (int16_t)v6x->axis_0x4C_76.x - (int16_t)a1x->axis_0x4C_76.x;
-					v8 = (int16_t)v6x->axis_0x4C_76.y - (int16_t)a1x->axis_0x4C_76.y;
+					v7 = v6x->axis_0x4C_76.x - a1x->axis_0x4C_76.x;
+					v8 = v6x->axis_0x4C_76.y - a1x->axis_0x4C_76.y;
 					v13 = v8 * v8 + v7 * v7;
 					//result = v13;
 					if (v13 <= v11 && !(v6x->struct_byte_0xc_12_15.byte[0] & 0x20))
@@ -18424,8 +18424,8 @@ void sub_1E700(type_event_0x6E8E* a1x, char a2)//1ff700
 					for (jx = x_D41A0_BYTEARRAY_4_struct.bytearray_38403x[a1x->subtype_0x40_64]; jx > x_DWORD_EA3E4[0]; jx = jx->next_0)
 					{
 						if (jx->word_0x1A_26 != a1x->word_0x1A_26
-							&& abs((int16_t)a1x->axis_0x4C_76.x - (int16_t)jx->axis_0x4C_76.x) < a1x->array_0x52_82.xshift
-							&& abs((int16_t)a1x->axis_0x4C_76.y - (int16_t)jx->axis_0x4C_76.y) < a1x->array_0x52_82.xshift)
+							&& abs(a1x->axis_0x4C_76.x - jx->axis_0x4C_76.x) < a1x->array_0x52_82.xshift
+							&& abs(a1x->axis_0x4C_76.y - jx->axis_0x4C_76.y) < a1x->array_0x52_82.xshift)
 						{
 							a1x->word_0x20_32 = sub_581E0_maybe_tan2(&jx->axis_0x4C_76, &a1x->axis_0x4C_76);
 							return;
@@ -19366,9 +19366,9 @@ void sub_1FAA0(type_event_0x6E8E* a1x)//200aa0
 				v31 = a1x->dword_0xA0_160x->word_160_0x1c_28 * a1x->dword_0xA0_160x->word_160_0x1c_28;
 				while (v10x > x_DWORD_EA3E4[0])
 				{
-					v12 = (signed __int16)((int16_t)v10x->axis_0x4C_76.x - (int16_t)a1x->axis_0x4C_76.x);
-					v35 = (signed __int16)((int16_t)v10x->axis_0x4C_76.y - (int16_t)a1x->axis_0x4C_76.y)
-						* (signed __int16)((int16_t)v10x->axis_0x4C_76.y - (int16_t)a1x->axis_0x4C_76.y)
+					v12 = (signed __int16)(v10x->axis_0x4C_76.x - a1x->axis_0x4C_76.x);
+					v35 = (signed __int16)(v10x->axis_0x4C_76.y - a1x->axis_0x4C_76.y)
+						* (signed __int16)(v10x->axis_0x4C_76.y - a1x->axis_0x4C_76.y)
 						+ v12 * v12;
 					//v35 = jx;
 					if (v35 <= v31 && !(v10x->struct_byte_0xc_12_15.byte[0] & 0x20))
@@ -19406,10 +19406,10 @@ void sub_1FAA0(type_event_0x6E8E* a1x)//200aa0
 					v19x = 0;
 					for (jz = x_D41A0_BYTEARRAY_4_struct.bytearray_38403x[36 / 4]; jz > x_DWORD_EA3E4[0]; jz = jz->next_0)
 					{
-						v20 = (signed __int16)((int16_t)jz->axis_0x4C_76.x - (int16_t)a1x->axis_0x4C_76.x);
+						v20 = (signed __int16)(jz->axis_0x4C_76.x - a1x->axis_0x4C_76.x);
 						v21 = v20 * v20
-							+ (signed __int16)((int16_t)jz->axis_0x4C_76.y - (int16_t)a1x->axis_0x4C_76.y)
-							* (signed __int16)((int16_t)jz->axis_0x4C_76.y - (int16_t)a1x->axis_0x4C_76.y);
+							+ (signed __int16)(jz->axis_0x4C_76.y - a1x->axis_0x4C_76.y)
+							* (signed __int16)(jz->axis_0x4C_76.y - a1x->axis_0x4C_76.y);
 						if (v21 <= v33 && v21 < v18)
 						{
 							v19x = jz;
@@ -19437,9 +19437,9 @@ void sub_1FAA0(type_event_0x6E8E* a1x)//200aa0
 				{
 					if (!kx->word_0x32_50 && kx != a1x)
 					{
-						v25 = (signed __int16)((int16_t)kx->axis_0x4C_76.x - (int16_t)a1x->axis_0x4C_76.x);
-						v36 = (signed __int16)((int16_t)kx->axis_0x4C_76.y - (int16_t)a1x->axis_0x4C_76.y)
-							* (signed __int16)((int16_t)kx->axis_0x4C_76.y - (int16_t)a1x->axis_0x4C_76.y)
+						v25 = (signed __int16)(kx->axis_0x4C_76.x - a1x->axis_0x4C_76.x);
+						v36 = (signed __int16)(kx->axis_0x4C_76.y - a1x->axis_0x4C_76.y)
+							* (signed __int16)(kx->axis_0x4C_76.y - a1x->axis_0x4C_76.y)
 							+ v25 * v25;
 						//v36 = jx;
 						if (v36 <= v30)
@@ -19716,10 +19716,10 @@ void sub_203D0(type_event_0x6E8E* a1x)//2013d0
 			{
 				if (jx->subtype_0x40_64 == 2 && jx->word_0x1A_26 != a1x->word_0x1A_26)
 				{
-					v11 = (signed __int16)((int16_t)jx->axis_0x4C_76.x - (int16_t)a1x->axis_0x4C_76.x);
+					v11 = (signed __int16)(jx->axis_0x4C_76.x - a1x->axis_0x4C_76.x);
 					v12 = v11 * v11
-						+ (signed __int16)((int16_t)jx->axis_0x4C_76.y - (int16_t)a1x->axis_0x4C_76.y)
-						* (signed __int16)((int16_t)jx->axis_0x4C_76.y - (int16_t)a1x->axis_0x4C_76.y);
+						+ (signed __int16)(jx->axis_0x4C_76.y - a1x->axis_0x4C_76.y)
+						* (signed __int16)(jx->axis_0x4C_76.y - a1x->axis_0x4C_76.y);
 					if (v12 < v8)
 					{
 						v9x = jx;
@@ -19763,9 +19763,9 @@ void sub_203D0(type_event_0x6E8E* a1x)//2013d0
 					{
 						if (v17x->word_0x1A_26 != a1x->word_0x1A_26)
 						{
-							v18 = (signed __int16)((int16_t)v17x->axis_0x4C_76.x - (int16_t)a1x->axis_0x4C_76.x);
+							v18 = (signed __int16)(v17x->axis_0x4C_76.x - a1x->axis_0x4C_76.x);
 							v19 = v18 * v18;
-							v20 = (signed __int16)((int16_t)v17x->axis_0x4C_76.y - (int16_t)a1x->axis_0x4C_76.y);
+							v20 = (signed __int16)(v17x->axis_0x4C_76.y - a1x->axis_0x4C_76.y);
 							v43 = v20 * v20 + v19;
 							if (v43 <= v42 && !(v17x->struct_byte_0xc_12_15.byte[0] & 0x20))
 							{
@@ -19820,10 +19820,10 @@ void sub_203D0(type_event_0x6E8E* a1x)//2013d0
 						v27x = 0;
 						for (kx = x_D41A0_BYTEARRAY_4_struct.bytearray_38403x[16 / 4]; kx > x_DWORD_EA3E4[0]; kx = kx->next_0)
 						{
-							v29 = (signed __int16)((int16_t)kx->axis_0x4C_76.x - (int16_t)a1x->axis_0x4C_76.x);
+							v29 = (signed __int16)(kx->axis_0x4C_76.x - a1x->axis_0x4C_76.x);
 							v30 = v29 * v29
-								+ (signed __int16)((int16_t)kx->axis_0x4C_76.y - (int16_t)a1x->axis_0x4C_76.y)
-								* (signed __int16)((int16_t)kx->axis_0x4C_76.y - (int16_t)a1x->axis_0x4C_76.y);
+								+ (signed __int16)(kx->axis_0x4C_76.y - a1x->axis_0x4C_76.y)
+								* (signed __int16)(kx->axis_0x4C_76.y - a1x->axis_0x4C_76.y);
 							if (v30 <= v45 && v30 < v26)
 							{
 								v27x = kx;
@@ -19838,10 +19838,10 @@ void sub_203D0(type_event_0x6E8E* a1x)//2013d0
 						v27x = 0;
 						for (lx = x_D41A0_BYTEARRAY_4_struct.bytearray_38403x[48 / 4]; lx > x_DWORD_EA3E4[0]; lx = lx->next_0)
 						{
-							v33 = (signed __int16)((int16_t)lx->axis_0x4C_76.x - (int16_t)a1x->axis_0x4C_76.x);
+							v33 = (signed __int16)(lx->axis_0x4C_76.x - a1x->axis_0x4C_76.x);
 							v34 = v33 * v33
-								+ (signed __int16)((int16_t)lx->axis_0x4C_76.y - (int16_t)a1x->axis_0x4C_76.y)
-								* (signed __int16)((int16_t)lx->axis_0x4C_76.y - (int16_t)a1x->axis_0x4C_76.y);
+								+ (signed __int16)(lx->axis_0x4C_76.y - a1x->axis_0x4C_76.y)
+								* (signed __int16)(lx->axis_0x4C_76.y - a1x->axis_0x4C_76.y);
 							if (v34 <= v46 && v34 < v31)
 							{
 								v27x = lx;
@@ -19858,10 +19858,10 @@ void sub_203D0(type_event_0x6E8E* a1x)//2013d0
 						v27x = 0;
 						for (mx = x_D41A0_BYTEARRAY_4_struct.bytearray_38403x[52 / 4]; mx > x_DWORD_EA3E4[0]; mx = mx->next_0)
 						{
-							v37 = (signed __int16)((int16_t)mx->axis_0x4C_76.x - (int16_t)a1x->axis_0x4C_76.x);
+							v37 = (signed __int16)(mx->axis_0x4C_76.x - a1x->axis_0x4C_76.x);
 							v38 = v37 * v37
-								+ (signed __int16)((int16_t)mx->axis_0x4C_76.y - (int16_t)a1x->axis_0x4C_76.y)
-								* (signed __int16)((int16_t)mx->axis_0x4C_76.y - (int16_t)a1x->axis_0x4C_76.y);
+								+ (signed __int16)(mx->axis_0x4C_76.y - a1x->axis_0x4C_76.y)
+								* (signed __int16)(mx->axis_0x4C_76.y - a1x->axis_0x4C_76.y);
 							if (v38 <= v40 && v38 < v35)
 							{
 								v27x = mx;
@@ -19995,11 +19995,11 @@ void sub_20940(type_event_0x6E8E* a1x)//201940
 			LABEL_50:
 				if (v24x)
 				{
-					v22 = ((int16_t)v24x->axis_0x4C_76.x - (int16_t)a1x->axis_0x4C_76.x);
+					v22 = (v24x->axis_0x4C_76.x - a1x->axis_0x4C_76.x);
 					if (sub_7277A_radix_3d(
-						((int16_t)v24x->axis_0x4C_76.y - (int16_t)a1x->axis_0x4C_76.y) * ((int16_t)v24x->axis_0x4C_76.y - (int16_t)a1x->axis_0x4C_76.y)
+						(v24x->axis_0x4C_76.y - a1x->axis_0x4C_76.y) * (v24x->axis_0x4C_76.y - a1x->axis_0x4C_76.y)
 						+ v22 * v22
-						+ ((int16_t)v24x->axis_0x4C_76.z - (int16_t)a1x->axis_0x4C_76.z) * ((int16_t)v24x->axis_0x4C_76.z - (int16_t)a1x->axis_0x4C_76.z)) <= 0x600)
+						+ (v24x->axis_0x4C_76.z - a1x->axis_0x4C_76.z) * (v24x->axis_0x4C_76.z - a1x->axis_0x4C_76.z)) <= 0x600)
 					{
 						x_WORD_EB398ar = v24x->axis_0x4C_76;
 						SetEntity04_57F10(v24x);
@@ -20013,10 +20013,10 @@ void sub_20940(type_event_0x6E8E* a1x)//201940
 			v10 = -1;
 			for (jx = x_D41A0_BYTEARRAY_4_struct.bytearray_38403x[16 / 4]; jx > x_DWORD_EA3E4[0]; jx = jx->next_0)
 			{
-				v12 = ((int16_t)jx->axis_0x4C_76.x - (int16_t)a1x->axis_0x4C_76.x);
+				v12 = (jx->axis_0x4C_76.x - a1x->axis_0x4C_76.x);
 				v13 = v12 * v12
-					+ ((int16_t)jx->axis_0x4C_76.y - (int16_t)a1x->axis_0x4C_76.y)
-					* ((int16_t)jx->axis_0x4C_76.y - (int16_t)a1x->axis_0x4C_76.y);
+					+ (jx->axis_0x4C_76.y - a1x->axis_0x4C_76.y)
+					* (jx->axis_0x4C_76.y - a1x->axis_0x4C_76.y);
 				if (v13 <= a1x->dword_0xA0_160x->word_160_0x1c_28 * a1x->dword_0xA0_160x->word_160_0x1c_28 && v13 < v10)
 				{
 					v9x = jx;
@@ -20030,10 +20030,10 @@ void sub_20940(type_event_0x6E8E* a1x)//201940
 			v9 = 0;
 			for (kx = x_D41A0_BYTEARRAY_4_struct.bytearray_38403x[48 / 4]; kx > x_DWORD_EA3E4[0]; kx = kx->next_0)
 			{
-				v16 = ((int16_t)kx->axis_0x4C_76.x - (int16_t)a1x->axis_0x4C_76.x);
+				v16 = (kx->axis_0x4C_76.x - a1x->axis_0x4C_76.x);
 				v17 = v16 * v16
-					+ ((int16_t)kx->axis_0x4C_76.y - (int16_t)a1x->axis_0x4C_76.y)
-					* ((int16_t)kx->axis_0x4C_76.y - (int16_t)a1x->axis_0x4C_76.y);
+					+ (kx->axis_0x4C_76.y - a1x->axis_0x4C_76.y)
+					* (kx->axis_0x4C_76.y - a1x->axis_0x4C_76.y);
 				if (v17 <= a1x->dword_0xA0_160x->word_160_0x1c_28 * a1x->dword_0xA0_160x->word_160_0x1c_28 && v17 < v14)
 				{
 					v9x = kx;
@@ -20049,10 +20049,10 @@ void sub_20940(type_event_0x6E8E* a1x)//201940
 			v9 = 0;
 			for (lx = x_D41A0_BYTEARRAY_4_struct.bytearray_38403x[52 / 4]; lx > x_DWORD_EA3E4[0]; lx = lx->next_0)
 			{
-				v20 = ((int16_t)lx->axis_0x4C_76.x - (int16_t)a1x->axis_0x4C_76.x);
+				v20 = (lx->axis_0x4C_76.x - a1x->axis_0x4C_76.x);
 				v21 = v20 * v20
-					+ ((int16_t)lx->axis_0x4C_76.y - (int16_t)a1x->axis_0x4C_76.y)
-					* ((int16_t)lx->axis_0x4C_76.y - (int16_t)a1x->axis_0x4C_76.y);
+					+ (lx->axis_0x4C_76.y - a1x->axis_0x4C_76.y)
+					* (lx->axis_0x4C_76.y - a1x->axis_0x4C_76.y);
 				if (v21 <= a1x->dword_0xA0_160x->word_160_0x1c_28 * a1x->dword_0xA0_160x->word_160_0x1c_28 && v21 < v18)
 				{
 					v9x = lx;
@@ -21639,10 +21639,10 @@ void sub_22760(type_event_0x6E8E* a1x)//203760
 		v9 = 0;
 		for (ix = x_D41A0_BYTEARRAY_4_struct.dword_38527; !v9 && ix > x_DWORD_EA3E4[0]; ix = ix->next_0)
 		{
-			v8z = abs((signed __int16)((int16_t)ix->axis_0x4C_76.x - (int16_t)v21));
+			v8z = abs((signed __int16)(ix->axis_0x4C_76.x - v21));
 			if (v8z <= ix->array_0x52_82.xshift + exwidth)
 			{
-				v8z = abs((signed __int16)((int16_t)ix->axis_0x4C_76.y - (int16_t)v7));
+				v8z = abs((signed __int16)(ix->axis_0x4C_76.y - v7));
 				if (v8z <= exheight + ix->array_0x52_82.yshift)
 					v9 = 1;
 			}
@@ -21653,10 +21653,10 @@ void sub_22760(type_event_0x6E8E* a1x)//203760
 			{
 				if (jx->subtype_0x40_64 == 2)
 				{
-					v8z = abs((signed __int16)((int16_t)jx->axis_0x4C_76.x - (int16_t)v21));
+					v8z = abs((signed __int16)(jx->axis_0x4C_76.x - v21));
 					if (v8z <= jx->array_0x52_82.xshift + exwidth)
 					{
-						v8z = abs((signed __int16)((int16_t)jx->axis_0x4C_76.y - (int16_t)v7));
+						v8z = abs((signed __int16)(jx->axis_0x4C_76.y - v7));
 						if (v8z <= exheight + jx->array_0x52_82.yshift)
 							v9 = 1;
 					}
@@ -21669,10 +21669,10 @@ void sub_22760(type_event_0x6E8E* a1x)//203760
 			{
 				if (kx->subtype_0x40_64 == 67)
 				{
-					v8z = abs((signed __int16)((int16_t)kx->axis_0x4C_76.x - (int16_t)v21));
+					v8z = abs((signed __int16)(kx->axis_0x4C_76.x - v21));
 					if (v8z <= kx->array_0x52_82.xshift + exwidth)
 					{
-						v8z = abs((signed __int16)((int16_t)kx->axis_0x4C_76.y - (int16_t)v7));
+						v8z = abs((signed __int16)(kx->axis_0x4C_76.y - v7));
 						if (v8z <= exheight + kx->array_0x52_82.yshift)
 							v9 = 1;
 					}
@@ -22214,10 +22214,10 @@ void sub_23340(type_event_0x6E8E* a1x)//204340
 		{
 			if (str_D93C0_bldgprmbuffer[jx->byte_0x46_70].byte_2 & 1)
 			{
-				v10 = ((int16_t)jx->axis_0x4C_76.x - (int16_t)a1x->axis_0x4C_76.x);
+				v10 = (jx->axis_0x4C_76.x - a1x->axis_0x4C_76.x);
 				v11 = v10 * v10
-					+ ((int16_t)jx->axis_0x4C_76.y - (int16_t)a1x->axis_0x4C_76.y)
-					* ((int16_t)jx->axis_0x4C_76.y - (int16_t)a1x->axis_0x4C_76.y);
+					+ (jx->axis_0x4C_76.y - a1x->axis_0x4C_76.y)
+					* (jx->axis_0x4C_76.y - a1x->axis_0x4C_76.y);
 				if (v11 < v8)
 				{
 					v9x = jx;
@@ -22443,10 +22443,10 @@ void sub_237B0(type_event_0x6E8E* a1x)//2047b0
 		{			
 			if (str_D93C0_bldgprmbuffer[v1x->byte_0x46_70].byte_2 & 1)
 			{
-				v11 = (signed __int16)((int16_t)v1x->axis_0x4C_76.x - (int16_t)a1x->axis_0x4C_76.x);
+				v11 = (signed __int16)(v1x->axis_0x4C_76.x - a1x->axis_0x4C_76.x);
 				v12 = v11 * v11
-					+ (signed __int16)((int16_t)v1x->axis_0x4C_76.y - (int16_t)a1x->axis_0x4C_76.y)
-					* (signed __int16)((int16_t)v1x->axis_0x4C_76.y - (int16_t)a1x->axis_0x4C_76.y);
+					+ (signed __int16)(v1x->axis_0x4C_76.y - a1x->axis_0x4C_76.y)
+					* (signed __int16)(v1x->axis_0x4C_76.y - a1x->axis_0x4C_76.y);
 				if (v12 < v9 && v12 > 0xE100000)
 				{
 					v10x = v1x;
@@ -22626,9 +22626,9 @@ void sub_23C40(type_event_0x6E8E* a1x)//204c40
 					{
 						if (v10x->word_0x1A_26 != a1x->word_0x1A_26)
 						{
-							v11 = (signed __int16)((int16_t)v10x->axis_0x4C_76.x - (int16_t)a1x->axis_0x4C_76.x);
-							v12 = (signed __int16)((int16_t)v10x->axis_0x4C_76.y - (int16_t)a1x->axis_0x4C_76.y)
-								* (signed __int16)((int16_t)v10x->axis_0x4C_76.y - (int16_t)a1x->axis_0x4C_76.y)
+							v11 = (signed __int16)(v10x->axis_0x4C_76.x - a1x->axis_0x4C_76.x);
+							v12 = (signed __int16)(v10x->axis_0x4C_76.y - a1x->axis_0x4C_76.y)
+								* (signed __int16)(v10x->axis_0x4C_76.y - a1x->axis_0x4C_76.y)
 								+ v11 * v11;
 							if (v12 <= v17 && !(v10x->struct_byte_0xc_12_15.byte[0] & 0x20))
 							{
@@ -22897,8 +22897,8 @@ void sub_24190(type_event_0x6E8E* a1x)//205190
 	for (ix = x_D41A0_BYTEARRAY_4_struct.bytearray_38403x[a1x->subtype_0x40_64]; ix > x_DWORD_EA3E4[0]; ix = ix->next_0)
 	{
 		if (ix->word_0x1A_26 != a1x->word_0x1A_26
-			&& abs((int16_t)a1x->axis_0x4C_76.x - (int16_t)ix->axis_0x4C_76.x) < 256
-			&& abs((int16_t)a1x->axis_0x4C_76.y - (int16_t)ix->axis_0x4C_76.y) < 256)
+			&& abs(a1x->axis_0x4C_76.x - ix->axis_0x4C_76.x) < 256
+			&& abs(a1x->axis_0x4C_76.y - ix->axis_0x4C_76.y) < 256)
 		{
 			a1x->word_0x20_32 = sub_581E0_maybe_tan2(&ix->axis_0x4C_76, &a1x->axis_0x4C_76);
 			v13 = 1;
@@ -22959,10 +22959,10 @@ void sub_24440(type_event_0x6E8E* a1x)//205440
 			v3 = -1;
 			for (ix = x_D41A0_BYTEARRAY_4_struct.dword_38527; ix > x_DWORD_EA3E4[0]; ix = ix->next_0)
 			{
-				v5 = (signed __int16)((int16_t)ix->axis_0x4C_76.x - (int16_t)a1x->axis_0x4C_76.x);
+				v5 = (signed __int16)(ix->axis_0x4C_76.x - a1x->axis_0x4C_76.x);
 				v6 = v5 * v5
-					+ (signed __int16)((int16_t)ix->axis_0x4C_76.y - (int16_t)a1x->axis_0x4C_76.y)
-					* (signed __int16)((int16_t)ix->axis_0x4C_76.y - (int16_t)a1x->axis_0x4C_76.y);
+					+ (signed __int16)(ix->axis_0x4C_76.y - a1x->axis_0x4C_76.y)
+					* (signed __int16)(ix->axis_0x4C_76.y - a1x->axis_0x4C_76.y);
 				if (v6 <= v8 && v6 < v3)
 				{
 					v2x = ix;
@@ -23090,10 +23090,10 @@ void sub_24510(type_event_0x6E8E* a1x)//205510
 					//LOWORD(iy) = (signed __int16)a1x->byte_0x3E_62 / *(x_WORD *)(a1x->dword_0xA0_160 + 26);
 					if (!(a1x->byte_0x3E_62 % a1x->dword_0xA0_160x->word_160_0x1a_26))
 					{
-						v10 = (signed __int16)((int16_t)v5x->axis_0x4C_76.x - (int16_t)a1x->axis_0x4C_76.x);
+						v10 = (signed __int16)(v5x->axis_0x4C_76.x - a1x->axis_0x4C_76.x);
 						iy = v10 * v10
-							+ (signed __int16)((int16_t)v5x->axis_0x4C_76.y - (int16_t)a1x->axis_0x4C_76.y)
-							* (signed __int16)((int16_t)v5x->axis_0x4C_76.y - (int16_t)a1x->axis_0x4C_76.y);
+							+ (signed __int16)(v5x->axis_0x4C_76.y - a1x->axis_0x4C_76.y)
+							* (signed __int16)(v5x->axis_0x4C_76.y - a1x->axis_0x4C_76.y);
 						if (iy < v13)
 						{
 							if (!(a1x->byte_0x3E_62 % (2 * a1x->dword_0xA0_160x->word_160_0x1a_26)))
@@ -23279,8 +23279,8 @@ void sub_24930(type_event_0x6E8E* a1x)//205930
 				for (jx = x_D41A0_BYTEARRAY_4_struct.bytearray_38403x[a1x->subtype_0x40_64]; jx > x_DWORD_EA3E4[0]; jx = jx->next_0)
 				{
 					if (jx->word_0x1A_26 != a1x->word_0x1A_26
-						&& abs((int16_t)a1x->axis_0x4C_76.x - (int16_t)jx->axis_0x4C_76.x) < a1x->array_0x52_82.xshift
-						&& abs((int16_t)a1x->axis_0x4C_76.y - (int16_t)jx->axis_0x4C_76.y) < a1x->array_0x52_82.xshift)
+						&& abs(a1x->axis_0x4C_76.x - jx->axis_0x4C_76.x) < a1x->array_0x52_82.xshift
+						&& abs(a1x->axis_0x4C_76.y - jx->axis_0x4C_76.y) < a1x->array_0x52_82.xshift)
 					{
 						a1x->word_0x20_32 = sub_581E0_maybe_tan2(&jx->axis_0x4C_76, &a1x->axis_0x4C_76);
 						break;
@@ -23502,9 +23502,9 @@ void sub_24E20(type_event_0x6E8E* a1x)//205e20
 						v12 = result;
 						while (v5x > x_DWORD_EA3E4[0])
 						{
-							v6 = (signed __int16)((int16_t)v5x->axis_0x4C_76.x - (int16_t)a1x->axis_0x4C_76.x);
-							result = (signed __int16)((int16_t)v5x->axis_0x4C_76.y - (int16_t)a1x->axis_0x4C_76.y)
-								* (signed __int16)((int16_t)v5x->axis_0x4C_76.y - (int16_t)a1x->axis_0x4C_76.y)
+							v6 = (signed __int16)(v5x->axis_0x4C_76.x - a1x->axis_0x4C_76.x);
+							result = (signed __int16)(v5x->axis_0x4C_76.y - a1x->axis_0x4C_76.y)
+								* (signed __int16)(v5x->axis_0x4C_76.y - a1x->axis_0x4C_76.y)
 								+ v6 * v6;
 							v14 = result;
 							if (result <= v12 && !(v5x->struct_byte_0xc_12_15.byte[0] & 0x20))
@@ -23993,8 +23993,8 @@ void HitFirebug_25610(type_event_0x6E8E* a1x)//206610
 						for (jx = x_D41A0_BYTEARRAY_4_struct.bytearray_38403x[a1x->subtype_0x40_64]; jx > x_DWORD_EA3E4[0]; jx = jx->next_0)
 						{
 							if (jx->word_0x1A_26 != a1x->word_0x1A_26
-								&& abs((int16_t)a1x->axis_0x4C_76.x - (int16_t)jx->axis_0x4C_76.x) < a1x->array_0x52_82.xshift
-								&& abs((int16_t)a1x->axis_0x4C_76.y - (int16_t)jx->axis_0x4C_76.y) < a1x->array_0x52_82.xshift)
+								&& abs(a1x->axis_0x4C_76.x - jx->axis_0x4C_76.x) < a1x->array_0x52_82.xshift
+								&& abs(a1x->axis_0x4C_76.y - jx->axis_0x4C_76.y) < a1x->array_0x52_82.xshift)
 							{
 								a1x->word_0x20_32 = sub_581E0_maybe_tan2(&jx->axis_0x4C_76, &a1x->axis_0x4C_76);
 								return;
@@ -24022,8 +24022,8 @@ void HitFirebug_25610(type_event_0x6E8E* a1x)//206610
 						if (v15x > x_DWORD_EA3E4[0])
 						{
 							if (v15x->word_0x1A_26 == a1x->word_0x1A_26
-								|| abs((int16_t)a1x->axis_0x4C_76.x - (int16_t)v15x->axis_0x4C_76.x) >= a1x->array_0x52_82.xshift
-								|| abs((int16_t)a1x->axis_0x4C_76.y - (int16_t)v15x->axis_0x4C_76.y) >= a1x->array_0x52_82.xshift)
+								|| abs(a1x->axis_0x4C_76.x - v15x->axis_0x4C_76.x) >= a1x->array_0x52_82.xshift
+								|| abs(a1x->axis_0x4C_76.y - v15x->axis_0x4C_76.y) >= a1x->array_0x52_82.xshift)
 							{
 								v15x = v15x->next_0;
 								continue;
@@ -24077,8 +24077,8 @@ void HitFirebug_25610(type_event_0x6E8E* a1x)//206610
 						if (v30x > x_DWORD_EA3E4[0])
 						{
 							if (v30x->word_0x1A_26 == a1x->word_0x1A_26
-								|| abs((int16_t)a1x->axis_0x4C_76.x - (int16_t)v30x->axis_0x4C_76.x) >= a1x->array_0x52_82.xshift
-								|| abs((int16_t)a1x->axis_0x4C_76.y - (int16_t)v30x->axis_0x4C_76.y) >= a1x->array_0x52_82.xshift)
+								|| abs(a1x->axis_0x4C_76.x - v30x->axis_0x4C_76.x) >= a1x->array_0x52_82.xshift
+								|| abs(a1x->axis_0x4C_76.y - v30x->axis_0x4C_76.y) >= a1x->array_0x52_82.xshift)
 							{
 								v30x = v30x->next_0;
 								continue;
@@ -24127,8 +24127,8 @@ void HitFirebug_25610(type_event_0x6E8E* a1x)//206610
 				while (v22x > x_DWORD_EA3E4[0])
 				{
 					if (v22x->word_0x1A_26 != a1x->word_0x1A_26
-						&& abs((int16_t)a1x->axis_0x4C_76.x - (int16_t)v22x->axis_0x4C_76.x) < a1x->array_0x52_82.xshift
-						&& abs((int16_t)a1x->axis_0x4C_76.y - (int16_t)v22x->axis_0x4C_76.y) < a1x->array_0x52_82.xshift)
+						&& abs(a1x->axis_0x4C_76.x - v22x->axis_0x4C_76.x) < a1x->array_0x52_82.xshift
+						&& abs(a1x->axis_0x4C_76.y - v22x->axis_0x4C_76.y) < a1x->array_0x52_82.xshift)
 					{
 						a1x->word_0x20_32 = sub_581E0_maybe_tan2(&v22x->axis_0x4C_76, &a1x->axis_0x4C_76);
 						break;
@@ -24136,7 +24136,7 @@ void HitFirebug_25610(type_event_0x6E8E* a1x)//206610
 					v22x = v22x->next_0;
 				}
 			LABEL_70:
-				v23 = (int16_t)v34x->axis_0x4C_76.z - (int16_t)a1x->axis_0x4C_76.z;
+				v23 = v34x->axis_0x4C_76.z - a1x->axis_0x4C_76.z;
 				if (abs(v23) > 64)
 				{
 					if (v23 <= 0)
@@ -24396,9 +24396,9 @@ char sub_26070(type_event_0x6E8E* a1x)//207070
 			v12 = v1;
 			while (v5x > x_DWORD_EA3E4[0])
 			{
-				v6 = (signed __int16)((int16_t)v5x->axis_0x4C_76.x - (int16_t)a1x->axis_0x4C_76.x);
+				v6 = (signed __int16)(v5x->axis_0x4C_76.x - a1x->axis_0x4C_76.x);
 				v7 = v6 * v6;
-				v8 = (signed __int16)((int16_t)v5x->axis_0x4C_76.y - (int16_t)a1x->axis_0x4C_76.y);
+				v8 = (signed __int16)(v5x->axis_0x4C_76.y - a1x->axis_0x4C_76.y);
 				v1 = v8 * v8;
 				v14 = v1 + v7;
 				if (v1 + v7 <= v12 && !(v5x->struct_byte_0xc_12_15.byte[0] & 0x20))
@@ -24471,8 +24471,8 @@ void sub_26220(/*type_str_0x6E8E* a1x, */type_event_0x6E8E* a2x)//207220
 				for (ix = x_D41A0_BYTEARRAY_4_struct.bytearray_38403x[a2x->subtype_0x40_64]; ix > x_DWORD_EA3E4[0]; ix = ix->next_0)
 				{
 					if (ix->word_0x1A_26 != a2x->word_0x1A_26
-						&& abs((int16_t)a2x->axis_0x4C_76.x - (int16_t)ix->axis_0x4C_76.x) < a2x->array_0x52_82.xshift
-						&& abs((int16_t)a2x->axis_0x4C_76.y - (int16_t)ix->axis_0x4C_76.y) < a2x->array_0x52_82.xshift)
+						&& abs(a2x->axis_0x4C_76.x - ix->axis_0x4C_76.x) < a2x->array_0x52_82.xshift
+						&& abs(a2x->axis_0x4C_76.y - ix->axis_0x4C_76.y) < a2x->array_0x52_82.xshift)
 					{
 						a2x->word_0x20_32 = sub_581E0_maybe_tan2(&ix->axis_0x4C_76, &a2x->axis_0x4C_76);
 						break;
@@ -25668,14 +25668,14 @@ void sub_27950(type_event_0x6E8E* event)//208950
 	for (ix = x_D41A0_BYTEARRAY_4_struct.bytearray_38403x[event->subtype_0x40_64]; ix > x_DWORD_EA3E4[0]; ix = ix->next_0)
 	{
 		if (ix->word_0x1A_26 != event->word_0x1A_26
-			&& abs((int16_t)event->axis_0x4C_76.x - (int16_t)ix->axis_0x4C_76.x) < event->array_0x52_82.xshift
-			&& abs((int16_t)event->axis_0x4C_76.y - (int16_t)ix->axis_0x4C_76.y) < event->array_0x52_82.xshift)
+			&& abs(event->axis_0x4C_76.x - ix->axis_0x4C_76.x) < event->array_0x52_82.xshift
+			&& abs(event->axis_0x4C_76.y - ix->axis_0x4C_76.y) < event->array_0x52_82.xshift)
 		{
 			event->word_0x20_32 = sub_581E0_maybe_tan2(&ix->axis_0x4C_76, &event->axis_0x4C_76);
 			break;
 		}
 	}
-	v2 = (int16_t)event->axis_0x4C_76.z - (int16_t)event->word_0x2C_44;
+	v2 = event->axis_0x4C_76.z - event->word_0x2C_44;
 	if (abs(v2) >= 256)
 	{
 		if (v2 <= 0)
@@ -25919,8 +25919,8 @@ void sub_27E00(type_event_0x6E8E* a1x)//208e00
 		for (ix = x_D41A0_BYTEARRAY_4_struct.bytearray_38403x[a1x->subtype_0x40_64]; ix > x_DWORD_EA3E4[0]; ix = ix->next_0)
 		{
 			if (ix->word_0x1A_26 != a1x->word_0x1A_26
-				&& abs((int16_t)a1x->axis_0x4C_76.x - (int16_t)ix->axis_0x4C_76.x) < a1x->array_0x52_82.xshift
-				&& abs((int16_t)a1x->axis_0x4C_76.y - (int16_t)ix->axis_0x4C_76.y) < a1x->array_0x52_82.xshift)
+				&& abs(a1x->axis_0x4C_76.x - ix->axis_0x4C_76.x) < a1x->array_0x52_82.xshift
+				&& abs(a1x->axis_0x4C_76.y - ix->axis_0x4C_76.y) < a1x->array_0x52_82.xshift)
 			{
 				a1x->word_0x20_32 = sub_581E0_maybe_tan2(&ix->axis_0x4C_76, &a1x->axis_0x4C_76);
 				break;
@@ -26019,9 +26019,9 @@ char sub_28060(type_event_0x6E8E* a1x)//209060
 	for (ix = x_D41A0_BYTEARRAY_4_struct.bytearray_38403x[a1x->subtype_0x40_64]; ix > x_DWORD_EA3E4[0]; ix = ix->next_0)
 	{
 		if (ix->word_0x1A_26 != a1x->word_0x1A_26
-			&& abs((int16_t)a1x->axis_0x4C_76.x - (int16_t)ix->axis_0x4C_76.x) < v1
-			&& abs((int16_t)a1x->axis_0x4C_76.y - (int16_t)ix->axis_0x4C_76.y) < v1
-			&& abs((int16_t)a1x->axis_0x4C_76.z - (int16_t)ix->axis_0x4C_76.z) < 2 * a1x->array_0x52_82.rotation)
+			&& abs(a1x->axis_0x4C_76.x - ix->axis_0x4C_76.x) < v1
+			&& abs(a1x->axis_0x4C_76.y - ix->axis_0x4C_76.y) < v1
+			&& abs(a1x->axis_0x4C_76.z - ix->axis_0x4C_76.z) < 2 * a1x->array_0x52_82.rotation)
 		{
 			v3 = a1x->axis_0x4C_76.z;
 			if (v3 >= ix->axis_0x4C_76.z)
@@ -26339,9 +26339,9 @@ void sub_28690(type_event_0x6E8E* a1x)//209690
 		v9 = v1 * v1;
 		while (v2x > x_DWORD_EA3E4[0])
 		{
-			v3 = (signed __int16)((int16_t)v2x->axis_0x4C_76.x - (int16_t)a1x->axis_0x4C_76.x);
-			v4 = (signed __int16)((int16_t)v2x->axis_0x4C_76.y - (int16_t)a1x->axis_0x4C_76.y)
-				* (signed __int16)((int16_t)v2x->axis_0x4C_76.y - (int16_t)a1x->axis_0x4C_76.y)
+			v3 = (signed __int16)(v2x->axis_0x4C_76.x - a1x->axis_0x4C_76.x);
+			v4 = (signed __int16)(v2x->axis_0x4C_76.y - a1x->axis_0x4C_76.y)
+				* (signed __int16)(v2x->axis_0x4C_76.y - a1x->axis_0x4C_76.y)
 				+ v3 * v3;
 			if (v4 <= v9 && !(v2x->struct_byte_0xc_12_15.byte[0] & 0x20))
 			{
@@ -26915,8 +26915,8 @@ void sub_28FF0(type_event_0x6E8E* a1x)//209ff0
 				for (jx = x_D41A0_BYTEARRAY_4_struct.bytearray_38403x[a1x->subtype_0x40_64]; jx > x_DWORD_EA3E4[0]; jx = jx->next_0)
 				{
 					if (jx->word_0x1A_26 != a1x->word_0x1A_26
-						&& abs((int16_t)a1x->axis_0x4C_76.x - (int16_t)jx->axis_0x4C_76.x) < a1x->array_0x52_82.xshift
-						&& abs((int16_t)a1x->axis_0x4C_76.y - (int16_t)jx->axis_0x4C_76.y) < a1x->array_0x52_82.xshift)
+						&& abs(a1x->axis_0x4C_76.x - jx->axis_0x4C_76.x) < a1x->array_0x52_82.xshift
+						&& abs(a1x->axis_0x4C_76.y - jx->axis_0x4C_76.y) < a1x->array_0x52_82.xshift)
 					{
 						a1x->word_0x20_32 = sub_581E0_maybe_tan2(&jx->axis_0x4C_76, &a1x->axis_0x4C_76);
 						break;
@@ -28680,8 +28680,8 @@ void sub_2B260(type_event_0x6E8E* a1x)//20c260
 				if (v5x > x_DWORD_EA3E4[0])
 				{
 					if (v5x->word_0x1A_26 == a1x->word_0x1A_26
-						|| abs((int16_t)a1x->axis_0x4C_76.x - (int16_t)v5x->axis_0x4C_76.x) >= a1x->array_0x52_82.xshift
-						|| abs((int16_t)a1x->axis_0x4C_76.y - (int16_t)v5x->axis_0x4C_76.y) >= a1x->array_0x52_82.xshift)
+						|| abs(a1x->axis_0x4C_76.x - v5x->axis_0x4C_76.x) >= a1x->array_0x52_82.xshift
+						|| abs(a1x->axis_0x4C_76.y - v5x->axis_0x4C_76.y) >= a1x->array_0x52_82.xshift)
 					{
 						v5x = v5x->next_0;
 						continue;
@@ -28808,8 +28808,8 @@ void sub_2B260(type_event_0x6E8E* a1x)//20c260
 		while (v14x > x_DWORD_EA3E4[0])
 		{
 			if (v14x->word_0x1A_26 != a1x->word_0x1A_26
-				&& abs((int16_t)a1x->axis_0x4C_76.x - (int16_t)v14x->axis_0x4C_76.x) < a1x->array_0x52_82.xshift
-				&& abs((int16_t)a1x->axis_0x4C_76.y - (int16_t)v14x->axis_0x4C_76.y) < a1x->array_0x52_82.xshift)
+				&& abs(a1x->axis_0x4C_76.x - v14x->axis_0x4C_76.x) < a1x->array_0x52_82.xshift
+				&& abs(a1x->axis_0x4C_76.y - v14x->axis_0x4C_76.y) < a1x->array_0x52_82.xshift)
 			{
 				a1x->word_0x20_32 = sub_581E0_maybe_tan2(&v14x->axis_0x4C_76, &a1x->axis_0x4C_76);
 				v27 = 1;
@@ -32242,11 +32242,11 @@ LABEL_8:
 						{
 							if (!jx->subtype_0x40_64)
 							{
-								v15 = abs((int16_t)v28x.x - (int16_t)jx->axis_0x4C_76.x);
+								v15 = abs(v28x.x - jx->axis_0x4C_76.x);
 								v16 = v15;
 								if (v15 >= 0x8000)
 									v16 = abs(v15 - 0x10000);
-								v17 = abs((int16_t)v28x.y - (int16_t)jx->axis_0x4C_76.y);
+								v17 = abs(v28x.y - jx->axis_0x4C_76.y);
 								v18 = v17;
 								if (v17 >= 0x8000)
 									v18 = abs(v17 - 0x10000);
