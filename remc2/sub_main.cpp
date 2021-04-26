@@ -73,8 +73,8 @@ int test_regression_level = 51;
 	#define OFF_PAUSE_5
 	#define TEST_REGRESSION
 	bool hideGraphics = true;
-	#define DEBUG_SEQUENCES
-	#define DEBUG_SEQUENCES2
+	//#define DEBUG_SEQUENCES
+	//#define DEBUG_SEQUENCES2
 	int debugafterload = 1;
 	//#define DISABLE_GRAPHICS_ENHANCE
 #elif defined(DEBUG_AFTERLOAD) //this is setting is for compare data with dosbox afterload(can fix mouse move, and etc.)
@@ -16882,8 +16882,8 @@ signed int sub_1C310(type_event_0x6E8E* a1x, char a2, unsigned __int16(*a3)(type
 				for (jx = x_D41A0_BYTEARRAY_4_struct.bytearray_38403x[a1x->subtype_0x40_64]; jx > x_DWORD_EA3E4[0]; jx = jx->next_0)
 				{
 					if (jx->word_0x1A_26 != a1x->word_0x1A_26
-						&& abs(a1x->axis_0x4C_76.x - jx->axis_0x4C_76.x) < a1x->array_0x52_82.xshift
-						&& abs(a1x->axis_0x4C_76.y - jx->axis_0x4C_76.y) < a1x->array_0x52_82.xshift)
+						&& abs((int16_t)a1x->axis_0x4C_76.x - (int16_t)jx->axis_0x4C_76.x) < a1x->array_0x52_82.xshift
+						&& abs((int16_t)a1x->axis_0x4C_76.y - (int16_t)jx->axis_0x4C_76.y) < a1x->array_0x52_82.xshift)
 					{
 						a1x->word_0x20_32 = sub_581E0_maybe_tan2(&jx->axis_0x4C_76, &a1x->axis_0x4C_76);
 						break;
@@ -24249,9 +24249,9 @@ void sub_25E40(type_event_0x6E8E* a1x)//206e40
 	unsigned __int8 v2; // al
 	char v3; // al
 	bool v4; // zf
-	__int16 v5; // dx
-	int v6; // ecx
-	__int16 v7; // ax
+	//__int16 v5; // dx
+	//int v6; // ecx
+	//__int16 v7; // ax
 	char v8; // [esp+0h] [ebp-4h]
 
 	v1x = x_DWORD_EA3E4[a1x->word_0x96_150];
@@ -24281,25 +24281,25 @@ void sub_25E40(type_event_0x6E8E* a1x)//206e40
 		if (v2 <= 1u)
 		{
 			a1x->byte_0x46_70 = 2;
-			v5 = a1x->word_0x84_132;
+			//v5 = a1x->word_0x84_132;
 			a1x->dword_0x10_16 = 32;
-			a1x->word_0x82_130 = 2 * v5;
+			a1x->word_0x82_130 = 2 * a1x->word_0x84_132;
 		}
 		else if (v2 != 2)
 		{
 			goto LABEL_21;
 		}
-		if ((unsigned __int16)sub_1C310(a1x, 160, (unsigned __int16(*)(type_event_0x6E8E*, type_event_0x6E8E*))sub_1CE80))
+		if (sub_1C310(a1x, 160, (unsigned __int16(*)(type_event_0x6E8E*, type_event_0x6E8E*))sub_1CE80))
 			v8 = 1;
-		v6 = a1x->dword_0x10_16 - 1;
-		a1x->dword_0x10_16 = v6;
-		if (!v6)
+		//v6 = a1x->dword_0x10_16 - 1;
+		//a1x->dword_0x10_16 = v6;
+		if (!a1x->dword_0x10_16--)
 			v8 = 1;
 		if (v8)
 		{
-			v7 = a1x->word_0x84_132;
+			//v7 = a1x->word_0x84_132;
 			a1x->byte_0x46_70 = 0;
-			a1x->word_0x82_130 = v7;
+			a1x->word_0x82_130 = a1x->word_0x84_132;
 		}
 	}
 LABEL_21:
@@ -52297,7 +52297,7 @@ void sub_47560_draw_and_events_in_game(/*uint8_t* a1, int a2, */uint32_t a3, sig
 #endif //INTERVAL_SAVE
 //adress 228583
 #ifdef DEBUG_SEQUENCES2
-	add_compare(0x228583, debugafterload);
+	//add_compare(0x228583, debugafterload);
 #endif //DEBUG_SEQUENCES2
 	sub_51BB0_game_events(/*(uint8_t*)a4*/);//nothing draw
 	//adress 228588
@@ -52331,6 +52331,7 @@ void sub_47560_draw_and_events_in_game(/*uint8_t* a1, int a2, */uint32_t a3, sig
 	//add_compare(0x002285FF, debugafterload);
 #ifdef TEST_REGRESSION
 	add_compare(0x002285FF, debugafterload, -1, false, 20);
+	//add_compare(0x002285FF, debugafterload, 6);
 #endif //TEST_REGRESSION
 #ifdef DEBUG_SEQUENCES2
 	//add_compare(0x002285FF, debugafterload);
@@ -68932,7 +68933,7 @@ void sub_57730()//238730
 	type_event_0x6E8E* v24x; // [esp+78h] [ebp-4h]
 
 #ifdef DEBUG_SEQUENCES2
-	add_compare(0x238734, debugafterload);
+	//add_compare(0x238734, debugafterload);
 #endif //DEBUG_SEQUENCES2
 
 	D41A0_0.rand_0x8 = 9377 * D41A0_0.rand_0x8 + 9439;
@@ -69098,7 +69099,7 @@ void sub_57730()//238730
 		if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 0x10))
 			sub_68BF0();
 #ifdef DEBUG_SEQUENCES2
-		add_compare(0x2389f6, debugafterload);
+		//add_compare(0x2389f6, debugafterload);
 #endif //DEBUG_SEQUENCES2
 		sub_159E0();//adress 2389f6
 		if (x_BYTE_D41B6)
@@ -69132,16 +69133,17 @@ void sub_57730()//238730
 						//add_compare(0x238A8A, debugafterload);//0x9ac
 						//add_compare(0x238A8A,debugafterload);
 #endif //DEBUG_SEQUENCES
-						
-						/*if (debug_sub_57730 == 0x84b4)
+#ifdef DEBUG_SEQUENCES2
+						if (debug_sub_57730 == 0x84b4)
 						{
 							debug_sub_57730++;
 							debug_sub_57730--;
 						}
 						debug_sub_57730++;
 						//add_compare(0x238A8A, debugafterload,-1,false,1000000, 0x7d40);
-						add_compare(0x238A8A, debugafterload, -1, false, 1000000, 0xa600);
-						*/
+						//add_compare(0x238A8A, debugafterload);
+						
+#endif //DEBUG_SEQUENCES2
 						//adress 238a8a zacina na 35cf6e 363bb6 =6c48/168=165=a5
 						pre_sub_4A190_0x6E8E(str_D4C48ar[mx->type_0x3F_63].dword_10[mx->byte_0x45_69].adress_6, mx);
 						mx->byte_0x3E_62++;
@@ -73499,7 +73501,7 @@ void sub_5C950(type_str_0x2BDE* a1x, type_event_0x6E8E* a2x)//23d950
 	type_event_0x6E8E* v39x; // [esp+10h] [ebp-4h]
 
 #ifdef DEBUG_SEQUENCES2
-	add_compare(0x23d954, debugafterload);
+	//add_compare(0x23d954, debugafterload);
 #endif //DEBUG_SEQUENCES2
 
 	//fix it
