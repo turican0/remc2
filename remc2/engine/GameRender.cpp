@@ -14526,6 +14526,33 @@ void GameRender::SetX_BYTE_F6EE0_tablesx(uint8_t* pX_BYTE_F6EE0_tablesx)
 	m_ptrX_BYTE_F6EE0_tablesx = pX_BYTE_F6EE0_tablesx;
 }
 
+void GameRender::SetRenderViewPortSize_BCD45(uint8_t viewPortSizeSetting, uint16_t screenWidth, uint16_t screenHeight)
+{
+	ViewPort viewPort;
+
+	uint16_t v1 = 40 - viewPortSizeSetting;
+
+	if (v1 == 0)
+	{
+		viewPort.PosX = 0;
+		viewPort.Width = screenWidth;
+		viewPort.PosY = 0;
+		viewPort.Height = screenHeight;
+	}
+	else
+	{
+		uint16_t viewPortWidthMultipler = screenWidth / 40;
+		uint16_t viewPortHeightMultipler = screenHeight / 40;
+
+		viewPort.PosX = (viewPortWidthMultipler * v1) /2;
+		viewPort.PosY = (viewPortHeightMultipler * v1) /2;
+		viewPort.Width = viewPortWidthMultipler * viewPortSizeSetting;
+		viewPort.Height = viewPortHeightMultipler * viewPortSizeSetting;
+	}
+
+	SetRenderViewPortSize_BCD45(viewPort, screenWidth, screenHeight);
+}
+
 void GameRender::SetRenderViewPortSize_BCD45(ViewPort viewPort, uint16_t screenWidth, uint16_t screenHeight)
 {
 	m_uiScreenWidth = screenWidth;
@@ -14555,38 +14582,6 @@ void GameRender::SetRenderViewPortSize_BCD45(ViewPort viewPort, uint16_t screenW
 
 	int32_t ptrScreenRenderBufferStart = m_viewPort.PosX + m_uiScreenWidth * m_viewPort.PosY;
 	SetRenderViewPortSize_BCD45(ptrScreenRenderBufferStart + m_ptrScreenBuffer, m_viewPort.Width, m_viewPort.Height, m_uiScreenWidth);
-}
-
-void GameRender::SetRenderViewPortSize_BCD45(uint8_t viewPortSizeSetting, uint16_t screenWidth, uint16_t screenHeight)
-{
-	ViewPort viewPort;
-
-	uint16_t v1 = 40 - viewPortSizeSetting;
-
-	uint16_t viewPortWidthMultipler = screenWidth / 40;
-	uint16_t viewPortHeightMultipler = screenHeight / 40;
-
-	viewPort.PosX = viewPortWidthMultipler * v1;
-	viewPort.PosY = viewPortHeightMultipler * v1;
-	viewPort.Width = viewPortWidthMultipler * viewPortSizeSetting;
-	viewPort.Height = viewPortHeightMultipler * viewPortSizeSetting;
-
-	if (v1 == 0)
-	{
-		if (screenWidth % 40 != 0)
-		{
-			viewPort.PosX = 0;
-			viewPort.Width = screenWidth;
-		}
-
-		if (screenHeight % 40 != 0)
-		{
-			viewPort.PosY = 0;
-			viewPort.Height = screenHeight;
-		}
-	}
-
-	SetRenderViewPortSize_BCD45(viewPort, screenWidth, screenHeight);
 }
 
 void GameRender::SetRenderViewPortSize_BCD45(uint8_t* ptrScreenBufferStart, uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t screenWidth)
