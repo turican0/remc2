@@ -42,10 +42,10 @@ void _strupr(char* s)
 //#define PLAYING_GAME
 //#define DEBUG_AFTERLOAD
 //#define DEBUG_ONSTART
-#define TEST_REGRESSIONS_GAME
+//#define TEST_REGRESSIONS_GAME
 
-//#define TEST_NETWORK
-int test_regression_level = 51;
+#define TEST_NETWORK
+int test_regression_level = 50;
 //first multi is 50(51) 10
 //first hide level is 30(31) 5
 
@@ -90291,7 +90291,7 @@ int NetworkReceive_74C9D(myNCB* a1x, uint8_t* a2x)//255c9d
 	if (setNetbios_75044(a1x) == -1)
 		return -99;
 	while (a1x->ncb_cmd_cplt_49 == 0xffu)
-		;
+		fake_network_interupt();
 	if (a1x->ncb_cmd_cplt_49)
 		return -a1x->ncb_cmd_cplt_49;
 	//allert_error();
@@ -90365,7 +90365,7 @@ int NetworkSend_74E6D(myNCB* a1x, uint8_t* a2x, int a3)//255e6d
 	if (setNetbios_75044(a1x) == -1)
 		return -99;
 	while (a1x->ncb_cmd_cplt_49 == 0xff)
-		;
+		fake_network_interupt();
 	return -a1x->ncb_cmd_cplt_49;
 }
 // 99DBD: using guessed type x_DWORD memcpy(x_DWORD, x_DWORD, x_DWORD);
