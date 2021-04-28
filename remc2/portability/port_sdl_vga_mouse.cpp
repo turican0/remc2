@@ -34,10 +34,10 @@ bool settingWASD = false;
 const char* default_caption = "Magic Carpet 2 - Community Update";
 
 bool inited = false;
-Uint8 temppallettebuffer[768];
+Uint8 temppalettebuffer[768];
 
-Uint8* VGA_Get_pallette() {
-	return temppallettebuffer;
+Uint8* VGA_Get_palette() {
+	return temppalettebuffer;
 }
 
 uint16_t lastResHeight=0;
@@ -86,24 +86,24 @@ void SubBlit(uint16_t originalResWidth, uint16_t originalResHeight) {
 	SDL_RenderPresent(renderer);
 }
 
-void SubSet_pallette(SDL_Color* colors) {
+void SubSet_palette(SDL_Color* colors) {
 	SDL_SetPaletteColors(screen->format->palette, colors, 0, 256);
 	SubBlit(m_iOrigw, m_iOrigh);
 }
 
-void Set_basic_pallette0() {
+void Set_basic_palette0() {
 	SDL_Color colors[256];
 	for (int i = 0; i < 256; i++) {
-		temppallettebuffer[i * 3] = i / 4;
-		temppallettebuffer[i * 3 + 1] = i / 4;
-		temppallettebuffer[i * 3 + 2] = i / 4;
-		colors[i].r = temppallettebuffer[i * 3];
-		colors[i].g = temppallettebuffer[i * 3 + 1];
-		colors[i].b = temppallettebuffer[i * 3 + 2];
+		temppalettebuffer[i * 3] = i / 4;
+		temppalettebuffer[i * 3 + 1] = i / 4;
+		temppalettebuffer[i * 3 + 2] = i / 4;
+		colors[i].r = temppalettebuffer[i * 3];
+		colors[i].g = temppalettebuffer[i * 3 + 1];
+		colors[i].b = temppalettebuffer[i * 3 + 2];
 	}
-	SubSet_pallette(colors);
+	SubSet_palette(colors);
 }
-void Set_basic_pallette1() {
+void Set_basic_palette1() {
 	SDL_Color colors[256];
 	for (int i = 0; i < 256; i++) {
 		if (i != 0)
@@ -119,20 +119,20 @@ void Set_basic_pallette1() {
 			colors[i].b = 255;
 		}
 	}
-	SubSet_pallette(colors);
+	SubSet_palette(colors);
 }
 
-void Set_basic_pallette3() {
+void Set_basic_palette3() {
 	SDL_Color colors[256];
 	for (int i = 0; i < 256; i++) {
-		temppallettebuffer[i * 3] = i;
-		temppallettebuffer[i * 3 + 1] = ((int)(i / 16)) * 16;
-		temppallettebuffer[i * 3 + 2] = (i % 16) * 16;
-		colors[i].r = temppallettebuffer[i * 3];
-		colors[i].g = temppallettebuffer[i * 3 + 1];
-		colors[i].b = temppallettebuffer[i * 3 + 2];
+		temppalettebuffer[i * 3] = i;
+		temppalettebuffer[i * 3 + 1] = ((int)(i / 16)) * 16;
+		temppalettebuffer[i * 3 + 2] = (i % 16) * 16;
+		colors[i].r = temppalettebuffer[i * 3];
+		colors[i].g = temppalettebuffer[i * 3 + 1];
+		colors[i].b = temppalettebuffer[i * 3 + 2];
 	}
-	SubSet_pallette(colors);
+	SubSet_palette(colors);
 }
 
 void putpixel(SDL_Surface* surface, int x, int y, Uint32 pixel)
@@ -453,7 +453,7 @@ void VGA_Init(Uint32  /*flags*/, int width, int height, bool maintainAspectRatio
 			exit(-1);
 		}
 
-		Set_basic_pallette1();
+		Set_basic_palette1();
 		Draw_debug_matrix1();
 		inited = true;
 	}
@@ -465,54 +465,54 @@ void VGA_Resize(int width, int height) {
 }
 
 FILE* fptpal;
-void SavePal(Uint8* pallettebuffer, char* filename)
+void SavePal(Uint8* palettebuffer, char* filename)
 {
 	fptpal = fopen(filename, "wb");
-	fwrite(pallettebuffer, 768, 1, fptpal);
+	fwrite(palettebuffer, 768, 1, fptpal);
 	fclose(fptpal);
 }
 
-void VGA_Set_file_pallette(char* filename) {
-	uint8_t pallettebuffer[768];
+void VGA_Set_file_palette(char* filename) {
+	uint8_t palettebuffer[768];
 	fptpal = fopen(filename, "rb");
-	fread(pallettebuffer, 768, 1, fptpal);
+	fread(palettebuffer, 768, 1, fptpal);
 	fclose(fptpal);
 
 	SDL_Color colors[256];
 	for (int i = 0; i < 256; i++) {
-		colors[i].r = 4 * pallettebuffer[i * 3];
-		colors[i].g = 4 * pallettebuffer[i * 3 + 1];
-		colors[i].b = 4 * pallettebuffer[i * 3 + 2];
+		colors[i].r = 4 * palettebuffer[i * 3];
+		colors[i].g = 4 * palettebuffer[i * 3 + 1];
+		colors[i].b = 4 * palettebuffer[i * 3 + 2];
 	}
-	SubSet_pallette(colors);
+	SubSet_palette(colors);
 }
 
-void VGA_Set_pallette(Uint8* pallettebuffer) {
-	memcpy(temppallettebuffer, pallettebuffer, 768);
+void VGA_Set_palette(Uint8* palettebuffer) {
+	memcpy(temppalettebuffer, palettebuffer, 768);
 	SDL_Color colors[256];
 	/* Fill colors with color information */
 	for (int i = 0; i < 256; i++) {
-		colors[i].r = 4 * pallettebuffer[i * 3];
-		colors[i].g = 4 * pallettebuffer[i * 3 + 1];
-		colors[i].b = 4 * pallettebuffer[i * 3 + 2];
+		colors[i].r = 4 * palettebuffer[i * 3];
+		colors[i].g = 4 * palettebuffer[i * 3 + 1];
+		colors[i].b = 4 * palettebuffer[i * 3 + 2];
 	}
 
-	SubSet_pallette(colors);
+	SubSet_palette(colors);
 }
 
-void VGA_Set_pallette2(Uint8* pallettebuffer) {
-	memcpy(temppallettebuffer, pallettebuffer, 768);
+void VGA_Set_palette2(Uint8* palettebuffer) {
+	memcpy(temppalettebuffer, palettebuffer, 768);
 	SDL_Color colors[256];
 	for (int i = 0; i < 256; i++) {
-		colors[i].r = pallettebuffer[i * 3];
-		colors[i].g = pallettebuffer[i * 3 + 1];
-		colors[i].b = pallettebuffer[i * 3 + 2];
+		colors[i].r = palettebuffer[i * 3];
+		colors[i].g = palettebuffer[i * 3 + 1];
+		colors[i].b = palettebuffer[i * 3 + 2];
 	}
-	SubSet_pallette(colors);
+	SubSet_palette(colors);
 }
 
-void VGA_Write_basic_pallette(Uint8* pallettebuffer) {
-	memcpy(temppallettebuffer, pallettebuffer, 768);
+void VGA_Write_basic_palette(Uint8* palettebuffer) {
+	memcpy(temppalettebuffer, palettebuffer, 768);
 }
 
 void VGA_test() {

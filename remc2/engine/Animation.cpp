@@ -430,7 +430,7 @@ void sub_loc_1B5A7() {//1fc5a7
 }
 void sub_loc_1B5BC(uint16_t a1) {//1fc5bc
 	//memset(pdwScreenBuffer, 200, 320*200);//debug
-	//Set_basic_pallette();
+	//Set_basic_palette();
 	if ((a1 != 1) && (a1 != 0xe))//fixed write pause text
 		sub_2EBB0_draw_text_with_border_630x340(x_DWORD_E9C4C_langindexbuffer[a1]);//fix it - edx
 	//sub_90478_VGA_Blit320();//debug
@@ -513,7 +513,7 @@ void /*__fastcall*/ sub_75E70()//256e70
 			{
 			case 4:
 				v3 = (char*)"COLOUR256 ";
-				sub_76260_read_intro_pallette(0x100);
+				sub_76260_read_intro_palette(0x100);
 				v4 = &x_BYTE_17D738[strlen(x_BYTE_17D738)];
 				strcpy(v4,v3);
 				v23 = 1;
@@ -525,7 +525,7 @@ void /*__fastcall*/ sub_75E70()//256e70
 				strcpy(v16, v7);
 				break;
 			case 0xB:
-				sub_76260_read_intro_pallette(0x40);
+				sub_76260_read_intro_palette(0x40);
 				v8 = (char*)"COLOUR ";
 				v9 = &x_BYTE_17D738[strlen(x_BYTE_17D738)];
 				strcpy(v9, v8);
@@ -585,8 +585,8 @@ void /*__fastcall*/ sub_75E70()//256e70
 			long compar = compare_with_snapshot((char*)"0160-00256E70", unk_17D838, 0x34e838, 0x300, &origbyte, &remakebyte);
 			*/
 
-			sub_41A90_VGA_pallette_install(unk_17D838x);
-			v19 = getPalletteIndex_5BE80(unk_17D838x, 0x3Fu, 0x3Fu, 0x3Fu);
+			sub_41A90_VGA_palette_install(unk_17D838x);
+			v19 = getPaletteIndex_5BE80(unk_17D838x, 0x3Fu, 0x3Fu, 0x3Fu);
 			sub_2EC90(v19);//20fc90 -zde se prekresli texty
 		}
 	}

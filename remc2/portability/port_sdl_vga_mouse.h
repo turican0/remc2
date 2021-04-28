@@ -30,10 +30,10 @@ void VGA_close();
 void VGA_Resize(int width, int height);
 void VGA_Blit(int width, int height, Uint8* srcBuffer);
 void VGA_Debug_Blit(int width, int height, Uint8* srcBuffer);
-void VGA_Set_pallette(Uint8* pallettebuffer);
-void VGA_Set_pallette2(Uint8* pallettebuffer);
-void VGA_Write_basic_pallette(Uint8* pallettebuffer);
-Uint8* VGA_Get_pallette();
+void VGA_Set_palette(Uint8* palettebuffer);
+void VGA_Set_palette2(Uint8* palettebuffer);
+void VGA_Write_basic_palette(Uint8* palettebuffer);
+Uint8* VGA_Get_palette();
 void VGA_Draw_string(char* wrstring);
 void VGA_Draw_stringXYtoBuffer(char* wrstring, int x, int y, uint8_t* buffer);
 //void VGA_Set_Cursor(posistruct posstrcursor,int count);
@@ -41,9 +41,9 @@ void VGA_GotoXY(int x, int y);
 int VGA_WhereX(); //returns current text cursor (x) coordinate
 int VGA_WhereY(); //returns current text cursor (y) coordinate
 POSITION VGA_WhereXY();
-void Set_basic_pallette0();
-void Set_basic_pallette1();
-void VGA_Set_file_pallette(char* filename);
+void Set_basic_palette0();
+void Set_basic_palette1();
+void VGA_Set_file_palette(char* filename);
 int16_t VGA_get_shift_status();
 bool VGA_check_standart_input_status();
 uint16_t VGA_read_char_from_buffer();

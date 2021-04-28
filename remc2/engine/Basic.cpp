@@ -924,7 +924,7 @@ int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* a2, int32_t a3, int32_t a4
 		v10 = xy_DWORD_17DED4_spritestr[a8].height_5;//adress 260da7
 		v11 = v10 + a5;
 		v98 += v10;
-		v12 = getPalletteIndex_5BE80(x_DWORD_17DE38str.x_DWORD_17DE38x, 0, 0, 0/*v86*/);
+		v12 = getPaletteIndex_5BE80(x_DWORD_17DE38str.x_DWORD_17DE38x, 0, 0, 0/*v86*/);
 		v86 = v12;
 		v13 = 6 * (a8 - 1);
 		v14 = xy_DWORD_17DED4_spritestr[v13 / 6].height_5;
@@ -1052,7 +1052,7 @@ int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* a2, int32_t a3, int32_t a4
 					{
 						if (!a6)
 						{
-							v27 = getPalletteIndex_5BE80(x_DWORD_17DE38str.x_DWORD_17DE38x, 0, 0, 0/*v86*/);
+							v27 = getPaletteIndex_5BE80(x_DWORD_17DE38str.x_DWORD_17DE38x, 0, 0, 0/*v86*/);
 							v86 = v27;
 							v28 = 6 * (a8 - 1);
 							v29 = xy_DWORD_17DED4_spritestr[v28 / 6].height_5;
@@ -1225,7 +1225,7 @@ int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* a2, int32_t a3, int32_t a4
 		{
 			if (!a6)
 			{
-				v45 = getPalletteIndex_5BE80(x_DWORD_17DE38str.x_DWORD_17DE38x, 0, 0, 0/*v86*/);
+				v45 = getPaletteIndex_5BE80(x_DWORD_17DE38str.x_DWORD_17DE38x, 0, 0, 0/*v86*/);
 				v86 = v45;
 				v46 = 6 * (a8 - 1);
 				v47 = xy_DWORD_17DED4_spritestr[v46 / 6].height_5;
@@ -1240,7 +1240,7 @@ int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* a2, int32_t a3, int32_t a4
 				//HIWORD(v50) = HIWORD(xy_DWORD_17DED4_spritestr);
 				v50 = xy_DWORD_17DED4_spritestr[v46 / 6].height_5;
 				v51 = v50 + a1;
-				v52 = getPalletteIndex_5BE80(x_DWORD_17DE38str.x_DWORD_17DE38x, 0, 0, 0/*v86*/);//?
+				v52 = getPaletteIndex_5BE80(x_DWORD_17DE38str.x_DWORD_17DE38x, 0, 0, 0/*v86*/);//?
 				v86 = v52;
 				v53 = xy_DWORD_17DED4_spritestr[v46 / 6].height_5;
 				v54 = v91;
@@ -1258,7 +1258,7 @@ int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* a2, int32_t a3, int32_t a4
 					v56 += v103;
 				}
 			}
-			sub_7FAE0_draw_text(v87, v99, a4, v98, 0/*v86*/);//draw text(with pallette?) 
+			sub_7FAE0_draw_text(v87, v99, a4, v98, 0/*v86*/);//draw text(with palette?) 
 		}
 	}
 	if (a6)
@@ -1280,7 +1280,7 @@ void sub_7C120_draw_bitmap_640(int16_t posx, int16_t posy, posistruct_t tempstr)
 }
 
 //----- (00076260) --------------------------------------------------------
-void sub_76260_read_intro_pallette(uint8_t  /*a1*/)
+void sub_76260_read_intro_palette(uint8_t  /*a1*/)
 {
 	TColor* v0x; // ebx
 	int v1; // esi
@@ -1304,7 +1304,7 @@ void sub_76260_read_intro_pallette(uint8_t  /*a1*/)
 			/*result = */sub_75D70((int8_t*)&v5, 1u);
 			if (!v5)
 				v5 = 256;
-			for (v3 = 0; v3 < v5; v3++)//mybe read pallette
+			for (v3 = 0; v3 < v5; v3++)//mybe read palette
 			{
 				sub_75D70((int8_t*)v0x, 3u);
 				//v0 += 3;
@@ -1317,13 +1317,13 @@ void sub_76260_read_intro_pallette(uint8_t  /*a1*/)
 }
 
 //----- (0005BE80) --------------------------------------------------------
-uint8_t getPalletteIndex_5BE80(TColor* pallettex, uint8_t red_color, uint8_t green_color, uint8_t blue_color)//23ce80
+uint8_t getPaletteIndex_5BE80(TColor* palettex, uint8_t red_color, uint8_t green_color, uint8_t blue_color)//23ce80
 {
 	uint16_t count_of_colors; // edx
 	int16_t oldPalAmbient; // ecx
 	int16_t newPalAmbient; // esi
 	uint8_t result=0; // [esp+4h] [ebp-4h]
-	uint16_t pallette_index = 0;
+	uint16_t palette_index = 0;
 	if (x_WORD_180660_VGA_type_resolution & 6)
 		count_of_colors = 16;
 	else
@@ -1331,15 +1331,15 @@ uint8_t getPalletteIndex_5BE80(TColor* pallettex, uint8_t red_color, uint8_t gre
 	oldPalAmbient = 9999;
 	for (uint16_t i = 0; i < count_of_colors; i++)
 	{
-		newPalAmbient = (red_color - pallettex[pallette_index].red) * (red_color - pallettex[pallette_index].red) +
-			(green_color - pallettex[pallette_index].green)* (green_color - pallettex[pallette_index].green)+
-			(blue_color - pallettex[pallette_index].blue)* (blue_color - pallettex[pallette_index].blue);
+		newPalAmbient = (red_color - palettex[palette_index].red) * (red_color - palettex[palette_index].red) +
+			(green_color - palettex[palette_index].green)* (green_color - palettex[palette_index].green)+
+			(blue_color - palettex[palette_index].blue)* (blue_color - palettex[palette_index].blue);
 		if (newPalAmbient < oldPalAmbient)
 		{
 			oldPalAmbient = newPalAmbient;
 			result = i;
 		}
-		pallette_index++;
+		palette_index++;
 	}
 	return result;
 }
@@ -1440,7 +1440,7 @@ unsigned int sub_6FC80_pre_draw_text(char* a1, __int16 a2, __int16 a3, __int16 a
 void sub_417A0_install_pal_and_mouse_minmax()//2227a0
 {
 	//sub_90810();
-	sub_41A90_VGA_pallette_install((TColor*)*xadatapald0dat2.var28_begin_buffer);
+	sub_41A90_VGA_palette_install((TColor*)*xadatapald0dat2.var28_begin_buffer);
 	sub_6EF10_set_mouse_minmax(0, 640, 0, 400);
 }
 // EA3D8: using guessed type int *xadatapald0dat2.var28_begin_buffer;

@@ -85,7 +85,7 @@ void init_pal() {
 		temppal[i * 3 + 1] = i;
 		temppal[i * 3 + 2] = i;
 	}
-	VGA_Set_pallette2(temppal);
+	VGA_Set_palette2(temppal);
 };
 
 void clean_tarrain()
