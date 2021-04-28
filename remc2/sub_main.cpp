@@ -64164,8 +64164,8 @@ void sub_51BB0_game_events(/*uint8_t* a1*/)//232bb0
 	//char v13; // dl
 	//char v14; // bl
 	signed __int16 v15; // bx
-	char v16; // cl
-	int v17; // eax
+	//char v16; // cl
+	//int v17; // eax
 	//uint8_t* v18; // ebx
 	int v18x;
 	//type_str_0x6E8E* v18x; // ebx
@@ -64299,7 +64299,7 @@ void sub_51BB0_game_events(/*uint8_t* a1*/)//232bb0
 			if (D41A0_0.array_0x6E3E[v2x].str_0x6E3E_byte0 == 1)
 			{
 				D41A0_0.array_0x2BDE[v2x].byte_0x006_2BE4_11236 = 1;
-				if (v2x == D41A0_0.LevelIndex_0xc && (x_D41A0_BYTEARRAY_4_struct.player_name_57ar))
+				if (v2x == D41A0_0.LevelIndex_0xc && (x_D41A0_BYTEARRAY_4_struct.player_name_57ar[0]))
 				{
 					v5 = (x_D41A0_BYTEARRAY_4_struct.player_name_57ar);
 					v6 = D41A0_0.array_0x2BDE[v2x].array_0x39f_2BFA_12157;//wizard name
@@ -64341,12 +64341,13 @@ void sub_51BB0_game_events(/*uint8_t* a1*/)//232bb0
 	if (x_D41A0_BYTEARRAY_4_struct.byteindex_38401)
 		x_D41A0_BYTEARRAY_4_struct.byteindex_38401--;
 	//adress 232cd2
-	v15 = 1;
-	while (v15 < 16)
+	for(v15=1;v15<16;v15++)
+	//v15 = 1;
+	//while (v15 < 16)
 	{
-		v16 = D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x012_2BE0_11248 / (unsigned int)v15 & 1;
-		v17 = v15++;
-		x_D41A0_BYTEARRAY_4_struct.byteindex_121[v17] = v16;//fix it - find size of this array
+		//v16 = D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x012_2BE0_11248 / (unsigned int)v15 & 1;
+		//v17 = v15++;
+		x_D41A0_BYTEARRAY_4_struct.byteindex_121[v15] = D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x012_2BE0_11248 / v15 & 1;
 	}
 	//v114 = D41A0_BYTESTR_0.array_0x6E3E[D41A0_BYTESTR_0.word_0xc];
 	v114x = 0;
@@ -89304,6 +89305,89 @@ int sub_72CB0(unsigned __int8* a1, int a2)
 	return v3;
 }
 
+myNCB* lastConnection;
+
+void fake_network_interupt() {
+	/*WSADATA wsaData;
+	int portno;
+	portno = 5001;
+	const int BufLen = 1024;
+	//-------------------------
+
+	int address_family = AF_INET;
+	int type = SOCK_DGRAM;
+	int protocol = IPPROTO_UDP;
+	SOCKET sock = socket(address_family, type, protocol);
+
+	if (sock == INVALID_SOCKET)
+	{
+		printf("socket failed: %d", WSAGetLastError());
+		return;
+	}
+	//---------------------
+	int iResult;
+
+	// Initialize Winsock
+	iResult = WSAStartup(MAKEWORD(2, 2), &wsaData);
+	if (iResult != 0) {
+		printf("WSAStartup failed: %d\n", iResult);
+		return;// 1;
+	}
+	//--------------------------
+	SOCKADDR_IN local_address;
+	local_address.sin_family = AF_INET;
+	local_address.sin_port = htons(9999);
+	local_address.sin_addr.s_addr = INADDR_ANY;
+	if (bind(sock, (SOCKADDR*)&local_address, sizeof(local_address)) == SOCKET_ERROR)
+	{
+		printf("bind failed: %d", WSAGetLastError());
+		return;
+	}
+	//----------------------------
+	char buffer[BufLen];
+	int flags = 0;
+	SOCKADDR_IN from;
+	int from_size = sizeof(from);
+	int bytes_received = recvfrom(sock, buffer, BufLen, flags, (SOCKADDR*)&from, &from_size);
+
+	if (bytes_received == SOCKET_ERROR)
+	{
+		printf("recvfrom returned SOCKET_ERROR, WSAGetLastError() %d", WSAGetLastError());
+	}
+	else
+	{
+		buffer[bytes_received] = 0;
+		printf("%d.%d.%d.%d:%d - %s",
+			from.sin_addr.S_un.S_un_b.s_b1,
+			from.sin_addr.S_un.S_un_b.s_b2,
+			from.sin_addr.S_un.S_un_b.s_b3,
+			from.sin_addr.S_un.S_un_b.s_b4,
+			from.sin_port,
+			buffer);
+	}
+	//---------------------------------
+	SOCKADDR_IN server_address;
+	server_address.sin_family = AF_INET;
+	server_address.sin_port = htons(portno);
+	server_address.sin_addr.S_un.S_addr = inet_addr("127.0.0.1");
+
+	char message[BufLen];
+	gets_s(message, BufLen);
+
+	int flagsx = 0;
+	if (sendto(sock, message, strlen(message), flagsx, (SOCKADDR*)&server_address, sizeof(server_address)) == SOCKET_ERROR)
+	{
+		printf("sendto failed: %d", WSAGetLastError());
+		return;
+	}
+	//-------------------------------------------
+	*/
+
+	//NetworkTestServer();
+
+	lastConnection->ncb_cmd_cplt_49 = 0;
+}
+
 //----- (00072D04) --------------------------------------------------------
 void sub_72D04()
 {
@@ -89314,7 +89398,6 @@ void sub_72D04()
 	{
 		for (i = 0; maxPlayers_E127A > i; i++)
 		{
-			//while (*(x_BYTE*)(x_DWORD_E12AE[i] + 49) == -1)
 			lastConnection = connection_E12AE[i];
 			while (connection_E12AE[i]->ncb_cmd_cplt_49 == 0xff)
 				fake_network_interupt();
@@ -89839,30 +89922,22 @@ void sub_73D11(__int16 a1)//254d11
 //----- (00074006) --------------------------------------------------------
 void NetworkSendMessage2_74006(unsigned __int16 a1, uint8_t* buffer, unsigned int size)//255006
 {
-	//unsigned __int16 result; // ax
-
 	if (x_BYTE_E1274)
 	{
-		//result = a1;
 		if (connected_E12CE[a1] == 1)
-			/*result = */NetworkSendMessage_74EF1(connection_E12AE[a1], buffer, size);
+			NetworkSendMessage_74EF1(connection_E12AE[a1], buffer, size);
 	}
-	//return result;
 }
-// E1274: using guessed type char x_BYTE_E1274;
 
 //----- (0007404E) --------------------------------------------------------
 void sub_7404E(unsigned __int16 a1, uint8_t* a2, unsigned int a3)//25504e
 {
-	//unsigned __int16 result; // ax
-
 	if (x_BYTE_E1274)
 	{
 		if (connected_E12CE[a1] == 1)
 			NetworkReceiveAll_74D41(connection_E12AE[a1], a2, a3);
 	}
 }
-// E1274: using guessed type char x_BYTE_E1274;
 
 //----- (00074374) --------------------------------------------------------
 __int16 sub_74374()//255374
@@ -90036,8 +90111,6 @@ uint8_t sub_74556()//255556 push ebp 355250
 // E1282: using guessed type int x_DWORD_E1282;
 // E12AA: using guessed type int x_DWORD_E12AA;
 
-myNCB* lastConnection;
-
 //----- (00074767) --------------------------------------------------------
 signed int NetworkAddName_74767(/*signed __int16* a1,*/ myNCB* a2x, char* a3)//255767
 {
@@ -90081,87 +90154,6 @@ int NetworkCall_74809(__int16 a1)//255809
 // 99D6B: using guessed type x_DWORD strlen(x_DWORD);
 // 99D84: using guessed type x_DWORD strcat(x_DWORD, x_DWORD);
 
-
-void fake_network_interupt() {
-	/*WSADATA wsaData;
-	int portno;
-	portno = 5001;
-	const int BufLen = 1024;
-	//-------------------------
-
-	int address_family = AF_INET;
-	int type = SOCK_DGRAM;
-	int protocol = IPPROTO_UDP;
-	SOCKET sock = socket(address_family, type, protocol);
-
-	if (sock == INVALID_SOCKET)
-	{
-		printf("socket failed: %d", WSAGetLastError());
-		return;
-	}
-	//---------------------
-	int iResult;
-
-	// Initialize Winsock
-	iResult = WSAStartup(MAKEWORD(2, 2), &wsaData);
-	if (iResult != 0) {
-		printf("WSAStartup failed: %d\n", iResult);
-		return;// 1;
-	}
-	//--------------------------
-	SOCKADDR_IN local_address;
-	local_address.sin_family = AF_INET;
-	local_address.sin_port = htons(9999);
-	local_address.sin_addr.s_addr = INADDR_ANY;
-	if (bind(sock, (SOCKADDR*)&local_address, sizeof(local_address)) == SOCKET_ERROR)
-	{
-		printf("bind failed: %d", WSAGetLastError());
-		return;
-	}
-	//----------------------------
-	char buffer[BufLen];
-	int flags = 0;
-	SOCKADDR_IN from;
-	int from_size = sizeof(from);
-	int bytes_received = recvfrom(sock, buffer, BufLen, flags, (SOCKADDR*)&from, &from_size);
-
-	if (bytes_received == SOCKET_ERROR)
-	{
-		printf("recvfrom returned SOCKET_ERROR, WSAGetLastError() %d", WSAGetLastError());
-	}
-	else
-	{
-		buffer[bytes_received] = 0;
-		printf("%d.%d.%d.%d:%d - %s",
-			from.sin_addr.S_un.S_un_b.s_b1,
-			from.sin_addr.S_un.S_un_b.s_b2,
-			from.sin_addr.S_un.S_un_b.s_b3,
-			from.sin_addr.S_un.S_un_b.s_b4,
-			from.sin_port,
-			buffer);
-	}
-	//---------------------------------
-	SOCKADDR_IN server_address;
-	server_address.sin_family = AF_INET;
-	server_address.sin_port = htons(portno);
-	server_address.sin_addr.S_un.S_addr = inet_addr("127.0.0.1");
-
-	char message[BufLen];
-	gets_s(message, BufLen);
-
-	int flagsx = 0;
-	if (sendto(sock, message, strlen(message), flagsx, (SOCKADDR*)&server_address, sizeof(server_address)) == SOCKET_ERROR)
-	{
-		printf("sendto failed: %d", WSAGetLastError());
-		return;
-	}
-	//-------------------------------------------
-	*/
-
-	//NetworkTestServer();
-
-	lastConnection->ncb_cmd_cplt_49 = 0;
-}
 
 
 //----- (000748F7) --------------------------------------------------------
