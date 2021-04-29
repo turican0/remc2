@@ -89924,10 +89924,8 @@ void ReceiveSendAll_7438A(uint8_t* buffer, unsigned int size)//25538a
 				if (i != x_WORD_E1276)
 					NetworkReceiveMessage2_7404E(i, buffer + size * i, size);
 			}
-			for (int j = 0; ; j++)
+			for (int j = 0; j < countConnected_E1278; j++)
 			{
-				if (j >= countConnected_E1278)
-					break;
 				if (j != x_WORD_E1276)
 					NetworkSendMessage2_74006(j, buffer, size * countConnected_E1278);
 			}
@@ -90120,7 +90118,12 @@ signed int NetworkCancel_748F7(__int16 a1)//2558f7
 		return -connection_E12AE[a1]->ncb_cmd_cplt_49;
 	mainConnection_E12AA->ncb_command_0 = 0x35;//CANCEL 
 
-	mainConnection_E12AA->ncb_buffer2_6 = 0;//fix (unsigned int)str_DWORD_E12AE[a1] >> 4;
+#ifdef x32_BIT_ENVIRONMENT
+	mainConnection_E12AA->ncb_buffer2_6 = reinterpret_cast<uint32_t>(connection_E12AE[a1]) >> 4;
+#endif //x32_BIT_ENVIRONMENT
+#ifdef x64_BIT_ENVIRONMENT
+	mainConnection_E12AA->ncb_buffer2_6 = reinterpret_cast<uint64_t>(connection_E12AE[a1]) >> 4;
+#endif //x64_BIT_ENVIRONMENT
 
 	if (setNetbios_75044(mainConnection_E12AA) != -1)
 	{
@@ -90458,6 +90461,16 @@ void netbiosint386x(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, 
 			connection->ncb_reserved_50[6] = 0xf3;
 			connection->ncb_reserved_50[7] = 0x1B;
 			connection->ncb_reserved_50[8] = 0x6c;
+			break;
+		}
+		case 0x35: {//CANCEL
+			connection->ncb_retcode_1 = 0x0b;
+			connection->ncb_cmd_cplt_49 = 0x0b;
+			connection->ncb_reserved_50[2] = 0x6f;
+			connection->ncb_reserved_50[3] = 0x32;
+			connection->ncb_reserved_50[6] = 0x85;
+			connection->ncb_reserved_50[7] = 0x17;
+			connection->ncb_reserved_50[8] = 0x6a;
 			break;
 		}
 	}
