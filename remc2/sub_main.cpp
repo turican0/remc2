@@ -2587,8 +2587,8 @@ int sub_72CB0(unsigned __int8* a1, int a2);//not used
 void sub_72D04();
 // int sub_72DDE(signed __int16 *a1, int a2);
 int /*__fastcall*/ sub_72E70(int a1, int a2, signed __int16* a3);//not used
-signed int /*__fastcall*/ sub_72FBB();
-void sub_7302E();
+signed int /*__fastcall*/ NetworkTestCall_72FBB();
+void NetworkTestListen_7302E();
 // int sub_7308F(signed __int16 *a1, int a2, __int16 a3);
 void NetworkCanceling_73669(__int16 a1);
 void sub_7373D(__int16 a1);
@@ -2596,9 +2596,9 @@ void sub_739AD(__int16 a1);
 void sub_73AA1(__int16 a1);
 void sub_73D11(__int16 a1);
 void NetworkSendMessage2_74006(unsigned __int16 a1, uint8_t* a2, unsigned int a3);
-void sub_7404E(unsigned __int16 a1, uint8_t* a2, unsigned int a3);
-__int16 sub_74374();
-void sub_7438A(uint8_t* a1, unsigned int a2);
+void NetworkReceiveMessage2_7404E(unsigned __int16 a1, uint8_t* a2, unsigned int a3);
+void sub_74374();
+void ReceiveSendAll_7438A(uint8_t* a1, unsigned int a2);
 __int16 sub_7449C();
 int sub_74515();
 int sub_74536();
@@ -2610,13 +2610,13 @@ signed int NetworkInit_74A11();
 void NetworkDeleteName_74A86(myNCB* a1x, char* a2);
 void NetworkHangUp_74B19(myNCB* a1x);
 signed int NetworkListen_74B75(__int16 a1);
-int NetworkReceive_74C9D(myNCB* a1x, uint8_t* a2x);
-void NetworkReceiveAll_74D41(myNCB* a1x, uint8_t* a2x, unsigned int a3);
-signed int NetworkReceive_74DD4(myNCB* a1x, unsigned __int16 a3);
-int NetworkSendPacked_74E6D(myNCB* a1x, uint8_t* a2, int a3);
+int NetworkReceivePacket_74C9D(myNCB* a1x, uint8_t* a2x);
+void NetworkReceiveMessage_74D41(myNCB* a1x, uint8_t* a2x, unsigned int a3);
+signed int NetworkReceivePacket_74DD4(myNCB* a1x, unsigned __int16 a3);
+int NetworkSendPacket_74E6D(myNCB* a1x, uint8_t* a2, int a3);
 void NetworkSendMessage_74EF1(myNCB* a1x, uint8_t* inbuffer, unsigned int size);
-__int16 sub_74F76();
-signed int sub_74FE1(__int16 a1);
+void NetworkUpdateConnections_74F76();
+signed int NetworkGetState_74FE1(__int16 a1);
 int setNetbios_75044(myNCB* a1x);
 void sub_75110(__int16 a1, __int16 a2, __int16 a3, unsigned __int16 a4, __int16 a5);
 void sub_75160(__int16 a1, __int16 a2, __int16 a3, unsigned __int16 a4, __int16 a5);
@@ -6307,7 +6307,7 @@ char x_BYTE_E126D = 0; // weak
 char x_BYTE_E1274 = 0; // weak
 char x_BYTE_E1275 = 0; // weak
 int16_t x_WORD_E1276 = -1; // weak
-__int16 x_WORD_E1278 = 0; // weak
+__int16 countConnected_E1278 = 0; // weak
 __int16 maxPlayers_E127A = 8; // weak
 uint8_t* networkBuffer_E127E = 0; // weak
 uint8_t* x_DWORD_E1282 = 0; // weak
@@ -64284,7 +64284,7 @@ void sub_51BB0_game_events(/*uint8_t* a1*/)//232bb0
 	if (x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 0x10)
 	{
 		sub_74374();
-		sub_7438A((uint8_t*)D41A0_0.array_0x6E3E, 0xAu);//multi receive
+		ReceiveSendAll_7438A((uint8_t*)D41A0_0.array_0x6E3E, 0xAu);//multi receive
 		v1 = 0;
 		//v2 = D41A0_BYTESTR_0.array_0x6E3E[D41A0_BYTESTR_0.word_0xc];
 		v2x = 0;
@@ -64326,7 +64326,7 @@ void sub_51BB0_game_events(/*uint8_t* a1*/)//232bb0
 			//v3++;
 		}
 		if (v1)
-			sub_7438A((uint8_t*)D41A0_0.array_0x2BDE, 0x84Cu);
+			ReceiveSendAll_7438A((uint8_t*)D41A0_0.array_0x2BDE, 0x84Cu);
 	}
 	//v10 = 2124 * D41A0_BYTESTR_0.word_0xc + x_D41A0_BYTEARRAY_0;
 	//v11 = (int)x_D41A0_BYTEARRAY_4;
@@ -89423,22 +89423,18 @@ void sub_72D04()
 // E12AA: using guessed type int x_DWORD_E12AA;
 
 //----- (00072DDE) --------------------------------------------------------
-int sub_72DDE(/*signed __int16* a1,*/ int a2)//253dde
+int NetworkTestAddName_72DDE(/*signed __int16* a1,*/ int a2)//253dde
 {
-	//char v3; // [esp+0h] [ebp-1Ch]
 	int result; // [esp+14h] [ebp-8h]
-
 	sprintf(printbuffer, "%s%d", aTester, a2);
 	do
 	{
-		result = NetworkAddName_74767(/*a1, */connection_E12AE[a2], printbuffer);//2557bb
+		result = NetworkAddName_74767(connection_E12AE[a2], printbuffer);//2557bb
 		if(result == 13)
 			NetworkDeleteName_74A86(connection_E12AE[a2], printbuffer);
 	} while (result == 13 && !x_WORD_E12A6);
 	return result;
 }
-// 8E3D5: using guessed type x_DWORD sprintf(x_DWORD, const char *, ...);
-// E12A6: using guessed type __int16 x_WORD_E12A6;
 
 //----- (00072E70) --------------------------------------------------------
 int /*__fastcall*/ sub_72E70(int  /*a1*/, int  /*a2*/, signed __int16* a3)//253e70
@@ -89500,17 +89496,10 @@ int /*__fastcall*/ sub_72E70(int  /*a1*/, int  /*a2*/, signed __int16* a3)//253e
 // 72E70: using guessed type char var_18[8];
 
 //----- (00072FBB) --------------------------------------------------------
-signed int /*__fastcall*/ sub_72FBB()//253fbb
+signed int NetworkTestCall_72FBB()//253fbb
 {
-	int v3; // edx
-	int i; // [esp+4h] [ebp-4h]
-
-	//fix it
-	v3 = 0;
-	//fix it
-
 	NetworkCall_74809(0);
-	for (i = x_DWORD_17DB54_game_turn2; ; WaitToConnect_7C230(/*x_DWORD_17DB54_game_turn2 - i,*/ /*v3, a3*/))
+	for (int i = x_DWORD_17DB54_game_turn2; ; WaitToConnect_7C230())
 	{
 		if (connection_E12AE[i]->ncb_cmd_cplt_49 != 0xff)
 			return 1;
@@ -89520,26 +89509,19 @@ signed int /*__fastcall*/ sub_72FBB()//253fbb
 	NetworkCancel_748F7(0);
 	return 0;
 }
-// 17DB54: using guessed type int x_DWORD_17DB54_game_turn2;
 
 //----- (0007302E) --------------------------------------------------------
-void sub_7302E()//25402e
+void NetworkTestListen_7302E()//25402e
 {
-	signed int i; // [esp+4h] [ebp-4h]
-
-	for (i = 0; maxPlayers_E127A > i && !x_WORD_E12A6; i++)
+	for (int i = 0; maxPlayers_E127A > i && !x_WORD_E12A6; i++)
 	{
 		if (x_WORD_E1276 != i)
 			NetworkListen_74B75(i);
 	}
-	//return 1;
 }
-// E1276: using guessed type __int16 x_WORD_E1276;
-// E127A: using guessed type __int16 x_WORD_E127A;
-// E12A6: using guessed type __int16 x_WORD_E12A6;
 
 //----- (0007308F) --------------------------------------------------------
-int sub_7308F(char* a2, __int16 a3)//25408f
+int NetworkInitConnection_7308F(char* a2, __int16 a3)//25408f
 {
 	//uint8_t* v3; // edx
 	//int v4; // eax
@@ -89547,10 +89529,6 @@ int sub_7308F(char* a2, __int16 a3)//25408f
 	//char v7; // [esp+8h] [ebp-20h]
 	int i; // [esp+1Ch] [ebp-Ch]
 	int v9; // [esp+20h] [ebp-8h]
-
-	//fix
-	//v3 = 0;
-	//fix
 
 	if (!x_BYTE_E1274 || x_BYTE_E1275)
 		return -1;
@@ -89577,7 +89555,7 @@ int sub_7308F(char* a2, __int16 a3)//25408f
 	x_WORD_E1276 = -1;
 	while (maxPlayers_E127A > i && x_WORD_E1276 == -1 && !x_WORD_E12A6)
 	{
-		v6 = sub_72DDE(/*a1,*/ i);
+		v6 = NetworkTestAddName_72DDE(i);
 		if (v6)
 		{
 			if (v6 == 0xff)
@@ -89596,7 +89574,6 @@ int sub_7308F(char* a2, __int16 a3)//25408f
 		return -1;
 	for (i = 0; ; i++)
 	{
-		//v4 = x_WORD_E127A;
 		if (maxPlayers_E127A <= i)
 			break;
 		if (x_WORD_E1276 != i)
@@ -89605,15 +89582,14 @@ int sub_7308F(char* a2, __int16 a3)//25408f
 			connection_E12AE[i]->ncb_num_3 = connection_E12AE[x_WORD_E1276]->ncb_num_3;
 		}
 	}
-	//LOWORD(v4) = x_WORD_E1276;
 	if (x_WORD_E1276)
 	{
-		if (!sub_72FBB())
+		if (!NetworkTestCall_72FBB())
 			x_WORD_E12A6 = 1;
 	}
 	else
 	{
-		sub_7302E();
+		NetworkTestListen_7302E();
 		x_WORD_E12A8 = x_WORD_E1276;
 	}
 	if (x_WORD_E12A6 == 1)
@@ -89629,21 +89605,12 @@ int sub_7308F(char* a2, __int16 a3)//25408f
 	}
 	else
 	{
-		sub_74F76();
+		NetworkUpdateConnections_74F76();
 		x_BYTE_E1275 = 1;
 		v9 = x_WORD_E1276;
 	}
 	return v9;
 }
-// 8E3D5: using guessed type x_DWORD sprintf(x_DWORD, const char *, ...);
-// 99D46: using guessed type x_DWORD strcpy(x_DWORD, x_DWORD);
-// E1274: using guessed type char x_BYTE_E1274;
-// E1275: using guessed type char x_BYTE_E1275;
-// E1276: using guessed type __int16 x_WORD_E1276;
-// E127A: using guessed type __int16 x_WORD_E127A;
-// E12A6: using guessed type __int16 x_WORD_E12A6;
-// E12A8: using guessed type __int16 x_WORD_E12A8;
-// E12AA: using guessed type int x_DWORD_E12AA;
 
 //----- (00073669) --------------------------------------------------------
 void NetworkCanceling_73669(__int16 a1)//254669
@@ -89698,7 +89665,7 @@ void sub_7373D(__int16 a1)//25473d
 			}
 			else
 			{
-				sub_7404E(x_WORD_E12A8, v3, 8u);
+				NetworkReceiveMessage2_7404E(x_WORD_E12A8, v3, 8u);
 				NetworkCanceling_73669(a1);
 				for (i = 0; maxPlayers_E127A > i; i++)
 				{
@@ -89822,7 +89789,7 @@ void sub_73AA1(__int16 a1)//254aa1
 			}
 			else
 			{
-				sub_7404E(x_WORD_E12A8, v4, 8u);
+				NetworkReceiveMessage2_7404E(x_WORD_E12A8, v4, 8u);
 				sub_739AD(a1);
 				for (i = 0; maxPlayers_E127A > i; i++)
 				{
@@ -89930,58 +89897,48 @@ void NetworkSendMessage2_74006(unsigned __int16 a1, uint8_t* buffer, unsigned in
 }
 
 //----- (0007404E) --------------------------------------------------------
-void sub_7404E(unsigned __int16 a1, uint8_t* a2, unsigned int a3)//25504e
+void NetworkReceiveMessage2_7404E(unsigned __int16 connectionindex, uint8_t* buffer, unsigned int size)//25504e
 {
 	if (x_BYTE_E1274)
 	{
-		if (connected_E12CE[a1] == 1)
-			NetworkReceiveAll_74D41(connection_E12AE[a1], a2, a3);
+		if (connected_E12CE[connectionindex] == 1)
+			NetworkReceiveMessage_74D41(connection_E12AE[connectionindex], buffer, size);
 	}
 }
 
 //----- (00074374) --------------------------------------------------------
-__int16 sub_74374()//255374
+void sub_74374()//255374
 {
-	return sub_74F76();
+	NetworkUpdateConnections_74F76();
 }
 
 //----- (0007438A) --------------------------------------------------------
-void sub_7438A(uint8_t* a1x, unsigned int a2_lenght)//25538a
+void ReceiveSendAll_7438A(uint8_t* buffer, unsigned int size)//25538a
 {
-	//unsigned __int16 result; // ax
-	signed __int16 i; // [esp+4h] [ebp-4h]
-	signed __int16 j; // [esp+4h] [ebp-4h]
-
 	if (x_BYTE_E1274)
 	{
-		if (x_WORD_E1276 == (unsigned __int16)x_WORD_E12A8)
+		if (x_WORD_E1276 == x_WORD_E12A8)
 		{
-			for (i = 0; i < x_WORD_E1278; i++)
+			for (int i = 0; i < countConnected_E1278; i++)
 			{
 				if (i != x_WORD_E1276)
-					sub_7404E(i, a1x + a2_lenght * i, a2_lenght);
+					NetworkReceiveMessage2_7404E(i, buffer + size * i, size);
 			}
-			for (j = 0; ; j++)
+			for (int j = 0; ; j++)
 			{
-				//result = j;
-				if (j >= x_WORD_E1278)
+				if (j >= countConnected_E1278)
 					break;
 				if (j != x_WORD_E1276)
-					NetworkSendMessage2_74006(j, a1x, a2_lenght * x_WORD_E1278);
+					NetworkSendMessage2_74006(j, buffer, size * countConnected_E1278);
 			}
 		}
 		else
 		{
-			NetworkSendMessage2_74006(x_WORD_E12A8, (a1x + a2_lenght * x_WORD_E1276), a2_lenght);
-			/*result = */sub_7404E(x_WORD_E12A8, a1x, a2_lenght * x_WORD_E1278);
+			NetworkSendMessage2_74006(x_WORD_E12A8, (buffer + size * x_WORD_E1276), size);
+			NetworkReceiveMessage2_7404E(x_WORD_E12A8, buffer, size * countConnected_E1278);
 		}
 	}
-	//return result;
 }
-// E1274: using guessed type char x_BYTE_E1274;
-// E1276: using guessed type __int16 x_WORD_E1276;
-// E1278: using guessed type __int16 x_WORD_E1278;
-// E12A8: using guessed type __int16 x_WORD_E12A8;
 
 //----- (0007449C) --------------------------------------------------------
 __int16 sub_7449C()//25549c
@@ -90272,73 +90229,72 @@ signed int NetworkListen_74B75(__int16 a1)//255b75
 // 99D84: using guessed type x_DWORD strcat(x_DWORD, x_DWORD);
 
 //----- (00074C9D) --------------------------------------------------------
-int NetworkReceive_74C9D(myNCB* a1x, uint8_t* a2x)//255c9d
+int NetworkReceivePacket_74C9D(myNCB* connection, uint8_t* buffer)//255c9d
 {
-	a1x->ncb_command_0 = 0x95;//RECEIVE
+	connection->ncb_command_0 = 0x95;//RECEIVE
 #ifdef x32_BIT_ENVIRONMENT
-	a1x->ncb_buffer2_6 = reinterpret_cast<uint32_t>(x_DWORD_E1282) >> 4;
+	connection->ncb_buffer2_6 = reinterpret_cast<uint32_t>(x_DWORD_E1282) >> 4;
 #endif //x32_BIT_ENVIRONMENT
 #ifdef x64_BIT_ENVIRONMENT
-	a1x->ncb_buffer2_6 = reinterpret_cast<uint64_t>(x_DWORD_E1282) >> 4;
+	connection->ncb_buffer2_6 = reinterpret_cast<uint64_t>(x_DWORD_E1282) >> 4;
 #endif //x64_BIT_ENVIRONMENT
-	a1x->ncb_length_8 = 2048;
-	if (setNetbios_75044(a1x) == -1)
+	connection->ncb_length_8 = 2048;
+	if (setNetbios_75044(connection) == -1)
 		return -99;
-	lastConnection = a1x;
-	while (a1x->ncb_cmd_cplt_49 == 0xffu)
+	lastConnection = connection;
+	while (connection->ncb_cmd_cplt_49 == 0xffu)
 		fake_network_interupt();
-	if (a1x->ncb_cmd_cplt_49)
-		return -a1x->ncb_cmd_cplt_49;
+	if (connection->ncb_cmd_cplt_49)
+		return -connection->ncb_cmd_cplt_49;
 	//allert_error();
 	//memcpy((void*)a2x, (void*)x_DWORD_E1282, a1x->ncb_length_8);
-	for (int i = 0; i < a1x->ncb_length_8; i++)
-		((char*)a2x)[i] = ((char*)x_DWORD_E1282)[i];
-	return a1x->ncb_length_8;
+	for (int i = 0; i < connection->ncb_length_8; i++)
+		buffer[i] = x_DWORD_E1282[i];
+	return connection->ncb_length_8;
 }
-// 99DBD: using guessed type x_DWORD memcpy(x_DWORD, x_DWORD, x_DWORD);
-// E1282: using guessed type int x_DWORD_E1282;
+
 
 //----- (00074D41) --------------------------------------------------------
-void NetworkReceiveAll_74D41(myNCB* a1x, uint8_t* a2x, unsigned int a3)//255d41
+void NetworkReceiveMessage_74D41(myNCB* connection, uint8_t* inbuffer, unsigned int size)//255d41
 {
 	int v3; // eax
 	int v5; // [esp+0h] [ebp-10h]
 	int v6; // [esp+4h] [ebp-Ch]
 	unsigned int v7; // [esp+8h] [ebp-8h]
-	uint8_t* v8x; // [esp+Ch] [ebp-4h]
+	uint8_t* buffer; // [esp+Ch] [ebp-4h]
 
-	v8x = a2x;
+	buffer = inbuffer;
 	v7 = 0;
-	while (a3 >> 11 > v7)
+	while (size >> 11 > v7)
 	{
-		v6 = NetworkReceive_74C9D(a1x, v8x);
+		v6 = NetworkReceivePacket_74C9D(connection, buffer);
 		if (v6 != 2048)
 			return;
 		v7++;
-		v8x += 2048;
+		buffer += 2048;
 	}
-	v3 = NetworkReceive_74C9D(a1x, v8x);
-	if ((a3 & 0x7FF) == v3)
-		v5 = a3;
+	v3 = NetworkReceivePacket_74C9D(connection, buffer);
+	if ((size & 0x7FF) == v3)
+		v5 = size;
 	else
 		v5 = v3;
 	//return v5;
 }
 
 //----- (00074DD4) --------------------------------------------------------
-signed int NetworkReceive_74DD4(myNCB* a1x, unsigned __int16 a3)//255dd4
+signed int NetworkReceivePacket_74DD4(myNCB* connection, unsigned __int16 bufferindex)//255dd4
 {
 	signed int v4; // [esp+0h] [ebp-4h]
 
-	a1x->ncb_command_0 = 0x95;//RECEIVE 
+	connection->ncb_command_0 = 0x95;//RECEIVE 
 #ifdef x32_BIT_ENVIRONMENT
-	a1x->ncb_buffer2_6 = reinterpret_cast<uint32_t>(x_DWORD_E1286[a3]) >> 4;
+	connection->ncb_buffer2_6 = reinterpret_cast<uint32_t>(x_DWORD_E1286[bufferindex]) >> 4;
 #endif //x32_BIT_ENVIRONMENT
 #ifdef x64_BIT_ENVIRONMENT
-	a1x->ncb_buffer2_6 = reinterpret_cast<uint64_t>(x_DWORD_E1286[a3]) >> 4;
+	connection->ncb_buffer2_6 = reinterpret_cast<uint64_t>(x_DWORD_E1286[bufferindex]) >> 4;
 #endif //x64_BIT_ENVIRONMENT
-	a1x->ncb_length_8 = 2048;
-	if (setNetbios_75044(a1x) == -1)
+	connection->ncb_length_8 = 2048;
+	if (setNetbios_75044(connection) == -1)
 		v4 = -99;
 	else
 		v4 = 1;
@@ -90346,7 +90302,7 @@ signed int NetworkReceive_74DD4(myNCB* a1x, unsigned __int16 a3)//255dd4
 }
 
 //----- (00074E6D) --------------------------------------------------------
-int NetworkSendPacked_74E6D(myNCB* connection, uint8_t* buffer, int size)//255e6d
+int NetworkSendPacket_74E6D(myNCB* connection, uint8_t* buffer, int size)//255e6d
 {
 	memcpy((void*)networkBuffer_E127E, buffer, size);//max 2048
 	connection->ncb_command_0 = 0x94;//SEND 
@@ -90380,10 +90336,10 @@ void NetworkSendMessage_74EF1(myNCB* connection, uint8_t* inbuffer, unsigned int
 	{
 		if (size >> 11 <= packedSended)
 		{
-			NetworkSendPacked_74E6D(connection, buffer, size & 0x7FF);
+			NetworkSendPacket_74E6D(connection, buffer, size & 0x7FF);
 			return;
 		}
-		if (NetworkSendPacked_74E6D(connection, buffer, 2048))
+		if (NetworkSendPacket_74E6D(connection, buffer, 2048))
 			break;
 		packedSended++;
 		buffer += 2048;
@@ -90392,36 +90348,27 @@ void NetworkSendMessage_74EF1(myNCB* connection, uint8_t* inbuffer, unsigned int
 }
 
 //----- (00074F76) --------------------------------------------------------
-__int16 sub_74F76()//255f76
+void NetworkUpdateConnections_74F76()//255f76
 {
-	__int16 result; // ax
-	__int16 i; // [esp+0h] [ebp-4h]
-
-	for (i = 0; i < maxPlayers_E127A; i++)
+	for (int i = 0; i < maxPlayers_E127A; i++)
 	{
-		connected_E12CE[i] = sub_74FE1(i);
+		connected_E12CE[i] = NetworkGetState_74FE1(i);
 		if (connected_E12CE[i])
-			x_WORD_E1278 = i + 1;
+			countConnected_E1278 = i + 1;
 	}
-	result = maxPlayers_E127A;
-	x_WORD_E1278 = maxPlayers_E127A;
-	return result;
+	countConnected_E1278 = maxPlayers_E127A;
 }
-// E1278: using guessed type __int16 x_WORD_E1278;
-// E127A: using guessed type __int16 x_WORD_E127A;
 
 //----- (00074FE1) --------------------------------------------------------
-signed int sub_74FE1(__int16 a1)//255fe1
+signed int NetworkGetState_74FE1(__int16 a1)//255fe1
 {
-	signed int v2; // [esp+0h] [ebp-4h]
-
+	signed int v2;
 	if (a1 == x_WORD_E1276)
 		v2 = 2;
 	else
 		v2 = connection_E12AE[a1]->ncb_lsn_2 && !connection_E12AE[a1]->ncb_cmd_cplt_49;
 	return v2;
 }
-// E1276: using guessed type __int16 x_WORD_E1276;
 
 #pragma pack (1)
 
@@ -92122,7 +92069,7 @@ char /*__fastcall*/ sub_77680()//258680
 	sprintf(printbuffer, "NETH%d", (unsigned __int16)x_DWORD_17DE38str.x_WORD_17DEFA + 20);
 	int8_t a3a = 0;
 	int8_t a3b = 0;
-	x_DWORD_17DE38str.serverIndex_17DEFC = sub_7308F(printbuffer, 8);
+	x_DWORD_17DE38str.serverIndex_17DEFC = NetworkInitConnection_7308F(printbuffer, 8);
 	if (x_DWORD_17DE38str.serverIndex_17DEFC == -1)
 	{
 		sub_8CD27_set_cursor(xy_DWORD_17DED4_spritestr[39]);
@@ -95883,7 +95830,7 @@ signed int sub_7CE50()//25de50
 	v20 = 0;
 	x_DWORD_17DE38str.array_BYTE_17DE68x[x_DWORD_17DE38str.serverIndex_17DEFC].connected_0 = 1;
 	sub_74374();//some with network
-	sub_7438A((uint8_t*)x_DWORD_17DE38str.array_BYTE_17DE68x, sizeof(type_BYTE_17DE68x));
+	ReceiveSendAll_7438A((uint8_t*)x_DWORD_17DE38str.array_BYTE_17DE68x, sizeof(type_BYTE_17DE68x));
 	for (int v0 = 0; v0 < 8; v0++)
 	{
 		for (int j = 0; j < 8; j++)
