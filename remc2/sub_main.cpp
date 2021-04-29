@@ -2597,7 +2597,7 @@ void sub_73AA1(__int16 a1);
 void sub_73D11(__int16 a1);
 void NetworkSendMessage2_74006(unsigned __int16 a1, uint8_t* a2, unsigned int a3);
 void NetworkReceiveMessage2_7404E(unsigned __int16 a1, uint8_t* a2, unsigned int a3);
-void sub_74374();
+void NetworkUpdateConnections2_74374();
 void ReceiveSendAll_7438A(uint8_t* a1, unsigned int a2);
 __int16 sub_7449C();
 int sub_74515();
@@ -64283,8 +64283,8 @@ void sub_51BB0_game_events(/*uint8_t* a1*/)//232bb0
 
 	if (x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 0x10)
 	{
-		sub_74374();
-		ReceiveSendAll_7438A((uint8_t*)D41A0_0.array_0x6E3E, 0xAu);//multi receive
+		NetworkUpdateConnections2_74374();
+		ReceiveSendAll_7438A((uint8_t*)D41A0_0.array_0x6E3E, sizeof(type_str_0x6E3E));//multi receive
 		v1 = 0;
 		//v2 = D41A0_BYTESTR_0.array_0x6E3E[D41A0_BYTESTR_0.word_0xc];
 		v2x = 0;
@@ -64326,7 +64326,7 @@ void sub_51BB0_game_events(/*uint8_t* a1*/)//232bb0
 			//v3++;
 		}
 		if (v1)
-			ReceiveSendAll_7438A((uint8_t*)D41A0_0.array_0x2BDE, 0x84Cu);
+			ReceiveSendAll_7438A((uint8_t*)D41A0_0.array_0x2BDE, sizeof(type_str_0x2BDE));
 	}
 	//v10 = 2124 * D41A0_BYTESTR_0.word_0xc + x_D41A0_BYTEARRAY_0;
 	//v11 = (int)x_D41A0_BYTEARRAY_4;
@@ -89907,7 +89907,7 @@ void NetworkReceiveMessage2_7404E(unsigned __int16 connectionindex, uint8_t* buf
 }
 
 //----- (00074374) --------------------------------------------------------
-void sub_74374()//255374
+void NetworkUpdateConnections2_74374()//255374
 {
 	NetworkUpdateConnections_74F76();
 }
@@ -95829,7 +95829,7 @@ signed int sub_7CE50()//25de50
 
 	v20 = 0;
 	x_DWORD_17DE38str.array_BYTE_17DE68x[x_DWORD_17DE38str.serverIndex_17DEFC].connected_0 = 1;
-	sub_74374();//some with network
+	NetworkUpdateConnections2_74374();//some with network
 	ReceiveSendAll_7438A((uint8_t*)x_DWORD_17DE38str.array_BYTE_17DE68x, sizeof(type_BYTE_17DE68x));
 	for (int v0 = 0; v0 < 8; v0++)
 	{
