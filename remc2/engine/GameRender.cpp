@@ -14570,14 +14570,14 @@ void GameRender::SetRenderViewPortSize_BCD45(ViewPort viewPort, uint16_t screenW
 		m_viewPort.Height = screenHeight;
 	}
 
-	if (viewPort.PosX > viewPort.Width)
+	if (viewPort.PosX > screenWidth)
 	{
-		m_viewPort.PosX = viewPort.Width - 1;
+		m_viewPort.PosX = screenWidth - 1;
 	}
 
-	if (viewPort.PosY > viewPort.Height)
+	if (viewPort.PosY > screenHeight)
 	{
-		m_viewPort.PosY = viewPort.Height - 1;
+		m_viewPort.PosY = screenHeight - 1;
 	}
 
 	int32_t ptrScreenRenderBufferStart = m_viewPort.PosX + m_uiScreenWidth * m_viewPort.PosY;
