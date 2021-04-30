@@ -413,14 +413,13 @@ typedef struct {//lenght 66
 	uint8_t ncb_retcode_1;
 	uint8_t ncb_lsn_2;
 	uint8_t ncb_num_3;
-	uint16_t ncb_buffer1_4;
-	uint16_t ncb_buffer2_6;
-	uint16_t ncb_length_8;
+	uint8_t* ncb_buffer_4;
+	uint16_t ncb_bufferLength_8;
 	char ncb_callName_10[16];
 	char ncb_name_26[16];
 	uint8_t ncb_rto_42;
 	uint8_t ncb_sto_43;
-	uint32_t ncb_post_44;
+	uint8_t* ncb_post_44;
 	uint8_t ncb_lana_num_48;
 	uint8_t ncb_cmd_cplt_49;//lock for end command
 	uint8_t ncb_reserved_50[16];	

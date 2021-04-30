@@ -2588,21 +2588,21 @@ void sub_72D04();
 // int sub_72DDE(signed __int16 *a1, int a2);
 int /*__fastcall*/ sub_72E70(int a1, int a2, signed __int16* a3);//not used
 signed int /*__fastcall*/ NetworkTestCall_72FBB();
-void NetworkTestListen_7302E();
+void NetworkListenAll_7302E();
 // int sub_7308F(signed __int16 *a1, int a2, __int16 a3);
 void NetworkCanceling_73669(__int16 a1);
 void sub_7373D(__int16 a1);
 void sub_739AD(__int16 a1);
 void sub_73AA1(__int16 a1);
-void sub_73D11(__int16 a1);
+void NetworkEnd_73D11(__int16 a1);
 void NetworkSendMessage2_74006(unsigned __int16 a1, uint8_t* a2, unsigned int a3);
 void NetworkReceiveMessage2_7404E(unsigned __int16 a1, uint8_t* a2, unsigned int a3);
 void NetworkUpdateConnections2_74374();
 void ReceiveSendAll_7438A(uint8_t* a1, unsigned int a2);
-__int16 sub_7449C();
+void NetworkCancelAll_7449C();
 int sub_74515();
 int sub_74536();
-uint8_t sub_74556();
+uint8_t NetworkAllocation_74556();
 // signed int sub_74767(signed __int16 *a1, x_BYTE *a2, int a3);
 int NetworkCall_74809(__int16 a1);
 signed int NetworkCancel_748F7(__int16 a1);
@@ -2610,9 +2610,9 @@ signed int NetworkInit_74A11();
 void NetworkDeleteName_74A86(myNCB* a1x, char* a2);
 void NetworkHangUp_74B19(myNCB* a1x);
 signed int NetworkListen_74B75(__int16 a1);
-int NetworkReceivePacket_74C9D(myNCB* a1x, uint8_t* a2x);
+int NetworkReceivePacket_74C9D(myNCB* a1x, uint8_t* a2x,int maxsize);
 void NetworkReceiveMessage_74D41(myNCB* a1x, uint8_t* a2x, unsigned int a3);
-signed int NetworkReceivePacket_74DD4(myNCB* a1x, unsigned __int16 a3);
+//signed int NetworkReceivePacket_74DD4(myNCB* a1x, unsigned __int16 a3);
 int NetworkSendPacket_74E6D(myNCB* a1x, uint8_t* a2, int a3);
 void NetworkSendMessage_74EF1(myNCB* a1x, uint8_t* inbuffer, unsigned int size);
 void NetworkUpdateConnections_74F76();
@@ -6310,8 +6310,8 @@ int16_t x_WORD_E1276 = -1; // weak
 __int16 countConnected_E1278 = 0; // weak
 __int16 maxPlayers_E127A = 8; // weak
 uint8_t* networkBuffer_E127E = 0; // weak
-uint8_t* x_DWORD_E1282 = 0; // weak
-uint8_t* x_DWORD_E1286[8] = { 0, 0, 0, 0, 0, 0, 0, 0 }; // idb
+uint8_t* paket_E1282 = 0; // weak
+uint8_t* packetArray_E1286[8] = { 0, 0, 0, 0, 0, 0, 0, 0 }; // idb
 __int16 x_WORD_E12A6 = 0; // weak
 __int16 x_WORD_E12A8 = 0; // weak
 myNCB* mainConnection_E12AA = 0; // weak //array size 66 //0x2b22aa
@@ -64304,54 +64304,27 @@ void sub_51BB0_game_events(/*uint8_t* a1*/)//232bb0
 					v5 = (x_D41A0_BYTEARRAY_4_struct.player_name_57ar);
 					v6 = D41A0_0.array_0x2BDE[v2x].array_0x39f_2BFA_12157;//wizard name
 					strcpy(v6, v5);
-					/*do
-					{
-						v7 = *v5;
-						*v6 = *v5;
-						if (!v7)
-							break;
-						v8 = v5[1];
-						v5 += 2;
-						v6[1] = v8;
-						v6 += 2;
-					} while (v8);*/
-					//a1 = v4 + 927;//wizard name
 				}
 				v1 = 1;
 			}
-			//v2 += 10;
 			v2x++;
-			//v4 += 2124;
-			//v4x++;
-			//v3++;
 		}
 		if (v1)
 			ReceiveSendAll_7438A((uint8_t*)D41A0_0.array_0x2BDE, sizeof(type_str_0x2BDE));
 	}
-	//v10 = 2124 * D41A0_BYTESTR_0.word_0xc + x_D41A0_BYTEARRAY_0;
-	//v11 = (int)x_D41A0_BYTEARRAY_4;
 	D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x012_2BE0_11248++;
-	//v12 = x_D41A0_BYTEARRAY_4_struct.setting_30;
 	x_D41A0_BYTEARRAY_4_struct.byteindex_26++;//232c9e
-	//v13 = x_D41A0_BYTEARRAY_4_struct.byteindex_38400;
 	x_D41A0_BYTEARRAY_4_struct.setting_30++;// = v12 + 1;
 	if (x_D41A0_BYTEARRAY_4_struct.byteindex_38400)
 		x_D41A0_BYTEARRAY_4_struct.byteindex_38400--;
-	//v14 = x_D41A0_BYTEARRAY_4_struct.byteindex_38401;
 	if (x_D41A0_BYTEARRAY_4_struct.byteindex_38401)
 		x_D41A0_BYTEARRAY_4_struct.byteindex_38401--;
 	//adress 232cd2
 	for(v15=1;v15<16;v15++)
-	//v15 = 1;
-	//while (v15 < 16)
 	{
-		//v16 = D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x012_2BE0_11248 / (unsigned int)v15 & 1;
-		//v17 = v15++;
 		x_D41A0_BYTEARRAY_4_struct.byteindex_121[v15] = D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x012_2BE0_11248 / v15 & 1;
 	}
-	//v114 = D41A0_BYTESTR_0.array_0x6E3E[D41A0_BYTESTR_0.word_0xc];
 	v114x = 0;
-	//v18 = x_D41A0_BYTEARRAY_0 + 11230;
 	v18x = 0;
 	v116 = 0;
 	while (1)
@@ -64367,19 +64340,16 @@ void sub_51BB0_game_events(/*uint8_t* a1*/)//232bb0
 		//add_compare(0x233d56, debugafterload,0x365);
 #endif //DEBUG_SEQUENCES
 
-		//index = (int)x_D41A0_BYTEARRAY_0;
 		if ((unsigned __int16)v116 >= D41A0_0.word_0xe)
 			return;
 		v113x = x_DWORD_EA3E4[D41A0_0.array_0x2BDE[v18x].word_0x00a_2BE4_11240];
 		if (x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 0x20)
 		{
-			//a1 = v114;
 			sub_53A40(&D41A0_0.array_0x6E3E[v114x]);
 		}
 		switch (D41A0_0.array_0x6E3E[v114x].str_0x6E3E_byte0)
 		{
 		case 1:
-			//v19 = (int)x_D41A0_BYTEARRAY_4;
 			D41A0_0.array_0x2BDE[v18x].byte_0x006_2BE4_11236 = 1;
 			if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 0x10)
 				&& (unsigned __int16)v116 == D41A0_0.LevelIndex_0xc
@@ -64388,18 +64358,6 @@ void sub_51BB0_game_events(/*uint8_t* a1*/)//232bb0
 				v20 = x_D41A0_BYTEARRAY_4_struct.player_name_57ar;
 				v21 = D41A0_0.array_0x2BDE[v18x].array_0x39f_2BFA_12157;//wizard name
 				strcpy(v21, v20);
-				/*do
-				{
-					v22 = *v20;
-					*v21 = *v20;
-					if (!v22)
-						break;
-					v23 = v20[1];
-					v20 += 2;
-					v21[1] = v23;
-					v21 += 2;
-				} while (v23);*/
-				//a1 = v18 + 927;//wizard name
 			}
 			goto LABEL_33;
 		case 2:
@@ -64459,7 +64417,6 @@ void sub_51BB0_game_events(/*uint8_t* a1*/)//232bb0
 				sub_6EDB0_set_mouse_position_by_res();
 			}
 			sub_52E90(&D41A0_0.array_0x2BDE[v18x], 3, 1);
-			//v34 = x_D41A0_BYTEARRAY_0;
 			D41A0_0.array_0x2BDE[v18x].byte_0x3E2_2BE4_12224 = 0;
 			if ((unsigned __int16)v116 == D41A0_0.LevelIndex_0xc)
 			{
@@ -64473,19 +64430,16 @@ void sub_51BB0_game_events(/*uint8_t* a1*/)//232bb0
 			{
 				v37 = D41A0_0.array_0x2BDE[v18x].names_81[D41A0_0.array_0x2BDE[v18x].byte_0x3E0_2BE4_12222];
 				v38 = strlen(v37) + 1;
-				//a1 = (uint8_t*)&v37[v38];
 				if (v38 != 1)
 				{
 					D41A0_0.array_0x2BDE[v18x].byte_0x3E2_2BE4_12224--;
-					D41A0_0.array_0x2BDE[v18x].names_81[D41A0_0.array_0x2BDE[v18x].byte_0x3E0_2BE4_12222][v38 - 2] = 0;
-					//*(x_BYTE *)(v38 - 1 + v18 + 48 * D41A0_BYTESTR_0.array_0x2BDE[v18x].byte_0x3E0_2BE4_12222 + 80) = 0;
+					D41A0_0.array_0x2BDE[v18x].names_81[D41A0_0.array_0x2BDE[v18x].byte_0x3E0_2BE4_12222][v38 - 2] = 0;					
 				}
 			}
 			else if (v36)
 			{
 				v39 = D41A0_0.array_0x2BDE[v18x].names_81[D41A0_0.array_0x2BDE[v18x].byte_0x3E0_2BE4_12222];
 				v40 = strlen(v39) + 1;
-				//a1 = (uint8_t*)&v39[v40];
 				if (v40 - 1 < 0x2B)
 				{
 					if (!D41A0_0.array_0x2BDE[v18x].byte_0x3E2_2BE4_12224)
@@ -64495,19 +64449,7 @@ void sub_51BB0_game_events(/*uint8_t* a1*/)//232bb0
 					v41 = printbuffer;
 					v106 = D41A0_0.array_0x2BDE[v18x].names_81[D41A0_0.array_0x2BDE[v18x].byte_0x3E0_2BE4_12222];
 					v42 = (char*)&v106[strlen(v106)];
-					strcpy(v42, v41);
-					/*do
-					{
-						v43 = *v41;
-						*v42 = *v41;
-						if (!v43)
-							break;
-						v44 = v41[1];
-						v41 += 2;
-						v42[1] = v44;
-						v42 += 2;
-					} while (v44);*/
-					//a1 = (uint8_t*)v106;
+					strcpy(v42, v41);					
 				}
 			}
 			goto LABEL_215;
@@ -64530,7 +64472,6 @@ void sub_51BB0_game_events(/*uint8_t* a1*/)//232bb0
 				case 0xC:
 				case 0xD:
 				case 0xE:
-					//v56 = (int)v114;
 					D41A0_0.array_0x6E3E[v114x].str_0x6E3E_byte3 = 0;
 					D41A0_0.array_0x6E3E[v114x].str_0x6E3E_byte4 = 0;
 					sub_6EDB0_set_mouse_position_by_res();
@@ -64546,7 +64487,6 @@ void sub_51BB0_game_events(/*uint8_t* a1*/)//232bb0
 			{
 				for (i = 0; i < 26; i++)
 				{
-					//v58 = i + v113x->dword_0xA4_164;
 					if (v113x->dword_0xA4_164x->str_611.array_0x39B_923x.byte[i] == D41A0_0.array_0x6E3E[v114x].str_0x6E3E_byte2)
 						v113x->dword_0xA4_164x->str_611.array_0x39B_923x.byte[i] = 0xff;
 				}
@@ -64557,10 +64497,8 @@ void sub_51BB0_game_events(/*uint8_t* a1*/)//232bb0
 		case 0x19:
 		case 0x1A:
 			v59 = 0;
-			//for (j = x_D41A0_BYTEARRAY_0; v59 < *(x_WORD *)(x_D41A0_BYTEARRAY_0 + 14); j = x_D41A0_BYTEARRAY_0)
 			for (; v59 < D41A0_0.word_0xe;)
 			{
-				//v61 = D41A0_BYTESTR_0.array_0x2BDE[v59]; // 2124 * v59 + j;
 				if (D41A0_0.array_0x2BDE[v59].byte_0x006_2BE4_11236)
 				{
 					D41A0_0.array_0x2BDE[v59].byte_0x004_2BE0_11234 = 1;
@@ -64585,28 +64523,14 @@ void sub_51BB0_game_events(/*uint8_t* a1*/)//232bb0
 			v26 = x_DWORD_E9C4C_langindexbuffer[283];//has been banished from the realm.
 			v27 = D41A0_0.array_0x2BDE[v18x].array_0x01c_2BFA_11258;
 			strcpy(v27, v26);
-			/*do
-			{
-				v28 = *v26;
-				*v27 = *v26;
-				if (!v28)
-					break;
-				v29 = v26[1];
-				v26 += 2;
-				v27[1] = v29;
-				v27 += 2;
-			} while (v29);*/
-			//HIWORD(a1) = (unsigned int)(v18 + 28) >> 16;
 			D41A0_0.array_0x2BDE[v18x].word_0x04f_2C2D_11309 = 1;
 			v30 = v116;
 			D41A0_0.array_0x2BDE[v18x].word_0x04d_2C2B_11307 = 100;
 			D41A0_0.array_0x2BDE[v18x].dw_w_b_0_2BDE_11230.word[1] = 8;
 			sub_7373D(v30);
-			//v31 = (int)x_D41A0_BYTEARRAY_4;
 			D41A0_0.array_0x2BDE[v18x].byte_0x006_2BE4_11236 = 0;
 			if (x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 0x10)
 				sub_5E660(v113x);
-			//LOWORD(a1) = x_D41A0_BYTEARRAY_4_struct.levelnumber_43;
 			x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 &= 0xD9u;
 			if (x_D41A0_BYTEARRAY_4_struct.levelnumber_43w > 0x18u)
 				D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dw_w_b_0_2BDE_11230.byte[2] |= 0x10u;
@@ -64622,7 +64546,6 @@ void sub_51BB0_game_events(/*uint8_t* a1*/)//232bb0
 				v68x = IfSubtypeCallAxisEvent_4A190(&v113x->axis_0x4C_76, 10, 39);
 				if (v68x)
 				{
-					//v69 = x_D41A0_BYTEARRAY_0;
 					v68x->dword_0x90_144 = 100000;
 					v68x->word_0x94_148 = v113x - D41A0_0.struct_0x6E8E;
 				}
@@ -64634,7 +64557,6 @@ void sub_51BB0_game_events(/*uint8_t* a1*/)//232bb0
 				{
 					if (kx->word_0x1A_26 != v113x->word_0x1A_26)
 					{
-						//v71 = kx->byte_0x40_64;
 						if (!kx->subtype_0x40_64 || kx->subtype_0x40_64 == 1)
 							kx->dword_0x8 = -1;
 					}
@@ -64676,7 +64598,6 @@ void sub_51BB0_game_events(/*uint8_t* a1*/)//232bb0
 				sub_52D70(v116, (char*)".. CHEAT: More Spell Experience Points");
 				goto LABEL_215;
 			case 9:
-				//v76 = x_D41A0_BYTEARRAY_4_struct.setting_byte3_24;
 				if (x_D41A0_BYTEARRAY_4_struct.setting_byte3_24 & 0x20)
 				{
 					x_D41A0_BYTEARRAY_4_struct.setting_byte3_24 &= 0xDF;
@@ -64689,7 +64610,6 @@ void sub_51BB0_game_events(/*uint8_t* a1*/)//232bb0
 				}
 				goto LABEL_215;
 			case 0xA:
-				//v77 = x_D41A0_BYTEARRAY_4_struct.setting_byte4_25;
 				if (x_D41A0_BYTEARRAY_4_struct.setting_byte4_25 & 1)
 					x_D41A0_BYTEARRAY_4_struct.setting_byte4_25 &= 0xFE;
 				else
@@ -64716,48 +64636,30 @@ void sub_51BB0_game_events(/*uint8_t* a1*/)//232bb0
 				{
 					if (D41A0_0.array_0x6E3E[v114x].str_0x6E3E_byte0 <= 0x1Fu)
 					{
-						//v80 = (int)v114;
 						v79x->word_0x451_1105 = v78;
 						v79x->byte_0x455_1109 = D41A0_0.array_0x6E3E[v114x].str_0x6E3E_byte2;
 						x_D41A0_BYTEARRAY_4_struct.byteindex_38400 = 8;
 					}
 					else if (D41A0_0.array_0x6E3E[v114x].str_0x6E3E_byte0 == 32)
 					{
-						//v81 = (int)v114;
 						v79x->word_0x453_1107 = v78;
 						v79x->byte_0x456_1110 = D41A0_0.array_0x6E3E[v114x].str_0x6E3E_byte2;
 						x_D41A0_BYTEARRAY_4_struct.byteindex_38401 = 8;
 					}
 				}
 				v82 = v78;
-				//a1 = x_DWORD_EA3E4[*(signed __int16 *)(v79 + 2 * v78 + 208)];
 				SetSpell_6D5E0(x_DWORD_EA3E4[v79x->array_0x333_819x.word[v78]], D41A0_0.array_0x6E3E[v114x].str_0x6E3E_byte2);
 				sub_6D830(x_DWORD_EA3E4[v79x->array_0x333_819x.word[v78]], D41A0_0.array_0x6E3E[v114x].str_0x6E3E_byte2);
 				if ((unsigned __int16)v116 == D41A0_0.LevelIndex_0xc)
 				{
 					v83 = D41A0_0.array_0x2BDE[v18x].array_0x01c_2BFA_11258;
-					//v84 = x_DWORD_E9C4C_langindexbuffer[*(int16_t*)& SPELLS_BEGIN_BUFFER_DA818[0x16+2*40 * v82] + /*2*13 * */D41A0_BYTESTR_0.array_0x6E3E[v114x].str_0x6E3E_byte2];
 					v84 = x_DWORD_E9C4C_langindexbuffer[SPELLS_BEGIN_BUFFER_str[v82].subspell[D41A0_0.array_0x6E3E[v114x].str_0x6E3E_byte2].word_0x16x];
 					strcpy(v83, v84);
-					/*do
-					{
-						v85 = v84[0];
-						v83[0] = v84[0];
-						if (!v85)
-							break;
-						v83[1] = v84[1];
-						v84 += 2;
-						//v83[1] = v86;
-						v83 += 2;
-					} while (v86);*/
-
-					//a1 = v18 + 28;
 					D41A0_0.array_0x2BDE[v18x].word_0x04d_2C2B_11307 = 20;
 					D41A0_0.array_0x2BDE[v18x].word_0x04f_2C2D_11309 = 3;
 				}
 				if (x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 4)
 				{
-					//v87 = D41A0_BYTESTR_0.word_0xc;
 					if ((unsigned __int16)v116 == D41A0_0.LevelIndex_0xc)
 					{
 						sub_6D200(&D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc]);
@@ -64783,7 +64685,6 @@ void sub_51BB0_game_events(/*uint8_t* a1*/)//232bb0
 			PrepareEventSound_6E450(0, D41A0_0.array_0x2BDE[v18x].word_0x007_2BE4_11237, 14);
 			goto LABEL_215;
 		case 0x27:
-			//v94 = (int)v114;
 			D41A0_0.array_0x6E3E[v114x].str_0x6E3E_byte3 = 0;
 			v95 = D41A0_0.array_0x6E3E[v114x].str_0x6E3E_byte1;
 			D41A0_0.array_0x6E3E[v114x].str_0x6E3E_byte4 = 0;
@@ -64792,7 +64693,6 @@ void sub_51BB0_game_events(/*uint8_t* a1*/)//232bb0
 				v96x = v113x;
 				v113x->word_0x82_130 = 0;
 				v96x->dword_0xA4_164x->word_0xc_12 = 0;
-				//LOWORD(a1) = *(x_WORD *)(*(x_DWORD *)(v113 + 164) + 825);
 				if (v113x->dword_0xA4_164x->str_611.array_0x333_819x.word[3])
 					x_DWORD_EA3E4[v113x->dword_0xA4_164x->str_611.array_0x333_819x.word[3]]->word_0x2E_46 = 0;
 			}
@@ -64802,10 +64702,8 @@ void sub_51BB0_game_events(/*uint8_t* a1*/)//232bb0
 		case 0x28:
 			if (x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 4)
 			{
-				//v88 = v113x->dword_0xA4_164;
 				v113x->dword_0xA4_164x->str_611.byte_0x458_1112 = D41A0_0.array_0x6E3E[v114x].str_0x6E3E_byte1;
 				v113x->dword_0xA4_164x->str_611.byte_0x457_1111 = D41A0_0.array_0x6E3E[v114x].str_0x6E3E_byte2;
-				//v89 = D41A0_BYTESTR_0.word_0xc;
 				if ((unsigned __int16)v116 == D41A0_0.LevelIndex_0xc)
 				{
 					sub_6D200(&D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc]);
@@ -64816,12 +64714,9 @@ void sub_51BB0_game_events(/*uint8_t* a1*/)//232bb0
 		case 0x29:
 			if (x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 4)
 			{
-				//v90 = v113x->dword_0xA4_164;
 				v91 = x_BYTE_D94FF_spell_index[v113x->dword_0xA4_164x->str_611.byte_0x458_1112];
-				//v90 += 611;
 				v113x->dword_0xA4_164x->str_611.byte_0x459_1113 = D41A0_0.array_0x6E3E[v114x].str_0x6E3E_byte1;
 				v113x->dword_0xA4_164x->str_611.array_0x437_1079x.byte[v91] = D41A0_0.array_0x6E3E[v114x].str_0x6E3E_byte1;
-				//v92 = D41A0_BYTESTR_0.word_0xc;
 				if ((unsigned __int16)v116 == D41A0_0.LevelIndex_0xc)
 				{
 					sub_6D200(&D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc]);
@@ -64830,8 +64725,6 @@ void sub_51BB0_game_events(/*uint8_t* a1*/)//232bb0
 			}
 			goto LABEL_215;
 		case 0x2A:
-			//v97 = v113x->dword_0xA4_164;
-			//a1 = x_DWORD_EA3E4[0];
 			v98x = x_DWORD_EA3E4[v113x->dword_0xA4_164x->word_0x3A_58];
 			if (v98x > x_DWORD_EA3E4[0])
 			{
@@ -64846,18 +64739,6 @@ void sub_51BB0_game_events(/*uint8_t* a1*/)//232bb0
 			v45 = printbuffer;
 			v46 = D41A0_0.array_0x2BDE[v18x].names_81[D41A0_0.array_0x2BDE[v18x].byte_0x3E0_2BE4_12222];
 			strcpy(v45, v46);
-			/*do
-			{
-				v47 = *v46;
-				*v45 = *v46;
-				if (!v47)
-					break;
-				v48 = v46[1];
-				v46 += 2;
-				v45[1] = v48;
-				v45 += 2;
-			} while (v48);*/
-			//a1 = (uint8_t*)printbuffer;
 			v118 = 0;
 			if (printbuffer[0])
 			{
@@ -64874,7 +64755,6 @@ void sub_51BB0_game_events(/*uint8_t* a1*/)//232bb0
 				else
 				{
 					v117 = 0;
-					//v49 = D41A0_BYTESTR_0.word_0xc;
 					if ((unsigned __int16)v116 == D41A0_0.LevelIndex_0xc)
 					{
 					LABEL_98:
@@ -64882,14 +64762,12 @@ void sub_51BB0_game_events(/*uint8_t* a1*/)//232bb0
 					}
 					else
 					{
-						//v50 = 2124 * D41A0_BYTESTR_0.word_0xc + x_D41A0_BYTEARRAY_0;
 						switch (D41A0_0.array_0x2BDE[v18x].byte_0x3E1_2BE4_12223)
 						{
 						case 0:
 							v51 = sub_61810(v113x, x_DWORD_EA3E4[D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].word_0x00a_2BE4_11240]) == 0;
 							goto LABEL_97;
 						case 1:
-							//a1 = v113;
 							v51 = sub_61620(v113x, x_DWORD_EA3E4[D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].word_0x00a_2BE4_11240]) == 0;
 						LABEL_97:
 							if (!v51)
@@ -64910,18 +64788,6 @@ void sub_51BB0_game_events(/*uint8_t* a1*/)//232bb0
 						v52 = printbuffer;
 						v53 = D41A0_0.array_0x2BDE[v18x].array_0x01c_2BFA_11258;
 						strcpy(v53, v52);
-						/*do
-						{
-							v54 = *v52;
-							*v53 = *v52;
-							if (!v54)
-								break;
-							v55 = v52[1];
-							v52 += 2;
-							v53[1] = v55;
-							v53 += 2;
-						} while (v55);*/
-						//a1 = v18 + 28;
 						D41A0_0.array_0x2BDE[v18x].word_0x04d_2C2B_11307 = 200;
 						D41A0_0.array_0x2BDE[v18x].word_0x04f_2C2D_11309 = 2;
 					}
@@ -64945,8 +64811,6 @@ void sub_51BB0_game_events(/*uint8_t* a1*/)//232bb0
 			{
 				//adress 23354c
 				v63x = pre_sub_4A190_axis_3d(0x2321a0 + 14 * v112, &v113x->axis_0x4C_76);//v63 = (uint8_t*)(*(int(**)(uint8_t*))((char *)&off_D781E + 14 * v112))(v113 + 76);
-				//v14 = pre_sub_4A190(v8x, (uint8_t*)x_WORD_EB398ar); //(*(int(**)(int))((char *)&off_D7B7A + 14 * v13))((int)x_WORD_EB398ar);
-
 				if (v63x)
 				{
 					v63x->struct_byte_0xc_12_15.byte[0] |= 1u;
@@ -64956,7 +64820,6 @@ void sub_51BB0_game_events(/*uint8_t* a1*/)//232bb0
 					v113x->dword_0xA4_164x->str_611.array_0x333_819x.word[v62] = v63x - D41A0_0.struct_0x6E8E;
 					for (n = 0; n < 10; ++n)
 					{
-						//v66 = v113x->dword_0xA4_164 + n;
 						if (v113x->dword_0xA4_164x->str_611.array_0x39B_923x.byte[n] == -1)
 						{
 							v113x->dword_0xA4_164x->str_611.array_0x39B_923x.byte[n] = v112;
@@ -64974,26 +64837,10 @@ void sub_51BB0_game_events(/*uint8_t* a1*/)//232bb0
 		}
 		sub_52D70(v116, (char*)".. CHEAT: access all spells");
 	LABEL_215://233c76
-		//v99 = v113x->dword_0xA4_164;
 		v100x = 2 * D41A0_0.array_0x6E3E[v114x].str_0x6E3E_byte3 - v113x->dword_0xA4_164x->word_0x155_341;
-
-		//v113x->dword_0xA4_164x->word_0x4_4 = (signed int)(v100x - my_sign(v100x)) >> 2;
-		//int cftemp = 0;
-		//if ((v100x >> 30) & 1)cftemp = 1;
-		//v113x->dword_0xA4_164x->word_0x4_4 = ((v100x - ((v100x>>31) << 2)) - cftemp) >> 2;
 		v113x->dword_0xA4_164x->word_0x4_4 = (v100x - (my_sign32(v100x) << 2) + my_sign32(v100x)) >> 2;
-
-		//v113x->dword_0xA4_164x->word_0x4_4 = (signed int)(v100 - (__CFSHL__(HIDWORD(v100), 2) + 4 * HIDWORD(v100))) >> 2;
-		//v101 = v113x->dword_0xA4_164;
 		v102x = 2 * D41A0_0.array_0x6E3E[v114x].str_0x6E3E_byte4 - v113x->dword_0xA4_164x->word_0x157_343;
-		//v102x = (signed int)(v102x - my_sign(v102x)) >> 2;
-		//cftemp = 0;
-		//if ((v102x >> 30) & 1)cftemp = 1;
-		//v102x = ((v102x - ((v102x >> 31) << 2)) - cftemp) >> 2;
 		v102x = (v102x - (my_sign32(v102x) << 2) + my_sign32(v102x)) >> 2;
-		//LODWORD(v102) = (signed int)(v102 - (__CFSHL__(HIDWORD(v102), 2) + 4 * HIDWORD(v102))) >> 2;
-
-		//HIDWORD(v102) = (int)v114;
 		v113x->dword_0xA4_164x->word_0x6_6 = v102x;//fix - test it
 		v113x->dword_0xA4_164x->dword_0x0_0 = D41A0_0.array_0x6E3E[v114x].str_0x6E3E_byte5;
 		v113x->dword_0xA4_164x->word_0x18_24_next_entity = D41A0_0.array_0x6E3E[v114x].str_0x6E3E_word6;
@@ -65002,27 +64849,13 @@ void sub_51BB0_game_events(/*uint8_t* a1*/)//232bb0
 		sub_57B20(&D41A0_0.array_0x2BDE[v18x], v103x);
 		if (D41A0_0.array_0x2BDE[v18x].byte_0x846_2BDE)
 			sub_55C60(/*(int)a1, (int)v103,*/ &D41A0_0.array_0x2BDE[v18x]);
-		//a1 = v114;
-		//v18 += 2124;
 		v18x++;
 		v104 = v116 + 1;
 		memset(&D41A0_0.array_0x6E3E[v114x], 0, 10);
 		v116 = v104;
-		//v114 += 10;
 		v114x++;
 	}
 }
-// 8C250: using guessed type x_DWORD memset(x_DWORD, x_DWORD, x_DWORD);
-// 8E3D5: using guessed type x_DWORD sprintf(x_DWORD, const char *, ...);
-// 98805: using guessed type x_DWORD x_toupper(x_DWORD);
-// D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
-// D41A4: using guessed type int x_DWORD_D41A4;
-// D781E: using guessed type int (*off_D781E)(int);
-// DA82E: using guessed type __int16 x_WORD_DA82E[];
-// EA0B8: using guessed type int x_DWORD_EA0B8;
-// EA3E4: using guessed type int x_DWORD_EA3E4[];
-// EA3E8: using guessed type int x_DWORD_EA3E8;
-// EB384: using guessed type int x_DWORD_EB384;
 
 //----- (00052D70) --------------------------------------------------------
 void sub_52D70(unsigned __int16 a1, char* a2)//233d70
@@ -73213,7 +73046,7 @@ signed int sub_5C3D0_file_decompress(uint8_t* input, uint8_t* output)//23d3d0
 //----- (0005C430) --------------------------------------------------------
 void sub_5C430_multi_allocation()//23d430
 {
-	x_D41A0_BYTEARRAY_4_struct.isNetwork_216w = sub_74556();//255556 push ebp 355250
+	x_D41A0_BYTEARRAY_4_struct.isNetwork_216w = NetworkAllocation_74556();//255556 push ebp 355250
 }
 // D41A4: using guessed type int x_DWORD_D41A4;
 
@@ -89305,9 +89138,9 @@ int sub_72CB0(unsigned __int8* a1, int a2)
 	return v3;
 }
 
-myNCB* lastConnection;
+//myNCB* lastConnection;
 
-void fake_network_interupt() {
+void fake_network_interupt(myNCB* connection) {
 	/*WSADATA wsaData;
 	int portno;
 	portno = 5001;
@@ -89385,7 +89218,7 @@ void fake_network_interupt() {
 
 	//NetworkTestServer();
 
-	lastConnection->ncb_cmd_cplt_49 = 0;
+	connection->ncb_cmd_cplt_49 = 0;
 }
 
 //----- (00072D04) --------------------------------------------------------
@@ -89398,21 +89231,19 @@ void sub_72D04()
 	{
 		for (i = 0; maxPlayers_E127A > i; i++)
 		{
-			lastConnection = connection_E12AE[i];
 			while (connection_E12AE[i]->ncb_cmd_cplt_49 == 0xff)
-				fake_network_interupt();
+				fake_network_interupt(connection_E12AE[i]);
 		}
-		lastConnection = mainConnection_E12AA;
 		while (mainConnection_E12AA->ncb_cmd_cplt_49 == 0xff)
-			fake_network_interupt();
+			fake_network_interupt(mainConnection_E12AA);
 		sub_83E80_freemem4((uint8_t*)mainConnection_E12AA);
 		for (j = 0; j < 8; j++)
 		{
 			sub_83E80_freemem4((uint8_t*)connection_E12AE[j]);
-			sub_83E80_freemem4((uint8_t*)x_DWORD_E1286[j]);
+			sub_83E80_freemem4((uint8_t*)packetArray_E1286[j]);
 		}
 		sub_83E80_freemem4((uint8_t*)networkBuffer_E127E);
-		sub_83E80_freemem4((uint8_t*)x_DWORD_E1282);
+		sub_83E80_freemem4((uint8_t*)paket_E1282);
 		x_BYTE_E1274 = 0;
 	}
 }
@@ -89462,7 +89293,6 @@ int /*__fastcall*/ sub_72E70(int  /*a1*/, int  /*a2*/, signed __int16* a3)//253e
 		{
 			if (x_WORD_E1276 != i)
 			{
-				//v5 = *(x_BYTE*)(x_DWORD_E12AE[i] + 49);
 				v5 = connection_E12AE[i]->ncb_cmd_cplt_49;
 				if (v5)
 				{
@@ -89483,17 +89313,11 @@ int /*__fastcall*/ sub_72E70(int  /*a1*/, int  /*a2*/, signed __int16* a3)//253e
 				}
 			}
 		}
-		WaitToConnect_7C230(/*x_WORD_E127A,*/ /*v3, a3*/);
+		WaitToConnect_7C230();
 	}
 	v7 = v9;
 	return v9;
 }
-// 8C250: using guessed type x_DWORD memset(x_DWORD, x_DWORD, x_DWORD);
-// E1276: using guessed type __int16 x_WORD_E1276;
-// E127A: using guessed type __int16 x_WORD_E127A;
-// E12A6: using guessed type __int16 x_WORD_E12A6;
-// E12A8: using guessed type __int16 x_WORD_E12A8;
-// 72E70: using guessed type char var_18[8];
 
 //----- (00072FBB) --------------------------------------------------------
 signed int NetworkTestCall_72FBB()//253fbb
@@ -89511,7 +89335,7 @@ signed int NetworkTestCall_72FBB()//253fbb
 }
 
 //----- (0007302E) --------------------------------------------------------
-void NetworkTestListen_7302E()//25402e
+void NetworkListenAll_7302E()//25402e
 {
 	for (int i = 0; maxPlayers_E127A > i && !x_WORD_E12A6; i++)
 	{
@@ -89523,10 +89347,7 @@ void NetworkTestListen_7302E()//25402e
 //----- (0007308F) --------------------------------------------------------
 int NetworkInitConnection_7308F(char* a2, __int16 a3)//25408f
 {
-	//uint8_t* v3; // edx
-	//int v4; // eax
 	int v6; // [esp+4h] [ebp-24h]
-	//char v7; // [esp+8h] [ebp-20h]
 	int i; // [esp+1Ch] [ebp-Ch]
 	int v9; // [esp+20h] [ebp-8h]
 
@@ -89538,19 +89359,16 @@ int NetworkInitConnection_7308F(char* a2, __int16 a3)//25408f
 		maxPlayers_E127A = 8;
 	x_BYTE_E1275 = 0;
 	x_WORD_E12A6 = 0;
-	//char testerstr[512] = "TESTER";
 	strcpy(aTester, (char*)a2);
 	for (i = 0; maxPlayers_E127A > i; i++)
 		connected_E12CE[i] = 0;
 	for (i = 0; maxPlayers_E127A > i; i++)
 	{
-		lastConnection = connection_E12AE[i];
 		while (connection_E12AE[i]->ncb_cmd_cplt_49 == 0xff)
-			fake_network_interupt();
+			fake_network_interupt(connection_E12AE[i]);
 	}
-	lastConnection = mainConnection_E12AA;
 	while (mainConnection_E12AA->ncb_cmd_cplt_49 == 0xff)
-		fake_network_interupt();
+		fake_network_interupt(mainConnection_E12AA);
 	i = 0;
 	x_WORD_E1276 = -1;
 	while (maxPlayers_E127A > i && x_WORD_E1276 == -1 && !x_WORD_E12A6)
@@ -89589,7 +89407,7 @@ int NetworkInitConnection_7308F(char* a2, __int16 a3)//25408f
 	}
 	else
 	{
-		NetworkTestListen_7302E();
+		NetworkListenAll_7302E();
 		x_WORD_E12A8 = x_WORD_E1276;
 	}
 	if (x_WORD_E12A6 == 1)
@@ -89639,14 +89457,8 @@ void NetworkCanceling_73669(__int16 a1)//254669
 //----- (0007373D) --------------------------------------------------------
 void sub_7373D(__int16 a1)//25473d
 {
-	//uint8_t* result; // eax
-	//char v2; // [esp+0h] [ebp-64h]
 	uint8_t v3[8]; // [esp+54h] [ebp-10h]
 	int i; // [esp+5Ch] [ebp-8h]
-
-	//fix
-	//result = 0;
-	//fix
 
 	if (x_BYTE_E1274 && x_BYTE_E1275)
 	{
@@ -89685,9 +89497,8 @@ void sub_7373D(__int16 a1)//25473d
 						if (x_WORD_E1276 != i && v3[i] == 1)
 						{
 							NetworkListen_74B75(i);
-							lastConnection = connection_E12AE[i];
 							while (connection_E12AE[i]->ncb_cmd_cplt_49 == 0xff)
-								fake_network_interupt();
+								fake_network_interupt(connection_E12AE[i]);
 							if (connection_E12AE[i]->ncb_cmd_cplt_49)
 								sprintf(printbuffer, "Error code (LISTEN) : %d", connection_E12AE[i]->ncb_cmd_cplt_49);
 						}
@@ -89698,9 +89509,8 @@ void sub_7373D(__int16 a1)//25473d
 					while (1)
 					{
 						NetworkCall_74809(x_WORD_E12A8);
-						lastConnection = connection_E12AE[x_WORD_E12A8];
 						while (connection_E12AE[x_WORD_E12A8]->ncb_cmd_cplt_49 == 0xff)
-							fake_network_interupt();
+							fake_network_interupt(connection_E12AE[x_WORD_E12A8]);
 						if (!connection_E12AE[x_WORD_E12A8]->ncb_cmd_cplt_49)
 							break;
 						sprintf(printbuffer, "Error code (CALL) : %d", connection_E12AE[x_WORD_E12A8]->ncb_cmd_cplt_49);
@@ -89710,29 +89520,17 @@ void sub_7373D(__int16 a1)//25473d
 		}
 		else
 		{
-			/*result = (uint8_t*)*/NetworkCanceling_73669(a1);
+			NetworkCanceling_73669(a1);
 		}
 	}
-	//return (int)result;
 }
-// 8E3D5: using guessed type x_DWORD sprintf(x_DWORD, const char *, ...);
-// E1274: using guessed type char x_BYTE_E1274;
-// E1275: using guessed type char x_BYTE_E1275;
-// E1276: using guessed type __int16 x_WORD_E1276;
-// E127A: using guessed type __int16 x_WORD_E127A;
-// E12A8: using guessed type __int16 x_WORD_E12A8;
-// 7373D: using guessed type char var_10[8];
 
 //----- (000739AD) --------------------------------------------------------
 void sub_739AD(__int16 a1)//2549ad
 {
-	//__int16 result; // ax
-	//char v2; // [esp+0h] [ebp-18h]
-	int i; // [esp+14h] [ebp-4h]
-
 	if (x_WORD_E1276 == a1)
 	{
-		for (i = 0; i < maxPlayers_E127A; i++)
+		for (int i = 0; i < maxPlayers_E127A; i++)
 		{
 			if (i != x_WORD_E1276)
 			{
@@ -89741,36 +89539,23 @@ void sub_739AD(__int16 a1)//2549ad
 			}
 		}
 		sprintf(printbuffer, "%s%d", aTester, x_WORD_E1276);
-		/*result = */NetworkDeleteName_74A86(connection_E12AE[a1], printbuffer);
+		NetworkDeleteName_74A86(connection_E12AE[a1], printbuffer);
 		x_BYTE_E1275 = 0;
 	}
 	else
 	{
 		NetworkCancel_748F7(a1);
 		NetworkHangUp_74B19(connection_E12AE[a1]);
-		//result = x_WORD_E12A8;
 		if (x_WORD_E1276 == x_WORD_E12A8)
-			/*result = */NetworkListen_74B75(a1);
+			NetworkListen_74B75(a1);
 	}
-	//return result;
 }
-// 8E3D5: using guessed type x_DWORD sprintf(x_DWORD, const char *, ...);
-// E1275: using guessed type char x_BYTE_E1275;
-// E1276: using guessed type __int16 x_WORD_E1276;
-// E127A: using guessed type __int16 x_WORD_E127A;
-// E12A8: using guessed type __int16 x_WORD_E12A8;
 
 //----- (00073AA1) --------------------------------------------------------
 void sub_73AA1(__int16 a1)//254aa1
 {
-	//uint8_t* v1; // eax
-	//char v3; // [esp+0h] [ebp-64h]
 	uint8_t v4[8]; // [esp+54h] [ebp-10h]
 	int i; // [esp+5Ch] [ebp-8h]
-
-	//fix
-	//v1 = 0;
-	//fix
 
 	if (x_BYTE_E1274 && x_BYTE_E1275)
 	{
@@ -89785,7 +89570,7 @@ void sub_73AA1(__int16 a1)//254aa1
 					if (v4[i] == 1)
 						NetworkSendMessage2_74006(i, v4, 8u);
 				}
-				/*LOWORD(v1) = */sub_739AD(a1);
+				sub_739AD(a1);
 			}
 			else
 			{
@@ -89804,15 +89589,13 @@ void sub_73AA1(__int16 a1)//254aa1
 				{
 					for (i = 0; ; i++)
 					{
-						//LOWORD(v1) = x_WORD_E127A;
 						if (maxPlayers_E127A <= i)
 							break;
 						if (x_WORD_E1276 != i && v4[i] == 1)
 						{
 							NetworkListen_74B75(i);
-							lastConnection = connection_E12AE[i];
 							while (connection_E12AE[i]->ncb_cmd_cplt_49 == 0xff)
-								fake_network_interupt();
+								fake_network_interupt(connection_E12AE[i]);
 							if (connection_E12AE[i]->ncb_cmd_cplt_49)
 								sprintf(printbuffer, "Error code (LISTEN) : %d", connection_E12AE[i]->ncb_cmd_cplt_49);
 						}
@@ -89823,10 +89606,8 @@ void sub_73AA1(__int16 a1)//254aa1
 					while (1)
 					{
 						NetworkCall_74809(x_WORD_E12A8);
-						lastConnection = connection_E12AE[x_WORD_E12A8];
 						while (connection_E12AE[x_WORD_E12A8]->ncb_cmd_cplt_49 == 0xff)
-							fake_network_interupt();
-						//v1 = x_DWORD_E12AE[x_WORD_E12A8];
+							fake_network_interupt(connection_E12AE[x_WORD_E12A8]);
 						if (!connection_E12AE[x_WORD_E12A8]->ncb_cmd_cplt_49)
 							break;
 						sprintf(printbuffer, "Error code (CALL) : %d", connection_E12AE[x_WORD_E12A8]->ncb_cmd_cplt_49);
@@ -89836,29 +89617,17 @@ void sub_73AA1(__int16 a1)//254aa1
 		}
 		else
 		{
-			/*LOWORD(v1) = */sub_739AD(a1);
+			sub_739AD(a1);
 		}
 	}
-	//return (int)v1;
 }
-// 8E3D5: using guessed type x_DWORD sprintf(x_DWORD, const char *, ...);
-// E1274: using guessed type char x_BYTE_E1274;
-// E1275: using guessed type char x_BYTE_E1275;
-// E1276: using guessed type __int16 x_WORD_E1276;
-// E127A: using guessed type __int16 x_WORD_E127A;
-// E12A8: using guessed type __int16 x_WORD_E12A8;
-// 73AA1: using guessed type char var_10[8];
 
 //----- (00073D11) --------------------------------------------------------
-void sub_73D11(__int16 a1)//254d11
+void NetworkEnd_73D11(__int16 a1)//254d11
 {
-	//__int16 result; // ax
-	//char v2; // [esp+0h] [ebp-18h]
-	int i; // [esp+14h] [ebp-4h]
-
 	if (x_WORD_E1276 == a1)
 	{
-		for (i = 0; i < maxPlayers_E127A; i++)
+		for (int i = 0; i < maxPlayers_E127A; i++)
 		{
 			if (i != x_WORD_E1276)
 			{
@@ -89867,24 +89636,17 @@ void sub_73D11(__int16 a1)//254d11
 			}
 		}
 		sprintf(printbuffer, "%s%d", aTester, x_WORD_E1276);
-		/*result = */NetworkDeleteName_74A86(connection_E12AE[a1], printbuffer);
+		NetworkDeleteName_74A86(connection_E12AE[a1], printbuffer);
 		x_BYTE_E1275 = 0;
 	}
 	else
 	{
 		NetworkCancel_748F7(a1);
 		NetworkHangUp_74B19(connection_E12AE[a1]);
-		//result = x_WORD_E12A8;
 		if (x_WORD_E1276 == x_WORD_E12A8)
-			/*result = */NetworkListen_74B75(a1);
+			NetworkListen_74B75(a1);
 	}
-	//return result;
 }
-// 8E3D5: using guessed type x_DWORD sprintf(x_DWORD, const char *, ...);
-// E1275: using guessed type char x_BYTE_E1275;
-// E1276: using guessed type __int16 x_WORD_E1276;
-// E127A: using guessed type __int16 x_WORD_E127A;
-// E12A8: using guessed type __int16 x_WORD_E12A8;
 
 //----- (00074006) --------------------------------------------------------
 void NetworkSendMessage2_74006(unsigned __int16 a1, uint8_t* buffer, unsigned int size)//255006
@@ -89939,32 +89701,20 @@ void ReceiveSendAll_7438A(uint8_t* buffer, unsigned int size)//25538a
 }
 
 //----- (0007449C) --------------------------------------------------------
-__int16 sub_7449C()//25549c
+void NetworkCancelAll_7449C()//25549c
 {
-	__int16 result; // ax
-	signed int i; // [esp+0h] [ebp-4h]
-
 	if (x_BYTE_E1274)
 	{
-		result = x_WORD_E12A8;
-		if (x_WORD_E1276 == (unsigned __int16)x_WORD_E12A8)
+		if (x_WORD_E1276 == x_WORD_E12A8)
 		{
-			for (i = 0; ; i++)
+			for (int i = 0; i < maxPlayers_E127A; i++)
 			{
-				result = maxPlayers_E127A;
-				if (maxPlayers_E127A <= i)
-					break;
 				if (x_WORD_E1276 != i && connection_E12AE[i]->ncb_cmd_cplt_49 == 0xff)
 					NetworkCancel_748F7(i);
 			}
 		}
 	}
-	return result;
 }
-// E1274: using guessed type char x_BYTE_E1274;
-// E1276: using guessed type __int16 x_WORD_E1276;
-// E127A: using guessed type __int16 x_WORD_E127A;
-// E12A8: using guessed type __int16 x_WORD_E12A8;
 
 //----- (00074515) --------------------------------------------------------
 int sub_74515()//255515
@@ -89981,7 +89731,7 @@ int sub_74536()//255536
 // E1276: using guessed type __int16 x_WORD_E1276;
 
 //----- (00074556) --------------------------------------------------------
-uint8_t sub_74556()//255556 push ebp 355250
+uint8_t NetworkAllocation_74556()//255556 push ebp 355250
 {
 	signed int v2; // [esp+4h] [ebp-8h]
 	signed int i; // [esp+8h] [ebp-4h]
@@ -90003,15 +89753,15 @@ uint8_t sub_74556()//255556 push ebp 355250
 			memset(networkBuffer_E127E, 0, 2048);
 			if (networkBuffer_E127E)
 			{
-				x_DWORD_E1282 = (uint8_t*)sub_83D70_malloc1(2048);
-				memset(x_DWORD_E1282, 0, 2048);
-				if (x_DWORD_E1282)
+				paket_E1282 = (uint8_t*)sub_83D70_malloc1(2048);
+				memset(paket_E1282, 0, 2048);
+				if (paket_E1282)
 				{
 					for (i = 0; i < 8; i++)
 					{
-						x_DWORD_E1286[i] = (uint8_t*)sub_83D70_malloc1(2048);
-						memset(x_DWORD_E1286[i], 0, 2048);
-						if (!x_DWORD_E1286[i])
+						packetArray_E1286[i] = (uint8_t*)sub_83D70_malloc1(2048);
+						memset(packetArray_E1286[i], 0, 2048);
+						if (!packetArray_E1286[i])
 						{
 							v2 = 0;
 							break;
@@ -90049,22 +89799,18 @@ uint8_t sub_74556()//255556 push ebp 355250
 			sub_83E80_freemem4((uint8_t*)mainConnection_E12AA);
 		if (networkBuffer_E127E)
 			sub_83E80_freemem4(networkBuffer_E127E);
-		if (x_DWORD_E1282)
-			sub_83E80_freemem4(x_DWORD_E1282);
+		if (paket_E1282)
+			sub_83E80_freemem4(paket_E1282);
 		for (j = 0; j < 8; j++)
 		{
 			if (connection_E12AE[j])
 				sub_83E80_freemem4((uint8_t*)connection_E12AE[j]);
-			if (x_DWORD_E1286[j])
-				sub_83E80_freemem4(x_DWORD_E1286[j]);
+			if (packetArray_E1286[j])
+				sub_83E80_freemem4(packetArray_E1286[j]);
 		}
 	}
 	return x_BYTE_E1274;
 }
-// E1274: using guessed type char x_BYTE_E1274;
-// E127E: using guessed type int x_DWORD_E127E;
-// E1282: using guessed type int x_DWORD_E1282;
-// E12AA: using guessed type int x_DWORD_E12AA;
 
 //----- (00074767) --------------------------------------------------------
 signed int NetworkAddName_74767(/*signed __int16* a1,*/ myNCB* a2x, char* a3)//255767
@@ -90075,24 +89821,18 @@ signed int NetworkAddName_74767(/*signed __int16* a1,*/ myNCB* a2x, char* a3)//2
 	a2x->ncb_command_0 = 0xb0;//ADD_NAME
 	if (setNetbios_75044(a2x) == -1)
 		return -99;
-	lastConnection = a2x;
 	while (a2x->ncb_cmd_cplt_49 == 0xff && !x_WORD_E12A6)
 	{	
 		WaitToConnect_7C230(/*a2x,*/ /*v3, a1*/);
-		fake_network_interupt();//25d36d
+		fake_network_interupt(a2x);//25d36d
 	}
 	return a2x->ncb_cmd_cplt_49;
 }
-// 99D46: using guessed type x_DWORD strcpy(x_DWORD, x_DWORD);
-// 99D6B: using guessed type x_DWORD strlen(x_DWORD);
-// 99D84: using guessed type x_DWORD strcat(x_DWORD, x_DWORD);
-// E12A6: using guessed type __int16 x_WORD_E12A6;
 
 //----- (00074809) --------------------------------------------------------
 int NetworkCall_74809(__int16 a1)//255809
 {
-	int v2; // [esp+14h] [ebp-8h]
-
+	int result; // [esp+14h] [ebp-8h]
 	connection_E12AE[a1]->ncb_command_0 = 0x90;//CALL 
 	sprintf(connection_E12AE[a1]->ncb_callName_10, "%s%d", aTester, a1);
 	while (strlen(connection_E12AE[a1]->ncb_callName_10) < 0xFu)
@@ -90100,16 +89840,11 @@ int NetworkCall_74809(__int16 a1)//255809
 	connection_E12AE[a1]->ncb_rto_42 = 0;
 	connection_E12AE[a1]->ncb_sto_43 = 0;
 	if (setNetbios_75044(connection_E12AE[a1]) == -1)
-		v2 = -99;
+		result = -99;
 	else
-		v2 = -connection_E12AE[a1]->ncb_cmd_cplt_49;
-	return v2;
+		result = -connection_E12AE[a1]->ncb_cmd_cplt_49;
+	return result;
 }
-// 8E3D5: using guessed type x_DWORD sprintf(x_DWORD, const char *, ...);
-// 99D6B: using guessed type x_DWORD strlen(x_DWORD);
-// 99D84: using guessed type x_DWORD strcat(x_DWORD, x_DWORD);
-
-
 
 //----- (000748F7) --------------------------------------------------------
 signed int NetworkCancel_748F7(__int16 a1)//2558f7
@@ -90118,27 +89853,19 @@ signed int NetworkCancel_748F7(__int16 a1)//2558f7
 		return -connection_E12AE[a1]->ncb_cmd_cplt_49;
 	mainConnection_E12AA->ncb_command_0 = 0x35;//CANCEL 
 
-#ifdef x32_BIT_ENVIRONMENT
-	mainConnection_E12AA->ncb_buffer2_6 = reinterpret_cast<uint32_t>(connection_E12AE[a1]) >> 4;
-#endif //x32_BIT_ENVIRONMENT
-#ifdef x64_BIT_ENVIRONMENT
-	mainConnection_E12AA->ncb_buffer2_6 = reinterpret_cast<uint64_t>(connection_E12AE[a1]) >> 4;
-#endif //x64_BIT_ENVIRONMENT
+	mainConnection_E12AA->ncb_buffer_4 = (uint8_t*)connection_E12AE[a1];
 
 	if (setNetbios_75044(mainConnection_E12AA) != -1)
 	{
-		lastConnection = connection_E12AE[a1];
 		do
 		{
-			lastConnection = connection_E12AE[a1];
 			while (connection_E12AE[a1]->ncb_cmd_cplt_49 == 0xff)
-				fake_network_interupt();
+				fake_network_interupt(connection_E12AE[a1]);
 		} while (connection_E12AE[a1]->ncb_cmd_cplt_49 == 0xff);
 		return -connection_E12AE[a1]->ncb_cmd_cplt_49;
 	}
 	return -99;
 }
-// E12AA: using guessed type int x_DWORD_E12AA;
 
 int dos_getvect(int vector) {
 
@@ -90183,9 +89910,8 @@ void NetworkDeleteName_74A86(myNCB* a1x, char* a2)//255a86
 	a1x->ncb_command_0 = 0xb1;//DELETE_NAME
 	if (setNetbios_75044(a1x) == -1)
 		return; //return -99;
-	lastConnection = a1x;
 	while (a1x->ncb_cmd_cplt_49 == 0xff)
-		fake_network_interupt();
+		fake_network_interupt(a1x);
 	//return -(unsigned __int8)a1[49];
 }
 // 99D46: using guessed type x_DWORD strcpy(x_DWORD, x_DWORD);
@@ -90198,9 +89924,8 @@ void NetworkHangUp_74B19(myNCB* a1x)//255b19
 	a1x->ncb_command_0 = 0x92;//HANG_UP 
 	if (setNetbios_75044(a1x) == -1)
 		return;// return -99;
-	lastConnection = a1x;
 	while (a1x->ncb_cmd_cplt_49 == 0xff)
-		fake_network_interupt();
+		fake_network_interupt(a1x);
 	a1x->ncb_lsn_2 = 0;
 	//return -(unsigned __int8)a1[49];
 }
@@ -90221,7 +89946,7 @@ signed int NetworkListen_74B75(__int16 a1)//255b75
 	connection_E12AE[a1]->ncb_sto_43 = 0;
 	if (setNetbios_75044(connection_E12AE[a1]) != -1)
 	{
-		connection_E12AE[a1]->ncb_buffer1_4 = 0;
+		connection_E12AE[a1]->ncb_buffer_4 = NULL;
 		return -connection_E12AE[a1]->ncb_cmd_cplt_49;
 	}
 	return -99;
@@ -90232,36 +89957,32 @@ signed int NetworkListen_74B75(__int16 a1)//255b75
 // 99D84: using guessed type x_DWORD strcat(x_DWORD, x_DWORD);
 
 //----- (00074C9D) --------------------------------------------------------
-int NetworkReceivePacket_74C9D(myNCB* connection, uint8_t* buffer)//255c9d
+int NetworkReceivePacket_74C9D(myNCB* connection, uint8_t* buffer, int maxsize = 2048)//255c9d
 {
 	connection->ncb_command_0 = 0x95;//RECEIVE
-#ifdef x32_BIT_ENVIRONMENT
-	connection->ncb_buffer2_6 = reinterpret_cast<uint32_t>(x_DWORD_E1282) >> 4;
-#endif //x32_BIT_ENVIRONMENT
-#ifdef x64_BIT_ENVIRONMENT
-	connection->ncb_buffer2_6 = reinterpret_cast<uint64_t>(x_DWORD_E1282) >> 4;
-#endif //x64_BIT_ENVIRONMENT
-	connection->ncb_length_8 = 2048;
+
+	connection->ncb_buffer_4 = paket_E1282;
+
+	connection->ncb_bufferLength_8 = 2048;
 	if (setNetbios_75044(connection) == -1)
 		return -99;
-	lastConnection = connection;
 	while (connection->ncb_cmd_cplt_49 == 0xffu)
-		fake_network_interupt();
+		fake_network_interupt(connection);
 	if (connection->ncb_cmd_cplt_49)
 		return -connection->ncb_cmd_cplt_49;
 	//allert_error();
 	//memcpy((void*)a2x, (void*)x_DWORD_E1282, a1x->ncb_length_8);
-	for (int i = 0; i < connection->ncb_length_8; i++)
-		buffer[i] = x_DWORD_E1282[i];
-	return connection->ncb_length_8;
+	for (int i = 0; i < maxsize/*connection->ncb_bufferLength_8*/; i++)
+		buffer[i] = paket_E1282[i];
+	return connection->ncb_bufferLength_8;
 }
 
 
 //----- (00074D41) --------------------------------------------------------
 void NetworkReceiveMessage_74D41(myNCB* connection, uint8_t* inbuffer, unsigned int size)//255d41
 {
-	int v3; // eax
-	int v5; // [esp+0h] [ebp-10h]
+	//int v3; // eax
+	//int v5; // [esp+0h] [ebp-10h]
 	int v6; // [esp+4h] [ebp-Ch]
 	unsigned int v7; // [esp+8h] [ebp-8h]
 	uint8_t* buffer; // [esp+Ch] [ebp-4h]
@@ -90276,51 +89997,44 @@ void NetworkReceiveMessage_74D41(myNCB* connection, uint8_t* inbuffer, unsigned 
 		v7++;
 		buffer += 2048;
 	}
-	v3 = NetworkReceivePacket_74C9D(connection, buffer);
-	if ((size & 0x7FF) == v3)
+	/*v3 = */NetworkReceivePacket_74C9D(connection, buffer, size-2048*v7);
+	/*if ((size & 0x7FF) == v3)
 		v5 = size;
 	else
-		v5 = v3;
+		v5 = v3;*/
 	//return v5;
 }
-
+/*
 //----- (00074DD4) --------------------------------------------------------
 signed int NetworkReceivePacket_74DD4(myNCB* connection, unsigned __int16 bufferindex)//255dd4
 {
 	signed int v4; // [esp+0h] [ebp-4h]
 
 	connection->ncb_command_0 = 0x95;//RECEIVE 
-#ifdef x32_BIT_ENVIRONMENT
-	connection->ncb_buffer2_6 = reinterpret_cast<uint32_t>(x_DWORD_E1286[bufferindex]) >> 4;
-#endif //x32_BIT_ENVIRONMENT
-#ifdef x64_BIT_ENVIRONMENT
-	connection->ncb_buffer2_6 = reinterpret_cast<uint64_t>(x_DWORD_E1286[bufferindex]) >> 4;
-#endif //x64_BIT_ENVIRONMENT
-	connection->ncb_length_8 = 2048;
+
+	connection->ncb_buffer_4 = packetArray_E1286[bufferindex];
+
+	connection->ncb_bufferLength_8 = 2048;
 	if (setNetbios_75044(connection) == -1)
 		v4 = -99;
 	else
 		v4 = 1;
 	return v4;
 }
-
+*/
 //----- (00074E6D) --------------------------------------------------------
 int NetworkSendPacket_74E6D(myNCB* connection, uint8_t* buffer, int size)//255e6d
 {
 	memcpy((void*)networkBuffer_E127E, buffer, size);//max 2048
 	connection->ncb_command_0 = 0x94;//SEND 
-#ifdef x32_BIT_ENVIRONMENT
-	connection->ncb_buffer2_6 = reinterpret_cast<uint32_t>(networkBuffer_E127E) >> 4;
-#endif //x32_BIT_ENVIRONMENT
-#ifdef x64_BIT_ENVIRONMENT
-	connection->ncb_buffer2_6 = reinterpret_cast<uint64_t>(x_DWORD_E127E) >> 4;
-#endif //x64_BIT_ENVIRONMENT
-	connection->ncb_length_8 = size;
+
+	connection->ncb_buffer_4 = networkBuffer_E127E;
+
+	connection->ncb_bufferLength_8 = size;
 	if (setNetbios_75044(connection) == -1)
 		return -99;
-	lastConnection = connection;
 	while (connection->ncb_cmd_cplt_49 == 0xff)
-		fake_network_interupt();
+		fake_network_interupt(connection);
 	return -connection->ncb_cmd_cplt_49;
 }
 // 99DBD: using guessed type x_DWORD memcpy(x_DWORD, x_DWORD, x_DWORD);
@@ -95899,7 +95613,7 @@ signed int sub_7CE50()//25de50
 				x_D41A0_BYTEARRAY_4_struct.levelnumber_43w = x_DWORD_17DE38str.array_BYTE_17DE68x[sub_74515()].byte_10;
 				x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 |= 0x10;
 				D41A0_0.word_0xe = x_DWORD_17DE38str.x_WORD_17DEFE;
-				sub_7449C();
+				NetworkCancelAll_7449C();
 				x_WORD_E29DC = 1;
 				v20 = 1;
 				break;
