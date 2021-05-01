@@ -735,9 +735,8 @@ uint16_t Maths::x_WORD_DE350[257] = { //speed table3//2af350 tang?
 
 unsigned int Maths::sub_58490_radix_3d_2(axis_3d* a1, axis_3d* a2)//239490
 {
-	return Maths::sub_7277A_radix_3d(
-		((signed __int16)(a2->x - a1->x)) * ((signed __int16)(a2->x - a1->x))
-		+ ((signed __int16)(a2->y - a1->y)) * ((signed __int16)(a2->y - a1->y)));
+	int16_t radix = ((int16_t)(a2->x - a1->x)) * ((int16_t)(a2->x - a1->x)) + ((int16_t)(a2->y - a1->y)) * ((int16_t)(a2->y - a1->y));
+	return Maths::sub_7277A_radix_3d(radix);
 }
 
 unsigned int Maths::sub_7277A_radix_3d(unsigned int a1)//25377a
