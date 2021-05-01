@@ -43,6 +43,8 @@ set(SOURCE_FILES_ENGINE
     "engine/Type_WORD_D951C.h"
     "engine/Type_D93C0_Bldgprmbuffer.cpp"
     "engine/Type_D93C0_Bldgprmbuffer.h"
+    "engine/Type_D94F0_Bldgprmbuffer.cpp"
+    "engine/Type_D94F0_Bldgprmbuffer.h"
     "utilities/Maths.cpp"
     "utilities/Maths.h"
     "utilities/BitmapIO.cpp"
