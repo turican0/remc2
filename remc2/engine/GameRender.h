@@ -9,6 +9,8 @@
 #include "../portability/mctypes.h"
 #include "Terrain.h"
 #include "Type_F2C20ar.h"
+#include "Type_E9C38_Smalltit.h"
+#include "Type_Unk_F0E20x.h"
 #include "Type_WORD_D951C.h"
 #include "XUnk_D4350.h"
 #include "Type_D404C.h"
@@ -22,26 +24,6 @@
 class GameRender {
 
 private:
-
-	typedef struct {//lenght 44
-		int32_t dword0_rot;
-		int32_t dword4;//?
-		int32_t dword8;//?
-		int32_t dword12;//?
-		int32_t dword16;//triangleB
-		int32_t dword20;//triangleB
-		int32_t dword24;//triangleA
-		int32_t dword28;//triangleA
-		int32_t dword32;//triangleA and triangleB
-		int32_t word36;//? billboard
-		int16_t word38;
-		int16_t word39;
-		int8_t byte40;
-		uint8_t byte41;//texture index
-		int8_t byte42;
-		int8_t byte43;
-	}
-	type_E9C38_smalltit;
 
 	type_E9C38_smalltit m_Str_E9C38_smalltit[21 * 40];
 
@@ -59,14 +41,6 @@ private:
 		0xFFFFFFF8,0xFFFFFFF9,0xFFFFFFFA,0xFFFFFFFB,
 		0xFFFFFFFC,0xFFFFFFFD,0xFFFFFFFE,0xFFFFFFFF
 	};
-	
-#pragma pack (1)
-	typedef struct {//lenght 12
-		int32_t dword_0;
-		int32_t dword_1;
-		int32_t dword_2;
-	}type_unk_F0E20x;
-#pragma pack (16)
 
 	char x_BYTE_D4750[0x3c] = {
 		0x00,0x00,0x02,0x03,0x04,0x05,0x01,0x00,0x06,0x07,0x04,0x05,0x00,0x01,0x01,0x02,

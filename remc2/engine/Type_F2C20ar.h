@@ -4,7 +4,6 @@
 #define TYPE_F2C20_AR_H
 
 #include "stdint.h"
-#include "engine_support.h"
 
 #pragma pack (1)
 typedef struct {
