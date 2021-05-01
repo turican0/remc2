@@ -7,6 +7,7 @@
 //#include <dir.h>
 
 //#include <vld.h>//only for debug
+
 #include <array>
 
 #include "utilities/DataFileIO.h"
@@ -129,7 +130,7 @@ x_DWORD * sub_A5850(int a1, char a2, unsigned int a3, signed int a4, int a5);*/
 #endif
 
 //#if !defined(_M_I86) && !defined(__WINDOWS_386__)
-
+/*
 struct SREGS {
 	unsigned short es;
 	unsigned short ds;
@@ -138,7 +139,7 @@ struct SREGS {
 	unsigned short cs;
 	unsigned short ss;
 };
-
+*/
 /* dword registers */
 
 struct DWORDREGS {
@@ -190,6 +191,7 @@ union REGS {
 */
 //#define REGS x_DWORD[6]
 
+/*
 struct REGS {
 	uint32 eax;
 	uint32 ebx;
@@ -199,6 +201,7 @@ struct REGS {
 	uint32 edi;
 	uint32 cflag;
 };
+*/
 
 /*extern x_WORD __CS__;
 extern x_WORD __GS__;
@@ -408,28 +411,8 @@ type_E1BAC_0x3c4;
 //BYTE     ncb_reserved[14];
 //		 } NCB;
 
-typedef struct {//lenght 66
-	uint8_t ncb_command_0;
-	uint8_t ncb_retcode_1;
-	uint8_t ncb_lsn_2;
-	uint8_t ncb_num_3;
-	uint8_t* ncb_buffer_4;
-	uint16_t ncb_bufferLength_8;
-	char ncb_callName_10[16];
-	char ncb_name_26[16];
-	uint8_t ncb_rto_42;
-	uint8_t ncb_sto_43;
-	uint8_t* ncb_post_44;
-	uint8_t ncb_lana_num_48;
-	uint8_t ncb_cmd_cplt_49;//lock for end command
-	uint8_t ncb_reserved_50[16];	
-}
-myNCB;
-#pragma pack (16)
-
 extern bool Iam_server;
 extern bool Iam_client;
-extern int MultiplayerSession;
 extern char serverIP[256];
 
 extern Pathstruct pstr[];

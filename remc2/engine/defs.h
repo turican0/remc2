@@ -40,29 +40,14 @@
 #else
   #error "unknown compiler"
 #endif
-typedef unsigned int uint;
-typedef unsigned char uchar;
-typedef unsigned short ushort;
-//typedef unsigned long ulong;
 
-typedef          char   int8;
-typedef   signed char   sint8;
-typedef unsigned char   uint8;
-typedef          short  int16;
-typedef   signed short  sint16;
-typedef unsigned short  uint16;
-typedef          int    int32;
-typedef   signed int    sint32;
-typedef unsigned int    uint32;
+#include "types.h"
+
 typedef ll              int64;
 typedef ll              sint64;
 typedef ull             uint64;
 
 // Partially defined types:
-#define _BYTE  uint8
-#define _WORD  uint16
-#define _DWORD uint32
-#define _QWORD uint64
 #if !defined(_MSC_VER)
 #define _LONGLONG __int128
 #endif

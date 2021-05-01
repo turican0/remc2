@@ -3204,7 +3204,7 @@ char x_BYTE_D419E = 0; // weak//2a519e
 
 bool Iam_server = false;
 bool Iam_client = false;
-int MultiplayerSession = 0;
+int MultiplayerPort = 3490;
 char serverIP[256] = "000.000.000.000";
 
 x_DWORD x_DWORD_D41A4_4 = 0;
@@ -67442,7 +67442,7 @@ type_SPELLS_BEGIN_BUFFER_str;
 }
 
 void InitNetworkInfo() {
-	long MultiplayerTimeout = 10000;
+	long MultiplayerTimeout = 2000;
 	long MultiplayerTimeoutHundred = MultiplayerTimeout/10;
 	int clientsCount = 0;
 	if (Iam_server) {
@@ -67845,7 +67845,9 @@ void sub_56210_process_command_line(int argc, char** argv)//237210
 				if (!Iam_client)
 				{
 					Iam_server = true;
-					MultiplayerSession = atoi(argv[++argnumber]);
+					MultiplayerPort = atoi(argv[++argnumber]);
+					if (MultiplayerPort <0)MultiplayerPort = 0;
+					if (MultiplayerPort > 9999)MultiplayerPort = 9999;
 				}
 			}
 			else if (!_stricmp("client", (char*)actarg))
@@ -67854,7 +67856,7 @@ void sub_56210_process_command_line(int argc, char** argv)//237210
 				{
 					Iam_client = true;
 					strcpy(serverIP, (char*)argv[++argnumber][0]);
-					MultiplayerSession = atoi(argv[++argnumber]);
+					MultiplayerPort = atoi(argv[++argnumber]);
 				}
 			}
 		}		
@@ -89140,87 +89142,6 @@ int sub_72CB0(unsigned __int8* a1, int a2)
 
 //myNCB* lastConnection;
 
-void fake_network_interupt(myNCB* connection) {
-	/*WSADATA wsaData;
-	int portno;
-	portno = 5001;
-	const int BufLen = 1024;
-	//-------------------------
-
-	int address_family = AF_INET;
-	int type = SOCK_DGRAM;
-	int protocol = IPPROTO_UDP;
-	SOCKET sock = socket(address_family, type, protocol);
-
-	if (sock == INVALID_SOCKET)
-	{
-		printf("socket failed: %d", WSAGetLastError());
-		return;
-	}
-	//---------------------
-	int iResult;
-
-	// Initialize Winsock
-	iResult = WSAStartup(MAKEWORD(2, 2), &wsaData);
-	if (iResult != 0) {
-		printf("WSAStartup failed: %d\n", iResult);
-		return;// 1;
-	}
-	//--------------------------
-	SOCKADDR_IN local_address;
-	local_address.sin_family = AF_INET;
-	local_address.sin_port = htons(9999);
-	local_address.sin_addr.s_addr = INADDR_ANY;
-	if (bind(sock, (SOCKADDR*)&local_address, sizeof(local_address)) == SOCKET_ERROR)
-	{
-		printf("bind failed: %d", WSAGetLastError());
-		return;
-	}
-	//----------------------------
-	char buffer[BufLen];
-	int flags = 0;
-	SOCKADDR_IN from;
-	int from_size = sizeof(from);
-	int bytes_received = recvfrom(sock, buffer, BufLen, flags, (SOCKADDR*)&from, &from_size);
-
-	if (bytes_received == SOCKET_ERROR)
-	{
-		printf("recvfrom returned SOCKET_ERROR, WSAGetLastError() %d", WSAGetLastError());
-	}
-	else
-	{
-		buffer[bytes_received] = 0;
-		printf("%d.%d.%d.%d:%d - %s",
-			from.sin_addr.S_un.S_un_b.s_b1,
-			from.sin_addr.S_un.S_un_b.s_b2,
-			from.sin_addr.S_un.S_un_b.s_b3,
-			from.sin_addr.S_un.S_un_b.s_b4,
-			from.sin_port,
-			buffer);
-	}
-	//---------------------------------
-	SOCKADDR_IN server_address;
-	server_address.sin_family = AF_INET;
-	server_address.sin_port = htons(portno);
-	server_address.sin_addr.S_un.S_addr = inet_addr("127.0.0.1");
-
-	char message[BufLen];
-	gets_s(message, BufLen);
-
-	int flagsx = 0;
-	if (sendto(sock, message, strlen(message), flagsx, (SOCKADDR*)&server_address, sizeof(server_address)) == SOCKET_ERROR)
-	{
-		printf("sendto failed: %d", WSAGetLastError());
-		return;
-	}
-	//-------------------------------------------
-	*/
-
-	//NetworkTestServer();
-
-	connection->ncb_cmd_cplt_49 = 0;
-}
-
 //----- (00072D04) --------------------------------------------------------
 void sub_72D04()
 {
@@ -89254,15 +89175,15 @@ void sub_72D04()
 // E12AA: using guessed type int x_DWORD_E12AA;
 
 //----- (00072DDE) --------------------------------------------------------
-int NetworkTestAddName_72DDE(/*signed __int16* a1,*/ int a2)//253dde
+int NetworkTestAddName_72DDE(/*signed __int16* a1,*/ int compindex)//253dde
 {
 	int result; // [esp+14h] [ebp-8h]
-	sprintf(printbuffer, "%s%d", aTester, a2);
+	sprintf(printbuffer, "%s%d", aTester, compindex);
 	do
 	{
-		result = NetworkAddName_74767(connection_E12AE[a2], printbuffer);//2557bb
+		result = NetworkAddName_74767(connection_E12AE[compindex], printbuffer);//2557bb
 		if(result == 13)
-			NetworkDeleteName_74A86(connection_E12AE[a2], printbuffer);
+			NetworkDeleteName_74A86(connection_E12AE[compindex], printbuffer);
 	} while (result == 13 && !x_WORD_E12A6);
 	return result;
 }
@@ -89813,20 +89734,20 @@ uint8_t NetworkAllocation_74556()//255556 push ebp 355250
 }
 
 //----- (00074767) --------------------------------------------------------
-signed int NetworkAddName_74767(/*signed __int16* a1,*/ myNCB* a2x, char* a3)//255767
+signed int NetworkAddName_74767(/*signed __int16* a1,*/ myNCB* connection, char* name)//255767
 {
-	strcpy(a2x->ncb_name_26, a3);
-	while (strlen(a2x->ncb_name_26) < 0xFu)
-		strcat(a2x->ncb_name_26, " ");
-	a2x->ncb_command_0 = 0xb0;//ADD_NAME
-	if (setNetbios_75044(a2x) == -1)
+	strcpy(connection->ncb_name_26, name);
+	while (strlen(connection->ncb_name_26) < 0xFu)
+		strcat(connection->ncb_name_26, " ");
+	connection->ncb_command_0 = 0xb0;//ADD_NAME
+	if (setNetbios_75044(connection) == -1)
 		return -99;
-	while (a2x->ncb_cmd_cplt_49 == 0xff && !x_WORD_E12A6)
+	while (connection->ncb_cmd_cplt_49 == 0xff && !x_WORD_E12A6)
 	{	
 		WaitToConnect_7C230(/*a2x,*/ /*v3, a1*/);
-		fake_network_interupt(a2x);//25d36d
+		fake_network_interupt(connection);//25d36d
 	}
-	return a2x->ncb_cmd_cplt_49;
+	return connection->ncb_cmd_cplt_49;
 }
 
 //----- (00074809) --------------------------------------------------------
@@ -89847,22 +89768,22 @@ int NetworkCall_74809(__int16 a1)//255809
 }
 
 //----- (000748F7) --------------------------------------------------------
-signed int NetworkCancel_748F7(__int16 a1)//2558f7
+signed int NetworkCancel_748F7(__int16 compindex)//2558f7
 {	
-	if (connection_E12AE[a1]->ncb_cmd_cplt_49 != 0xff)
-		return -connection_E12AE[a1]->ncb_cmd_cplt_49;
+	if (connection_E12AE[compindex]->ncb_cmd_cplt_49 != 0xff)
+		return -connection_E12AE[compindex]->ncb_cmd_cplt_49;
 	mainConnection_E12AA->ncb_command_0 = 0x35;//CANCEL 
 
-	mainConnection_E12AA->ncb_buffer_4 = (uint8_t*)connection_E12AE[a1];
+	mainConnection_E12AA->ncb_buffer_4.p = (uint8_t*)connection_E12AE[compindex];
 
 	if (setNetbios_75044(mainConnection_E12AA) != -1)
 	{
 		do
 		{
-			while (connection_E12AE[a1]->ncb_cmd_cplt_49 == 0xff)
-				fake_network_interupt(connection_E12AE[a1]);
-		} while (connection_E12AE[a1]->ncb_cmd_cplt_49 == 0xff);
-		return -connection_E12AE[a1]->ncb_cmd_cplt_49;
+			while (connection_E12AE[compindex]->ncb_cmd_cplt_49 == 0xff)
+				fake_network_interupt(connection_E12AE[compindex]);
+		} while (connection_E12AE[compindex]->ncb_cmd_cplt_49 == 0xff);
+		return -connection_E12AE[compindex]->ncb_cmd_cplt_49;
 	}
 	return -99;
 }
@@ -89946,7 +89867,7 @@ signed int NetworkListen_74B75(__int16 a1)//255b75
 	connection_E12AE[a1]->ncb_sto_43 = 0;
 	if (setNetbios_75044(connection_E12AE[a1]) != -1)
 	{
-		connection_E12AE[a1]->ncb_buffer_4 = NULL;
+		connection_E12AE[a1]->ncb_buffer_4.p = NULL;
 		return -connection_E12AE[a1]->ncb_cmd_cplt_49;
 	}
 	return -99;
@@ -89961,7 +89882,7 @@ int NetworkReceivePacket_74C9D(myNCB* connection, uint8_t* buffer, int maxsize =
 {
 	connection->ncb_command_0 = 0x95;//RECEIVE
 
-	connection->ncb_buffer_4 = paket_E1282;
+	connection->ncb_buffer_4.p = paket_E1282;
 
 	connection->ncb_bufferLength_8 = 2048;
 	if (setNetbios_75044(connection) == -1)
@@ -90028,7 +89949,7 @@ int NetworkSendPacket_74E6D(myNCB* connection, uint8_t* buffer, int size)//255e6
 	memcpy((void*)networkBuffer_E127E, buffer, size);//max 2048
 	connection->ncb_command_0 = 0x94;//SEND 
 
-	connection->ncb_buffer_4 = networkBuffer_E127E;
+	connection->ncb_buffer_4.p = networkBuffer_E127E;
 
 	connection->ncb_bufferLength_8 = size;
 	if (setNetbios_75044(connection) == -1)
@@ -90087,109 +90008,6 @@ signed int NetworkGetState_74FE1(__int16 a1)//255fe1
 	return v2;
 }
 
-#pragma pack (1)
-
-typedef struct {//lenght 10
-	char byte_0[50];
-}
-type_v2x;
-
-/*
-typedef struct {//lenght 28
-	int dword_0;//v7//50
-	int dword_4;//v8//54
-	int dword_8;//58
-	int dword_12;//5c
-	int dword_16;//60
-	type_v2x* dword_20;//v9//64
-	int dword_24;//68
-}
-type_v7x;*/
-
-/*typedef struct {//lenght 10
-	char byte_0[10];
-}
-type_v12x;*/
-#pragma pack (2)
-
-int lastnetworkname = 0;
-int lastnetworklisten = 0;
-
-//(int a1@<eax>, int a2, int a3, int a4, int a5)
-void netbiosint386x(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myNCB* connection) {
-	//_int386x((_DWORD*)a4, a5, a3, a2);
-	v10x->esi = 0;
-	switch (connection->ncb_command_0) {
-		case 0x7f: {//? 
-			connection->ncb_retcode_1 = 0x03;
-			connection->ncb_cmd_cplt_49 = 0x03;
-			break;
-		}
-		case 0xb0: {//ADD_NAME 
-			connection->ncb_retcode_1 = 0xff;
-			connection->ncb_num_3 = lastnetworkname+0x02;
-			lastnetworkname++;
-			connection->ncb_cmd_cplt_49 = 0xff;
-			connection->ncb_reserved_50[4] = 0x7d;
-			connection->ncb_reserved_50[5] = 0x27;
-			connection->ncb_reserved_50[6] = 0x4b;
-			connection->ncb_reserved_50[7] = 0x0e;
-			connection->ncb_reserved_50[8] = 0x67;
-			break;
-		}
-		case 0x90: {//CALL
-			connection->ncb_retcode_1 = 0xff;
-			connection->ncb_lsn_2 = 0xd8;
-			connection->ncb_cmd_cplt_49 = 0xff;
-			connection->ncb_reserved_50[4] = 0x7d;
-			connection->ncb_reserved_50[5] = 0x27;
-			connection->ncb_reserved_50[6] = 0x1f;
-			connection->ncb_reserved_50[7] = 0x16;
-			connection->ncb_reserved_50[8] = 0x68;
-			break;
-		}
-		case 0x91: {//LISTEN
-			connection->ncb_retcode_1 = 0xff;
-			connection->ncb_lsn_2 = lastnetworklisten+0xe8;
-			lastnetworklisten++;
-			connection->ncb_cmd_cplt_49 = 0xff;
-			connection->ncb_reserved_50[6] = 0x85;
-			connection->ncb_reserved_50[7] = 0x17;
-			connection->ncb_reserved_50[8] = 0x6a;
-			break;
-		}
-		case 0x94: {//SEND
-			connection->ncb_retcode_1 = 0xff;
-			connection->ncb_cmd_cplt_49 = 0xff;
-			connection->ncb_reserved_50[4] = 0x7d;
-			connection->ncb_reserved_50[5] = 0x27;
-			connection->ncb_reserved_50[6] = 0x8d;
-			connection->ncb_reserved_50[7] = 0x1B;
-			connection->ncb_reserved_50[8] = 0x6B;
-			break;
-		}
-		case 0x95: {//RECEIVE
-			connection->ncb_retcode_1 = 0xff;
-			connection->ncb_lsn_2 = 0xd9;
-			connection->ncb_cmd_cplt_49 = 0xff;
-			connection->ncb_reserved_50[6] = 0xf3;
-			connection->ncb_reserved_50[7] = 0x1B;
-			connection->ncb_reserved_50[8] = 0x6c;
-			break;
-		}
-		case 0x35: {//CANCEL
-			connection->ncb_retcode_1 = 0x0b;
-			connection->ncb_cmd_cplt_49 = 0x0b;
-			connection->ncb_reserved_50[2] = 0x6f;
-			connection->ncb_reserved_50[3] = 0x32;
-			connection->ncb_reserved_50[6] = 0x85;
-			connection->ncb_reserved_50[7] = 0x17;
-			connection->ncb_reserved_50[8] = 0x6a;
-			break;
-		}
-	}
-}
-
 //----- (00075044) --------------------------------------------------------
 int setNetbios_75044(myNCB* connection)//256044
 {
@@ -90234,7 +90052,7 @@ int setNetbios_75044(myNCB* connection)//256044
   v7x.eax = 0x300;
   v7x.ebx = 0x5C;
   //v7x.edx = &v2x;
-  netbiosint386x(0x31, &v7x, &v10x, &v12x, &v2x, connection);//Simulate Real Mode Interrupt //network
+  makeNetwork(0x31, &v7x, &v10x, &v12x, &v2x, connection);//Simulate Real Mode Interrupt //network
   if (v10x.esi)
 	v13 = -1;
   else
