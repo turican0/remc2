@@ -736,8 +736,8 @@ uint16_t Maths::x_WORD_DE350[257] = { //speed table3//2af350 tang?
 unsigned int Maths::sub_58490_radix_3d_2(axis_3d* a1, axis_3d* a2)//239490
 {
 	return Maths::sub_7277A_radix_3d(
-		(signed __int16)(a2->x - a1->x) * (signed __int16)(a2->x - a1->x)
-		+ (signed __int16)(a2->y - a1->y) * (signed __int16)(a2->y - a1->y));
+		((signed __int16)(a2->x - a1->x)) * ((signed __int16)(a2->x - a1->x))
+		+ ((signed __int16)(a2->y - a1->y)) * ((signed __int16)(a2->y - a1->y)));
 }
 
 unsigned int Maths::sub_7277A_radix_3d(unsigned int a1)//25377a
@@ -748,7 +748,7 @@ unsigned int Maths::sub_7277A_radix_3d(unsigned int a1)//25377a
 	if (!a1)
 		return 0;
 	x_BitScanReverse(&v1, a1);//FIX IT!
-	for (i = (unsigned __int16)x_WORD_727B0[v1]; (signed int)(a1 / i) < (signed int)i; i = (a1 / i + i) >> 1)
+	for (i = x_WORD_727B0[v1]; (signed int)(a1 / i) < (signed int)i; i = (a1 / i + i) >> 1)
 		;
 	return i;
 }
