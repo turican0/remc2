@@ -53,6 +53,8 @@ set(SOURCE_FILES_ENGINE
     "utilities/DataFileIO.h"
     "engine/read_config.cpp"
     "engine/read_config.h"
+    "engine/TextureMaps.cpp"
+    "engine/TextureMaps.h"
     "engine/GameRender.cpp"
     "engine/GameRender.h"
     "sub_main.cpp"
