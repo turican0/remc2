@@ -5,7 +5,7 @@
 
 #include "Type_Animations.h"
 #include "Type_BigSpritesBuffer.h"
-#include "basic.h"
+#include "Basic.h"
 
 const int max_sprites = 600;
 
