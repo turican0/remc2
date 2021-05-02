@@ -410,6 +410,7 @@ void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myN
 		connection->ncb_reserved_50[6] = 0x1f;
 		connection->ncb_reserved_50[7] = 0x16;
 		connection->ncb_reserved_50[8] = 0x68;
+		CallNetwork(connection);
 		break;
 	}
 	case 0x91: {//LISTEN
@@ -498,6 +499,62 @@ private:
 	std::array<char, 1024> data_;
 };*/
 
+const int MaxNames = 20;
+char NetworkName[MaxNames][30];
+char NetworkIp[MaxNames][30];
+int lastindex = 0;
+
+char* GetIpNetwork(char* ip) {
+	for (int i = 0; i < lastindex; i++)
+		if (strcmp(ip, NetworkIp[i]))
+			return NetworkIp[i];
+	return NULL;
+}
+
+char* GetNameNetwork(char* name) {
+	for (int i = 0; i < lastindex; i++)
+		if (strcmp(name, NetworkName[i]))
+			return NetworkName[i];
+	return NULL;
+}
+
+int GetIpNetworkIndex(char* ip) {
+	for (int i = 0; i < lastindex; i++)
+		if (strcmp(ip, NetworkIp[i]))
+			return i;
+	return -1;
+}
+
+int GetNameNetworkIndex(char* name) {
+	for (int i = 0; i < lastindex; i++)
+		if (strcmp(name, NetworkName[i]))
+			return i;
+	return -1;
+}
+
+void AddNetworkName(char* name, char* Ip) {
+	if (lastindex >= MaxNames)return;
+	if(!GetNameNetwork(name))
+	{
+		strcpy(NetworkName[lastindex], name);
+		strcpy(NetworkIp[lastindex], Ip);
+		lastindex++;
+	}
+}
+
+void RemoveNetworkName(char* name) {
+	int index = GetNameNetworkIndex(name);
+	if (index == -1)return;
+	for (int i = lastindex-1; i > index; i--)
+	{
+		strcpy(NetworkName[i], NetworkName[i+1]);
+		strcpy(NetworkIp[i], NetworkIp[i+1]);
+	}
+	lastindex--;
+}
+
+
+
 int networkTimeout = 10000;
 bool inrun=false;
 long oldtime;
@@ -516,6 +573,7 @@ void fake_network_interupt(myNCB* connection) {
 		{
 			inrun = false;
 			connection->ncb_cmd_cplt_49 = 0;
+			AddNetworkName(connection->ncb_name_26,lastIp);
 			//NetworkEnd();
 			return;
 		}
@@ -566,7 +624,8 @@ void fake_network_interupt(myNCB* connection) {
 			}
 			case 2: {//REJECT ADDNAME
 				inrun = false;
-				connection->ncb_cmd_cplt_49 = 13;
+				connection->ncb_cmd_cplt_49 = 22;
+				AddNetworkName(connection->ncb_name_26, lastIp);
 				//NetworkEnd();
 				return;
 				break;

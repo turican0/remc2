@@ -89176,13 +89176,13 @@ void sub_72D04()
 
 //----- (00072DDE) --------------------------------------------------------
 int NetworkTestAddName_72DDE(/*signed __int16* a1,*/ int compindex)//253dde
-{
+{//253de2
 	int result; // [esp+14h] [ebp-8h]
 	sprintf(printbuffer, "%s%d", aTester, compindex);
 	do
-	{
+	{//253e06
 		result = NetworkAddName_74767(connection_E12AE[compindex], printbuffer);//2557bb
-		if(result == 13)
+		if(result == 13)//253e23
 			NetworkDeleteName_74A86(connection_E12AE[compindex], printbuffer);
 	} while (result == 13 && !x_WORD_E12A6);
 	return result;
@@ -89271,7 +89271,7 @@ int NetworkInitConnection_7308F(char* a2, __int16 a3)//25408f
 	int v6; // [esp+4h] [ebp-24h]
 	int i; // [esp+1Ch] [ebp-Ch]
 	int v9; // [esp+20h] [ebp-8h]
-
+	//254093
 	if (!x_BYTE_E1274 || x_BYTE_E1275)
 		return -1;
 	if (a3)
@@ -89293,9 +89293,9 @@ int NetworkInitConnection_7308F(char* a2, __int16 a3)//25408f
 	i = 0;
 	x_WORD_E1276 = -1;
 	while (maxPlayers_E127A > i && x_WORD_E1276 == -1 && !x_WORD_E12A6)
-	{
+	{//2541a1
 		v6 = NetworkTestAddName_72DDE(i);
-		if (v6)
+		if (v6)//2541aa
 		{
 			if (v6 == 0xff)
 			{
@@ -89753,6 +89753,10 @@ int NetworkCall_74809(__int16 a1)//255809
 {
 	int result; // [esp+14h] [ebp-8h]
 	connection_E12AE[a1]->ncb_command_0 = 0x90;//CALL 
+	/*
+	CALL - požadavek o zřízení relace s uzlem zadaného jména
+LISTEN - příjem žádostí o zřízení spojení (od uzlu zadaného jména nebo od kohokoli (jméno "*")
+	*/
 	sprintf(connection_E12AE[a1]->ncb_callName_10, "%s%d", aTester, a1);
 	while (strlen(connection_E12AE[a1]->ncb_callName_10) < 0xFu)
 		strcat(connection_E12AE[a1]->ncb_callName_10, " ");
