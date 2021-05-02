@@ -387,6 +387,20 @@ void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myN
 		AddName(connection);
 		break;
 	}
+	case 0xb1: {//DELETE_NAME 
+		/*connection->ncb_retcode_1 = 0xff;
+		connection->ncb_num_3 = lastnetworkname + 0x02;
+		lastnetworkname++;
+		connection->ncb_cmd_cplt_49 = 0xff;
+		connection->ncb_reserved_50[4] = 0x7d;
+		connection->ncb_reserved_50[5] = 0x27;
+		connection->ncb_reserved_50[6] = 0x4b;
+		connection->ncb_reserved_50[7] = 0x0e;
+		connection->ncb_reserved_50[8] = 0x67;
+		AddName(connection);*/
+		connection->ncb_retcode_1 = 0xff;
+		break;
+	}
 	case 0x90: {//CALL
 		connection->ncb_retcode_1 = 0xff;
 		connection->ncb_lsn_2 = 0xd8;
@@ -484,7 +498,7 @@ private:
 	std::array<char, 1024> data_;
 };*/
 
-int networkTimeout = 1000;
+int networkTimeout = 10000;
 bool inrun=false;
 long oldtime;
 void fake_network_interupt(myNCB* connection) {
@@ -533,7 +547,7 @@ void fake_network_interupt(myNCB* connection) {
 		switch (type) {
 		case 1: {//RECV ADD_NAME
 				inrun = false;
-				if (strcmp(connection->ncb_callName_10, outmessage)) {
+				if (strcmp(connection->ncb_name_26, outmessage)) {
 					//connection->ncb_cmd_cplt_49 = 0;
 					//NetworkEnd();
 					return;
