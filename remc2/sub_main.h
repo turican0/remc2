@@ -13,10 +13,15 @@
 #include "utilities/DataFileIO.h"
 #include "utilities/BitmapIO.h"
 
+#include "engine/XUnk_D4350.h"
+#include "engine/Type_D404C.h"
+#include "engine/Type_D94F0_Bldgprmbuffer.h"
+#include "engine/Type_D93C0_Bldgprmbuffer.h"
 #include "engine/Basic.h"
 #include "engine/Sound.h"
+#include "engine/Type_Animations.h"
 #include "engine/Animation.h"
-#include "engine/Terrain.h"
+#include "engine/GameRender.h"
 
 //#define __CFSHL__(x, y) (x<<y)
 //#define __CFSHL__(x, y) 1
@@ -306,29 +311,6 @@ extern uint16_t x_WORD_17B4E0; // 34c4e0
 extern char x_BYTE_D41B6;
 
 #pragma pack (1)
-typedef struct {//lenght 28
-	int32_t dword_0;
-	type_particle_str* Particles_4;//mayby type_particle_str*
-	int32_t dword_8;
-	int16_t word_12;
-	uint16_t word_14;
-	int16_t CountOfFrames_16;
-	int16_t Width_18;//width
-	int16_t Height_20;//height
-	int16_t FrameIndex_22;//anim frame index
-	int16_t word_24;
-	int16_t word_26;
-}
-type_animations1;
-
-typedef struct {//lenght 6
-	int16_t word_0;
-	type_animations1* dword_2;
-}
-type_E9C08;
-#pragma pack (16)
-
-#pragma pack (1)
 typedef struct {//lenght 16
 	int16_t word_26_0;//0 x
 	int16_t word_28_1;//1 y
@@ -408,7 +390,6 @@ type_DWORD_E12AE;
 
 extern Pathstruct pstr[];
 
-
 void WriteBufferToBMP(uint16_t width, uint16_t height, uint8_t* ptrPalette, uint8_t* ptrBuffer);
 
 void /*__spoils<ecx>*/ sub_B5E70_decompress_terrain_map_level(__int16 a1, unsigned __int16 a2, __int16 a3, int32_t a4);
@@ -468,8 +449,6 @@ signed int sub_36A50(/*signed int a1, */char a2);
 void sub_36920(/*signed __int16 a1, */type_event_0x6E8E* a2);
 void sub_48A20(int a1, char a2, char a3, int a4, int a5, unsigned __int8 a6);
 unsigned int sub_439A0(unsigned int a1, unsigned __int16 a2);
-void DrawParticles_3E360(int a2x, uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t pitch);
-unsigned __int16 sub_3FD60(int a2x, uint16_t viewPortWidth, uint16_t viewPortHeight);
 //void __outx_WORD(unsigned short Port, unsigned short Data);
 //void __outx_BYTE(unsigned short Port, unsigned char Data);
 //unsigned char __inx_BYTE(unsigned short Port);
