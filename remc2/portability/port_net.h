@@ -59,7 +59,7 @@ typedef struct {//lenght 66(changed to 70)
 myNCB;
 #pragma pack (16)
 
-
+extern const int MaxMessageSize;
 
 void NetworkTestServer();
 

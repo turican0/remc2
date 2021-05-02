@@ -89311,10 +89311,8 @@ int NetworkInitConnection_7308F(char* a2, __int16 a3)//25408f
 	}
 	if (x_WORD_E1276 == -1)//2541e7
 		return -1;
-	for (i = 0; ; i++)
+	for (i = 0;i< maxPlayers_E127A; i++)
 	{
-		if (maxPlayers_E127A <= i)
-			break;
 		if (x_WORD_E1276 != i)
 		{
 			strcpy(connection_E12AE[i]->ncb_name_26, connection_E12AE[x_WORD_E1276]->ncb_name_26);
@@ -89898,27 +89896,27 @@ int NetworkReceivePacket_74C9D(myNCB* connection, uint8_t* buffer, int maxsize =
 	return connection->ncb_bufferLength_8;
 }
 
+//int packetSize = 20000;
 
 //----- (00074D41) --------------------------------------------------------
 void NetworkReceiveMessage_74D41(myNCB* connection, uint8_t* inbuffer, unsigned int size)//255d41
 {
 	//int v3; // eax
 	//int v5; // [esp+0h] [ebp-10h]
-	int v6; // [esp+4h] [ebp-Ch]
-	unsigned int v7; // [esp+8h] [ebp-8h]
+	//int v6; // [esp+4h] [ebp-Ch]
+	unsigned int packedReceived; // [esp+8h] [ebp-8h]
 	uint8_t* buffer; // [esp+Ch] [ebp-4h]
 
 	buffer = inbuffer;
-	v7 = 0;
-	while (size >> 11 > v7)
+	packedReceived = 0;
+	while (size > MaxMessageSize * packedReceived)
 	{
-		v6 = NetworkReceivePacket_74C9D(connection, buffer);
-		if (v6 != 2048)
+		if (NetworkReceivePacket_74C9D(connection, buffer) != MaxMessageSize)
 			return;
-		v7++;
-		buffer += 2048;
+		packedReceived++;
+		buffer += MaxMessageSize;
 	}
-	/*v3 = */NetworkReceivePacket_74C9D(connection, buffer, size-2048*v7);
+	/*v3 = */NetworkReceivePacket_74C9D(connection, buffer, size- MaxMessageSize * packedReceived);
 	/*if ((size & 0x7FF) == v3)
 		v5 = size;
 	else
@@ -89970,18 +89968,31 @@ void NetworkSendMessage_74EF1(myNCB* connection, uint8_t* inbuffer, unsigned int
 
 	buffer = inbuffer;
 	packedSended = 0;
+
+
+	while (size > MaxMessageSize * packedSended)
+	{
+		if (NetworkSendPacket_74E6D(connection, buffer, MaxMessageSize) != MaxMessageSize)
+			return;
+		packedSended++;
+		buffer += MaxMessageSize;
+	}
+	NetworkSendPacket_74E6D(connection, buffer, size - (MaxMessageSize * packedSended));
+
+	/*
 	while (1)
 	{
-		if (size >> 11 <= packedSended)
+		if (size <= MaxMessageSize * packedSended)
 		{
-			NetworkSendPacket_74E6D(connection, buffer, size & 0x7FF);
+			NetworkSendPacket_74E6D(connection, buffer, size- (MaxMessageSize * packedSended));
 			return;
 		}
-		if (NetworkSendPacket_74E6D(connection, buffer, 2048))
+		if (NetworkSendPacket_74E6D(connection, buffer, MaxMessageSize))
 			break;
 		packedSended++;
-		buffer += 2048;
+		buffer += MaxMessageSize;
 	}
+	*/
 	//return v7;
 }
 
