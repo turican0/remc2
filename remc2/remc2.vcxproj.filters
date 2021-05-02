@@ -70,9 +70,6 @@
     <Filter Include="Header Files\utilities">
       <UniqueIdentifier>{3087ce82-d2a1-473b-92b8-cc3d22463f94}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\libs\boost">
-      <UniqueIdentifier>{1bb99c37-187e-4d26-8f46-0c7e6464379b}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -726,12 +723,6 @@
     </Library>
     <Library Include="..\SDL2_image-2.0.5\lib\x64\SDL2_image.lib">
       <Filter>Source Files\libs\sdl-image</Filter>
-    </Library>
-    <Library Include="..\boost\bin.v2\libs\date_time\build\msvc-14.2\debug\link-static\threading-multi\libboost_date_time-vc142-mt-gd-x64-1_76.lib">
-      <Filter>Source Files\libs\boost</Filter>
-    </Library>
-    <Library Include="..\boost\bin.v2\libs\date_time\build\msvc-14.2\debug\address-model-32\link-static\threading-multi\libboost_date_time-vc142-mt-gd-x32-1_76.lib">
-      <Filter>Source Files\libs\boost</Filter>
     </Library>
   </ItemGroup>
 </Project>

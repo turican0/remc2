@@ -198,8 +198,6 @@
     <Library Include="..\SDL2_ttf-2.0.15\lib\x86\SDL2_ttf.lib" />
     <Library Include="..\zlib-64\lib\zlib.lib" />
     <Library Include="..\zlib\lib\zlib.lib" />
-    <Library Include="..\boost\bin.v2\libs\date_time\build\msvc-14.2\debug\link-static\threading-multi\libboost_date_time-vc142-mt-gd-x64-1_76.lib" />
-    <Library Include="..\boost\bin.v2\libs\date_time\build\msvc-14.2\debug\address-model-32\link-static\threading-multi\libboost_date_time-vc142-mt-gd-x32-1_76.lib" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\config.ini" />
