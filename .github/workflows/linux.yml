@@ -34,7 +34,7 @@ jobs:
           libpng-dev:i386 libpng++-dev:i386 \
           libz-dev:i386 libgtest-dev:i386 \
           libboost-dev:i386 \
-          libboost-thread-dev:i386 \
+          libboost_thread-dev:i386 \
           -o APT::Immediate-Configure=0
         
     - name: cmake release
