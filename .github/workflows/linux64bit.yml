@@ -29,7 +29,7 @@ jobs:
           libpng-dev libpng++-dev \
           libz-dev libgtest-dev \
           libboost-all-dev \
-          libboost-thread-mt-dev \
+          libboost-thread-dev \
           -o APT::Immediate-Configure=0
         
     - name: cmake release
