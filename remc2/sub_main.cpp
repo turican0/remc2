@@ -89880,13 +89880,13 @@ signed int NetworkListen_74B75(__int16 a1)//255b75
 // 99D84: using guessed type x_DWORD strcat(x_DWORD, x_DWORD);
 
 //----- (00074C9D) --------------------------------------------------------
-int NetworkReceivePacket_74C9D(myNCB* connection, uint8_t* buffer, int maxsize = 2048)//255c9d
+int NetworkReceivePacket_74C9D(myNCB* connection, uint8_t* buffer, int maxsize = MaxMessageSize)//255c9d
 {
 	connection->ncb_command_0 = 0x95;//RECEIVE
 
 	connection->ncb_buffer_4.p = paket_E1282;
 
-	connection->ncb_bufferLength_8 = 2048;
+	connection->ncb_bufferLength_8 = MaxMessageSize;
 	if (setNetbios_75044(connection) == -1)
 		return -99;
 	while (connection->ncb_cmd_cplt_49 == 0xffu)
