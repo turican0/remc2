@@ -19,6 +19,12 @@
 #include "boost/bind.hpp"
 #include "boost/date_time/posix_time/posix_time_types.hpp"
 
+
+//CreateMessage
+#define MESSAGE_TESTADDNAME 1
+#define MESSAGE_NAMEREJECT 2
+#define MESSAGE_WINADDNAME 3
+
 //const short multicast_port = 30001;
 const int max_message_count = 10;
 
@@ -166,7 +172,7 @@ void NetworkTestServer()
 	//return 0;
 }
 
-void BroadcastAll(char* message)
+void BroadcastAll(uint8_t* message,int request_length)
 {
 	{
 		boost::system::error_code error;
@@ -181,7 +187,7 @@ void BroadcastAll(char* message)
 
 			boost::asio::ip::udp::endpoint senderEndpoint(boost::asio::ip::address_v4::broadcast(), MultiplayerPort);
 
-			size_t request_length = strlen(message);
+			//size_t request_length = strlen(message);
 			socket.send_to(boost::asio::buffer(message, request_length), senderEndpoint);
 			socket.close(error);
 		}
@@ -221,20 +227,22 @@ int lastnetworkname = 0;
 int lastnetworklisten = 0;
 
 const int MaxMessageSize = 20000;
-char message[MaxMessageSize];
+uint8_t message[MaxMessageSize];
 
-void CreateMessage(int type, char* mesg) {
-	sprintf(message, "REMC2MESG%s%04d%s", compid, type, mesg);
-	for (int i = 9 + 8+4 + strlen(mesg); i < MaxMessageSize; i++)
+void CreateMessage(int type, uint8_t* mesg, int lenght) {
+	sprintf((char*)message, "REMC2MESG%s%04d%04d", compid, type, mesg, lenght);
+	for (int i = 9 + 8 + 4 + 4; i < 9 + 8 + 4 + 4 + lenght; i++)
+		message[i] = mesg[i];
+	for (int i = 9 + 8+4 +4+ lenght; i < MaxMessageSize; i++)
 		message[i] = 0;
 }
 
 void AddName(myNCB* connection) {
-	CreateMessage(1, connection->ncb_name_26);
+	CreateMessage(MESSAGE_TESTADDNAME, (uint8_t*)connection->ncb_name_26, 1+strlen(connection->ncb_name_26));
 	/*sprintf(message, "REMC2MESG%s%s",compid, connection->ncb_name_26);
 	for (int i = 9 + 8 + strlen(connection->ncb_name_26); i < 34; i++)
 		message[i] = 0;*/
-	BroadcastAll(message);
+	BroadcastAll(message, 9 + 8 + 4 + 4+1+ strlen(connection->ncb_name_26));
 };
 
 boost::thread* listenThread;
@@ -243,22 +251,23 @@ boost::mutex a;
 
 
 const int MaxMessageCount = 20;
-char messages[MaxMessageCount][MaxMessageSize];
+uint8_t messages[MaxMessageCount][MaxMessageSize];
+int sizeMessage[MaxMessageCount];
 char ipMessage[MaxMessageCount][20];
 char* lastIp;
 
 int MessageReadIndex = 0;
 int MessageWriteIndex = 0;
 
-void WriteMessage(char* message, boost::asio::ip::address ip) {
+void WriteMessage(uint8_t* message, boost::asio::ip::address ip,int size) {
 	if (MessageWriteIndex % MaxMessageCount != (MessageReadIndex + 1) % MaxMessageCount)
 	{
-		strcpy(messages[MessageWriteIndex], message);
+		memcpy(messages[MessageWriteIndex], message,size);
 		strcpy(ipMessage[MessageWriteIndex], ip.to_string().c_str());
 		MessageWriteIndex = (MessageWriteIndex + 1) % MaxMessageCount;
 	}
 }
-char* ReadMessage() {
+uint8_t* ReadMessage() {
 	if (MessageReadIndex == MessageWriteIndex)return NULL;
 	int oldindex = MessageReadIndex;
 	MessageReadIndex = (MessageReadIndex + 1) % MaxMessageCount;
@@ -410,7 +419,7 @@ void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myN
 		connection->ncb_reserved_50[6] = 0x1f;
 		connection->ncb_reserved_50[7] = 0x16;
 		connection->ncb_reserved_50[8] = 0x68;
-		CallNetwork(connection);
+		//CallNetwork(connection);
 		break;
 	}
 	case 0x91: {//LISTEN
@@ -555,7 +564,7 @@ void RemoveNetworkName(char* name) {
 
 
 
-int networkTimeout = 10000;
+int networkTimeout = 1000000;
 bool inrun=false;
 long oldtime;
 void fake_network_interupt(myNCB* connection) {
@@ -565,15 +574,18 @@ void fake_network_interupt(myNCB* connection) {
 	server s(io_context, MultiplayerPort);
 	io_context.run();
 	*/
-	char* message;
-	char outmessage[MaxMessageSize];
+	uint8_t* message;
+	uint8_t outmessage[MaxMessageSize];
 	if (inrun)
 	{
 		if (clock() > oldtime + networkTimeout)
 		{
 			inrun = false;
 			connection->ncb_cmd_cplt_49 = 0;
-			AddNetworkName(connection->ncb_name_26,lastIp);
+			AddNetworkName(connection->ncb_name_26, "localhost");
+			CreateMessage(MESSAGE_WINADDNAME, (uint8_t*)connection->ncb_name_26, 1+strlen(connection->ncb_name_26));
+			BroadcastAll(message, 9 + 8 + 4 + 4 + 1 + strlen(connection->ncb_name_26));
+			//AddNetworkName(connection->ncb_name_26,lastIp);
 			//NetworkEnd();
 			return;
 		}
@@ -601,34 +613,43 @@ void fake_network_interupt(myNCB* connection) {
 			strtype[i] = message[i + 9+8];
 		strtype[4] = 0;
 		int type=atoi(strtype);
-		strcpy(outmessage, &message[9 + 8+4]);
+		for (int i = 0; i < 4; i++)
+			strtype[i] = message[i + 9 + 8+4];
+		strtype[4] = 0;
+		int lenght = atoi(strtype);
+		for (int i = 0; i < lenght; i++)
+			outmessage[i], message[9 + 8 + 4 + 4 + i];
 		switch (type) {
-		case 1: {//RECV ADD_NAME
+		case MESSAGE_TESTADDNAME: {//RECV ADD_NAME
 				inrun = false;
-				if (strcmp(connection->ncb_name_26, outmessage)) {
+				if (strcmp(connection->ncb_name_26, (char*)outmessage)) {
 					//connection->ncb_cmd_cplt_49 = 0;
 					//NetworkEnd();
 					return;
 				}
-				else
+				else//name is same
 				{
 					connection->ncb_cmd_cplt_49 = 0;
 					//NetworkEnd();
 
-					CreateMessage(2, "");
-					SendToIp(boost::asio::ip::make_address_v4(lastIp),message);
+					CreateMessage(MESSAGE_NAMEREJECT, (uint8_t*)"", 1+strlen(""));
+					//SendToIp(boost::asio::ip::make_address_v4(lastIp),message);
 
 					return;
 				}
 				break;
 			}
-			case 2: {//REJECT ADDNAME
+			case MESSAGE_NAMEREJECT: {//REJECT ADDNAME
 				inrun = false;
 				connection->ncb_cmd_cplt_49 = 22;
-				AddNetworkName(connection->ncb_name_26, lastIp);
+				//AddNetworkName(connection->ncb_name_26, "localhost");
 				//NetworkEnd();
 				return;
 				break;
+			}
+			case MESSAGE_WINADDNAME: {
+				AddNetworkName((char*)outmessage, lastIp);
+				SendToIp(boost::asio::ip::make_address_v4(lastIp), message);
 			}
 		}
 	}
