@@ -58,21 +58,47 @@ find_package(SDL2_mixer REQUIRED)
 find_package(SDL2_ttf REQUIRED)
 find_package(SDL2_image REQUIRED)
 find_package(PNG REQUIRED)
-find_package(
-    Boost REQUIRED
-    COMPONENTS
-        thread
-        system
-)
-
-IF(Boost_FOUND)
-  INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIRS})
-  LINK_DIRECTORIES(${Boost_LIBRARY_DIRS})
-ENDIF(Boost_FOUND)
-
-SET(USED_LIBS ${Boost_SYSTEM_LIBRARY} ${Boost_THREAD_LIBRARY})
-
-add_definitions(-DBOOST_ALL_NO_LIB -DBOOST_SYSTEM_NO_DEPRECATED)
+# boost_prefix
+# Only need components for object libraries, not include libraries.
+FIND_PACKAGE(Boost COMPONENTS thread)
+SET(cppad_has_boost 0)
+IF ( Boost_FOUND )
+    SET(cppad_has_boost 1)
+    #
+    # Extract the Boost prefix from Boost_INCLUDE_DIRS
+    #
+    # convert to using unix directory separator
+    dos_path_to_unix("${Boost_INCLUDE_DIRS}" boost_include_dirs)
+    #
+    # convert to just one directory
+    STRING(REGEX REPLACE
+        "([^ ]+).*" "\\1"
+        boost_include_dir "${boost_include_dirs}"
+    )
+    #
+    # extract part before last backslash
+    STRING(REGEX REPLACE
+        "([^ ]*)/[^/ ]*" "\\1"
+        boost_prefix "${boost_include_dir}"
+    )
+    print_variable(boost_prefix)
+    #
+    # add boost include directories
+    FOREACH(dir ${cmake_install_includedirs})
+        IF( IS_DIRECTORY ${boost_prefix}/${dir} )
+            INCLUDE_DIRECTORIES( ${boost_prefix}/${dir} )
+            MESSAGE(STATUS "Found ${boost_prefix}/${dir}")
+        ENDIF( IS_DIRECTORY ${boost_prefix}/${dir} )
+    ENDFOREACH( dir )
+    #
+    # add boost link directories
+    FOREACH(dir ${cmake_install_libdirs})
+        IF( IS_DIRECTORY ${boost_prefix}/${dir} )
+            LINK_DIRECTORIES( ${boost_prefix}/${dir} )
+            MESSAGE(STATUS "Found ${boost_prefix}/${dir}")
+        ENDIF( IS_DIRECTORY ${boost_prefix}/${dir} )
+    ENDFOREACH( dir )
+ENDIF ( Boost_FOUND )
 
 
 ################################################################################
