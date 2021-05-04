@@ -58,7 +58,10 @@ find_package(SDL2_mixer REQUIRED)
 find_package(SDL2_ttf REQUIRED)
 find_package(SDL2_image REQUIRED)
 find_package(PNG REQUIRED)
-find_package(Boost COMPONENTS thread system REQUIRED)
+find_package(Boost COMPONENTS thread REQUIRED)
+
+include_directories(${Boost_INCLUDE_DIR})
+target_link_libraries(LearningC ${Boost_LIBRARIES})
 
 
 ################################################################################
