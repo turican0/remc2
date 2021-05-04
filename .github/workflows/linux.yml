@@ -33,8 +33,7 @@ jobs:
           libsdl2-ttf-dev:i386 libsdl2-image-dev:i386 \
           libpng-dev:i386 libpng++-dev:i386 \
           libz-dev:i386 libgtest-dev:i386 \
-          libboost-dev:i386 \
-          libboost-thread1.71-dev:i386 \
+	  libboost-all-dev:i386 \
           -o APT::Immediate-Configure=0
         
     - name: cmake release
