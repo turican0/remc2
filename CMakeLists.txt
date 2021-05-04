@@ -51,6 +51,8 @@ else ()
     set(CMAKE_LIBRARY_ARCHITECTURE i686)
 endif ()
 
+set(Boost_USE_MULTITHREAD ON)
+
 find_package(SDL2 REQUIRED)
 find_package(SDL2_mixer REQUIRED)
 find_package(SDL2_ttf REQUIRED)
