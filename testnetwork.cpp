@@ -57,8 +57,8 @@ public:
         // Start the asynchronous operation. The handle_receive function used as a
         // callback will update the ec and length variables.
         std::size_t length = 0;
-        socket_.async_receive(boost::asio::buffer(buffer),
-            boost::bind(&client::handle_receive,
+        socket_.async_receive_from(boost::asio::buffer(buffer), receiver_endpoint,
+            boost::bind(&client::handle_receive_from,
                 boost::placeholders::_1, boost::placeholders::_2, &ec, &length));
 
         // Run the operation until it completes, or until the timeout.
@@ -93,7 +93,7 @@ private:
         }
     }
 
-    static void handle_receive(
+    static void handle_receive_from(
         const boost::system::error_code& ec, std::size_t length,
         boost::system::error_code* out_ec, std::size_t* out_length)
     {
@@ -101,6 +101,8 @@ private:
         *out_length = length;
     }
 
+public:
+    boost::asio::ip::udp::endpoint receiver_endpoint;
 private:
     boost::asio::io_context io_context_;
     udp::socket socket_;

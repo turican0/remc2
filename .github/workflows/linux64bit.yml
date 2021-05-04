@@ -28,8 +28,7 @@ jobs:
           libsdl2-ttf-dev libsdl2-image-dev \
           libpng-dev libpng++-dev \
           libz-dev libgtest-dev \
-          libboost-dev \
-          libboost-thread-dev \
+          libboost-all-dev \
           -o APT::Immediate-Configure=0
         
     - name: cmake release
