@@ -89913,7 +89913,7 @@ void NetworkReceiveMessage_74D41(myNCB* connection, uint8_t* inbuffer, unsigned 
 
 	buffer = inbuffer;
 	packedReceived = 0;
-	while (size > sizeof(messType) * packedReceived)
+	while (size > sizeof(messType) * (packedReceived+1))
 	{
 		if (NetworkReceivePacket_74C9D(connection, buffer) != sizeof(messType))
 			return;
@@ -89974,7 +89974,7 @@ void NetworkSendMessage_74EF1(myNCB* connection, uint8_t* inbuffer, unsigned int
 	packedSended = 0;
 
 
-	while (size > sizeof(messType) * packedSended)
+	while (size > sizeof(messType) * (packedSended+1))
 	{
 		if (NetworkSendPacket_74E6D(connection, buffer, sizeof(messType)) != sizeof(messType))
 			return;

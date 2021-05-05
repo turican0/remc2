@@ -706,6 +706,11 @@ void get_next_fakemess(int index) {
 		switch (fake_index) {
 			case 0:
 			{
+				memcpy(fake_data.compid, (char*)"12345678",8);
+				memcpy(fake_data.stamp, (char*)"REMC2MESG", 9);
+				memcpy(fake_data.ip, (char*)"198.198.198.198\0", 16);
+				fake_data.type = MESSAGE_NAMEREJECT;
+				fake_data.lenght = 0;
 				WriteMessage((messType*)&fake_data, boost::asio::ip::address::from_string("198.198.198.198"));
 				break;
 			}
@@ -741,7 +746,7 @@ void fake_network_interupt(myNCB* connection) {
 			{
 				case 0xb0: {//ADD_NAME 
 					connection->ncb_cmd_cplt_49 = 0;
-					AddNetworkName(connection->ncb_name_26, "localhost");
+					AddNetworkName(connection->ncb_name_26, "127.0.0.1");
 					CreateMessage(MESSAGE_WINADDNAME, (uint8_t*)connection->ncb_name_26, 1 + strlen(connection->ncb_name_26));
 					BroadcastAll();
 					//AddNetworkName(connection->ncb_name_26,lastIp);
@@ -762,7 +767,10 @@ void fake_network_interupt(myNCB* connection) {
 	}
 	inMessage = ReadMessage();
 	#ifdef TEST_NETWORK_FAKECOMM1
-	if (!inMessage)get_next_fakemess(1);
+	if (!inMessage) {
+		get_next_fakemess(1);
+		inMessage = ReadMessage();
+	}
 	#endif//TEST_NETWORK_FAKECOMM1
 	if (inMessage) {
 		NetworkRestart();
