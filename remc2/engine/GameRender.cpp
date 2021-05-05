@@ -6556,7 +6556,7 @@ void GameRender::DrawTriangle_B6253(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3, uint8
 	int v1120; // [esp+18h] [ebp-70h]
 	int v1121; // [esp+1Ch] [ebp-6Ch]
 	int v1122; // [esp+1Ch] [ebp-6Ch]
-	int v1123; // [esp+20h] [ebp-68h]
+	int triLn_v1123; // [esp+20h] [ebp-68h]
 	int v1124; // [esp+24h] [ebp-64h]
 	int v1125; // [esp+28h] [ebp-60h]
 	int v1126; // [esp+28h] [ebp-60h]
@@ -6803,7 +6803,7 @@ void GameRender::DrawTriangle_B6253(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3, uint8
 				v1300 = v10 > viewPortHeight;
 				v11 = v10 - v9;
 				v1113 = v11;
-				v1123 = v11;
+				triLn_v1123 = v11;
 				v12 = v4[1];
 				v1296 = v12 > viewPortHeight;
 				v13 = v12 - v9;
@@ -6827,7 +6827,7 @@ void GameRender::DrawTriangle_B6253(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3, uint8
 							if (v1300)
 							{
 								v63 = viewPortHeight - v1190;
-								v1123 = viewPortHeight - v1190;
+								triLn_v1123 = viewPortHeight - v1190;
 								if (v1296)
 								{
 									v1117 = viewPortHeight - v1190;
@@ -6842,10 +6842,10 @@ void GameRender::DrawTriangle_B6253(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3, uint8
 							}
 							goto LABEL_121;
 						}
-						v18 = __OFSUB__(v1123, -v1190);
-						v16 = v1123 == -v1190;
-						v17 = v1123 + v1190 < 0;
-						v1123 += v1190;
+						v18 = __OFSUB__(triLn_v1123, -v1190);
+						v16 = triLn_v1123 == -v1190;
+						v17 = triLn_v1123 + v1190 < 0;
+						triLn_v1123 += v1190;
 						if (!((unsigned __int8)(v17 ^ v18) | (unsigned __int8)v16))
 						{
 							v1160 = -v1190;
@@ -6858,7 +6858,7 @@ void GameRender::DrawTriangle_B6253(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3, uint8
 								if (v1300)
 								{
 									v1119 = viewPortHeight;
-									v1123 = viewPortHeight;
+									triLn_v1123 = viewPortHeight;
 								}
 								v62 = (x_DWORD*)unk_DE56Cx;
 								goto LABEL_124;
@@ -6868,7 +6868,7 @@ void GameRender::DrawTriangle_B6253(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3, uint8
 							v59 += v1160 * v1107;
 							if (v1300)
 							{
-								v1123 = viewPortHeight;
+								triLn_v1123 = viewPortHeight;
 								if (v1296)
 								{
 									v1117 = viewPortHeight;
@@ -6933,10 +6933,10 @@ void GameRender::DrawTriangle_B6253(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3, uint8
 						v52 = v3[4];
 						if (v1292)
 						{
-							v18 = __OFSUB__(v1123, -v1190);
-							v16 = v1123 == -v1190;
-							v17 = v1123 + v1190 < 0;
-							v1123 += v1190;
+							v18 = __OFSUB__(triLn_v1123, -v1190);
+							v16 = triLn_v1123 == -v1190;
+							v17 = triLn_v1123 + v1190 < 0;
+							triLn_v1123 += v1190;
 							if ((unsigned __int8)(v17 ^ v18) | (unsigned __int8)v16)
 								return;
 							v1159 = -v1190;
@@ -6950,7 +6950,7 @@ void GameRender::DrawTriangle_B6253(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3, uint8
 								if (v1300)
 								{
 									v1119 = viewPortHeight;
-									v1123 = viewPortHeight;
+									triLn_v1123 = viewPortHeight;
 								}
 								v55 = (x_DWORD*)unk_DE56Cx;
 							LABEL_102:
@@ -6981,7 +6981,7 @@ void GameRender::DrawTriangle_B6253(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3, uint8
 							v52 += v1159 * v1148;
 							if (v1300)
 							{
-								v1123 = viewPortHeight;
+								triLn_v1123 = viewPortHeight;
 								if (v1296)
 								{
 									v1117 = viewPortHeight;
@@ -6996,7 +6996,7 @@ void GameRender::DrawTriangle_B6253(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3, uint8
 						else if (v1300)
 						{
 							v56 = viewPortHeight - v1190;
-							v1123 = viewPortHeight - v1190;
+							triLn_v1123 = viewPortHeight - v1190;
 							if (v1296)
 							{
 								v1117 = viewPortHeight - v1190;
@@ -7060,10 +7060,10 @@ void GameRender::DrawTriangle_B6253(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3, uint8
 						v40 = v3[3];
 						if (v1292)
 						{
-							v18 = __OFSUB__(v1123, -v1190);
-							v16 = v1123 == -v1190;
-							v17 = v1123 + v1190 < 0;
-							v1123 += v1190;
+							v18 = __OFSUB__(triLn_v1123, -v1190);
+							v16 = triLn_v1123 == -v1190;
+							v17 = triLn_v1123 + v1190 < 0;
+							triLn_v1123 += v1190;
 							if ((unsigned __int8)(v17 ^ v18) | (unsigned __int8)v16)
 								return;
 							v1158 = -v1190;
@@ -7078,7 +7078,7 @@ void GameRender::DrawTriangle_B6253(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3, uint8
 								if (v1300)
 								{
 									v1119 = viewPortHeight;
-									v1123 = viewPortHeight;
+									triLn_v1123 = viewPortHeight;
 								}
 								v43 = (x_DWORD*)unk_DE56Cx;
 							LABEL_77:
@@ -7112,7 +7112,7 @@ void GameRender::DrawTriangle_B6253(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3, uint8
 							v40 += v1158 * v1137;
 							if (v1300)
 							{
-								v1123 = viewPortHeight;
+								triLn_v1123 = viewPortHeight;
 								if (v1296)
 								{
 									v1117 = viewPortHeight;
@@ -7127,7 +7127,7 @@ void GameRender::DrawTriangle_B6253(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3, uint8
 						else if (v1300)
 						{
 							v44 = viewPortHeight - v1190;
-							v1123 = viewPortHeight - v1190;
+							triLn_v1123 = viewPortHeight - v1190;
 							if (v1296)
 							{
 								v1117 = viewPortHeight - v1190;
@@ -7191,10 +7191,10 @@ void GameRender::DrawTriangle_B6253(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3, uint8
 						v25 = v3[4];
 						if (v1292)
 						{
-							v18 = __OFSUB__(v1123, -v1190);
-							v16 = v1123 == -v1190;
-							v17 = v1123 + v1190 < 0;
-							v1123 += v1190;
+							v18 = __OFSUB__(triLn_v1123, -v1190);
+							v16 = triLn_v1123 == -v1190;
+							v17 = triLn_v1123 + v1190 < 0;
+							triLn_v1123 += v1190;
 							if ((unsigned __int8)(v17 ^ v18) | (unsigned __int8)v16)
 								return;
 							v1157 = -v1190;
@@ -7210,7 +7210,7 @@ void GameRender::DrawTriangle_B6253(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3, uint8
 								if (v1300)
 								{
 									v1119 = viewPortHeight;
-									v1123 = viewPortHeight;
+									triLn_v1123 = viewPortHeight;
 								}
 								v28 = (x_DWORD*)unk_DE56Cx;
 							LABEL_51:
@@ -7247,7 +7247,7 @@ void GameRender::DrawTriangle_B6253(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3, uint8
 							v25 += v1157 * v1147;
 							if (v1300)
 							{
-								v1123 = viewPortHeight;
+								triLn_v1123 = viewPortHeight;
 								if (v1296)
 								{
 									v1117 = viewPortHeight;
@@ -7262,7 +7262,7 @@ void GameRender::DrawTriangle_B6253(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3, uint8
 						else if (v1300)
 						{
 							v29 = viewPortHeight - v1190;
-							v1123 = viewPortHeight - v1190;
+							triLn_v1123 = viewPortHeight - v1190;
 							if (v1296)
 							{
 								v1117 = viewPortHeight - v1190;
@@ -7323,7 +7323,7 @@ void GameRender::DrawTriangle_B6253(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3, uint8
 			v118 = v5[1];
 			v1298 = v118 > viewPortHeight;
 			v1115 = v118 - v117;
-			v1123 = v118 - v117;
+			triLn_v1123 = v118 - v117;
 			v1105 = ((*v5 - *v3) << 16) / (v118 - v117);
 			v1109 = ((*v4 - *v3) << 16) / (v118 - v117);
 			switch (x_BYTE_E126D)
@@ -7337,23 +7337,23 @@ void GameRender::DrawTriangle_B6253(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3, uint8
 				{
 					v141 = -v1192;
 					v1115 += v1192;
-					v18 = __OFSUB__(v1123, -v1192);
-					v16 = v1123 == -v1192;
-					v17 = v1123 + v1192 < 0;
-					v1123 += v1192;
+					v18 = __OFSUB__(triLn_v1123, -v1192);
+					v16 = triLn_v1123 == -v1192;
+					v17 = triLn_v1123 + v1192 < 0;
+					triLn_v1123 += v1192;
 					if ((unsigned __int8)(v17 ^ v18) | (unsigned __int8)v16)
 						return;
 					v139 += v1105 * v141;
 					v140 += v141 * v1109;
 					if (v1298)
 					{
-						v1123 = viewPortHeight;
+						triLn_v1123 = viewPortHeight;
 						v1115 = viewPortHeight;
 					}
 				}
 				else if (v1298)
 				{
-					v1123 = viewPortHeight - v1192;
+					triLn_v1123 = viewPortHeight - v1192;
 					v1115 = viewPortHeight - v1192;
 				}
 				v142 = (x_DWORD*)unk_DE56Cx;
@@ -7373,7 +7373,7 @@ void GameRender::DrawTriangle_B6253(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3, uint8
 			case 0x10:
 			case 0x11:
 				v1146 = (v4[4] - v5[4]) / (*v4 - *v5);
-				v1152 = (v5[4] - v3[4]) / v1123;
+				v1152 = (v5[4] - v3[4]) / triLn_v1123;
 				v134 = *v3 << 16;
 				v135 = *v3 << 16;
 				v136 = v3[4];
@@ -7381,10 +7381,10 @@ void GameRender::DrawTriangle_B6253(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3, uint8
 				{
 					v137 = -v1192;
 					v1115 += v1192;
-					v18 = __OFSUB__(v1123, -v1192);
-					v16 = v1123 == -v1192;
-					v17 = v1123 + v1192 < 0;
-					v1123 += v1192;
+					v18 = __OFSUB__(triLn_v1123, -v1192);
+					v16 = triLn_v1123 == -v1192;
+					v17 = triLn_v1123 + v1192 < 0;
+					triLn_v1123 += v1192;
 					if ((unsigned __int8)(v17 ^ v18) | (unsigned __int8)v16)
 						return;
 					v134 += v1105 * v137;
@@ -7392,13 +7392,13 @@ void GameRender::DrawTriangle_B6253(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3, uint8
 					v136 += v137 * v1152;
 					if (v1298)
 					{
-						v1123 = viewPortHeight;
+						triLn_v1123 = viewPortHeight;
 						v1115 = viewPortHeight;
 					}
 				}
 				else if (v1298)
 				{
-					v1123 = viewPortHeight - v1192;
+					triLn_v1123 = viewPortHeight - v1192;
 					v1115 = viewPortHeight - v1192;
 				}
 				v138 = (x_DWORD*)unk_DE56Cx;
@@ -7431,8 +7431,8 @@ void GameRender::DrawTriangle_B6253(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3, uint8
 				v127 = *v4 - *v5;
 				v1124 = (v4[2] - v5[2]) / v127;
 				v1135 = (v4[3] - v5[3]) / v127;
-				v1130 = (v5[2] - v3[2]) / v1123;
-				v1141 = (v5[3] - v3[3]) / v1123;
+				v1130 = (v5[2] - v3[2]) / triLn_v1123;
+				v1141 = (v5[3] - v3[3]) / triLn_v1123;
 				v128 = *v3 << 16;
 				v129 = *v3 << 16;
 				v130 = v3[2];
@@ -7441,10 +7441,10 @@ void GameRender::DrawTriangle_B6253(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3, uint8
 				{
 					v132 = -v1192;
 					v1115 += v1192;
-					v18 = __OFSUB__(v1123, -v1192);
-					v16 = v1123 == -v1192;
-					v17 = v1123 + v1192 < 0;
-					v1123 += v1192;
+					v18 = __OFSUB__(triLn_v1123, -v1192);
+					v16 = triLn_v1123 == -v1192;
+					v17 = triLn_v1123 + v1192 < 0;
+					triLn_v1123 += v1192;
 					if ((unsigned __int8)(v17 ^ v18) | (unsigned __int8)v16)
 						return;
 					v128 += v1105 * v132;
@@ -7453,13 +7453,13 @@ void GameRender::DrawTriangle_B6253(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3, uint8
 					v131 += v132 * v1141;
 					if (v1298)
 					{
-						v1123 = viewPortHeight;
+						triLn_v1123 = viewPortHeight;
 						v1115 = viewPortHeight;
 					}
 				}
 				else if (v1298)
 				{
-					v1123 = viewPortHeight - v1192;
+					triLn_v1123 = viewPortHeight - v1192;
 					v1115 = viewPortHeight - v1192;
 				}
 				v133 = (x_DWORD*)unk_DE56Cx;
@@ -7489,9 +7489,9 @@ void GameRender::DrawTriangle_B6253(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3, uint8
 				v1124 = (v4[2] - v5[2]) / v119;
 				v1135 = (v4[3] - v5[3]) / v119;
 				v1146 = (v4[4] - v5[4]) / v119;
-				v1129 = (v5[2] - v3[2]) / v1123;
-				v1140 = (v5[3] - v3[3]) / v1123;
-				v1151 = (v5[4] - v3[4]) / v1123;
+				v1129 = (v5[2] - v3[2]) / triLn_v1123;
+				v1140 = (v5[3] - v3[3]) / triLn_v1123;
+				v1151 = (v5[4] - v3[4]) / triLn_v1123;
 				v120 = *v3 << 16;
 				v121 = *v3 << 16;
 				v122 = v3[2];
@@ -7501,10 +7501,10 @@ void GameRender::DrawTriangle_B6253(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3, uint8
 				{
 					v125 = -v1192;
 					v1115 += v1192;
-					v18 = __OFSUB__(v1123, -v1192);
-					v16 = v1123 == -v1192;
-					v17 = v1123 + v1192 < 0;
-					v1123 += v1192;
+					v18 = __OFSUB__(triLn_v1123, -v1192);
+					v16 = triLn_v1123 == -v1192;
+					v17 = triLn_v1123 + v1192 < 0;
+					triLn_v1123 += v1192;
 					if ((unsigned __int8)(v17 ^ v18) | (unsigned __int8)v16)
 						return;
 					v120 += v1105 * v125;
@@ -7514,13 +7514,13 @@ void GameRender::DrawTriangle_B6253(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3, uint8
 					v124 += v125 * v1151;
 					if (v1298)
 					{
-						v1123 = viewPortHeight;
+						triLn_v1123 = viewPortHeight;
 						v1115 = viewPortHeight;
 					}
 				}
 				else if (v1298)
 				{
-					v1123 = viewPortHeight - v1192;
+					triLn_v1123 = viewPortHeight - v1192;
 					v1115 = viewPortHeight - v1192;
 				}
 				v126 = (x_DWORD*)unk_DE56Cx;
@@ -7566,7 +7566,7 @@ void GameRender::DrawTriangle_B6253(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3, uint8
 		v144 = v5[1];
 		v1299 = v144 > viewPortHeight;
 		v1116 = v144 - v143;
-		v1123 = v144 - v143;
+		triLn_v1123 = v144 - v143;
 		v1106 = ((*v5 - *v3) << 16) / (v144 - v143);
 		v1110 = ((*v5 - *v4) << 16) / (v144 - v143);
 		switch (x_BYTE_E126D)
@@ -7580,23 +7580,23 @@ void GameRender::DrawTriangle_B6253(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3, uint8
 			{
 				v167 = -v1193;
 				v1116 += v1193;
-				v18 = __OFSUB__(v1123, -v1193);
-				v16 = v1123 == -v1193;
-				v17 = v1123 + v1193 < 0;
-				v1123 += v1193;
+				v18 = __OFSUB__(triLn_v1123, -v1193);
+				v16 = triLn_v1123 == -v1193;
+				v17 = triLn_v1123 + v1193 < 0;
+				triLn_v1123 += v1193;
 				if ((unsigned __int8)(v17 ^ v18) | (unsigned __int8)v16)
 					return;
 				v165 += v1106 * v167;
 				v166 += v167 * v1110;
 				if (v1299)
 				{
-					v1123 = viewPortHeight;
+					triLn_v1123 = viewPortHeight;
 					v1116 = viewPortHeight;
 				}
 			}
 			else if (v1299)
 			{
-				v1123 = viewPortHeight - v1193;
+				triLn_v1123 = viewPortHeight - v1193;
 				v1116 = viewPortHeight - v1193;
 			}
 			v168 = (x_DWORD*)unk_DE56Cx;
@@ -7616,7 +7616,7 @@ void GameRender::DrawTriangle_B6253(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3, uint8
 		case 0x10:
 		case 0x11:
 			v1146 = (v4[4] - v3[4]) / (*v4 - *v3);
-			v1154 = (v5[4] - v3[4]) / v1123;
+			v1154 = (v5[4] - v3[4]) / triLn_v1123;
 			v160 = *v3 << 16;
 			v161 = *v4 << 16;
 			v162 = v3[4];
@@ -7624,10 +7624,10 @@ void GameRender::DrawTriangle_B6253(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3, uint8
 			{
 				v163 = -v1193;
 				v1116 += v1193;
-				v18 = __OFSUB__(v1123, -v1193);
-				v16 = v1123 == -v1193;
-				v17 = v1123 + v1193 < 0;
-				v1123 += v1193;
+				v18 = __OFSUB__(triLn_v1123, -v1193);
+				v16 = triLn_v1123 == -v1193;
+				v17 = triLn_v1123 + v1193 < 0;
+				triLn_v1123 += v1193;
 				if ((unsigned __int8)(v17 ^ v18) | (unsigned __int8)v16)
 					return;
 				v160 += v1106 * v163;
@@ -7635,13 +7635,13 @@ void GameRender::DrawTriangle_B6253(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3, uint8
 				v162 += v163 * v1154;
 				if (v1299)
 				{
-					v1123 = viewPortHeight;
+					triLn_v1123 = viewPortHeight;
 					v1116 = viewPortHeight;
 				}
 			}
 			else if (v1299)
 			{
-				v1123 = viewPortHeight - v1193;
+				triLn_v1123 = viewPortHeight - v1193;
 				v1116 = viewPortHeight - v1193;
 			}
 			v164 = (x_DWORD*)unk_DE56Cx;
@@ -7674,8 +7674,8 @@ void GameRender::DrawTriangle_B6253(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3, uint8
 			v153 = *v4 - *v3;
 			v1124 = (v4[2] - v3[2]) / v153;
 			v1135 = (v4[3] - v3[3]) / v153;
-			v1132 = (v5[2] - v3[2]) / v1123;
-			v1143 = (v5[3] - v3[3]) / v1123;
+			v1132 = (v5[2] - v3[2]) / triLn_v1123;
+			v1143 = (v5[3] - v3[3]) / triLn_v1123;
 			v154 = *v3 << 16;
 			v155 = *v4 << 16;
 			v156 = v3[2];
@@ -7684,10 +7684,10 @@ void GameRender::DrawTriangle_B6253(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3, uint8
 			{
 				v158 = -v1193;
 				v1116 += v1193;
-				v18 = __OFSUB__(v1123, -v1193);
-				v16 = v1123 == -v1193;
-				v17 = v1123 + v1193 < 0;
-				v1123 += v1193;
+				v18 = __OFSUB__(triLn_v1123, -v1193);
+				v16 = triLn_v1123 == -v1193;
+				v17 = triLn_v1123 + v1193 < 0;
+				triLn_v1123 += v1193;
 				if ((unsigned __int8)(v17 ^ v18) | (unsigned __int8)v16)
 					return;
 				v154 += v1106 * v158;
@@ -7696,13 +7696,13 @@ void GameRender::DrawTriangle_B6253(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3, uint8
 				v157 += v158 * v1143;
 				if (v1299)
 				{
-					v1123 = viewPortHeight;
+					triLn_v1123 = viewPortHeight;
 					v1116 = viewPortHeight;
 				}
 			}
 			else if (v1299)
 			{
-				v1123 = viewPortHeight - v1193;
+				triLn_v1123 = viewPortHeight - v1193;
 				v1116 = viewPortHeight - v1193;
 			}
 			v159 = (x_DWORD*)unk_DE56Cx;
@@ -7732,9 +7732,9 @@ void GameRender::DrawTriangle_B6253(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3, uint8
 			v1124 = (v4[2] - v3[2]) / v145;
 			v1135 = (v4[3] - v3[3]) / v145;
 			v1146 = (v4[4] - v3[4]) / v145;
-			v1131 = (v5[2] - v3[2]) / v1123;
-			v1142 = (v5[3] - v3[3]) / v1123;
-			v1153 = (v5[4] - v3[4]) / v1123;
+			v1131 = (v5[2] - v3[2]) / triLn_v1123;
+			v1142 = (v5[3] - v3[3]) / triLn_v1123;
+			v1153 = (v5[4] - v3[4]) / triLn_v1123;
 			v146 = *v3 << 16;
 			v147 = *v4 << 16;
 			v148 = v3[2];
@@ -7744,10 +7744,10 @@ void GameRender::DrawTriangle_B6253(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3, uint8
 			{
 				v151 = -v1193;
 				v1116 += v1193;
-				v18 = __OFSUB__(v1123, -v1193);
-				v16 = v1123 == -v1193;
-				v17 = v1123 + v1193 < 0;
-				v1123 += v1193;
+				v18 = __OFSUB__(triLn_v1123, -v1193);
+				v16 = triLn_v1123 == -v1193;
+				v17 = triLn_v1123 + v1193 < 0;
+				triLn_v1123 += v1193;
 				if ((unsigned __int8)(v17 ^ v18) | (unsigned __int8)v16)
 					return;
 				v146 += v1106 * v151;
@@ -7757,13 +7757,13 @@ void GameRender::DrawTriangle_B6253(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3, uint8
 				v150 += v151 * v1153;
 				if (v1299)
 				{
-					v1123 = viewPortHeight;
+					triLn_v1123 = viewPortHeight;
 					v1116 = viewPortHeight;
 				}
 			}
 			else if (v1299)
 			{
-				v1123 = viewPortHeight - v1193;
+				triLn_v1123 = viewPortHeight - v1193;
 				v1116 = viewPortHeight - v1193;
 			}
 			v152 = (x_DWORD*)unk_DE56Cx;
@@ -7843,7 +7843,7 @@ LABEL_129:
 	v1301 = v67 > viewPortHeight;
 	v68 = v67 - v65;
 	v1118 = v68;
-	v1123 = v68;
+	triLn_v1123 = v68;
 	v1104 = ((*v5 - *v3) << 16) / v1114;
 	if (((*v4 - *v3) << 16) / v68 > v1104)
 	{
@@ -7860,10 +7860,10 @@ LABEL_129:
 			v111 = *v3 << 16;
 			if (v1293)
 			{
-				v18 = __OFSUB__(v1123, -v1191);
-				v16 = v1123 == -v1191;
-				v17 = v1123 + v1191 < 0;
-				v1123 += v1191;
+				v18 = __OFSUB__(triLn_v1123, -v1191);
+				v16 = triLn_v1123 == -v1191;
+				v17 = triLn_v1123 + v1191 < 0;
+				triLn_v1123 += v1191;
 				if ((unsigned __int8)(v17 ^ v18) | (unsigned __int8)v16)
 					return;
 				v1164 = -v1191;
@@ -7876,7 +7876,7 @@ LABEL_129:
 					if (v1301)
 					{
 						v1120 = viewPortHeight;
-						v1123 = viewPortHeight;
+						triLn_v1123 = viewPortHeight;
 					}
 					v114 = (int*)unk_DE56Cx;
 					goto LABEL_228;
@@ -7886,7 +7886,7 @@ LABEL_129:
 				v111 += v1164 * v1108;
 				if (v1301)
 				{
-					v1123 = viewPortHeight;
+					triLn_v1123 = viewPortHeight;
 					if (v1297)
 					{
 						v1114 = viewPortHeight;
@@ -7901,7 +7901,7 @@ LABEL_129:
 			else if (v1301)
 			{
 				v115 = viewPortHeight - v1191;
-				v1123 = viewPortHeight - v1191;
+				triLn_v1123 = viewPortHeight - v1191;
 				if (v1297)
 				{
 					v1114 = viewPortHeight - v1191;
@@ -7966,10 +7966,10 @@ LABEL_129:
 			v104 = v3[4];
 			if (v1293)
 			{
-				v18 = __OFSUB__(v1123, -v1191);
-				v16 = v1123 == -v1191;
-				v17 = v1123 + v1191 < 0;
-				v1123 += v1191;
+				v18 = __OFSUB__(triLn_v1123, -v1191);
+				v16 = triLn_v1123 == -v1191;
+				v17 = triLn_v1123 + v1191 < 0;
+				triLn_v1123 += v1191;
 				if ((unsigned __int8)(v17 ^ v18) | (unsigned __int8)v16)
 					return;
 				v1163 = -v1191;
@@ -7983,7 +7983,7 @@ LABEL_129:
 					if (v1301)
 					{
 						v1120 = viewPortHeight;
-						v1123 = viewPortHeight;
+						triLn_v1123 = viewPortHeight;
 					}
 					v107 = (int*)unk_DE56Cx;
 				LABEL_206:
@@ -8014,7 +8014,7 @@ LABEL_129:
 				v104 += v1163 * v1150;
 				if (v1301)
 				{
-					v1123 = viewPortHeight;
+					triLn_v1123 = viewPortHeight;
 					if (v1297)
 					{
 						v1114 = viewPortHeight;
@@ -8029,7 +8029,7 @@ LABEL_129:
 			else if (v1301)
 			{
 				v108 = viewPortHeight - v1191;
-				v1123 = viewPortHeight - v1191;
+				triLn_v1123 = viewPortHeight - v1191;
 				if (v1297)
 				{
 					v1114 = viewPortHeight - v1191;
@@ -8095,10 +8095,10 @@ LABEL_129:
 			v92 = v3[3];
 			if (v1293)
 			{
-				v18 = __OFSUB__(v1123, -v1191);
-				v16 = v1123 == -v1191;
-				v17 = v1123 + v1191 < 0;
-				v1123 += v1191;
+				v18 = __OFSUB__(triLn_v1123, -v1191);
+				v16 = triLn_v1123 == -v1191;
+				v17 = triLn_v1123 + v1191 < 0;
+				triLn_v1123 += v1191;
 				if ((unsigned __int8)(v17 ^ v18) | (unsigned __int8)v16)
 					return;
 				v1162 = -v1191;
@@ -8113,7 +8113,7 @@ LABEL_129:
 					if (v1301)
 					{
 						v1120 = viewPortHeight;
-						v1123 = viewPortHeight;
+						triLn_v1123 = viewPortHeight;
 					}
 					v95 = (int*)unk_DE56Cx;
 				LABEL_181:
@@ -8147,7 +8147,7 @@ LABEL_129:
 				v92 += v1162 * v1139;
 				if (v1301)
 				{
-					v1123 = viewPortHeight;
+					triLn_v1123 = viewPortHeight;
 					if (v1297)
 					{
 						v1114 = viewPortHeight;
@@ -8162,7 +8162,7 @@ LABEL_129:
 			else if (v1301)
 			{
 				v96 = viewPortHeight - v1191;
-				v1123 = viewPortHeight - v1191;
+				triLn_v1123 = viewPortHeight - v1191;
 				if (v1297)
 				{
 					v1114 = viewPortHeight - v1191;
@@ -8229,10 +8229,10 @@ LABEL_129:
 			v78 = v3[4];
 			if (v1293)
 			{
-				v18 = __OFSUB__(v1123, -v1191);
-				v16 = v1123 == -v1191;
-				v17 = v1123 + v1191 < 0;
-				v1123 += v1191;
+				v18 = __OFSUB__(triLn_v1123, -v1191);
+				v16 = triLn_v1123 == -v1191;
+				v17 = triLn_v1123 + v1191 < 0;
+				triLn_v1123 += v1191;
 				if ((unsigned __int8)(v17 ^ v18) | (unsigned __int8)v16)
 					return;
 				v1161 = -v1191;
@@ -8248,7 +8248,7 @@ LABEL_129:
 					if (v1301)
 					{
 						v1120 = viewPortHeight;
-						v1123 = viewPortHeight;
+						triLn_v1123 = viewPortHeight;
 					}
 					v81 = (int*)unk_DE56Cx;
 				LABEL_156:
@@ -8300,7 +8300,7 @@ LABEL_129:
 							}
 						LABEL_329:
 							v169 += 10;
-							if (!--v1123)
+							if (!--triLn_v1123)
 								return;
 						}
 						if (v173 > viewPortWidth)
@@ -8452,7 +8452,7 @@ LABEL_129:
 							}
 						LABEL_358:
 							v175 += 10;
-							if (!--v1123)
+							if (!--triLn_v1123)
 								return;
 						}
 						if (v176 > viewPortWidth)
@@ -8678,7 +8678,7 @@ LABEL_129:
 							}
 						LABEL_389:
 							v227 += 10;
-							if (!--v1123)
+							if (!--triLn_v1123)
 								return;
 						}
 						if (v230 > viewPortWidth)
@@ -8921,7 +8921,7 @@ LABEL_129:
 							}
 						LABEL_452:
 							v283 += 10;
-							if (!--v1123)
+							if (!--triLn_v1123)
 								return;
 						}
 						if (v286 > viewPortWidth)
@@ -9078,7 +9078,7 @@ LABEL_129:
 							}
 						LABEL_481:
 							v339 += 10;
-							if (!--v1123)
+							if (!--triLn_v1123)
 								return;
 						}
 						if (v340 > viewPortWidth)
@@ -9364,7 +9364,7 @@ LABEL_129:
 								}
 							}
 						LABEL_510:
-							if (!--v1123)
+							if (!--triLn_v1123)
 								return;
 						}
 						if (v378 > viewPortWidth)
@@ -9671,7 +9671,7 @@ LABEL_129:
 								}
 							}
 						LABEL_571:
-							if (!--v1123)
+							if (!--triLn_v1123)
 								return;
 						}
 						if (v393 > viewPortWidth)
@@ -9904,7 +9904,7 @@ LABEL_129:
 							}
 						LABEL_602:
 							v405 += 10;
-							if (!--v1123)
+							if (!--triLn_v1123)
 								return;
 						}
 						if (v408 > viewPortWidth)
@@ -10148,7 +10148,7 @@ LABEL_129:
 							}
 						LABEL_665:
 							v445 += 10;
-							if (!--v1123)
+							if (!--triLn_v1123)
 								return;
 						}
 						if (v448 > viewPortWidth)
@@ -10440,7 +10440,7 @@ LABEL_129:
 							}
 						LABEL_728:
 							v485 += 10;
-							if (!--v1123)
+							if (!--triLn_v1123)
 								return;
 						}
 						if (v488 > viewPortWidth)
@@ -10668,7 +10668,7 @@ LABEL_129:
 							}
 						LABEL_759:
 							v525 += 10;
-							if (!--v1123)
+							if (!--triLn_v1123)
 								return;
 						}
 						if (v528 > viewPortWidth)
@@ -10896,7 +10896,7 @@ LABEL_129:
 							}
 						LABEL_790:
 							v565 += 10;
-							if (!--v1123)
+							if (!--triLn_v1123)
 								return;
 						}
 						if (v568 > viewPortWidth)
@@ -11015,7 +11015,7 @@ LABEL_129:
 							}
 						LABEL_819:
 							v605 += 10;
-							if (!--v1123)
+							if (!--triLn_v1123)
 								return;
 						}
 						if (v609 > viewPortWidth)
@@ -11129,7 +11129,7 @@ LABEL_129:
 							}
 						LABEL_848:
 							v626 += 10;
-							if (!--v1123)
+							if (!--triLn_v1123)
 								return;
 						}
 						if (v630 > viewPortWidth)
@@ -11315,7 +11315,7 @@ LABEL_129:
 							}
 						LABEL_877:
 							v647 += 10;
-							if (!--v1123)
+							if (!--triLn_v1123)
 								return;
 						}
 						if (v649 > viewPortWidth)
@@ -11504,7 +11504,7 @@ LABEL_129:
 							}
 						LABEL_906:
 							v684 += 10;
-							if (!--v1123)
+							if (!--triLn_v1123)
 								return;
 						}
 						if (v686 > viewPortWidth)
@@ -11746,7 +11746,7 @@ LABEL_129:
 							}
 						LABEL_937:
 							v721 += 10;
-							if (!--v1123)
+							if (!--triLn_v1123)
 								return;
 						}
 						if (v724 > viewPortWidth)
@@ -11989,7 +11989,7 @@ LABEL_129:
 							}
 						LABEL_968:
 							v761 += 10;
-							if (!--v1123)
+							if (!--triLn_v1123)
 								return;
 						}
 						if (v764 > viewPortWidth)
@@ -12316,7 +12316,7 @@ LABEL_129:
 							}
 						LABEL_999:
 							v801 += 10;
-							if (!--v1123)
+							if (!--triLn_v1123)
 								return;
 						}
 						if (v804 > viewPortWidth)
@@ -12645,7 +12645,7 @@ LABEL_129:
 							}
 						LABEL_1030:
 							v842 += 10;
-							if (!--v1123)
+							if (!--triLn_v1123)
 								return;
 						}
 						if (v845 > viewPortWidth)
@@ -12938,7 +12938,7 @@ LABEL_129:
 							}
 						LABEL_1093:
 							v883 += 10;
-							if (!--v1123)
+							if (!--triLn_v1123)
 								return;
 						}
 						if (v886 > viewPortWidth)
@@ -13229,7 +13229,7 @@ LABEL_129:
 							}
 						LABEL_1156:
 							v923 += 10;
-							if (!--v1123)
+							if (!--triLn_v1123)
 								return;
 						}
 						if (v926 > viewPortWidth)
@@ -13604,7 +13604,7 @@ LABEL_129:
 							}
 						LABEL_1219:
 							v963 += 10;
-							if (!--v1123)
+							if (!--triLn_v1123)
 								return;
 						}
 						if (v966 > viewPortWidth)
@@ -13981,7 +13981,7 @@ LABEL_129:
 							}
 						LABEL_1282:
 							v1004 += 10;
-							if (!--v1123)
+							if (!--triLn_v1123)
 								return;
 						}
 						if (v1007 > viewPortWidth)
@@ -14440,7 +14440,7 @@ LABEL_129:
 						}
 					LABEL_1361:
 						v1045 += 10;
-						if (!--v1123)
+						if (!--triLn_v1123)
 							return;
 					}
 					if (v1048 > viewPortWidth)
@@ -14466,7 +14466,7 @@ LABEL_129:
 				v78 += v1161 * v1149;
 				if (v1301)
 				{
-					v1123 = viewPortHeight;
+					triLn_v1123 = viewPortHeight;
 					if (v1297)
 					{
 						v1114 = viewPortHeight;
@@ -14481,7 +14481,7 @@ LABEL_129:
 			else if (v1301)
 			{
 				v82 = viewPortHeight - v1191;
-				v1123 = viewPortHeight - v1191;
+				triLn_v1123 = viewPortHeight - v1191;
 				if (v1297)
 				{
 					v1114 = viewPortHeight - v1191;
