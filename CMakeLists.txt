@@ -51,15 +51,11 @@ else ()
     set(CMAKE_LIBRARY_ARCHITECTURE i686)
 endif ()
 
-set(Boost_USE_MULTITHREAD ON)
-
 find_package(SDL2 REQUIRED)
 find_package(SDL2_mixer REQUIRED)
 find_package(SDL2_ttf REQUIRED)
 find_package(SDL2_image REQUIRED)
 find_package(PNG REQUIRED)
-find_package(Boost 1.71.0 COMPONENTS date_time system thread REQUIRED)
-
 
 ################################################################################
 # Global configuration types

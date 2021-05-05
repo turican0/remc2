@@ -15,6 +15,8 @@
 #include <sstream>
 #include <string>
 //#include <boost/thread.hpp>
+#include <thread>
+#include <mutex>
 #include <boost/asio.hpp>
 #include "boost/bind.hpp"
 #include "boost/date_time/posix_time/posix_time_types.hpp"
@@ -111,7 +113,7 @@ void NetworkTestServer()
 			}
 
 			std::cout << addr.to_string() << std::endl;
-			
+
 		}
 		//--------------------
 		/*boost::asio::io_service my_io_service;
@@ -146,15 +148,15 @@ void NetworkTestServer()
 		char* data = (char*)"test message";
 		size_t request_length = strlen(data);
 
-		
+
 		socket.open(boost::asio::ip::udp::v4(), error);
 		if (!error)
 		{
 			socket.set_option(boost::asio::ip::udp::socket::reuse_address(true));
 			socket.set_option(boost::asio::socket_base::broadcast(true));
-			
+
 			boost::asio::ip::udp::endpoint senderEndpoint(boost::asio::ip::address_v4::broadcast(), port);
-			
+
 
 
 			socket.send_to(boost::asio::buffer(data, request_length), senderEndpoint);
@@ -211,7 +213,7 @@ void BroadcastAll()
 			boost::asio::ip::udp::endpoint senderEndpoint(boost::asio::ip::address_v4::broadcast(), MultiplayerPort);
 
 			//size_t request_length = strlen(message);
-			socket.send_to(boost::asio::buffer((char*)&messageStr, messTypeAddSize+ messageStr.lenght), senderEndpoint);
+			socket.send_to(boost::asio::buffer((char*)&messageStr, messTypeAddSize + messageStr.lenght), senderEndpoint);
 			socket.close(error);
 		}
 	}
@@ -309,7 +311,7 @@ void CreateMessage(int type, uint8_t* mesg, int lenght) {
 }
 
 void AddName(myNCB* connection) {
-	CreateMessage(MESSAGE_TESTADDNAME, (uint8_t*)connection->ncb_name_26, 1+strlen(connection->ncb_name_26));
+	CreateMessage(MESSAGE_TESTADDNAME, (uint8_t*)connection->ncb_name_26, 1 + strlen(connection->ncb_name_26));
 	/*sprintf(message, "REMC2MESG%s%s",compid, connection->ncb_name_26);
 	for (int i = 9 + 8 + strlen(connection->ncb_name_26); i < 34; i++)
 		message[i] = 0;*/
@@ -322,7 +324,7 @@ void makeConnection(char* newconnection) {
 	strcpy(connectionCompName, newconnection);
 };
 void hangupConnection() {
-	strcpy(connectionCompName,"");
+	strcpy(connectionCompName, "");
 };
 char* getConnection() {
 	if (strlen(connectionCompName) == 0)return NULL;
@@ -348,9 +350,9 @@ void SendNetwork(myNCB* connection) {
 void ReceiveNetwork(myNCB* connection) {
 };
 
-//boost::thread* listenThread;
+std::thread* listenThread;
 
-//boost::mutex a;
+std::mutex a;
 
 
 const int MaxMessageCount = 20;
@@ -364,7 +366,7 @@ int MessageWriteIndex = 0;
 void WriteMessage(messType* message, boost::asio::ip::address ip) {
 	if (MessageWriteIndex % MaxMessageCount != (MessageReadIndex + 1) % MaxMessageCount)
 	{
-		messages[MessageWriteIndex]=*message;
+		messages[MessageWriteIndex] = *message;
 		strcpy(messages[MessageWriteIndex].ip, ip.to_string().c_str());
 		MessageWriteIndex = (MessageWriteIndex + 1) % MaxMessageCount;
 	}
@@ -377,7 +379,7 @@ messType* ReadMessage() {
 }
 
 char* REMC2MESG = "REMC2MESG";
-/*
+
 class server
 {
 public:
@@ -397,18 +399,30 @@ public:
 	{
 		if (!error && bytes_recvd > 0)
 		{
+			/*socket_.async_send_to(
+				boost::asio::buffer(data_, bytes_recvd), sender_endpoint_,
+				boost::bind(&server::handle_send_to, this,
+					boost::asio::placeholders::error,
+					boost::asio::placeholders::bytes_transferred));
+			printf("eeeee");*/
 			//boost::asio::ip::udp::endpoint sendere=sender_endpoint_;
 			//boost::asio::ip::address x=sendere.address();
 			if (bytes_recvd >= 10) {
 				bool same = true;
 				for (int i = 0; i < 9; i++)
-					if (REMC2MESG[i] != data_[i])same=false;
-				if(same)
+					if (REMC2MESG[i] != data_[i])same = false;
+				if (same)
 					WriteMessage((messType*)data_, sender_endpoint_.address());
 			}
 		}
 		else
 		{
+			/*socket_.async_receive_from(
+				boost::asio::buffer(data_, max_length), sender_endpoint_,
+				boost::bind(&server::handle_receive_from, this,
+					boost::asio::placeholders::error,
+					boost::asio::placeholders::bytes_transferred));
+			printf("dddd");*/
 			if (bytes_recvd >= 10) {
 				bool same = true;
 				for (int i = 0; i < 9; i++)
@@ -418,6 +432,19 @@ public:
 			}
 		}
 	}
+	/*
+	void handle_send_to(const boost::system::error_code& error,
+		size_t bytes_sent)
+	{
+		socket_.async_receive_from(
+			boost::asio::buffer(data_, max_length), sender_endpoint_,
+			boost::bind(&server::handle_receive_from, this,
+				boost::asio::placeholders::error,
+				boost::asio::placeholders::bytes_transferred));
+		printf("cccc");
+		strcpy(lastmessage, "aaa");
+	}*/
+
 
 private:
 	boost::asio::ip::udp::socket socket_;
@@ -438,206 +465,27 @@ void ListenService() {
 	//std::cout << "Worker thread " << i << std::endl;
 	a.unlock();
 }
-*/
-/*
-class server
-{
-public:
-	server(boost::asio::io_context& io_context, short port)
-		: socket_(io_context, boost::asio::ip::udp::endpoint(boost::asio::ip::udp::v4(), port))
-	{
-		socket_.async_receive_from(
-			boost::asio::buffer(data_, max_length), sender_endpoint_,
-			boost::bind(&server::handle_receive_from, this,
-				boost::asio::placeholders::error,
-				boost::asio::placeholders::bytes_transferred));
-		//printf("fffff");
-	}
-
-	void handle_receive_from(const boost::system::error_code& error,
-		size_t bytes_recvd)
-	{
-		if (!error && bytes_recvd > 0)
-		{
-			//boost::asio::ip::udp::endpoint sendere=sender_endpoint_;
-			//boost::asio::ip::address x=sendere.address();
-			if (bytes_recvd >= 10) {
-				bool same = true;
-				for (int i = 0; i < 9; i++)
-					if (REMC2MESG[i] != data_[i])same = false;
-				if (same)
-					WriteMessage((messType*)data_, sender_endpoint_.address());
-			}
-		}
-		else
-		{
-			if (bytes_recvd >= 10) {
-				bool same = true;
-				for (int i = 0; i < 9; i++)
-					if (REMC2MESG[i] != data_[i])same = false;
-				if (same)
-					WriteMessage((messType*)data_, sender_endpoint_.address());
-			}
-		}
-	}
-
-	std::size_t receive(const boost::asio::mutable_buffer& buffer,
-
-		//boost::asio::buffer(data_, max_length), sender_endpoint_,
-
-		boost::asio::chrono::steady_clock::duration timeout,
-		boost::system::error_code& ec)
-	{
-		// Start the asynchronous operation. The handle_receive function used as a
-		// callback will update the ec and length variables.
-		std::size_t length = 0;
-		socket_.async_receive(boost::asio::buffer(buffer),
-			boost::bind(&server::handle_receive,
-				boost::placeholders::_1, boost::placeholders::_2, &ec, &length));
-
-		// Run the operation until it completes, or until the timeout.
-		run(timeout);
-
-		return length;
-	}
-
-private:
-	void run(boost::asio::chrono::steady_clock::duration timeout)
-	{
-		// Restart the io_context, as it may have been left in the "stopped" state
-		// by a previous operation.
-		io_context_.restart();
-
-		// Block until the asynchronous operation has completed, or timed out. If
-		// the pending asynchronous operation is a composed operation, the deadline
-		// applies to the entire operation, rather than individual operations on
-		// the socket.
-		io_context_.run_for(timeout);
-
-		// If the asynchronous operation completed successfully then the io_context
-		// would have been stopped due to running out of work. If it was not
-		// stopped, then the io_context::run_for call must have timed out.
-		if (!io_context_.stopped())
-		{
-			// Cancel the outstanding asynchronous operation.
-			socket_.cancel();
-
-			// Run the io_context again until the operation completes.
-			io_context_.run();
-		}
-	}
-
-	static void handle_receive(
-		const boost::system::error_code& ec, std::size_t length,
-		boost::system::error_code* out_ec, std::size_t* out_length)
-	{
-		*out_ec = ec;
-		*out_length = length;
-	}
-
-private:
-	boost::asio::io_context io_context_;
-	boost::asio::ip::udp::socket socket_;
-
-//private:
-	//boost::asio::ip::udp::socket socket_;
-	boost::asio::ip::udp::endpoint sender_endpoint_;
-	enum { max_length = 1024 };
-	char data_[max_length];
-};
-*/
-class client
-{
-public:
-	client(const boost::asio::ip::udp::endpoint& listen_endpoint)
-		: socket_(io_context_, listen_endpoint)
-	{
-
-	}
-
-	std::size_t receive(const boost::asio::mutable_buffer& buffer,
-
-		//boost::asio::buffer(data_, max_length), sender_endpoint_,
-
-		boost::asio::chrono::steady_clock::duration timeout,
-		boost::system::error_code& ec)
-	{
-		// Start the asynchronous operation. The handle_receive function used as a
-		// callback will update the ec and length variables.
-		std::size_t length = 0;
-		socket_.async_receive(boost::asio::buffer(buffer),
-			boost::bind(&client::handle_receive,
-				boost::placeholders::_1, boost::placeholders::_2, &ec, &length));
-
-		// Run the operation until it completes, or until the timeout.
-		run(timeout);
-
-		return length;
-	}
-
-private:
-	void run(boost::asio::chrono::steady_clock::duration timeout)
-	{
-		// Restart the io_context, as it may have been left in the "stopped" state
-		// by a previous operation.
-		io_context_.restart();
-
-		// Block until the asynchronous operation has completed, or timed out. If
-		// the pending asynchronous operation is a composed operation, the deadline
-		// applies to the entire operation, rather than individual operations on
-		// the socket.
-		io_context_.run_for(timeout);
-
-		// If the asynchronous operation completed successfully then the io_context
-		// would have been stopped due to running out of work. If it was not
-		// stopped, then the io_context::run_for call must have timed out.
-		if (!io_context_.stopped())
-		{
-			// Cancel the outstanding asynchronous operation.
-			socket_.cancel();
-
-			// Run the io_context again until the operation completes.
-			io_context_.run();
-		}
-	}
-
-	static void handle_receive(
-		const boost::system::error_code& ec, std::size_t length, boost::asio::ip::udp::endpoint endpoint,
-		boost::system::error_code* out_ec, std::size_t* out_length, boost::asio::ip::udp::endpoint* out_endpoint)
-	{
-		*out_ec = ec;
-		*out_length = length;
-		*out_endpoint = endpoint;
-	}
-
-private:
-	boost::asio::io_context io_context_;
-	boost::asio::ip::udp::socket socket_;
-	boost::asio::ip::udp::endpoint sender_endpoint_;
-};
 
 void NetworkInit() {
 	// Creation
-	//listenThread = new boost::thread(ListenService);
-	//const boost::asio::ip::udp::endpoint listen_endpoint(boost::asio::ip::udp::v4(), MultiplayerPort);
-	//client c(listen_endpoint);
+	listenThread = new std::thread(ListenService);
 };
-/*
+
 void NetworkEnd() {
 	// Cleanup
 	//listenThread->interrupt();
-	//listenThread->join();
-	//delete listenThread;
+	listenThread->join();
+	delete listenThread;
 }
 
 
 void NetworkRestart() {
 	// Cleanup
-	//listenThread->join();
-	//delete listenThread;
+	listenThread->join();
+	delete listenThread;
 	// Creation
-//	listenThread = new boost::thread(ListenService);
-}*/
+	listenThread = new std::thread(ListenService);
+}
 
 //(int a1@<eax>, int a2, int a3, int a4, int a5)
 void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myNCB* connection) {
@@ -785,8 +633,8 @@ private:
 
 
 int networkTimeout = 1000000;
-
-
+bool inrun = false;
+long oldtime;
 void fake_network_interupt(myNCB* connection) {
 	/*
 	boost::asio::io_context io_context;
@@ -796,96 +644,88 @@ void fake_network_interupt(myNCB* connection) {
 	*/
 	messType* inMessage;
 	//uint8_t outmessage[MaxMessageSize];
-
-	const boost::asio::ip::udp::endpoint listen_endpoint(boost::asio::ip::udp::v4(), MultiplayerPort);
-	client c(listen_endpoint);
-	char data[1024];
-	boost::system::error_code ec;
-	std::size_t n = c.receive(boost::asio::buffer(data),
-		boost::asio::chrono::milliseconds(networkTimeout), ec);
-	if (ec)
+	if (inrun)
 	{
-		//LISTENER_STATE==ADD_NAME
-		connection->ncb_cmd_cplt_49 = 0;
-		AddNetworkName(connection->ncb_name_26, "localhost");
-		CreateMessage(MESSAGE_WINADDNAME, (uint8_t*)connection->ncb_name_26, 1 + strlen(connection->ncb_name_26));
-		BroadcastAll();
-		//AddNetworkName(connection->ncb_name_26,lastIp);
-		//NetworkEnd();
-		//return;
+		if (clock() > oldtime + networkTimeout)
+		{
+			inrun = false;
+			connection->ncb_cmd_cplt_49 = 0;
+			AddNetworkName(connection->ncb_name_26, "localhost");
+			CreateMessage(MESSAGE_WINADDNAME, (uint8_t*)connection->ncb_name_26, 1 + strlen(connection->ncb_name_26));
+			BroadcastAll();
+			//AddNetworkName(connection->ncb_name_26,lastIp);
+			//NetworkEnd();
+			return;
+		}
 	}
 	else
 	{
-		//std::cout.write(data, n);
-		if (n >= 10) {
-			bool same = true;
-			for (int i = 0; i < 9; i++)
-				if (REMC2MESG[i] != data[i])same = false;
-			if (!same)
-				return;
-		}
-		else return;
-		inMessage = (messType*)data;//ReadMessage();
-		if (inMessage) {
-			//NetworkRestart();
+		oldtime = clock();
+		inrun = true;
+		//NetworkInit();
+	}
+	inMessage = ReadMessage();
+	if (inMessage) {
+		NetworkRestart();
 
-			bool same = true;
-			for (int i = 0; i < 8; i++)
-				if (compid[i] != inMessage->stamp[i])same = false;
-			if (same)return;
-			/*char strtype[5];
-			for (int i = 0; i < 4; i++)
-				strtype[i] = message[i + 9+8];
-			strtype[4] = 0;
-			int type=atoi(strtype);*/
-			/*for (int i = 0; i < 4; i++)
-				strtype[i] = message[i + 9 + 8+4];
-			strtype[4] = 0;
-			int lenght = atoi(strtype);*/
-			/*for (int i = 0; i < lenght; i++)
-				outmessage[i], message[9 + 8 + 4 + 4 + i];*/
-			switch (inMessage->type) {
-			case MESSAGE_TESTADDNAME: {//RECV ADD_NAME
-				if (strcmp(connection->ncb_name_26, (char*)inMessage->mesg)) {
-					//connection->ncb_cmd_cplt_49 = 0;
-					//NetworkEnd();
-					return;
-				}
-				else//name is same
-				{
-					connection->ncb_cmd_cplt_49 = 0;
-					//NetworkEnd();
-
-					CreateMessage(MESSAGE_NAMEREJECT, (uint8_t*)"", 1 + strlen(""));
-					//SendToIp(boost::asio::ip::make_address_v4(lastIp),message);
-
-					return;
-				}
-				break;
-			}
-			case MESSAGE_NAMEREJECT: {//REJECT ADDNAME
-				connection->ncb_cmd_cplt_49 = 22;
-				//AddNetworkName(connection->ncb_name_26, "localhost");
+		bool same = true;
+		for (int i = 0; i < 8; i++)
+			if (compid[i] != inMessage->stamp[i])same = false;
+		if (same)return;
+		/*char strtype[5];
+		for (int i = 0; i < 4; i++)
+			strtype[i] = message[i + 9+8];
+		strtype[4] = 0;
+		int type=atoi(strtype);*/
+		/*for (int i = 0; i < 4; i++)
+			strtype[i] = message[i + 9 + 8+4];
+		strtype[4] = 0;
+		int lenght = atoi(strtype);*/
+		/*for (int i = 0; i < lenght; i++)
+			outmessage[i], message[9 + 8 + 4 + 4 + i];*/
+		switch (inMessage->type) {
+		case MESSAGE_TESTADDNAME: {//RECV ADD_NAME
+			inrun = false;
+			if (strcmp(connection->ncb_name_26, (char*)inMessage->mesg)) {
+				//connection->ncb_cmd_cplt_49 = 0;
 				//NetworkEnd();
 				return;
-				break;
 			}
-			case MESSAGE_WINADDNAME: {
-				AddNetworkName((char*)inMessage->mesg, inMessage->ip);
-				//CreateMessage(MESSAGE_NAMEREJECT, (uint8_t*)"", 1 + strlen(""));
-				//SendToIp(boost::asio::ip::make_address_v4(lastIp), messageStr);
-				//AddNetworkName(connection->ncb_name_26, lastIp);
+			else//name is same
+			{
+				connection->ncb_cmd_cplt_49 = 0;
+				//NetworkEnd();
+
+				CreateMessage(MESSAGE_NAMEREJECT, (uint8_t*)"", 1 + strlen(""));
+				//SendToIp(boost::asio::ip::make_address_v4(lastIp),message);
+
+				return;
 			}
-			case MESSAGE_MAKECONNECT: {
-				myNCB* tempNCB = (myNCB*)inMessage->mesg;
-				if (!strcmp(connection->ncb_name_26, tempNCB->ncb_callName_10))
-					makeConnection((char*)tempNCB->ncb_name_26);
-			}
-			case MESSAGE_SEND: {
-				connection->ncb_buffer_4.p = inMessage->mesg;
-				connection->ncb_bufferLength_8 = inMessage->lenght;
-			}
-			}
+			break;
+		}
+		case MESSAGE_NAMEREJECT: {//REJECT ADDNAME
+			inrun = false;
+			connection->ncb_cmd_cplt_49 = 22;
+			//AddNetworkName(connection->ncb_name_26, "localhost");
+			//NetworkEnd();
+			return;
+			break;
+		}
+		case MESSAGE_WINADDNAME: {
+			AddNetworkName((char*)inMessage->mesg, inMessage->ip);
+			//CreateMessage(MESSAGE_NAMEREJECT, (uint8_t*)"", 1 + strlen(""));
+			//SendToIp(boost::asio::ip::make_address_v4(lastIp), messageStr);
+			//AddNetworkName(connection->ncb_name_26, lastIp);
+		}
+		case MESSAGE_MAKECONNECT: {
+			myNCB* tempNCB = (myNCB*)inMessage->mesg;
+			if (!strcmp(connection->ncb_name_26, tempNCB->ncb_callName_10))
+				makeConnection((char*)tempNCB->ncb_name_26);
+		}
+		case MESSAGE_SEND: {
+			connection->ncb_buffer_4.p = inMessage->mesg;
+			connection->ncb_bufferLength_8 = inMessage->lenght;
+		}
 		}
 	}
 }
