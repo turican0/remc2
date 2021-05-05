@@ -21,6 +21,41 @@
 #include "boost/bind.hpp"
 #include "boost/date_time/posix_time/posix_time_types.hpp"
 
+#define TEST_NETWORK_MESSAGES
+#define TEST_NETWORK_FAKECOMM1
+
+#ifdef TEST_NETWORK_MESSAGES
+FILE* debug_net_output;
+const char* debug_net_filename = "c:/prenos/remc2-dev/net_messages_log.txt";
+std::string net_path = {};
+bool debug_net_first = false;
+
+void debug_net_printf(const char* format, ...) {
+	char prbuffer[1024];
+	va_list arg;
+	int done;
+	va_start(arg, format);
+	done = vsprintf(prbuffer, format, arg);
+	va_end(arg);
+
+	//std::string exepath = get_exe_path();
+	//path = exepath + "/" + debug_net_filename;
+	net_path = debug_net_filename;
+
+	if (debug_net_first)
+	{
+		debug_net_output = fopen(net_path.c_str(), "wt");
+		debug_net_first = false;
+	}
+	else
+		debug_net_output = fopen(net_path.c_str(), "at");
+	fprintf(debug_net_output, "%s", prbuffer);
+	fclose(debug_net_output);
+#ifdef DEBUG_PRINT_DEBUG_TO_SCREEN
+	printf(prbuffer);
+#endif
+}
+#endif// TEST_NETWORK_MESSAGES
 
 //CreateMessage
 #define MESSAGE_TESTADDNAME 1
@@ -31,6 +66,8 @@
 
 //const short multicast_port = 30001;
 const int max_message_count = 10;
+
+int networkTimeout = 10000;
 
 char compid[9];
 
@@ -179,20 +216,6 @@ void NetworkTestServer()
 int lastnetworkname = 0;
 int lastnetworklisten = 0;
 
-const int MaxMessageSize = 20000;
-//uint8_t message[MaxMessageSize];
-
-#pragma pack (1)
-typedef struct {
-	uint8_t stamp[9];
-	uint8_t compid[8];
-	uint32_t type;
-	uint32_t lenght;
-	char ip[20];
-	uint8_t mesg[MaxMessageSize];
-}
-messType;
-#pragma pack (16)
 int messTypeAddSize = 9 + 8 + 4 + 4 + 20;
 
 messType messageStr;
@@ -308,6 +331,12 @@ void CreateMessage(int type, uint8_t* mesg, int lenght) {
 	messageStr.type = type;
 	messageStr.lenght = lenght;
 	memcpy(messageStr.mesg, mesg, lenght);
+#ifdef TEST_NETWORK_MESSAGES
+	char showstr[81];
+	memcpy(showstr, mesg, 40);
+	showstr[80] = 0;
+	debug_net_printf("SEND MESSAGE: %s\n", showstr);
+#endif //TEST_NETWORK_MESSAGES
 }
 
 void AddName(myNCB* connection) {
@@ -364,12 +393,14 @@ int MessageReadIndex = 0;
 int MessageWriteIndex = 0;
 
 void WriteMessage(messType* message, boost::asio::ip::address ip) {
-	if (MessageWriteIndex % MaxMessageCount != (MessageReadIndex + 1) % MaxMessageCount)
+	if (!(MessageWriteIndex % MaxMessageCount != (MessageReadIndex + 1) % MaxMessageCount))
 	{
-		messages[MessageWriteIndex] = *message;
-		strcpy(messages[MessageWriteIndex].ip, ip.to_string().c_str());
-		MessageWriteIndex = (MessageWriteIndex + 1) % MaxMessageCount;
+		MessageReadIndex = (MessageReadIndex + 1) % MaxMessageCount;//rewrite message
+		printf("warning, message rewrited!!\n");
 	}
+	messages[MessageWriteIndex] = *message;
+	strcpy(messages[MessageWriteIndex].ip, ip.to_string().c_str());
+	MessageWriteIndex = (MessageWriteIndex + 1) % MaxMessageCount;
 }
 messType* ReadMessage() {
 	if (MessageReadIndex == MessageWriteIndex)return NULL;
@@ -387,7 +418,7 @@ public:
 		: socket_(io_context, boost::asio::ip::udp::endpoint(boost::asio::ip::udp::v4(), port))
 	{
 		socket_.async_receive_from(
-			boost::asio::buffer(data_, max_length), sender_endpoint_,
+			boost::asio::buffer(data_, sizeof(messType)), sender_endpoint_,
 			boost::bind(&server::handle_receive_from, this,
 				boost::asio::placeholders::error,
 				boost::asio::placeholders::bytes_transferred));
@@ -407,13 +438,13 @@ public:
 			printf("eeeee");*/
 			//boost::asio::ip::udp::endpoint sendere=sender_endpoint_;
 			//boost::asio::ip::address x=sendere.address();
-			if (bytes_recvd >= 10) {
+			/*if (bytes_recvd >= 10) {
 				bool same = true;
 				for (int i = 0; i < 9; i++)
 					if (REMC2MESG[i] != data_[i])same = false;
 				if (same)
 					WriteMessage((messType*)data_, sender_endpoint_.address());
-			}
+			}*/
 		}
 		else
 		{
@@ -424,11 +455,17 @@ public:
 					boost::asio::placeholders::bytes_transferred));
 			printf("dddd");*/
 			if (bytes_recvd >= 10) {
-				bool same = true;
+				bool same1 = true;
 				for (int i = 0; i < 9; i++)
-					if (REMC2MESG[i] != data_[i])same = false;
-				if (same)
-					WriteMessage((messType*)data_, sender_endpoint_.address());
+					if (REMC2MESG[i] != data_[i])same1 = false;				
+				if (same1)
+				{
+					bool same2 = true;
+					for (int i = 0; i < 9; i++)
+						if (compid[i] != data_[i + 9])same2 = false;
+					if(!same2)
+						WriteMessage((messType*)data_, sender_endpoint_.address());
+				}
 			}
 		}
 	}
@@ -449,8 +486,7 @@ public:
 private:
 	boost::asio::ip::udp::socket socket_;
 	boost::asio::ip::udp::endpoint sender_endpoint_;
-	enum { max_length = 1024 };
-	char data_[max_length];
+	char data_[sizeof(messType)];
 };
 
 void ListenService() {
@@ -493,14 +529,21 @@ void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myN
 	v10x->esi = 0;
 	switch (connection->ncb_command_0) {
 	case 0x7f: {//? 
+#ifdef TEST_NETWORK_MESSAGES
+		debug_net_printf("SET NETWORK INIT\n");
+#endif //TEST_NETWORK_MESSAGES
 		connection->ncb_retcode_1 = 0x03;
 		connection->ncb_cmd_cplt_49 = 0x03;
 		long compidlong = (long)rand() + (long)rand();
 		sprintf(compid, "%08X", compidlong);
 		NetworkInit();
+		networkTimeout = 10000;
 		break;
 	}
 	case 0xb0: {//ADD_NAME 
+#ifdef TEST_NETWORK_MESSAGES
+		debug_net_printf("SET NETWORK ADD_NAME\n");
+#endif //TEST_NETWORK_MESSAGES
 		connection->ncb_retcode_1 = 0xff;
 		connection->ncb_num_3 = lastnetworkname + 0x02;
 		lastnetworkname++;
@@ -511,9 +554,13 @@ void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myN
 		connection->ncb_reserved_50[7] = 0x0e;
 		connection->ncb_reserved_50[8] = 0x67;
 		AddName(connection);
+		networkTimeout = 10000;
 		break;
 	}
 	case 0xb1: {//DELETE_NAME 
+#ifdef TEST_NETWORK_MESSAGES
+		debug_net_printf("SET NETWORK DELETE_NAME\n");
+#endif //TEST_NETWORK_MESSAGES
 		/*connection->ncb_retcode_1 = 0xff;
 		connection->ncb_num_3 = lastnetworkname + 0x02;
 		lastnetworkname++;
@@ -525,9 +572,13 @@ void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myN
 		connection->ncb_reserved_50[8] = 0x67;
 		AddName(connection);*/
 		connection->ncb_retcode_1 = 0xff;
+		networkTimeout = 100;
 		break;
 	}
 	case 0x90: {//CALL
+#ifdef TEST_NETWORK_MESSAGES
+		debug_net_printf("SET NETWORK CALL\n");
+#endif //TEST_NETWORK_MESSAGES
 		connection->ncb_retcode_1 = 0xff;
 		connection->ncb_lsn_2 = 0xd8;
 		connection->ncb_cmd_cplt_49 = 0xff;
@@ -537,9 +588,13 @@ void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myN
 		connection->ncb_reserved_50[7] = 0x16;
 		connection->ncb_reserved_50[8] = 0x68;
 		CallNetwork(connection);
+		networkTimeout = 100;
 		break;
 	}
 	case 0x91: {//LISTEN
+#ifdef TEST_NETWORK_MESSAGES
+		debug_net_printf("SET NETWORK LISTEN\n");
+#endif //TEST_NETWORK_MESSAGES
 		connection->ncb_retcode_1 = 0xff;
 		connection->ncb_lsn_2 = lastnetworklisten + 0xe8;
 		lastnetworklisten++;
@@ -548,9 +603,13 @@ void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myN
 		connection->ncb_reserved_50[7] = 0x17;
 		connection->ncb_reserved_50[8] = 0x6a;
 		ListenNetwork(connection);
+		networkTimeout = 100;
 		break;
 	}
 	case 0x94: {//SEND
+#ifdef TEST_NETWORK_MESSAGES
+		debug_net_printf("SET NETWORK SEND\n");
+#endif //TEST_NETWORK_MESSAGES
 		connection->ncb_retcode_1 = 0xff;
 		connection->ncb_cmd_cplt_49 = 0xff;
 		connection->ncb_reserved_50[4] = 0x7d;
@@ -559,9 +618,13 @@ void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myN
 		connection->ncb_reserved_50[7] = 0x1B;
 		connection->ncb_reserved_50[8] = 0x6B;
 		SendNetwork(connection);
+		networkTimeout = 100;
 		break;
 	}
 	case 0x95: {//RECEIVE
+#ifdef TEST_NETWORK_MESSAGES
+		debug_net_printf("SET NETWORK RECEIVE\n");
+#endif //TEST_NETWORK_MESSAGES
 		connection->ncb_retcode_1 = 0xff;
 		connection->ncb_lsn_2 = 0xd9;
 		connection->ncb_cmd_cplt_49 = 0xff;
@@ -569,9 +632,13 @@ void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myN
 		connection->ncb_reserved_50[7] = 0x1B;
 		connection->ncb_reserved_50[8] = 0x6c;
 		ReceiveNetwork(connection);
+		networkTimeout = 100;
 		break;
 	}
 	case 0x35: {//CANCEL
+#ifdef TEST_NETWORK_MESSAGES
+		debug_net_printf("SET NETWORK CANCEL\n");
+#endif //TEST_NETWORK_MESSAGES
 		connection->ncb_retcode_1 = 0x0b;
 		connection->ncb_cmd_cplt_49 = 0x0b;
 		connection->ncb_reserved_50[2] = 0x6f;
@@ -579,8 +646,9 @@ void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myN
 		connection->ncb_reserved_50[6] = 0x85;
 		connection->ncb_reserved_50[7] = 0x17;
 		connection->ncb_reserved_50[8] = 0x6a;
+		networkTimeout = 100;
 		break;
-	}
+	}			 
 	}
 }
 /*
@@ -629,10 +697,27 @@ private:
 };*/
 
 
+#ifdef TEST_NETWORK_FAKECOMM1
+int fake_index = 0;
+void get_next_fakemess(int index) {
+	messType fake_data;
+	switch (index) {
+	case 1: {
+		switch (fake_index) {
+			case 0:
+			{
+				WriteMessage((messType*)&fake_data, boost::asio::ip::address::from_string("198.198.198.198"));
+				break;
+			}
+		}
+		break;
+	}
+	}
+	fake_index++;
+};
+#endif//TEST_NETWORK_FAKECOMM1
 
 
-
-int networkTimeout = 1000000;
 bool inrun = false;
 long oldtime;
 void fake_network_interupt(myNCB* connection) {
@@ -648,13 +733,24 @@ void fake_network_interupt(myNCB* connection) {
 	{
 		if (clock() > oldtime + networkTimeout)
 		{
+#ifdef TEST_NETWORK_MESSAGES
+			debug_net_printf("WAITING FOR MESSAGE TIMEOUT:%x\n", connection->ncb_command_0);
+#endif //TEST_NETWORK_MESSAGES
 			inrun = false;
-			connection->ncb_cmd_cplt_49 = 0;
-			AddNetworkName(connection->ncb_name_26, "localhost");
-			CreateMessage(MESSAGE_WINADDNAME, (uint8_t*)connection->ncb_name_26, 1 + strlen(connection->ncb_name_26));
-			BroadcastAll();
-			//AddNetworkName(connection->ncb_name_26,lastIp);
-			//NetworkEnd();
+			switch (connection->ncb_command_0)
+			{
+				case 0xb0: {//ADD_NAME 
+					connection->ncb_cmd_cplt_49 = 0;
+					AddNetworkName(connection->ncb_name_26, "localhost");
+					CreateMessage(MESSAGE_WINADDNAME, (uint8_t*)connection->ncb_name_26, 1 + strlen(connection->ncb_name_26));
+					BroadcastAll();
+					//AddNetworkName(connection->ncb_name_26,lastIp);
+					//NetworkEnd();
+				}
+				default: {
+					connection->ncb_cmd_cplt_49 = 0;
+				}
+			}			
 			return;
 		}
 	}
@@ -665,13 +761,12 @@ void fake_network_interupt(myNCB* connection) {
 		//NetworkInit();
 	}
 	inMessage = ReadMessage();
+	#ifdef TEST_NETWORK_FAKECOMM1
+	if (!inMessage)get_next_fakemess(1);
+	#endif//TEST_NETWORK_FAKECOMM1
 	if (inMessage) {
 		NetworkRestart();
 
-		bool same = true;
-		for (int i = 0; i < 8; i++)
-			if (compid[i] != inMessage->stamp[i])same = false;
-		if (same)return;
 		/*char strtype[5];
 		for (int i = 0; i < 4; i++)
 			strtype[i] = message[i + 9+8];
@@ -683,6 +778,12 @@ void fake_network_interupt(myNCB* connection) {
 		int lenght = atoi(strtype);*/
 		/*for (int i = 0; i < lenght; i++)
 			outmessage[i], message[9 + 8 + 4 + 4 + i];*/
+#ifdef TEST_NETWORK_MESSAGES
+		char showstr[81];
+		memcpy(showstr, inMessage, 40);
+		showstr[80] = 0;
+		debug_net_printf("RECEIVED MESSAGE:%s\n", showstr);
+#endif //TEST_NETWORK_MESSAGES
 		switch (inMessage->type) {
 		case MESSAGE_TESTADDNAME: {//RECV ADD_NAME
 			inrun = false;

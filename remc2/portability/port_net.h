@@ -59,7 +59,20 @@ typedef struct {//lenght 66(changed to 70)
 myNCB;
 #pragma pack (16)
 
-extern const int MaxMessageSize;
+#define MaxMessageSize 20000
+
+#pragma pack (1)
+typedef struct {
+	uint8_t stamp[9];
+	uint8_t compid[8];
+	uint32_t type;
+	uint32_t lenght;
+	char ip[20];
+	uint8_t mesg[MaxMessageSize];
+}
+messType;
+#pragma pack (16)
+
 
 void NetworkTestServer();
 

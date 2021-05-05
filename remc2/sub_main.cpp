@@ -479,7 +479,7 @@ return true;
 
 //posistruct_t var_2BB3E0_x_DWORD_EA3D4_14[0x3e9];
 
-char aTester[7]="TESTER";
+char nethID[7]="TESTER";
 
 static unsigned long int    _RWD_randnext = 1;
 
@@ -89178,7 +89178,7 @@ void sub_72D04()
 int NetworkTestAddName_72DDE(/*signed __int16* a1,*/ int compindex)//253dde
 {//253de2
 	int result; // [esp+14h] [ebp-8h]
-	sprintf(printbuffer, "%s%d", aTester, compindex);
+	sprintf(printbuffer, "%s%d", nethID, compindex);
 	do
 	{//253e06
 		result = NetworkAddName_74767(connection_E12AE[compindex], printbuffer);//2557bb
@@ -89280,7 +89280,7 @@ int NetworkInitConnection_7308F(char* a2, __int16 a3)//25408f
 		maxPlayers_E127A = 8;
 	x_BYTE_E1275 = 0;
 	x_WORD_E12A6 = 0;
-	strcpy(aTester, (char*)a2);
+	strcpy(nethID, (char*)a2);
 	for (i = 0; maxPlayers_E127A > i; i++)
 		connected_E12CE[i] = 0;
 	for (i = 0; maxPlayers_E127A > i; i++)
@@ -89336,7 +89336,7 @@ int NetworkInitConnection_7308F(char* a2, __int16 a3)//25408f
 			if (x_WORD_E1276 != i)
 				NetworkCancel_748F7(i);
 		}
-		sprintf(printbuffer, "%s%d", aTester, x_WORD_E1276);
+		sprintf(printbuffer, "%s%d", nethID, x_WORD_E1276);
 		NetworkDeleteName_74A86(connection_E12AE[x_WORD_E1276], printbuffer);
 		v9 = -1;
 	}
@@ -89362,7 +89362,7 @@ void NetworkCanceling_73669(__int16 a1)//254669
 				NetworkHangUp_74B19(connection_E12AE[i]);
 			}
 		}
-		sprintf(printbuffer, "%s%d", aTester, x_WORD_E1276);
+		sprintf(printbuffer, "%s%d", nethID, x_WORD_E1276);
 		NetworkDeleteName_74A86(connection_E12AE[a1], printbuffer);
 		x_BYTE_E1275 = 0;
 	}
@@ -89457,7 +89457,7 @@ void sub_739AD(__int16 a1)//2549ad
 				NetworkHangUp_74B19(connection_E12AE[i]);
 			}
 		}
-		sprintf(printbuffer, "%s%d", aTester, x_WORD_E1276);
+		sprintf(printbuffer, "%s%d", nethID, x_WORD_E1276);
 		NetworkDeleteName_74A86(connection_E12AE[a1], printbuffer);
 		x_BYTE_E1275 = 0;
 	}
@@ -89554,7 +89554,7 @@ void NetworkEnd_73D11(__int16 a1)//254d11
 				NetworkHangUp_74B19(connection_E12AE[i]);
 			}
 		}
-		sprintf(printbuffer, "%s%d", aTester, x_WORD_E1276);
+		sprintf(printbuffer, "%s%d", nethID, x_WORD_E1276);
 		NetworkDeleteName_74A86(connection_E12AE[a1], printbuffer);
 		x_BYTE_E1275 = 0;
 	}
@@ -89757,7 +89757,7 @@ int NetworkCall_74809(__int16 a1)//255809
 	CALL - požadavek o zřízení relace s uzlem zadaného jména
 LISTEN - příjem žádostí o zřízení spojení (od uzlu zadaného jména nebo od kohokoli (jméno "*")
 	*/
-	sprintf(connection_E12AE[a1]->ncb_callName_10, "%s%d", aTester, a1);
+	sprintf(connection_E12AE[a1]->ncb_callName_10, "%s%d", nethID, a1);
 	while (strlen(connection_E12AE[a1]->ncb_callName_10) < 0xFu)
 		strcat(connection_E12AE[a1]->ncb_callName_10, " ");
 	connection_E12AE[a1]->ncb_rto_42 = 0;
@@ -89860,7 +89860,7 @@ signed int NetworkListen_74B75(__int16 a1)//255b75
 
 	if (connection_E12AE[a1]->ncb_cmd_cplt_49 == 0xff)
 		return -connection_E12AE[a1]->ncb_cmd_cplt_49;
-	sprintf(printbuffer, "%s%d", aTester, a1);
+	sprintf(printbuffer, "%s%d", nethID, a1);
 	connection_E12AE[a1]->ncb_command_0 = 0x91;//LISTEN 
 	strcpy(connection_E12AE[a1]->ncb_callName_10, printbuffer);
 	while (strlen(connection_E12AE[a1]->ncb_callName_10) < 0xFu)
@@ -89880,13 +89880,13 @@ signed int NetworkListen_74B75(__int16 a1)//255b75
 // 99D84: using guessed type x_DWORD strcat(x_DWORD, x_DWORD);
 
 //----- (00074C9D) --------------------------------------------------------
-int NetworkReceivePacket_74C9D(myNCB* connection, uint8_t* buffer, int maxsize = MaxMessageSize)//255c9d
+int NetworkReceivePacket_74C9D(myNCB* connection, uint8_t* buffer, int maxsize = sizeof(messType))//255c9d
 {
 	connection->ncb_command_0 = 0x95;//RECEIVE
 
 	connection->ncb_buffer_4.p = paket_E1282;
 
-	connection->ncb_bufferLength_8 = MaxMessageSize;
+	connection->ncb_bufferLength_8 = sizeof(messType);
 	if (setNetbios_75044(connection) == -1)
 		return -99;
 	while (connection->ncb_cmd_cplt_49 == 0xffu)
@@ -89913,14 +89913,14 @@ void NetworkReceiveMessage_74D41(myNCB* connection, uint8_t* inbuffer, unsigned 
 
 	buffer = inbuffer;
 	packedReceived = 0;
-	while (size > MaxMessageSize * packedReceived)
+	while (size > sizeof(messType) * packedReceived)
 	{
-		if (NetworkReceivePacket_74C9D(connection, buffer) != MaxMessageSize)
+		if (NetworkReceivePacket_74C9D(connection, buffer) != sizeof(messType))
 			return;
 		packedReceived++;
-		buffer += MaxMessageSize;
+		buffer += sizeof(messType);
 	}
-	/*v3 = */NetworkReceivePacket_74C9D(connection, buffer, size- MaxMessageSize * packedReceived);
+	/*v3 = */NetworkReceivePacket_74C9D(connection, buffer, size- sizeof(messType) * packedReceived);
 	/*if ((size & 0x7FF) == v3)
 		v5 = size;
 	else
@@ -89974,14 +89974,14 @@ void NetworkSendMessage_74EF1(myNCB* connection, uint8_t* inbuffer, unsigned int
 	packedSended = 0;
 
 
-	while (size > MaxMessageSize * packedSended)
+	while (size > sizeof(messType) * packedSended)
 	{
-		if (NetworkSendPacket_74E6D(connection, buffer, MaxMessageSize) != MaxMessageSize)
+		if (NetworkSendPacket_74E6D(connection, buffer, sizeof(messType)) != sizeof(messType))
 			return;
 		packedSended++;
-		buffer += MaxMessageSize;
+		buffer += sizeof(messType);
 	}
-	NetworkSendPacket_74E6D(connection, buffer, size - (MaxMessageSize * packedSended));
+	NetworkSendPacket_74E6D(connection, buffer, size - (sizeof(messType) * packedSended));
 
 	/*
 	while (1)
