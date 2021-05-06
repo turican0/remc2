@@ -89246,10 +89246,11 @@ signed int NetworkTestCall_72FBB()//253fbb
 	NetworkCall_74809(0);
 	for (int i = x_DWORD_17DB54_game_turn2; ; WaitToConnect_7C230())
 	{
-		if (connection_E12AE[i]->ncb_cmd_cplt_49 != 0xff)
+		if (connection_E12AE[0]->ncb_cmd_cplt_49 != 0xff)
 			return 1;
 		if ((x_DWORD_17DB54_game_turn2 - i) > 0x78)
 			break;
+		fake_network_interupt(connection_E12AE[0]);
 	}
 	NetworkCancel_748F7(0);
 	return 0;

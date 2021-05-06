@@ -28,7 +28,12 @@
 FILE* debug_net_output;
 const char* debug_net_filename = "c:/prenos/remc2-dev/net_messages_log.txt";
 std::string net_path = {};
-bool debug_net_first = false;
+bool debug_net_first = true;
+
+char* IHaveNameStrP = NULL;
+char IHaveNameStr[16];
+
+bool listenerOn = true;
 
 void debug_net_printf(const char* format, ...) {
 	char prbuffer[1024];
@@ -311,6 +316,9 @@ void AddNetworkName(char* name, char* Ip) {
 		strcpy(NetworkIp[lastindex], Ip);
 		lastindex++;
 	}
+#ifdef TEST_NETWORK_MESSAGES
+	debug_net_printf("net name added:%s %s\n", name, Ip);
+#endif //TEST_NETWORK_MESSAGES
 }
 
 void RemoveNetworkName(char* name) {
@@ -337,6 +345,14 @@ void CreateMessage(int type, uint8_t* mesg, int lenght) {
 	showstr[80] = 0;
 	debug_net_printf("SEND MESSAGE: %s\n", showstr);
 #endif //TEST_NETWORK_MESSAGES
+}
+
+void CreateFakeMessage(int type, uint8_t* mesg, int lenght) {
+	memcpy(messageStr.stamp, "REMC2MESG", 9);
+	memcpy(messageStr.compid, "12345678", 8);
+	messageStr.type = type;
+	messageStr.lenght = lenght;
+	memcpy(messageStr.mesg, mesg, lenght);
 }
 
 void AddName(myNCB* connection) {
@@ -409,7 +425,7 @@ messType* ReadMessage() {
 	return &messages[oldindex];
 }
 
-char* REMC2MESG = "REMC2MESG";
+char* REMC2MESG = (char*)"REMC2MESG";
 
 class server
 {
@@ -445,9 +461,11 @@ public:
 				if (same)
 					WriteMessage((messType*)data_, sender_endpoint_.address());
 			}*/
+#ifndef TEST_NETWORK_FAKECOMM1			
 		}
 		else
 		{
+#endif //TEST_NETWORK_FAKECOMM1
 			/*socket_.async_receive_from(
 				boost::asio::buffer(data_, max_length), sender_endpoint_,
 				boost::bind(&server::handle_receive_from, this,
@@ -463,10 +481,63 @@ public:
 					bool same2 = true;
 					for (int i = 0; i < 9; i++)
 						if (compid[i] != data_[i + 9])same2 = false;
-					if(!same2)
-						WriteMessage((messType*)data_, sender_endpoint_.address());
+					if (!same2)
+					{
+						messType* inMessage= (messType*)data_;
+#ifdef TEST_NETWORK_MESSAGES
+						debug_net_printf("inmessage:%x\n", inMessage->type);
+#endif //TEST_NETWORK_MESSAGES
+						switch (inMessage->type) {
+						case MESSAGE_TESTADDNAME: {//RECV ADD_NAME
+							if ((IHaveNameStrP == NULL) || (strcmp(IHaveNameStrP, (char*)inMessage->mesg)))
+							{
+								//connection->ncb_cmd_cplt_49 = 0;
+								//NetworkEnd();
+								return;
+							}
+							else//name is same
+							{
+								CreateMessage(MESSAGE_NAMEREJECT, (uint8_t*)"", 1 + strlen(""));
+								SendToIp(boost::asio::ip::make_address_v4(sender_endpoint_.address().to_string()));
+								return;
+							}
+							break;
+						}
+												/*
+						case MESSAGE_NAMEREJECT: {//REJECT ADDNAME
+							inrun = false;
+							connection->ncb_cmd_cplt_49 = 22;
+							//AddNetworkName(connection->ncb_name_26, "localhost");
+							//NetworkEnd();
+							return;
+							break;
+						}*/
+						case MESSAGE_WINADDNAME: {
+							AddNetworkName((char*)inMessage->mesg, inMessage->ip);
+							//CreateMessage(MESSAGE_NAMEREJECT, (uint8_t*)"", 1 + strlen(""));
+							//SendToIp(boost::asio::ip::make_address_v4(lastIp), messageStr);
+							//AddNetworkName(connection->ncb_name_26, lastIp);
+						}/*
+						case MESSAGE_MAKECONNECT: {
+							myNCB* tempNCB = (myNCB*)inMessage->mesg;
+							if (!strcmp(connection->ncb_name_26, tempNCB->ncb_callName_10))
+								makeConnection((char*)tempNCB->ncb_name_26);
+						}
+						case MESSAGE_SEND: {
+							connection->ncb_buffer_4.p = inMessage->mesg;
+							connection->ncb_bufferLength_8 = inMessage->lenght;
+						}*/
+						//else
+						default:
+						{
+							WriteMessage((messType*)data_, sender_endpoint_.address());
+							break;
+						}
+						}
+					}
 				}
 			}
+
 		}
 	}
 	/*
@@ -497,7 +568,7 @@ void ListenService() {
 	server s(io_context, MultiplayerPort);
 	//printf("bbbbbbbbbb");
 
-	io_context.run();
+	while(listenerOn)io_context.run();
 	//std::cout << "Worker thread " << i << std::endl;
 	a.unlock();
 }
@@ -510,18 +581,28 @@ void NetworkInit() {
 void NetworkEnd() {
 	// Cleanup
 	//listenThread->interrupt();
+	listenerOn = false;
+	long locoldtime = clock();
+	long locTimeout=3000;
+	networkTimeout = 100;
+	while (clock() > locoldtime + locTimeout);
 	listenThread->join();
 	delete listenThread;
 }
 
-
+/*
 void NetworkRestart() {
-	// Cleanup
-	listenThread->join();
-	delete listenThread;
-	// Creation
-	listenThread = new std::thread(ListenService);
+	if (a.try_lock())
+	{
+		a.unlock();
+		// Cleanup
+		listenThread->join();
+		delete listenThread;
+		// Creation
+		listenThread = new std::thread(ListenService);
+	}
 }
+*/
 
 //(int a1@<eax>, int a2, int a3, int a4, int a5)
 void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myNCB* connection) {
@@ -542,7 +623,7 @@ void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myN
 	}
 	case 0xb0: {//ADD_NAME 
 #ifdef TEST_NETWORK_MESSAGES
-		debug_net_printf("SET NETWORK ADD_NAME\n");
+		debug_net_printf("*SET NETWORK ADD_NAME %s %s\n", connection->ncb_name_26, connection->ncb_callName_10);
 #endif //TEST_NETWORK_MESSAGES
 		connection->ncb_retcode_1 = 0xff;
 		connection->ncb_num_3 = lastnetworkname + 0x02;
@@ -559,7 +640,7 @@ void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myN
 	}
 	case 0xb1: {//DELETE_NAME 
 #ifdef TEST_NETWORK_MESSAGES
-		debug_net_printf("SET NETWORK DELETE_NAME\n");
+		debug_net_printf("*SET NETWORK DELETE_NAME %s %s\n", connection->ncb_name_26, connection->ncb_callName_10);
 #endif //TEST_NETWORK_MESSAGES
 		/*connection->ncb_retcode_1 = 0xff;
 		connection->ncb_num_3 = lastnetworkname + 0x02;
@@ -577,7 +658,7 @@ void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myN
 	}
 	case 0x90: {//CALL
 #ifdef TEST_NETWORK_MESSAGES
-		debug_net_printf("SET NETWORK CALL\n");
+		debug_net_printf("*SET NETWORK CALL %s %s\n", connection->ncb_name_26, connection->ncb_callName_10);
 #endif //TEST_NETWORK_MESSAGES
 		connection->ncb_retcode_1 = 0xff;
 		connection->ncb_lsn_2 = 0xd8;
@@ -593,7 +674,7 @@ void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myN
 	}
 	case 0x91: {//LISTEN
 #ifdef TEST_NETWORK_MESSAGES
-		debug_net_printf("SET NETWORK LISTEN\n");
+		debug_net_printf("*SET NETWORK LISTEN %s %s\n", connection->ncb_name_26, connection->ncb_callName_10);
 #endif //TEST_NETWORK_MESSAGES
 		connection->ncb_retcode_1 = 0xff;
 		connection->ncb_lsn_2 = lastnetworklisten + 0xe8;
@@ -608,7 +689,7 @@ void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myN
 	}
 	case 0x94: {//SEND
 #ifdef TEST_NETWORK_MESSAGES
-		debug_net_printf("SET NETWORK SEND\n");
+		debug_net_printf("*SET NETWORK SEND %s %s\n", connection->ncb_name_26, connection->ncb_callName_10);
 #endif //TEST_NETWORK_MESSAGES
 		connection->ncb_retcode_1 = 0xff;
 		connection->ncb_cmd_cplt_49 = 0xff;
@@ -623,7 +704,7 @@ void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myN
 	}
 	case 0x95: {//RECEIVE
 #ifdef TEST_NETWORK_MESSAGES
-		debug_net_printf("SET NETWORK RECEIVE\n");
+		debug_net_printf("*SET NETWORK RECEIVE %s %s\n", connection->ncb_name_26, connection->ncb_callName_10);
 #endif //TEST_NETWORK_MESSAGES
 		connection->ncb_retcode_1 = 0xff;
 		connection->ncb_lsn_2 = 0xd9;
@@ -637,7 +718,7 @@ void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myN
 	}
 	case 0x35: {//CANCEL
 #ifdef TEST_NETWORK_MESSAGES
-		debug_net_printf("SET NETWORK CANCEL\n");
+		debug_net_printf("*SET NETWORK CANCEL %s %s\n", connection->ncb_name_26, connection->ncb_callName_10);
 #endif //TEST_NETWORK_MESSAGES
 		connection->ncb_retcode_1 = 0x0b;
 		connection->ncb_cmd_cplt_49 = 0x0b;
@@ -699,19 +780,27 @@ private:
 
 #ifdef TEST_NETWORK_FAKECOMM1
 int fake_index = 0;
-void get_next_fakemess(int index) {
-	messType fake_data;
+void send_fakemess(int index) {
 	switch (index) {
 	case 1: {
 		switch (fake_index) {
 			case 0:
 			{
-				memcpy(fake_data.compid, (char*)"12345678",8);
-				memcpy(fake_data.stamp, (char*)"REMC2MESG", 9);
-				memcpy(fake_data.ip, (char*)"198.198.198.198\0", 16);
-				fake_data.type = MESSAGE_NAMEREJECT;
-				fake_data.lenght = 0;
-				WriteMessage((messType*)&fake_data, boost::asio::ip::address::from_string("198.198.198.198"));
+				//memcpy(fake_data.ip, (char*)"198.198.198.198\0", 16);
+				CreateFakeMessage(MESSAGE_WINADDNAME, (uint8_t*)"NETH200", 1 + strlen("NETH200"));
+				/*sprintf(message, "REMC2MESG%s%s",compid, connection->ncb_name_26);
+				for (int i = 9 + 8 + strlen(connection->ncb_name_26); i < 34; i++)
+					message[i] = 0;*/
+				BroadcastAll();
+				//WriteMessage((messType*)&fake_data, boost::asio::ip::address::from_string("198.198.198.198"));
+				break;
+			}
+			case 1:
+			{
+				//memcpy(fake_data.ip, (char*)"198.198.198.198\0", 16);
+				CreateFakeMessage(MESSAGE_NAMEREJECT, (uint8_t*)"", 1 + strlen(""));
+				BroadcastAll();
+				//WriteMessage((messType*)&fake_data, boost::asio::ip::address::from_string("198.198.198.198"));
 				break;
 			}
 		}
@@ -746,9 +835,11 @@ void fake_network_interupt(myNCB* connection) {
 			{
 				case 0xb0: {//ADD_NAME 
 					connection->ncb_cmd_cplt_49 = 0;
-					AddNetworkName(connection->ncb_name_26, "127.0.0.1");
+					AddNetworkName(connection->ncb_name_26, (char*)"127.0.0.1");
 					CreateMessage(MESSAGE_WINADDNAME, (uint8_t*)connection->ncb_name_26, 1 + strlen(connection->ncb_name_26));
 					BroadcastAll();
+					memcpy(IHaveNameStr, connection->ncb_name_26,16);
+					IHaveNameStrP = IHaveNameStr;
 					//AddNetworkName(connection->ncb_name_26,lastIp);
 					//NetworkEnd();
 				}
@@ -768,12 +859,12 @@ void fake_network_interupt(myNCB* connection) {
 	inMessage = ReadMessage();
 	#ifdef TEST_NETWORK_FAKECOMM1
 	if (!inMessage) {
-		get_next_fakemess(1);
-		inMessage = ReadMessage();
+		send_fakemess(1);
+		//inMessage = ReadMessage();
 	}
 	#endif//TEST_NETWORK_FAKECOMM1
 	if (inMessage) {
-		NetworkRestart();
+		//NetworkRestart();
 
 		/*char strtype[5];
 		for (int i = 0; i < 4; i++)
@@ -792,10 +883,11 @@ void fake_network_interupt(myNCB* connection) {
 		showstr[80] = 0;
 		debug_net_printf("RECEIVED MESSAGE:%s\n", showstr);
 #endif //TEST_NETWORK_MESSAGES
-		switch (inMessage->type) {
-		case MESSAGE_TESTADDNAME: {//RECV ADD_NAME
+		switch (inMessage->type) {			
+		/*case MESSAGE_TESTADDNAME: {//RECV ADD_NAME
 			inrun = false;
-			if (strcmp(connection->ncb_name_26, (char*)inMessage->mesg)) {
+			if ((strcmp(connection->ncb_name_26, (char*)inMessage->mesg)) || !IHaveName)
+			{
 				//connection->ncb_cmd_cplt_49 = 0;
 				//NetworkEnd();
 				return;
@@ -804,14 +896,13 @@ void fake_network_interupt(myNCB* connection) {
 			{
 				connection->ncb_cmd_cplt_49 = 0;
 				//NetworkEnd();
-
 				CreateMessage(MESSAGE_NAMEREJECT, (uint8_t*)"", 1 + strlen(""));
 				//SendToIp(boost::asio::ip::make_address_v4(lastIp),message);
 
 				return;
 			}
 			break;
-		}
+		}*/
 		case MESSAGE_NAMEREJECT: {//REJECT ADDNAME
 			inrun = false;
 			connection->ncb_cmd_cplt_49 = 22;
@@ -820,12 +911,12 @@ void fake_network_interupt(myNCB* connection) {
 			return;
 			break;
 		}
-		case MESSAGE_WINADDNAME: {
+		/*case MESSAGE_WINADDNAME: {
 			AddNetworkName((char*)inMessage->mesg, inMessage->ip);
 			//CreateMessage(MESSAGE_NAMEREJECT, (uint8_t*)"", 1 + strlen(""));
 			//SendToIp(boost::asio::ip::make_address_v4(lastIp), messageStr);
 			//AddNetworkName(connection->ncb_name_26, lastIp);
-		}
+		}*/
 		case MESSAGE_MAKECONNECT: {
 			myNCB* tempNCB = (myNCB*)inMessage->mesg;
 			if (!strcmp(connection->ncb_name_26, tempNCB->ncb_callName_10))
