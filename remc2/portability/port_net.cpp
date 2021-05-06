@@ -396,8 +396,10 @@ void ReceiveNetwork(myNCB* connection) {
 };
 
 std::thread* listenThread;
+std::thread* guardThread;
 
 std::mutex a;
+std::mutex b;
 
 
 const int MaxMessageCount = 20;
@@ -566,10 +568,7 @@ void ListenService() {
 
 	using namespace std; // For atoi.
 	server s(io_context, MultiplayerPort);
-	//printf("bbbbbbbbbb");
-
-	while(listenerOn)io_context.run();
-	//std::cout << "Worker thread " << i << std::endl;
+	io_context.run();
 	a.unlock();
 }
 
@@ -590,7 +589,7 @@ void NetworkEnd() {
 	delete listenThread;
 }
 
-/*
+
 void NetworkRestart() {
 	if (a.try_lock())
 	{
@@ -602,7 +601,46 @@ void NetworkRestart() {
 		listenThread = new std::thread(ListenService);
 	}
 }
-*/
+
+void GuardService() {
+	b.lock();
+	NetworkInit();
+	while (listenerOn) {
+		NetworkRestart();
+	}
+	//std::cout << "Worker thread " << i << std::endl;
+	b.unlock();
+}
+
+void NetworkInitG() {
+	// Creation
+	guardThread = new std::thread(GuardService);
+};
+
+void NetworkEndG() {
+	// Cleanup
+	//listenThread->interrupt();
+	long locoldtime = clock();
+	long locTimeout = 3000;
+	networkTimeout = 100;
+	while (clock() > locoldtime + locTimeout);
+	guardThread->join();
+	delete guardThread;
+}
+
+
+void NetworkRestartG() {
+	if (a.try_lock())
+	{
+		a.unlock();
+		// Cleanup
+		guardThread->join();
+		delete guardThread;
+		// Creation
+		guardThread = new std::thread(GuardService);
+	}
+}
+
 
 //(int a1@<eax>, int a2, int a3, int a4, int a5)
 void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myNCB* connection) {
@@ -617,7 +655,8 @@ void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myN
 		connection->ncb_cmd_cplt_49 = 0x03;
 		long compidlong = (long)rand() + (long)rand();
 		sprintf(compid, "%08X", compidlong);
-		NetworkInit();
+		//NetworkInit();
+		NetworkInitG();
 		networkTimeout = 10000;
 		break;
 	}
@@ -783,6 +822,9 @@ int fake_index = 0;
 void send_fakemess(int index) {
 	switch (index) {
 	case 1: {
+#ifdef TEST_NETWORK_MESSAGES
+		debug_net_printf("send fake message:%d\n", index);
+#endif //TEST_NETWORK_MESSAGES
 		switch (fake_index) {
 			case 0:
 			{
