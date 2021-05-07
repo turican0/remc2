@@ -14,5 +14,9 @@ long mygethundredths() {
 };
 
 long mygetthousandths() {
+	return clock() / (CLOCKS_PER_SEC / 1000);
+};
+
+long mygetsecond() {
 	return clock();
 };

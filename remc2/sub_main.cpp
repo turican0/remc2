@@ -89244,11 +89244,19 @@ int /*__fastcall*/ sub_72E70(int  /*a1*/, int  /*a2*/, signed __int16* a3)//253e
 signed int NetworkTestCall_72FBB()//253fbb
 {
 	NetworkCall_74809(0);
-	for (int i = x_DWORD_17DB54_game_turn2; ; WaitToConnect_7C230())
+	/*for (int i = x_DWORD_17DB54_game_turn2; ; WaitToConnect_7C230())
 	{
 		if (connection_E12AE[0]->ncb_cmd_cplt_49 != 0xff)
 			return 1;
 		if ((x_DWORD_17DB54_game_turn2 - i) > 0x78)
+			break;
+		fake_network_interupt(connection_E12AE[0]);
+	}*/
+	for (int i = mygetthousandths(); ; WaitToConnect_7C230())
+	{
+		if (connection_E12AE[0]->ncb_cmd_cplt_49 != 0xff)
+			return 1;
+		if ((mygetthousandths() - i) > 120)
 			break;
 		fake_network_interupt(connection_E12AE[0]);
 	}
@@ -89297,6 +89305,15 @@ int NetworkInitConnection_7308F(char* a2, __int16 a3)//25408f
 	{//2541a1
 		v6 = NetworkTestAddName_72DDE(i);
 		if (v6)//2541aa
+
+			/*
+			* if (reg_eip == 0x2541aa) {
+			if ((debugafterload == 1) && (count_begin == 1))
+			debugcounter_47560++;
+			mem_writed(0x3965c7, 0x35cf6e);
+	}
+			*/
+
 		{
 			if (v6 == 0xff)
 			{
@@ -89754,10 +89771,6 @@ int NetworkCall_74809(__int16 a1)//255809
 {
 	int result; // [esp+14h] [ebp-8h]
 	connection_E12AE[a1]->ncb_command_0 = 0x90;//CALL 
-	/*
-	CALL - požadavek o zřízení relace s uzlem zadaného jména
-LISTEN - příjem žádostí o zřízení spojení (od uzlu zadaného jména nebo od kohokoli (jméno "*")
-	*/
 	sprintf(connection_E12AE[a1]->ncb_callName_10, "%s%d", nethID, a1);
 	while (strlen(connection_E12AE[a1]->ncb_callName_10) < 0xFu)
 		strcat(connection_E12AE[a1]->ncb_callName_10, " ");
@@ -89774,19 +89787,19 @@ LISTEN - příjem žádostí o zřízení spojení (od uzlu zadaného jména neb
 signed int NetworkCancel_748F7(__int16 compindex)//2558f7
 {	
 	if (connection_E12AE[compindex]->ncb_cmd_cplt_49 != 0xff)
-		return -connection_E12AE[compindex]->ncb_cmd_cplt_49;
+		return -mainConnection_E12AA->ncb_cmd_cplt_49;
 	mainConnection_E12AA->ncb_command_0 = 0x35;//CANCEL 
 
 	mainConnection_E12AA->ncb_buffer_4.p = (uint8_t*)connection_E12AE[compindex];
 
-	if (setNetbios_75044(mainConnection_E12AA) != -1)
+	if (setNetbios_75044(mainConnection_E12AA) != 0xff)
 	{
 		do
 		{
-			while (connection_E12AE[compindex]->ncb_cmd_cplt_49 == 0xff)
-				fake_network_interupt(connection_E12AE[compindex]);
+			while (mainConnection_E12AA->ncb_cmd_cplt_49 == 0xff)
+				fake_network_interupt(mainConnection_E12AA);
 		} while (connection_E12AE[compindex]->ncb_cmd_cplt_49 == 0xff);
-		return -connection_E12AE[compindex]->ncb_cmd_cplt_49;
+		return -mainConnection_E12AA->ncb_cmd_cplt_49;
 	}
 	return -99;
 }
