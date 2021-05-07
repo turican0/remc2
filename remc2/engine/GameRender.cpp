@@ -1,12 +1,22 @@
 #include "GameRender.h"
 
-
 GameRender::GameRender(uint8_t* pScreenBuffer, uint16_t screenWidth, uint16_t screenHeight, uint16_t viewPortPosX, uint16_t viewPortPosY, uint16_t viewPortWidth, uint16_t viewPortHeight, std::array<uint8_t*, 256> &textureAdresses, uint8_t pX_BYTE_F6EE0_tablesx[])
 {
 	m_ptrScreenBuffer = pScreenBuffer;
 	SetRenderViewPortSize_BCD45(ViewPort(viewPortPosX, viewPortPosY, viewPortWidth, viewPortHeight), screenWidth, screenHeight);
 	SetTextures(textureAdresses);
 	m_ptrX_BYTE_F6EE0_tablesx = pX_BYTE_F6EE0_tablesx;
+
+	StartWorkerThread();
+}
+
+GameRender::~GameRender()
+{
+	if (isRunning)
+	{
+		isRunning = false;
+		renderThread.join();
+	}
 }
 
 void GameRender::DrawWorld(int posX, int posY, int16_t rot, int16_t z, int16_t xshift, int16_t yshift, int16_t dd, uint8_t heightmap[], type_particle_str** str_DWORD_F66F0x[], uint8_t x_BYTE_E88E0x[], int32_t x_DWORD_F5730[], uint8_t unk_F0A20x[], type_event_0x6E8E* x_DWORD_EA3E4[], type_str_unk_1804B0ar str_unk_1804B0ar, int16_t x_WORD_180660_VGA_type_resolution, int16_t x_WORD_D4B7C, char isCaveLevel)
@@ -2996,6 +3006,34 @@ void GameRender::DrawSorcererNameAndHealthBar_2CB30(type_event_0x6E8E* a1x, uint
 	//return v9;
 }
 
+void GameRender::StartWorkerThread()
+{
+	renderThread = std::thread([this] {
+		isRunning = true;
+		do
+		{
+			if (task != nullptr)
+			{
+				task();
+				task = nullptr;
+			}
+			else
+			{
+				//std::this_thread::sleep_for(std::chrono::nanoseconds(1));
+			}
+
+		} while (isRunning);
+	});
+}
+
+void GameRender::RunTask(const std::function<void()>& t)
+{
+	if (task == nullptr)
+	{
+		task = t;
+	}
+}
+
 void GameRender::DrawSquare(int* vertexs, int index, uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t screenWidth)
 {
 	vertexs[20] = xunk_D4350[m_Str_E9C38_smalltit[index].byte42][0];
@@ -3007,15 +3045,27 @@ void GameRender::DrawSquare(int* vertexs, int index, uint16_t viewPortWidth, uin
 	vertexs[2] = xunk_D4350[m_Str_E9C38_smalltit[index].byte42][6];
 	vertexs[3] = xunk_D4350[m_Str_E9C38_smalltit[index].byte42][7];
 	uint8_t* pTexture = m_textureAddresses.at(m_Str_E9C38_smalltit[index].byte41);
+
 	if ((uint8_t)m_Str_E9C38_smalltit[index].word38 & 1)
 	{
-		DrawTriangle_B6253(&vertexs[18], &vertexs[12], &vertexs[0], pTexture, viewPortWidth, viewPortHeight, screenWidth);
+		RunTask([this, &vertexs, pTexture, viewPortWidth, viewPortHeight, screenWidth] {
+			this->DrawTriangle_B6253(&vertexs[18], &vertexs[12], &vertexs[0], pTexture, viewPortWidth, viewPortHeight, screenWidth);
+			});
+
 		DrawTriangle_B6253(&vertexs[0], &vertexs[12], &vertexs[6], pTexture, viewPortWidth, viewPortHeight, screenWidth);
+
+		while (task != nullptr);
+
 	}
 	else
 	{
-		DrawTriangle_B6253(&vertexs[18], &vertexs[12], &vertexs[6], pTexture, viewPortWidth, viewPortHeight, screenWidth);
+		RunTask([this, &vertexs, pTexture, viewPortWidth, viewPortHeight, screenWidth] {
+			this->DrawTriangle_B6253(&vertexs[18], &vertexs[12], &vertexs[6], pTexture, viewPortWidth, viewPortHeight, screenWidth);
+			});
+
 		DrawTriangle_B6253(&vertexs[18], &vertexs[6], &vertexs[0], pTexture, viewPortWidth, viewPortHeight, screenWidth);
+
+		while (task != nullptr);
 	}
 }
 
@@ -3038,13 +3088,23 @@ void GameRender::DrawInverseSquare(int* vertexs, int index, uint8_t* pTexture, u
 
 	if (m_Str_E9C38_smalltit[index].word38 & 1)
 	{
-		DrawTriangle_B6253(&vertexs[18], &vertexs[0], &vertexs[12], pTexture, viewPortWidth, viewPortHeight, screenWidth);
+		RunTask([this, &vertexs, pTexture, viewPortWidth, viewPortHeight, screenWidth] {
+			this->DrawTriangle_B6253(&vertexs[18], &vertexs[0], &vertexs[12], pTexture, viewPortWidth, viewPortHeight, screenWidth);
+			});
+
 		DrawTriangle_B6253(&vertexs[0], &vertexs[6], &vertexs[12], pTexture, viewPortWidth, viewPortHeight, screenWidth);
+
+		while (task != nullptr);
 	}
 	else
 	{
-		DrawTriangle_B6253(&vertexs[18], &vertexs[6], &vertexs[12], pTexture, viewPortWidth, viewPortHeight, screenWidth);
+		RunTask([this, &vertexs, pTexture, viewPortWidth, viewPortHeight, screenWidth] {
+			this->DrawTriangle_B6253(&vertexs[18], &vertexs[6], &vertexs[12], pTexture, viewPortWidth, viewPortHeight, screenWidth);
+			});
+
 		DrawTriangle_B6253(&vertexs[18], &vertexs[0], &vertexs[6], pTexture, viewPortWidth, viewPortHeight, screenWidth);
+
+		while (task != nullptr);
 	}
 }
 
