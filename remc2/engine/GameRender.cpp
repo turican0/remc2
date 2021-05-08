@@ -1,8 +1,9 @@
 #include "GameRender.h"
 
-GameRender::GameRender(uint8_t* pScreenBuffer, uint16_t screenWidth, uint16_t screenHeight, uint16_t viewPortPosX, uint16_t viewPortPosY, uint16_t viewPortWidth, uint16_t viewPortHeight, std::array<uint8_t*, 256> &textureAdresses, uint8_t pX_BYTE_F6EE0_tablesx[])
+GameRender::GameRender(uint8_t* pScreenBuffer, uint8_t* pColorPalette, uint16_t screenWidth, uint16_t screenHeight, uint16_t viewPortPosX, uint16_t viewPortPosY, uint16_t viewPortWidth, uint16_t viewPortHeight, std::array<uint8_t*, 256> &textureAdresses, uint8_t pX_BYTE_F6EE0_tablesx[])
 {
 	m_ptrScreenBuffer = pScreenBuffer;
+	m_ptrColorPalette = pColorPalette;
 	SetRenderViewPortSize_BCD45(ViewPort(viewPortPosX, viewPortPosY, viewPortWidth, viewPortHeight), screenWidth, screenHeight);
 	SetTextures(textureAdresses);
 	m_ptrX_BYTE_F6EE0_tablesx = pX_BYTE_F6EE0_tablesx;
@@ -12,10 +13,10 @@ GameRender::GameRender(uint8_t* pScreenBuffer, uint16_t screenWidth, uint16_t sc
 
 GameRender::~GameRender()
 {
-	if (isRunning)
+	if (m_isRunning)
 	{
-		isRunning = false;
-		renderThread.join();
+		m_isRunning = false;
+		m_renderThread.join();
 	}
 }
 
@@ -267,6 +268,21 @@ void GameRender::DrawWorld(int posX, int posY, int16_t rot, int16_t z, int16_t x
 		SetRenderViewPortSize_BCD45(v32, 0, 0, 0);
 		x_DWORD_D4324 = 0;
 	}
+}
+
+void GameRender::WriteWorldToBMP()
+{
+	char path[MAX_PATH];
+	GetSubDirectoryPath(path, "BufferOut");
+	if (myaccess(path, 0) < 0)
+	{
+		mymkdir(path);
+	}
+
+	GetSubDirectoryPath(path, "BufferOut/PaletteOut.bmp");
+	BitmapIO::WritePaletteAsImageBMP(path, 256, m_ptrColorPalette);
+	GetSubDirectoryPath(path, "BufferOut/BufferOut.bmp");
+	BitmapIO::WriteImageBufferAsImageBMP(path, m_uiScreenWidth, m_uiScreenHeight, m_ptrColorPalette, m_ptrScreenBuffer);
 }
 
 /*
@@ -3008,29 +3024,29 @@ void GameRender::DrawSorcererNameAndHealthBar_2CB30(type_event_0x6E8E* a1x, uint
 
 void GameRender::StartWorkerThread()
 {
-	renderThread = std::thread([this] {
-		isRunning = true;
+	m_renderThread = std::thread([this] {
+		m_isRunning = true;
 		do
 		{
-			if (task != nullptr)
+			if (m_task != nullptr)
 			{
-				task();
-				task = nullptr;
+				m_task();
+				m_task = nullptr;
 			}
 			else
 			{
 				//std::this_thread::sleep_for(std::chrono::nanoseconds(1));
 			}
 
-		} while (isRunning);
+		} while (m_isRunning);
 	});
 }
 
 void GameRender::RunTask(const std::function<void()>& t)
 {
-	if (task == nullptr)
+	if (m_task == nullptr)
 	{
-		task = t;
+		m_task = t;
 	}
 }
 
@@ -3054,7 +3070,7 @@ void GameRender::DrawSquare(int* vertexs, int index, uint16_t viewPortWidth, uin
 
 		DrawTriangle_B6253(&vertexs[0], &vertexs[12], &vertexs[6], pTexture, viewPortWidth, viewPortHeight, screenWidth);
 
-		while (task != nullptr);
+		while (m_task != nullptr);
 
 	}
 	else
@@ -3065,7 +3081,7 @@ void GameRender::DrawSquare(int* vertexs, int index, uint16_t viewPortWidth, uin
 
 		DrawTriangle_B6253(&vertexs[18], &vertexs[6], &vertexs[0], pTexture, viewPortWidth, viewPortHeight, screenWidth);
 
-		while (task != nullptr);
+		while (m_task != nullptr);
 	}
 }
 
@@ -3094,7 +3110,7 @@ void GameRender::DrawInverseSquare(int* vertexs, int index, uint8_t* pTexture, u
 
 		DrawTriangle_B6253(&vertexs[0], &vertexs[6], &vertexs[12], pTexture, viewPortWidth, viewPortHeight, screenWidth);
 
-		while (task != nullptr);
+		while (m_task != nullptr);
 	}
 	else
 	{
@@ -3104,7 +3120,7 @@ void GameRender::DrawInverseSquare(int* vertexs, int index, uint8_t* pTexture, u
 
 		DrawTriangle_B6253(&vertexs[18], &vertexs[0], &vertexs[6], pTexture, viewPortWidth, viewPortHeight, screenWidth);
 
-		while (task != nullptr);
+		while (m_task != nullptr);
 	}
 }
 

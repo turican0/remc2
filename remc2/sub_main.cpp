@@ -1464,7 +1464,7 @@ void sub_2BA50(type_event_0x6E8E* a1, unsigned __int8 a2);
 void sub_2BBB0(__int16 a1, __int16 a2, posistruct_t a3);
 //void sub_2BC80(int16_t a1, int16_t a2, int16_t a3, int16_t a4, uint8_t a5);
 void sub_2BD10_draw_line(__int16 a1, __int16 a2, __int16 a3, __int16 a4, unsigned __int8 a5);
-void DrawGameFrame_2BE30(uint8_t* ptrScreenBuffer, uint16_t width, uint16_t height);
+void DrawGameFrame_2BE30(uint8_t* ptrScreenBuffer, uint16_t screenWidth, uint16_t screenHeight);
 void SetViewPortScreenCoordinates_2CA60(int16_t viewPortX, int16_t viewPortY, uint16_t viewPortWidth, uint16_t viewPortHeight);
 int ResizeViewPort(__int16 a1);
 void sub_2CE30_pause_end_level(int a1, int a2, uint16_t screenWidth);
@@ -27520,7 +27520,7 @@ void DrawGameFrame_2BE30(uint8_t* ptrScreenBuffer, uint16_t screenWidth, uint16_
 
 	if (m_ptrGameRender == nullptr)
 	{
-		m_ptrGameRender = new GameRender(ptrScreenBuffer, screenWidth, screenHeight, 0, 0, screenWidth, screenHeight, x_DWORD_DDF50_texture_adresses, x_BYTE_F6EE0_tablesx);
+		m_ptrGameRender = new GameRender(ptrScreenBuffer, *xadatapald0dat2.var28_begin_buffer, screenWidth, screenHeight, 0, 0, screenWidth, screenHeight, x_DWORD_DDF50_texture_adresses, x_BYTE_F6EE0_tablesx);
 	}
 
 	int16_t spellLeftPosX = screenWidth - 130;
