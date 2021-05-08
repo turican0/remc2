@@ -285,6 +285,15 @@ void GameRender::WriteWorldToBMP()
 	BitmapIO::WriteImageBufferAsImageBMP(path, m_uiScreenWidth, m_uiScreenHeight, m_ptrColorPalette, m_ptrScreenBuffer);
 }
 
+void GameRender::ClearGraphicsBuffer(uint8_t colorIdx)
+{
+	if (colorIdx > 255)
+	{
+		colorIdx = 255;
+	}
+	memset32(m_ptrScreenBuffer, colorIdx, m_uiScreenWidth * m_uiScreenWidth);
+}
+
 /*
 * Sky texture is currently 256x256
 */
@@ -3105,7 +3114,7 @@ void GameRender::DrawInverseSquare(int* vertexs, int index, uint8_t* pTexture, u
 	if (m_Str_E9C38_smalltit[index].word38 & 1)
 	{
 		RunTask([this, &vertexs, pTexture, viewPortWidth, viewPortHeight, screenWidth] {
-			this->DrawTriangle_B6253(&vertexs[18], &vertexs[0], &vertexs[12], pTexture, viewPortWidth, viewPortHeight, screenWidth);
+			this->DrawTriangle_B6253_TH(&vertexs[18], &vertexs[0], &vertexs[12], pTexture, viewPortWidth, viewPortHeight, screenWidth);
 			});
 
 		DrawTriangle_B6253(&vertexs[0], &vertexs[6], &vertexs[12], pTexture, viewPortWidth, viewPortHeight, screenWidth);
@@ -3115,7 +3124,7 @@ void GameRender::DrawInverseSquare(int* vertexs, int index, uint8_t* pTexture, u
 	else
 	{
 		RunTask([this, &vertexs, pTexture, viewPortWidth, viewPortHeight, screenWidth] {
-			this->DrawTriangle_B6253(&vertexs[18], &vertexs[6], &vertexs[12], pTexture, viewPortWidth, viewPortHeight, screenWidth);
+			this->DrawTriangle_B6253_TH(&vertexs[18], &vertexs[6], &vertexs[12], pTexture, viewPortWidth, viewPortHeight, screenWidth);
 			});
 
 		DrawTriangle_B6253(&vertexs[18], &vertexs[0], &vertexs[6], pTexture, viewPortWidth, viewPortHeight, screenWidth);
