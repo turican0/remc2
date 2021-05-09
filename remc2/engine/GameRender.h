@@ -71,6 +71,7 @@ private:
 	std::thread m_renderThread;
 	bool m_isRunning = false;
 	std::function<void()> m_task = nullptr;
+	uint8_t m_renderThreads = 1;
 
 	int x_DWORD_D4794 = 0;
 	int x_DWORD_D4798 = 0;
@@ -100,10 +101,11 @@ private:
 	void DrawSorcererNameAndHealthBar_2CB30(type_event_0x6E8E* a1, uint8_t x_BYTE_E88E0x[], __int16 a2, int a3, __int16 a4, int16_t viewPortX, int16_t viewPortY, uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t pitch);
 
 	void StartWorkerThread();
+	void StopWorkerThread();
 	void RunTask(const std::function<void()>& t);
 
 public:
-	GameRender(uint8_t* pScreenBuffer, uint8_t* pColorPalette, uint16_t screenWidth, uint16_t screenHeight, uint16_t viewPortPosX, uint16_t viewPortPosY, uint16_t viewPortWidth, uint16_t viewPortHeight, std::array<uint8_t*, 256> &textureAdresses, uint8_t x_BYTE_F6EE0_tablesx[]);
+	GameRender(uint8_t* pScreenBuffer, uint8_t* pColorPalette, uint16_t screenWidth, uint16_t screenHeight, uint16_t viewPortPosX, uint16_t viewPortPosY, uint16_t viewPortWidth, uint16_t viewPortHeight, std::array<uint8_t*, 256> &textureAdresses, uint8_t x_BYTE_F6EE0_tablesx[], uint8_t renderThreads);
 	~GameRender();
 
 	void SetTextures(std::array<uint8_t*, 256> &textureAdresses);
@@ -111,6 +113,7 @@ public:
 	void SetRenderViewPortSize_BCD45(ViewPort viewPort, uint16_t screenWidth, uint16_t screenHeight);
 	void SetRenderViewPortSize_BCD45(uint8_t viewPortSizeSetting, uint16_t screenWidth, uint16_t screenHeight);
 	void SetRenderViewPortSize_BCD45(uint8_t* ptrScreenBufferStart, uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t screenWidth);
+	void SetRenderThreads(uint8_t renderThreads);
 
 	void DrawWorld(int posX, int posY, int16_t rot, int16_t z, int16_t xshift, int16_t yshift, int16_t dd, uint8_t heightmap[], type_particle_str** str_DWORD_F66F0x[], uint8_t x_BYTE_E88E0x[], int32_t x_DWORD_F5730[], uint8_t unk_F0A20x[], type_event_0x6E8E* x_DWORD_EA3E4[], type_str_unk_1804B0ar str_unk_1804B0ar, int16_t x_WORD_180660_VGA_type_resolution, int16_t x_WORD_D4B7C, char isCaveLevel);
 	void WriteWorldToBMP();
