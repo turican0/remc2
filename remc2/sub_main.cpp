@@ -11953,6 +11953,11 @@ void sub_17190_process_keyboard(uint16_t screenWidth, uint16_t screenHeight)//1f
 						LastPressedKey_1806E4 = 0;
 						break;
 					}
+					case 0x14: {//t
+						sub_1A970_change_game_settings(19, 0, 0);
+						LastPressedKey_1806E4 = 0;
+						break;
+					}
 					case 0x39: {//space
 						sub_191B0(15, 0);
 						LastPressedKey_1806E4 = 0;
@@ -14513,6 +14518,21 @@ void sub_1A970_change_game_settings(char a1, int a2, int a3)//1fb970
 			return;
 		}
 		sub_417D0_install_pal_and_mouse_minmax2();
+		return;
+	case 19:
+		if (m_ptrGameRender != nullptr)
+		{
+			if (m_ptrGameRender->GetRenderThreads() > 1)
+			{
+				m_ptrGameRender->SetRenderThreads(1);
+				sub_19760_set_message("Multi-thread render OFF", 3u, 50);
+			}
+			else
+			{
+				m_ptrGameRender->SetRenderThreads(2);
+				sub_19760_set_message("Multi-thread render ON", 3u, 50);
+			}
+		}
 		return;
 	default:
 		return;

@@ -14730,6 +14730,8 @@ void GameRender::SetRenderViewPortSize_BCD45(uint8_t* ptrScreenBufferStart, uint
 
 void GameRender::SetRenderThreads(uint8_t renderThreads)
 {
+	m_renderThreads = renderThreads;
+
 	if (renderThreads < 1)
 	{
 		m_renderThreads = 1;
@@ -14748,4 +14750,9 @@ void GameRender::SetRenderThreads(uint8_t renderThreads)
 	{
 		StopWorkerThread();
 	}
+}
+
+uint8_t GameRender::GetRenderThreads()
+{
+	return m_renderThreads;
 }
