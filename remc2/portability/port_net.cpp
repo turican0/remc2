@@ -22,18 +22,20 @@
 #include "boost/date_time/posix_time/posix_time_types.hpp"
 
 #define TEST_NETWORK_MESSAGES
-#define TEST_NETWORK_FAKECOMM1
-
-#ifdef TEST_NETWORK_MESSAGES
-FILE* debug_net_output;
-const char* debug_net_filename = "c:/prenos/remc2-dev/net_messages_log.txt";
-std::string net_path = {};
-bool debug_net_first = true;
+//#define TEST_NETWORK_FAKECOMM1
 
 char* IHaveNameStrP = NULL;
 char IHaveNameStr[16];
 
 bool listenerOn = true;
+
+#ifdef TEST_NETWORK_MESSAGES
+FILE* debug_net_output;
+const char* debug_net_filename1 = "net_messages_log.txt";
+std::string debug_net_filename2 = {};
+
+//std::string net_path = {};
+bool debug_net_first = true;
 
 void debug_net_printf(const char* format, ...) {
 	char prbuffer[1024];
@@ -45,15 +47,15 @@ void debug_net_printf(const char* format, ...) {
 
 	//std::string exepath = get_exe_path();
 	//path = exepath + "/" + debug_net_filename;
-	net_path = debug_net_filename;
+	//net_path = debug_net_filename;
 
 	if (debug_net_first)
 	{
-		debug_net_output = fopen(net_path.c_str(), "wt");
+		debug_net_output = fopen(debug_net_filename2.c_str(), "wt");
 		debug_net_first = false;
 	}
 	else
-		debug_net_output = fopen(net_path.c_str(), "at");
+		debug_net_output = fopen(debug_net_filename2.c_str(), "at");
 	fprintf(debug_net_output, "%s", prbuffer);
 	fclose(debug_net_output);
 #ifdef DEBUG_PRINT_DEBUG_TO_SCREEN
@@ -699,16 +701,23 @@ void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myN
 #ifdef TEST_NETWORK_MESSAGES
 		debug_net_printf("\n*SET NETWORK CALL %s %s\n", connection->ncb_name_26, connection->ncb_callName_10);
 #endif //TEST_NETWORK_MESSAGES
-		connection->ncb_retcode_1 = 0xff;
-		connection->ncb_lsn_2 = 0xd8;
+		connection->ncb_lsn_2 = 0xe8;
+		connection->ncb_retcode_1 = 0x00;
 		connection->ncb_cmd_cplt_49 = 0xff;
 		connection->ncb_reserved_50[4] = 0x7d;
 		connection->ncb_reserved_50[5] = 0x27;
 		connection->ncb_reserved_50[6] = 0x1f;
-		connection->ncb_reserved_50[7] = 0x16;
-		connection->ncb_reserved_50[8] = 0x68;
+		connection->ncb_reserved_50[7] = 0x17;
+		connection->ncb_reserved_50[8] = 0x69;
+		connection->ncb_reserved_50[10] = 0xff;
+		/*connection->ncb_retcode_1 = 0x0;
+		connection->ncb_lsn_2 = 0x0;
+		connection->ncb_cmd_cplt_49 = 0x0;
+		connection->ncb_reserved_50[7] = 0x4b;
+		connection->ncb_reserved_50[8] = 0x0e;
+		connection->ncb_reserved_50[9] = 0x66;*/
 		CallNetwork(connection);
-		networkTimeout = 100;
+		networkTimeout = 10000;
 		break;
 	}
 	case 0x91: {//LISTEN
@@ -759,13 +768,23 @@ void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myN
 #ifdef TEST_NETWORK_MESSAGES
 		debug_net_printf("\n*SET NETWORK CANCEL %s %s\n", connection->ncb_name_26, connection->ncb_callName_10);
 #endif //TEST_NETWORK_MESSAGES
-		connection->ncb_retcode_1 = 0x0b;
-		connection->ncb_cmd_cplt_49 = 0x0b;
+		connection->ncb_retcode_1 = 0x00;
+		connection->ncb_cmd_cplt_49 = 0x00;
 		connection->ncb_reserved_50[2] = 0x6f;
 		connection->ncb_reserved_50[3] = 0x32;
 		connection->ncb_reserved_50[6] = 0x85;
 		connection->ncb_reserved_50[7] = 0x17;
 		connection->ncb_reserved_50[8] = 0x6a;
+
+		myNCB* secondcon = (myNCB*)connection->ncb_buffer_4.p;
+		secondcon->ncb_retcode_1 = 0x0b;
+		secondcon->ncb_cmd_cplt_49 = 0x0b;
+		secondcon->ncb_reserved_50[2] = 0x6f;
+		secondcon->ncb_reserved_50[3] = 0x32;
+		secondcon->ncb_reserved_50[6] = 0x71;
+		secondcon->ncb_reserved_50[7] = 0x17;
+		secondcon->ncb_reserved_50[8] = 0x66;
+
 		networkTimeout = 100;
 		break;
 	}			 
@@ -898,6 +917,15 @@ void fake_network_interupt(myNCB* connection) {
 					break;
 				}
 				case 0x90: {//CALL
+					//connection->ncb_retcode_1= 0xb;
+					//connection->ncb_cmd_cplt_49 = 0xb;
+					break;
+				}
+				case 0x35: {//CANCEL
+					connection->ncb_retcode_1 = 0x0;
+					strcpy(connection->ncb_name_26,"");
+					strcpy(connection->ncb_callName_10, "");
+					connection->ncb_cmd_cplt_49 = 0x0;
 					break;
 				}
 				default: {

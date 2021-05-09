@@ -45,6 +45,9 @@ void _strupr(char* s)
 //#define TEST_REGRESSIONS_GAME
 
 #define TEST_NETWORK
+
+//#define TEST_NETWORK_CHNG1
+
 int test_regression_level = 50;
 //first multi is 50(51) 10
 //first hide level is 30(31) 5
@@ -67442,6 +67445,11 @@ type_SPELLS_BEGIN_BUFFER_str;
 }
 
 void InitNetworkInfo() {
+	std::string exepath = get_exe_path();
+	debug_net_filename2 = exepath + "/../" + debug_net_filename1;
+
+
+
 	long MultiplayerTimeout = 2000;
 	long MultiplayerTimeoutHundred = MultiplayerTimeout/10;
 	int clientsCount = 0;
@@ -89217,7 +89225,7 @@ int /*__fastcall*/ sub_72E70(int  /*a1*/, int  /*a2*/, signed __int16* a3)//253e
 				v5 = connection_E12AE[i]->ncb_cmd_cplt_49;
 				if (v5)
 				{
-					if (v5 == -1)
+					if (v5 == 0xff)
 					{
 						if (v9)
 							NetworkCancel_748F7(i);
@@ -89255,11 +89263,12 @@ signed int NetworkTestCall_72FBB()//253fbb
 	for (int i = mygetthousandths(); ; WaitToConnect_7C230())
 	{
 		if (connection_E12AE[0]->ncb_cmd_cplt_49 != 0xff)
-			return 1;
+			return 1;//254024
 		if ((mygetthousandths() - i) > 120)
-			break;
+			break;//253ffd
 		fake_network_interupt(connection_E12AE[0]);
 	}
+	//253fff
 	NetworkCancel_748F7(0);
 	return 0;
 }
@@ -89305,15 +89314,6 @@ int NetworkInitConnection_7308F(char* a2, __int16 a3)//25408f
 	{//2541a1
 		v6 = NetworkTestAddName_72DDE(i);
 		if (v6)//2541aa
-
-			/*
-			* if (reg_eip == 0x2541aa) {
-			if ((debugafterload == 1) && (count_begin == 1))
-			debugcounter_47560++;
-			mem_writed(0x3965c7, 0x35cf6e);
-	}
-			*/
-
 		{
 			if (v6 == 0xff)
 			{
@@ -89325,7 +89325,7 @@ int NetworkInitConnection_7308F(char* a2, __int16 a3)//25408f
 		{
 			x_WORD_E1276 = i;
 		}
-		++i;
+		i++;
 	}
 	if (x_WORD_E1276 == -1)//2541e7
 		return -1;
@@ -89337,7 +89337,10 @@ int NetworkInitConnection_7308F(char* a2, __int16 a3)//25408f
 			connection_E12AE[i]->ncb_num_3 = connection_E12AE[x_WORD_E1276]->ncb_num_3;
 		}
 	}
-	if (x_WORD_E1276)
+#ifdef TEST_NETWORK_CHNG1
+		x_WORD_E1276 = 1;
+#endif// TEST_NETWORK_CHNG1
+	if (x_WORD_E1276)//2541e7
 	{
 		if (!NetworkTestCall_72FBB())
 			x_WORD_E12A6 = 1;
@@ -89756,8 +89759,8 @@ signed int NetworkAddName_74767(/*signed __int16* a1,*/ myNCB* connection, char*
 	while (strlen(connection->ncb_name_26) < 0xFu)
 		strcat(connection->ncb_name_26, " ");
 	connection->ncb_command_0 = 0xb0;//ADD_NAME
-	if (setNetbios_75044(connection) == -1)
-		return -99;
+	if (setNetbios_75044(connection) == 0xff)
+		return 157;
 	while (connection->ncb_cmd_cplt_49 == 0xff && !x_WORD_E12A6)
 	{	
 		WaitToConnect_7C230(/*a2x,*/ /*v3, a1*/);

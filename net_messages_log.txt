@@ -2,31 +2,34 @@ SET NETWORK INIT
 
 *SET NETWORK ADD_NAME NETH200         
 SEND MESSAGE: NETH200        
-send fake message:0 MESSAGE_WINADDNAME NETH200
-inmessage:3
-net name added:NETH200 192.168.56.1
-RECEIVED MESSAGE:REMC2MESG12345678
-send fake message:1 MESSAGE_NAMEREJECT
-inmessage:2
-RECEIVED MESSAGE:REMC2MESG12345678
-
-*SET NETWORK ADD_NAME NETH201         
-SEND MESSAGE: NETH201        
-send fake message:2 
-send fake message:3 
-send fake message:4 
-send fake message:5 
-send fake message:6 
-send fake message:7 
-send fake message:8 
-send fake message:9 
-send fake message:10 
 WAITING FOR MESSAGE TIMEOUT:b0
-net name added:NETH201         127.0.0.1
-SEND MESSAGE: NETH201        
+net name added:NETH200         127.0.0.1
+SEND MESSAGE: NETH200        
 
-*SET NETWORK CALL NETH201         NETH200        
-SEND MESSAGE: P~ô
-WAITING FOR MESSAGE TIMEOUT:90
+*SET NETWORK LISTEN NETH200         NETH201        
+
+*SET NETWORK LISTEN NETH200         NETH202        
+
+*SET NETWORK LISTEN NETH200         NETH203        
+
+*SET NETWORK LISTEN NETH200         NETH204        
+
+*SET NETWORK LISTEN NETH200         NETH205        
+
+*SET NETWORK LISTEN NETH200         NETH206        
+
+*SET NETWORK LISTEN NETH200         NETH207        
+
+*SET NETWORK CANCEL  
+
+*SET NETWORK CANCEL  
+
+*SET NETWORK CANCEL  
+
+*SET NETWORK CANCEL  
+
+*SET NETWORK CANCEL  
+
+*SET NETWORK CANCEL  
 
 *SET NETWORK CANCEL  

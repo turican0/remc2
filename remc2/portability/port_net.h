@@ -8,6 +8,9 @@
 
 #include "../engine/types.h"
 
+extern const char* debug_net_filename1;
+extern std::string debug_net_filename2;
+
 extern int MultiplayerPort;
 
 typedef struct _REGS {
