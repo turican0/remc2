@@ -17,6 +17,7 @@
 **/*.obj
 **/*.idb
 **/*.dbg
+**/*.pch
 
 **/*.opendb
 **/*.ipch
