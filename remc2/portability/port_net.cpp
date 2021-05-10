@@ -540,7 +540,7 @@ void ListenService() {
 
 void myDelay(long locTimeout) {
 	long locoldtime = clock();
-	while (clock() > locoldtime + locTimeout);
+	while (clock() < locoldtime + locTimeout);
 };
 
 void NetworkInit() {
@@ -549,13 +549,13 @@ void NetworkInit() {
 	if (strcmp(serverIP, "000.000.000.000"))
 	{
 		useBroadcast = false;
-		myDelay(500);
+		myDelay(1000);
 		//detect all REMC2 IPs
 		int waitcount = 0;
 		while ((waitcount<20)&&(serverIPNotAdded)) {
 			CreateMessage(IMESSAGE_SENDINFO, (uint8_t*)"", 1 + strlen(""));
 			SendToIp(boost::asio::ip::make_address_v4(serverIP));
-			myDelay(500);
+			myDelay(1000);
 			waitcount++;
 		}
 	}
