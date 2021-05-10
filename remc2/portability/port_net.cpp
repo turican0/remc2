@@ -551,11 +551,12 @@ void NetworkInit() {
 		useBroadcast = false;
 		myDelay(500);
 		//detect all REMC2 IPs
-		int waitcount = 20;
+		int waitcount = 0;
 		while ((waitcount<20)&&(serverIPNotAdded)) {
 			CreateMessage(IMESSAGE_SENDINFO, (uint8_t*)"", 1 + strlen(""));
 			SendToIp(boost::asio::ip::make_address_v4(serverIP));
 			myDelay(500);
+			waitcount++;
 		}
 	}
 };
