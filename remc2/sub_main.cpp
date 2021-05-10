@@ -67443,11 +67443,11 @@ type_SPELLS_BEGIN_BUFFER_str;
 
 	int8_t SPELLS_BEGIN_BUFFER_DA818x[0x820] = {*/
 }
-/*
+
 void InitNetworkInfo() {
 	std::string exepath = get_exe_path();
 	debug_net_filename2 = exepath + "/../" + debug_net_filename1;
-
+	/*
 
 
 	long MultiplayerTimeout = 2000;
@@ -67507,8 +67507,9 @@ void InitNetworkInfo() {
 			exit(0);
 		}
 	}
+	*/
 };
-*/
+
 
 //----- (00055F70) --------------------------------------------------------
 int sub_main(int argc, char** argv, char**  /*envp*/)//236F70
@@ -67619,7 +67620,7 @@ int sub_main(int argc, char** argv, char**  /*envp*/)//236F70
 
 	sub_56210_process_command_line(argc, argv);//236FD4 - 237210
 #ifdef TEST_NETWORK
-	//InitNetworkInfo();
+	InitNetworkInfo();
 #endif //TEST_NETWORK
 
 
