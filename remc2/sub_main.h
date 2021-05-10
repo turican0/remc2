@@ -411,8 +411,8 @@ type_E1BAC_0x3c4;
 //BYTE     ncb_reserved[14];
 //		 } NCB;
 
-extern bool Iam_server;
-extern bool Iam_client;
+//extern bool Iam_server;
+//extern bool Iam_client;
 extern char serverIP[256];
 
 extern Pathstruct pstr[];

@@ -13,6 +13,8 @@ extern std::string debug_net_filename2;
 
 extern int MultiplayerPort;
 
+extern char serverIP[256];
+
 typedef struct _REGS {
 	uint32 eax;
 	uint32 ebx;

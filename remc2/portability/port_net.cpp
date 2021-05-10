@@ -71,12 +71,17 @@ void debug_net_printf(const char* format, ...) {
 #define MESSAGE_MAKECONNECT 4
 #define MESSAGE_SEND 5
 
+#define IMESSAGE_SENDINFO 10
+#define IMESSAGE_RECVINFO 11
+
 //const short multicast_port = 30001;
 const int max_message_count = 10;
 
 int networkTimeout = 10000;
 
 char compid[9];
+
+bool useBroadcast = true;
 
 class sender
 {
@@ -270,6 +275,17 @@ void SendToIp(boost::asio::ip::address_v4 ip)
 	}
 }
 
+std::vector<std::string> gameIP;
+
+void preBroadcastAll() {
+	if (useBroadcast)
+		BroadcastAll();
+	else
+		for (std::string locIP : gameIP) {
+			SendToIp(boost::asio::ip::make_address_v4(locIP));
+		}
+}
+
 bool NetworkGetInitInfoFromServer(char* serverIP) {
 	return false;
 };
@@ -362,7 +378,7 @@ void AddName(myNCB* connection) {
 	/*sprintf(message, "REMC2MESG%s%s",compid, connection->ncb_name_26);
 	for (int i = 9 + 8 + strlen(connection->ncb_name_26); i < 34; i++)
 		message[i] = 0;*/
-	BroadcastAll();
+	preBroadcastAll();
 };
 
 char connectionCompName[80] = "";
@@ -431,6 +447,21 @@ messType* ReadMessage() {
 
 char* REMC2MESG = (char*)"REMC2MESG";
 
+bool isInIPList(std::string nextIP) {
+	for (std::string locIP : gameIP) {
+		if (locIP.compare(nextIP)==0)
+			return true;
+	}
+	return false;
+};
+
+void AddtoIPList(std::string nextIP) {
+	if (isInIPList(nextIP))
+		return;
+	gameIP.push_back(nextIP);
+};
+
+
 class server
 {
 public:
@@ -492,6 +523,16 @@ public:
 						debug_net_printf("inmessage:%x\n", inMessage->type);
 #endif //TEST_NETWORK_MESSAGES
 						switch (inMessage->type) {
+						case IMESSAGE_SENDINFO: {
+							AddtoIPList(sender_endpoint_.address().to_string());
+							CreateMessage(IMESSAGE_RECVINFO, (uint8_t*)"", 1 + strlen(""));
+							SendToIp(sender_endpoint_.address().to_v4());
+							break;
+						}
+						case IMESSAGE_RECVINFO: {
+							AddtoIPList(sender_endpoint_.address().to_string());
+							break;
+						}
 						case MESSAGE_TESTADDNAME: {//RECV ADD_NAME
 							if ((IHaveNameStrP == NULL) || (strcmp(IHaveNameStrP, (char*)inMessage->mesg)))
 							{
@@ -574,19 +615,31 @@ void ListenService() {
 	a.unlock();
 }
 
+void myDelay(long locTimeout) {
+	long locoldtime = clock();
+	while (clock() > locoldtime + locTimeout);
+};
+
 void NetworkInit() {
 	// Creation
 	listenThread = new std::thread(ListenService);
+	if (strcmp(serverIP, "000.000.000.000"))
+	{
+		useBroadcast = false;
+		myDelay(500);
+		//detect all REMC2 IPs
+		CreateMessage(IMESSAGE_SENDINFO, (uint8_t*)"", 1 + strlen(""));
+		SendToIp(boost::asio::ip::make_address_v4(serverIP));
+
+	}
 };
 
 void NetworkEnd() {
 	// Cleanup
 	//listenThread->interrupt();
 	listenerOn = false;
-	long locoldtime = clock();
-	long locTimeout=3000;
 	networkTimeout = 100;
-	while (clock() > locoldtime + locTimeout);
+	myDelay(3000);
 	listenThread->join();
 	delete listenThread;
 }
@@ -622,10 +675,8 @@ void NetworkInitG() {
 void NetworkEndG() {
 	// Cleanup
 	//listenThread->interrupt();
-	long locoldtime = clock();
-	long locTimeout = 3000;
 	networkTimeout = 100;
-	while (clock() > locoldtime + locTimeout);
+	myDelay(3000);
 	guardThread->join();
 	delete guardThread;
 }
@@ -856,7 +907,7 @@ void send_fakemess(int index) {
 				/*sprintf(message, "REMC2MESG%s%s",compid, connection->ncb_name_26);
 				for (int i = 9 + 8 + strlen(connection->ncb_name_26); i < 34; i++)
 					message[i] = 0;*/
-				BroadcastAll();
+				preBroadcastAll();
 				//WriteMessage((messType*)&fake_data, boost::asio::ip::address::from_string("198.198.198.198"));
 				break;
 			}
@@ -867,7 +918,7 @@ void send_fakemess(int index) {
 #endif //TEST_NETWORK_MESSAGES
 				//memcpy(fake_data.ip, (char*)"198.198.198.198\0", 16);
 				CreateFakeMessage(MESSAGE_NAMEREJECT, (uint8_t*)"", 1 + strlen(""));
-				BroadcastAll();
+				preBroadcastAll();
 				//WriteMessage((messType*)&fake_data, boost::asio::ip::address::from_string("198.198.198.198"));
 				break;
 			}
@@ -908,7 +959,7 @@ void fake_network_interupt(myNCB* connection) {
 				case 0xb0: {//ADD_NAME 
 					AddNetworkName(connection->ncb_name_26, (char*)"127.0.0.1");
 					CreateMessage(MESSAGE_WINADDNAME, (uint8_t*)connection->ncb_name_26, 1 + strlen(connection->ncb_name_26));
-					BroadcastAll();
+					preBroadcastAll();
 					memcpy(IHaveNameStr, connection->ncb_name_26,16);
 					IHaveNameStrP = IHaveNameStr;
 					//AddNetworkName(connection->ncb_name_26,lastIp);

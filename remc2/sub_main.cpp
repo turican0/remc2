@@ -3205,8 +3205,8 @@ char x_BYTE_D419C_level_num = -1; // weak
 char x_BYTE_D419D_fonttype = 1; // weak
 char x_BYTE_D419E = 0; // weak//2a519e
 
-bool Iam_server = false;
-bool Iam_client = false;
+//bool Iam_server = false;
+//bool Iam_client = false;
 int MultiplayerPort = 3490;
 char serverIP[256] = "000.000.000.000";
 
@@ -67443,7 +67443,7 @@ type_SPELLS_BEGIN_BUFFER_str;
 
 	int8_t SPELLS_BEGIN_BUFFER_DA818x[0x820] = {*/
 }
-
+/*
 void InitNetworkInfo() {
 	std::string exepath = get_exe_path();
 	debug_net_filename2 = exepath + "/../" + debug_net_filename1;
@@ -67457,7 +67457,8 @@ void InitNetworkInfo() {
 		myprintf("I listen for clients.\n", serverIP);
 		long begin_time=clock_value();
 		int old_seconds = MultiplayerTimeoutHundred / 100;
-		while ((clock_value() <= begin_time + MultiplayerTimeoutHundred)/*|| (clientsCount==0)*/)
+		//while ((clock_value() <= begin_time + MultiplayerTimeoutHundred)|| (clientsCount==0))
+		while ((clock_value() <= begin_time + MultiplayerTimeoutHundred))
 		{
 			long testclock = clock_value();
 			char* actclient=NetworkListenForClients();
@@ -67477,12 +67478,12 @@ void InitNetworkInfo() {
 			}
 		}
 		myprintf("Listening is end.\n");
-		/*if (clientsCount==0)
-		{
-			myprintf("Clients no detected\n", serverIP);
-			mydelay(10000);
-			exit(0);
-		}*/
+		//if (clientsCount==0)
+		//{
+//			myprintf("Clients no detected\n", serverIP);
+			//mydelay(10000);
+			//exit(0);
+		//}
 	}
 	else if (Iam_client) {
 		long begin_time = clock_value();
@@ -67506,10 +67507,8 @@ void InitNetworkInfo() {
 			exit(0);
 		}
 	}
-	/*extern bool Iam_server;
-	extern bool Iam_client;
-	extern char serverIP[256];*/
 };
+*/
 
 //----- (00055F70) --------------------------------------------------------
 int sub_main(int argc, char** argv, char**  /*envp*/)//236F70
@@ -67620,7 +67619,7 @@ int sub_main(int argc, char** argv, char**  /*envp*/)//236F70
 
 	sub_56210_process_command_line(argc, argv);//236FD4 - 237210
 #ifdef TEST_NETWORK
-	InitNetworkInfo();
+	//InitNetworkInfo();
 #endif //TEST_NETWORK
 
 
@@ -67848,25 +67847,28 @@ void sub_56210_process_command_line(int argc, char** argv)//237210
 			{
 				x_BYTE_355238_music2 = 1;
 			}
-			else if (!_stricmp("server", (char*)actarg))
+			else if (!_stricmp("serveradress", (char*)actarg))//set to all one computer adress
 			{
-				if (!Iam_client)
+				//if (!Iam_client)
 				{
-					Iam_server = true;
+					//Iam_server = true;
+					strcpy(serverIP, (char*)argv[++argnumber][0]);
 					MultiplayerPort = atoi(argv[++argnumber]);
 					if (MultiplayerPort <0)MultiplayerPort = 0;
 					if (MultiplayerPort > 9999)MultiplayerPort = 9999;
 				}
 			}
-			else if (!_stricmp("client", (char*)actarg))
+			/*else if (!_stricmp("client", (char*)actarg))
 			{
 				if (!Iam_server)
 				{
 					Iam_client = true;
 					strcpy(serverIP, (char*)argv[++argnumber][0]);
 					MultiplayerPort = atoi(argv[++argnumber]);
+					if (MultiplayerPort < 0)MultiplayerPort = 0;
+					if (MultiplayerPort > 9999)MultiplayerPort = 9999;
 				}
-			}
+			}*/
 		}		
 		argnumber++;
 	}
