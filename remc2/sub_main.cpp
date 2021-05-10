@@ -67853,7 +67853,7 @@ void sub_56210_process_command_line(int argc, char** argv)//237210
 				//if (!Iam_client)
 				{
 					//Iam_server = true;
-					strcpy(serverIP, (char*)argv[++argnumber][0]);
+					strcpy(serverIP, (char*)argv[++argnumber]);
 					MultiplayerPort = atoi(argv[++argnumber]);
 					if (MultiplayerPort <0)MultiplayerPort = 0;
 					if (MultiplayerPort > 9999)MultiplayerPort = 9999;
