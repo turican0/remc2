@@ -22,7 +22,9 @@
 #include "boost/date_time/posix_time/posix_time_types.hpp"
 
 #define TEST_NETWORK_MESSAGES
-//#define TEST_NETWORK_FAKECOMM1
+#define TEST_NETWORK_FAKECOMM1
+
+#define NETWORK_USETCP
 
 char* IHaveNameStrP = NULL;
 char IHaveNameStr[16];
@@ -84,154 +86,14 @@ char compid[9];
 
 bool useBroadcast = true;
 
-class sender
-{
-public:
-	sender(boost::asio::io_service& io_service,
-		const boost::asio::ip::address& multicast_address)
-		: endpoint_(multicast_address, MultiplayerPort),
-		socket_(io_service, endpoint_.protocol()),
-		timer_(io_service),
-		message_count_(0)
-	{
-		std::ostringstream os;
-		os << "Message " << message_count_++;
-		message_ = os.str();
-
-		socket_.async_send_to(
-			boost::asio::buffer(message_), endpoint_,
-			boost::bind(&sender::handle_send_to, this,
-				boost::asio::placeholders::error));
-	}
-
-	void handle_send_to(const boost::system::error_code& error)
-	{
-		if (!error && message_count_ < max_message_count)
-		{
-			timer_.expires_from_now(boost::posix_time::seconds(1));
-			timer_.async_wait(
-				boost::bind(&sender::handle_timeout, this,
-					boost::asio::placeholders::error));
-		}
-	}
-
-	void handle_timeout(const boost::system::error_code& error)
-	{
-		if (!error)
-		{
-			std::ostringstream os;
-			os << "Message " << message_count_++;
-			message_ = os.str();
-
-			socket_.async_send_to(
-				boost::asio::buffer(message_), endpoint_,
-				boost::bind(&sender::handle_send_to, this,
-					boost::asio::placeholders::error));
-		}
-	}
-
-private:
-	boost::asio::ip::udp::endpoint endpoint_;
-	boost::asio::ip::udp::socket socket_;
-	boost::asio::deadline_timer timer_;
-	int message_count_;
-	std::string message_;
-};
-
-void NetworkTestServer()
-{
-	//try
-	{
-		using boost::asio::ip::tcp;
-		boost::asio::io_service io_service;
-
-		tcp::resolver resolver(io_service);
-		tcp::resolver::query query(boost::asio::ip::host_name(), "");
-		tcp::resolver::iterator it = resolver.resolve(query);
-		std::string sClientIp;
-		while (it != tcp::resolver::iterator())
-		{
-			boost::asio::ip::address addr = (it++)->endpoint().address();
-			if (addr.is_v6())
-			{
-				std::cout << "ipv6 address: ";
-			}
-			else
-			{
-				std::cout << "ipv4 address: ";
-				sClientIp = addr.to_string();
-			}
-
-			std::cout << addr.to_string() << std::endl;
-
-		}
-		//--------------------
-		/*boost::asio::io_service my_io_service;
-		boost::asio::ip::tcp::socket socket(my_io_service);
-
-		boost::asio::ip::tcp::endpoint remote_ep = socket.remote_endpoint();
-		boost::asio::ip::address remote_ad = remote_ep.address();
-		std::string sClientIp2 = remote_ad.to_string();
-
-		std::string sClientIp = socket.remote_endpoint().address().to_string();
-		unsigned short uiClientPort = socket.remote_endpoint().port();*/
-
-
-		/*if (argc != 2)
-		{
-			std::cerr << "Usage: sender <multicast_address>\n";
-			std::cerr << "  For IPv4, try:\n";
-			std::cerr << "    sender 239.255.0.1\n";
-			std::cerr << "  For IPv6, try:\n";
-			std::cerr << "    sender ff31::8000:1234\n";
-			return 1;
-		}*/
-		//-------------------
-
-		sClientIp[10] = '2';
-		sClientIp[11] = '5';
-		sClientIp[12] = '5';
-		//-------------------------
-		boost::system::error_code error;
-		boost::asio::ip::udp::socket socket(io_service);
-		int port = 3490;
-		char* data = (char*)"test message";
-		size_t request_length = strlen(data);
-
-
-		socket.open(boost::asio::ip::udp::v4(), error);
-		if (!error)
-		{
-			socket.set_option(boost::asio::ip::udp::socket::reuse_address(true));
-			socket.set_option(boost::asio::socket_base::broadcast(true));
-
-			boost::asio::ip::udp::endpoint senderEndpoint(boost::asio::ip::address_v4::broadcast(), port);
-
-
-
-			socket.send_to(boost::asio::buffer(data, request_length), senderEndpoint);
-			/*socket.close(error);*/
-		}
-		//-------------------------
-
-		//boost::asio::io_service io_service;
-		sender s(io_service, boost::asio::ip::address::from_string(sClientIp));
-		io_service.run();
-	}
-	/*catch (std::exception & e)
-	{
-		std::cerr << "Exception: " << e.what() << "\n";
-	}*/
-
-	//return 0;
-}
-
 int lastnetworkname = 0;
 int lastnetworklisten = 0;
 
 int messTypeAddSize = 9 + 8 + 4 + 4 + 20;
 
 messType messageStr;
+
+#ifndef NETWORK_USETCP
 
 void BroadcastAll()
 {
@@ -255,6 +117,23 @@ void BroadcastAll()
 	}
 }
 
+#endif //NETWORK_USETCP
+
+#ifdef NETWORK_USETCP
+void SendToIp(boost::asio::ip::address_v4 ip)
+{
+	boost::asio::io_context io_context;
+
+	boost::asio::ip::tcp::resolver resolver(io_context);
+	boost::asio::ip::tcp::socket s(io_context);
+
+	boost::asio::ip::tcp::resolver::results_type endpoints =
+		resolver.resolve(boost::asio::ip::tcp::v4(), ip.to_string(), std::to_string(MultiplayerPort));
+
+	boost::asio::connect(s, endpoints);
+	boost::asio::write(s, boost::asio::buffer((char*)&messageStr, messTypeAddSize + messageStr.lenght));
+}
+#else
 void SendToIp(boost::asio::ip::address_v4 ip)
 {
 	{
@@ -275,13 +154,15 @@ void SendToIp(boost::asio::ip::address_v4 ip)
 		}
 	}
 }
-
+#endif// NETWORK_USETCP
 std::vector<std::string> gameIP;
 
 void preBroadcastAll() {
+#ifndef NETWORK_USETCP
 	if (useBroadcast)
 		BroadcastAll();
 	else
+#endif// NETWORK_USETCP
 		for (std::string locIP : gameIP) {
 			SendToIp(boost::asio::ip::make_address_v4(locIP));
 		}
@@ -462,7 +343,150 @@ void AddtoIPList(std::string nextIP) {
 	gameIP.push_back(nextIP);
 };
 
+void processInMessages(char* data_, size_t bytes_recvd, boost::asio::ip::address remAdress)
+{
+	if (bytes_recvd >= 9 + 8) {
+		bool same1 = true;
+		for (int i = 0; i < 9; i++)
+			if (REMC2MESG[i] != data_[i])same1 = false;
+		if (same1)
+		{
+			bool same2 = true;
+			for (int i = 0; i < 8; i++)
+				if (compid[i] != data_[i + 9])same2 = false;
+			if (!same2)
+			{
+				messType* inMessage = (messType*)data_;
+#ifdef TEST_NETWORK_MESSAGES
+				debug_net_printf("inmessage:%x\n", inMessage->type);
+#endif //TEST_NETWORK_MESSAGES
+				switch (inMessage->type) {
+				case IMESSAGE_SENDINFO: {
+					AddtoIPList(remAdress.to_string());
+					CreateMessage(IMESSAGE_RECVINFO, (uint8_t*)"", 1 + strlen(""));
+					SendToIp(remAdress.to_v4());
+					break;
+				}
+				case IMESSAGE_RECVINFO: {
+					AddtoIPList(remAdress.to_string());
+					serverIPNotAdded = false;
+					break;
+				}
+				case MESSAGE_TESTADDNAME: {//RECV ADD_NAME
+					if ((IHaveNameStrP == NULL) || (strcmp(IHaveNameStrP, (char*)inMessage->mesg)))
+					{
+						//connection->ncb_cmd_cplt_49 = 0;
+						//NetworkEnd();
+						return;
+					}
+					else//name is same
+					{
+						CreateMessage(MESSAGE_NAMEREJECT, (uint8_t*)"", 1 + strlen(""));
+						SendToIp(boost::asio::ip::make_address_v4(remAdress.to_string()));
+						return;
+					}
+					break;
+				}
+				case MESSAGE_WINADDNAME: {
+					AddNetworkName((char*)inMessage->mesg, (char*)remAdress.to_string().c_str());
+					//CreateMessage(MESSAGE_NAMEREJECT, (uint8_t*)"", 1 + strlen(""));
+					//SendToIp(boost::asio::ip::make_address_v4(lastIp), messageStr);
+					//AddNetworkName(connection->ncb_name_26, lastIp);
+				}
+				default:
+				{
+					WriteMessage(inMessage, remAdress);
+					break;
+				}
+				}
+			}
+		}
+	}
+}
 
+#ifdef NETWORK_USETCP
+class sessionTCP
+{
+public:
+	sessionTCP(boost::asio::io_context& io_context)
+		: socket_(io_context)
+	{
+	}
+
+	boost::asio::ip::tcp::socket& socket()
+	{
+		return socket_;
+	}
+
+	void start()
+	{
+		socket_.async_read_some(boost::asio::buffer(data_, sizeof(messType)),
+			boost::bind(&sessionTCP::handle_read, this,
+				boost::asio::placeholders::error,
+				boost::asio::placeholders::bytes_transferred));
+	}
+
+private:
+	void handle_read(const boost::system::error_code& error,
+		size_t bytes_transferred)
+	{
+		if (!error)
+		{
+			//printf("%s\n", data_);
+			processInMessages(data_, bytes_transferred, socket_.remote_endpoint().address());
+		}
+		else
+		{
+			delete this;
+		}
+	}
+
+	boost::asio::ip::tcp::socket socket_;
+	//boost::asio::ip::udp::endpoint sender_endpoint_;
+	//enum { max_length = 1024 };
+	//char data_[max_length];
+	char data_[sizeof(messType)];
+};
+
+class serverTCP
+{
+public:
+	serverTCP(boost::asio::io_context& io_context, short port)
+		: io_context_(io_context),
+		acceptor_(io_context, boost::asio::ip::tcp::endpoint(boost::asio::ip::tcp::v4(), port))
+	{
+		start_accept();
+	}
+
+private:
+	void start_accept()
+	{
+		sessionTCP* new_session = new sessionTCP(io_context_);
+		acceptor_.async_accept(new_session->socket(),
+			boost::bind(&serverTCP::handle_accept, this, new_session,
+				boost::asio::placeholders::error));
+	}
+
+	void handle_accept(sessionTCP* new_session,
+		const boost::system::error_code& error)
+	{
+		if (!error)
+		{
+			new_session->start();
+		}
+		else
+		{
+			delete new_session;
+		}
+
+		start_accept();
+	}
+
+	boost::asio::io_context& io_context_;
+	boost::asio::ip::tcp::acceptor acceptor_;
+};
+
+#else
 class server
 {
 public:
@@ -482,123 +506,14 @@ public:
 	{
 		if (!error && bytes_recvd > 0)
 		{
-			/*socket_.async_send_to(
-				boost::asio::buffer(data_, bytes_recvd), sender_endpoint_,
-				boost::bind(&server::handle_send_to, this,
-					boost::asio::placeholders::error,
-					boost::asio::placeholders::bytes_transferred));
-			printf("eeeee");*/
-			//boost::asio::ip::udp::endpoint sendere=sender_endpoint_;
-			//boost::asio::ip::address x=sendere.address();
-			/*if (bytes_recvd >= 10) {
-				bool same = true;
-				for (int i = 0; i < 9; i++)
-					if (REMC2MESG[i] != data_[i])same = false;
-				if (same)
-					WriteMessage((messType*)data_, sender_endpoint_.address());
-			}*/
-#ifndef TEST_NETWORK_FAKECOMM1			
+//#ifndef TEST_NETWORK_FAKECOMM1			
 		}
 		else
 		{
-#endif //TEST_NETWORK_FAKECOMM1
-			/*socket_.async_receive_from(
-				boost::asio::buffer(data_, max_length), sender_endpoint_,
-				boost::bind(&server::handle_receive_from, this,
-					boost::asio::placeholders::error,
-					boost::asio::placeholders::bytes_transferred));
-			printf("dddd");*/
-			if (bytes_recvd >= 9+8) {
-				bool same1 = true;
-				for (int i = 0; i < 9; i++)
-					if (REMC2MESG[i] != data_[i])same1 = false;				
-				if (same1)
-				{
-					bool same2 = true;
-					for (int i = 0; i < 8; i++)
-						if (compid[i] != data_[i + 9])same2 = false;
-					if (!same2)
-					{
-						messType* inMessage= (messType*)data_;
-#ifdef TEST_NETWORK_MESSAGES
-						debug_net_printf("inmessage:%x\n", inMessage->type);
-#endif //TEST_NETWORK_MESSAGES
-						switch (inMessage->type) {
-						case IMESSAGE_SENDINFO: {
-							AddtoIPList(sender_endpoint_.address().to_string());
-							CreateMessage(IMESSAGE_RECVINFO, (uint8_t*)"", 1 + strlen(""));
-							SendToIp(sender_endpoint_.address().to_v4());
-							break;
-						}
-						case IMESSAGE_RECVINFO: {
-							AddtoIPList(sender_endpoint_.address().to_string());
-							serverIPNotAdded = false;
-							break;
-						}
-						case MESSAGE_TESTADDNAME: {//RECV ADD_NAME
-							if ((IHaveNameStrP == NULL) || (strcmp(IHaveNameStrP, (char*)inMessage->mesg)))
-							{
-								//connection->ncb_cmd_cplt_49 = 0;
-								//NetworkEnd();
-								return;
-							}
-							else//name is same
-							{
-								CreateMessage(MESSAGE_NAMEREJECT, (uint8_t*)"", 1 + strlen(""));
-								SendToIp(boost::asio::ip::make_address_v4(sender_endpoint_.address().to_string()));
-								return;
-							}
-							break;
-						}
-												/*
-						case MESSAGE_NAMEREJECT: {//REJECT ADDNAME
-							inrun = false;
-							connection->ncb_cmd_cplt_49 = 22;
-							//AddNetworkName(connection->ncb_name_26, "localhost");
-							//NetworkEnd();
-							return;
-							break;
-						}*/
-						case MESSAGE_WINADDNAME: {
-							AddNetworkName((char*)inMessage->mesg, (char*)sender_endpoint_.address().to_string().c_str());
-							//CreateMessage(MESSAGE_NAMEREJECT, (uint8_t*)"", 1 + strlen(""));
-							//SendToIp(boost::asio::ip::make_address_v4(lastIp), messageStr);
-							//AddNetworkName(connection->ncb_name_26, lastIp);
-						}/*
-						case MESSAGE_MAKECONNECT: {
-							myNCB* tempNCB = (myNCB*)inMessage->mesg;
-							if (!strcmp(connection->ncb_name_26, tempNCB->ncb_callName_10))
-								makeConnection((char*)tempNCB->ncb_name_26);
-						}
-						case MESSAGE_SEND: {
-							connection->ncb_buffer_4.p = inMessage->mesg;
-							connection->ncb_bufferLength_8 = inMessage->lenght;
-						}*/
-						//else
-						default:
-						{
-							WriteMessage((messType*)data_, sender_endpoint_.address());
-							break;
-						}
-						}
-					}
-				}
-			}
-
+//#endif //TEST_NETWORK_FAKECOMM1
+			processInMessages(data_,bytes_recvd, sender_endpoint_.address());
 		}
 	}
-	/*
-	void handle_send_to(const boost::system::error_code& error,
-		size_t bytes_sent)
-	{
-		socket_.async_receive_from(
-			boost::asio::buffer(data_, max_length), sender_endpoint_,
-			boost::bind(&server::handle_receive_from, this,
-				boost::asio::placeholders::error,
-				boost::asio::placeholders::bytes_transferred));
-		printf("cccc");
-		strcpy(lastmessage, "aaa");
-	}*/
 
 
 private:
@@ -607,12 +522,18 @@ private:
 	char data_[sizeof(messType)];
 };
 
+#endif// NETWORK_USETCP
+
 void ListenService() {
 	a.lock();
 	boost::asio::io_context io_context;
 
 	using namespace std; // For atoi.
+#ifdef NETWORK_USETCP
+	serverTCP s(io_context, MultiplayerPort);
+#else
 	server s(io_context, MultiplayerPort);
+#endif// NETWORK_USETCP
 	io_context.run();
 	a.unlock();
 }
