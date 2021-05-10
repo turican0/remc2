@@ -28,6 +28,7 @@ char* IHaveNameStrP = NULL;
 char IHaveNameStr[16];
 
 bool listenerOn = true;
+bool serverIPNotAdded = true;
 
 #ifdef TEST_NETWORK_MESSAGES
 FILE* debug_net_output;
@@ -531,6 +532,7 @@ public:
 						}
 						case IMESSAGE_RECVINFO: {
 							AddtoIPList(sender_endpoint_.address().to_string());
+							serverIPNotAdded = false;
 							break;
 						}
 						case MESSAGE_TESTADDNAME: {//RECV ADD_NAME
@@ -628,9 +630,12 @@ void NetworkInit() {
 		useBroadcast = false;
 		myDelay(500);
 		//detect all REMC2 IPs
-		CreateMessage(IMESSAGE_SENDINFO, (uint8_t*)"", 1 + strlen(""));
-		SendToIp(boost::asio::ip::make_address_v4(serverIP));
-
+		int waitcount = 20;
+		while ((waitcount<20)&&(serverIPNotAdded)) {
+			CreateMessage(IMESSAGE_SENDINFO, (uint8_t*)"", 1 + strlen(""));
+			SendToIp(boost::asio::ip::make_address_v4(serverIP));
+			myDelay(500);
+		}
 	}
 };
 
