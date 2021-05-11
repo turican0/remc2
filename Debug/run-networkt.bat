@@ -1,1 +1,1 @@
-remc2_without_xcopy.exe serveradress 172.24.224.1 3490 netinitwait 20000
+remc2_without_xcopy.exe serveradress 172.22.19.14 3490 netinitwait 20000
