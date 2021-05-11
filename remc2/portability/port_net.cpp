@@ -632,7 +632,7 @@ void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myN
 #endif //TEST_NETWORK_MESSAGES
 		connection->ncb_retcode_1 = 0x03;
 		connection->ncb_cmd_cplt_49 = 0x03;
-		long compidlong = (long)rand() + (long)rand();
+		long compidlong = (long)rand() + (long)rand()+ (long)rand() + (long)rand();
 		sprintf(compid, "%08X", compidlong);
 		//NetworkInit();
 		NetworkInitG();
