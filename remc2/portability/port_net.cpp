@@ -121,16 +121,23 @@ void BroadcastAllUDP()
 #ifdef NETWORK_USETCP
 void SendToIp(boost::asio::ip::address_v4 ip)
 {
-	boost::asio::io_context io_context;
+	try
+	{
+		boost::asio::io_context io_context;
 
-	boost::asio::ip::tcp::resolver resolver(io_context);
-	boost::asio::ip::tcp::socket s(io_context);
+		boost::asio::ip::tcp::resolver resolver(io_context);
+		boost::asio::ip::tcp::socket s(io_context);
 
-	boost::asio::ip::tcp::resolver::results_type endpoints =
-		resolver.resolve(boost::asio::ip::tcp::v4(), ip.to_string(), std::to_string(MultiplayerPort));
+		boost::asio::ip::tcp::resolver::results_type endpoints =
+			resolver.resolve(boost::asio::ip::tcp::v4(), ip.to_string(), std::to_string(MultiplayerPort));
 
-	boost::asio::connect(s, endpoints);
-	boost::asio::write(s, boost::asio::buffer((char*)&messageStr, messTypeAddSize + messageStr.lenght));
+		boost::asio::connect(s, endpoints);
+		boost::asio::write(s, boost::asio::buffer((char*)&messageStr, messTypeAddSize + messageStr.lenght));
+	}
+	catch (std::exception& e)
+	{
+		//std::cerr << "Exception: " << e.what() << "\n";
+	}
 }
 #else
 void SendToIp(boost::asio::ip::address_v4 ip)
