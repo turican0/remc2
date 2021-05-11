@@ -86,6 +86,18 @@
     <ClCompile Include="portability\xmi2mid.cpp" />
     <ClCompile Include="remc2.cpp" />
     <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="networklib\Client.cpp">
+      <Filter>networklib</Filter>
+    </ClCompile>
+    <ClCompile Include="networklib\Factory.cpp">
+      <Filter>networklib</Filter>
+    </ClCompile>
+    <ClCompile Include="networklib\Server.cpp">
+      <Filter>networklib</Filter>
+    </ClCompile>
+    <ClCompile Include="networklib\Statistics.cpp">
+      <Filter>networklib</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\inih\ini.h" />
@@ -188,6 +200,36 @@
     <ClInclude Include="sub_main.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="engine\types.h" />
+    <ClInclude Include="networklib\Client.h">
+      <Filter>networklib</Filter>
+    </ClInclude>
+    <ClInclude Include="networklib\Constants.h">
+      <Filter>networklib</Filter>
+    </ClInclude>
+    <ClInclude Include="networklib\Factory.h">
+      <Filter>networklib</Filter>
+    </ClInclude>
+    <ClInclude Include="networklib\IClient.h">
+      <Filter>networklib</Filter>
+    </ClInclude>
+    <ClInclude Include="networklib\IServer.h">
+      <Filter>networklib</Filter>
+    </ClInclude>
+    <ClInclude Include="networklib\LockedQueue.h">
+      <Filter>networklib</Filter>
+    </ClInclude>
+    <ClInclude Include="networklib\Log.h">
+      <Filter>networklib</Filter>
+    </ClInclude>
+    <ClInclude Include="networklib\Server.h">
+      <Filter>networklib</Filter>
+    </ClInclude>
+    <ClInclude Include="networklib\Statistics.h">
+      <Filter>networklib</Filter>
+    </ClInclude>
+    <ClInclude Include="networklib\targetver.h">
+      <Filter>networklib</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\libpng2\libpng-master\projects\vstudio2017\Debug\libpng15.lib" />
@@ -224,5 +266,10 @@
     <None Include="engine\bytearrays.x" />
     <None Include="engine\info.x" />
     <None Include="engine\structures.x" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="networklib">
+      <UniqueIdentifier>{6ee2c551-c7b6-4bcf-b9e1-0805e1d9df5c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

@@ -92,7 +92,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\sdl2\include;$(SolutionDir)\fluidsynth\include;$(SolutionDir)\libADLMIDI-master\include;$(SolutionDir)\libOPNMIDI-master\include;$(SolutionDir)\SDL-Mixer-X-master\include\SDL_mixer_ext;$(SolutionDir)\SDL-Mixer-X-master\src;$(SolutionDir)\inih;$(SolutionDir)\libvorbis\include;$(SolutionDir)\libogg\include;C:\Program Files %28x86%29\Visual Leak Detector\include;$(SolutionDir)\libpng2\libpng-master;$(SolutionDir)\zlib\include;$(SolutionDir)\kiss_sdl-master;$(SolutionDir)\SDL2_image-2.0.5\include;$(SolutionDir)\SDL2_ttf-2.0.15\include;$(SolutionDir)\SDL-Mixer-X-master\include\;$(SolutionDir)\SDL-Mixer-X-master\src\codecs\;$(SolutionDir)\OpenAL 1.1 SDK\include;$(SolutionDir)\boost;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\sdl2\include;$(SolutionDir)\fluidsynth\include;$(SolutionDir)\libADLMIDI-master\include;$(SolutionDir)\libOPNMIDI-master\include;$(SolutionDir)\SDL-Mixer-X-master\include\SDL_mixer_ext;$(SolutionDir)\SDL-Mixer-X-master\src;$(SolutionDir)\inih;$(SolutionDir)\libvorbis\include;$(SolutionDir)\libogg\include;C:\Program Files %28x86%29\Visual Leak Detector\include;$(SolutionDir)\libpng2\libpng-master;$(SolutionDir)\zlib\include;$(SolutionDir)\kiss_sdl-master;$(SolutionDir)\SDL2_image-2.0.5\include;$(SolutionDir)\SDL2_ttf-2.0.15\include;$(SolutionDir)\SDL-Mixer-X-master\include\;$(SolutionDir)\SDL-Mixer-X-master\src\codecs\;$(SolutionDir)\OpenAL 1.1 SDK\include;$(SolutionDir)\boost;C:\prenos\remc2-dev\remc2\networklib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
     </ClCompile>
     <Link>
@@ -252,6 +252,16 @@
     <ClInclude Include="engine\Sound.h" />
     <ClInclude Include="engine\Terrain.h" />
     <ClInclude Include="engine\types.h" />
+    <ClInclude Include="networklib\Client.h" />
+    <ClInclude Include="networklib\Constants.h" />
+    <ClInclude Include="networklib\Factory.h" />
+    <ClInclude Include="networklib\IClient.h" />
+    <ClInclude Include="networklib\IServer.h" />
+    <ClInclude Include="networklib\LockedQueue.h" />
+    <ClInclude Include="networklib\Log.h" />
+    <ClInclude Include="networklib\Server.h" />
+    <ClInclude Include="networklib\Statistics.h" />
+    <ClInclude Include="networklib\targetver.h" />
     <ClInclude Include="portability\port_net.h" />
     <ClInclude Include="utilities\BitmapIO.h" />
     <ClInclude Include="utilities\DataFileIO.h" />
@@ -344,6 +354,10 @@
     <ClCompile Include="engine\Basic.cpp" />
     <ClCompile Include="engine\Sound.cpp" />
     <ClCompile Include="engine\Terrain.cpp" />
+    <ClCompile Include="networklib\Client.cpp" />
+    <ClCompile Include="networklib\Factory.cpp" />
+    <ClCompile Include="networklib\Server.cpp" />
+    <ClCompile Include="networklib\Statistics.cpp" />
     <ClCompile Include="portability\port_net.cpp" />
     <ClCompile Include="utilities\BitmapIO.cpp" />
     <ClCompile Include="utilities\DataFileIO.cpp" />
