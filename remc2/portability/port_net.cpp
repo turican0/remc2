@@ -121,7 +121,7 @@ void BroadcastAllUDP()
 #ifdef NETWORK_USETCP
 void SendToIp(boost::asio::ip::address_v4 ip)
 {
-	try
+	//try
 	{
 		boost::asio::io_context io_context;
 
@@ -133,11 +133,13 @@ void SendToIp(boost::asio::ip::address_v4 ip)
 
 		boost::asio::connect(s, endpoints);
 		boost::asio::write(s, boost::asio::buffer((char*)&messageStr, messTypeAddSize + messageStr.lenght));
+		boost::system::error_code ec;
+		s.close(ec);
 	}
-	catch (std::exception& e)
+	/*catch (std::exception& e)
 	{
 		//std::cerr << "Exception: " << e.what() << "\n";
-	}
+	}*/
 }
 #else
 void SendToIp(boost::asio::ip::address_v4 ip)
@@ -369,7 +371,7 @@ void processInMessages(char* data_, size_t bytes_recvd, boost::asio::ip::address
 				switch (inMessage->type) {
 				case IMESSAGE_SENDINFO: {
 					AddtoIPList(remAdress.to_string());
-					CreateMessage(IMESSAGE_RECVINFO, (uint8_t*)"", 1 + strlen(""));
+					CreateMessage(IMESSAGE_RECVINFO, (uint8_t*)"IMESSAGE_RECVINFO", 1 + strlen("IMESSAGE_RECVINFO"));
 					SendToIp(remAdress.to_v4());
 					break;
 				}
@@ -513,9 +515,9 @@ public:
 		if (!error && bytes_recvd > 0)
 		{
 //#ifndef TEST_NETWORK_FAKECOMM1			
-		}
+		/*}
 		else
-		{
+		{*/
 //#endif //TEST_NETWORK_FAKECOMM1
 			processInMessages(data_,bytes_recvd, sender_endpoint_.address());
 		}
@@ -559,7 +561,7 @@ void NetworkInit() {
 		//detect all REMC2 IPs
 		int waitcount = 0;
 		while ((waitcount< NetworkInitWait)&&(serverIPNotAdded)) {
-			CreateMessage(IMESSAGE_SENDINFO, (uint8_t*)"", 1 + strlen(""));
+			CreateMessage(IMESSAGE_SENDINFO, (uint8_t*)"IMESSAGE_SENDINFO", 1 + strlen("IMESSAGE_SENDINFO"));
 			SendToIp(boost::asio::ip::make_address_v4(serverIP));
 			myDelay(1000);
 			waitcount++;
