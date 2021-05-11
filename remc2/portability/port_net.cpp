@@ -22,7 +22,7 @@
 #include "boost/date_time/posix_time/posix_time_types.hpp"
 
 #define TEST_NETWORK_MESSAGES
-#define TEST_NETWORK_FAKECOMM1
+//#define TEST_NETWORK_FAKECOMM1
 
 #define NETWORK_USETCP
 
