@@ -32,6 +32,8 @@ char IHaveNameStr[16];
 bool listenerOn = true;
 bool serverIPNotAdded = true;
 
+int NetworkInitWait = 20;
+
 #ifdef TEST_NETWORK_MESSAGES
 FILE* debug_net_output;
 const char* debug_net_filename1 = "net_messages_log.txt";
@@ -93,9 +95,7 @@ int messTypeAddSize = 9 + 8 + 4 + 4 + 20;
 
 messType messageStr;
 
-#ifndef NETWORK_USETCP
-
-void BroadcastAll()
+void BroadcastAllUDP()
 {
 	{
 		boost::system::error_code error;
@@ -117,7 +117,6 @@ void BroadcastAll()
 	}
 }
 
-#endif //NETWORK_USETCP
 
 #ifdef NETWORK_USETCP
 void SendToIp(boost::asio::ip::address_v4 ip)
@@ -160,7 +159,7 @@ std::vector<std::string> gameIP;
 void preBroadcastAll() {
 #ifndef NETWORK_USETCP
 	if (useBroadcast)
-		BroadcastAll();
+		BroadcastAllUDP();
 	else
 #endif// NETWORK_USETCP
 		for (std::string locIP : gameIP) {
@@ -552,7 +551,7 @@ void NetworkInit() {
 		myDelay(1000);
 		//detect all REMC2 IPs
 		int waitcount = 0;
-		while ((waitcount<20)&&(serverIPNotAdded)) {
+		while ((waitcount< NetworkInitWait)&&(serverIPNotAdded)) {
 			CreateMessage(IMESSAGE_SENDINFO, (uint8_t*)"", 1 + strlen(""));
 			SendToIp(boost::asio::ip::make_address_v4(serverIP));
 			myDelay(1000);

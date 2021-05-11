@@ -15,6 +15,8 @@ extern int MultiplayerPort;
 
 extern char serverIP[256];
 
+extern int NetworkInitWait;
+
 typedef struct _REGS {
 	uint32 eax;
 	uint32 ebx;

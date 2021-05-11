@@ -67859,6 +67859,14 @@ void sub_56210_process_command_line(int argc, char** argv)//237210
 					if (MultiplayerPort > 9999)MultiplayerPort = 9999;
 				}
 			}
+			else if (!_stricmp("netinitwait", (char*)actarg))//set to all one computer adress
+			{
+				//if (!Iam_client)
+				{
+					//Iam_server = true;
+					NetworkInitWait = atoi(argv[++argnumber]);
+				}
+			}
 			/*else if (!_stricmp("client", (char*)actarg))
 			{
 				if (!Iam_server)
