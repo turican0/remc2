@@ -121,7 +121,7 @@ set(ALL_FILES
     ${SOURCE_FILES_ENGINE}
     ${SOURCE_FILES__libs__inih}
     ${SOURCE_FILES__portability}
-    ${SOURCE_FILES__networklib})
+    ${SOURCE_FILES__networklib}
 )
 
 ################################################################################

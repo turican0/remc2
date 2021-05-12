@@ -129,7 +129,7 @@ void ListenerServer() {
 				server->BackMessage(receivedMessage);
 			}
 		}
-		Sleep(10);
+		Sleep(5);
 	}
 	aServer.unlock();
 }
