@@ -6,7 +6,7 @@ namespace NetworkLib
 {
 	typedef std::pair<std::string, uint32_t> ClientMessage;
 
-	class IServer abstract
+	class IServer// abstract
 	{
 	public:
 		virtual ~IServer() {};

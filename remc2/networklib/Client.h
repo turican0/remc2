@@ -19,11 +19,11 @@ namespace NetworkLib {
 		Client(std::string host, unsigned short server_port, unsigned short local_port = 0);
 		virtual ~Client();
 
-		void Send(const std::string& message) override;
+		void Send(const std::string& message)/* override*/;
 
-		bool HasMessages() override;
+		bool HasMessages()/* override*/;
 
-		std::string PopMessage() override;
+		std::string PopMessage()/* override*/;
 
 		void BackMessage(std::string message);
 

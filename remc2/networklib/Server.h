@@ -23,16 +23,16 @@ namespace NetworkLib {
 		explicit Server(unsigned short local_port);
 		virtual ~Server();
 
-		bool HasMessages() override;
-		ClientMessage PopMessage() override;
+		bool HasMessages()/* override*/;
+		ClientMessage PopMessage()/* override*/;
 		void BackMessage(ClientMessage message);
 
-		void SendToClient(const std::string& message, uint32_t clientID) override;
+		void SendToClient(const std::string& message, uint32_t clientID)/* override*/;
 		void SendToAllExcept(const std::string& message, uint32_t clientID);
 		void SendToAll(const std::string& message);
 
-		size_t GetClientCount() override;
-		uint32_t GetClientIdByIndex(size_t index) override;
+		size_t GetClientCount()/* override*/;
+		uint32_t GetClientIdByIndex(size_t index)/* override*/;
 
 		const Statistics& GetStatistics() const { return statistics; };
 		std::vector<std::function<void(uint32_t)>> clientDisconnectedHandlers;
