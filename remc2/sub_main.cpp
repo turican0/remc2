@@ -70,7 +70,7 @@ int test_regression_level = 50;
 	bool hideGraphics = false;
 #elif defined(TEST_REGRESSIONS_GAME) //this is setting for regressions testing
 	#define DETECT_DWORD_A
-	#define COPY_SKIP_CONFIG
+	#define COPY_SKIP_CONFIGiniti
 	#define FIX_MOUSE
 	#define MOUSE_OFF2
 	#define OFF_PAUSE_5
@@ -67447,6 +67447,9 @@ type_SPELLS_BEGIN_BUFFER_str;
 void InitNetworkInfo() {
 	std::string exepath = get_exe_path();
 	debug_net_filename2 = exepath + "/../" + debug_net_filename1;
+
+	testlib1();
+	exit(0);
 	/*
 
 

@@ -90,5 +90,7 @@ char* NetworkListenForClients();
 void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myNCB* connection);
 void fake_network_interupt(myNCB* connection);
 
+void testlib1();
+
 
 #endif //PORT_TIME

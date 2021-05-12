@@ -49,37 +49,6 @@ std::string debug_net_filename2 = {};
 //std::string net_path = {};
 bool debug_net_first = true;
 
-void testlib1() {
-	//TEST_METHOD(SendMessageFromClientToServerShouldProduceSameMessage)
-	{
-		//auto server = NetworkLib::CreateServer();
-
-		auto client = new NetworkLib::Client("127.0.0.1", MultiplayerPort+1, MultiplayerPort);
-		//return std::unique_ptr<IClient>(client);
-
-		auto server = new NetworkLib::Server(MultiplayerPort);
-		//return std::unique_ptr<IServer>(server);
-
-		//auto client = CreateClient();
-
-		std::string message("Test message");
-
-		// Send client->server
-		client->Send(message);
-
-		Sleep(2000);
-
-		printf("server->HasMessages%d\n",server->HasMessages());
-		printf("client->HasMessages%d\n", client->HasMessages());
-
-		std::string receivedMessage = server->PopMessage().first;
-		printf("message == receivedMessage%d\n", (bool)(message == receivedMessage));
-
-		printf("server->HasMessages%d\n", server->HasMessages());
-		printf("client->HasMessages%d\n", client->HasMessages());
-	}
-}
-
 void debug_net_printf(const char* format, ...) {
 	char prbuffer[1024];
 	va_list arg;
@@ -106,6 +75,48 @@ void debug_net_printf(const char* format, ...) {
 #endif
 }
 #endif// TEST_NETWORK_MESSAGES
+
+void testlib1() {
+	//TEST_METHOD(SendMessageFromClientToServerShouldProduceSameMessage)
+	{
+		//auto server = NetworkLib::CreateServer();
+
+		auto client = new NetworkLib::Client("127.0.0.1", MultiplayerPort, MultiplayerPort + 1);
+		//return std::unique_ptr<IClient>(client);
+
+		auto server = new NetworkLib::Server(MultiplayerPort);		
+		//return std::unique_ptr<IServer>(server);
+
+		//auto client = CreateClient();
+
+		std::string message("Test message");
+
+		// Send client->server
+		client->Send(message);
+
+		Sleep(2000);
+
+		debug_net_printf("server->HasMessages%d\n", server->HasMessages());
+		debug_net_printf("client->HasMessages%d\n", client->HasMessages());
+
+		std::string receivedMessage = server->PopMessage().first;
+		debug_net_printf("message == receivedMessage%d\n", (bool)(message == receivedMessage));
+
+		debug_net_printf("server->HasMessages%d\n", server->HasMessages());
+		debug_net_printf("client->HasMessages%d\n", client->HasMessages());
+
+		debug_net_printf("server send to all\n");
+		server->SendToAll("for all");
+
+		Sleep(2000);
+
+		debug_net_printf("server->HasMessages%d\n", server->HasMessages());
+		debug_net_printf("client->HasMessages%d\n", client->HasMessages());
+
+	}
+}
+
+
 
 //CreateMessage
 #define MESSAGE_TESTADDNAME 1
