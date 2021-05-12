@@ -1,4 +1,4 @@
-#include "targetver.h"
+//#include "targetver.h"
 #include "Statistics.h"
 #include <iomanip>
 #include <array>
