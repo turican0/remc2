@@ -254,6 +254,16 @@ XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y</C
     <ClInclude Include="engine\Basic.h" />
     <ClInclude Include="engine\Sound.h" />
     <ClInclude Include="engine\Terrain.h" />
+    <ClInclude Include="networklib\Client.h" />
+    <ClInclude Include="networklib\Constants.h" />
+    <ClInclude Include="networklib\Factory.h" />
+    <ClInclude Include="networklib\IClient.h" />
+    <ClInclude Include="networklib\IServer.h" />
+    <ClInclude Include="networklib\LockedQueue.h" />
+    <ClInclude Include="networklib\Log.h" />
+    <ClInclude Include="networklib\Server.h" />
+    <ClInclude Include="networklib\Statistics.h" />
+    <ClInclude Include="networklib\targetver.h" />
     <ClInclude Include="portability\port_net.h" />
     <ClInclude Include="utilities\BitmapIO.h" />
     <ClInclude Include="utilities\DataFileIO.h" />
@@ -346,6 +356,10 @@ XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y</C
     <ClCompile Include="engine\Basic.cpp" />
     <ClCompile Include="engine\Sound.cpp" />
     <ClCompile Include="engine\Terrain.cpp" />
+    <ClCompile Include="networklib\Client.cpp" />
+    <ClCompile Include="networklib\Factory.cpp" />
+    <ClCompile Include="networklib\Server.cpp" />
+    <ClCompile Include="networklib\Statistics.cpp" />
     <ClCompile Include="portability\port_net.cpp" />
     <ClCompile Include="utilities\BitmapIO.cpp" />
     <ClCompile Include="utilities\DataFileIO.cpp" />

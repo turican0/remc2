@@ -21,8 +21,8 @@
 #include "boost/bind.hpp"
 #include "boost/date_time/posix_time/posix_time_types.hpp"
 
-#include "Server.h"
-#include "Client.h"
+#include "../networklib/Server.h"
+#include "../networklib/Client.h"
 //#include "Factory.h"
 //#include <memory>
 //#include <thread>
