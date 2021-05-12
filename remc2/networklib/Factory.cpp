@@ -1,4 +1,4 @@
-#include "targetver.h"
+//#include "targetver.h"
 #include "Factory.h"
 #include "Client.h"
 #include "Server.h"
