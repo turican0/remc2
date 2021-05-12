@@ -3,7 +3,7 @@
 
 namespace NetworkLib
 {
-	class IClient abstract
+	class IClient/* abstract*/
 	{
 	public:
 		virtual ~IClient() {};

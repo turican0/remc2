@@ -951,7 +951,7 @@ bool inrun = false;
 long oldtime;
 
 void fake_network_interupt(myNCB* connection) {
-	/*
+	
 	messType* inMessage;
 	//uint8_t outmessage[MaxMessageSize];
 	if (inrun)
@@ -965,9 +965,9 @@ void fake_network_interupt(myNCB* connection) {
 			switch (connection->ncb_command_0)
 			{
 				case 0xb0: {//ADD_NAME 
-					AddNetworkName(connection->ncb_name_26, (char*)"127.0.0.1");
+					/*AddNetworkName(connection->ncb_name_26, (char*)"127.0.0.1");
 					CreateMessage(MESSAGE_WINADDNAME, (uint8_t*)connection->ncb_name_26, 1 + strlen(connection->ncb_name_26));
-					preBroadcastAll();
+					preBroadcastAll();*/
 					memcpy(IHaveNameStr, connection->ncb_name_26,16);
 					IHaveNameStrP = IHaveNameStr;
 					//AddNetworkName(connection->ncb_name_26,lastIp);
@@ -1018,7 +1018,7 @@ void fake_network_interupt(myNCB* connection) {
 		debug_net_printf("RECEIVED MESSAGE:%s\n", showstr);
 #endif //TEST_NETWORK_MESSAGES
 		switch (inMessage->type) {			
-		case MESSAGE_NAMEREJECT: {//REJECT ADDNAME
+		/*case MESSAGE_NAMEREJECT: {//REJECT ADDNAME
 			inrun = false;
 			connection->ncb_cmd_cplt_49 = 22;
 			//AddNetworkName(connection->ncb_name_26, "localhost");
@@ -1034,7 +1034,7 @@ void fake_network_interupt(myNCB* connection) {
 		case MESSAGE_SEND: {
 			connection->ncb_buffer_4.p = inMessage->mesg;
 			connection->ncb_bufferLength_8 = inMessage->lenght;
+		}*/
 		}
-		}
-	}*/
+	}
 }
