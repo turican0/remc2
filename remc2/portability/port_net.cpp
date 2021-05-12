@@ -28,6 +28,8 @@
 //#include <thread>
 //#include <vector>
 
+#include <stdarg.h>     /* va_list, va_start, va_arg, va_end */
+
 void mySleep(int sleepMs)
 {
 #ifdef _WIN32
