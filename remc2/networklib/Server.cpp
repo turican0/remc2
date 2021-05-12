@@ -146,6 +146,10 @@ namespace NetworkLib {
 		return incomingMessages.pop();
 	}
 
+	void Server::BackMessage(ClientMessage message) {
+		incomingMessages.push(message);
+	}
+
 	bool Server::HasMessages()
 	{
 		return !incomingMessages.empty();

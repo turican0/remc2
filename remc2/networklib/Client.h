@@ -21,9 +21,11 @@ namespace NetworkLib {
 
 		void Send(const std::string& message) override;
 
-		bool HasMessages() override;;
+		bool HasMessages() override;
 
-		std::string PopMessage() override;;
+		std::string PopMessage() override;
+
+		void BackMessage(std::string message);
 
 	private:
 		// Network send/receive stuff

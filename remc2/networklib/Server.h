@@ -25,6 +25,7 @@ namespace NetworkLib {
 
 		bool HasMessages() override;
 		ClientMessage PopMessage() override;
+		void BackMessage(ClientMessage message);
 
 		void SendToClient(const std::string& message, uint32_t clientID) override;
 		void SendToAllExcept(const std::string& message, uint32_t clientID);

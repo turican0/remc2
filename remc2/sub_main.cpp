@@ -3205,9 +3205,10 @@ char x_BYTE_D419C_level_num = -1; // weak
 char x_BYTE_D419D_fonttype = 1; // weak
 char x_BYTE_D419E = 0; // weak//2a519e
 
-//bool Iam_server = false;
-//bool Iam_client = false;
-int MultiplayerPort = 3490;
+bool Iam_server = false;
+bool Iam_client = false;
+int ClientMPort = 3491;
+int ServerMPort = 3490;
 char serverIP[256] = "000.000.000.000";
 
 x_DWORD x_DWORD_D41A4_4 = 0;
@@ -67448,8 +67449,16 @@ void InitNetworkInfo() {
 	std::string exepath = get_exe_path();
 	debug_net_filename2 = exepath + "/../" + debug_net_filename1;
 
-	testlib1();
-	exit(0);
+	//testlib1();
+	if (Iam_client)
+	{
+		InitLibNetClient(serverIP, ServerMPort, ClientMPort);
+	}
+	else if(Iam_server)
+	{
+		InitLibNetServer(ServerMPort);
+	}
+	//exit(0);
 	/*
 
 
@@ -67637,6 +67646,20 @@ int sub_main(int argc, char** argv, char**  /*envp*/)//236F70
 
 	sub_5BC20();//23CC20 //remove devices?
 	sub_56730_clean_memory();//237730
+	
+#ifdef TEST_NETWORK
+
+	if (Iam_client)
+	{
+		EndLibNetClient();
+	}
+	else if (Iam_server)
+	{
+		EndLibNetServer();
+	}
+	
+#endif //TEST_NETWORK
+
 	return 0;
 }
 // 8C250: using guessed type x_DWORD memset(x_DWORD, x_DWORD, x_DWORD);
@@ -67851,25 +67874,38 @@ void sub_56210_process_command_line(int argc, char** argv)//237210
 			{
 				x_BYTE_355238_music2 = 1;
 			}
-			else if (!_stricmp("serveradress", (char*)actarg))//set to all one computer adress
+			else if (!_stricmp("client", (char*)actarg))//set to all one computer adress
 			{
-				//if (!Iam_client)
+				if (!Iam_server)
 				{
-					//Iam_server = true;
+					Iam_client = true;
 					strcpy(serverIP, (char*)argv[++argnumber]);
-					MultiplayerPort = atoi(argv[++argnumber]);
-					if (MultiplayerPort <0)MultiplayerPort = 0;
-					if (MultiplayerPort > 9999)MultiplayerPort = 9999;
+					ServerMPort = atoi(argv[++argnumber]);
+					if (ServerMPort <0)ServerMPort = 0;
+					if (ServerMPort > 9999)ServerMPort = 9999;
+					ClientMPort = atoi(argv[++argnumber]);
+					if (ClientMPort < 0)ClientMPort = 0;
+					if (ClientMPort > 9999)ClientMPort = 9999;
 				}
 			}
-			else if (!_stricmp("netinitwait", (char*)actarg))//set to all one computer adress
+			else if (!_stricmp("server", (char*)actarg))//set to all one computer adress
+			{
+				if (!Iam_client)
+				{
+					Iam_server = true;
+					ServerMPort = atoi(argv[++argnumber]);
+					if (ServerMPort < 0)ServerMPort = 0;
+					if (ServerMPort > 9999)ServerMPort = 9999;
+				}
+			}
+			/*else if (!_stricmp("netinitwait", (char*)actarg))//set to all one computer adress
 			{
 				//if (!Iam_client)
 				{
 					//Iam_server = true;
 					NetworkInitWait = atoi(argv[++argnumber]);
 				}
-			}
+			}*/
 			/*else if (!_stricmp("client", (char*)actarg))
 			{
 				if (!Iam_server)
@@ -89824,11 +89860,14 @@ signed int NetworkCancel_748F7(__int16 compindex)//2558f7
 int dos_getvect(int vector) {
 
 #ifdef TEST_NETWORK
-	//get ah from 2b5cb2 - 01
-	//335c 
-	//int 21
-	//get ebx d49
-	if (vector == 92)return 0xd49;
+	if ((Iam_server) || (Iam_client))
+	{
+		//get ah from 2b5cb2 - 01
+		//335c 
+		//int 21
+		//get ebx d49
+		if (vector == 92)return 0xd49;
+	}
 #endif
 	return 0;
 }

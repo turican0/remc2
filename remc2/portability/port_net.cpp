@@ -31,15 +31,15 @@
 #define TEST_NETWORK_MESSAGES
 //#define TEST_NETWORK_FAKECOMM1
 
-#define NETWORK_USETCP
+//#define NETWORK_USETCP
 
 char* IHaveNameStrP = NULL;
 char IHaveNameStr[16];
 
-bool listenerOn = true;
+bool listenerServerOn = true;
 bool serverIPNotAdded = true;
 
-int NetworkInitWait = 20;
+//int NetworkInitWait = 20;
 
 #ifdef TEST_NETWORK_MESSAGES
 FILE* debug_net_output;
@@ -76,23 +76,153 @@ void debug_net_printf(const char* format, ...) {
 }
 #endif// TEST_NETWORK_MESSAGES
 
+NetworkLib::Client* client;
+NetworkLib::Server* server;
+void InitLibNetClient(char* ip, int serverport, int clientport) {
+	client = new NetworkLib::Client(ip, serverport, clientport);
+}
+
+void InitLibNetServer(int serverport) {
+	server = new NetworkLib::Server(serverport);
+	NetworkInitServer();
+}
+
+bool TestAddName(std::string name) {
+	return false;
+}
+
+std::thread* listenThreadServer;
+std::thread* listenThreadClient;
+//std::thread* guardThread;
+
+std::mutex aServer;
+std::mutex aClient;
+//std::mutex b;
+
+void ListenerServer() {
+	aServer.lock();
+	while (listenerServerOn)
+	{
+		if (server->HasMessages())
+		{
+			NetworkLib::ClientMessage receivedMessage = server->PopMessage();
+			std::string receivedMessageStr = receivedMessage.first;
+			std::string delimiter = ";";
+
+			size_t pos = 0;
+			std::string token;
+			std::vector<std::string> messages;
+			while ((pos = receivedMessageStr.find(delimiter)) != std::string::npos) {
+				token = receivedMessageStr.substr(0, pos);
+				messages.push_back(token);
+				receivedMessageStr.erase(0, pos + delimiter.length());
+			}
+			messages.push_back(token);
+
+			if (messages[0].compare("MESSAGE_TESTADDNAME"))
+			{
+				if (!TestAddName(messages[1]))
+					server->SendToClient("MESSAGE_NAMEREJECT", receivedMessage.second);
+			}
+			else
+			{
+				server->BackMessage(receivedMessage);
+			}
+		}
+		Sleep(10);
+	}
+	aServer.unlock();
+}
+
+void ListenerClient() {
+	aClient.lock();
+	while (listenerServerOn)
+	{
+		if (client->HasMessages())
+		{
+			std::string receivedMessage = client->PopMessage();
+			std::string receivedMessageStr = receivedMessage;
+			std::string delimiter = ";";
+
+			size_t pos = 0;
+			std::string token;
+			std::vector<std::string> messages;
+			while ((pos = receivedMessageStr.find(delimiter)) != std::string::npos) {
+				token = receivedMessageStr.substr(0, pos);
+				messages.push_back(token);
+				receivedMessageStr.erase(0, pos + delimiter.length());
+			}
+			messages.push_back(token);
+
+			/*if (messages[0].compare("MESSAGE_TESTADDNAME"))
+			{
+				if (!TestAddName(messages[1]))
+					server->SendToClient("MESSAGE_NAMEREJECT", receivedMessage.second);
+			}
+			else*/
+			{
+				client->BackMessage(receivedMessage);
+			}
+		}
+		Sleep(10);
+	}
+	aClient.unlock();
+}
+
+void NetworkInitServer() {
+	// Creation
+	listenThreadServer = new std::thread(ListenerServer);
+	FakeTestsClient();
+};
+
+void NetworkInitClient() {
+	// Creation
+	listenThreadClient = new std::thread(ListenerClient);
+};
+
+void NetworkEndServer() {
+	// Cleanup
+	//listenThread->interrupt();
+	listenerServerOn = false;
+	Sleep(3000);
+	listenThreadServer->join();
+	delete listenThreadServer;
+}
+
+void EndLibNetClient() {
+	client->~Client();
+}
+
+void EndLibNetServer() {
+	NetworkEndServer();
+	Sleep(2000);
+	server->~Server();	
+}
+
+void FakeTestsClient() {
+	Sleep(2000);
+	client = new NetworkLib::Client("127.0.0.1", ServerMPort, ClientMPort);
+	Sleep(2000);
+	NetworkInitClient();
+	Sleep(2000);
+	client->Send(std::string("MESSAGE_TESTADDNAME;") + std::string("testname"));
+};
+
 void testlib1() {
 	//TEST_METHOD(SendMessageFromClientToServerShouldProduceSameMessage)
 	{
 		//auto server = NetworkLib::CreateServer();
 
-		auto client = new NetworkLib::Client("127.0.0.1", MultiplayerPort, MultiplayerPort + 1);
+		auto client = new NetworkLib::Client("127.0.0.1", ServerMPort, ClientMPort);
 		//return std::unique_ptr<IClient>(client);
 
-		auto server = new NetworkLib::Server(MultiplayerPort);		
+		auto server = new NetworkLib::Server(ServerMPort);
 		//return std::unique_ptr<IServer>(server);
 
 		//auto client = CreateClient();
 
-		std::string message("Test message");
-
 		// Send client->server
-		client->Send(message);
+		client->Send("Test message");
 
 		Sleep(2000);
 
@@ -100,8 +230,7 @@ void testlib1() {
 		debug_net_printf("client->HasMessages%d\n", client->HasMessages());
 
 		std::string receivedMessage = server->PopMessage().first;
-		debug_net_printf("message == receivedMessage%d\n", (bool)(message == receivedMessage));
-
+		
 		debug_net_printf("server->HasMessages%d\n", server->HasMessages());
 		debug_net_printf("client->HasMessages%d\n", client->HasMessages());
 
@@ -117,7 +246,7 @@ void testlib1() {
 }
 
 
-
+/*
 //CreateMessage
 #define MESSAGE_TESTADDNAME 1
 #define MESSAGE_NAMEREJECT 2
@@ -127,15 +256,15 @@ void testlib1() {
 
 #define IMESSAGE_SENDINFO 10
 #define IMESSAGE_RECVINFO 11
-
+*/
 //const short multicast_port = 30001;
-const int max_message_count = 10;
+//const int max_message_count = 10;
 
 int networkTimeout = 10000;
 
-char compid[9];
+//char compid[9];
 
-bool useBroadcast = true;
+//bool useBroadcast = true;
 
 int lastnetworkname = 0;
 int lastnetworklisten = 0;
@@ -143,7 +272,7 @@ int lastnetworklisten = 0;
 int messTypeAddSize = 9 + 8 + 4 + 4 + 20;
 
 messType messageStr;
-
+/*
 void BroadcastAllUDP()
 {
 	{
@@ -157,7 +286,7 @@ void BroadcastAllUDP()
 			socket.set_option(boost::asio::ip::udp::socket::reuse_address(true));
 			socket.set_option(boost::asio::socket_base::broadcast(true));
 
-			boost::asio::ip::udp::endpoint senderEndpoint(boost::asio::ip::address_v4::broadcast(), MultiplayerPort);
+			boost::asio::ip::udp::endpoint senderEndpoint(boost::asio::ip::address_v4::broadcast(), ServerMPort);
 
 			//size_t request_length = strlen(message);
 			socket.send_to(boost::asio::buffer((char*)&messageStr, messTypeAddSize + messageStr.lenght), senderEndpoint);
@@ -165,9 +294,10 @@ void BroadcastAllUDP()
 		}
 	}
 }
-
+*/
 
 #ifdef NETWORK_USETCP
+/*
 void SendToIp(boost::asio::ip::address_v4 ip)
 {
 	//try
@@ -178,19 +308,22 @@ void SendToIp(boost::asio::ip::address_v4 ip)
 		boost::asio::ip::tcp::socket s(io_context);
 
 		boost::asio::ip::tcp::resolver::results_type endpoints =
-			resolver.resolve(boost::asio::ip::tcp::v4(), ip.to_string(), std::to_string(MultiplayerPort));
+			resolver.resolve(boost::asio::ip::tcp::v4(), ip.to_string(), std::to_string(ServerMPort));
 
 		boost::asio::connect(s, endpoints);
 		boost::asio::write(s, boost::asio::buffer((char*)&messageStr, messTypeAddSize + messageStr.lenght));
 		boost::system::error_code ec;
 		s.close(ec);
 	}
-	/*catch (std::exception& e)
-	{
+	//catch (std::exception& e)
+	//{
 		//std::cerr << "Exception: " << e.what() << "\n";
-	}*/
+	//}
 }
+*/
+
 #else
+/*
 void SendToIp(boost::asio::ip::address_v4 ip)
 {
 	{
@@ -210,10 +343,10 @@ void SendToIp(boost::asio::ip::address_v4 ip)
 			socket.close(error);
 		}
 	}
-}
+}*/
 #endif// NETWORK_USETCP
 std::vector<std::string> gameIP;
-
+/*
 void preBroadcastAll() {
 #ifndef NETWORK_USETCP
 	if (useBroadcast)
@@ -223,7 +356,8 @@ void preBroadcastAll() {
 		for (std::string locIP : gameIP) {
 			SendToIp(boost::asio::ip::make_address_v4(locIP));
 		}
-}
+		
+}*/
 
 bool NetworkGetInitInfoFromServer(char* serverIP) {
 	return false;
@@ -289,7 +423,7 @@ void RemoveNetworkName(char* name) {
 	lastindex--;
 }
 
-
+/*
 void CreateMessage(int type, uint8_t* mesg, int lenght) {
 	memcpy(messageStr.stamp, "REMC2MESG", 9);
 	memcpy(messageStr.compid, compid, 8);
@@ -310,14 +444,17 @@ void CreateFakeMessage(int type, uint8_t* mesg, int lenght) {
 	messageStr.type = type;
 	messageStr.lenght = lenght;
 	memcpy(messageStr.mesg, mesg, lenght);
-}
+}*/
 
 void AddName(myNCB* connection) {
-	CreateMessage(MESSAGE_TESTADDNAME, (uint8_t*)connection->ncb_name_26, 1 + strlen(connection->ncb_name_26));
-	/*sprintf(message, "REMC2MESG%s%s",compid, connection->ncb_name_26);
-	for (int i = 9 + 8 + strlen(connection->ncb_name_26); i < 34; i++)
-		message[i] = 0;*/
-	preBroadcastAll();
+	if (Iam_server)
+	{
+		AddNetworkName(connection->ncb_name_26, (char*)"127.0.0.1");
+	}
+	else
+	{
+		client->Send(std::string("MESSAGE_TESTADDNAME;") + std::string(connection->ncb_name_26));
+	}
 };
 
 char connectionCompName[80] = "";
@@ -333,10 +470,11 @@ char* getConnection() {
 	return connectionCompName;
 };
 
+
 void CallNetwork(myNCB* connection) {
-	CreateMessage(MESSAGE_MAKECONNECT, (uint8_t*)&connection, sizeof(myNCB));
+	/*CreateMessage(MESSAGE_MAKECONNECT, (uint8_t*)&connection, sizeof(myNCB));
 	makeConnection(connection->ncb_callName_10);
-	SendToIp(boost::asio::ip::make_address_v4(GetIpNetwork(connection->ncb_callName_10)));
+	SendToIp(boost::asio::ip::make_address_v4(GetIpNetwork(connection->ncb_callName_10)));*/
 };
 
 void ListenNetwork(myNCB* connection) {
@@ -344,19 +482,13 @@ void ListenNetwork(myNCB* connection) {
 };
 
 void SendNetwork(myNCB* connection) {
-	if (!getConnection())return;
+	/*if (!getConnection())return;
 	CreateMessage(MESSAGE_SEND, (uint8_t*)connection->ncb_buffer_4.p, connection->ncb_bufferLength_8);
-	SendToIp(boost::asio::ip::make_address_v4(GetIpNetwork(getConnection())));
+	SendToIp(boost::asio::ip::make_address_v4(GetIpNetwork(getConnection())));*/
 };
 
 void ReceiveNetwork(myNCB* connection) {
 };
-
-std::thread* listenThread;
-std::thread* guardThread;
-
-std::mutex a;
-std::mutex b;
 
 
 const int MaxMessageCount = 20;
@@ -399,7 +531,7 @@ void AddtoIPList(std::string nextIP) {
 		return;
 	gameIP.push_back(nextIP);
 };
-
+/*
 void processInMessages(char* data_, size_t bytes_recvd, boost::asio::ip::address remAdress)
 {
 	if (bytes_recvd >= 9 + 8) {
@@ -460,134 +592,15 @@ void processInMessages(char* data_, size_t bytes_recvd, boost::asio::ip::address
 		}
 	}
 }
-
-#ifdef NETWORK_USETCP
-class sessionTCP
-{
-public:
-	sessionTCP(boost::asio::io_context& io_context)
-		: socket_(io_context)
-	{
-	}
-
-	boost::asio::ip::tcp::socket& socket()
-	{
-		return socket_;
-	}
-
-	void start()
-	{
-		socket_.async_read_some(boost::asio::buffer(data_, sizeof(messType)),
-			boost::bind(&sessionTCP::handle_read, this,
-				boost::asio::placeholders::error,
-				boost::asio::placeholders::bytes_transferred));
-	}
-
-private:
-	void handle_read(const boost::system::error_code& error,
-		size_t bytes_transferred)
-	{
-		if (!error)
-		{
-			//printf("%s\n", data_);
-			processInMessages(data_, bytes_transferred, socket_.remote_endpoint().address());
-		}
-		else
-		{
-			delete this;
-		}
-	}
-
-	boost::asio::ip::tcp::socket socket_;
-	//boost::asio::ip::udp::endpoint sender_endpoint_;
-	//enum { max_length = 1024 };
-	//char data_[max_length];
-	char data_[sizeof(messType)];
-};
-
-class serverTCP
-{
-public:
-	serverTCP(boost::asio::io_context& io_context, short port)
-		: io_context_(io_context),
-		acceptor_(io_context, boost::asio::ip::tcp::endpoint(boost::asio::ip::tcp::v4(), port))
-	{
-		start_accept();
-	}
-
-private:
-	void start_accept()
-	{
-		sessionTCP* new_session = new sessionTCP(io_context_);
-		acceptor_.async_accept(new_session->socket(),
-			boost::bind(&serverTCP::handle_accept, this, new_session,
-				boost::asio::placeholders::error));
-	}
-
-	void handle_accept(sessionTCP* new_session,
-		const boost::system::error_code& error)
-	{
-		if (!error)
-		{
-			new_session->start();
-		}
-		else
-		{
-			delete new_session;
-		}
-
-		start_accept();
-	}
-
-	boost::asio::io_context& io_context_;
-	boost::asio::ip::tcp::acceptor acceptor_;
-};
-
-#else
-class server
-{
-public:
-	server(boost::asio::io_context& io_context, short port)
-		: socket_(io_context, boost::asio::ip::udp::endpoint(boost::asio::ip::udp::v4(), port))
-	{
-		socket_.async_receive_from(
-			boost::asio::buffer(data_, sizeof(messType)), sender_endpoint_,
-			boost::bind(&server::handle_receive_from, this,
-				boost::asio::placeholders::error,
-				boost::asio::placeholders::bytes_transferred));
-		//printf("fffff");
-	}
-
-	void handle_receive_from(const boost::system::error_code& error,
-		size_t bytes_recvd)
-	{
-		if (!error && bytes_recvd > 0)
-		{
-//#ifndef TEST_NETWORK_FAKECOMM1			
-		/*}
-		else
-		{*/
-//#endif //TEST_NETWORK_FAKECOMM1
-			processInMessages(data_,bytes_recvd, sender_endpoint_.address());
-		}
-	}
-
-
-private:
-	boost::asio::ip::udp::socket socket_;
-	boost::asio::ip::udp::endpoint sender_endpoint_;
-	char data_[sizeof(messType)];
-};
-
-#endif// NETWORK_USETCP
-
+*/
+/*
 void ListenService() {
 	a.lock();
 	boost::asio::io_context io_context;
 
 	using namespace std; // For atoi.
 #ifdef NETWORK_USETCP
-	serverTCP s(io_context, MultiplayerPort);
+	serverTCP s(io_context, ServerMPort);
 #else
 	server s(io_context, MultiplayerPort);
 #endif// NETWORK_USETCP
@@ -599,8 +612,8 @@ void myDelay(long locTimeout) {
 	long locoldtime = clock();
 	while (clock() < locoldtime + locTimeout);
 };
-
-void NetworkInit() {
+*/
+/*void NetworkInit() {
 	// Creation
 	listenThread = new std::thread(ListenService);
 	if (strcmp(serverIP, "000.000.000.000"))
@@ -616,8 +629,8 @@ void NetworkInit() {
 			waitcount++;
 		}
 	}
-};
-
+};*/
+/*
 void NetworkEnd() {
 	// Cleanup
 	//listenThread->interrupt();
@@ -640,8 +653,8 @@ void NetworkRestart() {
 		listenThread = new std::thread(ListenService);
 	}
 }
-
-void GuardService() {
+*/
+/*void GuardService() {
 	b.lock();
 	NetworkInit();
 	while (listenerOn) {
@@ -649,13 +662,13 @@ void GuardService() {
 	}
 	//std::cout << "Worker thread " << i << std::endl;
 	b.unlock();
-}
+}*/
 
-void NetworkInitG() {
+/*void NetworkInitG() {
 	// Creation
 	guardThread = new std::thread(GuardService);
-};
-
+};*/
+/*
 void NetworkEndG() {
 	// Cleanup
 	//listenThread->interrupt();
@@ -664,9 +677,9 @@ void NetworkEndG() {
 	guardThread->join();
 	delete guardThread;
 }
+*/
 
-
-void NetworkRestartG() {
+/*void NetworkRestartG() {
 	if (a.try_lock())
 	{
 		a.unlock();
@@ -676,7 +689,7 @@ void NetworkRestartG() {
 		// Creation
 		guardThread = new std::thread(GuardService);
 	}
-}
+}*/
 
 
 //(int a1@<eax>, int a2, int a3, int a4, int a5)
@@ -690,10 +703,11 @@ void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myN
 #endif //TEST_NETWORK_MESSAGES
 		connection->ncb_retcode_1 = 0x03;
 		connection->ncb_cmd_cplt_49 = 0x03;
-		long compidlong = (long)rand() + (long)rand()+ (long)rand() + (long)rand();
-		sprintf(compid, "%08X", compidlong);
+		//long compidlong = (long)rand() + (long)rand()+ (long)rand() + (long)rand();
+		//sprintf(compid, "%08X", compidlong);
 		//NetworkInit();
-		NetworkInitG();
+		//FakeTests();
+		//NetworkInitG();
 		networkTimeout = 10000;
 		break;
 	}
@@ -921,13 +935,9 @@ void send_fakemess(int index) {
 
 bool inrun = false;
 long oldtime;
+
 void fake_network_interupt(myNCB* connection) {
 	/*
-	boost::asio::io_context io_context;
-	using namespace std; // For atoi.
-	server s(io_context, MultiplayerPort);
-	io_context.run();
-	*/
 	messType* inMessage;
 	//uint8_t outmessage[MaxMessageSize];
 	if (inrun)
@@ -986,17 +996,7 @@ void fake_network_interupt(myNCB* connection) {
 	if (inMessage) {
 		//NetworkRestart();
 
-		/*char strtype[5];
-		for (int i = 0; i < 4; i++)
-			strtype[i] = message[i + 9+8];
-		strtype[4] = 0;
-		int type=atoi(strtype);*/
-		/*for (int i = 0; i < 4; i++)
-			strtype[i] = message[i + 9 + 8+4];
-		strtype[4] = 0;
-		int lenght = atoi(strtype);*/
-		/*for (int i = 0; i < lenght; i++)
-			outmessage[i], message[9 + 8 + 4 + 4 + i];*/
+
 #ifdef TEST_NETWORK_MESSAGES
 		char showstr[81];
 		memcpy(showstr, inMessage, 40);
@@ -1004,25 +1004,6 @@ void fake_network_interupt(myNCB* connection) {
 		debug_net_printf("RECEIVED MESSAGE:%s\n", showstr);
 #endif //TEST_NETWORK_MESSAGES
 		switch (inMessage->type) {			
-		/*case MESSAGE_TESTADDNAME: {//RECV ADD_NAME
-			inrun = false;
-			if ((strcmp(connection->ncb_name_26, (char*)inMessage->mesg)) || !IHaveName)
-			{
-				//connection->ncb_cmd_cplt_49 = 0;
-				//NetworkEnd();
-				return;
-			}
-			else//name is same
-			{
-				connection->ncb_cmd_cplt_49 = 0;
-				//NetworkEnd();
-				CreateMessage(MESSAGE_NAMEREJECT, (uint8_t*)"", 1 + strlen(""));
-				//SendToIp(boost::asio::ip::make_address_v4(lastIp),message);
-
-				return;
-			}
-			break;
-		}*/
 		case MESSAGE_NAMEREJECT: {//REJECT ADDNAME
 			inrun = false;
 			connection->ncb_cmd_cplt_49 = 22;
@@ -1031,12 +1012,6 @@ void fake_network_interupt(myNCB* connection) {
 			return;
 			break;
 		}
-		/*case MESSAGE_WINADDNAME: {
-			AddNetworkName((char*)inMessage->mesg, inMessage->ip);
-			//CreateMessage(MESSAGE_NAMEREJECT, (uint8_t*)"", 1 + strlen(""));
-			//SendToIp(boost::asio::ip::make_address_v4(lastIp), messageStr);
-			//AddNetworkName(connection->ncb_name_26, lastIp);
-		}*/
 		case MESSAGE_MAKECONNECT: {
 			myNCB* tempNCB = (myNCB*)inMessage->mesg;
 			if (!strcmp(connection->ncb_name_26, tempNCB->ncb_callName_10))
@@ -1047,5 +1022,5 @@ void fake_network_interupt(myNCB* connection) {
 			connection->ncb_bufferLength_8 = inMessage->lenght;
 		}
 		}
-	}
+	}*/
 }

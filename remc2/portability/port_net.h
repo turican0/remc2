@@ -11,11 +11,14 @@
 extern const char* debug_net_filename1;
 extern std::string debug_net_filename2;
 
-extern int MultiplayerPort;
+extern int ClientMPort;
+extern int ServerMPort;
 
+extern bool Iam_server;
+extern bool Iam_client;
 extern char serverIP[256];
 
-extern int NetworkInitWait;
+//extern int NetworkInitWait;
 
 typedef struct _REGS {
 	uint32 eax;
@@ -90,7 +93,12 @@ char* NetworkListenForClients();
 void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myNCB* connection);
 void fake_network_interupt(myNCB* connection);
 
-void testlib1();
+void InitLibNetServer(int serverport);
+void InitLibNetClient(char* ip, int serverport, int clientport);
+void EndLibNetClient();
+void EndLibNetServer();
 
+void FakeTestsClient();
+void NetworkInitServer();
 
 #endif //PORT_TIME

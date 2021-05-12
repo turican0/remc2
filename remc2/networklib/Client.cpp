@@ -58,6 +58,10 @@ namespace NetworkLib {
 		return incomingMessages.pop();
 	}
 
+	void Client::BackMessage(std::string message) {
+		incomingMessages.push(message);
+	}
+
 	void Client::run_service()
 	{
 		start_receive();
