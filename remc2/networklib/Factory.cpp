@@ -2,7 +2,7 @@
 #include "Factory.h"
 #include "Client.h"
 #include "Server.h"
-
+/*
 namespace NetworkLib {
 	std::unique_ptr<IClient> Factory::CreateClient(std::string host, unsigned int server_port, unsigned int client_port)
 	{
@@ -15,4 +15,4 @@ namespace NetworkLib {
 		auto server = new Server(port);
 		return std::unique_ptr<IServer>(server);
 	}
-}
+}*/

@@ -14,7 +14,7 @@
 using boost::asio::ip::udp;
 
 namespace NetworkLib {
-	class Client : public IClient {
+	class Client/* : public IClient*/ {
 	public:
 		Client(std::string host, unsigned short server_port, unsigned short local_port = 0);
 		virtual ~Client();

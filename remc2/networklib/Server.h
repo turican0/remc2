@@ -18,7 +18,7 @@ typedef std::map<uint32_t, udp::endpoint> ClientList;
 typedef ClientList::value_type Client;
 
 namespace NetworkLib {
-	class Server : public IServer {
+	class Server/* : public IServer*/ {
 	public:
 		explicit Server(unsigned short local_port);
 		virtual ~Server();
