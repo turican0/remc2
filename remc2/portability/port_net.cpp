@@ -224,12 +224,11 @@ void ListenerClient() {
 			}
 			messages.push_back(token);
 
-			/*if (messages[0].compare("MESSAGE_TESTADDNAME"))
+			if (messages[0].compare("MESSAGE_NAMEREJECT"))
 			{
-				if (!TestAddName(messages[1]))
-					server->SendToClient("MESSAGE_NAMEREJECT", receivedMessage.second);
+				//xx
 			}
-			else*/
+			else
 			{
 				client->BackMessage(receivedMessage);
 			}
