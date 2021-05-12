@@ -112,7 +112,7 @@ namespace NetworkLib {
 			send(message, clients.at(clientID));
 		}
 		catch (std::out_of_range) {
-			Log::Error(__FUNCTION__": Unknown client ID ", clientID);
+			Log::Error("__FUNCTION__: Unknown client ID ");
 		}
 	};
 
