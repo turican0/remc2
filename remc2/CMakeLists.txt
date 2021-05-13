@@ -98,20 +98,11 @@ set(SOURCE_FILES__portability
 source_group("Source Files\\portability" FILES ${SOURCE_FILES__portability})
 
 set(SOURCE_FILES__networklib
-    "networklib/Client.cpp"
-    "networklib/Client.h"
     "networklib/Constants.h"
-    "networklib/Factory.cpp"
-    "networklib/Factory.h"
-    "networklib/IClient.h"
-    "networklib/IServer.h"
     "networklib/LockedQueue.h"
     "networklib/Log.h"
-    "networklib/Server.cpp"
-    "networklib/Server.h"
     "networklib/Statistics.cpp"
     "networklib/Statistics.h"
-    "networklib/targetver.h"
 )
 source_group("Source Files\\networklib" FILES ${SOURCE_FILES__networklib})
 

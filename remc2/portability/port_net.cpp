@@ -48,7 +48,7 @@
 using boost::asio::ip::udp;
 
 typedef std::map<uint32_t, udp::endpoint> ClientList;
-typedef ClientList::value_type Client;
+typedef ClientList::value_type LClient;
 
 namespace NetworkLib {
 	class Client/* : public IClient*/ {
@@ -317,7 +317,7 @@ namespace NetworkLib {
 				return client.first;
 
 		auto id = ++nextClientID;
-		clients.insert(Client(id, endpoint));
+		clients.insert(LClient(id, endpoint));
 		return id;
 	};
 
