@@ -8,7 +8,7 @@
 
 #include <array>
 #include <thread>
-#include "IClient.h"
+//#include "IClient.h"
 
 
 using boost::asio::ip::udp;
@@ -17,7 +17,7 @@ namespace NetworkLib {
 	class Client/* : public IClient*/ {
 	public:
 		Client(std::string host, unsigned short server_port, unsigned short local_port = 0);
-		virtual ~Client();
+		/*virtual */~Client();
 
 		void Send(const std::string& message)/* override*/;
 

@@ -20,8 +20,8 @@ typedef ClientList::value_type Client;
 namespace NetworkLib {
 	class Server/* : public IServer*/ {
 	public:
-		explicit Server(unsigned short local_port);
-		virtual ~Server();
+		/*explicit */Server(unsigned short local_port);
+		/*virtual */~Server();
 
 		bool HasMessages()/* override*/;
 		ClientMessage PopMessage()/* override*/;
