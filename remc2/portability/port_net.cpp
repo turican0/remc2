@@ -21,14 +21,355 @@
 #include "boost/bind.hpp"
 #include "boost/date_time/posix_time/posix_time_types.hpp"
 
-#include "../networklib/Server.h"
-#include "../networklib/Client.h"
+//#include "../networklib/Server.h"
+//#include "../networklib/Client.h"
 //#include "Factory.h"
 //#include <memory>
 //#include <thread>
 //#include <vector>
 
 #include <stdarg.h>     /* va_list, va_start, va_arg, va_end */
+
+#include "../networklib/Constants.h"
+#include "../networklib/Statistics.h"
+
+#include "../networklib/LockedQueue.h"
+#include "../networklib/Log.h"
+
+#include <array>
+#include <map>
+#include <thread>
+#include <atomic>
+//#include "IServer.h"
+
+#include <array>
+#include <thread>
+
+using boost::asio::ip::udp;
+
+typedef std::map<uint32_t, udp::endpoint> ClientList;
+typedef ClientList::value_type Client;
+
+namespace NetworkLib {
+	class Client/* : public IClient*/ {
+	public:
+		Client(std::string host, unsigned short server_port, unsigned short local_port);
+		/*virtual */~Client();
+
+		void Send(const std::string& message)/* override*/;
+
+		bool HasMessages()/* override*/;
+
+		std::string PopMessage()/* override*/;
+
+		void BackMessage(std::string message);
+
+	private:
+		// Network send/receive stuff
+		boost::asio::io_service io_service;
+		udp::socket socket;
+		udp::endpoint server_endpoint;
+		udp::endpoint remote_endpoint;
+		std::array<char, NetworkBufferSize> recv_buffer;
+		std::thread service_thread;
+
+		// Queues for messages
+		LockedQueue<std::string> incomingMessages;
+
+		void start_receive();
+		void handle_receive(const std::error_code& error, std::size_t bytes_transferred);
+		void run_service();
+
+		Client(Client&); // block default copy constructor
+
+		// Statistics
+		Statistics statistics;
+	};
+
+	typedef std::pair<std::string, uint32_t> ClientMessage;
+
+	class Server/* : public IServer*/ {
+	public:
+		/*explicit */Server(unsigned short local_port);
+		/*virtual */~Server();
+
+		bool HasMessages()/* override*/;
+		ClientMessage PopMessage()/* override*/;
+		void BackMessage(ClientMessage message);
+
+		void SendToClient(const std::string& message, uint32_t clientID)/* override*/;
+		void SendToAllExcept(const std::string& message, uint32_t clientID);
+		void SendToAll(const std::string& message);
+
+		size_t GetClientCount()/* override*/;
+		uint32_t GetClientIdByIndex(size_t index)/* override*/;
+
+		const Statistics& GetStatistics() const { return statistics; };
+		std::vector<std::function<void(uint32_t)>> clientDisconnectedHandlers;
+	private:
+		// Network send/receive stuff
+		boost::asio::io_service io_service;
+		udp::socket socket;
+		udp::endpoint server_endpoint;
+		udp::endpoint remote_endpoint;
+		std::array<char, NetworkBufferSize> recv_buffer;
+		std::thread service_thread;
+
+		// Low-level network functions
+		void start_receive();
+		void handle_remote_error(const std::error_code error_code, const udp::endpoint remote_endpoint);
+		void handle_receive(const std::error_code& error, std::size_t bytes_transferred);
+		void handle_send(std::string /*message*/, const std::error_code& /*error*/, std::size_t /*bytes_transferred*/) {}
+		void run_service();
+
+		// Client management
+		int32_t get_or_create_client_id(udp::endpoint endpoint);
+		void on_client_disconnected(int32_t id);
+
+		void send(const std::string& message, udp::endpoint target);
+
+		// Incoming messages queue
+		LockedQueue<ClientMessage> incomingMessages;
+
+		// Clients of the server
+		ClientList clients;
+		std::atomic_int32_t nextClientID;
+
+		Server(Server&); // block default copy constructor
+
+		// Statistics
+		Statistics statistics;
+	};
+
+	Client::Client(std::string host, unsigned short server_port, unsigned short local_port) :
+		socket(io_service, udp::endpoint(udp::v4(), local_port)),
+		service_thread(&Client::run_service, this)
+	{
+		udp::resolver resolver(io_service);
+		udp::resolver::query query(udp::v4(), host, std::to_string(server_port));
+		server_endpoint = *resolver.resolve(query);
+		Client::Send("");
+	}
+
+	Client::~Client()
+	{
+		io_service.stop();
+		service_thread.join();
+	}
+
+	void Client::start_receive()
+	{
+		socket.async_receive_from(boost::asio::buffer(recv_buffer), remote_endpoint,
+			[this](std::error_code ec, std::size_t bytes_recvd) { this->handle_receive(ec, bytes_recvd); });
+	}
+
+	void Client::handle_receive(const std::error_code& error, std::size_t bytes_transferred)
+	{
+		if (!error)
+		{
+			std::string message(recv_buffer.data(), recv_buffer.data() + bytes_transferred);
+			incomingMessages.push(message);
+			statistics.RegisterReceivedMessage(bytes_transferred);
+		}
+		else
+		{
+			Log::Error("Client::handle_receive:", error);
+		}
+
+		start_receive();
+	}
+
+	void Client::Send(const std::string& message)
+	{
+		socket.send_to(boost::asio::buffer(message), server_endpoint);
+		statistics.RegisterSentMessage(message.size());
+	}
+
+	bool Client::HasMessages()
+	{
+		return !incomingMessages.empty();
+	}
+
+	std::string Client::PopMessage()
+	{
+		if (incomingMessages.empty())
+			throw std::logic_error("No messages to pop");
+		return incomingMessages.pop();
+	}
+
+	void Client::BackMessage(std::string message) {
+		incomingMessages.push(message);
+	}
+
+	void Client::run_service()
+	{
+		start_receive();
+		while (!io_service.stopped()) {
+			try {
+				io_service.run();
+			}
+			catch (const std::exception& e) {
+				Log::Warning("Client: network exception: ", e.what());
+			}
+			catch (...) {
+				Log::Error("Unknown exception in client network thread");
+			}
+		}
+	}
+
+	Server::Server(unsigned short local_port) :
+		socket(io_service, udp::endpoint(udp::v4(), local_port)),
+		service_thread(&Server::run_service, this),
+		nextClientID(0L)
+	{
+		Log::Info("Starting server on port ", local_port);
+	};
+
+	Server::~Server()
+	{
+		io_service.stop();
+		service_thread.join();
+	}
+
+	void Server::start_receive()
+	{
+		socket.async_receive_from(boost::asio::buffer(recv_buffer), remote_endpoint,
+			[this](std::error_code ec, std::size_t bytes_recvd) { this->handle_receive(ec, bytes_recvd); });
+	}
+
+	void Server::on_client_disconnected(int32_t id)
+	{
+		for (auto& handler : clientDisconnectedHandlers)
+			if (handler)
+				handler(id);
+	}
+
+	void Server::handle_remote_error(const std::error_code error_code, const udp::endpoint remote_endpoint)
+	{
+		bool found = false;
+		int32_t id;
+		for (const auto& client : clients)
+			if (client.second == remote_endpoint) {
+				found = true;
+				id = client.first;
+				break;
+			}
+		if (found == false)
+			return;
+
+		clients.erase(id);
+		on_client_disconnected(id);
+	}
+
+	void Server::handle_receive(const std::error_code& error, std::size_t bytes_transferred)
+	{
+		if (!error)
+		{
+			try {
+				auto message = ClientMessage(std::string(recv_buffer.data(), recv_buffer.data() + bytes_transferred), get_or_create_client_id(remote_endpoint));
+				if (!message.first.empty())
+					incomingMessages.push(message);
+				statistics.RegisterReceivedMessage(bytes_transferred);
+			}
+			catch (std::exception ex) {
+				Log::Error("handle_receive: Error parsing incoming message:", ex.what());
+			}
+			catch (...) {
+				Log::Error("handle_receive: Unknown error while parsing incoming message");
+			}
+		}
+		else
+		{
+			Log::Error("handle_receive: error: ", error.message(), " while receiving from address ", remote_endpoint);
+			handle_remote_error(error, remote_endpoint);
+		}
+
+		start_receive();
+	}
+
+	void Server::send(const std::string& message, udp::endpoint target_endpoint)
+	{
+		socket.send_to(boost::asio::buffer(message), target_endpoint);
+		statistics.RegisterSentMessage(message.size());
+	}
+
+	void Server::run_service()
+	{
+		start_receive();
+		while (!io_service.stopped()) {
+			try {
+				io_service.run();
+			}
+			catch (const std::exception& e) {
+				Log::Error("Server: Network exception: ", e.what());
+			}
+			catch (...) {
+				Log::Error("Server: Network exception: unknown");
+			}
+		}
+		Log::Debug("Server network thread stopped");
+	};
+
+	int32_t Server::get_or_create_client_id(udp::endpoint endpoint)
+	{
+		for (const auto& client : clients)
+			if (client.second == endpoint)
+				return client.first;
+
+		auto id = ++nextClientID;
+		clients.insert(Client(id, endpoint));
+		return id;
+	};
+
+	void Server::SendToClient(const std::string& message, uint32_t clientID)
+	{
+		try {
+			send(message, clients.at(clientID));
+		}
+		catch (std::out_of_range) {
+			Log::Error("__FUNCTION__: Unknown client ID ");
+		}
+	};
+
+	void Server::SendToAllExcept(const std::string& message, uint32_t clientID)
+	{
+		for (auto client : clients)
+			if (client.first != clientID)
+				send(message, client.second);
+	};
+
+	void Server::SendToAll(const std::string& message)
+	{
+		for (auto client : clients)
+			send(message, client.second);
+	}
+
+	size_t Server::GetClientCount()
+	{
+		return clients.size();
+	}
+
+	uint32_t Server::GetClientIdByIndex(size_t index)
+	{
+		auto it = clients.begin();
+		for (int i = 0; i < index; i++)
+			++it;
+		return it->first;
+	};
+
+	ClientMessage Server::PopMessage() {
+		return incomingMessages.pop();
+	}
+
+	void Server::BackMessage(ClientMessage message) {
+		incomingMessages.push(message);
+	}
+
+	bool Server::HasMessages()
+	{
+		return !incomingMessages.empty();
+	};
+}
 
 void mySleep(int sleepMs)
 {

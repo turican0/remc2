@@ -86,15 +86,6 @@
     <ClCompile Include="portability\xmi2mid.cpp" />
     <ClCompile Include="remc2.cpp" />
     <ClCompile Include="stdafx.cpp" />
-    <ClCompile Include="networklib\Client.cpp">
-      <Filter>networklib</Filter>
-    </ClCompile>
-    <ClCompile Include="networklib\Factory.cpp">
-      <Filter>networklib</Filter>
-    </ClCompile>
-    <ClCompile Include="networklib\Server.cpp">
-      <Filter>networklib</Filter>
-    </ClCompile>
     <ClCompile Include="networklib\Statistics.cpp">
       <Filter>networklib</Filter>
     </ClCompile>
@@ -200,19 +191,7 @@
     <ClInclude Include="sub_main.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="engine\types.h" />
-    <ClInclude Include="networklib\Client.h">
-      <Filter>networklib</Filter>
-    </ClInclude>
     <ClInclude Include="networklib\Constants.h">
-      <Filter>networklib</Filter>
-    </ClInclude>
-    <ClInclude Include="networklib\Factory.h">
-      <Filter>networklib</Filter>
-    </ClInclude>
-    <ClInclude Include="networklib\IClient.h">
-      <Filter>networklib</Filter>
-    </ClInclude>
-    <ClInclude Include="networklib\IServer.h">
       <Filter>networklib</Filter>
     </ClInclude>
     <ClInclude Include="networklib\LockedQueue.h">
@@ -221,13 +200,7 @@
     <ClInclude Include="networklib\Log.h">
       <Filter>networklib</Filter>
     </ClInclude>
-    <ClInclude Include="networklib\Server.h">
-      <Filter>networklib</Filter>
-    </ClInclude>
     <ClInclude Include="networklib\Statistics.h">
-      <Filter>networklib</Filter>
-    </ClInclude>
-    <ClInclude Include="networklib\targetver.h">
       <Filter>networklib</Filter>
     </ClInclude>
   </ItemGroup>
