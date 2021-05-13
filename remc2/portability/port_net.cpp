@@ -31,7 +31,7 @@
 #include <stdarg.h>     /* va_list, va_start, va_arg, va_end */
 
 #include "../networklib/Constants.h"
-#include "../networklib/Statistics.h"
+//#include "../networklib/Statistics.h"
 
 #include "../networklib/LockedQueue.h"
 #include "../networklib/Log.h"
@@ -83,7 +83,7 @@ namespace NetworkLib {
 		Client(Client&); // block default copy constructor
 
 		// Statistics
-		Statistics statistics;
+		//Statistics statistics;
 	};
 
 	typedef std::pair<std::string, uint32_t> ClientMessage;
@@ -104,7 +104,7 @@ namespace NetworkLib {
 		size_t GetClientCount()/* override*/;
 		uint32_t GetClientIdByIndex(size_t index)/* override*/;
 
-		const Statistics& GetStatistics() const { return statistics; };
+		//const Statistics& GetStatistics() const { return statistics; };
 		std::vector<std::function<void(uint32_t)>> clientDisconnectedHandlers;
 	private:
 		// Network send/receive stuff
@@ -138,7 +138,7 @@ namespace NetworkLib {
 		Server(Server&); // block default copy constructor
 
 		// Statistics
-		Statistics statistics;
+		//Statistics statistics;
 	};
 
 	Client::Client(std::string host, unsigned short server_port, unsigned short local_port) :
@@ -169,7 +169,7 @@ namespace NetworkLib {
 		{
 			std::string message(recv_buffer.data(), recv_buffer.data() + bytes_transferred);
 			incomingMessages.push(message);
-			statistics.RegisterReceivedMessage(bytes_transferred);
+			//statistics.RegisterReceivedMessage(bytes_transferred);
 		}
 		else
 		{
@@ -182,7 +182,7 @@ namespace NetworkLib {
 	void Client::Send(const std::string& message)
 	{
 		socket.send_to(boost::asio::buffer(message), server_endpoint);
-		statistics.RegisterSentMessage(message.size());
+		//statistics.RegisterSentMessage(message.size());
 	}
 
 	bool Client::HasMessages()
@@ -269,7 +269,7 @@ namespace NetworkLib {
 				auto message = ClientMessage(std::string(recv_buffer.data(), recv_buffer.data() + bytes_transferred), get_or_create_client_id(remote_endpoint));
 				if (!message.first.empty())
 					incomingMessages.push(message);
-				statistics.RegisterReceivedMessage(bytes_transferred);
+				//statistics.RegisterReceivedMessage(bytes_transferred);
 			}
 			catch (std::exception ex) {
 				Log::Error("handle_receive: Error parsing incoming message:", ex.what());
@@ -290,7 +290,7 @@ namespace NetworkLib {
 	void Server::send(const std::string& message, udp::endpoint target_endpoint)
 	{
 		socket.send_to(boost::asio::buffer(message), target_endpoint);
-		statistics.RegisterSentMessage(message.size());
+		//statistics.RegisterSentMessage(message.size());
 	}
 
 	void Server::run_service()

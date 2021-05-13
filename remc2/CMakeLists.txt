@@ -101,8 +101,6 @@ set(SOURCE_FILES__networklib
     "networklib/Constants.h"
     "networklib/LockedQueue.h"
     "networklib/Log.h"
-    "networklib/Statistics.cpp"
-    "networklib/Statistics.h"
 )
 source_group("Source Files\\networklib" FILES ${SOURCE_FILES__networklib})
 

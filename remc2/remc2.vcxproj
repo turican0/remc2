@@ -257,7 +257,6 @@ XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y</C
     <ClInclude Include="networklib\Constants.h" />
     <ClInclude Include="networklib\LockedQueue.h" />
     <ClInclude Include="networklib\Log.h" />
-    <ClInclude Include="networklib\Statistics.h" />
     <ClInclude Include="portability\port_net.h" />
     <ClInclude Include="utilities\BitmapIO.h" />
     <ClInclude Include="utilities\DataFileIO.h" />
@@ -350,7 +349,6 @@ XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y</C
     <ClCompile Include="engine\Basic.cpp" />
     <ClCompile Include="engine\Sound.cpp" />
     <ClCompile Include="engine\Terrain.cpp" />
-    <ClCompile Include="networklib\Statistics.cpp" />
     <ClCompile Include="portability\port_net.cpp" />
     <ClCompile Include="utilities\BitmapIO.cpp" />
     <ClCompile Include="utilities\DataFileIO.cpp" />

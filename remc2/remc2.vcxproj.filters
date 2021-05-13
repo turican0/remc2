@@ -381,9 +381,6 @@
     <ClInclude Include="networklib\Log.h">
       <Filter>Source Files\networklib</Filter>
     </ClInclude>
-    <ClInclude Include="networklib\Statistics.h">
-      <Filter>Source Files\networklib</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -640,9 +637,6 @@
     </ClCompile>
     <ClCompile Include="portability\port_net.cpp">
       <Filter>Source Files\portability</Filter>
-    </ClCompile>
-    <ClCompile Include="networklib\Statistics.cpp">
-      <Filter>Source Files\networklib</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
