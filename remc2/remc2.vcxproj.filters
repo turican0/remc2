@@ -372,19 +372,7 @@
     <ClInclude Include="portability\port_net.h">
       <Filter>Header Files\portability</Filter>
     </ClInclude>
-    <ClInclude Include="networklib\Client.h">
-      <Filter>Source Files\networklib</Filter>
-    </ClInclude>
     <ClInclude Include="networklib\Constants.h">
-      <Filter>Source Files\networklib</Filter>
-    </ClInclude>
-    <ClInclude Include="networklib\Factory.h">
-      <Filter>Source Files\networklib</Filter>
-    </ClInclude>
-    <ClInclude Include="networklib\IClient.h">
-      <Filter>Source Files\networklib</Filter>
-    </ClInclude>
-    <ClInclude Include="networklib\IServer.h">
       <Filter>Source Files\networklib</Filter>
     </ClInclude>
     <ClInclude Include="networklib\LockedQueue.h">
@@ -393,13 +381,7 @@
     <ClInclude Include="networklib\Log.h">
       <Filter>Source Files\networklib</Filter>
     </ClInclude>
-    <ClInclude Include="networklib\Server.h">
-      <Filter>Source Files\networklib</Filter>
-    </ClInclude>
     <ClInclude Include="networklib\Statistics.h">
-      <Filter>Source Files\networklib</Filter>
-    </ClInclude>
-    <ClInclude Include="networklib\targetver.h">
       <Filter>Source Files\networklib</Filter>
     </ClInclude>
   </ItemGroup>
@@ -658,15 +640,6 @@
     </ClCompile>
     <ClCompile Include="portability\port_net.cpp">
       <Filter>Source Files\portability</Filter>
-    </ClCompile>
-    <ClCompile Include="networklib\Client.cpp">
-      <Filter>Source Files\networklib</Filter>
-    </ClCompile>
-    <ClCompile Include="networklib\Factory.cpp">
-      <Filter>Source Files\networklib</Filter>
-    </ClCompile>
-    <ClCompile Include="networklib\Server.cpp">
-      <Filter>Source Files\networklib</Filter>
     </ClCompile>
     <ClCompile Include="networklib\Statistics.cpp">
       <Filter>Source Files\networklib</Filter>

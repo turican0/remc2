@@ -1,0 +1,1 @@
+c:\prenos\remc2-dev\remc2\x64\Debug\remc2.vcxproj.CopyComplete
