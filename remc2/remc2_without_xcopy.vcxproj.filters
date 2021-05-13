@@ -86,9 +86,6 @@
     <ClCompile Include="portability\xmi2mid.cpp" />
     <ClCompile Include="remc2.cpp" />
     <ClCompile Include="stdafx.cpp" />
-    <ClCompile Include="networklib\Statistics.cpp">
-      <Filter>networklib</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\inih\ini.h" />
@@ -198,9 +195,6 @@
       <Filter>networklib</Filter>
     </ClInclude>
     <ClInclude Include="networklib\Log.h">
-      <Filter>networklib</Filter>
-    </ClInclude>
-    <ClInclude Include="networklib\Statistics.h">
       <Filter>networklib</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,16 +1,6 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include "port_net.h"
 
-//
-// sender.cpp
-// ~~~~~~~~~~
-//
-// Copyright (c) 2003-2010 Christopher M. Kohlhoff (chris at kohlhoff dot com)
-//
-// Distributed under the Boost Software License, Version 1.0. (See accompanying
-// file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-//
-
 #include <iostream>
 #include <sstream>
 #include <string>
@@ -62,7 +52,7 @@ namespace NetworkLib {
 
 		std::string PopMessage()/* override*/;
 
-		void BackMessage(std::string message);
+		//void BackMessage(std::string message);
 
 	private:
 		// Network send/receive stuff
@@ -95,7 +85,7 @@ namespace NetworkLib {
 
 		bool HasMessages()/* override*/;
 		ClientMessage PopMessage()/* override*/;
-		void BackMessage(ClientMessage message);
+		//void BackMessage(ClientMessage message);
 
 		void SendToClient(const std::string& message, uint32_t clientID)/* override*/;
 		void SendToAllExcept(const std::string& message, uint32_t clientID);
@@ -197,9 +187,9 @@ namespace NetworkLib {
 		return incomingMessages.pop();
 	}
 
-	void Client::BackMessage(std::string message) {
+	/*void Client::BackMessage(std::string message) {
 		incomingMessages.push(message);
-	}
+	}*/
 
 	void Client::run_service()
 	{
@@ -361,9 +351,9 @@ namespace NetworkLib {
 		return incomingMessages.pop();
 	}
 
-	void Server::BackMessage(ClientMessage message) {
+	/*void Server::BackMessage(ClientMessage message) {
 		incomingMessages.push(message);
-	}
+	}*/
 
 	bool Server::HasMessages()
 	{
@@ -481,7 +471,7 @@ void AddNetworkName(std::string name, uint32_t id) {
 		lastindex++;
 	}
 #ifdef TEST_NETWORK_MESSAGES
-	debug_net_printf("net name added:%s %s\n", name, id);
+	debug_net_printf("net name added:%s %d\n", name, id);
 #endif //TEST_NETWORK_MESSAGES
 }
 
@@ -535,10 +525,10 @@ void ListenerServer() {
 				if (!TestAddName(messages[1], receivedMessage.second))
 					server->SendToClient("MESSAGE_NAMEREJECT", receivedMessage.second);
 			}
-			else
+			/*else
 			{
 				server->BackMessage(receivedMessage);
-			}
+			}*/
 		}
 		mySleep(5);
 	}
@@ -569,10 +559,10 @@ void ListenerClient() {
 			{
 				//xx
 			}
-			else
+			/*else
 			{
 				client->BackMessage(receivedMessage);
-			}
+			}*/
 		}
 		mySleep(10);
 	}
