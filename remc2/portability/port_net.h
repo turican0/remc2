@@ -91,7 +91,7 @@ bool NetworkGetInitInfoFromServer(char* serverIP);
 char* NetworkListenForClients();
 
 void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myNCB* connection);
-void fake_network_interupt(myNCB* connection);
+//void fake_network_interupt(myNCB* connection);
 
 void InitLibNetServer(int serverport);
 void InitLibNetClient(char* ip, int serverport, int clientport);

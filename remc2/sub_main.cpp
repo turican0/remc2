@@ -89211,10 +89211,10 @@ void sub_72D04()
 		for (i = 0; maxPlayers_E127A > i; i++)
 		{
 			while (connection_E12AE[i]->ncb_cmd_cplt_49 == 0xff)
-				fake_network_interupt(connection_E12AE[i]);
+				/*fake_network_interupt(connection_E12AE[i])*/;
 		}
 		while (mainConnection_E12AA->ncb_cmd_cplt_49 == 0xff)
-			fake_network_interupt(mainConnection_E12AA);
+			/*fake_network_interupt(mainConnection_E12AA)*/;
 		sub_83E80_freemem4((uint8_t*)mainConnection_E12AA);
 		for (j = 0; j < 8; j++)
 		{
@@ -89316,7 +89316,7 @@ signed int NetworkTestCall_72FBB()//253fbb
 			return 1;//254024
 		if ((mygetthousandths() - i) > 120)
 			break;//253ffd
-		fake_network_interupt(connection_E12AE[0]);
+		/*fake_network_interupt(connection_E12AE[0])*/;
 	}
 	//253fff
 	NetworkCancel_748F7(0);
@@ -89354,10 +89354,10 @@ int NetworkInitConnection_7308F(char* a2, __int16 a3)//25408f
 	for (i = 0; maxPlayers_E127A > i; i++)
 	{
 		while (connection_E12AE[i]->ncb_cmd_cplt_49 == 0xff)
-			fake_network_interupt(connection_E12AE[i]);
+			/*fake_network_interupt(connection_E12AE[i])*/;
 	}
 	while (mainConnection_E12AA->ncb_cmd_cplt_49 == 0xff)
-		fake_network_interupt(mainConnection_E12AA);
+		/*fake_network_interupt(mainConnection_E12AA)*/;
 	i = 0;
 	x_WORD_E1276 = -1;
 	while (maxPlayers_E127A > i && x_WORD_E1276 == -1 && !x_WORD_E12A6)
@@ -89488,7 +89488,7 @@ void sub_7373D(__int16 a1)//25473d
 						{
 							NetworkListen_74B75(i);
 							while (connection_E12AE[i]->ncb_cmd_cplt_49 == 0xff)
-								fake_network_interupt(connection_E12AE[i]);
+								/*fake_network_interupt(connection_E12AE[i])*/;
 							if (connection_E12AE[i]->ncb_cmd_cplt_49)
 								sprintf(printbuffer, "Error code (LISTEN) : %d", connection_E12AE[i]->ncb_cmd_cplt_49);
 						}
@@ -89500,7 +89500,7 @@ void sub_7373D(__int16 a1)//25473d
 					{
 						NetworkCall_74809(x_WORD_E12A8);
 						while (connection_E12AE[x_WORD_E12A8]->ncb_cmd_cplt_49 == 0xff)
-							fake_network_interupt(connection_E12AE[x_WORD_E12A8]);
+							/*fake_network_interupt(connection_E12AE[x_WORD_E12A8])*/;
 						if (!connection_E12AE[x_WORD_E12A8]->ncb_cmd_cplt_49)
 							break;
 						sprintf(printbuffer, "Error code (CALL) : %d", connection_E12AE[x_WORD_E12A8]->ncb_cmd_cplt_49);
@@ -89585,7 +89585,7 @@ void sub_73AA1(__int16 a1)//254aa1
 						{
 							NetworkListen_74B75(i);
 							while (connection_E12AE[i]->ncb_cmd_cplt_49 == 0xff)
-								fake_network_interupt(connection_E12AE[i]);
+								/*fake_network_interupt(connection_E12AE[i])*/;
 							if (connection_E12AE[i]->ncb_cmd_cplt_49)
 								sprintf(printbuffer, "Error code (LISTEN) : %d", connection_E12AE[i]->ncb_cmd_cplt_49);
 						}
@@ -89597,7 +89597,7 @@ void sub_73AA1(__int16 a1)//254aa1
 					{
 						NetworkCall_74809(x_WORD_E12A8);
 						while (connection_E12AE[x_WORD_E12A8]->ncb_cmd_cplt_49 == 0xff)
-							fake_network_interupt(connection_E12AE[x_WORD_E12A8]);
+							/*fake_network_interupt(connection_E12AE[x_WORD_E12A8])*/;
 						if (!connection_E12AE[x_WORD_E12A8]->ncb_cmd_cplt_49)
 							break;
 						sprintf(printbuffer, "Error code (CALL) : %d", connection_E12AE[x_WORD_E12A8]->ncb_cmd_cplt_49);
@@ -89814,7 +89814,7 @@ signed int NetworkAddName_74767(/*signed __int16* a1,*/ myNCB* connection, char*
 	while (connection->ncb_cmd_cplt_49 == 0xff && !x_WORD_E12A6)
 	{	
 		WaitToConnect_7C230(/*a2x,*/ /*v3, a1*/);
-		fake_network_interupt(connection);//25d36d
+		/*fake_network_interupt(connection)*/;//25d36d
 	}
 	return connection->ncb_cmd_cplt_49;
 }
@@ -89850,7 +89850,7 @@ signed int NetworkCancel_748F7(__int16 compindex)//2558f7
 		do
 		{
 			while (mainConnection_E12AA->ncb_cmd_cplt_49 == 0xff)
-				fake_network_interupt(mainConnection_E12AA);
+				/*fake_network_interupt(mainConnection_E12AA)*/;
 		} while (connection_E12AE[compindex]->ncb_cmd_cplt_49 == 0xff);
 		return -mainConnection_E12AA->ncb_cmd_cplt_49;
 	}
@@ -89904,7 +89904,7 @@ void NetworkDeleteName_74A86(myNCB* a1x, char* a2)//255a86
 	if (setNetbios_75044(a1x) == -1)
 		return; //return -99;
 	while (a1x->ncb_cmd_cplt_49 == 0xff)
-		fake_network_interupt(a1x);
+		/*fake_network_interupt(a1x)*/;
 	//return -(unsigned __int8)a1[49];
 }
 // 99D46: using guessed type x_DWORD strcpy(x_DWORD, x_DWORD);
@@ -89918,7 +89918,7 @@ void NetworkHangUp_74B19(myNCB* a1x)//255b19
 	if (setNetbios_75044(a1x) == -1)
 		return;// return -99;
 	while (a1x->ncb_cmd_cplt_49 == 0xff)
-		fake_network_interupt(a1x);
+		/*fake_network_interupt(a1x)*/;
 	a1x->ncb_lsn_2 = 0;
 	//return -(unsigned __int8)a1[49];
 }
@@ -89960,7 +89960,7 @@ int NetworkReceivePacket_74C9D(myNCB* connection, uint8_t* buffer, int maxsize =
 	if (setNetbios_75044(connection) == -1)
 		return -99;
 	while (connection->ncb_cmd_cplt_49 == 0xffu)
-		fake_network_interupt(connection);
+		/*fake_network_interupt(connection)*/;
 	if (connection->ncb_cmd_cplt_49)
 		return -connection->ncb_cmd_cplt_49;
 	//allert_error();
@@ -90027,7 +90027,7 @@ int NetworkSendPacket_74E6D(myNCB* connection, uint8_t* buffer, int size)//255e6
 	if (setNetbios_75044(connection) == -1)
 		return -99;
 	while (connection->ncb_cmd_cplt_49 == 0xff)
-		fake_network_interupt(connection);
+		/*fake_network_interupt(connection)*/;
 	return -connection->ncb_cmd_cplt_49;
 }
 // 99DBD: using guessed type x_DWORD memcpy(x_DWORD, x_DWORD, x_DWORD);

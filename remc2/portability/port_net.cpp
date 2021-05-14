@@ -40,6 +40,8 @@ using boost::asio::ip::udp;
 typedef std::map<uint32_t, udp::endpoint> ClientList;
 typedef ClientList::value_type LClient;
 
+myNCB* lastconnection;
+
 namespace NetworkLib {
 	class Client/* : public IClient*/ {
 	public:
@@ -500,6 +502,95 @@ std::mutex aServer;
 std::mutex aClient;
 //std::mutex b;
 
+//bool inrun = false;
+long oldtime;
+int networkTimeout = 10000;
+
+void processEnd() {
+	if(lastconnection)
+		if (clock() > oldtime + networkTimeout)
+		{
+#ifdef TEST_NETWORK_MESSAGES
+			debug_net_printf("WAITING FOR MESSAGE TIMEOUT:%x\n", lastconnection->ncb_command_0);
+#endif //TEST_NETWORK_MESSAGES
+			lastconnection = NULL;
+			switch (lastconnection->ncb_command_0)
+			{
+			case 0xb0: {//ADD_NAME 
+				/*AddNetworkName(lastconnection->ncb_name_26, (char*)"127.0.0.1");
+				CreateMessage(MESSAGE_WINADDNAME, (uint8_t*)lastconnection->ncb_name_26, 1 + strlen(lastconnection->ncb_name_26));
+				preBroadcastAll();
+				memcpy(IHaveNameStr, lastconnection->ncb_name_26, 16);
+				IHaveNameStrP = IHaveNameStr;*/
+				//AddNetworkName(connection->ncb_name_26,lastIp);
+				//NetworkEnd();
+				lastconnection->ncb_cmd_cplt_49 = 0;
+				break;
+			}
+			case 0x90: {//CALL
+				//connection->ncb_retcode_1= 0xb;
+				//connection->ncb_cmd_cplt_49 = 0xb;
+				break;
+			}
+			case 0x35: {//CANCEL
+				lastconnection->ncb_retcode_1 = 0x0;
+				strcpy(lastconnection->ncb_name_26, "");
+				strcpy(lastconnection->ncb_callName_10, "");
+				lastconnection->ncb_cmd_cplt_49 = 0x0;
+				break;
+			}
+			default: {
+				lastconnection->ncb_cmd_cplt_49 = 0;
+			}
+			}
+		}
+	/*else
+	{
+		oldtime = clock();
+		inrun = true;
+		//NetworkInit();
+	}*/
+	/*
+	inMessage = ReadMessage();
+#ifdef TEST_NETWORK_FAKECOMM1
+	if (!inMessage) {
+		send_fakemess(1);
+		//inMessage = ReadMessage();
+	}
+#endif//TEST_NETWORK_FAKECOMM1
+	if (inMessage) {
+		//NetworkRestart();
+
+
+#ifdef TEST_NETWORK_MESSAGES
+		char showstr[81];
+		memcpy(showstr, inMessage, 40);
+		showstr[80] = 0;
+		debug_net_printf("RECEIVED MESSAGE:%s\n", showstr);
+#endif //TEST_NETWORK_MESSAGES
+		switch (inMessage->type) {
+		case MESSAGE_NAMEREJECT: {//REJECT ADDNAME
+			inrun = false;
+			connection->ncb_cmd_cplt_49 = 22;
+			//AddNetworkName(connection->ncb_name_26, "localhost");
+			//NetworkEnd();
+			return;
+			break;
+		}
+		case MESSAGE_MAKECONNECT: {
+			myNCB* tempNCB = (myNCB*)inMessage->mesg;
+			if (!strcmp(connection->ncb_name_26, tempNCB->ncb_callName_10))
+				makeConnection((char*)tempNCB->ncb_name_26);
+		}
+		case MESSAGE_SEND: {
+			connection->ncb_buffer_4.p = inMessage->mesg;
+			connection->ncb_bufferLength_8 = inMessage->lenght;
+		}
+		}
+	}
+	*/
+}
+
 void ListenerServer() {
 	aServer.lock();
 	while (listenerServerOn)
@@ -529,8 +620,9 @@ void ListenerServer() {
 			{
 				server->BackMessage(receivedMessage);
 			}*/
+			processEnd();
 		}
-		mySleep(5);
+		mySleep(1);
 	}
 	aServer.unlock();
 }
@@ -659,8 +751,6 @@ void testlib1() {
 */
 //const short multicast_port = 30001;
 //const int max_message_count = 10;
-
-int networkTimeout = 10000;
 
 //char compid[9];
 
@@ -794,13 +884,22 @@ void CreateFakeMessage(int type, uint8_t* mesg, int lenght) {
 void AddName(myNCB* connection) {
 	if (Iam_server)
 	{
-		AddNetworkName(connection->ncb_name_26, 999);
+		//AddNetworkName(connection->ncb_name_26, 666);
+		client->Send(std::string("MESSAGE_TESTADDNAME;SERVER;") + std::string(connection->ncb_name_26));
 	}
 	else
 	{
-		client->Send(std::string("MESSAGE_TESTADDNAME;") + std::string(connection->ncb_name_26));
+		client->Send(std::string("MESSAGE_TESTADDNAME;CLIENT;") + std::string(connection->ncb_name_26));
 	}
 };
+
+void AddNameReceive(bool nameIsOk, uint32_t id)
+{
+	if(nameIsOk)
+		AddNetworkName(std::string name, uint32_t id)
+	else
+		xx
+}
 
 char connectionCompName[80] = "";
 
@@ -1039,6 +1138,7 @@ void NetworkEndG() {
 
 //(int a1@<eax>, int a2, int a3, int a4, int a5)
 void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myNCB* connection) {
+	lastconnection = connection;
 	//_int386x((_DWORD*)a4, a5, a3, a2);
 	v10x->esi = 0;
 	switch (connection->ncb_command_0) {
@@ -1054,6 +1154,7 @@ void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myN
 		//FakeTests();
 		//NetworkInitG();
 		networkTimeout = 10000;
+		oldtime = clock();
 		break;
 	}
 	case 0xb0: {//ADD_NAME 
@@ -1071,6 +1172,7 @@ void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myN
 		connection->ncb_reserved_50[8] = 0x67;
 		AddName(connection);
 		networkTimeout = 10000;
+		oldtime = clock();
 		break;
 	}
 	case 0xb1: {//DELETE_NAME 
@@ -1089,6 +1191,7 @@ void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myN
 		AddName(connection);*/
 		connection->ncb_retcode_1 = 0xff;
 		networkTimeout = 100;
+		oldtime = clock();
 		break;
 	}
 	case 0x90: {//CALL
@@ -1112,6 +1215,7 @@ void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myN
 		connection->ncb_reserved_50[9] = 0x66;*/
 		CallNetwork(connection);
 		networkTimeout = 10000;
+		oldtime = clock();
 		break;
 	}
 	case 0x91: {//LISTEN
@@ -1127,6 +1231,7 @@ void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myN
 		connection->ncb_reserved_50[8] = 0x6a;
 		ListenNetwork(connection);
 		networkTimeout = 100;
+		oldtime = clock();
 		break;
 	}
 	case 0x94: {//SEND
@@ -1142,6 +1247,7 @@ void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myN
 		connection->ncb_reserved_50[8] = 0x6B;
 		SendNetwork(connection);
 		networkTimeout = 100;
+		oldtime = clock();
 		break;
 	}
 	case 0x95: {//RECEIVE
@@ -1156,6 +1262,7 @@ void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myN
 		connection->ncb_reserved_50[8] = 0x6c;
 		ReceiveNetwork(connection);
 		networkTimeout = 100;
+		oldtime = clock();
 		break;
 	}
 	case 0x35: {//CANCEL
@@ -1180,6 +1287,7 @@ void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myN
 		secondcon->ncb_reserved_50[8] = 0x66;
 
 		networkTimeout = 100;
+		oldtime = clock();
 		break;
 	}			 
 	}
@@ -1277,7 +1385,7 @@ void send_fakemess(int index) {
 };
 #endif//TEST_NETWORK_FAKECOMM1
 
-
+/*
 bool inrun = false;
 long oldtime;
 
@@ -1296,9 +1404,9 @@ void fake_network_interupt(myNCB* connection) {
 			switch (connection->ncb_command_0)
 			{
 				case 0xb0: {//ADD_NAME 
-					/*AddNetworkName(connection->ncb_name_26, (char*)"127.0.0.1");
+					AddNetworkName(connection->ncb_name_26, (char*)"127.0.0.1");
 					CreateMessage(MESSAGE_WINADDNAME, (uint8_t*)connection->ncb_name_26, 1 + strlen(connection->ncb_name_26));
-					preBroadcastAll();*/
+					preBroadcastAll();
 					memcpy(IHaveNameStr, connection->ncb_name_26,16);
 					IHaveNameStrP = IHaveNameStr;
 					//AddNetworkName(connection->ncb_name_26,lastIp);
@@ -1349,7 +1457,7 @@ void fake_network_interupt(myNCB* connection) {
 		debug_net_printf("RECEIVED MESSAGE:%s\n", showstr);
 #endif //TEST_NETWORK_MESSAGES
 		switch (inMessage->type) {			
-		/*case MESSAGE_NAMEREJECT: {//REJECT ADDNAME
+		case MESSAGE_NAMEREJECT: {//REJECT ADDNAME
 			inrun = false;
 			connection->ncb_cmd_cplt_49 = 22;
 			//AddNetworkName(connection->ncb_name_26, "localhost");
@@ -1365,7 +1473,8 @@ void fake_network_interupt(myNCB* connection) {
 		case MESSAGE_SEND: {
 			connection->ncb_buffer_4.p = inMessage->mesg;
 			connection->ncb_bufferLength_8 = inMessage->lenght;
-		}*/
+		}
 		}
 	}
 }
+*/
