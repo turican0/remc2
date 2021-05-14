@@ -42,6 +42,11 @@ typedef ClientList::value_type LClient;
 
 myNCB* lastconnection;
 
+int netstate = -1;
+
+#define ADD_NAME 0
+#define ADD_NAME_REJECT 1
+
 namespace NetworkLib {
 	class Client/* : public IClient*/ {
 	public:
@@ -377,10 +382,11 @@ void mySleep(int sleepMs)
 
 //#define NETWORK_USETCP
 
-char* IHaveNameStrP = NULL;
+std::string IHaveNameStrP = "";
 char IHaveNameStr[16];
 
 bool listenerServerOn = true;
+bool listenerClientOn = true;
 bool serverIPNotAdded = true;
 
 //int NetworkInitWait = 20;
@@ -424,6 +430,7 @@ NetworkLib::Client* client;
 NetworkLib::Server* server;
 void InitLibNetClient(char* ip, int serverport, int clientport) {
 	client = new NetworkLib::Client(ip, serverport, clientport);
+	NetworkInitClient();
 }
 
 void InitLibNetServer(int serverport) {
@@ -431,61 +438,76 @@ void InitLibNetServer(int serverport) {
 	NetworkInitServer();
 }
 
-const int MaxNames = 20;
-std::string NetworkName[MaxNames];
-uint32_t clientID[MaxNames];
-int lastindex = 0;
+//const int MaxNames = 20;
+std::vector<std::string> NetworkName;
+std::vector<uint32_t> clientID;
+//int lastindex = 0;
+
+std::vector<std::string> ListenName;
+std::vector<uint32_t> clientListenID;
+//int lastindexListen = 0;
 
 uint32_t GetIpNetwork(uint32_t id) {
-	for (int i = 0; i < lastindex; i++)
-		if (id ==clientID[i])
-			return clientID[i];
+	for (uint32_t locclientID : clientID)
+		if (id == locclientID)
+			return locclientID;
 	return -1;
 }
 
 std::string GetNameNetwork(std::string name) {
-	for (int i = 0; i < lastindex; i++)
-		if (name.compare(NetworkName[i]))
-			return NetworkName[i];
+	for (std::string locNetworkName : NetworkName)	
+		if (name.compare(locNetworkName))
+			return locNetworkName;
 	return "";
 }
 
 int GetIpNetworkIndex(uint32_t id) {
-	for (int i = 0; i < lastindex; i++)
+	for (int i = 0; i < clientID.size(); i++)
 		if (id==clientID[i])
 			return i;
 	return -1;
 }
 
 int GetNameNetworkIndex(std::string name) {
-	for (int i = 0; i < lastindex; i++)
+	for (int i = 0; i < NetworkName.size(); i++)
 		if (name.compare(NetworkName[i]))
 			return i;
 	return -1;
 }
 
 void AddNetworkName(std::string name, uint32_t id) {
-	if (lastindex >= MaxNames)return;
 	if (!GetNameNetwork(name).compare(""))
 	{
-		NetworkName[lastindex] = name;
-		clientID[lastindex] = id;
-		lastindex++;
+		NetworkName.push_back(name);
+		clientID.push_back(id);
 	}
 #ifdef TEST_NETWORK_MESSAGES
 	debug_net_printf("net name added:%s %d\n", name, id);
 #endif //TEST_NETWORK_MESSAGES
 }
 
+std::string GetListenNetwork(std::string name) {
+	for (std::string locListenName : ListenName)
+		if (name.compare(locListenName))
+			return locListenName;
+	return "";
+}
+
+void AddListenName(std::string name, uint32_t id) {
+	if (!GetListenNetwork(name).compare(""))
+	{
+		ListenName.push_back(name);
+		clientListenID.push_back(id);
+	}
+#ifdef TEST_NETWORK_MESSAGES
+	debug_net_printf("listen name added:%s %d\n", name, id);
+#endif //TEST_NETWORK_MESSAGES
+}
+
 void RemoveNetworkName(std::string name) {
 	int index = GetNameNetworkIndex(name);
-	if (index == -1)return;
-	for (int i = lastindex - 1; i > index; i--)
-	{
-		NetworkName[i] = NetworkName[i + 1];
-		clientID[i]= clientID[i + 1];
-	}
-	lastindex--;
+	NetworkName.erase(NetworkName.begin()+ index);
+	clientID.erase(clientID.begin() + index);
 }
 
 bool TestAddName(std::string name, uint32_t clientID) {
@@ -512,19 +534,27 @@ void processEnd() {
 		{
 #ifdef TEST_NETWORK_MESSAGES
 			debug_net_printf("WAITING FOR MESSAGE TIMEOUT:%x\n", lastconnection->ncb_command_0);
-#endif //TEST_NETWORK_MESSAGES
-			lastconnection = NULL;
+#endif //TEST_NETWORK_MESSAGES			
 			switch (lastconnection->ncb_command_0)
 			{
-			case 0xb0: {//ADD_NAME 
-				/*AddNetworkName(lastconnection->ncb_name_26, (char*)"127.0.0.1");
-				CreateMessage(MESSAGE_WINADDNAME, (uint8_t*)lastconnection->ncb_name_26, 1 + strlen(lastconnection->ncb_name_26));
-				preBroadcastAll();
-				memcpy(IHaveNameStr, lastconnection->ncb_name_26, 16);
-				IHaveNameStrP = IHaveNameStr;*/
-				//AddNetworkName(connection->ncb_name_26,lastIp);
-				//NetworkEnd();
-				lastconnection->ncb_cmd_cplt_49 = 0;
+			case 0xb0: {//ADD_NAME
+				if (netstate == ADD_NAME_REJECT)
+				{
+					lastconnection->ncb_cmd_cplt_49 = 22;
+				}
+				else
+				{
+					/*AddNetworkName(lastconnection->ncb_name_26, (char*)"127.0.0.1");
+					CreateMessage(MESSAGE_WINADDNAME, (uint8_t*)lastconnection->ncb_name_26, 1 + strlen(lastconnection->ncb_name_26));
+					preBroadcastAll();
+					memcpy(IHaveNameStr, lastconnection->ncb_name_26, 16);
+					IHaveNameStrP = IHaveNameStr;*/
+					IHaveNameStrP = lastconnection->ncb_name_26;
+					//AddNetworkName(connection->ncb_name_26,lastIp);
+					//NetworkEnd();
+					lastconnection->ncb_cmd_cplt_49 = 0;
+					client->Send(std::string("MESSAGE_WINADDNAME;") + lastconnection->ncb_name_26);
+				}
 				break;
 			}
 			case 0x90: {//CALL
@@ -543,6 +573,7 @@ void processEnd() {
 				lastconnection->ncb_cmd_cplt_49 = 0;
 			}
 			}
+			lastconnection = NULL;
 		}
 	/*else
 	{
@@ -609,18 +640,34 @@ void ListenerServer() {
 				messages.push_back(token);
 				receivedMessageStr.erase(0, pos + delimiter.length());
 			}
-			messages.push_back(token);
+			messages.push_back(receivedMessageStr);
 
 			if (!messages[0].compare("MESSAGE_TESTADDNAME"))
 			{
-				if (!TestAddName(messages[1], receivedMessage.second))
-					server->SendToClient("MESSAGE_NAMEREJECT", receivedMessage.second);
+				/*if (!TestAddName(messages[1], receivedMessage.second))
+					server->SendToClient("MESSAGE_NAMEREJECT", receivedMessage.second);*/
+				server->SendToAll(messages[0]+std::string(";")+messages[1]+std::string(";")+ std::to_string(receivedMessage.second));
+				//"MESSAGE_TESTADDNAME;NETH200        ;1"
 			}
-			/*else
+			else if (!messages[0].compare("MESSAGE_NAMEREJECT"))
 			{
-				server->BackMessage(receivedMessage);
-			}*/
-			processEnd();
+				/*if (!TestAddName(messages[1], receivedMessage.second))
+					server->SendToClient("MESSAGE_NAMEREJECT", receivedMessage.second);*/
+				server->SendToClient(messages[0] + std::string(";") + messages[1], std::stoi(messages[2]));
+				//"MESSAGE_NAMEREJECT;NETH200        "
+			}
+			else if (!messages[0].compare("MESSAGE_WINADDNAME"))
+			{
+				AddNetworkName(messages[1], receivedMessage.second);
+				//"NETH200        "
+			}
+			else if (!messages[0].compare("MESSAGE_LISTEN"))
+			{
+				AddListenName(messages[1], receivedMessage.second);
+				//"NETH200        "
+			}
+			
+			//processEnd();
 		}
 		mySleep(1);
 	}
@@ -629,7 +676,7 @@ void ListenerServer() {
 
 void ListenerClient() {
 	aClient.lock();
-	while (listenerServerOn)
+	while (listenerClientOn)
 	{
 		if (client->HasMessages())
 		{
@@ -645,18 +692,35 @@ void ListenerClient() {
 				messages.push_back(token);
 				receivedMessageStr.erase(0, pos + delimiter.length());
 			}
-			messages.push_back(token);
+			messages.push_back(receivedMessageStr);
 
-			if (messages[0].compare("MESSAGE_NAMEREJECT"))
+			if (!messages[0].compare("MESSAGE_TESTADDNAME"))
 			{
-				//xx
+				if ((IHaveNameStrP == "") || (IHaveNameStrP.compare(messages[1])))
+				{
+					//client->Send(std::string("MESSAGE_TESTADDNAME;") + std::string("testname"));
+					//return;
+					//client->Send(std::string("MESSAGE_NAMEREJECT;") + messages[1] + std::string(";") + messages[2]);					
+				}
+				else//name is same
+				{
+					client->Send(std::string("MESSAGE_NAMEREJECT;") + messages[1]+ std::string(";")+ messages[2]);
+					//"MESSAGE_NAMEREJECT;NETH200        ;1"
+				}
+				/*if (!TestAddName(messages[1], receivedMessage.second))
+					server->SendToClient("MESSAGE_NAMEREJECT", receivedMessage.second);*/
+				//server->SendToAll(messages[0] + std::string(";") + messages[1] + std::string(";") + std::to_string(receivedMessage.second));
 			}
-			/*else
+			else if (!messages[0].compare("MESSAGE_NAMEREJECT"))
 			{
-				client->BackMessage(receivedMessage);
-			}*/
+				//AddNetworkName((char*)inMessage->mesg, (char*)remAdress.to_string().c_str());
+				netstate = ADD_NAME_REJECT;
+				//client->Send(std::string("MESSAGE_WINADDNAME;") + messages[1]);
+				//"MESSAGE_WINADDNAME;NETH200        "
+			}
 		}
-		mySleep(10);
+		mySleep(1);
+		processEnd();
 	}
 	aClient.unlock();
 }
@@ -664,7 +728,7 @@ void ListenerClient() {
 void NetworkInitServer() {
 	// Creation
 	listenThreadServer = new std::thread(ListenerServer);
-	FakeTestsClient();
+	//FakeTestsClient();
 };
 
 void NetworkInitClient() {
@@ -681,7 +745,18 @@ void NetworkEndServer() {
 	delete listenThreadServer;
 }
 
+void NetworkEndClient() {
+	// Cleanup
+	//listenThread->interrupt();
+	listenerClientOn = false;
+	mySleep(3000);
+	listenThreadClient->join();
+	delete listenThreadClient;
+}
+
 void EndLibNetClient() {
+	NetworkEndClient();
+	mySleep(2000);
 	client->~Client();
 }
 
@@ -882,23 +957,15 @@ void CreateFakeMessage(int type, uint8_t* mesg, int lenght) {
 }*/
 
 void AddName(myNCB* connection) {
-	if (Iam_server)
-	{
-		//AddNetworkName(connection->ncb_name_26, 666);
-		client->Send(std::string("MESSAGE_TESTADDNAME;SERVER;") + std::string(connection->ncb_name_26));
-	}
-	else
-	{
-		client->Send(std::string("MESSAGE_TESTADDNAME;CLIENT;") + std::string(connection->ncb_name_26));
-	}
+	client->Send(std::string("MESSAGE_TESTADDNAME;") + std::string(connection->ncb_name_26));
 };
 
 void AddNameReceive(bool nameIsOk, uint32_t id)
 {
-	if(nameIsOk)
-		AddNetworkName(std::string name, uint32_t id)
+	if (nameIsOk)
+		;// AddNetworkName(std::string name, uint32_t id)
 	else
-		xx
+		;//xx
 }
 
 char connectionCompName[80] = "";
@@ -923,6 +990,7 @@ void CallNetwork(myNCB* connection) {
 
 void ListenNetwork(myNCB* connection) {
 	//SendToIp(boost::asio::ip::make_address_v4(lastIp), messageStr);
+	client->Send(std::string("MESSAGE_LISTEN;")+ connection->ncb_callName_10);
 };
 
 void SendNetwork(myNCB* connection) {
@@ -1173,6 +1241,9 @@ void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myN
 		AddName(connection);
 		networkTimeout = 10000;
 		oldtime = clock();
+
+		netstate = ADD_NAME;
+
 		break;
 	}
 	case 0xb1: {//DELETE_NAME 

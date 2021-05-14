@@ -100,5 +100,6 @@ void EndLibNetServer();
 
 void FakeTestsClient();
 void NetworkInitServer();
+void NetworkInitClient();
 
 #endif //PORT_TIME

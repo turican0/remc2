@@ -67450,14 +67450,10 @@ void InitNetworkInfo() {
 	debug_net_filename2 = exepath + "/../" + debug_net_filename1;
 
 	//testlib1();
-	if (Iam_client)
-	{
-		InitLibNetClient(serverIP, ServerMPort, ClientMPort);
-	}
-	else if(Iam_server)
-	{
+	if(Iam_server)
 		InitLibNetServer(ServerMPort);
-	}
+	InitLibNetClient(serverIP, ServerMPort, ClientMPort);
+
 	//exit(0);
 	/*
 
@@ -67649,14 +67645,9 @@ int sub_main(int argc, char** argv, char**  /*envp*/)//236F70
 	
 #ifdef TEST_NETWORK
 
-	if (Iam_client)
-	{
-		EndLibNetClient();
-	}
-	else if (Iam_server)
-	{
+	EndLibNetClient();
+	if(Iam_server)
 		EndLibNetServer();
-	}
 	
 #endif //TEST_NETWORK
 
@@ -67893,9 +67884,13 @@ void sub_56210_process_command_line(int argc, char** argv)//237210
 				if (!Iam_client)
 				{
 					Iam_server = true;
+					strcpy(serverIP, (char*)argv[++argnumber]);
 					ServerMPort = atoi(argv[++argnumber]);
 					if (ServerMPort < 0)ServerMPort = 0;
 					if (ServerMPort > 9999)ServerMPort = 9999;
+					ClientMPort = atoi(argv[++argnumber]);
+					if (ClientMPort < 0)ClientMPort = 0;
+					if (ClientMPort > 9999)ClientMPort = 9999;
 				}
 			}
 			/*else if (!_stricmp("netinitwait", (char*)actarg))//set to all one computer adress
