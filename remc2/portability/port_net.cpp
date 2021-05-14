@@ -46,6 +46,8 @@ int netstate = -1;
 
 #define ADD_NAME 0
 #define ADD_NAME_REJECT 1
+#define ADD_NAME_RECEIVE 2
+#define ADD_NAME_RECEIVE_ACCEPT 3
 
 namespace NetworkLib {
 	class Client/* : public IClient*/ {
@@ -445,6 +447,8 @@ std::vector<uint32_t> clientID;
 
 std::vector<std::string> ListenName;
 std::vector<uint32_t> clientListenID;
+std::vector<std::string> ListenName2;
+std::vector<uint32_t> clientListenID2;
 //int lastindexListen = 0;
 
 uint32_t GetIpNetwork(uint32_t id) {
@@ -482,7 +486,7 @@ void AddNetworkName(std::string name, uint32_t id) {
 		clientID.push_back(id);
 	}
 #ifdef TEST_NETWORK_MESSAGES
-	debug_net_printf("net name added:%s %d\n", name, id);
+	debug_net_printf("net name added:%s %d\n", name.c_str(), id);
 #endif //TEST_NETWORK_MESSAGES
 }
 
@@ -493,17 +497,34 @@ std::string GetListenNetwork(std::string name) {
 	return "";
 }
 
+int GetNameListenIndex(std::string name) {
+	for (int i = 0; i < ListenName.size(); i++)
+		if (name.compare(ListenName[i]))
+			return i;
+	return -1;
+}
+
 void AddListenName(std::string name, uint32_t id) {
 	if (!GetListenNetwork(name).compare(""))
 	{
 		ListenName.push_back(name);
 		clientListenID.push_back(id);
+		ListenName2.push_back("");
+		clientListenID2.push_back(999);
 	}
 #ifdef TEST_NETWORK_MESSAGES
-	debug_net_printf("listen name added:%s %d\n", name, id);
+	debug_net_printf("listen name added:%s %d\n", name.c_str(), id);
 #endif //TEST_NETWORK_MESSAGES
 }
 
+void AddListenName2(std::string name, std::string name2, uint32_t id2){
+	uint32_t id = GetNameListenIndex(name);
+	ListenName2[id]= name2;
+	clientListenID2[id] = id2;
+#ifdef TEST_NETWORK_MESSAGES
+	debug_net_printf("listen accepted:%s %d,%s %d\n", name.c_str(), id, name2.c_str(), id2);
+#endif //TEST_NETWORK_MESSAGES
+}
 void RemoveNetworkName(std::string name) {
 	int index = GetNameNetworkIndex(name);
 	NetworkName.erase(NetworkName.begin()+ index);
@@ -569,6 +590,14 @@ void processEnd() {
 				lastconnection->ncb_cmd_cplt_49 = 0x0;
 				break;
 			}
+			case 0x95: {//RECEIVE
+				if (netstate == ADD_NAME_RECEIVE_ACCEPT)
+					lastconnection->ncb_cmd_cplt_49 = 0x0;
+				else
+					lastconnection->ncb_cmd_cplt_49 = 0x0;
+				break;
+			}
+					
 			default: {
 				lastconnection->ncb_cmd_cplt_49 = 0;
 			}
@@ -666,6 +695,12 @@ void ListenerServer() {
 				AddListenName(messages[1], receivedMessage.second);
 				//"NETH200        "
 			}
+			else if (!messages[0].compare("MESSAGE_RECEIVE"))
+			{
+				AddListenName2(messages[1], messages[2], receivedMessage.second);
+				server->SendToClient(std::string("MESSAGE_RECEIVE_ACCEPT;"), receivedMessage.second);
+				//"NETH200        "
+			}
 			
 			//processEnd();
 		}
@@ -718,6 +753,11 @@ void ListenerClient() {
 				//client->Send(std::string("MESSAGE_WINADDNAME;") + messages[1]);
 				//"MESSAGE_WINADDNAME;NETH200        "
 			}
+			else if (!messages[0].compare("MESSAGE_RECEIVE_ACCEPT"))
+			{
+				netstate = ADD_NAME_RECEIVE_ACCEPT;
+			}
+
 		}
 		mySleep(1);
 		processEnd();
@@ -1000,6 +1040,7 @@ void SendNetwork(myNCB* connection) {
 };
 
 void ReceiveNetwork(myNCB* connection) {
+	client->Send(std::string("MESSAGE_RECEIVE;") + connection->ncb_callName_10 + std::string(";") + connection->ncb_name_26);
 };
 
 
@@ -1334,6 +1375,7 @@ void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myN
 		ReceiveNetwork(connection);
 		networkTimeout = 100;
 		oldtime = clock();
+		netstate = ADD_NAME_RECEIVE;
 		break;
 	}
 	case 0x35: {//CANCEL
