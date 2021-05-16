@@ -770,37 +770,58 @@ void ListenerServer() {
 			{
 				if(messages[1].compare(""))
 					RemoveListenName(messages[1]);
+#ifdef TEST_NETWORK_MESSAGES
+				debug_net_printf("SERVER MESSAGE_CANCEL:%s %d\n", messages[1], receivedMessage.second);
+#endif //TEST_NETWORK_MESSAGES
 			}
 			else if (!messages[0].compare("MESSAGE_DELETE"))
 			{
 				if (messages[1].compare(""))
 					RemoveNetworkName(messages[1]);
+#ifdef TEST_NETWORK_MESSAGES
+				debug_net_printf("SERVER MESSAGE_DELETE:%s %d\n", messages[1], receivedMessage.second);
+#endif //TEST_NETWORK_MESSAGES
 			}
 			else if (!messages[0].compare("MESSAGE_TESTADDNAME"))
 			{
 				server->SendToAll(messages[0]+std::string(";")+messages[1]+std::string(";")+ std::to_string(receivedMessage.second));
 				//"MESSAGE_TESTADDNAME;NETH200        ;1"
+#ifdef TEST_NETWORK_MESSAGES
+				debug_net_printf("SERVER MESSAGE_TESTADDNAME:%s %d\n", messages[1], receivedMessage.second);
+#endif //TEST_NETWORK_MESSAGES
 			}
 			else if (!messages[0].compare("MESSAGE_NAMEREJECT"))
 			{
 				server->SendToClient(messages[0] + std::string(";") + messages[1], std::stoi(messages[2]));
 				//"MESSAGE_NAMEREJECT;NETH200        "
+#ifdef TEST_NETWORK_MESSAGES
+				debug_net_printf("SERVER MESSAGE_NAMEREJECT:%s %s %d\n", messages[1], messages[2], receivedMessage.second);
+#endif //TEST_NETWORK_MESSAGES
 			}
 			else if (!messages[0].compare("MESSAGE_WINADDNAME"))
 			{
 				AddNetworkName(messages[1], receivedMessage.second);
 				//"NETH200        "
+#ifdef TEST_NETWORK_MESSAGES
+				debug_net_printf("SERVER MESSAGE_WINADDNAME:%s %d\n", messages[1], receivedMessage.second);
+#endif //TEST_NETWORK_MESSAGES
 			}
 			else if (!messages[0].compare("MESSAGE_LISTEN"))
 			{
 				AddListenName(messages[1], receivedMessage.second);
 				//"NETH200        "
+#ifdef TEST_NETWORK_MESSAGES
+				debug_net_printf("SERVER MESSAGE_LISTEN:%s %d\n", messages[1], receivedMessage.second);
+#endif //TEST_NETWORK_MESSAGES
 			}
 			else if (!messages[0].compare("MESSAGE_SEND"))
 			{
 				uint32_t otherid= GetOtherSide(receivedMessage.second);
 				if(otherid!=1000)
 					server->SendToClient(messages[0] + std::string(";") + messages[1], otherid);
+#ifdef TEST_NETWORK_MESSAGES
+				debug_net_printf("SERVER MESSAGE_SEND:%s %d %d\n", messages[1], otherid, receivedMessage.second);
+#endif //TEST_NETWORK_MESSAGES
 			}
 			/*else if (!messages[0].compare("MESSAGE_RECEIVE"))
 			{
@@ -811,6 +832,9 @@ void ListenerServer() {
 				AddListenName2(messages[1], messages[2], receivedMessage.second);
 				server->SendToClient(std::string("NETI_LISTEN_CONNECTED;"), receivedMessage.second);
 				//"NETH200        "
+#ifdef TEST_NETWORK_MESSAGES
+				debug_net_printf("SERVER NETI_LISTEN_CONNECTED:%s %s %d\n", messages[1], messages[2], receivedMessage.second);
+#endif //TEST_NETWORK_MESSAGES
 			}
 			
 			//processEnd();
@@ -866,19 +890,31 @@ void ListenerClient() {
 					client->Send(std::string("MESSAGE_NAMEREJECT;") + messages[1]+ std::string(";")+ messages[2]);
 					//"MESSAGE_NAMEREJECT;NETH200        ;1"
 				}
+#ifdef TEST_NETWORK_MESSAGES
+				debug_net_printf("CLIENT MESSAGE_TESTADDNAME:%s %s\n", messages[1], messages[2]);
+#endif //TEST_NETWORK_MESSAGES
 			}
 			else if (!messages[0].compare("MESSAGE_NAMEREJECT"))
 			{
 				netstate = NETI_ADD_NAME_REJECT;
 				//"MESSAGE_WINADDNAME;NETH200        "
+#ifdef TEST_NETWORK_MESSAGES
+				debug_net_printf("CLIENT MESSAGE_NAMEREJECT:\n");
+#endif //TEST_NETWORK_MESSAGES
 			}
 			else if (!messages[0].compare("MESSAGE_CALL_ACCEPT"))
 			{
 				netstate = NETI_CALL_ACCEPT;
+#ifdef TEST_NETWORK_MESSAGES
+				debug_net_printf("CLIENT MESSAGE_CALL_ACCEPT:\n");
+#endif //TEST_NETWORK_MESSAGES
 			}
 			else if (!messages[0].compare("MESSAGE_SEND"))
 			{
 				AddRecMess(messages[0]);
+#ifdef TEST_NETWORK_MESSAGES
+				debug_net_printf("CLIENT MESSAGE_SEND:\n");
+#endif //TEST_NETWORK_MESSAGES
 			}
 		}
 		mySleep(1);

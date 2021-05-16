@@ -39,7 +39,7 @@ void _strupr(char* s)
 //#define SET_LEVEL
 
 //#define RELEASE_GAME
-//#define PLAYING_GAME
+#define PLAYING_GAME
 //#define DEBUG_AFTERLOAD
 //#define DEBUG_ONSTART
 //#define TEST_REGRESSIONS_GAME
@@ -99325,14 +99325,14 @@ void sub_82C20_drawEndGameTable(__int16 a1)//263c20
 			while (xy_DWORD_17DED4_spritestr[274].height_5 > (signed __int16)v45)
 			{
 				v16 = 0;
-				while (v16 < (signed __int16)v11 - 2 * xy_DWORD_17DED4_spritestr[274].width_4)
+				while (v16 < v11 - 2 * xy_DWORD_17DED4_spritestr[274].width_4)
 				{
-					HIBYTE(v17) = 15;
-					LOBYTE(v17) = *v15;
-					v41 = v17;
+					//HIBYTE(v17) = 15;
+					//LOBYTE(v17) = *v15;
+					//v41 = v17;					
+					*v15 = x_DWORD_17DE38str.x_DWORD_17DE3C->data[*v15+0xc00];
 					v15++;
 					v16++;
-					*(v15 - 1) = *(x_BYTE*)(v17 + x_DWORD_17DE38str.x_DWORD_17DE3C);
 				}
 				v45++;
 				v15 += 640 - v16;
