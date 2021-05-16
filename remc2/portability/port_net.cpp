@@ -778,15 +778,11 @@ void ListenerServer() {
 			}
 			else if (!messages[0].compare("MESSAGE_TESTADDNAME"))
 			{
-				/*if (!TestAddName(messages[1], receivedMessage.second))
-					server->SendToClient("MESSAGE_NAMEREJECT", receivedMessage.second);*/
 				server->SendToAll(messages[0]+std::string(";")+messages[1]+std::string(";")+ std::to_string(receivedMessage.second));
 				//"MESSAGE_TESTADDNAME;NETH200        ;1"
 			}
 			else if (!messages[0].compare("MESSAGE_NAMEREJECT"))
 			{
-				/*if (!TestAddName(messages[1], receivedMessage.second))
-					server->SendToClient("MESSAGE_NAMEREJECT", receivedMessage.second);*/
 				server->SendToClient(messages[0] + std::string(";") + messages[1], std::stoi(messages[2]));
 				//"MESSAGE_NAMEREJECT;NETH200        "
 			}
@@ -864,24 +860,16 @@ void ListenerClient() {
 			{
 				if ((IHaveNameStrP == "") || (IHaveNameStrP.compare(messages[1])))
 				{
-					//client->Send(std::string("MESSAGE_TESTADDNAME;") + std::string("testname"));
-					//return;
-					//client->Send(std::string("MESSAGE_NAMEREJECT;") + messages[1] + std::string(";") + messages[2]);					
 				}
 				else//name is same
 				{
 					client->Send(std::string("MESSAGE_NAMEREJECT;") + messages[1]+ std::string(";")+ messages[2]);
 					//"MESSAGE_NAMEREJECT;NETH200        ;1"
 				}
-				/*if (!TestAddName(messages[1], receivedMessage.second))
-					server->SendToClient("MESSAGE_NAMEREJECT", receivedMessage.second);*/
-				//server->SendToAll(messages[0] + std::string(";") + messages[1] + std::string(";") + std::to_string(receivedMessage.second));
 			}
 			else if (!messages[0].compare("MESSAGE_NAMEREJECT"))
 			{
-				//AddNetworkName((char*)inMessage->mesg, (char*)remAdress.to_string().c_str());
 				netstate = NETI_ADD_NAME_REJECT;
-				//client->Send(std::string("MESSAGE_WINADDNAME;") + messages[1]);
 				//"MESSAGE_WINADDNAME;NETH200        "
 			}
 			else if (!messages[0].compare("MESSAGE_CALL_ACCEPT"))
@@ -1543,7 +1531,7 @@ void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myN
 		connection->ncb_reserved_50[7] = 0x0e;
 		connection->ncb_reserved_50[8] = 0x67;
 		AddName(connection);
-		networkTimeout = 10000;
+		networkTimeout = 15000;
 		oldtime = clock();
 
 		netstate = NETI_ADD_NAME;
