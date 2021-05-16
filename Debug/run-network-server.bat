@@ -1,1 +1,1 @@
-remc2_without_xcopy.exe server 192.168.0.171 3490 3491
+remc2_without_xcopy.exe server 172.24.224.1 3490 3491
