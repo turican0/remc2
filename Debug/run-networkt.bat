@@ -1,1 +1,0 @@
-remc2_without_xcopy.exe serveradress 10.123.4.69 3490 netinitwait 20000

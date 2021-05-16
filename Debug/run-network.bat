@@ -1,1 +1,0 @@
-remc2_without_xcopy.exe serveradress 172.22.19.14 3490
