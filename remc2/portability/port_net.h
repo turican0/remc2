@@ -102,4 +102,8 @@ void FakeTestsClient();
 void NetworkInitServer();
 void NetworkInitClient();
 
+void StringToBin(uint8_t** buffer, uint16_t* lenght, std::string* str);
+std::string GetRecMess();
+unsigned int GetRecSize();
+
 #endif //PORT_TIME
