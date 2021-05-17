@@ -422,7 +422,7 @@ void debug_net_printf(const char* format, ...) {
 	}
 	else
 		debug_net_output = fopen(debug_net_filename2.c_str(), "at");
-	fprintf(debug_net_output, "%s %d", prbuffer,clock());
+	fprintf(debug_net_output, "%d|%s", prbuffer,clock());
 	fclose(debug_net_output);
 #ifdef DEBUG_PRINT_DEBUG_TO_SCREEN
 	printf(prbuffer);
