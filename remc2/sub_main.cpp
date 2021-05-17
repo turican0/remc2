@@ -89328,6 +89328,8 @@ void NetworkListenAll_7302E()//25402e
 	}
 }
 
+#define TEST_NETWORK_MESSAGES
+
 //----- (0007308F) --------------------------------------------------------
 int NetworkInitConnection_7308F(char* a2, __int16 a3)//25408f
 {
@@ -89358,20 +89360,38 @@ int NetworkInitConnection_7308F(char* a2, __int16 a3)//25408f
 	while (maxPlayers_E127A > i && x_WORD_E1276 == -1 && !x_WORD_E12A6)
 	{//2541a1
 		v6 = NetworkTestAddName_72DDE(i);
+#ifdef TEST_NETWORK_MESSAGES
+		debug_printf("Add Name point1\n");
+#endif //TEST_NETWORK_MESSAGES
 		if (v6)//2541aa
 		{
+#ifdef TEST_NETWORK_MESSAGES
+			debug_printf("Add Name point2\n");
+#endif //TEST_NETWORK_MESSAGES
 			if (v6 == 0xff)
 			{
+#ifdef TEST_NETWORK_MESSAGES
+				debug_printf("Add Name point3\n");
+#endif //TEST_NETWORK_MESSAGES
 				NetworkCancel_748F7(i);
 				i = maxPlayers_E127A;
 			}
 		}
 		else
 		{
+#ifdef TEST_NETWORK_MESSAGES
+			debug_printf("Add Name point4\n");
+#endif //TEST_NETWORK_MESSAGES
 			x_WORD_E1276 = i;
 		}
+#ifdef TEST_NETWORK_MESSAGES
+		debug_printf("Add Name point5\n");
+#endif //TEST_NETWORK_MESSAGES
 		i++;
 	}
+#ifdef TEST_NETWORK_MESSAGES
+	debug_printf("Add Name point6\n");
+#endif //TEST_NETWORK_MESSAGES
 	if (x_WORD_E1276 == -1)//2541e7
 		return -1;
 	for (i = 0;i< maxPlayers_E127A; i++)
