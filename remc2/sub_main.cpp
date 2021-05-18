@@ -110,6 +110,7 @@ int test_regression_level = 50;
 	bool hideGraphics = false;
 	//bool hideGraphics = true;
 	int debugafterload = 1;
+	bool first_enter = true;
 #else 
 	int debugafterload = 1;
 	int graphics_debug = false;
@@ -94673,6 +94674,13 @@ int sub_7B660_draw_scroll_dialog2(int a1, int a2, __int16 a3, type_str_word_26* 
 				v44 = 2;
 			}
 		}
+#ifdef TEST_NETWORK
+		if (first_enter)
+		{
+			first_enter = false;
+			v44 = 1;
+		}
+#endif
 	}
 	DrawHelpText_6FC50(1);
 	//v29 = xy_DWORD_17DED4_spritestr[x_WORD_17DF06].pointer;
