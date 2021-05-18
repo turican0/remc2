@@ -94291,8 +94291,11 @@ char /*__fastcall*/ sub_7B250_draw_and_serve(/*int a1, int a2*//*, __int16 a3*/)
 	#endif
 
 #ifdef TEST_NETWORK
-	str_E1BAC[2].dword_0 = 0x25EE80;
-	str_E1BAC[2].selected_8 = 1;
+	if (first_enter)
+	{
+		str_E1BAC[2].dword_0 = 0x25EE80;
+		str_E1BAC[2].selected_8 = 1;
+	}
 #endif
 
 	//for (i = off_E1BAC; *((int16_t*)i + 5); i += 44)
