@@ -39,12 +39,12 @@ void _strupr(char* s)
 //#define SET_LEVEL
 
 //#define RELEASE_GAME
-#define PLAYING_GAME
+//#define PLAYING_GAME
 //#define DEBUG_AFTERLOAD
 //#define DEBUG_ONSTART
 //#define TEST_REGRESSIONS_GAME
-
 #define TEST_NETWORK
+
 
 //#define TEST_NETWORK_CHNG1
 
@@ -70,7 +70,7 @@ int test_regression_level = 50;
 	bool hideGraphics = false;
 #elif defined(TEST_REGRESSIONS_GAME) //this is setting for regressions testing
 	#define DETECT_DWORD_A
-	#define COPY_SKIP_CONFIGiniti
+	#define COPY_SKIP_CONFIG
 	#define FIX_MOUSE
 	#define MOUSE_OFF2
 	#define OFF_PAUSE_5
@@ -105,7 +105,12 @@ int test_regression_level = 50;
 	//#define DISABLE_GRAPHICS_ENHANCE
 	//#define MOVE_PLAYER
 	bool hideGraphics = false;
-#else
+#elif defined(TEST_NETWORK)
+	#define COPY_SKIP_CONFIG
+	bool hideGraphics = false;
+	//bool hideGraphics = true;
+	int debugafterload = 1;
+#else 
 	int debugafterload = 1;
 	int graphics_debug = false;
 	bool hideGraphics = false;
@@ -94283,6 +94288,11 @@ char /*__fastcall*/ sub_7B250_draw_and_serve(/*int a1, int a2*//*, __int16 a3*/)
 	str_E1BAC[0].dword_0 = 0x258350;
 	str_E1BAC[0].selected_8 = 1;
 	#endif
+
+#ifdef TEST_NETWORK
+	str_E1BAC[2].dword_0 = 0x25EE80;
+	str_E1BAC[2].selected_8 = 1;
+#endif
 
 	//for (i = off_E1BAC; *((int16_t*)i + 5); i += 44)
 	for (iy = 0; str_E1BAC[iy].xmin_10; iy++)
