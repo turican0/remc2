@@ -13,7 +13,7 @@ GameRender::GameRender(uint8_t* pScreenBuffer, uint8_t* pColorPalette, uint16_t 
 
 GameRender::~GameRender()
 {
-	if (m_isRunning)
+	if (m_renderThreads > 1)
 	{
 		StopWorkerThread();
 	}
@@ -805,7 +805,7 @@ void GameRender::DrawTerrainAndParticles_3C080(__int16 a3, __int16 a4, __int16 a
 	}
 	else
 	{
-		if (m_isRunning)
+		if (m_renderThreads > 1)
 		{
 			DrawSky_40950_TH(roll, m_ptrViewPortRenderBufferStart, viewPort.Width, viewPort.Height, screenWidth);
 		}
@@ -3072,7 +3072,7 @@ void GameRender::StartWorkerThread()
 			DWORD_PTR dw = SetThreadAffinityMask(GetCurrentThread(), DWORD_PTR(1) << core);
 #endif
 
-			m_isRunning = true;
+			m_renderThreads++;
 			do
 			{
 				if (m_task != nullptr)
@@ -3085,16 +3085,16 @@ void GameRender::StartWorkerThread()
 					//std::this_thread::sleep_for(std::chrono::nanoseconds(1));
 				}
 
-			} while (m_isRunning);
+			} while (m_renderThreads > 1);
 			});
 	}
 }
 
 void GameRender::StopWorkerThread()
 {
-	if (m_isRunning)
+	if (m_renderThreads > 1)
 	{
-		m_isRunning = false;
+		m_renderThreads = 1;
 		m_renderThread.join();
 	}
 }
@@ -3121,7 +3121,7 @@ void GameRender::DrawSquare(int* vertexs, int index, uint16_t viewPortWidth, uin
 
 	if ((uint8_t)m_Str_E9C38_smalltit[index].word38 & 1)
 	{
-		if (m_isRunning)
+		if (m_renderThreads > 1)
 		{
 			RunTask([this, &vertexs, pTexture, viewPortWidth, viewPortHeight, screenWidth] {
 				this->DrawTriangle_B6253(&vertexs[18], &vertexs[12], &vertexs[0], pTexture, unk_DE56Cx, viewPortWidth, viewPortHeight, screenWidth);
@@ -3138,7 +3138,7 @@ void GameRender::DrawSquare(int* vertexs, int index, uint16_t viewPortWidth, uin
 	}
 	else
 	{
-		if (m_isRunning)
+		if (m_renderThreads > 1)
 		{
 			RunTask([this, &vertexs, pTexture, viewPortWidth, viewPortHeight, screenWidth] {
 				this->DrawTriangle_B6253(&vertexs[18], &vertexs[12], &vertexs[6], pTexture, unk_DE56Cx, viewPortWidth, viewPortHeight, screenWidth);
@@ -3174,7 +3174,7 @@ void GameRender::DrawInverseSquare(int* vertexs, int index, uint8_t* pTexture, u
 
 	if (m_Str_E9C38_smalltit[index].word38 & 1)
 	{
-		if (m_isRunning)
+		if (m_renderThreads > 1)
 		{
 			RunTask([this, &vertexs, pTexture, viewPortWidth, viewPortHeight, screenWidth] {
 				this->DrawTriangle_B6253(&vertexs[18], &vertexs[0], &vertexs[12], pTexture, unk_DE56Cx, viewPortWidth, viewPortHeight, screenWidth);
@@ -3191,7 +3191,7 @@ void GameRender::DrawInverseSquare(int* vertexs, int index, uint8_t* pTexture, u
 	}
 	else
 	{
-		if (m_isRunning)
+		if (m_renderThreads > 1)
 		{
 			RunTask([this, &vertexs, pTexture, viewPortWidth, viewPortHeight, screenWidth] {
 				this->DrawTriangle_B6253(&vertexs[18], &vertexs[6], &vertexs[12], pTexture, unk_DE56Cx, viewPortWidth, viewPortHeight, screenWidth);
@@ -14770,23 +14770,16 @@ void GameRender::SetRenderViewPortSize_BCD45(uint8_t* ptrScreenBufferStart, uint
 
 void GameRender::SetRenderThreads(uint8_t renderThreads)
 {
-	m_renderThreads = renderThreads;
-
 	if (renderThreads < 1)
 	{
-		m_renderThreads = 1;
+		renderThreads = 1;
 	}
 
-	if (renderThreads > 2)
-	{
-		m_renderThreads = 2;
-	}
-
-	if (renderThreads > 1 && !m_isRunning)
+	if (renderThreads > 1)
 	{
 		StartWorkerThread();
 	}
-	else if (renderThreads == 1 && m_isRunning)
+	else if (renderThreads == 1)
 	{
 		StopWorkerThread();
 	}

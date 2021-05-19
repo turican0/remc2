@@ -69,9 +69,9 @@ private:
 	int16_t m_x_WORD_180660_VGA_type_resolution;
 
 	std::thread m_renderThread;
-	bool m_isRunning = false;
-	std::function<void()> m_task = nullptr;
 	uint8_t m_renderThreads = 1;
+
+	std::function<void()> m_task = nullptr;
 
 	int x_DWORD_D4794 = 0;
 	int x_DWORD_D4798 = 0;
