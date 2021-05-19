@@ -40,9 +40,9 @@ using boost::asio::ip::udp;
 typedef std::map<uint32_t, udp::endpoint> ClientList;
 typedef ClientList::value_type LClient;
 
-myNCB* lastconnection;
+myNCB* lastconnection_shared;
 
-int netstate = -1;
+int netstate_shared = -1;
 
 #define NETI_ADD_NAME 0
 #define NETI_ADD_NAME_REJECT 1
@@ -579,14 +579,32 @@ std::mutex aClient;
 long oldtime;
 int networkTimeout = 10000;
 
+std::mutex lastconnection_mt;
+
+myNCB* lastconnection()
+{
+	myNCB* result;
+	lastconnection_mt.lock();
+	result = lastconnection_shared;
+	lastconnection_mt.unlock();
+	return result;
+}
+
+void lastconnection(myNCB* input)
+{
+	lastconnection_mt.lock();
+	lastconnection_shared= input;
+	lastconnection_mt.unlock();	
+}
+
 void processEnd() {
-	if(lastconnection)
+	if(lastconnection())
 		if (clock() > oldtime + networkTimeout)
 		{
 #ifdef TEST_NETWORK_MESSAGES
-			debug_net_printf("WAITING FOR MESSAGE TIMEOUT:%x\n", lastconnection->ncb_command_0);
+			debug_net_printf("WAITING FOR MESSAGE TIMEOUT:%x\n", lastconnection()->ncb_command_0);
 #endif //TEST_NETWORK_MESSAGES			
-			switch (lastconnection->ncb_command_0)
+			switch (lastconnection()->ncb_command_0)
 			{
 			case 0x35: {//CANCEL
 				lastconnection->ncb_retcode_1 = 0x0;
