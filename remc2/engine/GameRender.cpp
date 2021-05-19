@@ -293,10 +293,23 @@ void GameRender::ClearGraphicsBuffer(uint8_t colorIdx)
 	memset32(m_ptrScreenBuffer, colorIdx, m_uiScreenWidth * m_uiScreenWidth);
 }
 
+void GameRender::DrawSky_40950_TH(int16_t roll, uint8_t* ptrViewPortRenderBufferStart, uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t screenWidth)
+{
+	uint16_t height = viewPortHeight / 2;
+
+	RunTask([this, roll, ptrViewPortRenderBufferStart, viewPortWidth, viewPortHeight, screenWidth] {
+		this->DrawSky_40950(roll, ptrViewPortRenderBufferStart, viewPortWidth, viewPortHeight, screenWidth, 2);;
+		});
+
+	DrawSky_40950(roll, ptrViewPortRenderBufferStart + screenWidth, viewPortWidth, viewPortHeight, screenWidth, 2);
+
+	while (m_task != nullptr);
+}
+
 /*
 * Sky texture is currently 256x256
 */
-void GameRender::DrawSky_40950(int16_t roll, uint8_t* ptrViewPortRenderBufferStart, uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t screenWidth)
+void GameRender::DrawSky_40950(int16_t roll, uint8_t* ptrViewPortRenderBufferStart, uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t screenWidth, uint8_t drawEveryNthLine)
 {
 	int v1; // ebx
 	int v2; // edx
@@ -328,6 +341,11 @@ void GameRender::DrawSky_40950(int16_t roll, uint8_t* ptrViewPortRenderBufferSta
 	char v28; // [esp+520h] [ebp-Ch]
 	char v29; // [esp+524h] [ebp-8h]
 	unsigned __int8 v30; // [esp+528h] [ebp-4h]
+
+	if (drawEveryNthLine > 1 && ((drawEveryNthLine % 2) > 0))
+	{
+		drawEveryNthLine = 1;
+	}
 
 	v1 = roll & 0x7FF;
 	v2 = (x_DWORD)Maths::x_DWORD_DB750[512 + v1] << 8;
@@ -364,6 +382,7 @@ void GameRender::DrawSky_40950(int16_t roll, uint8_t* ptrViewPortRenderBufferSta
 	result = viewPortHeight;
 	v27 = -v10;
 	uint16_t height = viewPortHeight;
+
 	if (viewPortHeight)
 	{
 		do
@@ -405,11 +424,11 @@ void GameRender::DrawSky_40950(int16_t roll, uint8_t* ptrViewPortRenderBufferSta
 				v16--;
 			} while (v16);
 
-			viewPortRenderBufferStart = viewPortRenderBufferStart + screenWidth;
+			viewPortRenderBufferStart = viewPortRenderBufferStart + (screenWidth* drawEveryNthLine);
 			result = v25;
-			height--;
+			height = height - drawEveryNthLine;
 			v23 -= v26;
-			v27 += v25;
+			v27 += (v25 * drawEveryNthLine);
 		} while (height);
 	}
 }
@@ -786,7 +805,14 @@ void GameRender::DrawTerrainAndParticles_3C080(__int16 a3, __int16 a4, __int16 a
 	}
 	else
 	{
-		DrawSky_40950(roll, m_ptrViewPortRenderBufferStart, viewPort.Width, viewPort.Height, screenWidth);
+		if (m_isRunning)
+		{
+			DrawSky_40950_TH(roll, m_ptrViewPortRenderBufferStart, viewPort.Width, viewPort.Height, screenWidth);
+		}
+		else
+		{
+			DrawSky_40950(roll, m_ptrViewPortRenderBufferStart, viewPort.Width, viewPort.Height, screenWidth, 1);
+		}
 	}
 	if (isCaveLevel)//21d3e3 cleaned screen
 	{
@@ -3032,22 +3058,36 @@ void GameRender::DrawSorcererNameAndHealthBar_2CB30(type_event_0x6E8E* a1x, uint
 
 void GameRender::StartWorkerThread()
 {
-	m_renderThread = std::thread([this] {
-		m_isRunning = true;
-		do
-		{
-			if (m_task != nullptr)
-			{
-				m_task();
-				m_task = nullptr;
-			}
-			else
-			{
-				//std::this_thread::sleep_for(std::chrono::nanoseconds(1));
-			}
+	unsigned numCores = 1;
 
-		} while (m_isRunning);
-	});
+	numCores = std::thread::hardware_concurrency();
+
+	if (numCores > 1)
+	{
+		int core = 1;
+		m_renderThread = std::thread([this, core] {
+
+#ifdef _MSC_VER
+			SetThreadIdealProcessor(GetCurrentThread(), core);
+			DWORD_PTR dw = SetThreadAffinityMask(GetCurrentThread(), DWORD_PTR(1) << core);
+#endif
+
+			m_isRunning = true;
+			do
+			{
+				if (m_task != nullptr)
+				{
+					m_task();
+					m_task = nullptr;
+				}
+				else
+				{
+					//std::this_thread::sleep_for(std::chrono::nanoseconds(1));
+				}
+
+			} while (m_isRunning);
+			});
+	}
 }
 
 void GameRender::StopWorkerThread()
