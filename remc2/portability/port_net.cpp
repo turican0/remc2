@@ -1258,7 +1258,7 @@ void DeleteNetwork(myNCB* connection) {
 }
 
 void CallNetwork(myNCB* connection) {
-	client->Send(std::string("MESSAGE_CALL;") + connection->ncb_name_26);
+	client->Send(std::string("MESSAGE_CALL;") + connection->ncb_name_26 + std::string(";") + connection->ncb_callName_10);
 	/*CreateMessage(MESSAGE_MAKECONNECT, (uint8_t*)&connection, sizeof(myNCB));
 	makeConnection(connection->ncb_callName_10);
 	SendToIp(boost::asio::ip::make_address_v4(GetIpNetwork(connection->ncb_callName_10)));*/
