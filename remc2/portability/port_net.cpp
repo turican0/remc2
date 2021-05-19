@@ -458,11 +458,18 @@ std::vector<std::string> ListenName2;
 std::vector<uint32_t> clientListenID2;
 //int lastindexListen = 0;
 
-uint32_t GetIpNetwork(uint32_t id) {
-	for (uint32_t locclientID : clientID)
-		if (id == locclientID)
-			return locclientID;
+uint32_t GetNameNetworkFromId(std::string name) {
+	for (int i = 0; i < NetworkName.size(); i++)
+		if (!NetworkName[i].compare(name))
+			return clientID[i];
 	return -1;
+}
+
+std::string GetIdNetworkFromName(uint32_t id) {
+	for (int i = 0; i < NetworkName.size(); i++)
+		if (clientID[i]==id)
+			return NetworkName[i];
+	return "";
 }
 
 std::string GetNameNetwork(std::string name) {
@@ -539,7 +546,9 @@ void AddListenName(std::string name, uint32_t id) {
 		}
 }
 
-void AddListenName2(std::string name, std::string name2, uint32_t id2){
+void AddListenName2(std::string name, uint32_t id2){
+	std::string name2 = GetIdNetworkFromName(id2);
+	if (!name2.compare(""))return;
 	uint32_t id = GetNameListenIndex(name);
 	ListenName2[id]= name2;
 	clientListenID2[id] = id2;
@@ -880,7 +889,7 @@ void ListenerServer() {
 			}*/
 			else if (!messages[0].compare("MESSAGE_CALL"))
 			{
-				AddListenName2(messages[1], messages[2], receivedMessage.second);
+				AddListenName2(messages[1], receivedMessage.second);
 				server->SendToClient(std::string("NETI_LISTEN_CONNECTED;"), receivedMessage.second);
 				//"NETH200        "
 #ifdef TEST_NETWORK_MESSAGES
@@ -1258,7 +1267,7 @@ void DeleteNetwork(myNCB* connection) {
 }
 
 void CallNetwork(myNCB* connection) {
-	client->Send(std::string("MESSAGE_CALL;") + connection->ncb_name_26 + std::string(";") + connection->ncb_callName_10);
+	client->Send(std::string("MESSAGE_CALL;") + connection->ncb_name_26);
 	/*CreateMessage(MESSAGE_MAKECONNECT, (uint8_t*)&connection, sizeof(myNCB));
 	makeConnection(connection->ncb_callName_10);
 	SendToIp(boost::asio::ip::make_address_v4(GetIpNetwork(connection->ncb_callName_10)));*/
