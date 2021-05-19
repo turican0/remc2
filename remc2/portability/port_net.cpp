@@ -467,7 +467,7 @@ uint32_t GetIpNetwork(uint32_t id) {
 
 std::string GetNameNetwork(std::string name) {
 	for (std::string locNetworkName : NetworkName)	
-		if (name.compare(locNetworkName))
+		if (!name.compare(locNetworkName))
 			return locNetworkName;
 	return "";
 }
@@ -526,16 +526,17 @@ int GetName2ListenIndex(std::string name) {
 }
 
 void AddListenName(std::string name, uint32_t id) {
-	if (!GetListenNetwork(name).compare(""))
-	{
-		ListenName.push_back(name);
-		clientListenID.push_back(id);
-		ListenName2.push_back("");
-		clientListenID2.push_back(999);
-	}
-#ifdef TEST_NETWORK_MESSAGES
-	debug_net_printf("listen name added:%s %d\n", name.c_str(), id);
-#endif //TEST_NETWORK_MESSAGES
+	//if (GetNameNetwork(name).compare(""))
+		if (!GetListenNetwork(name).compare(""))
+		{
+			ListenName.push_back(name);
+			clientListenID.push_back(id);
+			ListenName2.push_back("");
+			clientListenID2.push_back(999);
+		#ifdef TEST_NETWORK_MESSAGES
+			debug_net_printf("listen name added:%s %d\n", name.c_str(), id);
+		#endif //TEST_NETWORK_MESSAGES
+		}
 }
 
 void AddListenName2(std::string name, std::string name2, uint32_t id2){
@@ -1253,11 +1254,11 @@ void CancelNetwork(myNCB* connection) {
 }
 
 void DeleteNetwork(myNCB* connection) {
-	client->Send(std::string("MESSAGE_Delete;") + connection->ncb_name_26);
+	client->Send(std::string("MESSAGE_DELETE;") + connection->ncb_name_26);
 }
 
 void CallNetwork(myNCB* connection) {
-	client->Send(std::string("MESSAGE_Call;") + connection->ncb_name_26);
+	client->Send(std::string("MESSAGE_CALL;") + connection->ncb_name_26);
 	/*CreateMessage(MESSAGE_MAKECONNECT, (uint8_t*)&connection, sizeof(myNCB));
 	makeConnection(connection->ncb_callName_10);
 	SendToIp(boost::asio::ip::make_address_v4(GetIpNetwork(connection->ncb_callName_10)));*/
