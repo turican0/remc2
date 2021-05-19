@@ -404,7 +404,10 @@ std::string debug_net_filename2 = {};
 //std::string net_path = {};
 bool debug_net_first = true;
 
+std::mutex print_mt;
+
 void debug_net_printf(const char* format, ...) {
+	print_mt.lock();
 	char prbuffer[1024];
 	va_list arg;
 	int done;
@@ -428,6 +431,7 @@ void debug_net_printf(const char* format, ...) {
 #ifdef DEBUG_PRINT_DEBUG_TO_SCREEN
 	printf(prbuffer);
 #endif
+	print_mt.unlock();
 }
 #endif// TEST_NETWORK_MESSAGES
 
