@@ -533,7 +533,7 @@ int GetName2ListenIndex(std::string name) {
 }
 
 void AddListenName(std::string name, uint32_t id) {
-	//if (GetNameNetwork(name).compare(""))
+	if (GetNameNetwork(name).compare(""))
 		if (!GetListenNetwork(name).compare(""))
 		{
 			ListenName.push_back(name);
