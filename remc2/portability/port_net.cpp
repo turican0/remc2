@@ -533,7 +533,7 @@ int GetName2ListenIndex(std::string name) {
 }
 
 void AddListenName(std::string name, uint32_t id) {
-	if (GetNameNetwork(name).compare(""))
+	//if (GetNameNetwork(name).compare(""))
 		if (!GetListenNetwork(name).compare(""))
 		{
 			ListenName.push_back(name);
@@ -549,11 +549,12 @@ void AddListenName(std::string name, uint32_t id) {
 void AddListenName2(std::string name, uint32_t id2){
 	std::string name2 = GetIdNetworkFromName(id2);
 	if (!name2.compare(""))return;
-	uint32_t id = GetNameListenIndex(name);
-	ListenName2[id]= name2;
-	clientListenID2[id] = id2;
+	int indexid = GetNameListenIndex(name);
+	if(indexid==-1)return;
+	ListenName2[indexid]= name2;
+	clientListenID2[indexid] = id2;
 #ifdef TEST_NETWORK_MESSAGES
-	debug_net_printf("listen accepted:%s %d,%s %d\n", name.c_str(), id, name2.c_str(), id2);
+	debug_net_printf("listen accepted:%s %d,%s %d\n", name.c_str(), indexid, name2.c_str(), id2);
 #endif //TEST_NETWORK_MESSAGES
 }
 
