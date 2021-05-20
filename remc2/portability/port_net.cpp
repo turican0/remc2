@@ -49,8 +49,10 @@ int netstate_shared = -1;
 #define NETI_ADD_NAME_OK 2
 #define NETI_CALL 3
 #define NETI_CALL_ACCEPT 4
-#define NETI_LISTEN 5
-#define NETI_LISTEN_CONNECTED 6
+#define NETI_CALL_REJECT 5
+#define NETI_LISTEN 6
+//#define NETI_LISTEN_CONNECTED 7
+//#define NETI_LISTEN_REJECT 8
 
 namespace NetworkLib {
 	class Client/* : public IClient*/ {
@@ -458,14 +460,14 @@ std::vector<std::string> ListenName2;
 std::vector<uint32_t> clientListenID2;
 //int lastindexListen = 0;
 
-uint32_t GetNameNetworkFromId(std::string name) {
+uint32_t GetIdNetworkFromName(std::string name) {
 	for (int i = 0; i < NetworkName.size(); i++)
 		if (!NetworkName[i].compare(name))
 			return clientID[i];
-	return -1;
+	return 999;
 }
 
-std::string GetIdNetworkFromName(uint32_t id) {
+std::string GetNameNetworkFromId(uint32_t id) {
 	for (int i = 0; i < NetworkName.size(); i++)
 		if (clientID[i]==id)
 			return NetworkName[i];
@@ -546,16 +548,20 @@ void AddListenName(std::string name, uint32_t id) {
 		}
 }
 
-void AddListenName2(std::string name, uint32_t id2){
-	std::string name2 = GetIdNetworkFromName(id2);
-	if (!name2.compare(""))return;
+bool AddListenName2(std::string name, std::string name2){
+	uint32_t id1 = GetIdNetworkFromName(name);
+	if(id1==999)return false;
+	uint32_t id2 = GetIdNetworkFromName(name2);
+	if (id2 == 999)return false;
+	//fix it
 	int indexid = GetNameListenIndex(name);
-	if(indexid==-1)return;
+	if(indexid==-1)return false;
 	ListenName2[indexid]= name2;
 	clientListenID2[indexid] = id2;
 #ifdef TEST_NETWORK_MESSAGES
 	debug_net_printf("listen accepted:%s %d,%s %d\n", name.c_str(), indexid, name2.c_str(), id2);
 #endif //TEST_NETWORK_MESSAGES
+	return true;
 }
 
 void RemoveListenName(std::string name) {
@@ -702,18 +708,14 @@ void processEnd() {
 				{
 					lastconnection_shared->ncb_cmd_cplt_49 = 22;
 				}
+				if (netstate() == NETI_ADD_NAME_OK)
+				{
+					IHaveNameStrP = lastconnection_shared->ncb_name_26;
+					lastconnection_shared->ncb_cmd_cplt_49 = 0;
+				}
 				else
 				{
-					/*AddNetworkName(lastconnection->ncb_name_26, (char*)"127.0.0.1");
-					CreateMessage(MESSAGE_WINADDNAME, (uint8_t*)lastconnection->ncb_name_26, 1 + strlen(lastconnection->ncb_name_26));
-					preBroadcastAll();
-					memcpy(IHaveNameStr, lastconnection->ncb_name_26, 16);
-					IHaveNameStrP = IHaveNameStr;*/
-					IHaveNameStrP = lastconnection_shared->ncb_name_26;
-					//AddNetworkName(connection->ncb_name_26,lastIp);
-					//NetworkEnd();
-					lastconnection_shared->ncb_cmd_cplt_49 = 0;
-					client->Send(std::string("MESSAGE_WINADDNAME;") + lastconnection_shared->ncb_name_26);
+					lastconnection_shared->ncb_cmd_cplt_49 = 22;
 				}
 				lastconnection_shared = NULL;
 #ifdef TEST_NETWORK_MESSAGES
@@ -890,12 +892,22 @@ void ListenerServer() {
 			}*/
 			else if (!messages[0].compare("MESSAGE_CALL"))
 			{
-				AddListenName2(messages[1], receivedMessage.second);
-				server->SendToClient(std::string("NETI_LISTEN_CONNECTED;"), receivedMessage.second);
+				if (AddListenName2(messages[1], messages[2]))
+				{
+					server->SendToClient(std::string("NETI_CALL_ACCEPT;"), receivedMessage.second);
+					//"NETH200        "
+	#ifdef TEST_NETWORK_MESSAGES
+					debug_net_printf("SERVER NETI_LISTEN_CONNECTED:%s %s %d\n", messages[1].c_str(), messages[2].c_str(), receivedMessage.second);
+	#endif //TEST_NETWORK_MESSAGES
+				}
+				else
+				{
+					server->SendToClient(std::string("NETI_CALL_REJECT;"), receivedMessage.second);
 				//"NETH200        "
 #ifdef TEST_NETWORK_MESSAGES
-				debug_net_printf("SERVER NETI_LISTEN_CONNECTED:%s %s %d\n", messages[1].c_str(), messages[2].c_str(), receivedMessage.second);
+				debug_net_printf("SERVER NETI_LISTEN_REJECT:%s %s %d\n", messages[1].c_str(), messages[2].c_str(), receivedMessage.second);
 #endif //TEST_NETWORK_MESSAGES
+				}
 			}
 			
 			//processEnd();
@@ -980,12 +992,20 @@ void ListenerClient() {
 				debug_net_printf("CLIENT MESSAGE_NAMEREJECT:\n");
 #endif //TEST_NETWORK_MESSAGES
 			}*/
-			else if (!messages[0].compare("MESSAGE_CALL_ACCEPT"))
+			else if (!messages[0].compare("NETI_CALL_ACCEPT"))
 			{
 				netstate(NETI_CALL_ACCEPT);
 				networkTimeout(0);
 #ifdef TEST_NETWORK_MESSAGES
 				debug_net_printf("CLIENT MESSAGE_CALL_ACCEPT:\n");
+#endif //TEST_NETWORK_MESSAGES
+			}
+			else if (!messages[0].compare("NETI_CALL_REJECT"))
+			{
+				netstate(NETI_CALL_REJECT);
+				networkTimeout(0);
+#ifdef TEST_NETWORK_MESSAGES
+				debug_net_printf("CLIENT MESSAGE_CALL_REJECT:\n");
 #endif //TEST_NETWORK_MESSAGES
 			}
 			else if (!messages[0].compare("MESSAGE_SEND"))
@@ -1268,7 +1288,7 @@ void DeleteNetwork(myNCB* connection) {
 }
 
 void CallNetwork(myNCB* connection) {
-	client->Send(std::string("MESSAGE_CALL;") + connection->ncb_name_26);
+	client->Send(std::string("MESSAGE_CALL;") + connection->ncb_name_26 + std::string(";") + connection->ncb_callName_10);
 	/*CreateMessage(MESSAGE_MAKECONNECT, (uint8_t*)&connection, sizeof(myNCB));
 	makeConnection(connection->ncb_callName_10);
 	SendToIp(boost::asio::ip::make_address_v4(GetIpNetwork(connection->ncb_callName_10)));*/
