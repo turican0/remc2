@@ -536,16 +536,16 @@ int GetName2ListenIndex(std::string name) {
 	return -1;
 }
 
-void AddListenName(std::string name, uint32_t id) {
+void AddListenName(std::string name, std::string name2) {
 	//if (GetNameNetwork(name).compare(""))
 		if (!GetListenNetwork(name).compare(""))
 		{
 			ListenName.push_back(name);
-			clientListenID.push_back(id);
+			clientListenID.push_back(GetIdNetworkFromName(name));
 			ListenName2.push_back("");
-			clientListenID2.push_back(999);
+			clientListenID2.push_back(GetIdNetworkFromName(name2));
 		#ifdef TEST_NETWORK_MESSAGES
-			debug_net_printf("listen name added:%s %d\n", name.c_str(), id);
+			debug_net_printf("listen name added:%s %s\n", name.c_str(), name2.c_str());
 		#endif //TEST_NETWORK_MESSAGES
 		}
 }
@@ -873,7 +873,7 @@ void ListenerServer() {
 			}*/
 			else if (!messages[0].compare("MESSAGE_LISTEN"))
 			{
-				AddListenName(messages[1], receivedMessage.second);
+				AddListenName(messages[1], messages[2]);
 				//"NETH200        "
 #ifdef TEST_NETWORK_MESSAGES
 				debug_net_printf("SERVER MESSAGE_LISTEN:%s %d\n", messages[1].c_str(), receivedMessage.second);
@@ -937,7 +937,10 @@ std::string GetRecMess() {
 	return result;
 };
 
+std::mutex clientConnection_mt;
+
 bool setListen(std::string name) {
+	clientConnection_mt.lock();
 	bool result=false;
 	for (int i = 0; i < clientConnection.size(); i++)
 		if (name.compare(clientConnection[i]->ncb_name_26))
@@ -946,10 +949,12 @@ bool setListen(std::string name) {
 			result = true;
 			break;
 		}
+	clientConnection_mt.unlock();
 	return result;
 }
 
 void setListenConnection(myNCB* connection) {
+	clientConnection_mt.lock();
 	bool result=false;
 	for (int i = 0; i < clientConnection.size(); i++)
 		if (clientConnection[i] == connection)
@@ -959,16 +964,18 @@ void setListenConnection(myNCB* connection) {
 		}
 	if (!result)
 		clientConnection.push_back(connection);
-
+	clientConnection_mt.unlock();
 }
 
-void deleteListenConnection(std::string name) {
+void deleteListenConnection(myNCB* connection) {
+	clientConnection_mt.lock();
 	for (int i = 0; i < clientConnection.size(); i++)
-		if ((name.compare(clientConnection[i]->ncb_callName_10))||(name.compare(clientConnection[i]->ncb_name_26)))
+		if (clientConnection[i]==connection)
 		{
 			clientConnection.erase(clientConnection.begin() + i);
-			xx
+			break;
 		}
+	clientConnection_mt.unlock();
 };
 
 void ListenerClient() {
@@ -1359,7 +1366,7 @@ void CallNetwork(myNCB* connection) {
 
 void ListenNetwork(myNCB* connection) {
 	//SendToIp(boost::asio::ip::make_address_v4(lastIp), messageStr);
-	client->Send(std::string("MESSAGE_LISTEN;")+ connection->ncb_callName_10);
+	client->Send(std::string("MESSAGE_LISTEN;")+ connection->ncb_callName_10+ std::string(";") + connection->ncb_name_26);
 	setListenConnection(connection);
 };
 
