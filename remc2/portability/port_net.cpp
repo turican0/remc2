@@ -51,8 +51,8 @@ int netstate_shared = -1;
 #define NETI_CALL_ACCEPT 4
 #define NETI_CALL_REJECT 5
 #define NETI_LISTEN 6
-//#define NETI_LISTEN_CONNECTED 7
-//#define NETI_LISTEN_REJECT 8
+#define NETI_LISTEN_ACCEPT 7
+#define NETI_LISTEN_REJECT 8
 
 namespace NetworkLib {
 	class Client/* : public IClient*/ {
@@ -460,6 +460,8 @@ std::vector<std::string> ListenName2;
 std::vector<uint32_t> clientListenID2;
 //int lastindexListen = 0;
 
+std::vector<myNCB*> clientConnection;
+
 uint32_t GetIdNetworkFromName(std::string name) {
 	for (int i = 0; i < NetworkName.size(); i++)
 		if (!NetworkName[i].compare(name))
@@ -481,7 +483,7 @@ std::string GetNameNetwork(std::string name) {
 	return "";
 }
 
-int GetIpNetworkIndex(uint32_t id) {
+int GetIndexNetworkId(uint32_t id) {
 	for (int i = 0; i < clientID.size(); i++)
 		if (id==clientID[i])
 			return i;
@@ -676,8 +678,8 @@ void processEnd() {
 				break;
 			}
 			case 0x91: {//LISTEN(opposite call)
-				if (netstate() != NETI_LISTEN_CONNECTED)
-					lastconnection_shared->ncb_lsn_2 = 0x00;
+				//if (netstate() != NETI_LISTEN_CONNECTED)
+//					lastconnection_shared->ncb_lsn_2 = 0x00;
 				lastconnection_shared->ncb_cmd_cplt_49 = 0;
 				lastconnection_shared = NULL;
 #ifdef TEST_NETWORK_MESSAGES
@@ -895,6 +897,7 @@ void ListenerServer() {
 				if (AddListenName2(messages[1], messages[2]))
 				{
 					server->SendToClient(std::string("NETI_CALL_ACCEPT;"), receivedMessage.second);
+					server->SendToClient(std::string("NETI_LISTEN_ACCEPT;"+ messages[1]), GetIdNetworkFromName(messages[2]));
 					//"NETH200        "
 	#ifdef TEST_NETWORK_MESSAGES
 					debug_net_printf("SERVER NETI_LISTEN_CONNECTED:%s %s %d\n", messages[1].c_str(), messages[2].c_str(), receivedMessage.second);
@@ -903,6 +906,7 @@ void ListenerServer() {
 				else
 				{
 					server->SendToClient(std::string("NETI_CALL_REJECT;"), receivedMessage.second);
+					server->SendToClient(std::string("NETI_LISTEN_REJECT;"), GetIdNetworkFromName(messages[2]));
 				//"NETH200        "
 #ifdef TEST_NETWORK_MESSAGES
 				debug_net_printf("SERVER NETI_LISTEN_REJECT:%s %s %d\n", messages[1].c_str(), messages[2].c_str(), receivedMessage.second);
@@ -931,6 +935,40 @@ std::string GetRecMess() {
 	result = recMessages.back();
 	recMessages.pop_back();
 	return result;
+};
+
+bool setListen(std::string name) {
+	bool result=false;
+	for (int i = 0; i < clientConnection.size(); i++)
+		if (name.compare(clientConnection[i]->ncb_name_26))
+		{
+			clientConnection[i]->ncb_lsn_2 = 20;
+			result = true;
+			break;
+		}
+	return result;
+}
+
+void setListenConnection(myNCB* connection) {
+	bool result=false;
+	for (int i = 0; i < clientConnection.size(); i++)
+		if (clientConnection[i] == connection)
+		{
+			result = true;
+			break;
+		}
+	if (!result)
+		clientConnection.push_back(connection);
+
+}
+
+void deleteListenConnection(std::string name) {
+	for (int i = 0; i < clientConnection.size(); i++)
+		if ((name.compare(clientConnection[i]->ncb_callName_10))||(name.compare(clientConnection[i]->ncb_name_26)))
+		{
+			clientConnection.erase(clientConnection.begin() + i);
+			xx
+		}
 };
 
 void ListenerClient() {
@@ -995,6 +1033,11 @@ void ListenerClient() {
 			else if (!messages[0].compare("NETI_CALL_ACCEPT"))
 			{
 				netstate(NETI_CALL_ACCEPT);
+
+				lastconnection_mt.lock();
+				lastconnection_shared->ncb_lsn_2 = 20;
+				lastconnection_mt.unlock();
+
 				networkTimeout(0);
 #ifdef TEST_NETWORK_MESSAGES
 				debug_net_printf("CLIENT MESSAGE_CALL_ACCEPT:\n");
@@ -1008,6 +1051,25 @@ void ListenerClient() {
 				debug_net_printf("CLIENT MESSAGE_CALL_REJECT:\n");
 #endif //TEST_NETWORK_MESSAGES
 			}
+
+			else if (!messages[0].compare("NETI_LISTEN_ACCEPT"))
+			{
+				//netstate(NETI_LISTEN_ACCEPT);
+				//networkTimeout(0);
+				setListen(messages[1]);
+#ifdef TEST_NETWORK_MESSAGES
+				debug_net_printf("CLIENT MESSAGE_LISTEN_ACCEPT:\n");
+#endif //TEST_NETWORK_MESSAGES
+			}
+			else if (!messages[0].compare("NETI_LISTEN_REJECT"))
+			{
+				//netstate(NETI_LISTEN_REJECT);
+				//networkTimeout(0);
+#ifdef TEST_NETWORK_MESSAGES
+				debug_net_printf("CLIENT MESSAGE_LISTEN_REJECT:\n");
+#endif //TEST_NETWORK_MESSAGES
+			}
+
 			else if (!messages[0].compare("MESSAGE_SEND"))
 			{
 				AddRecMess(messages[0]);
@@ -1281,6 +1343,7 @@ char* getConnection() {
 
 void CancelNetwork(myNCB* connection) {
 	client->Send(std::string("MESSAGE_CANCEL;") + connection->ncb_name_26);
+	deleteListenConnection(connection);
 }
 
 void DeleteNetwork(myNCB* connection) {
@@ -1297,6 +1360,7 @@ void CallNetwork(myNCB* connection) {
 void ListenNetwork(myNCB* connection) {
 	//SendToIp(boost::asio::ip::make_address_v4(lastIp), messageStr);
 	client->Send(std::string("MESSAGE_LISTEN;")+ connection->ncb_callName_10);
+	setListenConnection(connection);
 };
 
 void BinToString(uint8_t** buffer, uint16_t* lenght, std::string* str) {
@@ -1586,7 +1650,7 @@ void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myN
 #ifdef TEST_NETWORK_MESSAGES
 		debug_net_printf("\n*SET NETWORK CALL %s %s\n", connection->ncb_name_26, connection->ncb_callName_10);
 #endif //TEST_NETWORK_MESSAGES
-		connection->ncb_lsn_2 = 0xe8;
+		//connection->ncb_lsn_2 = 0xe8;
 		connection->ncb_retcode_1 = 0x00;
 		connection->ncb_cmd_cplt_49 = 0xff;
 		connection->ncb_reserved_50[4] = 0x7d;
@@ -1612,7 +1676,7 @@ void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myN
 		debug_net_printf("\n*SET NETWORK LISTEN %s %s\n", connection->ncb_name_26, connection->ncb_callName_10);
 #endif //TEST_NETWORK_MESSAGES
 		connection->ncb_retcode_1 = 0xff;
-		connection->ncb_lsn_2 = 0x01;
+		//connection->ncb_lsn_2 = 0x01;
 		//lastnetworklisten++;
 		connection->ncb_cmd_cplt_49 = 0xff;
 		connection->ncb_reserved_50[6] = 0x85;
@@ -1645,7 +1709,7 @@ void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myN
 		debug_net_printf("\n*SET NETWORK RECEIVE %s %s\n", connection->ncb_name_26, connection->ncb_callName_10);
 #endif //TEST_NETWORK_MESSAGES
 		connection->ncb_retcode_1 = 0xff;
-		connection->ncb_lsn_2 = 0xd9;
+		//connection->ncb_lsn_2 = 0xd9;
 		connection->ncb_cmd_cplt_49 = 0xff;
 		connection->ncb_reserved_50[6] = 0xf3;
 		connection->ncb_reserved_50[7] = 0x1B;
