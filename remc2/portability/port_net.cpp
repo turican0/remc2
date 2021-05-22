@@ -716,10 +716,16 @@ void processEnd() {
 				{
 					IHaveNameStrP = lastconnection_shared->ncb_name_26;
 					lastconnection_shared->ncb_cmd_cplt_49 = 0;
+#ifdef TEST_NETWORK_MESSAGES
+					debug_net_printf("NETI_ADD_NAME_OK\n");
+#endif //TEST_NETWORK_MESSAGES
 				}
 				else
 				{
 					lastconnection_shared->ncb_cmd_cplt_49 = 22;
+#ifdef TEST_NETWORK_MESSAGES
+					debug_net_printf("NETI_ADD_NAME_NOTOK\n");
+#endif //TEST_NETWORK_MESSAGES
 				}
 				lastconnection_shared = NULL;
 #ifdef TEST_NETWORK_MESSAGES
@@ -850,12 +856,17 @@ void ListenerServer() {
 				{
 					AddNetworkName(messages[1], receivedMessage.second);
 					server->SendToClient(std::string("MESSAGE_TESTADDNAME_OK;"), receivedMessage.second);
+#ifdef TEST_NETWORK_MESSAGES
+					debug_net_printf("SERVER MESSAGE_TESTADDNAME OK:%s %d\n", messages[1].c_str(), receivedMessage.second);
+#endif //TEST_NETWORK_MESSAGES
 				}
 				else
+				{
 					server->SendToClient(std::string("MESSAGE_TESTADDNAME_REJECT;"), receivedMessage.second);
 #ifdef TEST_NETWORK_MESSAGES
-				debug_net_printf("SERVER MESSAGE_TESTADDNAME:%s %d\n", messages[1].c_str(), receivedMessage.second);
+					debug_net_printf("SERVER MESSAGE_TESTADDNAME REJECT:%s %d\n", messages[1].c_str(), receivedMessage.second);
 #endif //TEST_NETWORK_MESSAGES
+				}
 			}
 			/*else if (!messages[0].compare("MESSAGE_NAMEREJECT"))
 			{
@@ -1010,11 +1021,17 @@ void ListenerClient() {
 			{
 				netstate(NETI_ADD_NAME_OK);
 				networkTimeout(0);
+#ifdef TEST_NETWORK_MESSAGES
+				debug_net_printf("CLIENT NETI_ADD_NAME_OK:\n");
+#endif //TEST_NETWORK_MESSAGES
 			}
 			else if (!messages[0].compare("MESSAGE_TESTADDNAME_REJECT"))
 			{
 				netstate(NETI_ADD_NAME_REJECT);
 				networkTimeout(0);
+#ifdef TEST_NETWORK_MESSAGES
+				debug_net_printf("CLIENT NETI_ADD_NAME_REJECT:\n");
+#endif //TEST_NETWORK_MESSAGES
 			}
 			/*if (!messages[0].compare("MESSAGE_TESTADDNAME"))
 			{
