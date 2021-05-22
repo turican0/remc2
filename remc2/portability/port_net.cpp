@@ -602,7 +602,7 @@ std::mutex aClient;
 //std::mutex b;
 
 //bool inrun = false;
-long oldtime;
+long oldtime_shared;
 int networkTimeout_shared = 10000;
 
 std::mutex lastconnection_mt;
@@ -644,10 +644,26 @@ void networkTimeout(int input)
 #endif //TEST_NETWORK_MESSAGES
 }
 
+void resetTimeout()
+{
+	networkTimeout_mt.lock();
+	oldtime_shared = clock();
+	networkTimeout_mt.unlock();
+}
+
+long oldtime()
+{
+	long result;
+	networkTimeout_mt.lock();
+	result = oldtime_shared;
+	networkTimeout_mt.unlock();
+	return result;
+}
+
 void processEnd() {
 	lastconnection_mt.lock();
 	if(lastconnection_shared)
-		if (clock() > oldtime + networkTimeout())
+		if (clock() > oldtime() + networkTimeout())
 		{
 #ifdef TEST_NETWORK_MESSAGES
 			debug_net_printf("WAITING FOR MESSAGE TIMEOUT:%x\n", lastconnection_shared->ncb_command_0);
@@ -1024,6 +1040,7 @@ void ListenerClient() {
 			{
 				netstate(NETI_ADD_NAME_OK);
 				networkTimeout(500);
+				resetTimeout();
 #ifdef TEST_NETWORK_MESSAGES
 				debug_net_printf("CLIENT NETI_ADD_NAME_OK:\n");
 #endif //TEST_NETWORK_MESSAGES
@@ -1032,6 +1049,7 @@ void ListenerClient() {
 			{
 				netstate(NETI_ADD_NAME_REJECT);
 				networkTimeout(500);
+				resetTimeout();
 #ifdef TEST_NETWORK_MESSAGES
 				debug_net_printf("CLIENT NETI_ADD_NAME_REJECT:\n");
 #endif //TEST_NETWORK_MESSAGES
@@ -1657,7 +1675,7 @@ void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myN
 		CancelNetwork(connection);
 
 		networkTimeout(10000);
-		oldtime = clock();
+		resetTimeout();
 		break;
 	}
 	case 0x7f: {//? 
@@ -1672,7 +1690,7 @@ void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myN
 		//FakeTests();
 		//NetworkInitG();
 		networkTimeout(10000);
-		oldtime = clock();
+		resetTimeout();
 		break;
 	}
 	case 0x90: {//CALL
@@ -1696,7 +1714,7 @@ void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myN
 		connection->ncb_reserved_50[9] = 0x66;*/
 		CallNetwork(connection);
 		networkTimeout(10000);
-		oldtime = clock();
+		resetTimeout();
 		netstate(NETI_CALL);
 		break;
 	}
@@ -1713,7 +1731,7 @@ void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myN
 		connection->ncb_reserved_50[8] = 0x6a;
 		ListenNetwork(connection);
 		networkTimeout(10000);
-		oldtime = clock();
+		resetTimeout();
 		netstate(NETI_LISTEN);
 		break;
 	}
@@ -1730,7 +1748,7 @@ void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myN
 		connection->ncb_reserved_50[8] = 0x6B;
 		SendNetwork(connection);
 		networkTimeout(10000);
-		oldtime = clock();
+		resetTimeout();
 		break;
 	}
 	case 0x95: {//RECEIVE
@@ -1745,7 +1763,7 @@ void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myN
 		connection->ncb_reserved_50[8] = 0x6c;
 		ReceiveNetwork(connection);
 		networkTimeout(100000);
-		oldtime = clock();
+		resetTimeout();
 		break;
 	}
 	case 0xb0: {//ADD_NAME 
@@ -1763,7 +1781,7 @@ void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myN
 		connection->ncb_reserved_50[8] = 0x67;
 		AddName(connection);
 		networkTimeout(15000);
-		oldtime = clock();
+		resetTimeout();
 
 		netstate(NETI_ADD_NAME);
 
@@ -1786,7 +1804,7 @@ void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myN
 		connection->ncb_retcode_1 = 0xff;
 		DeleteNetwork(connection);
 		networkTimeout(10000);
-		oldtime = clock();
+		resetTimeout();
 		break;
 	}
 		 
