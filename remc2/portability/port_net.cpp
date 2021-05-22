@@ -692,6 +692,8 @@ void processEnd() {
 			case 0x90: {//CALL(opposite listen)
 							//connection->ncb_retcode_1= 0xb;
 							//connection->ncb_cmd_cplt_49 = 0xb;
+				if (netstate() == NETI_CALL_ACCEPT)
+					lastconnection_shared->ncb_cmd_cplt_49 = 0xb;
 				lastconnection_shared = NULL;
 #ifdef TEST_NETWORK_MESSAGES
 				debug_net_printf("lastconnection set to NULL CALL\n");
