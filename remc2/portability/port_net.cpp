@@ -1020,7 +1020,7 @@ void ListenerClient() {
 			if (!messages[0].compare("MESSAGE_TESTADDNAME_OK"))
 			{
 				netstate(NETI_ADD_NAME_OK);
-				networkTimeout(0);
+				networkTimeout(500);
 #ifdef TEST_NETWORK_MESSAGES
 				debug_net_printf("CLIENT NETI_ADD_NAME_OK:\n");
 #endif //TEST_NETWORK_MESSAGES
@@ -1028,7 +1028,7 @@ void ListenerClient() {
 			else if (!messages[0].compare("MESSAGE_TESTADDNAME_REJECT"))
 			{
 				netstate(NETI_ADD_NAME_REJECT);
-				networkTimeout(0);
+				networkTimeout(500);
 #ifdef TEST_NETWORK_MESSAGES
 				debug_net_printf("CLIENT NETI_ADD_NAME_REJECT:\n");
 #endif //TEST_NETWORK_MESSAGES
