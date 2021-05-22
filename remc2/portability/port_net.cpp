@@ -701,9 +701,9 @@ void processEnd() {
 				break;
 			}
 			case 0x91: {//LISTEN(opposite call)
-				//if (netstate() != NETI_LISTEN_CONNECTED)
-//					lastconnection_shared->ncb_lsn_2 = 0x00;
-				lastconnection_shared->ncb_cmd_cplt_49 = 0;
+				//if (netstate() != NETI_LISTEN_ACCEPT)
+				//	lastconnection_shared->ncb_lsn_2 = 0x00;
+				//lastconnection_shared->ncb_cmd_cplt_49 = 0;
 				lastconnection_shared = NULL;
 #ifdef TEST_NETWORK_MESSAGES
 				debug_net_printf("lastconnection set to NULL LISTEN\n");
@@ -761,7 +761,19 @@ void processEnd() {
 				debug_net_printf("lastconnection set to NULL INIT\n");
 #endif //TEST_NETWORK_MESSAGES
 				break;
-			}			
+			}		
+			/*case 0x95: {//RECEIVE
+				if (GetRecSize() > 0) {
+					std::string tempstr = GetRecMess();
+					StringToBin(&lastconnection_shared->ncb_buffer_4.p, &lastconnection_shared->ncb_bufferLength_8, &tempstr);
+					lastconnection_shared->ncb_cmd_cplt_49 = 0x0;
+					lastconnection_shared = NULL;
+#ifdef TEST_NETWORK_MESSAGES
+					debug_net_printf("lastconnection set to NULL RECEIVE\n");
+#endif //TEST_NETWORK_MESSAGES
+				}
+				break;
+			}*/
 					
 			default: {
 				lastconnection_shared->ncb_cmd_cplt_49 = 0;
@@ -773,16 +785,19 @@ void processEnd() {
 		{
 			switch (lastconnection_shared->ncb_command_0)
 			{
-				if (GetRecSize() > 0) {
-					std::string tempstr = GetRecMess();
-					StringToBin(&lastconnection_shared->ncb_buffer_4.p, &lastconnection_shared->ncb_bufferLength_8, &tempstr);
-					lastconnection_shared->ncb_cmd_cplt_49 = 0x0;
-					lastconnection_shared = NULL;
-#ifdef TEST_NETWORK_MESSAGES
-					debug_net_printf("lastconnection set to NULL RECEIVE\n");
-#endif //TEST_NETWORK_MESSAGES
+				case 0x95://RECEIVE
+				{
+					if (GetRecSize() > 0) {
+						std::string tempstr = GetRecMess();
+						StringToBin(&lastconnection_shared->ncb_buffer_4.p, &lastconnection_shared->ncb_bufferLength_8, &tempstr);
+						lastconnection_shared->ncb_cmd_cplt_49 = 0x0;
+						lastconnection_shared = NULL;
+	#ifdef TEST_NETWORK_MESSAGES
+						debug_net_printf("lastconnection set to NULL RECEIVE\n");
+	#endif //TEST_NETWORK_MESSAGES
+					}
+					break;
 				}
-				break;
 			}
 		}
 	lastconnection_mt.unlock();
@@ -919,6 +934,7 @@ bool setListen(std::string name) {
 		if (name.compare(clientConnection[i]->ncb_name_26))
 		{
 			clientConnection[i]->ncb_lsn_2 = 20;
+			clientConnection[i]->ncb_cmd_cplt_49 = 0;
 			result = true;
 			break;
 		}
@@ -1257,7 +1273,7 @@ void StringToBin(uint8_t** buffer, uint16_t* lenght, std::string* str) {
 	while(buffer[0 + (*lenght) * 2]==0)
 	{
 		buffer[1+(*lenght)*2];
-		*lenght++;
+		(*lenght)++;
 	}
 }
 
@@ -1271,6 +1287,7 @@ void SendNetwork(myNCB* connection) {
 };
 
 void ReceiveNetwork(myNCB* connection) {
+
 };
 
 
