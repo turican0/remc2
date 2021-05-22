@@ -492,7 +492,7 @@ int GetIndexNetworkId(uint32_t id) {
 
 int GetNameNetworkIndex(std::string name) {
 	for (int i = 0; i < NetworkName.size(); i++)
-		if (name.compare(NetworkName[i]))
+		if (!name.compare(NetworkName[i]))
 			return i;
 	return -1;
 }
@@ -517,21 +517,21 @@ uint32_t GetOtherSide(uint32_t id) {
 
 std::string GetListenNetwork(std::string name) {
 	for (std::string locListenName : ListenName)
-		if (name.compare(locListenName))
+		if (!name.compare(locListenName))
 			return locListenName;
 	return "";
 }
 
 int GetNameListenIndex(std::string name) {
 	for (int i = 0; i < ListenName.size(); i++)
-		if (name.compare(ListenName[i]))
+		if (!name.compare(ListenName[i]))
 			return i;
 	return -1;
 }
 
 int GetName2ListenIndex(std::string name) {
 	for (int i = 0; i < ListenName2.size(); i++)
-		if (name.compare(ListenName2[i]))
+		if (!name.compare(ListenName2[i]))
 			return i;
 	return -1;
 }
@@ -542,7 +542,7 @@ void AddListenName(std::string name, std::string name2) {
 		{
 			ListenName.push_back(name);
 			clientListenID.push_back(GetIdNetworkFromName(name));
-			ListenName2.push_back("");
+			ListenName2.push_back(name2);
 			clientListenID2.push_back(GetIdNetworkFromName(name2));
 		#ifdef TEST_NETWORK_MESSAGES
 			debug_net_printf("listen name added:%s %s\n", name.c_str(), name2.c_str());
@@ -558,6 +558,8 @@ bool AddListenName2(std::string name, std::string name2){
 	//fix it
 	int indexid = GetNameListenIndex(name);
 	if(indexid==-1)return false;
+	ListenName[indexid] = name;
+	clientListenID[indexid] = id1;
 	ListenName2[indexid]= name2;
 	clientListenID2[indexid] = id2;
 #ifdef TEST_NETWORK_MESSAGES
