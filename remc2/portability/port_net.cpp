@@ -1278,6 +1278,8 @@ void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myN
 	v10x->esi = 0;
 	switch (connection->ncb_command_0) {
 	case 0x35: {//CANCEL
+		networkTimeout(10000);
+		resetTimeout();
 #ifdef TEST_NETWORK_MESSAGES
 		debug_net_printf("\n*SET NETWORK CANCEL %s %s\n", connection->ncb_name_26, connection->ncb_callName_10);
 #endif //TEST_NETWORK_MESSAGES
@@ -1300,11 +1302,11 @@ void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myN
 
 		CancelNetwork(connection);
 
-		networkTimeout(10000);
-		resetTimeout();
 		break;
 	}
 	case 0x7f: {//? 
+		networkTimeout(10000);
+		resetTimeout();
 #ifdef TEST_NETWORK_MESSAGES
 		debug_net_printf("SET NETWORK INIT\n");
 #endif //TEST_NETWORK_MESSAGES
@@ -1315,11 +1317,11 @@ void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myN
 		//NetworkInit();
 		//FakeTests();
 		//NetworkInitG();
-		networkTimeout(10000);
-		resetTimeout();
 		break;
 	}
 	case 0x90: {//CALL
+		networkTimeout(10000);
+		resetTimeout();
 #ifdef TEST_NETWORK_MESSAGES
 		debug_net_printf("\n*SET NETWORK CALL %s %s\n", connection->ncb_name_26, connection->ncb_callName_10);
 #endif //TEST_NETWORK_MESSAGES
@@ -1339,12 +1341,12 @@ void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myN
 		connection->ncb_reserved_50[8] = 0x0e;
 		connection->ncb_reserved_50[9] = 0x66;*/
 		CallNetwork(connection);
-		networkTimeout(10000);
-		resetTimeout();
 		netstate(NETI_CALL);
 		break;
 	}
 	case 0x91: {//LISTEN
+		networkTimeout(10000);
+		resetTimeout();
 #ifdef TEST_NETWORK_MESSAGES
 		debug_net_printf("\n*SET NETWORK LISTEN %s %s\n", connection->ncb_name_26, connection->ncb_callName_10);
 #endif //TEST_NETWORK_MESSAGES
@@ -1356,12 +1358,12 @@ void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myN
 		connection->ncb_reserved_50[7] = 0x17;
 		connection->ncb_reserved_50[8] = 0x6a;
 		ListenNetwork(connection);
-		networkTimeout(10000);
-		resetTimeout();
 		netstate(NETI_LISTEN);
 		break;
 	}
 	case 0x94: {//SEND
+		networkTimeout(10000);
+		resetTimeout();
 #ifdef TEST_NETWORK_MESSAGES
 		debug_net_printf("\n*SET NETWORK SEND %s %s\n", connection->ncb_name_26, connection->ncb_callName_10);
 #endif //TEST_NETWORK_MESSAGES
@@ -1373,11 +1375,11 @@ void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myN
 		connection->ncb_reserved_50[7] = 0x1B;
 		connection->ncb_reserved_50[8] = 0x6B;
 		SendNetwork(connection);
-		networkTimeout(10000);
-		resetTimeout();
 		break;
 	}
 	case 0x95: {//RECEIVE
+		networkTimeout(100000);
+		resetTimeout();
 #ifdef TEST_NETWORK_MESSAGES
 		debug_net_printf("\n*SET NETWORK RECEIVE %s %s\n", connection->ncb_name_26, connection->ncb_callName_10);
 #endif //TEST_NETWORK_MESSAGES
@@ -1388,12 +1390,14 @@ void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myN
 		connection->ncb_reserved_50[7] = 0x1B;
 		connection->ncb_reserved_50[8] = 0x6c;
 		ReceiveNetwork(connection);
-		networkTimeout(100000);
-		resetTimeout();
+
 		break;
 	}
 	case 0xb0: {//ADD_NAME 
 #ifdef TEST_NETWORK_MESSAGES
+		networkTimeout(15000);
+		resetTimeout();
+
 		debug_net_printf("\n*SET NETWORK ADD_NAME %s %s\n", connection->ncb_name_26, connection->ncb_callName_10);
 #endif //TEST_NETWORK_MESSAGES
 		connection->ncb_retcode_1 = 0xff;
@@ -1406,14 +1410,15 @@ void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myN
 		connection->ncb_reserved_50[7] = 0x0e;
 		connection->ncb_reserved_50[8] = 0x67;
 		AddName(connection);
-		networkTimeout(15000);
-		resetTimeout();
+
 
 		netstate(NETI_ADD_NAME);
 
 		break;
 	}
 	case 0xb1: {//DELETE_NAME 
+		networkTimeout(10000);
+		resetTimeout();
 #ifdef TEST_NETWORK_MESSAGES
 		debug_net_printf("\n*SET NETWORK DELETE_NAME %s %s\n", connection->ncb_name_26, connection->ncb_callName_10);
 #endif //TEST_NETWORK_MESSAGES
@@ -1429,13 +1434,12 @@ void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myN
 		AddName(connection);*/
 		connection->ncb_retcode_1 = 0xff;
 		DeleteNetwork(connection);
-		networkTimeout(10000);
-		resetTimeout();
+
 		break;
 	}
 		 
 	}
-	mySleep(500);
+	//mySleep(5);
 	lastconnection_mt.lock();
 	lastconnection_shared = connection;
 	lastconnection_mt.unlock();
