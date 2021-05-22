@@ -1435,10 +1435,13 @@ void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myN
 	}
 		 
 	}
-	mySleep(200);
+	mySleep(500);
 	lastconnection_mt.lock();
 	lastconnection_shared = connection;
 	lastconnection_mt.unlock();
+#ifdef TEST_NETWORK_MESSAGES
+	debug_net_printf("SET CONNECTION\n");
+#endif //TEST_NETWORK_MESSAGES
 }
 /*
 class receiver
