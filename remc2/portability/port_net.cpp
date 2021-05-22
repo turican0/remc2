@@ -639,6 +639,9 @@ void networkTimeout(int input)
 	networkTimeout_mt.lock();
 	networkTimeout_shared = input;
 	networkTimeout_mt.unlock();
+#ifdef TEST_NETWORK_MESSAGES
+	debug_net_printf("change timeout %d\n", input);
+#endif //TEST_NETWORK_MESSAGES
 }
 
 void processEnd() {
