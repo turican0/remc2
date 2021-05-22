@@ -89971,13 +89971,13 @@ signed int NetworkListen_74B75(__int16 a1)//255b75
 // 99D84: using guessed type x_DWORD strcat(x_DWORD, x_DWORD);
 
 //----- (00074C9D) --------------------------------------------------------
-int NetworkReceivePacket_74C9D(myNCB* connection, uint8_t* buffer, int maxsize = sizeof(messType))//255c9d
+int NetworkReceivePacket_74C9D(myNCB* connection, uint8_t* buffer, int maxsize = 20000)//255c9d
 {
 	connection->ncb_command_0 = 0x95;//RECEIVE
 
 	connection->ncb_buffer_4.p = paket_E1282;
 
-	connection->ncb_bufferLength_8 = sizeof(messType);
+	connection->ncb_bufferLength_8 = maxsize;
 	if (setNetbios_75044(connection) == -1)
 		return -99;
 	while (connection->ncb_cmd_cplt_49 == 0xffu)
@@ -90004,14 +90004,14 @@ void NetworkReceiveMessage_74D41(myNCB* connection, uint8_t* inbuffer, unsigned 
 
 	buffer = inbuffer;
 	packedReceived = 0;
-	while (size > sizeof(messType) * (packedReceived+1))
+	while (size > 20000 * (packedReceived+1))
 	{
-		if (NetworkReceivePacket_74C9D(connection, buffer) != sizeof(messType))
+		if (NetworkReceivePacket_74C9D(connection, buffer) != 20000)
 			return;
 		packedReceived++;
-		buffer += sizeof(messType);
+		buffer += 20000;
 	}
-	/*v3 = */NetworkReceivePacket_74C9D(connection, buffer, size- sizeof(messType) * packedReceived);
+	/*v3 = */NetworkReceivePacket_74C9D(connection, buffer, size- 20000 * packedReceived);
 	/*if ((size & 0x7FF) == v3)
 		v5 = size;
 	else
@@ -90065,14 +90065,14 @@ void NetworkSendMessage_74EF1(myNCB* connection, uint8_t* inbuffer, unsigned int
 	packedSended = 0;
 
 
-	while (size > sizeof(messType) * (packedSended+1))
+	while (size > 20000 * (packedSended+1))
 	{
-		if (NetworkSendPacket_74E6D(connection, buffer, sizeof(messType)) != sizeof(messType))
+		if (NetworkSendPacket_74E6D(connection, buffer, 20000) != 20000)
 			return;
 		packedSended++;
-		buffer += sizeof(messType);
+		buffer += 20000;
 	}
-	NetworkSendPacket_74E6D(connection, buffer, size - (sizeof(messType) * packedSended));
+	NetworkSendPacket_74E6D(connection, buffer, size - (20000 * packedSended));
 
 	/*
 	while (1)

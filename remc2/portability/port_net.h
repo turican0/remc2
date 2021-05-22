@@ -68,7 +68,7 @@ typedef struct {//lenght 66(changed to 70)
 }
 myNCB;
 #pragma pack (16)
-
+/*
 #define MaxMessageSize 20000
 
 #pragma pack (1)
@@ -85,7 +85,7 @@ messType;
 
 
 void NetworkTestServer();
-
+*/
 
 bool NetworkGetInitInfoFromServer(char* serverIP);
 char* NetworkListenForClients();
