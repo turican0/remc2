@@ -583,6 +583,7 @@ void RemoveListenName(std::string name) {
 
 void RemoveNetworkName(std::string name) {
 	int index = GetNameNetworkIndex(name);
+	if (index == -1)return;
 	NetworkName.erase(NetworkName.begin()+ index);
 	clientID.erase(clientID.begin() + index);
 }
