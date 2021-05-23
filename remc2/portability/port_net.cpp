@@ -1018,20 +1018,22 @@ void ListenerClient() {
 
 				lastconnection_mt.lock();
 				lastconnection_shared->ncb_lsn_2 = 20;
-#ifdef TEST_NETWORK_MESSAGES
-				debug_net_printf("CALLAC: %s %s:\n", lastconnection_shared->ncb_callName_10, lastconnection_shared->ncb_name_26);
-#endif //TEST_NETWORK_MESSAGES
+
+				myNCB* mypointer = lastconnection_shared;
+
 				lastconnection_mt.unlock();
 
 				networkTimeout(0);
+				resetTimeout();
 #ifdef TEST_NETWORK_MESSAGES
-				debug_net_printf("CLIENT MESSAGE_CALL_ACCEPT:\n");
+				debug_net_printf("CLIENT MESSAGE_CALL_ACCEPT: %p %s %s\n", mypointer, mypointer->ncb_callName_10, mypointer->ncb_name_26);
 #endif //TEST_NETWORK_MESSAGES
 			}
 			else if (!messages[0].compare("NETI_CALL_REJECT"))
 			{
 				netstate(NETI_CALL_REJECT);
 				networkTimeout(0);
+				resetTimeout();
 #ifdef TEST_NETWORK_MESSAGES
 				debug_net_printf("CLIENT MESSAGE_CALL_REJECT:\n");
 #endif //TEST_NETWORK_MESSAGES
@@ -1067,6 +1069,7 @@ void ListenerClient() {
 			{
 				AddRecMess(messages[0]);
 				networkTimeout(0);
+				resetTimeout();
 #ifdef TEST_NETWORK_MESSAGES
 				debug_net_printf("CLIENT MESSAGE_SEND:\n");
 #endif //TEST_NETWORK_MESSAGES
