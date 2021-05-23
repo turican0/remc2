@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug-client|Win32">
+      <Configuration>Debug-client</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug-client|x64">
+      <Configuration>Debug-client</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
       <Platform>Win32</Platform>
@@ -32,6 +40,12 @@
     <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-client|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
@@ -40,6 +54,12 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-client|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
@@ -60,10 +80,16 @@
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug-client|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug-client|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -73,7 +99,15 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-client|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)$(Platform)$(Configuration)\</OutDir>
+    <IntDir>$(Platform)$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-client|x64'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)$(Platform)$(Configuration)\</OutDir>
     <IntDir>$(Platform)$(Configuration)\</IntDir>
@@ -106,7 +140,55 @@
       </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug-client|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>false</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)\sdl2\include;$(SolutionDir)\fluidsynth\include;$(SolutionDir)\libADLMIDI-master\include;$(SolutionDir)\libOPNMIDI-master\include;$(SolutionDir)\SDL-Mixer-X-master\include\SDL_mixer_ext;$(SolutionDir)\SDL-Mixer-X-master\src;$(SolutionDir)\inih;$(SolutionDir)\libvorbis\include;$(SolutionDir)\libogg\include;C:\Program Files %28x86%29\Visual Leak Detector\include;$(SolutionDir)\libpng2\libpng-master;$(SolutionDir)\zlib\include;$(SolutionDir)\kiss_sdl-master;$(SolutionDir)\SDL2_image-2.0.5\include;$(SolutionDir)\SDL2_ttf-2.0.15\include;$(SolutionDir)\SDL-Mixer-X-master\include\;$(SolutionDir)\SDL-Mixer-X-master\src\codecs\;$(SolutionDir)\OpenAL 1.1 SDK\include;$(SolutionDir)\boost;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)\sdl2\VisualC\Win32\Debug\;$(SolutionDir)\Debug;$(SolutionDir)\fluidsynth\lib;$(SolutionDir)\libvorbis\win32\VS2010\Win32\Debug;$(SolutionDir)\libogg\win32\VS2015\Win32\Debug;$(SolutionDir)\boost\stage\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;winmm.lib;libvorbis_static.lib;libvorbisfile_static.lib;libogg_static.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)\sdl2\include;$(SolutionDir)\fluidsynth\include;$(SolutionDir)\libADLMIDI-master\include;$(SolutionDir)\libOPNMIDI-master\include;$(SolutionDir)\SDL-Mixer-X-master\include\SDL_mixer_ext;$(SolutionDir)\SDL-Mixer-X-master\src;$(SolutionDir)\inih;$(SolutionDir)\libvorbis\include;$(SolutionDir)\libogg\include;C:\Program Files %28x86%29\Visual Leak Detector\include;$(SolutionDir)\libpng2\libpng-master;$(SolutionDir)\zlib\include;$(SolutionDir)\kiss_sdl-master;$(SolutionDir)\SDL2_image-2.0.5\include;$(SolutionDir)\SDL2_ttf-2.0.15\include;$(SolutionDir)\SDL-Mixer-X-master\include\;$(SolutionDir)\SDL-Mixer-X-master\src\codecs\;$(SolutionDir)\OpenAL 1.1 SDK\include;$(SolutionDir)\boost;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OmitFramePointers>false</OmitFramePointers>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <TargetMachine>MachineX64</TargetMachine>
+      <AdditionalIncludeDirectories>$(SolutionDir)\sdl2\include;$(SolutionDir)\fluidsynth\include;$(SolutionDir)\libADLMIDI-master\include;$(SolutionDir)\libOPNMIDI-master\include;$(SolutionDir)\SDL-Mixer-X-master\include\SDL_mixer_ext;$(SolutionDir)\SDL-Mixer-X-master\src;$(SolutionDir)\inih;$(SolutionDir)\libvorbis\include;$(SolutionDir)\libogg\include;C:\Program Files %28x86%29\Visual Leak Detector\include;$(SolutionDir)\libpng2\libpng-master;$(SolutionDir)\zlib\include;$(SolutionDir)\kiss_sdl-master;$(SolutionDir)\SDL2_image-2.0.5\include;$(SolutionDir)\SDL2_ttf-2.0.15\include;$(SolutionDir)\SDL-Mixer-X-master\include\;$(SolutionDir)\SDL-Mixer-X-master\src\codecs\;$(SolutionDir)\OpenAL 1.1 SDK\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;winmm.lib;libvorbis_static.lib;libvorbisfile_static.lib;libogg_static.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\sdl2\VisualC\x64\Debug\;$(SolutionDir)\x64\Debug;$(SolutionDir)\fluidsynth\lib;$(SolutionDir)\libvorbis\win32\VS2010\x64\Debug;$(SolutionDir)\libogg\win32\VS2015\x64\Debug;$(SolutionDir)\boost\stage\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug-client|x64'">
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
@@ -365,7 +447,9 @@
     <ClCompile Include="remc2.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug-client|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug-client|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
@@ -373,7 +457,9 @@
   <ItemGroup>
     <None Include="..\config.ini">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug-client|Win32'">true</DeploymentContent>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug-client|x64'">true</DeploymentContent>
       <FileType>Text</FileType>
     </None>
     <None Include="..\libADLMIDI-master\src\adlmidi_bankmap.tcc" />
@@ -403,9 +489,11 @@
   <ItemGroup>
     <Library Include="..\libpng2\libpng-master\projects\vstudio2017\Debug\libpng15.lib">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-client|x64'">true</ExcludedFromBuild>
     </Library>
     <Library Include="..\libpng3\lib\libpng16_static.lib">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-client|Win32'">true</ExcludedFromBuild>
     </Library>
     <Library Include="..\SDL2_image-2.0.5\lib\x64\SDL2_image.lib" />
     <Library Include="..\SDL2_image-2.0.5\lib\x86\SDL2_image.lib" />
@@ -413,12 +501,16 @@
     <Library Include="..\SDL2_ttf-2.0.15\lib\x86\SDL2_ttf.lib">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
       </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-client|x64'">
+      </ExcludedFromBuild>
     </Library>
     <Library Include="..\zlib-64\lib\zlib.lib">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-client|Win32'">true</ExcludedFromBuild>
     </Library>
     <Library Include="..\zlib\lib\zlib.lib">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-client|x64'">true</ExcludedFromBuild>
     </Library>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
