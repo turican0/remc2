@@ -1317,22 +1317,30 @@ void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myN
 #ifdef TEST_NETWORK_MESSAGES
 		debug_net_printf("\n*SET NETWORK CANCEL %s %s\n", connection->ncb_name_26, connection->ncb_callName_10);
 #endif //TEST_NETWORK_MESSAGES
+		myNCB* secondcon = (myNCB*)connection->ncb_buffer_4.p;
+		if (secondcon)
+		{
+			*secondcon = *connection;
+
+			/*
+
+			secondcon->ncb_retcode_1 = 0x0b;
+			secondcon->ncb_cmd_cplt_49 = 0x0b;
+			secondcon->ncb_reserved_50[2] = 0x6f;
+			secondcon->ncb_reserved_50[3] = 0x32;
+			secondcon->ncb_reserved_50[6] = 0x71;
+			secondcon->ncb_reserved_50[7] = 0x17;
+			secondcon->ncb_reserved_50[8] = 0x66;*/
+		}
+
 		connection->ncb_retcode_1 = 0x00;
+		connection->ncb_lsn_2 = 0x00;
 		connection->ncb_cmd_cplt_49 = 0x00;
 		connection->ncb_reserved_50[2] = 0x6f;
 		connection->ncb_reserved_50[3] = 0x32;
 		connection->ncb_reserved_50[6] = 0x85;
 		connection->ncb_reserved_50[7] = 0x17;
 		connection->ncb_reserved_50[8] = 0x6a;
-
-		myNCB* secondcon = (myNCB*)connection->ncb_buffer_4.p;
-		secondcon->ncb_retcode_1 = 0x0b;
-		secondcon->ncb_cmd_cplt_49 = 0x0b;
-		secondcon->ncb_reserved_50[2] = 0x6f;
-		secondcon->ncb_reserved_50[3] = 0x32;
-		secondcon->ncb_reserved_50[6] = 0x71;
-		secondcon->ncb_reserved_50[7] = 0x17;
-		secondcon->ncb_reserved_50[8] = 0x66;
 
 		CancelNetwork(connection);
 

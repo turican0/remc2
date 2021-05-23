@@ -7,7 +7,7 @@
     </LocalDebuggerEnvironment>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-client|Win32'">
-    <LocalDebuggerCommandArguments>server 192.168.0.171 3490 3491</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>client 172.23.200.57 3490 3491</LocalDebuggerCommandArguments>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
     <LocalDebuggerEnvironment />
   </PropertyGroup>
