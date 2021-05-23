@@ -1036,6 +1036,14 @@ void ListenerClient() {
 
 			else if (!messages[0].compare("NETI_LISTEN_ACCEPT"))
 			{
+				//netstate(NETI_CALL_ACCEPT);
+
+				lastconnection_mt.lock();
+				lastconnection_shared->ncb_lsn_2 = 20;
+				lastconnection_mt.unlock();
+
+				//networkTimeout(0);
+
 				//netstate(NETI_LISTEN_ACCEPT);
 				//networkTimeout(0);
 				setListen(messages[1]);
