@@ -1019,7 +1019,7 @@ void ListenerClient() {
 				lastconnection_mt.lock();
 				lastconnection_shared->ncb_lsn_2 = 20;
 #ifdef TEST_NETWORK_MESSAGES
-				debug_net_printf("%s %s:\n", lastconnection_shared->ncb_callName_10, lastconnection_shared->ncb_name_26);
+				debug_net_printf("CALLAC: %s %s:\n", lastconnection_shared->ncb_callName_10, lastconnection_shared->ncb_name_26);
 #endif //TEST_NETWORK_MESSAGES
 				lastconnection_mt.unlock();
 
