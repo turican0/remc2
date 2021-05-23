@@ -89843,6 +89843,9 @@ signed int NetworkAddName_74767(/*signed __int16* a1,*/ myNCB* connection, char*
 //----- (00074809) --------------------------------------------------------
 int NetworkCall_74809(__int16 a1)//255809
 {
+#ifdef TEST_NETWORK_MESSAGES
+	debug_printf("NetworkCall_74809 %d\n", a1);
+#endif //TEST_NETWORK_MESSAGES
 	int result; // [esp+14h] [ebp-8h]
 	connection_E12AE[a1]->ncb_command_0 = 0x90;//CALL 
 	sprintf(connection_E12AE[a1]->ncb_callName_10, "%s%d", nethID, a1);
