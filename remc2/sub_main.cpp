@@ -90112,7 +90112,7 @@ signed int NetworkGetState_74FE1(__int16 a1)//255fe1
 	else
 		v2 = connection_E12AE[a1]->ncb_lsn_2 && !connection_E12AE[a1]->ncb_cmd_cplt_49;
 #ifdef TEST_NETWORK_MESSAGES
-	debug_printf("NetworkGetState: %d %s %s\n", a1, (connection_E12AE[a1]->ncb_lsn_2) ? "true" : "false", (!connection_E12AE[a1]->ncb_cmd_cplt_49) ? "true" : "false");
+	debug_printf("NetworkGetState: %d %d %s\n", a1, connection_E12AE[a1]->ncb_lsn_2, (!connection_E12AE[a1]->ncb_cmd_cplt_49) ? "true" : "false");
 #endif //TEST_NETWORK_MESSAGES
 	return v2;
 }

@@ -1026,7 +1026,7 @@ void ListenerClient() {
 				networkTimeout(0);
 				resetTimeout();
 #ifdef TEST_NETWORK_MESSAGES
-				debug_net_printf("CLIENT MESSAGE_CALL_ACCEPT: %p %s %s\n", mypointer, mypointer->ncb_callName_10, mypointer->ncb_name_26);
+				debug_net_printf("CLIENT MESSAGE_CALL_ACCEPT: %p|%s|%s|\n", mypointer, mypointer->ncb_callName_10, mypointer->ncb_name_26);
 #endif //TEST_NETWORK_MESSAGES
 			}
 			else if (!messages[0].compare("NETI_CALL_REJECT"))
@@ -1357,7 +1357,7 @@ void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myN
 		networkTimeout(10000);
 		resetTimeout();
 #ifdef TEST_NETWORK_MESSAGES
-		debug_net_printf("\n*SET NETWORK CALL %s %s\n", connection->ncb_name_26, connection->ncb_callName_10);
+		debug_net_printf("\n*SET NETWORK CALL %p|%s|%s|\n", connection,connection->ncb_name_26, connection->ncb_callName_10);
 #endif //TEST_NETWORK_MESSAGES
 		//connection->ncb_lsn_2 = 0xe8;
 		connection->ncb_retcode_1 = 0x00;
