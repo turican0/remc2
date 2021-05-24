@@ -297,13 +297,15 @@ void GameRender::DrawSky_40950_TH(int16_t roll, uint8_t* ptrViewPortRenderBuffer
 {
 	uint16_t height = viewPortHeight / 2;
 
-	RunTask([this, roll, ptrViewPortRenderBufferStart, viewPortWidth, viewPortHeight, screenWidth] {
-		this->DrawSky_40950(roll, ptrViewPortRenderBufferStart, viewPortWidth, viewPortHeight, screenWidth, 2);;
+	m_renderTasks = 1;
+	m_taskQueue.enqueue([this, roll, ptrViewPortRenderBufferStart, viewPortWidth, viewPortHeight, screenWidth] {
+		this->DrawSky_40950(roll, ptrViewPortRenderBufferStart, viewPortWidth, viewPortHeight, screenWidth, 2);
+		m_renderTasks--;
 		});
 
 	DrawSky_40950(roll, ptrViewPortRenderBufferStart + screenWidth, viewPortWidth, viewPortHeight, screenWidth, 2);
 
-	while (m_task != nullptr);
+	while (m_renderTasks > 0);
 }
 
 /*
@@ -3056,15 +3058,14 @@ void GameRender::DrawSorcererNameAndHealthBar_2CB30(type_event_0x6E8E* a1x, uint
 	//return v9;
 }
 
-void GameRender::StartWorkerThread()
+void GameRender::StartWorkerThread(int core)
 {
 	unsigned numCores = 1;
 
 	numCores = std::thread::hardware_concurrency();
 
-	if (numCores > 1)
+	if (numCores >= core && m_renderThreads < 4)
 	{
-		int core = 1;
 		m_renderThread = std::thread([this, core] {
 
 #ifdef _MSC_VER
@@ -3075,18 +3076,15 @@ void GameRender::StartWorkerThread()
 			m_renderThreads++;
 			do
 			{
-				if (m_task != nullptr)
+				std::function<void()> task = m_taskQueue.dequeue();
+				if (task)
 				{
-					m_task();
-					m_task = nullptr;
-				}
-				else
-				{
-					//std::this_thread::sleep_for(std::chrono::nanoseconds(1));
+					task();
 				}
 
 			} while (m_renderThreads > 1);
-			});
+
+		});
 	}
 }
 
@@ -3096,14 +3094,6 @@ void GameRender::StopWorkerThread()
 	{
 		m_renderThreads = 1;
 		m_renderThread.join();
-	}
-}
-
-void GameRender::RunTask(const std::function<void()>& t)
-{
-	if (m_task == nullptr)
-	{
-		m_task = t;
 	}
 }
 
@@ -3123,8 +3113,10 @@ void GameRender::DrawSquare(int* vertexs, int index, uint16_t viewPortWidth, uin
 	{
 		if (m_renderThreads > 1)
 		{
-			RunTask([this, &vertexs, pTexture, viewPortWidth, viewPortHeight, screenWidth] {
+			m_renderTasks = 1;
+			m_taskQueue.enqueue([this, &vertexs, pTexture, viewPortWidth, viewPortHeight, screenWidth] {
 				this->DrawTriangle_B6253(&vertexs[18], &vertexs[12], &vertexs[0], pTexture, unk_DE56Cx, viewPortWidth, viewPortHeight, screenWidth);
+				m_renderTasks--;
 				});
 		}
 		else
@@ -3133,15 +3125,17 @@ void GameRender::DrawSquare(int* vertexs, int index, uint16_t viewPortWidth, uin
 		}
 		DrawTriangle_B6253(&vertexs[0], &vertexs[12], &vertexs[6], pTexture, unk_DE56Cx2, viewPortWidth, viewPortHeight, screenWidth);
 
-		while (m_task != nullptr);
+		while (m_renderTasks > 0);
 
 	}
 	else
 	{
 		if (m_renderThreads > 1)
 		{
-			RunTask([this, &vertexs, pTexture, viewPortWidth, viewPortHeight, screenWidth] {
+			m_renderTasks = 1;
+			m_taskQueue.enqueue([this, &vertexs, pTexture, viewPortWidth, viewPortHeight, screenWidth] {
 				this->DrawTriangle_B6253(&vertexs[18], &vertexs[12], &vertexs[6], pTexture, unk_DE56Cx, viewPortWidth, viewPortHeight, screenWidth);
+				m_renderTasks--;
 				});
 		}
 		else
@@ -3151,7 +3145,7 @@ void GameRender::DrawSquare(int* vertexs, int index, uint16_t viewPortWidth, uin
 
 		DrawTriangle_B6253(&vertexs[18], &vertexs[6], &vertexs[0], pTexture, unk_DE56Cx2, viewPortWidth, viewPortHeight, screenWidth);
 
-		while (m_task != nullptr);
+		while (m_renderTasks > 0);
 	}
 }
 
@@ -3176,8 +3170,10 @@ void GameRender::DrawInverseSquare(int* vertexs, int index, uint8_t* pTexture, u
 	{
 		if (m_renderThreads > 1)
 		{
-			RunTask([this, &vertexs, pTexture, viewPortWidth, viewPortHeight, screenWidth] {
+			m_renderTasks = 1;
+			m_taskQueue.enqueue([this, &vertexs, pTexture, viewPortWidth, viewPortHeight, screenWidth] {
 				this->DrawTriangle_B6253(&vertexs[18], &vertexs[0], &vertexs[12], pTexture, unk_DE56Cx, viewPortWidth, viewPortHeight, screenWidth);
+				m_renderTasks--;
 				});
 		}
 		else
@@ -3187,14 +3183,16 @@ void GameRender::DrawInverseSquare(int* vertexs, int index, uint8_t* pTexture, u
 
 		DrawTriangle_B6253(&vertexs[0], &vertexs[6], &vertexs[12], pTexture, unk_DE56Cx2, viewPortWidth, viewPortHeight, screenWidth);
 
-		while (m_task != nullptr);
+		while (m_renderTasks > 0);
 	}
 	else
 	{
 		if (m_renderThreads > 1)
 		{
-			RunTask([this, &vertexs, pTexture, viewPortWidth, viewPortHeight, screenWidth] {
+			m_renderTasks = 1;
+			m_taskQueue.enqueue([this, &vertexs, pTexture, viewPortWidth, viewPortHeight, screenWidth] {
 				this->DrawTriangle_B6253(&vertexs[18], &vertexs[6], &vertexs[12], pTexture, unk_DE56Cx, viewPortWidth, viewPortHeight, screenWidth);
+				m_renderTasks--;
 				});
 		}
 		else
@@ -3204,7 +3202,7 @@ void GameRender::DrawInverseSquare(int* vertexs, int index, uint8_t* pTexture, u
 
 		DrawTriangle_B6253(&vertexs[18], &vertexs[0], &vertexs[6], pTexture, unk_DE56Cx2, viewPortWidth, viewPortHeight, screenWidth);
 
-		while (m_task != nullptr);
+		while (m_renderTasks > 0);
 	}
 }
 
@@ -14777,7 +14775,7 @@ void GameRender::SetRenderThreads(uint8_t renderThreads)
 
 	if (renderThreads > 1)
 	{
-		StartWorkerThread();
+		StartWorkerThread(2);
 	}
 	else if (renderThreads == 1)
 	{

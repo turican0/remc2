@@ -287,6 +287,7 @@ XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
     <ClInclude Include="sub_main.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="utilities\Maths.h" />
+    <ClInclude Include="utilities\SafeQueue.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\inih\ini.c" />
