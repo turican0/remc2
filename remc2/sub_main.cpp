@@ -1,6 +1,17 @@
 #include "sub_main.h"
 #include "engine/engine_support.h"
+/*
 
+//2541e7
+mainConnection_E12AA 2b22aa->326f0 7f0300 .. 03
+after NetworkTestCall_72FBB 350000 .. 00
+after NetworkCancel_748F7 not changed
+
+connection_E12AE[] 2b22ae->34340 b0160002 .. 16
+after NetworkTestCall_72FBB 900b73 .. 0b
+after NetworkCancel_748F7 not changed
+
+*/
 
 #ifdef __linux__
 #include <strings.h>
@@ -89411,7 +89422,7 @@ int NetworkInitConnection_7308F(char* a2, __int16 a3)//25408f
 #ifdef TEST_NETWORK_CHNG1
 		x_WORD_E1276 = 1;
 #endif// TEST_NETWORK_CHNG1
-	if (x_WORD_E1276)//2541e7
+	if (x_WORD_E1276)//254278
 	{
 		if (!NetworkTestCall_72FBB())
 			x_WORD_E12A6 = 1;
