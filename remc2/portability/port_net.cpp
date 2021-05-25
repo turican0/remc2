@@ -690,8 +690,10 @@ void processEnd() {
 			case 0x90: {//CALL(opposite listen)
 							//connection->ncb_retcode_1= 0xb;
 							//connection->ncb_cmd_cplt_49 = 0xb;
-				if (netstate() == NETI_CALL_ACCEPT)
+				/*if (netstate() == NETI_CALL)
+				{
 					lastconnection_shared->ncb_cmd_cplt_49 = 0xb;
+				}*/
 				lastconnection_shared = NULL;
 #ifdef TEST_NETWORK_MESSAGES
 				debug_net_printf("lastconnection set to NULL CALL\n");
@@ -1014,9 +1016,13 @@ void ListenerClient() {
 				netstate(NETI_CALL_ACCEPT);
 
 				lastconnection_mt.lock();
-				lastconnection_shared->ncb_lsn_2 = 20;
+				//lastconnection_shared->ncb_lsn_2 = 20;
 
 				myNCB* mypointer = lastconnection_shared;
+
+				lastconnection_shared->ncb_retcode_1 = 0x00;
+				lastconnection_shared->ncb_cmd_cplt_49 = 0x00;
+
 
 				lastconnection_mt.unlock();
 
@@ -1317,17 +1323,9 @@ void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myN
 		myNCB* secondcon = (myNCB*)connection->ncb_buffer_4.p;
 		if (secondcon)
 		{
-			*secondcon = *connection;
-
-			/*
-
+			//*secondcon = *connection;
 			secondcon->ncb_retcode_1 = 0x0b;
 			secondcon->ncb_cmd_cplt_49 = 0x0b;
-			secondcon->ncb_reserved_50[2] = 0x6f;
-			secondcon->ncb_reserved_50[3] = 0x32;
-			secondcon->ncb_reserved_50[6] = 0x71;
-			secondcon->ncb_reserved_50[7] = 0x17;
-			secondcon->ncb_reserved_50[8] = 0x66;*/
 		}
 
 		connection->ncb_retcode_1 = 0x00;
@@ -1358,8 +1356,8 @@ void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myN
 #ifdef TEST_NETWORK_MESSAGES
 		debug_net_printf("\n*SET NETWORK CALL %p|%s|%s|\n", connection,connection->ncb_name_26, connection->ncb_callName_10);
 #endif //TEST_NETWORK_MESSAGES
-		//connection->ncb_lsn_2 = 0xe8;
-		connection->ncb_retcode_1 = 0x00;
+		connection->ncb_retcode_1 = 0xff;
+		connection->ncb_lsn_2 = 0xe8;
 		connection->ncb_cmd_cplt_49 = 0xff;
 
 		/*connection->ncb_retcode_1 = 0x0;
