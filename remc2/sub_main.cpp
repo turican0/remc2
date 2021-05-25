@@ -2269,9 +2269,9 @@ void sub_5C0A0();
 void sub_5C330();
 bool sub_5C380_test_vga_driver_header(uint16_t testlenght);
 signed int sub_5C3D0_file_decompress(uint8_t* a1, uint8_t* a2);
-void sub_5C430_multi_allocation();
-void sub_5C450();
-int sub_5C490_testers_info();
+void NetworkAllocation2_5C430();
+void NetworkDisallocation2_5C450();
+void sub_5C490_testers_info();
 void sub_5C530();
 void sub_5C800(type_event_0x6E8E* a1, char a2);
 void sub_5C830(type_event_0x6E8E* a1, char a2, __int16 a3);
@@ -2604,7 +2604,7 @@ void sub_727F0(unsigned __int8 a1, unsigned __int8 a2, unsigned __int8 a3, unsig
 // void /*__spoils<ecx>*/ ClearGraphicsBuffer640(int a1, void *a2, unsigned __int16 a3, char a4);
 //void sub_72C40_draw_bitmap_640_setcolor(__int16 a1, __int16 a2, posistruct_t a3, unsigned __int8 a4);
 int sub_72CB0(unsigned __int8* a1, int a2);//not used
-void sub_72D04();
+void NetworkDisallocation_72D04();
 // int sub_72DDE(signed __int16 *a1, int a2);
 int /*__fastcall*/ sub_72E70(int a1, int a2, signed __int16* a3);//not used
 signed int /*__fastcall*/ NetworkTestCall_72FBB();
@@ -6336,8 +6336,13 @@ uint8_t* packetArray_E1286[8] = { 0, 0, 0, 0, 0, 0, 0, 0 }; // idb
 __int16 x_WORD_E12A6 = 0; // weak
 __int16 x_WORD_E12A8 = 0; // weak
 myNCB* mainConnection_E12AA = 0; // weak //array size 66 //0x2b22aa
-
+/*
+0x2B22AA->xxx
+*/
 myNCB* connection_E12AE[8] = { 0, 0, 0, 0, 0, 0, 0, 0 };
+/*
+0x2B22AE->xxx
+*/
 char connected_E12CE[8] = { 0, 0, 0, 0, 0, 0, 0, 0 }; // idb
 char x_BYTE_E12EC = 0; // weak
 char x_BYTE_E12ED = 0; // weak
@@ -7094,7 +7099,7 @@ __int16 x_WORD_E3BA4 = 0; // weak
 __int16 x_WORD_E3BA6 = 0; // weak
 __int16 x_WORD_E3BA8 = 0; // weak
 __int16 x_WORD_E3BAA = 0; // weak
-int x_DWORD_E3BAC = 0; // weak
+uint8_t* x_DWORD_E3BAC = 0; // weak
 int x_DWORD_E3BB0 = 0; // weak
 int x_DWORD_E3BB8 = 1; // weak
 FILE* file_E3BE0; // weak
@@ -31791,7 +31796,7 @@ void sub_30870()//211870
 	v4y.word_0x10 = 8;
 	v4y.word_0x12 = 14;
 	v4y.word_0x16 = 636;
-	v0 = (char*)x_DWORD_E9C4C_langindexbuffer[x_WORD_D41D4];
+	v0 = x_DWORD_E9C4C_langindexbuffer[x_WORD_D41D4];
 	v4y.word_0xc = 600;
 	v4y.word_0x0 = 320;
 	v4y.byte_0x30 = (*xadataclrd0dat.var28_begin_buffer)[0xf00];
@@ -72532,7 +72537,7 @@ void Initialize()//23c8d0
 
 	//VGA_Set_Cursor(*(*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct),0);
 
-	sub_5C430_multi_allocation(); //23d430
+	NetworkAllocation2_5C430(); //23d430
 	sub_46DD0_init_sound_and_music(/*v2, v3, (char*)filearray_2aa18c[filearrayindex_POINTERSDATTAB].begin_buffer*/);//init sound and music//227DD0
 	//x_WORD_E2A14_sound_activel = 0;x_BYTE_E3798_sound_active2 = 0;//debug tittes
 
@@ -72558,7 +72563,7 @@ void sub_5BC20()//23cc20
 {
 	if (x_BYTE_D4B80 == 1)
 	{
-		sub_5C450();
+		NetworkDisallocation2_5C450();
 		if (x_DWORD_E3768)
 			sub_54600_mouse_reset();//mouse reset
 		/*if (x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 8)
@@ -72567,7 +72572,7 @@ void sub_5BC20()//23cc20
 			sub_75420();*/
 		sub_46F50_sound_proc7();
 		sub_8C21F_any_graphics_command();
-		sub_72D04();
+		NetworkDisallocation_72D04();
 		sub_6FE20();
 		sub_5C060();
 	}
@@ -73116,24 +73121,24 @@ signed int sub_5C3D0_file_decompress(uint8_t* input, uint8_t* output)//23d3d0
 // 99682: using guessed type x_DWORD strncmp(x_DWORD, x_DWORD, x_DWORD);
 
 //----- (0005C430) --------------------------------------------------------
-void sub_5C430_multi_allocation()//23d430
+void NetworkAllocation2_5C430()//23d430
 {
 	x_D41A0_BYTEARRAY_4_struct.isNetwork_216w = NetworkAllocation_74556();//255556 push ebp 355250
 }
 // D41A4: using guessed type int x_DWORD_D41A4;
 
 //----- (0005C450) --------------------------------------------------------
-void sub_5C450()//23d450
+void NetworkDisallocation2_5C450()//23d450
 {
 	if (x_D41A0_BYTEARRAY_4_struct.isNetwork_216w)
-		sub_72D04();
+		NetworkDisallocation_72D04();
 }
 // D41A4: using guessed type int x_DWORD_D41A4;
 
 //----- (0005C490) --------------------------------------------------------
-int sub_5C490_testers_info()//23d490
+void sub_5C490_testers_info()//23d490
 {
-	int result; // eax
+	//int result; // eax
 	int v1; // edx
 
 	myprintf("\n");
@@ -73143,20 +73148,21 @@ int sub_5C490_testers_info()//23d490
 	myprintf("***********************************************************\n");
 	do
 	{
-		if (x_DWORD_E3BB0 <= 0 || x_DWORD_E3BB8 & 4 || *(x_BYTE*)x_DWORD_E3BAC == 13 || *(x_BYTE*)x_DWORD_E3BAC == 26)
+		if (x_DWORD_E3BB0 <= 0 || x_DWORD_E3BB8 & 4 || *x_DWORD_E3BAC == 13 || *x_DWORD_E3BAC == 26)
 		{
-			result = fgetc((FILE*)&x_DWORD_E3BAC);
-			v1 = result;
+			v1 = fgetc((FILE*)&x_DWORD_E3BAC);
+			//v1 = result;
 		}
 		else
 		{
-			result = x_DWORD_E3BAC + 1;
-			x_DWORD_E3BAC = result;
-			v1 = *(unsigned __int8*)(result - 1);
+			//result = x_DWORD_E3BAC + 1;
+			//x_DWORD_E3BAC = result;			
+			v1 = *x_DWORD_E3BAC;
+			x_DWORD_E3BAC++;
 			x_DWORD_E3BB0--;
 		}
 	} while (v1 != 10);
-	return result;
+	//return result;
 }
 // 996B7: using guessed type x_DWORD fgetc(x_DWORD);
 // E3BAC: using guessed type int x_DWORD_E3BAC;
@@ -89213,7 +89219,7 @@ int sub_72CB0(unsigned __int8* a1, int a2)
 //myNCB* lastConnection;
 
 //----- (00072D04) --------------------------------------------------------
-void sub_72D04()
+void NetworkDisallocation_72D04()
 {
 	signed int i; // [esp+0h] [ebp-8h]
 	signed int j; // [esp+4h] [ebp-4h]

@@ -61,10 +61,10 @@ typedef struct {//lenght 66(changed to 70)
 	char ncb_name_26[16];
 	uint8_t ncb_rto_42;
 	uint8_t ncb_sto_43;
-	p64align ncb_post_44;
-	uint8_t ncb_lana_num_48;
+	//p64align ncb_post_44;// not used
+	//uint8_t ncb_lana_num_48;// not used
 	uint8_t ncb_cmd_cplt_49;//lock for end command
-	uint8_t ncb_reserved_50[16];
+	//uint8_t ncb_reserved_50[16];// not used
 }
 myNCB;
 #pragma pack (16)

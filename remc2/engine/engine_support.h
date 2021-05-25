@@ -768,7 +768,7 @@ typedef struct _type_x_D41A0_BYTEARRAY_4_struct {
 	int8_t setting_byte2_23;//0x17//x_D41A0_BYTEARRAY_4_struct.setting_byte2_23
 	uint8_t setting_byte3_24;//cheats? 0x20==free spell//x_D41A0_BYTEARRAY_4_struct.setting_byte3_24
 	//spell on - 0x20
-	uint8_t setting_byte4_25;//cheats? 0x1==Invincability
+	uint8_t setting_byte4_25;//cheats? 0x1==Invincability 0x8==tester 0x40==music
 	//invincability - 1;
 	uint8_t byteindex_26 = 0;//x_D41A0_BYTEARRAY_4_struct.byteindex_26
 	uint8_t stubc[3];
