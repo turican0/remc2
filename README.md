@@ -10,6 +10,8 @@ Now you can only compile only 32-bit binary version (64bit will be available aft
 <br />
 simple dev blog:https://github.com/turican0/remc2/wiki<br />
 <h2>ROADMAP:</h2><br />
+<h3>MILLSTONE 7(in development)</h3><br />
+-fix multiplayer(wizards deadmatch :)<br />
 <h3>MILLSTONE 6</h3><br />
 -can build x64 binary<br />
 -can build in Linux<br />
