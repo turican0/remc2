@@ -53,6 +53,7 @@ int netstate_shared = -1;
 #define NETI_LISTEN 6
 #define NETI_LISTEN_ACCEPT 7
 #define NETI_LISTEN_REJECT 8
+#define NETI_RECEIVE 9
 
 namespace NetworkLib {
 	class Client/* : public IClient*/ {
@@ -1407,6 +1408,7 @@ void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myN
 		connection->ncb_cmd_cplt_49 = 0xff;
 
 		ReceiveNetwork(connection);
+		netstate(NETI_RECEIVE);
 
 		break;
 	}
