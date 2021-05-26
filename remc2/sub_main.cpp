@@ -14522,15 +14522,19 @@ void sub_1A970_change_game_settings(char a1, int a2, int a3)//1fb970
 	case 19:
 		if (m_ptrGameRender != nullptr)
 		{
-			if (m_ptrGameRender->GetRenderThreads() > 1)
+			uint8_t numRenderThreads = m_ptrGameRender->GetRenderThreads();
+			if (numRenderThreads >= 4)
 			{
-				m_ptrGameRender->SetRenderThreads(1);
+				m_ptrGameRender->SetRenderThreads(0);
 				sub_19760_set_message("Multi-thread render OFF", 3u, 50);
 			}
 			else
 			{
-				m_ptrGameRender->SetRenderThreads(2);
-				sub_19760_set_message("Multi-thread render ON", 3u, 50);
+				numRenderThreads++;
+				m_ptrGameRender->SetRenderThreads(numRenderThreads);
+				std::string message = "Multi-thread render ON: Number of Threads: ";
+				message += std::to_string(numRenderThreads);
+				sub_19760_set_message(message.c_str(), 3u, 50);
 			}
 		}
 		return;

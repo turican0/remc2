@@ -69,8 +69,8 @@ private:
 	type_F2C20ar m_str_F2C20ar;
 	int16_t m_x_WORD_180660_VGA_type_resolution;
 
-	std::thread m_renderThread;
-	uint8_t m_renderThreads = 1;
+	std::vector<std::thread> m_renderThreads;
+	bool m_multiThreadRender = false;
 
 	SafeQueue<std::function<void()>> m_taskQueue;
 	uint8_t m_renderTasks = 0;
@@ -103,8 +103,9 @@ private:
 	void SetBillboards_3B560(int16_t roll, uint8_t unk_F0A20x[], uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t screenWidth);
 	void DrawSorcererNameAndHealthBar_2CB30(type_event_0x6E8E* a1, uint8_t x_BYTE_E88E0x[], __int16 a2, int a3, __int16 a4, int16_t viewPortX, int16_t viewPortY, uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t pitch);
 
+	void StartWorkerThreads(uint8_t numOfThreads);
 	void StartWorkerThread(int core);
-	void StopWorkerThread();
+	void StopWorkerThreads();
 
 public:
 	GameRender(uint8_t* pScreenBuffer, uint8_t* pColorPalette, uint16_t screenWidth, uint16_t screenHeight, uint16_t viewPortPosX, uint16_t viewPortPosY, uint16_t viewPortWidth, uint16_t viewPortHeight, std::array<uint8_t*, 256> &textureAdresses, uint8_t x_BYTE_F6EE0_tablesx[], uint8_t renderThreads);

@@ -13,9 +13,9 @@ GameRender::GameRender(uint8_t* pScreenBuffer, uint8_t* pColorPalette, uint16_t 
 
 GameRender::~GameRender()
 {
-	if (m_renderThreads > 1)
+	if (m_renderThreads.size() > 1)
 	{
-		StopWorkerThread();
+		StopWorkerThreads();
 	}
 }
 
@@ -807,7 +807,7 @@ void GameRender::DrawTerrainAndParticles_3C080(__int16 a3, __int16 a4, __int16 a
 	}
 	else
 	{
-		if (m_renderThreads > 1)
+		if (m_renderThreads.size() > 1)
 		{
 			DrawSky_40950_TH(roll, m_ptrViewPortRenderBufferStart, viewPort.Width, viewPort.Height, screenWidth);
 		}
@@ -3058,22 +3058,32 @@ void GameRender::DrawSorcererNameAndHealthBar_2CB30(type_event_0x6E8E* a1x, uint
 	//return v9;
 }
 
+void GameRender::StartWorkerThreads(uint8_t numOfThreads)
+{
+	m_multiThreadRender = true;
+	if (m_renderThreads.size() < numOfThreads)
+	{
+		for (int i = 0; i < numOfThreads; i++)
+		{
+			StartWorkerThread(i+1);
+		}
+	}
+}
+
 void GameRender::StartWorkerThread(int core)
 {
 	unsigned numCores = 1;
 
 	numCores = std::thread::hardware_concurrency();
 
-	if (numCores >= core && m_renderThreads < 4)
+	if (numCores >= core)
 	{
-		m_renderThread = std::thread([this, core] {
+		m_renderThreads.push_back(std::thread([this, core] {
 
 #ifdef _MSC_VER
 			SetThreadIdealProcessor(GetCurrentThread(), core);
 			DWORD_PTR dw = SetThreadAffinityMask(GetCurrentThread(), DWORD_PTR(1) << core);
 #endif
-
-			m_renderThreads++;
 			do
 			{
 				std::function<void()> task = m_taskQueue.dequeue();
@@ -3082,18 +3092,23 @@ void GameRender::StartWorkerThread(int core)
 					task();
 				}
 
-			} while (m_renderThreads > 1);
+			} while (m_multiThreadRender);
 
-		});
+		}));
 	}
 }
 
-void GameRender::StopWorkerThread()
+void GameRender::StopWorkerThreads()
 {
-	if (m_renderThreads > 1)
+	m_multiThreadRender = false;
+	if (m_renderThreads.size() > 1)
 	{
-		m_renderThreads = 1;
-		m_renderThread.join();
+		for (std::thread& thread : m_renderThreads) {
+			if (thread.joinable()) {
+				thread.join();
+			}
+		}
+		m_renderThreads.clear();
 	}
 }
 
@@ -3111,7 +3126,7 @@ void GameRender::DrawSquare(int* vertexs, int index, uint16_t viewPortWidth, uin
 
 	if ((uint8_t)m_Str_E9C38_smalltit[index].word38 & 1)
 	{
-		if (m_renderThreads > 1)
+		if (m_renderThreads.size() > 1)
 		{
 			m_renderTasks = 1;
 			m_taskQueue.enqueue([this, &vertexs, pTexture, viewPortWidth, viewPortHeight, screenWidth] {
@@ -3130,7 +3145,7 @@ void GameRender::DrawSquare(int* vertexs, int index, uint16_t viewPortWidth, uin
 	}
 	else
 	{
-		if (m_renderThreads > 1)
+		if (m_renderThreads.size() > 1)
 		{
 			m_renderTasks = 1;
 			m_taskQueue.enqueue([this, &vertexs, pTexture, viewPortWidth, viewPortHeight, screenWidth] {
@@ -3168,7 +3183,7 @@ void GameRender::DrawInverseSquare(int* vertexs, int index, uint8_t* pTexture, u
 
 	if (m_Str_E9C38_smalltit[index].word38 & 1)
 	{
-		if (m_renderThreads > 1)
+		if (m_renderThreads.size() > 1)
 		{
 			m_renderTasks = 1;
 			m_taskQueue.enqueue([this, &vertexs, pTexture, viewPortWidth, viewPortHeight, screenWidth] {
@@ -3187,7 +3202,7 @@ void GameRender::DrawInverseSquare(int* vertexs, int index, uint8_t* pTexture, u
 	}
 	else
 	{
-		if (m_renderThreads > 1)
+		if (m_renderThreads.size() > 1)
 		{
 			m_renderTasks = 1;
 			m_taskQueue.enqueue([this, &vertexs, pTexture, viewPortWidth, viewPortHeight, screenWidth] {
@@ -14768,22 +14783,20 @@ void GameRender::SetRenderViewPortSize_BCD45(uint8_t* ptrScreenBufferStart, uint
 
 void GameRender::SetRenderThreads(uint8_t renderThreads)
 {
-	if (renderThreads < 1)
+	StopWorkerThreads();
+
+	if (renderThreads < 0)
 	{
-		renderThreads = 1;
+		renderThreads = 0;
 	}
 
-	if (renderThreads > 1)
+	if (renderThreads > 0)
 	{
-		StartWorkerThread(2);
-	}
-	else if (renderThreads == 1)
-	{
-		StopWorkerThread();
+		StartWorkerThreads(renderThreads);
 	}
 }
 
 uint8_t GameRender::GetRenderThreads()
 {
-	return m_renderThreads;
+	return m_renderThreads.size();
 }
