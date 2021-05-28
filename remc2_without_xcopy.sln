@@ -9,8 +9,6 @@ Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
 		Debug|x86 = Debug|x86
-		Debug-client|x64 = Debug-client|x64
-		Debug-client|x86 = Debug-client|x86
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
 		XBOX_Debug|x64 = XBOX_Debug|x64
@@ -23,10 +21,6 @@ Global
 		{1DF21D49-CDF7-47FB-A256-0813C1EC5923}.Debug|x64.Build.0 = Debug|x64
 		{1DF21D49-CDF7-47FB-A256-0813C1EC5923}.Debug|x86.ActiveCfg = Debug|Win32
 		{1DF21D49-CDF7-47FB-A256-0813C1EC5923}.Debug|x86.Build.0 = Debug|Win32
-		{1DF21D49-CDF7-47FB-A256-0813C1EC5923}.Debug-client|x64.ActiveCfg = Debug-client|Win32
-		{1DF21D49-CDF7-47FB-A256-0813C1EC5923}.Debug-client|x64.Build.0 = Debug-client|Win32
-		{1DF21D49-CDF7-47FB-A256-0813C1EC5923}.Debug-client|x86.ActiveCfg = Debug-client|Win32
-		{1DF21D49-CDF7-47FB-A256-0813C1EC5923}.Debug-client|x86.Build.0 = Debug-client|Win32
 		{1DF21D49-CDF7-47FB-A256-0813C1EC5923}.Release|x64.ActiveCfg = Debug|x64
 		{1DF21D49-CDF7-47FB-A256-0813C1EC5923}.Release|x64.Build.0 = Debug|x64
 		{1DF21D49-CDF7-47FB-A256-0813C1EC5923}.Release|x86.ActiveCfg = Release|Win32
