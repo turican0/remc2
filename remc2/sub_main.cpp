@@ -95510,7 +95510,7 @@ signed int sub_7CE50()//25de50
 			switch (x_DWORD_17DE38str.array_BYTE_17DE68x[i].byte_9)
 			{
 			case 1:
-				for (v5 = 134; v5 < 150; v5++)
+				for (v5 = 134; v5 < 148; v5++)
 				{
 					x_DWORD_17DE38str.x_DWORD_17DE38x[v5].red = 0;
 					x_DWORD_17DE38str.x_DWORD_17DE38x[v5].green = 0;
