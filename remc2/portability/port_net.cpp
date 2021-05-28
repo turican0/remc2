@@ -1462,3 +1462,12 @@ void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myN
 	debug_net_printf("SET CONNECTION\n");
 #endif //TEST_NETWORK_MESSAGES
 }
+
+void printState(myNCB** connections) {
+#ifdef TEST_NETWORK_MESSAGES
+	debug_net_printf("NetworkGetState: %d %p %d %s\n", 0, connections[0], connections[0]->ncb_lsn_2, (!connections[0]->ncb_cmd_cplt_49) ? "true" : "false");
+	debug_net_printf("NetworkGetState: %d %p %d %s\n", 1, connections[1], connections[1]->ncb_lsn_2, (!connections[1]->ncb_cmd_cplt_49) ? "true" : "false");
+	debug_net_printf("NetworkGetState: %d %p %d %s\n", 2, connections[2], connections[2]->ncb_lsn_2, (!connections[2]->ncb_cmd_cplt_49) ? "true" : "false");
+#endif //TEST_NETWORK_MESSAGES
+}
+

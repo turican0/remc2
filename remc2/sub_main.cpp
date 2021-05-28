@@ -89351,8 +89351,6 @@ void NetworkListenAll_7302E()//25402e
 	}
 }
 
-#define TEST_NETWORK_MESSAGES
-
 //----- (0007308F) --------------------------------------------------------
 int NetworkInitConnection_7308F(char* a2, __int16 a3)//25408f
 {
@@ -89383,38 +89381,20 @@ int NetworkInitConnection_7308F(char* a2, __int16 a3)//25408f
 	while (maxPlayers_E127A > i && x_WORD_E1276 == -1 && !x_WORD_E12A6)
 	{//2541a1
 		v6 = NetworkTestAddName_72DDE(i);
-#ifdef TEST_NETWORK_MESSAGES
-		debug_printf("Add Name point1\n");
-#endif //TEST_NETWORK_MESSAGES
 		if (v6)//2541aa
 		{
-#ifdef TEST_NETWORK_MESSAGES
-			debug_printf("Add Name point2\n");
-#endif //TEST_NETWORK_MESSAGES
 			if (v6 == 0xff)
 			{
-#ifdef TEST_NETWORK_MESSAGES
-				debug_printf("Add Name point3\n");
-#endif //TEST_NETWORK_MESSAGES
 				NetworkCancel_748F7(i);
 				i = maxPlayers_E127A;
 			}
 		}
 		else
 		{
-#ifdef TEST_NETWORK_MESSAGES
-			debug_printf("Add Name point4\n");
-#endif //TEST_NETWORK_MESSAGES
 			x_WORD_E1276 = i;
 		}
-#ifdef TEST_NETWORK_MESSAGES
-		debug_printf("Add Name point5\n");
-#endif //TEST_NETWORK_MESSAGES
 		i++;
 	}
-#ifdef TEST_NETWORK_MESSAGES
-	debug_printf("Add Name point6\n");
-#endif //TEST_NETWORK_MESSAGES
 	if (x_WORD_E1276 == -1)//2541e7
 		return -1;
 	for (i = 0;i< maxPlayers_E127A; i++)
@@ -89860,9 +89840,6 @@ signed int NetworkAddName_74767(/*signed __int16* a1,*/ myNCB* connection, char*
 //----- (00074809) --------------------------------------------------------
 int NetworkCall_74809(__int16 a1)//255809
 {
-#ifdef TEST_NETWORK_MESSAGES
-	debug_printf("NetworkCall_74809 %d\n", a1);
-#endif //TEST_NETWORK_MESSAGES
 	int result; // [esp+14h] [ebp-8h]
 	connection_E12AE[a1]->ncb_command_0 = 0x90;//CALL 
 	sprintf(connection_E12AE[a1]->ncb_callName_10, "%s%d", nethID, a1);
@@ -90131,9 +90108,6 @@ signed int NetworkGetState_74FE1(__int16 a1)//255fe1
 		v2 = 2;
 	else
 		v2 = connection_E12AE[a1]->ncb_lsn_2 && !connection_E12AE[a1]->ncb_cmd_cplt_49;
-#ifdef TEST_NETWORK_MESSAGES
-	debug_printf("NetworkGetState: %d %p %d %s\n", a1, connection_E12AE[a1],connection_E12AE[a1]->ncb_lsn_2, (!connection_E12AE[a1]->ncb_cmd_cplt_49) ? "true" : "false");
-#endif //TEST_NETWORK_MESSAGES
 	return v2;
 }
 
@@ -95519,6 +95493,7 @@ signed int sub_7CE50()//25de50
 	v20 = 0;
 	x_DWORD_17DE38str.array_BYTE_17DE68x[x_DWORD_17DE38str.serverIndex_17DEFC].connected_0 = 1;
 	NetworkUpdateConnections2_74374();//some with network
+	printState(connection_E12AE);
 	ReceiveSendAll_7438A((uint8_t*)x_DWORD_17DE38str.array_BYTE_17DE68x, sizeof(type_BYTE_17DE68x));
 	for (int v0 = 0; v0 < 8; v0++)
 	{
