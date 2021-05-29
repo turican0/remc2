@@ -726,7 +726,17 @@ void processEnd() {
 #ifdef TEST_NETWORK_MESSAGES
 				debug_net_printf("lastconnection set to NULL RECEIVE,exit\n");
 #endif //TEST_NETWORK_MESSAGES
-				exit(0);
+
+				if (GetRecSize() > 0) {
+					std::string tempstr = GetRecMess();
+					StringToBin(&lastconnection_shared->ncb_buffer_4.p, &lastconnection_shared->ncb_bufferLength_8, &tempstr);
+					lastconnection_shared->ncb_cmd_cplt_49 = 0x0;
+					lastconnection_shared = NULL;
+#ifdef TEST_NETWORK_MESSAGES
+					debug_net_printf("lastconnection set to NULL RECEIVE\n");
+#endif //TEST_NETWORK_MESSAGES
+				}
+				//exit(0);
 				break;
 			}
 			case 0xb0: {//ADD_NAME
@@ -782,7 +792,7 @@ void processEnd() {
 			}
 			//lastconnection = NULL;
 		}
-		else
+		/*else
 		{
 			switch (lastconnection_shared->ncb_command_0)
 			{
@@ -800,7 +810,7 @@ void processEnd() {
 					break;
 				}
 			}
-		}
+		}*/
 	lastconnection_mt.unlock();
 }
 
@@ -1071,7 +1081,7 @@ void ListenerClient() {
 
 			else if (!messages[0].compare("MESSAGE_SEND"))
 			{
-				AddRecMess(messages[0]);
+				AddRecMess(messages[1]);
 				networkTimeout(0);
 				resetTimeout();
 #ifdef TEST_NETWORK_MESSAGES
