@@ -736,7 +736,7 @@ void processEnd() {
 					lastconnection_shared->ncb_buffer_4.p[2] = 2;
 					BinToString(&lastconnection_shared->ncb_buffer_4.p, &lastconnection_shared->ncb_bufferLength_8, &tempstr);*/
 
-					SendNetwork(lastconnection_shared);
+					//SendNetwork(lastconnection_shared);
 
 					StringToBin(&lastconnection_shared->ncb_buffer_4.p, &lastconnection_shared->ncb_bufferLength_8, &tempstr);
 					lastconnection_shared->ncb_cmd_cplt_49 = 0x0;
