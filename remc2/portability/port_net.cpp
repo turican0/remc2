@@ -721,14 +721,21 @@ void processEnd() {
 				break;
 			}
 			case 0x95: {//RECEIVE(opposite send)
-				lastconnection_shared->ncb_cmd_cplt_49 = 0x0;
+				/*lastconnection_shared->ncb_cmd_cplt_49 = 0x0;
 				lastconnection_shared = NULL;
 #ifdef TEST_NETWORK_MESSAGES
 				debug_net_printf("lastconnection set to NULL RECEIVE,exit\n");
-#endif //TEST_NETWORK_MESSAGES
+#endif //TEST_NETWORK_MESSAGES*/
 
 				if (GetRecSize() > 0) {
 					std::string tempstr = GetRecMess();
+
+					/*lastconnection_shared->ncb_bufferLength_8 = 11;
+					lastconnection_shared->ncb_buffer_4.p[0] = 1;
+					lastconnection_shared->ncb_buffer_4.p[1] = 0;
+					lastconnection_shared->ncb_buffer_4.p[2] = 2;
+					BinToString(&lastconnection_shared->ncb_buffer_4.p, &lastconnection_shared->ncb_bufferLength_8, &tempstr);*/
+
 					StringToBin(&lastconnection_shared->ncb_buffer_4.p, &lastconnection_shared->ncb_bufferLength_8, &tempstr);
 					lastconnection_shared->ncb_cmd_cplt_49 = 0x0;
 					lastconnection_shared = NULL;
@@ -1291,17 +1298,17 @@ void BinToString(uint8_t** buffer, uint16_t* lenght, std::string* str) {
 	std::stringstream ss;
 	for (int i = 0; i < *lenght; i++)
 	{
-		ss << 0x00 << (*buffer)[i];
+		ss << '0' << (*buffer)[i];
 	}
-	ss << 0x01;
+	ss << '1';
 	*str=ss.str();
 }
 
 void StringToBin(uint8_t** buffer, uint16_t* lenght, std::string* str) {
 	*lenght = 0;
-	while(buffer[0 + (*lenght) * 2]==0)
+	while(str->at(0 + (*lenght) * 2)!='0')
 	{
-		buffer[1+(*lenght)*2];
+		(*buffer)[*lenght]=str->at(1 + (*lenght) * 2);
 		(*lenght)++;
 	}
 }
