@@ -736,7 +736,7 @@ void processEnd() {
 					lastconnection_shared->ncb_buffer_4.p[2] = 2;
 					BinToString(&lastconnection_shared->ncb_buffer_4.p, &lastconnection_shared->ncb_bufferLength_8, &tempstr);*/
 
-					//SendNetwork(lastconnection_shared);
+					SendNetwork(lastconnection_shared);
 
 					StringToBin(&lastconnection_shared->ncb_buffer_4.p, &lastconnection_shared->ncb_bufferLength_8, &tempstr);
 					lastconnection_shared->ncb_cmd_cplt_49 = 0x0;
@@ -1301,7 +1301,7 @@ void BinToString(uint8_t** buffer, uint16_t* lenght, std::string* str) {
 	for (int i = 0; i < *lenght; i++)
 	{
 		uint8_t locchar = (*buffer)[i];
-		ss << ('A'+ locchar/16) << ('A' + locchar % 16);
+		ss << (char)('A'+ locchar/16) << (char)('A' + locchar % 16);
 	}
 	ss << 'Z';
 	*str=ss.str();
