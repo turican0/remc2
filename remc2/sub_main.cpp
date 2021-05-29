@@ -89968,7 +89968,7 @@ signed int NetworkListen_74B75(__int16 a1)//255b75
 // 99D84: using guessed type x_DWORD strcat(x_DWORD, x_DWORD);
 
 //----- (00074C9D) --------------------------------------------------------
-int NetworkReceivePacket_74C9D(myNCB* connection, uint8_t* buffer, int maxsize = 20000)//255c9d
+int NetworkReceivePacket_74C9D(myNCB* connection, uint8_t* buffer, int maxsize = 50000)//255c9d
 {
 	connection->ncb_command_0 = 0x95;//RECEIVE
 
@@ -90001,14 +90001,14 @@ void NetworkReceiveMessage_74D41(myNCB* connection, uint8_t* inbuffer, unsigned 
 
 	buffer = inbuffer;
 	packedReceived = 0;
-	while (size > 20000 * (packedReceived+1))
+	while (size > 50000 * (packedReceived+1))
 	{
-		if (NetworkReceivePacket_74C9D(connection, buffer) != 20000)
+		if (NetworkReceivePacket_74C9D(connection, buffer) != 50000)
 			return;
 		packedReceived++;
-		buffer += 20000;
+		buffer += 50000;
 	}
-	/*v3 = */NetworkReceivePacket_74C9D(connection, buffer, size- 20000 * packedReceived);
+	/*v3 = */NetworkReceivePacket_74C9D(connection, buffer, size- 50000 * packedReceived);
 	/*if ((size & 0x7FF) == v3)
 		v5 = size;
 	else
@@ -90062,14 +90062,14 @@ void NetworkSendMessage_74EF1(myNCB* connection, uint8_t* inbuffer, unsigned int
 	packedSended = 0;
 
 
-	while (size > 20000 * (packedSended+1))
+	while (size > 50000 * (packedSended+1))
 	{
-		if (NetworkSendPacket_74E6D(connection, buffer, 20000) != 20000)
+		if (NetworkSendPacket_74E6D(connection, buffer, 50000) != 50000)
 			return;
 		packedSended++;
-		buffer += 20000;
+		buffer += 50000;
 	}
-	NetworkSendPacket_74E6D(connection, buffer, size - (20000 * packedSended));
+	NetworkSendPacket_74E6D(connection, buffer, size - (50000 * packedSended));
 
 	/*
 	while (1)
