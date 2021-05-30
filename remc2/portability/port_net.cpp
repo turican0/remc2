@@ -791,6 +791,7 @@ void processEnd() {
 		//else
 		//{
 		if (GetRecSize() > 0)
+			if(lastconnection_shared)
 			switch (lastconnection_shared->ncb_command_0)
 			{
 				case 0x95: {//RECEIVE(opposite send)
