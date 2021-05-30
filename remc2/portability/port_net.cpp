@@ -723,24 +723,9 @@ void processEnd() {
 #endif //TEST_NETWORK_MESSAGES
 				break;
 			}
-			case 0x95: {//RECEIVE(opposite send)
-				/*lastconnection_shared->ncb_cmd_cplt_49 = 0x0;
-				lastconnection_shared = NULL;
-#ifdef TEST_NETWORK_MESSAGES
-				debug_net_printf("lastconnection set to NULL RECEIVE,exit\n");
-#endif //TEST_NETWORK_MESSAGES*/
-
+			/*case 0x95: {//RECEIVE(opposite send)
 				if (GetRecSize() > 0) {
 					std::string tempstr = GetRecMess();
-
-					/*lastconnection_shared->ncb_bufferLength_8 = 11;
-					lastconnection_shared->ncb_buffer_4.p[0] = 1;
-					lastconnection_shared->ncb_buffer_4.p[1] = 0;
-					lastconnection_shared->ncb_buffer_4.p[2] = 2;
-					BinToString(&lastconnection_shared->ncb_buffer_4.p, &lastconnection_shared->ncb_bufferLength_8, &tempstr);*/
-
-					//SendNetwork(lastconnection_shared);
-
 					StringToBin(&lastconnection_shared->ncb_buffer_4.p, &lastconnection_shared->ncb_bufferLength_8, &tempstr);
 					lastconnection_shared->ncb_cmd_cplt_49 = 0x0;
 					lastconnection_shared = NULL;
@@ -748,9 +733,8 @@ void processEnd() {
 					debug_net_printf("lastconnection set to NULL RECEIVE\n");
 #endif //TEST_NETWORK_MESSAGES
 				}
-				//exit(0);
 				break;
-			}
+			}*/
 			case 0xb0: {//ADD_NAME
 				if (netstate() == NETI_ADD_NAME_REJECT)
 				{
@@ -804,25 +788,23 @@ void processEnd() {
 			}
 			//lastconnection = NULL;
 		}
-		/*else
-		{
+		//else
+		//{
+		if (GetRecSize() > 0)
 			switch (lastconnection_shared->ncb_command_0)
 			{
-				case 0x95://RECEIVE
-				{
-					if (GetRecSize() > 0) {
-						std::string tempstr = GetRecMess();
-						StringToBin(&lastconnection_shared->ncb_buffer_4.p, &lastconnection_shared->ncb_bufferLength_8, &tempstr);
-						lastconnection_shared->ncb_cmd_cplt_49 = 0x0;
-						lastconnection_shared = NULL;
-	#ifdef TEST_NETWORK_MESSAGES
-						debug_net_printf("lastconnection set to NULL RECEIVE\n");
-	#endif //TEST_NETWORK_MESSAGES
-					}
+				case 0x95: {//RECEIVE(opposite send)
+					std::string tempstr = GetRecMess();
+					StringToBin(&lastconnection_shared->ncb_buffer_4.p, &lastconnection_shared->ncb_bufferLength_8, &tempstr);
+					lastconnection_shared->ncb_cmd_cplt_49 = 0x0;
+					lastconnection_shared = NULL;
+#ifdef TEST_NETWORK_MESSAGES
+					debug_net_printf("lastconnection set to NULL RECEIVE\n");
+#endif //TEST_NETWORK_MESSAGES
 					break;
 				}
 			}
-		}*/
+		//}
 	lastconnection_mt.unlock();
 }
 
