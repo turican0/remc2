@@ -1015,7 +1015,7 @@ void ListenerClient() {
 			messages.push_back(receivedMessageStr);
 
 #ifdef TEST_NETWORK_MESSAGES
-			debug_net_printf("Client Get Message:%s\n", messages[0]);
+			debug_net_printf("Client Get Message:%s\n", messages[0].c_str());
 #endif //TEST_NETWORK_MESSAGES
 
 			/*
