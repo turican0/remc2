@@ -510,6 +510,9 @@ uint32_t GetOtherSide(uint32_t id) {
 	for (int i = 0; i < clientListenID.size(); i++)
 		if (clientListenID[i]== id)
 			return clientListenID2[i];
+	for (int i = 0; i < clientListenID2.size(); i++)
+		if (clientListenID2[i] == id)
+			return clientListenID[i];
 	return 1000;
 }
 
@@ -843,6 +846,10 @@ void ListenerServer() {
 			}
 			messages.push_back(receivedMessageStr);
 
+#ifdef TEST_NETWORK_MESSAGES
+			debug_net_printf("Server Get Message:%s\n", messages[0]);
+#endif //TEST_NETWORK_MESSAGES
+
 			if (!messages[0].compare("MESSAGE_CANCEL"))
 			{
 				if(messages[1].compare(""))
@@ -1006,6 +1013,10 @@ void ListenerClient() {
 				receivedMessageStr.erase(0, pos + delimiter.length());
 			}
 			messages.push_back(receivedMessageStr);
+
+#ifdef TEST_NETWORK_MESSAGES
+			debug_net_printf("Client Get Message:%s\n", messages[0]);
+#endif //TEST_NETWORK_MESSAGES
 
 			/*
 								server->SendToClient(std::string("MESSAGE_TESTADDNAME_OK;"), receivedMessage.second);
