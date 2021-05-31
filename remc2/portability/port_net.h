@@ -107,6 +107,8 @@ std::string GetRecMess();
 unsigned int GetRecSize();
 
 void printState(myNCB** connections);
+void printState2(char* text);
+
 void SendNetwork(myNCB* connection);
 
 #endif //PORT_TIME

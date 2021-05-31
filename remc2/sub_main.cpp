@@ -89479,7 +89479,10 @@ void sub_7373D(__int16 a1)//25473d
 				for (i = 0; maxPlayers_E127A > i; i++)
 				{
 					if (v3[i] == 1)
+					{
 						NetworkSendMessage2_74006(i, v3, 8u);
+						printState2("Send State 1\n");
+					}
 				}
 				NetworkCanceling_73669(a1);
 			}
@@ -89576,7 +89579,10 @@ void sub_73AA1(__int16 a1)//254aa1
 				for (i = 0; maxPlayers_E127A > i; i++)
 				{
 					if (v4[i] == 1)
+					{
 						NetworkSendMessage2_74006(i, v4, 8u);
+						printState2("Send State 2\n");
+					}
 				}
 				sub_739AD(a1);
 			}
@@ -89697,12 +89703,16 @@ void ReceiveSendAll_7438A(uint8_t* buffer, unsigned int size)//25538a
 			for (int j = 0; j < countConnected_E1278; j++)
 			{
 				if (j != x_WORD_E1276)
+				{
 					NetworkSendMessage2_74006(j, buffer, size * countConnected_E1278);
+					printState2("Send State 3\n");
+				}
 			}
 		}
 		else
 		{
 			NetworkSendMessage2_74006(x_WORD_E12A8, (buffer + size * x_WORD_E1276), size);
+			printState2("Send State 4\n");
 			NetworkReceiveMessage2_7404E(x_WORD_E12A8, buffer, size * countConnected_E1278);
 		}
 	}

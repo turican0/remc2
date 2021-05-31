@@ -1485,3 +1485,9 @@ void printState(myNCB** connections) {
 #endif //TEST_NETWORK_MESSAGES
 }
 
+void printState2(char* text) {
+#ifdef TEST_NETWORK_MESSAGES
+	debug_net_printf("%s", text);
+#endif //TEST_NETWORK_MESSAGES
+}
+
