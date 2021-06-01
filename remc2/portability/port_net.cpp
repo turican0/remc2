@@ -1085,8 +1085,8 @@ void ListenerClient() {
 			else if (!messages[0].compare("MESSAGE_SEND"))
 			{
 				AddRecMess(messages[1]);
-				//networkTimeout(0);
-				//resetTimeout();
+				networkTimeout(0);
+				resetTimeout();
 #ifdef TEST_NETWORK_MESSAGES
 				debug_net_printf("CLIENT MESSAGE_SEND:\n");
 #endif //TEST_NETWORK_MESSAGES
