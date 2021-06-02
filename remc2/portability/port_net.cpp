@@ -880,8 +880,11 @@ void ListenerServer() {
 			else if (!messages[0].compare("MESSAGE_SEND"))
 			{
 				uint32_t otherid= GetOtherSide(receivedMessage.second);
-				if(otherid!=1000)
+				if (otherid != 1000)
+				{
 					server->SendToClient(messages[0] + std::string(";") + messages[1], otherid);
+					server->SendToClient(std::string("MESSAGE_SEND_OK;"), receivedMessage.second);
+				}
 #ifdef TEST_NETWORK_MESSAGES
 				debug_net_printf("SERVER MESSAGE_SEND:%s %d %d\n", messages[1].c_str(), otherid, receivedMessage.second);
 #endif //TEST_NETWORK_MESSAGES
@@ -1091,6 +1094,13 @@ void ListenerClient() {
 				debug_net_printf("CLIENT MESSAGE_SEND:\n");
 #endif //TEST_NETWORK_MESSAGES
 			}
+			else if (!messages[0].compare("MESSAGE_SEND_OK")) {
+				networkTimeout(0);
+				resetTimeout();
+#ifdef TEST_NETWORK_MESSAGES
+				debug_net_printf("CLIENT MESSAGE_SEND OK:\n");
+#endif //TEST_NETWORK_MESSAGES
+			}
 		}
 		mySleep(1);
 		processEnd();
@@ -1138,7 +1148,7 @@ void EndLibNetServer() {
 	mySleep(2000);
 	server->~Server();	
 }
-
+/*
 void FakeTestsClient() {
 	mySleep(2000);
 	client = new NetworkLib::Client("127.0.0.1", ServerMPort, ClientMPort);
@@ -1146,8 +1156,9 @@ void FakeTestsClient() {
 	NetworkInitClient();
 	mySleep(2000);
 	client->Send(std::string("MESSAGE_TESTADDNAME;") + std::string("testname"));
-};
+};*/
 
+/*
 void testlib1() {
 	//TEST_METHOD(SendMessageFromClientToServerShouldProduceSameMessage)
 	{
@@ -1184,7 +1195,7 @@ void testlib1() {
 
 	}
 }
-
+*/
 
 /*
 //CreateMessage
