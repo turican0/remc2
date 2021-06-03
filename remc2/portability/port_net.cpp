@@ -798,11 +798,11 @@ void processEnd() {
 					std::string tempstr = GetRecMess();
 					StringToBin(&lastconnection_shared->ncb_buffer_4.p, &lastconnection_shared->ncb_bufferLength_8, &tempstr);
 					lastconnection_shared->ncb_cmd_cplt_49 = 0x0;
-					lastconnection_shared = NULL;
 #ifdef TEST_NETWORK_MESSAGES
 					debug_net_printf("CONVERT FROM MESSAGE:%d:%s\n", lastconnection_shared->ncb_bufferLength_8, tempstr);
 					debug_net_printf("lastconnection set to NULL RECEIVE\n");
 #endif //TEST_NETWORK_MESSAGES
+					lastconnection_shared = NULL;
 					break;
 				}
 			}
