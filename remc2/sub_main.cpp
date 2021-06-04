@@ -67468,76 +67468,13 @@ type_SPELLS_BEGIN_BUFFER_str;
 }
 
 void InitNetworkInfo() {
-	std::string exepath = get_exe_path();
-	debug_net_filename2 = exepath + "/../" + debug_net_filename1;
+		std::string exepath = get_exe_path();
+		debug_net_filename2 = exepath + "/../" + debug_net_filename1;
 
-	//testlib1();
-	if(Iam_server)
-		InitLibNetServer(ServerMPort);
-	InitLibNetClient(serverIP, ServerMPort, ClientMPort);
-
-	//exit(0);
-	/*
-
-
-	long MultiplayerTimeout = 2000;
-	long MultiplayerTimeoutHundred = MultiplayerTimeout/10;
-	int clientsCount = 0;
-	if (Iam_server) {
-		myprintf("I listen for clients.\n", serverIP);
-		long begin_time=clock_value();
-		int old_seconds = MultiplayerTimeoutHundred / 100;
-		//while ((clock_value() <= begin_time + MultiplayerTimeoutHundred)|| (clientsCount==0))
-		while ((clock_value() <= begin_time + MultiplayerTimeoutHundred))
-		{
-			long testclock = clock_value();
-			char* actclient=NetworkListenForClients();
-			if (actclient != NULL)
-			{
-				myprintf("Detect client on adress %s\n", actclient);
-				clientsCount++;
-			}
-			int actsectime = ((begin_time + MultiplayerTimeoutHundred)- clock_value()) / 100;
-			if (actsectime != old_seconds)
-			{
-				old_seconds = actsectime;
-				if(actsectime<0)
-					myprintf("Listen again, any client no detected\n");
-				else
-					myprintf("%d\n", actsectime);
-			}
-		}
-		myprintf("Listening is end.\n");
-		//if (clientsCount==0)
-		//{
-//			myprintf("Clients no detected\n", serverIP);
-			//mydelay(10000);
-			//exit(0);
-		//}
-	}
-	else if (Iam_client) {
-		long begin_time = clock_value();
-		int old_seconds = MultiplayerTimeout / 1000;
-		
-		while (clock_value() <= begin_time + MultiplayerTimeout)
-		{
-			if (NetworkGetInitInfoFromServer(serverIP))
-			{
-				myprintf("Test Server on %s OK.\n", serverIP);
-				break;
-			}
-			int actsectime = (clock_value() - begin_time + MultiplayerTimeout) / 1000;
-			if (actsectime != old_seconds)
-				myprintf("%d\n", actsectime);
-		}
-		if (clock_value() > begin_time + MultiplayerTimeout)
-		{
-			myprintf("Server on %s not reachable, please edit IP adress in file\n \"MultiplayerClient.bat\"\n", serverIP);
-			mydelay(10000);
-			exit(0);
-		}
-	}
-	*/
+		//testlib1();
+		if (Iam_server)
+			InitLibNetServer(ServerMPort);
+		InitLibNetClient(serverIP, ServerMPort, ClientMPort);
 };
 
 
@@ -67650,7 +67587,8 @@ int sub_main(int argc, char** argv, char**  /*envp*/)//236F70
 
 	sub_56210_process_command_line(argc, argv);//236FD4 - 237210
 #ifdef TEST_NETWORK
-	InitNetworkInfo();
+	if (Iam_server || Iam_client)
+		InitNetworkInfo();
 #endif //TEST_NETWORK
 
 
@@ -67666,11 +67604,12 @@ int sub_main(int argc, char** argv, char**  /*envp*/)//236F70
 	sub_56730_clean_memory();//237730
 	
 #ifdef TEST_NETWORK
-
-	EndLibNetClient();
-	if(Iam_server)
-		EndLibNetServer();
-	
+	if (Iam_server || Iam_client)
+	{
+		EndLibNetClient();
+		if (Iam_server)
+			EndLibNetServer();
+	}	
 #endif //TEST_NETWORK
 
 	return 0;
