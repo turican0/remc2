@@ -408,7 +408,7 @@ std::mutex print_mt;
 
 void debug_net_printf(const char* format, ...) {
 	print_mt.lock();
-	char prbuffer[1024];
+	char prbuffer[1024*30];
 	va_list arg;
 	int done;
 	va_start(arg, format);
