@@ -408,7 +408,7 @@ std::mutex print_mt;
 
 void debug_net_printf(const char* format, ...) {
 	print_mt.lock();
-	char prbuffer[1024*30];
+	char prbuffer[1024*40];
 	va_list arg;
 	int done;
 	va_start(arg, format);
@@ -799,7 +799,7 @@ void processEnd() {
 					StringToBin(&lastconnection_shared->ncb_buffer_4.p, &lastconnection_shared->ncb_bufferLength_8, &tempstr);
 					lastconnection_shared->ncb_cmd_cplt_49 = 0x0;
 #ifdef TEST_NETWORK_MESSAGES
-					debug_net_printf("CONVERT FROM MESSAGE:%d:%s\n", lastconnection_shared->ncb_bufferLength_8, tempstr.c_str());
+					//debug_net_printf("CONVERT FROM MESSAGE:%d:%s\n", lastconnection_shared->ncb_bufferLength_8, tempstr.c_str());
 					debug_net_printf("lastconnection set to NULL RECEIVE\n");
 #endif //TEST_NETWORK_MESSAGES
 					lastconnection_shared = NULL;
@@ -1327,7 +1327,7 @@ void SendNetwork(myNCB* connection) {
 	BinToString(&connection->ncb_buffer_4.p, &connection->ncb_bufferLength_8, &tempstr);
 	client->Send(std::string("MESSAGE_SEND;") + tempstr);
 #ifdef TEST_NETWORK_MESSAGES
-	debug_net_printf("CONVERT TO MESSAGE:%d:%s\n", connection->ncb_bufferLength_8, tempstr.c_str());
+	//debug_net_printf("CONVERT TO MESSAGE:%d:%s\n", connection->ncb_bufferLength_8, tempstr.c_str());
 #endif //TEST_NETWORK_MESSAGES
 	/*if (!getConnection())return;
 	CreateMessage(MESSAGE_SEND, (uint8_t*)connection->ncb_buffer_4.p, connection->ncb_bufferLength_8);
