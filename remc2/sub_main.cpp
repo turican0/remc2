@@ -89419,8 +89419,8 @@ void sub_7373D(__int16 a1)//25473d
 				{
 					if (v3[i] == 1)
 					{
-						NetworkSendMessage2_74006(i, v3, 8u);
 						printState2((char*)"Send State 1\n");
+						NetworkSendMessage2_74006(i, v3, 8u);						
 					}
 				}
 				NetworkCanceling_73669(a1);
@@ -89519,8 +89519,8 @@ void sub_73AA1(__int16 a1)//254aa1
 				{
 					if (v4[i] == 1)
 					{
-						NetworkSendMessage2_74006(i, v4, 8u);
 						printState2((char*)"Send State 2\n");
+						NetworkSendMessage2_74006(i, v4, 8u);						
 					}
 				}
 				sub_739AD(a1);
@@ -89643,15 +89643,15 @@ void ReceiveSendAll_7438A(uint8_t* buffer, unsigned int size)//25538a
 			{
 				if (j != x_WORD_E1276)
 				{
-					NetworkSendMessage2_74006(j, buffer, size * countConnected_E1278);
 					printState2((char*)"Send State 3\n");
+					NetworkSendMessage2_74006(j, buffer, size * countConnected_E1278);				
 				}
 			}
 		}
 		else
 		{
-			NetworkSendMessage2_74006(x_WORD_E12A8, (buffer + size * x_WORD_E1276), size);
 			printState2((char*)"Send State 4\n");
+			NetworkSendMessage2_74006(x_WORD_E12A8, (buffer + size * x_WORD_E1276), size);			
 			NetworkReceiveMessage2_7404E(x_WORD_E12A8, buffer, size * countConnected_E1278);
 		}
 	}
@@ -89706,18 +89706,18 @@ uint8_t NetworkAllocation_74556()//255556 push ebp 355250
 		{
 			if (NetworkInit_74A11() == -1)//255a11
 				return 0;
-			networkBuffer_E127E = (uint8_t*)sub_83D70_malloc1(2048);
-			memset(networkBuffer_E127E, 0, 2048);
+			networkBuffer_E127E = (uint8_t*)sub_83D70_malloc1(2048*10);
+			memset(networkBuffer_E127E, 0, 2048 * 10);
 			if (networkBuffer_E127E)
 			{
-				paket_E1282 = (uint8_t*)sub_83D70_malloc1(2048);
-				memset(paket_E1282, 0, 2048);
+				paket_E1282 = (uint8_t*)sub_83D70_malloc1(2048 * 10);
+				memset(paket_E1282, 0, 2048 * 10);
 				if (paket_E1282)
 				{
 					for (i = 0; i < 8; i++)
 					{
-						packetArray_E1286[i] = (uint8_t*)sub_83D70_malloc1(2048);
-						memset(packetArray_E1286[i], 0, 2048);
+						packetArray_E1286[i] = (uint8_t*)sub_83D70_malloc1(2048 * 10);
+						memset(packetArray_E1286[i], 0, 2048 * 10);
 						if (!packetArray_E1286[i])
 						{
 							v2 = 0;
