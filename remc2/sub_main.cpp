@@ -40565,6 +40565,7 @@ void DrawAndEventsInGame_47560(/*uint8_t* a1, int a2, */uint32_t a3, signed int 
 	uint8_t speed; // al
 	signed int j; // ebx
 	signed int i; // ebx
+	frameStart = clock();
 
 	if ((debugafterload == 1) && (count_begin == 1))
 		debugcounter_47560++;
@@ -77795,8 +77796,30 @@ void VGA_BlitAny(uint16_t width, uint16_t height, uint8_t* pScreenBuffer)//25620
 	mydelay(newdelay);//set speed
 	oldmillis = actmillis;
 	//set speed
+
+	VGA_CalculateAndPrintFPS(0, 0);
 }
 
+
+void VGA_CalculateAndPrintFPS(int x, int y)
+{
+	timeDelta += clock() - frameStart;
+	frameCount++;
+
+	if (clockToMilliseconds(timeDelta) > 1000.0)
+	{
+		fps = frameCount;
+		frameCount = 0;
+		timeDelta = 0;
+	}
+
+	VGA_GotoXY(x, y);
+	std::string fpsStr = "FPS: ";
+	fpsStr.append(std::to_string(fps));
+	const char* cstr = fpsStr.c_str();
+
+	VGA_Draw_string((char*)fpsStr.c_str());
+}
 //----- (000753D0) --------------------------------------------------------
 void sub_753D0()
 {
