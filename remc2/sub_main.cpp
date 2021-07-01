@@ -40565,7 +40565,10 @@ void DrawAndEventsInGame_47560(/*uint8_t* a1, int a2, */uint32_t a3, signed int 
 	uint8_t speed; // al
 	signed int j; // ebx
 	signed int i; // ebx
+
+#if _DEBUG
 	frameStart = clock();
+#endif
 
 	if ((debugafterload == 1) && (count_begin == 1))
 		debugcounter_47560++;
@@ -77797,7 +77800,9 @@ void VGA_BlitAny(uint16_t width, uint16_t height, uint8_t* pScreenBuffer)//25620
 	oldmillis = actmillis;
 	//set speed
 
+#if _DEBUG
 	VGA_CalculateAndPrintFPS(0, 0);
+#endif
 }
 
 
