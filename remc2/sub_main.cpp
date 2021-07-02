@@ -1484,7 +1484,7 @@ void sub_2EB40();
 //void sub_2EC60();
 //void sub_2EC90(char a1);
 void DrawBottomMenu_2ECC0(uint16_t screenWidth, uint16_t screenHeight);
-void sub_2F6B0();
+void DrawChatMenu_2F6B0(uint16_t screenWidth, uint16_t screenHeight);
 void DrawPauseMenu_2FD90(uint16_t screenWidth, uint16_t screenHeight);
 void GetPauseMenuCoordinates_2FFE0(uint16_t screenWidth, int16_t* a1, int16_t* a2, int16_t* a3, int16_t* a4);
 void DrawInGameOptionsMenu_30050(uint16_t screenWidth);
@@ -12293,7 +12293,7 @@ void MouseAndKeysEvents_17A00(signed int a2, __int16 a3, uint16_t screenWidth, u
 			if (x_WORD_180660_VGA_type_resolution & 1)
 				v28 = 400;
 			else
-				v28 = 480;
+				v28 = screenHeight;
 			v29 = v28 - 72;
 			if (unk_18058Cstr.x_DWORD_1805B0_mouse.x < 4 || unk_18058Cstr.x_DWORD_1805B0_mouse.x >= 66 || v29 + 28 > unk_18058Cstr.x_DWORD_1805B0_mouse.y || v29 + 66 <= unk_18058Cstr.x_DWORD_1805B0_mouse.y)
 			{
@@ -27724,7 +27724,7 @@ void DrawGameFrame_2BE30(uint8_t* ptrScreenBuffer, uint16_t screenWidth, uint16_
 			switch (D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x3DF_2BE4_12221)
 			{
 			case 3:
-				sub_2F6B0();
+				DrawChatMenu_2F6B0(screenWidth, screenHeight);
 				goto LABEL_41;
 			case 9:
 				DrawInGameOptionsMenu_30050(screenWidth);
@@ -29353,7 +29353,7 @@ void DrawBottomMenu_2ECC0(uint16_t screenWidth, uint16_t screenHeight)
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
 //----- (0002F6B0) --------------------------------------------------------
-void sub_2F6B0()//2106b0
+void DrawChatMenu_2F6B0(uint16_t screenWidth, uint16_t screenHeight)//2106b0
 {
 	signed int v0; // eax
 	//int v1; // eax
@@ -29412,7 +29412,7 @@ void sub_2F6B0()//2106b0
 	if (x_WORD_180660_VGA_type_resolution & 1)
 		v0 = 400;
 	else
-		v0 = 480;
+		v0 = screenHeight;
 	v40 = v0 - 72;
 	v36 = 0;
 	//v1 = 5 * static_cast<std::underlying_type<MapType_t>::type>(D41A0_BYTESTR_0.terrain_2FECE.MapType);
@@ -29427,13 +29427,13 @@ void sub_2F6B0()//2106b0
 	v43 = (*xadataclrd0dat.var28_begin_buffer)[0xf00];
 	v4 = v40;
 	v51 = -1;
-	DrawLine_2BC80(0, v40, 640, 72, v2);
+	DrawLine_2BC80(0, v40, 640, 72, screenWidth, v2);
 	v34 = v49;
-	DrawLine_2BC80(0, v4, 640, 2, v49);
+	DrawLine_2BC80(0, v4, 640, 2, screenWidth, v49);
 	v5 = v48;
-	DrawLine_2BC80(0, v40 + 70, 640, 2, v48);
-	DrawLine_2BC80(0, v4, 2, 70, v34);
-	DrawLine_2BC80(v36 + 638, v4, 2, 72, v5);
+	DrawLine_2BC80(0, v40 + 70, 640, 2, screenWidth, v48);
+	DrawLine_2BC80(0, v4, 2, 70, screenWidth, v34);
+	DrawLine_2BC80(v36 + 638, v4, 2, 72, screenWidth, v5);
 	if (x_WORD_E3760_mouse.x < 4
 		|| x_WORD_E3760_mouse.x >= 66
 		|| x_WORD_E3760_mouse.y < v40 + 28
@@ -29454,13 +29454,13 @@ void sub_2F6B0()//2106b0
 	v8 = v36 + 4;
 	v9 = v36 + 4;
 	v34 = (signed __int16)(v40 + 4);
-	DrawLine_2BC80(v36 + 4, v40 + 4, 372, 20, v47);
+	DrawLine_2BC80(v36 + 4, v40 + 4, 372, 20, screenWidth, v47);
 	v35 = v48;
-	DrawLine_2BC80(v9, v34, 372, 2, v48);
+	DrawLine_2BC80(v9, v34, 372, 2, screenWidth, v48);
 	v38 = v49;
-	DrawLine_2BC80(v9, v7 + 18, 372, 2, v49);
-	DrawLine_2BC80(v9, v34, 2, 18, v35);
-	DrawLine_2BC80(v8 + 370, v34, 2, 20, v38);
+	DrawLine_2BC80(v9, v7 + 18, 372, 2, screenWidth, v49);
+	DrawLine_2BC80(v9, v34, 2, 18, screenWidth, v35);
+	DrawLine_2BC80(v8 + 370, v34, 2, 20, screenWidth, v38);
 	sprintf(printbuffer, "%s", D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].names_81[v46]);
 	v7 += 2;
 	v8 += 6;
@@ -29476,7 +29476,7 @@ void sub_2F6B0()//2106b0
 	v14 = v10;
 	v15 = v40;
 	v16 = v36;
-	DrawLine_2BC80(v14, v13, 6, 12, v12);
+	DrawLine_2BC80(v14, v13, 6, 12, screenWidth, v12);
 	v17 = v15 + 28;
 	v18 = v16 + 4;
 	while (v39 < 8)
@@ -29575,13 +29575,13 @@ void sub_2F6B0()//2106b0
 	sub_2BB40_draw_bitmap(v36 + 474, v28, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[261]);
 	sub_2BB40_draw_bitmap(v36 + 564, v28, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[260]);
 	v30 = v40 + 50;
-	DrawLine_2BC80(v29, v40 + 50, 236, 18, v47);
+	DrawLine_2BC80(v29, v40 + 50, 236, 18, screenWidth, v47);
 	v31 = v48;
-	DrawLine_2BC80(v29, v30, 236, 2, v48);
+	DrawLine_2BC80(v29, v30, 236, 2, screenWidth, v48);
 	v38 = v49;
-	DrawLine_2BC80(v29, v40 + 66, 236, 2, v49);
-	DrawLine_2BC80(v29, v30, 2, 16, v31);
-	DrawLine_2BC80(v36 + 618, v30, 2, 18, v38);
+	DrawLine_2BC80(v29, v40 + 66, 236, 2, screenWidth, v49);
+	DrawLine_2BC80(v29, v30, 2, 16, screenWidth, v31);
+	DrawLine_2BC80(v36 + 618, v30, 2, 18, screenWidth, v38);
 	result = v51;
 	if (v51 != -1)
 		//v51
