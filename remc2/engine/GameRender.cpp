@@ -119,12 +119,15 @@ void GameRender::DrawWorld(int posX, int posY, int16_t rot, int16_t z, int16_t x
 
 	if (D41A0_0.m_GameSettings.str_0x2192.xxxx_0x2193 && m_uiScreenSize && m_uiScreenWidth == 640)
 	{
+		uint16_t origScreenWidth = m_uiScreenWidth;
+		uint16_t origScreenHeight = m_uiScreenHeight;
+
 		//VR interlaced render
 		SetRenderViewPortSize_BCD45(
 			m_ptrScreenBuffer,
-			2 * m_uiScreenWidth,
-			(unsigned __int16)(m_uiScreenWidth / 2 - 8),
-			(unsigned __int16)(m_uiScreenHeight / 2 - 40));
+			(origScreenWidth / 2) - 8,
+			(origScreenHeight / 2) - 40,
+			2 * origScreenWidth);
 		v22 = Maths::x_DWORD_DB750[v21];
 		x_DWORD_D4790 = 20;
 		v23 = 5 * v22;
@@ -132,12 +135,12 @@ void GameRender::DrawWorld(int posX, int posY, int16_t rot, int16_t z, int16_t x
 		x_DWORD_D4324 = -5;
 		v25 = 4 * v23 >> 16;
 		v26 = 20 * (signed int)v24 >> 16;
-		DrawTerrainAndParticles_3C080(v55 - v26, v56 - v25, v21, z, xshift, yshift, dd, str_DWORD_F66F0x, x_BYTE_E88E0x, x_DWORD_F5730, unk_F0A20x, x_DWORD_EA3E4, str_unk_1804B0ar, x_WORD_D4B7C, isCaveLevel, m_viewPort, m_uiScreenWidth);
-		SetRenderViewPortSize_BCD45(m_ptrScreenBuffer + m_uiScreenWidth / 2, 0, 0, 0);
+		DrawTerrainAndParticles_3C080(v55 - v26, v56 - v25, v21, z, xshift, yshift, dd, str_DWORD_F66F0x, x_BYTE_E88E0x, x_DWORD_F5730, unk_F0A20x, x_DWORD_EA3E4, str_unk_1804B0ar, x_WORD_D4B7C, isCaveLevel, m_viewPort, origScreenWidth);
+		SetRenderViewPortSize_BCD45(m_ptrScreenBuffer + (origScreenWidth / 2), 0, 0, 0);
 		x_DWORD_D4324 = 5;
-		DrawTerrainAndParticles_3C080(v55 + v26, v56 + v25, v21, z, xshift, yshift, dd, str_DWORD_F66F0x, x_BYTE_E88E0x, x_DWORD_F5730, unk_F0A20x, x_DWORD_EA3E4, str_unk_1804B0ar, x_WORD_D4B7C, isCaveLevel, m_viewPort, m_uiScreenWidth);
+		DrawTerrainAndParticles_3C080(v55 + v26, v56 + v25, v21, z, xshift, yshift, dd, str_DWORD_F66F0x, x_BYTE_E88E0x, x_DWORD_F5730, unk_F0A20x, x_DWORD_EA3E4, str_unk_1804B0ar, x_WORD_D4B7C, isCaveLevel, m_viewPort, origScreenWidth);
 		x_DWORD_D4324 = 0;
-		SetRenderViewPortSize_BCD45(m_ptrScreenBuffer, m_uiScreenWidth, (unsigned __int16)m_uiScreenWidth, (unsigned __int16)m_uiScreenHeight);
+		SetRenderViewPortSize_BCD45(m_ptrScreenBuffer, origScreenWidth, origScreenHeight, origScreenWidth);
 	}
 	else if (m_uiScreenSize != 1 || D41A0_0.m_GameSettings.str_0x2192.xxxx_0x2193)
 	{
