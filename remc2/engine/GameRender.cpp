@@ -13,7 +13,7 @@ GameRender::GameRender(uint8_t* pScreenBuffer, uint8_t* pColorPalette, uint16_t 
 
 GameRender::~GameRender()
 {
-	if (m_renderThreads.size() > 1)
+	if (m_renderThreads.size() > 0)
 	{
 		StopWorkerThreads();
 	}
@@ -810,7 +810,7 @@ void GameRender::DrawTerrainAndParticles_3C080(__int16 a3, __int16 a4, __int16 a
 	}
 	else
 	{
-		if (m_renderThreads.size() > 1)
+		if (m_renderThreads.size() > 0)
 		{
 			DrawSky_40950_TH(roll, m_ptrViewPortRenderBufferStart, viewPort.Width, viewPort.Height, screenWidth);
 		}
@@ -3104,7 +3104,7 @@ void GameRender::StartWorkerThread(int core)
 void GameRender::StopWorkerThreads()
 {
 	m_multiThreadRender = false;
-	if (m_renderThreads.size() > 1)
+	if (m_renderThreads.size() > 0)
 	{
 		for (std::thread& thread : m_renderThreads) {
 			if (thread.joinable()) {
@@ -3129,7 +3129,7 @@ void GameRender::DrawSquare(int* vertexs, int index, uint16_t viewPortWidth, uin
 
 	if ((uint8_t)m_Str_E9C38_smalltit[index].word38 & 1)
 	{
-		if (m_renderThreads.size() > 1)
+		if (m_renderThreads.size() > 0)
 		{
 			m_renderTasks = 1;
 			m_taskQueue.enqueue([this, &vertexs, pTexture, viewPortWidth, viewPortHeight, screenWidth] {
@@ -3148,7 +3148,7 @@ void GameRender::DrawSquare(int* vertexs, int index, uint16_t viewPortWidth, uin
 	}
 	else
 	{
-		if (m_renderThreads.size() > 1)
+		if (m_renderThreads.size() > 0)
 		{
 			m_renderTasks = 1;
 			m_taskQueue.enqueue([this, &vertexs, pTexture, viewPortWidth, viewPortHeight, screenWidth] {
@@ -3186,7 +3186,7 @@ void GameRender::DrawInverseSquare(int* vertexs, int index, uint8_t* pTexture, u
 
 	if (m_Str_E9C38_smalltit[index].word38 & 1)
 	{
-		if (m_renderThreads.size() > 1)
+		if (m_renderThreads.size() > 0)
 		{
 			m_renderTasks = 1;
 			m_taskQueue.enqueue([this, &vertexs, pTexture, viewPortWidth, viewPortHeight, screenWidth] {
@@ -3205,7 +3205,7 @@ void GameRender::DrawInverseSquare(int* vertexs, int index, uint8_t* pTexture, u
 	}
 	else
 	{
-		if (m_renderThreads.size() > 1)
+		if (m_renderThreads.size() > 0)
 		{
 			m_renderTasks = 1;
 			m_taskQueue.enqueue([this, &vertexs, pTexture, viewPortWidth, viewPortHeight, screenWidth] {
