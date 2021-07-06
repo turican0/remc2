@@ -165,10 +165,11 @@ void GameRender::DrawWorld(int posX, int posY, int16_t rot, int16_t z, int16_t x
 		}
 		if (D41A0_0.str_0x21AE.xxxx_0x21B1 && D41A0_0.m_GameSettings.m_Display.xxxx_0x2191 && x_DWORD_E9C3C)
 		{
-			//Blurr
+			//Blur
 			v35 = m_ptrViewPortRenderBufferStart;
 			SetRenderViewPortSize_BCD45(x_DWORD_E9C3C, 0, 0, 0);
 			DrawTerrainAndParticles_3C080(v55, v56, v21, z, xshift, yshift, dd, str_DWORD_F66F0x, x_BYTE_E88E0x, x_DWORD_F5730, unk_F0A20x, x_DWORD_EA3E4, str_unk_1804B0ar, x_WORD_D4B7C, isCaveLevel, m_viewPort, m_uiScreenWidth);
+			//Apply Blur
 			SetRenderViewPortSize_BCD45(v35, 0, 0, 0);
 			v51 = (signed int)(unsigned __int16)m_viewPort.Width >> 2;
 			v49 = m_uiScreenWidth - (unsigned __int16)m_viewPort.Width;
