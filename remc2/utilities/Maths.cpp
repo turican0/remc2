@@ -997,3 +997,13 @@ void Maths::x_BitScanReverse(uint32_t* Destination, uint32_t Source)
 	Destination = NULL;
 	return;
 };
+
+int Maths::SubtrackUntilZero(int x, int y)
+{
+	int result = x - y;
+	if (result < 0)
+	{
+		result = 0;
+	}
+	return result;
+}

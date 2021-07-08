@@ -23,6 +23,7 @@ public:
 	static uint16_t sub_72633_maybe_tan(int16_t a1, int16_t a2);
 	static int16_t sub_581E0_maybe_tan2(axis_3d* a1, axis_3d* a2);
 	static void x_BitScanReverse(uint32_t* Destination, uint32_t Source);
+	static int SubtrackUntilZero(int x, int y);
 
 };
 
