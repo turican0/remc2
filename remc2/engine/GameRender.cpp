@@ -3116,7 +3116,7 @@ void GameRender::StopWorkerThreads()
 	}
 }
 
-void GameRender::DrawSquare(int* vertexs, int index, uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t screenWidth)
+void GameRender::DrawSquare(int* vertexs, int index, uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t pitch)
 {
 	vertexs[20] = xunk_D4350[m_Str_E9C38_smalltit[index].byte42][0];
 	vertexs[21] = xunk_D4350[m_Str_E9C38_smalltit[index].byte42][1];
@@ -3133,16 +3133,16 @@ void GameRender::DrawSquare(int* vertexs, int index, uint16_t viewPortWidth, uin
 		if (m_renderThreads.size() > 0)
 		{
 			m_renderTasks = 1;
-			m_taskQueue.enqueue([this, &vertexs, pTexture, viewPortWidth, viewPortHeight, screenWidth] {
-				this->DrawTriangle_B6253(&vertexs[18], &vertexs[12], &vertexs[0], pTexture, unk_DE56Cx, viewPortWidth, viewPortHeight, screenWidth);
+			m_taskQueue.enqueue([this, &vertexs, pTexture, viewPortWidth, viewPortHeight, pitch] {
+				this->DrawTriangle_B6253(&vertexs[18], &vertexs[12], &vertexs[0], pTexture, unk_DE56Cx, viewPortWidth, viewPortHeight, pitch);
 				m_renderTasks--;
 				});
 		}
 		else
 		{
-			DrawTriangle_B6253(&vertexs[18], &vertexs[12], &vertexs[0], pTexture, unk_DE56Cx, viewPortWidth, viewPortHeight, screenWidth);
+			DrawTriangle_B6253(&vertexs[18], &vertexs[12], &vertexs[0], pTexture, unk_DE56Cx, viewPortWidth, viewPortHeight, pitch);
 		}
-		DrawTriangle_B6253(&vertexs[0], &vertexs[12], &vertexs[6], pTexture, unk_DE56Cx2, viewPortWidth, viewPortHeight, screenWidth);
+		DrawTriangle_B6253(&vertexs[0], &vertexs[12], &vertexs[6], pTexture, unk_DE56Cx2, viewPortWidth, viewPortHeight, pitch);
 
 		while (m_renderTasks > 0);
 
@@ -3152,28 +3152,28 @@ void GameRender::DrawSquare(int* vertexs, int index, uint16_t viewPortWidth, uin
 		if (m_renderThreads.size() > 0)
 		{
 			m_renderTasks = 1;
-			m_taskQueue.enqueue([this, &vertexs, pTexture, viewPortWidth, viewPortHeight, screenWidth] {
-				this->DrawTriangle_B6253(&vertexs[18], &vertexs[12], &vertexs[6], pTexture, unk_DE56Cx, viewPortWidth, viewPortHeight, screenWidth);
+			m_taskQueue.enqueue([this, &vertexs, pTexture, viewPortWidth, viewPortHeight, pitch] {
+				this->DrawTriangle_B6253(&vertexs[18], &vertexs[12], &vertexs[6], pTexture, unk_DE56Cx, viewPortWidth, viewPortHeight, pitch);
 				m_renderTasks--;
 				});
 		}
 		else
 		{ 
-			DrawTriangle_B6253(&vertexs[18], &vertexs[12], &vertexs[6], pTexture, unk_DE56Cx, viewPortWidth, viewPortHeight, screenWidth);
+			DrawTriangle_B6253(&vertexs[18], &vertexs[12], &vertexs[6], pTexture, unk_DE56Cx, viewPortWidth, viewPortHeight, pitch);
 		}
 
-		DrawTriangle_B6253(&vertexs[18], &vertexs[6], &vertexs[0], pTexture, unk_DE56Cx2, viewPortWidth, viewPortHeight, screenWidth);
+		DrawTriangle_B6253(&vertexs[18], &vertexs[6], &vertexs[0], pTexture, unk_DE56Cx2, viewPortWidth, viewPortHeight, pitch);
 
 		while (m_renderTasks > 0);
 	}
 }
 
-void GameRender::DrawInverseSquare(int* vertexs, int index, uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t screenWidth)
+void GameRender::DrawInverseSquare(int* vertexs, int index, uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t pitch)
 {
-	DrawInverseSquare(vertexs, index, m_textureAddresses.at(m_Str_E9C38_smalltit[index].byte41), viewPortWidth, viewPortHeight, screenWidth);
+	DrawInverseSquare(vertexs, index, m_textureAddresses.at(m_Str_E9C38_smalltit[index].byte41), viewPortWidth, viewPortHeight, pitch);
 }
 
-void GameRender::DrawInverseSquare(int* vertexs, int index, uint8_t* pTexture, uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t screenWidth)
+void GameRender::DrawInverseSquare(int* vertexs, int index, uint8_t* pTexture, uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t pitch)
 {
 	vertexs[20] = xunk_D4350[m_Str_E9C38_smalltit[index].byte42][0];
 	vertexs[21] = xunk_D4350[m_Str_E9C38_smalltit[index].byte42][1];
@@ -3190,17 +3190,17 @@ void GameRender::DrawInverseSquare(int* vertexs, int index, uint8_t* pTexture, u
 		if (m_renderThreads.size() > 0)
 		{
 			m_renderTasks = 1;
-			m_taskQueue.enqueue([this, &vertexs, pTexture, viewPortWidth, viewPortHeight, screenWidth] {
-				this->DrawTriangle_B6253(&vertexs[18], &vertexs[0], &vertexs[12], pTexture, unk_DE56Cx, viewPortWidth, viewPortHeight, screenWidth);
+			m_taskQueue.enqueue([this, &vertexs, pTexture, viewPortWidth, viewPortHeight, pitch] {
+				this->DrawTriangle_B6253(&vertexs[18], &vertexs[0], &vertexs[12], pTexture, unk_DE56Cx, viewPortWidth, viewPortHeight, pitch);
 				m_renderTasks--;
 				});
 		}
 		else
 		{
-			DrawTriangle_B6253(&vertexs[18], &vertexs[0], &vertexs[12], pTexture, unk_DE56Cx, viewPortWidth, viewPortHeight, screenWidth);
+			DrawTriangle_B6253(&vertexs[18], &vertexs[0], &vertexs[12], pTexture, unk_DE56Cx, viewPortWidth, viewPortHeight, pitch);
 		}
 
-		DrawTriangle_B6253(&vertexs[0], &vertexs[6], &vertexs[12], pTexture, unk_DE56Cx2, viewPortWidth, viewPortHeight, screenWidth);
+		DrawTriangle_B6253(&vertexs[0], &vertexs[6], &vertexs[12], pTexture, unk_DE56Cx2, viewPortWidth, viewPortHeight, pitch);
 
 		while (m_renderTasks > 0);
 	}
@@ -3209,17 +3209,17 @@ void GameRender::DrawInverseSquare(int* vertexs, int index, uint8_t* pTexture, u
 		if (m_renderThreads.size() > 0)
 		{
 			m_renderTasks = 1;
-			m_taskQueue.enqueue([this, &vertexs, pTexture, viewPortWidth, viewPortHeight, screenWidth] {
-				this->DrawTriangle_B6253(&vertexs[18], &vertexs[6], &vertexs[12], pTexture, unk_DE56Cx, viewPortWidth, viewPortHeight, screenWidth);
+			m_taskQueue.enqueue([this, &vertexs, pTexture, viewPortWidth, viewPortHeight, pitch] {
+				this->DrawTriangle_B6253(&vertexs[18], &vertexs[6], &vertexs[12], pTexture, unk_DE56Cx, viewPortWidth, viewPortHeight, pitch);
 				m_renderTasks--;
 				});
 		}
 		else
 		{
-			DrawTriangle_B6253(&vertexs[18], &vertexs[6], &vertexs[12], pTexture, unk_DE56Cx, viewPortWidth, viewPortHeight, screenWidth);
+			DrawTriangle_B6253(&vertexs[18], &vertexs[6], &vertexs[12], pTexture, unk_DE56Cx, viewPortWidth, viewPortHeight, pitch);
 		}
 
-		DrawTriangle_B6253(&vertexs[18], &vertexs[0], &vertexs[6], pTexture, unk_DE56Cx2, viewPortWidth, viewPortHeight, screenWidth);
+		DrawTriangle_B6253(&vertexs[18], &vertexs[0], &vertexs[6], pTexture, unk_DE56Cx2, viewPortWidth, viewPortHeight, pitch);
 
 		while (m_renderTasks > 0);
 	}
@@ -5611,7 +5611,7 @@ void GameRender::DrawSprite_41BD3(uint32 a1, uint8_t x_BYTE_E88E0x[], type_event
 	}
 }
 
-void GameRender::DrawTriangle_B6253(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3, uint8_t* pTexture, uint8_t unk_DE56Cx[], uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t screenWidth)
+void GameRender::DrawTriangle_B6253(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3, uint8_t* pTexture, uint8_t unk_DE56Cx[], uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t pitch)
 {
 	x_DWORD* v3; // esi
 	x_DWORD* v4; // edi
@@ -6968,7 +6968,7 @@ void GameRender::DrawTriangle_B6253(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3, uint8
 				{
 					if (v9 >= viewPortHeight)
 						return;
-					v1102 = m_ptrViewPortRenderBufferAltStart + screenWidth * v9;
+					v1102 = m_ptrViewPortRenderBufferAltStart + pitch * v9;
 					v1292 = 0;
 				}
 				else
@@ -7489,7 +7489,7 @@ void GameRender::DrawTriangle_B6253(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3, uint8
 			{
 				if (v117 >= viewPortHeight)
 					return;
-				v1102 = m_ptrViewPortRenderBufferAltStart + screenWidth * v117;
+				v1102 = m_ptrViewPortRenderBufferAltStart + pitch * v117;
 				v1294 = 0;
 			}
 			else
@@ -7732,7 +7732,7 @@ void GameRender::DrawTriangle_B6253(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3, uint8
 		{
 			if (v143 >= viewPortHeight)
 				return;
-			v1102 = m_ptrViewPortRenderBufferAltStart + screenWidth * v143;
+			v1102 = m_ptrViewPortRenderBufferAltStart + pitch * v143;
 			v1295 = 0;
 		}
 		else
@@ -8005,7 +8005,7 @@ LABEL_129:
 	{
 		if (v65 >= viewPortHeight)
 			return;
-		v1102 = m_ptrViewPortRenderBufferAltStart + screenWidth * v65;
+		v1102 = m_ptrViewPortRenderBufferAltStart + pitch * v65;
 		v1293 = 0;
 	}
 	else
@@ -8464,7 +8464,7 @@ LABEL_129:
 						{
 							LOWORD(v172) = v169[1];
 							v173 = v169[3];
-							v170 += screenWidth;
+							v170 += pitch;
 							if ((v172 & 0x8000u) == 0)
 								break;
 							if ((signed __int16)v173 > 0)
@@ -8494,8 +8494,8 @@ LABEL_129:
 						{
 							LOWORD(v31) = v175[1];
 							v176 = v175[3];
-							v177 = (x_BYTE*)(screenWidth + v1102);
-							v1102 += screenWidth;
+							v177 = (x_BYTE*)(pitch + v1102);
+							v1102 += pitch;
 							if ((v31 & 0x8000u) == 0)
 								break;
 							if ((signed __int16)v176 > 0)
@@ -8652,8 +8652,8 @@ LABEL_129:
 						{
 							LOWORD(v228) = v227[1];
 							v230 = v227[3];
-							v231 = (x_BYTE*)(screenWidth + v1102);
-							v1102 += screenWidth;
+							v231 = (x_BYTE*)(pitch + v1102);
+							v1102 += pitch;
 							if ((v228 & 0x8000u) == 0)
 								break;
 							if ((signed __int16)v230 > 0)
@@ -8879,8 +8879,8 @@ LABEL_129:
 						{
 							LOWORD(v284) = v283[1];
 							v286 = v283[3];
-							v287 = (x_BYTE*)(screenWidth + v1102);
-							v1102 += screenWidth;
+							v287 = (x_BYTE*)(pitch + v1102);
+							v1102 += pitch;
 							if ((v284 & 0x8000u) == 0)
 								break;
 							if ((signed __int16)v286 > 0)
@@ -9119,8 +9119,8 @@ LABEL_129:
 						{
 							LOWORD(v31) = v339[1];
 							v340 = v339[3];
-							v341 = (x_BYTE*)(screenWidth + v1102);
-							v1102 += screenWidth;
+							v341 = (x_BYTE*)(pitch + v1102);
+							v1102 += pitch;
 							if ((v31 & 0x8000u) == 0)
 								break;
 							if ((signed __int16)v340 > 0)
@@ -9281,8 +9281,8 @@ LABEL_129:
 							v1276 += 20;
 							LOWORD(v375) = *((x_WORD*)v377 + 1);
 							v378 = *((unsigned __int16*)v377 + 3);
-							v379 = screenWidth + v1102;
-							v1102 += screenWidth;
+							v379 = pitch + v1102;
+							v1102 += pitch;
 							if ((v375 & 0x8000u) == 0)
 								break;
 							if ((signed __int16)v378 > 0)
@@ -9572,8 +9572,8 @@ LABEL_129:
 							v1277 += 20;
 							LOWORD(v390) = *((x_WORD*)v392 + 1);
 							v393 = *((unsigned __int16*)v392 + 3);
-							v394 = screenWidth + v1102;
-							v1102 += screenWidth;
+							v394 = pitch + v1102;
+							v1102 += pitch;
 							if ((v390 & 0x8000u) == 0)
 								break;
 							if ((signed __int16)v393 > 0)
@@ -9877,8 +9877,8 @@ LABEL_129:
 						{
 							LOWORD(v406) = v405[1];
 							v408 = v405[3];
-							v409 = (x_BYTE*)(screenWidth + v1102);
-							v1102 += screenWidth;
+							v409 = (x_BYTE*)(pitch + v1102);
+							v1102 += pitch;
 							if ((v406 & 0x8000u) == 0)
 								break;
 							if ((signed __int16)v408 > 0)
@@ -10105,8 +10105,8 @@ LABEL_129:
 						{
 							LOWORD(v446) = v445[1];
 							v448 = v445[3];
-							v449 = (x_BYTE*)(screenWidth + v1102);
-							v1102 += screenWidth;
+							v449 = (x_BYTE*)(pitch + v1102);
+							v1102 += pitch;
 							if ((v446 & 0x8000u) == 0)
 								break;
 							if ((signed __int16)v448 > 0)
@@ -10350,8 +10350,8 @@ LABEL_129:
 						{
 							LOWORD(v486) = v485[1];
 							v488 = v485[3];
-							v489 = (x_BYTE*)(screenWidth + v1102);
-							v1102 += screenWidth;
+							v489 = (x_BYTE*)(pitch + v1102);
+							v1102 += pitch;
 							if ((v486 & 0x8000u) == 0)
 								break;
 							if ((signed __int16)v488 > 0)
@@ -10641,8 +10641,8 @@ LABEL_129:
 						{
 							LOWORD(v526) = v525[1];
 							v528 = v525[3];
-							v529 = (x_BYTE*)(screenWidth + v1102);
-							v1102 += screenWidth;
+							v529 = (x_BYTE*)(pitch + v1102);
+							v1102 += pitch;
 							if ((v526 & 0x8000u) == 0)
 								break;
 							if ((signed __int16)v528 > 0)
@@ -10869,8 +10869,8 @@ LABEL_129:
 						{
 							LOWORD(v566) = v565[1];
 							v568 = v565[3];
-							v569 = (x_BYTE*)(screenWidth + v1102);
-							v1102 += screenWidth;
+							v569 = (x_BYTE*)(pitch + v1102);
+							v1102 += pitch;
 							if ((v566 & 0x8000u) == 0)
 								break;
 							if ((signed __int16)v568 > 0)
@@ -11098,7 +11098,7 @@ LABEL_129:
 						{
 							LOWORD(v608) = v605[1];
 							v609 = v605[3];
-							v606 += screenWidth;
+							v606 += pitch;
 							if ((v608 & 0x8000u) == 0)
 								break;
 							if ((signed __int16)v609 > 0)
@@ -11212,7 +11212,7 @@ LABEL_129:
 						{
 							LOWORD(v629) = v626[1];
 							v630 = v626[3];
-							v627 += screenWidth;
+							v627 += pitch;
 							if ((v629 & 0x8000u) == 0)
 								break;
 							if ((signed __int16)v630 > 0)
@@ -11324,8 +11324,8 @@ LABEL_129:
 						{
 							LOWORD(v31) = v647[1];
 							v649 = v647[3];
-							v650 = (x_BYTE*)(screenWidth + v1102);
-							v1102 += screenWidth;
+							v650 = (x_BYTE*)(pitch + v1102);
+							v1102 += pitch;
 							if ((v31 & 0x8000u) == 0)
 								break;
 							if ((signed __int16)v649 > 0)
@@ -11513,8 +11513,8 @@ LABEL_129:
 						{
 							LOWORD(v31) = v684[1];
 							v686 = v684[3];
-							v687 = (x_BYTE*)(screenWidth + v1102);
-							v1102 += screenWidth;
+							v687 = (x_BYTE*)(pitch + v1102);
+							v1102 += pitch;
 							if ((v31 & 0x8000u) == 0)
 								break;
 							if ((signed __int16)v686 > 0)
@@ -11704,8 +11704,8 @@ LABEL_129:
 						{
 							LOWORD(v722) = v721[1];
 							v724 = v721[3];
-							v725 = (x_BYTE*)(screenWidth + v1102);
-							v1102 += screenWidth;
+							v725 = (x_BYTE*)(pitch + v1102);
+							v1102 += pitch;
 							if ((v722 & 0x8000u) == 0)
 								break;
 							if ((signed __int16)v724 > 0)
@@ -11947,8 +11947,8 @@ LABEL_129:
 						{
 							LOWORD(v762) = v761[1];
 							v764 = v761[3];
-							v765 = (x_BYTE*)(screenWidth + v1102);
-							v1102 += screenWidth;
+							v765 = (x_BYTE*)(pitch + v1102);
+							v1102 += pitch;
 							if ((v762 & 0x8000u) == 0)
 								break;
 							if ((signed __int16)v764 > 0)
@@ -12191,8 +12191,8 @@ LABEL_129:
 						{
 							LOWORD(v802) = v801[1];
 							v804 = v801[3];
-							v805 = (x_BYTE*)(screenWidth + v1102);
-							v1102 += screenWidth;
+							v805 = (x_BYTE*)(pitch + v1102);
+							v1102 += pitch;
 							if ((v802 & 0x8000u) == 0)
 								break;
 							if ((signed __int16)v804 > 0)
@@ -12520,8 +12520,8 @@ LABEL_129:
 						{
 							LOWORD(v843) = v842[1];
 							v845 = v842[3];
-							v846 = (x_BYTE*)(screenWidth + v1102);
-							v1102 += screenWidth;
+							v846 = (x_BYTE*)(pitch + v1102);
+							v1102 += pitch;
 							if ((v843 & 0x8000u) == 0)
 								break;
 							if ((signed __int16)v845 > 0)
@@ -12848,8 +12848,8 @@ LABEL_129:
 						{
 							LOWORD(v884) = v883[1];
 							v886 = v883[3];
-							v887 = (x_BYTE*)(screenWidth + v1102);
-							v1102 += screenWidth;
+							v887 = (x_BYTE*)(pitch + v1102);
+							v1102 += pitch;
 							if ((v884 & 0x8000u) == 0)
 								break;
 							if ((signed __int16)v886 > 0)
@@ -13139,8 +13139,8 @@ LABEL_129:
 						{
 							LOWORD(v924) = v923[1];
 							v926 = v923[3];
-							v927 = (x_BYTE*)(screenWidth + v1102);
-							v1102 += screenWidth;
+							v927 = (x_BYTE*)(pitch + v1102);
+							v1102 += pitch;
 							if ((v924 & 0x8000u) == 0)
 								break;
 							if ((signed __int16)v926 > 0)
@@ -13431,8 +13431,8 @@ LABEL_129:
 						{
 							LOWORD(v964) = v963[1];
 							v966 = v963[3];
-							v967 = (x_BYTE*)(screenWidth + v1102);
-							v1102 += screenWidth;
+							v967 = (x_BYTE*)(pitch + v1102);
+							v1102 += pitch;
 							if ((v964 & 0x8000u) == 0)
 								break;
 							if ((signed __int16)v966 > 0)
@@ -13808,8 +13808,8 @@ LABEL_129:
 						{
 							LOWORD(v1005) = v1004[1];
 							v1007 = v1004[3];
-							v1008 = (x_BYTE*)(screenWidth + v1102);
-							v1102 += screenWidth;
+							v1008 = (x_BYTE*)(pitch + v1102);
+							v1102 += pitch;
 							if ((v1005 & 0x8000u) == 0)
 								break;
 							if ((signed __int16)v1007 > 0)
@@ -14187,8 +14187,8 @@ LABEL_129:
 					{
 						LOWORD(v1046) = v1045[1];
 						v1048 = v1045[3];
-						v1049 = (char*)(screenWidth + v1102);
-						v1102 += screenWidth;
+						v1049 = (char*)(pitch + v1102);
+						v1102 += pitch;
 						if ((v1046 & 0x8000u) == 0)
 							break;
 						if ((signed __int16)v1048 > 0)
