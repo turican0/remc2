@@ -299,40 +299,20 @@ void GameRender::ClearGraphicsBuffer(uint8_t colorIdx)
 
 void GameRender::DrawSky_40950_TH(int16_t roll, uint8_t* ptrViewPortRenderBufferStart, uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t pitch)
 {
-	uint16_t height = viewPortHeight / 2;
-
-	if (m_renderThreads.size() >= 3)
+	if (m_renderThreads.size() > 0)
 	{
-		m_renderTasks = 3;
-		m_taskQueue.enqueue([this, roll, ptrViewPortRenderBufferStart, viewPortWidth, viewPortHeight, pitch] {
-			this->DrawSky_40950(roll, ptrViewPortRenderBufferStart, viewPortWidth, viewPortHeight, pitch, 0, 4);
-			m_renderTasks--;
-			});
+		uint8_t drawEveryNthLine = m_renderThreads.size() + 1;
+		uint8_t i = 0;
+		for (i = 0; i < m_renderThreads.size(); i++)
+		{
+			m_taskQueue.enqueue([this, roll, ptrViewPortRenderBufferStart, viewPortWidth, viewPortHeight, i, pitch, drawEveryNthLine] {
+				this->DrawSky_40950(roll, ptrViewPortRenderBufferStart, viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
+				});
+		}
 
-		m_taskQueue.enqueue([this, roll, ptrViewPortRenderBufferStart, viewPortWidth, viewPortHeight, pitch] {
-			this->DrawSky_40950(roll, ptrViewPortRenderBufferStart, viewPortWidth, viewPortHeight, pitch, 1, 4);
-			m_renderTasks--;
-			});
+		DrawSky_40950(roll, ptrViewPortRenderBufferStart, viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
+		while (m_taskQueue.size() > 0);
 
-		m_taskQueue.enqueue([this, roll, ptrViewPortRenderBufferStart, viewPortWidth, viewPortHeight, pitch] {
-			this->DrawSky_40950(roll, ptrViewPortRenderBufferStart, viewPortWidth, viewPortHeight, pitch, 2, 4);
-			m_renderTasks--;
-			});
-
-		DrawSky_40950(roll, ptrViewPortRenderBufferStart, viewPortWidth, viewPortHeight, pitch, 3, 4);
-		while (m_renderTasks > 0);
-
-	}
-	else if (m_renderThreads.size() >= 1 && m_renderThreads.size() <= 2)
-	{
-		m_renderTasks = 1;
-		m_taskQueue.enqueue([this, roll, ptrViewPortRenderBufferStart, viewPortWidth, viewPortHeight, pitch] {
-			this->DrawSky_40950(roll, ptrViewPortRenderBufferStart, viewPortWidth, viewPortHeight, pitch, 0, 2);
-			m_renderTasks--;
-			});
-
-		DrawSky_40950(roll, ptrViewPortRenderBufferStart, viewPortWidth, viewPortHeight, pitch, 1, 2);
-		while (m_renderTasks > 0);
 	}
 	else
 	{

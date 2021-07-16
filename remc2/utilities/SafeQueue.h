@@ -15,6 +15,8 @@ public:
 
     ~SafeQueue() {}
 
+    int size() const { return q.size(); }
+
     bool empty() const { return q.empty(); }
 
     // Add an element to the queue.
