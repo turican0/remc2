@@ -225,7 +225,7 @@ void GameRender::DrawWorld(int posX, int posY, int16_t rot, int16_t z, int16_t x
 		}
 
 		DrawTerrainAndParticles_3C080(v55, v56, v21, z, xshift, yshift, dd, str_DWORD_F66F0x, x_BYTE_E88E0x, x_DWORD_F5730, unk_F0A20x, x_DWORD_EA3E4, str_unk_1804B0ar, x_WORD_D4B7C, isCaveLevel, m_viewPort, m_uiScreenWidth);
-		
+	
 		if (D41A0_0.m_GameSettings.str_0x2192.xxxx_0x2192)
 		{
 			v53 = m_ptrViewPortRenderBufferStart;
@@ -305,7 +305,7 @@ void GameRender::DrawSky_40950_TH(int16_t roll, uint8_t* ptrViewPortRenderBuffer
 		uint8_t i = 0;
 		for (i = 0; i < m_renderThreads.size(); i++)
 		{
-			m_taskQueue.enqueue([this, roll, ptrViewPortRenderBufferStart, viewPortWidth, viewPortHeight, i, pitch, drawEveryNthLine] {
+			m_taskQueue.enqueue([this, roll, ptrViewPortRenderBufferStart, viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine] {
 				this->DrawSky_40950(roll, ptrViewPortRenderBufferStart, viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
 				});
 		}
@@ -325,7 +325,6 @@ void GameRender::DrawSky_40950_TH(int16_t roll, uint8_t* ptrViewPortRenderBuffer
 */
 void GameRender::DrawSky_40950(int16_t roll, uint8_t* ptrViewPortRenderBufferStart, uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t pitch, uint8_t startLine, uint8_t drawEveryNthLine)
 {
-
 	if (drawEveryNthLine < 1)
 	{
 		drawEveryNthLine = 1;
@@ -5700,7 +5699,7 @@ void GameRender::DrawTriangle_B6253(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3, uint8
 	int v78; // esi
 	int v79; // ST48_4
 	int v80; // eax
-	int* v81; // edi
+	x_DWORD* v81; // edi
 	int v82; // edi
 	int v83; // edi
 	int v84; // eax
@@ -5714,7 +5713,7 @@ void GameRender::DrawTriangle_B6253(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3, uint8
 	int v92; // edx
 	int v93; // ST48_4
 	int v94; // eax
-	int* v95; // edi
+	x_DWORD* v95; // edi
 	int v96; // edi
 	int v97; // edi
 	int v98; // eax
@@ -5726,14 +5725,14 @@ void GameRender::DrawTriangle_B6253(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3, uint8
 	int v104; // esi
 	int v105; // ST48_4
 	int v106; // eax
-	int* v107; // edi
+	x_DWORD* v107; // edi
 	int v108; // edi
 	int v109; // edi
 	int v110; // eax
 	int v111; // ebx
 	int v112; // ST48_4
 	int v113; // eax
-	int* v114; // edi
+	x_DWORD* v114; // edi
 	int v115; // edi
 	int v116; // edi
 	int v117; // eax
@@ -7066,16 +7065,7 @@ void GameRender::DrawTriangle_B6253(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3, uint8
 								}
 							}
 						LABEL_121:
-							v62 = (x_DWORD*)unk_DE56Cx;
-							do
-							{
-								v62[0] = v58;
-								v58 += v1103;
-								v62[1] = v59;
-								v59 += v1107;
-								v62 += 5;
-								v1117--;
-							} while (v1117);
+							v62 = LoadPolygon((x_DWORD*)unk_DE56Cx, &v58, &v59, v1103, v1107, &v1117);
 							v61 = v1121;
 						LABEL_124:
 							if (v1296)
@@ -7084,15 +7074,7 @@ void GameRender::DrawTriangle_B6253(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3, uint8
 							}
 							else
 							{
-								do
-								{
-									v62[0] = v58;
-									v58 += v1103;
-									v62[1] = v61;
-									v61 += v1111;
-									v62 += 5;
-									--v1119;
-								} while (v1119);
+								v62 = LoadPolygon(v62, &v58, &v61, v1103, v1111, &v1119);
 								v31 = (unsigned __int8)x_BYTE_E126D;
 							}
 							goto LABEL_53;
@@ -7146,17 +7128,7 @@ void GameRender::DrawTriangle_B6253(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3, uint8
 								}
 								else
 								{
-									do
-									{
-										v55[0] = v50;
-										v50 += v1103;
-										v55[1] = v54;
-										v54 += v1111;
-										v55[4] = v52;
-										v52 += v1148;
-										v55 += 5;
-										v1119--;
-									} while (v1119);
+									v55 = LoadPolygon(v55, &v50, &v54, &v52, v1103, v1111, v1148, &v1119);
 									v31 = (unsigned __int8)x_BYTE_E126D;
 								}
 								goto LABEL_53;
@@ -7195,18 +7167,7 @@ void GameRender::DrawTriangle_B6253(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3, uint8
 								v1119 = v57;
 							}
 						}
-						v55 = (x_DWORD*)unk_DE56Cx;
-						do
-						{
-							v55[0] = v50;
-							v50 += v1103;
-							v55[1] = v51;
-							v51 += v1107;
-							v55[4] = v52;
-							v52 += v1148;
-							v55 += 5;
-							--v1117;
-						} while (v1117);
+						v55 = LoadPolygon((x_DWORD*)unk_DE56Cx, &v50, &v51, &v52, v1103, v1107, v1148, &v1117);
 						v54 = v1121;
 						goto LABEL_102;
 					case 2:
@@ -7274,19 +7235,7 @@ void GameRender::DrawTriangle_B6253(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3, uint8
 								}
 								else
 								{
-									do
-									{
-										v43[0] = v37;
-										v37 += v1103;
-										v43[1] = v42;
-										v42 += v1111;
-										v43[2] = v39;
-										v39 += v1126;
-										v43[3] = v40;
-										v40 += v1137;
-										v43 += 5;
-										v1119--;
-									} while (v1119);
+									v43 = LoadPolygon(v43, &v37, &v42, &v39, &v40, v1103, v1111, v1126, v1137, &v1119);
 									v31 = (unsigned __int8)x_BYTE_E126D;
 								}
 								goto LABEL_53;
@@ -7326,20 +7275,7 @@ void GameRender::DrawTriangle_B6253(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3, uint8
 								v1119 = v45;
 							}
 						}
-						v43 = (x_DWORD*)unk_DE56Cx;
-						do
-						{
-							v43[0] = v37;
-							v37 += v1103;
-							v43[1] = v38;
-							v38 += v1107;
-							v43[2] = v39;
-							v39 += v1126;
-							v43[3] = v40;
-							v40 += v1137;
-							v43 += 5;
-							v1117--;
-						} while (v1117);
+						v43 = LoadPolygon((x_DWORD*)unk_DE56Cx, &v37, &v38, &v39, &v40, v1103, v1107, v1126, v1137, &v1117);
 						v42 = v1121;
 						goto LABEL_77;
 					case 5:
@@ -7406,21 +7342,7 @@ void GameRender::DrawTriangle_B6253(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3, uint8
 								}
 								else
 								{
-									do
-									{
-										v28[0] = v21;
-										v21 += v1103;
-										v28[1] = v27;
-										v27 += v1111;
-										v28[2] = v23;
-										v23 += v1125;
-										v28[3] = v24;
-										v24 += v1136;
-										v28[4] = v25;
-										v25 += v1147;
-										v28 += 5;
-										--v1119;
-									} while (v1119);
+									v28 = LoadPolygon(v28, &v21, &v27, &v23, &v24, &v25, v1103, v1111, v1125, v1136, v1147, &v1119);
 									v31 = (unsigned __int8)x_BYTE_E126D;
 								}
 								goto LABEL_53;
@@ -7461,22 +7383,7 @@ void GameRender::DrawTriangle_B6253(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3, uint8
 								v1119 = v30;
 							}
 						}
-						v28 = (x_DWORD*)unk_DE56Cx;
-						do
-						{
-							v28[0] = v21;
-							v21 += v1103;
-							v28[1] = v22;
-							v22 += v1107;
-							v28[2] = v23;
-							v23 += v1125;
-							v28[3] = v24;
-							v24 += v1136;
-							v28[4] = v25;
-							v25 += v1147;
-							v28 += 5;
-							v1117--;
-						} while (v1117);
+						v28 = LoadPolygon((x_DWORD*)unk_DE56Cx, &v21, &v22, &v23, &v24, &v25, v1103, v1107, v1125, v1136, v1147, &v1117);
 						v27 = v1121;
 						goto LABEL_51;
 					}
@@ -7542,16 +7449,7 @@ void GameRender::DrawTriangle_B6253(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3, uint8
 					triLn_v1123 = viewPortHeight - v1192;
 					v1115 = viewPortHeight - v1192;
 				}
-				v142 = (x_DWORD*)unk_DE56Cx;
-				do
-				{
-					v142[0] = v139;
-					v139 += v1105;
-					v142[1] = v140;
-					v140 += v1109;
-					v142 += 5;
-					v1115--;
-				} while (v1115);
+				v142 = LoadPolygon((x_DWORD*)unk_DE56Cx, &v139, &v140, v1105, v1109, &v1115);
 				v31 = (unsigned __int8)x_BYTE_E126D;
 				goto LABEL_53;
 			case 1:
@@ -7587,18 +7485,7 @@ void GameRender::DrawTriangle_B6253(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3, uint8
 					triLn_v1123 = viewPortHeight - v1192;
 					v1115 = viewPortHeight - v1192;
 				}
-				v138 = (x_DWORD*)unk_DE56Cx;
-				do
-				{
-					v138[0] = v134;
-					v134 += v1105;
-					v138[1] = v135;
-					v135 += v1109;
-					v138[4] = v136;
-					v136 += v1152;
-					v138 += 5;
-					v1115--;
-				} while (v1115);
+				v138 = LoadPolygon((x_DWORD*)unk_DE56Cx, &v134, &v135, &v136, v1105, v1109, v1152, &v1115);
 				v31 = (unsigned __int8)x_BYTE_E126D;
 				goto LABEL_53;
 			case 2:
@@ -7648,20 +7535,7 @@ void GameRender::DrawTriangle_B6253(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3, uint8
 					triLn_v1123 = viewPortHeight - v1192;
 					v1115 = viewPortHeight - v1192;
 				}
-				v133 = (x_DWORD*)unk_DE56Cx;
-				do
-				{
-					v133[0] = v128;
-					v128 += v1105;
-					v133[1] = v129;
-					v129 += v1109;
-					v133[2] = v130;
-					v130 += v1130;
-					v133[3] = v131;
-					v131 += v1141;
-					v133 += 5;
-					v1115--;
-				} while (v1115);
+				v133 = LoadPolygon((x_DWORD*)unk_DE56Cx, &v128, &v129, &v130, &v131, v1105, v1109, v1130, v1141, &v1115);
 				v31 = (unsigned __int8)x_BYTE_E126D;
 				goto LABEL_53;
 			case 5:
@@ -7709,22 +7583,7 @@ void GameRender::DrawTriangle_B6253(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3, uint8
 					triLn_v1123 = viewPortHeight - v1192;
 					v1115 = viewPortHeight - v1192;
 				}
-				v126 = (x_DWORD*)unk_DE56Cx;
-				do
-				{
-					v126[0] = v120;
-					v120 += v1105;
-					v126[1] = v121;
-					v121 += v1109;
-					v126[2] = v122;
-					v122 += v1129;
-					v126[3] = v123;
-					v123 += v1140;
-					v126[4] = v124;
-					v124 += v1151;
-					v126 += 5;
-					v1115--;
-				} while (v1115);
+				v126 = LoadPolygon((x_DWORD*)unk_DE56Cx, &v120, &v121, &v122, &v123, &v124, v1105, v1109, v1129, v1140, v1151, &v1115);
 				v31 = (unsigned __int8)x_BYTE_E126D;
 				goto LABEL_53;
 			}
@@ -7785,16 +7644,7 @@ void GameRender::DrawTriangle_B6253(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3, uint8
 				triLn_v1123 = viewPortHeight - v1193;
 				v1116 = viewPortHeight - v1193;
 			}
-			v168 = (x_DWORD*)unk_DE56Cx;
-			do
-			{
-				v168[0] = v165;
-				v165 += v1106;
-				v168[1] = v166;
-				v166 += v1110;
-				v168 += 5;
-				v1116--;
-			} while (v1116);
+			v168 = LoadPolygon((x_DWORD*)unk_DE56Cx, &v165, &v166, v1106, v1110, &v1116);
 			v31 = (unsigned __int8)x_BYTE_E126D;
 			goto LABEL_53;
 		case 1:
@@ -7830,18 +7680,7 @@ void GameRender::DrawTriangle_B6253(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3, uint8
 				triLn_v1123 = viewPortHeight - v1193;
 				v1116 = viewPortHeight - v1193;
 			}
-			v164 = (x_DWORD*)unk_DE56Cx;
-			do
-			{
-				v164[0] = v160;
-				v160 += v1106;
-				v164[1] = v161;
-				v161 += v1110;
-				v164[4] = v162;
-				v162 += v1154;
-				v164 += 5;
-				--v1116;
-			} while (v1116);
+			v164 = LoadPolygon((x_DWORD*)unk_DE56Cx, &v160, &v161, &v162, v1106, v1110, v1154, &v1116);
 			v31 = (unsigned __int8)x_BYTE_E126D;
 			goto LABEL_53;
 		case 2:
@@ -7891,20 +7730,7 @@ void GameRender::DrawTriangle_B6253(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3, uint8
 				triLn_v1123 = viewPortHeight - v1193;
 				v1116 = viewPortHeight - v1193;
 			}
-			v159 = (x_DWORD*)unk_DE56Cx;
-			do
-			{
-				v159[0] = v154;
-				v154 += v1106;
-				v159[1] = v155;
-				v155 += v1110;
-				v159[2] = v156;
-				v156 += v1132;
-				v159[3] = v157;
-				v157 += v1143;
-				v159 += 5;
-				--v1116;
-			} while (v1116);
+			v159 = LoadPolygon((x_DWORD*)unk_DE56Cx, &v154, &v155, &v156, &v157, v1106, v1110, v1132, v1143, &v1116);
 			v31 = (unsigned __int8)x_BYTE_E126D;
 			goto LABEL_53;
 		case 5:
@@ -7952,22 +7778,7 @@ void GameRender::DrawTriangle_B6253(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3, uint8
 				triLn_v1123 = viewPortHeight - v1193;
 				v1116 = viewPortHeight - v1193;
 			}
-			v152 = (x_DWORD*)unk_DE56Cx;
-			do
-			{
-				v152[0] = v146;
-				v146 += v1106;
-				v152[1] = v147;
-				v147 += v1110;
-				v152[2] = v148;
-				v148 += v1131;
-				v152[3] = v149;
-				v149 += v1142;
-				v152[4] = v150;
-				v150 += v1153;
-				v152 += 5;
-				v1116--;
-			} while (v1116);
+			v152 = LoadPolygon((x_DWORD*)unk_DE56Cx, &v146, &v147, &v148, &v149, &v150, v1106, v1110, v1131, v1142, v1153, &v1116);
 			v31 = (unsigned __int8)x_BYTE_E126D;
 			goto LABEL_53;
 		}
@@ -8100,16 +7911,7 @@ LABEL_129:
 					v1120 = v116;
 				}
 			}
-			v114 = (int*)unk_DE56Cx;
-			do
-			{
-				v114[0] = v110;
-				v110 += v1104;
-				v114[1] = v111;
-				v111 += v1108;
-				v114 += 5;
-				v1114--;
-			} while (v1114);
+			v114 = LoadPolygon((x_DWORD*)unk_DE56Cx, &v110, &v111, v1104, v1108, &v1114);
 			v113 = v1122;
 		LABEL_228:
 			if (v1297)
@@ -8118,15 +7920,7 @@ LABEL_129:
 			}
 			else
 			{
-				do
-				{
-					v114[0] = v113;
-					v113 += v1112;
-					v114[1] = v111;
-					v111 += v1108;
-					v114 += 5;
-					v1120--;
-				} while (v1120);
+				v114 = LoadPolygon(v114, &v113, &v111, v1112, v1108, &v1120);
 				v31 = (unsigned __int8)x_BYTE_E126D;
 			}
 			goto LABEL_53;
@@ -8179,17 +7973,7 @@ LABEL_129:
 					}
 					else
 					{
-						do
-						{
-							v107[0] = v106;
-							v106 += v1112;
-							v107[1] = v103;
-							v103 += v1108;
-							v107[4] = v104;
-							v104 += v1156;
-							v107 += 5;
-							v1120--;
-						} while (v1120);
+						v107 = LoadPolygon(v107, &v106, &v103, &v104, v1112, v1108, v1156, &v1120);
 						v31 = (unsigned __int8)x_BYTE_E126D;
 					}
 					goto LABEL_53;
@@ -8228,18 +8012,7 @@ LABEL_129:
 					v1120 = v109;
 				}
 			}
-			v107 = (int*)unk_DE56Cx;
-			do
-			{
-				v107[0] = v102;
-				v102 += v1104;
-				v107[1] = v103;
-				v103 += v1108;
-				v107[4] = v104;
-				v104 += v1150;
-				v107 += 5;
-				v1114--;
-			} while (v1114);
+			v107 = LoadPolygon((x_DWORD*)unk_DE56Cx, &v102, &v103, &v104, v1104, v1108, v1150, &v1114);
 			v106 = v1122;
 			goto LABEL_206;
 		case 2:
@@ -8309,19 +8082,7 @@ LABEL_129:
 					}
 					else
 					{
-						do
-						{
-							v95[0] = v94;
-							v94 += v1112;
-							v95[1] = v90;
-							v90 += v1108;
-							v95[2] = v91;
-							v91 += v1134;
-							v95[3] = v92;
-							v92 += v1145;
-							v95 += 5;
-							v1120--;
-						} while (v1120);
+						v95 = LoadPolygon(v95, &v94, &v90, &v91, &v92, v1112, v1108, v1134, v1145, &v1120);
 						v31 = (unsigned __int8)x_BYTE_E126D;
 					}
 					goto LABEL_53;
@@ -8361,20 +8122,7 @@ LABEL_129:
 					v1120 = v97;
 				}
 			}
-			v95 = (int*)unk_DE56Cx;
-			do
-			{
-				v95[0] = v89;
-				v89 += v1104;
-				v95[1] = v90;
-				v90 += v1108;
-				v95[2] = v91;
-				v91 += v1128;
-				v95[3] = v92;
-				v92 += v1139;
-				v95 += 5;
-				v1114--;
-			} while (v1114);
+			v95 = LoadPolygon((x_DWORD*)unk_DE56Cx, &v89, &v90, &v91, &v92, v1104, v1108, v1128, v1139, &v1114);
 			v94 = v1122;
 			goto LABEL_181;
 		case 5:
@@ -8436,7 +8184,7 @@ LABEL_129:
 						v1120 = viewPortHeight;
 						triLn_v1123 = viewPortHeight;
 					}
-					v81 = (int*)unk_DE56Cx;
+					v81 = (x_DWORD*)unk_DE56Cx;
 				LABEL_156:
 					if (v1297)
 					{
@@ -8444,21 +8192,7 @@ LABEL_129:
 					}
 					else
 					{
-						do
-						{
-							v81[0] = v80;
-							v80 += v1112;
-							v81[1] = v75;
-							v75 += v1108;
-							v81[2] = v76;
-							v76 += v1133;
-							v81[3] = v77;
-							v77 += v1144;
-							v81[4] = v78;
-							v78 += v1155;
-							v81 += 5;
-							v1120--;
-						} while (v1120);
+						v81 = LoadPolygon(v81, &v80, &v75, &v76, &v77, &v78, v1112, v1108, v1133, v1144, v1155, &v1120);
 						v31 = (unsigned __int8)x_BYTE_E126D;
 					}
 				LABEL_53:
@@ -14680,26 +14414,83 @@ LABEL_129:
 					v1120 = v83;
 				}
 			}
-			v81 = (int*)unk_DE56Cx;
-			do
-			{
-				v81[0] = v74;
-				v74 += v1104;
-				v81[1] = v75;
-				v75 += v1108;
-				v81[2] = v76;
-				v76 += v1127;
-				v81[3] = v77;
-				v77 += v1138;
-				v81[4] = v78;
-				v78 += v1149;
-				v81 += 5;
-				v1114--;
-			} while (v1114);
+			v81 = LoadPolygon((x_DWORD*)unk_DE56Cx, &v74, &v75, &v76, &v77, &v78, v1104, v1108, v1127, v1138, v1149, &v1114);
 			v80 = v1122;
 			goto LABEL_156;
 		}
 	}
+}
+
+x_DWORD* GameRender::LoadPolygon(x_DWORD* ptrPolys, int* v0, int* v1, int s0, int s1, int* line)
+{
+	do
+	{
+		ptrPolys[0] = *v0;
+		*v0 += s0;
+		ptrPolys[1] = *v1;
+		*v1 += s1;
+		ptrPolys += 5;
+		*line = *line - 1;
+	} while (*line);
+
+	return ptrPolys;
+}
+
+x_DWORD* GameRender::LoadPolygon(x_DWORD* ptrPolys, int* v0, int* v1, int* v4, int s0, int s1, int s4, int* line)
+{
+	do
+	{
+		ptrPolys[0] = *v0;
+		*v0 += s0;
+		ptrPolys[1] = *v1;
+		*v1 += s1;
+		ptrPolys[4] = *v4;
+		*v4 += s4;
+		ptrPolys += 5;
+		*line = *line - 1;
+	} while (*line);
+
+	return ptrPolys;
+}
+
+x_DWORD* GameRender::LoadPolygon(x_DWORD* ptrPolys, int* v0, int* v1, int* v2, int* v3, int s0, int s1, int s2, int s3, int* line)
+{
+	do
+	{
+		ptrPolys[0] = *v0;
+		*v0 += s0;
+		ptrPolys[1] = *v1;
+		*v1 += s1;
+		ptrPolys[2] = *v2;
+		*v2 += s2;
+		ptrPolys[3] = *v3;
+		*v3 += s3;
+		ptrPolys += 5;
+		*line = *line - 1;
+	} while (*line);
+
+	return ptrPolys;
+}
+
+x_DWORD* GameRender::LoadPolygon(x_DWORD* ptrPolys, int* v0, int* v1, int* v2, int* v3, int* v4, int s0, int s1, int s2, int s3, int s4, int *line)
+{
+	do
+	{
+		ptrPolys[0] = *v0;
+		*v0 += s0;
+		ptrPolys[1] = *v1;
+		*v1 += s1;
+		ptrPolys[2] = *v2;
+		*v2 += s2;
+		ptrPolys[3] = *v3;
+		*v3 += s3;
+		ptrPolys[4] = *v4;
+		*v4 += s4;
+		ptrPolys += 5;
+		*line = *line - 1;
+	} while (*line);
+
+	return ptrPolys;
 }
 
 void GameRender::SetTextures(std::array<uint8_t*, 256> &textureAdresses)
