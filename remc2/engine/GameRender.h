@@ -90,7 +90,7 @@ private:
 
 	void DrawSky_40950(int16_t roll, uint8_t* ptrViewPortRenderBufferStart, uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t pitch, uint8_t startLine, uint8_t drawEveryNthLine);
 	void DrawSky_40950_TH(int16_t roll, uint8_t* ptrViewPortRenderBufferStart, uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t pitch);
-	void DrawTerrainAndParticles_3C080(__int16 a3, __int16 a4, __int16 a5, signed int a6, int a7, int16_t roll, int a9, type_particle_str** str_DWORD_F66F0x[], uint8_t x_BYTE_E88E0x[], int32_t x_DWORD_F5730[], uint8_t unk_F0A20x[], type_event_0x6E8E* x_DWORD_EA3E4[], type_str_unk_1804B0ar str_unk_1804B0ar, int16_t x_WORD_D4B7C, char isCaveLevel, ViewPort viewPort, uint16_t screenWidth);
+	void DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __int16 yaw, signed int posZ, int a7, int16_t roll, int a9, type_particle_str** str_DWORD_F66F0x[], uint8_t x_BYTE_E88E0x[], int32_t x_DWORD_F5730[], uint8_t unk_F0A20x[], type_event_0x6E8E* x_DWORD_EA3E4[], type_str_unk_1804B0ar str_unk_1804B0ar, int16_t x_WORD_D4B7C, char isCaveLevel, ViewPort viewPort, uint16_t screenWidth);
 	void DrawSprite_41BD3(uint32 a1, uint8_t x_BYTE_E88E0x[], type_event_0x6E8E* x_DWORD_EA3E4[], type_str_unk_1804B0ar str_unk_1804B0ar, ViewPort viewPort, uint16_t pitch);
 	void DrawSquare(int* vertexs, int index, uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t pitch);
 	void DrawInverseSquare(int* vertexs, int index, uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t pitch);
@@ -122,7 +122,7 @@ public:
 	void SetRenderThreads(uint8_t renderThreads);
 	uint8_t GetRenderThreads();
 
-	void DrawWorld(int posX, int posY, int16_t rot, int16_t z, int16_t xshift, int16_t yshift, int16_t dd, uint8_t heightmap[], type_particle_str** str_DWORD_F66F0x[], uint8_t x_BYTE_E88E0x[], int32_t x_DWORD_F5730[], uint8_t unk_F0A20x[], type_event_0x6E8E* x_DWORD_EA3E4[], type_str_unk_1804B0ar str_unk_1804B0ar, int16_t x_WORD_180660_VGA_type_resolution, int16_t x_WORD_D4B7C, char isCaveLevel);
+	void DrawWorld(int posX, int posY, int16_t yaw, int16_t posZ, int16_t xshift, int16_t yshift, int16_t roll, uint8_t heightmap[], type_particle_str** str_DWORD_F66F0x[], uint8_t x_BYTE_E88E0x[], int32_t x_DWORD_F5730[], uint8_t unk_F0A20x[], type_event_0x6E8E* x_DWORD_EA3E4[], type_str_unk_1804B0ar str_unk_1804B0ar, int16_t x_WORD_180660_VGA_type_resolution, int16_t x_WORD_D4B7C, char isCaveLevel);
 	void WriteWorldToBMP();
 	void ClearGraphicsBuffer(uint8_t colorIdx);
 };
