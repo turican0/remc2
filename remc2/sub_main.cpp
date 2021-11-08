@@ -73848,7 +73848,7 @@ char sub_6D4C0(type_str_611* a1x)//24e4c0
 //----- (0006D4F0) --------------------------------------------------------
 int SelectSpell_6D4F0(type_str_611* a1x, int16_t mouseX, uint16_t screenWidth, uint16_t screenHeight)//24e4f0
 {
-	__int16 v2; // cx
+	__int16 categoryWidth; // cx
 	int v3; // esi
 	int16_t v4x;
 	int result; // eax
@@ -73864,26 +73864,26 @@ int SelectSpell_6D4F0(type_str_611* a1x, int16_t mouseX, uint16_t screenWidth, u
 		}
 	}
 
-	v2 = posXOffSet + (3 * (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[163].width_4);
+	categoryWidth = posXOffSet + (3 * (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[163].width_4);
 
 	v3 = posXOffSet + ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[89].width_4 / 2
 		+ (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[88].width_4
 		+ (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[89].width_4 * (a1x->byte_0x458_1112 % 13)
-		- v2 / 2);
+		- categoryWidth / 2);
 
 	v4x = posXOffSet + ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[89].width_4 / 2
 		+ (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[88].width_4
 		+ (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[89].width_4 * (a1x->byte_0x458_1112 % 13)
-		- v2 / 2);
+		- categoryWidth / 2);
 
-	if ((signed __int16)v3 <= screenWidth - v2)
+	if ((signed __int16)v3 <= screenWidth - categoryWidth)
 	{
 		if ((v3 & 0x8000u) != 0)
 			v4x = v3 ^ v4x;
 	}
 	else
 	{
-		v4x = screenWidth - v2;
+		v4x = screenWidth - categoryWidth;
 	}
 	result = ((mouseX - posXOffSet) - v4x) / (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[163].width_4;
 	v6x = a1x->array_0x41D_1053z.byte[x_BYTE_D94FF_spell_index[a1x->byte_0x458_1112]];
