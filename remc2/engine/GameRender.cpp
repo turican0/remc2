@@ -943,7 +943,7 @@ void GameRender::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __int
 								v69 = 0;
 								if (!(v69 & 0xF00))
 								{
-									DrawInverseSquare(v248x, v68x, m_textureAddresses[1], viewPort.Width, viewPort.Height, screenWidth);
+									DrawInverseSquareInScreenSpace(v248x, v68x, m_textureAddresses[1], viewPort.Width, viewPort.Height, screenWidth);
 								}
 							}
 						}
@@ -985,7 +985,7 @@ void GameRender::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __int
 							}
 							if (!(v78 & 2) && !(v79 & 0x78))
 							{
-								DrawSquare(v248x, v80x, viewPort.Width, viewPort.Height, screenWidth);
+								DrawSquareInScreenSpace(v248x, v80x, viewPort.Width, viewPort.Height, screenWidth);
 							}
 							if (m_Str_E9C38_smalltit[v80x].word36)
 								DrawParticles_3E360(v80x, str_DWORD_F66F0x, x_BYTE_E88E0x, x_DWORD_F5730, x_DWORD_EA3E4, str_unk_1804B0ar, viewPort, screenWidth);
@@ -1035,7 +1035,7 @@ void GameRender::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __int
 								if (!(v93 & 2))
 								{
 
-									DrawInverseSquare(v248x, v94x, m_textureAddresses[1], viewPort.Width, viewPort.Height, screenWidth);
+									DrawInverseSquareInScreenSpace(v248x, v94x, m_textureAddresses[1], viewPort.Width, viewPort.Height, screenWidth);
 								}
 							}
 							v248x[18] = m_Str_E9C38_smalltit[v94x].dword16;
@@ -1075,7 +1075,7 @@ void GameRender::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __int
 								}
 								if (!(v105 & 2) && !(v106 & 0x78))
 								{
-									DrawSquare(v248x, v107x, viewPort.Width, viewPort.Height, screenWidth);
+									DrawSquareInScreenSpace(v248x, v107x, viewPort.Width, viewPort.Height, screenWidth);
 								}
 								if (m_Str_E9C38_smalltit[v107x].word36)
 									DrawParticles_3E360(v107x, str_DWORD_F66F0x, x_BYTE_E88E0x, x_DWORD_F5730, x_DWORD_EA3E4, str_unk_1804B0ar, viewPort, screenWidth);
@@ -1276,7 +1276,7 @@ void GameRender::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __int
 									v145 = 0;
 									if (!(v145 & 0xF00))
 									{
-										DrawInverseSquare(v248x, v143x, viewPort.Width, viewPort.Height, screenWidth);
+										DrawInverseSquareInScreenSpace(v248x, v143x, viewPort.Width, viewPort.Height, screenWidth);
 									}
 								}
 							}
@@ -1337,7 +1337,7 @@ void GameRender::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __int
 										v157 = 0;
 										if (!(v157 & 0xF00))
 										{
-											DrawInverseSquare(v248x, v155x, viewPort.Width, viewPort.Height, screenWidth);
+											DrawInverseSquareInScreenSpace(v248x, v155x, viewPort.Width, viewPort.Height, screenWidth);
 										}
 									}
 								}
@@ -1406,7 +1406,7 @@ void GameRender::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __int
 							}
 							if (!(v173 & 2) && !(v174 & 0x78))
 							{
-								DrawSquare(v248x, v172x, viewPort.Width, viewPort.Height, screenWidth);
+								DrawSquareInScreenSpace(v248x, v172x, viewPort.Width, viewPort.Height, screenWidth);
 							}
 						}
 						else
@@ -1414,7 +1414,7 @@ void GameRender::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __int
 							x_BYTE_E126D = 26;
 							if (!(v173 & 2) && !(v174 & 0x78))
 							{
-								DrawSquare(v248x, v172x, viewPort.Width, viewPort.Height, screenWidth);
+								DrawSquareInScreenSpace(v248x, v172x, viewPort.Width, viewPort.Height, screenWidth);
 							}
 						}
 						if (m_Str_E9C38_smalltit[v172x].word36)
@@ -1475,7 +1475,7 @@ void GameRender::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __int
 								}
 								if (!(v191 & 2) && !(v192 & 0x78))
 								{
-									DrawSquare(v248x, v190x, viewPort.Width, viewPort.Height, screenWidth);
+									DrawSquareInScreenSpace(v248x, v190x, viewPort.Width, viewPort.Height, screenWidth);
 								}
 							}
 							else
@@ -1483,7 +1483,7 @@ void GameRender::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __int
 								x_BYTE_E126D = 26;
 								if (!(v191 & 2) && !(v192 & 0x78))
 								{
-									DrawSquare(v248x, v190x, viewPort.Width, viewPort.Height, screenWidth);
+									DrawSquareInScreenSpace(v248x, v190x, viewPort.Width, viewPort.Height, screenWidth);
 								}
 							}
 							if (m_Str_E9C38_smalltit[v190x].word36)
@@ -1717,7 +1717,7 @@ LABEL_259:
 			}
 			if (!(v228 & 2) && !(v229 & 0x78))
 			{
-				DrawSquare(v248x, v227x, viewPort.Width, viewPort.Height, screenWidth);
+				DrawSquareInScreenSpace(v248x, v227x, viewPort.Width, viewPort.Height, screenWidth);
 			}
 			if (m_Str_E9C38_smalltit[v227x].word36)
 				DrawParticles_3E360(v227x, str_DWORD_F66F0x, x_BYTE_E88E0x, x_DWORD_F5730, x_DWORD_EA3E4, str_unk_1804B0ar, viewPort, screenWidth);//21f01b
@@ -1767,7 +1767,7 @@ LABEL_259:
 				}
 				if (!(v244 & 2) && !(v245 & 0x78))
 				{
-					DrawSquare(v248x, v243x, viewPort.Width, viewPort.Height, screenWidth);
+					DrawSquareInScreenSpace(v248x, v243x, viewPort.Width, viewPort.Height, screenWidth);
 				}
 				if (m_Str_E9C38_smalltit[v243x].word36)//address 21f1b5 aex 360000 ebx 3f78a0 ecx 0 edx 414eb0
 					DrawParticles_3E360(v243x, str_DWORD_F66F0x, x_BYTE_E88E0x, x_DWORD_F5730, x_DWORD_EA3E4, str_unk_1804B0ar, viewPort, screenWidth);
@@ -3124,7 +3124,7 @@ void GameRender::StopWorkerThreads()
 	}
 }
 
-void GameRender::DrawSquare(int* vertexs, int index, uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t pitch)
+void GameRender::DrawSquareInScreenSpace(int* vertexs, int index, uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t pitch)
 {
 	vertexs[20] = xunk_D4350[m_Str_E9C38_smalltit[index].byte42][0];
 	vertexs[21] = xunk_D4350[m_Str_E9C38_smalltit[index].byte42][1];
@@ -3142,15 +3142,15 @@ void GameRender::DrawSquare(int* vertexs, int index, uint16_t viewPortWidth, uin
 		{
 			m_renderTasks = 1;
 			m_taskQueue.enqueue([this, &vertexs, pTexture, viewPortWidth, viewPortHeight, pitch] {
-				this->DrawTriangle_B6253(&vertexs[18], &vertexs[12], &vertexs[0], pTexture, unk_DE56Cx, viewPortWidth, viewPortHeight, pitch);
+				this->DrawTriangleInScreenSpace_B6253(&vertexs[18], &vertexs[12], &vertexs[0], pTexture, unk_DE56Cx, viewPortWidth, viewPortHeight, pitch);
 				m_renderTasks--;
 				});
 		}
 		else
 		{
-			DrawTriangle_B6253(&vertexs[18], &vertexs[12], &vertexs[0], pTexture, unk_DE56Cx, viewPortWidth, viewPortHeight, pitch);
+			DrawTriangleInScreenSpace_B6253(&vertexs[18], &vertexs[12], &vertexs[0], pTexture, unk_DE56Cx, viewPortWidth, viewPortHeight, pitch);
 		}
-		DrawTriangle_B6253(&vertexs[0], &vertexs[12], &vertexs[6], pTexture, unk_DE56Cx2, viewPortWidth, viewPortHeight, pitch);
+		DrawTriangleInScreenSpace_B6253(&vertexs[0], &vertexs[12], &vertexs[6], pTexture, unk_DE56Cx2, viewPortWidth, viewPortHeight, pitch);
 
 		while (m_renderTasks > 0);
 
@@ -3161,27 +3161,27 @@ void GameRender::DrawSquare(int* vertexs, int index, uint16_t viewPortWidth, uin
 		{
 			m_renderTasks = 1;
 			m_taskQueue.enqueue([this, &vertexs, pTexture, viewPortWidth, viewPortHeight, pitch] {
-				this->DrawTriangle_B6253(&vertexs[18], &vertexs[12], &vertexs[6], pTexture, unk_DE56Cx, viewPortWidth, viewPortHeight, pitch);
+				this->DrawTriangleInScreenSpace_B6253(&vertexs[18], &vertexs[12], &vertexs[6], pTexture, unk_DE56Cx, viewPortWidth, viewPortHeight, pitch);
 				m_renderTasks--;
 				});
 		}
 		else
 		{
-			DrawTriangle_B6253(&vertexs[18], &vertexs[12], &vertexs[6], pTexture, unk_DE56Cx, viewPortWidth, viewPortHeight, pitch);
+			DrawTriangleInScreenSpace_B6253(&vertexs[18], &vertexs[12], &vertexs[6], pTexture, unk_DE56Cx, viewPortWidth, viewPortHeight, pitch);
 		}
 
-		DrawTriangle_B6253(&vertexs[18], &vertexs[6], &vertexs[0], pTexture, unk_DE56Cx2, viewPortWidth, viewPortHeight, pitch);
+		DrawTriangleInScreenSpace_B6253(&vertexs[18], &vertexs[6], &vertexs[0], pTexture, unk_DE56Cx2, viewPortWidth, viewPortHeight, pitch);
 
 		while (m_renderTasks > 0);
 	}
 }
 
-void GameRender::DrawInverseSquare(int* vertexs, int index, uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t pitch)
+void GameRender::DrawInverseSquareInScreenSpace(int* vertexs, int index, uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t pitch)
 {
-	DrawInverseSquare(vertexs, index, m_textureAddresses.at(m_Str_E9C38_smalltit[index].byte41), viewPortWidth, viewPortHeight, pitch);
+	DrawInverseSquareInScreenSpace(vertexs, index, m_textureAddresses.at(m_Str_E9C38_smalltit[index].byte41), viewPortWidth, viewPortHeight, pitch);
 }
 
-void GameRender::DrawInverseSquare(int* vertexs, int index, uint8_t* pTexture, uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t pitch)
+void GameRender::DrawInverseSquareInScreenSpace(int* vertexs, int index, uint8_t* pTexture, uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t pitch)
 {
 	vertexs[20] = xunk_D4350[m_Str_E9C38_smalltit[index].byte42][0];
 	vertexs[21] = xunk_D4350[m_Str_E9C38_smalltit[index].byte42][1];
@@ -3199,16 +3199,16 @@ void GameRender::DrawInverseSquare(int* vertexs, int index, uint8_t* pTexture, u
 		{
 			m_renderTasks = 1;
 			m_taskQueue.enqueue([this, &vertexs, pTexture, viewPortWidth, viewPortHeight, pitch] {
-				this->DrawTriangle_B6253(&vertexs[18], &vertexs[0], &vertexs[12], pTexture, unk_DE56Cx, viewPortWidth, viewPortHeight, pitch);
+				this->DrawTriangleInScreenSpace_B6253(&vertexs[18], &vertexs[0], &vertexs[12], pTexture, unk_DE56Cx, viewPortWidth, viewPortHeight, pitch);
 				m_renderTasks--;
 				});
 		}
 		else
 		{
-			DrawTriangle_B6253(&vertexs[18], &vertexs[0], &vertexs[12], pTexture, unk_DE56Cx, viewPortWidth, viewPortHeight, pitch);
+			DrawTriangleInScreenSpace_B6253(&vertexs[18], &vertexs[0], &vertexs[12], pTexture, unk_DE56Cx, viewPortWidth, viewPortHeight, pitch);
 		}
 
-		DrawTriangle_B6253(&vertexs[0], &vertexs[6], &vertexs[12], pTexture, unk_DE56Cx2, viewPortWidth, viewPortHeight, pitch);
+		DrawTriangleInScreenSpace_B6253(&vertexs[0], &vertexs[6], &vertexs[12], pTexture, unk_DE56Cx2, viewPortWidth, viewPortHeight, pitch);
 
 		while (m_renderTasks > 0);
 	}
@@ -3218,16 +3218,16 @@ void GameRender::DrawInverseSquare(int* vertexs, int index, uint8_t* pTexture, u
 		{
 			m_renderTasks = 1;
 			m_taskQueue.enqueue([this, &vertexs, pTexture, viewPortWidth, viewPortHeight, pitch] {
-				this->DrawTriangle_B6253(&vertexs[18], &vertexs[6], &vertexs[12], pTexture, unk_DE56Cx, viewPortWidth, viewPortHeight, pitch);
+				this->DrawTriangleInScreenSpace_B6253(&vertexs[18], &vertexs[6], &vertexs[12], pTexture, unk_DE56Cx, viewPortWidth, viewPortHeight, pitch);
 				m_renderTasks--;
 				});
 		}
 		else
 		{
-			DrawTriangle_B6253(&vertexs[18], &vertexs[6], &vertexs[12], pTexture, unk_DE56Cx, viewPortWidth, viewPortHeight, pitch);
+			DrawTriangleInScreenSpace_B6253(&vertexs[18], &vertexs[6], &vertexs[12], pTexture, unk_DE56Cx, viewPortWidth, viewPortHeight, pitch);
 		}
 
-		DrawTriangle_B6253(&vertexs[18], &vertexs[0], &vertexs[6], pTexture, unk_DE56Cx2, viewPortWidth, viewPortHeight, pitch);
+		DrawTriangleInScreenSpace_B6253(&vertexs[18], &vertexs[0], &vertexs[6], pTexture, unk_DE56Cx2, viewPortWidth, viewPortHeight, pitch);
 
 		while (m_renderTasks > 0);
 	}
@@ -5619,7 +5619,7 @@ void GameRender::DrawSprite_41BD3(uint32 a1, uint8_t x_BYTE_E88E0x[], type_event
 	}
 }
 
-void GameRender::DrawTriangle_B6253(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3, uint8_t* pTexture, uint8_t unk_DE56Cx[], uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t pitch)
+void GameRender::DrawTriangleInScreenSpace_B6253(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3, uint8_t* pTexture, uint8_t unk_DE56Cx[], uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t pitch)
 {
 	x_DWORD* v3; // esi
 	x_DWORD* v4; // edi
