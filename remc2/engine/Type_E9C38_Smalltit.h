@@ -7,7 +7,7 @@
 
 typedef struct {//lenght 44
 	int32_t dword0_rot;
-	int32_t dword4;//?
+	int32_t dword4_height;//Height
 	int32_t dword8;//?
 	int32_t dword12;//?
 	int32_t dword16;//triangleB
@@ -20,7 +20,7 @@ typedef struct {//lenght 44
 	int16_t word39;
 	int8_t byte40;
 	uint8_t byte41;//texture index
-	int8_t byte42;
+	int8_t byte42_std;//texture direction
 	int8_t byte43;
 }
 type_E9C38_smalltit;

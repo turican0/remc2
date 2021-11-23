@@ -1103,7 +1103,7 @@ void GameRender::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __int
 					v34 = 128;
 				m_Str_E9C38_smalltit[v278x].dword16 = m_str_F2C20ar.dword0x18 * m_Str_E9C38_smalltit[v278x].dword0_rot / v34;
 				v36 = v279;
-				m_Str_E9C38_smalltit[v278x].dword4 = 32 * x_BYTE_11B4E0_heightmap[v279] - posZ;
+				m_Str_E9C38_smalltit[v278x].dword4_height = 32 * x_BYTE_11B4E0_heightmap[v279] - posZ;
 				m_Str_E9C38_smalltit[v278x].dword8 = ((unsigned __int8)x_BYTE_14B4E0_second_heightmap[v36] << 15 >> 10) - posZ;
 				v37 = 0;
 				if (!x_BYTE_10B4E0_terraintype[v36])
@@ -1111,7 +1111,7 @@ void GameRender::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __int
 					v38 = 32 * D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x012_2BE0_11248;
 					v37 = (Maths::x_DWORD_DB750[(v38 + (HIBYTE(v279) << 7)) & 0x7FF] >> 8)
 						* (Maths::x_DWORD_DB750[(((unsigned __int8)v279 << 7) + v38) & 0x7FF] >> 8);
-					m_Str_E9C38_smalltit[v278x].dword4 -= v37 >> 13;
+					m_Str_E9C38_smalltit[v278x].dword4_height -= v37 >> 13;
 					if (v33 >= 14464)
 						v37 = 0;
 				}
@@ -1131,7 +1131,7 @@ void GameRender::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __int
 					m_Str_E9C38_smalltit[v278x].word38 |= 0x80u;
 				v40 = m_str_F2C20ar.dword0x18;
 				v41x = v278x;
-				m_Str_E9C38_smalltit[v278x].dword20 = m_str_F2C20ar.dword0x22 + m_str_F2C20ar.dword0x18 * m_Str_E9C38_smalltit[v278x].dword4 / v34;
+				m_Str_E9C38_smalltit[v278x].dword20 = m_str_F2C20ar.dword0x22 + m_str_F2C20ar.dword0x18 * m_Str_E9C38_smalltit[v278x].dword4_height / v34;
 				m_Str_E9C38_smalltit[v278x].dword28 = m_str_F2C20ar.dword0x22 + v40 * m_Str_E9C38_smalltit[v278x].dword8 / v34;
 				LOBYTE(v42) = v277[2] + v279;
 				HIBYTE(v42) = v277[3] + HIBYTE(v279);
@@ -1140,7 +1140,7 @@ void GameRender::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __int
 				if (D41A0_0.m_GameSettings.str_0x2196.flat_0x2199)
 					m_Str_E9C38_smalltit[v43x].word39 |= 0x1000u;
 				m_Str_E9C38_smalltit[v278x].byte43 = Maths::x_BYTE_D41D8[m_Str_E9C38_smalltit[v278x].byte41];
-				m_Str_E9C38_smalltit[v278x].byte42 = v248x[32] + (((signed int)(unsigned __int8)x_BYTE_13B4E0_angle[v42] >> 2) & 0x1C);
+				m_Str_E9C38_smalltit[v278x].byte42_std = v248x[32] + (((signed int)(unsigned __int8)x_BYTE_13B4E0_angle[v42] >> 2) & 0x1C);
 				LOBYTE(v42) = v277[4] + v42;
 				HIBYTE(v42) += v277[5];
 				m_Str_E9C38_smalltit[v278x].word36 = mapEntityIndex_15B4E0[v42];
@@ -1511,13 +1511,13 @@ void GameRender::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __int
 					v109 = 128;
 				m_Str_E9C38_smalltit[v278x].dword16 = m_str_F2C20ar.dword0x18 * m_Str_E9C38_smalltit[v278x].dword0_rot / v109;
 				v111 = v279;
-				m_Str_E9C38_smalltit[v278x].dword4 = 32 * x_BYTE_11B4E0_heightmap[v279] - posZ;
+				m_Str_E9C38_smalltit[v278x].dword4_height = 32 * x_BYTE_11B4E0_heightmap[v279] - posZ;
 				v112 = (unsigned __int16)D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x012_2BE0_11248 << 6;
 				v248x[26] = Maths::x_DWORD_DB750[(v112 + (HIBYTE(v279) << 7)) & 0x7FF] >> 8;
 				v113 = v248x[26] * (Maths::x_DWORD_DB750[(((unsigned __int8)v279 << 7) + v112) & 0x7FF] >> 8);
 				v248x[26] = x_BYTE_11B4E0_heightmap[v111];
 				m_Str_E9C38_smalltit[v278x].dword8 = -(v248x[26] * ((v113 >> 4) + 0x8000) >> 10) - posZ;
-				if (!(x_BYTE_13B4E0_angle[v111] & 8) || (m_Str_E9C38_smalltit[v278x].dword4 -= v113 >> 10, v248x[31] >= 14464))
+				if (!(x_BYTE_13B4E0_angle[v111] & 8) || (m_Str_E9C38_smalltit[v278x].dword4_height -= v113 >> 10, v248x[31] >= 14464))
 				{
 					v113 = 0;
 				}
@@ -1534,7 +1534,7 @@ void GameRender::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __int
 				m_Str_E9C38_smalltit[v278x].dword32 = 0;
 			LABEL_134:
 				v117x = v278x;
-				m_Str_E9C38_smalltit[v278x].dword20 = m_str_F2C20ar.dword0x22 + m_str_F2C20ar.dword0x18 * m_Str_E9C38_smalltit[v278x].dword4 / v109;
+				m_Str_E9C38_smalltit[v278x].dword20 = m_str_F2C20ar.dword0x22 + m_str_F2C20ar.dword0x18 * m_Str_E9C38_smalltit[v278x].dword4_height / v109;
 				m_Str_E9C38_smalltit[v278x].dword28 = m_str_F2C20ar.dword0x22 + m_str_F2C20ar.dword0x18 * m_Str_E9C38_smalltit[v117x].dword8 / v109;
 				LOBYTE(v118) = v277[2] + v279;
 				HIBYTE(v118) = v277[3] + HIBYTE(v279);
@@ -1546,7 +1546,7 @@ void GameRender::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __int
 					m_Str_E9C38_smalltit[v278x].word38 |= 0x1000u;
 				v120x = v278x;
 				m_Str_E9C38_smalltit[v278x].byte43 = Maths::x_BYTE_D41D8[m_Str_E9C38_smalltit[v278x].byte41];
-				m_Str_E9C38_smalltit[v120x].byte42 = v248x[32] + (((signed int)(unsigned __int8)x_BYTE_13B4E0_angle[v118] >> 2) & 0x1C);
+				m_Str_E9C38_smalltit[v120x].byte42_std = v248x[32] + (((signed int)(unsigned __int8)x_BYTE_13B4E0_angle[v118] >> 2) & 0x1C);
 				LOBYTE(v118) = v277[4] + v118;
 				HIBYTE(v118) += v277[5];
 				m_Str_E9C38_smalltit[v278x].word36 = mapEntityIndex_15B4E0[v118];
@@ -1596,11 +1596,11 @@ LABEL_259:
 			v198 = 128;
 		v200 = v279;
 		m_Str_E9C38_smalltit[v278x].dword16 = m_str_F2C20ar.dword0x18 * m_Str_E9C38_smalltit[v278x].dword0_rot / v198;
-		m_Str_E9C38_smalltit[v278x].dword4 = 32 * x_BYTE_11B4E0_heightmap[v200] - posZ;
+		m_Str_E9C38_smalltit[v278x].dword4_height = 32 * x_BYTE_11B4E0_heightmap[v200] - posZ;
 		v201 = (unsigned __int16)D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x012_2BE0_11248 << 6;
 		v248x[26] = Maths::x_DWORD_DB750[(v201 + (HIBYTE(v279) << 7)) & 0x7FF] >> 8;
 		v202 = v248x[26] * (Maths::x_DWORD_DB750[(((unsigned __int8)v279 << 7) + v201) & 0x7FF] >> 8);
-		if (!(x_BYTE_13B4E0_angle[v200] & 8) || (m_Str_E9C38_smalltit[v278x].dword4 -= v202 >> 10, v197 >= 14464))
+		if (!(x_BYTE_13B4E0_angle[v200] & 8) || (m_Str_E9C38_smalltit[v278x].dword4_height -= v202 >> 10, v197 >= 14464))
 			v202 = 0;
 		v203 = (v197 << 8) + 8 * v202;
 		if (v199 > m_str_F2C20ar.dword0x13)
@@ -1609,13 +1609,13 @@ LABEL_259:
 			{
 				m_Str_E9C38_smalltit[v278x].dword32 = 0;
 			LABEL_254:
-				m_Str_E9C38_smalltit[v278x].dword20 = m_str_F2C20ar.dword0x22 + m_str_F2C20ar.dword0x18 * m_Str_E9C38_smalltit[v278x].dword4 / v198;
+				m_Str_E9C38_smalltit[v278x].dword20 = m_str_F2C20ar.dword0x22 + m_str_F2C20ar.dword0x18 * m_Str_E9C38_smalltit[v278x].dword4_height / v198;
 				LOBYTE(v204) = v277[2] + v279;
 				HIBYTE(v204) = v277[3] + HIBYTE(v279);
 				v205x = v278x;
 				m_Str_E9C38_smalltit[v278x].byte41 = x_BYTE_10B4E0_terraintype[v204];
 				m_Str_E9C38_smalltit[v205x].byte43 = Maths::x_BYTE_D41D8[m_Str_E9C38_smalltit[v205x].byte41];
-				m_Str_E9C38_smalltit[v205x].byte42 = v248x[32] + (((signed int)(unsigned __int8)x_BYTE_13B4E0_angle[v204] >> 2) & 0x1C);
+				m_Str_E9C38_smalltit[v205x].byte42_std = v248x[32] + (((signed int)(unsigned __int8)x_BYTE_13B4E0_angle[v204] >> 2) & 0x1C);
 				LOBYTE(v204) = v277[4] + v204;
 				HIBYTE(v204) += v277[5];
 				m_Str_E9C38_smalltit[v278x].word36 = mapEntityIndex_15B4E0[v204];
@@ -3126,14 +3126,14 @@ void GameRender::StopWorkerThreads()
 
 void GameRender::DrawSquareInScreenSpace(int* vertexs, int index, uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t pitch)
 {
-	vertexs[20] = xunk_D4350[m_Str_E9C38_smalltit[index].byte42][0];
-	vertexs[21] = xunk_D4350[m_Str_E9C38_smalltit[index].byte42][1];
-	vertexs[14] = xunk_D4350[m_Str_E9C38_smalltit[index].byte42][2];
-	vertexs[15] = xunk_D4350[m_Str_E9C38_smalltit[index].byte42][3];
-	vertexs[8] = xunk_D4350[m_Str_E9C38_smalltit[index].byte42][4];
-	vertexs[9] = xunk_D4350[m_Str_E9C38_smalltit[index].byte42][5];
-	vertexs[2] = xunk_D4350[m_Str_E9C38_smalltit[index].byte42][6];
-	vertexs[3] = xunk_D4350[m_Str_E9C38_smalltit[index].byte42][7];
+	vertexs[20] = xunk_D4350[m_Str_E9C38_smalltit[index].byte42_std][0];
+	vertexs[21] = xunk_D4350[m_Str_E9C38_smalltit[index].byte42_std][1];
+	vertexs[14] = xunk_D4350[m_Str_E9C38_smalltit[index].byte42_std][2];
+	vertexs[15] = xunk_D4350[m_Str_E9C38_smalltit[index].byte42_std][3];
+	vertexs[8] = xunk_D4350[m_Str_E9C38_smalltit[index].byte42_std][4];
+	vertexs[9] = xunk_D4350[m_Str_E9C38_smalltit[index].byte42_std][5];
+	vertexs[2] = xunk_D4350[m_Str_E9C38_smalltit[index].byte42_std][6];
+	vertexs[3] = xunk_D4350[m_Str_E9C38_smalltit[index].byte42_std][7];
 	uint8_t* pTexture = m_textureAddresses.at(m_Str_E9C38_smalltit[index].byte41);
 
 	if ((uint8_t)m_Str_E9C38_smalltit[index].word38 & 1)
@@ -3183,14 +3183,14 @@ void GameRender::DrawInverseSquareInScreenSpace(int* vertexs, int index, uint16_
 
 void GameRender::DrawInverseSquareInScreenSpace(int* vertexs, int index, uint8_t* pTexture, uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t pitch)
 {
-	vertexs[20] = xunk_D4350[m_Str_E9C38_smalltit[index].byte42][0];
-	vertexs[21] = xunk_D4350[m_Str_E9C38_smalltit[index].byte42][1];
-	vertexs[14] = xunk_D4350[m_Str_E9C38_smalltit[index].byte42][2];
-	vertexs[15] = xunk_D4350[m_Str_E9C38_smalltit[index].byte42][3];
-	vertexs[8] = xunk_D4350[m_Str_E9C38_smalltit[index].byte42][4];
-	vertexs[9] = xunk_D4350[m_Str_E9C38_smalltit[index].byte42][5];
-	vertexs[2] = xunk_D4350[m_Str_E9C38_smalltit[index].byte42][6];
-	vertexs[3] = xunk_D4350[m_Str_E9C38_smalltit[index].byte42][7];
+	vertexs[20] = xunk_D4350[m_Str_E9C38_smalltit[index].byte42_std][0];
+	vertexs[21] = xunk_D4350[m_Str_E9C38_smalltit[index].byte42_std][1];
+	vertexs[14] = xunk_D4350[m_Str_E9C38_smalltit[index].byte42_std][2];
+	vertexs[15] = xunk_D4350[m_Str_E9C38_smalltit[index].byte42_std][3];
+	vertexs[8] = xunk_D4350[m_Str_E9C38_smalltit[index].byte42_std][4];
+	vertexs[9] = xunk_D4350[m_Str_E9C38_smalltit[index].byte42_std][5];
+	vertexs[2] = xunk_D4350[m_Str_E9C38_smalltit[index].byte42_std][6];
+	vertexs[3] = xunk_D4350[m_Str_E9C38_smalltit[index].byte42_std][7];
 	x_BYTE_E126D = 5;
 
 	if (m_Str_E9C38_smalltit[index].word38 & 1)
