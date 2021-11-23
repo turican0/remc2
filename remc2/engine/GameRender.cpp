@@ -3126,6 +3126,7 @@ void GameRender::StopWorkerThreads()
 
 void GameRender::DrawSquareInScreenSpace(int* vertexs, int index, uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t pitch)
 {
+	//Set Texture coordinates for polys
 	vertexs[20] = xunk_D4350[m_Str_E9C38_smalltit[index].byte42_std][0];
 	vertexs[21] = xunk_D4350[m_Str_E9C38_smalltit[index].byte42_std][1];
 	vertexs[14] = xunk_D4350[m_Str_E9C38_smalltit[index].byte42_std][2];
@@ -3134,8 +3135,11 @@ void GameRender::DrawSquareInScreenSpace(int* vertexs, int index, uint16_t viewP
 	vertexs[9] = xunk_D4350[m_Str_E9C38_smalltit[index].byte42_std][5];
 	vertexs[2] = xunk_D4350[m_Str_E9C38_smalltit[index].byte42_std][6];
 	vertexs[3] = xunk_D4350[m_Str_E9C38_smalltit[index].byte42_std][7];
+
+	//Get Texture
 	uint8_t* pTexture = m_textureAddresses.at(m_Str_E9C38_smalltit[index].byte41);
 
+	//Render
 	if ((uint8_t)m_Str_E9C38_smalltit[index].word38 & 1)
 	{
 		if (m_renderThreads.size() > 0)
@@ -3183,6 +3187,7 @@ void GameRender::DrawInverseSquareInScreenSpace(int* vertexs, int index, uint16_
 
 void GameRender::DrawInverseSquareInScreenSpace(int* vertexs, int index, uint8_t* pTexture, uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t pitch)
 {
+	//Set Texture coordinates for polys
 	vertexs[20] = xunk_D4350[m_Str_E9C38_smalltit[index].byte42_std][0];
 	vertexs[21] = xunk_D4350[m_Str_E9C38_smalltit[index].byte42_std][1];
 	vertexs[14] = xunk_D4350[m_Str_E9C38_smalltit[index].byte42_std][2];
@@ -3193,6 +3198,7 @@ void GameRender::DrawInverseSquareInScreenSpace(int* vertexs, int index, uint8_t
 	vertexs[3] = xunk_D4350[m_Str_E9C38_smalltit[index].byte42_std][7];
 	x_BYTE_E126D = 5;
 
+	//Render
 	if (m_Str_E9C38_smalltit[index].word38 & 1)
 	{
 		if (m_renderThreads.size() > 0)
