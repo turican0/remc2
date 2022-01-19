@@ -225,7 +225,7 @@ void GameRender::DrawWorld(int posX, int posY, int16_t yaw, int16_t posZ, int16_
 		}
 
 		DrawTerrainAndParticles_3C080(vPosX, vPosY, vYaw, posZ, pitch, roll, fov, str_DWORD_F66F0x, x_BYTE_E88E0x, x_DWORD_F5730, unk_F0A20x, x_DWORD_EA3E4, str_unk_1804B0ar, x_WORD_D4B7C, isCaveLevel, m_viewPort, m_uiScreenWidth);
-	
+
 		if (D41A0_0.m_GameSettings.str_0x2192.xxxx_0x2192)
 		{
 			v53 = m_ptrViewPortRenderBufferStart;
@@ -1853,7 +1853,7 @@ uint16_t GameRender::sub_3FD60(int a2x, uint8_t x_BYTE_E88E0x[], type_event_0x6E
 				if (v7 > 64 && v8 < m_str_F2C20ar.dword0x15)
 				{
 					if (v8 <= m_str_F2C20ar.dword0x13)
-					{ 
+					{
 						m_str_F2C20ar.dword0x00 = 0x2000;
 					}
 					else if (v8 < m_str_F2C20ar.dword0x16)
@@ -3106,7 +3106,7 @@ void GameRender::StartWorkerThread(int core)
 
 			} while (m_multiThreadRender);
 
-		}));
+			}));
 	}
 }
 
@@ -3124,6 +3124,7 @@ void GameRender::StopWorkerThreads()
 	}
 }
 
+//Coordinates Already transformed into "Screen Space" (x & y, top left 0,0)
 void GameRender::DrawSquareInScreenSpace(int* vertexs, int index, uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t pitch)
 {
 	//Set Texture coordinates for polys
@@ -5211,8 +5212,8 @@ void GameRender::DrawSprite_41BD3(uint32 a1, uint8_t x_BYTE_E88E0x[], type_event
 					}
 					if (x_D41A0_BYTEARRAY_4_struct.byteindex_10)
 						sub_88740(
-							m_str_F2C20ar.dword0x14x, 
-							x_DWORD_EA3E4, 
+							m_str_F2C20ar.dword0x14x,
+							x_DWORD_EA3E4,
 							str_unk_1804B0ar,
 							(signed __int16)(m_str_F2C20ar.dword0x04_screenY + (m_str_F2C20ar.dword0x09_realWidth >> 1)),
 							(signed __int16)(m_str_F2C20ar.dword0x03_screenX + (m_str_F2C20ar.dword0x0c_realHeight >> 1)));
@@ -5625,14 +5626,14 @@ void GameRender::DrawSprite_41BD3(uint32 a1, uint8_t x_BYTE_E88E0x[], type_event
 	}
 }
 
-void GameRender::DrawTriangleInScreenSpace_B6253(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3, uint8_t* pTexture, uint8_t unk_DE56Cx[], uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t pitch)
+void GameRender::DrawTriangleInScreenSpace_B6253(x_DWORD* vertex1, x_DWORD* vertex2, x_DWORD* vertex3, uint8_t* pTexture, uint8_t unk_DE56Cx[], uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t pitch)
 {
 	x_DWORD* v3; // esi
 	x_DWORD* v4; // edi
 	x_DWORD* v5; // ecx
-	int v6; // eax
-	int v7; // ebx
-	int v8; // edx
+	int y1; // eax
+	int y2; // ebx
+	int y3; // edx
 	int v9; // eax
 	int v10; // ebx
 	int v11; // ebx
@@ -5705,7 +5706,7 @@ void GameRender::DrawTriangleInScreenSpace_B6253(x_DWORD* a1, x_DWORD* a2, x_DWO
 	int v78; // esi
 	int v79; // ST48_4
 	int v80; // eax
-	x_DWORD* v81; // edi
+	int* v81; // edi
 	int v82; // edi
 	int v83; // edi
 	int v84; // eax
@@ -5719,7 +5720,7 @@ void GameRender::DrawTriangleInScreenSpace_B6253(x_DWORD* a1, x_DWORD* a2, x_DWO
 	int v92; // edx
 	int v93; // ST48_4
 	int v94; // eax
-	x_DWORD* v95; // edi
+	int* v95; // edi
 	int v96; // edi
 	int v97; // edi
 	int v98; // eax
@@ -5731,14 +5732,14 @@ void GameRender::DrawTriangleInScreenSpace_B6253(x_DWORD* a1, x_DWORD* a2, x_DWO
 	int v104; // esi
 	int v105; // ST48_4
 	int v106; // eax
-	x_DWORD* v107; // edi
+	int* v107; // edi
 	int v108; // edi
 	int v109; // edi
 	int v110; // eax
 	int v111; // ebx
 	int v112; // ST48_4
 	int v113; // eax
-	x_DWORD* v114; // edi
+	int* v114; // edi
 	int v115; // edi
 	int v116; // edi
 	int v117; // eax
@@ -6943,38 +6944,39 @@ void GameRender::DrawTriangleInScreenSpace_B6253(x_DWORD* a1, x_DWORD* a2, x_DWO
 	v1135 = 0;
 	//fix it
 
-	v3 = a1;
-	v4 = a2;
-	v5 = a3;
-	v6 = a1[1];
-	v7 = a2[1];
-	v8 = a3[1];
-	if (v6 == v7)
+	v3 = vertex1;
+	v4 = vertex2;
+	v5 = vertex3;
+	y1 = vertex1[1];
+	y2 = vertex2[1];
+	y3 = vertex3[1];
+
+	if (y1 == y2)
 	{
-		if (v6 == v8)
+		if (y1 == y3)
 			return;
-		if (v6 >= v8)
+		if (y1 >= y3)
 		{
-			if (*a1 <= *a2)
+			if (*vertex1 <= *vertex2)
 				return;
-			v3 = a3;
-			v4 = a1;
-			v5 = a2;
+			v3 = vertex3;
+			v4 = vertex1;
+			v5 = vertex2;
 			goto LABEL_234;
 		}
-		if (*a2 <= *a1)
+		if (*vertex2 <= *vertex1)
 			return;
 		goto LABEL_277;
 	}
-	if (v6 <= v7)
+	if (y1 <= y2)
 	{
-		if (v6 != v8)
+		if (y1 != y3)
 		{
-			if (v6 >= v8)
+			if (y1 >= y3)
 			{
-				v3 = a3;
-				v4 = a1;
-				v5 = a2;
+				v3 = vertex3;
+				v4 = vertex1;
+				v5 = vertex2;
 			LABEL_24:
 				v9 = v3[1];
 				v1190 = v9;
@@ -7396,13 +7398,13 @@ void GameRender::DrawTriangleInScreenSpace_B6253(x_DWORD* a1, x_DWORD* a2, x_DWO
 				}
 				return;
 			}
-			if (v7 != v8)
+			if (y2 != y3)
 			{
-				if (v7 <= v8)
+				if (y2 <= y3)
 					goto LABEL_24;
 				goto LABEL_129;
 			}
-			if (*a2 <= *a3)
+			if (*vertex2 <= *vertex3)
 				return;
 		LABEL_234:
 			v117 = v3[1];
@@ -7594,11 +7596,11 @@ void GameRender::DrawTriangleInScreenSpace_B6253(x_DWORD* a1, x_DWORD* a2, x_DWO
 				goto LABEL_53;
 			}
 		}
-		if (*a1 <= *a3)
+		if (*vertex1 <= *vertex3)
 			return;
-		v3 = a3;
-		v4 = a1;
-		v5 = a2;
+		v3 = vertex3;
+		v4 = vertex1;
+		v5 = vertex2;
 	LABEL_277:
 		v143 = v3[1];
 		v1193 = v143;
@@ -7789,41 +7791,41 @@ void GameRender::DrawTriangleInScreenSpace_B6253(x_DWORD* a1, x_DWORD* a2, x_DWO
 			goto LABEL_53;
 		}
 	}
-	if (v6 == v8)
+	if (y1 == y3)
 	{
-		if (*a3 <= *a1)
+		if (*vertex3 <= *vertex1)
 			return;
-		v3 = a2;
-		v4 = a3;
-		v5 = a1;
+		v3 = vertex2;
+		v4 = vertex3;
+		v5 = vertex1;
 		goto LABEL_234;
 	}
-	if (v6 < v8)
+	if (y1 < y3)
 	{
-		v3 = a2;
-		v4 = a3;
-		v5 = a1;
+		v3 = vertex2;
+		v4 = vertex3;
+		v5 = vertex1;
 		goto LABEL_129;
 	}
-	if (v7 == v8)
+	if (y2 == y3)
 	{
-		if (*a3 <= *a2)
+		if (*vertex3 <= *vertex2)
 			return;
-		v3 = a2;
-		v4 = a3;
-		v5 = a1;
+		v3 = vertex2;
+		v4 = vertex3;
+		v5 = vertex1;
 		goto LABEL_277;
 	}
-	if (v7 < v8)
+	if (y2 < y3)
 	{
-		v3 = a2;
-		v4 = a3;
-		v5 = a1;
+		v3 = vertex2;
+		v4 = vertex3;
+		v5 = vertex1;
 		goto LABEL_24;
 	}
-	v3 = a3;
-	v4 = a1;
-	v5 = a2;
+	v3 = vertex3;
+	v4 = vertex1;
+	v5 = vertex2;
 LABEL_129:
 	v65 = v3[1];
 	v1191 = v65;
@@ -14406,19 +14408,19 @@ LABEL_129:
 			}
 			else if (v1301)
 			{
-				v82 = viewPortHeight - v1191;
-				triLn_v1123 = viewPortHeight - v1191;
-				if (v1297)
-				{
-					v1114 = viewPortHeight - v1191;
-				}
-				else
-				{
-					v18 = __OFSUB__(v82, v1114);
-					v83 = v82 - v1114;
-					v1297 = (v83 < 0) ^ v18 | (v83 == 0);
-					v1120 = v83;
-				}
+			v82 = viewPortHeight - v1191;
+			triLn_v1123 = viewPortHeight - v1191;
+			if (v1297)
+			{
+				v1114 = viewPortHeight - v1191;
+			}
+			else
+			{
+				v18 = __OFSUB__(v82, v1114);
+				v83 = v82 - v1114;
+				v1297 = (v83 < 0) ^ v18 | (v83 == 0);
+				v1120 = v83;
+			}
 			}
 			v81 = LoadPolygon((x_DWORD*)unk_DE56Cx, &v74, &v75, &v76, &v77, &v78, v1104, v1108, v1127, v1138, v1149, &v1114);
 			v80 = v1122;
@@ -14478,7 +14480,7 @@ x_DWORD* GameRender::LoadPolygon(x_DWORD* ptrPolys, int* v0, int* v1, int* v2, i
 	return ptrPolys;
 }
 
-x_DWORD* GameRender::LoadPolygon(x_DWORD* ptrPolys, int* v0, int* v1, int* v2, int* v3, int* v4, int s0, int s1, int s2, int s3, int s4, int *line)
+x_DWORD* GameRender::LoadPolygon(x_DWORD* ptrPolys, int* v0, int* v1, int* v2, int* v3, int* v4, int s0, int s1, int s2, int s3, int s4, int* line)
 {
 	do
 	{
@@ -14499,7 +14501,7 @@ x_DWORD* GameRender::LoadPolygon(x_DWORD* ptrPolys, int* v0, int* v1, int* v2, i
 	return ptrPolys;
 }
 
-void GameRender::SetTextures(std::array<uint8_t*, 256> &textureAdresses)
+void GameRender::SetTextures(std::array<uint8_t*, 256>& textureAdresses)
 {
 	m_textureAddresses = textureAdresses;
 }
@@ -14527,8 +14529,8 @@ void GameRender::SetRenderViewPortSize_BCD45(uint8_t viewPortSizeSetting, uint16
 		uint16_t viewPortWidthMultipler = screenWidth / 40;
 		uint16_t viewPortHeightMultipler = screenHeight / 40;
 
-		viewPort.PosX = (viewPortWidthMultipler * v1) /2;
-		viewPort.PosY = (viewPortHeightMultipler * v1) /2;
+		viewPort.PosX = (viewPortWidthMultipler * v1) / 2;
+		viewPort.PosY = (viewPortHeightMultipler * v1) / 2;
 		viewPort.Width = viewPortWidthMultipler * viewPortSizeSetting;
 		viewPort.Height = viewPortHeightMultipler * viewPortSizeSetting;
 	}
