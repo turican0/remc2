@@ -36,8 +36,7 @@ private:
 		0x00,0xFF,0xFF,0x00,0xFF,0x28,0x00,0xFF
 	};
 
-	uint8_t unk_DE56Cx[4194304]; //number of polygons (2048 * 2048)
-	uint8_t unk_DE56Cx2[4194304];
+	uint8_t unk_DE56Cx[8][4194304]; //Number of possible render threads (8) //number of polygons (2048 * 2048)
 	
 	uint32_t x_DWORD_B8845[16] = {
 		0x00000000,0xFFFFFFF1,0xFFFFFFF2,0xFFFFFFF3,
@@ -73,7 +72,7 @@ private:
 	bool m_multiThreadRender = false;
 
 	SafeQueue<std::function<void()>> m_taskQueue;
-	uint8_t m_renderTasks = 0;
+	std::atomic_uint8_t m_renderTasks;
 
 	int x_DWORD_D4794 = 0;
 	int x_DWORD_D4798 = 0;
@@ -96,7 +95,7 @@ private:
 	void DrawInverseSquareInScreenSpace(int* vertexs, int index, uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t pitch);
 	void DrawInverseSquareInScreenSpace(int* vertexs, int index, uint8_t* pTexture, uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t pitch);
 	void DrawParticles_3E360(int a2x, type_particle_str** str_DWORD_F66F0x[], uint8_t x_BYTE_E88E0x[], int32_t x_DWORD_F5730[], type_event_0x6E8E* x_DWORD_EA3E4[], type_str_unk_1804B0ar str_unk_1804B0ar, ViewPort viewPort, uint16_t screenWidth);
-	void DrawTriangleInScreenSpace_B6253(x_DWORD* vertex1, x_DWORD* vertex2, x_DWORD* vertex3, uint8_t* pTexture, uint8_t unk_DE56Cx[], uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t pitch);
+	void DrawTriangleInScreenSpace_B6253(x_DWORD* vertex1, x_DWORD* vertex2, x_DWORD* vertex3, uint8_t* pTexture, uint8_t unk_DE56Cx[], uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t pitch, uint8_t startLine, uint8_t drawEveryNthLine);
 	x_DWORD* LoadPolygon(x_DWORD* ptrPolys, int* v0, int* v1, int s0, int s1, int* line);
 	x_DWORD* LoadPolygon(x_DWORD* ptrPolys, int* v0, int* v1, int* v4, int s0, int s1, int s4, int* line);
 	x_DWORD* LoadPolygon(x_DWORD* ptrPolys, int* v0, int* v1, int* v2, int* v3, int s0, int s1, int s2, int s3, int* line);

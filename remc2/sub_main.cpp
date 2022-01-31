@@ -14523,7 +14523,7 @@ void sub_1A970_change_game_settings(char a1, int a2, int a3)//1fb970
 		if (m_ptrGameRender != nullptr)
 		{
 			uint8_t numRenderThreads = m_ptrGameRender->GetRenderThreads();
-			if (numRenderThreads >= 4)
+			if (numRenderThreads >= 7)
 			{
 				m_ptrGameRender->SetRenderThreads(0);
 				sub_19760_set_message("Multi-thread render OFF", 3u, 50);
@@ -27544,7 +27544,7 @@ void DrawGameFrame_2BE30(uint8_t* ptrScreenBuffer, uint16_t screenWidth, uint16_
 
 	if (m_ptrGameRender == nullptr)
 	{
-		m_ptrGameRender = new GameRender(ptrScreenBuffer, *xadatapald0dat2.var28_begin_buffer, screenWidth, screenHeight, 0, 0, screenWidth, screenHeight, x_DWORD_DDF50_texture_adresses, x_BYTE_F6EE0_tablesx, (multiThreadedRender? 2: 1));
+		m_ptrGameRender = new GameRender(ptrScreenBuffer, *xadatapald0dat2.var28_begin_buffer, screenWidth, screenHeight, 0, 0, screenWidth, screenHeight, x_DWORD_DDF50_texture_adresses, x_BYTE_F6EE0_tablesx, (multiThreadedRender? 1: 1));
 	}
 
 	int16_t spellLeftPosX = screenWidth - 130;
