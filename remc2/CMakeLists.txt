@@ -51,6 +51,8 @@ set(SOURCE_FILES_ENGINE
     "engine/Type_WORD_D951C.h"
     "engine/XUnk_D4350.cpp"
     "engine/XUnk_D4350.h"
+    "engine/RenderThread.cpp"
+    "engine/RenderThread.h"
     "utilities/BitmapIO.cpp"
     "utilities/BitmapIO.h"
     "utilities/DataFileIO.cpp"

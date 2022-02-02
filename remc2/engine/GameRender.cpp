@@ -307,7 +307,7 @@ void GameRender::DrawSky_40950_TH(int16_t roll, uint8_t* ptrViewPortRenderBuffer
 
 		for (i = 0; i < m_renderThreads.size(); i++)
 		{
-			m_taskQueue.enqueue([this, roll, ptrViewPortRenderBufferStart, viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine] {
+			m_renderThreads[i]->Enqueue([this, roll, ptrViewPortRenderBufferStart, viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine] {
 				this->DrawSky_40950(roll, ptrViewPortRenderBufferStart, viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
 				m_renderTasks--;
 				});
@@ -3089,42 +3089,24 @@ void GameRender::StartWorkerThreads(uint8_t numOfThreads)
 
 void GameRender::StartWorkerThread(int core)
 {
-	unsigned numCores = 1;
+	RenderThread* renderThread = new RenderThread(core);
 
-	numCores = std::thread::hardware_concurrency();
-
-	if (numCores >= core)
+	if (renderThread->IsRunning())
 	{
-		m_renderThreads.push_back(std::thread([this, core] {
-
-#ifdef _MSC_VER
-			SetThreadIdealProcessor(GetCurrentThread(), core);
-			DWORD_PTR dw = SetThreadAffinityMask(GetCurrentThread(), DWORD_PTR(1) << core);
-#endif
-			do
-			{
-				std::function<void()> task = m_taskQueue.dequeue();
-				if (task)
-				{
-					task();
-				}
-
-			} while (m_multiThreadRender);
-
-		}));
+		m_renderThreads.push_back(renderThread);
 	}
+	
 }
 
 void GameRender::StopWorkerThreads()
 {
-	m_multiThreadRender = false;
 	if (m_renderThreads.size() > 0)
 	{
-		while (m_renderTasks > 0);
-
-		for (std::thread& thread : m_renderThreads) {
-			if (thread.joinable()) {
-				thread.join();
+		for (RenderThread* thread : m_renderThreads) {
+			if (thread->IsRunning())
+			{
+				thread->StopWorkerThread();
+				delete thread;
 			}
 		}
 		m_renderThreads.clear();
@@ -3158,7 +3140,7 @@ void GameRender::DrawSquareInScreenSpace(int* vertexs, int index, uint16_t viewP
 
 			for (i = 0; i < m_renderThreads.size(); i++)
 			{
-				m_taskQueue.enqueue([this, &vertexs, pTexture, viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine] {
+				m_renderThreads[i]->Enqueue([this, &vertexs, pTexture, viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine] {
 					this->DrawTriangleInScreenSpace_B6253(&vertexs[18], &vertexs[12], &vertexs[0], pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
 					this->DrawTriangleInScreenSpace_B6253(&vertexs[0], &vertexs[12], &vertexs[6], pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
 					m_renderTasks--;
@@ -3186,7 +3168,7 @@ void GameRender::DrawSquareInScreenSpace(int* vertexs, int index, uint16_t viewP
 
 			for (i = 0; i < m_renderThreads.size(); i++)
 			{
-				m_taskQueue.enqueue([this, &vertexs, pTexture, viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine] {
+				m_renderThreads[i]->Enqueue([this, &vertexs, pTexture, viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine] {
 					this->DrawTriangleInScreenSpace_B6253(&vertexs[18], &vertexs[12], &vertexs[6], pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
 					this->DrawTriangleInScreenSpace_B6253(&vertexs[18], &vertexs[6], &vertexs[0], pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
 					m_renderTasks--;
@@ -3235,7 +3217,7 @@ void GameRender::DrawInverseSquareInScreenSpace(int* vertexs, int index, uint8_t
 
 			for (i = 0; i < m_renderThreads.size(); i++)
 			{
-				m_taskQueue.enqueue([this, &vertexs, pTexture, viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine] {
+				m_renderThreads[i]->Enqueue([this, &vertexs, pTexture, viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine] {
 					this->DrawTriangleInScreenSpace_B6253(&vertexs[18], &vertexs[0], &vertexs[12], pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
 					this->DrawTriangleInScreenSpace_B6253(&vertexs[0], &vertexs[6], &vertexs[12], pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
 					m_renderTasks--;
@@ -3264,7 +3246,7 @@ void GameRender::DrawInverseSquareInScreenSpace(int* vertexs, int index, uint8_t
 
 			for (i = 0; i < m_renderThreads.size(); i++)
 			{
-				m_taskQueue.enqueue([this, &vertexs, pTexture, viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine] {
+				m_renderThreads[i]->Enqueue([this, &vertexs, pTexture, viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine] {
 					this->DrawTriangleInScreenSpace_B6253(&vertexs[18], &vertexs[6], &vertexs[12], pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
 					this->DrawTriangleInScreenSpace_B6253(&vertexs[18], &vertexs[0], &vertexs[6], pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
 					m_renderTasks--;

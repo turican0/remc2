@@ -23,6 +23,7 @@
 #include "engine_support.h"
 #include "ViewPort.h"
 #include "defs.h"
+#include "RenderThread.h"
 
 class GameRender {
 
@@ -68,10 +69,9 @@ private:
 	type_F2C20ar m_str_F2C20ar;
 	int16_t m_x_WORD_180660_VGA_type_resolution;
 
-	std::vector<std::thread> m_renderThreads;
+	std::vector<RenderThread*> m_renderThreads;
 	bool m_multiThreadRender = false;
 
-	SafeQueue<std::function<void()>> m_taskQueue;
 	std::atomic_uint8_t m_renderTasks;
 
 	int x_DWORD_D4794 = 0;
