@@ -72,8 +72,6 @@ private:
 	std::vector<RenderThread*> m_renderThreads;
 	bool m_multiThreadRender = false;
 
-	std::atomic_uint8_t m_renderTasks;
-
 	int x_DWORD_D4794 = 0;
 	int x_DWORD_D4798 = 0;
 	char x_BYTE_E126D = 0;
@@ -108,6 +106,7 @@ private:
 	void StartWorkerThreads(uint8_t numOfThreads);
 	void StartWorkerThread(int core);
 	void StopWorkerThreads();
+	void WaitForRenderFinish();
 
 public:
 	GameRender(uint8_t* pScreenBuffer, uint8_t* pColorPalette, uint16_t screenWidth, uint16_t screenHeight, uint16_t viewPortPosX, uint16_t viewPortPosY, uint16_t viewPortWidth, uint16_t viewPortHeight, std::array<uint8_t*, 256> &textureAdresses, uint8_t x_BYTE_F6EE0_tablesx[], uint8_t renderThreads);

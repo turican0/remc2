@@ -21,6 +21,7 @@ private:
 	std::atomic_bool m_running;
 	std::thread m_renderThread;
 	SafeQueue<std::function<void()>> m_taskQueue;
+	uint8_t m_runningTasks;
 
 public:
 
@@ -31,6 +32,7 @@ public:
 	void StopWorkerThread();
 	void Enqueue(std::function<void()> task);
 	bool IsRunning();
+	int GetNumberRunningTasks();
 };
 
 #endif //RENDER_THREAD
