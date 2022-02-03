@@ -18,9 +18,9 @@ class RenderThread
 private:
 
 	uint8_t m_core;
-	std::atomic_bool m_running;
+	bool m_running;
 	std::thread m_renderThread;
-	SafeQueue<std::function<void()>> m_taskQueue;
+	std::function<void()> m_task;
 	uint8_t m_runningTasks;
 
 public:

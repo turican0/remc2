@@ -5,6 +5,7 @@ RenderThread::RenderThread(uint8_t core)
 	m_core = 0;
 	m_running = false;
 	m_runningTasks = 0;
+	m_task = 0;
 	StartWorkerThread(core);
 }
 
@@ -30,10 +31,10 @@ void RenderThread::StartWorkerThread(uint8_t core)
 #endif
 			do
 			{
-				std::function<void()> task = m_taskQueue.dequeue();
-				if (task)
+				if (m_task)
 				{
-					task();
+					m_task();
+					m_task = 0;
 					m_runningTasks--;
 				}
 
@@ -58,7 +59,7 @@ void RenderThread::StopWorkerThread()
 void RenderThread::Enqueue(std::function<void()> task)
 {
 	m_runningTasks++;
-	m_taskQueue.enqueue(task);
+	m_task = task;
 }
 
 bool RenderThread::IsRunning()
