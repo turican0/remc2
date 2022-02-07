@@ -21,6 +21,12 @@ int main(int argc, char** argv)
 	//mine_texts((char*)"0160-0022A288", 0x2a1000, 1000, (char*)"mined-texts.txt");
 
 	support_begin();
+
+#ifdef _MSC_VER
+	SetThreadIdealProcessor(GetCurrentThread(), 0);
+	DWORD_PTR dw = SetThreadAffinityMask(GetCurrentThread(), DWORD_PTR(1) << 0);
+#endif
+
 	int retval = sub_main(argc, argv, envp);
 	support_end();
 	//saveactstate();
