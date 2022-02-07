@@ -14,6 +14,7 @@ bool sky = true;
 bool reflections = false;
 bool dynamicLighting = false;
 bool multiThreadedRender = false;
+int numberOfRenderThreads = 0;
 
 void readini(const std::string& filename) {
 
@@ -97,4 +98,17 @@ void readini(const std::string& filename) {
 	speedGame = reader.GetInteger("game", "speed", 30);
 	speedAnim = reader.GetInteger("game", "animspeed", 100);
 	multiThreadedRender = reader.GetBoolean("graphics", "multiThreadedRender", false);
+	numberOfRenderThreads = reader.GetInteger("graphics", "numberOfRenderThreads", 0);
+
+	if (multiThreadedRender)
+	{
+		if (numberOfRenderThreads < 1)
+		{
+			numberOfRenderThreads = 1;
+		}
+	}
+	else
+	{
+		numberOfRenderThreads = 0;
+	}
 };
