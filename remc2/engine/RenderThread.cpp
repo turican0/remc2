@@ -1,5 +1,14 @@
 #include "RenderThread.h"
 
+RenderThread::RenderThread()
+{
+	m_core = 0;
+	m_running = false;
+	m_runningTasks = 0;
+	m_task = 0;
+	StartWorkerThread();
+}
+
 RenderThread::RenderThread(uint8_t core)
 {
 	m_core = 0;
@@ -12,6 +21,24 @@ RenderThread::RenderThread(uint8_t core)
 RenderThread::~RenderThread()
 {
 	StopWorkerThread();
+}
+
+void RenderThread::StartWorkerThread()
+{
+	m_renderThread = std::thread([this] {
+		do
+		{
+			if (m_task)
+			{
+				m_task();
+				m_task = 0;
+				m_runningTasks--;
+			}
+
+		} while (m_running);
+		});
+
+	m_running = true;
 }
 
 void RenderThread::StartWorkerThread(uint8_t core)

@@ -1,6 +1,6 @@
 #include "GameRender.h"
 
-GameRender::GameRender(uint8_t* pScreenBuffer, uint8_t* pColorPalette, uint16_t screenWidth, uint16_t screenHeight, uint16_t viewPortPosX, uint16_t viewPortPosY, uint16_t viewPortWidth, uint16_t viewPortHeight, std::array<uint8_t*, 256> &textureAdresses, uint8_t pX_BYTE_F6EE0_tablesx[], uint8_t renderThreads)
+GameRender::GameRender(uint8_t* pScreenBuffer, uint8_t* pColorPalette, uint16_t screenWidth, uint16_t screenHeight, uint16_t viewPortPosX, uint16_t viewPortPosY, uint16_t viewPortWidth, uint16_t viewPortHeight, std::array<uint8_t*, 256> &textureAdresses, uint8_t pX_BYTE_F6EE0_tablesx[], uint8_t renderThreads, bool assignToSpecificCores)
 {
 	m_ptrScreenBuffer = pScreenBuffer;
 	m_ptrColorPalette = pColorPalette;
@@ -8,6 +8,7 @@ GameRender::GameRender(uint8_t* pScreenBuffer, uint8_t* pColorPalette, uint16_t 
 	SetTextures(textureAdresses);
 	m_ptrX_BYTE_F6EE0_tablesx = pX_BYTE_F6EE0_tablesx;
 
+	m_assignToSpecificCores = assignToSpecificCores;
 	SetRenderThreads(renderThreads);
 }
 
@@ -3072,7 +3073,7 @@ void GameRender::DrawSorcererNameAndHealthBar_2CB30(type_event_0x6E8E* a1x, uint
 	//return v9;
 }
 
-void GameRender::StartWorkerThreads(uint8_t numOfThreads)
+void GameRender::StartWorkerThreads(uint8_t numOfThreads, bool assignToSpecificCores)
 {
 	m_multiThreadRender = true;
 	if (m_renderThreads.size() < numOfThreads)
@@ -3081,8 +3082,25 @@ void GameRender::StartWorkerThreads(uint8_t numOfThreads)
 
 		for (int i = 0; i < numOfThreads; i++)
 		{
-			StartWorkerThread(i+1);
+			if (assignToSpecificCores)
+			{
+				StartWorkerThread(i + 1);
+			}
+			else
+			{
+				StartWorkerThread();
+			}
 		}
+	}
+}
+
+void GameRender::StartWorkerThread()
+{
+	RenderThread* renderThread = new RenderThread();
+
+	if (renderThread->IsRunning())
+	{
+		m_renderThreads.push_back(renderThread);
 	}
 }
 
@@ -3094,7 +3112,6 @@ void GameRender::StartWorkerThread(int core)
 	{
 		m_renderThreads.push_back(renderThread);
 	}
-	
 }
 
 void GameRender::StopWorkerThreads()
@@ -14772,7 +14789,7 @@ void GameRender::SetRenderThreads(uint8_t renderThreads)
 
 	if (renderThreads > 0)
 	{
-		StartWorkerThreads(renderThreads);
+		StartWorkerThreads(renderThreads, m_assignToSpecificCores);
 	}
 }
 

@@ -71,6 +71,7 @@ private:
 
 	std::vector<RenderThread*> m_renderThreads;
 	bool m_multiThreadRender = false;
+	bool m_assignToSpecificCores = false;
 
 	int x_DWORD_D4794 = 0;
 	int x_DWORD_D4798 = 0;
@@ -103,13 +104,14 @@ private:
 	void sub_88740(type_event_0x6E8E* a1, type_event_0x6E8E* x_DWORD_EA3E4[], type_str_unk_1804B0ar str_unk_1804B0ar, int a2, int a3);
 	void SetBillboards_3B560(int16_t roll, uint8_t unk_F0A20x[], uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t screenWidth);
 	void DrawSorcererNameAndHealthBar_2CB30(type_event_0x6E8E* a1, uint8_t x_BYTE_E88E0x[], __int16 a2, int a3, __int16 a4, int16_t viewPortX, int16_t viewPortY, uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t pitch);
-	void StartWorkerThreads(uint8_t numOfThreads);
+	void StartWorkerThreads(uint8_t numOfThreads, bool assignToSpecificCores);
+	void StartWorkerThread();
 	void StartWorkerThread(int core);
 	void StopWorkerThreads();
 	void WaitForRenderFinish();
 
 public:
-	GameRender(uint8_t* pScreenBuffer, uint8_t* pColorPalette, uint16_t screenWidth, uint16_t screenHeight, uint16_t viewPortPosX, uint16_t viewPortPosY, uint16_t viewPortWidth, uint16_t viewPortHeight, std::array<uint8_t*, 256> &textureAdresses, uint8_t x_BYTE_F6EE0_tablesx[], uint8_t renderThreads);
+	GameRender(uint8_t* pScreenBuffer, uint8_t* pColorPalette, uint16_t screenWidth, uint16_t screenHeight, uint16_t viewPortPosX, uint16_t viewPortPosY, uint16_t viewPortWidth, uint16_t viewPortHeight, std::array<uint8_t*, 256> &textureAdresses, uint8_t x_BYTE_F6EE0_tablesx[], uint8_t renderThreads, bool assignToSpecificCores);
 	~GameRender();
 
 	void SetTextures(std::array<uint8_t*, 256> &textureAdresses);

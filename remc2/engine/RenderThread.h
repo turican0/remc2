@@ -25,9 +25,11 @@ private:
 
 public:
 
+	RenderThread();
 	RenderThread(uint8_t core);
 	~RenderThread();
 
+	void StartWorkerThread();
 	void StartWorkerThread(uint8_t core);
 	void StopWorkerThread();
 	void Enqueue(std::function<void()> task);

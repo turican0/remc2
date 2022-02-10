@@ -27544,7 +27544,7 @@ void DrawGameFrame_2BE30(uint8_t* ptrScreenBuffer, uint16_t screenWidth, uint16_
 
 	if (m_ptrGameRender == nullptr)
 	{
-		m_ptrGameRender = new GameRender(ptrScreenBuffer, *xadatapald0dat2.var28_begin_buffer, screenWidth, screenHeight, 0, 0, screenWidth, screenHeight, x_DWORD_DDF50_texture_adresses, x_BYTE_F6EE0_tablesx, (multiThreadedRender? numberOfRenderThreads : 1));
+		m_ptrGameRender = new GameRender(ptrScreenBuffer, *xadatapald0dat2.var28_begin_buffer, screenWidth, screenHeight, 0, 0, screenWidth, screenHeight, x_DWORD_DDF50_texture_adresses, x_BYTE_F6EE0_tablesx, (multiThreadedRender? numberOfRenderThreads : 1), assignToSpecificCores);
 	}
 
 	int16_t spellLeftPosX = screenWidth - 130;
@@ -55934,6 +55934,15 @@ int sub_main(int argc, char** argv, char**  /*envp*/)//236F70
 	//skip signal(6, 1);//236FC1 - 279DC0
 	std::string inifile = get_exe_path() + "/config.ini";
 	readini(inifile);
+
+	if (assignToSpecificCores)
+	{
+#ifdef _MSC_VER
+		SetThreadIdealProcessor(GetCurrentThread(), 0);
+		DWORD_PTR dw = SetThreadAffinityMask(GetCurrentThread(), DWORD_PTR(1) << 0);
+#endif
+	}
+
 #ifdef DISABLE_GRAPHICS_ENHANCE
 		bigSprites = false;
 		bigTextures = false;

@@ -15,6 +15,7 @@ bool reflections = false;
 bool dynamicLighting = false;
 bool multiThreadedRender = false;
 int numberOfRenderThreads = 0;
+bool assignToSpecificCores = false;
 
 void readini(const std::string& filename) {
 
@@ -102,6 +103,8 @@ void readini(const std::string& filename) {
 
 	if (multiThreadedRender)
 	{
+		assignToSpecificCores = reader.GetBoolean("graphics", "assignToSpecificCores", false);
+
 		if (numberOfRenderThreads < 1)
 		{
 			numberOfRenderThreads = 1;
