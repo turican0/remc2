@@ -3133,36 +3133,19 @@ void GameRender::DrawSquareInScreenSpace(int* vertexs, int index, uint16_t viewP
 	{
 		if (m_renderThreads.size() > 0)
 		{
-			uint8_t drawEveryNthLine = CalculateLineSpacing(m_renderThreads.size());
+			uint8_t drawEveryNthLine = m_renderThreads.size() + 1;
 			uint8_t i = 0;
-			uint8_t startLine = 0;
 
 			for (i = 0; i < m_renderThreads.size(); i++)
 			{
-				if (i % 2 == 0)
-				{
-					m_renderThreads[i]->Enqueue([this, &vertexs, pTexture, i, viewPortWidth, viewPortHeight, pitch, startLine, drawEveryNthLine] {
-						this->DrawTriangleInScreenSpace_B6253(&vertexs[18], &vertexs[12], &vertexs[0], pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, startLine, drawEveryNthLine);
-						});
-				}
-				else
-				{
-					m_renderThreads[i]->Enqueue([this, &vertexs, pTexture, i, viewPortWidth, viewPortHeight, pitch, startLine, drawEveryNthLine] {
-						this->DrawTriangleInScreenSpace_B6253(&vertexs[0], &vertexs[12], &vertexs[6], pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, startLine, drawEveryNthLine);
-						});
-					startLine++;
-				}
+				m_renderThreads[i]->Enqueue([this, &vertexs, pTexture, viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine] {
+					this->DrawTriangleInScreenSpace_B6253(&vertexs[18], &vertexs[12], &vertexs[0], pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
+					this->DrawTriangleInScreenSpace_B6253(&vertexs[0], &vertexs[12], &vertexs[6], pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
+					});
 			}
 
-			if (i % 2 == 0)
-			{
-				DrawTriangleInScreenSpace_B6253(&vertexs[18], &vertexs[12], &vertexs[0], pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, startLine, drawEveryNthLine);
-				DrawTriangleInScreenSpace_B6253(&vertexs[0], &vertexs[12], &vertexs[6], pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, startLine, drawEveryNthLine);
-			}
-			else
-			{
-				DrawTriangleInScreenSpace_B6253(&vertexs[0], &vertexs[12], &vertexs[6], pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, startLine, drawEveryNthLine);
-			}
+			DrawTriangleInScreenSpace_B6253(&vertexs[18], &vertexs[12], &vertexs[0], pTexture, unk_DE56Cx[m_renderThreads.size()], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
+			DrawTriangleInScreenSpace_B6253(&vertexs[0], &vertexs[12], &vertexs[6], pTexture, unk_DE56Cx[m_renderThreads.size()], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
 
 			WaitForRenderFinish();
 		}
@@ -3176,36 +3159,19 @@ void GameRender::DrawSquareInScreenSpace(int* vertexs, int index, uint16_t viewP
 	{
 		if (m_renderThreads.size() > 0)
 		{
-			uint8_t drawEveryNthLine = CalculateLineSpacing(m_renderThreads.size());
+			uint8_t drawEveryNthLine = m_renderThreads.size() + 1;
 			uint8_t i = 0;
-			uint8_t startLine = 0;
 
 			for (i = 0; i < m_renderThreads.size(); i++)
 			{
-				if (i % 2 == 0)
-				{
-					m_renderThreads[i]->Enqueue([this, &vertexs, pTexture, i, viewPortWidth, viewPortHeight, pitch, startLine, drawEveryNthLine] {
-						this->DrawTriangleInScreenSpace_B6253(&vertexs[18], &vertexs[12], &vertexs[6], pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, startLine, drawEveryNthLine);
-						});
-				}
-				else
-				{
-					m_renderThreads[i]->Enqueue([this, &vertexs, pTexture, i, viewPortWidth, viewPortHeight, pitch, startLine, drawEveryNthLine] {
-						this->DrawTriangleInScreenSpace_B6253(&vertexs[18], &vertexs[6], &vertexs[0], pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, startLine, drawEveryNthLine);
-						});
-					startLine++;
-				}
+				m_renderThreads[i]->Enqueue([this, &vertexs, pTexture, viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine] {
+					this->DrawTriangleInScreenSpace_B6253(&vertexs[18], &vertexs[12], &vertexs[6], pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
+					this->DrawTriangleInScreenSpace_B6253(&vertexs[18], &vertexs[6], &vertexs[0], pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
+					});
 			}
 
-			if (i % 2 == 0)
-			{
-				DrawTriangleInScreenSpace_B6253(&vertexs[18], &vertexs[12], &vertexs[6], pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, startLine, drawEveryNthLine);
-				DrawTriangleInScreenSpace_B6253(&vertexs[18], &vertexs[6], &vertexs[0], pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, startLine, drawEveryNthLine);
-			}
-			else
-			{
-				DrawTriangleInScreenSpace_B6253(&vertexs[18], &vertexs[6], &vertexs[0], pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, startLine, drawEveryNthLine);
-			}
+			DrawTriangleInScreenSpace_B6253(&vertexs[18], &vertexs[12], &vertexs[6], pTexture, unk_DE56Cx[m_renderThreads.size()], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
+			DrawTriangleInScreenSpace_B6253(&vertexs[18], &vertexs[6], &vertexs[0], pTexture, unk_DE56Cx[m_renderThreads.size()], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
 
 			WaitForRenderFinish();
 		}
@@ -3240,36 +3206,19 @@ void GameRender::DrawInverseSquareInScreenSpace(int* vertexs, int index, uint8_t
 	{
 		if (m_renderThreads.size() > 0)
 		{
-			uint8_t drawEveryNthLine = CalculateLineSpacing(m_renderThreads.size());
+			uint8_t drawEveryNthLine = m_renderThreads.size() + 1;
 			uint8_t i = 0;
-			uint8_t startLine = 0;
 
 			for (i = 0; i < m_renderThreads.size(); i++)
 			{
-				if (i % 2 == 0)
-				{
-					m_renderThreads[i]->Enqueue([this, &vertexs, pTexture, i, viewPortWidth, viewPortHeight, pitch, startLine, drawEveryNthLine] {
-						this->DrawTriangleInScreenSpace_B6253(&vertexs[18], &vertexs[0], &vertexs[12], pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, startLine, drawEveryNthLine);
-						});
-				}
-				else
-				{
-					m_renderThreads[i]->Enqueue([this, &vertexs, pTexture, i, viewPortWidth, viewPortHeight, pitch, startLine, drawEveryNthLine] {
-						this->DrawTriangleInScreenSpace_B6253(&vertexs[0], &vertexs[6], &vertexs[12], pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, startLine, drawEveryNthLine);
-						});
-					startLine++;
-				}
+				m_renderThreads[i]->Enqueue([this, &vertexs, pTexture, viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine] {
+					this->DrawTriangleInScreenSpace_B6253(&vertexs[18], &vertexs[0], &vertexs[12], pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
+					this->DrawTriangleInScreenSpace_B6253(&vertexs[0], &vertexs[6], &vertexs[12], pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
+					});
 			}
 
-			if (i % 2 == 0)
-			{
-				DrawTriangleInScreenSpace_B6253(&vertexs[18], &vertexs[0], &vertexs[12], pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, startLine, drawEveryNthLine);
-				DrawTriangleInScreenSpace_B6253(&vertexs[0], &vertexs[6], &vertexs[12], pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, startLine, drawEveryNthLine);
-			}
-			else
-			{
-				DrawTriangleInScreenSpace_B6253(&vertexs[0], &vertexs[6], &vertexs[12], pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, startLine, drawEveryNthLine);
-			}
+			DrawTriangleInScreenSpace_B6253(&vertexs[18], &vertexs[0], &vertexs[12], pTexture, unk_DE56Cx[m_renderThreads.size()], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
+			DrawTriangleInScreenSpace_B6253(&vertexs[0], &vertexs[6], &vertexs[12], pTexture, unk_DE56Cx[m_renderThreads.size()], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
 
 			WaitForRenderFinish();
 		}
@@ -3284,36 +3233,19 @@ void GameRender::DrawInverseSquareInScreenSpace(int* vertexs, int index, uint8_t
 	{
 		if (m_renderThreads.size() > 0)
 		{
-			uint8_t drawEveryNthLine = CalculateLineSpacing(m_renderThreads.size());
+			uint8_t drawEveryNthLine = m_renderThreads.size() + 1;
 			uint8_t i = 0;
-			uint8_t startLine = 0;
 
 			for (i = 0; i < m_renderThreads.size(); i++)
 			{
-				if (i % 2 == 0)
-				{
-					m_renderThreads[i]->Enqueue([this, &vertexs, pTexture, i, viewPortWidth, viewPortHeight, pitch, startLine, drawEveryNthLine] {
-						this->DrawTriangleInScreenSpace_B6253(&vertexs[18], &vertexs[6], &vertexs[12], pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, startLine, drawEveryNthLine);
-						});
-				}
-				else
-				{
-					m_renderThreads[i]->Enqueue([this, &vertexs, pTexture, i, viewPortWidth, viewPortHeight, pitch, startLine, drawEveryNthLine] {
-						this->DrawTriangleInScreenSpace_B6253(&vertexs[18], &vertexs[0], &vertexs[6], pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, startLine, drawEveryNthLine);
-						});
-					startLine++;
-				}
+				m_renderThreads[i]->Enqueue([this, &vertexs, pTexture, viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine] {
+					this->DrawTriangleInScreenSpace_B6253(&vertexs[18], &vertexs[6], &vertexs[12], pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
+					this->DrawTriangleInScreenSpace_B6253(&vertexs[18], &vertexs[0], &vertexs[6], pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
+					});
 			}
 
-			if (i % 2 == 0)
-			{
-				DrawTriangleInScreenSpace_B6253(&vertexs[18], &vertexs[6], &vertexs[12], pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, startLine, drawEveryNthLine);
-				DrawTriangleInScreenSpace_B6253(&vertexs[18], &vertexs[0], &vertexs[6], pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, startLine, drawEveryNthLine);
-			}
-			else
-			{
-				DrawTriangleInScreenSpace_B6253(&vertexs[18], &vertexs[0], &vertexs[6], pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, startLine, drawEveryNthLine);
-			}
+			DrawTriangleInScreenSpace_B6253(&vertexs[18], &vertexs[6], &vertexs[12], pTexture, unk_DE56Cx[m_renderThreads.size()], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
+			DrawTriangleInScreenSpace_B6253(&vertexs[18], &vertexs[0], &vertexs[6], pTexture, unk_DE56Cx[m_renderThreads.size()], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
 
 			WaitForRenderFinish();
 		}
@@ -3323,16 +3255,6 @@ void GameRender::DrawInverseSquareInScreenSpace(int* vertexs, int index, uint8_t
 			DrawTriangleInScreenSpace_B6253(&vertexs[18], &vertexs[0], &vertexs[6], pTexture, unk_DE56Cx[0], viewPortWidth, viewPortHeight, pitch, 0, 1);
 		}
 	}
-}
-
-uint8_t GameRender::CalculateLineSpacing(int numRenderThreads)
-{
-	uint8_t drawEveryNthLine = numRenderThreads + 1;
-	if (drawEveryNthLine % 2 != 0)
-	{
-		drawEveryNthLine++;
-	}
-	return drawEveryNthLine / 2;
 }
 
 void GameRender::DrawParticles_3E360(int a2x, type_particle_str** str_DWORD_F66F0x[], uint8_t x_BYTE_E88E0x[], int32_t x_DWORD_F5730[], type_event_0x6E8E* x_DWORD_EA3E4[], type_str_unk_1804B0ar str_unk_1804B0ar, ViewPort viewPort, uint16_t screenWidth)
