@@ -3142,6 +3142,38 @@ void GameRender::DrawSquareInScreenSpace(int* vertexs, int index, uint16_t viewP
 	vertexs[2] = xunk_D4350[m_Str_E9C38_smalltit[index].byte42_std][6];
 	vertexs[3] = xunk_D4350[m_Str_E9C38_smalltit[index].byte42_std][7];
 
+	//Vertex 1
+	//[0] X Coordinate
+	//[1] Y Coordinate
+	//[2] U Texture
+	//[3] V Texture
+	//[4] Brightness
+	//[5] ?
+	
+	//Vertex 2
+	//[6] X Coordinate
+	//[7] Y Coordinate
+	//[8] U Texture
+	//[9] V Texture
+	//[10] Brightness
+	//[11] ?
+	
+	//Vertex 3
+	//[12] X Coordinate
+	//[13] Y Coordinate
+	//[14] U Texture
+	//[15] V Texture
+	//[16] Brightness
+	//[17] ?
+	
+	//Vertex 4
+	//[18] X Coordinate
+	//[19] Y Coordinate
+	//[20] U Texture
+	//[21] V Texture
+	//[22] Brightness
+	//[23] ?
+	
 	//Get Texture
 	uint8_t* pTexture = m_textureAddresses.at(m_Str_E9C38_smalltit[index].byte41);
 
