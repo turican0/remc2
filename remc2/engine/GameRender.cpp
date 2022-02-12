@@ -3146,11 +3146,6 @@ void GameRender::DrawSquareInProjectionSpace(int* vertexs, int index, uint16_t v
 	uint8_t* pTexture = m_textureAddresses.at(m_Str_E9C38_smalltit[index].byte41);
 
 	//Render
-	ProjectionPolygon vertex1(&vertexs[18]);
-	ProjectionPolygon vertex2(&vertexs[12]);
-	ProjectionPolygon vertex3(&vertexs[0]);
-	ProjectionPolygon vertex4(&vertexs[6]);
-
 	if ((uint8_t)m_Str_E9C38_smalltit[index].word38 & 1)
 	{
 		if (m_renderThreads.size() > 0)
@@ -3161,24 +3156,20 @@ void GameRender::DrawSquareInProjectionSpace(int* vertexs, int index, uint16_t v
 			for (i = 0; i < m_renderThreads.size(); i++)
 			{
 				m_renderThreads[i]->Enqueue([this, &vertexs, pTexture, viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine] {
-					ProjectionPolygon vertex1(&vertexs[18]);
-					ProjectionPolygon vertex2(&vertexs[12]);
-					ProjectionPolygon vertex3(&vertexs[0]);
-					ProjectionPolygon vertex4(&vertexs[6]);
-					this->DrawTriangleInProjectionSpace_B6253(&vertex1, &vertex2, &vertex3, pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
-					this->DrawTriangleInProjectionSpace_B6253(&vertex3, &vertex2, &vertex4, pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
+					this->DrawTriangleInProjectionSpace_B6253(&ProjectionPolygon(&vertexs[18]), &ProjectionPolygon(&vertexs[12]), &ProjectionPolygon(&vertexs[0]), pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
+					this->DrawTriangleInProjectionSpace_B6253(&ProjectionPolygon(&vertexs[0]), &ProjectionPolygon(&vertexs[12]), &ProjectionPolygon(&vertexs[6]), pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
 					});
 			}
 
-			DrawTriangleInProjectionSpace_B6253(&vertex1, &vertex2, &vertex3, pTexture, unk_DE56Cx[m_renderThreads.size()], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
-			DrawTriangleInProjectionSpace_B6253(&vertex3, &vertex2, &vertex4, pTexture, unk_DE56Cx[m_renderThreads.size()], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
+			DrawTriangleInProjectionSpace_B6253(&ProjectionPolygon(&vertexs[18]), &ProjectionPolygon(&vertexs[12]), &ProjectionPolygon(&vertexs[0]), pTexture, unk_DE56Cx[m_renderThreads.size()], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
+			DrawTriangleInProjectionSpace_B6253(&ProjectionPolygon(&vertexs[0]), &ProjectionPolygon(&vertexs[12]), &ProjectionPolygon(&vertexs[6]), pTexture, unk_DE56Cx[m_renderThreads.size()], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
 
 			WaitForRenderFinish();
 		}
 		else
 		{
-			DrawTriangleInProjectionSpace_B6253(&vertex1, &vertex2, &vertex3, pTexture, unk_DE56Cx[0], viewPortWidth, viewPortHeight, pitch, 0, 1);
-			DrawTriangleInProjectionSpace_B6253(&vertex3, &vertex2, &vertex4, pTexture, unk_DE56Cx[0], viewPortWidth, viewPortHeight, pitch, 0, 1);
+			DrawTriangleInProjectionSpace_B6253(&ProjectionPolygon(&vertexs[18]), &ProjectionPolygon(&vertexs[12]), &ProjectionPolygon(&vertexs[0]), pTexture, unk_DE56Cx[0], viewPortWidth, viewPortHeight, pitch, 0, 1);
+			DrawTriangleInProjectionSpace_B6253(&ProjectionPolygon(&vertexs[0]), &ProjectionPolygon(&vertexs[12]), &ProjectionPolygon(&vertexs[6]), pTexture, unk_DE56Cx[0], viewPortWidth, viewPortHeight, pitch, 0, 1);
 		}
 	}
 	else
@@ -3191,24 +3182,20 @@ void GameRender::DrawSquareInProjectionSpace(int* vertexs, int index, uint16_t v
 			for (i = 0; i < m_renderThreads.size(); i++)
 			{
 				m_renderThreads[i]->Enqueue([this, &vertexs, pTexture, viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine] {
-					ProjectionPolygon vertex1(&vertexs[18]);
-					ProjectionPolygon vertex2(&vertexs[12]);
-					ProjectionPolygon vertex3(&vertexs[0]);
-					ProjectionPolygon vertex4(&vertexs[6]);
-					this->DrawTriangleInProjectionSpace_B6253(&vertex1, &vertex2, &vertex4, pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
-					this->DrawTriangleInProjectionSpace_B6253(&vertex1, &vertex4, &vertex3, pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
+					this->DrawTriangleInProjectionSpace_B6253(&ProjectionPolygon(&vertexs[18]), &ProjectionPolygon(&vertexs[12]), &ProjectionPolygon(&vertexs[6]), pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
+					this->DrawTriangleInProjectionSpace_B6253(&ProjectionPolygon(&vertexs[18]), &ProjectionPolygon(&vertexs[6]), &ProjectionPolygon(&vertexs[0]), pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
 					});
 			}
 
-			DrawTriangleInProjectionSpace_B6253(&vertex1, &vertex2, &vertex4, pTexture, unk_DE56Cx[m_renderThreads.size()], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
-			DrawTriangleInProjectionSpace_B6253(&vertex1, &vertex4, &vertex3, pTexture, unk_DE56Cx[m_renderThreads.size()], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
+			DrawTriangleInProjectionSpace_B6253(&ProjectionPolygon(&vertexs[18]), &ProjectionPolygon(&vertexs[12]), &ProjectionPolygon(&vertexs[6]), pTexture, unk_DE56Cx[m_renderThreads.size()], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
+			DrawTriangleInProjectionSpace_B6253(&ProjectionPolygon(&vertexs[18]), &ProjectionPolygon(&vertexs[6]), &ProjectionPolygon(&vertexs[0]), pTexture, unk_DE56Cx[m_renderThreads.size()], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
 
 			WaitForRenderFinish();
 		}
 		else
 		{
-			DrawTriangleInProjectionSpace_B6253(&vertex1, &vertex2, &vertex4, pTexture, unk_DE56Cx[0], viewPortWidth, viewPortHeight, pitch, 0, 1);
-			DrawTriangleInProjectionSpace_B6253(&vertex1, &vertex4, &vertex3, pTexture, unk_DE56Cx[0], viewPortWidth, viewPortHeight, pitch, 0, 1);
+			DrawTriangleInProjectionSpace_B6253(&ProjectionPolygon(&vertexs[18]), &ProjectionPolygon(&vertexs[12]), &ProjectionPolygon(&vertexs[6]), pTexture, unk_DE56Cx[0], viewPortWidth, viewPortHeight, pitch, 0, 1);
+			DrawTriangleInProjectionSpace_B6253(&ProjectionPolygon(&vertexs[18]), &ProjectionPolygon(&vertexs[6]), &ProjectionPolygon(&vertexs[0]), pTexture, unk_DE56Cx[0], viewPortWidth, viewPortHeight, pitch, 0, 1);
 		}
 	}
 }
@@ -3232,11 +3219,6 @@ void GameRender::DrawInverseSquareInProjectionSpace(int* vertexs, int index, uin
 	x_BYTE_E126D = 5;
 
 	//Render
-	ProjectionPolygon vertex1(&vertexs[18]);
-	ProjectionPolygon vertex2(&vertexs[12]);
-	ProjectionPolygon vertex3(&vertexs[0]);
-	ProjectionPolygon vertex4(&vertexs[6]);
-
 	if (m_Str_E9C38_smalltit[index].word38 & 1)
 	{
 		if (m_renderThreads.size() > 0)
@@ -3247,24 +3229,20 @@ void GameRender::DrawInverseSquareInProjectionSpace(int* vertexs, int index, uin
 			for (i = 0; i < m_renderThreads.size(); i++)
 			{
 				m_renderThreads[i]->Enqueue([this, &vertexs, pTexture, viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine] {
-					ProjectionPolygon vertex1(&vertexs[18]);
-					ProjectionPolygon vertex2(&vertexs[12]);
-					ProjectionPolygon vertex3(&vertexs[0]);
-					ProjectionPolygon vertex4(&vertexs[6]);
-					this->DrawTriangleInProjectionSpace_B6253(&vertex1, &vertex3, &vertex2, pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
-					this->DrawTriangleInProjectionSpace_B6253(&vertex3, &vertex4, &vertex2, pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
+					this->DrawTriangleInProjectionSpace_B6253(&ProjectionPolygon(&vertexs[18]), &ProjectionPolygon(&vertexs[0]), &ProjectionPolygon(&vertexs[12]), pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
+					this->DrawTriangleInProjectionSpace_B6253(&ProjectionPolygon(&vertexs[0]), &ProjectionPolygon(&vertexs[6]), &ProjectionPolygon(&vertexs[12]), pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
 					});
 			}
 
-			DrawTriangleInProjectionSpace_B6253(&vertex1, &vertex3, &vertex2, pTexture, unk_DE56Cx[m_renderThreads.size()], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
-			DrawTriangleInProjectionSpace_B6253(&vertex3, &vertex4, &vertex2, pTexture, unk_DE56Cx[m_renderThreads.size()], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
+			DrawTriangleInProjectionSpace_B6253(&ProjectionPolygon(&vertexs[18]), &ProjectionPolygon(&vertexs[0]), &ProjectionPolygon(&vertexs[12]), pTexture, unk_DE56Cx[m_renderThreads.size()], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
+			DrawTriangleInProjectionSpace_B6253(&ProjectionPolygon(&vertexs[0]), &ProjectionPolygon(&vertexs[6]), &ProjectionPolygon(&vertexs[12]), pTexture, unk_DE56Cx[m_renderThreads.size()], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
 
 			WaitForRenderFinish();
 		}
 		else
 		{
-			DrawTriangleInProjectionSpace_B6253(&vertex1, &vertex3, &vertex2, pTexture, unk_DE56Cx[0], viewPortWidth, viewPortHeight, pitch, 0, 1);
-			DrawTriangleInProjectionSpace_B6253(&vertex3, &vertex4, &vertex2, pTexture, unk_DE56Cx[0], viewPortWidth, viewPortHeight, pitch, 0, 1);
+			DrawTriangleInProjectionSpace_B6253(&ProjectionPolygon(&vertexs[18]), &ProjectionPolygon(&vertexs[0]), &ProjectionPolygon(&vertexs[12]), pTexture, unk_DE56Cx[0], viewPortWidth, viewPortHeight, pitch, 0, 1);
+			DrawTriangleInProjectionSpace_B6253(&ProjectionPolygon(&vertexs[0]), &ProjectionPolygon(&vertexs[6]), &ProjectionPolygon(&vertexs[12]), pTexture, unk_DE56Cx[0], viewPortWidth, viewPortHeight, pitch, 0, 1);
 		}
 
 	}
@@ -3278,24 +3256,20 @@ void GameRender::DrawInverseSquareInProjectionSpace(int* vertexs, int index, uin
 			for (i = 0; i < m_renderThreads.size(); i++)
 			{
 				m_renderThreads[i]->Enqueue([this, &vertexs, pTexture, viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine] {
-					ProjectionPolygon vertex1(&vertexs[18]);
-					ProjectionPolygon vertex2(&vertexs[12]);
-					ProjectionPolygon vertex3(&vertexs[0]);
-					ProjectionPolygon vertex4(&vertexs[6]);
-					this->DrawTriangleInProjectionSpace_B6253(&vertex1, &vertex4, &vertex2, pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
-					this->DrawTriangleInProjectionSpace_B6253(&vertex1, &vertex3, &vertex4, pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
+					this->DrawTriangleInProjectionSpace_B6253(&ProjectionPolygon(&vertexs[18]), &ProjectionPolygon(&vertexs[6]), &ProjectionPolygon(&vertexs[12]), pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
+					this->DrawTriangleInProjectionSpace_B6253(&ProjectionPolygon(&vertexs[18]), &ProjectionPolygon(&vertexs[0]), &ProjectionPolygon(&vertexs[6]), pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
 					});
 			}
 
-			DrawTriangleInProjectionSpace_B6253(&vertex1, &vertex4, &vertex2, pTexture, unk_DE56Cx[m_renderThreads.size()], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
-			DrawTriangleInProjectionSpace_B6253(&vertex1, &vertex3, &vertex4, pTexture, unk_DE56Cx[m_renderThreads.size()], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
+			DrawTriangleInProjectionSpace_B6253(&ProjectionPolygon(&vertexs[18]), &ProjectionPolygon(&vertexs[6]), &ProjectionPolygon(&vertexs[12]), pTexture, unk_DE56Cx[m_renderThreads.size()], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
+			DrawTriangleInProjectionSpace_B6253(&ProjectionPolygon(&vertexs[18]), &ProjectionPolygon(&vertexs[0]), &ProjectionPolygon(&vertexs[6]), pTexture, unk_DE56Cx[m_renderThreads.size()], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
 
 			WaitForRenderFinish();
 		}
 		else
 		{
-			DrawTriangleInProjectionSpace_B6253(&vertex1, &vertex4, &vertex2, pTexture, unk_DE56Cx[0], viewPortWidth, viewPortHeight, pitch, 0, 1);
-			DrawTriangleInProjectionSpace_B6253(&vertex1, &vertex3, &vertex4, pTexture, unk_DE56Cx[0], viewPortWidth, viewPortHeight, pitch, 0, 1);
+			DrawTriangleInProjectionSpace_B6253(&ProjectionPolygon(&vertexs[18]), &ProjectionPolygon(&vertexs[6]), &ProjectionPolygon(&vertexs[12]), pTexture, unk_DE56Cx[0], viewPortWidth, viewPortHeight, pitch, 0, 1);
+			DrawTriangleInProjectionSpace_B6253(&ProjectionPolygon(&vertexs[18]), &ProjectionPolygon(&vertexs[0]), &ProjectionPolygon(&vertexs[6]), pTexture, unk_DE56Cx[0], viewPortWidth, viewPortHeight, pitch, 0, 1);
 		}
 	}
 }
