@@ -24,6 +24,7 @@
 #include "ViewPort.h"
 #include "defs.h"
 #include "RenderThread.h"
+#include "ProjectionPolygon.h"
 
 class GameRender {
 
@@ -94,7 +95,7 @@ private:
 	void DrawInverseSquareInProjectionSpace(int* vertexs, int index, uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t pitch);
 	void DrawInverseSquareInProjectionSpace(int* vertexs, int index, uint8_t* pTexture, uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t pitch);
 	void DrawParticles_3E360(int a2x, type_particle_str** str_DWORD_F66F0x[], uint8_t x_BYTE_E88E0x[], int32_t x_DWORD_F5730[], type_event_0x6E8E* x_DWORD_EA3E4[], type_str_unk_1804B0ar str_unk_1804B0ar, ViewPort viewPort, uint16_t screenWidth);
-	void DrawTriangleInProjectionSpace_B6253(x_DWORD* vertex1, x_DWORD* vertex2, x_DWORD* vertex3, uint8_t* pTexture, uint8_t unk_DE56Cx[], uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t pitch, uint8_t startLine, uint8_t drawEveryNthLine);
+	void DrawTriangleInProjectionSpace_B6253(ProjectionPolygon* vertex1, ProjectionPolygon* vertex2, ProjectionPolygon* vertex3, uint8_t* pTexture, uint8_t unk_DE56Cx[], uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t pitch, uint8_t startLine, uint8_t drawEveryNthLine);
 	x_DWORD* LoadPolygon(x_DWORD* ptrPolys, int* v0, int* v1, int s0, int s1, int* line);
 	x_DWORD* LoadPolygon(x_DWORD* ptrPolys, int* v0, int* v1, int* v4, int s0, int s1, int s4, int* line);
 	x_DWORD* LoadPolygon(x_DWORD* ptrPolys, int* v0, int* v1, int* v2, int* v3, int s0, int s1, int s2, int s3, int* line);

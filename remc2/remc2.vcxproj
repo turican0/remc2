@@ -250,6 +250,7 @@ XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
     <ClInclude Include="..\SDL-Mixer-X-master\src\music.h" />
     <ClInclude Include="engine\Animation.h" />
     <ClInclude Include="engine\Basic.h" />
+    <ClInclude Include="engine\ProjectionPolygon.h" />
     <ClInclude Include="engine\Type_BigSpritesBuffer.h" />
     <ClInclude Include="engine\GameRender.h" />
     <ClInclude Include="engine\Sound.h" />
@@ -358,6 +359,7 @@ XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
     <ClCompile Include="engine\Animation.cpp" />
     <ClCompile Include="engine\Basic.cpp" />
     <ClCompile Include="engine\GameRender.cpp" />
+    <ClCompile Include="engine\ProjectionPolygon.cpp" />
     <ClCompile Include="engine\Sound.cpp" />
     <ClCompile Include="engine\Terrain.cpp" />
     <ClCompile Include="engine\TextureMaps.cpp" />

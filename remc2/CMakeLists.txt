@@ -65,6 +65,8 @@ set(SOURCE_FILES_ENGINE
     "engine/GameRender.h"
     "sub_main.cpp"
     "sub_main.h"
+    "engine/ProjectionPolygon.cpp"
+    "engine/ProjectionPolygon.h"
     "engine/Sound.cpp"
     "engine/Sound.h"
     "engine/Basic.cpp"

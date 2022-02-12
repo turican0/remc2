@@ -3142,42 +3142,15 @@ void GameRender::DrawSquareInProjectionSpace(int* vertexs, int index, uint16_t v
 	vertexs[2] = xunk_D4350[m_Str_E9C38_smalltit[index].byte42_std][6];
 	vertexs[3] = xunk_D4350[m_Str_E9C38_smalltit[index].byte42_std][7];
 
-	//Vertex 1
-	//[0] X Coordinate
-	//[1] Y Coordinate
-	//[2] U Texture
-	//[3] V Texture
-	//[4] Brightness
-	//[5] ?
-	
-	//Vertex 2
-	//[6] X Coordinate
-	//[7] Y Coordinate
-	//[8] U Texture
-	//[9] V Texture
-	//[10] Brightness
-	//[11] ?
-	
-	//Vertex 3
-	//[12] X Coordinate
-	//[13] Y Coordinate
-	//[14] U Texture
-	//[15] V Texture
-	//[16] Brightness
-	//[17] ?
-	
-	//Vertex 4
-	//[18] X Coordinate
-	//[19] Y Coordinate
-	//[20] U Texture
-	//[21] V Texture
-	//[22] Brightness
-	//[23] ?
-	
 	//Get Texture
 	uint8_t* pTexture = m_textureAddresses.at(m_Str_E9C38_smalltit[index].byte41);
 
 	//Render
+	ProjectionPolygon vertex1(&vertexs[18]);
+	ProjectionPolygon vertex2(&vertexs[12]);
+	ProjectionPolygon vertex3(&vertexs[0]);
+	ProjectionPolygon vertex4(&vertexs[6]);
+
 	if ((uint8_t)m_Str_E9C38_smalltit[index].word38 & 1)
 	{
 		if (m_renderThreads.size() > 0)
@@ -3188,20 +3161,24 @@ void GameRender::DrawSquareInProjectionSpace(int* vertexs, int index, uint16_t v
 			for (i = 0; i < m_renderThreads.size(); i++)
 			{
 				m_renderThreads[i]->Enqueue([this, &vertexs, pTexture, viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine] {
-					this->DrawTriangleInProjectionSpace_B6253(&vertexs[18], &vertexs[12], &vertexs[0], pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
-					this->DrawTriangleInProjectionSpace_B6253(&vertexs[0], &vertexs[12], &vertexs[6], pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
+					ProjectionPolygon vertex1(&vertexs[18]);
+					ProjectionPolygon vertex2(&vertexs[12]);
+					ProjectionPolygon vertex3(&vertexs[0]);
+					ProjectionPolygon vertex4(&vertexs[6]);
+					this->DrawTriangleInProjectionSpace_B6253(&vertex1, &vertex2, &vertex3, pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
+					this->DrawTriangleInProjectionSpace_B6253(&vertex3, &vertex2, &vertex4, pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
 					});
 			}
 
-			DrawTriangleInProjectionSpace_B6253(&vertexs[18], &vertexs[12], &vertexs[0], pTexture, unk_DE56Cx[m_renderThreads.size()], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
-			DrawTriangleInProjectionSpace_B6253(&vertexs[0], &vertexs[12], &vertexs[6], pTexture, unk_DE56Cx[m_renderThreads.size()], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
+			DrawTriangleInProjectionSpace_B6253(&vertex1, &vertex2, &vertex3, pTexture, unk_DE56Cx[m_renderThreads.size()], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
+			DrawTriangleInProjectionSpace_B6253(&vertex3, &vertex2, &vertex4, pTexture, unk_DE56Cx[m_renderThreads.size()], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
 
 			WaitForRenderFinish();
 		}
 		else
 		{
-			DrawTriangleInProjectionSpace_B6253(&vertexs[18], &vertexs[12], &vertexs[0], pTexture, unk_DE56Cx[0], viewPortWidth, viewPortHeight, pitch, 0, 1);
-			DrawTriangleInProjectionSpace_B6253(&vertexs[0], &vertexs[12], &vertexs[6], pTexture, unk_DE56Cx[0], viewPortWidth, viewPortHeight, pitch, 0, 1);
+			DrawTriangleInProjectionSpace_B6253(&vertex1, &vertex2, &vertex3, pTexture, unk_DE56Cx[0], viewPortWidth, viewPortHeight, pitch, 0, 1);
+			DrawTriangleInProjectionSpace_B6253(&vertex3, &vertex2, &vertex4, pTexture, unk_DE56Cx[0], viewPortWidth, viewPortHeight, pitch, 0, 1);
 		}
 	}
 	else
@@ -3214,20 +3191,24 @@ void GameRender::DrawSquareInProjectionSpace(int* vertexs, int index, uint16_t v
 			for (i = 0; i < m_renderThreads.size(); i++)
 			{
 				m_renderThreads[i]->Enqueue([this, &vertexs, pTexture, viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine] {
-					this->DrawTriangleInProjectionSpace_B6253(&vertexs[18], &vertexs[12], &vertexs[6], pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
-					this->DrawTriangleInProjectionSpace_B6253(&vertexs[18], &vertexs[6], &vertexs[0], pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
+					ProjectionPolygon vertex1(&vertexs[18]);
+					ProjectionPolygon vertex2(&vertexs[12]);
+					ProjectionPolygon vertex3(&vertexs[0]);
+					ProjectionPolygon vertex4(&vertexs[6]);
+					this->DrawTriangleInProjectionSpace_B6253(&vertex1, &vertex2, &vertex4, pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
+					this->DrawTriangleInProjectionSpace_B6253(&vertex1, &vertex4, &vertex3, pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
 					});
 			}
 
-			DrawTriangleInProjectionSpace_B6253(&vertexs[18], &vertexs[12], &vertexs[6], pTexture, unk_DE56Cx[m_renderThreads.size()], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
-			DrawTriangleInProjectionSpace_B6253(&vertexs[18], &vertexs[6], &vertexs[0], pTexture, unk_DE56Cx[m_renderThreads.size()], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
+			DrawTriangleInProjectionSpace_B6253(&vertex1, &vertex2, &vertex4, pTexture, unk_DE56Cx[m_renderThreads.size()], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
+			DrawTriangleInProjectionSpace_B6253(&vertex1, &vertex4, &vertex3, pTexture, unk_DE56Cx[m_renderThreads.size()], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
 
 			WaitForRenderFinish();
 		}
 		else
 		{
-			DrawTriangleInProjectionSpace_B6253(&vertexs[18], &vertexs[12], &vertexs[6], pTexture, unk_DE56Cx[0], viewPortWidth, viewPortHeight, pitch, 0, 1);
-			DrawTriangleInProjectionSpace_B6253(&vertexs[18], &vertexs[6], &vertexs[0], pTexture, unk_DE56Cx[0], viewPortWidth, viewPortHeight, pitch, 0, 1);
+			DrawTriangleInProjectionSpace_B6253(&vertex1, &vertex2, &vertex4, pTexture, unk_DE56Cx[0], viewPortWidth, viewPortHeight, pitch, 0, 1);
+			DrawTriangleInProjectionSpace_B6253(&vertex1, &vertex4, &vertex3, pTexture, unk_DE56Cx[0], viewPortWidth, viewPortHeight, pitch, 0, 1);
 		}
 	}
 }
@@ -3251,6 +3232,11 @@ void GameRender::DrawInverseSquareInProjectionSpace(int* vertexs, int index, uin
 	x_BYTE_E126D = 5;
 
 	//Render
+	ProjectionPolygon vertex1(&vertexs[18]);
+	ProjectionPolygon vertex2(&vertexs[12]);
+	ProjectionPolygon vertex3(&vertexs[0]);
+	ProjectionPolygon vertex4(&vertexs[6]);
+
 	if (m_Str_E9C38_smalltit[index].word38 & 1)
 	{
 		if (m_renderThreads.size() > 0)
@@ -3261,20 +3247,24 @@ void GameRender::DrawInverseSquareInProjectionSpace(int* vertexs, int index, uin
 			for (i = 0; i < m_renderThreads.size(); i++)
 			{
 				m_renderThreads[i]->Enqueue([this, &vertexs, pTexture, viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine] {
-					this->DrawTriangleInProjectionSpace_B6253(&vertexs[18], &vertexs[0], &vertexs[12], pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
-					this->DrawTriangleInProjectionSpace_B6253(&vertexs[0], &vertexs[6], &vertexs[12], pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
+					ProjectionPolygon vertex1(&vertexs[18]);
+					ProjectionPolygon vertex2(&vertexs[12]);
+					ProjectionPolygon vertex3(&vertexs[0]);
+					ProjectionPolygon vertex4(&vertexs[6]);
+					this->DrawTriangleInProjectionSpace_B6253(&vertex1, &vertex3, &vertex2, pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
+					this->DrawTriangleInProjectionSpace_B6253(&vertex3, &vertex4, &vertex2, pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
 					});
 			}
 
-			DrawTriangleInProjectionSpace_B6253(&vertexs[18], &vertexs[0], &vertexs[12], pTexture, unk_DE56Cx[m_renderThreads.size()], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
-			DrawTriangleInProjectionSpace_B6253(&vertexs[0], &vertexs[6], &vertexs[12], pTexture, unk_DE56Cx[m_renderThreads.size()], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
+			DrawTriangleInProjectionSpace_B6253(&vertex1, &vertex3, &vertex2, pTexture, unk_DE56Cx[m_renderThreads.size()], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
+			DrawTriangleInProjectionSpace_B6253(&vertex3, &vertex4, &vertex2, pTexture, unk_DE56Cx[m_renderThreads.size()], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
 
 			WaitForRenderFinish();
 		}
 		else
 		{
-			DrawTriangleInProjectionSpace_B6253(&vertexs[18], &vertexs[0], &vertexs[12], pTexture, unk_DE56Cx[0], viewPortWidth, viewPortHeight, pitch, 0, 1);
-			DrawTriangleInProjectionSpace_B6253(&vertexs[0], &vertexs[6], &vertexs[12], pTexture, unk_DE56Cx[0], viewPortWidth, viewPortHeight, pitch, 0, 1);
+			DrawTriangleInProjectionSpace_B6253(&vertex1, &vertex3, &vertex2, pTexture, unk_DE56Cx[0], viewPortWidth, viewPortHeight, pitch, 0, 1);
+			DrawTriangleInProjectionSpace_B6253(&vertex3, &vertex4, &vertex2, pTexture, unk_DE56Cx[0], viewPortWidth, viewPortHeight, pitch, 0, 1);
 		}
 
 	}
@@ -3288,20 +3278,24 @@ void GameRender::DrawInverseSquareInProjectionSpace(int* vertexs, int index, uin
 			for (i = 0; i < m_renderThreads.size(); i++)
 			{
 				m_renderThreads[i]->Enqueue([this, &vertexs, pTexture, viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine] {
-					this->DrawTriangleInProjectionSpace_B6253(&vertexs[18], &vertexs[6], &vertexs[12], pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
-					this->DrawTriangleInProjectionSpace_B6253(&vertexs[18], &vertexs[0], &vertexs[6], pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
+					ProjectionPolygon vertex1(&vertexs[18]);
+					ProjectionPolygon vertex2(&vertexs[12]);
+					ProjectionPolygon vertex3(&vertexs[0]);
+					ProjectionPolygon vertex4(&vertexs[6]);
+					this->DrawTriangleInProjectionSpace_B6253(&vertex1, &vertex4, &vertex2, pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
+					this->DrawTriangleInProjectionSpace_B6253(&vertex1, &vertex3, &vertex4, pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
 					});
 			}
 
-			DrawTriangleInProjectionSpace_B6253(&vertexs[18], &vertexs[6], &vertexs[12], pTexture, unk_DE56Cx[m_renderThreads.size()], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
-			DrawTriangleInProjectionSpace_B6253(&vertexs[18], &vertexs[0], &vertexs[6], pTexture, unk_DE56Cx[m_renderThreads.size()], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
+			DrawTriangleInProjectionSpace_B6253(&vertex1, &vertex4, &vertex2, pTexture, unk_DE56Cx[m_renderThreads.size()], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
+			DrawTriangleInProjectionSpace_B6253(&vertex1, &vertex3, &vertex4, pTexture, unk_DE56Cx[m_renderThreads.size()], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
 
 			WaitForRenderFinish();
 		}
 		else
 		{
-			DrawTriangleInProjectionSpace_B6253(&vertexs[18], &vertexs[6], &vertexs[12], pTexture, unk_DE56Cx[0], viewPortWidth, viewPortHeight, pitch, 0, 1);
-			DrawTriangleInProjectionSpace_B6253(&vertexs[18], &vertexs[0], &vertexs[6], pTexture, unk_DE56Cx[0], viewPortWidth, viewPortHeight, pitch, 0, 1);
+			DrawTriangleInProjectionSpace_B6253(&vertex1, &vertex4, &vertex2, pTexture, unk_DE56Cx[0], viewPortWidth, viewPortHeight, pitch, 0, 1);
+			DrawTriangleInProjectionSpace_B6253(&vertex1, &vertex3, &vertex4, pTexture, unk_DE56Cx[0], viewPortWidth, viewPortHeight, pitch, 0, 1);
 		}
 	}
 }
@@ -5692,7 +5686,7 @@ void GameRender::DrawSprite_41BD3(uint32 a1, uint8_t x_BYTE_E88E0x[], type_event
 	}
 }
 
-void GameRender::DrawTriangleInProjectionSpace_B6253(x_DWORD* vertex1, x_DWORD* vertex2, x_DWORD* vertex3, uint8_t* pTexture, uint8_t unk_DE56Cx[], uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t pitch, uint8_t startLine, uint8_t drawEveryNthLine)
+void GameRender::DrawTriangleInProjectionSpace_B6253(ProjectionPolygon* vertex1, ProjectionPolygon* vertex2, ProjectionPolygon* vertex3, uint8_t* pTexture, uint8_t unk_DE56Cx[], uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t pitch, uint8_t startLine, uint8_t drawEveryNthLine)
 {
 	uint8_t line1 = startLine;
 	uint8_t line2 = startLine;
@@ -5720,9 +5714,9 @@ void GameRender::DrawTriangleInProjectionSpace_B6253(x_DWORD* vertex1, x_DWORD* 
 	uint8_t line24 = startLine;
 	uint8_t line25 = startLine;
 
-	x_DWORD* v3; // esi
-	x_DWORD* v4; // edi
-	x_DWORD* v5; // ecx
+	ProjectionPolygon* v3; // esi
+	ProjectionPolygon* v4; // edi
+	ProjectionPolygon* v5; // ecx
 	int y1; // eax
 	int y2; // ebx
 	int y3; // edx
@@ -7039,9 +7033,9 @@ void GameRender::DrawTriangleInProjectionSpace_B6253(x_DWORD* vertex1, x_DWORD* 
 	v3 = vertex1;
 	v4 = vertex2;
 	v5 = vertex3;
-	y1 = vertex1[1];
-	y2 = vertex2[1];
-	y3 = vertex3[1];
+	y1 = vertex1->Y;
+	y2 = vertex2->Y;
+	y3 = vertex3->Y;
 
 	if (y1 == y2)
 	{
@@ -7049,14 +7043,14 @@ void GameRender::DrawTriangleInProjectionSpace_B6253(x_DWORD* vertex1, x_DWORD* 
 			return;
 		if (y1 >= y3)
 		{
-			if (*vertex1 <= *vertex2)
+			if (vertex1->X <= vertex2->X)
 				return;
 			v3 = vertex3;
 			v4 = vertex1;
 			v5 = vertex2;
 			goto LABEL_234;
 		}
-		if (*vertex2 <= *vertex1)
+		if (vertex2->X <= vertex1->X)
 			return;
 		goto LABEL_277;
 	}
@@ -7070,7 +7064,7 @@ void GameRender::DrawTriangleInProjectionSpace_B6253(x_DWORD* vertex1, x_DWORD* 
 				v4 = vertex1;
 				v5 = vertex2;
 			LABEL_24:
-				v9 = v3[1];
+				v9 = v3->Y;
 				v1190 = v9;
 				if (v9 >= 0)
 				{
@@ -7084,29 +7078,29 @@ void GameRender::DrawTriangleInProjectionSpace_B6253(x_DWORD* vertex1, x_DWORD* 
 					v1102 = m_ptrViewPortRenderBufferAltStart;
 					v1292 = 1;
 				}
-				v10 = v5[1];
+				v10 = v5->Y;
 				v1300 = v10 > viewPortHeight;
 				v11 = v10 - v9;
 				v1113 = v11;
 				triLn_v1123 = v11;
-				v12 = v4[1];
+				v12 = v4->Y;
 				v1296 = v12 > viewPortHeight;
 				v13 = v12 - v9;
 				v1117 = v13;
-				v1103 = ((*v5 - *v3) << 16) / v1113;
-				if (((*v4 - *v3) << 16) / v13 > v1103)
+				v1103 = ((v5->X - v3->X) << 16) / v1113;
+				if (((v4->X - v3->X) << 16) / v13 > v1103)
 				{
-					v1107 = ((*v4 - *v3) << 16) / v13;
-					v1111 = ((*v5 - *v4) << 16) / (v5[1] - v4[1]);
-					v1119 = v5[1] - v4[1];
-					v1121 = *v4 << 16;
+					v1107 = ((v4->X - v3->X) << 16) / v13;
+					v1111 = ((v5->X - v4->X) << 16) / (v5->Y - v4->Y);
+					v1119 = v5->Y - v4->Y;
+					v1121 = v4->X << 16;
 					switch (x_BYTE_E126D)
 					{
 					case 0:
 					case 0xE:
 					case 0xF:
-						v58 = *v3 << 16;
-						v59 = *v3 << 16;
+						v58 = v3->X << 16;
+						v59 = v3->X << 16;
 						if (!v1292)
 						{
 							if (v1300)
@@ -7184,8 +7178,8 @@ void GameRender::DrawTriangleInProjectionSpace_B6253(x_DWORD* vertex1, x_DWORD* 
 					case 4:
 					case 0x10:
 					case 0x11:
-						v46 = v13 * (signed __int64)(*v3 - *v5) / v1113;
-						v47 = *v4 - *v3;
+						v46 = v13 * (signed __int64)(v3->X - v5->X) / v1113;
+						v47 = v4->X - v3->X;
 						v18 = __OFADD__(v46, v47);
 						v48 = v46 + v47 == 0;
 						v17 = v46 + v47 < 0;
@@ -7193,12 +7187,12 @@ void GameRender::DrawTriangleInProjectionSpace_B6253(x_DWORD* vertex1, x_DWORD* 
 						if ((unsigned __int8)v17 ^ v18)
 							return;
 						if (!v48)
-							v1146 = (signed int)(v4[4] + (unsigned __int64)(v1117 * (signed __int64)(v3[4] - v5[4]) / v1113) - v3[4])
+							v1146 = (signed int)(v4->Brightness + (unsigned __int64)(v1117 * (signed __int64)(v3->Brightness - v5->Brightness) / v1113) - v3->Brightness)
 							/ (v49 + 1);
-						v1148 = (v5[4] - v3[4]) / v1113;
-						v50 = *v3 << 16;
-						v51 = *v3 << 16;
-						v52 = v3[4];
+						v1148 = (v5->Brightness - v3->Brightness) / v1113;
+						v50 = v3->X << 16;
+						v51 = v3->X << 16;
+						v52 = v3->Brightness;
 						if (v1292)
 						{
 							v18 = __OFSUB__(triLn_v1123, -v1190);
@@ -7283,8 +7277,8 @@ void GameRender::DrawTriangleInProjectionSpace_B6253(x_DWORD* vertex1, x_DWORD* 
 					case 0x13:
 					case 0x16:
 					case 0x17:
-						v32 = v13 * (signed __int64)(*v3 - *v5) / v1113;
-						v33 = *v4 - *v3;
+						v32 = v13 * (signed __int64)(v3->X - v5->X) / v1113;
+						v33 = v4->X - v3->X;
 						v18 = __OFADD__(v32, v33);
 						v34 = v32 + v33 == 0;
 						v17 = v32 + v33 < 0;
@@ -7294,17 +7288,17 @@ void GameRender::DrawTriangleInProjectionSpace_B6253(x_DWORD* vertex1, x_DWORD* 
 						if (!v34)
 						{
 							v36 = v35 + 1;
-							v1124 = (signed int)(v4[2] + (unsigned __int64)(v1117 * (signed __int64)(v3[2] - v5[2]) / v1113) - v3[2])
+							v1124 = (signed int)(v4->U + (unsigned __int64)(v1117 * (signed __int64)(v3->U - v5->U) / v1113) - v3->U)
 								/ v36;
-							v1135 = (signed int)(v4[3] + (unsigned __int64)(v1117 * (signed __int64)(v3[3] - v5[3]) / v1113) - v3[3])
+							v1135 = (signed int)(v4->V + (unsigned __int64)(v1117 * (signed __int64)(v3->V - v5->V) / v1113) - v3->V)
 								/ v36;
 						}
-						v1126 = (v5[2] - v3[2]) / v1113;
-						v1137 = (v5[3] - v3[3]) / v1113;
-						v37 = v3[0] << 16;
-						v38 = v3[0] << 16;
-						v39 = v3[2];
-						v40 = v3[3];
+						v1126 = (v5->U - v3->U) / v1113;
+						v1137 = (v5->V - v3->V) / v1113;
+						v37 = v3->X << 16;
+						v38 = v3->X << 16;
+						v39 = v3->U;
+						v40 = v3->V;
 						if (v1292)
 						{
 							v18 = __OFSUB__(triLn_v1123, -v1190);
@@ -7385,8 +7379,8 @@ void GameRender::DrawTriangleInProjectionSpace_B6253(x_DWORD* vertex1, x_DWORD* 
 					case 0x18:
 					case 0x19:
 					case 0x1A:
-						v14 = v13 * (signed __int64)(*v3 - *v5) / v1113;
-						v15 = *v4 - *v3;
+						v14 = v13 * (signed __int64)(v3->X - v5->X) / v1113;
+						v15 = v4->X - v3->X;
 						v18 = __OFADD__(v14, v15);
 						v16 = v14 + v15 == 0;
 						v17 = v14 + v15 < 0;
@@ -7396,21 +7390,21 @@ void GameRender::DrawTriangleInProjectionSpace_B6253(x_DWORD* vertex1, x_DWORD* 
 						if (!v16)
 						{
 							v20 = v19 + 1;
-							v1124 = (signed int)(v4[2] + (unsigned __int64)(v1117 * (signed __int64)(v3[2] - v5[2]) / v1113) - v3[2])
+							v1124 = (signed int)(v4->U + (unsigned __int64)(v1117 * (signed __int64)(v3->U - v5->U) / v1113) - v3->U)
 								/ v20;
-							v1135 = (signed int)(v4[3] + (unsigned __int64)(v1117 * (signed __int64)(v3[3] - v5[3]) / v1113) - v3[3])
+							v1135 = (signed int)(v4->V + (unsigned __int64)(v1117 * (signed __int64)(v3->V - v5->V) / v1113) - v3->V)
 								/ v20;
-							v1146 = (signed int)(v4[4] + (unsigned __int64)(v1117 * (signed __int64)(v3[4] - v5[4]) / v1113) - v3[4])
+							v1146 = (signed int)(v4->Brightness + (unsigned __int64)(v1117 * (signed __int64)(v3->Brightness - v5->Brightness) / v1113) - v3->Brightness)
 								/ v20;
 						}
-						v1125 = (v5[2] - v3[2]) / v1113;
-						v1136 = (v5[3] - v3[3]) / v1113;
-						v1147 = (v5[4] - v3[4]) / v1113;
-						v21 = v3[0] << 16;
-						v22 = v3[0] << 16;
-						v23 = v3[2];
-						v24 = v3[3];
-						v25 = v3[4];
+						v1125 = (v5->U - v3->U) / v1113;
+						v1136 = (v5->V - v3->V) / v1113;
+						v1147 = (v5->Brightness - v3->Brightness) / v1113;
+						v21 = v3->X << 16;
+						v22 = v3->X << 16;
+						v23 = v3->U;
+						v24 = v3->V;
+						v25 = v3->Brightness;
 						if (v1292)
 						{
 							v18 = __OFSUB__(triLn_v1123, -v1190);
@@ -7496,10 +7490,10 @@ void GameRender::DrawTriangleInProjectionSpace_B6253(x_DWORD* vertex1, x_DWORD* 
 					goto LABEL_24;
 				goto LABEL_129;
 			}
-			if (*vertex2 <= *vertex3)
+			if (vertex2->X <= vertex3->X)
 				return;
 		LABEL_234:
-			v117 = v3[1];
+			v117 = v3->Y;
 			v1192 = v117;
 			if (v117 >= 0)
 			{
@@ -7513,19 +7507,19 @@ void GameRender::DrawTriangleInProjectionSpace_B6253(x_DWORD* vertex1, x_DWORD* 
 				v1102 = m_ptrViewPortRenderBufferAltStart;
 				v1294 = 1;
 			}
-			v118 = v5[1];
+			v118 = v5->Y;
 			v1298 = v118 > viewPortHeight;
 			v1115 = v118 - v117;
 			triLn_v1123 = v118 - v117;
-			v1105 = ((*v5 - *v3) << 16) / (v118 - v117);
-			v1109 = ((*v4 - *v3) << 16) / (v118 - v117);
+			v1105 = ((v5->X - v3->X) << 16) / (v118 - v117);
+			v1109 = ((v4->X - v3->X) << 16) / (v118 - v117);
 			switch (x_BYTE_E126D)
 			{
 			case 0:
 			case 0xE:
 			case 0xF:
-				v139 = *v3 << 16;
-				v140 = *v3 << 16;
+				v139 = v3->X << 16;
+				v140 = v3->X << 16;
 				if (v1294)
 				{
 					v141 = -v1192;
@@ -7556,11 +7550,11 @@ void GameRender::DrawTriangleInProjectionSpace_B6253(x_DWORD* vertex1, x_DWORD* 
 			case 4:
 			case 0x10:
 			case 0x11:
-				v1146 = (v4[4] - v5[4]) / (*v4 - *v5);
-				v1152 = (v5[4] - v3[4]) / triLn_v1123;
-				v134 = *v3 << 16;
-				v135 = *v3 << 16;
-				v136 = v3[4];
+				v1146 = (v4->Brightness - v5->Brightness) / (v4->X - v5->X);
+				v1152 = (v5->Brightness - v3->Brightness) / triLn_v1123;
+				v134 = v3->X << 16;
+				v135 = v3->X << 16;
+				v136 = v3->Brightness;
 				if (v1294)
 				{
 					v137 = -v1192;
@@ -7601,15 +7595,15 @@ void GameRender::DrawTriangleInProjectionSpace_B6253(x_DWORD* vertex1, x_DWORD* 
 			case 0x13:
 			case 0x16:
 			case 0x17:
-				v127 = *v4 - *v5;
-				v1124 = (v4[2] - v5[2]) / v127;
-				v1135 = (v4[3] - v5[3]) / v127;
-				v1130 = (v5[2] - v3[2]) / triLn_v1123;
-				v1141 = (v5[3] - v3[3]) / triLn_v1123;
-				v128 = *v3 << 16;
-				v129 = *v3 << 16;
-				v130 = v3[2];
-				v131 = v3[3];
+				v127 = v4->X - v5->X;
+				v1124 = (v4->U - v5->U) / v127;
+				v1135 = (v4->V - v5->V) / v127;
+				v1130 = (v5->U - v3->U) / triLn_v1123;
+				v1141 = (v5->V - v3->V) / triLn_v1123;
+				v128 = v3->X << 16;
+				v129 = v3->X << 16;
+				v130 = v3->U;
+				v131 = v3->V;
 				if (v1294)
 				{
 					v132 = -v1192;
@@ -7645,18 +7639,18 @@ void GameRender::DrawTriangleInProjectionSpace_B6253(x_DWORD* vertex1, x_DWORD* 
 			case 0x18:
 			case 0x19:
 			case 0x1A:
-				v119 = *v4 - *v5;
-				v1124 = (v4[2] - v5[2]) / v119;
-				v1135 = (v4[3] - v5[3]) / v119;
-				v1146 = (v4[4] - v5[4]) / v119;
-				v1129 = (v5[2] - v3[2]) / triLn_v1123;
-				v1140 = (v5[3] - v3[3]) / triLn_v1123;
-				v1151 = (v5[4] - v3[4]) / triLn_v1123;
-				v120 = *v3 << 16;
-				v121 = *v3 << 16;
-				v122 = v3[2];
-				v123 = v3[3];
-				v124 = v3[4];
+				v119 = v4->X - v5->X;
+				v1124 = (v4->U - v5->U) / v119;
+				v1135 = (v4->V - v5->V) / v119;
+				v1146 = (v4->Brightness - v5->Brightness) / v119;
+				v1129 = (v5->U - v3->U) / triLn_v1123;
+				v1140 = (v5->V - v3->V) / triLn_v1123;
+				v1151 = (v5->Brightness - v3->Brightness) / triLn_v1123;
+				v120 = v3->X << 16;
+				v121 = v3->X << 16;
+				v122 = v3->U;
+				v123 = v3->V;
+				v124 = v3->Brightness;
 				if (v1294)
 				{
 					v125 = -v1192;
@@ -7688,13 +7682,13 @@ void GameRender::DrawTriangleInProjectionSpace_B6253(x_DWORD* vertex1, x_DWORD* 
 				goto LABEL_53;
 			}
 		}
-		if (*vertex1 <= *vertex3)
+		if (vertex1->X <= vertex3->X)
 			return;
 		v3 = vertex3;
 		v4 = vertex1;
 		v5 = vertex2;
 	LABEL_277:
-		v143 = v3[1];
+		v143 = v3->Y;
 		v1193 = v143;
 		if (v143 >= 0)
 		{
@@ -7708,19 +7702,19 @@ void GameRender::DrawTriangleInProjectionSpace_B6253(x_DWORD* vertex1, x_DWORD* 
 			v1102 = m_ptrViewPortRenderBufferAltStart;
 			v1295 = 1;
 		}
-		v144 = v5[1];
+		v144 = v5->Y;
 		v1299 = v144 > viewPortHeight;
 		v1116 = v144 - v143;
 		triLn_v1123 = v144 - v143;
-		v1106 = ((*v5 - *v3) << 16) / (v144 - v143);
-		v1110 = ((*v5 - *v4) << 16) / (v144 - v143);
+		v1106 = ((v5->X - v3->X) << 16) / (v144 - v143);
+		v1110 = ((v5->X - v4->X) << 16) / (v144 - v143);
 		switch (x_BYTE_E126D)
 		{
 		case 0:
 		case 0xE:
 		case 0xF:
-			v165 = *v3 << 16;
-			v166 = *v4 << 16;
+			v165 = v3->X << 16;
+			v166 = v4->X << 16;
 			if (v1295)
 			{
 				v167 = -v1193;
@@ -7751,11 +7745,11 @@ void GameRender::DrawTriangleInProjectionSpace_B6253(x_DWORD* vertex1, x_DWORD* 
 		case 4:
 		case 0x10:
 		case 0x11:
-			v1146 = (v4[4] - v3[4]) / (*v4 - *v3);
-			v1154 = (v5[4] - v3[4]) / triLn_v1123;
-			v160 = *v3 << 16;
-			v161 = *v4 << 16;
-			v162 = v3[4];
+			v1146 = (v4->Brightness - v3->Brightness) / (v4->X - v3->X);
+			v1154 = (v5->Brightness - v3->Brightness) / triLn_v1123;
+			v160 = v3->X << 16;
+			v161 = v4->X << 16;
+			v162 = v3->Brightness;
 			if (v1295)
 			{
 				v163 = -v1193;
@@ -7796,15 +7790,15 @@ void GameRender::DrawTriangleInProjectionSpace_B6253(x_DWORD* vertex1, x_DWORD* 
 		case 0x13:
 		case 0x16:
 		case 0x17:
-			v153 = *v4 - *v3;
-			v1124 = (v4[2] - v3[2]) / v153;
-			v1135 = (v4[3] - v3[3]) / v153;
-			v1132 = (v5[2] - v3[2]) / triLn_v1123;
-			v1143 = (v5[3] - v3[3]) / triLn_v1123;
-			v154 = *v3 << 16;
-			v155 = *v4 << 16;
-			v156 = v3[2];
-			v157 = v3[3];
+			v153 = v4->X - v3->X;
+			v1124 = (v4->U - v3->U) / v153;
+			v1135 = (v4->V - v3->V) / v153;
+			v1132 = (v5->U - v3->U) / triLn_v1123;
+			v1143 = (v5->V - v3->V) / triLn_v1123;
+			v154 = v3->X << 16;
+			v155 = v4->X << 16;
+			v156 = v3->U;
+			v157 = v3->V;
 			if (v1295)
 			{
 				v158 = -v1193;
@@ -7840,18 +7834,18 @@ void GameRender::DrawTriangleInProjectionSpace_B6253(x_DWORD* vertex1, x_DWORD* 
 		case 0x18:
 		case 0x19:
 		case 0x1A:
-			v145 = *v4 - *v3;
-			v1124 = (v4[2] - v3[2]) / v145;
-			v1135 = (v4[3] - v3[3]) / v145;
-			v1146 = (v4[4] - v3[4]) / v145;
-			v1131 = (v5[2] - v3[2]) / triLn_v1123;
-			v1142 = (v5[3] - v3[3]) / triLn_v1123;
-			v1153 = (v5[4] - v3[4]) / triLn_v1123;
-			v146 = *v3 << 16;
-			v147 = *v4 << 16;
-			v148 = v3[2];
-			v149 = v3[3];
-			v150 = v3[4];
+			v145 = v4->X - v3->X;
+			v1124 = (v4->U - v3->U) / v145;
+			v1135 = (v4->V - v3->V) / v145;
+			v1146 = (v4->Brightness - v3->Brightness) / v145;
+			v1131 = (v5->U - v3->U) / triLn_v1123;
+			v1142 = (v5->V - v3->V) / triLn_v1123;
+			v1153 = (v5->Brightness - v3->Brightness) / triLn_v1123;
+			v146 = v3->X << 16;
+			v147 = v4->X << 16;
+			v148 = v3->U;
+			v149 = v3->V;
+			v150 = v3->Brightness;
 			if (v1295)
 			{
 				v151 = -v1193;
@@ -7885,7 +7879,7 @@ void GameRender::DrawTriangleInProjectionSpace_B6253(x_DWORD* vertex1, x_DWORD* 
 	}
 	if (y1 == y3)
 	{
-		if (*vertex3 <= *vertex1)
+		if (vertex3->X <= vertex1->X)
 			return;
 		v3 = vertex2;
 		v4 = vertex3;
@@ -7901,7 +7895,7 @@ void GameRender::DrawTriangleInProjectionSpace_B6253(x_DWORD* vertex1, x_DWORD* 
 	}
 	if (y2 == y3)
 	{
-		if (*vertex3 <= *vertex2)
+		if (vertex3->X <= vertex2->X)
 			return;
 		v3 = vertex2;
 		v4 = vertex3;
@@ -7919,7 +7913,7 @@ void GameRender::DrawTriangleInProjectionSpace_B6253(x_DWORD* vertex1, x_DWORD* 
 	v4 = vertex1;
 	v5 = vertex2;
 LABEL_129:
-	v65 = v3[1];
+	v65 = v3->Y;
 	v1191 = v65;
 	if (v65 >= 0)
 	{
@@ -7933,28 +7927,28 @@ LABEL_129:
 		v1102 = m_ptrViewPortRenderBufferAltStart;
 		v1293 = 1;
 	}
-	v66 = v5[1];
+	v66 = v5->Y;
 	v1297 = v66 > viewPortHeight;
 	v1114 = v66 - v65;
-	v67 = v4[1];
+	v67 = v4->Y;
 	v1301 = v67 > viewPortHeight;
 	v68 = v67 - v65;
 	v1118 = v68;
 	triLn_v1123 = v68;
-	v1104 = ((*v5 - *v3) << 16) / v1114;
-	if (((*v4 - *v3) << 16) / v68 > v1104)
+	v1104 = ((v5->X - v3->X) << 16) / v1114;
+	if (((v4->X - v3->X) << 16) / v68 > v1104)
 	{
-		v1108 = ((*v4 - *v3) << 16) / v68;
-		v1112 = ((*v4 - *v5) << 16) / (v4[1] - v5[1]);
-		v1120 = v4[1] - v5[1];
-		v1122 = *v5 << 16;
+		v1108 = ((v4->X - v3->X) << 16) / v68;
+		v1112 = ((v4->X - v5->X) << 16) / (v4->Y - v5->Y);
+		v1120 = v4->Y - v5->Y;
+		v1122 = v5->X << 16;
 		switch (x_BYTE_E126D)
 		{
 		case 0:
 		case 0xE:
 		case 0xF:
-			v110 = *v3 << 16;
-			v111 = *v3 << 16;
+			v110 = v3->X << 16;
+			v111 = v3->X << 16;
 			if (v1293)
 			{
 				v18 = __OFSUB__(triLn_v1123, -v1191);
@@ -8028,8 +8022,8 @@ LABEL_129:
 		case 4:
 		case 0x10:
 		case 0x11:
-			v98 = v1114 * (signed __int64)(*v4 - *v3) / v68;
-			v99 = *v3 - *v5;
+			v98 = v1114 * (signed __int64)(v4->X - v3->X) / v68;
+			v99 = v3->X - v5->X;
 			v18 = __OFADD__(v98, v99);
 			v100 = v98 + v99 == 0;
 			v17 = v98 + v99 < 0;
@@ -8037,13 +8031,13 @@ LABEL_129:
 			if ((unsigned __int8)v17 ^ v18)
 				return;
 			if (!v100)
-				v1146 = (signed int)(v3[4] + (unsigned __int64)(v1114 * (signed __int64)(v4[4] - v3[4]) / v1118) - v5[4])
+				v1146 = (signed int)(v3->Brightness + (unsigned __int64)(v1114 * (signed __int64)(v4->Brightness - v3->Brightness) / v1118) - v5->Brightness)
 				/ (v101 + 1);
-			v1150 = (v5[4] - v3[4]) / v1114;
-			v1156 = (v4[4] - v5[4]) / v1120;
-			v102 = *v3 << 16;
-			v103 = *v3 << 16;
-			v104 = v3[4];
+			v1150 = (v5->Brightness - v3->Brightness) / v1114;
+			v1156 = (v4->Brightness - v5->Brightness) / v1120;
+			v102 = v3->X << 16;
+			v103 = v3->X << 16;
+			v104 = v3->Brightness;
 			if (v1293)
 			{
 				v18 = __OFSUB__(triLn_v1123, -v1191);
@@ -8128,8 +8122,8 @@ LABEL_129:
 		case 0x13:
 		case 0x16:
 		case 0x17:
-			v84 = v1114 * (signed __int64)(*v4 - *v3) / v68;
-			v85 = *v3 - *v5;
+			v84 = v1114 * (signed __int64)(v4->X - v3->X) / v68;
+			v85 = v3->X - v5->X;
 			v18 = __OFADD__(v84, v85);
 			v86 = v84 + v85 == 0;
 			v17 = v84 + v85 < 0;
@@ -8139,19 +8133,19 @@ LABEL_129:
 			if (!v86)
 			{
 				v88 = v87 + 1;
-				v1124 = (signed int)(v3[2] + (unsigned __int64)(v1114 * (signed __int64)(v4[2] - v3[2]) / v1118) - v5[2])
+				v1124 = (signed int)(v3->U + (unsigned __int64)(v1114 * (signed __int64)(v4->U - v3->U) / v1118) - v5->U)
 					/ v88;
-				v1135 = (signed int)(v3[3] + (unsigned __int64)(v1114 * (signed __int64)(v4[3] - v3[3]) / v1118) - v5[3])
+				v1135 = (signed int)(v3->V + (unsigned __int64)(v1114 * (signed __int64)(v4->V - v3->V) / v1118) - v5->V)
 					/ v88;
 			}
-			v1128 = (v5[2] - v3[2]) / v1114;
-			v1139 = (v5[3] - v3[3]) / v1114;
-			v1134 = (v4[2] - v5[2]) / v1120;
-			v1145 = (v4[3] - v5[3]) / v1120;
-			v89 = *v3 << 16;
-			v90 = *v3 << 16;
-			v91 = v3[2];
-			v92 = v3[3];
+			v1128 = (v5->U - v3->U) / v1114;
+			v1139 = (v5->V - v3->V) / v1114;
+			v1134 = (v4->U - v5->U) / v1120;
+			v1145 = (v4->V - v5->V) / v1120;
+			v89 = v3->X << 16;
+			v90 = v3->X << 16;
+			v91 = v3->U;
+			v92 = v3->V;
 			if (v1293)
 			{
 				v18 = __OFSUB__(triLn_v1123, -v1191);
@@ -8232,8 +8226,8 @@ LABEL_129:
 		case 0x18:
 		case 0x19:
 		case 0x1A:
-			v69 = v1114 * (signed __int64)(*v4 - *v3) / v68;
-			v70 = *v3 - *v5;
+			v69 = v1114 * (signed __int64)(v4->X - v3->X) / v68;
+			v70 = v3->X - v5->X;
 			v18 = __OFADD__(v69, v70);
 			v71 = v69 + v70 == 0;
 			v17 = v69 + v70 < 0;
@@ -8243,24 +8237,24 @@ LABEL_129:
 			if (!v71)
 			{
 				v73 = v72 + 1;
-				v1124 = (signed int)(v3[2] + (unsigned __int64)(v1114 * (signed __int64)(v4[2] - v3[2]) / v1118) - v5[2])
+				v1124 = (signed int)(v3->U + (unsigned __int64)(v1114 * (signed __int64)(v4->U - v3->U) / v1118) - v5->U)
 					/ v73;
-				v1135 = (signed int)(v3[3] + (unsigned __int64)(v1114 * (signed __int64)(v4[3] - v3[3]) / v1118) - v5[3])
+				v1135 = (signed int)(v3->V + (unsigned __int64)(v1114 * (signed __int64)(v4->V - v3->V) / v1118) - v5->V)
 					/ v73;
-				v69 = (signed int)(v3[4] + (unsigned __int64)(v1114 * (signed __int64)(v4[4] - v3[4]) / v1118) - v5[4]) / v73;
+				v69 = (signed int)(v3->Brightness + (unsigned __int64)(v1114 * (signed __int64)(v4->Brightness - v3->Brightness) / v1118) - v5->Brightness) / v73;
 			}
 			v1146 = v69;
-			v1127 = (v5[2] - v3[2]) / v1114;
-			v1138 = (v5[3] - v3[3]) / v1114;
-			v1149 = (v5[4] - v3[4]) / v1114;
-			v1133 = (v4[2] - v5[2]) / v1120;
-			v1144 = (v4[3] - v5[3]) / v1120;
-			v1155 = (v4[4] - v5[4]) / v1120;
-			v74 = *v3 << 16;
-			v75 = *v3 << 16;
-			v76 = v3[2];
-			v77 = v3[3];
-			v78 = v3[4];
+			v1127 = (v5->U - v3->U) / v1114;
+			v1138 = (v5->V - v3->V) / v1114;
+			v1149 = (v5->Brightness - v3->Brightness) / v1114;
+			v1133 = (v4->U - v5->U) / v1120;
+			v1144 = (v4->V - v5->V) / v1120;
+			v1155 = (v4->Brightness - v5->Brightness) / v1120;
+			v74 = v3->X << 16;
+			v75 = v3->X << 16;
+			v76 = v3->U;
+			v77 = v3->V;
+			v78 = v3->Brightness;
 			if (v1293)
 			{
 				v18 = __OFSUB__(triLn_v1123, -v1191);
