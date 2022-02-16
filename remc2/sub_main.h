@@ -459,6 +459,7 @@ void sub_47320_in_game_loop(signed int a1);
 void sub_56D60(unsigned int a1, char a2);
 void sub_75200_VGA_Blit640(uint16_t height);
 void VGA_BlitAny(uint16_t width, uint16_t height, uint8_t* pScreenBuffer);
+void VGA_CalculateAndPrintFPS(int x, int y);
 void sub_7A060_get_mouse_and_keyboard_events();
 void DrawAndEventsInGame_47560(uint32_t a3, signed int a4, __int16 a5);
 void GameEvents_51BB0(uint16_t screenWidth, uint16_t screenHeight);

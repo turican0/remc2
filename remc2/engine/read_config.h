@@ -39,5 +39,8 @@ extern bool bigSprites;
 extern bool sky;
 extern bool reflections;
 extern bool dynamicLighting;
+extern bool multiThreadedRender;
+extern int numberOfRenderThreads;
+extern bool assignToSpecificCores;
 
 #endif //READ_CONFIG

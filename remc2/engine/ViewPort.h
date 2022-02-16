@@ -20,6 +20,14 @@ struct ViewPort
 		Height = 0;
 	};
 
+	ViewPort(const ViewPort &v)
+	{
+		PosX = v.PosX;
+		PosY = v.PosY;
+		Width = v.Width;
+		Height = v.Height;
+	};
+
 	ViewPort(uint16_t viewPortPosX, uint16_t viewPortPosY, uint16_t viewPortWidth, uint16_t viewPortHeight)
 	{
 		PosX = viewPortPosX;

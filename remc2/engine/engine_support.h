@@ -178,9 +178,9 @@ typedef struct {
 */
 typedef struct {
 	int16_t yaw;
-	int16_t xshift;
-	int16_t yshift;
-	int16_t rotation;
+	int16_t pitch;
+	int16_t roll;
+	int16_t fov;
 }axis_4d;
 
 typedef struct {

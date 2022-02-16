@@ -17,6 +17,14 @@ char x_BYTE_E3766 = 0; // weak
 
 long oldmillis = 0;
 
+#if _DEBUG
+clock_t frameStart = 0;
+clock_t frameStop = 0;
+clock_t timeDelta = 0;
+int frameCount = 0;
+int fps = 0;
+#endif
+
 uint8_t* x_DWORD_E9C3C; // weak
 
 uint8_t* x_DWORD_17DB50; // weak

@@ -1,4 +1,5 @@
 #include "read_config.h"
+
 int config_skip_screen;
 int texturepixels = 32;
 int speedGame = 35;
@@ -12,6 +13,9 @@ bool bigSprites = false;
 bool sky = true;
 bool reflections = false;
 bool dynamicLighting = false;
+bool multiThreadedRender = false;
+int numberOfRenderThreads = 0;
+bool assignToSpecificCores = false;
 
 void readini(const std::string& filename) {
 
@@ -94,4 +98,20 @@ void readini(const std::string& filename) {
 
 	speedGame = reader.GetInteger("game", "speed", 30);
 	speedAnim = reader.GetInteger("game", "animspeed", 100);
+	multiThreadedRender = reader.GetBoolean("graphics", "multiThreadedRender", false);
+	numberOfRenderThreads = reader.GetInteger("graphics", "numberOfRenderThreads", 0);
+
+	if (multiThreadedRender)
+	{
+		assignToSpecificCores = reader.GetBoolean("graphics", "assignToSpecificCores", false);
+
+		if (numberOfRenderThreads < 1)
+		{
+			numberOfRenderThreads = 1;
+		}
+	}
+	else
+	{
+		numberOfRenderThreads = 0;
+	}
 };

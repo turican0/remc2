@@ -218,11 +218,11 @@ void convert_struct_to_array_axis_4d(axis_4d* input, uint8_t* output) {
 	//int16_t aa;
 	memcpy(output + 0x0, &input->yaw, 2);
 	//int16_t bb;
-	memcpy(output + 0x2, &input->xshift, 2);
+	memcpy(output + 0x2, &input->pitch, 2);
 	//int16_t cc;
-	memcpy(output + 0x4, &input->yshift, 2);
+	memcpy(output + 0x4, &input->roll, 2);
 	//int16_t dd;
-	memcpy(output + 0x6, &input->rotation, 2);
+	memcpy(output + 0x6, &input->fov, 2);
 }
 
 void convert_struct_to_array_0x1d1_2BDE_11695(type_struct_0x1d1_2BDE_11695* input, uint8_t* output) {

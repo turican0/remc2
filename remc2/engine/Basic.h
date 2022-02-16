@@ -150,6 +150,13 @@ extern char bigGraphicsPath[];
 
 extern long oldmillis;
 
+extern clock_t frameStart;
+extern clock_t frameStop;
+extern clock_t timeDelta;
+extern int frameCount;
+extern int fps;
+
+
 extern int x_DWORD_E3E2C;
 
 extern char x_BYTE_D41C1; // weak

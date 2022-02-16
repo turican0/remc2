@@ -408,6 +408,15 @@
     <ClInclude Include="engine\Type_Unk_F0E20x.h">
       <Filter>Header Files\engine</Filter>
     </ClInclude>
+    <ClInclude Include="utilities\SafeQueue.h">
+      <Filter>Header Files\utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\RenderThread.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\ProjectionPolygon.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -684,6 +693,12 @@
       <Filter>Source Files\engine</Filter>
     </ClCompile>
     <ClCompile Include="engine\Type_D93C0_Bldgprmbuffer.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\RenderThread.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\ProjectionPolygon.cpp">
       <Filter>Source Files\engine</Filter>
     </ClCompile>
   </ItemGroup>
