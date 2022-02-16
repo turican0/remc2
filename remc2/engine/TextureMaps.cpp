@@ -1,4 +1,5 @@
 #include "TextureMaps.h"
+#include "../utilities/BitmapIO.h"
 
 type_BIG_SPRITES_BUFFER BIG_SPRITES_BUFFERx[max_sprites];
 
@@ -489,12 +490,12 @@ void InitTmaps(unsigned __int16 a1)//251f50
 							}
 
 							BIG_SPRITES_BUFFERx[i].actdatax = (type_particle_str*)malloc(oldwidth * 4 * oldheight * 4 + 6 + 2);
-							memcpy(BIG_SPRITES_BUFFERx[i].actdatax->data_6, BIG_SPRITES_BUFFERx[i].frames[0], oldwidth * 4 * oldheight * 4);
+							memcpy(BIG_SPRITES_BUFFERx[i].actdatax->textureBuffer, BIG_SPRITES_BUFFERx[i].frames[0], oldwidth * 4 * oldheight * 4);
 
 							BIG_SPRITES_BUFFERx[i].actdatax->word_0 = *(uint16_t*)oldtmap;
-							BIG_SPRITES_BUFFERx[i].actdatax->word_2 = oldwidth * 4;
-							BIG_SPRITES_BUFFERx[i].actdatax->word_4 = oldheight * 4;
-							*(uint16_t*)&BIG_SPRITES_BUFFERx[i].actdatax->data_6[oldwidth * 4 * oldheight * 4] = mm;
+							BIG_SPRITES_BUFFERx[i].actdatax->width = oldwidth * 4;
+							BIG_SPRITES_BUFFERx[i].actdatax->height = oldheight * 4;
+							*(uint16_t*)&BIG_SPRITES_BUFFERx[i].actdatax->textureBuffer[oldwidth * 4 * oldheight * 4] = mm;
 
 							/*for (int xx = 0; xx < oldwidth*4; xx++)
 								for (int yy = 0; yy < oldheight*4; yy++)
@@ -703,16 +704,16 @@ type_animations1* sub_721C0_initTmap(type_E9C08* a1x, type_particle_str** a2x, _
 	if (v12 <= -1)
 		return 0;
 	v7x = *a2x;
-	v8 = (*a2x)->word_4 * (*a2x)->word_2;
+	v8 = (*a2x)->height * (*a2x)->width;
 	//v9 = *(x_WORD*)(v8 + (*a2x)->un_0.byte[0] + 6);//? is ok
-	v9 = ((*a2x)->data_6)[v8];//? is ok
+	v9 = ((*a2x)->textureBuffer)[v8];//? is ok
 	//v10 = 28 * v12;
 	a1x->dword_2[v12].Particles_4 = *a2x;
 	a1x->dword_2[v12].word_12 = 6;
 	a1x->dword_2[v12].word_14 = v8 + 6;
 	a1x->dword_2[v12].CountOfFrames_16 = v9;
-	a1x->dword_2[v12].Width_18 = v7x->word_2;
-	a1x->dword_2[v12].Height_20 = v7x->word_4;
+	a1x->dword_2[v12].Width_18 = v7x->width;
+	a1x->dword_2[v12].Height_20 = v7x->height;
 	a1x->dword_2[v12].dword_8 = v8 + 6;
 	a1x->dword_2[v12].FrameIndex_22 = 1;
 	a1x->dword_2[v12].dword_0 = 1;

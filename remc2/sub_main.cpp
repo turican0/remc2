@@ -39785,8 +39785,8 @@ void write_pngs2()
 		{
 			type_particle_str* actimg = *str_DWORD_F66F0x[k];
 			int lenght = actimg->word_0;
-			int width = actimg->word_2;
-			int height = actimg->word_4;
+			int width = actimg->width;
+			int height = actimg->height;
 			/*int lenght = *(uint16_t*)(actimg + 0);
 			int width = *(uint16_t*)(actimg + 2);
 			int height = *(uint16_t*)(actimg + 4);*/
@@ -39796,7 +39796,7 @@ void write_pngs2()
 			{
 				char outname[512];
 				sprintf(outname, "%s\\test-%03d.bmp", outdir, k);
-				write_posistruct_to_png((uint8_t*)&actimg->data_6, width, height, outname);//test write
+				write_posistruct_to_png((uint8_t*)&actimg->textureBuffer, width, height, outname);//test write
 			}
 		}
 	}
@@ -76527,10 +76527,10 @@ void sub_72350(type_animations1* a1x)//253350 //animates sprite
 			type_particle_str* baseadr = *str_DWORD_F66F0x[a1x->word_26];
 			if (baseadr != NULL)
 			{
-				int animwidth = baseadr->word_2;
-				int animheight = baseadr->word_4;
+				int animwidth = baseadr->width;
+				int animheight = baseadr->height;
 				if ((animwidth > 0) && (animheight > 0) && (animwidth < 1000) && (animheight < 1000))
-					memcpy(&baseadr->data_6, BIG_SPRITES_BUFFERx[a1x->word_26].frames[a1x->FrameIndex_22 - 1], (animwidth * animheight));
+					memcpy(&baseadr->textureBuffer, BIG_SPRITES_BUFFERx[a1x->word_26].frames[a1x->FrameIndex_22 - 1], (animwidth * animheight));
 			}
 		}
 
@@ -76567,8 +76567,8 @@ void sub_72350(type_animations1* a1x)//253350 //animates sprite
 		/*v3 = sub_76619(v1 + a1x->dword_8, v1);
 		a1x->dword_8 = v3 - v1;
 		a1x->word_22 = a1x->word_22 + 1;*/
-		v3x = sub_76619(&a1x->Particles_4->data_6[a1x->dword_8], a1x->Particles_4->data_6);
-		a1x->dword_8 = v3x - a1x->Particles_4->data_6;
+		v3x = sub_76619(&a1x->Particles_4->textureBuffer[a1x->dword_8], a1x->Particles_4->textureBuffer);
+		a1x->dword_8 = v3x - a1x->Particles_4->textureBuffer;
 		a1x->FrameIndex_22++;
 	}
 }
