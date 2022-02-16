@@ -47,7 +47,7 @@ int sub_70EF0(unsigned __int16 a1)
 	int i; // ebx
 	//int v3; // ecx
 	v1 = str_TMAPS00TAB_BEGIN_BUFFER[a1].word_8;
-	for (i = 0; str_TMAPS00TAB_BEGIN_BUFFER[a1].word_8 < 0x1F8u; v1++)
+	for (i = 0; str_TMAPS00TAB_BEGIN_BUFFER[a1].word_8 < 504; v1++)
 	{
 		//v3 = 10 * v1;
 		if (str_TMAPS00TAB_BEGIN_BUFFER[a1].word_8 != str_TMAPS00TAB_BEGIN_BUFFER[v1].word_8)
@@ -256,7 +256,7 @@ char sub_70D20(unsigned __int16 a1)//251d20
 	//v2 = str_TMAPS00TAB_BEGIN_BUFFER[a1].word_8;
 	if (!str_DWORD_F66F0x[str_TMAPS00TAB_BEGIN_BUFFER[a1].word_8])
 		return 0;
-	for (i = str_TMAPS00TAB_BEGIN_BUFFER[a1].word_8; i < 0x1F8u && str_TMAPS00TAB_BEGIN_BUFFER[a1].word_8 == str_TMAPS00TAB_BEGIN_BUFFER[i].word_8; i++)
+	for (i = str_TMAPS00TAB_BEGIN_BUFFER[a1].word_8; i < 504 && str_TMAPS00TAB_BEGIN_BUFFER[a1].word_8 == str_TMAPS00TAB_BEGIN_BUFFER[i].word_8; i++)
 	{
 		v4x = str_DWORD_F66F0x[i];
 		if (v4x)
@@ -438,7 +438,7 @@ void InitTmaps(unsigned __int16 a1)//251f50
 	//index = (int)TMAPS00TAB_BEGIN_BUFFER;
 	//str_TMAPS00TAB_BEGIN_BUFFER[a1].word_8
 	v2 = str_TMAPS00TAB_BEGIN_BUFFER[a1].word_8;
-	for (i = str_TMAPS00TAB_BEGIN_BUFFER[a1].word_8; i < 0x1F8u; i++)
+	for (i = str_TMAPS00TAB_BEGIN_BUFFER[a1].word_8; i < 504; i++)
 	{
 		//index2 = 10 * i + TMAPS00TAB_BEGIN_BUFFER;
 		if (v2 != str_TMAPS00TAB_BEGIN_BUFFER[i].word_8)

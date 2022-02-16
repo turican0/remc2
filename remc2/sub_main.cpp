@@ -76111,7 +76111,7 @@ void sub_715B0()//2525b0
 				{
 					//result = 5 * v0;
 					v6 = str_TMAPS00TAB_BEGIN_BUFFER[v0].word_8;
-					for (i = str_TMAPS00TAB_BEGIN_BUFFER[v0].word_8; i < 0x1F8u; i++)
+					for (i = str_TMAPS00TAB_BEGIN_BUFFER[v0].word_8; i < 504; i++)
 					{
 						//result = 5 * i;
 						if (v6 != str_TMAPS00TAB_BEGIN_BUFFER[i].word_8)
