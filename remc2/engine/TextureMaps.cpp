@@ -447,7 +447,7 @@ void InitTmaps(unsigned __int16 a1)//251f50
 		v6 = i;
 		if (!str_DWORD_F66F0x[i])
 		{
-			index3x = sub_71E70(x_DWORD_E9C28_str, (unsigned __int16)(4 * ((unsigned int)(str_TMAPS00TAB_BEGIN_BUFFER[i].dword_0 + 13) >> 2)), i);
+			index3x = LoadTMapMetadata_71E70(x_DWORD_E9C28_str, (unsigned __int16)(4 * ((unsigned int)(str_TMAPS00TAB_BEGIN_BUFFER[i].dword_0 + 13) >> 2)), i);
 			//v4 = index3;
 			if (index3x)
 			{
@@ -519,7 +519,7 @@ void InitTmaps(unsigned __int16 a1)//251f50
 						index5x->word_0 |= 0x20u;
 						continue;
 					}
-					if (v2 <= 480 || v2 >= 0x1E8u && (v2 <= 0x1E8u || v2 == 496))
+					if (v2 <= 480 || v2 >= 488 && (v2 <= 488 || v2 == 496))
 					{
 						index5x = *str_DWORD_F66F0x[i];
 						index5x->word_0 |= 0x20u;
@@ -531,7 +531,7 @@ void InitTmaps(unsigned __int16 a1)//251f50
 	}
 }
 
-subtype_x_DWORD_E9C28_str* sub_71E70(type_x_DWORD_E9C28_str* a1y, unsigned int a2, __int16 a3)//252e70
+subtype_x_DWORD_E9C28_str* LoadTMapMetadata_71E70(type_x_DWORD_E9C28_str* a1y, unsigned int a2, __int16 a3)//252e70
 {
 	signed __int16 v3; // si
 	signed __int16 v4; // ax
@@ -673,17 +673,19 @@ int sub_70C60_decompress_tmap(uint16_t texture_index, uint8_t* texture_buffer)//
 
 void WriteTextureMapToBmp(uint16_t texture_index, type_particle_str* ptextureMap, MapType_t mapType)
 {
-	if (m_pColorPalette == NULL)
-	{
-		m_pColorPalette = LoadTMapColorPalette(mapType);
-	}
-
 	char path[MAX_PATH];
 	char name[50];
 	GetSubDirectoryPath(path, "BufferOut");
 	if (myaccess(path, 0) < 0)
 	{
 		mymkdir(path);
+	}
+
+	if (m_pColorPalette == NULL)
+	{
+		m_pColorPalette = LoadTMapColorPalette(mapType);
+		GetSubDirectoryPath(path, "BufferOut/PalletOut.bmp");
+		BitmapIO::WritePaletteAsImageBMP(path, 256, m_pColorPalette);
 	}
 
 	sprintf(name, "BufferOut/TmapOut%03d%s", texture_index, ".bmp");
@@ -715,9 +717,6 @@ uint8_t* LoadTMapColorPalette(MapType_t mapType)
 	palfile = fopen(path, "rb");
 	fread(pallettebuffer, 768, 1, palfile);
 	fclose(palfile);
-
-	GetSubDirectoryPath(path, "BufferOut/PalletOut.bmp");
-	BitmapIO::WritePaletteAsImageBMP(path, 256, pallettebuffer);
 
 	return pallettebuffer;
 }

@@ -2372,7 +2372,6 @@ void sub_71990();
 void sub_71A70_setTmaps(MapType_t a1);
 void sub_71AB0(__int16 a1, char a2);
 type_x_DWORD_E9C28_str* sub_71B40(int a1, unsigned __int16 a2, type_x_DWORD_E9C28_str* a3);
-subtype_x_DWORD_E9C28_str* sub_71E70(type_x_DWORD_E9C28_str* a1, unsigned int a2, __int16 a3);
 void sub_720C0(type_x_DWORD_E9C28_str** a1);
 type_E9C08* sub_72120(unsigned __int16 a1);
 void sub_72350(type_animations1* a1);

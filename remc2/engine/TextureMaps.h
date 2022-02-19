@@ -38,7 +38,7 @@ char sub_70D20(unsigned __int16 a1);
 type_animations1* sub_724F0(type_E9C08* a1x, __int16 a2);
 void sub_71F20(type_x_DWORD_E9C28_str* a1y, subtype_x_DWORD_E9C28_str* a2x);
 void InitTmaps(unsigned __int16 a1);
-subtype_x_DWORD_E9C28_str* sub_71E70(type_x_DWORD_E9C28_str* a1y, unsigned int a2, __int16 a3);
+subtype_x_DWORD_E9C28_str* LoadTMapMetadata_71E70(type_x_DWORD_E9C28_str* a1y, unsigned int a2, __int16 a3);
 void sub_70A60_open_tmaps();
 void sub_70BF0_close_tmaps();
 int sub_70C60_decompress_tmap(uint16_t texture_index, uint8_t* texture_buffer);
