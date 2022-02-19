@@ -26,6 +26,8 @@ extern type_x_DWORD_E9C28_str* x_DWORD_E9C28_str;
 extern type_E9C08* x_DWORD_E9C08x; // weak
 extern bool big_sprites_inited;
 
+extern uint8_t* m_pColorPalette;
+
 bool MainInitTmaps_71520(unsigned __int16 a1);
 int sub_70EF0(unsigned __int16 a1);
 signed int sub_71CD0(type_x_DWORD_E9C28_str* a1);
@@ -40,6 +42,8 @@ subtype_x_DWORD_E9C28_str* sub_71E70(type_x_DWORD_E9C28_str* a1y, unsigned int a
 void sub_70A60_open_tmaps();
 void sub_70BF0_close_tmaps();
 int sub_70C60_decompress_tmap(uint16_t texture_index, uint8_t* texture_buffer);
+void WriteTextureMapToBmp(uint16_t texture_index, type_particle_str* ptextureMap, MapType_t mapType);
+uint8_t* LoadTMapColorPalette(MapType_t mapType);
 type_animations1* sub_721C0_initTmap(type_E9C08* a1, type_particle_str** a2x, __int16 a3);
 void sub_72410(type_animations1* a1);
 

@@ -17,6 +17,7 @@ type_x_DWORD_E9C28_str* x_DWORD_E9C28_str;
 
 type_E9C08* x_DWORD_E9C08x; // weak
 bool big_sprites_inited = false;
+uint8_t* m_pColorPalette = NULL;
 
 bool MainInitTmaps_71520(unsigned __int16 a1)
 {
@@ -668,6 +669,57 @@ int sub_70C60_decompress_tmap(uint16_t texture_index, uint8_t* texture_buffer)//
 		result = -2;
 	}
 	return result;
+}
+
+void WriteTextureMapToBmp(uint16_t texture_index, type_particle_str* ptextureMap, MapType_t mapType)
+{
+	if (m_pColorPalette == NULL)
+	{
+		m_pColorPalette = LoadTMapColorPalette(mapType);
+	}
+
+	char path[MAX_PATH];
+	char name[50];
+	GetSubDirectoryPath(path, "BufferOut");
+	if (myaccess(path, 0) < 0)
+	{
+		mymkdir(path);
+	}
+
+	sprintf(name, "BufferOut/TmapOut%03d%s", texture_index, ".bmp");
+	GetSubDirectoryPath(path, name);
+	BitmapIO::WriteRGBAImageBufferAsImageBMP(path, ptextureMap->width, ptextureMap->height, m_pColorPalette, (uint8_t*)ptextureMap->textureBuffer);
+}
+
+uint8_t* LoadTMapColorPalette(MapType_t mapType)
+{
+	uint8_t* pallettebuffer = new uint8_t[768];
+	FILE* palfile;
+	char path[MAX_PATH];
+	char palleteName[50];
+
+	switch (mapType)
+	{
+		case MapType_t::Cave:
+			sprintf(palleteName, "../tools/palletelight/Debug/out-%s.pal", "c");
+		break;
+		case MapType_t::Day:
+			sprintf(palleteName, "../tools/palletelight/Debug/out-%s.pal", "block");
+		break;
+		case MapType_t::Night:
+			sprintf(palleteName, "../tools/palletelight/Debug/out-%s.pal", "n");
+		break;
+	}
+
+	GetSubDirectoryPath(path, palleteName);
+	palfile = fopen(path, "rb");
+	fread(pallettebuffer, 768, 1, palfile);
+	fclose(palfile);
+
+	GetSubDirectoryPath(path, "BufferOut/PalletOut.bmp");
+	BitmapIO::WritePaletteAsImageBMP(path, 256, pallettebuffer);
+
+	return pallettebuffer;
 }
 
 type_animations1* sub_721C0_initTmap(type_E9C08* a1x, type_particle_str** a2x, __int16 a3)//2531c0
