@@ -30,7 +30,7 @@ extern uint8_t* m_pColorPalette;
 
 bool MainInitTmaps_71520(unsigned __int16 a1);
 int sub_70EF0(unsigned __int16 a1);
-signed int sub_71CD0(type_x_DWORD_E9C28_str* a1);
+signed int GetIndex_71CD0(type_x_DWORD_E9C28_str* a1);
 int sub_71E60(type_x_DWORD_E9C28_str* a1y);
 unsigned int sub_71090(unsigned int a1);
 char sub_70E10(unsigned __int16 a1);

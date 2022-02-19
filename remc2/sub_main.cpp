@@ -75994,7 +75994,7 @@ void sub_70940()//251940
 //----- (000712F0) --------------------------------------------------------
 void sub_712F0()//2522f0
 {
-	x_DWORD_E9C28_str = sub_71B40(x_D41A0_BYTEARRAY_4_struct.dword_0xE6_heapsize_230, 0x1F8u, (type_x_DWORD_E9C28_str*)x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226);
+	x_DWORD_E9C28_str = sub_71B40(x_D41A0_BYTEARRAY_4_struct.dword_0xE6_heapsize_230, 504, (type_x_DWORD_E9C28_str*)x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226);
 	if (x_DWORD_E9C28_str)
 		x_DWORD_E9C08x = sub_72120(0x1F8u);
 	sub_70A60_open_tmaps();
@@ -76262,7 +76262,7 @@ void sub_718F0()//2528f0
 			InitTmaps(v0);
 		}
 		v0++;
-	} while (v0 < 0x1F8u);
+	} while (v0 < 504);
 }
 
 //----- (00071930) --------------------------------------------------------

@@ -709,7 +709,7 @@ typedef struct {//size 14
 	type_particle_str* partstr_0;//type_particle_str?
 	int32_t dword_4;
 	int16_t word_8;
-	int16_t word_10;
+	int16_t Index;
 	int16_t word_12;
 }
 subtype_x_DWORD_E9C28_str;

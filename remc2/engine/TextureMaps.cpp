@@ -63,7 +63,7 @@ int sub_71E60(type_x_DWORD_E9C28_str* a1y)//252e60
 	return a1y->dword_4;
 }
 
-signed int sub_71CD0(type_x_DWORD_E9C28_str* a1y)//252cd0
+signed int GetIndex_71CD0(type_x_DWORD_E9C28_str* a1y)//252cd0
 {
 	int i; // edx
 
@@ -318,10 +318,10 @@ void sub_71F20(type_x_DWORD_E9C28_str* a1y, subtype_x_DWORD_E9C28_str* a2x)//252
 	//allert_error();//fix this code
 	//a2x->word_10
 	//v2x = *(x_WORD*)((int8_t*)a2x + 10);
-	if (a2x->word_10 < a1y->word_22)
+	if (a2x->Index < a1y->word_22)
 	{
 		//v2 = 14 * (unsigned __int16)v2;
-		v3x = &a1y->str_8_data[a2x->word_10];
+		v3x = &a1y->str_8_data[a2x->Index];
 		if (v3x->dword_4)
 		{
 			v4 = v3x->word_8;
@@ -329,12 +329,12 @@ void sub_71F20(type_x_DWORD_E9C28_str* a1y, subtype_x_DWORD_E9C28_str* a2x)//252
 			v6x = a1y->str_8_data;
 			a1y->dword_4 = v5;
 			//*(x_DWORD*)(v6 + v2 + 4) = 0;
-			v6x[a2x->word_10].dword_4 = 0;
+			v6x[a2x->Index].dword_4 = 0;
 			//v2 = 14 * (unsigned __int16)v2;
 			//v2 = *(x_DWORD*)(a1y->dword_8_data + v2);
 			//v2y = a1y->dword_0;
 			//v2y = *(_DWORD*)(*(_DWORD*)(a1 + 8) + v2);//a1y->str_8_data
-			v2y = a1y->str_8_data[a2x->word_10].partstr_0;
+			v2y = a1y->str_8_data[a2x->Index].partstr_0;
 			for (i = v2y; ; i += a1y->dword_12x[v4]->dword_4)
 			{
 				++v4;
@@ -459,7 +459,7 @@ void InitTmaps(unsigned __int16 a1)//251f50
 						uint8_t* oldtmap = *(uint8_t**)index3x;
 						int oldwidth = *(uint16_t*)(oldtmap + 2);
 						int oldheight = *(uint16_t*)(oldtmap + 4);
-						if ((oldwidth > 0) && (oldwidth < 0x200) && (oldheight > 0) && (oldheight < 0x200))
+						if ((oldwidth > 0) && (oldwidth < 512) && (oldheight > 0) && (oldheight < 512))
 						{
 							int actnumber = 0;
 							if (BIG_SPRITES_BUFFERx[i].actdatax != NULL)
@@ -534,8 +534,7 @@ void InitTmaps(unsigned __int16 a1)//251f50
 subtype_x_DWORD_E9C28_str* LoadTMapMetadata_71E70(type_x_DWORD_E9C28_str* a1y, unsigned int a2, __int16 a3)//252e70
 {
 	signed __int16 v3; // si
-	signed __int16 v4; // ax
-	signed __int16 v5; // dx
+	signed __int16 idx; // ax
 	//int v6; // ecx
 	//int v7; // eax
 	subtype_x_DWORD_E9C28_str* result; // eax
@@ -543,11 +542,10 @@ subtype_x_DWORD_E9C28_str* LoadTMapMetadata_71E70(type_x_DWORD_E9C28_str* a1y, u
 	v3 = -1;
 	if (a2 < a1y->dword_4)
 	{
-		v4 = sub_71CD0(a1y);
-		v5 = v4;
+		idx = GetIndex_71CD0(a1y);
 		//v6 = v4;
-		v3 = v4;
-		if (v4 > -1)
+		v3 = idx;
+		if (idx > -1)
 		{
 			//v7 = 14 * v4;
 			/*
@@ -573,14 +571,14 @@ subtype_x_DWORD_E9C28_str* LoadTMapMetadata_71E70(type_x_DWORD_E9C28_str* a1y, u
 			*(x_DWORD*)(a1y->dword_12x + (unsigned __int16)(a1y->word_20)++) = (uint32_t)a1y->dword_8_data + 14 * v6;
 #endif
 */
-			a1y->str_8_data[v4].word_10 = v5;
-			a1y->str_8_data[v4].dword_4 = a2;
-			a1y->str_8_data[v4].partstr_0 = (type_particle_str*)(a1y->dword_16x + (a1y->dword_0 - a1y->dword_4));
-			a1y->str_8_data[v4].word_12 = a3;
+			a1y->str_8_data[idx].Index = idx;
+			a1y->str_8_data[idx].dword_4 = a2;
+			a1y->str_8_data[idx].partstr_0 = (type_particle_str*)(a1y->dword_16x + (a1y->dword_0 - a1y->dword_4));
+			a1y->str_8_data[idx].word_12 = a3;
 			a1y->dword_4 -= a2;
-			a1y->str_8_data[v4].word_8 = a1y->word_20;
+			a1y->str_8_data[idx].word_8 = a1y->word_20;
 			//*(x_DWORD*)(a1y->dword_12x + (unsigned __int16)(a1y->word_20)++) = (uint32_t)&a1y->str_8_data[v4];
-			a1y->dword_12x[a1y->word_20++] = &a1y->str_8_data[v4];
+			a1y->dword_12x[a1y->word_20++] = &a1y->str_8_data[idx];
 			//allert_error();//for 64x fix
 			//it is must rewrite
 		}
@@ -589,7 +587,7 @@ subtype_x_DWORD_E9C28_str* LoadTMapMetadata_71E70(type_x_DWORD_E9C28_str* a1y, u
 		result = 0;
 	else
 		//result = 14 * v3 + a1y->dword_8_data;
-		result = &a1y->str_8_data[v4];
+		result = &a1y->str_8_data[idx];
 	return result;
 }
 
