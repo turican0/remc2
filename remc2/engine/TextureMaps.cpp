@@ -9,7 +9,7 @@ FILE* x_DWORD_DB744_tmaps10file;
 FILE* x_DWORD_DB748_tmaps20file;
 
 type_particle_str** str_DWORD_F66F0x[504];
-char x_BYTE_F5340[504];
+char m_LevelSpriteList_F5340[504];
 int32_t x_DWORD_F5730[504];
 subtype_x_DWORD_E9C28_str* str_F5F10[504];
 
@@ -131,7 +131,7 @@ unsigned int sub_71090(unsigned int a1)//252090
 	do
 	{
 		v4 = str_TMAPS00TAB_BEGIN_BUFFER[v3 + 1].word_8;
-		if (str_DWORD_F66F0x[v4] && !x_BYTE_F5340[v4])
+		if (str_DWORD_F66F0x[v4] && !m_LevelSpriteList_F5340[v4])
 			v31 = 0;
 		while ((unsigned __int16)v3 < 0x1F8u
 			&& str_TMAPS00TAB_BEGIN_BUFFER[v3 + 1].word_8 == v4)
@@ -142,7 +142,7 @@ unsigned int sub_71090(unsigned int a1)//252090
 	do
 	{
 		v6 = str_TMAPS00TAB_BEGIN_BUFFER[v5].word_8;
-		if ((!x_BYTE_F5340[v6] || v31) && str_DWORD_F66F0x[v6])
+		if ((!m_LevelSpriteList_F5340[v6] || v31) && str_DWORD_F66F0x[v6])
 		{
 			v7 = x_DWORD_F5730[v6];
 			v8 = str_TMAPS00TAB_BEGIN_BUFFER[v5].word_8;
@@ -252,7 +252,7 @@ char sub_70D20(unsigned __int16 a1)//251d20
 	type_animations1* v5; // eax
 
 	//v1 = str_TMAPS00TAB_BEGIN_BUFFER[a1].word_8;
-	if (x_BYTE_F5340[str_TMAPS00TAB_BEGIN_BUFFER[a1].word_8])
+	if (m_LevelSpriteList_F5340[str_TMAPS00TAB_BEGIN_BUFFER[a1].word_8])
 		return 0;
 	//v2 = str_TMAPS00TAB_BEGIN_BUFFER[a1].word_8;
 	if (!str_DWORD_F66F0x[str_TMAPS00TAB_BEGIN_BUFFER[a1].word_8])

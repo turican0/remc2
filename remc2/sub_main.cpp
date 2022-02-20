@@ -76236,14 +76236,14 @@ void sub_71890()//252890
 {
 	char result; // al
 	int v0y = 0;
-	memset(x_BYTE_F5340, 0, 504);
+	memset(m_LevelSpriteList_F5340, 0, 504);
 	if (x_BYTE_DB74C)
 	{
 		while (str_WORD_D951C[v0y].speed_6 || str_WORD_D951C[v0y].rotSpeed_8)
 		{
 			if (str_WORD_D951C[v0y].byte_11 == -1)
 			{
-				x_BYTE_F5340[str_WORD_D951C[v0y].word_0] = str_WORD_D951C[v0y].byte_11;
+				m_LevelSpriteList_F5340[str_WORD_D951C[v0y].word_0] = str_WORD_D951C[v0y].byte_11;
 			}
 			v0y++;
 		}
@@ -76257,7 +76257,7 @@ void sub_718F0()//2528f0
 	v0 = 0;
 	do
 	{
-		if (x_BYTE_F5340[v0])
+		if (m_LevelSpriteList_F5340[v0])
 		{
 			InitTmaps(v0);
 		}
@@ -76273,7 +76273,7 @@ void sub_71930()//252930
 		if (str_DWORD_F66F0x[i])
 		{
 			D41A0_0.array_0x39[i] = 1;
-			if (x_BYTE_F5340[i])
+			if (m_LevelSpriteList_F5340[i])
 				D41A0_0.array_0x39[i]++;
 		}
 	}	

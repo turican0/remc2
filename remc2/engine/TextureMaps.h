@@ -17,7 +17,7 @@ extern FILE* x_DWORD_DB744_tmaps10file;
 extern FILE* x_DWORD_DB748_tmaps20file;
 
 extern type_particle_str** str_DWORD_F66F0x[504];
-extern char x_BYTE_F5340[504];
+extern char m_LevelSpriteList_F5340[504];
 extern int32_t x_DWORD_F5730[504];
 extern subtype_x_DWORD_E9C28_str* str_F5F10[504];
 
