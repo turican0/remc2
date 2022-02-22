@@ -7,7 +7,7 @@
     <LocalDebuggerEnvironment>
     </LocalDebuggerEnvironment>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-Enhanced-Assets|Win32'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-No-Enhanced-Assets|Win32'">
     <LocalDebuggerCommandArguments />
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
     <LocalDebuggerEnvironment />
