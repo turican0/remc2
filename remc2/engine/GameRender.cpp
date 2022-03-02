@@ -1945,8 +1945,8 @@ uint16_t GameRender::sub_3FD60(int a2x, uint8_t x_BYTE_E88E0x[], type_event_0x6E
 							x_DWORD_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v9x->word_0 + 15 - v26].word_8] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 						}
 						a1x = *str_DWORD_F66F0x[v9x->word_0 + 15 - v26];
-						m_str_F2C20ar.dword0x08_width = a1x->word_2;
-						m_str_F2C20ar.dword0x06_height = a1x->word_4;
+						m_str_F2C20ar.dword0x08_width = a1x->width;
+						m_str_F2C20ar.dword0x06_height = a1x->height;
 						/*str_F2C20ar.dword0x08_width = *(unsigned __int16*)(a1 + 2);
 						str_F2C20ar.dword0x06_height = *(unsigned __int16*)(a1 + 4);*/
 						v28 = (signed __int64)(m_str_F2C20ar.dword0x18 * v9x->rotSpeed_8) / v40;
@@ -1968,8 +1968,8 @@ uint16_t GameRender::sub_3FD60(int a2x, uint8_t x_BYTE_E88E0x[], type_event_0x6E
 							x_DWORD_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v29 + v9x->word_0].word_8] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 						}
 						a1x = *str_DWORD_F66F0x[v9x->word_0 + v29];
-						m_str_F2C20ar.dword0x08_width = a1x->word_2;
-						m_str_F2C20ar.dword0x06_height = a1x->word_4;
+						m_str_F2C20ar.dword0x08_width = a1x->width;
+						m_str_F2C20ar.dword0x06_height = a1x->height;
 						/*str_F2C20ar.dword0x08_width = *(unsigned __int16*)(a1 + 2);
 						str_F2C20ar.dword0x06_height = *(unsigned __int16*)(a1 + 4);*/
 						v31 = (signed __int64)(m_str_F2C20ar.dword0x18 * v9x->rotSpeed_8) / v40;
@@ -1990,8 +1990,8 @@ uint16_t GameRender::sub_3FD60(int a2x, uint8_t x_BYTE_E88E0x[], type_event_0x6E
 							}
 							x_DWORD_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v24].word_8] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 							a1x = *str_DWORD_F66F0x[v9x->word_0 + (unsigned __int8)x_BYTE_D4750[0xc + v19]];
-							m_str_F2C20ar.dword0x08_width = a1x->word_2;
-							m_str_F2C20ar.dword0x06_height = a1x->word_4;
+							m_str_F2C20ar.dword0x08_width = a1x->width;
+							m_str_F2C20ar.dword0x06_height = a1x->height;
 							/*str_F2C20ar.dword0x08_width = *(unsigned __int16*)(a1 + 2);
 							str_F2C20ar.dword0x06_height = *(unsigned __int16*)(a1 + 4);*/
 							v25 = (signed __int64)(m_str_F2C20ar.dword0x18 * v9x->rotSpeed_8) / v40;
@@ -2014,8 +2014,8 @@ uint16_t GameRender::sub_3FD60(int a2x, uint8_t x_BYTE_E88E0x[], type_event_0x6E
 								x_DWORD_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v9x->word_0 + (unsigned __int8)x_BYTE_D4750[0xc + v19]].word_8] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 							}
 							a1x = *str_DWORD_F66F0x[v9x->word_0 + (unsigned __int8)x_BYTE_D4750[0xc + v19]];
-							m_str_F2C20ar.dword0x08_width = a1x->word_2;
-							m_str_F2C20ar.dword0x06_height = a1x->word_4;
+							m_str_F2C20ar.dword0x08_width = a1x->width;
+							m_str_F2C20ar.dword0x06_height = a1x->height;
 							/*str_F2C20ar.dword0x08_width = *(unsigned __int16*)(a1 + 2);
 							str_F2C20ar.dword0x06_height = *(unsigned __int16*)(a1 + 4);*/
 							v22 = (signed __int64)(m_str_F2C20ar.dword0x18 * v9x->rotSpeed_8) / v40;
@@ -2040,8 +2040,8 @@ uint16_t GameRender::sub_3FD60(int a2x, uint8_t x_BYTE_E88E0x[], type_event_0x6E
 								x_DWORD_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v9x->word_0 + (unsigned __int8)x_BYTE_D4750[0x1c + v32]].word_8] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 							}
 							a1x = *str_DWORD_F66F0x[(unsigned __int8)x_BYTE_D4750[0x1c + v32] + v9x->word_0];
-							m_str_F2C20ar.dword0x08_width = a1x->word_2;
-							m_str_F2C20ar.dword0x06_height = a1x->word_4;
+							m_str_F2C20ar.dword0x08_width = a1x->width;
+							m_str_F2C20ar.dword0x06_height = a1x->height;
 							/*str_F2C20ar.dword0x08_width = *(unsigned __int16*)(a1 + 2);
 							str_F2C20ar.dword0x06_height = *(unsigned __int16*)(a1 + 4);*/
 							v36 = (signed __int64)(m_str_F2C20ar.dword0x18 * v9x->rotSpeed_8) / v40;
@@ -2063,8 +2063,8 @@ uint16_t GameRender::sub_3FD60(int a2x, uint8_t x_BYTE_E88E0x[], type_event_0x6E
 								x_DWORD_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v9x->word_0 + (unsigned __int8)x_BYTE_D4750[0x1c + v32]].word_8] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 							}
 							a1x = *str_DWORD_F66F0x[v9x->word_0 + (unsigned __int8)x_BYTE_D4750[0x1c + v32]];
-							m_str_F2C20ar.dword0x08_width = a1x->word_2;
-							m_str_F2C20ar.dword0x06_height = a1x->word_4;
+							m_str_F2C20ar.dword0x08_width = a1x->width;
+							m_str_F2C20ar.dword0x06_height = a1x->height;
 							/*str_F2C20ar.dword0x08_width = *(unsigned __int16*)(a1 + 2);
 							str_F2C20ar.dword0x06_height = *(unsigned __int16*)(a1 + 4);*/
 							v34 = (signed __int64)(m_str_F2C20ar.dword0x18 * v9x->rotSpeed_8) / v40;
@@ -2119,8 +2119,8 @@ uint16_t GameRender::sub_3FD60(int a2x, uint8_t x_BYTE_E88E0x[], type_event_0x6E
 						}
 						a1x = *str_DWORD_F66F0x[v9x->word_0 + v41x->byte_0x5C_92];
 					LABEL_47:
-						m_str_F2C20ar.dword0x08_width = a1x->word_2;
-						m_str_F2C20ar.dword0x06_height = a1x->word_4;
+						m_str_F2C20ar.dword0x08_width = a1x->width;
+						m_str_F2C20ar.dword0x06_height = a1x->height;
 						/*str_F2C20ar.dword0x08_width = *(unsigned __int16*)(a1 + 2);
 						str_F2C20ar.dword0x06_height = *(unsigned __int16*)(a1 + 4);*/
 						v27 = (signed __int64)(m_str_F2C20ar.dword0x18 * v9x->rotSpeed_8) / v40;
@@ -2133,7 +2133,7 @@ uint16_t GameRender::sub_3FD60(int a2x, uint8_t x_BYTE_E88E0x[], type_event_0x6E
 						//v37 = *(x_BYTE*)a1 | 8;
 
 						//str_F2C20ar.dword0x02_data = a1 + 6;
-						m_str_F2C20ar.dword0x02_data = a1x->data_6;
+						m_str_F2C20ar.dword0x02_data = a1x->textureBuffer;
 						v38 = m_str_F2C20ar.dword0x00;
 						//*(x_BYTE*)a1 = v37;
 						/*v37 = a1x->un_0.byte[0] | 8;
@@ -3491,8 +3491,8 @@ void GameRender::DrawParticles_3E360(int a2x, type_particle_str** str_DWORD_F66F
 								}
 								x_DWORD_F5730[v30] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 								a1y = *str_DWORD_F66F0x[v7x->word_0 + 15 - v25];
-								m_str_F2C20ar.dword0x08_width = a1y->word_2;
-								m_str_F2C20ar.dword0x06_height = a1y->word_4;
+								m_str_F2C20ar.dword0x08_width = a1y->width;
+								m_str_F2C20ar.dword0x06_height = a1y->height;
 								v31 = (signed __int64)(m_str_F2C20ar.dword0x18 * v7x->rotSpeed_8) / v99;
 								m_str_F2C20ar.dword0x0c_realHeight = v31;
 								m_str_F2C20ar.dword0x09_realWidth = v31 * m_str_F2C20ar.dword0x08_width / m_str_F2C20ar.dword0x06_height;
@@ -3515,8 +3515,8 @@ void GameRender::DrawParticles_3E360(int a2x, type_particle_str** str_DWORD_F66F
 								}
 								x_DWORD_F5730[v35] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 								a1y = *str_DWORD_F66F0x[v32 + v7x->word_0];
-								m_str_F2C20ar.dword0x08_width = a1y->word_2;
-								m_str_F2C20ar.dword0x06_height = a1y->word_4;
+								m_str_F2C20ar.dword0x08_width = a1y->width;
+								m_str_F2C20ar.dword0x06_height = a1y->height;
 								v36 = (signed __int64)(m_str_F2C20ar.dword0x18 * v7x->rotSpeed_8) / v99;
 								m_str_F2C20ar.dword0x0c_realHeight = v36;
 								m_str_F2C20ar.dword0x09_realWidth = v36 * m_str_F2C20ar.dword0x08_width / m_str_F2C20ar.dword0x06_height;
@@ -3539,8 +3539,8 @@ void GameRender::DrawParticles_3E360(int a2x, type_particle_str** str_DWORD_F66F
 										x_DWORD_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v7x->word_0 + (unsigned __int8)x_BYTE_D4750[0xc + v18]].word_8] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 									}
 									a1y = *str_DWORD_F66F0x[v7x->word_0 + (unsigned __int8)x_BYTE_D4750[0xc + v18]];
-									m_str_F2C20ar.dword0x08_width = a1y->word_2;
-									m_str_F2C20ar.dword0x06_height = a1y->word_4;
+									m_str_F2C20ar.dword0x08_width = a1y->width;
+									m_str_F2C20ar.dword0x06_height = a1y->height;
 									v24 = (signed __int64)(m_str_F2C20ar.dword0x18 * v7x->rotSpeed_8) / v99;
 									m_str_F2C20ar.dword0x0c_realHeight = v24;
 									m_str_F2C20ar.dword0x09_realWidth = v24 * m_str_F2C20ar.dword0x08_width / m_str_F2C20ar.dword0x06_height;
@@ -3560,8 +3560,8 @@ void GameRender::DrawParticles_3E360(int a2x, type_particle_str** str_DWORD_F66F
 										x_DWORD_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v7x->word_0 + (unsigned __int8)x_BYTE_D4750[0xc + v18]].word_8] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 									}
 									a1y = *str_DWORD_F66F0x[v7x->word_0 + (unsigned __int8)x_BYTE_D4750[0xc + v18]];
-									m_str_F2C20ar.dword0x08_width = a1y->word_2;
-									m_str_F2C20ar.dword0x06_height = a1y->word_4;
+									m_str_F2C20ar.dword0x08_width = a1y->width;
+									m_str_F2C20ar.dword0x06_height = a1y->height;
 									v20 = (signed __int64)(m_str_F2C20ar.dword0x18 * v7x->rotSpeed_8) / v99;
 									m_str_F2C20ar.dword0x0c_realHeight = v20;
 									m_str_F2C20ar.dword0x09_realWidth = v20 * m_str_F2C20ar.dword0x08_width / m_str_F2C20ar.dword0x06_height;
@@ -3581,8 +3581,8 @@ void GameRender::DrawParticles_3E360(int a2x, type_particle_str** str_DWORD_F66F
 									}
 									x_DWORD_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v41].word_8] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 									a1y = *str_DWORD_F66F0x[v7x->word_0 + (unsigned __int8)x_BYTE_D4750[0x1c + v37]];
-									m_str_F2C20ar.dword0x08_width = a1y->word_2;
-									m_str_F2C20ar.dword0x06_height = a1y->word_4;
+									m_str_F2C20ar.dword0x08_width = a1y->width;
+									m_str_F2C20ar.dword0x06_height = a1y->height;
 									v42 = (signed __int64)(m_str_F2C20ar.dword0x18 * v7x->rotSpeed_8) / v99;
 									m_str_F2C20ar.dword0x0c_realHeight = v42;
 									m_str_F2C20ar.dword0x09_realWidth = v42 * m_str_F2C20ar.dword0x08_width / m_str_F2C20ar.dword0x06_height;
@@ -3603,8 +3603,8 @@ void GameRender::DrawParticles_3E360(int a2x, type_particle_str** str_DWORD_F66F
 										x_DWORD_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v7x->word_0 + (unsigned __int8)x_BYTE_D4750[0x1c + v37]].word_8] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 									}
 									a1y = *str_DWORD_F66F0x[v7x->word_0 + (unsigned __int8)x_BYTE_D4750[0x1c + v37]];
-									m_str_F2C20ar.dword0x08_width = a1y->word_2;
-									m_str_F2C20ar.dword0x06_height = a1y->word_4;
+									m_str_F2C20ar.dword0x08_width = a1y->width;
+									m_str_F2C20ar.dword0x06_height = a1y->height;
 									v40 = (signed __int64)(m_str_F2C20ar.dword0x18 * v7x->rotSpeed_8) / v99;
 									m_str_F2C20ar.dword0x0c_realHeight = v40;
 									m_str_F2C20ar.dword0x09_realWidth = v40 * m_str_F2C20ar.dword0x08_width / m_str_F2C20ar.dword0x06_height;
@@ -3658,8 +3658,8 @@ void GameRender::DrawParticles_3E360(int a2x, type_particle_str** str_DWORD_F66F
 								}
 								a1y = (type_particle_str*)*str_DWORD_F66F0x[v7x->word_0 + m_str_F2C20ar.dword0x14x->byte_0x5C_92];
 							LABEL_51:
-								m_str_F2C20ar.dword0x08_width = a1y->word_2;
-								m_str_F2C20ar.dword0x06_height = a1y->word_4;
+								m_str_F2C20ar.dword0x08_width = a1y->width;
+								m_str_F2C20ar.dword0x06_height = a1y->height;
 								v28 = (signed __int64)(m_str_F2C20ar.dword0x18 * v7x->rotSpeed_8) / v99;
 								m_str_F2C20ar.dword0x0c_realHeight = v28;
 								m_str_F2C20ar.dword0x09_realWidth = v28 * m_str_F2C20ar.dword0x08_width / m_str_F2C20ar.dword0x06_height;
@@ -3668,7 +3668,7 @@ void GameRender::DrawParticles_3E360(int a2x, type_particle_str** str_DWORD_F66F
 								m_str_F2C20ar.dword0x05 = v21;
 							LABEL_73:
 								v43 = m_str_F2C20ar.dword0x00;
-								m_str_F2C20ar.dword0x02_data = a1y->data_6;
+								m_str_F2C20ar.dword0x02_data = a1y->textureBuffer;
 								/*v44 = a1y->un_0.byte[0] | 8;
 								a1y->un_0.byte[0] = v44;*/
 								a1y->word_0 |= 8;
@@ -3845,8 +3845,8 @@ void GameRender::DrawParticles_3E360(int a2x, type_particle_str** str_DWORD_F66F
 						x_DWORD_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v52x->word_0 + 15 - v72].word_8] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 					}
 					a1y = *str_DWORD_F66F0x[v52x->word_0 + 15 - v72];
-					m_str_F2C20ar.dword0x08_width = a1y->word_2;
-					m_str_F2C20ar.dword0x06_height = a1y->word_4;
+					m_str_F2C20ar.dword0x08_width = a1y->width;
+					m_str_F2C20ar.dword0x06_height = a1y->height;
 					v78 = (signed __int64)(m_str_F2C20ar.dword0x18 * v52x->rotSpeed_8) / v100;
 					m_str_F2C20ar.dword0x0c_realHeight = v78;
 					m_str_F2C20ar.dword0x09_realWidth = v78 * m_str_F2C20ar.dword0x08_width / m_str_F2C20ar.dword0x06_height;
@@ -3866,8 +3866,8 @@ void GameRender::DrawParticles_3E360(int a2x, type_particle_str** str_DWORD_F66F
 						x_DWORD_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v79 + v52x->word_0].word_8] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 					}
 					a1y = *str_DWORD_F66F0x[v79 + v52x->word_0];
-					m_str_F2C20ar.dword0x08_width = a1y->word_2;
-					m_str_F2C20ar.dword0x06_height = a1y->word_4;
+					m_str_F2C20ar.dword0x08_width = a1y->width;
+					m_str_F2C20ar.dword0x06_height = a1y->height;
 					v81 = (signed __int64)(m_str_F2C20ar.dword0x18 * v52x->rotSpeed_8) / v100;
 					m_str_F2C20ar.dword0x0c_realHeight = v81;
 					m_str_F2C20ar.dword0x09_realWidth = v81 * m_str_F2C20ar.dword0x08_width / m_str_F2C20ar.dword0x06_height;
@@ -3892,8 +3892,8 @@ void GameRender::DrawParticles_3E360(int a2x, type_particle_str** str_DWORD_F66F
 						}
 						x_DWORD_F5730[v70] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 						a1y = *str_DWORD_F66F0x[v52x->word_0 + (unsigned __int8)x_BYTE_D4750[0xc + v62]];
-						m_str_F2C20ar.dword0x08_width = a1y->word_2;
-						m_str_F2C20ar.dword0x06_height = a1y->word_4;
+						m_str_F2C20ar.dword0x08_width = a1y->width;
+						m_str_F2C20ar.dword0x06_height = a1y->height;
 						v71 = (signed __int64)(m_str_F2C20ar.dword0x18 * v52x->rotSpeed_8) / v100;
 						m_str_F2C20ar.dword0x0c_realHeight = v71;
 						m_str_F2C20ar.dword0x09_realWidth = v71 * m_str_F2C20ar.dword0x08_width / m_str_F2C20ar.dword0x06_height;
@@ -3916,8 +3916,8 @@ void GameRender::DrawParticles_3E360(int a2x, type_particle_str** str_DWORD_F66F
 						}
 						x_DWORD_F5730[v65] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 						a1y = *str_DWORD_F66F0x[v52x->word_0 + (unsigned __int8)x_BYTE_D4750[0xc + v62]];
-						m_str_F2C20ar.dword0x08_width = a1y->word_2;
-						m_str_F2C20ar.dword0x06_height = a1y->word_4;
+						m_str_F2C20ar.dword0x08_width = a1y->width;
+						m_str_F2C20ar.dword0x06_height = a1y->height;
 						v66 = (signed __int64)(m_str_F2C20ar.dword0x18 * v52x->rotSpeed_8) / v100;
 						m_str_F2C20ar.dword0x0c_realHeight = v66;
 						m_str_F2C20ar.dword0x09_realWidth = v66 * m_str_F2C20ar.dword0x08_width / m_str_F2C20ar.dword0x06_height;
@@ -3943,8 +3943,8 @@ void GameRender::DrawParticles_3E360(int a2x, type_particle_str** str_DWORD_F66F
 						}
 						x_DWORD_F5730[v88] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 						a1y = *str_DWORD_F66F0x[v52x->word_0 + (unsigned __int8)x_BYTE_D4750[0x1c + v82]];
-						m_str_F2C20ar.dword0x08_width = a1y->word_2;
-						m_str_F2C20ar.dword0x06_height = a1y->word_4;
+						m_str_F2C20ar.dword0x08_width = a1y->width;
+						m_str_F2C20ar.dword0x06_height = a1y->height;
 						v89 = (signed __int64)(m_str_F2C20ar.dword0x18 * v52x->rotSpeed_8) / v100;
 						m_str_F2C20ar.dword0x0c_realHeight = v89;
 						m_str_F2C20ar.dword0x09_realWidth = v89 * m_str_F2C20ar.dword0x08_width / m_str_F2C20ar.dword0x06_height;
@@ -3965,8 +3965,8 @@ void GameRender::DrawParticles_3E360(int a2x, type_particle_str** str_DWORD_F66F
 							x_DWORD_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v52x->word_0 + (unsigned __int8)x_BYTE_D4750[0x1c + v82]].word_8] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 						}
 						a1y = *str_DWORD_F66F0x[v52x->word_0 + (unsigned __int8)x_BYTE_D4750[0x1c + v82]];
-						m_str_F2C20ar.dword0x08_width = a1y->word_2;
-						m_str_F2C20ar.dword0x06_height = a1y->word_4;
+						m_str_F2C20ar.dword0x08_width = a1y->width;
+						m_str_F2C20ar.dword0x06_height = a1y->height;
 						v85 = (signed __int64)(m_str_F2C20ar.dword0x18 * v52x->rotSpeed_8) / v100;
 						m_str_F2C20ar.dword0x0c_realHeight = v85;
 						m_str_F2C20ar.dword0x09_realWidth = v85 * m_str_F2C20ar.dword0x08_width / m_str_F2C20ar.dword0x06_height;
@@ -4019,8 +4019,8 @@ void GameRender::DrawParticles_3E360(int a2x, type_particle_str** str_DWORD_F66F
 					}
 					a1y = *str_DWORD_F66F0x[v52x->word_0 + m_str_F2C20ar.dword0x14x->byte_0x5C_92];
 				LABEL_141:
-					m_str_F2C20ar.dword0x08_width = a1y->word_2;
-					m_str_F2C20ar.dword0x06_height = a1y->word_4;
+					m_str_F2C20ar.dword0x08_width = a1y->width;
+					m_str_F2C20ar.dword0x06_height = a1y->height;
 					v76 = (signed __int64)(m_str_F2C20ar.dword0x18 * v52x->rotSpeed_8) / v100;
 					m_str_F2C20ar.dword0x0c_realHeight = v76;
 					m_str_F2C20ar.dword0x09_realWidth = v76 * m_str_F2C20ar.dword0x08_width / m_str_F2C20ar.dword0x06_height;
@@ -4031,7 +4031,7 @@ void GameRender::DrawParticles_3E360(int a2x, type_particle_str** str_DWORD_F66F
 					v90x = m_str_F2C20ar.dword0x14x;
 					a1y->word_0 |= 8u;
 					v91 = v90x->struct_byte_0xc_12_15.byte[2];
-					m_str_F2C20ar.dword0x02_data = a1y->data_6;
+					m_str_F2C20ar.dword0x02_data = a1y->textureBuffer;
 					if (v91 & 0x380)
 					{
 						v93 = v90x->struct_byte_0xc_12_15.byte[3];

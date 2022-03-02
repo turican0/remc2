@@ -2372,7 +2372,6 @@ void sub_71990();
 void sub_71A70_setTmaps(MapType_t a1);
 void sub_71AB0(__int16 a1, char a2);
 type_x_DWORD_E9C28_str* sub_71B40(int a1, unsigned __int16 a2, type_x_DWORD_E9C28_str* a3);
-subtype_x_DWORD_E9C28_str* sub_71E70(type_x_DWORD_E9C28_str* a1, unsigned int a2, __int16 a3);
 void sub_720C0(type_x_DWORD_E9C28_str** a1);
 type_E9C08* sub_72120(unsigned __int16 a1);
 void sub_72350(type_animations1* a1);
@@ -39785,8 +39784,8 @@ void write_pngs2()
 		{
 			type_particle_str* actimg = *str_DWORD_F66F0x[k];
 			int lenght = actimg->word_0;
-			int width = actimg->word_2;
-			int height = actimg->word_4;
+			int width = actimg->width;
+			int height = actimg->height;
 			/*int lenght = *(uint16_t*)(actimg + 0);
 			int width = *(uint16_t*)(actimg + 2);
 			int height = *(uint16_t*)(actimg + 4);*/
@@ -39796,7 +39795,7 @@ void write_pngs2()
 			{
 				char outname[512];
 				sprintf(outname, "%s\\test-%03d.bmp", outdir, k);
-				write_posistruct_to_png((uint8_t*)&actimg->data_6, width, height, outname);//test write
+				write_posistruct_to_png((uint8_t*)&actimg->textureBuffer, width, height, outname);//test write
 			}
 		}
 	}
@@ -75995,7 +75994,7 @@ void sub_70940()//251940
 //----- (000712F0) --------------------------------------------------------
 void sub_712F0()//2522f0
 {
-	x_DWORD_E9C28_str = sub_71B40(x_D41A0_BYTEARRAY_4_struct.dword_0xE6_heapsize_230, 0x1F8u, (type_x_DWORD_E9C28_str*)x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226);
+	x_DWORD_E9C28_str = sub_71B40(x_D41A0_BYTEARRAY_4_struct.dword_0xE6_heapsize_230, 504, (type_x_DWORD_E9C28_str*)x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226);
 	if (x_DWORD_E9C28_str)
 		x_DWORD_E9C08x = sub_72120(0x1F8u);
 	sub_70A60_open_tmaps();
@@ -76111,7 +76110,7 @@ void sub_715B0()//2525b0
 				{
 					//result = 5 * v0;
 					v6 = str_TMAPS00TAB_BEGIN_BUFFER[v0].word_8;
-					for (i = str_TMAPS00TAB_BEGIN_BUFFER[v0].word_8; i < 0x1F8u; i++)
+					for (i = str_TMAPS00TAB_BEGIN_BUFFER[v0].word_8; i < 504; i++)
 					{
 						//result = 5 * i;
 						if (v6 != str_TMAPS00TAB_BEGIN_BUFFER[i].word_8)
@@ -76237,14 +76236,14 @@ void sub_71890()//252890
 {
 	char result; // al
 	int v0y = 0;
-	memset(x_BYTE_F5340, 0, 504);
+	memset(m_LevelSpriteList_F5340, 0, 504);
 	if (x_BYTE_DB74C)
 	{
 		while (str_WORD_D951C[v0y].speed_6 || str_WORD_D951C[v0y].rotSpeed_8)
 		{
 			if (str_WORD_D951C[v0y].byte_11 == -1)
 			{
-				x_BYTE_F5340[str_WORD_D951C[v0y].word_0] = str_WORD_D951C[v0y].byte_11;
+				m_LevelSpriteList_F5340[str_WORD_D951C[v0y].word_0] = str_WORD_D951C[v0y].byte_11;
 			}
 			v0y++;
 		}
@@ -76258,12 +76257,12 @@ void sub_718F0()//2528f0
 	v0 = 0;
 	do
 	{
-		if (x_BYTE_F5340[v0])
+		if (m_LevelSpriteList_F5340[v0])
 		{
 			InitTmaps(v0);
 		}
 		v0++;
-	} while (v0 < 0x1F8u);
+	} while (v0 < 504);
 }
 
 //----- (00071930) --------------------------------------------------------
@@ -76274,7 +76273,7 @@ void sub_71930()//252930
 		if (str_DWORD_F66F0x[i])
 		{
 			D41A0_0.array_0x39[i] = 1;
-			if (x_BYTE_F5340[i])
+			if (m_LevelSpriteList_F5340[i])
 				D41A0_0.array_0x39[i]++;
 		}
 	}	
@@ -76527,10 +76526,10 @@ void sub_72350(type_animations1* a1x)//253350 //animates sprite
 			type_particle_str* baseadr = *str_DWORD_F66F0x[a1x->word_26];
 			if (baseadr != NULL)
 			{
-				int animwidth = baseadr->word_2;
-				int animheight = baseadr->word_4;
+				int animwidth = baseadr->width;
+				int animheight = baseadr->height;
 				if ((animwidth > 0) && (animheight > 0) && (animwidth < 1000) && (animheight < 1000))
-					memcpy(&baseadr->data_6, BIG_SPRITES_BUFFERx[a1x->word_26].frames[a1x->FrameIndex_22 - 1], (animwidth * animheight));
+					memcpy(&baseadr->textureBuffer, BIG_SPRITES_BUFFERx[a1x->word_26].frames[a1x->FrameIndex_22 - 1], (animwidth * animheight));
 			}
 		}
 
@@ -76567,8 +76566,8 @@ void sub_72350(type_animations1* a1x)//253350 //animates sprite
 		/*v3 = sub_76619(v1 + a1x->dword_8, v1);
 		a1x->dword_8 = v3 - v1;
 		a1x->word_22 = a1x->word_22 + 1;*/
-		v3x = sub_76619(&a1x->Particles_4->data_6[a1x->dword_8], a1x->Particles_4->data_6);
-		a1x->dword_8 = v3x - a1x->Particles_4->data_6;
+		v3x = sub_76619(&a1x->Particles_4->textureBuffer[a1x->dword_8], a1x->Particles_4->textureBuffer);
+		a1x->dword_8 = v3x - a1x->Particles_4->textureBuffer;
 		a1x->FrameIndex_22++;
 	}
 }

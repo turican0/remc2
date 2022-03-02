@@ -1,6 +1,7 @@
 #include "BitmapIO.h"
 
 const int BitmapIO::TRUECOLOR_BYTES_PER_PIXEL = 3;
+const int BitmapIO::RGBA_BYTES_PER_PIXEL = 4;
 const int BitmapIO::BITMAP_FILE_HEADER_SIZE = 14;
 const int BitmapIO::BITMAP_INFO_HEADER_SIZE = 40;
 
@@ -72,11 +73,11 @@ void BitmapIO::WriteImageBufferAsImageBMP(char* path, int width, int height, uin
 	unsigned char* infoHeader = CreateBitBitmapInfoHeader(BitmapIO::BITMAP_INFO_HEADER_SIZE, width, height, BitmapIO::TRUECOLOR_BYTES_PER_PIXEL);
 	fwrite(infoHeader, 1, BitmapIO::BITMAP_INFO_HEADER_SIZE, imageFile);
 
-	for (int i = (height-1); i > -1; i--) {
+	for (int i = (height - 1); i > -1; i--) {
 
 		uint8_t* truColorBuffer = new uint8_t[widthInBytes];
 
-		for (int x = (width-1); x > -1; x--)
+		for (int x = (width - 1); x > -1; x--)
 		{
 			uint8_t colorPaletteIdx = *(ptrBuffer + ((i * width) + x));
 
@@ -98,6 +99,46 @@ void BitmapIO::WriteImageBufferAsImageBMP(char* path, int width, int height, uin
 	fclose(imageFile);
 }
 
+void BitmapIO::WriteRGBAImageBufferAsImageBMP(char* path, int width, int height, uint8_t* ptrPalette, uint8_t* ptrBuffer)
+{
+	int widthInBytes = (width * BitmapIO::RGBA_BYTES_PER_PIXEL);
+	int paddingSize = (4 - (widthInBytes) % 4) % 4;
+	int stride = widthInBytes + paddingSize;
+	unsigned char padding[3] = { 0, 0, 0 };
+
+	int totalSizeBytes = height * widthInBytes;
+	uint8_t* truColorBuffer = new uint8_t[totalSizeBytes];
+
+	for (int i = 0; i < width * height; i++)
+	{
+		int truColorIdx = (i * BitmapIO::RGBA_BYTES_PER_PIXEL);
+
+		truColorBuffer[truColorIdx + 0] = ptrPalette[ptrBuffer[(width * height) - 1 - i] * 3 + 2];
+		truColorBuffer[truColorIdx + 1] = ptrPalette[ptrBuffer[(width * height) - 1 - i] * 3 + 1];
+		truColorBuffer[truColorIdx + 2] = ptrPalette[ptrBuffer[(width * height) - 1 - i] * 3];
+
+		if (ptrBuffer[(width * height) - 1 - i] != 255)
+			truColorBuffer[truColorIdx + 3] = 255;
+	}
+
+	FILE* imageFile = fopen(path, "wb");
+
+	unsigned char* fileHeader = CreateBitBitmapFileHeader(BitmapIO::BITMAP_FILE_HEADER_SIZE, BitmapIO::BITMAP_INFO_HEADER_SIZE, height, stride);
+	fwrite(fileHeader, 1, BitmapIO::BITMAP_FILE_HEADER_SIZE, imageFile);
+
+	unsigned char* infoHeader = CreateBitBitmapInfoHeader(BitmapIO::BITMAP_INFO_HEADER_SIZE, width, height, BitmapIO::RGBA_BYTES_PER_PIXEL);
+	fwrite(infoHeader, 1, BitmapIO::BITMAP_INFO_HEADER_SIZE, imageFile);
+
+	int i;
+	for (i = 0; i < height; i++) {
+		fwrite(truColorBuffer + (i * widthInBytes), BitmapIO::RGBA_BYTES_PER_PIXEL, width, imageFile);
+		fwrite(padding, 1, paddingSize, imageFile);
+	}
+	delete[] truColorBuffer;
+
+	fclose(imageFile);
+}
+
 void BitmapIO::WritePaletteAsImageBMP(char* path, int numColors, uint8_t* ptrPalette)
 {
 	int widthInBytes = (numColors * BitmapIO::TRUECOLOR_BYTES_PER_PIXEL);
@@ -105,7 +146,7 @@ void BitmapIO::WritePaletteAsImageBMP(char* path, int numColors, uint8_t* ptrPal
 	unsigned char padding[3] = { 0, 0, 0 };
 	int paddingSize = (4 - (widthInBytes) % 4) % 4;
 
-	int stride = (widthInBytes) + paddingSize;
+	int stride = widthInBytes + paddingSize;
 
 	FILE* imageFile = fopen(path, "wb");
 
