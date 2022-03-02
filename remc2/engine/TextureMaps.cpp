@@ -535,59 +535,33 @@ subtype_x_DWORD_E9C28_str* LoadTMapMetadata_71E70(type_x_DWORD_E9C28_str* a1y, u
 {
 	signed __int16 v3; // si
 	signed __int16 idx; // ax
-	//int v6; // ecx
-	//int v7; // eax
 	subtype_x_DWORD_E9C28_str* result; // eax
 
 	v3 = -1;
 	if (a2 < a1y->dword_4)
 	{
 		idx = GetIndex_71CD0(a1y);
-		//v6 = v4;
 		v3 = idx;
 		if (idx > -1)
 		{
-			//v7 = 14 * v4;
-			/*
-			*(x_WORD*)(a1y->dword_8_data + v7 + 10) = v5;
-			*(x_DWORD*)(a1y->dword_8_data + v7 + 4) = a2;
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-			*(x_DWORD*)(a1y->dword_8_data + v7) = a1y->dword_0 + (int)a1y->dword_16x - a1y->dword_4;
-#endif
-			*(x_WORD*)(a1y->dword_8_data + v7 + 12) = a3;
-			a1y->dword_4 -= a2;
-			*(x_WORD*)(a1y->dword_8_data + v7 + 8) = a1y->word_20;
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-			*(x_DWORD*)(a1y->dword_12x + (unsigned __int16)(a1y->word_20)++) = (uint32_t)a1y->dword_8_data + 14 * v6;
-#endif
-*/
 			a1y->str_8_data[idx].Index = idx;
 			a1y->str_8_data[idx].dword_4 = a2;
 			a1y->str_8_data[idx].partstr_0 = (type_particle_str*)(a1y->dword_0 + (int)a1y->dword_16x - a1y->dword_4);
 			a1y->str_8_data[idx].word_12 = a3;
 			a1y->dword_4 -= a2;
 			a1y->str_8_data[idx].word_8 = a1y->word_20;
-			//*(x_DWORD*)(a1y->dword_12x + (unsigned __int16)(a1y->word_20)++) = (uint32_t)&a1y->str_8_data[v4];
 			a1y->dword_12x[a1y->word_20++] = &a1y->str_8_data[idx];
-			//allert_error();//for 64x fix
-			//it is must rewrite
 		}
 	}
+
 	if (v3 <= -1)
+	{
 		result = 0;
+	} 
 	else
-		//result = 14 * v3 + a1y->dword_8_data;
+	{
 		result = &a1y->str_8_data[idx];
+	}
 	return result;
 }
 
