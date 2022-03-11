@@ -55025,26 +55025,7 @@ void sub_55100(char a1)//236100
 		{
 			if (!(D41A0_0.StageVars2_0x365F4[i].stage_0x3647A_1 & 2))
 			{
-				type_event_0x6E8E* temp_0x6E8E = D41A0_0.StageVars2_0x365F4[i].str_0x3647C_4.pointer_0x6E8E;
-				if (v2 == -1)
-				{
-					int diff = D41A0_0.StageVars2_0x365F4[i].str_0x3647C_4.pointer_0x6E8E - D41A0_0.struct_0x6E8E;
-					int sizediff = diff * sizeof(type_shadow_str_0x6E8E);
-					if (((char*)D41A0_0.StageVars2_0x365F4[i].str_0x3647C_4.pointer_0x6E8E - (char*)D41A0_0.struct_0x6E8E) % sizeof(type_event_0x6E8E) > 0)
-						allert_error();
-					D41A0_0.StageVars2_0x365F4[i].str_0x3647C_4.dword = sizediff;
-				}
-				else
-				{
-					int count = D41A0_0.StageVars2_0x365F4[i].str_0x3647C_4.dword / sizeof(type_shadow_str_0x6E8E);
-					int countadd = D41A0_0.StageVars2_0x365F4[i].str_0x3647C_4.dword % sizeof(type_shadow_str_0x6E8E);
-					if (countadd > 0)allert_error();
-					D41A0_0.StageVars2_0x365F4[i].str_0x3647C_4.pointer_0x6E8E = &D41A0_0.struct_0x6E8E[count];
-				}
-#ifdef x32_BIT_ENVIRONMENT
-				if (D41A0_0.StageVars2_0x365F4[i].str_0x3647C_4.pointer_0x6E8E != (type_event_0x6E8E*)((uint8_t*)temp_0x6E8E + (xBITINT)v3))
-					allert_error();  // only for x86
-#endif
+				D41A0_0.StageVars2_0x365F4[i].str_0x3647C_4.pointer_0x6E8E = (type_event_0x6E8E*)((xBITINT)D41A0_0.StageVars2_0x365F4[i].str_0x3647C_4.pointer_0x6E8E + (xBITINT)v3);
 			}
 		}
 	}
