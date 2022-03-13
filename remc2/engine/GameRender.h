@@ -20,14 +20,13 @@
 #include "Type_D94F0_Bldgprmbuffer.h"
 #include "Type_D93C0_Bldgprmbuffer.h"
 #include "TextureMaps.h"
-#include "engine_support.h"
-#include "ViewPort.h"
+#include "GameRenderInterface.h"
 #include "defs.h"
 #include "RenderThread.h"
 #include "ProjectionPolygon.h"
 
-class GameRender {
-
+class GameRender: public GameRenderInterface 
+{
 private:
 
 	type_E9C38_smalltit m_Str_E9C38_smalltit[21 * 40];

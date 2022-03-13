@@ -603,7 +603,8 @@ long unknown_libname_2_findfirst(char*, uint16_t, _finddata_t* c_file);// weak
 long unknown_libname_3_findnext(_finddata_t* c_file, long hFile);// weak
 int unknown_libname_4_find_close(_finddata_t* c_file, long hFile);// weak
 
-GameRender* m_ptrGameRender;
+GameRenderInterface* m_ptrGameRender;
+
 uint8_t loc_A0000_vga_buffer[307200];
 
 void sub_5FA96(type_event_0x6E8E* a1x);
@@ -14519,18 +14520,18 @@ void sub_1A970_change_game_settings(char a1, int a2, int a3)//1fb970
 		sub_417D0_install_pal_and_mouse_minmax2();
 		return;
 	case 19:
-		if (m_ptrGameRender != nullptr)
+		if (m_ptrGameRender != nullptr && typeid(m_ptrGameRender) == typeid(GameRender*))
 		{
-			uint8_t numRenderThreads = m_ptrGameRender->GetRenderThreads();
+			uint8_t numRenderThreads = ((GameRender*)m_ptrGameRender)->GetRenderThreads();
 			if (numRenderThreads >= 7)
 			{
-				m_ptrGameRender->SetRenderThreads(0);
+				((GameRender*)m_ptrGameRender)->SetRenderThreads(0);
 				sub_19760_set_message("Multi-thread render OFF", 3u, 50);
 			}
 			else
 			{
 				numRenderThreads++;
-				m_ptrGameRender->SetRenderThreads(numRenderThreads);
+				((GameRender*)m_ptrGameRender)->SetRenderThreads(numRenderThreads);
 				std::string message = "Multi-thread render ON: Number of Threads: ";
 				message += std::to_string(numRenderThreads);
 				sub_19760_set_message(message.c_str(), 3u, 50);
@@ -27543,7 +27544,14 @@ void DrawGameFrame_2BE30(uint8_t* ptrScreenBuffer, uint16_t screenWidth, uint16_
 
 	if (m_ptrGameRender == nullptr)
 	{
-		m_ptrGameRender = new GameRender(ptrScreenBuffer, *xadatapald0dat2.var28_begin_buffer, screenWidth, screenHeight, 0, 0, screenWidth, screenHeight, x_DWORD_DDF50_texture_adresses, x_BYTE_F6EE0_tablesx, (multiThreadedRender? numberOfRenderThreads : 1), assignToSpecificCores);
+		if (openGLRender)
+		{
+			m_ptrGameRender = new GLGameRender(screenWidth, screenHeight, 0, 0, screenWidth, screenHeight, x_BYTE_F6EE0_tablesx);
+		}
+		else
+		{
+			m_ptrGameRender = new GameRender(ptrScreenBuffer, *xadatapald0dat2.var28_begin_buffer, screenWidth, screenHeight, 0, 0, screenWidth, screenHeight, x_DWORD_DDF50_texture_adresses, x_BYTE_F6EE0_tablesx, (multiThreadedRender ? numberOfRenderThreads : 1), assignToSpecificCores);
+		}
 	}
 
 	int16_t spellLeftPosX = screenWidth - 130;
