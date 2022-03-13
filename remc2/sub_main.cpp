@@ -14520,7 +14520,7 @@ void sub_1A970_change_game_settings(char a1, int a2, int a3)//1fb970
 		sub_417D0_install_pal_and_mouse_minmax2();
 		return;
 	case 19:
-		if (m_ptrGameRender != nullptr && typeid(m_ptrGameRender) == typeid(GameRender*))
+		if (m_ptrGameRender != nullptr && typeid(*m_ptrGameRender) == typeid(GameRender))
 		{
 			uint8_t numRenderThreads = ((GameRender*)m_ptrGameRender)->GetRenderThreads();
 			if (numRenderThreads >= 7)
