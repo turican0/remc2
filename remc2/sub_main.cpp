@@ -83408,6 +83408,7 @@ void sub_7D400_draw_texts_and_play_sounds(int  /*a1*/, __int16 a2, __int16 a3, c
 					}
 					else
 					{
+						//Play Level Portal Opening Sound
 						sub_8F100_sound_proc19(0, 41, 127, 64, 0x64u, 0, 2u);
 						unk_E17CC_str_0x194[ix].byte_19 = 1;
 					}
