@@ -44375,7 +44375,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E, uint16_t 
 		break;
 	}
 	case 0x1fc280: {
-		sub_1B280_run_intro_events((type_E17CC_0*)a1_6E8E);//FIX ME
+		sub_1B280_run_intro_sound_events((type_E17CC_0*)a1_6E8E);//FIX ME
 		break;
 	}
 
