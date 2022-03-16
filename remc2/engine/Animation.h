@@ -10,9 +10,9 @@
 
 #pragma pack (1)
 typedef struct {//lenght 7
-	int16_t word_0;
+	int16_t startFrame;
 	int8_t byte_2;
-	int32_t dword_3;
+	int32_t index;
 }
 type_E17CC_0;
 #pragma pack (16)

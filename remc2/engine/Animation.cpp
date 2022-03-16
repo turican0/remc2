@@ -96,21 +96,21 @@ void FlvInitSet_473B0()//2283b0
 //----- (0001B280) --------------------------------------------------------
 void sub_1B280_run_intro_sound_events(type_E17CC_0* a1x)//1fc280
 {
-	int v1; // eax
+	int index; // eax
 	//type_E17CC_0* v2x; // edx
 	uint8_t v3; // dl
 
 	while (1)
 	{
-		v1 = 7 * x_WORD_D4004;//2a5004
+		index = 7 * x_WORD_D4004;//2a5004
 		//v2x = &a1x[x_WORD_D4004];
-		if (ActualKeyframe_17DB60 != a1x[x_WORD_D4004].word_0)
+		if (ActualKeyframe_17DB60 != a1x[x_WORD_D4004].startFrame)
 			break;
-		v1 = a1x[x_WORD_D4004].dword_3;
-		if (v1 == -1)
+		index = a1x[x_WORD_D4004].index;
+		if (index == -1)
 			break;
-		v3 = a1x[x_WORD_D4004].byte_2 - 0x41;
-		if (v3 <= 0x39u)
+		v3 = a1x[x_WORD_D4004].byte_2 - 65;
+		if (v3 <= 57)
 		{
 			switch (v3 * 4) {
 			case 0x00:
@@ -126,10 +126,10 @@ void sub_1B280_run_intro_sound_events(type_E17CC_0* a1x)//1fc280
 				sub_loc_1B51E(a1x);
 				break;
 			case 0x10:
-				sub_loc_1B316(v1);//test it
+				sub_loc_1B316(index);//test it
 				break;
 			case 0x14:
-				sub_loc_1B461(v1, a1x);//test it
+				sub_loc_1B461(index, a1x);//test it
 				break;
 			case 0x18:
 				sub_loc_1B5CB();
@@ -156,10 +156,10 @@ void sub_1B280_run_intro_sound_events(type_E17CC_0* a1x)//1fc280
 				sub_loc_1B5CB();
 				break;
 			case 0x38:
-				sub_loc_1B4DF(v1, a1x);
+				sub_loc_1B4DF(index, a1x);
 				break;
 			case 0x3c:
-				sub_loc_1B4A0(v1, a1x);
+				sub_loc_1B4A0(index, a1x);
 				break;
 			case 0x40:
 				sub_loc_1B37D(a1x);
@@ -171,10 +171,10 @@ void sub_1B280_run_intro_sound_events(type_E17CC_0* a1x)//1fc280
 				sub_loc_1B3C9(a1x);
 				break;
 			case 0x4c:
-				sub_loc_1B424(v1, a1x);
+				sub_loc_1B424(index, a1x);
 				break;
 			case 0x50:
-				sub_loc_1B5BC(v1);
+				sub_loc_1B5BC(index);
 				break;
 			case 0x54:
 				sub_loc_1B589();
@@ -222,16 +222,16 @@ void sub_1B280_run_intro_sound_events(type_E17CC_0* a1x)//1fc280
 				sub_loc_1B51E(a1x);
 				break;
 			case 0x90:
-				sub_loc_1B316(v1);
+				sub_loc_1B316(index);
 				break;
 			case 0x94:
-				sub_loc_1B461(v1, a1x);
+				sub_loc_1B461(index, a1x);
 				break;
 			case 0x98:
 				sub_loc_1B5CB();
 				break;
 			case 0x9c:
-				sub_loc_1B54A(v1, a1x);
+				sub_loc_1B54A(index, a1x);
 				break;
 			case 0xa0:
 				sub_loc_1B5CB();
@@ -252,10 +252,10 @@ void sub_1B280_run_intro_sound_events(type_E17CC_0* a1x)//1fc280
 				sub_loc_1B5CB();
 				break;
 			case 0xb8:
-				sub_loc_1B4DF(v1, a1x);
+				sub_loc_1B4DF(index, a1x);
 				break;
 			case 0xbc:
-				sub_loc_1B4A0(v1, a1x);
+				sub_loc_1B4A0(index, a1x);
 				break;
 			case 0xc0:
 				sub_loc_1B5CB();
@@ -267,7 +267,7 @@ void sub_1B280_run_intro_sound_events(type_E17CC_0* a1x)//1fc280
 				sub_loc_1B3C9(a1x);
 				break;
 			case 0xcc:
-				sub_loc_1B424(v1, a1x);
+				sub_loc_1B424(index, a1x);
 				break;
 			case 0xd0:
 				sub_loc_1B5CB();

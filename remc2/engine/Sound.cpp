@@ -2753,11 +2753,11 @@ int32_t sub_84300_load_sound(uint8_t a1)//265300
 			DataFileIO::Read(file, (uint8_t*)&v7, 4);
 			DataFileIO::Seek(file, v7, 0);
 			DataFileIO::Read(file, (uint8_t*)v6, 12);
-			if (x_WORD_E37B6_sound_number < 0x336u)
+			if (x_WORD_E37B6_sound_number < 822)
 			{
-				if (x_WORD_E37B6_sound_number >= 0x320u)
+				if (x_WORD_E37B6_sound_number >= 800)
 				{
-					if (x_WORD_E37B6_sound_number <= 0x320u)
+					if (x_WORD_E37B6_sound_number <= 800)
 					{
 						v8 = 5;
 					}
@@ -2767,16 +2767,16 @@ int32_t sub_84300_load_sound(uint8_t a1)//265300
 					}
 				}
 			}
-			else if (x_WORD_E37B6_sound_number <= 0x336u)
+			else if (x_WORD_E37B6_sound_number <= 822)
 			{
 				v8 = 3;
 			}
-			else if (x_WORD_E37B6_sound_number < 0x656u)
+			else if (x_WORD_E37B6_sound_number < 1622)
 			{
 				if (x_WORD_E37B6_sound_number == 1611)
 					v8 = 2;
 			}
-			else if (x_WORD_E37B6_sound_number <= 0x656u)
+			else if (x_WORD_E37B6_sound_number <= 1622)
 			{
 				v8 = 1;
 			}
