@@ -417,6 +417,9 @@
     <ClInclude Include="engine\ProjectionPolygon.h">
       <Filter>Header Files\engine</Filter>
     </ClInclude>
+    <ClInclude Include="utilities\Wave.h">
+      <Filter>Header Files\utilities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

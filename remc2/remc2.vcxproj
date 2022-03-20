@@ -366,6 +366,7 @@
     <ClInclude Include="targetver.h" />
     <ClInclude Include="utilities\Maths.h" />
     <ClInclude Include="utilities\SafeQueue.h" />
+    <ClInclude Include="utilities\Wave.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\inih\ini.c" />

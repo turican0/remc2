@@ -4,8 +4,8 @@
 #define MAIN_SOUND
 
 #include "ail_sound.h"
-
 #include "Basic.h"
+#include "../utilities/Wave.h"
 
 #pragma pack (1)
 typedef struct {//lenght 12
@@ -387,7 +387,7 @@ unsigned __int8* sub_ACD79(unsigned __int8* a1, int a2);
 int sub_ACE56(int a1);
 
 int sub_AEAF5();
-
+void WriteWaveToFile(wav_t* wav, int index);
 
 void AIL_fix();
 char* mygetenv(const char* a1);

@@ -10266,6 +10266,25 @@ int sub_AEAF5()//28faf5
 }
 // E4C90: using guessed type int x_DWORD_E4C90;
 
+void WriteWaveToFile(wav_t* wav, int index)
+{
+	char path[MAX_PATH];
+	char name[50];
+	GetSubDirectoryPath(path, "BufferOut");
+	if (myaccess(path, 0) < 0)
+	{
+		mymkdir(path);
+	}
+
+	sprintf(name, "BufferOut/SoundFile%03d%s", index, ".wav");
+	GetSubDirectoryPath(path, name);
+
+	FILE* wavFile = fopen(path, "wb");
+	fwrite((byte*)wav, 1, 44, wavFile);
+	fwrite((byte*)wav->data, 1, wav->dataSizeBytes, wavFile);
+
+	fclose(wavFile);
+}
 
 
 
