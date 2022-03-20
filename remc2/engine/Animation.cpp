@@ -74,7 +74,7 @@ void PlayInfoFmv(__int16 a1, __int16 a2, type_E17CC_0* a3x, char* path)//sub_761
 				break;
 			if (ActualKeyframe_17DB60 >= LastKeyframe_17DB46 - 1)//34eb60 a 34eb46
 				break;
-			sub_1B280_run_intro_sound_events(a3x);
+			PlayIntoSoundEvents_1B280(a3x);
 			sub_75DB0();//256db0 - read header
 
 			sub_75E70();//256e70 - draw intro frame
@@ -94,7 +94,7 @@ void FlvInitSet_473B0()//2283b0
 }
 
 //----- (0001B280) --------------------------------------------------------
-void sub_1B280_run_intro_sound_events(type_E17CC_0* a1x)//1fc280
+void PlayIntoSoundEvents_1B280(type_E17CC_0* a1x)//1fc280
 {
 	int index; // eax
 	//type_E17CC_0* v2x; // edx
