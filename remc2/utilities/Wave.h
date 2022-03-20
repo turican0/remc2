@@ -24,4 +24,6 @@ typedef struct {
 }wav_t;
 #pragma pack (16)
 
+const int WAVE_HEADER_SIZE_BYTES = 44;
+
 #endif //WAVE

@@ -10280,7 +10280,7 @@ void WriteWaveToFile(wav_t* wav, int index)
 	GetSubDirectoryPath(path, name);
 
 	FILE* wavFile = fopen(path, "wb");
-	fwrite((byte*)wav, 1, 44, wavFile);
+	fwrite((byte*)wav, 1, WAVE_HEADER_SIZE_BYTES, wavFile);
 	fwrite((byte*)wav->data, 1, wav->dataSizeBytes, wavFile);
 
 	fclose(wavFile);
