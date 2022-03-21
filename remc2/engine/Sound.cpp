@@ -9458,7 +9458,7 @@ int sub_8F0AB(FILE* a1, /*int a2,*/ int a3)//26f0ab
 // E3888: using guessed type int x_DWORD_E3888;
 
 //----- (0008F100) --------------------------------------------------------
-void sub_8F100_sound_proc19(uint32_t a1, __int16 a2, int a3, int a4, unsigned __int16 a5, char a6, unsigned __int8 a7)//270100
+void sub_8F100_sound_proc19(uint32_t a1, __int16 a2, int volume, int a4, unsigned __int16 a5, char a6, unsigned __int8 a7)//270100
 {
 	char v8; // [esp+0h] [ebp-18h]
 	uint32_t i; // [esp+8h] [ebp-10h]
@@ -9570,7 +9570,7 @@ void sub_8F100_sound_proc19(uint32_t a1, __int16 a2, int a3, int a4, unsigned __
 		sub_938C0_AIL_set_sample_file(*v14, str_E37A0_sound_buffer2->str_8.wavs_10[a2].dword_0, 1);
 		//last_sample = v14[0];
 	}
-	sub_93E30_AIL_set_sample_volume(*v14, a3);
+	sub_93E30_AIL_set_sample_volume(*v14, volume);
 	sub_93ED0_AIL_set_sample_volume_pan(*v14, a4);
 	sub_93D90_AIL_set_sample_playback_rate(*v14, x_DWORD_E37BC_sound_frequence * a5 / 0x64);
 	sub_93F70_AIL_set_sample_loop_count(*v14, a6 + 1);
@@ -9587,7 +9587,7 @@ void sub_8F100_sound_proc19(uint32_t a1, __int16 a2, int a3, int a4, unsigned __
 	sub_93B50_AIL_start_sample(*v14);
 	v14[0]->flags_14 = a1;
 	v14[0]->vol_scale_18[0][0] = a2;
-	v14[0]->status_1 = a3;
+	v14[0]->status_1 = volume;
 	v14[0]->len_4_5[1] = a4;
 	//v14[0]->len_4_5[0] = a5;
 	v14[0]->vol_scale_18[0][2] = 0;
