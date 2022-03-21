@@ -72,7 +72,7 @@ signed int LoadMusic(int channel);
 void GetMusicSequenceCount();
 char LoadMusicTrack(FILE* file, unsigned __int8 drivernumber);
 int sub_8F0AB(FILE* a1, /*int a2,*/ int a3);
-void sub_8F100_sound_proc19(uint32_t a1, __int16 a2, int volume, int a4, unsigned __int16 a5, char a6, unsigned __int8 a7);
+void sub_8F100_sound_proc19(uint32_t a1, __int16 index, int volume, int a4, unsigned __int16 a5, char a6, unsigned __int8 a7);
 void sub_8F420_sound_proc20(int a1, __int16 a2);
 void sub_8F710_sound_proc21(int a1, __int16 a2, signed int a3, unsigned __int8 a4, char a5);
 void sub_8F850_sound_proc22();
