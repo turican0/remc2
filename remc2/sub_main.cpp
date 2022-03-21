@@ -4870,7 +4870,7 @@ char x_BYTE_E1324 = 50; // weak
 
 #pragma pack (1)
 typedef struct {//lenght 7
-	type_E17CC_0* dword_0;
+	SoundEvent_E17CC_t* pSoundEvent;
 	uint8_t byte_4;
 	uint8_t byte_5;
 	uint8_t byte_6;
@@ -4878,7 +4878,7 @@ typedef struct {//lenght 7
 type_E16E0;
 #pragma pack (16)
 
-type_E17CC_0 str_E1328[28] = {
+SoundEvent_E17CC_t str_E1328[28] = {
 {0x0000,0x45,0x00000005},
 {0x0000,0x56,0x00000000},
 {0x0000,0x57,0x00000000},
@@ -4908,7 +4908,7 @@ type_E17CC_0 str_E1328[28] = {
 {0x01DE,0x53,0x00000003},
 {0xFFFF,0xFF,0x00000001}};
 
-type_E17CC_0 str_E13EC[27] = {
+SoundEvent_E17CC_t str_E13EC[27] = {
 {0x0000,0x45,0x00000006},
 {0x0000,0x56,0x00000000},
 {0x0000,0x57,0x00000000},
@@ -4937,7 +4937,7 @@ type_E17CC_0 str_E13EC[27] = {
 {0x0203,0x53,0x00000003},
 {0xFFFF,0xFF,0x00000001} };
 
-type_E17CC_0 str_E14AC[28] = {
+SoundEvent_E17CC_t str_E14AC[28] = {
 {0x0000,0x45,0x00000007},
 {0x0000,0x56,0x00000000},
 {0x0000,0x57,0x00000000},
@@ -4967,7 +4967,7 @@ type_E17CC_0 str_E14AC[28] = {
 {0x01B2,0x53,0x00000003},
 {0xFFFF,0xFF,0x00000001} };
 
-type_E17CC_0 str_E1570[28] = {
+SoundEvent_E17CC_t str_E1570[28] = {
 {0x0000,0x45,0x00000008},
 {0x0000,0x56,0x00000000},
 {0x0000,0x57,0x00000000},
@@ -4997,7 +4997,7 @@ type_E17CC_0 str_E1570[28] = {
 {0x0190,0x53,0x00000003},
 {0xFFFF,0xFF,0x00000001} };
 
-type_E17CC_0 str_E1634[20] = {
+SoundEvent_E17CC_t str_E1634[20] = {
 { 0x0000,0x45,0x00000009 },
 { 0x0000,0x56,0x00000000 },
 { 0x0000,0x57,0x00000000 },
@@ -5017,7 +5017,7 @@ type_E17CC_0 str_E1634[20] = {
 { 0x00C8,0x55,0x00000118 },
 { 0xFFFF,0xFF,0x00000001 } };
 
-type_E17CC_0 str_E16B4[7] = {
+SoundEvent_E17CC_t str_E16B4[7] = {
 { 0x0000, 0x45, 0x00000004},
 { 0x0000,0x41,0x0000000A },
 { 0x0000,0x41,0x00000005 },
@@ -5212,7 +5212,7 @@ type_str_unk_E1748 unk_E1784x[3] = {
 	{0,0,0,0,0,0}
 };
 
-type_E17CC_0 str_E17CC_0[0x32] = {//anim events
+SoundEvent_E17CC_t str_E17CC_0[0x32] = {//anim events
 {0x0000,0x45,0x00000004},
 {0x0000,0x56,0x00000000},
 {0x0000,0x57,0x00000000},
@@ -5265,7 +5265,7 @@ type_E17CC_0 str_E17CC_0[0x32] = {//anim events
 {0xFFFF,0xFF,0xFFFFFFFF} };
 
 
-type_E17CC_0 str_E17CC_0x160[10] = {
+SoundEvent_E17CC_t str_E17CC_0x160[10] = {
 {0x0000,0x41,0x00000003},
 {0x0000,0x59,0x00000000},
 {0x0000,0x45,0x00000004},
@@ -44375,7 +44375,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E, uint16_t 
 		break;
 	}
 	case 0x1fc280: {
-		PlayIntoSoundEvents_1B280((type_E17CC_0*)a1_6E8E);//FIX ME
+		PlayIntoSoundEvents_1B280((SoundEvent_E17CC_t*)a1_6E8E);//FIX ME
 		break;
 	}
 
@@ -44384,7 +44384,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E, uint16_t 
 		break;
 	}
 	case 0x1fc2f7: {
-		sub_loc_1B2F7((type_E17CC_0*)a1_6E8E);//FIX ME
+		sub_loc_1B2F7((SoundEvent_E17CC_t*)a1_6E8E);//FIX ME
 		break;
 	}
 	case 0x1fc316: {
@@ -44397,11 +44397,11 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E, uint16_t 
 		break;
 	}
 	case 0x1fc334: {
-		sub_loc_1B334((type_E17CC_0*)a1_6E8E);//FIX ME
+		sub_loc_1B334((SoundEvent_E17CC_t*)a1_6E8E);//FIX ME
 		break;
 	}
 	case 0x1fc352: {
-		sub_loc_1B352((type_E17CC_0*)a1_6E8E);//FIX ME
+		sub_loc_1B352((SoundEvent_E17CC_t*)a1_6E8E);//FIX ME
 		break;
 	}
 
@@ -44410,15 +44410,15 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E, uint16_t 
 		break;
 	}
 	case 0x1fc37d: {
-		sub_loc_1B37D((type_E17CC_0*)a1_6E8E);//FIX ME
+		sub_loc_1B37D((SoundEvent_E17CC_t*)a1_6E8E);//FIX ME
 		break;
 	}
 	case 0x1fc398: {
-		sub_loc_1B398((type_E17CC_0*)a1_6E8E);//FIX ME
+		sub_loc_1B398((SoundEvent_E17CC_t*)a1_6E8E);//FIX ME
 		break;
 	}
 	case 0x1fc3c9: {
-		sub_loc_1B3C9((type_E17CC_0*)a1_6E8E);//FIX ME
+		sub_loc_1B3C9((SoundEvent_E17CC_t*)a1_6E8E);//FIX ME
 		break;
 	}
 	case 0x1fc413: {
@@ -44468,7 +44468,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E, uint16_t 
 	}
 
 	case 0x1fc51e: {
-		sub_loc_1B51E((type_E17CC_0*)a1_6E8E);//FIX ME
+		sub_loc_1B51E((SoundEvent_E17CC_t*)a1_6E8E);//FIX ME
 		break;
 	}
 	case 0x1fc54a: {
@@ -86778,7 +86778,7 @@ void sub_82670()//263670
 					sprintf(cutScenePath, "%s/INTRO/CUT%d.DAT", cdDataPath, str_E16E0[v3x].byte_6);
 					sprintf(printbuffer, "%s", cutScenePath);
 
-					PlayInfoFmv(0, 1, str_E16E0[v3x].dword_0, cutScenePath);					
+					PlayInfoFmv(0, 1, str_E16E0[v3x].pSoundEvent, cutScenePath);
 					
 					/*sprintf(printbuffer, "intro\\cut4.dat");
 					sub_76160_play_intro(0, 1, 0 + (uint8_t*)array_E1328);*/
