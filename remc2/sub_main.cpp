@@ -2533,7 +2533,7 @@ int sub_7F960(posistruct2_t* a1x, posistruct2_t* a2x, uint8_t* a3, char* langcou
 //uint32_t sub_7FAE0_draw_text(char* a1, __int16 a2, __int16 a3, __int16 a4, unsigned __int8 a5);
 //void sub_7FB90_draw_text(char* a1, int16_t a2, int16_t a3, uint8_t a4);
 // int sub_7FCB0_draw_text_with_border(int a1, x_BYTE *a2, int a3, int a4, int a5, char a6, unsigned __int8 a7, __int16 a8);
-void sub_80C30_draw_texts(__int16 a1, __int16 a2, __int16 a3);
+void DrawText_80C30(__int16 posX, __int16 posY, __int16 a3);
 // int sub_81260(int a1, int a2, int a3, __int16 a4, __int16 a5);
 int sub_812D0_drawDotBitmap(__int16 a1, __int16 a2);
 void sub_81360_draw_bitmap_line(int16_t a1, int16_t a2, int16_t a3, int16_t a4, __int16 a5);
@@ -84934,12 +84934,12 @@ int sub_7EAE0_new_game_draw(int16_t* posx, int16_t* posy, __int16* a3, __int16* 
 					else
 						v54 = 60;
 					//adress 2602a0
-					sub_80C30_draw_texts(130, v54, 380);//divny text
+					DrawText_80C30(130, v54, 380);//divny text
 				}
 				else if (x_DWORD_17DE28str.x_BYTE_17DE34 <= 2u || x_DWORD_17DE28str.x_BYTE_17DE34 == 3)
 				{
 					//adress 2602a7
-					sub_80C30_draw_texts(0, 0, 0);
+					DrawText_80C30(0, 0, 0);
 				}
 			}
 		}
@@ -85280,7 +85280,7 @@ int sub_7F960(posistruct2_t* a1x, posistruct2_t* a2x, uint8_t* a3, char* langcou
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
 //----- (00080C30) --------------------------------------------------------
-void sub_80C30_draw_texts(__int16 a1, __int16 a2, __int16 a3)//261c30
+void DrawText_80C30(__int16 posX, __int16 posY, __int16 a3)//261c30
 {
 	signed int v3; // ebx
 	//char *v4; // eax
@@ -85306,7 +85306,7 @@ void sub_80C30_draw_texts(__int16 a1, __int16 a2, __int16 a3)//261c30
 		v4x++;
 		v5++;
 	}
-	if (a2 + a1 > 0)
+	if (posY + posX > 0)
 	{
 		//for (i = x_WORD_E2970; *(int32_t*)&i[6]; i = (x_WORD *)((char *)i + 17))
 		for (int ii = 0; x_WORD_E2970x[ii].word_12; ii++)
@@ -85319,9 +85319,9 @@ void sub_80C30_draw_texts(__int16 a1, __int16 a2, __int16 a3)//261c30
 		}
 		DrawHelpText_6FC50(1);
 		v7 = getPalletteIndex_5BE80(x_DWORD_17DE38str.x_DWORD_17DE38x, 0x3Fu, 0x3Fu, 0x3Fu);
-		v8 = (signed __int16)(a1 + a3 - 3 * sub_6FC10_letter_width());
+		v8 = (signed __int16)(posX + a3 - 3 * sub_6FC10_letter_width());
 		v9 = sub_6FC10_letter_width();
-		sub_7FCB0_draw_text_with_border(/*v3,*/ x_DWORD_E9C4C_langindexbuffer[23 + v3], (signed __int16)(a1 + 4 * v9), v8, a2, 5, v7, 1);
+		sub_7FCB0_draw_text_with_border(/*v3,*/ x_DWORD_E9C4C_langindexbuffer[23 + v3], (signed __int16)(posX + 4 * v9), v8, posY, 5, v7, 1);
 		//"You must explore the outer Netherworlds while you learn its magic. Your first destination is the ancient city of Jahwl."+
 	}
 	if (x_DWORD_17DE28str.x_BYTE_17DE34 != 3 && x_D41A0_BYTEARRAY_4_struct.setting_byte3_24 & 0x40 && !x_BYTE_17E09D)
