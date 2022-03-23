@@ -5815,27 +5815,37 @@ void sub_A47C0_sub_set_sample_file(uint8_t* pWaveData, HSAMPLE S)//2857c0
 	v6 = pWaveData + 12;
 	for (i = _strnicmp((const char*)(pWaveData + 12), "fmt ", 4); i; i = _strnicmp((const char*)v6, "fmt ", 4))
 		v6 += (*(x_DWORD*)(v6 + 4) & 1) + *(x_DWORD*)(v6 + 4) + 8;
-	if (*(x_WORD*)(v6 + 10) == 1 && *(x_WORD*)(v6 + 22) == 8)
+
+	int16_t numChannels = *(int16_t*)(v6 + 10);
+	int16_t bytesPerSample = *(int16_t*)(v6 + 22);
+	int32_t sampleRate = *(int32_t*)(v6 + 12);
+
+	if (numChannels == 1 && bytesPerSample == 8)
 	{
 		sub_93AB0_AIL_set_sample_type(S, 0, 0);
 	}
-	else if (*(x_WORD*)(v6 + 10) == 2 && *(x_WORD*)(v6 + 22) == 8)
+	else if (numChannels == 2 && bytesPerSample == 8)
 	{
 		sub_93AB0_AIL_set_sample_type(S, 2, 0);
 	}
-	else if (*(x_WORD*)(v6 + 10) == 1 && *(x_WORD*)(v6 + 22) == 16)
+	else if (numChannels == 1 && bytesPerSample == 16)
 	{
 		sub_93AB0_AIL_set_sample_type(S, 1, 1);
 	}
-	else if (*(x_WORD*)(v6 + 10) == 2 && *(x_WORD*)(v6 + 22) == 16)
+	else if (numChannels == 2 && bytesPerSample == 16)
 	{
 		sub_93AB0_AIL_set_sample_type(S, 3, 1);
 	}
-	sub_93D90_AIL_set_sample_playback_rate(S, *(x_DWORD*)(v6 + 12));
+	sub_93D90_AIL_set_sample_playback_rate(S, sampleRate);
+
 	v5 = pWaveData + 12;
 	for (j = _strnicmp((const char*)(pWaveData + 12), "data", 4); j; j = _strnicmp((const char*)v5, "data", 4))
 		v5 += (*(x_DWORD*)(v5 + 4) & 1) + *(x_DWORD*)(v5 + 4) + 8;
-	sub_93A10_AIL_set_sample_address(S, v5 + 8, *(x_DWORD*)(v5 + 4));
+
+	int32_t dataSizeBytes = *(int32_t*)(v5 + 4);
+	uint8_t* wavData = v5 + 8;
+
+	sub_93A10_AIL_set_sample_address(S, wavData, dataSizeBytes);
 }
 // 99B23: using guessed type x_DWORD strnicmp(x_DWORD, x_DWORD, x_DWORD);
 
