@@ -14,10 +14,10 @@ char x_BYTE_E379A = 0; // weak
 char x_BYTE_E379B = 1; // weak
 char x_BYTE_E379C = 1; // weak
 
-type_E37A0_sound_buffer2* str_E37A0_sound_buffer2 = 0;
+type_E37A0_sound_buffer2* soundIndex_E37A0 = 0;
 //uint8_t* x_DWORD_E37A0_sound_buffer2 = 0; // weak
 //replace str2_E37A4_sound_buffer3 and x_DWORD_E380C with equvivalent index_E37A4_MaxSound and index_E380C_MaxMusic
-int index_E37A4_CountOfSounds = 0;
+int numOfLoadedSounds_E37A4 = 0;
 //int8_t* str2_E37A4_sound_buffer3 = 0; // weak
 uint8_t* x_DWORD_E37A8_sound_buffer1 = 0; // weak
 char x_BYTE_E37AC = 0; // weak
@@ -602,8 +602,8 @@ void sub_8D290_init_sound(/*char* a1*//*, int a2, int a3*/)//26e290
 				sub_919C0();
 			x_BYTE_E3798_sound_active2 = 0;
 			x_BYTE_E3799_sound_card = 0;
-			sub_83E80_freemem4((uint8_t*)str_E37A0_sound_buffer2);
-			index_E37A4_CountOfSounds = 0;
+			sub_83E80_freemem4((uint8_t*)soundIndex_E37A0);
+			numOfLoadedSounds_E37A4 = 0;
 			sub_83E80_freemem4(x_DWORD_E37A8_sound_buffer1);
 		}
 	}
@@ -1436,10 +1436,10 @@ void sub_99C10_sound_proc4()//27ac10
 		sub_8D8F0_sound_proc3_endsample();
 		if (!x_BYTE_E37FE)
 			sub_919C0();
-		if (str_E37A0_sound_buffer2)
+		if (soundIndex_E37A0)
 		{
-			sub_83E80_freemem4((uint8_t*)str_E37A0_sound_buffer2);
-			index_E37A4_CountOfSounds = 0;
+			sub_83E80_freemem4((uint8_t*)soundIndex_E37A0);
+			numOfLoadedSounds_E37A4 = 0;
 		}
 		if (x_DWORD_E37A8_sound_buffer1)
 			sub_83E80_freemem4(x_DWORD_E37A8_sound_buffer1);
@@ -2816,7 +2816,7 @@ void sub_844A0_sound_proc5(uint16_t count)//2654a0
 	int v2; // esi
 
 	v0 = x_WORD_180B50;
-	if (str_E37A0_sound_buffer2 && x_DWORD_E37A8_sound_buffer1)
+	if (soundIndex_E37A0 && x_DWORD_E37A8_sound_buffer1)
 	{
 		//v1x = &str_E37A0_sound_buffer2[1];
 		uint16_t index = 0;
@@ -2828,10 +2828,12 @@ void sub_844A0_sound_proc5(uint16_t count)//2654a0
 			//v2 = str_E37A0_sound_buffer2[v1y].dword_18;
 			//v1 += 32;
 #ifdef COMPILE_FOR_64BIT
-			str_E37A0_sound_buffer2->str_8.wavs_10[index].wavData_0 = reinterpret_cast<uint64_t>(str_E37A0_sound_buffer2->str_8.wavs_10[index].wavData_0) + x_DWORD_E37A8_sound_buffer1;
+			soundIndex_E37A0->str_8.wavs_10[index].wavData_0 = reinterpret_cast<uint64_t>(soundIndex_E37A0->str_8.wavs_10[index].wavData_0) + x_DWORD_E37A8_sound_buffer1;
 #else
-			str_E37A0_sound_buffer2->str_8.wavs_10[index].wavData_0 = reinterpret_cast<uint32_t>(str_E37A0_sound_buffer2->str_8.wavs_10[index].wavData_0) + x_DWORD_E37A8_sound_buffer1;
+			soundIndex_E37A0->str_8.wavs_10[index].wavData_0 = reinterpret_cast<uint32_t>(soundIndex_E37A0->str_8.wavs_10[index].wavData_0) + x_DWORD_E37A8_sound_buffer1;
 #endif
+			WriteWaveToFile((wav_t*)soundIndex_E37A0->str_8.wavs_10[index].wavData_0, index);
+
 			index++;
 			v0++;
 		}
@@ -2871,12 +2873,12 @@ char ReadAndDecompressSound(FILE* file, unsigned __int8 a2)//2654f0
 	if (!x_WORD_E2A14_sound_activeh)
 	{
 		x_DWORD_E37A8_sound_buffer1 = (uint8_t*)sub_83CD0_malloc2(v8x[a2].dword_12 + 256);
-		str_E37A0_sound_buffer2 = (type_E37A0_sound_buffer2*)sub_83CD0_malloc2(sizeof(type_E37A0_sound_buffer2));
+		soundIndex_E37A0 = (type_E37A0_sound_buffer2*)sub_83CD0_malloc2(sizeof(type_E37A0_sound_buffer2));
 		x_WORD_E2A14_sound_activel = 1;
-		if (!x_DWORD_E37A8_sound_buffer1 || !str_E37A0_sound_buffer2)
+		if (!x_DWORD_E37A8_sound_buffer1 || !soundIndex_E37A0)
 		{
 			sub_83E80_freemem4(x_DWORD_E37A8_sound_buffer1);
-			sub_83E80_freemem4((uint8_t*)str_E37A0_sound_buffer2);
+			sub_83E80_freemem4((uint8_t*)soundIndex_E37A0);
 			x_WORD_E2A14_sound_activel = 0;
 			x_BYTE_E37AD_actual_sound = -1;
 			return 0;
@@ -2886,7 +2888,7 @@ char ReadAndDecompressSound(FILE* file, unsigned __int8 a2)//2654f0
 		x_DWORD_E2A1C = 3100;
 	}
 	x_BYTE_E3798_sound_active2 = 0;
-	if (!x_DWORD_E37A8_sound_buffer1 || !str_E37A0_sound_buffer2)
+	if (!x_DWORD_E37A8_sound_buffer1 || !soundIndex_E37A0)
 		return 0;
 	memset((void*)x_DWORD_E37A8_sound_buffer1, 0, x_DWORD_E2A18);
 
@@ -2925,7 +2927,7 @@ char ReadAndDecompressSound(FILE* file, unsigned __int8 a2)//2654f0
 	}
 
 	memset((void*)shadow_str_E37A0_sound_buffer2, 0, x_DWORD_E2A1C);
-	index_E37A4_CountOfSounds = (v8x[a2].dword_8) / sizeof(shadow_sub2type_E37A0_sound_buffer2);
+	numOfLoadedSounds_E37A4 = (v8x[a2].dword_8) / sizeof(shadow_sub2type_E37A0_sound_buffer2);
 	DataFileIO::Seek(file, v8x[a2].dword_4, 0);
 	DataFileIO::Read(file, x_DWORD_E37A8_sound_buffer1, 8);
 	if (x_DWORD_E37A8_sound_buffer1[0] != 82 || x_DWORD_E37A8_sound_buffer1[1] != 78 || x_DWORD_E37A8_sound_buffer1[2] != 67)
@@ -2948,36 +2950,35 @@ char ReadAndDecompressSound(FILE* file, unsigned __int8 a2)//2654f0
 		DataFileIO::Read(file, (uint8_t*)&shadow_str_E37A0_sound_buffer2->str_8, shadow_str_E37A0_sound_buffer2->byte_7 + ((shadow_str_E37A0_sound_buffer2->byte_6 + ((shadow_str_E37A0_sound_buffer2->byte_5 + (shadow_str_E37A0_sound_buffer2->byte_4 << 8)) << 8)) << 8) - 8);
 		DataFileIO::Decompress((uint8_t*)shadow_str_E37A0_sound_buffer2, (uint8_t*)shadow_str_E37A0_sound_buffer2);
 	}
-	str_E37A0_sound_buffer2->byte_0 = shadow_str_E37A0_sound_buffer2->byte_0;
-	str_E37A0_sound_buffer2->byte_1 = shadow_str_E37A0_sound_buffer2->byte_1;
-	str_E37A0_sound_buffer2->byte_2 = shadow_str_E37A0_sound_buffer2->byte_2;
-	str_E37A0_sound_buffer2->byte_3 = shadow_str_E37A0_sound_buffer2->byte_3;
-	str_E37A0_sound_buffer2->byte_4 = shadow_str_E37A0_sound_buffer2->byte_4;
-	str_E37A0_sound_buffer2->byte_5 = shadow_str_E37A0_sound_buffer2->byte_5;
-	str_E37A0_sound_buffer2->byte_6 = shadow_str_E37A0_sound_buffer2->byte_6;
-	str_E37A0_sound_buffer2->byte_7 = shadow_str_E37A0_sound_buffer2->byte_7;
+	soundIndex_E37A0->byte_0 = shadow_str_E37A0_sound_buffer2->byte_0;
+	soundIndex_E37A0->byte_1 = shadow_str_E37A0_sound_buffer2->byte_1;
+	soundIndex_E37A0->byte_2 = shadow_str_E37A0_sound_buffer2->byte_2;
+	soundIndex_E37A0->byte_3 = shadow_str_E37A0_sound_buffer2->byte_3;
+	soundIndex_E37A0->byte_4 = shadow_str_E37A0_sound_buffer2->byte_4;
+	soundIndex_E37A0->byte_5 = shadow_str_E37A0_sound_buffer2->byte_5;
+	soundIndex_E37A0->byte_6 = shadow_str_E37A0_sound_buffer2->byte_6;
+	soundIndex_E37A0->byte_7 = shadow_str_E37A0_sound_buffer2->byte_7;
 	for(int i=0;i<10;i++)
-		str_E37A0_sound_buffer2->str_8.stub[i] = shadow_str_E37A0_sound_buffer2->str_8.stub[i];
+		soundIndex_E37A0->str_8.stub[i] = shadow_str_E37A0_sound_buffer2->str_8.stub[i];
+
 	for (int i = 0; i < 96; i++)
 	{
-		str_E37A0_sound_buffer2->str_8.wavs_10[i].wavData_0 = (uint8_t*)shadow_str_E37A0_sound_buffer2->str_8.wavs_10[i].wavData_0;
+		soundIndex_E37A0->str_8.wavs_10[i].wavData_0 = (uint8_t*)shadow_str_E37A0_sound_buffer2->str_8.wavs_10[i].wavData_0;
 		for (int j = 0; j < 4; j++)
-			str_E37A0_sound_buffer2->str_8.wavs_10[i].stub_4[j] = shadow_str_E37A0_sound_buffer2->str_8.wavs_10[i].stub_4[j];
-		str_E37A0_sound_buffer2->str_8.wavs_10[i].dword_8 = shadow_str_E37A0_sound_buffer2->str_8.wavs_10[i].dword_8;
-		str_E37A0_sound_buffer2->str_8.wavs_10[i].word_12 = shadow_str_E37A0_sound_buffer2->str_8.wavs_10[i].word_12;
+			soundIndex_E37A0->str_8.wavs_10[i].stub_4[j] = shadow_str_E37A0_sound_buffer2->str_8.wavs_10[i].stub_4[j];
+		soundIndex_E37A0->str_8.wavs_10[i].dword_8 = shadow_str_E37A0_sound_buffer2->str_8.wavs_10[i].dword_8;
+		soundIndex_E37A0->str_8.wavs_10[i].word_12 = shadow_str_E37A0_sound_buffer2->str_8.wavs_10[i].word_12;
 		for (int j = 18; j < 18; j++)
-			str_E37A0_sound_buffer2->str_8.wavs_10[i].filename_14[j] = shadow_str_E37A0_sound_buffer2->str_8.wavs_10[i].filename_14[j];
-
-		//WriteWaveToFile((wav_t*)shadow_str_E37A0_sound_buffer2->str_8.wavs_10[i], i);
+			soundIndex_E37A0->str_8.wavs_10[i].filename_14[j] = shadow_str_E37A0_sound_buffer2->str_8.wavs_10[i].filename_14[j];
 	}
 	/*for (int i = 0; i < 14; i++)
 		str_E37A0_sound_buffer2->str_8.stubb[i] = shadow_str_E37A0_sound_buffer2->str_8.stubb[i];*/
 	for (int i = 0; i < 10; i++)
-		str_E37A0_sound_buffer2->next_str[i] = shadow_str_E37A0_sound_buffer2->next_str[i];
+		soundIndex_E37A0->next_str[i] = shadow_str_E37A0_sound_buffer2->next_str[i];
 	sub_83E80_freemem4((uint8_t*)shadow_str_E37A0_sound_buffer2);
 	//64xfix
 
-	sub_844A0_sound_proc5(index_E37A4_CountOfSounds);
+	sub_844A0_sound_proc5(numOfLoadedSounds_E37A4);
 	x_BYTE_E3798_sound_active2 = 1;
 	return 1;
 }
@@ -3387,7 +3388,7 @@ int sub_9EE70()
 		sub_95140_AIL_register_EOS_callback(x_DWORD_181E10, sub_9EE70);
 		v0 = sub_95480_AIL_sample_user_data(x_DWORD_181E10, x_DWORD_E3E40);
 		//sub_938C0_AIL_set_sample_file(x_DWORD_181E10, (uint8_t*)*(x_DWORD*)(x_DWORD_E37A0_sound_buffer2 + 32 * v0 + 18), 1);
-		sub_938C0_AIL_set_sample_file(x_DWORD_181E10, str_E37A0_sound_buffer2->str_8.wavs_10[v0].wavData_0, 1);
+		sub_938C0_AIL_set_sample_file(x_DWORD_181E10, soundIndex_E37A0->str_8.wavs_10[v0].wavData_0, 1);
 		++x_DWORD_E3E40;
 		sub_93B50_AIL_start_sample(x_DWORD_181E10);
 	}
@@ -9491,7 +9492,7 @@ void sub_8F100_sound_proc19(uint32_t a1, __int16 index, int volume, int a4, unsi
 		|| !x_BYTE_E3799_sound_card
 		|| index > (signed int)x_WORD_180B50
 		//|| !_stricmp((const char*)(32 * a2 + x_DWORD_E37A0_sound_buffer2), "null.wav"))
-		|| !_stricmp((const char*)&str_E37A0_sound_buffer2->str_8.wavs_10[index -1].filename_14, "null.wav"))
+		|| !_stricmp((const char*)&soundIndex_E37A0->str_8.wavs_10[index -1].filename_14, "null.wav"))
 	{
 		return;
 	}
@@ -9575,14 +9576,14 @@ void sub_8F100_sound_proc19(uint32_t a1, __int16 index, int volume, int a4, unsi
 #ifdef DEBUG_SOUND
 		if (debug_first_sound) {
 			//uint8_t* debug_sound_buff = (uint8_t*)*(uint32_t*)(x_DWORD_E37A0_sound_buffer2 + 32 * a2 + 18);
-			uint8_t* debug_sound_buff = str_E37A0_sound_buffer2->str_8.wavs_10[index].wavData_0;
+			uint8_t* debug_sound_buff = soundIndex_E37A0->str_8.wavs_10[index].wavData_0;
 			debug_printf("sub_8F100_sound_proc19:buff:\n");
 			for (int i = 0; i < 100; i++)
 				debug_printf("%02X", debug_sound_buff[i]);
 			debug_printf("\n");
 		}
 #endif //DEBUG_SOUND
-		sub_938C0_AIL_set_sample_file(*v14, str_E37A0_sound_buffer2->str_8.wavs_10[index].wavData_0, 1);
+		sub_938C0_AIL_set_sample_file(*v14, soundIndex_E37A0->str_8.wavs_10[index].wavData_0, 1);
 		//last_sample = v14[0];
 	}
 	sub_93E30_AIL_set_sample_volume(*v14, volume);
@@ -9591,7 +9592,7 @@ void sub_8F100_sound_proc19(uint32_t a1, __int16 index, int volume, int a4, unsi
 	sub_93F70_AIL_set_sample_loop_count(*v14, a6 + 1);
 #ifdef DEBUG_SOUND
 	if (debug_first_sound) {
-		uint8_t* debug_sound_buff = str_E37A0_sound_buffer2->str_8.wavs_10[index].wavData_0;
+		uint8_t* debug_sound_buff = soundIndex_E37A0->str_8.wavs_10[index].wavData_0;
 		debug_printf("sub_8F100_sound_proc19:44mhz:\n");
 		//for (int i = 0; i < 100; i++)
 		//	debug_printf("%02X", ((uint8_t*)((*v14)->start_44mhz))[i]);
