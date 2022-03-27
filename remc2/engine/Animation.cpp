@@ -40,7 +40,7 @@ char x_BYTE_17D738[0x100]; // idb
 __int16 x_WORD_E12FE = 0; // weak
 
 //----- (00076160) --------------------------------------------------------
-void PlayInfoFmv(__int16 a1, __int16 a2, SoundEvent_E17CC_t* pSoundEvent, char* path)//sub_76160 - 257160
+void PlayInfoFmv(__int16 a1, __int16 a2, Type_SoundEvent_E17CC* pSoundEvent, char* path)//sub_76160 - 257160
 {
 	//fix
 	//memset(&pdwScreenBuffer[320 * 200], 0, 320*200);
@@ -94,7 +94,7 @@ void FlvInitSet_473B0()//2283b0
 }
 
 //----- (0001B280) --------------------------------------------------------
-void PlayIntoSoundEvents_1B280(SoundEvent_E17CC_t* pSoundEvent)//1fc280
+void PlayIntoSoundEvents_1B280(Type_SoundEvent_E17CC* pSoundEvent)//1fc280
 {
 	int index; // eax
 	//type_E17CC_0* v2x; // edx
@@ -306,7 +306,7 @@ void sub_loc_1B2E6() {//1fc2e6
 	x_DWORD_E3844 = 0;
 	//x_WORD_D4004++;
 }
-void sub_loc_1B2F7(SoundEvent_E17CC_t* pSoundEvent) {//1fc2f7//LoadMusic
+void sub_loc_1B2F7(Type_SoundEvent_E17CC* pSoundEvent) {//1fc2f7//LoadMusic
 	sub_8E020_sound_proc14_stopsequence();
 	//LoadMusic(*(uint32_t*)(a2 + x_WORD_D4004 * 7 + 3));
 	LoadMusic(pSoundEvent[x_WORD_D4004].index);
@@ -317,14 +317,14 @@ void sub_loc_1B316(uint8_t a1) {//1fc316//LoadSound
 	sub_84300_load_sound(a1);
 	//x_WORD_D4004++;
 }
-void sub_loc_1B334(SoundEvent_E17CC_t* pSoundEvent) {//1fc334
+void sub_loc_1B334(Type_SoundEvent_E17CC* pSoundEvent) {//1fc334
 	if (x_DWORD_E387C)sub_loc_1B352(pSoundEvent);
 	else
 	{
 		sub_8F0AB(x_FILE_E3840, /**(uint32_t*)(a2 + x_WORD_D4004 * 7 + 2),*/pSoundEvent[x_WORD_D4004].index/* *(uint32_t*)(a2 + x_WORD_D4004 * 7 + 3)*/);
 	}
 }
-void sub_loc_1B352(SoundEvent_E17CC_t* pSoundEvent) {//1fc352
+void sub_loc_1B352(Type_SoundEvent_E17CC* pSoundEvent) {//1fc352
 	sub_8E160_sound_proc15_startsequence(pSoundEvent[x_WORD_D4004].index, 0x7f);
 	//x_WORD_D4004++;
 }
@@ -332,16 +332,16 @@ void sub_loc_1B36C() {//1fc36c
 	sub_2EC30_clear_img_mem();
 	//x_WORD_D4004++;
 }
-void sub_loc_1B37D(SoundEvent_E17CC_t* pSoundEvent) {//1fc37d // Draw text
+void sub_loc_1B37D(Type_SoundEvent_E17CC* pSoundEvent) {//1fc37d // Draw text
 	sub_2EBB0_draw_text_with_border_630x340(x_DWORD_E9C4C_langindexbuffer[pSoundEvent[x_WORD_D4004].byte_2]);
 	//x_WORD_D4004++;
 }
-void sub_loc_1B398(SoundEvent_E17CC_t* pSoundEvent) {//1fc398
+void sub_loc_1B398(Type_SoundEvent_E17CC* pSoundEvent) {//1fc398
 	if (x_BYTE_E3798_sound_active2)sub_loc_1B5CB();
 	sub_8F100_sound_proc19(0, pSoundEvent[x_WORD_D4004].index, 0x7f, 0x40, 0x64, 0xFFFFFFFF, 2);
 	//x_WORD_D4004++;
 }
-void sub_loc_1B3C9(SoundEvent_E17CC_t* pSoundEvent) {//1fc3c9
+void sub_loc_1B3C9(Type_SoundEvent_E17CC* pSoundEvent) {//1fc3c9
 	if (x_BYTE_E3798_sound_active2)sub_loc_1B5CB();
 	//uint8_t* v1 = a1 + x_WORD_D4004 * 7 + 3;
 	if (pSoundEvent[x_WORD_D4004].index == 0)sub_loc_1B413();//tempesi = 2b27cc
@@ -352,7 +352,7 @@ void sub_loc_1B413() {//1fc413
 	sub_8D8F0_sound_proc3_endsample();
 	//x_WORD_D4004++;
 }
-void sub_loc_1B424(uint16_t a1, SoundEvent_E17CC_t* pSoundEvent) {//1fc424
+void sub_loc_1B424(uint16_t a1, Type_SoundEvent_E17CC* pSoundEvent) {//1fc424
 	if (x_BYTE_E3798_sound_active2 == 0)sub_loc_1B5BC(a1);
 	if (pSoundEvent[x_WORD_D4004].index)sub_loc_1B413();
 	sub_8F420_sound_proc20(0, pSoundEvent[x_WORD_D4004].index);
@@ -362,7 +362,7 @@ void sub_loc_1B450() {//1fc450
 	sub_8E020_sound_proc14_stopsequence();
 	//x_WORD_D4004++;
 }
-void sub_loc_1B461(uint16_t a1, SoundEvent_E17CC_t* pSoundEvent) {//1fc461
+void sub_loc_1B461(uint16_t a1, Type_SoundEvent_E17CC* pSoundEvent) {//1fc461
 	if (x_BYTE_E3798_sound_active2 == 0)sub_loc_1B5BC(a1);
 	sub_8F710_sound_proc21(0, pSoundEvent[x_WORD_D4004].index, 0, 4, 0x64/*, 1, 2*/);
 	/*cseg01 : 0001B46E                 movsx   edx, word_D4004
@@ -377,7 +377,7 @@ void sub_loc_1B461(uint16_t a1, SoundEvent_E17CC_t* pSoundEvent) {//1fc461
 	cseg01 : 0001B48C                 call    sub_8F710_sound_proc21*/
 	//x_WORD_D4004++;
 }
-void sub_loc_1B4A0(uint16_t a1, SoundEvent_E17CC_t* pSoundEvent) {//1fc4a0
+void sub_loc_1B4A0(uint16_t a1, Type_SoundEvent_E17CC* pSoundEvent) {//1fc4a0
 	if (x_BYTE_E3798_sound_active2 == 0)sub_loc_1B5BC(a1);
 	sub_8F710_sound_proc21(0, pSoundEvent[x_WORD_D4004].index, 50, 2, 0);
 	/*cseg01 : 0001B4AD                 movsx   edx, word_D4004
@@ -392,7 +392,7 @@ void sub_loc_1B4A0(uint16_t a1, SoundEvent_E17CC_t* pSoundEvent) {//1fc4a0
 	cseg01 : 0001B4CB                 call    sub_8F710_sound_proc21*/
 	//x_WORD_D4004++;
 }
-void sub_loc_1B4DF(uint16_t a1, SoundEvent_E17CC_t* pSoundEvent) {//1fc4df
+void sub_loc_1B4DF(uint16_t a1, Type_SoundEvent_E17CC* pSoundEvent) {//1fc4df
 	if (x_BYTE_E3798_sound_active2 == 0)sub_loc_1B5BC(a1);
 	sub_8F710_sound_proc21(0, pSoundEvent[x_WORD_D4004].index, 0x7f, 2, 0);
 	/*	cseg01 : 0001B4EC                 movsx   edx, word_D4004
@@ -407,11 +407,11 @@ void sub_loc_1B4DF(uint16_t a1, SoundEvent_E17CC_t* pSoundEvent) {//1fc4df
 		cseg01 : 0001B50A                 call    sub_8F710_sound_proc21*/
 		//x_WORD_D4004++;
 }
-void sub_loc_1B51E(SoundEvent_E17CC_t* pSoundEvent) {//1fc51e
+void sub_loc_1B51E(Type_SoundEvent_E17CC* pSoundEvent) {//1fc51e
 	sub_8E160_sound_proc15_startsequence(pSoundEvent[x_WORD_D4004].index, 0x64/*, tempedx * 7*/);
 	//x_WORD_D4004++;
 }
-void sub_loc_1B54A(uint16_t a1, SoundEvent_E17CC_t* pSoundEvent) {//1fc54a
+void sub_loc_1B54A(uint16_t a1, Type_SoundEvent_E17CC* pSoundEvent) {//1fc54a
 	if (x_BYTE_E3798_sound_active2 == 0)sub_loc_1B5BC(a1);
 	sub_8F100_sound_proc19(0, pSoundEvent[x_WORD_D4004].index, 0, 0x40, 0x64, 0xFFFFFFFF, 2);
 	//x_WORD_D4004++;
