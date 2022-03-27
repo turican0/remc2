@@ -2832,7 +2832,6 @@ void sub_844A0_sound_proc5(uint16_t count)//2654a0
 #else
 			soundIndex_E37A0->str_8.wavs_10[index].wavData_0 = reinterpret_cast<uint32_t>(soundIndex_E37A0->str_8.wavs_10[index].wavData_0) + x_DWORD_E37A8_sound_buffer1;
 #endif
-
 			index++;
 			v0++;
 		}
@@ -2926,7 +2925,7 @@ char ReadAndDecompressSound(FILE* file, unsigned __int8 a2)//2654f0
 	}
 
 	memset((void*)shadow_str_E37A0_sound_buffer2, 0, x_DWORD_E2A1C);
-	numOfLoadedSounds_E37A4 = (v8x[a2].dword_8) / sizeof(shadow_sub2type_E37A0_sound_buffer2);	
+	numOfLoadedSounds_E37A4 = (v8x[a2].sizeBytes_8) / sizeof(shadow_sub2type_E37A0_sound_buffer2);
 	DataFileIO::Seek(file, v8x[a2].dword_4, 0);
 	DataFileIO::Read(file, x_DWORD_E37A8_sound_buffer1, 8);
 	if (x_DWORD_E37A8_sound_buffer1[0] != 82 || x_DWORD_E37A8_sound_buffer1[1] != 78 || x_DWORD_E37A8_sound_buffer1[2] != 67)
@@ -2942,7 +2941,7 @@ char ReadAndDecompressSound(FILE* file, unsigned __int8 a2)//2654f0
 	DataFileIO::Read(file, (uint8_t*)shadow_str_E37A0_sound_buffer2, 8);
 	if (shadow_str_E37A0_sound_buffer2->byte_0 != 'R' || shadow_str_E37A0_sound_buffer2->byte_1 != 'N' || shadow_str_E37A0_sound_buffer2->byte_2 != 'C')//R N C
 	{
-		DataFileIO::Read(file, (uint8_t*)&shadow_str_E37A0_sound_buffer2->str_8, v8x[a2].dword_8 - 8);
+		DataFileIO::Read(file, (uint8_t*)&shadow_str_E37A0_sound_buffer2->str_8, v8x[a2].sizeBytes_8 - 8);
 	}
 	else
 	{
@@ -9331,14 +9330,14 @@ char LoadMusicTrack(FILE* filehandle, uint8_t drivernumber)//26fd00
 		return 0;
 	//str_E3808_music_header = (type_E3808_music_header*)sub_83CD0_malloc2(header[2 + 4 * drivernumber]);
 	//str_E3808_music_header = (type_E3808_music_header*)sub_83CD0_malloc2(headerx[drivernumber].dword_8);
-	str_E3808_music_header = (type_E3808_music_header*)sub_83CD0_malloc2((((headerx[drivernumber].dword_8 - 32) / 32) * sizeof(sub2type_E3808_music_header)) + 32);//with 64bit fix
+	str_E3808_music_header = (type_E3808_music_header*)sub_83CD0_malloc2((((headerx[drivernumber].sizeBytes_8 - 32) / 32) * sizeof(sub2type_E3808_music_header)) + 32);//with 64bit fix
 	if (!str_E3808_music_header)
 	{
 		sub_83E80_freemem4(array_E3810_music_data);
 		return 0;
 	}
 	//64xbit fix
-	shadow_type_E3808_music_header* shadow_str_E3808_music_header = (shadow_type_E3808_music_header*)sub_83CD0_malloc2(headerx[drivernumber].dword_8);
+	shadow_type_E3808_music_header* shadow_str_E3808_music_header = (shadow_type_E3808_music_header*)sub_83CD0_malloc2(headerx[drivernumber].sizeBytes_8);
 	if (!shadow_str_E3808_music_header)
 	{
 		sub_83E80_freemem4((uint8_t*)shadow_str_E3808_music_header);
@@ -9350,7 +9349,7 @@ char LoadMusicTrack(FILE* filehandle, uint8_t drivernumber)//26fd00
 	//x_DWORD_E380C = (uint8_t*)&x_DWORD_E3808_music_header[header[2 + 4 * drivernumber]];//?
 	//x_DWORD_E380C = str_E3808_music_header + headerx[drivernumber].dword_8;
 	//x_DWORD_E380C = (int8_t*)str_E3808_music_header + headerx[drivernumber].dword_8;
-	index_E380C_CountOfMusic = (headerx[drivernumber].dword_8) / sizeof(sub2type_E37A0_sound_buffer2);
+	index_E380C_CountOfMusic = (headerx[drivernumber].sizeBytes_8) / sizeof(sub2type_E37A0_sound_buffer2);
 	DataFileIO::Seek(filehandle, headerx[drivernumber].dword_4, 0);
 	DataFileIO::Read(filehandle, array_E3810_music_data, 8);
 	if (array_E3810_music_data[0] == 'R' && array_E3810_music_data[1] == 'N' && array_E3810_music_data[2] == 'C')//RNC
@@ -9409,7 +9408,7 @@ char LoadMusicTrack(FILE* filehandle, uint8_t drivernumber)//26fd00
 	}
 	else
 	{
-		DataFileIO::Read(filehandle, (uint8_t*)(&shadow_str_E3808_music_header->str_8), headerx[drivernumber].dword_8 - 8);
+		DataFileIO::Read(filehandle, (uint8_t*)(&shadow_str_E3808_music_header->str_8), headerx[drivernumber].sizeBytes_8 - 8);
 	}
 	str_E3808_music_header->byte_0 = shadow_str_E3808_music_header->byte_0;
 	str_E3808_music_header->byte_1 = shadow_str_E3808_music_header->byte_1;

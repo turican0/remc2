@@ -99,7 +99,7 @@ shadow_type_E37A0_sound_buffer2;
 typedef struct {//lenght 16*6=96
 	int32_t dword_0;
 	int32_t dword_4;
-	int32_t dword_8;
+	int32_t sizeBytes_8;
 	int32_t dword_12;
 }
 type_v8;
