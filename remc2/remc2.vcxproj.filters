@@ -420,6 +420,9 @@
     <ClInclude Include="utilities\Wave.h">
       <Filter>Header Files\utilities</Filter>
     </ClInclude>
+    <ClInclude Include="engine\Type_MapScreenPortals_E17CC.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -702,6 +705,9 @@
       <Filter>Source Files\engine</Filter>
     </ClCompile>
     <ClCompile Include="engine\ProjectionPolygon.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\Type_MapScreenPortals_E17CC.cpp">
       <Filter>Source Files\engine</Filter>
     </ClCompile>
   </ItemGroup>

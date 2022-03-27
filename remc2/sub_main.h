@@ -17,6 +17,7 @@
 #include "engine/Type_D404C.h"
 #include "engine/Type_D94F0_Bldgprmbuffer.h"
 #include "engine/Type_D93C0_Bldgprmbuffer.h"
+#include "engine/Type_MapScreenPortals_E17CC.h"
 #include "engine/Basic.h"
 #include "engine/Sound.h"
 #include "engine/Type_Animations.h"
