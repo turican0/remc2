@@ -2832,7 +2832,6 @@ void sub_844A0_sound_proc5(uint16_t count)//2654a0
 #else
 			soundIndex_E37A0->str_8.wavs_10[index].wavData_0 = reinterpret_cast<uint32_t>(soundIndex_E37A0->str_8.wavs_10[index].wavData_0) + x_DWORD_E37A8_sound_buffer1;
 #endif
-			WriteWaveToFile((wav_t*)soundIndex_E37A0->str_8.wavs_10[index].wavData_0, index);
 
 			index++;
 			v0++;
@@ -2927,7 +2926,7 @@ char ReadAndDecompressSound(FILE* file, unsigned __int8 a2)//2654f0
 	}
 
 	memset((void*)shadow_str_E37A0_sound_buffer2, 0, x_DWORD_E2A1C);
-	numOfLoadedSounds_E37A4 = (v8x[a2].dword_8) / sizeof(shadow_sub2type_E37A0_sound_buffer2);
+	numOfLoadedSounds_E37A4 = (v8x[a2].dword_8) / sizeof(shadow_sub2type_E37A0_sound_buffer2);	
 	DataFileIO::Seek(file, v8x[a2].dword_4, 0);
 	DataFileIO::Read(file, x_DWORD_E37A8_sound_buffer1, 8);
 	if (x_DWORD_E37A8_sound_buffer1[0] != 82 || x_DWORD_E37A8_sound_buffer1[1] != 78 || x_DWORD_E37A8_sound_buffer1[2] != 67)
