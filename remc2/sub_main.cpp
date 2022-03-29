@@ -2529,7 +2529,7 @@ void sub_81EE0_draw_and_sound_dragon_and_fire(__int16 a5, __int16 a6);
 typedef struct {//17
 	int32_t dword_0;
 	uint16_t word_4;
-	uint16_t word_6;//level number
+	uint16_t levelNumber_6;//level number
 	uint16_t word_8;
 	uint16_t word_10;
 	uint16_t word_12;
@@ -39848,7 +39848,7 @@ void sub_46830_main_loop(/*int16_t* a1, */signed int a2, unsigned __int16 a3)//2
 #ifdef DEBUG_START
 			debug_printf("sub_46830_main_loop:before load scr\n");
 #endif //DEBUG_START
-			isSecretLevel = x_D41A0_BYTEARRAY_4_struct.levelnumber_43w > 0x18u && x_D41A0_BYTEARRAY_4_struct.levelnumber_43w < 0x32u;
+			isSecretLevel = x_D41A0_BYTEARRAY_4_struct.levelnumber_43w > 24 && x_D41A0_BYTEARRAY_4_struct.levelnumber_43w < 50;
 			sub_47FC0_load_screen(isSecretLevel);//vga smaltitle
 #ifdef DEBUG_START
 			debug_printf("sub_46830_main_loop:load scr passed\n");
@@ -39964,7 +39964,7 @@ void sub_46830_main_loop(/*int16_t* a1, */signed int a2, unsigned __int16 a3)//2
 						{
 							count_begin++;//for debug
 
-							x_D41A0_BYTEARRAY_4_struct.levelnumber_43w = v13->word_6;
+							x_D41A0_BYTEARRAY_4_struct.levelnumber_43w = v13->levelNumber_6;
 							sub_47FC0_load_screen(true);
 							sub_56A30_init_game_level(a3);
 							sub_47160();
@@ -52847,7 +52847,7 @@ void GameEvents_51BB0(uint16_t screenWidth, uint16_t screenHeight)//232bb0
 				sub_5E660(v113x);
 			//LOWORD(a1) = x_D41A0_BYTEARRAY_4_struct.levelnumber_43;
 			x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 &= 0xD9u;
-			if (x_D41A0_BYTEARRAY_4_struct.levelnumber_43w > 0x18u)
+			if (x_D41A0_BYTEARRAY_4_struct.levelnumber_43w > 24)
 				D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dw_w_b_0_2BDE_11230.byte[2] |= 0x10u;
 			goto LABEL_215;
 		case 0x1E://cheat
@@ -58296,7 +58296,7 @@ void sub_59820()//23a820
 					}
 					if (D41A0_0.struct_0x3659C[D41A0_0.LevelIndex_0xc].substr_3659C.ObjectiveText_1)
 						PrepareEventSound_6E450(D41A0_0.LevelIndex_0xc, -1, 61);
-					if (x_D41A0_BYTEARRAY_4_struct.levelnumber_43w >= 0x1Eu && x_D41A0_BYTEARRAY_4_struct.levelnumber_43w <= 0x22u)
+					if (x_D41A0_BYTEARRAY_4_struct.levelnumber_43w >= 30 && x_D41A0_BYTEARRAY_4_struct.levelnumber_43w <= 34)
 					{
 						if (!D41A0_0.struct_0x3659C[D41A0_0.LevelIndex_0xc].substr_3659C.IsLevelEnd_0)
 						{
@@ -83547,7 +83547,7 @@ posistruct_t* xy_DWORD_17DEC8_spritestr;
 		//for (k = x_WORD_E2970; k[6]; k = (signed __int16 *)((char *)k + 17))
 		for (int kk = 0; x_WORD_E2970x[kk].word_12; kk++)
 		{
-			if (x_DWORD_17DB70str.x_WORD_17DB8A == x_WORD_E2970x[kk].word_6)
+			if (x_DWORD_17DB70str.x_WORD_17DB8A == x_WORD_E2970x[kk].levelNumber_6)
 			{
 				sub_7DA70(x_WORD_E2970x[kk].word_8, x_WORD_E2970x[kk].word_10, mapScreenPortals_E17CC[x_WORD_E2970x[kk].word_4].portalPosX_12, mapScreenPortals_E17CC[x_WORD_E2970x[kk].word_4].portalPosY_14, a2, a3);
 				return;
@@ -83745,7 +83745,7 @@ void sub_7DD70()//25ed70
 		//for (result = (int)x_WORD_E2970; *(x_WORD *)(result + 12); result += 17)
 		for (int ir = 0; x_WORD_E2970x[ir].word_12; ir++)
 		{
-			if (x_D41A0_BYTEARRAY_4_struct.levelnumber_43w == x_WORD_E2970x[ir].word_6)
+			if (x_D41A0_BYTEARRAY_4_struct.levelnumber_43w == x_WORD_E2970x[ir].levelNumber_6)
 			{
 				if (D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dw_w_b_0_2BDE_11230.byte[2] & 2)
 				{
@@ -84587,7 +84587,7 @@ int sub_7EAE0_new_game_draw(int16_t* posx, int16_t* posy, __int16* a3, __int16* 
 			{
 				for (int ii = 0; x_WORD_E2970x[ii].word_12; ii++)
 				{
-					if (x_DWORD_17DB70str.x_WORD_17DB8A == x_WORD_E2970x[ii].word_6)
+					if (x_DWORD_17DB70str.x_WORD_17DB8A == x_WORD_E2970x[ii].levelNumber_6)
 					{
 						*posx = mapScreenPortals_E17CC[x_WORD_E2970x[ii].word_4].viewPortPosX_4;
 						*posy = mapScreenPortals_E17CC[x_WORD_E2970x[ii].word_4].viewPortPosY_6;
@@ -84965,7 +84965,7 @@ int sub_7EAE0_new_game_draw(int16_t* posx, int16_t* posy, __int16* a3, __int16* 
 								v50 = *posx;
 								x_DWORD_17DB70str.x_WORD_17DB88 = 1;
 								sub_80D40_move_graphics_and_play_sounds(v50, v49, v48, x_DWORD_17DB70str.x_WORD_17DB86, 1);
-								v51 = x_WORD_E2970x[v47i].word_6;
+								v51 = x_WORD_E2970x[v47i].levelNumber_6;
 								x_DWORD_17DB70str.x_BYTE_17DB8E = 1;
 								x_D41A0_BYTEARRAY_4_struct.levelnumber_43w = v51;
 							}
@@ -85010,7 +85010,7 @@ int sub_7EAE0_new_game_draw(int16_t* posx, int16_t* posy, __int16* a3, __int16* 
 										if (x_WORD_E2970x[kk].word_12 == 1)
 										{
 											*a5 = 5;
-											x_DWORD_17DB70str.x_WORD_17DB8C = x_WORD_E2970x[kk].word_6;
+											x_DWORD_17DB70str.x_WORD_17DB8C = x_WORD_E2970x[kk].levelNumber_6;
 										}
 										break;
 									}
@@ -86482,7 +86482,7 @@ type_x_WORD_E2970* sub_824E0(__int16 a1)//2634e0
 	int ri = 0;
 	if (!x_WORD_E2970x[ri].word_12)
 		return 0;
-	while (a1 != x_WORD_E2970x[ri].word_6)
+	while (a1 != x_WORD_E2970x[ri].levelNumber_6)
 	{
 		ri++;
 		if (!x_WORD_E2970x[ri].word_12)
@@ -86810,7 +86810,7 @@ void sub_82AB0(unsigned __int8 a1)//263ab0
 		for (i = 0; x_WORD_E2970x[v4i].word_12; i++)
 		{
 			//result = a1;
-			if (a1 == x_WORD_E2970x[v4i].word_6)
+			if (a1 == x_WORD_E2970x[v4i].levelNumber_6)
 			{
 				//v6 = (int)x_D41A0_BYTEARRAY_0;
 				v7 = 5 * i;
@@ -86921,7 +86921,7 @@ void sub_82C20_drawEndGameTable(__int16 a1)//263c20
 			v2 = 0;
 			while (x_WORD_E2970x[v1i].word_12)
 			{
-				if (a1 == x_WORD_E2970x[v1i].word_6)
+				if (a1 == x_WORD_E2970x[v1i].levelNumber_6)
 				{
 					//v3 = 5 * v2;
 					v30x[2] = x_DWORD_17DDBCx[5 * v2];
