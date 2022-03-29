@@ -9,8 +9,8 @@
 typedef struct {//lenght 22
 	int16_t word_0;
 	int16_t word_2;
-	int16_t word_4;
-	int16_t word_6;
+	int16_t viewPortPosX_4;
+	int16_t viewPortPosY_6;
 	int16_t word_8;
 	int16_t word_10;
 	int16_t portalPosX_12; //X
