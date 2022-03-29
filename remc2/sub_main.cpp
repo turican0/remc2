@@ -1643,7 +1643,7 @@ void sub_47160();
 // void sub_47560_draw_and_events_in_game(int a1, int a2, x_BYTE *a3, signed int a4, __int16 a5);
 void sub_47650(int a1/*, int a2*/);
 void PaletteChanges_47760(/*int a1,*/uint32_t user/* int a2, int a3*/);
-void sub_47FC0_load_screen(char a1);
+void sub_47FC0_load_screen(bool isSecretLevel);
 void sub_480A0_set_clear_pallette(/*int a1, int a2, int a3*/);
 void sub_48120();
 void sub_48350();
@@ -39801,8 +39801,7 @@ void sub_46830_main_loop(/*int16_t* a1, */signed int a2, unsigned __int16 a3)//2
 
   //int8_t* v4; // eax
 	int v5; // edx
-	unsigned __int16 v6; // dx
-	bool v7; // al
+	bool isSecretLevel; // al
 	//unsigned __int8 v8; // dl
 	unsigned __int8 v9; // al
 	unsigned __int8 v10; // al
@@ -39849,9 +39848,8 @@ void sub_46830_main_loop(/*int16_t* a1, */signed int a2, unsigned __int16 a3)//2
 #ifdef DEBUG_START
 			debug_printf("sub_46830_main_loop:before load scr\n");
 #endif //DEBUG_START
-			v6 = x_D41A0_BYTEARRAY_4_struct.levelnumber_43w;
-			v7 = v6 > 0x18u && v6 < 0x32u;
-			sub_47FC0_load_screen(v7);//vga smaltitle
+			isSecretLevel = x_D41A0_BYTEARRAY_4_struct.levelnumber_43w > 0x18u && x_D41A0_BYTEARRAY_4_struct.levelnumber_43w < 0x32u;
+			sub_47FC0_load_screen(isSecretLevel);//vga smaltitle
 #ifdef DEBUG_START
 			debug_printf("sub_46830_main_loop:load scr passed\n");
 #endif //DEBUG_START
@@ -39967,7 +39965,7 @@ void sub_46830_main_loop(/*int16_t* a1, */signed int a2, unsigned __int16 a3)//2
 							count_begin++;//for debug
 
 							x_D41A0_BYTEARRAY_4_struct.levelnumber_43w = v13->word_6;
-							sub_47FC0_load_screen(1);
+							sub_47FC0_load_screen(true);
 							sub_56A30_init_game_level(a3);
 							sub_47160();
 						}
@@ -41012,7 +41010,7 @@ void PaletteChanges_47760(/*int a1,*/uint32_t  /*user*//* int a2, int a3*/)//228
 // F42A0: using guessed type int x_DWORD_F42A0;
 
 //----- (00047FC0) --------------------------------------------------------
-void sub_47FC0_load_screen(char a1)//228fc0
+void sub_47FC0_load_screen(bool isSecretLevel)//228fc0
 {
 	char dataPath[MAX_PATH];
 
@@ -41024,7 +41022,7 @@ void sub_47FC0_load_screen(char a1)//228fc0
 	sub_90B27_VGA_pal_fadein_fadeout((TColor*)*xadatapald0dat2.var28_begin_buffer, 0x20u, 0);
 	//debug
 
-	if (a1)
+	if (isSecretLevel)
 	{
 		sprintf(dataPath, "%s/%s", cdDataPath, "DATA/SMATITL2.DAT");
 		DataFileIO::ReadFileAndDecompress(dataPath, &x_DWORD_E9C38_smalltit);
@@ -41039,7 +41037,7 @@ void sub_47FC0_load_screen(char a1)//228fc0
 		sub_90478_VGA_Blit320();
 	else
 		sub_75200_VGA_Blit640(480);
-	if (a1)
+	if (isSecretLevel)
 	{
 		sprintf(dataPath, "%s/%s", cdDataPath, "DATA/SMATITL2.PAL");
 		DataFileIO::ReadFileAndDecompress(dataPath, xadatapald0dat2.var28_begin_buffer);
