@@ -79733,16 +79733,13 @@ char sub_780F0_load_game_dialog(type_WORD_E1F84* a1x)//0x2590f0
 	FILE* SEARCH_FILE; // esi
 	FILE* FILE; // eax
 	__int16 v12; // ax
-	int v13x;
-	int v14x;
-	__int16 v15; // si
 	int v16x;
 	__int16 v17; // si
 	char v18; // cl
 	char v26; // ch
 	type_WORD_E1F84 v34x; // [esp+50h] [ebp-6h]
 	int v40; // [esp+88h] [ebp+32h]
-	int v42; // [esp+94h] [ebp+3Eh]
+	int numLevelsCompleted; // [esp+94h] [ebp+3Eh]
 	uint32_t dword_0; // [esp+98h] [ebp+42h]
 	int v44; // [esp+9Ch] [ebp+46h]
 	__int16 v51; // [esp+B8h] [ebp+62h]
@@ -79753,7 +79750,7 @@ char sub_780F0_load_game_dialog(type_WORD_E1F84* a1x)//0x2590f0
 	v40 = 0;
 	//fix it
 
-	v42 = 0;
+	numLevelsCompleted = 0;
 	v44 = 0;
 	v55 = 0;
 	//v1 = a1x->word_26;
@@ -79804,6 +79801,7 @@ char sub_780F0_load_game_dialog(type_WORD_E1F84* a1x)//0x2590f0
 		sub_7C020(&a1x->str_26);
 		if ((x_BYTE)v51 == 1 && x_DWORD_17DE38str.x_WORD_17DF04 > 0)
 		{
+			//Load Saved Game
 			GetSaveGameFile(printbuffer, gameFolder, x_DWORD_17DE38str.x_WORD_17DF04);
 			FILE = DataFileIO::CreateOrOpenFile(printbuffer, 512);
 			//v10 = v9;
@@ -79834,7 +79832,7 @@ char sub_780F0_load_game_dialog(type_WORD_E1F84* a1x)//0x2590f0
 					//v11 = (__int16 *)((char *)v11 + 17);
 					}
 					DataFileIO::Read(FILE, (uint8_t*)&D41A0_0.m_GameSettings, 16);
-					DataFileIO::Read(FILE, (uint8_t*)&v42, 4);
+					DataFileIO::Read(FILE, (uint8_t*)&numLevelsCompleted, 4);
 					DataFileIO::Read(FILE, (uint8_t*)&v44, 4);
 					DataFileIO::Read(FILE, (uint8_t*)&D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x3E6_2BE4_12228.str_611, 505);
 					DataFileIO::Read(FILE, (uint8_t*)x_DWORD_17DBC8x, 500);
@@ -79842,35 +79840,33 @@ char sub_780F0_load_game_dialog(type_WORD_E1F84* a1x)//0x2590f0
 					DataFileIO::Close(FILE);
 					//v13 = (x_WORD*)unk_E17CC_0x194;
 					D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dw_w_b_0_2BDE_11230.word[1] = 0;
-					v13x = 0;
-					while (mapScreenPortals_E17CC[v13x].viewPortPosX_4)
+
+					int i = 0;
+					//Reset all Portals to inactive
+					while (mapScreenPortals_E17CC[i].viewPortPosX_4)
 					{
 						//v13 += 11;
 						//*((x_BYTE *)v13 - 4) = 2;
-						mapScreenPortals_E17CC[v13x].activated_18 = 2;
-						v13x++;
+						mapScreenPortals_E17CC[i].activated_18 = 2;
+						i++;
 					}
-					//v14 = (x_WORD*)unk_E17CC_0x194;
-					v14x = 0;
-					v15 = 0;
-					while (v15 < v42 && mapScreenPortals_E17CC[v14x].viewPortPosX_4)
+
+					i = 0;
+					//Load completed Portals
+					while (i < numLevelsCompleted && mapScreenPortals_E17CC[i].viewPortPosX_4)
 					{
-						mapScreenPortals_E17CC[v14x].activated_18 = 1;
-						//v14 += 11;
-						v15++;
-						//*((x_BYTE *)v14 - 4) = 1;
-						v14x++;
+						mapScreenPortals_E17CC[i].activated_18 = 1;
+						i++;
 					}
-					//v16 = (char *)unk_E17CC_0x194;
-					v16x = 0;
-					v17 = 0;
-					while (mapScreenPortals_E17CC[v16x].viewPortPosX_4)
+
+					i = 0;
+					//Set current level number
+					while (mapScreenPortals_E17CC[i].viewPortPosX_4)
 					{
-						if (mapScreenPortals_E17CC[v16x].activated_18 == 1)
-							x_D41A0_BYTEARRAY_4_struct.levelnumber_43w = v17;
+						if (mapScreenPortals_E17CC[i].activated_18 == 1)
+							x_D41A0_BYTEARRAY_4_struct.levelnumber_43w = i;
 						//v16 += 22;
-						v16x++;
-						v17++;
+						i++;
 					}
 					x_DWORD_17DB70str.x_BYTE_17DB8F = 1;
 					memset(&x_DWORD_17DE28str, 0, 13);
