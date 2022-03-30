@@ -339,6 +339,7 @@
     <ClInclude Include="engine\Type_E9C38_Smalltit.h" />
     <ClInclude Include="engine\Type_F2C20ar.h" />
     <ClInclude Include="engine\Type_MapScreenPortals_E17CC.h" />
+    <ClInclude Include="engine\Type_SecretMapScreenPortals_E2970.h" />
     <ClInclude Include="engine\Type_Unk_F0E20x.h" />
     <ClInclude Include="engine\Type_WORD_D951C.h" />
     <ClInclude Include="engine\ViewPort.h" />
@@ -445,6 +446,7 @@
     <ClCompile Include="engine\Type_D93C0_Bldgprmbuffer.cpp" />
     <ClCompile Include="engine\Type_D94F0_Bldgprmbuffer.cpp" />
     <ClCompile Include="engine\Type_MapScreenPortals_E17CC.cpp" />
+    <ClCompile Include="engine\Type_SecretMapScreenPortals_E2970.cpp" />
     <ClCompile Include="engine\Type_WORD_D951C.cpp" />
     <ClCompile Include="engine\XUnk_D4350.cpp" />
     <ClCompile Include="engine\RenderThread.cpp" />

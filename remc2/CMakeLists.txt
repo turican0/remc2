@@ -47,6 +47,8 @@ set(SOURCE_FILES_ENGINE
     "engine/Type_D94F0_Bldgprmbuffer.h"
     "engine/Type_MapScreenPortals_E17CC.cpp"
     "engine/Type_MapScreenPortals_E17CC.h"
+    "engine/Type_SecretMapScreenPortals_E2970.cpp"
+    "engine/Type_SecretMapScreenPortals_E2970.h"
     "engine/Type_D404C.cpp"
     "engine/Type_D404C.h"
     "engine/Type_WORD_D951C.cpp"
