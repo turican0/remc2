@@ -77728,26 +77728,6 @@ void VGA_BlitAny(uint16_t width, uint16_t height, uint8_t* pScreenBuffer)//25620
 #endif
 }
 
-
-void VGA_CalculateAndPrintFPS(int x, int y)
-{
-	timeDelta += clock() - frameStart;
-	frameCount++;
-
-	if (clockToMilliseconds(timeDelta) > 1000.0)
-	{
-		fps = frameCount;
-		frameCount = 0;
-		timeDelta = 0;
-	}
-
-	VGA_GotoXY(x, y);
-	std::string fpsStr = "FPS: ";
-	fpsStr.append(std::to_string(fps));
-	const char* cstr = fpsStr.c_str();
-
-	VGA_Draw_string((char*)fpsStr.c_str());
-}
 //----- (000753D0) --------------------------------------------------------
 void sub_753D0()
 {

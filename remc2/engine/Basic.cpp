@@ -1554,6 +1554,7 @@ void sub_90478_VGA_Blit320()//271478
 	mydelay(newdelay);//set speed
 	oldmillis = actmillis;
 	//set speed
+	VGA_CalculateAndPrintFPS(0, 0);
 }
 
 //----- (0006FC30) --------------------------------------------------------
@@ -1685,6 +1686,27 @@ void DrawText_2BC10(const char* textbuffer, int16_t posx, int16_t posy, uint8_t 
 	}
 	//return result;
 }
+
+void VGA_CalculateAndPrintFPS(int x, int y)
+{
+	timeDelta += clock() - frameStart;
+	frameCount++;
+
+	if (clockToMilliseconds(timeDelta) > 1000.0)
+	{
+		fps = frameCount;
+		frameCount = 0;
+		timeDelta = 0;
+	}
+
+	VGA_GotoXY(x, y);
+	std::string fpsStr = "FPS: ";
+	fpsStr.append(std::to_string(fps));
+	const char* cstr = fpsStr.c_str();
+
+	VGA_Draw_string((char*)fpsStr.c_str());
+}
+
 // D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
 // E9C3C: using guessed type int x_DWORD_E9C3C;
 // 180628: using guessed type int pdwScreenBuffer;
