@@ -26,9 +26,11 @@ typedef struct
 
 void VGA_Init(int width, int height, bool maintainAspectRatio);
 void VGA_Init(Uint32 flags, int width, int height, bool maintainAspectRatio);
+bool VGA_LoadFont();
 void VGA_close();
 void VGA_Resize(int width, int height);
 void VGA_Blit(uint16_t width, uint16_t height, Uint8* srcBuffer);
+void SubBlit(uint16_t originalResWidth, uint16_t originalResHeight);
 void VGA_Debug_Blit(int width, int height, Uint8* srcBuffer);
 void VGA_Set_pallette(Uint8* pallettebuffer);
 void VGA_Set_pallette2(Uint8* pallettebuffer);
@@ -52,6 +54,7 @@ void setPress(bool locpressed, uint16_t loclastchar);
 
 void VGA_mouse_clear_keys();
 void VGA_cleanKeyBuffer();
+void Draw_debug_matrix1();
 
 extern uint8_t LastPressedKey_1806E4; // weak//3516e4
 extern int8_t pressedKeys_180664[128]; // idb

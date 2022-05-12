@@ -9,15 +9,14 @@
 extern DOS_Device* DOS_CON;
 #endif //USE_DOSBOX
 
-SDL_Window* gWindow = NULL;
-SDL_Renderer* renderer = NULL;
-SDL_Texture* texture = NULL;
-SDL_Surface* helper_surface = NULL;
+SDL_Window* m_window = NULL;
+SDL_Renderer* m_renderer = NULL;
+SDL_Texture* m_texture = NULL;
+SDL_Surface* m_gamePalletisedSurface = NULL;
+SDL_Surface* m_gameRGBASurface = NULL;
 
 uint8_t LastPressedKey_1806E4; //3516e4
 int8_t pressedKeys_180664[128]; // idb
-
-SDL_Surface* screen;
 
 uint16_t m_iOrigw = 640;
 uint16_t m_iOrigh = 480;
@@ -32,59 +31,112 @@ const char* default_caption = "Magic Carpet 2 - Community Update";
 bool inited = false;
 Uint8 temppallettebuffer[768];
 
+// Initalize Color Masks.
+#if SDL_BYTEORDER == SDL_BIG_ENDIAN
+Uint32 redMask = 0xff000000;
+Uint32 greenMask = 0x00ff0000;
+Uint32 blueMask = 0x0000ff00;
+Uint32 alphaMask = 0x000000ff;
+#else
+Uint32 redMask = 0x000000ff;
+Uint32 greenMask = 0x0000ff00;
+Uint32 blueMask = 0x00ff0000;
+Uint32 alphaMask = 0xff000000;
+#endif
+
+void VGA_Init(Uint32  /*flags*/, int width, int height, bool maintainAspectRatio)
+{
+	m_bMaintainAspectRatio = maintainAspectRatio;
+
+	if (!inited)
+	{
+		//Initialize SDL
+		if (SDL_Init(SDL_INIT_VIDEO) < 0)
+		{
+			printf("SDL could not initialize! SDL_Error: %s\n", SDL_GetError());
+			exit(0);
+			//success = false;
+		}
+		else
+		{
+			init_sound();
+
+			SDL_ShowCursor(0);
+			// Set hint before you create the Renderer!
+			SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "0");
+			SDL_SetHint(SDL_HINT_FRAMEBUFFER_ACCELERATION, "1");
+			SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");
+
+			SDL_DisplayMode dm;
+			if (SDL_GetDesktopDisplayMode(0, &dm) != 0) {
+				SDL_Log("SDL_GetDesktopDisplayMode failed: %s", SDL_GetError());
+				return;
+			}
+
+			SDL_WindowFlags test_fullscr = SDL_WINDOW_SHOWN;
+			m_window = SDL_CreateWindow(default_caption, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width/*dm.w*/, height/*dm.h*/, test_fullscr);
+			SDL_SetWindowGrab(m_window, settingWindowGrabbed ? SDL_TRUE : SDL_FALSE);
+
+			m_renderer =
+				SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED |
+					SDL_RENDERER_TARGETTEXTURE);
+
+			SDL_SetRenderDrawColor(m_renderer, 0x00, 0x00, 0x00, 0xFF);
+
+			// Now create your surface and convert the pixel format right away!
+			// Converting the pixel format to match the texture makes for quicker updates, otherwise
+			// It has to do the conversion each time you update the texture manually. This slows everything down.
+			// Do it once, and don't have to worry about it again.
+
+			m_gamePalletisedSurface =
+				SDL_CreateRGBSurface(
+					SDL_SWSURFACE, width, height, 24,
+					redMask, greenMask, blueMask, alphaMask);
+
+			m_gamePalletisedSurface =
+				SDL_ConvertSurfaceFormat(
+					m_gamePalletisedSurface, SDL_PIXELFORMAT_INDEX8, 0);
+
+			m_gameRGBASurface =
+				SDL_CreateRGBSurface(
+					SDL_SWSURFACE, width, height, 24,
+					redMask, greenMask, blueMask, alphaMask);
+
+			m_gameRGBASurface =
+				SDL_ConvertSurfaceFormat(
+					m_gameRGBASurface, SDL_PIXELFORMAT_RGB888/*SDL_PIXELFORMAT_ARGB8888*/, 0);
+
+			m_texture = SDL_CreateTexture(m_renderer,
+				SDL_PIXELFORMAT_RGB888/*SDL_PIXELFORMAT_ARGB8888*/,
+				SDL_TEXTUREACCESS_STREAMING,
+				m_gameRGBASurface->w, m_gamePalletisedSurface->h);
+
+			SDL_SetTextureBlendMode(m_texture, SDL_BLENDMODE_BLEND);
+
+			// Sure clear the screen first.. always nice.
+			SDL_RenderClear(m_renderer);
+			SDL_RenderPresent(m_renderer);
+		}
+		if (!VGA_LoadFont())
+		{
+			printf("Failed to load font!\n");
+			exit(-1);
+		}
+
+		Set_basic_pallette1();
+		Draw_debug_matrix1();
+		inited = true;
+	}
+}
+
 Uint8* VGA_Get_pallette() {
 	return temppallettebuffer;
 }
 
 uint16_t lastResHeight=0;
 
-void SubBlit(uint16_t originalResWidth, uint16_t originalResHeight) {
-	if (originalResHeight != lastResHeight)
-	{
-		SDL_RenderClear(renderer);
-		lastResHeight = originalResHeight;
-	}
-	SDL_BlitSurface(screen, NULL, helper_surface, NULL);
-	SDL_UpdateTexture(texture, NULL/*&rect*/, helper_surface->pixels, helper_surface->pitch);
-	
-	SDL_Rect dscrect;
-	if (m_bMaintainAspectRatio)
-	{
-		float widthRatio = (float)helper_surface->w / (float)originalResWidth;
-		float heightRatio = (float)helper_surface->h / (float)originalResHeight;
-
-		if (widthRatio >= heightRatio)
-		{
-			dscrect.w = (int)((float)originalResWidth * heightRatio);
-			dscrect.h = (int)((float)originalResHeight * heightRatio);
-			dscrect.x = (helper_surface->w - dscrect.w) /2;
-			dscrect.y = 0;
-		}
-		else
-		{
-			dscrect.w = (int)((float)originalResWidth * widthRatio);
-			dscrect.h = (int)((float)originalResHeight * widthRatio);
-			dscrect.x = 0;
-			dscrect.y = (helper_surface->h - dscrect.h) / 2;
-		}
-		SDL_RenderCopy(renderer, texture, NULL, &dscrect);
-	}
-	else
-	{
-
-		dscrect.w = helper_surface->w;
-		dscrect.h = helper_surface->h;
-		dscrect.x = 0;
-		dscrect.y = 0;
-		SDL_RenderCopy(renderer, texture, NULL, &dscrect);
-	}
-
-	SDL_RenderPresent(renderer);
-	SDL_RenderClear(renderer);
-}
-
 void SubSet_pallette(SDL_Color* colors) {
-	SDL_SetPaletteColors(screen->format->palette, colors, 0, 256);
+	SDL_SetPaletteColors(m_gamePalletisedSurface->format->palette, colors, 0, 256);
 	SubBlit(m_iOrigw, m_iOrigh);
 }
 
@@ -168,8 +220,8 @@ void putpixel(SDL_Surface* surface, int x, int y, Uint32 pixel)
 
 void Draw_debug_matrix0() {
 	SDL_Rect dstrect;
-	if (SDL_MUSTLOCK(screen)) {
-		if (SDL_LockSurface(screen) < 0) {
+	if (SDL_MUSTLOCK(m_gamePalletisedSurface)) {
+		if (SDL_LockSurface(m_gamePalletisedSurface) < 0) {
 			fprintf(stderr, "Can't lock screen: %s\n", SDL_GetError());
 			return;
 		}
@@ -178,23 +230,23 @@ void Draw_debug_matrix0() {
 	for (int i = 0; i < 16; i++)
 		for (int j = 0; j < 16; j++)
 		{
-			dstrect.x = i * screen->w / 16;
-			dstrect.y = j * screen->h / 16;
-			dstrect.w = screen->w / 16;
-			dstrect.h = screen->h / 16;
-			SDL_FillRect(screen, &dstrect, i * 16 + j/*SDL_MapRGB(screen->format, i*16+j, 0, 0)*/);
+			dstrect.x = i * m_gamePalletisedSurface->w / 16;
+			dstrect.y = j * m_gamePalletisedSurface->h / 16;
+			dstrect.w = m_gamePalletisedSurface->w / 16;
+			dstrect.h = m_gamePalletisedSurface->h / 16;
+			SDL_FillRect(m_gamePalletisedSurface, &dstrect, i * 16 + j/*SDL_MapRGB(screen->format, i*16+j, 0, 0)*/);
 		}
 
-	if (SDL_MUSTLOCK(screen)) {
-		SDL_UnlockSurface(screen);
+	if (SDL_MUSTLOCK(m_gamePalletisedSurface)) {
+		SDL_UnlockSurface(m_gamePalletisedSurface);
 	}
 	SubBlit(m_iOrigw, m_iOrigh);
 };
 
 void Draw_debug_matrix1() {
 	SDL_Rect dstrect;
-	if (SDL_MUSTLOCK(screen)) {
-		if (SDL_LockSurface(screen) < 0) {
+	if (SDL_MUSTLOCK(m_gamePalletisedSurface)) {
+		if (SDL_LockSurface(m_gamePalletisedSurface) < 0) {
 			fprintf(stderr, "Can't lock screen: %s\n", SDL_GetError());
 			return;
 		}
@@ -203,15 +255,15 @@ void Draw_debug_matrix1() {
 	for (int i = 0; i < 16; i++)
 		for (int j = 0; j < 16; j++)
 		{
-			dstrect.x = i * screen->w / 16;
-			dstrect.y = j * screen->h / 16;
-			dstrect.w = screen->w / 16;
-			dstrect.h = screen->h / 16;
-			SDL_FillRect(screen, &dstrect, 1);
+			dstrect.x = i * m_gamePalletisedSurface->w / 16;
+			dstrect.y = j * m_gamePalletisedSurface->h / 16;
+			dstrect.w = m_gamePalletisedSurface->w / 16;
+			dstrect.h = m_gamePalletisedSurface->h / 16;
+			SDL_FillRect(m_gamePalletisedSurface, &dstrect, 1);
 		}
 
-	if (SDL_MUSTLOCK(screen)) {
-		SDL_UnlockSurface(screen);
+	if (SDL_MUSTLOCK(m_gamePalletisedSurface)) {
+		SDL_UnlockSurface(m_gamePalletisedSurface);
 	}
 	SubBlit(m_iOrigw, m_iOrigh);
 };
@@ -256,7 +308,7 @@ void Draw_letter(int letter_number, int pozx, int pozy) {
 	dstrect.y = 16 * pozy;
 	dstrect.w = 16;
 	dstrect.h = 16;
-	SDL_BlitSurface(surface_font, &srcrect, screen, &dstrect);
+	SDL_BlitSurface(surface_font, &srcrect, m_gamePalletisedSurface, &dstrect);
 };
 
 void Draw_letterToBuffer(int letter_number, int pozx, int pozy, uint8_t* buffer) {
@@ -299,11 +351,11 @@ POSITION VGA_WhereXY() {
 };
 
 void VGA_Draw_string(char* wrstring) {
-	if(!screen)return;
+	if(!m_gamePalletisedSurface)return;
 	SDL_Rect srcrect = { 0,0,0,0 };
 	SDL_Rect dstrect = { 0,0,0,0 };
-	if (SDL_MUSTLOCK(screen)) {
-		if (SDL_LockSurface(screen) < 0) {
+	if (SDL_MUSTLOCK(m_gamePalletisedSurface)) {
+		if (SDL_LockSurface(m_gamePalletisedSurface) < 0) {
 			fprintf(stderr, "Can't lock screen: %s\n", SDL_GetError());
 			return;
 		}
@@ -323,8 +375,8 @@ void VGA_Draw_string(char* wrstring) {
 		}
 	}
 
-	if (SDL_MUSTLOCK(screen)) {
-		SDL_UnlockSurface(screen);
+	if (SDL_MUSTLOCK(m_gamePalletisedSurface)) {
+		SDL_UnlockSurface(m_gamePalletisedSurface);
 	}
 	SubBlit(m_iOrigw, m_iOrigh);
 	mydelay(10);
@@ -354,103 +406,6 @@ void VGA_Init(int width, int height, bool maintainAspectRatio) {
 }
 
 SDL_Rect dst;
-
-// Initalize Color Masks.
-#if SDL_BYTEORDER == SDL_BIG_ENDIAN
-Uint32 redMask = 0xff000000;
-Uint32 greenMask = 0x00ff0000;
-Uint32 blueMask = 0x0000ff00;
-Uint32 alphaMask = 0x000000ff;
-#else
-Uint32 redMask = 0x000000ff;
-Uint32 greenMask = 0x0000ff00;
-Uint32 blueMask = 0x00ff0000;
-Uint32 alphaMask = 0xff000000;
-#endif
-
-void VGA_Init(Uint32  /*flags*/, int width, int height, bool maintainAspectRatio)
-{
-	m_bMaintainAspectRatio = maintainAspectRatio;
-
-	if (!inited)
-	{
-		//Initialize SDL
-		if (SDL_Init(SDL_INIT_VIDEO) < 0)
-		{
-			printf("SDL could not initialize! SDL_Error: %s\n", SDL_GetError());
-			exit(0);
-			//success = false;
-		}
-		else
-		{
-			init_sound();
-
-			SDL_ShowCursor(0);
-			// Set hint before you create the Renderer!
-			SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "0");
-			SDL_SetHint(SDL_HINT_FRAMEBUFFER_ACCELERATION, "1");
-			SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");
-
-			SDL_DisplayMode dm;
-			if (SDL_GetDesktopDisplayMode(0, &dm) != 0) {
-				SDL_Log("SDL_GetDesktopDisplayMode failed: %s", SDL_GetError());
-				return;
-			}
-
-			SDL_WindowFlags test_fullscr = SDL_WINDOW_SHOWN;
-			gWindow = SDL_CreateWindow(default_caption, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width/*dm.w*/, height/*dm.h*/, test_fullscr);
-			SDL_SetWindowGrab(gWindow, settingWindowGrabbed ? SDL_TRUE : SDL_FALSE);
-
-			renderer =
-				SDL_CreateRenderer(gWindow, -1, SDL_RENDERER_ACCELERATED |
-					SDL_RENDERER_TARGETTEXTURE);
-
-			SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0xFF);
-
-			// Now create your surface and convert the pixel format right away!
-			// Converting the pixel format to match the texture makes for quicker updates, otherwise
-			// It has to do the conversion each time you update the texture manually. This slows everything down.
-			// Do it once, and don't have to worry about it again.
-
-			helper_surface =
-				SDL_CreateRGBSurface(
-					SDL_SWSURFACE, width, height, 24,
-					redMask, greenMask, blueMask, alphaMask);
-
-			helper_surface =
-				SDL_ConvertSurfaceFormat(
-					helper_surface, SDL_PIXELFORMAT_RGB888/*SDL_PIXELFORMAT_ARGB8888*/, 0);
-
-			screen =
-				SDL_CreateRGBSurface(
-					SDL_SWSURFACE, width, height, 24,
-					redMask, greenMask, blueMask, alphaMask);
-			screen =
-				SDL_ConvertSurfaceFormat(
-					screen, SDL_PIXELFORMAT_INDEX8, 0);
-
-			texture = SDL_CreateTexture(renderer,
-				SDL_PIXELFORMAT_RGB888/*SDL_PIXELFORMAT_ARGB8888*/,
-				SDL_TEXTUREACCESS_STREAMING,
-				helper_surface->w, helper_surface->h);
-
-			SDL_SetTextureBlendMode(texture, SDL_BLENDMODE_BLEND);
-
-			// Sure clear the screen first.. always nice.
-			SDL_RenderClear(renderer);
-			SDL_RenderPresent(renderer);
-		}
-		if (!VGA_LoadFont())
-		{
-			printf("Failed to load font!\n");
-			exit(-1);
-		}
-
-		Set_basic_pallette1();
-		Draw_debug_matrix1();
-		inited = true;
-	}
-}
 
 void VGA_Resize(int width, int height) {
 	m_iOrigw = width;
@@ -506,30 +461,6 @@ void VGA_Set_pallette2(Uint8* pallettebuffer) {
 
 void VGA_Write_basic_pallette(Uint8* pallettebuffer) {
 	memcpy(temppallettebuffer, pallettebuffer, 768);
-}
-
-void VGA_test() {
-	int x = screen->w / 2;
-	int y = screen->h / 2;
-
-	/* Lock the screen for direct access to the pixels */
-	if (SDL_MUSTLOCK(screen)) {
-		if (SDL_LockSurface(screen) < 0) {
-			fprintf(stderr, "Can't lock screen: %s\n", SDL_GetError());
-			return;
-		}
-	}
-
-	for (int i = 0; i < 600; i++)
-		for (int j = 0; j < 400; j++)
-			putpixel(screen, i, j, 127);
-
-	if (SDL_MUSTLOCK(screen)) {
-		SDL_UnlockSurface(screen);
-	}
-	/* Update just the part of the display that we've changed */
-
-	SubBlit(m_iOrigw, m_iOrigh);
 }
 
 /*
@@ -650,7 +581,7 @@ Right Ctrl (101-key)      *       *       *       *       *       *       *     
 
 void ToggleFullscreen() {
 	Uint32 FullscreenFlag = SDL_WINDOW_FULLSCREEN;
-	bool IsFullscreen = SDL_GetWindowFlags(gWindow) & FullscreenFlag;
+	bool IsFullscreen = SDL_GetWindowFlags(m_window) & FullscreenFlag;
 
 	SDL_DisplayMode dm;
 	if (SDL_GetDesktopDisplayMode(0, &dm) != 0) {
@@ -671,13 +602,13 @@ void ToggleFullscreen() {
 
 	if (!(IsFullscreen ? 0 : FullscreenFlag))
 	{
-		SDL_SetWindowFullscreen(gWindow, IsFullscreen ? 0 : FullscreenFlag);
-		SDL_SetWindowSize(gWindow, dm.w, dm.h);
+		SDL_SetWindowFullscreen(m_window, IsFullscreen ? 0 : FullscreenFlag);
+		SDL_SetWindowSize(m_window, dm.w, dm.h);
 	}
 	else
 	{
-		SDL_SetWindowFullscreen(gWindow, IsFullscreen ? 0 : FullscreenFlag);
-		SDL_SetWindowDisplayMode(gWindow, &dm);
+		SDL_SetWindowFullscreen(m_window, IsFullscreen ? 0 : FullscreenFlag);
+		SDL_SetWindowDisplayMode(m_window, &dm);
 	}
 }
 
@@ -689,7 +620,7 @@ bool handleSpecialKeys(const SDL_Event &event) {
 	}
 	else if ((event.key.keysym.sym == SDLK_F10) && (event.key.keysym.mod & KMOD_CTRL)) {
 		settingWindowGrabbed = !settingWindowGrabbed;
-		SDL_SetWindowGrab(gWindow, settingWindowGrabbed ? SDL_TRUE : SDL_FALSE);
+		SDL_SetWindowGrab(m_window, settingWindowGrabbed ? SDL_TRUE : SDL_FALSE);
 		std::cout << "Set window grab to " << (settingWindowGrabbed ? "true" : "false") << std::endl;
 		specialKey = true;
 	}
@@ -803,107 +734,99 @@ int events()
 }
 
 void VGA_Set_mouse(int16_t x, int16_t y) {
-	SDL_WarpMouseInWindow(gWindow, x, y);
+	SDL_WarpMouseInWindow(m_window, x, y);
 };
 
 void VGA_Blit(uint16_t width, uint16_t height, Uint8* srcBuffer) {
 	events();
-	if (SDL_MUSTLOCK(screen)) {
-		if (SDL_LockSurface(screen) < 0) {
+
+	if (height != m_gamePalletisedSurface->h)
+	{
+		SDL_RenderClear(m_renderer);
+		SDL_FreeSurface(m_gamePalletisedSurface);
+
+		m_gamePalletisedSurface =
+			SDL_CreateRGBSurface(
+				SDL_SWSURFACE, width, height, 24,
+				redMask, greenMask, blueMask, alphaMask);
+
+		m_gamePalletisedSurface =
+			SDL_ConvertSurfaceFormat(
+				m_gamePalletisedSurface, SDL_PIXELFORMAT_INDEX8, 0);
+
+		lastResHeight = height;
+	}
+
+	if (SDL_MUSTLOCK(m_gamePalletisedSurface)) {
+		if (SDL_LockSurface(m_gamePalletisedSurface) < 0) {
 			fprintf(stderr, "Can't lock screen: %s\n", SDL_GetError());
 			return;
 		}
 	}
 
-	if ((width == screen->w) && (height == screen->h)) //If same Resolution direct copy
-	{
-		memcpy(screen->pixels, srcBuffer, screen->h * screen->w);
-	}
-	else if ((width * 2 == screen->w) && (height * 2 == screen->h)) //2x resolution
-	{
-		int k = 0;
-		int l = 0;
-		for (int i = 0; i < screen->w; i++)
-		{
-			for (int j = 0; j < screen->h; j++)
-			{
-				((uint8_t*)screen->pixels)[i + j * screen->w] = srcBuffer[k + l * width];
-				l += j % 2;
-			}
-			k += i % 2;
-			l = 0;
-		}
-	}
-	else//any resolution
-	{
-		int k = 0;
-		int l = 0;
-		float xscale = (float)width / (float)screen->w;
-		float yscale = (float)height / (float)screen->h;
-		for (int i = 0; i < screen->w; i++)
-		{
-			k = (int)(i * xscale);
-			for (int j = 0; j < screen->h; j++)//49+1 - final size
-			{				
-				l = (int)(j * yscale);
-				((uint8_t*)screen->pixels)[i + j * screen->w] = srcBuffer[k + l * width];
-			}
-		}
-	}
-	if (SDL_MUSTLOCK(screen)) {
-		SDL_UnlockSurface(screen);
+	memcpy(m_gamePalletisedSurface->pixels, srcBuffer, m_gamePalletisedSurface->h * m_gamePalletisedSurface->w);
+
+	if (SDL_MUSTLOCK(m_gamePalletisedSurface)) {
+		SDL_UnlockSurface(m_gamePalletisedSurface);
 	}
 	SubBlit(width, height);
 	SOUND_UPDATE();
 }
 
-void VGA_Debug_Blit(int width, int height, Uint8* buffer) {
-	VGA_Blit(width, height, buffer);
-}
+void SubBlit(uint16_t originalResWidth, uint16_t originalResHeight) {
 
-void VGA_Init_test() {
-	/* Create a display surface with a grayscale palette */
-	SDL_Color colors[256];
-	//neco
-			/* Fill colors with color information */
-	for (int i = 0; i < 256; i++) {
-		colors[i].r = i;
-		colors[i].g = i;
-		colors[i].b = i;
-	}
+	SDL_Rect rectSrc;
+	rectSrc.x = 0;
+	rectSrc.y = 0;
+	rectSrc.w = originalResWidth;
+	rectSrc.h = originalResHeight;
 
-	/* Create display */
+	SDL_Rect dscrect;
+	if (m_bMaintainAspectRatio)
+	{
+		float widthRatio = (float)m_gameRGBASurface->w / (float)originalResWidth;
+		float heightRatio = (float)m_gameRGBASurface->h / (float)originalResHeight;
 
-	if (!screen) {
-		printf("Couldn't set video mode: %s\n", SDL_GetError());
-		exit(-1);
-	}
-
-	/* Set palette */
-
-	SDL_SetPaletteColors(screen->format->palette, colors, 0, 256);
-
-	int x = screen->w / 2;
-	int y = screen->h / 2;
-
-	/* Lock the screen for direct access to the pixels */
-	if (SDL_MUSTLOCK(screen)) {
-		if (SDL_LockSurface(screen) < 0) {
-			fprintf(stderr, "Can't lock screen: %s\n", SDL_GetError());
-			return;
+		if (widthRatio >= heightRatio)
+		{
+			dscrect.w = (int)((float)originalResWidth * heightRatio);
+			dscrect.h = (int)((float)originalResHeight * heightRatio);
+			dscrect.x = (m_gameRGBASurface->w - dscrect.w) / 2;
+			dscrect.y = 0;
+		}
+		else
+		{
+			dscrect.w = (int)((float)originalResWidth * widthRatio);
+			dscrect.h = (int)((float)originalResHeight * widthRatio);
+			dscrect.x = 0;
+			dscrect.y = (m_gameRGBASurface->h - dscrect.h) / 2;
 		}
 	}
-
-	for (int i = 0; i < 600; i++)
-		for (int j = 0; j < 400; j++)
-			putpixel(screen, i, j, 127);
-
-	if (SDL_MUSTLOCK(screen)) {
-		SDL_UnlockSurface(screen);
+	else
+	{
+		dscrect.w = m_gameRGBASurface->w;
+		dscrect.h = m_gameRGBASurface->h;
+		dscrect.x = 0;
+		dscrect.y = 0;
 	}
-	/* Update just the part of the display that we've changed */
 
-	SDL_UpdateWindowSurface(gWindow);
+	SDL_BlitSurface(m_gamePalletisedSurface, NULL, m_gameRGBASurface, NULL);
+
+	//if (SDL_SaveBMP(m_gameRGBASurface, "m_gameRGBASurface.bmp") != 0)
+	//{
+	//	// Error saving bitmap
+	//	printf("SDL_SaveBMP failed: %s\n", SDL_GetError());
+	//}
+
+	SDL_UpdateTexture(m_texture, NULL, m_gameRGBASurface->pixels, m_gameRGBASurface->pitch);
+	SDL_RenderCopy(m_renderer, m_texture, &rectSrc, &dscrect);
+
+	SDL_RenderPresent(m_renderer);
+	SDL_RenderClear(m_renderer);
+}
+
+void VGA_Debug_Blit(int width, int height, Uint8* buffer) {
+	VGA_Blit(width, height, buffer);
 }
 
 void VGA_close()
@@ -911,16 +834,16 @@ void VGA_close()
 	clean_up_sound();
 	SDL_FreeSurface(surface_font);
 	surface_font = NULL;
-	SDL_FreeSurface(screen);
-	screen = NULL;
-	SDL_FreeSurface(helper_surface);
-	helper_surface = NULL;
-	SDL_DestroyTexture(texture);
-	texture = NULL;
-	SDL_DestroyRenderer(renderer);
-	renderer = NULL;
-	SDL_DestroyWindow(gWindow);
-	gWindow = NULL;
+	SDL_FreeSurface(m_gamePalletisedSurface);
+	m_gamePalletisedSurface = NULL;
+	SDL_FreeSurface(m_gamePalletisedSurface);
+	m_gamePalletisedSurface = NULL;
+	SDL_DestroyTexture(m_texture);
+	m_texture = NULL;
+	SDL_DestroyRenderer(m_renderer);
+	m_renderer = NULL;
+	SDL_DestroyWindow(m_window);
+	m_window = NULL;
 	SDL_Quit();
 }
 
