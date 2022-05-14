@@ -14,6 +14,7 @@ SDL_Renderer* m_renderer = NULL;
 SDL_Texture* m_texture = NULL;
 SDL_Surface* m_gamePalletisedSurface = NULL;
 SDL_Surface* m_gameRGBASurface = NULL;
+SDL_Color m_currentPalletColours[256];
 
 uint8_t LastPressedKey_1806E4; //3516e4
 int8_t pressedKeys_180664[128]; // idb
@@ -109,7 +110,7 @@ void VGA_Init(Uint32  /*flags*/, int width, int height, bool maintainAspectRatio
 			m_texture = SDL_CreateTexture(m_renderer,
 				SDL_PIXELFORMAT_RGB888/*SDL_PIXELFORMAT_ARGB8888*/,
 				SDL_TEXTUREACCESS_STREAMING,
-				m_gameRGBASurface->w, m_gamePalletisedSurface->h);
+				m_gameRGBASurface->w, m_gameRGBASurface->h);
 
 			SDL_SetTextureBlendMode(m_texture, SDL_BLENDMODE_BLEND);
 
@@ -135,9 +136,14 @@ Uint8* VGA_Get_pallette() {
 
 uint16_t lastResHeight=0;
 
-void SubSet_pallette(SDL_Color* colors) {
-	SDL_SetPaletteColors(m_gamePalletisedSurface->format->palette, colors, 0, 256);
-	SubBlit(m_iOrigw, m_iOrigh);
+void SetPallette(SDL_Color* colours) {
+	
+	memcpy(m_currentPalletColours, colours, sizeof(SDL_Color) * 256);
+	if (m_gamePalletisedSurface)
+	{
+		SDL_SetPaletteColors(m_gamePalletisedSurface->format->palette, m_currentPalletColours, 0, 256);
+		SubBlit(m_gamePalletisedSurface->w, m_gamePalletisedSurface->h);
+	}
 }
 
 void Set_basic_pallette0() {
@@ -150,7 +156,7 @@ void Set_basic_pallette0() {
 		colors[i].g = temppallettebuffer[i * 3 + 1];
 		colors[i].b = temppallettebuffer[i * 3 + 2];
 	}
-	SubSet_pallette(colors);
+	SetPallette(colors);
 }
 void Set_basic_pallette1() {
 	SDL_Color colors[256];
@@ -168,7 +174,7 @@ void Set_basic_pallette1() {
 			colors[i].b = 255;
 		}
 	}
-	SubSet_pallette(colors);
+	SetPallette(colors);
 }
 
 void Set_basic_pallette3() {
@@ -181,7 +187,7 @@ void Set_basic_pallette3() {
 		colors[i].g = temppallettebuffer[i * 3 + 1];
 		colors[i].b = temppallettebuffer[i * 3 + 2];
 	}
-	SubSet_pallette(colors);
+	SetPallette(colors);
 }
 
 void putpixel(SDL_Surface* surface, int x, int y, Uint32 pixel)
@@ -378,7 +384,7 @@ void VGA_Draw_string(char* wrstring) {
 	if (SDL_MUSTLOCK(m_gamePalletisedSurface)) {
 		SDL_UnlockSurface(m_gamePalletisedSurface);
 	}
-	SubBlit(m_iOrigw, m_iOrigh);
+	SubBlit(m_gamePalletisedSurface->w, m_gamePalletisedSurface->h);
 	mydelay(10);
 }
 
@@ -432,7 +438,7 @@ void VGA_Set_file_pallette(char* filename) {
 		colors[i].g = 4 * pallettebuffer[i * 3 + 1];
 		colors[i].b = 4 * pallettebuffer[i * 3 + 2];
 	}
-	SubSet_pallette(colors);
+	SetPallette(colors);
 }
 
 void VGA_Set_pallette(Uint8* pallettebuffer) {
@@ -445,7 +451,7 @@ void VGA_Set_pallette(Uint8* pallettebuffer) {
 		colors[i].b = 4 * pallettebuffer[i * 3 + 2];
 	}
 
-	SubSet_pallette(colors);
+	SetPallette(colors);
 }
 
 void VGA_Set_pallette2(Uint8* pallettebuffer) {
@@ -456,7 +462,7 @@ void VGA_Set_pallette2(Uint8* pallettebuffer) {
 		colors[i].g = pallettebuffer[i * 3 + 1];
 		colors[i].b = pallettebuffer[i * 3 + 2];
 	}
-	SubSet_pallette(colors);
+	SetPallette(colors);
 }
 
 void VGA_Write_basic_pallette(Uint8* pallettebuffer) {
@@ -753,6 +759,8 @@ void VGA_Blit(uint16_t width, uint16_t height, Uint8* srcBuffer) {
 		m_gamePalletisedSurface =
 			SDL_ConvertSurfaceFormat(
 				m_gamePalletisedSurface, SDL_PIXELFORMAT_INDEX8, 0);
+
+		SDL_SetPaletteColors(m_gamePalletisedSurface->format->palette, m_currentPalletColours, 0, 256);
 
 		lastResHeight = height;
 	}

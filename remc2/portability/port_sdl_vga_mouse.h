@@ -34,6 +34,7 @@ void SubBlit(uint16_t originalResWidth, uint16_t originalResHeight);
 void VGA_Debug_Blit(int width, int height, Uint8* srcBuffer);
 void VGA_Set_pallette(Uint8* pallettebuffer);
 void VGA_Set_pallette2(Uint8* pallettebuffer);
+void SetPallette(SDL_Color* colors);
 void VGA_Write_basic_pallette(Uint8* pallettebuffer);
 Uint8* VGA_Get_pallette();
 void VGA_Draw_string(char* wrstring);
