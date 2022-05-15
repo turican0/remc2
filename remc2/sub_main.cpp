@@ -55868,7 +55868,7 @@ int sub_main(int argc, char** argv, char**  /*envp*/)//236F70
 	GetSubDirectoryPath(cdDataPath, cdFolder);
 	GetSubDirectoryPath(bigGraphicsPath, bigGraphicsFolder);
 
-	VGA_Init(gameResWidth, gameResHeight, maintainAspectRatio);
+	VGA_Init(windowResWidth, windowResHeight, maintainAspectRatio);
 
 	char mainfile[1024];
 	//char maindir[1024];
