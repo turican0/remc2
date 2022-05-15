@@ -4,7 +4,6 @@ int config_skip_screen;
 int texturepixels = 32;
 int speedGame = 35;
 int speedAnim = 100;
-bool res640x480 = false;
 int windowResWidth = 640;
 int windowResHeight = 480;
 int gameResWidth = 640;
@@ -60,10 +59,6 @@ void readini(const std::string& filename) {
 
 	std::string readstr = reader.GetString("sound", "oggmusicFolder", "");
 	strcpy(oggmusicFolder, (char*)readstr.c_str());
-
-	std::string readstrgd = reader.GetString("graphics", "defaultresolution", "");
-	if (!strcmp("640x480", (char*)readstrgd.c_str()))
-		res640x480 = true;
 
 	std::string readstr3 = reader.GetString("graphics", "bigGraphicsFolder", "");
 	strcpy(bigGraphicsFolder, (char*)readstr3.c_str());

@@ -40514,7 +40514,7 @@ void DrawAndEventsInGame_47560(/*uint8_t* a1, int a2, */uint32_t a3, signed int 
 	ReadGameUserInputs_89D10(x_DWORD_18062C_resolution_x);//get keys
 
 #ifdef AUTO_CHANGE_RES
-	if (res640x480)
+	if (true)
 	{
 		if (resindex_begin == 1)
 		{

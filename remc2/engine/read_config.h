@@ -30,7 +30,6 @@ extern int config_skip_screen;
 extern int texturepixels;
 extern int speedGame;
 extern int speedAnim;
-extern bool res640x480;
 extern int windowResWidth;
 extern int windowResHeight;
 extern int gameResWidth;
