@@ -14313,10 +14313,21 @@ void sub_1A970_change_game_settings(char a1, int a2, int a3)//1fb970
 		v13x = x_DWORD_EA3E4[D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].word_0x00a_2BE4_11240];
 		if (v13x <= x_DWORD_EA3E4[0] || v13x->dword_0x8 < 0)
 			return;
-		if (x_D41A0_BYTEARRAY_4_struct.speedIndex)
+
+		if (x_D41A0_BYTEARRAY_4_struct.speedIndex == 2) 
+		{
 			x_D41A0_BYTEARRAY_4_struct.speedIndex = 0;
-		else
-			x_D41A0_BYTEARRAY_4_struct.speedIndex = (a2 != 0) + 1;
+		}
+		else 
+		{
+			x_D41A0_BYTEARRAY_4_struct.speedIndex = x_D41A0_BYTEARRAY_4_struct.speedIndex + (a2 != 0) + 1;
+
+			if (x_D41A0_BYTEARRAY_4_struct.speedIndex > 2)
+			{
+				x_D41A0_BYTEARRAY_4_struct.speedIndex = 2;
+			}
+		}
+
 		v14 = x_D41A0_BYTEARRAY_4_struct.speedIndex;
 		if (v14 < 1u)
 		{
