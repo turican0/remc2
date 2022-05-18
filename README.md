@@ -64,13 +64,13 @@ make install
 - [x] Refactor reverse engineered code into seperate classes where possible.
 
 ## MILLSTONE 2
-- [ ] Add resolution support and increase draw distance
+- [x] Add resolution support
+- [ ] Implement Open GL render
 - [ ] Implement a (platform independent) Launch menu to adjust settings in config.ini before launch
-- [ ] Implement a wix sharp .msi installation for new .exe to make patching the and running existing game simple and something similar for the Linux versions
 
 ## MILLSTONE 3
-- [ ] Implement Open GL render
 - [ ] Improve sounds and music using updated original scores and directional sounds in game
+- [ ] Implement a wix sharp .msi installation for new .exe to make patching the and running existing game simple and something similar for the Linux versions
 
 ## MILLSTONE 4
 - [ ] Get basic LAN/IPv4 multiplayer working again
@@ -83,3 +83,12 @@ make install
 - Implement online multiplayer match making
 
 ## If you know a bit about game development or want to help out, branch away or email me here: thobbsinteractive@gmail.com
+
+## Development Guide ##
+- The Project is compiled as C++ 11. Updating this to say version 17 causes build errors with build of libogg.
+- If you re-name a method include the id from the original method name as this makes it easier to track changes from the generated code.
+e.g. `void sub_19CA0_sound_proc5(unsigned __int8 a1)` was renamed to `void ChangeSoundLevel_19CA0(uint8_t option)`
+- Please follow the general style of the refactored code. Upper Camel Case (Pascal Case) for Class/Method names. Camel Case for variables. 'm_' for class members. `GameRender.cpp` is a good example of the style.
+- Where possible (if writting new code) please use the fixed width types. https://en.cppreference.com/w/cpp/types/integer
+- Be careful with making logic changes to the code and Test, Test, Test!
+
