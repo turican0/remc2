@@ -853,6 +853,7 @@ void VGA_close()
 	SDL_DestroyWindow(m_window);
 	m_window = NULL;
 	SDL_Quit();
+	free(m_currentPalletColours);
 }
 
 int16_t VGA_get_shift_status() {
