@@ -1986,7 +1986,7 @@ void sub_57570();
 void sub_575C0();
 void sub_57640();
 void sub_57680_FixPointersAfterLoad();
-void sub_57730(uint16_t width, uint16_t height);
+void UpdateEntities_57730(uint16_t width, uint16_t height);
 void sub_57B20(type_str_0x2BDE* a1, type_event_0x6E8E* a2);
 void sub_57CF0(type_event_0x6E8E* entity, axis_3d* position);
 void sub_57D40(type_event_0x6E8E* entity, axis_3d* position);
@@ -40571,17 +40571,17 @@ void DrawAndEventsInGame_47560(/*uint8_t* a1, int a2, */uint32_t a3, signed int 
 	if (speed == 0)
 	{
 		if (!speed)
-			sub_57730(x_DWORD_18062C_resolution_x, x_DWORD_180624_resolution_y);
+			UpdateEntities_57730(x_DWORD_18062C_resolution_x, x_DWORD_180624_resolution_y);
 	}
 	else if (speed == 1)
 	{
 		for (i = 0; i < 4; i++)
-			sub_57730(x_DWORD_18062C_resolution_x, x_DWORD_180624_resolution_y);
+			UpdateEntities_57730(x_DWORD_18062C_resolution_x, x_DWORD_180624_resolution_y);
 	}
 	else if (speed == 2)
 	{
 		for (j = 0; j < 8; j++)
-			sub_57730(x_DWORD_18062C_resolution_x, x_DWORD_180624_resolution_y);
+			UpdateEntities_57730(x_DWORD_18062C_resolution_x, x_DWORD_180624_resolution_y);
 	}
 	sub_84B80();//prepare lightting
 	sub_58F00_game_objectives();//nothing draw
@@ -57061,7 +57061,7 @@ void sub_57680_FixPointersAfterLoad()//238680
 // EB384: using guessed type int x_DWORD_EB384;
 
 //----- (00057730) --------------------------------------------------------
-void sub_57730(uint16_t width, uint16_t height)//238730
+void UpdateEntities_57730(uint16_t width, uint16_t height)//238730
 {
 	type_event_0x6E8E* ix; // ebx
 	type_event_0x6E8E* v2x; // esi
