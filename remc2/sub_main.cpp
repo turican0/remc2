@@ -1925,7 +1925,7 @@ type_event_0x6E8E* sub_51A00(axis_3d* a1);
 // int sub_51BB0_game_events(int a1);
 void sub_52D70(unsigned __int16 a1, char* a2);
 void sub_52E90(type_str_0x2BDE* a1, signed int a2, char a3);
-void sub_52E90(type_str_0x2BDE* a1, signed int a2, char a3, uint16_t width, uint16_t height);
+void sub_52E90(type_str_0x2BDE* a1, signed int a2, char a3, uint16_t screenWidth, uint16_t screenHeight);
 void sub_53120();
 void sub_53160();
 //char sub_533B0_decompress_levels(__int16 a1, type_str_2FECE* a2);
@@ -1947,7 +1947,7 @@ void sub_54600_mouse_reset();
 void sub_54630_load_psxblock(uint16_t TextSize);
 void sub_54660_read_and_decompress_sky_and_blocks(MapType_t a1, uint8_t a2);
 void sub_54800_read_and_decompress_tables(MapType_t a1);
-void sub_548B0(type_str_0x2BDE* a1);
+void sub_548B0(type_str_0x2BDE* a1, uint16_t screenWidth);
 void sub_548F0(type_str_0x2BDE* a1);
 void sub_54960(uint16_t screenWidth, uint16_t screenHeight);
 void sub_549A0(type_str_611* a1, type_str_611* a2);
@@ -53353,7 +53353,7 @@ void sub_52E90(type_str_0x2BDE* a1x, signed int a2, char a3, uint16_t screenWidt
 	case 0u:
 	case 6u:
 		if ((x_WORD)a2 == v8 && !(x_D41A0_BYTEARRAY_4_struct.setting_byte3_24 & 1))
-			sub_548B0(a1x);
+			sub_548B0(a1x, screenWidth);
 		break;
 	case 3u:
 	case 5u:
@@ -53364,7 +53364,7 @@ void sub_52E90(type_str_0x2BDE* a1x, signed int a2, char a3, uint16_t screenWidt
 	case 0xCu:
 	case 0xDu:
 	case 0xEu:
-		sub_548B0(a1x);
+		sub_548B0(a1x, screenWidth);
 		FlvInitSet_473B0();
 		break;
 	default:
@@ -54455,12 +54455,12 @@ void sub_54800_read_and_decompress_tables(MapType_t a1)//235800
 // D4B7E: using guessed type __int16 x_WORD_D4B7E;
 
 //----- (000548B0) --------------------------------------------------------
-void sub_548B0(type_str_0x2BDE* a1x)//2358b0
+void sub_548B0(type_str_0x2BDE* a1x, uint16_t screenWidth)//2358b0
 {
 	//__int16 result; // ax
 	//result = a1x->word_0x007_2BE4_11237;
 	if (a1x->word_0x007_2BE4_11237 == D41A0_0.LevelIndex_0xc)
-		SetMousePositionInMemory_5BDC0(a1x->dword_0x3E6_2BE4_12228.position_backup_20.x, a1x->dword_0x3E6_2BE4_12228.position_backup_20.y);
+		SetMousePositionInMemory_5BDC0(a1x->dword_0x3E6_2BE4_12228.position_backup_20.x, a1x->dword_0x3E6_2BE4_12228.position_backup_20.y, screenWidth);
 	//return result;
 }
 // D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
@@ -73572,14 +73572,12 @@ void sub_6D200(type_str_0x2BDE* a1x, uint16_t screenWidth, uint16_t screenHeight
 	unsigned __int8 v5; // bl
 	int16_t posX = 0;
 	int16_t posY = 0;
-	__int16 v8; // bx
-	__int16 v9; // di
+	__int16 subCategoryWidth; // bx
+	__int16 subCategoryTotalWidth; // di
 	int v10; // ebx
 	int spellPos; // eax
-	__int16 v12; // bx
 	__int16 v13; // ax
 	int v15; // [esp+8h] [ebp-14h]
-	__int16 v16; // [esp+Ch] [ebp-10h]
 	int16_t spellIdxX; // [esp+14h] [ebp-8h]
 
 	if (x_WORD_180660_VGA_type_resolution & 1)
@@ -73636,30 +73634,31 @@ void sub_6D200(type_str_0x2BDE* a1x, uint16_t screenWidth, uint16_t screenHeight
 						+ *(unsigned __int8 *)(**filearray_2aa18c[6] + 532)
 						- (v9 >> 1);*/ //fix it
 						//v8 = (unsigned __int8)x_BYTE_D94FF_spell_index[a1x->dword_0x3E6_2BE4_12228.str_611.byte_0x458_1112];
-					v8 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[163].width_4;
-					v9 = 3 * v8;
-					v16 = v8;
+					subCategoryWidth = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[163].width_4;
+					subCategoryTotalWidth = 3 * subCategoryWidth;
 					//LOWORD(v1) = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[164].height;
 					v10 = v2 - 2 * v15 - (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[163].height_5;
 
 					spellPos = ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[89].width_4 >> 1)
 						+ (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[89].width_4 * spellIdxX
 						+ (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[88].width_4
-						- (v9 >> 1);
+						- (subCategoryTotalWidth >> 1);
 
-					v12 = v10 + 18;
+					posY = v10 + 18;
 
-					if (screenWidth - v9 >= (signed __int16)spellPos)
+					if (screenWidth - subCategoryTotalWidth >= (signed __int16)spellPos)
 					{
 						if ((spellPos & 0x8000u) != 0)
 							LOWORD(spellPos) = 0;
 					}
 					else
 					{
-						LOWORD(spellPos) = screenWidth - v9;
+						LOWORD(spellPos) = screenWidth - subCategoryTotalWidth;
 					}
-					posX = posX + (v16 * a1x->dword_0x3E6_2BE4_12228.str_611.array_0x437_1079x.byte[x_BYTE_D94FF_spell_index[a1x->dword_0x3E6_2BE4_12228.str_611.byte_0x458_1112]]
-						+ (v16 >> 1)
+
+					//Calucation Spell Sub Category position
+					posX = posX + (subCategoryWidth * a1x->dword_0x3E6_2BE4_12228.str_611.array_0x437_1079x.byte[x_BYTE_D94FF_spell_index[a1x->dword_0x3E6_2BE4_12228.str_611.byte_0x458_1112]]
+						+ (subCategoryWidth >> 1)
 						+ 8
 						+ spellPos);
 
@@ -73670,7 +73669,7 @@ void sub_6D200(type_str_0x2BDE* a1x, uint16_t screenWidth, uint16_t screenHeight
 					}
 					else
 					{
-						SetMousePositionInMemory_5BDC0(posX, v12, screenWidth);
+						SetMousePositionInMemory_5BDC0(posX, posY, screenWidth);
 					}
 				}
 			}
