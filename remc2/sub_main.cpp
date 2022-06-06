@@ -2256,7 +2256,7 @@ void sub_6CFA0(type_event_0x6E8E* a1);
 signed int sub_6D1C0(type_event_0x6E8E* a1);
 signed int sub_6D1E0(type_event_0x6E8E* a1);
 void sub_6D200(type_str_0x2BDE* a1, uint16_t screenWidth, uint16_t screenHeight);
-int MouseToSpell_6D420(int16_t posX, int16_t posY);
+int MouseToSpell_6D420(int16_t posX, int16_t posY, uint16_t screenWidth, uint16_t screenHeight);
 int SelectSpellCategory_6D420(int16_t posX, int16_t posY, uint16_t screenWidth, uint16_t screenHeight);
 char sub_6D4C0(type_str_611* a1);
 int SelectSpell_6D4F0(type_str_611* a1, int16_t mouseX, uint16_t screenWidth, uint16_t screenHeight);
@@ -47228,7 +47228,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E, uint16_t 
 #ifdef __linux__ // FIXME: types
 		std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
-		MouseToSpell_6D420((short)a1_6E8E, 0);
+		MouseToSpell_6D420((short)a1_6E8E, 0, screenWidth, screenHeight);
 		stub_fix_it();//bad retyping
 #endif
 		break;
@@ -73713,9 +73713,9 @@ void sub_6D200(type_str_0x2BDE* a1x, uint16_t screenWidth, uint16_t screenHeight
 // 1805C2: using guessed type __int16 x_WORD_1805C2_joystick;
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
-int MouseToSpell_6D420(int16_t posX, int16_t posY)
+int MouseToSpell_6D420(int16_t posX, int16_t posY, uint16_t screenWidth, uint16_t screenHeight)
 {
-	return SelectSpellCategory_6D420(posX, posY, 640, 480);
+	return SelectSpellCategory_6D420(posX, posY, screenWidth, screenHeight);
 }
 
 int SelectSpellCategory_6D420(int16_t posX, int16_t posY, uint16_t screenWidth, uint16_t screenHeight)
@@ -73784,53 +73784,51 @@ char sub_6D4C0(type_str_611* a1x)//24e4c0
 //----- (0006D4F0) --------------------------------------------------------
 int SelectSpell_6D4F0(type_str_611* a1x, int16_t mouseX, uint16_t screenWidth, uint16_t screenHeight)//24e4f0
 {
-	__int16 categoryWidth; // cx
-	int v3; // esi
-	int16_t v4x;
-	int result; // eax
-	int16_t v6x;
-
+	int subCategoryIdx; // eax
+	int spellMenuXPos; // esi
+	int16_t spellMenuXPos16;
+	int16_t maxIdx;
 	int16_t posXOffSet = 0;
+	uint8_t subCategoryWidth = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[163].width_4;
+	int16_t subCategoryTotalWidth = (3 * subCategoryWidth);
 
 	if (x_WORD_180660_VGA_type_resolution != 1)
 	{
 		if (screenWidth > 640)
 		{
-			posXOffSet = (screenWidth - 640) / 2;
+			posXOffSet = ((screenWidth - 640) / 2);
 		}
 	}
 
-	categoryWidth = posXOffSet + (3 * (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[163].width_4);
-
-	v3 = posXOffSet + ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[89].width_4 / 2
+	spellMenuXPos = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[89].width_4 / 2
 		+ (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[88].width_4
 		+ (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[89].width_4 * (a1x->byte_0x458_1112 % 13)
-		- categoryWidth / 2);
+		- subCategoryTotalWidth / 2;
 
-	v4x = posXOffSet + ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[89].width_4 / 2
+	spellMenuXPos16 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[89].width_4 / 2
 		+ (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[88].width_4
 		+ (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[89].width_4 * (a1x->byte_0x458_1112 % 13)
-		- categoryWidth / 2);
+		- subCategoryTotalWidth / 2;
 
-	if ((signed __int16)v3 <= screenWidth - categoryWidth)
+	if ((signed __int16)spellMenuXPos <= 640 - subCategoryTotalWidth)
 	{
-		if ((v3 & 0x8000u) != 0)
-			v4x = v3 ^ v4x;
+		if ((spellMenuXPos & 0x8000u) != 0)
+			spellMenuXPos16 = spellMenuXPos ^ spellMenuXPos16;
 	}
 	else
 	{
-		v4x = screenWidth - categoryWidth;
+		spellMenuXPos16 = 640 - subCategoryTotalWidth;
 	}
-	result = ((mouseX - posXOffSet) - v4x) / (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[163].width_4;
-	v6x = a1x->array_0x41D_1053z.byte[x_BYTE_D94FF_spell_index[a1x->byte_0x458_1112]];
+	subCategoryIdx = ((mouseX - posXOffSet) - spellMenuXPos16) / subCategoryWidth;
+	maxIdx = a1x->array_0x41D_1053z.byte[x_BYTE_D94FF_spell_index[a1x->byte_0x458_1112]];
 
-	if ((signed __int16)result > v6x)
-		return (int)v6x;
+	if ((signed __int16)subCategoryIdx > maxIdx)
+		return (int)maxIdx;
 
-	if ((result & 0x8000u) != 0)
-		result = 0;
+	if ((subCategoryIdx & 0x8000u) != 0)
+		subCategoryIdx = 0;
 
-	return result;
+	return subCategoryIdx;
 }
 // EA3DC: using guessed type int **filearray_2aa18c[6];
 
