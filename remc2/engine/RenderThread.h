@@ -5,6 +5,7 @@
 
 #include "../utilities/SafeQueue.h"
 #include <functional>
+#include <thread>
 #ifdef WIN32
 #include <windows.h>
 #elif _WIN64
