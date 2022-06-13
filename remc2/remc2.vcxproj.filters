@@ -417,6 +417,15 @@
     <ClInclude Include="engine\ProjectionPolygon.h">
       <Filter>Header Files\engine</Filter>
     </ClInclude>
+    <ClInclude Include="utilities\Wave.h">
+      <Filter>Header Files\utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\Type_MapScreenPortals_E17CC.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\Type_SecretMapScreenPortals_E2970.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
     <ClInclude Include="engine\GLGameRender.h">
       <Filter>Header Files\engine</Filter>
     </ClInclude>
@@ -705,6 +714,12 @@
       <Filter>Source Files\engine</Filter>
     </ClCompile>
     <ClCompile Include="engine\ProjectionPolygon.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\Type_MapScreenPortals_E17CC.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\Type_SecretMapScreenPortals_E2970.cpp">
       <Filter>Source Files\engine</Filter>
     </ClCompile>
     <ClCompile Include="engine\GLGameRender.cpp">

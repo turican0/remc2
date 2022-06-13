@@ -35,7 +35,7 @@
 **/biggraphics
 **/music-ogg
 **/config.ini
-
+**/BufferOut
 /build*
 .flatpak*
 
