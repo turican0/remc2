@@ -73572,10 +73572,13 @@ void sub_6D200(type_str_0x2BDE* a1x, uint16_t screenWidth, uint16_t screenHeight
 	unsigned __int8 v5; // bl
 	int16_t posX = 0;
 	int16_t posY = 0;
+	int16_t offsetPosX = 0;
 	__int16 subCategoryWidth; // bx
 	__int16 subCategoryTotalWidth; // di
 	int v10; // ebx
 	int spellPos; // eax
+	int subCategoryPosX; // eax
+	uint8_t subCategoryIndex;
 	__int16 v13; // ax
 	int v15; // [esp+8h] [ebp-14h]
 	int16_t spellIdxX; // [esp+14h] [ebp-8h]
@@ -73589,7 +73592,7 @@ void sub_6D200(type_str_0x2BDE* a1x, uint16_t screenWidth, uint16_t screenHeight
 		posY = screenHeight;
 		if (screenWidth > 640)
 		{
-			posX = (screenWidth - 640) / 2;
+			offsetPosX = (screenWidth - 640) / 2;
 		}
 	}
 
@@ -73639,28 +73642,30 @@ void sub_6D200(type_str_0x2BDE* a1x, uint16_t screenWidth, uint16_t screenHeight
 					//LOWORD(v1) = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[164].height;
 					v10 = v2 - 2 * v15 - (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[163].height_5;
 
-					spellPos = ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[89].width_4 >> 1)
+					subCategoryPosX = offsetPosX + ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[89].width_4 >> 1)
 						+ (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[89].width_4 * spellIdxX
 						+ (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[88].width_4
 						- (subCategoryTotalWidth >> 1);
 
 					posY = v10 + 18;
 
-					if (screenWidth - subCategoryTotalWidth >= (signed __int16)spellPos)
+					if ((640 + offsetPosX) - subCategoryTotalWidth >= (signed __int16)subCategoryPosX)
 					{
-						if ((spellPos & 0x8000u) != 0)
-							LOWORD(spellPos) = 0;
+						if ((subCategoryPosX - offsetPosX) < 0)
+							subCategoryPosX = offsetPosX;
 					}
 					else
 					{
-						LOWORD(spellPos) = screenWidth - subCategoryTotalWidth;
+						LOWORD(subCategoryPosX) = (640 + offsetPosX) - subCategoryTotalWidth;
 					}
 
 					//Calucation Spell Sub Category position
-					posX = posX + (subCategoryWidth * a1x->dword_0x3E6_2BE4_12228.str_611.array_0x437_1079x.byte[x_BYTE_D94FF_spell_index[a1x->dword_0x3E6_2BE4_12228.str_611.byte_0x458_1112]]
+					subCategoryIndex = a1x->dword_0x3E6_2BE4_12228.str_611.array_0x437_1079x.byte[x_BYTE_D94FF_spell_index[a1x->dword_0x3E6_2BE4_12228.str_611.byte_0x458_1112]];
+
+					posX = posX + (subCategoryWidth * subCategoryIndex
 						+ (subCategoryWidth >> 1)
 						+ 8
-						+ spellPos);
+						+ (subCategoryPosX));
 
 					if (unk_18058Cstr.x_WORD_1805C2_joystick != 7 && unk_18058Cstr.x_WORD_1805C2_joystick != 1 && unk_18058Cstr.x_WORD_1805C2_joystick != 2)
 					{
@@ -73682,7 +73687,7 @@ void sub_6D200(type_str_0x2BDE* a1x, uint16_t screenWidth, uint16_t screenHeight
 				   + (signed __int16)v2
 				   - 2 * (signed __int16)v15
 				   + (signed __int16)v15 * (*(x_BYTE *)(a1 + 2110) >= 13);*/
-				posX = posX + ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[89].width_4 * spellIdxX
+				posX = offsetPosX + ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[89].width_4 * spellIdxX
 					+ (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[88].width_4
 					+ ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[89].width_4 >> 1));
 
