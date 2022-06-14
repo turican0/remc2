@@ -34,6 +34,8 @@ jobs:
           libpng-dev:i386 libpng++-dev:i386 \
           libz-dev:i386 libgtest-dev:i386 \
           libibus-1.0-dev:i386 libpulse-dev:i386 \
+          gir1.2-ibus-1.0:i386 libglib2.0-dev:i386 libibus-1.0-5:i386 \
+          libpulse-mainloop-glib0:i386 libglib2.0-dev:i386 libsdl2-mixer-2.0-0:i386 \
           -o APT::Immediate-Configure=0
         
     - name: cmake release
