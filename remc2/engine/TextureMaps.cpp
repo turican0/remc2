@@ -546,7 +546,12 @@ subtype_x_DWORD_E9C28_str* LoadTMapMetadata_71E70(type_x_DWORD_E9C28_str* a1y, u
 		{
 			a1y->str_8_data[idx].Index = idx;
 			a1y->str_8_data[idx].dword_4 = a2;
+#ifdef COMPILE_FOR_64BIT // FIXME: 64bit 
+			std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+			a1y->str_8_data[idx].partstr_0 = (type_particle_str*)a1y->dword_16x[a1y->dword_0 - a1y->dword_4];
+#else
 			a1y->str_8_data[idx].partstr_0 = (type_particle_str*)(a1y->dword_0 + (int)a1y->dword_16x - a1y->dword_4);
+#endif
 			a1y->str_8_data[idx].word_12 = a3;
 			a1y->dword_4 -= a2;
 			a1y->str_8_data[idx].word_8 = a1y->word_20;
