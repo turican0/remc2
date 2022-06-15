@@ -20,15 +20,11 @@ jobs:
       with:
           submodules: recursive
 
-    - name: prepare for 32 bit libraries
+    - name: install dependencies
       run: |
         sudo dpkg --add-architecture i386
         sudo apt-get update -y
-
-    - name: install dependencies
-      run: |
-        sudo apt-get -y install aptitude
-        sudo aptitude -y install \
+        sudo apt-get -y install \
           cmake gcc-multilib g++-multilib \
           libsdl2-dev:i386 libsdl2-mixer-dev:i386 \
           libsdl2-ttf-dev:i386 libsdl2-image-dev:i386 \
