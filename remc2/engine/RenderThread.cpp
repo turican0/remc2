@@ -40,12 +40,20 @@ void RenderThread::StartWorkerThread(int8_t core)
 			DWORD_PTR dw = SetThreadAffinityMask(GetCurrentThread(), DWORD_PTR(1) << ((uint8_t)core));
 		}
 #endif
+		std::unique_lock<std::mutex> lock(m_taskMutex, std::defer_lock);
 		do
 		{
-			std::unique_lock<std::mutex> lock(m_taskMutex);
-			std::function<void()> myTask;
-
-			m_nextTaskCondition.wait(lock);
+			//std::function<void()> myTask;
+			lock.lock();
+			//m_nextTaskCondition.wait(lock);
+			m_nextTaskCondition.wait(lock, [this]{ return m_runningTasks>0 || !m_running; });
+			if (m_task) {
+				m_task();
+				m_task = 0;
+				m_runningTasks--;
+			}
+			lock.unlock();
+			/*
 			{
 				std::lock_guard<std::mutex> guard(m_taskMutex);
 				myTask = m_task;
@@ -58,6 +66,7 @@ void RenderThread::StartWorkerThread(int8_t core)
 				std::lock_guard<std::mutex> guard(m_taskMutex);
 				m_isTaskRunning = false;
 			}
+			*/
 
 		} while (m_running);
 	});
@@ -70,6 +79,7 @@ void RenderThread::StopWorkerThread()
 	if (m_running)
 	{
 		m_running = false;
+		m_nextTaskCondition.notify_all();
 		if (m_renderThread.joinable()) {
 			m_renderThread.join();
 		}
@@ -81,7 +91,7 @@ void RenderThread::Run(std::function<void()> task)
 	std::lock_guard<std::mutex> guard(m_taskMutex);
 	m_isTaskRunning = true;
 	m_task = task;
-	m_nextTaskCondition.notify_one();
+	m_nextTaskCondition.notify_all();
 }
 
 bool RenderThread::IsRunning()
