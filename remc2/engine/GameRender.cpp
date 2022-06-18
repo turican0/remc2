@@ -1256,10 +1256,9 @@ void GameRender::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __int
 							v248x[0] = m_Str_E9C38_smalltit[v134x - 41].dword24;
 							v139 = m_Str_E9C38_smalltit[v134x - 41].dword28;
 							v140x = v134x - 40;
-							v248x[1] = v139;
-							v141 = m_Str_E9C38_smalltit[v140x].dword12;
 							v140x--;
-							v248x[4] = v141;
+							v248x[1] = v139;
+							v248x[4] = m_Str_E9C38_smalltit[v140x].dword32;
 							v142 = m_Str_E9C38_smalltit[v140x].word38;
 							v143x = v140x + 40;
 							v144 = v142 | v138;
