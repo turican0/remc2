@@ -21,7 +21,7 @@ private:
 	bool m_running;
 	std::thread m_renderThread;
 	std::function<void()> m_task;
-	uint8_t m_runningTasks;
+	bool m_isTaskRunning;
 
 public:
 
@@ -32,9 +32,9 @@ public:
 	void StartWorkerThread();
 	void StartWorkerThread(uint8_t core);
 	void StopWorkerThread();
-	void Enqueue(std::function<void()> task);
+	void Run(std::function<void()> task);
 	bool IsRunning();
-	int GetNumberRunningTasks();
+	bool GetIsTaskRunning();
 };
 
 #endif //RENDER_THREAD

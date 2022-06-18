@@ -307,7 +307,7 @@ void GameRender::DrawSky_40950_TH(int16_t roll, uint8_t* ptrViewPortRenderBuffer
 
 		for (i = 0; i < m_renderThreads.size(); i++)
 		{
-			m_renderThreads[i]->Enqueue([this, roll, ptrViewPortRenderBufferStart, viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine] {
+			m_renderThreads[i]->Run([this, roll, ptrViewPortRenderBufferStart, viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine] {
 				this->DrawSky_40950(roll, ptrViewPortRenderBufferStart, viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
 				});
 		}
@@ -3155,7 +3155,7 @@ void GameRender::DrawSquareInProjectionSpace(int* vertexs, int index, uint16_t v
 
 			for (i = 0; i < m_renderThreads.size(); i++)
 			{
-				m_renderThreads[i]->Enqueue([this, &vertexs, pTexture, viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine] {
+				m_renderThreads[i]->Run([this, &vertexs, pTexture, viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine] {
 					this->DrawTriangleInProjectionSpace_B6253(&ProjectionPolygon(&vertexs[18]), &ProjectionPolygon(&vertexs[12]), &ProjectionPolygon(&vertexs[0]), pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
 					this->DrawTriangleInProjectionSpace_B6253(&ProjectionPolygon(&vertexs[0]), &ProjectionPolygon(&vertexs[12]), &ProjectionPolygon(&vertexs[6]), pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
 					});
@@ -3181,7 +3181,7 @@ void GameRender::DrawSquareInProjectionSpace(int* vertexs, int index, uint16_t v
 
 			for (i = 0; i < m_renderThreads.size(); i++)
 			{
-				m_renderThreads[i]->Enqueue([this, &vertexs, pTexture, viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine] {
+				m_renderThreads[i]->Run([this, &vertexs, pTexture, viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine] {
 					this->DrawTriangleInProjectionSpace_B6253(&ProjectionPolygon(&vertexs[18]), &ProjectionPolygon(&vertexs[12]), &ProjectionPolygon(&vertexs[6]), pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
 					this->DrawTriangleInProjectionSpace_B6253(&ProjectionPolygon(&vertexs[18]), &ProjectionPolygon(&vertexs[6]), &ProjectionPolygon(&vertexs[0]), pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
 					});
@@ -3228,7 +3228,7 @@ void GameRender::DrawInverseSquareInProjectionSpace(int* vertexs, int index, uin
 
 			for (i = 0; i < m_renderThreads.size(); i++)
 			{
-				m_renderThreads[i]->Enqueue([this, &vertexs, pTexture, viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine] {
+				m_renderThreads[i]->Run([this, &vertexs, pTexture, viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine] {
 					this->DrawTriangleInProjectionSpace_B6253(&ProjectionPolygon(&vertexs[18]), &ProjectionPolygon(&vertexs[0]), &ProjectionPolygon(&vertexs[12]), pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
 					this->DrawTriangleInProjectionSpace_B6253(&ProjectionPolygon(&vertexs[0]), &ProjectionPolygon(&vertexs[6]), &ProjectionPolygon(&vertexs[12]), pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
 					});
@@ -3255,7 +3255,7 @@ void GameRender::DrawInverseSquareInProjectionSpace(int* vertexs, int index, uin
 
 			for (i = 0; i < m_renderThreads.size(); i++)
 			{
-				m_renderThreads[i]->Enqueue([this, &vertexs, pTexture, viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine] {
+				m_renderThreads[i]->Run([this, &vertexs, pTexture, viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine] {
 					this->DrawTriangleInProjectionSpace_B6253(&ProjectionPolygon(&vertexs[18]), &ProjectionPolygon(&vertexs[6]), &ProjectionPolygon(&vertexs[12]), pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
 					this->DrawTriangleInProjectionSpace_B6253(&ProjectionPolygon(&vertexs[18]), &ProjectionPolygon(&vertexs[0]), &ProjectionPolygon(&vertexs[6]), pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
 					});
@@ -14808,7 +14808,7 @@ void GameRender::WaitForRenderFinish()
 		taskCount = 0;
 		for (i = 0; i < m_renderThreads.size(); i++)
 		{
-			taskCount += m_renderThreads[i]->GetNumberRunningTasks();
+			taskCount += m_renderThreads[i]->GetIsTaskRunning();
 		}
 		//std::this_thread::sleep_for(std::chrono::milliseconds(50));
 	} while (taskCount > 0);
