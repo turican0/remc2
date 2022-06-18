@@ -1,4 +1,5 @@
 #include "TextureMaps.h"
+#include "../utilities/BitmapIO.h"
 
 type_BIG_SPRITES_BUFFER BIG_SPRITES_BUFFERx[max_sprites];
 
@@ -8,7 +9,7 @@ FILE* x_DWORD_DB744_tmaps10file;
 FILE* x_DWORD_DB748_tmaps20file;
 
 type_particle_str** str_DWORD_F66F0x[504];
-char x_BYTE_F5340[504];
+char m_LevelSpriteList_F5340[504];
 int32_t x_DWORD_F5730[504];
 subtype_x_DWORD_E9C28_str* str_F5F10[504];
 
@@ -16,6 +17,7 @@ type_x_DWORD_E9C28_str* x_DWORD_E9C28_str;
 
 type_E9C08* x_DWORD_E9C08x; // weak
 bool big_sprites_inited = false;
+uint8_t* m_pColorPalette = NULL;
 
 bool MainInitTmaps_71520(unsigned __int16 a1)
 {
@@ -46,7 +48,7 @@ int sub_70EF0(unsigned __int16 a1)
 	int i; // ebx
 	//int v3; // ecx
 	v1 = str_TMAPS00TAB_BEGIN_BUFFER[a1].word_8;
-	for (i = 0; str_TMAPS00TAB_BEGIN_BUFFER[a1].word_8 < 0x1F8u; v1++)
+	for (i = 0; str_TMAPS00TAB_BEGIN_BUFFER[a1].word_8 < 504; v1++)
 	{
 		//v3 = 10 * v1;
 		if (str_TMAPS00TAB_BEGIN_BUFFER[a1].word_8 != str_TMAPS00TAB_BEGIN_BUFFER[v1].word_8)
@@ -61,7 +63,7 @@ int sub_71E60(type_x_DWORD_E9C28_str* a1y)//252e60
 	return a1y->dword_4;
 }
 
-signed int sub_71CD0(type_x_DWORD_E9C28_str* a1y)//252cd0
+signed int GetIndex_71CD0(type_x_DWORD_E9C28_str* a1y)//252cd0
 {
 	int i; // edx
 
@@ -129,7 +131,7 @@ unsigned int sub_71090(unsigned int a1)//252090
 	do
 	{
 		v4 = str_TMAPS00TAB_BEGIN_BUFFER[v3 + 1].word_8;
-		if (str_DWORD_F66F0x[v4] && !x_BYTE_F5340[v4])
+		if (str_DWORD_F66F0x[v4] && !m_LevelSpriteList_F5340[v4])
 			v31 = 0;
 		while ((unsigned __int16)v3 < 0x1F8u
 			&& str_TMAPS00TAB_BEGIN_BUFFER[v3 + 1].word_8 == v4)
@@ -140,7 +142,7 @@ unsigned int sub_71090(unsigned int a1)//252090
 	do
 	{
 		v6 = str_TMAPS00TAB_BEGIN_BUFFER[v5].word_8;
-		if ((!x_BYTE_F5340[v6] || v31) && str_DWORD_F66F0x[v6])
+		if ((!m_LevelSpriteList_F5340[v6] || v31) && str_DWORD_F66F0x[v6])
 		{
 			v7 = x_DWORD_F5730[v6];
 			v8 = str_TMAPS00TAB_BEGIN_BUFFER[v5].word_8;
@@ -250,12 +252,12 @@ char sub_70D20(unsigned __int16 a1)//251d20
 	type_animations1* v5; // eax
 
 	//v1 = str_TMAPS00TAB_BEGIN_BUFFER[a1].word_8;
-	if (x_BYTE_F5340[str_TMAPS00TAB_BEGIN_BUFFER[a1].word_8])
+	if (m_LevelSpriteList_F5340[str_TMAPS00TAB_BEGIN_BUFFER[a1].word_8])
 		return 0;
 	//v2 = str_TMAPS00TAB_BEGIN_BUFFER[a1].word_8;
 	if (!str_DWORD_F66F0x[str_TMAPS00TAB_BEGIN_BUFFER[a1].word_8])
 		return 0;
-	for (i = str_TMAPS00TAB_BEGIN_BUFFER[a1].word_8; i < 0x1F8u && str_TMAPS00TAB_BEGIN_BUFFER[a1].word_8 == str_TMAPS00TAB_BEGIN_BUFFER[i].word_8; i++)
+	for (i = str_TMAPS00TAB_BEGIN_BUFFER[a1].word_8; i < 504 && str_TMAPS00TAB_BEGIN_BUFFER[a1].word_8 == str_TMAPS00TAB_BEGIN_BUFFER[i].word_8; i++)
 	{
 		v4x = str_DWORD_F66F0x[i];
 		if (v4x)
@@ -316,10 +318,10 @@ void sub_71F20(type_x_DWORD_E9C28_str* a1y, subtype_x_DWORD_E9C28_str* a2x)//252
 	//allert_error();//fix this code
 	//a2x->word_10
 	//v2x = *(x_WORD*)((int8_t*)a2x + 10);
-	if (a2x->word_10 < a1y->word_22)
+	if (a2x->Index < a1y->word_22)
 	{
 		//v2 = 14 * (unsigned __int16)v2;
-		v3x = &a1y->str_8_data[a2x->word_10];
+		v3x = &a1y->str_8_data[a2x->Index];
 		if (v3x->dword_4)
 		{
 			v4 = v3x->word_8;
@@ -327,12 +329,12 @@ void sub_71F20(type_x_DWORD_E9C28_str* a1y, subtype_x_DWORD_E9C28_str* a2x)//252
 			v6x = a1y->str_8_data;
 			a1y->dword_4 = v5;
 			//*(x_DWORD*)(v6 + v2 + 4) = 0;
-			v6x[a2x->word_10].dword_4 = 0;
+			v6x[a2x->Index].dword_4 = 0;
 			//v2 = 14 * (unsigned __int16)v2;
 			//v2 = *(x_DWORD*)(a1y->dword_8_data + v2);
 			//v2y = a1y->dword_0;
 			//v2y = *(_DWORD*)(*(_DWORD*)(a1 + 8) + v2);//a1y->str_8_data
-			v2y = a1y->str_8_data[a2x->word_10].partstr_0;
+			v2y = a1y->str_8_data[a2x->Index].partstr_0;
 			for (i = v2y; ; i += a1y->dword_12x[v4]->dword_4)
 			{
 				++v4;
@@ -437,7 +439,7 @@ void InitTmaps(unsigned __int16 a1)//251f50
 	//index = (int)TMAPS00TAB_BEGIN_BUFFER;
 	//str_TMAPS00TAB_BEGIN_BUFFER[a1].word_8
 	v2 = str_TMAPS00TAB_BEGIN_BUFFER[a1].word_8;
-	for (i = str_TMAPS00TAB_BEGIN_BUFFER[a1].word_8; i < 0x1F8u; i++)
+	for (i = str_TMAPS00TAB_BEGIN_BUFFER[a1].word_8; i < 504; i++)
 	{
 		//index2 = 10 * i + TMAPS00TAB_BEGIN_BUFFER;
 		if (v2 != str_TMAPS00TAB_BEGIN_BUFFER[i].word_8)
@@ -445,7 +447,7 @@ void InitTmaps(unsigned __int16 a1)//251f50
 		v6 = i;
 		if (!str_DWORD_F66F0x[i])
 		{
-			index3x = sub_71E70(x_DWORD_E9C28_str, (unsigned __int16)(4 * ((unsigned int)(str_TMAPS00TAB_BEGIN_BUFFER[i].dword_0 + 13) >> 2)), i);
+			index3x = LoadTMapMetadata_71E70(x_DWORD_E9C28_str, (unsigned __int16)(4 * ((unsigned int)(str_TMAPS00TAB_BEGIN_BUFFER[i].dword_0 + 13) >> 2)), i);
 			//v4 = index3;
 			if (index3x)
 			{
@@ -457,7 +459,7 @@ void InitTmaps(unsigned __int16 a1)//251f50
 						uint8_t* oldtmap = *(uint8_t**)index3x;
 						int oldwidth = *(uint16_t*)(oldtmap + 2);
 						int oldheight = *(uint16_t*)(oldtmap + 4);
-						if ((oldwidth > 0) && (oldwidth < 0x200) && (oldheight > 0) && (oldheight < 0x200))
+						if ((oldwidth > 0) && (oldwidth < 512) && (oldheight > 0) && (oldheight < 512))
 						{
 							int actnumber = 0;
 							if (BIG_SPRITES_BUFFERx[i].actdatax != NULL)
@@ -489,12 +491,12 @@ void InitTmaps(unsigned __int16 a1)//251f50
 							}
 
 							BIG_SPRITES_BUFFERx[i].actdatax = (type_particle_str*)malloc(oldwidth * 4 * oldheight * 4 + 6 + 2);
-							memcpy(BIG_SPRITES_BUFFERx[i].actdatax->data_6, BIG_SPRITES_BUFFERx[i].frames[0], oldwidth * 4 * oldheight * 4);
+							memcpy(BIG_SPRITES_BUFFERx[i].actdatax->textureBuffer, BIG_SPRITES_BUFFERx[i].frames[0], oldwidth * 4 * oldheight * 4);
 
 							BIG_SPRITES_BUFFERx[i].actdatax->word_0 = *(uint16_t*)oldtmap;
-							BIG_SPRITES_BUFFERx[i].actdatax->word_2 = oldwidth * 4;
-							BIG_SPRITES_BUFFERx[i].actdatax->word_4 = oldheight * 4;
-							*(uint16_t*)&BIG_SPRITES_BUFFERx[i].actdatax->data_6[oldwidth * 4 * oldheight * 4] = mm;
+							BIG_SPRITES_BUFFERx[i].actdatax->width = oldwidth * 4;
+							BIG_SPRITES_BUFFERx[i].actdatax->height = oldheight * 4;
+							*(uint16_t*)&BIG_SPRITES_BUFFERx[i].actdatax->textureBuffer[oldwidth * 4 * oldheight * 4] = mm;
 
 							/*for (int xx = 0; xx < oldwidth*4; xx++)
 								for (int yy = 0; yy < oldheight*4; yy++)
@@ -517,7 +519,7 @@ void InitTmaps(unsigned __int16 a1)//251f50
 						index5x->word_0 |= 0x20u;
 						continue;
 					}
-					if (v2 <= 480 || v2 >= 0x1E8u && (v2 <= 0x1E8u || v2 == 496))
+					if (v2 <= 480 || v2 >= 488 && (v2 <= 488 || v2 == 496))
 					{
 						index5x = *str_DWORD_F66F0x[i];
 						index5x->word_0 |= 0x20u;
@@ -529,65 +531,42 @@ void InitTmaps(unsigned __int16 a1)//251f50
 	}
 }
 
-subtype_x_DWORD_E9C28_str* sub_71E70(type_x_DWORD_E9C28_str* a1y, unsigned int a2, __int16 a3)//252e70
+subtype_x_DWORD_E9C28_str* LoadTMapMetadata_71E70(type_x_DWORD_E9C28_str* a1y, unsigned int a2, __int16 a3)//252e70
 {
 	signed __int16 v3; // si
-	signed __int16 v4; // ax
-	signed __int16 v5; // dx
-	//int v6; // ecx
-	//int v7; // eax
+	signed __int16 idx; // ax
 	subtype_x_DWORD_E9C28_str* result; // eax
 
 	v3 = -1;
 	if (a2 < a1y->dword_4)
 	{
-		v4 = sub_71CD0(a1y);
-		v5 = v4;
-		//v6 = v4;
-		v3 = v4;
-		if (v4 > -1)
+		idx = GetIndex_71CD0(a1y);
+		v3 = idx;
+		if (idx > -1)
 		{
-			//v7 = 14 * v4;
-			/*
-			*(x_WORD*)(a1y->dword_8_data + v7 + 10) = v5;
-			*(x_DWORD*)(a1y->dword_8_data + v7 + 4) = a2;
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+			a1y->str_8_data[idx].Index = idx;
+			a1y->str_8_data[idx].dword_4 = a2;
+#ifdef COMPILE_FOR_64BIT // FIXME: 64bit 
+			std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+			a1y->str_8_data[idx].partstr_0 = (type_particle_str*)a1y->dword_16x[a1y->dword_0 - a1y->dword_4];
 #else
-			*(x_DWORD*)(a1y->dword_8_data + v7) = a1y->dword_0 + (int)a1y->dword_16x - a1y->dword_4;
+			a1y->str_8_data[idx].partstr_0 = (type_particle_str*)(a1y->dword_0 + (int)a1y->dword_16x - a1y->dword_4);
 #endif
-			*(x_WORD*)(a1y->dword_8_data + v7 + 12) = a3;
+			a1y->str_8_data[idx].word_12 = a3;
 			a1y->dword_4 -= a2;
-			*(x_WORD*)(a1y->dword_8_data + v7 + 8) = a1y->word_20;
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-			*(x_DWORD*)(a1y->dword_12x + (unsigned __int16)(a1y->word_20)++) = (uint32_t)a1y->dword_8_data + 14 * v6;
-#endif
-*/
-			a1y->str_8_data[v4].word_10 = v5;
-			a1y->str_8_data[v4].dword_4 = a2;
-			a1y->str_8_data[v4].partstr_0 = (type_particle_str*)(a1y->dword_16x + (a1y->dword_0 - a1y->dword_4));
-			a1y->str_8_data[v4].word_12 = a3;
-			a1y->dword_4 -= a2;
-			a1y->str_8_data[v4].word_8 = a1y->word_20;
-			//*(x_DWORD*)(a1y->dword_12x + (unsigned __int16)(a1y->word_20)++) = (uint32_t)&a1y->str_8_data[v4];
-			a1y->dword_12x[a1y->word_20++] = &a1y->str_8_data[v4];
-			//allert_error();//for 64x fix
-			//it is must rewrite
+			a1y->str_8_data[idx].word_8 = a1y->word_20;
+			a1y->dword_12x[a1y->word_20++] = &a1y->str_8_data[idx];
 		}
 	}
+
 	if (v3 <= -1)
+	{
 		result = 0;
+	} 
 	else
-		//result = 14 * v3 + a1y->dword_8_data;
-		result = &a1y->str_8_data[v4];
+	{
+		result = &a1y->str_8_data[idx];
+	}
 	return result;
 }
 
@@ -669,6 +648,56 @@ int sub_70C60_decompress_tmap(uint16_t texture_index, uint8_t* texture_buffer)//
 	return result;
 }
 
+void WriteTextureMapToBmp(uint16_t texture_index, type_particle_str* ptextureMap, MapType_t mapType)
+{
+	char path[MAX_PATH];
+	char name[50];
+	GetSubDirectoryPath(path, "BufferOut");
+	if (myaccess(path, 0) < 0)
+	{
+		mymkdir(path);
+	}
+
+	if (m_pColorPalette == NULL)
+	{
+		m_pColorPalette = LoadTMapColorPalette(mapType);
+		GetSubDirectoryPath(path, "BufferOut/PalletOut.bmp");
+		BitmapIO::WritePaletteAsImageBMP(path, 256, m_pColorPalette);
+	}
+
+	sprintf(name, "BufferOut/TmapOut%03d%s", texture_index, ".bmp");
+	GetSubDirectoryPath(path, name);
+	BitmapIO::WriteRGBAImageBufferAsImageBMP(path, ptextureMap->width, ptextureMap->height, m_pColorPalette, (uint8_t*)ptextureMap->textureBuffer);
+}
+
+uint8_t* LoadTMapColorPalette(MapType_t mapType)
+{
+	uint8_t* pallettebuffer = new uint8_t[768];
+	FILE* palfile;
+	char path[MAX_PATH];
+	char palleteName[50];
+
+	switch (mapType)
+	{
+		case MapType_t::Cave:
+			sprintf(palleteName, "../tools/palletelight/Debug/out-%s.pal", "c");
+		break;
+		case MapType_t::Day:
+			sprintf(palleteName, "../tools/palletelight/Debug/out-%s.pal", "block");
+		break;
+		case MapType_t::Night:
+			sprintf(palleteName, "../tools/palletelight/Debug/out-%s.pal", "n");
+		break;
+	}
+
+	GetSubDirectoryPath(path, palleteName);
+	palfile = fopen(path, "rb");
+	fread(pallettebuffer, 768, 1, palfile);
+	fclose(palfile);
+
+	return pallettebuffer;
+}
+
 type_animations1* sub_721C0_initTmap(type_E9C08* a1x, type_particle_str** a2x, __int16 a3)//2531c0
 {
 	signed __int16 v3; // cx
@@ -703,16 +732,16 @@ type_animations1* sub_721C0_initTmap(type_E9C08* a1x, type_particle_str** a2x, _
 	if (v12 <= -1)
 		return 0;
 	v7x = *a2x;
-	v8 = (*a2x)->word_4 * (*a2x)->word_2;
+	v8 = (*a2x)->height * (*a2x)->width;
 	//v9 = *(x_WORD*)(v8 + (*a2x)->un_0.byte[0] + 6);//? is ok
-	v9 = ((*a2x)->data_6)[v8];//? is ok
+	v9 = ((*a2x)->textureBuffer)[v8];//? is ok
 	//v10 = 28 * v12;
 	a1x->dword_2[v12].Particles_4 = *a2x;
 	a1x->dword_2[v12].word_12 = 6;
 	a1x->dword_2[v12].word_14 = v8 + 6;
 	a1x->dword_2[v12].CountOfFrames_16 = v9;
-	a1x->dword_2[v12].Width_18 = v7x->word_2;
-	a1x->dword_2[v12].Height_20 = v7x->word_4;
+	a1x->dword_2[v12].Width_18 = v7x->width;
+	a1x->dword_2[v12].Height_20 = v7x->height;
 	a1x->dword_2[v12].dword_8 = v8 + 6;
 	a1x->dword_2[v12].FrameIndex_22 = 1;
 	a1x->dword_2[v12].dword_0 = 1;

@@ -699,9 +699,9 @@ typedef struct {//lenght 2124=0x84C
 typedef struct {
 	//type_particle_str_0 un_0;//lenght?
 	uint16_t word_0;
-	uint16_t word_2;//width?
-	uint16_t word_4;//height?
-	int8_t data_6[];
+	uint16_t width;
+	uint16_t height;
+	int8_t textureBuffer[];
 }
 type_particle_str;
 
@@ -709,7 +709,7 @@ typedef struct {//size 14
 	type_particle_str* partstr_0;//type_particle_str?
 	int32_t dword_4;
 	int16_t word_8;
-	int16_t word_10;
+	int16_t Index;
 	int16_t word_12;
 }
 subtype_x_DWORD_E9C28_str;

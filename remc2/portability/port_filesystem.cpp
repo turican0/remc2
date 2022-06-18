@@ -463,14 +463,17 @@ void ReadGraphicsfile(const char* path, uint8_t* buffer, long size)
 {
 	FILE* file;
 	file = fopen(path, (char*)"rb");
-	if (size == -1)
+	if (file != NULL)
 	{
-		fseek(file, 0L, SEEK_END);
-		size = ftell(file);
-		fseek(file, 0L, SEEK_SET);
+		if (size == -1)
+		{
+			fseek(file, 0L, SEEK_END);
+			size = ftell(file);
+			fseek(file, 0L, SEEK_SET);
+		}
+		fread(buffer, size, 1, file);
+		myclose(file);
 	}
-	fread(buffer, size, 1, file);
-	myclose(file);
 };
 
 void GetSubDirectoryPath(char* buffer, const char* subDirectory)
