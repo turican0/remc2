@@ -3155,7 +3155,7 @@ void GameRender::DrawSquareInProjectionSpace(int* vertexs, int index, uint16_t v
 
 			for (i = 0; i < m_renderThreads.size(); i++)
 			{
-				m_renderThreads[i]->Enqueue([this, &vertexs, pTexture, viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine] {
+				m_renderThreads[i]->Run([this, &vertexs, pTexture, viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine] {
 					auto vertex0 = ProjectionPolygon(&vertexs[0]);
 					auto vertex6 = ProjectionPolygon(&vertexs[6]);
 					auto vertex12 = ProjectionPolygon(&vertexs[12]);
@@ -3193,7 +3193,7 @@ void GameRender::DrawSquareInProjectionSpace(int* vertexs, int index, uint16_t v
 
 			for (i = 0; i < m_renderThreads.size(); i++)
 			{
-				m_renderThreads[i]->Enqueue([this, &vertexs, pTexture, viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine] {
+				m_renderThreads[i]->Run([this, &vertexs, pTexture, viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine] {
 					auto vertex0 = ProjectionPolygon(&vertexs[0]);
 					auto vertex6 = ProjectionPolygon(&vertexs[6]);
 					auto vertex12 = ProjectionPolygon(&vertexs[12]);
@@ -3252,7 +3252,7 @@ void GameRender::DrawInverseSquareInProjectionSpace(int* vertexs, int index, uin
 
 			for (i = 0; i < m_renderThreads.size(); i++)
 			{
-				m_renderThreads[i]->Enqueue([this, &vertexs, pTexture, viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine] {
+				m_renderThreads[i]->Run([this, &vertexs, pTexture, viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine] {
 					auto vertex0 = ProjectionPolygon(&vertexs[0]);
 					auto vertex6 = ProjectionPolygon(&vertexs[6]);
 					auto vertex12 = ProjectionPolygon(&vertexs[12]);
@@ -3291,7 +3291,7 @@ void GameRender::DrawInverseSquareInProjectionSpace(int* vertexs, int index, uin
 
 			for (i = 0; i < m_renderThreads.size(); i++)
 			{
-				m_renderThreads[i]->Enqueue([this, &vertexs, pTexture, viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine] {
+				m_renderThreads[i]->Run([this, &vertexs, pTexture, viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine] {
 					auto vertex0 = ProjectionPolygon(&vertexs[0]);
 					auto vertex6 = ProjectionPolygon(&vertexs[6]);
 					auto vertex12 = ProjectionPolygon(&vertexs[12]);
