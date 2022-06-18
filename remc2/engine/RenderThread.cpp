@@ -1,4 +1,5 @@
 #include "RenderThread.h"
+#include <mutex>
 
 RenderThread::RenderThread()
 {
@@ -41,10 +42,20 @@ void RenderThread::StartWorkerThread(int8_t core)
 #endif
 		do
 		{
-			if (m_task)
+			std::unique_lock<std::mutex> lock(m_taskMutex);
+			std::function<void()> myTask;
+
+			m_nextTaskCondition.wait(lock);
 			{
-				m_task();
+				std::lock_guard<std::mutex> guard(m_taskMutex);
+				myTask = m_task;
 				m_task = 0;
+			}
+
+			if (myTask)
+			{
+				myTask();
+				std::lock_guard<std::mutex> guard(m_taskMutex);
 				m_isTaskRunning = false;
 			}
 
@@ -67,8 +78,10 @@ void RenderThread::StopWorkerThread()
 
 void RenderThread::Run(std::function<void()> task)
 {
+	std::lock_guard<std::mutex> guard(m_taskMutex);
 	m_isTaskRunning = true;
 	m_task = task;
+	m_nextTaskCondition.notify_one();
 }
 
 bool RenderThread::IsRunning()
