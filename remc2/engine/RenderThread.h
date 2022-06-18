@@ -18,7 +18,7 @@ class RenderThread
 {
 private:
 
-	uint8_t m_core;
+	int8_t m_core;
 	bool m_running;
 	std::thread m_renderThread;
 	std::function<void()> m_task;
@@ -30,8 +30,7 @@ public:
 	RenderThread(uint8_t core);
 	~RenderThread();
 
-	void StartWorkerThread();
-	void StartWorkerThread(uint8_t core);
+	void StartWorkerThread(int8_t core = -1);
 	void StopWorkerThread();
 	void Run(std::function<void()> task);
 	bool IsRunning();
