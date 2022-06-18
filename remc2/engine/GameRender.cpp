@@ -14856,7 +14856,7 @@ void GameRender::WaitForRenderFinish()
 		taskCount = 0;
 		for (i = 0; i < m_renderThreads.size(); i++)
 		{
-			taskCount += m_renderThreads[i]->GetIsTaskRunning();
+			taskCount += m_renderThreads[i]->GetIsTaskRunning()? 1 : 0;
 		}
 		//std::this_thread::sleep_for(std::chrono::milliseconds(50));
 	} while (taskCount > 0);
