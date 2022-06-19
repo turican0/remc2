@@ -74371,9 +74371,16 @@ type_event_0x6E8E* sub_6DCA0(type_event_0x6E8E* a1x, axis_3d* a2x, unsigned __in
 			v20x->byte_0x43_67 = 10;
 			v20x->byte_0x44_68 = 22;
 			if (a4x->byte_0x1A)
-				v22 = a4x->dword_2 / a4x->byte_0x1A;
+			{
+				if (a4x->byte_0x1A > 0)
+				{
+					v22 = a4x->dword_2 / a4x->byte_0x1A;
+				}
+			}
 			else
+			{
 				LOWORD(v22) = a4x->dword_2;
+			}
 			goto LABEL_58;
 		}
 		if (a3 == 25)
@@ -74386,9 +74393,16 @@ type_event_0x6E8E* sub_6DCA0(type_event_0x6E8E* a1x, axis_3d* a2x, unsigned __in
 				v23x->byte_0x43_67 = 10;
 				v23x->byte_0x44_68 = 89;
 				if (a4x->dword_2)
-					v22 = a4x->dword_2 / a4x->byte_0x1A;
+				{
+					if (a4x->byte_0x1A > 0)
+					{
+						v22 = a4x->dword_2 / a4x->byte_0x1A;
+					}
+				}
 				else
+				{
 					LOWORD(v22) = a4x->dword_2;
+				}
 			LABEL_58:
 				v21x->word_0x2A_42 = v22;
 				goto LABEL_59;
