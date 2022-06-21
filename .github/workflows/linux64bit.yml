@@ -6,7 +6,6 @@ on:
       [ master, development ]
   pull_request:
       types: [opened, synchronize, reopened]
-  workflow_dispatch:
 
 env:
   GITHUB_CI_COMPATIBILITY_PATH: /usr/lib/x86_64-linux-gnu
@@ -22,12 +21,14 @@ jobs:
 
     - name: install dependencies
       run: |
+        sudo apt-get dist-upgrade -y
         sudo apt-get -y install \
           cmake \
           libsdl2-dev libsdl2-mixer-dev \
           libsdl2-ttf-dev libsdl2-image-dev \
           libpng-dev libpng++-dev \
           libz-dev libgtest-dev \
+          libboost-all-dev \
           -o APT::Immediate-Configure=0
         
     - name: cmake release
