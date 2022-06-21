@@ -20,7 +20,7 @@ typedef struct {
 	int16_t bytesPerSample_34;
 	char dataMarker_36[4];
 	int32_t dataSizeBytes_40;
-	byte data_44[];
+	uint8_t data_44[];
 }wav_t;
 #pragma pack (16)
 

@@ -5,6 +5,7 @@
 
 #include "../utilities/SafeQueue.h"
 #include <functional>
+#include <thread>
 #ifdef WIN32
 #include <windows.h>
 #elif _WIN64
@@ -17,11 +18,11 @@ class RenderThread
 {
 private:
 
-	uint8_t m_core;
+	int8_t m_core;
 	bool m_running;
 	std::thread m_renderThread;
 	std::function<void()> m_task;
-	uint8_t m_runningTasks;
+	bool m_isTaskRunning;
 
 public:
 
@@ -29,12 +30,11 @@ public:
 	RenderThread(uint8_t core);
 	~RenderThread();
 
-	void StartWorkerThread();
-	void StartWorkerThread(uint8_t core);
+	void StartWorkerThread(int8_t core = -1);
 	void StopWorkerThread();
-	void Enqueue(std::function<void()> task);
+	void Run(std::function<void()> task);
 	bool IsRunning();
-	int GetNumberRunningTasks();
+	bool GetIsTaskRunning();
 };
 
 #endif //RENDER_THREAD
