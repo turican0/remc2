@@ -54,7 +54,8 @@ void _strupr(char* s)
 //#define DEBUG_AFTERLOAD
 //#define DEBUG_ONSTART
 //#define TEST_REGRESSIONS_GAME
-#define TEST_NETWORK
+
+//#define TEST_NETWORK
 
 
 //#define TEST_NETWORK_CHNG1
