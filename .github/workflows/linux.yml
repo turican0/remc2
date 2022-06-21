@@ -12,7 +12,7 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
 
     steps:
     - uses: actions/checkout@v2
@@ -29,7 +29,6 @@ jobs:
         sudo apt-get dist-upgrade
         sudo apt-get -y install \
           cmake gcc-multilib g++-multilib \
-          libibus-1.0-dev:i386 libpulse-dev:i386 \ 
           libsdl2-dev:i386 libsdl2-mixer-dev:i386 \
           libsdl2-ttf-dev:i386 libsdl2-image-dev:i386 \
           libpng-dev:i386 libpng++-dev:i386 \
