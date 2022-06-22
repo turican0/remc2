@@ -1,0 +1,558 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>Midi Player's Readme</title>
+<style type="text/css">
+body {
+	background-color: #222222;
+	margin:0;
+	padding:0;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+p {
+margin:10px;
+}
+
+li {
+  line-height: 150%;
+}
+
+#mainframe {
+	background-color: #BBBBBB;
+	background-image:url('background.jpg');
+	position:relative;
+	max-width:1152px;
+	padding:12px;
+	padding-top:8px;
+	border:none; 
+	margin:auto;
+}
+
+</style>
+</head>
+<body>
+<div id="mainframe">
+  <div class=Section1>
+    <h2>SoundFont Midi Player </h2>
+    <p>is a powerful midi player/router and real
+      time midi synth combo, </p>
+    <p>especially useful for Soundblaster (Live,Audigy,X-fi)
+      users, who can load soundfonts automatically and real time.</p>
+    <p>From version 2.0 Bassmidi output mode enables this feature
+      to anyone.&nbsp; </p>
+    <p>&nbsp;</p>
+    <p><a target="_blank" rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/80x15.png"></a><br>
+      <span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">SoundFont Midi Player</span> by <a target="_blank" xmlns:cc="http://creativecommons.org/ns#" href="http://falcosoft.hu/softwares.html" property="cc:attributionName" rel="cc:attributionURL">Zolt&aacute;n Bacsk&oacute; (Falcosoft)</a> is licensed under a </p>
+    <p><a target="_blank" rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>. </p>
+    <p>&nbsp;</p>
+    <p><strong>Features:</strong></p>
+    <ul>
+      <li>1. Fully configurable Midi in and out ports.</li>
+      <li>2. Real time program and bank modification on any midi channel.</li>
+      <li>3. Real Time effects on any midi channel.</li>
+      <li>4. Mute and solo on any channels.</li>
+      <li>5. Variable Tempo and Pitch during playback.</li>
+      <li>6. Virtual Piano (F1-F8 Function keys for octave change,
+        right click for note name).</li>
+      <li>7. Chord mode for Virtual Piano and Midi input. </li>
+      <li>8. Send Sysex for Synth (GM, GS, XG, GM2, NX and custom).</li>
+      <li>9. Midi send and receive over Net.</li>
+      <li>10. Karaoke midi files support.</li>
+      <li>11. Bassmidi output mode.</li>
+      <li>12. Spectrum Analyzer.</li>
+      <li>13. Module files (mod,xm,s3m,it) playback support via realtime
+        converting.</li>
+      <li>14. Record to wave, mp3 (or any acm codecs) capability . </li>
+      <li>15 .Real time soundfont loading from playlist. Place your midi and sf2 file in the same directory with the
+        same name, or postfix your sf2 file with the required bank numbereg. mysong.mid mysong.sf2 loads the soundfont to bank 1, but
+        mysong_008.sf2 loads the soundfont to bank 8. </li>
+      <li>16. Scale effect settings (transpose notes to different scales). </li>
+      <li>17. Supports Cakewalk/Sonar instrument definition (.ins) files for preset names and capital tone fallback.</li>
+      <li>18. Supports Sysex capturing from Midi input. </li>
+      <li>19. Supports VST effect/visualization and VSTi instrument plugins. </li>
+      <li>20. Fully supports Windows 9x, XP, 7, 8, 10 moreover Wine. </li>
+    </ul>
+    <p><br>
+      If you need a good versatile GM/GS soundfont, try this: </p>
+    <p><a href="http://falcosoft.hu/reality_gmgs_falcomod.zip" target="_blank">http://falcosoft.hu/reality_gmgs_falcomod.zip</a></p>
+    <p>&nbsp;</p>
+    <p>If you would like to support the development of Soundfont Midi Player you can donate through PayPal.</p>
+    <form action="https://www.paypal.com/cgi-bin/webscr" method="get" target="_blank">
+      <p>
+        <input type="hidden" name="cmd" value="_s-xclick">
+        <input type="hidden" name="hosted_button_id" value="SY5KG9XCVDVW6" >
+        <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" name="submit" alt="PayPal - The safer, easier way to pay online!" >
+      </p>
+    </form>
+    <p>&nbsp;</p>
+    <p><strong>version 1.8</strong></p>
+    <p>1. The program can play karaoke midi files (both .kar and .mid
+      extension) and can display lyrics and other text meta events.<br>
+      To display texts press the TXT button on the main dialog.</p>
+    <p>2. You can set the program's CPU affinity mask (Use only 1 Cpu
+      core) in the right click context menu. This can help with synch errors in case
+      of some 16bit synth engines eg. Wingroove.&nbsp;&nbsp; </p>
+    <p>&nbsp;</p>
+    <p><strong>version 1.8.1</strong></p>
+    <p>No new features only bug fixes: better handling of meta text
+      events, workaround for missing sndvol32.exe in Vista/7/8, some mixer bug fixes
+      (but full mixer functionality requires winXP compatibility mode under
+      Vista/7/8).&nbsp;&nbsp; </p>
+    <p>&nbsp;</p>
+    <p><strong>version 2.0</strong></p>
+    <p>1. Bassmidi synth and soundfont engine is now integrated
+      into the program. So features that were restricted to real Sound Blaster users
+      so far are available to everyone through Bassmidi.</p>
+    <p>Real time soundfont loading, soundfont preset names display,
+      balance, bass &amp; treble settings are supported (mixer controls including
+      volume slider are associated with Bassmidi if you choose Bassmidi).</p>
+    <p>Emulated EAX Reverb and Chorus effect settings are also
+      available. Moreover static loading of multiple soundfonts into different banks
+      are supported. </p>
+    <p>Bassmidi is loaded dynamically only when you choose Bassmidi
+      output in the device settings panel, so midi drivers that use Bassmidi (e.g.
+      Coolsoft Virtualmidisynth) can be used as before.</p>
+    <p>However before using the built-in Bassmidi output you should
+      change to a midi output (e.g. Microsoft Soft Synth) that is not using BassMidi
+      and restart the player. </p>
+    <p>2. Player remembers last played files.</p>
+    <p>3. Windows theme support that can be changed during runtime
+      (main dialog right click context menu). </p>
+    <p>4. Other fixes and enhancements. </p>
+    <p>&nbsp;</p>
+    <p>Information on Bassmidi and Bassmidi settings can be found
+      on un4seen website:<a href="http://www.un4seen.com/doc/#bassmidi/bassmidi.html" target="_blank"> http://www.un4seen.com/doc/#bassmidi/bassmidi.html </a></p>
+    <p>&nbsp;</p>
+    <p><strong>version 2.1</strong></p>
+    <p>1. Added experimental module files (mod, xm, s3m, it) playback
+      support via real time converting.</p>
+    <p>This feature requires soundfont support so midi output must
+      be real Soundblaster or Bassmidi. </p>
+    <p>Beware of complex module files, since conversion can be
+      lengthy and can result in too big midi files. Converted files are placed in the
+      temporary directory and can be played later without conversion.</p>
+    <p>The program does not delete these files, you can delete them
+      manually.&nbsp; </p>
+    <p>2. Added Bass spectrum analyzer in Bassmidi output mode
+      (main dialog right click context menu).</p>
+    <p>3. International characters support in main panel song
+      title.</p>
+    <p>4. Other fixes and enhancements (Midi Text, Playlist and
+      Aboutbox related).</p>
+    <p>&nbsp;</p>
+    <p><strong>version 2.2</strong></p>
+    <p>1. Added maximum polyphony and sample rate adjustment
+      options to Bassmidi output settings.</p>
+    <p>2. Added performance information display to Bass Spectrum
+      Analyzer. You can activate/deactivate this in the right click context menu of
+      the Spectrum Analyzer. </p>
+    <p>3. Spectrum Analyzer and Midi Text dialog's status and
+      position are restored next time you start the program.</p>
+    <p>4. Fixed using and locking the last used standard midi port
+      when the actual output port is Bassmidi.</p>
+    <p>5. Other fixes and enhancements (Bassmidi buffering, Mouse
+      wheel and main trackbar, Midi Text).</p>
+    <p>&nbsp;</p>
+    <p><strong>version 2.3</strong></p>
+    <p>1. Added basic session recording capability. </p>
+    <p>2. Automatic lyrics display adjustment according to text
+      window and font sizes. </p>
+    <p>3. Fixed bug preventing windows to shutdown/restart while
+      the program is running.</p>
+    <p>4. Fixed bug causing access violation at program start if
+      Bassmidi output is selected but 'Soundfont preset names' is not.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+    <p>&nbsp;</p>
+    <p><strong>version 2.4</strong></p>
+    <p>Modified midi keyboard. Instead of previous fixed 8 octaves
+      now the octave offset can be set freely.</p>
+    <p>So you can reach all midi defined notes on the keyboard
+      (0-127). </p>
+    <p>&nbsp;</p>
+    <p><strong>version 2.5</strong></p>
+    <p>1. Added 'Store settings in INI file' option for maximum
+      portability. If you choose this option all entries will be removed from
+      registry and will be stored in 'MidiPlayer.ini' instead.</p>
+    <p>2. Added direct recording in case of BassMidi output mode.</p>
+    <p>2. Fixed bug of occasional improper format settings in
+      recorded wave file.</p>
+    <p>3. Redesigned session recording and more obvious recording
+      options in device settings dialog. </p>
+    <p>That's how it works: </p>
+    <p>The most simple option is to use Bassmidi. In this case you
+      don't need to set any special option. Recording just works and only BassMidi
+      output is recorded.</p>
+    <p>If you use other standard midi output ports then the music
+      is not rendered by MidiPlayer so you have to set the proper input source to
+      hear anything in the recorded wave file.</p>
+    <p>9x/2000/Xp : Usually there is only one input port per
+      soundcard and you have to choose the proper source in the mixer (Midi or Stereo
+      Mix/What you hear).</p>
+    <p>Vista/7/8: There are independent input ports for every
+      source and you have to choose Stereo Mix (Midi only option is missing).</p>
+    <p>But in case of Stereo Mix not only MidiPlayer's output will
+      be recorded but all the stereo sources that can be heard.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+    <p>&nbsp;</p>
+    <p><strong>version 2.6</strong></p>
+    <p>1. Important under the hood virtual memory optimizations so
+      the program can open and play very big midi files. Black midis are welcome :).</p>
+    <p>2. Mod2midi converts more efficiently (produces less midi
+      tracks and smaller midi files) so more complex modules (mod,xm etc.) can be
+      played.</p>
+    <p>3. Bass spectrum analyzer FPS can be adjusted (right click
+      spectrum analyzer window). </p>
+    <p>4. Scrolling title for long midi file names (click to
+      enable/disable).</p>
+    <p>5. Added key offset channel map. You can set which channels
+      the key offset is applied to (right click on Key Offset trackbar). This can be
+      useful for XG and mod converted midi files that not necessarily use channel 10
+      as drum channel. </p>
+    <p>6. Fixed bug of incorrect tempo in case of missing tempo
+      track and/or tempo change meta event.</p>
+    <p>7. Full support of high contrast Windows themes. </p>
+    <p>8. Smaller user interface related bug fixes. </p>
+    <p>&nbsp;</p>
+    <p><strong>version 2.6.1</strong></p>
+    <p>Fixed randomly occurring empty playlist panel bug on Win7/8. </p>
+    <p>Fixed synth keyboard layout on non-qwerty keyboards.</p>
+    <p>&nbsp;</p>
+    <p><strong>version 2.7</strong></p>
+    <p>1. Added new Sysex reset types: GM2 and NX(Technics
+      specific). Available by right clicking the reset icon.</p>
+    <p>2. Redesigned interface for a little bit more modern look.</p>
+    <p>3. You can change the font color of the main display
+      panel(new item in main context menu).</p>
+    <p>4. Signed middle C on virtual piano.</p>
+    <p>5. Global persistent setting for Autoplay. Setting is stored
+      in registry/ini file.</p>
+    <p>6. Some minor bug fixes in directsound init under BassMidi
+      mode.</p>
+    <p>&nbsp;</p>
+    <p><strong>version 2.7.1</strong></p>
+    <p>1. Improved black midi playback performance in Bassmidi
+      mode.</p>
+    <p>2. Added code path to cure newer Wine incompatibilities. </p>
+    <p>Only bassmidi output is useful under default Wine setup
+      since working midiout ports are missing. </p>
+    <p>&nbsp;</p>
+    <p><strong>version 2.8</strong></p>
+    <p>1. Mono volume meter is replaced with a stereo one.</p>
+    <p>2. Last played item on playlist is saved and restored.</p>
+    <p>3. Lyrics is center aligned and lyrics window is fullscreen capable.</p>
+    <p>4. Lyrics window and spectrum analyzer can be snapped to main window and moved together (left side and top side respectively).</p>
+    <p>5. Save patched midi option added to playlist menu. Requested by Technics users to save modified programs/banks to midi file.</p>
+    <p>6. New channel handling option for midi input (follow channel changes on interface).</p>
+    <p>7. Added active/inactive state feedback to main form's caption. </p>
+    <p>8. Fixed buggy 'Always on top' behaviour when lyrics/spectrum analyzer window is opened. </p>
+    <p>9. Added displaying midi mode of midi files for known Sysex types.</p>
+    <p>10. Added 'Shuffle' option to playlist menu.</p>
+    <p>11. Minor cosmetic changes on Windows 8+.</p>
+    <p><a href="file:///C|/temp2/MidiPlayer2/Másolat - Help/Readme.html"></a>12. Added option to main menu 'Fix SysEx patch changes' to fix problematic midi files that use only SysEx messages to set programs/banks and leaves channel programs at default (piano). 
+      You should disable this fix if you want to save re-patched midi files.</p>
+    <p>&nbsp;</p>
+    <p><strong>version 2.8.1</strong></p>
+    <p> 1. Added capability of recording to compressed audio formats. Any available ACM codecs can be used (e.g. Fraunhofer or Lame mp3 codec).<br>
+      You can select the desired format directly in the save dialog by clicking the select button on the right hand side of the dialog. Informations about enabling/installing mp3 codecs can be found in the 'Enable_MP3_Record' folder. Since Wine's implementation of ACM is rather buggy this feature is disabled under Wine. </p>
+    <p>2. Added Ctrl + 0..9 hotkeys for soundfont testing. You should set your soundfonts to the corresponding Bank number in the configuration dialog and then  with these new hotkeys you can change the Bank on all channels at once.</p>
+    <p>3. Added play/pause, prev, next multimedia keyboard hotkey support. </p>
+    <p>&nbsp;</p>
+    <p><strong>version 3.0 </strong></p>
+    <p>1. Added scale effect settings that enables to transpose notes to different scales (major, minor, pentatonic and other user configurable unique scales) .<br>
+      More info about this feature: <a href="http://abletonlife.com/midi-effect-tutorial-how-to-use-abletons-scale" target="_blank">http://abletonlife.com/midi-effect-tutorial-how-to-use-abletons-scale</a></p>
+    <p>2. Added taskbar thumbnail buttons (Windows 7/8/10+) and playing control shortcuts to taskbar menu. </p>
+    <p>3. Added support for Midi system real time messages (Start/Continue/Stop) to Midi input. </p>
+    <p>4. Playlist title and path parts are separated and tab positions are saved. </p>
+    <p>5. Other improvements: restructured menu, added show border option, position trackbar beat precision, many other fixes. </p>
+    <p>&nbsp;</p>
+    <p><strong>version 3.1</strong></p>
+    <p>1. Added support for Cakewalk/Sonar instrument definition (.ins) files. Definition files should be placed in the new Instrument folder.<br>
+      You can choose your definition by selecting the main menu-&gt;Intruments-&gt; Custom preset settings item.</p>
+    <p>2. Added new bassmidi version that fixed drum channel related bugs.<br>
+      So in Bassmidi mode Midi Player can show the correct preset names in all possible modes (GM, GM2, GS, XG) on all channels. </p>
+    <p>3. Added chord mode that can be applied to virtual piano and Midi input. </p>
+    <p>4. Added send custom SysEx option. It can be reached from Reset button context menu. SysEx files should be placed in the new SysEx folder.</p>
+    <p>5. Added a workaround for handling unicode file names that the active code page does not support. </p>
+    <p>6. Start/Stop real time messages can be sent to Midi out and Open Metronome 1.2. </p>
+    <p>7. Minor fixes and improvements: fixed slower startup regression from version 3.0, more precise tempo settings,
+      added actual Midi mode display,<br>
+      more intuitive main menu options, 
+      confirmation before removing playlist items when using 'Open files'; </p>
+    <p>&nbsp;</p>
+    <p><strong>version 3.2</strong></p>
+    <p>1. Added capture custom SysEx option and fixed sending big SysEx chunks.</p>
+    <p>2. Added support for XG/GS patch and drum channel change SysEx messages (so no need for 'Fix Sysex patch changes' compatibility option).</p>
+    <p>3. Added emulation for XG/GS patch change SysEx messages so midi sounds as intended even if synth does not support the given SysEx. </p>
+    <p>4. Added Use Sysex for Volume/Balance option. Especially useful for external synths (Device settings dialog -&gt; mixer section). </p>
+    <p>5. Added right click context menu for direct Channel selection. </p>
+    <p>6. Further black midi related optimizations.</p>
+    <p>7. Many other fixes and enhancements. </p>
+    <p>&nbsp;</p>
+    <p><strong>version 3.3</strong></p>
+    <p>1. Somewhat bigger user interface including virtual piano, knobs and buttons.</p>
+    <p>2. Added repeat one and shuffle command buttons to toolbar.</p>
+    <p>3. Added sorting to playlist. Items can be sorted by clicking the corresponding column header. </p>
+    <p>4. Faster and more compatible mod2midi conversions. </p>
+    <p>5. More precise BPM calculations and playback when tempo is modified. </p>
+    <p>6. Channel map context menu reflects actual drum/melodic channels. </p>
+    <p>&nbsp;</p>
+    <p><strong>version 3.4</strong></p>
+    <p>1. Added support for Bassmidi's native 32bit float sample data. 32bit mode can prevent clipping especially when high Bass/Treble values are used. </p>
+    <p>2. Added support for saving 32bit float wave files when Bassimid's 32bit mode is active. 32bit wave files are mainly useful for post processing.</p>
+    <p>3. Added support for Bassmidi's NOTEOFF1 mode. If this mode is active note off events only kill the last instance of a note, not all overlapping notes. </p>
+    <p>4. Fixed regression of Midi over net (only selected channel's messages have been sent). </p>
+    <p>5. Other minor fixes. </p>
+    <p>6. New experimental 64 bit version. This version's advantages are better unicode filename support and the potential to handle multiple (very) big soundfonts. </p>
+    <p>&nbsp;</p>
+    <p><strong>version 3.4.1</strong></p>
+    <p>Improved Shuffle function to avoid frequent repetitions. </p>
+    <p>&nbsp;</p>
+    <p><strong>version 3.4.2</strong></p>
+    <p>Added option to playlist's context menu for enabling CD standard 2 secs pause between songs. </p>
+    <p>&nbsp;</p>
+    <p><strong>version 3.5</strong></p>
+    <p>1. Main form's height is set to adjustable (for better playlist handling). You can resize it by dragging top/bottom border. </p>
+    <p>2. Added real Stop button. Play/Pause is now a toggle button. </p>
+    <p>3. Added 'Play from first Note' option to Playlist's context menu (skips silence at start). </p>
+    <p>4 Added 'Remove Dead Items' option to Playlist's context menu (removes missing or invalid files).</p>
+    <p>5. Added 'Repeat All Playlist' option to Playlist's context menu. </p>
+    <p>6. Improved compatibility with the recently released Sound Canvas VA.</p>
+    <p>7. Fixed problems with midi file length calculation when end of track event is mistimed.</p>
+    <p>8. Fixed playing problems with midi files that use out of spec sysex messages. </p>
+    <p>9. While dragging an item inside the playlist the playlist scrolls if you move your mouse outside of it.</p>
+    <p>10. Dragging items to playlist from explorer inserts the items right where you drop them.</p>
+    <p>11. Other fixes and enhancements. </p>
+    <p>* Thanks for James-F on Vogons forum for his valuable help. </p>
+    <p>&nbsp;</p>
+    <p><strong>version 3.6</strong></p>
+    <p>1. Added Capital Tone Feedback emulation. Useful in case of synths that play wrong instrument or completely stay silent when an invalid bank is referred. More info in Howto/Faq. </p>
+    <p>2. Added to the Channel select, Key offset, and Scale effect right click  context menu a more verbose channel info with preset names. This way  it's easier to find the right channel.</p>
+    <p>3. Added custom sysex reset type. Moreover sysex delay settings are applied to other sysex reset types.</p>
+    <p>4. Added Mute/Solo Attenuate compatibility setting. It results in vanBasco like attenuation instead of pure on/off state when Mute/Solo applied to a channel.</p>
+    <p>5. Added Enable Sysex from Midi in option. Similarly to Enable Sysex in Files it filters Sysex messages in disabled state.</p>
+    <p>6. Added Apply controls to Midi in option. In parallel to CTF it enables to use Force Manual Mode (controller filter), Mute/Solo and Key Offset on Midi Input. <br>
+      Enabled  state is more optimal for message processor mode while disabled  is more optimal for jamming (the controls only affect the played file).</p>
+    <p>7. Added Set Missing Defaults compatibility option. Enabled state is the ordinary one while in disabled state it can help avoiding the buggy LoopBE feedback detect error.<br>
+      It can also help in some rare cases when wrong instrument is played. Most obvious side effect is instrument selection is not always preserved when seeking.</p>
+    <p>8. Fixed some AV errors related to playlist handling. </p>
+    <p>&nbsp;</p>
+    <p><strong>version 3.7</strong></p>
+    <p>1. This is an important update since resolves a <a href="http://www.un4seen.com/forum/?topic=17266.0" target="_blank">long pending bassmidi bug</a> (especially in the x64 version) of high CPU usage after idle periods . </p>
+    <p>2. Added handling of drag&amp;dropped folders (single level, no recursion). </p>
+    <p>3. Added instant playing mode. When drag&amp;dropping files/folders to the main display area it replaces the current items and starts playing. </p>
+    <p>4. Added the possibility to change the output folder of converted MOD/XM/IT files.</p>
+    <p>5. Added reset type changing to sysex submenu of the main menu so it can also be reached when the player is in compact mode. </p>
+    <p>6. Added restoring Bass Spectrum Analyzer if it was opened before switching to normal midi output port. </p>
+    <p>7. Fixed writing wave files bigger than 4GB (that is out of wave file specification). </p>
+    <p>8. Fixed Bassmidi's reverb and chorus type/level setting failure of the x64 version. </p>
+    <p>&nbsp;</p>
+    <p><strong>version 3.8</strong></p>
+    <p>1. Added Midi Channels visualization mode. Unlike previous modes this one is working with standard midi ports since it uses midi messages instead of wave data.</p>
+    <p>2. Added channel map to virtual piano Show All mode. By right clicking the Show All button you can set the map to prevent displaying e.g. drum channels. </p>
+    <p>3. Added playing state indicators to taskbar thumbnail  (Win7+) . </p>
+    <p>4. Added SC88 reset sysex as valid GS mode reset (like Bassmidi and Roland SCVA does). </p>
+    <p>5. Fixed GS style sysex patch/tone change detection.</p>
+    <p>6. Fixed Real-time loaded soundfonts resetting when any unrelated options changed in Device Settings dialog.</p>
+    <p>7. Fixed x64 version standard midi port recording issues. </p>
+    <p>8. Reduced memory footprint (especially noticeable with big midi files).</p>
+    <p>9. Fixed multi-monitor related issues. </p>
+    <p>&nbsp;</p>
+    <p><strong>version 3.9</strong></p>
+    <p>1. Added 'Show Velocity on Piano' option to main menu -&gt; appearance. 
+      If enabled it shows different velocity values with different grayscale colors.</p>
+    <p>2. Added VST effect/visualization plugin support (main menu -&gt; Bass VST Plugins. It only works in Bassmidi output mode).<br>
+      Some plugins can cause instability/freezes. The most critical parts are  loading and unloading so it is advisable to avoid fast  loading/unloading sequences.<br>
+      Priority defines the order of effects. Higher priority means that the effect occurs earlier in the chain. Therefore visualization plugins should be set to 0 priority.<br>
+      Also effects that are set to 0 priority do not influence recording (recording virtually runs with priority 1). </p>
+    <p>3. Fixed error when last file on playlist is deleted while being played and repeat one is enabled. </p>
+    <p>4. Fixed AV errors in case of successive delete operations when 0 ms sysex delay is set.</p>
+    <p>5. Better compatibility with older computers that have only 1 CPU core. </p>
+    <p>6. Other fixes and enhancements. </p>
+    <p>&nbsp;</p>
+    <p><strong>version 4.0</strong></p>
+    <p>1. Added VSTi plugins (VST instrument) support.<br>
+      This means that Midi Player itself can host e.g. Roland SC-VA and Yamaha S-YXG50 Portable VSTi so no other VST host is required.<br>
+      Advantages compared to external VST host: direct recording, normal volume/bass/treble and visualization support, can be used with VST effect/visualization plugins.</p>
+    <p>2. Added reset to middle position to most trackbars. Besides balance/bass/treble it also applies to tempo and key  offset.<br>
+      It works by left mouse double clicking since some trackbars have right mouse context menu.</p>
+    <p>3. VST and VSTi plugin window positions are saved and restored.</p>
+    <p>4. Added shortcut keys that open effect/instrument window and automatically load previously set VST/VSTi plugins.<br>
+      (VSTi plugin -&gt; Shift + I, VST plugins -&gt; Shift + effect number)</p>
+    <p>5. Fixed handling of VST effect plugins that cannot detach their editor window properly. </p>
+    <p>6. Other fixes and enhancements. </p>
+    <p>&nbsp;</p>
+    <p><strong>version 4.1</strong></p>
+    <p>1. Added automatic loading  options to VST/VSTi plugins. </p>
+    <p>2. Added Bass/Treble configuration. You can invoke it by right clicking the corresponding trackbar (works only in Bassmidi/VSTi mode). </p>
+    <p>3. Added XG style SysEx dump program change detection and CTF support for  SysEx based program changes.</p>
+    <p>4. Added automatic removing of non-existent files from playlists at load time.</p>
+    <p>5. Fixed some drums related CTF issues.  </p>
+    <p>6. Fixed ESC handling in modal dialogs.</p>
+    <p>7. Many other fixes and enhancements. </p>
+    <p>&nbsp;</p>
+    <p><strong>version 4.2</strong></p>
+    <p>1. Added crop selected files (deletes everything except selected files)</p>
+    <p>2. New explorer like playlist with multi-selection delete, drag, crop.</p>
+    <p>3. Added SysEx support for midi over net.</p>
+    <p>4. Modified VST(i) settings file format to VST standard fxb. Loading old bin format is still supported.</p>
+    <p>5. Hex string input control  is replaced by multi line edit control in Select/Send Custom SysEx dialog. </p>
+    <p>6. Fixed potential converter command line issues (short path name is not guaranteed under NTFS).</p>
+    <p>7. Fixed instrument list when Sysex resets are very close to first program change messages.</p>
+    <p>8. Fixed non-visible VST(i) editors when width/height is only available after embedding.</p>
+    <p>9. Fixed Bass mode cannot be enabled under Wine.</p>
+    <p>&nbsp;</p>
+    <p><strong>version 4.3</strong></p>
+    <p>1. Added  'Set Knob Mode to Linear' option to Compatibility Settings menu.</p>
+    <p>2. Added Maximum SysEx chunk size setting to Select/Send SysEx dialog.</p>
+    <p>3. Added Select All but Drums, Select All and Clear All options to Channel Map context menus.</p>
+    <p>4. Added selected custom SysEx file's name to Reset Type context menu.</p>
+    <p>5. Added SFZ soundfont support (even FLAC compressed but you have to download bassflac.dll from <a href="http://www.un4seen.com/bass.html#addons" target="_blank">un4seen.com</a>).</p>
+    <p>6. Added MT-32 midi  &amp; Munt support by SysEx files (GS_MT32_Mode.syx, MT32_GM_Mode.syx).    </p>
+    <p>7. Fixed 'Play from First Note' problem by disabling it for rare problematic midi files with SysEx reset messages. </p>
+    <p>&nbsp;</p>
+    <p><strong>version 4.4</strong></p>
+    <p>1. Added Munt (MT-32 emulator) VSTi to fully support MT-32 midi files. (It can be found in new VST folder.)</p>
+    <p>2.  Added BASS_VST_SetEditKnobMode to Bass_vst.dll so linear knob mode can be set also in VST(i) plugins.</p>
+    <p>3. Added displaying full playlist duration to 'Time' column header.</p>
+    <p>4. Added ability to add associated file types by double clicking from explorer to an already opened instance of midi player (Winamp like add/enqueue behavior).</p>
+    <p>5. Added general VST UI to support editor-less plugins. Of course this UI is available for any VST(i) plugins.</p>
+    <p>6. Fixed saving/loading settings for VST(i) plugins that do not support data chunks.</p>
+    <p>7. Fixed integer overflow bug in long and high ppqn Midi files (e.g. Quest Studios Larry 3 midi).</p>
+    <p>8. Added DreamBlaster_X2 instrument definition file.</p>
+    <p>&nbsp;</p>
+    <p><strong>version 4.5</strong></p>
+    <p>1. Added new "File Mode" recording option (right click menu on record   button). If enabled  recording only starts when playback starts and    recording stops when the midi file's playback ends.</p>
+    <p>2. Added new OPL3 GM VSTi for the ones who like 90's retro sound. It's in the same VST folder where MuntVSTi can be found.</p>
+    <p>3. Added 49716 Hz to selectable sample rates (because of OPL3 GM VSTi). </p>
+    <p>4. Added version 1.2 of MuntVSTi. </p>
+    <p>5. Added MT-32  Master volume sysex handling (used when "use Sysex for Volume/Balance" is enabled is mixer options).</p>
+    <p>6. MT-32 midi files detected and displayed as "MT" on the main UI.</p>
+    <p>7. Fixed GS_MT32_Mode.syx by adding proper default MT-32 instrument list and MT-32 default pitch bend range.</p>
+    <p>8.   Fixed 'Play from first Note' problem (playback misses some early notes)   by fast forwarding only to one beat before first note.</p>
+    <p>9. Fixed GM Balance (CC# 8 ) default value.</p>
+    <p>&nbsp;</p>
+    <p><strong>version 4.6</strong></p>
+    <p>1. Added Event Viewer/Debugger. With the help of it you can debug both midi files and Midi Player itself.    <br>
+    It can be invoked by pressing Ctrl +D or from Main menu-&gt; Dialog Boxes -&gt; Event Viewer/Debugger.</p>
+    <p>2.  Added a basic 'Configuration Preset' system. The preset dialog can be   invoked by pressing Ctrl +Alt +P or from Main menu-&gt;Storage of   Settings-&gt;Configuration Presets. Presets can be loaded also by hotkeys and SysEx messages. <a href="https://www.vogons.org/viewtopic.php?f=24&t=48207&start=280#p572504" target="_blank">Details can be found on Vogons forum</a>. </p>
+    <p>3. VST effect plugins can be associated with BassMidi's User FX (CC 94).   This way globally not so useful effects (such as distortion, overdrive   etc.) can be used e.g. only with guitar channels. This feature works only with Bassmidi output and not with VSTi instruments. </p>
+    <p>4. Added version 2.0 of MuntVSTi. Details of changes can be found in the ReadMe file of MuntVSTi.</p>
+    <p>5. Added version 1.1 of OPL3VSTi. Details of changes can be found in the ReadMe file of OPL3VSTi.</p>
+    <p>6. Fixed SysEx memo content saving/loading in case of ini file storage. </p>
+    <p>7. The tracks label on display also counts track 0 (tempo track) in case of type 1 midi files in accordance with event debugger. </p>
+    <p>&nbsp;</p>
+    <p><strong>version 4.7</strong></p>
+    <p>1. Some UI changes. Added dedicated Main Menu and Minimize button. Also Ctrl+M shortcut added to Minimize. It works in all dialogs (VST, Lyrics, Debugger etc.) that belong to the same FSMP instance.</p>
+    <p>2. Added ability to automatically send SysEx (*.syx) files with the same name as the played midi file similarly to auto loading custom soundfont files. Make sure AutoLoad Soundfont/SysEx option is enabled in the Instruments submenu. </p>
+    <p>3. SysEx (*.syx) files can be drag&amp;dropped into main window and also into Select/Send SysEx dialog and are sent immediately. </p>
+    <p>4. Added a simple gain  VST effect plugin to help handling the wide variation of  output levels between VSTi instruments.</p>
+    <p>5. Added code page selection to the Midi text/Lyrics dialog in the  64 bit/unicode version of the player. </p>
+    <p>6. Fixed time column of the playlist. It dispalyed playlist time as a normal time format and overflowed at 12/24 hours. </p>
+    <p>7. Fixed Bassmidi/Vsti mode failed to use default sound output device  when it is changed during playback. </p>
+    <p>8. Fixed notes from Midi input does not use channel map settings when key offset is used and 'Apply controls to Midi in' is selected. </p>
+    <p>&nbsp;</p>
+    <p><strong>version 4.8 </strong></p>
+    <p>1. Added ability for complete GS soundfonts to use Bank LSB as a base bank address.<br>
+    This way you can test more full GS soundfonts at once with   variation banks addressed by Bank MSB without risking bank conflicts. So you can emulate a similar behavior like   SC-55/88/88pro maps in Roland SC-8820/8850 devices and SC-VA. <br>
+      Real time loaded   soundfonts still use Bank MSB exclusively for SB compatibility reasons   (they always contain variation banks anyway.)
+      <br>
+    When 'Use Bank LSB' is checked the Ctrl+x bank switching hotkeys also set the Bank LSB value for all channels. </p>
+    <p>2.  Added native XMI files support together with multiple tracks/songs.</p>
+    <p>3. Added proper support for Type 2 midi files. They work like XMI files   regarding multiple tracks. They are rare and  seldom handled properly.<br>
+    (Usually the tracks are played simultaneously just like in case of Type 1 files and it can result in a big noise...)</p>
+    <p>4.  Midi files meant to be played on SC-88+ devices are detected and their type is displayed correctly. </p>
+    <p>5. Fixed defaul values of  Controllers 76-78 that are defined on SC-8820 and later Roland devices. </p>
+    <p>6. Added MuntVsti 2.2 with important fixes (details in the ReadMe file of MuntVsti). </p>
+    <p>&nbsp;</p>
+    <p><strong>version 4.9</strong></p>
+    <p>1. Added configuration preset loading from command line. The syntax is:  -preset x   where x is the preset number you specified as a postfix when you named   the preset.</p>
+    <p>2. Added - minimized command line option. It can be useful when the player is used as a background midi router. Start /min in batch files also supported. </p>
+    <p>3. Added Winamp invented *.miz file support (zip compressed single midi file).</p>
+    <p>4. Added support for .zip files. Supported media files from the archive are extracted and added to playlist.</p>
+    <p>5. Added recursive file enumeration for drag&amp;dropped folders and zip files.</p>
+    <p>6. Added limited support for rare dual port/32 channel midi files. These files only work in bassmidi output mode with soundfonts. </p>
+    <p>7. Opened/closed state of VST/VSTi plugin's window is now saved an restored. </p>
+    <p>8.  Added MuntVsti 2.3.</p>
+    <p>9. Fixed  startup problem with Wine if Windows version is set higher than Win XP. Now the x64 version is also supported under Wine. </p>
+    <p>10. Updated bass/bassmidi libraries to fix 2 issues: <a href="http://www.un4seen.com/forum/?topic=17767.0" target="_blank">wrong default frequency detection</a>, <a href="http://www.un4seen.com/forum/?topic=17770.0" target="_blank">sinc interpolation problem with non-sse2 cpu</a>. </p>
+    <p>11. Other minor fixes and enhancements. </p>
+    <p>&nbsp;</p>
+    <p><strong>version 5.0 </strong></p>
+    <p>1. Added Batch File Mode to record mode options. Consecutive files from the playlist are saved to the same folder with   the same format you have selected in the dialog for the first file. File   names will be the same as the original midi file but with wav/mp3 extension.</p>
+    <p>2. Added Bass output device selection to Device Settings together with No Sound option (can be useful in case of Midi via Net). </p>
+    <p>3. Added Soundfont info to corresponding OpenFileDialog and File buttons (right click) in Device Settings. If it  slows down soundfont browsing on slower PC's there is a new   compatibility setting to disable   OpenFileDialog extension.</p>
+    <p>4. Added font and background color selection to Midi Text/Lyrics window. </p>
+    <p>5. Dialog invoking speedbuttons are now toggle buttons between opened and closed state. </p>
+    <p>6. Added  workaround for old half-duplex soundcards that have   problems using standard win32 midi port soft synths because of allocated   recording sources by FSMP. <br>
+      Now you can press 'Del' in Device settings   dialog on the Recording Source input field to not use any. </p>
+    <p>7. On Win9x disabled menu/combo/listbox animations that could cause  audio skipping.</p>
+    <p>8. Fixed multiple file opening from explorer when the player is associated with supported extensions.</p>
+    <p>9. Fixed playback of midi files with continuous tempo change messages that require floating point precision.</p>
+    <p>10. Added OPL3 GM VSTi 1.2 with integrated Nuked OPL3 emulation library. </p>
+    <p>&nbsp;</p>
+    <p><strong>version 5.1</strong></p>
+    <p>1.  Added loop point support (infinite/finite loops + multiple possible loop points).</p>
+    <p>2. Reverb/Chorus SysEx effect settings are now global instead of Bass only (midi files can  override these defaults).</p>
+    <p>3. Added compatibility option to not ignore the End of Track meta events for song length (and thus end of song) calculation.</p>
+    <p>4. Added default bank selection for same named Midi+SF2 files.</p>
+    <p>5. Extended Soundfont stack  to help making more advanced soundfont configurations. </p>
+    <p>6. Extended the possible range for  Bank parameter for SF2 files   (negative offsets are possible) and in case of SFZ files the parameter   means Preset number instead of Bank.</p>
+    <p>7. Prev/Next selects subsongs in type 2 Mid/Xmi files.</p>
+    <p>8. Bass infrastructure is restarted only when necessary after applied changes in Device Config.</p>
+    <p>9. Added OPL3 GM VSTi 1.3 with instrument customization option. </p>
+    <p>10. Added SimpleGain VST 1.1 with Mix to Mono option. </p>
+    <p>11. Other minor fixes and enhancements. </p>
+    <p>&nbsp;</p>
+    <p><strong>version 5.2</strong></p>
+    <p>1.  Added minimize to tray option. It can be especially useful when using emulators in fullscreen mode and changing presets remotely. </p>
+    <p>2. Added 'folder.sf2' support (folder wide real time loaded soundfont). Bank postfix can be used the same way as in case of  midi + sf2 pairs.</p>
+    <p>3. Added SimpleGain VST 1.2 with Balance and Reverse Stereo options. </p>
+    <p>4. Optimized handling and loading time of big Zip/Miz and Xmi files. </p>
+    <p>5. The priority of the built-in Equalizer has been set to 5 to provide greater flexibility.</p>
+    <p>6. Fixed  Use Bank LSB value saving problem in Config Dialog.</p>
+    <p>7. Fixed Reverb/Chorus effect level settings not working for GS devices (SC-VA included) if type is set to 'Default'.</p>
+    <p>8. Fixed AV error at startup when 'Always on Top' is set and FSMP is closed in this state.</p>
+    <p>9. Fixed bad display color for 'Loop detected' label if font color is changed in Appearance menu.</p>
+    <p>10.  Other minor fixes and enhancements.</p>
+    <p>&nbsp;</p>
+    <p><strong>version 5.3</strong></p>
+    <p>1.  Added Folder.syx support. It works similar to Folder.sf2.  If   you put a Folder.syx file into a folder all the midi files in that   folder will load the syx file before playing. </p>
+    <p>2. To support the Folder.syx feature a new option called 'Save SysEx data from   Midi' can be found in the File menu of Event Viewer/Debugger. With the   help of this you can save/extract the initialization SysEx data from   midi files to a syx file that can be renamed and used as a Folder.syx   file.</p>
+    <p>3. Added support for native WASAPI audio output on Windows Vista/7/8/10   (it applies to both Bassmidi and VSTi output modes).   This setting is available in the Bass part of the Device Settings   dialog. With WASAPI you can achieve lower latency output that can be   useful if you use FSMP also as a real time soft synth.</p>
+    <p>4. Added 'Channels' compatibility option to support  Microsoft specific channel layouts  (explicit Basic/Extended/GM and auto mode). More info:<br>
+        <a href="https://www.vogons.org/viewtopic.php?f=24&t=48207&start=600#p650055" target="_blank">https://www.vogons.org/viewtopic.php?f=24&amp;t=48207&amp;start=600#p650055</a></p>
+    <p>5. Added fast loop option to Loop Settings dialog. If enabled FSMP does not send messages to assure correct controller,   program etc. states at the loop start point so it is much faster but requires properly programmed loop points. It can be mostly useful in case of  slower hardware. </p>
+    <p>6. Improved Event Viewer: filtered event count display, F3 to skip to next filtered event, display meta sequencer data,  display GM program names.</p>
+    <p>7. Other minor fixes and enhancements.</p>
+    <p>&nbsp;</p>
+    <p><strong>version 5.4</strong></p>
+    <p>1.   Added midi key numbers to right click display on virtual keyboard.</p>
+    <p>2 .Added clipping indicator to volume ladder.</p>
+    <p>3. Added left/right arrow hotkeys to forward/rewind 5 sec. during playback.    </p>
+    <p>4. Added SF2 XG drum bank support in  XG mode (BASS_MIDI_FONT_XGDRUMS flag is set if bank 127 proves to be a drum bank).</p>
+    <p>5. Added special low latency mode in case of WASAPI output (set buffer to 10ms to enable). </p>
+    <p>6. Added fixes for overlapping and orphan loop points.</p>
+    <p>7. Added separate PitchBend filter to DebugForm.</p>
+    <p>8. Maximum supported channels are extended to 64 in Bassmidi mode.</p>
+    <p>9. When started with /tray command line parameter close button minimizes app back to system tray.</p>
+    <p>10. SysEx volume/balance settings are saved and restored.</p>
+    <p>11. Fixed 'Default Bank' setting always resets to 1 after restart. </p>
+    <p>12.  Other minor fixes and enhancements.</p>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+    <p>Have fun.</p>
+    <p>Zolt&aacute;n Bacsk&oacute; (Falco)</p>
+    <p>&nbsp;</p>
+    <p><a href="http://falcosoft.hu" target="_blank">http://falcosoft.hu/</a></p>
+    <p>zbacsko@falcosoft.hu</p>
+    <p>&nbsp;</p>
+    <table width="100%" border="0">
+      <tr>
+        <td width="50%"><strong> </strong></td>
+        <td width="50%" align="right"><strong><a href="#top">Jump to Top</a></strong> </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</body>
+</html>

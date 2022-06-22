@@ -1,0 +1,143 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>Munt VSTi Readme</title>
+<style type="text/css">
+body {
+	background-color: #222222;
+	margin: 0;
+	padding: 0;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+p {
+margin:10px;
+}
+
+li {
+  line-height: 150%;
+}
+
+#mainframe {
+	background-color: #BBBBBB;	
+	position: relative;
+	max-width: 1152px;
+	padding: 12px;
+	padding-top: 8px;
+	border: none; 
+	margin: auto;
+	min-height: 100vh;
+	
+}
+
+</style>
+</head>
+<body>
+<div id="mainframe">
+<h2>Munt MT-32 emulator VSTi </h2>
+    <p>is a portable VST 2.4 instrument/software MIDI synthesizer for Windows that  is based on <a href="http://munt.sourceforge.net/" target="_blank">Munt</a>. </p>
+    <p>It is primarily developed for my <a href="http://falcosoft.hu/softwares.html#midiplayer" target="_blank">Soundfont Midi Player</a> to integrate MT-32 support but apart from this it is a full fledged VSTi plugin.</p>
+    <p> You need the MT-32/CM-64 Control and PCM ROM images to use it. Unfortunately it is not legally allowed to redistribute these files. </p>
+    <p>But if you do not have the proper ROM files you can try <a href="http://gansweith.freehostia.com/midi/MT-32-MIDIFILES/MT32_ROMS.zip" target="_blank">these images</a>.</p>
+    <p> In the package both x86 and x64 versions are included for different x86/x64 hosts.</p>
+    <p> Using x86/x64 host bridges are not recommended.</p>
+    <p> Mt32emu4v.dll has to be copied to the same (VST) directory as MuntVsti.dll.</p>
+    <p>Supported MIDI events/controllers can be found in <a href="http://www.polynominal.com/roland-mt-32/roland-mt32-manual.pdf" target="_blank">Roland's documentation</a>.</p>
+    <p>Contrary to normal Munt releases x86 version of MuntVsti works even on Win9x.</p>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+    <p><strong>Notice:</strong></p>
+    <p>Since Munt only supports 32000, 48000, and 96000 Hz, you should set one   of these  sample rates in the host.</p>
+    <p> These frequencies correspond the COARSE,   ACCURATE, OVERSAMPLED analog output modes in Munt.</p>
+    <p> Since Munt also uses   32kHz internally for timestamps in order to get the most accurate timings 32kHz is   recommended.</p>
+    <p> But 96kHz is still preferred to 48kHz.</p>
+    <p>From version 2.0 the plugin supports any sample rates through internal resampling but the above written about timings still holds. </p>
+    <p>&nbsp;</p>
+    <p><strong>Tested Hosts:</strong></p>
+    <ul>
+      <li><a href="http://falcosoft.hu/softwares.html#midiplayer" target="_blank">Soundfont Midi Player</a></li>
+      <li><a href="http://www.hermannseib.com/english/savihost.htm" target="_blank">SAVIHost</a></li>
+      <li><a href="http://www.hermannseib.com/english/vsthost.htm" target="_blank">VSTHost</a></li>
+      <li> <a href="http://www.reaper.fm/" target="_blank">Reaper</a></li>
+      <li> <a href="https://www.steinberg.net/en/products/cubase/cubase_elements.html" target="_blank">Cubase</a></li>
+    </ul>
+    <p><strong>Features:</strong></p>
+    <ul>
+      <li>Fast and lightweight.</li>
+      <li>Supports 32 bit and emulated 64 bit VST processing.</li>
+      <li>Supports 16 bit integer and 32 bit floating point internal rendering of Munt.</li>	
+      <li>Supports native MT-32/CM-64 compatible midi system mode and a special GM mode. </li>
+      <li>Built-in Dual Synth setup allows you to get full 16 channel GM mode as well a special 16 channel MT-32 mode.</li>
+      <li>Supports all the different reverb and other emulation options that Munt offers.</li>
+      <li>Supports 12 parameters for options that are not (or not easily) Midi controllable.</li>
+      <li>Adjustable maximum partials up to 64 per synth. </li>
+      <li>Can send midiProgramNames to hosts that support it. </li>
+    </ul>
+    <p>&nbsp;</p>
+    <p><strong>version 1.0 </strong></p>
+    <p>Initial release.</p>
+    <p>&nbsp;</p>
+    <p><strong>version 1.1</strong></p>
+    <p>1. Added status area for displaying SysEx LCD  messages and selected ROM information. </p>
+    <p>2. Fixed GM mode's default piano (program 0) 'one octave down' bug .This can be found in the original Roland MT-TO-GM  package and affects at least Munt.  </p>
+    <p>3. Fixed 'Reverse Stereo' value loading. </p>
+    <p>4. Fixed x64 version's file select dialog issues. </p>
+    <p>&nbsp;</p>
+    <p><strong>version 1.2 </strong></p>
+    <p>1. Added Orchestra Drum set to GM Mode (can be reached by PC# 48 on   channel 10). No special settings are required, midis can use it   automatically in GM mode.</p>
+    <p> 2. Added GM ON/OFF SysEx handling  so you (or midi files) can switch GM Mode ON(/Off) by sending   these simple SysEx messages.</p>
+    <p> 3. Added displaying actual Midi mode to UI.</p>
+    <p>4. Fixed hanging sustained notes when playback is paused.</p>
+    <p>4. New version of mt32emu4v.dll (2.0.2).</p>
+    <p>5. Some other cosmetic changes.   </p>
+    <p>&nbsp;</p>
+    <p><strong>version 2.0</strong></p>
+    <p>1. Added Dual Synth setup to get 16 channel modes. This way you can get the full 16 channel GM spectrum with a single instance of the plugin.<br>
+  More info on the details of the new Dual Synth setup can be found on Vogon's forum:<br>
+  <a href="https://www.vogons.org/viewtopic.php?f=24&t=48207&start=260#p569417" target="_blank">https://www.vogons.org/viewtopic.php?f=24&amp;t=48207&amp;start=260#p569417 </a></p>
+    <p>2. Added resampling for sample rates that were not supported so far. So now you can use e.g. 44100 Hz but resampling means higher CPU usage. </p>
+    <p>3. Added internal floating point rendering. Floating point mode results in less accuracy in terms of emulation and high CPU usage. <br>
+    But it has better output quality and lower noise level. </p>
+    <p>4. Fixed timing/timestamps issues with bigger buffers on some hosts (e.g. SAVIHost). </p>
+    <p>&nbsp;</p>
+    <p><strong>version 2.1</strong></p>
+    <p>1. Added   implementation of Pure DAC input mode in case of floating point rendering. </p>
+    <p>2. Added some explanation to  DAC input mode selection about how different modes  influence volume level. </p>
+    <p>&nbsp;</p>
+    <p><strong>version 2.2</strong></p>
+  <p>Due to fundamental fixes/changes in the underlying Munt library <br>
+    <a href="https://github.com/munt/munt/commit/db2c53e49b67f0edb413aee18860da66de0c5681" target="_blank">1. https://github.com/munt/munt/commit/db2c53e49b67f0edb413aee18860da66de0c5681</a></p>
+    <p><a href="https://github.com/munt/munt/commit/909717e7de7603972340b11ee37e9b9a306ff6a5" target="_blank">2. https://github.com/munt/munt/commit/909717e7de7603972340b11ee37e9b9a306ff6a5</a></p>
+    <p>there are important improvements:</p>
+    <p>1.  So far the plugin produced double the volume level compared to the windows driver at default settings. The changes introduced in version 2.1 of the plugin were intended to mitigate this problem. Since the floating point conversion/normalization is now fixed at the core level there is no need for tricks anymore. The plugin's default output level is now the same  as the driver's. You can freely choose any DAC mode without risking clipping,  there is no need to use 'Pure DAC mode' anymore. If you  want to replicate   the old 'double volume level' behavior there is a new 'v2.1compatibility option' in the settings dialog. </p>
+    <p>2. Direct access to Munt's internal timestamp is now possible so no   'guessing' is necessary anymore. Thus    rounding/timing problems are greatly mitigated.<br>
+    But the recommendations are the same:</p>
+    <p><a href="http://www.vogons.org/viewtopic.php?f=24&t=48207&start=440#p587426" target="_blank">http://www.vogons.org/viewtopic.php?f=24&amp;t=48207&amp;start=440#p587426 </a></p>
+    <p>&nbsp;</p>
+    <p><strong>version 2.3</strong></p>
+    <p>1. Added option to toggle NiceAmpRamp mode. If enabled it ensures amp ramp never jumps to the target but always gradually increases or decreases. So it provides better quality.<br>
+      Disabled state means better emulation accuracy.</p>
+    <p>2. New version of mt32emu4v.dll  with latest enhancements. </p>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+	<p>If you would like to support the development of Munt VSTi you can donate through PayPal.</p>
+    <form action="https://www.paypal.com/cgi-bin/webscr" method="get" target="_blank">
+      <p>
+        <input type="hidden" name="cmd" value="_s-xclick">
+        <input type="hidden" name="hosted_button_id" value="SY5KG9XCVDVW6" >
+        <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" name="submit" alt="PayPal - The safer, easier way to pay online!" >
+      </p>
+    </form>
+    <p>&nbsp;</p>
+    <p><a target="_blank" rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/80x15.png"></a><br>
+      <span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Munt VSTi</span> by <a target="_blank" xmlns:cc="http://creativecommons.org/ns#" href="http://falcosoft.hu/softwares.html" property="cc:attributionName" rel="cc:attributionURL">Zolt&aacute;n Bacsk&oacute; (Falcosoft)</a> is licensed under a </p>
+    <p><a target="_blank" rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>. </p>
+    <p>&nbsp;</p>    
+    <p>Have fun.</p>
+    <p>Zolt&aacute;n Bacsk&oacute; (Falco)</p>
+    <p><a href="http://falcosoft.hu" target="_blank">http://falcosoft.hu/</a></p>
+    <p>zbacsko@falcosoft.hu</p>
+</div>
+</body>
+</html>

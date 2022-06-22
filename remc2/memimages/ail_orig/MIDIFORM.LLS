@@ -1,0 +1,10 @@
+/c /v /x +
+c:\tools\bc\lib\c0l.obj +
+midiform, +
+midiform.exe, +
+midiform.map, +
+c:\tools\bc\lib\cl.lib c:\tools\bc\lib\emu.lib c:\tools\bc\lib\mathl.lib gen
+
+                                                                             
+(Active TLINK options: case sensitivity on, generate debug info, no map file)
+

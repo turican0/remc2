@@ -1,0 +1,31 @@
+LIBRARY "bass_vst.dll"
+
+EXPORTS
+	BASS_VST_ChannelSetDSP
+	BASS_VST_ChannelRemoveDSP
+	BASS_VST_ChannelCreate
+	BASS_VST_ChannelFree
+	BASS_VST_GetParamCount
+	BASS_VST_GetParam
+	BASS_VST_SetParam
+	BASS_VST_GetParamInfo
+	BASS_VST_GetChunk
+	BASS_VST_SetChunk
+	BASS_VST_GetProgramCount
+	BASS_VST_GetProgram
+	BASS_VST_GetProgramName
+	BASS_VST_GetProgramParam
+	BASS_VST_SetProgram
+	BASS_VST_SetProgramName
+	BASS_VST_SetEditKnobMode
+	BASS_VST_SetProgramParam
+	BASS_VST_Resume
+	BASS_VST_SetBypass
+	BASS_VST_GetBypass
+	BASS_VST_GetInfo
+	BASS_VST_EmbedEditor
+	BASS_VST_SetScope
+	BASS_VST_SetCallback
+	BASS_VST_SetLanguage
+	BASS_VST_ProcessEvent
+	BASS_VST_ProcessEventRaw

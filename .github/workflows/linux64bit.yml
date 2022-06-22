@@ -1,0 +1,63 @@
+name: Linux 64bit CI
+
+on:
+  push:
+    branches:
+      [ master, development ]
+  pull_request:
+      types: [opened, synchronize, reopened]
+  workflow_dispatch:
+
+env:
+  GITHUB_CI_COMPATIBILITY_PATH: /usr/lib/x86_64-linux-gnu
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+          submodules: recursive
+
+    - name: install dependencies
+      run: |
+        sudo apt-get -y install \
+          cmake \
+          libsdl2-dev libsdl2-mixer-dev \
+          libsdl2-ttf-dev libsdl2-image-dev \
+          libpng-dev libpng++-dev \
+          libz-dev libgtest-dev \
+          -o APT::Immediate-Configure=0
+        
+    - name: cmake release
+      run: |
+        cd ${{ github.workspace }}
+        mkdir build_release
+        cd build_release
+        cmake -DCMAKE_BUILD_TYPE=Release -DUSE_64_BIT=True -DGITHUB_CI_COMPATIBILITY_PATH="${{env.GITHUB_CI_COMPATIBILITY_PATH}}" ..
+        
+    - name: make release
+      run: |
+        cd ${{ github.workspace }}
+        cd build_release
+        curl -L -O https://sonarcloud.io/static/cpp/build-wrapper-linux-x86.zip
+        unzip -o build-wrapper-linux-x86.zip
+        build-wrapper-linux-x86/build-wrapper-linux-x86-64 --out-dir build_wrapper_output make
+        
+    # skip 64bit UT until ingame save with correct size is clarified, see convert_struct_to_array_D41A0_0
+    #- name: run unit tests
+    #  run: |
+    #    cd ${{ github.workspace }}
+    #    cd build_release
+    #    ./remc2/remc2unittests
+
+    - name: sonarcloud scan
+      if: github.repository_owner == 'thobbsinteractive'
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      run: |
+        curl -L -O https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.4.0.2170-linux.zip
+        unzip sonar-scanner-cli-4.4.0.2170-linux.zip
+        sonar-scanner-4.4.0.2170-linux/bin/sonar-scanner -Dsonar.host.url=https://sonarcloud.io

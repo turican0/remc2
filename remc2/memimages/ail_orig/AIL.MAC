@@ -1,0 +1,84 @@
+;лллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллл
+;лл                                                                        лл
+;лл   AIL.MAC                                                              лл
+;лл                                                                        лл
+;лл   IBM Audio Interface Library -- General purpose 80x86 macros          лл
+;лл                                                                        лл
+;лл   Version 1.00 of 27-Sep-91: Initial version for AIL V2.0 release      лл
+;лл                                                                        лл
+;лл   8086 ASM source compatible with Turbo Assembler v2.0 or later        лл
+;лл   Author: John Miles                                                   лл
+;лл                                                                        лл
+;лллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллл
+;лл                                                                        лл
+;лл   Copyright (C) 1991, 1992 Miles Design, Inc.                          лл
+;лл                                                                        лл
+;лл   Miles Design, Inc.                                                   лл
+;лл   10926 Jollyville #308                                                лл
+;лл   Austin, TX 78759                                                     лл
+;лл   (512) 345-2642 / FAX (512) 338-9630 / BBS (512) 454-9990             лл
+;лл                                                                        лл
+;лллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллл
+
+FAR_TO_HUGE     MACRO fp_seg,fp_off             ;normalize far pointer
+                push ax bx             
+                mov ax,fp_seg
+                mov bx,fp_off
+                shr bx,1
+                shr bx,1
+                shr bx,1
+                shr bx,1
+                add ax,bx
+                mov fp_seg,ax
+                and fp_off,0fh
+                pop bx ax
+                ENDM
+
+ADD_PTR         MACRO add_l,add_h,pseg,poff     ;add 32-bit dword to far ptr
+                push bx
+                push cx
+                mov bx,pseg
+                xor cx,cx
+                shl bx,1
+                rcl cx,1
+                shl bx,1
+                rcl cx,1
+                shl bx,1
+                rcl cx,1
+                shl bx,1
+                rcl cx,1
+                add bx,poff
+                adc cx,0
+                add bx,add_l
+                adc cx,add_h
+                mov poff,bx
+                and poff,1111b
+                shr cx,1
+                rcr bx,1
+                shr cx,1
+                rcr bx,1
+                shr cx,1
+                rcr bx,1
+                shr cx,1
+                rcr bx,1
+                mov pseg,bx
+                pop cx
+                pop bx
+                ENDM
+
+POP_F           MACRO                   ;avoid POPF bug on brain-dead 80286's
+                LOCAL intel_bytes
+                db 80h                  ;make an OR BH,00 instruction
+intel_bytes:    iret
+                db 00h
+                push cs
+                call intel_bytes
+                ENDM
+
+REP_MOVSB       MACRO                   ;do REP MOVSB with 16-bit transfers
+                shr cx,1
+                rep movsw
+                adc cx,cx
+                rep movsb
+                ENDM
+
