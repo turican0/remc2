@@ -1,0 +1,2 @@
+C:\prenos\remc2-merging\x64\Debug\config.ini
+c:\prenos\remc2-merging\remc2\x64\Debug\remc2.vcxproj.CopyComplete

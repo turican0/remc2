@@ -3676,7 +3676,7 @@ void sub_9F740(char* a1)//280740
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
 					if (sub_9F2E0((int*)hMdiMusicDriver, *(int*)v5, *(unsigned __int16*)&v5[4], 2u).AX == -1//fix
-						&& !dos_read(file, x_DWORD_181E2C, (unsigned __int16)x_WORD_181E30, 512, (x_DWORD)&v8))
+						&& !dos_read(file, x_DWORD_181E2C, (unsigned __int16)x_WORD_181E30, 512, (char*)&v8))
 					{
 						v2 = sub_9F3D0((int*)hMdiMusicDriver, x_DWORD_181E2C, x_WORD_181E30, 1u);
 						*(x_WORD*)&v6[4] = WORD2(v2);
@@ -3686,7 +3686,7 @@ void sub_9F740(char* a1)//280740
 							DataFileIO::Seek(file, __readgsx_DWORD(*(x_DWORD*)v6 + 2), 0);
 							for (i = 0; (signed __int16)__readgsx_WORD(*(unsigned int*)v6) > i; i++)
 							{
-								if (dos_read(file, x_DWORD_181E2C, (unsigned __int16)x_WORD_181E30, 512, (x_DWORD)&v8)
+								if (dos_read(file, x_DWORD_181E2C, (unsigned __int16)x_WORD_181E30, 512, (char*)&v8)
 									|| sub_9F4F0((int*)hMdiMusicDriver, x_DWORD_181E2C, x_WORD_181E30, 1u).AX != -1)//fix
 								{
 									return;
@@ -3703,7 +3703,7 @@ void sub_9F740(char* a1)//280740
 									x_DWORD_181E26,
 									(unsigned __int16)x_WORD_181E2A,
 									__readgsx_DWORD(*(x_DWORD*)v6 + 10),
-									(x_DWORD)&v8)
+									(char*)&v8)
 									&& sub_9F5E0((int*)hMdiMusicDriver, x_DWORD_181E26, x_WORD_181E2A, 1u).AX == -1)//fix
 								{
 									x_BYTE_E3815 = 1;
