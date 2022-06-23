@@ -4,8 +4,8 @@
 #define MAIN_SOUND
 
 #include "ail_sound.h"
-
 #include "Basic.h"
+#include "../utilities/Wave.h"
 
 #pragma pack (1)
 typedef struct {//lenght 12
@@ -72,7 +72,7 @@ signed int LoadMusic(int channel);
 void GetMusicSequenceCount();
 char LoadMusicTrack(FILE* file, unsigned __int8 drivernumber);
 int sub_8F0AB(FILE* a1, /*int a2,*/ int a3);
-void sub_8F100_sound_proc19(uint32_t a1, __int16 a2, int a3, int a4, unsigned __int16 a5, char a6, unsigned __int8 a7);
+void sub_8F100_sound_proc19(uint32_t a1, __int16 index, int volume, int a4, unsigned __int16 a5, char a6, unsigned __int8 a7);
 void sub_8F420_sound_proc20(int a1, __int16 a2);
 void sub_8F710_sound_proc21(int a1, __int16 a2, signed int a3, unsigned __int8 a4, char a5);
 void sub_8F850_sound_proc22();
@@ -124,7 +124,7 @@ HSAMPLE sub_93510_AIL_allocate_sample_handle(HDIGDRIVER a1);
 int sub_937A0_AIL_release_sample_handle(int a1);
 void sub_93830_AIL_init_sample(HSAMPLE a1);
 //signed int sub_938C0_AIL_set_sample_file(x_DWORD *a1, int a2, int a3);
-int32_t sub_938C0_AIL_set_sample_file(HSAMPLE S, uint8_t* file_image, int32_t block);
+int32_t sub_938C0_AIL_set_sample_file(HSAMPLE S, uint8_t* pWaveData, int32_t block);
 void sub_93A10_AIL_set_sample_address(HSAMPLE S, uint8_t* start, uint32_t len);
 void sub_93AB0_AIL_set_sample_type(x_DWORD* a1, int a2, int a3);
 void sub_93B50_AIL_start_sample(HSAMPLE S);
@@ -270,10 +270,10 @@ int sub_A4370(x_DWORD* a1);
 int sub_A4390(int a1);
 void sub_A43E0(int a1);
 int sub_A47A0(); // weak
-void sub_A47C0_sub_set_sample_file(uint8_t* file_image, HSAMPLE S);
+void sub_A47C0_sub_set_sample_file(uint8_t* pWavData, HSAMPLE S);
 int sub_A4920(); // weak
 HSAMPLE sub_A4970(int a1, uint8_t* a2, int a3);
-int32_t sub_A4B20_set_sample_file(HSAMPLE S, uint8_t* file_image, int32_t block);
+int32_t sub_A4B20_set_sample_file(HSAMPLE S, uint8_t* pWavData, int32_t block);
 int sub_A4C60(int a1, int a2);
 signed int sub_A4E10(char a1);
 void sub_A4EB0(HMDIDRIVER a1);
@@ -387,7 +387,7 @@ unsigned __int8* sub_ACD79(unsigned __int8* a1, int a2);
 int sub_ACE56(int a1);
 
 int sub_AEAF5();
-
+void WriteWaveToFile(wav_t* wav, int index);
 
 void AIL_fix();
 char* mygetenv(const char* a1);

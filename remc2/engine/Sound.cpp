@@ -2822,11 +2822,12 @@ void sub_844A0_sound_proc5(uint16_t count)//2654a0
 			//v2 = *(x_DWORD*)(v1 + 18);
 			//v2 = str_E37A0_sound_buffer2[v1y].dword_18;
 			//v1 += 32;
-#ifdef COMPILE_FOR_64BIT
-			str_E37A0_sound_buffer2->str_8.wavs_10[index].dword_0 = reinterpret_cast<uint64_t>(str_E37A0_sound_buffer2->str_8.wavs_10[v1y].dword_0) + x_DWORD_E37A8_sound_buffer1;
-#else
-			soundIndex_E37A0->str_8.wavs_10[index].dword_0 = reinterpret_cast<uint32_t>(soundIndex_E37A0->str_8.wavs_10[index].dword_0) + x_DWORD_E37A8_sound_buffer1;
-#endif
+#ifdef x32_BIT_ENVIRONMENT
+			soundIndex_E37A0->str_8.wavs_10[index].wavData_0 = reinterpret_cast<uint64_t>(soundIndex_E37A0->str_8.wavs_10[index].wavData_0) + x_DWORD_E37A8_sound_buffer1;
+#endif //x32_BIT_ENVIRONMENT
+#ifdef x64_BIT_ENVIRONMENT
+			soundIndex_E37A0->str_8.wavs_10[index].wavData_0 = reinterpret_cast<uint32_t>(soundIndex_E37A0->str_8.wavs_10[index].wavData_0) + x_DWORD_E37A8_sound_buffer1;
+#endif //x64_BIT_ENVIRONMENT
 			index++;
 			v0++;
 		}
@@ -2920,7 +2921,7 @@ char ReadAndDecompressSound(FILE* file, unsigned __int8 a2)//2654f0
 	}
 
 	memset((void*)shadow_str_E37A0_sound_buffer2, 0, x_DWORD_E2A1C);
-	numOfLoadedSounds_E37A4 = (v8x[a2].dword_8) / sizeof(shadow_sub2type_E37A0_sound_buffer2);
+	numOfLoadedSounds_E37A4 = (v8x[a2].sizeBytes_8) / sizeof(shadow_sub2type_E37A0_sound_buffer2);
 	DataFileIO::Seek(file, v8x[a2].dword_4, 0);
 	DataFileIO::Read(file, x_DWORD_E37A8_sound_buffer1, 8);
 	if (x_DWORD_E37A8_sound_buffer1[0] != 82 || x_DWORD_E37A8_sound_buffer1[1] != 78 || x_DWORD_E37A8_sound_buffer1[2] != 67)
@@ -2936,7 +2937,7 @@ char ReadAndDecompressSound(FILE* file, unsigned __int8 a2)//2654f0
 	DataFileIO::Read(file, (uint8_t*)shadow_str_E37A0_sound_buffer2, 8);
 	if (shadow_str_E37A0_sound_buffer2->byte_0 != 'R' || shadow_str_E37A0_sound_buffer2->byte_1 != 'N' || shadow_str_E37A0_sound_buffer2->byte_2 != 'C')//R N C
 	{
-		DataFileIO::Read(file, (uint8_t*)&shadow_str_E37A0_sound_buffer2->str_8, v8x[a2].dword_8 - 8);
+		DataFileIO::Read(file, (uint8_t*)&shadow_str_E37A0_sound_buffer2->str_8, v8x[a2].sizeBytes_8 - 8);
 	}
 	else
 	{
@@ -2953,9 +2954,10 @@ char ReadAndDecompressSound(FILE* file, unsigned __int8 a2)//2654f0
 	soundIndex_E37A0->byte_7 = shadow_str_E37A0_sound_buffer2->byte_7;
 	for(int i=0;i<10;i++)
 		soundIndex_E37A0->str_8.stub[i] = shadow_str_E37A0_sound_buffer2->str_8.stub[i];
+
 	for (int i = 0; i < 96; i++)
 	{
-		soundIndex_E37A0->str_8.wavs_10[i].dword_0 = (uint8_t*)shadow_str_E37A0_sound_buffer2->str_8.wavs_10[i].dword_0;
+		soundIndex_E37A0->str_8.wavs_10[i].wavData_0 = (uint8_t*)shadow_str_E37A0_sound_buffer2->str_8.wavs_10[i].wavData_0;
 		for (int j = 0; j < 4; j++)
 			soundIndex_E37A0->str_8.wavs_10[i].stub_4[j] = shadow_str_E37A0_sound_buffer2->str_8.wavs_10[i].stub_4[j];
 		soundIndex_E37A0->str_8.wavs_10[i].dword_8 = shadow_str_E37A0_sound_buffer2->str_8.wavs_10[i].dword_8;
@@ -3380,7 +3382,7 @@ int sub_9EE70()
 		sub_95140_AIL_register_EOS_callback(x_DWORD_181E10, sub_9EE70);
 		v0 = sub_95480_AIL_sample_user_data(x_DWORD_181E10, x_DWORD_E3E40);
 		//sub_938C0_AIL_set_sample_file(x_DWORD_181E10, (uint8_t*)*(x_DWORD*)(x_DWORD_E37A0_sound_buffer2 + 32 * v0 + 18), 1);
-		sub_938C0_AIL_set_sample_file(x_DWORD_181E10, soundIndex_E37A0->str_8.wavs_10[v0].dword_0, 1);
+		sub_938C0_AIL_set_sample_file(x_DWORD_181E10, soundIndex_E37A0->str_8.wavs_10[v0].wavData_0, 1);
 		++x_DWORD_E3E40;
 		sub_93B50_AIL_start_sample(x_DWORD_181E10);
 	}
@@ -5748,7 +5750,6 @@ int sub_A4390(int a1)//285390
 	return result;
 }
 
-
 //----- (000A43E0) --------------------------------------------------------
 void sub_A43E0(HSAMPLE S)//2853e0
 {
@@ -5766,37 +5767,47 @@ void sub_A43E0(HSAMPLE S)//2853e0
 // A4400: using guessed type void *off_A4400;
 
 //----- (000A47C0) --------------------------------------------------------
-void sub_A47C0_sub_set_sample_file(uint8_t* file_image, HSAMPLE S)//2857c0
+void sub_A47C0_sub_set_sample_file(uint8_t* pWaveData, HSAMPLE S)//2857c0
 {
 	int i; // eax
 	int j; // eax
 	uint8_t* v5; // [esp+0h] [ebp-8h]
 	uint8_t* v6; // [esp+4h] [ebp-4h]
 
-	v6 = file_image + 12;
-	for (i = _strnicmp((const char*)(file_image + 12), "fmt ", 4); i; i = _strnicmp((const char*)v6, "fmt ", 4))
+	v6 = pWaveData + 12;
+	for (i = _strnicmp((const char*)(pWaveData + 12), "fmt ", 4); i; i = _strnicmp((const char*)v6, "fmt ", 4))
 		v6 += (*(x_DWORD*)(v6 + 4) & 1) + *(x_DWORD*)(v6 + 4) + 8;
-	if (*(x_WORD*)(v6 + 10) == 1 && *(x_WORD*)(v6 + 22) == 8)
+
+	int16_t numChannels = *(int16_t*)(v6 + 10);
+	int16_t bytesPerSample = *(int16_t*)(v6 + 22);
+	int32_t sampleRate = *(int32_t*)(v6 + 12);
+
+	if (numChannels == 1 && bytesPerSample == 8)
 	{
 		sub_93AB0_AIL_set_sample_type(S, 0, 0);
 	}
-	else if (*(x_WORD*)(v6 + 10) == 2 && *(x_WORD*)(v6 + 22) == 8)
+	else if (numChannels == 2 && bytesPerSample == 8)
 	{
 		sub_93AB0_AIL_set_sample_type(S, 2, 0);
 	}
-	else if (*(x_WORD*)(v6 + 10) == 1 && *(x_WORD*)(v6 + 22) == 16)
+	else if (numChannels == 1 && bytesPerSample == 16)
 	{
 		sub_93AB0_AIL_set_sample_type(S, 1, 1);
 	}
-	else if (*(x_WORD*)(v6 + 10) == 2 && *(x_WORD*)(v6 + 22) == 16)
+	else if (numChannels == 2 && bytesPerSample == 16)
 	{
 		sub_93AB0_AIL_set_sample_type(S, 3, 1);
 	}
-	sub_93D90_AIL_set_sample_playback_rate(S, *(x_DWORD*)(v6 + 12));
-	v5 = file_image + 12;
-	for (j = _strnicmp((const char*)(file_image + 12), "data", 4); j; j = _strnicmp((const char*)v5, "data", 4))
+	sub_93D90_AIL_set_sample_playback_rate(S, sampleRate);
+
+	v5 = pWaveData + 12;
+	for (j = _strnicmp((const char*)(pWaveData + 12), "data", 4); j; j = _strnicmp((const char*)v5, "data", 4))
 		v5 += (*(x_DWORD*)(v5 + 4) & 1) + *(x_DWORD*)(v5 + 4) + 8;
-	sub_93A10_AIL_set_sample_address(S, v5 + 8, *(x_DWORD*)(v5 + 4));
+
+	int32_t dataSizeBytes = *(int32_t*)(v5 + 4);
+	uint8_t* wavData = v5 + 8;
+
+	sub_93A10_AIL_set_sample_address(S, wavData, dataSizeBytes);
 }
 // 99B23: using guessed type x_DWORD strnicmp(x_DWORD, x_DWORD, x_DWORD);
 
@@ -5859,41 +5870,44 @@ HSAMPLE sub_A4970(int a1, uint8_t* a2, int a3)//285970
 // 181C90: using guessed type char x_BYTE_181C90;
 
 //----- (000A4B20) --------------------------------------------------------
-int32_t sub_A4B20_set_sample_file(HSAMPLE S, uint8_t* file_image, int32_t block)//285b20
+int32_t sub_A4B20_set_sample_file(HSAMPLE S, uint8_t* pWavData, int32_t block)//285b20
 {
-	signed int v5; // [esp+8h] [ebp-4h]
-	if (!_strnicmp((const char*)file_image, "Creative", 8))
+	if (pWavData != NULL)
 	{
-		v5 = 0;
-	}
-	else
-	{
-		if (_strnicmp((const char*)(file_image + 8), "WAVE", 4))
+		signed int v5; // [esp+8h] [ebp-4h]
+		if (!_strnicmp((const char*)pWavData, "Creative", 8))
 		{
-			qmemcpy(x_BYTE_181C90, (void*)"Unrecognized digital audio file type\n", 0x26u);
-			return 0;
+			v5 = 0;
 		}
-		v5 = 1;
-	}
-	if (v5)
-	{
-		if (v5 == 1)
+		else
 		{
+			if (_strnicmp((const char*)(pWavData + 8), "WAVE", 4))
+			{
+				qmemcpy(x_BYTE_181C90, (void*)"Unrecognized digital audio file type\n", 0x26u);
+				return 0;
+			}
+			v5 = 1;
+		}
+		if (v5)
+		{
+			if (v5 == 1)
+			{
+				S->sam_var[547] = 0;
+				sub_A47C0_sub_set_sample_file(pWavData, S);
+			}
+		}
+		else
+		{
+			S->sam_var542 = (uint8_t*)(*(unsigned __int16*)(pWavData + 20) + pWavData);
+			S->sam_var[545] = block;
+			S->sam_var[546] = block == -1;
 			S->sam_var[547] = 0;
-			sub_A47C0_sub_set_sample_file(file_image, S);
+			sub_A43E0(S);
 		}
+		if (S->sam_var[547] != -1)
+			return 1;
+		strcpy(x_BYTE_181C90, "Invalid or missing data block\n");
 	}
-	else
-	{
-		S->sam_var542 = (uint8_t*)(*(unsigned __int16*)(file_image + 20) + file_image);
-		S->sam_var[545] = block;
-		S->sam_var[546] = block == -1;
-		S->sam_var[547] = 0;
-		sub_A43E0(S);
-	}
-	if (S->sam_var[547] != -1)
-		return 1;
-	strcpy(x_BYTE_181C90, "Invalid or missing data block\n");
 	return 0;
 }
 // 99B23: using guessed type x_DWORD strnicmp(x_DWORD, x_DWORD, x_DWORD);
@@ -6289,7 +6303,7 @@ void sub_A5530(CTRL_LOG* a1x, char a2, unsigned int a3, unsigned __int8 a4)
 	}
 	else if (v6 == 224)
 	{
-	    a1x->indirect[v5+8] = (unsigned __int8)a3;
+		a1x->indirect[v5 + 8] = (unsigned __int8)a3;
 		result = &a1x->indirect[v5];
 		result[32] = a4;
 	}
@@ -8289,7 +8303,7 @@ void sub_A8EA0(x_DWORD* a1, int a2)
 //----- (000A9080) --------------------------------------------------------
 int sub_A9080(HSEQUENCE a1x, int a2, int a3)
 {
-	int result=0; // eax
+	int result = 0; // eax
 
 	int32_t* a1 = (int32_t*)a1x;
 
@@ -9206,14 +9220,14 @@ char LoadMusicTrack(FILE* filehandle, uint8_t drivernumber)//26fd00
 		return 0;
 	//str_E3808_music_header = (type_E3808_music_header*)sub_83CD0_malloc2(header[2 + 4 * drivernumber]);
 	//str_E3808_music_header = (type_E3808_music_header*)sub_83CD0_malloc2(headerx[drivernumber].dword_8);
-	str_E3808_music_header = (type_E3808_music_header*)sub_83CD0_malloc2((((headerx[drivernumber].dword_8 - 32) / 32) * sizeof(sub2type_E3808_music_header)) + 32);//with 64bit fix
+	str_E3808_music_header = (type_E3808_music_header*)sub_83CD0_malloc2((((headerx[drivernumber].sizeBytes_8 - 32) / 32) * sizeof(sub2type_E3808_music_header)) + 32);//with 64bit fix
 	if (!str_E3808_music_header)
 	{
 		sub_83E80_freemem4(array_E3810_music_data);
 		return 0;
 	}
 	//64xbit fix
-	shadow_type_E3808_music_header* shadow_str_E3808_music_header = (shadow_type_E3808_music_header*)sub_83CD0_malloc2(headerx[drivernumber].dword_8);
+	shadow_type_E3808_music_header* shadow_str_E3808_music_header = (shadow_type_E3808_music_header*)sub_83CD0_malloc2(headerx[drivernumber].sizeBytes_8);
 	if (!shadow_str_E3808_music_header)
 	{
 		sub_83E80_freemem4((uint8_t*)shadow_str_E3808_music_header);
@@ -9225,7 +9239,7 @@ char LoadMusicTrack(FILE* filehandle, uint8_t drivernumber)//26fd00
 	//x_DWORD_E380C = (uint8_t*)&x_DWORD_E3808_music_header[header[2 + 4 * drivernumber]];//?
 	//x_DWORD_E380C = str_E3808_music_header + headerx[drivernumber].dword_8;
 	//x_DWORD_E380C = (int8_t*)str_E3808_music_header + headerx[drivernumber].dword_8;
-	index_E380C_CountOfMusic = (headerx[drivernumber].dword_8) / sizeof(sub2type_E37A0_sound_buffer2);
+	index_E380C_CountOfMusic = (headerx[drivernumber].sizeBytes_8) / sizeof(sub2type_E37A0_sound_buffer2);
 	DataFileIO::Seek(filehandle, headerx[drivernumber].dword_4, 0);
 	DataFileIO::Read(filehandle, array_E3810_music_data, 8);
 	if (array_E3810_music_data[0] == 'R' && array_E3810_music_data[1] == 'N' && array_E3810_music_data[2] == 'C')//RNC
@@ -9284,7 +9298,7 @@ char LoadMusicTrack(FILE* filehandle, uint8_t drivernumber)//26fd00
 	}
 	else
 	{
-		DataFileIO::Read(filehandle, (uint8_t*)(&shadow_str_E3808_music_header->str_8), headerx[drivernumber].dword_8 - 8);
+		DataFileIO::Read(filehandle, (uint8_t*)(&shadow_str_E3808_music_header->str_8), headerx[drivernumber].sizeBytes_8 - 8);
 	}
 	str_E3808_music_header->byte_0 = shadow_str_E3808_music_header->byte_0;
 	str_E3808_music_header->byte_1 = shadow_str_E3808_music_header->byte_1;
@@ -9345,7 +9359,7 @@ int sub_8F0AB(FILE* a1, /*int a2,*/ int a3)//26f0ab
 // E3888: using guessed type int x_DWORD_E3888;
 
 //----- (0008F100) --------------------------------------------------------
-void sub_8F100_sound_proc19(uint32_t a1, __int16 a2, int a3, int a4, unsigned __int16 a5, char a6, unsigned __int8 a7)//270100
+void sub_8F100_sound_proc19(uint32_t a1, __int16 index, int volume, int a4, unsigned __int16 a5, char a6, unsigned __int8 a7)//270100
 {
 	char v8; // [esp+0h] [ebp-18h]
 	uint32_t i; // [esp+8h] [ebp-10h]
@@ -9364,9 +9378,9 @@ void sub_8F100_sound_proc19(uint32_t a1, __int16 a2, int a3, int a4, unsigned __
 
 	if (!x_BYTE_E3798_sound_active2
 		|| !x_BYTE_E3799_sound_card
-		|| a2 > (signed int)x_WORD_180B50
+		|| index > (signed int)x_WORD_180B50
 		//|| !_stricmp((const char*)(32 * a2 + x_DWORD_E37A0_sound_buffer2), "null.wav"))
-		|| !_stricmp((const char*)&soundIndex_E37A0->str_8.wavs_10[a2-1].filename_14, "null.wav"))
+		|| !_stricmp((const char*)&soundIndex_E37A0->str_8.wavs_10[index -1].filename_14, "null.wav"))
 	{
 		return;
 	}
@@ -9389,7 +9403,7 @@ void sub_8F100_sound_proc19(uint32_t a1, __int16 a2, int a3, int a4, unsigned __
 		v15 = 0;
 		for (j = 0; j < x_DWORD_180B4C_end_sound_buffer3_endindex; j++)
 		{
-			if (unk_180750_sound_buffer3[j]->flags_14 == a1 && unk_180750_sound_buffer3[j]->vol_scale_18[0][0] == a2 && sub_94010_AIL_sample_status(unk_180750_sound_buffer3[j]) != 2)
+			if (unk_180750_sound_buffer3[j]->flags_14 == a1 && unk_180750_sound_buffer3[j]->vol_scale_18[0][0] == index && sub_94010_AIL_sample_status(unk_180750_sound_buffer3[j]) != 2)
 			{
 				v15 = &unk_180750_sound_buffer3[j];
 				break;
@@ -9413,7 +9427,7 @@ void sub_8F100_sound_proc19(uint32_t a1, __int16 a2, int a3, int a4, unsigned __
 		v8 = 0;
 		for (l = 0; l < x_DWORD_180B4C_end_sound_buffer3_endindex; l++)
 		{
-			if (unk_180750_sound_buffer3[l]->flags_14 == a1 && unk_180750_sound_buffer3[l]->vol_scale_18[0][0] == a2)
+			if (unk_180750_sound_buffer3[l]->flags_14 == a1 && unk_180750_sound_buffer3[l]->vol_scale_18[0][0] == index)
 			{
 				v14 = &unk_180750_sound_buffer3[l];
 				v15 = 0;
@@ -9447,23 +9461,23 @@ void sub_8F100_sound_proc19(uint32_t a1, __int16 a2, int a3, int a4, unsigned __
 #ifdef DEBUG_SOUND
 		if (debug_first_sound) {
 			//uint8_t* debug_sound_buff = (uint8_t*)*(uint32_t*)(x_DWORD_E37A0_sound_buffer2 + 32 * a2 + 18);
-			uint8_t* debug_sound_buff = soundIndex_E37A0->str_8.wavs_10[a2].dword_0;
+			uint8_t* debug_sound_buff = soundIndex_E37A0->str_8.wavs_10[index].wavData_0;
 			debug_printf("sub_8F100_sound_proc19:buff:\n");
 			for (int i = 0; i < 100; i++)
 				debug_printf("%02X", debug_sound_buff[i]);
 			debug_printf("\n");
 		}
 #endif //DEBUG_SOUND
-		sub_938C0_AIL_set_sample_file(*v14, soundIndex_E37A0->str_8.wavs_10[a2].dword_0, 1);
+		sub_938C0_AIL_set_sample_file(*v14, soundIndex_E37A0->str_8.wavs_10[index].wavData_0, 1);
 		//last_sample = v14[0];
 	}
-	sub_93E30_AIL_set_sample_volume(*v14, a3);
+	sub_93E30_AIL_set_sample_volume(*v14, volume);
 	sub_93ED0_AIL_set_sample_volume_pan(*v14, a4);
 	sub_93D90_AIL_set_sample_playback_rate(*v14, x_DWORD_E37BC_sound_frequence * a5 / 0x64);
 	sub_93F70_AIL_set_sample_loop_count(*v14, a6 + 1);
 #ifdef DEBUG_SOUND
 	if (debug_first_sound) {
-		uint8_t* debug_sound_buff = soundIndex_E37A0->str_8.wavs_10[a2].dword_0;
+		uint8_t* debug_sound_buff = soundIndex_E37A0->str_8.wavs_10[index].wavData_0;
 		debug_printf("sub_8F100_sound_proc19:44mhz:\n");
 		//for (int i = 0; i < 100; i++)
 		//	debug_printf("%02X", ((uint8_t*)((*v14)->start_44mhz))[i]);
@@ -9473,8 +9487,8 @@ void sub_8F100_sound_proc19(uint32_t a1, __int16 a2, int a3, int a4, unsigned __
 #endif //DEBUG_SOUND
 	sub_93B50_AIL_start_sample(*v14);
 	v14[0]->flags_14 = a1;
-	v14[0]->vol_scale_18[0][0] = a2;
-	v14[0]->status_1 = a3;
+	v14[0]->vol_scale_18[0][0] = index;
+	v14[0]->status_1 = volume;
 	v14[0]->len_4_5[1] = a4;
 	//v14[0]->len_4_5[0] = a5;
 	v14[0]->vol_scale_18[0][2] = 0;
@@ -10153,6 +10167,25 @@ int sub_AEAF5()//28faf5
 }
 // E4C90: using guessed type int x_DWORD_E4C90;
 
+void WriteWaveToFile(wav_t* wav, int index)
+{
+	char path[MAX_PATH];
+	char name[50];
+	GetSubDirectoryPath(path, "BufferOut");
+	if (myaccess(path, 0) < 0)
+	{
+		mymkdir(path);
+	}
+
+	sprintf(name, "BufferOut/SoundFile%03d%s", index, ".wav");
+	GetSubDirectoryPath(path, name);
+
+	FILE* wavFile = fopen(path, "wb");
+	fwrite((uint8_t*)wav, 1, WAVE_HEADER_SIZE_BYTES, wavFile);
+	fwrite((uint8_t*)wav->data_44, 1, wav->dataSizeBytes_40, wavFile);
+
+	fclose(wavFile);
+}
 
 
 

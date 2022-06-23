@@ -196,6 +196,7 @@
     <ClInclude Include="networklib\Log.h">
       <Filter>networklib</Filter>
     </ClInclude>
+    <ClInclude Include="utilities\Wave.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\libpng2\libpng-master\projects\vstudio2017\Debug\libpng15.lib" />

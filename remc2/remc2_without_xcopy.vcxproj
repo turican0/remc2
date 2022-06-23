@@ -276,6 +276,7 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="sub_main.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="utilities\Wave.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\inih\ini.c" />
