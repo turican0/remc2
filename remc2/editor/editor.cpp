@@ -85,7 +85,7 @@ void init_pal() {
 		temppal[i * 3 + 1] = i;
 		temppal[i * 3 + 2] = i;
 	}
-	VGA_Set_palette2(temppal);
+	VGA_Set_pallette2(temppal);
 };
 
 void clean_tarrain()
@@ -248,7 +248,7 @@ void terrain_recalculate() {
 	}
 	if (stage > 15)
 	{
-		GenerateEvents_49290(&D41A0_0.terrain_2FECE, 1);
+		GenerateEvents_49290(&D41A0_0.terrain_2FECE, 1, 640, 480);
 	}
 	changed = false;
 };

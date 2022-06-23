@@ -500,7 +500,7 @@ void VGA_Set_palette(Uint8* palettebuffer) {
 	SubSet_palette(colors);
 }
 
-void VGA_Set_palette2(Uint8* palettebuffer) {
+void VGA_Set_pallette2(Uint8* palettebuffer) {
 	memcpy(temppalettebuffer, palettebuffer, 768);
 	SDL_Color colors[256];
 	for (int i = 0; i < 256; i++) {

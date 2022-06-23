@@ -436,7 +436,7 @@ void sub_454F0(unsigned __int8 a1, unsigned __int8 a2);
 void sub_45600(unsigned __int8 a1);
 
 void SetStagetagForTermod_49830(type_str_2FECE* terrain);
-void GenerateEvents_49290(type_str_2FECE* terrain, char a2);
+void GenerateEvents_49290(type_str_2FECE* terrain, char a2, uint16_t width, uint16_t height);
 
 void sub_49F30();
 

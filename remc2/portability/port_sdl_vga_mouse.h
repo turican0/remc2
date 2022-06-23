@@ -31,7 +31,7 @@ void VGA_Resize(int width, int height);
 void VGA_Blit(int width, int height, Uint8* srcBuffer);
 void VGA_Debug_Blit(int width, int height, Uint8* srcBuffer);
 void VGA_Set_palette(Uint8* palettebuffer);
-void VGA_Set_palette2(Uint8* palettebuffer);
+void VGA_Set_pallette2(Uint8* palettebuffer);
 void VGA_Write_basic_palette(Uint8* palettebuffer);
 Uint8* VGA_Get_palette();
 void VGA_Draw_string(char* wrstring);

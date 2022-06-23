@@ -54008,7 +54008,7 @@ void sub_49270_generate_level_features(type_str_2FECE* terrain)//22a270
 }
 
 //----- (00049290) --------------------------------------------------------
-void GenerateEvents_49290(type_str_2FECE* terrain, char a2)//22a290
+void GenerateEvents_49290(type_str_2FECE* terrain, char a2, uint16_t width, uint16_t height)//22a290
 {
 	int ix;
 	int jx;
