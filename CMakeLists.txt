@@ -57,6 +57,7 @@ find_package(SDL2_ttf REQUIRED)
 find_package(SDL2_image REQUIRED)
 find_package(PNG REQUIRED)
 
+
 ################################################################################
 # Global configuration types
 ################################################################################
