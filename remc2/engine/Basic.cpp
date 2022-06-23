@@ -1515,8 +1515,11 @@ void sub_90478_VGA_Blit320()//271478
 #endif //DEBUG_SEQUENCES
 	if (!x_BYTE_E3766)
 		sub_8CACD_draw_cursor2();
-
+#ifndef debug_hide_graphics
 	VGA_Blit(320, 200, pdwScreenBuffer);
+#endif
+	//if(dos_key_vect_9)dos_key_vect_9();
+	//VGA_mouse_clear_keys();
 
 	//set speed
 	long actmillis = mygetthousandths();
@@ -3444,14 +3447,12 @@ void sub_98709_create_index_dattab_power_add(uint8_t* tabbuffer, uint8_t* tabbuf
 {
 	for (uint32_t i = 0; i < (tabbufferend - (tabbuffer + add)) / 6; i++)
 	{
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-		std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-		dattabindex[i].data = (uint8_t*)(*(uint32_t*)((tabbuffer + add) + 6 * i)) + (int32_t)datbuffer;
-#endif
+#ifdef x32_BIT_ENVIRONMENT
+		dattabindex[i].data = (uint8_t*)(*(uint32_t*)((tabbuffer + add) + 6 * i)) + reinterpret_cast<int32_t>(datbuffer);
+#endif //x32_BIT_ENVIRONMENT
+#ifdef x64_BIT_ENVIRONMENT
+		dattabindex[i].data = (uint8_t*)(*(uint32_t*)((tabbuffer + add) + 6 * i)) + (int32_t)reinterpret_cast<int64_t>(datbuffer);
+#endif //x64_BIT_ENVIRONMENT		
 		dattabindex[i].width_4 = (tabbuffer + add)[6 * i + 4] * 2;
 		dattabindex[i].height_5 = (tabbuffer + add)[6 * i + 5] * 2;
 	}
@@ -3499,14 +3500,12 @@ void sub_9874D_create_index_dattab_add(uint8_t* tabbuffer, uint8_t* tabbufferend
 {
 	for (uint32_t i = 0; i < (tabbufferend - (tabbuffer + add)) / 6; i++)
 	{
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-		std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-		dattabindex[i].data = (uint8_t*)(*(uint32_t*)((tabbuffer + add) + 6 * i)) + (int32_t)datbuffer;
-#endif
+#ifdef x32_BIT_ENVIRONMENT
+		dattabindex[i].data = (uint8_t*)(*(uint32_t*)((tabbuffer + add) + 6 * i)) + reinterpret_cast<int32_t>(datbuffer);
+#endif //x32_BIT_ENVIRONMENT
+#ifdef x64_BIT_ENVIRONMENT
+		dattabindex[i].data = (uint8_t*)(*(uint32_t*)((tabbuffer + add) + 6 * i)) + (int32_t)reinterpret_cast<int64_t>(datbuffer);
+#endif //x64_BIT_ENVIRONMENT			
 		dattabindex[i].width_4 = (tabbuffer + add)[6 * i + 4];
 		dattabindex[i].height_5 = (tabbuffer + add)[6 * i + 5];
 	}

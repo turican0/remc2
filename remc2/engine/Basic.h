@@ -34,7 +34,7 @@
 
 #include "../utilities/DataFileIO.h"
 
-#if defined(__LP64__) || defined(_WIN64) || (defined(__x86_64__) &&     !defined(__ILP32__) ) || defined(_M_X64) || defined(__ia64) || defined (_M_IA64) || defined(__aarch64__) || defined(__powerpc64__)
+#if defined(__LP64__) || defined(_WIN64) || (defined(__x86_64__) &&     !defined(__ILP32__) ) || defined(_M_X64) || defined(__ia64) || defined (_M_IA64) || defined(__aarch64__) || defined(__powerpc64__) || defined(__x86_64__) || (UINT_MAX >= 0xffffffffffffffff)
 #define x64_BIT_ENVIRONMENT 1
 #else
 #define x32_BIT_ENVIRONMENT 1
@@ -46,7 +46,7 @@
 #pragma pack (1)
 typedef struct//lenght 11
 {
-	int8_t byte_0;
+	int8_t connected_0;
 	uint8_t array_byte_1[8];
 	int8_t byte_9;
 	int8_t byte_10;
@@ -57,11 +57,16 @@ typedef struct {//lenght 18
 }type_17ECA0;
 #pragma pack (16)
 
+typedef struct {
+	TColor c[256];
+	uint8_t data[];
+}TcolNext;
+
 #pragma pack (1)
 typedef struct//lenght 613 // end 17E09D
 {
 	TColor* x_DWORD_17DE38x; // weak
-	uint8_t* x_DWORD_17DE3C; // weak//1
+	TcolNext* x_DWORD_17DE3C; // weak//1
 	uint8_t* x_DWORD_17DE40; // weak//2
 	uint8_t* x_DWORD_17DE44; // weak//3
 	uint8_t* x_DWORD_17DE48c; // weak//4
@@ -94,8 +99,8 @@ typedef struct//lenght 613 // end 17E09D
 	int x_DWORD_17DEDC; // weak
 	FILE* x_DWORD_17DEE0_filedesc; // weak
 	int16_t x_DWORD_17DEE4_mouse_positionx; // weak
+	int16_t x_DWORD_17DEE6_mouse_positiony; // weak
 	char stub0[2];
-	int16_t x_DWORD_17DEE8_mouse_positiony; // weak
 	char stub1[2];
 	__int16 x_WORD_17DEEC; // weak
 	__int16 x_WORD_17DEEE_mouse_buttons; // weak
@@ -105,10 +110,10 @@ typedef struct//lenght 613 // end 17E09D
 	__int16 x_WORD_17DEF6; // weak
 	__int16 x_WORD_17DEF8; // weak
 	__int16 x_WORD_17DEFA; // weak
-	__int16 x_WORD_17DEFC; // weak
+	__int16 serverIndex_17DEFC; // weak
 	__int16 x_WORD_17DEFE; // weak
 	__int16 x_WORD_17DF00; // weak
-	__int16 x_WORD_17DF02; // weak
+	uint16_t palMulti_17DF02; // weak
 	int16_t x_WORD_17DF04; // selected save game number to load/save (set in load/save_game_dialog)
 	__int16 x_WORD_17DF06; // weak
 	__int16 x_WORD_17DF08; // weak
@@ -514,7 +519,7 @@ uint8_t* sub_9DEA0_read_file(char* a1, uint8_t* a2);
 FILE* x_open(char* path, int pmodex);
 
 int sub_9D770(char* a1, char a2);
-int sub_9D380(FILE* a1, int a2, char a3, uint8_t* a4, int a5);//27e380
+int sub_9D380(FILE* a1, int a2, char a3, uint8_t* a4x, int a5);//27e380
 
 char x_toupper(char inputchar);
 int32_t /*__cdecl*/ x_tolower(int32_t);// weak
