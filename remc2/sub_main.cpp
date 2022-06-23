@@ -61285,7 +61285,7 @@ int sub_5C430_multi_allocation()//23d430
 	int result; // eax
 
 	result = sub_74556();//255556 push ebp 355250
-	x_D41A0_BYTEARRAY_4_struct.setting_216w = result;
+	x_D41A0_BYTEARRAY_4_struct.isNetwork_216w = result;
 	return result;
 }
 // D41A4: using guessed type int x_DWORD_D41A4;
@@ -61293,7 +61293,7 @@ int sub_5C430_multi_allocation()//23d430
 //----- (0005C450) --------------------------------------------------------
 void sub_5C450()//23d450
 {
-	if (x_D41A0_BYTEARRAY_4_struct.setting_216w)
+	if (x_D41A0_BYTEARRAY_4_struct.isNetwork_216w)
 		sub_72D04();
 }
 // D41A4: using guessed type int x_DWORD_D41A4;
@@ -82195,7 +82195,7 @@ void sub_7BEC0()//25cec0
 		{
 			if (v1 <= 7u)
 			{
-				str_E1BAC[resultx].byte_23 = x_D41A0_BYTEARRAY_4_struct.setting_216w != 0;
+				str_E1BAC[resultx].byte_23 = x_D41A0_BYTEARRAY_4_struct.isNetwork_216w != 0;
 			}
 			else if (v1 == 13)
 			{

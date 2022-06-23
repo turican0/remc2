@@ -169,6 +169,12 @@ typedef struct {
 	uint16_t y;
 	uint16_t z;
 }axis_3d;
+
+typedef struct {
+	int16_t x;
+	int16_t y;
+	int16_t z;
+}axis_3ds;
 /*
 typedef struct {
 	uint16_t x;
@@ -338,7 +344,7 @@ typedef struct Type_str_164 {//size 1136
 	int16_t word_0x155_341;
 	int16_t word_0x157_343;
 	int16_t word_0x159_345;
-	int8_t array_0x15B_347[8];
+	int8_t array_0x15B_347[8] = {0,0,0,0,0,0,0,0};
 	int16_t word_0x163_355;
 	int32_t dword_0x165_357;
 	int32_t dword_0x169_361;
@@ -696,7 +702,7 @@ typedef struct {//lenght 2124=0x84C
 	//uint8_t stub5[17];
 } type_str_0x2BDE;//11230 // 84c lenght
 
-typedef struct {
+typedef struct {//size 5152
 	//type_particle_str_0 un_0;//lenght?
 	uint16_t word_0;
 	uint16_t width;
@@ -761,7 +767,7 @@ typedef struct Type_x_D41A0_BYTEARRAY_4_struct {
 	int8_t setting_byte2_23;//0x17//x_D41A0_BYTEARRAY_4_struct.setting_byte2_23
 	uint8_t setting_byte3_24;//cheats? 0x20==free spell//x_D41A0_BYTEARRAY_4_struct.setting_byte3_24
 	//spell on - 0x20
-	uint8_t setting_byte4_25;//cheats? 0x1==Invincability
+	uint8_t setting_byte4_25;//cheats? 0x1==Invincability 0x8==tester 0x40==music
 	//invincability - 1;
 	uint8_t byteindex_26 = 0;//x_D41A0_BYTEARRAY_4_struct.byteindex_26
 	uint8_t stubc[3];
@@ -832,7 +838,7 @@ typedef struct Type_x_D41A0_BYTEARRAY_4_struct {
 	//uint8_t stubn[3];
 	uint16_t byteindex_214w;//0xd6//x_D41A0_BYTEARRAY_4_struct.byteindex_214
 	//uint8_t stubo[1];
-	uint16_t setting_216w;
+	uint16_t isNetwork_216w;
 	//uint8_t stubp[1];
 	uint16_t byteindex_218w;//0xda//x_D41A0_BYTEARRAY_4_struct.byteindex_218
 	//uint8_t stubq[1];
@@ -990,7 +996,7 @@ uint32_t compare_with_sequence_array_222BD3(char* filename, uint8_t* adress, uin
 uint32_t compare_with_sequence_D41A0_4(char* filename, uint8_t* adress, uint32_t adressdos, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte, long offset = 0);
 uint32_t compare_with_sequence_EA3E4(char* filename, type_event_0x6E8E** adress, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte);
 uint32_t compare_0x6E8E(char* filename, uint8_t* adress, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte, long offset = 0);
-void add_compare(uint32_t adress, bool debugafterload, int stopstep = -1, bool skip = false,int exitindex=1000000);
+void add_compare(uint32_t adress, bool debugafterload, int stopstep = -1, bool skip = false,int exitindex=1000000,int skip2=0);
 void add_compare2(uint32_t adress, uint8_t* memadress, uint32_t dosmemadress, uint32_t size, bool debugafterload, int stopstep = -1, bool skip = false, int exitindex = 1000000);
 void writehex(uint8_t* buffer, uint32_t count);
 
@@ -1507,8 +1513,8 @@ typedef struct {//lenght 7
 type_str_0x6574;
 
 typedef struct {
-	GraphicsStruct_t m_Graphics;
-	DisplayStruct_t m_Display;
+	GraphicsStruct_t m_Graphics;//0x218A
+	DisplayStruct_t m_Display;//0x218E
 	type_str_0x2192 str_0x2192;
 	type_str_0x2196 str_0x2196;
 }
