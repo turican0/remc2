@@ -30,7 +30,8 @@ extern int config_skip_screen;
 extern int texturepixels;
 extern int speedGame;
 extern int speedAnim;
-extern bool res640x480;
+extern int windowResWidth;
+extern int windowResHeight;
 extern int gameResWidth;
 extern int gameResHeight;
 extern bool maintainAspectRatio;
@@ -39,5 +40,8 @@ extern bool bigSprites;
 extern bool sky;
 extern bool reflections;
 extern bool dynamicLighting;
+extern bool multiThreadedRender;
+extern int numberOfRenderThreads;
+extern bool assignToSpecificCores;
 
 #endif //READ_CONFIG
