@@ -503,9 +503,9 @@ void sub_8D290_init_sound(/*char* a1*//*, int a2, int a3*/)//26e290
 	sub_8D800_sound_proc2();
 	if (x_WORD_E37B6_sound_number)
 	{
-		if (x_WORD_E37B6_sound_number < 0x336u)
+		if (x_WORD_E37B6_sound_number < 822)
 		{
-			if (x_WORD_E37B6_sound_number < 0x320u)
+			if (x_WORD_E37B6_sound_number < 800)
 			{
 				if (!x_WORD_E37B6_sound_number)
 				{
@@ -515,7 +515,7 @@ void sub_8D290_init_sound(/*char* a1*//*, int a2, int a3*/)//26e290
 					return;
 				}
 			}
-			else if (x_WORD_E37B6_sound_number <= 0x320u)
+			else if (x_WORD_E37B6_sound_number <= 800)
 			{
 				x_DWORD_E37BC_sound_frequence = 11025;
 				x_BYTE_E37AE = 0;
@@ -526,12 +526,12 @@ void sub_8D290_init_sound(/*char* a1*//*, int a2, int a3*/)//26e290
 				x_BYTE_E37AE = 0;
 			}
 		}
-		else if (x_WORD_E37B6_sound_number <= 0x336u)
+		else if (x_WORD_E37B6_sound_number <= 822)
 		{
 			x_DWORD_E37BC_sound_frequence = 22050;
 			x_BYTE_E37AE = 0;
 		}
-		else if (x_WORD_E37B6_sound_number < 0x656u)
+		else if (x_WORD_E37B6_sound_number < 1622)
 		{
 			if (x_WORD_E37B6_sound_number == 1611)
 			{
@@ -539,7 +539,7 @@ void sub_8D290_init_sound(/*char* a1*//*, int a2, int a3*/)//26e290
 				x_BYTE_E37AE = 1;
 			}
 		}
-		else if (x_WORD_E37B6_sound_number <= 0x656u)
+		else if (x_WORD_E37B6_sound_number <= 1622)
 		{
 			x_DWORD_E37BC_sound_frequence = 22050;
 			x_BYTE_E37AE = 1;
@@ -651,11 +651,11 @@ void sub_8D800_sound_proc2()//26E800
 		v0 = sub_84300_load_sound(x_BYTE_E37AC);
 		if (v0)
 		{
-			if (x_WORD_E37B6_sound_number < 0x336u)
+			if (x_WORD_E37B6_sound_number < 822)
 			{
-				if (x_WORD_E37B6_sound_number >= 0x320u)
+				if (x_WORD_E37B6_sound_number >= 800)
 				{
-					if (x_WORD_E37B6_sound_number <= 0x320u)
+					if (x_WORD_E37B6_sound_number <= 800)
 					{
 						x_WORD_E37B6_sound_number = 0;
 						return;
@@ -664,16 +664,16 @@ void sub_8D800_sound_proc2()//26E800
 						x_WORD_E37B6_sound_number = 800;
 				}
 			}
-			else if (x_WORD_E37B6_sound_number <= 0x336u)
+			else if (x_WORD_E37B6_sound_number <= 822)
 			{
 				x_WORD_E37B6_sound_number = 1611;
 			}
-			else if (x_WORD_E37B6_sound_number < 0x656u)
+			else if (x_WORD_E37B6_sound_number < 1622)
 			{
 				if (x_WORD_E37B6_sound_number == 1611)
 					x_WORD_E37B6_sound_number = 811;
 			}
-			else if (x_WORD_E37B6_sound_number <= 0x656u)
+			else if (x_WORD_E37B6_sound_number <= 1622)
 			{
 				x_WORD_E37B6_sound_number = 822;
 			}
@@ -2748,11 +2748,11 @@ int32_t sub_84300_load_sound(uint8_t a1)//265300
 			DataFileIO::Read(file, (uint8_t*)&v7, 4);
 			DataFileIO::Seek(file, v7, 0);
 			DataFileIO::Read(file, (uint8_t*)v6, 12);
-			if (x_WORD_E37B6_sound_number < 0x336u)
+			if (x_WORD_E37B6_sound_number < 822)
 			{
-				if (x_WORD_E37B6_sound_number >= 0x320u)
+				if (x_WORD_E37B6_sound_number >= 800)
 				{
-					if (x_WORD_E37B6_sound_number <= 0x320u)
+					if (x_WORD_E37B6_sound_number <= 800)
 					{
 						v8 = 5;
 					}
@@ -2762,16 +2762,16 @@ int32_t sub_84300_load_sound(uint8_t a1)//265300
 					}
 				}
 			}
-			else if (x_WORD_E37B6_sound_number <= 0x336u)
+			else if (x_WORD_E37B6_sound_number <= 822)
 			{
 				v8 = 3;
 			}
-			else if (x_WORD_E37B6_sound_number < 0x656u)
+			else if (x_WORD_E37B6_sound_number < 1622)
 			{
 				if (x_WORD_E37B6_sound_number == 1611)
 					v8 = 2;
 			}
-			else if (x_WORD_E37B6_sound_number <= 0x656u)
+			else if (x_WORD_E37B6_sound_number <= 1622)
 			{
 				v8 = 1;
 			}
@@ -2804,31 +2804,30 @@ int32_t sub_84300_load_sound(uint8_t a1)//265300
 // 84300: using guessed type __int16 var_14[6];
 
 //----- (000844A0) --------------------------------------------------------
-void sub_844A0_sound_proc5()//2654a0
+void sub_844A0_sound_proc5(uint16_t count)//2654a0
 {
 	__int16 v0; // bx
 	//type_E37A0_sound_buffer2* v1x; // eax
-	int v1y;
 	int v2; // esi
 
 	v0 = x_WORD_180B50;
 	if (soundIndex_E37A0 && x_DWORD_E37A8_sound_buffer1)
 	{
 		//v1x = &str_E37A0_sound_buffer2[1];
-		v1y = 0;
+		uint16_t index = 0;
 		v0 = 0;
 		//while (str_E37A0_sound_buffer2->str_8.wavs_10[v1y].filename_14 < str2_E37A4_sound_buffer3)
-		while (v1y < numOfLoadedSounds_E37A4)
+		while (index < count)
 		{
 			//v2 = *(x_DWORD*)(v1 + 18);
 			//v2 = str_E37A0_sound_buffer2[v1y].dword_18;
 			//v1 += 32;
 #ifdef COMPILE_FOR_64BIT
-			str_E37A0_sound_buffer2->str_8.wavs_10[v1y].dword_0 = reinterpret_cast<uint64_t>(str_E37A0_sound_buffer2->str_8.wavs_10[v1y].dword_0) + x_DWORD_E37A8_sound_buffer1;
+			str_E37A0_sound_buffer2->str_8.wavs_10[index].dword_0 = reinterpret_cast<uint64_t>(str_E37A0_sound_buffer2->str_8.wavs_10[v1y].dword_0) + x_DWORD_E37A8_sound_buffer1;
 #else
-			soundIndex_E37A0->str_8.wavs_10[v1y].dword_0 = reinterpret_cast<uint32_t>(soundIndex_E37A0->str_8.wavs_10[v1y].dword_0) + x_DWORD_E37A8_sound_buffer1;
+			soundIndex_E37A0->str_8.wavs_10[index].dword_0 = reinterpret_cast<uint32_t>(soundIndex_E37A0->str_8.wavs_10[index].dword_0) + x_DWORD_E37A8_sound_buffer1;
 #endif
-			v1y++;
+			index++;
 			v0++;
 		}
 	}
@@ -2971,7 +2970,7 @@ char ReadAndDecompressSound(FILE* file, unsigned __int8 a2)//2654f0
 	sub_83E80_freemem4((uint8_t*)shadow_str_E37A0_sound_buffer2);
 	//64xfix
 
-	sub_844A0_sound_proc5();
+	sub_844A0_sound_proc5(numOfLoadedSounds_E37A4);
 	x_BYTE_E3798_sound_active2 = 1;
 	return 1;
 }
