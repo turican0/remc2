@@ -2823,10 +2823,10 @@ void sub_844A0_sound_proc5(uint16_t count)//2654a0
 			//v2 = str_E37A0_sound_buffer2[v1y].dword_18;
 			//v1 += 32;
 #ifdef x32_BIT_ENVIRONMENT
-			soundIndex_E37A0->str_8.wavs_10[index].wavData_0 = reinterpret_cast<uint64_t>(soundIndex_E37A0->str_8.wavs_10[index].wavData_0) + x_DWORD_E37A8_sound_buffer1;
+			soundIndex_E37A0->str_8.wavs_10[index].wavData_0 = reinterpret_cast<uint32_t>(soundIndex_E37A0->str_8.wavs_10[index].wavData_0) + x_DWORD_E37A8_sound_buffer1;
 #endif //x32_BIT_ENVIRONMENT
 #ifdef x64_BIT_ENVIRONMENT
-			soundIndex_E37A0->str_8.wavs_10[index].wavData_0 = reinterpret_cast<uint32_t>(soundIndex_E37A0->str_8.wavs_10[index].wavData_0) + x_DWORD_E37A8_sound_buffer1;
+			soundIndex_E37A0->str_8.wavs_10[index].wavData_0 = reinterpret_cast<uint64_t>(soundIndex_E37A0->str_8.wavs_10[index].wavData_0) + x_DWORD_E37A8_sound_buffer1;
 #endif //x64_BIT_ENVIRONMENT
 			index++;
 			v0++;
