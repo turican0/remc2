@@ -54001,7 +54001,7 @@ void sub_49270_generate_level_features(type_str_2FECE* terrain)//22a270
 #ifdef DEBUG_SEQUENCES
 	add_compare(0x22A280, debugafterload);
 #endif //DEBUG_SEQUENCES
-	GenerateEvents_49290(terrain, 1);
+	GenerateEvents_49290(terrain, 1, 640, 480);
 #ifdef DEBUG_SEQUENCES
 	add_compare(0x22A288, debugafterload);
 #endif //DEBUG_SEQUENCES
