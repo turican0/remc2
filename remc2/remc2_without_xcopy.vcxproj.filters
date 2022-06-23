@@ -187,7 +187,6 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="sub_main.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="engine\types.h" />
     <ClInclude Include="networklib\Constants.h">
       <Filter>networklib</Filter>
     </ClInclude>

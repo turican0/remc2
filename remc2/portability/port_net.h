@@ -6,7 +6,7 @@
 //#include <boost/bind/bind.hpp>
 //#include <boost/asio.hpp>
 
-#include "../engine/types.h"
+#include "../engine/defs.h"
 
 extern const char* debug_net_filename1;
 extern std::string debug_net_filename2;

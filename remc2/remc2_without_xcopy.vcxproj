@@ -105,7 +105,7 @@
       <Command>
       </Command>
     </PostBuildEvent>
-  </ItemDefinitionGroup>  
+  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
@@ -131,7 +131,7 @@
       <Command>
       </Command>
     </PostBuildEvent>
-  </ItemDefinitionGroup>  
+  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
@@ -251,7 +251,6 @@
     <ClInclude Include="engine\Basic.h" />
     <ClInclude Include="engine\Sound.h" />
     <ClInclude Include="engine\Terrain.h" />
-    <ClInclude Include="engine\types.h" />
     <ClInclude Include="networklib\Constants.h" />
     <ClInclude Include="networklib\LockedQueue.h" />
     <ClInclude Include="networklib\Log.h" />
