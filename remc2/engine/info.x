@@ -25,7 +25,7 @@ sub_9A32D - malloc open unpack
 
 unk_D4350 - 2A5350
 
-  sub_53E60_readfile_and_decompress("data/pald-0.dat", (uint8_t*)x_DWORD_EA3D8_palette);
+  sub_53E60_readfile_and_decompress("data/pald-0.dat", (uint8_t*)x_DWORD_EA3D8_pallette);
   sub_53E60_readfile_and_decompress("data/clrd-0.dat", (uint8_t*)x_BYTE_E8900);
 
   ebx 0
@@ -249,7 +249,7 @@ void /*__cdecl*/ sub_7A110(char a1, char a2)//25b110
 25ba70
 
 sub_9A0FC
-sub_41A90_VGA_palette_install
+sub_41A90_VGA_pallette_install
 
 vylepsit sub_90B27_VGA_command
 
@@ -258,9 +258,9 @@ v8[i] = x_BYTE_181544[i] + ((unk_181B42 >> 16) * (buffer[i] - x_BYTE_181544[i]) 
 //352b42 352544
 
 find
-void /*__cdecl*/ sub_41A90_VGA_palette_install(uint8_t* buffer)//222a90
+void /*__cdecl*/ sub_41A90_VGA_pallette_install(uint8_t* buffer)//222a90
 and
-void /*__cdecl*/ sub_A0D2C_VGA_get_palette(uint8_t* buffer)
+void /*__cdecl*/ sub_A0D2C_VGA_get_pallette(uint8_t* buffer)
 
 sub_90B27_VGA_pal_fadein_fadeout((uint8_t*)x_DWORD_17DE38,  20u, 0);//271b27 - tady se nacita paleta
 000000 1a1a15 13120f
@@ -436,9 +436,9 @@ v ní opravit:
 sub_7FAE0(v87, v99, a4, v98, v86);
 
 problemek:
-v12 = sub_5BE80_index_palette(x_DWORD_17DE38, 0, 0, v86);
+v12 = sub_5BE80_index_pallette(x_DWORD_17DE38, 0, 0, v86);
 
-v12 = sub_5BE80_index_palette(x_DWORD_17DE38, 0, 0, v86);//mozny problem
+v12 = sub_5BE80_index_pallette(x_DWORD_17DE38, 0, 0, v86);//mozny problem
 
  260ae0
 
@@ -1744,7 +1744,7 @@ if ( !byte_E3766 )
 	x_DWORD_17DB50->a4523f
 
 	v3 = (char*)"COLOUR256 ";
-    sub_76260_read_intro_palette( 100);
+    sub_76260_read_intro_pallette( 100);
 	-tady je to ok
 	v7 = (char*)"BRUN ";//ok
     sub_76540();
@@ -1776,8 +1776,8 @@ zkontrolovat tento kod:
     sub_9A0FC_wait_to_screen_beam();//27b0fc
     if ( x_WORD_E12FC )
     {
-      sub_41A90_VGA_palette_install(unk_17D838);
-      v19 = sub_5BE80_test_palette(unk_17D838,  3Fu,  3Fu,  3Fu);
+      sub_41A90_VGA_pallette_install(unk_17D838);
+      v19 = sub_5BE80_test_pallette(unk_17D838,  3Fu,  3Fu,  3Fu);
       sub_2EC90(v19);//20fc90
 
 zkontrolovat paletu:
@@ -1807,7 +1807,7 @@ void sub_8F935_bitmap_draw_final(uint8_t a1byte1,uint8_t a1byte2, uint16_t tiley
 
 void sub_loc_1B5BC(uint16_t a1) {
 	memset(pdwScreenBuffer, 200, 320*200);//debug
-	Set_basic_palette();
+	Set_basic_pallette();
 	sub_2EBB0_draw_text_with_border_63 340(x_DWORD_E9C4C_langindexbuffer[a1]);//fix it - edx
 	sub_90478_VGA_Blit320();//debug
 }
@@ -1923,7 +1923,7 @@ tempposistruct.pointer= &x_DWORD_EA3D4[v8];//fixed
 -prvni 24fb90
 19f990->59361a00 080e 70361a00 08 0e 85361a00
 nekde se to musi upravit a tam z toho bude posistruct
-sub_7AC00_load_and_set_graphics_and_palette - 25bc00
+sub_7AC00_load_and_set_graphics_and_pallette - 25bc00
 	24fbf0
 
 sub_6EBF0(&filearray_2aa18c[filearrayindex_POINTERSDATTAB]);
@@ -1948,7 +1948,7 @@ sub_5B8D0_initialize()//23c8d0
 toto je cil!
 Pathstruct x_DWORD_E9B20 = filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct;
 
-sub_7AC00_load_and_set_graphics_and_palette - tady to nutne zkontrolovat
+sub_7AC00_load_and_set_graphics_and_pallette - tady to nutne zkontrolovat
 v 19f0ec
 25cc28
 
@@ -3190,7 +3190,7 @@ void sub_56A30_init_game_level(unsigned int a1)//237a30
 x_BYTE_F6EE0_tables
 x_BYTE_10B1E0==x_BYTE_F6EE0_tables[ 14300]
 
-palette
+pallette
 1a7358 -> 000000 000101 000203 000305
 
 35d7d8->7ffbffff40020000
@@ -3267,7 +3267,7 @@ x_DWORD_DE55C-2af55c->34c68000
 
 x_DWORD_DDF50
 2aef50
-23c809 sub_5B7A0_prepare_palette()//23C7A0
+23c809 sub_5B7A0_prepare_pallette()//23C7A0
 
 x_DWORD_B8845 299845:00000000 f1ffffffff
 299961
@@ -4181,7 +4181,7 @@ c203 - 1fc9d8 call sub_1B8C0(uint8_t* a1)//1fc8c0
 
 porovnat x_DWORD_EA3E4 tj 2bb3e4
 
-void sub_41A90_VGA_palette_install(uint8_t* buffer)//222a90
+void sub_41A90_VGA_pallette_install(uint8_t* buffer)//222a90
 271c10 call int16_t sub_90B27_VGA_pal_fadein_fadeout(uint8_t *newpalbuffer, uint8_t shadow_levels, bool singlestep)//271B27 init and nightfall
 void sub_47760(/*int a1,*/uint32_t user/* int a2, int a3*/)//228760
 fix:
@@ -4609,7 +4609,7 @@ versus
  2530c0 void sub_720C0(int *a1)//2530c0
  void sub_713A0()//2523a0
 
- x_BYTE_F3FA0 - palette
+ x_BYTE_F3FA0 - pallette
 
  castle procedures:
  22e900
