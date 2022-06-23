@@ -503,9 +503,12 @@ void support_begin() {
 	printbuffer = (char*)malloc(4096);
 	//printbuffer[0] = '\0';
 	printbuffer2 = (char*)malloc(4096);
-	pre_pdwScreenBuffer = (uint8_t*)malloc(2228224);
-	//pdwScreenBuffer = (uint8_t*)malloc(320000);
-	pdwScreenBuffer = &pre_pdwScreenBuffer[1114112];
+	
+	//pre_pdwScreenBuffer = (uint8_t*)malloc(2228224);// 640x480
+	//pdwScreenBuffer = &pre_pdwScreenBuffer[1114112];// 640x480
+	
+	pre_pdwScreenBuffer = (uint8_t*)malloc(16588800); // (1920x1080 * 4) * 2
+	pdwScreenBuffer = &pre_pdwScreenBuffer[8294400]; // 1920x1080 * 4
 
 	//x_DWORD_E9C38_smalltit= (uint8_t*)malloc(64000);
 	//x_D41A0_BYTEARRAY_4_0xDE_heapbuffer= (uint8_t*)malloc(64000);
@@ -1617,11 +1620,11 @@ void write_posistruct_to_png(uint8_t* buffer, int width, int height, char* filen
 	} while (a1byte2);
 	*/
 
-	uint8_t palettebuffer[768];
+	uint8_t pallettebuffer[768];
 	FILE* palfile;
 	//fopen_s(&palfile, "c:\\prenos\\remc2\\testpal.pal", "rb");
 	palfile = fopen("c:\\prenos\\remc2\\tools\\palletelight\\Debug\\out-n.pal", "rb");
-	fread(palettebuffer, 768, 1, palfile);
+	fread(pallettebuffer, 768, 1, palfile);
 	fclose(palfile);
 
 	uint8_t buffer2[10000 * 4];
@@ -1630,9 +1633,9 @@ void write_posistruct_to_png(uint8_t* buffer, int width, int height, char* filen
 		/*buffer2[i * 4 + 0] = buffer[i];
 		buffer2[i * 4 + 1] = buffer[i];
 		buffer2[i * 4 + 2] = buffer[i];*/
-		buffer2[i * 4 + 0] = palettebuffer[buffer[(width * height) - 1 - i] * 3 + 2];
-		buffer2[i * 4 + 1] = palettebuffer[buffer[(width * height) - 1 - i] * 3 + 1];
-		buffer2[i * 4 + 2] = palettebuffer[buffer[(width * height) - 1 - i] * 3];
+		buffer2[i * 4 + 0] = pallettebuffer[buffer[(width * height) - 1 - i] * 3 + 2];
+		buffer2[i * 4 + 1] = pallettebuffer[buffer[(width * height) - 1 - i] * 3 + 1];
+		buffer2[i * 4 + 2] = pallettebuffer[buffer[(width * height) - 1 - i] * 3];
 
 		if (buffer[(width * height) - 1 - i] != 0xff)buffer2[i * 4 + 3] = 255;
 	}
@@ -1694,18 +1697,18 @@ void write_posistruct_to_png(uint8_t* buffer, int width, int height, char* filen
 
 void buff_posistruct_to_png(uint8_t* buffer, int width, int height, char* filename) {
 	png_bytep row = NULL;
-	uint8_t palettebuffer[768];
+	uint8_t pallettebuffer[768];
 	FILE* palfile;
 	palfile = fopen("c:\\prenos\\remc2\\testpal.pal", "rb");
-	fread(palettebuffer, 768, 1, palfile);
+	fread(pallettebuffer, 768, 1, palfile);
 	fclose(palfile);
 
 	uint8_t buffer2[10000 * 4];
 	for (int i = 0; i < 10000; i++)
 	{
-		buffer2[i * 4 + 0] = palettebuffer[buffer[i] * 3];
-		buffer2[i * 4 + 1] = palettebuffer[buffer[i] * 3 + 1];
-		buffer2[i * 4 + 2] = palettebuffer[buffer[i] * 3 + 2];
+		buffer2[i * 4 + 0] = pallettebuffer[buffer[i] * 3];
+		buffer2[i * 4 + 1] = pallettebuffer[buffer[i] * 3 + 1];
+		buffer2[i * 4 + 2] = pallettebuffer[buffer[i] * 3 + 2];
 
 		if (buffer[i] != 0xff)buffer2[i * 4 + 3] = 255;
 	}
