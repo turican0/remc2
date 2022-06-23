@@ -1292,21 +1292,21 @@ void sub_76260_read_intro_pallette(uint8_t  /*a1*/)
 
 	v0x = unk_17D838x;
 	v1 = 0;
-	/*result = */sub_75D70((int8_t*)&v4, 2u);
+	/*result = */sub_75D70((uint8_t*)&v4, 2u);
 	if (v4 > 0u)
 	{
 		do
 		{
-			sub_75D70((int8_t*)&v6, 1u);
+			sub_75D70((uint8_t*)&v6, 1u);
 			//v0 += 3 * v6;
 			v0x += v6;
 			v5 = 0;
-			/*result = */sub_75D70((int8_t*)&v5, 1u);
+			/*result = */sub_75D70((uint8_t*)&v5, 1u);
 			if (!v5)
 				v5 = 256;
 			for (v3 = 0; v3 < v5; v3++)//mybe read palette
 			{
-				sub_75D70((int8_t*)v0x, 3u);
+				sub_75D70((uint8_t*)v0x, 3u);
 				//v0 += 3;
 				v0x++;
 			}
@@ -1589,7 +1589,7 @@ void sub_2BB40_draw_bitmap(int16_t posx, int16_t posy, posistruct_t tempposstr)/
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
 //----- (00075D70) --------------------------------------------------------
-void sub_75D70(int8_t* a1y, uint32_t a2)//256d70
+void sub_75D70(uint8_t* a1y, uint32_t a2)//256d70
 {
 	//unsigned int result; // eax
 

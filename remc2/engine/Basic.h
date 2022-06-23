@@ -535,7 +535,7 @@ void sub_2BB40_draw_bitmap(int16_t posx, int16_t posy, posistruct_t temposstr);
 void DrawHelpText_6FC50(__int16 a1);//250c50
 uint8_t sub_6FC10_letter_width();
 unsigned int sub_6FC80_pre_draw_text(char* a1, __int16 a2, __int16 a3, __int16 a4, unsigned __int8 a5);
-void sub_75D70(int8_t* a1, uint32_t a2);
+void sub_75D70(uint8_t* a1, uint32_t a2);
 void sub_2BC80(int16_t a1, int16_t a2, int16_t a3, int16_t a4, uint8_t a5);
 void sub_2BC10_draw_text(const char* textbuffer, int16_t posx, int16_t posy, uint8_t color);//20cc10
 void sub_6EF10_set_mouse_minmax(__int16 a1, signed __int16 a2, __int16 a3, signed __int16 a4);
