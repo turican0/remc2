@@ -1,0 +1,524 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>Midi Player's FAQ/How-to</title>
+<style type="text/css">
+body {
+	background-color: #222222;
+	margin:0;
+	padding:0;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+p {
+margin:10px;
+}
+
+li {
+  line-height: 150%;
+}
+
+ol[type="1"] {
+font-weight: bold;
+text-decoration: underline;
+}
+
+#mainframe {
+	background-color: #BBBBBB;
+	background-image:url('background.jpg');
+	position:relative;
+	max-width:1152px;
+	padding:12px;
+	padding-top:8px;
+	border:none; 
+	margin:auto;
+}
+
+</style>
+</head>
+<body>
+<div id="mainframe">
+  <div class=Section1>
+    <h2 align="justify">FAQ/How-to</h2>
+    <p>&nbsp;</p>
+    <ol class="navigation">
+      <li><a href="#a1">How to start using Midiplayer?</a></li>
+      <li><a href="#a2">How to move Midi Player's windows?</a></li>
+      <li><a href="#a3">How to reach menu options?</a></li>
+      <li><a href="#a4">How to use the built-in virtual piano?</a></li>
+      <li><a href="#a5">How to alter tempo/pitch?</a></li>
+      <li><a href="#a6">How to alter programs/controllers?</a></li>
+      <li><a href="#a7">What do the Force Manual Mode buttons do?</a></li>
+      <li><a href="#a8">How to use recording?</a></li>
+      <li><a href="#a9">How to configure Midi input?</a></li>
+      <li><a href="#a10">How to correct if midi file does not sound as expected?</a></li>
+      <li><a href="#a11">How to test more soundfonts at once?</a></li>
+      <li><a href="#a12">What does Fix SFZ drum bug do?</a></li>
+      <li><a href="#a13">What does Save re-patched Midi do?</a></li>
+      <li><a href="#a14">What does Midi via Net do?</a></li>
+      <li><a href="#a15">How to use midi Scale Effect?</a></li>
+      <li><a href="#a16">How to use Capital Tone Fallback emulation?</a></li>
+      <li><a href="#a17">How to use VST/VSTi plugins?</a></li>
+      <li><a href="#a18">How to use loop points?</a></li>
+    </ol>
+    <p>Bonus:</p>
+    <ul>
+      <li><a href="#a_bonus1">S-YXG50 VSTi guitar sound using SysEx messages</a></li>
+      <li><a href="#a_bonus2">Duke Nukem 3D Grabbag theme XG enhanced</a></li>
+      <li><a href="#a_bonus3">DOSBox hot swapping virtual Midi devices using SysEx (S-YXG50, Bassmidi, MuntVSTi) </a></li>
+      <li><a href="#a_bonus4">Master of Puppets Midi + Soundfont + VST effect </a></li>
+    </ul>
+    <p>&nbsp;</p>
+    <p>In case How-to video thumbnails don't work here is the direct link to Youtube playlist:</p>
+    <p><a href="https://www.youtube.com/playlist?list=PLHdvR6Dr6j3Iy53KK8o0ZMjNHlF-C0QVC" target="_blank">https://www.youtube.com/playlist?list=PLHdvR6Dr6j3Iy53KK8o0ZMjNHlF-C0QVC </a></p>
+    <p>&nbsp;</p>
+    <div align="justify"> <a name="a1"></a>
+      <ol start="1" type="1">
+        <li>How to start using Midiplayer?</li>
+      </ol>
+    </div>
+    <p align="justify">First you should choose your midi out device. 
+      If you don't that means you are using Midi Mapper
+      and under Windows it implies Microsoft GS Synth...</p>
+    <p align="justify"> But the Windows default Microsoft GS Synth is buggy in Win Vista/7/8 +
+      operating systems. So if you can&rsquo;t hear instruments please select Bassmidi instead.<br>
+      Moreover Microsoft GS Synth does not support Reverb and Chorus controllers.</p>
+    <p align="justify"> You can choose either a standard midi port or Bassmidi as output device. <br>
+      In order soundfonts to work you must choose a real Soundblaster or Bassmidi. <br>
+      If you select Bassmidi&nbsp; you must select a soundfont file in the Device settings dialog to hear anything. <br>
+      Bass/Treble, real-time sf2 loading and all the advanced features work through Bassmidi.</p>
+    <p align="justify"> In case of standard midi ports Bass and Treble only works if your hardware&rsquo;s mixer supports them.<br>
+      In MS Vista/7/8 you must set Midiplayers compatibility mode to WinXP to access real hardware mixer controls otherwise only volume is accessible.<br>
+    </p>
+    <p align="justify"> <a href="https://social.msdn.microsoft.com/Forums/windowsserver/en-US/57327df7-49e6-45c9-b3a2-fc056a228460/microsoft-gs-wavetable-synth-gs-fallback-mechanism-bug-again-win-7-x64?forum=windowspro-audiodevelopment" target="_blank">Microsoft GS Wavetable synth GS fallback mechanism bug</a></p>
+    <p align="justify">&nbsp;</p>
+    <p align="justify"></p>
+    <div style="position: relative; left: 0; top: 0; width: 320px; height: 240px;"> <a href="https://youtu.be/YBnZthAsOV0" target="_blank"><img src="https://i.ytimg.com/vi/YBnZthAsOV0/hqdefault.jpg" width="320" height="240" alt="Howto video 1."> <img src="play.png" style="position: absolute; top: 84px; left: 124px; border:0px;" alt="Howto video 1."> </a> </div>    
+    <hr>
+    <p align="justify">&nbsp;</p>
+    <div align="justify"> <a name="a2"></a>
+      <ol start="2" type="1">
+        <li>How to move Midi Player&rsquo;s windows?</li>
+      </ol>
+    </div>
+    <p align="justify">You can drag the main window around by clicking on the fake caption area (where the label Midi Player is). </p>
+    <p align="justify"> Moreover Lyrics display window and Bass spectrum analyzer window can be snapped to main window so they can be moved together.</p>
+    <p align="justify"> Lyrics can be snapped to the left side and spectrum analyzer to the top side.</p>
+    <p align="justify">&nbsp;</p>
+    <p align="justify"></p>
+    <div style="position: relative; left: 0; top: 0; width: 320px; height: 240px;"> <a href="https://youtu.be/Xw3uKI0Cxlc" target="_blank"><img src="https://i.ytimg.com/vi/Xw3uKI0Cxlc/hqdefault.jpg" width="320" height="240" alt="Howto video 2."> <img src="play.png" style="position: absolute; top: 84px; left: 124px; border:0px;" alt="Howto video 2."> </a> </div>    
+    <hr>
+    <p align="justify">&nbsp;</p>
+    <div align="justify"> <a name="a3"></a>
+      <ol start="3" type="1">
+        <li>How to reach menu options?</li>
+      </ol>
+    </div>
+    <p align="justify">There are several context menus in Midi Player. Each of them can be reached by right clicking your mouse on the corresponding area:</p>
+    <div align="justify">
+      <ol start="1" type="a">
+        <li>The so called main menu can be invoked by right clicking the main caption area.</li>
+        <li>Playlist related context menu can be invoked by right clicking the playlist area.</li>
+        <li>Midi reset type (GM, GS, XG&hellip;) context menu can be reached by right clicking the first-aid like icon called Reset.</li>
+        <li>Transpose channel map options can be reached by right clicking the transpose slider.</li>
+      </ol>
+    </div>
+    <p align="justify">&nbsp;</p>
+    <p align="justify"></p>
+    <div style="position: relative; left: 0; top: 0; width: 320px; height: 240px;"> <a href="https://youtu.be/YGpg7ViLTPQ" target="_blank"><img src="https://i.ytimg.com/vi/YGpg7ViLTPQ/hqdefault.jpg" width="320" height="240" alt="Howto video 3."> <img src="play.png" style="position: absolute; top: 84px; left: 124px; border:0px;" alt="Howto video 3."> </a> </div>    
+    <hr>
+    <p align="justify">&nbsp;</p>
+    <div align="justify"> <a name="a4"></a>
+      <ol start="4" type="1">
+        <li>How to use the built-in virtual piano?</li>
+      </ol>
+    </div>
+    <p align="justify">You can use the left mouse button or the keyboard of your PC to play on the virtual piano directly.</p>
+    <p align="justify"> On the PC keyboard whole notes can be reached from &lsquo;A&rsquo; to &rsquo;L&rsquo; and half notes from &lsquo;W&rsquo; to &rsquo;P&rsquo;.</p>
+    <p align="justify"> The actual octave can be changed with function keys from F1 to F9.</p>
+    <p align="justify"> If you click on a note with your right mouse button you can see the name of the clicked note. <br>
+      The dot denotes middle C.</p>
+    <p align="justify"> You can change the velocity of the played notes by pressing + and &ndash; on the numeric keypad. <br>
+      Left clicking on the upper part on the virtual keyboard&rsquo;s notes decreases the given note&rsquo;s velocity. </p>
+    <p align="justify"> You can also alter programs and controllers like modulation, volume, pan etc. while you are playing notes.</p>
+    <p align="justify"> Maybe not the best place to mention but of course you can also use your real Midi keyboard through Midi in and the virtual keyboard reflects the played notes. </p>
+    <p align="justify">&nbsp;</p>
+    <p align="justify"><strong>Update</strong>: from version 3.1 chord mode can be applied to virtual keyboard and Midi input. <br>
+      There is a new menu item in the main menu to choose mode and chords but it is more convenient to use the keyboard shorcuts.<br>
+      Shift : Switch chord mode ON/OFF <br>
+      From 'Z/Y' to 'M': choose chord (Power, Maj, Min, Sus4, Maj7, Min7, 7) </p>
+    <p align="justify">&nbsp;</p>
+    <p align="justify"></p>
+    <div style="position: relative; left: 0; top: 0; width: 320px; height: 240px;"> <a href="https://youtu.be/aALUIYFmFwU" target="_blank"><img src="https://i.ytimg.com/vi/aALUIYFmFwU/hqdefault.jpg" width="320" height="240" alt="Howto video 4."> <img src="play.png" style="position: absolute; top: 84px; left: 124px; border:0px;" alt="Howto video 4."> </a> </div>    
+    <hr>
+    <div align="justify"> <a name="a5"></a>
+      <ol start="5" type="1">
+        <li>How to alter tempo/pitch?</li>
+      </ol>
+    </div>
+    <p align="justify">Right to the playing controls there are 2 sliders. <br>
+      With the 1st you can change tempo and with the 2nd you can change pitch/key offset.</p>
+    <p align="justify"> More than 90% of midi files use channel 10 as drum/percussion channel so the default setting of key offset just works.<br>
+      But there are exceptions.</p>
+    <p align="justify"> You should avoid transposing the notes of drum/percussion channels since in case of these channels every note denotes a different instrument. <br>
+      You can use the right click context menu of key offset and uncheck the channels that use drums/percussion so key offset won&rsquo;t alter the pitch of drums.</p>
+    <p align="justify">&nbsp;</p>
+    <p align="justify"></p>
+    <div style="position: relative; left: 0; top: 0; width: 320px; height: 240px;"> <a href="https://youtu.be/2vemzu00T70" target="_blank"><img src="https://i.ytimg.com/vi/2vemzu00T70/hqdefault.jpg" width="320" height="240" alt="Howto video 5."> <img src="play.png" style="position: absolute; top: 84px; left: 124px; border:0px;" alt="Howto video 5."> </a> </div>    
+    <hr>
+    <div align="justify"> <a name="a6"></a>
+      <ol start="6" type="1">
+        <li>How to alter programs/controllers?</li>
+      </ol>
+    </div>
+    <p align="justify">If you would like to change programs/banks and controllers like modulation, volume, pan etc. <br>
+      you should understand that all of these are channel based so they influence the actually selected channel only. </p>
+    <p align="justify"> By default the actual channel is 1 but not all midi files use channel 1. <br>
+      You can change the actual channel with the rightmost channel selector up/down control.&nbsp;</p>
+    <p align="justify"> So you should search what channel use what instrument and change the settings accordingly.</p>
+    <p align="justify"> Important to note that channels and tracks are not equivalent in midi specification. <br>
+      The number of used channels are 16 at maximum but the number of tracks can be many more. <br>
+      Moreover a track can use more than 1 channel, and more tracks can use the same channel. Midi events/messages are always channel based. </p>
+    <p align="justify">To ease your search you should use the Show All and Solo/Mute buttons.<br>
+      Show All is basically sets whether you see the note events of all channels on the virtual piano or only the actual channel. <br>
+      So it can be considered as a visual only all channels/solo select. <br>
+      By contrast Solo and Mute affect what notes you hear not just the visual feedback.&nbsp;&nbsp; </p>
+    <p align="justify">&nbsp;</p>
+    <p align="justify"></p>
+    <div style="position: relative; left: 0; top: 0; width: 320px; height: 240px;"> <a href="https://youtu.be/8lSB9qZIIJk" target="_blank"><img src="https://i.ytimg.com/vi/8lSB9qZIIJk/hqdefault.jpg" width="320" height="240" alt="Howto video 6."> <img src="play.png" style="position: absolute; top: 84px; left: 124px; border:0px;" alt="Howto video 6."> </a> </div>   
+    <hr>
+    <div align="justify"> <a name="a7"></a>
+      <ol start="7" type="1">
+        <li>What do the Force Manual Mode buttons do?</li>
+      </ol>
+    </div>
+    <p align="justify">Force Manual Mode forces the settings you have made on the knobs to persist even if the midi file sends different controller message value to the selected channel.</p>
+    <p align="justify"> An example: <br>
+      the midi file sends midi controller message 07 (channel volume)and value 64 to channel 1 at start.<br>
+      The volume knob reflects this, so&nbsp;you can see the knob position is at the middle.<br>
+      If you change this value to 127 (max volume) it remains in effect only until the file sends the next midi controller message 07 to channel 1,<br>
+      since it is part of the file/song and e.g. it wants to fade the volume.</p>
+    <p align="justify">If you enable Force Manual Mode the player ignores the upcoming related messages from the file/song so your settings remain as you previously set.</p>
+    <p align="justify">&nbsp;</p>
+    <p align="justify"></p>
+    <div style="position: relative; left: 0; top: 0; width: 320px; height: 240px;"> <a href="https://youtu.be/OglzBWE2pCQ" target="_blank"><img src="https://i.ytimg.com/vi/OglzBWE2pCQ/hqdefault.jpg" width="320" height="240" alt="Howto video 7."> <img src="play.png" style="position: absolute; top: 84px; left: 124px; border:0px;" alt="Howto video 7."> </a> </div>    
+    <hr>
+    <div align="justify"> <a name="a8"></a>
+      <ol start="8" type="1">
+        <li>How to use recording?</li>
+      </ol>
+    </div>
+    <p align="justify">First of all Midiplayer is not a sequencer. <br>
+      Recording is for users who want to record the wave samples that they hear on windows.<br>
+      There are 2 possible scenarios: </p>
+    <ol type="a">
+      <li> <strong>You use bassmidi:</strong><br>
+        In this case you don't have to configure anything. Just press the recording button, select a filename and when finished press the button again. <br>
+        <br>
+      </li>
+      <li> <strong>You use a standard midi out port:</strong><br>
+        The music is not rendered by Midiplayer so you should select the proper recording source in Device settings dialog to hear anything in the recorded wave file.<br>
+        The selectable sources depend on operating system versions.<br>
+        <strong><em>9x/2000/Xp</em></strong> : <br>
+        Usually there is only one input port per soundcard and you have to choose the proper source in the mixer. <br>
+        For opening the mixer (and choosing Midi or Stereo Mix) you can use the microphone like icon next to the recording button. <br>
+        In this mixer dialog you can also set the desired recording level.<br>
+        <strong><em>Vista/7/8</em></strong>:<br>
+        There are independent input ports for every source and you should choose Stereo Mix. <br>
+        In MS Vista+ operating systems there is no public API call exposed to open recording level directly. <br>
+        So after clicking the microphone like icon and right clicking Stereo Mix you should select Properties -&gt; Levels. </li>
+    </ol>
+    <p align="justify"> If you have set up everything properly you can see the volume meter reacts to synthesizer voices.<br>
+      Just press the recording button, select a filename and when finished press the button again. </p>
+    <p align="justify">&nbsp;</p>
+    <p align="justify"></p>
+    <div style="position: relative; left: 0; top: 0; width: 320px; height: 240px;"> <a href="https://youtu.be/Ie_B9G1kawY" target="_blank"><img src="https://i.ytimg.com/vi/Ie_B9G1kawY/hqdefault.jpg" width="320" height="240" alt="Howto video 8."> <img src="play.png" style="position: absolute; top: 84px; left: 124px; border:0px;" alt="Howto video 8."> </a> </div>    
+    <hr>
+    <div align="justify"> <a name="a9"></a>
+      <ol start="9" type="1">
+        <li>How to configure Midi input?</li>
+      </ol>
+    </div>
+    <p align="justify">Open Device settings dialog then select your Midi input device and check Active.<br>
+      There are 3 channel handling options available:</p>
+    <p align="justify"></p>
+    <ol start="1" type="a">
+      <li><strong>Channel Don't follow:</strong><br>
+        It is the default. It's ideal when you play multi-channel midi from midi input.<br>
+        In this state the player interface does not reflect midi channel changes from midi input and does not alter the channel part of input. <br>
+        The drawback is you don't see on the interface what channel the actual message is using.</li>
+      <li><strong>Channel Override:</strong><br>
+        When you select it the actual channel will always be what you have selected on the player interface. <br>
+        It does not matter what is the actual channel on your Midi keyboard it is overridden by the player. <br>
+        It is for fire and forget jamming but cannot work with midi files from input since all messages arrive on the same channel.</li>
+      <li><strong>Channel Follow:</strong><br>
+        This is the ideal choice for real keyboard users.<br>
+        In this state when you send any channel based messages (note/program/controller) the player interface switches to the used channel.<br>
+        So the bi-directional functionality can be more complete this way. <br>
+        The only drawback is it's less ideal for playing multi channel files from Midi input since the interface switches channels back and forth crazily.</li>
+    </ol>    
+    <p align="justify">&nbsp;</p>
+    <p align="justify"></p>
+    <div style="position: relative; left: 0; top: 0; width: 320px; height: 240px;"> <a href="https://youtu.be/xF69kzIMBQk" target="_blank"><img src="https://i.ytimg.com/vi/xF69kzIMBQk/hqdefault.jpg" width="320" height="240" alt="Howto video 9."> <img src="play.png" style="position: absolute; top: 84px; left: 124px; border:0px;" alt="Howto video 9."> </a> </div>    
+    <hr>
+    <div align="justify"> <a name="a10"></a>
+      <ol start="10" type="1">
+        <li>How to correct if midi file does not sound as expected?</li>
+      </ol>
+    </div>
+    <p align="justify">You can try to check/uncheck Enable SysEx in files option in the main menu depending on what you would like to achieve. </p>
+    <ol type="a">
+      <li> If you want the midi to sound as intended by the author check this option. <br>
+        The drawback is that SysEx events in files can override your altered program/bank settings<br>
+        and definitely override your midi mode (GM,GS,XG etc.) setting you have defined in the right click context menu of&nbsp; the Reset button.</li>
+      <li> If you would like to preserve your chosen midi mode and altered programs/banks you should disable Enable SysEx in files option.</li>
+    </ol>
+    <p align="justify">If a file contains SySex events the player interface indicates this. Gray GM sign means no Sysex is found so the file is presumably GM compatible.</p>
+    <p align="justify"><strong>Update</strong>:</p>
+    <p align="justify">From version 3.1 the player interface also indicates the actual midi mode of the synth (even if it is set by a message e.g. from midi input) . </p>
+    <p align="justify">From version 3.6 you can also try the <a href="#a16">Use Patch Info for Capital Tone Fallback</a> option. </p>
+    <p align="justify">&nbsp;</p>
+    <p align="justify"></p>
+    <div style="position: relative; left: 0; top: 0; width: 320px; height: 240px;"> <a href="https://youtu.be/kkuikx2rEIM" target="_blank"><img src="https://i.ytimg.com/vi/kkuikx2rEIM/hqdefault.jpg" width="320" height="240" alt="Howto video 10."> <img src="play.png" style="position: absolute; top: 84px; left: 124px; border:0px;" alt="Howto video 10."> </a> </div>    
+    <hr>
+    <div align="justify"> <a name="a11"></a>
+      <ol start="11" type="1">
+        <li>How to test more soundfonts at once?</li>
+      </ol>
+    </div>
+    <ol>
+      <li> Make sure Midiplayer is set to use Bassmidi as output.</li>
+      <li> Load your default Soundfont.
+        Default soundfont is always loaded at Bank 0 as base.</li>
+      <li> Load your additional soundfonts you wish to test
+        to the other slots. Make sure the bank
+        numbers are different (and below 10). </li>
+      <li>If you have enough RAM you can preload the soundfonts
+        into memory for smoother transition. </li>
+      <li> Start playing your Midi files and switch between
+        the different soundfonts by pressing
+        Ctrl + the corresponding Bank number. </li>
+    </ol>
+    <p align="justify">&nbsp;</p>
+    <p align="justify"></p>
+    <div style="position: relative; left: 0; top: 0; width: 320px; height: 240px;"> <a href="https://youtu.be/A4rXu3YNXDc" target="_blank"><img src="https://i.ytimg.com/vi/A4rXu3YNXDc/hqdefault.jpg" width="320" height="240" alt="Howto video 11."> <img src="play.png" style="position: absolute; top: 84px; left: 124px; border:0px;" alt="Howto video 11."> </a> </div>    
+    <hr>
+    <div align="justify"> <a name="a12"></a>
+      <ol start="12" type="1">
+        <li>What does Fix SFZ drum bug do?</li>
+      </ol>
+    </div>
+    <p align="justify">Besides Bassmidi Cakewalk&rsquo;s audio SFZ is the best option to use soundfonts with Midiplayer. </p>
+    <p align="justify"> Unfortunately SFZ has an unpleasant habit that it won&rsquo;t play back midi files properly <br>
+      if drum/percussion channel&rsquo;s bank MSB value is not set to 127 (XG standard).<br>
+      Most midi files simply use channel 10 and don&rsquo;t set this value. <br>
+      This option fixes the issue by automatically setting Bank MSB to 127 on channel 10. </p>
+    <p align="justify"> If you don&rsquo;t use audio SFZ you should definitely uncheck this option in the main menu since enabling it can have side effects.</p>
+    <p align="justify">&nbsp;</p>
+    <p align="justify"></p>
+    <div style="position: relative; left: 0; top: 0; width: 320px; height: 240px;"> <a href="https://youtu.be/lZAX7FvgjU0" target="_blank"><img src="https://i.ytimg.com/vi/lZAX7FvgjU0/hqdefault.jpg" width="320" height="240" alt="Howto video 12."> <img src="play.png" style="position: absolute; top: 84px; left: 124px; border:0px;" alt="Howto video 12."> </a> </div>    
+    <hr>
+    <div align="justify"> <a name="a13"></a>
+      <ol start="13" type="1">
+        <li>What does Save re-patched Midi do?</li>
+      </ol>
+    </div>
+    <p align="justify">This is an experimental feature requested by Technics keyboard users to save modified programs/banks to midi file.</p>
+    <p align="justify"> <a href="http://technicskn7000.com/index.php?cID=2353&ccm_paging_p=1&time=1429737223#msg2368" target="_blank">More deatails on technicskn7000.com forum</a></p>
+    <p align="justify">This feature mostly works with multitrack type 1 midi files that use one channel per track. <br>
+      Before using it make sure that Set Missing Defaults is selected in Main menu -&gt;Compatibility Settings.</p>
+    <p align="justify">&nbsp;</p>
+    <p align="justify"></p>
+    <div style="position: relative; left: 0; top: 0; width: 320px; height: 240px;"> <a href="https://youtu.be/0bearxOIBPk" target="_blank"><img src="https://i.ytimg.com/vi/0bearxOIBPk/hqdefault.jpg" width="320" height="240" alt="Howto video 13."> <img src="play.png" style="position: absolute; top: 84px; left: 124px; border:0px;" alt="Howto video 13."> </a> </div>    
+    <hr>
+    <div align="justify"> <a name="a14"></a>
+      <ol start="14" type="1">
+        <li>What does Midi via Net do?</li>
+      </ol>
+    </div>
+    <p align="justify">You can start many Midiplayer instances on your networked PC&rsquo;s&nbsp;and set them to receive midi on a given port.</p>
+    <p align="justify"> Then you can start another Midiplayer instance on another networked PC and set it to send midi on the same port on the same network.</p>
+    <p align="justify"> The sender PC can use broadcast addresses so every PC on the same network can receive midi messages at the same time.</p>
+    <p align="justify">&nbsp;</p>
+    <p align="justify"></p>
+    <div style="position: relative; left: 0; top: 0; width: 320px; height: 240px;"> <a href="https://youtu.be/7I9j9tRGxvI" target="_blank"><img src="https://i.ytimg.com/vi/7I9j9tRGxvI/hqdefault.jpg" width="320" height="240" alt="Howto video 14."> <img src="play.png" style="position: absolute; top: 84px; left: 124px; border:0px;" alt="Howto video 14."> </a> </div>    
+    <hr>
+    <div align="justify"> <a name="a15"></a>
+      <ol start="15" type="1">
+        <li>How to use midi Scale Effect?</li>
+      </ol>
+    </div>
+    <p align="justify"> Make sure you use midis with equal temperament
+      (that do not use Pitch bend)</p>
+    <ol>
+      <li> Load your Midi and open the scale effect dialog </li>
+      <li> Press the big button to get the proper root note
+        and key. (The algorithm is not unerring so sometimes
+        you have to find the root yourself...)</li>
+      <li> You can check if the root/key is appropriate by
+        choosing the same root and scale from the list.
+        It should sound almost like the original. </li>
+      <li> You should check Repeat one in order to prevent
+        Midiplayer to switch to the next song on the playlist. <br>
+        The same scale setting is almost sure sounds bad with
+        another midi so the player resets the sacle when a new
+        song is loaded. </li>
+      <li> Then you can choose other scales from the list
+        and try them out... </li>
+      <li> You can manually edit and save scales and load them later. </li>
+    </ol>
+    <p align="justify"></p>
+    <div style="position: relative; left: 0; top: 0; width: 320px; height: 240px;"> <a href="https://youtu.be/kFe07eD6_dY" target="_blank"><img src="https://i.ytimg.com/vi/kFe07eD6_dY/hqdefault.jpg" width="320" height="240" alt="Howto video 15."> <img src="play.png" style="position: absolute; top: 84px; left: 124px; border:0px;" alt="Howto video 15."> </a> </div>    
+    <hr>
+    <div align="justify"> <a name="a16" id="a16"></a>
+      <ol start="16" type="1">
+        <li>How to use Capital Tone Fallback emulation? </li>
+      </ol>
+    </div>
+    <p align="justify">Capital Tone Fallback emulation is useful in case of synths that play wrong instrument or completely stay silent when an invalid bank is referred. The recently released Roland SC-VA in SC-55 mode belongs to the first camp while MS GM/GS Softsynth in GS mode to the second. In case of Bassmidi output mode the effect is only cosmetic (you can see what preset you really hear) since Bassmidi supports CTF natively. Midi Player uses instrument definition files (.ins) to decide what bank/program combination the actual synth supports. So it is very important to choose the right one. </p>
+    <ol>
+      <li>Open main menu -&gt;Instruments-&gt;Custom Patch Definitions and locate the corresponding ins file.<br>
+        E.g. for SC-VA use Roland_SCVA.ins and for MS Softsynth use Roland_MS-SoftSynth_GS.ins.</li>
+      <li>Select the right sub-mode (if more than one exists) for melodic and drum channels. </li>
+      <li> Make sure Use Patch Info for Capital Tone Fallback option is selected. </li>
+      <li>If you use Midi Player directly you can start playing your midi files.</li>
+      <li>In case you would like to use Midi Player as a message processor e.g. for a game in DosBox remember to set up midi input in the settings dialog. <br>
+      </li>
+    </ol>
+    <p><a href="http://www.vogons.org/viewtopic.php?f=46&t=46111&start=240#p502660" target="_blank">More Info on Vogons forum </a></p>
+    <p>&nbsp;</p>
+    <p align="justify"></p>
+    <div style="position: relative; left: 0; top: 0; width: 320px; height: 240px;"> <a href="https://youtu.be/PrKfDTjvKDs" target="_blank"><img src="https://i.ytimg.com/vi/PrKfDTjvKDs/hqdefault.jpg" width="320" height="240" alt="Howto video 16."> <img src="play.png" style="position: absolute; top: 84px; left: 124px; border:0px;" alt="Howto video 16."> </a> </div>    
+    <hr>
+    <div align="justify"> <a name="a17"></a>
+      <ol start="17" type="1">
+        <li>How to use VST/VSTi plugins?</li>
+      </ol>
+    </div>
+    <p align="justify">Before using VST/VSTi plugins you have to enable Bass  mode in Device settings. VSTi instrument plugins can be considered a 3rd output mode in Midi Player besides standard  midi out ports and Bassmidi. Both VSTi and Bassmidi output modes are based on Bass infrastructure and share some settings. VST effect/visualization plugins can be used both in Bassmidi and VSTi output mode. </p>
+    <p align="justify">After enabling Bass in Device Settings you can reach the Bass VST(i) Plugins submenu from the main menu. There are 4 possible slots for different effect/visualization plugins but only 1 instrument plugin can be used for midi output. You can browse for plugins anywhere in your file system and the selected plugin's path is saved. You can also save/load settings of the individual plugins. </p>
+    <p align="justify">For effect/visualization plugins you can also set priority. Priority defines the order of effects. Higher priority means that the   effect occurs earlier in the chain. Therefore visualization plugins   should be set to 0 priority. 
+Also effects that are set to 0 priority do not influence recording (recording virtually runs with priority 1).</p>
+    <p align="justify">You can also start/stop and pause plugins. Start/stop actually means loading and unloading the plugin. Closing the plugin's window does not unload the plugin. When you stop a VSTi instrument plugin you actually switch back to Bassmidi output mode. You can use this feature to compare the sound of these 2 modes.</p>
+    <p align="justify">For faster startup there are hotkeys defined both for effect/visualization and instrument plugins (VSTi plugin -&gt; Shift + I, VST plugins -&gt; Shift + effect number). </p>
+    <p align="justify">&nbsp;</p>
+    <p align="justify"></p>
+    <div style="position: relative; left: 0; top: 0; width: 320px; height: 240px;"> <a href="https://youtu.be/mzZhhLXG0kk" target="_blank"><img src="https://i.ytimg.com/vi/mzZhhLXG0kk/hqdefault.jpg" width="320" height="240" alt="Howto video 17."> <img src="play.png" style="position: absolute; top: 84px; left: 124px; border:0px;" alt="Howto video 17."> </a> </div>   
+	<hr>	
+    <div align="justify"> <a name="a18"></a>
+      <ol start="18" type="1">
+        <li>How to use loop points?</li>
+      </ol>
+    </div>
+    <p>First the usage of loop points has to be enabled.<br>
+      Infinite loops can only be used in Repeat One mode.<br>
+      (Otherwise they would stop your playlist forever)</p>
+    <p>Loop points are not official standards. Currently FSMP supports<br>
+      3 types of loop points.<br>
+      1. loopStart/loopEnd meta markers<br>
+      2. RPG Maker style CC# 111 (only loop start marked).<br>
+      3. XMI style CC# 116/117. This is the most versatile.<br>
+      Supports multiple loop start/end points <br>
+      and both infinite and finite number of loops.<br>
+      Loops of type 1/2 are always infinite. Type 3 can be finite if the 3rd byte of CC# 116 is different from 0 (1 - 127). </p>
+    <p>You can make infinite loops finite by setting the maximum loop count in Loop Settings. This way midis with infinite loops can be used on playlist without Repeat One mode.</p>
+    <p>Adding a 'dummy' loop start point at the beginning of midi files can be advantageous. This way you can achieve seamless repeated playback.</p>
+    <p>Without loop point the repeated playback is not perfect because the usage of All Sound Off controller messages (to prevent<br>
+      hanging/sustained note problems).</p>
+    <p>With loop points Midi player optimizes the repeated playback by not sending All Sound Off but only All Notes Off messages at the loop's end. In case of loops it's the author's responsibility to handle hanging/sustained notes.</p>
+    <p align="justify">&nbsp;</p>
+    <p align="justify"></p>
+    <div style="position: relative; left: 0; top: 0; width: 320px; height: 240px;"> <a href="https://youtu.be/eJwfvv38gv0" target="_blank"><img src="https://i.ytimg.com/vi/eJwfvv38gv0/hqdefault.jpg" width="320" height="240" alt="Howto video 18."> <img src="play.png" style="position: absolute; top: 84px; left: 124px; border:0px;" alt="Howto video 18."> </a> </div> 
+	<hr>
+    <div align="justify"> <a name="a_bonus1" id="a_bonus1"></a>
+      <ul>
+        <li><strong><u>S-YXG50 VSTi guitar sound using SysEx messages</u></strong></li>
+      </ul>
+    </div>
+    <p align="justify">I'm surprised how good S-YXG50 guitar sound can be with a little SysEx help. This synth has only a 4MB sound set!<br>
+      <br>
+      For this guitar sound you need these SysEx messages:<br>
+      <br>
+      F0 43 10 4C 02 01 00 03 00 F7<br>
+      F0 43 10 4C 02 01 0C 64 F7<br>
+      F0 43 10 4C 02 01 40 4B 00 F7<br>
+      F0 43 10 4C 02 01 44 00 03 F7<br>
+      F0 43 10 4C 02 01 46 00 34 F7<br>
+      F0 43 10 4C 02 01 48 00 50 F7
+      <br>
+      F0 43 10 4C 02 40 00 00 F7<br>
+      F0 43 10 4C 02 40 01 3D F7<br>
+      F0 43 10 4C 02 40 0D 41 F7<br>
+      F0 43 10 4C 02 40 11 43 F7<br>
+      F0 43 10 4C 02 01 <strong>5B 02</strong> F7<br>
+      <br>
+      The last one which has '5B xx' designates the used Midi Channel.<br>
+      xx = 00 : Channel 1<br>
+    xx = 01 : Channel 2 and so on.</p>
+    <p align="justify">&nbsp;</p>
+    <p align="justify"></p>
+    <div style="position: relative; left: 0; top: 0; width: 320px; height: 240px;"> <a href="https://youtu.be/w8qfXEpifvI" target="_blank"><img src="https://i.ytimg.com/vi/w8qfXEpifvI/hqdefault.jpg" width="320" height="240" alt="Howto video bonus 1."> <img src="play.png" style="position: absolute; top: 84px; left: 124px; border:0px;" alt="Howto video bonus 1."> </a> </div> 
+	<hr>
+	
+	<div align="justify"> <a name="a_bonus2" id="a_bonus2"></a>
+      <ul>
+        <li><strong><u>Duke Nukem 3D Grabbag theme XG enhanced</u></strong></li>
+      </ul>
+    </div>
+    <p align="justify">Lee Jackson's modified Grabbag theme on S-YXG50 VSTi.</p>
+    <p align="justify">I have changed channel/track 6 instrument to Vibes since Tubural Bells sound off tune on S-YXG50.</p>
+    <p align="justify">Used SysEx  messages: </p>
+    <p align="justify"><br>
+      F0 43 10 4C 02 01 40 4B 00 F7<br>
+      F0 43 10 4C 02 01 44 00 03 F7<br>
+      F0 43 10 4C 02 01 46 00 34 F7<br>
+      F0 43 10 4C 02 01 48 00 50 F7<br>
+      F0 43 10 4C 02 40 00 00 F7<br>
+      F0 43 10 4C 02 40 01 3D F7<br>
+      F0 43 10 4C 02 40 0D 41 F7<br>
+      F0 43 10 4C 02 40 11 43 F7<br>
+      F0 43 10 4C 02 01 5A 01 F7<br>
+      <br>
+      After applying the SysEx messages you can use Controller 94 to set the effect amount on the given channel.</p>
+    <p align="justify">&nbsp;</p>
+    <p align="justify"></p>
+    <div style="position: relative; left: 0; top: 0; width: 320px; height: 240px;"> <a href="https://youtu.be/XWCv9jaUUm4" target="_blank"><img src="https://i.ytimg.com/vi/XWCv9jaUUm4/hqdefault.jpg" width="320" height="240" alt="Howto video bonus 2."> <img src="play.png" style="position: absolute; top: 84px; left: 124px; border:0px;" alt="Howto video bonus 2."> </a> </div> 
+	<hr>
+	
+	<div align="justify"> <a name="a_bonus3" id="a_bonus3"></a>
+      <ul>
+        <li><strong><u>DOSBox hot swapping virtual Midi devices using SysEx (S-YXG50, Bassmidi, MuntVSTi)</u></strong></li>
+      </ul>
+    </div>
+    <p align="justify">More info on VOGONS forum:<br>
+      <a href="http://www.vogons.org/viewtopic.php?f=62&t=46111&start=380#p585289" target="_blank">http://www.vogons.org/viewtopic.php?f=62&amp;t=46111&amp;start=380#p585289</a></p>
+    <p align="justify">&nbsp;</p>
+    <p align="justify"></p>
+    <div style="position: relative; left: 0; top: 0; width: 320px; height: 240px;"> <a href="https://youtu.be/6CdJ7sEt8UM" target="_blank"><img src="https://i.ytimg.com/vi/6CdJ7sEt8UM/hqdefault.jpg" width="320" height="240" alt="Howto video bonus 3."> <img src="play.png" style="position: absolute; top: 84px; left: 124px; border:0px;" alt="Howto video bonus 3."> </a> </div> 
+	<hr>
+	
+	<div align="justify"> <a name="a_bonus4" id="a_bonus4"></a>
+      <ul>
+        <li><strong><u>Master of Puppets Midi + Soundfont + VST effect</u></strong></li>
+      </ul>
+    </div>
+    <p>Customized Master of Puppets Midi played with<br>
+   Midi Player + Reality GM/GS falcomod soundfont + IK Multimedia Amplitube LE VST.</p>
+    <p>&nbsp;</p>
+    <p align="justify"></p>
+    <div style="position: relative; left: 0; top: 0; width: 320px; height: 240px;"> <a href="https://youtu.be/Qqml53vcPWI" target="_blank"><img src="https://i.ytimg.com/vi/Qqml53vcPWI/hqdefault.jpg" width="320" height="240" alt="Howto video bonus 4."> <img src="play.png" style="position: absolute; top: 84px; left: 124px; border:0px;" alt="Howto video bonus 4."> </a> </div> 
+	<hr>
+	
+    <p>&nbsp;</p>
+    <table width="100%" border="0">
+      <tr>
+        <td width="50%"><strong> </strong></td>
+        <td width="50%" align="right"><strong><a href="#top">Jump to Top</a></strong> </td>
+      </tr>
+    </table>
+    <p>&nbsp;</p>
+  </div>
+</div>
+</body>
+</html>

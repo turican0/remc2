@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>OPL3 VSTi Readme</title>
+<style type="text/css">
+body {
+	background-color: #222222;
+	margin: 0;
+	padding: 0;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+p {
+margin:10px;
+}
+
+li {
+  line-height: 150%;
+}
+
+#mainframe {
+	background-color: #BBBBBB;	
+	position: relative;
+	max-width: 1152px;
+	padding: 12px;
+	padding-top: 8px;
+	border: none; 
+	margin: auto;
+	min-height: 100vh;
+	
+}
+
+</style>
+</head>
+<body>
+<div id="mainframe">
+<h2>OPL3 GM   emulator VSTi </h2>
+    <p>is a portable VST 2.4 instrument/software MIDI synthesizer for Windows that  is based on <a href="http://www.dosbox.com/" target="_blank">DosBox OPL 2/3</a> and <a href="https://www.vogons.org/viewtopic.php?f=9&t=37782" target="_blank">Nuked OPL3</a> emulator libraries. </p>
+    <p>It is  developed for my <a href="http://falcosoft.hu/softwares.html#midiplayer" target="_blank">Soundfont Midi Player</a> to integrate OPL3 support and it relies on some peculiarities of Bass_VST library.</p>
+    <p>(Bass_VST does not use the deltaFrames member of VstMidiEvent struct.) </p>
+    <p>So under other hosts  timing problems can occur with bigger buffers.</p>
+    <p> Opl3emu4v.dll has to be copied to the same (VST) directory as OPL3Vsti.dll.</p>
+    <p>Supported feature set is essentially conforms the <a href="https://www.midi.org/specifications/item/general-midi-lite" target="_blank">GM Lite specification</a> (+ GM Master Volume).</p>
+    <p>The x86 version of OPL3Vsti works even on Win9x.</p>
+    <p>&nbsp;</p>
+    <p><strong>Notice:</strong></p>
+    <p>Since OPL3 internally uses 49716 Hz it is recommended to use this sample rate. Soundfont Midi Player from version 4.5 explicitly supports it.</p>
+    <p>Since this sample rate is not widely supported by other hosts  other sample rates are also supported but with potentially reduced quality. </p>
+    <p>&nbsp;</p>
+    <p><strong>Tested Hosts:</strong></p>
+    <ul>
+      <li><a href="http://falcosoft.hu/softwares.html#midiplayer" target="_blank">Soundfont Midi Player</a></li>
+      <li><a href="http://www.hermannseib.com/english/savihost.htm" target="_blank">SAVIHost</a></li>
+      <li><a href="http://www.hermannseib.com/english/vsthost.htm" target="_blank">VSTHost</a></li>
+      <li> <a href="http://www.reaper.fm/" target="_blank">Reaper</a></li>
+      <li> <a href="https://www.steinberg.net/en/products/cubase/cubase_elements.html" target="_blank">Cubase</a></li>
+    </ul>
+    <p>&nbsp;</p>
+    <p><strong>version 1.0 </strong></p>
+    <p>Initial release.</p>
+    <p>&nbsp;</p>
+    <p><strong>version 1.1 </strong></p>
+    <p>1. Added opl3emu_getpatch() to opl3emu4v.dll. It can be used to get the patchnum for a given channel.</p>
+    <p>2. Added midiProgramNames implemetation to OPL3Vsti.dll using opl3emu_getpatch().</p>
+    <p>&nbsp;</p>
+    <p><strong>version 1.2</strong></p>
+    <p>1. Integrated Nuked OPL3  library as an alternative emulator core. You can switch between DosBox and Nuked OPL3 in real time. <br>
+    Nuked OPL3 can be more precise but it requires more CPU. DosBox's engine is less CPU hungry especially in idle state. </p>
+    <p>2. Fixed Pitch Bend sensitivity problems in case of files that send NRPN (0,0) messages. </p>
+    <p>&nbsp;</p>
+    <p><strong>version 1.3</strong></p>
+    <p>1. Added instrument customization option.<br>
+      You have to use SBI (Sound Blaster Instrument) format.<br>
+    <a href="http://www.shikadi.net/moddingwiki/SBI_Format" target="_blank">http://www.shikadi.net/moddingwiki/SBI_Format</a></p>
+    <p><br>
+      Fortunately OPL3 Bank Editor saves instruments in this format.<br>
+    <a href="http://www.vogons.org/viewtopic.php?f=9&t=48513" target="_blank">http://www.vogons.org/viewtopic.php?f=9&amp;t=48513</a></p>
+    <p><br>
+      You have to place the sbi instruments in the plugin's folder and name it by a special scheme.<br>
+      The name has to contain: BankXXX where XXX is the 3 digit index of the Patch Bank you would like to customize (currently  0: Fat Man, 1: Maui, 2: FMSynth).<br>
+      The name also has to contain: PatchYYY where YYY is the 3 digit index of the Patch/Program inside the choosen Bank you would like to replace/customize.(0 -127 standard instruments, 128 -255 drums)<br>
+    The drums are standard instruments in the sense that they do not use percussion mode of  OPL3. The first used drum (note 35) starts at index 163.</p>
+    <p>Example instruments can be found in the plugin's folder. The extensions have to be renamed from sb_ to sbi in order to activate them. </p>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+    <p>If you would like to support the development of OPL3 GM VSTi you can donate through PayPal.</p>
+    <form action="https://www.paypal.com/cgi-bin/webscr" method="get" target="_blank">
+      <p>
+        <input type="hidden" name="cmd" value="_s-xclick">
+        <input type="hidden" name="hosted_button_id" value="SY5KG9XCVDVW6" >
+        <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" name="submit" alt="PayPal - The safer, easier way to pay online!" >
+      </p>
+    </form>
+    <p>&nbsp;</p>
+    <p><a target="_blank" rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/80x15.png"></a><br>
+      <span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">OPL3 GM VSTi</span> by <a target="_blank" xmlns:cc="http://creativecommons.org/ns#" href="http://falcosoft.hu/softwares.html" property="cc:attributionName" rel="cc:attributionURL">Zolt&aacute;n Bacsk&oacute; (Falcosoft)</a> is licensed under a </p>
+    <p><a target="_blank" rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>. </p>
+    <p>&nbsp;</p>    
+    <p>Have fun.</p>
+    <p>Zolt&aacute;n Bacsk&oacute; (Falco)</p>
+    <p><a href="http://falcosoft.hu" target="_blank">http://falcosoft.hu/</a></p>
+    <p>zbacsko@falcosoft.hu</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,65 @@
+&str_E1BAC[jx].selected_8
+if (str_E1BAC[iy].selected_8 && (str_E1BAC[iy].dword_0 & 0xff))
+
+sub_7FCB0_draw_text_with_border 260cb0
+after
+signed int sub_7C390()//25d390
+
+void sub_8C635_draw_cursor()//26d635
+void sub_8CACD_draw_cursor2()//26dacd
+void sub_75200_VGA_Blit640(uint16_t height)//256200
+
+x_WORD_18072C_cursor_sizex .. 35172c
+x_WORD_18072E_cursor_sizey .. 35172e
+
+xy_DWORD_17DED4_spritestr[39]
+*filearray_2aa18c[filearrayindex_POINTERSDATTAB].begin_buffer
+
+46d564 adress
+
+(*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct)[0] .. dword_EB394
+xy_DWORD_17DED4_spritestr[0x25] .. dword_17DED4 + 222
+(*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct)[0] .. dword_EB394
+xy_DWORD_17DED4_spritestr[39] .. dword_17DED4 + 234
+
+sub_8CD27_set_cursor(xy_DWORD_17DED4_spritestr[110]);
+
+46d55f+4
+
+0x2b2e2c
+
+0x0025DCF0//return sub_7CCF0(/*var*/);
+0x0025DD30//return sub_7CD30(/*var*/);
+0x0025DCA0//return sub_7CCA0(/*var*/);
+0x0025DDA0//return sub_7CDA0(/*var*/);
+0x0025DBF0//return sub_7CBF0(/*var*/);
+0x0025DC40//return sub_7CC40(/*var*/);
+0x00000000
+
+pre_sub_7B250_draw_and_serve(str_E1BAC[iy].dword_0, &str_E1BAC[iy])
+
+x_DWORD_E9C38_smalltit+640*300+250
+
+-draw 
+sub_85BF5(a2, x_DWORD_E9C38_smalltit, v4, v3, v5, v6);
+
+network - setNetbios_75044
+0x7f;//?
+0xb0;//ADD_NAME / NETH200 - must add unicate name in network
+0x91;//LISTEN - 8x
+
+
+NetworkCall_74809
+
+sub_72E70
+sub_72FBB
+sub_7373D
+sub_73AA1
+
+sub_7308F
+sub_51BB0_game_events
+sub_7CE50
+
+&x_WORD_E1276
+
+https://stackoverflow.com/questions/28027937/cross-platform-sockets

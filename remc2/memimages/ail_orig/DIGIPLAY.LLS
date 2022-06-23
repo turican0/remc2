@@ -1,0 +1,14 @@
+/c /x /v +
+c:\tools\bc\lib\c0l.obj +
+digiplay ail, +
+digiplay.exe, +
+digiplay.map, +
+c:\tools\bc\lib\cl.lib gen
+
+
+(Active TLINK options: case sensitivity on, generate debug info, no map file)
+
+
+
+
+

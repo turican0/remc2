@@ -1,0 +1,1235 @@
+char* off_D9F3E[1]={};
+char* off_D9F4E[1]={data/search.dat};
+char* off_D9F56[1]={BREAK!
+};
+char* off_D9F63[1]={No Help Data};
+char* off_D9F69[1]={OK};
+char* off_D9F71[1]={%s:%s.};
+char* off_D9F7A[1]={%s. %s.};
+char* off_D9F80[1]={%s %s};
+char* off_D9F85[1]={%s};
+char* off_D9F8E[1]={[%s] %s};
+char* off_D9F91[1]={%d};
+char* off_D9F97[1]={%03d};
+char* off_D9F9D[1]={OK};
+char* off_D9FA2[1]={%s?};
+char* off_D9FA8[1]={sound};
+char* off_D9FB3[1]={/netherw};
+char* off_D9FBC[1]={%s/%s};
+char* off_D9FCF[1]={Initialise Sound};
+char* off_D9FF7[1]={ERROR: NOT ENOUGH MEMORY FOR SOUNDS
+};
+char* off_DA009[1]={Sound Disabled};
+char* off_DA01C[1]={data/mwebd0-0.dat};
+char* off_DA030[1]={data/mwebd0-0.tab};
+char* off_DA044[1]={data/hwebd0-0.dat};
+char* off_DA058[1]={data/hwebd0-0.tab};
+char* off_DA06C[1]={data/mwebn0-0.dat};
+char* off_DA080[1]={data/mwebn0-0.tab};
+char* off_DA094[1]={data/hwebn0-0.dat};
+char* off_DA0A8[1]={data/hwebn0-0.tab};
+char* off_DA0BC[1]={data/mwebc0-0.dat};
+char* off_DA0D0[1]={data/mwebc0-0.tab};
+char* off_DA0E4[1]={data/hwebc0-0.dat};
+char* off_DA0F8[1]={data/hwebc0-0.tab};
+char* off_DA10C[1]={data/msprd0-0.dat};
+char* off_DA111[1]={%s};
+char* off_DA124[1]={data/msprd0-0.tab};
+char* off_DA138[1]={data/hsprd0-0.dat};
+char* off_DA14C[1]={data/hsprd0-0.tab};
+char* off_DA160[1]={data/msprn0-0.dat};
+char* off_DA174[1]={data/msprn0-0.tab};
+char* off_DA188[1]={data/hsprn0-0.dat};
+char* off_DA19C[1]={data/hsprn0-0.tab};
+char* off_DA1B0[1]={data/msprc0-0.dat};
+char* off_DA1C4[1]={data/msprc0-0.tab};
+char* off_DA1D8[1]={data/hsprc0-0.dat};
+char* off_DA1EC[1]={data/hsprc0-0.tab};
+char* off_DA1FE[1]={data/pald-0.dat};
+char* off_DA20E[1]={data/clrd-0.dat};
+char* off_DA21E[1]={data/palf-0.dat};
+char* off_DA22E[1]={data/paln-0.dat};
+char* off_DA23E[1]={data/clrn-0.dat};
+char* off_DA24E[1]={data/palc-0.dat};
+char* off_DA25E[1]={data/clrc-0.dat};
+char* off_DA270[1]={data/smatitle.dat};
+char* off_DA284[1]={data/smatitl2.dat};
+char* off_DA298[1]={data/smatitle.pal};
+char* off_DA2AC[1]={data/smatitl2.pal};
+char* off_DA2B1[1]={%c};
+char* off_DA2CE[1]={.. CHEAT: access all spells};
+char* off_DA2E2[1]={.. CHEAT: more mana};
+char* off_DA300[1]={.. CHEAT: destroy all players};
+char* off_DA320[1]={.. CHEAT: destroy all castles};
+char* off_DA341[1]={.. CHEAT: destroy all balloons};
+char* off_DA351[1]={.. CHEAT: heal};
+char* off_DA36F[1]={.. CHEAT: Kill all creatures};
+char* off_DA399[1]={.. CHEAT: More Spell Experience Points};
+char* off_DA3B9[1]={.. CHEAT: Free Spell Usage OFF};
+char* off_DA3D8[1]={.. CHEAT: Free Spell Usage ON};
+char* off_DA3F5[1]={.. CHEAT: Invincability ON};
+char* off_DA412[1]={.. CHEAT: Invincability OFF};
+char* off_DA41A[1]={clevels};
+char* off_DA423[1]={/netherw};
+char* off_DA43A[1]={%c:%s/%s/levels.dat};
+char* off_DA44C[1]={levels/levels.dat};
+char* off_DA462[1]={%c:%s/%s/levels.tab};
+char* off_DA474[1]={levels/levels.tab};
+char* off_DA496[1]={ERROR decompressing levels.dat
+};
+char* off_DA4A9[1]={levels/lev%05d.dat};
+char* off_DA4BB[1]={levels/lev%05d%s};
+char* off_DA4C4[1]={movie};
+char* off_DA4D5[1]={%s/gam%05d.dat};
+char* off_DA4E5[1]={%s/map%05d.dat};
+char* off_DA4F7[1]={data/bldgprm.dat};
+char* off_DA509[1]={%s/mvi%05d.dat};
+char* off_DA510[1]={%c:%s};
+char* off_DA514[1]={/};
+char* off_DA52E[1]={ERROR decompressing %s
+};
+char* off_DA538[1]={%s/%s.tab};
+char* off_DA544[1]={%s/%s.dat};
+char* off_DA54B[1]={%d%c};
+char* off_DA568[1]={Checking Setup Version ..};
+char* off_DA576[1]={version.dat};
+char* off_DA57C[1]={cdata};
+char* off_DA58A[1]={%c:%s/%s/%s};
+char* off_DA58C[1]={
+};
+char* off_DA597[1]={tmaps0-0};
+char* off_DA5AA[1]={%c:%s/%s/%s.dat};
+char* off_DA5B6[1]={data/%s.dat};
+char* off_DA5D6[1]={Creating Setup Directories 1 ..};
+char* off_DA5DF[1]={%c:%s/%s};
+char* off_DA5E7[1]={data};
+char* off_DA5F3[1]={tmaps1-0};
+char* off_DA616[1]={Creating Setup Directories 2 ..};
+char* off_DA61F[1]={tmaps2-0};
+char* off_DA642[1]={Creating Setup Directories 3 ..};
+char* off_DA657[1]={Setting Up Levels ..};
+char* off_DA661[1]={levels};
+char* off_DA673[1]={data/block16.dat};
+char* off_DA687[1]={data/skyd0-0.dat};
+char* off_DA69B[1]={data/block32.dat};
+char* off_DA6B0[1]={data/tmaps0-0.tab};
+char* off_DA6C4[1]={data/bl16f0-0.dat};
+char* off_DA6D8[1]={data/bl16n0-0.dat};
+char* off_DA6EB[1]={data/skyn0-0.dat};
+char* off_DA700[1]={data/bl32f0-0.dat};
+char* off_DA714[1]={data/bl32n0-0.dat};
+char* off_DA728[1]={data/tmaps1-0.tab};
+char* off_DA73C[1]={data/bl16c0-0.dat};
+char* off_DA750[1]={data/bl32c0-0.dat};
+char* off_DA764[1]={data/tmaps2-0.tab};
+char* off_DA777[1]={data/tablesd.dat};
+char* off_DA78B[1]={data/tablesn.dat};
+char* off_DA79F[1]={data/tablesc.dat};
+char* off_DA7A7[1]={SMAP};
+char* off_DA7B8[1]={%s/%s%03d.dat};
+char* off_DA7BF[1]={SLEV};
+char* off_DA7C7[1]={save};
+char* off_DA7DC[1]={%c:%s/%s/%s%d.dat};
+char* off_DA7E3[1]={SVER};
+char* off_DA7F0[1]={debug.txt};
+char* off_DA7FE[1]={%s : %lu %c};
+char* off_DA850[1]={DEVICE		None
+DRIVER		None
+IO_ADDR		-1
+IRQ		-1
+DMA_8_BIT		-1
+DMA_16_BIT		-1
+};
+char* off_DA858[1]={sound};
+char* off_DA863[1]={/netherw};
+char* off_DA877[1]={%c:%s/%s/dig.ini};
+char* off_DA88B[1]={%c:%s/%s/mdi.ini};
+char* off_DA896[1]={network};
+char* off_DA89C[1]={level};
+char* off_DA8A8[1]={harddrive};
+char* off_DA8B6[1]={skipscreens};
+char* off_DA8BB[1]={nocd};
+char* off_DA8CA[1]={showversion};
+char* off_DA8D7[1]={showversion2};
+char* off_DA8E4[1]={detectoff};
+char* off_DA8F0[1]={langcheck};
+char* off_DA8F6[1]={vio};
+char* off_DA8FD[1]={extern};
+char* off_DA914[1]={External ctrl at %ul
+};
+char* off_DA91B[1]={VFX1};
+char* off_DA921[1]={cc};
+char* off_DA92D[1]={spellsedit};
+char* off_DA935[1]={music2};
+char* off_DA955[1]={ERROR: CANT ALLOC TAPE MEMORY.};
+char* off_DA977[1]={ERROR: CANT ALLOC CARPET MEMORY.};
+char* off_DA99C[1]={ERROR: CANT ALLOC RESERVE MEMORY.};
+char* off_DA9AB[1]={%s, GHP:%lu
+};
+char* off_DA9C2[1]={LO -> s%7.7d,u%01d
+};
+char* off_DA9D6[1]={HI -> s%7.7d,u%01d
+};
+char* off_DA9E1[1]={Load Level};
+char* off_DA9EF[1]={Generate map};
+char* off_DAA04[1]={Generate features};
+char* off_DAA18[1]={Initialise Models};
+char* off_DAA33[1]={Config menu.. 0123456789};
+char* off_DAA46[1]={data/pald-0.dat};
+char* off_DAA56[1]={data/clrd-0.dat};
+char* off_DAA5B[1]={save};
+char* off_DAA67[1]={/netherw};
+char* off_DAA70[1]={cdata};
+char* off_DAA7A[1]={clevels};
+char* off_DAA80[1]={sound};
+char* off_DAA8B[1]={language};
+char* off_DAA94[1]={shots};
+char* off_DAAA6[1]={data/spells.dat};
+char* off_DAACA[1]={ERROR : MOUSE DRIVER NOT INSTALLED
+};
+char* off_DAAF4[1]={ERROR COPYING DATA FILES TO LOCAL DRIVE 
+};
+char* off_DAB19[1]={Error creating setup directories.
+};
+char* off_DAB33[1]={NO VESA DRIVER DETECTED
+};
+char* off_DAB49[1]={NOT ENOUGH MEMORY
+};
+char* off_DAB52[1]={NETHERW};
+char* off_DAB58[1]={
+};
+char* off_DAB97[1]={***********************************************************
+};
+char* off_DABD7[1]={*   TESTERS: WRITE DOWN THE ABOVE VERSION DATE AND TIME.  *
+};
+char* off_DAC17[1]={*   Press RETURN to continue...                           *
+};
+char* off_DAC57[1]={***********************************************************
+};
+char* off_DAC68[1]={data/gtd2.dat};
+char* off_DAC71[1]={Dragon};
+char* off_DAC7A[1]={Vulture};
+char* off_DAC7E[1]={Bee};
+char* off_DAC83[1]={Worm};
+char* off_DAC8D[1]={Archer};
+char* off_DAC93[1]={Crab};
+char* off_DAC9D[1]={Kraken};
+char* off_DACA4[1]={Troll};
+char* off_DACAE[1]={Griffon};
+char* off_DACB7[1]={Skeleton};
+char* off_DACC4[1]={Vissuluth};
+char* off_DACCC[1]={Genie};
+char* off_DACD6[1]={Builder};
+char* off_DACDD[1]={Townie};
+char* off_DACE5[1]={Trader};
+char* off_DACED[1]={Wyvern};
+char* off_DACF8[1]={Manticore};
+char* off_DAD03[1]={Sentinel};
+char* off_DAD0E[1]={Firefly};
+char* off_DAD15[1]={Spider};
+char* off_DAD1C[1]={Devil};
+char* off_DAD28[1]={Mana Worm};
+char* off_DAD35[1]={Mana Eater};
+char* off_DAD40[1]={Cymmerian};
+char* off_DAD4D[1]={Dark Demon};
+char* off_DAD54[1]={Hydra};
+char* off_DAD5F[1]={Deep One};
+char* off_DAD67[1]={Tail};
+char* off_DAD6F[1]={Goat};
+char* off_DAD79[1]={Zombie};
+char* off_DAD87[1]={Text Omitted};
+char* off_DAD93[1]={1. Jahwl};
+char* off_DADA0[1]={2. Kopahk};
+char* off_DADB0[1]={3. Myrnan Gor};
+char* off_DADBF[1]={4. Arachnium};
+char* off_DADCC[1]={5. T'Klom};
+char* off_DADDA[1]={6. Phyrydia};
+char* off_DADE6[1]={7. Perilium};
+char* off_DADF4[1]={8. Ul Buthnen};
+char* off_DAE05[1]={9. Evirith Gor};
+char* off_DAE14[1]={10. Cymmeria };
+char* off_DAE24[1]={11. Tropolos };
+char* off_DAE32[1]={12. Jaleen };
+char* off_DAE40[1]={13. Galiphur };
+char* off_DAE4D[1]={14. Tunuk };
+char* off_DAE5B[1]={15. Zyggogg };
+char* off_DAE6C[1]={16. Darklava };
+char* off_DAE7D[1]={17. C'lannesh };
+char* off_DAE89[1]={18. Gleph };
+char* off_DAE98[1]={19. Baraghan };
+char* off_DAEA9[1]={20. Ammyridia };
+char* off_DAEB8[1]={21. Cresidan };
+char* off_DAEC5[1]={22. Hodor };
+char* off_DAED3[1]={23. Jathnar };
+char* off_DAEE1[1]={24. Malak };
+char* off_DAEED[1]={25. Uluth };
+char* off_DAEF3[1]={26. };
+char* off_DAEFB[1]={27. };
+char* off_DAF03[1]={28. };
+char* off_DAF0B[1]={29. };
+char* off_DAF13[1]={30. };
+char* off_DAF1F[1]={Karakir };
+char* off_DAF28[1]={Ymbul};
+char* off_DAF37[1]={Pav Durivium};
+char* off_DAF41[1]={Beleem};
+char* off_DAF4B[1]={Ommosyth};
+char* off_DAF53[1]={36. };
+char* off_DAF5B[1]={37. };
+char* off_DAF63[1]={38. };
+char* off_DAF6B[1]={39. };
+char* off_DAF73[1]={40. };
+char* off_DAF7B[1]={41. };
+char* off_DAF83[1]={42. };
+char* off_DAF8B[1]={43. };
+char* off_DAF93[1]={44. };
+char* off_DAF9B[1]={45. };
+char* off_DAFA3[1]={46. };
+char* off_DAFAB[1]={47. };
+char* off_DAFB3[1]={48. };
+char* off_DAFBB[1]={49. };
+char* off_DAFC3[1]={50. };
+char* off_DAFCD[1]={Thrull};
+char* off_DAFD5[1]={Keevur};
+char* off_DAFDC[1]={Braak};
+char* off_DAFE5[1]={Trapox};
+char* off_DAFF2[1]={Hibren Zhor};
+char* off_DAFFA[1]={Jinople};
+char* off_DB002[1]={Dethrem};
+char* off_DB00A[1]={Canquin};
+char* off_DB013[1]={Zephulum};
+char* off_DB01D[1]={Verune};
+char* off_DB020[1]={0};
+char* off_DB02B[1]={Zanzamar};
+char* off_DB035[1]={Nyphur};
+char* off_DB03B[1]={Rahn};
+char* off_DB044[1]={Belix};
+char* off_DB04B[1]={Jark};
+char* off_DB056[1]={Elyssia};
+char* off_DB05E[1]={Yragore};
+char* off_DB064[1]={Prish};
+char* off_DB06C[1]={I};
+char* off_DB071[1]={II};
+char* off_DB076[1]={III};
+char* off_DB079[1]={IV};
+char* off_DB07C[1]={V};
+char* off_DB08A[1]={Designed By};
+char* off_DB0A3[1]={Bullfrog Productions Ltd};
+char* off_DB0A8[1]={!};
+char* off_DB0B9[1]={Project Leader};
+char* off_DB0BC[1]={ };
+char* off_DB0CA[1]={Alan Wright};
+char* off_DB0DD[1]={Engine Programming};
+char* off_DB0EB[1]={Glenn Corpes};
+char* off_DB0FF[1]={Lead Programming};
+char* off_DB10E[1]={Programming};
+char* off_DB11B[1]={Mark Lamport};
+char* off_DB129[1]={Mark Adami};
+char* off_DB136[1]={Lead Artist};
+char* off_DB141[1]={Eoin Rogan};
+char* off_DB153[1]={Graphics and Art};
+char* off_DB164[1]={Darren Thomas};
+char* off_DB173[1]={Fin McGechie};
+char* off_DB18C[1]={Introductory Sequence};
+char* off_DB199[1]={Chris Hill};
+char* off_DB1A4[1]={Scripting};
+char* off_DB1B5[1]={Sean Masterson};
+char* off_DB1C3[1]={Level Design};
+char* off_DB1D3[1]={Adrian Moore};
+char* off_DB1E8[1]={Vince Farquharson};
+char* off_DB1F6[1]={Barry Meade};
+char* off_DB206[1]={Sound and Music};
+char* off_DB213[1]={Russell Shaw};
+char* off_DB222[1]={Voice Overs};
+char* off_DB22D[1]={Hugo Myatt};
+char* off_DB240[1]={Technical Support};
+char* off_DB24F[1]={Kevin Donkin};
+char* off_DB25F[1]={Mike Burnham};
+char* off_DB273[1]={PR and Marketing};
+char* off_DB283[1]={Cathy Campos};
+char* off_DB295[1]={Sean Ratcliffe};
+char* off_DB2A0[1]={Playguide};
+char* off_DB2AC[1]={Neil Cook};
+char* off_DB2BF[1]={Playguide Design};
+char* off_DB2CF[1]={Rachel Close};
+char* off_DB2DA[1]={Testing};
+char* off_DB2F3[1]={Andy Robson, Jeff Brutus};
+char* off_DB311[1]={Andy Nuttall, Steve Fitton};
+char* off_DB32F[1]={Robert Byrne, Richard Elliot};
+char* off_DB353[1]={David Rogan,Christopher Mitchell};
+char* off_DB36F[1]={Nick Hannah, Ken Malcolm};
+char* off_DB38E[1]={Phil Norton, Andrew Trowers};
+char* off_DB3A8[1]={Darren Jones, Luke Ferris};
+char* off_DB3C2[1]={Charlie Right, Mike Man};
+char* off_DB3DD[1]={Richard Velati,Mark Stacey};
+char* off_DB3F9[1]={Kenneth Chan, Mike Diskett};
+char* off_DB412[1]={James Smith, Eoin Rogan};
+char* off_DB431[1]={M Rowbottom, Gerard O'Donaghue};
+char* off_DB44B[1]={Peter Blow, Peter Hughes};
+char* off_DB45C[1]={Barrie Parker};
+char* off_DB478[1]={Andrea Da Silva Goncalves};
+char* off_DB498[1]={Matt Sullivan, Andy Cakebread};
+char* off_DB4B6[1]={Barry Clarke, Justin Amoore};
+char* off_DB4D3[1]={Graham Harbour, Simon Romans};
+char* off_DB4E5[1]={Symeon Cosburn};
+char* off_DB4F0[1]={Thanks to};
+char* off_DB4FD[1]={Jo Goodwin};
+char* off_DB50C[1]={Kathy McEntee};
+char* off_DB514[1]={Denis};
+char* off_DB519[1]={QA};
+char* off_DB527[1]={Iain Hancock};
+char* off_DB533[1]={Producer};
+char* off_DB542[1]={Sean Cooper};
+char* off_DB54F[1]={Product name};
+char* off_DB570[1]={Magic Carpet 2 (Netherworlds)};
+char* off_DB581[1]={Version number};
+char* off_DB587[1]={Beta};
+char* off_DB597[1]={Version date};
+char* off_DB5A6[1]={Sep 06 1995};
+char* off_DB5AF[1]={03:42:13};
+char* off_DB5B8[1]={%s %s};
+char* off_DB5C5[1]={Programmer};
+char* off_DB5DD[1]={Bullfrog, Alan Wright.};
+char* off_DB5EA[1]={Supplied to};
+char* off_DB5F1[1]={PUBLIC};
+char* off_DB5FF[1]={Level Number};
+char* off_DB605[1]={%d};
+char* off_DB615[1]={Transfer rate:};
+char* off_DB61A[1]={FPS};
+char* off_DB627[1]={Sound Number};
+char* off_DB634[1]={Game turn};
+char* off_DB63C[1]={%d %d};
+char* off_DB644[1]={Thing};
+char* off_DB65A[1]={Thing %d, Active %d};
+char* off_DB664[1]={Carpet %d};
+char* off_DB66E[1]={Tape %d};
+char* off_DB676[1]={Heap %d};
+char* off_DB689[1]={Memory (Used/Free)};
+char* off_DB690[1]={%d/%d};
+char* off_DB69F[1]={s%7.7d,u%01d};
+char* off_DB6A8[1]={THING};
+char* off_DB6B4[1]={%ld / %ld};
+char* off_DB6CC[1]={CLASS / MODEL / STATE};
+char* off_DB6DE[1]={%ld / %ld / %ld};
+char* off_DB6EE[1]={LIFE / MAX LIFE};
+char* off_DB70F[1]={SPEED ACTUAL / MINIMUM / MAXIMUM};
+char* off_DB723[1]={ACTUAL X / Y / Z};
+char* off_DB737[1]={ID / WHO OWNS ME};
+char* off_DB750[1]={MANA ACTUAL / MAXIMUM};
+char* off_DB763[1]={used %d/size %d
+};
+char* off_DB794[1]={Copyright (c) 1995 Bullfrog Productions Ltd.
+};
+char* off_DB7AC[1]={All rights reserved.
+};
+char* off_DB7CC[1]={Magic Carpet 2 (Netherworlds)};
+char* off_DB7D3[1]={%s 
+};
+char* off_DB7DA[1]={%s
+};
+char* off_DB7E3[1]={tmaps0-0};
+char* off_DB7EC[1]={cdata};
+char* off_DB7F7[1]={/netherw};
+char* off_DB80A[1]={%c:%s/%s/%s.dat};
+char* off_DB816[1]={data/%s.dat};
+char* off_DB81F[1]={tmaps1-0};
+char* off_DB82B[1]={tmaps2-0};
+char* off_DB84C[1]={ERROR decompressing tmap%03d
+};
+char* off_DB853[1]={%s%d};
+char* off_DB86C[1]={or code (LISTEN) : %d};
+char* off_DB883[1]={ror code (CALL) : %d};
+char* off_DB88E[1]={VIPPORT};
+char* off_DB89D[1]={VFX1 CyberPuck};
+char* off_DB8B8[1]={ERROR UNKNOWN FRAME TYPE
+};
+char* off_DB8C5[1]={COLOUR256 };
+char* off_DB8CB[1]={SS2 };
+char* off_DB8D6[1]={COLOUR };
+char* off_DB8DA[1]={LC };
+char* off_DB8E1[1]={BLACK };
+char* off_DB8E8[1]={BRUN };
+char* off_DB8F0[1]={COPY };
+char* off_DB8FA[1]={PSTAMP };
+char* off_DB90F[1]={:/NETHERW/CONFIG.DAT};
+char* off_DB917[1]={%c%s};
+char* off_DB92D[1]={:/NETHERW/LANGUAGE};
+char* off_DB93B[1]={%c%s/L%d.txt};
+char* off_DB94F[1]={LANGUAGE/L%d.txt};
+char* off_DB96C[1]={DATA/SCREENS/HSCREEN0.DAT};
+char* off_DB97E[1]={intro\intro.dat};
+char* off_DB98F[1]={intro\intro2.dat};
+char* off_DB999[1]={NETH%d};
+char* off_DB9AA[1]={LANGUAGE/L*.TXT};
+char* off_DB9BA[1]={LANGUAGE/D*.TXT};
+char* off_DB9C2[1]={L%d.TXT};
+char* off_DB9CB[1]={/netherw};
+char* off_DB9E4[1]={%c:%s/save/save%d.gam};
+char* off_DB9EA[1]={%d.};
+char* off_DB9ED[1]={%c};
+char* off_DB9F0[1]={_};
+char* off_DB9F5[1]={UP};
+char* off_DB9FB[1]={DOWN};
+char* off_DBA03[1]={LEFT};
+char* off_DBA0C[1]={RIGHT};
+char* off_DBA14[1]={ENTER};
+char* off_DBA1B[1]={CTRL};
+char* off_DBA22[1]={Alt};
+char* off_DBA2E[1]={Right Shift};
+char* off_DBA39[1]={Left Shift};
+char* off_DBA3C[1]={A};
+char* off_DBA40[1]={B};
+char* off_DBA44[1]={E};
+char* off_DBA48[1]={F};
+char* off_DBA4C[1]={G};
+char* off_DBA50[1]={H};
+char* off_DBA54[1]={J};
+char* off_DBA58[1]={K};
+char* off_DBA5C[1]={N};
+char* off_DBA60[1]={Q};
+char* off_DBA64[1]={T};
+char* off_DBA68[1]={U};
+char* off_DBA6C[1]={W};
+char* off_DBA70[1]={X};
+char* off_DBA74[1]={Y};
+char* off_DBA78[1]={Z};
+char* off_DBA7C[1]={-};
+char* off_DBA80[1]={;};
+char* off_DBA84[1]={#};
+char* off_DBA88[1]={,};
+char* off_DBA8C[1]={.};
+char* off_DBA90[1]={/};
+char* off_DBA95[1]={%d};
+char* off_DBA9D[1]={%d. %s};
+char* off_DBAA1[1]={%d};
+char* off_DBAAA[1]={%c%s/%s};
+char* off_DBAB6[1]={LANGUAGE/%s};
+char* off_DBAC6[1]={intro\cut%d.dat};
+char* off_DBAD3[1]={Hit Accuracy};
+char* off_DBAE5[1]={Mana Collected};
+char* off_DBAEC[1]={%3d%%};
+char* off_DBAFD[1]={%02d:%02d:%02d};
+char* off_DBB00[1]={!};
+char* off_DBB2B[1]={ERROR 1: NOT ENOUGH MEMORY. (%ld / %ld)
+};
+char* off_DBB45[1]={ERROR: Allocation %s.
+};
+char* off_DBB60[1]={Press return to continue
+};
+char* off_DBB73[1]={ERROR: File %s.
+};
+char* off_DBB86[1]={SOUND/SOUND.DAT};
+char* off_DBB9D[1]={fdm:error freeing %lx
+};
+char* off_DBBB6[1]={Write-protect violation};
+char* off_DBBC3[1]={Unknown unit};
+char* off_DBBD6[1]={Drive not ready};
+char* off_DBBE6[1]={Unknown command};
+char* off_DBBF0[1]={CRC error};
+char* off_DBC15[1]={Bad drive request structure length};
+char* off_DBC21[1]={Seek error};
+char* off_DBC30[1]={Unknown media};
+char* off_DBC43[1]={Sector not found};
+char* off_DBC5B[1]={Printer out of paper};
+char* off_DBC6A[1]={Write fault};
+char* off_DBC75[1]={Read fault};
+char* off_DBC86[1]={General failure};
+char* off_DBC8F[1]={Reserved};
+char* off_DBCA6[1]={Invalid disk change};
+char* off_DBCA8[1]={
+};
+char* off_DBCC4[1]={Track DA Start    Length
+};
+char* off_DBCDB[1]={%5d %2d %08ld %08ld
+};
+char* off_DBCF0[1]={play status = %x
+};
+char* off_DBD39[1]={rbyb:        Version Test. (c) Electronic Arts 1995. Written by Hugh.
+};
+char* off_DBD5E[1]={usage:       rbyb <digital driver>
+};
+char* off_DBDAC[1]={             where <digital driver> is 'miles' driver for a given sound card
+};
+char* off_DBDF2[1]={description: plays red book tracks and yellow book samples from cd
+};
+char* off_DBE21[1]={CD Head at %02dm:%02ds:%02df, enter option: $};
+char* off_DBE2A[1]={[F1] %s};
+char* off_DBE3B[1]={VFX INITIALISED
+};
+char* off_DBE43[1]={%s.
+};
+char* off_DBE48[1]={
+};
+char* off_DBE4E[1]={!R};
+char* off_DBE57[1]={!M1,P,B};
+char* off_DBE7A[1]={Could not send Info to Tracker
+};
+char* off_DBE9A[1]={No memory for serial data.
+};
+char* off_DBEA5[1]={NO SERIAL
+};
+char* off_DBEB1[1]={NO MEMORY
+};
+char* off_DBEB6[1]={!V};
+char* off_DBEC7[1]={?5^∫I?SB16.DIG};
+char* off_DBED4[1]={ULTRA.DIG};
+char* off_DBEE1[1]={JAMMER.DIG};
+char* off_DBEEF[1]={PROAUDIO.DIG};
+char* off_DBEFF[1]={SNDSCAPE.DIG};
+char* off_DBF0E[1]={ADRV688.DIG};
+char* off_DBF18[1]={RAP10.DIG};
+char* off_DBF24[1]={SBPRO.DIG};
+char* off_DBF33[1]={SBLASTER.DIG};
+char* off_DBF5B[1]={
+Could not load any digital samples
+};
+char* off_DBF66[1]={MDSOUND};
+char* off_DBF75[1]={%s %x %d %d %d};
+char* off_DBF79[1]={%s};
+char* off_DBF82[1]={DIG.INI};
+char* off_DBF87[1]={None};
+char* off_DBFAF[1]={
+Could not load any digital samples
+};
+char* off_DBFD7[1]={
+Could not load any digital samples
+};
+char* off_DBFE6[1]={SBAWE32.MDI};
+char* off_DBFF0[1]={ULTRA.MDI};
+char* off_DBFFD[1]={SBPRO2.MDI};
+char* off_DC009[1]={SBPRO1.MDI};
+char* off_DC015[1]={MPU401.MDI};
+char* off_DC022[1]={MT32MPU.MDI};
+char* off_DC02F[1]={SNDSCAPE.MDI};
+char* off_DC03D[1]={ADLIBG.MDI};
+char* off_DC046[1]={PAS.MDI};
+char* off_DC052[1]={PASPLUS.MDI};
+char* off_DC05F[1]={SBLASTER.MDI};
+char* off_DC06B[1]={OPL3.MDI};
+char* off_DC078[1]={ADLIB.MDI};
+char* off_DC07C[1]={\};
+char* off_DC090[1]={%c:%sSOUND/SAMPLE};
+char* off_DC0A5[1]={%c:%s/SOUND/SAMPLE};
+char* off_DC0AE[1]={MDMUSIC};
+char* off_DC0BD[1]={%s %x %d %d %d};
+char* off_DC0C1[1]={%s};
+char* off_DC0CA[1]={MDI.INI};
+char* off_DC0CF[1]={None};
+char* off_DC0D4[1]={f};
+char* off_DC0DF[1]={ESFM.MDI};
+char* off_DC0E4[1]={w};
+char* off_DC0E8[1]={g};
+char* off_DC0EC[1]={r};
+char* off_DC10B[1]={
+Error driver not supported
+};
+char* off_DC12A[1]={
+Error opening music files
+};
+char* off_DC13A[1]={SOUND/MUSIC.DAT};
+char* off_DC143[1]={null.wav};
+char* off_DC153[1]={{ÆG·zÑ?!Ç<};
+char* off_DC165[1]={%s};
+char* off_DC16F[1]={SB16.DIG};
+char* off_DC17E[1]={SBAWE32.MDI};
+char* off_DC189[1]={MPU401.MDI};
+char* off_DC1A5[1]={[%.02u:%.02u:%.02u.%.02u] };
+char* off_DC1A8[1]={ };
+char* off_DC1AC[1]={˙};
+char* off_DC1B8[1]={AIL_DEBUG};
+char* off_DC1C8[1]={AIL_SYS_DEBUG};
+char* off_DC1CE[1]={w+t};
+char* off_DC21F[1]={-------------------------------------------------------------------------------
+};
+char* off_DC227[1]={3.03};
+char* off_DC271[1]={Audio Interface Library application usage script generated by AIL V%s
+};
+char* off_DC282[1]={Start time: %s
+};
+char* off_DC2D4[1]={-------------------------------------------------------------------------------
+
+};
+char* off_DC2E5[1]={AIL_startup()
+};
+char* off_DC2F6[1]={AIL_shutdown()
+};
+char* off_DC311[1]={AIL_set_preference(%d,%d)
+};
+char* off_DC31F[1]={Result = %d
+};
+char* off_DC33B[1]={AIL_get_real_vect(0x%X)
+};
+char* off_DC34D[1]={Result = 0x%X
+};
+char* off_DC36C[1]={AIL_set_real_vect(0x%X,0x%X)
+};
+char* off_DC38D[1]={AIL_set_USE16_ISR(%d,0x%X,%u)
+};
+char* off_DC3A9[1]={AIL_restore_USE16_ISR(%d)
+};
+char* off_DC3D0[1]={AIL_call_driver(0x%X,0x%X,0x%X,0x%X)
+};
+char* off_DC3E1[1]={AIL_delay(%d)
+};
+char* off_DC3FD[1]={AIL_API_read_INI(0x%X,%s)
+};
+char* off_DC40B[1]={Driver = %s
+};
+char* off_DC41B[1]={Device = %s
+};
+char* off_DC42B[1]={IO     = %X
+};
+char* off_DC43B[1]={IRQ    = %d
+};
+char* off_DC44B[1]={DMA_8  = %d
+};
+char* off_DC45B[1]={DMA_16 = %d
+};
+char* off_DC46B[1]={Result = %u
+};
+char* off_DC488[1]={AIL_register_timer(0x%X)
+};
+char* off_DC4A5[1]={AIL_set_timer_user(%u,%u)
+};
+char* off_DC4C3[1]={AIL_set_timer_period(%u,%u)
+};
+char* off_DC4E6[1]={AIL_set_timer_frequency(%u,%u)
+};
+char* off_DC504[1]={AIL_set_timer_divisor(%u,%u)
+};
+char* off_DC51F[1]={AIL_interrupt_divisor()
+};
+char* off_DC537[1]={AIL_start_timer(%u)
+};
+char* off_DC552[1]={AIL_start_all_timers()
+};
+char* off_DC566[1]={AIL_stop_timer(%u)
+};
+char* off_DC57D[1]={AIL_stop_all_timers()
+};
+char* off_DC59C[1]={AIL_release_timer_handle(%u)
+};
+char* off_DC5B8[1]={AIL_release_all_timers()
+};
+char* off_DC5D8[1]={AIL_get_IO_environment(0x%X)
+};
+char* off_DC5F7[1]={AIL_install_driver(0x%X,%u)
+};
+char* off_DC616[1]={AIL_uninstall_driver(0x%X)
+};
+char* off_DC631[1]={AIL_install_DIG_INI(0x%X)
+};
+char* off_DC658[1]={AIL_install_DIG_driver_file(%s,0x%X)
+};
+char* off_DC67A[1]={AIL_uninstall_DIG_driver(0x%X)
+};
+char* off_DC69C[1]={AIL_allocate_sample_handle(0x%X)
+};
+char* off_DC6C6[1]={AIL_allocate_file_sample(0x%X,0x%X,%d)
+};
+char* off_DC6E7[1]={AIL_release_sample_handle(0x%X)
+};
+char* off_DC701[1]={AIL_init_sample(0x%X)
+};
+char* off_DC725[1]={AIL_set_sample_file(0x%X,0x%X,%d)
+};
+char* off_DC74C[1]={AIL_set_sample_address(0x%X,0x%X,%u)
+};
+char* off_DC76F[1]={AIL_set_sample_type(0x%X,%d,%u)
+};
+char* off_DC78A[1]={AIL_start_sample(0x%X)
+};
+char* off_DC7A1[1]={AIL_stop_sample(0x%X)
+};
+char* off_DC7BB[1]={AIL_resume_sample(0x%X)
+};
+char* off_DC7D4[1]={AIL_end_sample(0x%X)
+};
+char* off_DC7FD[1]={AIL_set_sample_playback_rate(0x%X,%d)
+};
+char* off_DC81E[1]={AIL_set_sample_volume(0x%X,%d)
+};
+char* off_DC83B[1]={AIL_set_sample_pan(0x%X,%d)
+};
+char* off_DC862[1]={AIL_set_sample_loop_count(0x%X,%d)
+};
+char* off_DC87B[1]={AIL_sample_status(0x%X)
+};
+char* off_DC89E[1]={AIL_sample_playback_rate(0x%X)
+};
+char* off_DC8B7[1]={AIL_sample_volume(0x%X)
+};
+char* off_DC8D0[1]={AIL_sample_pan(0x%X)
+};
+char* off_DC8EF[1]={AIL_sample_loop_count(0x%X)
+};
+char* off_DC91A[1]={AIL_set_digital_master_volume(0x%X,%d)
+};
+char* off_DC93B[1]={AIL_digital_master_volume(0x%X)
+};
+char* off_DC96A[1]={AIL_install_DIG_driver_image(0x%X,%u,0x%X)
+};
+char* off_DC996[1]={AIL_minimum_sample_buffer_size(0x%X,%d,%d)
+};
+char* off_DC9B5[1]={AIL_sample_buffer_ready(0x%X)
+};
+char* off_DC9DF[1]={AIL_load_sample_buffer(0x%X,%u,0x%X,%u)
+};
+char* off_DCA04[1]={AIL_set_sample_position(0x%X,%u)
+};
+char* off_DCA21[1]={AIL_sample_position(0x%X)
+};
+char* off_DCA48[1]={AIL_register_SOB_callback(0x%X,0x%X)
+};
+char* off_DCA70[1]={AIL_register_EOB_callback(0x%X,0x%X)
+};
+char* off_DCA98[1]={AIL_register_EOS_callback(0x%X,0x%X)
+};
+char* off_DCAC0[1]={AIL_register_EOF_callback(0x%X,0x%X)
+};
+char* off_DCAE8[1]={AIL_set_sample_user_data(0x%X,%u,%d)
+};
+char* off_DCB09[1]={AIL_sample_user_data(0x%X,%u)
+};
+char* off_DCB29[1]={AIL_active_sample_count(0x%X)
+};
+char* off_DCB45[1]={AIL_install_MDI_INI(0x%X)
+};
+char* off_DCB6C[1]={AIL_install_MDI_driver_file(%s,0x%X)
+};
+char* off_DCB8E[1]={AIL_uninstall_MDI_driver(0x%X)
+};
+char* off_DCBB2[1]={AIL_allocate_sequence_handle(0x%X)
+};
+char* off_DCBD5[1]={AIL_release_sequence_handle(0x%X)
+};
+char* off_DCBF7[1]={AIL_init_sequence(0x%X,0x%X,%d)
+};
+char* off_DCC14[1]={AIL_start_sequence(0x%X)
+};
+char* off_DCC2F[1]={AIL_stop_sequence(0x%X)
+};
+char* off_DCC4D[1]={AIL_resume_sequence(0x%X)
+};
+char* off_DCC66[1]={AIL_end_sequence(0x%X)
+};
+char* off_DCC8A[1]={AIL_set_sequence_tempo(0x%X,%d,%d)
+};
+char* off_DCCAF[1]={AIL_set_sequence_volume(0x%X,%d,%d)
+};
+char* off_DCCD8[1]={AIL_set_sequence_loop_count(0x%X,%d)
+};
+char* off_DCCF5[1]={AIL_sequence_status(0x%X)
+};
+char* off_DCD10[1]={AIL_sequence_tempo(0x%X)
+};
+char* off_DCD2D[1]={AIL_sequence_volume(0x%X)
+};
+char* off_DCD4D[1]={AIL_sequence_loop_count(0x%X)
+};
+char* off_DCD74[1]={AIL_set_XMIDI_master_volume(0x%X,%d)
+};
+char* off_DCD95[1]={AIL_XMIDI_master_volume(0x%X)
+};
+char* off_DCDC2[1]={AIL_install_MDI_driver_image(0x%X,%u,0x%X)
+};
+char* off_DCDDD[1]={AIL_MDI_driver_type(0x%X)
+};
+char* off_DCDFF[1]={AIL_set_GTL_filename_prefix(%s)
+};
+char* off_DCE21[1]={AIL_timbre_status(0x%X,%d,%d)
+};
+char* off_DCE42[1]={AIL_install_timbre(0x%X,%d,%d)
+};
+char* off_DCE62[1]={AIL_protect_timbre(0x%X,%d,%d)
+};
+char* off_DCE84[1]={AIL_unprotect_timbre(0x%X,%d,%d)
+};
+char* off_DCEA7[1]={AIL_active_sequence_count(0x%X)
+};
+char* off_DCECC[1]={AIL_controller_value(0x%X,%d,%d)
+};
+char* off_DCEEA[1]={AIL_channel_notes(0x%X,%d)
+};
+char* off_DCF11[1]={AIL_sequence_position(0x%X,0x%X,0x%X)
+};
+char* off_DCF22[1]={Result = %d:%d
+};
+char* off_DCF3D[1]={AIL_branch_index(0x%X,%u)
+};
+char* off_DCF67[1]={AIL_register_prefix_callback(0x%X,0x%X)
+};
+char* off_DCF94[1]={AIL_register_trigger_callback(0x%X,0x%X)
+};
+char* off_DCFC1[1]={AIL_register_sequence_callback(0x%X,0x%X)
+};
+char* off_DCFE9[1]={AIL_register_beat_callback(0x%X,0x%X)
+};
+char* off_DD012[1]={AIL_register_event_callback(0x%X,0x%X)
+};
+char* off_DD03B[1]={AIL_register_timbre_callback(0x%X,0x%X)
+};
+char* off_DD066[1]={AIL_set_sequence_user_data(0x%X,%u,%d)
+};
+char* off_DD087[1]={AIL_sequence_user_data(0x%X,%u)
+};
+char* off_DD0AD[1]={AIL_register_ICA_array(0x%X,0x%X)
+};
+char* off_DD0C6[1]={AIL_lock_channel(0x%X)
+};
+char* off_DD0E4[1]={AIL_release_channel(0x%X,%d)
+};
+char* off_DD10C[1]={AIL_map_sequence_channel(0x%X,%d,%d)
+};
+char* off_DD132[1]={AIL_true_sequence_channel(0x%X,%d)
+};
+char* off_DD16C[1]={AIL_send_channel_voice_message(0x%X,0x%X,0x%X,0x%X,0x%X)
+};
+char* off_DD191[1]={AIL_send_sysex_message(0x%X,0x%X)
+};
+char* off_DD1C2[1]={AIL_create_wave_synthesizer(0x%X,0x%X,0x%X,%d)
+};
+char* off_DD1E6[1]={AIL_destroy_wave_synthesizer(0x%X)
+};
+char* off_DD1EB[1]={VESA};
+char* off_DD202[1]={{ÆG·zÑ?Writing %s
+};
+char* off_DD205[1]={!};
+char* off_DD210[1]={
+Read %c
+};
+char* off_DD220[1]={Response: %c
+};
+char* off_DD226[1]={!V};
+char* off_DD22A[1]={%ld};
+char* off_DD246[1]={No memory for serial data.
+};
+char* off_DD25D[1]={Tracker initialized ok};
+char* off_DD26D[1]={No serial port};
+char* off_DD282[1]={Tracker not present};
+char* off_DD29C[1]={Tracker is not responding};
+char* off_DD2B6[1]={Tracker data is invalid};
+char* off_DD2D5[1]={Tracker header data is invalid};
+char* off_DD300[1]={A verified write to tracker memory failed};
+char* off_DD314[1]={Invalid parameter};
+char* off_DD338[1]={Tracker command returned an error};
+char* off_DD355[1]={A memory allocation failed};
+char* off_DD378[1]={Tracker version string is invalid};
+char* off_DD384[1]={Undefined};
+char* off_DD389[1]={LX};
+char* off_DD39B[1]={0123456789ABCDEF};
+char* off_DD3A1[1]={rt};
+char* off_DD3A9[1]={DRIVER};
+char* off_DD3B1[1]={DEVICE};
+char* off_DD3BA[1]={IO_ADDR};
+char* off_DD3BE[1]={IRQ};
+char* off_DD3C8[1]={DMA_8_bit};
+char* off_DD3D5[1]={DMA_16_bit};
+char* off_DD3EB[1]={Corrupted .INI file
+};
+char* off_DD419[1]={Insufficient memory for driver descriptor
+};
+char* off_DD433[1]={Insufficient low memory
+};
+char* off_DD43E[1]={AIL3DIG};
+char* off_DD446[1]={AIL3MDI};
+char* off_DD45B[1]={Invalid driver type
+};
+char* off_DD475[1]={Out of driver handles
+};
+char* off_DD48C[1]={Out of timer handles
+};
+char* off_DD49A[1]={SBAWE32.MDI};
+char* off_DD49C[1]={w};
+char* off_DD4AC[1]={sound//%s.sbk};
+char* off_DD4CB[1]={Illegal TWEAK file size: %s
+};
+char* off_DD4F6[1]={Out of memory allocating buffer for %s
+};
+char* off_DD521[1]={Minimum DMA buffer size too large for VDM
+};
+char* off_DD548[1]={Could not allocate memory for driver
+};
+char* off_DD560[1]={.DIG driver required
+};
+char* off_DD584[1]={Digital sound hardware not found
+};
+char* off_DD5A6[1]={Could not allocate DMA buffers
+};
+char* off_DD5C7[1]={Could not allocate build buffer
+};
+char* off_DD5F0[1]={Could not allocate SAMPLE structures
+};
+char* off_DD608[1]={Out of timer handles
+};
+char* off_DD621[1]={Driver file not found
+};
+char* off_DD62A[1]={DIG.INI};
+char* off_DD647[1]={Unable to open file DIG.INI
+};
+char* off_DD661[1]={Out of sample handles
+};
+char* off_DD667[1]={fmt };
+char* off_DD66F[1]={data};
+char* off_DD67B[1]={Creative};
+char* off_DD683[1]={WAVE};
+char* off_DD6AC[1]={Unrecognized digital audio file type
+};
+char* off_DD6CD[1]={Invalid or missing data block
+};
+char* off_DD6F4[1]={Unrecognized digital audio file type
+};
+char* off_DD715[1]={Invalid or missing data block
+};
+char* off_DD71B[1]={FORM};
+char* off_DD723[1]={CAT };
+char* off_DD72B[1]={XMID};
+char* off_DD74C[1]={Internal note queue overflow
+};
+char* off_DD774[1]={Could not allocate memory for driver
+};
+char* off_DD78C[1]={.MDI driver required
+};
+char* off_DD7AE[1]={XMIDI sound hardware not found
+};
+char* off_DD7D7[1]={Could not initialize instrument manager
+};
+char* off_DD802[1]={Could not allocate SEQUENCE structures
+};
+char* off_DD818[1]={Out of timer handles
+};
+char* off_DD831[1]={Driver file not found
+};
+char* off_DD83A[1]={MDI.INI};
+char* off_DD857[1]={Unable to open file MDI.INI
+};
+char* off_DD86E[1]={Tandy 3-voice music};
+char* off_DD889[1]={IBM internal speaker music};
+char* off_DD88E[1]={.AD};
+char* off_DD893[1]={.OPL};
+char* off_DD8AF[1]={Out of sequence handles
+};
+char* off_DD8CA[1]={Invalid XMIDI sequence
+};
+char* off_DD8CF[1]={TIMB};
+char* off_DD8D7[1]={RBRN};
+char* off_DD8DF[1]={EVNT};
+char* off_DD8F5[1]={No timbres loaded
+};
+char* off_DD929[1]={Driver could not install timbre bank %u, patch %u
+};
+char* off_DD95D[1]={Driver could not install timbre bank %u, patch %u
+};
+char* off_DD988[1]={Insufficient memory for HWAVE descriptor
+};
+char* off_DD9A1[1]={ABNORMAL TERMINATION
+};
+char* off_DD9C6[1]={Floating-point support not loaded
+};
+char* off_DD9C9[1]={: };
+char* off_DD9CD[1]={TZ};
+char* off_DD9FE[1]={Not enough memory to allocate file structures
+};
+char* off_DDA0E[1]={RATIONAL DOS/4G};
+char* off_DDA13[1]={acos};
+char* off_DDA18[1]={n};
+char* off_DDA1D[1]={rt};
+char* off_DDA21[1]={xp};
+char* off_DDA26[1]={osh};
+char* off_DDA2B[1]={sinh};
+char* off_DDA35[1]={sh};
+char* off_DDA3A[1]={og2};
+char* off_DDA3E[1]={log};
+char* off_DDA44[1]={log10};
+char* off_DDA4A[1]={anh};
+char* off_DDA50[1]={atan2};
+char* off_DDA55[1]={ow};
+char* off_DDA5B[1]={powi};
+char* off_DDA6D[1]={y1};
+char* off_DDA70[1]={n};
+char* off_DDA74[1]={d};
+char* off_DDA7A[1]={tan};
+char* off_DDA82[1]={Error 0};
+char* off_DDA9C[1]={No such file or directory};
+char* off_DDAB2[1]={gument list too big};
+char* off_DDAC4[1]={Exec format error};
+char* off_DDAD4[1]={d file number};
+char* off_DDAE6[1]={t enough memory};
+char* off_DDAF8[1]={Permission denied};
+char* off_DDB04[1]={le exists};
+char* off_DDB16[1]={oss-device link};
+char* off_DDB27[1]={Invalid argument};
+char* off_DDB3B[1]={e table overflow};
+char* off_DDB4F[1]={ many open files};
+char* off_DDB67[1]={space left on device};
+char* off_DDB7A[1]={ument too large};
+char* off_DDB8B[1]={Result too large};
+char* off_DDBA9[1]={ource deadlock would occur};
+char* off_DDBB7[1]={nknown error};
+char* off_DDBBF[1]={VGA=};
+char* off_DDBC9[1]={295520};
+char* off_DDBCD[1]={AK};
+char* off_DDBD5[1]={RIDENT};
+char* off_DDBE3[1]={Domain error};
+char* off_DDBF8[1]={ument singularity};
+char* off_DDC0D[1]={erflow range error};
+char* off_DDC23[1]={nderflow range error};
+char* off_DDC3E[1]={al loss of significance};
+char* off_DDC5B[1]={Partial loss of significance};
+char* off_DDC60[1]={ };
+char* off_DDC66[1]={inf};
+char* off_DDC6A[1]={nan};
+char* off_DDCAC[1]={JFMAMJJASONDaeapauuuecoenbrrynlgptvcSMTWTFSuouehranneduit};
+char* off_DDD30[1]={
+8888888888XXXXXXHHHHHHHHHHHHHHHHHHHHòòòòòòàààààààààààààààààààà};
+char* off_DDDE3[1]={ˇˇˇˇˇˇÔˇˇˇˇˇˇÔˇ @Ä};
+char* off_DDDE8[1]={;};
+char* off_DDDEC[1]={x};
+char* off_DDDF0[1]={µ};
+char* off_DDDF4[1]={Û};
+char* off_DDDFD[1]={0Nm};
+char* off_DDE00[1]={};
+char* off_DDE04[1]={[};
+char* off_DDE08[1]={ò};
+char* off_DDE0C[1]={’};
+char* off_DDE18[1]={1Onÿ};
+char* off_DDE22[1]={∆@È4«ll};
+char* off_DDE2C[1]={NÉÃ=@[V6};
+char* off_DDE36[1]={àá·$K};
+char* off_DDE40[1]={Ñ˛‰qŸâE};
+char* off_DDE4A[1]={êƒº÷B};
+char* off_DDE54[1]={Ñ◊óA};
+char* off_DDE5E[1]={√@};
+char* off_DDE6E[1]={úL*};
+char* off_DDE72[1]={©L*};
+char* off_DDE76[1]={æL*};
+char* off_DDE7A[1]={”L*};
+char* off_DDE7E[1]={ÈL*};
+char* off_DDE82[1]={M*};
+char* off_DDE88[1]={};
+char* off_DDE8C[1]={(};
+char* off_DDE92[1]={,};
+char* off_DDE94[1]={};
+char* off_DDE98[1]={};
+char* off_DDE9C[1]={};
+char* off_DDEB5[1]={êXXêê};
+char* off_DDEC2[1]={	};
+char* off_DDECA[1]={ˇ	};
+char* off_DDED1[1]={ˇˇ};
+char* off_DDEDC[1]={ˇ};
+char* off_DDEE9[1]={};
+char* off_DDEF4[1]={ˇ};
+char* off_DDEF8[1]={};
+char* off_DDF04[1]={ˇ};
+char* off_DDF08[1]={ˇ};
+char* off_DDF40[1]={};
+char* off_DDF44[1]={};
+char* off_DDF50[1]={};
+char* off_DDF59[1]={};
+char* off_DDF62[1]={};
+char* off_DDF6B[1]={};
+char* off_DDF74[1]={};
+char* off_DDF7D[1]={};
+char* off_DDF86[1]={};
+char* off_DDF8A[1]={Ü};
+char* off_DDF8E[1]={b};
+char* off_DDF90[1]={<};
+char* off_DDF94[1]={	};
+char* off_DDF9C[1]={Ü!Å};
+char* off_DDFA0[1]={n};
+char* off_DDFB2[1]={úˇóï∏Fí};
+char* off_DDFB9[1]={ÆúˇX};
+char* off_DDFC8[1]={i´Æ?é};
+char* off_DDFCC[1]={2};
+char* off_DDFDE[1]={∫ˇq§7ã};
+char* off_DDFE6[1]={§ˆˇ¬(};
+char* off_DDFF4[1]={^∫ˇÖ§7ã};
+char* off_DE004[1]={j};
+char* off_DE008[1]={$};
+char* off_DE010[1]={ó};
+char* off_DE014[1]={3};
+char* off_DE01C[1]={ø};
+char* off_DE020[1]={A};
+char* off_DE028[1]={‹};
+char* off_DE02C[1]={K};
+char* off_DE034[1]={ˆ};
+char* off_DE038[1]={T};
+char* off_DE041[1]={};
+char* off_DE044[1]={^};
+char* off_DE04D[1]={)};
+char* off_DE050[1]={f};
+char* off_DE059[1]={>};
+char* off_DE05C[1]={m};
+char* off_DE065[1]={R};
+char* off_DE068[1]={t};
+char* off_DE071[1]={i};
+char* off_DE074[1]={|};
+char* off_DE07D[1]={|};
+char* off_DE080[1]={Ç};
+char* off_DE089[1]={é};
+char* off_DE08C[1]={à};
+char* off_DE095[1]={†};
+char* off_DE098[1]={è};
+char* off_DE0A1[1]={µ};
+char* off_DE0A4[1]={ñ};
+char* off_DE0AD[1]={∆};
+char* off_DE0B0[1]={ú};
+char* off_DE0DE[1]={ˇ	Ä8`5};
+char* off_DE0E2[1]={Pœ8};
+char* off_DE0E6[1]={‡ƒ1};
+char* off_DE0F1[1]={ };
+char* off_DE0FA[1]={§:§};
+char* off_DE103[1]={c((d};
+char* off_DE110[1]={};
+char* off_DE120[1]={};
+char* off_DE12F[1]={};
+char* off_DE1B8[1]={};
+char* off_DE1DF[1]={};
+char* off_DE1E7[1]={};
+char* off_DE20B[1]={};
+char* off_DE22F[1]={};
+char* off_DE265[1]={Ì};
+char* off_DE26C[1]={};
+char* off_DE270[1]={ˇ};
+char* off_DE275[1]={ÿ};
+char* off_DE278[1]={};
+char* off_DE280[1]={ˇ};
+char* off_DE289[1]={ˇ(};
+char* off_DE296[1]={ˇˇ};
+char* off_DE29E[1]={ˇˇ};
+char* off_DE2A2[1]={ˇˇ};
+char* off_DE2AA[1]={ˇˇ};
+char* off_DE2AE[1]={ˇˇ};
+char* off_DE2B6[1]={ˇˇ};
+char* off_DE2BA[1]={ˇˇ};
+char* off_DE2C2[1]={ˇˇ};
+char* off_DE2CE[1]={ˇˇ};
+char* off_DE2D2[1]={ˇˇ};
+char* off_DE2DA[1]={ˇˇ};
+char* off_DE2E6[1]={ˇˇ};
+char* off_DE2F2[1]={ˇˇ};
+char* off_DE2FE[1]={ˇˇ};
+char* off_DE306[1]={ˇˇ};
+char* off_DE30A[1]={ˇˇ};
+char* off_DE30E[1]={ˇˇ};
+char* off_DE322[1]={ˇˇ};
+char* off_DE326[1]={ˇˇ};
+char* off_DE32A[1]={ˇˇ};
+char* off_DE33A[1]={ˇˇ};
+char* off_DE33E[1]={ˇˇ};
+char* off_DE342[1]={ˇˇ};
+char* off_DE346[1]={ˇˇ};
+char* off_DE352[1]={ˇˇ};
+char* off_DE356[1]={ˇˇ};
+char* off_DE35A[1]={ˇˇ};
+char* off_DE35E[1]={ˇˇ};
+char* off_DE36E[1]={ˇˇ};
+char* off_DE372[1]={ˇˇ};
+char* off_DE376[1]={ˇˇ};
+char* off_DE38A[1]={ˇˇ};
+char* off_DE392[1]={ˇˇ};
+char* off_DE396[1]={ˇˇ};
+char* off_DE39A[1]={ˇˇ};
+char* off_DE39E[1]={ˇˇ};
+char* off_DE3AE[1]={ˇˇ};
+char* off_DE3B2[1]={ˇˇ};
+char* off_DE3B6[1]={ˇˇ};

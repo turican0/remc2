@@ -1,0 +1,375 @@
+------------- Magic Carpet File Formats--------------
+
+Most files are compressed with RNC. Download the utilities here: http://www.yoda.arachsys.com/dk/utils.html (or build your own) to de-compress them.
+
+Table of Contents:
+[1..] Levels
+[1.1] Individual Level .INF Files
+[1.2] Individual Level .DAT Files
+
+[1.3] LEVELS.DAT file
+[1.4] LEVELS.TAB file
+
+[1.5] SCANNED.RMD
+
+[1.6] CARPET.MAP file (Hidden Worlds)
+[1.7] LEVELSDD.DAT file (Hidden Worlds)
+[1.8] LEVELSDD.TAB file (Hidden Worlds)
+
+[2..] Misc
+
+-----------------------------------------------------
+
+[1..] Levels
+
+
+[1.1] Individual Level .INF Files
+These files are RNC compressed.
+Header:
+
+----------------------------------------------
+//levels/lev00000.inf
+//map contents list
+//
+class              model                amount
+----------------------------------------------
+Scenery            Tree               = 419
+Scenery            Standing stone     = 12
+Scenery            Dolmen             = 1
+Player             Flyer1             = 1
+Creature           Vulture            = 9
+Creature           Worm               = 7
+Creature           Skeleton           = 4
+Creature           Builder            = 1
+Creature           Townie             = 35
+Creature           Trader             = 9
+Effect             Black smoke        = 8
+Effect             path               = 11
+Effect             Mana ball          = 11
+Effect                                = 10
+Switch             Hidden inside      = 4
+Spell              Fireball           = 1
+Spell              Possession         = 1
+Spell              castle             = 1
+----------------------------------------------
+
+
+Notes:
+Line 2 defines the current file name. 
+The header describes the count of each entity class, the model/type it is and the amount in this level.
+
+Main:
+This list describes each Entity. The Class and Model is defined. The place in the file must reference the map file somehow since there is no index or X/Y coordinates defined in the INF.
+
+
+[1.2] Individual Level .DAT Files
+These files are RNC compressed.
+Each uncompressed file is exactly 38,812 bytes in size (0x979C). I am assuming this means there are specific areas allocated to certain data.
+
+Header:
+00 - 2E (first 46 bytes)
+Taking information from GAM000088.DAT, this probably refers to map generation parameters.
+Seed
+Off
+Raise
+Gnarl
+River
+Sourc
+SnLin
+SnFlt
+BhLin
+BhFlt
+RkSte
+
+The file doesnt appear to have any heightmap so it is assumed that this header fills a seeded map generation to generate the heitmap.
+
+Offset 2E - 441: 
+Empty space?
+
+Entity Data (Offset 441+):
+(See Entity Def)
+
+Towards the End (Offset 904D+):
+Repeating blocks of mostly 1s and 0s. Some numbers added to the repeating block.
+
+Main:
+
+Entity Def:
+00 0A - entity type
+00 27 - entity sub type
+00 7F - XPos
+00 29 - YPos
+00 01 - Dis Id (Distance ID?)
+00 00 - SwiSz (Switch Size?)
+00 01 - SwiId (Switch Id?)
+00 00 - Paren (Parent) 
+00 00 - Child (Child)
+
+
+Entity Types:
+00 00 : 0 ?
+00 01 : N/A
+00 02 : Scenery
+00 03 : Player Spawn
+00 04 : N/A
+00 05 : Creatures
+00 06 : N/A
+00 07 : Weather
+00 08 : N/A
+00 09 : N/A
+00 0A : Effects
+00 0B : Switches
+00 0C : Spells
+00 0D : N/A
+00 0E : N/A
+00 0F : N/A 
+
+Entity Sub-Types - Scenery
+00 : Tree
+01 : Standing Stone
+02 : Dolmen
+03 : Bad Stone
+
+Entity Sub-Type - Player Spawn
+00 : ?
+01 : ?
+02 : ?
+03 : ?
+04 : Flyer1
+05 : Flyer2 
+06 : Flyer3
+07 : Flyer4
+08 : Flyer5
+09 : Flyer6
+0A : Flyer7
+0B : Flyer8
+0C :
+0D :
+0E :
+0F :
+
+Entity Sub-Types - Creatures
+00 : Dragon
+01 : Vulture
+02 : Bee
+03 : Worm
+04 : Archer
+05 : Crab
+06 : Kraken
+07 : Troll
+08 : Griffon
+09 : Skeleton
+0A : Emu
+0B : Genie
+0C : Builder
+0D : Townie
+0E : Trader
+0F : ??? - Ape?
+10 : Wyvern
+
+Entity Sub-Types - Weather
+00 : N/A
+01 : N/A
+02 : N/A
+03 : N/A
+04 : Wind
+
+Entity Sub-Types - Effect
+00 :
+01 : Big explosion
+02 :
+03 :
+04 :
+05 : splash
+06 : Fire
+07 :
+08 : Mini Volcano
+09 : Volcano
+0A : Mini crater
+0B : Crater
+0C :
+0D : White smoke
+0E : Black smoke
+0F : Earthquake
+10 :
+11 : Meteor
+12 :
+13 :
+14 :
+15 : Steal Mana
+16 :
+17 : Lightning
+18 : Rain of Fire
+19 : not listed in INF? another steal mana?
+1A :
+1B :
+1C : wall
+1D : path
+1E :
+1F : Canyon
+20 :
+21 :
+22 : Teleport
+23 :
+24 :
+25 :
+26 :
+27 : Mana Ball
+28 :
+29 :
+2A :
+2B :
+2C :
+2D : Unnamed in INF Files
+2E :
+2F :
+30 :
+31 : Unnamed in INF Files
+32 : Ridge Node
+33 :
+34 : Crab Egg
+
+
+Entity Sub-Type - Switch
+00 : Hidden Inside 
+01 : Hidden outside
+02 : Hidden Inside re
+03 :
+04 : On victory
+05 : Death Inside
+06 : Death Outside
+07 : Death inside re
+08 :
+09 : Obvious Inside
+0A : Obvious outside
+0B :
+0C :
+0D : Dragon
+0E : Vulture
+0F : Bee
+10 : None
+11 : Archer
+12 : Crab
+13 : Kraken
+14 : Troll
+15 : Griffon
+16 :
+17 :
+18 : Genie
+19 :
+1A :
+1B :
+1C :
+1D : Wyvern
+1E : Creature all
+
+Entity Sub-Type - Spell
+00 : Fireball
+01 : Heal
+02 : Speed Up
+03 : Posession
+04 : Shield
+05 : Beyond Sight
+06 : Earthquake
+07 : Meteor
+08 : Volcano
+09 : Crater
+0A : Teleport
+0B : Rubber Band
+0C : Invisible
+0D : Steal Mana
+0E : Rebound
+0F : Lightning
+10 : Castle
+11 : Skeleton
+12 : Thunderbolt
+13 : Mana Magnet
+14 : Fire Wall
+15 : Reverse Speed
+16 : Smart Bomb
+17 : Mini Fireball
+
+
+Notes:
+* Invisible is spelled incorrectly in the INF files
+* Griffin is spelled as Griffon in the INF files
+* Duel is written as Rubber Band
+* Global Death is written as Smart Bomb
+* Level 43 INF header incorrectly describes level 48
+* Weather seems to only appear in level 51/63. It doesnt seem to actually affect gameplay.
+* ALL.INF lists 'Alliance' as a spell in some of these unfinished levels - This spell didnt appear till Magic Carpet 2.
+
+
+[1.3] LEVELS.DAT file
+This file is a concatenated version of each RNC compressed level .dat file
+This file is copied off the CD onto C:\CARPET.CD for local access. The file is what the engine uses to load level data.
+
+
+[1.4] LEVELS.TAB file
+Function unknown - maybe recording offset to each DAT file inside LEVELS.DAT, however seems to be mostly repeating 0x742E0300.
+
+[1.5] SCANNED.RMD
+This file is generated by the MAPHACK utility included on the Magic Carpet CD.
+This file format is very simple - it is a 256x256 heightmap. 
+No header or footer.
+The game uses the map data from the first level for entities, scenery, spells etc.
+
+
+
+
+[1.5] CARPET.MAP file (Hidden Worlds)
+The CARPET.MAP file provided in the Hidden Worlds CD is an output file generated during the compilation of the CARPET.EXE file. This file lists out the C functions written in the Magic Carpet Code.
+
+This file hints at the following features not implemented in game:
+* 25 Creatures - the game only lists 17.
+* There is a function called editor - is there an in-game editor?
+* A complete list of all the effects (some implemented, some not): Explosion, Big Explosion, dust, fire, ridge node, canyon node, path node, wall node, mini volcano, freeze, blood, splash, volcano, mini crater, crater, posession, white smoke, black smoke, spark, earthquake, summon fire, meteor, volcano aftermath, fire column, whirl wind, whirl pool, tidal wave, lightning, rain of fire, steal mana, rubber band, path, canyon, ridge, teleport, circle ball(?), friendly, blindness, alliance, skeleton, mana ball, instant building, tween building, castle adjust, destroy building, castle, rolling rock, crab egg, crab egg hatch, extra1, extra2, extra3 and extra4.
+* The concept of familiars. I assume this would be assisting creatures that help the player. Sprite and Raven are listed as the two types.
+* Full list of scenery items: Tree, standing stone, dolmen, hut, house and Tower.
+* Humanoid Weapons list: Sling, bow, crossbow, sword, spear and rifle. I think only bow is implemented - i've never seen any other weapons.
+* Weather. This is listed in some maps, but doesnt seem to be actually implemented. The function calls are all there to process the effect of weather on the player. The full list of effects: Tornado, Rain cloud, Thunder cloud, thermals and Wind.
+* Power Ups. Does not appear in the game. Full list of power ups: Speed Up, pulse, shield, floater, armour and rain proofing.
+* objectives. The full list of objectives: Gain Mana, Kill Creature, Kill City, Kill Player.
+* An interestingly named function 'robs_bollocks' in assembly.
+
+
+
+[2..] Misc
+In the CARPET.EXE there is a section where some instructions are encoded. One interesting string is: 'Magic Carpet comes to you from Bullfrog Productions Ltd. And will be released on the 15th November 1994'. This seems quite different to the actual release date of May 6th 1994. Later on, there is a 'Version number Beta v8.0' and 'Version date Oct 20 1994 11:49:09'
+
+Also, there is the strings for command line parameters:
+digijoy
+anojoy
+anojoy4
+vfx
+help
+debug
+network
+custom
+setsound
+demo
+detail
+cheat
+name
+level
+movie
+roll
+time
+password
+players
+session
+
+Some of these are documented in the manual e.g. vfx, network. Level is known to set the starting level to a specific level number. Others don't seem to have an effect.
+
+If you review the MAIN.EXE in terms of version/date, it shows:
+'Version number Alpha v6.1' and 'Version date Oct 6 1994 22:35:18'. Im not sure why they included two versions of the game on the CD. If you copy this file to the base directory and execute it, it runs (with a message indicating it is an alpha version).
+Alpha Differences:
+* Villagers are not purple on the mini map, they show up as black like monsters.
+* In the final, the player is named 'Zanzahar' by default - in the beta its Player0.
+* going into high res mode corrupts the HUD, map screen and out of game screen.
+* The prompt for entering messages is missing and entering messages seems extra sensitive to repeating keys.
+* The final EXE has strings for all the names of each level (for network games?) while the alpha lists 100 'level X' style numerical levels.
+
+The Hidden Worlds CARPET.EXE lists the version number as 'Version number Beta v8.0' and 'Version date Feb 27 1995 10:48:01'.
+
+The Magic Carpet 2 NETHERW.EXE lists the version as 'Version number Beta' and 'Version date Sep 06 1995'. There is also a 'showversion' command line switch that displays a warning 'TESTERS: WRITE DOWN THE ABOVE VERISON DATE AND TIME'.

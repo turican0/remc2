@@ -1,0 +1,740 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source Files\engine">
+      <UniqueIdentifier>{226f2cc7-6c68-4f39-ab8d-24eefc9e6d28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\sdl">
+      <UniqueIdentifier>{0b9261b4-dda7-45c4-a93c-23eae6176727}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\portability">
+      <UniqueIdentifier>{01d93e33-43df-4fd3-8b70-5b751cd75b6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\libs">
+      <UniqueIdentifier>{c389486e-08f9-4a9c-8d63-02861b70c8ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\libs\libADL">
+      <UniqueIdentifier>{78883006-e8c8-4d4f-bd9e-96abcaacbd44}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\libs\libOPL">
+      <UniqueIdentifier>{ff369d05-130b-4c6a-8c3a-280d3b6e9439}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\libs\sdl-mixer-x">
+      <UniqueIdentifier>{70d24271-835d-4590-a4bc-c3d3bfaafc36}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\libs\inih">
+      <UniqueIdentifier>{88c3818e-fa9e-47cd-9191-d23071ee450d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\libs\libpng">
+      <UniqueIdentifier>{fb196976-86c1-4372-b999-a541250ac3dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\libs\kiss-sdl">
+      <UniqueIdentifier>{e736b33a-3eae-4e8d-b5ab-9f14d29617a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\libs\sdl-image">
+      <UniqueIdentifier>{59b0bf29-bc92-4444-a34f-c199f5de56c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\libs\sdl-ttf">
+      <UniqueIdentifier>{1d61dcf1-3c1a-4a47-8271-a8ce53ef3ff8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\libs\openAL">
+      <UniqueIdentifier>{9447dd76-12e2-4526-b425-7c337c70567d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\portability">
+      <UniqueIdentifier>{d5e291bd-a3ae-41a5-a8f1-7b30c46a8bce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\engine">
+      <UniqueIdentifier>{d66c5d79-ce86-490d-b4a9-d0e8bb9146e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\editor">
+      <UniqueIdentifier>{0837e4e0-01f0-4c0c-beb1-ba41cdf17b6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\editor">
+      <UniqueIdentifier>{c6723a58-ab58-4cf4-abba-4a430c08f7b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\utilities">
+      <UniqueIdentifier>{15c82538-965f-4690-ab35-edbdb3acb34c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\utilities">
+      <UniqueIdentifier>{3087ce82-d2a1-473b-92b8-cc3d22463f94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\networklib">
+      <UniqueIdentifier>{de15a8b7-fc94-4341-9590-3b30eceaf443}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libADLMIDI-master\src\adldata.hh">
+      <Filter>Source Files\libs\libADL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libADLMIDI-master\src\adlmidi_bankmap.h">
+      <Filter>Source Files\libs\libADL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libADLMIDI-master\src\adlmidi_cvt.hpp">
+      <Filter>Source Files\libs\libADL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libADLMIDI-master\src\adlmidi_midiplay.hpp">
+      <Filter>Source Files\libs\libADL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libADLMIDI-master\src\adlmidi_opl3.hpp">
+      <Filter>Source Files\libs\libADL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libADLMIDI-master\src\adlmidi_private.hpp">
+      <Filter>Source Files\libs\libADL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libADLMIDI-master\src\adlmidi_ptr.hpp">
+      <Filter>Source Files\libs\libADL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libADLMIDI-master\src\cvt_mus2mid.hpp">
+      <Filter>Source Files\libs\libADL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libADLMIDI-master\src\cvt_xmi2mid.hpp">
+      <Filter>Source Files\libs\libADL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libADLMIDI-master\src\file_reader.hpp">
+      <Filter>Source Files\libs\libADL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libADLMIDI-master\src\fraction.hpp">
+      <Filter>Source Files\libs\libADL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libADLMIDI-master\src\midi_sequencer.h">
+      <Filter>Source Files\libs\libADL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libADLMIDI-master\src\midi_sequencer.hpp">
+      <Filter>Source Files\libs\libADL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libADLMIDI-master\src\midi_sequencer_impl.hpp">
+      <Filter>Source Files\libs\libADL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libADLMIDI-master\src\chips\dosbox_opl3.h">
+      <Filter>Source Files\libs\libADL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libADLMIDI-master\src\chips\nuked_opl3.h">
+      <Filter>Source Files\libs\libADL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libADLMIDI-master\src\chips\nuked_opl3_v174.h">
+      <Filter>Source Files\libs\libADL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libADLMIDI-master\src\chips\opl_chip_base.h">
+      <Filter>Source Files\libs\libADL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libADLMIDI-master\src\chips\nuked\nukedopl3.h">
+      <Filter>Source Files\libs\libADL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libADLMIDI-master\src\chips\nuked\nukedopl3_174.h">
+      <Filter>Source Files\libs\libADL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libADLMIDI-master\src\chips\dosbox\dbopl.h">
+      <Filter>Source Files\libs\libADL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libADLMIDI-master\src\wopl\wopl_file.h">
+      <Filter>Source Files\libs\libADL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libOPNMIDI-master\src\cvt_mus2mid.hpp">
+      <Filter>Source Files\libs\libOPL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libOPNMIDI-master\src\cvt_xmi2mid.hpp">
+      <Filter>Source Files\libs\libOPL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libOPNMIDI-master\src\file_reader.hpp">
+      <Filter>Source Files\libs\libOPL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libOPNMIDI-master\src\fraction.hpp">
+      <Filter>Source Files\libs\libOPL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libOPNMIDI-master\src\midi_sequencer.h">
+      <Filter>Source Files\libs\libOPL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libOPNMIDI-master\src\midi_sequencer.hpp">
+      <Filter>Source Files\libs\libOPL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libOPNMIDI-master\src\midi_sequencer_impl.hpp">
+      <Filter>Source Files\libs\libOPL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libOPNMIDI-master\src\opnbank.h">
+      <Filter>Source Files\libs\libOPL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libOPNMIDI-master\src\opnmidi_bankmap.h">
+      <Filter>Source Files\libs\libOPL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libOPNMIDI-master\src\opnmidi_cvt.hpp">
+      <Filter>Source Files\libs\libOPL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libOPNMIDI-master\src\opnmidi_midiplay.hpp">
+      <Filter>Source Files\libs\libOPL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libOPNMIDI-master\src\opnmidi_opn2.hpp">
+      <Filter>Source Files\libs\libOPL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libOPNMIDI-master\src\opnmidi_private.hpp">
+      <Filter>Source Files\libs\libOPL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libOPNMIDI-master\src\opnmidi_ptr.hpp">
+      <Filter>Source Files\libs\libOPL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libOPNMIDI-master\src\wopn\wopn_file.h">
+      <Filter>Source Files\libs\libOPL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libOPNMIDI-master\src\chips\gens_opn2.h">
+      <Filter>Source Files\libs\libOPL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libOPNMIDI-master\src\chips\gx_opn2.h">
+      <Filter>Source Files\libs\libOPL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libOPNMIDI-master\src\chips\mame_opn2.h">
+      <Filter>Source Files\libs\libOPL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libOPNMIDI-master\src\chips\nuked_opn2.h">
+      <Filter>Source Files\libs\libOPL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libOPNMIDI-master\src\chips\opn_chip_base.h">
+      <Filter>Source Files\libs\libOPL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libOPNMIDI-master\src\chips\gens\Ym2612_Emu.h">
+      <Filter>Source Files\libs\libOPL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libOPNMIDI-master\src\chips\gx\gx_ym2612.h">
+      <Filter>Source Files\libs\libOPL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libOPNMIDI-master\src\chips\mame\mame_ym2612fm.h">
+      <Filter>Source Files\libs\libOPL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libOPNMIDI-master\src\chips\mame\mamedef.h">
+      <Filter>Source Files\libs\libOPL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libOPNMIDI-master\src\chips\nuked\ym3438.h">
+      <Filter>Source Files\libs\libOPL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inih\ini.h">
+      <Filter>Source Files\libs\inih</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inih\INIReader.h">
+      <Filter>Source Files\libs\inih</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kiss_sdl-master\kiss_sdl.h">
+      <Filter>Source Files\libs\kiss-sdl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SDL-Mixer-X-master\src\music.h">
+      <Filter>Source Files\libs\sdl-mixer-x</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SDL-Mixer-X-master\src\mixer.h">
+      <Filter>Source Files\libs\sdl-mixer-x</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SDL-Mixer-X-master\src\effects_internal.h">
+      <Filter>Source Files\libs\sdl-mixer-x</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_wav.h">
+      <Filter>Source Files\libs\sdl-mixer-x</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_timidity.h">
+      <Filter>Source Files\libs\sdl-mixer-x</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_smpeg.h">
+      <Filter>Source Files\libs\sdl-mixer-x</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_opus.h">
+      <Filter>Source Files\libs\sdl-mixer-x</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_ogg.h">
+      <Filter>Source Files\libs\sdl-mixer-x</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_nativemidi.h">
+      <Filter>Source Files\libs\sdl-mixer-x</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_mpg123.h">
+      <Filter>Source Files\libs\sdl-mixer-x</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_modplug.h">
+      <Filter>Source Files\libs\sdl-mixer-x</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_mikmod.h">
+      <Filter>Source Files\libs\sdl-mixer-x</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_mad.h">
+      <Filter>Source Files\libs\sdl-mixer-x</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_id3tag.h">
+      <Filter>Source Files\libs\sdl-mixer-x</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_gme.h">
+      <Filter>Source Files\libs\sdl-mixer-x</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_fluidsynth.h">
+      <Filter>Source Files\libs\sdl-mixer-x</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_flac.h">
+      <Filter>Source Files\libs\sdl-mixer-x</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_cmd.h">
+      <Filter>Source Files\libs\sdl-mixer-x</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\load_voc.h">
+      <Filter>Source Files\libs\sdl-mixer-x</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\load_aiff.h">
+      <Filter>Source Files\libs\sdl-mixer-x</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\native_midi\native_midi_common.h">
+      <Filter>Source Files\libs\sdl-mixer-x</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\native_midi\native_midi.h">
+      <Filter>Source Files\libs\sdl-mixer-x</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SDL-Mixer-X-master\include\SDL_mixer_ext\SDL_mixer_ext.h">
+      <Filter>Source Files\libs\sdl-mixer-x</Filter>
+    </ClInclude>
+    <ClInclude Include="portability\port_filesystem.h">
+      <Filter>Header Files\portability</Filter>
+    </ClInclude>
+    <ClInclude Include="portability\dirent-x.h">
+      <Filter>Header Files\portability</Filter>
+    </ClInclude>
+    <ClInclude Include="portability\port_inputs.h">
+      <Filter>Header Files\portability</Filter>
+    </ClInclude>
+    <ClInclude Include="portability\port_sdl_sound.h">
+      <Filter>Header Files\portability</Filter>
+    </ClInclude>
+    <ClInclude Include="portability\port_outputs.h">
+      <Filter>Header Files\portability</Filter>
+    </ClInclude>
+    <ClInclude Include="portability\port_time.h">
+      <Filter>Header Files\portability</Filter>
+    </ClInclude>
+    <ClInclude Include="portability\xmi2mid.h">
+      <Filter>Header Files\portability</Filter>
+    </ClInclude>
+    <ClInclude Include="portability\port_sdl_vga_mouse.h">
+      <Filter>Header Files\portability</Filter>
+    </ClInclude>
+    <ClInclude Include="portability\mctypes.h">
+      <Filter>Header Files\portability</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\defs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\ail_sound.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="sub_main.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\sub_main_mouse.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\engine_support.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\engine_support_converts.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\read_config.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="editor\editor.h">
+      <Filter>Header Files\editor</Filter>
+    </ClInclude>
+    <ClInclude Include="utilities\BitmapIO.h">
+      <Filter>Header Files\utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="utilities\DataFileIO.h">
+      <Filter>Header Files\utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\Basic.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\Animation.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\Sound.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\Terrain.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="portability\port_net.h">
+      <Filter>Header Files\portability</Filter>
+    </ClInclude>
+    <ClInclude Include="networklib\Constants.h">
+      <Filter>Source Files\networklib</Filter>
+    </ClInclude>
+    <ClInclude Include="networklib\LockedQueue.h">
+      <Filter>Source Files\networklib</Filter>
+    </ClInclude>
+    <ClInclude Include="networklib\Log.h">
+      <Filter>Source Files\networklib</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="remc2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\engine_support.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="portability\port_filesystem.cpp">
+      <Filter>Source Files\portability</Filter>
+    </ClCompile>
+    <ClCompile Include="portability\port_inputs.cpp">
+      <Filter>Source Files\portability</Filter>
+    </ClCompile>
+    <ClCompile Include="portability\port_outputs.cpp">
+      <Filter>Source Files\portability</Filter>
+    </ClCompile>
+    <ClCompile Include="portability\port_sdl_vga_mouse.cpp">
+      <Filter>Source Files\portability</Filter>
+    </ClCompile>
+    <ClCompile Include="portability\port_time.cpp">
+      <Filter>Source Files\portability</Filter>
+    </ClCompile>
+    <ClCompile Include="portability\port_sdl_sound.cpp">
+      <Filter>Source Files\portability</Filter>
+    </ClCompile>
+    <ClCompile Include="portability\xmi2mid.cpp">
+      <Filter>Source Files\portability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libADLMIDI-master\src\adldata.cpp">
+      <Filter>Source Files\libs\libADL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libADLMIDI-master\src\adlmidi.cpp">
+      <Filter>Source Files\libs\libADL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libADLMIDI-master\src\adlmidi_load.cpp">
+      <Filter>Source Files\libs\libADL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libADLMIDI-master\src\adlmidi_midiplay.cpp">
+      <Filter>Source Files\libs\libADL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libADLMIDI-master\src\adlmidi_opl3.cpp">
+      <Filter>Source Files\libs\libADL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libADLMIDI-master\src\adlmidi_private.cpp">
+      <Filter>Source Files\libs\libADL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libADLMIDI-master\src\adlmidi_sequencer.cpp">
+      <Filter>Source Files\libs\libADL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libADLMIDI-master\src\chips\dosbox_opl3.cpp">
+      <Filter>Source Files\libs\libADL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libADLMIDI-master\src\chips\nuked_opl3.cpp">
+      <Filter>Source Files\libs\libADL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libADLMIDI-master\src\chips\nuked_opl3_v174.cpp">
+      <Filter>Source Files\libs\libADL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libADLMIDI-master\src\chips\nuked\nukedopl3.c">
+      <Filter>Source Files\libs\libADL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libADLMIDI-master\src\chips\nuked\nukedopl3_174.c">
+      <Filter>Source Files\libs\libADL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libADLMIDI-master\src\chips\dosbox\dbopl.cpp">
+      <Filter>Source Files\libs\libADL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libADLMIDI-master\src\wopl\wopl_file.c">
+      <Filter>Source Files\libs\libADL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libOPNMIDI-master\src\opnmidi.cpp">
+      <Filter>Source Files\libs\libOPL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libOPNMIDI-master\src\opnmidi_load.cpp">
+      <Filter>Source Files\libs\libOPL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libOPNMIDI-master\src\opnmidi_midiplay.cpp">
+      <Filter>Source Files\libs\libOPL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libOPNMIDI-master\src\opnmidi_opn2.cpp">
+      <Filter>Source Files\libs\libOPL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libOPNMIDI-master\src\opnmidi_private.cpp">
+      <Filter>Source Files\libs\libOPL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libOPNMIDI-master\src\opnmidi_sequencer.cpp">
+      <Filter>Source Files\libs\libOPL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libOPNMIDI-master\src\wopn\wopn_file.c">
+      <Filter>Source Files\libs\libOPL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libOPNMIDI-master\src\chips\gens_opn2.cpp">
+      <Filter>Source Files\libs\libOPL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libOPNMIDI-master\src\chips\gx_opn2.cpp">
+      <Filter>Source Files\libs\libOPL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libOPNMIDI-master\src\chips\mame_opn2.cpp">
+      <Filter>Source Files\libs\libOPL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libOPNMIDI-master\src\chips\nuked_opn2.cpp">
+      <Filter>Source Files\libs\libOPL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libOPNMIDI-master\src\chips\gens\Ym2612_Emu.cpp">
+      <Filter>Source Files\libs\libOPL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libOPNMIDI-master\src\chips\gx\gx_ym2612.c">
+      <Filter>Source Files\libs\libOPL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libOPNMIDI-master\src\chips\mame\mame_ym2612fm.c">
+      <Filter>Source Files\libs\libOPL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libOPNMIDI-master\src\chips\nuked\ym3438.c">
+      <Filter>Source Files\libs\libOPL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\inih\ini.c">
+      <Filter>Source Files\libs\inih</Filter>
+    </ClCompile>
+    <ClCompile Include="..\inih\INIReader.cpp">
+      <Filter>Source Files\libs\inih</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\read_config.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\engine_support_converts.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kiss_sdl-master\kiss_draw.cpp">
+      <Filter>Source Files\libs\kiss-sdl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kiss_sdl-master\kiss_general.cpp">
+      <Filter>Source Files\libs\kiss-sdl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kiss_sdl-master\kiss_posix.cpp">
+      <Filter>Source Files\libs\kiss-sdl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kiss_sdl-master\kiss_widgets.cpp">
+      <Filter>Source Files\libs\kiss-sdl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\dirent.c">
+      <Filter>Source Files\portability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\music.c">
+      <Filter>Source Files\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\mixer_x_deprecated.c">
+      <Filter>Source Files\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\mixer.c">
+      <Filter>Source Files\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\effects_internal.c">
+      <Filter>Source Files\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\effect_stereoreverse.c">
+      <Filter>Source Files\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\effect_position.c">
+      <Filter>Source Files\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_wav.c">
+      <Filter>Source Files\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_timidity.c">
+      <Filter>Source Files\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_smpeg.c">
+      <Filter>Source Files\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_opus.c">
+      <Filter>Source Files\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_ogg.c">
+      <Filter>Source Files\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_nativemidi.c">
+      <Filter>Source Files\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_mpg123.c">
+      <Filter>Source Files\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_modplug.c">
+      <Filter>Source Files\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_mikmod.c">
+      <Filter>Source Files\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_mad.c">
+      <Filter>Source Files\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_id3tag.c">
+      <Filter>Source Files\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_gme.c">
+      <Filter>Source Files\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_fluidsynth.c">
+      <Filter>Source Files\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_flac.c">
+      <Filter>Source Files\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_cmd.c">
+      <Filter>Source Files\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\load_voc.c">
+      <Filter>Source Files\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\load_aiff.c">
+      <Filter>Source Files\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\native_midi\native_midi_win32.c">
+      <Filter>Source Files\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\native_midi\native_midi_macosx.c">
+      <Filter>Source Files\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\native_midi\native_midi_mac.c">
+      <Filter>Source Files\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\native_midi\native_midi_haiku.cpp">
+      <Filter>Source Files\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\native_midi\native_midi_common.c">
+      <Filter>Source Files\libs\sdl-mixer-x</Filter>
+    </ClCompile>
+    <ClCompile Include="sub_main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="editor\editor.cpp">
+      <Filter>Source Files\editor</Filter>
+    </ClCompile>
+    <ClCompile Include="utilities\BitmapIO.cpp">
+      <Filter>Source Files\utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="utilities\DataFileIO.cpp">
+      <Filter>Source Files\utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\Animation.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\Basic.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\Sound.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\Terrain.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="portability\port_net.cpp">
+      <Filter>Source Files\portability</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="engine\info.x">
+      <Filter>Source Files\engine</Filter>
+    </None>
+    <None Include="engine\structures.x">
+      <Filter>Source Files\engine</Filter>
+    </None>
+    <None Include="..\libADLMIDI-master\src\adlmidi_bankmap.tcc">
+      <Filter>Source Files\libs\libADL</Filter>
+    </None>
+    <None Include="..\libADLMIDI-master\src\chips\opl_chip_base.tcc">
+      <Filter>Source Files\libs\libADL</Filter>
+    </None>
+    <None Include="..\libOPNMIDI-master\src\opnmidi_bankmap.tcc">
+      <Filter>Source Files\libs\libOPL</Filter>
+    </None>
+    <None Include="..\libOPNMIDI-master\src\chips\opn_chip_base.tcc">
+      <Filter>Source Files\libs\libOPL</Filter>
+    </None>
+    <None Include="engine\bytearrays.x">
+      <Filter>Source Files\engine</Filter>
+    </None>
+    <None Include="..\SDL-Mixer-X-master\src\codecs\play_wave.pri">
+      <Filter>Source Files\libs\sdl-mixer-x</Filter>
+    </None>
+    <None Include="..\SDL-Mixer-X-master\src\codecs\play_smpeg.pri">
+      <Filter>Source Files\libs\sdl-mixer-x</Filter>
+    </None>
+    <None Include="..\SDL-Mixer-X-master\src\codecs\play_ogg.pri">
+      <Filter>Source Files\libs\sdl-mixer-x</Filter>
+    </None>
+    <None Include="..\SDL-Mixer-X-master\src\codecs\play_mpg123.pri">
+      <Filter>Source Files\libs\sdl-mixer-x</Filter>
+    </None>
+    <None Include="..\SDL-Mixer-X-master\src\codecs\play_modplug.pri">
+      <Filter>Source Files\libs\sdl-mixer-x</Filter>
+    </None>
+    <None Include="..\SDL-Mixer-X-master\src\codecs\play_mikmod.pri">
+      <Filter>Source Files\libs\sdl-mixer-x</Filter>
+    </None>
+    <None Include="..\SDL-Mixer-X-master\src\codecs\play_midi_timidity.pri">
+      <Filter>Source Files\libs\sdl-mixer-x</Filter>
+    </None>
+    <None Include="..\SDL-Mixer-X-master\src\codecs\play_midi_opn.pri">
+      <Filter>Source Files\libs\sdl-mixer-x</Filter>
+    </None>
+    <None Include="..\SDL-Mixer-X-master\src\codecs\play_midi_native.pri">
+      <Filter>Source Files\libs\sdl-mixer-x</Filter>
+    </None>
+    <None Include="..\SDL-Mixer-X-master\src\codecs\play_midi_fluid.pri">
+      <Filter>Source Files\libs\sdl-mixer-x</Filter>
+    </None>
+    <None Include="..\SDL-Mixer-X-master\src\codecs\play_midi_adl.pri">
+      <Filter>Source Files\libs\sdl-mixer-x</Filter>
+    </None>
+    <None Include="..\SDL-Mixer-X-master\src\codecs\play_mad.pri">
+      <Filter>Source Files\libs\sdl-mixer-x</Filter>
+    </None>
+    <None Include="..\SDL-Mixer-X-master\src\codecs\play_id3tag.pri">
+      <Filter>Source Files\libs\sdl-mixer-x</Filter>
+    </None>
+    <None Include="..\SDL-Mixer-X-master\src\codecs\play_gme.pri">
+      <Filter>Source Files\libs\sdl-mixer-x</Filter>
+    </None>
+    <None Include="..\SDL-Mixer-X-master\src\codecs\play_flac.pri">
+      <Filter>Source Files\libs\sdl-mixer-x</Filter>
+    </None>
+    <None Include="..\SDL-Mixer-X-master\src\codecs\play_cmdmusic.pri">
+      <Filter>Source Files\libs\sdl-mixer-x</Filter>
+    </None>
+    <None Include="..\config.ini" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="..\zlib\lib\zlib.lib">
+      <Filter>Source Files\libs\libpng</Filter>
+    </Library>
+    <Library Include="..\libpng2\libpng-master\projects\vstudio2017\Debug\libpng15.lib">
+      <Filter>Source Files\libs\libpng</Filter>
+    </Library>
+    <Library Include="..\libpng3\lib\libpng16_static.lib">
+      <Filter>Source Files\libs\libpng</Filter>
+    </Library>
+    <Library Include="..\zlib-64\lib\zlib.lib">
+      <Filter>Source Files\libs\libpng</Filter>
+    </Library>
+    <Library Include="..\SDL2_image-2.0.5\lib\x86\SDL2_image.lib">
+      <Filter>Source Files\libs\sdl-image</Filter>
+    </Library>
+    <Library Include="..\SDL2_ttf-2.0.15\lib\x86\SDL2_ttf.lib">
+      <Filter>Source Files\libs\sdl-ttf</Filter>
+    </Library>
+    <Library Include="..\SDL2_ttf-2.0.15\lib\x64\SDL2_ttf.lib">
+      <Filter>Source Files\libs\sdl-ttf</Filter>
+    </Library>
+    <Library Include="..\SDL2_image-2.0.5\lib\x64\SDL2_image.lib">
+      <Filter>Source Files\libs\sdl-image</Filter>
+    </Library>
+  </ItemGroup>
+</Project>
