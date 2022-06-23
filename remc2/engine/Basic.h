@@ -522,10 +522,10 @@ void sub_2EB60();
 void sub_2EBB0_draw_text_with_border_630x340(char* a1);
 int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* a2, int32_t a3, int32_t a4, int a5, uint8_t a6, unsigned __int8 a7, uint32_t a8);//560cb0
 void sub_7C120_draw_bitmap_640(int16_t posx, int16_t posy, posistruct_t tempstr);
-void sub_76260_read_intro_palette(uint8_t a1);
-uint8_t getPaletteIndex_5BE80(TColor* a1x, uint8_t a2, uint8_t a3, uint8_t a4);
+void sub_76260_read_intro_pallette(uint8_t a1);
+uint8_t getPalletteIndex_5BE80(TColor* a1x, uint8_t a2, uint8_t a3, uint8_t a4);
 void sub_7C140_draw_text_background(int16_t a1, int16_t a2, int16_t a3, int16_t a4, uint8_t a5);
-void sub_41A90_VGA_palette_install(TColor* a1x);
+void sub_41A90_VGA_pallette_install(TColor* a1x);
 void sub_2EC90(char a1);
 uint32_t sub_7FAE0_draw_text(char* a1, __int16 a2, __int16 a3, __int16 a4, unsigned __int8 a5);
 void sub_90478_VGA_Blit320();
