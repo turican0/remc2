@@ -503,9 +503,9 @@ void sub_8D290_init_sound(/*char* a1*//*, int a2, int a3*/)//26e290
 	sub_8D800_sound_proc2();
 	if (x_WORD_E37B6_sound_number)
 	{
-		if (x_WORD_E37B6_sound_number < 0x336u)
+		if (x_WORD_E37B6_sound_number < 822)
 		{
-			if (x_WORD_E37B6_sound_number < 0x320u)
+			if (x_WORD_E37B6_sound_number < 800)
 			{
 				if (!x_WORD_E37B6_sound_number)
 				{
@@ -515,7 +515,7 @@ void sub_8D290_init_sound(/*char* a1*//*, int a2, int a3*/)//26e290
 					return;
 				}
 			}
-			else if (x_WORD_E37B6_sound_number <= 0x320u)
+			else if (x_WORD_E37B6_sound_number <= 800)
 			{
 				x_DWORD_E37BC_sound_frequence = 11025;
 				x_BYTE_E37AE = 0;
@@ -526,12 +526,12 @@ void sub_8D290_init_sound(/*char* a1*//*, int a2, int a3*/)//26e290
 				x_BYTE_E37AE = 0;
 			}
 		}
-		else if (x_WORD_E37B6_sound_number <= 0x336u)
+		else if (x_WORD_E37B6_sound_number <= 822)
 		{
 			x_DWORD_E37BC_sound_frequence = 22050;
 			x_BYTE_E37AE = 0;
 		}
-		else if (x_WORD_E37B6_sound_number < 0x656u)
+		else if (x_WORD_E37B6_sound_number < 1622)
 		{
 			if (x_WORD_E37B6_sound_number == 1611)
 			{
@@ -539,7 +539,7 @@ void sub_8D290_init_sound(/*char* a1*//*, int a2, int a3*/)//26e290
 				x_BYTE_E37AE = 1;
 			}
 		}
-		else if (x_WORD_E37B6_sound_number <= 0x656u)
+		else if (x_WORD_E37B6_sound_number <= 1622)
 		{
 			x_DWORD_E37BC_sound_frequence = 22050;
 			x_BYTE_E37AE = 1;
@@ -651,11 +651,11 @@ void sub_8D800_sound_proc2()//26E800
 		v0 = sub_84300_load_sound(x_BYTE_E37AC);
 		if (v0)
 		{
-			if (x_WORD_E37B6_sound_number < 0x336u)
+			if (x_WORD_E37B6_sound_number < 822)
 			{
-				if (x_WORD_E37B6_sound_number >= 0x320u)
+				if (x_WORD_E37B6_sound_number >= 800)
 				{
-					if (x_WORD_E37B6_sound_number <= 0x320u)
+					if (x_WORD_E37B6_sound_number <= 800)
 					{
 						x_WORD_E37B6_sound_number = 0;
 						return;
@@ -664,16 +664,16 @@ void sub_8D800_sound_proc2()//26E800
 						x_WORD_E37B6_sound_number = 800;
 				}
 			}
-			else if (x_WORD_E37B6_sound_number <= 0x336u)
+			else if (x_WORD_E37B6_sound_number <= 822)
 			{
 				x_WORD_E37B6_sound_number = 1611;
 			}
-			else if (x_WORD_E37B6_sound_number < 0x656u)
+			else if (x_WORD_E37B6_sound_number < 1622)
 			{
 				if (x_WORD_E37B6_sound_number == 1611)
 					x_WORD_E37B6_sound_number = 811;
 			}
-			else if (x_WORD_E37B6_sound_number <= 0x656u)
+			else if (x_WORD_E37B6_sound_number <= 1622)
 			{
 				x_WORD_E37B6_sound_number = 822;
 			}
