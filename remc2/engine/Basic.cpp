@@ -19,6 +19,12 @@ char x_BYTE_E3766 = 0; // weak
 
 long oldmillis = 0;
 
+clock_t frameStart = 0;
+clock_t frameStop = 0;
+clock_t timeDelta = 0;
+int frameCount = 0;
+int fps = 0;
+
 uint8_t* x_DWORD_E9C3C; // weak
 
 uint8_t* x_DWORD_17DB50; // weak
@@ -93,8 +99,7 @@ uint8_t* x_DWORD_E9C38_smalltit;//*(x_DWORD*)(x_DWORD_E9C38_smalltit + 36964)
 
 int help_VGA_type_resolution = 0;
 
-__int16 x_WORD_180660_VGA_type_resolution; // weak
-//&6 - colors 16 versus 256
+int16_t x_WORD_180660_VGA_type_resolution; // weak
 
 //language
 char* x_DWORD_E9C4C_langindexbuffer[1000]; // idb
@@ -715,14 +720,14 @@ void sub_2EB60()//20fb60
 }
 
 //----- (0002EBB0) --------------------------------------------------------
-void sub_2EBB0_draw_text_with_border_630x340(char* a1)//20fbb0
+void sub_2EBB0_draw_text_with_border_630x340(char* textString)//20fbb0
 {
 	if (x_BYTE_D41CE)
 	{
-		x_DWORD_D41D0 = a1;
+		x_DWORD_D41D0 = textString;
 		x_WORD_E36D4 = 64;
 		pdwScreenBuffer += 0x26C0;
-		/*result = */sub_7FCB0_draw_text_with_border(/*64,*/ a1, 0, 630, 340, 5, x_BYTE_EB3B6, 0);
+		/*result = */sub_7FCB0_draw_text_with_border(/*64,*/ textString, 0, 630, 340, 5, x_BYTE_EB3B6, 0);
 		x_WORD_E36D4 = 0;
 		pdwScreenBuffer -= 0x26C0;
 	}
@@ -730,7 +735,7 @@ void sub_2EBB0_draw_text_with_border_630x340(char* a1)//20fbb0
 }
 
 //----- (0007FCB0) --------------------------------------------------------
-int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* a2, int32_t a3, int32_t a4, int a5, uint8_t a6, unsigned __int8 a7, uint32_t a8)//260cb0
+int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* textString, int32_t a3, int32_t a4, int a5, uint8_t a6, unsigned __int8 a7, uint32_t a8)//260cb0
 {
 	int v8; // esi
 	signed __int16 j; // di
@@ -948,7 +953,7 @@ int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* a2, int32_t a3, int32_t a4
 		v22 = 0;
 		if (a6)
 		{
-			v24 = a2[k];
+			v24 = textString[k];
 			if (v24 == ' ' || v24 == 0)
 			{
 			LABEL_38:
@@ -958,7 +963,7 @@ int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* a2, int32_t a3, int32_t a4
 		}
 		else
 		{
-			v23 = a2[k];
+			v23 = textString[k];
 			if (v23 == ' ' || v23 == 0 || v23 == ',' || v23 == '-' || v23 == '.')
 				goto LABEL_38;
 		}
@@ -981,7 +986,7 @@ int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* a2, int32_t a3, int32_t a4
 				if (v99 + v25 * (k - v96) <= a4 - 3 * v25)//adress 2610c2
 				{
 					v86b = &v87[strlen(v87)];
-					qmemcpy(v86b, &a2[v101 + 1], v89 - v101);
+					qmemcpy(v86b, &textString[v101 + 1], v89 - v101);
 				}
 				else//width is higher then line size
 				{
@@ -1080,18 +1085,18 @@ int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* a2, int32_t a3, int32_t a4
 					}
 					memset(v87, 0, 180);
 					v86b = v87;
-					qmemcpy(v87, &a2[v101 + 1], k - v101);
+					qmemcpy(v87, &textString[v101 + 1], k - v101);
 					v96 = v101;
 				}
 			}
 			else
 			{
 				v86b = v87;
-				qmemcpy(v87, a2, k + 1);//copy first text word
+				qmemcpy(v87, textString, k + 1);//copy first text word
 			}
 			v101 = k;
 		}
-		if (!a2[k])
+		if (!textString[k])
 			break;
 	}
 	if (!v95)//adress 2614e2 (804e2) discoverwhich
@@ -1102,8 +1107,6 @@ int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* a2, int32_t a3, int32_t a4
 			if (a6 == 2)
 			{
 				DrawHelpText_6FC50(1/*v86*/);
-				//v58 = (x_BYTE*)(v99 + 640 * a1);
-				//v59x = pdwScreenBuffer;
 				v58x = &pdwScreenBuffer[v99 + 640 * a1];
 				v59y = 0;
 				for (v57 = 0; v57 < xy_DWORD_17DED4_spritestr[274].height_5; v57++)
@@ -1113,7 +1116,7 @@ int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* a2, int32_t a3, int32_t a4
 					{
 						v91 = xy_DWORD_17DED4_spritestr[274].width_4;
 						HIBYTE(v97) = 15;
-						LOBYTE(v97) = *v58x;						
+						LOBYTE(v97) = *v58x;
 						*v58x = ((uint8_t*)x_DWORD_17DE38str.x_DWORD_17DE3C)[v97];
 						v58x++;
 					}
