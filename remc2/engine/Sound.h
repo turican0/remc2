@@ -287,7 +287,7 @@ void sub_A5530(CTRL_LOG* a1, char a2, unsigned int a3, unsigned __int8 a4);
 void sub_A5850(HSEQUENCE hSequence, char a2, unsigned int a3, signed int a4, int a5);
 void sub_A5E50(HSEQUENCE hSequence);
 void sub_A5F30(int* a1, int a2);
-void sub_A5FD0(int a1, int a2);
+void sub_A5FD0(HSEQUENCE a1, int a2);
 void sub_A6370(HSEQUENCE hSequence);
 void sub_A6490(HSEQUENCE hSequence);
 void sub_A64C0(HSEQUENCE hSequence);

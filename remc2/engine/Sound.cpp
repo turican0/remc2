@@ -6599,39 +6599,39 @@ void sub_A5F30(int* a1, int a2)
 }
 
 //----- (000A5FD0) --------------------------------------------------------
-void sub_A5FD0(int a1, int a2)
+void sub_A5FD0(HSEQUENCE a1, int a2)
 {
 	x_DWORD* result; // eax
 
 	if (*(x_DWORD*)(a1 + 4 * a2 + 660) != -1)
-		sub_A5850((HSEQUENCE)a1, a2 | 0xB0, 0x72u, *(x_DWORD*)(a1 + 4 * a2 + 660), 0);
+		sub_A5850(a1, a2 | 0xB0, 0x72u, *(x_DWORD*)(a1 + 4 * a2 + 660), 0);
 	if (*(x_DWORD*)(a1 + 4 * a2 + 212) != -1)
-		sub_A5850((HSEQUENCE)a1, a2 | 0xC0, *(x_DWORD*)(a1 + 4 * a2 + 212), 0, 0);
+		sub_A5850(a1, a2 | 0xC0, *(x_DWORD*)(a1 + 4 * a2 + 212), 0, 0);
 	if (*(x_DWORD*)(a1 + 4 * a2 + 340) != -1)
-		sub_A5850((HSEQUENCE)a1, a2 | 0xE0, *(x_DWORD*)(a1 + 4 * a2 + 276), *(x_DWORD*)(a1 + 4 * a2 + 340), 0);
+		sub_A5850(a1, a2 | 0xE0, *(x_DWORD*)(a1 + 4 * a2 + 276), *(x_DWORD*)(a1 + 4 * a2 + 340), 0);
 	if (*(x_DWORD*)(a1 + 4 * a2 + 532) != -1)
-		sub_A5850((HSEQUENCE)a1, a2 | 0xB0, 0x6Bu, *(x_DWORD*)(a1 + 4 * a2 + 532), 0);
+		sub_A5850(a1, a2 | 0xB0, 0x6Bu, *(x_DWORD*)(a1 + 4 * a2 + 532), 0);
 	if (*(x_DWORD*)(a1 + 4 * a2 + 468) != -1)
-		sub_A5850((HSEQUENCE)a1, a2 | 0xB0, 0x6Fu, *(x_DWORD*)(a1 + 4 * a2 + 468), 0);
+		sub_A5850(a1, a2 | 0xB0, 0x6Fu, *(x_DWORD*)(a1 + 4 * a2 + 468), 0);
 	if (*(x_DWORD*)(a1 + 4 * a2 + 596) != -1)
-		sub_A5850((HSEQUENCE)a1, a2 | 0xB0, 0x70u, *(x_DWORD*)(a1 + 4 * a2 + 596), 0);
+		sub_A5850(a1, a2 | 0xB0, 0x70u, *(x_DWORD*)(a1 + 4 * a2 + 596), 0);
 	if (*(x_DWORD*)(a1 + 4 * a2 + 852) != -1)
-		sub_A5850((HSEQUENCE)a1, a2 | 0xB0, 1u, *(x_DWORD*)(a1 + 4 * a2 + 852), 0);
+		sub_A5850(a1, a2 | 0xB0, 1u, *(x_DWORD*)(a1 + 4 * a2 + 852), 0);
 	if (*(x_DWORD*)(a1 + 4 * a2 + 916) != -1)
-		sub_A5850((HSEQUENCE)a1, a2 | 0xB0, 7u, *(x_DWORD*)(a1 + 4 * a2 + 916), 0);
+		sub_A5850(a1, a2 | 0xB0, 7u, *(x_DWORD*)(a1 + 4 * a2 + 916), 0);
 	if (*(x_DWORD*)(a1 + 4 * a2 + 980) != -1)
-		sub_A5850((HSEQUENCE)a1, a2 | 0xB0, 0xAu, *(x_DWORD*)(a1 + 4 * a2 + 980), 0);
+		sub_A5850(a1, a2 | 0xB0, 0xAu, *(x_DWORD*)(a1 + 4 * a2 + 980), 0);
 	if (*(x_DWORD*)(a1 + 4 * a2 + 1044) != -1)
-		sub_A5850((HSEQUENCE)a1, a2 | 0xB0, 0xBu, *(x_DWORD*)(a1 + 4 * a2 + 1044), 0);
+		sub_A5850(a1, a2 | 0xB0, 0xBu, *(x_DWORD*)(a1 + 4 * a2 + 1044), 0);
 	if (*(x_DWORD*)(a1 + 4 * a2 + 1108) != -1)
-		sub_A5850((HSEQUENCE)a1, a2 | 0xB0, 0x40u, *(x_DWORD*)(a1 + 4 * a2 + 1108), 0);
+		sub_A5850(a1, a2 | 0xB0, 0x40u, *(x_DWORD*)(a1 + 4 * a2 + 1108), 0);
 	if (*(x_DWORD*)(a1 + 4 * a2 + 1172) != -1)
-		sub_A5850((HSEQUENCE)a1, a2 | 0xB0, 0x5Bu, *(x_DWORD*)(a1 + 4 * a2 + 1172), 0);
+		sub_A5850(a1, a2 | 0xB0, 0x5Bu, *(x_DWORD*)(a1 + 4 * a2 + 1172), 0);
 	if (*(x_DWORD*)(a1 + 4 * a2 + 1236) != -1)
-		sub_A5850((HSEQUENCE)a1, a2 | 0xB0, 0x5Du, *(x_DWORD*)(a1 + 4 * a2 + 1236), 0);
+		sub_A5850(a1, a2 | 0xB0, 0x5Du, *(x_DWORD*)(a1 + 4 * a2 + 1236), 0);
 	result = (x_DWORD*)(a1 + 4 * a2);
 	if (result[325] != -1)
-		/*result = (int32*)*/sub_A5850((HSEQUENCE)a1, a2 | 0xB0, 6u, *(x_DWORD*)(a1 + 4 * a2 + 1300), 0);
+		/*result = (int32*)*/sub_A5850(a1, a2 | 0xB0, 6u, *(x_DWORD*)(a1 + 4 * a2 + 1300), 0);
 }
 
 //----- (000A6370) --------------------------------------------------------
@@ -8341,7 +8341,7 @@ int sub_A8EA0(x_DWORD* a1, int a2)
 		if (a1[v4 + 40])
 		{
 			if (*(x_DWORD*)(a1[v4 + 40] + 4) != 1)
-				sub_A5FD0(a1[v4 + 40], v4);
+				sub_A5FD0((HSEQUENCE)&a1[v4 + 40], v4);
 		}
 #ifdef TEST_x64
 	allert_error();
