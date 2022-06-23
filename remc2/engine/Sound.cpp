@@ -163,11 +163,11 @@ int x_DWORD_181ED4; // weak
 int x_DWORD_181ED8; // weak
 int x_DWORD_181EDC; // weak
 uint8_t unk_181EE0x[512]; // weak
-signed int x_DWORD_182188[6]; // idb
-signed int x_DWORD_1821A0[6]; // idb
-signed int x_DWORD_1821B8[6]; // idb
-signed int x_DWORD_1821D0[6]; // idb
-signed int x_DWORD_1821E8[6]; // idb
+uint8_t* x_DWORD_182188[6]; // idb
+uint8_t* x_DWORD_1821A0[6]; // idb
+uint8_t* x_DWORD_1821B8[6]; // idb
+uint8_t* x_DWORD_1821D0[6]; // idb
+uint8_t* x_DWORD_1821E8[6]; // idb
 
 int x_DWORD_E4E1C = 0; // weak
 

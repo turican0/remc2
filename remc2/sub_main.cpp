@@ -2746,8 +2746,8 @@ int sub_AC24B();
 void sub_AC250(int a1, int a2, int a3, int a4, int a5, x_DWORD* a6, x_DWORD* a7, signed int* a8);
 x_BYTE* sub_AD09E(x_BYTE* a1, int a2);
 int sub_AD754(signed int a1);
-signed int sub_B1138(signed int* a1, signed int a2);
-int sub_B11E8(x_DWORD* a1, int a2);
+uint8_t* sub_B1138(uint8_t** a1, signed int a2);
+int sub_B11E8(uint32_t* a1, int a2);
 int sub_B12A4(int a1);
 int sub_B1304(int a1, int a2);
 int sub_B1414(int a1);
@@ -96746,7 +96746,7 @@ int sub_AC24B()//28d24b
 //----- (000AC250) --------------------------------------------------------
 void sub_AC250(int a1, int a2, int a3, int a4, int a5, x_DWORD* a6, x_DWORD* a7, signed int* a8)//28d250
 {
-	signed int result; // eax
+	uint8_t* result; // eax
 	int v9; // ebx
 	int v10; // esi
 	int v11; // ebp
@@ -96783,14 +96783,14 @@ void sub_AC250(int a1, int a2, int a3, int a4, int a5, x_DWORD* a6, x_DWORD* a7,
 					{
 						x_DWORD_E4CCC = 1;
 					LABEL_8:
-						v19 = sub_B11E8(x_DWORD_182188, a1);
-						v9 = sub_B11E8(x_DWORD_1821A0, a2);
-						v10 = sub_B11E8(x_DWORD_1821B8, a3);
+						v19 = sub_B11E8((uint32_t*)x_DWORD_182188, a1);
+						v9 = sub_B11E8((uint32_t*)x_DWORD_1821A0, a2);
+						v10 = sub_B11E8((uint32_t*)x_DWORD_1821B8, a3);
 						v11 = sub_B11E8(
-							x_DWORD_1821D0,
+							(uint32_t*)x_DWORD_1821D0,
 							((unsigned __int64)(51471 * a4) >> 32 != 0) + ((unsigned __int64)(51471 * a4) >> 14));
 						v12 = sub_B11E8(
-							x_DWORD_1821E8,
+							(uint32_t*)x_DWORD_1821E8,
 							((unsigned __int64)(51471 * a5) >> 32 != 0) + ((unsigned __int64)(51471 * a5) >> 14));
 						sub_B14F8(&v17, v11);
 						sub_B14F8(&v15, v12);
@@ -96798,12 +96798,6 @@ void sub_AC250(int a1, int a2, int a3, int a4, int a5, x_DWORD* a6, x_DWORD* a7,
 							+ ((unsigned __int64)(v9 * (signed __int64)v18) >> 14)
 							- (((unsigned __int64)(v10 * (signed __int64)v17) >> 32 != 0)
 								+ ((unsigned __int64)(v10 * (signed __int64)v17) >> 14));
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
 						v14 = sub_B1304(
 							((unsigned __int64)(v10 * (signed __int64)v18) >> 32 != 0)
 							+ ((unsigned __int64)(v10 * (signed __int64)v18) >> 14)
@@ -96813,14 +96807,12 @@ void sub_AC250(int a1, int a2, int a3, int a4, int a5, x_DWORD* a6, x_DWORD* a7,
 							+ ((unsigned __int64)(v19 * (signed __int64)v16) >> 14)
 							- (((unsigned __int64)(v13 * (signed __int64)v15) >> 32 != 0)
 								+ ((unsigned __int64)(v13 * (signed __int64)v15) >> 14)));
-						*a6 = ((unsigned __int64)((signed int)&unk_E52EE * (signed __int64)v14) >> 32 != 0)
-							+ ((unsigned __int64)((signed int)&unk_E52EE * (signed __int64)v14) >> 14);
-						*a7 = ((unsigned __int64)((signed int)&unk_E52EE * (signed __int64)v11) >> 32 != 0)
-							+ ((unsigned __int64)((signed int)&unk_E52EE * (signed __int64)v11) >> 14);
-						result = ((unsigned __int64)((signed int)&unk_E52EE * (signed __int64)v12) >> 32 != 0)
-							+ ((unsigned __int64)((signed int)&unk_E52EE * (signed __int64)v12) >> 14);
-#endif
-						*a8 = result;
+						*a6 = ((unsigned __int64)(0xE52EE * (signed __int64)v14) >> 32 != 0)
+							+ ((unsigned __int64)(0xE52EE * (signed __int64)v14) >> 14);
+						*a7 = ((unsigned __int64)(0xE52EE * (signed __int64)v11) >> 32 != 0)
+							+ ((unsigned __int64)(0xE52EE * (signed __int64)v11) >> 14);
+						*a8 = ((unsigned __int64)(0xE52EE * (signed __int64)v12) >> 32 != 0)
+							+ ((unsigned __int64)(0xE52EE * (signed __int64)v12) >> 14);
 					}
 				}
 			}
@@ -96871,32 +96863,19 @@ int sub_AD754(signed int a1)//28e754
 // AB952: using guessed type x_DWORD x_tolower(x_DWORD);
 
 //----- (000B1138) --------------------------------------------------------
-signed int sub_B1138(signed int* a1, signed int a2)
+uint8_t* sub_B1138(uint8_t** a1, signed int a2)
 {
-	signed int result; // eax
-	signed int v3; // eax
-	int v4; // edx
-	signed int v5; // eax
-
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-	result = (int)calloc(a2, 4);
-#endif
-	*a1 = result;
+	uint8_t* result = 0; // eax
+	uint8_t* zero = NULL; // eax
+	//signed int v3; // eax
+	//int v4; // edx
+	//signed int v5; // eax
+	/*
+	result = (uint8_t*)calloc(a2, 4);
+	a1[0] = result;
 	if (result)
 	{
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-		result = (int)calloc(a2, 4);
-#endif
+		result = (uint8_t*)calloc(a2, 4);
 		a1[1] = result;
 		if (result)
 		{
@@ -96907,40 +96886,33 @@ signed int sub_B1138(signed int* a1, signed int a2)
 				v4 = 0;
 				do
 				{
-					*(x_DWORD*)(*a1 + v4) = 0x4000;
+					*(x_DWORD*)(a1[0] + v4) = 0x4000;
 					++v3;
 					v4 += 4;
 				} while (v3 < a1[2]);
 			}
-			a1[3] = *a1;
-			v5 = *a1;
-			a1[4] = 4 * (a1[2] - 1) + *a1;
+			a1[3] = a1[0];
+			v5 = a1[0];
+			a1[4] = 4 * (a1[2] - 1) + a1[0];
 			a1[5] = v5 - 4;
-			result = 1;
+			result = 1+ zero;
 		}
-	}
+	}*/
 	return result;
 }
 // 9B513: using guessed type x_DWORD calloc(x_DWORD, x_DWORD);
 
 //----- (000B11E8) --------------------------------------------------------
-int sub_B11E8(x_DWORD* a1, int a2)
+int sub_B11E8(uint32_t* a1, int a2)
 {
-	x_DWORD* v2; // eax
-	x_DWORD* v3; // esi
-	int v4; // edx
-	x_DWORD* v5; // ecx
-
+	//x_DWORD* v2; // eax
+	//x_DWORD* v3; // esi
+	int v4 = 0; // edx
+	//x_DWORD* v5; // ecx
+	/*
 	v2 = (x_DWORD*)a1[3];
 	v3 = v2;
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-	a1[3] = (x_DWORD)(v2 + 1);
-#endif
+	a1[3] = (v2 + 1);
 	*v2 = a2;
 	if (*a1 + 4 * a1[2] == a1[3])
 		a1[3] = *a1;
@@ -96952,7 +96924,7 @@ int sub_B11E8(x_DWORD* a1, int a2)
 		v4 += *v5;
 		if (v2 == (x_DWORD*)a1[5])
 			v2 = (x_DWORD*)a1[4];
-	} while (v2 != v3);
+	} while (v2 != v3);*/
 	return v4 / a1[2];
 }
 

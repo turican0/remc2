@@ -52,11 +52,11 @@ extern type_E3808_music_header* str_E3808_music_header;
 extern char x_BYTE_180C84_drivertype; // weak
 extern int16_t x_WORD_181B44; // weak
 
-extern signed int x_DWORD_182188[]; // idb
-extern signed int x_DWORD_1821A0[]; // idb
-extern signed int x_DWORD_1821B8[]; // idb
-extern signed int x_DWORD_1821D0[]; // idb
-extern signed int x_DWORD_1821E8[]; // idb
+extern uint8_t* x_DWORD_182188[]; // idb
+extern uint8_t* x_DWORD_1821A0[]; // idb
+extern uint8_t* x_DWORD_1821B8[]; // idb
+extern uint8_t* x_DWORD_1821D0[]; // idb
+extern uint8_t* x_DWORD_1821E8[]; // idb
 
 void /*__fastcall*/ sub_8D290_init_sound(/*char* a1*//*, int a2, int a3*/);
 void sub_8D800_sound_proc2();
