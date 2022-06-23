@@ -1019,7 +1019,7 @@ long /*__fastcall*/ j___clock() {
 }; // weak
 void sub_99830(HMDIDRIVER  /*user*/) { stub_fix_it(); }; // weak
 void j___delay(x_DWORD x) { mydelay(x);}; // weak
-int j_j___clock(x_DWORD, x_DWORD, x_DWORD) { stub_fix_it(); return 0; }; // weak
+int j_j___clock(x_DWORD, x_DWORD, char*) { stub_fix_it(); return 0; }; // weak
 
 // Function declarations
 signed __int16 sub_10010();
@@ -2711,7 +2711,7 @@ signed int UnpackAndLoadMemoryFromPath(Pathstruct path);
 int sub_9AD16_free_mem_pool(void* a1);
 int sub_9AD9C(int a1);
 int sub_9ADB4(int a1);
-int j_j___clock(x_DWORD, x_DWORD, x_DWORD); // weak
+int j_j___clock(x_DWORD, x_DWORD, char*); // weak
 void sub_9AEEC(x_DWORD** a1, char* a2);
 char sub_9B038(int* a1, char* a2, int a3);
 int sub_9B234(int* a1);
@@ -92617,20 +92617,20 @@ int sub_8B5A0()//26c5a0
 //----- (0008B600) --------------------------------------------------------
 signed int sub_8B600(type_unk_18058Cstr a1)//26c600
 {
-	int v1; // edi
-	char v2; // bl
+	//int v1; // edi
+	//char v2; // bl
 	//__int16 v3; // dx
-	char v4; // al
+	//char v4; // al
 	int v5; // edx
-	int v6; // eax
-	int v7; // eax
-	char v9x[60]; // [esp+0h] [ebp-40h]
-	char v10; // [esp+3Ch] [ebp-4h]
+	//int v6; // eax
+	//int v7; // eax
+	//char v9x[60]; // [esp+0h] [ebp-40h]
+	//char v10; // [esp+3Ch] [ebp-4h]
 
 	//fix it
 	v5 = 0;
 	//fix it
-
+	/*
 	v1 = sub_9AD9C(3);
 	memset(v9x, 0, 60);
 	memset(a1.unk_1805CE, 0, 84);
@@ -92653,19 +92653,19 @@ signed int sub_8B600(type_unk_18058Cstr a1)//26c600
 	switch (a1.x_WORD_1805C4_vio1_analog_joy)
 	{
 	case 1200:
-		v4 = sub_8B880((int*)a1.unk_1805CE, v2, 1200, v1);
+		v4 = sub_8B880(a1.unk_1805CE, v2, 1200, v1);
 		break;
 	case 2400:
-		v4 = sub_8B880((int*)a1.unk_1805CE, v2, 2400, v1);
+		v4 = sub_8B880(a1.unk_1805CE, v2, 2400, v1);
 		break;
 	case 4800:
-		v4 = sub_8B880((int*)a1.unk_1805CE, v2, 4800, v1);
+		v4 = sub_8B880(a1.unk_1805CE, v2, 4800, v1);
 		break;
 	case 9600:
-		v4 = sub_8B880((int*)a1.unk_1805CE, v2, 9600, v1);
+		v4 = sub_8B880(a1.unk_1805CE, v2, 9600, v1);
 		break;
 	case 19200:
-		v4 = sub_8B880((int*)a1.unk_1805CE, v2, 19200, v1);
+		v4 = sub_8B880(a1.unk_1805CE, v2, 19200, v1);
 		break;
 	default:
 		goto LABEL_16;
@@ -92674,23 +92674,17 @@ signed int sub_8B600(type_unk_18058Cstr a1)//26c600
 LABEL_16:
 	sub_9B498(v10);
 	myprintf("%s.\n");
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-	sub_8BA10((int)v9x, v5, (int*)a1.unk_1805CE, v9x, v1);
-#endif
+	sub_8BA10( v5, a1.unk_1805CE, v9x, v1);
 	myprintf(v9x);
 	myprintf("\n");
 	v6 = sub_9AD9C(2);
-	sub_9B038((int*)a1.unk_1805CE, (char*)&off_D1F10, v6);
+	sub_9B038(a1.unk_1805CE, (char*)&off_D1F10, v6);
 	v7 = sub_9AD9C(2);
-	if (!sub_9B038((int*)a1.unk_1805CE, (char*)"!M1,P,B\r", v7))
+	if (!sub_9B038(a1.unk_1805CE, (char*)"!M1,P,B\r", v7))
 		return 1;
-	sub_9B234((int*)a1.unk_1805CE);
+	sub_9B234(a1.unk_1805CE);
 	myprintf("Could not send Info to Tracker\n");
+	*/
 	return -1;
 }
 // 8C250: using guessed type x_DWORD memset(x_DWORD, x_DWORD, x_DWORD);
@@ -92830,7 +92824,7 @@ char sub_8B880(int* a1, char a2, signed int a3, int a4)//26c880
 				sub_9CCF8(*a1, 1);
 				sub_9CD9C(*a1, 1);
 				v8 = sub_9CCB4(*a1, 0);
-				result = sub_8B980(v8, v9, (x_DWORD**)a1, a4);
+				result = sub_8B980(v8, v9, (char*)a1, a4);
 			}
 		}
 		else
@@ -92848,79 +92842,45 @@ char sub_8B880(int* a1, char a2, signed int a3, int a4)//26c880
 // 9B513: using guessed type x_DWORD calloc(x_DWORD, x_DWORD);
 
 //----- (0008B980) --------------------------------------------------------
-char sub_8B980(int a1, int a2, x_DWORD** a3, int a4)//26c980
+char sub_8B980(int a1, int a2, char* a3, int a4)//26c980
 {
-	int v4; // edi
+	//int v4; // edi
 	bool v5; // eax
 	int v6; // edx
-	int v7; // esi
-	int v9; // eax
+	//int v7; // esi
+	//int v9; // eax
 	int v10; // edx
-	int v11; // eax
+	//int v11; // eax
 
 	//fix it
 	v5 = 0;
 	v6 = 0;
 	v10 = 0;
 	//fix it
-
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-	v4 = j_j___clock(a1, a2, (x_DWORD)a3);
-#endif
+	/*
+	v4 = j_j___clock(a1, a2, a3);
 	sub_9CBBC(*a3);
 	do
 	{
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-		v7 = j_j___clock(v5, v6, (x_DWORD)a3);
-#endif
+		v7 = j_j___clock(v5, v6, a3);
 		sub_9AEEC(a3, (char*)&off_D1F10);
 		do
 		{
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-			if (!sub_9C9D0((int)*a3) && sub_9C938(*a3) == 79)
+			if (!sub_9C9D0(*a3) && sub_9C938(*a3) == 79)
 				return 0;
-#endif
 			v9 = sub_9ADB4(1);
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-			v11 = sub_9AE04(/*v9,*/ v10, (int)a3, v7, v9);
-#endif
+			v11 = sub_9AE04(v7, v9);
 		} while (!v11);
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-		v5 = sub_9AE04(/*v11,*/ a4, (int)a3, v4, a4);
-#endif
+		v5 = sub_9AE04(v4, a4);
 	} while (!v5);
+	*/
 	return 3;
 }
 // 9ADFC: using guessed type int /*__fastcall*/ j_j___clock(x_DWORD, x_DWORD, x_DWORD);
 // D1F10: using guessed type void *off_D1F10;
 
 //----- (0008BA10) --------------------------------------------------------
-char sub_8BA10(int a1, int a2, int* a3, char* a4, int a5)//26ca10
+void sub_8BA10(int a2, int* a3, char* a4, int a5)//26ca10
 {
 	int v5; // esi
 	bool v6; // eax
@@ -92937,6 +92897,7 @@ char sub_8BA10(int a1, int a2, int* a3, char* a4, int a5)//26ca10
 	int v18; // [esp+8h] [ebp-4h]
 
 	//fix it
+	int a1 = 0;
 	v6 = 0;
 	v7 = 0;
 	v8 = 0;
@@ -92944,37 +92905,16 @@ char sub_8BA10(int a1, int a2, int* a3, char* a4, int a5)//26ca10
 	v16 = 0;
 	//fix it
 
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-	v5 = j_j___clock(a1, a2, (x_DWORD)a4);
-#endif
+	v5 = j_j___clock(a1, a2, a4);
 	sub_9CBBC((x_DWORD*)*a3);
 	while (2)
 	{
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-		v18 = j_j___clock(v6, v7, (x_DWORD)a4);
-#endif
+		v18 = j_j___clock(v6, v7, a4);
 		sub_9AEEC((x_DWORD**)a3, (char*)&off_D1F78);
 		do
 		{
 			sub_9AEEC((x_DWORD**)a3, (char*)&off_D1F78);
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-			sub_9AE90(v8, v9, (int)a4, a3, (int8_t*)a4, 60, a5);
-#endif
+			sub_9AE90(v8, v9, a4, a3, (int8_t*)a4, 60, a5);
 			v10 = *a4;
 			a4[59] = 0;
 			if (v10 == 77)
@@ -92987,34 +92927,20 @@ char sub_8BA10(int a1, int a2, int* a3, char* a4, int a5)//26ca10
 						LODWORD(v13) = strtod(&a4[i + 1], 0);
 						if (v13 < dbl_D1F7C)
 							x_DWORD_E36C8 = 0;
-						return 0;
+						return;
 					}
-				}
-				return 0;
+					}
+				return;
 			}
 			v15 = sub_9ADB4(1);
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-			v17 = sub_9AE04(/*v18,*/ v16, (int)a4, v18, v15);
-#endif
-		} while (!v17);
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-		v6 = sub_9AE04(/*v17,*/ a5, (int)a4, v5, a5);
-#endif
-		if (!v6)
-			continue;
-		break;
-	}
-	return 3;
+			v17 = sub_9AE04(v18, v15);
+				} while (!v17);
+				v6 = sub_9AE04(v5, a5);
+				if (!v6)
+					continue;
+				break;
+		}
+	//return 3;
 }
 // 9ADFC: using guessed type int /*__fastcall*/ j_j___clock(x_DWORD, x_DWORD, x_DWORD);
 // 9CF81: using guessed type x_DWORD strtod(x_DWORD, x_DWORD);
@@ -95532,14 +95458,14 @@ int sub_9ADB4(int a1)//27Bdb4
 }
 
 //----- (0009AE04) --------------------------------------------------------
-bool sub_9AE04(/*int eax0,*/ int  /*edx0*/, int  /*a3*/, int a1, int a2)//27Be04
+bool sub_9AE04(int a1, int a2)//27Be04
 {
 	return j___clock() - a1 >= a2;
 }
 // 98786: using guessed type int /*__fastcall*/ j___clock(x_DWORD, x_DWORD, x_DWORD);
 
 //----- (0009AE90) --------------------------------------------------------
-char sub_9AE90(int eax0, int edx0, int ebx0, int* a1, int8_t* a2, int a3, int a4)//27Be90
+char sub_9AE90(int eax0, int edx0, char* ebx0, int* a1, int8_t* a2, int a3, int a4)//27Be90
 {
 	int8_t* v7; // esi
 	int v8; // ebp
@@ -95561,7 +95487,7 @@ char sub_9AE90(int eax0, int edx0, int ebx0, int* a1, int8_t* a2, int a3, int a4
 			if (v9 == a3)
 				return 0;
 		}
-	} while (!sub_9AE04(/*v10,*/ a4, v9, v8, a4));
+	} while (!sub_9AE04(v8, a4));
 	return 3;
 }
 // 9ADFC: using guessed type int /*__fastcall*/ j_j___clock(x_DWORD, x_DWORD, x_DWORD);
@@ -95588,7 +95514,7 @@ void sub_9AEEC(x_DWORD** a1, char* a2)//27Beec
 // E3DE8: using guessed type int x_DWORD_E3DE8;
 
 //----- (0009AFC4) --------------------------------------------------------
-char sub_9AFC4(int a1, int a2, int a3, int* a4, int a5)//27Bfc4
+char sub_9AFC4(int a1, int a2, char* a3, int* a4, int a5)//27Bfc4
 {
 	int v5; // edi
 	int v6; // eax
@@ -95598,22 +95524,22 @@ char sub_9AFC4(int a1, int a2, int a3, int* a4, int a5)//27Bfc4
 	v7 = 0;
 	//fix it
 
-	v5 = j_j___clock(a1, a2, (x_DWORD)a3);
+	v5 = j_j___clock(a1, a2, a3);
 	do
 	{
 		v6 = sub_9C9D0(*a4);
 		if (!v6)
 		{
 			v6 = sub_9C938((x_DWORD*)*a4);
-			a3 = v6;
+			//a3 = v6;
 			if (x_DWORD_E3DE8)
 				/*v6 = */myprintf("Response: %c\n");
-			if (a3 == 79)
+			if (v6 == 79)
 				return 0;
-			if (a3 == 69)
+			if (v6 == 69)
 				return 8;
 		}
-	} while (!sub_9AE04(/*v6,*/ v7, a3, v5, a5));
+	} while (!sub_9AE04(v5, a5));
 	return 3;
 }
 // 9ADFC: using guessed type int /*__fastcall*/ j_j___clock(x_DWORD, x_DWORD, x_DWORD);
@@ -95631,15 +95557,8 @@ char sub_9B038(int* a1, char* a2, int a3)//27C038
 	//fix it
 
 	sub_9AEEC((x_DWORD**)a1, a2);
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-  return '\0';
-#else
-	return sub_9AFC4(v3, v4, (int)a1, a1, a3);
-#endif
+	//return sub_9AFC4(v3, v4, a1, a1, a3);
+	return 0;
 }
 
 //----- (0009B234) --------------------------------------------------------
@@ -95666,16 +95585,17 @@ signed int sub_9B260(x_DWORD** a1)//27C260
 }
 
 //----- (0009B274) --------------------------------------------------------
+//----- (0009B274) --------------------------------------------------------
 char sub_9B274(int* a1, int a2)//27C274
 {
-	char result; // al
-	int v3; // ebp
-	int v4; // esi
-	char v5; // dl
-	int v6; // edi
-	signed int v7; // eax
-	char v8; // dh
-	char v9; // [esp+0h] [ebp-44h]
+	char result = 0; // al
+	//int v3; // ebp
+	//int v4; // esi
+	//char v5; // dl
+	//int v6; // edi
+	//signed int v7; // eax
+	//char v8; // dh
+	//char v9; // [esp+0h] [ebp-44h]
 	unsigned __int8 v10; // [esp+1h] [ebp-43h]
 	unsigned __int8 v11; // [esp+2h] [ebp-42h]
 	unsigned __int8 v12; // [esp+3h] [ebp-41h]
@@ -95687,11 +95607,11 @@ char sub_9B274(int* a1, int a2)//27C274
 	unsigned __int8 v18; // [esp+9h] [ebp-3Bh]
 	unsigned __int8 v19; // [esp+Ah] [ebp-3Ah]
 	char v20; // [esp+Bh] [ebp-39h]
-	int v21; // [esp+20h] [ebp-24h]
-	int v22; // [esp+24h] [ebp-20h]
-	int v23; // [esp+28h] [ebp-1Ch]
-	int v24; // [esp+2Ch] [ebp-18h]
-	int v25; // [esp+30h] [ebp-14h]
+	//int v21; // [esp+20h] [ebp-24h]
+	//int v22; // [esp+24h] [ebp-20h]
+	//int v23; // [esp+28h] [ebp-1Ch]
+	//int v24; // [esp+2Ch] [ebp-18h]
+	//int v25; // [esp+30h] [ebp-14h]
 
 	//fix it
 	v10 = 0;
@@ -95707,13 +95627,8 @@ char sub_9B274(int* a1, int a2)//27C274
 	v20 = 0;
 	//fix it
 
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-	if (sub_9AE90((int)&v9, a2, (int)a1, a1, (int8_t*)&v9, 12, a2))
+	/*
+	if (sub_9AE90(&v9, a2, a1, a1, (int8_t*)&v9, 12, a2))
 	{
 		sub_9CBBC((x_DWORD*)*a1);
 		result = 3;
@@ -95759,7 +95674,7 @@ char sub_9B274(int* a1, int a2)//27C274
 			result = 4;
 		}
 	}
-#endif
+	*/
 	return result;
 }
 

@@ -2822,11 +2822,12 @@ void sub_844A0_sound_proc5(uint16_t count)//2654a0
 			//v2 = *(x_DWORD*)(v1 + 18);
 			//v2 = str_E37A0_sound_buffer2[v1y].dword_18;
 			//v1 += 32;
-#ifdef COMPILE_FOR_64BIT
+#ifdef x32_BIT_ENVIRONMENT
 			soundIndex_E37A0->str_8.wavs_10[index].wavData_0 = reinterpret_cast<uint64_t>(soundIndex_E37A0->str_8.wavs_10[index].wavData_0) + x_DWORD_E37A8_sound_buffer1;
-#else
+#endif //x32_BIT_ENVIRONMENT
+#ifdef x64_BIT_ENVIRONMENT
 			soundIndex_E37A0->str_8.wavs_10[index].wavData_0 = reinterpret_cast<uint32_t>(soundIndex_E37A0->str_8.wavs_10[index].wavData_0) + x_DWORD_E37A8_sound_buffer1;
-#endif
+#endif //x64_BIT_ENVIRONMENT
 			index++;
 			v0++;
 		}
@@ -3667,11 +3668,8 @@ void initAWE32_9F740(char* a1)//280740
 #ifdef TEST_x64
 	allert_error();
 #endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
 					if (sub_9F2E0((int*)hMdiMusicDriver, *(int*)v5, *(unsigned __int16*)&v5[4], 2u).AX == -1//fix
-						&& !dos_read(file, x_DWORD_181E2C, (unsigned __int16)x_WORD_181E30, 512, (char*)&v8))
+						&& !dos_read(file, x_DWORD_181E2C, (unsigned __int16)x_WORD_181E30, 512, &v8))
 					{
 						v2 = sub_9F3D0((int*)hMdiMusicDriver, x_DWORD_181E2C, x_WORD_181E30, 1u);
 						*(x_WORD*)&v6[4] = WORD2(v2);
@@ -3681,7 +3679,7 @@ void initAWE32_9F740(char* a1)//280740
 							DataFileIO::Seek(file, __readgsx_DWORD(*(x_DWORD*)v6 + 2), 0);
 							for (i = 0; (signed __int16)__readgsx_WORD(*(unsigned int*)v6) > i; i++)
 							{
-								if (dos_read(file, x_DWORD_181E2C, (unsigned __int16)x_WORD_181E30, 512, (char*)&v8)
+								if (dos_read(file, x_DWORD_181E2C, (unsigned __int16)x_WORD_181E30, 512, &v8)
 									|| sub_9F4F0((int*)hMdiMusicDriver, x_DWORD_181E2C, x_WORD_181E30, 1u).AX != -1)//fix
 								{
 									return;
@@ -3698,7 +3696,7 @@ void initAWE32_9F740(char* a1)//280740
 									x_DWORD_181E26,
 									(unsigned __int16)x_WORD_181E2A,
 									__readgsx_DWORD(*(x_DWORD*)v6 + 10),
-									(char*)&v8)
+									&v8)
 									&& sub_9F5E0((int*)hMdiMusicDriver, x_DWORD_181E26, x_WORD_181E2A, 1u).AX == -1)//fix
 								{
 									x_BYTE_E3815 = 1;
@@ -3707,7 +3705,6 @@ void initAWE32_9F740(char* a1)//280740
 							}
 						}
 					}
-#endif
 				}
 			}
 		}
@@ -3908,15 +3905,16 @@ void sub_A1249_AIL_API_set_real_vect(uint32_t vectnum, uint16_t real_ptr)//28224
 	//return result;
 }
 
+/*
 //----- (000A12C5) --------------------------------------------------------
 // write access to const memory has been detected, the output may be wrong!
-signed int sub_A12C5_sound_proc_irq(int a1, int  /*a2*/, __int16 a3)//2822c5
+signed int sub_A12C5_sound_proc_irq(int a1, int  , __int16 a3)//2822c5
 {
 	signed int result; // eax
 
 	if (x_DWORD_E3FF8 == -1)
 	{
-		/*__asm
+		__asm
 		{
 		  int     31h; DPMI Services   ax=func xxxxh
 		  int     31h; DPMI Services   ax=func xxxxh
@@ -3938,7 +3936,7 @@ signed int sub_A12C5_sound_proc_irq(int a1, int  /*a2*/, __int16 a3)//2822c5
 		  int     31h; DPMI Services   ax=func xxxxh
 		  lar     ecx, edx
 		  int     31h; DPMI Services   ax=func xxxxh
-		}*/
+		}
 #ifdef TEST_x64
 	allert_error();
 #endif
@@ -3982,6 +3980,8 @@ signed int sub_A12C5_sound_proc_irq(int a1, int  /*a2*/, __int16 a3)//2822c5
 // E3FF8: using guessed type int x_DWORD_E3FF8;
 // E3FFC: using guessed type int x_DWORD_E3FFC;
 // E4000: using guessed type int x_DWORD_E4000;
+*/
+
 
 //----- (000A14DB) --------------------------------------------------------
 void sub_A14DB_AIL_API_restore_USE16_ISR(int a1)//2824db
@@ -4938,11 +4938,7 @@ HDIGDRIVER sub_A2EA0(AIL_DRIVER* a1, IO_PARMS IO)//283ea0
 #ifdef TEST_x64
 	allert_error();
 #endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-								v13 = (int)v26->DMA_seg_8;
-#endif
+								v13 = v26->DMA_seg_8;
 								sub_9D560((uint8_t*)v26->DMA_buf_10);
 								sub_9D490_free4(v26->samples_23, sizeof(_SAMPLE) * v26->n_samples_24);
 								sub_9D490_free4(v26->build_buffer_20, v26->build_size_19);
@@ -4971,14 +4967,7 @@ HDIGDRIVER sub_A2EA0(AIL_DRIVER* a1, IO_PARMS IO)//283ea0
 							sub_91F70_AIL_call_driver(v26->drvr_0, 774, 0, 0);
 							v26->n_samples_24 = 0;
 							v9 = v26->DMA_sel_9;
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-							v10 = (int)v26->DMA_seg_8;
-#endif
+							v10 = v26->DMA_seg_8;
 							sub_9D560((uint8_t*)v26->DMA_buf_10);
 							sub_9D490_free4(v26->samples_23, v26->build_size_19);
 							sub_9D490_free4(v26, 140);
@@ -4993,14 +4982,7 @@ HDIGDRIVER sub_A2EA0(AIL_DRIVER* a1, IO_PARMS IO)//283ea0
 						sub_91F70_AIL_call_driver(v26->drvr_0, 774, 0, 0);
 						v26->n_samples_24 = 0;
 						v7 = v26->DMA_sel_9;
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-						v8 = (int)v26->DMA_seg_8;
-#endif
+						v8 = v26->DMA_seg_8;
 						sub_9D560((uint8_t*)v26->DMA_buf_10);
 						sub_9D490_free4(v26, 140);
 						result = 0;
@@ -5009,14 +4991,7 @@ HDIGDRIVER sub_A2EA0(AIL_DRIVER* a1, IO_PARMS IO)//283ea0
 				else
 				{
 					v4 = v26->DMA_sel_9;
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-					v5 = (int)v26->DMA_seg_8;
-#endif
+					v5 = v26->DMA_seg_8;
 					sub_9D560((uint8_t*)v26->DMA_buf_10);
 					sub_9D490_free4(v26, 140);
 					result = 0;
@@ -5785,14 +5760,7 @@ void sub_A43E0(HSAMPLE S)//2853e0
 		v1 = *(x_DWORD**)(S + 2168);
 		if (*(x_BYTE*)v1 <= 9u)
 			break;
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-		*(x_DWORD*)(S + 2168) = (x_DWORD)(char*)v1 + sub_A4370(v1) + 4;
-#endif
+		//fixit whne can use AWE32: *(x_DWORD*)(S + 2168) = (x_DWORD)(char*)v1 + sub_A4370(v1) + 4;
 	}
 	//JUMPOUT(__CS__, (int*) *(&off_A4400 + *(unsigned __int8 *)v1));
 }
@@ -5878,14 +5846,12 @@ HSAMPLE sub_A4970(int a1, uint8_t* a2, int a3)//285970
 	}
 	else
 	{
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-		v6->sam_var[542] = *(unsigned __int16*)(a2 + 20) + (int)a2;
-#endif
+#ifdef x32_BIT_ENVIRONMENT
+		v6->sam_var[542] = *(unsigned __int16*)(a2 + 20) + reinterpret_cast<int32_t>(a2);
+#endif //x32_BIT_ENVIRONMENT
+#ifdef x64_BIT_ENVIRONMENT
+		v6->sam_var[542] = *(unsigned __int16*)(a2 + 20) + reinterpret_cast<int64_t>(a2);
+#endif //x64_BIT_ENVIRONMENT
 		v6->sam_var[545] = a3;
 		v6->sam_var[546] = a3 == -1;
 		v6->sam_var[547] = 1;
@@ -6048,15 +6014,15 @@ void sub_A4F10(HMDIDRIVER a1, char a2, char a3, char a4)//285f10
 }
 
 //----- (000A4FD0) --------------------------------------------------------
-void sub_A4FD0(int a1, int  /*a2*/, unsigned int a3)//285fd0
+void sub_A4FD0(HMDIDRIVER a1, int  /*a2*/, unsigned int a3)//285fd0
 {
-	sub_A4EB0((HMDIDRIVER)a1);
+	sub_A4EB0(a1);
 	if (a3 <= 0x200)
 		;//fix it:memmove(*(x_DWORD *)(a1 + 8) + 256, a2, a3);
 	else
 		//fix it:memmove(*(x_DWORD *)(a1 + 8) + 256, a2, 512);
 		++* (x_DWORD*)(a1 + 424);
-	sub_A4EB0((HMDIDRIVER)a1);
+	sub_A4EB0(a1);
 }
 // AD81F: using guessed type x_DWORD memmove(x_DWORD, x_DWORD, x_DWORD);
 
@@ -6442,14 +6408,14 @@ void sub_A5850(HSEQUENCE hSequence, char a2, unsigned int a3, signed int a4, int
 			{
 				//result = &v7[v9];
 				v7->lock[v9] = 2;
-		}
+			}
 			else
 			{
 				//result = &v7[v9];
 				v7->lock[v9] = 0;
 			}
+		}
 	}
-}
 	else if (a3 < 0x75)
 	{
 		if (a3 < 0x73)
@@ -6762,14 +6728,7 @@ void sub_A6530(HMDIDRIVER a1)//287530
 								x_DWORD_181EB0 = *(_DWORD*)(x_DWORD_181EB8 + 20) + 1;
 								x_DWORD_181ED8 = sub_A5040(&x_DWORD_181EB0);
 								x_DWORD_181ED8 += x_DWORD_181EB0 - *(_DWORD*)(x_DWORD_181EB8 + 20);
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-								sub_A4FD0((int)a1, *(_DWORD*)(x_DWORD_181EB8 + 20), x_DWORD_181ED8);
-#endif
+								sub_A4FD0(a1, *(_DWORD*)(x_DWORD_181EB8 + 20), x_DWORD_181ED8);
 								*(_DWORD*)(x_DWORD_181EB8 + 20) += x_DWORD_181ED8;
 							}
 							if ((unsigned int)x_DWORD_181ED0 <= 0xF7)
@@ -7742,7 +7701,7 @@ void sub_A8180_AIL_API_resume_sequence_orig(HSEQUENCE a1)//289180
 			sub_A5FD0(a1, j);
 		a1->status_1 = 4;
 	}
-	}
+}
 
 void sub_A8250_AIL_API_end_sequence(HSEQUENCE hSequence)//289250
 {
@@ -8297,24 +8256,17 @@ int sub_A8BF0(MDI_DRIVER* a1)
 }
 
 //----- (000A8EA0) --------------------------------------------------------
-int sub_A8EA0(x_DWORD* a1, int a2)
+void sub_A8EA0(x_DWORD* a1, int a2)
 {
-	int result; // eax
+	//int result; // eax
 	int v3; // [esp+0h] [ebp-10h]
 	int v4; // [esp+4h] [ebp-Ch]
 	signed int i; // [esp+8h] [ebp-8h]
 	int v6; // [esp+Ch] [ebp-4h]
 
 	v4 = a2 - 1;
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-	result = (int)&a1[a2 - 1];
-#endif
-	if (*(x_DWORD*)(result + 32) == 1)
+	//result = &a1[a2 - 1];
+	if (*(x_DWORD*)(&a1[a2 - 1] + 32) == 1)
 	{
 		++a1[5];
 		a1[v4 + 8] = a1[v4 + 72];
@@ -8343,17 +8295,9 @@ int sub_A8EA0(x_DWORD* a1, int a2)
 			if (*(x_DWORD*)(a1[v4 + 40] + 4) != 1)
 				sub_A5FD0((HSEQUENCE)&a1[v4 + 40], v4);
 		}
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-		result = (int)a1;
-#endif
-		--* (x_DWORD*)(result + 20);
+		//result = a1;
+		--* (x_DWORD*)(a1 + 20);
 	}
-	return result;
 }
 
 //----- (000A9080) --------------------------------------------------------
@@ -8375,9 +8319,9 @@ int sub_A9080(HSEQUENCE a1x, int a2, int a3)
 				//fix it hwen can //*(x_DWORD*)(*a1 + 4 * a3 + 92) = a1;
 			}
 		}
-			}
+	}
 	return result;
-		}
+}
 
 //----- (000A9100) --------------------------------------------------------
 int sub_A9100(int a1, int a2)
@@ -8433,7 +8377,7 @@ int sub_A9230(int a1, int a2)
 	++* (x_DWORD*)(a1 + 20);
 	v4 = a2 + 1;
 	v2 = sub_A5040(&v4);
-	sub_A4FD0(a1, a2, v4 - a2 + v2);
+	sub_A4FD0((HMDIDRIVER)a1, a2, v4 - a2 + v2);
 	result = a1;
 	--* (x_DWORD*)(result + 20);
 	return result;
@@ -8664,16 +8608,9 @@ x_DWORD* sub_AA310(int a1, int a2, int a3, signed int a4)//28b310
 		v10[1] = a1;
 		*v10 = a2;
 		v10[2] = a3;
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-		v10[3] = sub_97A60_AIL_register_event_callback(a2, (int)sub_A9C50);
-		v10[4] = sub_97BB0_AIL_register_timbre_callback(a2, (int)sub_A9C00);
-		*(x_DWORD*)(a2 + 436) = (x_DWORD)v10;
-#endif
+		// fix when wont it // v10[3] = sub_97A60_AIL_register_event_callback(a2, (int(*)(void))sub_A9C50);
+		// fix when wont it  // v10[4] = sub_97BB0_AIL_register_timbre_callback(a2, (int(*)())sub_A9C00);
+		// fix when wont it  // *(x_DWORD*)(a2 + 436) = (x_DWORD)v10;
 		for (i = 0; i < 16; i++)
 		{
 			v10[i + 5] = 0;
@@ -8690,14 +8627,7 @@ x_DWORD* sub_AA310(int a1, int a2, int a3, signed int a4)//28b310
 			v5 = a4 <= 16 ? a4 : 16;
 			if (v10[325] >= v5)
 				break;
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-			v10[v10[325] + 309] = (x_DWORD)sub_93510_AIL_allocate_sample_handle((HDIGDRIVER)v10[1]);
-#endif
+			//fix it when wont it //v10[v10[325] + 309] = sub_93510_AIL_allocate_sample_handle((HDIGDRIVER)v10[1]);
 			if (!v10[v10[325] + 309])
 				break;
 		}
@@ -9102,14 +9032,7 @@ int sub_B0B87(HDIGDRIVER a1, int a2)
 	if (a1->hw_mode_flags_7 & 0x20)
 	{
 		x_DWORD_E4E1C |= 8u;
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-		v5 = (uint8_t*)(a2 * (a1->half_buffer_size_4 >> 1) + (int)a1->DMA_11_12[0]);//fix
-#endif
+		v5 = (uint8_t*)(a1->DMA_11_12[a2 * (a1->half_buffer_size_4 >> 1)]);//fix
 	}
 	else
 	{
@@ -9248,11 +9171,12 @@ void GetMusicSequenceCount()//26fc90 // set index
 		for (m_iNumberOfTracks = 0; v1x < index_E380C_CountOfMusic; m_iNumberOfTracks++)
 		{
 			//str_E3808_music_header->str_8.track_10[v1x].dword_0+= (int)str_E3810_music_data;
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-			str_E3808_music_header->str_8.track_10[v1x].dword_0 = reinterpret_cast<uint64_t>(str_E3808_music_header->str_8.track_10[v1x].dword_0) + array_E3810_music_data;
-#else
+#ifdef x32_BIT_ENVIRONMENT
 			str_E3808_music_header->str_8.track_10[v1x].dword_0 = (int)str_E3808_music_header->str_8.track_10[v1x].dword_0 + array_E3810_music_data;
-#endif
+#endif //x32_BIT_ENVIRONMENT
+#ifdef x64_BIT_ENVIRONMENT
+			str_E3808_music_header->str_8.track_10[v1x].dword_0 = reinterpret_cast<uint64_t>(str_E3808_music_header->str_8.track_10[v1x].dword_0) + array_E3810_music_data;
+#endif //x64_BIT_ENVIRONMENT
 			//*(x_DWORD*)(v1 + 18) += (int)x_DWORD_E3810_music_data;
 			//v1 += 32;
 			v1x++;
@@ -9461,19 +9385,16 @@ void sub_8F100_sound_proc19(uint32_t a1, __int16 index, int volume, int a4, unsi
 		return;
 	}
 	v8 = 0;
-	if (a7 < 2u)
+	if (a7 == 1)
 	{
-		if (a7 == 1)
+		v14 = 0;
+		for (i = 0; i < x_DWORD_180B4C_end_sound_buffer3_endindex; i++)
 		{
-			v14 = 0;
-			for (i = 0; i < x_DWORD_180B4C_end_sound_buffer3_endindex; i++)
+			if (sub_94010_AIL_sample_status(unk_180750_sound_buffer3[i]) == 2)
 			{
-				if (sub_94010_AIL_sample_status(unk_180750_sound_buffer3[i]) == 2)
-				{
-					v14 = &unk_180750_sound_buffer3[i];
-					v15 = 0;
-					break;
-				}
+				v14 = &unk_180750_sound_buffer3[i];
+				v15 = 0;
+				break;
 			}
 		}
 	}
