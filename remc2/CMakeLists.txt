@@ -192,6 +192,9 @@ if (UNIX)
     )
     target_link_directories(${PROJECT_NAME} PUBLIC
     )
+    target_compile_definitions(${PROJECT_NAME} PUBLIC
+        "$<$<CONFIG:DEBUG>:_DEBUG>"
+    )
 endif ()
 
 
