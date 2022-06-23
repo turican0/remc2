@@ -216,13 +216,13 @@ void convert_struct_to_array_axis_3d(axis_3d* input, uint8_t* output) {
 }
 void convert_struct_to_array_axis_4d(axis_4d* input, uint8_t* output) {
 	//int16_t aa;
-	memcpy(output + 0x0, &input->rotation2, 2);
+	memcpy(output + 0x0, &input->yaw, 2);
 	//int16_t bb;
-	memcpy(output + 0x2, &input->xshift, 2);
+	memcpy(output + 0x2, &input->pitch, 2);
 	//int16_t cc;
-	memcpy(output + 0x4, &input->yshift, 2);
+	memcpy(output + 0x4, &input->roll, 2);
 	//int16_t dd;
-	memcpy(output + 0x6, &input->rotation, 2);
+	memcpy(output + 0x6, &input->fov, 2);
 }
 
 void convert_struct_to_array_0x1d1_2BDE_11695(type_struct_0x1d1_2BDE_11695* input, uint8_t* output) {
@@ -461,9 +461,9 @@ void convert_struct_to_array_0x6E3E(type_str_0x6E3E* input, uint8_t* output) {//
 	//int8_t str_0x6E3E_byte2;//0x6E40-28224
 	memcpy(output + 2, &input->str_0x6E3E_byte2, 1);
 	//int8_t str_0x6E3E_byte3;//0x6E41-28225
-	memcpy(output + 3, &input->str_0x6E3E_byte3, 1);
+	memcpy(output + 3, &input->roll, 1);
 	//int8_t str_0x6E3E_byte4;//0x6E42-28226
-	memcpy(output + 4, &input->str_0x6E3E_byte4, 1);
+	memcpy(output + 4, &input->pitch, 1);
 	//int8_t str_0x6E3E_byte5;//0x6E43-28227
 	memcpy(output + 5, &input->str_0x6E3E_byte5, 1);
 	//uint16_t str_0x6E3E_word6;//0x6E44-28228

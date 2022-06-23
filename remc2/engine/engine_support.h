@@ -16,7 +16,6 @@
 #else
 #endif
 
-
 #include "../portability/port_time.h"
 #include "../portability/port_sdl_vga_mouse.h"
 
@@ -184,10 +183,10 @@ typedef struct {
 }axis_3du;
 */
 typedef struct {
-	int16_t rotation2;
-	int16_t xshift;
-	int16_t yshift;
-	int16_t rotation;
+	int16_t yaw;
+	int16_t pitch;
+	int16_t roll;
+	int16_t fov;
 }axis_4d;
 
 typedef struct {
@@ -205,8 +204,8 @@ typedef struct {//lenght 10
 	int8_t str_0x6E3E_byte0;//0x6E3E-28222//D41A0_BYTESTR_0.array_0x6E3E[xx].str_0x6E3E_byte0
 	int8_t str_0x6E3E_byte1;//0x6E3F-28223
 	int8_t str_0x6E3E_byte2;//0x6E40-28224
-	int8_t str_0x6E3E_byte3;//0x6E41-28225
-	int8_t str_0x6E3E_byte4;//0x6E42-28226
+	int8_t roll;//0x6E41-28225
+	int8_t pitch;//0x6E42-28226
 	int8_t str_0x6E3E_byte5;//0x6E43-28227
 	uint16_t str_0x6E3E_word6;//0x6E44-28228
 	uint16_t str_0x6E3E_word8;//0x6E46-28230
@@ -298,7 +297,7 @@ typedef struct {//lenght 18
 	int16_t word_2BDE_12658[8];
 }type_str_0x1AC_428;
 
-typedef struct _type_str_164 {//size 1136
+typedef struct Type_str_164 {//size 1136
 	int32_t dword_0x0_0;
 	int16_t word_0x4_4;
 	int16_t word_0x6_6;
@@ -706,9 +705,9 @@ typedef struct {//lenght 2124=0x84C
 typedef struct {//size 5152
 	//type_particle_str_0 un_0;//lenght?
 	uint16_t word_0;
-	uint16_t width_2;//width?
-	uint16_t height_4;//height?
-	int8_t data_6[];
+	uint16_t width;
+	uint16_t height;
+	int8_t textureBuffer[];
 }
 type_particle_str;
 
@@ -716,7 +715,7 @@ typedef struct {//size 14
 	type_particle_str* partstr_0;//type_particle_str?
 	int32_t dword_4;
 	int16_t word_8;
-	int16_t word_10;
+	int16_t Index;
 	int16_t word_12;
 }
 subtype_x_DWORD_E9C28_str;
@@ -749,7 +748,7 @@ typedef struct {//lenght 14
 	int8_t stubb[2];
 } type_index_242ar;
 
-typedef struct _type_x_D41A0_BYTEARRAY_4_struct {
+typedef struct Type_x_D41A0_BYTEARRAY_4_struct {
 	//uint8_t harddisk_number;
 
 	//uint8_t setting_byte5_19;
@@ -1495,7 +1494,6 @@ typedef struct {//lenght 39
 	uint8_t byte_2;
 	int8_t byte_3;
 	axis_3d axis3d_4;
-	//type_event_0x6E8E* event_A;
 	un1 event_A;
 	uint8_t array_E[25];
 }

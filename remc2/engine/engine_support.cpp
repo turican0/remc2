@@ -503,10 +503,10 @@ void support_begin() {
 	printbuffer = (char*)malloc(4096);
 	//printbuffer[0] = '\0';
 	printbuffer2 = (char*)malloc(4096);
-	
+
 	//pre_pdwScreenBuffer = (uint8_t*)malloc(2228224);// 640x480
 	//pdwScreenBuffer = &pre_pdwScreenBuffer[1114112];// 640x480
-	
+
 	pre_pdwScreenBuffer = (uint8_t*)malloc(16588800); // (1920x1080 * 4) * 2
 	pdwScreenBuffer = &pre_pdwScreenBuffer[8294400]; // 1920x1080 * 4
 
