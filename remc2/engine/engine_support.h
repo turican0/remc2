@@ -1395,7 +1395,7 @@ type_uni_0x8586;*/
 typedef struct {
 	uint8_t m_wMiniMap;//8590 icons//str_0x218E.str.icons_0x218E
 	uint8_t m_wTopBar;//8591 ??//str_0x218E.str.xxxx_0x218F
-	uint8_t scr_size_0x2190;//8592 screen size?//str_0x218E.str.scr_size_0x2190
+	uint8_t m_uiScreenSize;//8592 screen size?//str_0x218E.str.scr_size_0x2190
 	uint8_t xxxx_0x2191;//8593//str_0x218E.str.xxxx_0x2191
 }
 DisplayStruct_t;

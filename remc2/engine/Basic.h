@@ -3,7 +3,7 @@
 #ifndef MAIN_BASIC
 #define MAIN_BASIC
 
-#if !defined(__linux__) || defined(COMPILE_FOR_64BIT)
+#if (!defined(WIN32) && !defined(__linux__)) || defined(COMPILE_FOR_64BIT)
   #define TEST_x64//only for x64 testing
 #endif
 
@@ -145,6 +145,7 @@ typedef struct//lenght 613 // end 17E09D
 } type_x_DWORD_17DE38str;
 #pragma pack (16)
 
+
 extern char gameDataPath[];
 extern char cdDataPath[];
 extern char bigGraphicsPath[];
@@ -153,6 +154,13 @@ extern char bigGraphicsPath[];
 //extern uint8_t x_DWORD_17ECA0[];
 
 extern long oldmillis;
+
+extern clock_t frameStart;
+extern clock_t frameStop;
+extern clock_t timeDelta;
+extern int frameCount;
+extern int fps;
+
 
 extern int x_DWORD_E3E2C;
 
@@ -205,7 +213,7 @@ typedef struct {
 #pragma pack (1)
 typedef struct {
 	char path[512];
-	uint8_t** var28_begin_buffer;//1C // palette
+	uint8_t** var28_begin_buffer;//1C // pallette
 	uint8_t** var32_end_buffer;//20 // maybe buffer
 	uint32_t var36_size_buffer;//24 //maybe file size
 	uint32_t var40_alloc_type;//28
@@ -519,8 +527,8 @@ int32_t /*__cdecl*/ x_tolower(int32_t);// weak
 //graphics basics - move it later to basic graphics
 void sub_2EC30_clear_img_mem();
 void sub_2EB60();
-void sub_2EBB0_draw_text_with_border_630x340(char* a1);
-int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* a2, int32_t a3, int32_t a4, int a5, uint8_t a6, unsigned __int8 a7, uint32_t a8);//560cb0
+void sub_2EBB0_draw_text_with_border_630x340(char* textString);
+int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* textString, int32_t a3, int32_t a4, int a5, uint8_t a6, unsigned __int8 a7, uint32_t a8);//560cb0
 void sub_7C120_draw_bitmap_640(int16_t posx, int16_t posy, posistruct_t tempstr);
 void sub_76260_read_intro_pallette(uint8_t a1);
 uint8_t getPalletteIndex_5BE80(TColor* a1x, uint8_t a2, uint8_t a3, uint8_t a4);
@@ -536,16 +544,20 @@ void DrawHelpText_6FC50(__int16 a1);//250c50
 uint8_t sub_6FC10_letter_width();
 unsigned int sub_6FC80_pre_draw_text(char* a1, __int16 a2, __int16 a3, __int16 a4, unsigned __int8 a5);
 void sub_75D70(uint8_t* a1, uint32_t a2);
-void sub_2BC80(int16_t a1, int16_t a2, int16_t a3, int16_t a4, uint8_t a5);
-void sub_2BC10_draw_text(const char* textbuffer, int16_t posx, int16_t posy, uint8_t color);//20cc10
+void DrawLine_2BC80(int16_t posStartX, int16_t posStartY, int16_t posEndX, int16_t posEndY, uint8_t colorIdx);
+void DrawLine_2BC80(int16_t posStartX, int16_t posStartY, int16_t posEndX, int16_t posEndY, uint16_t pitch, uint8_t colorIdx);
+void DrawText_2BC10(const char* textbuffer, int16_t posx, int16_t posy, uint8_t color);//20cc10
+void DrawText_2BC10(const char* textbuffer, int16_t posx, int16_t posy, uint8_t color, uint16_t pitch);//20cc10
+void VGA_CalculateAndPrintFPS(int x, int y);
 void sub_6EF10_set_mouse_minmax(__int16 a1, signed __int16 a2, __int16 a3, signed __int16 a4);
 void sub_7FB90_draw_text(char* a1, int16_t a2, int16_t a3, uint8_t a4);
 void sub_8CACD_draw_cursor2();
 void sub_8F8B0_draw_bitmap320(int16_t posx, int16_t posy, posistruct_t temppstr);
 void sub_8F8E8_draw_bitmap640(int16_t posx, int16_t posy, posistruct_t temppstr);
-void sub_90164(int16_t a1, int16_t a2, int16_t a3, int16_t a4, uint8_t a5);
-void sub_901E4(int16_t a1, int16_t a2, int16_t a3, int16_t a4, unsigned __int16 a5);
+void DrawLineLowRes(int16_t posStartX, int16_t posStartY, int16_t posEndX, int16_t posEndY, uint8_t colorIdx);
+void DrawLineHighRes(int16_t posStartX, int16_t posStartY, int16_t posEndX, int16_t posEndY, uint16_t pitch, uint8_t colorIdx);
 void sub_6F940_sub_draw_text(const char* textbuffer, int posx, int posy, uint8_t color);//250940
+void sub_6F940_sub_draw_text(const char* textbuffer, int posx, int posy, uint8_t color, uint16_t pitch);//250940
 void sub_72C40_draw_bitmap_640_setcolor(__int16 a1, __int16 a2, posistruct_t a3, unsigned __int8 a4);
 void sub_8C635_draw_cursor();
 void sub_8F935_bitmap_draw_final(uint8_t a1byte1, uint8_t a1byte2, uint16_t a2, int a3, uint8_t* a4, uint8_t setbyte, char a6);
@@ -557,6 +569,7 @@ void sub_98709_create_index_dattab_power(posistruct2_t* a1, posistruct2_t* a2, u
 void sub_98709_create_index_dattab_power_add(uint8_t* a1, uint8_t* a2, uint8_t* a3, posistruct_t* a4, int add);
 void sub_9874D_create_index_dattab(posistruct2_t* a1, posistruct2_t* a2, uint8_t* a3, posistruct_t* a4);
 void sub_9874D_create_index_dattab_add(uint8_t* a1, uint8_t* a2, uint8_t* a3, posistruct_t* a4, int add);
+signed int sub_61790(signed int a1);
 
 void Convert_from_shadow_str_2FECE(type_shadow_str_2FECE* from, type_str_2FECE* to);
 void Convert_from_shadow_D41A0_BYTESTR_0(type_shadow_D41A0_BYTESTR_0* from, type_D41A0_BYTESTR_0* to);

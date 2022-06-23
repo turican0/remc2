@@ -20,3 +20,8 @@ long mygetthousandths() {
 long mygetsecond() {
 	return clock();
 };
+
+double clockToMilliseconds(clock_t ticks) {
+	// units/(units/time) => time (seconds) * 1000 = milliseconds
+	return (ticks / (double)CLOCKS_PER_SEC) * 1000.0;
+}

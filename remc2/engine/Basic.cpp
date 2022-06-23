@@ -1295,7 +1295,7 @@ void sub_76260_read_intro_pallette(uint8_t  /*a1*/)
 
 	v0x = unk_17D838x;
 	v1 = 0;
-	/*result = */sub_75D70((uint8_t*)&v4, 2u);
+	sub_75D70((uint8_t*)&v4, 2u);
 	if (v4 > 0u)
 	{
 		do
@@ -1304,10 +1304,10 @@ void sub_76260_read_intro_pallette(uint8_t  /*a1*/)
 			//v0 += 3 * v6;
 			v0x += v6;
 			v5 = 0;
-			/*result = */sub_75D70((uint8_t*)&v5, 1u);
+			sub_75D70((uint8_t*)&v5, 1u);
 			if (!v5)
 				v5 = 256;
-			for (v3 = 0; v3 < v5; v3++)//mybe read palette
+			for (v3 = 0; v3 < v5; v3++)//mybe read pallette
 			{
 				sub_75D70((uint8_t*)v0x, 3u);
 				//v0 += 3;
@@ -1320,13 +1320,13 @@ void sub_76260_read_intro_pallette(uint8_t  /*a1*/)
 }
 
 //----- (0005BE80) --------------------------------------------------------
-uint8_t getPalletteIndex_5BE80(TColor* palettex, uint8_t red_color, uint8_t green_color, uint8_t blue_color)//23ce80
+uint8_t getPalletteIndex_5BE80(TColor* pallettex, uint8_t red_color, uint8_t green_color, uint8_t blue_color)//23ce80
 {
 	uint16_t count_of_colors; // edx
 	int16_t oldPalAmbient; // ecx
 	int16_t newPalAmbient; // esi
 	uint8_t result=0; // [esp+4h] [ebp-4h]
-	uint16_t palette_index = 0;
+	uint16_t pallette_index = 0;
 	if (x_WORD_180660_VGA_type_resolution & 6)
 		count_of_colors = 16;
 	else
@@ -1334,15 +1334,15 @@ uint8_t getPalletteIndex_5BE80(TColor* palettex, uint8_t red_color, uint8_t gree
 	oldPalAmbient = 9999;
 	for (uint16_t i = 0; i < count_of_colors; i++)
 	{
-		newPalAmbient = (red_color - palettex[palette_index].red) * (red_color - palettex[palette_index].red) +
-			(green_color - palettex[palette_index].green)* (green_color - palettex[palette_index].green)+
-			(blue_color - palettex[palette_index].blue)* (blue_color - palettex[palette_index].blue);
+		newPalAmbient = (red_color - pallettex[pallette_index].red) * (red_color - pallettex[pallette_index].red) +
+			(green_color - pallettex[pallette_index].green)* (green_color - pallettex[pallette_index].green)+
+			(blue_color - pallettex[pallette_index].blue)* (blue_color - pallettex[pallette_index].blue);
 		if (newPalAmbient < oldPalAmbient)
 		{
 			oldPalAmbient = newPalAmbient;
 			result = i;
 		}
-		palette_index++;
+		pallette_index++;
 	}
 	return result;
 }
@@ -1384,7 +1384,7 @@ void sub_7C140_draw_text_background(int16_t x1, int16_t y1, int16_t x2, int16_t 
 			{
 				//x2d = y1d;
 				if (y1d + y2d >= 1)
-					sub_2BC80(x1d, y1d, x2d, y2d, a5);
+					DrawLine_2BC80(x1d, y1d, x2d, y2d, a5);
 			}
 		}
 	}
@@ -1433,7 +1433,7 @@ unsigned int sub_6FC80_pre_draw_text(char* a1, __int16 a2, __int16 a3, __int16 a
 	else
 	{
 		v6 = a2 + v9 / 2 - (v5 - 1) * sub_6FC10_letter_width() / 2;
-		sub_2BC10_draw_text(a1, v6, a4, a5);
+		DrawText_2BC10(a1, v6, a4, a5);
 	}
 	v7 = sub_6FC10_letter_width();
 	return v6 + v7 * strlen(a1);
@@ -1529,14 +1529,8 @@ void sub_90478_VGA_Blit320()//271478
 	mydelay(newdelay);//set speed
 	oldmillis = actmillis;
 	//set speed
-
-	/*
-	qmemcpy(&loc_A0000_vga_buffer, (void *)pdwScreenBuffer, 0xFA00u);
-	if ( !x_BYTE_E3766 )
-	  sub_8CB1F();*/
+	VGA_CalculateAndPrintFPS(0, 0);
 }
-// E3766: using guessed type char x_BYTE_E3766;
-// 180628: using guessed type int pdwScreenBuffer;
 
 //----- (0006FC30) --------------------------------------------------------
 uint8_t sub_6FC30_get34_height()//250c30
@@ -1574,7 +1568,7 @@ void sub_2BB40_draw_bitmap(int16_t posx, int16_t posy, posistruct_t tempposstr)/
 	//v6 = v3;
 	//v3(a1, a2, a3);
 	//result = (int)x_D41A0_BYTEARRAY_0;
-	if (D41A0_0.m_GameSettings.m_Display.scr_size_0x2190 == 1)
+	if (D41A0_0.m_GameSettings.m_Display.m_uiScreenSize == 1)
 	{
 		temp_screen_buffer = pdwScreenBuffer;
 		pdwScreenBuffer = x_DWORD_E9C3C;
@@ -1608,34 +1602,31 @@ void sub_75D70(uint8_t* a1y, uint32_t a2)//256d70
 // 17DB50: using guessed type int x_DWORD_17DB50;
 
 //----- (0002BC80) --------------------------------------------------------
-void sub_2BC80(int16_t x1, int16_t y1, int16_t x2, int16_t y2, uint8_t a5)//20cc80
+void DrawLine_2BC80(int16_t posStartX, int16_t posStartY, int16_t posEndX, int16_t posEndY, uint8_t colorIdx)//20cc80
 {
-	//void *v5; // ebx
-	//uint8_t* result; // eax
+	DrawLine_2BC80(posStartX, posStartY, posEndX, posEndY, 640, colorIdx);
+}
+
+void DrawLine_2BC80(int16_t posStartX, int16_t posStartY, int16_t posEndX, int16_t posEndY, uint16_t pitch, uint8_t colorIdx)//20cc80
+{
 	uint8_t* temp_screen_buffer; // ST14_4
 
-	//debug
-	  //loadfromsnapshot((char*)"0160-00253633", (uint8_t*)&a1, 0x354ef8, 2);//4c
-
-	//debug
-
 	if (x_WORD_180660_VGA_type_resolution & 1)
-		sub_90164(x1, y1, x2, y2, a5);
+		DrawLineLowRes(posStartX, posStartY, posEndX, posEndY, colorIdx);
 	else
-		sub_901E4(x1, y1, x2, y2, a5);
-	//result = x_D41A0_BYTEARRAY_0;
-	if (D41A0_0.m_GameSettings.m_Display.scr_size_0x2190 == 1)
+		DrawLineHighRes(posStartX, posStartY, posEndX, posEndY, pitch, colorIdx);
+
+	if (D41A0_0.m_GameSettings.m_Display.m_uiScreenSize == 1)
 	{
 		temp_screen_buffer = pdwScreenBuffer;
 		pdwScreenBuffer = x_DWORD_E9C3C;
 		if (x_WORD_180660_VGA_type_resolution & 1)
-			sub_90164(x1, y1, x2, y2, a5);
+			DrawLineLowRes(posStartX, posStartY, posEndX, posEndY, colorIdx);
 		else
-			sub_901E4(x1, y1, x2, y2, a5);
-		//result = (uint8_t)pdwScreenBuffer;
+			DrawLineHighRes(posStartX, posStartY, posEndX, posEndY, pitch, colorIdx);
+
 		pdwScreenBuffer = (uint8_t*)temp_screen_buffer;
 	}
-	//return result;
 }
 // D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
 // E9C3C: using guessed type int x_DWORD_E9C3C;
@@ -1643,23 +1634,54 @@ void sub_2BC80(int16_t x1, int16_t y1, int16_t x2, int16_t y2, uint8_t a5)//20cc
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
 //----- (0002BC10) --------------------------------------------------------
-void sub_2BC10_draw_text(const char* textbuffer, int16_t posx, int16_t posy, uint8_t color)//20cc10
+void DrawText_2BC10(const char* textbuffer, int16_t posx, int16_t posy, uint8_t color)//20cc10
+{
+	DrawText_2BC10(textbuffer, posx, posy, color, 640);
+}
+
+void DrawText_2BC10(const char* textbuffer, int16_t posx, int16_t posy, uint8_t color, uint16_t pitch)//20cc10
 {
 	//int result; // eax
 	uint8_t* temp_screen_buffer; // ST10_4
 
-	sub_6F940_sub_draw_text(textbuffer, posx, posy, color);
+	if (x_WORD_180660_VGA_type_resolution & 1)
+	{
+		pitch = 640;
+	}
+
+	sub_6F940_sub_draw_text(textbuffer, posx, posy, color, pitch);
 	//result = (int)x_D41A0_BYTEARRAY_0;
-	if (D41A0_0.m_GameSettings.m_Display.scr_size_0x2190 == 1)//shifted graphics
+	if (D41A0_0.m_GameSettings.m_Display.m_uiScreenSize == 1)//shifted graphics
 	{
 		temp_screen_buffer = pdwScreenBuffer;
 		pdwScreenBuffer = (uint8_t*)x_DWORD_E9C3C;
-		sub_6F940_sub_draw_text(textbuffer, posx, posy, color);
+		sub_6F940_sub_draw_text(textbuffer, posx, posy, color, pitch);
 		//result = v5;
 		pdwScreenBuffer = temp_screen_buffer;
 	}
 	//return result;
 }
+
+void VGA_CalculateAndPrintFPS(int x, int y)
+{
+	timeDelta += clock() - frameStart;
+	frameCount++;
+
+	if (clockToMilliseconds(timeDelta) > 1000.0)
+	{
+		fps = frameCount;
+		frameCount = 0;
+		timeDelta = 0;
+	}
+
+	VGA_GotoXY(x, y);
+	std::string fpsStr = "FPS: ";
+	fpsStr.append(std::to_string(fps));
+	const char* cstr = fpsStr.c_str();
+
+	VGA_Draw_string((char*)fpsStr.c_str());
+}
+
 // D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
 // E9C3C: using guessed type int x_DWORD_E9C3C;
 // 180628: using guessed type int pdwScreenBuffer;
@@ -1892,7 +1914,7 @@ void sub_8F8E8_draw_bitmap640(int16_t posx, int16_t posy, posistruct_t temppstr)
 // 180628: using guessed type int pdwScreenBuffer;
 
 //----- (00090164) --------------------------------------------------------
-void sub_90164(int16_t x1, int16_t y1, int16_t x2, int16_t y2, uint8_t a5)//271164
+void DrawLineLowRes(int16_t posStartX, int16_t posStartY, int16_t posEndX, int16_t posEndY, uint8_t colorIdx)
 {
 	uint8_t* pixel; // edi
 	uint16_t v6; // dx
@@ -1902,13 +1924,13 @@ void sub_90164(int16_t x1, int16_t y1, int16_t x2, int16_t y2, uint8_t a5)//2711
 	uint16_t v10; // [esp+0h] [ebp-4h]
 	uint16_t v11; // [esp+14h] [ebp+10h]
 
-	pixel = &pdwScreenBuffer[320 * (y1 >> 1) + (x1 >> 1)];
-	v6 = y2 >> 1;
-	v11 = x2 >> 1;
+	pixel = &pdwScreenBuffer[320 * (posStartY >> 1) + (posStartX >> 1)];
+	v6 = posEndY >> 1;
+	v11 = posEndX >> 1;
 	v10 = (320 - v11);
 	if (x_WORD_E36D4 & 4)
 	{
-		v7 = a5;
+		v7 = colorIdx;
 		v8 = x_DWORD_E3890;
 		do
 		{
@@ -1927,7 +1949,7 @@ void sub_90164(int16_t x1, int16_t y1, int16_t x2, int16_t y2, uint8_t a5)//2711
 	{
 		do
 		{
-			memset(pixel, a5, v11);
+			memset(pixel, colorIdx, v11);
 			pixel += v10 + v11;
 			--v6;
 		} while (v6);
@@ -1938,7 +1960,7 @@ void sub_90164(int16_t x1, int16_t y1, int16_t x2, int16_t y2, uint8_t a5)//2711
 // 180628: using guessed type int pdwScreenBuffer;
 
 //----- (000901E4) --------------------------------------------------------
-void sub_901E4(int16_t a1, int16_t a2, int16_t a3, int16_t a4, unsigned __int16 a5)//2711e4
+void DrawLineHighRes(int16_t posStartX, int16_t posStartY, int16_t posEndX, int16_t posEndY, uint16_t pitch, uint8_t colorIdx)//2711e4
 {
 	x_BYTE* v5; // edi
 	__int16 v6; // dx
@@ -1947,16 +1969,16 @@ void sub_901E4(int16_t a1, int16_t a2, int16_t a3, int16_t a4, unsigned __int16 
 	int v9; // ecx
 	int v10; // [esp+0h] [ebp-4h]
 
-	v5 = (x_BYTE*)(640 * a2 + pdwScreenBuffer + a1);
-	v6 = a4;
-	v10 = (unsigned __int16)(640 - a3);
+	v5 = (x_BYTE*)(pitch * posStartY + pdwScreenBuffer + posStartX);
+	v6 = posEndY;
+	v10 = (unsigned __int16)(pitch - posEndX);
 	if (x_WORD_E36D4 & 4)
 	{
-		v7 = a5;
+		v7 = colorIdx;
 		v8 = x_DWORD_E3890;
 		do
 		{
-			v9 = a3;
+			v9 = posEndX;
 			do
 			{
 				BYTE1(v7) = *v5;
@@ -1971,8 +1993,8 @@ void sub_901E4(int16_t a1, int16_t a2, int16_t a3, int16_t a4, unsigned __int16 
 	{
 		do
 		{
-			memset(v5, a5, a3);
-			v5 += v10 + a3;
+			memset(v5, colorIdx, posEndX);
+			v5 += v10 + posEndX;
 			v6--;
 		} while (v6);
 	}
@@ -1982,7 +2004,7 @@ void sub_901E4(int16_t a1, int16_t a2, int16_t a3, int16_t a4, unsigned __int16 
 // 180628: using guessed type int pdwScreenBuffer;
 
 //----- (0006F940) --------------------------------------------------------
-void sub_6F940_sub_draw_text(const char* textbuffer, int posx, int posy, uint8_t color)//250940
+void sub_6F940_sub_draw_text(const char* textbuffer, int posx, int posy, uint8_t color, uint16_t pitch)//250940
 {
 	uint8_t* v4; // esi
 	int v5; // ebx
@@ -1995,7 +2017,7 @@ void sub_6F940_sub_draw_text(const char* textbuffer, int posx, int posy, uint8_t
 	v4 = (uint8_t*)const_cast<char*>(textbuffer); // FIXME: temporary const cast hack
 	v5 = posx;
 	x_WORD_E36D4 = 64;
-	while (*v4 && v5 < 640)
+	while (*v4 && v5 < pitch)
 	{
 		v6 = (unsigned __int8)*v4;
 		if (v6 < 0xAu)
@@ -3537,6 +3559,46 @@ void sub_99AEB_create_index_dattab_minus(uint8_t* tabbuffer, uint8_t* tabbuffere
 		//testadr = 0x9999;
 		//memcpy(tabbuffer, &testadr, 4);
 	}
+}
+
+signed int sub_61790(signed int a1)//242790
+{
+	signed int result; // eax
+
+	result = a1;
+	if (x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 0x10)
+	{
+		switch (D41A0_0.array_0x2BDE[a1].dword_0x3E6_2BE4_12228.byte_0x1C0_448)
+		{
+		case 0:
+			result = 0;
+			break;
+		case 1:
+			result = 2;
+			break;
+		case 2:
+			result = 1;
+			break;
+		case 3:
+			result = 4;
+			break;
+		case 4:
+			result = 5;
+			break;
+		case 5:
+			result = 6;
+			break;
+		case 6:
+			result = 3;
+			break;
+		case 7:
+			result = 7;
+			break;
+		default:
+			return result;
+		}
+	}
+	return result;
 }
 
 void Convert_from_shadow_str_2FECE(type_shadow_str_2FECE* from, type_str_2FECE* to) {

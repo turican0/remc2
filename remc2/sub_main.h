@@ -447,7 +447,7 @@ void sub_6EBF0(filearray_struct* a1);
 char sub_533B0_decompress_levels(__int16 a1, type_str_2FECE* a2);
 
 bool sub_7B200_in_region(type_WORD_E1F84* a1x, int16_t testx, int16_t testy);
-void sub_2BC10_draw_text(const char* text, __int16 a2, __int16 a3, unsigned __int8 a4);
+void DrawText_2BC10(const char* text, __int16 a2, __int16 a3, unsigned __int8 a4);
 void sub_6F940_sub_draw_text(const char* a1, int a2, int a3, uint8_t color);
 //int /*__noreturn*/ sub_10000(); // weak
 type_event_0x6E8E* sub_15CB0(/*type_str_0x6E8E* a1,*/ type_event_0x6E8E* a2); // weak
