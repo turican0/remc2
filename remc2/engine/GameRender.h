@@ -80,8 +80,8 @@ private:
 	char x_BYTE_E126C = 112;
 	int x_DWORD_D4790 = 20;
 	int x_DWORD_D4324 = 0;
-	char x_BYTE_F2CC7 = 0;
-	char x_BYTE_D4320 = 0;
+	char shadows_F2CC7 = 0;
+	char notDay_D4320 = 0;
 	char x_BYTE_F2CC6 = 0;
 	int16_t x_WORD_F2CC0 = 0;
 	int16_t x_WORD_F2CC2 = 0;

@@ -699,8 +699,8 @@ void GameRender::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __int
 	int a1;
 	int a2;
 
-	x_BYTE_F2CC7 = D41A0_0.m_GameSettings.m_Graphics.m_wShadows;//21d080
-	x_BYTE_D4320 = D41A0_0.terrain_2FECE.MapType != MapType_t::Day;
+	shadows_F2CC7 = D41A0_0.m_GameSettings.m_Graphics.m_wShadows;//21d080
+	notDay_D4320 = D41A0_0.terrain_2FECE.MapType != MapType_t::Day;
 	m_str_F2C20ar.dword0x10 = (signed int)(unsigned __int16)viewPort.Height >> 1;
 	x_WORD_F2CC4 = posX;
 	x_WORD_F2CC0 = yaw & 0x7FF;
@@ -3438,7 +3438,7 @@ void GameRender::DrawParticles_3E360(int a2x, type_particle_str** str_DWORD_F66F
 			v4 = v3x->axis_0x4C_76.y;
 			v96 = (signed __int16)(v3x->axis_0x4C_76.x - x_WORD_F2CC4);
 			v97 = (signed __int16)(x_WORD_F2CC2 - v4);
-			if (x_BYTE_F2CC7)
+			if (shadows_F2CC7)
 			{
 				if (!m_Str_E9C38_smalltit[a2x].byte43 && !(v3x->struct_byte_0xc_12_15.word[1] & 0x808))
 				{
@@ -3729,7 +3729,7 @@ void GameRender::DrawParticles_3E360(int a2x, type_particle_str** str_DWORD_F66F
 								if (m_str_F2C20ar.dword0x09_realWidth > 0 && v46 > 0)
 								{
 									v47 = m_str_F2C20ar.dword0x00 >> 2;
-									if (x_BYTE_D4320)
+									if (notDay_D4320)
 										m_str_F2C20ar.dword0x00 = 0x2000 - v47;
 									else
 										m_str_F2C20ar.dword0x00 = v47 + 0x2000;
