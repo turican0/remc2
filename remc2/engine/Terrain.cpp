@@ -3,11 +3,11 @@
 
 uint16_t x_WORD_17B4E0; // 34c4e0
 
-uint8_t x_BYTE_10B4E0_terraintype[0x10000]; // idb// x_BYTE_10B1E0[0x300]//2DC4E0 //map array1
-uint8_t x_BYTE_11B4E0_heightmap[0x10000]; // idb		//2EC4E0    	//map array2 // heightmap
-uint8_t x_BYTE_12B4E0_shading[0x10000]; // fix it -  weak	//2FC4E0    //map array3
-uint8_t x_BYTE_13B4E0_angle[0x10000]; // idb//30C4E0	//map array4 // water
-int16_t mapEntityIndex_15B4E0[0x10000]; // idb//32C4E0	//map array5
+uint8_t x_BYTE_10B4E0_terraintype[65536]; // 256x256 //map array1
+uint8_t x_BYTE_11B4E0_heightmap[65536]; // 256x256 //map array2 // heightmap
+uint8_t x_BYTE_12B4E0_shading[65536]; // 256x256 //map array3
+uint8_t x_BYTE_13B4E0_angle[65536]; // 256x256 //map array4 // water
+int16_t mapEntityIndex_15B4E0[65536]; // 256x256 //map array5
 
 char x_BYTE_D41B6 = 1; // weak
 
@@ -111,7 +111,7 @@ int getcompindex(uint32_t adress) {
 
 
 type_compstr lastcompstr;
-void add_compare(uint32_t adress, bool debugafterload, int stopstep, bool skip, int exitindex,int skip2) {
+void add_compare(uint32_t adress, bool debugafterload, int stopstep, bool skip, int exitindex, int skip2) {
 	uint8_t origbyte20 = 0;
 	uint8_t remakebyte20 = 0;
 	int comp20;
@@ -136,7 +136,7 @@ void add_compare(uint32_t adress, bool debugafterload, int stopstep, bool skip, 
 					exit(exitindex);
 				if (!skip)
 				{
-					comp20 = compare_with_sequence(buffer1, (uint8_t*)x_BYTE_10B4E0_terraintype, 0x2dc4e0, index-skip2, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0, (exitindex != 1000000));
+					comp20 = compare_with_sequence(buffer1, (uint8_t*)x_BYTE_10B4E0_terraintype, 0x2dc4e0, index - skip2, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0, (exitindex != 1000000));
 					comp20 = compare_with_sequence(buffer1, (uint8_t*)x_BYTE_11B4E0_heightmap, 0x2dc4e0, index - skip2, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x10000, (exitindex != 1000000));
 					comp20 = compare_with_sequence(buffer1, (uint8_t*)x_BYTE_12B4E0_shading, 0x2dc4e0, index - skip2, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x20000, (exitindex != 1000000));
 					comp20 = compare_with_sequence(buffer1, (uint8_t*)x_BYTE_13B4E0_angle, 0x2dc4e0, index - skip2, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x30000, (exitindex != 1000000));
@@ -381,6 +381,70 @@ void sub_44DB0_truncTerrainHeight()//225db0 // map to heightmap
 		v2++;
 	} while (v2);
 	//return result;
+}
+
+int sub_B5C60_getTerrainAlt2(uint16_t a1, uint16_t a2)//296c60
+{
+	uint16_t v2; // ebx
+	int v3; // edx
+	int v4; // eax
+	int v5; // esi
+	int v6; // esi
+	int result; // eax
+	int v8; // esi
+	int v9; // eax
+	int v10; // esi
+	int v11; // esi
+	int v12; // edi
+
+	v2 = HIBYTE(a1);
+	HIBYTE(v2) = HIBYTE(a2);
+	v3 = LOBYTE(a2);
+	if ((HIBYTE(a1) + HIBYTE(a2)) & 1)
+	{
+		//if (__CFADD__((x_BYTE)v3, (x_BYTE)a1))
+		if (uint8(v3) > uint8(v3 + a1))
+		{
+			HIBYTE(v2) = HIBYTE(a2) + 1;
+			v4 = x_BYTE_11B4E0_heightmap[v2];
+			LOBYTE(v2)++;
+			v8 = x_BYTE_11B4E0_heightmap[v2];
+			LOBYTE(v3) = ~(x_BYTE)a2;
+			HIBYTE(v2) = HIBYTE(a2);
+			v6 = v3 * (x_BYTE_11B4E0_heightmap[v2] - v8) + (unsigned __int8)a1 * (v8 - v4);
+		}
+		else
+		{
+			v4 = x_BYTE_11B4E0_heightmap[v2];
+			LOBYTE(v2)++;
+			v5 = (unsigned __int8)a1 * (x_BYTE_11B4E0_heightmap[v2] - v4);
+			LOBYTE(v2)--;
+			HIBYTE(v2) = HIBYTE(a2) + 1;
+			v6 = (unsigned __int8)a2 * (x_BYTE_11B4E0_heightmap[v2] - v4) + v5;
+		}
+		result = (v6 >> 3) + 32 * v4;
+	}
+	else
+	{
+		if ((unsigned __int8)a1 <= (unsigned __int8)v3)
+		{
+			v9 = x_BYTE_11B4E0_heightmap[v2];
+			HIBYTE(v2) = HIBYTE(a2) + 1;
+			v12 = x_BYTE_11B4E0_heightmap[v2];
+			LOBYTE(v2)++;
+			v11 = (unsigned __int8)a2 * (v12 - v9) + (unsigned __int8)a1 * (x_BYTE_11B4E0_heightmap[v2] - v12);
+		}
+		else
+		{
+			v9 = x_BYTE_11B4E0_heightmap[v2];
+			LOBYTE(v2)++;
+			v10 = x_BYTE_11B4E0_heightmap[v2];
+			HIBYTE(v2) = HIBYTE(a2) + 1;
+			v11 = (unsigned __int8)a2 * (x_BYTE_11B4E0_heightmap[v2] - v10) + (unsigned __int8)a1 * (v10 - v9);
+		}
+		result = (v11 >> 3) + 32 * v9;
+	}
+	return result;
 }
 
 //----- (00044E40) --------------------------------------------------------
