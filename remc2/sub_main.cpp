@@ -6131,7 +6131,7 @@ type_event_0x6E8E* x_DWORD_EA3E4[1001];//2bb3e4
 
 axis_3d x_WORD_EB398ar; // weak
 uint8_t x_BYTE_EB39E_keys[10]; // weak 0 - setting keys
-uint8_t uiBackGroundColorIdx;
+uint8_t uiBackGroundColorIdx_EB3A8;
 void(*x_DWORD_F01E8)(int16_t, int16_t, posistruct_t); // eax
 void(*x_DWORD_F01EC)(int16_t, int16_t, posistruct_t); // eax
 char x_BYTE_F01FEx[34]; // fix it -  weak
@@ -27538,17 +27538,17 @@ void DrawGameFrame_2BE30(uint8_t* ptrScreenBuffer, uint16_t screenWidth, uint16_
 			if (D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize < 40)
 			{
 				if (x_WORD_180660_VGA_type_resolution & 1)
-					ClearGraphicsBuffer_72883((void*)ptrScreenBuffer, 320, 200, uiBackGroundColorIdx);
+					ClearGraphicsBuffer_72883((void*)ptrScreenBuffer, 320, 200, uiBackGroundColorIdx_EB3A8);
 				else
-					ClearGraphicsBuffer_72883((void*)ptrScreenBuffer, screenWidth, screenHeight, uiBackGroundColorIdx);
+					ClearGraphicsBuffer_72883((void*)ptrScreenBuffer, screenWidth, screenHeight, uiBackGroundColorIdx_EB3A8);
 			}
 		}
 		if (D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize < 40)
 		{
 			if (x_WORD_180660_VGA_type_resolution & 1)
-				ClearGraphicsBuffer_72883((void*)ptrScreenBuffer, 320, 200, uiBackGroundColorIdx);
+				ClearGraphicsBuffer_72883((void*)ptrScreenBuffer, 320, 200, uiBackGroundColorIdx_EB3A8);
 			else
-				ClearGraphicsBuffer_72883((void*)ptrScreenBuffer, screenWidth, screenHeight, uiBackGroundColorIdx);
+				ClearGraphicsBuffer_72883((void*)ptrScreenBuffer, screenWidth, screenHeight, uiBackGroundColorIdx_EB3A8);
 		}
 
 		m_ptrGameRender->SetRenderViewPortSize_BCD45(D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize, screenWidth, screenHeight);
@@ -27722,9 +27722,9 @@ void DrawGameFrame_2BE30(uint8_t* ptrScreenBuffer, uint16_t screenWidth, uint16_
 	case 0xE:
 		v14x = x_DWORD_EA3E4[D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].word_0x00a_2BE4_11240];
 		if (x_WORD_180660_VGA_type_resolution & 1)
-			ClearGraphicsBuffer_72883((void*)ptrScreenBuffer, 320, 200, uiBackGroundColorIdx);
+			ClearGraphicsBuffer_72883((void*)ptrScreenBuffer, 320, 200, uiBackGroundColorIdx_EB3A8);
 		else
-			ClearGraphicsBuffer_72883((void*)ptrScreenBuffer, screenWidth, screenHeight, uiBackGroundColorIdx);
+			ClearGraphicsBuffer_72883((void*)ptrScreenBuffer, screenWidth, screenHeight, uiBackGroundColorIdx_EB3A8);
 
 		DrawMinimap_63600(
 			0,
@@ -40051,7 +40051,7 @@ void sub_46B40()//227b40
 
 		sub_41A90_VGA_pallette_install((TColor*)*xadatapald0dat2.var28_begin_buffer);
 		v3 = getPalletteIndex_5BE80((TColor*)*xadatapald0dat2.var28_begin_buffer, 0, 0, 0);
-		uiBackGroundColorIdx = v3;
+		uiBackGroundColorIdx_EB3A8 = v3;
 		if (x_WORD_180660_VGA_type_resolution & 1)
 			ClearGraphicsBuffer_72883((void*)pdwScreenBuffer, 320, 200, v3);
 		else
@@ -40770,7 +40770,7 @@ void PaletteChanges_47760(/*int a1,*/uint32_t  /*user*//* int a2, int a3*/)//228
 		qmemcpy((void*)x_DWORD_EA3B8x, (void*)*DefaultPal, 0x300u);
 		sub_47650(0x300/*, v6*/);
 		sub_90D27();
-		uiBackGroundColorIdx = (*DefaultPal)[0].red;//*DefaultPal[0].red
+		uiBackGroundColorIdx_EB3A8 = (*DefaultPal)[0].red;//*DefaultPal[0].red
 		/*LOBYTE(v3) = */sub_57640();
 		break;
 	}
@@ -81561,11 +81561,11 @@ int sub_7AC00_load_and_set_graphics_and_pallette()//25BC00
 			else
 				sub_90E07_VGA_set_video_mode_640x480_and_pallette((TColor*)*xadatapald0dat2.var28_begin_buffer);
 			sub_41A90_VGA_pallette_install((TColor*)*xadatapald0dat2.var28_begin_buffer);
-			uiBackGroundColorIdx = getPalletteIndex_5BE80((TColor*)*xadatapald0dat2.var28_begin_buffer, 0, 0, 0);
+			uiBackGroundColorIdx_EB3A8 = getPalletteIndex_5BE80((TColor*)*xadatapald0dat2.var28_begin_buffer, 0, 0, 0);
 			if (x_WORD_180660_VGA_type_resolution & 1)
-				ClearGraphicsBuffer_72883((void*)pdwScreenBuffer, 320, 200, uiBackGroundColorIdx);
+				ClearGraphicsBuffer_72883((void*)pdwScreenBuffer, 320, 200, uiBackGroundColorIdx_EB3A8);
 			else
-				ClearGraphicsBuffer_72883((void*)pdwScreenBuffer, 640, 480, uiBackGroundColorIdx);
+				ClearGraphicsBuffer_72883((void*)pdwScreenBuffer, 640, 480, uiBackGroundColorIdx_EB3A8);
 
 			sub_8CEDF_install_mouse();
 			sub_8CD27_set_cursor((*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct)[0]);
@@ -81639,7 +81639,7 @@ int sub_7ADE0(char a1)//25bde0
 			sub_90E07_VGA_set_video_mode_640x480_and_pallette((TColor*)*xadatapald0dat2.var28_begin_buffer);
 		sub_41A90_VGA_pallette_install((TColor*)*xadatapald0dat2.var28_begin_buffer);
 		v3 = getPalletteIndex_5BE80((TColor*)*xadatapald0dat2.var28_begin_buffer, 0, 0, 0);
-		uiBackGroundColorIdx = v3;
+		uiBackGroundColorIdx_EB3A8 = v3;
 		if (x_WORD_180660_VGA_type_resolution & 1)
 			ClearGraphicsBuffer_72883((void*)pdwScreenBuffer, 320, 200, v3);
 		else
