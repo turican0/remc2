@@ -2339,7 +2339,6 @@ void PrintTextMessage_70910(char* a1);
 void sub_70940();
 char sub_70D20(unsigned __int16 a1);
 char sub_70E10(unsigned __int16 a1);
-void InitTmaps(unsigned __int16 a1);
 unsigned int sub_71090(unsigned int a1);
 void sub_712F0();
 void sub_713A0();

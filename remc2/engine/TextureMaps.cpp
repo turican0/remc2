@@ -451,14 +451,14 @@ void InitTmaps(unsigned __int16 a1)//251f50
 			//v4 = index3;
 			if (index3x)
 			{
-				int index4 = sub_70C60_decompress_tmap(i, *(uint8_t**)index3x);
+				int index4 = sub_70C60_decompress_tmap(i, (uint8_t*)index3x->partstr_0);
 				if (index4 != -1)
 				{
 					if (bigSprites)
 					{
-						uint8_t* oldtmap = *(uint8_t**)index3x;
-						int oldwidth = *(uint16_t*)(oldtmap + 2);
-						int oldheight = *(uint16_t*)(oldtmap + 4);
+						type_particle_str* oldtmapx = index3x->partstr_0;
+						int oldwidth = oldtmapx->width;
+						int oldheight = oldtmapx->height;
 						if ((oldwidth > 0) && (oldwidth < 512) && (oldheight > 0) && (oldheight < 512))
 						{
 							int actnumber = 0;
@@ -493,7 +493,7 @@ void InitTmaps(unsigned __int16 a1)//251f50
 							BIG_SPRITES_BUFFERx[i].actdatax = (type_particle_str*)malloc(oldwidth * 4 * oldheight * 4 + 6 + 2);
 							memcpy(BIG_SPRITES_BUFFERx[i].actdatax->textureBuffer, BIG_SPRITES_BUFFERx[i].frames[0], oldwidth * 4 * oldheight * 4);
 
-							BIG_SPRITES_BUFFERx[i].actdatax->word_0 = *(uint16_t*)oldtmap;
+							BIG_SPRITES_BUFFERx[i].actdatax->word_0 = oldtmapx->word_0;
 							BIG_SPRITES_BUFFERx[i].actdatax->width = oldwidth * 4;
 							BIG_SPRITES_BUFFERx[i].actdatax->height = oldheight * 4;
 							*(uint16_t*)&BIG_SPRITES_BUFFERx[i].actdatax->textureBuffer[oldwidth * 4 * oldheight * 4] = mm;
