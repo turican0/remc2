@@ -39,6 +39,7 @@
 **/BufferOut
 /build*
 .flatpak*
+.cache
 
 !enhancedassets/*
 
