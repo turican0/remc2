@@ -106178,7 +106178,7 @@ void sub_8CB1F()//26db1f
 }
 // E3758: using guessed type int x_DWORD_E3758;
 
-void mouse_events(uint32_t buttons, int x, int y)
+void MouseEvents(uint32_t buttons, int x, int y)
 {
 	sub_8CB3A(buttons, x, 0, y);//26db3a
 };
