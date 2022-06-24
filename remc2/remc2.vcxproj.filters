@@ -790,6 +790,7 @@
     <None Include="..\config.ini">
       <Filter>Source Files</Filter>
     </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\zlib\lib\zlib.lib">
