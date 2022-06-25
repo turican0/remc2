@@ -1,32 +1,35 @@
-#ifndef ENGINE_TYPES
-#define ENGINE_TYPES
+#pragma once
+#ifndef ENGINE_TYPES_H
+#define ENGINE_TYPES_H
+
+#include <string>
+#include <cstdint>
+
+#if defined(WIN32) || defined(_WIN64)
+# pragma warning(disable:4996)
+#endif
 
 #ifdef USE_DOSBOX
-#include "dosbox.h"
 #include "logging.h"
 #include "dos_system.h"
-#else
-#include "../dosbox_files/config.h"
 #endif //USE_DOSBOX
 
-typedef          char   int8;
-typedef   signed char   sint8;
-typedef unsigned char   uint8;
-typedef          short  int16;
-typedef   signed short  sint16;
-typedef unsigned short  uint16;
-typedef          int    int32;
-typedef   signed int    sint32;
-typedef unsigned int    uint32;
+#define x_BYTE char
+#define x_WORD short
+#define x_DWORD int
 
-#define x_BYTE int8
-#define x_WORD int16
-#define x_DWORD int32
-#define x_LONG int32
+#pragma pack (1)
+typedef struct {
+	uint8_t* data;
+	uint8_t width_4;
+	uint8_t height_5;
+} posistruct_t;
 
 typedef struct {
-	Bit8u* data;
-	Bit8u width;
-	Bit8u height;
-} posistruct;
-#endif //ENGINE_TYPES
+	uint32_t data_0;
+	uint8_t width_4;
+	uint8_t height_5;
+} posistruct2_t;
+#pragma pack (16)
+
+#endif //ENGINE_TYPES_H

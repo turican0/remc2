@@ -15,5 +15,6 @@
 void mydelay(int timems);
 long mygethundredths();
 long mygetthousandths();
+double clockToMilliseconds(clock_t ticks);
 
 #endif //PORT_TIME

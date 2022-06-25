@@ -6,6 +6,7 @@
 /.vs/remc2/v15
 /.vs/remc2/v16
 /remc2/Debug
+/outimg
 **/vc141.idb
 **/vc141.pdb
 **/*.log
@@ -24,4 +25,24 @@
 **/remc2.exe
 **/remc2.exp
 **/remc2.lib
+**/remc2_without_xcopy.exe
+**/remc2_without_xcopy.exp
+**/remc2_without_xcopy.lib
+/packages
+**/Netherw
+/debug.txt
+**/CD_Files
+**/biggraphics
+**/music-ogg
+**/config.ini
+**/BufferOut
+/build*
+.flatpak*
+.cache
 
+!enhancedassets/*
+
+
+x64/debug.txt
+
+remc2/editor/debug.txt

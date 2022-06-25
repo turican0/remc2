@@ -111,11 +111,80 @@ int kiss_rendertext(SDL_Renderer* renderer, char* text, int x, int y,
 	return 0;
 }
 
-int kiss_fillrect(SDL_Renderer* renderer, SDL_Rect* rect, SDL_Color color)
+/*int kiss_fillrect(SDL_Renderer* renderer, SDL_Rect* rect, SDL_Color color)
 {
 	if (!renderer || !rect) return -1;
 	SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
 	SDL_RenderFillRect(renderer, rect);
+	return 0;
+}*/
+
+int kiss_fillrect2(SDL_Renderer* renderer, SDL_Rect* rect, SDL_Color color)
+{
+	Uint32 rmask, gmask, bmask, amask;
+
+	/* SDL interprets each pixel as a 32-bit number, so our masks must depend
+	   on the endianness (byte order) of the machine */
+#if SDL_BYTEORDER == SDL_BIG_ENDIAN
+	rmask = 0xff000000;
+	gmask = 0x00ff0000;
+	bmask = 0x0000ff00;
+	amask = 0x000000ff;
+#else
+	rmask = 0x000000ff;
+	gmask = 0x0000ff00;
+	bmask = 0x00ff0000;
+	amask = 0xff000000;
+#endif
+
+	SDL_Rect dst;
+	SDL_Rect highlightrect2;
+	//SDL_Texture* texture;
+	Uint32* pixels = nullptr;
+	int pitch = 0;
+
+	kiss_makerect(&highlightrect2, 0, 0, rect->w, rect->h);
+	//texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, 1, 1);
+	
+	SDL_Surface* surface = SDL_CreateRGBSurface(0, 1, 1, 32, rmask, gmask, bmask, amask);
+
+	if (surface == NULL) {
+		fprintf(stderr, "CreateRGBSurface failed: %s\n", SDL_GetError());
+		exit(1);
+	}
+	((Uint8*)surface->pixels)[0] = color.r;
+	((Uint8*)surface->pixels)[1] = color.g;
+	((Uint8*)surface->pixels)[2] = color.b;
+	((Uint8*)surface->pixels)[3] = color.a;
+
+
+	SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
+
+	if (texture == NULL) {
+		fprintf(stderr, "CreateTextureFromSurface failed: %s\n", SDL_GetError());
+		exit(1);
+	}
+
+
+	/*
+	Uint32 format;
+	int w, h;
+	SDL_QueryTexture(texture, &format, nullptr, &w, &h);
+	if (SDL_LockTexture(texture, nullptr, (void**)&pixels, &pitch))
+	{
+		// If the locking fails, you might want to handle it somehow. SDL_GetError(); or something here.
+	}
+	pixels[0] = color.r;
+	pixels[1] = color.g;
+	pixels[2] = color.b;
+	pixels[3] = color.a;
+	SDL_UnlockTexture(texture);
+	*/
+	if (!renderer || !texture) return -1;
+	kiss_makerect(&dst, 0, 0, rect->w, rect->h);
+	SDL_RenderCopy(renderer, texture, &highlightrect2, rect);
+	SDL_DestroyTexture(texture);
+	SDL_FreeSurface(surface);
 	return 0;
 }
 
@@ -202,38 +271,38 @@ SDL_Renderer* kiss_init(char* title, kiss_array* a, int w, int h)
 		SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 	if (renderer) kiss_array_append(a, RENDERER_TYPE, renderer);
 	char path2[512];
-	FixDir(path2, (char*)"kiss\\kiss_font.ttf");
+	FixDir(path2, (char*)"kiss/kiss_font.ttf");
 	r += kiss_font_new(&kiss_textfont, path2, a, kiss_textfont_size);
 	r += kiss_font_new(&kiss_buttonfont, path2, a, kiss_buttonfont_size);
-	FixDir(path2, (char*)"kiss\\kiss_normal.png");
+	FixDir(path2, (char*)"kiss/kiss_normal.png");
 	r += kiss_image_new(&kiss_normal, path2, a, renderer);
-	FixDir(path2, (char*)"kiss\\kiss_prelight.png");
+	FixDir(path2, (char*)"kiss/kiss_prelight.png");
 	r += kiss_image_new(&kiss_prelight, path2, a, renderer);
-	FixDir(path2, (char*)"kiss\\kiss_active.png");
+	FixDir(path2, (char*)"kiss/kiss_active.png");
 	r += kiss_image_new(&kiss_active, path2, a, renderer);
-	FixDir(path2, (char*)"kiss\\kiss_bar.png");
+	FixDir(path2, (char*)"kiss/kiss_bar.png");
 	r += kiss_image_new(&kiss_bar, path2, a, renderer);
-	FixDir(path2, (char*)"kiss\\kiss_vslider.png");
+	FixDir(path2, (char*)"kiss/kiss_vslider.png");
 	r += kiss_image_new(&kiss_vslider, path2, a, renderer);
-	FixDir(path2, (char*)"kiss\\kiss_hslider.png");
+	FixDir(path2, (char*)"kiss/kiss_hslider.png");
 	r += kiss_image_new(&kiss_hslider, path2, a, renderer);
-	FixDir(path2, (char*)"kiss\\kiss_up.png");
+	FixDir(path2, (char*)"kiss/kiss_up.png");
 	r += kiss_image_new(&kiss_up, path2, a, renderer);
-	FixDir(path2, (char*)"kiss\\kiss_down.png");
+	FixDir(path2, (char*)"kiss/kiss_down.png");
 	r += kiss_image_new(&kiss_down, path2, a, renderer);
-	FixDir(path2, (char*)"kiss\\kiss_left.png");
+	FixDir(path2, (char*)"kiss/kiss_left.png");
 	r += kiss_image_new(&kiss_left, path2, a, renderer);
-	FixDir(path2, (char*)"kiss\\kiss_left_sel.png");
+	FixDir(path2, (char*)"kiss/kiss_left_sel.png");
 	r += kiss_image_new(&kiss_left_sel, path2, a, renderer);
-	FixDir(path2, (char*)"kiss\\kiss_right.png");
+	FixDir(path2, (char*)"kiss/kiss_right.png");
 	r += kiss_image_new(&kiss_right, path2, a, renderer);
-	FixDir(path2, (char*)"kiss\\kiss_right_sel.png");
+	FixDir(path2, (char*)"kiss/kiss_right_sel.png");
 	r += kiss_image_new(&kiss_right_sel, path2, a, renderer);
-	FixDir(path2, (char*)"kiss\\kiss_combo.png");
+	FixDir(path2, (char*)"kiss/kiss_combo.png");
 	r += kiss_image_new(&kiss_combo, path2, a, renderer);
-	FixDir(path2, (char*)"kiss\\kiss_selected.png");
+	FixDir(path2, (char*)"kiss/kiss_selected.png");
 	r += kiss_image_new(&kiss_selected, path2, a, renderer);
-	FixDir(path2, (char*)"kiss\\kiss_unselected.png");
+	FixDir(path2, (char*)"kiss/kiss_unselected.png");
 	r += kiss_image_new(&kiss_unselected, path2, a, renderer);
 	if (r) {
 		kiss_clean(a);

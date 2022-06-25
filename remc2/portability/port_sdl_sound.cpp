@@ -1,5 +1,12 @@
 #include "port_sdl_sound.h"
+
 #include <adlmidi.h>
+#include <iostream>
+
+#ifdef __linux__
+    #include <limits>
+    #define MAX_PATH PATH_MAX
+#endif
 
 /*This source code copyrighted by Lazy Foo' Productions (2004-2013)
 and may not be redistributed without written permission.*/
@@ -12,7 +19,7 @@ bool debug_first_sound=true;
 bool hqsound=false;
 bool oggmusic=false;
 bool oggmusicalternative = false;
-char oggmusicpath[512];
+char oggmusicFolder[512];
 
 bool fixspeedsound = false;
 
@@ -29,7 +36,7 @@ ALuint alSampleSet[32];
 Mix_Chunk gamechunk[32];
 HSAMPLE gamechunkHSAMPLE[32];
 
-Bit8u sound_buffer[4][20000];
+uint8_t sound_buffer[4][20000];
 /*
 10
 29
@@ -47,16 +54,16 @@ Bit8u sound_buffer[4][20000];
  2
 
 */
-void test_midi_play(Bit8u* data, Bit8u* header, Bit32s track_number)
+void test_midi_play(uint8_t*  /*data*/, uint8_t* header, int32_t track_number)
 {
-	Bit8u* acttrack = &header[32 + track_number * 32];
-	//int testsize = *(Bit32u*)(&header[32 + (track_number + 1) * 32] + 18) - *(Bit32u*)(acttrack + 18);
-	int testsize2 = *(Bit32u*)(acttrack + 26);
+	uint8_t* acttrack = &header[32 + track_number * 32];
+	//int testsize = *(uint32_t*)(&header[32 + (track_number + 1) * 32] + 18) - *(uint32_t*)(acttrack + 18);
+	int testsize2 = *(uint32_t*)(acttrack + 26);
 
 	//unsigned char* TranscodeXmiToMid(const unsigned char* pXmiData,	size_t iXmiLength, size_t* pMidLength);
 	size_t iXmiLength = testsize2;
 	size_t pMidLength;
-	Bit8u* outmidi = TranscodeXmiToMid((const Bit8u*)*(Bit32u*)(acttrack + 18), iXmiLength, &pMidLength);
+	uint8_t* outmidi = TranscodeXmiToMid((const uint8_t*)*(uint32_t*)(acttrack + 18), iXmiLength, &pMidLength);
 	SDL_RWops* rwmidi = SDL_RWFromMem(outmidi, pMidLength);
 
 	//Timidity_Init();
@@ -71,7 +78,7 @@ void test_midi_play(Bit8u* data, Bit8u* header, Bit32s track_number)
 	playmusic2(track_number);
 }
 
-void SOUND_start_sequence(Bit32s sequence_num) {
+void SOUND_start_sequence(int32_t sequence_num) {
 	//3 - menu
 	//4 - intro
 #ifdef SOUND_SDLMIXER
@@ -95,100 +102,103 @@ void SOUND_start_sequence(Bit32s sequence_num) {
 #endif//SOUND_SDLMIXER
 };
 
-void SOUND_pause_sequence(Bit32s sequence_num) {
+void SOUND_pause_sequence(int32_t  /*sequence_num*/) {
 #ifdef SOUND_SDLMIXER
 	Mix_PauseMusic();
 #endif//SOUND_SDLMIXER
 };
 
-void SOUND_stop_sequence(Bit32s sequence_num) {
+void SOUND_stop_sequence(int32_t  /*sequence_num*/) {
 #ifdef SOUND_SDLMIXER
 	Mix_HaltMusic();
 #endif//SOUND_SDLMIXER
 };
-void SOUND_resume_sequence(Bit32s sequence_num) {
+void SOUND_resume_sequence(int32_t  /*sequence_num*/) {
 #ifdef SOUND_SDLMIXER
 	Mix_ResumeMusic();
 #endif//SOUND_SDLMIXER
 };
 
-void SOUND_set_sequence_volume(Bit32s volume) {
+void SOUND_set_sequence_volume(int32_t volume) {
 #ifdef SOUND_SDLMIXER
 	Mix_VolumeMusic(volume);
 #endif//SOUND_SDLMIXER
 };
 
-void SOUND_init_MIDI_sequence(Bit8u* data, Bit8u* header, Bit32s track_number)
+void SOUND_init_MIDI_sequence(uint8_t*  /*datax*/, type_E3808_music_header* headerx, int32_t track_number)
 {
-	Bit8u* acttrack = &header[32 + track_number * 32];
-	//int testsize = *(Bit32u*)(&header[32 + (track_number + 1) * 32] + 18) - *(Bit32u*)(acttrack + 18);
-	int testsize2 = *(Bit32u*)(acttrack + 26);
+	//uint8_t* acttrack = &header[32 + track_number * 32];
+	uint8_t* acttrack = headerx->str_8.track_10[track_number].dword_0;
+	//int testsize = *(uint32_t*)(&header[32 + (track_number + 1) * 32] + 18) - *(uint32_t*)(acttrack + 18);
+	int testsize2 = *(uint32_t*)(acttrack + 26);
 
+	//we can translate datax from xmi to mid and play(with bad quality or slow midi emulators), at now but we use ogg samples
 	//unsigned char* TranscodeXmiToMid(const unsigned char* pXmiData,	size_t iXmiLength, size_t* pMidLength);
 	size_t iXmiLength = testsize2;
 	size_t pMidLength;
 	dirsstruct helpdirsstruct;
 
 	if (oggmusic) {
-		char buffer1[512]="";
-		char buffer2[512] = "";
-		char buffer3[512] = "";
-		char buffer4[512] = "";
+
+		char oggmusicPath[MAX_PATH];
+
+		GetSubDirectoryPath(oggmusicPath, oggmusicFolder);
+		char alternativeMusicPath[512] = "";
+		char selectedTrackPath[512] = "";
 		//if (track_number > 1)track_number = 0;
 		if (oggmusicalternative)///&&track_number==4
-		{			
+		{
 			if (track_number == 0)
 			{
-				sprintf(buffer2, "%salternative\\cave\\", oggmusicpath);
+				sprintf(alternativeMusicPath, "%s/alternative/day", oggmusicPath);
 			}
 			else if (track_number == 1)
 			{
-				sprintf(buffer2, "%salternative\\cave\\", oggmusicpath);
+				sprintf(alternativeMusicPath, "%s/alternative/night", oggmusicPath);
 			}
 			else if (track_number == 2)
 			{
-				sprintf(buffer2, "%salternative\\cave\\", oggmusicpath);
+				sprintf(alternativeMusicPath, "%s/alternative/cave", oggmusicPath);
 			}
 			else if (track_number == 3)
 			{
-				sprintf(buffer2, "%salternative\\cave\\", oggmusicpath);
+				sprintf(alternativeMusicPath, "%s/alternative/cave", oggmusicPath);
 			}
 			else if (track_number == 4)
 			{
-				sprintf(buffer2, "%salternative\\cave\\", oggmusicpath);
+				sprintf(alternativeMusicPath, "%s/alternative/cave", oggmusicPath);
 			}
 			else if (track_number == 5)
 			{
-				sprintf(buffer2, "%salternative\\cave\\", oggmusicpath);
+				sprintf(alternativeMusicPath, "%s/alternative/cave", oggmusicPath);
 			}
 			else
-				sprintf(buffer2, "%salternative\\cave\\", oggmusicpath);
+			{
+				sprintf(alternativeMusicPath, "%s/alternative/cave", oggmusicPath);
+			}
 
-			sprintf(buffer1, "%s", oggmusicpath);
+			helpdirsstruct = getListDir(alternativeMusicPath);
 
-			FixDir(buffer3, buffer2);
-			FixDir(buffer4, buffer1);
-
-			helpdirsstruct = getListDir(buffer3);
 			if (helpdirsstruct.number > 0)
 			{
 				int randtrack = rand()%(helpdirsstruct.number + 1);
-				if(randtrack==0)sprintf(buffer4, "%smusic%d.ogg", oggmusicpath, track_number);
+				if(randtrack==0)
+					sprintf(selectedTrackPath, "%s/music%d.ogg", oggmusicPath, track_number);
 				else
-					sprintf(buffer4, "%s%s", buffer3,helpdirsstruct.dir[randtrack-1]);
+					sprintf(selectedTrackPath, "%s/%s", alternativeMusicPath ,helpdirsstruct.dir[randtrack-1]);
 			}
 			else
-				sprintf(buffer4, "%smusic%d.ogg", oggmusicpath, track_number);
+				sprintf(selectedTrackPath, "%s/music%d.ogg", oggmusicPath, track_number);
 		}
 		else
-			sprintf(buffer4, "%smusic%d.ogg", oggmusicpath, track_number);
+			sprintf(selectedTrackPath, "%s/music%d.ogg", oggmusicPath, track_number);
 #ifdef SOUND_SDLMIXER
-		GAME_music[track_number] = Mix_LoadMUS(buffer4);
+		GAME_music[track_number] = Mix_LoadMUS(selectedTrackPath);
 #endif//SOUND_SDLMIXER
 	}
 	else
 	{
-		Bit8u* outmidi = TranscodeXmiToMid((const Bit8u*)*(Bit32u*)(acttrack + 18), iXmiLength, &pMidLength);
+		uint8_t* outmidi = TranscodeXmiToMid(/*(const uint8_t*)*(uint32_t*)(*/acttrack/* + 18)*/, iXmiLength, &pMidLength);
 		SDL_RWops* rwmidi = SDL_RWFromMem(outmidi, pMidLength);
 
 		//Timidity_Init();
@@ -320,7 +330,7 @@ void stopmusic1()
 	Mix_HaltMusic();
 }
 */
-void playmusic2(Bit32s track_number)
+void playmusic2(int32_t track_number)
 {
 #ifdef SOUND_SDLMIXER
 	if (Mix_PlayingMusic() == 0)
@@ -354,12 +364,17 @@ int num_IO_configurations = 3;
 int service_rate = -1;
 //HSAMPLE last_sample;
 
-Bit32s ac_sound_call_driver(AIL_DRIVER* drvr, Bit32s fn, VDI_CALL* in, VDI_CALL* out)/*AIL_DRIVER *drvr,S32 fn, VDI_CALL*in,VDI_CALL *out)*/ {
+int32_t ac_sound_call_driver(AIL_DRIVER* drvr, int32_t fn, VDI_CALL*  /*in*/, VDI_CALL* out)/*AIL_DRIVER *drvr,S32 fn, VDI_CALL*in,VDI_CALL *out)*/ {
 	switch (fn) {
 	case 0x300: {//AIL_API_install_driver
 		drvr->VHDR_4->VDI_HDR_var10 = (void*)&common_IO_configurations;
 		drvr->VHDR_4->num_IO_configurations_14 = num_IO_configurations;
-		drvr->VHDR_4->environment_string_16 = (Bit32u)&environment_string;
+#ifdef COMPILE_FOR_64BIT
+		std::cout << "FIXME: 32 bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+		drvr->VHDR_4->environment_string_16 = 0; //FIXME
+#else
+		drvr->VHDR_4->environment_string_16 = (uint32_t)&environment_string;
+#endif
 		drvr->VHDR_4->VDI_HDR_var46 = service_rate;
 		/*out->AX = 0;
 		out->BX = 0;
@@ -392,7 +407,7 @@ Bit32s ac_sound_call_driver(AIL_DRIVER* drvr, Bit32s fn, VDI_CALL* in, VDI_CALL*
 		break;
 	}
 	case 0x401: {
-		/*		mychunk.abuf=(Bit8u*)last_sample->start_2_3[0];
+		/*		mychunk.abuf=(uint8_t*)last_sample->start_2_3[0];
 				mychunk.alen = last_sample->len_4_5[0];
 				mychunk.volume = last_sample->volume_16;
 				//mychunk.allocated = 0;
@@ -419,7 +434,7 @@ Bit32s ac_sound_call_driver(AIL_DRIVER* drvr, Bit32s fn, VDI_CALL* in, VDI_CALL*
 	return 1;
 };
 
-void SOUND_set_master_volume(Bit32s volume) {
+void SOUND_set_master_volume(int32_t volume) {
 	//gamechunk[S->index_sample].volume = volume;
 #ifdef SOUND_SDLMIXER
 	Mix_Volume(-1, volume);
@@ -429,7 +444,7 @@ void SOUND_set_master_volume(Bit32s volume) {
 
 }
 
-void SOUND_set_sample_volume(HSAMPLE S, Bit32s volume) {
+void SOUND_set_sample_volume(HSAMPLE S, int32_t volume) {
 #ifdef SOUND_SDLMIXER
 	gamechunk[S->index_sample].volume = volume;
 	Mix_Volume(S->index_sample, volume);
@@ -442,7 +457,7 @@ void SOUND_start_sample(HSAMPLE S) {
 	{
 		/*
 		// load sample.wav in to sample
-		Bit8u* presample = malloc(S->len_4_5[0] * 4 + 10);
+		uint8_t* presample = malloc(S->len_4_5[0] * 4 + 10);
 		Mix_Chunk* sample;
 		sample = Mix_LoadWAV_RW(presample, 0);
 		if (!sample) {
@@ -461,7 +476,7 @@ void SOUND_start_sample(HSAMPLE S) {
 		// read your float32 data into cvt.buf here.
 		SDL_ConvertAudio(&cvt);*/
 
-		gamechunk[S->index_sample].abuf = /*sample->abuf;//*/ (Bit8u*)S->start_44mhz;
+		gamechunk[S->index_sample].abuf = /*sample->abuf;//*/ (uint8_t*)S->start_44mhz;
 		if (fixspeedsound)
 			gamechunk[S->index_sample].alen = /*sample->alen;//*/S->len_4_5[0] * 16;
 		else
@@ -481,7 +496,7 @@ void SOUND_start_sample(HSAMPLE S) {
 				debug_first_sound = false;
 			}
 		#endif //DEBUG_SOUND
-		gamechunk[S->index_sample].abuf = (Bit8u*)S->start_2_3[0];
+		gamechunk[S->index_sample].abuf = (uint8_t*)S->start_2_3[0];
 		gamechunk[S->index_sample].alen = S->len_4_5[0];
 	}
 	
@@ -494,12 +509,12 @@ void SOUND_start_sample(HSAMPLE S) {
 	//sound_load_wav((char*)S->start_44mhz, sizeof(S->start_44mhz));
 	if (hqsound)
 	{
-		gamechunk[S->index_sample].abuf = (Bit8u*)S->start_44mhz;
+		gamechunk[S->index_sample].abuf = (uint8_t*)S->start_44mhz;
 		gamechunk[S->index_sample].alen = S->len_4_5[0] * 4;
 	}
 	else
 	{
-		gamechunk[S->index_sample].abuf = (Bit8u*)S->start_2_3[0];
+		gamechunk[S->index_sample].abuf = (uint8_t*)S->start_2_3[0];
 		gamechunk[S->index_sample].alen = S->len_4_5[0];
 	}
 
@@ -509,7 +524,7 @@ void SOUND_start_sample(HSAMPLE S) {
 #endif//SOUND_OPENAL
 };
 
-Bit32u SOUND_sample_status(HSAMPLE S) {
+uint32_t SOUND_sample_status(HSAMPLE S) {
 #ifdef SOUND_SDLMIXER
 	if (Mix_Playing(S->index_sample)==0)return 2;
 #endif//SOUND_SDLMIXER
@@ -519,7 +534,7 @@ Bit32u SOUND_sample_status(HSAMPLE S) {
 	return 0;
 }
 
-void SOUND_end_sample(HSAMPLE S) {
+void SOUND_end_sample(HSAMPLE  /*S*/) {
 #ifdef SOUND_SDLMIXER
 	Mix_HaltChannel(-1);
 #endif//SOUND_SDLMIXER
@@ -591,7 +606,7 @@ Mix_HookMusicFinished(void (SDLCALL *music_finished)(void));
 	return true;
 }
 
-AIL_DRIVER* ac_AIL_API_install_driver(int a1, Bit8u* a2, int a3)/*driver_image,n_bytes*///27f720
+AIL_DRIVER* ac_AIL_API_install_driver(int  /*a1*/, uint8_t*  /*a2*/, int  /*a3*/)/*driver_image,n_bytes*///27f720
 {
 
 
@@ -599,15 +614,15 @@ AIL_DRIVER* ac_AIL_API_install_driver(int a1, Bit8u* a2, int a3)/*driver_image,n
 	return 0;
 }
 
-Bit16u actvect[0x1000];
+uint16_t actvect[0x1000];
 
-void ac_set_real_vect(Bit32u vectnum, Bit16u real_ptr)
+void ac_set_real_vect(uint32_t vectnum, uint16_t real_ptr)
 {
 	actvect[vectnum] = real_ptr;
 	//66
 };
 
-Bit16u ac_get_real_vect(Bit32u vectnum)
+uint16_t ac_get_real_vect(uint32_t vectnum)
 {
 	return actvect[vectnum];
 };
@@ -616,10 +631,10 @@ void test_music()
 {
 }
 
-void my_audio_callback(void *midi_player, Uint8 *stream, int len);
+void my_audio_callback(void *midi_player, uint8_t *stream, int len);
 
 /* variable declarations */
-static Uint32 is_playing = 0; /* remaining length of the sample we have to play */
+static uint32_t is_playing = 0; /* remaining length of the sample we have to play */
 static short buffer[4096]; /* Audio buffer */
 
 int run()
@@ -702,7 +717,7 @@ int run()
  requesting audio buffer (stream)
  you should only copy as much as the requested length (len)
 */
-void my_audio_callback(void *midi_player, Uint8 *stream, int len)
+void my_audio_callback(void *midi_player, uint8_t *stream, int len)
 {
 	struct ADL_MIDIPlayer* p = (struct ADL_MIDIPlayer*)midi_player;
 
@@ -720,7 +735,7 @@ void my_audio_callback(void *midi_player, Uint8 *stream, int len)
 	}
 
 	/* Send buffer to the audio device */
-	SDL_memcpy(stream, (Uint8*)buffer, samples_count * 2);
+	SDL_memcpy(stream, (uint8_t*)buffer, samples_count * 2);
 }
 
 #define TEST_ERROR(_msg)		\
@@ -953,7 +968,7 @@ void ALSOUND_play(int which, Mix_Chunk* mixchunk, int loops)
 
 void ALSOUND_delete()
 {
-	//Once you’ve finished don’t forget to clean memoryand release OpenAL contextand device
+	//Once youï¿½ve finished donï¿½t forget to clean memoryand release OpenAL contextand device
 
 	//alDeleteSources(1, &alSource);
 

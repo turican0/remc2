@@ -57,7 +57,8 @@ int kiss_window_draw(kiss_window *window, SDL_Renderer *renderer)
 {
 	if (window && window->wdw) window->visible = window->wdw->visible;
 	if (!window || !window->visible || !renderer) return 0;
-	kiss_fillrect(renderer, &window->rect, window->bg);
+	kiss_fillrect2(renderer, &window->rect, window->bg);
+
 	if (window->decorate)
 		kiss_decorate(renderer, &window->rect, kiss_blue, kiss_edge);
 	return 1;
@@ -306,7 +307,7 @@ int kiss_hex2edit_new(kiss_hex2edit* hex2edit, kiss_window* wdw, void* adress, c
 	kiss_makerect(&hex2edit->leftrect2, basic_shift_x + x + hex2edit->left.w, y, hex2edit->left.w, hex2edit->left.h);
 	
 	char buf[256];
-	sprintf(buf, "%02X", *(Bit8u*)adress);
+	sprintf(buf, "%02X", *(uint8_t*)adress);
 	hex2edit->valuetextcolor = kiss_black;
 	kiss_string_copy(hex2edit->valuetext, KISS_MAX_LENGTH, buf, NULL);
 	hex2edit->valuetextx = basic_shift_x + x + hex2edit->left.w * 2;
@@ -337,16 +338,16 @@ int kiss_hex2edit_update_adress(kiss_hex2edit* hex2edit, void* adress)
 	if (!hex2edit) return -1;
 	hex2edit->valueadress = adress;
 	char buf[256];
-	sprintf(buf, "%02X", *(Bit8u*)adress);
+	sprintf(buf, "%02X", *(uint8_t*)adress);
 	kiss_string_copy(hex2edit->valuetext, KISS_MAX_LENGTH, buf, NULL);
 	return 0;
 }
 
 void kiss_hex2edit_set(kiss_hex2edit* hex2edit, int value)
 {
-	*(Bit8u*)hex2edit->valueadress = value;
+	*(uint8_t*)hex2edit->valueadress = value;
 	char buf[256];
-	sprintf(buf, "%02X", *(Bit8u*)hex2edit->valueadress);
+	sprintf(buf, "%02X", *(uint8_t*)hex2edit->valueadress);
 	kiss_string_copy(hex2edit->valuetext, KISS_MAX_LENGTH, buf, NULL);
 }
 
@@ -361,9 +362,9 @@ int kiss_hex2edit_event(kiss_hex2edit* hex2edit, SDL_Event* event, int* draw)
 	if (event->type == SDL_MOUSEBUTTONDOWN && kiss_pointinrect(event->button.x, event->button.y, &hex2edit->leftrect1)) {
 		hex2edit->left1active = 1;
 		*draw = 1;
-		*(Bit8u*)hex2edit->valueadress -= 16;
+		*(uint8_t*)hex2edit->valueadress -= 16;
 		char buf[256];
-		sprintf(buf, "%02X", *(Bit8u*)hex2edit->valueadress);
+		sprintf(buf, "%02X", *(uint8_t*)hex2edit->valueadress);
 		kiss_string_copy(hex2edit->valuetext, KISS_MAX_LENGTH, buf, NULL);
 		return 11;
 	}
@@ -388,9 +389,9 @@ int kiss_hex2edit_event(kiss_hex2edit* hex2edit, SDL_Event* event, int* draw)
 	if (event->type == SDL_MOUSEBUTTONDOWN && kiss_pointinrect(event->button.x, event->button.y, &hex2edit->leftrect2)) {
 		hex2edit->left2active = 1;
 		*draw = 1;
-		*(Bit8u*)hex2edit->valueadress -= 1;
+		*(uint8_t*)hex2edit->valueadress -= 1;
 		char buf[256];
-		sprintf(buf, "%02X", *(Bit8u*)hex2edit->valueadress);
+		sprintf(buf, "%02X", *(uint8_t*)hex2edit->valueadress);
 		kiss_string_copy(hex2edit->valuetext, KISS_MAX_LENGTH, buf, NULL);
 		return 12;
 	}
@@ -416,9 +417,9 @@ int kiss_hex2edit_event(kiss_hex2edit* hex2edit, SDL_Event* event, int* draw)
 	if (event->type == SDL_MOUSEBUTTONDOWN && kiss_pointinrect(event->button.x, event->button.y, &hex2edit->rightrect1)) {
 		hex2edit->right1active = 1;
 		*draw = 1;
-		*(Bit8u*)hex2edit->valueadress += 1;
+		*(uint8_t*)hex2edit->valueadress += 1;
 		char buf[256];
-		sprintf(buf, "%02X", *(Bit8u*)hex2edit->valueadress);
+		sprintf(buf, "%02X", *(uint8_t*)hex2edit->valueadress);
 		kiss_string_copy(hex2edit->valuetext, KISS_MAX_LENGTH, buf, NULL);
 		return 15;
 	}
@@ -443,9 +444,9 @@ int kiss_hex2edit_event(kiss_hex2edit* hex2edit, SDL_Event* event, int* draw)
 	if (event->type == SDL_MOUSEBUTTONDOWN && kiss_pointinrect(event->button.x, event->button.y, &hex2edit->rightrect2)) {
 		hex2edit->right2active = 1;
 		*draw = 1;
-		*(Bit8u*)hex2edit->valueadress += 16;
+		*(uint8_t*)hex2edit->valueadress += 16;
 		char buf[256];
-		sprintf(buf, "%02X", *(Bit8u*)hex2edit->valueadress);
+		sprintf(buf, "%02X", *(uint8_t*)hex2edit->valueadress);
 		kiss_string_copy(hex2edit->valuetext, KISS_MAX_LENGTH, buf, NULL);
 		return 16;
 	}
@@ -503,7 +504,7 @@ int kiss_hex2edit_draw(kiss_hex2edit* hex2edit, SDL_Renderer* renderer)
 		kiss_renderimage(renderer, hex2edit->right, hex2edit->rightrect2.x, hex2edit->rightrect2.y, NULL);
 
 	char buf[256];
-	sprintf(buf, "%02X", *(Bit8u*)hex2edit->valueadress);
+	sprintf(buf, "%02X", *(uint8_t*)hex2edit->valueadress);
 	kiss_string_copy(hex2edit->valuetext, KISS_MAX_LENGTH, buf, NULL);
 	kiss_rendertext(renderer, hex2edit->text, hex2edit->textx, hex2edit->texty, hex2edit->font, hex2edit->textcolor);
 	kiss_rendertext(renderer, hex2edit->valuetext, hex2edit->valuetextx, hex2edit->valuetexty, hex2edit->valuefont, hex2edit->valuetextcolor);
@@ -552,7 +553,7 @@ int kiss_hex4edit_new(kiss_hex4edit* hex4edit, kiss_window* wdw, void* adress, c
 	kiss_makerect(&hex4edit->leftrect4, basic_shift_x + x + hex4edit->left.w * 3, y, hex4edit->left.w, hex4edit->left.h);
 
 	char buf[256];
-	sprintf(buf,"%04X", *(Bit16u*)adress);
+	sprintf(buf,"%04X", *(uint16_t*)adress);
 	hex4edit->valuetextcolor = kiss_black;
 	kiss_string_copy(hex4edit->valuetext, KISS_MAX_LENGTH, buf, NULL);
 	hex4edit->valuetextx = basic_shift_x + x + hex4edit->left.w * 4;
@@ -593,16 +594,16 @@ int kiss_hex4edit_update_adress(kiss_hex4edit* hex4edit, void* adress)
 	if (!hex4edit) return -1;
 	hex4edit->valueadress = adress;	
 	char buf[256];
-	sprintf(buf, "%04X", *(Bit16u*)adress);
+	sprintf(buf, "%04X", *(uint16_t*)adress);
 	kiss_string_copy(hex4edit->valuetext, KISS_MAX_LENGTH, buf, NULL);	
 	return 0;
 }
 
 void kiss_hex4edit_set(kiss_hex4edit* hex4edit,int value)
 {	
-		*(Bit16u*)hex4edit->valueadress = value;
+		*(uint16_t*)hex4edit->valueadress = value;
 		char buf[256];
-		sprintf(buf, "%04X", *(Bit16u*)hex4edit->valueadress);
+		sprintf(buf, "%04X", *(uint16_t*)hex4edit->valueadress);
 		kiss_string_copy(hex4edit->valuetext, KISS_MAX_LENGTH, buf, NULL);
 	}
 
@@ -617,9 +618,9 @@ int kiss_hex4edit_event(kiss_hex4edit* hex4edit, SDL_Event* event, int* draw)
 	if (event->type == SDL_MOUSEBUTTONDOWN && kiss_pointinrect(event->button.x, event->button.y,&hex4edit->leftrect1)) {
 		hex4edit->left1active = 1;
 		*draw = 1;
-		*(Bit16u*)hex4edit->valueadress -= 4096;
+		*(uint16_t*)hex4edit->valueadress -= 4096;
 		char buf[256];
-		sprintf(buf, "%04X", *(Bit16u*)hex4edit->valueadress);
+		sprintf(buf, "%04X", *(uint16_t*)hex4edit->valueadress);
 		kiss_string_copy(hex4edit->valuetext, KISS_MAX_LENGTH, buf, NULL);
 		return 11;
 	}
@@ -644,9 +645,9 @@ int kiss_hex4edit_event(kiss_hex4edit* hex4edit, SDL_Event* event, int* draw)
 	if (event->type == SDL_MOUSEBUTTONDOWN && kiss_pointinrect(event->button.x, event->button.y, &hex4edit->leftrect2)) {
 		hex4edit->left2active = 1;
 		*draw = 1;
-		*(Bit16u*)hex4edit->valueadress -= 256;
+		*(uint16_t*)hex4edit->valueadress -= 256;
 		char buf[256];
-		sprintf(buf, "%04X", *(Bit16u*)hex4edit->valueadress);
+		sprintf(buf, "%04X", *(uint16_t*)hex4edit->valueadress);
 		kiss_string_copy(hex4edit->valuetext, KISS_MAX_LENGTH, buf, NULL);
 		return 12;
 	}
@@ -671,9 +672,9 @@ int kiss_hex4edit_event(kiss_hex4edit* hex4edit, SDL_Event* event, int* draw)
 	if (event->type == SDL_MOUSEBUTTONDOWN && kiss_pointinrect(event->button.x, event->button.y, &hex4edit->leftrect3)) {
 		hex4edit->left3active = 1;
 		*draw = 1;
-		*(Bit16u*)hex4edit->valueadress -= 16;
+		*(uint16_t*)hex4edit->valueadress -= 16;
 		char buf[256];
-		sprintf(buf, "%04X", *(Bit16u*)hex4edit->valueadress);
+		sprintf(buf, "%04X", *(uint16_t*)hex4edit->valueadress);
 		kiss_string_copy(hex4edit->valuetext, KISS_MAX_LENGTH, buf, NULL);
 		return 13;
 	}
@@ -698,9 +699,9 @@ int kiss_hex4edit_event(kiss_hex4edit* hex4edit, SDL_Event* event, int* draw)
 	if (event->type == SDL_MOUSEBUTTONDOWN && kiss_pointinrect(event->button.x, event->button.y, &hex4edit->leftrect4)) {
 		hex4edit->left4active = 1;
 		*draw = 1;
-		*(Bit16u*)hex4edit->valueadress -= 1;
+		*(uint16_t*)hex4edit->valueadress -= 1;
 		char buf[256];
-		sprintf(buf, "%04X", *(Bit16u*)hex4edit->valueadress);
+		sprintf(buf, "%04X", *(uint16_t*)hex4edit->valueadress);
 		kiss_string_copy(hex4edit->valuetext, KISS_MAX_LENGTH, buf, NULL);
 		return 14;
 	}
@@ -725,9 +726,9 @@ int kiss_hex4edit_event(kiss_hex4edit* hex4edit, SDL_Event* event, int* draw)
 	if (event->type == SDL_MOUSEBUTTONDOWN && kiss_pointinrect(event->button.x, event->button.y, &hex4edit->rightrect1)) {
 		hex4edit->right1active = 1;
 		*draw = 1;
-		*(Bit16u*)hex4edit->valueadress += 1;
+		*(uint16_t*)hex4edit->valueadress += 1;
 		char buf[256];
-		sprintf(buf, "%04X", *(Bit16u*)hex4edit->valueadress);
+		sprintf(buf, "%04X", *(uint16_t*)hex4edit->valueadress);
 		kiss_string_copy(hex4edit->valuetext, KISS_MAX_LENGTH, buf, NULL);
 		return 15;
 	}
@@ -752,9 +753,9 @@ int kiss_hex4edit_event(kiss_hex4edit* hex4edit, SDL_Event* event, int* draw)
 	if (event->type == SDL_MOUSEBUTTONDOWN && kiss_pointinrect(event->button.x, event->button.y, &hex4edit->rightrect2)) {
 		hex4edit->right2active = 1;
 		*draw = 1;
-		*(Bit16u*)hex4edit->valueadress += 16;
+		*(uint16_t*)hex4edit->valueadress += 16;
 		char buf[256];
-		sprintf(buf, "%04X", *(Bit16u*)hex4edit->valueadress);
+		sprintf(buf, "%04X", *(uint16_t*)hex4edit->valueadress);
 		kiss_string_copy(hex4edit->valuetext, KISS_MAX_LENGTH, buf, NULL);
 		return 16;
 	}
@@ -779,9 +780,9 @@ int kiss_hex4edit_event(kiss_hex4edit* hex4edit, SDL_Event* event, int* draw)
 	if (event->type == SDL_MOUSEBUTTONDOWN && kiss_pointinrect(event->button.x, event->button.y, &hex4edit->rightrect3)) {
 		hex4edit->right3active = 1;
 		*draw = 1;
-		*(Bit16u*)hex4edit->valueadress += 256;
+		*(uint16_t*)hex4edit->valueadress += 256;
 		char buf[256];
-		sprintf(buf, "%04X", *(Bit16u*)hex4edit->valueadress);
+		sprintf(buf, "%04X", *(uint16_t*)hex4edit->valueadress);
 		kiss_string_copy(hex4edit->valuetext, KISS_MAX_LENGTH, buf, NULL);
 		return 17;
 	}
@@ -806,9 +807,9 @@ int kiss_hex4edit_event(kiss_hex4edit* hex4edit, SDL_Event* event, int* draw)
 	if (event->type == SDL_MOUSEBUTTONDOWN && kiss_pointinrect(event->button.x, event->button.y, &hex4edit->rightrect4)) {
 		hex4edit->right4active = 1;
 		*draw = 1;
-		*(Bit16u*)hex4edit->valueadress += 4096;
+		*(uint16_t*)hex4edit->valueadress += 4096;
 		char buf[256];
-		sprintf(buf, "%04X", *(Bit16u*)hex4edit->valueadress);
+		sprintf(buf, "%04X", *(uint16_t*)hex4edit->valueadress);
 		kiss_string_copy(hex4edit->valuetext, KISS_MAX_LENGTH, buf, NULL);
 		return 18;
 	}
@@ -892,7 +893,7 @@ int kiss_hex4edit_draw(kiss_hex4edit* hex4edit, SDL_Renderer* renderer)
 		kiss_renderimage(renderer, hex4edit->right, hex4edit->rightrect4.x, hex4edit->rightrect4.y, NULL);
 
 	char buf[256];
-	sprintf(buf, "%04X", *(Bit16u*)hex4edit->valueadress);
+	sprintf(buf, "%04X", *(uint16_t*)hex4edit->valueadress);
 	kiss_string_copy(hex4edit->valuetext, KISS_MAX_LENGTH, buf, NULL);
 	kiss_rendertext(renderer, hex4edit->text, hex4edit->textx, hex4edit->texty,hex4edit->font, hex4edit->textcolor);
 	kiss_rendertext(renderer, hex4edit->valuetext, hex4edit->valuetextx, hex4edit->valuetexty, hex4edit->valuefont, hex4edit->valuetextcolor);
@@ -929,7 +930,7 @@ int kiss_dec1edit_new(kiss_dec1edit* dec1edit, kiss_window* wdw, void* adress, c
 	int basic_shift_x = 70;
 	kiss_makerect(&dec1edit->leftrect1, basic_shift_x + x, y, dec1edit->left.w, dec1edit->left.h);
 	char buf[256];
-	sprintf(buf, "%d", *(Bit16u*)adress);
+	sprintf(buf, "%d", *(uint16_t*)adress);
 	dec1edit->valuetextcolor = kiss_black;
 	kiss_string_copy(dec1edit->valuetext, KISS_MAX_LENGTH, buf, NULL);
 	dec1edit->valuetextx = basic_shift_x + x + dec1edit->left.w;
@@ -960,10 +961,10 @@ int kiss_dec1edit_event(kiss_dec1edit* dec1edit, SDL_Event* event, int* draw)
 	if (event->type == SDL_MOUSEBUTTONDOWN && kiss_pointinrect(event->button.x, event->button.y, &dec1edit->leftrect1)) {
 		dec1edit->left1active = 1;
 		*draw = 1;
-		*(Bit16u*)dec1edit->valueadress -=1;
-		if (*(Bit16u*)dec1edit->valueadress < dec1edit->min)* (Bit16u*)dec1edit->valueadress = dec1edit->min;
+		*(uint16_t*)dec1edit->valueadress -=1;
+		if (*(uint16_t*)dec1edit->valueadress < dec1edit->min)* (uint16_t*)dec1edit->valueadress = dec1edit->min;
 		char buf[256];
-		sprintf(buf, "%d", *(Bit16u*)dec1edit->valueadress);
+		sprintf(buf, "%d", *(uint16_t*)dec1edit->valueadress);
 		kiss_string_copy(dec1edit->valuetext, KISS_MAX_LENGTH, buf, NULL);
 		return 11;
 	}
@@ -988,10 +989,10 @@ int kiss_dec1edit_event(kiss_dec1edit* dec1edit, SDL_Event* event, int* draw)
 	if (event->type == SDL_MOUSEBUTTONDOWN && kiss_pointinrect(event->button.x, event->button.y, &dec1edit->rightrect1)) {
 		dec1edit->right1active = 1;
 		*draw = 1;
-		*(Bit16u*)dec1edit->valueadress += 1;
-		if (*(Bit16u*)dec1edit->valueadress > dec1edit->max)* (Bit16u*)dec1edit->valueadress = dec1edit->max;
+		*(uint16_t*)dec1edit->valueadress += 1;
+		if (*(uint16_t*)dec1edit->valueadress > dec1edit->max)* (uint16_t*)dec1edit->valueadress = dec1edit->max;
 		char buf[256];
-		sprintf(buf, "%d", *(Bit16u*)dec1edit->valueadress);
+		sprintf(buf, "%d", *(uint16_t*)dec1edit->valueadress);
 		kiss_string_copy(dec1edit->valuetext, KISS_MAX_LENGTH, buf, NULL);
 		return 15;
 	}
@@ -1474,7 +1475,7 @@ int kiss_progressbar_draw(kiss_progressbar *progressbar,
 		progressbar->visible = progressbar->wdw->visible;
 	if (!progressbar || !progressbar->visible || !renderer)
 		return 0;
-	kiss_fillrect(renderer, &progressbar->rect, progressbar->bg);
+	kiss_fillrect2(renderer, &progressbar->rect, progressbar->bg);
 	kiss_decorate(renderer, &progressbar->rect, kiss_blue, kiss_edge);
 	progressbar->barrect.w = (int) (progressbar->width *
 		progressbar->fraction + 0.5);
@@ -1565,7 +1566,7 @@ int kiss_entry_draw(kiss_entry *entry, SDL_Renderer *renderer)
 
 	if (entry && entry->wdw) entry->visible = entry->wdw->visible;
 	if (!entry || !entry->visible || !renderer) return 0;
-	kiss_fillrect(renderer, &entry->rect, entry->bg);
+	kiss_fillrect2(renderer, &entry->rect, entry->bg);
 	color = kiss_blue;
 	if (entry->active) color = kiss_green;
 	if (entry->decorate)
@@ -1680,12 +1681,13 @@ int kiss_textbox_draw(kiss_textbox *textbox, SDL_Renderer *renderer)
 {
 	SDL_Rect highlightrect;
 	char buf[KISS_MAX_LENGTH];
-	int numoflines, i;
+	int numoflines = textbox_numoflines(textbox);
+	char textbuff[256];
 
 	if (textbox && textbox->wdw)
 		textbox->visible = textbox->wdw->visible;
 	if (!textbox || !textbox->visible || !renderer) return 0;
-	kiss_fillrect(renderer, &textbox->rect, textbox->bg);
+	kiss_fillrect2(renderer, &textbox->rect, textbox->bg);
 	if (textbox->decorate)
 		kiss_decorate(renderer, &textbox->rect, kiss_blue,
 			kiss_edge);
@@ -1694,36 +1696,95 @@ int kiss_textbox_draw(kiss_textbox *textbox, SDL_Renderer *renderer)
 			textbox->textrect.y +
 			textbox->highlightline * textbox->font.lineheight,
 			textbox->textrect.w, textbox->font.lineheight);
-		kiss_fillrect(renderer, &highlightrect, textbox->hlcolor);
+		kiss_fillrect2(renderer, &highlightrect, textbox->hlcolor);
 	}
 	if (!textbox->array || !textbox->array->length) return 0;
-	numoflines = textbox_numoflines(textbox);
-	for (i = 0; i < numoflines; i++) {
-		kiss_string_copy(buf, kiss_maxlength(textbox->font,	textbox->textwidth,	(char *) kiss_array_data(textbox->array,textbox->firstline + i), NULL),
-			(char *) kiss_array_data(textbox->array,textbox->firstline + i), NULL);
-		char* textbuff = (char*)textbox->array->data[textbox->firstline+i];
-		if((textbuff[strlen(textbuff) - 1] == 'I')&& (textbuff[strlen(textbuff) - 2] == 'S'))
+	for (int i = 0; i < numoflines; i++) {
+		strcpy(textbuff, (char*)textbox->array->data[textbox->firstline + i]);
+		kiss_string_copy(buf, kiss_maxlength(textbox->font, textbox->textwidth, (char*)kiss_array_data(textbox->array, textbox->firstline + i), NULL),
+			(char*)kiss_array_data(textbox->array, textbox->firstline + i), NULL);
+		if ((textbuff[strlen(textbuff) - 1] == 'I') && (textbuff[strlen(textbuff) - 2] == 'S'))
 			kiss_rendertext(renderer, buf, textbox->textrect.x,
 				textbox->textrect.y + i * textbox->font.lineheight +
 				textbox->font.spacing / 2, textbox->font,
 				kiss_magenta);
 		else
-		if (textbuff[strlen(textbuff) - 1] == 'I')
-		kiss_rendertext(renderer, buf, textbox->textrect.x,
-			textbox->textrect.y + i * textbox->font.lineheight +
-			textbox->font.spacing / 2, textbox->font,
-			kiss_red);
-		else
-		if (textbuff[strlen(textbuff) - 2] == 'S')
+			if (textbuff[strlen(textbuff) - 1] == 'I')
+				kiss_rendertext(renderer, buf, textbox->textrect.x,
+					textbox->textrect.y + i * textbox->font.lineheight +
+					textbox->font.spacing / 2, textbox->font,
+					kiss_red);
+			else
+				if (textbuff[strlen(textbuff) - 2] == 'S')
+					kiss_rendertext(renderer, buf, textbox->textrect.x,
+						textbox->textrect.y + i * textbox->font.lineheight +
+						textbox->font.spacing / 2, textbox->font,
+						kiss_blue);
+				else
+						kiss_rendertext(renderer, buf, textbox->textrect.x,
+							textbox->textrect.y + i * textbox->font.lineheight +
+							textbox->font.spacing / 2, textbox->font,
+							textbox->textcolor);
+	}
+	return 1;
+}
+
+int kiss_textbox_draw2(kiss_textbox* textbox, SDL_Renderer* renderer)
+{
+	SDL_Rect highlightrect;
+	char buf[KISS_MAX_LENGTH];
+	int numoflines = textbox_numoflines(textbox);	
+	char textbuff[256];
+	if (textbox && textbox->wdw)
+		textbox->visible = textbox->wdw->visible;
+	if (!textbox || !textbox->visible || !renderer) return 0;
+	//kiss_fillrect(renderer, &textbox->rect, textbox->bg);
+
+	/*kiss_makerect(&highlightrect2, 0, 0, textbox->rect.w, textbox->rect.h);
+	kiss_renderimage(renderer, *img, textbox->rect.x, textbox->rect.y, &highlightrect2);
+	*/
+	if (textbox->decorate)
+		kiss_decorate(renderer, &textbox->rect, kiss_blue,
+			kiss_edge);
+	if (textbox->highlightline >= 0) {
+		kiss_makerect(&highlightrect, textbox->textrect.x,
+			textbox->textrect.y +
+			textbox->highlightline * textbox->font.lineheight,
+			textbox->textrect.w, textbox->font.lineheight);
+
+		/*kiss_makerect(&highlightrect2, 0,0,	textbox->textrect.w, textbox->font.lineheight);
+		//kiss_renderimage(renderer, *img, highlightrect.x, highlightrect.y, &highlightrect);
+		kiss_renderimage(renderer, *img, highlightrect.x, highlightrect.y, &highlightrect2);*/
+		kiss_fillrect2(renderer, &highlightrect, textbox->hlcolor);
+		//kiss_fillrect(renderer, &highlightrect, textbox->hlcolor);
+	}
+	if (!textbox->array || !textbox->array->length) return 0;	
+	for (int i = 0; i < numoflines; i++) {
+		strcpy(textbuff,(char*)textbox->array->data[textbox->firstline + i]);
+		kiss_string_copy(buf, kiss_maxlength(textbox->font, textbox->textwidth, (char*)kiss_array_data(textbox->array, textbox->firstline + i), NULL),
+			(char*)kiss_array_data(textbox->array, textbox->firstline + i), NULL);
+		if ((textbuff[strlen(textbuff) - 1] == 'I') && (textbuff[strlen(textbuff) - 2] == 'S'))
 			kiss_rendertext(renderer, buf, textbox->textrect.x,
 				textbox->textrect.y + i * textbox->font.lineheight +
 				textbox->font.spacing / 2, textbox->font,
-				kiss_blue);
+				kiss_magenta);
 		else
-		kiss_rendertext(renderer, buf, textbox->textrect.x,
-			textbox->textrect.y + i * textbox->font.lineheight +
-			textbox->font.spacing / 2, textbox->font,
-			textbox->textcolor);
+			if (textbuff[strlen(textbuff) - 1] == 'I')
+				kiss_rendertext(renderer, buf, textbox->textrect.x,
+					textbox->textrect.y + i * textbox->font.lineheight +
+					textbox->font.spacing / 2, textbox->font,
+					kiss_red);
+			else
+				if (textbuff[strlen(textbuff) - 2] == 'S')
+					kiss_rendertext(renderer, buf, textbox->textrect.x,
+						textbox->textrect.y + i * textbox->font.lineheight +
+						textbox->font.spacing / 2, textbox->font,
+						kiss_blue);
+				else
+					kiss_rendertext(renderer, buf, textbox->textrect.x,
+						textbox->textrect.y + i * textbox->font.lineheight +
+						textbox->font.spacing / 2, textbox->font,
+						textbox->textcolor);
 	}
 	return 1;
 }
