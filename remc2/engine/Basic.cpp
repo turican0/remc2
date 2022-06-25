@@ -9,6 +9,8 @@ char bigGraphicsPath[MAX_PATH];
 //type_17ECA0 str_17ECA0[256]; // weak
 //uint8_t x_DWORD_17ECA0[4608]; // weak
 
+//bool hideGraphics;
+
 TColor unk_17D838x[0x100]; // weak
 
 int x_DWORD_E3E2C = 0; // weak
@@ -543,7 +545,7 @@ unsigned     int x__readeflags(void) { stub_fix_it(); return 0; };
 void x__writeeflags(unsigned  /*Value*/) { stub_fix_it(); };
 unsigned int x__getcallerseflags(void) { stub_fix_it(); return 0; };
 
-x_DWORD dos_read(FILE*, char, x_DWORD, x_DWORD, x_DWORD) { stub_fix_it(); return 0; };// weak
+x_DWORD dos_read(FILE*, char, x_DWORD, x_DWORD, char*) { stub_fix_it(); return 0; };// weak
 
 //----- (0009D770) --------------------------------------------------------
 int sub_9D770(char* a1, char a2)//27e770
@@ -577,36 +579,15 @@ int sub_9D770(char* a1, char a2)//27e770
 		if (v10 == NULL)
 			return 0;
 	}
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-	v12 = sub_9D380(v10, 60, a2, (int)&v8, 4);
-	v12 = sub_9D380(v10, v8, a2, (int)&v13, 2);
-#endif
+	v12 = sub_9D380(v10, 60, a2, (uint8_t*)&v8, 4);
+	v12 = sub_9D380(v10, v8, a2, (uint8_t*)&v13, 2);
 	if (!strcmp((const char*)&v13, "LX"))
 	{
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-		sub_9D380(v10, v8, a2, (int)&v3, 172);
-#endif
+		sub_9D380(v10, v8, a2, (uint8_t*)&v3, 172);
 		v12 = v4 + v8;
 		for (i = 0; i < v5; i++)
 		{
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-			v12 = sub_9D380(v10, v12, a2, (int)&v6, 24);
-#endif
+			v12 = sub_9D380(v10, v12, a2, (uint8_t*)&v6, 24);
 			v7 += v6;
 		}
 		if (!(a2 & 1))
@@ -657,16 +638,16 @@ FILE* x_open(char* path, int  /*pmodex*/) {
 };
 
 //----- (0009D380) --------------------------------------------------------
-int sub_9D380(FILE* a1, int a2, char a3, int a4, int a5)//27e380
+int sub_9D380(FILE* a1, int a2, char a3, uint8_t* a4x, int a5)//27e380
 {
 	if (a3 & 1)
 	{
-		memcpy((void*)a4, (const void*)(a2 + a1), a5);
+		memcpy((void*)a4x, (const void*)(a2 + a1), a5);
 	}
 	else
 	{
 		DataFileIO::Seek(a1, a2, 0);
-		DataFileIO::Read(a1, (uint8_t*)a4, a5);
+		DataFileIO::Read(a1, a4x, a5);
 	}
 	return a5 + a2;
 }
@@ -806,8 +787,8 @@ int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* textString, int32_t a3, in
 	int v55; // eax
 	signed __int16 v56; // si
 	signed __int16 v57; // si
-	x_BYTE* v58; // ecx
-	int v59; // eax
+	uint8_t* v58x; // ecx
+	int v59y; // eax
 	__int16 v60; // ax
 	int v61; // edi
 	int v62; // eax
@@ -910,7 +891,7 @@ int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* textString, int32_t a3, in
 						HIBYTE(v97) = 15;
 						LOBYTE(v97) = *v19;
 						v19++;
-						*(v19 - 1) = x_DWORD_17DE38str.x_DWORD_17DE3C[v97];
+						*(v19 - 1) = ((uint8_t*)x_DWORD_17DE38str.x_DWORD_17DE3C)[v97];
 					}
 					v19 += 640 - v20;
 				}
@@ -948,7 +929,7 @@ int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* textString, int32_t a3, in
 		v10 = xy_DWORD_17DED4_spritestr[a8].height_5;//adress 260da7
 		v11 = v10 + a5;
 		v98 += v10;
-		v12 = getPalletteIndex_5BE80(x_DWORD_17DE38str.x_DWORD_17DE38x, 0, 0, v86);
+		v12 = getPalletteIndex_5BE80(x_DWORD_17DE38str.x_DWORD_17DE38x, 0, 0, 0/*v86*/);
 		v86 = v12;
 		v13 = 6 * (a8 - 1);
 		v14 = xy_DWORD_17DED4_spritestr[v13 / 6].height_5;
@@ -1022,7 +1003,7 @@ int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* textString, int32_t a3, in
 									HIBYTE(v97) = 15;
 									LOBYTE(v97) = *v31;
 									v31++;
-									*(v31 - 1) = x_DWORD_17DE38str.x_DWORD_17DE3C[v97];
+									*(v31 - 1) = ((uint8_t*)x_DWORD_17DE38str.x_DWORD_17DE3C)[v97];
 								}
 								v31 += 640 - v33;
 							}
@@ -1048,7 +1029,7 @@ int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* textString, int32_t a3, in
 										HIBYTE(v40) = 15;
 										LOBYTE(v40) = *v38;
 										v38++;
-										*(v38 - 1) = x_DWORD_17DE38str.x_DWORD_17DE3C[v40];
+										*(v38 - 1) = ((uint8_t*)x_DWORD_17DE38str.x_DWORD_17DE3C)[v40];
 									}
 									v38 += 640 - v39;
 								}
@@ -1076,7 +1057,7 @@ int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* textString, int32_t a3, in
 					{
 						if (!a6)
 						{
-							v27 = getPalletteIndex_5BE80(x_DWORD_17DE38str.x_DWORD_17DE38x, 0, 0, v86);
+							v27 = getPalletteIndex_5BE80(x_DWORD_17DE38str.x_DWORD_17DE38x, 0, 0, 0/*v86*/);
 							v86 = v27;
 							v28 = 6 * (a8 - 1);
 							v29 = xy_DWORD_17DED4_spritestr[v28 / 6].height_5;
@@ -1126,27 +1107,20 @@ int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* textString, int32_t a3, in
 			if (a6 == 2)
 			{
 				DrawHelpText_6FC50(1/*v86*/);
-				v58 = (x_BYTE*)(v99 + 640 * a1);
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-				v59 = (int)pdwScreenBuffer;
-#endif
+				v58x = &pdwScreenBuffer[v99 + 640 * a1];
+				v59y = 0;
 				for (v57 = 0; v57 < xy_DWORD_17DED4_spritestr[274].height_5; v57++)
 				{
-					v58 += v59;
+					v58x += v59y;
 					for (v60 = 0; v60 < a4 - (v99 - v91); v60++)
 					{
 						v91 = xy_DWORD_17DED4_spritestr[274].width_4;
 						HIBYTE(v97) = 15;
-						LOBYTE(v97) = *v58;
-						v58++;
-						*(v58 - 1) = x_DWORD_17DE38str.x_DWORD_17DE3C[v97];
+						LOBYTE(v97) = *v58x;
+						*v58x = ((uint8_t*)x_DWORD_17DE38str.x_DWORD_17DE3C)[v97];
+						v58x++;
 					}
-					v59 = 640 - v60;
+					v59y = 640 - v60;
 				}
 				v61 = v99;
 				sub_7C120_draw_bitmap_640(v99, a1, xy_DWORD_17DED4_spritestr[274]);
@@ -1166,7 +1140,7 @@ int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* textString, int32_t a3, in
 						HIBYTE(v97) = 15;
 						LOBYTE(v97) = *v64;
 						v64++;
-						*(v64 - 1) = x_DWORD_17DE38str.x_DWORD_17DE3C[v97];
+						*(v64 - 1) = ((uint8_t*)x_DWORD_17DE38str.x_DWORD_17DE3C)[v97];
 					}
 					v64 += 640 - v66;
 				}
@@ -1201,7 +1175,7 @@ int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* textString, int32_t a3, in
 							HIBYTE(v97) = 15;
 							LOBYTE(v97) = *v72;
 							v72++;
-							*(v72 - 1) = x_DWORD_17DE38str.x_DWORD_17DE3C[v97];
+							*(v72 - 1) = ((uint8_t*)x_DWORD_17DE38str.x_DWORD_17DE3C)[v97];
 						}
 						v71 = 640 - v74;
 					}
@@ -1222,7 +1196,7 @@ int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* textString, int32_t a3, in
 							HIBYTE(v97) = 15;
 							LOBYTE(v97) = *v78;
 							v78++;
-							*(v78 - 1) = x_DWORD_17DE38str.x_DWORD_17DE3C[v97];
+							*(v78 - 1) = ((uint8_t*)x_DWORD_17DE38str.x_DWORD_17DE3C)[v97];
 						}
 						v78 += 640 - v80;
 					}
@@ -1254,7 +1228,7 @@ int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* textString, int32_t a3, in
 		{
 			if (!a6)
 			{
-				v45 = getPalletteIndex_5BE80(x_DWORD_17DE38str.x_DWORD_17DE38x, 0, 0, v86);
+				v45 = getPalletteIndex_5BE80(x_DWORD_17DE38str.x_DWORD_17DE38x, 0, 0, 0/*v86*/);
 				v86 = v45;
 				v46 = 6 * (a8 - 1);
 				v47 = xy_DWORD_17DED4_spritestr[v46 / 6].height_5;
@@ -1269,7 +1243,7 @@ int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* textString, int32_t a3, in
 				//HIWORD(v50) = HIWORD(xy_DWORD_17DED4_spritestr);
 				v50 = xy_DWORD_17DED4_spritestr[v46 / 6].height_5;
 				v51 = v50 + a1;
-				v52 = getPalletteIndex_5BE80(x_DWORD_17DE38str.x_DWORD_17DE38x, 0, 0, v86);//?
+				v52 = getPalletteIndex_5BE80(x_DWORD_17DE38str.x_DWORD_17DE38x, 0, 0, 0/*v86*/);//?
 				v86 = v52;
 				v53 = xy_DWORD_17DED4_spritestr[v46 / 6].height_5;
 				v54 = v91;
@@ -1287,7 +1261,7 @@ int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* textString, int32_t a3, in
 					v56 += v103;
 				}
 			}
-			sub_7FAE0_draw_text(v87, v99, a4, v98, 0/*v86*/);//draw text(with pallette?) 
+			sub_7FAE0_draw_text(v87, v99, a4, v98, 0/*v86*/);//draw text(with palette?) 
 		}
 	}
 	if (a6)
@@ -1541,8 +1515,11 @@ void sub_90478_VGA_Blit320()//271478
 #endif //DEBUG_SEQUENCES
 	if (!x_BYTE_E3766)
 		sub_8CACD_draw_cursor2();
-
+#ifndef debug_hide_graphics
 	VGA_Blit(320, 200, pdwScreenBuffer);
+#endif
+	//if(dos_key_vect_9)dos_key_vect_9();
+	//VGA_mouse_clear_keys();
 
 	//set speed
 	long actmillis = mygetthousandths();
@@ -3470,14 +3447,12 @@ void sub_98709_create_index_dattab_power_add(uint8_t* tabbuffer, uint8_t* tabbuf
 {
 	for (uint32_t i = 0; i < (tabbufferend - (tabbuffer + add)) / 6; i++)
 	{
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-		std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-		dattabindex[i].data = (uint8_t*)(*(uint32_t*)((tabbuffer + add) + 6 * i)) + (int32_t)datbuffer;
-#endif
+#ifdef x32_BIT_ENVIRONMENT
+		dattabindex[i].data = (uint8_t*)(*(uint32_t*)((tabbuffer + add) + 6 * i)) + reinterpret_cast<int32_t>(datbuffer);
+#endif //x32_BIT_ENVIRONMENT
+#ifdef x64_BIT_ENVIRONMENT
+		dattabindex[i].data = (uint8_t*)(*(uint32_t*)((tabbuffer + add) + 6 * i)) + (int32_t)reinterpret_cast<int64_t>(datbuffer);
+#endif //x64_BIT_ENVIRONMENT		
 		dattabindex[i].width_4 = (tabbuffer + add)[6 * i + 4] * 2;
 		dattabindex[i].height_5 = (tabbuffer + add)[6 * i + 5] * 2;
 	}
@@ -3525,14 +3500,12 @@ void sub_9874D_create_index_dattab_add(uint8_t* tabbuffer, uint8_t* tabbufferend
 {
 	for (uint32_t i = 0; i < (tabbufferend - (tabbuffer + add)) / 6; i++)
 	{
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-		std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-		dattabindex[i].data = (uint8_t*)(*(uint32_t*)((tabbuffer + add) + 6 * i)) + (int32_t)datbuffer;
-#endif
+#ifdef x32_BIT_ENVIRONMENT
+		dattabindex[i].data = (uint8_t*)(*(uint32_t*)((tabbuffer + add) + 6 * i)) + reinterpret_cast<int32_t>(datbuffer);
+#endif //x32_BIT_ENVIRONMENT
+#ifdef x64_BIT_ENVIRONMENT
+		dattabindex[i].data = (uint8_t*)(*(uint32_t*)((tabbuffer + add) + 6 * i)) + (int32_t)reinterpret_cast<int64_t>(datbuffer);
+#endif //x64_BIT_ENVIRONMENT			
 		dattabindex[i].width_4 = (tabbuffer + add)[6 * i + 4];
 		dattabindex[i].height_5 = (tabbuffer + add)[6 * i + 5];
 	}
