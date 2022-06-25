@@ -154,7 +154,8 @@ install(
 )
 install(
     FILES 
-    ${CMAKE_SOURCE_DIR}/config.ini
+    ${CMAKE_SOURCE_DIR}/config_linux.ini
+    RENAME config.ini
     DESTINATION bin
 )
 install(
@@ -191,6 +192,9 @@ if (UNIX)
         ADLMIDI_static
     )
     target_link_directories(${PROJECT_NAME} PUBLIC
+    )
+    target_compile_definitions(${PROJECT_NAME} PUBLIC
+        "$<$<CONFIG:DEBUG>:_DEBUG>"
     )
 endif ()
 

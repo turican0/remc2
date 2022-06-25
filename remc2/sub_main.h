@@ -514,10 +514,10 @@ int32_t /*__cdecl*/ gets(int32_t);// weak
 //x_DWORD /*__cdecl*/ fix_tell(x_DWORD);// weak
 int32_t /*__cdecl*/ expand(int32_t, int32_t);// weak
 //int /*__fastcall*/ _wcpp_1_unwind_leave__132(x_DWORD);// weak
-char sub_8BA10(int a1, int a2, int* a3, char* a4, int a5);
+void sub_8BA10(int a2, int* a3, char* a4, int a5);
 double /*__fastcall*/ _CHP(int32_t);// weak
-char sub_8B980(int a1, int a2, int32_t** a3, int a4);
-bool sub_9AE04(/*int eax0, */int edx0, int a3, int a1, int a2);
+char sub_8B980(int a1, int a2, char* a3, int a4);
+bool sub_9AE04(int a1, int a2);
 /*
 HDIGDRIVER sub_93330_AIL_install_DIG_driver_file(char* filename, IO_PARMS* IO);
 char sub_9AE90(int eax0, int edx0, int ebx0, int* a1, int8_t* a2, int a3, int a4);
