@@ -28612,17 +28612,17 @@ char sub_2DFD0(__int16 a1, __int16 a2, posistruct_t a3, unsigned __int8 a4)//20e
 {
 	int v4; // eax
 	x_BYTE* v5; // edi
-	uint8_t* v6; // edx
+	uint8_t* v6=0; // edx
 	int v7; // ebx
 	int v8; // ecx
-	x_BYTE* v9; // edi
-	uint8_t* v10; // edx
+	x_BYTE* v9=0; // edi
+	uint8_t* v10=0; // edx
 	int v11; // ebx
 	int v12; // ecx
 	int v14; // [esp+0h] [ebp-14h]
 	int v15; // [esp+0h] [ebp-14h]
 	int i; // [esp+4h] [ebp-10h]
-	int v17; // [esp+8h] [ebp-Ch]
+	int v17=0; // [esp+8h] [ebp-Ch]
 	__int16 v18; // [esp+Ch] [ebp-8h]
 	__int16 v19; // [esp+10h] [ebp-4h]
 
@@ -65956,8 +65956,8 @@ void sub_627F0_draw_minimap_entites_a(int a1, int a2, int16_t posX, int16_t posY
 	//int v96; // [esp+40h] [ebp+22h]
 	int v97; // [esp+44h] [ebp+26h]
 	int v98; // [esp+48h] [ebp+2Ah]
-	int v99; // [esp+4Ch] [ebp+2Eh]
-	int v100; // [esp+50h] [ebp+32h]
+	int v99=0; // [esp+4Ch] [ebp+2Eh]
+	int v100=0; // [esp+50h] [ebp+32h]
 	char* v101; // [esp+54h] [ebp+36h]
 	type_event_0x6E8E* v102x; // [esp+58h] [ebp+3Ah]
 	unsigned __int16 j; // [esp+5Ch] [ebp+3Eh]
@@ -78031,7 +78031,7 @@ void sub_75900()
 //----- (00075910) --------------------------------------------------------
 signed int sub_75910()
 {
-	signed int result; // eax
+	signed int result=0; // eax
 	unsigned __int16 v1; // ax
 	unsigned __int8 v2; // al
 
@@ -82486,7 +82486,7 @@ signed int sub_7C390()//25d390
 	int v3; // esi
 	signed __int16 v4; // dx
 	__int16 i; // ax
-	int v6; // [esp+0h] [ebp-8h]
+	int v6=0; // [esp+0h] [ebp-8h]
 	//char* v7; // [esp+4h] [ebp-4h]
 
 	char dataPath[MAX_PATH];
@@ -82678,7 +82678,7 @@ void sub_7C800(signed __int16 a1)//25d800
 	unsigned __int8 v12; // cl
 	unsigned __int8* v13; // edx
 	unsigned __int8 v14; // ch
-	int v15; // eax
+	int v15=0; // eax
 	unsigned __int8 v16; // ch
 	unsigned __int8 v17; // ch
 	uint8_t* v19; // [esp+4h] [ebp-4h]
@@ -92769,7 +92769,7 @@ char sub_8B880(int* a1, char a2, signed int a3, int a4)//26c880
 {
 	int v4; // esi
 	char result; // al
-	int v6; // eax
+	int v6=0; // eax
 	int v7; // eax
 	int v8; // eax
 	int v9; // edx
@@ -92966,7 +92966,7 @@ void sub_8BB40(uint8_t *a1, char a2)//26cb40
 //----- (0008BBE0) --------------------------------------------------------
 signed int sub_8BBE0(int a1)//fix//26cbe0
 {
-	char v1; // dl
+	char v1=0; // dl
 	unsigned __int8 v2; // al
 	char v3; // al
 	signed int result; // eax
@@ -93362,8 +93362,8 @@ LABEL_46:
 //----- (0008C0E0) --------------------------------------------------------
 void sub_8C0E0(unsigned __int8(/*__fastcall*/ *a1)(signed int))//26d0e0
 {
-	signed int v1; // eax
-	signed int v2; // eax
+	signed int v1=0; // eax
+	signed int v2=0; // eax
 
 	unk_180560x[0x1a] = 0;
 	while (!(unk_180560x[0x1a] & 1))
