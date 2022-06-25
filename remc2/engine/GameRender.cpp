@@ -118,9 +118,9 @@ void GameRender::DrawWorld(int posX, int posY, int16_t yaw, int16_t posZ, int16_
 	vPosX = x_DWORD_D4794 + posX;
 	vPosY = x_DWORD_D4798 + posY;
 
-	if (D41A0_0.m_GameSettings.str_0x2192.xxxx_0x2193 && m_uiScreenSize && m_uiScreenWidth == 640)
+	if (D41A0_0.m_GameSettings.str_0x2192.xxxx_0x2193 && m_uiScreenSize && m_uiScreenWidth_DE560 == 640)
 	{
-		uint16_t origScreenWidth = m_uiScreenWidth;
+		uint16_t origScreenWidth = m_uiScreenWidth_DE560;
 		uint16_t origScreenHeight = m_uiScreenHeight;
 
 		//VR interlaced render
@@ -167,13 +167,13 @@ void GameRender::DrawWorld(int posX, int posY, int16_t yaw, int16_t posZ, int16_
 		if (D41A0_0.str_0x21AE.xxxx_0x21B1 && D41A0_0.m_GameSettings.m_Display.xxxx_0x2191 && x_DWORD_E9C3C)
 		{
 			//Blur
-			v35 = m_ptrViewPortRenderBufferStart;
+			v35 = m_ptrViewPortRenderBufferStart_DE558;
 			SetRenderViewPortSize_BCD45(x_DWORD_E9C3C, 0, 0, 0);
-			DrawTerrainAndParticles_3C080(vPosX, vPosY, vYaw, posZ, pitch, roll, fov, str_DWORD_F66F0x, x_BYTE_E88E0x, x_DWORD_F5730, unk_F0A20x, x_DWORD_EA3E4, str_unk_1804B0ar, x_WORD_D4B7C, isCaveLevel, m_viewPort, m_uiScreenWidth);
+			DrawTerrainAndParticles_3C080(vPosX, vPosY, vYaw, posZ, pitch, roll, fov, str_DWORD_F66F0x, x_BYTE_E88E0x, x_DWORD_F5730, unk_F0A20x, x_DWORD_EA3E4, str_unk_1804B0ar, x_WORD_D4B7C, isCaveLevel, m_viewPort, m_uiScreenWidth_DE560);
 			//Apply Blur
 			SetRenderViewPortSize_BCD45(v35, 0, 0, 0);
 			v51 = (signed int)(unsigned __int16)m_viewPort.Width >> 2;
-			v49 = m_uiScreenWidth - (unsigned __int16)m_viewPort.Width;
+			v49 = m_uiScreenWidth_DE560 - (unsigned __int16)m_viewPort.Width;
 			v50 = (unsigned __int16)m_viewPort.Height;
 
 			if (D41A0_0.m_GameSettings.m_Display.xxxx_0x2191 != 1)
@@ -225,15 +225,15 @@ void GameRender::DrawWorld(int posX, int posY, int16_t yaw, int16_t posZ, int16_
 			}
 		}
 
-		DrawTerrainAndParticles_3C080(vPosX, vPosY, vYaw, posZ, pitch, roll, fov, str_DWORD_F66F0x, x_BYTE_E88E0x, x_DWORD_F5730, unk_F0A20x, x_DWORD_EA3E4, str_unk_1804B0ar, x_WORD_D4B7C, isCaveLevel, m_viewPort, m_uiScreenWidth);
+		DrawTerrainAndParticles_3C080(vPosX, vPosY, vYaw, posZ, pitch, roll, fov, str_DWORD_F66F0x, x_BYTE_E88E0x, x_DWORD_F5730, unk_F0A20x, x_DWORD_EA3E4, str_unk_1804B0ar, x_WORD_D4B7C, isCaveLevel, m_viewPort, m_uiScreenWidth_DE560);
 
 		if (D41A0_0.m_GameSettings.str_0x2192.xxxx_0x2192)
 		{
-			v53 = m_ptrViewPortRenderBufferStart;
+			v53 = m_ptrViewPortRenderBufferStart_DE558;
 			for (i = (unsigned __int16)m_viewPort.Height - 1; i; i--)
 			{
 				v43 = (x_BYTE*)v53;
-				v44 = m_uiScreenWidth;
+				v44 = m_uiScreenWidth_DE560;
 				v45 = (unsigned __int16)m_viewPort.Width - 1;
 				HIWORD(v46) = 0;
 				HIWORD(v47) = 0;
@@ -249,7 +249,7 @@ void GameRender::DrawWorld(int posX, int posY, int16_t yaw, int16_t posZ, int16_
 					*v43++ = m_ptrX_BYTE_F6EE0_tablesx[0x4000 + v48];
 					v45--;
 				} while (v45);
-				v53 += m_uiScreenWidth;
+				v53 += m_uiScreenWidth_DE560;
 			}
 		}
 	LABEL_44:
@@ -261,14 +261,14 @@ void GameRender::DrawWorld(int posX, int posY, int16_t yaw, int16_t posZ, int16_
 		v28 = 5 * Maths::x_DWORD_DB750[vYaw];
 		v29 = Maths::x_DWORD_DB750[0x200 + vYaw];
 		x_DWORD_D4790 = 20;
-		x_DWORD_D4324 = m_uiScreenWidth / 40;
+		x_DWORD_D4324 = m_uiScreenWidth_DE560 / 40;
 		v30 = 4 * v28 >> 16;
 		v31 = 20 * (signed int)v29 >> 16;
-		DrawTerrainAndParticles_3C080(v31 + vPosX, v30 + vPosY, vYaw, posZ, pitch, roll, fov, str_DWORD_F66F0x, x_BYTE_E88E0x, x_DWORD_F5730, unk_F0A20x, x_DWORD_EA3E4, str_unk_1804B0ar, x_WORD_D4B7C, isCaveLevel, m_viewPort, m_uiScreenWidth);
-		v32 = m_ptrViewPortRenderBufferStart;
+		DrawTerrainAndParticles_3C080(v31 + vPosX, v30 + vPosY, vYaw, posZ, pitch, roll, fov, str_DWORD_F66F0x, x_BYTE_E88E0x, x_DWORD_F5730, unk_F0A20x, x_DWORD_EA3E4, str_unk_1804B0ar, x_WORD_D4B7C, isCaveLevel, m_viewPort, m_uiScreenWidth_DE560);
+		v32 = m_ptrViewPortRenderBufferStart_DE558;
 		SetRenderViewPortSize_BCD45(x_DWORD_E9C3C, 0, 0, 0);
-		x_DWORD_D4324 = 0 - (m_uiScreenWidth / 40);
-		DrawTerrainAndParticles_3C080(vPosX - v31, vPosY - v30, vYaw, posZ, pitch, roll, fov, str_DWORD_F66F0x, x_BYTE_E88E0x, x_DWORD_F5730, unk_F0A20x, x_DWORD_EA3E4, str_unk_1804B0ar, x_WORD_D4B7C, isCaveLevel, m_viewPort, m_uiScreenWidth);
+		x_DWORD_D4324 = 0 - (m_uiScreenWidth_DE560 / 40);
+		DrawTerrainAndParticles_3C080(vPosX - v31, vPosY - v30, vYaw, posZ, pitch, roll, fov, str_DWORD_F66F0x, x_BYTE_E88E0x, x_DWORD_F5730, unk_F0A20x, x_DWORD_EA3E4, str_unk_1804B0ar, x_WORD_D4B7C, isCaveLevel, m_viewPort, m_uiScreenWidth_DE560);
 		SetRenderViewPortSize_BCD45(v32, 0, 0, 0);
 		x_DWORD_D4324 = 0;
 	}
@@ -286,7 +286,7 @@ void GameRender::WriteWorldToBMP()
 	GetSubDirectoryPath(path, "BufferOut/PaletteOut.bmp");
 	BitmapIO::WritePaletteAsImageBMP(path, 256, m_ptrColorPalette);
 	GetSubDirectoryPath(path, "BufferOut/BufferOut.bmp");
-	BitmapIO::WriteImageBufferAsImageBMP(path, m_uiScreenWidth, m_uiScreenHeight, m_ptrColorPalette, m_ptrScreenBuffer);
+	BitmapIO::WriteImageBufferAsImageBMP(path, m_uiScreenWidth_DE560, m_uiScreenHeight, m_ptrColorPalette, m_ptrScreenBuffer);
 }
 
 void GameRender::ClearGraphicsBuffer(uint8_t colorIdx)
@@ -295,7 +295,7 @@ void GameRender::ClearGraphicsBuffer(uint8_t colorIdx)
 	{
 		colorIdx = 255;
 	}
-	memset32(m_ptrScreenBuffer, colorIdx, m_uiScreenWidth * m_uiScreenWidth);
+	memset32(m_ptrScreenBuffer, colorIdx, m_uiScreenWidth_DE560 * m_uiScreenWidth_DE560);
 }
 
 void GameRender::DrawSky_40950_TH(int16_t roll, uint8_t* ptrViewPortRenderBufferStart, uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t pitch)
@@ -806,7 +806,7 @@ void GameRender::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __int
 		v27 = screenWidth - viewPort.Width;
 		v28 = (v26 - (__CFSHL__((signed int)v26 >> 31, 2) + 4 * ((signed int)v26 >> 31))) >> 2;
 		v29 = viewPort.Height;
-		v25x = m_ptrViewPortRenderBufferStart;
+		v25x = m_ptrViewPortRenderBufferStart_DE558;
 		v30 = (v26 - (__CFSHL__((signed int)v26 >> 31, 2) + 4 * ((signed int)v26 >> 31))) >> 2;
 		LOBYTE(v28) = x_WORD_D4B7C;
 		HIBYTE(v28) = x_WORD_D4B7C;
@@ -824,11 +824,11 @@ void GameRender::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __int
 	{
 		if (m_renderThreads.size() > 0)
 		{
-			DrawSky_40950_TH(roll, m_ptrViewPortRenderBufferStart, viewPort.Width, viewPort.Height, screenWidth);
+			DrawSky_40950_TH(roll, m_ptrViewPortRenderBufferStart_DE558, viewPort.Width, viewPort.Height, screenWidth);
 		}
 		else
 		{
-			DrawSky_40950(roll, m_ptrViewPortRenderBufferStart, viewPort.Width, viewPort.Height, screenWidth, 0, 1);
+			DrawSky_40950(roll, m_ptrViewPortRenderBufferStart_DE558, viewPort.Width, viewPort.Height, screenWidth, 0, 1);
 		}
 	}
 	if (isCaveLevel)//21d3e3 cleaned screen
@@ -4375,7 +4375,7 @@ void GameRender::DrawSprite_41BD3(uint32 a1, uint8_t x_BYTE_E88E0x[], type_event
 							v157 -= v139 * v160;
 							v170 = m_str_F2C20ar.dword0x21;
 						LABEL_136:
-							v123 = pitch * v170 + m_ptrViewPortRenderBufferStart;
+							v123 = pitch * v170 + m_ptrViewPortRenderBufferStart_DE558;
 							goto LABEL_137;
 						}
 						break;
@@ -4419,7 +4419,7 @@ void GameRender::DrawSprite_41BD3(uint32 a1, uint8_t x_BYTE_E88E0x[], type_event
 								v158 += v141 * v161;
 								v171 = m_str_F2C20ar.width0x25;
 							LABEL_284:
-								v123 = v171 + m_ptrViewPortRenderBufferStart;
+								v123 = v171 + m_ptrViewPortRenderBufferStart_DE558;
 								//myprintf("v123-2 %08X", v123);
 								goto LABEL_285;
 							}
@@ -4459,7 +4459,7 @@ void GameRender::DrawSprite_41BD3(uint32 a1, uint8_t x_BYTE_E88E0x[], type_event
 						v157 -= v147 * v160;
 						v170 = m_str_F2C20ar.dword0x21;
 					LABEL_329:
-						v123 = m_str_F2C20ar.width0x25 + m_ptrViewPortRenderBufferStart - 1 - v170;
+						v123 = m_str_F2C20ar.width0x25 + m_ptrViewPortRenderBufferStart_DE558 - 1 - v170;
 						//myprintf("v123-3 %08X", v123);
 						goto LABEL_137;
 					case 3:
@@ -4502,7 +4502,7 @@ void GameRender::DrawSprite_41BD3(uint32 a1, uint8_t x_BYTE_E88E0x[], type_event
 							v158 += v148 * v161;
 							v171 = m_str_F2C20ar.width0x25;
 						}
-						v123 = m_str_F2C20ar.height0x26 + pitch * v171 - 1 + m_ptrViewPortRenderBufferStart;
+						v123 = m_str_F2C20ar.height0x26 + pitch * v171 - 1 + m_ptrViewPortRenderBufferStart_DE558;
 						//myprintf("v123-4 %08X", v123);
 						goto LABEL_285;
 					case 4:
@@ -4539,7 +4539,7 @@ void GameRender::DrawSprite_41BD3(uint32 a1, uint8_t x_BYTE_E88E0x[], type_event
 						v157 -= v149 * v160;
 						v170 = m_str_F2C20ar.dword0x21;
 					LABEL_348:
-						v123 = m_str_F2C20ar.height0x26 + m_ptrViewPortRenderBufferStart + pitch * (m_str_F2C20ar.width0x25 - v170 - 1) - 1;
+						v123 = m_str_F2C20ar.height0x26 + m_ptrViewPortRenderBufferStart_DE558 + pitch * (m_str_F2C20ar.width0x25 - v170 - 1) - 1;
 						//myprintf("v123-5 %08X", v123);
 						goto LABEL_137;
 					case 5:
@@ -4583,7 +4583,7 @@ void GameRender::DrawSprite_41BD3(uint32 a1, uint8_t x_BYTE_E88E0x[], type_event
 							v158 += v150 * v161;
 							v171 = m_str_F2C20ar.width0x25;
 						}
-						v123 = (m_str_F2C20ar.height0x26 - 1) * pitch + m_str_F2C20ar.width0x25 + m_ptrViewPortRenderBufferStart - 1 - v171;
+						v123 = (m_str_F2C20ar.height0x26 - 1) * pitch + m_str_F2C20ar.width0x25 + m_ptrViewPortRenderBufferStart_DE558 - 1 - v171;
 						//myprintf("v123-6 %08X", v123);
 						goto LABEL_285;
 					case 6:
@@ -4620,7 +4620,7 @@ void GameRender::DrawSprite_41BD3(uint32 a1, uint8_t x_BYTE_E88E0x[], type_event
 						v157 -= v151 * v160;
 						v170 = m_str_F2C20ar.dword0x21;
 					LABEL_367:
-						v123 = m_ptrViewPortRenderBufferStart + pitch * (m_str_F2C20ar.height0x26 - 1) + v170;
+						v123 = m_ptrViewPortRenderBufferStart_DE558 + pitch * (m_str_F2C20ar.height0x26 - 1) + v170;
 						//myprintf("v123-7 %08X", v123);
 					LABEL_137:
 						v140 = m_str_F2C20ar.width0x25 - m_str_F2C20ar.dword0x21;
@@ -5180,7 +5180,7 @@ void GameRender::DrawSprite_41BD3(uint32 a1, uint8_t x_BYTE_E88E0x[], type_event
 							v158 += v152 * v161;
 							v171 = m_str_F2C20ar.width0x25;
 						}
-						v123 = pitch * (m_str_F2C20ar.width0x25 - 1 - v171) + m_ptrViewPortRenderBufferStart;
+						v123 = pitch * (m_str_F2C20ar.width0x25 - 1 - v171) + m_ptrViewPortRenderBufferStart_DE558;
 						//myprintf("v123-11 %08X", v123);
 					LABEL_285:
 						v142 = m_str_F2C20ar.width0x25 - m_str_F2C20ar.dword0x21;
@@ -5389,7 +5389,7 @@ void GameRender::DrawSprite_41BD3(uint32 a1, uint8_t x_BYTE_E88E0x[], type_event
 			//v1 = (int)(x_DWORD_F2C2C * pitch + x_DWORD_F2C30 + x_DWORD_DE558);
 
 			//               screen-Y                                            screen-X
-			v122x = &m_ptrViewPortRenderBufferStart[m_str_F2C20ar.dword0x03_screenX * pitch + m_str_F2C20ar.dword0x04_screenY];
+			v122x = &m_ptrViewPortRenderBufferStart_DE558[m_str_F2C20ar.dword0x03_screenX * pitch + m_str_F2C20ar.dword0x04_screenY];
 			//height
 			while (m_str_F2C20ar.dword0x0c_realHeight)
 			{
@@ -7091,12 +7091,12 @@ void GameRender::DrawTriangleInProjectionSpace_B6253(ProjectionPolygon* vertex1,
 				{
 					if (v9 >= viewPortHeight)
 						return;
-					v1102 = m_ptrViewPortRenderBufferAltStart + pitch * v9;
+					v1102 = m_ptrViewPortRenderBufferAltStart_DE554 + pitch * v9;
 					v1292 = 0;
 				}
 				else
 				{
-					v1102 = m_ptrViewPortRenderBufferAltStart;
+					v1102 = m_ptrViewPortRenderBufferAltStart_DE554;
 					v1292 = 1;
 				}
 				v10 = v5->Y;
@@ -7520,12 +7520,12 @@ void GameRender::DrawTriangleInProjectionSpace_B6253(ProjectionPolygon* vertex1,
 			{
 				if (v117 >= viewPortHeight)
 					return;
-				v1102 = m_ptrViewPortRenderBufferAltStart + pitch * v117;
+				v1102 = m_ptrViewPortRenderBufferAltStart_DE554 + pitch * v117;
 				v1294 = 0;
 			}
 			else
 			{
-				v1102 = m_ptrViewPortRenderBufferAltStart;
+				v1102 = m_ptrViewPortRenderBufferAltStart_DE554;
 				v1294 = 1;
 			}
 			v118 = v5->Y;
@@ -7715,12 +7715,12 @@ void GameRender::DrawTriangleInProjectionSpace_B6253(ProjectionPolygon* vertex1,
 		{
 			if (v143 >= viewPortHeight)
 				return;
-			v1102 = m_ptrViewPortRenderBufferAltStart + pitch * v143;
+			v1102 = m_ptrViewPortRenderBufferAltStart_DE554 + pitch * v143;
 			v1295 = 0;
 		}
 		else
 		{
-			v1102 = m_ptrViewPortRenderBufferAltStart;
+			v1102 = m_ptrViewPortRenderBufferAltStart_DE554;
 			v1295 = 1;
 		}
 		v144 = v5->Y;
@@ -7940,12 +7940,12 @@ LABEL_129:
 	{
 		if (v65 >= viewPortHeight)
 			return;
-		v1102 = m_ptrViewPortRenderBufferAltStart + pitch * v65;
+		v1102 = m_ptrViewPortRenderBufferAltStart_DE554 + pitch * v65;
 		v1293 = 0;
 	}
 	else
 	{
-		v1102 = m_ptrViewPortRenderBufferAltStart;
+		v1102 = m_ptrViewPortRenderBufferAltStart_DE554;
 		v1293 = 1;
 	}
 	v66 = v5->Y;
@@ -14772,7 +14772,7 @@ void GameRender::SetRenderViewPortSize_BCD45(uint8_t viewPortSizeSetting, uint16
 
 void GameRender::SetRenderViewPortSize_BCD45(ViewPort viewPort, uint16_t screenWidth, uint16_t screenHeight)
 {
-	m_uiScreenWidth = screenWidth;
+	m_uiScreenWidth_DE560 = screenWidth;
 	m_uiScreenHeight = screenHeight;
 
 	m_viewPort = viewPort;
@@ -14797,21 +14797,21 @@ void GameRender::SetRenderViewPortSize_BCD45(ViewPort viewPort, uint16_t screenW
 		m_viewPort.PosY = screenHeight - 1;
 	}
 
-	int32_t ptrScreenRenderBufferStart = m_viewPort.PosX + m_uiScreenWidth * m_viewPort.PosY;
-	SetRenderViewPortSize_BCD45(ptrScreenRenderBufferStart + m_ptrScreenBuffer, m_viewPort.Width, m_viewPort.Height, m_uiScreenWidth);
+	int32_t ptrScreenRenderBufferStart = m_viewPort.PosX + m_uiScreenWidth_DE560 * m_viewPort.PosY;
+	SetRenderViewPortSize_BCD45(ptrScreenRenderBufferStart + m_ptrScreenBuffer, m_viewPort.Width, m_viewPort.Height, m_uiScreenWidth_DE560);
 }
 
 void GameRender::SetRenderViewPortSize_BCD45(uint8_t* ptrScreenBufferStart, uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t screenWidth)
 {
 	if (screenWidth)
 	{
-		m_uiScreenWidth = screenWidth;
+		m_uiScreenWidth_DE560 = screenWidth;
 	}
 
 	if (ptrScreenBufferStart)
 	{
-		m_ptrViewPortRenderBufferStart = ptrScreenBufferStart;
-		m_ptrViewPortRenderBufferAltStart = ptrScreenBufferStart - m_uiScreenWidth;
+		m_ptrViewPortRenderBufferStart_DE558 = ptrScreenBufferStart;
+		m_ptrViewPortRenderBufferAltStart_DE554 = ptrScreenBufferStart - m_uiScreenWidth_DE560;
 	}
 
 	if (viewPortWidth)
