@@ -5,11 +5,11 @@ void myWriteOut(const char * format, ...) {
 #ifdef USE_DOSBOX
 	DEBUG_ShowMsg(format);
 #else
-	printf(format);
+	printf("%s", format);
 	VGA_Draw_string((char*)format);
 #endif //USE_DOSBOX
 
-	/*Bit16u sz = 1;
+	/*uint16_t sz = 1;
 	unsigned char b = 'a';
 	DOS_CON->Write(&b, &sz);*/
 }
@@ -25,13 +25,13 @@ void myprintf(const char * format, ...) {
 #ifdef USE_DOSBOX
 	DEBUG_ShowMsg(prbuffer);
 #else
-	printf(prbuffer);
+	printf("%s", prbuffer);
 	VGA_Draw_string(prbuffer);
 #endif //USE_DOSBOX
 
 	//return strlen(prbuffer);
 	//return done;
-	/*Bit16u sz = 1;
+	/*uint16_t sz = 1;
 	unsigned char b = 'a';
 	DOS_CON->Write(&b, &sz);*/
 }

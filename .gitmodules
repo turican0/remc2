@@ -1,0 +1,3 @@
+[submodule "findfirst"]
+	path = findfirst
+	url = https://github.com/MathieuTurcotte/findfirst.git

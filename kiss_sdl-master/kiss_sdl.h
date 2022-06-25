@@ -484,7 +484,8 @@ extern "C" {
 		int x, int y, SDL_Rect* clip);
 	int kiss_rendertext(SDL_Renderer* renderer, char* text, int x, int y,
 		kiss_font font, SDL_Color color);
-	int kiss_fillrect(SDL_Renderer* renderer, SDL_Rect* rect, SDL_Color color);
+	//int kiss_fillrect(SDL_Renderer* renderer, SDL_Rect* rect, SDL_Color color);
+	int kiss_fillrect2(SDL_Renderer* renderer, SDL_Rect* rect, SDL_Color color);
 	int kiss_decorate(SDL_Renderer* renderer, SDL_Rect* rect, SDL_Color color,
 		int edge);
 	int kiss_image_new(kiss_image* image, char* fname, kiss_array* a,
@@ -551,6 +552,7 @@ extern "C" {
 		kiss_array* a, int x, int y, int w, int h);
 	int kiss_textbox_event(kiss_textbox* textbox, SDL_Event* event, int mousex,int mousey,int* draw);
 	int kiss_textbox_draw(kiss_textbox* textbox, SDL_Renderer* renderer);
+	int kiss_textbox_draw2(kiss_textbox* textbox, SDL_Renderer* renderer);
 	void kiss_textbox_setviewon(kiss_textbox* textbox, int position);
 	int kiss_combobox_new(kiss_combobox* combobox, kiss_window* wdw,
 		char* text, kiss_array* a, int x, int y, int w, int h);

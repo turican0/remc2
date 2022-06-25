@@ -15,18 +15,18 @@ add =1a1038
 
 typedef struct pathstruct {
 	char path[ 1c];
-	Bit32s* var28_begin_buffer;//1C // asi buffer
-	Bit32s* var32_end_buffer;//20 // asi buffer
-	Bit32u var36_size_buffer;//24 //asi file size
-	Bit32u var40_alloc_type;//28
+	int32_t* var28_begin_buffer;//1C // asi buffer
+	int32_t* var32_end_buffer;//20 // asi buffer
+	uint32_t var36_size_buffer;//24 //asi file size
+	uint32_t var40_alloc_type;//28
 } Pathstruct;
 
 sub_9A32D - malloc open unpack
 
 unk_D4350 - 2A5350
 
-  sub_53E60_readfile_and_decompress("data/pald-0.dat", (Bit8u*)x_DWORD_EA3D8_pallette);
-  sub_53E60_readfile_and_decompress("data/clrd-0.dat", (Bit8u*)x_BYTE_E8900);
+  sub_53E60_readfile_and_decompress("data/pald-0.dat", (uint8_t*)x_DWORD_EA3D8_pallette);
+  sub_53E60_readfile_and_decompress("data/clrd-0.dat", (uint8_t*)x_BYTE_E8900);
 
   ebx 0
   esi 5332c1
@@ -128,7 +128,7 @@ pointers_buffer - off_D918C
 		sub_728A9((void *)x_DWORD_180628b,  1E0u, v1);//[351628d]3aa0a4,1E0,0
 
 3)chyab nacitani
-	sub_7AA70((char*)"DATA/SCREENS/HSCREEN0.DAT", (Bit8u*)x_DWORD_17DEC0, (int)&unk_13B194, 548);
+	sub_7AA70((char*)"DATA/SCREENS/HSCREEN0.DAT", (uint8_t*)x_DWORD_17DEC0, (int)&unk_13B194, 548);
 
 	najit puvod - 34ee48 - x_DWORD_17DE48c
 	predany jako v2 v
@@ -138,7 +138,7 @@ pointers_buffer - off_D918C
 	if ( !(unsigned __int16)sub_5BF50_load_psxdata() )//23C9F7 - 23CF50 //neco se soubory asi jejich naceteni, nebo jen soubor palety
 	
 	je to tu:
-	x_D41A0_BYTEARRAY_4[ E2] = (Bit32s)sub_83CD0_malloc2(x_D41A0_BYTEARRAY_4[ E6]);
+	x_D41A0_BYTEARRAY_4[ E2] = (int32_t)sub_83CD0_malloc2(x_D41A0_BYTEARRAY_4[ E6]);
 
 	4)
 	zasek v:
@@ -193,7 +193,7 @@ sub_8CD27(&x_D41A0_BYTEARRAY_4_ DE_heapbuffer);//26dd27 - najit kde se nastavuje
 bytearray de - [1a6578] - 0b0005a1a1a1a1
 
 
-//fix it! sub_2BB40(263, 134, (Bit8u**)(v36 + 6));//20cb40
+//fix it! sub_2BB40(263, 134, (uint8_t**)(v36 + 6));//20cb40
 najit, kde se bere 45116 - [4527bf]->[451516]->58e2e2e2
 -nacita se zde:
 v4 = sub_7F7D0(&v35, &v33, v1, langfilename);//2607d0
@@ -208,17 +208,17 @@ sub_7FCB0 - 260cb0
 56210 237210
 
 repair this function:
-void sub_8F935(Bit16u a1, signed int a2, int a3, Bit8u* a4, unsigned __int8 a5, char a6)//270935
+void sub_8F935(uint16_t a1, signed int a2, int a3, uint8_t* a4, unsigned __int8 a5, char a6)//270935
 
 oprava
 int /*__cdecl*/ sub_81360(int a1, int a2, int a3, int a4, __int16 a5)//262360
 oprava4
-__int16 /*__cdecl*/ /*__spoils<>*/ sub_72633(Bit16u a1, Bit16u a2)//253633
+__int16 /*__cdecl*/ /*__spoils<>*/ sub_72633(uint16_t a1, uint16_t a2)//253633
 
-int /*__cdecl*/ sub_81360(Bit32s a1, Bit32s a2, Bit32s a3, Bit32s a4, __int16 a5)//262360
+int /*__cdecl*/ sub_81360(int32_t a1, int32_t a2, int32_t a3, int32_t a4, __int16 a5)//262360
 
 ladeni:
-void sub_8F935(Bit16u a1, signed int a2, int a3, Bit8u* a4, unsigned __int8 a5, char a6)//270935
+void sub_8F935(uint16_t a1, signed int a2, int a3, uint8_t* a4, unsigned __int8 a5, char a6)//270935
 
 divne -  x_WORD_E36D4 = x_WORD_E36D4;//355230
 
@@ -227,11 +227,11 @@ int /*__cdecl*/ sub_2BC80(__int16 a1, __int16 a2, __int16 a3, __int16 a4, unsign
 
 dalsi problem:
 
-int sub_7FCB0(int a1, x_BYTE *a2, int a3, int a4, int a5, Bit8u a6, unsigned __int8 a7, Bit32u a8)//260cb0
+int sub_7FCB0(int a1, x_BYTE *a2, int a3, int a4, int a5, uint8_t a6, unsigned __int8 a7, uint32_t a8)//260cb0
 
 test
 
-void /*__cdecl*/ sub_90164(Bit16u x1, Bit16u y1, Bit16u x2, Bit16u y2, Bit8u a5)
+void /*__cdecl*/ sub_90164(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint8_t a5)
 
 0:
 0,0,0
@@ -258,11 +258,11 @@ v8[i] = x_BYTE_181544[i] + ((unk_181B42 >> 16) * (buffer[i] - x_BYTE_181544[i]) 
 //352b42 352544
 
 find
-void /*__cdecl*/ sub_41A90_VGA_pallette_install(Bit8u* buffer)//222a90
+void /*__cdecl*/ sub_41A90_VGA_pallette_install(uint8_t* buffer)//222a90
 and
-void /*__cdecl*/ sub_A0D2C_VGA_get_pallette(Bit8u* buffer)
+void /*__cdecl*/ sub_A0D2C_VGA_get_pallette(uint8_t* buffer)
 
-sub_90B27_VGA_pal_fadein_fadeout((Bit8u*)x_DWORD_17DE38,  20u, 0);//271b27 - tady se nacita paleta
+sub_90B27_VGA_pal_fadein_fadeout((uint8_t*)x_DWORD_17DE38,  20u, 0);//271b27 - tady se nacita paleta
 000000 1a1a15 13120f
 
 mozna
@@ -306,7 +306,7 @@ repair this function:
 signed int sub_7E0E0()//25f0e0
 
 repair this
-void sub_8F935(doublebyte a1, Bit16u tilex, int a3, Bit8u* a4, unsigned __int8 a5, char a6)//270935
+void sub_8F935(doublebyte a1, uint16_t tilex, int a3, uint8_t* a4, unsigned __int8 a5, char a6)//270935
 
 texture - 47be3b
 sub_7AA70((char*)"DATA/SCREENS/HSCREEN0.DAT", &x_D41A0_BYTEARRAY_4_ E2_heapbuffer[ 4D54A], 168849, 102213);
@@ -328,11 +328,11 @@ esi=[esi], tj 47ae48
 odladit
 signed int sub_7E0E0()//25f0e0
 
-x_DWORD_180628b_screen_buffer
+pdwScreenBuffer
 texture
 a dalsi
 v
-void sub_8F935(doublebyte a1, Bit16u tiley, int tilex, Bit8u* texture, unsigned __int8 a5, char a6)//270935
+void sub_8F935(doublebyte a1, uint16_t tiley, int tilex, uint8_t* texture, unsigned __int8 a5, char a6)//270935
 diagnostika dalsich typu spritu
 
 najit puvod a1 v 270935
@@ -385,9 +385,9 @@ ea730200 0026
 jeste je treba rozlustit toto:
 
         if ( x_WORD_180660_VGA_type_resolution & 1 )
-          sub_98709_create_index_dattab_power((Bit8u*)(int)x_DWORD_17DED4, (Bit8u*)x_DWORD_17DED8, &x_D41A0_BYTEARRAY_4_ E2_heapbuffer[ 4D54A], (new posistruct));
+          sub_98709_create_index_dattab_power((uint8_t*)(int)x_DWORD_17DED4, (uint8_t*)x_DWORD_17DED8, &x_D41A0_BYTEARRAY_4_ E2_heapbuffer[ 4D54A], (new posistruct));
         else
-          sub_9874D_create_index_dattab((Bit8u*)(int)x_DWORD_17DED4, (Bit8u*)x_DWORD_17DED8, &x_D41A0_BYTEARRAY_4_ E2_heapbuffer[ 4D54A], (new posistruct));
+          sub_9874D_create_index_dattab((uint8_t*)(int)x_DWORD_17DED4, (uint8_t*)x_DWORD_17DED8, &x_D41A0_BYTEARRAY_4_ E2_heapbuffer[ 4D54A], (new posistruct));
         
 		//34eed4 34eed8 37ee48
 
@@ -405,17 +405,17 @@ v4 = sub_7F7D0(&v35, &v33, v1, langfilename);//2607d0
 -neco v 2798a7
 zbytek v 34c870
 
-toto v char /*__cdecl*/ sub_779E0(int a1)//2589E0 by mozna melo byt Bit8u*
+toto v char /*__cdecl*/ sub_779E0(int a1)//2589E0 by mozna melo byt uint8_t*
 v1 = x_DWORD_E9C38_smalltit[307200];
 
-int /*__cdecl*/ sub_81360(Bit32s a1, Bit32s a2, Bit32s a3, Bit32s a4, __int16 a5)//262360
+int /*__cdecl*/ sub_81360(int32_t a1, int32_t a2, int32_t a3, int32_t a4, __int16 a5)//262360
 
 dalsi problem zde:
 sub_7C120(v5, v6, &x_DWORD_17DED4[6 * a5]);
 
 v9 = &unk_E24BCx[18 * v31];//2b34bc
 
-//loadfromsnapshot2((char*)"0160-00262360", (Bit8u*)x_DWORD_17DED4,  34eed4,  300);//3e
+//loadfromsnapshot2((char*)"0160-00262360", (uint8_t*)x_DWORD_17DED4,  34eed4,  300);//3e
   
 
 x_DWORD_17DED4 - 34eed4? - 3dc74800d7c9480000000000ffffffff4001c8
@@ -431,7 +431,7 @@ x_DWORD_17DED4_spritestr[ 44].sizex - tohle uz je spatne
 48c9d7
 
 fix this procedure:
-int sub_7FCB0(int a1, Bit8u* a2, Bit32s a3, Bit32s a4, int a5, Bit8u a6, unsigned __int8 a7, Bit32u a8)//260cb0
+int sub_7FCB0(int a1, uint8_t* a2, int32_t a3, int32_t a4, int a5, uint8_t a6, unsigned __int8 a7, uint32_t a8)//260cb0
 v ní opravit:
 sub_7FAE0(v87, v99, a4, v98, v86);
 
@@ -457,7 +457,7 @@ v15 = x_DWORD_17DED4_spritestr[v13 / 6].sizey;
 
 fix this:
 void sub_7FB90(char* a1, int a2, __int16 a3, unsigned __int8 a4)//260b90
-int /*__cdecl*/ sub_7C120(__int16 a1, __int16 a2, Bit8u* a3)//25d120
+int /*__cdecl*/ sub_7C120(__int16 a1, __int16 a2, uint8_t* a3)//25d120
 x_DWORD_17DEC0 - 34eec0 - neni naplnena korektne
 
 rozdil v blitu
@@ -495,7 +495,7 @@ engine-memory-0160-00258DDF
 
 x_DWORD_17DEE4 -mouse info
 
-Bit32u /*__cdecl*/ sub_7FAE0_draw_text(char* a1, __int16 a2, __int16 a3, __int16 a4, unsigned __int8 a5)//260ae0
+uint32_t /*__cdecl*/ sub_7FAE0_draw_text(char* a1, __int16 a2, __int16 a3, __int16 a4, unsigned __int8 a5)//260ae0
 -problem s a5
 
 *(x_DWORD *)&v86 = (int32)&v87[strlen(v87)]; - fix v87
@@ -1615,18 +1615,18 @@ sjednotit
 	  x_WORD_E3760 = temp_mouse_x; //nastav x
 	  x_WORD_E3762 = temp_mouse_y; //nastav y
 
-Bit16s x_WORD_E3760_mousex;
-Bit16s x_WORD_E3762_mousey;
+int16_t x_WORD_E3760_mousex;
+int16_t x_WORD_E3762_mousey;
 
 
-Bit8s x_DWORD_1806E8_mousex; // weak
-Bit8s x_DWORD_1806E8_mousey; // weak
+int8_t x_DWORD_1806E8_mousex; // weak
+int8_t x_DWORD_1806E8_mousey; // weak
 
 x_DWORD_180730 - fix xy
 x_DWORD_1806F8 - fix xy
 
-Bit16s x_DWORD_1806F8_mousex; // weak
-Bit16s x_DWORD_1806F8_mousey; // weak
+int16_t x_DWORD_1806F8_mousex; // weak
+int16_t x_DWORD_1806F8_mousey; // weak
 
 x_WORD_180660_VGA_type_resolution//351660 - ma by 8? asi ne, je to nejspis textovy mod
 
@@ -1647,7 +1647,7 @@ if ( !byte_E3766 )
     sub_8CACD(v1); - urcite prida kursor
 
 	je nekde zde:
-	void /*__cdecl*/ sub_75200_VGA_Blit640(Bit16u height)//256200
+	void /*__cdecl*/ sub_75200_VGA_Blit640(uint16_t height)//256200
 
 	zjistit zmeny x_WORD_18072C - 35172c
 
@@ -1695,7 +1695,7 @@ if ( !byte_E3766 )
 	2a51a4
 
 	fix cursor:
-	/* sub_8CD27_set_cursor((Bit8u**)**filearray_2aa18c[0]); fix it*/
+	/* sub_8CD27_set_cursor((uint8_t**)**filearray_2aa18c[0]); fix it*/
 
 	int v8; // [esp+10h] [ebp-4h] - musi byt asi vstup
 
@@ -1737,7 +1737,7 @@ if ( !byte_E3766 )
 	versus
 	2b22f4 = a4a03a00000000001000000
 
-	x_DWORD_180628b_screen_buffer
+	pdwScreenBuffer
 
 	34eb50
 	a
@@ -1797,24 +1797,24 @@ Kafkar... 0 276 154 0
 
 setbyte is color
 
-void sub_8F935_bitmap_draw_final(Bit8u a1byte1,Bit8u a1byte2, Bit16u tiley, int tilex, Bit8u* texture, Bit8u setbyte, char a6)//270935
+void sub_8F935_bitmap_draw_final(uint8_t a1byte1,uint8_t a1byte2, uint16_t tiley, int tilex, uint8_t* texture, uint8_t setbyte, char a6)//270935
 
-	memset(x_DWORD_180628b_screen_buffer, 127, 320*200);//debug
-		//VGA_Blit(320, 200, x_DWORD_180628b_screen_buffer);
+	memset(pdwScreenBuffer, 127, 320*200);//debug
+		//VGA_Blit(320, 200, pdwScreenBuffer);
 	sub_2EBB0_draw_text_with_border_63 340(x_DWORD_E9C4C_langindexbuffer[a1]);//fix it - edx
 	sub_90478_VGA_Blit320();//debug
 }
 
-void sub_loc_1B5BC(Bit16u a1) {
-	memset(x_DWORD_180628b_screen_buffer, 200, 320*200);//debug
+void sub_loc_1B5BC(uint16_t a1) {
+	memset(pdwScreenBuffer, 200, 320*200);//debug
 	Set_basic_pallette();
 	sub_2EBB0_draw_text_with_border_63 340(x_DWORD_E9C4C_langindexbuffer[a1]);//fix it - edx
 	sub_90478_VGA_Blit320();//debug
 }
 
-void sub_76160_play_intro(__int16 a1, __int16 a2, Bit8u* a3)//257160
+void sub_76160_play_intro(__int16 a1, __int16 a2, uint8_t* a3)//257160
 
-x_DWORD_180628b_screen_buffer
+pdwScreenBuffer
 
  3aa0a4
 
@@ -1830,23 +1830,23 @@ ebp+28 3551cc
 find this:
 2b2bac - dosbox 508325000000
 
-Bit8u* sub_7AB00(__int16 a1, int a2, signed __int16 *a3, unsigned __int8 a4)
+uint8_t* sub_7AB00(__int16 a1, int a2, signed __int16 *a3, unsigned __int8 a4)
 
 int /*__fastcall*/ sub_76FA0(int a1, int a2, signed __int16 *a3x)//257fa0 - menu loop
 
 sub_7A110_load_hscreen(x_WORD_180660_VGA_type_resolution, 4);
 
-void sub_81360_draw_bitmap_line(Bit32s minx, Bit32s miny, Bit32s maxx, Bit32s maxy, __int16 a5)//262360
+void sub_81360_draw_bitmap_line(int32_t minx, int32_t miny, int32_t maxx, int32_t maxy, __int16 a5)//262360
 
 problem:
-      v21 = sub_7AB00(v19, v20, (Bit16s*)a3x, 4u);
+      v21 = sub_7AB00(v19, v20, (int16_t*)a3x, 4u);
       if ( sub_7B250((int)v21, v22, a3x) )
 
 sub_8CD27_set_cursor(*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct);//anything with vga, maybe mouse cursor//26dd27 //xadatapointersdat asi 1a6f44
 sub_8CD27_set_cursor(*filearray_2aa18c[0].posistruct);
 sub_8CD27_set_cursor(x_DWORD_17DED4_spritestr[234]);
 
-	  ;// fix it! sub_8CD27_set_cursor((Bit8u**)x_DWORD_180720); - not fixed
+	  ;// fix it! sub_8CD27_set_cursor((uint8_t**)x_DWORD_180720); - not fixed
 x_BYTE_E25ED - 2b35ed
 
 x_DWORD_E3768 2b4768 - tlacitka
@@ -1871,7 +1871,7 @@ problem in sub_2BD10:
 x_DWORD_D41A0
 
 x_DWORD_EA3D4 in
-int sub_7FCB0_draw_text_with_border(int a1, Bit8u* a2, Bit32s a3, Bit32s a4, int a5, Bit8u a6, unsigned __int8 a7, Bit32u a8)//260cb0
+int sub_7FCB0_draw_text_with_border(int a1, uint8_t* a2, int32_t a3, int32_t a4, int a5, uint8_t a6, unsigned __int8 a7, uint32_t a8)//260cb0
 	sub_2BC10
 		sub_2BC10
 			sub_6F940
@@ -1890,7 +1890,7 @@ sub_5C1B0_set_any_variables2 - 23d1b0
 sub_5C330(); - 23d330
 a pote:
 
-Bit32s x = *x_D41A0_BYTEARRAY_0 +  6e8e + 168 * i;//fix
+int32_t x = *x_D41A0_BYTEARRAY_0 +  6e8e + 168 * i;//fix
 
 find 2a51a0
 
@@ -2077,7 +2077,7 @@ sub_931F0_AIL_install_DIG_INI
 
 //3550c8 - SB16.DIG  //355148 - 220
 
-int sub_92190_AIL_read_INI(Bit8u* a1, char* a2)//AIL_read_INI // 273190
+int sub_92190_AIL_read_INI(uint8_t* a1, char* a2)//AIL_read_INI // 273190
 
 
 int *sub_A2EA0(int a1, const void *a2) //
@@ -2122,7 +2122,7 @@ fix sub_A2EA0
 	  */
 
 v8 = sub_93010_AIL_install_driver(/*a1, */v6, v3); - sledovat
-	AIL_DRIVER* sub_9E720_AIL_API_install_driver(/*int a1, */Bit8u* driver_image, Bit32s n_bytes)//27f720
+	AIL_DRIVER* sub_9E720_AIL_API_install_driver(/*int a1, */uint8_t* driver_image, int32_t n_bytes)//27f720
 
 	v7 = sub_A2EA0(v8, IO);
 
@@ -2152,7 +2152,7 @@ sub_8D290_sound_proc13
 			 //5 0 1
 				sub_844F0_read_and_decompress_sound(v3, v8) - asi neprobehne uspesne
 					fix this:
-					x_DWORD_E37A8_sound_buffer1 = (Bit8u*)sub_83CD0_malloc2(*(x_DWORD *)&_C[v2] + 256);
+					x_DWORD_E37A8_sound_buffer1 = (uint8_t*)sub_83CD0_malloc2(*(x_DWORD *)&_C[v2] + 256);
 problem:
 x_DWORD_180B48 = sub_93330_AIL_install_DIG_driver_file(/*(int)a1, */unk_180AB0, unk_181D90);
 	HDIGDRIVER sub_A3600_AIL_API_install_DIG_driver_file(/*int a1,*/ char* filename, IO_PARMS IO)//284600
@@ -2183,7 +2183,7 @@ int sub_A3F30_sample_user_data(HSAMPLE S, int index)-ok- 284f30
 x_DWORD *sub_A4970(int a1, int a2, int a3)?ok 285970
 void sub_A3AF0_set_sample_playback_rate(HSAMPLE S, int a2) - ok 284af0
 x_DWORD *sub_A47C0(int a1, x_DWORD *a2)?ok 2857c0
-Bit32s sub_A4B20_set_sample_file(HSAMPLE S, Bit8u* file_image, Bit32s block)?ok 285b20
+int32_t sub_A4B20_set_sample_file(HSAMPLE S, uint8_t* file_image, int32_t block)?ok 285b20
 void sub_A9950(int a1, int a2);??? 28a950
 int sub_A3A70(x_DWORD *a1, int a2, int a3) 284a70
 sub_A2110((HSAMPLE)(x_DWORD *)(2196 * i + a1[23])); 283110
@@ -2192,7 +2192,7 @@ void sub_A43E0(HSAMPLE S) 2853e0
 
 int sub_A4920()
 
-sub_938C0_AIL_set_sample_file(*v14, (Bit8u*)*(x_DWORD *)(x_DWORD_E37A0_sound_buffer2 + 32 * a2 + 18), 1);
+sub_938C0_AIL_set_sample_file(*v14, (uint8_t*)*(x_DWORD *)(x_DWORD_E37A0_sound_buffer2 + 32 * a2 + 18), 1);
 -cycle
 
 void sub_8F710_sound_proc21(int a1, __int16 a2, signed int a3, unsigned __int8 a4, char a5)
@@ -2201,7 +2201,7 @@ void sub_8F710_sound_proc21(int a1, __int16 a2, signed int a3, unsigned __int8 a
 unkstr1* sub_A2070(unkstr1* a1)//283070
   if ( !a1->var24_aildrv ) - mozna ma byt false
 
-    S->sam_var[sam_var2_sample_address_start] = (Bit32s)start;
+    S->sam_var[sam_var2_sample_address_start] = (int32_t)start;
 	S->sam_var[sam_var4_sample_address_len] = len;
 
 set file sample
@@ -2224,7 +2224,7 @@ call driver
 find 2b27cc
 
 analyze:
-char sub_77980_exit_dialog(Bit8u* a1)//258980
+char sub_77980_exit_dialog(uint8_t* a1)//258980
 
 a1->var21_aildrv - ma byt 0
 
@@ -2318,9 +2318,9 @@ void sub_8E160_sound_proc15_startsequence(__int16 a1, unsigned __int8 a2)//26f16
 call 270710 - 1e1000
 
 -melo byt to byt zde
-void sub_loc_1B54A(Bit16u a1, Bit8u* a2) {
+void sub_loc_1B54A(uint16_t a1, uint8_t* a2) {
 problem je zde -
-if ( x_WORD_17DB60 != *(Bit16u*)v2 )
+if ( x_WORD_17DB60 != *(uint16_t*)v2 )
 
 a2 = 0;//debug
 
@@ -2381,7 +2381,7 @@ sub edi,eax - 1da
 
 
 a pak tento -color ma byt nula
-void sub_7FB90_draw_text(char* textbuffer, Bit16s posx, Bit16s posy, Bit8u color)
+void sub_7FB90_draw_text(char* textbuffer, int16_t posx, int16_t posy, uint8_t color)
 
 xy_DWORD_17DEC0_spritestr[0]
 se neshoduje s [34eec0]->4531c7 + 394 = 453351
@@ -2400,7 +2400,7 @@ signed int sub_7E320_draw_bitmaps_and_play_sounds(__int16 a1, int a2)//25f320
 helps
 
 int sub_82510(__int16 a1, int *a2)//263510
-sub_7E840_draw_textbox_with_line((Bit16u*)&v10, 238, 264);//draw help
+sub_7E840_draw_textbox_with_line((uint16_t*)&v10, 238, 264);//draw help
 
 find 34eba8 respektive 34ebb6
 &unk_17DBA8str.unk_17DBA8
@@ -2420,9 +2420,9 @@ if (a4 == 3 && x_D41A0_BYTEARRAY_4_struct.byteindex_A == 1)
 260ae0
 2611b1 - 801b1
 sub_7FAE0_draw_text(v87, v99, a4, v98, 0/*v86*/);//adress 261197 (80197)
-int sub_7FCB0_draw_text_with_border(int a1, Bit8u* a2, Bit32s a3, Bit32s a4, int a5, Bit8u a6, unsigned __int8 a7, Bit32u a8)//260cb0
+int sub_7FCB0_draw_text_with_border(int a1, uint8_t* a2, int32_t a3, int32_t a4, int a5, uint8_t a6, unsigned __int8 a7, uint32_t a8)//260cb0
 25f8b1 - 7e8b1
-int sub_7E840_draw_textbox_with_line(Bit16u* a1, __int16 a2, __int16 a3)//25f840
+int sub_7E840_draw_textbox_with_line(uint16_t* a1, __int16 a2, __int16 a3)//25f840
 25e8c2 - 7d8c2
 
 sub_7E840(&v22, 238, 264);
@@ -2452,7 +2452,7 @@ x_BYTE_12B4E0 - 2fc4e0
 	00 00 05 05 05 05
 
 	-sem se to ani nedostane
-void sub_44EE0(int a1, Bit16u a2)//225ee0
+void sub_44EE0(int a1, uint16_t a2)//225ee0
 x_BYTE_10B4E0 - 2dc4e0
 
 find
@@ -2503,7 +2503,7 @@ x_DWORD_EA3E0 +  6e8e - 35cec6
 
 sub_567C0(); - zde se inicializuje znovu
 
-Bit8u sub_6FC30_get34_height()//250c30 - neni inicializovano
+uint8_t sub_6FC30_get34_height()//250c30 - neni inicializovano
 {
 	return x_DWORD_EA3D4[34].height;
 }
@@ -2527,9 +2527,9 @@ x_DWORD_EA3E0[1]
 
 35cec6+150
 35cf6a ->2c52b0
-*(Bit32s*)(v2 + 164)
+*(int32_t*)(v2 + 164)
 
-*(Bit32u*)(x_D41A0_BYTEARRAY_0 + 28466) = (Bit32u)&unk_F42B0;
+*(uint32_t*)(x_D41A0_BYTEARRAY_0 + 28466) = (uint32_t)&unk_F42B0;
 
 void sub_60F00()//241f00
 
@@ -2549,7 +2549,7 @@ find
 x_D41A0_BYTEARRAY_4_struct.player_name_57
 void sub_51BB0_game_events(int a1)//232bb0
 
-void sub_5C950(Bit8u* a1, Bit8u* a2)//23d950
+void sub_5C950(uint8_t* a1, uint8_t* a2)//23d950
 
 unsigned int sub_7277A(unsigned int a1)//25377a
 
@@ -2567,8 +2567,8 @@ versus
  35cf6e -00000000 1e000000
 -find 35cf72
 231266 -near - x_WORD *sub_50250(int a1)//231250
-int pre_sub_4A190(Bit16u functionnumber, Bit8u* adress)//22a97e
-void sub_49540(Bit8u* a1, Bit8u* a2)//22a540
+int pre_sub_4A190(uint16_t functionnumber, uint8_t* adress)//22a97e
+void sub_49540(uint8_t* a1, uint8_t* a2)//22a540
 
 
 		case 0:return (int)sub_51530((int)adress);
@@ -2591,10 +2591,10 @@ find 2153f0 - maybe 443f0
  2a75c6-2a5c52=1974
 
 problem
-void sub_49540(Bit8u* a1, Bit8u* a2)//22a540
+void sub_49540(uint8_t* a1, uint8_t* a2)//22a540
 
 problem:
-x_WORD_EB398ar[0] = *(Bit16s*)(a2 + 4) << 8;//adress 22a5af
+x_WORD_EB398ar[0] = *(int16_t*)(a2 + 4) << 8;//adress 22a5af
 1a70ee - 75a5390060607eb7
 27971f - call 279709
 call 24fb90
@@ -2617,7 +2617,7 @@ call 27b32d
 call 265250
 call 23cf50
 
-Bit8u* x_DWORD_EA3E0[ 3E9];//2bb3e0
+uint8_t* x_DWORD_EA3E0[ 3E9];//2bb3e0
 27b453
 call 27b32d
 call 265250
@@ -2641,24 +2641,24 @@ next problem:
 35d02a(35d016)=2789 versus 9494
 eb2a - 22b17b in 22b050-sub_4A050
 2789 - 22b17b in 22b050-sub_4A050
-*(Bit16u*)(v1 + 20) = v6;//this is it line
+*(uint16_t*)(v1 + 20) = v6;//this is it line
 
-356040->e92a711b - *(Bit32u*)(x_D41A0_BYTEARRAY_0 + 8)
+356040->e92a711b - *(uint32_t*)(x_D41A0_BYTEARRAY_0 + 8)
 22a8c2 - void sub_498A0()//22a8a0
 
 35d016 + 2a=35d040->f401 nikoli 0300
 22b146
-22abb6 - void sub_49A30(Bit8u* a1, unsigned __int16 a2)//22aa30
+22abb6 - void sub_49A30(uint8_t* a1, unsigned __int16 a2)//22aa30
 *(x_WORD *)(a1 + 42) = x_WORD_D93C0_bldgprmbuffer[2 * a2];
 
-int sub_38330(Bit8u* a1)//219330
+int sub_38330(uint8_t* a1)//219330
 
 find 35cf6e->16d03500
 238989
 2388db
 void sub_57730()//238730 - test
 
-v20 = &x_DWORD_D4C52ar[14 * (*m)[69] + *(Bit32u*)(x_DWORD_D4C52ar + 18 * v19)- 2a5c52];
+v20 = &x_DWORD_D4C52ar[14 * (*m)[69] + *(uint32_t*)(x_DWORD_D4C52ar + 18 * v19)- 2a5c52];
 versus		
 
 find
@@ -2686,15 +2686,15 @@ void sub_57730()//238730
 
 3632d2->804d80de
 238e40
-void sub_57D70(Bit8u* a1, Bit8u* a2)//238d70
+void sub_57D70(uint8_t* a1, uint8_t* a2)//238d70
 
-void sub_57D70(Bit8u* a1, Bit8u* a2)//238d70
+void sub_57D70(uint8_t* a1, uint8_t* a2)//238d70
 a2
 neni
 3550d8 -data tj v2 = word_15B4E0[(*(_BYTE *)(a2 + 3) << 8) + *(_BYTE *)(a2 + 1)];
 find
 238e40
-void sub_57D70(Bit8u* a1, Bit8u* a2)//238d70
+void sub_57D70(uint8_t* a1, uint8_t* a2)//238d70
 
 23d99f - adress
 
@@ -2713,11 +2713,11 @@ void sub_4A310(unsigned __int16 *a1)//22b310
 22b36c - adress maybe 8a36c
 22b310
 posxy = v11 + (v12 << 16);
-v13 = sub_10C40((Bit16u*)&posxy);
+v13 = sub_10C40((uint16_t*)&posxy);
 
 22b379 adress
 
-int sub_B5C60(Bit16u a1, Bit16u a2)//296c60
+int sub_B5C60(uint16_t a1, uint16_t a2)//296c60
 
 
 x_BYTE_11B4E0[ df4d]= 98
@@ -2729,7 +2729,7 @@ void sub_44DB0()//225db0
 unsigned int sub_43970(unsigned int a1)//224970
 
 2183f3
-void sub_37240(Bit8u* a1)//218240
+void sub_37240(uint8_t* a1)//218240
 
 229c84
 __int16 sub_48B90(int a1)//229b90
@@ -2752,13 +2752,13 @@ sub_70910_print_string((char*)"Initialise Models\0");
 
 	x_BYTE_11B4E0 - 2ec4e0 - difference
 
-	void sub_49290(Bit8u* a1, char a2)//22a290
+	void sub_49290(uint8_t* a1, char a2)//22a290
 	-je to treba projit a zkontrolovat krok po kroku
 
 	void sub_462A0(unsigned __int16 a1, __int16 a2)//2272a0
 	-bad count  6d5c
 
-	void  (Bit8u* a1)//218240
+	void  (uint8_t* a1)//218240
 
 	 bdaf - remc2
 	 b14b - dosbox
@@ -2871,7 +2871,7 @@ find 2a5a30 unk_D4A30
 	e3e2
 
 	e6e5
-	void sub_45DC0(Bit8u a1, Bit8u a2, unsigned __int16 a3, unsigned __int8 a4)//226dc0
+	void sub_45DC0(uint8_t a1, uint8_t a2, unsigned __int16 a3, unsigned __int8 a4)//226dc0
 void sub_462A0(unsigned __int16 a1, __int16 a2)//2272a0
 d24f
 c648
@@ -2905,33 +2905,33 @@ az
  c749
 comp2 = compare_with_snapshot((char*)"0160-00229B94", x_BYTE_11B4E0
 
-signed int sub_5C8D0(Bit8u* a1)//23d8d0
+signed int sub_5C8D0(uint8_t* a1)//23d8d0
 363286->35cec6
 versus
-x_DWORD_EA3E4[*(Bit16u*)(2124 * x_D41A0_BYTEARRAY_4_struct.byteindex_12 + x_D41A0_BYTEARRAY_0 + 11240)];
+x_DWORD_EA3E4[*(uint16_t*)(2124 * x_D41A0_BYTEARRAY_4_struct.byteindex_12 + x_D41A0_BYTEARRAY_0 + 11240)];
 238989 in void sub_57730()//238730
 
 find
 3632d6->a0136400
 tj.
-(Bit16u*)(v1 + 76)//+4
-238e42 - void sub_57D70(Bit8u* a1, Bit8u* a2)//238d70
+(uint16_t*)(v1 + 76)//+4
+238e42 - void sub_57D70(uint8_t* a1, uint8_t* a2)//238d70
 
 fix
 x_WORD *sub_4A920(int a1)//22b920
 x_WORD *sub_4A9C0(int a1)//22b9c0
-Bit8u* sub_4AA40(int a1)//22ba40
+uint8_t* sub_4AA40(int a1)//22ba40
 atd.
 
 add adress 213400
 
-char sub_32420(Bit8u* a1)//213420
+char sub_32420(uint8_t* a1)//213420
 compare
 a1 with 3618ee - elespon 100
 
 find 3618f2
-adress 22b137 -2c01 - Bit8u* sub_4A050()//22b050 - asi ok
-adress 22fc77 -7b03 - Bit8u* sub_4EC10(int a1)//22fc10
+adress 22b137 -2c01 - uint8_t* sub_4A050()//22b050 - asi ok
+adress 22fc77 -7b03 - uint8_t* sub_4EC10(int a1)//22fc10
 
 (int)x_DWORD_EA3E4
 
@@ -2941,12 +2941,12 @@ find
 35d026->02000000 versus 04000000
 3d000000 - 2297ac
 04000000 - 23127b
-02000000 - 22aa7a -void sub_49A30(Bit8u* a1, unsigned __int16 a2)//22aa30
-void sub_49540(Bit8u* a1, Bit8u* a2)//22a540
+02000000 - 22aa7a -void sub_49A30(uint8_t* a1, unsigned __int16 a2)//22aa30
+void sub_49540(uint8_t* a1, uint8_t* a2)//22a540
 
 find
 36193e->5012
-22aa20 int sub_49A20(Bit8u* a1)//22aa20
+22aa20 int sub_49A20(uint8_t* a1)//22aa20
 xxxx
 22b190
 22b392 - call sub_4A310(unsigned __int16 *a1)//22b310
@@ -2961,9 +2961,9 @@ void sub_4A1E0(int a1, char a2)//22b1e0
 x_WORD_15B4E0,  32c4e0
 2856
 x_WORD_15B4E0+ 2856 = 32ED36
-238e3c - void sub_57D70(Bit8u* a1, Bit8u* a2)//238d70
-Bit8u* sub_4B490(int a1)//22c490
-Bit8u* sub_4A190(Bit8u* a1, int a2, int a3)//22b190
+238e3c - void sub_57D70(uint8_t* a1, uint8_t* a2)//238d70
+uint8_t* sub_4B490(int a1)//22c490
+uint8_t* sub_4A190(uint8_t* a1, int a2, int a3)//22b190
 void sub_4A310(unsigned __int16 *a1)//22b310
 void sub_4A1E0(int a1, char a2)//22b1e0
 void sub_56A30_init_game_level(unsigned int a1)//237a30
@@ -2972,7 +2972,7 @@ void sub_56A30_init_game_level(unsigned int a1)//237a30
 
 find
 36193e->5012
-22aa20 int sub_49A20(Bit8u* a1)//22aa20
+22aa20 int sub_49A20(uint8_t* a1)//22aa20
 xxxx
 22b190
 22b392 - call sub_4A310(unsigned __int16 *a1)//22b310
@@ -2986,12 +2986,12 @@ jina adresa 22fc10 versus 22b1ca
 find
 35517c
 
-Bit8u* sub_4A050()//22b050
+uint8_t* sub_4A050()//22b050
 
 find 35606d->34c 39e
 22af6d - void sub_49F30()//22af30 - ok
 22b002 - void sub_49F90()//22af90 - ok
-22b100 - Bit8u* sub_4A050()//22b050
+22b100 - uint8_t* sub_4A050()//22b050
 
 0 - ok
 10 - ok
@@ -3008,33 +3008,33 @@ find 35606d->34c 39e
  c0 - je to preskoceno  328
 100 - za
 
-unsigned int sub_6F150(Bit8u* a1)//250150 - kontrola
+unsigned int sub_6F150(uint8_t* a1)//250150 - kontrola
 
 find 363286
 238989 void sub_57730()//238730
 [2a51a4]
-*(Bit32u*)&x_DWORD_EA3E4[ 98]
+*(uint32_t*)&x_DWORD_EA3E4[ 98]
 363286
 
-void sub_5C8D0(Bit8u* a1)//23d8d0
+void sub_5C8D0(uint8_t* a1)//23d8d0
 
 find 3632d6
-238e46 - void sub_57D70(Bit8u* a1, Bit8u* a2)//238d70
-23d9d4 - void sub_5C950(Bit8u* a1, Bit8u* a2)//23d950
+238e46 - void sub_57D70(uint8_t* a1, uint8_t* a2)//238d70
+23d9d4 - void sub_5C950(uint8_t* a1, uint8_t* a2)//23d950
 91
 
 find 2537b0 versus x_WORD_727B0
 
-void sub_32420(Bit8u* a1)//213420
+void sub_32420(uint8_t* a1)//213420
 
-unsigned int sub_6F150(Bit8u* a1)//250150
+unsigned int sub_6F150(uint8_t* a1)//250150
 			|| !x_BYTE_3659C
 
 find 3618ee->0000007b0300007a03
 3618f0
-22fc77 - Bit8u* sub_4EC10(int a1)//22fc10
+22fc77 - uint8_t* sub_4EC10(int a1)//22fc10
 22b1ca - 22b190
-*(Bit32u*)(x_D41A0_BYTEARRAY_0 + 4 *  376+ 582)
+*(uint32_t*)(x_D41A0_BYTEARRAY_0 + 4 *  376+ 582)
 
 211f60
 2130e0
@@ -3056,7 +3056,7 @@ x_DWORD_E998
 signed int sub_10130(int a1, x_DWORD *a2, x_DWORD *a3)//1f1130
 
 !!!!!!! - re test
-Bit8u* sub_4A050()//22b050
+uint8_t* sub_4A050()//22b050
 !!!!!!! - re test
 
 246080
@@ -3066,14 +3066,14 @@ remove evets fo debug !!!!
 
 x_BYTE_3659C
 
-void sub_2D710(Bit8u* a1)//20e710
+void sub_2D710(uint8_t* a1)//20e710
 
 find 38d046
 x_D41A0_BYTEARRAY_4_struct.byteindex_242ar[4]
 
 241f60
 
-24203d - sub_61000(Bit8u* a1)//242000
+24203d - sub_61000(uint8_t* a1)//242000
 
 find a67dea - edx+412
 -&filearray_2aa18c[filearrayindex_MSPRD00DATTAB]
@@ -3082,7 +3082,7 @@ find a67dea - edx+412
 
 279739
 
-279722 - void sub_98709_create_index_dattab_power(Bit8u* tabbuffer, Bit8u* tabbufferend, Bit8u* datbuffer, posistruct* dattabindex)//279709
+279722 - void sub_98709_create_index_dattab_power(uint8_t* tabbuffer, uint8_t* tabbufferend, uint8_t* datbuffer, posistruct* dattabindex)//279709
 24fbc2 - 24fb90
 228160
 
@@ -3091,7 +3091,7 @@ void sub_30630()//211630
 v6? - 3551bc->4001000002000002
 
 2]-fix  **file - ok
-char sub_6D4C0(Bit8u* a1) - ok
+char sub_6D4C0(uint8_t* a1) - ok
 
 a44dc6 - ."Nasleduj -v2
 ebp+76 35519c->a44dad "Let smerem -v14
@@ -3104,24 +3104,24 @@ chce to zjistit puvod
 void sub_30630()//211630 
 
 find 38d046->794c
-void sub_2D710(Bit8u* a1)//20e710
+void sub_2D710(uint8_t* a1)//20e710
 v18 = x_D41A0_BYTEARRAY_4_struct.byteindex_242ar[4]; = [2a51a4]+f6
 241f68 call 242000
 
 position of graphics buffer 655360 nebo 3842212
 
-void sub_2E260_draw_spell(__int16 a1, __int16 a2, Bit8u* a3, char a4)//20f260
+void sub_2E260_draw_spell(__int16 a1, __int16 a2, uint8_t* a3, char a4)//20f260
 [2bb3e4]->c6ce3500 6ecf3500 -ok
 ebx=36332e - a3 ne
 cmp ebx,[2bb3e4]
 
-void sub_5D530(Bit8u* a1)//*(x_DWORD *)(a1 + 160)//23e530
+void sub_5D530(uint8_t* a1)//*(x_DWORD *)(a1 + 160)//23e530
 
 a1+160
 363326->9a942a
 
 22b15f - sub_4A050()//22b050
-Bit8u* sub_4A920(Bit8u* a1)//22b920
+uint8_t* sub_4A920(uint8_t* a1)//22b920
 
 *(x_DWORD *)(a1 + 160)
 2a949a - 0700010000
@@ -3129,14 +3129,14 @@ Bit8u* sub_4A920(Bit8u* a1)//22b920
 unk_D89A6;  2a99a6
 unk_D849A;  2a949a
 
-void sub_47760(/*int a1,*/Bit32u user/* int a2, int a3*/)//228760
+void sub_47760(/*int a1,*/uint32_t user/* int a2, int a3*/)//228760
 
 sub_2E260_draw_spell(//draw spell1
 
 eax+ 333
 tj.
 35932f-> 99
-*(*(Bit32s*)(v3 + 164)+ 333)
+*(*(int32_t*)(v3 + 164)+ 333)
 235cd9 int sub_54A50(unsigned __int16 a1, int a2)//235a50
 	*(_WORD *)(a2 + 2103) = result;
 
@@ -3154,7 +3154,7 @@ int sub_2BE30()//20ce30
 		v3 = 2 * i;
 		if (*(x_WORD *)(2 * i + *(x_DWORD *)(a1 + 164) + 819))
 		{
-			v4 = (Bit8u*)sub_4A190((Bit8u*)(a1 + 76), 15, i);
+			v4 = (uint8_t*)sub_4A190((uint8_t*)(a1 + 76), 15, i);
 			if (v4)
 			{
 				v5 = &x_D41A0_BYTEARRAY_0[28302];
@@ -3181,9 +3181,9 @@ versus
 2dc1e0-> ffffff
 2818ac
 call 281863
-size_t sub_988A7_read(FILE* a1, Bit8u* a2, int a3)//2798a7
-int sub_53E60_readfile_and_decompress(const char* path, Bit8u** a2)//234E60
-void sub_54800_read_and_decompress_tables(Bit8u a1)//235800
+size_t sub_988A7_read(FILE* a1, uint8_t* a2, int a3)//2798a7
+int sub_53E60_readfile_and_decompress(const char* path, uint8_t** a2)//234E60
+void sub_54800_read_and_decompress_tables(uint8_t a1)//235800
 void sub_56A30_init_game_level(unsigned int a1)//237a30
 
 2c7ee0+ 14300
@@ -3216,16 +3216,16 @@ __int16 sub_98AE9(__int16 *a1, int a2)//279ae9
 void sub_3C080_draw_terrain_and_particles(int a1, int a2, __int16 a3, __int16 a4, __int16 a5, signed int a6, int a7, __int16 a8, int a9)//21d080
 
 x_DWORD_DE558 - 2af558->3aa0a4
-x_DWORD_180628b_screen_buffer
+pdwScreenBuffer
  3aa0a4
 
-29dd67 - void /*__spoils<>*/ sub_BCD45(Bit8u* a1, int a2, int a3, int a4, int a5)//29dd45
+29dd67 - void /*__spoils<>*/ sub_BCD45(uint8_t* a1, int a2, int a3, int a4, int a5)//29dd45
 
 buffer - 3aa0a4 + 320*105 (3875812 = 3B23E4)
 
 22304e __int16 sub_41BD3(unsigned int a1)//222bd3
-sub_3E360(Bit8u* a1, Bit8u* a2)//20f360
-unsigned __int16 sub_3FD60(/*int a1, */Bit8u* a2)//220d60
+sub_3E360(uint8_t* a1, uint8_t* a2)//20f360
+unsigned __int16 sub_3FD60(/*int a1, */uint8_t* a2)//220d60
 
 299a8e - call void /*__spoils<ecx>*/ sub_B6253(x_DWORD *a1, x_DWORD *a2, x_DWORD *a3)
 21f00c
@@ -3236,13 +3236,13 @@ a1[1] versus 3550c0 -  51
 x_DWORD_DE554
 versus
 2af554:649f3a00 a4a03a00
-29dd6c call sub_BCD45(Bit8u* a1, int a2, int a3, int a4, int a5)//29dd45
+29dd6c call sub_BCD45(uint8_t* a1, int a2, int a3, int a4, int a5)//29dd45
 
 3aa0a4-140=3a9f64
 3a9f64:0204020402040204
 2818ac
 
-int sub_53E60_readfile_and_decompress(const char* path, Bit8u** a2)//234E60
+int sub_53E60_readfile_and_decompress(const char* path, uint8_t** a2)//234E60
 v 23cf50
 
 build0-0.dat
@@ -3324,15 +3324,15 @@ v67 = v13 / 2;
 x_BYTE_F6EE0_tablesx[ 14300] versus 2dc1e0 - ffffffff
 2818ac
 call 281863
-call size_t sub_988A7_read(FILE* a1, Bit8u* a2, int a3)//2798a7
-call int sub_53E60_readfile_and_decompress(const char* path, Bit8u** a2)//234E60 
-void sub_54800_read_and_decompress_tables(Bit8u a1)//235800
+call size_t sub_988A7_read(FILE* a1, uint8_t* a2, int a3)//2798a7
+call int sub_53E60_readfile_and_decompress(const char* path, uint8_t** a2)//234E60 
+void sub_54800_read_and_decompress_tables(uint8_t a1)//235800
 
-x_DWORD_180628b_screen_buffer+ 141
+pdwScreenBuffer+ 141
 versus
 3aa0a4+ 141
 
-void sub_2D710_draw_menu(Bit8u* a1)//20e710
+void sub_2D710_draw_menu(uint8_t* a1)//20e710
 x_DWORD_F01E8(2, 2, filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct[40]);
 
 filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct[40]
@@ -3342,57 +3342,57 @@ versus a67ac8-> a5c78e->10898a8b8c8f
 
 20ef35 void sub_2DE80_draw_bitmapxx(__int16 a1, __int16 a2, posistruct a3)//20ee80
 20cbc4 void sub_2BBB0(__int16 a1, __int16 a2, posistruct a3)//20cbb0
-20e7c9 void sub_2D710_draw_menu(Bit8u* a1)//20e710
+20e7c9 void sub_2D710_draw_menu(uint8_t* a1)//20e710
 
-x_DWORD_180628b_screen_buffer+ 210
+pdwScreenBuffer+ 210
 versus
 3aa0a4+ 210  31(ma byt) versus  20
 
 20ef2b void sub_2DE80_draw_bitmapxx(__int16 a1, __int16 a2, posistruct a3)//20ee80
 20cbca void sub_2BBB0(__int16 a1, __int16 a2, posistruct a3)//20cbb0
-20ed4e void sub_2D710_draw_menu(Bit8u* a1)//20e710
+20ed4e void sub_2D710_draw_menu(uint8_t* a1)//20e710
 
-x_DWORD_180628b_screen_buffer+ 39a
+pdwScreenBuffer+ 39a
 versus
 3aa0a4+ 39a  0c(ma byt) versus  f0
 
 21d3db void sub_3C080_draw_terrain_and_particles(int a1, int a2, __int16 a3, __int16 a4, __int16 a5, signed int a6, int a7, __int16 a8, int a9)//21d080
 
-void sub_2E260_draw_spell(__int16 a1, __int16 a2, Bit8u* a3, char a4)//20f260
+void sub_2E260_draw_spell(__int16 a1, __int16 a2, uint8_t* a3, char a4)//20f260
 
 270ca4 
-call void sub_8F935_bitmap_draw_final(Bit8u a1byte1, Bit8u a1byte2, Bit16u tiley, int tilex, Bit8u* texture, Bit8u setbyte, char a6)//270935
-call void sub_8F920(Bit8u a1byte1, Bit8u a1byte2, Bit16s posx, Bit16s posy, Bit8u* a4, unsigned __int8 a5, char a6)//270920
-call void sub_72C40_draw_bitmap_640_setcolor(Bit16s posx, Bit16s posy, posistruct a3, Bit8u color)//253c40
-call void sub_6F940_sub_draw_text(Bit8u* textbuffer, int posx, int posy, Bit8u color)//250940
-call void sub_2BC10_draw_text(Bit8u* textbuffer, Bit16s posx, Bit16s posy, Bit8u color)//20cc10
-20f401 void sub_2E260_draw_spell(__int16 a1, __int16 a2, Bit8u* a3, char a4)//20f260
+call void sub_8F935_bitmap_draw_final(uint8_t a1byte1, uint8_t a1byte2, uint16_t tiley, int tilex, uint8_t* texture, uint8_t setbyte, char a6)//270935
+call void sub_8F920(uint8_t a1byte1, uint8_t a1byte2, int16_t posx, int16_t posy, uint8_t* a4, unsigned __int8 a5, char a6)//270920
+call void sub_72C40_draw_bitmap_640_setcolor(int16_t posx, int16_t posy, posistruct a3, uint8_t color)//253c40
+call void sub_6F940_sub_draw_text(uint8_t* textbuffer, int posx, int posy, uint8_t color)//250940
+call void sub_2BC10_draw_text(uint8_t* textbuffer, int16_t posx, int16_t posy, uint8_t color)//20cc10
+20f401 void sub_2E260_draw_spell(__int16 a1, __int16 a2, uint8_t* a3, char a4)//20f260
 
-void sub_2E260_draw_spell(__int16 a1, __int16 a2, Bit8u* a3, char a4)//20f260
+void sub_2E260_draw_spell(__int16 a1, __int16 a2, uint8_t* a3, char a4)//20f260
 
-x_DWORD_180628b_screen_buffer+ 4ed
+pdwScreenBuffer+ 4ed
 versus
 3aa0a4+ 4ed  99(ma byt) versus  34
 
 20ef2b call void sub_2DE80_draw_bitmapxx(__int16 a1, __int16 a2, posistruct a3)//20ee80
 
-270a97 call void sub_8F935_bitmap_draw_final(Bit8u a1byte1, Bit8u a1byte2, Bit16u tiley, int tilex, Bit8u* texture, Bit8u setbyte, char a6)//270935
+270a97 call void sub_8F935_bitmap_draw_final(uint8_t a1byte1, uint8_t a1byte2, uint16_t tiley, int tilex, uint8_t* texture, uint8_t setbyte, char a6)//270935
 
 
 *(char *)(a3 + 64) tj  3633d6+ 40
 	
-232143 call Bit8u* sub_51120(Bit8u* a1, char a2, char a3)//232120
+232143 call uint8_t* sub_51120(uint8_t* a1, char a2, char a3)//232120
 
-Bit8u* sub_51120(Bit8u* a1, char a2, char a3)//232120
-2321c3 call Bit8u* sub_511C0(Bit8u* a1)//2321c0
-call near Bit8u* sub_4A190(Bit8u* a1, int a2, int a3)//22b190
-void sub_5CF40(Bit8u* a1, char a2)//23df40 - 23df72 - ecx=3 esi=1 edi=2
-void sub_5C950(Bit8u* a1, Bit8u* a2)//23d950
-void sub_51BB0_game_events(Bit8u* a1)//232bb0 //232dc5
+uint8_t* sub_51120(uint8_t* a1, char a2, char a3)//232120
+2321c3 call uint8_t* sub_511C0(uint8_t* a1)//2321c0
+call near uint8_t* sub_4A190(uint8_t* a1, int a2, int a3)//22b190
+void sub_5CF40(uint8_t* a1, char a2)//23df40 - 23df72 - ecx=3 esi=1 edi=2
+void sub_5C950(uint8_t* a1, uint8_t* a2)//23d950
+void sub_51BB0_game_events(uint8_t* a1)//232bb0 //232dc5
 
 355088
 
-2321c7 Bit8u* sub_511C0(Bit8u* a1)//2321c0
+2321c7 uint8_t* sub_511C0(uint8_t* a1)//2321c0
 23df77
 
 
@@ -3401,20 +3401,20 @@ void sub_51BB0_game_events(Bit8u* a1)//232bb0 //232dc5
 
 if (*(x_WORD *)(2 * i + *(x_DWORD *)(a1 + 164) + 819))
 
-*(Bit32s*)(a1 + 164)
+*(int32_t*)(a1 + 164)
 versus
 36332a->358ffc
 358ffc+ 333(35932f)->990001
 
-22b169 call Bit8u* sub_4A050()//22b050
+22b169 call uint8_t* sub_4A050()//22b050
 
-Bit8u unk_D83AC[100]; // weak//2a93ac
-Bit8u unk_F42B0[ 470]; // weak//2c52b0
+uint8_t unk_D83AC[100]; // weak//2a93ac
+uint8_t unk_F42B0[ 470]; // weak//2c52b0
 
-235cd1 call int sub_54A50(unsigned __int16 a1, Bit8u* a2)//235a50
+235cd1 call int sub_54A50(unsigned __int16 a1, uint8_t* a2)//235a50
 aaaaa
 
-23dfb1 call void sub_5CF40(Bit8u* a1, char a2)//23df40
+23dfb1 call void sub_5CF40(uint8_t* a1, char a2)//23df40
 
 x_D41A0_BYTEARRAY_0 + 11230 + 1817=1//x_D41A0_BYTEARRAY_0 + 11230 +  3e6+ 333=1
 
@@ -3437,16 +3437,16 @@ v int sub_53160()//234160
 358c16+1817( 719)=35932F
 tj.
 x_D41A0_BYTEARRAY_0 + 11230+ 719=x_D41A0_BYTEARRAY_0 + 11230+ 3e6  + 333
-x_D41A0_BYTEARRAY_0 + 11230+ 3e6 je *(Bit32s*)(a1 + 164)
+x_D41A0_BYTEARRAY_0 + 11230+ 3e6 je *(int32_t*)(a1 + 164)
 
-void sub_54A50(unsigned __int16 a1, Bit8u* a2)//235a50
+void sub_54A50(unsigned __int16 a1, uint8_t* a2)//235a50
 
 x_WORD_D93C0_bldgprmbuffer[2+ 13d+v5];
 versus
 byte_d94ff[v5]
 versus [esi+2aa4ff]->0001020304
 
-x_DWORD_180628b_screen_buffer+ 51d
+pdwScreenBuffer+ 51d
 versus
 3aa0a4+ 51d  84(ma byt) versus  33
 
@@ -3465,18 +3465,18 @@ __int16 x_WORD_F4962[830]; // idb 2c5962
 
 244d86 void sub_63C90_draw_minimap_b(int a1, int a2, int a3, int a4, int a5, int a6, __int16 a7, int a8, int a9, int a10)//244c90
 
-x_DWORD_180628b_screen_buffer+ 59b
+pdwScreenBuffer+ 59b
 versus
 3aa0a4+ 59b  34(ma byt) versus  3d
 
 20ef2b void sub_2DE80_draw_bitmapxx(__int16 a1, __int16 a2, posistruct a3)//20ee80
 20cbc4 call void sub_2BBB0(__int16 a1, __int16 a2, posistruct a3)//20cbb0
-20ecaf void sub_2D710_draw_menu(Bit8u* a1)//20e710
+20ecaf void sub_2D710_draw_menu(uint8_t* a1)//20e710
 
 
-void sub_2D710_draw_menu(Bit8u* a1)//20e710
+void sub_2D710_draw_menu(uint8_t* a1)//20e710
 x_DWORD_F01E8(v8, 2, filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct[41]);
-(i-v4 - x_DWORD_180628b_screen_buffer)/40 ==  21
+(i-v4 - pdwScreenBuffer)/40 ==  21
 
 a3.data -  cd
 
@@ -3522,7 +3522,7 @@ filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct[41].data  24BB8E6F
 filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct[41].data+ e7
 *path.var28_begin_buffer+ 20dc+ e0
 
-x_DWORD_180628b_screen_buffer+ 125d
+pdwScreenBuffer+ 125d
 versus
 3aa0a4+ 125d  a1(ma byt) versus  a4
 
@@ -3539,7 +3539,7 @@ edx=363286
 
 v18
 38cf50+f6=38d046->4c79
-24203d call Bit8u* sub_61000(Bit8u* a1)//242000
+24203d call uint8_t* sub_61000(uint8_t* a1)//242000
 241f00 call void sub_60F00()//241f00
 void sub_56A30_init_game_level(unsigned int a1)//237a30
 
@@ -3568,9 +3568,9 @@ x_DWORD_EA3E4[ 3e8]
 35d016->00000000
 
 problem je zde:
-Bit8u* sub_48690(__int16 a1, __int16 a2, __int16 a3, __int16 a4)//229690
+uint8_t* sub_48690(__int16 a1, __int16 a2, __int16 a3, __int16 a4)//229690
 
-x_DWORD_180628b_screen_buffer+ 1cde
+pdwScreenBuffer+ 1cde
 versus
 3aa0a4+ 1c  1cde  24(ma byt) versus  d1
 
@@ -3602,15 +3602,15 @@ versus
  00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00,
  00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00,
 
-22b137 call Bit8u* sub_4A050()//22b050
-22f329 void sub_4E320(Bit8u* a1)//22f320
+22b137 call uint8_t* sub_4A050()//22b050
+22f329 void sub_4E320(uint8_t* a1)//22f320
 
 2120cf
-void sub_30F60(Bit8u* a1)//211f60
+void sub_30F60(uint8_t* a1)//211f60
 *(x_DWORD *)(v5 + 12) |= v6;//here
 
 211eba
-void sub_30D50(Bit8u* a1, Bit8u v2, Bit8u v4)//211d50
+void sub_30D50(uint8_t* a1, uint8_t v2, uint8_t v4)//211d50
 
 238a3d
 void sub_57730()//238730
@@ -3620,7 +3620,7 @@ void sub_57730()//238730
 --sub_21030
 204340
 
-x_DWORD_180628b_screen_buffer+ 26e2
+pdwScreenBuffer+ 26e2
 versus
 3aa0a4+ 26e2  32(ma byt) versus  35
 
@@ -3629,11 +3629,11 @@ versus
 363a66
 + 1a
 
-2120b3 call void sub_30F60(Bit8u* a1)//211f60
+2120b3 call void sub_30F60(uint8_t* a1)//211f60
 myprintf("xxx");
 addprocedurestop( 238a3d,  7a, true, true,  363a6600 +  c);
 
-void sub_30F60(Bit8u* a1)//211f60
+void sub_30F60(uint8_t* a1)//211f60
 x_D41A0_BYTEARRAY_0 + 28470+168* a3
 versus
 363a66(35cf6e+6af8)
@@ -3642,11 +3642,11 @@ versus
 
 04
 ------
-238e46 call void sub_57D70(Bit8u* a1, Bit8u* a2)//238d70
-void sub_4E320(Bit8u* a1)//22f320
-void sub_30F60(Bit8u* a1)//211f60
+238e46 call void sub_57D70(uint8_t* a1, uint8_t* a2)//238d70
+void sub_4E320(uint8_t* a1)//22f320
+void sub_30F60(uint8_t* a1)//211f60
 
-2120cf call void sub_30F60(Bit8u* a1)//211f60
+2120cf call void sub_30F60(uint8_t* a1)//211f60
 238a8e call void sub_57730()//238730
 
 adress after 361f7e(35cf6e+7a*168)
@@ -3658,10 +3658,10 @@ test memory
 x_D41A0_BYTEARRAY_0 + 28470
  35cf6e
 after
-void sub_47560_draw_and_events_in_game(Bit8u* a1, int a2, Bit32u a3, signed int a4, __int16 a5)//228560
+void sub_47560_draw_and_events_in_game(uint8_t* a1, int a2, uint32_t a3, signed int a4, __int16 a5)//228560
 sub_57730
 
-x_DWORD_180628b_screen_buffer+ 26e2
+pdwScreenBuffer+ 26e2
 versus
 3aa0a4+ 26e2  32(ma byt) versus  35
 
@@ -3675,7 +3675,7 @@ versus
 2dc4e0
 
 3ac786-3aa0a4 - 1f=26c0
-2580=v71-x_DWORD_180628b_screen_buffer
+2580=v71-pdwScreenBuffer
 
 x_BYTE_F6EE0_tablesx[ 2302]
 versus
@@ -3696,13 +3696,13 @@ versus
 x_BYTE_10B4E0+ dc4b
 
 //03
-225ef6 call void sub_44EE0(int a1, Bit16u a2)//225ee0
-void sub_44E40(int a1, Bit8u a2)//225e40
+225ef6 call void sub_44EE0(int a1, uint16_t a2)//225ee0
+void sub_44E40(int a1, uint8_t a2)//225e40
 
 //00040506
 2ea12b - 2x
-22622b call void sub_45210(Bit8u a1, Bit8u a2)//226210
-void sub_43830_generate_level_map(unsigned int a1, Bit8u* a2)//224830
+22622b call void sub_45210(uint8_t a1, uint8_t a2)//226210
+void sub_43830_generate_level_map(unsigned int a1, uint8_t* a2)//224830
 //2e
 225cc7 call void sub_44580()//225580
 
@@ -3718,9 +3718,9 @@ void sub_43830_generate_level_map(unsigned int a1, Bit8u* a2)//224830
 363b0e+ 4c=184c07dc nikoli a34b13dc
 versus
 xxxx
-238e40 call void sub_57D70(Bit8u* a1, Bit8u* a2)//238d70
+238e40 call void sub_57D70(uint8_t* a1, uint8_t* a2)//238d70
 22b190
-21209f call void sub_30F60(Bit8u* a1)//211f60
+21209f call void sub_30F60(uint8_t* a1)//211f60
 238a8b call void sub_57730()//238730
 361f7e-35cf6e=5010/168=122//7a
 ------------------
@@ -3756,7 +3756,7 @@ ebx=2a9a54
 00000000000000000000000000030ac2b->0000000000000
 40ac2b->00000    0010        
 ---------------------------------
-x_DWORD_180628b_screen_buffer+ 8f09
+pdwScreenBuffer+ 8f09
 versus
 3aa0a4+ 8f09  30(ma byt) versus  35
 
@@ -3768,9 +3768,9 @@ unk_F0E20?
 x_DWORD_F2C30 a7
 versus
 2c3c30 //f6
-21f517 call unsigned __int16 sub_3E360_draw_particles(Bit8u* a1, Bit8u* a2)//21f360
+21f517 call unsigned __int16 sub_3E360_draw_particles(uint8_t* a1, uint8_t* a2)//21f360
 21f1b6 call void sub_3C080_draw_terrain_and_particles(int a1, int a2, __int16 a3, __int16 a4, __int16 a5, signed int a6, int a7, __int16 a8, int a9)//21d080
-222708 call void sub_411A0_draw_world(Bit8u* a1, int a2, int a3, __int16 a4, signed int a5, int a6, __int16 a7, int a8)//2221a0
+222708 call void sub_411A0_draw_world(uint8_t* a1, int a2, int a3, __int16 a4, signed int a5, int a6, __int16 a7, int a8)//2221a0
 
 3fdc24 - v227
 3fdc50
@@ -3806,8 +3806,8 @@ x_DWORD_EA3E4[ ae]+ 56
 &x_DWORD_E9C38_smalltit[35200- 6384]+ 56
 
 16
-void sub_57D70(Bit8u* a1, Bit8u* a2)//238d70
-Bit8u* sub_4E320(Bit8u* a1)//22f320
+void sub_57D70(uint8_t* a1, uint8_t* a2)//238d70
+uint8_t* sub_4E320(uint8_t* a1)//22f320
  a
 
 
@@ -3820,8 +3820,8 @@ versus
 x_WORD_15B4E0[ d94f]
 -problem je i predtim
 
-void sub_57D70(Bit8u* a1, Bit8u* a2)//238d70
-Bit8u* sub_4E320(Bit8u* a1)//22f320
+void sub_57D70(uint8_t* a1, uint8_t* a2)//238d70
+uint8_t* sub_4E320(uint8_t* a1)//22f320
  9
 
 ----------------
@@ -3829,7 +3829,7 @@ Bit8u* sub_4E320(Bit8u* a1)//22f320
 versus
 &x_DWORD_D4C52ar[ 17bc]+6+ 14=0385;
 
-211fec call void sub_30F60(Bit8u* a1)//211f60
+211fec call void sub_30F60(uint8_t* a1)//211f60
 
 --------------------
 
@@ -3840,7 +3840,7 @@ v205[42] = v248x[32] + (((signed int)(unsigned __int8)x_BYTE_13B4E0[v204] >> 2) 
 
 3f78a0+ 56
 versus
-*(Bit32u*)(&x_DWORD_E9C38_smalltit[ 25fc]+ 56)
+*(uint32_t*)(&x_DWORD_E9C38_smalltit[ 25fc]+ 56)
 0002, ale má být nula
 ---
 3640f6+ 50 - 9c107d
@@ -3865,7 +3865,7 @@ versus
 2ac350
 -----------------------------------
 step 2
-x_DWORD_180628b_screen_buffer+ 51d
+pdwScreenBuffer+ 51d
 versus
 3aa0a4+ 51d
 62 versus 84
@@ -3876,7 +3876,7 @@ versus
 363286
 versus
 x_DWORD_EA3E4[ 98]
-+ 1c-00000000 -void sub_5D530(Bit8u* a1)//*(x_DWORD *)(a1 + 160)//23e530
++ 1c-00000000 -void sub_5D530(uint8_t* a1)//*(x_DWORD *)(a1 + 160)//23e530
 + 3c-00009903 -sub_57730(); pod
 
 !!!!!!! zkontrolovat - x_D41A0_BYTEARRAY_0 + 28470; jx < x_D41A0_BYTEARRAY_0 + 196302
@@ -3901,25 +3901,25 @@ versus
 356038
 --- 314d
 //x_D41A0_BYTEARRAY_0+ 314d
-23db6d void sub_5C950(Bit8u* a1, Bit8u* a2)//23d950
----x_D41A0_BYTEARRAY_0+ 6f32 void sub_49EC0(Bit16u* a1, __int16 a2)//22aec0
+23db6d void sub_5C950(uint8_t* a1, uint8_t* a2)//23d950
+---x_D41A0_BYTEARRAY_0+ 6f32 void sub_49EC0(uint16_t* a1, __int16 a2)//22aec0
 ---x_D41A0_BYTEARRAY_0+ 796e //x_D41A0_BYTEARRAY_0+ 796e
-1f1e82 int sub_10C80(Bit8u* a1, unsigned __int8 a2, unsigned __int16 a3)//1f1c80
-void sub_30D50(Bit8u* a1, Bit8u v2, Bit8u v4)//211d50
+1f1e82 int sub_10C80(uint8_t* a1, unsigned __int8 a2, unsigned __int16 a3)//1f1c80
+void sub_30D50(uint8_t* a1, uint8_t v2, uint8_t v4)//211d50
 ---x_D41A0_BYTEARRAY_0+ 8fa6 // 356038+ 8fa6
-1f33a7 void sub_12330(Bit8u* a1, __int16 a2)//1f3330
-1f3203 __int16 sub_12100(int a1, Bit8u* a2, char a3)//1f3100
+1f33a7 void sub_12330(uint8_t* a1, __int16 a2)//1f3330
+1f3203 __int16 sub_12100(int a1, uint8_t* a2, char a3)//1f3100
 
-1f33aa void sub_12330(Bit8u* a1, __int16 a2)//1f3330
+1f33aa void sub_12330(uint8_t* a1, __int16 a2)//1f3330
 
 --- 356038+ 365fc //x_D41A0_BYTEARRAY_0+ 365fc
 +8=38C63C
-adress 1f2f61 signed int sub_11EE0(Bit8u* a1)//1f2ee0
+adress 1f2f61 signed int sub_11EE0(uint8_t* a1)//1f2ee0
 
 ---x_D41A0_BYTEARRAY_0+ 904e // 356038+ 904e
-adress 1f33aa void sub_12330(Bit8u* a1, __int16 a2)//1f3330
+adress 1f33aa void sub_12330(uint8_t* a1, __int16 a2)//1f3330
 1f3208
-void sub_12100(Bit8u* a1, Bit8u* a2, char a3)//1f3100
+void sub_12100(uint8_t* a1, uint8_t* a2, char a3)//1f3100
 ****
 35ef96+ 10
 versus
@@ -3935,7 +3935,7 @@ void sub_4A310(unsigned __int16 *a1)//22b310
 ---------------------------------------
 -----------------------------------
 step 2
-x_DWORD_180628b_screen_buffer+ 51d
+pdwScreenBuffer+ 51d
 versus
 3aa0a4+ 51d
 62 versus 84
@@ -3947,7 +3947,7 @@ test druheho pruchodu x_D41A0_BYTEARRAY_0
 x_BYTE_E88E0 -- 2b98e0
 22920f
 --------------------------------
-x_DWORD_180628b_screen_buffer+ ddd0
+pdwScreenBuffer+ ddd0
 versus
 3aa0a4+ ddd0
 
@@ -3958,26 +3958,26 @@ x_D41A0_BYTEARRAY_4_struct.byteindex_121[2]
 versus
 38cfcb
 if (debugcounter2 >=  46a)
-232d0a void sub_51BB0_game_events(Bit8u* a1)//232bb0
+232d0a void sub_51BB0_game_events(uint8_t* a1)//232bb0
 ---------------------------------------------------
 --nejprve zpet k testovani pole x_D41A0_BYTEARRAY_0
 
 ---x_D41A0_BYTEARRAY_0+ 2fc8 // 356038+ 2fc8
 00 versus c2
-v63 = (Bit8u*)(*(int(**)(Bit8u*))((char *)&off_D781E + 14 * v112))(v113 + 76);
+v63 = (uint8_t*)(*(int(**)(uint8_t*))((char *)&off_D781E + 14 * v112))(v113 + 76);
 ---------------------------------------------------
 358ffc
 versus
-*(Bit32s*)(*x_DWORD_EA3E4+ 63c0+164)
+*(int32_t*)(*x_DWORD_EA3E4+ 63c0+164)
 ------------------------------------
 35ce76
 versus
 x_D41A0_BYTEARRAY_0 + 28222
 
 sub_17060
-x_D41A0_BYTEARRAY_0[10 * *(Bit16u*)&x_D41A0_BYTEARRAY_0[12] + 28226] = v4;
+x_D41A0_BYTEARRAY_0[10 * *(uint16_t*)&x_D41A0_BYTEARRAY_0[12] + 28226] = v4;
 sub_17060(x_DWORD_1805B0, x_DWORD_1805B4);
-sub_17A00((Bit8u*)a3, a4, a5);//fix it//nothing draw
+sub_17A00((uint8_t*)a3, a4, a5);//fix it//nothing draw
 ---------------------------------------------------
 35ce76 -01
 versus
@@ -3999,7 +3999,7 @@ versus
 versus
 &x_D41A0_BYTEARRAY_0[10 * x_D41A0_BYTEARRAY_4_struct.byteindex_12 + 28222]
 --------------------------------
-x_DWORD_180628b_screen_buffer+ 51d
+pdwScreenBuffer+ 51d
 versus
 3aa0a4+ 51d  62(ma byt) versus  84
 
@@ -4009,17 +4009,17 @@ x_D41A0_BYTEARRAY_4_struct.byteindex_121[2]
 versus
 38cfcb
 
-322d0a void sub_51BB0_game_events(Bit8u* a1)//232bb0
+322d0a void sub_51BB0_game_events(uint8_t* a1)//232bb0
 
 byteindex_12
-*(Bit16s*)&x_D41A0_BYTEARRAY_0[12]
+*(int16_t*)&x_D41A0_BYTEARRAY_0[12]
 
 x_D41A0_BYTEARRAY_4_struct.byteindex_12
-v16 = *(x_DWORD *)(2124 * *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] + x_D41A0_BYTEARRAY_0 + 11248) / (unsigned int)v15 & 1;
+v16 = *(x_DWORD *)(2124 * *(int16_t*)&x_D41A0_BYTEARRAY_0[12] + x_D41A0_BYTEARRAY_0 + 11248) / (unsigned int)v15 & 1;
 
 ---x_D41A0_BYTEARRAY_0+ 7b // 356038+ 7b
 
-sub_47760(/*int a1,*/Bit32u user/* int a2, int a3*/)//228760
+sub_47760(/*int a1,*/uint32_t user/* int a2, int a3*/)//228760
 
 252973 int sub_71930()//252930
 
@@ -4060,21 +4060,21 @@ versus
 12b2
 
 22b046 call void sub_49F90()//22af90
-*(x_DWORD *)(v7 + 582) = (Bit32s)x_DWORD_EA3E4[v3]
+*(x_DWORD *)(v7 + 582) = (int32_t)x_DWORD_EA3E4[v3]
 
 unk_D83AC - zrusit - sloucit
 
 ---x_D41A0_BYTEARRAY_0+ 12aa // 356038+ 12aa
 7e versus 00
 22b046 call void sub_49F90()//22af90
-*(x_DWORD *)(v7 + 582) = (Bit32s)x_DWORD_EA3E4[v3]
+*(x_DWORD *)(v7 + 582) = (int32_t)x_DWORD_EA3E4[v3]
 2360e4 call char sub_55080(unsigned __int8 a1, int a2)//236080
 238663 call void sub_57640()//238640
-2288a1 void sub_47760(/*int a1,*/Bit32u user/* int a2, int a3*/)//228760
-228564 void sub_47560_draw_and_events_in_game(Bit8u* a1, int a2, Bit32u a3, signed int a4, __int16 a5)//228560
+2288a1 void sub_47760(/*int a1,*/uint32_t user/* int a2, int a3*/)//228760
+228564 void sub_47560_draw_and_events_in_game(uint8_t* a1, int a2, uint32_t a3, signed int a4, __int16 a5)//228560
 -------------------------
 --*(x_DWORD *)(v4 + 4582);
-Bit8u* sub_57F20(Bit8u* a1)//238f20
+uint8_t* sub_57F20(uint8_t* a1)//238f20
 void sub_57730()//238730
 
 predtim
@@ -4084,7 +4084,7 @@ versus
 x_D41A0_BYTEARRAY_0+ bfee
 
 557f
-21205f call void sub_30F60(Bit8u* a1)//211f60
+21205f call void sub_30F60(uint8_t* a1)//211f60
 
 
 x_D41A0_BYTEARRAY_0+ 6f36
@@ -4110,7 +4110,7 @@ x_D41A0_BYTEARRAY_0+ d886// 356038+ d886
 
 238e42 d60f
 238e42 d60f19
-238e42 561019 call void sub_57CF0(Bit8u* a1, Bit8u* a2)//238cf0
+238e42 561019 call void sub_57CF0(uint8_t* a1, uint8_t* a2)//238cf0
 190
 
 x_D41A0_BYTEARRAY_0+ d570// 356038+ d570
@@ -4129,7 +4129,7 @@ x_D41A0_BYTEARRAY_0+ 12aa// 356038+ 12aa
 
 37
 --------------------------------------------
-x_DWORD_180628b_screen_buffer+ 9b6e//3aa0a4+ 9b6e
+pdwScreenBuffer+ 9b6e//3aa0a4+ 9b6e
 37 versus 77
 
 299b6c call void /*__spoils<ecx>*/ sub_B6253_draw_quad(x_DWORD *a1, x_DWORD *a2, x_DWORD *a3)//297253
@@ -4145,13 +4145,13 @@ x_D41A0_BYTEARRAY_0+ 12aa// 356038+ 12aa
 22b046 call void sub_49F90()//22af90
 2360df call char sub_55080(unsigned __int8 a1, int a2)//236080
 2288a1 call void sub_57640()//238640
-228564 call void sub_47760(/*int a1,*/Bit32u user/* int a2, int a3*/)//228760
+228564 call void sub_47760(/*int a1,*/uint32_t user/* int a2, int a3*/)//228760
 
 problem je zde
-Bit8u* sub_57F20(Bit8u* a1)//238f20
+uint8_t* sub_57F20(uint8_t* a1)//238f20
 void sub_57730()//238730
 ------------------------------------------------
-x_DWORD_180628b_screen_buffer+ 1f71//3aa0a4+ 1f71
+pdwScreenBuffer+ 1f71//3aa0a4+ 1f71
 b8 versus 37
 -blinking rectangle
 245db2 call void char sub_64CE0(int a1)//245ce0
@@ -4165,29 +4165,29 @@ difference:
 pruchod 7
 x_D41A0_BYTEARRAY_0+ 9022// 356038+ 9022
 c2 versus ee
-2d - signed int sub_1B8C0(Bit8u* a1)//1fc8c0
-83 - signed int sub_1B8C0(Bit8u* a1)//1fc8c0
-d8 - signed int sub_1B8C0(Bit8u* a1)//1fc8c0
-ee - signed int sub_1B8C0(Bit8u* a1)//1fc8c0
+2d - signed int sub_1B8C0(uint8_t* a1)//1fc8c0
+83 - signed int sub_1B8C0(uint8_t* a1)//1fc8c0
+d8 - signed int sub_1B8C0(uint8_t* a1)//1fc8c0
+ee - signed int sub_1B8C0(uint8_t* a1)//1fc8c0
 
 8003
-9603 - 1fc9d8 call sub_1B8C0(Bit8u* a1)//1fc8c0
+9603 - 1fc9d8 call sub_1B8C0(uint8_t* a1)//1fc8c0
 --
 ac03
 --
-c203 - 1fc9d8 call sub_1B8C0(Bit8u* a1)//1fc8c0
-1ff2cf - char sub_1E1C0(Bit8u* a1, __int16 a2)//1ff1c0
-1ff02e - char sub_1E020(Bit8u* a1, __int16 a2)//1ff020
+c203 - 1fc9d8 call sub_1B8C0(uint8_t* a1)//1fc8c0
+1ff2cf - char sub_1E1C0(uint8_t* a1, __int16 a2)//1ff1c0
+1ff02e - char sub_1E020(uint8_t* a1, __int16 a2)//1ff020
 
 porovnat x_DWORD_EA3E4 tj 2bb3e4
 
-void sub_41A90_VGA_pallette_install(Bit8u* buffer)//222a90
-271c10 call Bit16s sub_90B27_VGA_pal_fadein_fadeout(Bit8u *newpalbuffer, Bit8u shadow_levels, bool singlestep)//271B27 init and nightfall
-void sub_47760(/*int a1,*/Bit32u user/* int a2, int a3*/)//228760
+void sub_41A90_VGA_pallette_install(uint8_t* buffer)//222a90
+271c10 call int16_t sub_90B27_VGA_pal_fadein_fadeout(uint8_t *newpalbuffer, uint8_t shadow_levels, bool singlestep)//271B27 init and nightfall
+void sub_47760(/*int a1,*/uint32_t user/* int a2, int a3*/)//228760
 fix:
 outbuffer[i] = x_BYTE_181544_oldpalbuffer[i] + (j* (newpalbuffer[i] - x_BYTE_181544_oldpalbuffer[i]) / shadow_levels);
 
-2288da call void sub_47760(/*int a1,*/Bit32u user/* int a2, int a3*/)//228760
+2288da call void sub_47760(/*int a1,*/uint32_t user/* int a2, int a3*/)//228760
 
  1000 - ok
  13b5 - ok
@@ -4223,13 +4223,13 @@ x_D41A0_BYTEARRAY_0[10] versus  38cf50+ a
 array_E2A74+ 22 versus 2b3a74+ 22
 1e versus 1f
 
-Bit8u* sub_87B70()//268b70
+uint8_t* sub_87B70()//268b70
 -----------------------------
 krok2
 unk_1804B0ar+ 7a versus 3514b0+ 7a
 0 versus 32
 
-void sub_884D0(int a1, __int16 a2, Bit8u* a3, char a4, char a5)//2694d0
+void sub_884D0(int a1, __int16 a2, uint8_t* a3, char a4, char a5)//2694d0
 
 int sub_88450()//269450
 -----------------------------
@@ -4272,14 +4272,14 @@ unk_1804B0ar+ 8e versus  3514b0+ 8e
 
 &array_E2A74[ 944] versus 2b43ba
 
-void sub_884D0(int a1, __int16 a2, Bit8u* a3, char a4, char a5)//2694d0
+void sub_884D0(int a1, __int16 a2, uint8_t* a3, char a4, char a5)//2694d0
 ---------
 krok65
 array_E2A74+ 06 versus 2b3a74+ 06
 01 versus 0
 ---------
 krok 41
-x_DWORD_180628b_screen_buffer+ 1e29
+pdwScreenBuffer+ 1e29
 versus
 3aa0a4+ 1e29  77(ma byt) versus  3a
 
@@ -4292,7 +4292,7 @@ versus
 29e851 call void /*__spoils<ecx>*/ sub_BD542(unsigned __int16 a1, unsigned __int16 a2, unsigned __int16 a3, unsigned __int16 a4, char a5)//29e542
 20cd54
 
-*(Bit16s*)&unk_1804B0ar[ 8e] - proc je nula
+*(int16_t*)&unk_1804B0ar[ 8e] - proc je nula
 
 &array_E2A74[30 *  5c + 4]
 
@@ -4364,11 +4364,11 @@ int sub_89830(x_WORD *a1)//26a830
 unk_1804B0ar+ 1c
 void sub_87610()//268610
 
-void sub_884D0(int a1, __int16 a2, Bit8u* a3, char a4, char a5)//2694d0
+void sub_884D0(int a1, __int16 a2, uint8_t* a3, char a4, char a5)//2694d0
 int sub_871F0()//2681f0
 
 void sub_2CE30_pause_end_level(int a1, int a2)//20de30
-void sub_51BB0_game_events(Bit8u* a1)//232bb0
+void sub_51BB0_game_events(uint8_t* a1)//232bb0
 x_DWORD_E9C4C_langindexbuffer
 
 char sub_1A970_change_game_settings(char a1, int a2, int a3)//1fb970
@@ -4376,7 +4376,7 @@ char sub_1A970_change_game_settings(char a1, int a2, int a3)//1fb970
 --
 unk_1804B0ar+ 1e
 
-Bit8u* sub_87B70()//268b70
+uint8_t* sub_87B70()//268b70
 
 64003400 - ok
 30007a00 - ok
@@ -4396,8 +4396,8 @@ char x_BYTE_18069C; // weak
 
 x_DWORD_180730_cursor_data
 82c714
-270aa0 call void sub_8F935_bitmap_draw_final(Bit8u a1byte1, Bit8u a1byte2, Bit16u tiley, int tilex, Bit8u* texture, Bit8u setbyte, char a6)//270935
-2708d7 call void sub_8F8B0_draw_bitmap320(Bit16s posx, Bit16s posy, posistruct temppstr)//2708B0
+270aa0 call void sub_8F935_bitmap_draw_final(uint8_t a1byte1, uint8_t a1byte2, uint16_t tiley, int tilex, uint8_t* texture, uint8_t setbyte, char a6)//270935
+2708d7 call void sub_8F8B0_draw_bitmap320(int16_t posx, int16_t posy, posistruct temppstr)//2708B0
 26de71 call void sub_8CD27_set_cursor(posistruct a2)//26dd27
 1f9c2c call void sub_18BB0()//1f9bb0
 
@@ -4410,11 +4410,11 @@ xy_DWORD_17DED4_spritestr[39]
 
 x_DWORD_EB394 - find - 2bc394
 
-Bit8u* v1102; // [esp+0h] [ebp-88h] - fix
+uint8_t* v1102; // [esp+0h] [ebp-88h] - fix
 
 adress 1f9c12
 
-void sub_693F0(Bit8u* a1)//24a3f0
+void sub_693F0(uint8_t* a1)//24a3f0
 (__int16 *)&*xadataspellsdat.var28_begin_buffer[80 * *(char *)(a1 + 64) + 2 + 26 * *(char *)(a1 + 70)],
 
 2482e0
@@ -4436,8 +4436,8 @@ x_BYTE_EB3A8
 versus
 2bc3a8
 
-compare - *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] ==1
-x_DWORD_EA3E4[*(unsigned __int16 *)(2124 * *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] + x_D41A0_BYTEARRAY_0 + 11240)]
+compare - *(int16_t*)&x_D41A0_BYTEARRAY_0[12] ==1
+x_DWORD_EA3E4[*(unsigned __int16 *)(2124 * *(int16_t*)&x_D41A0_BYTEARRAY_0[12] + x_D41A0_BYTEARRAY_0 + 11240)]
 
 void sub_752C0()//2562c0
 
@@ -4445,19 +4445,19 @@ x_BYTE_180664
 versus
 
 
-Bit32u sub_64E20(Bit8u* a1)//245e20
+uint32_t sub_64E20(uint8_t* a1)//245e20
 
 x_WORD_1805C2 nesmi byt 7
 
 x_BYTE_E36D1 - musi byt 1
 
-Bit32u dwordindex_188;//x_D41A0_BYTEARRAY_4_struct.byteindex_188
-	Bit8u byteindex_189;//x_D41A0_BYTEARRAY_4_struct.byteindex_189
-	Bit8u byteindex_190;//x_D41A0_BYTEARRAY_4_struct.byteindex_190
+uint32_t dwordindex_188;//x_D41A0_BYTEARRAY_4_struct.byteindex_188
+	uint8_t byteindex_189;//x_D41A0_BYTEARRAY_4_struct.byteindex_189
+	uint8_t byteindex_190;//x_D41A0_BYTEARRAY_4_struct.byteindex_190
 
-	Bit8u byteindex_192;// c0//x_D41A0_BYTEARRAY_4_struct.byteindex_192
-	Bit8u byteindex_193;// c1//x_D41A0_BYTEARRAY_4_struct.byteindex_193
-	Bit8u byteindex_194;// c2//x_D41A0_BYTEARRAY_4_struct.byteindex_194
+	uint8_t byteindex_192;// c0//x_D41A0_BYTEARRAY_4_struct.byteindex_192
+	uint8_t byteindex_193;// c1//x_D41A0_BYTEARRAY_4_struct.byteindex_193
+	uint8_t byteindex_194;// c2//x_D41A0_BYTEARRAY_4_struct.byteindex_194
 
 x_D41A0_BYTEARRAY_4_struct.byteindex_8618 by melo byt 1
 
@@ -4467,7 +4467,7 @@ char sub_1A970_change_game_settings(char a1, int a2, int a3)//1fb970
 
 356044
 versus
-*(Bit16s*)&x_D41A0_BYTEARRAY_0[12]
+*(int16_t*)&x_D41A0_BYTEARRAY_0[12]
 
 x_DWORD_17DB54_game_turn2
 versus
@@ -4490,31 +4490,31 @@ x_WORD_EB398ar - position and rotation
 
 x_BYTE_EB39E_keys[0]
 x_WORD_1805C0
-x_D41A0_BYTEARRAY_0[10 * *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] + 28227]
+x_D41A0_BYTEARRAY_0[10 * *(int16_t*)&x_D41A0_BYTEARRAY_0[12] + 28227]
 
 *(x_WORD *)(a1 + 28)
 ------------------
-void sub_69640(Bit8u* a1)//24a640
+void sub_69640(uint8_t* a1)//24a640
 
 --------------------------
-x_DWORD_180628b_screen_buffer+ 2168( 00)
+pdwScreenBuffer+ 2168( 00)
 versus
  3aa0a4+ 2168( 86)
 
-x_DWORD_180628b_screen_buffer+ 6ef9( 00)
+pdwScreenBuffer+ 6ef9( 00)
 versus
  3aa0a4+ 6ef9( 86)
 
 
 cyklus3
-x_DWORD_180628b_screen_buffer+ f99a( 1f)
+pdwScreenBuffer+ f99a( 1f)
 versus
  3aa0a4+ f99a( f7)
 
 &x_DWORD_E9C38_smalltit[ 1f40]
 x_WORD_15B4E0[ da4f]
 
-void sub_51BB0_game_events(Bit8u* a1)//232bb0
+void sub_51BB0_game_events(uint8_t* a1)//232bb0
 
 
 void sub_191B0(__int16 a1, char a2)//1fa1b0 //set spell
@@ -4547,26 +4547,26 @@ LABEL_215:
 		v104 = v116 + 1;
 		memset((void*)v114, 0, 10);
 		v116 = v104;
-		v114 = (Bit8u*)a1 + 10;
+		v114 = (uint8_t*)a1 + 10;
 
 v18 = x_D41A0_BYTEARRAY_0 + 11230; - projektily?
 
 x_DWORD_EA3E4[ 25a1]
 
 --------------------------
-x_DWORD_180628b_screen_buffer+ 2168( 00)
+pdwScreenBuffer+ 2168( 00)
 versus
  3aa0a4+ 2168( 86)
 
-Bit8u x_BYTE_F6EE0_tablesx[ 14600];// (Bit8u*)&x_BYTE_F6EE0_tablesbuff;
+uint8_t x_BYTE_F6EE0_tablesx[ 14600];// (uint8_t*)&x_BYTE_F6EE0_tablesbuff;
 //2cbee0- 4000= 2c7ee0
-Bit8u x_BYTE_10B4E0[ 10000]; // idb// x_BYTE_10B1E0[ 300] //map array1
+uint8_t x_BYTE_10B4E0[ 10000]; // idb// x_BYTE_10B1E0[ 300] //map array1
 //2DC4E0
-Bit8u x_BYTE_11B4E0[ 10000]; // idb						//map array2
+uint8_t x_BYTE_11B4E0[ 10000]; // idb						//map array2
 //2EC4E0
-Bit8u x_BYTE_12B4E0[ 10000]; // fix it -  weak				//map array3
+uint8_t x_BYTE_12B4E0[ 10000]; // fix it -  weak				//map array3
 //2FC4E0
-Bit8u x_BYTE_13B4E0[ 10000]; // idb						//map array4
+uint8_t x_BYTE_13B4E0[ 10000]; // idb						//map array4
 //30C4E0
 __int16 x_WORD_15B4E0[ 20000]; // idb						//map array5
 //32C4E0
@@ -4593,7 +4593,7 @@ versus
  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
 
  0x1c-bc07
- 246fbf - void sub_65F60(Bit8u* a1)//246f60
+ 246fbf - void sub_65F60(uint8_t* a1)//246f60
 
  &x_D41A0_BYTEARRAY_0[0xf60a+4] versus 365642+4
  je 30cd
@@ -4643,25 +4643,25 @@ versus
 
 
  find this:
- void sub_5FA70(Bit8u* a1)//240a70
+ void sub_5FA70(uint8_t* a1)//240a70
 
 
  player position:
-*(Bit16s*)(x_D41A0_BYTEARRAY_0 + 2124 * *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] + 14 * *(Bit16u*)(x_D41A0_BYTEARRAY_0 + 2124 * *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] + 11244) + 11709),//position of player
-*(Bit16s*)(x_D41A0_BYTEARRAY_0 + 2124 * *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] + 14 * *(Bit16u*)(x_D41A0_BYTEARRAY_0 + 2124 * *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] + 11244) + 11711),//position of player
-*(Bit16s*)(x_D41A0_BYTEARRAY_0 + 2124 * *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] + 14 * *(Bit16u*)(x_D41A0_BYTEARRAY_0 + 2124 * *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] + 11244) + 11715),//rotation of player z 
-*(Bit16s*)(x_D41A0_BYTEARRAY_0 + 2124 * *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] + 14 * *(Bit16u*)(x_D41A0_BYTEARRAY_0 + 2124 * *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] + 11244) + 11717),//rotation of player
-*(Bit16s*)(x_D41A0_BYTEARRAY_0 + 2124 * *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] + 14 * *(Bit16u*)(x_D41A0_BYTEARRAY_0 + 2124 * *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] + 11244) + 11719),//rotation of player
+*(int16_t*)(x_D41A0_BYTEARRAY_0 + 2124 * *(int16_t*)&x_D41A0_BYTEARRAY_0[12] + 14 * *(uint16_t*)(x_D41A0_BYTEARRAY_0 + 2124 * *(int16_t*)&x_D41A0_BYTEARRAY_0[12] + 11244) + 11709),//position of player
+*(int16_t*)(x_D41A0_BYTEARRAY_0 + 2124 * *(int16_t*)&x_D41A0_BYTEARRAY_0[12] + 14 * *(uint16_t*)(x_D41A0_BYTEARRAY_0 + 2124 * *(int16_t*)&x_D41A0_BYTEARRAY_0[12] + 11244) + 11711),//position of player
+*(int16_t*)(x_D41A0_BYTEARRAY_0 + 2124 * *(int16_t*)&x_D41A0_BYTEARRAY_0[12] + 14 * *(uint16_t*)(x_D41A0_BYTEARRAY_0 + 2124 * *(int16_t*)&x_D41A0_BYTEARRAY_0[12] + 11244) + 11715),//rotation of player z 
+*(int16_t*)(x_D41A0_BYTEARRAY_0 + 2124 * *(int16_t*)&x_D41A0_BYTEARRAY_0[12] + 14 * *(uint16_t*)(x_D41A0_BYTEARRAY_0 + 2124 * *(int16_t*)&x_D41A0_BYTEARRAY_0[12] + 11244) + 11717),//rotation of player
+*(int16_t*)(x_D41A0_BYTEARRAY_0 + 2124 * *(int16_t*)&x_D41A0_BYTEARRAY_0[12] + 14 * *(uint16_t*)(x_D41A0_BYTEARRAY_0 + 2124 * *(int16_t*)&x_D41A0_BYTEARRAY_0[12] + 11244) + 11719),//rotation of player
 
 
 
-*(Bit32u*)(&x_DWORD_D4C52ar[0x1856] + 6)
+*(uint32_t*)(&x_DWORD_D4C52ar[0x1856] + 6)
 0x2a5c52+0x1856+6
 misto 0x2130e0 tam dat 240a70
 
 
 -------------------
-x_DWORD_180628b_screen_buffer+ 0x21df
+pdwScreenBuffer+ 0x21df
 versus
 3aa0a4+ 0x21df  b2(ma byt) versus  83
 
@@ -4708,7 +4708,7 @@ fix end //end 17B4E0
 test  sub_61A00_draw_minimap_entites_b asi 7 pruchod
 
 -------------------
-x_DWORD_180628b_screen_buffer+ 0x1415
+pdwScreenBuffer+ 0x1415
 versus
 3aa0a4+ 0x1415  39(ma byt) versus  b0
 
@@ -4723,8 +4723,8 @@ x_D41A0_BYTEARRAY_0+0x1154e(0x12)-debugcounter11==9
 versus
  356038+0x1154e(0x11)
 
- -void sub_37BC0(Bit8u* a1)//218bc0 - 13
- -void sub_37BC0(Bit8u* a1)//218bc0 - 12
+ -void sub_37BC0(uint8_t* a1)//218bc0 - 13
+ -void sub_37BC0(uint8_t* a1)//218bc0 - 12
 
  218be5 - 13
  218bf9 - 12
@@ -4737,10 +4737,10 @@ versus
 &x_D41A0_BYTEARRAY_0[0x1153e+0x45] - 0x2c-debugcounter11==9
 versus  356038+0x1153e+0x45//11583
 
-Bit8u* sub_50370(Bit8u* a1)//231370
-void sub_60480(Bit8u* a1)//241480
-void sub_5F8F0(Bit8u* a1)//2408f0
-void sub_5FA70(Bit8u* a1)//240a70
+uint8_t* sub_50370(uint8_t* a1)//231370
+void sub_60480(uint8_t* a1)//241480
+void sub_5F8F0(uint8_t* a1)//2408f0
+void sub_5FA70(uint8_t* a1)//240a70
 
 &x_D41A0_BYTEARRAY_0[0x11496+0x45]-predtim 0xc-debugcounter11==8
 versus  356038+0x11496+0x45//114DB
@@ -4748,11 +4748,11 @@ versus  356038+0x11496+0x45//114DB
 -return (int)sub_4E8C0(a1);//posses spell drop1
 -pod sub_65F60(a1);//fly possess projectile
 
-void sub_65F60(Bit8u* a1)//246f60 - test this
+void sub_65F60(uint8_t* a1)//246f60 - test this
 
 
 367586 - 13
-218bfe - 12 call void sub_37BC0(Bit8u* a1)//218bc0
+218bfe - 12 call void sub_37BC0(uint8_t* a1)//218bc0
 
 13
 12
@@ -4760,7 +4760,7 @@ void sub_65F60(Bit8u* a1)//246f60 - test this
 12
 
 ------------------------------------------pruchod a
-x_DWORD_180628b_screen_buffer+ 0x1415
+pdwScreenBuffer+ 0x1415
 versus
 3aa0a4+ 0x1415  39(ma byt) versus  b0
 ------------------------------------------pruchod a
@@ -4768,10 +4768,10 @@ x_D41A0_BYTEARRAY_0+0x7922(0xad)-debugcounter11==a
 versus
 356038+0x7922(0x3a)
 
-void sub_385C0(Bit8u* a1)//2195c0
+void sub_385C0(uint8_t* a1)//2195c0
 
 ------------------------------------------pruchod a
-x_DWORD_180628b_screen_buffer+ 0x1a5a
+pdwScreenBuffer+ 0x1a5a
 versus
 3aa0a4+ 0x1a5a  9e(ma byt) versus  3b
 
@@ -4798,7 +4798,7 @@ versus
 0x2fc4e0(0x20)
 
 char sub_46570(unsigned __int16 a1, __int16 a2)//227570
-void sub_37BC0(Bit8u* a1)//218bc0
+void sub_37BC0(uint8_t* a1)//218bc0
 
 2276b8 -2401
 
@@ -4837,7 +4837,7 @@ x_BYTE_11B4E0 - rozdil zde
 
 x_WORD_15B4E0 - zde je to ok
 
-void sub_37BC0(Bit8u* a1)//218bc0
+void sub_37BC0(uint8_t* a1)//218bc0
 
 ---------------------------------------pruchod 8
 x_BYTE_12B4E0+0xfe(0x1f)
@@ -4847,7 +4847,7 @@ versus
 2277bf - call char sub_46570(unsigned __int16 a1, __int16 a2)//227570
 eax=ffff
 alah=0000
-218f79 - call void sub_37BC0(Bit8u* a1)//218bc0
+218f79 - call void sub_37BC0(uint8_t* a1)//218bc0
 
 ---------------------------------------pruchod 8
 x_BYTE_13B4E0+0x2fe(0x68)
@@ -4876,8 +4876,8 @@ x_BYTE_13B4E0+0x2(0xc0)
 versus
 0x30c4e0+0x2(0x40)
 
-void sub_45DC0(Bit8u a1, Bit8u a2, unsigned __int16 a3, unsigned __int8 a4)//226dc0
-void sub_37BC0(Bit8u* a1)//218bc0 -  - problem uz zde
+void sub_45DC0(uint8_t a1, uint8_t a2, unsigned __int16 a3, unsigned __int8 a4)//226dc0
+void sub_37BC0(uint8_t* a1)//218bc0 -  - problem uz zde
 40 18 48 38
 -----------
 40 10 48 38
@@ -4909,9 +4909,9 @@ x_D41A0_BYTEARRAY_0 + 0x115f6(ff)
 versus
 0x356038 + 0x115f6 (1)
 
-void sub_37BC0(Bit8u* a1)//218bc0
+void sub_37BC0(uint8_t* a1)//218bc0
 01
-void sub_37BC0(Bit8u* a1)//218bc0
+void sub_37BC0(uint8_t* a1)//218bc0
 =-1
 
 02
@@ -4924,27 +4924,27 @@ versus
 0x356038 + 0x1156c (2)
 
 238f10
-21922b call void sub_37BC0(Bit8u* a1)//218bc0
+21922b call void sub_37BC0(uint8_t* a1)//218bc0
 
-(x_D41A0_BYTEARRAY_0 + 2124 * *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] + 12244)-position y
-(x_D41A0_BYTEARRAY_0 + 2124 * *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] + 12593)-position x
-(x_D41A0_BYTEARRAY_0 + 2124 * *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] + 12149)-rotate 1
-(x_D41A0_BYTEARRAY_0 + 2124 * *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] + 12568)-rotate 2
-(x_D41A0_BYTEARRAY_0 + 2124 * *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] + 12573)-rotate 3
-(x_D41A0_BYTEARRAY_0 + 2124 * *(Bit16s*)&x_D41A0_BYTEARRAY_0[12] + 12593)-rotate 4
+(x_D41A0_BYTEARRAY_0 + 2124 * *(int16_t*)&x_D41A0_BYTEARRAY_0[12] + 12244)-position y
+(x_D41A0_BYTEARRAY_0 + 2124 * *(int16_t*)&x_D41A0_BYTEARRAY_0[12] + 12593)-position x
+(x_D41A0_BYTEARRAY_0 + 2124 * *(int16_t*)&x_D41A0_BYTEARRAY_0[12] + 12149)-rotate 1
+(x_D41A0_BYTEARRAY_0 + 2124 * *(int16_t*)&x_D41A0_BYTEARRAY_0[12] + 12568)-rotate 2
+(x_D41A0_BYTEARRAY_0 + 2124 * *(int16_t*)&x_D41A0_BYTEARRAY_0[12] + 12573)-rotate 3
+(x_D41A0_BYTEARRAY_0 + 2124 * *(int16_t*)&x_D41A0_BYTEARRAY_0[12] + 12593)-rotate 4
 
-void sub_17A00(Bit8u* a1, signed int a2, __int16 a3)//1f8a00
+void sub_17A00(uint8_t* a1, signed int a2, __int16 a3)//1f8a00
 
 --------------------- pruchod 1
-x_DWORD_180628b_screen_buffer + 0x2167(00)
+pdwScreenBuffer + 0x2167(00)
 versus
 0x3aa0a4 + 0x2167 (86)
 
 2230a1 - call void sub_41BD3(unsigned int a1)//222bd3
-void sub_3E360_draw_particles(Bit8u* a1, Bit8u* a2)//21f360
+void sub_3E360_draw_particles(uint8_t* a1, uint8_t* a2)//21f360
 
 find it
-void sub_18F80(Bit8u* a1)//1f9f80
+void sub_18F80(uint8_t* a1)//1f9f80
 
 void sub_17060(__int16 a1, __int16 a2)//1f8060
 relativní x a y
@@ -4952,12 +4952,12 @@ x_D41A0_BYTEARRAY_0[10 * D41A0_BYTESTR_0.word_0xc + 28225] = v3;
 x_D41A0_BYTEARRAY_0[10 * D41A0_BYTESTR_0.word_0xc + 28226] = v4;
 
 --------------------- pruchod 1
-x_DWORD_180628b_screen_buffer + 0xe051(38)
+pdwScreenBuffer + 0xe051(38)
 versus
 0x3aa0a4 + 0xe051 (3a)
 
 --------------------- pruchod 8
-x_DWORD_180628b_screen_buffer + 0x5306(a2)
+pdwScreenBuffer + 0x5306(a2)
 versus
 0x3aa0a4 + 0x5306 (3d)
 
@@ -4989,7 +4989,7 @@ x_DWORD_F2C20ar[0x01] - typ rotace
 
 x_DWORD_F2C20ar[0x01] = v45;
 
-(Bit16s*)(&x_DWORD_E9C38_smalltit[45920])
+(int16_t*)(&x_DWORD_E9C38_smalltit[45920])
 versus
 [2bac38]+b360=400604
 
@@ -5010,7 +5010,7 @@ orig
 x_D41A0_BYTEARRAY_0[0x2f75+4] - rotation of player
 
 --------------------- pruchod 0
-x_DWORD_180628b_screen_buffer + 0xdf11(39)
+pdwScreenBuffer + 0xdf11(39)
 versus
 0x3aa0a4 + 0xdf11 (3b)
 
@@ -5021,7 +5021,7 @@ versus
 39 3b 39 39 - particles
 
 --------------------- pruchod 8
-x_DWORD_180628b_screen_buffer + 0x508e(a2)
+pdwScreenBuffer + 0x508e(a2)
 versus
 0x3aa0a4 + 0x508e (3d)
 
@@ -5036,10 +5036,10 @@ versus
 
 21cec8 call x_DWORD *sub_3B560(__int16 a1)//21c560
 
-v69 = *(Bit32s*)&x_DWORD_D9F50ar[v1*4];
+v69 = *(int32_t*)&x_DWORD_D9F50ar[v1*4];
 //2aaf50
-*(Bit32s*)&x_DWORD_D9F50ar[v1*4];
-v70 = *(Bit32s*)&x_DWORD_DA750ar[v1*4];
+*(int32_t*)&x_DWORD_D9F50ar[v1*4];
+v70 = *(int32_t*)&x_DWORD_DA750ar[v1*4];
 //2ab750
 
 &x_DWORD_D9F50ar[1*4]
@@ -5052,7 +5052,7 @@ x_WORD_D951C
 void sub_71410_process_tmaps()//252410
 
 
-*(Bit16s*)&x_BYTE_D951C[
+*(int16_t*)&x_BYTE_D951C[
 
 test all x_BYTE_D951C
 fix:
@@ -5066,12 +5066,12 @@ versus
 2818ac
 
 1e1000 - read
-2798c4 - void sub_9874D_create_index_dattab(Bit8u* tabbuffer, Bit8u* tabbufferend, Bit8u* datbuffer, posistruct* dattabindex)//27974d
-234e94 - int sub_53E60_readfile_and_decompress(const char* path, Bit8u** a2)//234E60
+2798c4 - void sub_9874D_create_index_dattab(uint8_t* tabbuffer, uint8_t* tabbufferend, uint8_t* datbuffer, posistruct* dattabindex)//27974d
+234e94 - int sub_53E60_readfile_and_decompress(const char* path, uint8_t** a2)//234E60
 23ca55 - void sub_5B8D0_initialize()//23c8d0
 
 --------------------- pruchod 8
-x_DWORD_180628b_screen_buffer + 0x5807(7e)
+pdwScreenBuffer + 0x5807(7e)
 versus
 0x3aa0a4 + 0x5807 (4)
 22304e
@@ -5104,7 +5104,7 @@ versus
 
 c3 - 21d01c - x_DWORD *sub_3B560(__int16 a1)//21c560
 
-*(Bit32s*)&x_BYTE_D951C[0xa34+0x7fa*4] - 9a96
+*(int32_t*)&x_BYTE_D951C[0xa34+0x7fa*4] - 9a96
 versus 2acf38 - f5ff
 
 
@@ -5112,15 +5112,15 @@ x_DWORD_E9C38_smalltit
 
 unk_D4350
 
-(Bit32s*)x_DWORD_DDF50[0x1a]+8
-(Bit32s*)x_DWORD_DDF50x[0x1a]+8
+(int32_t*)x_DWORD_DDF50[0x1a]+8
+(int32_t*)x_DWORD_DDF50x[0x1a]+8
 
 BLOCK32DAT_BEGIN_BUFFER
 
-*(Bit32s*)x_DWORD_DDF50x[0x7b]
-alias ((Bit8u*)x_DWORD_DDF50x)+0x1ec
+*(int32_t*)x_DWORD_DDF50x[0x7b]
+alias ((uint8_t*)x_DWORD_DDF50x)+0x1ec
 
-*(Bit32s*)(((Bit8u*)x_DWORD_DDF50x)+0x1ec)
+*(int32_t*)(((uint8_t*)x_DWORD_DDF50x)+0x1ec)
 
 x_DWORD_DB350_ret
 
@@ -5143,7 +5143,7 @@ char x_BYTE_D94FF[29]
 
 01020304050607..
 
-int sub_89920(x_WORD *a1, __int16 a2, Bit8u* a3)//26a920
+int sub_89920(x_WORD *a1, __int16 a2, uint8_t* a3)//26a920
 draw spell text
 
 find in this
@@ -5183,7 +5183,7 @@ versus
 06 00 03 00 4b 01 32 00 21 00 43 01 00 00 00 00
 6c 00 00 00 00 00 00 00 50 00 00 00 00 01 06 00
 
-*(Bit32s*)&x_D41A0_BYTEARRAY_0[0x341c]
+*(int32_t*)&x_D41A0_BYTEARRAY_0[0x341c]
 -selected bottom spell
 
 sub_692A0(x_DWORD_EA3E4[0xc4e0/168]);
@@ -5202,15 +5202,15 @@ filearray_2aa18c[filearrayindex_BUILD00DATTAB][2].dat_buffer
 
 *(&filearray_2aa18c[filearrayindex_BUILD00DATTAB])[0].dat_buffer
 
-void sub_49EC0(Bit16u* a1, __int16 a2)//22aec0 // get castle data
+void sub_49EC0(uint16_t* a1, __int16 a2)//22aec0 // get castle data
 -test
 
 create castle
-unsigned int sub_60810(Bit8u* a1)//241810
+unsigned int sub_60810(uint8_t* a1)//241810
 
 
 
-void sub_37240(Bit8u* a1)//218240
+void sub_37240(uint8_t* a1)//218240
 
 begin of heightmap:
 3065056 - 2ec4e0 - x_BYTE_11B4E0
@@ -5218,7 +5218,7 @@ begin of heightmap:
 x_BYTE_11B4E0+3287
 0x02D3DB00-0x348
 
-groove castle void sub_37BC0(Bit8u* a1)//218bc0
+groove castle void sub_37BC0(uint8_t* a1)//218bc0
 
 quad error
 x_DWORD_DDF50[0x19]
@@ -5249,7 +5249,7 @@ int sub_58F00_game_objectives()//239f00
 sub_A5040(x_DWORD *a1)//286040
 
 
-								v18 = *(Bit32u*)&x_D41A0_BYTEARRAY_4_struct.byteindex_242ar[4];
+								v18 = *(uint32_t*)&x_D41A0_BYTEARRAY_4_struct.byteindex_242ar[4];
 								if (v18 > 0)
 								{
 									v7 = (int)x_D41A0_BYTEARRAY_0;
@@ -5275,7 +5275,7 @@ v6
 
 358ffc 9c
 versus
-*(Bit32s*)(v6 + 316)//0x13c
+*(int32_t*)(v6 + 316)//0x13c
 
 
 sub_56A30_init_game_level
@@ -5290,7 +5290,7 @@ versus
 01
 1f8136
 
-233ce1 - void sub_51BB0_game_events(/*Bit8u* a1*/)//232bb0
+233ce1 - void sub_51BB0_game_events(/*uint8_t* a1*/)//232bb0
 
 rozdil je uz v 35ce76 - 01(06) a 05(20) - kde se to meni?
 
@@ -5300,8 +5300,8 @@ rozdil je uz v 35ce76 - 01(06) a 05(20) - kde se to meni?
 27e201 0000447f -> 00000000
 1fa279 00000000 -> 06000000 - mouse 20  take mouse
 1fa279 void sub_191B0(__int16 a1, char a2)//1fa1b0 //set spell
-1fa0a5 void sub_18F80(Bit8u* a1)//1f9f80
-1f8dd8 void sub_17A00_mouse_and_keys_events(Bit8u* a1, signed int a2, __int16 a3)//1f8a00
+1fa0a5 void sub_18F80(uint8_t* a1)//1f9f80
+1f8dd8 void sub_17A00_mouse_and_keys_events(uint8_t* a1, signed int a2, __int16 a3)//1f8a00
 
 
 asi zde:
@@ -5503,7 +5503,7 @@ fix unk_D7BD6
 
 last procedure 23f8c0
 
-if (v4 == 8 && v15 != *(Bit32s*)(x_D41A0_BYTEARRAY_0 + 4))
+if (v4 == 8 && v15 != *(int32_t*)(x_D41A0_BYTEARRAY_0 + 4))
 v15? 0 =! 0xe1b7
 
 v15=ebp-8
@@ -5523,12 +5523,12 @@ missing adress 0x24c3a0
 
 void sub_8E160_sound_proc15_startsequence(__int16 a1, unsigned __int8 a2)//26f160
 
-*(Bit16u*)(x_D41A0_BYTEARRAY_0 + 565) musi byt 1
+*(uint16_t*)(x_D41A0_BYTEARRAY_0 + 565) musi byt 1
 [2a51a0]+235
 
 356038 +235
 
-*(Bit16u*)(x_D41A0_BYTEARRAY_0 + 565)
+*(uint16_t*)(x_D41A0_BYTEARRAY_0 + 565)
 D41A0_BYTESTR_0.dword_0x235
 versus
 35626d
@@ -5553,7 +5553,7 @@ az
 add adress 2311d0 !!
 
 compare
-void sub_2D710_draw_top_menu(Bit8u* a1)//20e710
+void sub_2D710_draw_top_menu(uint8_t* a1)//20e710
 
 find
 x_DWORD_E9B20
@@ -5576,7 +5576,7 @@ filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct[54].width
 27b3ea - call signed int sub_9A32D_malloc_open_unpack(Pathstruct path)//27B32d
 265289 - bool sub_84250_load_file_array(int psindex)//265250
 2282c3 - void sub_47160()//228160
-27977e - void sub_9874D_create_index_dattab(Bit8u* tabbuffer, Bit8u* tabbufferend, Bit8u* datbuffer, posistruct* dattabindex)//27974d
+27977e - void sub_9874D_create_index_dattab(uint8_t* tabbuffer, uint8_t* tabbufferend, uint8_t* datbuffer, posistruct* dattabindex)//27974d
 24fbda - void sub_6EB90(filearray_struct *a1)//24fb90
 228302 - void sub_47160()//228160
 
@@ -5606,19 +5606,19 @@ sub_82C20 - draw end level info
 
 fix void sub_53160()//234160
 
-fix void sub_54A50(unsigned __int16 a1, Bit8u* a2)//235a50
+fix void sub_54A50(unsigned __int16 a1, uint8_t* a2)//235a50
 
 (int)&D41A0_BYTESTR_0.array_0x2BDE[0].struct_0x649_2BDE_12839.array_0x7E7_2BDE_13253-(int)&D41A0_BYTESTR_0.array_0x2BDE[0].struct_0x649_2BDE_12839+0x649
 
-(Bit8u*)&D41A0_BYTESTR_0+0x6e3e
+(uint8_t*)&D41A0_BYTESTR_0+0x6e3e
 
-(Bit8u*)&D41A0_BYTESTR_0+0x6f32
+(uint8_t*)&D41A0_BYTESTR_0+0x6f32
 &x_D41A0_BYTEARRAY_0[0x6f32]
 
-(Bit8u*)&D41A0_BYTESTR_0+0x6f3A
+(uint8_t*)&D41A0_BYTESTR_0+0x6f3A
 &x_D41A0_BYTEARRAY_0[0x6f3A]
 
-Bit8u* sub_4A050_new_event()//22b050
+uint8_t* sub_4A050_new_event()//22b050
 &x_D41A0_BYTEARRAY_0[0x6e8e + (168 * i)];
 
 0x246
@@ -5636,9 +5636,9 @@ test sub_10C80 +6
 test sub_11900 +6
 
 ---------------
-(Bit8u*)&D41A0_BYTESTR_0+0x8
+(uint8_t*)&D41A0_BYTESTR_0+0x8
 
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x8
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x8
 
 sub_498A0
 sub_49290
@@ -5650,17 +5650,17 @@ sub_49270_generate_level_features
 
 test sub sub_498A0
 
-(Bit8u*)&D41A0_BYTESTR_0+0x6f77
+(uint8_t*)&D41A0_BYTESTR_0+0x6f77
 
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x6f77
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x6f77
 
 sub_48690
 
 zdroj:
 index = sub_71E70(x_DWORD_E9C28, (unsigned __int16)(4 * ((unsigned int)(*(x_DWORD *)index + 13) >> 2)), i);
-index = sub_70C60_decompress_tmap(i, *(Bit8u**)index);
-*(Bit32u*)v4
-*(Bit32u*)v4
+index = sub_70C60_decompress_tmap(i, *(uint8_t**)index);
+*(uint32_t*)v4
+*(uint32_t*)v4
 
 D41A0_BYTESTR_0.str_2FECE.byte_0x2FED4
 versus
@@ -5680,16 +5680,16 @@ test
 
 sub_56A30_init_game_level
 
-(Bit8u*)&D41A0_BYTESTR_0+0x795e
+(uint8_t*)&D41A0_BYTESTR_0+0x795e
 
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x795e
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x795e
 
 x_BYTE_11B4E0+0x45 0x68 orig:0x8b
 x_BYTE_12B4E0+0x51 0x24 orig:0x15
 
 sub_37240
 
-x_BYTE_11B4E0[v46] += ((Bit32s)((Bit8u)v34[1] + (Bit16u)v35 - x_BYTE_11B4E0[v46]))/ a1x->dword_0x8;
+x_BYTE_11B4E0[v46] += ((int32_t)((uint8_t)v34[1] + (uint16_t)v35 - x_BYTE_11B4E0[v46]))/ a1x->dword_0x8;
 
 D41A0_BYTESTR_0.struct_0x6E8E[2].byte_0x45_69 - neni 0x34, ale 0x33
 
@@ -5698,22 +5698,22 @@ sub_37240
 -test a0
 void sub_498A0()//22a8a0
 
-(Bit8u*)&D41A0_BYTESTR_0+0x6f42 00
+(uint8_t*)&D41A0_BYTESTR_0+0x6f42 00
 
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x6f42 04
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x6f42 04
 
 0x3e6
 0x4364
 
-(Bit8u*)&D41A0_BYTESTR_0+0x795e 00
+(uint8_t*)&D41A0_BYTESTR_0+0x795e 00
 
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x795e a0
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x795e a0
 
-void sub_49A30(Bit8u* a1, unsigned __int16 a2)//22aa30
+void sub_49A30(uint8_t* a1, unsigned __int16 a2)//22aa30
 
-sub_51BB0_game_events(/*(Bit8u*)a4*/);//nothing draw
+sub_51BB0_game_events(/*(uint8_t*)a4*/);//nothing draw
 
-(Bit8u*)x_WORD_15B4E0+0x144a orig 0 remake bf
+(uint8_t*)x_WORD_15B4E0+0x144a orig 0 remake bf
 
 void sub_4A310(unsigned __int16 *a1)//22b310
 in clean
@@ -5723,13 +5723,13 @@ bad 3d axis
 iy == 5
 ix == 11
 
-(Bit8u*)&D41A0_BYTESTR_0+0x2bf6 7b
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x2bf6 00
+(uint8_t*)&D41A0_BYTESTR_0+0x2bf6 7b
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x2bf6 00
 
 repair type_str_0x256
 
-(Bit8u*)&D41A0_BYTESTR_0+0x32fb 1
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x32fb 00
+(uint8_t*)&D41A0_BYTESTR_0+0x32fb 1
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x32fb 00
 
 D41A0_BYTESTR_0.array_0x2BDE[v0index].struct_0x649_2BDE_12839.array_0x7CF_2BDE_13229.byteindex_2255ar[result] = 1;
 
@@ -5738,15 +5738,15 @@ array_0x7CF_2BDE_13229
 
 v8 is different
 
-(Bit8u*)&D41A0_BYTESTR_0.str_2FECE.next_0x360D2[v4].byte_0x360E1 = 1
+(uint8_t*)&D41A0_BYTESTR_0.str_2FECE.next_0x360D2[v4].byte_0x360E1 = 1
 versus
 110 * v4 + x_D41A0_BYTEARRAY_0 + 221409 = 0
 
-(Bit8u*)&D41A0_BYTESTR_0+0x32f7 0
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x32f7 1
+(uint8_t*)&D41A0_BYTESTR_0+0x32f7 0
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x32f7 1
 
-(Bit8u*)&D41A0_BYTESTR_0+0x8f97 0xf1
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x8f97 0x21
+(uint8_t*)&D41A0_BYTESTR_0+0x8f97 0xf1
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x8f97 0x21
 
 test 237bb0
 test 237bb9
@@ -5770,31 +5770,31 @@ versus
 D41A0_BYTESTR_0.pointers_0x246[0x3e6]
 de5c6e00 !=6e5cde
 
-comp20 = compare_with_sequence_D41A0((char*)"00237BB9-00356038", (Bit8u*)& D41A0_BYTESTR_0, 0x356038, debugcounter11, 0x36e16, &origbyte20, &remakebyte20);
+comp20 = compare_with_sequence_D41A0((char*)"00237BB9-00356038", (uint8_t*)& D41A0_BYTESTR_0, 0x356038, debugcounter11, 224790, &origbyte20, &remakebyte20);
 0x8f97
-(Bit8u*)&D41A0_BYTESTR_0+0x8f97 0xf1
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x8f97 0x21
+(uint8_t*)&D41A0_BYTESTR_0+0x8f97 0xf1
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x8f97 0x21
 
 test sub_4A310
-(Bit8u*)&D41A0_BYTESTR_0+0x365a0 0x00
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x365a0 0x01
+(uint8_t*)&D41A0_BYTESTR_0+0x365a0 0x00
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x365a0 0x01
 
-(Bit8u*)&D41A0_BYTESTR_0+0x36605 0x00
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x36605 0x01
+(uint8_t*)&D41A0_BYTESTR_0+0x36605 0x00
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x36605 0x01
 
 
-(Bit8u*)&D41A0_BYTESTR_0+0x8f97 0xf1
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x8f97 0x21
+(uint8_t*)&D41A0_BYTESTR_0+0x8f97 0xf1
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x8f97 0x21
 
 D41A0_BYTESTR_0.pointers_0x246[0x3b5]->dword_0xA0_160x->word_160_0x1a_26
 
-(Bit8u*)&D41A0_BYTESTR_0+0x8f9c 0x00
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x8f9c 0x01
+(uint8_t*)&D41A0_BYTESTR_0+0x8f9c 0x00
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x8f9c 0x01
 
-(Bit8u*)&D41A0_BYTESTR_0+0x8fa3 0x09
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x8fa3 0x0f
+(uint8_t*)&D41A0_BYTESTR_0+0x8fa3 0x09
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x8fa3 0x0f
 
-sub_12100((Bit8u*)a1, v3, *(x_BYTE *)(v3 + 64) == 9);
+sub_12100((uint8_t*)a1, v3, *(x_BYTE *)(v3 + 64) == 9);
 
 v4==3
 
@@ -5813,32 +5813,32 @@ void sub_12100(type_str_0x30311* a1x, type_str_0x6E8E* a2, char a3)//1f3100
 
 &D41A0_BYTESTR_0.str_2FECE.array_0x30311[0x59] == 0x5
 versus
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x30313+20*0x59 == 0x01
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x30313+20*0x59 == 0x01
 
 &D41A0_BYTESTR_0.str_2FECE+0x443
 
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x30313
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x30313
 0x0C2169B8
 
 0x0C246CC9
 0x0C246CCB
 
 
-(Bit8u*)&D41A0_BYTESTR_0+0x9044 0x01
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x9044 0x00
+(uint8_t*)&D41A0_BYTESTR_0+0x9044 0x01
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x9044 0x00
 
 type_str_0x6E8E* sub_4BF40(axis_3d* a1x)//22cf40
 
-(Bit8u*)&D41A0_BYTESTR_0+0x3660d 0x02
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x3660d 0x01
+(uint8_t*)&D41A0_BYTESTR_0+0x3660d 0x02
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x3660d 0x01
 
 fix str_0x3647A_word_2
 
-(Bit8u*)&D41A0_BYTESTR_0+0x364d2 0x02
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x364d2 0x01
+(uint8_t*)&D41A0_BYTESTR_0+0x364d2 0x02
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x364d2 0x01
 
 D41A0_BYTESTR_0.array_0x2BDE[0].dword_0x3E6_2BE4_12228
-(Bit32u)(a1 + 998)
+(uint32_t)(a1 + 998)
 
 test v113
 
@@ -5847,8 +5847,8 @@ x_D41A0_BYTEARRAY_0 + 11230 + 998
 
 dword_0x3E6_2BE4_12228 musi byt struktura ne ukazatel
 
-(Bit8u*)&D41A0_BYTESTR_0+0x3417 0xff
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x3417 0x01
+(uint8_t*)&D41A0_BYTESTR_0+0x3417 0xff
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x3417 0x01
 
 test sub_54A50
 
@@ -5856,8 +5856,8 @@ x_D41A0_BYTEARRAY_0 + 11230 + 2103
 
 x_D41A0_BYTEARRAY_0 + 11230 + 2105
 
-(Bit8u*)x_BYTE_10B4E0+0xd84c 0x05
-(Bit8u*)x_BYTE_10B4E0+0xd84c 0x37
+(uint8_t*)x_BYTE_10B4E0+0xd84c 0x05
+(uint8_t*)x_BYTE_10B4E0+0xd84c 0x37
 
 30d50
 572c0
@@ -5873,29 +5873,29 @@ jx next problem
 test
 int sub_10C80(type_str_0x6E8E* a1x, unsigned __int8 a2, unsigned __int16 a3)//1f1c80
 
-(Bit8u*)&D41A0_BYTESTR_0+0x6f7b 0x35
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x6f7b 0x34
+(uint8_t*)&D41A0_BYTESTR_0+0x6f7b 0x35
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x6f7b 0x34
 
 test int sub_38330(type_str_0x6E8E* a1x)//219330
 
-(Bit8u*)&D41A0_BYTESTR_0+0x8f7e 0x76
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x8f7e 0x8b
+(uint8_t*)&D41A0_BYTESTR_0+0x8f7e 0x76
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x8f7e 0x8b
 
 test char sub_1DDA0(type_str_0x6E8E* a1x, __int16 a2)//1feda0
 
-(Bit8u*)&D41A0_BYTESTR_0+0x364e2 0x00
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x364e2 0x01
+(uint8_t*)&D41A0_BYTESTR_0+0x364e2 0x00
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x364e2 0x01
 
-(Bit8u*)&D41A0_BYTESTR_0+0x8f7e 0x76
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x8f7e 0x8b
+(uint8_t*)&D41A0_BYTESTR_0+0x8f7e 0x76
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x8f7e 0x8b
 
-(Bit8u*)&D41A0_BYTESTR_0+0xd496 0x00
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xd496 0x40
+(uint8_t*)&D41A0_BYTESTR_0+0xd496 0x00
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xd496 0x40
 
 void sub_57CF0(type_str_0x6E8E* a1x, axis_3d* a2x)//238cf0
 
-(Bit8u*)x_BYTE_10B4E0+0xbcae 0x25
-(Bit8u*)x_BYTE_10B4E0+0xbcae 0x00
+(uint8_t*)x_BYTE_10B4E0+0xbcae 0x25
+(uint8_t*)x_BYTE_10B4E0+0xbcae 0x00
 
 
 void sub_462A0(unsigned __int16 a1, __int16 a2)//2272a0
@@ -5911,18 +5911,18 @@ sub_57CF0(a1x, &x_WORD_EB398ar);
 
 je to ok, je jen ulozen maly vzorek
 
-(Bit8u*)&D41A0_BYTESTR_0+0xd496 0x00
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xd496 0x40
+(uint8_t*)&D41A0_BYTESTR_0+0xd496 0x00
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xd496 0x40
 
 debugcounter_238CF0 =0x85
 
-(Bit8u*)&D41A0_BYTESTR_0+0xda7e 0x50
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xda7e 0x35
+(uint8_t*)&D41A0_BYTESTR_0+0xda7e 0x50
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xda7e 0x35
 
 sub_580E0
 
-(Bit8u*)&D41A0_BYTESTR_0+0x2fc8 0x00
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x2fc8 0x3f
+(uint8_t*)&D41A0_BYTESTR_0+0x2fc8 0x00
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x2fc8 0x3f
 
 test sub_895D0_draw_text_with_frame
 and
@@ -5930,7 +5930,7 @@ sub_30630
 
 sub_87610
 
-x_DWORD_180628b_screen_buffer+0x4ed 0x34
+pdwScreenBuffer+0x4ed 0x34
  0x3aa0a4+0x4ed 0x99
 
  test here:
@@ -5938,22 +5938,22 @@ x_DWORD_180628b_screen_buffer+0x4ed 0x34
 
  find
 &((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[1])
- (Bit8u*)&filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct[1]+6
+ (uint8_t*)&filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct[1]+6
 
 
- x_DWORD_180628b_screen_buffer+0x51d 0x33
+ pdwScreenBuffer+0x51d 0x33
  0x3aa0a4+0x51d 0x84
 
  sub_61A00_draw_minimap_entites_b
 
  x_D41A0_BYTEARRAY_0+0x2f71
- (Bit8u*)&D41A0_BYTESTR_0+0x2f71
+ (uint8_t*)&D41A0_BYTESTR_0+0x2f71
 
- (Bit8u*)&D41A0_BYTESTR_0.array_0x2BDE[D41A0_BYTESTR_0.word_0xc]-(Bit8u*)&D41A0_BYTESTR_0
+ (uint8_t*)&D41A0_BYTESTR_0.array_0x2BDE[D41A0_BYTESTR_0.word_0xc]-(uint8_t*)&D41A0_BYTESTR_0
  0x2bde tj 0x393
-  (Bit8u*)D41A0_BYTESTR_0.array_0x2BDE[D41A0_BYTESTR_0.word_0xc].struct_0x1d1_2BDE_11695-(Bit8u*)&D41A0_BYTESTR_0
+  (uint8_t*)D41A0_BYTESTR_0.array_0x2BDE[D41A0_BYTESTR_0.word_0xc].struct_0x1d1_2BDE_11695-(uint8_t*)&D41A0_BYTESTR_0
  0x2daf tj 0x1c2
-   (Bit8u*)&D41A0_BYTESTR_0.array_0x2BDE[D41A0_BYTESTR_0.word_0xc].struct_0x1d1_2BDE_11695[0x1f]-(Bit8u*)&D41A0_BYTESTR_0
+   (uint8_t*)&D41A0_BYTESTR_0.array_0x2BDE[D41A0_BYTESTR_0.word_0xc].struct_0x1d1_2BDE_11695[0x1f]-(uint8_t*)&D41A0_BYTESTR_0
  0x2daf tj 0x1c2
 
 479
@@ -5962,13 +5962,13 @@ x_DWORD_180628b_screen_buffer+0x4ed 0x34
 fix
 for (jy = &D41A0_BYTESTR_0.struct_0x6E8E[1]; jy <= &D41A0_BYTESTR_0.struct_0x6E8E[0x3e8-1]; jy += sizeof(type_str_0x6E8E))
 
- x_DWORD_180628b_screen_buffer+0x125d 0xa4
+ pdwScreenBuffer+0x125d 0xa4
  0x3aa0a4+0x125d 0xa1
 
-  x_DWORD_180628b_screen_buffer+0x1448d 0x92
+  pdwScreenBuffer+0x1448d 0x92
  0x3aa0a4+0x1448d 0x2f
 
- (Bit8u*)&x_WORD_15B4E0+0x1ba9a 0xce
+ (uint8_t*)&x_WORD_15B4E0+0x1ba9a 0xce
  x_WORD_15B4E0+0x1ba9a 0x00
 
  sub_57FA0 - move player
@@ -5989,36 +5989,36 @@ for (jy = &D41A0_BYTESTR_0.struct_0x6E8E[1]; jy <= &D41A0_BYTESTR_0.struct_0x6E8
  move
  sub_57FA0(&x_WORD_EB398ar, a1x->word_0x1C_28, a1x->dword_0xA4_164x->word_0x24_36, v16);
 
-  (Bit8u*)&x_WORD_15B4E0+0x1ba9a 0xce
+  (uint8_t*)&x_WORD_15B4E0+0x1ba9a 0xce
  x_WORD_15B4E0+0x1ba9a 0x00
 
  void sub_65F60(type_str_0x6E8E* a1x)//246f60
 
-(Bit8u*)&D41A0_BYTESTR_0+0xd25b 0x00
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xd25b 0x02
+(uint8_t*)&D41A0_BYTESTR_0+0xd25b 0x00
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xd25b 0x02
 
-x_DWORD_180628b_screen_buffer+0x1f71 0x37
+pdwScreenBuffer+0x1f71 0x37
  0x3aa0a4+0x1f71 0xb8
 
  find
  void sub_644F0_draw_minimap_marks(int a1, int a2, __int16 a3, __int16 a4, int a5, int a6, __int16 a7, int a8)//2454f0
 
-  (Bit8u*)&x_WORD_15B4E0+0x1a698 0x10
+  (uint8_t*)&x_WORD_15B4E0+0x1a698 0x10
  x_WORD_15B4E0+0x1a698 0xfd
 
- Bit8u* sub_4E8C0(Bit8u* a1)//22f8c0
+ uint8_t* sub_4E8C0(uint8_t* a1)//22f8c0
 
- void sub_65F60(Bit8u* a1)//246f60
+ void sub_65F60(uint8_t* a1)//246f60
 
-(Bit8u*)&D41A0_BYTESTR_0+0xda3b 0x04
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xda3b 0x00
+(uint8_t*)&D41A0_BYTESTR_0+0xda3b 0x04
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xda3b 0x00
 
-void sub_30D50(type_str_0x6E8E* a1x, Bit8u v2, Bit8u v4)//211d50
+void sub_30D50(type_str_0x6E8E* a1x, uint8_t v2, uint8_t v4)//211d50
 after
 void sub_65F60(type_str_0x6E8E* a1x)//246f60
 
-(Bit8u*)&D41A0_BYTESTR_0+0x3100 0x0
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x3100 0x9c
+(uint8_t*)&D41A0_BYTESTR_0+0x3100 0x0
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x3100 0x9c
 0x356038 +0x3100
 
 241fe4
@@ -6032,8 +6032,8 @@ krok 0xc8
 
 002285FF-00356038
 
-(Bit8u*)&D41A0_BYTESTR_0+0x91a6 0xd0
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x91a6 0xc2
+(uint8_t*)&D41A0_BYTESTR_0+0x91a6 0xd0
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x91a6 0xc2
 0x356038 +0x91a6
 
 test
@@ -6058,36 +6058,36 @@ signed int sub_1B8C0(type_str_0x6E8E* a1x)//1fc8c0
 test 
 __int16 sub_23750(type_str_0x6E8E* a1x)//204750
 
-(Bit8u*)&a1x->array_0x4C_76-(Bit8u*)&D41A0_BYTESTR_0
+(uint8_t*)&a1x->array_0x4C_76-(uint8_t*)&D41A0_BYTESTR_0
 
 x_BYTE_10B4E0+
 
 help messages:
 sub_871F0();
 
-(Bit8u*)&D41A0_BYTESTR_0+0x2fbd 0x05
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x2fbd 0x00
+(uint8_t*)&D41A0_BYTESTR_0+0x2fbd 0x05
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x2fbd 0x00
 0x356038 +0x2fbd
 
 
 0xd2
 
- x_DWORD_180628b_screen_buffer+0x2988 0x89
+ pdwScreenBuffer+0x2988 0x89
  0x3aa0a4+0x2988 0x00
 
  str_unk_1804B0ar.array_0x8e[0]
  versus
-*(Bit16s*)&unk_1804B0ar[0x8e]
+*(int16_t*)&unk_1804B0ar[0x8e]
 
 str_unk_1804B0ar.uni_0x8a.word[2]
 word_18054E
-void sub_884D0(int a1, __int16 a2, Bit8u* a3, char a4, char a5)//2694d0
+void sub_884D0(int a1, __int16 a2, uint8_t* a3, char a4, char a5)//2694d0
 
 str_unk_1804B0ar
 3514b0
 
-(Bit8u*)&str_unk_1804B0ar + 0x86 0x48
-(Bit8u*)&unk_1804B0ar + 0x86 0x4f
+(uint8_t*)&str_unk_1804B0ar + 0x86 0x48
+(uint8_t*)&unk_1804B0ar + 0x86 0x4f
 0x3514b0 + 0x86 0x4f
 
 test
@@ -6148,22 +6148,22 @@ v1x->byte_0x40_64 = 0;
 
 sub_51120 - add any
 
-(Bit8u*)&str_unk_1804B0ar + 0x86 0x48
-(Bit8u*)&unk_1804B0ar + 0x86 0x4f
+(uint8_t*)&str_unk_1804B0ar + 0x86 0x48
+(uint8_t*)&unk_1804B0ar + 0x86 0x4f
 0x3514b0 + 0x86 0x4f
 
 sub_57B20
 
-(Bit8u*)x_WORD_15B4E0+0x1ba98 orig 0 remake ce
+(uint8_t*)x_WORD_15B4E0+0x1ba98 orig 0 remake ce
 
-((Bit8s*)a1)+28
-((Bit8s*)a1)+28
+((int8_t*)a1)+28
+((int8_t*)a1)+28
 
 sub_69640
 
 0x3c6
 
-x_DWORD_180628b_screen_buffer+0x1a4d 0x23
+pdwScreenBuffer+0x1a4d 0x23
  0x3aa0a4+0x1a4d 0xb8
  x=13,y=21
 
@@ -6188,16 +6188,16 @@ x_DWORD_180628b_screen_buffer+0x1a4d 0x23
  D41A0_BYTESTR_0.array_0x2BDE[D41A0_BYTESTR_0.word_0xc].struct_0x1d1_2BDE_11695[D41A0_BYTESTR_0.array_0x2BDE[D41A0_BYTESTR_0.word_0xc].word_0x00e_2BDE_11244+1].axis_2BDE_11695.y=0xd5e6
 
 
-(Bit8u*)&D41A0_BYTESTR_0+0x3659d 0x00
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x3659d 0x01
+(uint8_t*)&D41A0_BYTESTR_0+0x3659d 0x00
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x3659d 0x01
 0x356038 +0x3659d
 
-(Bit8u*)&D41A0_BYTESTR_0+0x12b2 0x46
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x12b2 0xd6
+(uint8_t*)&D41A0_BYTESTR_0+0x12b2 0x46
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x12b2 0xd6
 0x356038 +0x12b2
 
-(Bit8u*)&D41A0_BYTESTR_0+0xf6f6 0x32
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xf6f6 0x14
+(uint8_t*)&D41A0_BYTESTR_0+0xf6f6 0x32
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xf6f6 0x14
 0x356038 +0x12b2
 
 void sub_56A30_init_game_level(unsigned int a1)//237a30
@@ -6205,16 +6205,16 @@ void sub_56A30_init_game_level(unsigned int a1)//237a30
 0xc1aa
 0xd542
 
-(Bit8u*)&D41A0_BYTESTR_0+0x3659d 0x02
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x3659d 0x01
+(uint8_t*)&D41A0_BYTESTR_0+0x3659d 0x02
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x3659d 0x01
 0x356038 +0x3659d
 
-(Bit8u*)&D41A0_BYTESTR_0+0x12c2 0x1e
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x12b6 0xae
+(uint8_t*)&D41A0_BYTESTR_0+0x12c2 0x1e
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x12b6 0xae
 0x356038 +0x12b6
 
-(Bit8u*)&D41A0_BYTESTR_0+0x36605 0x01
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x36605 0x19
+(uint8_t*)&D41A0_BYTESTR_0+0x36605 0x01
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x36605 0x19
 0x356038 +0x36605
 
 procedure 200530 -hit
@@ -6226,15 +6226,15 @@ procedure 216940
 0x2d62
 0x1afa
 
-(Bit8u*)&D41A0_BYTESTR_0+0xb4a0 0x36
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xb4a0 0x12
+(uint8_t*)&D41A0_BYTESTR_0+0xb4a0 0x36
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xb4a0 0x12
 0x356038 +0xb4a0
 
-x_DWORD_180628b_screen_buffer+ 0x2960
+pdwScreenBuffer+ 0x2960
 versus
 3aa0a4+ 0x2960  3d(ma byt) versus  f8
 
-x_DWORD_180628b_screen_buffer+ 0x26de
+pdwScreenBuffer+ 0x26de
 versus
 3aa0a4+ 0x26de  b0(ma byt) versus  3d
 
@@ -6244,7 +6244,7 @@ compare str_unk_1804B0ar
 
 unk_1804B0ar+ 86 versus 3514b0+ 86
 
-(Bit8u*)&str_unk_1804B0ar+0x9e 0x08
+(uint8_t*)&str_unk_1804B0ar+0x9e 0x08
 0x3514b0+0x9e 0x28
 26956a call 2694d0
 268609 call 268580
@@ -6252,40 +6252,40 @@ unk_1804B0ar+ 86 versus 3514b0+ 86
 22860f call 228560
 228354
 
-(Bit8u*)&array_E2A74+0x23a+2 (0xc4e)
+(uint8_t*)&array_E2A74+0x23a+2 (0xc4e)
 versus
 0x2b3a74+0x23a+2
 
-(Bit8u*)&array_E2A74+0xe
+(uint8_t*)&array_E2A74+0xe
 versus
 0x2b3a74+0xe 0x90
 
-(Bit8u*)&array_E2A74+0x246 0x11
+(uint8_t*)&array_E2A74+0x246 0x11
 versus
 0x2b3a74+0x246 0x9
 
 0x181
 
-(Bit8u*)&D41A0_BYTESTR_0+0x17732 0x00
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x17732 0x70
+(uint8_t*)&D41A0_BYTESTR_0+0x17732 0x00
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x17732 0x70
 0x356038 +0x17732
 
 211ede
 
-void sub_30D50(type_str_0x6E8E* a1x, Bit8u v2, Bit8u v4)//211d50
+void sub_30D50(type_str_0x6E8E* a1x, uint8_t v2, uint8_t v4)//211d50
 
 20c
 
-axis_3d word_0x9A_154x;//154 - mozna dat jako Bit16s
+axis_3d word_0x9A_154x;//154 - mozna dat jako int16_t
 
 0x18e
 
-(Bit8u*)&D41A0_BYTESTR_0+0x17732 0x16
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x17732 0x18
+(uint8_t*)&D41A0_BYTESTR_0+0x17732 0x16
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x17732 0x18
 0x356038 +0x17732
 
-(Bit8u*)&D41A0_BYTESTR_0+0x177a0 0xfb
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x177a0 0xfa
+(uint8_t*)&D41A0_BYTESTR_0+0x177a0 0xfb
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x177a0 0xfa
 0x356038 +0x17732
 
 sub_35940 y a z
@@ -6297,8 +6297,8 @@ type_str_0x6E8E* sub_69AB0(type_str_0x6E8E* a1x)//24aab0
 0x2c75
 
 step 0x118
-(Bit8u*)&D41A0_BYTESTR_0+0x194ba 0x80
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x194ba 0x20
+(uint8_t*)&D41A0_BYTESTR_0+0x194ba 0x80
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x194ba 0x20
 0x356038 +0x194ba
 
 216e16
@@ -6309,20 +6309,20 @@ stop
 0xbedc
 0xd541
 
-x_DWORD_180628b_screen_buffer+ 0x2581
+pdwScreenBuffer+ 0x2581
 versus
 3aa0a4+ 0x2581  17(ma byt) versus  03
 
 step 0x25
-(Bit8u*)&D41A0_BYTESTR_0+0x975e 0xa1
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x975e 0x03
+(uint8_t*)&D41A0_BYTESTR_0+0x975e 0xa1
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x975e 0x03
 0x356038 +0x975e
 
 0x7249
 0xd491
 
 step 0x1c1
-x_DWORD_180628b_screen_buffer+ 0x191e
+pdwScreenBuffer+ 0x191e
 versus
 3aa0a4+ 0x191e  77(ma byt) versus  23
 
@@ -6342,14 +6342,14 @@ test
 void sub_644F0_draw_minimap_marks(int a1, int a2, __int16 a3, __int16 a4, int a5, int a6, __int16 a7, int a8)//2454f0
 
 if(debugcounter_47560>0)
-char sub_77350_new_game_dialog(Bit8u* a1)//258350
+char sub_77350_new_game_dialog(uint8_t* a1)//258350
 after
 
-sub_47560_draw_and_events_in_game(/*Bit8u* a1, int a2, */Bit32u a3, signed int a4, __int16 a5)//228560
+sub_47560_draw_and_events_in_game(/*uint8_t* a1, int a2, */uint32_t a3, signed int a4, __int16 a5)//228560
 {
 
 step 0x2
-x_DWORD_180628b_screen_buffer+ 0x7da0
+pdwScreenBuffer+ 0x7da0
 versus
 3aa0a4+ 0x7da0  59(ma byt) versus  1f
 
@@ -6366,7 +6366,7 @@ versus 34ebd8 0x1f
 
 0x356038+0x314d
 
-x_DWORD_180628b_screen_buffer+0x5d3 0x78
+pdwScreenBuffer+0x5d3 0x78
  0x3aa0a4+0x5d3 0xd8
 
  x 4 y 211
@@ -6376,15 +6376,15 @@ x_DWORD_180628b_screen_buffer+0x5d3 0x78
  20e710 - void sub_2D710_draw_top_menu(type_str_0x6E8E* a1x)//20e710
 
  step 0x0
-(Bit8u*)&D41A0_BYTESTR_0+0x3999 0x4b
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x3999 0xc5
+(uint8_t*)&D41A0_BYTESTR_0+0x3999 0x4b
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x3999 0xc5
 0x356038 +0x3999
 
 void sub_56A30_init_game_level(unsigned int a1)//237a30
 
  step 0x0
-(Bit8u*)&D41A0_BYTESTR_0+0x39e2 0x1f
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x39e2 0x00
+(uint8_t*)&D41A0_BYTESTR_0+0x39e2 0x1f
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x39e2 0x00
 0x356038 +0x39da
 
 test array_0x1FC_508
@@ -6393,10 +6393,10 @@ find adress:
 v2x->dword_0xA4_164x->array_0x1FC_508[4 * l+4] = 24607;
 of v2x
 
-x_DWORD_180628b_screen_buffer+0x3688 0xe3
+pdwScreenBuffer+0x3688 0xe3
 0x3aa0a4+0x3688 0x00
 
- (Bit8u*)&x_WORD_15B4E0+0x1e402 0x6f
+ (uint8_t*)&x_WORD_15B4E0+0x1e402 0x6f
  x_WORD_15B4E0+0x1e402 0x00
  32c4e0+0x1e402 0x00
 
@@ -6405,25 +6405,25 @@ x_DWORD_180628b_screen_buffer+0x3688 0xe3
  type_str_0x6E8E* sub_4A920(axis_3d* a1x)//22b920 - add player 0 -ok
 
  test
- void sub_51BB0_game_events(/*Bit8u* a1*/)//232bb0
+ void sub_51BB0_game_events(/*uint8_t* a1*/)//232bb0
 
  step 1
- (Bit8u*)&x_WORD_15B4E0+0x1e402 0x6f
+ (uint8_t*)&x_WORD_15B4E0+0x1e402 0x6f
  x_WORD_15B4E0+0x1e402 0x00
  32C4E0+0x1e402
 
  step 0x0
-(Bit8u*)&D41A0_BYTESTR_0+0x3655c 0xb6
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x3655c 0x46
+(uint8_t*)&D41A0_BYTESTR_0+0x3655c 0xb6
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x3655c 0x46
 0x356038 +0x3655c
 
  step 0x11
-(Bit8u*)&D41A0_BYTESTR_0+0x2fc8 0xfb
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x2fc8 0xf9
+(uint8_t*)&D41A0_BYTESTR_0+0x2fc8 0xfb
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x2fc8 0xf9
 0x356038 +0x3655c
 
  step 0x1c
- (Bit8u*)&x_WORD_15B4E0+0x18802 0x6f
+ (uint8_t*)&x_WORD_15B4E0+0x18802 0x6f
  x_WORD_15B4E0+0x18802 0x77
  32C4E0+0x18802
 
@@ -6432,7 +6432,7 @@ x_DWORD_180628b_screen_buffer+0x3688 0xe3
  void sub_33340(type_str_0x6E8E* a1x)//214340
 
  step 0x822
-  (Bit8u*)&x_WORD_15B4E0+0x18802 0x6f
+  (uint8_t*)&x_WORD_15B4E0+0x18802 0x6f
  x_WORD_15B4E0+0x18802 0x77
  32C4E0+0x18802
 
@@ -6440,15 +6440,15 @@ x_DWORD_180628b_screen_buffer+0x3688 0xe3
  v6 = sub_581E0_maybe_tan2(&a1x->word_0x9A_154x, &ix->array_0x4C_76);
 
 step 0xa1f
-(Bit8u*)&D41A0_BYTESTR_0+0x39d1 0x06
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x39d1 0x00
+(uint8_t*)&D41A0_BYTESTR_0+0x39d1 0x06
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x39d1 0x00
 0x356038 +0x39d1
 
 1f3ec5
 
 step 0xa1f
-(Bit8u*)&D41A0_BYTESTR_0+0x39d1 0x06
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x39d1 0x00
+(uint8_t*)&D41A0_BYTESTR_0+0x39d1 0x06
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x39d1 0x00
 0x356038 +0x39d1
 
 test
@@ -6456,8 +6456,8 @@ signed int sub_12E70(type_str_0x6E8E* a1x)//1f3e70
 
 92
 
-(Bit8u*)&D41A0_BYTESTR_0+0x7e5a 0x0d
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x7e5a 0x05
+(uint8_t*)&D41A0_BYTESTR_0+0x7e5a 0x0d
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x7e5a 0x05
 0x356038 +0x7e5a
 orig   copy
 08 00  08 00
@@ -6474,8 +6474,8 @@ orig   copy
 
 
 step 0x6c
-(Bit8u*)&D41A0_BYTESTR_0+0x381c 0x00
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x381c 0x50
+(uint8_t*)&D41A0_BYTESTR_0+0x381c 0x00
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x381c 0x50
 0x356038 +0x381c
 
 1f5d71 - call 1f5c90 - signed int sub_14C90(type_str_0x6E8E* a1x, type_str_0x6E8E* a2x, signed int a3, signed int a4)//1f5c90
@@ -6483,16 +6483,16 @@ step 0x6c
 238a8b - void sub_57730()//238730
 
 step 0x8b
-(Bit8u*)&D41A0_BYTESTR_0+0x70e4 0x18
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x70e4 0x5e
+(uint8_t*)&D41A0_BYTESTR_0+0x70e4 0x18
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x70e4 0x5e
 0x356038 +0x70e4
 
 
 test 1f1c80
 
 step debugcounter_10c80==0xed
-(Bit8u*)&D41A0_BYTESTR_0+0x70e4 0x46
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x70e4 0x8c
+(uint8_t*)&D41A0_BYTESTR_0+0x70e4 0x46
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x70e4 0x8c
 0x356038 +0x70e4
 
 1f1e63
@@ -6509,15 +6509,15 @@ if (sub_10750(a1x, jjx))
 0x144b
 
 step 0xb6
-(Bit8u*)&D41A0_BYTESTR_0+0x3964 0x80
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x3964 0x81
+(uint8_t*)&D41A0_BYTESTR_0+0x3964 0x80
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x3964 0x81
 0x356038 +0x3964
 
 1f3c63
 
 step 0xb6
-(Bit8u*)&D41A0_BYTESTR_0+0x3964 0x80
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x3964 0x81
+(uint8_t*)&D41A0_BYTESTR_0+0x3964 0x80
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x3964 0x81
 0x356038 +0x3964
 
 
@@ -6525,9 +6525,9 @@ set mouse:
 __int16 sub_6D200(type_str_0x2BDE* a1x)//24e200
 
 
-char sub_780F0_load_game_dialog(Bit8u* a1)//0x2590f0
+char sub_780F0_load_game_dialog(uint8_t* a1)//0x2590f0
 
-sub_988A7_read(v10, (Bit8u*)&x_BYTE_17DF14[43 * (x_WORD_17DF04 - 1)], 20);
+sub_988A7_read(v10, (uint8_t*)&x_BYTE_17DF14[43 * (x_WORD_17DF04 - 1)], 20);
 
 x_WORD_17DF04
 versus
@@ -6552,45 +6552,45 @@ versus
 versus
 0x38cf50+0x0 0x43
 
-(Bit8u*)&x_D41A0_BYTEARRAY_4_struct+0x2b 0x00
+(uint8_t*)&x_D41A0_BYTEARRAY_4_struct+0x2b 0x00
 versus
 0x38cf50+0x2b 0x01
 
 void sub_5BCC0_set_any_variables1()//23ccc0
 
-(Bit8u*)&x_D41A0_BYTEARRAY_4_struct+0x8e 0x00
+(uint8_t*)&x_D41A0_BYTEARRAY_4_struct+0x8e 0x00
 versus
 0x38cf50+0x8e 0x4e
 
-(Bit8u*)&x_D41A0_BYTEARRAY_4_struct+0xb9 0x00
+(uint8_t*)&x_D41A0_BYTEARRAY_4_struct+0xb9 0x00
 versus
 0x38cf50+0xb9 0x01
 
-(Bit8u*)&x_D41A0_BYTEARRAY_4_struct+0xe2 0x00
+(uint8_t*)&x_D41A0_BYTEARRAY_4_struct+0xe2 0x00
 versus
 0x38cf50+0xe2 0x14
 
-(Bit8u*)&D41A0_BYTESTR_0+0x218b 0x00
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x218b 0x1
+(uint8_t*)&D41A0_BYTESTR_0+0x218b 0x00
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x218b 0x1
 0x356038 +0x218b
 
 23d279
 
-sub_988A7_read(FILE, (Bit8u*)&D41A0_BYTESTR_0.str_0x218A_settings, 16);
+sub_988A7_read(FILE, (uint8_t*)&D41A0_BYTESTR_0.str_0x218A_settings, 16);
 
 4,6,8,10,12,14 word
 
-(Bit8u*)&x_D41A0_BYTEARRAY_4_struct+0x2b 0x00
+(uint8_t*)&x_D41A0_BYTEARRAY_4_struct+0x2b 0x00
 versus
 0x38cf50+0x2b 0x01
 
 
 35944d
 
-char sub_780F0_load_game_dialog(Bit8u* a1)//0x2590f0
+char sub_780F0_load_game_dialog(uint8_t* a1)//0x2590f0
 
 tady se v kopii nastavi -1
-void sub_54A50(unsigned __int16 a1, int v0index/*Bit8u* a2*/)//235a50
+void sub_54A50(unsigned __int16 a1, int v0index/*uint8_t* a2*/)//235a50
 
 sub_54A50
 
@@ -6612,9 +6612,9 @@ array_0x367_871x - ok
 
 
 test
-void sub_54A50(unsigned __int16 a1, int v0index/*Bit8u* a2*/)//235a50
+void sub_54A50(unsigned __int16 a1, int v0index/*uint8_t* a2*/)//235a50
 
-(Bit8u*)&x_D41A0_BYTEARRAY_4_struct+0x749 0x00
+(uint8_t*)&x_D41A0_BYTEARRAY_4_struct+0x749 0x00
 versus
 0x38cf50+0x749 0x62
 
@@ -6624,13 +6624,13 @@ void sub_53160()//234160
 test
 void sub_53160()//234160
 
-(Bit8u*)&x_D41A0_BYTEARRAY_4_struct+0x954 0x00
+(uint8_t*)&x_D41A0_BYTEARRAY_4_struct+0x954 0x00
 versus
 0x38cf50+0x954 0x26
 
 250db2
 
-(Bit8u*)&x_D41A0_BYTEARRAY_4_struct+0x749 0x0
+(uint8_t*)&x_D41A0_BYTEARRAY_4_struct+0x749 0x0
 versus
 0x38cf50+0x749 0x62
 
@@ -6660,7 +6660,7 @@ dword_0x3E6_2BE4_12228=998
 str_611=611
 
 step 1
-(Bit8u*)&x_D41A0_BYTEARRAY_4_struct+0x4 0x0
+(uint8_t*)&x_D41A0_BYTEARRAY_4_struct+0x4 0x0
 versus
 0x38cf50+0x4 0x7
 
@@ -6671,16 +6671,16 @@ x_BYTE_10B4E0 +0xdc (0x0)
 versus
 0x2dc4e0 +0xdc (0x1b)
 
-(Bit8u*)&D41A0_BYTESTR_0+0x2bfa 0x4f
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x2bfa 0x4e
+(uint8_t*)&D41A0_BYTESTR_0+0x2bfa 0x4f
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x2bfa 0x4e
 0x356038 +0x21fa
 
-(Bit8u*)&str_unk_1804B0ar + 0x8a 0x67
-(Bit8u*)&unk_1804B0ar + 0x8a 0x48
+(uint8_t*)&str_unk_1804B0ar + 0x8a 0x67
+(uint8_t*)&unk_1804B0ar + 0x8a 0x48
 0x3514b0 + 0x8a 0x48
 
 step 0
-(Bit8u*)&x_D41A0_BYTEARRAY_4_struct+0x5806 0x89
+(uint8_t*)&x_D41A0_BYTEARRAY_4_struct+0x5806 0x89
 versus
 0x38cf50+0x5806 0x31
 
@@ -6693,11 +6693,11 @@ if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 0x10))
 debugcounter_47560
 
 step 1
-(Bit8u*)&D41A0_BYTESTR_0+0x8 0x8e
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x8 0x2d
+(uint8_t*)&D41A0_BYTESTR_0+0x8 0x8e
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x8 0x2d
 0x356038 +0x8
 
- (Bit8u*)&x_WORD_15B4E0+0x466e 0x00
+ (uint8_t*)&x_WORD_15B4E0+0x466e 0x00
  x_WORD_15B4E0+0x466e 0x00
  32c4e0+0x466e 0x5e
 
@@ -6717,8 +6717,8 @@ __int16 sub_1F5B0(type_str_0x6E8E* a1x)//2005b0
 
 
 step 1
-(Bit8u*)&D41A0_BYTESTR_0+0x8f66 0xff
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x8f66 0x58
+(uint8_t*)&D41A0_BYTESTR_0+0x8f66 0xff
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x8f66 0x58
 0x356038 +0x8f66
 
 
@@ -6731,8 +6731,8 @@ edx = 2a93ac
 ebx=[edx+36df6] tj 2a93ac
 eax=[2bb3e8] tj 35cf6e
 
-(Bit8u*)&D41A0_BYTESTR_0+0x8f7a 0xf8
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x8f7a 0x25
+(uint8_t*)&D41A0_BYTESTR_0+0x8f7a 0xf8
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x8f7a 0x25
 0x356038 +0x8f7a
 
 1fcd2e
@@ -6752,8 +6752,8 @@ versus
 
 &x_DWORD_EA3E4[1]->dword_0xA0_160x
 
-(Bit8u*)&D41A0_BYTESTR_0+0x8f66 0xff
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x8f66 0x58
+(uint8_t*)&D41A0_BYTESTR_0+0x8f66 0xff
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x8f66 0x58
 0x356038 +0x8f66
 
 (type_str_160*)&unk_D7BD6[0x7d6]
@@ -6769,7 +6769,7 @@ versus
 
 while (v0 < D41A0_BYTESTR_0.word_0xe)
 
- (Bit8u*)&x_WORD_15B4E0+0xb39a 0x74
+ (uint8_t*)&x_WORD_15B4E0+0xb39a 0x74
  x_WORD_15B4E0+0xb39a 0x17
  32C4E0+0xb39a
 
@@ -6778,7 +6778,7 @@ while (v0 < D41A0_BYTESTR_0.word_0xe)
  22e349
  190
  22b1ca
-  type_str_0x6E8E* pre_sub_4A190(Bit32u adress, Bit16s* a1,int type)//pre 22b190
+  type_str_0x6E8E* pre_sub_4A190(uint32_t adress, int16_t* a1,int type)//pre 22b190
  24ed4e
  type_str_0x6E8E* sub_6DCA0(type_str_0x6E8E* a1x, axis_3d* a2x, unsigned __int16 a3, __int16 *a4, __int16 a5, char a6)//24eca0
  24a48a
@@ -6786,8 +6786,8 @@ while (v0 < D41A0_BYTESTR_0.word_0xe)
  238a8b
  void sub_57730()//238730
 
- (Bit8u*)&D41A0_BYTESTR_0+0xbb84 0x3
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xbb84 0x5
+ (uint8_t*)&D41A0_BYTESTR_0+0xbb84 0x3
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xbb84 0x5
 0x356038 +0xbb84
 2407c2
 
@@ -6802,16 +6802,16 @@ void sub_159E0()//1f69e0
 
 0x38cf50 + 0x9683
 
-x_DWORD_180628b_screen_buffer+ 0x5806
+pdwScreenBuffer+ 0x5806
 versus
 3aa0a4+ 0x5806  6c(ma byt) versus  b3
 
-x_DWORD_180628b_screen_buffer+ 0x74e1
+pdwScreenBuffer+ 0x74e1
 versus
 3aa0a4+ 0x74e1  00(ma byt) versus  63
 
 draw square
-void sub_90164(Bit16u x1, Bit16u y1, Bit16u x2, Bit16u y2, Bit8u a5)//271164
+void sub_90164(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint8_t a5)//271164
 v23 ?
 
 BLOCK32DAT_BEGIN_BUFFER
@@ -6827,8 +6827,8 @@ __int16 sub_2CB30(x_DWORD *a1, __int16 a2, int a3, __int16 a4)//20db30
 versus
 2aa4f2
 
-(Bit8u*)&D41A0_BYTESTR_0+0x31d0 0x88
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x31d0 0xff
+(uint8_t*)&D41A0_BYTESTR_0+0x31d0 0x88
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x31d0 0xff
 0x356038 +0x31d0
 
 v234 = __ROL4__(*((x_DWORD *)v227 + 3) + v1135 * v232, 16);
@@ -6840,8 +6840,8 @@ v1124
 v3[2] - v5[2]
 v3[3] - v5[3]
 
-(Bit8u*)&D41A0_BYTESTR_0+0x315a 0x04
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x315a 0x03
+(uint8_t*)&D41A0_BYTESTR_0+0x315a 0x04
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x315a 0x03
 0x356038 +0x315a
 
 20ed51
@@ -6871,12 +6871,12 @@ procedure 12062 - 22fa20
 
 sub_55080(0, x_D41A0_BYTEARRAY_4_struct.levelnumber_43w,(char*)"")
 
-D41A0_BYTESTR_0.dword_0x36DF6 = (Bit32u)&unk_D7BD6[0x7d6];
+D41A0_BYTESTR_0.dword_0x36DF6 = (uint32_t)&unk_D7BD6[0x7d6];
 
 x_DWORD_EA3E4[0x18]->dword_0xA4_164x->word_0x242_578 - nelze precist
 
-(Bit8u*)&D41A0_BYTESTR_0+0x315a 0x04
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x315a 0x03
+(uint8_t*)&D41A0_BYTESTR_0+0x315a 0x04
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x315a 0x03
 0x356038 +0x315a
 
 250d3f
@@ -6886,7 +6886,7 @@ void sub_2D710_draw_top_menu(type_str_0x6E8E* a1x)//20e710
 x_DWORD_F01E8(v12, 2, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[41]);
 
 279882
-int sub_53E60_readfile_and_decompress(const char* path, Bit8u** a2)//234E60
+int sub_53E60_readfile_and_decompress(const char* path, uint8_t** a2)//234E60
 234e8f - call 2798a7
 
 call 250d3f
@@ -6900,41 +6900,41 @@ void sub_2D710_draw_top_menu(type_str_0x6E8E* a1x)//20e710
 a1x->dword_0xA4_164x->byte_0x195_405
 x_DWORD_EA3E4[D41A0_BYTESTR_0.array_0x2BDE[D41A0_BYTESTR_0.word_0xc].word_0x00a_2BE4_11240]->dword_0xA4_164x
 je
-(Bit8u*)&D41A0_BYTESTR_0+0x315a
+(uint8_t*)&D41A0_BYTESTR_0+0x315a
 
 byte_0x196_406
 a1x->dword_0xA4_164x->byte_0x196_406
 
- (Bit8u*)&x_WORD_15B4E0+0x24de 0xb5
+ (uint8_t*)&x_WORD_15B4E0+0x24de 0xb5
  x_WORD_15B4E0+0x24de 0x00
 
  debugcounter_238730==0x2e
 
-  (Bit8u*)&x_WORD_15B4E0+0xebb2 0x0
+  (uint8_t*)&x_WORD_15B4E0+0xebb2 0x0
  x_WORD_15B4E0+0xebb2 0x86
  32c4e0+0xebb2 0x86
  238e3c - void sub_57D70_clean_event(type_str_0x6E8E* a1x, axis_3d* a2x)//238d70 // register object on axis
  238d18 - void sub_57CF0(type_str_0x6E8E* a1x, axis_3d* a2x)//238cf0
  2413bc - int sub_5FF50(type_str_0x6E8E* a1x)//240f50
 
- (Bit8u*)&D41A0_BYTESTR_0+0x2fe8 0xba
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x2fe8 0xb8
+ (uint8_t*)&D41A0_BYTESTR_0+0x2fe8 0xba
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x2fe8 0xb8
 0x356038 +0x2fe8
 
- (Bit8u*)&D41A0_BYTESTR_0+0x7e3a 0x74
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x7e3a 0x01
+ (uint8_t*)&D41A0_BYTESTR_0+0x7e3a 0x74
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x7e3a 0x01
 0x356038 +0x7e3a
 
 23f638
 
 void sub_5E310_multiplayer_test_die(type_str_0x6E8E* a1x)//23f310
 
- (Bit8u*)&D41A0_BYTESTR_0+0xb782 0x17
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xb782 0x16
+ (uint8_t*)&D41A0_BYTESTR_0+0xb782 0x17
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xb782 0x16
 0x356038 +0xb782
 
-(Bit8u*)&D41A0_BYTESTR_0+0x6f82 0x36
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x6f82 0x48
+(uint8_t*)&D41A0_BYTESTR_0+0x6f82 0x36
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x6f82 0x48
 0x356038 +0x6f82
 
 void sub_57D70_clean_event(type_str_0x6E8E* a1x, axis_3d* a2x)//238d70 // register object on axis
@@ -6957,12 +6957,12 @@ v113x->dword_0xA4_164x->word_0x4_4 = ((v100x - ((v100x>>31) << 2)) - cftemp) >> 
 
 	x_BYTE_1806E4==0x13
 
-	void sub_3E360_draw_particles(Bit8u* a1, Bit8u* a2)//21f360
+	void sub_3E360_draw_particles(uint8_t* a1, uint8_t* a2)//21f360
 	TMAPS00TAB_BEGIN_BUFFER
 	sub_70C60_decompress_tmap
 
 	step 8
-(Bit8u*)&x_WORD_15B4E0+0xebba 0x7c
+(uint8_t*)&x_WORD_15B4E0+0xebba 0x7c
  x_WORD_15B4E0+0xebba 0
  32c4e0+0xebba 0
 
@@ -6978,14 +6978,14 @@ v113x->dword_0xA4_164x->word_0x4_4 = ((v100x - ((v100x>>31) << 2)) - cftemp) >> 
  sub_81CA0 - must rewrite
  void sub_56C00_sound_proc2(int a1)//237c00 - must rewrite
 
-(Bit8u*)&D41A0_BYTESTR_0+0x3479 0x1
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x3479 0x0
+(uint8_t*)&D41A0_BYTESTR_0+0x3479 0x1
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x3479 0x0
 0x356038 +0x3479
 
 20e15c
 20d35a - void sub_2CE30_pause_end_level(int a1, int a2)//20de30
 
-x_DWORD_180628b_screen_buffer+0x5806 0xb3
+pdwScreenBuffer+0x5806 0xb3
 0x3aa0a4+0x5806 0x6c
 
 b3 - bitmap final
@@ -6994,11 +6994,11 @@ ad
 6c 20fb25
 int sub_2E790(__int16 a1, int a2, int a3, int a4, unsigned __int8 a5)//20f790
 
-(Bit8u*)&x_BYTE_10B4E0+0x62 46
+(uint8_t*)&x_BYTE_10B4E0+0x62 46
 versus
 2dc4e0+0x62 02
 
- (Bit8u*)&x_WORD_15B4E0+0x1313a 0xec
+ (uint8_t*)&x_WORD_15B4E0+0x1313a 0xec
  x_WORD_15B4E0+0x1313a 0x1d
  32c4e0+0x1313a 0x00
 
@@ -7012,7 +7012,7 @@ versus
  2133e7 - void sub_32420(type_str_0x6E8E* a1x)//213420
 
  step 0x18e
- (Bit8u*)&x_WORD_15B4E0+0x1860e 0x00
+ (uint8_t*)&x_WORD_15B4E0+0x1860e 0x00
  x_WORD_15B4E0+0x1860e 0x2f
  32c4e0+0x1860e 0x00
 
@@ -7024,7 +7024,7 @@ versus
  debugcounter_238CF0 ==0xfd
 
  
- (Bit8u*)&x_WORD_15B4E0+0x1a02c 0xec
+ (uint8_t*)&x_WORD_15B4E0+0x1a02c 0xec
  x_WORD_15B4E0+0x1a02c 0x43
  32c4e0+0x1a02c 0x00
  
@@ -7040,11 +7040,11 @@ versus
  type_str_0x6E8E* sub_4A050_new_event()//22b050
  type_str_0x6E8E* sub_500C0(axis_3d* a1x, __int16 a2)//2310c0
 
-x_DWORD_180628b_screen_buffer+0x16527 0x30
+pdwScreenBuffer+0x16527 0x30
 0x3aa0a4+0x16527 0x92
 
 step1
-x_DWORD_180628b_screen_buffer+0x153a0 0x92
+pdwScreenBuffer+0x153a0 0x92
 0x3aa0a4+0x153a0 0x19
 
 //test removing sub_917D0(/*v3*/);
@@ -7095,8 +7095,8 @@ ne f746 143
 
 D41A0_BYTESTR_0.pointers_0x246[0x295] - D41A0_BYTESTR_0.struct_0x6E8E
 
-(Bit8u*)&D41A0_BYTESTR_0+0x142b3 0xfe
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x142b3 0x0
+(uint8_t*)&D41A0_BYTESTR_0+0x142b3 0xfe
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x142b3 0x0
 0x356038 +0x142b3
 
 
@@ -7114,20 +7114,20 @@ versus
 
 2818ac
 2798bf call 281863
-23694a size_t sub_988A7_read(FILE* a1, Bit8u* a2, int a3)//2798a7
-23663b bool sub_558E0_InGameLoad(Bit8u fileindex)//2368e0
+23694a size_t sub_988A7_read(FILE* a1, uint8_t* a2, int a3)//2798a7
+23663b bool sub_558E0_InGameLoad(uint8_t fileindex)//2368e0
 1faf9b
 
 367afc
 240bf7
 void sub_5FBD0(type_str_0x6E8E* a1x)//240bd0
 
-(Bit8u*)&D41A0_BYTESTR_0+0x11ad3 0x35
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x11ad3 0x15
+(uint8_t*)&D41A0_BYTESTR_0+0x11ad3 0x35
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x11ad3 0x15
 0x356038 +0x11ad3
 
-(Bit8u*)&D41A0_BYTESTR_0+0x36dec 0x2c
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x36dec 0x22 
+(uint8_t*)&D41A0_BYTESTR_0+0x36dec 0x2c
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x36dec 0x22 
 0x356038 +0x36dec
 
 
@@ -7139,8 +7139,8 @@ x_BYTE_10B4E0+0x36dec 22
 versus
 2dc4e0+0x36dec 1e
 
-(Bit8u*)&D41A0_BYTESTR_0+0xd50b 0
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xd50b 6
+(uint8_t*)&D41A0_BYTESTR_0+0xd50b 0
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xd50b 6
 0x356038 +0xd50b
 
 250d3f 4
@@ -7150,16 +7150,16 @@ problem
 unsigned int sub_10080(int a1, int a2)//1f1080
 make zero pointer
 
-(Bit8u*)&D41A0_BYTESTR_0+0x14567 36
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x14567 16
+(uint8_t*)&D41A0_BYTESTR_0+0x14567 36
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x14567 16
 0x356038 +0x14567
 
-(Bit8u*)&D41A0_BYTESTR_0+0x3119 fe
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x3119 ff
+(uint8_t*)&D41A0_BYTESTR_0+0x3119 fe
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x3119 ff
 0x356038 +0x3119
 
-(Bit8u*)&D41A0_BYTESTR_0+0x36df0 0x1c
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x36df0 0x1b
+(uint8_t*)&D41A0_BYTESTR_0+0x36df0 0x1c
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x36df0 0x1b
 0x356038 +0x36df0
 
 sub_3E360
@@ -7168,12 +7168,12 @@ x_DWORD_F2C20ar[0x14]
 
 &x_DWORD_F2C20ar[0x14]
 
-(Bit8u*)&D41A0_BYTESTR_0+0x11cd0 0xff
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x11cd0 0xea
+(uint8_t*)&D41A0_BYTESTR_0+0x11cd0 0xff
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x11cd0 0xea
 0x356038 +0x11cd0
 
 step 0x88
-x_DWORD_180628b_screen_buffer+0x0 0x24
+pdwScreenBuffer+0x0 0x24
  0x3aa0a4+0x0 0xa8
 
  a8
@@ -7213,12 +7213,12 @@ x_DWORD_180628b_screen_buffer+0x0 0x24
  22fa20
  2132a0
 
-x_DWORD_180628b_screen_buffer+ 0x85c
+pdwScreenBuffer+ 0x85c
 versus
 3aa0a4+ 0x85c  43(ma byt) versus  f0
 
 43434343 266caf
-void sub_85C8B_draw_new_game_map_background(Bit8u* a1, Bit8u* a2, int a3, int a4, int a5, int a6)//266c8b
+void sub_85C8B_draw_new_game_map_background(uint8_t* a1, uint8_t* a2, int a3, int a4, int a5, int a6)//266c8b
 
 test void sub_81760_new_game_subdraw(type_unk_E17CC_str_0x194* a1x)//262760
 
@@ -7255,14 +7255,14 @@ versus
 
 void sub_49270_generate_level_features(type_str_2FECE* a1x)//22a270
 
-sub_2EBB0_draw_text_with_border_630x340(x_DWORD_E9C4C_langindexbuffer[*(Bit32u*)(a2 + x_WORD_D4004 * 7 + 2)]);
+sub_2EBB0_draw_text_with_border_630x340(x_DWORD_E9C4C_langindexbuffer[*(uint32_t*)(a2 + x_WORD_D4004 * 7 + 2)]);
 sub_2EBB0_draw_text_with_border_630x340(x_DWORD_E9C4C_langindexbuffer[a1]);//fix it - edx
 
 sub_2BC10_draw_text(v11x, v9, v13, v8); ?
 sub_2BC10_draw_text(printbuffer, v4x, v2, (*xadataclrd0dat.var28_begin_buffer)[0xf00]);
 
 v83 = D41A0_BYTESTR_0.array_0x2BDE[v18x].array_0x01c_2BFA_11258;
-v84 = x_DWORD_E9C4C_langindexbuffer[*(Bit16s*)&x_DWORD_DA750ar[0xde+2*40 * v82 + 13 * D41A0_BYTESTR_0.array_0x6E3E[v114x].str_0x6E3E_byte2]];
+v84 = x_DWORD_E9C4C_langindexbuffer[*(int16_t*)&x_DWORD_DA750ar[0xde+2*40 * v82 + 13 * D41A0_BYTESTR_0.array_0x6E3E[v114x].str_0x6E3E_byte2]];
 strcpy(v83,v84);
 
 //fixing
@@ -7281,8 +7281,8 @@ x_BYTE_10B4E0 + 0x5050 (0x3)
 versus
 0x2dc4e0(0x8)
 
-(Bit8u*)&D41A0_BYTESTR_0+0x44ad 0x05
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x44ad 0x01
+(uint8_t*)&D41A0_BYTESTR_0+0x44ad 0x05
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x44ad 0x01
 0x356038+0x44ad
 
 int sub_1EF40(type_str_0x6E8E* a1x, type_str_0x6E8E* a2x)//1fff40
@@ -7291,34 +7291,34 @@ void sub_1BF90(type_str_0x6E8E* a1x, char a2)//1fcf90
 [ebp-c]
 ebx 3650b6 -> 000000a00f0000a00f00000c00000062000000906d1801
 
-(Bit8u*)&D41A0_BYTESTR_0+0x2fca 0x09
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x2fca 0x00
+(uint8_t*)&D41A0_BYTESTR_0+0x2fca 0x09
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x2fca 0x00
 0x356038+0x2fca
 
-(Bit8u*)&x_WORD_15B4E0_source+0x13282 0x06
+(uint8_t*)&x_WORD_15B4E0_source+0x13282 0x06
 x_WORD_15B4E0+0x13282 0xba
 
-(Bit8u*)&D41A0_BYTESTR_0+0xabe6 0x18
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xabe6 0x1b
+(uint8_t*)&D41A0_BYTESTR_0+0xabe6 0x18
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xabe6 0x1b
 0x356038+0xabe6
 
-(Bit8u*)&x_WORD_15B4E0_source+0xb12a 0x00
+(uint8_t*)&x_WORD_15B4E0_source+0xb12a 0x00
 x_WORD_15B4E0+0xb12a 0x05
  32c4e0+0xb12a 0x05
 
-(Bit8u*)&D41A0_BYTESTR_0+0x2fc4 0x10
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x2fc4 0x0
+(uint8_t*)&D41A0_BYTESTR_0+0x2fc4 0x10
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x2fc4 0x0
 0x356038+0x2fc4
 
 D41A0_BYTESTR_0.array_0x6E3E[0].str_0x6E3E_byte5
 &unk_18058Cstr.x_DWORD_18059C
 
-(Bit8u*)&D41A0_BYTESTR_0+0x2c18 0x65
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x2c18 0x20
+(uint8_t*)&D41A0_BYTESTR_0+0x2c18 0x65
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x2c18 0x20
 0x356038+0x2c18
 
-(Bit8u*)&D41A0_BYTESTR_0+0x2fc8 0xfd
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x2fc8 0x0
+(uint8_t*)&D41A0_BYTESTR_0+0x2fc8 0xfd
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x2fc8 0x0
 0x356038+0x2fc8
 
 
@@ -7341,7 +7341,7 @@ ebx 3551a4
 push ebx
 call eax+6 tj 2a7978+6 tj 200b230001000000
 
-*(Bit32u*)&x_DWORD_D4C52ar[4 + 18*10]+81 * 14
+*(uint32_t*)&x_DWORD_D4C52ar[4 + 18*10]+81 * 14
 
 add
 void sub_5B100(int a2, type_str_0x6E8E* a1x)//23c100
@@ -7359,16 +7359,16 @@ x_BYTE_10B4E0_terraintype +0x6064 (0x1)
 versus
 0x2dc4e0 +0x6064 (0x6)
 
-(Bit8u*)&D41A0_BYTESTR_0+0xa204 0x02
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xa204 0x22
+(uint8_t*)&D41A0_BYTESTR_0+0xa204 0x02
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xa204 0x22
 0x356038+0xa204
 
 0x22
 229986
 type_str_0x6E8E* sub_48930(__int16 a1, __int16 a2, __int16 a3, __int16 a4, char a5)//229930
 
-(Bit8u*)&D41A0_BYTESTR_0+0xa20a 0x94
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xa20a 0x00
+(uint8_t*)&D41A0_BYTESTR_0+0xa20a 0x94
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xa20a 0x00
 0x356038+0xa20a
 ale je 360242
 
@@ -7387,8 +7387,8 @@ void sub_49090(type_str_2FECE* a1x, type_str_0x30311* a2x)//22a090
 
 d29
 
-(Bit8u*)&D41A0_BYTESTR_0+0xa20e 0x00
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xa20e 0x2b
+(uint8_t*)&D41A0_BYTESTR_0+0xa20e 0x00
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xa20e 0x2b
 0x356038+0xa20e
 
 x_BYTE_10B4E0_terraintype+0x3aa 0x4d
@@ -7398,178 +7398,178 @@ versus
 remove it
 //only for debugging
 
-(Bit8u*)&D41A0_BYTESTR_0+0xa25c 0x00
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xa25c 0x35
+(uint8_t*)&D41A0_BYTESTR_0+0xa25c 0x00
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xa25c 0x35
 0x356038+0xa25c
 
-(Bit8u*)&D41A0_BYTESTR_0+0xa2b6 0x00
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xa2b6 0x2b
+(uint8_t*)&D41A0_BYTESTR_0+0xa2b6 0x00
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xa2b6 0x2b
 0x356038+0xa2b6
 
-(Bit8u*)&D41A0_BYTESTR_0+0xdd1e 0x2b
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xdd1e 0x35
+(uint8_t*)&D41A0_BYTESTR_0+0xdd1e 0x2b
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xdd1e 0x35
 0x356038+0xdd1e
 
-(Bit8u*)&D41A0_BYTESTR_0+0xdd6c 0x35
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xdd6c 0x38
+(uint8_t*)&D41A0_BYTESTR_0+0xdd6c 0x35
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xdd6c 0x38
 0x356038+0xdd6c
 
-(Bit8u*)&D41A0_BYTESTR_0+0xa406 0x00
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xa406 0x2b
+(uint8_t*)&D41A0_BYTESTR_0+0xa406 0x00
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xa406 0x2b
 0x356038+0xa406
 
-(Bit8u*)&D41A0_BYTESTR_0+0xa454 0x00
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xa454 0x35
+(uint8_t*)&D41A0_BYTESTR_0+0xa454 0x00
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xa454 0x35
 0x356038+0xa454
 
-(Bit8u*)&D41A0_BYTESTR_0+0xa4ae 0x00
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xa454 0x35
+(uint8_t*)&D41A0_BYTESTR_0+0xa4ae 0x00
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xa454 0x35
 0x356038+0xa454
 
-(Bit8u*)&D41A0_BYTESTR_0+0xd736 0x35
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xd736 0x2b
+(uint8_t*)&D41A0_BYTESTR_0+0xd736 0x35
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xd736 0x2b
 0x356038+0xd736
 
-(Bit8u*)&D41A0_BYTESTR_0+0xd92e 0x2b
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xd92e 0x35
+(uint8_t*)&D41A0_BYTESTR_0+0xd92e 0x2b
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xd92e 0x35
 0x356038+0xd92e
 
-(Bit8u*)&D41A0_BYTESTR_0+0xdd6c 0x35
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xdd6c 0x38
+(uint8_t*)&D41A0_BYTESTR_0+0xdd6c 0x35
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xdd6c 0x38
 0x356038+0xdd6c
 
-(Bit8u*)&D41A0_BYTESTR_0+0xd784 0x38
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xd784 0x35
+(uint8_t*)&D41A0_BYTESTR_0+0xd784 0x38
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xd784 0x35
 0x356038+0xd784
 
-(Bit8u*)&D41A0_BYTESTR_0+0xd82c 0x38
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xd82c 0x35
+(uint8_t*)&D41A0_BYTESTR_0+0xd82c 0x38
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xd82c 0x35
 0x356038+0xd82c
 
-(Bit8u*)&D41A0_BYTESTR_0+0xd8d4 0x38
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xd8d4 0x35
+(uint8_t*)&D41A0_BYTESTR_0+0xd8d4 0x38
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xd8d4 0x35
 0x356038+0xd8d4
 
-(Bit8u*)&D41A0_BYTESTR_0+0xd97c 0x38
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xd97c 0x35
+(uint8_t*)&D41A0_BYTESTR_0+0xd97c 0x38
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xd97c 0x35
 0x356038+0xd97c
 
-(Bit8u*)&D41A0_BYTESTR_0+0xda24 0x38
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xda24 0x35
+(uint8_t*)&D41A0_BYTESTR_0+0xda24 0x38
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xda24 0x35
 0x356038+0xda24
 
-(Bit8u*)&D41A0_BYTESTR_0+0xdacc 0x38
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xdacc 0x35
+(uint8_t*)&D41A0_BYTESTR_0+0xdacc 0x38
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xdacc 0x35
 0x356038+0xdacc
 
-(Bit8u*)&D41A0_BYTESTR_0+0xdb74 0x38
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xdb74 0x35
+(uint8_t*)&D41A0_BYTESTR_0+0xdb74 0x38
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xdb74 0x35
 0x356038+0xdb74
 
-(Bit8u*)&D41A0_BYTESTR_0+0xdc1c 0x38
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xdc1c 0x35
+(uint8_t*)&D41A0_BYTESTR_0+0xdc1c 0x38
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xdc1c 0x35
 0x356038+0xdc1c
 
-(Bit8u*)&D41A0_BYTESTR_0+0xdcc4 0x38
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xdcc4 0x35
+(uint8_t*)&D41A0_BYTESTR_0+0xdcc4 0x38
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xdcc4 0x35
 0x356038+0xdcc4
 
-(Bit8u*)&D41A0_BYTESTR_0+0xddc6 0x2b
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xddc6 0x35
+(uint8_t*)&D41A0_BYTESTR_0+0xddc6 0x2b
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xddc6 0x35
 0x356038+0xddc6
 
-(Bit8u*)&D41A0_BYTESTR_0+0xde14 0x35
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xde14 0x38
+(uint8_t*)&D41A0_BYTESTR_0+0xde14 0x35
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xde14 0x38
 0x356038+0xde14
 
-(Bit8u*)&D41A0_BYTESTR_0+0xde6e 0x2b
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xde6e 0x35
+(uint8_t*)&D41A0_BYTESTR_0+0xde6e 0x2b
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xde6e 0x35
 0x356038+0xde6e
 
-(Bit8u*)&D41A0_BYTESTR_0+0xdebc 0x35
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xdebc 0x38
+(uint8_t*)&D41A0_BYTESTR_0+0xdebc 0x35
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xdebc 0x38
 0x356038+0xdebc
 
-(Bit8u*)&D41A0_BYTESTR_0+0xdf16 0x2b
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xdf16 0x35
+(uint8_t*)&D41A0_BYTESTR_0+0xdf16 0x2b
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xdf16 0x35
 0x356038+0xdf16
 
-(Bit8u*)&D41A0_BYTESTR_0+0xdf64 0x35
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xdf64 0x38
+(uint8_t*)&D41A0_BYTESTR_0+0xdf64 0x35
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xdf64 0x38
 0x356038+0xdf64
 
-(Bit8u*)&D41A0_BYTESTR_0+0xdfbe 0x2b
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xdfbe 0x35
+(uint8_t*)&D41A0_BYTESTR_0+0xdfbe 0x2b
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xdfbe 0x35
 0x356038+0xdfbe
 
-(Bit8u*)&D41A0_BYTESTR_0+0xe00c 0x35
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xe00c 0x38
+(uint8_t*)&D41A0_BYTESTR_0+0xe00c 0x35
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xe00c 0x38
 0x356038+0xdfbe
 
-(Bit8u*)&D41A0_BYTESTR_0+0xe066 0x2b
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xe066 0x35
+(uint8_t*)&D41A0_BYTESTR_0+0xe066 0x2b
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xe066 0x35
 0x356038+0xdfbe
 
-(Bit8u*)&D41A0_BYTESTR_0+0xe0b4 0x35
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xe0b4 0x38
+(uint8_t*)&D41A0_BYTESTR_0+0xe0b4 0x35
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xe0b4 0x38
 0x356038+0xdfbe
 
-(Bit8u*)&D41A0_BYTESTR_0+0xe10e 0x2b
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xe10e 0x35
+(uint8_t*)&D41A0_BYTESTR_0+0xe10e 0x2b
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xe10e 0x35
 0x356038+0xe10e
 
-(Bit8u*)&D41A0_BYTESTR_0+0xe1b6 0x2b
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xe1b6 0x38
+(uint8_t*)&D41A0_BYTESTR_0+0xe1b6 0x2b
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xe1b6 0x38
 0x356038+0xe10e
 
-(Bit8u*)&D41A0_BYTESTR_0+0xe25e 0x2b
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xe25e 0x38
+(uint8_t*)&D41A0_BYTESTR_0+0xe25e 0x2b
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xe25e 0x38
 0x356038+0xe10e
 
-(Bit8u*)&D41A0_BYTESTR_0+0xeed6 0x2b
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xeed6 0xd4
+(uint8_t*)&D41A0_BYTESTR_0+0xeed6 0x2b
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xeed6 0xd4
 0x356038+0xe10e
 
-(Bit8u*)&D41A0_BYTESTR_0+0xa20e 0x2b
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xa20e 0xd4
+(uint8_t*)&D41A0_BYTESTR_0+0xa20e 0x2b
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xa20e 0xd4
 0x356038+0xe10e
 
-(Bit8u*)&D41A0_BYTESTR_0+0xa406 0x2b
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xa406 0xd4
+(uint8_t*)&D41A0_BYTESTR_0+0xa406 0x2b
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xa406 0xd4
 0x356038+0xe10e
 
-(Bit8u*)&D41A0_BYTESTR_0+0xa4ae 0x2b
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xa4ae 0xd4
+(uint8_t*)&D41A0_BYTESTR_0+0xa4ae 0x2b
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xa4ae 0xd4
 0x356038+0xe10e
 
-(Bit8u*)&D41A0_BYTESTR_0+0xa556 0x2b
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xa556 0xd4
+(uint8_t*)&D41A0_BYTESTR_0+0xa556 0x2b
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xa556 0xd4
 0x356038+0xe10e
 
-(Bit8u*)&D41A0_BYTESTR_0+0xeed7 0x00
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xeed7 0x51
+(uint8_t*)&D41A0_BYTESTR_0+0xeed7 0x00
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xeed7 0x51
 0x356038+0xe10e
 
-(Bit8u*)&D41A0_BYTESTR_0+0xef24 0x35
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xef24 0x0
+(uint8_t*)&D41A0_BYTESTR_0+0xef24 0x35
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xef24 0x0
 0x356038+0xe10e
 
-(Bit8u*)&D41A0_BYTESTR_0+0xa25c 0x0
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xa25c 0x35
+(uint8_t*)&D41A0_BYTESTR_0+0xa25c 0x0
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xa25c 0x35
 0x356038+0xe10e
 
-(Bit8u*)&D41A0_BYTESTR_0+0xa454 0x0
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xa454 0x35
+(uint8_t*)&D41A0_BYTESTR_0+0xa454 0x0
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xa454 0x35
 0x356038+0xe10e
 
 
 https://dwarffortresswiki.org/Tileset_repository#13.C3.9713
 
-(Bit8u*)&D41A0_BYTESTR_0+0x03aa 0x4d
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x03aa 0x4c
+(uint8_t*)&D41A0_BYTESTR_0+0x03aa 0x4d
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x03aa 0x4c
 0x356038+0x03aa
 
-(Bit8u*)&x_BYTE_11B4E0_height+0x13a3 - 0x5d
+(uint8_t*)&x_BYTE_11B4E0_height+0x13a3 - 0x5d
 versus
 002ec4e0 +  0x13a3 - 0x5a
 
@@ -7591,7 +7591,7 @@ test
 char sub_570F0(__int16 a1, __int16 a2, signed __int16 a3, char a4, char a5, char a6)//2380f0
 
 step 0x38
-(Bit8u*)&x_BYTE_13B4E0_angle+0x1c9b(0x01)
+(uint8_t*)&x_BYTE_13B4E0_angle+0x1c9b(0x01)
 versus
 0x30c4e0+0x1c9b(0x09)
 
@@ -7647,23 +7647,23 @@ versus
 
 23c320 - void sub_5B100(/*int a2,*/ type_str_0x6E8E* a1x)//23c100
 
-(Bit8u*)&x_BYTE_11B4E0_height+0x51af - 0x93
+(uint8_t*)&x_BYTE_11B4E0_height+0x51af - 0x93
 versus
 002ec4e0 +  0x51af - 0x95
 
-(Bit8u*)&D41A0_BYTESTR_0+0xdc76 0x00
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xdc76 0xd4
+(uint8_t*)&D41A0_BYTESTR_0+0xdc76 0x00
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xdc76 0xd4
 0x356038 +0xdc76
 
-(Bit8u*)&D41A0_BYTESTR_0+0x235 0x03
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x235 0x00
+(uint8_t*)&D41A0_BYTESTR_0+0x235 0x03
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x235 0x00
 0x356038 +0x235
 
 end game after dead
 						sub_191B0(15, 0);
 						x_BYTE_1806E4 = 0;
 
-x_DWORD_180628b_screen_buffer+0x42 0x40
+pdwScreenBuffer+0x42 0x40
  0x3aa0a4+0x42 0x29
 
  BLOCK32DAT_BEGIN_BUFFER+200
@@ -7672,8 +7672,8 @@ x_DWORD_180628b_screen_buffer+0x42 0x40
  adress 248780
 
 step 9163 
-(Bit8u*)&D41A0_BYTESTR_0+0x9163 0x04
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x9163 0x00
+(uint8_t*)&D41A0_BYTESTR_0+0x9163 0x04
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x9163 0x00
 0x356038 +0x9163
 
 difference in sub_84B80();//nothing draw
@@ -7682,20 +7682,20 @@ void sub_31120(type_str_0x6E8E* a1x)//212120
 
 x_BYTE_17DF14[0x81]
 
-(Bit8u*)&D41A0_BYTESTR_0+0x36608 0xae
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x36608 0xf6
+(uint8_t*)&D41A0_BYTESTR_0+0x36608 0xae
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x36608 0xf6
 0x356038 +0x36608
 
-(Bit8u*)&x_BYTE_11B4E0_height+0xbd7d - 0x52
+(uint8_t*)&x_BYTE_11B4E0_height+0xbd7d - 0x52
 versus
 002ec4e0 +  0xbd7d - 0x55
 
-(Bit8u*)&D41A0_BYTESTR_0+0x41e5 0x82 nebo 4c
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x41e5 0x51
+(uint8_t*)&D41A0_BYTESTR_0+0x41e5 0x82 nebo 4c
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x41e5 0x51
 0x356038 +0x41e5
 
-(Bit8u*)&D41A0_BYTESTR_0+0x6ede 0x80
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x6ede 0x40
+(uint8_t*)&D41A0_BYTESTR_0+0x6ede 0x80
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x6ede 0x40
 0x356038 +0x6ede
 
 
@@ -7708,8 +7708,8 @@ ebx+=84c
 kde se priradi 0x368724
 22bb69
 
-(Bit8u*)&D41A0_BYTESTR_0+0xb11b 0x19
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xb11b 0x1f
+(uint8_t*)&D41A0_BYTESTR_0+0xb11b 0x19
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xb11b 0x1f
 0x356038 +0xb11b
 
 void sub_12330(type_str_0x6E8E* a1x, __int16 a2)//1f3330
@@ -7727,13 +7727,13 @@ void sub_12780()//1f3780
 
 x_D41A0_BYTEARRAY_4_struct.bytearray_38403x[D41A0_BYTESTR_0.array_0x365F4[resultx + 1].str_0x3647C_4.axis.x
 
-(Bit8u*)&D41A0_BYTESTR_0+0x36552 0xe6
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x36552 0x2e
+(uint8_t*)&D41A0_BYTESTR_0+0x36552 0xe6
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x36552 0x2e
 0x356038 +0x36552
 
 step 0x119
-(Bit8u*)&D41A0_BYTESTR_0+0x6edb 0x00
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x6edb 0x40
+(uint8_t*)&D41A0_BYTESTR_0+0x6edb 0x00
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x6edb 0x40
 0x356038 +0x6edb
 
 signed int sub_13B00(type_str_0x6E8E* a1x)//1f4b00
@@ -7748,8 +7748,8 @@ D41A0_BYTESTR_0.array_0x365F4[resultx+1].str_0x3647C_4.pointer_0x6E8E
 &D41A0_BYTESTR_0.array_0x365F4[2].str_0x3647C_4.pointer_0x6E8E
 
 step 0x23c
-(Bit8u*)&D41A0_BYTESTR_0+0xf8a6 0x03
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xf8a6 0x02
+(uint8_t*)&D41A0_BYTESTR_0+0xf8a6 0x03
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xf8a6 0x02
 0x356038 +0xf8a6
 
 void sub_12330(type_str_0x6E8E* a1x, __int16 a2)//1f3330
@@ -7768,11 +7768,11 @@ versus
 227023
 211dfc call 226dc0
 
-(Bit8u*)&D41A0_BYTESTR_0+0xbd7 0x16
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xbd7 0xb3
+(uint8_t*)&D41A0_BYTESTR_0+0xbd7 0x16
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xbd7 0xb3
 0x356038 +0xbd7
 
- (Bit8u*)&x_WORD_15B4E0_source+0xcc3c 0x89
+ (uint8_t*)&x_WORD_15B4E0_source+0xcc3c 0x89
  x_WORD_15B4E0+0xcc3c 0x4b
  32c4e0+0xcc3c 0x00
 
@@ -7801,7 +7801,7 @@ versus
  v12 == -1
  v13 == -2
 
- (Bit8u*)*(Bit32s*)&x_BYTE_E7EE0x[4*6*1+4*5]
+ (uint8_t*)*(int32_t*)&x_BYTE_E7EE0x[4*6*1+4*5]
  versus
  0x1a0078 tj 2b8f0c 2b8ee0+x
 
@@ -7809,9 +7809,9 @@ versus
  versus
  2ba980
 
- *(Bit32s*)&x_BYTE_E9980x[6*4]
+ *(int32_t*)&x_BYTE_E9980x[6*4]
 
- (Bit8u*)&x_WORD_15B4E0_source+0xcafc 0x3e
+ (uint8_t*)&x_WORD_15B4E0_source+0xcafc 0x3e
  x_WORD_15B4E0+0xcafc 0x00
  32c4e0+0xcafc 0x00
  
@@ -7821,8 +7821,8 @@ versus
 
  26f3d0
 
-(Bit8u*)&D41A0_BYTESTR_0+0x824a 0x04
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x824a 0x84
+(uint8_t*)&D41A0_BYTESTR_0+0x824a 0x04
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x824a 0x84
 0x356038 +0x824a
 
 zmena
@@ -7843,15 +7843,15 @@ shl 8 =0x600
 
 void sub_57730()//238730
 
-(Bit8u*)&D41A0_BYTESTR_0+0x77de 0x00
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x77de 0x1a
+(uint8_t*)&D41A0_BYTESTR_0+0x77de 0x00
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x77de 0x1a
 0x356038 +0x77de
 
 204f9e
 void sub_23E60(type_str_0x6E8E* a1x)//204e60
 
-(Bit8u*)&D41A0_BYTESTR_0+0x8 0x74
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x8 0x1f
+(uint8_t*)&D41A0_BYTESTR_0+0x8 0x74
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x8 0x1f
 0x356038 +0x8
 
 x_BYTE_10B4E0_terraintype+0xb87b 1b
@@ -7866,8 +7866,8 @@ versus
 
 void sub_385C0(type_str_0x6E8E* a1x)//2195c0 //remove castle stage
 
-(Bit8u*)&D41A0_BYTESTR_0+0x39b2 0xe7
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x39b2 0xe6
+(uint8_t*)&D41A0_BYTESTR_0+0x39b2 0xe7
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x39b2 0xe6
 0x356038 +0x39b2
 fix this
 a1x->dword_0xA4_164x->word_0x1A2_418 = ((a1x->dword_0xA4_164x->word_0x246_582- 255- (__CFSHL__((a1x->dword_0xA4_164x->word_0x246_582 - 255) >> 31, 3)+ 8 * ((a1x->dword_0xA4_164x->word_0x246_582 - 255) >> 31))) >> 3)- 1;
@@ -7877,8 +7877,8 @@ add 209fc0
 
 type_str_0x6E8E* sub_28000(type_str_0x6E8E* a1x)//209000
 
-(Bit8u*)&D41A0_BYTESTR_0+0x3654d 0x0
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x3654d 0x1
+(uint8_t*)&D41A0_BYTESTR_0+0x3654d 0x0
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x3654d 0x1
 0x356038 +0x3654d
 
 239eac
@@ -7892,7 +7892,7 @@ void sub_4A1E0(int a1, char a2)//22b1e0
 D41A0_BYTESTR_0.struct_0x3654C[0].str_36552_dword6
 239d28
 
-void sub_58940(/*Bit8u* a1*/)//239940 //init games objectives
+void sub_58940(/*uint8_t* a1*/)//239940 //init games objectives
 
 xy_DWORD_17DED4_spritestr[39]
 
@@ -7902,7 +7902,7 @@ add adress 20a330
 
 	case 0x211be0: {
 
-(Bit8u*)&x_WORD_15B4E0_source+0x15d28 0x00
+(uint8_t*)&x_WORD_15B4E0_source+0x15d28 0x00
 x_WORD_15B4E0+0x15d28 0x4e
  32c4e0+0x15d28 0x4e
 
@@ -7911,16 +7911,16 @@ void sub_57D70_clean_event(type_str_0x6E8E* a1x, axis_3d* a2x)//238d70 // regist
 238cf0
 void sub_57CF0(type_str_0x6E8E* a1x, axis_3d* a2x)//238cf0
 
-(Bit8u*)&D41A0_BYTESTR_0+0x8 0x7c
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x8 0xef
+(uint8_t*)&D41A0_BYTESTR_0+0x8 0x7c
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x8 0xef
 0x356038 +0x8
 
 &x_D41A0_BYTEARRAY_4_struct.setting_30 a0
 versus
 38cf50+0x1e 54
 
-(Bit8u*)&D41A0_BYTESTR_0+0xa20a 0x10
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xa20a 0x28
+(uint8_t*)&D41A0_BYTESTR_0+0xa20a 0x10
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xa20a 0x28
 0x356038 +0xa20a
 
 238e40
@@ -7934,20 +7934,20 @@ x_DWORD_DDF50_texture_adresses[147]-256
 
 spell moving
 
-(Bit8u*)&D41A0_BYTESTR_0+0x4a31 0x4f 
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x4a31 0xbe
+(uint8_t*)&D41A0_BYTESTR_0+0x4a31 0x4f 
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x4a31 0xbe
 0x356038 +0x4a31
 
-(Bit8u*)&D41A0_BYTESTR_0+0x16654 0xb0 90
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x16654 0x00
+(uint8_t*)&D41A0_BYTESTR_0+0x16654 0xb0 90
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x16654 0x00
 0x356038 +0x16654
 
-(Bit8u*)&D41A0_BYTESTR_0+0x14fb2 0x1d
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x14fb2 0x0d
+(uint8_t*)&D41A0_BYTESTR_0+0x14fb2 0x1d
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x14fb2 0x0d
 0x356038 +0x14fb2
 
-(Bit8u*)&D41A0_BYTESTR_0+0x1601a 0x1c
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x1601a 0x0c
+(uint8_t*)&D41A0_BYTESTR_0+0x1601a 0x1c
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x1601a 0x0c
 0x356038 +0x1601a
 v1==3
 
@@ -7959,8 +7959,8 @@ x_DWORD_180B48
 
 adress 230fb0
 
-(Bit8u*)&D41A0_BYTESTR_0+0x4aac 0x1f
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x4aac 0x97
+(uint8_t*)&D41A0_BYTESTR_0+0x4aac 0x1f
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x4aac 0x97
 0x356038 +0x4aac
 
 void sub_159E0()//1f69e0
@@ -7973,14 +7973,14 @@ versus
 
 int sub_A0F06(int a1, int a2, int a3, int a4, int a5, int a6, int a7)//281f06
 
-(Bit8u*)&D41A0_BYTESTR_0+0x4aac 0x1f
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x4aac 0x97
+(uint8_t*)&D41A0_BYTESTR_0+0x4aac 0x1f
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x4aac 0x97
 0x356038 +0x4aac
 
 memory_readable
 
-(Bit8u*)&D41A0_BYTESTR_0+0x4aac 0x1f
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x4aac 0x97
+(uint8_t*)&D41A0_BYTESTR_0+0x4aac 0x1f
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x4aac 0x97
 0x356038 +0x4aac
 
 x_DWORD_EA3E4[i] = &D41A0_BYTESTR_0.struct_0x6E8E[i]
@@ -7995,7 +7995,7 @@ unk_F42B0x
 	for (int indexx = 1; x_DWORD_EA3E4[indexx] < x_DWORD_EA3E4[0x3e8]; indexx++)
 		//if (memory_readable(x_DWORD_EA3E4[indexx]->dword_0xA4_164x,4))
 		{
-			if ((Bit32u)x_DWORD_EA3E4[indexx]->dword_0xA4_164x == 0x2c75e28)//0x014F82E8//0x2c75e28-(Bit32u)&D41A0_BYTESTR_0
+			if ((uint32_t)x_DWORD_EA3E4[indexx]->dword_0xA4_164x == 0x2c75e28)//0x014F82E8//0x2c75e28-(uint32_t)&D41A0_BYTESTR_0
 				x_DWORD_EA3E4[indexx]->dword_0xA4_164x = unk_F42B0x;
 		}
 
@@ -8005,7 +8005,7 @@ int sub_6D4F0(type_str_611* a1x, __int16 a2)//24e4f0
 char sub_88D40()//269d40
 void sub_2ECC0_draw_bottom_menu()//20fcc0
 
-resultx = pre_sub_4A190(0x2321a0 + 14 * a1x->byte_0x40_64, (Bit16s*)&a1x->array_0x4C_76,2);//result = (*(int(**)(Bit8u*))((char *)&off_D781E + 14 * *(char *)(a1 + 64)))(a1 + 76);
+resultx = pre_sub_4A190(0x2321a0 + 14 * a1x->byte_0x40_64, (int16_t*)&a1x->array_0x4C_76,2);//result = (*(int(**)(uint8_t*))((char *)&off_D781E + 14 * *(char *)(a1 + 64)))(a1 + 76);
 
 21bf00
 
@@ -8018,7 +8018,7 @@ case 0x21b8b0: {
 
 	case 0x22b810: {
 
-(Bit8u*)&x_BYTE_12B4E0_shading+0xd74c 0x18
+(uint8_t*)&x_BYTE_12B4E0_shading+0xd74c 0x18
 0x2fc4e0+0xd74c 0x1f
 
 18181519
@@ -8034,25 +8034,25 @@ step cca 12
 void sub_84EA0(unsigned __int16 a1, type_str_0x3664C* a2x, char a3, __int16 a4)//265ea0
 
 
-void sub_loc_1B5BC(Bit16u a1) {//1fc5bc
+void sub_loc_1B5BC(uint16_t a1) {//1fc5bc
 
-(Bit8u*)&D41A0_BYTESTR_0+0x235 0x1
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x235 0x0
+(uint8_t*)&D41A0_BYTESTR_0+0x235 0x1
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x235 0x0
 0x356038 +0x235
 
-(Bit8u*)&D41A0_BYTESTR_0+0x36656 0xa6
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x36656 0xd6
+(uint8_t*)&D41A0_BYTESTR_0+0x36656 0xa6
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x36656 0xd6
 0x356038 +0x36656
 
-(Bit8u*)&x_BYTE_12B4E0_shading+0xb03 0x1e
+(uint8_t*)&x_BYTE_12B4E0_shading+0xb03 0x1e
 0x2fc4e0+0xb03 0x20
 
-(Bit8u*)&x_BYTE_12B4E0_shading+0x25 0x16
+(uint8_t*)&x_BYTE_12B4E0_shading+0x25 0x16
 0x2fc4e0+0x25 0x22
 
 void sub_848A0()//2658a0
 
-(Bit8u*)&x_BYTE_12B4E0_shading+0xd84b 0x29
+(uint8_t*)&x_BYTE_12B4E0_shading+0xd84b 0x29
 0x2fc4e0+0xd84b 0x2d
 
 265f98
@@ -8065,14 +8065,14 @@ sequence
 void sub_84B80()//265b80
 
 fix this:
-if (!(x_BYTE_13B4E0_angle[v111] & 8) || (v114x = v25z, /*v25z = (Bit32u*)(str_E9C38_smalltit[v25z].dword4 - (v113 >> 10)),*/ v115 = v248x[31], str_E9C38_smalltit[v114x].dword4 = (x_DWORD)&str_E9C38_smalltit[v25z], v115 >= 14464))
+if (!(x_BYTE_13B4E0_angle[v111] & 8) || (v114x = v25z, /*v25z = (uint32_t*)(str_E9C38_smalltit[v25z].dword4 - (v113 >> 10)),*/ v115 = v248x[31], str_E9C38_smalltit[v114x].dword4 = (x_DWORD)&str_E9C38_smalltit[v25z], v115 >= 14464))
 
-	memset(x_DWORD_F66F0, 0, 2016);//*(Bit32u*)x_DWORD_F66F0[1]
-	memset(x_DWORD_F5F10, 0, 2016);//*(Bit32u*)x_DWORD_F5F10[1]
-	memset(x_DWORD_F5730, 0, 2016);//*(Bit32u*)x_DWORD_F5730[1]
+	memset(x_DWORD_F66F0, 0, 2016);//*(uint32_t*)x_DWORD_F66F0[1]
+	memset(x_DWORD_F5F10, 0, 2016);//*(uint32_t*)x_DWORD_F5F10[1]
+	memset(x_DWORD_F5730, 0, 2016);//*(uint32_t*)x_DWORD_F5730[1]
 
-(Bit8u*)&D41A0_BYTESTR_0+0x2fbd 0x6
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x2fbd 0x0
+(uint8_t*)&D41A0_BYTESTR_0+0x2fbd 0x6
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x2fbd 0x0
 0x356038 +0x2fbd
 
 D41A0_BYTESTR_0.word_0x36DFA
@@ -8080,20 +8080,20 @@ versus
 38ce32
 36dfa
 
-x_DWORD_180628b_screen_buffer+ 0x6b73 0x63
+pdwScreenBuffer+ 0x6b73 0x63
 versus
 0x3aa0a4+ 0x6b73  0x21
 
-x_DWORD_180628b_screen_buffer+ 0xbdcd 0x01
+pdwScreenBuffer+ 0xbdcd 0x01
 versus
 0x3aa0a4+ 0xbdcd  0x40
 
-x_DWORD_180628b_screen_buffer+ 0x2fc4 0x10
+pdwScreenBuffer+ 0x2fc4 0x10
 versus
 0x3aa0a4+ 0x2fc4  0x00
 
-(Bit8u*)&D41A0_BYTESTR_0+0x2fc4 0x10
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x2fc4 0x0
+(uint8_t*)&D41A0_BYTESTR_0+0x2fc4 0x10
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x2fc4 0x0
 0x356038 +0x2fc4
 
 v113x->dword_0xA4_164x->dword_0x0_0 = D41A0_BYTESTR_0.array_0x6E3E[0].str_0x6E3E_byte5;
@@ -8102,42 +8102,42 @@ void sub_18F80(type_str_0x6E8E* a1x)//1f9f80
 
 sub_191B0(6, 16);
 
-(Bit8u*)&x_BYTE_12B4E0_shading+0xd74d 0x1e
+(uint8_t*)&x_BYTE_12B4E0_shading+0xd74d 0x1e
 0x2fc4e0+0xd74d 0x22
 
 void sub_848A0()//2658a0
 
 void sub_84B80()//265b80
 
-x_DWORD_180628b_screen_buffer+0x8C81
+pdwScreenBuffer+0x8C81
 
-x_DWORD_180628b_screen_buffer+0x8EF9
+pdwScreenBuffer+0x8EF9
 
-x_DWORD_180628b_screen_buffer+0x8DAA
+pdwScreenBuffer+0x8DAA
 
-x_DWORD_180628b_screen_buffer+0x8C81
+pdwScreenBuffer+0x8C81
 
-x_DWORD_180628b_screen_buffer+0x90B4
+pdwScreenBuffer+0x90B4
 
 if (!x_DWORD_F66F0[(unsigned __int16)* v9] && !sub_71520_mainInitTmaps(*v9))
 
 a1+0x4ee
 
-result-*(Bit32u *)(a1 + 2)
+result-*(uint32_t *)(a1 + 2)
 
-*(Bit32u *)(a1 + 2)+0x3544
-*(Bit32u *)(x_DWORD_E9C08 + 2)+0x3544
+*(uint32_t *)(a1 + 2)+0x3544
+*(uint32_t *)(x_DWORD_E9C08 + 2)+0x3544
 
 &(x_DWORD_E9C08x->dword_2[488])
 
 in init mao
 type_animations1* sub_721C0_initTmap(type_E9C08* a1x, int *a2, __int16 a3)//2531c0
 
- (Bit8u*)&x_WORD_15B4E0_source+0x6ec0 0x19
+ (uint8_t*)&x_WORD_15B4E0_source+0x6ec0 0x19
  0x32c4e0+0x6ec0 0x00
 
  &D41A0_BYTESTR_0.dword_0x35 - 0x389
- (Bit8u*)x_D41A0_BYTEARRAY_0+0x35 0x389
+ (uint8_t*)x_D41A0_BYTEARRAY_0+0x35 0x389
  0x356038 +0x35 0x389
 
  void sub_5FA70(type_str_0x6E8E* a1x)//240a70
@@ -8169,11 +8169,11 @@ versus
 01
 32
 
-(Bit8u*)&x_BYTE_11B4E0_height+0 - 0x59
+(uint8_t*)&x_BYTE_11B4E0_height+0 - 0x59
 versus
 002ec4e0 +  0 - 0x1
 
-(Bit8u*)&x_BYTE_11B4E0_height+0x5db - 0x52
+(uint8_t*)&x_BYTE_11B4E0_height+0x5db - 0x52
 versus
 002ec4e0 +  0x5db - 0x5e
 
@@ -8181,8 +8181,8 @@ versus
 char sub_56F10(__int16 a1, __int16 a2, __int16 a3, char a4)//237f10
 char sub_572C0(type_str_0x6E8E* a1x, __int16 a2, __int16 a3, __int16 a4, char a5)//2382c0
 
-(Bit8u*)&D41A0_BYTESTR_0+0x35 0xbf
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x35 0xc0
+(uint8_t*)&D41A0_BYTESTR_0+0x35 0xbf
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x35 0xc0
 0x356038+0x35 0xc0
 
 237f12
@@ -8202,19 +8202,19 @@ x_BYTE_10B4E0_terraintype+0x6565 0x03
 versus
 2dc4e0+0x6565 0x1b
 
-(Bit8u*)&D41A0_BYTESTR_0+0x35 0xdc
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x35 0xbf
+(uint8_t*)&D41A0_BYTESTR_0+0x35 0xdc
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x35 0xbf
 0x356038+0x35 0xbf
 
-(Bit8u*)&D41A0_BYTESTR_0+0x36566 0xae
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x36566 0x3e
+(uint8_t*)&D41A0_BYTESTR_0+0x36566 0xae
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x36566 0x3e
 0x356038+0x36566 0xbf
 
-(Bit8u*)&D41A0_BYTESTR_0+0x36570 0x1e
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x36570 0xae
+(uint8_t*)&D41A0_BYTESTR_0+0x36570 0x1e
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x36570 0xae
 0x356038+0x36570 0xbf
 
- (Bit8u*)&x_WORD_15B4E0_source+0x6f06 0x06
+ (uint8_t*)&x_WORD_15B4E0_source+0x6f06 0x06
  x_WORD_15B4E0+0x6f06 0xc3
  32c4e0+0x6f06 0xc3
 
@@ -8229,19 +8229,19 @@ versus
 
  void sub_265A0(type_str_0x6E8E* a1x)//2075a0
 
-(Bit8u*)&D41A0_BYTESTR_0+0x2f77 0xaf
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x2f77 0xb0
+(uint8_t*)&D41A0_BYTESTR_0+0x2f77 0xaf
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x2f77 0xb0
 0x356038+0x2f77 0xb0
 
 test
 char sub_57B20(type_str_0x2BDE* a1x, type_str_0x6E8E* a2x)//238b20 //copy position and rotation
 
-(Bit8u*)&D41A0_BYTESTR_0+0x6f86 0x20
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x6f86 0x00
+(uint8_t*)&D41A0_BYTESTR_0+0x6f86 0x20
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x6f86 0x00
 0x356038+0x6f86 0x00
 207768
 
-(Bit8u*)&x_WORD_15B4E0_source+0xdcdc 0xa6
+(uint8_t*)&x_WORD_15B4E0_source+0xdcdc 0xa6
 x_WORD_15B4E0+0xdcdc 0x02
  32c4e0+0xdcdc 0x02
 
@@ -8261,19 +8261,19 @@ versus
 sub_55A10(fileindex)
 
 
-(Bit8u*)&D41A0_BYTESTR_0+0x6F82
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x6F82
+(uint8_t*)&D41A0_BYTESTR_0+0x6F82
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x6F82
 0x356038+0x6F82
 
 versus 0x356038+0x70d2
 
-(Bit8u*)mx-(Bit8u*)&D41A0_BYTESTR_0
+(uint8_t*)mx-(uint8_t*)&D41A0_BYTESTR_0
 
 void sub_26470(type_str_0x6E8E* a1x)//207470
 
 void sub_26470(type_str_0x6E8E* a1x)//207470
 
-(Bit8u*)&x_WORD_15B4E0_source+0x7718 0x00
+(uint8_t*)&x_WORD_15B4E0_source+0x7718 0x00
 x_WORD_15B4E0+0x7718 0x19
  32c4e0+0x7718 0x19
 
@@ -8281,15 +8281,15 @@ x_WORD_15B4E0+0x7718 0x19
  238d28 void sub_57CF0(type_str_0x6E8E* a1x, axis_3d* a2x)//238cf0
  1fca1e signed int sub_1B8C0(type_str_0x6E8E* a1x)//1fc8c0
 
- (Bit8u*)&D41A0_BYTESTR_0+0x6Ff4 a6
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x6Ff4 00
+ (uint8_t*)&D41A0_BYTESTR_0+0x6Ff4 a6
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x6Ff4 00
 0x356038+0x6Ff4 00
 
-(Bit8u*)&x_WORD_15B4E0_source+0xe0de 0x02
+(uint8_t*)&x_WORD_15B4E0_source+0xe0de 0x02
 x_WORD_15B4E0+0xe0de 0x0
  32c4e0+0xe0de 0x0
 
- (Bit8u*)&x_WORD_15B4E0_source+0xe0e0 0x02
+ (uint8_t*)&x_WORD_15B4E0_source+0xe0e0 0x02
 x_WORD_15B4E0+0xe0e0 0xa7
  32c4e0+0xe0e0 0xa7
 
@@ -8297,7 +8297,7 @@ x_WORD_15B4E0+0xe0e0 0xa7
 	
  save x_DWORD_EA3E4
 
- (Bit8u*)&x_WORD_15B4E0_source+0xdcdc 0xa6
+ (uint8_t*)&x_WORD_15B4E0_source+0xdcdc 0xa6
 x_WORD_15B4E0+0xdcdc 0x02
  32c4e0+0xdcdc 0x02
 
@@ -8319,21 +8319,21 @@ x_WORD_15B4E0+0xdcdc 0x02
 versus
 2dc4e0+0x2e87 0x48
 
-(Bit8u*)&D41A0_BYTESTR_0+0xb05a 00
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xb05a 80
+(uint8_t*)&D41A0_BYTESTR_0+0xb05a 00
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xb05a 80
 0x356038+0xb05a
 216acf
 
 void sub_35940(type_str_0x6E8E* a1x)//216940 //move mana sphere
 
-(Bit8u*)&D41A0_BYTESTR_0+0x75d3 04
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x75d3 00
+(uint8_t*)&D41A0_BYTESTR_0+0x75d3 04
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x75d3 00
 0x356038+0x75d3
 
 void sub_57F10(type_str_0x6E8E* a1x)//238f10
 void sub_31100(type_str_0x6E8E* a1x)//212100 // zrychleni
 
-(Bit8u*)&x_WORD_15B4E0_source+0x6104 0x00
+(uint8_t*)&x_WORD_15B4E0_source+0x6104 0x00
 x_WORD_15B4E0+0x6104 0xa5
  32c4e0+0x6104 0xa5
 
@@ -8341,7 +8341,7 @@ x_WORD_15B4E0+0x6104 0xa5
  sub_57D70_actualize_event(a1x, a2x);
  void sub_57CF0(type_str_0x6E8E* a1x, axis_3d* a2x)//238cf0
 
-(Bit8u*)&x_WORD_15B4E0_source+0x5d04 79
+(uint8_t*)&x_WORD_15B4E0_source+0x5d04 79
 x_WORD_15B4E0+0x5d04 0xa5
  32c4e0+0x5d04 0xa5
 
@@ -8352,7 +8352,7 @@ x_WORD_15B4E0+0x5d04 0xa5
 
  x_DWORD_D4C52a
 
- (Bit8u*)&x_WORD_15B4E0_source+0x5d04 79
+ (uint8_t*)&x_WORD_15B4E0_source+0x5d04 79
 x_WORD_15B4E0+0x5d04 0xa5
  32c4e0+0x5d04 0xa5
 
@@ -8366,8 +8366,8 @@ x_WORD_15B4E0+0x5d04 0xa5
  void sub_693F0(type_str_0x6E8E* a1x)//24a3f0//spell fire
  void sub_57730()//238730
 
- (Bit8u*)&D41A0_BYTESTR_0+0x3b77 00
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x3b77 02
+ (uint8_t*)&D41A0_BYTESTR_0+0x3b77 00
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x3b77 02
 0x356038+0x3b77
 
 1f6021
@@ -8380,16 +8380,16 @@ signed int sub_161A0(type_str_0x6E8E* a1x)//1f71a0
  difference
  char sub_15790(type_str_0x6E8E* a1x)//1f6790
 
-(Bit8u*)&D41A0_BYTESTR_0+0xdd83 04
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xdd83 00
+(uint8_t*)&D41A0_BYTESTR_0+0xdd83 04
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xdd83 00
 0x356038+0xdd83
 
- (Bit8u*)&D41A0_BYTESTR_0+0x3b77 00
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x3b77 02
+ (uint8_t*)&D41A0_BYTESTR_0+0x3b77 00
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x3b77 02
 0x356038+0x3b77
 
 char sub_15790(type_str_0x6E8E* a1x)//1f6790
-Bit8u unk_D3F80x[0x9] = { 0x10,0x12,0x09,*0x07*,0x14,0x15,0x13,0x00,0xFF };
+uint8_t unk_D3F80x[0x9] = { 0x10,0x12,0x09,*0x07*,0x14,0x15,0x13,0x00,0xFF };
 
 x_DWORD_DA750ar[0xd2] + v23
 
@@ -8402,23 +8402,23 @@ x_DWORD_DA750ar[0xd2+0x230]
 SPELLS_BEGIN_BUFFER_DA818[0xa+0x230]
 
 2818ac read
-2798bf - size_t sub_988A7_read(FILE* a1, Bit8u* a2, int a3)//2798a7
+2798bf - size_t sub_988A7_read(FILE* a1, uint8_t* a2, int a3)//2798a7
 234e8b
-int sub_53E60_readfile_and_decompress(const char* path, Bit8u** a2)//234E60
+int sub_53E60_readfile_and_decompress(const char* path, uint8_t** a2)//234E60
 23ca50
 void sub_5B8D0_initialize()//23c8d0
 
 load *0x2ab818* 0x2a1b5c
 
-Bit8u* SPELLS_BEGIN_BUFFER = 0;
+uint8_t* SPELLS_BEGIN_BUFFER = 0;
 x_BYTE_DA818
 
 
-(Bit8u*)&x_BYTE_13B4E0_angle+0x4185(0x10)
+(uint8_t*)&x_BYTE_13B4E0_angle+0x4185(0x10)
 versus
 0x30c4e0+0x4185(0x60)
 
-(Bit8u*)&x_BYTE_13B4E0_angle+0x4185(0x60)
+(uint8_t*)&x_BYTE_13B4E0_angle+0x4185(0x60)
 versus
 0x30c4e0+0x4185(0x40)
 
@@ -8430,8 +8430,8 @@ x_WORD_17B4E0 ?? 0xae5b0500
 22743c
 void sub_462A0(uaxis_2d a1x, uaxis_2d a2x)//2272a0
 
-(Bit8u*)&D41A0_BYTESTR_0+0xe456 46
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xe456 20
+(uint8_t*)&D41A0_BYTESTR_0+0xe456 46
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xe456 20
 0x356038+0xe456
 
 &D41A0_BYTESTR_0.struct_0x6E8E[0x4b].word_0x1A_26
@@ -8444,10 +8444,10 @@ v123
 72a9c0 rozdil 0x60680
 78b040
 
-v123 = x_DWORD_DE558 + x_DWORD_DE560_ScreenWidth * (str_F2C20ar.dword0x26 - 1) + v170;
+v123 = x_DWORD_DE558 + iScreenWidth * (str_F2C20ar.dword0x26 - 1) + v170;
 can not write 0
 
-(Bit8u*)&x_WORD_15B4E0_source+0x12a50 0x03
+(uint8_t*)&x_WORD_15B4E0_source+0x12a50 0x03
 x_WORD_15B4E0+0x12a50 0x05
  32c4e0+0xb12a 0x05
 
@@ -8457,8 +8457,8 @@ x_WORD_15B4E0+0x12a50 0x05
 
  SPELLS_BEGIN_BUFFER_str
 
-((Bit8u*)SPELLS_BEGIN_BUFFER_str)+80*4+22
-((Bit8u*)SPELLS_BEGIN_BUFFER_DA818)+80*4+22
+((uint8_t*)SPELLS_BEGIN_BUFFER_str)+80*4+22
+((uint8_t*)SPELLS_BEGIN_BUFFER_DA818)+80*4+22
 compare void sub_5C0A0()//23d0a0
 
 spell 4
@@ -8471,8 +8471,8 @@ aa misto 01
 
 &x_DWORD_EA3E4[0xab]->dword_0x88_136
 
-(Bit8u*)&D41A0_BYTESTR_0+0x6f46 00
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x6f46 0x17
+(uint8_t*)&D41A0_BYTESTR_0+0x6f46 00
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x6f46 0x17
 0x356038+0x6f46
 
 00
@@ -8485,9 +8485,9 @@ problem je zde
 a1x->dword_0x10_16 = *(unsigned __int16 *)(sub_724F0(x_DWORD_E9C08x, v5) + 16);
 
 x_DWORD_F66F0x[0x137]
-*(Bit8u * *)x_DWORD_F66F0x[0x137]
+*(uint8_t * *)x_DWORD_F66F0x[0x137]
 
-*(Bit8u * *)x_DWORD_F66F0x[0x137]+0x1194
+*(uint8_t * *)x_DWORD_F66F0x[0x137]+0x1194
 0x5a1123
 
 &a1x->word_16
@@ -8549,8 +8549,8 @@ type_str_0x6E8E* sub_48930(__int16 a1, __int16 a2, __int16 a3, __int16 a4, char 
 
 sub_31FB0(a1_6E8E);		 
 
-(Bit8u*)&D41A0_BYTESTR_0+0x35 0xe6
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x35 0xb3
+(uint8_t*)&D41A0_BYTESTR_0+0x35 0xe6
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x35 0xb3
 0x356038 +0x35
 
 22b100 type_str_0x6E8E* sub_4A050_new_event()//22b050
@@ -8561,8 +8561,8 @@ sub_31FB0(a1_6E8E);
 22a635 void sub_49540(type_str_2FECE* a1x, type_str_0x30311* a2x)//22a540
 22a3ae void sub_49290(type_str_2FECE* a1x, char a2)//22a290
 
-(Bit8u*)&D41A0_BYTESTR_0+0x768e 0xc6
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x768e 0x49
+(uint8_t*)&D41A0_BYTESTR_0+0x768e 0xc6
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x768e 0x49
 0x356038 +0x768e
 
 1fef05
@@ -8586,10 +8586,10 @@ test void sub_2CB30(type_str_0x6E8E* a1x, __int16 a2, int a3, __int16 a4)//20db3
 analyze:
 void sub_87610()//268610
 
-fix Bit8u unk_E3522ar[0x7c]; // weak//array_E2A74[0xaae]
+fix uint8_t unk_E3522ar[0x7c]; // weak//array_E2A74[0xaae]
 
-(Bit8u*)&D41A0_BYTESTR_0+0x36dec 0x28
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x36dec 0x2a
+(uint8_t*)&D41A0_BYTESTR_0+0x36dec 0x28
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x36dec 0x2a
 0x356038+0x36dec
 
 D41A0_BYTESTR_0.word_0x36DEC_mousex
@@ -8598,19 +8598,19 @@ debugcounter_47560 == 5
 
 add adress 208950
 
-(Bit8u*)&D41A0_BYTESTR_0+0xc2df 0xaf
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xc2df 0x00
+(uint8_t*)&D41A0_BYTESTR_0+0xc2df 0xaf
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xc2df 0x00
 0x356038+0xc2df
 
 void sub_652C0(type_str_0x6E8E* a1x)//2462c0
 
 &D41A0_BYTESTR_0.str_2FECE.array_0x30311[1].str_0x30311_subtype
 
-(Bit8u*)&D41A0_BYTESTR_0+0x23a 0x00
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x23a 0x01
+(uint8_t*)&D41A0_BYTESTR_0+0x23a 0x00
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x23a 0x01
 0x356038+0x23a
 
-(Bit8u*)&x_BYTE_11B4E0_height+0xf8 - 0x95
+(uint8_t*)&x_BYTE_11B4E0_height+0xf8 - 0x95
 versus
 002ec4e0 +  0xf8 - 0x94
 
@@ -8619,18 +8619,18 @@ v41x.word = v37x.word;//adress 218389
 
 void sub_48B90(int a1)//229b90
 
-(Bit8u*)&x_BYTE_11B4E0_height+0xebe7 - 0x77
+(uint8_t*)&x_BYTE_11B4E0_height+0xebe7 - 0x77
 versus
 002ec4e0 +  0xebe7 - 0x7c
 
-(Bit8u*)&x_BYTE_11B4E0_height+0xf2f0 - 0x86
+(uint8_t*)&x_BYTE_11B4E0_height+0xf2f0 - 0x86
 versus
 002ec4e0 +  0xf2f0 - 0x85
 
 v41x.word = v37x.word;//adress 218389
 
 step 0xb9
-(Bit8u*)&x_BYTE_13B4E0_angle+0xf36e(0xe1)
+(uint8_t*)&x_BYTE_13B4E0_angle+0xf36e(0xe1)
 versus
 0x30c4e0+0xf36e(0xb1)
 
@@ -8650,14 +8650,14 @@ add_compare(0x226dc4, debugafterload, 0x71e);
 71b
 71e - zde je mozna chyba
 
-(Bit8u*)&D41A0_BYTESTR_0+0x6f3e 0x14
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x6f3e 0x19
+(uint8_t*)&D41A0_BYTESTR_0+0x6f3e 0x14
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x6f3e 0x19
 0x356038+0x6f3e
 
 226dc4
 
-(Bit8u*)&D41A0_BYTESTR_0+0x3227 0xe0
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x3227 0x00
+(uint8_t*)&D41A0_BYTESTR_0+0x3227 0xe0
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x3227 0x00
 0x356038+0x3227
 
 add_compare(0x22A977, debugafterload,0xb8);
@@ -8666,27 +8666,27 @@ x_BYTE_10B4E0_terraintype+0xb04a 0x05
 versus
 0x2dc4e0+0xb04a 0x37
 
-(Bit8u*)&x_BYTE_13B4E0_angle+0x2d2e(0x58)
+(uint8_t*)&x_BYTE_13B4E0_angle+0x2d2e(0x58)
 versus
 0x30c4e0+0x2d2e(0x50)
 
-void sub_45DC0(Bit8u a1, Bit8u a2, uaxis_2d a3x, unsigned __int8 a4)//226dc0
+void sub_45DC0(uint8_t a1, uint8_t a2, uaxis_2d a3x, unsigned __int8 a4)//226dc0
 
-(Bit8u*)&D41A0_BYTESTR_0+0x6fe6 0x5
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x6fe6 0x19
+(uint8_t*)&D41A0_BYTESTR_0+0x6fe6 0x5
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x6fe6 0x19
 0x356038 +0x6fe6
 
 pre_sub_4A190_0x6E8E counter
 
-(Bit8u*)&x_BYTE_13B4E0_angle+0xa9aa(0x40)
+(uint8_t*)&x_BYTE_13B4E0_angle+0xa9aa(0x40)
 versus
 0x30c4e0+0xa9aa(0x48)
 
-(Bit8u*)&D41A0_BYTESTR_0+0x6f3e 0x05
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x6f3e 0x14
+(uint8_t*)&D41A0_BYTESTR_0+0x6f3e 0x05
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x6f3e 0x14
 0x356038 +0x6f3e
 
-(Bit8u*)&x_BYTE_11B4E0_height+0xf8 - 0x95
+(uint8_t*)&x_BYTE_11B4E0_height+0xf8 - 0x95
 versus
 002ec4e0 +  0xf8 - 0x94
 
@@ -8699,7 +8699,7 @@ void sub_48B90(uaxis_2d a1x)//229b90
 
 229c84
 
-(Bit8u*)&x_BYTE_11B4E0_height+0x0 - 0x64
+(uint8_t*)&x_BYTE_11B4E0_height+0x0 - 0x64
 versus
 002ec4e0 +  0x0 - 0xad
 
@@ -8712,7 +8712,7 @@ versus
 2dc4e0+0xa 0x32
 
 
-(Bit8u*)&x_BYTE_12B4E0_shading+0x9f90 0x24
+(uint8_t*)&x_BYTE_12B4E0_shading+0x9f90 0x24
 0x2fc4e0+0x9f90 0x20
 
 23b194
@@ -8746,7 +8746,7 @@ sub_1A970_change_game_settings(16, 0, 0);
 x_DWORD_18062C_resolution_x
 x_DWORD_180624_resolution_y
 
-(Bit8u*)&x_BYTE_12B4E0_shading+0x9f90 0x24
+(uint8_t*)&x_BYTE_12B4E0_shading+0x9f90 0x24
 0x2fc4e0+0x9f90 0x20
 
 23b194
@@ -8756,15 +8756,15 @@ versus
 2dc4e0+0xa0bb 0x33
 
 step 9
-(Bit8u*)&D41A0_BYTESTR_0+0xc2de 0xf2
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xc2de 0xa2
+(uint8_t*)&D41A0_BYTESTR_0+0xc2de 0xf2
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xc2de 0xa2
 0x356038+0xc2de
 
 void sub_652C0(type_str_0x6E8E* a1x)//2462c0
 sub_652C0(a1x);
 
-(Bit8u*)&D41A0_BYTESTR_0+0x982b 0x6d
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x982b 0x6c
+(uint8_t*)&D41A0_BYTESTR_0+0x982b 0x6d
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x982b 0x6c
 0x356038 +0x982b
 
 0x238A8A -small array
@@ -8785,7 +8785,7 @@ void sub_59F60(type_str_0x6E8E* a1x)//23af60
 
 x_WORD_180660_VGA_type_resolution
 
- (Bit8u*)&x_WORD_15B4E0_source+0x2c0 0x00
+ (uint8_t*)&x_WORD_15B4E0_source+0x2c0 0x00
  x_WORD_15B4E0+0x2c0 0x2c
  32c4e0+0x2c0 0x2c
 
@@ -8816,7 +8816,7 @@ x_D41A0_BYTEARRAY_4_struct.setting_byte3_24
 
 #define FIX_FLYASISTANT
 
-(Bit8u*)&x_WORD_15B4E0_source+0x3f12 0x00
+(uint8_t*)&x_WORD_15B4E0_source+0x3f12 0x00
 x_WORD_15B4E0+0x3f12 0x34
  32c4e0+0x3f12 0x34
  238e3c
@@ -8853,8 +8853,8 @@ x_DWORD_EA3E4[0x101]->word_0x2E_46
 &v4x->array_0x4C_76
 35f132
 
-(Bit8u*)&D41A0_BYTESTR_0+0x9130 0x81
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x9130 0x80
+(uint8_t*)&D41A0_BYTESTR_0+0x9130 0x81
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x9130 0x80
 0x356038 +0x80
 
 x_BYTE_10B4E0_terraintype+0x1c 0x4c
@@ -8865,32 +8865,32 @@ x_BYTE_10B4E0_terraintype+0x6822 0x4f
 versus
 2dc4e0+0x6822 0x4d
 
-(Bit8u*)&x_BYTE_13B4E0_angle+0x23(0x19)
+(uint8_t*)&x_BYTE_13B4E0_angle+0x23(0x19)
 versus
 0x30c4e0+0x23(0xe)
 
-(Bit8u*)&D41A0_BYTESTR_0+0x35 0xa5
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x35 0xa6
+(uint8_t*)&D41A0_BYTESTR_0+0x35 0xa5
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x35 0xa6
 0x356038 +0x35
 
-(Bit8u*)&D41A0_BYTESTR_0+0x36620 66
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x36620 ae
+(uint8_t*)&D41A0_BYTESTR_0+0x36620 66
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x36620 ae
 0x356038+0x36620
 
 x_BYTE_10B4E0_terraintype+0x1c 0x4d
 versus
 2dc4e0+0x1c 0x6
 
-(Bit8u*)&D41A0_BYTESTR_0+0xa198 18
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xa198 30
+(uint8_t*)&D41A0_BYTESTR_0+0xa198 18
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xa198 30
 0x356038+0xa198
 
 2097ff
 void sub_287B0(type_str_0x6E8E* a1x)//2097b0
 238a8b
 
-(Bit8u*)&D41A0_BYTESTR_0+0xdfa7 0xc
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xdfa7 0xd
+(uint8_t*)&D41A0_BYTESTR_0+0xdfa7 0xc
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xdfa7 0xd
 0x356038+0xdfa7
 
 363efe+8
@@ -8899,8 +8899,8 @@ void sub_287B0(type_str_0x6E8E* a1x)//2097b0
 x_D41A0_BYTEARRAY_4_struct.bytearray_38403x[0x16]->next_0
 &x_D41A0_BYTEARRAY_4_struct.bytearray_38403x[0x16]->next_0
 
-(Bit8u*)&D41A0_BYTESTR_0+0x9 0xc8
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x9 0xab
+(uint8_t*)&D41A0_BYTESTR_0+0x9 0xc8
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x9 0xab
 0x356038+0x9
 
 23ec2f
@@ -8909,26 +8909,26 @@ void sub_5E010(type_str_0x6E8E* a1x)//23f010
 0x238A8A
 
 
-(Bit8u*)&D41A0_BYTESTR_0+0x8878 4b
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x8878 c8
+(uint8_t*)&D41A0_BYTESTR_0+0x8878 4b
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x8878 c8
 0x356038+0x8878
 
 x_DWORD_DE55C_ActTexture = (int)x_DWORD_DDF50_texture_adresses[str_E9C38_smalltit[v80x].byte41];
 
-(Bit8u*)&D41A0_BYTESTR_0+0x76c8 0x4f
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x76c8 0x50
+(uint8_t*)&D41A0_BYTESTR_0+0x76c8 0x4f
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x76c8 0x50
 0x356038 +0x76c8
 
-(Bit8u*)&D41A0_BYTESTR_0+0x3213 0x00
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x3213 0x01
+(uint8_t*)&D41A0_BYTESTR_0+0x3213 0x00
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x3213 0x01
 0x356038 +0x3213
 
-(Bit8u*)&D41A0_BYTESTR_0+0x9 0xa9
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x9 0xaa
+(uint8_t*)&D41A0_BYTESTR_0+0x9 0xa9
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x9 0xaa
 0x356038 +0x9
 
-(Bit8u*)&D41A0_BYTESTR_0+0x33fd 0x00
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x33fd 0x02
+(uint8_t*)&D41A0_BYTESTR_0+0x33fd 0x00
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x33fd 0x02
 0x356038 +0x33fd
 
 test bytearray_38403x
@@ -8938,7 +8938,7 @@ versus
 2dc4e0+0x3608 1b
 
 227023
-void sub_45DC0(Bit8u a1, Bit8u a2, uaxis_2d a3x, unsigned __int8 a4)//226dc0
+void sub_45DC0(uint8_t a1, uint8_t a2, uaxis_2d a3x, unsigned __int8 a4)//226dc0
 
 char sub_36FC0(type_str_0x6E8E* a1x)//217fc0
 
@@ -8954,15 +8954,15 @@ versus
 2dc4e0+0x3608 1b
 
 227023
-void sub_45DC0(Bit8u a1, Bit8u a2, uaxis_2d a3x, unsigned __int8 a4)//226dc0
+void sub_45DC0(uint8_t a1, uint8_t a2, uaxis_2d a3x, unsigned __int8 a4)//226dc0
 void sub_36FC0(type_str_0x6E8E* a1x)//217fc0
 
-(Bit8u*)&D41A0_BYTESTR_0+0x527d 0xc8
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x527d 0xaf
+(uint8_t*)&D41A0_BYTESTR_0+0x527d 0xc8
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x527d 0xaf
 0x356038 +0x527d
 
-(Bit8u*)&D41A0_BYTESTR_0+0x5ac9 0x05
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x5ac9 0x20
+(uint8_t*)&D41A0_BYTESTR_0+0x5ac9 0x05
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x5ac9 0x20
 0x356038 +0x5ac9
 
 x_BYTE_10B4E0_terraintype+0x4b1d 0x06
@@ -8976,20 +8976,20 @@ versus
 3608
 
 
-(Bit8u*)&D41A0_BYTESTR_0+0x5d9f 0x04
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x5d9f 0x0c
+(uint8_t*)&D41A0_BYTESTR_0+0x5d9f 0x04
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x5d9f 0x0c
 0x356038 +0x5d9f
 
 signed int sub_16580(type_str_0x6E8E* a1x)//1f7580
 
 signed int sub_16580(type_str_0x6E8E* a1x)//1f7580
 
-(Bit8u*)&D41A0_BYTESTR_0+0x594c 0x50
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x594c 0xf0
+(uint8_t*)&D41A0_BYTESTR_0+0x594c 0x50
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x594c 0xf0
 0x356038 +0x594c
 
 
-(Bit8u*)&x_WORD_15B4E0_source+0xcffe 0x00
+(uint8_t*)&x_WORD_15B4E0_source+0xcffe 0x00
 x_WORD_15B4E0+0xcffe 0x2f
  32c4e0+0xcffe 0x2f
 
@@ -8999,24 +8999,24 @@ void sub_57CF0(type_str_0x6E8E* a1x, axis_3d* a2x)//238cf0
 0x238cf3
 0x238a8a
 
-(Bit8u*)&D41A0_BYTESTR_0+0x7ca2 0x9b
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x7ca2 0x83
+(uint8_t*)&D41A0_BYTESTR_0+0x7ca2 0x9b
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x7ca2 0x83
 0x356038 +0x7ca2
 
-(Bit8u*)&D41A0_BYTESTR_0+0x936a 0xfd
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x936a 0x76
+(uint8_t*)&D41A0_BYTESTR_0+0x936a 0xfd
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x936a 0x76
 0x356038 +0x936a
 
-(Bit8u*)&x_WORD_15B4E0_source+0x1c880 0x38
+(uint8_t*)&x_WORD_15B4E0_source+0x1c880 0x38
 x_WORD_15B4E0+0x1c880 0x3a
  32c4e0+0x1c880 0x3a
 
 
-(Bit8u*)&D41A0_BYTESTR_0+0x94e4 0x02
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x94e4 0x01
+(uint8_t*)&D41A0_BYTESTR_0+0x94e4 0x02
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x94e4 0x01
 0x356038 +0x94e4
 
-(Bit8u*)&x_WORD_15B4E0_source+0x1c2a 0xfd
+(uint8_t*)&x_WORD_15B4E0_source+0x1c2a 0xfd
 x_WORD_15B4E0+0x1c2a 0x00
  32c4e0+0x1c2a 0x00
 
@@ -9025,25 +9025,25 @@ x_WORD_15B4E0+0x1c2a 0x00
  void sub_57CF0(type_str_0x6E8E* a1x, axis_3d* a2x)//238cf0
  a8a
 
- (Bit8u*)&D41A0_BYTESTR_0+0x118dd 0x09
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x118dd 0x04
+ (uint8_t*)&D41A0_BYTESTR_0+0x118dd 0x09
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x118dd 0x04
 0x356038 +0x118dd
 
 void sub_32530(type_str_0x6E8E* a1x)//213530
 
- (Bit8u*)&D41A0_BYTESTR_0+0x44ba 0x02
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x44ba 0x01
+ (uint8_t*)&D41A0_BYTESTR_0+0x44ba 0x02
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x44ba 0x01
 0x356038 +0x44ba
 
 int x_DWORD_D40BC[] = { 0 }; // weak
 int x_DWORD_D40C0[] = { 0 }; // weak
 
- (Bit8u*)&D41A0_BYTESTR_0+0x1169e 0x00
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x1169e 0x09
+ (uint8_t*)&D41A0_BYTESTR_0+0x1169e 0x00
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x1169e 0x09
 0x356038 +0x1169e
 
- (Bit8u*)&D41A0_BYTESTR_0+0x35 0x2d
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x35 0x2c
+ (uint8_t*)&D41A0_BYTESTR_0+0x35 0x2d
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x35 0x2c
 0x356038 +0x35
 
 22b100
@@ -9052,32 +9052,32 @@ type_str_0x6E8E* sub_4A050_new_event()//22b050
 22b190
 238a8a
 
- (Bit8u*)&D41A0_BYTESTR_0+0x8 0x9a
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x8 0x14
+ (uint8_t*)&D41A0_BYTESTR_0+0x8 0x9a
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x8 0x14
 0x356038 +0x8
 
 0x2a26
 0x2a6c
 D41A0_BYTESTR_0.array_0x6E3E[0].str_0x6E3E_byte0==0x2a
 
- (Bit8u*)&D41A0_BYTESTR_0+0x18568 0xfd
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x18568 0x65
+ (uint8_t*)&D41A0_BYTESTR_0+0x18568 0xfd
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x18568 0x65
 0x356038 +0x18568
 
 23900e
 238fa0
 axis_3d* sub_57FA0(axis_3d* a1, unsigned __int16 a2, __int16 a3, __int16 a4)//238fa0 // move player
 
-(Bit8u*)&D41A0_BYTESTR_0+0x5ae2 0xfe
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x5ae2 0xfd
+(uint8_t*)&D41A0_BYTESTR_0+0x5ae2 0xfe
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x5ae2 0xfd
 0x356038 +0x5ae2
 
-(Bit8u*)&D41A0_BYTESTR_0+0x17d84 0xd2
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x17d84 0x02
+(uint8_t*)&D41A0_BYTESTR_0+0x17d84 0xd2
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x17d84 0x02
 0x356038 +0x17d84
 
-void sub_1B280_run_intro_events(Bit8u* a1)//1fc280
-void sub_76160_play_intro(__int16 a1, __int16 a2, Bit8u* a3)//257160
+void sub_1B280_run_intro_events(uint8_t* a1)//1fc280
+void sub_76160_play_intro(__int16 a1, __int16 a2, uint8_t* a3)//257160
 void sub_82670()//263670
 
 x_BYTE_10B4E0_terraintype
@@ -9086,7 +9086,7 @@ x_BYTE_10B4E0_terraintype
 
 &D41A0_BYTESTR_0.str_0x3664C[0].dword_A
 0x38C68E
-bool sub_558E0_InGameLoad(Bit8u fileindex)//2368e0
+bool sub_558E0_InGameLoad(uint8_t fileindex)//2368e0
 
 		//fix
 		for (int iy = 0; iy < 50; iy++)
@@ -9095,10 +9095,10 @@ bool sub_558E0_InGameLoad(Bit8u fileindex)//2368e0
 		}
 		//fix
 
-(Bit8u*)&D41A0_BYTESTR_0+0x41 0x00
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x41 0x01
+(uint8_t*)&D41A0_BYTESTR_0+0x41 0x00
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x41 0x01
 0x356038+0x41
-void sub_47760(/*int a1,*/Bit32u user/* int a2, int a3*/)//228760
+void sub_47760(/*int a1,*/uint32_t user/* int a2, int a3*/)//228760
 void sub_57640()//238640
 sub_55100(1);
 int sub_71930()//252930
@@ -9107,16 +9107,16 @@ x_BYTE_10B4E0_terraintype +0x6064 (0x1)
 versus
 0x2dc4e0 +0x6064 (0x6)
 
-(Bit8u*)&D41A0_BYTESTR_0+0x36650 0x00
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x36650 0x8c
+(uint8_t*)&D41A0_BYTESTR_0+0x36650 0x00
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x36650 0x8c
 0x356038+0x36650
 
 265c02
 
 void sub_84B80()//265b80
 
-(Bit8u*)&D41A0_BYTESTR_0+0x36b36 0x00
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x36b36 0x58
+(uint8_t*)&D41A0_BYTESTR_0+0x36b36 0x00
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x36b36 0x58
 0x356038+0x36b36
 
 36b5d
@@ -9137,8 +9137,8 @@ if ((adress >= 0x36b36) && (adress < 0x36b37))return 1;
 	D41A0_BYTESTR_0.str_0x3664C[j].dword_A lenght 39
 
 
-(Bit8u*)&D41A0_BYTESTR_0+0x36650 0x00
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x36650 0x8c
+(uint8_t*)&D41A0_BYTESTR_0+0x36650 0x00
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x36650 0x8c
 0x356038+0x36650
 
 38c688
@@ -9152,11 +9152,11 @@ versus
 
 &D41A0_BYTESTR_0.str_0x3664C[1].dword_A
 
-(Bit8u*)&x_BYTE_12B4E0_shading+0xff 0x3f
+(uint8_t*)&x_BYTE_12B4E0_shading+0xff 0x3f
 0x2fc4e0+0xff 0x27
 
-(Bit8u*)&D41A0_BYTESTR_0+0x3667d 0x00
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x3667d 0x58
+(uint8_t*)&D41A0_BYTESTR_0+0x3667d 0x00
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x3667d 0x58
 0x356038+0x36650
 
 #define DETECT_DWORD_A
@@ -9168,7 +9168,7 @@ versus
 		if (D41A0_BYTESTR_0.str_0x3664C[j].byte_0)
 			D41A0_BYTESTR_0.str_0x3664C[j].dword_A = (type_str_0x6E8E*)((int)D41A0_BYTESTR_0.str_0x3664C[j].dword_A+ (int)v3);//0x36656
 		//fix
-		/*if (((int)v2 == 1) && (((Bit32u)D41A0_BYTESTR_0.str_0x3664C[j].dword_A < (Bit32u)D41A0_BYTESTR_0.struct_0x6E8E) || ((Bit32u)D41A0_BYTESTR_0.str_0x3664C[j].dword_A >= (Bit32u)& D41A0_BYTESTR_0.struct_0x6E8E[0x3e8])))
+		/*if (((int)v2 == 1) && (((uint32_t)D41A0_BYTESTR_0.str_0x3664C[j].dword_A < (uint32_t)D41A0_BYTESTR_0.struct_0x6E8E) || ((uint32_t)D41A0_BYTESTR_0.str_0x3664C[j].dword_A >= (uint32_t)& D41A0_BYTESTR_0.struct_0x6E8E[0x3e8])))
 			D41A0_BYTESTR_0.str_0x3664C[j].dword_A = NULL;*/
 		//fix
 	}
@@ -9179,19 +9179,19 @@ versus
 2dc4e0+0x0 0x1b
 
 227023
-void sub_45DC0(Bit8u a1, Bit8u a2, uaxis_2d a3x, unsigned __int8 a4)//226dc0
+void sub_45DC0(uint8_t a1, uint8_t a2, uaxis_2d a3x, unsigned __int8 a4)//226dc0
 void sub_36FC0(type_str_0x6E8E* a1x)//217fc0
 
 add_compare(0x23d954, debugafterload,5); ?
 
-sub_51BB0_game_events(/*(Bit8u*)a4*/);//nothing draw
+sub_51BB0_game_events(/*(uint8_t*)a4*/);//nothing draw
 
 add_compare(0x23d954, debugafterload);
 add_compare(0x233d56, debugafterload);
 0x233d56
 
-(Bit8u*)&D41A0_BYTESTR_0+0x31d0 0x00
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x31d0 0xdf
+(uint8_t*)&D41A0_BYTESTR_0+0x31d0 0x00
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x31d0 0xdf
 0x356038 +0x31d0
 
 23de52
@@ -9225,9 +9225,9 @@ versus
 2dc4e0+0 0x1b
 227023
 
-void sub_45DC0(Bit8u a1, Bit8u a2, uaxis_2d a3x, unsigned __int8 a4)//226dc0
+void sub_45DC0(uint8_t a1, uint8_t a2, uaxis_2d a3x, unsigned __int8 a4)//226dc0
 
-(Bit8u*)&x_BYTE_11B4E0_height+0x0 - 0x8d
+(uint8_t*)&x_BYTE_11B4E0_height+0x0 - 0x8d
 versus
 002ec4e0 +  0x0 - 0x5b
 
@@ -9236,13 +9236,13 @@ add_compare(0x217fc4, debugafterload);
 add_compare(0x23d954, debugafterload,6);-ok
 sub_36FC0(v20x);-problem
 
-(Bit8u*)&D41A0_BYTESTR_0+0x6315 0x99
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x6315 0x27
+(uint8_t*)&D41A0_BYTESTR_0+0x6315 0x99
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x6315 0x27
 0x356038 +0x6315
 
 sub_616D0(v2x->dword_0xA4_164x->word_0x38_56)-problem zde
 
-(Bit8u*)&x_BYTE_11B4E0_height+0x0 - 0x8d
+(uint8_t*)&x_BYTE_11B4E0_height+0x0 - 0x8d
 versus
 002ec4e0 +  0x0 - 0x5b
 
@@ -9267,7 +9267,7 @@ versus
 
 70
 
-(Bit8u*)&x_BYTE_12B4E0_shading+0xf413 0x20
+(uint8_t*)&x_BYTE_12B4E0_shading+0xf413 0x20
 0x2fc4e0+0xf413 0x22
 
 void sub_84EA0(uaxis_2d a1x, type_str_0x3664C* a2x, char a3, __int16 a4)//265ea0
@@ -9277,13 +9277,13 @@ FIXx.dword_0x8 = -1;
 
 	//fix
 	if (D41A0_BYTESTR_0.str_0x3664C[0].byte_0)
-		D41A0_BYTESTR_0.str_0x3664C[0].dword_A = (type_str_0x6E8E*)((Bit32u)D41A0_BYTESTR_0.str_0x3664C[0].dword_A + (Bit32u)v3);//0x36656
+		D41A0_BYTESTR_0.str_0x3664C[0].dword_A = (type_str_0x6E8E*)((uint32_t)D41A0_BYTESTR_0.str_0x3664C[0].dword_A + (uint32_t)v3);//0x36656
 	//fix
 	if(adress=0x23620A)
 	if(read(0x356038+3664c))
 	write(0x356038+0x3664c+0xa,read(0x356038+0x3664c+0xa)+v3);
 
-(Bit8u*)&x_BYTE_12B4E0_shading+0xef16 0x1c
+(uint8_t*)&x_BYTE_12B4E0_shading+0xef16 0x1c
 0x2fc4e0+0xef16 0x22
 
 265f98
@@ -9291,19 +9291,19 @@ void sub_84EA0(uaxis_2d a1x, type_str_0x3664C* a2x, char a3, __int16 a4)//265ea0
 void sub_84B80()//265b80
 
 
-(Bit8u*)&D41A0_BYTESTR_0+0x52b5 0x0d
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x52b5 0x03
+(uint8_t*)&D41A0_BYTESTR_0+0x52b5 0x0d
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x52b5 0x03
 0x356038+0x52b5
 
-(Bit8u*)&D41A0_BYTESTR_0+0x6ea8 0xa3
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x6ea8 0x82
+(uint8_t*)&D41A0_BYTESTR_0+0x6ea8 0xa3
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x6ea8 0x82
 0x356038+0x6ea8
 
-(Bit8u*)&x_BYTE_12B4E0_shading+0xe91b 0x2c
+(uint8_t*)&x_BYTE_12B4E0_shading+0xe91b 0x2c
 0x2fc4e0+0xe91b 0x2d
 
-(Bit8u*)&D41A0_BYTESTR_0+0x3664c 0x01
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x3664c 0x00
+(uint8_t*)&D41A0_BYTESTR_0+0x3664c 0x01
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x3664c 0x00
 0x356038+0x3664c
 
 265889
@@ -9317,11 +9317,11 @@ D41A0_BYTESTR_0.str_0x3664C[0].dword_A
 versus
 0x38c684+0xa .. 0x1409a04
 
-(Bit8u*)&D41A0_BYTESTR_0+0xe818 0x22
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xe818 0x24
+(uint8_t*)&D41A0_BYTESTR_0+0xe818 0x22
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xe818 0x24
 0x356038+0xe818
 
-(Bit8u*)&x_BYTE_12B4E0_shading+0xe818 0x22
+(uint8_t*)&x_BYTE_12B4E0_shading+0xe818 0x22
 0x2fc4e0+0xe818 0x24
 
 250d3f
@@ -9332,15 +9332,15 @@ void sub_6FD30() {}//00250d30
 void sub_84EA0(uaxis_2d a1x, type_str_0x3664C* a2x, char a3, __int16 a4)//265ea0
 void sub_84B80()//265b80
 
-(Bit8u*)&D41A0_BYTESTR_0+0x3664c 0x01
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x3664c 0x00
+(uint8_t*)&D41A0_BYTESTR_0+0x3664c 0x01
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x3664c 0x00
 0x356038+0x3664c
 
 265889
 void sub_84880(type_str_0x3664C* a1x)//265880
 265e6a
 
-(Bit8u*)&x_BYTE_12B4E0_shading+0xfe0e 0x29
+(uint8_t*)&x_BYTE_12B4E0_shading+0xfe0e 0x29
 0x2fc4e0+0xfe0e 0x21
 
 last step 170
@@ -9355,19 +9355,19 @@ unk_E17CC_str_0x194[0x12].byte_18_act==2
 
 2b2ae8
 
-(Bit8u*)&D41A0_BYTESTR_0+0x18e1e 0xc5
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x18e1e 0x2d
+(uint8_t*)&D41A0_BYTESTR_0+0x18e1e 0xc5
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x18e1e 0x2d
 0x356038+0x18e1e
 
-(Bit8u*)&D41A0_BYTESTR_0+0x3139 0x7b
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x3139 0x7c
+(uint8_t*)&D41A0_BYTESTR_0+0x3139 0x7b
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x3139 0x7c
 0x356038+0x3139
 
- (Bit8u*)&x_WORD_15B4E0_source+0x46bc 0x5b
+ (uint8_t*)&x_WORD_15B4E0_source+0x46bc 0x5b
  x_WORD_15B4E0+0x46bc 0x5d
  32c4e0+0x46bc 0x5d
 
-  (Bit8u*)&x_WORD_15B4E0_source+0x18fea 0x5e
+  (uint8_t*)&x_WORD_15B4E0_source+0x18fea 0x5e
  x_WORD_15B4E0+0x18fea 0x5b
  32c4e0+0x18fea 0x5b
 
@@ -9375,23 +9375,23 @@ unk_E17CC_str_0x194[0x12].byte_18_act==2
 
  238d70
  void sub_57D70_actualize_event(type_str_0x6E8E* a1x, axis_3d* a2x)//238d70 // register object on axis
- type_str_0x6E8E* pre_sub_4A190_axis_3d(Bit32u adress, axis_3d* a1_axis3d, int type)//pre 22b190
+ type_str_0x6E8E* pre_sub_4A190_axis_3d(uint32_t adress, axis_3d* a1_axis3d, int type)//pre 22b190
  void sub_35FB0(type_str_0x6E8E* a1x)//216FB0
 
-(Bit8u*)&D41A0_BYTESTR_0+0xadba 0x00
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xadba 0x20
+(uint8_t*)&D41A0_BYTESTR_0+0xadba 0x00
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xadba 0x20
 0x356038+0xadba
 
 first problem
 v25 = -((signed int)(a1x->word_0x2A_44
 217541
 
-(Bit8u*)&D41A0_BYTESTR_0+0xae28 0xa5
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xae28 0xa6
+(uint8_t*)&D41A0_BYTESTR_0+0xae28 0xa5
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xae28 0xa6
 0x356038+0xae28
 
-(Bit8u*)&D41A0_BYTESTR_0+0xac6a 0xe0
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xac6a 0x00
+(uint8_t*)&D41A0_BYTESTR_0+0xac6a 0xe0
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xac6a 0x00
 0x356038+0xac6a
 
 217560
@@ -9409,8 +9409,8 @@ ix->word_0x16_22 ==0
 x_WORD_15B4E0_source[0xf552] nesmi byt 0
 110
 
-(Bit8u*)&D41A0_BYTESTR_0+0x8 0x3e
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x8 0x97
+(uint8_t*)&D41A0_BYTESTR_0+0x8 0x3e
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x8 0x97
 0x356038+0x8
 
 x_BYTE_10B4E0_terraintype+0x66 0x06
@@ -9419,8 +9419,8 @@ versus
 
 150
 
-(Bit8u*)&D41A0_BYTESTR_0+0xac6a 0xd0
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xac6a 0x00
+(uint8_t*)&D41A0_BYTESTR_0+0xac6a 0xd0
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xac6a 0x00
 0x356038+0xac6a
 
 217554
@@ -9430,55 +9430,55 @@ void sub_35FB0(type_str_0x6E8E* a1x)//216FB0
 0x216FB4
 238A8A
 
-(Bit8u*)&D41A0_BYTESTR_0+0x2715e 0x9c
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x2715e 0x5c
+(uint8_t*)&D41A0_BYTESTR_0+0x2715e 0x9c
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x2715e 0x5c
 0x356038+0x2715e
 
-(Bit8u*)&D41A0_BYTESTR_0+0x1b9fe 0x99
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x1b9fe 0x37
+(uint8_t*)&D41A0_BYTESTR_0+0x1b9fe 0x99
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x1b9fe 0x37
 0x356038+0x1b9fe
 
 260
 
-(Bit8u*)&D41A0_BYTESTR_0+0x2fbd 0x00
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x2fbd 0x05
+(uint8_t*)&D41A0_BYTESTR_0+0x2fbd 0x00
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x2fbd 0x05
 0x356038+0x2fbd
 
-(Bit8u*)&D41A0_BYTESTR_0+0x10bfc 0x00
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x10bfc 0x2b
+(uint8_t*)&D41A0_BYTESTR_0+0x10bfc 0x00
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x10bfc 0x2b
 0x356038+0x10bfc
 
 1fd660
 void sub_1C560(type_str_0x6E8E* a1x, unsigned __int16 a2)//1fd560
 
-(Bit8u*)&D41A0_BYTESTR_0+0x2fbd 0x05
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x2fbd 0x00
+(uint8_t*)&D41A0_BYTESTR_0+0x2fbd 0x05
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x2fbd 0x00
 0x356038+0x2fbd
 
-(Bit8u*)&D41A0_BYTESTR_0+0x7c70 0x23
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x7c70 0x15
+(uint8_t*)&D41A0_BYTESTR_0+0x7c70 0x23
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x7c70 0x15
 0x356038 +0x7c70
 
 sub_4A1E0(a1x->word_0x1A_26, 1);
 
 
- (Bit8u*)&x_WORD_15B4E0_source+0x10a94 0x00
+ (uint8_t*)&x_WORD_15B4E0_source+0x10a94 0x00
  x_WORD_15B4E0+0x10a94 0x97
  32c4e0+0x10a94 0x97
 
- (Bit8u*)&D41A0_BYTESTR_0+0x7c70 0x23
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x7c70 0x15
+ (uint8_t*)&D41A0_BYTESTR_0+0x7c70 0x23
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x7c70 0x15
 0x356038 +0x7c70
 
- (Bit8u*)&x_WORD_15B4E0_source+0x10a94 0x00
+ (uint8_t*)&x_WORD_15B4E0_source+0x10a94 0x00
  x_WORD_15B4E0+0x10a94 0x97
  32c4e0+0x10a94 0x97
 
-  (Bit8u*)&x_WORD_15B4E0_source+0x10290 0x00
+  (uint8_t*)&x_WORD_15B4E0_source+0x10290 0x00
  x_WORD_15B4E0+0x10290 0x8c
  32c4e0+0x10290 0x8c
 
-   (Bit8u*)&x_WORD_15B4E0_source+0x10294 0x23
+   (uint8_t*)&x_WORD_15B4E0_source+0x10294 0x23
  x_WORD_15B4E0+0x10294 0x68
  32c4e0+0x10294 0x68
 
@@ -9495,15 +9495,15 @@ sub_4A1E0(a1x->word_0x1A_26, 1);
  a1x->word_0x1C_28 !=0x6d1
 
 
-(Bit8u*)&D41A0_BYTESTR_0+0x7cb8 0x00	
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x7cb8 0x3e
+(uint8_t*)&D41A0_BYTESTR_0+0x7cb8 0x00	
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x7cb8 0x3e
 0x356038 +0x7cb8
 
 20b660
 void sub_2A660(type_str_0x6E8E* a1x, type_str_0x6E8E* a2x)//20b660
 
-(Bit8u*)&D41A0_BYTESTR_0+0xca82 0x65
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xca82 0xb1
+(uint8_t*)&D41A0_BYTESTR_0+0xca82 0x65
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xca82 0xb1
 0x356038 +0xca82
 
 fcf9
@@ -9514,12 +9514,12 @@ type_str_0x6E8E* sub_4A050_new_event()//22b050
 4d2e0()
 650477
 
-(Bit8u*)&D41A0_BYTESTR_0+0xf1ea 0x59
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xf1ea 0xd6
+(uint8_t*)&D41A0_BYTESTR_0+0xf1ea 0x59
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xf1ea 0xd6
 0x356038 +0xf1ea
 
-(Bit8u*)&D41A0_BYTESTR_0+0xc4cc 0x01
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xc4cc 0x04
+(uint8_t*)&D41A0_BYTESTR_0+0xc4cc 0x01
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xc4cc 0x04
 0x356038 +0xc4cc
 
 v34x
@@ -9529,24 +9529,24 @@ ebp-10
 
 0x355170
 
-(Bit8u*)&D41A0_BYTESTR_0+0xab0e 0x14
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xab0e 0xd9
+(uint8_t*)&D41A0_BYTESTR_0+0xab0e 0x14
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xab0e 0xd9
 0x356038 +0xab0e
 
-(Bit8u*)&x_WORD_15B4E0_source+0x1c6a0 0x38
+(uint8_t*)&x_WORD_15B4E0_source+0x1c6a0 0x38
 x_WORD_15B4E0+0x1c6a0 0x2f
 32c4e0+0x1c6a0 0xa5
 
-(Bit8u*)&D41A0_BYTESTR_0+0x7f0e 0x2f
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x7f0e 0x00
+(uint8_t*)&D41A0_BYTESTR_0+0x7f0e 0x2f
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x7f0e 0x00
 0x356038 +0x7f0e
 
-(Bit8u*)&D41A0_BYTESTR_0+0x13f4b 0x01
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x13f4b 0x11
+(uint8_t*)&D41A0_BYTESTR_0+0x13f4b 0x01
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x13f4b 0x11
 0x356038 +0x13f4b
 
-(Bit8u*)&D41A0_BYTESTR_0+0x13f4a 0x1d
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x13f4a 0x0d
+(uint8_t*)&D41A0_BYTESTR_0+0x13f4a 0x1d
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x13f4a 0x0d
 0x356038 +0x13f4a
 
 x_BYTE_10B4E0_terraintype+0x9748 47
@@ -9555,12 +9555,12 @@ versus
 
 sub_572C0(a1x, 0, 0, 0 - (a1x->word_0x14_20 % 7u), 1);
 
-(Bit8u*)&x_WORD_15B4E0_source+0x2aa 0x19
+(uint8_t*)&x_WORD_15B4E0_source+0x2aa 0x19
 x_WORD_15B4E0+0x2aa 0x00
 32c4e0+0x2aa 0x00
 
-(Bit8u*)&D41A0_BYTESTR_0+0x2fbd 0x00
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x2fbd 0x05
+(uint8_t*)&D41A0_BYTESTR_0+0x2fbd 0x00
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x2fbd 0x05
 0x356038 +0x2fbd
 
 0x20a8b0 x
@@ -9582,34 +9582,34 @@ x_BYTE_10B4E0_terraintype+0x2979 0x01
 versus
 2dc4e0+0x2979 0x27
 
-(Bit8u*)&D41A0_BYTESTR_0+0x35 0xb5
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x35 0x9d
+(uint8_t*)&D41A0_BYTESTR_0+0x35 0xb5
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x35 0x9d
 0x356038+0x35
 
-(Bit8u*)&x_BYTE_12B4E0_shading+0x7a7b 0x3f
+(uint8_t*)&x_BYTE_12B4E0_shading+0x7a7b 0x3f
 0x2fc4e0+0x7a7b 0x01
 
 x_BYTE_10B4E0_terraintype+0x2979 0x01
 versus
 2dc4e0+0x2979 0x27
 
-(Bit8u*)&D41A0_BYTESTR_0+0x35 0xd5
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x35 0xd3
+(uint8_t*)&D41A0_BYTESTR_0+0x35 0xd5
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x35 0xd3
 0x356038 +0x35
 
-(Bit8u*)&D41A0_BYTESTR_0+0x36628 0xd5
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x36628 0xd3
+(uint8_t*)&D41A0_BYTESTR_0+0x36628 0xd5
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x36628 0xd3
 0x356038 +0x36628
 
-(Bit8u*)&D41A0_BYTESTR_0+0x7dba 0x35
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x7dba 0x96
+(uint8_t*)&D41A0_BYTESTR_0+0x7dba 0x35
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x7dba 0x96
 0x356038 +0x7dba
 
 ebp-10 = 0x1000002b
 0x355170
 
-(Bit8u*)&D41A0_BYTESTR_0+0x1066e 0x06
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x1066e 0x07
+(uint8_t*)&D41A0_BYTESTR_0+0x1066e 0x06
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x1066e 0x07
 0x356038 +0x1066e
 
 1f33aa
@@ -9617,30 +9617,30 @@ void sub_12330(type_str_0x6E8E* a1x, __int16 a2)//1f3330
 void sub_12410(type_str_0x6E8E* a1x, char a2)//1f3410
 void sub_12500(type_str_0x6E8E* a1x)//1f3500
 
-(Bit8u*)&D41A0_BYTESTR_0+0x36625 0x01
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x36625 0x05
+(uint8_t*)&D41A0_BYTESTR_0+0x36625 0x01
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x36625 0x05
 0x356038 +0x36625
 
-(Bit8u*)&D41A0_BYTESTR_0+0x36628 0x1e
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x36628 0x16
+(uint8_t*)&D41A0_BYTESTR_0+0x36628 0x1e
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x36628 0x16
 0x356038 +0x36628
 
 1f3826
 
-(Bit8u*)&D41A0_BYTESTR_0+0x2fbd 0x0
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x2fbd 0x05
+(uint8_t*)&D41A0_BYTESTR_0+0x2fbd 0x0
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x2fbd 0x05
 0x356038 +0x2fbd
 
-(Bit8u*)&D41A0_BYTESTR_0+0x36625 0x01
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x36625 0x05
+(uint8_t*)&D41A0_BYTESTR_0+0x36625 0x01
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x36625 0x05
 0x356038 +0x36625
 
-(Bit8u*)&D41A0_BYTESTR_0+0x6b61 0x90
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x6b61 0xb1
+(uint8_t*)&D41A0_BYTESTR_0+0x6b61 0x90
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x6b61 0xb1
 0x356038 +0x6b61
 
-(Bit8u*)&D41A0_BYTESTR_0+0x3c6e 0x02
-(Bit8u*)x_D41A0_BYTEARRAY_0+0x3c6e 0x01
+(uint8_t*)&D41A0_BYTESTR_0+0x3c6e 0x02
+(uint8_t*)x_D41A0_BYTEARRAY_0+0x3c6e 0x01
 0x356038 +0x3c6e
 
 D41A0_BYTESTR_0.array_0x6E3E[D41A0_BYTESTR_0.word_0xc].str_0x6E3E_byte0
@@ -9671,8 +9671,8 @@ v98x = x_DWORD_EA3E4[v113x->dword_0xA4_164x->word_0x3A_58];
 
 BIG_SPRITES_BUFFERx[8].actdata
 
-(Bit8u*)&D41A0_BYTESTR_0+0xb382 0xd
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xb382 0x5
+(uint8_t*)&D41A0_BYTESTR_0+0xb382 0xd
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xb382 0x5
 0x356038 +0xb382
 
 02040a
@@ -9683,24 +9683,24 @@ BIG_SPRITES_BUFFERx[8].actdata
 
 sub_4A1E0(a1x->word_0x1A_26, 1);
 
-(Bit8u*)&D41A0_BYTESTR_0+0xb3bb 0x4a
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xb3bb 0x49
+(uint8_t*)&D41A0_BYTESTR_0+0xb3bb 0x4a
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xb3bb 0x49
 0x356038 +0xb3bb
 
-(Bit8u*)&D41A0_BYTESTR_0+0xcb98 0x3f
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xcb98 0x48
+(uint8_t*)&D41A0_BYTESTR_0+0xcb98 0x3f
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xcb98 0x48
 0x356038 +0xcb98
 
-(Bit8u*)&D41A0_BYTESTR_0+0xcb64 0xd0
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xcb64 0x70
+(uint8_t*)&D41A0_BYTESTR_0+0xcb64 0xd0
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xcb64 0x70
 0x356038 +0xcb64
 
-(Bit8u*)&D41A0_BYTESTR_0+0xcbb2 0xf0
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xcbb2 0xf1
+(uint8_t*)&D41A0_BYTESTR_0+0xcbb2 0xf0
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xcbb2 0xf1
 0x356038 +0xcbb2
 
 
- (Bit8u*)&x_WORD_15B4E0_source+0x1aa50 0xbf
+ (uint8_t*)&x_WORD_15B4E0_source+0x1aa50 0xbf
  x_WORD_15B4E0+0x1aa50 0xb9
  0x32c4e0+0x1aa50 0x00
 
@@ -9714,8 +9714,8 @@ sub_4A1E0(a1x->word_0x1A_26, 1);
 
  if (!_stricmp(v11, "!"))
 
- (Bit8u*)&D41A0_BYTESTR_0+0xa4ae 0x40
-(Bit8u*)x_D41A0_BYTEARRAY_0+0xa4ae 0xa0
+ (uint8_t*)&D41A0_BYTESTR_0+0xa4ae 0x40
+(uint8_t*)x_D41A0_BYTEARRAY_0+0xa4ae 0xa0
 0x356038 +0xa4ae
 
 0000
@@ -9723,7 +9723,7 @@ sub_4A1E0(a1x->word_0x1A_26, 1);
 400a1c
 
 2179df
-Bit32u sub_49A20_remove_event(type_str_0x6E8E* a1x)//22aa20
+uint32_t sub_49A20_remove_event(type_str_0x6E8E* a1x)//22aa20
 type_str_0x6E8E* sub_500C0(axis_3d* a1x, __int16 a2)//2310c0
 type_str_0x6E8E* sub_50080(axis_3d* a1x)//231080
 22b1ca
@@ -9743,7 +9743,7 @@ versus
 4531c7 + 18a
 
 279a59
-signed int sub_5C3D0_file_decompress(Bit8u* input, Bit8u* output)//23d3d0
+signed int sub_5C3D0_file_decompress(uint8_t* input, uint8_t* output)//23d3d0
 
 
 sub_7AA70_load_and_decompres_dat_file((char*)"DATA/SCREENS/HSCREEN0.DAT", x_DWORD_17DEC0, 0x1646BA, 589);
@@ -9770,4 +9770,6 @@ x_DWORD_17DEC0, x_DWORD_17DEC4, x_DWORD_17DE54
 fix x_DWORD_17DE38
 
 fix 
-void sub_3E360_draw_particlesB(Bit8u* a1, Bit8u* a2)//21f360
+void sub_3E360_draw_particlesB(uint8_t* a1, uint8_t* a2)//21f360
+
+init xy_DWORD_17DED4_spritestr in x64 sub_76930_menus_and_intros->sub_76D10_intros

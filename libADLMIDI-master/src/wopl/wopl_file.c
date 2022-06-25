@@ -74,6 +74,15 @@ static void fromSint16BE(int16_t in, uint8_t *arr)
     arr[0] = ((uint16_t)in >> 8) & 0x00FF;
 }
 
+void strncpy_switch(char* dest, size_t destsz, const char* src, size_t count)
+{
+#if  defined(_MSC_VER)
+    return strncpy_s(dest, destsz, src, count);
+#else 
+    strncpy(dest, src, (count < destsz) ? count : destsz);
+#endif
+}
+
 
 WOPLFile *WOPL_Init(uint16_t melodic_banks, uint16_t percussive_banks)
 {
@@ -132,7 +141,7 @@ int WOPL_BanksCmp(const WOPLFile *bank1, const WOPLFile *bank2)
 static void WOPL_parseInstrument(WOPLInstrument *ins, uint8_t *cursor, uint16_t version, uint8_t has_sounding_delays)
 {
     int l;
-    strncpy_s(ins->inst_name,34, (const char*)cursor, 32);
+    strncpy_switch(ins->inst_name,34, (const char*)cursor, 32);
     ins->inst_name[32] = '\0';
     ins->note_offset1 = toSint16BE(cursor + 32);
     ins->note_offset2 = toSint16BE(cursor + 34);
@@ -161,7 +170,7 @@ static void WOPL_parseInstrument(WOPLInstrument *ins, uint8_t *cursor, uint16_t 
 static void WOPL_writeInstrument(WOPLInstrument *ins, uint8_t *cursor, uint16_t version, uint8_t has_sounding_delays)
 {
     int l;
-    strncpy_s((char*)cursor,33, ins->inst_name, 32);
+    strncpy_switch((char*)cursor,33, ins->inst_name, 32);
     fromSint16BE(ins->note_offset1, cursor + 32);
     fromSint16BE(ins->note_offset2, cursor + 34);
     cursor[36] = (uint8_t)ins->midi_velocity_offset;
@@ -284,7 +293,7 @@ WOPLFile *WOPL_LoadBankFromMem(void *mem, size_t length, int *error)
                     SET_ERROR(WOPL_ERR_UNEXPECTED_ENDING);
                     return NULL;
                 }
-                strncpy_s(bankslots[i][j].bank_name,33, (const char*)cursor, 32);
+                strncpy_switch(bankslots[i][j].bank_name,33, (const char*)cursor, 32);
                 bankslots[i][j].bank_name[32] = '\0';
                 bankslots[i][j].bank_midi_lsb = cursor[32];
                 bankslots[i][j].bank_midi_msb = cursor[33];
@@ -502,7 +511,7 @@ int WOPL_SaveBankToMem(WOPLFile *file, void *dest_mem, size_t length, uint16_t v
             {
                 if(length < 34)
                     return WOPL_ERR_UNEXPECTED_ENDING;
-                strncpy_s((char*)cursor,33, bankslots[i][j].bank_name, 32);
+                strncpy_switch((char*)cursor,33, bankslots[i][j].bank_name, 32);
                 cursor[32] = bankslots[i][j].bank_midi_lsb;
                 cursor[33] = bankslots[i][j].bank_midi_msb;
                 GO_FORWARD(34);

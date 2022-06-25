@@ -1,0 +1,58 @@
+{
+    "app-id": "net.remc2.MagicCarpet2CommunityPatch",
+    "default-branch": "stable",
+    "runtime": "org.freedesktop.Platform",
+    "runtime-version": "20.08",
+    "sdk": "org.freedesktop.Sdk",
+    "add-extensions": {
+        "org.freedesktop.Platform.Compat.i386": {
+            "directory": "lib/i386-linux-gnu",
+            "version": "20.08"
+        },
+        "org.freedesktop.Sdk.Extension.toolchain-i386": {
+            "directory": "lib/i386-linux-gnu/toolchain",
+            "version": "20.08"
+        }
+    },
+    "sdk-extensions": [
+        "org.freedesktop.Sdk.Compat.i386",
+        "org.freedesktop.Sdk.Extension.toolchain-i386"
+    ],
+    "command": "remc2",
+    "finish-args": [
+        "--share=ipc",
+        "--socket=x11",
+        "--socket=wayland",
+        "--socket=pulseaudio",
+        "--share=network",
+        "--device=all"
+    ],
+    "build-options" : {
+        "prepend-pkg-config-path": "/app/lib32/pkgconfig:/usr/lib/i386-linux-gnu/pkgconfig",
+        "ldflags": "-L/app/lib32",
+        "append-path": "/usr/lib/sdk/toolchain-i386/bin",
+        "env": {
+            "CC": "i686-unknown-linux-gnu-gcc",
+            "CXX": "i686-unknown-linux-gnu-g++"
+        },
+        "libdir": "/app/lib32"
+    },
+    "cleanup": ["/include", "/lib/pkgconfig",
+                "/share/pkgconfig", "/share/aclocal",
+                "/man", "/share/man", "/share/gtk-doc",
+                "/share/vala",
+                "*.la", "*.a"],
+    "modules": [
+        {
+            "name": "remc2",
+            "buildsystem": "cmake-ninja",
+            "config-opts": ["-DCMAKE_BUILD_TYPE=Release", "-DUSE_SANITIZERS=False", "-DUSE_CLANG_TIDY=False", "-DALL_WARNINGS=False", "-DCOMPATIBILITY_32_PATH=lib/i386-linux-gnu"],
+            "sources": [
+                {
+                    "type": "dir",
+                    "path": "."
+                }
+            ]
+        }
+    ]
+}
