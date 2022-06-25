@@ -2,12 +2,12 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>C:\prenos\remc2-dev\x64Debug\remc2_without_xcopy.exe</FullPath>
+      <FullPath>C:\prenos\remc2-bin\x64Debug\remc2_without_xcopy.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles>
     <ContentFile>
-      <FullPath>c:\prenos\remc2-dev\config.ini</FullPath>
+      <FullPath>c:\prenos\remc2-bin\config.ini</FullPath>
     </ContentFile>
   </ContentFiles>
   <SatelliteDlls />

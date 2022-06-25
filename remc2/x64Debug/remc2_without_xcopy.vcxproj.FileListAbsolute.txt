@@ -1,1 +1,2 @@
 C:\prenos\remc2-dev\remc2\x64Debug\remc2_without_xcopy.vcxproj.CopyComplete
+C:\prenos\remc2-bin\remc2\x64Debug\remc2_without_xcopy.vcxproj.CopyComplete

@@ -49,11 +49,11 @@ void _strupr(char* s)
 //#define SET_OBJECTIVE
 //#define SET_LEVEL
 
-//#define RELEASE_GAME
+#define RELEASE_GAME
 //#define PLAYING_GAME
 //#define DEBUG_AFTERLOAD
 //#define DEBUG_ONSTART
-#define TEST_REGRESSIONS_GAME
+//#define TEST_REGRESSIONS_GAME
 
 //#define TEST_NETWORK
 
@@ -66,11 +66,11 @@ int test_regression_level = 50;
 
 //adress 2285ff
 #if defined(RELEASE_GAME) //this is standard setting
-	//#define AUTO_CHANGE_RES
+	#define AUTO_CHANGE_RES
 	#define FIX_FLYASISTANT
 	#define LOAD_EDITED_LEVEL
 	int debugafterload = 0;
-	#define DISABLE_GRAPHICS_ENHANCE
+	//#define DISABLE_GRAPHICS_ENHANCE
 	bool hideGraphics = false;
 #elif defined(PLAYING_GAME) //this is setting for autosavegame
 	#define DETECT_DWORD_A
