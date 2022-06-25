@@ -41,33 +41,23 @@ void RenderThread::StartWorkerThread(int8_t core)
 		}
 #endif
 		std::unique_lock<std::mutex> lock(m_taskMutex, std::defer_lock);
+		std::function<void()> myTask;
 		do
 		{
 			//std::function<void()> myTask;
-			lock.lock();
+			//lock.lock();
 			//m_nextTaskCondition.wait(lock);
-			m_nextTaskCondition.wait(lock, [this]{ return m_runningTasks>0 || !m_running; });
+			m_nextTaskCondition.wait(lock, [this]{ return m_isTaskRunning; });
 			if (m_task) {
-				m_task();
-				m_task = 0;
-				m_runningTasks--;
-			}
-			lock.unlock();
-			/*
-			{
-				std::lock_guard<std::mutex> guard(m_taskMutex);
 				myTask = m_task;
 				m_task = 0;
-			}
-
-			if (myTask)
-			{
-				myTask();
-				std::lock_guard<std::mutex> guard(m_taskMutex);
 				m_isTaskRunning = false;
 			}
-			*/
-
+			lock.unlock();
+			if (myTask) {
+				myTask();
+				myTask = 0;
+			}
 		} while (m_running);
 	});
 
