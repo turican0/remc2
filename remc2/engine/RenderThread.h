@@ -28,8 +28,6 @@ private:
 	std::condition_variable m_nextTaskCondition;
 	bool m_isTaskRunning;
 
-std::mutex mtx;
-
 public:
 
 	RenderThread();
