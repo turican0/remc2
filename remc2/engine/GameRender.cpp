@@ -1,5 +1,4 @@
 #include "GameRender.h"
-#include <array>
 
 GameRender::GameRender(uint8_t* pScreenBuffer, uint8_t* pColorPalette, uint16_t screenWidth, uint16_t screenHeight, uint16_t viewPortPosX, uint16_t viewPortPosY, uint16_t viewPortWidth, uint16_t viewPortHeight, std::array<uint8_t*, 256> &textureAdresses, uint8_t pX_BYTE_F6EE0_tablesx[], uint8_t renderThreads, bool assignToSpecificCores)
 {
@@ -3157,41 +3156,41 @@ void GameRender::DrawSquareInProjectionSpace(std::vector<int>& vertexs, int inde
 				auto vertex6 = ProjectionPolygon(&vertexs[6]);
 				auto vertex12 = ProjectionPolygon(&vertexs[12]);
 				auto vertex18 = ProjectionPolygon(&vertexs[18]);
-			m_renderThreads[i]->Run([this, vertex0, vertex6, vertex12, vertex18, pTexture, viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine] {
-				this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex12, &vertex0, pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
-				this->DrawTriangleInProjectionSpace_B6253(&vertex0, &vertex12, &vertex6, pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
+				m_renderThreads[i]->Run([this, vertex0, vertex6, vertex12, vertex18, pTexture, viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine] {
+					this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex12, &vertex0, pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
+					this->DrawTriangleInProjectionSpace_B6253(&vertex0, &vertex12, &vertex6, pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
 				});
+			}
+
+			WaitForRenderFinish();
 		}
-
-		WaitForRenderFinish();
-	}
-	else
-	{
-		auto vertex0 = ProjectionPolygon(&vertexs[0]);
-		auto vertex6 = ProjectionPolygon(&vertexs[6]);
-		auto vertex12 = ProjectionPolygon(&vertexs[12]);
-		auto vertex18 = ProjectionPolygon(&vertexs[18]);
-		DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex12, &vertex0, pTexture, unk_DE56Cx[0], viewPortWidth, viewPortHeight, pitch, 0, 1);
-		DrawTriangleInProjectionSpace_B6253(&vertex0, &vertex12, &vertex6, pTexture, unk_DE56Cx[0], viewPortWidth, viewPortHeight, pitch, 0, 1);
-	}
-}
-else
-{
-	if (m_renderThreads.size() > 0)
-	{
-		uint8_t drawEveryNthLine = m_renderThreads.size();
-		uint8_t i = 0;
-
-		for (i = 0; i < m_renderThreads.size(); i++)
+		else
 		{
 			auto vertex0 = ProjectionPolygon(&vertexs[0]);
 			auto vertex6 = ProjectionPolygon(&vertexs[6]);
 			auto vertex12 = ProjectionPolygon(&vertexs[12]);
 			auto vertex18 = ProjectionPolygon(&vertexs[18]);
-			m_renderThreads[i]->Run([this, vertex0, vertex6, vertex12, vertex18, pTexture, viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine] {
+			DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex12, &vertex0, pTexture, unk_DE56Cx[0], viewPortWidth, viewPortHeight, pitch, 0, 1);
+			DrawTriangleInProjectionSpace_B6253(&vertex0, &vertex12, &vertex6, pTexture, unk_DE56Cx[0], viewPortWidth, viewPortHeight, pitch, 0, 1);
+		}
+	}
+	else
+	{
+		if (m_renderThreads.size() > 0)
+		{
+			uint8_t drawEveryNthLine = m_renderThreads.size();
+			uint8_t i = 0;
+
+			for (i = 0; i < m_renderThreads.size(); i++)
+			{
+				auto vertex0 = ProjectionPolygon(&vertexs[0]);
+				auto vertex6 = ProjectionPolygon(&vertexs[6]);
+				auto vertex12 = ProjectionPolygon(&vertexs[12]);
+				auto vertex18 = ProjectionPolygon(&vertexs[18]);
+				m_renderThreads[i]->Run([this, vertex0, vertex6, vertex12, vertex18, pTexture, viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine] {
 					this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex12, &vertex6, pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
 					this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex6, &vertex0, pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
-					});
+				});
 			}
 
 			WaitForRenderFinish();
@@ -5680,31 +5679,31 @@ void GameRender::DrawSprite_41BD3(uint32 a1, uint8_t x_BYTE_E88E0x[], type_event
 
 void GameRender::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* vertex1, const ProjectionPolygon* vertex2, const ProjectionPolygon* vertex3, uint8_t* pTexture, uint8_t unk_DE56Cx[], uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t pitch, uint8_t startLine, uint8_t drawEveryNthLine)
 {
-	uint8_t line1 = startLine;
-	uint8_t line2 = startLine;
-	uint8_t line3 = startLine;
-	uint8_t line4 = startLine;
-	uint8_t line5 = startLine;
-	uint8_t line6 = startLine;
-	uint8_t line7 = startLine;
-	uint8_t line8 = startLine;
-	uint8_t line9 = startLine;
-	uint8_t line10 = startLine;
-	uint8_t line11 = startLine;
-	uint8_t line12 = startLine;
-	uint8_t line13 = startLine;
-	uint8_t line14 = startLine;
-	uint8_t line15 = startLine;
-	uint8_t line16 = startLine;
-	uint8_t line17 = startLine;
-	uint8_t line18 = startLine;
-	uint8_t line19 = startLine;
-	uint8_t line20 = startLine;
-	uint8_t line21 = startLine;
-	uint8_t line22 = startLine;
-	uint8_t line23 = startLine;
-	uint8_t line24 = startLine;
-	uint8_t line25 = startLine;
+	int line1 = startLine;
+	int line2 = startLine;
+	int line3 = startLine;
+	int line4 = startLine;
+	int line5 = startLine;
+	int line6 = startLine;
+	int line7 = startLine;
+	int line8 = startLine;
+	int line9 = startLine;
+	int line10 = startLine;
+	int line11 = startLine;
+	int line12 = startLine;
+	int line13 = startLine;
+	int line14 = startLine;
+	int line15 = startLine;
+	int line16 = startLine;
+	int line17 = startLine;
+	int line18 = startLine;
+	int line19 = startLine;
+	int line20 = startLine;
+	int line21 = startLine;
+	int line22 = startLine;
+	int line23 = startLine;
+	int line24 = startLine;
+	int line25 = startLine;
 
 	const ProjectionPolygon* v3; // esi
 	const ProjectionPolygon* v4; // edi
