@@ -40512,7 +40512,8 @@ void DrawAndEventsInGame_47560(/*uint8_t* a1, int a2, */uint32_t a3, signed int 
 	signed int i; // ebx
 
 #if _DEBUG
-	frameStart = clock();
+	frameStart = std::chrono::steady_clock::now();
+	//frameStart = clock();
 #endif
 
 	if ((debugafterload == 1) && (count_begin == 1))
