@@ -40,18 +40,26 @@ void RenderThread::StartWorkerThread(int8_t core)
 			DWORD_PTR dw = SetThreadAffinityMask(GetCurrentThread(), DWORD_PTR(1) << ((uint8_t)core));
 		}
 #endif
+
+#ifndef _MSC_VER
 		std::unique_lock<std::mutex> lock(m_taskMutex, std::defer_lock);
+#endif
 		do
 		{
+
+#ifndef _MSC_VER
 			lock.lock();
 			// only wake up if we need to render or if the thread is stopped
 			m_nextTaskCondition.wait(lock, [this]{ return m_isTaskRunning || !m_running; });
+#endif
 			if (m_task) {
 				m_task();
 				m_task = 0;
 				m_isTaskRunning = false;
 			}
+#ifndef _MSC_VER
 			lock.unlock();
+#endif
 		} while (m_running);
 	});
 
