@@ -31,6 +31,7 @@ void RenderThread::StartWorkerThread(int8_t core)
 	if (numCores < core)
 		return;
 
+	m_running = true;
 	m_core = core;
 	m_renderThread = std::thread([this, core] {
 
@@ -62,8 +63,6 @@ void RenderThread::StartWorkerThread(int8_t core)
 #endif
 		} while (m_running);
 	});
-
-	m_running = true;
 }
 
 void RenderThread::StopWorkerThread()
@@ -80,9 +79,11 @@ void RenderThread::StopWorkerThread()
 
 void RenderThread::Run(std::function<void()> task)
 {
-	std::lock_guard<std::mutex> guard(m_taskMutex);
-	m_isTaskRunning = true;
-	m_task = task;
+	{
+		std::lock_guard<std::mutex> guard(m_taskMutex);
+		m_isTaskRunning = true;
+		m_task = task;
+	}
 	m_nextTaskCondition.notify_all();
 }
 
