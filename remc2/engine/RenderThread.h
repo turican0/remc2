@@ -6,6 +6,8 @@
 #include "../utilities/SafeQueue.h"
 #include <functional>
 #include <thread>
+#include <mutex>
+#include <condition_variable>
 #ifdef WIN32
 #include <windows.h>
 #elif _WIN64
@@ -22,6 +24,8 @@ private:
 	bool m_running;
 	std::thread m_renderThread;
 	std::function<void()> m_task;
+	std::mutex m_taskMutex;
+	std::condition_variable m_nextTaskCondition;
 	bool m_isTaskRunning;
 
 public:
