@@ -52,7 +52,7 @@ x_DWORD_17DE48c - nahrazeno heap?
 
 x_DWORD_E9B20 =
 
-x_DWORD_E9C2C == BLOCK32DAT_BEGIN_BUFFER tj. pstr[psxadatablock32dat].var28_begin_buffer
+x_DWORD_E9C2C == BLOCK32DAT_BEGIN_BUFFER tj. pstr[psxadatablock32dat].colorPallette_var28
 
 x_DWORD_F6ED0);//2c7ed0 == TMAPS00TAB_BEGIN_BUFFER
 

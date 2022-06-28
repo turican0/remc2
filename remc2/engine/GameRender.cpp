@@ -3012,7 +3012,7 @@ void GameRender::DrawSorcererNameAndHealthBar_2CB30(type_event_0x6E8E* a1x, uint
 		v4 += 2;
 	} while (v7);*/
 	v36 = x_BYTE_E88E0x[3 * sub_61790(v25)];//c
-	v35 = (*xadataclrd0dat.var28_begin_buffer)[0];//10 //v19
+	v35 = (*xadataclrd0dat.colorPallette_var28)[0];//10 //v19
 	v34 = x_BYTE_E88E0x[3 * sub_61790(v25)];	//14 //v18
 	//v8 = 5 * static_cast<std::underlying_type<MapType_t>::type>(D41A0_BYTESTR_0.terrain_2FECE.MapType);
 	v33 = str_D94F0_bldgprmbuffer[static_cast<std::underlying_type<MapType_t>::type>(D41A0_0.terrain_2FECE.MapType)][2];//18 v14

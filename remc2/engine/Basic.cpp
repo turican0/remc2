@@ -1442,10 +1442,10 @@ unsigned int sub_6FC80_pre_draw_text(char* a1, __int16 a2, __int16 a3, __int16 a
 void sub_417A0_install_pal_and_mouse_minmax()//2227a0
 {
 	//sub_90810();
-	sub_41A90_VGA_pallette_install((TColor*)*xadatapald0dat2.var28_begin_buffer);
+	sub_41A90_VGA_pallette_install((TColor*)*xadatapald0dat2.colorPallette_var28);
 	sub_6EF10_set_mouse_minmax(0, 640, 0, 400);
 }
-// EA3D8: using guessed type int *xadatapald0dat2.var28_begin_buffer;
+// EA3D8: using guessed type int *xadatapald0dat2.colorPallette_var28;
 
 //----- (0002EC90) --------------------------------------------------------
 void sub_2EC90(char a1)//20fc90
@@ -1554,8 +1554,8 @@ void sub_2BB40_draw_bitmap(int16_t posx, int16_t posy, posistruct_t tempposstr)/
 
   /*Pathstruct tempstruct;
   uint8_t* tempcharstar;
-  tempstruct.var28_begin_buffer = &tempcharstar;//this fix
-  *tempstruct.var28_begin_buffer = bitmap;//this fix */ //fix this
+  tempstruct.colorPallette_var28 = &tempcharstar;//this fix
+  *tempstruct.colorPallette_var28 = bitmap;//this fix */ //fix this
 
   //push [ebp+18] -cd- pote ecx
   //push [ebp+14] -123- pote ebx
@@ -1906,8 +1906,8 @@ void sub_8F8E8_draw_bitmap640(int16_t posx, int16_t posy, posistruct_t temppstr)
 	  esi=[esi]//47ae48
 	  */
 	  //x_DWORD_180628b
-	  //xasearchd_2bac30.var28_begin_buffer
-	  //sub_8F935_bitmap_draw_final(doublebyte_conv(xasearchd_2bac30.var28_begin_buffer, a2, a1, a3, 0, 0);//270935
+	  //xasearchd_2bac30.colorPallette_var28
+	  //sub_8F935_bitmap_draw_final(doublebyte_conv(xasearchd_2bac30.colorPallette_var28, a2, a1, a3, 0, 0);//270935
 	sub_8F935_bitmap_draw_final(temppstr.width_4, temppstr.height_5, posy, posx, temppstr.data, 0, 0);//270935
   //return v4;
 }

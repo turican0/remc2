@@ -109,7 +109,7 @@ void loadlevel(int levelnumber) {
 
 void editor_run()
 {	
-	*xadataclrd0dat.var28_begin_buffer = (uint8_t*)malloc(4096);//fix it
+	*xadataclrd0dat.colorPallette_var28 = (uint8_t*)malloc(4096);//fix it
 
 	initposistruct();
 
