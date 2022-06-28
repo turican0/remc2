@@ -466,7 +466,7 @@ zde se nastavi:
 sub_2BB40(263, 134, v1_langdattab[1].pointer);//20cb40
 -sub_8F8E8(a1, a2, a3);
 druhy pruchod:qmemcpy(&v21_buffer_temp_index1[outindex], &texture[inindex], count);
-chyba je v nastaveni x_DWORD_18062C_resolution_x(35162c) - coz ma byt  280 - 640
+chyba je v nastaveni screenWidth_18062C(35162c) - coz ma byt  280 - 640
 
 problém zde:
 
@@ -474,7 +474,7 @@ while ( v141 );
       }
       else if ( x_WORD_E36D4 &  40 )
       {
-        v56 = (char *)(x_DWORD_18062C_resolution_x * tiley + tilex + pixel_buffer_index);
+        v56 = (char *)(screenWidth_18062C * tiley + tilex + pixel_buffer_index);
 
 sub_72C40(v5, v6, x_DWORD_17DEC0_spritestr[v4[0]].pointer, a4);
 
@@ -1672,7 +1672,7 @@ if ( !byte_E3766 )
 	x_DWORD_180700 - 351700 // tady mozna nevadi - nealokovane pole
 	x_DWORD_1806F0 - 3516f0 // tady mozna take ne - nealokovane pole
 	x_DWORD_180730 - 351730 - 191919 fefefefe		
-	x_DWORD_18062C_resolution_x - 35162c musi byt 40
+	screenWidth_18062C - 35162c musi byt 40
 
 	vlajka se prekresli v 258cba - v prvnim kroku je puvodni vlajka, ale v druhem
 	se vlajka nastavi
@@ -1682,7 +1682,7 @@ if ( !byte_E3766 )
 	misto vlajky:
 	 152C0
 
-	x_DWORD_18062C_resolution_x(351628) -3BF364
+	screenWidth_18062C(351628) -3BF364
 	27b144 - tady se vlajka smaze
 	sub_7F960 / 260960 - prekresli texturu vlajky
 
@@ -5558,7 +5558,7 @@ void sub_2D710_draw_top_menu(uint8_t* a1)//20e710
 find
 x_DWORD_E9B20
 
-x_DWORD_18062C_resolution_x
+screenWidth_18062C
 versus
 35162c
 
@@ -8743,8 +8743,8 @@ versus
 2dc4e0+0x12 0x08
 
 sub_1A970_change_game_settings(16, 0, 0);
-x_DWORD_18062C_resolution_x
-x_DWORD_180624_resolution_y
+screenWidth_18062C
+screenHeight_180624
 
 (uint8_t*)&x_BYTE_12B4E0_shading+0x9f90 0x24
 0x2fc4e0+0x9f90 0x20

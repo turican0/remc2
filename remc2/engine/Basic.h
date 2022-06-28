@@ -462,8 +462,8 @@ extern int x_DWORD_180704_mouse_byte_index1; // weak
 
 extern int x_DWORD_180644_map_resolution2_y; // weak
 extern int x_DWORD_180648_map_resolution2_x; // weak
-extern uint32_t x_DWORD_180624_resolution_y; // weak
-extern uint32_t x_DWORD_18062C_resolution_x; // weak
+extern uint32_t screenHeight_180624; // weak
+extern uint32_t screenWidth_18062C; // weak
 
 extern int16_t x_DWORD_1806F8_mousex; // weak
 extern int16_t x_DWORD_1806F8_mousey; // weak
