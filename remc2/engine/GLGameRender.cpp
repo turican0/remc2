@@ -10,7 +10,7 @@ GLGameRender::~GLGameRender()
 
 }
 
-void GLGameRender::SetRenderViewPortSize_BCD45(uint8_t viewPortSizeSetting, uint16_t screenWidth, uint16_t screenHeight)
+void GLGameRender::SetRenderViewPortSize_40C50(uint8_t viewPortSizeSetting, uint16_t screenWidth, uint16_t screenHeight)
 {
 	
 }
