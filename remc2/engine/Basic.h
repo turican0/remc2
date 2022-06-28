@@ -213,7 +213,7 @@ typedef struct {
 #pragma pack (1)
 typedef struct {
 	char path[512];
-	uint8_t** var28_begin_buffer;//1C // pallette
+	uint8_t** colorPallette_var28;//1C // pallette
 	uint8_t** var32_end_buffer;//20 // maybe buffer
 	uint32_t var36_size_buffer;//24 //maybe file size
 	uint32_t var40_alloc_type;//28
@@ -462,8 +462,8 @@ extern int x_DWORD_180704_mouse_byte_index1; // weak
 
 extern int x_DWORD_180644_map_resolution2_y; // weak
 extern int x_DWORD_180648_map_resolution2_x; // weak
-extern uint32_t x_DWORD_180624_resolution_y; // weak
-extern uint32_t x_DWORD_18062C_resolution_x; // weak
+extern uint32_t screenHeight_180624; // weak
+extern uint32_t screenWidth_18062C; // weak
 
 extern int16_t x_DWORD_1806F8_mousex; // weak
 extern int16_t x_DWORD_1806F8_mousey; // weak
