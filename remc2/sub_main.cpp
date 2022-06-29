@@ -27472,7 +27472,9 @@ void DrawGameFrame_2BE30(uint8_t* ptrScreenBuffer, uint16_t screenWidth, uint16_
 
 	if (m_ptrGameRender == nullptr)
 	{
-		m_ptrGameRender = new GameRender(ptrScreenBuffer, *xadatapald0dat2.colorPallette_var28, screenWidth, screenHeight, 0, 0, screenWidth, screenHeight, x_DWORD_DDF50_texture_adresses, x_BYTE_F6EE0_tablesx, (multiThreadedRender? numberOfRenderThreads : 0), assignToSpecificCores);
+		//m_ptrGameRender = new GameRender(/*ptrScreenBuffer, *xadatapald0dat2.colorPallette_var28, screenWidth, screenHeight, 0, 0, screenWidth, screenHeight, x_DWORD_DDF50_texture_adresses, x_BYTE_F6EE0_tablesx,*/ (multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
+		m_ptrGameRender = new GameRender();
+		m_ptrGameRender->Init((multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores/*, RENDERERTYPE_OLD*/);
 	}
 
 	int16_t spellLeftPosX = screenWidth - 130;
@@ -27536,13 +27538,14 @@ void DrawGameFrame_2BE30(uint8_t* ptrScreenBuffer, uint16_t screenWidth, uint16_
 
 		m_ptrGameRender->SetRenderViewPortSize_40C50(D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize, screenWidth, screenHeight);
 		m_ptrGameRender->DrawWorld(//draw terrain and particles
+			pdwScreenBuffer,
 			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].axis_2BDE_11695.x,//position of player
 			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].axis_2BDE_11695.y,//position of player
 			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.yaw,//rotation of player z
 			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].axis_2BDE_11695.z + 128,
 			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.pitch,
 			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.roll,
-			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.fov,
+			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.fov/*,
 			mapHeightmap_11B4E0,
 			str_DWORD_F66F0x, 
 			x_BYTE_E88E0x,
@@ -27552,7 +27555,7 @@ void DrawGameFrame_2BE30(uint8_t* ptrScreenBuffer, uint16_t screenWidth, uint16_
 			str_unk_1804B0ar,
 			x_WORD_180660_VGA_type_resolution,
 			x_WORD_D4B7C,
-			isCaveLevel_D41B6);
+			isCaveLevel_D41B6*/);
 
 		//WriteBufferToBMP(screenWidth, screenHeight, *xadatapald0dat2.colorPallette_var28, pdwScreenBuffer);
 
@@ -27740,13 +27743,14 @@ void DrawGameFrame_2BE30(uint8_t* ptrScreenBuffer, uint16_t screenWidth, uint16_
 			m_ptrGameRender->SetRenderViewPortSize_BCD45(ViewPort(384, 0, screenWidth - 384, screenHeight - 80), screenWidth, screenHeight);
 		}
 		m_ptrGameRender->DrawWorld(
+			pdwScreenBuffer,
 			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].axis_2BDE_11695.x,
 			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].axis_2BDE_11695.y,
 			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.yaw,
 			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].axis_2BDE_11695.z + 128,
 			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.pitch,
 			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.roll,
-			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.fov,
+			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.fov/*,
 			mapHeightmap_11B4E0,
 			str_DWORD_F66F0x,
 			x_BYTE_E88E0x,
@@ -27756,7 +27760,7 @@ void DrawGameFrame_2BE30(uint8_t* ptrScreenBuffer, uint16_t screenWidth, uint16_
 			str_unk_1804B0ar,
 			x_WORD_180660_VGA_type_resolution,
 			x_WORD_D4B7C,
-			isCaveLevel_D41B6);
+			isCaveLevel_D41B6*/);
 
 		if (x_WORD_180660_VGA_type_resolution & 1)
 			sub_9025C(384, 0, 384, 400, (unsigned short)(*xadataclrd0dat.colorPallette_var28)[0], 0);

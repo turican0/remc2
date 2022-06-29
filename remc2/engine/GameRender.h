@@ -30,7 +30,7 @@ class GameRender {
 
 private:
 
-	type_E9C38_smalltit m_Str_E9C38_smalltit[21 * 40];
+	//type_E9C38_smalltit m_Str_E9C38_smalltit[21 * 40];
 
 	uint8_t unk_D4328x[40] = {
 		0xED,0x01,0x00,0x00,0x00,0xFF,0xD8,0xFF,0x01,0x00,0x00,0xED,0xFF,0x00,0x01,0x00,
@@ -56,19 +56,19 @@ private:
 
 	type_unk_F0E20x m_str_F0E20x[1920]; // Originally 640
 
-	uint8_t* m_ptrScreenBuffer = nullptr;
-	uint8_t* m_ptrX_BYTE_F6EE0_tablesx = nullptr;
+	//uint8_t* m_ptrScreenBuffer = nullptr;
+	//uint8_t* m_ptrX_BYTE_F6EE0_tablesx = nullptr;
 	uint8_t m_uiScreenSize = 0;
 	uint8_t* m_ptrViewPortRenderBufferStart_DE558 = nullptr;
 	uint8_t* m_ptrViewPortRenderBufferAltStart_DE554 = nullptr;
-	ViewPort m_viewPort;
+	//ViewPort m_viewPort;
 	uint16_t m_uiScreenWidth_DE560 = 0;
-	uint16_t m_uiScreenHeight = 0;
+	//uint16_t m_uiScreenHeight = 0;
 
 	std::array<uint8_t*, 256> m_textureAddresses;
-	uint8_t* m_ptrColorPalette = 0;
-	type_F2C20ar m_str_F2C20ar;
-	int16_t m_x_WORD_180660_VGA_type_resolution;
+	//uint8_t* m_ptrColorPalette = 0;
+	//type_F2C20ar m_str_F2C20ar;
+	//int16_t x_WORD_180660_VGA_type_resolution;
 
 	std::vector<RenderThread*> m_renderThreads;
 	bool m_multiThreadRender = false;
@@ -86,16 +86,19 @@ private:
 	int16_t x_WORD_F2CC0 = 0;
 	int16_t x_WORD_F2CC2 = 0;
 	int16_t x_WORD_F2CC4 = 0;
+	uint8_t* x_DWORD_DE55C_ActTexture = 0; // weak
 
-	void DrawSky_40950(int16_t roll, uint8_t* ptrViewPortRenderBufferStart, uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t pitch, uint8_t startLine, uint8_t drawEveryNthLine);
-	void DrawSky_40950_TH(int16_t roll, uint8_t* ptrViewPortRenderBufferStart, uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t pitch);
-	void DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __int16 yaw, signed int posZ, int pitch, int16_t roll, int fov, type_particle_str** str_DWORD_F66F0x[], uint8_t x_BYTE_E88E0x[], int32_t x_DWORD_F5730[], uint8_t unk_F0A20x[], type_event_0x6E8E* x_DWORD_EA3E4[], type_str_unk_1804B0ar str_unk_1804B0ar, int16_t x_WORD_D4B7C, char isCaveLevel, ViewPort viewPort, uint16_t screenWidth);
+	int m_rendererType;
+
+	void DrawSky_40950(int16_t roll/*, uint8_t* ptrViewPortRenderBufferStart, uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t pitch, uint8_t startLine, uint8_t drawEveryNthLine*/);
+	void DrawSky_40950_TH(int16_t roll/*, uint8_t* ptrViewPortRenderBufferStart, uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t pitch*/);
+	void DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __int16 yaw, signed int posZ, int pitch, int16_t roll, int fov/*, type_particle_str** str_DWORD_F66F0x[], uint8_t x_BYTE_E88E0x[], int32_t x_DWORD_F5730[], uint8_t unk_F0A20x[], type_event_0x6E8E* x_DWORD_EA3E4[], type_str_unk_1804B0ar str_unk_1804B0ar, int16_t x_WORD_D4B7C, char isCaveLevel, ViewPort viewPort, uint16_t screenWidth*/ );
 	void DrawSprite_41BD3(uint32 a1, uint8_t x_BYTE_E88E0x[], type_event_0x6E8E* x_DWORD_EA3E4[], type_str_unk_1804B0ar str_unk_1804B0ar, ViewPort viewPort, uint16_t pitch);
 	void DrawSquareInProjectionSpace(std::vector<int>& vertexs, int index, uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t pitch);
 	void DrawInverseSquareInProjectionSpace(int* vertexs, int index, uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t pitch);
 	void DrawInverseSquareInProjectionSpace(int* vertexs, int index, uint8_t* pTexture, uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t pitch);
 	void DrawParticles_3E360(int a2x, type_particle_str** str_DWORD_F66F0x[], uint8_t x_BYTE_E88E0x[], int32_t x_DWORD_F5730[], type_event_0x6E8E* x_DWORD_EA3E4[], type_str_unk_1804B0ar str_unk_1804B0ar, ViewPort viewPort, uint16_t screenWidth);
-	void DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* vertex1, const ProjectionPolygon* vertex2, const ProjectionPolygon* vertex3, uint8_t* pTexture, uint8_t unk_DE56Cx[], uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t pitch, uint8_t startLine, uint8_t drawEveryNthLine);
+	void DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* vertex1, const ProjectionPolygon* vertex2, const ProjectionPolygon* vertex3/*, uint8_t* pTexture, uint8_t unk_DE56Cx[], uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t pitch, uint8_t startLine, uint8_t drawEveryNthLine*/);
 	x_DWORD* LoadPolygon(x_DWORD* ptrPolys, int* v0, int* v1, int s0, int s1, int* line);
 	x_DWORD* LoadPolygon(x_DWORD* ptrPolys, int* v0, int* v1, int* v4, int s0, int s1, int s4, int* line);
 	x_DWORD* LoadPolygon(x_DWORD* ptrPolys, int* v0, int* v1, int* v2, int* v3, int s0, int s1, int s2, int s3, int* line);
@@ -103,7 +106,7 @@ private:
 	int32_t* x_DWORD_DB350_ret(uint32_t adress);
 	uint16_t sub_3FD60(int a2x, uint8_t x_BYTE_E88E0x[], type_event_0x6E8E* x_DWORD_EA3E4[], type_str_unk_1804B0ar str_unk_1804B0ar, type_particle_str** str_DWORD_F66F0x[], int32_t x_DWORD_F5730[], ViewPort viewPort, uint16_t screenWidth);
 	void sub_88740(type_event_0x6E8E* a1, type_event_0x6E8E* x_DWORD_EA3E4[], type_str_unk_1804B0ar str_unk_1804B0ar, int a2, int a3);
-	void SetBillboards_3B560(int16_t roll, uint8_t unk_F0A20x[], uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t screenWidth);
+	void SetBillboards_3B560(int16_t roll/*, uint8_t unk_F0A20x[], uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t screenWidth*/);
 	void DrawSorcererNameAndHealthBar_2CB30(type_event_0x6E8E* a1, uint8_t x_BYTE_E88E0x[], __int16 a2, int a3, __int16 a4, int16_t viewPortX, int16_t viewPortY, uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t pitch);
 	void StartWorkerThreads(uint8_t numOfThreads, bool assignToSpecificCores);
 	void StartWorkerThread();
@@ -112,18 +115,21 @@ private:
 	void WaitForRenderFinish();
 
 public:
-	GameRender(uint8_t* pScreenBuffer, uint8_t* pColorPalette, uint16_t screenWidth, uint16_t screenHeight, uint16_t viewPortPosX, uint16_t viewPortPosY, uint16_t viewPortWidth, uint16_t viewPortHeight, std::array<uint8_t*, 256> &textureAdresses, uint8_t x_BYTE_F6EE0_tablesx[], uint8_t renderThreads, bool assignToSpecificCores);
+	GameRender(/*uint8_t* pScreenBuffer, uint8_t* pColorPalette, uint16_t screenWidth, uint16_t screenHeight, uint16_t viewPortPosX, uint16_t viewPortPosY, uint16_t viewPortWidth, uint16_t viewPortHeight, std::array<uint8_t*, 256>& textureAdresses, uint8_t x_BYTE_F6EE0_tablesx[], uint8_t renderThreads, bool assignToSpecificCores*/);
 	~GameRender();
 
+	void Init(uint8_t renderThreads, bool assignToSpecificCores/*, int rendererType*/);
+
 	void SetTextures(std::array<uint8_t*, 256> &textureAdresses);
-	void SetX_BYTE_F6EE0_tablesx(uint8_t pX_BYTE_F6EE0_tablesx[]);
+	//void SetX_BYTE_F6EE0_tablesx(uint8_t pX_BYTE_F6EE0_tablesx[]);
 	void SetRenderViewPortSize_BCD45(ViewPort viewPort, uint16_t screenWidth, uint16_t screenHeight);
 	void SetRenderViewPortSize_40C50(uint8_t viewPortSizeSetting, uint16_t screenWidth, uint16_t screenHeight);
-	void SetRenderViewPortSize_BCD45(uint8_t* ptrScreenBufferStart, uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t screenWidth);
+	void SetRenderViewPortSize_BCD45(uint8_t* ptrScreenBufferStart, uint16_t screenWidth, uint16_t viewPortWidth, uint16_t viewPortHeight/*, uint16_t screenWidth*/);
 	void SetRenderThreads(uint8_t renderThreads);
 	uint8_t GetRenderThreads();
 
-	void DrawWorld(int posX, int posY, int16_t yaw, int16_t posZ, int16_t pitch, int16_t roll, int16_t fov, uint8_t heightmap[], type_particle_str** str_DWORD_F66F0x[], uint8_t x_BYTE_E88E0x[], int32_t x_DWORD_F5730[], uint8_t unk_F0A20x[], type_event_0x6E8E* x_DWORD_EA3E4[], type_str_unk_1804B0ar str_unk_1804B0ar, int16_t x_WORD_180660_VGA_type_resolution, int16_t x_WORD_D4B7C, char isCaveLevel);
+	void DrawWorld(uint8_t* pdwScreenBuffer, int posX, int posY, int16_t yaw, int16_t posZ, int16_t pitch, int16_t roll, int16_t fov);
+	//void DrawWorld(int posX, int posY, int16_t yaw, int16_t posZ, int16_t pitch, int16_t roll, int16_t fov, uint8_t heightmap[], type_particle_str** str_DWORD_F66F0x[], uint8_t x_BYTE_E88E0x[], int32_t x_DWORD_F5730[], uint8_t unk_F0A20x[], type_event_0x6E8E* x_DWORD_EA3E4[], type_str_unk_1804B0ar str_unk_1804B0ar, int16_t x_WORD_180660_VGA_type_resolution, int16_t x_WORD_D4B7C, char isCaveLevel);
 	void WriteWorldToBMP();
 	void ClearGraphicsBuffer(uint8_t colorIdx);
 };

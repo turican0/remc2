@@ -71,7 +71,7 @@ int x_DWORD_180704_mouse_byte_index1; // weak
 uint32_t screenHeight_180624; // weak
 uint32_t screenWidth_18062C; // weak
 
-int iScreenWidth_DE560 = 0; // weak //screen X // DE560
+//int iScreenWidth_DE560 = 0; // weak //screen X // DE560
 
 //View Port Dimensions for game world render
 ViewPort viewPort = { 0,0,0,0 };
@@ -108,6 +108,7 @@ __int16 x_WORD_E36D4 = 0; // weak
 char x_BYTE_EB3B6; // weak
 type_x_DWORD_17DE38str x_DWORD_17DE38str;
 uint8_t* x_DWORD_E9C38_smalltit;//*(x_DWORD*)(x_DWORD_E9C38_smalltit + 36964)
+type_F2C20ar str_F2C20ar;
 
 int help_VGA_type_resolution = 0;
 
@@ -122,6 +123,8 @@ type_event_0x6E8E* x_DWORD_EA3E4[1001];//2bb3e4
 uint8_t x_BYTE_F6EE0_tablesx[0x14600];// (uint8_t*)&x_BYTE_F6EE0_tablesbuff;//animated sprites
 uint8_t* x_BYTE_F6EE0_tablesx_pre = (uint8_t*)x_BYTE_F6EE0_tablesx;
 uint8_t* x_BYTE_FAEE0_tablesx_pre = (uint8_t*)&x_BYTE_F6EE0_tablesx[0x4000];
+
+type_E9C38_smalltit Str_E9C38_smalltit[21 * 40];
 
 uint8_t* ViewPortRenderBufferStart_DE558 = 0;
 

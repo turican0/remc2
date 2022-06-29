@@ -35,6 +35,8 @@
 
 #include "../utilities/DataFileIO.h"
 #include "../engine/ViewPort.h"
+#include "Type_E9C38_Smalltit.h"
+#include "Type_F2C20ar.h"
 
 #if defined(__LP64__) || defined(_WIN64) || (defined(__x86_64__) &&     !defined(__ILP32__) ) || defined(_M_X64) || defined(__ia64) || defined (_M_IA64) || defined(__aarch64__) || defined(__powerpc64__) || defined(__x86_64__) || (UINT_MAX >= 0xffffffffffffffff)
 #define x64_BIT_ENVIRONMENT 1
@@ -165,6 +167,10 @@ extern int iScreenWidth_DE560; // weak //screen X // DE560
 extern ViewPort viewPort;
 
 extern std::array<uint8_t*, 256> x_DWORD_DDF50_texture_adresses; /*= { 0,32 }*/ // weak
+
+extern type_E9C38_smalltit Str_E9C38_smalltit[21 * 40];
+
+extern type_F2C20ar str_F2C20ar;
 
 extern uint8_t* ViewPortRenderBufferStart_DE558;
 
