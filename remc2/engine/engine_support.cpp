@@ -1584,7 +1584,7 @@ void write_posistruct_to_png(uint8_t* buffer, int width, int height, char* filen
 	int8_t* v27_loc = 0;
 	int8_t* v24_loc = (int8_t*)v21_buffer_temp_index1;
 
-	int x_DWORD_18062C_resolution_x = 11;
+	int screenWidth_18062C = 11;
 	int a1byte2 = 8;
 
 	do
@@ -1614,7 +1614,7 @@ void write_posistruct_to_png(uint8_t* buffer, int width, int height, char* filen
 			v21_buffer_temp_index1 += v22_loc;
 			v22_loc = 0;
 		}
-		v24_loc += x_DWORD_18062C_resolution_x;
+		v24_loc += screenWidth_18062C;
 		v21_buffer_temp_index1 = (uint8_t*)v24_loc;
 		a1byte2--;
 	} while (a1byte2);

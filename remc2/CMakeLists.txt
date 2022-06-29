@@ -154,8 +154,7 @@ install(
 )
 install(
     FILES 
-    ${CMAKE_SOURCE_DIR}/config_linux.ini
-    RENAME config.ini
+    ${CMAKE_SOURCE_DIR}/config.ini
     DESTINATION bin
 )
 install(
