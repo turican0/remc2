@@ -310,7 +310,7 @@ extern char x_BYTE_17DF11_last_key_status; // weak
 
 extern uint16_t x_WORD_17B4E0; // 34c4e0
 
-extern char x_BYTE_D41B6;
+extern char isCaveLevel_D41B6;
 
 #pragma pack (1)
 typedef struct {//lenght 16

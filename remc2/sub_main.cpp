@@ -6516,7 +6516,7 @@ int sub_102D0(type_event_0x6E8E* a1x, axis_3d* a2, char a3)//1f12d0
 			result = v18 & v9;
 			if (result)
 				return result;
-			if (x_BYTE_D41B6)
+			if (isCaveLevel_D41B6)
 			{
 				LOBYTE(v10) = v16x.x >> 8;
 				HIBYTE(v10) = v16x.y >> 8;
@@ -7512,7 +7512,7 @@ char sub_11C80(uaxis_2d a1)//1f2c80
 
 	result = 1;
 	v2 = x_BYTE_13B4E0_angle[a1.word];
-	if (v2 < 0 || x_BYTE_D41B6 && v2 & 8)
+	if (v2 < 0 || isCaveLevel_D41B6 && v2 & 8)
 		result = 0;
 	return result;
 }
@@ -12380,7 +12380,7 @@ void MouseAndKeysEvents_17A00(signed int a2, __int16 a3, uint16_t screenWidth, u
 					v12x->dword_0xA4_164x->str_611.byte_0x458_1112 = v17;
 					v18 = x_BYTE_D94FF_spell_index[v17];
 					v19 = 1;
-					if (!v12x->dword_0xA4_164x->str_611.array_0x333_819x.word[v18] || !x_BYTE_D41B6 && v18 == 25)
+					if (!v12x->dword_0xA4_164x->str_611.array_0x333_819x.word[v18] || !isCaveLevel_D41B6 && v18 == 25)
 						v19 = 0;
 					if (!v19)
 						goto LABEL_122;
@@ -17183,7 +17183,7 @@ void sub_1F040(type_event_0x6E8E* a1x)//200040
 	result = v1 + 256;
 	if (a1x->axis_0x4C_76.z >= result)
 	{
-		if (x_BYTE_D41B6)
+		if (isCaveLevel_D41B6)
 		{
 			result = sub_10C60(&a1x->axis_0x4C_76);
 			if (a1x->axis_0x4C_76.z > (signed __int16)result - 256)
@@ -23043,7 +23043,7 @@ void sub_265A0(type_event_0x6E8E* a1x)//2075a0
 	}
 	if ((int16_t)a1x->axis_0x4C_76.z < v6)
 		a1x->axis_0x4C_76.z = v6;
-	if (x_BYTE_D41B6)
+	if (isCaveLevel_D41B6)
 	{
 		v8 = a1x->array_0x52_82.fov;
 		v9 = (signed __int16)sub_10C60(&a1x->axis_0x4C_76) - v8;
@@ -27569,7 +27569,7 @@ void DrawGameFrame_2BE30(uint8_t* ptrScreenBuffer, uint16_t screenWidth, uint16_
 			str_unk_1804B0ar,
 			x_WORD_180660_VGA_type_resolution,
 			x_WORD_D4B7C,
-			x_BYTE_D41B6);
+			isCaveLevel_D41B6);
 
 		//WriteBufferToBMP(screenWidth, screenHeight, *xadatapald0dat2.colorPallette_var28, pdwScreenBuffer);
 
@@ -27773,7 +27773,7 @@ void DrawGameFrame_2BE30(uint8_t* ptrScreenBuffer, uint16_t screenWidth, uint16_
 			str_unk_1804B0ar,
 			x_WORD_180660_VGA_type_resolution,
 			x_WORD_D4B7C,
-			x_BYTE_D41B6);
+			isCaveLevel_D41B6);
 
 		if (x_WORD_180660_VGA_type_resolution & 1)
 			sub_9025C(384, 0, 384, 400, (unsigned short)(*xadataclrd0dat.colorPallette_var28)[0], 0);
@@ -29056,7 +29056,7 @@ void DrawBottomMenu_2ECC0(uint16_t screenWidth, uint16_t screenHeight)
 			v44 = x_BYTE_D94FF_spell_index[v54];
 			v8 = 1;
 			//if (!(*xadataspellsdat.colorPallette_var28)[80 * x_BYTE_D94FF_spell_index[v54]] || !x_BYTE_D41B6 && v44 == 25)
-			if (!SPELLS_BEGIN_BUFFER_str[x_BYTE_D94FF_spell_index[v54]].byte_0 || !x_BYTE_D41B6 && v44 == 25)
+			if (!SPELLS_BEGIN_BUFFER_str[x_BYTE_D94FF_spell_index[v54]].byte_0 || !isCaveLevel_D41B6 && v44 == 25)
 				v8 = 0;
 
 			if (!v8)
@@ -30280,7 +30280,7 @@ void sub_30D50(type_event_0x6E8E* a1x/*, uint8_t v2, uint8_t v4*/)//211d50
 				PrepareEventSound_6E450(a1x - D41A0_0.struct_0x6E8E, -1, 3);
 			}
 			sub_580E0(&a1x->axis_0x4C_76, v3, 0, 0, a1x->word_0x2C_44);
-			if (x_BYTE_D41B6)
+			if (isCaveLevel_D41B6)
 			{
 				//v8 = a1x->array_0x52_82.dd;
 				v9 = (signed __int16)sub_10C60(&a1x->axis_0x4C_76) - a1x->array_0x52_82.fov;
@@ -30900,7 +30900,7 @@ void sub_31940(type_event_0x6E8E* a1x)//212940
 						v14 = (v13 - v42) / a1x->dword_0x8 + v42;
 					v43 = v14;
 					sub_570F0(v9x._axis_2d.x, v9x._axis_2d.y, v14, 0, v33 <= v34, 1);
-					if (x_BYTE_D41B6)
+					if (isCaveLevel_D41B6)
 					{
 						v43 += 64;
 						if (v43 > 254)
@@ -30915,7 +30915,7 @@ void sub_31940(type_event_0x6E8E* a1x)//212940
 						}
 					}
 				}
-				if (x_BYTE_D41B6)
+				if (isCaveLevel_D41B6)
 				{
 					if (x_BYTE_14B4E0_second_heightmap[v9x.word] > x_BYTE_11B4E0_heightmap[v9x.word])
 						x_BYTE_13B4E0_angle[v9x.word] &= 0xF7u;
@@ -31965,7 +31965,7 @@ void sub_33340(type_event_0x6E8E* a1x)//214340
 						}
 					}
 					MovePlayer_57FA0(&x_WORD_EB398ar, ix->word_0x30_48, 0, v30);
-					if (x_BYTE_D41B6)
+					if (isCaveLevel_D41B6)
 					{
 						v19 = ix->array_0x52_82.fov;
 						v20 = (signed __int16)sub_10C60(&x_WORD_EB398ar) - v19;
@@ -32334,7 +32334,7 @@ void sub_33C70(type_event_0x6E8E* a1x)//214c70
 	v6 = v4 + (signed __int16)result;
 	if (a1x->axis_0x4C_76.z < v6)
 		a1x->axis_0x4C_76.z = v6;
-	if (x_BYTE_D41B6)
+	if (isCaveLevel_D41B6)
 	{
 		v7 = a1x->word_0x2C_44;
 		result = sub_10C60(&a1x->axis_0x4C_76);
@@ -33811,7 +33811,7 @@ void TransformArcherToMana_35940(type_event_0x6E8E* a1x)//216940 //move mana sph
 			a1x->word_0x2C_44 -= 16;
 			if (a1x->word_0x2C_44 < -128)
 				a1x->word_0x2C_44 = -128;
-			if (x_BYTE_D41B6 && sub_11E70(a1x, &x_WORD_EB398ar))
+			if (isCaveLevel_D41B6 && sub_11E70(a1x, &x_WORD_EB398ar))
 			{
 				if (v35)
 				{
@@ -33874,7 +33874,7 @@ void TransformArcherToMana_35940(type_event_0x6E8E* a1x)//216940 //move mana sph
 					a1x->word_0x2C_44 = 0;
 				x_WORD_EB398ar.z = v22;
 			}
-			if (x_BYTE_D41B6)
+			if (isCaveLevel_D41B6)
 			{
 				v24 = sub_10C60(&x_WORD_EB398ar) - a1x->array_0x52_82.fov;
 				if (v24 < (int16_t)x_WORD_EB398ar.z)
@@ -34098,7 +34098,7 @@ void sub_35FB0(type_event_0x6E8E* a1x)//216FB0
 				if (v14 < -128)
 					a1x->word_0x2C_44 = -128;
 				x_WORD_EB398ar.z += a1x->word_0x2C_44;
-				if (x_BYTE_D41B6 && (unsigned __int8)sub_11E70(a1x, &x_WORD_EB398ar))
+				if (isCaveLevel_D41B6 && (unsigned __int8)sub_11E70(a1x, &x_WORD_EB398ar))
 				{
 					//*(_DWORD*)& word_EB398 = *(_DWORD*)(a1 + 76);
 					//*(&word_EB398 + 2) = *(_WORD*)(a1 + 80);
@@ -34113,7 +34113,7 @@ void sub_35FB0(type_event_0x6E8E* a1x)//216FB0
 				v15 = getTerrainAlt_10C40(&x_WORD_EB398ar);
 				if (v15 <= (int16_t)x_WORD_EB398ar.z)
 				{
-					if (x_BYTE_D41B6)
+					if (isCaveLevel_D41B6)
 					{
 						v17 = sub_10C60(&x_WORD_EB398ar) - a1x->array_0x52_82.fov;
 						if (v17 < x_WORD_EB398ar.z)
@@ -34166,7 +34166,7 @@ void sub_35FB0(type_event_0x6E8E* a1x)//216FB0
 				a1x->word_0x2C_44 = v20 - 16;
 				if ((int16_t)(v20 - 16) < -128)
 					a1x->word_0x2C_44 = -128;
-				if (x_BYTE_D41B6 && (unsigned __int8)sub_11E70(a1x, &x_WORD_EB398ar))
+				if (isCaveLevel_D41B6 && (unsigned __int8)sub_11E70(a1x, &x_WORD_EB398ar))
 				{
 					if (v31)
 					{
@@ -34198,7 +34198,7 @@ void sub_35FB0(type_event_0x6E8E* a1x)//216FB0
 						a1x->word_0x2C_44 = 0;
 					x_WORD_EB398ar.z = v24;
 				}
-				if (x_BYTE_D41B6 && (signed __int16)(sub_10C60(&x_WORD_EB398ar) - a1x->array_0x52_82.fov) < x_WORD_EB398ar.z)
+				if (isCaveLevel_D41B6 && (signed __int16)(sub_10C60(&x_WORD_EB398ar) - a1x->array_0x52_82.fov) < x_WORD_EB398ar.z)
 				{
 					v26 = -abs(a1x->word_0x2C_44);
 					//JUMPOUT(*(_DWORD*)byte_3659C);
@@ -34735,7 +34735,7 @@ void sub_36FC0(type_event_0x6E8E* a1x)//217fc0
 			v3 >>= 1;
 			v4 >>= 1;
 		}
-		if (x_BYTE_D41B6 && !(str_D93C0_bldgprmbuffer[v1].byte_2 & 4))
+		if (isCaveLevel_D41B6 && !(str_D93C0_bldgprmbuffer[v1].byte_2 & 4))
 			v29 = 1;
 		v27x._axis_2d.x = v26 - (v4 >> 1);
 		v27x._axis_2d.y = v28 - (v3 >> 1);
@@ -34897,7 +34897,7 @@ void ApplyTerrainModification_37240(type_event_0x6E8E* event)//218240
 			v3 >>= 1;
 			v4 >>= 1;
 		}
-		if (x_BYTE_D41B6 && !(str_D93C0_bldgprmbuffer[event->byte_0x46_70].byte_2 & 4))
+		if (isCaveLevel_D41B6 && !(str_D93C0_bldgprmbuffer[event->byte_0x46_70].byte_2 & 4))
 			v50 = 1;
 		v22 = v3 >> 1;
 		event->dword_0x8--;
@@ -35193,12 +35193,12 @@ void sub_377F0(type_event_0x6E8E* a1x)//2187f0
 						if (v15 < 0)
 						{
 							x_BYTE_13B4E0_angle[v14] = v15 & 0x7F;
-							if (!x_BYTE_D41B6)
+							if (!isCaveLevel_D41B6)
 								x_BYTE_13B4E0_angle[v14] = v15 & 0x7F | 8;
 						}
 						v16 = v23 + x_BYTE_11B4E0_heightmap[v14];
 						x_BYTE_11B4E0_heightmap[v14] = v16;
-						if (x_BYTE_D41B6)
+						if (isCaveLevel_D41B6)
 						{
 							if (v16 < (unsigned __int8)x_BYTE_14B4E0_second_heightmap[v14])
 							{
@@ -35225,7 +35225,7 @@ void sub_377F0(type_event_0x6E8E* a1x)//2187f0
 				{
 					for (k = 0; k < v3; k++)
 					{
-						if (!x_BYTE_D41B6 && x_BYTE_13B4E0_angle[(unsigned __int16)v8] & 8)
+						if (!isCaveLevel_D41B6 && x_BYTE_13B4E0_angle[(unsigned __int16)v8] & 8)
 						{
 							x_BYTE_13B4E0_angle[(unsigned __int16)v8] |= 0x80u;
 							x_BYTE_13B4E0_angle[(unsigned __int16)v8] &= 0xF7u;
@@ -35250,7 +35250,7 @@ void sub_377F0(type_event_0x6E8E* a1x)//2187f0
 					{
 						v19 = v23 + x_BYTE_11B4E0_heightmap[(unsigned __int16)v8];
 						x_BYTE_11B4E0_heightmap[(unsigned __int16)v8] = v19;
-						if (x_BYTE_D41B6)
+						if (isCaveLevel_D41B6)
 						{
 							if (v19 < (unsigned __int8)x_BYTE_14B4E0_second_heightmap[(unsigned __int16)v8])
 							{
@@ -35380,7 +35380,7 @@ void AddTerrainMod0A_2A_37BC0(type_event_0x6E8E* a1x)//218bc0 // groove castle
 
 			v24 = v23;
 
-			if (!x_BYTE_D41B6)
+			if (!isCaveLevel_D41B6)
 			{
 				v27 = 0;
 				v26x._axis_2d.y = ((unsigned __int16)(a1x->axis_0x4C_76.y + 128) >> 8) - (v25 >> 1);
@@ -35515,14 +35515,14 @@ void AddTerrainMod0A_2A_37BC0(type_event_0x6E8E* a1x)//218bc0 // groove castle
 								v16 = x_BYTE_13B4E0_angle[jx.word];
 								if (v16 < 0)
 								{
-									v17 = x_BYTE_D41B6;
+									v17 = isCaveLevel_D41B6;
 									x_BYTE_13B4E0_angle[jx.word] = v16 & 0x7F;
 									if (!v17)
 										x_BYTE_13B4E0_angle[jx.word] = v16 & 0x7F | 8;
 								}
 							}
 						}
-						if (x_BYTE_D41B6)
+						if (isCaveLevel_D41B6)
 						{
 							v18 = x_BYTE_11B4E0_heightmap[jx.word];
 							if (v18 >= (signed __int16)v40)
@@ -35546,7 +35546,7 @@ void AddTerrainMod0A_2A_37BC0(type_event_0x6E8E* a1x)//218bc0 // groove castle
 								x_BYTE_13B4E0_angle[jx.word] |= 8u;
 							}
 						}
-						if (!x_BYTE_D41B6 && a1x->dword_0x10_16 == 2)
+						if (!isCaveLevel_D41B6 && a1x->dword_0x10_16 == 2)
 							x_BYTE_13B4E0_angle[jx.word] &= 0xF7u;
 						jx._axis_2d.x++;
 						v15++;
@@ -36306,7 +36306,7 @@ void sub_39040(type_event_0x6E8E* a1x)//21a040
 									v12 = 1;
 								if (v12 > 255)
 									v12 = 255;
-								v13 = x_BYTE_D41B6;
+								v13 = isCaveLevel_D41B6;
 								x_BYTE_11B4E0_heightmap[v8x.word] = v12;
 								if (v13)
 								{
@@ -36350,7 +36350,7 @@ void sub_39040(type_event_0x6E8E* a1x)//21a040
 								v21 = 32 - v20 + 32;
 							else
 								LOBYTE(v21) = v20;
-							v22 = x_BYTE_D41B6;
+							v22 = isCaveLevel_D41B6;
 							x_BYTE_12B4E0_shading[v8x.word] = v21;
 							if (v22)
 							{
@@ -36657,7 +36657,7 @@ unsigned __int8 sub_396D0(type_event_0x6E8E* a1x)//21a6d0
 						x_BYTE_11B4E0_heightmap[v10] = v34;
 						if (a1x->dword_0x10_16 < 3)
 							x_BYTE_11B4E0_heightmap[v10] = sub_439A0(v10, v10);
-						if (x_BYTE_D41B6)
+						if (isCaveLevel_D41B6)
 						{
 							v15 = x_BYTE_11B4E0_heightmap[v10] + 64;
 							if (v15 > 254)
@@ -36687,7 +36687,7 @@ unsigned __int8 sub_396D0(type_event_0x6E8E* a1x)//21a6d0
 						v19 = 32 - v18 + 32;
 					else
 						LOBYTE(v19) = v18;
-					v20 = x_BYTE_D41B6;
+					v20 = isCaveLevel_D41B6;
 					x_BYTE_12B4E0_shading[v10] = v19;
 					if (v20)
 					{
@@ -37575,7 +37575,7 @@ void sub_3A8B0(type_event_0x6E8E* a1x)//21b8b0
 					v10 = -48;
 				a1x->axis_0x4C_76.z += v10;
 			}
-			if (x_BYTE_D41B6)
+			if (isCaveLevel_D41B6)
 			{
 				v11 = a1x->array_0x52_82.fov;
 				v5 = (signed __int16)sub_10C60(&a1x->axis_0x4C_76) - v11;
@@ -39230,7 +39230,7 @@ void sub_45DC0(/*uint8_t a1, */uint8_t a2, uaxis_2d a3x, unsigned __int8 a4)//22
 		}
 		v11 = x_BYTE_13B4E0_angle[a3x.word] | 0x80;
 		x_BYTE_13B4E0_angle[a3x.word] = v11;
-		if (x_BYTE_D41B6)
+		if (isCaveLevel_D41B6)
 		{
 			v12 = x_BYTE_11B4E0_heightmap[a3x.word];
 			if (x_BYTE_14B4E0_second_heightmap[a3x.word] > v12)
@@ -39357,7 +39357,7 @@ unsigned __int16 sub_46180(unsigned __int16 a1, char a2)//227180
 			if (D41A0_0.terrain_2FECE.MapType != MapType_t::Day)
 				v10 = 32 - (char)v10 + 32;
 			x_BYTE_12B4E0_shading[result] = v10;
-			if (x_BYTE_D41B6 && (unsigned __int8)x_BYTE_14B4E0_second_heightmap[result] <= x_BYTE_11B4E0_heightmap[result])
+			if (isCaveLevel_D41B6 && (unsigned __int8)x_BYTE_14B4E0_second_heightmap[result] <= x_BYTE_11B4E0_heightmap[result])
 			{
 				x_BYTE_14B4E0_second_heightmap[result] = x_BYTE_11B4E0_heightmap[result] - 1;
 				x_BYTE_13B4E0_angle[result] |= 8u;
@@ -39512,7 +39512,7 @@ void sub_462A0(uaxis_2d a1x, uaxis_2d a2x)//2272a0
 					v19 = v18;
 				v4x.word = v13x.word;
 				x_BYTE_12B4E0_shading[v13x.word] = v19;
-				if (x_BYTE_D41B6 && (x_BYTE_14B4E0_second_heightmap[v13x.word] <= x_BYTE_11B4E0_heightmap[v13x.word]))
+				if (isCaveLevel_D41B6 && (x_BYTE_14B4E0_second_heightmap[v13x.word] <= x_BYTE_11B4E0_heightmap[v13x.word]))
 				{
 					x_BYTE_14B4E0_second_heightmap[v13x.word] = x_BYTE_11B4E0_heightmap[v13x.word] - 1;
 					x_BYTE_13B4E0_angle[v13x.word] |= 8u;
@@ -39690,7 +39690,7 @@ void sub_46570(uaxis_2d a1x, uaxis_2d a2x)//227570
 					v23 = v22;
 				v4x.word = v17x.word;
 				x_BYTE_12B4E0_shading[v17x.word] = v23;
-				if (x_BYTE_D41B6 && (v24 = x_BYTE_11B4E0_heightmap[v17x.word], (unsigned __int8)x_BYTE_14B4E0_second_heightmap[v17x.word] <= v24))
+				if (isCaveLevel_D41B6 && (v24 = x_BYTE_11B4E0_heightmap[v17x.word], (unsigned __int8)x_BYTE_14B4E0_second_heightmap[v17x.word] <= v24))
 				{
 					x_BYTE_14B4E0_second_heightmap[v17x.word] = v24 - 1;
 					x_BYTE_13B4E0_angle[v17x.word] |= 8u;
@@ -41887,7 +41887,7 @@ void sub_48B90(uaxis_2d a1x)//229b90
 		{
 			//i = (unsigned __int16)a1x.word;
 			x_BYTE_11B4E0_heightmap[a1x.word] = v2 / v3;
-			if (x_BYTE_D41B6)
+			if (isCaveLevel_D41B6)
 			{
 				v6 = x_BYTE_11B4E0_heightmap[a1x.word];
 				if (x_BYTE_14B4E0_second_heightmap[a1x.word] > v6)
@@ -48049,7 +48049,7 @@ type_event_0x6E8E* sub_4ABA0(axis_3d* position)//22bba0 //Spawn Creature 3?
 		AddEventToMap_57D70(entity, position);
 		CopyEventVar0408_49A20(entity);
 		SetEntityIndexAndRot_49CD0(entity, 169);
-		if (x_BYTE_D41B6)
+		if (isCaveLevel_D41B6)
 			SetEntityShiftRot_49EA0(entity, 256, 768);
 	}
 	return entity;
@@ -50994,7 +50994,7 @@ type_event_0x6E8E* sub_4FAC0(axis_3d* position)//230ac0
 type_event_0x6E8E* sub_4FB20(axis_3d* position)//230b20
 {
 	type_event_0x6E8E* event; // eax
-	if (!x_BYTE_D41B6)
+	if (!isCaveLevel_D41B6)
 		return 0;
 	event = NewEvent_4A050();
 	if (event)
@@ -51017,7 +51017,7 @@ type_event_0x6E8E* sub_4FB20(axis_3d* position)//230b20
 type_event_0x6E8E* sub_4FB80(axis_3d* position)//230b80
 {
 	type_event_0x6E8E* event; // eax
-	if (!x_BYTE_D41B6)
+	if (!isCaveLevel_D41B6)
 		return 0;
 	event = NewEvent_4A050();
 	if (event)
@@ -51040,7 +51040,7 @@ type_event_0x6E8E* sub_4FBE0(axis_3d* position)//230be0
 {
 	type_event_0x6E8E* event; // eax
 
-	if (!x_BYTE_D41B6)
+	if (!isCaveLevel_D41B6)
 		return 0;
 	event = NewEvent_4A050();
 	if (event)
@@ -51062,7 +51062,7 @@ type_event_0x6E8E* sub_4FBE0(axis_3d* position)//230be0
 type_event_0x6E8E* sub_4FC30(axis_3d* position)//230c30
 {
 	type_event_0x6E8E* event; // eax
-	if (!x_BYTE_D41B6)
+	if (!isCaveLevel_D41B6)
 		return 0;
 	event = NewEvent_4A050();
 	if (event)
@@ -51111,7 +51111,7 @@ type_event_0x6E8E* sub_4FCD0(axis_3d* position)//230cd0
 type_event_0x6E8E* sub_4FD00(axis_3d* position)//230d00
 {
 	type_event_0x6E8E* event = NULL;
-	if (x_BYTE_D41B6)
+	if (isCaveLevel_D41B6)
 	{
 		event = NewEvent_4A050();
 		if (event)
@@ -52240,7 +52240,7 @@ type_event_0x6E8E* sub_51660(axis_3d* position)//232660
 type_event_0x6E8E* sub_516C0(axis_3d* position)//2326c0
 {
 	type_event_0x6E8E* event = 0;
-	if (x_BYTE_D41B6)
+	if (isCaveLevel_D41B6)
 	{
 		event = NewEvent_4A050();
 		if (event)
@@ -56413,7 +56413,7 @@ void sub_56C00_sound_proc2(type_str_2FECE* a1x)//237c00
 	char v3; // cl
 	//int result; // eax
 
-	x_BYTE_D41B6 = 0;
+	isCaveLevel_D41B6 = 0;
 	//SPELLS_BEGIN_BUFFER_DA818[0x15a] = 19;
 	SPELLS_BEGIN_BUFFER_str[4].subspell[0].byte_0x1A = 19;
 	//*(int16_t*)& SPELLS_BEGIN_BUFFER_DA818[0x606] = 0xf5;
@@ -56446,7 +56446,7 @@ void sub_56C00_sound_proc2(type_str_2FECE* a1x)//237c00
 	else if (v1 == MapType_t::Cave)
 	{
 		D41A0_0.m_GameSettings.str_0x2196.transparency_0x2198 = 1;
-		x_BYTE_D41B6 = 1;
+		isCaveLevel_D41B6 = 1;
 		x_BYTE_D41B7 = a1x->byte_0x2FED3;// *(x_BYTE*)(a1 + 5);
 		sub_84300_load_sound(2u);
 		x_BYTE_D419E = 10;
@@ -56570,7 +56570,7 @@ char sub_56F10(__int16 a1, __int16 a2, __int16 a3, char a4)//237f10
 	}
 	if (a4 && (x_BYTE_13B4E0_angle[v12x.word] & 0x80))
 		return 1;
-	v5 = x_BYTE_D41B6;
+	v5 = isCaveLevel_D41B6;
 	x_BYTE_11B4E0_heightmap[v12x.word] = v4;
 	if (v5)
 	{
@@ -57242,7 +57242,7 @@ void UpdateEntities_57730(uint16_t width, uint16_t height)//238730
 		//add_compare(0x2389f6, debugafterload);
 #endif //DEBUG_SEQUENCES2
 		sub_159E0();//adress 2389f6
-		if (x_BYTE_D41B6)
+		if (isCaveLevel_D41B6)
 			sub_58630();
 		sub_60F00();
 		for (mx = x_DWORD_EA3E4[1]; mx < x_DWORD_EA3E4[0x3e8]; mx++)
@@ -58829,7 +58829,7 @@ void sub_59F60(type_event_0x6E8E* a1x)//23af60
 #ifdef DEBUG_SEQUENCES
 					//add_compare(0x23b2a6, debugafterload);
 #endif //DEBUG_SEQUENCES
-					if (x_BYTE_D41B6)//23b2a9
+					if (isCaveLevel_D41B6)//23b2a9
 					{
 						v46x.word = v208x.word + 1;
 						v47 = 0;
@@ -58980,7 +58980,7 @@ void sub_59F60(type_event_0x6E8E* a1x)//23af60
 					//v7++;
 					v7x.word++;
 				}
-				if (x_BYTE_D41B6)//092
+				if (isCaveLevel_D41B6)//092
 				{
 					v16 = -1;
 					v17x.word = v208x.word - 1;
@@ -59132,7 +59132,7 @@ void sub_59F60(type_event_0x6E8E* a1x)//23af60
 							v79++;
 							v78x.word--;
 						}
-						if (!x_BYTE_D41B6)
+						if (!isCaveLevel_D41B6)
 						{
 							v83 = 0;
 							v84x.word = v207x.word + 1;
@@ -59191,7 +59191,7 @@ void sub_59F60(type_event_0x6E8E* a1x)//23af60
 						v63++;
 						v64x.word++;
 					}
-					if (!x_BYTE_D41B6)
+					if (!isCaveLevel_D41B6)
 					{
 						v68 = 2;
 						v69x.word = v207x.word + 2;
@@ -59251,7 +59251,7 @@ void sub_59F60(type_event_0x6E8E* a1x)//23af60
 						v104x._axis_2d.y++;
 						++x_BYTE_11B4E0_heightmap[v108x.word];
 					}
-					if (x_BYTE_D41B6)
+					if (isCaveLevel_D41B6)
 					{
 						v110x.word = v207x.word;
 						v109 = 3;
@@ -59306,7 +59306,7 @@ void sub_59F60(type_event_0x6E8E* a1x)//23af60
 					v95x.word++;
 					x_BYTE_11B4E0_heightmap[v98x.word]++;
 				}
-				if (x_BYTE_D41B6)
+				if (isCaveLevel_D41B6)
 				{
 					v99 = 3;
 					for (kx.word = v207x.word + 3; v99 < a1x->dword_0x10_16 - 3; kx.word++)
@@ -59547,7 +59547,7 @@ void sub_59F60(type_event_0x6E8E* a1x)//23af60
 				v174x._axis_2d.y++;
 				x_BYTE_13B4E0_angle[v182x.word] = v183 | 0x80;
 			}
-			if (x_BYTE_D41B6)
+			if (isCaveLevel_D41B6)
 			{
 				v185x.word = v207x.word;
 				v184 = 3;
@@ -59684,7 +59684,7 @@ void sub_59F60(type_event_0x6E8E* a1x)//23af60
 			++v148x.word;
 			x_BYTE_13B4E0_angle[v155x.word] = v156 | 0x80;
 		}
-		if (x_BYTE_D41B6)
+		if (isCaveLevel_D41B6)
 		{
 			v157 = 3;
 			v158x.word = v207x.word + 3;
@@ -61920,7 +61920,7 @@ int sub_5D0A0(type_event_0x6E8E* a1x)//23e0a0
 				v46 = 0;
 		}
 	}
-	if (!x_BYTE_D41B6)
+	if (!isCaveLevel_D41B6)
 		return v46;
 	v31x = x_WORD_EB398ar;
 	v7 = a1x->dword_0xA0_160x->word_160_0xc_12;
@@ -62289,7 +62289,7 @@ LABEL_27:
 		//v42 = a1x->dword_0xA0_160;
 		if (x_WORD_EB398ar.z >= v40 + a1x->dword_0xA0_160x->word_160_0xc_12)
 		{
-			if (x_BYTE_D41B6)
+			if (isCaveLevel_D41B6)
 			{
 				v43 = sub_10C60(&x_WORD_EB398ar);
 				if (x_WORD_EB398ar.z > v43 - 384)
@@ -62416,14 +62416,14 @@ void sub_5DD50(type_event_0x6E8E* a1x)//23dd50
 
 	v3 = 0;
 	if (sub_104D0_terrain_tile_is_water(&a1x->axis_0x4C_76) == 256
-		|| x_BYTE_D41B6
+		|| isCaveLevel_D41B6
 		&& (v1 = a1x->axis_0x4C_76.x >> 8,
 			BYTE1(v1) = a1x->axis_0x4C_76.y >> 8,
 			x_BYTE_13B4E0_angle[(unsigned __int16)v1] & 8))
 	{
 		v3 = 1;
 	}
-	if (!v3 && x_BYTE_D41B6 && a1x->dword_0xA4_164x->byte_0x261_609 && sub_11E20(a1x, &a1x->axis_0x4C_76))
+	if (!v3 && isCaveLevel_D41B6 && a1x->dword_0xA4_164x->byte_0x261_609 && sub_11E20(a1x, &a1x->axis_0x4C_76))
 		v3 = 1;
 	if (v3)
 	{
@@ -64563,7 +64563,7 @@ void AddBallon_60AB0(type_event_0x6E8E* a1x)//241ab0
 		{
 			if (v16x->word_0x94_148 != a1x->word_0x1A_26)
 				goto LABEL_20;
-			if (x_BYTE_D41B6)
+			if (isCaveLevel_D41B6)
 				v4 = 2048;
 			else
 				v4 = 1024;
@@ -64618,7 +64618,7 @@ void AddBallon_60AB0(type_event_0x6E8E* a1x)//241ab0
 		}
 		MovePlayer_57FA0(&x_WORD_EB398ar, a1x->word_0x1C_28, a1x->word_0x1E_30, v6);
 	LABEL_20:
-		if (x_BYTE_D41B6)
+		if (isCaveLevel_D41B6)
 		{
 			sub_60D50(&x_WORD_EB398ar, a1x);
 		}
@@ -66715,7 +66715,7 @@ void sub_63670_draw_minimap_a(int a1, int a2, int16_t posX, int16_t posY, uint16
 	v83 = posY - (v26 + v12 * (v24 / v12)) / 2;
 	v84x = v70x;
 	v82x = v71x;
-	if (x_BYTE_D41B6)
+	if (isCaveLevel_D41B6)
 	{
 		if (a10)
 		{
@@ -67044,7 +67044,7 @@ void sub_63C90_draw_minimap_b(int a1, int a2, int16_t posX, int16_t posY, uint16
 	v24 = posY - (v23 + v12 * (v21 / v12)) / 2;
 	v73 = v24;
 	v71 = v60;
-	if (x_BYTE_D41B6)//adress 244e53
+	if (isCaveLevel_D41B6)//adress 244e53
 	{
 		if (a10)
 		{
@@ -68228,7 +68228,7 @@ type_event_0x6E8E* sub_65820(type_event_0x6E8E* a1x)//246820
 	v7 = a1x->axis_0x4C_76.z;
 	x_WORD_EB398ar.z = v6;
 	if (v6 > v7
-		|| x_BYTE_D41B6
+		|| isCaveLevel_D41B6
 		&& (x_WORD_EB398ar.z = sub_10C60(&a1x->axis_0x4C_76) - a1x->array_0x52_82.fov, a1x->axis_0x4C_76.z > x_WORD_EB398ar.z))
 	{
 		a1x->axis_0x4C_76.z = x_WORD_EB398ar.z;
@@ -68413,7 +68413,7 @@ LABEL_18:
 		v12 = a1x->axis_0x4C_76.z;
 		x_WORD_EB398ar.z = v11;
 		if (v11 > v12
-			|| x_BYTE_D41B6
+			|| isCaveLevel_D41B6
 			&& (x_WORD_EB398ar.z = sub_10C60(&a1x->axis_0x4C_76) - a1x->array_0x52_82.fov, a1x->axis_0x4C_76.z > x_WORD_EB398ar.z))
 		{
 			v16x.z = x_WORD_EB398ar.z;
@@ -68542,7 +68542,7 @@ void CastPosses_65F60(type_event_0x6E8E* a1x)//246f60
 	v3 = getTerrainAlt_10C40(&x_WORD_EB398ar);
 	if (v3 > x_WORD_EB398ar.z)
 		x_WORD_EB398ar.z = v3;
-	if (x_BYTE_D41B6)
+	if (isCaveLevel_D41B6)
 	{
 		v4 = sub_10C60(&x_WORD_EB398ar) - a1x->array_0x52_82.fov;
 		if (v4 < x_WORD_EB398ar.z)
@@ -68558,7 +68558,7 @@ void CastPosses_65F60(type_event_0x6E8E* a1x)//246f60
 		v9 = a1x->axis_0x4C_76.z;
 		x_WORD_EB398ar.z = getTerrainAlt_10C40(&a1x->axis_0x4C_76);
 		if (x_WORD_EB398ar.z > v9
-			|| x_BYTE_D41B6
+			|| isCaveLevel_D41B6
 			&& (x_WORD_EB398ar.z = sub_10C60(&a1x->axis_0x4C_76) - a1x->array_0x52_82.fov,
 				/*x_WORD_EB398ar[2] = (short)v8,*/
 				//v10 = x_WORD_EB398ar[2],
@@ -68776,7 +68776,7 @@ void sub_662E0(type_event_0x6E8E* a1x)//2472e0
 		v7 = a1x->axis_0x4C_76.z;
 		x_WORD_EB398ar.z = getTerrainAlt_10C40(&a1x->axis_0x4C_76);
 		if (x_WORD_EB398ar.z > v7
-			|| x_BYTE_D41B6
+			|| isCaveLevel_D41B6
 			&& (x_WORD_EB398ar.z = sub_10C60(&a1x->axis_0x4C_76) - a1x->array_0x52_82.fov,
 				//x_WORD_EB398ar[2] = (signed __int16)v6,
 				//v8 = (signed __int16)v6,
@@ -68893,7 +68893,7 @@ void sub_66610(type_event_0x6E8E* a1x)//247610
 		v3 = a1x->axis_0x4C_76.z;
 		x_WORD_EB398ar.z = getTerrainAlt_10C40(&a1x->axis_0x4C_76);
 		if (x_WORD_EB398ar.z > v3
-			|| x_BYTE_D41B6
+			|| isCaveLevel_D41B6
 			&& (x_WORD_EB398ar.z = sub_10C60(&a1x->axis_0x4C_76) - a1x->array_0x52_82.fov,
 				//x_WORD_EB398ar[2] = (short)v2,
 				//v4 = x_WORD_EB398ar[2],
@@ -69153,7 +69153,7 @@ void CastCastleProjectile_66B30(type_event_0x6E8E* a1x)//247b30
 			v4 = a1x->axis_0x4C_76.z;
 			x_WORD_EB398ar.z = v2;
 			if (v2 > v4
-				|| x_BYTE_D41B6
+				|| isCaveLevel_D41B6
 				&& (v5 = sub_10C60(&a1x->axis_0x4C_76) - a1x->array_0x52_82.fov,
 					x_WORD_EB398ar.z = v5,
 					v6 = v5,
@@ -69283,7 +69283,7 @@ void sub_66D00(type_event_0x6E8E* a1x)//247d00
 	v8 = a1x->axis_0x4C_76.z;
 	x_WORD_EB398ar.z = getTerrainAlt_10C40(&a1x->axis_0x4C_76);
 	if (x_WORD_EB398ar.z > v8
-		|| x_BYTE_D41B6
+		|| isCaveLevel_D41B6
 		&& (x_WORD_EB398ar.z = sub_10C60(&a1x->axis_0x4C_76) - a1x->array_0x52_82.fov,
 			//x_WORD_EB398ar.z = (short)v2,
 			//v9 = (short)v2,
@@ -69430,7 +69430,7 @@ void sub_66FD0(type_event_0x6E8E* a1x)//247fd0
 		v10 = a1x->axis_0x4C_76.z;
 		x_WORD_EB398ar.z = v9;
 		if (v9 > v10
-			|| x_BYTE_D41B6
+			|| isCaveLevel_D41B6
 			&& (x_WORD_EB398ar.z = sub_10C60(&a1x->axis_0x4C_76) - a1x->array_0x52_82.fov, a1x->axis_0x4C_76.z > x_WORD_EB398ar.z))
 		{
 			//LOBYTE(v8) = x_WORD_EB398ar[2];
@@ -69666,7 +69666,7 @@ void sub_674C0(type_event_0x6E8E* a1x)//2484c0
 	v8 = a1x->axis_0x4C_76.z;
 	x_WORD_EB398ar.z = result;
 	if (result > v8
-		|| x_BYTE_D41B6
+		|| isCaveLevel_D41B6
 		&& (v9 = sub_10C60(&a1x->axis_0x4C_76) - a1x->array_0x52_82.fov,
 			x_WORD_EB398ar.z = v9,
 			v10 = v9,
@@ -69995,7 +69995,7 @@ void sub_67960(/*type_str_0x6E8E* a1x,*/ type_event_0x6E8E* a2x)//248960
 		v9 = getTerrainAlt_10C40(v13x);
 		v10 = a2x->axis_0x4C_76.z;
 		x_WORD_EB398ar.z = v9;
-		if (v9 > v10 || x_BYTE_D41B6 && (x_WORD_EB398ar.z = sub_10C60(v13x) - a2x->array_0x52_82.fov, a2x->axis_0x4C_76.z > x_WORD_EB398ar.z))
+		if (v9 > v10 || isCaveLevel_D41B6 && (x_WORD_EB398ar.z = sub_10C60(v13x) - a2x->array_0x52_82.fov, a2x->axis_0x4C_76.z > x_WORD_EB398ar.z))
 		{
 			v18 = 1;
 			a2x->axis_0x4C_76.z = x_WORD_EB398ar.z;
@@ -73494,7 +73494,7 @@ void sub_6CFA0(type_event_0x6E8E* a1x)//24dfa0
 	int result; // eax
 	__int16 v8; // cx
 
-	if (x_BYTE_D41B6 && a1x->word_0x2E_46 > 0)
+	if (isCaveLevel_D41B6 && a1x->word_0x2E_46 > 0)
 	{
 		v1x = x_DWORD_EA3E4[a1x->word_0x28_40];
 		if (v1x > x_DWORD_EA3E4[0])
@@ -74045,7 +74045,7 @@ void sub_6D9C0(type_str_611* a1x, type_SPELLS_BEGIN_BUFFER_str* a2x, __int16 a3,
 	char v10; // dh
 
 	v5 = 0;
-	if ((a1x->array_0x3E9_1001x.byte[a3] || a1x->array_0x333_819x.word[a3]) && (x_BYTE_D41B6 || a3 != 25))
+	if ((a1x->array_0x3E9_1001x.byte[a3] || a1x->array_0x333_819x.word[a3]) && (isCaveLevel_D41B6 || a3 != 25))
 		v5 = 1;
 	if (x_D41A0_BYTEARRAY_4_struct.setting_byte2_23 >= 0 && a1x->array_0x2CB_715x.dword[2] > 7)
 		a1x->array_0x2CB_715x.dword[2] = 7;
@@ -89277,7 +89277,7 @@ void sub_872A0()//2682a0
 		if (v5 != (unsigned __int8)str_unk_1804B0ar.byte_0xa5 || v2x->dword_0xA4_164x->str_611.byte_0x459_1113 != str_unk_1804B0ar.byte_0xa6)
 		{
 			v7 = x_BYTE_D94FF_spell_index[v2x->dword_0xA4_164x->str_611.byte_0x458_1112];
-			if ((unsigned __int8)str_unk_1804B0ar.byte_0xa4 > 1u || !v2x->dword_0xA4_164x->str_611.array_0x333_819x.word[v7] || !x_BYTE_D41B6 && v7 == 25)
+			if ((unsigned __int8)str_unk_1804B0ar.byte_0xa4 > 1u || !v2x->dword_0xA4_164x->str_611.array_0x333_819x.word[v7] || !isCaveLevel_D41B6 && v7 == 25)
 				sub_87C10();
 			str_unk_1804B0ar.byte_0xa4 = 0;
 			sub_88D40();

@@ -9,7 +9,7 @@ uint8_t x_BYTE_12B4E0_shading[65536]; // 256x256 //map array3
 uint8_t x_BYTE_13B4E0_angle[65536]; // 256x256 //map array4 // water
 int16_t mapEntityIndex_15B4E0[65536]; // 256x256 //map array5
 
-char x_BYTE_D41B6 = 1; // weak
+char isCaveLevel_D41B6 = 1; // weak
 
 char x_BYTE_F2CD0x[7 * 7 * 7 * 7][2]; // 233cd0//4802 //4816
 
@@ -242,7 +242,7 @@ void GenerateLevelMap_43830(unsigned int a1, type_str_2FECE* a2x)//224830
 	sub_43EE0();//224ee0 // add rivers
 
 	sub_44580();//225580 //set angle of terrain
-	if (x_BYTE_D41B6)
+	if (isCaveLevel_D41B6)
 		sub_43B40();//224b40 //change angle of terrain
 	else
 		sub_43D50();//224d50 //change angle of terrain

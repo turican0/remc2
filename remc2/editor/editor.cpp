@@ -109,7 +109,7 @@ void loadlevel(int levelnumber) {
 
 void editor_run()
 {	
-	*xadataclrd0dat.colorPallette_var28 = (uint8_t*)malloc(4096);//fix it
+	*xadataclrd0dat.colorPallette_var28 = (uint8_t*)malloc(4096);//fix it 3x256 ?
 
 	initposistruct();
 
@@ -232,7 +232,7 @@ void terrain_recalculate() {
 	}
 	if (stage > 12)
 	{
-		if (x_BYTE_D41B6)
+		if (isCaveLevel_D41B6)
 			sub_43B40();//224b40 //change angle of terrain
 		else
 			sub_43D50();//224d50 //change angle of terrain
