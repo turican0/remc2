@@ -264,7 +264,6 @@ typedef struct {//lenght 30
 extern filearray_struct x_DWORD_E9B20[4];
 
 extern __int16 x_WORD_E29DA_type_resolution; // weak
-extern __int16 x_WORD_180660_VGA_type_resolution; // weak
 
 #pragma pack (1)
 typedef struct {//lenght 18

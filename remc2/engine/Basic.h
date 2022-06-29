@@ -34,6 +34,7 @@
 #include "defs.h"
 
 #include "../utilities/DataFileIO.h"
+#include "../engine/ViewPort.h"
 
 #if defined(__LP64__) || defined(_WIN64) || (defined(__x86_64__) &&     !defined(__ILP32__) ) || defined(_M_X64) || defined(__ia64) || defined (_M_IA64) || defined(__aarch64__) || defined(__powerpc64__) || defined(__x86_64__) || (UINT_MAX >= 0xffffffffffffffff)
 #define x64_BIT_ENVIRONMENT 1
@@ -146,7 +147,26 @@ typedef struct//lenght 613 // end 17E09D
 } type_x_DWORD_17DE38str;
 #pragma pack (16)
 
+extern type_str_unk_1804B0ar str_unk_1804B0ar;
+extern __int16 x_WORD_180660_VGA_type_resolution;
+extern uint8_t x_BYTE_E88E0x[32];
+extern uint8_t unk_F0A20x[1024];//2c1a20
 extern char isCaveLevel_D41B6;
+extern __int16 x_WORD_D4B7C; // weak
+extern __int16 x_WORD_D4B7E; // weak
+extern type_event_0x6E8E* x_DWORD_EA3E4[1001];//2bb3e4
+
+extern uint8_t x_BYTE_F6EE0_tablesx[0x14600];// (uint8_t*)&x_BYTE_F6EE0_tablesbuff;//animated sprites
+extern uint8_t* x_BYTE_F6EE0_tablesx_pre;
+extern uint8_t* x_BYTE_FAEE0_tablesx_pre;
+
+extern int iScreenWidth_DE560; // weak //screen X // DE560
+
+extern ViewPort viewPort;
+
+extern std::array<uint8_t*, 256> x_DWORD_DDF50_texture_adresses; /*= { 0,32 }*/ // weak
+
+extern uint8_t* ViewPortRenderBufferStart_DE558;
 
 extern char gameDataPath[];
 extern char cdDataPath[];
@@ -538,6 +558,7 @@ void sub_41A90_VGA_pallette_install(TColor* a1x);
 void sub_2EC90(char a1);
 uint32_t sub_7FAE0_draw_text(char* a1, __int16 a2, __int16 a3, __int16 a4, unsigned __int8 a5);
 void sub_90478_VGA_Blit320();
+void sub_75200_VGA_Blit640(uint16_t height);
 uint8_t sub_6FC30_get34_height();
 void sub_2BB40_draw_bitmap(int16_t posx, int16_t posy, posistruct_t temposstr);
 
