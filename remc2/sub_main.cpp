@@ -47,6 +47,7 @@ int test_regression_level = 0;
 	#define FIX_FLYASISTANT
 	#define LOAD_EDITED_LEVEL
 	int debugafterload = 0;
+	bool hideGraphics = false;
 #elif defined(PLAYING_GAME) //this is setting for autosavegame
 	#define DETECT_DWORD_A
 	#define AUTO_CHANGE_RES
@@ -77724,7 +77725,7 @@ void sub_75200_VGA_Blit640(uint16_t height)//256200
 	if (!x_BYTE_E3766)
 		sub_8CACD_draw_cursor2();//26dacd
 
-	VGA_Blit(640, height, pdwScreenBuffer);
+	VGA_Blit(pdwScreenBuffer);
 
 	//set speed
 	long actmillis = mygetthousandths();
@@ -77741,7 +77742,7 @@ void VGA_BlitAny(uint16_t width, uint16_t height, uint8_t* pScreenBuffer)//25620
 	if (!x_BYTE_E3766)
 		sub_8CACD_draw_cursor2();
 
-	VGA_Blit(width, height, pScreenBuffer);
+	VGA_Blit(pScreenBuffer);
 
 	//set speed
 	long actmillis = mygetthousandths();

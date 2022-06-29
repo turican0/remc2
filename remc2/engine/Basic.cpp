@@ -1515,7 +1515,7 @@ void sub_90478_VGA_Blit320()//271478
 	if (!x_BYTE_E3766)
 		sub_8CACD_draw_cursor2();
 #ifndef debug_hide_graphics
-	VGA_Blit(320, 200, pdwScreenBuffer);
+	VGA_Blit(pdwScreenBuffer);
 #endif
 	//if(dos_key_vect_9)dos_key_vect_9();
 	//VGA_mouse_clear_keys();

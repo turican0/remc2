@@ -29,7 +29,7 @@ void VGA_Init(Uint32 flags, int width, int height, bool maintainAspectRatio);
 bool VGA_LoadFont();
 void VGA_close();
 void VGA_Resize(int width, int height);
-void VGA_Blit(uint16_t width, uint16_t height, Uint8* srcBuffer);
+void VGA_Blit(Uint8* srcBuffer);
 void SubBlit(uint16_t originalResWidth, uint16_t originalResHeight);
 void VGA_Debug_Blit(int width, int height, Uint8* srcBuffer);
 void VGA_Set_pallette(Uint8* pallettebuffer);
@@ -59,5 +59,7 @@ void Draw_debug_matrix1();
 
 extern uint8_t LastPressedKey_1806E4; // weak//3516e4
 extern int8_t pressedKeys_180664[128]; // idb
+
+extern bool hideGraphics;
 
 #endif //PORT_SDL_VGA_MOUSE
