@@ -11,6 +11,8 @@ char bigGraphicsPath[MAX_PATH];
 
 //bool hideGraphics;
 
+type_str_unk_1804B0ar str_unk_1804B0ar;
+
 TColor unk_17D838x[0x100]; // weak
 
 int x_DWORD_E3E2C = 0; // weak
@@ -69,6 +71,17 @@ int x_DWORD_180704_mouse_byte_index1; // weak
 uint32_t screenHeight_180624; // weak
 uint32_t screenWidth_18062C; // weak
 
+int iScreenWidth_DE560 = 0; // weak //screen X // DE560
+
+//View Port Dimensions for game world render
+ViewPort viewPort = { 0,0,0,0 };
+//int iViewPortWidth_DE564 = 0;  // DE564 viewPort.Width_DE564
+//int iViewPortHeight_DE568 = 0; // DE568 viewPort.Height_DE568
+// //int iViewPortPosX_EA3D0; // weak?x_DWORD_E9C4C_langindexbuffer[481] viewPort.PosX_EA3D0
+//int iViewPortPosY_EA3CC; // weak?x_DWORD_E9C4C_langindexbuffer[480] viewPort.PosY_EA3CC
+
+//std::array<uint8_t*, 256> x_DWORD_DDF50_texture_adresses; /*= { 0,32 }*/ // weak
+
 //inputs
 __int16 x_WORD_180744_mouse_right_button; // weak//351744
 __int16 x_WORD_180746_mouse_left_button; // weak//351746
@@ -99,6 +112,18 @@ uint8_t* x_DWORD_E9C38_smalltit;//*(x_DWORD*)(x_DWORD_E9C38_smalltit + 36964)
 int help_VGA_type_resolution = 0;
 
 int16_t x_WORD_180660_VGA_type_resolution; // weak
+uint8_t x_BYTE_E88E0x[32];
+uint8_t unk_F0A20x[1024];
+char isCaveLevel_D41B6 = 1;
+__int16 x_WORD_D4B7C = 254; // some key color?
+__int16 x_WORD_D4B7E = 0; // some key color?
+type_event_0x6E8E* x_DWORD_EA3E4[1001];//2bb3e4
+
+uint8_t x_BYTE_F6EE0_tablesx[0x14600];// (uint8_t*)&x_BYTE_F6EE0_tablesbuff;//animated sprites
+uint8_t* x_BYTE_F6EE0_tablesx_pre = (uint8_t*)x_BYTE_F6EE0_tablesx;
+uint8_t* x_BYTE_FAEE0_tablesx_pre = (uint8_t*)&x_BYTE_F6EE0_tablesx[0x4000];
+
+uint8_t* ViewPortRenderBufferStart_DE558 = 0;
 
 //language
 char* x_DWORD_E9C4C_langindexbuffer[1000]; // idb
@@ -1515,7 +1540,7 @@ void sub_90478_VGA_Blit320()//271478
 	if (!x_BYTE_E3766)
 		sub_8CACD_draw_cursor2();
 #ifndef debug_hide_graphics
-	VGA_Blit(320, 200, pdwScreenBuffer);
+	VGA_Blit(pdwScreenBuffer);
 #endif
 	//if(dos_key_vect_9)dos_key_vect_9();
 	//VGA_mouse_clear_keys();
@@ -1529,6 +1554,40 @@ void sub_90478_VGA_Blit320()//271478
 	oldmillis = actmillis;
 	//set speed
 	VGA_CalculateAndPrintFPS(0, 0);
+}
+
+int debugcounter_258350 = 0;
+//----- (00075200) --------------------------------------------------------
+//long sub_75200_VGA_Blit640_index= 0;
+int debugcounter_256200 = 0;
+//long oldmillis = 0;
+void sub_75200_VGA_Blit640(uint16_t height)//256200
+{
+	/*if (debugcounter_258350 > 0)
+	{
+		uint8_t origbyte20 = 0;
+		uint8_t remakebyte20 = 0;
+		int debugcounter11 = 0;
+		int comp20;
+
+		//comp20 = compare_with_sequence((char*)"00256200-003AA0A4", pdwScreenBuffer, 0x3aa0a4, debugcounter_256200, 320 * 200, 320 * 200, &origbyte20, &remakebyte20);
+
+		debugcounter_256200++;
+	}*/
+
+	if (!x_BYTE_E3766)
+		sub_8CACD_draw_cursor2();//26dacd
+
+	VGA_Blit(pdwScreenBuffer);
+
+	//set speed
+	long actmillis = mygetthousandths();
+	long newdelay = speedGame - (actmillis - oldmillis);//max millis is 20 millis
+	if (newdelay < 0)newdelay = 0;
+	if (newdelay > speedGame)newdelay = speedGame;
+	mydelay(newdelay);//set speed
+	oldmillis = actmillis;
+	//set speed
 }
 
 //----- (0006FC30) --------------------------------------------------------
@@ -1663,8 +1722,6 @@ void DrawText_2BC10(const char* textbuffer, int16_t posx, int16_t posy, uint8_t 
 
 void VGA_CalculateAndPrintFPS(int x, int y)
 {
-	//#include <chrono>
-	//auto begin = std::chrono::high_resolution_clock::now();
 	timeDelta += std::chrono::steady_clock::now() - frameStart;
 	frameCount++;
 

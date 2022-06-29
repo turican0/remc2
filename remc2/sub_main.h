@@ -264,7 +264,6 @@ typedef struct {//lenght 30
 extern filearray_struct x_DWORD_E9B20[4];
 
 extern __int16 x_WORD_E29DA_type_resolution; // weak
-extern __int16 x_WORD_180660_VGA_type_resolution; // weak
 
 #pragma pack (1)
 typedef struct {//lenght 18
@@ -310,7 +309,7 @@ extern char x_BYTE_17DF11_last_key_status; // weak
 
 extern uint16_t x_WORD_17B4E0; // 34c4e0
 
-extern char x_BYTE_D41B6;
+extern char isCaveLevel_D41B6;
 
 #pragma pack (1)
 typedef struct {//lenght 16
@@ -459,7 +458,6 @@ void sub_44EE0_smooth_tiles(/*int a1, */uaxis_2d a2);
 void sub_56A30_init_game_level(unsigned int a1);
 void sub_47320_in_game_loop(signed int a1);
 void sub_56D60(unsigned int a1, char a2);
-void sub_75200_VGA_Blit640(uint16_t height);
 void VGA_BlitAny(uint16_t width, uint16_t height, uint8_t* pScreenBuffer);
 void VGA_CalculateAndPrintFPS(int x, int y);
 void sub_7A060_get_mouse_and_keyboard_events();

@@ -109,7 +109,7 @@ void loadlevel(int levelnumber) {
 
 void editor_run()
 {	
-	*xadataclrd0dat.colorPallette_var28 = (uint8_t*)malloc(4096);//fix it
+	*xadataclrd0dat.colorPallette_var28 = (uint8_t*)malloc(4096);//fix it 3x256 ?
 
 	initposistruct();
 
@@ -219,7 +219,7 @@ void terrain_recalculate() {
 	}
 	if (stage > 9)
 	{
-		memset((void*)x_BYTE_10B4E0_terraintype, 0, 0x10000);
+		memset((void*)mapTerrainType_10B4E0, 0, 0x10000);
 		sub_43970(0);//224970 // smooth terrain
 	}
 	if (stage > 10)
@@ -232,7 +232,7 @@ void terrain_recalculate() {
 	}
 	if (stage > 12)
 	{
-		if (x_BYTE_D41B6)
+		if (isCaveLevel_D41B6)
 			sub_43B40();//224b40 //change angle of terrain
 		else
 			sub_43D50();//224d50 //change angle of terrain
@@ -405,16 +405,16 @@ void fillterrain(kiss_terrain* terrain, SDL_Surface* mapsurface,float zoom, int 
 					switch (maptype)
 					{
 					case 0:
-						SetPixelMapSurface(i, j, nx, ny, x_BYTE_10B4E0_terraintype, mapsurface);
+						SetPixelMapSurface(i, j, nx, ny, mapTerrainType_10B4E0, mapsurface);
 						break;
 					case 1:
-						SetPixelMapSurface(i, j, nx, ny, x_BYTE_11B4E0_heightmap, mapsurface);
+						SetPixelMapSurface(i, j, nx, ny, mapHeightmap_11B4E0, mapsurface);
 						break;
 					case 2:
-						SetPixelMapSurface(i, j, nx, ny, x_BYTE_12B4E0_shading, mapsurface);
+						SetPixelMapSurface(i, j, nx, ny, mapShading_12B4E0, mapsurface);
 						break;
 					case 3:
-						SetPixelMapSurface(i, j, nx, ny, x_BYTE_13B4E0_angle, mapsurface);
+						SetPixelMapSurface(i, j, nx, ny, mapAngle_13B4E0, mapsurface);
 						break;
 					}
 					break;
