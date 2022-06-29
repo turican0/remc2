@@ -876,21 +876,21 @@ void GameRender::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __int
 					if (m_Str_E9C38_smalltit[v47x].dword24 >= 0)
 					{
 						if ((signed int)(unsigned __int16)viewPort.Width_DE564 <= m_Str_E9C38_smalltit[v47x].dword24)
-							m_Str_E9C38_smalltit[v47x].word39 |= 0x200u;
+							m_Str_E9C38_smalltit[v47x].word38 |= 0x200u;
 					}
 					else
 					{
-						m_Str_E9C38_smalltit[v47x].word39 |= 0x100u;
+						m_Str_E9C38_smalltit[v47x].word38 |= 0x100u;
 					}
 					v55 = m_Str_E9C38_smalltit[v47x].dword28;
 					if (v55 >= 0)
 					{
 						if ((unsigned __int16)viewPort.Height_DE568 <= v55)
-							m_Str_E9C38_smalltit[v47x].word39 |= 0x800u;
+							m_Str_E9C38_smalltit[v47x].word38 |= 0x800u;
 					}
 					else
 					{
-						m_Str_E9C38_smalltit[v47x].word39 |= 0x400u;
+						m_Str_E9C38_smalltit[v47x].word38 |= 0x400u;
 					}
 					v47x++;
 					v46--;
@@ -932,7 +932,7 @@ void GameRender::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __int
 						v68x = jx - 1;
 						if ((v66 & v65 & 0x80u) == 0)
 						{
-							if (m_Str_E9C38_smalltit[v68x].word39 & 0x1000)
+							if (m_Str_E9C38_smalltit[v68x].word38 & 0x1000)
 							{
 								x_BYTE_E126D = 7;
 								x_BYTE_E126C = ((signed int)v248x[10] + v248x[16] + v248x[22] + v248x[4]) >> 18;
@@ -977,7 +977,7 @@ void GameRender::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __int
 						v80x = jx - 1;
 						if (v79 >= 0)
 						{
-							if (m_Str_E9C38_smalltit[v80x].word39 & 0x1000)
+							if (m_Str_E9C38_smalltit[v80x].word38 & 0x1000)
 							{
 								x_BYTE_E126D = 7;
 								x_BYTE_E126C = ((signed int)v248x[10] + v248x[16] + v248x[22] + v248x[4]) >> 18;
@@ -1026,7 +1026,7 @@ void GameRender::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __int
 							v94x = v91x - 1;
 							if ((v92 & v89 & 0x80u) == 0)
 							{
-								if (m_Str_E9C38_smalltit[v94x].word39 & 0x1000)
+								if (m_Str_E9C38_smalltit[v94x].word38 & 0x1000)
 								{
 									x_BYTE_E126D = 7;
 									x_BYTE_E126C = ((signed int)v248x[10] + v248x[16] + v248x[22] + v248x[4]) >> 18;
@@ -1067,7 +1067,7 @@ void GameRender::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __int
 							v107x = v104x - 1;
 							if (v106 >= 0)
 							{
-								if (m_Str_E9C38_smalltit[v107x].word39 & 0x1000)
+								if (m_Str_E9C38_smalltit[v107x].word38 & 0x1000)
 								{
 									x_BYTE_E126D = 7;
 									x_BYTE_E126C = ((signed int)v248x[10] + v248x[16] + v248x[22] + v248x[4]) >> 18;
@@ -1141,7 +1141,7 @@ void GameRender::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __int
 				v43x = v278x;
 				m_Str_E9C38_smalltit[v278x].byte41 = x_BYTE_10B4E0_terraintype[v42];
 				if (D41A0_0.m_GameSettings.str_0x2196.flat_0x2199)
-					m_Str_E9C38_smalltit[v43x].word39 |= 0x1000u;
+					m_Str_E9C38_smalltit[v43x].word38 |= 0x1000u;
 				m_Str_E9C38_smalltit[v278x].byte43 = Maths::x_BYTE_D41D8[m_Str_E9C38_smalltit[v278x].byte41];
 				m_Str_E9C38_smalltit[v278x].byte42_std = v248x[32] + (((signed int)(unsigned __int8)x_BYTE_13B4E0_angle[v42] >> 2) & 0x1C);
 				LOBYTE(v42) = v277[4] + v42;
@@ -1264,7 +1264,7 @@ void GameRender::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __int
 							v144 = v142 | v138;
 							if (m_Str_E9C38_smalltit[v143x].byte41)
 							{
-								if (m_Str_E9C38_smalltit[v143x].word39 & 0x1000)
+								if (m_Str_E9C38_smalltit[v143x].word38 & 0x1000)
 								{
 									x_BYTE_E126D = 7;
 									x_BYTE_E126C = ((signed int)v248x[10] + v248x[16] + v248x[22] + v248x[4]) >> 18;
@@ -1325,7 +1325,7 @@ void GameRender::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __int
 								v156 = v154 | v153 | v149;
 								if (m_Str_E9C38_smalltit[v155x].byte41)
 								{
-									if (m_Str_E9C38_smalltit[v155x].word39 & 0x1000)
+									if (m_Str_E9C38_smalltit[v155x].word38 & 0x1000)
 									{
 										x_BYTE_E126D = 7;
 										x_BYTE_E126C = ((signed int)v248x[10] + v248x[16] + v248x[22] + v248x[4]) >> 18;
@@ -1397,7 +1397,7 @@ void GameRender::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __int
 						v174 = BYTE1(v171) & v170 & v167;
 						if ((int8_t)(m_Str_E9C38_smalltit[v172x].word38 & 0xff) >= 0)
 						{
-							if (m_Str_E9C38_smalltit[v172x].word39 & 0x1000)
+							if (m_Str_E9C38_smalltit[v172x].word38 & 0x1000)
 							{
 								x_BYTE_E126D = 7;
 								x_BYTE_E126C = ((signed int)v248x[10] + v248x[16] + v248x[22] + v248x[4]) >> 18;
@@ -1466,7 +1466,7 @@ void GameRender::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __int
 							v192 = v189 & v184;
 							if ((int8_t)(m_Str_E9C38_smalltit[v190x].word38 & 0xff) >= 0)
 							{
-								if (m_Str_E9C38_smalltit[v190x].word39 & 0x1000)
+								if (m_Str_E9C38_smalltit[v190x].word38 & 0x1000)
 								{
 									x_BYTE_E126D = 7;
 									x_BYTE_E126C = ((signed int)v248x[10] + v248x[16] + v248x[22] + v248x[4]) >> 18;
@@ -1545,7 +1545,7 @@ void GameRender::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __int
 				if (Maths::x_BYTE_D41D8[0xa4 + v119])
 					m_Str_E9C38_smalltit[v278x].word38 |= 0x80u;
 				if (D41A0_0.m_GameSettings.str_0x2196.flat_0x2199)
-					m_Str_E9C38_smalltit[v278x].word39 |= 0x1000u;
+					m_Str_E9C38_smalltit[v278x].word38 |= 0x1000u;
 				v120x = v278x;
 				m_Str_E9C38_smalltit[v278x].byte43 = Maths::x_BYTE_D41D8[m_Str_E9C38_smalltit[v278x].byte41];
 				m_Str_E9C38_smalltit[v120x].byte42_std = v248x[32] + (((signed int)(unsigned __int8)x_BYTE_13B4E0_angle[v118] >> 2) & 0x1C);
@@ -1708,7 +1708,7 @@ LABEL_259:
 			v227x = v225x + 40;
 			v228 = (m_Str_E9C38_smalltit[v225x].word38 & 0xff) | v226 | v222;
 			v229 = (m_Str_E9C38_smalltit[v225x].word38 & 0xff) & v226 & v223;
-			if (m_Str_E9C38_smalltit[v227x].word39 & 0x1000)
+			if (m_Str_E9C38_smalltit[v227x].word38 & 0x1000)
 			{
 				x_BYTE_E126D = 7;
 				x_BYTE_E126C = ((signed int)v248x[10] + v248x[16] + v248x[22] + v248x[4]) >> 18;
@@ -1758,7 +1758,7 @@ LABEL_259:
 				v243x = v240x + 40;
 				v244 = v242 | v237;
 				v245 = v242 & v238;
-				if (m_Str_E9C38_smalltit[v240x].word39 & 0x1000)
+				if (m_Str_E9C38_smalltit[v240x].word38 & 0x1000)
 				{
 					x_BYTE_E126D = 7;
 					x_BYTE_E126C = ((signed int)v248x[10] + v248x[16] + v248x[22] + v248x[4]) >> 18;
