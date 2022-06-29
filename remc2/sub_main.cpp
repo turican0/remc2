@@ -4800,7 +4800,6 @@ std::array<uint8_t*, 256> x_DWORD_DDF50_texture_adresses; /*= { 0,32 }*/ // weak
 
 uint8_t* ptrViewPortRenderBufferAltStart = 0; // weak
 
-
 char x_BYTE_E126D = 0; // weak
 char x_BYTE_E1274 = 0; // weak
 char x_BYTE_E1275 = 0; // weak
