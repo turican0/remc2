@@ -99,6 +99,7 @@ uint8_t* x_DWORD_E9C38_smalltit;//*(x_DWORD*)(x_DWORD_E9C38_smalltit + 36964)
 int help_VGA_type_resolution = 0;
 
 int16_t x_WORD_180660_VGA_type_resolution; // weak
+char isCaveLevel_D41B6 = 1; // weak
 
 //language
 char* x_DWORD_E9C4C_langindexbuffer[1000]; // idb

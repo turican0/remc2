@@ -146,6 +146,7 @@ typedef struct//lenght 613 // end 17E09D
 } type_x_DWORD_17DE38str;
 #pragma pack (16)
 
+extern char isCaveLevel_D41B6;
 
 extern char gameDataPath[];
 extern char cdDataPath[];

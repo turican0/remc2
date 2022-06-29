@@ -9,8 +9,6 @@ uint8_t x_BYTE_12B4E0_shading[65536]; // 256x256 //map array3
 uint8_t x_BYTE_13B4E0_angle[65536]; // 256x256 //map array4 // water
 int16_t mapEntityIndex_15B4E0[65536]; // 256x256 //map array5
 
-char isCaveLevel_D41B6 = 1; // weak
-
 char x_BYTE_F2CD0x[7 * 7 * 7 * 7][2]; // 233cd0//4802 //4816
 
 uint8_t x_BYTE_D41B7 = 44; // weak
