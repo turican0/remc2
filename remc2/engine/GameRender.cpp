@@ -14753,40 +14753,35 @@ void GameRender::SetRenderViewPortSize_40C50(uint8_t viewPortSizeSetting, uint16
 
 void GameRender::SetRenderViewPortSize_BCD45(ViewPort viewPort, uint16_t screenWidth, uint16_t screenHeight)
 {
-	//iScreenWidth_DE560 = iScreenWidth_DE560;
-	//m_uiScreenHeight = screenHeight;
-
-	//viewPort = viewPort;
-
-	if (viewPort.Width_DE564 > iScreenWidth_DE560)
+	if (viewPort.Width_DE564 > screenWidth_18062C)
 	{
-		viewPort.Width_DE564 = iScreenWidth_DE560;
+		viewPort.Width_DE564 = screenWidth_18062C;
 	}
 
-	if (viewPort.Height_DE568 > screenHeight)
+	if (viewPort.Height_DE568 > screenHeight_180624)
 	{
-		viewPort.Height_DE568 = screenHeight;
+		viewPort.Height_DE568 = screenHeight_180624;
 	}
 
-	if (viewPort.PosX_EA3D0 > iScreenWidth_DE560)
+	if (viewPort.PosX_EA3D0 > screenWidth_18062C)
 	{
-		viewPort.PosX_EA3D0 = iScreenWidth_DE560 - 1;
+		viewPort.PosX_EA3D0 = screenWidth_18062C - 1;
 	}
 
-	if (viewPort.PosY_EA3CC > screenHeight)
+	if (viewPort.PosY_EA3CC > screenHeight_180624)
 	{
-		viewPort.PosY_EA3CC = screenHeight - 1;
+		viewPort.PosY_EA3CC = screenHeight_180624 - 1;
 	}
 
 	int32_t ptrScreenRenderBufferStart = viewPort.PosX_EA3D0 + iScreenWidth_DE560 * viewPort.PosY_EA3CC;
 	SetRenderViewPortSize_BCD45(ptrScreenRenderBufferStart + pdwScreenBuffer, viewPort.Width_DE564, viewPort.Height_DE568, iScreenWidth_DE560);
 }
 
-void GameRender::SetRenderViewPortSize_BCD45(uint8_t* ptrScreenBufferStart, uint16_t iScreenWidth_DE560, uint16_t viewPortWidth, uint16_t viewPortHeight/*, uint16_t iScreenWidth_DE560*/)
+void GameRender::SetRenderViewPortSize_BCD45(uint8_t* ptrScreenBufferStart, uint16_t screenWidth, uint16_t viewPortWidth, uint16_t viewPortHeight/*, uint16_t iScreenWidth_DE560*/)
 {
 	if (iScreenWidth_DE560)
 	{
-		iScreenWidth_DE560 = iScreenWidth_DE560;
+		iScreenWidth_DE560 = screenWidth;
 	}
 
 	if (ptrScreenBufferStart)
@@ -14797,12 +14792,12 @@ void GameRender::SetRenderViewPortSize_BCD45(uint8_t* ptrScreenBufferStart, uint
 
 	if (viewPort.Width_DE564)
 	{
-		viewPort.Width_DE564 = viewPort.Width_DE564;
+		viewPort.Width_DE564 = viewPortWidth;
 	}
 
 	if (viewPort.Height_DE568)
 	{
-		viewPort.Height_DE568 = viewPort.Height_DE568;
+		viewPort.Height_DE568 = viewPortHeight;
 	}
 }
 
