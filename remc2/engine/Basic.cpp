@@ -71,7 +71,7 @@ int x_DWORD_180704_mouse_byte_index1; // weak
 uint32_t screenHeight_180624; // weak
 uint32_t screenWidth_18062C; // weak
 
-//int iScreenWidth_DE560 = 0; // weak //screen X // DE560
+int iScreenWidth_DE560 = 0; // weak //screen X // DE560
 
 //View Port Dimensions for game world render
 ViewPort viewPort = { 0,0,0,0 };
