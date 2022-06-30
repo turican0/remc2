@@ -68,7 +68,7 @@ private:
 	std::array<uint8_t*, 256> m_textureAddresses;
 	uint8_t* m_ptrColorPalette = 0;
 	type_F2C20ar m_str_F2C20ar;
-	int16_t m_x_WORD_180660_VGA_type_resolution;
+	//int16_t m_x_WORD_180660_VGA_type_resolution;
 
 	std::vector<RenderThread*> m_renderThreads;
 	bool m_multiThreadRender = false;
@@ -112,8 +112,9 @@ private:
 	void WaitForRenderFinish();
 
 public:
-	GameRender_new(uint8_t* pScreenBuffer, uint8_t* pColorPalette, uint16_t screenWidth, uint16_t screenHeight, uint16_t viewPortPosX, uint16_t viewPortPosY, uint16_t viewPortWidth, uint16_t viewPortHeight, std::array<uint8_t*, 256> &textureAdresses, uint8_t x_BYTE_F6EE0_tablesx[], uint8_t renderThreads, bool assignToSpecificCores);
+	GameRender_new(/*uint8_t* pScreenBuffer, uint8_t* pColorPalette, uint16_t screenWidth, uint16_t screenHeight, uint16_t viewPortPosX, uint16_t viewPortPosY, uint16_t viewPortWidth, uint16_t viewPortHeight, std::array<uint8_t*, 256>& textureAdresses, uint8_t x_BYTE_F6EE0_tablesx[], uint8_t renderThreads, bool assignToSpecificCores*/);
 	~GameRender_new();
+	void Init(uint8_t renderThreads, bool assignToSpecificCores);
 
 	void SetTextures(std::array<uint8_t*, 256> &textureAdresses);
 	void SetX_BYTE_F6EE0_tablesx(uint8_t pX_BYTE_F6EE0_tablesx[]);

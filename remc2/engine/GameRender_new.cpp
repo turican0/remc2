@@ -1,13 +1,19 @@
 #include "GameRender_new.h"
 
-GameRender_new::GameRender_new(uint8_t* pScreenBuffer, uint8_t* pColorPalette, uint16_t screenWidth, uint16_t screenHeight, uint16_t viewPortPosX, uint16_t viewPortPosY, uint16_t viewPortWidth, uint16_t viewPortHeight, std::array<uint8_t*, 256> &textureAdresses, uint8_t pX_BYTE_F6EE0_tablesx[], uint8_t renderThreads, bool assignToSpecificCores)
+GameRender_new::GameRender_new(/*uint8_t* pScreenBuffer, uint8_t* pColorPalette, uint16_t screenWidth, uint16_t screenHeight, uint16_t viewPortPosX, uint16_t viewPortPosY, uint16_t viewPortWidth, uint16_t viewPortHeight, std::array<uint8_t*, 256>& textureAdresses, uint8_t pX_BYTE_F6EE0_tablesx[], uint8_t renderThreads, bool assignToSpecificCores*/)
 {
-	m_ptrScreenBuffer = pScreenBuffer;
+	/*m_ptrScreenBuffer = pScreenBuffer;
 	m_ptrColorPalette = pColorPalette;
 	SetRenderViewPortSize_BCD45(ViewPort(viewPortPosX, viewPortPosY, viewPortWidth, viewPortHeight), screenWidth, screenHeight);
 	SetTextures(textureAdresses);
 	m_ptrX_BYTE_F6EE0_tablesx = pX_BYTE_F6EE0_tablesx;
 
+	m_assignToSpecificCores = assignToSpecificCores;
+	SetRenderThreads(renderThreads);*/
+}
+
+void GameRender_new::Init(uint8_t renderThreads, bool assignToSpecificCores)
+{
 	m_assignToSpecificCores = assignToSpecificCores;
 	SetRenderThreads(renderThreads);
 }
@@ -20,9 +26,9 @@ GameRender_new::~GameRender_new()
 	}
 }
 
-void GameRender_new::DrawWorld(int posX, int posY, int16_t yaw, int16_t posZ, int16_t pitch, int16_t roll, int16_t fov, uint8_t heightmap[], type_particle_str** str_DWORD_F66F0x[], uint8_t x_BYTE_E88E0x[], int32_t x_DWORD_F5730[], uint8_t unk_F0A20x[], type_event_0x6E8E* x_DWORD_EA3E4[], type_str_unk_1804B0ar str_unk_1804B0ar, int16_t x_WORD_180660_VGA_type_resolution, int16_t x_WORD_D4B7C, char isCaveLevel)
+void GameRender_new::DrawWorld(int posX, int posY, int16_t yaw, int16_t posZ, int16_t pitch, int16_t roll, int16_t fov, uint8_t heightmap[], type_particle_str** str_DWORD_F66F0x[], uint8_t x_BYTE_E88E0x[], int32_t x_DWORD_F5730[], uint8_t unk_F0A20x[], type_event_0x6E8E* x_DWORD_EA3E4[], type_str_unk_1804B0ar str_unk_1804B0ar, int16_t x_WORD_180660_VGA_type_resolutionxx, int16_t x_WORD_D4B7C, char isCaveLevel)
 {
-	m_x_WORD_180660_VGA_type_resolution = x_WORD_180660_VGA_type_resolution;
+	//m_x_WORD_180660_VGA_type_resolution = x_WORD_180660_VGA_type_resolution;
 	unsigned __int16 v8; // ax
 	int v9; // ecx
 	int v10; // ebx
@@ -2239,7 +2245,7 @@ void GameRender_new::sub_88740(type_event_0x6E8E* a1x, type_event_0x6E8E* x_DWOR
 LABEL_48:
 	if (v3)
 	{
-		if (m_x_WORD_180660_VGA_type_resolution & 1)
+		if (x_WORD_180660_VGA_type_resolution & 1)
 		{
 			a2 *= 2;
 			a3 *= 2;
@@ -2989,7 +2995,7 @@ void GameRender_new::DrawSorcererNameAndHealthBar_2CB30(type_event_0x6E8E* a1x, 
 	v37 = str_D94F0_bldgprmbuffer[static_cast<std::underlying_type<MapType_t>::type>(D41A0_0.terrain_2FECE.MapType)][0];//?v22
 	//v9 = a4 >> 1;
 	v10 = (a4 >> 1) + a2;
-	if (m_x_WORD_180660_VGA_type_resolution & 1)
+	if (x_WORD_180660_VGA_type_resolution & 1)
 	{
 		v10 *= 2;
 		a3 *= 2;

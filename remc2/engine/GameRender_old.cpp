@@ -12,14 +12,10 @@ GameRender_old::GameRender_old(/*uint8_t* pScreenBuffer, uint8_t* pColorPalette,
 	SetRenderThreads(renderThreads);*/
 }
 
-void GameRender_old::Init(uint8_t renderThreads, bool assignToSpecificCores/*, int rendererType*/)
+void GameRender_old::Init(uint8_t renderThreads, bool assignToSpecificCores)
 {
-	//m_rendererType = rendererType;
-	//if (m_rendererType)
-	{
-		m_assignToSpecificCores = assignToSpecificCores;
-		SetRenderThreads(renderThreads);
-	}
+	m_assignToSpecificCores = assignToSpecificCores;
+	SetRenderThreads(renderThreads);
 }
 
 GameRender_old::~GameRender_old()

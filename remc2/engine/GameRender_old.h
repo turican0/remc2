@@ -88,7 +88,7 @@ private:
 	int16_t x_WORD_F2CC4 = 0;
 	uint8_t* x_DWORD_DE55C_ActTexture = 0; // weak
 
-	int m_rendererType;
+	//int m_rendererType;
 
 	void DrawSky_40950(int16_t roll/*, uint8_t* ptrViewPortRenderBufferStart, uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t pitch, uint8_t startLine, uint8_t drawEveryNthLine*/);
 	void DrawSky_40950_TH(int16_t roll/*, uint8_t* ptrViewPortRenderBufferStart, uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t pitch*/);
@@ -118,7 +118,7 @@ public:
 	GameRender_old(/*uint8_t* pScreenBuffer, uint8_t* pColorPalette, uint16_t screenWidth, uint16_t screenHeight, uint16_t viewPortPosX, uint16_t viewPortPosY, uint16_t viewPortWidth, uint16_t viewPortHeight, std::array<uint8_t*, 256>& textureAdresses, uint8_t x_BYTE_F6EE0_tablesx[], uint8_t renderThreads, bool assignToSpecificCores*/);
 	~GameRender_old();
 
-	void Init(uint8_t renderThreads, bool assignToSpecificCores/*, int rendererType*/);
+	void Init(uint8_t renderThreads, bool assignToSpecificCores);
 
 	void SetTextures(std::array<uint8_t*, 256> &textureAdresses);
 	//void SetX_BYTE_F6EE0_tablesx(uint8_t pX_BYTE_F6EE0_tablesx[]);
