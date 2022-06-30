@@ -149,6 +149,9 @@ typedef struct//lenght 613 // end 17E09D
 } type_x_DWORD_17DE38str;
 #pragma pack (16)
 
+//extern int16_t m_iViewPortX_EA3D0; // weak?x_DWORD_E9C4C_langindexbuffer[481]
+//extern uint16_t m_uiViewPortWidth_EA3C4; // weak?x_DWORD_E9C4C_langindexbuffer[478]
+
 extern type_str_unk_1804B0ar str_unk_1804B0ar;
 extern __int16 x_WORD_180660_VGA_type_resolution;
 extern uint8_t x_BYTE_E88E0x[32];

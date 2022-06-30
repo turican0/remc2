@@ -2964,8 +2964,8 @@ void GameRender_new::DrawSorcererNameAndHealthBar_2CB30(type_event_0x6E8E* a1x, 
 	v23 = 0;*/
 	// end
 
-	v31 = viewPortWidth + viewPortX - 4;
-	v29 = viewPortHeight + viewPortY - 22;
+	v31 = viewPort.Width2_EA3C4 + viewPort.PosX_EA3D0 - 4;
+	v29 = viewPort.Height2_EA3C0 + viewPort.PosY_EA3CC - 22;
 	v25 = a1x->dword_0xA4_164x->word_0x38_56;
 	//v4 = v24;
 	//D41A0_BYTESTR_0.array_0x2BDE[v25].array_0x39f_2BFA_12157

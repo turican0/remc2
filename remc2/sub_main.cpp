@@ -1449,7 +1449,7 @@ void sub_2BBB0(__int16 a1, __int16 a2, posistruct_t a3);
 void sub_2BD10_draw_line(__int16 a1, __int16 a2, __int16 a3, __int16 a4, unsigned __int8 a5);
 void DrawGameFrame_2BE30(uint8_t* ptrScreenBuffer, uint16_t screenWidth, uint16_t screenHeight);
 void SetViewPortScreenCoordinates_2CA60(int16_t viewPortX, int16_t viewPortY, uint16_t viewPortWidth, uint16_t viewPortHeight);
-int ResizeViewPort(__int16 a1);
+int ResizeViewPort_2CA60(__int16 a1);
 void sub_2CE30_pause_end_level(int a1, int a2, uint16_t screenWidth);
 void sub_2D190(int16_t posStartX, int16_t posStartY, int a3, int16_t posEndY, int a5, uint8 colorIdx);
 void sub_2D190(int16_t posStartX, int16_t posStartY, int a3, int16_t posEndY, int a5, uint16_t pitch, uint8 colorIdx);
@@ -6110,11 +6110,11 @@ int x_DWORD_E9C24_fps; // weak
 
 uint8_t* pre_x_DWORD_E9C3C;
 TColor x_DWORD_EA3B8x[256]; // weak?x_DWORD_E9C4C_langindexbuffer[475]
-uint16_t m_uiViewPortHeight; // weak?x_DWORD_E9C4C_langindexbuffer[477]
-uint16_t m_uiViewPortWidth; // weak?x_DWORD_E9C4C_langindexbuffer[478]
-int x_DWORD_EA3C8; // weak?x_DWORD_E9C4C_langindexbuffer[479]
-int16_t m_iViewPortY; // weak?x_DWORD_E9C4C_langindexbuffer[480]
-int16_t m_iViewPortX; // weak?x_DWORD_E9C4C_langindexbuffer[481]
+//uint16_t m_uiViewPortHeight; // weak?x_DWORD_E9C4C_langindexbuffer[477]
+
+//int x_DWORD_EA3C8; // weak?x_DWORD_E9C4C_langindexbuffer[479]
+//int16_t m_iViewPortY; // weak?x_DWORD_E9C4C_langindexbuffer[480]
+
 
 axis_3d x_WORD_EB398ar; // weak
 uint8_t x_BYTE_EB39E_keys[10]; // weak 0 - setting keys
@@ -12063,7 +12063,7 @@ void MouseAndKeysEvents_17A00(signed int a2, __int16 a3, uint16_t screenWidth, u
 						if (D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize < 40)
 						{
 							D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize++;
-							ResizeViewPort(D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize);
+							ResizeViewPort_2CA60(D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize);
 						}
 					}
 					LastPressedKey_1806E4 = 0;
@@ -12076,7 +12076,7 @@ void MouseAndKeysEvents_17A00(signed int a2, __int16 a3, uint16_t screenWidth, u
 						if (D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize > 17)
 						{
 							D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize--;// = v10 - 1;
-							ResizeViewPort(D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize);
+							ResizeViewPort_2CA60(D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize);
 						}
 					}
 					LastPressedKey_1806E4 = 0;
@@ -14365,7 +14365,7 @@ void sub_1A970_change_game_settings(char a1, int a2, int a3)//1fb970
 		}
 		D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize = 40;
 	LABEL_97:
-		ResizeViewPort(D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize);
+		ResizeViewPort_2CA60(D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize);
 		return;
 	case 9:
 		if (!D41A0_0.str_0x21AA.creflections_0x21AA)
@@ -27888,10 +27888,10 @@ void DrawGameFrame_2BE30(uint8_t* ptrScreenBuffer, uint16_t screenWidth, uint16_
 //----- (0002CA60) --------------------------------------------------------
 void SetViewPortScreenCoordinates_2CA60(int16_t viewPortX, int16_t viewPortY, uint16_t viewPortWidth, uint16_t viewPortHeight)//20da60
 {
-	m_iViewPortX = viewPortX;
-	m_iViewPortY = viewPortY;
-	m_uiViewPortWidth = viewPortWidth;
-	m_uiViewPortHeight = viewPortHeight;
+	viewPort.PosX_EA3D0 = viewPortX;
+	viewPort.PosY_EA3CC = viewPortY;
+	viewPort.Width2_EA3C4 = viewPortWidth;
+	viewPort.Height2_EA3C0 = viewPortHeight;
 }
 // EA3C0: using guessed type int x_DWORD_EA3C0;
 // EA3C4: using guessed type int x_DWORD_EA3C4;
@@ -27899,7 +27899,7 @@ void SetViewPortScreenCoordinates_2CA60(int16_t viewPortX, int16_t viewPortY, ui
 // EA3D0: using guessed type int x_DWORD_EA3D0;
 
 //----- (0002CA90) --------------------------------------------------------
-int ResizeViewPort(__int16 a1)//20da90
+int ResizeViewPort_2CA60(__int16 a1)//20da90
 {
 	int v1; // eax
 	int result; // eax
@@ -27907,8 +27907,8 @@ int ResizeViewPort(__int16 a1)//20da90
 	int v4; // ecx
 
 	v1 = 40 - a1;
-	m_iViewPortX = 8 * v1;
-	m_uiViewPortWidth = 16 * a1;
+	viewPort.PosX_EA3D0 = 8 * v1;
+	viewPort.Width2_EA3C4 = 16 * a1;
 	if (x_WORD_180660_VGA_type_resolution & 1)
 	{
 		result = 5 * v1 / 2;
@@ -27921,8 +27921,8 @@ int ResizeViewPort(__int16 a1)//20da90
 		v3 = 12 * a1;
 		v4 = result;
 	}
-	m_uiViewPortHeight = v3;
-	m_iViewPortY = v4;
+	viewPort.Height2_EA3C0 = v3;
+	viewPort.PosY_EA3CC = v4;
 	return result;
 }
 // EA3C0: using guessed type int x_DWORD_EA3C0;
@@ -53428,7 +53428,7 @@ LABEL_40:
 		}
 		break;
 	default:
-		ResizeViewPort(D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize);
+		ResizeViewPort_2CA60(D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize);
 		break;
 	}
 	if (a3)
@@ -61170,7 +61170,7 @@ signed int sub_5C1B0_set_any_variables2()//23A05 - 23D1B0
 	if (str_unk_1804B0ar.byte_0xa2)
 		x_D41A0_BYTEARRAY_4_struct.byteindex_10 = 1;
 	//sub_2CA90(x_D41A0_BYTEARRAY_0[8589]);//268090//0x218d
-	ResizeViewPort(D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize);//268090//0x218d
+	ResizeViewPort_2CA60(D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize);//268090//0x218d
 	return 1;
 }
 // D0C18: using guessed type char x_BYTE_D0C18;

@@ -11,6 +11,9 @@ char bigGraphicsPath[MAX_PATH];
 
 //bool hideGraphics;
 
+//extern int16_t m_iViewPortX_EA3D0; // weak?x_DWORD_E9C4C_langindexbuffer[481]
+//extern uint16_t m_uiViewPortWidth_EA3C4; // weak?x_DWORD_E9C4C_langindexbuffer[478]
+
 type_str_unk_1804B0ar str_unk_1804B0ar;
 
 TColor unk_17D838x[0x100]; // weak
@@ -74,7 +77,7 @@ uint32_t screenWidth_18062C; // weak
 int iScreenWidth_DE560 = 0; // weak //screen X // DE560
 
 //View Port Dimensions for game world render
-ViewPort viewPort = { 0,0,0,0 };
+ViewPort viewPort = { 0,0,0,0,0,0 };
 //int iViewPortWidth_DE564 = 0;  // DE564 viewPort.Width_DE564
 //int iViewPortHeight_DE568 = 0; // DE568 viewPort.Height_DE568
 // //int iViewPortPosX_EA3D0; // weak?x_DWORD_E9C4C_langindexbuffer[481] viewPort.PosX_EA3D0
