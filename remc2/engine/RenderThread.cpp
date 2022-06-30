@@ -1,4 +1,5 @@
 #include "RenderThread.h"
+#include <mutex>
 
 RenderThread::RenderThread()
 {
@@ -30,6 +31,7 @@ void RenderThread::StartWorkerThread(int8_t core)
 	if (numCores < core)
 		return;
 
+	m_running = true;
 	m_core = core;
 	m_renderThread = std::thread([this, core] {
 
@@ -39,19 +41,28 @@ void RenderThread::StartWorkerThread(int8_t core)
 			DWORD_PTR dw = SetThreadAffinityMask(GetCurrentThread(), DWORD_PTR(1) << ((uint8_t)core));
 		}
 #endif
+
+#ifndef _MSC_VER
+		std::unique_lock<std::mutex> lock(m_taskMutex, std::defer_lock);
+#endif
 		do
 		{
-			if (m_task)
-			{
+
+#ifndef _MSC_VER
+			lock.lock();
+			// only wake up if we need to render or if the thread is stopped
+			m_nextTaskCondition.wait(lock, [this]{ return m_isTaskRunning || !m_running; });
+#endif
+			if (m_task) {
 				m_task();
 				m_task = 0;
 				m_isTaskRunning = false;
 			}
-
+#ifndef _MSC_VER
+			lock.unlock();
+#endif
 		} while (m_running);
 	});
-
-	m_running = true;
 }
 
 void RenderThread::StopWorkerThread()
@@ -59,6 +70,7 @@ void RenderThread::StopWorkerThread()
 	if (m_running)
 	{
 		m_running = false;
+		m_nextTaskCondition.notify_all();
 		if (m_renderThread.joinable()) {
 			m_renderThread.join();
 		}
@@ -67,8 +79,12 @@ void RenderThread::StopWorkerThread()
 
 void RenderThread::Run(std::function<void()> task)
 {
-	m_isTaskRunning = true;
-	m_task = task;
+	{
+		std::lock_guard<std::mutex> guard(m_taskMutex);
+		m_isTaskRunning = true;
+		m_task = task;
+	}
+	m_nextTaskCondition.notify_all();
 }
 
 bool RenderThread::IsRunning()

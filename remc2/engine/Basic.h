@@ -13,6 +13,7 @@
 #include <ctype.h>
 #include <cstdint>
 #include <functional>
+#include <chrono>
 
 #include "stdint.h"
 
@@ -150,9 +151,8 @@ extern char bigGraphicsPath[];
 
 extern long oldmillis;
 
-extern clock_t frameStart;
-extern clock_t frameStop;
-extern clock_t timeDelta;
+extern std::chrono::time_point<std::chrono::steady_clock> frameStart;
+extern std::chrono::duration<double> timeDelta;
 extern int frameCount;
 extern int fps;
 

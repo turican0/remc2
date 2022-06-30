@@ -17,9 +17,8 @@ char x_BYTE_E3766 = 0; // weak
 
 long oldmillis = 0;
 
-clock_t frameStart = 0;
-clock_t frameStop = 0;
-clock_t timeDelta = 0;
+std::chrono::time_point<std::chrono::steady_clock> frameStart;
+std::chrono::duration<double> timeDelta(0);
 int frameCount = 0;
 int fps = 0;
 
@@ -1687,20 +1686,21 @@ void DrawText_2BC10(const char* textbuffer, int16_t posx, int16_t posy, uint8_t 
 
 void VGA_CalculateAndPrintFPS(int x, int y)
 {
-	timeDelta += clock() - frameStart;
+	//#include <chrono>
+	//auto begin = std::chrono::high_resolution_clock::now();
+	timeDelta += std::chrono::steady_clock::now() - frameStart;
 	frameCount++;
 
-	if (clockToMilliseconds(timeDelta) > 1000.0)
+	if (timeDelta > std::chrono::duration<double>(1.0))
 	{
 		fps = frameCount;
 		frameCount = 0;
-		timeDelta = 0;
+		timeDelta = std::chrono::duration<double>(0);
 	}
 
 	VGA_GotoXY(x, y);
 	std::string fpsStr = "FPS: ";
 	fpsStr.append(std::to_string(fps));
-	const char* cstr = fpsStr.c_str();
 
 	VGA_Draw_string((char*)fpsStr.c_str());
 }
