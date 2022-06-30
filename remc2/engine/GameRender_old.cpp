@@ -2953,7 +2953,7 @@ void GameRender_old::SetBillboards_3B560(int16_t roll/*, uint8_t unk_F0A20x[], u
 	//return result;
 }
 
-void GameRender_old::DrawSorcererNameAndHealthBar_2CB30(type_event_0x6E8E* a1x, uint8_t x_BYTE_E88E0x[], __int16 a2, int a3, __int16 a4, int16_t viewPortX, int16_t viewPortY, uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t iScreenWidth_DE560)
+void GameRender_old::DrawSorcererNameAndHealthBar_2CB30(type_event_0x6E8E* a1x, uint8_t x_BYTE_E88E0x[], __int16 a2, int a3, __int16 a4, int16_t viewPortX, int16_t viewPortY, uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t iScreenWidth_DE560xx)
 {
 	//char *v4; // edi
 	char* v5; // esi
@@ -3153,7 +3153,7 @@ void GameRender_old::DrawSquareInProjectionSpace(std::vector<int>& vertexs, int 
 	vertexs[3] = xunk_D4350[Str_E9C38_smalltit[index].byte42_std][7];
 
 	//Get Texture
-	uint8_t* x_DWORD_DE55C_ActTexture = m_textureAddresses.at(Str_E9C38_smalltit[index].byte41);
+	/*uint8_t* */x_DWORD_DE55C_ActTexture = m_textureAddresses.at(Str_E9C38_smalltit[index].byte41);
 
 	//Render
 	auto vertex0 = ProjectionPolygon(&vertexs[0]);

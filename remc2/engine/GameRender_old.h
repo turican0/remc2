@@ -134,4 +134,4 @@ public:
 	void ClearGraphicsBuffer(uint8_t colorIdx);
 };
 
-#endif //GAME_RENDER
+#endif //GAME_RENDER_OLD
