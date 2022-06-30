@@ -151,10 +151,10 @@ void add_compare(uint32_t adress, bool debugafterload, int stopstep, bool skip, 
 					comp20 = compare_with_sequence_array_E2A74(buffer3, (uint8_t*)&str_E2A74, 0x2b3a74, index - skip2, 0xc4e, 0xc4e, &origbyte20, &remakebyte20, 0, (exitindex != 1000000));
 
 					//screen
-					//comp20 = compare_with_sequence(buffer4, pdwScreenBuffer, 0x3aa0a4, index, 320 * 200, 320 * 200, &origbyte20, &remakebyte20);
+					//comp20 = compare_with_sequence(buffer4, pdwScreenBuffer_351628, 0x3aa0a4, index, 320 * 200, 320 * 200, &origbyte20, &remakebyte20);
 				}
 				//if(debugcounter_271478>5)
-				//comp20 = compare_with_sequence(buffer4, pdwScreenBuffer, 0x3aa0a4, index, 320 * 200, 320 * 200, &origbyte20, &remakebyte20);
+				//comp20 = compare_with_sequence(buffer4, pdwScreenBuffer_351628, 0x3aa0a4, index, 320 * 200, 320 * 200, &origbyte20, &remakebyte20);
 				if (stopstep > -1)
 				{
 					comp20 = index;
@@ -261,7 +261,7 @@ void GenerateLevelMap_43830(unsigned int a1, type_str_2FECE* a2x)//224830
 
 		comp20 = compare_with_sequence_array_E2A74((char*)"00224959-002B3A74", (uint8_t*)& array_E2A74, 0x2b3a74, debugcounter_224959, 0xc4e, 0xc4e, &origbyte20, &remakebyte20);
 		//if(debugcounter_271478>5)
-		//comp20 = compare_with_sequence((char*)"00224959-003AA0A4", pdwScreenBuffer, 0x3aa0a4, debugcounter_224959, 320 * 200, 320 * 200, &origbyte20, &remakebyte20);
+		//comp20 = compare_with_sequence((char*)"00224959-003AA0A4", pdwScreenBuffer_351628, 0x3aa0a4, debugcounter_224959, 320 * 200, 320 * 200, &origbyte20, &remakebyte20);
 
 		debugcounter_224959++;
 	}*/
@@ -282,7 +282,7 @@ void GenerateLevelMap_43830(unsigned int a1, type_str_2FECE* a2x)//224830
 		comp4 = compare_with_snapshot((char*)"0160-0022495E", x_BYTE_10B4E0_terraintype, 0x2dc4e0, 0x10000, &origbyte, &remakebyte);
 		int comp5 = compare_with_snapshot((char*)"0160-0022495E", x_BYTE_12B4E0_shading, 0x2fc4e0, 0x10000, &origbyte, &remakebyte);
 		*/
-		//	compsize = compare_with_snapshot((char*)"0160-00256200-2", pdwScreenBuffer, 0x3aa0a4, 640 * height, &origbyte, &remakebyte);//4c
+		//	compsize = compare_with_snapshot((char*)"0160-00256200-2", pdwScreenBuffer_351628, 0x3aa0a4, 640 * height, &origbyte, &remakebyte);//4c
 	//debug
 }
 // 10000: using guessed type void /*__noreturn*/ sub_10000();
@@ -1483,7 +1483,7 @@ void sub_44580()//225580
 	int8_t* v89; // [esp+8h] [ebp-10h]
 	uint8_t* v90; // [esp+Ch] [ebp-Ch]
 
-	v0 = pdwScreenBuffer;
+	v0 = pdwScreenBuffer_351628;
 	v1 = 0;
 	while (v1 < 0x961u)
 	{
@@ -1492,7 +1492,7 @@ void sub_44580()//225580
 		v0 += 25;
 	}
 	v2 = 0;
-	v90 = pdwScreenBuffer;
+	v90 = pdwScreenBuffer_351628;
 	v89 = unk_D47E0;
 	while (v2 < 0x94u)
 	{
@@ -1693,7 +1693,7 @@ void sub_44580()//225580
 	} while (v78);
 }
 // 17B4E0: using guessed type __int16 x_WORD_17B4E0;
-// 180628: using guessed type int pdwScreenBuffer;
+// 180628: using guessed type int pdwScreenBuffer_351628;
 
 //----- (00043B40) --------------------------------------------------------
 void sub_43B40()//224b40

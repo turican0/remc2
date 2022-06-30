@@ -2,7 +2,7 @@
 
 GameRender_old::GameRender_old(/*uint8_t* pScreenBuffer, uint8_t* pColorPalette, uint16_t iScreenWidth_DE560, uint16_t screenHeight, uint16_t viewPortPosX, uint16_t viewPortPosY, uint16_t viewPort.Width_DE564, uint16_t viewPort.Height_DE568, std::array<uint8_t*, 256>& textureAdresses, uint8_t pX_BYTE_F6EE0_tablesx[], uint8_t renderThreads, bool assignToSpecificCores*/)
 {
-	/*pdwScreenBuffer = pScreenBuffer;
+	/*pdwScreenBuffer_351628 = pScreenBuffer;
 	m_ptrColorPalette = pColorPalette;
 	SetRenderViewPortSize_BCD45(ViewPort(viewPortPosX, viewPortPosY, viewPort.Width_DE564, viewPort.Height_DE568), iScreenWidth_DE560, screenHeight);
 	SetTextures(textureAdresses);
@@ -26,7 +26,7 @@ GameRender_old::~GameRender_old()
 	}
 }
 
-void GameRender_old::DrawWorld(uint8_t* pdwScreenBuffer, int posX, int posY, int16_t yaw, int16_t posZ, int16_t ScreenWidth, int16_t roll, int16_t fov)
+void GameRender_old::DrawWorld(uint8_t* pdwScreenBuffer_351628, int posX, int posY, int16_t yaw, int16_t posZ, int16_t ScreenWidth, int16_t roll, int16_t fov)
 
 //void GameRender_old::DrawWorld(int posX, int posY, int16_t yaw, int16_t posZ, int16_t iScreenWidth_DE560, int16_t roll, int16_t fov, uint8_t mapHeightmap_11B4E0[], type_particle_str** str_DWORD_F66F0x[], uint8_t x_BYTE_E88E0x[], int32_t x_DWORD_F5730[], uint8_t unk_F0A20x[], type_event_0x6E8E* x_DWORD_EA3E4[], type_str_unk_1804B0ar str_unk_1804B0ar, int16_t x_WORD_180660_VGA_type_resolution, int16_t x_WORD_D4B7C, char isCaveLevel_D41B6)
 {
@@ -129,7 +129,7 @@ void GameRender_old::DrawWorld(uint8_t* pdwScreenBuffer, int posX, int posY, int
 	if (D41A0_0.m_GameSettings.str_0x2192.xxxx_0x2193 && D41A0_0.m_GameSettings.m_Display.m_uiScreenSize && screenWidth_18062C == 640)
 	{
 		SetRenderViewPortSize_BCD45(
-			pdwScreenBuffer,
+			pdwScreenBuffer_351628,
 			2 * screenWidth_18062C,
 			(screenWidth_18062C / 2 - 8),
 			(screenHeight_180624 / 2 - 40));
@@ -141,11 +141,11 @@ void GameRender_old::DrawWorld(uint8_t* pdwScreenBuffer, int posX, int posY, int
 		v25 = 4 * v23 >> 16;
 		v26 = 20 * (signed int)v24 >> 16;
 		DrawTerrainAndParticles_3C080(vPosX - v26, vPosY - v25, vYaw, posZ, ScreenWidth, roll, fov);
-		SetRenderViewPortSize_BCD45(pdwScreenBuffer + (screenWidth_18062C / 2), 0, 0, 0);
+		SetRenderViewPortSize_BCD45(pdwScreenBuffer_351628 + (screenWidth_18062C / 2), 0, 0, 0);
 		x_DWORD_D4324 = 5;
 		DrawTerrainAndParticles_3C080(vPosX + v26, vPosY + v25, vYaw, posZ, ScreenWidth, roll, fov);
 		x_DWORD_D4324 = 0;
-		SetRenderViewPortSize_BCD45(pdwScreenBuffer, screenWidth_18062C, screenWidth_18062C, screenHeight_180624);
+		SetRenderViewPortSize_BCD45(pdwScreenBuffer_351628, screenWidth_18062C, screenWidth_18062C, screenHeight_180624);
 	}
 	else if (D41A0_0.m_GameSettings.m_Display.m_uiScreenSize != 1 || D41A0_0.m_GameSettings.str_0x2192.xxxx_0x2193)
 	{
@@ -293,7 +293,7 @@ void GameRender_old::WriteWorldToBMP()
 	GetSubDirectoryPath(path, "BufferOut/PaletteOut.bmp");
 	BitmapIO::WritePaletteAsImageBMP(path, 256, *xadatapald0dat2.colorPallette_var28);
 	GetSubDirectoryPath(path, "BufferOut/BufferOut.bmp");
-	BitmapIO::WriteImageBufferAsImageBMP(path, screenWidth_18062C, screenHeight_180624, *xadatapald0dat2.colorPallette_var28, pdwScreenBuffer);
+	BitmapIO::WriteImageBufferAsImageBMP(path, screenWidth_18062C, screenHeight_180624, *xadatapald0dat2.colorPallette_var28, pdwScreenBuffer_351628);
 }
 
 void GameRender_old::ClearGraphicsBuffer(uint8_t colorIdx)
@@ -302,7 +302,7 @@ void GameRender_old::ClearGraphicsBuffer(uint8_t colorIdx)
 	{
 		colorIdx = 255;
 	}
-	memset32(pdwScreenBuffer, colorIdx, iScreenWidth_DE560 * iScreenWidth_DE560);
+	memset32(pdwScreenBuffer_351628, colorIdx, iScreenWidth_DE560 * iScreenWidth_DE560);
 }
 
 void GameRender_old::DrawSky_40950_TH(int16_t roll/*, uint8_t* ViewPortRenderBufferStart_DE558, uint16_t viewPort.Width_DE564, uint16_t viewPort.Height_DE568, uint16_t iScreenWidth_DE560*/)
@@ -4288,7 +4288,7 @@ void GameRender_old::DrawSprite_41BD3(uint32 a1, uint8_t x_BYTE_E88E0x[], type_e
 		comp22a = comp22a;
 		*/
 		/*if (debugafterload)
-			VGA_Debug_Blit(640, 480, pdwScreenBuffer);*/
+			VGA_Debug_Blit(640, 480, pdwScreenBuffer_351628);*/
 
 	if (!x_BYTE_F2CC6)
 	{
@@ -14769,7 +14769,7 @@ void GameRender_old::SetRenderViewPortSize_BCD45(ViewPort viewPort, uint16_t scr
 	}
 
 	int32_t ptrScreenRenderBufferStart = viewPort.PosX_EA3D0 + iScreenWidth_DE560 * viewPort.PosY_EA3CC;
-	SetRenderViewPortSize_BCD45(ptrScreenRenderBufferStart + pdwScreenBuffer, viewPort.Width_DE564, viewPort.Height_DE568, iScreenWidth_DE560);
+	SetRenderViewPortSize_BCD45(ptrScreenRenderBufferStart + pdwScreenBuffer_351628, viewPort.Width_DE564, viewPort.Height_DE568, iScreenWidth_DE560);
 }
 
 void GameRender_old::SetRenderViewPortSize_BCD45(uint8_t* ptrScreenBufferStart, uint16_t screenWidth, uint16_t viewPortWidth, uint16_t viewPortHeight/*, uint16_t iScreenWidth_DE560*/)

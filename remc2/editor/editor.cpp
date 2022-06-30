@@ -153,7 +153,7 @@ void editor_run()
 	terrain_recalculate();
 
 	main_x(/*int argc, char** argv*/);
-	//pdwScreenBuffer= back_pdwScreenBuffer;
+	//pdwScreenBuffer_351628= back_pdwScreenBuffer_351628;
 	
 	//sub_47320_in_game_loop(0);//run game	
 
@@ -692,7 +692,7 @@ static void terrain_feat_append(kiss_textbox* textbox, kiss_vscrollbar* vscrollb
 	kiss_array_free(textbox->array);
 	kiss_array_new(textbox->array);
 	char temp[256];
-	//VGA_Draw_stringXYtoBuffer(temp, 304, 32, pdwScreenBuffer);
+	//VGA_Draw_stringXYtoBuffer(temp, 304, 32, pdwScreenBuffer_351628);
 	for (int i = first_terrain_feature; i < 0x4B0; i++)
 	{
 		type_entity_0x30311 actfeat = temparray_0x30311[i];//D41A0_BYTESTR_0.str_2FECE.array_0x30311[first_terrain_feature + i];
@@ -708,7 +708,7 @@ static void terrain_stages_append(kiss_textbox* textbox) {
 	kiss_array_free(textbox->array);
 	kiss_array_new(textbox->array);
 	char temp[256];
-	//VGA_Draw_stringXYtoBuffer(temp, 304, 32, pdwScreenBuffer);
+	//VGA_Draw_stringXYtoBuffer(temp, 304, 32, pdwScreenBuffer_351628);
 	for (int i = 0; i < 8; i++)
 	{
 		type_str_0x36442 actstage = D41A0_0.terrain_2FECE.stages_0x36442[i];
@@ -722,7 +722,7 @@ static void terrain_vars_append(kiss_textbox* textbox) {
 kiss_array_free(textbox->array);
 kiss_array_new(textbox->array);
 char temp[256];
-//VGA_Draw_stringXYtoBuffer(temp, 304, 32, pdwScreenBuffer);
+//VGA_Draw_stringXYtoBuffer(temp, 304, 32, pdwScreenBuffer_351628);
 for (int i = 0; i < 0xb; i++)
 {
 	type_str_0x3647Ac actstage = D41A0_0.terrain_2FECE.StageVars_0x3647A[i];
