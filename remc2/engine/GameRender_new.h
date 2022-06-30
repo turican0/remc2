@@ -67,7 +67,7 @@ private:
 
 	std::array<uint8_t*, 256> m_textureAddresses;
 	uint8_t* m_ptrColorPalette = 0;
-	type_F2C20ar m_str_F2C20ar;
+	//type_F2C20ar m_str_F2C20ar;
 	//int16_t m_x_WORD_180660_VGA_type_resolution;
 
 	std::vector<RenderThread*> m_renderThreads;
@@ -86,6 +86,8 @@ private:
 	int16_t x_WORD_F2CC0 = 0;
 	int16_t x_WORD_F2CC2 = 0;
 	int16_t x_WORD_F2CC4 = 0;
+
+	uint8_t* x_DWORD_DE55C_ActTexture = 0; // weak
 
 	void DrawSky_40950(int16_t roll, uint8_t* ptrViewPortRenderBufferStart, uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t pitch, uint8_t startLine, uint8_t drawEveryNthLine);
 	void DrawSky_40950_TH(int16_t roll, uint8_t* ptrViewPortRenderBufferStart, uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t pitch);
