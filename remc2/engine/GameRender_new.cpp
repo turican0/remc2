@@ -26,7 +26,7 @@ GameRender_new::~GameRender_new()
 	}
 }
 
-void GameRender_new::DrawWorld(int posX, int posY, int16_t yaw, int16_t posZ, int16_t pitch, int16_t roll, int16_t fov, uint8_t heightmap[], type_particle_str** str_DWORD_F66F0x[], uint8_t x_BYTE_E88E0x[], int32_t x_DWORD_F5730[], uint8_t unk_F0A20x[], type_event_0x6E8E* x_DWORD_EA3E4[], type_str_unk_1804B0ar str_unk_1804B0ar, int16_t x_WORD_180660_VGA_type_resolutionxx, int16_t x_WORD_D4B7C, char isCaveLevel)
+void GameRender_new::DrawWorld(int posX, int posY, int16_t yaw, int16_t posZ, int16_t pitch, int16_t roll, int16_t fov, uint8_t mapHeightmap_11B4E0xx[], type_particle_str** str_DWORD_F66F0x[], uint8_t x_BYTE_E88E0x[], int32_t x_DWORD_F5730[], uint8_t unk_F0A20x[], type_event_0x6E8E* x_DWORD_EA3E4[], type_str_unk_1804B0ar str_unk_1804B0ar, int16_t x_WORD_180660_VGA_type_resolutionxx, int16_t x_WORD_D4B7C, char isCaveLevel)
 {
 	//m_x_WORD_180660_VGA_type_resolution = x_WORD_180660_VGA_type_resolution;
 	unsigned __int16 v8; // ax
@@ -85,19 +85,19 @@ void GameRender_new::DrawWorld(int posX, int posY, int16_t yaw, int16_t posZ, in
 		LOBYTE(v8) = HIBYTE(posX) - 1;
 	if ((signed int)(unsigned __int8)posY < 128)
 		HIBYTE(v8) = HIBYTE(posY) - 1;
-	v9 = heightmap[v8];
+	v9 = mapHeightmap_11B4E0[v8];
 	LOBYTE(v8) += 2;
 	v10 = v9;
 	v11 = v9;
-	v12 = heightmap[v8];
+	v12 = mapHeightmap_11B4E0[v8];
 	HIBYTE(v8) += 2;
 	v13 = v10 - v12;
 	v14 = v12 + v11;
-	v15 = heightmap[v8];
+	v15 = mapHeightmap_11B4E0[v8];
 	LOBYTE(v8) -= 2;
 	v16 = v13 - v15;
 	v17 = v14 - v15;
-	v18 = heightmap[v8];
+	v18 = mapHeightmap_11B4E0[v8];
 	v19 = 2 * (v18 + v16);
 	v20 = 2 * (v17 - v18);
 	if (v19 <= 100)
