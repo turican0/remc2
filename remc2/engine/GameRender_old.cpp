@@ -240,7 +240,7 @@ void GameRender_old::DrawWorld(/*uint8_t* pdwScreenBuffer_351628,*/ int posX, in
 			for (i = (unsigned __int16)viewPort.Height_DE568 - 1; i; i--)
 			{
 				v43 = (x_BYTE*)v53;
-				v44 = pitch;
+				v44 = iScreenWidth_DE560;
 				v45 = (unsigned __int16)viewPort.Width_DE564 - 1;
 				HIWORD(v46) = 0;
 				HIWORD(v47) = 0;
@@ -256,7 +256,7 @@ void GameRender_old::DrawWorld(/*uint8_t* pdwScreenBuffer_351628,*/ int posX, in
 					*v43++ = x_BYTE_F6EE0_tablesx[0x4000 + v48];
 					v45--;
 				} while (v45);
-				v53 += pitch;
+				v53 += iScreenWidth_DE560;
 			}
 		}
 	LABEL_44:
@@ -268,13 +268,13 @@ void GameRender_old::DrawWorld(/*uint8_t* pdwScreenBuffer_351628,*/ int posX, in
 		v28 = 5 * Maths::x_DWORD_DB750[vYaw];
 		v29 = Maths::x_DWORD_DB750[0x200 + vYaw];
 		x_DWORD_D4790 = 20;
-		x_DWORD_D4324 = pitch / 40;
+		x_DWORD_D4324 = iScreenWidth_DE560 / 40;
 		v30 = 4 * v28 >> 16;
 		v31 = 20 * (signed int)v29 >> 16;
 		DrawTerrainAndParticles_3C080(v31 + vPosX, v30 + vPosY, vYaw, posZ, pitch, roll, fov);
 		v32 = ViewPortRenderBufferStart_DE558;
 		SetRenderViewPortSize_BCD45(x_DWORD_E9C3C, 0, 0, 0);
-		x_DWORD_D4324 = 0 - (pitch / 40);
+		x_DWORD_D4324 = 0 - (iScreenWidth_DE560 / 40);
 		DrawTerrainAndParticles_3C080(vPosX - v31, vPosY - v30, vYaw, posZ, pitch, roll, fov);
 		SetRenderViewPortSize_BCD45(v32, 0, 0, 0);
 		x_DWORD_D4324 = 0;
