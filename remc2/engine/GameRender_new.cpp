@@ -124,17 +124,14 @@ void GameRender_new::DrawWorld(int posX, int posY, int16_t yaw, int16_t posZ, in
 	vPosX = x_DWORD_D4794 + posX;
 	vPosY = x_DWORD_D4798 + posY;
 
-	if (D41A0_0.m_GameSettings.str_0x2192.xxxx_0x2193 && m_uiScreenSize && screenWidth_18062C == 640)
+	if (D41A0_0.m_GameSettings.str_0x2192.xxxx_0x2193 && D41A0_0.m_GameSettings.m_Display.m_uiScreenSize && screenWidth_18062C == 640)
 	{
-		//uint16_t origScreenWidth = screenWidth_18062C;
-		//uint16_t origScreenHeight = screenHeight_180624;
-
 		//VR interlaced render
 		SetRenderViewPortSize_BCD45(
 			pdwScreenBuffer_351628,
+			2 * screenWidth_18062C,
 			screenWidth_18062C / 2 - 8,
-			screenHeight_180624 / 2 - 40,
-			2 * screenWidth_18062C);
+			screenHeight_180624 / 2 - 40);
 		v22 = Maths::x_DWORD_DB750[vYaw];
 		x_DWORD_D4790 = 20;
 		v23 = 5 * v22;
@@ -147,9 +144,9 @@ void GameRender_new::DrawWorld(int posX, int posY, int16_t yaw, int16_t posZ, in
 		x_DWORD_D4324 = 5;
 		DrawTerrainAndParticles_3C080(vPosX + v26, vPosY + v25, vYaw, posZ, pitch, roll, fov, str_DWORD_F66F0x, x_BYTE_E88E0x, x_DWORD_F5730, unk_F0A20x, x_DWORD_EA3E4, str_unk_1804B0ar, x_WORD_D4B7C, isCaveLevel, viewPort, screenWidth_18062C);
 		x_DWORD_D4324 = 0;
-		SetRenderViewPortSize_BCD45(pdwScreenBuffer_351628, screenWidth_18062C, screenHeight_180624, screenWidth_18062C);
+		SetRenderViewPortSize_BCD45(pdwScreenBuffer_351628, screenWidth_18062C, screenWidth_18062C, screenHeight_180624);
 	}
-	else if (m_uiScreenSize != 1 || D41A0_0.m_GameSettings.str_0x2192.xxxx_0x2193)
+	else if (D41A0_0.m_GameSettings.m_Display.m_uiScreenSize != 1 || D41A0_0.m_GameSettings.str_0x2192.xxxx_0x2193)
 	{
 		v52 = D41A0_0.m_GameSettings.m_Display.xxxx_0x2191;
 		if (x_WORD_180660_VGA_type_resolution == 1)
@@ -5644,7 +5641,7 @@ void GameRender_new::DrawSprite_41BD3(uint32 a1, uint8_t x_BYTE_E88E0x[], type_e
 	}
 }
 
-void GameRender_new::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* vertex1, const ProjectionPolygon* vertex2, const ProjectionPolygon* vertex3, uint8_t* pTexture, uint8_t unk_DE56Cx[], uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t pitch, uint8_t startLine, uint8_t drawEveryNthLine)
+void GameRender_new::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* vertex1, const ProjectionPolygon* vertex2, const ProjectionPolygon* vertex3, uint8_t* pTexture, uint8_t unk_DE56Cx[], uint16_t viewPortWidth_DE564xx, uint16_t viewPortHeight_DE568xx, uint16_t pitch, uint8_t startLine, uint8_t drawEveryNthLine)
 {
 	uint8_t line1 = startLine;
 	uint8_t line2 = startLine;
@@ -7026,7 +7023,7 @@ void GameRender_new::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon
 				v1190 = v9;
 				if (v9 >= 0)
 				{
-					if (v9 >= viewPortHeight)
+					if (v9 >= viewPort.Height_DE568)
 						return;
 					v1102 = m_ptrViewPortRenderBufferAltStart_DE554 + pitch * v9;
 					v1292 = 0;
@@ -7037,12 +7034,12 @@ void GameRender_new::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon
 					v1292 = 1;
 				}
 				v10 = v5->Y;
-				v1300 = v10 > viewPortHeight;
+				v1300 = v10 > viewPort.Height_DE568;
 				v11 = v10 - v9;
 				v1113 = v11;
 				triLn_v1123 = v11;
 				v12 = v4->Y;
-				v1296 = v12 > viewPortHeight;
+				v1296 = v12 > viewPort.Height_DE568;
 				v13 = v12 - v9;
 				v1117 = v13;
 				v1103 = ((v5->X - v3->X) << 16) / v1113;
@@ -7063,11 +7060,11 @@ void GameRender_new::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon
 						{
 							if (v1300)
 							{
-								v63 = viewPortHeight - v1190;
-								triLn_v1123 = viewPortHeight - v1190;
+								v63 = viewPort.Height_DE568 - v1190;
+								triLn_v1123 = viewPort.Height_DE568 - v1190;
 								if (v1296)
 								{
-									v1117 = viewPortHeight - v1190;
+									v1117 = viewPort.Height_DE568 - v1190;
 								}
 								else
 								{
@@ -7094,8 +7091,8 @@ void GameRender_new::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon
 								v61 = v1111 * v60 + v1121;
 								if (v1300)
 								{
-									v1119 = viewPortHeight;
-									triLn_v1123 = viewPortHeight;
+									v1119 = viewPort.Height_DE568;
+									triLn_v1123 = viewPort.Height_DE568;
 								}
 								v62 = (x_DWORD*)unk_DE56Cx;
 								goto LABEL_124;
@@ -7105,15 +7102,15 @@ void GameRender_new::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon
 							v59 += v1160 * v1107;
 							if (v1300)
 							{
-								triLn_v1123 = viewPortHeight;
+								triLn_v1123 = viewPort.Height_DE568;
 								if (v1296)
 								{
-									v1117 = viewPortHeight;
+									v1117 = viewPort.Height_DE568;
 								}
 								else
 								{
-									v1296 = viewPortHeight <= v1117;
-									v1119 = viewPortHeight - v1117;
+									v1296 = viewPort.Height_DE568 <= v1117;
+									v1119 = viewPort.Height_DE568 - v1117;
 								}
 							}
 						LABEL_121:
@@ -7169,8 +7166,8 @@ void GameRender_new::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon
 								v52 += v53 * v1148 + v1117 * v1148;
 								if (v1300)
 								{
-									v1119 = viewPortHeight;
-									triLn_v1123 = viewPortHeight;
+									v1119 = viewPort.Height_DE568;
+									triLn_v1123 = viewPort.Height_DE568;
 								}
 								v55 = (x_DWORD*)unk_DE56Cx;
 							LABEL_102:
@@ -7191,25 +7188,25 @@ void GameRender_new::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon
 							v52 += v1159 * v1148;
 							if (v1300)
 							{
-								triLn_v1123 = viewPortHeight;
+								triLn_v1123 = viewPort.Height_DE568;
 								if (v1296)
 								{
-									v1117 = viewPortHeight;
+									v1117 = viewPort.Height_DE568;
 								}
 								else
 								{
-									v1296 = viewPortHeight <= v1117;
-									v1119 = viewPortHeight - v1117;
+									v1296 = viewPort.Height_DE568 <= v1117;
+									v1119 = viewPort.Height_DE568 - v1117;
 								}
 							}
 						}
 						else if (v1300)
 						{
-							v56 = viewPortHeight - v1190;
-							triLn_v1123 = viewPortHeight - v1190;
+							v56 = viewPort.Height_DE568 - v1190;
+							triLn_v1123 = viewPort.Height_DE568 - v1190;
 							if (v1296)
 							{
-								v1117 = viewPortHeight - v1190;
+								v1117 = viewPort.Height_DE568 - v1190;
 							}
 							else
 							{
@@ -7276,8 +7273,8 @@ void GameRender_new::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon
 								v40 += v41 * v1137 + v1117 * v1137;
 								if (v1300)
 								{
-									v1119 = viewPortHeight;
-									triLn_v1123 = viewPortHeight;
+									v1119 = viewPort.Height_DE568;
+									triLn_v1123 = viewPort.Height_DE568;
 								}
 								v43 = (x_DWORD*)unk_DE56Cx;
 							LABEL_77:
@@ -7299,25 +7296,25 @@ void GameRender_new::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon
 							v40 += v1158 * v1137;
 							if (v1300)
 							{
-								triLn_v1123 = viewPortHeight;
+								triLn_v1123 = viewPort.Height_DE568;
 								if (v1296)
 								{
-									v1117 = viewPortHeight;
+									v1117 = viewPort.Height_DE568;
 								}
 								else
 								{
-									v1296 = viewPortHeight <= v1117;
-									v1119 = viewPortHeight - v1117;
+									v1296 = viewPort.Height_DE568 <= v1117;
+									v1119 = viewPort.Height_DE568 - v1117;
 								}
 							}
 						}
 						else if (v1300)
 						{
-							v44 = viewPortHeight - v1190;
-							triLn_v1123 = viewPortHeight - v1190;
+							v44 = viewPort.Height_DE568 - v1190;
+							triLn_v1123 = viewPort.Height_DE568 - v1190;
 							if (v1296)
 							{
-								v1117 = viewPortHeight - v1190;
+								v1117 = viewPort.Height_DE568 - v1190;
 							}
 							else
 							{
@@ -7383,8 +7380,8 @@ void GameRender_new::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon
 								v25 += v26 * v1147 + v1117 * v1147;
 								if (v1300)
 								{
-									v1119 = viewPortHeight;
-									triLn_v1123 = viewPortHeight;
+									v1119 = viewPort.Height_DE568;
+									triLn_v1123 = viewPort.Height_DE568;
 								}
 								v28 = (x_DWORD*)unk_DE56Cx;
 							LABEL_51:
@@ -7407,25 +7404,25 @@ void GameRender_new::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon
 							v25 += v1157 * v1147;
 							if (v1300)
 							{
-								triLn_v1123 = viewPortHeight;
+								triLn_v1123 = viewPort.Height_DE568;
 								if (v1296)
 								{
-									v1117 = viewPortHeight;
+									v1117 = viewPort.Height_DE568;
 								}
 								else
 								{
-									v1296 = viewPortHeight <= v1117;
-									v1119 = viewPortHeight - v1117;
+									v1296 = viewPort.Height_DE568 <= v1117;
+									v1119 = viewPort.Height_DE568 - v1117;
 								}
 							}
 						}
 						else if (v1300)
 						{
-							v29 = viewPortHeight - v1190;
-							triLn_v1123 = viewPortHeight - v1190;
+							v29 = viewPort.Height_DE568 - v1190;
+							triLn_v1123 = viewPort.Height_DE568 - v1190;
 							if (v1296)
 							{
-								v1117 = viewPortHeight - v1190;
+								v1117 = viewPort.Height_DE568 - v1190;
 							}
 							else
 							{
@@ -7455,7 +7452,7 @@ void GameRender_new::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon
 			v1192 = v117;
 			if (v117 >= 0)
 			{
-				if (v117 >= viewPortHeight)
+				if (v117 >= viewPort.Height_DE568)
 					return;
 				v1102 = m_ptrViewPortRenderBufferAltStart_DE554 + pitch * v117;
 				v1294 = 0;
@@ -7466,7 +7463,7 @@ void GameRender_new::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon
 				v1294 = 1;
 			}
 			v118 = v5->Y;
-			v1298 = v118 > viewPortHeight;
+			v1298 = v118 > viewPort.Height_DE568;
 			v1115 = v118 - v117;
 			triLn_v1123 = v118 - v117;
 			v1105 = ((v5->X - v3->X) << 16) / (v118 - v117);
@@ -7492,14 +7489,14 @@ void GameRender_new::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon
 					v140 += v141 * v1109;
 					if (v1298)
 					{
-						triLn_v1123 = viewPortHeight;
-						v1115 = viewPortHeight;
+						triLn_v1123 = viewPort.Height_DE568;
+						v1115 = viewPort.Height_DE568;
 					}
 				}
 				else if (v1298)
 				{
-					triLn_v1123 = viewPortHeight - v1192;
-					v1115 = viewPortHeight - v1192;
+					triLn_v1123 = viewPort.Height_DE568 - v1192;
+					v1115 = viewPort.Height_DE568 - v1192;
 				}
 				v142 = LoadPolygon((x_DWORD*)unk_DE56Cx, &v139, &v140, v1105, v1109, &v1115);
 				v31 = (unsigned __int8)x_BYTE_E126D;
@@ -7528,14 +7525,14 @@ void GameRender_new::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon
 					v136 += v137 * v1152;
 					if (v1298)
 					{
-						triLn_v1123 = viewPortHeight;
-						v1115 = viewPortHeight;
+						triLn_v1123 = viewPort.Height_DE568;
+						v1115 = viewPort.Height_DE568;
 					}
 				}
 				else if (v1298)
 				{
-					triLn_v1123 = viewPortHeight - v1192;
-					v1115 = viewPortHeight - v1192;
+					triLn_v1123 = viewPort.Height_DE568 - v1192;
+					v1115 = viewPort.Height_DE568 - v1192;
 				}
 				v138 = LoadPolygon((x_DWORD*)unk_DE56Cx, &v134, &v135, &v136, v1105, v1109, v1152, &v1115);
 				v31 = (unsigned __int8)x_BYTE_E126D;
@@ -7578,14 +7575,14 @@ void GameRender_new::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon
 					v131 += v132 * v1141;
 					if (v1298)
 					{
-						triLn_v1123 = viewPortHeight;
-						v1115 = viewPortHeight;
+						triLn_v1123 = viewPort.Height_DE568;
+						v1115 = viewPort.Height_DE568;
 					}
 				}
 				else if (v1298)
 				{
-					triLn_v1123 = viewPortHeight - v1192;
-					v1115 = viewPortHeight - v1192;
+					triLn_v1123 = viewPort.Height_DE568 - v1192;
+					v1115 = viewPort.Height_DE568 - v1192;
 				}
 				v133 = LoadPolygon((x_DWORD*)unk_DE56Cx, &v128, &v129, &v130, &v131, v1105, v1109, v1130, v1141, &v1115);
 				v31 = (unsigned __int8)x_BYTE_E126D;
@@ -7626,14 +7623,14 @@ void GameRender_new::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon
 					v124 += v125 * v1151;
 					if (v1298)
 					{
-						triLn_v1123 = viewPortHeight;
-						v1115 = viewPortHeight;
+						triLn_v1123 = viewPort.Height_DE568;
+						v1115 = viewPort.Height_DE568;
 					}
 				}
 				else if (v1298)
 				{
-					triLn_v1123 = viewPortHeight - v1192;
-					v1115 = viewPortHeight - v1192;
+					triLn_v1123 = viewPort.Height_DE568 - v1192;
+					v1115 = viewPort.Height_DE568 - v1192;
 				}
 				v126 = LoadPolygon((x_DWORD*)unk_DE56Cx, &v120, &v121, &v122, &v123, &v124, v1105, v1109, v1129, v1140, v1151, &v1115);
 				v31 = (unsigned __int8)x_BYTE_E126D;
@@ -7650,7 +7647,7 @@ void GameRender_new::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon
 		v1193 = v143;
 		if (v143 >= 0)
 		{
-			if (v143 >= viewPortHeight)
+			if (v143 >= viewPort.Height_DE568)
 				return;
 			v1102 = m_ptrViewPortRenderBufferAltStart_DE554 + pitch * v143;
 			v1295 = 0;
@@ -7661,7 +7658,7 @@ void GameRender_new::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon
 			v1295 = 1;
 		}
 		v144 = v5->Y;
-		v1299 = v144 > viewPortHeight;
+		v1299 = v144 > viewPort.Height_DE568;
 		v1116 = v144 - v143;
 		triLn_v1123 = v144 - v143;
 		v1106 = ((v5->X - v3->X) << 16) / (v144 - v143);
@@ -7687,14 +7684,14 @@ void GameRender_new::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon
 				v166 += v167 * v1110;
 				if (v1299)
 				{
-					triLn_v1123 = viewPortHeight;
-					v1116 = viewPortHeight;
+					triLn_v1123 = viewPort.Height_DE568;
+					v1116 = viewPort.Height_DE568;
 				}
 			}
 			else if (v1299)
 			{
-				triLn_v1123 = viewPortHeight - v1193;
-				v1116 = viewPortHeight - v1193;
+				triLn_v1123 = viewPort.Height_DE568 - v1193;
+				v1116 = viewPort.Height_DE568 - v1193;
 			}
 			v168 = LoadPolygon((x_DWORD*)unk_DE56Cx, &v165, &v166, v1106, v1110, &v1116);
 			v31 = (unsigned __int8)x_BYTE_E126D;
@@ -7723,14 +7720,14 @@ void GameRender_new::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon
 				v162 += v163 * v1154;
 				if (v1299)
 				{
-					triLn_v1123 = viewPortHeight;
-					v1116 = viewPortHeight;
+					triLn_v1123 = viewPort.Height_DE568;
+					v1116 = viewPort.Height_DE568;
 				}
 			}
 			else if (v1299)
 			{
-				triLn_v1123 = viewPortHeight - v1193;
-				v1116 = viewPortHeight - v1193;
+				triLn_v1123 = viewPort.Height_DE568 - v1193;
+				v1116 = viewPort.Height_DE568 - v1193;
 			}
 			v164 = LoadPolygon((x_DWORD*)unk_DE56Cx, &v160, &v161, &v162, v1106, v1110, v1154, &v1116);
 			v31 = (unsigned __int8)x_BYTE_E126D;
@@ -7773,14 +7770,14 @@ void GameRender_new::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon
 				v157 += v158 * v1143;
 				if (v1299)
 				{
-					triLn_v1123 = viewPortHeight;
-					v1116 = viewPortHeight;
+					triLn_v1123 = viewPort.Height_DE568;
+					v1116 = viewPort.Height_DE568;
 				}
 			}
 			else if (v1299)
 			{
-				triLn_v1123 = viewPortHeight - v1193;
-				v1116 = viewPortHeight - v1193;
+				triLn_v1123 = viewPort.Height_DE568 - v1193;
+				v1116 = viewPort.Height_DE568 - v1193;
 			}
 			v159 = LoadPolygon((x_DWORD*)unk_DE56Cx, &v154, &v155, &v156, &v157, v1106, v1110, v1132, v1143, &v1116);
 			v31 = (unsigned __int8)x_BYTE_E126D;
@@ -7821,14 +7818,14 @@ void GameRender_new::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon
 				v150 += v151 * v1153;
 				if (v1299)
 				{
-					triLn_v1123 = viewPortHeight;
-					v1116 = viewPortHeight;
+					triLn_v1123 = viewPort.Height_DE568;
+					v1116 = viewPort.Height_DE568;
 				}
 			}
 			else if (v1299)
 			{
-				triLn_v1123 = viewPortHeight - v1193;
-				v1116 = viewPortHeight - v1193;
+				triLn_v1123 = viewPort.Height_DE568 - v1193;
+				v1116 = viewPort.Height_DE568 - v1193;
 			}
 			v152 = LoadPolygon((x_DWORD*)unk_DE56Cx, &v146, &v147, &v148, &v149, &v150, v1106, v1110, v1131, v1142, v1153, &v1116);
 			v31 = (unsigned __int8)x_BYTE_E126D;
@@ -7875,7 +7872,7 @@ LABEL_129:
 	v1191 = v65;
 	if (v65 >= 0)
 	{
-		if (v65 >= viewPortHeight)
+		if (v65 >= viewPort.Height_DE568)
 			return;
 		v1102 = m_ptrViewPortRenderBufferAltStart_DE554 + pitch * v65;
 		v1293 = 0;
@@ -7886,10 +7883,10 @@ LABEL_129:
 		v1293 = 1;
 	}
 	v66 = v5->Y;
-	v1297 = v66 > viewPortHeight;
+	v1297 = v66 > viewPort.Height_DE568;
 	v1114 = v66 - v65;
 	v67 = v4->Y;
-	v1301 = v67 > viewPortHeight;
+	v1301 = v67 > viewPort.Height_DE568;
 	v68 = v67 - v65;
 	v1118 = v68;
 	triLn_v1123 = v68;
@@ -7924,8 +7921,8 @@ LABEL_129:
 					v111 += v112 * v1108 + v1114 * v1108;
 					if (v1301)
 					{
-						v1120 = viewPortHeight;
-						triLn_v1123 = viewPortHeight;
+						v1120 = viewPort.Height_DE568;
+						triLn_v1123 = viewPort.Height_DE568;
 					}
 					v114 = (int*)unk_DE56Cx;
 					goto LABEL_228;
@@ -7935,25 +7932,25 @@ LABEL_129:
 				v111 += v1164 * v1108;
 				if (v1301)
 				{
-					triLn_v1123 = viewPortHeight;
+					triLn_v1123 = viewPort.Height_DE568;
 					if (v1297)
 					{
-						v1114 = viewPortHeight;
+						v1114 = viewPort.Height_DE568;
 					}
 					else
 					{
-						v1297 = viewPortHeight <= v1114;
-						v1120 = viewPortHeight - v1114;
+						v1297 = viewPort.Height_DE568 <= v1114;
+						v1120 = viewPort.Height_DE568 - v1114;
 					}
 				}
 			}
 			else if (v1301)
 			{
-				v115 = viewPortHeight - v1191;
-				triLn_v1123 = viewPortHeight - v1191;
+				v115 = viewPort.Height_DE568 - v1191;
+				triLn_v1123 = viewPort.Height_DE568 - v1191;
 				if (v1297)
 				{
-					v1114 = viewPortHeight - v1191;
+					v1114 = viewPort.Height_DE568 - v1191;
 				}
 				else
 				{
@@ -8014,8 +8011,8 @@ LABEL_129:
 					v104 += v105 * v1156 + v1114 * v1150;
 					if (v1301)
 					{
-						v1120 = viewPortHeight;
-						triLn_v1123 = viewPortHeight;
+						v1120 = viewPort.Height_DE568;
+						triLn_v1123 = viewPort.Height_DE568;
 					}
 					v107 = (int*)unk_DE56Cx;
 				LABEL_206:
@@ -8036,25 +8033,25 @@ LABEL_129:
 				v104 += v1163 * v1150;
 				if (v1301)
 				{
-					triLn_v1123 = viewPortHeight;
+					triLn_v1123 = viewPort.Height_DE568;
 					if (v1297)
 					{
-						v1114 = viewPortHeight;
+						v1114 = viewPort.Height_DE568;
 					}
 					else
 					{
-						v1297 = viewPortHeight <= v1114;
-						v1120 = viewPortHeight - v1114;
+						v1297 = viewPort.Height_DE568 <= v1114;
+						v1120 = viewPort.Height_DE568 - v1114;
 					}
 				}
 			}
 			else if (v1301)
 			{
-				v108 = viewPortHeight - v1191;
-				triLn_v1123 = viewPortHeight - v1191;
+				v108 = viewPort.Height_DE568 - v1191;
+				triLn_v1123 = viewPort.Height_DE568 - v1191;
 				if (v1297)
 				{
-					v1114 = viewPortHeight - v1191;
+					v1114 = viewPort.Height_DE568 - v1191;
 				}
 				else
 				{
@@ -8123,8 +8120,8 @@ LABEL_129:
 					v92 += v93 * v1145 + v1114 * v1139;
 					if (v1301)
 					{
-						v1120 = viewPortHeight;
-						triLn_v1123 = viewPortHeight;
+						v1120 = viewPort.Height_DE568;
+						triLn_v1123 = viewPort.Height_DE568;
 					}
 					v95 = (int*)unk_DE56Cx;
 				LABEL_181:
@@ -8146,25 +8143,25 @@ LABEL_129:
 				v92 += v1162 * v1139;
 				if (v1301)
 				{
-					triLn_v1123 = viewPortHeight;
+					triLn_v1123 = viewPort.Height_DE568;
 					if (v1297)
 					{
-						v1114 = viewPortHeight;
+						v1114 = viewPort.Height_DE568;
 					}
 					else
 					{
-						v1297 = viewPortHeight <= v1114;
-						v1120 = viewPortHeight - v1114;
+						v1297 = viewPort.Height_DE568 <= v1114;
+						v1120 = viewPort.Height_DE568 - v1114;
 					}
 				}
 			}
 			else if (v1301)
 			{
-				v96 = viewPortHeight - v1191;
-				triLn_v1123 = viewPortHeight - v1191;
+				v96 = viewPort.Height_DE568 - v1191;
+				triLn_v1123 = viewPort.Height_DE568 - v1191;
 				if (v1297)
 				{
-					v1114 = viewPortHeight - v1191;
+					v1114 = viewPort.Height_DE568 - v1191;
 				}
 				else
 				{
@@ -8233,8 +8230,8 @@ LABEL_129:
 					v78 += v79 * v1155 + v1114 * v1149;
 					if (v1301)
 					{
-						v1120 = viewPortHeight;
-						triLn_v1123 = viewPortHeight;
+						v1120 = viewPort.Height_DE568;
+						triLn_v1123 = viewPort.Height_DE568;
 					}
 					v81 = (x_DWORD*)unk_DE56Cx;
 				LABEL_156:
@@ -8268,8 +8265,8 @@ LABEL_129:
 									break;
 								if ((signed __int16)v173 > 0)
 								{
-									if (v173 > viewPortWidth)
-										v173 = viewPortWidth;
+									if (v173 > viewPort.Width_DE564)
+										v173 = viewPort.Width_DE564;
 									v174 = v170;
 								LABEL_328:
 									memset(v174, v171, v173);
@@ -8280,8 +8277,8 @@ LABEL_129:
 							if (!--triLn_v1123)
 								return;
 						}
-						if (v173 > viewPortWidth)
-							v173 = viewPortWidth;
+						if (v173 > viewPort.Width_DE564)
+							v173 = viewPort.Width_DE564;
 						v18 = __OFSUB__((x_WORD)v173, (x_WORD)v172);
 						LOWORD(v173) = v173 - v172;
 						if ((unsigned __int8)(((v173 & 0x8000u) != 0) ^ v18) | ((x_WORD)v173 == 0))
@@ -8310,8 +8307,8 @@ LABEL_129:
 									v180 = __CFADD__(v175[8], v179);
 									v181 = v175[8] + v179;
 									BYTE1(v31) += *((x_BYTE*)v175 + 18) + v180;
-									if (v176 > viewPortWidth)
-										LOWORD(v176) = viewPortWidth;
+									if (v176 > viewPort.Width_DE564)
+										LOWORD(v176) = viewPort.Width_DE564;
 									v31 = (unsigned __int16)v31;
 								LABEL_341:
 									while (1)
@@ -8437,8 +8434,8 @@ LABEL_129:
 							if (!--triLn_v1123)
 								return;
 						}
-						if (v176 > viewPortWidth)
-							LOWORD(v176) = viewPortWidth;
+						if (v176 > viewPort.Width_DE564)
+							LOWORD(v176) = viewPort.Width_DE564;
 						v18 = __OFSUB__((x_WORD)v176, (x_WORD)v31);
 						LOWORD(v176) = v176 - v31;
 						if ((unsigned __int8)(((v176 & 0x8000u) != 0) ^ v18) | ((x_WORD)v176 == 0))
@@ -8474,8 +8471,8 @@ LABEL_129:
 									LOWORD(v234) = v233;
 									v235 = v233 >> 8;
 									LOBYTE(v229) = BYTE1(v235);
-									if (v230 > viewPortWidth)
-										LOWORD(v230) = viewPortWidth;
+									if (v230 > viewPort.Width_DE564)
+										LOWORD(v230) = viewPort.Width_DE564;
 									v228 = (unsigned __int16)v235;
 								LABEL_370:
 									v1274 = v227;
@@ -8668,8 +8665,8 @@ LABEL_129:
 							if (!--triLn_v1123)
 								return;
 						}
-						if (v230 > viewPortWidth)
-							LOWORD(v230) = viewPortWidth;
+						if (v230 > viewPort.Width_DE564)
+							LOWORD(v230) = viewPort.Width_DE564;
 						v18 = __OFSUB__((x_WORD)v230, (x_WORD)v228);
 						LOWORD(v230) = v230 - v228;
 						if ((unsigned __int8)(((v230 & 0x8000u) != 0) ^ v18) | ((x_WORD)v230 == 0))
@@ -8706,8 +8703,8 @@ LABEL_129:
 									LOWORD(v290) = v289;
 									v291 = v289 >> 8;
 									LOBYTE(v285) = BYTE1(v291);
-									if (v286 > viewPortWidth)
-										LOWORD(v286) = viewPortWidth;
+									if (v286 > viewPort.Width_DE564)
+										LOWORD(v286) = viewPort.Width_DE564;
 									v284 = (unsigned __int16)v291;
 								LABEL_401:
 									v1275 = v283;
@@ -8916,8 +8913,8 @@ LABEL_129:
 							if (!--triLn_v1123)
 								return;
 						}
-						if (v286 > viewPortWidth)
-							LOWORD(v286) = viewPortWidth;
+						if (v286 > viewPort.Width_DE564)
+							LOWORD(v286) = viewPort.Width_DE564;
 						v18 = __OFSUB__((x_WORD)v286, (x_WORD)v284);
 						LOWORD(v286) = v286 - v284;
 						if ((unsigned __int8)(((v286 & 0x8000u) != 0) ^ v18) | ((x_WORD)v286 == 0))
@@ -8950,8 +8947,8 @@ LABEL_129:
 									v180 = __CFADD__(v339[8], v343);
 									v344 = v339[8] + v343;
 									BYTE1(v31) += *((x_BYTE*)v339 + 18) + v180;
-									if (v340 > viewPortWidth)
-										LOWORD(v340) = viewPortWidth;
+									if (v340 > viewPort.Width_DE564)
+										LOWORD(v340) = viewPort.Width_DE564;
 									v31 = (unsigned __int16)v31;
 									LOBYTE(v31) = x_BYTE_E126C;
 								LABEL_464:
@@ -9078,8 +9075,8 @@ LABEL_129:
 							if (!--triLn_v1123)
 								return;
 						}
-						if (v340 > viewPortWidth)
-							LOWORD(v340) = viewPortWidth;
+						if (v340 > viewPort.Width_DE564)
+							LOWORD(v340) = viewPort.Width_DE564;
 						v18 = __OFSUB__((x_WORD)v340, (x_WORD)v31);
 						LOWORD(v340) = v340 - v31;
 						if ((unsigned __int8)(((v340 & 0x8000u) != 0) ^ v18) | ((x_WORD)v340 == 0))
@@ -9123,8 +9120,8 @@ LABEL_129:
 									BYTE1(v375) = v384;
 									LOWORD(v384) = *((x_WORD*)v377 + 3);
 									v375 = (unsigned __int16)v375;
-									if ((signed __int16)v384 > (signed __int16)viewPortWidth)
-										LOWORD(v384) = viewPortWidth;
+									if ((signed __int16)v384 > (signed __int16)viewPort.Width_DE564)
+										LOWORD(v384) = viewPort.Width_DE564;
 								LABEL_493:
 									v387 = v384 & 0xF;
 									v388 = (x_BYTE*)(x_DWORD_B8845[v387] + v379);
@@ -9369,8 +9366,8 @@ LABEL_129:
 							if (!--triLn_v1123)
 								return;
 						}
-						if (v378 > viewPortWidth)
-							LOWORD(v378) = viewPortWidth;
+						if (v378 > viewPort.Width_DE564)
+							LOWORD(v378) = viewPort.Width_DE564;
 						v18 = __OFSUB__((x_WORD)v378, (x_WORD)v375);
 						v385 = v378 - v375;
 						if ((unsigned __int8)((v385 < 0) ^ v18) | (v385 == 0))
@@ -9419,8 +9416,8 @@ LABEL_129:
 									BYTE1(v390) = v399;
 									LOWORD(v399) = *((x_WORD*)v392 + 3);
 									v390 = (unsigned __int16)v390;
-									if ((signed __int16)v399 > (signed __int16)viewPortWidth)
-										LOWORD(v399) = viewPortWidth;
+									if ((signed __int16)v399 > (signed __int16)viewPort.Width_DE564)
+										LOWORD(v399) = viewPort.Width_DE564;
 								LABEL_522:
 									v402 = v399 & 0xF;
 									v403 = (x_BYTE*)(x_DWORD_B8845[v402] + v394);
@@ -9681,8 +9678,8 @@ LABEL_129:
 								if (!--triLn_v1123)
 									return;
 						}
-						if (v393 > viewPortWidth)
-							LOWORD(v393) = viewPortWidth;
+						if (v393 > viewPort.Width_DE564)
+							LOWORD(v393) = viewPort.Width_DE564;
 						v18 = __OFSUB__((x_WORD)v393, (x_WORD)v390);
 						v400 = v393 - v390;
 						if ((unsigned __int8)((v400 < 0) ^ v18) | (v400 == 0))
@@ -9724,8 +9721,8 @@ LABEL_129:
 									LOWORD(v412) = v411;
 									v413 = v411 >> 8;
 									LOBYTE(v407) = BYTE1(v413);
-									if (v408 > viewPortWidth)
-										LOWORD(v408) = viewPortWidth;
+									if (v408 > viewPort.Width_DE564)
+										LOWORD(v408) = viewPort.Width_DE564;
 									v406 = (unsigned __int16)v413;
 								LABEL_583:
 									v1278 = v405;
@@ -9919,8 +9916,8 @@ LABEL_129:
 							if (!--triLn_v1123)
 								return;
 						}
-						if (v408 > viewPortWidth)
-							LOWORD(v408) = viewPortWidth;
+						if (v408 > viewPort.Width_DE564)
+							LOWORD(v408) = viewPort.Width_DE564;
 						v18 = __OFSUB__((x_WORD)v408, (x_WORD)v406);
 						LOWORD(v408) = v408 - v406;
 						if ((unsigned __int8)(((v408 & 0x8000u) != 0) ^ v18) | ((x_WORD)v408 == 0))
@@ -9957,8 +9954,8 @@ LABEL_129:
 									LOWORD(v452) = v451;
 									v453 = v451 >> 8;
 									LOBYTE(v447) = BYTE1(v453);
-									if (v448 > viewPortWidth)
-										LOWORD(v448) = viewPortWidth;
+									if (v448 > viewPort.Width_DE564)
+										LOWORD(v448) = viewPort.Width_DE564;
 									v446 = (unsigned __int16)v453;
 								LABEL_614:
 									v1279 = v445;
@@ -10168,8 +10165,8 @@ LABEL_129:
 							if (!--triLn_v1123)
 								return;
 						}
-						if (v448 > viewPortWidth)
-							LOWORD(v448) = viewPortWidth;
+						if (v448 > viewPort.Width_DE564)
+							LOWORD(v448) = viewPort.Width_DE564;
 						v18 = __OFSUB__((x_WORD)v448, (x_WORD)v446);
 						LOWORD(v448) = v448 - v446;
 						if ((unsigned __int8)(((v448 & 0x8000u) != 0) ^ v18) | ((x_WORD)v448 == 0))
@@ -10207,8 +10204,8 @@ LABEL_129:
 									LOWORD(v492) = v491;
 									v493 = v491 >> 8;
 									LOBYTE(v487) = BYTE1(v493);
-									if (v488 > viewPortWidth)
-										LOWORD(v488) = viewPortWidth;
+									if (v488 > viewPort.Width_DE564)
+										LOWORD(v488) = viewPort.Width_DE564;
 									v486 = (unsigned __int16)v493;
 								LABEL_677:
 									v1280 = v485;
@@ -10465,8 +10462,8 @@ LABEL_129:
 							if (!--triLn_v1123)
 								return;
 						}
-						if (v488 > viewPortWidth)
-							LOWORD(v488) = viewPortWidth;
+						if (v488 > viewPort.Width_DE564)
+							LOWORD(v488) = viewPort.Width_DE564;
 						v18 = __OFSUB__((x_WORD)v488, (x_WORD)v486);
 						LOWORD(v488) = v488 - v486;
 						if ((unsigned __int8)(((v488 & 0x8000u) != 0) ^ v18) | ((x_WORD)v488 == 0))
@@ -10503,8 +10500,8 @@ LABEL_129:
 									LOWORD(v532) = v531;
 									v533 = v531 >> 8;
 									LOBYTE(v527) = BYTE1(v533);
-									if (v528 > viewPortWidth)
-										LOWORD(v528) = viewPortWidth;
+									if (v528 > viewPort.Width_DE564)
+										LOWORD(v528) = viewPort.Width_DE564;
 									v526 = (unsigned __int16)v533;
 								LABEL_740:
 									v1281 = v525;
@@ -10698,8 +10695,8 @@ LABEL_129:
 							if (!--triLn_v1123)
 								return;
 						}
-						if (v528 > viewPortWidth)
-							LOWORD(v528) = viewPortWidth;
+						if (v528 > viewPort.Width_DE564)
+							LOWORD(v528) = viewPort.Width_DE564;
 						v18 = __OFSUB__((x_WORD)v528, (x_WORD)v526);
 						LOWORD(v528) = v528 - v526;
 						if ((unsigned __int8)(((v528 & 0x8000u) != 0) ^ v18) | ((x_WORD)v528 == 0))
@@ -10736,8 +10733,8 @@ LABEL_129:
 									LOWORD(v572) = v571;
 									v573 = v571 >> 8;
 									LOBYTE(v567) = BYTE1(v573);
-									if (v568 > viewPortWidth)
-										LOWORD(v568) = viewPortWidth;
+									if (v568 > viewPort.Width_DE564)
+										LOWORD(v568) = viewPort.Width_DE564;
 									v566 = (unsigned __int16)v573;
 								LABEL_771:
 									v1282 = v565;
@@ -10931,8 +10928,8 @@ LABEL_129:
 							if (!--triLn_v1123)
 								return;
 						}
-						if (v568 > viewPortWidth)
-							LOWORD(v568) = viewPortWidth;
+						if (v568 > viewPort.Width_DE564)
+							LOWORD(v568) = viewPort.Width_DE564;
 						v18 = __OFSUB__((x_WORD)v568, (x_WORD)v566);
 						LOWORD(v568) = v568 - v566;
 						if ((unsigned __int8)(((v568 & 0x8000u) != 0) ^ v18) | ((x_WORD)v568 == 0))
@@ -10962,8 +10959,8 @@ LABEL_129:
 									break;
 								if ((signed __int16)v609 > 0)
 								{
-									if (v609 > viewPortWidth)
-										LOWORD(v609) = viewPortWidth;
+									if (v609 > viewPort.Width_DE564)
+										LOWORD(v609) = viewPort.Width_DE564;
 								LABEL_802:
 									for (i = v606; ; i += 16)
 									{
@@ -11055,8 +11052,8 @@ LABEL_129:
 							if (!--triLn_v1123)
 								return;
 						}
-						if (v609 > viewPortWidth)
-							LOWORD(v609) = viewPortWidth;
+						if (v609 > viewPort.Width_DE564)
+							LOWORD(v609) = viewPort.Width_DE564;
 						v18 = __OFSUB__((x_WORD)v609, (x_WORD)v608);
 						LOWORD(v609) = v609 - v608;
 						if ((unsigned __int8)(((v609 & 0x8000u) != 0) ^ v18) | ((x_WORD)v609 == 0))
@@ -11081,8 +11078,8 @@ LABEL_129:
 									break;
 								if ((signed __int16)v630 > 0)
 								{
-									if (v630 > viewPortWidth)
-										LOWORD(v630) = viewPortWidth;
+									if (v630 > viewPort.Width_DE564)
+										LOWORD(v630) = viewPort.Width_DE564;
 								LABEL_831:
 									for (j = v627; ; j += 16)
 									{
@@ -11174,8 +11171,8 @@ LABEL_129:
 							if (!--triLn_v1123)
 								return;
 						}
-						if (v630 > viewPortWidth)
-							LOWORD(v630) = viewPortWidth;
+						if (v630 > viewPort.Width_DE564)
+							LOWORD(v630) = viewPort.Width_DE564;
 						v18 = __OFSUB__((x_WORD)v630, (x_WORD)v629);
 						LOWORD(v630) = v630 - v629;
 						if ((unsigned __int8)(((v630 & 0x8000u) != 0) ^ v18) | ((x_WORD)v630 == 0))
@@ -11205,8 +11202,8 @@ LABEL_129:
 									v180 = __CFADD__(v647[8], v652);
 									v653 = v647[8] + v652;
 									BYTE1(v31) += *((x_BYTE*)v647 + 18) + v180;
-									if (v649 > viewPortWidth)
-										LOWORD(v649) = viewPortWidth;
+									if (v649 > viewPort.Width_DE564)
+										LOWORD(v649) = viewPort.Width_DE564;
 									v31 = (unsigned __int16)v31;
 									LOBYTE(v31) = x_BYTE_E126C;
 								LABEL_860:
@@ -11365,8 +11362,8 @@ LABEL_129:
 							if (!--triLn_v1123)
 								return;
 						}
-						if (v649 > viewPortWidth)
-							LOWORD(v649) = viewPortWidth;
+						if (v649 > viewPort.Width_DE564)
+							LOWORD(v649) = viewPort.Width_DE564;
 						v18 = __OFSUB__((x_WORD)v649, (x_WORD)v31);
 						LOWORD(v649) = v649 - v31;
 						if ((unsigned __int8)(((v649 & 0x8000u) != 0) ^ v18) | ((x_WORD)v649 == 0))
@@ -11399,8 +11396,8 @@ LABEL_129:
 									v180 = __CFADD__(v684[8], v689);
 									v690 = v684[8] + v689;
 									BYTE1(v31) += *((x_BYTE*)v684 + 18) + v180;
-									if (v686 > viewPortWidth)
-										LOWORD(v686) = viewPortWidth;
+									if (v686 > viewPort.Width_DE564)
+										LOWORD(v686) = viewPort.Width_DE564;
 									v31 = (unsigned __int16)v31;
 									LOBYTE(v31) = x_BYTE_E126C;
 								LABEL_889:
@@ -11559,8 +11556,8 @@ LABEL_129:
 							if (!--triLn_v1123)
 								return;
 						}
-						if (v686 > viewPortWidth)
-							LOWORD(v686) = viewPortWidth;
+						if (v686 > viewPort.Width_DE564)
+							LOWORD(v686) = viewPort.Width_DE564;
 						v18 = __OFSUB__((x_WORD)v686, (x_WORD)v31);
 						LOWORD(v686) = v686 - v31;
 						if ((unsigned __int8)(((v686 & 0x8000u) != 0) ^ v18) | ((x_WORD)v686 == 0))
@@ -11596,8 +11593,8 @@ LABEL_129:
 									LOWORD(v728) = v727;
 									v729 = v727 >> 8;
 									LOBYTE(v723) = BYTE1(v729);
-									if (v724 > viewPortWidth)
-										LOWORD(v724) = viewPortWidth;
+									if (v724 > viewPort.Width_DE564)
+										LOWORD(v724) = viewPort.Width_DE564;
 									v722 = (unsigned __int16)v729;
 								LABEL_918:
 									v1283 = v721;
@@ -11806,8 +11803,8 @@ LABEL_129:
 							if (!--triLn_v1123)
 								return;
 						}
-						if (v724 > viewPortWidth)
-							LOWORD(v724) = viewPortWidth;
+						if (v724 > viewPort.Width_DE564)
+							LOWORD(v724) = viewPort.Width_DE564;
 						v18 = __OFSUB__((x_WORD)v724, (x_WORD)v722);
 						LOWORD(v724) = v724 - v722;
 						if ((unsigned __int8)(((v724 & 0x8000u) != 0) ^ v18) | ((x_WORD)v724 == 0))
@@ -11844,8 +11841,8 @@ LABEL_129:
 									LOWORD(v768) = v767;
 									v769 = v767 >> 8;
 									LOBYTE(v763) = BYTE1(v769);
-									if (v764 > viewPortWidth)
-										LOWORD(v764) = viewPortWidth;
+									if (v764 > viewPort.Width_DE564)
+										LOWORD(v764) = viewPort.Width_DE564;
 									v762 = (unsigned __int16)v769;
 								LABEL_949:
 									v1284 = v761;
@@ -12054,8 +12051,8 @@ LABEL_129:
 							if (!--triLn_v1123)
 								return;
 						}
-						if (v764 > viewPortWidth)
-							LOWORD(v764) = viewPortWidth;
+						if (v764 > viewPort.Width_DE564)
+							LOWORD(v764) = viewPort.Width_DE564;
 						v18 = __OFSUB__((x_WORD)v764, (x_WORD)v762);
 						LOWORD(v764) = v764 - v762;
 						if ((unsigned __int8)(((v764 & 0x8000u) != 0) ^ v18) | ((x_WORD)v764 == 0))
@@ -12086,8 +12083,8 @@ LABEL_129:
 									break;
 								if ((signed __int16)v804 > 0)
 								{
-									if (v804 > viewPortWidth)
-										v804 = viewPortWidth;
+									if (v804 > viewPort.Width_DE564)
+										v804 = viewPort.Width_DE564;
 									v1194 = v804;
 									v806 = (unsigned __int16)-(signed __int16)v802;
 									v807 = v806;
@@ -12386,8 +12383,8 @@ LABEL_129:
 							if (!--triLn_v1123)
 								return;
 						}
-						if (v804 > viewPortWidth)
-							v804 = viewPortWidth;
+						if (v804 > viewPort.Width_DE564)
+							v804 = viewPort.Width_DE564;
 						v18 = __OFSUB__((x_WORD)v804, (x_WORD)v802);
 						LOWORD(v804) = v804 - v802;
 						if ((unsigned __int8)(((v804 & 0x8000u) != 0) ^ v18) | ((x_WORD)v804 == 0))
@@ -12420,8 +12417,8 @@ LABEL_129:
 									break;
 								if ((signed __int16)v845 > 0)
 								{
-									if (v845 > viewPortWidth)
-										v845 = viewPortWidth;
+									if (v845 > viewPort.Width_DE564)
+										v845 = viewPort.Width_DE564;
 									v1210 = v845;
 									v847 = (unsigned __int16)-(signed __int16)v843;
 									v848 = v847;
@@ -12720,8 +12717,8 @@ LABEL_129:
 							if (!--triLn_v1123)
 								return;
 						}
-						if (v845 > viewPortWidth)
-							v845 = viewPortWidth;
+						if (v845 > viewPort.Width_DE564)
+							v845 = viewPort.Width_DE564;
 						v18 = __OFSUB__((x_WORD)v845, (x_WORD)v843);
 						LOWORD(v845) = v845 - v843;
 						if ((unsigned __int8)(((v845 & 0x8000u) != 0) ^ v18) | ((x_WORD)v845 == 0))
@@ -12760,8 +12757,8 @@ LABEL_129:
 									LOWORD(v890) = v889;
 									v891 = v889 >> 8;
 									LOBYTE(v885) = BYTE1(v891);
-									if (v886 > viewPortWidth)
-										LOWORD(v886) = viewPortWidth;
+									if (v886 > viewPort.Width_DE564)
+										LOWORD(v886) = viewPort.Width_DE564;
 									v884 = (unsigned __int16)v891;
 								LABEL_1042:
 									v1287 = v883;
@@ -13018,8 +13015,8 @@ LABEL_129:
 							if (!--triLn_v1123)
 								return;
 						}
-						if (v886 > viewPortWidth)
-							LOWORD(v886) = viewPortWidth;
+						if (v886 > viewPort.Width_DE564)
+							LOWORD(v886) = viewPort.Width_DE564;
 						v18 = __OFSUB__((x_WORD)v886, (x_WORD)v884);
 						LOWORD(v886) = v886 - v884;
 						if ((unsigned __int8)(((v886 & 0x8000u) != 0) ^ v18) | ((x_WORD)v886 == 0))
@@ -13056,8 +13053,8 @@ LABEL_129:
 									LOWORD(v930) = v929;
 									v931 = v929 >> 8;
 									LOBYTE(v925) = BYTE1(v931);
-									if (v926 > viewPortWidth)
-										LOWORD(v926) = viewPortWidth;
+									if (v926 > viewPort.Width_DE564)
+										LOWORD(v926) = viewPort.Width_DE564;
 									v924 = (unsigned __int16)v931;
 								LABEL_1105:
 									v1288 = v923;
@@ -13314,8 +13311,8 @@ LABEL_129:
 							if (!--triLn_v1123)
 								return;
 						}
-						if (v926 > viewPortWidth)
-							LOWORD(v926) = viewPortWidth;
+						if (v926 > viewPort.Width_DE564)
+							LOWORD(v926) = viewPort.Width_DE564;
 						v18 = __OFSUB__((x_WORD)v926, (x_WORD)v924);
 						LOWORD(v926) = v926 - v924;
 						if ((unsigned __int8)(((v926 & 0x8000u) != 0) ^ v18) | ((x_WORD)v926 == 0))
@@ -13346,8 +13343,8 @@ LABEL_129:
 									break;
 								if ((signed __int16)v966 > 0)
 								{
-									if (v966 > viewPortWidth)
-										v966 = viewPortWidth;
+									if (v966 > viewPort.Width_DE564)
+										v966 = viewPort.Width_DE564;
 									v1226 = v966;
 									v968 = (unsigned __int16)-(signed __int16)v964;
 									v969 = v968;
@@ -13694,8 +13691,8 @@ LABEL_129:
 							if (!--triLn_v1123)
 								return;
 						}
-						if (v966 > viewPortWidth)
-							v966 = viewPortWidth;
+						if (v966 > viewPort.Width_DE564)
+							v966 = viewPort.Width_DE564;
 						v18 = __OFSUB__((x_WORD)v966, (x_WORD)v964);
 						LOWORD(v966) = v966 - v964;
 						if ((unsigned __int8)(((v966 & 0x8000u) != 0) ^ v18) | ((x_WORD)v966 == 0))
@@ -13728,8 +13725,8 @@ LABEL_129:
 									break;
 								if ((signed __int16)v1007 > 0)
 								{
-									if (v1007 > viewPortWidth)
-										v1007 = viewPortWidth;
+									if (v1007 > viewPort.Width_DE564)
+										v1007 = viewPort.Width_DE564;
 									v1242 = v1007;
 									v1009 = (unsigned __int16)-(signed __int16)v1005;
 									v1010 = v1009;
@@ -14076,8 +14073,8 @@ LABEL_129:
 							if (!--triLn_v1123)
 								return;
 						}
-						if (v1007 > viewPortWidth)
-							v1007 = viewPortWidth;
+						if (v1007 > viewPort.Width_DE564)
+							v1007 = viewPort.Width_DE564;
 						v18 = __OFSUB__((x_WORD)v1007, (x_WORD)v1005);
 						LOWORD(v1007) = v1007 - v1005;
 						if ((unsigned __int8)(((v1007 & 0x8000u) != 0) ^ v18) | ((x_WORD)v1007 == 0))
@@ -14112,8 +14109,8 @@ LABEL_129:
 								break;
 							if ((signed __int16)v1048 > 0)
 							{
-								if (v1048 > viewPortWidth)
-									v1048 = viewPortWidth;
+								if (v1048 > viewPort.Width_DE564)
+									v1048 = viewPort.Width_DE564;
 								v1258 = v1048;
 								v1050 = (unsigned __int16)-(signed __int16)v1046;
 								v1051 = v1050;
@@ -14540,8 +14537,8 @@ LABEL_129:
 						if (!--triLn_v1123)
 							return;
 					}
-					if (v1048 > viewPortWidth)
-						v1048 = viewPortWidth;
+					if (v1048 > viewPort.Width_DE564)
+						v1048 = viewPort.Width_DE564;
 					v18 = __OFSUB__((x_WORD)v1048, (x_WORD)v1046);
 					LOWORD(v1048) = v1048 - v1046;
 					if ((unsigned __int8)(((v1048 & 0x8000u) != 0) ^ v18) | ((x_WORD)v1048 == 0))
@@ -14563,25 +14560,25 @@ LABEL_129:
 				v78 += v1161 * v1149;
 				if (v1301)
 				{
-					triLn_v1123 = viewPortHeight;
+					triLn_v1123 = viewPort.Height_DE568;
 					if (v1297)
 					{
-						v1114 = viewPortHeight;
+						v1114 = viewPort.Height_DE568;
 					}
 					else
 					{
-						v1297 = viewPortHeight <= v1114;
-						v1120 = viewPortHeight - v1114;
+						v1297 = viewPort.Height_DE568 <= v1114;
+						v1120 = viewPort.Height_DE568 - v1114;
 					}
 				}
 			}
 			else if (v1301)
 			{
-			v82 = viewPortHeight - v1191;
-			triLn_v1123 = viewPortHeight - v1191;
+			v82 = viewPort.Height_DE568 - v1191;
+			triLn_v1123 = viewPort.Height_DE568 - v1191;
 			if (v1297)
 			{
-				v1114 = viewPortHeight - v1191;
+				v1114 = viewPort.Height_DE568 - v1191;
 			}
 			else
 			{
@@ -14735,10 +14732,10 @@ void GameRender_new::SetRenderViewPortSize_BCD45(/*ViewPort viewPort, */uint16_t
 	}
 
 	int32_t ptrScreenRenderBufferStart = viewPort.PosX_EA3D0 + screenWidth_18062C * viewPort.PosY_EA3CC;
-	SetRenderViewPortSize_BCD45(ptrScreenRenderBufferStart + pdwScreenBuffer_351628, viewPort.Width_DE564, viewPort.Height_DE568, screenWidth_18062C);
+	SetRenderViewPortSize_BCD45(ptrScreenRenderBufferStart + pdwScreenBuffer_351628, screenWidth_18062C, screenWidth, screenHeight);
 }
 
-void GameRender_new::SetRenderViewPortSize_BCD45(uint8_t* ptrScreenBufferStart, uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t screenWidth)
+void GameRender_new::SetRenderViewPortSize_BCD45(uint8_t* ptrScreenBufferStart, uint16_t screenWidth, uint16_t viewPortWidth, uint16_t viewPortHeight)
 {
 	if (screenWidth)
 	{
@@ -14748,7 +14745,7 @@ void GameRender_new::SetRenderViewPortSize_BCD45(uint8_t* ptrScreenBufferStart, 
 	if (ptrScreenBufferStart)
 	{
 		ViewPortRenderBufferStart_DE558 = ptrScreenBufferStart;
-		m_ptrViewPortRenderBufferAltStart_DE554 = ptrScreenBufferStart - screenWidth_18062C;
+		m_ptrViewPortRenderBufferAltStart_DE554 = ptrScreenBufferStart - screenWidth;
 	}
 
 	if (viewPortWidth)

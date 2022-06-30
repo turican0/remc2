@@ -128,11 +128,12 @@ void GameRender_old::DrawWorld(/*uint8_t* pdwScreenBuffer_351628,*/ int posX, in
 
 	if (D41A0_0.m_GameSettings.str_0x2192.xxxx_0x2193 && D41A0_0.m_GameSettings.m_Display.m_uiScreenSize && screenWidth_18062C == 640)
 	{
+		//VR interlaced render
 		SetRenderViewPortSize_BCD45(
 			pdwScreenBuffer_351628,
 			2 * screenWidth_18062C,
-			(screenWidth_18062C / 2 - 8),
-			(screenHeight_180624 / 2 - 40));
+			screenWidth_18062C / 2 - 8,
+			screenHeight_180624 / 2 - 40);
 		v22 = Maths::x_DWORD_DB750[vYaw];
 		x_DWORD_D4790 = 20;
 		v23 = 5 * v22;
@@ -14748,28 +14749,28 @@ void GameRender_old::SetRenderViewPortSize_40C50(uint8_t viewPortSizeSetting, ui
 
 void GameRender_old::SetRenderViewPortSize_BCD45(ViewPort viewPort, uint16_t screenWidth, uint16_t screenHeight)
 {
-	if (viewPort.Width_DE564 > screenWidth_18062C)
+	if (viewPort.Width_DE564 > screenWidth)
 	{
-		viewPort.Width_DE564 = screenWidth_18062C;
+		viewPort.Width_DE564 = screenWidth;
 	}
 
-	if (viewPort.Height_DE568 > screenHeight_180624)
+	if (viewPort.Height_DE568 > screenHeight)
 	{
-		viewPort.Height_DE568 = screenHeight_180624;
+		viewPort.Height_DE568 = screenHeight;
 	}
 
-	if (viewPort.PosX_EA3D0 > screenWidth_18062C)
+	if (viewPort.PosX_EA3D0 > screenWidth)
 	{
-		viewPort.PosX_EA3D0 = screenWidth_18062C - 1;
+		viewPort.PosX_EA3D0 = screenWidth - 1;
 	}
 
-	if (viewPort.PosY_EA3CC > screenHeight_180624)
+	if (viewPort.PosY_EA3CC > screenHeight)
 	{
-		viewPort.PosY_EA3CC = screenHeight_180624 - 1;
+		viewPort.PosY_EA3CC = screenHeight - 1;
 	}
 
 	int32_t ptrScreenRenderBufferStart = viewPort.PosX_EA3D0 + iScreenWidth_DE560 * viewPort.PosY_EA3CC;
-	SetRenderViewPortSize_BCD45(ptrScreenRenderBufferStart + pdwScreenBuffer_351628, viewPort.Width_DE564, viewPort.Height_DE568, iScreenWidth_DE560);
+	SetRenderViewPortSize_BCD45(ptrScreenRenderBufferStart + pdwScreenBuffer_351628, screenWidth_18062C, screenWidth, screenHeight);
 }
 
 void GameRender_old::SetRenderViewPortSize_BCD45(uint8_t* ptrScreenBufferStart, uint16_t screenWidth, uint16_t viewPortWidth, uint16_t viewPortHeight/*, uint16_t iScreenWidth_DE560*/)
@@ -14782,7 +14783,7 @@ void GameRender_old::SetRenderViewPortSize_BCD45(uint8_t* ptrScreenBufferStart, 
 	if (ptrScreenBufferStart)
 	{
 		ViewPortRenderBufferStart_DE558 = ptrScreenBufferStart;
-		m_ptrViewPortRenderBufferAltStart_DE554 = ptrScreenBufferStart - iScreenWidth_DE560;
+		m_ptrViewPortRenderBufferAltStart_DE554 = ptrScreenBufferStart - screenWidth;
 	}
 
 	if (viewPort.Width_DE564)
