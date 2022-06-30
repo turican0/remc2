@@ -56,7 +56,7 @@ private:
 
 	type_unk_F0E20x m_str_F0E20x[1920]; // Originally 640
 
-	uint8_t* m_ptrScreenBuffer = nullptr;
+	//uint8_t* m_ptrScreenBuffer = nullptr;
 	uint8_t* m_ptrX_BYTE_F6EE0_tablesx = nullptr;
 	uint8_t m_uiScreenSize = 0;
 	//uint8_t* ViewPortRenderBufferStart_DE558 = nullptr;
