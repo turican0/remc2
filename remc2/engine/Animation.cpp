@@ -51,7 +51,7 @@ void PlayInfoFmv(__int16 a1, __int16 a2, type_E17CC_0* a3x, char* path)//sub_761
 	x_WORD_D4004 = 0;
 	x_WORD_17DB58 = 0;
 	ActualKeyframe_17DB60 = 0;
-	x_DWORD_E12F4x = (TColor*)pdwScreenBuffer;
+	x_DWORD_E12F4x = (TColor*)pdwScreenBuffer_351628;
 	tempfile = DataFileIO::CreateOrOpenFile(path, 512);
 	x_DWORD_17DB38_intro_file_handle = tempfile;
 	if (tempfile)
@@ -594,9 +594,9 @@ void /*__fastcall*/ sub_75E70()//256e70
 	speedGame = speedAnim;
 	if (x_BYTE_D41C1)
 	{
-		pdwScreenBuffer += 0x26C0;
+		pdwScreenBuffer_351628 += 0x26C0;
 		sub_90478_VGA_Blit320();
-		pdwScreenBuffer -= 0x26C0;
+		pdwScreenBuffer_351628 -= 0x26C0;
 	}
 	else
 	{

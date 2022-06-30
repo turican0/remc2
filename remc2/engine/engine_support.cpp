@@ -470,7 +470,7 @@ uint8_t test_str_E2A74[] = {
 0x3F,0x00,0x0F,0x00,0x3F,0x00,0x2F,0x00,0x3F,0x00,0x1F,0x00,0x7F,0x00,0x3F,0x00
 };*/
 
-uint8_t* pdwScreenBuffer; //351628
+uint8_t* pdwScreenBuffer_351628; //351628
 
 uint8_t* off_D41A8_sky;//graphics buffer// = (uint8_t*)&x_BYTE_14B4E0; // weak
 uint8_t* x_BYTE_14B4E0_second_heightmap;//31C4E0
@@ -505,7 +505,7 @@ void support_begin() {
 	printbuffer2 = (char*)malloc(4096);
 	pre_pdwScreenBuffer = (uint8_t*)malloc(2228224);
 	//pdwScreenBuffer = (uint8_t*)malloc(320000);
-	pdwScreenBuffer = &pre_pdwScreenBuffer[1114112];
+	pdwScreenBuffer_351628 = &pre_pdwScreenBuffer[1114112];
 
 	//x_DWORD_E9C38_smalltit= (uint8_t*)malloc(64000);
 	//x_D41A0_BYTEARRAY_4_0xDE_heapbuffer= (uint8_t*)malloc(64000);
@@ -1243,10 +1243,10 @@ uint32_t compare_with_sequence(char* filename, uint8_t* adress, uint32_t  /*adre
 	fread(buffer, size2, 1, fptestepc);
 	if (size2 == 320 * 200)
 	{
-		VGA_Debug_Blit(320, 200, pdwScreenBuffer);
+		VGA_Debug_Blit(320, 200, pdwScreenBuffer_351628);
 		/*for (int iii = 0; iii < 320 * 200; iii++)pdwScreenBuffer[iii] = buffer[iii];*/
-		VGA_Debug_Blit(320, 200, pdwScreenBuffer);
-		VGA_Debug_Blit(320, 200, pdwScreenBuffer);
+		VGA_Debug_Blit(320, 200, pdwScreenBuffer_351628);
+		VGA_Debug_Blit(320, 200, pdwScreenBuffer_351628);
 	}
 	//for (i = size-1; i >0; i--)
 	for (i = 0; i < size2; i++)

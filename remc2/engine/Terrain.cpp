@@ -1421,7 +1421,7 @@ void sub_44580()//225580
 	int8_t* v89; // [esp+8h] [ebp-10h]
 	uint8_t* v90; // [esp+Ch] [ebp-Ch]
 
-	v0 = pdwScreenBuffer;
+	v0 = pdwScreenBuffer_351628;
 	v1 = 0;
 	while (v1 < 0x961u)
 	{
@@ -1430,7 +1430,7 @@ void sub_44580()//225580
 		v0 += 25;
 	}
 	v2 = 0;
-	v90 = pdwScreenBuffer;
+	v90 = pdwScreenBuffer_351628;
 	v89 = unk_D47E0;
 	while (v2 < 0x94u)
 	{
