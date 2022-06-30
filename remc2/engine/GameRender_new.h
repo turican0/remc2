@@ -62,8 +62,8 @@ private:
 	uint8_t* m_ptrViewPortRenderBufferStart_DE558 = nullptr;
 	uint8_t* m_ptrViewPortRenderBufferAltStart_DE554 = nullptr;
 	ViewPort m_viewPort;
-	uint16_t m_uiScreenWidth_DE560 = 0;
-	uint16_t m_uiScreenHeight = 0;
+	//uint16_t screenWidth_18062C = 0;
+	//uint16_t screenHeight_180624 = 0;
 
 	std::array<uint8_t*, 256> m_textureAddresses;
 	uint8_t* m_ptrColorPalette = 0;
