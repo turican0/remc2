@@ -130,7 +130,7 @@ void GameRender::DrawWorld(uint8_t* pdwScreenBuffer, int posX, int posY, int16_t
 	vPosX = x_DWORD_D4794 + posX;
 	vPosY = x_DWORD_D4798 + posY;
 
-	if (D41A0_0.m_GameSettings.str_0x2192.xxxx_0x2193 && m_uiScreenSize && iScreenWidth_DE560 == 640)
+	if (D41A0_0.m_GameSettings.str_0x2192.xxxx_0x2193 && D41A0_0.m_GameSettings.m_Display.m_uiScreenSize && screenWidth_18062C == 640)
 	{
 		//uint16_t origiScreenWidth_DE560 = iScreenWidth_DE560;
 		//uint16_t origScreenHeight = m_uiScreenHeight;
@@ -155,7 +155,7 @@ void GameRender::DrawWorld(uint8_t* pdwScreenBuffer, int posX, int posY, int16_t
 		x_DWORD_D4324 = 0;
 		SetRenderViewPortSize_BCD45(pdwScreenBuffer, screenWidth_18062C, screenWidth_18062C, screenHeight_180624);
 	}
-	else if (m_uiScreenSize != 1 || D41A0_0.m_GameSettings.str_0x2192.xxxx_0x2193)
+	else if (D41A0_0.m_GameSettings.m_Display.m_uiScreenSize != 1 || D41A0_0.m_GameSettings.str_0x2192.xxxx_0x2193)
 	{
 		v52 = D41A0_0.m_GameSettings.m_Display.xxxx_0x2191;
 		if (x_WORD_180660_VGA_type_resolution == 1)
