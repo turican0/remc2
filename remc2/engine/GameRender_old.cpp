@@ -177,7 +177,7 @@ void GameRender_old::DrawWorld(/*uint8_t* pdwScreenBuffer_351628,*/ int posX, in
 			//Apply Blur
 			SetRenderViewPortSize_BCD45(v35, 0, 0, 0);
 			v51 = (signed int)(unsigned __int16)viewPort.Width_DE564 >> 2;
-			v49 = pitch - (unsigned __int16)viewPort.Width_DE564;
+			v49 = iScreenWidth_DE560 - (unsigned __int16)viewPort.Width_DE564;
 			v50 = (unsigned __int16)viewPort.Height_DE568;
 			
 			if (D41A0_0.m_GameSettings.m_Display.xxxx_0x2191 != 1)
