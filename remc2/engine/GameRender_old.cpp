@@ -26,7 +26,7 @@ GameRender_old::~GameRender_old()
 	}
 }
 
-void GameRender_old::DrawWorld(uint8_t* pdwScreenBuffer_351628, int posX, int posY, int16_t yaw, int16_t posZ, int16_t ScreenWidth, int16_t roll, int16_t fov)
+void GameRender_old::DrawWorld(/*uint8_t* pdwScreenBuffer_351628,*/ int posX, int posY, int16_t yaw, int16_t posZ, int16_t pitch, int16_t roll, int16_t fov)
 
 //void GameRender_old::DrawWorld(int posX, int posY, int16_t yaw, int16_t posZ, int16_t iScreenWidth_DE560, int16_t roll, int16_t fov, uint8_t mapHeightmap_11B4E0[], type_particle_str** str_DWORD_F66F0x[], uint8_t x_BYTE_E88E0x[], int32_t x_DWORD_F5730[], uint8_t unk_F0A20x[], type_event_0x6E8E* x_DWORD_EA3E4[], type_str_unk_1804B0ar str_unk_1804B0ar, int16_t x_WORD_180660_VGA_type_resolution, int16_t x_WORD_D4B7C, char isCaveLevel_D41B6)
 {
@@ -140,10 +140,10 @@ void GameRender_old::DrawWorld(uint8_t* pdwScreenBuffer_351628, int posX, int po
 		x_DWORD_D4324 = -5;
 		v25 = 4 * v23 >> 16;
 		v26 = 20 * (signed int)v24 >> 16;
-		DrawTerrainAndParticles_3C080(vPosX - v26, vPosY - v25, vYaw, posZ, ScreenWidth, roll, fov);
+		DrawTerrainAndParticles_3C080(vPosX - v26, vPosY - v25, vYaw, posZ, pitch, roll, fov);
 		SetRenderViewPortSize_BCD45(pdwScreenBuffer_351628 + (screenWidth_18062C / 2), 0, 0, 0);
 		x_DWORD_D4324 = 5;
-		DrawTerrainAndParticles_3C080(vPosX + v26, vPosY + v25, vYaw, posZ, ScreenWidth, roll, fov);
+		DrawTerrainAndParticles_3C080(vPosX + v26, vPosY + v25, vYaw, posZ, pitch, roll, fov);
 		x_DWORD_D4324 = 0;
 		SetRenderViewPortSize_BCD45(pdwScreenBuffer_351628, screenWidth_18062C, screenWidth_18062C, screenHeight_180624);
 	}
@@ -173,11 +173,11 @@ void GameRender_old::DrawWorld(uint8_t* pdwScreenBuffer_351628, int posX, int po
 			//Blur
 			v35 = ViewPortRenderBufferStart_DE558;
 			SetRenderViewPortSize_BCD45(x_DWORD_E9C3C, 0, 0, 0);
-			DrawTerrainAndParticles_3C080(vPosX, vPosY, vYaw, posZ, ScreenWidth, roll, fov);
+			DrawTerrainAndParticles_3C080(vPosX, vPosY, vYaw, posZ, pitch, roll, fov);
 			//Apply Blur
 			SetRenderViewPortSize_BCD45(v35, 0, 0, 0);
 			v51 = (signed int)(unsigned __int16)viewPort.Width_DE564 >> 2;
-			v49 = ScreenWidth - (unsigned __int16)viewPort.Width_DE564;
+			v49 = pitch - (unsigned __int16)viewPort.Width_DE564;
 			v50 = (unsigned __int16)viewPort.Height_DE568;
 			
 			if (D41A0_0.m_GameSettings.m_Display.xxxx_0x2191 != 1)
@@ -229,7 +229,7 @@ void GameRender_old::DrawWorld(uint8_t* pdwScreenBuffer_351628, int posX, int po
 			}
 		}
 
-		DrawTerrainAndParticles_3C080(vPosX, vPosY, vYaw, posZ, ScreenWidth, roll, fov);
+		DrawTerrainAndParticles_3C080(vPosX, vPosY, vYaw, posZ, pitch, roll, fov);
 
 		//22270D
 		//add_compare(0x22270D, debugafterload);
@@ -240,7 +240,7 @@ void GameRender_old::DrawWorld(uint8_t* pdwScreenBuffer_351628, int posX, int po
 			for (i = (unsigned __int16)viewPort.Height_DE568 - 1; i; i--)
 			{
 				v43 = (x_BYTE*)v53;
-				v44 = ScreenWidth;
+				v44 = pitch;
 				v45 = (unsigned __int16)viewPort.Width_DE564 - 1;
 				HIWORD(v46) = 0;
 				HIWORD(v47) = 0;
@@ -256,7 +256,7 @@ void GameRender_old::DrawWorld(uint8_t* pdwScreenBuffer_351628, int posX, int po
 					*v43++ = x_BYTE_F6EE0_tablesx[0x4000 + v48];
 					v45--;
 				} while (v45);
-				v53 += ScreenWidth;
+				v53 += pitch;
 			}
 		}
 	LABEL_44:
@@ -268,14 +268,14 @@ void GameRender_old::DrawWorld(uint8_t* pdwScreenBuffer_351628, int posX, int po
 		v28 = 5 * Maths::x_DWORD_DB750[vYaw];
 		v29 = Maths::x_DWORD_DB750[0x200 + vYaw];
 		x_DWORD_D4790 = 20;
-		x_DWORD_D4324 = ScreenWidth / 40;
+		x_DWORD_D4324 = pitch / 40;
 		v30 = 4 * v28 >> 16;
 		v31 = 20 * (signed int)v29 >> 16;
-		DrawTerrainAndParticles_3C080(v31 + vPosX, v30 + vPosY, vYaw, posZ, ScreenWidth, roll, fov);
+		DrawTerrainAndParticles_3C080(v31 + vPosX, v30 + vPosY, vYaw, posZ, pitch, roll, fov);
 		v32 = ViewPortRenderBufferStart_DE558;
 		SetRenderViewPortSize_BCD45(x_DWORD_E9C3C, 0, 0, 0);
-		x_DWORD_D4324 = 0 - (ScreenWidth / 40);
-		DrawTerrainAndParticles_3C080(vPosX - v31, vPosY - v30, vYaw, posZ, ScreenWidth, roll, fov);
+		x_DWORD_D4324 = 0 - (pitch / 40);
+		DrawTerrainAndParticles_3C080(vPosX - v31, vPosY - v30, vYaw, posZ, pitch, roll, fov);
 		SetRenderViewPortSize_BCD45(v32, 0, 0, 0);
 		x_DWORD_D4324 = 0;
 	}
