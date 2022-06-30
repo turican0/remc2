@@ -338,25 +338,13 @@ void GameRender::DrawSky_40950(int16_t roll, uint8_t* ptrViewPortRenderBufferSta
 	int v3; // esi
 	int v4; // ebx
 	char* v5; // edx
-	int v6; // eax
 	int v7; // edx
 	int v8; // eax
 	int v9; // ecx
 	int v10; // edx
-	__int16 result; // ax
-	int v12; // eax
-	char* v13; // esi
-	int* v14; // edi
-	uint8_t* v15; // edx
-	int v16; // ecx
 	int v17; // ebx
-	int v18; // eax
 	char v19ar[3840]; // [esp+0h] [ebp-52Ch]
-	int v20; // [esp+500h] [ebp-2Ch]
-	int v21; // [esp+504h] [ebp-28h]
-	int* v22; // [esp+508h] [ebp-24h]
 	int v23; // [esp+50Ch] [ebp-20h]
-	int v24; // [esp+510h] [ebp-1Ch]
 	int v25; // [esp+514h] [ebp-18h]
 	int v26; // [esp+518h] [ebp-14h]
 	int v27; // [esp+51Ch] [ebp-10h]
@@ -374,13 +362,12 @@ void GameRender::DrawSky_40950(int16_t roll, uint8_t* ptrViewPortRenderBufferSta
 	v5 = v19ar;
 	v30 = 0;
 
+	// prepare sky texture lookup table
 	uint16_t width = viewPortWidth;
 	while (width)
 	{
 		v28 = BYTE2(v3);
 		*v5 = BYTE2(v3) - v29;
-		v21 = BYTE2(v4);
-		v20 = BYTE2(v4) - v30;
 		v5 += 2;
 		width--;
 		*(v5 - 1) = BYTE2(v4) - v30;
@@ -396,53 +383,35 @@ void GameRender::DrawSky_40950(int16_t roll, uint8_t* ptrViewPortRenderBufferSta
 	v10 = v25 * v8 + v26 * v7;
 	v23 = ((unsigned __int16)x_WORD_F2CC0 << 15) - v9;
 	uint8_t* viewPortRenderBufferStart = (ptrViewPortRenderBufferStart + (startLine * pitch));
-	result = viewPortHeight;
 	v27 = -v10;
 	uint16_t height = viewPortHeight;
+
+	v23 -= (v26 * startLine);
+	v27 += (v25 * startLine);
 
 	if (viewPortHeight)
 	{
 		do
 		{
-			int32_t v12 = (viewPortWidth
-				- (__CFSHL__((signed int)viewPortWidth >> 31, 2)
-					+ 4 * ((signed int)viewPortWidth >> 31))) >> 2;
-			v13 = v19ar;
-			v20 = v27 >> 16;
-			int32_t* viewPortLineRenderBufferStart = (int32_t*)viewPortRenderBufferStart;
-			v21 = v23 >> 16;
+			v5 = v19ar;
+			uint8_t* viewPortLineRenderBufferStart = viewPortRenderBufferStart;
 			BYTE1(v17) = BYTE2(v27);
-			int32_t v16 = (viewPortWidth
-				- (__CFSHL__((signed int)viewPortWidth >> 31, 2)
-					+ 4 * ((signed int)viewPortWidth >> 31))) >> 2;
 			LOBYTE(v17) = BYTE2(v23);
 			v17 = (unsigned __int16)v17;
 
 			//Scales sky texture to viewport
+			int32_t width = viewPortWidth;
 			do
 			{
-				LOBYTE(v12) = off_D41A8_sky[v17];
-				LOBYTE(v17) = *v13 + v17;
-				BYTE1(v17) += v13[1];
-				BYTE1(v12) = off_D41A8_sky[v17];
-				LOBYTE(v17) = v13[2] + v17;
-				BYTE1(v17) += v13[3];
-				v18 = v12 << 16;
-				LOBYTE(v18) = off_D41A8_sky[v17];
-				LOBYTE(v17) = v13[4] + v17;
-				BYTE1(v17) += v13[5];
-				BYTE1(v18) = off_D41A8_sky[v17];
-				LOBYTE(v17) = v13[6] + v17;
-				BYTE1(v17) += v13[7];
-				v12 = __ROL4__(v18, 16);
-				*viewPortLineRenderBufferStart = v12;
+				*viewPortLineRenderBufferStart = off_D41A8_sky[v17];
+				LOBYTE(v17) = v5[0] + v17;
+				BYTE1(v17) += v5[1];
 				viewPortLineRenderBufferStart++;
-				v13 += 8;
-				v16--;
-			} while (v16);
+				v5 += 2;
+				width--;
+			} while (width);
 
 			viewPortRenderBufferStart = viewPortRenderBufferStart + (pitch * drawEveryNthLine);
-			result = v25;
 			height = Maths::SubtrackUntilZero(height, drawEveryNthLine);
 			v23 -= (v26 * drawEveryNthLine);
 			v27 += (v25 * drawEveryNthLine);
