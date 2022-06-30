@@ -426,6 +426,12 @@
     <ClInclude Include="engine\Type_SecretMapScreenPortals_E2970.h">
       <Filter>Header Files\engine</Filter>
     </ClInclude>
+    <ClInclude Include="engine\GameRender_new.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\GameRender_old.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -680,9 +686,6 @@
     <ClCompile Include="engine\Terrain.cpp">
       <Filter>Source Files\engine</Filter>
     </ClCompile>
-    <ClCompile Include="engine\GameRender.cpp">
-      <Filter>Source Files\engine</Filter>
-    </ClCompile>
     <ClCompile Include="utilities\Maths.cpp">
       <Filter>Source Files\utilities</Filter>
     </ClCompile>
@@ -714,6 +717,12 @@
       <Filter>Source Files\engine</Filter>
     </ClCompile>
     <ClCompile Include="engine\Type_SecretMapScreenPortals_E2970.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\GameRender_new.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\GameRender_old.cpp">
       <Filter>Source Files\engine</Filter>
     </ClCompile>
   </ItemGroup>

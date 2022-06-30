@@ -23,7 +23,8 @@
 #include "engine/Sound.h"
 #include "engine/Type_Animations.h"
 #include "engine/Animation.h"
-#include "engine/GameRender.h"
+#include "engine/GameRender_old.h"
+#include "engine/GameRender_new.h"
 
 //#define __CFSHL__(x, y) (x<<y)
 //#define __CFSHL__(x, y) 1
