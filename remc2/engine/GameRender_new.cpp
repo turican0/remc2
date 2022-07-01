@@ -2280,7 +2280,7 @@ LABEL_48:
 	}
 }
 
-void GameRender_new::SetBillboards_3B560(int16_t roll, uint8_t unk_F0A20x[], uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t screenWidth)
+void GameRender_new::SetBillboards_3B560(int16_t roll, uint8_t unk_F0A20xxx[], uint16_t viewPortWidth_DE564xx, uint16_t viewPortHeight_DE568xx, uint16_t screenWidthxx)
 {
 	int v1; // edx
 	type_unk_F0E20x* v2x; // edi
@@ -2404,8 +2404,8 @@ void GameRender_new::SetBillboards_3B560(int16_t roll, uint8_t unk_F0A20x[], uin
 		//str_F2C20ar.dword0x1b = *(int32_t*)x_DWORD_DB750ar_ret(0x800+v1 * 4);//copy to other//db750
 		str_F2C20ar.dword0x1b = Maths::x_DWORD_DB750[0x200 + v1];
 
-		v88 = screenWidth;
-		v92 = (unsigned __int16)viewPortWidth;
+		v88 = iScreenWidth_DE560;
+		v92 = (unsigned __int16)viewPort.Width_DE564;
 		str_F2C20ar.dword0x1f = (str_F2C20ar.dword0x27 << 8) / (str_F2C20ar.dword0x1b >> 8);
 		v101 = (str_F2C20ar.dword0x27 << 8) / (str_F2C20ar.dword0x1b >> 8);
 		v2x = m_str_F0E20x;
@@ -2436,12 +2436,12 @@ void GameRender_new::SetBillboards_3B560(int16_t roll, uint8_t unk_F0A20x[], uin
 		} while (v92);
 		str_F2C20ar.dword0x1d = v7;
 		str_F2C20ar.dword0x21 = -v7;
-		str_F2C20ar.width0x25 = (unsigned __int16)viewPortHeight;
-		str_F2C20ar.height0x26 = (unsigned __int16)viewPortWidth;
-		str_F2C20ar.dword0x1c = (unsigned __int16)viewPortHeight + (unsigned __int16)viewPortWidth;
+		str_F2C20ar.width0x25 = (unsigned __int16)viewPort.Height_DE568;
+		str_F2C20ar.height0x26 = (unsigned __int16)viewPort.Width_DE564;
+		str_F2C20ar.dword0x1c = (unsigned __int16)viewPort.Height_DE568 + (unsigned __int16)viewPort.Width_DE564;
 		str_F2C20ar.pbyte0x1a = (4 * (v7 - 1) + &x_DWORD_E9C38_smalltit[59360]);
-		v9 = screenWidth;
-		str_F2C20ar.Height_0x19 = viewPortHeight - v7;
+		v9 = iScreenWidth_DE560;
+		str_F2C20ar.Height_0x19 = viewPort.Height_DE568 - v7;
 		goto LABEL_66;
 	case 1:
 		//v10 = x_DWORD_DB750[v1];
@@ -2453,8 +2453,8 @@ void GameRender_new::SetBillboards_3B560(int16_t roll, uint8_t unk_F0A20x[], uin
 
 		str_F2C20ar.dword0x27 = v10;
 		str_F2C20ar.dword0x1b = (int)v11;
-		v84 = screenWidth;
-		v93 = (unsigned __int16)viewPortHeight;
+		v84 = iScreenWidth_DE560;
+		v93 = (unsigned __int16)viewPort.Height_DE568;
 		if (v1 == 256)
 		{
 			str_F2C20ar.dword0x1f = 0x10000;
@@ -2475,8 +2475,8 @@ void GameRender_new::SetBillboards_3B560(int16_t roll, uint8_t unk_F0A20x[], uin
 				++v15;
 				--v93;
 			} while (v93);
-			str_F2C20ar.dword0x1d = (unsigned __int16)viewPortHeight;
-			str_F2C20ar.dword0x21 = -(unsigned __int16)viewPortHeight;
+			str_F2C20ar.dword0x1d = (unsigned __int16)viewPort.Height_DE568;
+			str_F2C20ar.dword0x21 = -(unsigned __int16)viewPort.Height_DE568;
 		}
 		else
 		{
@@ -2510,12 +2510,12 @@ void GameRender_new::SetBillboards_3B560(int16_t roll, uint8_t unk_F0A20x[], uin
 			str_F2C20ar.dword0x1d = v22;
 			str_F2C20ar.dword0x21 = -v22;
 		}
-		str_F2C20ar.width0x25 = (unsigned __int16)viewPortWidth;
-		str_F2C20ar.height0x26 = (unsigned __int16)viewPortHeight;
-		str_F2C20ar.dword0x1c = (unsigned __int16)viewPortHeight + (unsigned __int16)viewPortWidth;
+		str_F2C20ar.width0x25 = (unsigned __int16)viewPort.Width_DE564;
+		str_F2C20ar.height0x26 = (unsigned __int16)viewPort.Height_DE568;
+		str_F2C20ar.dword0x1c = (unsigned __int16)viewPort.Height_DE568 + (unsigned __int16)viewPort.Width_DE564;
 		str_F2C20ar.pbyte0x1a = (4 * (-1 - str_F2C20ar.dword0x21) + &x_DWORD_E9C38_smalltit[59360]);
 		v9 = -1;
-		str_F2C20ar.Height_0x19 = (unsigned __int16)viewPortWidth + str_F2C20ar.dword0x21;
+		str_F2C20ar.Height_0x19 = (unsigned __int16)viewPort.Width_DE564 + str_F2C20ar.dword0x21;
 		goto LABEL_66;
 	case 2:
 		//str_F2C20ar.dword0x27 = *(int32_t*)&x_DWORD_DAF50ar[v1*4];
@@ -2524,8 +2524,8 @@ void GameRender_new::SetBillboards_3B560(int16_t roll, uint8_t unk_F0A20x[], uin
 		//str_F2C20ar.dword0x1b = *(int32_t*)x_DWORD_DB750ar_ret(v1 * 4);//copy to other
 		str_F2C20ar.dword0x1b = Maths::x_DWORD_DB750[v1];
 
-		v85 = screenWidth;
-		v94 = (unsigned __int16)viewPortHeight;
+		v85 = iScreenWidth_DE560;
+		v94 = (unsigned __int16)viewPort.Height_DE568;
 		str_F2C20ar.dword0x1f = (str_F2C20ar.dword0x27 << 8) / (str_F2C20ar.dword0x1b >> 8);
 		v103 = (str_F2C20ar.dword0x27 << 8) / (str_F2C20ar.dword0x1b >> 8);
 		v23x = m_str_F0E20x;
@@ -2555,13 +2555,13 @@ void GameRender_new::SetBillboards_3B560(int16_t roll, uint8_t unk_F0A20x[], uin
 		} while (v94);
 		str_F2C20ar.dword0x1d = v28;
 		str_F2C20ar.dword0x21 = -v28;
-		str_F2C20ar.width0x25 = (unsigned __int16)viewPortWidth;
-		str_F2C20ar.dword0x1c = (unsigned __int16)viewPortHeight + (unsigned __int16)viewPortWidth;
-		str_F2C20ar.height0x26 = (unsigned __int16)viewPortHeight;
+		str_F2C20ar.width0x25 = (unsigned __int16)viewPort.Width_DE564;
+		str_F2C20ar.dword0x1c = (unsigned __int16)viewPort.Height_DE568 + (unsigned __int16)viewPort.Width_DE564;
+		str_F2C20ar.height0x26 = (unsigned __int16)viewPort.Height_DE568;
 		str_F2C20ar.dword0x23 = -1;
-		str_F2C20ar.Height_0x19 = (unsigned __int16)viewPortWidth - v28;
+		str_F2C20ar.Height_0x19 = (unsigned __int16)viewPort.Width_DE564 - v28;
 		str_F2C20ar.pbyte0x1a = (4 * (v28 - 1) + &x_DWORD_E9C38_smalltit[59360]);
-		v95 = (unsigned __int16)viewPortHeight - 1;
+		v95 = (unsigned __int16)viewPort.Height_DE568 - 1;
 		resultx = m_str_F0E20x;
 		if (v95 < 0)
 			return;
@@ -2572,9 +2572,9 @@ void GameRender_new::SetBillboards_3B560(int16_t roll, uint8_t unk_F0A20x[], uin
 		//str_F2C20ar.dword0x1b = x_DWORD_DB750[v1];
 		//str_F2C20ar.dword0x1b = *(int32_t*)x_DWORD_DB750ar_ret(v1 * 4);//copy to other
 		str_F2C20ar.dword0x1b = Maths::x_DWORD_DB750[v1];
-
-		v89 = screenWidth;
-		v96 = (unsigned __int16)viewPortWidth;
+				
+		v89 = iScreenWidth_DE560;
+		v96 = (unsigned __int16)viewPort.Width_DE564;
 		if (v1 == 768)
 		{
 			str_F2C20ar.dword0x1f = 0x10000;
@@ -2595,8 +2595,8 @@ void GameRender_new::SetBillboards_3B560(int16_t roll, uint8_t unk_F0A20x[], uin
 				v34++;
 				v96--;
 			} while (v96);
-			str_F2C20ar.dword0x1d = (unsigned __int16)viewPortWidth;
-			str_F2C20ar.dword0x21 = -(unsigned __int16)viewPortWidth;
+			str_F2C20ar.dword0x1d = (unsigned __int16)viewPort.Width_DE564;
+			str_F2C20ar.dword0x21 = -(unsigned __int16)viewPort.Width_DE564;
 		}
 		else
 		{
@@ -2630,12 +2630,12 @@ void GameRender_new::SetBillboards_3B560(int16_t roll, uint8_t unk_F0A20x[], uin
 			str_F2C20ar.dword0x1d = v41;
 			str_F2C20ar.dword0x21 = -v41;
 		}
-		str_F2C20ar.width0x25 = (unsigned __int16)viewPortHeight;
-		str_F2C20ar.height0x26 = (unsigned __int16)viewPortWidth;
-		str_F2C20ar.dword0x1c = (unsigned __int16)viewPortHeight + (unsigned __int16)viewPortWidth;
+		str_F2C20ar.width0x25 = (unsigned __int16)viewPort.Height_DE568;
+		str_F2C20ar.height0x26 = (unsigned __int16)viewPort.Width_DE564;
+		str_F2C20ar.dword0x1c = (unsigned __int16)viewPort.Height_DE568 + (unsigned __int16)viewPort.Width_DE564;
 		v42x = (4 * (-1 - str_F2C20ar.dword0x21) + &x_DWORD_E9C38_smalltit[59360]);
-		str_F2C20ar.Height_0x19 = (unsigned __int16)viewPortHeight + str_F2C20ar.dword0x21;
-		v9 = -screenWidth;
+		str_F2C20ar.Height_0x19 = (unsigned __int16)viewPort.Height_DE568 + str_F2C20ar.dword0x21;
+		v9 = -iScreenWidth_DE560;
 		goto LABEL_65;
 	case 4:
 		//str_F2C20ar.dword0x27 = *(int32_t*)&x_DWORD_DA750ar[v1*4];
@@ -2643,8 +2643,8 @@ void GameRender_new::SetBillboards_3B560(int16_t roll, uint8_t unk_F0A20x[], uin
 		//str_F2C20ar.dword0x1b = *(int32_t*)&x_DWORD_DAF50ar[v1*4];
 		str_F2C20ar.dword0x1b = Maths::x_DWORD_DB750[v1 - 0x200];//copy to other
 
-		v90 = -screenWidth;
-		v97 = (unsigned __int16)viewPortWidth;
+		v90 = -iScreenWidth_DE560;
+		v97 = (unsigned __int16)viewPort.Width_DE564;
 		str_F2C20ar.dword0x1f = (str_F2C20ar.dword0x27 << 8) / (str_F2C20ar.dword0x1b >> 8);
 		v105 = (str_F2C20ar.dword0x27 << 8) / (str_F2C20ar.dword0x1b >> 8);
 		v43x = m_str_F0E20x;
@@ -2675,13 +2675,13 @@ void GameRender_new::SetBillboards_3B560(int16_t roll, uint8_t unk_F0A20x[], uin
 		str_F2C20ar.dword0x1d = v48;
 		v49 = -v48;
 		str_F2C20ar.dword0x21 = v49;
-		v50 = (unsigned __int16)viewPortHeight + v49;
-		str_F2C20ar.width0x25 = (unsigned __int16)viewPortHeight;
-		str_F2C20ar.height0x26 = (unsigned __int16)viewPortWidth;
-		str_F2C20ar.dword0x1c = (unsigned __int16)viewPortHeight + (unsigned __int16)viewPortWidth;
+		v50 = (unsigned __int16)viewPort.Height_DE568 + v49;
+		str_F2C20ar.width0x25 = (unsigned __int16)viewPort.Height_DE568;
+		str_F2C20ar.height0x26 = (unsigned __int16)viewPort.Width_DE564;
+		str_F2C20ar.dword0x1c = (unsigned __int16)viewPort.Height_DE568 + (unsigned __int16)viewPort.Width_DE564;
 		v42x = (4 * (-1 - v49) + &x_DWORD_E9C38_smalltit[59360]);
 		str_F2C20ar.Height_0x19 = v50;
-		v9 = -screenWidth;
+		v9 = -iScreenWidth_DE560;
 		goto LABEL_65;
 	case 5:
 		//str_F2C20ar.dword0x1b = *(int32_t*)&x_DWORD_DAF50ar[v1*4];
@@ -2689,8 +2689,8 @@ void GameRender_new::SetBillboards_3B560(int16_t roll, uint8_t unk_F0A20x[], uin
 		//str_F2C20ar.dword0x27 = *(int32_t*)&x_DWORD_DA750ar[v1 * 4];
 		str_F2C20ar.dword0x27 = Maths::x_DWORD_DB750[v1 - 0x400];//copy to other
 
-		v86 = -screenWidth;
-		v98 = (unsigned __int16)viewPortHeight;
+		v86 = -iScreenWidth_DE560;
+		v98 = (unsigned __int16)viewPort.Height_DE568;
 		if (v1 == 1280)
 		{
 			str_F2C20ar.dword0x1f = 0x10000;
@@ -2711,8 +2711,8 @@ void GameRender_new::SetBillboards_3B560(int16_t roll, uint8_t unk_F0A20x[], uin
 				++v55;
 				--v98;
 			} while (v98);
-			str_F2C20ar.dword0x1d = (unsigned __int16)viewPortHeight;
-			str_F2C20ar.dword0x21 = -(unsigned __int16)viewPortHeight;
+			str_F2C20ar.dword0x1d = (unsigned __int16)viewPort.Height_DE568;
+			str_F2C20ar.dword0x21 = -(unsigned __int16)viewPort.Height_DE568;
 		}
 		else
 		{
@@ -2746,13 +2746,13 @@ void GameRender_new::SetBillboards_3B560(int16_t roll, uint8_t unk_F0A20x[], uin
 			str_F2C20ar.dword0x1d = v62;
 			str_F2C20ar.dword0x21 = -v62;
 		}
-		str_F2C20ar.width0x25 = (unsigned __int16)viewPortWidth;
-		str_F2C20ar.height0x26 = (unsigned __int16)viewPortHeight;
-		str_F2C20ar.dword0x1c = (unsigned __int16)viewPortHeight + (unsigned __int16)viewPortWidth;
+		str_F2C20ar.width0x25 = (unsigned __int16)viewPort.Width_DE564;
+		str_F2C20ar.height0x26 = (unsigned __int16)viewPort.Height_DE568;
+		str_F2C20ar.dword0x1c = (unsigned __int16)viewPort.Height_DE568 + (unsigned __int16)viewPort.Width_DE564;
 		str_F2C20ar.dword0x23 = 1;
-		str_F2C20ar.Height_0x19 = (unsigned __int16)viewPortWidth + str_F2C20ar.dword0x21;
+		str_F2C20ar.Height_0x19 = (unsigned __int16)viewPort.Width_DE564 + str_F2C20ar.dword0x21;
 		str_F2C20ar.pbyte0x1a = (4 * (-1 - str_F2C20ar.dword0x21) + &x_DWORD_E9C38_smalltit[59360]);
-		v95 = (unsigned __int16)viewPortHeight - 1;
+		v95 = (unsigned __int16)viewPort.Height_DE568 - 1;
 		resultx = m_str_F0E20x;
 		if (v95 < 0)
 			return;
@@ -2763,8 +2763,8 @@ void GameRender_new::SetBillboards_3B560(int16_t roll, uint8_t unk_F0A20x[], uin
 		//str_F2C20ar.dword0x1b = *(int32_t*)&x_DWORD_DA750ar[v1*4];
 		str_F2C20ar.dword0x1b = Maths::x_DWORD_DB750[v1 - 0x400];//copy to other
 
-		v87 = -screenWidth;
-		v99 = (unsigned __int16)viewPortHeight;
+		v87 = -iScreenWidth_DE560;
+		v99 = (unsigned __int16)viewPort.Height_DE568;
 		str_F2C20ar.dword0x1f = (str_F2C20ar.dword0x27 << 8) / (str_F2C20ar.dword0x1b >> 8);
 		v107 = (str_F2C20ar.dword0x27 << 8) / (str_F2C20ar.dword0x1b >> 8);
 		v63x = m_str_F0E20x;
@@ -2794,13 +2794,13 @@ void GameRender_new::SetBillboards_3B560(int16_t roll, uint8_t unk_F0A20x[], uin
 		} while (v99);
 		str_F2C20ar.dword0x1d = v68;
 		str_F2C20ar.dword0x21 = -v68;
-		str_F2C20ar.Height_0x19 = (unsigned __int16)viewPortWidth - v68;
-		str_F2C20ar.width0x25 = (unsigned __int16)viewPortWidth;
-		str_F2C20ar.dword0x1c = (unsigned __int16)viewPortHeight + (unsigned __int16)viewPortWidth;
-		str_F2C20ar.height0x26 = (unsigned __int16)viewPortHeight;
+		str_F2C20ar.Height_0x19 = (unsigned __int16)viewPort.Width_DE564 - v68;
+		str_F2C20ar.width0x25 = (unsigned __int16)viewPort.Width_DE564;
+		str_F2C20ar.dword0x1c = (unsigned __int16)viewPort.Height_DE568 + (unsigned __int16)viewPort.Width_DE564;
+		str_F2C20ar.height0x26 = (unsigned __int16)viewPort.Height_DE568;
 		str_F2C20ar.dword0x23 = 1;
 		str_F2C20ar.pbyte0x1a = (4 * (v68 - 1) + &x_DWORD_E9C38_smalltit[59360]);
-		v95 = (unsigned __int16)viewPortHeight - 1;
+		v95 = (unsigned __int16)viewPort.Height_DE568 - 1;
 		resultx = m_str_F0E20x;
 		if (v95 < 0)
 			return;
@@ -2814,8 +2814,8 @@ void GameRender_new::SetBillboards_3B560(int16_t roll, uint8_t unk_F0A20x[], uin
 
 		str_F2C20ar.dword0x27 = v69;
 		str_F2C20ar.dword0x1b = v70;
-		v91 = -screenWidth;
-		v100 = (unsigned __int16)viewPortWidth;
+		v91 = -iScreenWidth_DE560;
+		v100 = (unsigned __int16)viewPort.Width_DE564;
 		if (v1 == 1792)
 		{
 			v71x = m_str_F0E20x;
@@ -2836,8 +2836,8 @@ void GameRender_new::SetBillboards_3B560(int16_t roll, uint8_t unk_F0A20x[], uin
 				v74++;
 				v100--;
 			} while (v100);
-			str_F2C20ar.dword0x1d = (unsigned __int16)viewPortWidth;
-			str_F2C20ar.dword0x21 = -(unsigned __int16)viewPortWidth;
+			str_F2C20ar.dword0x1d = (unsigned __int16)viewPort.Width_DE564;
+			str_F2C20ar.dword0x21 = -(unsigned __int16)viewPort.Width_DE564;
 		}
 		else
 		{
@@ -2871,12 +2871,12 @@ void GameRender_new::SetBillboards_3B560(int16_t roll, uint8_t unk_F0A20x[], uin
 			str_F2C20ar.dword0x1d = v81;
 			str_F2C20ar.dword0x21 = -v81;
 		}
-		str_F2C20ar.width0x25 = (unsigned __int16)viewPortHeight;
-		str_F2C20ar.height0x26 = (unsigned __int16)viewPortWidth;
-		str_F2C20ar.dword0x1c = (unsigned __int16)viewPortHeight + (unsigned __int16)viewPortWidth;
-		str_F2C20ar.Height_0x19 = (unsigned __int16)viewPortHeight + str_F2C20ar.dword0x21;
+		str_F2C20ar.width0x25 = (unsigned __int16)viewPort.Height_DE568;
+		str_F2C20ar.height0x26 = (unsigned __int16)viewPort.Width_DE564;
+		str_F2C20ar.dword0x1c = (unsigned __int16)viewPort.Height_DE568 + (unsigned __int16)viewPort.Width_DE564;
+		str_F2C20ar.Height_0x19 = (unsigned __int16)viewPort.Height_DE568 + str_F2C20ar.dword0x21;
 		v42x = (4 * (-1 - str_F2C20ar.dword0x21) + &x_DWORD_E9C38_smalltit[59360]);
-		v9 = screenWidth;
+		v9 = iScreenWidth_DE560;
 	LABEL_65:
 		str_F2C20ar.pbyte0x1a = v42x;
 	LABEL_66:
