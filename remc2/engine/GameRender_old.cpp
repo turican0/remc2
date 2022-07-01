@@ -2648,7 +2648,9 @@ LABEL_48:
 	}
 }
 
-void GameRender_old::SetBillboards_3B560(int16_t roll/*, uint8_t unk_F0A20x[], uint16_t viewPort.Width_DE564, uint16_t viewPort.Height_DE568, uint16_t iScreenWidth_DE560*/)
+/* --- */void GameRender_old::SetBillboards_3B560(int16_t roll)
+//void GameRender::SetBillboards_3B560(int16_t roll, uint8_t unk_F0A20x[], uint16_t m_viewPort.Width, uint16_t m_viewPort.Height, uint16_t iScreenWidth_DE560)
+//void GameRender::SetBillboards_3B560(__int16 roll)//21c560
 {
 	int v1; // edx
 	type_unk_F0E20x* v2x; // edi
@@ -2765,11 +2767,11 @@ void GameRender_old::SetBillboards_3B560(int16_t roll/*, uint8_t unk_F0A20x[], u
 	switch (v1 >> 8)
 	{
 	case 0:
-		//str_F2C20ar.dword0x27 = x_DWORD_DB750[v1];
-		//str_F2C20ar.dword0x27 = *(int32_t*)x_DWORD_DB750ar_ret(v1 * 4);//copy to other //db750
+		//str_F2C20ar.dword0x27 = Maths::x_DWORD_DB750[v1];
+		//str_F2C20ar.dword0x27 = *(int32_t*)Maths::x_DWORD_DB750ar_ret(v1 * 4);//copy to other //db750
 		str_F2C20ar.dword0x27 = Maths::x_DWORD_DB750[v1];
 		//str_F2C20ar.dword0x1b = (int)off_DBF50[v1];
-		//str_F2C20ar.dword0x1b = *(int32_t*)x_DWORD_DB750ar_ret(0x800+v1 * 4);//copy to other//db750
+		//str_F2C20ar.dword0x1b = *(int32_t*)Maths::x_DWORD_DB750ar_ret(0x800+v1 * 4);//copy to other//db750
 		str_F2C20ar.dword0x1b = Maths::x_DWORD_DB750[0x200 + v1];
 
 		v88 = iScreenWidth_DE560;
@@ -2777,8 +2779,8 @@ void GameRender_old::SetBillboards_3B560(int16_t roll/*, uint8_t unk_F0A20x[], u
 		str_F2C20ar.dword0x1f = (str_F2C20ar.dword0x27 << 8) / (str_F2C20ar.dword0x1b >> 8);
 		v101 = (str_F2C20ar.dword0x27 << 8) / (str_F2C20ar.dword0x1b >> 8);
 		v2x = m_str_F0E20x;
-		v3 = (signed int*)(x_DWORD_E9C38_smalltit + 59360);
-		//v3x = &str_E9C38_smalltit_59360;
+		v3 = (signed int*)&x_DWORD_E9C38_smalltit[59360];
+		//v3x = &Str_E9C38_smalltit_59360;
 		v4 = 0;
 		v5 = 0;
 		v6 = 1;
@@ -2812,11 +2814,11 @@ void GameRender_old::SetBillboards_3B560(int16_t roll/*, uint8_t unk_F0A20x[], u
 		str_F2C20ar.Height_0x19 = viewPort.Height_DE568 - v7;
 		goto LABEL_66;
 	case 1:
-		//v10 = x_DWORD_DB750[v1];
-		//v10 = *(int32_t*)x_DWORD_DB750ar_ret(v1 * 4);//copy to other
+		//v10 = Maths::x_DWORD_DB750[v1];
+		//v10 = *(int32_t*)Maths::x_DWORD_DB750ar_ret(v1 * 4);//copy to other
 		v10 = Maths::x_DWORD_DB750[v1];
 		//v11 = off_DBF50[v1];
-		//v11 = *(int32_t*)x_DWORD_DB750ar_ret(0x800 + v1 * 4);//copy to other
+		//v11 = *(int32_t*)Maths::x_DWORD_DB750ar_ret(0x800 + v1 * 4);//copy to other
 		v11 = Maths::x_DWORD_DB750[0x200 + v1];
 
 		str_F2C20ar.dword0x27 = v10;
@@ -2851,7 +2853,7 @@ void GameRender_old::SetBillboards_3B560(int16_t roll/*, uint8_t unk_F0A20x[], u
 			str_F2C20ar.dword0x1f = (str_F2C20ar.dword0x1b << 8) / (v10 >> 8);
 			v102 = (str_F2C20ar.dword0x1b << 8) / (v10 >> 8);
 			v17x = m_str_F0E20x;
-			v18 = (signed int*)(x_DWORD_E9C38_smalltit + 59360);
+			v18 = (signed int*)&x_DWORD_E9C38_smalltit[59360];
 			v19 = 0;
 			v20 = 0;
 			v21 = 1;
@@ -2888,10 +2890,10 @@ void GameRender_old::SetBillboards_3B560(int16_t roll/*, uint8_t unk_F0A20x[], u
 	case 2:
 		//str_F2C20ar.dword0x27 = *(int32_t*)&x_DWORD_DAF50ar[v1*4];
 		str_F2C20ar.dword0x27 = Maths::x_DWORD_DB750[v1 - 0x200];//copy to other
-		//str_F2C20ar.dword0x1b = x_DWORD_DB750[v1];
-		//str_F2C20ar.dword0x1b = *(int32_t*)x_DWORD_DB750ar_ret(v1 * 4);//copy to other
+		//str_F2C20ar.dword0x1b = Maths::x_DWORD_DB750[v1];
+		//str_F2C20ar.dword0x1b = *(int32_t*)Maths::x_DWORD_DB750ar_ret(v1 * 4);//copy to other
 		str_F2C20ar.dword0x1b = Maths::x_DWORD_DB750[v1];
-		
+
 		v85 = iScreenWidth_DE560;
 		v94 = (unsigned __int16)viewPort.Height_DE568;
 		str_F2C20ar.dword0x1f = (str_F2C20ar.dword0x27 << 8) / (str_F2C20ar.dword0x1b >> 8);
@@ -2932,15 +2934,15 @@ void GameRender_old::SetBillboards_3B560(int16_t roll/*, uint8_t unk_F0A20x[], u
 		v95 = (unsigned __int16)viewPort.Height_DE568 - 1;
 		resultx = m_str_F0E20x;
 		if (v95 < 0)
-			return;
+			return;// result;
 		goto LABEL_68;
 	case 3:
 		//str_F2C20ar.dword0x27 = *(int32_t*)&x_DWORD_DAF50ar[v1*4];
 		str_F2C20ar.dword0x27 = Maths::x_DWORD_DB750[v1 - 0x200];//copy to other
-		//str_F2C20ar.dword0x1b = x_DWORD_DB750[v1];
-		//str_F2C20ar.dword0x1b = *(int32_t*)x_DWORD_DB750ar_ret(v1 * 4);//copy to other
+		//str_F2C20ar.dword0x1b = Maths::x_DWORD_DB750[v1];
+		//str_F2C20ar.dword0x1b = *(int32_t*)Maths::x_DWORD_DB750ar_ret(v1 * 4);//copy to other
 		str_F2C20ar.dword0x1b = Maths::x_DWORD_DB750[v1];
-		
+
 		v89 = iScreenWidth_DE560;
 		v96 = (unsigned __int16)viewPort.Width_DE564;
 		if (v1 == 768)
@@ -2971,7 +2973,7 @@ void GameRender_old::SetBillboards_3B560(int16_t roll/*, uint8_t unk_F0A20x[], u
 			str_F2C20ar.dword0x1f = (str_F2C20ar.dword0x1b << 8) / (str_F2C20ar.dword0x27 >> 8);
 			v104 = (str_F2C20ar.dword0x1b << 8) / (str_F2C20ar.dword0x27 >> 8);
 			v36x = m_str_F0E20x;
-			v37 = (signed int*)(x_DWORD_E9C38_smalltit + 59360);
+			v37 = (signed int*)&x_DWORD_E9C38_smalltit[59360];
 			v38 = 0;
 			v39 = 0;
 			v40 = 1;
@@ -3087,7 +3089,7 @@ void GameRender_old::SetBillboards_3B560(int16_t roll/*, uint8_t unk_F0A20x[], u
 			str_F2C20ar.dword0x1f = (str_F2C20ar.dword0x1b << 8) / (str_F2C20ar.dword0x27 >> 8);
 			v106 = (str_F2C20ar.dword0x1b << 8) / (str_F2C20ar.dword0x27 >> 8);
 			v57x = m_str_F0E20x;
-			v58 = (signed int*)(x_DWORD_E9C38_smalltit + 59360);
+			v58 = (signed int*)&x_DWORD_E9C38_smalltit[59360];
 			v59 = 0;
 			v60 = 0;
 			v61 = 1;
@@ -3123,7 +3125,7 @@ void GameRender_old::SetBillboards_3B560(int16_t roll/*, uint8_t unk_F0A20x[], u
 		v95 = (unsigned __int16)viewPort.Height_DE568 - 1;
 		resultx = m_str_F0E20x;
 		if (v95 < 0)
-			return;
+			return;// result;
 		goto LABEL_68;
 	case 6:
 		//str_F2C20ar.dword0x27 = *(int32_t*)&x_DWORD_D9F50ar[v1*4];
@@ -3171,7 +3173,7 @@ void GameRender_old::SetBillboards_3B560(int16_t roll/*, uint8_t unk_F0A20x[], u
 		v95 = (unsigned __int16)viewPort.Height_DE568 - 1;
 		resultx = m_str_F0E20x;
 		if (v95 < 0)
-			return;
+			return;// result;
 		goto LABEL_68;
 	case 7:
 
@@ -3212,7 +3214,7 @@ void GameRender_old::SetBillboards_3B560(int16_t roll/*, uint8_t unk_F0A20x[], u
 			str_F2C20ar.dword0x1f = (str_F2C20ar.dword0x1b << 8) / (v69 >> 8);
 			v108 = (str_F2C20ar.dword0x1b << 8) / (v69 >> 8);
 			v76x = m_str_F0E20x;
-			v77 = (signed int*)(x_DWORD_E9C38_smalltit + 59360);
+			v77 = (signed int*)&x_DWORD_E9C38_smalltit[59360];
 			v78 = 0;
 			v79 = 0;
 			v80 = 1;
@@ -3280,7 +3282,6 @@ void GameRender_old::SetBillboards_3B560(int16_t roll/*, uint8_t unk_F0A20x[], u
 	}
 	//return result;
 }
-
 void GameRender_old::DrawSorcererNameAndHealthBar_2CB30(type_event_0x6E8E* a1x, uint8_t x_BYTE_E88E0xxx[], __int16 a2, int a3, __int16 a4, int16_t viewPortXxx, int16_t viewPortYxx, uint16_t viewPortWidthxx, uint16_t viewPortHeightxx, uint16_t iScreenWidth_DE560xx)
 {
 	//char *v4; // edi
