@@ -2089,18 +2089,14 @@ LABEL_259:
 
 }
 
-int32_t* GameRender_old::x_DWORD_DB350_ret(uint32_t adress) {
+/* ---- */int32_t* GameRender_old::x_DWORD_DB350_ret(uint32_t adress) {
 	if (adress >= 0x100) return &Maths::x_DWORD_DB750[adress - 0x100];
 	allert_error();
 }
 
-uint16_t GameRender_old::sub_3FD60(int a2x) {
-	return 0;
-};
-
-uint16_t GameRender_old::sub_3FD60(int a2x, uint8_t x_BYTE_E88E0x[], type_event_0x6E8E* x_DWORD_EA3E4[], type_str_unk_1804B0ar str_unk_1804B0ar, type_particle_str** str_DWORD_F66F0x[], int32_t x_DWORD_F5730[], ViewPort viewPort, uint16_t iScreenWidth_DE560)
+/* ---- */uint16_t GameRender_old::sub_3FD60(int a2x)
 {
-	uint16_t result; // ax
+	unsigned __int16 result; // ax
 	type_event_0x6E8E* v3x; // eax
 	int v4; // edx
 	int v5; // eax
@@ -2146,11 +2142,40 @@ uint16_t GameRender_old::sub_3FD60(int a2x, uint8_t x_BYTE_E88E0x[], type_event_
 	v41x = 0;
 	type_particle_str* a1x = 0;
 	//fix
-
 	//result = *(x_WORD *)(a2 + 36);
+
+
+	uint8_t origbyte20 = 0;
+	uint8_t remakebyte20 = 0;
+	int comp20;
+	//if (debug_counter_1f3e70 >= 0xb5)
+	/*{
+		comp20 = compare_with_sequence((char*)"00220D6C-FFFFFF04", (uint8_t*)&Str_E9C38_smalltit[a2x], 0x2dc4e0, debug_sub_3FD60B, 44, 44, &origbyte20, &remakebyte20);
+	}
+	if (debug_sub_3FD60B >= 0xa2b)
+	{
+		debug_sub_3FD60B++;
+		debug_sub_3FD60B--;
+	}
+	debug_sub_3FD60B++;*/
+	//add_compare(0x297272, debugafterload);
+
+
 	result = Str_E9C38_smalltit[a2x].word36;
 	do
 	{
+		//debug
+		//0x220d7a
+		/*if (debug_sub_3FD60B2 == 0xa7e)
+		{
+			result++;
+			result--;
+		}
+		debug_sub_3FD60B2++;*/
+		//debug
+
+		//add_compare(0x220d70, debugafterload);
+
 		if (result < 0x3E8u)
 		{
 			v3x = x_DWORD_EA3E4[result];
@@ -2470,7 +2495,9 @@ uint16_t GameRender_old::sub_3FD60(int a2x, uint8_t x_BYTE_E88E0x[], type_event_
 	return result;
 }
 
-void GameRender_old::sub_88740(type_event_0x6E8E* a1x, type_event_0x6E8E* x_DWORD_EA3E4[], type_str_unk_1804B0ar str_unk_1804B0ar, int a2, int a3)
+//void GameRender_old::sub_88740(type_event_0x6E8E* a1x, type_event_0x6E8E* x_DWORD_EA3E4[], type_str_unk_1804B0ar str_unk_1804B0ar, int a2, int a3)
+/* ---- */void GameRender_old::sub_88740(type_event_0x6E8E* a1x, int a2, int a3)
+//void GameRender::sub_88740(type_event_0x6E8E* a1x, type_event_0x6E8E* x_DWORD_EA3E4[], type_str_unk_1804B0ar str_unk_1804B0ar, int a2, int a3)
 {
 	int v3; // esi
 	type_event_0x6E8E* v4x; // edx
