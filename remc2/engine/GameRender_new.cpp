@@ -687,7 +687,7 @@ void GameRender_new::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, _
 	v248x[30] = Maths::x_DWORD_DB750[0x200 + v12];
 	str_F2C20ar.dword0x17 = v11;
 	v13 = Maths::x_DWORD_DB750[v12];
-	SetBillboards_3B560(-roll & 0x7FF, unk_F0A20x, viewPort.Width_DE564, viewPort.Height_DE568, pitch);//21d1aa
+	SetBillboards_3B560(-roll & 0x7FF);//21d1aa
 	str_F2C20ar.dword0x18 = 7
 		* Maths::sub_7277A_radix_3d(
 			(unsigned __int16)viewPort.Width_DE564 * (unsigned __int16)viewPort.Width_DE564
@@ -2280,7 +2280,7 @@ LABEL_48:
 	}
 }
 
-void GameRender_new::SetBillboards_3B560(int16_t roll, uint8_t unk_F0A20xxx[], uint16_t viewPortWidth_DE564xx, uint16_t viewPortHeight_DE568xx, uint16_t screenWidthxx)
+void GameRender_new::SetBillboards_3B560(int16_t roll)
 {
 	int v1; // edx
 	type_unk_F0E20x* v2x; // edi
