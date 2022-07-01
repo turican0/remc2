@@ -1,6 +1,6 @@
 #include "GameRender_old.h"
 
-GameRender_old::GameRender_old(/*uint8_t* pScreenBuffer, uint8_t* pColorPalette, uint16_t iScreenWidth_DE560, uint16_t screenHeight, uint16_t viewPortPosX, uint16_t viewPortPosY, uint16_t viewPort.Width_DE564, uint16_t viewPort.Height_DE568, std::array<uint8_t*, 256>& textureAdresses, uint8_t pX_BYTE_F6EE0_tablesx[], uint8_t renderThreads, bool assignToSpecificCores*/)
+GameRender_old::GameRender_old()
 {
 	/*pdwScreenBuffer_351628 = pScreenBuffer;
 	m_ptrColorPalette = pColorPalette;
@@ -27,10 +27,7 @@ GameRender_old::~GameRender_old()
 }
 
 void GameRender_old::DrawWorld(int posX, int posY, int16_t yaw, int16_t posZ, int16_t pitch, int16_t roll, int16_t fov)
-
-//void GameRender_old::DrawWorld(int posX, int posY, int16_t yaw, int16_t posZ, int16_t iScreenWidth_DE560, int16_t roll, int16_t fov, uint8_t mapHeightmap_11B4E0[], type_particle_str** str_DWORD_F66F0x[], uint8_t x_BYTE_E88E0x[], int32_t x_DWORD_F5730[], uint8_t unk_F0A20x[], type_event_0x6E8E* x_DWORD_EA3E4[], type_str_unk_1804B0ar str_unk_1804B0ar, int16_t x_WORD_180660_VGA_type_resolution, int16_t x_WORD_D4B7C, char isCaveLevel_D41B6)
 {
-	//x_WORD_180660_VGA_type_resolution = x_WORD_180660_VGA_type_resolution;
 	unsigned __int16 v8; // ax
 	int v9; // ecx
 	int v10; // ebx
@@ -461,7 +458,7 @@ void GameRender_old::DrawSky_40950(int16_t roll/*, uint8_t* ViewPortRenderBuffer
 	}
 }
 
-void GameRender_old::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __int16 yaw, signed int posZ, int iScreenWidth_DE560, int16_t roll, int fov/*, type_particle_str** str_DWORD_F66F0x[], uint8_t x_BYTE_E88E0x[], int32_t x_DWORD_F5730[], uint8_t unk_F0A20x[], type_event_0x6E8E* x_DWORD_EA3E4[], type_str_unk_1804B0ar str_unk_1804B0ar, int16_t x_WORD_D4B7C, char isCaveLevel_D41B6, ViewPort viewPort, uint16_t iScreenWidth_DE560*/ )
+void GameRender_old::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __int16 yaw, signed int posZ, int pitch, int16_t roll, int fov)
 {
 	int v9; // eax
 	int v10; // edx
@@ -803,7 +800,7 @@ void GameRender_old::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, _
 	v278x = 0;
 	str_F2C20ar.dword0x12 = 8912896;
 	v22 = *v277;
-	str_F2C20ar.dword0x22 = iScreenWidth_DE560 * (unsigned __int16)viewPort.Width_DE564 >> 8;
+	str_F2C20ar.dword0x22 = pitch * (unsigned __int16)viewPort.Width_DE564 >> 8;
 	LOBYTE(v279) = v22 + HIBYTE(posX);
 	HIBYTE(v279) = v277[1] + HIBYTE(posY);
 	v23 = roll & 0x7FF;
@@ -957,7 +954,7 @@ void GameRender_old::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, _
 								v69 = 0;
 								if (!(v69 & 0xF00))
 								{
-									DrawInverseSquareInProjectionSpace(&v248x[0], v68x, m_textureAddresses[1], viewPort.Width_DE564, viewPort.Height_DE568, iScreenWidth_DE560);
+									DrawInverseSquareInProjectionSpace(&v248x[0], v68x, m_textureAddresses[1], viewPort.Width_DE564, viewPort.Height_DE568, pitch);
 								}
 							}
 						}
@@ -999,10 +996,10 @@ void GameRender_old::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, _
 							}
 							if (!(v78 & 2) && !(v79 & 0x78))
 							{
-								DrawSquareInProjectionSpace(v248x, v80x, viewPort.Width_DE564, viewPort.Height_DE568, iScreenWidth_DE560);
+								DrawSquareInProjectionSpace(v248x, v80x, viewPort.Width_DE564, viewPort.Height_DE568, pitch);
 							}
 							if (Str_E9C38_smalltit[v80x].word36)
-								DrawParticles_3E360(v80x, str_DWORD_F66F0x, x_BYTE_E88E0x, x_DWORD_F5730, x_DWORD_EA3E4, str_unk_1804B0ar, viewPort, iScreenWidth_DE560);
+								DrawParticles_3E360(v80x, str_DWORD_F66F0x, x_BYTE_E88E0x, x_DWORD_F5730, x_DWORD_EA3E4, str_unk_1804B0ar, viewPort, pitch);
 						}
 						v58 = v293 - 1;
 					}
@@ -1049,7 +1046,7 @@ void GameRender_old::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, _
 								if (!(v93 & 2))
 								{
 
-									DrawInverseSquareInProjectionSpace(&v248x[0], v94x, m_textureAddresses[1], viewPort.Width_DE564, viewPort.Height_DE568, iScreenWidth_DE560);
+									DrawInverseSquareInProjectionSpace(&v248x[0], v94x, m_textureAddresses[1], viewPort.Width_DE564, viewPort.Height_DE568, pitch);
 								}
 							}
 							v248x[18] = Str_E9C38_smalltit[v94x].dword16;
@@ -1089,10 +1086,10 @@ void GameRender_old::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, _
 								}
 								if (!(v105 & 2) && !(v106 & 0x78))
 								{
-									DrawSquareInProjectionSpace(v248x, v107x, viewPort.Width_DE564, viewPort.Height_DE568, iScreenWidth_DE560);
+									DrawSquareInProjectionSpace(v248x, v107x, viewPort.Width_DE564, viewPort.Height_DE568, pitch);
 								}
 								if (Str_E9C38_smalltit[v107x].word36)
-									DrawParticles_3E360(v107x, str_DWORD_F66F0x, x_BYTE_E88E0x, x_DWORD_F5730, x_DWORD_EA3E4, str_unk_1804B0ar, viewPort, iScreenWidth_DE560);
+									DrawParticles_3E360(v107x, str_DWORD_F66F0x, x_BYTE_E88E0x, x_DWORD_F5730, x_DWORD_EA3E4, str_unk_1804B0ar, viewPort, pitch);
 							}
 							v83x = v107x - 1;
 						} while (v83x >= v82x);
@@ -1289,12 +1286,12 @@ void GameRender_old::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, _
 									v145 = 0;
 									if (!(v145 & 0xF00))
 									{
-										DrawInverseSquareInProjectionSpace(&v248x[0], v143x, viewPort.Width_DE564, viewPort.Height_DE568, iScreenWidth_DE560);
+										DrawInverseSquareInProjectionSpace(&v248x[0], v143x, viewPort.Width_DE564, viewPort.Height_DE568, pitch);
 									}
 								}
 							}
 							if (Str_E9C38_smalltit[v143x].word36)
-								sub_3FD60(v143x, x_BYTE_E88E0x, x_DWORD_EA3E4, str_unk_1804B0ar, str_DWORD_F66F0x, x_DWORD_F5730, viewPort, iScreenWidth_DE560);
+								sub_3FD60(v143x, x_BYTE_E88E0x, x_DWORD_EA3E4, str_unk_1804B0ar, str_DWORD_F66F0x, x_DWORD_F5730, viewPort, pitch);
 							v134x = v143x + 1;
 						}
 						if (n)
@@ -1350,12 +1347,12 @@ void GameRender_old::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, _
 										v157 = 0;
 										if (!(v157 & 0xF00))
 										{
-											DrawInverseSquareInProjectionSpace(&v248x[0], v155x, viewPort.Width_DE564, viewPort.Height_DE568, iScreenWidth_DE560);
+											DrawInverseSquareInProjectionSpace(&v248x[0], v155x, viewPort.Width_DE564, viewPort.Height_DE568, pitch);
 										}
 									}
 								}
 								if (Str_E9C38_smalltit[v155x].word36)
-									sub_3FD60(v155x, x_BYTE_E88E0x, x_DWORD_EA3E4, str_unk_1804B0ar, str_DWORD_F66F0x, x_DWORD_F5730, viewPort, iScreenWidth_DE560);
+									sub_3FD60(v155x, x_BYTE_E88E0x, x_DWORD_EA3E4, str_unk_1804B0ar, str_DWORD_F66F0x, x_DWORD_F5730, viewPort, pitch);
 								v147x = v155x - 1;
 							} while (v147x >= v25z);
 						}
@@ -1419,7 +1416,7 @@ void GameRender_old::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, _
 							}
 							if (!(v173 & 2) && !(v174 & 0x78))
 							{
-								DrawSquareInProjectionSpace(v248x, v172x, viewPort.Width_DE564, viewPort.Height_DE568, iScreenWidth_DE560);
+								DrawSquareInProjectionSpace(v248x, v172x, viewPort.Width_DE564, viewPort.Height_DE568, pitch);
 							}
 						}
 						else
@@ -1427,11 +1424,11 @@ void GameRender_old::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, _
 							x_BYTE_E126D = 26;
 							if (!(v173 & 2) && !(v174 & 0x78))
 							{
-								DrawSquareInProjectionSpace(v248x, v172x, viewPort.Width_DE564, viewPort.Height_DE568, iScreenWidth_DE560);
+								DrawSquareInProjectionSpace(v248x, v172x, viewPort.Width_DE564, viewPort.Height_DE568, pitch);
 							}
 						}
 						if (Str_E9C38_smalltit[v172x].word36)
-							DrawParticles_3E360(v172x, str_DWORD_F66F0x, x_BYTE_E88E0x, x_DWORD_F5730, x_DWORD_EA3E4, str_unk_1804B0ar, viewPort, iScreenWidth_DE560);
+							DrawParticles_3E360(v172x, str_DWORD_F66F0x, x_BYTE_E88E0x, x_DWORD_F5730, x_DWORD_EA3E4, str_unk_1804B0ar, viewPort, pitch);
 						v161 = v172x + 1;
 					}
 					if (ii)
@@ -1488,7 +1485,7 @@ void GameRender_old::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, _
 								}
 								if (!(v191 & 2) && !(v192 & 0x78))
 								{
-									DrawSquareInProjectionSpace(v248x, v190x, viewPort.Width_DE564, viewPort.Height_DE568, iScreenWidth_DE560);
+									DrawSquareInProjectionSpace(v248x, v190x, viewPort.Width_DE564, viewPort.Height_DE568, pitch);
 								}
 							}
 							else
@@ -1496,11 +1493,11 @@ void GameRender_old::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, _
 								x_BYTE_E126D = 26;
 								if (!(v191 & 2) && !(v192 & 0x78))
 								{
-									DrawSquareInProjectionSpace(v248x, v190x, viewPort.Width_DE564, viewPort.Height_DE568, iScreenWidth_DE560);
+									DrawSquareInProjectionSpace(v248x, v190x, viewPort.Width_DE564, viewPort.Height_DE568, pitch);
 								}
 							}
 							if (Str_E9C38_smalltit[v190x].word36)
-								DrawParticles_3E360(v190x, str_DWORD_F66F0x, x_BYTE_E88E0x, x_DWORD_F5730, x_DWORD_EA3E4, str_unk_1804B0ar, viewPort, iScreenWidth_DE560);
+								DrawParticles_3E360(v190x, str_DWORD_F66F0x, x_BYTE_E88E0x, x_DWORD_F5730, x_DWORD_EA3E4, str_unk_1804B0ar, viewPort, pitch);
 							v178x = v190x - 1;
 						} while (v178x >= v177x);
 					}
@@ -1730,10 +1727,10 @@ LABEL_259:
 			}
 			if (!(v228 & 2) && !(v229 & 0x78))
 			{
-				DrawSquareInProjectionSpace(v248x, v227x, viewPort.Width_DE564, viewPort.Height_DE568, iScreenWidth_DE560);
+				DrawSquareInProjectionSpace(v248x, v227x, viewPort.Width_DE564, viewPort.Height_DE568, pitch);
 			}
 			if (Str_E9C38_smalltit[v227x].word36)
-				DrawParticles_3E360(v227x, str_DWORD_F66F0x, x_BYTE_E88E0x, x_DWORD_F5730, x_DWORD_EA3E4, str_unk_1804B0ar, viewPort, iScreenWidth_DE560);//21f01b
+				DrawParticles_3E360(v227x, str_DWORD_F66F0x, x_BYTE_E88E0x, x_DWORD_F5730, x_DWORD_EA3E4, str_unk_1804B0ar, viewPort, pitch);//21f01b
 			v218x = v227x + 1;
 		}
 		if (kk)
@@ -1780,10 +1777,10 @@ LABEL_259:
 				}
 				if (!(v244 & 2) && !(v245 & 0x78))
 				{
-					DrawSquareInProjectionSpace(v248x, v243x, viewPort.Width_DE564, viewPort.Height_DE568, iScreenWidth_DE560);
+					DrawSquareInProjectionSpace(v248x, v243x, viewPort.Width_DE564, viewPort.Height_DE568, pitch);
 				}
 				if (Str_E9C38_smalltit[v243x].word36)//address 21f1b5 aex 360000 ebx 3f78a0 ecx 0 edx 414eb0
-					DrawParticles_3E360(v243x, str_DWORD_F66F0x, x_BYTE_E88E0x, x_DWORD_F5730, x_DWORD_EA3E4, str_unk_1804B0ar, viewPort, iScreenWidth_DE560);
+					DrawParticles_3E360(v243x, str_DWORD_F66F0x, x_BYTE_E88E0x, x_DWORD_F5730, x_DWORD_EA3E4, str_unk_1804B0ar, viewPort, pitch);
 				v232x = v243x - 1;
 			} while (v232x >= v231x);
 		}

@@ -1,12 +1,12 @@
 #include "GameRender_new.h"
 
-GameRender_new::GameRender_new(/*uint8_t* pScreenBuffer, uint8_t* pColorPalette, uint16_t screenWidth, uint16_t screenHeight, uint16_t viewPortPosX, uint16_t viewPortPosY, uint16_t viewPortWidth, uint16_t viewPortHeight, std::array<uint8_t*, 256>& textureAdresses, uint8_t pX_BYTE_F6EE0_tablesx[], uint8_t renderThreads, bool assignToSpecificCores*/)
+GameRender_new::GameRender_new()
 {
-	/*m_ptrScreenBuffer = pScreenBuffer;
+	/*pdwScreenBuffer_351628 = pScreenBuffer;
 	m_ptrColorPalette = pColorPalette;
-	SetRenderViewPortSize_BCD45(ViewPort(viewPortPosX, viewPortPosY, viewPortWidth, viewPortHeight), screenWidth, screenHeight);
+	SetRenderViewPortSize_BCD45(ViewPort(viewPortPosX, viewPortPosY, viewPort.Width_DE564, viewPort.Height_DE568), iScreenWidth_DE560, screenHeight);
 	SetTextures(textureAdresses);
-	m_ptrX_BYTE_F6EE0_tablesx = pX_BYTE_F6EE0_tablesx;
+	x_BYTE_F6EE0_tablesx = pX_BYTE_F6EE0_tablesx;
 
 	m_assignToSpecificCores = assignToSpecificCores;
 	SetRenderThreads(renderThreads);*/
@@ -28,7 +28,6 @@ GameRender_new::~GameRender_new()
 
 void GameRender_new::DrawWorld(int posX, int posY, int16_t yaw, int16_t posZ, int16_t pitch, int16_t roll, int16_t fov)
 {
-	//m_x_WORD_180660_VGA_type_resolution = x_WORD_180660_VGA_type_resolution;
 	unsigned __int16 v8; // ax
 	int v9; // ecx
 	int v10; // ebx
@@ -139,10 +138,10 @@ void GameRender_new::DrawWorld(int posX, int posY, int16_t yaw, int16_t posZ, in
 		x_DWORD_D4324 = -5;
 		v25 = 4 * v23 >> 16;
 		v26 = 20 * (signed int)v24 >> 16;
-		DrawTerrainAndParticles_3C080(vPosX - v26, vPosY - v25, vYaw, posZ, pitch, roll, fov, str_DWORD_F66F0x, x_BYTE_E88E0x, x_DWORD_F5730, unk_F0A20x, x_DWORD_EA3E4, str_unk_1804B0ar, x_WORD_D4B7C, isCaveLevel_D41B6, viewPort, screenWidth_18062C);
+		DrawTerrainAndParticles_3C080(vPosX - v26, vPosY - v25, vYaw, posZ, pitch, roll, fov);
 		SetRenderViewPortSize_BCD45(pdwScreenBuffer_351628 + (screenWidth_18062C / 2), 0, 0, 0);
 		x_DWORD_D4324 = 5;
-		DrawTerrainAndParticles_3C080(vPosX + v26, vPosY + v25, vYaw, posZ, pitch, roll, fov, str_DWORD_F66F0x, x_BYTE_E88E0x, x_DWORD_F5730, unk_F0A20x, x_DWORD_EA3E4, str_unk_1804B0ar, x_WORD_D4B7C, isCaveLevel_D41B6, viewPort, screenWidth_18062C);
+		DrawTerrainAndParticles_3C080(vPosX + v26, vPosY + v25, vYaw, posZ, pitch, roll, fov);
 		x_DWORD_D4324 = 0;
 		SetRenderViewPortSize_BCD45(pdwScreenBuffer_351628, screenWidth_18062C, screenWidth_18062C, screenHeight_180624);
 	}
@@ -172,7 +171,7 @@ void GameRender_new::DrawWorld(int posX, int posY, int16_t yaw, int16_t posZ, in
 			//Blur
 			v35 = ViewPortRenderBufferStart_DE558;
 			SetRenderViewPortSize_BCD45(x_DWORD_E9C3C, 0, 0, 0);
-			DrawTerrainAndParticles_3C080(vPosX, vPosY, vYaw, posZ, pitch, roll, fov, str_DWORD_F66F0x, x_BYTE_E88E0x, x_DWORD_F5730, unk_F0A20x, x_DWORD_EA3E4, str_unk_1804B0ar, x_WORD_D4B7C, isCaveLevel_D41B6, viewPort, screenWidth_18062C);
+			DrawTerrainAndParticles_3C080(vPosX, vPosY, vYaw, posZ, pitch, roll, fov);
 			//Apply Blur
 			SetRenderViewPortSize_BCD45(v35, 0, 0, 0);
 			v51 = (signed int)(unsigned __int16)viewPort.Width_DE564 >> 2;
@@ -228,7 +227,7 @@ void GameRender_new::DrawWorld(int posX, int posY, int16_t yaw, int16_t posZ, in
 			}
 		}
 
-		DrawTerrainAndParticles_3C080(vPosX, vPosY, vYaw, posZ, pitch, roll, fov, str_DWORD_F66F0x, x_BYTE_E88E0x, x_DWORD_F5730, unk_F0A20x, x_DWORD_EA3E4, str_unk_1804B0ar, x_WORD_D4B7C, isCaveLevel_D41B6, viewPort, screenWidth_18062C);
+		DrawTerrainAndParticles_3C080(vPosX, vPosY, vYaw, posZ, pitch, roll, fov);
 
 		if (D41A0_0.m_GameSettings.str_0x2192.xxxx_0x2192)
 		{
@@ -267,11 +266,11 @@ void GameRender_new::DrawWorld(int posX, int posY, int16_t yaw, int16_t posZ, in
 		x_DWORD_D4324 = iScreenWidth_DE560 / 40;
 		v30 = 4 * v28 >> 16;
 		v31 = 20 * (signed int)v29 >> 16;
-		DrawTerrainAndParticles_3C080(v31 + vPosX, v30 + vPosY, vYaw, posZ, pitch, roll, fov, str_DWORD_F66F0x, x_BYTE_E88E0x, x_DWORD_F5730, unk_F0A20x, x_DWORD_EA3E4, str_unk_1804B0ar, x_WORD_D4B7C, isCaveLevel_D41B6, viewPort, screenWidth_18062C);
+		DrawTerrainAndParticles_3C080(v31 + vPosX, v30 + vPosY, vYaw, posZ, pitch, roll, fov);
 		v32 = ViewPortRenderBufferStart_DE558;
 		SetRenderViewPortSize_BCD45(x_DWORD_E9C3C, 0, 0, 0);
 		x_DWORD_D4324 = 0 - (iScreenWidth_DE560 / 40);
-		DrawTerrainAndParticles_3C080(vPosX - v31, vPosY - v30, vYaw, posZ, pitch, roll, fov, str_DWORD_F66F0x, x_BYTE_E88E0x, x_DWORD_F5730, unk_F0A20x, x_DWORD_EA3E4, str_unk_1804B0ar, x_WORD_D4B7C, isCaveLevel_D41B6, viewPort, screenWidth_18062C);
+		DrawTerrainAndParticles_3C080(vPosX - v31, vPosY - v30, vYaw, posZ, pitch, roll, fov);
 		SetRenderViewPortSize_BCD45(v32, 0, 0, 0);
 		x_DWORD_D4324 = 0;
 	}
@@ -422,7 +421,7 @@ void GameRender_new::DrawSky_40950(int16_t roll, uint8_t* ptrViewPortRenderBuffe
 	}
 }
 
-void GameRender_new::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __int16 yaw, signed int posZ, int pitch, int16_t roll, int fov, type_particle_str** str_DWORD_F66F0x[], uint8_t x_BYTE_E88E0x[], int32_t x_DWORD_F5730[], uint8_t unk_F0A20x[], type_event_0x6E8E* x_DWORD_EA3E4[], type_str_unk_1804B0ar str_unk_1804B0ar, int16_t x_WORD_D4B7C, char isCaveLevel, ViewPort viewPort, uint16_t screenWidth)
+void GameRender_new::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __int16 yaw, signed int posZ, int pitch, int16_t roll, int fov)
 {
 	int v9; // eax
 	int v10; // edx
@@ -688,7 +687,7 @@ void GameRender_new::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, _
 	v248x[30] = Maths::x_DWORD_DB750[0x200 + v12];
 	str_F2C20ar.dword0x17 = v11;
 	v13 = Maths::x_DWORD_DB750[v12];
-	SetBillboards_3B560(-roll & 0x7FF, unk_F0A20x, viewPort.Width_DE564, viewPort.Height_DE568, screenWidth);//21d1aa
+	SetBillboards_3B560(-roll & 0x7FF, unk_F0A20x, viewPort.Width_DE564, viewPort.Height_DE568, pitch);//21d1aa
 	str_F2C20ar.dword0x18 = 7
 		* Maths::sub_7277A_radix_3d(
 			(unsigned __int16)viewPort.Width_DE564 * (unsigned __int16)viewPort.Width_DE564
@@ -772,10 +771,10 @@ void GameRender_new::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, _
 	str_F2C20ar.dword0x16 = 23658496;
 	str_F2C20ar.dword0x0d = Maths::x_DWORD_DB750[v23];
 	str_F2C20ar.dword0x13 = 14745600;
-	if (!D41A0_0.m_GameSettings.m_Graphics.m_wSky || isCaveLevel)
+	if (!D41A0_0.m_GameSettings.m_Graphics.m_wSky || isCaveLevel_D41B6)
 	{
 		v26 = viewPort.Width_DE564;
-		v27 = screenWidth - viewPort.Width_DE564;
+		v27 = iScreenWidth_DE560 - viewPort.Width_DE564;
 		v28 = (v26 - (__CFSHL__((signed int)v26 >> 31, 2) + 4 * ((signed int)v26 >> 31))) >> 2;
 		v29 = viewPort.Height_DE568;
 		v25x = ViewPortRenderBufferStart_DE558;
@@ -796,14 +795,14 @@ void GameRender_new::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, _
 	{
 		if (m_renderThreads.size() > 0)
 		{
-			DrawSky_40950_TH(roll, ViewPortRenderBufferStart_DE558, viewPort.Width_DE564, viewPort.Height_DE568, screenWidth);
+			DrawSky_40950_TH(roll, ViewPortRenderBufferStart_DE558, viewPort.Width_DE564, viewPort.Height_DE568, pitch);
 		}
 		else
 		{
-			DrawSky_40950(roll, ViewPortRenderBufferStart_DE558, viewPort.Width_DE564, viewPort.Height_DE568, screenWidth, 0, 1);
+			DrawSky_40950(roll, ViewPortRenderBufferStart_DE558, viewPort.Width_DE564, viewPort.Height_DE568, pitch, 0, 1);
 		}
 	}
-	if (isCaveLevel)//21d3e3 cleaned screen
+	if (isCaveLevel_D41B6)//21d3e3 cleaned screen
 	{
 		//Cave Level Render
 		for (i = 21; ; i--)
@@ -918,7 +917,7 @@ void GameRender_new::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, _
 								v69 = 0;
 								if (!(v69 & 0xF00))
 								{
-									DrawInverseSquareInProjectionSpace(&v248x[0], v68x, m_textureAddresses[1], viewPort.Width_DE564, viewPort.Height_DE568, screenWidth);
+									DrawInverseSquareInProjectionSpace(&v248x[0], v68x, m_textureAddresses[1], viewPort.Width_DE564, viewPort.Height_DE568, pitch);
 								}
 							}
 						}
@@ -960,10 +959,10 @@ void GameRender_new::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, _
 							}
 							if (!(v78 & 2) && !(v79 & 0x78))
 							{
-								DrawSquareInProjectionSpace(v248x, v80x, viewPort.Width_DE564, viewPort.Height_DE568, screenWidth);
+								DrawSquareInProjectionSpace(v248x, v80x, viewPort.Width_DE564, viewPort.Height_DE568, pitch);
 							}
 							if (Str_E9C38_smalltit[v80x].word36)
-								DrawParticles_3E360(v80x, str_DWORD_F66F0x, x_BYTE_E88E0x, x_DWORD_F5730, x_DWORD_EA3E4, str_unk_1804B0ar, viewPort, screenWidth);
+								DrawParticles_3E360(v80x, str_DWORD_F66F0x, x_BYTE_E88E0x, x_DWORD_F5730, x_DWORD_EA3E4, str_unk_1804B0ar, viewPort, pitch);
 						}
 						v58 = v293 - 1;
 					}
@@ -1010,7 +1009,7 @@ void GameRender_new::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, _
 								if (!(v93 & 2))
 								{
 
-									DrawInverseSquareInProjectionSpace(&v248x[0], v94x, m_textureAddresses[1], viewPort.Width_DE564, viewPort.Height_DE568, screenWidth);
+									DrawInverseSquareInProjectionSpace(&v248x[0], v94x, m_textureAddresses[1], viewPort.Width_DE564, viewPort.Height_DE568, pitch);
 								}
 							}
 							v248x[18] = Str_E9C38_smalltit[v94x].dword16;
@@ -1050,10 +1049,10 @@ void GameRender_new::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, _
 								}
 								if (!(v105 & 2) && !(v106 & 0x78))
 								{
-									DrawSquareInProjectionSpace(v248x, v107x, viewPort.Width_DE564, viewPort.Height_DE568, screenWidth);
+									DrawSquareInProjectionSpace(v248x, v107x, viewPort.Width_DE564, viewPort.Height_DE568, pitch);
 								}
 								if (Str_E9C38_smalltit[v107x].word36)
-									DrawParticles_3E360(v107x, str_DWORD_F66F0x, x_BYTE_E88E0x, x_DWORD_F5730, x_DWORD_EA3E4, str_unk_1804B0ar, viewPort, screenWidth);
+									DrawParticles_3E360(v107x, str_DWORD_F66F0x, x_BYTE_E88E0x, x_DWORD_F5730, x_DWORD_EA3E4, str_unk_1804B0ar, viewPort, pitch);
 							}
 							v83x = v107x - 1;
 						} while (v83x >= v82x);
@@ -1250,12 +1249,12 @@ void GameRender_new::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, _
 									v145 = 0;
 									if (!(v145 & 0xF00))
 									{
-										DrawInverseSquareInProjectionSpace(&v248x[0], v143x, viewPort.Width_DE564, viewPort.Height_DE568, screenWidth);
+										DrawInverseSquareInProjectionSpace(&v248x[0], v143x, viewPort.Width_DE564, viewPort.Height_DE568, pitch);
 									}
 								}
 							}
 							if (Str_E9C38_smalltit[v143x].word36)
-								sub_3FD60(v143x, x_BYTE_E88E0x, x_DWORD_EA3E4, str_unk_1804B0ar, str_DWORD_F66F0x, x_DWORD_F5730, viewPort, screenWidth);
+								sub_3FD60(v143x, x_BYTE_E88E0x, x_DWORD_EA3E4, str_unk_1804B0ar, str_DWORD_F66F0x, x_DWORD_F5730, viewPort, pitch);
 							v134x = v143x + 1;
 						}
 						if (n)
@@ -1311,12 +1310,12 @@ void GameRender_new::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, _
 										v157 = 0;
 										if (!(v157 & 0xF00))
 										{
-											DrawInverseSquareInProjectionSpace(&v248x[0], v155x, viewPort.Width_DE564, viewPort.Height_DE568, screenWidth);
+											DrawInverseSquareInProjectionSpace(&v248x[0], v155x, viewPort.Width_DE564, viewPort.Height_DE568, pitch);
 										}
 									}
 								}
 								if (Str_E9C38_smalltit[v155x].word36)
-									sub_3FD60(v155x, x_BYTE_E88E0x, x_DWORD_EA3E4, str_unk_1804B0ar, str_DWORD_F66F0x, x_DWORD_F5730, viewPort, screenWidth);
+									sub_3FD60(v155x, x_BYTE_E88E0x, x_DWORD_EA3E4, str_unk_1804B0ar, str_DWORD_F66F0x, x_DWORD_F5730, viewPort, pitch);
 								v147x = v155x - 1;
 							} while (v147x >= v25z);
 						}
@@ -1380,7 +1379,7 @@ void GameRender_new::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, _
 							}
 							if (!(v173 & 2) && !(v174 & 0x78))
 							{
-								DrawSquareInProjectionSpace(v248x, v172x, viewPort.Width_DE564, viewPort.Height_DE568, screenWidth);
+								DrawSquareInProjectionSpace(v248x, v172x, viewPort.Width_DE564, viewPort.Height_DE568, pitch);
 							}
 						}
 						else
@@ -1388,11 +1387,11 @@ void GameRender_new::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, _
 							x_BYTE_E126D = 26;
 							if (!(v173 & 2) && !(v174 & 0x78))
 							{
-								DrawSquareInProjectionSpace(v248x, v172x, viewPort.Width_DE564, viewPort.Height_DE568, screenWidth);
+								DrawSquareInProjectionSpace(v248x, v172x, viewPort.Width_DE564, viewPort.Height_DE568, pitch);
 							}
 						}
 						if (Str_E9C38_smalltit[v172x].word36)
-							DrawParticles_3E360(v172x, str_DWORD_F66F0x, x_BYTE_E88E0x, x_DWORD_F5730, x_DWORD_EA3E4, str_unk_1804B0ar, viewPort, screenWidth);
+							DrawParticles_3E360(v172x, str_DWORD_F66F0x, x_BYTE_E88E0x, x_DWORD_F5730, x_DWORD_EA3E4, str_unk_1804B0ar, viewPort, pitch);
 						v161 = v172x + 1;
 					}
 					if (ii)
@@ -1449,7 +1448,7 @@ void GameRender_new::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, _
 								}
 								if (!(v191 & 2) && !(v192 & 0x78))
 								{
-									DrawSquareInProjectionSpace(v248x, v190x, viewPort.Width_DE564, viewPort.Height_DE568, screenWidth);
+									DrawSquareInProjectionSpace(v248x, v190x, viewPort.Width_DE564, viewPort.Height_DE568, pitch);
 								}
 							}
 							else
@@ -1457,11 +1456,11 @@ void GameRender_new::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, _
 								x_BYTE_E126D = 26;
 								if (!(v191 & 2) && !(v192 & 0x78))
 								{
-									DrawSquareInProjectionSpace(v248x, v190x, viewPort.Width_DE564, viewPort.Height_DE568, screenWidth);
+									DrawSquareInProjectionSpace(v248x, v190x, viewPort.Width_DE564, viewPort.Height_DE568, pitch);
 								}
 							}
 							if (Str_E9C38_smalltit[v190x].word36)
-								DrawParticles_3E360(v190x, str_DWORD_F66F0x, x_BYTE_E88E0x, x_DWORD_F5730, x_DWORD_EA3E4, str_unk_1804B0ar, viewPort, screenWidth);
+								DrawParticles_3E360(v190x, str_DWORD_F66F0x, x_BYTE_E88E0x, x_DWORD_F5730, x_DWORD_EA3E4, str_unk_1804B0ar, viewPort, pitch);
 							v178x = v190x - 1;
 						} while (v178x >= v177x);
 					}
@@ -1691,10 +1690,10 @@ LABEL_259:
 			}
 			if (!(v228 & 2) && !(v229 & 0x78))
 			{
-				DrawSquareInProjectionSpace(v248x, v227x, viewPort.Width_DE564, viewPort.Height_DE568, screenWidth);
+				DrawSquareInProjectionSpace(v248x, v227x, viewPort.Width_DE564, viewPort.Height_DE568, pitch);
 			}
 			if (Str_E9C38_smalltit[v227x].word36)
-				DrawParticles_3E360(v227x, str_DWORD_F66F0x, x_BYTE_E88E0x, x_DWORD_F5730, x_DWORD_EA3E4, str_unk_1804B0ar, viewPort, screenWidth);//21f01b
+				DrawParticles_3E360(v227x, str_DWORD_F66F0x, x_BYTE_E88E0x, x_DWORD_F5730, x_DWORD_EA3E4, str_unk_1804B0ar, viewPort, pitch);//21f01b
 			v218x = v227x + 1;
 		}
 		if (kk)
@@ -1741,10 +1740,10 @@ LABEL_259:
 				}
 				if (!(v244 & 2) && !(v245 & 0x78))
 				{
-					DrawSquareInProjectionSpace(v248x, v243x, viewPort.Width_DE564, viewPort.Height_DE568, screenWidth);
+					DrawSquareInProjectionSpace(v248x, v243x, viewPort.Width_DE564, viewPort.Height_DE568, pitch);
 				}
 				if (Str_E9C38_smalltit[v243x].word36)//address 21f1b5 aex 360000 ebx 3f78a0 ecx 0 edx 414eb0
-					DrawParticles_3E360(v243x, str_DWORD_F66F0x, x_BYTE_E88E0x, x_DWORD_F5730, x_DWORD_EA3E4, str_unk_1804B0ar, viewPort, screenWidth);
+					DrawParticles_3E360(v243x, str_DWORD_F66F0x, x_BYTE_E88E0x, x_DWORD_F5730, x_DWORD_EA3E4, str_unk_1804B0ar, viewPort, pitch);
 				v232x = v243x - 1;
 			} while (v232x >= v231x);
 		}
