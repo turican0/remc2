@@ -300,7 +300,7 @@ void GameRender_old::ClearGraphicsBuffer(uint8_t colorIdx)
 	memset32(pdwScreenBuffer_351628, colorIdx, screenWidth_18062C * screenHeight_180624);
 }
 
-void GameRender_old::DrawSky_40950_TH(int16_t roll/*, uint8_t* ViewPortRenderBufferStart_DE558, uint16_t viewPort.Width_DE564, uint16_t viewPort.Height_DE568, uint16_t iScreenWidth_DE560*/)
+void GameRender_old::DrawSky_40950_TH(int16_t roll)
 {
 	if (m_renderThreads.size() > 0)
 	{
@@ -309,26 +309,26 @@ void GameRender_old::DrawSky_40950_TH(int16_t roll/*, uint8_t* ViewPortRenderBuf
 
 		for (i = 0; i < m_renderThreads.size(); i++)
 		{
-			m_renderThreads[i]->Run([this, roll/*, ViewPortRenderBufferStart_DE558, viewPort.Width_DE564, viewPort.Height_DE568, iScreenWidth_DE560, i, drawEveryNthLine*/]{
-				this->DrawSky_40950(roll/*, ViewPortRenderBufferStart_DE558, viewPort.Width_DE564, viewPort.Height_DE568, iScreenWidth_DE560, i, drawEveryNthLine*/);
+			m_renderThreads[i]->Run([this, roll]{
+				this->DrawSky_40950(roll);
 			});
 		}
 
-		this->DrawSky_40950(roll/*, ViewPortRenderBufferStart_DE558, viewPort.Width_DE564, viewPort.Height_DE568, iScreenWidth_DE560, i, drawEveryNthLine*/);
+		this->DrawSky_40950(roll);
 
 		WaitForRenderFinish();
 
 	}
 	else
 	{
-		DrawSky_40950(roll/*, ViewPortRenderBufferStart_DE558, viewPort.Width_DE564, viewPort.Height_DE568, iScreenWidth_DE560, 0, 1*/);
+		DrawSky_40950(roll);
 	}
 }
 
 /*
 * Sky texture is currently 256x256
 */
-void GameRender_old::DrawSky_40950(int16_t roll/*, uint8_t* ViewPortRenderBufferStart_DE558, uint16_t viewPort.Width_DE564, uint16_t viewPort.Height_DE568, uint16_t iScreenWidth_DE560, uint8_t startLine, uint8_t drawEveryNthLine*/)
+void GameRender_old::DrawSky_40950(int16_t roll)
 {
 	int startLine = 0;//stub!!!!!!!!!!!!!!!!!!
 	int drawEveryNthLine = 0;//stub!!!!!!!!!!!!!!!!!!
@@ -690,7 +690,7 @@ void GameRender_old::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, _
 	v248x[30] = Maths::x_DWORD_DB750[0x200 + v12];
 	str_F2C20ar.dword0x17 = v11;
 	v13 = Maths::x_DWORD_DB750[v12];
-	SetBillboards_3B560(-roll & 0x7FF/*, unk_F0A20x, viewPort.Width_DE564, viewPort.Height_DE568, iScreenWidth_DE560*/);//21d1aa
+	SetBillboards_3B560(-roll & 0x7FF);//21d1aa
 	str_F2C20ar.dword0x18 = 7
 		* Maths::sub_7277A_radix_3d(
 			(unsigned __int16)viewPort.Width_DE564 * (unsigned __int16)viewPort.Width_DE564
@@ -798,11 +798,11 @@ void GameRender_old::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, _
 	{
 		if (m_renderThreads.size() > 0)
 		{
-			DrawSky_40950_TH(roll/*, ViewPortRenderBufferStart_DE558, viewPort.Width_DE564, viewPort.Height_DE568, iScreenWidth_DE560*/);
+			DrawSky_40950_TH(roll);
 		}
 		else
 		{
-			DrawSky_40950(roll/*, ViewPortRenderBufferStart_DE558, viewPort.Width_DE564, viewPort.Height_DE568, iScreenWidth_DE560, 0, 1*/);
+			DrawSky_40950(roll);
 		}
 	}
 	if (isCaveLevel_D41B6)//21d3e3 cleaned screen
@@ -2119,7 +2119,7 @@ uint16_t GameRender_old::sub_3FD60(int a2x, uint8_t x_BYTE_E88E0x[], type_event_
 						str_F2C20ar.dword0x01_rotIdx = v39;
 						str_F2C20ar.dword0x09_realWidth++;
 						str_F2C20ar.dword0x0c_realHeight++;
-						DrawSprite_41BD3(2u, x_BYTE_E88E0x, x_DWORD_EA3E4, str_unk_1804B0ar, viewPort, iScreenWidth_DE560);
+						DrawSprite_41BD3(2u);
 						break;
 					default:
 						goto LABEL_70;
@@ -3670,7 +3670,7 @@ void GameRender_old::DrawParticles_3E360(int a2x, type_particle_str** str_DWORD_
 									else
 										str_F2C20ar.dword0x00 = v47 + 0x2000;
 									str_F2C20ar.dword0x01_rotIdx = 8;
-									DrawSprite_41BD3(0, x_BYTE_E88E0x, x_DWORD_EA3E4, str_unk_1804B0ar, viewPort, iScreenWidth_DE560);
+									DrawSprite_41BD3(0);
 								}
 								break;
 							default:
@@ -4052,7 +4052,7 @@ void GameRender_old::DrawParticles_3E360(int a2x, type_particle_str** str_DWORD_
 					}
 					str_F2C20ar.dword0x09_realWidth++;
 					str_F2C20ar.dword0x0c_realHeight++;
-					DrawSprite_41BD3(1u, x_BYTE_E88E0x, x_DWORD_EA3E4, str_unk_1804B0ar, viewPort, iScreenWidth_DE560);
+					DrawSprite_41BD3(1u);
 					break;
 				default:
 					goto LABEL_164;
@@ -4064,7 +4064,7 @@ void GameRender_old::DrawParticles_3E360(int a2x, type_particle_str** str_DWORD_
 	} while (result);
 }
 
-void GameRender_old::DrawSprite_41BD3(uint32 a1, uint8_t x_BYTE_E88E0x[], type_event_0x6E8E* x_DWORD_EA3E4[], type_str_unk_1804B0ar str_unk_1804B0ar, ViewPort viewPort, uint16_t iScreenWidth_DE560)
+void GameRender_old::DrawSprite_41BD3(uint32 a1)
 {
 	//int v1; // eax
 	int8_t* v2x; // ebx
