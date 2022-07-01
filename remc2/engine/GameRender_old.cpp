@@ -14666,12 +14666,6 @@ void GameRender_old::SetTextures(std::array<uint8_t*, 256>& textureAdresses)
 	m_textureAddresses = textureAdresses;
 }
 
-/*
-void GameRender_old::SetX_BYTE_F6EE0_tablesx(uint8_t* pX_BYTE_F6EE0_tablesx)
-{
-	x_BYTE_F6EE0_tablesx = pX_BYTE_F6EE0_tablesx;
-}*/
-
 void GameRender_old::SetRenderViewPortSize_40C50(uint8_t viewPortSizeSetting, uint16_t screenWidth, uint16_t screenHeight)
 {
 	ViewPort viewPort;
@@ -14687,7 +14681,7 @@ void GameRender_old::SetRenderViewPortSize_40C50(uint8_t viewPortSizeSetting, ui
 	}
 	else
 	{
-		uint16_t viewPortWidthMultipler = iScreenWidth_DE560 / 40;
+		uint16_t viewPortWidthMultipler = screenWidth / 40;
 		uint16_t viewPortHeightMultipler = screenHeight / 40;
 
 		viewPort.PosX_EA3D0 = (viewPortWidthMultipler * v1) / 2;
@@ -14696,11 +14690,14 @@ void GameRender_old::SetRenderViewPortSize_40C50(uint8_t viewPortSizeSetting, ui
 		viewPort.Height_DE568 = viewPortHeightMultipler * viewPortSizeSetting;
 	}
 
-	SetRenderViewPortSize_BCD45(viewPort, iScreenWidth_DE560, screenHeight);
+	SetRenderViewPortSize_BCD45(viewPort, screenWidth, screenHeight);
 }
 
 void GameRender_old::SetRenderViewPortSize_BCD45(ViewPort viewPort, uint16_t screenWidth, uint16_t screenHeight)
 {
+	screenWidth_18062C = screenWidth;
+	screenHeight_180624 = screenHeight;
+
 	if (viewPort.Width_DE564 > screenWidth)
 	{
 		viewPort.Width_DE564 = screenWidth;
@@ -14721,13 +14718,13 @@ void GameRender_old::SetRenderViewPortSize_BCD45(ViewPort viewPort, uint16_t scr
 		viewPort.PosY_EA3CC = screenHeight - 1;
 	}
 
-	int32_t ptrScreenRenderBufferStart = viewPort.PosX_EA3D0 + iScreenWidth_DE560 * viewPort.PosY_EA3CC;
+	int32_t ptrScreenRenderBufferStart = viewPort.PosX_EA3D0 + screenWidth_18062C * viewPort.PosY_EA3CC;
 	SetRenderViewPortSize_BCD45(ptrScreenRenderBufferStart + pdwScreenBuffer_351628, screenWidth_18062C, screenWidth, screenHeight);
 }
 
 void GameRender_old::SetRenderViewPortSize_BCD45(uint8_t* ptrScreenBufferStart, uint16_t screenWidth, uint16_t viewPortWidth, uint16_t viewPortHeight/*, uint16_t iScreenWidth_DE560*/)
 {
-	if (iScreenWidth_DE560)
+	if (screenWidth)
 	{
 		iScreenWidth_DE560 = screenWidth;
 	}
@@ -14738,12 +14735,12 @@ void GameRender_old::SetRenderViewPortSize_BCD45(uint8_t* ptrScreenBufferStart, 
 		m_ptrViewPortRenderBufferAltStart_DE554 = ptrScreenBufferStart - screenWidth;
 	}
 
-	if (viewPort.Width_DE564)
+	if (viewPortWidth)
 	{
 		viewPort.Width_DE564 = viewPortWidth;
 	}
 
-	if (viewPort.Height_DE568)
+	if (viewPortHeight)
 	{
 		viewPort.Height_DE568 = viewPortHeight;
 	}
