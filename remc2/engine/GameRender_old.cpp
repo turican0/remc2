@@ -14724,28 +14724,21 @@ void GameRender_old::SetRenderViewPortSize_BCD45(ViewPort viewPort, uint16_t scr
 	SetRenderViewPortSize_BCD45(ptrScreenRenderBufferStart + pdwScreenBuffer_351628, screenWidth_18062C, screenWidth, screenHeight);
 }
 
-void GameRender_old::SetRenderViewPortSize_BCD45(uint8_t* ptrScreenBufferStart, uint16_t screenWidth, uint16_t viewPortWidth, uint16_t viewPortHeight/*, uint16_t iScreenWidth_DE560*/)
+/* ---- */void GameRender_old::SetRenderViewPortSize_BCD45(uint8_t* ptrScreenBufferStart, uint16_t screenWidth, uint16_t viewPortWidth, uint16_t viewPortHeight/*, uint16_t iScreenWidth_DE560*/)
 {
 	if (screenWidth)
-	{
 		iScreenWidth_DE560 = screenWidth;
-	}
 
 	if (ptrScreenBufferStart)
 	{
 		ViewPortRenderBufferStart_DE558 = ptrScreenBufferStart;
-		m_ptrViewPortRenderBufferAltStart_DE554 = ptrScreenBufferStart - screenWidth;
+		m_ptrViewPortRenderBufferAltStart_DE554 = ptrScreenBufferStart - iScreenWidth_DE560;
 	}
-
 	if (viewPortWidth)
-	{
 		viewPort.Width_DE564 = viewPortWidth;
-	}
 
 	if (viewPortHeight)
-	{
 		viewPort.Height_DE568 = viewPortHeight;
-	}
 }
 
 void GameRender_old::SetRenderThreads(uint8_t renderThreads)
