@@ -917,7 +917,7 @@ void GameRender_old::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, _
 								v69 = 0;
 								if (!(v69 & 0xF00))
 								{
-									DrawInverseSquareInProjectionSpace(&v248x[0], v68x, m_textureAddresses[1], viewPort.Width_DE564, viewPort.Height_DE568, pitch);
+									DrawInverseSquareInProjectionSpace(&v248x[0], v68x);
 								}
 							}
 						}
@@ -1009,7 +1009,7 @@ void GameRender_old::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, _
 								if (!(v93 & 2))
 								{
 
-									DrawInverseSquareInProjectionSpace(&v248x[0], v94x, m_textureAddresses[1], viewPort.Width_DE564, viewPort.Height_DE568, pitch);
+									DrawInverseSquareInProjectionSpace(&v248x[0], v94x);
 								}
 							}
 							v248x[18] = Str_E9C38_smalltit[v94x].dword16;
@@ -1249,7 +1249,7 @@ void GameRender_old::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, _
 									v145 = 0;
 									if (!(v145 & 0xF00))
 									{
-										DrawInverseSquareInProjectionSpace(&v248x[0], v143x, viewPort.Width_DE564, viewPort.Height_DE568, pitch);
+										DrawInverseSquareInProjectionSpace(&v248x[0], v143x);
 									}
 								}
 							}
@@ -1310,7 +1310,7 @@ void GameRender_old::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, _
 										v157 = 0;
 										if (!(v157 & 0xF00))
 										{
-											DrawInverseSquareInProjectionSpace(&v248x[0], v155x, viewPort.Width_DE564, viewPort.Height_DE568, pitch);
+											DrawInverseSquareInProjectionSpace(&v248x[0], v155x);
 										}
 									}
 								}
@@ -3175,12 +3175,7 @@ void GameRender_old::DrawSquareInProjectionSpace(std::vector<int>& vertexs, int 
 	}
 }
 
-void GameRender_old::DrawInverseSquareInProjectionSpace(int* vertexs, int index, uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t iScreenWidth_DE560)
-{
-	DrawInverseSquareInProjectionSpace(vertexs, index, m_textureAddresses.at(Str_E9C38_smalltit[index].byte41), viewPort.Width_DE564, viewPort.Height_DE568, iScreenWidth_DE560);
-}
-
-void GameRender_old::DrawInverseSquareInProjectionSpace(int* vertexs, int index, uint8_t* x_DWORD_DE55C_ActTexture, uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t iScreenWidth_DE560)
+void GameRender_old::DrawInverseSquareInProjectionSpace(int* vertexs, int index)
 {
 	//Set Texture coordinates for polys
 	vertexs[20] = xunk_D4350[Str_E9C38_smalltit[index].byte42_std][0];
