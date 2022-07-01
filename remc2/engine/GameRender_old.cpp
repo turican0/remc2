@@ -3282,7 +3282,9 @@ LABEL_48:
 	}
 	//return result;
 }
-void GameRender_old::DrawSorcererNameAndHealthBar_2CB30(type_event_0x6E8E* a1x, uint8_t x_BYTE_E88E0xxx[], __int16 a2, int a3, __int16 a4, int16_t viewPortXxx, int16_t viewPortYxx, uint16_t viewPortWidthxx, uint16_t viewPortHeightxx, uint16_t iScreenWidth_DE560xx)
+
+/* --- */void GameRender_old::DrawSorcererNameAndHealthBar_2CB30(type_event_0x6E8E* a1x, __int16 a2, int a3, __int16 a4)//20db30 //maybe draw sorcerer name
+//void GameRender::DrawSorcererNameAndHealthBar_2CB30(type_event_0x6E8E* a1x, uint8_t x_BYTE_E88E0x[], __int16 a2, int a3, __int16 a4, int16_t viewPortX, int16_t viewPortY, uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t iScreenWidth_DE560)
 {
 	//char *v4; // edi
 	char* v5; // esi
@@ -3332,8 +3334,8 @@ void GameRender_old::DrawSorcererNameAndHealthBar_2CB30(type_event_0x6E8E* a1x, 
 	v23 = 0;*/
 	// end
 
-	v31 = viewPort.Width2_EA3C4 + viewPort.PosX_EA3D0 - 4;
-	v29 = viewPort.Height2_EA3C0 + viewPort.PosY_EA3CC - 22;
+	v31 = viewPort.Width_DE564 + viewPort.PosX_EA3D0 - 4;
+	v29 = viewPort.Height_DE568 + viewPort.PosY_EA3CC - 22;
 	v25 = a1x->dword_0xA4_164x->word_0x38_56;
 	//v4 = v24;
 	//D41A0_BYTESTR_0.array_0x2BDE[v25].array_0x39f_2BFA_12157
