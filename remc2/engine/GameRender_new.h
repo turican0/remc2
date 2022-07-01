@@ -66,7 +66,7 @@ private:
 	//uint16_t screenHeight_180624 = 0;
 
 	std::array<uint8_t*, 256> m_textureAddresses;
-	uint8_t* m_ptrColorPalette = 0;
+	//uint8_t* m_ptrColorPalette = 0;
 	//type_F2C20ar m_str_F2C20ar;
 	//int16_t m_x_WORD_180660_VGA_type_resolution;
 
@@ -89,8 +89,8 @@ private:
 
 	uint8_t* x_DWORD_DE55C_ActTexture = 0; // weak
 
-	void DrawSky_40950(int16_t roll, uint8_t* ptrViewPortRenderBufferStart, uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t pitch, uint8_t startLine, uint8_t drawEveryNthLine);
-	void DrawSky_40950_TH(int16_t roll, uint8_t* ptrViewPortRenderBufferStart, uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t pitch);
+	void DrawSky_40950(int16_t roll, uint8_t startLine, uint8_t drawEveryNthLine);
+	void DrawSky_40950_TH(int16_t roll);
 	void DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __int16 yaw, signed int posZ, int pitch, int16_t roll, int fov);
 	void DrawSprite_41BD3(uint32 a1, uint8_t x_BYTE_E88E0x[], type_event_0x6E8E* x_DWORD_EA3E4[], type_str_unk_1804B0ar str_unk_1804B0ar, ViewPort viewPort, uint16_t pitch);
 	void DrawSquareInProjectionSpace(std::vector<int>& vertexs, int index, uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t pitch);

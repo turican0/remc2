@@ -177,7 +177,7 @@ void GameRender_new::DrawWorld(int posX, int posY, int16_t yaw, int16_t posZ, in
 			v51 = (signed int)(unsigned __int16)viewPort.Width_DE564 >> 2;
 			v49 = iScreenWidth_DE560 - (unsigned __int16)viewPort.Width_DE564;
 			v50 = (unsigned __int16)viewPort.Height_DE568;
-
+			
 			if (D41A0_0.m_GameSettings.m_Display.xxxx_0x2191 != 1)
 			{
 				v37 = (x_BYTE*)x_DWORD_E9C3C;
@@ -286,9 +286,9 @@ void GameRender_new::WriteWorldToBMP()
 	}
 
 	GetSubDirectoryPath(path, "BufferOut/PaletteOut.bmp");
-	BitmapIO::WritePaletteAsImageBMP(path, 256, m_ptrColorPalette);
+	BitmapIO::WritePaletteAsImageBMP(path, 256, *xadatapald0dat2.colorPallette_var28);
 	GetSubDirectoryPath(path, "BufferOut/BufferOut.bmp");
-	BitmapIO::WriteImageBufferAsImageBMP(path, screenWidth_18062C, screenHeight_180624, m_ptrColorPalette, pdwScreenBuffer_351628);
+	BitmapIO::WriteImageBufferAsImageBMP(path, screenWidth_18062C, screenHeight_180624, *xadatapald0dat2.colorPallette_var28, pdwScreenBuffer_351628);
 }
 
 void GameRender_new::ClearGraphicsBuffer(uint8_t colorIdx)
@@ -297,10 +297,10 @@ void GameRender_new::ClearGraphicsBuffer(uint8_t colorIdx)
 	{
 		colorIdx = 255;
 	}
-	memset32(pdwScreenBuffer_351628, colorIdx, screenWidth_18062C * screenWidth_18062C);
+	memset32(pdwScreenBuffer_351628, colorIdx, screenWidth_18062C * screenHeight_180624);
 }
 
-void GameRender_new::DrawSky_40950_TH(int16_t roll, uint8_t* ptrViewPortRenderBufferStart, uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t pitch)
+void GameRender_new::DrawSky_40950_TH(int16_t roll)
 {
 	if (m_renderThreads.size() > 0)
 	{
@@ -309,26 +309,26 @@ void GameRender_new::DrawSky_40950_TH(int16_t roll, uint8_t* ptrViewPortRenderBu
 
 		for (i = 0; i < m_renderThreads.size(); i++)
 		{
-			m_renderThreads[i]->Run([this, roll, ptrViewPortRenderBufferStart, viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine] {
-				this->DrawSky_40950(roll, ptrViewPortRenderBufferStart, viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
+			m_renderThreads[i]->Run([this, roll, i, drawEveryNthLine] {
+				this->DrawSky_40950(roll, i, drawEveryNthLine);
 			});
 		}
 
-		this->DrawSky_40950(roll, ptrViewPortRenderBufferStart, viewPortWidth, viewPortHeight, pitch, i, drawEveryNthLine);
+		this->DrawSky_40950(roll, i, drawEveryNthLine);
 
 		WaitForRenderFinish();
 
 	}
 	else
 	{
-		DrawSky_40950(roll, ptrViewPortRenderBufferStart, viewPortWidth, viewPortHeight, pitch, 0, 1);
+		DrawSky_40950(roll, 0, 1);
 	}
 }
 
 /*
 * Sky texture is currently 256x256
 */
-void GameRender_new::DrawSky_40950(int16_t roll, uint8_t* ptrViewPortRenderBufferStart, uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t pitch, uint8_t startLine, uint8_t drawEveryNthLine)
+void GameRender_new::DrawSky_40950(int16_t roll, uint8_t startLine, uint8_t drawEveryNthLine)
 {
 	if (drawEveryNthLine < 1)
 	{
@@ -356,16 +356,16 @@ void GameRender_new::DrawSky_40950(int16_t roll, uint8_t* ptrViewPortRenderBuffe
 
 	v1 = roll & 0x7FF;
 	v2 = (x_DWORD)Maths::x_DWORD_DB750[512 + v1] << 8;
-	v26 = (Maths::x_DWORD_DB750[v1] << 8) / viewPortWidth;
+	v26 = (Maths::x_DWORD_DB750[v1] << 8) / viewPort.Width_DE564;
 	v3 = 0;
-	v25 = v2 / viewPortWidth;
+	v25 = v2 / viewPort.Width_DE564;
 	v4 = 0;
 	v29 = 0;
 	v5 = v19ar;
 	v30 = 0;
 
 	// prepare sky texture lookup table
-	uint16_t width = viewPortWidth;
+	uint16_t width = viewPort.Width_DE564;
 	while (width)
 	{
 		v28 = BYTE2(v3);
@@ -384,14 +384,14 @@ void GameRender_new::DrawSky_40950(int16_t roll, uint8_t* ptrViewPortRenderBuffe
 	v9 = v7 * v25 - v8 * v26;
 	v10 = v25 * v8 + v26 * v7;
 	v23 = ((unsigned __int16)x_WORD_F2CC0 << 15) - v9;
-	uint8_t* viewPortRenderBufferStart = (ptrViewPortRenderBufferStart + (startLine * pitch));
+	uint8_t* viewPortRenderBufferStart = (ViewPortRenderBufferStart_DE558 + (startLine * iScreenWidth_DE560));
 	v27 = -v10;
-	uint16_t height = viewPortHeight;
+	uint16_t height = viewPort.Height_DE568;
 
 	v23 -= (v26 * startLine);
 	v27 += (v25 * startLine);
 
-	if (viewPortHeight)
+	if (viewPort.Height_DE568)
 	{
 		do
 		{
@@ -402,7 +402,7 @@ void GameRender_new::DrawSky_40950(int16_t roll, uint8_t* ptrViewPortRenderBuffe
 			v17 = (unsigned __int16)v17;
 
 			//Scales sky texture to viewport
-			int32_t width = viewPortWidth;
+			int32_t width = viewPort.Width_DE564;
 			do
 			{
 				*viewPortLineRenderBufferStart = off_D41A8_sky[v17];
@@ -413,7 +413,7 @@ void GameRender_new::DrawSky_40950(int16_t roll, uint8_t* ptrViewPortRenderBuffe
 				width--;
 			} while (width);
 
-			viewPortRenderBufferStart = viewPortRenderBufferStart + (pitch * drawEveryNthLine);
+			viewPortRenderBufferStart = viewPortRenderBufferStart + (iScreenWidth_DE560 * drawEveryNthLine);
 			height = Maths::SubtrackUntilZero(height, drawEveryNthLine);
 			v23 -= (v26 * drawEveryNthLine);
 			v27 += (v25 * drawEveryNthLine);
@@ -795,11 +795,11 @@ void GameRender_new::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, _
 	{
 		if (m_renderThreads.size() > 0)
 		{
-			DrawSky_40950_TH(roll, ViewPortRenderBufferStart_DE558, viewPort.Width_DE564, viewPort.Height_DE568, pitch);
+			DrawSky_40950_TH(roll);
 		}
 		else
 		{
-			DrawSky_40950(roll, ViewPortRenderBufferStart_DE558, viewPort.Width_DE564, viewPort.Height_DE568, pitch, 0, 1);
+			DrawSky_40950(roll, 0, 1);
 		}
 	}
 	if (isCaveLevel_D41B6)//21d3e3 cleaned screen

@@ -229,9 +229,6 @@ void GameRender_old::DrawWorld(int posX, int posY, int16_t yaw, int16_t posZ, in
 
 		DrawTerrainAndParticles_3C080(vPosX, vPosY, vYaw, posZ, pitch, roll, fov);
 
-		//22270D
-		//add_compare(0x22270D, debugafterload);
-
 		if (D41A0_0.m_GameSettings.str_0x2192.xxxx_0x2192)
 		{
 			v53 = ViewPortRenderBufferStart_DE558;
@@ -300,7 +297,7 @@ void GameRender_old::ClearGraphicsBuffer(uint8_t colorIdx)
 	{
 		colorIdx = 255;
 	}
-	memset32(pdwScreenBuffer_351628, colorIdx, iScreenWidth_DE560 * iScreenWidth_DE560);
+	memset32(pdwScreenBuffer_351628, colorIdx, screenWidth_18062C * screenHeight_180624);
 }
 
 void GameRender_old::DrawSky_40950_TH(int16_t roll/*, uint8_t* ViewPortRenderBufferStart_DE558, uint16_t viewPort.Width_DE564, uint16_t viewPort.Height_DE568, uint16_t iScreenWidth_DE560*/)
@@ -346,7 +343,6 @@ void GameRender_old::DrawSky_40950(int16_t roll/*, uint8_t* ViewPortRenderBuffer
 	int v3; // esi
 	int v4; // ebx
 	char* v5; // edx
-	int v6; // eax
 	int v7; // edx
 	int v8; // eax
 	int v9; // ecx
