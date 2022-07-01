@@ -126,7 +126,7 @@ public:
 	void SetRenderThreads(uint8_t renderThreads);
 	uint8_t GetRenderThreads();
 
-	void DrawWorld(int posX, int posY, int16_t yaw, int16_t posZ, int16_t pitch, int16_t roll, int16_t fov);
+	void DrawWorld_411A0(int posX, int posY, int16_t yaw, int16_t posZ, int16_t pitch, int16_t roll, int16_t fov);
 	void WriteWorldToBMP();
 	void ClearGraphicsBuffer(uint8_t colorIdx);
 };

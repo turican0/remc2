@@ -26,7 +26,7 @@ GameRender_new::~GameRender_new()
 	}
 }
 
-void GameRender_new::DrawWorld(int posX, int posY, int16_t yaw, int16_t posZ, int16_t pitch, int16_t roll, int16_t fov)
+void GameRender_new::DrawWorld_411A0(int posX, int posY, int16_t yaw, int16_t posZ, int16_t pitch, int16_t roll, int16_t fov)
 {
 	unsigned __int16 v8; // ax
 	int v9; // ecx
