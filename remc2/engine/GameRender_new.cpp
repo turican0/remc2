@@ -2523,7 +2523,7 @@ void GameRender_new::SetBillboards_3B560(int16_t roll)
 		//str_F2C20ar.dword0x1b = x_DWORD_DB750[v1];
 		//str_F2C20ar.dword0x1b = *(int32_t*)x_DWORD_DB750ar_ret(v1 * 4);//copy to other
 		str_F2C20ar.dword0x1b = Maths::x_DWORD_DB750[v1];
-
+		
 		v85 = iScreenWidth_DE560;
 		v94 = (unsigned __int16)viewPort.Height_DE568;
 		str_F2C20ar.dword0x1f = (str_F2C20ar.dword0x27 << 8) / (str_F2C20ar.dword0x1b >> 8);
@@ -2572,7 +2572,7 @@ void GameRender_new::SetBillboards_3B560(int16_t roll)
 		//str_F2C20ar.dword0x1b = x_DWORD_DB750[v1];
 		//str_F2C20ar.dword0x1b = *(int32_t*)x_DWORD_DB750ar_ret(v1 * 4);//copy to other
 		str_F2C20ar.dword0x1b = Maths::x_DWORD_DB750[v1];
-				
+		
 		v89 = iScreenWidth_DE560;
 		v96 = (unsigned __int16)viewPort.Width_DE564;
 		if (v1 == 768)
@@ -2913,7 +2913,7 @@ void GameRender_new::SetBillboards_3B560(int16_t roll)
 	//return result;
 }
 
-void GameRender_new::DrawSorcererNameAndHealthBar_2CB30(type_event_0x6E8E* a1x, uint8_t x_BYTE_E88E0x[], __int16 a2, int a3, __int16 a4, int16_t viewPortX, int16_t viewPortY, uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t iScreenWidth_DE560xx)
+void GameRender_new::DrawSorcererNameAndHealthBar_2CB30(type_event_0x6E8E* a1x, uint8_t x_BYTE_E88E0xxx[], __int16 a2, int a3, __int16 a4, int16_t viewPortXxx, int16_t viewPortYxx, uint16_t viewPortWidthxx, uint16_t viewPortHeightxx, uint16_t iScreenWidth_DE560xx)
 {
 	//char *v4; // edi
 	char* v5; // esi
@@ -2997,13 +2997,13 @@ void GameRender_new::DrawSorcererNameAndHealthBar_2CB30(type_event_0x6E8E* a1x, 
 		a3 *= 2;
 	}
 	//LOWORD(v9) = x_DWORD_EA3CC;
-	v11 = viewPortX + v10;
-	v12 = viewPortY + a3 - 20;
-	v39 = viewPortY + a3 - 20;
-	if (v11 >= viewPortX)
+	v11 = viewPort.PosX_EA3D0 + v10;
+	v12 = viewPort.PosY_EA3CC + a3 - 20;
+	v39 = viewPort.PosY_EA3CC + a3 - 20;
+	if (v11 >= viewPort.PosX_EA3D0)
 	{
 		//LOWORD(v9) = v12;
-		if ((signed __int16)v12 >= viewPortY && v11 < v31 && (signed __int16)v12 < v29)
+		if ((signed __int16)v12 >= viewPort.PosY_EA3CC && v11 < v31 && (signed __int16)v12 < v29)
 		{
 			v9x = strlen(v24);
 			v13 = 8 * v9x + 4;
@@ -3131,21 +3131,21 @@ void GameRender_new::DrawSquareInProjectionSpace(std::vector<int>& vertexs, int 
 
 			for (i = 0; i < m_renderThreads.size(); i++)
 			{
-				m_renderThreads[i]->Run([this, vertex0, vertex6, vertex12, vertex18/*, x_DWORD_DE55C_ActTexture, viewPortWidth, viewPortHeight, pitch*/, i, drawEveryNthLine] {
-					this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex12, &vertex0/*, x_DWORD_DE55C_ActTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch*/, i, drawEveryNthLine);
-					this->DrawTriangleInProjectionSpace_B6253(&vertex0, &vertex12, &vertex6/*, x_DWORD_DE55C_ActTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch*/, i, drawEveryNthLine);
+				m_renderThreads[i]->Run([this, vertex0, vertex6, vertex12, vertex18, i, drawEveryNthLine] {
+					this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex12, &vertex0, i, drawEveryNthLine);
+					this->DrawTriangleInProjectionSpace_B6253(&vertex0, &vertex12, &vertex6, i, drawEveryNthLine);
 				});
 			}
 
-			this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex12, &vertex0/*, x_DWORD_DE55C_ActTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch*/, i, drawEveryNthLine);
-			this->DrawTriangleInProjectionSpace_B6253(&vertex0, &vertex12, &vertex6/*, x_DWORD_DE55C_ActTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch*/, i, drawEveryNthLine);
+			this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex12, &vertex0, i, drawEveryNthLine);
+			this->DrawTriangleInProjectionSpace_B6253(&vertex0, &vertex12, &vertex6, i, drawEveryNthLine);
 
 			WaitForRenderFinish();
 		}
 		else
 		{
-			DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex12, &vertex0/*, x_DWORD_DE55C_ActTexture, unk_DE56Cx[0], viewPortWidth, viewPortHeight, pitch*/, 0, 1);
-			DrawTriangleInProjectionSpace_B6253(&vertex0, &vertex12, &vertex6/*, x_DWORD_DE55C_ActTexture, unk_DE56Cx[0], viewPortWidth, viewPortHeight, pitch*/, 0, 1);
+			DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex12, &vertex0, 0, 1);
+			DrawTriangleInProjectionSpace_B6253(&vertex0, &vertex12, &vertex6, 0, 1);
 		}
 	}
 	else
@@ -3156,21 +3156,21 @@ void GameRender_new::DrawSquareInProjectionSpace(std::vector<int>& vertexs, int 
 
 			for (i = 0; i < m_renderThreads.size(); i++)
 			{
-				m_renderThreads[i]->Run([this, vertex0, vertex6, vertex12, vertex18/*, pTexture, viewPortWidth, viewPortHeight*/, pitch, i, drawEveryNthLine] {
-					this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex12, &vertex6/*, pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch*/, i, drawEveryNthLine);
-					this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex6, &vertex0/*, pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch*/, i, drawEveryNthLine);
+				m_renderThreads[i]->Run([this, vertex0, vertex6, vertex12, vertex18, i, drawEveryNthLine] {
+					this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex12, &vertex6, i, drawEveryNthLine);
+					this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex6, &vertex0, i, drawEveryNthLine);
 				});
 			}
 
-			this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex12, &vertex6/*, pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch*/, i, drawEveryNthLine);
-			this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex6, &vertex0/*, pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch*/, i, drawEveryNthLine);
+			this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex12, &vertex6, i, drawEveryNthLine);
+			this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex6, &vertex0, i, drawEveryNthLine);
 
 			WaitForRenderFinish();
 		}
 		else
 		{
-			DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex12, &vertex6/*, pTexture, unk_DE56Cx[0], viewPortWidth, viewPortHeight, pitch */ , 0, 1);
-			DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex6, &vertex0/*, pTexture, unk_DE56Cx[0], viewPortWidth, viewPortHeight, pitch */ , 0, 1);
+			DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex12, &vertex6, 0, 1);
+			DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex6, &vertex0, 0, 1);
 		}
 	}
 }
@@ -3209,21 +3209,21 @@ void GameRender_new::DrawInverseSquareInProjectionSpace(int* vertexs, int index,
 
 			for (i = 0; i < m_renderThreads.size(); i++)
 			{
-				m_renderThreads[i]->Run([this, vertex0, vertex6, vertex12, vertex18/*, pTexture, viewPortWidth, viewPortHeight, pitch */ , i, drawEveryNthLine]{
-					this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex0, &vertex12/*, pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch*/, i, drawEveryNthLine);
-					this->DrawTriangleInProjectionSpace_B6253(&vertex0, &vertex6, &vertex12/*, pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch*/, i, drawEveryNthLine);
+				m_renderThreads[i]->Run([this, vertex0, vertex6, vertex12, vertex18, i, drawEveryNthLine] {
+					this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex0, &vertex12, i, drawEveryNthLine);
+					this->DrawTriangleInProjectionSpace_B6253(&vertex0, &vertex6, &vertex12, i, drawEveryNthLine);
 					});
 			}
 
-			this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex0, &vertex12/*, pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch*/, i, drawEveryNthLine);
-			this->DrawTriangleInProjectionSpace_B6253(&vertex0, &vertex6, &vertex12/*, pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch*/, i, drawEveryNthLine);
+			this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex0, &vertex12, i, drawEveryNthLine);
+			this->DrawTriangleInProjectionSpace_B6253(&vertex0, &vertex6, &vertex12, i, drawEveryNthLine);
 
 			WaitForRenderFinish();
 		}
 		else
 		{
-			DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex0, &vertex12/*, pTexture, unk_DE56Cx[0], viewPortWidth, viewPortHeight, pitch */ , 0, 1);
-			DrawTriangleInProjectionSpace_B6253(&vertex0, &vertex6, &vertex12/*, pTexture, unk_DE56Cx[0], viewPortWidth, viewPortHeight, pitch */ , 0, 1);
+			DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex0, &vertex12, 0, 1);
+			DrawTriangleInProjectionSpace_B6253(&vertex0, &vertex6, &vertex12, 0, 1);
 		}
 
 	}
@@ -3235,21 +3235,21 @@ void GameRender_new::DrawInverseSquareInProjectionSpace(int* vertexs, int index,
 
 			for (i = 0; i < m_renderThreads.size(); i++)
 			{
-				m_renderThreads[i]->Run([this, vertex0, vertex6, vertex12, vertex18/*, pTexture, viewPortWidth, viewPortHeight, pitch*/, i, drawEveryNthLine] {
-					this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex6, &vertex12/*, pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch*/, i, drawEveryNthLine);
-					this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex0, &vertex6/*, pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch*/, i, drawEveryNthLine);
+				m_renderThreads[i]->Run([this, vertex0, vertex6, vertex12, vertex18, i, drawEveryNthLine] {
+					this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex6, &vertex12, i, drawEveryNthLine);
+					this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex0, &vertex6, i, drawEveryNthLine);
 				});
 			}
 
-			this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex6, &vertex12/*, pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch */ , i, drawEveryNthLine);
-			this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex0, &vertex6/*, pTexture, unk_DE56Cx[i], viewPortWidth, viewPortHeight, pitch */ , i, drawEveryNthLine);
+			this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex6, &vertex12, i, drawEveryNthLine);
+			this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex0, &vertex6, i, drawEveryNthLine);
 
 			WaitForRenderFinish();
 		}
 		else
 		{
-			DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex6, &vertex12/*, pTexture, unk_DE56Cx[0], viewPortWidth, viewPortHeight, pitch */ , 0, 1);
-			DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex0, &vertex6/*, pTexture, unk_DE56Cx[0], viewPortWidth, viewPortHeight, pitch */ , 0, 1);
+			DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex6, &vertex12, 0, 1);
+			DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex0, &vertex6, 0, 1);
 		}
 	}
 }
@@ -5640,7 +5640,7 @@ void GameRender_new::DrawSprite_41BD3(uint32 a1)
 	}
 }
 
-void GameRender_new::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* vertex1, const ProjectionPolygon* vertex2, const ProjectionPolygon* vertex3/*, uint8_t* x_DWORD_DE55C_ActTexturexx, uint8_t unk_DE56Cxxx[], uint16_t viewPortWidth_DE564xx, uint16_t viewPortHeight_DE568xx, uint16_t iScreenWidth_DE560xx*/ , uint8_t startLine, uint8_t drawEveryNthLine)
+void GameRender_new::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* vertex1, const ProjectionPolygon* vertex2, const ProjectionPolygon* vertex3, uint8_t startLine, uint8_t drawEveryNthLine)
 {
 	uint8_t line1 = startLine;
 	uint8_t line2 = startLine;

@@ -309,30 +309,27 @@ void GameRender_old::DrawSky_40950_TH(int16_t roll)
 
 		for (i = 0; i < m_renderThreads.size(); i++)
 		{
-			m_renderThreads[i]->Run([this, roll]{
-				this->DrawSky_40950(roll);
+			m_renderThreads[i]->Run([this, roll, i, drawEveryNthLine] {
+				this->DrawSky_40950(roll, i, drawEveryNthLine);
 			});
 		}
 
-		this->DrawSky_40950(roll);
+		this->DrawSky_40950(roll, i, drawEveryNthLine);
 
 		WaitForRenderFinish();
 
 	}
 	else
 	{
-		DrawSky_40950(roll);
+		DrawSky_40950(roll, 0, 1);
 	}
 }
 
 /*
 * Sky texture is currently 256x256
 */
-void GameRender_old::DrawSky_40950(int16_t roll)
+void GameRender_old::DrawSky_40950(int16_t roll, uint8_t startLine, uint8_t drawEveryNthLine)
 {
-	int startLine = 0;//stub!!!!!!!!!!!!!!!!!!
-	int drawEveryNthLine = 0;//stub!!!!!!!!!!!!!!!!!!
-
 	if (drawEveryNthLine < 1)
 	{
 		drawEveryNthLine = 1;
@@ -802,7 +799,7 @@ void GameRender_old::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, _
 		}
 		else
 		{
-			DrawSky_40950(roll);
+			DrawSky_40950(roll, 0, 1);
 		}
 	}
 	if (isCaveLevel_D41B6)//21d3e3 cleaned screen
@@ -2526,7 +2523,7 @@ void GameRender_old::SetBillboards_3B560(int16_t roll/*, uint8_t unk_F0A20x[], u
 		//str_F2C20ar.dword0x1b = x_DWORD_DB750[v1];
 		//str_F2C20ar.dword0x1b = *(int32_t*)x_DWORD_DB750ar_ret(v1 * 4);//copy to other
 		str_F2C20ar.dword0x1b = Maths::x_DWORD_DB750[v1];
-
+		
 		v85 = iScreenWidth_DE560;
 		v94 = (unsigned __int16)viewPort.Height_DE568;
 		str_F2C20ar.dword0x1f = (str_F2C20ar.dword0x27 << 8) / (str_F2C20ar.dword0x1b >> 8);
@@ -2575,7 +2572,7 @@ void GameRender_old::SetBillboards_3B560(int16_t roll/*, uint8_t unk_F0A20x[], u
 		//str_F2C20ar.dword0x1b = x_DWORD_DB750[v1];
 		//str_F2C20ar.dword0x1b = *(int32_t*)x_DWORD_DB750ar_ret(v1 * 4);//copy to other
 		str_F2C20ar.dword0x1b = Maths::x_DWORD_DB750[v1];
-
+		
 		v89 = iScreenWidth_DE560;
 		v96 = (unsigned __int16)viewPort.Width_DE564;
 		if (v1 == 768)
@@ -2916,7 +2913,7 @@ void GameRender_old::SetBillboards_3B560(int16_t roll/*, uint8_t unk_F0A20x[], u
 	//return result;
 }
 
-void GameRender_old::DrawSorcererNameAndHealthBar_2CB30(type_event_0x6E8E* a1x, uint8_t x_BYTE_E88E0x[], __int16 a2, int a3, __int16 a4, int16_t viewPortX, int16_t viewPortY, uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t iScreenWidth_DE560xx)
+void GameRender_old::DrawSorcererNameAndHealthBar_2CB30(type_event_0x6E8E* a1x, uint8_t x_BYTE_E88E0xxx[], __int16 a2, int a3, __int16 a4, int16_t viewPortXxx, int16_t viewPortYxx, uint16_t viewPortWidthxx, uint16_t viewPortHeightxx, uint16_t iScreenWidth_DE560xx)
 {
 	//char *v4; // edi
 	char* v5; // esi
@@ -2966,8 +2963,8 @@ void GameRender_old::DrawSorcererNameAndHealthBar_2CB30(type_event_0x6E8E* a1x, 
 	v23 = 0;*/
 	// end
 
-	v31 = viewPort.Width_DE564 + viewPortX - 4;
-	v29 = viewPort.Height_DE568 + viewPortY - 22;
+	v31 = viewPort.Width2_EA3C4 + viewPort.PosX_EA3D0 - 4;
+	v29 = viewPort.Height2_EA3C0 + viewPort.PosY_EA3CC - 22;
 	v25 = a1x->dword_0xA4_164x->word_0x38_56;
 	//v4 = v24;
 	//D41A0_BYTESTR_0.array_0x2BDE[v25].array_0x39f_2BFA_12157
@@ -3000,13 +2997,13 @@ void GameRender_old::DrawSorcererNameAndHealthBar_2CB30(type_event_0x6E8E* a1x, 
 		a3 *= 2;
 	}
 	//LOWORD(v9) = x_DWORD_EA3CC;
-	v11 = viewPortX + v10;
-	v12 = viewPortY + a3 - 20;
-	v39 = viewPortY + a3 - 20;
-	if (v11 >= viewPortX)
+	v11 = viewPort.PosX_EA3D0 + v10;
+	v12 = viewPort.PosY_EA3CC + a3 - 20;
+	v39 = viewPort.PosY_EA3CC + a3 - 20;
+	if (v11 >= viewPort.PosX_EA3D0)
 	{
 		//LOWORD(v9) = v12;
-		if ((signed __int16)v12 >= viewPortY && v11 < v31 && (signed __int16)v12 < v29)
+		if ((signed __int16)v12 >= viewPort.PosY_EA3CC && v11 < v31 && (signed __int16)v12 < v29)
 		{
 			v9x = strlen(v24);
 			v13 = 8 * v9x + 4;
@@ -3134,21 +3131,21 @@ void GameRender_old::DrawSquareInProjectionSpace(std::vector<int>& vertexs, int 
 
 			for (i = 0; i < m_renderThreads.size(); i++)
 			{
-				m_renderThreads[i]->Run([this, vertex0, vertex6, vertex12, vertex18/*, x_DWORD_DE55C_ActTexture, viewPort.Width_DE564, viewPort.Height_DE568, iScreenWidth_DE560, i, drawEveryNthLine*/]{
-					this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex12, &vertex0/*, x_DWORD_DE55C_ActTexture, unk_DE56Cx[i], viewPort.Width_DE564, viewPort.Height_DE568, iScreenWidth_DE560, i, drawEveryNthLine*/);
-					this->DrawTriangleInProjectionSpace_B6253(&vertex0, &vertex12, &vertex6/*, x_DWORD_DE55C_ActTexture, unk_DE56Cx[i], viewPort.Width_DE564, viewPort.Height_DE568, iScreenWidth_DE560, i, drawEveryNthLine*/);
+				m_renderThreads[i]->Run([this, vertex0, vertex6, vertex12, vertex18, i, drawEveryNthLine] {
+					this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex12, &vertex0, i, drawEveryNthLine);
+					this->DrawTriangleInProjectionSpace_B6253(&vertex0, &vertex12, &vertex6, i, drawEveryNthLine);
 				});
 			}
 
-			this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex12, &vertex0/*, x_DWORD_DE55C_ActTexture, unk_DE56Cx[i], viewPort.Width_DE564, viewPort.Height_DE568, iScreenWidth_DE560, i, drawEveryNthLine*/);
-			this->DrawTriangleInProjectionSpace_B6253(&vertex0, &vertex12, &vertex6/*, x_DWORD_DE55C_ActTexture, unk_DE56Cx[i], viewPort.Width_DE564, viewPort.Height_DE568, iScreenWidth_DE560, i, drawEveryNthLine*/);
+			this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex12, &vertex0, i, drawEveryNthLine);
+			this->DrawTriangleInProjectionSpace_B6253(&vertex0, &vertex12, &vertex6, i, drawEveryNthLine);
 
 			WaitForRenderFinish();
 		}
 		else
 		{
-			DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex12, &vertex0/*, x_DWORD_DE55C_ActTexture, unk_DE56Cx[0], viewPort.Width_DE564, viewPort.Height_DE568, iScreenWidth_DE560, 0, 1*/);
-			DrawTriangleInProjectionSpace_B6253(&vertex0, &vertex12, &vertex6/*, x_DWORD_DE55C_ActTexture, unk_DE56Cx[0], viewPort.Width_DE564, viewPort.Height_DE568, iScreenWidth_DE560, 0, 1*/);
+			DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex12, &vertex0, 0, 1);
+			DrawTriangleInProjectionSpace_B6253(&vertex0, &vertex12, &vertex6, 0, 1);
 		}
 	}
 	else
@@ -3159,21 +3156,21 @@ void GameRender_old::DrawSquareInProjectionSpace(std::vector<int>& vertexs, int 
 
 			for (i = 0; i < m_renderThreads.size(); i++)
 			{
-				m_renderThreads[i]->Run([this, vertex0, vertex6, vertex12, vertex18/*, x_DWORD_DE55C_ActTexture, viewPort.Width_DE564, viewPort.Height_DE568, iScreenWidth_DE560, i, drawEveryNthLine*/]{
-					this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex12, &vertex6/*, x_DWORD_DE55C_ActTexture, unk_DE56Cx[i], viewPort.Width_DE564, viewPort.Height_DE568, iScreenWidth_DE560, i, drawEveryNthLine*/);
-					this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex6, &vertex0/*, x_DWORD_DE55C_ActTexture, unk_DE56Cx[i], viewPort.Width_DE564, viewPort.Height_DE568, iScreenWidth_DE560, i, drawEveryNthLine*/);
+				m_renderThreads[i]->Run([this, vertex0, vertex6, vertex12, vertex18, i, drawEveryNthLine] {
+					this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex12, &vertex6, i, drawEveryNthLine);
+					this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex6, &vertex0, i, drawEveryNthLine);
 				});
 			}
 
-			this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex12, &vertex6/*, x_DWORD_DE55C_ActTexture, unk_DE56Cx[i], viewPort.Width_DE564, viewPort.Height_DE568, iScreenWidth_DE560, i, drawEveryNthLine*/);
-			this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex6, &vertex0/*, x_DWORD_DE55C_ActTexture, unk_DE56Cx[i], viewPort.Width_DE564, viewPort.Height_DE568, iScreenWidth_DE560, i, drawEveryNthLine*/);
+			this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex12, &vertex6, i, drawEveryNthLine);
+			this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex6, &vertex0, i, drawEveryNthLine);
 
 			WaitForRenderFinish();
 		}
 		else
 		{
-			DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex12, &vertex6/*, x_DWORD_DE55C_ActTexture, unk_DE56Cx[0], viewPort.Width_DE564, viewPort.Height_DE568, iScreenWidth_DE560, 0, 1*/);
-			DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex6, &vertex0/*, x_DWORD_DE55C_ActTexture, unk_DE56Cx[0], viewPort.Width_DE564, viewPort.Height_DE568, iScreenWidth_DE560, 0, 1*/);
+			DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex12, &vertex6, 0, 1);
+			DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex6, &vertex0, 0, 1);
 		}
 	}
 }
@@ -3212,21 +3209,21 @@ void GameRender_old::DrawInverseSquareInProjectionSpace(int* vertexs, int index,
 
 			for (i = 0; i < m_renderThreads.size(); i++)
 			{
-				m_renderThreads[i]->Run([this, vertex0, vertex6, vertex12, vertex18/*, x_DWORD_DE55C_ActTexture, viewPort.Width_DE564, viewPort.Height_DE568, iScreenWidth_DE560, i, drawEveryNthLine*/]{
-					this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex0, &vertex12/*, x_DWORD_DE55C_ActTexture, unk_DE56Cx[i], viewPort.Width_DE564, viewPort.Height_DE568, iScreenWidth_DE560, i, drawEveryNthLine*/);
-					this->DrawTriangleInProjectionSpace_B6253(&vertex0, &vertex6, &vertex12/*, x_DWORD_DE55C_ActTexture, unk_DE56Cx[i], viewPort.Width_DE564, viewPort.Height_DE568, iScreenWidth_DE560, i, drawEveryNthLine*/);
+				m_renderThreads[i]->Run([this, vertex0, vertex6, vertex12, vertex18, i, drawEveryNthLine] {
+					this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex0, &vertex12, i, drawEveryNthLine);
+					this->DrawTriangleInProjectionSpace_B6253(&vertex0, &vertex6, &vertex12, i, drawEveryNthLine);
 					});
 			}
 
-			this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex0, &vertex12/*, x_DWORD_DE55C_ActTexture, unk_DE56Cx[i], viewPort.Width_DE564, viewPort.Height_DE568, iScreenWidth_DE560, i, drawEveryNthLine*/);
-			this->DrawTriangleInProjectionSpace_B6253(&vertex0, &vertex6, &vertex12/*, x_DWORD_DE55C_ActTexture, unk_DE56Cx[i], viewPort.Width_DE564, viewPort.Height_DE568, iScreenWidth_DE560, i, drawEveryNthLine*/);
+			this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex0, &vertex12, i, drawEveryNthLine);
+			this->DrawTriangleInProjectionSpace_B6253(&vertex0, &vertex6, &vertex12, i, drawEveryNthLine);
 
 			WaitForRenderFinish();
 		}
 		else
 		{
-			DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex0, &vertex12/*, x_DWORD_DE55C_ActTexture, unk_DE56Cx[0], viewPort.Width_DE564, viewPort.Height_DE568, iScreenWidth_DE560, 0, 1*/);
-			DrawTriangleInProjectionSpace_B6253(&vertex0, &vertex6, &vertex12/*, x_DWORD_DE55C_ActTexture, unk_DE56Cx[0], viewPort.Width_DE564, viewPort.Height_DE568, iScreenWidth_DE560, 0, 1*/);
+			DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex0, &vertex12, 0, 1);
+			DrawTriangleInProjectionSpace_B6253(&vertex0, &vertex6, &vertex12, 0, 1);
 		}
 
 	}
@@ -3238,21 +3235,21 @@ void GameRender_old::DrawInverseSquareInProjectionSpace(int* vertexs, int index,
 
 			for (i = 0; i < m_renderThreads.size(); i++)
 			{
-				m_renderThreads[i]->Run([this, vertex0, vertex6, vertex12, vertex18/*, x_DWORD_DE55C_ActTexture, viewPort.Width_DE564, viewPort.Height_DE568, iScreenWidth_DE560, i, drawEveryNthLine*/] {
-					this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex6, &vertex12/*, x_DWORD_DE55C_ActTexture, unk_DE56Cx[i], viewPort.Width_DE564, viewPort.Height_DE568, iScreenWidth_DE560, i, drawEveryNthLine*/);
-					this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex0, &vertex6/*, x_DWORD_DE55C_ActTexture, unk_DE56Cx[i], viewPort.Width_DE564, viewPort.Height_DE568, iScreenWidth_DE560, i, drawEveryNthLine*/);
+				m_renderThreads[i]->Run([this, vertex0, vertex6, vertex12, vertex18, i, drawEveryNthLine] {
+					this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex6, &vertex12, i, drawEveryNthLine);
+					this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex0, &vertex6, i, drawEveryNthLine);
 				});
 			}
 
-			this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex6, &vertex12/*, x_DWORD_DE55C_ActTexture, unk_DE56Cx[i], viewPort.Width_DE564, viewPort.Height_DE568, iScreenWidth_DE560, i, drawEveryNthLine*/);
-			this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex0, &vertex6/*, x_DWORD_DE55C_ActTexture, unk_DE56Cx[i], viewPort.Width_DE564, viewPort.Height_DE568, iScreenWidth_DE560, i, drawEveryNthLine*/);
+			this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex6, &vertex12, i, drawEveryNthLine);
+			this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex0, &vertex6, i, drawEveryNthLine);
 
 			WaitForRenderFinish();
 		}
 		else
 		{
-			DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex6, &vertex12/*, x_DWORD_DE55C_ActTexture, unk_DE56Cx[0], viewPort.Width_DE564, viewPort.Height_DE568, iScreenWidth_DE560, 0, 1*/);
-			DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex0, &vertex6/*, x_DWORD_DE55C_ActTexture, unk_DE56Cx[0], viewPort.Width_DE564, viewPort.Height_DE568, iScreenWidth_DE560, 0, 1*/);
+			DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex6, &vertex12, 0, 1);
+			DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex0, &vertex6, 0, 1);
 		}
 	}
 }
@@ -5643,11 +5640,8 @@ void GameRender_old::DrawSprite_41BD3(uint32 a1)
 	}
 }
 
-void GameRender_old::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* vertex1, const ProjectionPolygon* vertex2, const ProjectionPolygon* vertex3/*, uint8_t* x_DWORD_DE55C_ActTexture, uint8_t unk_DE56Cx[], uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t iScreenWidth_DE560, uint8_t startLine, uint8_t drawEveryNthLine*/)
+void GameRender_old::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* vertex1, const ProjectionPolygon* vertex2, const ProjectionPolygon* vertex3, uint8_t startLine, uint8_t drawEveryNthLine)
 {
-	int startLine = 0;//stub!!!!!!!!!!!!!!!!!!
-	int drawEveryNthLine = 0;//stub!!!!!!!!!!!!!!!!!!
-
 	uint8_t line1 = startLine;
 	uint8_t line2 = startLine;
 	uint8_t line3 = startLine;
