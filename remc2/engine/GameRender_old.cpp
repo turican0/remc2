@@ -14972,8 +14972,5 @@ uint8_t GameRender_old::GetRenderThreads()
 
 void GameRender_old::SetRenderViewPortSize_BCD45(ViewPort viewPort, uint16_t screenWidth, uint16_t screenHeight)
 {
-};
-
-void GameRender_old::SetRenderViewPortSize_40C50(uint8_t viewPortSizeSetting, uint16_t screenWidth, uint16_t screenHeight)
-{
+	allert_error();
 };

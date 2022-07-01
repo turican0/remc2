@@ -59,7 +59,7 @@ private:
 	//uint8_t* m_ptrScreenBuffer = nullptr;
 	//uint8_t* m_ptrX_BYTE_F6EE0_tablesx = nullptr;
 	//uint8_t m_uiScreenSize = 0;
-	uint8_t* m_ptrViewPortRenderBufferStart_DE558 = nullptr;
+	//uint8_t* m_ptrViewPortRenderBufferStart_DE558 = nullptr;
 	uint8_t* m_ptrViewPortRenderBufferAltStart_DE554 = nullptr;
 	//ViewPort m_viewPort;
 	//uint16_t m_uiScreenWidth_DE560 = 0;
@@ -127,7 +127,7 @@ public:
 	void SetRenderViewPortSize_40C50(uint8_t viewPortSizeSetting);
 	void SetRenderViewPortSize_BCD45(uint8_t* ptrScreenBufferStart, uint16_t screenWidth, uint16_t viewPortWidth, uint16_t viewPortHeight/*, uint16_t screenWidth*/);
 	void SetRenderViewPortSize_BCD45(ViewPort viewPort, uint16_t screenWidth, uint16_t screenHeight);
-	void SetRenderViewPortSize_40C50(uint8_t viewPortSizeSetting, uint16_t screenWidth, uint16_t screenHeight);
+	//void SetRenderViewPortSize_40C50(uint8_t viewPortSizeSetting, uint16_t screenWidth, uint16_t screenHeight);
 	void SetRenderThreads(uint8_t renderThreads);
 	uint8_t GetRenderThreads();
 
