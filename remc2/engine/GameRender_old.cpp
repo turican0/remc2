@@ -278,77 +278,35 @@ GameRender_old::~GameRender_old()
 	}
 }
 
-void GameRender_old::WriteWorldToBMP()
-{
-	char path[MAX_PATH];
-	GetSubDirectoryPath(path, "BufferOut");
-	if (myaccess(path, 0) < 0)
-	{
-		mymkdir(path);
-	}
-
-	GetSubDirectoryPath(path, "BufferOut/PaletteOut.bmp");
-	BitmapIO::WritePaletteAsImageBMP(path, 256, *xadatapald0dat2.colorPallette_var28);
-	GetSubDirectoryPath(path, "BufferOut/BufferOut.bmp");
-	BitmapIO::WriteImageBufferAsImageBMP(path, screenWidth_18062C, screenHeight_180624, *xadatapald0dat2.colorPallette_var28, pdwScreenBuffer_351628);
-}
-
-void GameRender_old::ClearGraphicsBuffer(uint8_t colorIdx)
-{
-	if (colorIdx > 255)
-	{
-		colorIdx = 255;
-	}
-	memset32(pdwScreenBuffer_351628, colorIdx, screenWidth_18062C * screenHeight_180624);
-}
-
-void GameRender_old::DrawSky_40950_TH(int16_t roll)
-{
-	if (m_renderThreads.size() > 0)
-	{
-		uint8_t drawEveryNthLine = m_renderThreads.size() + 1;
-		uint8_t i = 0;
-
-		for (i = 0; i < m_renderThreads.size(); i++)
-		{
-			m_renderThreads[i]->Run([this, roll, i, drawEveryNthLine] {
-				this->DrawSky_40950(roll, i, drawEveryNthLine);
-			});
-		}
-
-		this->DrawSky_40950(roll, i, drawEveryNthLine);
-
-		WaitForRenderFinish();
-
-	}
-	else
-	{
-		DrawSky_40950(roll, 0, 1);
-	}
-}
-
 /*
 * Sky texture is currently 256x256
 */
-void GameRender_old::DrawSky_40950(int16_t roll, uint8_t startLine, uint8_t drawEveryNthLine)
+/* ---- */void GameRender_old::DrawSky_40950(int16_t roll/*, uint8_t startLine, uint8_t drawEveryNthLine*/)
 {
-	if (drawEveryNthLine < 1)
-	{
-		drawEveryNthLine = 1;
-	}
-
 	int v1; // ebx
 	int v2; // edx
 	int v3; // esi
 	int v4; // ebx
 	char* v5; // edx
+	int v6; // eax
 	int v7; // edx
 	int v8; // eax
 	int v9; // ecx
 	int v10; // edx
+	__int16 result; // ax
+	int v12; // eax
+	char* v13; // esi
+	int* v14; // edi
+	uint8_t* v15; // edx
+	int v16; // ecx
 	int v17; // ebx
-	char v19ar[3840]; // [esp+0h] [ebp-52Ch]
+	int v18; // eax
+	char v19ar[0x500]; // [esp+0h] [ebp-52Ch]
+	int v20; // [esp+500h] [ebp-2Ch]
+	int v21; // [esp+504h] [ebp-28h]
+	int* v22; // [esp+508h] [ebp-24h]
 	int v23; // [esp+50Ch] [ebp-20h]
+	int v24; // [esp+510h] [ebp-1Ch]
 	int v25; // [esp+514h] [ebp-18h]
 	int v26; // [esp+518h] [ebp-14h]
 	int v27; // [esp+51Ch] [ebp-10h]
@@ -357,73 +315,87 @@ void GameRender_old::DrawSky_40950(int16_t roll, uint8_t startLine, uint8_t draw
 	unsigned __int8 v30; // [esp+528h] [ebp-4h]
 
 	v1 = roll & 0x7FF;
-	v2 = (x_DWORD)Maths::x_DWORD_DB750[512 + v1] << 8;
-	v26 = (Maths::x_DWORD_DB750[v1] << 8) / viewPort.Width_DE564;
+	v2 = (x_DWORD)Maths::x_DWORD_DB750[0x200 + v1] << 8;
+	v26 = (Maths::x_DWORD_DB750[v1] << 8) / (unsigned __int16)viewPort.Width_DE564;
 	v3 = 0;
-	v25 = v2 / viewPort.Width_DE564;
+	v25 = v2 / (unsigned __int16)viewPort.Width_DE564;
 	v4 = 0;
 	v29 = 0;
 	v5 = v19ar;
 	v30 = 0;
-
-	// prepare sky texture lookup table
-	uint16_t width = viewPort.Width_DE564;
-	while (width)
+	v6 = (unsigned __int16)viewPort.Width_DE564;
+	while (v6)
 	{
 		v28 = BYTE2(v3);
 		*v5 = BYTE2(v3) - v29;
+		v21 = BYTE2(v4);
+		v20 = BYTE2(v4) - v30;
 		v5 += 2;
-		width--;
+		v6--;
 		*(v5 - 1) = BYTE2(v4) - v30;
 		v29 = v28;
 		v30 = BYTE2(v4);
 		v4 += v26;
 		v3 += v25;
 	}
-
 	v7 = (-(str_F2C20ar.dword0x0d * str_F2C20ar.dword0x22) >> 16) + str_F2C20ar.dword0x24;
 	v8 = str_F2C20ar.dword0x10 - (str_F2C20ar.dword0x11 * str_F2C20ar.dword0x22 >> 16);
 	v9 = v7 * v25 - v8 * v26;
 	v10 = v25 * v8 + v26 * v7;
 	v23 = ((unsigned __int16)x_WORD_F2CC0 << 15) - v9;
-	uint8_t* viewPortRenderBufferStart = (ViewPortRenderBufferStart_DE558 + (startLine * iScreenWidth_DE560));
+	v22 = (int*)ViewPortRenderBufferStart_DE558;
+	result = viewPort.Height_DE568;
 	v27 = -v10;
-	uint16_t height = viewPort.Height_DE568;
-
-	v23 -= (v26 * startLine);
-	v27 += (v25 * startLine);
-
-	if (viewPort.Height_DE568)
+	v24 = (unsigned __int16)viewPort.Height_DE568;
+	if ((x_WORD)viewPort.Height_DE568)
 	{
 		do
 		{
-			v5 = v19ar;
-			uint8_t* viewPortLineRenderBufferStart = viewPortRenderBufferStart;
+			v12 = ((unsigned __int16)viewPort.Width_DE564
+				- (__CFSHL__((signed int)(unsigned __int16)viewPort.Width_DE564 >> 31, 2)
+					+ 4 * ((signed int)(unsigned __int16)viewPort.Width_DE564 >> 31))) >> 2;
+			v13 = v19ar;
+			v20 = v27 >> 16;
+			v14 = v22;
+			v21 = v23 >> 16;
+			v15 = off_D41A8_sky;
 			BYTE1(v17) = BYTE2(v27);
+			v16 = ((unsigned __int16)viewPort.Width_DE564
+				- (__CFSHL__((signed int)(unsigned __int16)viewPort.Width_DE564 >> 31, 2)
+					+ 4 * ((signed int)(unsigned __int16)viewPort.Width_DE564 >> 31))) >> 2;
 			LOBYTE(v17) = BYTE2(v23);
 			v17 = (unsigned __int16)v17;
-
-			//Scales sky texture to viewport
-			int32_t width = viewPort.Width_DE564;
 			do
 			{
-				*viewPortLineRenderBufferStart = off_D41A8_sky[v17];
-				LOBYTE(v17) = v5[0] + v17;
-				BYTE1(v17) += v5[1];
-				viewPortLineRenderBufferStart++;
-				v5 += 2;
-				width--;
-			} while (width);
-
-			viewPortRenderBufferStart = viewPortRenderBufferStart + (iScreenWidth_DE560 * drawEveryNthLine);
-			height = Maths::SubtrackUntilZero(height, drawEveryNthLine);
-			v23 -= (v26 * drawEveryNthLine);
-			v27 += (v25 * drawEveryNthLine);
-		} while (height);
+				LOBYTE(v12) = v15[v17];
+				LOBYTE(v17) = *v13 + v17;
+				BYTE1(v17) += v13[1];
+				BYTE1(v12) = v15[v17];
+				LOBYTE(v17) = v13[2] + v17;
+				BYTE1(v17) += v13[3];
+				v18 = v12 << 16;
+				LOBYTE(v18) = v15[v17];
+				LOBYTE(v17) = v13[4] + v17;
+				BYTE1(v17) += v13[5];
+				BYTE1(v18) = v15[v17];
+				LOBYTE(v17) = v13[6] + v17;
+				BYTE1(v17) += v13[7];
+				v12 = __ROL4__(v18, 16);
+				*v14 = v12;
+				v14++;
+				v13 += 8;
+				v16--;
+			} while (v16);
+			v22 = (int*)((char*)v22 + iScreenWidth_DE560);
+			result = v25;
+			v24--;
+			v23 -= v26;
+			v27 += v25;
+		} while (v24);
 	}
 }
 
-void GameRender_old::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __int16 yaw, signed int posZ, int pitch, int16_t roll, int fov)
+/* ---- */void GameRender_old::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __int16 yaw, signed int posZ, int pitch, int16_t roll, int fov)
 {
 	int v9; // eax
 	int v10; // edx
@@ -431,16 +403,20 @@ void GameRender_old::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, _
 	int v12; // edx
 	int v13; // edi
 	char v14; // dh
+	//uint8_t* v15; // eax
 	int v15x;
 	char v16; // dl
 	char v17; // dl
+	//x_DWORD* v18; // eax
 	int v18x;
 	char v19; // dh
 	int v20; // ebx
-	int v21; // ecx
+	//int v21; // ecx
 	char v22; // ch
 	int v23; // eax
+	//int v24; // edx
 	uint8_t* v25x; // edi
+	//uint32_t* v25y; // edi
 	int v25z;
 	unsigned __int16 v26; // dx
 	int v27; // ebx
@@ -457,12 +433,13 @@ void GameRender_old::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, _
 	__int16 v38; // ax
 	int v39; // eax
 	int v40; // edi
-	int v41x; // edx
+	//uint8_t* v41; // edx
 	unsigned __int16 v42; // bx
-	int v43x;
+	//uint8_t* v43; // edx
 	uint8_t* v44; // eax
 	char v45; // bh
 	signed int v46; // edx
+	//uint8_t* v47; // eax
 	int v47x;
 	int v48; // esi
 	int v49; // ecx
@@ -472,22 +449,28 @@ void GameRender_old::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, _
 	int v53; // ebx
 	signed int v54; // esi
 	signed int v55; // esi
+	//uint8_t* v56; // eax
 	int v56x;
+	//int v56b; // eax
+	//uint8_t* v57; // esi
 	int v57x;
 	char v58; // ah
+	//uint8_t* j; // ebx
 	int jx;
 	char v60; // dl
-	char v61; // dh
+	//char v61; // dh
 	char v62; // ch
 	char v63; // ah
 	char v64; // dl
 	char v65; // dh
 	char v66; // ch
 	char v67; // dl
-	int v68x;
-	int v69; // eax
+	//uint8_t* v68; // ebx
+	//int v68x;
+	//int v69; // eax
+	//int* v70; // edx
 	char v71; // dl
-	char v72; // dh
+	//char v72; // dh
 	char v73; // ch
 	char v74; // ah
 	char v75; // dl
@@ -495,47 +478,58 @@ void GameRender_old::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, _
 	char v77; // ch
 	char v78; // dl
 	char v79; // dh
-	int v80x;
+	//uint8_t* v80; // ebx
+	//int v80x;
+	//int* v81; // edx
+	//uint8_t* v82; // edi
 	int v82x;
+	//uint8_t* v83; // ebx
 	int v83x;
 	char v84; // dl
 	char v85; // cl
-	char v86; // dh
+	//char v86; // dh
 	char v87; // al
 	char v88; // dl
 	char v89; // dh
-	int v90; // eax
-	int v91x; // ebx
+	//int v90; // eax
+	//uint8_t* v91; // ebx
+	//int v91x;
 	char v92; // cl
 	char v93; // dl
-	int v94x;
+	//uint8_t* v94; // ebx
+	//int v94x;
+	//int* v95; // edx
 	char v96; // al
 	char v97; // dl
-	char v98; // dh
+	//char v98; // dh
 	char v99; // ah
 	char v100; // dl
 	char v101; // dh
 	char v102; // ch
-	int v103; // eax
-	int v104x;
+	//int v103; // eax
+	//uint8_t* v104; // ebx
+	//int v104x;
 	char v105; // dl
 	char v106; // dh
-	int v107x;
+	//uint8_t* v107; // ebx
+	//int v107x;
+	//int* v108; // edx
 	signed int v109; // esi
 	int v110; // ebx
 	unsigned __int16 v111; // dx
 	__int16 v112; // ax
 	int v113; // eax
-	int v114x;
-	signed int v115; // edx
+	//x_DWORD* v114; // ecx
+	//signed int v115; // edx
 	int v116; // eax
-	int v117x;
+	//uint8_t* v117; // edx
 	unsigned __int16 v118; // bx
 	unsigned __int8 v119; // al
-	int v120x;
+	//uint8_t* v120; // edx
 	uint8_t* v121; // eax
 	char v122; // bh
 	signed int v123; // ebx
+	//uint8_t* v124; // eax
 	int v124x;
 	int v125; // esi
 	int v126; // ecx
@@ -545,64 +539,85 @@ void GameRender_old::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, _
 	int v130; // edx
 	signed int v131; // esi
 	signed int v132; // esi
+	//uint8_t* v133; // esi
 	int v133x;
+	//uint8_t* v134; // ebx
 	int v134x;
-	int v135; // eax
+	//int v135; // eax
 	char v136; // dl
 	char v137; // ch
 	char v138; // dl
-	int v139; // eax
-	int v140x;
-	int v141; // eax
+	//int v139; // eax
+	//uint8_t* v140; // ebx
+	//int v140x;
+	//int v141; // eax
 	char v142; // ch
-	int v143x;
+	//uint8_t* v143; // ebx
+	//int v143x;
 	char v144; // dl
-	int v145; // eax
+	//int v145; // eax
+	//int* v146; // edx
+	//uint8_t* v147; // ebx
 	int v147x;
 	char v148; // dl
 	char v149; // dl
-	int v150; // eax
-	int v151x;
-	int v152; // eax
+	//int v150; // eax
+	//uint8_t* v151; // ebx
+	//int v151x;
+	//int v152; // eax
 	char v153; // cl
-	int v154; // eax
-	int v155x;
+	//int v154; // eax
+	//uint8_t* v155; // ebx
+	//int v155x;
 	char v156; // dl
-	int v157; // eax
-	int v159; // eax
-	int v160;
-	int v161;
-	int v162; // eax
+	//int v157; // eax
+	//int* v158; // edx
+	//int v159; // eax
+	//uint8_t* v160; // esi
+	int v160x;
+	//uint8_t* v161; // ebx
+	int v161x;
+	//int v162; // eax
 	char v163; // dl
-	char v164; // dh
+	//char v164; // dh
 	char v165; // ah
 	char v166; // dl
 	char v167; // dh
-	int v168; // eax
-	int v169x;
+	//int v168; // eax
+	//uint8_t* v169; // ebx
+	//int v169x;
 	char v170; // ch
-	int v171; // eax
-	int v172x;
+	//int v171; // eax
+	//uint8_t* v172; // ebx
+	//int v172x;
 	char v173; // dl
 	char v174; // dh
+	//int* v175; // edx
+	//int* v176; // edx
+	//uint8_t* v177; // edi
 	int v177x;
+	//uint8_t* v178; // ebx
 	int v178x;
 	char v179; // dl
 	char v180; // ch
-	char v181; // dh
+	//char v181; // dh
 	char v182; // ah
 	char v183; // dl
 	char v184; // dh
-	int v185; // eax
-	int v186x;
-	int v187; // eax
-	int v188; // eax
+	//int v185; // eax
+	//uint8_t* v186; // ebx
+	//int v186x;
+	//int v187; // eax
+	//int v188; // eax
 	char v189; // ch
-	int v190x;
+	//uint8_t* v190; // ebx
+	//int v190x;
 	char v191; // dl
 	char v192; // dh
+	//int* v193; // edx
 	char v194; // ch
-	char v196; // ch
+	//int* v195; // edx
+	//char v196; // ch
 	int v197; // ecx
 	signed int v198; // esi
 	int v199; // ebx
@@ -611,8 +626,8 @@ void GameRender_old::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, _
 	int v202; // eax
 	int v203; // eax
 	unsigned __int16 v204; // bx
-	int v205x;
-	int v206x;
+	//unsigned __int8* v205; // ecx
+	//uint8_t* v206; // edx
 	uint8_t* v207; // eax
 	int v208; // eax
 	signed int v209; // ebx
@@ -623,35 +638,77 @@ void GameRender_old::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, _
 	int v214; // ecx
 	int v215; // edx
 	signed int v216; // esi
-	int v217x, v218x;
+	//uint8_t* v217; // esi
+	int v217x;
+	//uint8_t* v218; // ebx
+	int v218x;
 	char v219; // dl
-	char v220; // dh
+	//char v220; // dh
 	char v221; // al
 	char v222; // dl
 	char v223; // dh
-	int v224; // eax
-	int v225x;
+	//int v224; // eax
+	//uint8_t* v225; // ebx
+	//int v225x;
 	char v226; // cl
-	int v227x;
+	//uint8_t* v227; // ebx
+	//int v227x;
 	char v228; // dl
 	char v229; // dh
-	int v231x, v232x;
+	//int* v230; // edx
+	//uint8_t* v231; // edi
+	int v231x;
+	//uint8_t* v232; // ebx
+	int v232x;
 	char v233; // dl
 	char v234; // ch
-	char v235; // dh
+	//char v235; // dh
 	char v236; // ah
 	char v237; // dl
 	char v238; // dh
-	int v239; // eax
-	int v240x;
-	int v241; // eax
+	//int v239; // eax
+	//uint8_t* v240; // ebx
+	//int v240x;
+	//int v241; // eax
 	char v242; // ch
-	int v243x;
+	//uint8_t* v243; // ebx
+	//int v243x;
 	char v244; // dl
 	char v245; // dh
-	std::vector<int> v248x(33);  //[33]; // [esp+0h] [ebp-62h]//v248x[0]
+	//int* v246; // edx
+	int v248x[33]; // [esp+0h] [ebp-62h]//v248x[0]
+	//int v249; // [esp+4h] [ebp-5Eh]//v248x[1]
+	//int v250; // [esp+8h] [ebp-5Ah]//v248x[2]
+	//int v251; // [esp+Ch] [ebp-56h]//v248x[3]
+	//int v252; // [esp+10h] [ebp-52h]//v248x[4]
+	//int v253; // [esp+18h] [ebp-4Ah]//v248x[6]
+	//int v254; // [esp+1Ch] [ebp-46h]//v248x[7]
+	//int v255; // [esp+20h] [ebp-42h]//v248x[8]
+	//int v256; // [esp+24h] [ebp-3Eh]//v248x[9]
+	//x_DWORD *v257; // [esp+28h] [ebp-3Ah]//v248x[10]
+	//int v258; // [esp+30h] [ebp-32h]//v248x[12]
+	//int v259; // [esp+34h] [ebp-2Eh]//v248x[13]
+	//int v260; // [esp+38h] [ebp-2Ah]//v248x[14]
+	//int v261; // [esp+3Ch] [ebp-26h]//v248x[15]
+	//int v262; // [esp+40h] [ebp-22h]//v248x[16]
+	//int v263; // [esp+48h] [ebp-1Ah]//v248x[18]
+	//int v264; // [esp+4Ch] [ebp-16h]//v248x[19]
+	//int v265; // [esp+50h] [ebp-12h]//v248x[20]
+	//int v266; // [esp+54h] [ebp-Eh]//v248x[21]
+	//int v267; // [esp+58h] [ebp-Ah]//v248x[22]
+	//int v268; // [esp+60h] [ebp-2h]//v248x[24]
+
+	//int v269; // [esp+64h] [ebp+2h]//v248x[25]
+	//int v270; // [esp+68h] [ebp+6h]//v248x[26]
+	//int v271; // [esp+6Ch] [ebp+Ah]//v248x[27]
+	//int v272; // [esp+70h] [ebp+Eh]//v248x[28]
+	//int v273; // [esp+74h] [ebp+12h]//v248x[29]
+	//uint32_t v274; // [esp+78h] [ebp+16h]//v248x[30]
+	//int v275; // [esp+7Ch] [ebp+1Ah]//v248x[31]
+	//int v276; // [esp+80h] [ebp+1Eh]//v248x[32]
+
 	uint8_t* v277; // [esp+84h] [ebp+22h]
-	uint8_t* v278;
+	//uint8_t* v278; // [esp+88h] [ebp+26h]
 	int v278x;
 	unsigned __int16 v279; // [esp+8Ch] [ebp+2Ah]
 	char l; // [esp+90h] [ebp+2Eh]
@@ -672,6 +729,28 @@ void GameRender_old::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, _
 	int a1;
 	int a2;
 
+	//D41A0_0.m_GameSettings.m_Graphics.m_wReflections = 1;//only for tests
+
+	/*
+	#ifdef DEBUG_SEQUENCES
+		uint8_t origbyte20 = 0;
+		uint8_t remakebyte20 = 0;
+		int comp20;
+		if (debugafterload)
+		{
+			if (debugcounter_21d080 > 0)
+			comp20 = compare_with_sequence((char*)"0021D080-003F52A4", (uint8_t*)x_DWORD_E9C38_smalltit, 0x3f52a4, debugcounter_21d080, 36916 * 2, 36916 * 2, &origbyte20, &remakebyte20);
+			else
+			{
+				*(x_DWORD_E9C38_smalltit + 0x2271) = 0x3b;
+				*(x_DWORD_E9C38_smalltit + 0x2271+4) = 0x64;
+			}
+			debugcounter_21d080++;
+		}
+	#endif DEBUG_SEQUENCES
+	*/
+
+
 	shadows_F2CC7 = D41A0_0.m_GameSettings.m_Graphics.m_wShadows;//21d080
 	notDay_D4320 = D41A0_0.terrain_2FECE.MapType != MapType_t::Day;
 	str_F2C20ar.dword0x10 = (signed int)(unsigned __int16)viewPort.Height_DE568 >> 1;
@@ -683,7 +762,9 @@ void GameRender_old::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, _
 	v10 = Maths::x_DWORD_DB750[0x100 + v9];
 	str_F2C20ar.dword0x24 = x_DWORD_D4324 + ((signed int)(unsigned __int16)viewPort.Width_DE564 >> 1);
 	str_F2C20ar.dword0x0f = v10;
-	v11 = *x_DWORD_DB350_ret(v9);
+	//v11 = x_DWORD_DB350[v9];
+	//v11 = *x_DWORD_DB350_ret(v9);
+	v11 = Maths::x_DWORD_DB750[v9 - 0x100];
 	v12 = ((((yaw & 0x7FF) + 256) & 0x1FF) - 256) & 0x7FF;
 	v248x[32] = (v9 >> 9) & 3;
 	v248x[30] = Maths::x_DWORD_DB750[0x200 + v12];
@@ -696,7 +777,8 @@ void GameRender_old::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, _
 			+ (unsigned __int16)viewPort.Height_DE568 * (unsigned __int16)viewPort.Height_DE568)
 		* fov >> 11;
 	v277 = unk_D4328x + 10 * v248x[32];
-	switch ((unsigned __int8)v248x[32])//fixed? //rotations
+	//switch ((unsigned __int8)a4)
+	switch ((unsigned __int8)v248x[32])//fixed?
 	{
 	case 0u:
 		a2 = (unsigned __int8)posY - 256;
@@ -718,33 +800,36 @@ void GameRender_old::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, _
 		break;
 	}
 	v14 = 40;//21d231
+	//v15 = x_DWORD_E9C38_smalltit;
 	v15x = 0;
-	do//filling first pointer of x_DWORD_E9C38_smalltit(3f52a4)//prepare billboards
+	do//filling first pointer of x_DWORD_E9C38_smalltit(3f52a4)
 	{
 		v248x[29] = a1 * v13 >> 16;
 		v16 = 21;
 		v248x[28] = a1 * (signed int)v248x[30] >> 16;
 		while (v16)
 		{
+			//*(x_DWORD*)v15 = v248x[28];
 			Str_E9C38_smalltit[v15x].dword0_rot = v248x[28];
+			//*(x_DWORD*)(v15 + 12) = v248x[29];
 			Str_E9C38_smalltit[v15x].dword12 = v248x[29];
 			if (a1 < 0)
-			{
+				//*(x_WORD*)(v15 + 38) = 0;
 				Str_E9C38_smalltit[v15x].word38 = 0;
-			}
 			else
-			{
+				//*(x_WORD*)(v15 + 38) = 4;
 				Str_E9C38_smalltit[v15x].word38 = 4;
-			}
+			//v15 += 1760;
 			v15x += 40;
 			v16--;
 		}
+		//v15 -= 36916;
 		v15x -= 839;
 		a1 += 256;
 		v14--;
 	} while (v14);
-
 	v17 = 21;//21d29c not drawing
+	//v18 = (x_DWORD*)x_DWORD_E9C38_smalltit;
 	v18x = 0;
 	while (v17)
 	{
@@ -754,24 +839,28 @@ void GameRender_old::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, _
 		while (v19)
 		{
 			Str_E9C38_smalltit[v18x].dword0_rot -= v248x[27];
-			Str_E9C38_smalltit[v18x].dword12 += v20;// +v21;
-			v18x++;
+			Str_E9C38_smalltit[v18x].dword12 += v20;
 			v19--;
+			v18x++;
 		}
 		a2 += 256;
 		v17--;
 	}
 	str_F2C20ar.dword0x15 = 26214400;//21d2df not drawing
+	//v278 = x_DWORD_E9C38_smalltit;
 	v278x = 0;
 	str_F2C20ar.dword0x12 = 8912896;
-	v22 = *v277;
-	str_F2C20ar.dword0x22 = pitch * (unsigned __int16)viewPort.Width_DE564 >> 8;
+	v22 = v277[0];
+	str_F2C20ar.dword0x22 = iScreenWidth_DE560 * (unsigned __int16)viewPort.Width_DE564 >> 8;
 	LOBYTE(v279) = v22 + HIBYTE(posX);
 	HIBYTE(v279) = v277[1] + HIBYTE(posY);
 	v23 = roll & 0x7FF;
-	str_F2C20ar.dword0x11 = (int)Maths::x_DWORD_DB750[0x200 + v23];
+	//v24 = Maths::x_DWORD_DB750[v23];
+	//v25y = 14745600;
+	str_F2C20ar.dword0x11 = Maths::x_DWORD_DB750[0x200 + v23];
 	str_F2C20ar.dword0x16 = 23658496;
 	str_F2C20ar.dword0x0d = Maths::x_DWORD_DB750[v23];
+	//LOBYTE(v24) = x_D41A0_BYTEARRAY_0[8588];
 	str_F2C20ar.dword0x13 = 14745600;
 	if (!D41A0_0.m_GameSettings.m_Graphics.m_wSky || isCaveLevel_D41B6)
 	{
@@ -795,23 +884,16 @@ void GameRender_old::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, _
 	}
 	else
 	{
-		if (m_renderThreads.size() > 0)
-		{
-			DrawSky_40950_TH(roll);
-		}
-		else
-		{
-			DrawSky_40950(roll, 0, 1);
-		}
+		DrawSky_40950(roll);
 	}
 	if (isCaveLevel_D41B6)//21d3e3 cleaned screen
 	{
-		//Cave Level Render
 		for (i = 21; ; i--)
 		{
 			if (!i)
 			{
 				v46 = 840;
+				//v47 = x_DWORD_E9C38_smalltit;
 				v47x = 0;
 				while (v46)
 				{
@@ -868,44 +950,48 @@ void GameRender_old::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, _
 					v47x++;
 					v46--;
 				}
+				//LOBYTE(v56b) = 20;
+				//v57 = &x_DWORD_E9C38_smalltit[35200];//Str_E9C38_smalltit
 				v57x = 800;
 				v281 = 20;
 				do
 				{
 					v58 = 39;
-					for (jx = v57x; ; jx = (v80x + 1))
+					//for (j = v57; ; j = (v80 + 44))
+					for (jx = v57x; ; jx++)
 					{
 						v293 = v58;
 						if (!v58)
 							break;
-						v248x[18] = Str_E9C38_smalltit[jx].dword24;
-						v248x[19] = Str_E9C38_smalltit[jx].dword28;
-						v248x[22] = Str_E9C38_smalltit[jx].dword32;
-						jx++;
-						v60 = Str_E9C38_smalltit[jx - 1].word38;
-						v61 = Str_E9C38_smalltit[jx - 1].word38;
-						if (Str_E9C38_smalltit[jx].word38 & 4)
-							break;
-						v248x[12] = Str_E9C38_smalltit[jx].dword24;
-						v248x[13] = Str_E9C38_smalltit[jx].dword28;
-						v248x[16] = Str_E9C38_smalltit[jx].dword32;
-						v62 = Str_E9C38_smalltit[jx].word38;
-						v248x[6] = Str_E9C38_smalltit[jx - 40].dword24;
-						v248x[7] = Str_E9C38_smalltit[jx - 40].dword28;
-						v248x[10] = Str_E9C38_smalltit[jx - 40].dword32;
+						v248x[18] = Str_E9C38_smalltit[jx].dword24;//*(x_DWORD*)(j + 24);
+						v248x[19] = Str_E9C38_smalltit[jx].dword28;//*(x_DWORD*)(j + 28);
+						v248x[22] = Str_E9C38_smalltit[jx].dword32;//*(x_DWORD*)(j + 32);
+						v60 = Str_E9C38_smalltit[jx].word38 & 0xff;//*(x_BYTE*)(j - 6);
 
-						v63 = Str_E9C38_smalltit[jx - 40].word38;
+						if (Str_E9C38_smalltit[jx + 1].word38 & 4)
+							break;
+						v248x[12] = Str_E9C38_smalltit[jx + 1].dword24;//*(x_DWORD*)(j + 24);
+						v248x[13] = Str_E9C38_smalltit[jx + 1].dword28;//*(x_DWORD*)(j + 28);
+						v248x[16] = Str_E9C38_smalltit[jx + 1].dword32;//*(x_DWORD*)(j + 32);
+						v62 = Str_E9C38_smalltit[jx + 1].word38 & 0xff;//*(x_BYTE*)(j + 38);
+
+						v248x[6] = Str_E9C38_smalltit[jx - 39].dword24;//*(x_DWORD*)(j - 1736);
+						v248x[7] = Str_E9C38_smalltit[jx - 39].dword28;//*(x_DWORD*)(j - 1732);
+						v248x[10] = Str_E9C38_smalltit[jx - 39].dword32;//*(x_DWORD*)(j - 1728);
+						v63 = Str_E9C38_smalltit[jx - 39].word38 & 0xff;//*(x_BYTE*)(j - 1722);
 						v64 = v63 | v62 | v60;
-						v65 = v63 & v62 & v61;
-						v248x[0] = Str_E9C38_smalltit[jx - 41].dword24;
-						v248x[1] = Str_E9C38_smalltit[jx - 41].dword28;
-						v248x[4] = Str_E9C38_smalltit[jx - 41].dword32;
-						v66 = Str_E9C38_smalltit[jx - 41].word38;
+						v65 = v63 & v62 & v60;
+
+						v248x[0] = Str_E9C38_smalltit[jx - 40].dword24;//*(x_DWORD*)(j - 1780);
+						v248x[1] = Str_E9C38_smalltit[jx - 40].dword28;//*(x_DWORD*)(j - 1776);
+						v248x[4] = Str_E9C38_smalltit[jx - 40].dword32;//*(x_DWORD*)(j - 1772);
+						v66 = Str_E9C38_smalltit[jx - 40].word38 & 0xff;//*(x_BYTE*)(j - 1766);
 						v67 = v66 | v64;
-						v68x = jx - 1;
+
 						if ((v66 & v65 & 0x80u) == 0)
 						{
-							if (Str_E9C38_smalltit[v68x].word38 & 0x1000)
+							//if (v68[39] & 0x10)
+							if (Str_E9C38_smalltit[jx].word38 & 0x1000)
 							{
 								x_BYTE_E126D = 7;
 								x_BYTE_E126C = ((signed int)v248x[10] + v248x[16] + v248x[22] + v248x[4]) >> 18;
@@ -916,43 +1002,65 @@ void GameRender_old::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, _
 							}
 							if (!(v67 & 2))
 							{
-								v69 = 0;
-								if (!(v69 & 0xF00))
+								//v69 = 0;
+								//if (!(v69 & 0xF00))
 								{
-									DrawInverseSquareInProjectionSpace(&v248x[0], v68x);
+									v248x[20] = xunk_D4350[Str_E9C38_smalltit[jx].byte42_std][0];
+									v248x[21] = xunk_D4350[Str_E9C38_smalltit[jx].byte42_std][1];
+									v248x[14] = xunk_D4350[Str_E9C38_smalltit[jx].byte42_std][2];
+									v248x[15] = xunk_D4350[Str_E9C38_smalltit[jx].byte42_std][3];
+									v248x[8] = xunk_D4350[Str_E9C38_smalltit[jx].byte42_std][4];
+									v248x[9] = xunk_D4350[Str_E9C38_smalltit[jx].byte42_std][5];
+									v248x[2] = xunk_D4350[Str_E9C38_smalltit[jx].byte42_std][6];
+									v248x[3] = xunk_D4350[Str_E9C38_smalltit[jx].byte42_std][7];
+									x_DWORD_DE55C_ActTexture = x_DWORD_DDF50_texture_adresses[1];
+									x_BYTE_E126D = 5;
+									if (Str_E9C38_smalltit[jx].word38 & 1)
+									{
+										DrawTriangleInProjectionSpace_B6253_old(&v248x[18], &v248x[0], &v248x[12]);
+										DrawTriangleInProjectionSpace_B6253_old(&v248x[0], &v248x[6], &v248x[12]);
+									}
+									else
+									{
+										DrawTriangleInProjectionSpace_B6253_old(&v248x[18], &v248x[6], &v248x[12]);
+										DrawTriangleInProjectionSpace_B6253_old(&v248x[18], &v248x[0], &v248x[6]);
+									}
 								}
 							}
 						}
-						v248x[18] = Str_E9C38_smalltit[v68x].dword16;
-						v248x[19] = Str_E9C38_smalltit[v68x].dword20;
-						v248x[22] = Str_E9C38_smalltit[v68x].dword32;
-						jx = v68x + 1;
-						v71 = Str_E9C38_smalltit[jx - 1].word38;
-						v72 = Str_E9C38_smalltit[jx - 1].word38;
-						if (Str_E9C38_smalltit[jx].word38 & 4)
+						v248x[18] = Str_E9C38_smalltit[jx].dword16;//*(x_DWORD*)(v68 + 16);
+						v248x[19] = Str_E9C38_smalltit[jx].dword20;//*(x_DWORD*)(v68 + 20);
+						v248x[22] = Str_E9C38_smalltit[jx].dword32;//*(x_DWORD*)(v68 + 32);
+						v71 = Str_E9C38_smalltit[jx].word38 & 0xff;//*(x_BYTE*)(j - 6);
+
+						if (Str_E9C38_smalltit[jx + 1].word38 & 4)
 							break;
-						v248x[12] = Str_E9C38_smalltit[jx].dword16;
-						v248x[13] = Str_E9C38_smalltit[jx].dword20;
-						v248x[16] = Str_E9C38_smalltit[jx].dword32;
-						v73 = Str_E9C38_smalltit[jx].word38;
-						v248x[6] = Str_E9C38_smalltit[jx - 40].dword16;
-						v248x[7] = Str_E9C38_smalltit[jx - 40].dword20;
-						v248x[10] = Str_E9C38_smalltit[jx - 40].dword32;
-						v74 = Str_E9C38_smalltit[jx - 40].word38;
+						v248x[12] = Str_E9C38_smalltit[jx + 1].dword16;//*(x_DWORD*)(j + 16);
+						v248x[13] = Str_E9C38_smalltit[jx + 1].dword20;//*(x_DWORD*)(j + 20);
+						v248x[16] = Str_E9C38_smalltit[jx + 1].dword32;//*(x_DWORD*)(j + 32);
+						v73 = Str_E9C38_smalltit[jx + 1].word38 & 0xff;
+
+						v248x[6] = Str_E9C38_smalltit[jx - 39].dword16;//*(x_DWORD*)(j - 1744);
+						v248x[7] = Str_E9C38_smalltit[jx - 39].dword20;//*(x_DWORD*)(j - 1740);
+						v248x[10] = Str_E9C38_smalltit[jx - 39].dword32;//*(x_DWORD*)(j - 1728);
+						v74 = Str_E9C38_smalltit[jx - 39].word38 & 0xff;//*(x_BYTE*)(j - 1722);
 						v75 = v74 | v73 | v71;
-						v76 = v74 & v73 & v72;
-						v248x[0] = Str_E9C38_smalltit[jx - 41].dword16;
-						v248x[1] = Str_E9C38_smalltit[jx - 41].dword20;
-						v248x[4] = Str_E9C38_smalltit[jx - 41].dword32;
-						v77 = Str_E9C38_smalltit[jx - 41].word38;
+						v76 = v74 & v73 & v71;
+
+						v248x[0] = Str_E9C38_smalltit[jx - 40].dword16;//*(x_DWORD*)(j - 1788);
+						v248x[1] = Str_E9C38_smalltit[jx - 40].dword20;//*(x_DWORD*)(j - 1784);
+						v248x[4] = Str_E9C38_smalltit[jx - 40].dword32;//*(x_DWORD*)(j - 1772);
+						v77 = Str_E9C38_smalltit[jx - 40].word38 & 0xff;//*(x_BYTE*)(j - 1766);
 						v78 = v77 | v75;
 						v79 = v77 & v76;
-						v80x = jx - 1;
+
 						if (v79 >= 0)
 						{
-							if (Str_E9C38_smalltit[v80x].word38 & 0x1000)
+							//if (*(x_BYTE*)(v80 + 39) & 0x10)
+							if (Str_E9C38_smalltit[jx].word38 & 0x1000)
 							{
 								x_BYTE_E126D = 7;
+								//v56b = ((signed int)v248x[10] + v248x[16] + v248x[22] + v248x[4]) >> 18;
 								x_BYTE_E126C = ((signed int)v248x[10] + v248x[16] + v248x[22] + v248x[4]) >> 18;
 							}
 							else
@@ -961,45 +1069,67 @@ void GameRender_old::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, _
 							}
 							if (!(v78 & 2) && !(v79 & 0x78))
 							{
-								DrawSquareInProjectionSpace(v248x, v80x, viewPort.Width_DE564, viewPort.Height_DE568, pitch);
+								v248x[20] = xunk_D4350[Str_E9C38_smalltit[jx].byte42_std][0];
+								v248x[21] = xunk_D4350[Str_E9C38_smalltit[jx].byte42_std][1];
+								v248x[14] = xunk_D4350[Str_E9C38_smalltit[jx].byte42_std][2];
+								v248x[15] = xunk_D4350[Str_E9C38_smalltit[jx].byte42_std][3];
+								v248x[8] = xunk_D4350[Str_E9C38_smalltit[jx].byte42_std][4];
+								v248x[9] = xunk_D4350[Str_E9C38_smalltit[jx].byte42_std][5];
+								v248x[2] = xunk_D4350[Str_E9C38_smalltit[jx].byte42_std][6];
+								v248x[3] = xunk_D4350[Str_E9C38_smalltit[jx].byte42_std][7];
+								x_DWORD_DE55C_ActTexture = x_DWORD_DDF50_texture_adresses[Str_E9C38_smalltit[jx].byte41];
+								if (Str_E9C38_smalltit[jx].word38 & 1)
+								{
+									DrawTriangleInProjectionSpace_B6253_old(&v248x[18], &v248x[12], &v248x[0]);
+									DrawTriangleInProjectionSpace_B6253_old(&v248x[0], &v248x[12], &v248x[6]);
+								}
+								else
+								{
+									DrawTriangleInProjectionSpace_B6253_old(&v248x[18], &v248x[12], &v248x[6]);
+									DrawTriangleInProjectionSpace_B6253_old(&v248x[18], &v248x[6], &v248x[0]);
+								}
 							}
-							if (Str_E9C38_smalltit[v80x].word36)
-								DrawParticles_3E360(v80x, str_DWORD_F66F0x, x_BYTE_E88E0x, x_DWORD_F5730, x_DWORD_EA3E4, str_unk_1804B0ar, viewPort, pitch);
+							//if (*(x_WORD*)(v80 + 36))
+							if (Str_E9C38_smalltit[jx].word36)
+								/*LOBYTE(v56b) = */DrawParticles_3E360(/*v57, */jx);
 						}
 						v58 = v293 - 1;
 					}
 					if (v293)
 					{
-						v82x = jx - 1;
+						//v82 = j - 44;
+						v82x = jx;// -1;
+						//v83 = v57 + 1672;
 						v83x = v57x + 38;
 						do
 						{
-							v248x[18] = Str_E9C38_smalltit[v83x].dword24;
-							v248x[19] = Str_E9C38_smalltit[v83x].dword28;
-							v248x[22] = Str_E9C38_smalltit[v83x].dword32;
-							v84 = Str_E9C38_smalltit[v83x].word38;
-							v248x[12] = Str_E9C38_smalltit[v83x + 1].dword24;
-							v248x[13] = Str_E9C38_smalltit[v83x + 1].dword28;
-							v248x[16] = Str_E9C38_smalltit[v83x + 1].dword32;
-							v85 = Str_E9C38_smalltit[v83x + 1].word38;
-							v248x[6] = Str_E9C38_smalltit[v83x - 39].dword24;
-							v248x[7] = Str_E9C38_smalltit[v83x - 39].dword28;
-							v86 = v84;
-							v248x[10] = Str_E9C38_smalltit[v83x - 39].dword32;
-							v87 = Str_E9C38_smalltit[v83x - 39].word38;
+							v248x[18] = Str_E9C38_smalltit[v83x].dword24;//*(x_DWORD*)(v83 + 24);
+							v248x[19] = Str_E9C38_smalltit[v83x].dword28;//*(x_DWORD*)(v83 + 28);
+							v248x[22] = Str_E9C38_smalltit[v83x].dword32;//*(x_DWORD*)(v83 + 32);
+							v84 = Str_E9C38_smalltit[v83x].word38 & 0xff;//*(x_BYTE*)(v83 + 38);
+
+							v248x[12] = Str_E9C38_smalltit[v83x + 1].dword24;//*(x_DWORD*)(v83 + 68);
+							v248x[13] = Str_E9C38_smalltit[v83x + 1].dword28;//*(x_DWORD*)(v83 + 72);
+							v248x[16] = Str_E9C38_smalltit[v83x + 1].dword32;//*(x_DWORD*)(v83 + 76);
+							v85 = Str_E9C38_smalltit[v83x + 1].word38 & 0xff;//*(x_BYTE*)(v83 + 82);
+
+							v248x[6] = Str_E9C38_smalltit[v83x - 39].dword24;//*(x_DWORD*)(v83 - 1692);
+							v248x[7] = Str_E9C38_smalltit[v83x - 39].dword28;//*(x_DWORD*)(v83 - 1688);
+							v248x[10] = Str_E9C38_smalltit[v83x - 39].dword32;//*(x_DWORD*)(v83 - 1684);
+							v87 = Str_E9C38_smalltit[v83x - 39].word38 & 0xff;//*(x_BYTE*)(v83 - 1678);
 							v88 = v87 | v85 | v84;
-							v89 = v87 & v85 & v86;
-							v248x[0] = Str_E9C38_smalltit[v83x - 40].dword24;
-							v248x[1] = Str_E9C38_smalltit[v83x - 40].dword28;
-							v90 = Str_E9C38_smalltit[v83x - 40].dword32;
-							v91x = v83x + 1;
-							v248x[4] = v90;
-							v92 = Str_E9C38_smalltit[v83x - 41].word38;
+							v89 = v87 & v85 & v84;
+
+							v248x[0] = Str_E9C38_smalltit[v83x - 40].dword24;//*(x_DWORD*)(v83 - 1736);
+							v248x[1] = Str_E9C38_smalltit[v83x - 40].dword28;//*(x_DWORD*)(v83 - 1732);
+							v248x[4] = Str_E9C38_smalltit[v83x - 40].dword32;//*(x_DWORD*)(v83 - 1728);
+							v92 = Str_E9C38_smalltit[v83x - 40].word38 & 0xff;//*(x_BYTE*)(v91 - 1766);
 							v93 = v92 | v88;
-							v94x = v91x - 1;
+
 							if ((v92 & v89 & 0x80u) == 0)
 							{
-								if (Str_E9C38_smalltit[v94x].word38 & 0x1000)
+								//if (*(x_BYTE*)(v94 + 39) & 0x10)
+								if (Str_E9C38_smalltit[v83x].word38 & 0x1000)
 								{
 									x_BYTE_E126D = 7;
 									x_BYTE_E126C = ((signed int)v248x[10] + v248x[16] + v248x[22] + v248x[4]) >> 18;
@@ -1010,64 +1140,107 @@ void GameRender_old::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, _
 								}
 								if (!(v93 & 2))
 								{
-
-									DrawInverseSquareInProjectionSpace(&v248x[0], v94x);
+									v248x[20] = xunk_D4350[Str_E9C38_smalltit[v83x].byte42_std][0];
+									v248x[21] = xunk_D4350[Str_E9C38_smalltit[v83x].byte42_std][1];
+									v248x[14] = xunk_D4350[Str_E9C38_smalltit[v83x].byte42_std][2];
+									v248x[15] = xunk_D4350[Str_E9C38_smalltit[v83x].byte42_std][3];
+									v248x[8] = xunk_D4350[Str_E9C38_smalltit[v83x].byte42_std][4];
+									v248x[9] = xunk_D4350[Str_E9C38_smalltit[v83x].byte42_std][5];
+									v248x[2] = xunk_D4350[Str_E9C38_smalltit[v83x].byte42_std][6];
+									v248x[3] = xunk_D4350[Str_E9C38_smalltit[v83x].byte42_std][7];
+									x_DWORD_DE55C_ActTexture = x_DWORD_DDF50_texture_adresses[1];
+									//v96 = *(x_BYTE*)(v94 + 38);
+									v96 = Str_E9C38_smalltit[v83x].word38 & 0xff;
+									x_BYTE_E126D = 5;
+									if (v96 & 1)
+									{
+										DrawTriangleInProjectionSpace_B6253_old(&v248x[18], &v248x[0], &v248x[12]);
+										DrawTriangleInProjectionSpace_B6253_old(&v248x[0], &v248x[6], &v248x[12]);
+									}
+									else
+									{
+										DrawTriangleInProjectionSpace_B6253_old(&v248x[18], &v248x[6], &v248x[12]);
+										DrawTriangleInProjectionSpace_B6253_old(&v248x[18], &v248x[0], &v248x[6]);
+									}
 								}
 							}
-							v248x[18] = Str_E9C38_smalltit[v94x].dword16;
-							v248x[19] = Str_E9C38_smalltit[v94x].dword20;
-							v248x[22] = Str_E9C38_smalltit[v94x].dword32;
-							v97 = Str_E9C38_smalltit[v94x].word38;
-							v248x[12] = Str_E9C38_smalltit[v94x + 1].dword16;
-							v248x[13] = Str_E9C38_smalltit[v94x + 1].dword20;
-							v248x[16] = Str_E9C38_smalltit[v94x + 1].dword32;
-							v98 = v97;
-							v99 = Str_E9C38_smalltit[v94x + 1].word38;
-							v100 = v99 | v97;
-							v101 = v99 & v98;
-							v248x[6] = Str_E9C38_smalltit[v94x - 39].dword16;
-							v248x[7] = Str_E9C38_smalltit[v94x - 39].dword20;
-							v248x[10] = Str_E9C38_smalltit[v94x - 39].dword32;
-							v102 = Str_E9C38_smalltit[v94x - 39].word38;
+							v248x[18] = Str_E9C38_smalltit[v83x].dword16;//*(x_DWORD*)(v94 + 16);
+							v248x[19] = Str_E9C38_smalltit[v83x].dword20;//*(x_DWORD*)(v94 + 20);
+							v248x[22] = Str_E9C38_smalltit[v83x].dword32;//*(x_DWORD*)(v94 + 32);
+							v97 = Str_E9C38_smalltit[v83x].word38 & 0xff;//*(x_BYTE*)(v94 + 38);
 
-							v248x[0] = Str_E9C38_smalltit[v94x - 40].dword16;
-							v103 = Str_E9C38_smalltit[v94x - 40].dword20;
-							v104x = v94x + 1;
-							v248x[1] = v103;
-							v248x[4] = Str_E9C38_smalltit[v104x - 41].dword32;
-							v105 = (Str_E9C38_smalltit[v104x - 41].word38 & 0xff) | v102 | v100;
-							v106 = (Str_E9C38_smalltit[v104x - 41].word38 & 0xff) & v102 & v101;
-							v107x = v104x - 1;
+							v248x[12] = Str_E9C38_smalltit[v83x + 1].dword16;//*(x_DWORD*)(v94 + 60);
+							v248x[13] = Str_E9C38_smalltit[v83x + 1].dword20;//*(x_DWORD*)(v94 + 64);
+							v248x[16] = Str_E9C38_smalltit[v83x + 1].dword32;//*(x_DWORD*)(v94 + 76);
+							v99 = Str_E9C38_smalltit[v83x + 1].word38 & 0xff;//*(x_BYTE*)(v94 + 82);
+							v100 = v99 | v97;
+							v101 = v99 & v97;
+
+							v248x[6] = Str_E9C38_smalltit[v83x - 39].dword16;//*(x_DWORD*)(v94 - 1700);
+							v248x[7] = Str_E9C38_smalltit[v83x - 39].dword20;//*(x_DWORD*)(v94 - 1696);
+							v248x[10] = Str_E9C38_smalltit[v83x - 39].dword32;//*(x_DWORD*)(v94 - 1684);
+							v102 = Str_E9C38_smalltit[v83x - 39].word38 & 0xff;//*(x_BYTE*)(v94 - 1678);
+
+							v248x[0] = Str_E9C38_smalltit[v83x - 40].dword16;//*(x_DWORD*)(v94 - 1744);
+							v248x[1] = Str_E9C38_smalltit[v83x - 40].dword20;//*(x_DWORD*)(v94 - 1740);
+							v248x[4] = Str_E9C38_smalltit[v83x - 40].dword32;//*(x_DWORD*)(v104 - 1772);
+							v105 = (Str_E9C38_smalltit[v83x - 40].word38 & 0xff) | v102 | v100;
+							v106 = (Str_E9C38_smalltit[v83x - 40].word38 & 0xff) & v102 & v101;
+
 							if (v106 >= 0)
 							{
-								if (Str_E9C38_smalltit[v107x].word38 & 0x1000)
+								//if (*(x_BYTE*)(v107 + 39) & 0x10)
+								if (Str_E9C38_smalltit[v83x].word38 & 0x1000)
 								{
 									x_BYTE_E126D = 7;
+									//v56b = ((signed int)v248x[10] + v248x[16] + v248x[22] + v248x[4]) >> 18;
 									x_BYTE_E126C = ((signed int)v248x[10] + v248x[16] + v248x[22] + v248x[4]) >> 18;
-								}
+						}
 								else
 								{
 									x_BYTE_E126D = 5;
 								}
 								if (!(v105 & 2) && !(v106 & 0x78))
 								{
-									DrawSquareInProjectionSpace(v248x, v107x, viewPort.Width_DE564, viewPort.Height_DE568, pitch);
+									v248x[20] = xunk_D4350[Str_E9C38_smalltit[v83x].byte42_std][0];
+									v248x[21] = xunk_D4350[Str_E9C38_smalltit[v83x].byte42_std][1];
+									v248x[14] = xunk_D4350[Str_E9C38_smalltit[v83x].byte42_std][2];
+									v248x[15] = xunk_D4350[Str_E9C38_smalltit[v83x].byte42_std][3];
+									v248x[8] = xunk_D4350[Str_E9C38_smalltit[v83x].byte42_std][4];
+									v248x[9] = xunk_D4350[Str_E9C38_smalltit[v83x].byte42_std][5];
+									v248x[2] = xunk_D4350[Str_E9C38_smalltit[v83x].byte42_std][6];
+									v248x[3] = xunk_D4350[Str_E9C38_smalltit[v83x].byte42_std][7];
+									//LOBYTE(v108) = *(x_BYTE*)(v107 + 38);
+									x_DWORD_DE55C_ActTexture = x_DWORD_DDF50_texture_adresses[Str_E9C38_smalltit[v83x].byte41];
+									if (Str_E9C38_smalltit[v83x].word38 & 1)
+									{
+										DrawTriangleInProjectionSpace_B6253_old(&v248x[18], &v248x[12], &v248x[0]);
+										DrawTriangleInProjectionSpace_B6253_old(&v248x[0], &v248x[12], &v248x[6]);
+									}
+									else
+									{
+										DrawTriangleInProjectionSpace_B6253_old(&v248x[18], &v248x[12], &v248x[6]);
+										DrawTriangleInProjectionSpace_B6253_old(&v248x[18], &v248x[6], &v248x[0]);
+									}
 								}
-								if (Str_E9C38_smalltit[v107x].word36)
-									DrawParticles_3E360(v107x, str_DWORD_F66F0x, x_BYTE_E88E0x, x_DWORD_F5730, x_DWORD_EA3E4, str_unk_1804B0ar, viewPort, pitch);
-							}
-							v83x = v107x - 1;
-						} while (v83x >= v82x);
+								//if (*(x_WORD*)(v107 + 36))
+								if (Str_E9C38_smalltit[v83x].word36)
+									/*LOBYTE(v56b) = */DrawParticles_3E360(/*v57,*/ v83x);
 					}
+							v83x--;
+				} while (v83x >= v82x);
+			}
 					v57x -= 40;
 					v281--;
-				} while (v281);
-				return;
-			}
+		} while (v281);
+		return/* v56b*/;
+	}
 			for (k = 40; k; k--)
 			{
 				v33 = ((unsigned __int8)mapShading_12B4E0[v279] << 8) + 128;
+				//v34 = *(x_DWORD*)(v278 + 12);
 				v34 = Str_E9C38_smalltit[v278x].dword12;
+				//v35 = v34 * v34 + *(x_DWORD*)v278 * *(x_DWORD*)v278;
 				v35 = v34 * v34 + Str_E9C38_smalltit[v278x].dword0_rot * Str_E9C38_smalltit[v278x].dword0_rot;
 				Str_E9C38_smalltit[v278x].word36 = 0;
 				if (v34 <= -256 || v35 >= str_F2C20ar.dword0x15)
@@ -1106,15 +1279,15 @@ void GameRender_old::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, _
 				if (mapAngle_13B4E0[v279] & 8)
 					Str_E9C38_smalltit[v278x].word38 |= 0x80u;
 				v40 = str_F2C20ar.dword0x18;
-				v41x = v278x;
+				//v41 = v278;
 				Str_E9C38_smalltit[v278x].dword20 = str_F2C20ar.dword0x22 + str_F2C20ar.dword0x18 * Str_E9C38_smalltit[v278x].dword4_height / v34;
 				Str_E9C38_smalltit[v278x].dword28 = str_F2C20ar.dword0x22 + v40 * Str_E9C38_smalltit[v278x].dword8 / v34;
 				LOBYTE(v42) = v277[2] + v279;
 				HIBYTE(v42) = v277[3] + HIBYTE(v279);
-				v43x = v278x;
+				//v43 = v278;
 				Str_E9C38_smalltit[v278x].byte41 = mapTerrainType_10B4E0[v42];
 				if (D41A0_0.m_GameSettings.str_0x2196.flat_0x2199)
-					Str_E9C38_smalltit[v43x].word38 |= 0x1000u;
+					Str_E9C38_smalltit[v278x].word38 |= 0x1000u;
 				Str_E9C38_smalltit[v278x].byte43 = Maths::x_BYTE_D41D8[Str_E9C38_smalltit[v278x].byte41];
 				Str_E9C38_smalltit[v278x].byte42_std = v248x[32] + (((signed int)(unsigned __int8)mapAngle_13B4E0[v42] >> 2) & 0x1C);
 				LOBYTE(v42) = v277[4] + v42;
@@ -1130,21 +1303,23 @@ void GameRender_old::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, _
 			v45 = v277[6] + v279;
 			HIBYTE(v279) += v277[7];
 			LOBYTE(v279) = v45;
-		}
+}
 	}
-	if (D41A0_0.m_GameSettings.m_Graphics.m_wReflections)
+	if (D41A0_0.m_GameSettings.m_Graphics.m_wReflections)//21de79 nothing changed
 	{
 		for (l = 21; ; l--)
 		{
 			if (!l)
 			{
 				v123 = 840;
+				//v124 = x_DWORD_E9C38_smalltit;
 				v124x = 0;
 				while (v123)
 				{
 					v125 = ((str_F2C20ar.dword0x11 * Str_E9C38_smalltit[v124x].dword16 - str_F2C20ar.dword0x0d * Str_E9C38_smalltit[v124x].dword20) >> 16) + str_F2C20ar.dword0x24;
 					v248x[25] = ((str_F2C20ar.dword0x11 * Str_E9C38_smalltit[v124x].dword16 - str_F2C20ar.dword0x0d * Str_E9C38_smalltit[v124x].dword28) >> 16) + str_F2C20ar.dword0x24;
 					v126 = Str_E9C38_smalltit[v124x].dword16 * str_F2C20ar.dword0x0d;
+					//v25 = (x_DWORD *)(str_F2C20ar.dword0x10 - ((v126 + str_F2C20ar.dword0x11 * *(x_DWORD *)(v124 + 20)) >> 16));
 					v248x[24] = str_F2C20ar.dword0x10 - ((v126 + str_F2C20ar.dword0x11 * Str_E9C38_smalltit[v124x].dword20) >> 16);
 					v127 = str_F2C20ar.dword0x10 - ((v126 + str_F2C20ar.dword0x11 * Str_E9C38_smalltit[v124x].dword28) >> 16);
 					Str_E9C38_smalltit[v124x].dword16 = v125;
@@ -1197,49 +1372,62 @@ void GameRender_old::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, _
 				}
 				if (posZ < 4096)
 				{
-					v133x = 800;
+					//v133 = &x_DWORD_E9C38_smalltit[35200];
+					v133x = 800;//35200/sizeof(type_E9C38_smalltit);
 					for (m = 20; m; --m)
 					{
+						//v134 = v133;
 						v134x = v133x;
 						for (n = 39; n; --n)
 						{
 							v248x[18] = Str_E9C38_smalltit[v134x].dword24;
 							v248x[19] = Str_E9C38_smalltit[v134x].dword28;
-							v135 = Str_E9C38_smalltit[v134x].dword32;
-							v134x++;
-							v248x[22] = v135;
-							v136 = Str_E9C38_smalltit[v134x - 1].word38;
-							if (Str_E9C38_smalltit[v134x].word38 & 4)
+							v248x[22] = Str_E9C38_smalltit[v134x].dword32;
+							v136 = Str_E9C38_smalltit[v134x].word38 & 0xff;
+
+							if (Str_E9C38_smalltit[v134x + 1].word38 & 4)
 								break;
-							v248x[12] = Str_E9C38_smalltit[v134x].dword24;
-							v248x[13] = Str_E9C38_smalltit[v134x].dword28;
-							v248x[16] = Str_E9C38_smalltit[v134x].dword32;
-							v137 = Str_E9C38_smalltit[v134x].word38;
-							v248x[6] = Str_E9C38_smalltit[v134x - 40].dword24;
-							v248x[7] = Str_E9C38_smalltit[v134x - 40].dword28;
-#ifdef TEST_x64
-							allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-							std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-							v248x[10] = (int)*(x_DWORD**)&Str_E9C38_smalltit[v134x - 40].dword32;
-#endif
-							v138 = Str_E9C38_smalltit[v134x - 40].word38 | v137 | v136;
-							v248x[0] = Str_E9C38_smalltit[v134x - 41].dword24;
-							v139 = Str_E9C38_smalltit[v134x - 41].dword28;
-							v140x = v134x - 40;
-							v140x--;
-							v248x[1] = v139;
-							v248x[4] = Str_E9C38_smalltit[v140x].dword32;
-							v142 = Str_E9C38_smalltit[v140x].word38;
-							v143x = v140x + 40;
+							v248x[12] = Str_E9C38_smalltit[v134x + 1].dword24;
+							v248x[13] = Str_E9C38_smalltit[v134x + 1].dword28;
+							v248x[16] = Str_E9C38_smalltit[v134x + 1].dword32;
+							v137 = Str_E9C38_smalltit[v134x + 1].word38 & 0xff;
+
+							v248x[6] = Str_E9C38_smalltit[v134x - 39].dword24;//1716 //*(x_DWORD*)(v134 - 1736);
+							v248x[7] = Str_E9C38_smalltit[v134x - 39].dword28;//*(x_DWORD*)(v134 - 1732);
+							v248x[10] = Str_E9C38_smalltit[v134x - 39].dword32;//*(x_DWORD*)(v134 - 1728);
+							v138 = (Str_E9C38_smalltit[v134x - 39].word38 & 0xff) | v137 | v136;
+
+							v248x[0] = Str_E9C38_smalltit[v134x - 40].dword24;//*(x_DWORD*)(v134 - 1780);
+							v248x[1] = Str_E9C38_smalltit[v134x - 40].dword28;//*(x_DWORD*)(v134 - 1776);
+							v248x[4] = Str_E9C38_smalltit[v134x - 40].dword32;//*(x_DWORD*)(v140 - 12);
+							v142 = Str_E9C38_smalltit[v134x - 40].word38 & 0xff;
+							//v143x = v134x;//v140 + 1760;
 							v144 = v142 | v138;
-							if (Str_E9C38_smalltit[v143x].byte41)
+
+							/*
+							uint8_t origbyte20 = 0;
+							uint8_t remakebyte20 = 0;
+							int comp20;
+							//if (debug_counter_1f3e70 >= 0xb5)
 							{
-								if (Str_E9C38_smalltit[v143x].word38 & 0x1000)
+								comp20 = compare_with_sequence((char*)"0021E378-003F52A4", (uint8_t*)Str_E9C38_smalltit, 0x2dc4e0, debug_sub_3C080, 44*40*21, 44 * 40 * 21, &origbyte20, &remakebyte20);
+							}
+
+							if (debug_sub_3C080 >= 0x12d3e)
+							{
+								debug_sub_3C080++;
+								debug_sub_3C080--;
+							}
+							debug_sub_3C080++;*/
+
+							//0x21e378
+
+							if (Str_E9C38_smalltit[v134x].byte41)//(*(x_BYTE*)(v143 + 41))
+							{
+								if (Str_E9C38_smalltit[v134x].word38 & 0x1000)
 								{
 									x_BYTE_E126D = 7;
+									//v25 = v257;
 									x_BYTE_E126C = ((signed int)v248x[10] + v248x[16] + v248x[22] + v248x[4]) >> 18;
 								}
 								else
@@ -1248,57 +1436,76 @@ void GameRender_old::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, _
 								}
 								if (!(v144 & 2))
 								{
-									v145 = 0;
-									if (!(v145 & 0xF00))
+									//v145 = 0;
+									//if (!(v145 & 0xF00))
 									{
-										DrawInverseSquareInProjectionSpace(&v248x[0], v143x);
+										v248x[20] = xunk_D4350[Str_E9C38_smalltit[v134x].byte42_std][0];
+										v248x[21] = xunk_D4350[Str_E9C38_smalltit[v134x].byte42_std][1];
+										v248x[14] = xunk_D4350[Str_E9C38_smalltit[v134x].byte42_std][2];
+										v248x[15] = xunk_D4350[Str_E9C38_smalltit[v134x].byte42_std][3];
+										v248x[8] = xunk_D4350[Str_E9C38_smalltit[v134x].byte42_std][4];
+										v248x[9] = xunk_D4350[Str_E9C38_smalltit[v134x].byte42_std][5];
+										v248x[2] = xunk_D4350[Str_E9C38_smalltit[v134x].byte42_std][6];
+										v248x[3] = xunk_D4350[Str_E9C38_smalltit[v134x].byte42_std][7];
+										x_DWORD_DE55C_ActTexture = x_DWORD_DDF50_texture_adresses[Str_E9C38_smalltit[v134x].byte41];
+										//LOBYTE(v146) = *(x_BYTE*)(v143 + 38);
+										x_BYTE_E126D = 5;
+										//allert_error();
+										if (Str_E9C38_smalltit[v134x].word38 & 1)
+										{
+											DrawTriangleInProjectionSpace_B6253_old(&v248x[18], &v248x[0], &v248x[12]);
+											DrawTriangleInProjectionSpace_B6253_old(&v248x[0], &v248x[6], &v248x[12]);
+										}
+										else
+										{
+											DrawTriangleInProjectionSpace_B6253_old(&v248x[18], &v248x[6], &v248x[12]);
+											DrawTriangleInProjectionSpace_B6253_old(&v248x[18], &v248x[0], &v248x[6]);
+										}
 									}
 								}
 							}
-							if (Str_E9C38_smalltit[v143x].word36)
-								sub_3FD60(v143x, x_BYTE_E88E0x, x_DWORD_EA3E4, str_unk_1804B0ar, str_DWORD_F66F0x, x_DWORD_F5730, viewPort, pitch);
-							v134x = v143x + 1;
+							/*if (v143 - &x_DWORD_E9C38_smalltit[35200] == 0xffffffffffff85f8)
+							{
+								v143++;
+								v143--;
+							}*/
+							if (Str_E9C38_smalltit[v134x].word36)
+								sub_3FD60(v134x);
+							//v134 = v143 + 44;
+							//v134x = v143x + 1;
+							v134x++;
 						}
 						if (n)
 						{
-							v25z = v134x - 1;
+							//v25y = (uint32_t*)(v134 - 44);
+							v25z = v134x;// -1;
+							//v147 = v133 + 1672;
 							v147x = v133x + 38;
 							do
 							{
-								v248x[18] = Str_E9C38_smalltit[v147x].dword24;
-								v248x[19] = Str_E9C38_smalltit[v147x].dword28;
-								v248x[22] = Str_E9C38_smalltit[v147x].dword32;
-								v148 = Str_E9C38_smalltit[v147x].word38;
-								v248x[12] = Str_E9C38_smalltit[v147x + 1].dword24;
-								v248x[13] = Str_E9C38_smalltit[v147x + 1].dword28;
-								v248x[16] = Str_E9C38_smalltit[v147x + 1].dword32;
-								v149 = Str_E9C38_smalltit[v147x + 1].word38 | v148;
-								v248x[6] = Str_E9C38_smalltit[v147x - 39].dword24;
-								v150 = Str_E9C38_smalltit[v147x - 39].dword28;
-								v151x = v147x + 1;
-								v248x[7] = v150;
-								v152 = Str_E9C38_smalltit[v151x - 40].dword32;
-								v151x -= 40;
-#ifdef TEST_x64
-								allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-								std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-								v248x[10] = (int)(x_DWORD*)v152;
-#endif
-								v153 = Str_E9C38_smalltit[v151x].word38;
-								v248x[0] = Str_E9C38_smalltit[v151x - 1].dword24;
-								v154 = Str_E9C38_smalltit[v151x - 1].dword28;
-								v151x--;
-								v248x[1] = v154;
-								v248x[4] = Str_E9C38_smalltit[v151x].dword32;
-								LOBYTE(v154) = Str_E9C38_smalltit[v151x].word38;
-								v155x = v151x + 40;
-								v156 = v154 | v153 | v149;
-								if (Str_E9C38_smalltit[v155x].byte41)
+								v248x[18] = Str_E9C38_smalltit[v147x].dword24;//*(x_DWORD*)(v147 + 24);
+								v248x[19] = Str_E9C38_smalltit[v147x].dword28;//*(x_DWORD*)(v147 + 28);
+								v248x[22] = Str_E9C38_smalltit[v147x].dword32;//*(x_DWORD*)(v147 + 32);
+								v148 = Str_E9C38_smalltit[v147x].word38 & 0xff;//*(x_BYTE*)(v147 + 38);
+
+								v248x[12] = Str_E9C38_smalltit[v147x + 1].dword24;//*(x_DWORD*)(v147 + 68);
+								v248x[13] = Str_E9C38_smalltit[v147x + 1].dword28;//*(x_DWORD*)(v147 + 72);
+								v248x[16] = Str_E9C38_smalltit[v147x + 1].dword32;//*(x_DWORD*)(v147 + 76);
+								v149 = (Str_E9C38_smalltit[v147x + 1].word38 & 0xff) | v148;//*(x_BYTE*)(v147 + 82) | v148;
+
+								v248x[6] = Str_E9C38_smalltit[v147x - 39].dword24;//*(x_DWORD*)(v147 - 1692);
+								v248x[7] = Str_E9C38_smalltit[v147x - 39].dword28;//*(x_DWORD*)(v147 - 1688);
+								v248x[10] = Str_E9C38_smalltit[v147x - 39].dword32;//*(x_DWORD*)(v151 - 1728);
+								v153 = Str_E9C38_smalltit[v147x - 39].word38 & 0xff;//*(x_BYTE*)(v151 + 38);
+
+								v248x[0] = Str_E9C38_smalltit[v147x - 40].dword24;//*(x_DWORD*)(v151 - 20);
+								v248x[1] = Str_E9C38_smalltit[v147x - 40].dword28;//*(x_DWORD*)(v151 - 16);
+								v248x[4] = Str_E9C38_smalltit[v147x - 40].dword32;//*(x_DWORD*)(v151 + 32);
+								v156 = (Str_E9C38_smalltit[v147x - 40].word38 & 0xff) | v153 | v149;
+								//if (*(x_BYTE*)(v155 + 41))
+								if (Str_E9C38_smalltit[v147x].byte41)
 								{
-									if (Str_E9C38_smalltit[v155x].word38 & 0x1000)
+									if (Str_E9C38_smalltit[v147x].word38 & 0x1000)
 									{
 										x_BYTE_E126D = 7;
 										x_BYTE_E126C = ((signed int)v248x[10] + v248x[16] + v248x[22] + v248x[4]) >> 18;
@@ -1309,68 +1516,90 @@ void GameRender_old::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, _
 									}
 									if (!(v156 & 2))
 									{
-										v157 = 0;
-										if (!(v157 & 0xF00))
+										//v157 = 0;
+										//if (!(v157 & 0xF00))
 										{
-											DrawInverseSquareInProjectionSpace(&v248x[0], v155x);
+											v248x[20] = xunk_D4350[Str_E9C38_smalltit[v147x].byte42_std][0];
+											v248x[21] = xunk_D4350[Str_E9C38_smalltit[v147x].byte42_std][1];
+											v248x[14] = xunk_D4350[Str_E9C38_smalltit[v147x].byte42_std][2];
+											v248x[15] = xunk_D4350[Str_E9C38_smalltit[v147x].byte42_std][3];
+											v248x[8] = xunk_D4350[Str_E9C38_smalltit[v147x].byte42_std][4];
+											v248x[9] = xunk_D4350[Str_E9C38_smalltit[v147x].byte42_std][5];
+											v248x[2] = xunk_D4350[Str_E9C38_smalltit[v147x].byte42_std][6];
+											v248x[3] = xunk_D4350[Str_E9C38_smalltit[v147x].byte42_std][7];
+											//v159 = Str_E9C38_smalltit[v147x].byte41;
+											x_BYTE_E126D = 5;
+											//BYTE1(v158) = *(x_BYTE*)(v155 + 38);
+											x_DWORD_DE55C_ActTexture = x_DWORD_DDF50_texture_adresses[Str_E9C38_smalltit[v147x].byte41];
+											//allert_error();
+											if (Str_E9C38_smalltit[v147x].word38 & 1)
+											{
+												DrawTriangleInProjectionSpace_B6253_old(&v248x[18], &v248x[0], &v248x[12]);
+												DrawTriangleInProjectionSpace_B6253_old(&v248x[0], &v248x[6], &v248x[12]);
+											}
+											else
+											{
+												DrawTriangleInProjectionSpace_B6253_old(&v248x[18], &v248x[6], &v248x[12]);
+												DrawTriangleInProjectionSpace_B6253_old(&v248x[18], &v248x[0], &v248x[6]);
+											}
 										}
 									}
 								}
-								if (Str_E9C38_smalltit[v155x].word36)
-									sub_3FD60(v155x, x_BYTE_E88E0x, x_DWORD_EA3E4, str_unk_1804B0ar, str_DWORD_F66F0x, x_DWORD_F5730, viewPort, pitch);
-								v147x = v155x - 1;
+								if (Str_E9C38_smalltit[v147x].word36)
+									sub_3FD60(v147x);
+								//v147 = v155 - 44;
+								//v147x = v155x - 1;
+								v147x--;
 							} while (v147x >= v25z);
 						}
 						v133x -= 40;
 					}
 				}
-				v160 = 800;
+				//v160 = &x_DWORD_E9C38_smalltit[35200];
+				v160x = 800;
 				v282 = 20;
 				do
 				{
-					v161 = v160;
+					v161x = v160x;
 					for (ii = 39; ii; --ii)
 					{
-						v248x[18] = Str_E9C38_smalltit[v161].dword16;
-						v248x[19] = Str_E9C38_smalltit[v161].dword20;
-						v162 = Str_E9C38_smalltit[v161].dword32;
-						v161++;
-						v248x[22] = v162;
-						v163 = Str_E9C38_smalltit[v161 - 1].word38;
-						v164 = Str_E9C38_smalltit[v161 - 1].word38;
-						if (Str_E9C38_smalltit[v161].word38 & 4)
-							break;
-						v248x[12] = Str_E9C38_smalltit[v161].dword16;
-						v248x[13] = Str_E9C38_smalltit[v161].dword20;
-						v248x[16] = Str_E9C38_smalltit[v161].dword32;
-						v165 = Str_E9C38_smalltit[v161].word38;
-						v166 = v165 | v163;
-						v167 = v165 & v164;
-						v248x[6] = Str_E9C38_smalltit[v161 - 40].dword16;
-						v248x[7] = Str_E9C38_smalltit[v161 - 40].dword20;
-						v168 = Str_E9C38_smalltit[v161 - 40].dword32;
-						v169x = v161 - 40;
-#ifdef TEST_x64
-						allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-						std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-						v248x[10] = (int)(x_DWORD*)v168;
-#endif
-						v170 = Str_E9C38_smalltit[v169x].word38;
-						v248x[0] = Str_E9C38_smalltit[v169x - 1].dword16;
-						v171 = Str_E9C38_smalltit[v169x - 1].dword20;
-						v169x--;
-						v248x[1] = v171;
-						v248x[4] = Str_E9C38_smalltit[v169x].dword32;
-						BYTE1(v171) = Str_E9C38_smalltit[v169x].word38;
-						v172x = v169x + 40;
-						v173 = BYTE1(v171) | v170 | v166;
-						v174 = BYTE1(v171) & v170 & v167;
-						if ((int8_t)(Str_E9C38_smalltit[v172x].word38 & 0xff) >= 0)
+						v248x[18] = Str_E9C38_smalltit[v161x].dword16;//*(x_DWORD*)(v161 + 16);
+						v248x[19] = Str_E9C38_smalltit[v161x].dword20;//*(x_DWORD*)(v161 + 20);
+						v248x[22] = Str_E9C38_smalltit[v161x].dword32;//*(x_DWORD*)(v161 + 32);
+						v163 = Str_E9C38_smalltit[v161x].word38 & 0xff;//*(x_BYTE*)(v161 - 6);
+
+						/*if (debugcounter_sub_particle >= 0xf)
 						{
-							if (Str_E9C38_smalltit[v172x].word38 & 0x1000)
+							debugcounter_sub_particle++;
+							debugcounter_sub_particle--;
+						}
+
+						debugcounter_sub_particle++;*/
+
+						if (Str_E9C38_smalltit[v161x + 1].word38 & 4)
+							break;
+
+						v248x[12] = Str_E9C38_smalltit[v161x + 1].dword16;//*(x_DWORD*)(v161 + 16);
+						v248x[13] = Str_E9C38_smalltit[v161x + 1].dword20;//*(x_DWORD*)(v161 + 20);
+						v248x[16] = Str_E9C38_smalltit[v161x + 1].dword32;//*(x_DWORD*)(v161 + 32);
+						v165 = Str_E9C38_smalltit[v161x + 1].word38 & 0xff;
+						v166 = v165 | v163;
+						v167 = v165 & v163;
+
+						v248x[6] = Str_E9C38_smalltit[v161x - 39].dword16;//*(x_DWORD*)(v161 - 1744);
+						v248x[7] = Str_E9C38_smalltit[v161x - 39].dword20;//*(x_DWORD*)(v161 - 1740);
+						v248x[10] = Str_E9C38_smalltit[v161x - 39].dword32;//*(x_DWORD*)(v161 - 1728);
+						v170 = Str_E9C38_smalltit[v161x - 39].word38 & 0xff;//*(x_BYTE*)(v169 + 38);
+
+						v248x[0] = Str_E9C38_smalltit[v161x - 40].dword16;//*(x_DWORD*)(v169 - 28);
+						v248x[1] = Str_E9C38_smalltit[v161x - 40].dword20;//*(x_DWORD*)(v169 - 24);
+						v248x[4] = Str_E9C38_smalltit[v161x - 40].dword32;
+						v173 = (Str_E9C38_smalltit[v161x - 40].word38 & 0xff) | v170 | v166;
+						v174 = (Str_E9C38_smalltit[v161x - 40].word38 & 0xff) & v170 & v167;
+
+						if (!(Str_E9C38_smalltit[v161x].word38 & 0x80))
+						{
+							if (Str_E9C38_smalltit[v161x].word38 & 0x1000)
 							{
 								x_BYTE_E126D = 7;
 								x_BYTE_E126C = ((signed int)v248x[10] + v248x[16] + v248x[22] + v248x[4]) >> 18;
@@ -1381,7 +1610,25 @@ void GameRender_old::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, _
 							}
 							if (!(v173 & 2) && !(v174 & 0x78))
 							{
-								DrawSquareInProjectionSpace(v248x, v172x, viewPort.Width_DE564, viewPort.Height_DE568, pitch);
+								v248x[20] = xunk_D4350[Str_E9C38_smalltit[v161x].byte42_std][0];
+								v248x[21] = xunk_D4350[Str_E9C38_smalltit[v161x].byte42_std][1];
+								v248x[14] = xunk_D4350[Str_E9C38_smalltit[v161x].byte42_std][2];
+								v248x[15] = xunk_D4350[Str_E9C38_smalltit[v161x].byte42_std][3];
+								v248x[8] = xunk_D4350[Str_E9C38_smalltit[v161x].byte42_std][4];
+								v248x[9] = xunk_D4350[Str_E9C38_smalltit[v161x].byte42_std][5];
+								v248x[2] = xunk_D4350[Str_E9C38_smalltit[v161x].byte42_std][6];
+								v248x[3] = xunk_D4350[Str_E9C38_smalltit[v161x].byte42_std][7];
+								x_DWORD_DE55C_ActTexture = x_DWORD_DDF50_texture_adresses[Str_E9C38_smalltit[v161x].byte41];
+								if (Str_E9C38_smalltit[v161x].word38 & 1)
+								{
+									DrawTriangleInProjectionSpace_B6253_old(&v248x[18], &v248x[12], &v248x[0]);
+									DrawTriangleInProjectionSpace_B6253_old(&v248x[0], &v248x[12], &v248x[6]);
+								}
+								else
+								{
+									DrawTriangleInProjectionSpace_B6253_old(&v248x[18], &v248x[12], &v248x[6]);
+									DrawTriangleInProjectionSpace_B6253_old(&v248x[18], &v248x[6], &v248x[0]);
+								}
 							}
 						}
 						else
@@ -1389,57 +1636,66 @@ void GameRender_old::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, _
 							x_BYTE_E126D = 26;
 							if (!(v173 & 2) && !(v174 & 0x78))
 							{
-								DrawSquareInProjectionSpace(v248x, v172x, viewPort.Width_DE564, viewPort.Height_DE568, pitch);
-							}
+								v248x[20] = xunk_D4350[Str_E9C38_smalltit[v161x].byte42_std][0];
+								v248x[21] = xunk_D4350[Str_E9C38_smalltit[v161x].byte42_std][1];
+								v248x[14] = xunk_D4350[Str_E9C38_smalltit[v161x].byte42_std][2];
+								v248x[15] = xunk_D4350[Str_E9C38_smalltit[v161x].byte42_std][3];
+								v248x[8] = xunk_D4350[Str_E9C38_smalltit[v161x].byte42_std][4];
+								v248x[9] = xunk_D4350[Str_E9C38_smalltit[v161x].byte42_std][5];
+								v248x[2] = xunk_D4350[Str_E9C38_smalltit[v161x].byte42_std][6];
+								v248x[3] = xunk_D4350[Str_E9C38_smalltit[v161x].byte42_std][7];
+								x_DWORD_DE55C_ActTexture = x_DWORD_DDF50_texture_adresses[Str_E9C38_smalltit[v161x].byte41];
+								if (Str_E9C38_smalltit[v161x].word38 & 1)
+								{
+									DrawTriangleInProjectionSpace_B6253_old(&v248x[18], &v248x[12], &v248x[0]);
+									DrawTriangleInProjectionSpace_B6253_old(&v248x[0], &v248x[12], &v248x[6]);
+								}
+								else
+								{
+									DrawTriangleInProjectionSpace_B6253_old(&v248x[18], &v248x[12], &v248x[6]);
+									DrawTriangleInProjectionSpace_B6253_old(&v248x[18], &v248x[6], &v248x[0]);
+								}
 						}
-						if (Str_E9C38_smalltit[v172x].word36)
-							DrawParticles_3E360(v172x, str_DWORD_F66F0x, x_BYTE_E88E0x, x_DWORD_F5730, x_DWORD_EA3E4, str_unk_1804B0ar, viewPort, pitch);
-						v161 = v172x + 1;
 					}
+						if (Str_E9C38_smalltit[v161x].word36)
+							DrawParticles_3E360(/*v160,*/ v161x);
+						//v161 = v172 + 44;
+						v161x++;
+				}
 					if (ii)
 					{
-						v177x = v161 - 1;
-						v178x = v160 + 38;
+						v177x = v161x;// -1;
+						v178x = v160x + 38;
 						do
 						{
-							v248x[18] = Str_E9C38_smalltit[v178x].dword16;
-							v248x[19] = Str_E9C38_smalltit[v178x].dword20;
-							v248x[22] = Str_E9C38_smalltit[v178x].dword32;
-							v179 = Str_E9C38_smalltit[v178x].word38;
-							v248x[12] = Str_E9C38_smalltit[v178x + 1].dword16;
-							v248x[13] = Str_E9C38_smalltit[v178x + 1].dword20;
-							v248x[16] = Str_E9C38_smalltit[v178x + 1].dword32;
-							v180 = Str_E9C38_smalltit[v178x + 1].word38;
-							v248x[6] = Str_E9C38_smalltit[v178x - 39].dword16;
-							v248x[7] = Str_E9C38_smalltit[v178x - 39].dword20;
-							v181 = v179;
-#ifdef TEST_x64
-							allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-							std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-							v248x[10] = (int)*(x_DWORD**)&Str_E9C38_smalltit[v178x - 39].dword32;
-#endif
-							v182 = Str_E9C38_smalltit[v178x - 39].word38;
+							v248x[18] = Str_E9C38_smalltit[v178x].dword16;//*(x_DWORD*)(v178 + 16);
+							v248x[19] = Str_E9C38_smalltit[v178x].dword20;//*(x_DWORD*)(v178 + 20);
+							v248x[22] = Str_E9C38_smalltit[v178x].dword32;//*(x_DWORD*)(v178 + 32);
+							v179 = Str_E9C38_smalltit[v178x].word38 & 0xff;//*(x_BYTE*)(v178 + 38);
+
+							v248x[12] = Str_E9C38_smalltit[v178x + 1].dword16;//*(x_DWORD*)(v178 + 60);
+							v248x[13] = Str_E9C38_smalltit[v178x + 1].dword20;//*(x_DWORD*)(v178 + 64);
+							v248x[16] = Str_E9C38_smalltit[v178x + 1].dword32;//*(x_DWORD*)(v178 + 76);
+							v180 = Str_E9C38_smalltit[v178x + 1].word38 & 0xff;//*(x_BYTE*)(v178 + 82);
+
+							v248x[6] = Str_E9C38_smalltit[v178x - 39].dword16;//*(x_DWORD*)(v178 - 1700);
+							v248x[7] = Str_E9C38_smalltit[v178x - 39].dword20;//*(x_DWORD*)(v178 - 1696);
+							v248x[10] = Str_E9C38_smalltit[v178x - 39].dword32;//*(x_DWORD*)(v178 - 1684);
+							v182 = Str_E9C38_smalltit[v178x - 39].word38 & 0xff;//*(x_BYTE*)(v178 - 1678);
 							v183 = v182 | v180 | v179;
-							v184 = v182 & v180 & v181;
-							v185 = Str_E9C38_smalltit[v178x - 40].dword16;
-							v186x = v178x + 1;
-							v248x[0] = v185;
-							v187 = Str_E9C38_smalltit[v186x - 41].dword20;
-							v186x -= 40;
-							v248x[1] = v187;
-							v188 = Str_E9C38_smalltit[v186x - 1].dword32;
-							v186x--;
-							v248x[4] = v188;
-							v189 = Str_E9C38_smalltit[v186x].word38;
-							v190x = v186x + 40;
+							v184 = v182 & v180 & v179;
+
+							v248x[0] = Str_E9C38_smalltit[v178x - 40].dword16;//*(x_DWORD*)(v178 - 1744);
+							v248x[1] = Str_E9C38_smalltit[v178x - 40].dword20;//*(x_DWORD*)(v186 - 1784);
+							v248x[4] = Str_E9C38_smalltit[v178x - 40].dword32;//*(x_DWORD*)(v186 - 12);
+							v189 = Str_E9C38_smalltit[v178x - 40].word38 & 0xff;//*(x_BYTE*)(v186 + 38);
+							//v190x = v186x + 40;
 							v191 = v189 | v183;
 							v192 = v189 & v184;
-							if ((int8_t)(Str_E9C38_smalltit[v190x].word38 & 0xff) >= 0)
+							//if (*(x_BYTE*)(v190 + 38) >= 0)
+							if (!(Str_E9C38_smalltit[v178x].word38 & 0x80))
 							{
-								if (Str_E9C38_smalltit[v190x].word38 & 0x1000)
+								if (Str_E9C38_smalltit[v178x].word38 & 0x1000)
 								{
 									x_BYTE_E126D = 7;
 									x_BYTE_E126C = ((signed int)v248x[10] + v248x[16] + v248x[22] + v248x[4]) >> 18;
@@ -1450,7 +1706,25 @@ void GameRender_old::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, _
 								}
 								if (!(v191 & 2) && !(v192 & 0x78))
 								{
-									DrawSquareInProjectionSpace(v248x, v190x, viewPort.Width_DE564, viewPort.Height_DE568, pitch);
+									v248x[20] = xunk_D4350[Str_E9C38_smalltit[v178x].byte42_std][0];
+									v248x[21] = xunk_D4350[Str_E9C38_smalltit[v178x].byte42_std][1];
+									v248x[14] = xunk_D4350[Str_E9C38_smalltit[v178x].byte42_std][2];
+									v248x[15] = xunk_D4350[Str_E9C38_smalltit[v178x].byte42_std][3];
+									v248x[8] = xunk_D4350[Str_E9C38_smalltit[v178x].byte42_std][4];
+									v248x[9] = xunk_D4350[Str_E9C38_smalltit[v178x].byte42_std][5];
+									v248x[2] = xunk_D4350[Str_E9C38_smalltit[v178x].byte42_std][6];
+									v248x[3] = xunk_D4350[Str_E9C38_smalltit[v178x].byte42_std][7];
+									x_DWORD_DE55C_ActTexture = x_DWORD_DDF50_texture_adresses[Str_E9C38_smalltit[v178x].byte41];
+									if (Str_E9C38_smalltit[v178x].word38 & 1)
+									{
+										DrawTriangleInProjectionSpace_B6253_old(&v248x[18], &v248x[12], &v248x[0]);
+										DrawTriangleInProjectionSpace_B6253_old(&v248x[0], &v248x[12], &v248x[6]);
+									}
+									else
+									{
+										DrawTriangleInProjectionSpace_B6253_old(&v248x[18], &v248x[12], &v248x[6]);
+										DrawTriangleInProjectionSpace_B6253_old(&v248x[18], &v248x[6], &v248x[0]);
+									}
 								}
 							}
 							else
@@ -1458,19 +1732,39 @@ void GameRender_old::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, _
 								x_BYTE_E126D = 26;
 								if (!(v191 & 2) && !(v192 & 0x78))
 								{
-									DrawSquareInProjectionSpace(v248x, v190x, viewPort.Width_DE564, viewPort.Height_DE568, pitch);
+									v248x[20] = xunk_D4350[Str_E9C38_smalltit[v178x].byte42_std][0];
+									v248x[21] = xunk_D4350[Str_E9C38_smalltit[v178x].byte42_std][1];
+									v248x[14] = xunk_D4350[Str_E9C38_smalltit[v178x].byte42_std][2];
+									v248x[15] = xunk_D4350[Str_E9C38_smalltit[v178x].byte42_std][3];
+									v248x[8] = xunk_D4350[Str_E9C38_smalltit[v178x].byte42_std][4];
+									v248x[9] = xunk_D4350[Str_E9C38_smalltit[v178x].byte42_std][5];
+									v248x[2] = xunk_D4350[Str_E9C38_smalltit[v178x].byte42_std][6];
+									v248x[3] = xunk_D4350[Str_E9C38_smalltit[v178x].byte42_std][7];
+									v194 = Str_E9C38_smalltit[v178x].word38 & 0xff;
+									x_DWORD_DE55C_ActTexture = x_DWORD_DDF50_texture_adresses[Str_E9C38_smalltit[v178x].byte41];
+									if (v194 & 1)
+									{
+										DrawTriangleInProjectionSpace_B6253_old(&v248x[18], &v248x[12], &v248x[0]);
+										DrawTriangleInProjectionSpace_B6253_old(&v248x[0], &v248x[12], &v248x[6]);
+									}
+									else
+									{
+										DrawTriangleInProjectionSpace_B6253_old(&v248x[18], &v248x[12], &v248x[6]);
+										DrawTriangleInProjectionSpace_B6253_old(&v248x[18], &v248x[6], &v248x[0]);
+									}
 								}
 							}
-							if (Str_E9C38_smalltit[v190x].word36)
-								DrawParticles_3E360(v190x, str_DWORD_F66F0x, x_BYTE_E88E0x, x_DWORD_F5730, x_DWORD_EA3E4, str_unk_1804B0ar, viewPort, pitch);
-							v178x = v190x - 1;
+							if (Str_E9C38_smalltit[v178x].word36)
+								DrawParticles_3E360(/*v160,*/ v178x);
+							v178x--;
 						} while (v178x >= v177x);
 					}
-					v160 -= 40;
+					//LOBYTE(v56b) = v282 - 1;
+					v160x -= 40;
 					v282--;
-				} while (v282);
-				return/* v56b*/;
-			}
+			} while (v282);
+			return/* v56b*/;
+		}
 			for (jj = 40; jj; --jj)
 			{
 				v248x[31] = ((unsigned __int8)mapShading_12B4E0[v279] << 8) + 128;
@@ -1491,14 +1785,23 @@ void GameRender_old::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, _
 				v248x[26] = Maths::x_DWORD_DB750[(v112 + (HIBYTE(v279) << 7)) & 0x7FF] >> 8;
 				v113 = v248x[26] * (Maths::x_DWORD_DB750[(((unsigned __int8)v279 << 7) + v112) & 0x7FF] >> 8);
 				v248x[26] = mapHeightmap_11B4E0[v111];
+				//v25y = (uint32_t*)v278;
 				Str_E9C38_smalltit[v278x].dword8 = -(v248x[26] * ((v113 >> 4) + 0x8000) >> 10) - posZ;
-				if (!(mapAngle_13B4E0[v111] & 8) || (Str_E9C38_smalltit[v278x].dword4_height -= v113 >> 10, v248x[31] >= 14464))
+				if (!(mapAngle_13B4E0[v111] & 8)
+					|| (//v114 = (int32_t*)v278,
+						//v25y = (uint32_t*)(((uint32_t*)v278)[1] - (v113 >> 10)),
+						//v115 = v248x[31],
+						(Str_E9C38_smalltit[v278x].dword4_height -= (v113 >> 10)),
+						v248x[31] >= 14464))
+					/*if (!(x_BYTE_13B4E0_angle[v111] & 8)
+						|| (v114 = (int32_t*)v25y, v25y = (uint32_t*)(v25y[1] - (v113 >> 10)), v115 = v248x[31], v114[1] = (x_DWORD)v25y, v115 >= 14464))*/
 				{
 					v113 = 0;
 				}
 				v116 = (v248x[31] << 8) + 8 * v113;
 				if (v110 <= str_F2C20ar.dword0x13)
 					goto LABEL_133;
+				//v25 = (x_DWORD *)str_F2C20ar.dword0x16;
 				if (v110 < str_F2C20ar.dword0x16)
 				{
 					v116 = v116 * (signed __int64)(str_F2C20ar.dword0x16 - v110) / str_F2C20ar.dword0x12;
@@ -1508,9 +1811,9 @@ void GameRender_old::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, _
 				}
 				Str_E9C38_smalltit[v278x].dword32 = 0;
 			LABEL_134:
-				v117x = v278x;
+				//v117 = v278;
 				Str_E9C38_smalltit[v278x].dword20 = str_F2C20ar.dword0x22 + str_F2C20ar.dword0x18 * Str_E9C38_smalltit[v278x].dword4_height / v109;
-				Str_E9C38_smalltit[v278x].dword28 = str_F2C20ar.dword0x22 + str_F2C20ar.dword0x18 * Str_E9C38_smalltit[v117x].dword8 / v109;
+				Str_E9C38_smalltit[v278x].dword28 = str_F2C20ar.dword0x22 + str_F2C20ar.dword0x18 * Str_E9C38_smalltit[v278x].dword8 / v109;
 				LOBYTE(v118) = v277[2] + v279;
 				HIBYTE(v118) = v277[3] + HIBYTE(v279);
 				v119 = mapTerrainType_10B4E0[v118];
@@ -1519,9 +1822,9 @@ void GameRender_old::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, _
 					Str_E9C38_smalltit[v278x].word38 |= 0x80u;
 				if (D41A0_0.m_GameSettings.str_0x2196.flat_0x2199)
 					Str_E9C38_smalltit[v278x].word38 |= 0x1000u;
-				v120x = v278x;
+				//v120 = v278;
 				Str_E9C38_smalltit[v278x].byte43 = Maths::x_BYTE_D41D8[Str_E9C38_smalltit[v278x].byte41];
-				Str_E9C38_smalltit[v120x].byte42_std = v248x[32] + (((signed int)(unsigned __int8)mapAngle_13B4E0[v118] >> 2) & 0x1C);
+				Str_E9C38_smalltit[v278x].byte42_std = v248x[32] + (((signed int)(unsigned __int8)mapAngle_13B4E0[v118] >> 2) & 0x1C);
 				LOBYTE(v118) = v277[4] + v118;
 				HIBYTE(v118) += v277[5];
 				Str_E9C38_smalltit[v278x].word36 = mapEntityIndex_15B4E0[v118];
@@ -1535,7 +1838,7 @@ void GameRender_old::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, _
 			v122 = v277[6] + v279;
 			HIBYTE(v279) += v277[7];
 			LOBYTE(v279) = v122;
-		}
+	}
 	}
 	v283 = 21;//21eb44 nothing changed
 LABEL_259:
@@ -1559,13 +1862,14 @@ LABEL_259:
 				break;
 			Str_E9C38_smalltit[v278x].word38 |= 2u;
 		LABEL_256:
-			v206x = v278x;
+			//v206 = v278;
 			v207 = v277;
 			Str_E9C38_smalltit[v278x].word38 |= ((x_BYTE)v279 + HIBYTE(v279)) & 1;
 			LOBYTE(v279) = v207[8] + v279;
 			HIBYTE(v279) += v277[9];
 			v285--;
-			v278x = v206x + 1;
+			//v278 = v206 + 44;
+			v278x++;
 		}
 		if (v198 < 128)
 			v198 = 128;
@@ -1587,10 +1891,10 @@ LABEL_259:
 				Str_E9C38_smalltit[v278x].dword20 = str_F2C20ar.dword0x22 + str_F2C20ar.dword0x18 * Str_E9C38_smalltit[v278x].dword4_height / v198;
 				LOBYTE(v204) = v277[2] + v279;
 				HIBYTE(v204) = v277[3] + HIBYTE(v279);
-				v205x = v278x;
+				//v205 = (unsigned __int8*)v278;
 				Str_E9C38_smalltit[v278x].byte41 = mapTerrainType_10B4E0[v204];
-				Str_E9C38_smalltit[v205x].byte43 = Maths::x_BYTE_D41D8[Str_E9C38_smalltit[v205x].byte41];
-				Str_E9C38_smalltit[v205x].byte42_std = v248x[32] + (((signed int)(unsigned __int8)mapAngle_13B4E0[v204] >> 2) & 0x1C);
+				Str_E9C38_smalltit[v278x].byte43 = Maths::x_BYTE_D41D8[Str_E9C38_smalltit[v278x].byte41];
+				Str_E9C38_smalltit[v278x].byte42_std = v248x[32] + (((signed int)(unsigned __int8)mapAngle_13B4E0[v204] >> 2) & 0x1C);
 				LOBYTE(v204) = v277[4] + v204;
 				HIBYTE(v204) += v277[5];
 				Str_E9C38_smalltit[v278x].word36 = mapEntityIndex_15B4E0[v204];
@@ -1607,6 +1911,7 @@ LABEL_259:
 	v211 = Maths::x_DWORD_DB750[0x200 + v208];
 	str_F2C20ar.dword0x0d = v210;
 	str_F2C20ar.dword0x11 = v211;
+	//v56 = x_DWORD_E9C38_smalltit;
 	v56x = 0;
 	while (v209)
 	{
@@ -1640,6 +1945,7 @@ LABEL_259:
 		v209--;
 	}
 	//adress 3de7d
+	//v217 = &x_DWORD_E9C38_smalltit[35200];//21ee85
 	v217x = 800;
 	v289 = 20;
 	do
@@ -1647,43 +1953,35 @@ LABEL_259:
 		v218x = v217x;
 		for (kk = 39; kk; kk--)
 		{
-			v248x[18] = Str_E9C38_smalltit[v218x].dword16;
-			v248x[19] = Str_E9C38_smalltit[v218x].dword20;
-			v248x[22] = Str_E9C38_smalltit[v218x].dword32;
-			v218x++;
-			v219 = Str_E9C38_smalltit[v218x - 1].word38;
-			v220 = Str_E9C38_smalltit[v218x - 1].word38;
-			if (Str_E9C38_smalltit[v218x].word38 & 4)
+			v248x[18] = Str_E9C38_smalltit[v218x].dword16;//*(x_DWORD*)(v218 + 16);
+			v248x[19] = Str_E9C38_smalltit[v218x].dword20;//*(x_DWORD*)(v218 + 20);
+			v248x[22] = Str_E9C38_smalltit[v218x].dword32;//*(x_DWORD*)(v218 + 32);
+			v219 = Str_E9C38_smalltit[v218x].word38 & 0xff;//*(x_BYTE*)(v218 - 6);
+
+			if (Str_E9C38_smalltit[v218x + 1].word38 & 4)
 				break;
-			v248x[12] = Str_E9C38_smalltit[v218x].dword16;
-			v248x[13] = Str_E9C38_smalltit[v218x].dword20;
-			v248x[16] = Str_E9C38_smalltit[v218x].dword32;
-			v221 = Str_E9C38_smalltit[v218x].word38;
+			v248x[12] = Str_E9C38_smalltit[v218x + 1].dword16;//*(x_DWORD*)(v218 + 16);
+			v248x[13] = Str_E9C38_smalltit[v218x + 1].dword20;//*(x_DWORD*)(v218 + 20);
+			v248x[16] = Str_E9C38_smalltit[v218x + 1].dword32;//*(x_DWORD*)(v218 + 32);
+			v221 = Str_E9C38_smalltit[v218x + 1].word38 & 0xff;//*(x_BYTE*)(v218 + 38);
 			v222 = v221 | v219;
-			v223 = v221 & v220;
-			v248x[6] = Str_E9C38_smalltit[v218x - 40].dword16;
-			v248x[7] = Str_E9C38_smalltit[v218x - 40].dword20;
-			v224 = Str_E9C38_smalltit[v218x - 40].dword32;
-			v225x = v218x - 40;
-#ifdef TEST_x64
-			allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-			std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-			v248x[10] = (int)(x_DWORD*)v224;
-#endif
-			v226 = Str_E9C38_smalltit[v225x].word38;
-			v248x[0] = Str_E9C38_smalltit[v225x - 1].dword16;
-			v248x[1] = Str_E9C38_smalltit[v225x - 1].dword20;
-			v225x--;
-			v248x[4] = Str_E9C38_smalltit[v225x].dword32;
-			v227x = v225x + 40;
-			v228 = (Str_E9C38_smalltit[v225x].word38 & 0xff) | v226 | v222;
-			v229 = (Str_E9C38_smalltit[v225x].word38 & 0xff) & v226 & v223;
-			if (Str_E9C38_smalltit[v227x].word38 & 0x1000)
+			v223 = v221 & v219;
+
+			v248x[6] = Str_E9C38_smalltit[v218x - 39].dword16;//*(x_DWORD*)(v218 - 1744);
+			v248x[7] = Str_E9C38_smalltit[v218x - 39].dword20;//*(x_DWORD*)(v218 - 1740);
+			v248x[10] = Str_E9C38_smalltit[v218x - 39].dword32;//*(x_DWORD*)(v218 - 1728);
+			v226 = Str_E9C38_smalltit[v218x - 39].word38 & 0xff;//*(x_BYTE*)(v225 + 38);
+
+			v248x[0] = Str_E9C38_smalltit[v218x - 40].dword16;//*(x_DWORD*)(v225 - 28);
+			v248x[1] = Str_E9C38_smalltit[v218x - 40].dword20;//*(x_DWORD*)(v225 - 24);
+			v248x[4] = Str_E9C38_smalltit[v218x - 40].dword32;//*(x_DWORD*)(v225 + 32);
+			v228 = (Str_E9C38_smalltit[v218x - 40].word38 & 0xff) | v226 | v222;//(*(x_BYTE*)(v225 + 38)) | v226 | v222;
+			v229 = (Str_E9C38_smalltit[v218x - 40].word38 & 0xff) & v226 & v223;//(*(x_BYTE*)(v225 + 38)) & v226 & v223;
+			//if (*(x_BYTE*)(v227 + 39) & 0x10)
+			if (Str_E9C38_smalltit[v218x].word38 & 0x1000)
 			{
 				x_BYTE_E126D = 7;
+				//v56b = ((signed int)v248x[10] + v248x[16] + v248x[22] + v248x[4]) >> 18;
 				x_BYTE_E126C = ((signed int)v248x[10] + v248x[16] + v248x[22] + v248x[4]) >> 18;
 			}
 			else
@@ -1691,49 +1989,66 @@ LABEL_259:
 				x_BYTE_E126D = 5;
 			}
 			if (!(v228 & 2) && !(v229 & 0x78))
-			{
-				DrawSquareInProjectionSpace(v248x, v227x, viewPort.Width_DE564, viewPort.Height_DE568, pitch);
+			{//21ef76
+				v248x[20] = xunk_D4350[Str_E9C38_smalltit[v218x].byte42_std][0];
+				v248x[21] = xunk_D4350[Str_E9C38_smalltit[v218x].byte42_std][1];
+				v248x[14] = xunk_D4350[Str_E9C38_smalltit[v218x].byte42_std][2];
+				v248x[15] = xunk_D4350[Str_E9C38_smalltit[v218x].byte42_std][3];
+				v248x[8] = xunk_D4350[Str_E9C38_smalltit[v218x].byte42_std][4];
+				v248x[9] = xunk_D4350[Str_E9C38_smalltit[v218x].byte42_std][5];
+				v248x[2] = xunk_D4350[Str_E9C38_smalltit[v218x].byte42_std][6];
+				v248x[3] = xunk_D4350[Str_E9C38_smalltit[v218x].byte42_std][7];
+				x_DWORD_DE55C_ActTexture = x_DWORD_DDF50_texture_adresses[Str_E9C38_smalltit[v218x].byte41];
+				if ((Str_E9C38_smalltit[v218x].word38 & 0xff) & 1)
+				{//adress 21ddf0
+					DrawTriangleInProjectionSpace_B6253_old(&v248x[18], &v248x[12], &v248x[0]);
+					DrawTriangleInProjectionSpace_B6253_old(&v248x[0], &v248x[12], &v248x[6]);
+				}
+				else
+				{
+					DrawTriangleInProjectionSpace_B6253_old(&v248x[18], &v248x[12], &v248x[6]);
+					DrawTriangleInProjectionSpace_B6253_old(&v248x[18], &v248x[6], &v248x[0]);
+				}
 			}
-			if (Str_E9C38_smalltit[v227x].word36)
-				DrawParticles_3E360(v227x, str_DWORD_F66F0x, x_BYTE_E88E0x, x_DWORD_F5730, x_DWORD_EA3E4, str_unk_1804B0ar, viewPort, pitch);//21f01b
-			v218x = v227x + 1;
+			if (Str_E9C38_smalltit[v218x].word36)
+				/*LOBYTE(v56b) = */DrawParticles_3E360(/*v217,*/ v218x);//21f01b
+			v218x++;
 		}
+		//VGA_Debug_Blit(640, 480, x_DWORD_180628b_screen_buffer);
 		if (kk)
 		{
-			v231x = v218x - 1;
+			v231x = v218x;// -1;
 			v232x = v217x + 38;
 			do
 			{
-				v248x[18] = Str_E9C38_smalltit[v232x].dword16;
-				v248x[19] = Str_E9C38_smalltit[v232x].dword20;
-				v248x[22] = Str_E9C38_smalltit[v232x].dword32;
-				v233 = Str_E9C38_smalltit[v232x].word38;
-				v248x[12] = Str_E9C38_smalltit[v232x + 1].dword16;
-				v248x[13] = Str_E9C38_smalltit[v232x + 1].dword20;
-				v248x[16] = Str_E9C38_smalltit[v232x + 1].dword32;
-				v234 = Str_E9C38_smalltit[v232x + 1].word38;
-				v248x[6] = Str_E9C38_smalltit[v232x - 39].dword16;
-				v248x[7] = Str_E9C38_smalltit[v232x - 39].dword20;
-				v235 = v233;
-				v248x[10] = Str_E9C38_smalltit[v232x - 39].dword32;
-				v236 = Str_E9C38_smalltit[v232x - 39].word38;
+				v248x[18] = Str_E9C38_smalltit[v232x].dword16;//*(x_DWORD*)(v232 + 16);
+				v248x[19] = Str_E9C38_smalltit[v232x].dword20;//*(x_DWORD*)(v232 + 20);
+				v248x[22] = Str_E9C38_smalltit[v232x].dword32;//*(x_DWORD*)(v232 + 32);
+				v233 = Str_E9C38_smalltit[v232x].word38 & 0xff;//*(x_BYTE*)(v232 + 38);
+
+				v248x[12] = Str_E9C38_smalltit[v232x + 1].dword16;//*(x_DWORD*)(v232 + 60);
+				v248x[13] = Str_E9C38_smalltit[v232x + 1].dword20;//*(x_DWORD*)(v232 + 64);
+				v248x[16] = Str_E9C38_smalltit[v232x + 1].dword32;//*(x_DWORD*)(v232 + 76);
+				v234 = Str_E9C38_smalltit[v232x + 1].word38 & 0xff;//*(x_BYTE*)(v232 + 82);
+
+				v248x[6] = Str_E9C38_smalltit[v232x - 39].dword16;//*(x_DWORD*)(v232 - 1700);
+				v248x[7] = Str_E9C38_smalltit[v232x - 39].dword20;//*(x_DWORD*)(v232 - 1696);
+				v248x[10] = Str_E9C38_smalltit[v232x - 39].dword32;//*(x_DWORD*)(v232 - 1684);
+				v236 = Str_E9C38_smalltit[v232x - 39].word38 & 0xff;//*(x_BYTE*)(v232 - 1678);
 				v237 = v236 | v234 | v233;
-				v238 = v236 & v234 & v235;
-				v239 = Str_E9C38_smalltit[v232x - 40].dword16;
-				v240x = v232x + 1;
-				v248x[0] = v239;
-				v241 = Str_E9C38_smalltit[v240x - 41].dword20;
-				v240x -= 40;
-				v248x[1] = v241;
-				v248x[4] = Str_E9C38_smalltit[v240x - 1].dword32;
-				v240x -= 1;
-				v242 = Str_E9C38_smalltit[v240x].word38;
-				v243x = v240x + 40;
+				v238 = v236 & v234 & v233;
+
+				v248x[0] = Str_E9C38_smalltit[v232x - 40].dword16;//*(x_DWORD*)(v232 - 1744);
+				v248x[1] = Str_E9C38_smalltit[v232x - 40].dword20;//*(x_DWORD*)(v240 - 1784);
+				v248x[4] = Str_E9C38_smalltit[v232x - 40].dword32;//*(x_DWORD*)(v240 - 12);
+				v242 = Str_E9C38_smalltit[v232x - 40].word38 & 0xff;//*(x_BYTE*)(v240 + 38);
 				v244 = v242 | v237;
 				v245 = v242 & v238;
-				if (Str_E9C38_smalltit[v240x].word38 & 0x1000)
+
+				if (Str_E9C38_smalltit[v232x].word38 & 0x1000)
 				{
 					x_BYTE_E126D = 7;
+					//v56b = ((signed int)v248x[10] + v248x[16] + v248x[22] + v248x[4]) >> 18;
 					x_BYTE_E126C = ((signed int)v248x[10] + v248x[16] + v248x[22] + v248x[4]) >> 18;
 				}
 				else
@@ -1742,22 +2057,46 @@ LABEL_259:
 				}
 				if (!(v244 & 2) && !(v245 & 0x78))
 				{
-					DrawSquareInProjectionSpace(v248x, v243x, viewPort.Width_DE564, viewPort.Height_DE568, pitch);
+					v248x[20] = xunk_D4350[Str_E9C38_smalltit[v232x].byte42_std][0];
+					v248x[21] = xunk_D4350[Str_E9C38_smalltit[v232x].byte42_std][1];
+					v248x[14] = xunk_D4350[Str_E9C38_smalltit[v232x].byte42_std][2];
+					v248x[15] = xunk_D4350[Str_E9C38_smalltit[v232x].byte42_std][3];
+					v248x[8] = xunk_D4350[Str_E9C38_smalltit[v232x].byte42_std][4];
+					v248x[9] = xunk_D4350[Str_E9C38_smalltit[v232x].byte42_std][5];
+					v248x[2] = xunk_D4350[Str_E9C38_smalltit[v232x].byte42_std][6];
+					v248x[3] = xunk_D4350[Str_E9C38_smalltit[v232x].byte42_std][7];
+					x_DWORD_DE55C_ActTexture = x_DWORD_DDF50_texture_adresses[Str_E9C38_smalltit[v232x].byte41];
+					if (Str_E9C38_smalltit[v232x].word38 & 1)
+					{
+						DrawTriangleInProjectionSpace_B6253_old(&v248x[18], &v248x[12], &v248x[0]);
+						DrawTriangleInProjectionSpace_B6253_old(&v248x[0], &v248x[12], &v248x[6]);
+					}
+					else
+					{
+						DrawTriangleInProjectionSpace_B6253_old(&v248x[18], &v248x[12], &v248x[6]);
+						DrawTriangleInProjectionSpace_B6253_old(&v248x[18], &v248x[6], &v248x[0]);
+					}
 				}
-				if (Str_E9C38_smalltit[v243x].word36)//address 21f1b5 aex 360000 ebx 3f78a0 ecx 0 edx 414eb0
-					DrawParticles_3E360(v243x, str_DWORD_F66F0x, x_BYTE_E88E0x, x_DWORD_F5730, x_DWORD_EA3E4, str_unk_1804B0ar, viewPort, pitch);
-				v232x = v243x - 1;
+				if (Str_E9C38_smalltit[v232x].word36)//adress 21f1b5 aex 360000 ebx 3f78a0 ecx 0 edx 414eb0
+					/*LOBYTE(v56b) = */DrawParticles_3E360(/*v217,*/ v232x);
+				v232x--;
 			} while (v232x >= v231x);
 		}
 		v217x -= 40;
 		v289--;
 	} while (v289);
+	//return v56b;
+
 }
 
 int32_t* GameRender_old::x_DWORD_DB350_ret(uint32_t adress) {
 	if (adress >= 0x100) return &Maths::x_DWORD_DB750[adress - 0x100];
 	allert_error();
 }
+
+uint16_t GameRender_old::sub_3FD60(int a2x) {
+	return 0;
+};
 
 uint16_t GameRender_old::sub_3FD60(int a2x, uint8_t x_BYTE_E88E0x[], type_event_0x6E8E* x_DWORD_EA3E4[], type_str_unk_1804B0ar str_unk_1804B0ar, type_particle_str** str_DWORD_F66F0x[], int32_t x_DWORD_F5730[], ViewPort viewPort, uint16_t iScreenWidth_DE560)
 {
@@ -3249,6 +3588,11 @@ void GameRender_old::DrawInverseSquareInProjectionSpace(int* vertexs, int index)
 			DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex0, &vertex6, 0, 1);
 		}
 	}
+}
+
+void GameRender_old::DrawParticles_3E360(int a2x)
+{
+	//DrawParticles_3E360(a2x, NULL, NULL, NULL, NULL, NULL, NULL, 0);
 }
 
 void GameRender_old::DrawParticles_3E360(int a2x, type_particle_str** str_DWORD_F66F0x[], uint8_t x_BYTE_E88E0x[], int32_t x_DWORD_F5730[], type_event_0x6E8E* x_DWORD_EA3E4[], type_str_unk_1804B0ar str_unk_1804B0ar, ViewPort viewPort, uint16_t iScreenWidth_DE560)
@@ -5635,6 +5979,10 @@ void GameRender_old::DrawSprite_41BD3(uint32 a1)
 			}
 		}
 	}
+}
+
+void GameRender_old::DrawTriangleInProjectionSpace_B6253_old(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3)
+{
 }
 
 void GameRender_old::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* vertex1, const ProjectionPolygon* vertex2, const ProjectionPolygon* vertex3, uint8_t startLine, uint8_t drawEveryNthLine)
