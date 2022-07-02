@@ -131,6 +131,8 @@ type_E9C38_smalltit Str_E9C38_smalltit[21 * 40];
 
 uint8_t* ViewPortRenderBufferStart_DE558 = 0;
 
+uint8_t* ViewPortRenderBufferAltStart_DE554 = 0;
+
 //language
 char* x_DWORD_E9C4C_langindexbuffer[1000]; // idb
 

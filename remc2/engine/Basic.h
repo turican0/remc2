@@ -177,6 +177,8 @@ extern type_F2C20ar str_F2C20ar;
 
 extern uint8_t* ViewPortRenderBufferStart_DE558;
 
+extern uint8_t* ViewPortRenderBufferAltStart_DE554;
+
 extern char gameDataPath[];
 extern char cdDataPath[];
 extern char bigGraphicsPath[];

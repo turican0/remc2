@@ -60,7 +60,7 @@ private:
 	//uint8_t* m_ptrX_BYTE_F6EE0_tablesx = nullptr;
 	//uint8_t m_uiScreenSize = 0;
 	//uint8_t* m_ptrViewPortRenderBufferStart_DE558 = nullptr;
-	uint8_t* m_ptrViewPortRenderBufferAltStart_DE554 = nullptr;
+	//uint8_t* ViewPortRenderBufferAltStart_DE554 = nullptr;
 	//ViewPort m_viewPort;
 	//uint16_t m_uiScreenWidth_DE560 = 0;
 	//uint16_t m_uiScreenHeight = 0;

@@ -586,7 +586,8 @@ long unknown_libname_2_findfirst(char*, uint16_t, _finddata_t* c_file);// weak
 long unknown_libname_3_findnext(_finddata_t* c_file, long hFile);// weak
 int unknown_libname_4_find_close(_finddata_t* c_file, long hFile);// weak
 
-GameRender_old* m_ptrGameRender;
+//GameRender_old* m_ptrGameRender;
+GameRender_new* m_ptrGameRender;
 uint8_t loc_A0000_vga_buffer[307200];
 
 void sub_5FA96(type_event_0x6E8E* a1x);
@@ -27473,7 +27474,7 @@ void DrawGameFrame_2BE30(uint8_t* ptrScreenBuffer, uint16_t screenWidth, uint16_
 	if (m_ptrGameRender == nullptr)
 	{
 		//m_ptrGameRender = new GameRender(/*ptrScreenBuffer, *xadatapald0dat2.colorPallette_var28, screenWidth, screenHeight, 0, 0, screenWidth, screenHeight, x_DWORD_DDF50_texture_adresses, x_BYTE_F6EE0_tablesx,*/ (multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
-		m_ptrGameRender = new GameRender_old();
+		m_ptrGameRender = new GameRender_new();
 		m_ptrGameRender->Init((multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores/*, RENDERERTYPE_OLD*/);
 	}
 
@@ -27536,7 +27537,7 @@ void DrawGameFrame_2BE30(uint8_t* ptrScreenBuffer, uint16_t screenWidth, uint16_
 				ClearGraphicsBuffer_72883((void*)ptrScreenBuffer, screenWidth, screenHeight, uiBackGroundColorIdx_EB3A8);
 		}
 
-		m_ptrGameRender->SetRenderViewPortSize_40C50(D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize);
+		m_ptrGameRender->SetRenderViewPortSize_40C50(D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize, 320, 200);
 		m_ptrGameRender->DrawWorld_411A0(//draw terrain and particles
 			//pdwScreenBuffer_351628,
 			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].axis_2BDE_11695.x,//position of player
@@ -27770,7 +27771,7 @@ void DrawGameFrame_2BE30(uint8_t* ptrScreenBuffer, uint16_t screenWidth, uint16_
 			sub_9025C(382, 0, 382, 400, (unsigned short)(*xadataclrd0dat.colorPallette_var28)[0], 0);
 		else
 			sub_90374(382, 0, 382, 400, (unsigned short)(*xadataclrd0dat.colorPallette_var28)[0], 0);
-		m_ptrGameRender->SetRenderViewPortSize_40C50(D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize);
+		m_ptrGameRender->SetRenderViewPortSize_40C50(D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize, 320, 200);
 		DrawMinimapMarks_644F0(
 			0,
 			0,

@@ -3113,7 +3113,7 @@ void GameRender_new::DrawSquareInProjectionSpace(std::vector<int>& vertexs, int 
 	vertexs[3] = xunk_D4350[Str_E9C38_smalltit[index].byte42_std][7];
 
 	//Get Texture
-	/*uint8_t* */x_DWORD_DE55C_ActTexture = m_textureAddresses.at(Str_E9C38_smalltit[index].byte41);
+	/*uint8_t* */x_DWORD_DE55C_ActTexture = x_DWORD_DDF50_texture_adresses.at(Str_E9C38_smalltit[index].byte41);
 
 	//Render
 	auto vertex0 = ProjectionPolygon(&vertexs[0]);
@@ -7019,12 +7019,12 @@ void GameRender_new::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon
 				{
 					if (v9 >= viewPort.Height_DE568)
 						return;
-					v1102 = m_ptrViewPortRenderBufferAltStart_DE554 + iScreenWidth_DE560 * v9;
+					v1102 = ViewPortRenderBufferAltStart_DE554 + iScreenWidth_DE560 * v9;
 					v1292 = 0;
 				}
 				else
 				{
-					v1102 = m_ptrViewPortRenderBufferAltStart_DE554;
+					v1102 = ViewPortRenderBufferAltStart_DE554;
 					v1292 = 1;
 				}
 				v10 = v5->Y;
@@ -7448,12 +7448,12 @@ void GameRender_new::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon
 			{
 				if (v117 >= viewPort.Height_DE568)
 					return;
-				v1102 = m_ptrViewPortRenderBufferAltStart_DE554 + iScreenWidth_DE560 * v117;
+				v1102 = ViewPortRenderBufferAltStart_DE554 + iScreenWidth_DE560 * v117;
 				v1294 = 0;
 			}
 			else
 			{
-				v1102 = m_ptrViewPortRenderBufferAltStart_DE554;
+				v1102 = ViewPortRenderBufferAltStart_DE554;
 				v1294 = 1;
 			}
 			v118 = v5->Y;
@@ -7643,12 +7643,12 @@ void GameRender_new::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon
 		{
 			if (v143 >= viewPort.Height_DE568)
 				return;
-			v1102 = m_ptrViewPortRenderBufferAltStart_DE554 + iScreenWidth_DE560 * v143;
+			v1102 = ViewPortRenderBufferAltStart_DE554 + iScreenWidth_DE560 * v143;
 			v1295 = 0;
 		}
 		else
 		{
-			v1102 = m_ptrViewPortRenderBufferAltStart_DE554;
+			v1102 = ViewPortRenderBufferAltStart_DE554;
 			v1295 = 1;
 		}
 		v144 = v5->Y;
@@ -7868,12 +7868,12 @@ LABEL_129:
 	{
 		if (v65 >= viewPort.Height_DE568)
 			return;
-		v1102 = m_ptrViewPortRenderBufferAltStart_DE554 + iScreenWidth_DE560 * v65;
+		v1102 = ViewPortRenderBufferAltStart_DE554 + iScreenWidth_DE560 * v65;
 		v1293 = 0;
 	}
 	else
 	{
-		v1102 = m_ptrViewPortRenderBufferAltStart_DE554;
+		v1102 = ViewPortRenderBufferAltStart_DE554;
 		v1293 = 1;
 	}
 	v66 = v5->Y;
@@ -14661,10 +14661,10 @@ x_DWORD* GameRender_new::LoadPolygon(x_DWORD* ptrPolys, int* v0, int* v1, int* v
 	return ptrPolys;
 }
 
-void GameRender_new::SetTextures(std::array<uint8_t*, 256>& textureAdresses)
+/*void GameRender_new::SetTextures(std::array<uint8_t*, 256>& textureAdresses)
 {
 	m_textureAddresses = textureAdresses;
-}
+}*/
 
 void GameRender_new::SetRenderViewPortSize_40C50(uint8_t viewPortSizeSetting, uint16_t screenWidth, uint16_t screenHeight)
 {
@@ -14732,7 +14732,7 @@ void GameRender_new::SetRenderViewPortSize_BCD45(uint8_t* ptrScreenBufferStart, 
 	if (ptrScreenBufferStart)
 	{
 		ViewPortRenderBufferStart_DE558 = ptrScreenBufferStart;
-		m_ptrViewPortRenderBufferAltStart_DE554 = ptrScreenBufferStart - screenWidth;
+		ViewPortRenderBufferAltStart_DE554 = ptrScreenBufferStart - screenWidth;
 	}
 
 	if (viewPortWidth)

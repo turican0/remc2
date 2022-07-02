@@ -845,7 +845,7 @@ GameRender_old::~GameRender_old()
 	v278x = 0;
 	str_F2C20ar.dword0x12 = 8912896;
 	v22 = v277[0];
-	str_F2C20ar.dword0x22 = iScreenWidth_DE560 * (unsigned __int16)viewPort.Width_DE564 >> 8;
+	str_F2C20ar.dword0x22 = pitch * (unsigned __int16)viewPort.Width_DE564 >> 8;
 	LOBYTE(v279) = v22 + HIBYTE(posX);
 	HIBYTE(v279) = v277[1] + HIBYTE(posY);
 	v23 = roll & 0x7FF;
@@ -7193,12 +7193,12 @@ LABEL_48:
 				{
 					if (v9 >= viewPort.Height_DE568)
 						return;
-					v1102 = m_ptrViewPortRenderBufferAltStart_DE554 + iScreenWidth_DE560 * v9;
+					v1102 = ViewPortRenderBufferAltStart_DE554 + iScreenWidth_DE560 * v9;
 					v1292 = 0;
 				}
 				else
 				{
-					v1102 = m_ptrViewPortRenderBufferAltStart_DE554;
+					v1102 = ViewPortRenderBufferAltStart_DE554;
 					v1292 = 1;
 				}
 				v10 = v5[1];
@@ -7714,12 +7714,12 @@ LABEL_48:
 			{
 				if (v117 >= viewPort.Height_DE568)
 					return;
-				v1102 = m_ptrViewPortRenderBufferAltStart_DE554 + iScreenWidth_DE560 * v117;
+				v1102 = ViewPortRenderBufferAltStart_DE554 + iScreenWidth_DE560 * v117;
 				v1294 = 0;
 			}
 			else
 			{
-				v1102 = m_ptrViewPortRenderBufferAltStart_DE554;
+				v1102 = ViewPortRenderBufferAltStart_DE554;
 				v1294 = 1;
 			}
 			v118 = v5[1];
@@ -7957,12 +7957,12 @@ LABEL_48:
 		{
 			if (v143 >= viewPort.Height_DE568)
 				return;
-			v1102 = m_ptrViewPortRenderBufferAltStart_DE554 + iScreenWidth_DE560 * v143;
+			v1102 = ViewPortRenderBufferAltStart_DE554 + iScreenWidth_DE560 * v143;
 			v1295 = 0;
 		}
 		else
 		{
-			v1102 = m_ptrViewPortRenderBufferAltStart_DE554;
+			v1102 = ViewPortRenderBufferAltStart_DE554;
 			v1295 = 1;
 		}
 		v144 = v5[1];
@@ -8230,12 +8230,12 @@ LABEL_129:
 	{
 		if (v65 >= viewPort.Height_DE568)
 			return;
-		v1102 = m_ptrViewPortRenderBufferAltStart_DE554 + iScreenWidth_DE560 * v65;
+		v1102 = ViewPortRenderBufferAltStart_DE554 + iScreenWidth_DE560 * v65;
 		v1293 = 0;
 	}
 	else
 	{
-		v1102 = m_ptrViewPortRenderBufferAltStart_DE554;
+		v1102 = ViewPortRenderBufferAltStart_DE554;
 		v1293 = 1;
 	}
 	v66 = v5[1];
@@ -14953,7 +14953,7 @@ LABEL_129:
 	if (ptrScreenBufferStart)
 	{
 		ViewPortRenderBufferStart_DE558 = ptrScreenBufferStart;
-		m_ptrViewPortRenderBufferAltStart_DE554 = ptrScreenBufferStart - iScreenWidth_DE560;
+		ViewPortRenderBufferAltStart_DE554 = ptrScreenBufferStart - iScreenWidth_DE560;
 	}
 	if (viewPortWidth)
 		viewPort.Width_DE564 = viewPortWidth;
