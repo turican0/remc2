@@ -69,6 +69,7 @@ set(SOURCE_FILES_ENGINE
     "engine/GameRender_old.h"
     "engine/GameRender_new.cpp"
     "engine/GameRender_new.h"
+    "engine/GameRenderInterface.h"
     "sub_main.cpp"
     "sub_main.h"
     "engine/ProjectionPolygon.cpp"
