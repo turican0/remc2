@@ -38,7 +38,7 @@ private:
 		0x00,0xFF,0xFF,0x00,0xFF,0x28,0x00,0xFF
 	};
 
-	uint8_t unk_DE56Cx[8][4194304]; //Number of possible render threads (8) //number of polygons (2048 * 2048)
+	uint8_t unk_DE56Cx[1][4194304]; //Number of possible render threads (8) //number of polygons (2048 * 2048)
 	
 	uint32_t x_DWORD_B8845[16] = {
 		0x00000000,0xFFFFFFF1,0xFFFFFFF2,0xFFFFFFF3,

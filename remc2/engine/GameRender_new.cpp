@@ -2129,7 +2129,7 @@ uint16_t GameRender_new::sub_3FD60(int a2x, uint8_t x_BYTE_E88E0x[], type_event_
 	return result;
 }
 
-void GameRender_new::sub_88740(type_event_0x6E8E* a1x, type_event_0x6E8E* x_DWORD_EA3E4[], type_str_unk_1804B0ar str_unk_1804B0ar, int a2, int a3)
+void GameRender_new::sub_88740(type_event_0x6E8E* a1x, int a2, int a3)
 {
 	int v3; // esi
 	type_event_0x6E8E* v4x; // edx
@@ -2913,7 +2913,7 @@ void GameRender_new::SetBillboards_3B560(int16_t roll)
 	//return result;
 }
 
-void GameRender_new::DrawSorcererNameAndHealthBar_2CB30(type_event_0x6E8E* a1x, uint8_t x_BYTE_E88E0xxx[], __int16 a2, int a3, __int16 a4, int16_t viewPortXxx, int16_t viewPortYxx, uint16_t viewPortWidthxx, uint16_t viewPortHeightxx, uint16_t iScreenWidth_DE560xx)
+void GameRender_new::DrawSorcererNameAndHealthBar_2CB30(type_event_0x6E8E* a1x, __int16 a2, int a3, __int16 a4)
 {
 	//char *v4; // edi
 	char* v5; // esi
@@ -5217,13 +5217,11 @@ void GameRender_new::DrawSprite_41BD3(uint32 a1)
 						&& str_F2C20ar.dword0x14x->type_0x3F_63 == 3
 						&& (!str_F2C20ar.dword0x14x->subtype_0x40_64 || str_F2C20ar.dword0x14x->subtype_0x40_64 == 1))
 					{
-						DrawSorcererNameAndHealthBar_2CB30(str_F2C20ar.dword0x14x, x_BYTE_E88E0x, str_F2C20ar.dword0x04_screenY, (signed __int16)str_F2C20ar.dword0x03_screenX, str_F2C20ar.dword0x09_realWidth, viewPort.PosX_EA3D0, viewPort.PosY_EA3CC, viewPort.Width_DE564, viewPort.Height_DE568, iScreenWidth_DE560);
+						DrawSorcererNameAndHealthBar_2CB30(str_F2C20ar.dword0x14x, str_F2C20ar.dword0x04_screenY, (signed __int16)str_F2C20ar.dword0x03_screenX, str_F2C20ar.dword0x09_realWidth);
 					}
 					if (x_D41A0_BYTEARRAY_4_struct.byteindex_10)
 						sub_88740(
 							str_F2C20ar.dword0x14x,
-							x_DWORD_EA3E4,
-							str_unk_1804B0ar,
 							(signed __int16)(str_F2C20ar.dword0x04_screenY + (str_F2C20ar.dword0x09_realWidth >> 1)),
 							(signed __int16)(str_F2C20ar.dword0x03_screenX + (str_F2C20ar.dword0x0c_realHeight >> 1)));
 					//LOWORD(v1) = str_F2C20ar.dword0x14;
@@ -5310,8 +5308,6 @@ void GameRender_new::DrawSprite_41BD3(uint32 a1)
 			if (a1 == 1 && x_D41A0_BYTEARRAY_4_struct.byteindex_10)
 				sub_88740(
 					str_F2C20ar.dword0x14x,
-					x_DWORD_EA3E4,
-					str_unk_1804B0ar,
 					(signed __int16)(str_F2C20ar.dword0x04_screenY + (str_F2C20ar.dword0x09_realWidth >> 1)),
 					(signed __int16)(str_F2C20ar.dword0x03_screenX + (str_F2C20ar.dword0x0c_realHeight >> 1)));
 			//v1 = (int)(x_DWORD_F2C2C * iScreenWidth_DE560 + x_DWORD_F2C30 + x_DWORD_DE558);
@@ -14666,6 +14662,7 @@ x_DWORD* GameRender_new::LoadPolygon(x_DWORD* ptrPolys, int* v0, int* v1, int* v
 	m_textureAddresses = textureAdresses;
 }*/
 
+/*
 void GameRender_new::SetRenderViewPortSize_40C50(uint8_t viewPortSizeSetting, uint16_t screenWidth, uint16_t screenHeight)
 {
 	ViewPort viewPort;
@@ -14720,6 +14717,32 @@ void GameRender_new::SetRenderViewPortSize_BCD45(ViewPort viewPort, uint16_t scr
 
 	int32_t ptrScreenRenderBufferStart = viewPort.PosX_EA3D0 + screenWidth_18062C * viewPort.PosY_EA3CC;
 	SetRenderViewPortSize_BCD45(ptrScreenRenderBufferStart + pdwScreenBuffer_351628, screenWidth_18062C, screenWidth, screenHeight);
+}*/
+
+/* ---- */void GameRender_new::SetRenderViewPortSize_40C50(uint8_t viewPortSizeSetting)//221c50
+{
+	int v1; // eax
+	int v2; // esi
+	int v3; // eax
+	unsigned __int16 v4; // bx
+	int v5; // ST10_4
+
+	v1 = 40 - viewPortSizeSetting;
+	if (x_WORD_180660_VGA_type_resolution & 1)
+	{
+		v2 = screenWidth_18062C * (5 * v1 / 2) + 4 * v1;
+		v3 = (unsigned __int16)(5 * viewPortSizeSetting);
+		v4 = 8 * viewPortSizeSetting;
+	}
+	else
+	{
+		v2 = screenWidth_18062C * (12 * v1 / 2) + 8 * v1;
+		v3 = (unsigned __int16)(12 * viewPortSizeSetting);
+		v4 = 16 * viewPortSizeSetting;
+	}
+	v5 = v3;
+	str_F2C20ar.dword0x0e_ptrScreenRenderBufferStart = v2;
+	SetRenderViewPortSize_BCD45(v2 + pdwScreenBuffer_351628, screenWidth_18062C, v4, v5);
 }
 
 void GameRender_new::SetRenderViewPortSize_BCD45(uint8_t* ptrScreenBufferStart, uint16_t screenWidth, uint16_t viewPortWidth, uint16_t viewPortHeight)
@@ -14732,7 +14755,7 @@ void GameRender_new::SetRenderViewPortSize_BCD45(uint8_t* ptrScreenBufferStart, 
 	if (ptrScreenBufferStart)
 	{
 		ViewPortRenderBufferStart_DE558 = ptrScreenBufferStart;
-		ViewPortRenderBufferAltStart_DE554 = ptrScreenBufferStart - screenWidth;
+		ViewPortRenderBufferAltStart_DE554 = ptrScreenBufferStart - iScreenWidth_DE560;
 	}
 
 	if (viewPortWidth)
