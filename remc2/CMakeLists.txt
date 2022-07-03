@@ -69,6 +69,8 @@ set(SOURCE_FILES_ENGINE
     "engine/GameRender_old.h"
     "engine/GameRender_new.cpp"
     "engine/GameRender_new.h"
+    "engine/GameRender_GL.cpp"
+    "engine/GameRender_GL.h"
     "engine/GameRenderInterface.h"
     "sub_main.cpp"
     "sub_main.h"
