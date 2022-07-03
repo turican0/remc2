@@ -586,7 +586,7 @@ long unknown_libname_2_findfirst(char*, uint16_t, _finddata_t* c_file);// weak
 long unknown_libname_3_findnext(_finddata_t* c_file, long hFile);// weak
 int unknown_libname_4_find_close(_finddata_t* c_file, long hFile);// weak
 
-GameRender_new* m_ptrGameRender;
+GameRenderInterface* m_ptrGameRender;
 //GameRender_new* m_ptrGameRender;
 uint8_t loc_A0000_vga_buffer[307200];
 
@@ -27474,7 +27474,7 @@ void DrawGameFrame_2BE30(uint8_t* ptrScreenBuffer, uint16_t screenWidth, uint16_
 	if (m_ptrGameRender == nullptr)
 	{
 		//m_ptrGameRender = new GameRender(/*ptrScreenBuffer, *xadatapald0dat2.colorPallette_var28, screenWidth, screenHeight, 0, 0, screenWidth, screenHeight, x_DWORD_DDF50_texture_adresses, x_BYTE_F6EE0_tablesx,*/ (multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
-		m_ptrGameRender = new GameRender_new();
+		m_ptrGameRender = (GameRenderInterface*)new GameRender_new();
 		m_ptrGameRender->Init((multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores/*, RENDERERTYPE_OLD*/);
 	}
 

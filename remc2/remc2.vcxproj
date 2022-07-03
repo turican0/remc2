@@ -336,6 +336,7 @@
     <ClInclude Include="..\SDL-Mixer-X-master\src\music.h" />
     <ClInclude Include="engine\Animation.h" />
     <ClInclude Include="engine\Basic.h" />
+    <ClInclude Include="engine\GameRenderInterface.h" />
     <ClInclude Include="engine\GameRender_new.h" />
     <ClInclude Include="engine\GameRender_old.h" />
     <ClInclude Include="engine\ProjectionPolygon.h" />

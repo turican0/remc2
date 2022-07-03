@@ -3,6 +3,8 @@
 #ifndef GAME_RENDER_NEW
 #define GAME_RENDER_NEW
 
+#include "GameRenderInterface.h"
+
 #include <array>
 #include <thread>
 
@@ -26,7 +28,8 @@
 #include "RenderThread.h"
 #include "ProjectionPolygon.h"
 
-class GameRender_new {
+class GameRender_new : public GameRenderInterface
+{
 
 private:
 
