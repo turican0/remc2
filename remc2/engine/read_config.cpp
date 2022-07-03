@@ -17,6 +17,7 @@ bool dynamicLighting = false;
 bool multiThreadedRender = false;
 int numberOfRenderThreads = 0;
 bool assignToSpecificCores = false;
+bool openGLRender = false;
 
 void readini(const std::string& filename) {
 
@@ -115,20 +116,26 @@ void readini(const std::string& filename) {
 
 	speedGame = reader.GetInteger("game", "speed", 30);
 	speedAnim = reader.GetInteger("game", "animspeed", 100);
-	multiThreadedRender = reader.GetBoolean("graphics", "multiThreadedRender", false);
-	numberOfRenderThreads = reader.GetInteger("graphics", "numberOfRenderThreads", 0);
 
-	if (multiThreadedRender)
+	openGLRender = reader.GetBoolean("graphics", "openGLRender", false);
+
+	if (!openGLRender)
 	{
-		assignToSpecificCores = reader.GetBoolean("graphics", "assignToSpecificCores", false);
+		multiThreadedRender = reader.GetBoolean("graphics", "multiThreadedRender", false);
+		numberOfRenderThreads = reader.GetInteger("graphics", "numberOfRenderThreads", 0);
 
-		if (numberOfRenderThreads < 1)
+		if (multiThreadedRender)
 		{
-			numberOfRenderThreads = 1;
+			assignToSpecificCores = reader.GetBoolean("graphics", "assignToSpecificCores", false);
+
+			if (numberOfRenderThreads < 1)
+			{
+				numberOfRenderThreads = 1;
+			}
 		}
-	}
-	else
-	{
-		numberOfRenderThreads = 0;
+		else
+		{
+			numberOfRenderThreads = 0;
+		}
 	}
 };

@@ -432,6 +432,9 @@
     <ClInclude Include="engine\GameRenderInterface.h">
       <Filter>Header Files\engine</Filter>
     </ClInclude>
+    <ClInclude Include="engine\GameRender_GL.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -723,6 +726,9 @@
       <Filter>Source Files\engine</Filter>
     </ClCompile>
     <ClCompile Include="engine\GameRender_old.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\GameRender_GL.cpp">
       <Filter>Source Files\engine</Filter>
     </ClCompile>
   </ItemGroup>
