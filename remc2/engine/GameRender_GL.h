@@ -8,7 +8,7 @@
 class GameRender_GL: public GameRenderInterface
 {
 public:
-	GameRender_GL(uint16_t screenWidth, uint16_t screenHeight, uint16_t viewPortPosX, uint16_t viewPortPosY, uint16_t viewPortWidth, uint16_t viewPortHeight, uint8_t x_BYTE_F6EE0_tablesx[]);
+	//GameRender_GL(uint16_t screenWidth, uint16_t screenHeight, uint16_t viewPortPosX, uint16_t viewPortPosY, uint16_t viewPortWidth, uint16_t viewPortHeight, uint8_t x_BYTE_F6EE0_tablesx[]);
 	~GameRender_GL();
 	void SetRenderViewPortSize_40C50(uint8_t viewPortSizeSetting, uint16_t screenWidth, uint16_t screenHeight);
 	void SetRenderViewPortSize_BCD45(ViewPort viewPort, uint16_t screenWidth, uint16_t screenHeight);

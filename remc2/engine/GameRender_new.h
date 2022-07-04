@@ -22,8 +22,6 @@
 #include "Type_D94F0_Bldgprmbuffer.h"
 #include "Type_D93C0_Bldgprmbuffer.h"
 #include "TextureMaps.h"
-#include "engine_support.h"
-#include "ViewPort.h"
 #include "defs.h"
 #include "RenderThread.h"
 #include "ProjectionPolygon.h"
@@ -117,10 +115,9 @@ private:
 	void WaitForRenderFinish();
 
 public:
-	GameRender_new(/*uint8_t* pScreenBuffer, uint8_t* pColorPalette, uint16_t screenWidth, uint16_t screenHeight, uint16_t viewPortPosX, uint16_t viewPortPosY, uint16_t viewPortWidth, uint16_t viewPortHeight, std::array<uint8_t*, 256>& textureAdresses, uint8_t x_BYTE_F6EE0_tablesx[], uint8_t renderThreads, bool assignToSpecificCores*/);
+	GameRender_new(uint8_t renderThreads, bool assignToSpecificCores);
 	~GameRender_new();
-	void Init(uint8_t renderThreads, bool assignToSpecificCores);
-
+	
 	//void SetTextures(std::array<uint8_t*, 256> &textureAdresses);
 	//void SetX_BYTE_F6EE0_tablesx(uint8_t pX_BYTE_F6EE0_tablesx[]);
 	//void SetRenderViewPortSize_BCD45(ViewPort viewPort, uint16_t screenWidth, uint16_t screenHeight);

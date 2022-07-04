@@ -1,10 +1,5 @@
 #include "GameRender_GL.h"
 
-GameRender_GL::GameRender_GL(uint16_t screenWidth, uint16_t screenHeight, uint16_t viewPortPosX, uint16_t viewPortPosY, uint16_t viewPortWidth, uint16_t viewPortHeight, uint8_t pX_BYTE_F6EE0_tablesx[])
-{
-
-}
-
 GameRender_GL::~GameRender_GL()
 {
 

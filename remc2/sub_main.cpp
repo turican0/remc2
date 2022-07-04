@@ -14451,18 +14451,18 @@ void sub_1A970_change_game_settings(char a1, int a2, int a3)//1fb970
 		sub_417D0_install_pal_and_mouse_minmax2();
 		return;
 	case 19:
-		if (m_ptrGameRender != nullptr)
+		if (m_ptrGameRender != nullptr && typeid(*m_ptrGameRender) == typeid(GameRender_new))
 		{
-			uint8_t numRenderThreads = m_ptrGameRender->GetRenderThreads();
+			uint8_t numRenderThreads = ((GameRender_new*)m_ptrGameRender)->GetRenderThreads();
 			if (numRenderThreads >= 7)
 			{
-				m_ptrGameRender->SetRenderThreads(0);
+				((GameRender_new*)m_ptrGameRender)->SetRenderThreads(0);
 				sub_19760_set_message("Multi-thread render OFF", 3u, 50);
 			}
 			else
 			{
 				numRenderThreads++;
-				m_ptrGameRender->SetRenderThreads(numRenderThreads);
+				((GameRender_new*)m_ptrGameRender)->SetRenderThreads(numRenderThreads);
 				std::string message = "Multi-thread render ON: Number of Threads: ";
 				message += std::to_string(numRenderThreads);
 				sub_19760_set_message(message.c_str(), 3u, 50);
@@ -27557,7 +27557,7 @@ void DrawGameFrame_2BE30(uint8_t* ptrScreenBuffer, uint16_t screenWidth, uint16_
 #ifdef TEST_RENDERERS
 		memcpy(help_ScreenBuffer, pdwScreenBuffer_351628, screenWidth_18062C * screenHeight_180624);
 		m_ptrGameRender = (GameRenderInterface*)new GameRender_old();
-		m_ptrGameRender->Init((multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
+		//m_ptrGameRender->Init((multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
 		m_ptrGameRender->DrawWorld_411A0(
 			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].axis_2BDE_11695.x,//position of player
 			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].axis_2BDE_11695.y,//position of player
@@ -27574,8 +27574,8 @@ void DrawGameFrame_2BE30(uint8_t* ptrScreenBuffer, uint16_t screenWidth, uint16_
 		delete m_ptrGameRender;
 		m_ptrGameRender = nullptr;
 
-		m_ptrGameRender = (GameRenderInterface*)new GameRender_new();
-		m_ptrGameRender->Init((multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
+		m_ptrGameRender = (GameRenderInterface*)new GameRender_new((multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
+		//m_ptrGameRender->Init((multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
 #endif
 
 		//WriteBufferToBMP(screenWidth, screenHeight, *xadatapald0dat2.colorPallette_var28, pdwScreenBuffer_351628);
@@ -27785,7 +27785,7 @@ void DrawGameFrame_2BE30(uint8_t* ptrScreenBuffer, uint16_t screenWidth, uint16_
 #ifdef TEST_RENDERERS
 		memcpy(help_ScreenBuffer, pdwScreenBuffer_351628, screenWidth_18062C* screenHeight_180624);
 		m_ptrGameRender = (GameRenderInterface*)new GameRender_old();
-		m_ptrGameRender->Init((multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
+		//m_ptrGameRender->Init((multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
 		m_ptrGameRender->DrawWorld_411A0(
 			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].axis_2BDE_11695.x,//position of player
 			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].axis_2BDE_11695.y,//position of player
@@ -27802,8 +27802,8 @@ void DrawGameFrame_2BE30(uint8_t* ptrScreenBuffer, uint16_t screenWidth, uint16_
 		delete m_ptrGameRender;
 		m_ptrGameRender = nullptr;
 
-		m_ptrGameRender = (GameRenderInterface*)new GameRender_new();
-		m_ptrGameRender->Init((multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
+		m_ptrGameRender = (GameRenderInterface*)new GameRender_new((multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
+		//m_ptrGameRender->Init((multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
 #endif
 
 		if (x_WORD_180660_VGA_type_resolution & 1)
@@ -39928,8 +39928,9 @@ void sub_46830_main_loop(/*int16_t* a1, */signed int a2, unsigned __int16 a3)//2
 				SetMousePositionByRes_6EDB0();
 				if (m_ptrGameRender == nullptr)
 				{
-					m_ptrGameRender = (GameRenderInterface*)new GameRender_new();
-					m_ptrGameRender->Init((multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
+					m_ptrGameRender = (GameRenderInterface*)new GameRender_new((multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
+					/*if (typeid(*m_ptrGameRender) == typeid(GameRender_new))
+						((GameRender_new*)m_ptrGameRender)->Init((multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);*/
 				}
 				sub_47320_in_game_loop(a2);
 				if (m_ptrGameRender != nullptr)

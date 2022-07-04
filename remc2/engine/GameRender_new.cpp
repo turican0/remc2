@@ -1,18 +1,6 @@
 #include "GameRender_new.h"
 
-GameRender_new::GameRender_new()
-{
-	/*pdwScreenBuffer_351628 = pScreenBuffer;
-	m_ptrColorPalette = pColorPalette;
-	SetRenderViewPortSize_BCD45(ViewPort(viewPortPosX, viewPortPosY, viewPort.Width_DE564, viewPort.Height_DE568), iScreenWidth_DE560, screenHeight);
-	SetTextures(textureAdresses);
-	x_BYTE_F6EE0_tablesx = pX_BYTE_F6EE0_tablesx;
-
-	m_assignToSpecificCores = assignToSpecificCores;
-	SetRenderThreads(renderThreads);*/
-}
-
-void GameRender_new::Init(uint8_t renderThreads, bool assignToSpecificCores)
+GameRender_new::GameRender_new(uint8_t renderThreads, bool assignToSpecificCores)
 {
 	m_assignToSpecificCores = assignToSpecificCores;
 	SetRenderThreads(renderThreads);

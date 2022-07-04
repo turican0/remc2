@@ -12,9 +12,10 @@ GameRender_old::GameRender_old()
 	SetRenderThreads(renderThreads);*/
 }
 
+/*
 void GameRender_old::Init(uint8_t renderThreads, bool assignToSpecificCores)
 {
-}
+}*/
 
 GameRender_old::~GameRender_old()
 {
@@ -14960,14 +14961,14 @@ LABEL_129:
 	if (viewPortHeight)
 		viewPort.Height_DE568 = viewPortHeight;
 }
-void GameRender_old::SetRenderThreads(uint8_t renderThreads)
+/*void GameRender_old::SetRenderThreads(uint8_t renderThreads)
 {
 }
 
 uint8_t GameRender_old::GetRenderThreads()
 {
 	return 0;
-};
+};*/
 
 void GameRender_old::SetRenderViewPortSize_BCD45(ViewPort viewPort, uint16_t screenWidth, uint16_t screenHeight)
 {
