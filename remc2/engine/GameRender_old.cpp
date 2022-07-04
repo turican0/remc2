@@ -14918,7 +14918,8 @@ LABEL_129:
 	}
 }
 
-/* ---- */void GameRender_old::SetRenderViewPortSize_40C50(uint8_t viewPortSizeSetting)//221c50
+/*
+void GameRender_old::SetRenderViewPortSize_40C50(uint8_t viewPortSizeSetting)//221c50
 {
 	int v1; // eax
 	int v2; // esi
@@ -14944,8 +14945,8 @@ LABEL_129:
 	SetRenderViewPortSize_BCD45(v2 + pdwScreenBuffer_351628, screenWidth_18062C, v4, v5);
 }
 
-//void SetRenderViewPortSize(uint8_t* a1, int  /*a2*/, int screenWidth, int viewPortWidth, int viewPortHeight)
-/* ---- */void GameRender_old::SetRenderViewPortSize_BCD45(uint8_t* ptrScreenBufferStart, uint16_t screenWidth, uint16_t viewPortWidth, uint16_t viewPortHeight/*, uint16_t iScreenWidth_DE560*/)
+//void SetRenderViewPortSize(uint8_t* a1, int  , int screenWidth, int viewPortWidth, int viewPortHeight)
+void GameRender_old::SetRenderViewPortSize_BCD45(uint8_t* ptrScreenBufferStart, uint16_t screenWidth, uint16_t viewPortWidth, uint16_t viewPortHeight)
 {
 	if (screenWidth)
 		iScreenWidth_DE560 = screenWidth;
@@ -14960,7 +14961,9 @@ LABEL_129:
 
 	if (viewPortHeight)
 		viewPort.Height_DE568 = viewPortHeight;
-}
+}*/
+
+
 /*void GameRender_old::SetRenderThreads(uint8_t renderThreads)
 {
 }
@@ -14970,7 +14973,8 @@ uint8_t GameRender_old::GetRenderThreads()
 	return 0;
 };*/
 
+/*
 void GameRender_old::SetRenderViewPortSize_BCD45(ViewPort viewPort, uint16_t screenWidth, uint16_t screenHeight)
 {
 	allert_error();
-};
+};*/

@@ -167,8 +167,6 @@ extern uint8_t* x_BYTE_FAEE0_tablesx_pre;
 
 extern int iScreenWidth_DE560; // weak //screen X // DE560
 
-extern ViewPort viewPort;
-
 extern std::array<uint8_t*, 256> x_DWORD_DDF50_texture_adresses; /*= { 0,32 }*/ // weak
 
 extern type_E9C38_smalltit Str_E9C38_smalltit[21 * 40];

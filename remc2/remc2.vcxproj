@@ -463,6 +463,7 @@
     <ClCompile Include="engine\Type_MapScreenPortals_E17CC.cpp" />
     <ClCompile Include="engine\Type_SecretMapScreenPortals_E2970.cpp" />
     <ClCompile Include="engine\Type_WORD_D951C.cpp" />
+    <ClCompile Include="engine\ViewPort.cpp" />
     <ClCompile Include="engine\XUnk_D4350.cpp" />
     <ClCompile Include="engine\RenderThread.cpp" />
     <ClCompile Include="utilities\BitmapIO.cpp" />

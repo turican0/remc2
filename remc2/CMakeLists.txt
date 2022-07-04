@@ -85,6 +85,8 @@ set(SOURCE_FILES_ENGINE
     "engine/Terrain.cpp"
     "engine/Terrain.h"
     "engine/sub_main_mouse.h"
+    "engine/ViewPort.cpp"
+    "engine/ViewPort.h"
 )
 source_group("Source Files\\engine" FILES ${SOURCE_FILES_ENGINE})
 

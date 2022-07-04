@@ -27534,7 +27534,7 @@ void DrawGameFrame_2BE30(uint8_t* ptrScreenBuffer, uint16_t screenWidth, uint16_
 				ClearGraphicsBuffer_72883((void*)ptrScreenBuffer, screenWidth, screenHeight, uiBackGroundColorIdx_EB3A8);
 		}
 
-		m_ptrGameRender->SetRenderViewPortSize_40C50(D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize/*, 640, 480*/);
+		SetRenderViewPortSize_40C50(D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize/*, 640, 480*/);
 		m_ptrGameRender->DrawWorld_411A0(//draw terrain and particles
 			//pdwScreenBuffer_351628,
 			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].axis_2BDE_11695.x,//position of player
@@ -27814,7 +27814,7 @@ void DrawGameFrame_2BE30(uint8_t* ptrScreenBuffer, uint16_t screenWidth, uint16_
 			sub_9025C(382, 0, 382, 400, (unsigned short)(*xadataclrd0dat.colorPallette_var28)[0], 0);
 		else
 			sub_90374(382, 0, 382, 400, (unsigned short)(*xadataclrd0dat.colorPallette_var28)[0], 0);
-		m_ptrGameRender->SetRenderViewPortSize_40C50(D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize/*, 640, 480*/);
+		SetRenderViewPortSize_40C50(D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize/*, 640, 480*/);
 		DrawMinimapMarks_644F0(
 			0,
 			0,
@@ -27931,47 +27931,6 @@ void DrawGameFrame_2BE30(uint8_t* ptrScreenBuffer, uint16_t screenWidth, uint16_
 	x_D41A0_BYTEARRAY_4_struct.byteindex_210d--;
 	//return _wcpp_1_unwind_leave__62();
 }
-
-//----- (0002CA60) --------------------------------------------------------
-void SetViewPortScreenCoordinates_2CA60(int16_t viewPortX, int16_t viewPortY, uint16_t viewPortWidth, uint16_t viewPortHeight)//20da60
-{
-	viewPort.PosX_EA3D0 = viewPortX;
-	viewPort.PosY_EA3CC = viewPortY;
-	viewPort.PreWidth_EA3C4 = viewPortWidth;
-	viewPort.PreHeight_EA3C0 = viewPortHeight;
-}
-// EA3C0: using guessed type int x_DWORD_EA3C0;
-// EA3C4: using guessed type int x_DWORD_EA3C4;
-// EA3CC: using guessed type int x_DWORD_EA3CC;
-// EA3D0: using guessed type int x_DWORD_EA3D0;
-
-//----- (0002CA90) --------------------------------------------------------
-void ResizeViewPort_2CA60(__int16 a1)//20da90
-{
-	int v1; // eax
-	int widthKoef = screenWidth_18062C / 80;
-	int heightKoef = screenHeight_180624 / 80;
-
-	v1 = 40 - a1;
-	viewPort.PosX_EA3D0 = widthKoef * v1;
-	viewPort.PreWidth_EA3C4 = widthKoef * 2 * a1;
-	viewPort.PreHeight_EA3C0 = heightKoef * 2 * a1;
-	viewPort.PosY_EA3CC = heightKoef * v1;
-	//return result;
-}
-// EA3C0: using guessed type int x_DWORD_EA3C0;
-// EA3C4: using guessed type int x_DWORD_EA3C4;
-// EA3CC: using guessed type int x_DWORD_EA3CC;
-// EA3D0: using guessed type int x_DWORD_EA3D0;
-// 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
-
-// D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
-// EA3C0: using guessed type int x_DWORD_EA3C0;
-// EA3C4: using guessed type int x_DWORD_EA3C4;
-// EA3CC: using guessed type int x_DWORD_EA3CC;
-// EA3D0: using guessed type int x_DWORD_EA3D0;
-// 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
-// 2CB30: using guessed type char var_58[32];
 
 //----- (0002CE30) --------------------------------------------------------
 void sub_2CE30_pause_end_level(int a1, int a2, uint16_t screenWidth)//20de30

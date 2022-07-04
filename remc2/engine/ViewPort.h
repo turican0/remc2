@@ -5,6 +5,8 @@
 
 #include <cstdint>
 
+#include "Basic.h"
+
 struct ViewPort
 {
 	uint16_t PreHeight_EA3C0 = 0;
@@ -58,5 +60,12 @@ struct ViewPort
 		PreHeight_EA3C0 = viewPortPreHeight;		
 	};
 };
+
+extern ViewPort viewPort;
+
+extern void SetViewPortScreenCoordinates_2CA60(int16_t viewPortX, int16_t viewPortY, uint16_t viewPortWidth, uint16_t viewPortHeight);//20da60
+extern void ResizeViewPort_2CA60(__int16 a1);//20da90
+extern void SetRenderViewPortSize_BCD45(uint8_t* ptrScreenBufferStart, uint16_t screenWidth, uint16_t viewPortWidth, uint16_t viewPortHeight);
+extern void SetRenderViewPortSize_40C50(uint8_t viewPortSizeSetting);
 
 #endif //VIEWPORT_H
