@@ -117,7 +117,7 @@ sub2type_E3808_music_header;
 
 typedef struct {//lenght 216
 	int8_t stub[10];
-	sub2type_E3808_music_header track_10[8];
+	sub2type_E3808_music_header track_10[6];
 	int8_t stubb[14];
 }
 sub1type_E3808_music_header;
@@ -160,7 +160,7 @@ shadow_sub2type_E3808_music_header;
 
 typedef struct {//lenght 216
 	int8_t stub[10];
-	shadow_sub2type_E3808_music_header track_10[8];
+	shadow_sub2type_E3808_music_header track_10[6];
 	int8_t stubb[14];
 }
 shadow_sub1type_E3808_music_header;
