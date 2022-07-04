@@ -40,8 +40,8 @@ private:
 	};
 
 	uint8_t unk_DE56Cx[1][4194304]; //Number of possible render threads (8) //number of polygons (2048 * 2048)
-	
-	uint32_t x_DWORD_B8845[16] = {
+	//offsets_B8845
+	uint32_t offsets_B8845[16] = {
 		0x00000000,0xFFFFFFF1,0xFFFFFFF2,0xFFFFFFF3,
 		0xFFFFFFF4,0xFFFFFFF5,0xFFFFFFF6,0xFFFFFFF7,
 		0xFFFFFFF8,0xFFFFFFF9,0xFFFFFFFA,0xFFFFFFFB,

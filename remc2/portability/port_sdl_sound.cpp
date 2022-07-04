@@ -128,7 +128,7 @@ void SOUND_set_sequence_volume(int32_t volume) {
 void SOUND_init_MIDI_sequence(uint8_t*  /*datax*/, type_E3808_music_header* headerx, int32_t track_number)
 {
 	//uint8_t* acttrack = &header[32 + track_number * 32];
-	uint8_t* acttrack = headerx->str_8.track_10[track_number].dword_0;
+	uint8_t* acttrack = headerx->str_8.track_10[track_number].wavdata_0;
 	//int testsize = *(uint32_t*)(&header[32 + (track_number + 1) * 32] + 18) - *(uint32_t*)(acttrack + 18);
 	int testsize2 = *(uint32_t*)(acttrack + 26);
 

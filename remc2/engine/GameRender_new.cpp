@@ -1203,14 +1203,7 @@ void GameRender_new::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, _
 							v137 = Str_E9C38_smalltit[v134x].word38;
 							v248x[6] = Str_E9C38_smalltit[v134x - 40].dword24;
 							v248x[7] = Str_E9C38_smalltit[v134x - 40].dword28;
-#ifdef TEST_x64
-							allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-							std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-							v248x[10] = (int)*(x_DWORD**)&Str_E9C38_smalltit[v134x - 40].dword32;
-#endif
+							v248x[10] = Str_E9C38_smalltit[v134x - 40].dword32;
 							v138 = Str_E9C38_smalltit[v134x - 40].word38 | v137 | v136;
 							v248x[0] = Str_E9C38_smalltit[v134x - 41].dword24;
 							v139 = Str_E9C38_smalltit[v134x - 41].dword28;
@@ -1265,14 +1258,7 @@ void GameRender_new::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, _
 								v248x[7] = v150;
 								v152 = Str_E9C38_smalltit[v151x - 40].dword32;
 								v151x -= 40;
-#ifdef TEST_x64
-								allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-								std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-								v248x[10] = (int)(x_DWORD*)v152;
-#endif
+								v248x[10] = v152;
 								v153 = Str_E9C38_smalltit[v151x].word38;
 								v248x[0] = Str_E9C38_smalltit[v151x - 1].dword24;
 								v154 = Str_E9C38_smalltit[v151x - 1].dword28;
@@ -1336,14 +1322,7 @@ void GameRender_new::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, _
 						v248x[7] = Str_E9C38_smalltit[v161 - 40].dword20;
 						v168 = Str_E9C38_smalltit[v161 - 40].dword32;
 						v169x = v161 - 40;
-#ifdef TEST_x64
-						allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-						std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-						v248x[10] = (int)(x_DWORD*)v168;
-#endif
+						v248x[10] = v168;
 						v170 = Str_E9C38_smalltit[v169x].word38;
 						v248x[0] = Str_E9C38_smalltit[v169x - 1].dword16;
 						v171 = Str_E9C38_smalltit[v169x - 1].dword20;
@@ -1399,14 +1378,7 @@ void GameRender_new::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, _
 							v248x[6] = Str_E9C38_smalltit[v178x - 39].dword16;
 							v248x[7] = Str_E9C38_smalltit[v178x - 39].dword20;
 							v181 = v179;
-#ifdef TEST_x64
-							allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-							std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-							v248x[10] = (int)*(x_DWORD**)&Str_E9C38_smalltit[v178x - 39].dword32;
-#endif
+							v248x[10] = Str_E9C38_smalltit[v178x - 39].dword32;
 							v182 = Str_E9C38_smalltit[v178x - 39].word38;
 							v183 = v182 | v180 | v179;
 							v184 = v182 & v180 & v181;
@@ -1651,14 +1623,7 @@ LABEL_259:
 			v248x[7] = Str_E9C38_smalltit[v218x - 40].dword20;
 			v224 = Str_E9C38_smalltit[v218x - 40].dword32;
 			v225x = v218x - 40;
-#ifdef TEST_x64
-			allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-			std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-			v248x[10] = (int)(x_DWORD*)v224;
-#endif
+			v248x[10] = v224;
 			v226 = Str_E9C38_smalltit[v225x].word38;
 			v248x[0] = Str_E9C38_smalltit[v225x - 1].dword16;
 			v248x[1] = Str_E9C38_smalltit[v225x - 1].dword20;
@@ -6032,7 +5997,7 @@ void GameRender_new::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon
 	__int16 v385; // cx
 	__int16 v386; // bp
 	int v387; // esi
-	x_BYTE* v388; // edi
+	uint8_t* v388; // edi
 	uint8_t* v389; // ebp
 	unsigned int v390; // eax
 	int v391; // ebx
@@ -6047,7 +6012,7 @@ void GameRender_new::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon
 	__int16 v400; // cx
 	__int16 v401; // bp
 	int v402; // esi
-	x_BYTE* v403; // edi
+	uint8_t* v403; // edi
 	uint8_t* v404; // ebp
 	unsigned __int16* v405; // esi
 	int v406; // eax
@@ -9102,7 +9067,8 @@ LABEL_129:
 										LOWORD(v384) = viewPort.Width_DE564;
 								LABEL_493:
 									v387 = v384 & 0xF;
-									v388 = (x_BYTE*)(x_DWORD_B8845[v387] + v379);
+									//v388 = (x_BYTE*)(x_DWORD_B8845[v387] + v379);
+									v388 = &v379[offsets_B8845[v387]];
 									v389 = x_DWORD_DE55C_ActTexture;
 									switch (v387)
 									{
@@ -9398,7 +9364,8 @@ LABEL_129:
 										LOWORD(v399) = viewPort.Width_DE564;
 								LABEL_522:
 									v402 = v399 & 0xF;
-									v403 = (x_BYTE*)(x_DWORD_B8845[v402] + v394);
+									//v403 = (x_BYTE*)(x_DWORD_B8845[v402] + v394);
+									v403 = &v394[offsets_B8845[v402]];
 									v404 = x_DWORD_DE55C_ActTexture;
 									switch (v402)
 									{

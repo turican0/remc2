@@ -9528,7 +9528,7 @@ LABEL_129:
 									LOWORD(v384) = viewPort.Width_DE564;
 							LABEL_493:
 								v387 = v384 & 0xF;
-								v388 = (x_BYTE*)(x_DWORD_B8845[v387] + v379);
+								v388 = (x_BYTE*)(offsets_B8845[v387] + v379);
 								v389 = x_DWORD_DE55C_ActTexture;
 								switch (v387)
 								{
@@ -9819,7 +9819,7 @@ LABEL_129:
 									LOWORD(v399) = viewPort.Width_DE564;
 							LABEL_522:
 								v402 = v399 & 0xF;
-								v403 = (x_BYTE*)(x_DWORD_B8845[v402] + v394);
+								v403 = (x_BYTE*)(offsets_B8845[v402] + v394);
 								v404 = x_DWORD_DE55C_ActTexture;
 								switch (v402)
 								{

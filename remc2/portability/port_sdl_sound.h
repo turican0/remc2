@@ -107,7 +107,7 @@ type_v8;
 
 
 typedef struct {//lenght 32 - this is may be format of wav sound file
-	uint8_t* dword_0;//data of wav//18
+	uint8_t* wavdata_0;//data of wav//18
 	int8_t stub_4[4];//22
 	int32_t dword_8;//24
 	int16_t word_12;//28
