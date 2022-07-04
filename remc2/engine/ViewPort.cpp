@@ -14,12 +14,12 @@ void SetRenderViewPortSize_40C50(uint8_t viewPortSizeSetting)//221c50
 	int height; // eax
 	int width; // bx
 
-	int koefWidth = screenWidth_18062C / 40;
-	int koefHeight = screenHeight_180624 / 40;
+	double koefWidth = (double)screenWidth_18062C / 40;
+	double koefHeight = (double)screenHeight_180624 / 40;
 	v1 = 40 - viewPortSizeSetting;
-	v2 = screenWidth_18062C * (koefWidth * v1 / 2) + (koefHeight * v1 / 2);
-	height = koefWidth * viewPortSizeSetting;
-	width = koefHeight * viewPortSizeSetting;
+	v2 = screenWidth_18062C * ((koefWidth * v1) / 2) + ((koefHeight * v1) / 2);
+	width = koefWidth * viewPortSizeSetting;
+	height = koefHeight * viewPortSizeSetting;
 	str_F2C20ar.dword0x0e_ptrScreenRenderBufferStart = v2;
 	SetRenderViewPortSize_BCD45(v2 + pdwScreenBuffer_351628, screenWidth_18062C, width, height);
 }
@@ -61,8 +61,8 @@ void SetViewPortScreenCoordinates_2CA60(int16_t viewPortX, int16_t viewPortY, ui
 void ResizeViewPort_2CA60(__int16 a1)//20da90
 {
 	int v1; // eax
-	int widthKoef = screenWidth_18062C / 80;
-	int heightKoef = screenHeight_180624 / 80;
+	double widthKoef = (double)screenWidth_18062C / 80;
+	double heightKoef = (double)screenHeight_180624 / 80;
 
 	v1 = 40 - a1;
 	viewPort.PosX_EA3D0 = widthKoef * v1;
