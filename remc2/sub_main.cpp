@@ -94,7 +94,7 @@ int test_regression_level = 0;
 
 #define ANALYZE_ENTITY
 
-#define TEST_RENDERERS //only for debugging!!!!
+//#define TEST_RENDERERS //only for debugging!!!!
 
 #ifdef INTERVAL_SAVE
 int save_debugcounter = 0;
@@ -1452,7 +1452,7 @@ void sub_2BBB0(__int16 a1, __int16 a2, posistruct_t a3);
 void sub_2BD10_draw_line(__int16 a1, __int16 a2, __int16 a3, __int16 a4, unsigned __int8 a5);
 void DrawGameFrame_2BE30(uint8_t* ptrScreenBuffer, uint16_t screenWidth, uint16_t screenHeight);
 void SetViewPortScreenCoordinates_2CA60(int16_t viewPortX, int16_t viewPortY, uint16_t viewPortWidth, uint16_t viewPortHeight);
-int ResizeViewPort_2CA60(__int16 a1);
+void ResizeViewPort_2CA60(__int16 a1);
 void sub_2CE30_pause_end_level(int a1, int a2, uint16_t screenWidth);
 void sub_2D190(int16_t posStartX, int16_t posStartY, int a3, int16_t posEndY, int a5, uint8 colorIdx);
 void sub_2D190(int16_t posStartX, int16_t posStartY, int a3, int16_t posEndY, int a5, uint16_t pitch, uint8 colorIdx);
@@ -27937,8 +27937,8 @@ void SetViewPortScreenCoordinates_2CA60(int16_t viewPortX, int16_t viewPortY, ui
 {
 	viewPort.PosX_EA3D0 = viewPortX;
 	viewPort.PosY_EA3CC = viewPortY;
-	viewPort.Width2_EA3C4 = viewPortWidth;
-	viewPort.Height2_EA3C0 = viewPortHeight;
+	viewPort.PreWidth_EA3C4 = viewPortWidth;
+	viewPort.PreHeight_EA3C0 = viewPortHeight;
 }
 // EA3C0: using guessed type int x_DWORD_EA3C0;
 // EA3C4: using guessed type int x_DWORD_EA3C4;
@@ -27946,31 +27946,18 @@ void SetViewPortScreenCoordinates_2CA60(int16_t viewPortX, int16_t viewPortY, ui
 // EA3D0: using guessed type int x_DWORD_EA3D0;
 
 //----- (0002CA90) --------------------------------------------------------
-int ResizeViewPort_2CA60(__int16 a1)//20da90
+void ResizeViewPort_2CA60(__int16 a1)//20da90
 {
 	int v1; // eax
-	int result; // eax
-	int v3; // esi
-	int v4; // ecx
+	int widthKoef = screenWidth_18062C / 80;
+	int heightKoef = screenHeight_180624 / 80;
 
 	v1 = 40 - a1;
-	viewPort.PosX_EA3D0 = 8 * v1;
-	viewPort.Width2_EA3C4 = 16 * a1;
-	if (x_WORD_180660_VGA_type_resolution & 1)
-	{
-		result = 5 * v1 / 2;
-		v3 = 10 * a1;
-		v4 = 2 * result;
-	}
-	else
-	{
-		result = 12 * v1 / 2;
-		v3 = 12 * a1;
-		v4 = result;
-	}
-	viewPort.Height2_EA3C0 = v3;
-	viewPort.PosY_EA3CC = v4;
-	return result;
+	viewPort.PosX_EA3D0 = widthKoef * v1;
+	viewPort.PreWidth_EA3C4 = widthKoef * 2 * a1;
+	viewPort.PreHeight_EA3C0 = heightKoef * 2 * a1;
+	viewPort.PosY_EA3CC = heightKoef * v1;
+	//return result;
 }
 // EA3C0: using guessed type int x_DWORD_EA3C0;
 // EA3C4: using guessed type int x_DWORD_EA3C4;

@@ -2916,8 +2916,8 @@ void GameRender_new::DrawSorcererNameAndHealthBar_2CB30(type_event_0x6E8E* a1x, 
 	v23 = 0;*/
 	// end
 
-	v31 = viewPort.Width2_EA3C4 + viewPort.PosX_EA3D0 - 4;
-	v29 = viewPort.Height2_EA3C0 + viewPort.PosY_EA3CC - 22;
+	v31 = viewPort.PreWidth_EA3C4 + viewPort.PosX_EA3D0 - 4;
+	v29 = viewPort.PreHeight_EA3C0 + viewPort.PosY_EA3CC - 22;
 	v25 = a1x->dword_0xA4_164x->word_0x38_56;
 	//v4 = v24;
 	//D41A0_BYTESTR_0.array_0x2BDE[v25].array_0x39f_2BFA_12157
@@ -14678,26 +14678,17 @@ void GameRender_new::SetRenderViewPortSize_BCD45(ViewPort viewPort, uint16_t scr
 {
 	int v1; // eax
 	int v2; // esi
-	int v3; // eax
-	unsigned __int16 v4; // bx
-	int v5; // ST10_4
+	int height; // eax
+	int width; // bx
 
+	int koefWidth = screenWidth_18062C / 40;
+	int koefHeight = screenHeight_180624 / 40;
 	v1 = 40 - viewPortSizeSetting;
-	if (x_WORD_180660_VGA_type_resolution & 1)
-	{
-		v2 = screenWidth_18062C * (5 * v1 / 2) + 4 * v1;
-		v3 = (unsigned __int16)(5 * viewPortSizeSetting);
-		v4 = 8 * viewPortSizeSetting;
-	}
-	else
-	{
-		v2 = screenWidth_18062C * (12 * v1 / 2) + 8 * v1;
-		v3 = (unsigned __int16)(12 * viewPortSizeSetting);
-		v4 = 16 * viewPortSizeSetting;
-	}
-	v5 = v3;
+	v2 = screenWidth_18062C * (koefWidth * v1 / 2) + (koefHeight * v1 / 2);
+	height = koefWidth * viewPortSizeSetting;
+	width = koefHeight * viewPortSizeSetting;
 	str_F2C20ar.dword0x0e_ptrScreenRenderBufferStart = v2;
-	SetRenderViewPortSize_BCD45(v2 + pdwScreenBuffer_351628, screenWidth_18062C, v4, v5);
+	SetRenderViewPortSize_BCD45(v2 + pdwScreenBuffer_351628, screenWidth_18062C, width, height);
 }
 
 void GameRender_new::SetRenderViewPortSize_BCD45(uint8_t* ptrScreenBufferStart, uint16_t screenWidth, uint16_t viewPortWidth, uint16_t viewPortHeight)
