@@ -27554,6 +27554,29 @@ void DrawGameFrame_2BE30(uint8_t* ptrScreenBuffer, uint16_t screenWidth, uint16_
 			x_WORD_180660_VGA_type_resolution,
 			x_WORD_D4B7C,
 			isCaveLevel_D41B6*/);
+#ifdef TEST_RENDERERS
+		memcpy(help_ScreenBuffer, pdwScreenBuffer_351628, screenWidth_18062C * screenHeight_180624);
+		m_ptrGameRender = (GameRenderInterface*)new GameRender_old();
+		m_ptrGameRender->Init((multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
+		m_ptrGameRender->DrawWorld_411A0(
+			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].axis_2BDE_11695.x,//position of player
+			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].axis_2BDE_11695.y,//position of player
+			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.yaw,//rotation of player z
+			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].axis_2BDE_11695.z + 128,
+			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.pitch,
+			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.roll,
+			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.fov);
+
+		for (int test_compi = 0; test_compi < screenWidth_18062C * screenHeight_180624; test_compi++)
+			if (pdwScreenBuffer_351628[test_compi] != help_ScreenBuffer[test_compi])
+				allert_error();
+
+		delete m_ptrGameRender;
+		m_ptrGameRender = nullptr;
+
+		m_ptrGameRender = (GameRenderInterface*)new GameRender_new();
+		m_ptrGameRender->Init((multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
+#endif
 
 		//WriteBufferToBMP(screenWidth, screenHeight, *xadatapald0dat2.colorPallette_var28, pdwScreenBuffer_351628);
 
