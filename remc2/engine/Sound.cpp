@@ -4562,6 +4562,9 @@ int sub_A2650(HDIGDRIVER a1)//283650
 			break;
 		}
 	}
+	// FIXME: runtime error: load of misaligned address 0xf60fe75e for type 'int', which requires 4 byte alignment
+	//        a1->hw_mode_flags_7 = *(x_DWORD*)(14 * a1->hw_mode_flags_7 + (uint8_t*)&a1->DDT_1 + 26);
+	//        it seems like only the lowest byte of hw_mode_flags_7 is used -> use WORD instead of DWORD for aligned memory access
 	a1->hw_mode_flags_7 = *(x_DWORD*)(14 * a1->hw_mode_flags_7 + (uint8_t*)&a1->DDT_1 + 26);
 	if (x_DWORD_181DAC[1] < 1)
 	{
@@ -9167,15 +9170,7 @@ void GetMusicSequenceCount()//26fc90 // set index
 		v1x = 0;
 		for (m_iNumberOfTracks = 0; v1x < index_E380C_CountOfMusic; m_iNumberOfTracks++)
 		{
-#ifdef x32_BIT_ENVIRONMENT
-			//str_E3808_music_header->str_8.track_10[v1x].wavdata_0 = (int)str_E3808_music_header->str_8.track_10[v1x].wavdata_0 + array_E3810_music_data;
-			uint32_t music_data_offset = reinterpret_cast<uint32_t>(str_E3808_music_header->str_8.track_10[v1x].wavdata_0);
-#endif //x32_BIT_ENVIRONMENT
-#ifdef x64_BIT_ENVIRONMENT
-			//str_E3808_music_header->str_8.track_10[v1x].dword_0 = reinterpret_cast<uint64_t>(str_E3808_music_header->str_8.track_10[v1x].dword_0) + array_E3810_music_data;
-			uint64_t music_data_offset = reinterpret_cast<uint64_t>(str_E3808_music_header->str_8.track_10[v1x].wavdata_0);
-#endif //x64_BIT_ENVIRONMENT
-			str_E3808_music_header->str_8.track_10[v1x].wavdata_0 = &array_E3810_music_data[music_data_offset];
+			str_E3808_music_header->str_8.track_10[v1x].wavdata_0 = &array_E3810_music_data[(int)str_E3808_music_header->str_8.track_10[v1x].wavdata_0];
 			//v1 += 32;
 			v1x++;
 		}
@@ -9218,14 +9213,16 @@ char LoadMusicTrack(FILE* filehandle, uint8_t drivernumber)//26fd00
 		return 0;
 	//str_E3808_music_header = (type_E3808_music_header*)sub_83CD0_malloc2(header[2 + 4 * drivernumber]);
 	//str_E3808_music_header = (type_E3808_music_header*)sub_83CD0_malloc2(headerx[drivernumber].dword_8);
-	str_E3808_music_header = (type_E3808_music_header*)sub_83CD0_malloc2((((headerx[drivernumber].sizeBytes_8 - 32) / 32) * sizeof(sub2type_E3808_music_header)) + 32);//with 64bit fix
+	//str_E3808_music_header = (type_E3808_music_header*)sub_83CD0_malloc2((((headerx[drivernumber].sizeBytes_8 - 32) / 32) * sizeof(sub2type_E3808_music_header)) + 32);//with 64bit fix
+	str_E3808_music_header = (type_E3808_music_header*)sub_83CD0_malloc2(sizeof(type_E3808_music_header));
 	if (!str_E3808_music_header)
 	{
 		sub_83E80_freemem4(array_E3810_music_data);
 		return 0;
 	}
 	//64xbit fix
-	shadow_type_E3808_music_header* shadow_str_E3808_music_header = (shadow_type_E3808_music_header*)sub_83CD0_malloc2(headerx[drivernumber].sizeBytes_8);
+	//shadow_type_E3808_music_header* shadow_str_E3808_music_header = (shadow_type_E3808_music_header*)sub_83CD0_malloc2(headerx[drivernumber].sizeBytes_8);
+	shadow_type_E3808_music_header * shadow_str_E3808_music_header = (shadow_type_E3808_music_header*)sub_83CD0_malloc2(sizeof(shadow_type_E3808_music_header));
 	if (!shadow_str_E3808_music_header)
 	{
 		sub_83E80_freemem4((uint8_t*)shadow_str_E3808_music_header);
@@ -9310,10 +9307,10 @@ char LoadMusicTrack(FILE* filehandle, uint8_t drivernumber)//26fd00
 		str_E3808_music_header->str_8.stub[i] = shadow_str_E3808_music_header->str_8.stub[i];
 	for (int i = 0; i < 6; i++)
 	{
-		str_E3808_music_header->str_8.track_10[i].wavdata_0 = (uint8_t*)shadow_str_E3808_music_header->str_8.track_10[i].dword_0;
+		str_E3808_music_header->str_8.track_10[i].wavdata_0 = (uint8_t*)shadow_str_E3808_music_header->str_8.track_10[i].wavData_0;
 		for (int j = 0; j < 4; j++)
 			str_E3808_music_header->str_8.track_10[i].stub_4[j] = shadow_str_E3808_music_header->str_8.track_10[i].stub_4[j];
-		str_E3808_music_header->str_8.track_10[i].dword_8 = shadow_str_E3808_music_header->str_8.track_10[i].dword_8;
+		str_E3808_music_header->str_8.track_10[i].wavSize_8 = shadow_str_E3808_music_header->str_8.track_10[i].wavSize_8;
 		str_E3808_music_header->str_8.track_10[i].word_12 = shadow_str_E3808_music_header->str_8.track_10[i].word_12;
 		for (int j = 0; j < 18; j++)
 			str_E3808_music_header->str_8.track_10[i].filename_14[j] = shadow_str_E3808_music_header->str_8.track_10[i].filename_14[j];
