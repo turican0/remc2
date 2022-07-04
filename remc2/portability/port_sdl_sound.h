@@ -117,7 +117,7 @@ sub2type_E3808_music_header;
 
 typedef struct {//lenght 216
 	int8_t stub[10];
-	sub2type_E3808_music_header track_10[6];
+	sub2type_E3808_music_header track_10[8];
 	int8_t stubb[14];
 }
 sub1type_E3808_music_header;
