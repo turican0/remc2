@@ -589,7 +589,6 @@ long unknown_libname_3_findnext(_finddata_t* c_file, long hFile);// weak
 int unknown_libname_4_find_close(_finddata_t* c_file, long hFile);// weak
 
 GameRenderInterface* m_ptrGameRender;
-//GameRender_new* m_ptrGameRender;
 uint8_t loc_A0000_vga_buffer[307200];
 
 void sub_5FA96(type_event_0x6E8E* a1x);
@@ -2932,9 +2931,9 @@ int x_DWORD_D41C8 = 0; // weak
 __int16 x_WORD_D41D4 = 1; // weak
 
 char x_BYTE_D478C = 0; // weak
-int x_DWORD_D4790 = 20; // weak
+//int x_DWORD_D4790 = 20; // weak
 int x_DWORD_D4794 = 0; // weak
-int x_DWORD_D4798 = 0; // weak
+//int x_DWORD_D4798 = 0; // weak
 char x_BYTE_D47D8 = 0; // weak
 char x_BYTE_D47D9 = 0; // weak
 int x_DWORD_D47DC = 1; // weak
@@ -4803,7 +4802,7 @@ std::array<uint8_t*, 256> x_DWORD_DDF50_texture_adresses; /*= { 0,32 }*/ // weak
 
 uint8_t* ptrViewPortRenderBufferAltStart = 0; // weak
 
-char x_BYTE_E126D = 0; // weak
+//char x_BYTE_E126D = 0; // weak
 char x_BYTE_E1274 = 0; // weak
 char x_BYTE_E1275 = 0; // weak
 int16_t x_WORD_E1276 = -1; // weak
@@ -6134,8 +6133,8 @@ char x_BYTE_F0720[256]; // idb
 char x_BYTE_F0820[256]; // idb
 char x_BYTE_F0920[256]; // idb
 
-char x_BYTE_F2CC6; // weak
-char x_BYTE_F2CC7; // weak
+//char x_BYTE_F2CC6; // weak
+//char x_BYTE_F2CC7; // weak
 
 TColor x_BYTE_F3FA0arx[0x100]; // fix it -  weak
 
@@ -39875,8 +39874,7 @@ void sub_46830_main_loop(/*int16_t* a1, */signed int a2, unsigned __int16 a3)//2
 				if (m_ptrGameRender == nullptr)
 				{
 					m_ptrGameRender = (GameRenderInterface*)new GameRender_new((multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
-					/*if (typeid(*m_ptrGameRender) == typeid(GameRender_new))
-						((GameRender_new*)m_ptrGameRender)->Init((multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);*/
+					//m_ptrGameRender = (GameRenderInterface*)new GameRender_old();
 				}
 				sub_47320_in_game_loop(a2);
 				if (m_ptrGameRender != nullptr)

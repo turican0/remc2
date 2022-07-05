@@ -31,8 +31,6 @@ class GameRender_new : public GameRenderInterface
 
 private:
 
-	//type_E9C38_smalltit m_Str_E9C38_smalltit[21 * 40];
-
 	uint8_t unk_D4328x[40] = {
 		0xED,0x01,0x00,0x00,0x00,0xFF,0xD8,0xFF,0x01,0x00,0x00,0xED,0xFF,0x00,0x01,0x00,
 		0x01,0xD8,0x00,0x01,0x13,0x00,0xFF,0xFF,0x00,0x01,0x28,0x01,0xFF,0x00,0x01,0x13,
@@ -41,12 +39,6 @@ private:
 
 	uint8_t unk_DE56Cx[8][4194304]; //Number of possible render threads (8) //number of polygons (2048 * 2048)
 	
-	//uint32_t x_DWORD_B8845[16] = {
-	//	0x00000000,0xFFFFFFF1,0xFFFFFFF2,0xFFFFFFF3,
-	//	0xFFFFFFF4,0xFFFFFFF5,0xFFFFFFF6,0xFFFFFFF7,
-	//	0xFFFFFFF8,0xFFFFFFF9,0xFFFFFFFA,0xFFFFFFFB,
-	//	0xFFFFFFFC,0xFFFFFFFD,0xFFFFFFFE,0xFFFFFFFF
-	//};
 	int offsets_B8845[16] = {
 		  0, -15, -14, -13,
 		-12, -11, -10,  -9,
@@ -62,20 +54,6 @@ private:
 	};
 
 	type_unk_F0E20x m_str_F0E20x[1920]; // Originally 640
-
-	//uint8_t* m_ptrScreenBuffer = nullptr;
-	//uint8_t* m_ptrX_BYTE_F6EE0_tablesx = nullptr;
-	//uint8_t m_uiScreenSize = 0;
-	//uint8_t* ViewPortRenderBufferStart_DE558 = nullptr;
-	//uint8_t* ViewPortRenderBufferAltStart_DE554 = nullptr;
-	//ViewPort m_viewPort;
-	//uint16_t screenWidth_18062C = 0;
-	//uint16_t screenHeight_180624 = 0;
-
-	//std::array<uint8_t*, 256> m_textureAddresses;
-	//uint8_t* m_ptrColorPalette = 0;
-	//type_F2C20ar m_str_F2C20ar;
-	//int16_t m_x_WORD_180660_VGA_type_resolution;
 
 	std::vector<RenderThread*> m_renderThreads;
 	bool m_multiThreadRender = false;
@@ -94,17 +72,16 @@ private:
 	int16_t x_WORD_F2CC2 = 0;
 	int16_t x_WORD_F2CC4 = 0;
 
-	uint8_t* x_DWORD_DE55C_ActTexture = 0; // weak
+	uint8_t* x_DWORD_DE55C_ActTexture = 0;
 
 	void DrawSky_40950(int16_t roll, uint8_t startLine, uint8_t drawEveryNthLine);
 	void DrawSky_40950_TH(int16_t roll);
 	void DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __int16 yaw, signed int posZ, int pitch, int16_t roll, int fov);
 	void DrawSprite_41BD3(uint32 a1);
-	void DrawSquareInProjectionSpace(std::vector<int>& vertexs, int index/*, uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t pitch*/);
-	//void DrawInverseSquareInProjectionSpace(int* vertexs, int index, uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t pitch);
+	void DrawSquareInProjectionSpace(std::vector<int>& vertexs, int index);
 	void DrawInverseSquareInProjectionSpace(int* vertexs, int index);
 	void DrawParticles_3E360(int a2x, type_particle_str** str_DWORD_F66F0x[], uint8_t x_BYTE_E88E0x[], int32_t x_DWORD_F5730[], type_event_0x6E8E* x_DWORD_EA3E4[], type_str_unk_1804B0ar str_unk_1804B0ar, ViewPort viewPort, uint16_t screenWidth);
-	void DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* vertex1, const ProjectionPolygon* vertex2, const ProjectionPolygon* vertex3/*, uint8_t* pTexture, uint8_t unk_DE56Cx[], uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t pitch*/ , uint8_t startLine, uint8_t drawEveryNthLine);
+	void DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* vertex1, const ProjectionPolygon* vertex2, const ProjectionPolygon* vertex3, uint8_t startLine, uint8_t drawEveryNthLine);
 	x_DWORD* LoadPolygon(x_DWORD* ptrPolys, int* v0, int* v1, int s0, int s1, int* line);
 	x_DWORD* LoadPolygon(x_DWORD* ptrPolys, int* v0, int* v1, int* v4, int s0, int s1, int s4, int* line);
 	x_DWORD* LoadPolygon(x_DWORD* ptrPolys, int* v0, int* v1, int* v2, int* v3, int s0, int s1, int s2, int s3, int* line);
@@ -124,14 +101,6 @@ public:
 	GameRender_new(uint8_t renderThreads, bool assignToSpecificCores);
 	~GameRender_new();
 	
-	//void SetTextures(std::array<uint8_t*, 256> &textureAdresses);
-	//void SetX_BYTE_F6EE0_tablesx(uint8_t pX_BYTE_F6EE0_tablesx[]);
-	//void SetRenderViewPortSize_BCD45(ViewPort viewPort, uint16_t screenWidth, uint16_t screenHeight);
-	//void SetRenderViewPortSize_40C50(uint8_t viewPortSizeSetting, uint16_t screenWidth, uint16_t screenHeight);
-	//void SetRenderViewPortSize_BCD45(uint8_t* ptrScreenBufferStart, uint16_t screenWidth, uint16_t viewPortWidth, uint16_t viewPortHeight);
-	
-	//void SetRenderViewPortSize_40C50(uint8_t viewPortSizeSetting);
-
 	void SetRenderThreads(uint8_t renderThreads);
 	uint8_t GetRenderThreads();
 
