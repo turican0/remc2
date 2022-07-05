@@ -665,7 +665,7 @@ void GameRender_new::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, _
 	v10 = Maths::x_DWORD_DB750[0x100 + v9];
 	str_F2C20ar.dword0x24 = x_DWORD_D4324 + ((signed int)(unsigned __int16)viewPort.Width_DE564 >> 1);
 	str_F2C20ar.dword0x0f = v10;
-	v11 = *x_DWORD_DB350_ret(v9);
+	v11 = Maths::x_DWORD_DB750[v9 - 0x100];
 	v12 = ((((yaw & 0x7FF) + 256) & 0x1FF) - 256) & 0x7FF;
 	v248x[32] = (v9 >> 9) & 3;
 	v248x[30] = Maths::x_DWORD_DB750[0x200 + v12];
@@ -1699,11 +1699,6 @@ LABEL_259:
 		v217x -= 40;
 		v289--;
 	} while (v289);
-}
-
-int32_t* GameRender_new::x_DWORD_DB350_ret(uint32_t adress) {
-	if (adress >= 0x100) return &Maths::x_DWORD_DB750[adress - 0x100];
-	allert_error();
 }
 
 uint16_t GameRender_new::sub_3FD60(int a2x, uint8_t x_BYTE_E88E0x[], type_event_0x6E8E* x_DWORD_EA3E4[], type_str_unk_1804B0ar str_unk_1804B0ar, type_particle_str** str_DWORD_F66F0x[], int32_t x_DWORD_F5730[], ViewPort viewPort, uint16_t screenWidth)

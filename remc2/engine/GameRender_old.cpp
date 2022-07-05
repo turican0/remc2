@@ -25,13 +25,11 @@ GameRender_old::~GameRender_old()
 	uint32_t v24; // edx
 	int v25; // ebx
 	int v26; // edi
-	//char result; // al
 	int v28; // ebx
 	uint32_t v29; // edx
 	int v30; // ebx
 	int v31; // edi
 	uint8_t* v32; // ST2C_4
-	//uint8_t* v33; // edx
 	__int64 v34; // rax
 	uint8_t* v35; // edi
 	int v36; // eax
@@ -55,7 +53,6 @@ GameRender_old::~GameRender_old()
 	int i; // [esp+18h] [ebp-4h]
 	int vPosX; // [esp+34h] [ebp+18h]
 	int vPosY; // [esp+38h] [ebp+1Ch]
-
 	LOBYTE(v8) = HIBYTE(posX);
 	HIBYTE(v8) = HIBYTE(posY);
 	if ((signed int)(unsigned __int8)posX < 128)
