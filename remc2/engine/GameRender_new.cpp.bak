@@ -2309,7 +2309,7 @@ void GameRender_new::SetBillboards_3B560(int16_t roll)
 		str_F2C20ar.dword0x1f = (str_F2C20ar.dword0x27 << 8) / (str_F2C20ar.dword0x1b >> 8);
 		v101 = (str_F2C20ar.dword0x27 << 8) / (str_F2C20ar.dword0x1b >> 8);
 		v2x = m_str_F0E20x;
-		v3 = (signed int*)&x_DWORD_E9C38_smalltit[59360];
+		v3 = (signed int*)(x_DWORD_E9C38_smalltit + 59360);
 		v4 = 0;
 		v5 = 0;
 		v6 = 1;
@@ -2376,7 +2376,7 @@ void GameRender_new::SetBillboards_3B560(int16_t roll)
 			str_F2C20ar.dword0x1f = (str_F2C20ar.dword0x1b << 8) / (v10 >> 8);
 			v102 = (str_F2C20ar.dword0x1b << 8) / (v10 >> 8);
 			v17x = m_str_F0E20x;
-			v18 = (signed int*)&x_DWORD_E9C38_smalltit[59360];
+			v18 = (signed int*)(x_DWORD_E9C38_smalltit + 59360);
 			v19 = 0;
 			v20 = 0;
 			v21 = 1;
@@ -2487,7 +2487,7 @@ void GameRender_new::SetBillboards_3B560(int16_t roll)
 			str_F2C20ar.dword0x1f = (str_F2C20ar.dword0x1b << 8) / (str_F2C20ar.dword0x27 >> 8);
 			v104 = (str_F2C20ar.dword0x1b << 8) / (str_F2C20ar.dword0x27 >> 8);
 			v36x = m_str_F0E20x;
-			v37 = (signed int*)&x_DWORD_E9C38_smalltit[59360];
+			v37 = (signed int*)(x_DWORD_E9C38_smalltit + 59360);
 			v38 = 0;
 			v39 = 0;
 			v40 = 1;
@@ -2596,7 +2596,7 @@ void GameRender_new::SetBillboards_3B560(int16_t roll)
 			str_F2C20ar.dword0x1f = (str_F2C20ar.dword0x1b << 8) / (str_F2C20ar.dword0x27 >> 8);
 			v106 = (str_F2C20ar.dword0x1b << 8) / (str_F2C20ar.dword0x27 >> 8);
 			v57x = m_str_F0E20x;
-			v58 = (signed int*)&x_DWORD_E9C38_smalltit[59360];
+			v58 = (signed int*)(x_DWORD_E9C38_smalltit + 59360);
 			v59 = 0;
 			v60 = 0;
 			v61 = 1;
@@ -2713,7 +2713,7 @@ void GameRender_new::SetBillboards_3B560(int16_t roll)
 			str_F2C20ar.dword0x1f = (str_F2C20ar.dword0x1b << 8) / (v69 >> 8);
 			v108 = (str_F2C20ar.dword0x1b << 8) / (v69 >> 8);
 			v76x = m_str_F0E20x;
-			v77 = (signed int*)&x_DWORD_E9C38_smalltit[59360];
+			v77 = (signed int*)(x_DWORD_E9C38_smalltit + 59360);
 			v78 = 0;
 			v79 = 0;
 			v80 = 1;
