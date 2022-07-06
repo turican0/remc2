@@ -148,9 +148,8 @@ bool config_EDITOR = false;
 bool config_LOAD_EDITED_LEVEL = false;
 #define EDITOR
 
-#define OLD_PARTICLES
-
 /*
+fix sub_3C080_draw_terrain_and_particles_old
 MovePlayer_57FA0(&x_WORD_EB398ar, v4, 0, v3);
 (char*)&D41A0_0+0x13de2
 addprocedurestop(0x238cf3, 0x348, true, true, 0x356038 + 0x13de2, 0x12345678);
@@ -496,6 +495,7 @@ return true;
 
 //posistruct_t var_2BB3E0_x_DWORD_EA3D4_14[0x3e9];
 
+char nethID[7]="TESTER";
 
 static unsigned long int    _RWD_randnext = 1;
 
@@ -615,6 +615,23 @@ xazero };//43
 	uint8_t* pointer;
 	uint32_t size;
 } SpriteStr;*/
+
+#pragma pack (1)
+typedef struct {//lenght 22
+	int16_t word_0;
+	int16_t word_2;
+	int16_t word_4;
+	int16_t word_6;
+	int16_t word_8;
+	int16_t word_10;
+	int16_t word_12_x; //X
+	int16_t word_14_y; //Y
+	int16_t word_16;
+	int8_t byte_18_act;//1-hidden 2-activated
+	int8_t byte_19;
+	int16_t word_20;
+}type_unk_E17CC_str_0x194;
+#pragma pack (16)
 
 x_DWORD unk_D5621;
 
@@ -797,7 +814,7 @@ void gotoxy(int x, int y) //positions text cursor at (x, y) screen position
 	/*CONSOLE_SCREEN_BUFFER_INFO csbiInfo; //variable declarations
 	HANDLE hConsoleOut;
 	hConsoleOut = GetStdHandle(STD_OUTPUT_HANDLE);
-	GetConsolepdwScreenBuffer_351628Info(hConsoleOut,&csbiInfo);
+	GetConsolepdwScreenBufferInfo(hConsoleOut,&csbiInfo);
 	csbiInfo.dwCursorPosition.X = x; //cursor position X coordinate
 	csbiInfo.dwCursorPosition.Y = y; //cursor position Y coordinate
 	SetConsoleCursorPosition(hConsoleOut,csbiInfo.dwCursorPosition); //set cursor at the given screen coordinate */
@@ -807,7 +824,7 @@ int wherex() //returns current text cursor (x) coordinate
 {
 	return VGA_WhereX();
 	/*CONSOLE_SCREEN_BUFFER_INFO csbiInfo;
-	GetConsolepdwScreenBuffer_351628Info(GetStdHandle(STD_OUTPUT_HANDLE), &csbiInfo);
+	GetConsolepdwScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbiInfo);
 	return csbiInfo.dwCursorPosition.X;*/
 }
 /*-------------------------wherey()----------------------------------*/
@@ -815,7 +832,7 @@ int wherey() //returns current text cursor (y) coordinate
 {
 	return VGA_WhereY();
 	/*CONSOLE_SCREEN_BUFFER_INFO csbiInfo;
-	GetConsolepdwScreenBuffer_351628Info(GetStdHandle(STD_OUTPUT_HANDLE), &csbiInfo);
+	GetConsolepdwScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbiInfo);
 	return csbiInfo.dwCursorPosition.Y;*/
 }
 
