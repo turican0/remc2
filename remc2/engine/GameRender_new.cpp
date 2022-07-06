@@ -3011,6 +3011,9 @@ void GameRender_new::DrawInverseSquareInProjectionSpace(int* vertexs, int index)
 	vertexs[3] = xunk_D4350[Str_E9C38_smalltit[index].byte42_std][7];
 	x_BYTE_E126D = 5;
 
+	//Get Texture
+	x_DWORD_DE55C_ActTexture = x_DWORD_DDF50_texture_adresses.at(Str_E9C38_smalltit[index].byte41);
+
 	//Render
 	auto vertex0 = ProjectionPolygon(&vertexs[0]);
 	auto vertex6 = ProjectionPolygon(&vertexs[6]);
