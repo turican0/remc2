@@ -9170,8 +9170,8 @@ void GetMusicSequenceCount()//26fc90 // set index
 		v1x = 0;
 		for (m_iNumberOfTracks = 0; v1x < index_E380C_CountOfMusic; m_iNumberOfTracks++)
 		{
-			str_E3808_music_header->str_8.track_10[v1x].xmiData_0 = &array_E3810_music_data[(int)str_E3808_music_header->str_8.track_10[v1x].xmiData_0];
-			//v1 += 32;
+			uint8_t* zero_pointer = 0;
+			str_E3808_music_header->str_8.track_10[v1x].xmiData_0 = &array_E3810_music_data[str_E3808_music_header->str_8.track_10[v1x].xmiData_0 - zero_pointer];
 			v1x++;
 		}
 	}
