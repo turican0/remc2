@@ -1,5 +1,17 @@
 #include "sub_main.h"
 #include "engine/engine_support.h"
+/*
+
+//2541e7
+mainConnection_E12AA 2b22aa->326f0 7f0300 .. 03
+after NetworkTestCall_72FBB 350000 .. 00
+after NetworkCancel_748F7 not changed
+
+connection_E12AE[] 2b22ae->34340 b0160002 .. 16
+after NetworkTestCall_72FBB 900b73 .. 0b
+after NetworkCancel_748F7 not changed
+
+*/
 
 #ifdef __linux__
 #include <strings.h>
@@ -31,6 +43,8 @@ void _strupr(char* s)
 //#define RIGHT_BUTTON
 //#define ROTATE_PLAYER
 //#define MOVE_PLAYER
+//#define FIX_MOUSE
+//#define MOUSE_OFF2
 //#define SET_OBJECTIVE
 //#define SET_LEVEL
 
@@ -39,7 +53,15 @@ void _strupr(char* s)
 //#define DEBUG_AFTERLOAD
 //#define DEBUG_ONSTART
 //#define TEST_REGRESSIONS_GAME
-int test_regression_level = 0;
+
+//#define TEST_NETWORK
+
+
+//#define TEST_NETWORK_CHNG1
+
+int test_regression_level = 50;
+//first multi is 50(51) 10
+//first hide level is 30(31) 5
 
 //adress 2285ff
 #if defined(RELEASE_GAME) //this is standard setting
@@ -47,6 +69,7 @@ int test_regression_level = 0;
 	#define FIX_FLYASISTANT
 	#define LOAD_EDITED_LEVEL
 	int debugafterload = 0;
+	#define DISABLE_GRAPHICS_ENHANCE
 	bool hideGraphics = false;
 #elif defined(PLAYING_GAME) //this is setting for autosavegame
 	#define DETECT_DWORD_A
@@ -55,6 +78,7 @@ int test_regression_level = 0;
 	#define FIX_FLYASISTANT
 	#define LOAD_EDITED_LEVEL
 	int debugafterload = 1;
+	bool hideGraphics = false;
 #elif defined(TEST_REGRESSIONS_GAME) //this is setting for regressions testing
 	#define DETECT_DWORD_A
 	#define COPY_SKIP_CONFIG
@@ -62,6 +86,7 @@ int test_regression_level = 0;
 	#define MOUSE_OFF2
 	#define OFF_PAUSE_5
 	#define TEST_REGRESSION
+	bool hideGraphics = true;
 	//#define DEBUG_SEQUENCES
 	//#define DEBUG_SEQUENCES2
 	int debugafterload = 1;
@@ -75,10 +100,11 @@ int test_regression_level = 0;
 	#define OFF_PAUSE_5
 	int debugafterload = 0;
 	#define DISABLE_GRAPHICS_ENHANCE
+	bool hideGraphics = false;
 #elif defined(DEBUG_ONSTART) //this is setting is for compare data with dosbox(can fix mouse move, and etc.)
 	#define DETECT_DWORD_A
 	#define COPY_SKIP_CONFIG
-	#define DEBUG_SEQUENCES
+	//#define DEBUG_SEQUENCES
 	#define FIX_MOUSE
 	#define MOUSE_OFF2
 	#define OFF_PAUSE_5
@@ -86,11 +112,19 @@ int test_regression_level = 0;
 	//#define RIGHT_BUTTON
 	int debugafterload = 1;
 	//#define DISABLE_GRAPHICS_ENHANCE
-#else
+	//#define MOVE_PLAYER
+	bool hideGraphics = false;
+#elif defined(TEST_NETWORK)
+	#define COPY_SKIP_CONFIG
+	bool hideGraphics = false;
+	//bool hideGraphics = true;
+	int debugafterload = 1;
+	bool first_enter = true;
+#else 
 	int debugafterload = 1;
 	int graphics_debug = false;
+	bool hideGraphics = false;
 #endif
-
 
 #define ANALYZE_ENTITY
 
