@@ -14415,6 +14415,3 @@ LABEL_129:
 		}
 	}
 }
-
-//	int Brightness = 0; 4
-//int Unknown = 0; 5

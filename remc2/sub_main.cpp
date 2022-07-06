@@ -1592,9 +1592,9 @@ void sub_3B4D0_fill_unk_D4350_256(int a1);
 // char sub_3C080_draw_terrain_and_particles(int a1, int a2, __int16 a3, __int16 a4, __int16 a5, signed int a6, int a7, __int16 a8, int a9);
 // unsigned __int16 sub_3E360_draw_particles(int a1, int a2);
 // unsigned __int16 sub_3FD60(int a1, int a2);
-void DrawSky_40950(int16_t roll, uint8_t* ptrViewPortRenderBufferStart, uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t screenWidth);
-void sub_40BF0(int a1, int a2, int a3, int a4);
-void sub_40C50(int a1);
+//void DrawSky_40950(int16_t roll, uint8_t* ptrViewPortRenderBufferStart, uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t screenWidth);
+//void sub_40BF0(int a1, int a2, int a3, int a4);
+//void sub_40C50(int a1);
 int /*__fastcall*/ sub_40D10();
 void sub_40F80();
 
@@ -27762,6 +27762,7 @@ void DrawGameFrame_2BE30(uint8_t* ptrScreenBuffer, uint16_t screenWidth, uint16_
 		{
 			m_ptrGameRender->SetRenderViewPortSize_BCD45(ViewPort(384, 0, screenWidth - 384, screenHeight - 80), screenWidth, screenHeight);
 		}*/
+		SetRenderViewPortSize_40BF0(384, 0, 256, 400);
 		m_ptrGameRender->DrawWorld_411A0(
 			//pdwScreenBuffer_351628,
 			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].axis_2BDE_11695.x,

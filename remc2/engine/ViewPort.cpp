@@ -7,6 +7,28 @@ ViewPort viewPort = { 0,0,0,0,0,0 };
 // //int iViewPortPosX_EA3D0; // weak?x_DWORD_E9C4C_langindexbuffer[481] viewPort.PosX_EA3D0
 //int iViewPortPosY_EA3CC; // weak?x_DWORD_E9C4C_langindexbuffer[480] viewPort.PosY_EA3CC
 
+void SetRenderViewPortSize_40BF0(int width, int height, int viewPortWidth, int viewPortHeight)//221bf0
+{
+	int width_help;
+	int height_help;
+	int viewPortWidth_help;
+	int viewPortHeight_help;
+
+	width_help = width;
+	height_help = height;
+	viewPortWidth_help = viewPortWidth;
+	viewPortHeight_help = viewPortHeight;
+	if (x_WORD_180660_VGA_type_resolution & 1)
+	{
+		width_help = width >> 1;
+		height_help = height >> 1;
+		viewPortWidth_help = viewPortWidth >> 1;
+		viewPortHeight_help = viewPortHeight >> 1;
+	}
+	str_F2C20ar.dword0x0e_ptrScreenRenderBufferStart = width_help + screenWidth_18062C * height_help;
+	SetRenderViewPortSize_BCD45(str_F2C20ar.dword0x0e_ptrScreenRenderBufferStart + pdwScreenBuffer_351628, screenWidth_18062C, viewPortWidth_help, viewPortHeight_help);
+}
+
 void SetRenderViewPortSize_40C50(uint8_t viewPortSizeSetting)//221c50
 {
 	int v1; // eax
