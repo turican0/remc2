@@ -2322,9 +2322,7 @@ void sub_6EAB0(int a1, __int16 a2, __int16 a3);
 //void sub_6EB90(filearray_struct* a1);
 //void sub_6EBF0(filearray_struct* a1);
 void SetMousePositionByRes_6EDB0();
-void SetMousePositionByRes_6EDB0(uint16_t screenWidth, uint16_t screenHeight);
 void SetMousePosition_6EDE0(int16_t posX, int16_t posY);
-void SetMousePosition_6EDE0(int16_t posX, int16_t posY, uint16_t screenWidth, uint16_t screenHeight);
 //void sub_6EF10_set_mouse_minmax(__int16 a1, signed __int16 a2, __int16 a3, signed __int16 a4);
 type_event_0x6E8E* AddSwitch0B_00_6F030(type_event_0x6E8E* a1);
 type_event_0x6E8E* CheckpointArrived_6F070(type_event_0x6E8E* a1);
@@ -53481,7 +53479,7 @@ void sub_52E90(type_str_0x2BDE* a1x, signed int a2, char a3)
 	case 6:
 		if ((x_WORD)a2 == v8 && x_D41A0_BYTEARRAY_4_struct.setting_byte3_24 & 1)
 		{
-			SetMousePositionByRes_6EDB0(screenWidth, screenHeight);
+			SetMousePositionByRes_6EDB0();
 			goto LABEL_31;
 		}
 		break;
@@ -75061,35 +75059,29 @@ void sub_6EBF0(filearray_struct* a1)//24FBF0
 //----- (0006EDB0) --------------------------------------------------------
 void SetMousePositionByRes_6EDB0()//24FDB0
 {
-	//int result; // eax
+	//temp fix
+	uint16_t screenWidth = screenWidth_18062C;
+	uint16_t screenHeight = screenHeight_180624;
+	//temp fix
 
 	if (x_WORD_180660_VGA_type_resolution == 1)
-		SetMousePosition_6EDE0(320, 200);
-	else
-		SetMousePosition_6EDE0(320, 240);
-	//return result;
-}
-// 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
-void SetMousePositionByRes_6EDB0(uint16_t screenWidth, uint16_t screenHeight)
-{
-	if (x_WORD_180660_VGA_type_resolution == 1)
 	{
-		SetMousePosition_6EDE0(320, 240, 640, 480);
+		SetMousePosition_6EDE0(320, 240);
 	}
 	else
 	{
-		SetMousePosition_6EDE0(screenWidth / 2, screenHeight / 2, screenWidth, screenHeight);
+		SetMousePosition_6EDE0(screenWidth / 2, screenHeight / 2);
 	}
 }
 
 //----- (0006EDE0) --------------------------------------------------------
 void SetMousePosition_6EDE0(int16_t posX, int16_t posY)//24fde0
 {
-	SetMousePosition_6EDE0(posX, posY, 640, 480);
-}
+	//temp fix
+	uint16_t screenWidth = screenWidth_18062C;
+	uint16_t screenHeight = screenHeight_180624;
+	//temp fix
 
-void SetMousePosition_6EDE0(int16_t posX, int16_t posY, uint16_t screenWidth, uint16_t screenHeight)
-{
 	signed __int16 v2; // si
 	signed __int16 v3; // bx
 	//char* result; // eax
