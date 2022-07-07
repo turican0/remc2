@@ -1501,9 +1501,7 @@ void sub_2BBB0(__int16 a1, __int16 a2, posistruct_t a3);
 //void sub_2BC80(int16_t a1, int16_t a2, int16_t a3, int16_t a4, uint8_t a5);
 void sub_2BD10_draw_line(__int16 a1, __int16 a2, __int16 a3, __int16 a4, unsigned __int8 a5);
 void DrawGameFrame_2BE30();
-void SetViewPortScreenCoordinates_2CA60(int16_t viewPortX, int16_t viewPortY, uint16_t viewPortWidth, uint16_t viewPortHeight);
-void ResizeViewPort_2CA60(__int16 a1);
-void sub_2CE30_pause_end_level(int a1, int a2, uint16_t screenWidth);
+void sub_2CE30_pause_end_level(int a1, int a2);
 void sub_2D190(int16_t posStartX, int16_t posStartY, int a3, int16_t posEndY, int a5, uint8 colorIdx);
 void sub_2D190(int16_t posStartX, int16_t posStartY, int a3, int16_t posEndY, int a5, uint16_t pitch, uint8 colorIdx);
 int DrawSorcererScores_2D1D0(uint16_t screenWidth);
@@ -27794,7 +27792,7 @@ void DrawGameFrame_2BE30()//20CE30
 				DrawPauseMenu_2FD90(screenWidth, screenHeight);
 				break;
 			}
-			sub_2CE30_pause_end_level(132, 50, screenWidth);
+			sub_2CE30_pause_end_level(132, 50);
 			if (D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x3DF_2BE4_12221 == 5)
 				DrawBottomMenu_2ECC0(screenWidth, screenHeight);
 		}
@@ -27926,7 +27924,7 @@ void DrawGameFrame_2BE30()//20CE30
 			DrawPauseMenu_2FD90(screenWidth, screenHeight);
 			break;
 		}
-		sub_2CE30_pause_end_level(6, 6, screenWidth);
+		sub_2CE30_pause_end_level(6, 6);
 		if (x_D41A0_BYTEARRAY_4_struct.byteindex_38400)
 			DrawSpellIcon_2E260(
 				spellLeftPosX,
@@ -28012,8 +28010,12 @@ void DrawGameFrame_2BE30()//20CE30
 }
 
 //----- (0002CE30) --------------------------------------------------------
-void sub_2CE30_pause_end_level(int a1, int a2, uint16_t screenWidth)//20de30
+void sub_2CE30_pause_end_level(int a1, int a2)//20de30
 {
+	//temo fix
+	uint16_t screenWidth = screenWidth_18062C;
+	//temo fix
+
 	int v2; // esi
 	//int result; // eax
 	//unsigned int v4; // edi
