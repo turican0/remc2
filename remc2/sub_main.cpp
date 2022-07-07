@@ -1500,7 +1500,7 @@ void sub_2BA50(type_event_0x6E8E* a1, unsigned __int8 a2);
 void sub_2BBB0(__int16 a1, __int16 a2, posistruct_t a3);
 //void sub_2BC80(int16_t a1, int16_t a2, int16_t a3, int16_t a4, uint8_t a5);
 void sub_2BD10_draw_line(__int16 a1, __int16 a2, __int16 a3, __int16 a4, unsigned __int8 a5);
-void DrawGameFrame_2BE30(uint8_t* ptrScreenBuffer, uint16_t screenWidth, uint16_t screenHeight);
+void DrawGameFrame_2BE30();
 void SetViewPortScreenCoordinates_2CA60(int16_t viewPortX, int16_t viewPortY, uint16_t viewPortWidth, uint16_t viewPortHeight);
 void ResizeViewPort_2CA60(__int16 a1);
 void sub_2CE30_pause_end_level(int a1, int a2, uint16_t screenWidth);
@@ -27524,8 +27524,14 @@ void debugtestscreen() {
 }
 
 //----- (0002BE30) --------------------------------------------------------
-void DrawGameFrame_2BE30(uint8_t* ptrScreenBuffer, uint16_t screenWidth, uint16_t screenHeight)//20CE30
+void DrawGameFrame_2BE30()//20CE30
 {
+	//temo fix
+	uint8_t* ptrScreenBuffer = pdwScreenBuffer_351628;
+	uint16_t screenWidth = screenWidth_18062C;
+	uint16_t screenHeight = screenHeight_180624;
+	//temo fix
+
 	char v0; // dl
 	void (*v1)(int16_t, int16_t, posistruct_t); // eax
 	char v2; // bh
@@ -40647,7 +40653,7 @@ void DrawAndEventsInGame_47560(/*uint8_t* a1, int a2, */uint32_t a3, signed int 
 		sub_57570();//nothing draw
 	sub_575C0();//nothing draw
 	sub_6E150();//nothing draw
-	DrawGameFrame_2BE30(pdwScreenBuffer_351628, screenWidth_18062C, screenHeight_180624);
+	DrawGameFrame_2BE30();
 	//adress 2285ff
 #ifdef TEST_REGRESSION
 	add_compare(0x002285FF, debugafterload, -1, false, 20);
