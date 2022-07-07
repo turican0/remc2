@@ -1172,23 +1172,23 @@ char sub_169C0(type_event_0x6E8E* a1);
 int sub_16E70(baxis_2d* a1, baxis_2d* a2);
 type_event_0x6E8E* sub_16FC0(type_event_0x6E8E* a1, type_event_0x6E8E* a2);
 void ComputeMousePlayerMovement_17060(int16_t x, int16_t y);
-void sub_17190_process_keyboard(uint16_t screenWidth, uint16_t screenHeight);
+void sub_17190_process_keyboard();
 // char sub_17A00_mouse_and_keys_events(x_BYTE *a1, signed int a2, __int16 a3);
 void sub_18AA0();
 void sub_18B30();
-void sub_18BB0(uint16_t screenWidth, uint16_t screenHeight);
+void sub_18BB0();
 char sub_18DA0(type_event_0x6E8E* a1, char a2, char a3);
 void sub_18F80(type_event_0x6E8E* a1);
 void SelectSpell_191B0(__int16 a1, char a2);
 void sub_19760_set_message(const char* a1, unsigned __int8 a2, __int16 a3);
-void PauseMenuEvents_197F0(uint16_t screenWidth);
+void PauseMenuEvents_197F0();
 void sub_19A50();
 void sub_19A70();
-void OptionMenuEvents_19AB0(uint16_t screenWidth);
+void OptionMenuEvents_19AB0();
 void ChangeSoundLevel_19CA0(uint8_t option);
 // int sub_19D60(signed int a1, int a2);
-void sub_19E00(uint16_t screenWidth);
-void sub_1A030(uint16_t screenWidth);
+void sub_19E00();
+void sub_1A030();
 // void sub_1A070(signed int a1, __int16 a2);
 void sub_1A280();
 int sub_1A4A0();
@@ -11661,8 +11661,13 @@ void ComputeMousePlayerMovement_17060(int16_t x, int16_t y)
 
 int debugcounter_47560 = 0;
 //----- (00017190) --------------------------------------------------------
-void sub_17190_process_keyboard(uint16_t screenWidth, uint16_t screenHeight)//1f8190
+void sub_17190_process_keyboard()//1f8190
 {
+	//temo fix
+	uint16_t screenWidth = screenWidth_18062C;
+	uint16_t screenHeight = screenHeight_180624;
+	//temo fix
+
 	type_event_0x6E8E* event; // edx
 
 #ifdef OFF_PAUSE_5
@@ -11914,7 +11919,7 @@ void sub_17190_process_keyboard(uint16_t screenWidth, uint16_t screenHeight)//1f
 					{
 					case 0x19: {//p
 						if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 0x10))
-							sub_18BB0(screenWidth, screenHeight);
+							sub_18BB0();
 						LastPressedKey_1806E4 = 0;
 						break;
 					}
@@ -12050,8 +12055,8 @@ void MouseAndKeysEvents_17A00(signed int a2, __int16 a3, uint16_t screenWidth, u
 			if (D41A0_0.array_0x6E3E[D41A0_0.LevelIndex_0xc].str_0x6E3E_byte0)
 				goto LABEL_292;
 			if (x_D41A0_BYTEARRAY_4_struct.setting_byte3_24 & 1)
-				PauseMenuEvents_197F0(screenWidth);
-			sub_17190_process_keyboard(screenWidth, screenHeight);//test FnX
+				PauseMenuEvents_197F0();
+			sub_17190_process_keyboard();//test FnX
 			//v5 = x_D41A0_BYTEARRAY_0;
 			//v6 = D41A0_BYTESTR_0.word_0xc;
 			//v7 = 5 * D41A0_BYTESTR_0.word_0xc;
@@ -12200,7 +12205,7 @@ void MouseAndKeysEvents_17A00(signed int a2, __int16 a3, uint16_t screenWidth, u
 			/*LOBYTE(result) = (uint8_t)*/sub_1A7A0_fly_asistant();
 			goto LABEL_306;
 		case 1:
-			sub_17190_process_keyboard(screenWidth, screenHeight);
+			sub_17190_process_keyboard();
 			if ((!(unk_18058Cstr.x_DWORD_18059C & 1) || !(unk_18058Cstr.x_DWORD_18059C & 2)) && LastPressedKey_1806E4 != 0x1c)
 				goto LABEL_296;
 			LastPressedKey_1806E4 = 0;
@@ -12366,7 +12371,7 @@ void MouseAndKeysEvents_17A00(signed int a2, __int16 a3, uint16_t screenWidth, u
 			v33 = 0;
 			v34 = 0;
 			v12x = x_DWORD_EA3E4[D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].word_0x00a_2BE4_11240];
-			sub_17190_process_keyboard(screenWidth, screenHeight);
+			sub_17190_process_keyboard();
 			if (v12x->dword_0x8 < 0)
 			{
 				v33 = 1;
@@ -12502,9 +12507,9 @@ void MouseAndKeysEvents_17A00(signed int a2, __int16 a3, uint16_t screenWidth, u
 		case 7:
 			v24x = x_DWORD_EA3E4[D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].word_0x00a_2BE4_11240];
 			if (x_D41A0_BYTEARRAY_4_struct.setting_byte3_24 & 1)
-				PauseMenuEvents_197F0(screenWidth);
+				PauseMenuEvents_197F0();
 
-			sub_17190_process_keyboard(screenWidth, screenHeight);
+			sub_17190_process_keyboard();
 			if (unk_18058Cstr.x_DWORD_18059C & 1 && unk_18058Cstr.x_DWORD_18059C & 2 || LastPressedKey_1806E4 == x_BYTE_EB39E_keys[4] || v24x->dword_0x8 < 0)
 			{
 				SelectSpell_191B0(20, 0);
@@ -12583,7 +12588,7 @@ void MouseAndKeysEvents_17A00(signed int a2, __int16 a3, uint16_t screenWidth, u
 			goto LABEL_306;
 		case 9:
 		case 0xB:
-			OptionMenuEvents_19AB0(screenWidth);
+			OptionMenuEvents_19AB0();
 			/*LOBYTE(result) = (uint8_t)*/sub_1A7A0_fly_asistant();
 			goto LABEL_306;
 		case 0xA:
@@ -12593,7 +12598,7 @@ void MouseAndKeysEvents_17A00(signed int a2, __int16 a3, uint16_t screenWidth, u
 			goto LABEL_306;
 		case 0xD:
 		case 0xE:
-			sub_19E00(screenWidth);
+			sub_19E00();
 			goto LABEL_296;
 		default:
 		LABEL_296:
@@ -12614,7 +12619,7 @@ void MouseAndKeysEvents_17A00(signed int a2, __int16 a3, uint16_t screenWidth, u
 			{
 				//LOBYTE(result) = x_D41A0_BYTEARRAY_4_struct.dwordindex_0;
 				if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 0x10))
-					sub_18BB0(screenWidth, screenHeight);
+					sub_18BB0();
 			}
 		}
 		LastPressedKey_1806E4 = 0;
@@ -12722,8 +12727,13 @@ void sub_18B30()//1f9b30
 // D41A4: using guessed type int x_DWORD_D41A4;
 
 //----- (00018BB0) --------------------------------------------------------
-void sub_18BB0(uint16_t screenWidth, uint16_t screenHeight)//1f9bb0
+void sub_18BB0()//1f9bb0
 {
+	//temo fix
+	uint16_t screenWidth = screenWidth_18062C;
+	uint16_t screenHeight = screenHeight_180624;
+	//temo fix
+
 	//int v0; // eax
 	//char v1; // dl
 	char v2; // cl
@@ -13147,8 +13157,12 @@ void sub_19760_set_message(const char* a1, unsigned __int8 a2, __int16 a3)//1fa7
 // D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
 
 //----- (000197F0) --------------------------------------------------------
-void PauseMenuEvents_197F0(uint16_t screenWidth)//1fa7f0
+void PauseMenuEvents_197F0()//1fa7f0
 {
+	//temo fix
+	uint16_t screenWidth = screenWidth_18062C;
+	//temo fix
+
 	int result; // eax
 	char v1; // bl
 	signed int v2; // ebx
@@ -13287,8 +13301,12 @@ void sub_19A70()//1faa70
 // D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
 
 //----- (00019AB0) --------------------------------------------------------
-void OptionMenuEvents_19AB0(uint16_t screenWidth)//1faab0
+void OptionMenuEvents_19AB0()//1faab0
 {
+	//temo fix
+	uint16_t screenWidth = screenWidth_18062C;
+	//temo fix
+
 	int v0; // eax
 	signed int v1; // ebx
 	int v2; // edx
@@ -13435,8 +13453,12 @@ void SetSoundEffectAndMusicLevelCoordinates_19D60(signed int a1, uint16_t screen
 // D41A4: using guessed type int x_DWORD_D41A4;
 
 //----- (00019E00) --------------------------------------------------------
-void sub_19E00(uint16_t width)//1fae00
+void sub_19E00()//1fae00
 {
+	//temo fix
+	uint16_t width = screenWidth_18062C;
+	//temo fix
+
 	char v0; // bl
 	char v1; // bh
 	//int v2; // eax
@@ -44242,7 +44264,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E, uint16_t 
 	}
 
 	case 0x1f9bb0: {
-		sub_18BB0(screenWidth, screenHeight);
+		sub_18BB0();
 		break;
 	}
 	case 0x1f9da0: {
@@ -44268,7 +44290,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E, uint16_t 
 	}
 
 	case 0x1fa7f0: {
-		PauseMenuEvents_197F0(screenWidth);
+		PauseMenuEvents_197F0();
 		break;
 	}
 	case 0x1faa50: {
@@ -44276,7 +44298,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E, uint16_t 
 		break;
 	}
 	case 0x1faab0: {
-		OptionMenuEvents_19AB0(screenWidth);
+		OptionMenuEvents_19AB0();
 		break;
 	}
 	case 0x1faca0: {
@@ -44301,7 +44323,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E, uint16_t 
 	}
 
 	case 0x1fae00: {
-		sub_19E00(screenWidth);
+		sub_19E00();
 		break;
 	}
 	case 0x1fb030: {
