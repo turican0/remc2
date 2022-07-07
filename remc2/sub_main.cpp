@@ -1990,9 +1990,9 @@ void sub_54600_mouse_reset();
 void sub_54630_load_psxblock(uint16_t TextSize);
 void sub_54660_read_and_decompress_sky_and_blocks(MapType_t a1, uint8_t a2);
 void sub_54800_read_and_decompress_tables(MapType_t a1);
-void sub_548B0(type_str_0x2BDE* a1, uint16_t screenWidth);
+void sub_548B0(type_str_0x2BDE* a1);
 void sub_548F0(type_str_0x2BDE* a1);
-void sub_54960(uint16_t screenWidth, uint16_t screenHeight);
+void sub_54960();
 void sub_549A0(type_str_611* a1, type_str_611* a2);
 void sub_54A50(unsigned __int16 a1, int v0index/*uint8_t* a2*/);
 char SaveSMAPSLEVmovie_54D30(__int16 a1);
@@ -2029,7 +2029,7 @@ void sub_57570();
 void sub_575C0();
 void sub_57640();
 void sub_57680_FixPointersAfterLoad();
-void UpdateEntities_57730(uint16_t width, uint16_t height);
+void UpdateEntities_57730();
 void sub_57B20(type_str_0x2BDE* a1, type_event_0x6E8E* a2);
 void sub_57CF0(type_event_0x6E8E* entity, axis_3d* position);
 void sub_57D40(type_event_0x6E8E* entity, axis_3d* position);
@@ -2076,7 +2076,6 @@ void sub_5B870_copy_sentence(char* langbuffer, char** langindexbuffer, uint32_t 
 void sub_5BC20();
 //void sub_5BCC0_set_any_variables1();
 void SetMousePositionInMemory_5BDC0(int16_t posX, int16_t posY);
-void SetMousePositionInMemory_5BDC0(int16_t posX, int16_t posY, uint16_t screenWidth);
 //uint8_t sub_5BE80_test_pallette(uint8_t* a1, uint8_t a2, uint8_t a3, uint8_t a4);
 char sub_5BF10();
 //signed int sub_5BF50_load_psxdata();
@@ -2086,9 +2085,9 @@ void sub_5C0A0();
 void sub_5C330();
 bool sub_5C380_test_vga_driver_header(uint16_t testlenght);
 signed int sub_5C3D0_file_decompress(uint8_t* a1, uint8_t* a2);
-int sub_5C430_multi_allocation();
-void sub_5C450();
-int sub_5C490_testers_info();
+void NetworkAllocation2_5C430();
+void NetworkDisallocation2_5C450();
+void sub_5C490_testers_info();
 void sub_5C530();
 void sub_5C800(type_event_0x6E8E* a1, char a2);
 void sub_5C830(type_event_0x6E8E* a1, char a2, __int16 a3);
@@ -40673,17 +40672,17 @@ void DrawAndEventsInGame_47560(/*uint8_t* a1, int a2, */uint32_t a3, signed int 
 	if (speed == 0)
 	{
 		if (!speed)
-			UpdateEntities_57730(screenWidth_18062C, screenHeight_180624);
+			UpdateEntities_57730();
 	}
 	else if (speed == 1)
 	{
 		for (i = 0; i < 4; i++)
-			UpdateEntities_57730(screenWidth_18062C, screenHeight_180624);
+			UpdateEntities_57730();
 	}
 	else if (speed == 2)
 	{
 		for (j = 0; j < 8; j++)
-			UpdateEntities_57730(screenWidth_18062C, screenHeight_180624);
+			UpdateEntities_57730();
 	}
 	sub_84B80();//prepare lightting
 	sub_58F00_game_objectives();//nothing draw
@@ -52803,7 +52802,7 @@ void GameEvents_51BB0(uint16_t screenWidth, uint16_t screenHeight)//232bb0
 			if ((unsigned __int16)v116 == D41A0_0.LevelIndex_0xc)
 			{
 				v35 = D41A0_0.array_0x2BDE[v18x].byte_0x3E0_2BE4_12222;
-				sub_54960(screenWidth, screenHeight);
+				sub_54960();
 			}
 			goto LABEL_215;
 		case 0x11:
@@ -53460,7 +53459,7 @@ void sub_52E90(type_str_0x2BDE* a1x, signed int a2, char a3)
 	case 0u:
 	case 6u:
 		if ((x_WORD)a2 == v8 && !(x_D41A0_BYTEARRAY_4_struct.setting_byte3_24 & 1))
-			sub_548B0(a1x, screenWidth);
+			sub_548B0(a1x);
 		break;
 	case 3u:
 	case 5u:
@@ -53471,7 +53470,7 @@ void sub_52E90(type_str_0x2BDE* a1x, signed int a2, char a3)
 	case 0xCu:
 	case 0xDu:
 	case 0xEu:
-		sub_548B0(a1x, screenWidth);
+		sub_548B0(a1x);
 		FlvInitSet_473B0();
 		break;
 	default:
@@ -54562,12 +54561,16 @@ void sub_54800_read_and_decompress_tables(MapType_t a1)//235800
 // D4B7E: using guessed type __int16 x_WORD_D4B7E;
 
 //----- (000548B0) --------------------------------------------------------
-void sub_548B0(type_str_0x2BDE* a1x, uint16_t screenWidth)//2358b0
+void sub_548B0(type_str_0x2BDE* a1x)//2358b0
 {
+	//temo fix
+	uint16_t screenWidth = screenWidth_18062C;
+	//temo fix
+
 	//__int16 result; // ax
 	//result = a1x->word_0x007_2BE4_11237;
 	if (a1x->word_0x007_2BE4_11237 == D41A0_0.LevelIndex_0xc)
-		SetMousePositionInMemory_5BDC0(a1x->dword_0x3E6_2BE4_12228.position_backup_20.x, a1x->dword_0x3E6_2BE4_12228.position_backup_20.y, screenWidth);
+		SetMousePositionInMemory_5BDC0(a1x->dword_0x3E6_2BE4_12228.position_backup_20.x, a1x->dword_0x3E6_2BE4_12228.position_backup_20.y);
 	//return result;
 }
 // D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
@@ -54604,8 +54607,13 @@ void sub_548F0(type_str_0x2BDE* a1x)//2358f0
 // 1805C2: using guessed type __int16 x_WORD_1805C2_joystick;
 
 //----- (00054960) --------------------------------------------------------
-void sub_54960(uint16_t screenWidth, uint16_t screenHeight)
+void sub_54960()
 {
+	//temo fix
+	uint16_t screenWidth = screenWidth_18062C;
+	uint16_t screenHeight = screenHeight_180624;
+	//temo fix
+
 	int16_t posY; // ax
 
 	if (x_WORD_180660_VGA_type_resolution & 1)
@@ -57168,8 +57176,13 @@ void sub_57680_FixPointersAfterLoad()//238680
 // EB384: using guessed type int x_DWORD_EB384;
 
 //----- (00057730) --------------------------------------------------------
-void UpdateEntities_57730(uint16_t width, uint16_t height)//238730
+void UpdateEntities_57730()//238730
 {
+	//temo fix
+	uint16_t width = screenWidth_18062C;
+	uint16_t height = screenHeight_180624;
+	//temo fix
+
 	type_event_0x6E8E* ix; // ebx
 	type_event_0x6E8E* v2x; // esi
 	type_event_0x6E8E* v3x; // ecx
@@ -60816,7 +60829,7 @@ void Initialize()//23c8d0
 
 	//VGA_Set_Cursor(*(*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct),0);
 
-	v2 = sub_5C430_multi_allocation(); //23d430
+	NetworkAllocation2_5C430(); //23d430
 	sub_46DD0_init_sound_and_music(/*v2, v3, (char*)filearray_2aa18c[filearrayindex_POINTERSDATTAB].begin_buffer*/);//init sound and music//227DD0
 	//x_WORD_E2A14_sound_activel = 0;x_BYTE_E3798_sound_active2 = 0;//debug tittes
 
@@ -60842,7 +60855,7 @@ void sub_5BC20()//23cc20
 {
 	if (x_BYTE_D4B80 == 1)
 	{
-		sub_5C450();
+		NetworkDisallocation2_5C450();
 		if (x_DWORD_E3768)
 			sub_54600_mouse_reset();//mouse reset
 		/*if (x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 8)
@@ -60907,11 +60920,10 @@ void sub_5BCC0_set_any_variables1()//23ccc0
 
 void SetMousePositionInMemory_5BDC0(int16_t posX, int16_t posY)
 {
-	SetMousePositionInMemory_5BDC0(posX, posY, 640);
-}
+	//temo fix
+	uint16_t screenWidth = screenWidth_18062C;
+	//temo fix
 
-void SetMousePositionInMemory_5BDC0(int16_t posX, int16_t posY, uint16_t screenWidth)
-{
 	if (posX < 0)
 		posX = 0;
 	if (posY < 0)
@@ -61387,18 +61399,17 @@ signed int sub_5C3D0_file_decompress(uint8_t* input, uint8_t* output)//23d3d0
 // 99682: using guessed type x_DWORD strncmp(x_DWORD, x_DWORD, x_DWORD);
 
 //----- (0005C430) --------------------------------------------------------
-int sub_5C430_multi_allocation()//23d430
+void NetworkAllocation2_5C430()//23d430
 {
 	int result; // eax
 
 	result = sub_74556();//255556 push ebp 355250
 	x_D41A0_BYTEARRAY_4_struct.isNetwork_216w = result;
-	return result;
 }
 // D41A4: using guessed type int x_DWORD_D41A4;
 
 //----- (0005C450) --------------------------------------------------------
-void sub_5C450()//23d450
+void NetworkDisallocation2_5C450()//23d450
 {
 	if (x_D41A0_BYTEARRAY_4_struct.isNetwork_216w)
 		sub_72D04();
@@ -61406,7 +61417,7 @@ void sub_5C450()//23d450
 // D41A4: using guessed type int x_DWORD_D41A4;
 
 //----- (0005C490) --------------------------------------------------------
-int sub_5C490_testers_info()//23d490
+void sub_5C490_testers_info()//23d490
 {
 	int result; // eax
 	int v1; // edx
@@ -61431,7 +61442,6 @@ int sub_5C490_testers_info()//23d490
 			x_DWORD_E3BB0--;
 		}
 	} while (v1 != 10);
-	return result;
 }
 // 996B7: using guessed type x_DWORD fgetc(x_DWORD);
 // E3BAC: using guessed type int x_DWORD_E3BAC;
@@ -73781,7 +73791,7 @@ void sub_6D200(type_str_0x2BDE* a1x, uint16_t screenWidth, uint16_t screenHeight
 					}
 					else
 					{
-						SetMousePositionInMemory_5BDC0(posX, posY, screenWidth);
+						SetMousePositionInMemory_5BDC0(posX, posY);
 					}
 				}
 			}
@@ -73810,7 +73820,7 @@ void sub_6D200(type_str_0x2BDE* a1x, uint16_t screenWidth, uint16_t screenHeight
 				}
 				else
 				{
-					SetMousePositionInMemory_5BDC0(posX, posY, screenWidth);
+					SetMousePositionInMemory_5BDC0(posX, posY);
 				}
 			}
 		}
