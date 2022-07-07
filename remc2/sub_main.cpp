@@ -12756,7 +12756,7 @@ void sub_18BB0()//1f9bb0
 			sub_52E90(
 				&D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc],
 				D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x3DF_2BE4_12221,
-				1, screenWidth, screenHeight);
+				1);
 			if (x_BYTE_E3799_sound_card)
 				sub_8D8F0_sound_proc3_endsample();
 			if (x_BYTE_E37FD)
@@ -52878,7 +52878,7 @@ void GameEvents_51BB0(uint16_t screenWidth, uint16_t screenHeight)//232bb0
 					break;
 				}
 			}
-			sub_52E90(&D41A0_0.array_0x2BDE[v18x], D41A0_0.array_0x6E3E[v114x].str_0x6E3E_byte1, 1, screenWidth, screenHeight);
+			sub_52E90(&D41A0_0.array_0x2BDE[v18x], D41A0_0.array_0x6E3E[v114x].str_0x6E3E_byte1, 1);
 			goto LABEL_215;
 		case 0x17:
 			if (D41A0_0.array_0x6E3E[v114x].str_0x6E3E_byte2 != -1)
