@@ -1715,7 +1715,7 @@ void sub_49270_generate_level_features(type_str_2FECE* terrain);
 //void sub_49290(type_str_2FECE* a1, char a2);
 void PrepareEvents_49540(type_str_2FECE* terrain, type_entity_0x30311* entity);
 //void sub_49830(type_str_2FECE* a1);
-void ApplyEvents_498A0(uint16_t width, uint16_t height);
+void ApplyEvents_498A0();
 void CopyEventVar0408_49A20(type_event_0x6E8E* event);
 void sub_49A30(type_event_0x6E8E* event, unsigned __int16 a2);
 void SetEvent144_49C70(type_event_0x6E8E* event);
@@ -1969,7 +1969,6 @@ type_event_0x6E8E* sub_51A00(axis_3d* a1);
 // int sub_51BB0_game_events(int a1);
 void sub_52D70(unsigned __int16 a1, char* a2);
 void sub_52E90(type_str_0x2BDE* a1, signed int a2, char a3);
-void sub_52E90(type_str_0x2BDE* a1, signed int a2, char a3, uint16_t screenWidth, uint16_t screenHeight);
 void sub_53120();
 void sub_53160();
 //char sub_533B0_decompress_levels(__int16 a1, type_str_2FECE* a2);
@@ -42354,7 +42353,7 @@ void GenerateEvents_49290(type_str_2FECE* terrain, char a2, uint16_t width, uint
 				terrain->entity_0x30311[ix].type_0x30311 = 0;
 		}
 	}
-	ApplyEvents_498A0(width, height);//adress 22a2de
+	ApplyEvents_498A0();//adress 22a2de
 #ifdef DEBUG_SEQUENCES
 	add_compare(0x22A2E3, debugafterload);
 #endif //DEBUG_SEQUENCES
@@ -42389,7 +42388,7 @@ void GenerateEvents_49290(type_str_2FECE* terrain, char a2, uint16_t width, uint
 	add_compare(0x22A388, debugafterload);
 #endif //DEBUG_SEQUENCES
 
-	ApplyEvents_498A0(width, height);//22a383
+	ApplyEvents_498A0();//22a383
 
 #ifdef DEBUG_SEQUENCES
 	add_compare(0x22A388, debugafterload);
@@ -42412,7 +42411,7 @@ void GenerateEvents_49290(type_str_2FECE* terrain, char a2, uint16_t width, uint
 #ifdef DEBUG_SEQUENCES
 	add_compare(0x22A3D7, debugafterload);
 #endif //DEBUG_SEQUENCES
-	ApplyEvents_498A0(width, height);//adress 22a3d7
+	ApplyEvents_498A0();//adress 22a3d7
 	for (lx = 1; lx < 0x4b0; lx++)
 	{
 		if (terrain->entity_0x30311[lx].DisId == -1 && terrain->entity_0x30311[lx].type_0x30311 == 0x000e && terrain->entity_0x30311[lx].subtype_0x30311 == 0x0002)
@@ -42427,7 +42426,7 @@ void GenerateEvents_49290(type_str_2FECE* terrain, char a2, uint16_t width, uint
 #ifdef DEBUG_SEQUENCES
 	add_compare(0x22A422, debugafterload);
 #endif //DEBUG_SEQUENCES
-	ApplyEvents_498A0(width, height);//22a422
+	ApplyEvents_498A0();//22a422
 #ifdef DEBUG_SEQUENCES
 	add_compare(0x22A427, debugafterload);
 #endif //DEBUG_SEQUENCES
@@ -42446,7 +42445,7 @@ void GenerateEvents_49290(type_str_2FECE* terrain, char a2, uint16_t width, uint
 			}
 		}
 	}
-	ApplyEvents_498A0(width, height);//adress 22a476
+	ApplyEvents_498A0();//adress 22a476
 	for (nx = 1; nx < 0x4b0; nx++)
 	{
 		if (terrain->entity_0x30311[nx].DisId == -1 && terrain->entity_0x30311[nx].type_0x30311 == 0x000a && terrain->entity_0x30311[nx].subtype_0x30311 == 0x002d && str_D93C0_bldgprmbuffer[terrain->entity_0x30311[nx].par1_14].byte_2 & 0x10)
@@ -42458,7 +42457,7 @@ void GenerateEvents_49290(type_str_2FECE* terrain, char a2, uint16_t width, uint
 			}
 		}
 	}
-	ApplyEvents_498A0(width, height);//adress 22a4d1
+	ApplyEvents_498A0();//adress 22a4d1
 #ifdef DEBUG_SEQUENCES
 	add_compare(0x22A4D6, debugafterload);
 #endif //DEBUG_SEQUENCES
@@ -42476,7 +42475,7 @@ void GenerateEvents_49290(type_str_2FECE* terrain, char a2, uint16_t width, uint
 #ifdef DEBUG_SEQUENCES
 	add_compare(0x22A52C, debugafterload);
 #endif //DEBUG_SEQUENCES
-	ApplyEvents_498A0(width, height);//adress 22a52c
+	ApplyEvents_498A0();//adress 22a52c
 }
 
 int debugcounter_22a540 = 0;
@@ -42621,8 +42620,13 @@ void SetStagetagForTermod_49830(type_str_2FECE* terrain)//22a830 //set v1x->word
 int debugcounter22a8a0 = 0;
 int debugcounter22a8a0bb = 0;
 //----- (000498A0) --------------------------------------------------------
-void ApplyEvents_498A0(uint16_t width, uint16_t height)//22a8a0
+void ApplyEvents_498A0()//22a8a0
 {
+	//temo fix
+	uint16_t width = screenWidth_18062C;
+	uint16_t height = screenHeight_180624;
+	//temo fix
+
 	bool runagain; // esi
 	int iy;
 	uint8_t v3; // ah
@@ -53390,11 +53394,11 @@ void sub_52D70(unsigned __int16 a1, char* a2)//233d70
 
 void sub_52E90(type_str_0x2BDE* a1x, signed int a2, char a3)
 {
-	sub_52E90(a1x, a2, a3, 640, 480);
-}
+	//temo fix
+	uint16_t screenWidth = screenWidth_18062C;
+	uint16_t screenHeight = screenHeight_180624;
+	//temo fix
 
-void sub_52E90(type_str_0x2BDE* a1x, signed int a2, char a3, uint16_t screenWidth, uint16_t screenHeight)
-{
 	//int v3; // edx
 	unsigned __int16 v4; // ax
 	__int16 v5; // ax
