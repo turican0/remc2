@@ -616,23 +616,6 @@ xazero };//43
 	uint32_t size;
 } SpriteStr;*/
 
-#pragma pack (1)
-typedef struct {//lenght 22
-	int16_t word_0;
-	int16_t word_2;
-	int16_t word_4;
-	int16_t word_6;
-	int16_t word_8;
-	int16_t word_10;
-	int16_t word_12_x; //X
-	int16_t word_14_y; //Y
-	int16_t word_16;
-	int8_t byte_18_act;//1-hidden 2-activated
-	int8_t byte_19;
-	int16_t word_20;
-}type_unk_E17CC_str_0x194;
-#pragma pack (16)
-
 x_DWORD unk_D5621;
 
 long unknown_libname_2_findfirst(char*, uint16_t, _finddata_t* c_file);// weak
@@ -2944,6 +2927,12 @@ char x_BYTE_D419C_level_num = -1; // weak
 char x_BYTE_D419D_fonttype = 1; // weak
 char x_BYTE_D419E = 0; // weak//2a519e
 
+bool Iam_server = false;
+bool Iam_client = false;
+int ClientMPort = 3491;
+int ServerMPort = 3490;
+char serverIP[256] = "000.000.000.000";
+
 x_DWORD x_DWORD_D41A4_4 = 0;
 x_DWORD x_DWORD_D41A4_6 = 127;
 x_DWORD x_DWORD_D41A4_8 = 127;
@@ -4415,14 +4404,70 @@ char x_BYTE_D8A2E[38] =
 	1,1,1,1,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,0
 }; // idb
 
-const char* off_D9204_wizards_names1[56] = { "1. Jahwl","2. Kopahk","3. Myrnan Gor","4. Arachnium","5. T'Klom","6. Phyrydia","7. Perilium",
-"8. Ul Buthnen","9. Evirith Gor","10. Cymmeria ","11. Tropolos ","12. Jaleen ","13. Galiphur ","14. Tunuk ","15. Zyggogg "
-"16. Darklava ","17. C'lannesh ","18. Gleph ","19. Baraghan ","20. Ammyridia ","21. Cresidan ","22. Hodor ","23. Jathnar "
-"24. Malak ","25. Uluth ","26. ","27. ","28. ","29. ","30. ","Karakir ","Ymbul","Pav Durivium","Beleem","Ommosyth"
-"36. ","37. ","38. ","40. ","41. ","42. ","43. ","44. ","45. ","46. ","47. ","48. ","49. ","50. ","Thrull",
-"Keevur","Braak","Trapox","Hibren Zhor","Jinople","Dethrem","Canquin","Zephulum","Verune" };
+const char* LevelsNames_D9204[61] = {
+	"1. Jahwl",
+	"2. Kopahk",
+	"3. Myrnan Gor",
+	"4. Arachnium",
+	"5. T'Klom",
+	"6. Phyrydia",
+	"7. Perilium",
+	"8. Ul Buthnen",
+	"9. Evirith Gor",
+	"10. Cymmeria ",
+	"11. Tropolos ",
+	"12. Jaleen ",
+	"13. Galiphur ",
+	"14. Tunuk ",
+	"15. Zyggogg ",
+	"16. Darklava ",
+	"17. C'lannesh ",
+	"18. Gleph ",
+	"19. Baraghan ",
+	"20. Ammyridia ",
+	"21. Cresidan ",
+	"22. Hodor ",
+	"23. Jathnar ",
+	"24. Malak ",
+	"25. Uluth ",
+	"26. ",
+	"27. ",
+	"28. ",
+	"29. ",
+	"30. ",
+	"Karakir ",
+	"Ymbul",
+	"Pav Durivium",
+	"Beleem",
+	"Ommosyth",
+	"36. ",
+	"37. ",
+	"38. ",
+	"39. ",
+	"40. ",
+	"41. ",
+	"42. ",
+	"43. ",
+	"44. ",
+	"45. ",
+	"46. ",
+	"47. ",
+	"48. ",
+	"49. ",
+	"50. ",
+	"Thrull",
+	"Keevur",
+	"Braak",
+	"Trapox",
+	"Hibren Zhor",
+	"Jinople",
+	"Dethrem",
+	"Canquin",
+	"Zephulum",
+	"Verune",
+	"0" };
 
-const char* off_D93A0_wizards_names2[8] = { "Zanzamar","Nyphur","Rahn","Belix","Jark","Elyssia","Yragore","Prish" };
+const char* WizardsNames_D93A0[8] = { "Zanzamar","Nyphur","Rahn","Belix","Jark","Elyssia","Yragore","Prish" };
 
 /*uint8_t x_WORD_D93C0_bldgprmbuffer[0x13f] = { 
 0x02,0x00,0x03,0x00,//0
@@ -4824,14 +4869,11 @@ var_0x002A25FC, NULL, NULL, NULL };
 
 char x_BYTE_DB734 = 0; // weak//x_DWORD_DAF50ar[0x7e4]
 char x_BYTE_DB738 = 0; // weak//x_DWORD_DAF50ar[0x7e8]
-//int x_DWORD_DB73C_tmapsfile = 4294967295; // weak
 char x_BYTE_DB74C = 1; // weak//x_DWORD_DAF50[0x7fc]
 
 std::array<uint8_t*, 256> x_DWORD_DDF50_texture_adresses; /*= { 0,32 }*/ // weak
 //2aef50
 //int x_DWORD_DDF54 = 32; // weak
-
-uint8_t* ptrViewPortRenderBufferAltStart = 0; // weak
 
 //char x_BYTE_E126D = 0; // weak
 char x_BYTE_E1274 = 0; // weak
@@ -4844,7 +4886,7 @@ uint8_t* paket_E1282 = 0; // weak
 uint8_t* packetArray_E1286[8] = { 0, 0, 0, 0, 0, 0, 0, 0 }; // idb
 __int16 x_WORD_E12A6 = 0; // weak
 __int16 x_WORD_E12A8 = 0; // weak
-myNCB* mainConnection_E12AA = 0; // weak //array size 66
+myNCB* mainConnection_E12AA = 0; // weak //array size 66 //0x2b22aa
 
 myNCB* connection_E12AE[8] = { 0, 0, 0, 0, 0, 0, 0, 0 };
 char connected_E12CE[8] = { 0, 0, 0, 0, 0, 0, 0, 0 }; // idb
@@ -4858,12 +4900,12 @@ __int16 x_WORD_E1310 = 0; // weak
 __int16 x_WORD_E1312ar[2] = { 0,0 }; // weak
 __int16 x_WORD_E1316 = 0; // weak
 __int16 x_WORD_E131A = 0; // weak
-char x_BYTE_E131C[8] = { 0, 0, 0, 0, 0, 0, 0, 0 }; // idb
+uint8_t x_BYTE_E131C[8] = { 0, 0, 0, 0, 0, 0, 0, 0 }; // idb
 char x_BYTE_E1324 = 50; // weak
 
 #pragma pack (1)
 typedef struct {//lenght 7
-	Type_SoundEvent_E17CC* pSoundEvent;
+	Type_SoundEvent_E17CC* pSoundEvent_0;
 	uint8_t byte_4;
 	uint8_t byte_5;
 	uint8_t byte_6;
@@ -5568,7 +5610,7 @@ __int16 x_WORD_E3BA4 = 0; // weak
 __int16 x_WORD_E3BA6 = 0; // weak
 __int16 x_WORD_E3BA8 = 0; // weak
 __int16 x_WORD_E3BAA = 0; // weak
-int x_DWORD_E3BAC = 0; // weak
+uint8_t* x_DWORD_E3BAC = 0; // weak
 int x_DWORD_E3BB0 = 0; // weak
 int x_DWORD_E3BB8 = 1; // weak
 FILE* file_E3BE0; // weak
@@ -5599,7 +5641,7 @@ int x_DWORD_E4E2C = 0; // weak
 __int64 qx_WORD_E4E30 = 0; // weak
 int x_DWORD_E4E38 = 0; // weak
 __int16 x_WORD_E4E3C = 0; // weak
-int32_t unk_E52EE; // weak
+//int32_t unk_E52EE; // weak
 int x_DWORD_E731C = 16; // weak
 int x_DWORD_E7320[257] = { 0,
 //int x_DWORD_E7324[255] =//sound?//x_DWORD_E7320[1+
@@ -6143,11 +6185,6 @@ int x_DWORD_E9C24_fps; // weak
 
 uint8_t* pre_x_DWORD_E9C3C;
 TColor x_DWORD_EA3B8x[256]; // weak?x_DWORD_E9C4C_langindexbuffer[475]
-//uint16_t m_uiViewPortHeight; // weak?x_DWORD_E9C4C_langindexbuffer[477]
-
-//int x_DWORD_EA3C8; // weak?x_DWORD_E9C4C_langindexbuffer[479]
-//int16_t m_iViewPortY; // weak?x_DWORD_E9C4C_langindexbuffer[480]
-
 
 axis_3d x_WORD_EB398ar; // weak
 uint8_t x_BYTE_EB39E_keys[10]; // weak 0 - setting keys
@@ -6163,9 +6200,6 @@ char x_BYTE_F0620[256]; // idb
 char x_BYTE_F0720[256]; // idb
 char x_BYTE_F0820[256]; // idb
 char x_BYTE_F0920[256]; // idb
-
-//char x_BYTE_F2CC6; // weak
-//char x_BYTE_F2CC7; // weak
 
 TColor x_BYTE_F3FA0arx[0x100]; // fix it -  weak
 
@@ -6189,7 +6223,7 @@ int x_DWORD_17D698; // weak
 int x_DWORD_17D6A0; // weak
 int x_DWORD_17D6A4; // weak
 int x_DWORD_17D6A8; // weak
-int x_DWORD_17D6AC; // weak
+uint8_t** x_DWORD_17D6AC; // weak
 int x_DWORD_17D6B0; // weak
 int x_DWORD_17D6C4; // weak
 int x_DWORD_17D6C8; // weak
@@ -12101,7 +12135,7 @@ void MouseAndKeysEvents_17A00(signed int a2, __int16 a3, uint16_t screenWidth, u
 						if (D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize < 40)
 						{
 							D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize++;
-							ResizeViewPort_2CA60(D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize);
+							ResizeViewPort_2CA90(D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize);
 						}
 					}
 					LastPressedKey_1806E4 = 0;
@@ -12114,7 +12148,7 @@ void MouseAndKeysEvents_17A00(signed int a2, __int16 a3, uint16_t screenWidth, u
 						if (D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize > 17)
 						{
 							D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize--;// = v10 - 1;
-							ResizeViewPort_2CA60(D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize);
+							ResizeViewPort_2CA90(D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize);
 						}
 					}
 					LastPressedKey_1806E4 = 0;
@@ -14420,7 +14454,7 @@ void sub_1A970_change_game_settings(char a1, int a2, int a3)//1fb970
 		}
 		D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize = 40;
 	LABEL_97:
-		ResizeViewPort_2CA60(D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize);
+		ResizeViewPort_2CA90(D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize);
 		return;
 	case 9:
 		if (!D41A0_0.str_0x21AA.creflections_0x21AA)
@@ -53523,7 +53557,7 @@ LABEL_40:
 		}
 		break;
 	default:
-		ResizeViewPort_2CA60(D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize);
+		ResizeViewPort_2CA90(D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize);
 		break;
 	}
 	if (a3)
@@ -53669,7 +53703,7 @@ void sub_53160()//234160
 		//v6 = (char *)(v0 + 927);//wizard name
 		v6 = (char*)D41A0_0.array_0x2BDE[v0index].array_0x39f_2BFA_12157;
 		//adress 2342e4
-		v7 = (char*)off_D93A0_wizards_names2[sub_61790(v12)];
+		v7 = (char*)WizardsNames_D93A0[sub_61790(v12)];
 		strcpy(v6, v7);
 		strcpy(D41A0_0.array_0x2BDE[v0index].array_0x39f_2BFA_12157, v7);
 		/*do
@@ -61278,7 +61312,7 @@ signed int sub_5C1B0_set_any_variables2()//23A05 - 23D1B0
 	if (str_unk_1804B0ar.byte_0xa2)
 		x_D41A0_BYTEARRAY_4_struct.byteindex_10 = 1;
 	//sub_2CA90(x_D41A0_BYTEARRAY_0[8589]);//268090//0x218d
-	ResizeViewPort_2CA60(D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize);//268090//0x218d
+	ResizeViewPort_2CA90(D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize);//268090//0x218d
 	return 1;
 }
 // D0C18: using guessed type char x_BYTE_D0C18;
@@ -61395,7 +61429,7 @@ void NetworkDisallocation2_5C450()//23d450
 //----- (0005C490) --------------------------------------------------------
 void sub_5C490_testers_info()//23d490
 {
-	int result; // eax
+	//int result; // eax
 	int v1; // edx
 
 	myprintf("\n");
@@ -61407,14 +61441,14 @@ void sub_5C490_testers_info()//23d490
 	{
 		if (x_DWORD_E3BB0 <= 0 || x_DWORD_E3BB8 & 4 || *(x_BYTE*)x_DWORD_E3BAC == 13 || *(x_BYTE*)x_DWORD_E3BAC == 26)
 		{
-			result = fgetc((FILE*)&x_DWORD_E3BAC);
-			v1 = result;
+			v1 = fgetc((FILE*)&x_DWORD_E3BAC);
 		}
 		else
 		{
-			result = x_DWORD_E3BAC + 1;
-			x_DWORD_E3BAC = result;
-			v1 = *(unsigned __int8*)(result - 1);
+			//result = x_DWORD_E3BAC + 1;
+			//x_DWORD_E3BAC = result;
+			v1 = *x_DWORD_E3BAC;
+			x_DWORD_E3BAC++;
 			x_DWORD_E3BB0--;
 		}
 	} while (v1 != 10);
@@ -77941,7 +77975,7 @@ signed int sub_75650()//VR something
 				x_DWORD_17D644 = 0;
 				x_DWORD_17D6A8 = 0;
 				x_DWORD_17D698 = 0;
-				x_DWORD_17D6AC = (int)&unk_17D540;
+				x_DWORD_17D6AC = (uint8_t**)&unk_17D540;
 				while (x_DWORD_17D698 < x_DWORD_17D648)
 				{
 					x_DWORD_17D6A4 = x_BYTE_17D440[x_DWORD_17D698];
@@ -82887,7 +82921,7 @@ int sub_7CD30()//25dd30
 	//fix save wizard name to enything
 
 	//v0 = (char*)(&off_D9204_wizards_names1)[1 + x_DWORD_17DE38str.x_BYTE_17DE68x[0xa + 11 * x_DWORD_17DE38str.x_WORD_17DEFC]];//fix it
-	v0 = (char*)(&off_D9204_wizards_names1)[1 + x_DWORD_17DE38str.array_BYTE_17DE68x[x_DWORD_17DE38str.serverIndex_17DEFC].byte_10];
+	v0 = (char*)(&LevelsNames_D9204)[1 + x_DWORD_17DE38str.array_BYTE_17DE68x[x_DWORD_17DE38str.serverIndex_17DEFC].byte_10];
 	//qmemcpy(&v2, v0, 5u);
 	//qmemcpy(&v3, v0 + 4, sizeof(v3));
 	if (v0[0] && v0[0] != 48)
@@ -83165,7 +83199,7 @@ void DrawNetworkLevelName_7D380()//25e380
 #endif
 	DrawHelpText_6FC50(1);
 	v0 = x_DWORD_17DE38str.array_BYTE_17DE68x[x_DWORD_17DE38str.serverIndex_17DEFC].byte_10;
-	sprintf(printbuffer, "%d. %s", v0 - 49, off_D9204_wizards_names1[v0]);
+	sprintf(printbuffer, "%d. %s", v0 - 49, LevelsNames_D9204[v0]);
 	sub_7FAE0_draw_text(printbuffer, 246, 355, 14, 0);
 }
 // 8E3D5: using guessed type x_DWORD sprintf(x_DWORD, const char *, ...);
@@ -86660,7 +86694,7 @@ void sub_82670()//263670
 					sprintf(cutScenePath, "%s/INTRO/CUT%d.DAT", cdDataPath, str_E16E0[v3x].byte_6);
 					sprintf(printbuffer, "%s", cutScenePath);
 
-					PlayInfoFmv(0, 1, str_E16E0[v3x].pSoundEvent, cutScenePath);
+					PlayInfoFmv(0, 1, str_E16E0[v3x].pSoundEvent_0, cutScenePath);
 					
 					/*sprintf(printbuffer, "intro\\cut4.dat");
 					sub_76160_play_intro(0, 1, 0 + (uint8_t*)array_E1328);*/
@@ -86837,7 +86871,7 @@ void sub_82C20_drawEndGameTable(__int16 a1)//263c20
 	v48 = 50;
 	if (a1 > -1)
 	{
-		v24x[0] = (char*)off_D9204_wizards_names1[a1];
+		v24x[0] = (char*)LevelsNames_D9204[a1];
 		v24x[1] = x_DWORD_E9C4C_langindexbuffer[386];//Spells found //fix it this variable not used
 		v24x[2] = x_DWORD_E9C4C_langindexbuffer[385];//Accuracy
 		v30x[0] = 0;
@@ -91393,7 +91427,7 @@ void sub_89AC0(x_BYTE* a1, int a2)//26aac0
 		if ((x_WORD)a2 == 96)
 		{
 			v3 = sub_61790((unsigned __int8)str_unk_1804B0ar.byte_0xa8);
-			/*result = */sprintf(a1, (const char*)x_DWORD_E9C4C_langindexbuffer[353], (&off_D93A0_wizards_names2)[v3]);//Number of times you have killed %s
+			/*result = */sprintf(a1, (const char*)x_DWORD_E9C4C_langindexbuffer[353], (&WizardsNames_D93A0)[v3]);//Number of times you have killed %s
 		}
 		else
 		{

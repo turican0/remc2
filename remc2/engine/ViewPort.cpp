@@ -80,7 +80,7 @@ void SetViewPortScreenCoordinates_2CA60(int16_t viewPortX, int16_t viewPortY, ui
 }
 
 //----- (0002CA90) --------------------------------------------------------
-void ResizeViewPort_2CA60(__int16 a1)//20da90
+void ResizeViewPort_2CA90(__int16 a1)//20da90
 {
 	int v1; // eax
 	double widthKoef = (double)screenWidth_18062C / 80;
