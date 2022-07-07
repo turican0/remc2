@@ -212,7 +212,7 @@ unk_D4350 - ok
 sub_7BF20_draw_scroll_dialog - ok
 x_DWORD_E36C4 - rewrited to xx_array_E36C4
 x_DWORD_E12AE - rewrited to str_DWORD_E12AE
-x_DWORD_E12AA - rewrited to str_DWORD_E12AA
+x_DWORD_E12AA - rewrited to mainConnection_E12AA
 TMAPS00TAB_BEGIN_BUFFER rewrited to str_TMAPS00TAB_BEGIN_BUFFER
 xadatapald0dat2.colorPallette_var28
 x_DWORD_17ECA0
@@ -2376,9 +2376,6 @@ void sub_6FEC0();
 void sub_70890_print_header();
 void PrintTextMessage_70910(char* a1);
 void sub_70940();
-char sub_70D20(unsigned __int16 a1);
-char sub_70E10(unsigned __int16 a1);
-unsigned int sub_71090(unsigned int a1);
 void sub_712F0();
 void sub_713A0();
 //int sub_71410_process_tmaps_process_tmaps();
@@ -2398,48 +2395,46 @@ void sub_720C0(type_x_DWORD_E9C28_str** a1);
 type_E9C08* sub_72120(unsigned __int16 a1);
 void sub_72350(type_animations1* a1);
 void sub_723B0(type_animations1* a1, char a2);
-void sub_72410(type_animations1* a1);
-type_animations1* sub_724F0(type_E9C08* a1, __int16 a2);
 void sub_72550(type_E9C08** a1);
 void sub_727F0(unsigned __int8 a1, unsigned __int8 a2, unsigned __int8 a3, unsigned __int8 a4);
 // void /*__spoils<ecx>*/ ClearGraphicsBuffer320(int a1, void *a2, unsigned __int16 a3, char a4);
 // void /*__spoils<ecx>*/ ClearGraphicsBuffer640(int a1, void *a2, unsigned __int16 a3, char a4);
 //void sub_72C40_draw_bitmap_640_setcolor(__int16 a1, __int16 a2, posistruct_t a3, unsigned __int8 a4);
 int sub_72CB0(unsigned __int8* a1, int a2);//not used
-void sub_72D04();
+void NetworkDisallocation_72D04();
 // int sub_72DDE(signed __int16 *a1, int a2);
 int /*__fastcall*/ sub_72E70(int a1, int a2, signed __int16* a3);//not used
-signed int /*__fastcall*/ sub_72FBB(int a1,/* int a2,*/ signed __int16* a3);
-void sub_7302E();
-// int sub_7308F(signed __int16 *a1, int a2, __int16 a3);
-void sub_73669(__int16 a1);
+signed int /*__fastcall*/ NetworkTestCall_72FBB();
+void NetworkListenAll_7302E();
+// int NetworkInitConnection_7308F(signed __int16 *a1, int a2, __int16 a3);
+void NetworkCanceling_73669(__int16 a1);
 void sub_7373D(__int16 a1);
 void sub_739AD(__int16 a1);
 void sub_73AA1(__int16 a1);
-void sub_73D11(__int16 a1);
-unsigned __int16 sub_74006(unsigned __int16 a1, uint8_t* a2, unsigned int a3);
-void sub_7404E(unsigned __int16 a1, uint8_t* a2, unsigned int a3);
-__int16 sub_74374();
-void sub_7438A(uint8_t* a1, unsigned int a2);
-__int16 sub_7449C();
+void NetworkEnd_73D11(__int16 a1);
+void NetworkSendMessage2_74006(unsigned __int16 a1, uint8_t* a2, unsigned int a3);
+void NetworkReceiveMessage2_7404E(unsigned __int16 a1, uint8_t* a2, unsigned int a3);
+void NetworkUpdateConnections2_74374();
+void ReceiveSendAll_7438A(uint8_t* a1, unsigned int a2);
+void NetworkCancelAll_7449C();
 int sub_74515();
 int sub_74536();
-uint8_t sub_74556();
+uint8_t NetworkAllocation_74556();
 // signed int sub_74767(signed __int16 *a1, x_BYTE *a2, int a3);
-int sub_74809(__int16 a1);
-signed int sub_748F7(__int16 a1);
-signed int sub_74A11();
-void sub_74A86(type_DWORD_E12AE* a1x, char* a2);
-void sub_74B19(type_DWORD_E12AE* a1x);
-signed int sub_74B75(__int16 a1);
-int sub_74C9D(type_DWORD_E12AE* a1x, int a2);
-void sub_74D41(type_DWORD_E12AE* a1x, int a2, unsigned int a3);
-signed int sub_74DD4(type_DWORD_E12AE* a1x, int a2, unsigned __int16 a3);
-int sub_74E6D(type_DWORD_E12AE* a1x, uint8_t* a2, int a3);
-int sub_74EF1(type_DWORD_E12AE* a1x, uint8_t* a2, unsigned int a3);
-__int16 sub_74F76();
-signed int sub_74FE1(__int16 a1);
-int sub_75044(type_DWORD_E12AE* a1x);
+int NetworkCall_74809(__int16 a1);
+signed int NetworkCancel_748F7(__int16 a1);
+signed int NetworkInit_74A11();
+void NetworkDeleteName_74A86(myNCB* a1x, char* a2);
+void NetworkHangUp_74B19(myNCB* a1x);
+signed int NetworkListen_74B75(__int16 a1);
+int NetworkReceivePacket_74C9D(myNCB* a1x, uint8_t* a2x, int maxsize);
+void NetworkReceiveMessage_74D41(myNCB* a1x, uint8_t* a2x, unsigned int a3);
+//signed int NetworkReceivePacket_74DD4(myNCB* a1x, unsigned __int16 a3);
+int NetworkSendPacket_74E6D(myNCB* a1x, uint8_t* a2, int a3);
+void NetworkSendMessage_74EF1(myNCB* a1x, uint8_t* inbuffer, unsigned int size);
+void NetworkUpdateConnections_74F76();
+signed int NetworkGetState_74FE1(__int16 a1);
+int setNetbios_75044(myNCB* a1x);
 void sub_75110(__int16 a1, __int16 a2, __int16 a3, unsigned __int16 a4, __int16 a5);
 void sub_75160(__int16 a1, __int16 a2, __int16 a3, unsigned __int16 a4, __int16 a5);
 void sub_751B0(__int16 a1, __int16 a2, __int16 a3, unsigned __int16 a4, __int16 a5);
@@ -2447,9 +2442,9 @@ void sub_751B0(__int16 a1, __int16 a2, __int16 a3, unsigned __int16 a4, __int16 
 void sub_753D0();
 //int sub_75420();
 int sub_75440();
-int sub_754C0(int a1, x_DWORD* a2, int a3);
-int sub_75540(int a1, int a2);
-int sub_755B0(int a1, x_DWORD* a2, int a3);
+int sub_754C0(int a1, x_DWORD* a2, uint8_t* a3);
+int sub_75540(int a1, uint8_t* a2);
+int sub_755B0(int a1, x_DWORD* a2, uint8_t* a3);
 signed int sub_75650();
 void sub_75900();
 signed int sub_75910();
@@ -2511,7 +2506,7 @@ signed int /*__fastcall*/ sub_7C050_get_keyboard_keys1();
 //void sub_7C120_draw_bitmap_640(int16_t posx, int16_t posy, posistruct_t tempstr);
 //void sub_7C140_draw_text_background(int16_t a1, int16_t a2, int16_t a3, int16_t a4, uint8_t a5);
 //int32_t sub_A7C20_AIL_API_init_sequence(HSEQUENCE hSequence, void* start, int32_t sequence_num, uint32_t track);
-void sub_7C230(/*int a1,*/ int a2, signed __int16* a3);
+void WaitToConnect_7C230(/*int a1,*/ /*int a2*//*, signed __int16* a3*/);
 signed int sub_7C390();
 void sub_7C710();
 int sub_7C720(unsigned __int8 a1, x_BYTE* a2);
@@ -4844,17 +4839,17 @@ uint8_t* ptrViewPortRenderBufferAltStart = 0; // weak
 char x_BYTE_E1274 = 0; // weak
 char x_BYTE_E1275 = 0; // weak
 int16_t x_WORD_E1276 = -1; // weak
-__int16 x_WORD_E1278 = 0; // weak
-__int16 x_WORD_E127A = 8; // weak
-uint8_t* x_DWORD_E127E = 0; // weak
-uint8_t* x_DWORD_E1282 = 0; // weak
-uint8_t* x_DWORD_E1286[8] = { 0, 0, 0, 0, 0, 0, 0, 0 }; // idb
+__int16 countConnected_E1278 = 0; // weak
+__int16 maxPlayers_E127A = 8; // weak
+uint8_t* networkBuffer_E127E = 0; // weak
+uint8_t* paket_E1282 = 0; // weak
+uint8_t* packetArray_E1286[8] = { 0, 0, 0, 0, 0, 0, 0, 0 }; // idb
 __int16 x_WORD_E12A6 = 0; // weak
 __int16 x_WORD_E12A8 = 0; // weak
-type_DWORD_E12AE* str_DWORD_E12AA = 0; // weak //array size 66
+myNCB* mainConnection_E12AA = 0; // weak //array size 66
 
-type_DWORD_E12AE* str_DWORD_E12AE[8] = { 0, 0, 0, 0, 0, 0, 0, 0 };
-char x_BYTE_E12CE[8] = { 0, 0, 0, 0, 0, 0, 0, 0 }; // idb
+myNCB* connection_E12AE[8] = { 0, 0, 0, 0, 0, 0, 0, 0 };
+char connected_E12CE[8] = { 0, 0, 0, 0, 0, 0, 0, 0 }; // idb
 char x_BYTE_E12EC = 0; // weak
 char x_BYTE_E12ED = 0; // weak
 int8_t* x_BYTE_E1304 = 0; // weak
@@ -52625,8 +52620,8 @@ void GameEvents_51BB0(uint16_t screenWidth, uint16_t screenHeight)//232bb0
 
 	if (x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 0x10)
 	{
-		sub_74374();
-		sub_7438A((uint8_t*)D41A0_0.array_0x6E3E, 0xAu);
+		NetworkUpdateConnections2_74374();
+		ReceiveSendAll_7438A((uint8_t*)D41A0_0.array_0x6E3E, 0xAu);
 		v1 = 0;
 		//v2 = D41A0_BYTESTR_0.array_0x6E3E[D41A0_BYTESTR_0.word_0xc];
 		v2x = 0;
@@ -52668,7 +52663,7 @@ void GameEvents_51BB0(uint16_t screenWidth, uint16_t screenHeight)//232bb0
 			v3++;
 		}
 		if (v1)
-			sub_7438A((uint8_t*)D41A0_0.array_0x2BDE, 0x84Cu);
+			ReceiveSendAll_7438A((uint8_t*)D41A0_0.array_0x2BDE, 0x84Cu);
 	}
 	//v10 = 2124 * D41A0_BYTESTR_0.word_0xc + x_D41A0_BYTEARRAY_0;
 	//v11 = (int)x_D41A0_BYTEARRAY_4;
@@ -60861,7 +60856,7 @@ void sub_5BC20()//23cc20
 			sub_75420();*/
 		sub_46F50_sound_proc7();
 		sub_8C21F_any_graphics_command();
-		sub_72D04();
+		NetworkDisallocation_72D04();
 		sub_6FE20();
 		sub_5C060();
 	}
@@ -61400,7 +61395,7 @@ void NetworkAllocation2_5C430()//23d430
 {
 	int result; // eax
 
-	result = sub_74556();//255556 push ebp 355250
+	result = NetworkAllocation_74556();//255556 push ebp 355250
 	x_D41A0_BYTEARRAY_4_struct.isNetwork_216w = result;
 }
 // D41A4: using guessed type int x_DWORD_D41A4;
@@ -61409,7 +61404,7 @@ void NetworkAllocation2_5C430()//23d430
 void NetworkDisallocation2_5C450()//23d450
 {
 	if (x_D41A0_BYTEARRAY_4_struct.isNetwork_216w)
-		sub_72D04();
+		NetworkDisallocation_72D04();
 }
 // D41A4: using guessed type int x_DWORD_D41A4;
 
@@ -76722,58 +76717,53 @@ int sub_72CB0(unsigned __int8* a1, int a2)
 }
 
 //----- (00072D04) --------------------------------------------------------
-void sub_72D04()
+void NetworkDisallocation_72D04()
 {
 	signed int i; // [esp+0h] [ebp-8h]
 	signed int j; // [esp+4h] [ebp-4h]
 
 	if (x_BYTE_E1274)
 	{
-		for (i = 0; x_WORD_E127A > i; i++)
+		for (i = 0; maxPlayers_E127A > i; i++)
 		{
-			//while (*(x_BYTE*)(x_DWORD_E12AE[i] + 49) == -1)
-			while (str_DWORD_E12AE[i]->byte_49 == -1)				
-				;
+			while (connection_E12AE[i]->ncb_cmd_cplt_49 == 0xff)
+				/*fake_network_interupt(connection_E12AE[i])*/;
 		}
-		while (str_DWORD_E12AA->byte_49 == -1)
-			;
-		sub_83E80_freemem4((uint8_t*)str_DWORD_E12AA);
+		while (mainConnection_E12AA->ncb_cmd_cplt_49 == 0xff)
+			/*fake_network_interupt(mainConnection_E12AA)*/;
+		sub_83E80_freemem4((uint8_t*)mainConnection_E12AA);
 		for (j = 0; j < 8; j++)
 		{
-			sub_83E80_freemem4((uint8_t*)str_DWORD_E12AE[j]);
-			sub_83E80_freemem4((uint8_t*)x_DWORD_E1286[j]);
+			sub_83E80_freemem4((uint8_t*)connection_E12AE[j]);
+			sub_83E80_freemem4((uint8_t*)packetArray_E1286[j]);
 		}
-		sub_83E80_freemem4((uint8_t*)x_DWORD_E127E);
-		sub_83E80_freemem4((uint8_t*)x_DWORD_E1282);
+		sub_83E80_freemem4((uint8_t*)networkBuffer_E127E);
+		sub_83E80_freemem4((uint8_t*)paket_E1282);
 		x_BYTE_E1274 = 0;
 	}
 }
 // E1274: using guessed type char x_BYTE_E1274;
 // E127A: using guessed type __int16 x_WORD_E127A;
-// E127E: using guessed type int x_DWORD_E127E;
+// E127E: using guessed type int networkBuffer_E127E;
 // E1282: using guessed type int x_DWORD_E1282;
 // E12AA: using guessed type int x_DWORD_E12AA;
 
 //----- (00072DDE) --------------------------------------------------------
-int sub_72DDE(signed __int16* a1, int a2)
-{
-	//char v3; // [esp+0h] [ebp-1Ch]
+int NetworkTestAddName_72DDE(/*signed __int16* a1,*/ int compindex)//253dde
+{//253de2
 	int result; // [esp+14h] [ebp-8h]
-
-	sprintf(printbuffer, "%s%d", "TESTER", a2);
+	sprintf(printbuffer, "%s%d", nethID, compindex);
 	do
-	{
-		result = sub_74767(a1, str_DWORD_E12AE[a2], (uint8_t*)printbuffer);
-		if (result && (result == 13))
-			sub_74A86(str_DWORD_E12AE[a2], printbuffer);
+	{//253e06
+		result = NetworkAddName_74767(connection_E12AE[compindex], printbuffer);//2557bb
+		if (result == 13)//253e23
+			NetworkDeleteName_74A86(connection_E12AE[compindex], printbuffer);
 	} while (result == 13 && !x_WORD_E12A6);
 	return result;
 }
-// 8E3D5: using guessed type x_DWORD sprintf(x_DWORD, const char *, ...);
-// E12A6: using guessed type __int16 x_WORD_E12A6;
 
 //----- (00072E70) --------------------------------------------------------
-int /*__fastcall*/ sub_72E70(int  /*a1*/, int  /*a2*/, signed __int16* a3)
+int /*__fastcall*/ sub_72E70(int  /*a1*/, int  /*a2*/, signed __int16* a3)//253e70
 {
 	int v3; // edx
 	char v5; // [esp+0h] [ebp-30h]
@@ -76782,30 +76772,29 @@ int /*__fastcall*/ sub_72E70(int  /*a1*/, int  /*a2*/, signed __int16* a3)
 	int i; // [esp+28h] [ebp-8h]
 	int v9; // [esp+2Ch] [ebp-4h]
 
-	for (i = 0; x_WORD_E127A > i; i++)
+	for (i = 0; maxPlayers_E127A > i; i++)
 	{
 		if (x_WORD_E1276 != i)
-			sub_74809(i);
+			NetworkCall_74809(i);
 	}
 	memset(v6, 0, 8);
 	v9 = 0;
 	while (v9 < 2)
 	{
 		v3 = v6[x_WORD_E1276];
-		if (v3 == x_WORD_E127A - 1 || x_WORD_E12A6)
+		if (v3 == maxPlayers_E127A - 1 || x_WORD_E12A6)
 			break;
-		for (i = 0; x_WORD_E127A > i; i++)
+		for (i = 0; maxPlayers_E127A > i; i++)
 		{
 			if (x_WORD_E1276 != i)
 			{
-				//v5 = *(x_BYTE*)(x_DWORD_E12AE[i] + 49);
-				v5 = str_DWORD_E12AE[i]->byte_49;
+				v5 = connection_E12AE[i]->ncb_cmd_cplt_49;
 				if (v5)
 				{
-					if (v5 == -1)
+					if (v5 == 0xff)
 					{
 						if (v9)
-							sub_748F7(i);
+							NetworkCancel_748F7(i);
 					}
 					else if (!v6[i])
 					{
@@ -76819,50 +76808,47 @@ int /*__fastcall*/ sub_72E70(int  /*a1*/, int  /*a2*/, signed __int16* a3)
 				}
 			}
 		}
-		sub_7C230(/*x_WORD_E127A,*/ v3, a3);
+		WaitToConnect_7C230();
 	}
 	v7 = v9;
 	return v9;
 }
-// 8C250: using guessed type x_DWORD memset(x_DWORD, x_DWORD, x_DWORD);
-// E1276: using guessed type __int16 x_WORD_E1276;
-// E127A: using guessed type __int16 x_WORD_E127A;
-// E12A6: using guessed type __int16 x_WORD_E12A6;
-// E12A8: using guessed type __int16 x_WORD_E12A8;
-// 72E70: using guessed type char var_18[8];
 
 //----- (00072FBB) --------------------------------------------------------
-signed int /*__fastcall*/ sub_72FBB(int  /*a1*//*, int a2*/, signed __int16* a3)
+signed int /*__fastcall*/ NetworkTestCall_72FBB()
 {
-	int v3; // edx
-	int i; // [esp+4h] [ebp-4h]
-
-	//fix it
-	v3 = 0;
-	//fix it
-
-	sub_74809(0);
-	for (i = x_DWORD_17DB54_game_turn2; ; sub_7C230(/*x_DWORD_17DB54_game_turn2 - i,*/ v3, a3))
+	NetworkCall_74809(0);
+	/*for (int i = x_DWORD_17DB54_game_turn2; ; WaitToConnect_7C230())
 	{
-		if (str_DWORD_E12AE[i]->byte_49 != -1)
+		if (connection_E12AE[0]->ncb_cmd_cplt_49 != 0xff)
 			return 1;
 		if ((x_DWORD_17DB54_game_turn2 - i) > 0x78)
 			break;
+		fake_network_interupt(connection_E12AE[0]);
+	}*/
+	for (int i = mygetthousandths(); ; WaitToConnect_7C230())
+	{
+		if (connection_E12AE[0]->ncb_cmd_cplt_49 != 0xff)
+			return 1;//254024
+		if ((mygetthousandths() - i) > 120)
+			break;//253ffd
+		/*fake_network_interupt(connection_E12AE[0])*/;
 	}
-	sub_748F7(0);
+	//253fff
+	NetworkCancel_748F7(0);
 	return 0;
 }
 // 17DB54: using guessed type int x_DWORD_17DB54_game_turn2;
 
 //----- (0007302E) --------------------------------------------------------
-void sub_7302E()
+void NetworkListenAll_7302E()
 {
 	signed int i; // [esp+4h] [ebp-4h]
 
-	for (i = 0; x_WORD_E127A > i && !x_WORD_E12A6; i++)
+	for (i = 0; maxPlayers_E127A > i && !x_WORD_E12A6; i++)
 	{
 		if (x_WORD_E1276 != i)
-			sub_74B75(i);
+			NetworkListen_74B75(i);
 	}
 	//return 1;
 }
@@ -76871,122 +76857,94 @@ void sub_7302E()
 // E12A6: using guessed type __int16 x_WORD_E12A6;
 
 //----- (0007308F) --------------------------------------------------------
-int sub_7308F(signed __int16* a1, uint8_t* a2, __int16 a3)
+int NetworkInitConnection_7308F(char* a2, __int16 a3)//25408f
 {
-	//uint8_t* v3; // edx
-	int v4; // eax
 	int v6; // [esp+4h] [ebp-24h]
-	//char v7; // [esp+8h] [ebp-20h]
 	int i; // [esp+1Ch] [ebp-Ch]
 	int v9; // [esp+20h] [ebp-8h]
-
-	//fix
-	//v3 = 0;
-	//fix
-
+	//254093
 	if (!x_BYTE_E1274 || x_BYTE_E1275)
 		return -1;
 	if (a3)
-		x_WORD_E127A = a3;
+		maxPlayers_E127A = a3;
 	else
-		x_WORD_E127A = 8;
+		maxPlayers_E127A = 8;
 	x_BYTE_E1275 = 0;
 	x_WORD_E12A6 = 0;
-	char testerstr[512] = "TESTER";
-	strcpy(testerstr, (char*)a2);
-	for (i = 0; x_WORD_E127A > i; i++)
-		x_BYTE_E12CE[i] = 0;
-	for (i = 0; x_WORD_E127A > i; i++)
+	strcpy(nethID, (char*)a2);
+	for (i = 0; maxPlayers_E127A > i; i++)
+		connected_E12CE[i] = 0;
+	for (i = 0; maxPlayers_E127A > i; i++)
 	{
-		while (str_DWORD_E12AE[i]->byte_49 == -1)
-			;
+		while (connection_E12AE[i]->ncb_cmd_cplt_49 == 0xff)
+			/*fake_network_interupt(connection_E12AE[i])*/;
 	}
-	while (str_DWORD_E12AA->byte_49 == -1)
-		;
+	while (mainConnection_E12AA->ncb_cmd_cplt_49 == 0xff)
+		/*fake_network_interupt(mainConnection_E12AA)*/;
 	i = 0;
 	x_WORD_E1276 = -1;
-	while (x_WORD_E127A > i && x_WORD_E1276 == -1 && !x_WORD_E12A6)
-	{
-		v6 = sub_72DDE(a1, i);
-		if (v6)
+	while (maxPlayers_E127A > i && x_WORD_E1276 == -1 && !x_WORD_E12A6)
+	{//2541a1
+		v6 = NetworkTestAddName_72DDE(i);
+		if (v6)//2541aa
 		{
-			if (v6 == 255)
+			if (v6 == 0xff)
 			{
-				sub_748F7(i);
-				i = x_WORD_E127A;
+				NetworkCancel_748F7(i);
+				i = maxPlayers_E127A;
 			}
 		}
 		else
 		{
 			x_WORD_E1276 = i;
 		}
-		++i;
+		i++;
 	}
-	if (x_WORD_E1276 == -1)
+	if (x_WORD_E1276 == -1)//2541e7
 		return -1;
-	for (i = 0; ; i++)
+	for (i = 0; i < maxPlayers_E127A; i++)
 	{
-		v4 = x_WORD_E127A;
-		if (x_WORD_E127A <= i)
-			break;
 		if (x_WORD_E1276 != i)
 		{
-			//strcpy((char*)(x_DWORD_E12AE[i] + 26), (const char*)(x_DWORD_E12AE[x_WORD_E1276] + 26));
-			strcpy(str_DWORD_E12AE[i]->arr_byte_26, str_DWORD_E12AE[x_WORD_E1276]->arr_byte_26);
-			/*
-			v3 = x_DWORD_E12AE[x_WORD_E1276];
-			LOBYTE(v3) = *(int8_t*)(v3 + 3);
-#ifdef __linux__ // FIXME: types
-			std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-			*(int8_t*)(x_DWORD_E12AE[i] + 3) = (int8)v3;
-			stub_fix_it();//test and fix this
-#endif*/
-			str_DWORD_E12AE[i]->byte_3 = str_DWORD_E12AE[x_WORD_E1276]->byte_3;
+			strcpy(connection_E12AE[i]->ncb_name_26, connection_E12AE[x_WORD_E1276]->ncb_name_26);
+			connection_E12AE[i]->ncb_num_3 = connection_E12AE[x_WORD_E1276]->ncb_num_3;
 		}
 	}
-	LOWORD(v4) = x_WORD_E1276;
-	if (x_WORD_E1276)
+#ifdef TEST_NETWORK_CHNG1
+	x_WORD_E1276 = 1;
+#endif// TEST_NETWORK_CHNG1
+	if (x_WORD_E1276)//254278
 	{
-		if (!sub_72FBB(v4, /*(int)v3,*/ a1))
+		if (!NetworkTestCall_72FBB())
 			x_WORD_E12A6 = 1;
 	}
 	else
 	{
-		sub_7302E();
+		NetworkListenAll_7302E();
 		x_WORD_E12A8 = x_WORD_E1276;
 	}
 	if (x_WORD_E12A6 == 1)
 	{
-		for (i = 0; x_WORD_E127A > i; i++)
+		for (i = 0; maxPlayers_E127A > i; i++)
 		{
 			if (x_WORD_E1276 != i)
-				sub_748F7(i);
+				NetworkCancel_748F7(i);
 		}
-		sprintf(printbuffer, "%s%d", testerstr, x_WORD_E1276);
-		sub_74A86(str_DWORD_E12AE[x_WORD_E1276], printbuffer);
+		sprintf(printbuffer, "%s%d", nethID, x_WORD_E1276);
+		NetworkDeleteName_74A86(connection_E12AE[x_WORD_E1276], printbuffer);
 		v9 = -1;
 	}
 	else
 	{
-		sub_74F76();
+		NetworkUpdateConnections_74F76();
 		x_BYTE_E1275 = 1;
 		v9 = x_WORD_E1276;
 	}
 	return v9;
 }
-// 8E3D5: using guessed type x_DWORD sprintf(x_DWORD, const char *, ...);
-// 99D46: using guessed type x_DWORD strcpy(x_DWORD, x_DWORD);
-// E1274: using guessed type char x_BYTE_E1274;
-// E1275: using guessed type char x_BYTE_E1275;
-// E1276: using guessed type __int16 x_WORD_E1276;
-// E127A: using guessed type __int16 x_WORD_E127A;
-// E12A6: using guessed type __int16 x_WORD_E12A6;
-// E12A8: using guessed type __int16 x_WORD_E12A8;
-// E12AA: using guessed type int x_DWORD_E12AA;
 
 //----- (00073669) --------------------------------------------------------
-void sub_73669(__int16 a1)
+void NetworkCanceling_73669(__int16 a1)
 {
 	//int result; // eax
 	//char v2; // [esp+0h] [ebp-18h]
@@ -76994,22 +76952,22 @@ void sub_73669(__int16 a1)
 
 	if (x_WORD_E1276 == a1)
 	{
-		for (i = 0; (signed __int16)i < x_WORD_E127A; i++)
+		for (i = 0; (signed __int16)i < maxPlayers_E127A; i++)
 		{
 			if (i != x_WORD_E1276)
 			{
-				sub_748F7(i);
-				sub_74B19(str_DWORD_E12AE[i]);
+				NetworkCancel_748F7(i);
+				NetworkHangUp_74B19(connection_E12AE[i]);
 			}
 		}
 		sprintf(printbuffer, "%s%d", "TESTER", x_WORD_E1276);
-		/*result = */sub_74A86(str_DWORD_E12AE[a1], printbuffer);
+		/*result = */NetworkDeleteName_74A86(connection_E12AE[a1], printbuffer);
 		x_BYTE_E1275 = 0;
 	}
 	else
 	{
-		sub_748F7(a1);
-		/*result = */sub_74B19(str_DWORD_E12AE[a1]);
+		NetworkCancel_748F7(a1);
+		/*result = */NetworkHangUp_74B19(connection_E12AE[a1]);
 	}
 	//return result;
 }
@@ -77019,16 +76977,10 @@ void sub_73669(__int16 a1)
 // E127A: using guessed type __int16 x_WORD_E127A;
 
 //----- (0007373D) --------------------------------------------------------
-void sub_7373D(__int16 a1)
+void sub_7373D(__int16 a1)//25473d
 {
-	//uint8_t* result; // eax
-	//char v2; // [esp+0h] [ebp-64h]
 	uint8_t v3[8]; // [esp+54h] [ebp-10h]
 	int i; // [esp+5Ch] [ebp-8h]
-
-	//fix
-	//result = 0;
-	//fix
 
 	if (x_BYTE_E1274 && x_BYTE_E1275)
 	{
@@ -77036,20 +76988,25 @@ void sub_7373D(__int16 a1)
 		{
 			if (x_WORD_E1276 == a1)
 			{
-				for (i = 0; x_WORD_E127A > i; i++)
-					v3[i] = x_BYTE_E12CE[i] == 1;
-				for (i = 0; x_WORD_E127A > i; i++)
+				for (i = 0; maxPlayers_E127A > i; i++)
+					v3[i] = connected_E12CE[i] == 1;
+				for (i = 0; maxPlayers_E127A > i; i++)
 				{
 					if (v3[i] == 1)
-						sub_74006(i, v3, 8u);
+					{
+#ifdef TEST_NETWORK
+						printState2((char*)"Send State 1\n");
+#endif //TEST_NETWORK
+						NetworkSendMessage2_74006(i, v3, 8u);
+					}
 				}
-				/*result = (uint8_t*)*/sub_73669(a1);
+				NetworkCanceling_73669(a1);
 			}
 			else
 			{
-				sub_7404E(x_WORD_E12A8, v3, 8u);
-				sub_73669(a1);
-				for (i = 0; x_WORD_E127A > i; i++)
+				NetworkReceiveMessage2_7404E(x_WORD_E12A8, v3, 8u);
+				NetworkCanceling_73669(a1);
+				for (i = 0; maxPlayers_E127A > i; i++)
 				{
 					if (v3[i] == 1)
 					{
@@ -77062,16 +77019,15 @@ void sub_7373D(__int16 a1)
 				{
 					for (i = 0; ; i++)
 					{
-						//result = (uint8_t*)x_WORD_E127A;
-						if (x_WORD_E127A <= i)
+						if (maxPlayers_E127A <= i)
 							break;
 						if (x_WORD_E1276 != i && v3[i] == 1)
 						{
-							sub_74B75(i);
-							while (str_DWORD_E12AE[i]->byte_49 == -1)
-								;
-							if (str_DWORD_E12AE[i]->byte_49)
-								sprintf(printbuffer, "Error code (LISTEN) : %d", str_DWORD_E12AE[i]->byte_49);
+							NetworkListen_74B75(i);
+							while (connection_E12AE[i]->ncb_cmd_cplt_49 == 0xff)
+								/*fake_network_interupt(connection_E12AE[i])*/;
+							if (connection_E12AE[i]->ncb_cmd_cplt_49)
+								sprintf(printbuffer, "Error code (LISTEN) : %d", connection_E12AE[i]->ncb_cmd_cplt_49);
 						}
 					}
 				}
@@ -77079,31 +77035,22 @@ void sub_7373D(__int16 a1)
 				{
 					while (1)
 					{
-						sub_74809(x_WORD_E12A8);
-						while (str_DWORD_E12AE[x_WORD_E12A8]->byte_49 == -1)
-							;
-						//result = x_DWORD_E12AE[x_WORD_E12A8];
-						if (!str_DWORD_E12AE[x_WORD_E12A8]->byte_49)
+						NetworkCall_74809(x_WORD_E12A8);
+						while (connection_E12AE[x_WORD_E12A8]->ncb_cmd_cplt_49 == 0xff)
+							/*fake_network_interupt(connection_E12AE[x_WORD_E12A8])*/;
+						if (!connection_E12AE[x_WORD_E12A8]->ncb_cmd_cplt_49)
 							break;
-						sprintf(printbuffer, "Error code (CALL) : %d", str_DWORD_E12AE[x_WORD_E12A8]->byte_49);
+						sprintf(printbuffer, "Error code (CALL) : %d", connection_E12AE[x_WORD_E12A8]->ncb_cmd_cplt_49);
 					}
 				}
 			}
 		}
 		else
 		{
-			/*result = (uint8_t*)*/sub_73669(a1);
+			NetworkCanceling_73669(a1);
 		}
 	}
-	//return (int)result;
 }
-// 8E3D5: using guessed type x_DWORD sprintf(x_DWORD, const char *, ...);
-// E1274: using guessed type char x_BYTE_E1274;
-// E1275: using guessed type char x_BYTE_E1275;
-// E1276: using guessed type __int16 x_WORD_E1276;
-// E127A: using guessed type __int16 x_WORD_E127A;
-// E12A8: using guessed type __int16 x_WORD_E12A8;
-// 7373D: using guessed type char var_10[8];
 
 //----- (000739AD) --------------------------------------------------------
 void sub_739AD(__int16 a1)
@@ -77114,25 +77061,25 @@ void sub_739AD(__int16 a1)
 
 	if (x_WORD_E1276 == a1)
 	{
-		for (i = 0; i < x_WORD_E127A; i++)
+		for (i = 0; i < maxPlayers_E127A; i++)
 		{
 			if (i != x_WORD_E1276)
 			{
-				sub_748F7(i);
-				sub_74B19(str_DWORD_E12AE[i]);
+				NetworkCancel_748F7(i);
+				NetworkHangUp_74B19(connection_E12AE[i]);
 			}
 		}
 		sprintf(printbuffer, "%s%d", "TESTER", x_WORD_E1276);
-		/*result = */sub_74A86(str_DWORD_E12AE[a1], printbuffer);
+		/*result = */NetworkDeleteName_74A86(connection_E12AE[a1], printbuffer);
 		x_BYTE_E1275 = 0;
 	}
 	else
 	{
-		sub_748F7(a1);
-		sub_74B19(str_DWORD_E12AE[a1]);
+		NetworkCancel_748F7(a1);
+		NetworkHangUp_74B19(connection_E12AE[a1]);
 		//result = x_WORD_E12A8;
 		if (x_WORD_E1276 == x_WORD_E12A8)
-			/*result = */sub_74B75(a1);
+			/*result = */NetworkListen_74B75(a1);
 	}
 	//return result;
 }
@@ -77143,16 +77090,10 @@ void sub_739AD(__int16 a1)
 // E12A8: using guessed type __int16 x_WORD_E12A8;
 
 //----- (00073AA1) --------------------------------------------------------
-void sub_73AA1(__int16 a1)
+void sub_73AA1(__int16 a1)//254aa1
 {
-	//uint8_t* v1; // eax
-	//char v3; // [esp+0h] [ebp-64h]
 	uint8_t v4[8]; // [esp+54h] [ebp-10h]
 	int i; // [esp+5Ch] [ebp-8h]
-
-	//fix
-	//v1 = 0;
-	//fix
 
 	if (x_BYTE_E1274 && x_BYTE_E1275)
 	{
@@ -77160,20 +77101,25 @@ void sub_73AA1(__int16 a1)
 		{
 			if (x_WORD_E1276 == a1)
 			{
-				for (i = 0; x_WORD_E127A > i; i++)
-					v4[i] = x_BYTE_E12CE[i] == 1;
-				for (i = 0; x_WORD_E127A > i; i++)
+				for (i = 0; maxPlayers_E127A > i; i++)
+					v4[i] = connected_E12CE[i] == 1;
+				for (i = 0; maxPlayers_E127A > i; i++)
 				{
 					if (v4[i] == 1)
-						sub_74006(i, v4, 8u);
+					{
+#ifdef TEST_NETWORK
+						printState2((char*)"Send State 2\n");
+#endif //TEST_NETWORK
+						NetworkSendMessage2_74006(i, v4, 8u);
+					}
 				}
-				/*LOWORD(v1) = */sub_739AD(a1);
+				sub_739AD(a1);
 			}
 			else
 			{
-				sub_7404E(x_WORD_E12A8, v4, 8u);
+				NetworkReceiveMessage2_7404E(x_WORD_E12A8, v4, 8u);
 				sub_739AD(a1);
-				for (i = 0; x_WORD_E127A > i; i++)
+				for (i = 0; maxPlayers_E127A > i; i++)
 				{
 					if (v4[i] == 1)
 					{
@@ -77186,16 +77132,15 @@ void sub_73AA1(__int16 a1)
 				{
 					for (i = 0; ; i++)
 					{
-						//LOWORD(v1) = x_WORD_E127A;
-						if (x_WORD_E127A <= i)
+						if (maxPlayers_E127A <= i)
 							break;
 						if (x_WORD_E1276 != i && v4[i] == 1)
 						{
-							sub_74B75(i);
-							while (str_DWORD_E12AE[i]->byte_49 == -1)
-								;
-							if (str_DWORD_E12AE[i]->byte_49)
-								sprintf(printbuffer, "Error code (LISTEN) : %d", str_DWORD_E12AE[i]->byte_49);
+							NetworkListen_74B75(i);
+							while (connection_E12AE[i]->ncb_cmd_cplt_49 == 0xff)
+								/*fake_network_interupt(connection_E12AE[i])*/;
+							if (connection_E12AE[i]->ncb_cmd_cplt_49)
+								sprintf(printbuffer, "Error code (LISTEN) : %d", connection_E12AE[i]->ncb_cmd_cplt_49);
 						}
 					}
 				}
@@ -77203,34 +77148,25 @@ void sub_73AA1(__int16 a1)
 				{
 					while (1)
 					{
-						sub_74809(x_WORD_E12A8);
-						while (str_DWORD_E12AE[x_WORD_E12A8]->byte_49 == -1)
-							;
-						//v1 = x_DWORD_E12AE[x_WORD_E12A8];
-						if (!str_DWORD_E12AE[x_WORD_E12A8]->byte_49)
+						NetworkCall_74809(x_WORD_E12A8);
+						while (connection_E12AE[x_WORD_E12A8]->ncb_cmd_cplt_49 == 0xff)
+							/*fake_network_interupt(connection_E12AE[x_WORD_E12A8])*/;
+						if (!connection_E12AE[x_WORD_E12A8]->ncb_cmd_cplt_49)
 							break;
-						sprintf(printbuffer, "Error code (CALL) : %d", str_DWORD_E12AE[x_WORD_E12A8]->byte_49);
+						sprintf(printbuffer, "Error code (CALL) : %d", connection_E12AE[x_WORD_E12A8]->ncb_cmd_cplt_49);
 					}
 				}
 			}
 		}
 		else
 		{
-			/*LOWORD(v1) = */sub_739AD(a1);
+			sub_739AD(a1);
 		}
 	}
-	//return (int)v1;
 }
-// 8E3D5: using guessed type x_DWORD sprintf(x_DWORD, const char *, ...);
-// E1274: using guessed type char x_BYTE_E1274;
-// E1275: using guessed type char x_BYTE_E1275;
-// E1276: using guessed type __int16 x_WORD_E1276;
-// E127A: using guessed type __int16 x_WORD_E127A;
-// E12A8: using guessed type __int16 x_WORD_E12A8;
-// 73AA1: using guessed type char var_10[8];
 
 //----- (00073D11) --------------------------------------------------------
-void sub_73D11(__int16 a1)
+void NetworkEnd_73D11(__int16 a1)
 {
 	//__int16 result; // ax
 	//char v2; // [esp+0h] [ebp-18h]
@@ -77238,25 +77174,25 @@ void sub_73D11(__int16 a1)
 
 	if (x_WORD_E1276 == a1)
 	{
-		for (i = 0; i < x_WORD_E127A; i++)
+		for (i = 0; i < maxPlayers_E127A; i++)
 		{
 			if (i != x_WORD_E1276)
 			{
-				sub_748F7(i);
-				sub_74B19(str_DWORD_E12AE[i]);
+				NetworkCancel_748F7(i);
+				NetworkHangUp_74B19(connection_E12AE[i]);
 			}
 		}
 		sprintf(printbuffer, "%s%d", "TESTER", x_WORD_E1276);
-		/*result = */sub_74A86(str_DWORD_E12AE[a1], printbuffer);
+		/*result = */NetworkDeleteName_74A86(connection_E12AE[a1], printbuffer);
 		x_BYTE_E1275 = 0;
 	}
 	else
 	{
-		sub_748F7(a1);
-		sub_74B19(str_DWORD_E12AE[a1]);
+		NetworkCancel_748F7(a1);
+		NetworkHangUp_74B19(connection_E12AE[a1]);
 		//result = x_WORD_E12A8;
 		if (x_WORD_E1276 == x_WORD_E12A8)
-			/*result = */sub_74B75(a1);
+			/*result = */NetworkListen_74B75(a1);
 	}
 	//return result;
 }
@@ -77267,50 +77203,33 @@ void sub_73D11(__int16 a1)
 // E12A8: using guessed type __int16 x_WORD_E12A8;
 
 //----- (00074006) --------------------------------------------------------
-unsigned __int16 sub_74006(unsigned __int16 a1, uint8_t* a2x, unsigned int a3)
+void NetworkSendMessage2_74006(unsigned __int16 a1, uint8_t* buffer, unsigned int size)//255006
 {
-	unsigned __int16 result; // ax
-
 	if (x_BYTE_E1274)
 	{
-		result = a1;
-		if (x_BYTE_E12CE[a1] == 1)
-			result = sub_74EF1(str_DWORD_E12AE[a1], a2x, a3);
+		if (connected_E12CE[a1] == 1)
+			NetworkSendMessage_74EF1(connection_E12AE[a1], buffer, size);
 	}
-	return result;
 }
-// E1274: using guessed type char x_BYTE_E1274;
 
 //----- (0007404E) --------------------------------------------------------
-void sub_7404E(unsigned __int16 a1, uint8_t* a2, unsigned int a3)
+void NetworkReceiveMessage2_7404E(unsigned __int16 connectionindex, uint8_t* buffer, unsigned int size)//25504e
 {
-	//unsigned __int16 result; // ax
-
 	if (x_BYTE_E1274)
 	{
-		//result = a1;
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-		if (x_BYTE_E12CE[a1] == 1)
-			/*result = */sub_74D41(str_DWORD_E12AE[a1], (int)a2, a3);
-#endif
+		if (connected_E12CE[connectionindex] == 1)
+			NetworkReceiveMessage_74D41(connection_E12AE[connectionindex], buffer, size);
 	}
-	//return result;
 }
-// E1274: using guessed type char x_BYTE_E1274;
 
 //----- (00074374) --------------------------------------------------------
-__int16 sub_74374()
+void NetworkUpdateConnections2_74374()
 {
-	return sub_74F76();
+	NetworkUpdateConnections_74F76();
 }
 
 //----- (0007438A) --------------------------------------------------------
-void sub_7438A(uint8_t* a1x, unsigned int a2_lenght)//some allocation?
+void ReceiveSendAll_7438A(uint8_t* a1x, unsigned int a2_lenght)//some allocation?
 {
 	//unsigned __int16 result; // ax
 	signed __int16 i; // [esp+4h] [ebp-4h]
@@ -77320,24 +77239,24 @@ void sub_7438A(uint8_t* a1x, unsigned int a2_lenght)//some allocation?
 	{
 		if (x_WORD_E1276 == (unsigned __int16)x_WORD_E12A8)
 		{
-			for (i = 0; i < x_WORD_E1278; i++)
+			for (i = 0; i < countConnected_E1278; i++)
 			{
 				if (i != x_WORD_E1276)
-					sub_7404E(i, a1x + a2_lenght * i, a2_lenght);
+					NetworkReceiveMessage2_7404E(i, a1x + a2_lenght * i, a2_lenght);
 			}
 			for (j = 0; ; j++)
 			{
 				//result = j;
-				if (j >= x_WORD_E1278)
+				if (j >= countConnected_E1278)
 					break;
 				if (j != x_WORD_E1276)
-					sub_74006(j, a1x, a2_lenght * x_WORD_E1278);
+					NetworkSendMessage2_74006(j, a1x, a2_lenght * countConnected_E1278);
 			}
 		}
 		else
 		{
-			sub_74006(x_WORD_E12A8, (a1x + a2_lenght * x_WORD_E1276), a2_lenght);
-			/*result = */sub_7404E(x_WORD_E12A8, a1x, a2_lenght * x_WORD_E1278);
+			NetworkSendMessage2_74006(x_WORD_E12A8, (a1x + a2_lenght * x_WORD_E1276), a2_lenght);
+			/*result = */NetworkReceiveMessage2_7404E(x_WORD_E12A8, a1x, a2_lenght * countConnected_E1278);
 		}
 	}
 	//return result;
@@ -77348,32 +77267,20 @@ void sub_7438A(uint8_t* a1x, unsigned int a2_lenght)//some allocation?
 // E12A8: using guessed type __int16 x_WORD_E12A8;
 
 //----- (0007449C) --------------------------------------------------------
-__int16 sub_7449C()
+void NetworkCancelAll_7449C()//25549c
 {
-	__int16 result; // ax
-	signed int i; // [esp+0h] [ebp-4h]
-
 	if (x_BYTE_E1274)
 	{
-		result = x_WORD_E12A8;
-		if (x_WORD_E1276 == (unsigned __int16)x_WORD_E12A8)
+		if (x_WORD_E1276 == x_WORD_E12A8)
 		{
-			for (i = 0; ; i++)
+			for (int i = 0; i < maxPlayers_E127A; i++)
 			{
-				result = x_WORD_E127A;
-				if (x_WORD_E127A <= i)
-					break;
-				if (x_WORD_E1276 != i && str_DWORD_E12AE[i]->byte_49 == -1)
-					sub_748F7(i);
+				if (x_WORD_E1276 != i && connection_E12AE[i]->ncb_cmd_cplt_49 == 0xff)
+					NetworkCancel_748F7(i);
 			}
 		}
 	}
-	return result;
 }
-// E1274: using guessed type char x_BYTE_E1274;
-// E1276: using guessed type __int16 x_WORD_E1276;
-// E127A: using guessed type __int16 x_WORD_E127A;
-// E12A8: using guessed type __int16 x_WORD_E12A8;
 
 //----- (00074515) --------------------------------------------------------
 int sub_74515()
@@ -77390,36 +77297,36 @@ int sub_74536()
 // E1276: using guessed type __int16 x_WORD_E1276;
 
 //----- (00074556) --------------------------------------------------------
-uint8_t sub_74556()//255556 push ebp 355250
+uint8_t NetworkAllocation_74556()//255556 push ebp 355250
 {
 	signed int v2; // [esp+4h] [ebp-8h]
 	signed int i; // [esp+8h] [ebp-4h]
 	signed int j; // [esp+8h] [ebp-4h]
 
 	v2 = 1;
-	if (!x_BYTE_E1274 && !str_DWORD_E12AA)
+	if (!x_BYTE_E1274 && !mainConnection_E12AA)
 	{
-		str_DWORD_E12AA = (type_DWORD_E12AE*)sub_83D70_malloc1(66);
-		if (str_DWORD_E12AA)
+		mainConnection_E12AA = (myNCB*)sub_83D70_malloc1(66);
+		if (mainConnection_E12AA)
 		{
-			if (sub_74A11() == -1)//255a11
+			if (NetworkInit_74A11() == -1)//255a11
 				return 0;
-			x_DWORD_E127E = (uint8_t*)sub_83D70_malloc1(2048);
-			if (x_DWORD_E127E)
+			networkBuffer_E127E = (uint8_t*)sub_83D70_malloc1(2048);
+			if (networkBuffer_E127E)
 			{
-				x_DWORD_E1282 = (uint8_t*)sub_83D70_malloc1(2048);
-				if (x_DWORD_E1282)
+				paket_E1282 = (uint8_t*)sub_83D70_malloc1(2048);
+				if (paket_E1282)
 				{
 					for (i = 0; i < 8; i++)
 					{
-						x_DWORD_E1286[i] = (uint8_t*)sub_83D70_malloc1(2048);
-						if (!x_DWORD_E1286[i])
+						packetArray_E1286[i] = (uint8_t*)sub_83D70_malloc1(2048);
+						if (!packetArray_E1286[i])
 						{
 							v2 = 0;
 							break;
 						}
-						str_DWORD_E12AE[i] = (type_DWORD_E12AE*)sub_83D70_malloc1(66);
-						if (!str_DWORD_E12AE[i])
+						connection_E12AE[i] = (myNCB*)sub_83D70_malloc1(66);
+						if (!connection_E12AE[i])
 						{
 							v2 = 0;
 							break;
@@ -77446,101 +77353,99 @@ uint8_t sub_74556()//255556 push ebp 355250
 	if (!v2)
 	{
 		x_BYTE_E1274 = 0;
-		if (str_DWORD_E12AA)
-			sub_83E80_freemem4((uint8_t*)str_DWORD_E12AA);
-		if (x_DWORD_E127E)
-			sub_83E80_freemem4(x_DWORD_E127E);
-		if (x_DWORD_E1282)
-			sub_83E80_freemem4(x_DWORD_E1282);
+		if (mainConnection_E12AA)
+			sub_83E80_freemem4((uint8_t*)mainConnection_E12AA);
+		if (networkBuffer_E127E)
+			sub_83E80_freemem4(networkBuffer_E127E);
+		if (paket_E1282)
+			sub_83E80_freemem4(paket_E1282);
 		for (j = 0; j < 8; j++)
 		{
-			if (str_DWORD_E12AE[j])
-				sub_83E80_freemem4((uint8_t*)str_DWORD_E12AE[j]);
-			if (x_DWORD_E1286[j])
-				sub_83E80_freemem4(x_DWORD_E1286[j]);
+			if (connection_E12AE[j])
+				sub_83E80_freemem4((uint8_t*)connection_E12AE[j]);
+			if (packetArray_E1286[j])
+				sub_83E80_freemem4(packetArray_E1286[j]);
 		}
 	}
 	return x_BYTE_E1274;
 }
 // E1274: using guessed type char x_BYTE_E1274;
-// E127E: using guessed type int x_DWORD_E127E;
+// E127E: using guessed type int networkBuffer_E127E;
 // E1282: using guessed type int x_DWORD_E1282;
 // E12AA: using guessed type int x_DWORD_E12AA;
 
 //----- (00074767) --------------------------------------------------------
-signed int sub_74767(signed __int16* a1, type_DWORD_E12AE* a2x, uint8_t* a3)
+signed int NetworkAddName_74767(/*signed __int16* a1,*/ myNCB* connection, char* name)//255767
 {
-	int v3; // edx
-
-	//fix it
-	v3 = 0;
-	//fix it
-
-	strcpy(a2x->arr_byte_26, (const char*)a3);
-	while (strlen(a2x->arr_byte_26) < 0xFu)
-		strcat(a2x->arr_byte_26, " ");
-	a2x->byte_0 = -80;
-	if (sub_75044(a2x) == -1)
-		return -99;
-	while (a2x->byte_49 == -1 && !x_WORD_E12A6)
-		sub_7C230(/*a2x,*/ v3, a1);
-	return a2x->byte_49;
+	strcpy(connection->ncb_name_26, name);
+	while (strlen(connection->ncb_name_26) < 0xFu)
+		strcat(connection->ncb_name_26, " ");
+	connection->ncb_command_0 = 0xb0;//ADD_NAME
+	if (setNetbios_75044(connection) == 0xff)
+		return 157;
+	while (connection->ncb_cmd_cplt_49 == 0xff && !x_WORD_E12A6)
+	{
+		WaitToConnect_7C230(/*a2x,*/ /*v3, a1*/);
+		/*fake_network_interupt(connection)*/;//25d36d
+	}
+	return connection->ncb_cmd_cplt_49;
 }
-// 99D46: using guessed type x_DWORD strcpy(x_DWORD, x_DWORD);
-// 99D6B: using guessed type x_DWORD strlen(x_DWORD);
-// 99D84: using guessed type x_DWORD strcat(x_DWORD, x_DWORD);
-// E12A6: using guessed type __int16 x_WORD_E12A6;
 
 //----- (00074809) --------------------------------------------------------
-int sub_74809(__int16 a1)
+int NetworkCall_74809(__int16 a1)//255809
 {
-	int v2; // [esp+14h] [ebp-8h]
-
-	str_DWORD_E12AE[a1]->byte_0 = -112;
-	sprintf(str_DWORD_E12AE[a1]->arr_byte_10, "%s%d", "TESTER", a1);
-	while (strlen(str_DWORD_E12AE[a1]->arr_byte_10) < 0xFu)
-		strcat(str_DWORD_E12AE[a1]->arr_byte_10, " ");
-	str_DWORD_E12AE[a1]->byte_42 = 0;
-	str_DWORD_E12AE[a1]->byte_43 = 0;
-	if (sub_75044(str_DWORD_E12AE[a1]) == -1)
-		v2 = -99;
+	int result; // [esp+14h] [ebp-8h]
+	connection_E12AE[a1]->ncb_command_0 = 0x90;//CALL 
+	sprintf(connection_E12AE[a1]->ncb_callName_10, "%s%d", nethID, a1);
+	while (strlen(connection_E12AE[a1]->ncb_callName_10) < 0xFu)
+		strcat(connection_E12AE[a1]->ncb_callName_10, " ");
+	connection_E12AE[a1]->ncb_rto_42 = 0;
+	connection_E12AE[a1]->ncb_sto_43 = 0;
+	if (setNetbios_75044(connection_E12AE[a1]) == -1)
+		result = -99;
 	else
-		v2 = -str_DWORD_E12AE[a1]->byte_49;
-	return v2;
+		result = -connection_E12AE[a1]->ncb_cmd_cplt_49;
+	return result;
 }
-// 8E3D5: using guessed type x_DWORD sprintf(x_DWORD, const char *, ...);
-// 99D6B: using guessed type x_DWORD strlen(x_DWORD);
-// 99D84: using guessed type x_DWORD strcat(x_DWORD, x_DWORD);
 
 //----- (000748F7) --------------------------------------------------------
-signed int sub_748F7(__int16 a1)
-{	
-	if (str_DWORD_E12AE[a1]->byte_49 != -1)
-		return -str_DWORD_E12AE[a1]->byte_49;
-	str_DWORD_E12AA->byte_0 = 53;
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-	str_DWORD_E12AA->word_6 = (unsigned int)str_DWORD_E12AE[a1] >> 4;
-#endif
-	if (sub_75044(str_DWORD_E12AA) != -1)
+signed int NetworkCancel_748F7(__int16 compindex)//2558f7
+{
+	if (connection_E12AE[compindex]->ncb_cmd_cplt_49 != 0xff)
+		return -mainConnection_E12AA->ncb_cmd_cplt_49;
+	mainConnection_E12AA->ncb_command_0 = 0x35;//CANCEL 
+
+	mainConnection_E12AA->ncb_buffer_4.p = (uint8_t*)connection_E12AE[compindex];
+
+	if (setNetbios_75044(mainConnection_E12AA) != 0xff)
 	{
 		do
 		{
-			while (str_DWORD_E12AE[a1]->byte_49 == -1)
-				;
-		} while (str_DWORD_E12AE[a1]->byte_49 == -1);
-		return -str_DWORD_E12AE[a1]->byte_49;
+			while (mainConnection_E12AA->ncb_cmd_cplt_49 == 0xff)
+				/*fake_network_interupt(mainConnection_E12AA)*/;
+		} while (connection_E12AE[compindex]->ncb_cmd_cplt_49 == 0xff);
+		return -mainConnection_E12AA->ncb_cmd_cplt_49;
 	}
 	return -99;
 }
-// E12AA: using guessed type int x_DWORD_E12AA;
+
+int dos_getvect(int vector) {
+
+#ifdef TEST_NETWORK
+	if ((Iam_server) || (Iam_client))
+	{
+		//get ah from 2b5cb2 - 01
+		//335c 
+		//int 21
+		//get ebx d49
+		if (vector == 92)return 0xd49;
+	}
+#endif
+	return 0;
+}
 
 //----- (00074A11) --------------------------------------------------------
-signed int sub_74A11()//255a11
+signed int NetworkInit_74A11()//255a11 // netbios
 {
 	__int16 v0; // dx
 
@@ -77548,29 +77453,30 @@ signed int sub_74A11()//255a11
 	v0 = 0;
 	//fix it
 
-	/*if ( !dos_getvect(92) && !v0 )
-	  return -1;*/ //fix
-	str_DWORD_E12AA->byte_0 = 127;
-	if (sub_75044(str_DWORD_E12AA) == -1)//push ebx:1a6f44,push esi:1a7358,push edi:1a7358,push ebp:355234
-		return -1;
-	if (str_DWORD_E12AA->byte_1 == 3)
-		return 0;
+	if (dos_getvect(92))
+	{
+		mainConnection_E12AA->ncb_command_0 = 0x7F;//?
+		if (setNetbios_75044(mainConnection_E12AA) == -1)//push ebx:1a6f44,push esi:1a7358,push edi:1a7358,push ebp:355234
+			return -1;
+		if (mainConnection_E12AA->ncb_retcode_1 == 3)
+			return 0;
+	}
 	return -1;
 }
 // 99BA7: using guessed type x_DWORD dos_getvect(x_DWORD);
 // E12AA: using guessed type int x_DWORD_E12AA;
 
 //----- (00074A86) --------------------------------------------------------
-void sub_74A86(type_DWORD_E12AE* a1x, char* a2)
+void NetworkDeleteName_74A86(myNCB* a1x, char* a2)//255a86
 {
-	strcpy(a1x->arr_byte_26, a2);
-	while (strlen(a1x->arr_byte_26) < 0xFu)
-		strcat(a1x->arr_byte_26, " ");
-	a1x->byte_0 = -79;
-	if (sub_75044(a1x) == -1)
+	strcpy(a1x->ncb_name_26, a2);
+	while (strlen(a1x->ncb_name_26) < 0xFu)
+		strcat(a1x->ncb_name_26, " ");
+	a1x->ncb_command_0 = 0xb1;//DELETE_NAME
+	if (setNetbios_75044(a1x) == -1)
 		return; //return -99;
-	while (a1x->byte_49 == -1)
-		;
+	while (a1x->ncb_cmd_cplt_49 == 0xff)
+		/*fake_network_interupt(a1x)*/;
 	//return -(unsigned __int8)a1[49];
 }
 // 99D46: using guessed type x_DWORD strcpy(x_DWORD, x_DWORD);
@@ -77578,35 +77484,35 @@ void sub_74A86(type_DWORD_E12AE* a1x, char* a2)
 // 99D84: using guessed type x_DWORD strcat(x_DWORD, x_DWORD);
 
 //----- (00074B19) --------------------------------------------------------
-void sub_74B19(type_DWORD_E12AE* a1x)
+void NetworkHangUp_74B19(myNCB* a1x)//255b19
 {
-	a1x->byte_0 = -110;
-	if (sub_75044(a1x) == -1)
+	a1x->ncb_command_0 = 0x92;//HANG_UP 
+	if (setNetbios_75044(a1x) == -1)
 		return;// return -99;
-	while (a1x->byte_49 == -1)
-		;
-	a1x->byte_2 = 0;
+	while (a1x->ncb_cmd_cplt_49 == 0xff)
+		/*fake_network_interupt(a1x)*/;
+	a1x->ncb_lsn_2 = 0;
 	//return -(unsigned __int8)a1[49];
 }
 
 //----- (00074B75) --------------------------------------------------------
-signed int sub_74B75(__int16 a1)
+signed int NetworkListen_74B75(__int16 a1)//255b75
 {
 	//char v2; // [esp+0h] [ebp-18h]
 
-	if (str_DWORD_E12AE[a1]->byte_49 == -1)
-		return -str_DWORD_E12AE[a1]->byte_49;
-	sprintf(printbuffer, "%s%d", "TESTER", a1);
-	str_DWORD_E12AE[a1]->byte_0 = -111;
-	strcpy(str_DWORD_E12AE[a1]->arr_byte_10, printbuffer);
-	while (strlen(str_DWORD_E12AE[a1]->arr_byte_10) < 0xFu)
-		strcat(str_DWORD_E12AE[a1]->arr_byte_10, " ");
-	str_DWORD_E12AE[a1]->byte_42 = 0;
-	str_DWORD_E12AE[a1]->byte_43 = 0;
-	if (sub_75044(str_DWORD_E12AE[a1]) != -1)
+	if (connection_E12AE[a1]->ncb_cmd_cplt_49 == 0xff)
+		return -connection_E12AE[a1]->ncb_cmd_cplt_49;
+	sprintf(printbuffer, "%s%d", nethID, a1);
+	connection_E12AE[a1]->ncb_command_0 = 0x91;//LISTEN 
+	strcpy(connection_E12AE[a1]->ncb_callName_10, printbuffer);
+	while (strlen(connection_E12AE[a1]->ncb_callName_10) < 0xFu)
+		strcat(connection_E12AE[a1]->ncb_callName_10, " ");
+	connection_E12AE[a1]->ncb_rto_42 = 0;
+	connection_E12AE[a1]->ncb_sto_43 = 0;
+	if (setNetbios_75044(connection_E12AE[a1]) != -1)
 	{
-		str_DWORD_E12AE[a1]->word_4 = 0;
-		return -str_DWORD_E12AE[a1]->byte_49;
+		connection_E12AE[a1]->ncb_buffer_4.p = NULL;
+		return -connection_E12AE[a1]->ncb_cmd_cplt_49;
 	}
 	return -99;
 }
@@ -77616,59 +77522,55 @@ signed int sub_74B75(__int16 a1)
 // 99D84: using guessed type x_DWORD strcat(x_DWORD, x_DWORD);
 
 //----- (00074C9D) --------------------------------------------------------
-int sub_74C9D(type_DWORD_E12AE* a1x, int a2)
+int NetworkReceivePacket_74C9D(myNCB* connection, uint8_t* buffer, int maxsize = 50000)//255c9d
 {
-	a1x->byte_0 = -107;
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-	a1x->word_6 = (unsigned int)x_DWORD_E1282 >> 4;
-#endif
-	a1x->word_8 = 2048;
-	if (sub_75044(a1x) == -1)
+	connection->ncb_command_0 = 0x95;//RECEIVE
+
+	connection->ncb_buffer_4.p = paket_E1282;
+
+	connection->ncb_bufferLength_8 = maxsize;
+	if (setNetbios_75044(connection) == -1)
 		return -99;
-	while (a1x->byte_49 == -1)
-		;
-	if (a1x->byte_49)
-		return -a1x->byte_49;
-	memcpy((void*)a2, (void*)x_DWORD_E1282, a1x->word_8);
-	return a1x->word_8;
+	while (connection->ncb_cmd_cplt_49 == 0xffu)
+		/*fake_network_interupt(connection)*/;
+	if (connection->ncb_cmd_cplt_49)
+		return -connection->ncb_cmd_cplt_49;
+	//allert_error();
+	//memcpy((void*)a2x, (void*)x_DWORD_E1282, a1x->ncb_length_8);
+	for (int i = 0; i < maxsize/*connection->ncb_bufferLength_8*/; i++)
+		buffer[i] = paket_E1282[i];
+	return connection->ncb_bufferLength_8;
 }
-// 99DBD: using guessed type x_DWORD memcpy(x_DWORD, x_DWORD, x_DWORD);
-// E1282: using guessed type int x_DWORD_E1282;
 
 //----- (00074D41) --------------------------------------------------------
-void sub_74D41(type_DWORD_E12AE* a1x, int a2, unsigned int a3)
+void NetworkReceiveMessage_74D41(myNCB* connection, uint8_t* inbuffer, unsigned int size)//255d41
 {
-	int v3; // eax
-	int v5; // [esp+0h] [ebp-10h]
-	int v6; // [esp+4h] [ebp-Ch]
-	unsigned int v7; // [esp+8h] [ebp-8h]
-	int v8; // [esp+Ch] [ebp-4h]
+	//int v3; // eax
+	//int v5; // [esp+0h] [ebp-10h]
+	//int v6; // [esp+4h] [ebp-Ch]
+	unsigned int packedReceived; // [esp+8h] [ebp-8h]
+	uint8_t* buffer; // [esp+Ch] [ebp-4h]
 
-	v8 = a2;
-	v7 = 0;
-	while (a3 >> 11 > v7)
+	buffer = inbuffer;
+	packedReceived = 0;
+	while (size > 50000 * (packedReceived + 1))
 	{
-		v6 = sub_74C9D(a1x, v8);
-		if (v6 != 2048)
+		if (NetworkReceivePacket_74C9D(connection, buffer) != 50000)
 			return;
-		v7++;
-		v8 += 2048;
+		packedReceived++;
+		buffer += 50000;
 	}
-	v3 = sub_74C9D(a1x, v8);
-	if ((a3 & 0x7FF) == v3)
-		v5 = a3;
+	/*v3 = */NetworkReceivePacket_74C9D(connection, buffer, size - 50000 * packedReceived);
+	/*if ((size & 0x7FF) == v3)
+		v5 = size;
 	else
-		v5 = v3;
-	//return v5;
+		v5 = v3;*/
+		//return v5;
 }
 
+/*
 //----- (00074DD4) --------------------------------------------------------
-signed int sub_74DD4(type_DWORD_E12AE* a1x, int  /*a2*/, unsigned __int16 a3)
+signed int sub_74DD4(myNCB* a1x, int  , unsigned __int16 a3)
 {
 	signed int v4; // [esp+0h] [ebp-4h]
 
@@ -77679,95 +77581,96 @@ signed int sub_74DD4(type_DWORD_E12AE* a1x, int  /*a2*/, unsigned __int16 a3)
 #ifdef COMPILE_FOR_64BIT // FIXME: 64bit
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
-	a1x->word_6 = (unsigned int)x_DWORD_E1286[a3] >> 4;
+	a1x->word_6 = (unsigned int)packetArray_E1286[a3] >> 4;
 #endif
 	a1x->word_8 = 2048;
-	if (sub_75044(a1x) == -1)
+	if (setNetbios_75044(a1x) == -1)
 		v4 = -99;
 	else
 		v4 = 1;
 	return v4;
-}
+}*/
 
 //----- (00074E6D) --------------------------------------------------------
-int sub_74E6D(type_DWORD_E12AE* a1x, uint8_t* a2x, int a3)
+int NetworkSendPacket_74E6D(myNCB* connection, uint8_t* buffer, int size)//255e6d
 {
-	memcpy((void*)x_DWORD_E127E, a2x, a3);
-	a1x->byte_0 = -108;
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-	a1x->word_6 = (unsigned int)x_DWORD_E127E >> 4;
-#endif
-	a1x->word_8 = a3;
-	if (sub_75044(a1x) == -1)
+	memcpy((void*)networkBuffer_E127E, buffer, size);//max 2048
+	connection->ncb_command_0 = 0x94;//SEND 
+
+	connection->ncb_buffer_4.p = networkBuffer_E127E;
+
+	connection->ncb_bufferLength_8 = size;
+	if (setNetbios_75044(connection) == -1)
 		return -99;
-	while (a1x->byte_49 == -1)
-		;
-	return -a1x->byte_49;
+	while (connection->ncb_cmd_cplt_49 == 0xff)
+		/*fake_network_interupt(connection)*/;
+	return -connection->ncb_cmd_cplt_49;
 }
 // 99DBD: using guessed type x_DWORD memcpy(x_DWORD, x_DWORD, x_DWORD);
-// E127E: using guessed type int x_DWORD_E127E;
+// E127E: using guessed type int networkBuffer_E127E;
 
 //----- (00074EF1) --------------------------------------------------------
-int sub_74EF1(type_DWORD_E12AE* a1x, uint8_t* a2x, unsigned int a3)
+void NetworkSendMessage_74EF1(myNCB* connection, uint8_t* inbuffer, unsigned int size)//255ef1
 {
-	unsigned int v5; // [esp+4h] [ebp-Ch]
-	uint8_t* v6; // [esp+8h] [ebp-8h]
-	__int16 v7; // [esp+Ch] [ebp-4h]
+	unsigned int packedSended; // [esp+4h] [ebp-Ch]
+	uint8_t* buffer; // [esp+8h] [ebp-8h]
+	//__int16 v7; // [esp+Ch] [ebp-4h]
 
-	v6 = a2x;
-	v5 = 0;
+	buffer = inbuffer;
+	packedSended = 0;
+
+
+	while (size > 50000 * (packedSended + 1))
+	{
+		if (NetworkSendPacket_74E6D(connection, buffer, 50000) != 50000)
+			return;
+		packedSended++;
+		buffer += 50000;
+	}
+	NetworkSendPacket_74E6D(connection, buffer, size - (50000 * packedSended));
+
+	/*
 	while (1)
 	{
-		if (a3 >> 11 <= v5)
-			return sub_74E6D(a1x, v6, a3 & 0x7FF);
-		v7 = sub_74E6D(a1x, v6, 2048);
-		if (v7)
+		if (size <= MaxMessageSize * packedSended)
+		{
+			NetworkSendPacket_74E6D(connection, buffer, size- (MaxMessageSize * packedSended));
+			return;
+		}
+		if (NetworkSendPacket_74E6D(connection, buffer, MaxMessageSize))
 			break;
-		++v5;
-		v6 += 2048;
+		packedSended++;
+		buffer += MaxMessageSize;
 	}
-	return v7;
+	*/
+	//return v7;
 }
 
 //----- (00074F76) --------------------------------------------------------
-__int16 sub_74F76()
+void NetworkUpdateConnections_74F76()//255f76
 {
-	__int16 result; // ax
-	__int16 i; // [esp+0h] [ebp-4h]
-
-	for (i = 0; i < x_WORD_E127A; i++)
+	for (int i = 0; i < maxPlayers_E127A; i++)
 	{
-		x_BYTE_E12CE[i] = sub_74FE1(i);
-		if (x_BYTE_E12CE[i])
-			x_WORD_E1278 = i + 1;
+		connected_E12CE[i] = NetworkGetState_74FE1(i);
+		if (connected_E12CE[i])
+			countConnected_E1278 = i + 1;
 	}
-	result = x_WORD_E127A;
-	x_WORD_E1278 = x_WORD_E127A;
-	return result;
+	countConnected_E1278 = maxPlayers_E127A;
 }
-// E1278: using guessed type __int16 x_WORD_E1278;
-// E127A: using guessed type __int16 x_WORD_E127A;
 
 //----- (00074FE1) --------------------------------------------------------
-signed int sub_74FE1(__int16 a1)
+signed int NetworkGetState_74FE1(__int16 a1)//255fe1
 {
-	signed int v2; // [esp+0h] [ebp-4h]
-
+	signed int v2;
 	if (a1 == x_WORD_E1276)
 		v2 = 2;
 	else
-		v2 = str_DWORD_E12AE[a1]->byte_2 && !str_DWORD_E12AE[a1]->byte_49;
+		v2 = connection_E12AE[a1]->ncb_lsn_2 && !connection_E12AE[a1]->ncb_cmd_cplt_49;
 	return v2;
 }
-// E1276: using guessed type __int16 x_WORD_E1276;
 
 //----- (00075044) --------------------------------------------------------
-int sub_75044(type_DWORD_E12AE*  /*a1x*/)//256044
+int setNetbios_75044(myNCB*  /*a1x*/)//256044
 {
 	/* fix it
   char v2; // [esp+0h] [ebp-7Ch]
@@ -77920,7 +77823,7 @@ int sub_75440()
 // 17D6F0: using guessed type int x_DWORD_17D6F0;
 
 //----- (000754C0) --------------------------------------------------------
-int sub_754C0(int a1, x_DWORD* a2, int a3)
+int sub_754C0(int a1, x_DWORD* a2, uint8_t* a3)
 {
 	int v3; // eax
 	int v4; // ecx
@@ -77981,7 +77884,7 @@ int sub_75540(int a1, int a2)
 // 17D708: using guessed type __int16 x_WORD_17D708;
 
 //----- (000755B0) --------------------------------------------------------
-int sub_755B0(int a1, x_DWORD* a2, int a3)
+int sub_755B0(int a1, x_DWORD* a2, uint8_t* a3)
 {
 	int v3; // eax
 	int v4; // ecx
@@ -78044,7 +77947,7 @@ signed int sub_75650()//VR something
 #ifdef COMPILE_FOR_64BIT // FIXME: 64bit
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
-			if (sub_754C0(v3, &x_DWORD_17D648, (int)x_BYTE_17D440))
+			if (sub_754C0(v3, &x_DWORD_17D648, (uint8_t*)x_BYTE_17D440))
 			{
 				sub_75AB0();
 				result = 0;
@@ -78137,7 +78040,7 @@ signed int sub_75910()
 #ifdef COMPILE_FOR_64BIT // FIXME: 64bit
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
-	if (sub_755B0(x_DWORD_17D640, &x_DWORD_17D648, (int)&unk_17D540))
+	if (sub_755B0(x_DWORD_17D640, &x_DWORD_17D648, unk_17D540))
 	{
 		sub_75AB0();
 		result = 0;
@@ -79298,7 +79201,7 @@ char /*__fastcall*/ sub_77680(/*int a1, */int  /*a2*/, signed __int16* a3)//2586
 	v15 = 2;
 	sprintf(printbuffer, "NETH%d", (unsigned __int16)x_DWORD_17DE38str.x_WORD_17DEFA + 20);
 	LOWORD(a3) = 0;
-	x_DWORD_17DE38str.serverIndex_17DEFC = sub_7308F(a3, (uint8_t*)printbuffer, 8);
+	x_DWORD_17DE38str.serverIndex_17DEFC = NetworkInitConnection_7308F(printbuffer, 8);
 	if (x_DWORD_17DE38str.serverIndex_17DEFC == -1)
 	{
 		sub_8CD27_set_cursor(xy_DWORD_17DED4_spritestr[39]);
@@ -82506,43 +82409,25 @@ char sub_7C200(unsigned __int8 a1)//25d200
 }
 
 //----- (0007C230) --------------------------------------------------------
-void sub_7C230(/*int a1,*/ int  /*a2*/, signed __int16* a3)//25d230
+void WaitToConnect_7C230()//25d230
 {
-	//__int16 v3; // ax
-	int v4; // edx
-	x_WORD* v5; // eax
-	int v6; // edx
-	x_WORD* v7; // ebx
 	int v8; // edx
-
-	//fix it
-	v4 = 0;
-	v6 = 0;
-	//fix it
 
 	if (x_WORD_180660_VGA_type_resolution & 1)
 	{
-		a3 = (signed __int16*)x_DWORD_E9C38_smalltit;
 		CopyScreen((void*)x_DWORD_E9C38_smalltit, (void*)pdwScreenBuffer_351628, 320, 200);
 	}
 	else
 	{
 		CopyScreen((void*)x_DWORD_E9C38_smalltit, (void*)pdwScreenBuffer_351628, 640, 480);
 	}
-	/*v3 = */sub_7C120_draw_bitmap_640(185, 232, xy_DWORD_17DED4_spritestr[66]);
-	sub_7AB00_draw_menu_animations(/*v3,*/ /*v4,*/ /*a3,*/ 4u);
-	v5 = (x_WORD*)sub_7BF20_draw_scroll_dialog(&str_WORD_E1F70);
-	v7 = v5;
-#ifdef __linux__ // FIXME: types
-	std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-	stub_fix_it();//v5 is mischmashed
-	if ((x_WORD)v5)
+	sub_7C120_draw_bitmap_640(185, 232, xy_DWORD_17DED4_spritestr[66]);
+	sub_7AB00_draw_menu_animations(4u);
+	if (sub_7BF20_draw_scroll_dialog(&str_WORD_E1F70))
 	{
 		x_WORD_E131A = 1;
-		/*v5 = */sub_7C020(&str_WORD_E1F70);
+		sub_7C020(&str_WORD_E1F70);
 	}
-#endif
 	v8 = j___clock();
 	if ((unsigned int)(v8 - x_DWORD_E208C) >> 2 >= 1)
 	{
@@ -82558,18 +82443,7 @@ void sub_7C230(/*int a1,*/ int  /*a2*/, signed __int16* a3)//25d230
 	else
 		sub_75200_VGA_Blit640(480);
 	sub_7A060_get_mouse_and_keyboard_events();
-}
-// 98786: using guessed type int /*__fastcall*/ j___clock(x_DWORD, x_DWORD, x_DWORD);
-// E131A: using guessed type __int16 x_WORD_E131A;
-// E208C: using guessed type int x_DWORD_E208C;
-// E2094: using guessed type __int16 x_WORD_E2094;
-// E2096: using guessed type char x_BYTE_E2096;
-// E2097: using guessed type char x_BYTE_E2097;
-// E9C38: using guessed type int x_DWORD_E9C38_smalltit;
-// 17DED4: using guessed type int (int)x_DWORD_17DED4;
-// 17DEE4: using guessed type int x_DWORD_17DEE4_mouse_position;
-// 180628: using guessed type int pdwScreenBuffer_351628;
-// 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
+	}
 
 //----- (0007C390) --------------------------------------------------------
 signed int sub_7C390()//25d390
@@ -83098,9 +82972,9 @@ signed int sub_7CE50()//25de50
 
 	v20 = 0;
 	x_DWORD_17DE38str.array_BYTE_17DE68x[x_DWORD_17DE38str.serverIndex_17DEFC].connected_0 = 1;
-	sub_74374();
+	NetworkUpdateConnections2_74374();
 	v0 = 0;
-	sub_7438A((uint8_t*)x_DWORD_17DE38str.array_BYTE_17DE68x, 0xBu);
+	ReceiveSendAll_7438A((uint8_t*)x_DWORD_17DE38str.array_BYTE_17DE68x, 0xBu);
 	do
 	{
 		v1 = x_DWORD_17DE38str.array_BYTE_17DE68x[sub_74515()].array_byte_1;
@@ -83175,7 +83049,7 @@ signed int sub_7CE50()//25de50
 				x_D41A0_BYTEARRAY_4_struct.levelnumber_43w = v16;
 				x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 = v18 | 0x10;
 				D41A0_0.word_0xe = x_DWORD_17DE38str.x_WORD_17DEFE;
-				sub_7449C();
+				NetworkCancelAll_7449C();
 				x_WORD_E29DC = 1;
 				v20 = 1;
 				break;

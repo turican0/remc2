@@ -372,24 +372,29 @@ uint16_t word_22;
 type_E1BAC_0x3c4;
 #pragma pack (16)
 
+typedef union {
+	uint8_t* p;
+	uint32_t align;
+} p64align;
+
 #pragma pack (1)
-typedef struct {//lenght 66
-	int8_t byte_0;
-	int8_t byte_1;
-	int8_t byte_2;
-	int8_t byte_3;
-	int16_t word_4;
-	int16_t word_6;
-	int16_t word_8;
-	char arr_byte_10[15];
-	char arr_byte_26[15];
-	int8_t byte_42;
-	int8_t byte_43;
-	int8_t stubd_44[5];
-	int8_t byte_49;
-	int8_t stube_50[16];	
+typedef struct {//lenght 66(changed to 70)
+	uint8_t ncb_command_0;
+	uint8_t ncb_retcode_1;
+	uint8_t ncb_lsn_2;
+	uint8_t ncb_num_3;
+	p64align ncb_buffer_4;
+	uint16_t ncb_bufferLength_8;
+	char ncb_callName_10[16];
+	char ncb_name_26[16];
+	uint8_t ncb_rto_42;
+	uint8_t ncb_sto_43;
+	//p64align ncb_post_44;// not used
+	//uint8_t ncb_lana_num_48;// not used
+	uint8_t ncb_cmd_cplt_49;//lock for end command
+	//uint8_t ncb_reserved_50[16];// not used
 }
-type_DWORD_E12AE;
+myNCB;
 #pragma pack (16)
 
 extern Pathstruct pstr[];
@@ -487,7 +492,7 @@ int32_t /*__cdecl*/ signal(int32_t, int32_t);// weak
 //unsigned char _BitScanReverse(unsigned long * Index, unsigned long Mask);
 //void sub_8F920(uint8_t a1byte1, uint8_t a1byte2, int16_t posx, int16_t posy, uint8_t* a4, unsigned __int8 a5, char a6);
 //void sub_8F935_bitmap_draw_final(uint8_t a1byte1, uint8_t a1byte2, uint16_t a2, int a3, uint8_t* a4, uint8_t setbyte, char a6);
-signed int sub_74767(signed __int16* a1, type_DWORD_E12AE* a2x, uint8_t* a3);
+signed int NetworkAddName_74767(/*signed __int16* a1,*/ myNCB* a2x, char* a3);
 //x_DWORD /*__cdecl*/ segread(SREGS*); //weak
 //x_DWORD /*__cdecl*/ int386x(x_DWORD, x_DWORD, x_DWORD, x_DWORD);// weak
 //int int386x(int, REGS *, REGS *, struct SREGS *);
