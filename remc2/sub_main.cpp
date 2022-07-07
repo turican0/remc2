@@ -1522,10 +1522,10 @@ void DrawPauseMenu_2FD90();
 void GetPauseMenuCoordinates_2FFE0(int16_t* a1, int16_t* a2, int16_t* a3, int16_t* a4);
 void DrawInGameOptionsMenu_30050();
 // int sub_303D0(signed int a1);
-void sub_30630(uint16_t screenWidth);
-void sub_30870(uint16_t screenWidth);
+void sub_30630();
+void sub_30870();
 void DrawOkCancelMenu_30A60(int16_t posTextX, int16_t posTextY);
-void GetOkayCancelButtonPositions_30BE0(int16_t* a1, int16_t* a2, uint16_t width);
+void GetOkayCancelButtonPositions_30BE0(int16_t* a1, int16_t* a2);
 void sub_30D50(type_event_0x6E8E* a1/*, uint8_t v2, uint8_t v4*/);
 void AddQuickfair0A_01_30F60(type_event_0x6E8E* a1);
 void CastSpeedSpell_31100(type_event_0x6E8E* a1);
@@ -13468,7 +13468,7 @@ void sub_19E00()//1fae00
 	v0 = 0;
 	v8 = 0;
 	v1 = 0;
-	GetOkayCancelButtonPositions_30BE0(&v7, &v6, width);
+	GetOkayCancelButtonPositions_30BE0(&v7, &v6);
 	if (LastPressedKey_1806E4)
 	{
 		switch (LastPressedKey_1806E4) {
@@ -13559,7 +13559,7 @@ void sub_1A030(uint16_t screenWidth)//1fb030
 	int16_t posX;
 	int16_t posY;
 
-	GetOkayCancelButtonPositions_30BE0(&posX, &posY, screenWidth);
+	GetOkayCancelButtonPositions_30BE0(&posX, &posY);
 	SetMousePositionInMemory_5BDC0(posX + 87, posY + 24);
 }
 
@@ -27942,7 +27942,7 @@ void DrawGameFrame_2BE30()//20CE30
 	free(help_ScreenBuffer);
 #endif
 	if (D41A0_0.byte_0x36E04)
-		sub_30630(screenWidth);
+		sub_30630();
 	DrawHelpText_6FC50(x_BYTE_D419D_fonttype);
 	if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 4))
 		return;
@@ -29769,7 +29769,7 @@ void DrawPauseMenu_2FD90()
 		}
 		//result = (char)x_D41A0_BYTEARRAY_4;
 		if (x_D41A0_BYTEARRAY_4_struct.setting_byte4_25 & 0x10)
-			/*result = */sub_30870(screenWidth);
+			/*result = */sub_30870();
 	}
 	//return result;
 }
@@ -30052,8 +30052,12 @@ LABEL_8:
 // E89F0: using guessed type char x_BYTE_E89F0;
 
 //----- (00030630) --------------------------------------------------------
-void sub_30630(uint16_t screenWidth)//211630
+void sub_30630()//211630
 {
+	//temo fix
+	uint16_t screenWidth = screenWidth_18062C;
+	//temo fix
+
 	char v0; // dl
 	int result; // eax
 	unsigned __int16 v2; // cx
@@ -30127,8 +30131,12 @@ void sub_30630(uint16_t screenWidth)//211630
 }
 
 //----- (00030870) --------------------------------------------------------
-void sub_30870(uint16_t screenWidth)//211870
+void sub_30870()//211870
 {
+	//temo fix
+	uint16_t screenWidth = screenWidth_18062C;
+	//temo fix
+
 	char* v0; // ebx
 	__int16 v1; // ax
 	//char v3; // [esp+0h] [ebp-32h]
@@ -30235,7 +30243,7 @@ void DrawOkCancelMenu_30A60(int16_t posTextX, int16_t posTextY)//211a60
 
 		v4 = 4080 * x_D41A0_BYTEARRAY_4_struct.byteindex_121[4];
 		DrawText_2BC10(printbuffer, posTextX, posTextY, (*xadataclrd0dat.colorPallette_var28)[256 * ((signed int)(v4 - (__CFSHL__(HIDWORD(v4), 8) + (HIDWORD(v4) << 8))) >> 8)]);
-		GetOkayCancelButtonPositions_30BE0(&posX, &posY, width);
+		GetOkayCancelButtonPositions_30BE0(&posX, &posY);
 		sub_2BB40_draw_bitmap(posX, posY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[257]);
 		sub_2BB40_draw_bitmap(posX + 50, posY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[258]);
 		if (unk_18058Cstr.x_WORD_1805C2_joystick == 8
@@ -30262,8 +30270,12 @@ void DrawOkCancelMenu_30A60(int16_t posTextX, int16_t posTextY)//211a60
 // 1805B4: using guessed type int x_DWORD_1805B0_mouse.y;
 // 1805C2: using guessed type __int16 x_WORD_1805C2_joystick;
 
-void GetOkayCancelButtonPositions_30BE0(int16_t* ptrX, int16_t* ptrY, uint16_t screenWidth)
+void GetOkayCancelButtonPositions_30BE0(int16_t* ptrX, int16_t* ptrY)
 {
+	//temo fix
+	uint16_t screenWidth = screenWidth_18062C;
+	//temo fix
+
 	if (screenWidth == 320)
 	{
 		*ptrX = 270;
@@ -45799,7 +45811,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E, uint16_t 
 	}
 
 	case 0x211be0: {
-		GetOkayCancelButtonPositions_30BE0((int16_t*)a1_6E8E, 0, screenWidth);
+		GetOkayCancelButtonPositions_30BE0((int16_t*)a1_6E8E, 0);
 		break;
 	}
 	case 0x211d50: {
@@ -92071,7 +92083,7 @@ int ReadGameUserInputs_89D10(uint16_t screenWidth)//26ad10
 			}
 			if (x_D41A0_BYTEARRAY_4_struct.SelectedMenuItem_38546)
 			{
-				GetOkayCancelButtonPositions_30BE0(&v59, &v60, screenWidth);
+				GetOkayCancelButtonPositions_30BE0(&v59, &v60);
 				//v59 += (signed int)*(unsigned __int8 *)(**filearray_2aa18c[6] + 1546) >> 1;
 				//v52 = ((signed int)*(unsigned __int8 *)(**filearray_2aa18c[6] + 1547) >> 1) + v60;
 				v59 += (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[258].width_4 >> 1;
@@ -92428,7 +92440,7 @@ int ReadGameUserInputs_89D10(uint16_t screenWidth)//26ad10
 		}
 		if (x_D41A0_BYTEARRAY_4_struct.SelectedMenuItem_38546)
 		{
-			GetOkayCancelButtonPositions_30BE0(&v59, &v60, screenWidth);
+			GetOkayCancelButtonPositions_30BE0(&v59, &v60);
 			/*v59 += (signed int)*(unsigned __int8 *)(**filearray_2aa18c[6] + 1546) >> 1;
 			v21 = ((signed int)*(unsigned __int8 *)(**filearray_2aa18c[6] + 1547) >> 1) + v60;
 			v60 = v21;
