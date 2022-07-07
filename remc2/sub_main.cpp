@@ -2135,7 +2135,7 @@ type_event_0x6E8E* sub_61050(type_event_0x6E8E* a1);
 void sub_613D0(type_event_0x6E8E* a1);
 char sub_61620(type_event_0x6E8E* a1, type_event_0x6E8E* a2);
 signed int sub_616D0(signed int a1);
-signed int sub_61790(signed int a1);
+//signed int sub_61790(signed int a1);
 signed int sub_61810(type_event_0x6E8E* a1, type_event_0x6E8E* a2);
 void DrawMinimapEntites_61880(int a1, int a2, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int a8);
 void sub_61A00_draw_minimap_entites_b(int a1, int a2, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int a8);
