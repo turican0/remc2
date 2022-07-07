@@ -563,7 +563,7 @@ int sub_ACE8D(int16_t* a1, int a2, int* a3);
 void sub_AD0E2(int8_t* a1, int a2, int* a3, int8_t** a4);
 void sub_ACF1A(int8_t* a1, int a2, int* a3);
 void sub_B5F8F(__int16 a1, uint16_t* a2, int32_t a3, __int16* a4);
-int sub_BD320(int result, int8_t* a2, int8_t* a3, int a4, int a5, int a6);
+int sub_BD320(int result, int8_t* a2, int8_t* a3, int a4, int a5, uint8_t* a6);
 void sub_B5EFA(__int16 a1, uint16_t* a2, int32_t a3, __int16* a4);
 
 void sub_101C0();

@@ -1686,7 +1686,7 @@ void sub_47160();
 //int sub_473E0();
 // void sub_47560_draw_and_events_in_game(int a1, int a2, x_BYTE *a3, signed int a4, __int16 a5);
 void sub_47650(int a1/*, int a2*/);
-void PaletteChanges_47760(/*int a1,*/uint32_t user/* int a2, int a3*/);
+void palletteChanges_47760(/*int a1,*/uint32_t user/* int a2, int a3*/);
 void sub_47FC0_load_screen(bool isSecretLevel);
 void sub_480A0_set_clear_pallette(/*int a1, int a2, int a3*/);
 void sub_48120();
@@ -2511,8 +2511,8 @@ signed int sub_7C390();
 void sub_7C710();
 void sub_7C720(unsigned __int8 a1, uint8_t* a2);
 void CleanRectByColor_7C7C0(uint8_t* a2);
-void PaletteCopy_7C800(signed __int16 a1);
-void PaletteMulti_7C9D0(signed __int16 a1);
+void PalletteCopy_7C800(signed __int16 a1);
+void PalletteMulti_7C9D0(signed __int16 a1);
 int sub_7CB10();
 char sub_7CBF0();
 char sub_7CC40();
@@ -2520,12 +2520,12 @@ int sub_7CCA0();
 int sub_7CCF0();
 int sub_7CD30();
 int sub_7CDA0();
-void SetPaletteColor_7CDC0(unsigned __int8 a1, unsigned __int8 a2);
+void SetPalletteColor_7CDC0(unsigned __int8 a1, unsigned __int8 a2);
 signed int SetMultiplayerColors_7CE50();
 void DrawNetworkLevelName_7D1F0();
 signed int sub_7D230(char a1, unsigned __int8 a2, unsigned __int8 a3);
 void SetMultiplayerColors_7D310();
-void sub_7D380();
+void DrawNetworkLevelName_7D380();
 // int sub_7D400_draw_texts_and_play_sounds(int a1, __int16 a2, __int16 a3, char a4);
 void sub_7DA70(__int16 a1, __int16 a2, __int16 a3, __int16 a4, __int16 a5, __int16 a6);
 void sub_7DD70();
@@ -2673,13 +2673,13 @@ typedef struct {
 signed int sub_8B600(type_unk_18058Cstr a1);
 int sub_8B770();
 signed int sub_8B790(type_unk_18058Cstr a1);
-char sub_8B880(int* a1, char a2, signed int a3, int a4);
+char sub_8B880(uint8_t** a1, char a2, signed int a3, int a4);
 // char sub_8B980(int a1, int a2, x_DWORD **a3, int a4);
 // char sub_8BA10(int a1, int a2, int *a3, char *a4, int a5);
 void sub_8BB40(uint8_t *a1, char a2);
-signed int sub_8BBE0(int a1);
+signed int sub_8BBE0(uint8_t* a1);
 void sub_8C0E0(unsigned __int8(/*__fastcall*/ *a1)(signed int));
-char sub_8C140(unsigned __int16 a1, int a2);
+char sub_8C140(unsigned __int16 a1, uint8_t* a2);
 // x_DWORD dos_getdrive(x_DWORD); weak
 // x_DWORD dos_setdrive(x_DWORD, x_DWORD); weak
 // x_DWORD dos_getdiskfree(x_DWORD, x_DWORD); weak
@@ -2696,7 +2696,6 @@ int sub_8CA16();
 //void sub_8CACD_draw_cursor2();
 void sub_8CB1F();
 void UpdateMouseEventData_8CB3A(uint32_t mouse_states, int32_t mouse_posx, int32_t mouse_posy);
-//void UpdateMouseEventData_8CB3A(uint32_t mouse_states, int32_t mouse_posx, int32_t a3, int32_t mouse_posy, int32_t maxX, int32_t maxY);
 void sub_8CD27_set_cursor(posistruct_t a2);
 signed int sub_8CEDF_install_mouse();
 int sub_8D12F_set_mouse_viewport();
@@ -2721,7 +2720,7 @@ void sub_90D27();
 char* sub_90D3F_unload_file_array(int a1);
 void sub_90D6E_VGA_set_video_mode_320x200_and_pallette(TColor* pallette);
 void sub_90E07_VGA_set_video_mode_640x480_and_pallette(TColor* pallette);
-void sub_90E07_VGA_set_video_mode_alt_and_pallette(TColor* pallette, uint16_t width, uint16_t height);
+void sub_90E07_VGA_set_video_mode_alt_and_pallette(TColor* pallette);
 int sub_90EA0(int a1, char* a2);
 void sub_986E0();
 long j___clock(); // weak
@@ -2757,16 +2756,16 @@ int sub_9B63C(int a1);
 void sub_9B688(int a1);
 int sub_9B7E8(int a1);
 void sub_9BAB0();
-int sub_9BAC4(int a1, signed int a2);
-signed int sub_9BC68_allocate_and_lock_memory(x_WORD* a1, int a2, unsigned int a3);
-int sub_9BE18(int a1, int a2, char a3, unsigned int a4, unsigned int a5);
+int sub_9BAC4(uint8_t* a1, signed int a2);
+signed int sub_9BC68_allocate_and_lock_memory(x_WORD* a1, uint8_t* a2, unsigned int a3);
+int sub_9BE18(uint8_t* a1, int a2, char a3, unsigned int a4, unsigned int a5);
 signed int sub_9C810(x_DWORD* a1, char a2);
 signed int sub_9C938(x_DWORD* a1);
 bool sub_9C9D0(int a1);
 void sub_9CBBC(x_DWORD* a1);
-int sub_9CCB4(int a1, int a2);
-int sub_9CCF8(int a1, int a2);
-int sub_9CD9C(int a1, int a2);
+int sub_9CCB4(uint8_t* a1, int a2);
+int sub_9CCF8(uint8_t* a1, int a2);
+int sub_9CD9C(uint8_t* a1, int a2);
 __int16 sub_9D31C(__int16 result);
 void sub_9E250(uint32_t user); // weak
 int sub_A0B24(int a1);
@@ -2786,8 +2785,8 @@ int sub_B1414(int a1);
 int sub_B148C(int a1);
 int sub_B14F8(int* a1, int a2);
 int sub_B5D68(__int16 a1, __int16 a2);
-void sub_BD1B6(int a1);
-void sub_BD2CB(int a1);
+void sub_BD1B6(uint8_t* a1);
+void sub_BD2CB(uint8_t* a1);
 void sub_BD3DD();
 void sub_BD524(__int16 a1, __int16 a2, __int16 a3, __int16 a4, char a5);
 void sub_BD542(unsigned __int16 a1, unsigned __int16 a2, unsigned __int16 a3, unsigned __int16 a4, char a5);
@@ -38791,14 +38790,7 @@ void sub_40F80()//221f80
 	{
 		if (x_BYTE_D478C)
 		{
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-			sub_BD2CB((int)unk_F0A20x);
-#endif
+			sub_BD2CB(unk_F0A20x);//maybe for virtual head set
 		}
 		else if (x_WORD_180660_VGA_type_resolution & 1)
 		{
@@ -38815,14 +38807,7 @@ void sub_40F80()//221f80
 	}
 	else if (x_BYTE_D478C)
 	{
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-		sub_BD1B6((int)unk_F0A20x);
-#endif
+		sub_BD1B6(unk_F0A20x);
 	}
 	else if (x_WORD_180660_VGA_type_resolution & 1)
 	{
@@ -40145,7 +40130,7 @@ void sub_46B40()//227b40
 		if (x_WORD_180660_VGA_type_resolution & 1)
 			sub_90D6E_VGA_set_video_mode_320x200_and_pallette((TColor*)*xadatapald0dat2.colorPallette_var28);
 		else
-			sub_90E07_VGA_set_video_mode_alt_and_pallette((TColor*)*xadatapald0dat2.colorPallette_var28, gameResWidth, gameResHeight);
+			sub_90E07_VGA_set_video_mode_alt_and_pallette((TColor*)*xadatapald0dat2.colorPallette_var28);
 
 		sub_41A90_VGA_pallette_install((TColor*)*xadatapald0dat2.colorPallette_var28);
 		v3 = getPalletteIndex_5BE80((TColor*)*xadatapald0dat2.colorPallette_var28, 0, 0, 0);
@@ -40611,7 +40596,7 @@ void DrawAndEventsInGame_47560(/*uint8_t* a1, int a2, */uint32_t a3, signed int 
 	if ((debugafterload == 1) && (count_begin == 1))
 		debugcounter_47560++;
 
-	PaletteChanges_47760(/*a1, a2, (int)a3*/a3);
+	palletteChanges_47760(/*a1, a2, (int)a3*/a3);
 	if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte3_24 & 1))
 	{
 		sub_715B0();//nothing draw //animate sprites
@@ -40768,7 +40753,7 @@ void sub_47650(int  /*a1*//*, int a2*/)//228650
 // EA3D8: using guessed type int *xadatapald0dat2.colorPallette_var28;
 
 //----- (00047760) --------------------------------------------------------
-void PaletteChanges_47760(/*int a1,*/uint32_t  /*user*//* int a2, int a3*/)//228760
+void palletteChanges_47760(/*int a1,*/uint32_t  /*user*//* int a2, int a3*/)//228760
 {
 	//x_BYTE *v3; // eax
 	//unsigned __int8 v4; // dl
@@ -76681,7 +76666,7 @@ void ClearGraphicsBuffer_72883(void* ptrScreenBuffer, uint16_t width, uint16_t h
 	memset32(ptrScreenBuffer, value, width * height);
 }
 
-void WriteBufferToBMP(uint16_t width, uint16_t height, uint8_t* ptrPalette, uint8_t* ptrBuffer)
+void WriteBufferToBMP(uint16_t width, uint16_t height, uint8_t* ptrPallette, uint8_t* ptrBuffer)
 {
 	char path[MAX_PATH];
 	GetSubDirectoryPath(path, "BufferOut");
@@ -76690,10 +76675,10 @@ void WriteBufferToBMP(uint16_t width, uint16_t height, uint8_t* ptrPalette, uint
 		mymkdir(path);
 	}
 
-	GetSubDirectoryPath(path, "BufferOut/PaletteOut.bmp");
-	BitmapIO::WritePaletteAsImageBMP(path, 256, ptrPalette);
+	GetSubDirectoryPath(path, "BufferOut/PalletteOut.bmp");
+	BitmapIO::WritePalletteAsImageBMP(path, 256, ptrPallette);
 	GetSubDirectoryPath(path, "BufferOut/BufferOut.bmp");
-	BitmapIO::WriteImageBufferAsImageBMP(path, width, height, ptrPalette, ptrBuffer);
+	BitmapIO::WriteImageBufferAsImageBMP(path, width, height, ptrPallette, ptrBuffer);
 }
 
 
@@ -82496,7 +82481,7 @@ signed int sub_7C390()//25d390
 			break;
 		case 2:
 			x_DWORD_17DE38str.palMulti_17DF02 += 16;
-			PaletteMulti_7C9D0(x_DWORD_17DE38str.palMulti_17DF02);
+			PalletteMulti_7C9D0(x_DWORD_17DE38str.palMulti_17DF02);
 			if ((unsigned __int16)x_DWORD_17DE38str.palMulti_17DF02 < 0xFFu)
 				goto LABEL_13;
 #ifdef TEST_x64
@@ -82514,7 +82499,7 @@ signed int sub_7C390()//25d390
 		case 3:
 			sub_7C720(x_DWORD_17DE38str.x_WORD_17DEF4, &x_DWORD_E9C38_smalltit[307200]);
 			x_DWORD_17DE38str.palMulti_17DF02 += 16;
-			PaletteCopy_7C800(x_DWORD_17DE38str.palMulti_17DF02);
+			PalletteCopy_7C800(x_DWORD_17DE38str.palMulti_17DF02);
 			if ((unsigned __int16)x_DWORD_17DE38str.palMulti_17DF02 <= 0xFEu)
 				goto LABEL_13;
 			x_DWORD_17DE38str.x_WORD_17DEF6 = 4;
@@ -82531,7 +82516,7 @@ signed int sub_7C390()//25d390
 			CleanRectByColor_7C7C0(x_DWORD_E9C38_smalltit);
 #endif
 			x_DWORD_17DE38str.palMulti_17DF02 = 255;
-			PaletteMulti_7C9D0(255);
+			PalletteMulti_7C9D0(255);
 			x_DWORD_17DE38str.x_WORD_17DEF6 = 1;
 			x_DWORD_17DE38str.array_BYTE_17DE68x[x_DWORD_17DE38str.serverIndex_17DEFC].byte_10 = x_DWORD_17DE38str.array_BYTE_17DE68x[sub_74515()].byte_10;
 			goto LABEL_13;
@@ -82551,7 +82536,7 @@ signed int sub_7C390()//25d390
 		sub_7C140_draw_text_background(382, 18, 16, 16, 0);
 		sprintf((char* const)x_DWORD_17DE38str.x_DWORD_17DE50, "%d", (unsigned __int16)x_DWORD_17DE38str.x_WORD_17DEFA);
 		sub_7FAE0_draw_text((char*)x_DWORD_17DE38str.x_DWORD_17DE50, 382, 398, 18, 0);
-		sub_7D380();
+		DrawNetworkLevelName_7D380();
 		SetMultiplayerColors_7D310();
 		v4 = 0;
 		for (i = 0; i < 8; i++)
@@ -82627,7 +82612,7 @@ void CleanRectByColor_7C7C0(uint8_t* a2)//25d7c0
 }
 
 //----- (0007C800) --------------------------------------------------------
-void PaletteCopy_7C800(signed __int16 a1)//25d800
+void PalletteCopy_7C800(signed __int16 a1)//25d800
 {
 	signed __int16 v1; // bx
 	unsigned __int8* v2; // edx
@@ -82723,7 +82708,7 @@ void PaletteCopy_7C800(signed __int16 a1)//25d800
 // 17DE3C: using guessed type int x_DWORD_17DE3C;
 
 //----- (0007C9D0) --------------------------------------------------------
-void PaletteMulti_7C9D0(signed __int16 a1)//25d9d0
+void PalletteMulti_7C9D0(signed __int16 a1)//25d9d0
 {
 	signed __int16 v1; // cx
 	uint8_t* i; // eax
@@ -82924,7 +82909,7 @@ int sub_7CDA0()//25dda0
 // 17DEFC: using guessed type __int16 x_WORD_17DEFC;
 
 //----- (0007CDC0) --------------------------------------------------------
-void SetPaletteColor_7CDC0(unsigned __int8 a1, unsigned __int8 a2)//25ddc0
+void SetPalletteColor_7CDC0(unsigned __int8 a1, unsigned __int8 a2)//25ddc0
 {
 	x_BYTE* v2; // eax
 	int v3; // edx
@@ -83155,7 +83140,7 @@ void SetMultiplayerColors_7D310()//25e310
 			if (v0 != x_DWORD_17DE38str.serverIndex_17DEFC)
 			{
 				//v2 = sub_74515();
-				/*result = */SetPaletteColor_7CDC0(v3++, x_DWORD_17DE38str.array_BYTE_17DE68x[sub_74515()].array_byte_1[v0]);
+				/*result = */SetPalletteColor_7CDC0(v3++, x_DWORD_17DE38str.array_BYTE_17DE68x[sub_74515()].array_byte_1[v0]);
 			}
 		}
 		v0++;
@@ -83165,7 +83150,7 @@ void SetMultiplayerColors_7D310()//25e310
 // 17DEFC: using guessed type __int16 x_WORD_17DEFC;
 
 //----- (0007D380) --------------------------------------------------------
-void sub_7D380()//25e380
+void DrawNetworkLevelName_7D380()//25e380
 {
 	int v0; // eax
 	//char v2; // [esp+0h] [ebp-28h]
@@ -88948,7 +88933,7 @@ void sub_86BD0_freemem1()//267bd0
 //----- (00086EA0) --------------------------------------------------------
 void sub_86EA0(/*int a1, int a2, int a3*/ uint32_t user)//267ea0
 {
-	PaletteChanges_47760(/*a1, */user/*, a3*/);
+	palletteChanges_47760(/*a1, */user/*, a3*/);
 }
 
 //----- (00086EB0) --------------------------------------------------------
@@ -91485,14 +91470,7 @@ int16_t sub_89B60_aplicate_setting(uint8_t a1)//26ab60
 	LABEL_10:
 		if (!v3)//fix it
 		{
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-			sub_8BBE0((int)unk_180560x);
-#endif
+			sub_8BBE0(unk_180560x);
 			v1 = 1;
 			v2 = a1;
 		LABEL_12:
@@ -91686,14 +91664,7 @@ int ReadGameUserInputs_89D10()//26ad10
 	case 4:
 	LABEL_53:
 		unk_18058Cstr.x_WORD_1805C0_arrow_keys = 0;
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-		sub_8BBE0((int)unk_180560x);
-#endif
+		sub_8BBE0(unk_180560x);
 		goto LABEL_54;
 	case 6:
 		memset(&v56, 0, 50);
@@ -91701,14 +91672,7 @@ int ReadGameUserInputs_89D10()//26ad10
 		unk_18058Cstr.x_DWORD_180590 = *(x_DWORD*)(x_DWORD_E36C4 + 4);
 		v28 = *(x_WORD*)(x_DWORD_E36C4 + 62);
 		unk_18058Cstr.x_DWORD_180594 = *(x_DWORD*)(x_DWORD_E36C4 + 8);*/
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-		sub_8C140(*(x_WORD*)&xx_array_E36C4[0], (int)&v56);
-#endif
+		sub_8C140(*(x_WORD*)&xx_array_E36C4[0], (uint8_t*)&v56);
 		unk_18058Cstr.x_DWORD_180590 = *(uint32_t*)&xx_array_E36C4[4];
 		v28 = *(int16_t*)&xx_array_E36C4[62];
 		unk_18058Cstr.x_DWORD_180594 = *(uint32_t*)&xx_array_E36C4[8];
@@ -92511,14 +92475,7 @@ int ReadGameUserInputs_89D10()//26ad10
 	case 11:
 	LABEL_217:
 		unk_18058Cstr.x_WORD_1805C0_arrow_keys = 0;
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-		sub_8BBE0((int)unk_180560x);
-#endif
+		sub_8BBE0(unk_180560x);
 		goto LABEL_218;
 	default:
 		return v61;
@@ -92740,11 +92697,11 @@ signed int sub_8B790(type_unk_18058Cstr a1)//26c790
 // 1806E4: using guessed type char x_BYTE_1806E4;
 
 //----- (0008B880) --------------------------------------------------------
-char sub_8B880(int* a1, char a2, signed int a3, int a4)//26c880
+char sub_8B880(uint8_t** a1, char a2, signed int a3, int a4)//26c880
 {
 	int v4; // esi
 	char result; // al
-	int v6=0; // eax
+	uint8_t* v6; // eax
 	int v7; // eax
 	int v8; // eax
 	int v9; // edx
@@ -92767,15 +92724,8 @@ char sub_8B880(int* a1, char a2, signed int a3, int a4)//26c880
 	case 3:
 		v4 = 3;
 	LABEL_7:
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-		v6 = (int)calloc(1, 90);
-#endif
-		*a1 = v6;
+		v6 = (uint8_t*)calloc(1, 90);
+		a1[0] = v6;
 		if (v6)
 		{
 			v7 = sub_9BE18(v6, v4, 1, 0x400u, 0x400u);
@@ -92794,10 +92744,10 @@ char sub_8B880(int* a1, char a2, signed int a3, int a4)//26c880
 			}
 			else
 			{
-				sub_9BAC4(*a1, a3);
-				sub_9CCF8(*a1, 1);
-				sub_9CD9C(*a1, 1);
-				v8 = sub_9CCB4(*a1, 0);
+				sub_9BAC4(a1[0], a3);
+				sub_9CCF8(a1[0], 1);
+				sub_9CD9C(a1[0], 1);
+				v8 = sub_9CCB4(a1[0], 0);
 				result = sub_8B980(v8, v9, (char*)a1, a4);
 			}
 		}
@@ -92939,7 +92889,7 @@ void sub_8BB40(uint8_t *a1, char a2)//26cb40
 }
 
 //----- (0008BBE0) --------------------------------------------------------
-signed int sub_8BBE0(int a1)//fix//26cbe0
+signed int sub_8BBE0(uint8_t* a1)//fix//26cbe0
 {
 	char v1=0; // dl
 	unsigned __int8 v2; // al
@@ -93343,27 +93293,13 @@ void sub_8C0E0(unsigned __int8(/*__fastcall*/ *a1)(signed int))//26d0e0
 	unk_180560x[0x1a] = 0;
 	while (!(unk_180560x[0x1a] & 1))
 	{
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-		v1 = sub_8BBE0((int)unk_180560x);
-#endif
+		v1 = sub_8BBE0(unk_180560x);
 		if (a1 && a1(v1))
 			return;
 	}
 	while (unk_180560x[0x1a] & 1)
 	{
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-		v2 = sub_8BBE0((int)unk_180560x);
-#endif
+		v2 = sub_8BBE0(unk_180560x);
 		if (a1)
 		{
 			if (a1(v2))
@@ -93374,28 +93310,20 @@ void sub_8C0E0(unsigned __int8(/*__fastcall*/ *a1)(signed int))//26d0e0
 // 180586: using guessed type char x_BYTE_180586;
 
 //----- (0008C140) --------------------------------------------------------
-char sub_8C140(unsigned __int16 a1, int a2)//26d140
+char sub_8C140(unsigned __int16 a1, uint8_t* a2)//26d140
 {
 	int v3; // [esp+0h] [ebp-28h]
 	int v4; // [esp+4h] [ebp-24h]
-	int v5; // [esp+14h] [ebp-14h]
+	//int v5; // [esp+14h] [ebp-14h]
 	//char v6; // [esp+1Ch] [ebp-Ch]
 
 	memset(&v3, 0, 28);
 	v4 = a1;
 	v3 = 0x300;
 	//segread((SREGS*)&v6);
-	v5 = a2;
+	//v5 = a2;
 	//int386x(0x31, (REGS*)&v3, (REGS*)&v3, (SREGS*)&v6);
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-  return '\0';
-#else
 	return *(x_BYTE*)(a2 + 28);
-#endif
 }
 // 8C250: using guessed type x_DWORD memset(x_DWORD, x_DWORD, x_DWORD);
 // 99DE6: using guessed type x_DWORD segread(x_DWORD);
@@ -94760,8 +94688,13 @@ void sub_90E07_VGA_set_video_mode_640x480_and_pallette(TColor* pallettex)//271e0
 // 18062C: using guessed type int screenWidth_18062C;
 // 180662: using guessed type __int16 x_WORD_180662_graphics_handle;
 
-void sub_90E07_VGA_set_video_mode_alt_and_pallette(TColor* pallette, uint16_t width, uint16_t height)//271e07
+void sub_90E07_VGA_set_video_mode_alt_and_pallette(TColor* pallette)//271e07
 {
+	//temp fix
+	uint16_t width = screenWidth_18062C;
+	uint16_t height = screenHeight_180624;
+	//temp fix
+
 	//unsigned __int8 v2; // [esp+0h] [ebp-38h]
 	//int v3; // [esp+1Ch] [ebp-1Ch]
 
@@ -95922,7 +95855,7 @@ void sub_9BAB0()//27CAB0
 }
 
 //----- (0009BAC4) --------------------------------------------------------
-int sub_9BAC4(int a1, signed int a2)//27CAC4
+int sub_9BAC4(uint8_t* a1, signed int a2)//27CAC4
 {
 	int v2; // ST50_4
 
@@ -95949,26 +95882,19 @@ int sub_9BAC4(int a1, signed int a2)//27CAC4
 // A0ED7: using guessed type x_DWORD outp(x_DWORD, char);
 
 //----- (0009BC68) --------------------------------------------------------
-signed int sub_9BC68_allocate_and_lock_memory(x_WORD* a1, int a2, unsigned int a3)//27CC68
+signed int sub_9BC68_allocate_and_lock_memory(x_WORD* a1, uint8_t* a2, unsigned int a3)//27CC68
 {
-	int v4; // [esp+0h] [ebp-20h]
-	int v5; // [esp+4h] [ebp-1Ch]
-	int v6; // [esp+Ch] [ebp-14h]
-	int v7; // [esp+18h] [ebp-8h]
-
+	//int v4; // [esp+0h] [ebp-20h]
+	//int v5; // [esp+4h] [ebp-1Ch]
+	//int v6; // [esp+Ch] [ebp-14h]
+	//int v7; // [esp+18h] [ebp-8h]
+	/*
 	//fix it
 	v6 = 0;
 	v7 = 0;
 	//fix it
 
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-	*(x_DWORD*)a2 = (x_DWORD)a1;
-#endif
+	*(x_DWORD*)a2 = a1;
 	if (*(x_DWORD*)(a2 + 4))
 		goto LABEL_5;
 	v4 = 0x100;
@@ -95987,6 +95913,7 @@ signed int sub_9BC68_allocate_and_lock_memory(x_WORD* a1, int a2, unsigned int a
 		a1[3] = a3;
 		return 1;
 	}
+	*/
 	return 0;
 }
 // 98D52: using guessed type x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);
@@ -96029,27 +95956,27 @@ signed int sub_9BD28_allocate_and_lock_memory2(int a1)
 // C0000: using guessed type int  sub_C0000();
 */
 //----- (0009BE18) --------------------------------------------------------
-int sub_9BE18(int a1, int a2, char a3, unsigned int a4, unsigned int a5)//27CE18
+int sub_9BE18(uint8_t* a1, int a2, char a3, unsigned int a4, unsigned int a5)//27CE18
 {
-	char v5; // STFC_1
+	//char v5; // STFC_1
 	//void (*v6)(); // eax
 	__int16 v7; // dx
-	char v8; // ST4C_1
-	int v10; // [esp+114h] [ebp-30h]
-	int v11; // [esp+118h] [ebp-2Ch]
+	//char v8; // ST4C_1
+	//int v10; // [esp+114h] [ebp-30h]
+	//int v11; // [esp+118h] [ebp-2Ch]
 	int v12; // [esp+11Ch] [ebp-28h]
 	int v13; // [esp+120h] [ebp-24h]
-	int v14; // [esp+130h] [ebp-14h]
-	__int64 v15; // [esp+134h] [ebp-10h]
-	int v16; // [esp+13Ch] [ebp-8h]
-	int v17; // [esp+140h] [ebp-4h]
+	int v14 = 0; // [esp+130h] [ebp-14h]
+	//__int64 v15; // [esp+134h] [ebp-10h]
+	//int v16; // [esp+13Ch] [ebp-8h]
+	//int v17; // [esp+140h] [ebp-4h]
 
 	//fix it
 	v7 = 0;
 	v12 = 0;
 	v13 = 0;
 	//fix it
-
+	/*
 	//fix  sub_9C58C(a1);
 	allert_error();
 	//fix
@@ -96077,8 +96004,8 @@ int sub_9BE18(int a1, int a2, char a3, unsigned int a4, unsigned int a5)//27CE18
 	{
 		*(x_DWORD*)(a1 + 32) = a2;
 		x_DWORD_E3DFC[a2] = a1;
-		if (/*sub_9BD28_allocate_and_lock_memory2(a1)
-			&& */
+		if (
+		//sub_9BD28_allocate_and_lock_memory2(a1)&&
 			sub_9BC68_allocate_and_lock_memory((x_WORD*)(*(x_DWORD*)(a1 + 44) + 16), a1, a4)
 			&& sub_9BC68_allocate_and_lock_memory((x_WORD*)(*(x_DWORD*)(a1 + 44) + 6), a1 + 10, a5))
 		{
@@ -96113,23 +96040,16 @@ int sub_9BE18(int a1, int a2, char a3, unsigned int a4, unsigned int a5)//27CE18
 			*(x_WORD*)(a1 + 64) = v7;
 			//*(x_DWORD *)(a1 + 60) = (int)v6;
 			exit(0);//fix
-			/*dos_setvect(
-				*(x_DWORD *)(a1 + 36),
-				(x_DWORD)*(void( **)())((char *)&off_E3E10 + 6 * a2),
-				(unsigned __int16)seg_E3E14[3 * a2]);*/
+//dos_setvect(
+//				*(x_DWORD *)(a1 + 36),
+//				(x_DWORD)*(void( **)())((char *)&off_E3E10 + 6 * a2),
+//(unsigned __int16)seg_E3E14[3 * a2]);
 			v10 = 0x201;
 			v11 = *(x_DWORD*)(a1 + 36);
 			v12 = (*(x_DWORD*)(a1 + 44) >> 4) & 0xFFFF;
 			v13 = *(x_DWORD*)(a1 + 44) & 0xF;
 			//int386(0x31, (REGS*)&v10, (REGS*)&v10);//Set Real Mode Interrupt Vector
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-			sub_9B540_lock_linear_mem_region((unsigned int)sub_9B628, (char*)sub_9BAB0 - (char*)sub_9B628);
-#endif
+			sub_9B540_lock_linear_mem_region(sub_9B628, (char*)sub_9BAB0 - (char*)sub_9B628);
 			if (a3 & 1)
 			{
 				x_outp(*(x_DWORD*)(a1 + 28) + 2, 193);
@@ -96173,6 +96093,7 @@ int sub_9BE18(int a1, int a2, char a3, unsigned int a4, unsigned int a5)//27CE18
 		//fix
 		v14 = -1;
 	}
+	*/
 	return v14;
 }
 // 98D52: using guessed type x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);
@@ -96275,7 +96196,7 @@ void sub_9CBBC(x_DWORD* a1)//27dbbc
 // A0EE1: using guessed type x_DWORD inp(x_DWORD);
 
 //----- (0009CCB4) --------------------------------------------------------
-int sub_9CCB4(int a1, int a2)//27dcb4
+int sub_9CCB4(uint8_t* a1, int a2)//27dcb4
 {
 	int result; // eax
 
@@ -96295,7 +96216,7 @@ int sub_9CCB4(int a1, int a2)//27dcb4
 }
 
 //----- (0009CCF8) --------------------------------------------------------
-int sub_9CCF8(int a1, int a2)//27dcf8
+int sub_9CCF8(uint8_t* a1, int a2)//27dcf8
 {
 	int result; // eax
 	int v3; // ST18_4
@@ -96303,7 +96224,7 @@ int sub_9CCF8(int a1, int a2)//27dcf8
 	int v5; // ST08_4
 	char v6; // al
 
-	result = a1;
+	//result = a1;
 	if (*(x_DWORD*)(a1 + 28))
 	{
 		if (a2)
@@ -96324,14 +96245,14 @@ int sub_9CCF8(int a1, int a2)//27dcf8
 // A0ED7: using guessed type x_DWORD outp(x_DWORD, char);
 
 //----- (0009CD9C) --------------------------------------------------------
-int sub_9CD9C(int a1, int a2)//27dd9c
+int sub_9CD9C(uint8_t* a1, int a2)//27dd9c
 {
-	int result; // eax
-	int v3; // ST18_4
-	char v4; // al
-	int v5; // ST08_4
-	char v6; // al
-
+	int result = 0; // eax
+	//int v3; // ST18_4
+	//char v4; // al
+	//int v5; // ST08_4
+	//char v6; // al
+	/*
 	result = a1;
 	if (*(x_DWORD*)(a1 + 28))
 	{
@@ -96347,7 +96268,7 @@ int sub_9CD9C(int a1, int a2)//27dd9c
 			v6 = sub_9B63C(v5) & 0xFD;
 			result = x_outp(v5, v6);
 		}
-	}
+	}*/
 	return result;
 }
 // A0ED7: using guessed type x_DWORD outp(x_DWORD, char);
@@ -97041,7 +96962,7 @@ int sub_B5D68(__int16 a1, __int16 a2)//296d68
 
 int debugcounter_297253 = 0;
 
-void sub_BD1B6(int a1)
+void sub_BD1B6(uint8_t* a1)
 {
 	int v1; // ecx
 	int v2; // eax
@@ -97198,7 +97119,7 @@ void sub_BD1B6(int a1)
 // 180628: using guessed type int pdwScreenBuffer_351628;
 
 //----- (000BD2CB) --------------------------------------------------------
-void /*__spoils<ecx>*/ sub_BD2CB(int a1)//29e2cb
+void /*__spoils<ecx>*/ sub_BD2CB(uint8_t* a1)//29e2cb
 {
 	int v1; // ecx
 	int v2; // eax
@@ -97234,7 +97155,7 @@ void /*__spoils<ecx>*/ sub_BD2CB(int a1)//29e2cb
 // 180628: using guessed type int pdwScreenBuffer_351628;
 
 //----- (000BD320) --------------------------------------------------------
-int sub_BD320(int result, int8_t* a2, int8_t* a3, int a4, int savedregs, int a6)//29e320
+int sub_BD320(int result, int8_t* a2, int8_t* a3, int a4, int savedregs, uint8_t* a6)//29e320
 {
   // FIXME: Is this dead code? Seems to be only used for a strange graphics setting
 

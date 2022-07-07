@@ -139,7 +139,7 @@ void BitmapIO::WriteRGBAImageBufferAsImageBMP(char* path, int width, int height,
 	fclose(imageFile);
 }
 
-void BitmapIO::WritePaletteAsImageBMP(char* path, int numColors, uint8_t* ptrPalette)
+void BitmapIO::WritePalletteAsImageBMP(char* path, int numColors, uint8_t* ptrPalette)
 {
 	int widthInBytes = (numColors * BitmapIO::TRUECOLOR_BYTES_PER_PIXEL);
 

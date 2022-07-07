@@ -679,7 +679,7 @@ void WriteTextureMapToBmp(uint16_t texture_index, type_particle_str* ptextureMap
 	{
 		m_pColorPalette = LoadTMapColorPalette(mapType);
 		GetSubDirectoryPath(path, "BufferOut/PalletOut.bmp");
-		BitmapIO::WritePaletteAsImageBMP(path, 256, m_pColorPalette);
+		BitmapIO::WritePalletteAsImageBMP(path, 256, m_pColorPalette);
 	}
 
 	sprintf(name, "BufferOut/TmapOut%03d%s", texture_index, ".bmp");

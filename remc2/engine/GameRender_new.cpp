@@ -270,7 +270,7 @@ void GameRender_new::WriteWorldToBMP()
 	}
 
 	GetSubDirectoryPath(path, "BufferOut/PaletteOut.bmp");
-	BitmapIO::WritePaletteAsImageBMP(path, 256, *xadatapald0dat2.colorPallette_var28);
+	BitmapIO::WritePalletteAsImageBMP(path, 256, *xadatapald0dat2.colorPallette_var28);
 	GetSubDirectoryPath(path, "BufferOut/BufferOut.bmp");
 	BitmapIO::WriteImageBufferAsImageBMP(path, screenWidth_18062C, screenHeight_180624, *xadatapald0dat2.colorPallette_var28, pdwScreenBuffer_351628);
 }

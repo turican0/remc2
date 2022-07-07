@@ -20,7 +20,7 @@ public:
 
 	static void WriteImageBufferAsImageBMP(char* path, int width, int height, uint8_t* ptrPalette , uint8_t* ptrBuffer);
 	static void WriteRGBAImageBufferAsImageBMP(char* path, int width, int height, uint8_t* ptrPalette, uint8_t* ptrBuffer);
-	static void WritePaletteAsImageBMP(char* path, int numColors, uint8_t* ptrPalette);
+	static void WritePalletteAsImageBMP(char* path, int numColors, uint8_t* ptrPalette);
 };
 
 #endif
