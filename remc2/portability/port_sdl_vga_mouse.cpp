@@ -694,7 +694,7 @@ int events()
 		case SDL_MOUSEMOTION:
 			mousex = event.motion.x;
 			mousey = event.motion.y;
-			MouseEvents(1, event.motion.x, event.motion.y, m_iOrigw, m_iOrigh);
+			MouseEvents(1, event.motion.x, event.motion.y);
 			break;
 		case SDL_MOUSEBUTTONDOWN:
 		case SDL_MOUSEBUTTONUP:
@@ -753,7 +753,7 @@ int events()
 			}
 			}
 
-			MouseEvents(buttonresult, event.motion.x, event.motion.y, m_iOrigw, m_iOrigh);
+			MouseEvents(buttonresult, event.motion.x, event.motion.y);
 			break;
 
 		case SDL_QUIT: return 0;

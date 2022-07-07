@@ -2714,8 +2714,8 @@ int sub_8C839();
 int sub_8CA16();
 //void sub_8CACD_draw_cursor2();
 void sub_8CB1F();
-void UpdateMouseEventData_8CB3A(uint32_t mouse_states, int32_t mouse_posx, int32_t a3, int32_t mouse_posy);
-void UpdateMouseEventData_8CB3A(uint32_t mouse_states, int32_t mouse_posx, int32_t a3, int32_t mouse_posy, int32_t maxX, int32_t maxY);
+void UpdateMouseEventData_8CB3A(uint32_t mouse_states, int32_t mouse_posx, int32_t mouse_posy);
+//void UpdateMouseEventData_8CB3A(uint32_t mouse_states, int32_t mouse_posx, int32_t a3, int32_t mouse_posy, int32_t maxX, int32_t maxY);
 void sub_8CD27_set_cursor(posistruct_t a2);
 signed int sub_8CEDF_install_mouse();
 int sub_8D12F_set_mouse_viewport();
@@ -93714,13 +93714,8 @@ void sub_8CB1F()//26db1f
 
 void MouseEvents(uint32_t buttons, int x, int y)
 {
-	MouseEvents(buttons, x, y, 640, 480);
+	UpdateMouseEventData_8CB3A(buttons, x, y);
 };
-
-void MouseEvents(uint32_t buttons, int x, int y, uint16_t width, uint16_t height)
-{
-	UpdateMouseEventData_8CB3A(buttons, x, 0, y, width, height);
-}
 
 int x_BYTE_E3767;
 int x_DWORD_180710_mouse_buttons_states;
@@ -93730,18 +93725,17 @@ int x_WORD_180742;
 int x_WORD_180748;
 int x_WORD_180740;
 
-void UpdateMouseEventData_8CB3A(uint32_t mouse_states, int32_t mouse_posx, int32_t a3, int32_t mouse_posy)
+void UpdateMouseEventData_8CB3A(uint32_t mouse_states, int32_t mouse_posx, int32_t mouse_posy)
 {
-	UpdateMouseEventData_8CB3A(mouse_states, mouse_posx, a3, mouse_posy, 640, 480);
-}
-
-void UpdateMouseEventData_8CB3A(uint32_t mouse_states, int32_t mouse_posx, int32_t a3, int32_t mouse_posy, int32_t maxX, int32_t maxY)
-{
-	if (x_WORD_180660_VGA_type_resolution & 1)
+	//temo fix
+	uint16_t maxX = screenWidth_18062C;
+	uint16_t maxY = screenHeight_180624;
+	//temo fix
+	/*if (x_WORD_180660_VGA_type_resolution & 1)
 	{
 		maxX = 640;
 		maxY = 400;
-	}
+	}*/
 	//((void (*)(x_DWORD))_GETDS)((unsigned __int16)__DS__);
 	int16_t temp_mouse_x; // [esp+4h] [ebp-8h]
 	int16_t temp_mouse_y; // [esp+8h] [ebp-4h]
@@ -93969,9 +93963,9 @@ signed int sub_8CEDF_install_mouse()//26dedf
 	//__int16 v1; // [esp+0h] [ebp-54h]
 	//__int16 v2; // [esp+1Ch] [ebp-38h]
 	__int16 v3; // [esp+24h] [ebp-30h]
-	void(*v4)(uint32_t a1, int32_t a2, int32_t a3, int32_t a4); // [esp+28h] [ebp-2Ch]
+	void(*v4)(uint32_t a1, int32_t a2, int32_t a4); // [esp+28h] [ebp-2Ch]
 	//__int16 v5; // [esp+38h] [ebp-1Ch]
-	void(*v6)(uint32_t a1, int32_t a2, int32_t a3, int32_t a4); // [esp+44h] [ebp-10h]
+	void(*v6)(uint32_t a1, int32_t a2, int32_t a4); // [esp+44h] [ebp-10h]
 	//int v7; // [esp+48h] [ebp-Ch]
 	int i; // [esp+4Ch] [ebp-8h]
 
