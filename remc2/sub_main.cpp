@@ -2297,11 +2297,10 @@ signed int sub_6CF80(type_event_0x6E8E* a1);
 void sub_6CFA0(type_event_0x6E8E* a1);
 signed int sub_6D1C0(type_event_0x6E8E* a1);
 signed int sub_6D1E0(type_event_0x6E8E* a1);
-void sub_6D200(type_str_0x2BDE* a1, uint16_t screenWidth, uint16_t screenHeight);
-int MouseToSpell_6D420(int16_t posX, int16_t posY, uint16_t screenWidth, uint16_t screenHeight);
-int SelectSpellCategory_6D420(int16_t posX, int16_t posY, uint16_t screenWidth, uint16_t screenHeight);
+void sub_6D200(type_str_0x2BDE* a1);
+int SelectSpellCategory_6D420(int16_t posX, int16_t posY);
 char sub_6D4C0(type_str_611* a1);
-int SelectSpell_6D4F0(type_str_611* a1, int16_t mouseX, uint16_t screenWidth, uint16_t screenHeight);
+int SelectSpell_6D4F0(type_str_611* a1, int16_t mouseX);
 void SetSpell_6D5E0(type_event_0x6E8E* a1, char a2);
 int sub_6D710(type_event_0x6E8E* a1, unsigned __int8 a2, unsigned __int8 a3);
 void sub_6D830(type_event_0x6E8E* a1, char a2);
@@ -11653,10 +11652,10 @@ int debugcounter_47560 = 0;
 //----- (00017190) --------------------------------------------------------
 void sub_17190_process_keyboard()//1f8190
 {
-	//temo fix
+	//temp fix
 	uint16_t screenWidth = screenWidth_18062C;
 	uint16_t screenHeight = screenHeight_180624;
-	//temo fix
+	//temp fix
 
 	type_event_0x6E8E* event; // edx
 
@@ -12385,7 +12384,7 @@ void MouseAndKeysEvents_17A00(signed int a2, __int16 a3, uint16_t screenWidth, u
 					{
 						if ((v16 != 1 || unk_18058Cstr.x_DWORD_18059C & 4) && (v12x->dword_0xA4_164x->str_611.byte_0x457_1111 != 2 || unk_18058Cstr.x_DWORD_18059C & 8))
 						{
-							v23 = SelectSpell_6D4F0(&v12x->dword_0xA4_164x->str_611, unk_18058Cstr.x_DWORD_1805B0_mouse.x, screenWidth, screenHeight);
+							v23 = SelectSpell_6D4F0(&v12x->dword_0xA4_164x->str_611, unk_18058Cstr.x_DWORD_1805B0_mouse.x);
 							v12x->dword_0xA4_164x->str_611.byte_0x459_1113 = v23;
 							SelectSpell_191B0(41, v23);
 						}
@@ -12400,14 +12399,14 @@ void MouseAndKeysEvents_17A00(signed int a2, __int16 a3, uint16_t screenWidth, u
 							D41A0_0.array_0x6E3E[D41A0_0.LevelIndex_0xc].str_0x6E3E_byte1 = v12x->dword_0xA4_164x->str_611.byte_0x458_1112;
 							D41A0_0.array_0x6E3E[D41A0_0.LevelIndex_0xc].str_0x6E3E_byte2 = v12x->dword_0xA4_164x->str_611.byte_0x459_1113;
 							v12x->dword_0xA4_164x->str_611.byte_0x457_1111 = 0;
-							sub_6D200(&D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc], screenWidth, screenHeight);
+							sub_6D200(&D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc]);
 						}
 					}
 				}
 				else
 				{
 					v34 = 1;
-					v17 = SelectSpellCategory_6D420(unk_18058Cstr.x_DWORD_1805B0_mouse.x, unk_18058Cstr.x_DWORD_1805B0_mouse.y, screenWidth, screenHeight);
+					v17 = SelectSpellCategory_6D420(unk_18058Cstr.x_DWORD_1805B0_mouse.x, unk_18058Cstr.x_DWORD_1805B0_mouse.y);
 					v12x->dword_0xA4_164x->str_611.byte_0x458_1112 = v17;
 					v18 = x_BYTE_D94FF_spell_index[v17];
 					v19 = 1;
@@ -12451,7 +12450,7 @@ void MouseAndKeysEvents_17A00(signed int a2, __int16 a3, uint16_t screenWidth, u
 					else
 					{
 						v12x->dword_0xA4_164x->str_611.byte_0x457_1111 = ((unk_18058Cstr.x_DWORD_18059C & 1) == 0) + 1;
-						sub_6D200(&D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc], screenWidth, screenHeight);
+						sub_6D200(&D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc]);
 						SelectSpell_191B0(40, v12x->dword_0xA4_164x->str_611.byte_0x458_1112);
 						D41A0_0.array_0x6E3E[D41A0_0.LevelIndex_0xc].str_0x6E3E_byte2 = v12x->dword_0xA4_164x->str_611.byte_0x457_1111;
 					}
@@ -12719,10 +12718,10 @@ void sub_18B30()//1f9b30
 //----- (00018BB0) --------------------------------------------------------
 void sub_18BB0()//1f9bb0
 {
-	//temo fix
+	//temp fix
 	uint16_t screenWidth = screenWidth_18062C;
 	uint16_t screenHeight = screenHeight_180624;
-	//temo fix
+	//temp fix
 
 	//int v0; // eax
 	//char v1; // dl
@@ -13149,9 +13148,9 @@ void sub_19760_set_message(const char* a1, unsigned __int8 a2, __int16 a3)//1fa7
 //----- (000197F0) --------------------------------------------------------
 void PauseMenuEvents_197F0()//1fa7f0
 {
-	//temo fix
+	//temp fix
 	uint16_t screenWidth = screenWidth_18062C;
-	//temo fix
+	//temp fix
 
 	int result; // eax
 	char v1; // bl
@@ -13293,9 +13292,9 @@ void sub_19A70()//1faa70
 //----- (00019AB0) --------------------------------------------------------
 void OptionMenuEvents_19AB0()//1faab0
 {
-	//temo fix
+	//temp fix
 	uint16_t screenWidth = screenWidth_18062C;
-	//temo fix
+	//temp fix
 
 	int v0; // eax
 	signed int v1; // ebx
@@ -13445,9 +13444,9 @@ void SetSoundEffectAndMusicLevelCoordinates_19D60(signed int a1, uint16_t screen
 //----- (00019E00) --------------------------------------------------------
 void sub_19E00()//1fae00
 {
-	//temo fix
+	//temp fix
 	uint16_t width = screenWidth_18062C;
-	//temo fix
+	//temp fix
 
 	char v0; // bl
 	char v1; // bh
@@ -27516,11 +27515,11 @@ void debugtestscreen() {
 //----- (0002BE30) --------------------------------------------------------
 void DrawGameFrame_2BE30()//20CE30
 {
-	//temo fix
+	//temp fix
 	uint8_t* ptrScreenBuffer = pdwScreenBuffer_351628;
 	uint16_t screenWidth = screenWidth_18062C;
 	uint16_t screenHeight = screenHeight_180624;
-	//temo fix
+	//temp fix
 
 	char v0; // dl
 	void (*v1)(int16_t, int16_t, posistruct_t); // eax
@@ -28000,9 +27999,9 @@ void DrawGameFrame_2BE30()//20CE30
 //----- (0002CE30) --------------------------------------------------------
 void sub_2CE30_pause_end_level(int a1, int a2)//20de30
 {
-	//temo fix
+	//temp fix
 	uint16_t screenWidth = screenWidth_18062C;
-	//temo fix
+	//temp fix
 
 	int v2; // esi
 	//int result; // eax
@@ -28148,9 +28147,9 @@ void sub_2CE30_pause_end_level(int a1, int a2)//20de30
 
 void sub_2D190(int16_t posStartX, int16_t posStartY, int a3, int16_t posEndY, int a5, uint8 colorIdx)
 {
-	//temo fix
+	//temp fix
 	uint16_t pitch = screenWidth_18062C;
-	//temo fix
+	//temp fix
 
 	int16_t posEndX = a5;
 
@@ -28164,9 +28163,9 @@ void sub_2D190(int16_t posStartX, int16_t posStartY, int a3, int16_t posEndY, in
 //----- (0002D1D0) --------------------------------------------------------
 void DrawSorcererScores_2D1D0()//20e1d0
 {
-	//temo fix
+	//temp fix
 	uint16_t screenWidth = screenWidth_18062C;
-	//temo fix
+	//temp fix
 
 	signed int v0; // esi
 	int v1; // eax
@@ -28343,9 +28342,9 @@ void DrawSorcererScores_2D1D0()//20e1d0
 //----- (0002D710) --------------------------------------------------------
 void DrawTopStatusBar_2D710(type_event_0x6E8E* a1x)//20e710
 {
-	//temo fix
+	//temp fix
 	uint16_t pitch = screenWidth_18062C;
-	//temo fix
+	//temp fix
 
 	__int16 v1; // bx
 	type_event_0x6E8E* v2x; // ecx
@@ -28786,9 +28785,9 @@ void sub_2DFD0(__int16 a1, __int16 a2, posistruct_t a3, unsigned __int8 a4)//20e
 //----- (0002E260) --------------------------------------------------------
 void DrawSpellIcon_2E260(int16_t posX, int16_t posY, type_event_0x6E8E* a3x, char a4)//20f260
 {
-	//temo fix
+	//temp fix
 	uint16_t pitch = screenWidth_18062C;
-	//temo fix
+	//temp fix
 
 	type_event_0x6E8E* v4x; // eax
 	signed int v5; // eax
@@ -28999,10 +28998,10 @@ void sub_2EB40()//20fb40
 //----- (0002ECC0) --------------------------------------------------------
 void DrawBottomMenu_2ECC0()
 {
-	//temo fix
+	//temp fix
 	uint16_t screenWidth = screenWidth_18062C;
 	uint16_t screenHeight = screenHeight_180624;
-	//temo fix
+	//temp fix
 
 	//char v0; // t0
 	//uint8_t* v1; // eax
@@ -29389,10 +29388,10 @@ void DrawBottomMenu_2ECC0()
 //----- (0002F6B0) --------------------------------------------------------
 void DrawChatMenu_2F6B0()//2106b0
 {
-	//temo fix
+	//temp fix
 	uint16_t screenWidth = screenWidth_18062C;
 	uint16_t screenHeight = screenHeight_180624;
-	//temo fix
+	//temp fix
 
 	signed int v0; // eax
 	//int v1; // eax
@@ -29656,10 +29655,10 @@ void DrawChatMenu_2F6B0()//2106b0
 //----- (0002FD90) --------------------------------------------------------
 void DrawPauseMenu_2FD90()
 {
-	//temo fix
+	//temp fix
 	uint16_t screenWidth = screenWidth_18062C;
 	uint16_t screenHeight = screenHeight_180624;
-	//temo fix
+	//temp fix
 
 	//char result; // al
 	signed int v1; // ebx
@@ -29778,9 +29777,9 @@ void DrawPauseMenu_2FD90()
 
 void GetPauseMenuCoordinates_2FFE0(int16_t* a1, int16_t* a2, int16_t* a3, int16_t* a4)
 {
-	//temo fix
+	//temp fix
 	uint16_t screenWidth = screenWidth_18062C;
-	//temo fix
+	//temp fix
 
 	//int v4; // eax
 	int v5; // eax
@@ -29812,9 +29811,9 @@ void GetPauseMenuCoordinates_2FFE0(int16_t* a1, int16_t* a2, int16_t* a3, int16_
 //----- (00030050) --------------------------------------------------------
 void DrawInGameOptionsMenu_30050()
 {
-	//temo fix
+	//temp fix
 	uint16_t screenWidth = screenWidth_18062C;
-	//temo fix
+	//temp fix
 
 	signed int v0; // esi
 	int v1; // edx
@@ -30047,9 +30046,9 @@ LABEL_8:
 //----- (00030630) --------------------------------------------------------
 void sub_30630()//211630
 {
-	//temo fix
+	//temp fix
 	uint16_t screenWidth = screenWidth_18062C;
-	//temo fix
+	//temp fix
 
 	char v0; // dl
 	int result; // eax
@@ -30126,9 +30125,9 @@ void sub_30630()//211630
 //----- (00030870) --------------------------------------------------------
 void sub_30870()//211870
 {
-	//temo fix
+	//temp fix
 	uint16_t screenWidth = screenWidth_18062C;
-	//temo fix
+	//temp fix
 
 	char* v0; // ebx
 	__int16 v1; // ax
@@ -30205,9 +30204,9 @@ void sub_30870()//211870
 //----- (00030A60) --------------------------------------------------------
 void DrawOkCancelMenu_30A60(int16_t posTextX, int16_t posTextY)//211a60
 {
-	//temo fix
+	//temp fix
 	uint16_t width = screenWidth_18062C;	
-	//temo fix
+	//temp fix
 
 	__int64 v4; // rax
 	int16_t posX;
@@ -30265,9 +30264,9 @@ void DrawOkCancelMenu_30A60(int16_t posTextX, int16_t posTextY)//211a60
 
 void GetOkayCancelButtonPositions_30BE0(int16_t* ptrX, int16_t* ptrY)
 {
-	//temo fix
+	//temp fix
 	uint16_t screenWidth = screenWidth_18062C;
-	//temo fix
+	//temp fix
 
 	if (screenWidth == 320)
 	{
@@ -42621,10 +42620,10 @@ int debugcounter22a8a0bb = 0;
 //----- (000498A0) --------------------------------------------------------
 void ApplyEvents_498A0()//22a8a0
 {
-	//temo fix
+	//temp fix
 	uint16_t width = screenWidth_18062C;
 	uint16_t height = screenHeight_180624;
-	//temo fix
+	//temp fix
 
 	bool runagain; // esi
 	int iy;
@@ -47327,14 +47326,14 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E, uint16_t 
 		break;
 	}
 	case 0x24e200: {
-		sub_6D200((type_str_0x2BDE*)a1_6E8E, screenWidth, screenHeight);
+		sub_6D200((type_str_0x2BDE*)a1_6E8E);
 		break;
 	}
 	case 0x24e420: {
 #ifdef __linux__ // FIXME: types
 		std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
-		MouseToSpell_6D420((short)a1_6E8E, 0, screenWidth, screenHeight);
+		SelectSpellCategory_6D420((short)a1_6E8E, 0);
 		stub_fix_it();//bad retyping
 #endif
 		break;
@@ -53098,7 +53097,7 @@ void GameEvents_51BB0(uint16_t screenWidth, uint16_t screenHeight)//232bb0
 					//v87 = D41A0_BYTESTR_0.word_0xc;
 					if ((unsigned __int16)v116 == D41A0_0.LevelIndex_0xc)
 					{
-						sub_6D200(&D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc], screenWidth, screenHeight);
+						sub_6D200(&D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc]);
 						FlvInitSet_473B0();
 					}
 				}
@@ -53146,7 +53145,7 @@ void GameEvents_51BB0(uint16_t screenWidth, uint16_t screenHeight)//232bb0
 				//v89 = D41A0_BYTESTR_0.word_0xc;
 				if ((unsigned __int16)v116 == D41A0_0.LevelIndex_0xc)
 				{
-					sub_6D200(&D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc], screenWidth, screenHeight);
+					sub_6D200(&D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc]);
 					FlvInitSet_473B0();
 				}
 			}
@@ -53162,7 +53161,7 @@ void GameEvents_51BB0(uint16_t screenWidth, uint16_t screenHeight)//232bb0
 				//v92 = D41A0_BYTESTR_0.word_0xc;
 				if ((unsigned __int16)v116 == D41A0_0.LevelIndex_0xc)
 				{
-					sub_6D200(&D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc], screenWidth, screenHeight);
+					sub_6D200(&D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc]);
 					FlvInitSet_473B0();
 				}
 			}
@@ -53393,10 +53392,10 @@ void sub_52D70(unsigned __int16 a1, char* a2)//233d70
 
 void sub_52E90(type_str_0x2BDE* a1x, signed int a2, char a3)
 {
-	//temo fix
+	//temp fix
 	uint16_t screenWidth = screenWidth_18062C;
 	uint16_t screenHeight = screenHeight_180624;
-	//temo fix
+	//temp fix
 
 	//int v3; // edx
 	unsigned __int16 v4; // ax
@@ -53523,7 +53522,7 @@ void sub_52E90(type_str_0x2BDE* a1x, signed int a2, char a3)
 			a3 = 0;
 		}
 		a1x->dword_0x3E6_2BE4_12228.str_611.byte_0x457_1111 = 0;
-		sub_6D200(a1x, screenWidth, screenHeight);
+		sub_6D200(a1x);
 		FlvInitSet_473B0();
 	}
 LABEL_40:
@@ -54563,9 +54562,9 @@ void sub_54800_read_and_decompress_tables(MapType_t a1)//235800
 //----- (000548B0) --------------------------------------------------------
 void sub_548B0(type_str_0x2BDE* a1x)//2358b0
 {
-	//temo fix
+	//temp fix
 	uint16_t screenWidth = screenWidth_18062C;
-	//temo fix
+	//temp fix
 
 	//__int16 result; // ax
 	//result = a1x->word_0x007_2BE4_11237;
@@ -54609,10 +54608,10 @@ void sub_548F0(type_str_0x2BDE* a1x)//2358f0
 //----- (00054960) --------------------------------------------------------
 void sub_54960()
 {
-	//temo fix
+	//temp fix
 	uint16_t screenWidth = screenWidth_18062C;
 	uint16_t screenHeight = screenHeight_180624;
-	//temo fix
+	//temp fix
 
 	int16_t posY; // ax
 
@@ -57178,10 +57177,10 @@ void sub_57680_FixPointersAfterLoad()//238680
 //----- (00057730) --------------------------------------------------------
 void UpdateEntities_57730()//238730
 {
-	//temo fix
+	//temp fix
 	uint16_t width = screenWidth_18062C;
 	uint16_t height = screenHeight_180624;
-	//temo fix
+	//temp fix
 
 	type_event_0x6E8E* ix; // ebx
 	type_event_0x6E8E* v2x; // esi
@@ -60920,9 +60919,9 @@ void sub_5BCC0_set_any_variables1()//23ccc0
 
 void SetMousePositionInMemory_5BDC0(int16_t posX, int16_t posY)
 {
-	//temo fix
+	//temp fix
 	uint16_t screenWidth = screenWidth_18062C;
-	//temo fix
+	//temp fix
 
 	if (posX < 0)
 		posX = 0;
@@ -73680,8 +73679,13 @@ signed int sub_6D1E0(type_event_0x6E8E* a1)//24e1e0
 }
 
 //----- (0006D200) --------------------------------------------------------
-void sub_6D200(type_str_0x2BDE* a1x, uint16_t screenWidth, uint16_t screenHeight)//24e200
+void sub_6D200(type_str_0x2BDE* a1x)//24e200
 {
+	//temp fix
+	uint16_t screenWidth = screenWidth_18062C;
+	uint16_t screenHeight = screenHeight_180624;
+	//temp fix
+
 	//int v1; // eax
 	signed int v2; // ecx
 	char v3; // bl
@@ -73834,13 +73838,13 @@ void sub_6D200(type_str_0x2BDE* a1x, uint16_t screenWidth, uint16_t screenHeight
 // 1805C2: using guessed type __int16 x_WORD_1805C2_joystick;
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
-int MouseToSpell_6D420(int16_t posX, int16_t posY, uint16_t screenWidth, uint16_t screenHeight)
+int SelectSpellCategory_6D420(int16_t posX, int16_t posY)
 {
-	return SelectSpellCategory_6D420(posX, posY, screenWidth, screenHeight);
-}
+	//temp fix
+	uint16_t screenWidth = screenWidth_18062C;
+	uint16_t screenHeight = screenHeight_180624;
+	//temp fix
 
-int SelectSpellCategory_6D420(int16_t posX, int16_t posY, uint16_t screenWidth, uint16_t screenHeight)
-{
 	int16_t v1;
 	int16_t v2;
 	int16_t posXOffSet = 0;
@@ -73903,8 +73907,13 @@ char sub_6D4C0(type_str_611* a1x)//24e4c0
 }
 
 //----- (0006D4F0) --------------------------------------------------------
-int SelectSpell_6D4F0(type_str_611* a1x, int16_t mouseX, uint16_t screenWidth, uint16_t screenHeight)//24e4f0
+int SelectSpell_6D4F0(type_str_611* a1x, int16_t mouseX)//24e4f0
 {
+	//temp fix
+	uint16_t screenWidth = screenWidth_18062C;
+	uint16_t screenHeight = screenHeight_180624;
+	//temp fix
+
 	int subCategoryIdx; // eax
 	int spellMenuXPos; // esi
 	int16_t spellMenuXPos16;
@@ -93787,10 +93796,10 @@ int x_WORD_180740;
 
 void UpdateMouseEventData_8CB3A(uint32_t mouse_states, int32_t mouse_posx, int32_t mouse_posy)
 {
-	//temo fix
+	//temp fix
 	uint16_t maxX = screenWidth_18062C;
 	uint16_t maxY = screenHeight_180624;
-	//temo fix
+	//temp fix
 	/*if (x_WORD_180660_VGA_type_resolution & 1)
 	{
 		maxX = 640;
