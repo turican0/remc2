@@ -1503,7 +1503,6 @@ void sub_2BD10_draw_line(__int16 a1, __int16 a2, __int16 a3, __int16 a4, unsigne
 void DrawGameFrame_2BE30();
 void sub_2CE30_pause_end_level(int a1, int a2);
 void sub_2D190(int16_t posStartX, int16_t posStartY, int a3, int16_t posEndY, int a5, uint8 colorIdx);
-void sub_2D190(int16_t posStartX, int16_t posStartY, int a3, int16_t posEndY, int a5, uint16_t pitch, uint8 colorIdx);
 int DrawSorcererScores_2D1D0(uint16_t screenWidth);
 void DrawTopStatusBar_2D710(type_event_0x6E8E* a1, uint16_t pitch);
 void DrawMenuBitmap_2DE80(int16_t posX, int16_t posY, posistruct_t a3);
@@ -28160,11 +28159,10 @@ void sub_2CE30_pause_end_level(int a1, int a2)//20de30
 
 void sub_2D190(int16_t posStartX, int16_t posStartY, int a3, int16_t posEndY, int a5, uint8 colorIdx)
 {
-	sub_2D190(posStartX, posStartY, a3, posEndY, a5, 640, colorIdx);
-}
+	//temo fix
+	uint16_t pitch = screenWidth_18062C;
+	//temo fix
 
-void sub_2D190(int16_t posStartX, int16_t posStartY, int a3, int16_t posEndY, int a5, uint16_t pitch, uint8 colorIdx)
-{
 	int16_t posEndX = a5;
 
 	if (a5 >= a3)
@@ -28406,7 +28404,7 @@ void DrawTopStatusBar_2D710(type_event_0x6E8E* a1x, uint16_t pitch)//20e710
 		sub_2BB40_draw_bitmap(v1 + 2, 2, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v23x->dword_0x10_16 + 43]);
 		sub_2BB40_draw_bitmap(v1 + 38, 2, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[42]);
 		v22 = v1 + 58;
-		sub_2D190(v1 + 58, 10, 64, 10, (v23x->dword_0x8 << 6) / v23x->dword_0x4, pitch, 0x7Bu);
+		sub_2D190(v1 + 58, 10, 64, 10, (v23x->dword_0x8 << 6) / v23x->dword_0x4, 0x7Bu);
 		v17 = (v23x->dword_0x90_144 + a1x->dword_0xA4_164x->dword_0x13C_316) << 6;
 		if (v23x->dword_0x90_144 + a1x->dword_0xA4_164x->dword_0x13C_316 == v23x->dword_0x8C_140)
 		{
@@ -28427,7 +28425,7 @@ void DrawTopStatusBar_2D710(type_event_0x6E8E* a1x, uint16_t pitch)//20e710
 		}
 		else
 		{
-			sub_2D190(v22, 28, 64, 10, (v23x->dword_0x8C_140 << 6) / v18, pitch, v27);
+			sub_2D190(v22, 28, 64, 10, (v23x->dword_0x8C_140 << 6) / v18, v27);
 			v16 = v28;
 			v5 = v17;
 			//v4 = v17;
@@ -28435,7 +28433,7 @@ void DrawTopStatusBar_2D710(type_event_0x6E8E* a1x, uint16_t pitch)//20e710
 		}
 		//LODWORD(v6) = v5;
 		//HIDWORD(v6) = v4 >> 31;
-		sub_2D190(v22, 28, 64, 10, /*v6*/v5 / v3, pitch, v16);
+		sub_2D190(v22, 28, 64, 10, /*v6*/v5 / v3, v16);
 
 		//Draw Mana Goal Lines
 		if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 0x10) && D41A0_0.terrain_2FECE.word_0x2FED5)
@@ -28501,8 +28499,8 @@ void DrawTopStatusBar_2D710(type_event_0x6E8E* a1x, uint16_t pitch)//20e710
 				if (v9x > x_DWORD_EA3E4[0])
 				{
 					if (v9x->dword_0x8 >= 0)
-						sub_2D190(v21, 2 * v24 + 12, 64, 2, (v9x->dword_0x8 << 6) / v9x->dword_0x4, pitch, 0x7Bu);
-					sub_2D190(v21, 2 * v24 + 30, 64, 2, (v9x->dword_0x90_144 << 6) / v9x->dword_0x8C_140, pitch, v28);
+						sub_2D190(v21, 2 * v24 + 12, 64, 2, (v9x->dword_0x8 << 6) / v9x->dword_0x4, 0x7Bu);
+					sub_2D190(v21, 2 * v24 + 30, 64, 2, (v9x->dword_0x90_144 << 6) / v9x->dword_0x8C_140, v28);
 				}
 				v24++;
 			} while (v24 < v25);
@@ -28530,13 +28528,13 @@ void DrawTopStatusBar_2D710(type_event_0x6E8E* a1x, uint16_t pitch)//20e710
 	}
 	//VGA_Debug_Blit(640, 480, pdwScreenBuffer_351628);
 	v14 = v12 + 58;
-	sub_2D190(v14, 10, 64, 10, (a1x->dword_0x8 << 6) / a1x->dword_0x4, pitch, 0x7Bu);
+	sub_2D190(v14, 10, 64, 10, (a1x->dword_0x8 << 6) / a1x->dword_0x4, 0x7Bu);
 	//adress 20ee1a
 	//1b8 1c 40 0a 03 aa
 	//0xfa00/4c79=3
 	//v18=0x4c79
-	sub_2D190(v14, 28, 64, 10, (a1x->dword_0x8C_140 << 6) / v18, pitch, v27);
-	sub_2D190(v14, 28, 64, 10, (a1x->dword_0x90_144 << 6) / v18, pitch, v28);
+	sub_2D190(v14, 28, 64, 10, (a1x->dword_0x8C_140 << 6) / v18, v27);
+	sub_2D190(v14, 28, 64, 10, (a1x->dword_0x90_144 << 6) / v18, v28);
 	//VGA_Debug_Blit(640, 480, pdwScreenBuffer_351628);
 }
 // D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
