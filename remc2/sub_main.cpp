@@ -1503,11 +1503,11 @@ void sub_2BD10_draw_line(__int16 a1, __int16 a2, __int16 a3, __int16 a4, unsigne
 void DrawGameFrame_2BE30();
 void sub_2CE30_pause_end_level(int a1, int a2);
 void sub_2D190(int16_t posStartX, int16_t posStartY, int a3, int16_t posEndY, int a5, uint8 colorIdx);
-int DrawSorcererScores_2D1D0(uint16_t screenWidth);
-void DrawTopStatusBar_2D710(type_event_0x6E8E* a1, uint16_t pitch);
+void DrawSorcererScores_2D1D0();
+void DrawTopStatusBar_2D710(type_event_0x6E8E* a1);
 void DrawMenuBitmap_2DE80(int16_t posX, int16_t posY, posistruct_t a3);
-char sub_2DFD0(__int16 a1, __int16 a2, posistruct_t a3, unsigned __int8 a4);
-void DrawSpellIcon_2E260(int16_t posX, int16_t posY, uint16_t pitch, type_event_0x6E8E* a3, char a4);
+void sub_2DFD0(__int16 a1, __int16 a2, posistruct_t a3, unsigned __int8 a4);
+void DrawSpellIcon_2E260(int16_t posX, int16_t posY, type_event_0x6E8E* a3, char a4);
 int sub_2E790(__int16 a1, int a2, int a3, int a4, unsigned __int8 a5);
 void sub_2E850(__int16 a1, int a2, int a3, int a4, unsigned __int8 a5);
 void sub_2EB40();
@@ -27758,7 +27758,6 @@ void DrawGameFrame_2BE30()//20CE30
 				DrawSpellIcon_2E260(
 					spellLeftPosX,
 					2,
-					screenWidth,
 					x_DWORD_EA3E4[v3x->dword_0xA4_164x->str_611.array_0x333_819x.word[v3x->dword_0xA4_164x->str_611.word_0x451_1105]],
 					0);
 
@@ -27766,11 +27765,10 @@ void DrawGameFrame_2BE30()//20CE30
 				DrawSpellIcon_2E260(
 					spellRightPosX,
 					2,
-					screenWidth,
 					x_DWORD_EA3E4[v3x->dword_0xA4_164x->str_611.array_0x333_819x.word[v3x->dword_0xA4_164x->str_611.word_0x453_1107]],
 					0);
 
-				DrawTopStatusBar_2D710(v3x, screenWidth);
+				DrawTopStatusBar_2D710(v3x);
 			}
 			switch (D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x3DF_2BE4_12221)
 			{
@@ -27903,7 +27901,7 @@ void DrawGameFrame_2BE30()//20CE30
 		switch (D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x3DF_2BE4_12221)
 		{
 		case 7:
-			DrawSorcererScores_2D1D0(screenWidth);
+			DrawSorcererScores_2D1D0();
 			break;
 		case 8:
 			DrawPauseMenu_2FD90(screenWidth, screenHeight);
@@ -27928,14 +27926,12 @@ void DrawGameFrame_2BE30()//20CE30
 			DrawSpellIcon_2E260(
 				spellLeftPosX,
 				2,
-				screenWidth,
 				x_DWORD_EA3E4[v14x->dword_0xA4_164x->str_611.array_0x333_819x.word[v14x->dword_0xA4_164x->str_611.word_0x451_1105]],
 				0);
 		if (x_D41A0_BYTEARRAY_4_struct.byteindex_38401)
 			DrawSpellIcon_2E260(
 				spellRightPosX,
 				2,
-				screenWidth,
 				x_DWORD_EA3E4[v14x->dword_0xA4_164x->str_611.array_0x333_819x.word[v14x->dword_0xA4_164x->str_611.word_0x453_1107]],
 				0);
 		break;
@@ -28173,8 +28169,12 @@ void sub_2D190(int16_t posStartX, int16_t posStartY, int a3, int16_t posEndY, in
 }
 
 //----- (0002D1D0) --------------------------------------------------------
-int DrawSorcererScores_2D1D0(uint16_t screenWidth)//20e1d0
+void DrawSorcererScores_2D1D0()//20e1d0
 {
+	//temo fix
+	uint16_t screenWidth = screenWidth_18062C;
+	//temo fix
+
 	signed int v0; // esi
 	int v1; // eax
 	//uint8_t* v2; // edx
@@ -28332,7 +28332,6 @@ int DrawSorcererScores_2D1D0(uint16_t screenWidth)//20e1d0
 		}
 		v25++;
 	}
-	return result;
 }
 // 8E3D5: using guessed type x_DWORD sprintf(x_DWORD, const char *, ...);
 // D419D: using guessed type char x_BYTE_D419D_fonttype;
@@ -28349,8 +28348,12 @@ int DrawSorcererScores_2D1D0(uint16_t screenWidth)//20e1d0
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
 //----- (0002D710) --------------------------------------------------------
-void DrawTopStatusBar_2D710(type_event_0x6E8E* a1x, uint16_t pitch)//20e710
+void DrawTopStatusBar_2D710(type_event_0x6E8E* a1x)//20e710
 {
+	//temo fix
+	uint16_t pitch = screenWidth_18062C;
+	//temo fix
+
 	__int16 v1; // bx
 	type_event_0x6E8E* v2x; // ecx
 	int v3; // ecx
@@ -28667,7 +28670,7 @@ void DrawMenuBitmap_2DE80(int16_t posX, int16_t posY, posistruct_t a3)//20ee80
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
 //----- (0002DFD0) --------------------------------------------------------
-char sub_2DFD0(__int16 a1, __int16 a2, posistruct_t a3, unsigned __int8 a4)//20efd0
+void sub_2DFD0(__int16 a1, __int16 a2, posistruct_t a3, unsigned __int8 a4)//20efd0
 {
 	int v4; // eax
 	x_BYTE* v5; // edi
@@ -28710,13 +28713,13 @@ char sub_2DFD0(__int16 a1, __int16 a2, posistruct_t a3, unsigned __int8 a4)//20e
 					i += screenWidth_18062C;
 					v5 = (x_BYTE*)i;
 					if (!--v19)
-						return v4;
+						return;
 				}
 				if ((v4 & 0x80u) == 0)
 					break;
 				v5 -= (char)v4;
 				if (!v19)
-					return v4;
+					return;
 			}
 			v7 = a4;
 			v8 = (char)v4;
@@ -28760,13 +28763,13 @@ char sub_2DFD0(__int16 a1, __int16 a2, posistruct_t a3, unsigned __int8 a4)//20e
 						v9 = (x_BYTE*)(screenWidth_18062C + v17);
 						v17 += screenWidth_18062C;
 						if (!--v18)
-							return v4;
+							return;
 					}
 					if ((v4 & 0x80u) == 0)
 						break;
 					v9 -= (char)v4;
 					if (!v18)
-						return v4;
+						return;
 				}
 				v11 = a4;
 				v12 = (char)v4;
@@ -28782,15 +28785,18 @@ char sub_2DFD0(__int16 a1, __int16 a2, posistruct_t a3, unsigned __int8 a4)//20e
 			} while (v18);
 		}
 	}
-	return v4;
 }
 // 180628: using guessed type int pdwScreenBuffer_351628;
 // 18062C: using guessed type int screenWidth_18062C;
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
 //----- (0002E260) --------------------------------------------------------
-void DrawSpellIcon_2E260(int16_t posX, int16_t posY, uint16_t pitch, type_event_0x6E8E* a3x, char a4)//20f260
+void DrawSpellIcon_2E260(int16_t posX, int16_t posY, type_event_0x6E8E* a3x, char a4)//20f260
 {
+	//temo fix
+	uint16_t pitch = screenWidth_18062C;
+	//temo fix
+
 	type_event_0x6E8E* v4x; // eax
 	signed int v5; // eax
 	__int16 v6; // t1
