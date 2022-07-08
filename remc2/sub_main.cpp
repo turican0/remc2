@@ -42208,9 +42208,7 @@ void PrepareEvents_49540(type_str_2FECE* terrain, type_entity_0x30311* entity)//
 					{
 						event = pre_sub_4A190_axis_3d(temp_adress, &x_WORD_EB398ar);//(*(int(**)(int))((char *)&off_D697E + 14 * v4))((int)x_WORD_EB398ar);
 						if (event)
-						{
 							sub_49A30(event, entity->par1_14);
-						}
 					}
 					return;
 				}
@@ -42289,11 +42287,6 @@ int debugcounter22a8a0bb = 0;
 //----- (000498A0) --------------------------------------------------------
 void ApplyEvents_498A0()//22a8a0
 {
-	//temp fix
-	uint16_t width = screenWidth_18062C;
-	uint16_t height = screenHeight_180624;
-	//temp fix
-
 	bool runagain; // esi
 	int iy;
 	uint8_t v3; // ah
@@ -42321,7 +42314,7 @@ void ApplyEvents_498A0()//22a8a0
 							runagain = true;
 							if (v6->address_6 && v6->dword_10)
 							{
-								pre_sub_4A190_0x6E8E(v6->address_6, &D41A0_0.struct_0x6E8E[iy], width, height);
+								pre_sub_4A190_0x6E8E(v6->address_6, &D41A0_0.struct_0x6E8E[iy]);
 							}
 						}
 					}
@@ -42352,7 +42345,7 @@ void ApplyEvents_498A0()//22a8a0
 						runagain = true;
 						if (v5->address_6 && v5->dword_10)
 						{
-							pre_sub_4A190_0x6E8E(v5->address_6, &D41A0_0.struct_0x6E8E[iy], width, height);
+							pre_sub_4A190_0x6E8E(v5->address_6, &D41A0_0.struct_0x6E8E[iy]);
 						}
 						D41A0_0.struct_0x6E8E[iy].byte_0x3E_62++;
 						if (D41A0_0.struct_0x6E8E[iy].struct_byte_0xc_12_15.byte[1] & 4)
@@ -42365,7 +42358,7 @@ void ApplyEvents_498A0()//22a8a0
 						runagain = true;
 						if (v5->address_6 && v5->dword_10)
 						{
-							pre_sub_4A190_0x6E8E(v5->address_6, &D41A0_0.struct_0x6E8E[iy], width, height);
+							pre_sub_4A190_0x6E8E(v5->address_6, &D41A0_0.struct_0x6E8E[iy]);
 						}
 						D41A0_0.struct_0x6E8E[iy].byte_0x3E_62++;
 						if (D41A0_0.struct_0x6E8E[iy].struct_byte_0xc_12_15.byte[1] & 4)
@@ -42381,7 +42374,7 @@ void ApplyEvents_498A0()//22a8a0
 						runagain = true;
 						if (v5->address_6 && v5->dword_10)
 						{
-							pre_sub_4A190_0x6E8E(v5->address_6, &D41A0_0.struct_0x6E8E[iy], width, height);
+							pre_sub_4A190_0x6E8E(v5->address_6, &D41A0_0.struct_0x6E8E[iy]);
 						}
 						D41A0_0.struct_0x6E8E[iy].byte_0x3E_62++;
 						if (D41A0_0.struct_0x6E8E[iy].struct_byte_0xc_12_15.byte[1] & 4)
@@ -42402,7 +42395,7 @@ void ApplyEvents_498A0()//22a8a0
 						runagain = true;
 						if (v5->address_6 && v5->dword_10)
 						{
-							pre_sub_4A190_0x6E8E(v5->address_6, &D41A0_0.struct_0x6E8E[iy], width, height);
+							pre_sub_4A190_0x6E8E(v5->address_6, &D41A0_0.struct_0x6E8E[iy]);
 						}
 						D41A0_0.struct_0x6E8E[iy].byte_0x3E_62++;
 						if (D41A0_0.struct_0x6E8E[iy].struct_byte_0xc_12_15.byte[1] & 4)
@@ -42422,7 +42415,7 @@ void ApplyEvents_498A0()//22a8a0
 						runagain = true;
 						if (v5->address_6 && v5->dword_10)
 						{
-							pre_sub_4A190_0x6E8E(v5->address_6, &D41A0_0.struct_0x6E8E[iy], width, height);
+							pre_sub_4A190_0x6E8E(v5->address_6, &D41A0_0.struct_0x6E8E[iy]);
 						}
 						D41A0_0.struct_0x6E8E[iy].byte_0x3E_62++;
 						if (D41A0_0.struct_0x6E8E[iy].struct_byte_0xc_12_15.byte[1] & 4)
@@ -43715,7 +43708,7 @@ type_event_0x6E8E* pre_sub_4A190_axis_3d(uint32_t adress, axis_3d* a1_axis3d)//p
 	return 0;
 }
 
-void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E, uint16_t screenWidth, uint16_t screenHeight)//pre 22b190
+void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E)//pre 22b190
 {
 #ifndef RELEASE_GAME
 	test_pre_sub_4a190(adress);//for debug
@@ -44029,12 +44022,13 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E, uint16_t 
 	}
 	case 0x1fad60: {
 #ifdef TEST_x64
-	allert_error();
+		allert_error();
 #endif
 #ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+  		std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
-	SetSoundEffectAndMusicLevelCoordinates_19D60((int)a1_6E8E);
+		SetSoundEffectAndMusicLevelCoordinates_19D60((int)a1_6E8E);
+		allert_error();
 #endif
 		break;
 	}
@@ -44055,6 +44049,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E, uint16_t 
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
 		sub_1A070((int)a1_6E8E, 0);
+		allert_error();
 #endif
 		break;
 	}
@@ -44075,6 +44070,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E, uint16_t 
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
 		sub_1A5B0_getLangStrings((int)a1_6E8E, 0, 0);
+		allert_error();
 #endif
 		break;
 	}
@@ -44217,6 +44213,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E, uint16_t 
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
 		sub_loc_1B5BC((int)a1_6E8E);
+		allert_error();
 #endif
 		break;
 	}
@@ -45672,6 +45669,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E, uint16_t 
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
 		sub_33F70((int)a1_6E8E);
+		allert_error();
 #endif
 		break;
 	}
@@ -45812,6 +45810,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E, uint16_t 
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
 		sub_369F0((int)a1_6E8E);
+		allert_error();
 #endif
 		break;
 	}
@@ -45823,6 +45822,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E, uint16_t 
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
 		sub_36A50((int)a1_6E8E);
+		allert_error();
 #endif
 		break;
 	}
@@ -46221,6 +46221,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E, uint16_t 
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
 		sub_616D0((int)a1_6E8E);
+		allert_error();
 #endif
 		break;
 	}
@@ -46232,6 +46233,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E, uint16_t 
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
 		sub_61790((int)a1_6E8E);
+		allert_error();
 #endif
 		break;
 	}
@@ -46247,7 +46249,8 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E, uint16_t 
 #ifdef COMPILE_FOR_64BIT // FIXME: 64bit
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
-	DrawMinimapEntites_61880((int)a1_6E8E, 0, 0, 0, 0, 0, 0, 0);
+		DrawMinimapEntites_61880((int)a1_6E8E, 0, 0, 0, 0, 0, 0, 0);
+		allert_error();
 #endif
 		break;
 	}
@@ -46259,6 +46262,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E, uint16_t 
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
 		sub_61A00_draw_minimap_entites_b((int)a1_6E8E, 0, 0, 0, 0, 0, 0, 0);
+		allert_error();
 #endif
 		break;
 	}
@@ -46270,6 +46274,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E, uint16_t 
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
 		sub_627F0_draw_minimap_entites_a((int)a1_6E8E, 0, 0, 0, 0, 0, 0, 0);
+		allert_error();
 #endif
 		break;
 	}
@@ -46285,6 +46290,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E, uint16_t 
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
 		DrawMinimap_63600((int)a1_6E8E, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+		allert_error();
 #endif
 		break;
 	}
@@ -46297,6 +46303,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E, uint16_t 
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
 		sub_63670_draw_minimap_a((int)a1_6E8E, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+		allert_error();
 #endif
 		break;
 	}
@@ -46308,6 +46315,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E, uint16_t 
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
 		sub_63C90_draw_minimap_b((int)a1_6E8E, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+		allert_error();
 #endif
 		break;
 	}
@@ -46318,7 +46326,8 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E, uint16_t 
 #ifdef COMPILE_FOR_64BIT // FIXME: 64bit
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
-	DrawMinimapMarks_644F0((int)a1_6E8E, 0, 0, 0, 0, 0, 0, 0);
+		DrawMinimapMarks_644F0((int)a1_6E8E, 0, 0, 0, 0, 0, 0, 0);
+		allert_error();
 #endif
 		break;
 	}
@@ -47116,6 +47125,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E, uint16_t 
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
 		sub_6EA90((int)a1_6E8E, 0);
+		allert_error();
 #endif
 		break;
 	}
@@ -47127,6 +47137,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E, uint16_t 
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
 		sub_6EAB0((int)a1_6E8E, 0, 0);
+		allert_error();
 #endif
 		break;
 	}
@@ -47352,6 +47363,7 @@ type_event_0x6E8E* IfSubtypeCallAxisEvent_4A190(axis_3d* position, int type, int
 		return pre_sub_4A190_axis_3d(str_D4C48ar[type].dword_14[subtype].address_6, position);
 	return 0;
 }
+
 // D4C56: using guessed type int x_DWORD_D4C56;
 int debugcounter_0022B25D = 0;
 //----- (0004A1E0) --------------------------------------------------------
@@ -47375,9 +47387,17 @@ void sub_4A1E0(int a1, char a2)//22b1e0
 	sub_122C0(a1);//adress 22b257
 	for (int iy = 1; iy < 0x4b0; iy++)
 	{
+
+		/*if (debugcounter_0022B25D >= 0x55)
+		{
+			debugcounter_0022B25D++;
+			debugcounter_0022B25D--;
+		}
+		debugcounter_0022B25D++;*/
+
 		//adress 22b26e
 #ifdef DEBUG_SEQUENCES
-		//add_compare(0x22b268, debugafterload,0xc4);//0x9ac
+		//add_compare(0x22b268, debugafterload,0x54);//0x9ac
 #endif //DEBUG_SEQUENCES
 		if (D41A0_0.terrain_2FECE.entity_0x30311[iy].type_0x30311 && D41A0_0.terrain_2FECE.entity_0x30311[iy].DisId == a1)
 		{//adress 22b278
@@ -48874,7 +48894,7 @@ type_event_0x6E8E* sub_4CBF0(axis_3d* position)//22dbf0
 		v1x->xtype_0x41_65 = 3;
 		v1x->word_0x2C_44 = 0x2000;
 		v1x->byte_0x3E_62 = D41A0_0.array_0x10[v1x->subtype_0x40_64]++;
-		v1x->dword_0x4 = v1x->dword_0x90_144;
+		position->z = v1x->word_0x2C_44;
 		AddEventToMap_57D70(v1x, position);
 		CopyEventVar0408_49A20(v1x);
 		SetEntityIndexAndRot_49CD0(v1x, 289);
@@ -52155,17 +52175,16 @@ type_event_0x6E8E* sub_51A00(axis_3d* position)//232a00
 // EB398: using guessed type __int16 x_WORD_EB398;
 // EB39C: using guessed type __int16 x_WORD_EB398ar[2];
 
-int debugcounter6 = 0;
 int debugcounter_233d56 = 0;
 //----- (00051BB0) --------------------------------------------------------
 void GameEvents_51BB0()//232bb0
 {
 	char v1; // al
 	//uint8_t* v2; // ecx
-	unsigned __int16 v3; // dx
+	//unsigned __int16 v3; // dx
 	//uint8_t* v4; // ebx
 	int v2x;
-	int v4x;
+	//int v4x;
 	char* v5; // esi
 	char* v6; // edi
 	//char v7; // al
@@ -52177,8 +52196,8 @@ void GameEvents_51BB0()//232bb0
 	//char v13; // dl
 	//char v14; // bl
 	signed __int16 v15; // bx
-	char v16; // cl
-	int v17; // eax
+	//char v16; // cl
+	//int v17; // eax
 	//uint8_t* v18; // ebx
 	int v18x;
 	//type_str_0x6E8E* v18x; // ebx
@@ -52297,95 +52316,72 @@ void GameEvents_51BB0()//232bb0
 	if (x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 0x10)
 	{
 		NetworkUpdateConnections2_74374();
-		ReceiveSendAll_7438A((uint8_t*)D41A0_0.array_0x6E3E, 0xAu);
+		ReceiveSendAll_7438A((uint8_t*)D41A0_0.array_0x6E3E, sizeof(type_str_0x6E3E));//multi receive
 		v1 = 0;
 		//v2 = D41A0_BYTESTR_0.array_0x6E3E[D41A0_BYTESTR_0.word_0xc];
 		v2x = 0;
-		v3 = 0;
+		//v3 = 0;
 		//v4 = x_D41A0_BYTEARRAY_0 + 11230;
-		v4x = 0;
+		//v4x = 0;
 		while (1)
 		{
 			//v9 = (int)x_D41A0_BYTEARRAY_0;
-			if (v3 >= D41A0_0.word_0xe)
+			if (v2x >= D41A0_0.word_0xe)
 				break;
 			if (D41A0_0.array_0x6E3E[v2x].str_0x6E3E_byte0 == 1)
 			{
-				D41A0_0.array_0x2BDE[v4x].byte_0x006_2BE4_11236 = 1;
-				if (v3 == D41A0_0.LevelIndex_0xc && (x_D41A0_BYTEARRAY_4_struct.player_name_57ar))
+				D41A0_0.array_0x2BDE[v2x].byte_0x006_2BE4_11236 = 1;
+				if (v2x == D41A0_0.LevelIndex_0xc && (x_D41A0_BYTEARRAY_4_struct.player_name_57ar[0]))
 				{
 					v5 = (x_D41A0_BYTEARRAY_4_struct.player_name_57ar);
-					v6 = D41A0_0.array_0x2BDE[v4x].array_0x39f_2BFA_12157;//wizard name
-					strcpy(v6, v5);
-					/*do
-					{
-						v7 = *v5;
-						*v6 = *v5;
-						if (!v7)
-							break;
-						v8 = v5[1];
-						v5 += 2;
-						v6[1] = v8;
-						v6 += 2;
-					} while (v8);*/
-					//a1 = v4 + 927;//wizard name
+					v6 = D41A0_0.array_0x2BDE[v2x].array_0x39f_2BFA_12157;//wizard name
+					strcpy(v6, v5); //copy wizard name
 				}
 				v1 = 1;
 			}
-			//v2 += 10;
 			v2x++;
-			//v4 += 2124;
-			v4x++;
-			v3++;
 		}
 		if (v1)
-			ReceiveSendAll_7438A((uint8_t*)D41A0_0.array_0x2BDE, 0x84Cu);
+			ReceiveSendAll_7438A((uint8_t*)D41A0_0.array_0x2BDE, sizeof(type_str_0x2BDE));
 	}
-	//v10 = 2124 * D41A0_BYTESTR_0.word_0xc + x_D41A0_BYTEARRAY_0;
-	//v11 = (int)x_D41A0_BYTEARRAY_4;
 	D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x012_2BE0_11248++;
-	//v12 = x_D41A0_BYTEARRAY_4_struct.setting_30;
 	x_D41A0_BYTEARRAY_4_struct.byteindex_26++;//232c9e
-	//v13 = x_D41A0_BYTEARRAY_4_struct.byteindex_38400;
 	x_D41A0_BYTEARRAY_4_struct.setting_30++;// = v12 + 1;
 	if (x_D41A0_BYTEARRAY_4_struct.byteindex_38400)
 		x_D41A0_BYTEARRAY_4_struct.byteindex_38400--;
-	//v14 = x_D41A0_BYTEARRAY_4_struct.byteindex_38401;
 	if (x_D41A0_BYTEARRAY_4_struct.byteindex_38401)
 		x_D41A0_BYTEARRAY_4_struct.byteindex_38401--;
 	//adress 232cd2
-	v15 = 1;
-	while (v15 < 16)
+	for (v15 = 1; v15 < 16; v15++)
 	{
-		v16 = D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x012_2BE0_11248 / (unsigned int)v15 & 1;
-		v17 = v15++;
-		x_D41A0_BYTEARRAY_4_struct.byteindex_121[v17] = v16;//fix it - find size of this array
+		x_D41A0_BYTEARRAY_4_struct.byteindex_121[v15] = D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x012_2BE0_11248 / v15 & 1;
 	}
-	//v114 = D41A0_BYTESTR_0.array_0x6E3E[D41A0_BYTESTR_0.word_0xc];
 	v114x = 0;
-	//v18 = x_D41A0_BYTEARRAY_0 + 11230;
 	v18x = 0;
 	v116 = 0;
 	while (1)
 	{
 		//adress 233d56
 #ifdef DEBUG_SEQUENCES
-		add_compare(0x233d56, debugafterload);
+		if (debugcounter_233d56 >= 0x365)
+		{
+			debugcounter_233d56++;
+			debugcounter_233d56--;
+		}
+		debugcounter_233d56++;
+		//add_compare(0x233d56, debugafterload,0x365);
 #endif //DEBUG_SEQUENCES
 
-		//index = (int)x_D41A0_BYTEARRAY_0;
 		if ((unsigned __int16)v116 >= D41A0_0.word_0xe)
 			return;
 		v113x = x_DWORD_EA3E4[D41A0_0.array_0x2BDE[v18x].word_0x00a_2BE4_11240];
 		if (x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 0x20)
 		{
-			//a1 = v114;
 			sub_53A40(&D41A0_0.array_0x6E3E[v114x]);
 		}
 		switch (D41A0_0.array_0x6E3E[v114x].str_0x6E3E_byte0)
 		{
 		case 1:
-			//v19 = (int)x_D41A0_BYTEARRAY_4;
 			D41A0_0.array_0x2BDE[v18x].byte_0x006_2BE4_11236 = 1;
 			if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 0x10)
 				&& (unsigned __int16)v116 == D41A0_0.LevelIndex_0xc
@@ -52393,19 +52389,7 @@ void GameEvents_51BB0()//232bb0
 			{
 				v20 = x_D41A0_BYTEARRAY_4_struct.player_name_57ar;
 				v21 = D41A0_0.array_0x2BDE[v18x].array_0x39f_2BFA_12157;//wizard name
-				strcpy(v21, v20);
-				/*do
-				{
-					v22 = *v20;
-					*v21 = *v20;
-					if (!v22)
-						break;
-					v23 = v20[1];
-					v20 += 2;
-					v21[1] = v23;
-					v21 += 2;
-				} while (v23);*/
-				//a1 = v18 + 927;//wizard name
+				strcpy(v21, v20);//wizard name
 			}
 			goto LABEL_33;
 		case 2:
@@ -52465,7 +52449,6 @@ void GameEvents_51BB0()//232bb0
 				SetMousePositionByRes_6EDB0();
 			}
 			sub_52E90(&D41A0_0.array_0x2BDE[v18x], 3, 1);
-			//v34 = x_D41A0_BYTEARRAY_0;
 			D41A0_0.array_0x2BDE[v18x].byte_0x3E2_2BE4_12224 = 0;
 			if ((unsigned __int16)v116 == D41A0_0.LevelIndex_0xc)
 			{
@@ -52479,19 +52462,16 @@ void GameEvents_51BB0()//232bb0
 			{
 				v37 = D41A0_0.array_0x2BDE[v18x].names_81[D41A0_0.array_0x2BDE[v18x].byte_0x3E0_2BE4_12222];
 				v38 = strlen(v37) + 1;
-				//a1 = (uint8_t*)&v37[v38];
 				if (v38 != 1)
 				{
 					D41A0_0.array_0x2BDE[v18x].byte_0x3E2_2BE4_12224--;
 					D41A0_0.array_0x2BDE[v18x].names_81[D41A0_0.array_0x2BDE[v18x].byte_0x3E0_2BE4_12222][v38 - 2] = 0;
-					//*(x_BYTE *)(v38 - 1 + v18 + 48 * D41A0_BYTESTR_0.array_0x2BDE[v18x].byte_0x3E0_2BE4_12222 + 80) = 0;
 				}
 			}
 			else if (v36)
 			{
 				v39 = D41A0_0.array_0x2BDE[v18x].names_81[D41A0_0.array_0x2BDE[v18x].byte_0x3E0_2BE4_12222];
 				v40 = strlen(v39) + 1;
-				//a1 = (uint8_t*)&v39[v40];
 				if (v40 - 1 < 0x2B)
 				{
 					if (!D41A0_0.array_0x2BDE[v18x].byte_0x3E2_2BE4_12224)
@@ -52502,18 +52482,6 @@ void GameEvents_51BB0()//232bb0
 					v106 = D41A0_0.array_0x2BDE[v18x].names_81[D41A0_0.array_0x2BDE[v18x].byte_0x3E0_2BE4_12222];
 					v42 = (char*)&v106[strlen(v106)];
 					strcpy(v42, v41);
-					/*do
-					{
-						v43 = *v41;
-						*v42 = *v41;
-						if (!v43)
-							break;
-						v44 = v41[1];
-						v41 += 2;
-						v42[1] = v44;
-						v42 += 2;
-					} while (v44);*/
-					//a1 = (uint8_t*)v106;
 				}
 			}
 			goto LABEL_215;
@@ -52536,7 +52504,6 @@ void GameEvents_51BB0()//232bb0
 				case 0xC:
 				case 0xD:
 				case 0xE:
-					//v56 = (int)v114;
 					D41A0_0.array_0x6E3E[v114x].roll = 0;
 					D41A0_0.array_0x6E3E[v114x].pitch = 0;
 					SetMousePositionByRes_6EDB0();
@@ -52552,9 +52519,8 @@ void GameEvents_51BB0()//232bb0
 			{
 				for (i = 0; i < 26; i++)
 				{
-					//v58 = i + v113x->dword_0xA4_164;
 					if (v113x->dword_0xA4_164x->str_611.array_0x39B_923x.byte[i] == D41A0_0.array_0x6E3E[v114x].str_0x6E3E_byte2)
-						v113x->dword_0xA4_164x->str_611.array_0x39B_923x.byte[i] = -1;
+						v113x->dword_0xA4_164x->str_611.array_0x39B_923x.byte[i] = 0xff;
 				}
 				v113x->dword_0xA4_164x->str_611.array_0x39B_923x.byte[D41A0_0.array_0x6E3E[v114x].str_0x6E3E_byte1] = D41A0_0.array_0x6E3E[v114x].str_0x6E3E_byte2;
 				PrepareEventSound_6E450(0, D41A0_0.array_0x2BDE[v18x].word_0x007_2BE4_11237, 14);
@@ -52563,10 +52529,8 @@ void GameEvents_51BB0()//232bb0
 		case 0x19:
 		case 0x1A:
 			v59 = 0;
-			//for (j = x_D41A0_BYTEARRAY_0; v59 < *(x_WORD *)(x_D41A0_BYTEARRAY_0 + 14); j = x_D41A0_BYTEARRAY_0)
 			for (; v59 < D41A0_0.word_0xe;)
 			{
-				//v61 = D41A0_BYTESTR_0.array_0x2BDE[v59]; // 2124 * v59 + j;
 				if (D41A0_0.array_0x2BDE[v59].byte_0x006_2BE4_11236)
 				{
 					D41A0_0.array_0x2BDE[v59].byte_0x004_2BE0_11234 = 1;
@@ -52591,28 +52555,14 @@ void GameEvents_51BB0()//232bb0
 			v26 = x_DWORD_E9C4C_langindexbuffer[283];//has been banished from the realm.
 			v27 = D41A0_0.array_0x2BDE[v18x].array_0x01c_2BFA_11258;
 			strcpy(v27, v26);
-			/*do
-			{
-				v28 = *v26;
-				*v27 = *v26;
-				if (!v28)
-					break;
-				v29 = v26[1];
-				v26 += 2;
-				v27[1] = v29;
-				v27 += 2;
-			} while (v29);*/
-			//HIWORD(a1) = (unsigned int)(v18 + 28) >> 16;
 			D41A0_0.array_0x2BDE[v18x].word_0x04f_2C2D_11309 = 1;
 			v30 = v116;
 			D41A0_0.array_0x2BDE[v18x].word_0x04d_2C2B_11307 = 100;
 			D41A0_0.array_0x2BDE[v18x].dw_w_b_0_2BDE_11230.word[1] = 8;
 			sub_7373D(v30);
-			//v31 = (int)x_D41A0_BYTEARRAY_4;
 			D41A0_0.array_0x2BDE[v18x].byte_0x006_2BE4_11236 = 0;
 			if (x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 0x10)
 				sub_5E660(v113x);
-			//LOWORD(a1) = x_D41A0_BYTEARRAY_4_struct.levelnumber_43;
 			x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 &= 0xD9u;
 			if (x_D41A0_BYTEARRAY_4_struct.levelnumber_43w > 24)
 				D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dw_w_b_0_2BDE_11230.byte[2] |= 0x10u;
@@ -52628,7 +52578,6 @@ void GameEvents_51BB0()//232bb0
 				v68x = IfSubtypeCallAxisEvent_4A190(&v113x->axis_0x4C_76, 10, 39);
 				if (v68x)
 				{
-					//v69 = x_D41A0_BYTEARRAY_0;
 					v68x->dword_0x90_144 = 100000;
 					v68x->word_0x94_148 = v113x - D41A0_0.struct_0x6E8E;
 				}
@@ -52640,7 +52589,6 @@ void GameEvents_51BB0()//232bb0
 				{
 					if (kx->word_0x1A_26 != v113x->word_0x1A_26)
 					{
-						//v71 = kx->byte_0x40_64;
 						if (!kx->subtype_0x40_64 || kx->subtype_0x40_64 == 1)
 							kx->dword_0x8 = -1;
 					}
@@ -52682,7 +52630,6 @@ void GameEvents_51BB0()//232bb0
 				sub_52D70(v116, (char*)".. CHEAT: More Spell Experience Points");
 				goto LABEL_215;
 			case 9:
-				//v76 = x_D41A0_BYTEARRAY_4_struct.setting_byte3_24;
 				if (x_D41A0_BYTEARRAY_4_struct.setting_byte3_24 & 0x20)
 				{
 					x_D41A0_BYTEARRAY_4_struct.setting_byte3_24 &= 0xDF;
@@ -52695,7 +52642,6 @@ void GameEvents_51BB0()//232bb0
 				}
 				goto LABEL_215;
 			case 0xA:
-				//v77 = x_D41A0_BYTEARRAY_4_struct.setting_byte4_25;
 				if (x_D41A0_BYTEARRAY_4_struct.setting_byte4_25 & 1)
 					x_D41A0_BYTEARRAY_4_struct.setting_byte4_25 &= 0xFE;
 				else
@@ -52722,48 +52668,30 @@ void GameEvents_51BB0()//232bb0
 				{
 					if (D41A0_0.array_0x6E3E[v114x].str_0x6E3E_byte0 <= 0x1Fu)
 					{
-						//v80 = (int)v114;
 						v79x->word_0x451_1105 = v78;
 						v79x->byte_0x455_1109 = D41A0_0.array_0x6E3E[v114x].str_0x6E3E_byte2;
 						x_D41A0_BYTEARRAY_4_struct.byteindex_38400 = 8;
 					}
 					else if (D41A0_0.array_0x6E3E[v114x].str_0x6E3E_byte0 == 32)
 					{
-						//v81 = (int)v114;
 						v79x->word_0x453_1107 = v78;
 						v79x->byte_0x456_1110 = D41A0_0.array_0x6E3E[v114x].str_0x6E3E_byte2;
 						x_D41A0_BYTEARRAY_4_struct.byteindex_38401 = 8;
 					}
 				}
 				v82 = v78;
-				//a1 = x_DWORD_EA3E4[*(signed __int16 *)(v79 + 2 * v78 + 208)];
 				SetSpell_6D5E0(x_DWORD_EA3E4[v79x->array_0x333_819x.word[v78]], D41A0_0.array_0x6E3E[v114x].str_0x6E3E_byte2);
 				sub_6D830(x_DWORD_EA3E4[v79x->array_0x333_819x.word[v78]], D41A0_0.array_0x6E3E[v114x].str_0x6E3E_byte2);
 				if ((unsigned __int16)v116 == D41A0_0.LevelIndex_0xc)
 				{
 					v83 = D41A0_0.array_0x2BDE[v18x].array_0x01c_2BFA_11258;
-					//v84 = x_DWORD_E9C4C_langindexbuffer[*(int16_t*)& SPELLS_BEGIN_BUFFER_DA818[0x16+2*40 * v82] + /*2*13 * */D41A0_BYTESTR_0.array_0x6E3E[v114x].str_0x6E3E_byte2];
 					v84 = x_DWORD_E9C4C_langindexbuffer[SPELLS_BEGIN_BUFFER_str[v82].subspell[D41A0_0.array_0x6E3E[v114x].str_0x6E3E_byte2].word_0x16x];
 					strcpy(v83, v84);
-					/*do
-					{
-						v85 = v84[0];
-						v83[0] = v84[0];
-						if (!v85)
-							break;
-						v83[1] = v84[1];
-						v84 += 2;
-						//v83[1] = v86;
-						v83 += 2;
-					} while (v86);*/
-
-					//a1 = v18 + 28;
 					D41A0_0.array_0x2BDE[v18x].word_0x04d_2C2B_11307 = 20;
 					D41A0_0.array_0x2BDE[v18x].word_0x04f_2C2D_11309 = 3;
 				}
 				if (x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 4)
 				{
-					//v87 = D41A0_BYTESTR_0.word_0xc;
 					if ((unsigned __int16)v116 == D41A0_0.LevelIndex_0xc)
 					{
 						sub_6D200(&D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc]);
@@ -52789,7 +52717,6 @@ void GameEvents_51BB0()//232bb0
 			PrepareEventSound_6E450(0, D41A0_0.array_0x2BDE[v18x].word_0x007_2BE4_11237, 14);
 			goto LABEL_215;
 		case 0x27:
-			//v94 = (int)v114;
 			D41A0_0.array_0x6E3E[v114x].roll = 0;
 			v95 = D41A0_0.array_0x6E3E[v114x].str_0x6E3E_byte1;
 			D41A0_0.array_0x6E3E[v114x].pitch = 0;
@@ -52798,7 +52725,6 @@ void GameEvents_51BB0()//232bb0
 				v96x = v113x;
 				v113x->word_0x82_130 = 0;
 				v96x->dword_0xA4_164x->word_0xc_12 = 0;
-				//LOWORD(a1) = *(x_WORD *)(*(x_DWORD *)(v113 + 164) + 825);
 				if (v113x->dword_0xA4_164x->str_611.array_0x333_819x.word[3])
 					x_DWORD_EA3E4[v113x->dword_0xA4_164x->str_611.array_0x333_819x.word[3]]->word_0x2E_46 = 0;
 			}
@@ -52808,10 +52734,8 @@ void GameEvents_51BB0()//232bb0
 		case 0x28:
 			if (x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 4)
 			{
-				//v88 = v113x->dword_0xA4_164;
 				v113x->dword_0xA4_164x->str_611.byte_0x458_1112 = D41A0_0.array_0x6E3E[v114x].str_0x6E3E_byte1;
 				v113x->dword_0xA4_164x->str_611.byte_0x457_1111 = D41A0_0.array_0x6E3E[v114x].str_0x6E3E_byte2;
-				//v89 = D41A0_BYTESTR_0.word_0xc;
 				if ((unsigned __int16)v116 == D41A0_0.LevelIndex_0xc)
 				{
 					sub_6D200(&D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc]);
@@ -52822,12 +52746,9 @@ void GameEvents_51BB0()//232bb0
 		case 0x29:
 			if (x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 4)
 			{
-				//v90 = v113x->dword_0xA4_164;
 				v91 = x_BYTE_D94FF_spell_index[v113x->dword_0xA4_164x->str_611.byte_0x458_1112];
-				//v90 += 611;
 				v113x->dword_0xA4_164x->str_611.byte_0x459_1113 = D41A0_0.array_0x6E3E[v114x].str_0x6E3E_byte1;
 				v113x->dword_0xA4_164x->str_611.array_0x437_1079x.byte[v91] = D41A0_0.array_0x6E3E[v114x].str_0x6E3E_byte1;
-				//v92 = D41A0_BYTESTR_0.word_0xc;
 				if ((unsigned __int16)v116 == D41A0_0.LevelIndex_0xc)
 				{
 					sub_6D200(&D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc]);
@@ -52836,8 +52757,6 @@ void GameEvents_51BB0()//232bb0
 			}
 			goto LABEL_215;
 		case 0x2A:
-			//v97 = v113x->dword_0xA4_164;
-			//a1 = x_DWORD_EA3E4[0];
 			v98x = x_DWORD_EA3E4[v113x->dword_0xA4_164x->word_0x3A_58];
 			if (v98x > x_DWORD_EA3E4[0])
 			{
@@ -52852,18 +52771,6 @@ void GameEvents_51BB0()//232bb0
 			v45 = printbuffer;
 			v46 = D41A0_0.array_0x2BDE[v18x].names_81[D41A0_0.array_0x2BDE[v18x].byte_0x3E0_2BE4_12222];
 			strcpy(v45, v46);
-			/*do
-			{
-				v47 = *v46;
-				*v45 = *v46;
-				if (!v47)
-					break;
-				v48 = v46[1];
-				v46 += 2;
-				v45[1] = v48;
-				v45 += 2;
-			} while (v48);*/
-			//a1 = (uint8_t*)printbuffer;
 			v118 = 0;
 			if (printbuffer[0])
 			{
@@ -52880,7 +52787,6 @@ void GameEvents_51BB0()//232bb0
 				else
 				{
 					v117 = 0;
-					//v49 = D41A0_BYTESTR_0.word_0xc;
 					if ((unsigned __int16)v116 == D41A0_0.LevelIndex_0xc)
 					{
 					LABEL_98:
@@ -52888,14 +52794,12 @@ void GameEvents_51BB0()//232bb0
 					}
 					else
 					{
-						//v50 = 2124 * D41A0_BYTESTR_0.word_0xc + x_D41A0_BYTEARRAY_0;
 						switch (D41A0_0.array_0x2BDE[v18x].byte_0x3E1_2BE4_12223)
 						{
 						case 0:
 							v51 = sub_61810(v113x, x_DWORD_EA3E4[D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].word_0x00a_2BE4_11240]) == 0;
 							goto LABEL_97;
 						case 1:
-							//a1 = v113;
 							v51 = sub_61620(v113x, x_DWORD_EA3E4[D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].word_0x00a_2BE4_11240]) == 0;
 						LABEL_97:
 							if (!v51)
@@ -52916,18 +52820,6 @@ void GameEvents_51BB0()//232bb0
 						v52 = printbuffer;
 						v53 = D41A0_0.array_0x2BDE[v18x].array_0x01c_2BFA_11258;
 						strcpy(v53, v52);
-						/*do
-						{
-							v54 = *v52;
-							*v53 = *v52;
-							if (!v54)
-								break;
-							v55 = v52[1];
-							v52 += 2;
-							v53[1] = v55;
-							v53 += 2;
-						} while (v55);*/
-						//a1 = v18 + 28;
 						D41A0_0.array_0x2BDE[v18x].word_0x04d_2C2B_11307 = 200;
 						D41A0_0.array_0x2BDE[v18x].word_0x04f_2C2D_11309 = 2;
 					}
@@ -52951,8 +52843,6 @@ void GameEvents_51BB0()//232bb0
 			{
 				//adress 23354c
 				v63x = pre_sub_4A190_axis_3d(0x2321a0 + 14 * v112, &v113x->axis_0x4C_76);//v63 = (uint8_t*)(*(int(**)(uint8_t*))((char *)&off_D781E + 14 * v112))(v113 + 76);
-				//v14 = pre_sub_4A190(v8x, (uint8_t*)x_WORD_EB398ar); //(*(int(**)(int))((char *)&off_D7B7A + 14 * v13))((int)x_WORD_EB398ar);
-
 				if (v63x)
 				{
 					v63x->struct_byte_0xc_12_15.byte[0] |= 1u;
@@ -52962,7 +52852,6 @@ void GameEvents_51BB0()//232bb0
 					v113x->dword_0xA4_164x->str_611.array_0x333_819x.word[v62] = v63x - D41A0_0.struct_0x6E8E;
 					for (n = 0; n < 10; ++n)
 					{
-						//v66 = v113x->dword_0xA4_164 + n;
 						if (v113x->dword_0xA4_164x->str_611.array_0x39B_923x.byte[n] == -1)
 						{
 							v113x->dword_0xA4_164x->str_611.array_0x39B_923x.byte[n] = v112;
@@ -52980,26 +52869,10 @@ void GameEvents_51BB0()//232bb0
 		}
 		sub_52D70(v116, (char*)".. CHEAT: access all spells");
 	LABEL_215://233c76
-		//v99 = v113x->dword_0xA4_164;
 		v100x = 2 * D41A0_0.array_0x6E3E[v114x].roll - v113x->dword_0xA4_164x->word_0x155_341;
-
-		//v113x->dword_0xA4_164x->word_0x4_4 = (signed int)(v100x - my_sign(v100x)) >> 2;
-		//int cftemp = 0;
-		//if ((v100x >> 30) & 1)cftemp = 1;
-		//v113x->dword_0xA4_164x->word_0x4_4 = ((v100x - ((v100x>>31) << 2)) - cftemp) >> 2;
 		v113x->dword_0xA4_164x->word_0x4_4 = (v100x - (my_sign32(v100x) << 2) + my_sign32(v100x)) >> 2;
-
-		//v113x->dword_0xA4_164x->word_0x4_4 = (signed int)(v100 - (__CFSHL__(HIDWORD(v100), 2) + 4 * HIDWORD(v100))) >> 2;
-		//v101 = v113x->dword_0xA4_164;
 		v102x = 2 * D41A0_0.array_0x6E3E[v114x].pitch - v113x->dword_0xA4_164x->word_0x157_343;
-		//v102x = (signed int)(v102x - my_sign(v102x)) >> 2;
-		//cftemp = 0;
-		//if ((v102x >> 30) & 1)cftemp = 1;
-		//v102x = ((v102x - ((v102x >> 31) << 2)) - cftemp) >> 2;
 		v102x = (v102x - (my_sign32(v102x) << 2) + my_sign32(v102x)) >> 2;
-		//LODWORD(v102) = (signed int)(v102 - (__CFSHL__(HIDWORD(v102), 2) + 4 * HIDWORD(v102))) >> 2;
-
-		//HIDWORD(v102) = (int)v114;
 		v113x->dword_0xA4_164x->word_0x6_6 = v102x;//fix - test it
 		v113x->dword_0xA4_164x->dword_0x0_0 = D41A0_0.array_0x6E3E[v114x].str_0x6E3E_byte5;
 		v113x->dword_0xA4_164x->word_0x18_24_next_entity = D41A0_0.array_0x6E3E[v114x].str_0x6E3E_word6;
@@ -53008,27 +52881,13 @@ void GameEvents_51BB0()//232bb0
 		sub_57B20(&D41A0_0.array_0x2BDE[v18x], v103x);
 		if (D41A0_0.array_0x2BDE[v18x].byte_0x846_2BDE)
 			sub_55C60(/*(int)a1, (int)v103,*/ &D41A0_0.array_0x2BDE[v18x]);
-		//a1 = v114;
-		//v18 += 2124;
 		v18x++;
 		v104 = v116 + 1;
 		memset(&D41A0_0.array_0x6E3E[v114x], 0, 10);
 		v116 = v104;
-		//v114 += 10;
 		v114x++;
 	}
 }
-// 8C250: using guessed type x_DWORD memset(x_DWORD, x_DWORD, x_DWORD);
-// 8E3D5: using guessed type x_DWORD sprintf(x_DWORD, const char *, ...);
-// 98805: using guessed type x_DWORD x_toupper(x_DWORD);
-// D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
-// D41A4: using guessed type int x_DWORD_D41A4;
-// D781E: using guessed type int (*off_D781E)(int);
-// DA82E: using guessed type __int16 x_WORD_DA82E[];
-// EA0B8: using guessed type int x_DWORD_EA0B8;
-// EA3E4: using guessed type int x_DWORD_EA3E4[];
-// EA3E8: using guessed type int x_DWORD_EA3E8;
-// EB384: using guessed type int x_DWORD_EB384;
 
 //----- (00052D70) --------------------------------------------------------
 void sub_52D70(unsigned __int16 a1, char* a2)//233d70
@@ -53059,13 +52918,9 @@ void sub_52D70(unsigned __int16 a1, char* a2)//233d70
 }
 // D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
 
-void sub_52E90(type_str_0x2BDE* a1x, signed int a2, char a3)
+//----- (00052E90) --------------------------------------------------------
+void sub_52E90(type_str_0x2BDE* a1x, signed int a2, char a3)//233e90
 {
-	//temp fix
-	uint16_t screenWidth = screenWidth_18062C;
-	uint16_t screenHeight = screenHeight_180624;
-	//temp fix
-
 	//int v3; // edx
 	unsigned __int16 v4; // ax
 	__int16 v5; // ax
@@ -53205,14 +53060,10 @@ LABEL_40:
 	case 0xB:
 	case 0xC:
 	case 0xE:
-		if (x_WORD_180660_VGA_type_resolution == 1)
-		{
-			SetViewPortScreenCoordinates_2CA60(384, 0, 256, 400);
-		}
+		if (!DefaultResolutions())
+			SetViewPortScreenCoordinates_2CA60(384, 0, screenWidth_18062C - 384, screenHeight_180624 - 80);
 		else
-		{
-			SetViewPortScreenCoordinates_2CA60(384, 0, screenWidth - 384, screenHeight - 80);
-		}
+			SetViewPortScreenCoordinates_2CA60(384, 0, 256, 400);
 		break;
 	default:
 		ResizeViewPort_2CA90(D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize);
@@ -53222,11 +53073,6 @@ LABEL_40:
 		PrepareEventSound_6E450(0, a1x->word_0x007_2BE4_11237, 14);
 	sub_53120();
 }
-// D419E: using guessed type char x_BYTE_D419E;
-// D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
-// D41A4: using guessed type int x_DWORD_D41A4;
-// EB394: using guessed type int **filearray_2aa18c[0];
-// 1805C2: using guessed type __int16 x_WORD_1805C2_joystick;
 
 //----- (00053120) --------------------------------------------------------
 void sub_53120()//234120
@@ -53249,8 +53095,6 @@ void sub_53120()//234120
 	}
 	//return v0;
 }
-// D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
-// D41A4: using guessed type int x_DWORD_D41A4;
 
 int debugcounter_234160 = 0;
 //----- (00053160) --------------------------------------------------------
@@ -53469,7 +53313,7 @@ char sub_533B0_decompress_levels(__int16 a1, type_str_2FECE* a2x)//2343b0
 								allert_error();*/
 						Convert_from_shadow_str_2FECE(&shadow_2FECE, &D41A0_0.terrain_2FECE);
 					}
-					fclose;
+					fclose(file);
 				}
 		#endif //LOAD_EDITED_LEVEL
 		//if exist editor generated level
@@ -53723,7 +53567,7 @@ uint8_t sub_53D10_create_nether_subdir(uint8_t* a1, uint8_t* a2, uint8_t* a3)//2
 	//printbuffer -char v16; // [esp+0h] [ebp-12h]
 	//char_355198 -
 	char v17[144]; // [esp+90h] [ebp+7Eh]
-	char v18; // [esp+120h] [ebp+10Eh] //fix it - minimal space or space struct
+	//char v18; // [esp+120h] [ebp+10Eh] //fix it - minimal space or space struct
 
 #ifdef DEBUG_MKDIR
 	debug_printf("sub_53D10:Begin\n");
@@ -53912,13 +53756,6 @@ char LoadFilesFromCDAndGameData(char* cdPath, char* gamePath, char* fileName)//2
 	memset(readbuffer, 0, 64000);
 	return 0;
 }
-// 8C250: using guessed type x_DWORD memset(x_DWORD, x_DWORD, x_DWORD);
-// 8E3D5: using guessed type x_DWORD sprintf(x_DWORD, const char *, ...);
-// 988DA: using guessed type x_DWORD filelength(x_DWORD);
-// BD985: using guessed type x_DWORD settextposition(x_DWORD, x_DWORD);
-// BDBED: using guessed type x_DWORD outtext(x_DWORD);
-// F4720: using guessed type int x_DWORD_F4720;
-// 180628: using guessed type int pdwScreenBuffer_351628;
 
 //----- (00054200) --------------------------------------------------------
 char sub_54200_create_user_directiores()//235200
@@ -54231,17 +54068,9 @@ void sub_54800_read_and_decompress_tables(MapType_t a1)//235800
 //----- (000548B0) --------------------------------------------------------
 void sub_548B0(type_str_0x2BDE* a1x)//2358b0
 {
-	//temp fix
-	uint16_t screenWidth = screenWidth_18062C;
-	//temp fix
-
-	//__int16 result; // ax
-	//result = a1x->word_0x007_2BE4_11237;
 	if (a1x->word_0x007_2BE4_11237 == D41A0_0.LevelIndex_0xc)
 		SetMousePositionInMemory_5BDC0(a1x->dword_0x3E6_2BE4_12228.position_backup_20.x, a1x->dword_0x3E6_2BE4_12228.position_backup_20.y);
-	//return result;
 }
-// D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
 
 //----- (000548F0) --------------------------------------------------------
 void sub_548F0(type_str_0x2BDE* a1x)//2358f0
@@ -57050,7 +56879,7 @@ void UpdateEntities_57730()//238730
 #endif //DEBUG_SEQUENCES2
 
 						//adress 238a8a zacina na 35cf6e 363bb6 =6c48/168=165=a5
-						pre_sub_4A190_0x6E8E(str_D4C48ar[mx->type_0x3F_63].dword_10[mx->byte_0x45_69].address_6, mx, width, height);
+						pre_sub_4A190_0x6E8E(str_D4C48ar[mx->type_0x3F_63].dword_10[mx->byte_0x45_69].address_6, mx);
 						mx->byte_0x3E_62++;
 					}
 				}

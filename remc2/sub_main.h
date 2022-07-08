@@ -576,7 +576,7 @@ void CreateIndexes_6EB90(filearray_struct* a1);
 //type_str_0x6E8E* pre_sub_4A190(uint32_t adress, int16_t* a1,int type);
 type_event_0x6E8E* pre_sub_4A190_axis_3d(uint32_t adress, axis_3d* a1);//pre 22b190
 
-void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1, uint16_t screenWidth, uint16_t screenHeight);//pre 22b190
+void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1);//pre 22b190
 
 //---------------------------
 
