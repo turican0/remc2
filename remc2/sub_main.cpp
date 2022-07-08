@@ -15861,7 +15861,7 @@ signed int sub_1D1A0(type_event_0x6E8E* a1x, type_event_0x6E8E* a2x)//1fe1a0
 		v4x->byte_0x44_68 = 66;
 		v4x->word_0x1A_26 = a1x->word_0x1A_26;
 		v4x->word_0x1C_28 = Maths::sub_581E0_maybe_tan2(v2, &a2x->axis_0x4C_76);
-		///*v6 = */sub_58210_radix_tan(v2, &a2x->array_0x4C_76);
+		///*v6 = */Maths::sub_58210_radix_tan(v2, &a2x->array_0x4C_76);
 		v7 = v5x->axis_0x4C_76.z;
 		v5x->word_0x1E_30 = Maths::sub_58210_radix_tan(v2, &a2x->axis_0x4C_76);
 		v5x->axis_0x4C_76.z = v7 + 128;
@@ -16576,7 +16576,7 @@ void sub_1E320(type_event_0x6E8E* a1x)//1ff320
 	v1x = x_DWORD_EA3E4[a1x->word_0x96_150];
 	if (v1x <= x_DWORD_EA3E4[0] || v1x->dword_0x8 < 0 || v1x->struct_byte_0xc_12_15.byte[1] & 4)
 		goto LABEL_14;
-	//LOWORD(v1) = sub_581E0_maybe_tan2((uint16_t*)(a1 + 76), (uint16_t*)(v1 + 76));
+	//LOWORD(v1) = Maths::sub_581E0_maybe_tan2((uint16_t*)(a1 + 76), (uint16_t*)(v1 + 76));
 	v2 = a1x->word_0x82_130;
 	a1x->word_0x20_32 = Maths::sub_581E0_maybe_tan2(&a1x->axis_0x4C_76, &v1x->axis_0x4C_76);
 	v2 -= 8;
@@ -17741,7 +17741,7 @@ void sub_1FAA0(type_event_0x6E8E* a1x)//200aa0
 				}
 				else if (sub_583F0_distance_3d(&a1x->axis_0x4C_76, &v28x->axis_0x4C_76) > 0x1000)
 				{
-					//LOWORD(jx) = sub_581E0_maybe_tan2(&a1x->array_0x4C_76, &v28x->array_0x4C_76);
+					//LOWORD(jx) = Maths::sub_581E0_maybe_tan2(&a1x->array_0x4C_76, &v28x->array_0x4C_76);
 					a1x->word_0x20_32 = Maths::sub_581E0_maybe_tan2(&a1x->axis_0x4C_76, &v28x->axis_0x4C_76);
 				}
 				else
@@ -19724,7 +19724,7 @@ void sub_222B0(type_event_0x6E8E* a1x)//2032b0
 		{
 		case 0:
 			v3 = 1;
-			//LOWORD(v1) = sub_581E0_maybe_tan2((uint16_t*)(a1 + 76), (uint16_t*)(v1 + 76));
+			//LOWORD(v1) = Maths::sub_581E0_maybe_tan2((uint16_t*)(a1 + 76), (uint16_t*)(v1 + 76));
 			//goto LABEL_15;
 			a1x->word_0x20_32 = Maths::sub_581E0_maybe_tan2(&a1x->axis_0x4C_76, &v1x->axis_0x4C_76);
 			break;
@@ -20585,7 +20585,7 @@ void sub_23340(type_event_0x6E8E* a1x)//204340
 		{
 			if (sub_583F0_distance_3d(&a1x->axis_0x4C_76, &v12x->axis_0x4C_76) > 0x800)
 			{
-				//LOWORD(j) = sub_581E0_maybe_tan2((uint16_t*)(a1 + 76), (uint16_t*)(v12 + 76));
+				//LOWORD(j) = Maths::sub_581E0_maybe_tan2((uint16_t*)(a1 + 76), (uint16_t*)(v12 + 76));
 				a1x->word_0x20_32 = Maths::sub_581E0_maybe_tan2(&a1x->axis_0x4C_76, &v12x->axis_0x4C_76);
 				goto LABEL_43;
 			}
@@ -20813,7 +20813,7 @@ void sub_237B0(type_event_0x6E8E* a1x)//2047b0
 		{
 			if (sub_583F0_distance_3d(&a1x->axis_0x4C_76, &v13x->axis_0x4C_76) > 0x800)
 			{
-				//LOWORD(v1) = sub_581E0_maybe_tan2((uint16_t*)(a1 + 76), (uint16_t*)(v13 + 76));
+				//LOWORD(v1) = Maths::sub_581E0_maybe_tan2((uint16_t*)(a1 + 76), (uint16_t*)(v13 + 76));
 				a1x->word_0x20_32 = Maths::sub_581E0_maybe_tan2(&a1x->axis_0x4C_76, &v13x->axis_0x4C_76);
 				goto LABEL_44;
 			}
@@ -21316,8 +21316,7 @@ void sub_24190(type_event_0x6E8E* a1x)//205190
 		MovePlayer_57FA0(&x_WORD_EB398ar, a1x->word_0x1C_28, 0, a1x->word_0x82_130);
 		sub_57CF0(a1x, &x_WORD_EB398ar);
 	}
-	/*return */sub_1EEE0(a1x);
-	return;
+	sub_1EEE0(a1x);
 }
 // D41A4: using guessed type int x_DWORD_D41A4;
 // EA3E4: using guessed type int x_DWORD_EA3E4[];
@@ -21457,7 +21456,7 @@ void sub_24510(type_event_0x6E8E* a1x)//205510
 				{
 					if (a1x->type_0x3F_63 == 3 || (iy = sub_583F0_distance_3d(&a1x->axis_0x4C_76, &iz->axis_0x4C_76), iy >= 0x200))
 					{
-						//LOWORD(i) = sub_581E0_maybe_tan2((uint16_t*)(a1 + 76), (uint16_t*)(v5 + 76));
+						//LOWORD(i) = Maths::sub_581E0_maybe_tan2((uint16_t*)(a1 + 76), (uint16_t*)(v5 + 76));
 						a1x->word_0x20_32 = Maths::sub_581E0_maybe_tan2(&a1x->axis_0x4C_76, &v5x->axis_0x4C_76);
 					}
 				}
@@ -22653,9 +22652,9 @@ void sub_25E40(type_event_0x6E8E* a1x)//206e40
 	unsigned __int8 v2; // al
 	char v3; // al
 	bool v4; // zf
-	__int16 v5; // dx
-	int v6; // ecx
-	__int16 v7; // ax
+	//__int16 v5; // dx
+	//int v6; // ecx
+	//__int16 v7; // ax
 	char v8; // [esp+0h] [ebp-4h]
 
 	v1x = x_DWORD_EA3E4[a1x->word_0x96_150];
@@ -22685,9 +22684,9 @@ void sub_25E40(type_event_0x6E8E* a1x)//206e40
 		if (v2 <= 1u)
 		{
 			a1x->byte_0x46_70 = 2;
-			v5 = a1x->word_0x84_132;
+			//v5 = a1x->word_0x84_132;
 			a1x->dword_0x10_16 = 32;
-			a1x->word_0x82_130 = 2 * v5;
+			a1x->word_0x82_130 = 2 * a1x->word_0x84_132;
 		}
 		else if (v2 != 2)
 		{
@@ -22695,15 +22694,15 @@ void sub_25E40(type_event_0x6E8E* a1x)//206e40
 		}
 		if ((unsigned __int16)sub_1C310(a1x, 160, (unsigned __int16(*)(type_event_0x6E8E*, type_event_0x6E8E*))sub_1CE80))
 			v8 = 1;
-		v6 = a1x->dword_0x10_16 - 1;
-		a1x->dword_0x10_16 = v6;
-		if (!v6)
+		//v6 = a1x->dword_0x10_16 - 1;
+		//a1x->dword_0x10_16 = v6;
+		if (!(--a1x->dword_0x10_16))
 			v8 = 1;
 		if (v8)
 		{
-			v7 = a1x->word_0x84_132;
+			//v7 = a1x->word_0x84_132;
 			a1x->byte_0x46_70 = 0;
-			a1x->word_0x82_130 = v7;
+			a1x->word_0x82_130 = a1x->word_0x84_132;
 		}
 	}
 LABEL_21:
