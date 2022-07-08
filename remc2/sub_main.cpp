@@ -12023,7 +12023,6 @@ void sub_17190_process_keyboard()//1f8190
 			}
 		}
 	}
-	return;
 }
 
 //----- (00017A00) --------------------------------------------------------
@@ -12608,7 +12607,7 @@ void MouseAndKeysEvents_17A00(signed int a2, __int16 a3)//1f8a00
 			goto LABEL_306;
 		case 0xA:
 		case 0xC:
-			sub_1A070(a2, a3, screenWidth_18062C);
+			sub_1A070(a2, a3);
 			/*LOBYTE(result) = (uint8_t)*/sub_1A7A0_fly_asistant();
 			goto LABEL_306;
 		case 0xD:
@@ -12744,11 +12743,6 @@ void sub_18B30()//1f9b30
 //----- (00018BB0) --------------------------------------------------------
 void sub_18BB0()//1f9bb0
 {
-	//temp fix
-	uint16_t screenWidth = screenWidth_18062C;
-	uint16_t screenHeight = screenHeight_180624;
-	//temp fix
-
 	//int v0; // eax
 	//char v1; // dl
 	char v2; // cl
@@ -13174,10 +13168,6 @@ void sub_19760_set_message(const char* a1, unsigned __int8 a2, __int16 a3)//1fa7
 //----- (000197F0) --------------------------------------------------------
 void PauseMenuEvents_197F0()//1fa7f0
 {
-	//temp fix
-	uint16_t screenWidth = screenWidth_18062C;
-	//temp fix
-
 	int result; // eax
 	char v1; // bl
 	signed int v2; // ebx
@@ -13198,7 +13188,7 @@ void PauseMenuEvents_197F0()//1fa7f0
 		{
 			if (D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x3DF_2BE4_12221 == 7)
 			{
-				sub_8CD27_set_cursor(*(*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct));
+				sub_8CD27_set_cursor((*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct)[0]);
 			}
 			else if (unk_18058Cstr.x_WORD_1805C2_joystick == 7 || unk_18058Cstr.x_WORD_1805C2_joystick == 1 || unk_18058Cstr.x_WORD_1805C2_joystick == 2)
 			{
@@ -13318,20 +13308,14 @@ void sub_19A70()//1faa70
 //----- (00019AB0) --------------------------------------------------------
 void OptionMenuEvents_19AB0()//1faab0
 {
-	//temp fix
-	uint16_t screenWidth = screenWidth_18062C;
-	//temp fix
-
 	int v0; // eax
 	signed int v1; // ebx
 	int v2; // edx
 	signed int v3; // eax
 
-	int optionMenuXPos = (screenWidth - x_D41A0_BYTEARRAY_4_struct.byteindex_186) / 2;
-	if (x_WORD_180660_VGA_type_resolution & 1)
-	{
-		optionMenuXPos = (640 - x_D41A0_BYTEARRAY_4_struct.byteindex_186) / 2;
-	}
+	int optionMenuXPos = (640 - x_D41A0_BYTEARRAY_4_struct.byteindex_186) / 2;
+	if (((screenWidth_18062C != 640) || (screenHeight_180624 != 480)) && ((screenWidth_18062C != 320) || (screenHeight_180624 != 200)))
+		optionMenuXPos = (screenWidth_18062C - x_D41A0_BYTEARRAY_4_struct.byteindex_186) / 2;
 
 	if (unk_18058Cstr.x_WORD_1805C2_joystick == 7 || unk_18058Cstr.x_WORD_1805C2_joystick == 1 || unk_18058Cstr.x_WORD_1805C2_joystick == 2)
 		sub_8CD27_set_cursor((*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct)[x_BYTE_D419E]); //fix it
@@ -13339,15 +13323,15 @@ void OptionMenuEvents_19AB0()//1faab0
 	{
 		sub_18B30();
 		LastPressedKey_1806E4 = 0;
-		/*return */sub_19A50();
+		sub_19A50();
 		return;
 	}
 	if (!(unk_18058Cstr.x_DWORD_18059C & 1) && !(unk_18058Cstr.x_DWORD_18059C & 2) && LastPressedKey_1806E4 != 0x1c && LastPressedKey_1806E4 != 0x20)
 	{
-		/*return */sub_19A50();
+		sub_19A50();
 		return;
 	}
-	v0 = optionMenuXPos + (x_D41A0_BYTEARRAY_4_struct.byteindex_186 - 82) / 2;
+	v0 = (optionMenuXPos - x_D41A0_BYTEARRAY_4_struct.byteindex_186) / 2 + (x_D41A0_BYTEARRAY_4_struct.byteindex_186 - 82) / 2;
 	if (v0 <= unk_18058Cstr.x_DWORD_1805B0_mouse.x && v0 + 82 > unk_18058Cstr.x_DWORD_1805B0_mouse.x && unk_18058Cstr.x_DWORD_1805B0_mouse.y >= 377 && unk_18058Cstr.x_DWORD_1805B0_mouse.y < 395
 		|| LastPressedKey_1806E4 == 0x1c
 		|| LastPressedKey_1806E4 == 0x20)
@@ -13357,13 +13341,13 @@ void OptionMenuEvents_19AB0()//1faab0
 			SelectSpell_191B0(20, 0);
 		else
 			SelectSpell_191B0(20, 6);
-		sub_8CD27_set_cursor(*(*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct));
+		sub_8CD27_set_cursor((*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct)[0]);
 		LastPressedKey_1806E4 = 0;
-		/*return */sub_19A50();
+		sub_19A50();
 		return;
 	}
 	v1 = 0;
-	v2 = optionMenuXPos;
+	v2 = (optionMenuXPos - x_D41A0_BYTEARRAY_4_struct.byteindex_186) / 2;
 	v3 = 67;
 	do
 	{
@@ -13374,13 +13358,13 @@ void OptionMenuEvents_19AB0()//1faab0
 		{
 			sub_1A970_change_game_settings(v1 + 1, (unk_18058Cstr.x_DWORD_18059C & 1) == 0, 1);
 			sub_1A280();
-			/*return */sub_19A50();
+			sub_19A50();
 			return;
 		}
 		v1++;
 		v3 += 18;
 	} while (v1 < 17);
-	/*return */sub_19A50();
+	sub_19A50();
 	return;
 }
 // D419E: using guessed type char x_BYTE_D419E;
@@ -13582,7 +13566,7 @@ void sub_1A030(uint16_t screenWidth)//1fb030
 }
 
 //----- (0001A070) --------------------------------------------------------
-void sub_1A070(signed int a1, __int16 a2, uint16_t screenWidth)//1fb070
+void sub_1A070(signed int a1, __int16 a2)//1fb070
 {
 	unsigned __int8 v2; // al
 	int v3; // eax
@@ -44397,7 +44381,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E, uint16_t 
 #ifdef COMPILE_FOR_64BIT // FIXME: 64bit
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
-		sub_1A070((int)a1_6E8E, 0, screenWidth);
+		sub_1A070((int)a1_6E8E, 0);
 #endif
 		break;
 	}
