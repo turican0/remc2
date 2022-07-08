@@ -76579,18 +76579,16 @@ void NetworkCancelAll_7449C()//25549c
 }
 
 //----- (00074515) --------------------------------------------------------
-int sub_74515()
+int sub_74515()//255515
 {
 	return (unsigned __int16)x_WORD_E12A8;
 }
-// E12A8: using guessed type __int16 x_WORD_E12A8;
 
 //----- (00074536) --------------------------------------------------------
-int sub_74536()
+int sub_74536()//255536
 {
 	return x_WORD_E1276;
 }
-// E1276: using guessed type __int16 x_WORD_E1276;
 
 //----- (00074556) --------------------------------------------------------
 uint8_t NetworkAllocation_74556()//255556 push ebp 355250
@@ -76602,26 +76600,34 @@ uint8_t NetworkAllocation_74556()//255556 push ebp 355250
 	v2 = 1;
 	if (!x_BYTE_E1274 && !mainConnection_E12AA)
 	{
-		mainConnection_E12AA = (myNCB*)sub_83D70_malloc1(66);
+		mainConnection_E12AA = (myNCB*)sub_83D70_malloc1(sizeof(myNCB));
+		memset(mainConnection_E12AA,0, sizeof(myNCB));
+		mainConnection_E12AA->ncb_command_0 = 0x7f;//?
+		mainConnection_E12AA->ncb_retcode_1 = 0x03;
+		mainConnection_E12AA->ncb_cmd_cplt_49 = 0x03;
 		if (mainConnection_E12AA)
 		{
 			if (NetworkInit_74A11() == -1)//255a11
 				return 0;
-			networkBuffer_E127E = (uint8_t*)sub_83D70_malloc1(2048);
+			networkBuffer_E127E = (uint8_t*)sub_83D70_malloc1(2048*10);
+			memset(networkBuffer_E127E, 0, 2048 * 10);
 			if (networkBuffer_E127E)
 			{
-				paket_E1282 = (uint8_t*)sub_83D70_malloc1(2048);
+				paket_E1282 = (uint8_t*)sub_83D70_malloc1(2048 * 10);
+				memset(paket_E1282, 0, 2048 * 10);
 				if (paket_E1282)
 				{
 					for (i = 0; i < 8; i++)
 					{
-						packetArray_E1286[i] = (uint8_t*)sub_83D70_malloc1(2048);
+						packetArray_E1286[i] = (uint8_t*)sub_83D70_malloc1(2048 * 10);
+						memset(packetArray_E1286[i], 0, 2048 * 10);
 						if (!packetArray_E1286[i])
 						{
 							v2 = 0;
 							break;
 						}
-						connection_E12AE[i] = (myNCB*)sub_83D70_malloc1(66);
+						connection_E12AE[i] = (myNCB*)sub_83D70_malloc1(sizeof(myNCB));
+						memset(connection_E12AE[i], 0, sizeof(myNCB));
 						if (!connection_E12AE[i])
 						{
 							v2 = 0;
@@ -76665,10 +76671,6 @@ uint8_t NetworkAllocation_74556()//255556 push ebp 355250
 	}
 	return x_BYTE_E1274;
 }
-// E1274: using guessed type char x_BYTE_E1274;
-// E127E: using guessed type int networkBuffer_E127E;
-// E1282: using guessed type int x_DWORD_E1282;
-// E12AA: using guessed type int x_DWORD_E12AA;
 
 //----- (00074767) --------------------------------------------------------
 signed int NetworkAddName_74767(/*signed __int16* a1,*/ myNCB* connection, char* name)//255767
@@ -76856,36 +76858,26 @@ void NetworkReceiveMessage_74D41(myNCB* connection, uint8_t* inbuffer, unsigned 
 		packedReceived++;
 		buffer += 50000;
 	}
-	/*v3 = */NetworkReceivePacket_74C9D(connection, buffer, size - 50000 * packedReceived);
-	/*if ((size & 0x7FF) == v3)
-		v5 = size;
-	else
-		v5 = v3;*/
-		//return v5;
 }
 
 /*
 //----- (00074DD4) --------------------------------------------------------
-signed int sub_74DD4(myNCB* a1x, int  , unsigned __int16 a3)
+signed int NetworkReceivePacket_74DD4(myNCB* connection, unsigned __int16 bufferindex)//255dd4
 {
 	signed int v4; // [esp+0h] [ebp-4h]
 
-	a1x->byte_0 = -107;
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-	a1x->word_6 = (unsigned int)packetArray_E1286[a3] >> 4;
-#endif
-	a1x->word_8 = 2048;
-	if (setNetbios_75044(a1x) == -1)
+	connection->ncb_command_0 = 0x95;//RECEIVE 
+
+	connection->ncb_buffer_4 = packetArray_E1286[bufferindex];
+
+	connection->ncb_bufferLength_8 = 2048;
+	if (setNetbios_75044(connection) == -1)
 		v4 = -99;
 	else
 		v4 = 1;
 	return v4;
-}*/
+}
+*/
 
 //----- (00074E6D) --------------------------------------------------------
 int NetworkSendPacket_74E6D(myNCB* connection, uint8_t* buffer, int size)//255e6d
@@ -76966,51 +76958,61 @@ signed int NetworkGetState_74FE1(__int16 a1)//255fe1
 }
 
 //----- (00075044) --------------------------------------------------------
-int setNetbios_75044(myNCB*  /*a1x*/)//256044
+int setNetbios_75044(myNCB* connection)//256044
 {
-	/* fix it
-  char v2; // [esp+0h] [ebp-7Ch]
-  int v3; // [esp+10h] [ebp-6Ch]
-  int v4; // [esp+1Ch] [ebp-60h]
-  __int16 v5; // [esp+22h] [ebp-5Ah]
-  __int16 v6; // [esp+24h] [ebp-58h]
-  int v7; // [esp+34h] [ebp-48h]
-  int v8; // [esp+38h] [ebp-44h]
-  char *v9; // [esp+48h] [ebp-34h]
-  char v10; // [esp+50h] [ebp-2Ch]
-  int v11; // [esp+68h] [ebp-14h]
-  char v12; // [esp+6Ch] [ebp-10h]
-  int v13; // [esp+78h] [ebp-4h]
+	//a1x 0x2b22aa
+	type_v2x v2x; // [esp+0h] [ebp-7Ch]
+	int v3; // [esp+10h] [ebp-6Ch]
+	int v4; // [esp+1Ch] [ebp-60h]
+	__int16 v5; // [esp+22h] [ebp-5Ah]
+	__int16 v6; // [esp+24h] [ebp-58h]
+	REGS v7x;
+	//int v7; // [esp+34h] [ebp-48h]
+	//int v8; // [esp+38h] [ebp-44h]
+	//char *v9; // [esp+48h] [ebp-34h]
+	REGS v10x;
+	//char v10; // [esp+50h] [ebp-2Ch]
+	//int v11; // [esp+68h] [ebp-14h]
+	SREGS v12x;
+	//char v12; // [esp+6Ch] [ebp-10h]
+	int v13; // [esp+78h] [ebp-4h]
+	
+	//fix it
+	//v11 = 0;
+	//fix it
 
-  //fix it
-  v11 = 0;
-  //fix it
+	connection->ncb_cmd_cplt_49 = 0;
+	memset(&v2x, 0, sizeof(type_v2x));//35517c
+	v6 = connection->ncb_command_0 >> 4;
+	v5 = connection->ncb_command_0 >> 4;
+	v3 = 0;
+	v4 = 256;
+	memset(&v7x, 0, sizeof(REGS));
+	memset(&v10x, 0, sizeof(REGS));
+	memset(&v12x, 0, sizeof(SREGS));
+	//segread((SREGS*)&v12);
+	v12x.es = 0x168;
+	v12x.ds = 0x168;
+	v12x.fs = 0x168;
+	v12x.gs = 0x168;
+	v12x.cs = 0x0;
+	v12x.ss = 0x20;
 
-  *(x_BYTE *)(a1 + 49) = 0;
-  memset(&v2, 0, 50);
-  v6 = a1 >> 4;
-  v5 = a1 >> 4;
-  v3 = 0;
-  v4 = 256;
-  memset(&v7, 0, 28);
-  memset(&v10, 0, 28);
-  memset(&v12, 0, 12);
-  segread((SREGS*)&v12);
-  v7 = 0x300;
-  v8 = 0x5C;
-  v9 = &v2;
-  int386x(0x31, (REGS*)&v7, (REGS*)&v10, (SREGS*)&v12);//Simulate Real Mode Interrupt //maybe anythink with leyboard or network
-  if ( v11 )
-	v13 = -1;
-  else
-	v13 = 0;
-  return v13;
-  */
-	return 1;
+	v7x.eax = 0x300;
+	v7x.ebx = 0x5C;
+	//v7x.edx = &v2x;
+	makeNetwork(0x31, &v7x, &v10x, &v12x, &v2x, connection);//Simulate Real Mode Interrupt //network
+	if (v10x.esi)
+		v13 = -1;
+	else
+		v13 = 0;
+	return v13;
+
+/*#ifdef TEST_NETWORK
+	a1x->byte_1 = 3;
+#endif
+	return 1;*/
 }
-// 8C250: using guessed type x_DWORD memset(x_DWORD, x_DWORD, x_DWORD);
-// 99DE6: using guessed type x_DWORD segread(x_DWORD);
-// 99E10: using guessed type x_DWORD int386x(x_DWORD, x_DWORD, x_DWORD, x_DWORD);
 
 //----- (00075110) --------------------------------------------------------
 void sub_75110(__int16 a1, __int16 a2, __int16 a3, unsigned __int16 a4, __int16 a5)
@@ -77148,7 +77150,7 @@ int sub_754C0(int a1, x_DWORD* a2, uint8_t* a3)
 // 17D708: using guessed type __int16 x_WORD_17D708;
 
 //----- (00075540) --------------------------------------------------------
-int sub_75540(int a1, int a2)
+int sub_75540(int a1, uint8_t* a2)
 {
 	int v2; // ecx
 	signed int v3; // eax
@@ -77171,13 +77173,6 @@ int sub_75540(int a1, int a2)
 	//sub_75AE0((int)unk_17D6D4ar);
 	return *(int32_t*)&unk_17D6D4ar[0x1c];
 }
-// 8C250: using guessed type x_DWORD memset(x_DWORD, x_DWORD, x_DWORD);
-// 17D6C8: using guessed type int x_DWORD_17D6C8;
-// 17D6E8: using guessed type int x_DWORD_17D6E8;
-// 17D6EC: using guessed type int x_DWORD_17D6EC;
-// 17D6F0: using guessed type int x_DWORD_17D6F0;
-// 17D6F6: using guessed type __int16 x_WORD_17D6F6;
-// 17D708: using guessed type __int16 x_WORD_17D708;
 
 //----- (000755B0) --------------------------------------------------------
 int sub_755B0(int a1, x_DWORD* a2, uint8_t* a3)
@@ -77237,12 +77232,6 @@ signed int sub_75650()//VR something
 		x_DWORD_17D640 = v3;
 		if (v3)
 		{
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
 			if (sub_754C0(v3, &x_DWORD_17D648, (uint8_t*)x_BYTE_17D440))
 			{
 				sub_75AB0();
@@ -77261,7 +77250,7 @@ signed int sub_75650()//VR something
 						;//fix it JUMPOUT(__CS__, (int*) * (&off_75628 + (unsigned __int8)x_BYTE_17D440[1 + x_DWORD_17D698]));
 					x_DWORD_17D698 += x_DWORD_17D6A4;
 				}
-				if (sub_75540(x_DWORD_17D640, (int)x_BYTE_17D440))
+				if (sub_75540(x_DWORD_17D640, (uint8_t*)x_BYTE_17D440))
 				{
 					sub_75AB0();
 					result = 0;
@@ -77275,7 +77264,6 @@ signed int sub_75650()//VR something
 					result = 1;
 				}
 			}
-#endif
 		}
 		else
 		{
@@ -77291,31 +77279,6 @@ signed int sub_75650()//VR something
 	}
 	return result;
 }
-// 75628: using guessed type void *off_75628;
-// 8C250: using guessed type x_DWORD memset(x_DWORD, x_DWORD, x_DWORD);
-// 99E33: using guessed type x_DWORD getenv(x_DWORD);
-// 9A050: using guessed type x_DWORD strcmp(x_DWORD, x_DWORD);
-// E12EC: using guessed type char x_BYTE_E12EC;
-// E12ED: using guessed type char x_BYTE_E12ED;
-// 17D640: using guessed type int x_DWORD_17D640;
-// 17D644: using guessed type int x_DWORD_17D644;
-// 17D648: using guessed type int x_DWORD_17D648;
-// 17D698: using guessed type int x_DWORD_17D698;
-// 17D6A0: using guessed type int x_DWORD_17D6A0;
-// 17D6A4: using guessed type int x_DWORD_17D6A4;
-// 17D6A8: using guessed type int x_DWORD_17D6A8;
-// 17D6AC: using guessed type int x_DWORD_17D6AC;
-// 17D6B0: using guessed type int x_DWORD_17D6B0;
-// 17D6B8: using guessed type int x_DWORD_17D6B8;
-// 17D6BC: using guessed type int x_DWORD_17D6BC;
-// 17D6C0: using guessed type int x_DWORD_17D6C0;
-// 17D6C4: using guessed type int x_DWORD_17D6C4;
-// 17D6C8: using guessed type int x_DWORD_17D6C8;
-// 17D6CC: using guessed type __int16 x_WORD_17D6CC;
-// 17D706: using guessed type __int16 x_WORD_17D706;
-// 17D708: using guessed type __int16 x_WORD_17D708;
-// 17D70A: using guessed type __int16 x_WORD_17D70A;
-// 17D711: using guessed type char x_BYTE_17D711;
 
 //----- (00075900) --------------------------------------------------------
 void sub_75900()
@@ -77330,12 +77293,6 @@ signed int sub_75910()
 	unsigned __int16 v1; // ax
 	unsigned __int8 v2; // al
 
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
 	if (sub_755B0(x_DWORD_17D640, &x_DWORD_17D648, unk_17D540))
 	{
 		sub_75AB0();
@@ -77362,20 +77319,8 @@ signed int sub_75910()
 		}
 		result = 1;
 	}
-#endif
 	return result;
 }
-// E12EC: using guessed type char x_BYTE_E12EC;
-// E12ED: using guessed type char x_BYTE_E12ED;
-// 17D640: using guessed type int x_DWORD_17D640;
-// 17D648: using guessed type int x_DWORD_17D648;
-// 17D6CC: using guessed type __int16 x_WORD_17D6CC;
-// 17D6CE: using guessed type __int16 x_WORD_17D6CE;
-// 17D6D0: using guessed type __int16 x_WORD_17D6D0;
-// 17D70A: using guessed type __int16 x_WORD_17D70A;
-// 17D70C: using guessed type __int16 x_WORD_17D70C;
-// 17D70E: using guessed type __int16 x_WORD_17D70E;
-// 17D710: using guessed type char x_BYTE_17D710;
 
 //----- (000759B0) --------------------------------------------------------
 void sub_759B0_set_mouse_minmax_vert()
@@ -77544,12 +77489,6 @@ void sub_75C50()//fix
 	else
 		sub_75200_VGA_Blit640(480);
 }
-// 8C250: using guessed type x_DWORD memset(x_DWORD, x_DWORD, x_DWORD);
-// 180624: using guessed type int screenHeight_180624;
-// 180628: using guessed type int pdwScreenBuffer_351628;
-// 18062C: using guessed type int screenWidth_18062C;
-// 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
-
 
 //----- (000765FC) --------------------------------------------------------
 void sub_765FC(__int16 a1, __int16 a2)
@@ -78327,30 +78266,6 @@ void /*__fastcall*/ sub_76FA0_main_menu(/*int a1, */int  /*a2*/, uint16_t a3x)//
 	}
 	//  return result;
 }
-// 8C250: using guessed type x_DWORD memset(x_DWORD, x_DWORD, x_DWORD);
-// 98786: using guessed type int /*__fastcall*/ j___clock(x_DWORD, x_DWORD, x_DWORD);
-// 98D52: using guessed type x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);
-// 99BA7: using guessed type x_DWORD dos_getvect(x_DWORD);
-// 99BDB: using guessed type x_DWORD dos_setvect(x_DWORD, x_DWORD, x_DWORD);
-// D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
-// D41A4: using guessed type int x_DWORD_D41A4;
-// E29DC: using guessed type __int16 x_WORD_E29DC;
-// E29E1: using guessed type char x_BYTE_E29E1;
-// E9C38: using guessed type int x_DWORD_E9C38_smalltit;
-// 17DBB8: using guessed type int x_DWORD_17DBB8;
-// 17DBC6: using guessed type char x_BYTE_17DBC6;
-// 17DE22: using guessed type int x_DWORD_17DE22;
-// 17DE26: using guessed type __int16 x_WORD_17DE26;
-// 17DE38: using guessed type int x_DWORD_17DE38;
-// 17DE44: using guessed type int x_DWORD_17DE44;
-// 17DED4: using guessed type int (int)x_DWORD_17DED4;
-// 17DEE4: using guessed type int x_DWORD_17DEE4_mouse_position;
-// 17DF04: using guessed type __int16 x_WORD_17DF04;
-// 17DF10: using guessed type char x_BYTE_17DF10_get_key_scancode;
-// 17DF13: using guessed type char x_BYTE_17DF13;
-// 1803EC: using guessed type __int16 x_WORD_1803EC;
-// 180628: using guessed type int pdwScreenBuffer_351628;
-// 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
 //----- (00077350) --------------------------------------------------------
 bool sub_77350_new_game_dialog(type_WORD_E1F84* a1x)//258350
@@ -78579,33 +78494,14 @@ char /*__fastcall*/ sub_77680()//258680
 			else
 				sub_75200_VGA_Blit640(480);
 			sub_7A060_get_mouse_and_keyboard_events();
-			}
+		}
 		sub_7B5D0();
 		sub_7AA70_load_and_decompres_dat_file(0, 0, 0, 0);
 		sub_7C710();
 		result = 1;
 	}
-return result;
+	return result;
 }
-// 8C250: using guessed type x_DWORD memset(x_DWORD, x_DWORD, x_DWORD);
-// 8E3D5: using guessed type x_DWORD sprintf(x_DWORD, const char *, ...);
-// 98786: using guessed type int /*__fastcall*/ j___clock(x_DWORD, x_DWORD, x_DWORD);
-// D41A4: using guessed type int x_DWORD_D41A4;
-// E2094: using guessed type __int16 x_WORD_E2094;
-// E2096: using guessed type char x_BYTE_E2096;
-// EB394: using guessed type int **filearray_2aa18c[0];
-// 17DE38: using guessed type int x_DWORD_17DE38;
-// 17DED4: using guessed type int (int)x_DWORD_17DED4;
-// 17DEDC: using guessed type int x_DWORD_17DEDC;
-// 17DEE4: using guessed type int x_DWORD_17DEE4_mouse_position;
-// 17DEEC: using guessed type __int16 x_WORD_17DEEC;
-// 17DEEE: using guessed type __int16 x_WORD_17DEEE_mouse_buttons;
-// 17DEF6: using guessed type __int16 x_WORD_17DEF6;
-// 17DEFA: using guessed type __int16 x_WORD_17DEFA;
-// 17DEFC: using guessed type __int16 x_WORD_17DEFC;
-// 17DEFE: using guessed type __int16 x_WORD_17DEFE;
-// 17DF10: using guessed type char x_BYTE_17DF10_get_key_scancode;
-// 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
 //----- (00077980) --------------------------------------------------------
 char sub_77980_exit_dialog(type_WORD_E1F84* a1x)//258980
@@ -78647,7 +78543,7 @@ char sub_779E0_lang_setting_dialog(type_WORD_E1F84* a1y)//2589E0
 	//int v12; // esi
 	char v13; // al
 	FILE* configfile; // ebx
-	int v15; // eax
+	//int v15; // eax
 	//char v17; // [esp+0h] [ebp-142h]
 	//char v18; // [esp+A0h] [ebp-A2h]
 	//char v19[100]; // [esp+F0h] [ebp-52h]
@@ -78935,14 +78831,6 @@ char sub_779E0_lang_setting_dialog(type_WORD_E1F84* a1y)//2589E0
 	/*LOWORD(v15) = */sub_90B27_VGA_pal_fadein_fadeout(0, 0x10u, 0);
 	if (x_WORD_180660_VGA_type_resolution & 1)
 	{
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-		v15 = (int)pdwScreenBuffer_351628;
-#endif
 		ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, 320, 200, 0);
 	}
 	else
@@ -78982,26 +78870,6 @@ char sub_779E0_lang_setting_dialog(type_WORD_E1F84* a1y)//2589E0
 	sub_7AA70_load_and_decompres_dat_file(0, 0, 0, 0);
 	return 1;
 }
-// 8C250: using guessed type x_DWORD memset(x_DWORD, x_DWORD, x_DWORD);
-// 8E3D5: using guessed type x_DWORD sprintf(x_DWORD, const char *, ...);
-// 98786: using guessed type int /*__fastcall*/ j___clock(x_DWORD, x_DWORD, x_DWORD);
-// 9A166: using guessed type x_DWORD unknown_libname_2_findfirst(x_DWORD, x_DWORD, x_DWORD);
-// 9A193: using guessed type x_DWORD unknown_libname_3(x_DWORD);
-// 9A1B3: using guessed type int unknown_libname_4(x_DWORD);
-// D41A4: using guessed type int x_DWORD_D41A4;
-// E9C38: using guessed type int x_DWORD_E9C38_smalltit;
-// EB394: using guessed type int **filearray_2aa18c[0];
-// EB39E: using guessed type char x_BYTE_EB39E_keys;
-// 17DE38: using guessed type int x_DWORD_17DE38;
-// 17DE40: using guessed type int x_DWORD_17DE40;
-// 17DED4: using guessed type int (int)x_DWORD_17DED4;
-// 17DEDC: using guessed type int x_DWORD_17DEDC;
-// 17DEE4: using guessed type int x_DWORD_17DEE4_mouse_position;
-// 17DEEC: using guessed type __int16 x_WORD_17DEEC;
-// 17DEEE: using guessed type __int16 x_WORD_17DEEE_mouse_buttons;
-// 17DF10: using guessed type char x_BYTE_17DF10_get_key_scancode;
-// 180628: using guessed type int pdwScreenBuffer_351628;
-// 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
 //----- (000780F0) --------------------------------------------------------
 char sub_780F0_load_game_dialog(type_WORD_E1F84* a1x)//0x2590f0
