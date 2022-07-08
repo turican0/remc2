@@ -466,11 +466,11 @@ void sub_44EE0_smooth_tiles(/*int a1, */uaxis_2d a2);
 void sub_56A30_init_game_level(unsigned int a1);
 void sub_47320_in_game_loop(signed int a1);
 void sub_56D60(unsigned int a1, char a2);
-void VGA_BlitAny(uint16_t width, uint16_t height, uint8_t* pScreenBuffer);
+void VGA_BlitAny();
 void VGA_CalculateAndPrintFPS(int x, int y);
 void sub_7A060_get_mouse_and_keyboard_events();
 void DrawAndEventsInGame_47560(uint32_t a3, signed int a4, __int16 a5);
-void GameEvents_51BB0(uint16_t screenWidth, uint16_t screenHeight);
+void GameEvents_51BB0();
 //x_DWORD /*__cdecl*/ toupper(x_DWORD); //weak
 void sub_55C60(/*int a1, int a2,*/ type_str_0x2BDE* a3);
 int32_t /*__cdecl*/ fix_filelength(int32_t);// weak

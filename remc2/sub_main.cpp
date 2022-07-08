@@ -253,7 +253,7 @@ add_compare(0x237BB0, debugafterload);
 add_compare(0x237bb9, debugafterload);
 add_compare(0x237BC7, debugafterload);
 
-problem is in void sub_51BB0_game_events()//232bb0
+problem is in void GameEvents_51BB0()//232bb0
 //find changes after 228320
 
 //bug hunting 3 find difference 0x356038+57 D41A0_BYTESTR_0.array_0x39
@@ -1662,7 +1662,7 @@ void sub_46820_simple_timer(uint32_t user);
 void sub_46B40();
 void /*__fastcall*/ sub_46DD0_init_sound_and_music(/*int a1, int a2, char* a3*/);
 void sub_46F50_sound_proc7();
-void LoadTextureData(__int16 vgaTypeResolution, MapType_t MapType, uint8_t* pdwScreenBuffer_351628);
+void LoadTextureData(__int16 vgaTypeResolution, MapType_t MapType, uint8_t* textureBuffer);
 void sub_47130();
 void sub_47160();
 // int sub_47320_in_game_loop(signed int a1);
@@ -1950,7 +1950,7 @@ type_event_0x6E8E* sub_51730(axis_3d* a1);
 type_event_0x6E8E* sub_51790(axis_3d* a1);
 type_event_0x6E8E* sub_51800(axis_3d* a1);
 type_event_0x6E8E* sub_51A00(axis_3d* a1);
-// int sub_51BB0_game_events(int a1);
+// int GameEvents_51BB0(int a1);
 void sub_52D70(unsigned __int16 a1, char* a2);
 void sub_52E90(type_str_0x2BDE* a1, signed int a2, char a3);
 void sub_53120();
@@ -30009,10 +30009,6 @@ void sub_30630()//211630
 //----- (00030870) --------------------------------------------------------
 void sub_30870()//211870
 {
-	//temp fix
-	uint16_t screenWidth = screenWidth_18062C;
-	//temp fix
-
 	char* v0; // ebx
 	__int16 v1; // ax
 	//char v3; // [esp+0h] [ebp-32h]
@@ -30037,7 +30033,7 @@ void sub_30870()//211870
 	v4y.word_0x10 = 8;
 	v4y.word_0x12 = 14;
 	v4y.word_0x16 = 636;
-	v0 = (char*)x_DWORD_E9C4C_langindexbuffer[x_WORD_D41D4];
+	v0 = x_DWORD_E9C4C_langindexbuffer[x_WORD_D41D4];
 	v4y.word_0xc = 600;
 	v4y.word_0x0 = 320;
 	v4y.byte_0x30 = (*xadataclrd0dat.colorPallette_var28)[0xf00];
@@ -30079,19 +30075,10 @@ void sub_30870()//211870
 	}
 	//	return v1;
 }
-// 8E3D5: using guessed type x_DWORD sprintf(x_DWORD, const char *, ...);
-// D41D4: using guessed type __int16 x_WORD_D41D4;
-// E9800: using guessed type char x_BYTE_E9800;
-// E98FF: using guessed type char x_BYTE_E98FF;
-// 1806E4: using guessed type char x_BYTE_1806E4;
 
 //----- (00030A60) --------------------------------------------------------
 void DrawOkCancelMenu_30A60(int16_t posTextX, int16_t posTextY)//211a60
 {
-	//temp fix
-	uint16_t width = screenWidth_18062C;	
-	//temp fix
-
 	__int64 v4; // rax
 	int16_t posX;
 	int16_t posY;
@@ -30134,39 +30121,20 @@ void DrawOkCancelMenu_30A60(int16_t posTextX, int16_t posTextY)//211a60
 		}
 	}
 }
-// 8E3D5: using guessed type x_DWORD sprintf(x_DWORD, const char *, ...);
-// D419E: using guessed type char x_BYTE_D419E;
-// D41A4: using guessed type int x_DWORD_D41A4;
-// E9C54: using guessed type int x_DWORD_E9C54;
-// EA2E8: using guessed type int x_DWORD_EA2E8;
-// EA2EC: using guessed type int x_DWORD_EA2EC;
-// EA3DC: using guessed type int **filearray_2aa18c[6];
-// EB394: using guessed type int **filearray_2aa18c[0];
-// 1805B0: using guessed type int x_DWORD_1805B0_mouse.x;
-// 1805B4: using guessed type int x_DWORD_1805B0_mouse.y;
-// 1805C2: using guessed type __int16 x_WORD_1805C2_joystick;
 
-void GetOkayCancelButtonPositions_30BE0(int16_t* ptrX, int16_t* ptrY)
+//----- (00030BE0) --------------------------------------------------------
+void GetOkayCancelButtonPositions_30BE0(int16_t* ptrX, int16_t* ptrY)//211be0
 {
-	//temp fix
-	uint16_t screenWidth = screenWidth_18062C;
-	//temp fix
-
-	if (screenWidth == 320)
-	{
-		*ptrX = 270;
-	}
-	else
-	{
-		*ptrX = (screenWidth / 2) - 50;
-	}
+	*ptrX = 270;
 	*ptrY = 104;
+	if (!DefaultResolutions())
+		*ptrX = (screenWidth_18062C / 2) - 50;
 }
 
 int debugcounter_30D50 = 0;
 
 //----- (00030D50) --------------------------------------------------------
-void sub_30D50(type_event_0x6E8E* a1x/*, uint8_t v2, uint8_t v4*/)//211d50
+void sub_30D50(type_event_0x6E8E* a1x)//211d50
 {
 	//int v1; // eax
 	//char v2; // dl
@@ -33607,9 +33575,6 @@ void sub_357C0(type_event_0x6E8E* a1x)//2167c0
 	}
 	SetEntity04_57F10(a1x);
 }
-// D41A4: using guessed type int x_DWORD_D41A4;
-// EA3E4: using guessed type int x_DWORD_EA3E4[];
-// EB398: using guessed type __int16 x_WORD_EB398;
 
 int debugcounter_216940 = 0;
 
@@ -35271,12 +35236,7 @@ void sub_377F0(type_event_0x6E8E* a1x)//2187f0
 		if (v8 == a1x->word_0x2A_42)
 			a1x->dword_0x10_16 = 0;
 	}
-	//return v8;
 }
-// D41B6: using guessed type char x_BYTE_D41B6;
-// EA3BC: using guessed type int **filearray_2aa18c[24];
-// EA3E4: using guessed type int x_DWORD_EA3E4[];
-// 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
 //----- (00037BC0) --------------------------------------------------------
 void AddTerrainMod0A_2A_37BC0(type_event_0x6E8E* a1x)//218bc0 // groove castle
@@ -35534,6 +35494,14 @@ void AddTerrainMod0A_2A_37BC0(type_event_0x6E8E* a1x)//218bc0 // groove castle
 					jx._axis_2d.x = v49 - (v36 >> 1);
 					v14++;
 				}
+
+				{
+					int sizecpy = 2 * v4 * v36;//fix for debug
+					if (sizeof(type_E9C38_smalltit) * 40 * 21 < sizecpy)//fix for debug
+						sizecpy = sizeof(type_E9C38_smalltit) * 40 * 21;//fix for debug
+					memcpy(Str_E9C38_smalltit, x_DWORD_E9C38_smalltit, sizecpy);//fix for debug
+				}
+
 			}
 		}
 	}
@@ -38204,7 +38172,7 @@ int8_t* x_DWORD_D9F50ar_ret(uint32_t adress) {
 	if (adress >= 0x4400) return (int8_t*)&x_WORD_DE350[(adress - 0x4400)/2];
 	if (adress >= 0x4000) return (int8_t*)& x_DWORD_DDF50_texture_adresses[(adress - 0x4000)/4];
 	//if (adress >= 0x2000) return (int8_t*)&off_DBF50[(adress - 0x2000)/4];
-	if (adress >= 0x1800) return (int8_t*)&x_DWORD_DB750[(adress - 0x1800)/4];
+	if (adress >= 0x1800) return (int8_t*)&Maths::x_DWORD_DB750[(adress - 0x1800)/4];
 	//if (adress >= 0x1400) return &x_DWORD_D9F50ar[0x800+0x800+(adress - 0x1400)];
 	//if (adress >= 0x1000) return &x_DWORD_D9F50ar[0x800+0x800 + (adress - 0x1000)];
 	//if (adress >= 0x800) return &x_DWORD_D9F50ar[0x800+(adress - 0x800)];
@@ -38215,7 +38183,7 @@ int8_t* x_DWORD_DA750ar_ret(uint32_t adress) {
 	if (adress >= 0x3c00) return (int8_t*)&x_WORD_DE350[(adress - 0x3c00)/2];
 	if (adress >= 0x3800) return (int8_t*)&x_DWORD_DDF50_texture_adresses[(adress - 0x3800)/4];
 	//if (adress >= 0x1800) return (int8_t*)&off_DBF50[(adress - 0x1800)/4];
-	if (adress >= 0x1000) return (int8_t*)&x_DWORD_DB750[(adress - 0x1000)/4];
+	if (adress >= 0x1000) return (int8_t*)&Maths::x_DWORD_DB750[(adress - 0x1000)/4];
 	//if (adress >= 0xc00) return &x_DWORD_D9F50ar[0x800+0x800 + (adress - 0xc00)];
 	//if (adress >= 0x800) return &x_DWORD_D9F50ar[0x800+0x800 + (adress - 0x800)];
 	return &x_DWORD_D9F50ar[0x800+adress];
@@ -38225,7 +38193,7 @@ int8_t* x_DWORD_DA750ar_ret(uint32_t adress) {
 	if (adress >= 0x3400) return (int8_t*)&x_WORD_DE350[(adress - 0x3400) / 2];
 	if (adress >= 0x3000) return (int8_t*)&x_DWORD_DDF50_texture_adresses[(adress - 0x3000) / 4];
 	//if (adress >= 0x1000) return (int8_t*)&off_DBF50[(adress - 0x1000) / 4];
-	if (adress >= 0x800) return (int8_t*)&x_DWORD_DB750[(adress - 0x800) / 4];
+	if (adress >= 0x800) return (int8_t*)&Maths::x_DWORD_DB750[(adress - 0x800) / 4];
 	//if (adress >= 0x400) return &x_DWORD_D9F50ar[0x800+0x800+(adress - 0x400)];
 	return &x_DWORD_D9F50ar[0x800+0x800+adress];
 }*/
@@ -38234,7 +38202,7 @@ int8_t* x_DWORD_DB750ar_ret(uint32_t adress) {
 	if (adress >= 0x2c00) return (int8_t*)&x_WORD_DE350[(adress - 0x2c00) / 2];
 	if (adress >= 0x2800) return (int8_t*)&x_DWORD_DDF50_texture_adresses[(adress - 0x2800) / 4];
 	//if (adress >= 0x800) return (int8_t*)&off_DBF50[(adress - 0x800) / 4];
-	return (int8_t*)&x_DWORD_DB750[adress/4];
+	return (int8_t*)&Maths::x_DWORD_DB750[adress/4];
 }*/
 /*
 int8_t* x_DWORD_DBF50ar_ret(uint32_t adress) {
@@ -38272,7 +38240,7 @@ int8_t* x_DWORD_DBF50ar_ret(uint32_t adress) {
 
 32 x_DWORD_DB350[103] +1400
 
-32 x_DWORD_DB750[0x200] 800 +1800
+32 Maths::x_DWORD_DB750[0x200] 800 +1800
 
 32 off_DBF50[0x1000] 4000+ 2000
 
@@ -38281,83 +38249,7 @@ uint8_t* x_DWORD_DDF50[0x100] + 4000
 uint16_t x_WORD_DE350[0x100] + 4400
 */
 
-int debugcounter_21d080 = 0;
-
-int debugcountersub_3E360 = 0;
-
-// D404C: using guessed type void *off_D404C;
-// D41A4: using guessed type int x_DWORD_D41A4;
-// D4320: using guessed type char x_BYTE_D4320;
-// D951C: using guessed type __int16 x_WORD_D951C[];
-// EA3E4: using guessed type int x_DWORD_EA3E4[];
-// F2C20: using guessed type int x_DWORD_F2C20;
-// F2C24: using guessed type int x_DWORD_F2C24;
-// F2C28: using guessed type int x_DWORD_F2C28;
-// F2C2C: using guessed type int x_DWORD_F2C2C;
-// F2C30: using guessed type int x_DWORD_F2C30;
-// F2C34: using guessed type int x_DWORD_F2C34;
-// F2C38: using guessed type int str_F2C20ar.dword0x06_height;
-// F2C3C: using guessed type int str_F2C20ar.dword0x07;
-// F2C40: using guessed type int str_F2C20ar.dword0x08_width;
-// F2C44: using guessed type int str_F2C20ar.dword0x09_realWidth;
-// F2C50: using guessed type int str_F2C20ar.dword0x0c_realHeight;
-// F2C54: using guessed type int str_F2C20ar.dword0x0d;
-// F2C5C: using guessed type int str_F2C20ar.dword0x0f;
-// F2C60: using guessed type int str_F2C20ar.dword0x10;
-// F2C64: using guessed type int str_F2C20ar.dword0x11;
-// F2C68: using guessed type int str_F2C20ar.dword0x12;
-// F2C6C: using guessed type int str_F2C20ar.dword0x13;
-// F2C70: using guessed type int str_F2C20ar.dword0x14;
-// F2C74: using guessed type int str_F2C20ar.dword0x15;
-// F2C78: using guessed type int str_F2C20ar.dword0x16;
-// F2C7C: using guessed type int str_F2C20ar.dword0x17;
-// F2C80: using guessed type int str_F2C20ar.dword0x18;
-// F2CA0: using guessed type int str_F2C20ar.dword0x20;
-// F2CA4: using guessed type int str_F2C20ar.dword0x21;
-// F2CA8: using guessed type int str_F2C20ar.dword0x22;
-// F2CB0: using guessed type int str_F2C20ar.dword0x24;
-// F2CC0: using guessed type __int16 x_WORD_F2CC0;
-// F2CC2: using guessed type __int16 x_WORD_F2CC2;
-// F2CC4: using guessed type __int16 x_WORD_F2CC4;
-// F2CC6: using guessed type char x_BYTE_F2CC6;
-// F2CC7: using guessed type char x_BYTE_F2CC7;
-// F6ED0: using guessed type int TMAPS00TAB_BEGIN_BUFFER;
-
-// D41A4: using guessed type int x_DWORD_D41A4;
-// D951C: using guessed type __int16 x_WORD_D951C[];
-// EA3E4: using guessed type int x_DWORD_EA3E4[];
-// F2C20: using guessed type int x_DWORD_F2C20;
-// F2C24: using guessed type int x_DWORD_F2C24;
-// F2C28: using guessed type int x_DWORD_F2C28;
-// F2C2C: using guessed type int x_DWORD_F2C2C;
-// F2C30: using guessed type int x_DWORD_F2C30;
-// F2C34: using guessed type int x_DWORD_F2C34;
-// F2C38: using guessed type int str_F2C20ar.dword0x06_height;
-// F2C3C: using guessed type int str_F2C20ar.dword0x07;
-// F2C40: using guessed type int str_F2C20ar.dword0x08_width;
-// F2C44: using guessed type int str_F2C20ar.dword0x09_realWidth;
-// F2C50: using guessed type int str_F2C20ar.dword0x0c_realHeight;
-// F2C54: using guessed type int str_F2C20ar.dword0x0d;
-// F2C5C: using guessed type int str_F2C20ar.dword0x0f;
-// F2C60: using guessed type int str_F2C20ar.dword0x10;
-// F2C64: using guessed type int str_F2C20ar.dword0x11;
-// F2C68: using guessed type int str_F2C20ar.dword0x12;
-// F2C6C: using guessed type int str_F2C20ar.dword0x13;
-// F2C74: using guessed type int str_F2C20ar.dword0x15;
-// F2C78: using guessed type int str_F2C20ar.dword0x16;
-// F2C7C: using guessed type int str_F2C20ar.dword0x17;
-// F2C80: using guessed type int str_F2C20ar.dword0x18;
-// F2CA0: using guessed type int str_F2C20ar.dword0x20;
-// F2CA4: using guessed type int str_F2C20ar.dword0x21;
-// F2CA8: using guessed type int str_F2C20ar.dword0x22;
-// F2CB0: using guessed type int str_F2C20ar.dword0x24;
-// F2CC0: using guessed type __int16 x_WORD_F2CC0;
-// F2CC2: using guessed type __int16 x_WORD_F2CC2;
-// F2CC4: using guessed type __int16 x_WORD_F2CC4;
-// F2CC6: using guessed type char x_BYTE_F2CC6;
-// F6ED0: using guessed type int TMAPS00TAB_BEGIN_BUFFER;
-
-int /*__fastcall*/ sub_40D10()//221d10//fix vga
+int sub_40D10()//221d10//fix vga
 {
 	int v1; // ebx
 	signed int v2; // ecx
@@ -38708,27 +38600,12 @@ void sub_40F80()//221f80
 	}
 	else
 	{
-		VGA_BlitAny(gameResWidth, gameResHeight, pdwScreenBuffer_351628);
+		if (!DefaultResolutions())
+			VGA_BlitAny();
+		else
+			sub_75200_VGA_Blit640(480);
 	}
 }
-
-// D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
-// D41A4: using guessed type int x_DWORD_D41A4;
-// D4324: using guessed type int x_DWORD_D4324;
-// D4790: using guessed type int x_DWORD_D4790;
-// D4794: using guessed type int x_DWORD_D4794;
-// D4798: using guessed type int x_DWORD_D4798;
-// DBF50: using guessed type void (/*__noreturn*/ *off_DBF50[2])();
-// DE558: using guessed type int x_DWORD_DE558;
-// DE560: using guessed type int iScreenWidth;
-// DE564: using guessed type int iViewPortWidth;
-// DE568: using guessed type int iViewPortHeight;
-// E9C3C: using guessed type int x_DWORD_E9C3C;
-// EA3E4: using guessed type int x_DWORD_EA3E4[];
-// 180624: using guessed type int screenHeight_180624;
-// 180628: using guessed type int pdwScreenBuffer_351628;
-// 18062C: using guessed type int screenWidth_18062C;
-// 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
 //----- (000417D0) --------------------------------------------------------
 void sub_417D0_install_pal_and_mouse_minmax2()//2227d0
@@ -38846,45 +38723,6 @@ void sub_41BC0()//222bc0
 	x_BYTE_D47D8 = 0;
 	//return result;
 }
-// D47D8: using guessed type char x_BYTE_D47D8;
-// D47D9: using guessed type char x_BYTE_D47D9;
-// 
-// D41A4: using guessed type int x_DWORD_D41A4;
-// DE558: using guessed type int x_DWORD_DE558;
-// DE55C: using guessed type int x_DWORD_DE55C;
-// DE560: using guessed type int iScreenWidth;
-// DE564: using guessed type int iViewPortWidth;
-// DE568: using guessed type int iViewPortHeight;
-// E9C38: using guessed type int x_DWORD_E9C38_smalltit;
-// F2C20: using guessed type int x_DWORD_F2C20;
-// F2C24: using guessed type int x_DWORD_F2C24;
-// F2C28: using guessed type int x_DWORD_F2C28;
-// F2C2C: using guessed type int x_DWORD_F2C2C;
-// F2C30: using guessed type int x_DWORD_F2C30;
-// F2C34: using guessed type int x_DWORD_F2C34;
-// F2C38: using guessed type int str_F2C20ar.dword0x06_height;
-// F2C3C: using guessed type int str_F2C20ar.dword0x07;
-// F2C40: using guessed type int str_F2C20ar.dword0x08_width;
-// F2C44: using guessed type int str_F2C20ar.dword0x09_realWidth;
-// F2C48: using guessed type int str_F2C20ar.dword0x0a_actIdx;
-// F2C4C: using guessed type int str_F2C20ar.dword0x0b;
-// F2C50: using guessed type int str_F2C20ar.dword0x0c_realHeight;
-// F2C54: using guessed type int str_F2C20ar.dword0x0d;
-// F2C64: using guessed type int str_F2C20ar.dword0x11;
-// F2C70: using guessed type int str_F2C20ar.dword0x14;
-// F2C84: using guessed type int str_F2C20ar.dword0x19;
-// F2C88: using guessed type int str_F2C20ar.dword0x1a;
-// F2C8C: using guessed type int str_F2C20ar.dword0x1b;
-// F2C90: using guessed type int str_F2C20ar.dword0x1c;
-// F2C94: using guessed type int str_F2C20ar.dword0x1d;
-// F2C98: using guessed type int str_F2C20ar.dword0x1e;
-// F2C9C: using guessed type int str_F2C20ar.dword0x1f;
-// F2CA4: using guessed type int str_F2C20ar.dword0x21;
-// F2CAC: using guessed type int str_F2C20ar.dword0x23;
-// F2CB4: using guessed type int str_F2C20ar.dword0x25;
-// F2CB8: using guessed type int str_F2C20ar.dword0x26;
-// F2CBC: using guessed type int str_F2C20ar.dword0x27;
-// F2CC6: using guessed type char x_BYTE_F2CC6;
 
 /*
 void debug_testdraw_terrain(uint8_t* buffer) {
@@ -39949,16 +39787,6 @@ void sub_46830_main_loop(/*int16_t* a1, */signed int a2, unsigned __int16 a3)//2
 	}
 	//x_D41A0_BYTESTR_0_to_x_D41A0_BYTEARRAY_0();//fixing x_D41A0_BYTEARRAY_0
 }
-// D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
-// D41A4: using guessed type int x_DWORD_D41A4;
-// E29D8: using guessed type __int16 x_WORD_E29D8;
-// E37FC: using guessed type char x_BYTE_E37FC;
-// E37FD: using guessed type char x_BYTE_E37FD;
-// E3804: using guessed type __int16 x_WORD_E3804;
-// EA3D8: using guessed type int *xadatapald0dat2.colorPallette_var28;
-// 1803EC: using guessed type __int16 x_WORD_1803EC;
-// 180628: using guessed type int pdwScreenBuffer_351628;
-// 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
 //----- (00046B40) --------------------------------------------------------
 void sub_46B40()//227b40
@@ -39988,7 +39816,7 @@ void sub_46B40()//227b40
 		sub_6EBF0(&filearray_2aa18c[filearrayindex_POINTERSDATTAB]);
 		sub_6EBF0(&filearray_2aa18c[filearrayindex_MSPRD00DATTAB]);
 		sub_6EBF0(&filearray_2aa18c[filearrayindex_BUILD00DATTAB]);
-		
+
 		sub_47130();
 		if (x_WORD_180660_VGA_type_resolution == 1)
 		{
@@ -40016,14 +39844,19 @@ void sub_46B40()//227b40
 		else
 		{
 			v2 = getPalletteIndex_5BE80((TColor*)*xadatapald0dat2.colorPallette_var28, 0, 0, 0);
-			ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, gameResWidth, gameResHeight, v2);
+			ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, screenWidth_18062C, screenHeight_180624, v2);
 		}
 		memset((void*)*xadatapald0dat2.colorPallette_var28, 0, 768);
 		sub_41A90_VGA_pallette_install((TColor*)*xadatapald0dat2.colorPallette_var28);
 		if (x_WORD_180660_VGA_type_resolution & 1)
 			sub_90D6E_VGA_set_video_mode_320x200_and_pallette((TColor*)*xadatapald0dat2.colorPallette_var28);
 		else
-			sub_90E07_VGA_set_video_mode_alt_and_pallette((TColor*)*xadatapald0dat2.colorPallette_var28);
+		{
+			if(!DefaultResolutions())
+				sub_90E07_VGA_set_video_mode_alt_and_pallette((TColor*)*xadatapald0dat2.colorPallette_var28);
+			else
+				sub_90E07_VGA_set_video_mode_640x480_and_pallette((TColor*)*xadatapald0dat2.colorPallette_var28);
+		}
 
 		sub_41A90_VGA_pallette_install((TColor*)*xadatapald0dat2.colorPallette_var28);
 		v3 = getPalletteIndex_5BE80((TColor*)*xadatapald0dat2.colorPallette_var28, 0, 0, 0);
@@ -40031,10 +39864,10 @@ void sub_46B40()//227b40
 		if (x_WORD_180660_VGA_type_resolution & 1)
 			ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, 320, 200, v3);
 		else
-			ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, gameResWidth, gameResHeight, v3);
+			ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, screenWidth_18062C, screenHeight_180624, v3);
 
 		sub_8CEDF_install_mouse();
-		sub_8CD27_set_cursor(*(*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct));
+		sub_8CD27_set_cursor((*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct)[0]);
 		x_D41A0_BYTEARRAY_4_struct.byteindex_51 = 2;
 		if (x_WORD_180660_VGA_type_resolution == 1)
 			x_BYTE_D419D_fonttype = 1;
@@ -40043,21 +39876,6 @@ void sub_46B40()//227b40
 		SetMousePositionInMemory_5BDC0(v0_tempmousex, v0_tempmousey);
 	}
 }
-// 8C250: using guessed type x_DWORD memset(x_DWORD, x_DWORD, x_DWORD);
-// D419D: using guessed type char x_BYTE_D419D_fonttype;
-// D41A4: using guessed type int x_DWORD_D41A4;
-// D41B4: using guessed type char x_BYTE_D41B4_vesa_driver_finded;
-// D918C: using guessed type int **filearray_2aa18c;
-// D91BC: using guessed type int *off_D91BC[2];
-// D91D4: using guessed type void *off_D91D4;
-// D91EC: using guessed type int *off_D91EC;
-// E3760: using guessed type int x_DWORD_E3760;
-// E9C3C: using guessed type int x_DWORD_E9C3C;
-// EA3D8: using guessed type int *xadatapald0dat2.colorPallette_var28;
-// EB394: using guessed type int **filearray_2aa18c[0];
-// EB3A8: using guessed type char uiBackGroundColorIdx;
-// 180628: using guessed type int pdwScreenBuffer_351628;
-// 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
 //----- (00046DD0) --------------------------------------------------------
 void /*__fastcall*/ sub_46DD0_init_sound_and_music(/*int a1, int a2, char* a3*/)//227DD0
@@ -40142,7 +39960,7 @@ void sub_46F50_sound_proc7()//227f50
 // F42A4: using guessed type int x_DWORD_F42A4_sound_timer;
 
 //----- (00046F80) --------------------------------------------------------
-void LoadTextureData(__int16 vgaTypeResolution, MapType_t MapType, uint8_t* pdwScreenBuffer_351628)//227f80
+void LoadTextureData(__int16 vgaTypeResolution, MapType_t MapType, uint8_t* textureBuffer)//227f80
 {
 	MapType_t v0; // al
 	//char* v1;
@@ -40153,8 +39971,8 @@ void LoadTextureData(__int16 vgaTypeResolution, MapType_t MapType, uint8_t* pdwS
 	//int v4; // eax
 	//char* v5; // ebx
 	//unsigned int v6; // esi
-	posistruct2_t* v7x; // esi
-	int v8; // [esp+0h] [ebp-2h]
+	//posistruct2_t* v7x; // esi
+	//int v8; // [esp+0h] [ebp-2h]
 	//int v9; // [esp+4h] [ebp+2h]
 	//int v10; // [esp+8h] [ebp+6h]
 	//int v11; // [esp+Ch] [ebp+Ah]
@@ -40213,12 +40031,12 @@ void LoadTextureData(__int16 vgaTypeResolution, MapType_t MapType, uint8_t* pdwS
 		}
 	}
 
-	file1Lenght = DataFileIO::ReadFileAndDecompress(dataPath, &pdwScreenBuffer_351628);
+	file1Lenght = DataFileIO::ReadFileAndDecompress(dataPath, &textureBuffer);
 	if (file1Lenght > 0)
 	{
 		file1Lenght = (file1Lenght + 8) & 0xFFF8;
 		//v14 = v4;
-		uint8_t* x = &pdwScreenBuffer_351628[file1Lenght];
+		uint8_t* x = &textureBuffer[file1Lenght];
 		file2lenght = DataFileIO::ReadFileAndDecompress(tabPath, &x); //fix it
 		//v5 = file2lenght;
 		if (file2lenght > 0)
@@ -40229,7 +40047,7 @@ void LoadTextureData(__int16 vgaTypeResolution, MapType_t MapType, uint8_t* pdwS
 			x_DWORD_D4188 = (posistruct2_t*)sub_83CD0_malloc2(file2lenght + file1Lenght);
 			if (x_DWORD_D4188)
 			{
-				qmemcpy(x_DWORD_D4188, (void*)pdwScreenBuffer_351628, file2lenght + file1Lenght);
+				qmemcpy(x_DWORD_D4188, (void*)textureBuffer, file2lenght + file1Lenght);
 				x_DWORD_D418C = (posistruct2_t*)((int8_t*)x_DWORD_D4188+file1Lenght);
 				//x_DWORD_D418C = &x_DWORD_D4188[file1Lenght / sizeof(posistruct2_t)];
 				x_DWORD_D4190 = (posistruct2_t*)((int8_t*)x_DWORD_D4188+file2lenght+file1Lenght);
@@ -40241,14 +40059,7 @@ void LoadTextureData(__int16 vgaTypeResolution, MapType_t MapType, uint8_t* pdwS
 			}
 		}
 	}
-	//return result;
 }
-// D4188: using guessed type int x_DWORD_D4188;
-// D418C: using guessed type int x_DWORD_D418C;
-// D4190: using guessed type int x_DWORD_D4190;
-// D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
-// 180628: using guessed type int pdwScreenBuffer_351628;
-// 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
 //----- (00047130) --------------------------------------------------------
 void sub_47130()//228130
@@ -40446,9 +40257,6 @@ void sub_47320_in_game_loop(signed int a1)//228320
 
 	sub_90E07_VGA_set_video_mode_640x480_and_pallette((TColor*)*xadatapald0dat2.colorPallette_var28);
 }
-// D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
-// D41A4: using guessed type int x_DWORD_D41A4;
-// 17DB54: using guessed type int x_DWORD_17DB54_game_turn2;
 
 type_event_0x6E8E OldTestEntity[0x100];
 
@@ -40473,7 +40281,7 @@ void intervalsave(int index) {
 	SaveLevel_55080(0, x_D41A0_BYTEARRAY_4_struct.levelnumber_43w, outname);
 };
 
-//long debugcounter_47560_2;
+//long debugcounter_47560_2=0;
 //----- (00047560) --------------------------------------------------------
 void DrawAndEventsInGame_47560(/*uint8_t* a1, int a2, */uint32_t a3, signed int a4, __int16 a5)//228560
 {
@@ -40497,6 +40305,7 @@ void DrawAndEventsInGame_47560(/*uint8_t* a1, int a2, */uint32_t a3, signed int 
 	ReadGameUserInputs_89D10();//get keys
 
 #ifdef AUTO_CHANGE_RES
+	//if ((windowResWidth == 640)&&(windowResHeight == 480))
 	if (true)
 	{
 		if (resindex_begin == 1)
@@ -40533,7 +40342,10 @@ void DrawAndEventsInGame_47560(/*uint8_t* a1, int a2, */uint32_t a3, signed int 
 	save_debugcounter++;
 #endif //INTERVAL_SAVE
 //adress 228583
-	GameEvents_51BB0(screenWidth_18062C, screenHeight_180624);
+#ifdef DEBUG_SEQUENCES2
+	//add_compare(0x228583, debugafterload);
+#endif //DEBUG_SEQUENCES2
+	GameEvents_51BB0();//nothing draw
 	//adress 228588
 	sub_848A0();//nothing draw
 	//adress 22858d
@@ -40562,9 +40374,23 @@ void DrawAndEventsInGame_47560(/*uint8_t* a1, int a2, */uint32_t a3, signed int 
 	sub_6E150();//nothing draw
 	DrawGameFrame_2BE30();
 	//adress 2285ff
+	//add_compare(0x002285FF, debugafterload);
 #ifdef TEST_REGRESSION
 	add_compare(0x002285FF, debugafterload, -1, false, 20);
+	//add_compare(0x002285FF, debugafterload, 6);
 #endif //TEST_REGRESSION
+#ifdef DEBUG_SEQUENCES2
+	//add_compare(0x002285FF, debugafterload);
+#endif //DEBUG_SEQUENCES2
+#ifdef DEBUG_SEQUENCES
+	//add_compare(0x002285FF, debugafterload);
+#endif //DEBUG_SEQUENCES
+	/*if (debugcounter_47560_2>=0x8f)
+	{
+		debugcounter_47560_2++;
+		debugcounter_47560_2--;
+	}
+	debugcounter_47560_2++;*/
 #ifdef ANALYZE_ENTITY
 	analyzeEntites();
 #endif //ANALYZE_ENTITY
@@ -40591,8 +40417,6 @@ void DrawAndEventsInGame_47560(/*uint8_t* a1, int a2, */uint32_t a3, signed int 
 	if (x_D41A0_BYTEARRAY_4_struct.byteindex_51 >= 3u)
 		sub_40F80();
 }
-// D41A4: using guessed type int x_DWORD_D41A4;
-// 17DB54: using guessed type int x_DWORD_17DB54_game_turn2;
 
 //----- (00047650) --------------------------------------------------------
 void sub_47650(int  /*a1*//*, int a2*/)//228650
@@ -40962,15 +40786,7 @@ void palletteChanges_47760(/*int a1,*/uint32_t  /*user*//* int a2, int a3*/)//22
 		break;
 	}
 	}
-	//return (char)v3;
 }
-// 8C250: using guessed type x_DWORD memset(x_DWORD, x_DWORD, x_DWORD);
-// D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
-// D41A4: using guessed type int x_DWORD_D41A4;
-// EA3B8: using guessed type int x_DWORD_EA3B8;
-// EA3D8: using guessed type int *xadatapald0dat2.colorPallette_var28;
-// EB3A8: using guessed type char uiBackGroundColorIdx;
-// F42A0: using guessed type int x_DWORD_F42A0;
 
 //----- (00047FC0) --------------------------------------------------------
 void sub_47FC0_load_screen(bool isSecretLevel)//228fc0
@@ -41018,13 +40834,7 @@ void sub_47FC0_load_screen(bool isSecretLevel)//228fc0
 	D41A0_0.dword_0x23a = 1;
 	D41A0_0.dword_0x23e = 0;
 	D41A0_0.dword_0x242 = 0;
-	//return result;
 }
-// D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
-// E9C38: using guessed type int x_DWORD_E9C38_smalltit;
-// EA3D8: using guessed type int *xadatapald0dat2.colorPallette_var28;
-// 180628: using guessed type int pdwScreenBuffer_351628;
-// 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
 //----- (000480A0) --------------------------------------------------------
 void sub_480A0_set_clear_pallette(/*int a1, int a2, int a3*/)//2290a0
@@ -42246,14 +42056,12 @@ void GenerateEvents_49290(type_str_2FECE* terrain, char a2, uint16_t width, uint
 			{
 				PrepareEvents_49540(terrain, &terrain->entity_0x30311[jx]);//22a357
 				if (a2)
-				{
 					terrain->entity_0x30311[jx].type_0x30311 = 0;
-				}
 			}
 		}
 	}
 #ifdef DEBUG_SEQUENCES
-	add_compare(0x22A388, debugafterload);
+	add_compare(0x22A383, debugafterload);
 #endif //DEBUG_SEQUENCES
 
 	ApplyEvents_498A0();//22a383
@@ -42270,9 +42078,7 @@ void GenerateEvents_49290(type_str_2FECE* terrain, char a2, uint16_t width, uint
 			{
 				PrepareEvents_49540(terrain, &terrain->entity_0x30311[kx]);
 				if (a2)
-				{
 					terrain->entity_0x30311[kx].type_0x30311 = 0;
-				}
 			}
 		}
 	}
@@ -42286,9 +42092,7 @@ void GenerateEvents_49290(type_str_2FECE* terrain, char a2, uint16_t width, uint
 		{
 			PrepareEvents_49540(terrain, &terrain->entity_0x30311[lx]);
 			if (a2)
-			{
 				terrain->entity_0x30311[lx].type_0x30311 = 0;
-			}
 		}
 	}
 #ifdef DEBUG_SEQUENCES
@@ -42307,9 +42111,7 @@ void GenerateEvents_49290(type_str_2FECE* terrain, char a2, uint16_t width, uint
 			{
 				PrepareEvents_49540(terrain, &terrain->entity_0x30311[mx]);
 				if (a2)
-				{
 					terrain->entity_0x30311[mx].type_0x30311 = 0;
-				}
 			}
 		}
 	}
@@ -42320,9 +42122,7 @@ void GenerateEvents_49290(type_str_2FECE* terrain, char a2, uint16_t width, uint
 		{
 			PrepareEvents_49540(terrain, &terrain->entity_0x30311[nx]);
 			if (a2)
-			{
 				terrain->entity_0x30311[nx].type_0x30311 = 0;
-			}
 		}
 	}
 	ApplyEvents_498A0();//adress 22a4d1
@@ -42335,9 +42135,7 @@ void GenerateEvents_49290(type_str_2FECE* terrain, char a2, uint16_t width, uint
 		{
 			PrepareEvents_49540(terrain, &terrain->entity_0x30311[ox]);
 			if (a2)
-			{
 				terrain->entity_0x30311[ox].type_0x30311 = 0;
-			}
 		}
 	}
 #ifdef DEBUG_SEQUENCES
@@ -42348,7 +42146,8 @@ void GenerateEvents_49290(type_str_2FECE* terrain, char a2, uint16_t width, uint
 
 int debugcounter_22a540 = 0;
 
-void PrepareEvents_49540(type_str_2FECE* terrain, type_entity_0x30311* entity)
+//----- (00049540) --------------------------------------------------------
+void PrepareEvents_49540(type_str_2FECE* terrain, type_entity_0x30311* entity)//22a540
 {
 	int16_t z_temp; // ax
 	type_event_0x6E8E* event; // eax
@@ -46181,7 +45980,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E, uint16_t 
 	}
 
 	case 0x232bb0: {
-		GameEvents_51BB0(screenWidth, screenHeight);
+		GameEvents_51BB0();
 		break;
 	}
 	case 0x233d70: {
@@ -52359,7 +52158,7 @@ type_event_0x6E8E* sub_51A00(axis_3d* position)//232a00
 int debugcounter6 = 0;
 int debugcounter_233d56 = 0;
 //----- (00051BB0) --------------------------------------------------------
-void GameEvents_51BB0(uint16_t screenWidth, uint16_t screenHeight)//232bb0
+void GameEvents_51BB0()//232bb0
 {
 	char v1; // al
 	//uint8_t* v2; // ecx
@@ -77611,12 +77410,12 @@ void sub_751B0(__int16 a1, __int16 a2, __int16 a3, unsigned __int16 a4, __int16 
 	sub_8F100_sound_proc19(a1, a2, a3 >> 8, 127 * a4 / 0xFFFF, a5 + 100, 0, 1u);
 }
 
-void VGA_BlitAny(uint16_t width, uint16_t height, uint8_t* pScreenBuffer)//256200
+void VGA_BlitAny()//256200
 {
 	if (!x_BYTE_E3766)
 		sub_8CACD_draw_cursor2();
 
-	VGA_Blit(pScreenBuffer);
+	VGA_Blit(pdwScreenBuffer_351628);
 
 	//set speed
 	long actmillis = mygetthousandths();
