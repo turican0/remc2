@@ -138,6 +138,7 @@ int save_debugcounter = 0;
 
 #define FIX_sub_48B90// - when set game have error, but compactible with original
 
+#define ALTERNATIVE_GAMESPEED_CONTROL
 
 //(set in bool sub_558E0_InGameLoad(uint8_t fileindex)//2368e0)
 int count_begin = 1;//1
@@ -1169,7 +1170,7 @@ void sub_19A50();
 void sub_19A70();
 void OptionMenuEvents_19AB0();
 void ChangeSoundLevel_19CA0(uint8_t option);
-// int sub_19D60(signed int a1, int a2);
+// int SetSoundEffectAndMusicLevelCoordinates_19D60(signed int a1, int a2);
 void sub_19E00();
 void sub_1A030();
 // void sub_1A070(signed int a1, __int16 a2);
@@ -13378,7 +13379,7 @@ void OptionMenuEvents_19AB0()//1faab0
 // 1806E4: using guessed type char x_BYTE_1806E4;
 
 //----- (00019CA0) --------------------------------------------------------
-void ChangeSoundLevel_19CA0(uint8_t option)
+void ChangeSoundLevel_19CA0(uint8_t option)//1faca0
 {
 	__int16 v1; // ST00_2
 	//int v2; // edx
@@ -13421,7 +13422,7 @@ void ChangeSoundLevel_19CA0(uint8_t option)
 // E37FD: using guessed type char x_BYTE_E37FD;
 
 //----- (00019D60) --------------------------------------------------------
-void SetSoundEffectAndMusicLevelCoordinates_19D60(signed int a1, uint16_t screenWidth)
+void SetSoundEffectAndMusicLevelCoordinates_19D60(signed int a1)//1fad60
 {
 	unsigned __int8 v2; // dl
 	int16_t v4; // [esp+0h] [ebp-10h]
@@ -13454,10 +13455,6 @@ void SetSoundEffectAndMusicLevelCoordinates_19D60(signed int a1, uint16_t screen
 //----- (00019E00) --------------------------------------------------------
 void sub_19E00()//1fae00
 {
-	//temp fix
-	uint16_t width = screenWidth_18062C;
-	//temp fix
-
 	char v0; // bl
 	char v1; // bh
 	//int v2; // eax
@@ -13556,7 +13553,7 @@ LABEL_38:
 // 1806E4: using guessed type char x_BYTE_1806E4;
 
 //----- (0001A030) --------------------------------------------------------
-void sub_1A030(uint16_t screenWidth)//1fb030
+void sub_1A030()//1fb030
 {
 	int16_t posX;
 	int16_t posY;
@@ -13649,7 +13646,7 @@ LABEL_12:
 		//v11 = x_D41A0_BYTEARRAY_4_struct.dwordindex_0;
 		x_D41A0_BYTEARRAY_4_struct.byte_38591 = pressedKeys_180664[0x2f];
 		SelectSpell_191B0(20, x_D41A0_BYTEARRAY_4_struct.byte_38544);
-		sub_8CD27_set_cursor(*(*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct));//fix it
+		sub_8CD27_set_cursor((*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct)[0]);//fix it
 		SetMousePositionInMemory_5BDC0(v15 + a2, v14 + 5 * v12 / 2);
 		if (x_D41A0_BYTEARRAY_4_struct.setting_byte3_24 & 1)
 		{
@@ -14369,21 +14366,23 @@ void sub_1A970_change_game_settings(char a1, int a2, int a3)//1fb970
 		v13x = x_DWORD_EA3E4[D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].word_0x00a_2BE4_11240];
 		if (v13x <= x_DWORD_EA3E4[0] || v13x->dword_0x8 < 0)
 			return;
-
-		if (x_D41A0_BYTEARRAY_4_struct.speedIndex == 2) 
-		{
+#ifdef ALTERNATIVE_GAMESPEED_CONTROL
+		if (x_D41A0_BYTEARRAY_4_struct.speedIndex == 2)
 			x_D41A0_BYTEARRAY_4_struct.speedIndex = 0;
-		}
-		else 
+		else
 		{
 			x_D41A0_BYTEARRAY_4_struct.speedIndex = x_D41A0_BYTEARRAY_4_struct.speedIndex + (a2 != 0) + 1;
-
 			if (x_D41A0_BYTEARRAY_4_struct.speedIndex > 2)
 			{
 				x_D41A0_BYTEARRAY_4_struct.speedIndex = 2;
 			}
 		}
-
+#else
+		if (x_D41A0_BYTEARRAY_4_struct.speedIndex)
+			x_D41A0_BYTEARRAY_4_struct.speedIndex = 0;
+		else
+			x_D41A0_BYTEARRAY_4_struct.speedIndex = (a2 != 0) + 1;
+#endif //#ifdef ALTERNATIVE_GAMESPEED_CONTROL
 		v14 = x_D41A0_BYTEARRAY_4_struct.speedIndex;
 		if (v14 < 1u)
 		{
@@ -44361,7 +44360,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E, uint16_t 
 #ifdef COMPILE_FOR_64BIT // FIXME: 64bit
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
-	SetSoundEffectAndMusicLevelCoordinates_19D60((int)a1_6E8E, screenWidth);
+	SetSoundEffectAndMusicLevelCoordinates_19D60((int)a1_6E8E);
 #endif
 		break;
 	}
@@ -44371,7 +44370,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E, uint16_t 
 		break;
 	}
 	case 0x1fb030: {
-		sub_1A030(screenWidth);
+		sub_1A030();
 		break;
 	}
 	case 0x1fb070: {
@@ -53499,12 +53498,12 @@ void sub_52E90(type_str_0x2BDE* a1x, signed int a2, char a3)
 	case 0xA:
 	case 0xC:
 		sub_548F0(a1x);
-		SetSoundEffectAndMusicLevelCoordinates_19D60(a2, screenWidth);
+		SetSoundEffectAndMusicLevelCoordinates_19D60(a2);
 		break;
 	case 0xD:
 	case 0xE:
 		sub_548F0(a1x);
-		sub_1A030(screenWidth);
+		sub_1A030();
 		break;
 	default:
 		break;
