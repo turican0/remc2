@@ -28027,14 +28027,14 @@ void sub_2CE30_pause_end_level(int a1, int a2)//20de30
 	{
 		if (x_D41A0_BYTEARRAY_4_struct.setting_byte3_24 & 1)
 		{
-			DrawText_2BC10(x_DWORD_E9C4C_langindexbuffer[425], a1, a2, (*xadataclrd0dat.colorPallette_var28)[0xf0], screenWidth_18062C);//Paused!
+			DrawText_2BC10(x_DWORD_E9C4C_langindexbuffer[425], a1, a2, (*xadataclrd0dat.colorPallette_var28)[0xf0]);//Paused!
 			v4x = 8 * (strlen((const char*)x_DWORD_E9C4C_langindexbuffer[425]) + 2) + a1;//Paused!
 		}
 
 		if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 0x20) && D41A0_0.struct_0x3659C[D41A0_0.LevelIndex_0xc].substr_3659C.IsLevelEnd_0)
 		{
 			sprintf(printbuffer, "%s. %s.", x_DWORD_E9C4C_langindexbuffer[378], x_DWORD_E9C4C_langindexbuffer[379]);//Tasks completed,Fly to the exit point.
-			DrawText_2BC10(printbuffer, v4x, a2, v5, screenWidth_18062C);
+			DrawText_2BC10(printbuffer, v4x, a2, v5);
 			v4x = a1;
 			LOWORD(v6) = sub_6FC30_get34_height();
 			v2 = v6 + a2;
@@ -28136,28 +28136,19 @@ void sub_2CE30_pause_end_level(int a1, int a2)//20de30
 // EA238: using guessed type int x_DWORD_EA238;
 // EA2F0: using guessed type int x_DWORD_EA2F0;
 
-void sub_2D190(int16_t posStartX, int16_t posStartY, int a3, int16_t posEndY, int a5, uint8 colorIdx)
+//----- (0002D190) --------------------------------------------------------
+void sub_2D190(int16_t posStartX, int16_t posStartY, int a3, int16_t posEndY, int a5, uint8 colorIdx)//20e190
 {
-	//temp fix
-	uint16_t pitch = screenWidth_18062C;
-	//temp fix
-
 	int16_t posEndX = a5;
-
 	if (a5 >= a3)
 		posEndX = a3;
-
 	if (posEndX >= 2)
-		DrawLine_2BC80(posStartX, posStartY, posEndX, posEndY, pitch, colorIdx);
+		DrawLine_2BC80(posStartX, posStartY, posEndX, posEndY, colorIdx);
 }
 
 //----- (0002D1D0) --------------------------------------------------------
 void DrawSorcererScores_2D1D0()//20e1d0
 {
-	//temp fix
-	uint16_t screenWidth = screenWidth_18062C;
-	//temp fix
-
 	signed int v0; // esi
 	int v1; // eax
 	//uint8_t* v2; // edx
@@ -28206,7 +28197,7 @@ void DrawSorcererScores_2D1D0()//20e1d0
 		v2x++;
 	}
 	v3 = v1 * (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[85].height_5;
-	v28 = (screenWidth - (v1 * (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[86].width_4 + (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[85].width_4)) / 2;
+	v28 = (screenWidth_18062C - (v1 * (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[86].width_4 + (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[85].width_4)) / 2;
 	if (x_WORD_180660_VGA_type_resolution == 1)
 		v4 = 400;
 	else
@@ -28232,15 +28223,14 @@ void DrawSorcererScores_2D1D0()//20e1d0
 				v5 + 4,
 				(*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[85].width_4 - 8,
 				(*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[85].height_5 - 8,
-				screenWidth,
 				v30);
 			v8 = v29;
 			v22 = (signed __int16)(v7 + 8);
-			DrawText_2BC10(D41A0_0.array_0x2BDE[ix].array_0x39f_2BFA_12157, v7 + 8, v5 + 6, v29, screenWidth);//wizard name
+			DrawText_2BC10(D41A0_0.array_0x2BDE[ix].array_0x39f_2BFA_12157, v7 + 8, v5 + 6, v29);//wizard name
 			sprintf(printbuffer, "%d", v23x->dword_0x8C_140);
 			v9 = v8;
 			v10 = v25;
-			DrawText_2BC10(printbuffer, v22, v5 + 20, v9, screenWidth);
+			DrawText_2BC10(printbuffer, v22, v5 + 20, v9);
 			if (!v10 && x_D41A0_BYTEARRAY_4_struct.byteindex_10)
 			{
 				str_unk_1804B0ar.word_0x96 = v7 + 20;
@@ -28281,7 +28271,6 @@ void DrawSorcererScores_2D1D0()//20e1d0
 							v26,
 							(*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[86].width_4 - 8,
 							(*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[86].height_5 - 8,
-							screenWidth,
 							(*xadataclrd0dat.colorPallette_var28)[0]);
 					}
 					else
@@ -28294,10 +28283,9 @@ void DrawSorcererScores_2D1D0()//20e1d0
 							v26,
 							(*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[86].width_4 - 8,
 							(*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[86].height_5 - 8,
-							screenWidth,
 							v30);
 						sprintf(printbuffer, "%03d", v23x->dword_0xA4_164x->word_0x26_38[j]);
-						DrawText_2BC10(printbuffer, v12 + 8, v5 + 10, v29, screenWidth);
+						DrawText_2BC10(printbuffer, v12 + 8, v5 + 10, v29);
 						if (x_D41A0_BYTEARRAY_4_struct.byteindex_10 && str_unk_1804B0ar.byte_0xa8 && !v25 && j == (unsigned __int8)str_unk_1804B0ar.byte_0xa8)
 						{
 							str_unk_1804B0ar.word_0x9a = v12 + 20;
@@ -28333,10 +28321,6 @@ void DrawSorcererScores_2D1D0()//20e1d0
 //----- (0002D710) --------------------------------------------------------
 void DrawTopStatusBar_2D710(type_event_0x6E8E* a1x)//20e710
 {
-	//temp fix
-	uint16_t pitch = screenWidth_18062C;
-	//temp fix
-
 	__int16 v1; // bx
 	type_event_0x6E8E* v2x; // ecx
 	int v3; // ecx
@@ -28424,8 +28408,8 @@ void DrawTopStatusBar_2D710(type_event_0x6E8E* a1x)//20e710
 		//Draw Mana Goal Lines
 		if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 0x10) && D41A0_0.terrain_2FECE.word_0x2FED5)
 		{
-			DrawLine_2BC80(v22 + (D41A0_0.terrain_2FECE.word_0x2FED5 << 6) / 100, 26, 2, 2, pitch, v26);
-			DrawLine_2BC80(v22 + (D41A0_0.terrain_2FECE.word_0x2FED5 << 6) / 100, 38, 2, 2, pitch, v26);
+			DrawLine_2BC80(v22 + (D41A0_0.terrain_2FECE.word_0x2FED5 << 6) / 100, 26, 2, 2, v26);
+			DrawLine_2BC80(v22 + (D41A0_0.terrain_2FECE.word_0x2FED5 << 6) / 100, 38, 2, 2, v26);
 		}
 	}
 	else
@@ -28530,7 +28514,6 @@ void DrawTopStatusBar_2D710(type_event_0x6E8E* a1x)//20e710
 // F01E8: using guessed type int (*x_DWORD_F01E8)(x_DWORD, x_DWORD, x_DWORD);
 
 //----- (0002DE80) --------------------------------------------------------
-//void(*v1)(int16_t, int16_t, posistruct_t); // eax
 int debugcounter_sub_2DE80 = 0;
 void DrawMenuBitmap_2DE80(int16_t posX, int16_t posY, posistruct_t a3)//20ee80
 {
@@ -28653,84 +28636,64 @@ void DrawMenuBitmap_2DE80(int16_t posX, int16_t posY, posistruct_t a3)//20ee80
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
 //----- (0002DFD0) --------------------------------------------------------
-void sub_2DFD0(__int16 a1, __int16 a2, posistruct_t a3, unsigned __int8 a4)//20efd0
+void sub_2DFD0(int16_t posX, int16_t posY, posistruct_t a3, unsigned __int8 a4)//20efd0
 {
-	int v4; // eax
-	x_BYTE* v5; // edi
+	uint8_t* v5; // edi
 	uint8_t* v6=0; // edx
 	int v7; // ebx
 	int v8; // ecx
-	x_BYTE* v9=0; // edi
+	uint8_t* v9=0; // edi
 	uint8_t* v10=0; // edx
 	int v11; // ebx
 	int v12; // ecx
 	int v14; // [esp+0h] [ebp-14h]
 	int v15; // [esp+0h] [ebp-14h]
-	int i; // [esp+4h] [ebp-10h]
-	int v17=0; // [esp+8h] [ebp-Ch]
+	uint8_t* i; // [esp+4h] [ebp-10h]
+	uint8_t* v17=0; // [esp+8h] [ebp-Ch]
 	__int16 v18; // [esp+Ch] [ebp-8h]
 	__int16 v19; // [esp+10h] [ebp-4h]
 
 	if (x_WORD_180660_VGA_type_resolution == 1)
 	{
 		v19 = a3.height_5 / 2;
-		v4 = a2 / 2 * screenWidth_18062C + a1 / 2;
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-		v5 = (x_BYTE*)(v4 + (int)pdwScreenBuffer_351628);
+		v5 = &pdwScreenBuffer_351628[posY / 2 * screenWidth_18062C + posX / 2];
 		v6 = a3.data;
-		for (i = v4 + (int)pdwScreenBuffer_351628; v19; v6 += v14)
+		for (i = v5; v19; v6 += v14)
 		{
 			while (1)
 			{
 				while (1)
 				{
-					LOBYTE(v4) = *v6++;
-					if ((x_BYTE)v4)
+					if (++(*v6))
 						break;
-					LOBYTE(v4) = screenWidth_18062C;
 					i += screenWidth_18062C;
-					v5 = (x_BYTE*)i;
+					v5 = i;
 					if (!--v19)
 						return;
 				}
-				if ((v4 & 0x80u) == 0)
+				if ((screenWidth_18062C & 0x80u) == 0)
 					break;
-				v5 -= (char)v4;
+				v5 -= (char)screenWidth_18062C;
 				if (!v19)
 					return;
 			}
 			v7 = a4;
-			v8 = (char)v4;
-			v14 = (char)v4;
+			v8 = (char)screenWidth_18062C;
+			v14 = (char)screenWidth_18062C;
 			do
 			{
 				BYTE1(v7) = *v5;
-				LOBYTE(v4) = x_BYTE_F6EE0_tablesx[0x4000 + v7];
-				*v5++ = v4;
+				*v5++ = x_BYTE_F6EE0_tablesx[0x4000 + v7];
 				--v8;
 			} while (v8);
 		}
-#endif
 	}
 	else
 	{
 		v18 = a3.height_5;
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-		LOBYTE(v4) = (int)pdwScreenBuffer_351628;
-		v9 = (x_BYTE*)((int)pdwScreenBuffer_351628 + a1 + screenWidth_18062C * a2);
+		v9 = &pdwScreenBuffer_351628[posX + screenWidth_18062C * posY];
 		v10 = a3.data;
-		v17 = (int)pdwScreenBuffer_351628 + a1 + screenWidth_18062C * a2;
-#endif
+		v17 = &pdwScreenBuffer_351628[posX + screenWidth_18062C * posY];
 		if (a3.height_5)
 		{
 			do
@@ -28739,29 +28702,26 @@ void sub_2DFD0(__int16 a1, __int16 a2, posistruct_t a3, unsigned __int8 a4)//20e
 				{
 					while (1)
 					{
-						LOBYTE(v4) = *v10++;
-						if ((x_BYTE)v4)
+						if (++(*v10))
 							break;
-						LOBYTE(v4) = screenWidth_18062C;
-						v9 = (x_BYTE*)(screenWidth_18062C + v17);
+						v9 = &screenWidth_18062C[v17];
 						v17 += screenWidth_18062C;
 						if (!--v18)
 							return;
 					}
-					if ((v4 & 0x80u) == 0)
+					if ((screenWidth_18062C & 0x80u) == 0)
 						break;
-					v9 -= (char)v4;
+					v9 -= (char)screenWidth_18062C;
 					if (!v18)
 						return;
 				}
 				v11 = a4;
-				v12 = (char)v4;
-				v15 = (char)v4;
+				v12 = (char)screenWidth_18062C;
+				v15 = (char)screenWidth_18062C;
 				do
 				{
 					BYTE1(v11) = *v9;
-					LOBYTE(v4) = x_BYTE_F6EE0_tablesx[0x4000 + v11];
-					*v9++ = v4;
+					*v9++ = x_BYTE_F6EE0_tablesx[0x4000 + v11];
 					--v12;
 				} while (v12);
 				v10 += v15;
@@ -28769,9 +28729,6 @@ void sub_2DFD0(__int16 a1, __int16 a2, posistruct_t a3, unsigned __int8 a4)//20e
 		}
 	}
 }
-// 180628: using guessed type int pdwScreenBuffer_351628;
-// 18062C: using guessed type int screenWidth_18062C;
-// 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
 //----- (0002E260) --------------------------------------------------------
 void DrawSpellIcon_2E260(int16_t posX, int16_t posY, type_event_0x6E8E* a3x, char a4)//20f260
@@ -28840,7 +28797,7 @@ void DrawSpellIcon_2E260(int16_t posX, int16_t posY, type_event_0x6E8E* a3x, cha
 				DrawText_2BC10((char*)off_DB06C[a3x->byte_0x46_70],
 					(*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[1].width_4 + posX - 8 * strlen((const char*)*(&off_DB06C[a3x->byte_0x46_70])) - 2,//test and fix
 					posY,
-					(*xadataclrd0dat.colorPallette_var28)[0], pitch);//x_BYTE_E8900//20f3bd//2b9900
+					(*xadataclrd0dat.colorPallette_var28)[0]);//x_BYTE_E8900//20f3bd//2b9900
 				if (a3x->dword_0x8C_140)
 				{
 					DrawLine_2BC80(
@@ -28848,14 +28805,13 @@ void DrawSpellIcon_2E260(int16_t posX, int16_t posY, type_event_0x6E8E* a3x, cha
 						posY + 36,
 						56 * (v15x->dword_0x90_144 % a3x->dword_0x8C_140) / a3x->dword_0x8C_140,
 						4,
-						pitch,
 						v16);
 					v10 = v15x->dword_0x90_144 / a3x->dword_0x8C_140;
 					for (i = 0; i < 27 && v10; i++)
 					{
 						for (j = 0; j < 2 && v10; j++)
 						{
-							DrawLine_2BC80(posX + 2 * (i + 2), posY + 2 * (j + 18), 2, 2, pitch, v17);
+							DrawLine_2BC80(posX + 2 * (i + 2), posY + 2 * (j + 18), 2, 2, v17);
 							v10--;
 						}
 					}
@@ -29155,14 +29111,14 @@ void DrawBottomMenu_2ECC0()
 						{
 							//sub_2BB40_draw_bitmap(v6, v5, (uint8_t**)(**filearray_2aa18c[6] + 522));
 							sub_2BB40_draw_bitmap(posX + v6, v5, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[87]);//draw top 2 left frame
-							DrawLine_2BC80(posX + v6 + 6, v5 + 28, 36 * (v37x->dword_0x90_144 % v35) / v35, 4, screenWidth, v56);
+							DrawLine_2BC80(posX + v6 + 6, v5 + 28, 36 * (v37x->dword_0x90_144 % v35) / v35, 4, v56);
 							v34 = v37x->dword_0x90_144 / v35;
 							for (i = 0; i < 36 && v34 > 0; i += 2)
 							{
 								v40 = 0;
 								while (v40 < 4 && v34 > 0)
 								{
-									DrawLine_2BC80(i + posX + v6 + 6, v40 + v5 + 28, 2, 2, screenWidth, v57);//mana fo top left 2 frame
+									DrawLine_2BC80(i + posX + v6 + 6, v40 + v5 + 28, 2, 2, v57);//mana fo top left 2 frame
 									v40 += 2;
 									v34--;
 								}
@@ -29339,9 +29295,9 @@ void DrawBottomMenu_2ECC0()
 					LOWORD(v32) = 0;
 				if ((signed __int16)v32 > 54)
 					LOWORD(v32) = 54;
-				DrawLine_2BC80(posX + v19 + 6, v50 + 28, 54, 2, screenWidth, (*xadataclrd0dat.colorPallette_var28)[0]);
+				DrawLine_2BC80(posX + v19 + 6, v50 + 28, 54, 2, (*xadataclrd0dat.colorPallette_var28)[0]);
 				if ((x_WORD)v32)
-					DrawLine_2BC80(posX + v19 + 6, v50 + 28, v32, 2, screenWidth, (*xadataclrd0dat.colorPallette_var28)[0xf00]);
+					DrawLine_2BC80(posX + v19 + 6, v50 + 28, v32, 2, (*xadataclrd0dat.colorPallette_var28)[0xf00]);
 			}
 			v20++;
 			LOWORD(v19) = v52 + v19;
@@ -29456,13 +29412,13 @@ void DrawChatMenu_2F6B0()//2106b0
 	v43 = (*xadataclrd0dat.colorPallette_var28)[0xf00];
 	v4 = v40;
 	v51 = -1;
-	DrawLine_2BC80(0, v40, 640, 72, screenWidth, v2);
+	DrawLine_2BC80(0, v40, 640, 72, v2);
 	v34 = v49;
-	DrawLine_2BC80(0, v4, 640, 2, screenWidth, v49);
+	DrawLine_2BC80(0, v4, 640, 2, v49);
 	v5 = v48;
-	DrawLine_2BC80(0, v40 + 70, 640, 2, screenWidth, v48);
-	DrawLine_2BC80(0, v4, 2, 70, screenWidth, v34);
-	DrawLine_2BC80(v36 + 638, v4, 2, 72, screenWidth, v5);
+	DrawLine_2BC80(0, v40 + 70, 640, 2, v48);
+	DrawLine_2BC80(0, v4, 2, 70, v34);
+	DrawLine_2BC80(v36 + 638, v4, 2, 72, v5);
 	if (x_WORD_E3760_mouse.x < 4
 		|| x_WORD_E3760_mouse.x >= 66
 		|| x_WORD_E3760_mouse.y < v40 + 28
@@ -29483,13 +29439,13 @@ void DrawChatMenu_2F6B0()//2106b0
 	v8 = v36 + 4;
 	v9 = v36 + 4;
 	v34 = (signed __int16)(v40 + 4);
-	DrawLine_2BC80(v36 + 4, v40 + 4, 372, 20, screenWidth, v47);
+	DrawLine_2BC80(v36 + 4, v40 + 4, 372, 20, v47);
 	v35 = v48;
-	DrawLine_2BC80(v9, v34, 372, 2, screenWidth, v48);
+	DrawLine_2BC80(v9, v34, 372, 2, v48);
 	v38 = v49;
-	DrawLine_2BC80(v9, v7 + 18, 372, 2, screenWidth, v49);
-	DrawLine_2BC80(v9, v34, 2, 18, screenWidth, v35);
-	DrawLine_2BC80(v8 + 370, v34, 2, 20, screenWidth, v38);
+	DrawLine_2BC80(v9, v7 + 18, 372, 2, v49);
+	DrawLine_2BC80(v9, v34, 2, 18,  v35);
+	DrawLine_2BC80(v8 + 370, v34, 2, 20, v38);
 	sprintf(printbuffer, "%s", D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].names_81[v46]);
 	v7 += 2;
 	v8 += 6;
@@ -29505,7 +29461,7 @@ void DrawChatMenu_2F6B0()//2106b0
 	v14 = v10;
 	v15 = v40;
 	v16 = v36;
-	DrawLine_2BC80(v14, v13, 6, 12, screenWidth, v12);
+	DrawLine_2BC80(v14, v13, 6, 12, v12);
 	v17 = v15 + 28;
 	v18 = v16 + 4;
 	while (v39 < 8)
@@ -29604,13 +29560,13 @@ void DrawChatMenu_2F6B0()//2106b0
 	sub_2BB40_draw_bitmap(v36 + 474, v28, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[261]);
 	sub_2BB40_draw_bitmap(v36 + 564, v28, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[260]);
 	v30 = v40 + 50;
-	DrawLine_2BC80(v29, v40 + 50, 236, 18, screenWidth, v47);
+	DrawLine_2BC80(v29, v40 + 50, 236, 18, v47);
 	v31 = v48;
-	DrawLine_2BC80(v29, v30, 236, 2, screenWidth, v48);
+	DrawLine_2BC80(v29, v30, 236, 2, v48);
 	v38 = v49;
-	DrawLine_2BC80(v29, v40 + 66, 236, 2, screenWidth, v49);
-	DrawLine_2BC80(v29, v30, 2, 16, screenWidth, v31);
-	DrawLine_2BC80(v36 + 618, v30, 2, 18, screenWidth, v38);
+	DrawLine_2BC80(v29, v40 + 66, 236, 2, v49);
+	DrawLine_2BC80(v29, v30, 2, 16, v31);
+	DrawLine_2BC80(v36 + 618, v30, 2, 18, v38);
 	result = v51;
 	if (v51 != -1)
 		//v51
@@ -29896,7 +29852,7 @@ void DrawInGameOptionsMenu_30050()
 		{
 			v7 = (*xadataclrd0dat.colorPallette_var28)[0x888];
 		}
-		DrawText_2BC10((char*)v18, optionMenuXPos + ((x_D41A0_BYTEARRAY_4_struct.byteindex_186 - 8 * strlen(v18)) >> 1), v0 + 2, v7, screenWidth);
+		DrawText_2BC10((char*)v18, optionMenuXPos + ((x_D41A0_BYTEARRAY_4_struct.byteindex_186 - 8 * strlen(v18)) >> 1), v0 + 2, v7);
 		v0 += 18;
 		v1 = v21 + 1;
 	}
@@ -29942,7 +29898,7 @@ void DrawInGameOptionsMenu_30050()
 	else
 		v12 = (*xadataclrd0dat.colorPallette_var28)[0xf00];
 	
-	DrawText_2BC10((char*)"OK", okayBtnTextXPos + 33, 379, v12, screenWidth);
+	DrawText_2BC10((char*)"OK", okayBtnTextXPos + 33, 379, v12);
 
 	if (unk_18058Cstr.x_WORD_1805C2_joystick == 8
 		|| unk_18058Cstr.x_WORD_1805C2_joystick == 12
@@ -30013,22 +29969,22 @@ LABEL_8:
 	v10 -= 2;
 	v13 = v2;
 	v11 += 4 * v9;
-	DrawLine_2BC80(v12, v11, v10, 24, screenWidth_18062C, v2);
-	DrawLine_2BC80(v12, v11, v10, 2, screenWidth_18062C, v3);
+	DrawLine_2BC80(v12, v11, v10, 24, v2);
+	DrawLine_2BC80(v12, v11, v10, 2, v3);
 	v6 = v15;
-	DrawLine_2BC80(v12, v11 + 22, v10, 2, screenWidth_18062C, v15);
-	DrawLine_2BC80(v12, v11, 2, 22, screenWidth_18062C, v3);
-	DrawLine_2BC80(v10 + v12 - 2, v11, 2, 24, screenWidth_18062C, v6);
-	DrawLine_2BC80(v12 + 4, v11 + 4, v10 - 8, 16, screenWidth_18062C, v13);
-	DrawLine_2BC80(v12 + 4, v11 + 4, v10 - 8, 2, screenWidth_18062C, v6);
-	DrawLine_2BC80(v12 + 4, v11 + 18, v10 - 8, 2, screenWidth_18062C, v3);
-	DrawLine_2BC80(v12 + 4, v11 + 4, 2, 14, screenWidth_18062C, v6);
-	DrawLine_2BC80(v12 + 4 + v10 - 8 - 2, v11 + 4, 2, 16, screenWidth_18062C, v3);
+	DrawLine_2BC80(v12, v11 + 22, v10, 2, v15);
+	DrawLine_2BC80(v12, v11, 2, 22, v3);
+	DrawLine_2BC80(v10 + v12 - 2, v11, 2, 24, v6);
+	DrawLine_2BC80(v12 + 4, v11 + 4, v10 - 8, 16, v13);
+	DrawLine_2BC80(v12 + 4, v11 + 4, v10 - 8, 2, v6);
+	DrawLine_2BC80(v12 + 4, v11 + 18, v10 - 8, 2, v3);
+	DrawLine_2BC80(v12 + 4, v11 + 4, 2, 14, v6);
+	DrawLine_2BC80(v12 + 4 + v10 - 8 - 2, v11 + 4, 2, 16, v3);
 	v7 = v14 * (v10 - 12) / a1;
 	v11 += 6;
 	v12 += 6;
-	DrawLine_2BC80(v12, v11, v10 - 12, 12, screenWidth_18062C, (*xadataclrd0dat.colorPallette_var28)[0]);
-	DrawLine_2BC80(v12, v11, v7, 12, screenWidth_18062C, (*xadataclrd0dat.colorPallette_var28)[0xf0]);
+	DrawLine_2BC80(v12, v11, v10 - 12, 12, (*xadataclrd0dat.colorPallette_var28)[0]);
+	DrawLine_2BC80(v12, v11, v7, 12, (*xadataclrd0dat.colorPallette_var28)[0xf0]);
 }
 // D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
 // D41A4: using guessed type int x_DWORD_D41A4;
@@ -91156,7 +91112,7 @@ void DrawTextbox_895D0(type_sub_str_unk_1804B0ar* a1y, char* a2)//26a5d0
 			v9 = a1y->word_0x8;
 			v14 = (i + 1);
 			v10 = v13;
-			DrawText_2BC10(v11x, v9, v13, v8, pitch);
+			DrawText_2BC10(v11x, v9, v13, v8);
 			result = a1y->word_0x12;
 			v13 = result + v10;
 		} while (v2 > v14);

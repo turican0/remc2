@@ -2842,22 +2842,22 @@ void GameRender_new::DrawSorcererNameAndHealthBar_2CB30(type_event_0x6E8E* a1x, 
 				v32 = v13 + 2;
 				v26 = (signed __int16)(v13 + 2);
 				v30 = v11;
-				DrawLine_2BC80(v11, v39, v13 + 2, 18, iScreenWidth_DE560, v37);//8
+				DrawLine_2BC80(v11, v39, v13 + 2, 18, v37);//8
 				v27 = v33;//30// v16
-				DrawLine_2BC80(v30, v39, v26, 2, iScreenWidth_DE560, v33);//18
+				DrawLine_2BC80(v30, v39, v26, 2, v33);//18
 				v28 = v38;//2c//v17
-				DrawLine_2BC80(v30, v39 + 16, v26, 2, iScreenWidth_DE560, v38);//4
-				DrawLine_2BC80(v30, v39, 2, 16, iScreenWidth_DE560, v33);//30,tj.18
-				DrawLine_2BC80(v11 + v32 - 2, v39, 2, 18, iScreenWidth_DE560, v38);//2c tj. 4
-				DrawText_2BC10(v24, v11 + 4, v39, v34, iScreenWidth_DE560);//14
-				DrawLine_2BC80(v11 + 2, v39 + 14, v13 - 2, 2, iScreenWidth_DE560, v35);//10
+				DrawLine_2BC80(v30, v39 + 16, v26, 2, v38);//4
+				DrawLine_2BC80(v30, v39, 2, 16, v33);//30,tj.18
+				DrawLine_2BC80(v11 + v32 - 2, v39, 2, 18, v38);//2c tj. 4
+				DrawText_2BC10(v24, v11 + 4, v39, v34);//14
+				DrawLine_2BC80(v11 + 2, v39 + 14, v13 - 2, 2, v35);//10
 				if (a1x->dword_0x4)
 				{
 					v9y = a1x->dword_0x8 * (v13 - 2) / a1x->dword_0x4;
 					if (v30 + 2 + v9y > v31 - 2)
 						v9y = v31 - 2 - (v30 + 2);
 					if (v9y > 0)
-						DrawLine_2BC80(v11 + 2, v39 + 14, v9y, 2, iScreenWidth_DE560, v36);
+						DrawLine_2BC80(v11 + 2, v39 + 14, v9y, 2, v36);
 				}
 			}
 		}
