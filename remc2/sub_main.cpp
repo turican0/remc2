@@ -7711,7 +7711,7 @@ void sub_12100(type_entity_0x30311* entity, type_event_0x6E8E* event, char a3)//
 {
 	signed __int16 v3; // bx
 	unsigned __int8 v4; // cl
-	int v5;
+	//int v5;
 	//signed __int16 v6; // bx
 	//int v7; // edx
 	//signed __int16 v8; // bx
@@ -7720,18 +7720,18 @@ void sub_12100(type_entity_0x30311* entity, type_event_0x6E8E* event, char a3)//
 
 	v3 = 1;
 	v4 = 0;
-	v5 = 0;
+	//v5 = 0;
 	while (v3 <= D41A0_0.countStageVars_0x36E00 && !v4)
 	{
-		if (D41A0_0.StageVars2_0x365F4[v5 + 1].index_0x3647A_0
-			&& !(D41A0_0.StageVars2_0x365F4[v5 + 1].stage_0x3647A_1 & 1)
+		if (D41A0_0.StageVars2_0x365F4[v3].index_0x3647A_0
+			&& !(D41A0_0.StageVars2_0x365F4[v3].stage_0x3647A_1 & 1)
 			&& entity - D41A0_0.terrain_2FECE.entity_0x30311 ==
 			D41A0_0.terrain_2FECE.StageVars_0x3647A[v3].str_0x3647A_2.word)
 		{
 			v4 = v3;
 		}
 		v3++;
-		v5++;
+		//v5++;
 	}
 	if (!v4)
 	{
@@ -8238,11 +8238,12 @@ void sub_12500(type_event_0x6E8E* a1x)//1f3500
 	}
 }
 
+int debugcount_sub_12780 = 0;
 //----- (00012780) --------------------------------------------------------
 void sub_12780()//1f3780
 {
 	signed __int16 v0; // bx
-	int resultx;
+	//int resultx2;
 	signed __int16 v2; // dx
 	char v3; // cl
 	type_event_0x6E8E* v4x; // ecx
@@ -8252,55 +8253,69 @@ void sub_12780()//1f3780
 #ifdef DEBUG_SEQUENCES
 		//add_compare(0x1F3783, debugafterload);
 #endif //DEBUG_SEQUENCES
+	/*if (debugcount_sub_12780 >= 2)
+	{
+		debugcount_sub_12780++;
+		debugcount_sub_12780--;
+	}
+	debugcount_sub_12780++;*/
 
 	v0 = 1;
-	resultx = 0;
 	while (v0 <= D41A0_0.countStageVars_0x36E00)
 	{
-		if (!D41A0_0.StageVars2_0x365F4[resultx + 1].index_0x3647A_0)
-			goto LABEL_18;
+		/*if (!D41A0_0.StageVars2_0x365F4[v0].index_0x3647A_0)
+		{
+			v0++;
+			break;
+		}*/
 		v2 = 0;
-		switch (D41A0_0.StageVars2_0x365F4[resultx + 1].index_0x3647A_0)
+		switch (D41A0_0.StageVars2_0x365F4[v0].index_0x3647A_0)
 		{
 		case 3:
 		case 4:
 		case 5:
 		case 8:
 		case 9:
-			v3 = D41A0_0.StageVars2_0x365F4[resultx + 1].stage_0x3647A_1;
+			v3 = D41A0_0.StageVars2_0x365F4[v0].stage_0x3647A_1;
 			if (v3 & 4)
-				goto LABEL_11;
+			{
+				v2 = 1;
+			}
+			else
 			if (v3 & 2)
 			{
-				if (x_D41A0_BYTEARRAY_4_struct.bytearray_38403x[D41A0_0.StageVars2_0x365F4[resultx + 1].str_0x3647C_4.axis.x])//fix it
-					goto LABEL_12;
-			LABEL_11:
-				v2 = 1;
-				goto LABEL_12;
+				if (!x_D41A0_BYTEARRAY_4_struct.bytearray_38403x[D41A0_0.StageVars2_0x365F4[v0].str_0x3647C_4.axis.x])//fix it
+					v2 = 1;
 			}
-			v4x = D41A0_0.StageVars2_0x365F4[resultx + 1].str_0x3647C_4.pointer_0x6E8E;
-			if (v4x && (v4x->dword_0x8 < 0 || v4x->struct_byte_0xc_12_15.byte[1] & 4))
-				goto LABEL_11;
-		LABEL_12:
+			else
+			{
+				v4x = D41A0_0.StageVars2_0x365F4[v0].str_0x3647C_4.pointer_0x6E8E;
+				if (v4x >= x_DWORD_EA3E4[0] && v4x < x_DWORD_EA3E4[0x3e8])//fix
+				{
+					if (v4x && (v4x->dword_0x8 < 0 || v4x->struct_byte_0xc_12_15.byte[1] & 4))
+						v2 = 1;
+				}
+			}
 			if (v2)
-				D41A0_0.StageVars2_0x365F4[resultx + 1].stage_0x3647A_1 |= 4u;
-		LABEL_18:
-			v0++;
-			resultx++;// += 8;
+				D41A0_0.StageVars2_0x365F4[v0].stage_0x3647A_1 |= 4u;
+			//v0++;
 			break;
 		case 7:
-			v5 = D41A0_0.StageVars2_0x365F4[resultx + 1].stage_0x3647A_1;
+			v5 = D41A0_0.StageVars2_0x365F4[v0].stage_0x3647A_1;
 			if (v5 & 0x18)
 			{
 				if (v5 & 0x10)
-					D41A0_0.StageVars2_0x365F4[resultx + 1].stage_0x3647A_1 = v5 & 0xEF;
+					D41A0_0.StageVars2_0x365F4[v0].stage_0x3647A_1 = v5 & 0xEF;
 				else
-					D41A0_0.StageVars2_0x365F4[resultx + 1].stage_0x3647A_1 = v5 & 0xF7;
+					D41A0_0.StageVars2_0x365F4[v0].stage_0x3647A_1 = v5 & 0xF7;
 			}
-			goto LABEL_18;
-		default:
-			goto LABEL_18;
+			//v0++;
+			break;
+		/*default:
+			v0++;
+			break;*/
 		}
+		v0++;
 	}
 }
 
@@ -8308,27 +8323,27 @@ void sub_12780()//1f3780
 void sub_12870()//1f3870
 {
 	signed __int16 v0; // dx
-	int indexx;
+	//int indexx;
 	char v2; // bh
 
 	v0 = 1;
-	indexx = 0;
+	//indexx = 0;
 	while (v0 <= D41A0_0.countStageVars_0x36E00)
 	{
-		if (D41A0_0.StageVars2_0x365F4[indexx + 1].index_0x3647A_0)
+		if (D41A0_0.StageVars2_0x365F4[v0].index_0x3647A_0)
 		{
-			switch (D41A0_0.StageVars2_0x365F4[indexx + 1].index_0x3647A_0)
+			switch (D41A0_0.StageVars2_0x365F4[v0].index_0x3647A_0)
 			{
 			case 3:
 			case 4:
 			case 5:
 			case 8:
 			case 9:
-				v2 = D41A0_0.StageVars2_0x365F4[indexx + 1].stage_0x3647A_1;
+				v2 = D41A0_0.StageVars2_0x365F4[v0].stage_0x3647A_1;
 				if (v2 & 4)
 				{
 					if (v2 & 2)
-						D41A0_0.StageVars2_0x365F4[indexx + 1].stage_0x3647A_1 = v2 & 0xFB;
+						D41A0_0.StageVars2_0x365F4[v0].stage_0x3647A_1 = v2 & 0xFB;
 				}
 				break;
 			default:
@@ -8336,7 +8351,7 @@ void sub_12870()//1f3870
 			}
 		}
 		v0++;
-		indexx++;// += 8;
+		//indexx++;// += 8;
 	}
 }
 
