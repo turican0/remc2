@@ -5,11 +5,11 @@
 #include <sstream>
 #include <string>
 //#include <boost/thread.hpp>
-#include <thread>
+//#include <thread>
 #include <mutex>
 #include <boost/asio.hpp>
-#include "boost/bind.hpp"
-#include "boost/date_time/posix_time/posix_time_types.hpp"
+//#include "boost/bind.hpp"
+//#include "boost/date_time/posix_time/posix_time_types.hpp"
 
 //#include "../networklib/Server.h"
 //#include "../networklib/Client.h"
@@ -28,7 +28,7 @@
 
 #include <array>
 #include <map>
-#include <thread>
+//#include <thread>
 #include <atomic>
 //#include "IServer.h"
 

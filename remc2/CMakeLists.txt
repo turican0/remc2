@@ -109,6 +109,8 @@ source_group("Source Files\\libs\\findfirst" FILES ${SOURCE_FILES__libs__findfir
 
 set(SOURCE_FILES__portability
     "portability/mctypes.h"
+    "portability/port_net.cpp"
+    "portability/port_net.h"
     "portability/port_filesystem.cpp"
     "portability/port_filesystem.h"
     "portability/port_inputs.cpp"
@@ -125,13 +127,19 @@ set(SOURCE_FILES__portability
     "portability/xmi2mid.h"
 )
 source_group("Source Files\\portability" FILES ${SOURCE_FILES__portability})
-
+set(SOURCE_FILES__networklib
+    "networklib/Constants.h"
+    "networklib/LockedQueue.h"
+    "networklib/Log.h"
+)
+source_group("Source Files\\networklib" FILES ${SOURCE_FILES__networklib})
 set(ALL_FILES
     ${HEADER_FILES}
     ${SOURCE_FILES}
     ${SOURCE_FILES_ENGINE}
     ${SOURCE_FILES__libs__inih}
     ${SOURCE_FILES__portability}
+    ${SOURCE_FILES__networklib}
 )
 
 ################################################################################

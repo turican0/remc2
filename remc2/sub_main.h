@@ -28,6 +28,10 @@
 #include "engine/GameRender_new.h"
 #include "engine/GameRender_GL.h"
 
+#include "engine/Terrain.h"
+
+#include "portability/port_net.h"
+
 //#define __CFSHL__(x, y) (x<<y)
 //#define __CFSHL__(x, y) 1
 /*int32_t __CFSHL__(uint32_t x, uint32_t y) {
@@ -139,15 +143,6 @@ x_DWORD * sub_A5850(int a1, char a2, unsigned int a3, signed int a4, int a5);*/
 
 //#if !defined(_M_I86) && !defined(__WINDOWS_386__)
 
-struct SREGS {
-	unsigned short es;
-	unsigned short ds;
-	unsigned short fs;
-	unsigned short gs;
-	unsigned short cs;
-	unsigned short ss;
-};
-
 /* dword registers */
 
 struct DWORDREGS {
@@ -198,16 +193,6 @@ union REGS {
 };
 */
 //#define REGS x_DWORD[6]
-
-struct REGS {
-	uint32 eax;
-	uint32 ebx;
-	uint32 ecx;
-	uint32 edx;
-	uint32 esi;
-	uint32 edi;
-	uint32 cflag;
-};
 
 /*extern x_WORD __CS__;
 extern x_WORD __GS__;
@@ -370,31 +355,6 @@ uint16_t word_20;
 uint16_t word_22;
 }
 type_E1BAC_0x3c4;
-#pragma pack (16)
-
-typedef union {
-	uint8_t* p;
-	uint32_t align;
-} p64align;
-
-#pragma pack (1)
-typedef struct {//lenght 66(changed to 70)
-	uint8_t ncb_command_0;
-	uint8_t ncb_retcode_1;
-	uint8_t ncb_lsn_2;
-	uint8_t ncb_num_3;
-	p64align ncb_buffer_4;
-	uint16_t ncb_bufferLength_8;
-	char ncb_callName_10[16];
-	char ncb_name_26[16];
-	uint8_t ncb_rto_42;
-	uint8_t ncb_sto_43;
-	//p64align ncb_post_44;// not used
-	//uint8_t ncb_lana_num_48;// not used
-	uint8_t ncb_cmd_cplt_49;//lock for end command
-	//uint8_t ncb_reserved_50[16];// not used
-}
-myNCB;
 #pragma pack (16)
 
 extern Pathstruct pstr[];

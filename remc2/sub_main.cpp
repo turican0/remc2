@@ -1,5 +1,6 @@
 #include "sub_main.h"
 #include "engine/engine_support.h"
+
 /*
 
 //2541e7
@@ -75413,34 +75414,6 @@ void sub_70940()//251940
 	}
 	//return result;
 }
-// D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
-// D41A4: using guessed type int x_DWORD_D41A4;
-// EA3E4: using guessed type int x_DWORD_EA3E4[];
-
-//----- (00070A60) --------------------------------------------------------
-
-// DB73C: using guessed type int x_DWORD_DB73C_tmapsfile;
-// DB740: using guessed type int x_DWORD_DB740_tmaps00file;
-// DB744: using guessed type int x_DWORD_DB744_tmaps10file;
-// DB748: using guessed type int x_DWORD_DB748_tmaps20file;
-
-// DB73C: using guessed type int x_DWORD_DB73C_tmapsfile;
-// F6ED0: using guessed type int TMAPS00TAB_BEGIN_BUFFER;
-
-// E9C08: using guessed type int x_DWORD_E9C08;
-// E9C28: using guessed type int x_DWORD_E9C28;
-// F6ED0: using guessed type int TMAPS00TAB_BEGIN_BUFFER;
-
-// E9C08: using guessed type int x_DWORD_E9C08;
-// E9C28: using guessed type int x_DWORD_E9C28;
-// F6ED0: using guessed type int TMAPS00TAB_BEGIN_BUFFER;
-
-// F6ED0: using guessed type int TMAPS00TAB_BEGIN_BUFFER;
-//----- (00070F50) --------------------------------------------------------
-// D41A4: using guessed type int x_DWORD_D41A4;
-// E9C08: using guessed type int x_DWORD_E9C08;
-// E9C28: using guessed type int x_DWORD_E9C28;
-// F6ED0: using guessed type int TMAPS00TAB_BEGIN_BUFFER;
 
 //----- (000712F0) --------------------------------------------------------
 void sub_712F0()//2522f0
@@ -75456,11 +75429,6 @@ void sub_712F0()//2522f0
 	sub_71890();
 	sub_718F0();
 }
-// 8C250: using guessed type x_DWORD memset(x_DWORD, x_DWORD, x_DWORD);
-// D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
-// D41A4: using guessed type int x_DWORD_D41A4;
-// E9C08: using guessed type int x_DWORD_E9C08;
-// E9C28: using guessed type int x_DWORD_E9C28;
 
 //----- (000713A0) --------------------------------------------------------
 void sub_713A0()//2523a0
@@ -75474,10 +75442,6 @@ void sub_713A0()//2523a0
 	x_BYTE_DB738 = 0;
 	sub_70BF0_close_tmaps();
 }
-// 8C250: using guessed type x_DWORD memset(x_DWORD, x_DWORD, x_DWORD);
-// DB738: using guessed type char x_BYTE_DB738;
-// E9C08: using guessed type int x_DWORD_E9C08;
-// E9C28: using guessed type int x_DWORD_E9C28;
 
 //----- (00071410) --------------------------------------------------------
 void sub_71410_process_tmaps()//252410
@@ -75523,13 +75487,6 @@ void sub_71410_process_tmaps()//252410
 	}
 	sub_70BF0_close_tmaps();
 }
-// 8C250: using guessed type x_DWORD memset(x_DWORD, x_DWORD, x_DWORD);
-// D951C: using guessed type __int16 x_WORD_D951C[];
-// F6ED0: using guessed type int TMAPS00TAB_BEGIN_BUFFER;
-// 180628: using guessed type int pdwScreenBuffer_351628;
-
-// D41A4: using guessed type int x_DWORD_D41A4;
-// E9C28: using guessed type int x_DWORD_E9C28;
 
 //----- (000715B0) --------------------------------------------------------
 void sub_715B0()//2525b0
@@ -75863,8 +75820,8 @@ type_x_DWORD_E9C28_str* sub_71B40(int a1, unsigned __int16 a2, type_x_DWORD_E9C2
 		a3y->word_22 = a2;
 		a3y->str_8_data = (subtype_x_DWORD_E9C28_str*)a3y->data;
 		//v8 = v14 + a3x + 26;
-		a3y->dword_12x = (subtype_x_DWORD_E9C28_str**)&a3y->data[v14];// (uint32_t)(v14 + (uint8_t*)a3y + 26);//must fix for 64 bit version - data
-		a3y->dword_16x = (uint32_t*)&a3y->data[v14 + 4 * a2];//(uint32_t)(4 * a2 + (v14 + (uint8_t*)a3y + 26));//must fix for 64 bit version - data
+		a3y->dword_12x = (subtype_x_DWORD_E9C28_str**)((uint8_t*)a3y->data+v14);// (uint32_t)(v14 + (uint8_t*)a3y + 26);//must fix for 64 bit version - data
+		a3y->dword_16x = (uint32_t*)((uint8_t*)a3y->data+(v14 + 4 * a2));//(uint32_t)(4 * a2 + (v14 + (uint8_t*)a3y + 26));//must fix for 64 bit version - data
 		while (--v3 != 0xffff)
 			//*(x_DWORD*)(a3y->dword_8_data + 14 * v3 + 4) = 0;
 			a3y->str_8_data[v3].dword_4 = 0;
@@ -76136,11 +76093,6 @@ void NetworkDisallocation_72D04()
 		x_BYTE_E1274 = 0;
 	}
 }
-// E1274: using guessed type char x_BYTE_E1274;
-// E127A: using guessed type __int16 x_WORD_E127A;
-// E127E: using guessed type int networkBuffer_E127E;
-// E1282: using guessed type int x_DWORD_E1282;
-// E12AA: using guessed type int x_DWORD_E12AA;
 
 //----- (00072DDE) --------------------------------------------------------
 int NetworkTestAddName_72DDE(/*signed __int16* a1,*/ int compindex)//253dde
@@ -76209,7 +76161,7 @@ int /*__fastcall*/ sub_72E70(int  /*a1*/, int  /*a2*/, signed __int16* a3)//253e
 }
 
 //----- (00072FBB) --------------------------------------------------------
-signed int /*__fastcall*/ NetworkTestCall_72FBB()
+signed int NetworkTestCall_72FBB()//253fbb
 {
 	NetworkCall_74809(0);
 	/*for (int i = x_DWORD_17DB54_game_turn2; ; WaitToConnect_7C230())
@@ -76232,23 +76184,16 @@ signed int /*__fastcall*/ NetworkTestCall_72FBB()
 	NetworkCancel_748F7(0);
 	return 0;
 }
-// 17DB54: using guessed type int x_DWORD_17DB54_game_turn2;
 
 //----- (0007302E) --------------------------------------------------------
-void NetworkListenAll_7302E()
+void NetworkListenAll_7302E()//25402e
 {
-	signed int i; // [esp+4h] [ebp-4h]
-
-	for (i = 0; maxPlayers_E127A > i && !x_WORD_E12A6; i++)
+	for (int i = 0; maxPlayers_E127A > i && !x_WORD_E12A6; i++)
 	{
 		if (x_WORD_E1276 != i)
 			NetworkListen_74B75(i);
 	}
-	//return 1;
 }
-// E1276: using guessed type __int16 x_WORD_E1276;
-// E127A: using guessed type __int16 x_WORD_E127A;
-// E12A6: using guessed type __int16 x_WORD_E12A6;
 
 //----- (0007308F) --------------------------------------------------------
 int NetworkInitConnection_7308F(char* a2, __int16 a3)//25408f
@@ -76338,15 +76283,11 @@ int NetworkInitConnection_7308F(char* a2, __int16 a3)//25408f
 }
 
 //----- (00073669) --------------------------------------------------------
-void NetworkCanceling_73669(__int16 a1)
+void NetworkCanceling_73669(__int16 a1)//254669
 {
-	//int result; // eax
-	//char v2; // [esp+0h] [ebp-18h]
-	int i; // [esp+14h] [ebp-4h]
-
 	if (x_WORD_E1276 == a1)
 	{
-		for (i = 0; (signed __int16)i < maxPlayers_E127A; i++)
+		for (int i = 0; i < maxPlayers_E127A; i++)
 		{
 			if (i != x_WORD_E1276)
 			{
@@ -76354,21 +76295,16 @@ void NetworkCanceling_73669(__int16 a1)
 				NetworkHangUp_74B19(connection_E12AE[i]);
 			}
 		}
-		sprintf(printbuffer, "%s%d", "TESTER", x_WORD_E1276);
-		/*result = */NetworkDeleteName_74A86(connection_E12AE[a1], printbuffer);
+		sprintf(printbuffer, "%s%d", nethID, x_WORD_E1276);
+		NetworkDeleteName_74A86(connection_E12AE[a1], printbuffer);
 		x_BYTE_E1275 = 0;
 	}
 	else
 	{
 		NetworkCancel_748F7(a1);
-		/*result = */NetworkHangUp_74B19(connection_E12AE[a1]);
+		NetworkHangUp_74B19(connection_E12AE[a1]);
 	}
-	//return result;
 }
-// 8E3D5: using guessed type x_DWORD sprintf(x_DWORD, const char *, ...);
-// E1275: using guessed type char x_BYTE_E1275;
-// E1276: using guessed type __int16 x_WORD_E1276;
-// E127A: using guessed type __int16 x_WORD_E127A;
 
 //----- (0007373D) --------------------------------------------------------
 void sub_7373D(__int16 a1)//25473d
@@ -76388,9 +76324,7 @@ void sub_7373D(__int16 a1)//25473d
 				{
 					if (v3[i] == 1)
 					{
-#ifdef TEST_NETWORK
 						printState2((char*)"Send State 1\n");
-#endif //TEST_NETWORK
 						NetworkSendMessage2_74006(i, v3, 8u);
 					}
 				}
@@ -76447,15 +76381,11 @@ void sub_7373D(__int16 a1)//25473d
 }
 
 //----- (000739AD) --------------------------------------------------------
-void sub_739AD(__int16 a1)
+void sub_739AD(__int16 a1)//2549ad
 {
-	//__int16 result; // ax
-	//char v2; // [esp+0h] [ebp-18h]
-	int i; // [esp+14h] [ebp-4h]
-
 	if (x_WORD_E1276 == a1)
 	{
-		for (i = 0; i < maxPlayers_E127A; i++)
+		for (int i = 0; i < maxPlayers_E127A; i++)
 		{
 			if (i != x_WORD_E1276)
 			{
@@ -76463,25 +76393,18 @@ void sub_739AD(__int16 a1)
 				NetworkHangUp_74B19(connection_E12AE[i]);
 			}
 		}
-		sprintf(printbuffer, "%s%d", "TESTER", x_WORD_E1276);
-		/*result = */NetworkDeleteName_74A86(connection_E12AE[a1], printbuffer);
+		sprintf(printbuffer, "%s%d", nethID, x_WORD_E1276);
+		NetworkDeleteName_74A86(connection_E12AE[a1], printbuffer);
 		x_BYTE_E1275 = 0;
 	}
 	else
 	{
 		NetworkCancel_748F7(a1);
 		NetworkHangUp_74B19(connection_E12AE[a1]);
-		//result = x_WORD_E12A8;
 		if (x_WORD_E1276 == x_WORD_E12A8)
-			/*result = */NetworkListen_74B75(a1);
+			NetworkListen_74B75(a1);
 	}
-	//return result;
 }
-// 8E3D5: using guessed type x_DWORD sprintf(x_DWORD, const char *, ...);
-// E1275: using guessed type char x_BYTE_E1275;
-// E1276: using guessed type __int16 x_WORD_E1276;
-// E127A: using guessed type __int16 x_WORD_E127A;
-// E12A8: using guessed type __int16 x_WORD_E12A8;
 
 //----- (00073AA1) --------------------------------------------------------
 void sub_73AA1(__int16 a1)//254aa1
@@ -76501,9 +76424,7 @@ void sub_73AA1(__int16 a1)//254aa1
 				{
 					if (v4[i] == 1)
 					{
-#ifdef TEST_NETWORK
 						printState2((char*)"Send State 2\n");
-#endif //TEST_NETWORK
 						NetworkSendMessage2_74006(i, v4, 8u);
 					}
 				}
@@ -76560,15 +76481,11 @@ void sub_73AA1(__int16 a1)//254aa1
 }
 
 //----- (00073D11) --------------------------------------------------------
-void NetworkEnd_73D11(__int16 a1)
+void NetworkEnd_73D11(__int16 a1)//254d11
 {
-	//__int16 result; // ax
-	//char v2; // [esp+0h] [ebp-18h]
-	int i; // [esp+14h] [ebp-4h]
-
 	if (x_WORD_E1276 == a1)
 	{
-		for (i = 0; i < maxPlayers_E127A; i++)
+		for (int i = 0; i < maxPlayers_E127A; i++)
 		{
 			if (i != x_WORD_E1276)
 			{
@@ -76576,25 +76493,18 @@ void NetworkEnd_73D11(__int16 a1)
 				NetworkHangUp_74B19(connection_E12AE[i]);
 			}
 		}
-		sprintf(printbuffer, "%s%d", "TESTER", x_WORD_E1276);
-		/*result = */NetworkDeleteName_74A86(connection_E12AE[a1], printbuffer);
+		sprintf(printbuffer, "%s%d", nethID, x_WORD_E1276);
+		NetworkDeleteName_74A86(connection_E12AE[a1], printbuffer);
 		x_BYTE_E1275 = 0;
 	}
 	else
 	{
 		NetworkCancel_748F7(a1);
 		NetworkHangUp_74B19(connection_E12AE[a1]);
-		//result = x_WORD_E12A8;
 		if (x_WORD_E1276 == x_WORD_E12A8)
-			/*result = */NetworkListen_74B75(a1);
+			NetworkListen_74B75(a1);
 	}
-	//return result;
 }
-// 8E3D5: using guessed type x_DWORD sprintf(x_DWORD, const char *, ...);
-// E1275: using guessed type char x_BYTE_E1275;
-// E1276: using guessed type __int16 x_WORD_E1276;
-// E127A: using guessed type __int16 x_WORD_E127A;
-// E12A8: using guessed type __int16 x_WORD_E12A8;
 
 //----- (00074006) --------------------------------------------------------
 void NetworkSendMessage2_74006(unsigned __int16 a1, uint8_t* buffer, unsigned int size)//255006
@@ -76617,48 +76527,40 @@ void NetworkReceiveMessage2_7404E(unsigned __int16 connectionindex, uint8_t* buf
 }
 
 //----- (00074374) --------------------------------------------------------
-void NetworkUpdateConnections2_74374()
+void NetworkUpdateConnections2_74374()//255374
 {
 	NetworkUpdateConnections_74F76();
 }
 
 //----- (0007438A) --------------------------------------------------------
-void ReceiveSendAll_7438A(uint8_t* a1x, unsigned int a2_lenght)//some allocation?
+void ReceiveSendAll_7438A(uint8_t* buffer, unsigned int size)//25538a
 {
-	//unsigned __int16 result; // ax
-	signed __int16 i; // [esp+4h] [ebp-4h]
-	signed __int16 j; // [esp+4h] [ebp-4h]
-
 	if (x_BYTE_E1274)
 	{
-		if (x_WORD_E1276 == (unsigned __int16)x_WORD_E12A8)
+		if (x_WORD_E1276 == x_WORD_E12A8)
 		{
-			for (i = 0; i < countConnected_E1278; i++)
+			for (int i = 0; i < countConnected_E1278; i++)
 			{
 				if (i != x_WORD_E1276)
-					NetworkReceiveMessage2_7404E(i, a1x + a2_lenght * i, a2_lenght);
+					NetworkReceiveMessage2_7404E(i, buffer + size * i, size);
 			}
-			for (j = 0; ; j++)
+			for (int j = 0; j < countConnected_E1278; j++)
 			{
-				//result = j;
-				if (j >= countConnected_E1278)
-					break;
 				if (j != x_WORD_E1276)
-					NetworkSendMessage2_74006(j, a1x, a2_lenght * countConnected_E1278);
+				{
+					printState2((char*)"Send State 3\n");
+					NetworkSendMessage2_74006(j, buffer, size * countConnected_E1278);
+				}
 			}
 		}
 		else
 		{
-			NetworkSendMessage2_74006(x_WORD_E12A8, (a1x + a2_lenght * x_WORD_E1276), a2_lenght);
-			/*result = */NetworkReceiveMessage2_7404E(x_WORD_E12A8, a1x, a2_lenght * countConnected_E1278);
+			printState2((char*)"Send State 4\n");
+			NetworkSendMessage2_74006(x_WORD_E12A8, (buffer + size * x_WORD_E1276), size);
+			NetworkReceiveMessage2_7404E(x_WORD_E12A8, buffer, size * countConnected_E1278);
 		}
 	}
-	//return result;
 }
-// E1274: using guessed type char x_BYTE_E1274;
-// E1276: using guessed type __int16 x_WORD_E1276;
-// E1278: using guessed type __int16 x_WORD_E1278;
-// E12A8: using guessed type __int16 x_WORD_E12A8;
 
 //----- (0007449C) --------------------------------------------------------
 void NetworkCancelAll_7449C()//25549c
