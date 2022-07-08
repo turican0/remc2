@@ -6826,7 +6826,7 @@ type_event_0x6E8E* sub_108B0(type_event_0x6E8E* a1x)//1f18b0
 		{
 			if (v4 <= 5u)
 			{
-				if (v8x->type_0x3F_63 != 22)
+				if (v8x->subtype_0x40_64 != 22)
 					goto LABEL_22;
 			}
 			else
