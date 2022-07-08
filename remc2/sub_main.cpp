@@ -6363,6 +6363,14 @@ char sub_7C200(uint8_t a1);
 
 #pragma region Methods
 
+bool DefaultResolutions()
+{
+	if (((screenWidth_18062C == 640) && (screenHeight_180624 == 480))
+		|| ((screenWidth_18062C == 320) && (screenHeight_180624 == 200)))
+		return true;
+	return false;
+}
+
 //----- (00010010) --------------------------------------------------------
 signed __int16 sub_10010()
 {
@@ -13315,7 +13323,7 @@ void OptionMenuEvents_19AB0()//1faab0
 	signed int v3; // eax
 
 	int optionMenuXPos = (640 - x_D41A0_BYTEARRAY_4_struct.byteindex_186) / 2;
-	if (((screenWidth_18062C != 640) || (screenHeight_180624 != 480)) && ((screenWidth_18062C != 320) || (screenHeight_180624 != 200)))
+	if(!DefaultResolutions())
 		optionMenuXPos = (screenWidth_18062C - x_D41A0_BYTEARRAY_4_struct.byteindex_186) / 2;
 
 	if (unk_18058Cstr.x_WORD_1805C2_joystick == 7 || unk_18058Cstr.x_WORD_1805C2_joystick == 1 || unk_18058Cstr.x_WORD_1805C2_joystick == 2)
@@ -22671,7 +22679,7 @@ void sub_25E40(type_event_0x6E8E* a1x)//206e40
 		if (!v2)
 		{
 			v3 = sub_1C310(a1x, 160, (unsigned __int16(*)(type_event_0x6E8E*, type_event_0x6E8E*))sub_1D1A0);
-			if (v1x->type_0x3F_63 != 3 || v1x->type_0x3F_63)
+			if (v1x->type_0x3F_63 != 3 || v1x->subtype_0x40_64)
 				v4 = v3 == 0;
 			else
 				v4 = v1x->dword_0xA4_164x->byte_0x14E_334 == 0;
@@ -22692,7 +22700,7 @@ void sub_25E40(type_event_0x6E8E* a1x)//206e40
 		{
 			goto LABEL_21;
 		}
-		if ((unsigned __int16)sub_1C310(a1x, 160, (unsigned __int16(*)(type_event_0x6E8E*, type_event_0x6E8E*))sub_1CE80))
+		if (sub_1C310(a1x, 160, (unsigned __int16(*)(type_event_0x6E8E*, type_event_0x6E8E*))sub_1CE80))
 			v8 = 1;
 		//v6 = a1x->dword_0x10_16 - 1;
 		//a1x->dword_0x10_16 = v6;
@@ -22920,10 +22928,20 @@ void sub_26400(type_event_0x6E8E* a1x)//207400
 	sub_1C930(a1x);
 }
 
+int debug_sub_26470 = 0;
 //----- (00026470) --------------------------------------------------------
 void sub_26470(type_event_0x6E8E* a1x)//207470
 {
 	int result; // eax
+
+#ifdef DEBUG_SEQUENCES
+	if (debug_sub_26470 >= 0x153c)
+	{
+		debug_sub_26470++;
+		debug_sub_26470--;
+	}
+	debug_sub_26470++;
+#endif //DEBUG_SEQUENCES
 
 	sub_1D5D0(a1x, 168);
 	result = (unsigned __int8)(a1x->StageVar2_0x49_73 - 1);
@@ -25749,7 +25767,7 @@ void sub_29A90(type_event_0x6E8E* a1x)//20aa90
 	signed int v18; // ecx
 	type_event_0x6E8E* v19x; // edx
 	int j; // eax
-	int v21; // eax
+	//int v21; // eax
 	char v22; // dh
 	signed int v23; // eax
 	signed int v24; // eax
@@ -26661,9 +26679,9 @@ void sub_2AA90(/*type_str_0x6E8E* a1x,*/ type_event_0x6E8E* a2x, type_event_0x6E
 	{
 		v18 = 15;
 	}
-	//LOWORD(v19) = sub_581E0_maybe_tan2(&v12x, &v14x);
+	//LOWORD(v19) = Maths::sub_581E0_maybe_tan2(&v12x, &v14x);
 	v19 = Maths::sub_581E0_maybe_tan2(&v12x, &v14x);
-	//LOWORD(v17) = sub_58210_radix_tan(&v12x, &v14x);
+	//LOWORD(v17) = Maths::sub_58210_radix_tan(&v12x, &v14x);
 	v17 = Maths::sub_58210_radix_tan(&v12x, &v14x);
 	v6 = 0;
 	v7x = x_DWORD_EA3E4[a3x->word_0x34_52];
@@ -27460,7 +27478,7 @@ void sub_2BD10_draw_line(__int16 a1, __int16 a2, __int16 a3, __int16 a4, unsigne
 {
 	std::function<void(uint16_t, uint16_t, uint16_t, uint16_t, char)> func_draw;
 
-	void* v5; // ebx
+	//void* v5; // ebx
 
 	//int result; // eax
 	uint8_t* temp_screen_buffer; // ST14_4
@@ -27487,6 +27505,7 @@ void sub_2BD10_draw_line(__int16 a1, __int16 a2, __int16 a3, __int16 a4, unsigne
 // 180628: using guessed type int pdwScreenBuffer_351628;
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
+/*
 void debugtestscreen() {
 	//save
 #ifdef OLD_PARTICLES
@@ -27519,16 +27538,11 @@ void debugtestscreen() {
 
 	//compare
 }
+*/
 
 //----- (0002BE30) --------------------------------------------------------
 void DrawGameFrame_2BE30()//20CE30
 {
-	//temp fix
-	uint8_t* ptrScreenBuffer = pdwScreenBuffer_351628;
-	uint16_t screenWidth = screenWidth_18062C;
-	uint16_t screenHeight = screenHeight_180624;
-	//temp fix
-
 	char v0; // dl
 	void (*v1)(int16_t, int16_t, posistruct_t); // eax
 	char v2; // bh
@@ -27548,13 +27562,12 @@ void DrawGameFrame_2BE30()//20CE30
 	signed __int16 v39; // [esp+18h] [ebp-8h]
 	__int16 v40; // [esp+1Ch] [ebp-4h]
 
-	int16_t spellLeftPosX = screenWidth - 130;
-	int16_t spellRightPosX = screenWidth - 66;
-
-	if (x_WORD_180660_VGA_type_resolution & 1)
+	int16_t spellLeftPosX = 510;
+	int16_t spellRightPosX = 574;
+	if (!DefaultResolutions())
 	{
-		spellLeftPosX = 510;
-		spellRightPosX = 574;
+		spellLeftPosX = screenWidth_18062C - 130;
+		spellRightPosX = screenWidth_18062C - 66;
 	}
 
 	v0 = x_D41A0_BYTEARRAY_4_struct.setting_byte1_22;
@@ -27596,20 +27609,20 @@ void DrawGameFrame_2BE30()//20CE30
 			if (D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize < 40)
 			{
 				if (x_WORD_180660_VGA_type_resolution & 1)
-					ClearGraphicsBuffer_72883((void*)ptrScreenBuffer, 320, 200, uiBackGroundColorIdx_EB3A8);
+					ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, 320, 200, uiBackGroundColorIdx_EB3A8);
 				else
-					ClearGraphicsBuffer_72883((void*)ptrScreenBuffer, screenWidth, screenHeight, uiBackGroundColorIdx_EB3A8);
+					ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, screenWidth_18062C, screenHeight_180624, uiBackGroundColorIdx_EB3A8);
 			}
 		}
 		if (D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize < 40)
 		{
 			if (x_WORD_180660_VGA_type_resolution & 1)
-				ClearGraphicsBuffer_72883((void*)ptrScreenBuffer, 320, 200, uiBackGroundColorIdx_EB3A8);
+				ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, 320, 200, uiBackGroundColorIdx_EB3A8);
 			else
-				ClearGraphicsBuffer_72883((void*)ptrScreenBuffer, screenWidth, screenHeight, uiBackGroundColorIdx_EB3A8);
+				ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, screenWidth_18062C, screenHeight_180624, uiBackGroundColorIdx_EB3A8);
 		}
 
-		SetRenderViewPortSize_40C50(D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize/*, 640, 480*/);
+		SetRenderViewPortSize_40C50(D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize);
 		m_ptrGameRender->DrawWorld_411A0(//draw terrain and particles
 			//pdwScreenBuffer_351628,
 			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].axis_2BDE_11695.x,//position of player
@@ -27618,17 +27631,7 @@ void DrawGameFrame_2BE30()//20CE30
 			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].axis_2BDE_11695.z + 128,
 			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.pitch,
 			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.roll,
-			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.fov/*,
-			mapHeightmap_11B4E0,
-			str_DWORD_F66F0x, 
-			x_BYTE_E88E0x,
-			x_DWORD_F5730,
-			unk_F0A20x,
-			x_DWORD_EA3E4,
-			str_unk_1804B0ar,
-			x_WORD_180660_VGA_type_resolution,
-			x_WORD_D4B7C,
-			isCaveLevel_D41B6*/);
+			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.fov);
 #ifdef TEST_RENDERERS
 		memcpy(help_ScreenBuffer, pdwScreenBuffer_351628, screenWidth_18062C * screenHeight_180624);
 		m_ptrGameRender = (GameRenderInterface*)new GameRender_old();
@@ -27668,7 +27671,7 @@ void DrawGameFrame_2BE30()//20CE30
 			}
 			else if (v13 <= 0xAu)
 			{
-				DrawVolumnSettings_303D0(screenWidth);
+				DrawVolumnSettings_303D0();
 			}
 			else if (v13 == 13)
 			{
@@ -27691,10 +27694,13 @@ void DrawGameFrame_2BE30()//20CE30
 				}
 				else
 				{
-					offSetX = (screenWidth - 640) / 2;
-					offSetY = (screenHeight - 480) / 2;
 					v39 = 4;
 					v37 = 6;
+				}
+				if (!DefaultResolutions())
+				{
+					offSetX = (screenWidth_18062C - 640) / 2;
+					offSetY = (screenHeight_180624 - 480) / 2;
 				}
 				v6 = 1;
 				v38 = 0;
@@ -27750,7 +27756,6 @@ void DrawGameFrame_2BE30()//20CE30
 			}
 
 			DrawHelpText_6FC50(x_BYTE_D419D_fonttype);
-
 			if (D41A0_0.m_GameSettings.m_Display.m_wTopBar)
 			{
 
@@ -27779,7 +27784,7 @@ void DrawGameFrame_2BE30()//20CE30
 				DrawInGameOptionsMenu_30050();
 				break;
 			case 10:
-				DrawVolumnSettings_303D0(screenWidth);
+				DrawVolumnSettings_303D0();
 				goto LABEL_41;
 			case 13:
 				DrawOkCancelMenu_30A60(132, 50);
@@ -27802,9 +27807,9 @@ void DrawGameFrame_2BE30()//20CE30
 	case 0xE:
 		v14x = x_DWORD_EA3E4[D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].word_0x00a_2BE4_11240];
 		if (x_WORD_180660_VGA_type_resolution & 1)
-			ClearGraphicsBuffer_72883((void*)ptrScreenBuffer, 320, 200, uiBackGroundColorIdx_EB3A8);
+			ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, 320, 200, uiBackGroundColorIdx_EB3A8);
 		else
-			ClearGraphicsBuffer_72883((void*)ptrScreenBuffer, screenWidth, screenHeight, uiBackGroundColorIdx_EB3A8);
+			ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, screenWidth_18062C, screenHeight_180624, uiBackGroundColorIdx_EB3A8);
 
 		DrawMinimap_63600(
 			0,
@@ -27828,14 +27833,6 @@ void DrawGameFrame_2BE30()//20CE30
 			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.yaw,
 			204);
 
-		/*if (x_WORD_180660_VGA_type_resolution == 1)
-		{
-			m_ptrGameRender->SetRenderViewPortSize_BCD45(ViewPort(192, 0, screenWidth - 192, 200), screenWidth, screenHeight);
-		}
-		else
-		{
-			m_ptrGameRender->SetRenderViewPortSize_BCD45(ViewPort(384, 0, screenWidth - 384, screenHeight - 80), screenWidth, screenHeight);
-		}*/
 		SetRenderViewPortSize_40BF0(384, 0, 256, 400);
 		m_ptrGameRender->DrawWorld_411A0(
 			//pdwScreenBuffer_351628,
@@ -27845,17 +27842,7 @@ void DrawGameFrame_2BE30()//20CE30
 			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].axis_2BDE_11695.z + 128,
 			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.pitch,
 			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.roll,
-			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.fov/*,
-			mapHeightmap_11B4E0,
-			str_DWORD_F66F0x,
-			x_BYTE_E88E0x,
-			x_DWORD_F5730,
-			unk_F0A20x,
-			x_DWORD_EA3E4,
-			str_unk_1804B0ar,
-			x_WORD_180660_VGA_type_resolution,
-			x_WORD_D4B7C,
-			isCaveLevel_D41B6*/);
+			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.fov);
 #ifdef TEST_RENDERERS
 		memcpy(help_ScreenBuffer, pdwScreenBuffer_351628, screenWidth_18062C* screenHeight_180624);
 		m_ptrGameRender = (GameRenderInterface*)new GameRender_old();
@@ -27888,7 +27875,7 @@ void DrawGameFrame_2BE30()//20CE30
 			sub_9025C(382, 0, 382, 400, (unsigned short)(*xadataclrd0dat.colorPallette_var28)[0], 0);
 		else
 			sub_90374(382, 0, 382, 400, (unsigned short)(*xadataclrd0dat.colorPallette_var28)[0], 0);
-		SetRenderViewPortSize_40C50(D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize/*, 640, 480*/);
+		SetRenderViewPortSize_40C50(D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize);
 		DrawMinimapMarks_644F0(
 			0,
 			0,
@@ -27911,7 +27898,7 @@ void DrawGameFrame_2BE30()//20CE30
 			DrawInGameOptionsMenu_30050();
 			break;
 		case 0xC:
-			DrawVolumnSettings_303D0(screenWidth);
+			DrawVolumnSettings_303D0();
 			goto LABEL_73;
 		case 0xE:
 			DrawOkCancelMenu_30A60(6, 6);
@@ -28007,10 +27994,6 @@ void DrawGameFrame_2BE30()//20CE30
 //----- (0002CE30) --------------------------------------------------------
 void sub_2CE30_pause_end_level(int a1, int a2)//20de30
 {
-	//temp fix
-	uint16_t screenWidth = screenWidth_18062C;
-	//temp fix
-
 	int v2; // esi
 	//int result; // eax
 	//unsigned int v4; // edi
@@ -28044,14 +28027,14 @@ void sub_2CE30_pause_end_level(int a1, int a2)//20de30
 	{
 		if (x_D41A0_BYTEARRAY_4_struct.setting_byte3_24 & 1)
 		{
-			DrawText_2BC10(x_DWORD_E9C4C_langindexbuffer[425], a1, a2, (*xadataclrd0dat.colorPallette_var28)[0xf0], screenWidth);//Paused!
+			DrawText_2BC10(x_DWORD_E9C4C_langindexbuffer[425], a1, a2, (*xadataclrd0dat.colorPallette_var28)[0xf0], screenWidth_18062C);//Paused!
 			v4x = 8 * (strlen((const char*)x_DWORD_E9C4C_langindexbuffer[425]) + 2) + a1;//Paused!
 		}
 
 		if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 0x20) && D41A0_0.struct_0x3659C[D41A0_0.LevelIndex_0xc].substr_3659C.IsLevelEnd_0)
 		{
 			sprintf(printbuffer, "%s. %s.", x_DWORD_E9C4C_langindexbuffer[378], x_DWORD_E9C4C_langindexbuffer[379]);//Tasks completed,Fly to the exit point.
-			DrawText_2BC10(printbuffer, v4x, a2, v5, screenWidth);
+			DrawText_2BC10(printbuffer, v4x, a2, v5, screenWidth_18062C);
 			v4x = a1;
 			LOWORD(v6) = sub_6FC30_get34_height();
 			v2 = v6 + a2;
@@ -29986,7 +29969,7 @@ void DrawInGameOptionsMenu_30050()
 // 1805C2: using guessed type __int16 x_WORD_1805C2_joystick;
 
 //----- (000303D0) --------------------------------------------------------
-void DrawVolumnSettings_303D0(uint16_t screenWidth)
+void DrawVolumnSettings_303D0()
 {
 	//int v1; // edx
 	unsigned __int8 v2; // bh
@@ -30030,22 +30013,22 @@ LABEL_8:
 	v10 -= 2;
 	v13 = v2;
 	v11 += 4 * v9;
-	DrawLine_2BC80(v12, v11, v10, 24, screenWidth, v2);
-	DrawLine_2BC80(v12, v11, v10, 2, screenWidth, v3);
+	DrawLine_2BC80(v12, v11, v10, 24, screenWidth_18062C, v2);
+	DrawLine_2BC80(v12, v11, v10, 2, screenWidth_18062C, v3);
 	v6 = v15;
-	DrawLine_2BC80(v12, v11 + 22, v10, 2, screenWidth, v15);
-	DrawLine_2BC80(v12, v11, 2, 22, screenWidth, v3);
-	DrawLine_2BC80(v10 + v12 - 2, v11, 2, 24, screenWidth, v6);
-	DrawLine_2BC80(v12 + 4, v11 + 4, v10 - 8, 16, screenWidth, v13);
-	DrawLine_2BC80(v12 + 4, v11 + 4, v10 - 8, 2, screenWidth, v6);
-	DrawLine_2BC80(v12 + 4, v11 + 18, v10 - 8, 2, screenWidth, v3);
-	DrawLine_2BC80(v12 + 4, v11 + 4, 2, 14, screenWidth, v6);
-	DrawLine_2BC80(v12 + 4 + v10 - 8 - 2, v11 + 4, 2, 16, screenWidth, v3);
+	DrawLine_2BC80(v12, v11 + 22, v10, 2, screenWidth_18062C, v15);
+	DrawLine_2BC80(v12, v11, 2, 22, screenWidth_18062C, v3);
+	DrawLine_2BC80(v10 + v12 - 2, v11, 2, 24, screenWidth_18062C, v6);
+	DrawLine_2BC80(v12 + 4, v11 + 4, v10 - 8, 16, screenWidth_18062C, v13);
+	DrawLine_2BC80(v12 + 4, v11 + 4, v10 - 8, 2, screenWidth_18062C, v6);
+	DrawLine_2BC80(v12 + 4, v11 + 18, v10 - 8, 2, screenWidth_18062C, v3);
+	DrawLine_2BC80(v12 + 4, v11 + 4, 2, 14, screenWidth_18062C, v6);
+	DrawLine_2BC80(v12 + 4 + v10 - 8 - 2, v11 + 4, 2, 16, screenWidth_18062C, v3);
 	v7 = v14 * (v10 - 12) / a1;
 	v11 += 6;
 	v12 += 6;
-	DrawLine_2BC80(v12, v11, v10 - 12, 12, screenWidth, (*xadataclrd0dat.colorPallette_var28)[0]);
-	DrawLine_2BC80(v12, v11, v7, 12, screenWidth, (*xadataclrd0dat.colorPallette_var28)[0xf0]);
+	DrawLine_2BC80(v12, v11, v10 - 12, 12, screenWidth_18062C, (*xadataclrd0dat.colorPallette_var28)[0]);
+	DrawLine_2BC80(v12, v11, v7, 12, screenWidth_18062C, (*xadataclrd0dat.colorPallette_var28)[0xf0]);
 }
 // D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
 // D41A4: using guessed type int x_DWORD_D41A4;
