@@ -357,6 +357,26 @@ uint16_t word_22;
 type_E1BAC_0x3c4;
 #pragma pack (16)
 
+
+// typedef struct NCB{
+//				BYTE     ncb_command;	/* NetBIOS command (see netbios.h) */
+//BYTE     ncb_retcode;	/* NetBIOS return code; 0xFF until asynchronous call  finishes */
+//BYTE     ncb_lsn;	/* local session number */
+//BYTE     ncb_num; 	/* NetBIOS name number */
+//DWORD    ncb_buffer;	/* transmit/receive buffer */
+//WORD     ncb_length;	/* buffer length */
+//BYTE     ncb_callName[16];  	/* name of remote node to send datagram or to be connected; */
+//		/* when listening for connections: name trying to connect  */
+//BYTE     ncb_name[16];	/* local name */
+//BYTE     ncb_rto;	/* receive timeout in 500 ms units;  0=forever */
+//BYTE     ncb_sto;	/* send timeout in 500 ms units;  0=default */
+//DWORD    ncb_post;	/* ptr to post-processing routine */
+//	/* (DOS: ES:BX points to NCB when entered. Ends with RETF) */
+//BYTE     ncb_lana_num;	/* LAN adapter number; 0-based */
+//BYTE     ncb_cmd_cplt;	/* completion status */
+//BYTE     ncb_reserved[14];
+//		 } NCB;
+
 extern Pathstruct pstr[];
 
 void WriteBufferToBMP(uint16_t width, uint16_t height, uint8_t* ptrPalette, uint8_t* ptrBuffer);
