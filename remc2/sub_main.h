@@ -205,8 +205,8 @@ extern x_WORD __SS__;*/
 
 #pragma pack (1)
 typedef struct {//lenght 6
-	int8_t* dword_0;
-	int16_t word_4;
+	int8_t* bitmapData_0;
+	int16_t bitmapIndex_4;
 }
 sub2x_BYTE_E7EE0x;
 
@@ -215,8 +215,8 @@ typedef struct {//lenght 24
 	int32_t dword_4;
 	int32_t dword_8;
 	int32_t dword_12;
-	sub2x_BYTE_E7EE0x* str_16;
-	int8_t* dword_20xx;
+	sub2x_BYTE_E7EE0x* bitmapsStr_16;
+	int8_t* bitmapsData_20xx;
 }
 subx_BYTE_E7EE0x;
 

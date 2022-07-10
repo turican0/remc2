@@ -2554,7 +2554,7 @@ void sub_833C0();
 void sub_83850_show_welcome_screen();
 void sub_83B50();
 void sub_83CC0(char a1);
-char sub_83E00(int a1, int a2);
+//char sub_83E00(int a1, int a2);
 void GetSystemSpeed();
 bool sub_84250_load_file_array(int psindex);
 void Init0x3664C_84790();
@@ -6173,7 +6173,7 @@ double dbl_E7C6E = 1.7976931348623157e+308; // weak
 float flt_E7C76 = 3.4028235e38; // weak
 subx_BYTE_E7EE0x str_E7EE0x[700];
 type_event_0x6E8E* x_DWORD_E8840; // weak
-sub2x_BYTE_E7EE0x str_E9980x[0x45];
+sub2x_BYTE_E7EE0x bitmaps_E9980x[0x45];
 
 int x_DWORD_E9B90; // weak
 int x_DWORD_E9BA8; // weak
@@ -6409,8 +6409,8 @@ unsigned int AddE7EE0x_10080(int32_t a1, int32_t a2)//1f1080
 	str_E7EE0x[i].dword_8 = a1;
 	str_E7EE0x[i].dword_12 = 0;
 	str_E7EE0x[i].dword_4 = a2;
-	str_E7EE0x[i].str_16 = &str_E9980x[str_E7EE0x[i].dword_8];
-	str_E7EE0x[i].dword_20xx = str_E9980x[str_E7EE0x[i].dword_8].dword_0;
+	str_E7EE0x[i].bitmapsStr_16 = &bitmaps_E9980x[str_E7EE0x[i].dword_8];
+	str_E7EE0x[i].bitmapsData_20xx = bitmaps_E9980x[str_E7EE0x[i].dword_8].bitmapData_0;
 	return i;
 }
 
@@ -6425,18 +6425,18 @@ int debugcounter_1f1130;
 //----- (00010130) --------------------------------------------------------
 signed int sub_10130(int a1, x_DWORD* a2, x_DWORD* a3)//1f1130
 {
-	*a2 = str_E7EE0x[a1].dword_20xx[0];
-	*a3 = str_E7EE0x[a1].dword_20xx[1];
-	str_E7EE0x[a1].dword_20xx+=sizeof(int32_t);
-	str_E7EE0x[a1].dword_12++;
-	if (str_E7EE0x[a1].str_16->word_4 > str_E7EE0x[a1].dword_12)
+	*a2 = str_E7EE0x[a1].bitmapsData_20xx[0];
+	*a3 = str_E7EE0x[a1].bitmapsData_20xx[1];
+	str_E7EE0x[a1].bitmapsData_20xx = str_E7EE0x[a1].bitmapsData_20xx + sizeof(int8_t*);
+	str_E7EE0x[a1].dword_12 += 4;
+	if (str_E7EE0x[a1].bitmapsStr_16->bitmapIndex_4 > str_E7EE0x[a1].dword_12)
 	{
 		return 1;
 	}
 	else
 	{
 		str_E7EE0x[a1].dword_12 = 0;
-		str_E7EE0x[a1].str_16++;
+		str_E7EE0x[a1].bitmapsStr_16 = &str_E7EE0x[a1].bitmapsStr_16[1];
 		str_E7EE0x[a1].dword_8++;
 		if (str_E7EE0x[a1].dword_8 <= str_E7EE0x[a1].dword_4)
 		{
@@ -6488,8 +6488,8 @@ void sub_101C0()//1f11c0
 	for (uint16_t k = 0; k < 32; k++)
 	{
 		//v5 = 3 * result;
-		str_E9980x[k].dword_0 = (int8_t*)(*v3.colorPallette_var28 + l);
-		str_E9980x[k].word_4 = 0;
+		bitmaps_E9980x[k].bitmapData_0 = (int8_t*)(*v3.colorPallette_var28 + l);
+		bitmaps_E9980x[k].bitmapIndex_4 = 0;
 		/**(int32_t*)&x_BYTE_E9980x[6 * k] = (int32_t)(*v3.colorPallette_var28 + l);
 		*(int16_t*)&x_BYTE_E9980x[4 + 6 * k] = 0;*/
 		for (uint16_t j = 0; j < 32; j++)
@@ -6510,7 +6510,7 @@ void sub_101C0()//1f11c0
 					*(*v3.colorPallette_var28 + 2 + l) = k;
 					l += 4;
 					//(*(int16_t*)&x_BYTE_E9980x[4 + 6 * k])++;
-					str_E9980x[k].word_4++;
+					bitmaps_E9980x[k].bitmapIndex_4++;
 				}
 			}
 		}
@@ -11965,6 +11965,13 @@ void sub_17190_process_keyboard()//1f8190
 						break;
 					}
 
+					case 0x24: {//j // switch debug info
+						sub_70940();
+						sub_1A970_change_game_settings(20, 0, 0);
+						LastPressedKey_1806E4 = 0;
+						break;
+					}
+
 					case 0x3e: {//f4
 						sub_1A970_change_game_settings(4, 0, 0);
 						LastPressedKey_1806E4 = 0;
@@ -14538,6 +14545,23 @@ void sub_1A970_change_game_settings(char a1, int a2, int a3)//1fb970
 				message += std::to_string(numRenderThreads);
 				sub_19760_set_message(message.c_str(), 3u, 50);
 			}
+		}
+		return;
+	case 20:
+		switch(D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x005_2BE0_11235)
+		{
+			case 0x00:
+				D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x005_2BE0_11235 = 0x08;
+				break;
+			case 0x08:
+				D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x005_2BE0_11235 = 0x48;
+				break;
+			case 0x48:
+				D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x005_2BE0_11235 = 0x40;
+				break;
+			case 0x40:
+				D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x005_2BE0_11235 = 0x00;
+				break;
 		}
 		return;
 	default:
@@ -75120,6 +75144,7 @@ void sub_6FEC0()//250ec0
 	//v0 = 2124 * D41A0_BYTESTR_0.word_0xc;
 	//result = v0 + (int)x_D41A0_BYTEARRAY_0;
 	//v2 = *(x_BYTE *)(v0 + x_D41A0_BYTEARRAY_0 + 11235);
+	//!!!!!!!!!!!!!!!
 	if (D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x005_2BE0_11235 & 8)
 	{
 		DrawHelpText_6FC50(1);
@@ -75211,7 +75236,7 @@ void sub_6FEC0()//250ec0
 		sprintf(printbuffer, "Heap %d", x_D41A0_BYTEARRAY_4_struct.dword_0xE6_heapsize_230);
 		DrawText_2BC10(printbuffer, 320, v42, (*xadataclrd0dat.colorPallette_var28)[0x0f]);
 		v43 = sub_6FC30_get34_height() + v42;
-		//sub_85350(); fix
+		//sub_85350();
 		DrawText_2BC10((char*)"Memory (Used/Free)", 320, v43, (*xadataclrd0dat.colorPallette_var28)[0xf00]);
 		v44 = sub_6FC30_get34_height() + v43;
 		sprintf(printbuffer, "%d/%d", x_DWORD_17FEA8_mem_used, x_DWORD_17FEA4_mem_free);
@@ -75240,7 +75265,7 @@ void sub_6FEC0()//250ec0
 		}
 		*/ //original allocations
 	}
-	else if (D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x005_2BE0_11235 & 0x40)
+	if (D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x005_2BE0_11235 & 0x40)
 	{
 		v50 = 6 * sub_6FC30_get34_height();
 		DrawText_2BC10((char*)"THING", 10, v50, (*xadataclrd0dat.colorPallette_var28)[0xf00]);
