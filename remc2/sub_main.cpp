@@ -74476,71 +74476,61 @@ void SetMousePositionByRes_6EDB0()//24FDB0
 //----- (0006EDE0) --------------------------------------------------------
 void SetMousePosition_6EDE0(int16_t posX, int16_t posY)//24fde0
 {
-	signed __int16 v2; // si
-	signed __int16 v3; // bx
-	//char* result; // eax
-	__int16 v5; // ax
-	char v6[28]; // [esp+0h] [ebp-38h]
-	__int16 v7; // [esp+8h] [ebp-30h]
-	__int16 v8; // [esp+Ch] [ebp-2Ch]
-	char v9[28]; // [esp+1Ch] [ebp-1Ch]
-
-	v2 = posX;
-	v3 = posY;
-	memset(v6, 0, 28);
-	//result = v9;//fixed 3551f0 - najit
-	memset(v9, 0, 28);//35520c najit
 	if (x_DWORD_E3768 > 0)
 	{
 		if (posX != -1 || posY != -1)
 		{
-			//result = (char*)a1;
 			if (posX != -1)
 			{
-				v6[0] = 4;
 				if (posX <= 0)
 				{
 					if (!(x_WORD_180660_VGA_type_resolution & 1))
-						v2 = 8 * posX;
+						posX = 8 * posX;
 				}
 				else
 				{
 					if (posX > screenWidth_18062C -2)
-						v2 = screenWidth_18062C -2;
-					x_WORD_E3760_mouse.x = v2;
+						posX = screenWidth_18062C -2;
+					x_WORD_E3760_mouse.x = posX;
 					if (!(x_WORD_180660_VGA_type_resolution & 1))
-						v2 *= 8;
+						posX *= 8;
 				}
-				v7 = v2;
 				if (posY <= 0)
 				{
 					if (x_WORD_180660_VGA_type_resolution & 1)
-						v5 = x_WORD_E3760_mouse.y;
+						posY = x_WORD_E3760_mouse.y;
 					else
-						v5 = 8 * x_WORD_E3760_mouse.y;
-					v8 = v5;
+						posY = 8 * x_WORD_E3760_mouse.y;
 				}
 				else
 				{
 					if (x_WORD_180660_VGA_type_resolution & 1)
 					{
 						if (posY > 398)
-							v3 = 398;
-						x_WORD_E3760_mouse.y = v3;
+							posY = 398;
+						x_WORD_E3760_mouse.y = posY;
 						if (!(x_WORD_180660_VGA_type_resolution & 1))
-							v3 *= 8;
+							posY *= 8;
 					}
 					else
 					{
 						if (posY > screenHeight_180624 - 2)
-							v3 = screenHeight_180624 - 2;
-						x_WORD_E3760_mouse.y = v3;
+							posY = screenHeight_180624 - 2;
+						x_WORD_E3760_mouse.y = posY;
 						if (!(x_WORD_180660_VGA_type_resolution & 1))
-							v3 *= 8;
+							posY *= 8;
 					}
-					v8 = v3;
 				}
-				VGA_Set_mouse(v7 / 8, v8 / 8);
+
+				//320x200 fix
+				if (x_WORD_180660_VGA_type_resolution & 1)
+				{
+					posX *= 8;
+					posY *= 8;
+				}
+				//320x200 fix
+
+				VGA_Set_mouse(posX / 8, posY / 8);
 			}
 		}
 	}
@@ -92385,6 +92375,14 @@ void UpdateMouseEventData_8CB3A(uint32_t mouse_states, int32_t mouse_posx, int32
 	int16_t temp_mouse_y; // [esp+8h] [ebp-4h]
 	//void *retaddr[2]; // [esp+1Ch] [ebp+10h]
 
+	int helpWidth = 640;
+	int helpHeight = 480;
+	if (!DefaultResolutions())
+	{
+		helpWidth = screenWidth_18062C;
+		helpHeight = screenHeight_180624;
+	}
+
 	//!!!!!!!! debug
 	if (mouseturnoff)
 	{
@@ -92408,20 +92406,10 @@ void UpdateMouseEventData_8CB3A(uint32_t mouse_states, int32_t mouse_posx, int32
 		}*/
 		x_WORD_E3760_mouse.x = temp_mouse_x; //set x
 		x_WORD_E3760_mouse.y = temp_mouse_y; //set y
-		if (!DefaultResolutions())
-		{
-			if (x_WORD_E3760_mouse.x > (screenWidth_18062C - 2))
-				x_WORD_E3760_mouse.x = (screenWidth_18062C - 2);
-			if (x_WORD_E3760_mouse.y > (screenHeight_180624 - 2))
-				x_WORD_E3760_mouse.y = (screenHeight_180624 - 2);
-		}
-		else
-		{
-			if (x_WORD_E3760_mouse.x > 638)
-				x_WORD_E3760_mouse.x = 638;
-			if (x_WORD_E3760_mouse.y > 478)
-				x_WORD_E3760_mouse.y = 478;
-		}
+		if (x_WORD_E3760_mouse.x > (helpWidth - 2))
+			x_WORD_E3760_mouse.x = (helpWidth - 2);
+		if (x_WORD_E3760_mouse.y > (helpHeight - 2))
+			x_WORD_E3760_mouse.y = (helpHeight - 2);
 
 		if (x_DWORD_180710_mouse_buttons_states & 2) // left button pressed
 		{
