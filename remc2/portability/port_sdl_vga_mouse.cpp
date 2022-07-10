@@ -32,6 +32,8 @@ const char* default_caption = "Magic Carpet 2 - Community Update";
 bool inited = false;
 Uint8 temppallettebuffer[768];
 
+int oldWidth;
+
 // Initalize Color Masks.
 #if SDL_BYTEORDER == SDL_BIG_ENDIAN
 Uint32 redMask = 0xff000000;
@@ -334,7 +336,7 @@ void Draw_letterToBuffer(int letter_number, int pozx, int pozy, uint8_t* buffer)
 		{
 			int srcx = xx + srcrect.x;
 			int srcy = yy + srcrect.y;
-			buffer[(dstrect.y + yy) * 640 + (dstrect.x + xx)] = fontbuffer[srcx + srcy * 256];
+			buffer[(dstrect.y + yy) * m_gamePalletisedSurface->w + (dstrect.x + xx)] = fontbuffer[srcx + srcy * 256];
 		}
 };
 
@@ -387,7 +389,16 @@ void VGA_Draw_string(char* wrstring) {
 	mydelay(10);
 }
 
+int drawCounter = 0;
 void VGA_Draw_stringXYtoBuffer(char* wrstring, int x, int y, uint8_t* buffer) {
+	if (buffer == NULL) return;
+	if (oldWidth != m_gamePalletisedSurface->w)
+		drawCounter = 0;
+	if (drawCounter<20)
+	{
+		drawCounter++;
+		return;
+	}
 	int loclastpoz = 0;
 	for (uint32_t i = 0; i < strlen(wrstring); i++)
 	{
@@ -767,6 +778,7 @@ void VGA_Set_mouse(int16_t x, int16_t y) {
 };
 
 void VGA_Blit(Uint8* srcBuffer) {
+	oldWidth = m_gamePalletisedSurface->w;
 	if (hideGraphics)return;
 	events();
 

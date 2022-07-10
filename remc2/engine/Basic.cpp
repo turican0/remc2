@@ -1551,6 +1551,9 @@ void sub_90478_VGA_Blit320()//271478
 	if (!x_BYTE_E3766)
 		sub_8CACD_draw_cursor2();
 #ifndef debug_hide_graphics
+#if _DEBUG
+	VGA_CalculateAndPrintFPS(0, 0);
+#endif
 	VGA_Blit(pdwScreenBuffer_351628);
 #endif
 	//if(dos_key_vect_9)dos_key_vect_9();
@@ -1564,7 +1567,6 @@ void sub_90478_VGA_Blit320()//271478
 	mydelay(newdelay);//set speed
 	oldmillis = actmillis;
 	//set speed
-	VGA_CalculateAndPrintFPS(0, 0);
 }
 
 int debugcounter_258350 = 0;
@@ -1589,6 +1591,29 @@ void sub_75200_VGA_Blit640(uint16_t height)//256200
 	if (!x_BYTE_E3766)
 		sub_8CACD_draw_cursor2();//26dacd
 
+#if _DEBUG
+	VGA_CalculateAndPrintFPS(0, 0);
+#endif
+	VGA_Blit(pdwScreenBuffer_351628);
+
+	//set speed
+	long actmillis = mygetthousandths();
+	long newdelay = speedGame - (actmillis - oldmillis);//max millis is 20 millis
+	if (newdelay < 0)newdelay = 0;
+	if (newdelay > speedGame)newdelay = speedGame;
+	mydelay(newdelay);//set speed
+	oldmillis = actmillis;
+	//set speed
+}
+
+void VGA_BlitAny()//256200
+{
+	if (!x_BYTE_E3766)
+		sub_8CACD_draw_cursor2();
+
+#if _DEBUG
+	VGA_CalculateAndPrintFPS(0, 0);
+#endif
 	VGA_Blit(pdwScreenBuffer_351628);
 
 	//set speed
@@ -1726,7 +1751,8 @@ void VGA_CalculateAndPrintFPS(int x, int y)
 	std::string fpsStr = "FPS: ";
 	fpsStr.append(std::to_string(fps));
 
-	VGA_Draw_string((char*)fpsStr.c_str());
+	VGA_Draw_stringXYtoBuffer((char*)fpsStr.c_str(), 0, 0, pdwScreenBuffer_351628);
+	//VGA_Draw_string((char*)fpsStr.c_str());
 }
 
 // D41A0: using guessed type int x_D41A0_BYTEARRAY_0;

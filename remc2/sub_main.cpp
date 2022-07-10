@@ -75273,7 +75273,7 @@ void sub_6FEC0()//250ec0
 		sprintf(
 			printbuffer,
 			"%ld / %d",
-			x_D41A0_BYTEARRAY_4_struct.dwordindex_38396,
+			x_D41A0_BYTEARRAY_4_struct.dwordindex_38396[0],
 			x_D41A0_BYTEARRAY_4_struct.dwordindex_38396 - D41A0_0.struct_0x6E8E);
 		DrawText_2BC10(printbuffer, 10, v51, (*xadataclrd0dat.colorPallette_var28)[0xff]);
 		v52 = sub_6FC30_get34_height() + v51;
@@ -77041,27 +77041,6 @@ void sub_75160(__int16 a1, __int16 a2, __int16 a3, unsigned __int16 a4, __int16 
 void sub_751B0(__int16 a1, __int16 a2, __int16 a3, unsigned __int16 a4, __int16 a5)
 {
 	sub_8F100_sound_proc19(a1, a2, a3 >> 8, 127 * a4 / 0xFFFF, a5 + 100, 0, 1u);
-}
-
-void VGA_BlitAny()//256200
-{
-	if (!x_BYTE_E3766)
-		sub_8CACD_draw_cursor2();
-
-	VGA_Blit(pdwScreenBuffer_351628);
-
-	//set speed
-	long actmillis = mygetthousandths();
-	long newdelay = speedGame - (actmillis - oldmillis);//max millis is 20 millis
-	if (newdelay < 0)newdelay = 0;
-	if (newdelay > speedGame)newdelay = speedGame;
-	mydelay(newdelay);//set speed
-	oldmillis = actmillis;
-	//set speed
-
-#if _DEBUG
-	VGA_CalculateAndPrintFPS(0, 0);
-#endif
 }
 
 //----- (000753D0) --------------------------------------------------------
