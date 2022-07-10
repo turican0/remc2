@@ -39881,6 +39881,11 @@ void sub_46B40()//227b40
 			sub_90D6E_VGA_set_video_mode_320x200_and_pallette((TColor*)*xadatapald0dat2.colorPallette_var28);
 		else
 		{
+			if ((gameResWidth > 640) || (gameResHeight > 480))
+			{
+				screenWidth_18062C = gameResWidth;
+				screenHeight_180624 = gameResHeight;
+			}
 			if(!DefaultResolutions())
 				sub_90E07_VGA_set_video_mode_alt_and_pallette((TColor*)*xadatapald0dat2.colorPallette_var28);
 			else

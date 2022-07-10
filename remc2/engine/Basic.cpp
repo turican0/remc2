@@ -447,7 +447,7 @@ bool DefaultResolutions()
 	/*if (((screenWidth_18062C == 640) && (screenHeight_180624 == 480))
 		|| ((screenWidth_18062C == 320) && (screenHeight_180624 == 200)))
 		return true;*/
-	if ((gameResWidth >= 640) || (gameResHeight >= 480))
+	if ((gameResWidth <= 640) && (gameResHeight <= 480))
 		return true;
 	return false;
 }
