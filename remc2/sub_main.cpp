@@ -6364,16 +6364,6 @@ char sub_7C200(uint8_t a1);
 
 #pragma region Methods
 
-bool DefaultResolutions()
-{
-	/*if (((screenWidth_18062C == 640) && (screenHeight_180624 == 480))
-		|| ((screenWidth_18062C == 320) && (screenHeight_180624 == 200)))
-		return true;*/
-	if ((gameResWidth >= 640) || (gameResHeight >= 480))
-		return true;
-	return false;
-}
-
 //----- (00010010) --------------------------------------------------------
 signed __int16 sub_10010()
 {
@@ -28157,7 +28147,7 @@ void DrawSorcererScores_2D1D0()//20e1d0
 	//uint8_t* v2; // edx
 	int v2x;
 	int v3; // ebx
-	signed int v4; // edx
+	//signed int v4; // edx
 	int v5; // ebx
 	char v6; // cl
 	int v7; // edi
@@ -28186,6 +28176,18 @@ void DrawSorcererScores_2D1D0()//20e1d0
 	unsigned __int8 v29; // [esp+11Ch] [ebp-8h]
 	unsigned __int8 v30; // [esp+120h] [ebp-4h]
 
+	int helpWidth = 640;
+	int helpHeight;
+	if (x_WORD_180660_VGA_type_resolution == 1)
+		helpHeight = 400;
+	else
+		helpHeight = 480;
+	if (!DefaultResolutions())
+	{
+		helpWidth = screenWidth_18062C;
+		helpHeight = screenHeight_180624;
+	}
+
 	v0 = 0;
 	DrawHelpText_6FC50(x_BYTE_D419D_fonttype);
 	v1 = 0;
@@ -28200,12 +28202,8 @@ void DrawSorcererScores_2D1D0()//20e1d0
 		v2x++;
 	}
 	v3 = v1 * (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[85].height_5;
-	v28 = (screenWidth_18062C - (v1 * (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[86].width_4 + (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[85].width_4)) / 2;
-	if (x_WORD_180660_VGA_type_resolution == 1)
-		v4 = 400;
-	else
-		v4 = 480;
-	v5 = (v4 - v3) / 2;
+	v28 = (helpWidth - (v1 * (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[86].width_4 + (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[85].width_4)) / 2;
+	v5 = (helpHeight - v3) / 2;
 	v25 = 0;
 	//i=x_D41A0_BYTEARRAY_0 + 11230
 	for (ix = 0; ; ix++)
@@ -29701,7 +29699,6 @@ void GetPauseMenuCoordinates_2FFE0(int16_t* a1, int16_t* a2, int16_t* a3, int16_
 	v5 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[178].height_5;
 	*a4 = v5;
 	v6 = (400 - 4 * v5) / 2 - 60;
-
 	v7 = (640 - *a3) / 2;
 	if (!DefaultResolutions())
 		v7 = (screenWidth_18062C - *a3) / 2;
@@ -29840,7 +29837,7 @@ void DrawInGameOptionsMenu_30050()//211050
 		v10 += v9;
 	}
 
-	int okayBtnTextXPos = (x_D41A0_BYTEARRAY_4_struct.byteindex_186 - 82) / 2 + (640 - x_D41A0_BYTEARRAY_4_struct.byteindex_186) / 2;
+	int okayBtnTextXPos = (640 - x_D41A0_BYTEARRAY_4_struct.byteindex_186) / 2 + (x_D41A0_BYTEARRAY_4_struct.byteindex_186 - 82) / 2;
 	if (!DefaultResolutions())
 	{
 		okayBtnTextXPos = (screenWidth_18062C - x_D41A0_BYTEARRAY_4_struct.byteindex_186) / 2 + (x_D41A0_BYTEARRAY_4_struct.byteindex_186 - 82) / 2;
@@ -38580,6 +38577,10 @@ void sub_40F80()//221f80
 		{
 			sub_BD2CB(unk_F0A20x);//maybe for virtual head set
 		}
+		else if (!DefaultResolutions())
+		{
+			VGA_BlitAny();
+		}
 		else if (x_WORD_180660_VGA_type_resolution & 1)
 		{
 			sub_90478_VGA_Blit320();
@@ -38597,16 +38598,17 @@ void sub_40F80()//221f80
 	{
 		sub_BD1B6(unk_F0A20x);
 	}
+	else if (!DefaultResolutions())
+	{
+		VGA_BlitAny();
+	}
 	else if (x_WORD_180660_VGA_type_resolution & 1)
 	{
 		sub_90478_VGA_Blit320();
 	}
 	else
 	{
-		if (!DefaultResolutions())
-			VGA_BlitAny();
-		else
-			sub_75200_VGA_Blit640(480);
+		sub_75200_VGA_Blit640(480);
 	}
 }
 
@@ -73157,10 +73159,11 @@ void sub_6D200(type_str_0x2BDE* a1x)//24e200
 	int v15; // [esp+8h] [ebp-14h]
 	int16_t spellIdxX; // [esp+14h] [ebp-8h]
 
+	int prePosY = 0;
 	if (x_WORD_180660_VGA_type_resolution & 1)
-		posY = 400;
+		prePosY = 400;
 	else
-		posY = 480;
+		prePosY = 480;
 	if(!DefaultResolutions())
 	{
 		posY = screenWidth_18062C;
@@ -73174,13 +73177,6 @@ void sub_6D200(type_str_0x2BDE* a1x)//24e200
 	{
 		if (a1x->byte_0x3DF_2BE4_12221 == 5 || a1x->byte_0x3DF_2BE4_12221 == 8)
 		{
-			if (x_WORD_180660_VGA_type_resolution & 1)
-				v2 = 400;
-			else
-				v2 = 480;
-			if (!DefaultResolutions())
-				v2 = screenHeight_180624;
-
 			v3 = a1x->dword_0x3E6_2BE4_12228.str_611.byte_0x458_1112;
 			if (v3 < 13)
 				v4 = v3;
@@ -73212,7 +73208,7 @@ void sub_6D200(type_str_0x2BDE* a1x)//24e200
 					subCategoryWidth = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[163].width_4;
 					subCategoryTotalWidth = 3 * subCategoryWidth;
 					//LOWORD(v1) = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[164].height;
-					v10 = v2 - 2 * v15 - (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[163].height_5;
+					v10 = prePosY - 2 * v15 - (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[163].height_5;
 
 					subCategoryPosX = offsetPosX + ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[89].width_4 >> 1)
 						+ (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[89].width_4 * spellIdxX
@@ -73221,7 +73217,7 @@ void sub_6D200(type_str_0x2BDE* a1x)//24e200
 
 					posY = v10 + 18;
 
-					if ((640 + offsetPosX) - subCategoryTotalWidth >= (signed __int16)subCategoryPosX)
+					if ((640 + offsetPosX) - subCategoryTotalWidth >= subCategoryPosX)
 					{
 						//TEST IT !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 						if ((subCategoryPosX - offsetPosX) < 0)
@@ -73229,7 +73225,7 @@ void sub_6D200(type_str_0x2BDE* a1x)//24e200
 					}
 					else
 					{
-						LOWORD(subCategoryPosX) = (640 + offsetPosX) - subCategoryTotalWidth;
+						subCategoryPosX = (640 + offsetPosX) - subCategoryTotalWidth;
 					}
 
 					//Calucation Spell Sub Category position
@@ -73265,7 +73261,7 @@ void sub_6D200(type_str_0x2BDE* a1x)//24e200
 					+ ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[89].width_4 >> 1);
 
 				posY = ((signed __int16)v15 >> 1)
-					+ (signed __int16)v2
+					+ (signed __int16)prePosY
 					- 2 * (signed __int16)v15
 					+ (signed __int16)v15 * (a1x->dword_0x3E6_2BE4_12228.str_611.byte_0x458_1112 >= 13);
 
@@ -73350,10 +73346,7 @@ int SelectSpell_6D4F0(type_str_611* a1x, int16_t mouseX)//24e4f0
 
 	if (!DefaultResolutions())
 	{
-		if (screenWidth_18062C > 640)
-		{
-			posXOffSet = ((screenWidth_18062C - 640) / 2);
-		}
+		posXOffSet = ((screenWidth_18062C - 640) / 2);
 	}
 
 	subCategoryTotalWidth = 3 * (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[163].width_4;

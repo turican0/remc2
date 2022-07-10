@@ -442,6 +442,16 @@ Pathstruct xadatatables = { "",(uint8_t**)&x_DWORD_D41BC_langbuffer,&LANG_BEGIN_
 //zero
 //#define psxazero14 47
 
+bool DefaultResolutions()
+{
+	/*if (((screenWidth_18062C == 640) && (screenHeight_180624 == 480))
+		|| ((screenWidth_18062C == 320) && (screenHeight_180624 == 200)))
+		return true;*/
+	if ((gameResWidth >= 640) || (gameResHeight >= 480))
+		return true;
+	return false;
+}
+
 //----- (00083E80) --------------------------------------------------------
 void sub_83E80_freemem4(uint8_t* ptr)//264e80
 {
@@ -1666,18 +1676,18 @@ void DrawLine_2BC80(int16_t posStartX, int16_t posStartY, int16_t posEndX, int16
 	uint8_t* temp_screen_buffer; // ST14_4
 
 	if (x_WORD_180660_VGA_type_resolution & 1)
-		DrawLineLowRes(posStartX, posStartY, posEndX, posEndY, colorIdx);
+		DrawLineLowRes_90164(posStartX, posStartY, posEndX, posEndY, colorIdx);
 	else
-		DrawLineHighRes(posStartX, posStartY, posEndX, posEndY, screenWidth_18062C, colorIdx);
+		DrawLineHighRes_901E4(posStartX, posStartY, posEndX, posEndY, colorIdx);
 
 	if (D41A0_0.m_GameSettings.m_Display.m_uiScreenSize == 1)
 	{
 		temp_screen_buffer = pdwScreenBuffer_351628;
 		pdwScreenBuffer_351628 = x_DWORD_E9C3C;
 		if (x_WORD_180660_VGA_type_resolution & 1)
-			DrawLineLowRes(posStartX, posStartY, posEndX, posEndY, colorIdx);
+			DrawLineLowRes_90164(posStartX, posStartY, posEndX, posEndY, colorIdx);
 		else
-			DrawLineHighRes(posStartX, posStartY, posEndX, posEndY, screenWidth_18062C, colorIdx);
+			DrawLineHighRes_901E4(posStartX, posStartY, posEndX, posEndY, colorIdx);
 
 		pdwScreenBuffer_351628 = (uint8_t*)temp_screen_buffer;
 	}
@@ -1951,7 +1961,7 @@ void sub_8F8E8_draw_bitmap640(int16_t posx, int16_t posy, posistruct_t temppstr)
 // 180628: using guessed type int pdwScreenBuffer_351628;
 
 //----- (00090164) --------------------------------------------------------
-void DrawLineLowRes(int16_t posStartX, int16_t posStartY, int16_t posEndX, int16_t posEndY, uint8_t colorIdx)
+void DrawLineLowRes_90164(int16_t posStartX, int16_t posStartY, int16_t posEndX, int16_t posEndY, uint8_t colorIdx)
 {
 	uint8_t* pixel; // edi
 	uint16_t v6; // dx
@@ -1997,7 +2007,7 @@ void DrawLineLowRes(int16_t posStartX, int16_t posStartY, int16_t posEndX, int16
 // 180628: using guessed type int pdwScreenBuffer_351628;
 
 //----- (000901E4) --------------------------------------------------------
-void DrawLineHighRes(int16_t posStartX, int16_t posStartY, int16_t posEndX, int16_t posEndY, uint16_t pitch, uint8_t colorIdx)//2711e4
+void DrawLineHighRes_901E4(int16_t posStartX, int16_t posStartY, int16_t posEndX, int16_t posEndY, uint8_t colorIdx)//2711e4
 {
 	x_BYTE* v5; // edi
 	__int16 v6; // dx
@@ -2006,9 +2016,13 @@ void DrawLineHighRes(int16_t posStartX, int16_t posStartY, int16_t posEndX, int1
 	int v9; // ecx
 	int v10; // [esp+0h] [ebp-4h]
 
-	v5 = (x_BYTE*)(pitch * posStartY + pdwScreenBuffer_351628 + posStartX);
+	int helpWidth = 640;
+	if (!DefaultResolutions())
+		helpWidth = screenWidth_18062C;
+
+	v5 = (x_BYTE*)(helpWidth * posStartY + pdwScreenBuffer_351628 + posStartX);
 	v6 = posEndY;
-	v10 = (unsigned __int16)(pitch - posEndX);
+	v10 = (unsigned __int16)(helpWidth - posEndX);
 	if (x_WORD_E36D4 & 4)
 	{
 		v7 = colorIdx;
@@ -2051,10 +2065,14 @@ void sub_6F940_sub_draw_text(const char* textbuffer, int posx, int posy, uint8_t
 	int v9; // eax
 	int result; // eax
 
+	int helpWidth = 640;
+	if (!DefaultResolutions())
+		helpWidth = screenWidth_18062C;
+
 	v4 = (uint8_t*)const_cast<char*>(textbuffer); // FIXME: temporary const cast hack
 	v5 = posx;
 	x_WORD_E36D4 = 64;
-	while (*v4 && v5 < screenWidth_18062C)
+	while (*v4 && v5 < 640)
 	{
 		v6 = (unsigned __int8)*v4;
 		if (v6 < 0xAu)

@@ -514,6 +514,7 @@ extern __int16 x_WORD_E36D4; // weak
 
 extern type_TMAPS00TAB_BEGIN_BUFFER* str_TMAPS00TAB_BEGIN_BUFFER;
 
+bool DefaultResolutions();
 
 void sub_83E80_freemem4(uint8_t* a1);
 int sub_84000(int a1);
@@ -583,8 +584,8 @@ void sub_7FB90_draw_text(char* a1, int16_t a2, int16_t a3, uint8_t a4);
 void sub_8CACD_draw_cursor2();
 void sub_8F8B0_draw_bitmap320(int16_t posx, int16_t posy, posistruct_t temppstr);
 void sub_8F8E8_draw_bitmap640(int16_t posx, int16_t posy, posistruct_t temppstr);
-void DrawLineLowRes(int16_t posStartX, int16_t posStartY, int16_t posEndX, int16_t posEndY, uint8_t colorIdx);
-void DrawLineHighRes(int16_t posStartX, int16_t posStartY, int16_t posEndX, int16_t posEndY, uint16_t pitch, uint8_t colorIdx);
+void DrawLineLowRes_90164(int16_t posStartX, int16_t posStartY, int16_t posEndX, int16_t posEndY, uint8_t colorIdx);
+void DrawLineHighRes_901E4(int16_t posStartX, int16_t posStartY, int16_t posEndX, int16_t posEndY, uint8_t colorIdx);
 void sub_6F940_sub_draw_text(const char* textbuffer, int posx, int posy, uint8_t color);//250940
 void sub_72C40_draw_bitmap_640_setcolor(__int16 a1, __int16 a2, posistruct_t a3, unsigned __int8 a4);
 void sub_8C635_draw_cursor();
