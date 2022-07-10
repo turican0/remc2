@@ -13322,9 +13322,9 @@ void OptionMenuEvents_19AB0()//1faab0
 	int v2; // edx
 	signed int v3; // eax
 
-	int optionMenuXPos = (640 - x_D41A0_BYTEARRAY_4_struct.byteindex_186) / 2;
+	int helpWidth = 640;
 	if(!DefaultResolutions())
-		optionMenuXPos = (screenWidth_18062C - x_D41A0_BYTEARRAY_4_struct.byteindex_186) / 2;
+		helpWidth = screenWidth_18062C;
 
 	if (unk_18058Cstr.x_WORD_1805C2_joystick == 7 || unk_18058Cstr.x_WORD_1805C2_joystick == 1 || unk_18058Cstr.x_WORD_1805C2_joystick == 2)
 		sub_8CD27_set_cursor((*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct)[x_BYTE_D419E]); //fix it
@@ -13340,7 +13340,7 @@ void OptionMenuEvents_19AB0()//1faab0
 		sub_19A50();
 		return;
 	}
-	v0 = (optionMenuXPos - x_D41A0_BYTEARRAY_4_struct.byteindex_186) / 2 + (x_D41A0_BYTEARRAY_4_struct.byteindex_186 - 82) / 2;
+	v0 = (helpWidth - x_D41A0_BYTEARRAY_4_struct.byteindex_186) / 2 + (x_D41A0_BYTEARRAY_4_struct.byteindex_186 - 82) / 2;
 	if (v0 <= unk_18058Cstr.x_DWORD_1805B0_mouse.x && v0 + 82 > unk_18058Cstr.x_DWORD_1805B0_mouse.x && unk_18058Cstr.x_DWORD_1805B0_mouse.y >= 377 && unk_18058Cstr.x_DWORD_1805B0_mouse.y < 395
 		|| LastPressedKey_1806E4 == 0x1c
 		|| LastPressedKey_1806E4 == 0x20)
@@ -13356,7 +13356,7 @@ void OptionMenuEvents_19AB0()//1faab0
 		return;
 	}
 	v1 = 0;
-	v2 = (optionMenuXPos - x_D41A0_BYTEARRAY_4_struct.byteindex_186) / 2;
+	v2 = (helpWidth - x_D41A0_BYTEARRAY_4_struct.byteindex_186) / 2;
 	v3 = 67;
 	do
 	{
@@ -13376,15 +13376,6 @@ void OptionMenuEvents_19AB0()//1faab0
 	sub_19A50();
 	return;
 }
-// D419E: using guessed type char x_BYTE_D419E;
-// D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
-// D41A4: using guessed type int x_DWORD_D41A4;
-// EB394: using guessed type int **filearray_2aa18c[0];
-// 18059C: using guessed type int x_DWORD_18059C;
-// 1805B0: using guessed type int x_DWORD_1805B0_mouse.x;
-// 1805B4: using guessed type int x_DWORD_1805B0_mouse.y;
-// 1805C2: using guessed type __int16 x_WORD_1805C2_joystick;
-// 1806E4: using guessed type char x_BYTE_1806E4;
 
 //----- (00019CA0) --------------------------------------------------------
 void ChangeSoundLevel_19CA0(uint8_t option)//1faca0
