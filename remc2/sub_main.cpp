@@ -6366,8 +6366,10 @@ char sub_7C200(uint8_t a1);
 
 bool DefaultResolutions()
 {
-	if (((screenWidth_18062C == 640) && (screenHeight_180624 == 480))
+	/*if (((screenWidth_18062C == 640) && (screenHeight_180624 == 480))
 		|| ((screenWidth_18062C == 320) && (screenHeight_180624 == 200)))
+		return true;*/
+	if ((gameResWidth >= 640) || (gameResHeight >= 480))
 		return true;
 	return false;
 }
@@ -40306,8 +40308,8 @@ void DrawAndEventsInGame_47560(/*uint8_t* a1, int a2, */uint32_t a3, signed int 
 	ReadGameUserInputs_89D10();//get keys
 
 #ifdef AUTO_CHANGE_RES
-	//if ((windowResWidth == 640)&&(windowResHeight == 480))
-	if (true)
+	if ((windowResWidth >= 640)&&(windowResHeight >= 480))
+	//if (true)
 	{
 		if (resindex_begin == 1)
 		{
@@ -92411,14 +92413,22 @@ void UpdateMouseEventData_8CB3A(uint32_t mouse_states, int32_t mouse_posx, int32
 			temp_mouse_y = mouse_posy >> 3;//[ss:ebp-4] 0 - y
 			//only for text mode?
 		}*/
-		x_WORD_E3760_mouse.x = temp_mouse_x; //nastav x
-		//mouse_state = temp_mouse_y;
-		x_WORD_E3760_mouse.y = temp_mouse_y; //nastav y
-
-		if (x_WORD_E3760_mouse.x > (screenWidth_18062C - 2))
-			x_WORD_E3760_mouse.x = (screenWidth_18062C - 2);
-		if (x_WORD_E3760_mouse.y > (screenHeight_180624 - 2))
-			x_WORD_E3760_mouse.y = (screenHeight_180624 - 2);
+		x_WORD_E3760_mouse.x = temp_mouse_x; //set x
+		x_WORD_E3760_mouse.y = temp_mouse_y; //set y
+		if (!DefaultResolutions())
+		{
+			if (x_WORD_E3760_mouse.x > (screenWidth_18062C - 2))
+				x_WORD_E3760_mouse.x = (screenWidth_18062C - 2);
+			if (x_WORD_E3760_mouse.y > (screenHeight_180624 - 2))
+				x_WORD_E3760_mouse.y = (screenHeight_180624 - 2);
+		}
+		else
+		{
+			if (x_WORD_E3760_mouse.x > 638)
+				x_WORD_E3760_mouse.x = 638;
+			if (x_WORD_E3760_mouse.y > 478)
+				x_WORD_E3760_mouse.y = 478;
+		}
 
 		if (x_DWORD_180710_mouse_buttons_states & 2) // left button pressed
 		{
