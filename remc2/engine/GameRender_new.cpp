@@ -5350,17 +5350,17 @@ void GameRender_new::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon
 	uint8_t line24 = startLine;
 	uint8_t line25 = startLine;
 
-	const ProjectionPolygon* v3; // esi
-	const ProjectionPolygon* v4; // edi
-	const ProjectionPolygon* v5; // ecx
+	const ProjectionPolygon* vert1; // esi
+	const ProjectionPolygon* vert2; // edi
+	const ProjectionPolygon* vert3; // ecx
 	int y1; // eax
 	int y2; // ebx
 	int y3; // edx
-	int v9; // eax
-	int v10; // ebx
-	int v11; // ebx
-	int v12; // ebx
-	int v13; // ebx
+	//int v9; // eax
+	//int v10; // ebx
+	int vert3Yminusvert1Y; // ebx
+	//int v12; // ebx
+	int vert2Yminusvert1Y; // ebx
 	int v14; // eax
 	int v15; // ebx
 	bool v16; // zf
@@ -6449,7 +6449,7 @@ void GameRender_new::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon
 	int v1099; // edx
 	int v1100; // ecx
 	char v1101; // al
-	uint8_t* v1102; // [esp+0h] [ebp-88h]
+	uint8_t* StartAdress; // [esp+0h] [ebp-88h]
 	int v1103; // [esp+4h] [ebp-84h]
 	int v1104; // [esp+4h] [ebp-84h]
 	int v1105; // [esp+4h] [ebp-84h]
@@ -6460,7 +6460,7 @@ void GameRender_new::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon
 	int v1110; // [esp+8h] [ebp-80h]
 	int v1111; // [esp+Ch] [ebp-7Ch]
 	int v1112; // [esp+Ch] [ebp-7Ch]
-	int v1113; // [esp+10h] [ebp-78h]
+	//int v1113; // [esp+10h] [ebp-78h]
 	int v1114; // [esp+10h] [ebp-78h]
 	int v1115; // [esp+10h] [ebp-78h]
 	int v1116; // [esp+10h] [ebp-78h]
@@ -6537,7 +6537,7 @@ void GameRender_new::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon
 	int v1187; // [esp+50h] [ebp-38h]
 	int v1188; // [esp+50h] [ebp-38h]
 	int v1189; // [esp+50h] [ebp-38h]
-	int v1190; // [esp+54h] [ebp-34h]
+	//int v1190; // [esp+54h] [ebp-34h]
 	int v1191; // [esp+54h] [ebp-34h]
 	int v1192; // [esp+54h] [ebp-34h]
 	int v1193; // [esp+54h] [ebp-34h]
@@ -6639,7 +6639,7 @@ void GameRender_new::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon
 	unsigned __int16* v1289; // [esp+5Ch] [ebp-2Ch]
 	unsigned __int16* v1290; // [esp+5Ch] [ebp-2Ch]
 	unsigned __int16* v1291; // [esp+5Ch] [ebp-2Ch]
-	char v1292; // [esp+62h] [ebp-26h]
+	bool vert1afterTopView; // [esp+62h] [ebp-26h]
 	char v1293; // [esp+62h] [ebp-26h]
 	char v1294; // [esp+62h] [ebp-26h]
 	char v1295; // [esp+62h] [ebp-26h]
@@ -6647,7 +6647,7 @@ void GameRender_new::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon
 	char v1297; // [esp+63h] [ebp-25h]
 	bool v1298; // [esp+63h] [ebp-25h]
 	bool v1299; // [esp+63h] [ebp-25h]
-	bool v1300; // [esp+64h] [ebp-24h]
+	bool vert3beforeBottomView; // [esp+64h] [ebp-24h]
 	bool v1301; // [esp+64h] [ebp-24h]
 
 	/*if(debugafterload)
@@ -6666,9 +6666,9 @@ void GameRender_new::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon
 	v1135 = 0;
 	//fix it
 
-	v3 = vertex1;
-	v4 = vertex2;
-	v5 = vertex3;
+	vert1 = vertex1;
+	vert2 = vertex2;
+	vert3 = vertex3;
 	y1 = vertex1->Y;
 	y2 = vertex2->Y;
 	y3 = vertex3->Y;
@@ -6681,9 +6681,9 @@ void GameRender_new::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon
 		{
 			if (vertex1->X <= vertex2->X)
 				return;
-			v3 = vertex3;
-			v4 = vertex1;
-			v5 = vertex2;
+			vert1 = vertex3;
+			vert2 = vertex1;
+			vert3 = vertex2;
 			goto LABEL_234;
 		}
 		if (vertex2->X <= vertex1->X)
@@ -6696,56 +6696,56 @@ void GameRender_new::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon
 		{
 			if (y1 >= y3)
 			{
-				v3 = vertex3;
-				v4 = vertex1;
-				v5 = vertex2;
+				vert1 = vertex3;
+				vert2 = vertex1;
+				vert3 = vertex2;
 			LABEL_24:
-				v9 = v3->Y;
-				v1190 = v9;
-				if (v9 >= 0)
+				//v9 = v3->Y;
+				//v1190 = v3->Y;
+				if (vert1->Y >= 0)
 				{
-					if (v9 >= viewPort.Height_DE568)
+					if (vert1->Y >= viewPort.Height_DE568)
 						return;
-					v1102 = ViewPortRenderBufferAltStart_DE554 + iScreenWidth_DE560 * v9;
-					v1292 = 0;
+					StartAdress = ViewPortRenderBufferAltStart_DE554 + iScreenWidth_DE560 * vert1->Y;
+					vert1afterTopView = false;
 				}
 				else
 				{
-					v1102 = ViewPortRenderBufferAltStart_DE554;
-					v1292 = 1;
+					StartAdress = ViewPortRenderBufferAltStart_DE554;
+					vert1afterTopView = true;
 				}
-				v10 = v5->Y;
-				v1300 = v10 > viewPort.Height_DE568;
-				v11 = v10 - v9;
-				v1113 = v11;
-				triLn_v1123 = v11;
-				v12 = v4->Y;
-				v1296 = v12 > viewPort.Height_DE568;
-				v13 = v12 - v9;
-				v1117 = v13;
-				v1103 = ((v5->X - v3->X) << 16) / v1113;
-				if (((v4->X - v3->X) << 16) / v13 > v1103)
+				//v10 = v5->Y;
+				vert3beforeBottomView = vert3->Y > viewPort.Height_DE568;
+				vert3Yminusvert1Y = vert3->Y - vert1->Y;
+				//v1113 = vert3Yminusvert1Y;
+				triLn_v1123 = vert3Yminusvert1Y;
+				//v12 = vert2->Y;
+				v1296 = vert2->Y > viewPort.Height_DE568;
+				vert2Yminusvert1Y = vert2->Y - vert1->Y;
+				v1117 = vert2Yminusvert1Y;
+				v1103 = ((vert3->X - vert1->X) << 16) / vert3Yminusvert1Y;
+				if (((vert2->X - vert1->X) << 16) / vert2Yminusvert1Y > v1103)
 				{
-					v1107 = ((v4->X - v3->X) << 16) / v13;
-					v1111 = ((v5->X - v4->X) << 16) / (v5->Y - v4->Y);
-					v1119 = v5->Y - v4->Y;
-					v1121 = v4->X << 16;
+					v1107 = ((vert2->X - vert1->X) << 16) / vert2Yminusvert1Y;
+					v1111 = ((vert3->X - vert2->X) << 16) / (vert3->Y - vert2->Y);
+					v1119 = vert3->Y - vert2->Y;
+					v1121 = vert2->X << 16;
 					switch (x_BYTE_E126D)
 					{
 					case 0:
 					case 0xE:
 					case 0xF:
-						v58 = v3->X << 16;
-						v59 = v3->X << 16;
-						if (!v1292)
+						v58 = vert1->X << 16;
+						v59 = vert1->X << 16;
+						if (!vert1afterTopView)
 						{
-							if (v1300)
+							if (vert3beforeBottomView)
 							{
-								v63 = viewPort.Height_DE568 - v1190;
-								triLn_v1123 = viewPort.Height_DE568 - v1190;
+								v63 = viewPort.Height_DE568 - vert1->Y;
+								triLn_v1123 = viewPort.Height_DE568 - vert1->Y;
 								if (v1296)
 								{
-									v1117 = viewPort.Height_DE568 - v1190;
+									v1117 = viewPort.Height_DE568 - vert1->Y;
 								}
 								else
 								{
@@ -6757,20 +6757,20 @@ void GameRender_new::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon
 							}
 							goto LABEL_121;
 						}
-						v18 = __OFSUB__(triLn_v1123, -v1190);
-						v16 = triLn_v1123 == -v1190;
-						v17 = triLn_v1123 + v1190 < 0;
-						triLn_v1123 += v1190;
+						v18 = __OFSUB__(triLn_v1123, -vert1->Y);
+						v16 = triLn_v1123 == -vert1->Y;
+						v17 = triLn_v1123 + vert1->Y < 0;
+						triLn_v1123 += vert1->Y;
 						if (!((unsigned __int8)(v17 ^ v18) | (unsigned __int8)v16))
 						{
-							v1160 = -v1190;
-							if (-v1190 - v1117 >= 0)
+							v1160 = -vert1->Y;
+							if (-vert1->Y - v1117 >= 0)
 							{
 								v1119 -= v1160 - v1117;
 								v60 = v1160 - v1117;
 								v58 += v1103 * v60 + v1117 * v1103;
 								v61 = v1111 * v60 + v1121;
-								if (v1300)
+								if (vert3beforeBottomView)
 								{
 									v1119 = viewPort.Height_DE568;
 									triLn_v1123 = viewPort.Height_DE568;
@@ -6778,10 +6778,10 @@ void GameRender_new::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon
 								v62 = (x_DWORD*)unk_DE56Cx[startLine];
 								goto LABEL_124;
 							}
-							v1117 += v1190;
+							v1117 += vert1->Y;
 							v58 += v1103 * v1160;
 							v59 += v1160 * v1107;
-							if (v1300)
+							if (vert3beforeBottomView)
 							{
 								triLn_v1123 = viewPort.Height_DE568;
 								if (v1296)
@@ -6814,8 +6814,8 @@ void GameRender_new::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon
 					case 4:
 					case 0x10:
 					case 0x11:
-						v46 = v13 * (signed __int64)(v3->X - v5->X) / v1113;
-						v47 = v4->X - v3->X;
+						v46 = vert2Yminusvert1Y * (signed __int64)(vert1->X - vert3->X) / vert3Yminusvert1Y;
+						v47 = vert2->X - vert1->X;
 						v18 = __OFADD__(v46, v47);
 						v48 = v46 + v47 == 0;
 						v17 = v46 + v47 < 0;
@@ -6823,29 +6823,29 @@ void GameRender_new::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon
 						if ((unsigned __int8)v17 ^ v18)
 							return;
 						if (!v48)
-							v1146 = (signed int)(v4->Brightness + (unsigned __int64)(v1117 * (signed __int64)(v3->Brightness - v5->Brightness) / v1113) - v3->Brightness)
+							v1146 = (signed int)(vert2->Brightness + (unsigned __int64)(v1117 * (signed __int64)(vert1->Brightness - vert3->Brightness) / vert3Yminusvert1Y) - vert1->Brightness)
 							/ (v49 + 1);
-						v1148 = (v5->Brightness - v3->Brightness) / v1113;
-						v50 = v3->X << 16;
-						v51 = v3->X << 16;
-						v52 = v3->Brightness;
-						if (v1292)
+						v1148 = (vert3->Brightness - vert1->Brightness) / vert3Yminusvert1Y;
+						v50 = vert1->X << 16;
+						v51 = vert1->X << 16;
+						v52 = vert1->Brightness;
+						if (vert1afterTopView)
 						{
-							v18 = __OFSUB__(triLn_v1123, -v1190);
-							v16 = triLn_v1123 == -v1190;
-							v17 = triLn_v1123 + v1190 < 0;
-							triLn_v1123 += v1190;
+							v18 = __OFSUB__(triLn_v1123, -vert1->Y);
+							v16 = triLn_v1123 == -vert1->Y;
+							v17 = triLn_v1123 + vert1->Y < 0;
+							triLn_v1123 += vert1->Y;
 							if ((unsigned __int8)(v17 ^ v18) | (unsigned __int8)v16)
 								return;
-							v1159 = -v1190;
-							if (-v1190 - v1117 >= 0)
+							v1159 = -vert1->Y;
+							if (-vert1->Y - v1117 >= 0)
 							{
 								v1119 -= v1159 - v1117;
 								v53 = v1159 - v1117;
 								v50 += v1103 * v53 + v1117 * v1103;
 								v54 = v1111 * v53 + v1121;
 								v52 += v53 * v1148 + v1117 * v1148;
-								if (v1300)
+								if (vert3beforeBottomView)
 								{
 									v1119 = viewPort.Height_DE568;
 									triLn_v1123 = viewPort.Height_DE568;
@@ -6863,11 +6863,11 @@ void GameRender_new::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon
 								}
 								goto LABEL_53;
 							}
-							v1117 += v1190;
+							v1117 += vert1->Y;
 							v50 += v1103 * v1159;
 							v51 += v1159 * v1107;
 							v52 += v1159 * v1148;
-							if (v1300)
+							if (vert3beforeBottomView)
 							{
 								triLn_v1123 = viewPort.Height_DE568;
 								if (v1296)
@@ -6881,13 +6881,13 @@ void GameRender_new::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon
 								}
 							}
 						}
-						else if (v1300)
+						else if (vert3beforeBottomView)
 						{
-							v56 = viewPort.Height_DE568 - v1190;
-							triLn_v1123 = viewPort.Height_DE568 - v1190;
+							v56 = viewPort.Height_DE568 - vert1->Y;
+							triLn_v1123 = viewPort.Height_DE568 - vert1->Y;
 							if (v1296)
 							{
-								v1117 = viewPort.Height_DE568 - v1190;
+								v1117 = viewPort.Height_DE568 - vert1->Y;
 							}
 							else
 							{
@@ -6913,8 +6913,8 @@ void GameRender_new::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon
 					case 0x13:
 					case 0x16:
 					case 0x17:
-						v32 = v13 * (signed __int64)(v3->X - v5->X) / v1113;
-						v33 = v4->X - v3->X;
+						v32 = vert2Yminusvert1Y * (signed __int64)(vert1->X - vert3->X) / vert3Yminusvert1Y;
+						v33 = vert2->X - vert1->X;
 						v18 = __OFADD__(v32, v33);
 						v34 = v32 + v33 == 0;
 						v17 = v32 + v33 < 0;
@@ -6924,27 +6924,27 @@ void GameRender_new::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon
 						if (!v34)
 						{
 							v36 = v35 + 1;
-							v1124 = (signed int)(v4->U + (unsigned __int64)(v1117 * (signed __int64)(v3->U - v5->U) / v1113) - v3->U)
+							v1124 = (signed int)(vert2->U + (unsigned __int64)(v1117 * (signed __int64)(vert1->U - vert3->U) / vert3Yminusvert1Y) - vert1->U)
 								/ v36;
-							v1135 = (signed int)(v4->V + (unsigned __int64)(v1117 * (signed __int64)(v3->V - v5->V) / v1113) - v3->V)
+							v1135 = (signed int)(vert2->V + (unsigned __int64)(v1117 * (signed __int64)(vert1->V - vert3->V) / vert3Yminusvert1Y) - vert1->V)
 								/ v36;
 						}
-						v1126 = (v5->U - v3->U) / v1113;
-						v1137 = (v5->V - v3->V) / v1113;
-						v37 = v3->X << 16;
-						v38 = v3->X << 16;
-						v39 = v3->U;
-						v40 = v3->V;
-						if (v1292)
+						v1126 = (vert3->U - vert1->U) / vert3Yminusvert1Y;
+						v1137 = (vert3->V - vert1->V) / vert3Yminusvert1Y;
+						v37 = vert1->X << 16;
+						v38 = vert1->X << 16;
+						v39 = vert1->U;
+						v40 = vert1->V;
+						if (vert1afterTopView)
 						{
-							v18 = __OFSUB__(triLn_v1123, -v1190);
-							v16 = triLn_v1123 == -v1190;
-							v17 = triLn_v1123 + v1190 < 0;
-							triLn_v1123 += v1190;
+							v18 = __OFSUB__(triLn_v1123, -vert1->Y);
+							v16 = triLn_v1123 == -vert1->Y;
+							v17 = triLn_v1123 + vert1->Y < 0;
+							triLn_v1123 += vert1->Y;
 							if ((unsigned __int8)(v17 ^ v18) | (unsigned __int8)v16)
 								return;
-							v1158 = -v1190;
-							if (-v1190 - v1117 >= 0)
+							v1158 = -vert1->Y;
+							if (-vert1->Y - v1117 >= 0)
 							{
 								v1119 -= v1158 - v1117;
 								v41 = v1158 - v1117;
@@ -6952,7 +6952,7 @@ void GameRender_new::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon
 								v42 = v1111 * v41 + v1121;
 								v39 += v41 * v1126 + v1117 * v1126;
 								v40 += v41 * v1137 + v1117 * v1137;
-								if (v1300)
+								if (vert3beforeBottomView)
 								{
 									v1119 = viewPort.Height_DE568;
 									triLn_v1123 = viewPort.Height_DE568;
@@ -6970,12 +6970,12 @@ void GameRender_new::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon
 								}
 								goto LABEL_53;
 							}
-							v1117 += v1190;
+							v1117 += vert1->Y;
 							v37 += v1103 * v1158;
 							v38 += v1158 * v1107;
 							v39 += v1158 * v1126;
 							v40 += v1158 * v1137;
-							if (v1300)
+							if (vert3beforeBottomView)
 							{
 								triLn_v1123 = viewPort.Height_DE568;
 								if (v1296)
@@ -6989,13 +6989,13 @@ void GameRender_new::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon
 								}
 							}
 						}
-						else if (v1300)
+						else if (vert3beforeBottomView)
 						{
-							v44 = viewPort.Height_DE568 - v1190;
-							triLn_v1123 = viewPort.Height_DE568 - v1190;
+							v44 = viewPort.Height_DE568 - vert1->Y;
+							triLn_v1123 = viewPort.Height_DE568 - vert1->Y;
 							if (v1296)
 							{
-								v1117 = viewPort.Height_DE568 - v1190;
+								v1117 = viewPort.Height_DE568 - vert1->Y;
 							}
 							else
 							{
@@ -7015,8 +7015,8 @@ void GameRender_new::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon
 					case 0x18:
 					case 0x19:
 					case 0x1A:
-						v14 = v13 * (signed __int64)(v3->X - v5->X) / v1113;
-						v15 = v4->X - v3->X;
+						v14 = vert2Yminusvert1Y * (signed __int64)(vert1->X - vert3->X) / vert3Yminusvert1Y;
+						v15 = vert2->X - vert1->X;
 						v18 = __OFADD__(v14, v15);
 						v16 = v14 + v15 == 0;
 						v17 = v14 + v15 < 0;
@@ -7026,31 +7026,31 @@ void GameRender_new::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon
 						if (!v16)
 						{
 							v20 = v19 + 1;
-							v1124 = (signed int)(v4->U + (unsigned __int64)(v1117 * (signed __int64)(v3->U - v5->U) / v1113) - v3->U)
+							v1124 = (signed int)(vert2->U + (unsigned __int64)(v1117 * (signed __int64)(vert1->U - vert3->U) / vert3Yminusvert1Y) - vert1->U)
 								/ v20;
-							v1135 = (signed int)(v4->V + (unsigned __int64)(v1117 * (signed __int64)(v3->V - v5->V) / v1113) - v3->V)
+							v1135 = (signed int)(vert2->V + (unsigned __int64)(v1117 * (signed __int64)(vert1->V - vert3->V) / vert3Yminusvert1Y) - vert1->V)
 								/ v20;
-							v1146 = (signed int)(v4->Brightness + (unsigned __int64)(v1117 * (signed __int64)(v3->Brightness - v5->Brightness) / v1113) - v3->Brightness)
+							v1146 = (signed int)(vert2->Brightness + (unsigned __int64)(v1117 * (signed __int64)(vert1->Brightness - vert3->Brightness) / vert3Yminusvert1Y) - vert1->Brightness)
 								/ v20;
 						}
-						v1125 = (v5->U - v3->U) / v1113;
-						v1136 = (v5->V - v3->V) / v1113;
-						v1147 = (v5->Brightness - v3->Brightness) / v1113;
-						v21 = v3->X << 16;
-						v22 = v3->X << 16;
-						v23 = v3->U;
-						v24 = v3->V;
-						v25 = v3->Brightness;
-						if (v1292)
+						v1125 = (vert3->U - vert1->U) / vert3Yminusvert1Y;
+						v1136 = (vert3->V - vert1->V) / vert3Yminusvert1Y;
+						v1147 = (vert3->Brightness - vert1->Brightness) / vert3Yminusvert1Y;
+						v21 = vert1->X << 16;
+						v22 = vert1->X << 16;
+						v23 = vert1->U;
+						v24 = vert1->V;
+						v25 = vert1->Brightness;
+						if (vert1afterTopView)
 						{
-							v18 = __OFSUB__(triLn_v1123, -v1190);
-							v16 = triLn_v1123 == -v1190;
-							v17 = triLn_v1123 + v1190 < 0;
-							triLn_v1123 += v1190;
+							v18 = __OFSUB__(triLn_v1123, -vert1->Y);
+							v16 = triLn_v1123 == -vert1->Y;
+							v17 = triLn_v1123 + vert1->Y < 0;
+							triLn_v1123 += vert1->Y;
 							if ((unsigned __int8)(v17 ^ v18) | (unsigned __int8)v16)
 								return;
-							v1157 = -v1190;
-							if (-v1190 - v1117 >= 0)
+							v1157 = -vert1->Y;
+							if (-vert1->Y - v1117 >= 0)
 							{
 								v1119 -= v1157 - v1117;
 								v26 = v1157 - v1117;
@@ -7059,7 +7059,7 @@ void GameRender_new::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon
 								v23 += v26 * v1125 + v1117 * v1125;
 								v24 += v26 * v1136 + v1117 * v1136;
 								v25 += v26 * v1147 + v1117 * v1147;
-								if (v1300)
+								if (vert3beforeBottomView)
 								{
 									v1119 = viewPort.Height_DE568;
 									triLn_v1123 = viewPort.Height_DE568;
@@ -7077,13 +7077,13 @@ void GameRender_new::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon
 								}
 								goto LABEL_53;
 							}
-							v1117 += v1190;
+							v1117 += vert1->Y;
 							v21 += v1103 * v1157;
 							v22 += v1157 * v1107;
 							v23 += v1157 * v1125;
 							v24 += v1157 * v1136;
 							v25 += v1157 * v1147;
-							if (v1300)
+							if (vert3beforeBottomView)
 							{
 								triLn_v1123 = viewPort.Height_DE568;
 								if (v1296)
@@ -7097,13 +7097,13 @@ void GameRender_new::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon
 								}
 							}
 						}
-						else if (v1300)
+						else if (vert3beforeBottomView)
 						{
-							v29 = viewPort.Height_DE568 - v1190;
-							triLn_v1123 = viewPort.Height_DE568 - v1190;
+							v29 = viewPort.Height_DE568 - vert1->Y;
+							triLn_v1123 = viewPort.Height_DE568 - vert1->Y;
 							if (v1296)
 							{
-								v1117 = viewPort.Height_DE568 - v1190;
+								v1117 = viewPort.Height_DE568 - vert1->Y;
 							}
 							else
 							{
@@ -7129,33 +7129,33 @@ void GameRender_new::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon
 			if (vertex2->X <= vertex3->X)
 				return;
 		LABEL_234:
-			v117 = v3->Y;
+			v117 = vert1->Y;
 			v1192 = v117;
 			if (v117 >= 0)
 			{
 				if (v117 >= viewPort.Height_DE568)
 					return;
-				v1102 = ViewPortRenderBufferAltStart_DE554 + iScreenWidth_DE560 * v117;
+				StartAdress = ViewPortRenderBufferAltStart_DE554 + iScreenWidth_DE560 * v117;
 				v1294 = 0;
 			}
 			else
 			{
-				v1102 = ViewPortRenderBufferAltStart_DE554;
+				StartAdress = ViewPortRenderBufferAltStart_DE554;
 				v1294 = 1;
 			}
-			v118 = v5->Y;
+			v118 = vert3->Y;
 			v1298 = v118 > viewPort.Height_DE568;
 			v1115 = v118 - v117;
 			triLn_v1123 = v118 - v117;
-			v1105 = ((v5->X - v3->X) << 16) / (v118 - v117);
-			v1109 = ((v4->X - v3->X) << 16) / (v118 - v117);
+			v1105 = ((vert3->X - vert1->X) << 16) / (v118 - v117);
+			v1109 = ((vert2->X - vert1->X) << 16) / (v118 - v117);
 			switch (x_BYTE_E126D)
 			{
 			case 0:
 			case 0xE:
 			case 0xF:
-				v139 = v3->X << 16;
-				v140 = v3->X << 16;
+				v139 = vert1->X << 16;
+				v140 = vert1->X << 16;
 				if (v1294)
 				{
 					v141 = -v1192;
@@ -7186,11 +7186,11 @@ void GameRender_new::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon
 			case 4:
 			case 0x10:
 			case 0x11:
-				v1146 = (v4->Brightness - v5->Brightness) / (v4->X - v5->X);
-				v1152 = (v5->Brightness - v3->Brightness) / triLn_v1123;
-				v134 = v3->X << 16;
-				v135 = v3->X << 16;
-				v136 = v3->Brightness;
+				v1146 = (vert2->Brightness - vert3->Brightness) / (vert2->X - vert3->X);
+				v1152 = (vert3->Brightness - vert1->Brightness) / triLn_v1123;
+				v134 = vert1->X << 16;
+				v135 = vert1->X << 16;
+				v136 = vert1->Brightness;
 				if (v1294)
 				{
 					v137 = -v1192;
@@ -7231,15 +7231,15 @@ void GameRender_new::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon
 			case 0x13:
 			case 0x16:
 			case 0x17:
-				v127 = v4->X - v5->X;
-				v1124 = (v4->U - v5->U) / v127;
-				v1135 = (v4->V - v5->V) / v127;
-				v1130 = (v5->U - v3->U) / triLn_v1123;
-				v1141 = (v5->V - v3->V) / triLn_v1123;
-				v128 = v3->X << 16;
-				v129 = v3->X << 16;
-				v130 = v3->U;
-				v131 = v3->V;
+				v127 = vert2->X - vert3->X;
+				v1124 = (vert2->U - vert3->U) / v127;
+				v1135 = (vert2->V - vert3->V) / v127;
+				v1130 = (vert3->U - vert1->U) / triLn_v1123;
+				v1141 = (vert3->V - vert1->V) / triLn_v1123;
+				v128 = vert1->X << 16;
+				v129 = vert1->X << 16;
+				v130 = vert1->U;
+				v131 = vert1->V;
 				if (v1294)
 				{
 					v132 = -v1192;
@@ -7275,18 +7275,18 @@ void GameRender_new::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon
 			case 0x18:
 			case 0x19:
 			case 0x1A:
-				v119 = v4->X - v5->X;
-				v1124 = (v4->U - v5->U) / v119;
-				v1135 = (v4->V - v5->V) / v119;
-				v1146 = (v4->Brightness - v5->Brightness) / v119;
-				v1129 = (v5->U - v3->U) / triLn_v1123;
-				v1140 = (v5->V - v3->V) / triLn_v1123;
-				v1151 = (v5->Brightness - v3->Brightness) / triLn_v1123;
-				v120 = v3->X << 16;
-				v121 = v3->X << 16;
-				v122 = v3->U;
-				v123 = v3->V;
-				v124 = v3->Brightness;
+				v119 = vert2->X - vert3->X;
+				v1124 = (vert2->U - vert3->U) / v119;
+				v1135 = (vert2->V - vert3->V) / v119;
+				v1146 = (vert2->Brightness - vert3->Brightness) / v119;
+				v1129 = (vert3->U - vert1->U) / triLn_v1123;
+				v1140 = (vert3->V - vert1->V) / triLn_v1123;
+				v1151 = (vert3->Brightness - vert1->Brightness) / triLn_v1123;
+				v120 = vert1->X << 16;
+				v121 = vert1->X << 16;
+				v122 = vert1->U;
+				v123 = vert1->V;
+				v124 = vert1->Brightness;
 				if (v1294)
 				{
 					v125 = -v1192;
@@ -7320,37 +7320,37 @@ void GameRender_new::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon
 		}
 		if (vertex1->X <= vertex3->X)
 			return;
-		v3 = vertex3;
-		v4 = vertex1;
-		v5 = vertex2;
+		vert1 = vertex3;
+		vert2 = vertex1;
+		vert3 = vertex2;
 	LABEL_277:
-		v143 = v3->Y;
+		v143 = vert1->Y;
 		v1193 = v143;
 		if (v143 >= 0)
 		{
 			if (v143 >= viewPort.Height_DE568)
 				return;
-			v1102 = ViewPortRenderBufferAltStart_DE554 + iScreenWidth_DE560 * v143;
+			StartAdress = ViewPortRenderBufferAltStart_DE554 + iScreenWidth_DE560 * v143;
 			v1295 = 0;
 		}
 		else
 		{
-			v1102 = ViewPortRenderBufferAltStart_DE554;
+			StartAdress = ViewPortRenderBufferAltStart_DE554;
 			v1295 = 1;
 		}
-		v144 = v5->Y;
+		v144 = vert3->Y;
 		v1299 = v144 > viewPort.Height_DE568;
 		v1116 = v144 - v143;
 		triLn_v1123 = v144 - v143;
-		v1106 = ((v5->X - v3->X) << 16) / (v144 - v143);
-		v1110 = ((v5->X - v4->X) << 16) / (v144 - v143);
+		v1106 = ((vert3->X - vert1->X) << 16) / (v144 - v143);
+		v1110 = ((vert3->X - vert2->X) << 16) / (v144 - v143);
 		switch (x_BYTE_E126D)
 		{
 		case 0:
 		case 0xE:
 		case 0xF:
-			v165 = v3->X << 16;
-			v166 = v4->X << 16;
+			v165 = vert1->X << 16;
+			v166 = vert2->X << 16;
 			if (v1295)
 			{
 				v167 = -v1193;
@@ -7381,11 +7381,11 @@ void GameRender_new::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon
 		case 4:
 		case 0x10:
 		case 0x11:
-			v1146 = (v4->Brightness - v3->Brightness) / (v4->X - v3->X);
-			v1154 = (v5->Brightness - v3->Brightness) / triLn_v1123;
-			v160 = v3->X << 16;
-			v161 = v4->X << 16;
-			v162 = v3->Brightness;
+			v1146 = (vert2->Brightness - vert1->Brightness) / (vert2->X - vert1->X);
+			v1154 = (vert3->Brightness - vert1->Brightness) / triLn_v1123;
+			v160 = vert1->X << 16;
+			v161 = vert2->X << 16;
+			v162 = vert1->Brightness;
 			if (v1295)
 			{
 				v163 = -v1193;
@@ -7426,15 +7426,15 @@ void GameRender_new::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon
 		case 0x13:
 		case 0x16:
 		case 0x17:
-			v153 = v4->X - v3->X;
-			v1124 = (v4->U - v3->U) / v153;
-			v1135 = (v4->V - v3->V) / v153;
-			v1132 = (v5->U - v3->U) / triLn_v1123;
-			v1143 = (v5->V - v3->V) / triLn_v1123;
-			v154 = v3->X << 16;
-			v155 = v4->X << 16;
-			v156 = v3->U;
-			v157 = v3->V;
+			v153 = vert2->X - vert1->X;
+			v1124 = (vert2->U - vert1->U) / v153;
+			v1135 = (vert2->V - vert1->V) / v153;
+			v1132 = (vert3->U - vert1->U) / triLn_v1123;
+			v1143 = (vert3->V - vert1->V) / triLn_v1123;
+			v154 = vert1->X << 16;
+			v155 = vert2->X << 16;
+			v156 = vert1->U;
+			v157 = vert1->V;
 			if (v1295)
 			{
 				v158 = -v1193;
@@ -7470,18 +7470,18 @@ void GameRender_new::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon
 		case 0x18:
 		case 0x19:
 		case 0x1A:
-			v145 = v4->X - v3->X;
-			v1124 = (v4->U - v3->U) / v145;
-			v1135 = (v4->V - v3->V) / v145;
-			v1146 = (v4->Brightness - v3->Brightness) / v145;
-			v1131 = (v5->U - v3->U) / triLn_v1123;
-			v1142 = (v5->V - v3->V) / triLn_v1123;
-			v1153 = (v5->Brightness - v3->Brightness) / triLn_v1123;
-			v146 = v3->X << 16;
-			v147 = v4->X << 16;
-			v148 = v3->U;
-			v149 = v3->V;
-			v150 = v3->Brightness;
+			v145 = vert2->X - vert1->X;
+			v1124 = (vert2->U - vert1->U) / v145;
+			v1135 = (vert2->V - vert1->V) / v145;
+			v1146 = (vert2->Brightness - vert1->Brightness) / v145;
+			v1131 = (vert3->U - vert1->U) / triLn_v1123;
+			v1142 = (vert3->V - vert1->V) / triLn_v1123;
+			v1153 = (vert3->Brightness - vert1->Brightness) / triLn_v1123;
+			v146 = vert1->X << 16;
+			v147 = vert2->X << 16;
+			v148 = vert1->U;
+			v149 = vert1->V;
+			v150 = vert1->Brightness;
 			if (v1295)
 			{
 				v151 = -v1193;
@@ -7517,74 +7517,74 @@ void GameRender_new::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon
 	{
 		if (vertex3->X <= vertex1->X)
 			return;
-		v3 = vertex2;
-		v4 = vertex3;
-		v5 = vertex1;
+		vert1 = vertex2;
+		vert2 = vertex3;
+		vert3 = vertex1;
 		goto LABEL_234;
 	}
 	if (y1 < y3)
 	{
-		v3 = vertex2;
-		v4 = vertex3;
-		v5 = vertex1;
+		vert1 = vertex2;
+		vert2 = vertex3;
+		vert3 = vertex1;
 		goto LABEL_129;
 	}
 	if (y2 == y3)
 	{
 		if (vertex3->X <= vertex2->X)
 			return;
-		v3 = vertex2;
-		v4 = vertex3;
-		v5 = vertex1;
+		vert1 = vertex2;
+		vert2 = vertex3;
+		vert3 = vertex1;
 		goto LABEL_277;
 	}
 	if (y2 < y3)
 	{
-		v3 = vertex2;
-		v4 = vertex3;
-		v5 = vertex1;
+		vert1 = vertex2;
+		vert2 = vertex3;
+		vert3 = vertex1;
 		goto LABEL_24;
 	}
-	v3 = vertex3;
-	v4 = vertex1;
-	v5 = vertex2;
+	vert1 = vertex3;
+	vert2 = vertex1;
+	vert3 = vertex2;
 LABEL_129:
-	v65 = v3->Y;
+	v65 = vert1->Y;
 	v1191 = v65;
 	if (v65 >= 0)
 	{
 		if (v65 >= viewPort.Height_DE568)
 			return;
-		v1102 = ViewPortRenderBufferAltStart_DE554 + iScreenWidth_DE560 * v65;
+		StartAdress = ViewPortRenderBufferAltStart_DE554 + iScreenWidth_DE560 * v65;
 		v1293 = 0;
 	}
 	else
 	{
-		v1102 = ViewPortRenderBufferAltStart_DE554;
+		StartAdress = ViewPortRenderBufferAltStart_DE554;
 		v1293 = 1;
 	}
-	v66 = v5->Y;
+	v66 = vert3->Y;
 	v1297 = v66 > viewPort.Height_DE568;
 	v1114 = v66 - v65;
-	v67 = v4->Y;
+	v67 = vert2->Y;
 	v1301 = v67 > viewPort.Height_DE568;
 	v68 = v67 - v65;
 	v1118 = v68;
 	triLn_v1123 = v68;
-	v1104 = ((v5->X - v3->X) << 16) / v1114;
-	if (((v4->X - v3->X) << 16) / v68 > v1104)
+	v1104 = ((vert3->X - vert1->X) << 16) / v1114;
+	if (((vert2->X - vert1->X) << 16) / v68 > v1104)
 	{
-		v1108 = ((v4->X - v3->X) << 16) / v68;
-		v1112 = ((v4->X - v5->X) << 16) / (v4->Y - v5->Y);
-		v1120 = v4->Y - v5->Y;
-		v1122 = v5->X << 16;
+		v1108 = ((vert2->X - vert1->X) << 16) / v68;
+		v1112 = ((vert2->X - vert3->X) << 16) / (vert2->Y - vert3->Y);
+		v1120 = vert2->Y - vert3->Y;
+		v1122 = vert3->X << 16;
 		switch (x_BYTE_E126D)
 		{
 		case 0:
 		case 0xE:
 		case 0xF:
-			v110 = v3->X << 16;
-			v111 = v3->X << 16;
+			v110 = vert1->X << 16;
+			v111 = vert1->X << 16;
 			if (v1293)
 			{
 				v18 = __OFSUB__(triLn_v1123, -v1191);
@@ -7658,8 +7658,8 @@ LABEL_129:
 		case 4:
 		case 0x10:
 		case 0x11:
-			v98 = v1114 * (signed __int64)(v4->X - v3->X) / v68;
-			v99 = v3->X - v5->X;
+			v98 = v1114 * (signed __int64)(vert2->X - vert1->X) / v68;
+			v99 = vert1->X - vert3->X;
 			v18 = __OFADD__(v98, v99);
 			v100 = v98 + v99 == 0;
 			v17 = v98 + v99 < 0;
@@ -7667,13 +7667,13 @@ LABEL_129:
 			if ((unsigned __int8)v17 ^ v18)
 				return;
 			if (!v100)
-				v1146 = (signed int)(v3->Brightness + (unsigned __int64)(v1114 * (signed __int64)(v4->Brightness - v3->Brightness) / v1118) - v5->Brightness)
+				v1146 = (signed int)(vert1->Brightness + (unsigned __int64)(v1114 * (signed __int64)(vert2->Brightness - vert1->Brightness) / v1118) - vert3->Brightness)
 				/ (v101 + 1);
-			v1150 = (v5->Brightness - v3->Brightness) / v1114;
-			v1156 = (v4->Brightness - v5->Brightness) / v1120;
-			v102 = v3->X << 16;
-			v103 = v3->X << 16;
-			v104 = v3->Brightness;
+			v1150 = (vert3->Brightness - vert1->Brightness) / v1114;
+			v1156 = (vert2->Brightness - vert3->Brightness) / v1120;
+			v102 = vert1->X << 16;
+			v103 = vert1->X << 16;
+			v104 = vert1->Brightness;
 			if (v1293)
 			{
 				v18 = __OFSUB__(triLn_v1123, -v1191);
@@ -7758,8 +7758,8 @@ LABEL_129:
 		case 0x13:
 		case 0x16:
 		case 0x17:
-			v84 = v1114 * (signed __int64)(v4->X - v3->X) / v68;
-			v85 = v3->X - v5->X;
+			v84 = v1114 * (signed __int64)(vert2->X - vert1->X) / v68;
+			v85 = vert1->X - vert3->X;
 			v18 = __OFADD__(v84, v85);
 			v86 = v84 + v85 == 0;
 			v17 = v84 + v85 < 0;
@@ -7769,19 +7769,19 @@ LABEL_129:
 			if (!v86)
 			{
 				v88 = v87 + 1;
-				v1124 = (signed int)(v3->U + (unsigned __int64)(v1114 * (signed __int64)(v4->U - v3->U) / v1118) - v5->U)
+				v1124 = (signed int)(vert1->U + (unsigned __int64)(v1114 * (signed __int64)(vert2->U - vert1->U) / v1118) - vert3->U)
 					/ v88;
-				v1135 = (signed int)(v3->V + (unsigned __int64)(v1114 * (signed __int64)(v4->V - v3->V) / v1118) - v5->V)
+				v1135 = (signed int)(vert1->V + (unsigned __int64)(v1114 * (signed __int64)(vert2->V - vert1->V) / v1118) - vert3->V)
 					/ v88;
 			}
-			v1128 = (v5->U - v3->U) / v1114;
-			v1139 = (v5->V - v3->V) / v1114;
-			v1134 = (v4->U - v5->U) / v1120;
-			v1145 = (v4->V - v5->V) / v1120;
-			v89 = v3->X << 16;
-			v90 = v3->X << 16;
-			v91 = v3->U;
-			v92 = v3->V;
+			v1128 = (vert3->U - vert1->U) / v1114;
+			v1139 = (vert3->V - vert1->V) / v1114;
+			v1134 = (vert2->U - vert3->U) / v1120;
+			v1145 = (vert2->V - vert3->V) / v1120;
+			v89 = vert1->X << 16;
+			v90 = vert1->X << 16;
+			v91 = vert1->U;
+			v92 = vert1->V;
 			if (v1293)
 			{
 				v18 = __OFSUB__(triLn_v1123, -v1191);
@@ -7862,8 +7862,8 @@ LABEL_129:
 		case 0x18:
 		case 0x19:
 		case 0x1A:
-			v69 = v1114 * (signed __int64)(v4->X - v3->X) / v68;
-			v70 = v3->X - v5->X;
+			v69 = v1114 * (signed __int64)(vert2->X - vert1->X) / v68;
+			v70 = vert1->X - vert3->X;
 			v18 = __OFADD__(v69, v70);
 			v71 = v69 + v70 == 0;
 			v17 = v69 + v70 < 0;
@@ -7873,24 +7873,24 @@ LABEL_129:
 			if (!v71)
 			{
 				v73 = v72 + 1;
-				v1124 = (signed int)(v3->U + (unsigned __int64)(v1114 * (signed __int64)(v4->U - v3->U) / v1118) - v5->U)
+				v1124 = (signed int)(vert1->U + (unsigned __int64)(v1114 * (signed __int64)(vert2->U - vert1->U) / v1118) - vert3->U)
 					/ v73;
-				v1135 = (signed int)(v3->V + (unsigned __int64)(v1114 * (signed __int64)(v4->V - v3->V) / v1118) - v5->V)
+				v1135 = (signed int)(vert1->V + (unsigned __int64)(v1114 * (signed __int64)(vert2->V - vert1->V) / v1118) - vert3->V)
 					/ v73;
-				v69 = (signed int)(v3->Brightness + (unsigned __int64)(v1114 * (signed __int64)(v4->Brightness - v3->Brightness) / v1118) - v5->Brightness) / v73;
+				v69 = (signed int)(vert1->Brightness + (unsigned __int64)(v1114 * (signed __int64)(vert2->Brightness - vert1->Brightness) / v1118) - vert3->Brightness) / v73;
 			}
 			v1146 = v69;
-			v1127 = (v5->U - v3->U) / v1114;
-			v1138 = (v5->V - v3->V) / v1114;
-			v1149 = (v5->Brightness - v3->Brightness) / v1114;
-			v1133 = (v4->U - v5->U) / v1120;
-			v1144 = (v4->V - v5->V) / v1120;
-			v1155 = (v4->Brightness - v5->Brightness) / v1120;
-			v74 = v3->X << 16;
-			v75 = v3->X << 16;
-			v76 = v3->U;
-			v77 = v3->V;
-			v78 = v3->Brightness;
+			v1127 = (vert3->U - vert1->U) / v1114;
+			v1138 = (vert3->V - vert1->V) / v1114;
+			v1149 = (vert3->Brightness - vert1->Brightness) / v1114;
+			v1133 = (vert2->U - vert3->U) / v1120;
+			v1144 = (vert2->V - vert3->V) / v1120;
+			v1155 = (vert2->Brightness - vert3->Brightness) / v1120;
+			v74 = vert1->X << 16;
+			v75 = vert1->X << 16;
+			v76 = vert1->U;
+			v77 = vert1->V;
+			v78 = vert1->Brightness;
 			if (v1293)
 			{
 				v18 = __OFSUB__(triLn_v1123, -v1191);
@@ -7930,7 +7930,7 @@ LABEL_129:
 					{
 					case 0:
 						v169 = (unsigned __int16*)unk_DE56Cx[startLine];
-						v170 = (char*)v1102;
+						v170 = (char*)StartAdress;
 						v171 = x_BYTE_E126C;
 						HIWORD(v172) = 0;
 						while (1)
@@ -7972,8 +7972,8 @@ LABEL_129:
 						{
 							LOWORD(v31) = v175[1];
 							v176 = v175[3];
-							v177 = (x_BYTE*)(iScreenWidth_DE560 + v1102);
-							v1102 += iScreenWidth_DE560;
+							v177 = (x_BYTE*)(iScreenWidth_DE560 + StartAdress);
+							StartAdress += iScreenWidth_DE560;
 							line2++;
 							if (line2 >= drawEveryNthLine)
 							{
@@ -8135,8 +8135,8 @@ LABEL_129:
 						{
 							LOWORD(v228) = v227[1];
 							v230 = v227[3];
-							v231 = (x_BYTE*)(iScreenWidth_DE560 + v1102);
-							v1102 += iScreenWidth_DE560;
+							v231 = (x_BYTE*)(iScreenWidth_DE560 + StartAdress);
+							StartAdress += iScreenWidth_DE560;
 							line3++;
 							if (line3 >= drawEveryNthLine)
 							{
@@ -8146,7 +8146,7 @@ LABEL_129:
 								if ((signed __int16)v230 > 0)
 								{
 									v232 = (unsigned __int16)-(signed __int16)v228;
-									v234 = __ROL4__(*((x_DWORD*)v227 + 3) + v1135 * v232, 16);
+									v234 = __ROL4_16__(*((x_DWORD*)v227 + 3) + v1135 * v232);
 									BYTE1(v229) = v234;
 									v233 = *((x_DWORD*)v227 + 2) + v1124 * v232;
 									LOWORD(v234) = v233;
@@ -8353,7 +8353,7 @@ LABEL_129:
 						if ((unsigned __int8)(((v230 & 0x8000u) != 0) ^ v18) | ((x_WORD)v230 == 0))
 							goto LABEL_389;
 						v231 += v228;
-						v234 = __ROL4__(*((x_DWORD*)v227 + 3), 16);
+						v234 = __ROL4_16__(*((x_DWORD*)v227 + 3));
 						BYTE1(v229) = v234;
 						LOWORD(v234) = v227[4];
 						LOBYTE(v229) = *((x_BYTE*)v227 + 10);
@@ -8367,8 +8367,8 @@ LABEL_129:
 						{
 							LOWORD(v284) = v283[1];
 							v286 = v283[3];
-							v287 = (x_BYTE*)(iScreenWidth_DE560 + v1102);
-							v1102 += iScreenWidth_DE560;
+							v287 = (x_BYTE*)(iScreenWidth_DE560 + StartAdress);
+							StartAdress += iScreenWidth_DE560;
 							line4++;
 							if (line4 >= drawEveryNthLine)
 							{
@@ -8378,7 +8378,7 @@ LABEL_129:
 								if ((signed __int16)v286 > 0)
 								{
 									v288 = (unsigned __int16)-(signed __int16)v284;
-									v290 = __ROL4__(*((x_DWORD*)v283 + 3) + v1135 * v288, 16);
+									v290 = __ROL4_16__(*((x_DWORD*)v283 + 3) + v1135 * v288);
 									BYTE1(v285) = v290;
 									v289 = *((x_DWORD*)v283 + 2) + v1124 * v288;
 									LOWORD(v290) = v289;
@@ -8601,7 +8601,7 @@ LABEL_129:
 						if ((unsigned __int8)(((v286 & 0x8000u) != 0) ^ v18) | ((x_WORD)v286 == 0))
 							goto LABEL_452;
 						v287 += v284;
-						v290 = __ROL4__(*((x_DWORD*)v283 + 3), 16);
+						v290 = __ROL4_16__(*((x_DWORD*)v283 + 3));
 						BYTE1(v285) = v290;
 						LOWORD(v290) = v283[4];
 						LOBYTE(v285) = *((x_BYTE*)v283 + 10);
@@ -8612,8 +8612,8 @@ LABEL_129:
 						{
 							LOWORD(v31) = v339[1];
 							v340 = v339[3];
-							v341 = (x_BYTE*)(iScreenWidth_DE560 + v1102);
-							v1102 += iScreenWidth_DE560;
+							v341 = (x_BYTE*)(iScreenWidth_DE560 + StartAdress);
+							StartAdress += iScreenWidth_DE560;
 							line5++;
 							if (line5 >= drawEveryNthLine)
 							{
@@ -8779,8 +8779,8 @@ LABEL_129:
 							v1276 += 20;
 							LOWORD(v375) = *((x_WORD*)v377 + 1);
 							v378 = *((unsigned __int16*)v377 + 3);
-							v379 = iScreenWidth_DE560 + v1102;
-							v1102 += iScreenWidth_DE560;
+							v379 = iScreenWidth_DE560 + StartAdress;
+							StartAdress += iScreenWidth_DE560;
 							line6++;
 							if (line6 >= drawEveryNthLine)
 							{
@@ -8791,13 +8791,13 @@ LABEL_129:
 								{
 									v380 = (unsigned __int16)-(signed __int16)v375;
 									v381 = v380;
-									v383 = __ROL4__(*((x_DWORD*)v377 + 3) + v1135 * v380, 16);
+									v383 = __ROL4_16__(*((x_DWORD*)v377 + 3) + v1135 * v380);
 									BYTE1(v376) = v383;
 									v382 = *((x_DWORD*)v377 + 2) + v1124 * v380;
 									LOWORD(v383) = v382;
 									v375 = v382 >> 8;
 									LOBYTE(v376) = BYTE1(v375);
-									v384 = __ROL4__(*((x_DWORD*)v377 + 4) + v1146 * v381, 16);
+									v384 = __ROL4_16__(*((x_DWORD*)v377 + 4) + v1146 * v381);
 									BYTE1(v375) = v384;
 									LOWORD(v384) = *((x_WORD*)v377 + 3);
 									v375 = (unsigned __int16)v375;
@@ -9055,11 +9055,11 @@ LABEL_129:
 							goto LABEL_510;
 						v379 += v375;
 						LOBYTE(v376) = v377[10];
-						v383 = __ROL4__(*((x_DWORD*)v377 + 3), 16);
+						v383 = __ROL4_16__(*((x_DWORD*)v377 + 3));
 						v386 = v385;
 						BYTE1(v376) = v383;
 						LOWORD(v383) = *((x_WORD*)v377 + 4);
-						v384 = __ROL4__(*((x_DWORD*)v377 + 4), 16);
+						v384 = __ROL4_16__(*((x_DWORD*)v377 + 4));
 						BYTE1(v375) = v384;
 						LOWORD(v384) = v386;
 						goto LABEL_493;
@@ -9075,8 +9075,8 @@ LABEL_129:
 							v1277 += 20;
 							LOWORD(v390) = *((x_WORD*)v392 + 1);
 							v393 = *((unsigned __int16*)v392 + 3);
-							v394 = iScreenWidth_DE560 + v1102;
-							v1102 += iScreenWidth_DE560;
+							v394 = iScreenWidth_DE560 + StartAdress;
+							StartAdress += iScreenWidth_DE560;
 							line7++;
 							if (line7 >= drawEveryNthLine)
 							{
@@ -9087,13 +9087,13 @@ LABEL_129:
 								{
 									v395 = (unsigned __int16)-(signed __int16)v390;
 									v396 = v395;
-									v398 = __ROL4__(*((x_DWORD*)v392 + 3) + v1135 * v395, 16);
+									v398 = __ROL4_16__(*((x_DWORD*)v392 + 3) + v1135 * v395);
 									BYTE1(v391) = v398;
 									v397 = *((x_DWORD*)v392 + 2) + v1124 * v395;
 									LOWORD(v398) = v397;
 									v390 = v397 >> 8;
 									LOBYTE(v391) = BYTE1(v390);
-									v399 = __ROL4__(*((x_DWORD*)v392 + 4) + v1146 * v396, 16);
+									v399 = __ROL4_16__(*((x_DWORD*)v392 + 4) + v1146 * v396);
 									BYTE1(v390) = v399;
 									LOWORD(v399) = *((x_WORD*)v392 + 3);
 									v390 = (unsigned __int16)v390;
@@ -9367,11 +9367,11 @@ LABEL_129:
 							goto LABEL_571;
 						v394 += v390;
 						LOBYTE(v391) = v392[10];
-						v398 = __ROL4__(*((x_DWORD*)v392 + 3), 16);
+						v398 = __ROL4_16__(*((x_DWORD*)v392 + 3));
 						v401 = v400;
 						BYTE1(v391) = v398;
 						LOWORD(v398) = *((x_WORD*)v392 + 4);
-						v399 = __ROL4__(*((x_DWORD*)v392 + 4), 16);
+						v399 = __ROL4_16__(*((x_DWORD*)v392 + 4));
 						BYTE1(v390) = v399;
 						LOWORD(v399) = v401;
 						goto LABEL_522;
@@ -9385,8 +9385,8 @@ LABEL_129:
 						{
 							LOWORD(v406) = v405[1];
 							v408 = v405[3];
-							v409 = (x_BYTE*)(iScreenWidth_DE560 + v1102);
-							v1102 += iScreenWidth_DE560;
+							v409 = (x_BYTE*)(iScreenWidth_DE560 + StartAdress);
+							StartAdress += iScreenWidth_DE560;
 							line8++;
 							if (line8 >= drawEveryNthLine)
 							{
@@ -9396,7 +9396,7 @@ LABEL_129:
 								if ((signed __int16)v408 > 0)
 								{
 									v410 = (unsigned __int16)-(signed __int16)v406;
-									v412 = __ROL4__(*((x_DWORD*)v405 + 3) + v1135 * v410, 16);
+									v412 = __ROL4_16__(*((x_DWORD*)v405 + 3) + v1135 * v410);
 									BYTE1(v407) = v412;
 									v411 = *((x_DWORD*)v405 + 2) + v1124 * v410;
 									LOWORD(v412) = v411;
@@ -9604,7 +9604,7 @@ LABEL_129:
 						if ((unsigned __int8)(((v408 & 0x8000u) != 0) ^ v18) | ((x_WORD)v408 == 0))
 							goto LABEL_602;
 						v409 += v406;
-						v412 = __ROL4__(*((x_DWORD*)v405 + 3), 16);
+						v412 = __ROL4_16__(*((x_DWORD*)v405 + 3));
 						BYTE1(v407) = v412;
 						LOWORD(v412) = v405[4];
 						LOBYTE(v407) = *((x_BYTE*)v405 + 10);
@@ -9618,8 +9618,8 @@ LABEL_129:
 						{
 							LOWORD(v446) = v445[1];
 							v448 = v445[3];
-							v449 = (x_BYTE*)(iScreenWidth_DE560 + v1102);
-							v1102 += iScreenWidth_DE560;
+							v449 = (x_BYTE*)(iScreenWidth_DE560 + StartAdress);
+							StartAdress += iScreenWidth_DE560;
 							line9++;
 							if (line9 >= drawEveryNthLine)
 							{
@@ -9629,7 +9629,7 @@ LABEL_129:
 								if ((signed __int16)v448 > 0)
 								{
 									v450 = (unsigned __int16)-(signed __int16)v446;
-									v452 = __ROL4__(*((x_DWORD*)v445 + 3) + v1135 * v450, 16);
+									v452 = __ROL4_16__(*((x_DWORD*)v445 + 3) + v1135 * v450);
 									BYTE1(v447) = v452;
 									v451 = *((x_DWORD*)v445 + 2) + v1124 * v450;
 									LOWORD(v452) = v451;
@@ -9853,7 +9853,7 @@ LABEL_129:
 						if ((unsigned __int8)(((v448 & 0x8000u) != 0) ^ v18) | ((x_WORD)v448 == 0))
 							goto LABEL_665;
 						v449 += v446;
-						v452 = __ROL4__(*((x_DWORD*)v445 + 3), 16);
+						v452 = __ROL4_16__(*((x_DWORD*)v445 + 3));
 						BYTE1(v447) = v452;
 						LOWORD(v452) = v445[4];
 						LOBYTE(v447) = *((x_BYTE*)v445 + 10);
@@ -9868,8 +9868,8 @@ LABEL_129:
 						{
 							LOWORD(v486) = v485[1];
 							v488 = v485[3];
-							v489 = (x_BYTE*)(iScreenWidth_DE560 + v1102);
-							v1102 += iScreenWidth_DE560;
+							v489 = (x_BYTE*)(iScreenWidth_DE560 + StartAdress);
+							StartAdress += iScreenWidth_DE560;
 							line10++;
 							if (line10 >= drawEveryNthLine)
 							{
@@ -9879,7 +9879,7 @@ LABEL_129:
 								if ((signed __int16)v488 > 0)
 								{
 									v490 = (unsigned __int16)-(signed __int16)v486;
-									v492 = __ROL4__(*((x_DWORD*)v485 + 3) + v1135 * v490, 16);
+									v492 = __ROL4_16__(*((x_DWORD*)v485 + 3) + v1135 * v490);
 									BYTE1(v487) = v492;
 									v491 = *((x_DWORD*)v485 + 2) + v1124 * v490;
 									LOWORD(v492) = v491;
@@ -10150,7 +10150,7 @@ LABEL_129:
 						if ((unsigned __int8)(((v488 & 0x8000u) != 0) ^ v18) | ((x_WORD)v488 == 0))
 							goto LABEL_728;
 						v489 += v486;
-						v492 = __ROL4__(*((x_DWORD*)v485 + 3), 16);
+						v492 = __ROL4_16__(*((x_DWORD*)v485 + 3));
 						BYTE1(v487) = v492;
 						LOWORD(v492) = v485[4];
 						LOBYTE(v487) = *((x_BYTE*)v485 + 10);
@@ -10164,8 +10164,8 @@ LABEL_129:
 						{
 							LOWORD(v526) = v525[1];
 							v528 = v525[3];
-							v529 = (x_BYTE*)(iScreenWidth_DE560 + v1102);
-							v1102 += iScreenWidth_DE560;
+							v529 = (x_BYTE*)(iScreenWidth_DE560 + StartAdress);
+							StartAdress += iScreenWidth_DE560;
 							line11++;
 							if (line11 >= drawEveryNthLine)
 							{
@@ -10175,7 +10175,7 @@ LABEL_129:
 								if ((signed __int16)v528 > 0)
 								{
 									v530 = (unsigned __int16)-(signed __int16)v526;
-									v532 = __ROL4__(*((x_DWORD*)v525 + 3) + v1135 * v530, 16);
+									v532 = __ROL4_16__(*((x_DWORD*)v525 + 3) + v1135 * v530);
 									BYTE1(v527) = v532;
 									v531 = *((x_DWORD*)v525 + 2) + v1124 * v530;
 									LOWORD(v532) = v531;
@@ -10383,7 +10383,7 @@ LABEL_129:
 						if ((unsigned __int8)(((v528 & 0x8000u) != 0) ^ v18) | ((x_WORD)v528 == 0))
 							goto LABEL_759;
 						v529 += v526;
-						v532 = __ROL4__(*((x_DWORD*)v525 + 3), 16);
+						v532 = __ROL4_16__(*((x_DWORD*)v525 + 3));
 						BYTE1(v527) = v532;
 						LOWORD(v532) = v525[4];
 						LOBYTE(v527) = *((x_BYTE*)v525 + 10);
@@ -10397,8 +10397,8 @@ LABEL_129:
 						{
 							LOWORD(v566) = v565[1];
 							v568 = v565[3];
-							v569 = (x_BYTE*)(iScreenWidth_DE560 + v1102);
-							v1102 += iScreenWidth_DE560;
+							v569 = (x_BYTE*)(iScreenWidth_DE560 + StartAdress);
+							StartAdress += iScreenWidth_DE560;
 							line12++;
 							if (line12 >= drawEveryNthLine)
 							{
@@ -10408,7 +10408,7 @@ LABEL_129:
 								if ((signed __int16)v568 > 0)
 								{
 									v570 = (unsigned __int16)-(signed __int16)v566;
-									v572 = __ROL4__(*((x_DWORD*)v565 + 3) + v1135 * v570, 16);
+									v572 = __ROL4_16__(*((x_DWORD*)v565 + 3) + v1135 * v570);
 									BYTE1(v567) = v572;
 									v571 = *((x_DWORD*)v565 + 2) + v1124 * v570;
 									LOWORD(v572) = v571;
@@ -10616,14 +10616,14 @@ LABEL_129:
 						if ((unsigned __int8)(((v568 & 0x8000u) != 0) ^ v18) | ((x_WORD)v568 == 0))
 							goto LABEL_790;
 						v569 += v566;
-						v572 = __ROL4__(*((x_DWORD*)v565 + 3), 16);
+						v572 = __ROL4_16__(*((x_DWORD*)v565 + 3));
 						BYTE1(v567) = v572;
 						LOWORD(v572) = v565[4];
 						LOBYTE(v567) = *((x_BYTE*)v565 + 10);
 						goto LABEL_771;
 					case 0xE:
 						v605 = (unsigned __int16*)unk_DE56Cx[startLine];
-						v606 = (x_BYTE*)v1102;
+						v606 = (x_BYTE*)StartAdress;
 						HIWORD(v607) = 0;
 						BYTE1(v607) = x_BYTE_E126C;
 						HIWORD(v608) = 0;
@@ -10743,7 +10743,7 @@ LABEL_129:
 						goto LABEL_802;
 					case 0xF:
 						v626 = (unsigned __int16*)unk_DE56Cx[startLine];
-						v627 = (x_BYTE*)v1102;
+						v627 = (x_BYTE*)StartAdress;
 						v628 = (unsigned __int8)x_BYTE_E126C;
 						HIWORD(v629) = 0;
 						while (1)
@@ -10867,8 +10867,8 @@ LABEL_129:
 						{
 							LOWORD(v31) = v647[1];
 							v649 = v647[3];
-							v650 = (x_BYTE*)(iScreenWidth_DE560 + v1102);
-							v1102 += iScreenWidth_DE560;
+							v650 = (x_BYTE*)(iScreenWidth_DE560 + StartAdress);
+							StartAdress += iScreenWidth_DE560;
 							line15++;
 							if (line15 >= drawEveryNthLine)
 							{
@@ -11061,8 +11061,8 @@ LABEL_129:
 						{
 							LOWORD(v31) = v684[1];
 							v686 = v684[3];
-							v687 = (x_BYTE*)(iScreenWidth_DE560 + v1102);
-							v1102 += iScreenWidth_DE560;
+							v687 = (x_BYTE*)(iScreenWidth_DE560 + StartAdress);
+							StartAdress += iScreenWidth_DE560;
 							line16++;
 							if (line16 >= drawEveryNthLine)
 							{
@@ -11257,8 +11257,8 @@ LABEL_129:
 						{
 							LOWORD(v722) = v721[1];
 							v724 = v721[3];
-							v725 = (x_BYTE*)(iScreenWidth_DE560 + v1102);
-							v1102 += iScreenWidth_DE560;
+							v725 = (x_BYTE*)(iScreenWidth_DE560 + StartAdress);
+							StartAdress += iScreenWidth_DE560;
 							line17++;
 							if (line17 >= drawEveryNthLine)
 							{
@@ -11268,7 +11268,7 @@ LABEL_129:
 								if ((signed __int16)v724 > 0)
 								{
 									v726 = (unsigned __int16)-(signed __int16)v722;
-									v728 = __ROL4__(*((x_DWORD*)v721 + 3) + v1135 * v726, 16);
+									v728 = __ROL4_16__(*((x_DWORD*)v721 + 3) + v1135 * v726);
 									BYTE1(v723) = v728;
 									v727 = *((x_DWORD*)v721 + 2) + v1124 * v726;
 									LOWORD(v728) = v727;
@@ -11491,7 +11491,7 @@ LABEL_129:
 						if ((unsigned __int8)(((v724 & 0x8000u) != 0) ^ v18) | ((x_WORD)v724 == 0))
 							goto LABEL_937;
 						v725 += v722;
-						v728 = __ROL4__(*((x_DWORD*)v721 + 3), 16);
+						v728 = __ROL4_16__(*((x_DWORD*)v721 + 3));
 						BYTE1(v723) = v728;
 						LOWORD(v728) = v721[4];
 						LOBYTE(v723) = *((x_BYTE*)v721 + 10);
@@ -11505,8 +11505,8 @@ LABEL_129:
 						{
 							LOWORD(v762) = v761[1];
 							v764 = v761[3];
-							v765 = (x_BYTE*)(iScreenWidth_DE560 + v1102);
-							v1102 += iScreenWidth_DE560;
+							v765 = (x_BYTE*)(iScreenWidth_DE560 + StartAdress);
+							StartAdress += iScreenWidth_DE560;
 							line18++;
 							if (line18 >= drawEveryNthLine)
 							{
@@ -11516,7 +11516,7 @@ LABEL_129:
 								if ((signed __int16)v764 > 0)
 								{
 									v766 = (unsigned __int16)-(signed __int16)v762;
-									v768 = __ROL4__(*((x_DWORD*)v761 + 3) + v1135 * v766, 16);
+									v768 = __ROL4_16__(*((x_DWORD*)v761 + 3) + v1135 * v766);
 									BYTE1(v763) = v768;
 									v767 = *((x_DWORD*)v761 + 2) + v1124 * v766;
 									LOWORD(v768) = v767;
@@ -11739,7 +11739,7 @@ LABEL_129:
 						if ((unsigned __int8)(((v764 & 0x8000u) != 0) ^ v18) | ((x_WORD)v764 == 0))
 							goto LABEL_968;
 						v765 += v762;
-						v768 = __ROL4__(*((x_DWORD*)v761 + 3), 16);
+						v768 = __ROL4_16__(*((x_DWORD*)v761 + 3));
 						BYTE1(v763) = v768;
 						LOWORD(v768) = v761[4];
 						LOBYTE(v763) = *((x_BYTE*)v761 + 10);
@@ -11754,8 +11754,8 @@ LABEL_129:
 						{
 							LOWORD(v802) = v801[1];
 							v804 = v801[3];
-							v805 = (x_BYTE*)(iScreenWidth_DE560 + v1102);
-							v1102 += iScreenWidth_DE560;
+							v805 = (x_BYTE*)(iScreenWidth_DE560 + StartAdress);
+							StartAdress += iScreenWidth_DE560;
 							line19++;
 							if (line19 >= drawEveryNthLine)
 							{
@@ -11769,13 +11769,13 @@ LABEL_129:
 									v1194 = v804;
 									v806 = (unsigned __int16)-(signed __int16)v802;
 									v807 = v806;
-									v809 = __ROL4__(*((x_DWORD*)v801 + 3) + v1135 * v806, 16);
+									v809 = __ROL4_16__(*((x_DWORD*)v801 + 3) + v1135 * v806);
 									BYTE1(v803) = v809;
 									v808 = *((x_DWORD*)v801 + 2) + v1124 * v806;
 									LOWORD(v809) = v808;
 									v802 = v808 >> 8;
 									LOBYTE(v803) = BYTE1(v802);
-									v810 = __ROL4__(*((x_DWORD*)v801 + 4) + v1146 * v807, 16);
+									v810 = __ROL4_16__(*((x_DWORD*)v801 + 4) + v1146 * v807);
 									v802 = (unsigned __int16)v802;
 								LABEL_980:
 									v1285 = v801;
@@ -12071,12 +12071,12 @@ LABEL_129:
 						if ((unsigned __int8)(((v804 & 0x8000u) != 0) ^ v18) | ((x_WORD)v804 == 0))
 							goto LABEL_999;
 						v805 += v802;
-						v809 = __ROL4__(*((x_DWORD*)v801 + 3), 16);
+						v809 = __ROL4_16__(*((x_DWORD*)v801 + 3));
 						BYTE1(v803) = v809;
 						LOWORD(v809) = v801[4];
 						LOBYTE(v803) = *((x_BYTE*)v801 + 10);
 						v1194 = v804;
-						v810 = __ROL4__(*((x_DWORD*)v801 + 4), 16);
+						v810 = __ROL4_16__(*((x_DWORD*)v801 + 4));
 						goto LABEL_980;
 					case 0x15:
 						v842 = (unsigned __int16*)unk_DE56Cx[startLine];
@@ -12088,8 +12088,8 @@ LABEL_129:
 						{
 							LOWORD(v843) = v842[1];
 							v845 = v842[3];
-							v846 = (x_BYTE*)(iScreenWidth_DE560 + v1102);
-							v1102 += iScreenWidth_DE560;
+							v846 = (x_BYTE*)(iScreenWidth_DE560 + StartAdress);
+							StartAdress += iScreenWidth_DE560;
 							line20++;
 							if (line20 >= drawEveryNthLine)
 							{
@@ -12103,13 +12103,13 @@ LABEL_129:
 									v1210 = v845;
 									v847 = (unsigned __int16)-(signed __int16)v843;
 									v848 = v847;
-									v850 = __ROL4__(*((x_DWORD*)v842 + 3) + v1135 * v847, 16);
+									v850 = __ROL4_16__(*((x_DWORD*)v842 + 3) + v1135 * v847);
 									BYTE1(v844) = v850;
 									v849 = *((x_DWORD*)v842 + 2) + v1124 * v847;
 									LOWORD(v850) = v849;
 									v843 = v849 >> 8;
 									LOBYTE(v844) = BYTE1(v843);
-									v851 = __ROL4__(*((x_DWORD*)v842 + 4) + v1146 * v848, 16);
+									v851 = __ROL4_16__(*((x_DWORD*)v842 + 4) + v1146 * v848);
 									v843 = (unsigned __int16)v843;
 								LABEL_1011:
 									v1286 = v842;
@@ -12405,12 +12405,12 @@ LABEL_129:
 						if ((unsigned __int8)(((v845 & 0x8000u) != 0) ^ v18) | ((x_WORD)v845 == 0))
 							goto LABEL_1030;
 						v846 += v843;
-						v850 = __ROL4__(*((x_DWORD*)v842 + 3), 16);
+						v850 = __ROL4_16__(*((x_DWORD*)v842 + 3));
 						BYTE1(v844) = v850;
 						LOWORD(v850) = v842[4];
 						LOBYTE(v844) = *((x_BYTE*)v842 + 10);
 						v1210 = v845;
-						v851 = __ROL4__(*((x_DWORD*)v842 + 4), 16);
+						v851 = __ROL4_16__(*((x_DWORD*)v842 + 4));
 						goto LABEL_1011;
 					case 0x16:
 						v883 = (unsigned __int16*)unk_DE56Cx[startLine];
@@ -12421,8 +12421,8 @@ LABEL_129:
 						{
 							LOWORD(v884) = v883[1];
 							v886 = v883[3];
-							v887 = (x_BYTE*)(iScreenWidth_DE560 + v1102);
-							v1102 += iScreenWidth_DE560;
+							v887 = (x_BYTE*)(iScreenWidth_DE560 + StartAdress);
+							StartAdress += iScreenWidth_DE560;
 							line21++;
 							if (line21 >= drawEveryNthLine)
 							{
@@ -12432,7 +12432,7 @@ LABEL_129:
 								if ((signed __int16)v886 > 0)
 								{
 									v888 = (unsigned __int16)-(signed __int16)v884;
-									v890 = __ROL4__(*((x_DWORD*)v883 + 3) + v1135 * v888, 16);
+									v890 = __ROL4_16__(*((x_DWORD*)v883 + 3) + v1135 * v888);
 									BYTE1(v885) = v890;
 									v889 = *((x_DWORD*)v883 + 2) + v1124 * v888;
 									LOWORD(v890) = v889;
@@ -12703,7 +12703,7 @@ LABEL_129:
 						if ((unsigned __int8)(((v886 & 0x8000u) != 0) ^ v18) | ((x_WORD)v886 == 0))
 							goto LABEL_1093;
 						v887 += v884;
-						v890 = __ROL4__(*((x_DWORD*)v883 + 3), 16);
+						v890 = __ROL4_16__(*((x_DWORD*)v883 + 3));
 						BYTE1(v885) = v890;
 						LOWORD(v890) = v883[4];
 						LOBYTE(v885) = *((x_BYTE*)v883 + 10);
@@ -12717,8 +12717,8 @@ LABEL_129:
 						{
 							LOWORD(v924) = v923[1];
 							v926 = v923[3];
-							v927 = (x_BYTE*)(iScreenWidth_DE560 + v1102);
-							v1102 += iScreenWidth_DE560;
+							v927 = (x_BYTE*)(iScreenWidth_DE560 + StartAdress);
+							StartAdress += iScreenWidth_DE560;
 							line22++;
 							if (line22 >= drawEveryNthLine)
 							{
@@ -12728,7 +12728,7 @@ LABEL_129:
 								if ((signed __int16)v926 > 0)
 								{
 									v928 = (unsigned __int16)-(signed __int16)v924;
-									v930 = __ROL4__(*((x_DWORD*)v923 + 3) + v1135 * v928, 16);
+									v930 = __ROL4_16__(*((x_DWORD*)v923 + 3) + v1135 * v928);
 									BYTE1(v925) = v930;
 									v929 = *((x_DWORD*)v923 + 2) + v1124 * v928;
 									LOWORD(v930) = v929;
@@ -12999,7 +12999,7 @@ LABEL_129:
 						if ((unsigned __int8)(((v926 & 0x8000u) != 0) ^ v18) | ((x_WORD)v926 == 0))
 							goto LABEL_1156;
 						v927 += v924;
-						v930 = __ROL4__(*((x_DWORD*)v923 + 3), 16);
+						v930 = __ROL4_16__(*((x_DWORD*)v923 + 3));
 						BYTE1(v925) = v930;
 						LOWORD(v930) = v923[4];
 						LOBYTE(v925) = *((x_BYTE*)v923 + 10);
@@ -13014,8 +13014,8 @@ LABEL_129:
 						{
 							LOWORD(v964) = v963[1];
 							v966 = v963[3];
-							v967 = (x_BYTE*)(iScreenWidth_DE560 + v1102);
-							v1102 += iScreenWidth_DE560;
+							v967 = (x_BYTE*)(iScreenWidth_DE560 + StartAdress);
+							StartAdress += iScreenWidth_DE560;
 							line23++;
 							if (line23 >= drawEveryNthLine)
 							{
@@ -13029,13 +13029,13 @@ LABEL_129:
 									v1226 = v966;
 									v968 = (unsigned __int16)-(signed __int16)v964;
 									v969 = v968;
-									v971 = __ROL4__(*((x_DWORD*)v963 + 3) + v1135 * v968, 16);
+									v971 = __ROL4_16__(*((x_DWORD*)v963 + 3) + v1135 * v968);
 									BYTE1(v965) = v971;
 									v970 = *((x_DWORD*)v963 + 2) + v1124 * v968;
 									LOWORD(v971) = v970;
 									v964 = v970 >> 8;
 									LOBYTE(v965) = BYTE1(v964);
-									v972 = __ROL4__(*((x_DWORD*)v963 + 4) + v1146 * v969, 16);
+									v972 = __ROL4_16__(*((x_DWORD*)v963 + 4) + v1146 * v969);
 									v964 = (unsigned __int16)v964;
 								LABEL_1168:
 									v1289 = v963;
@@ -13379,12 +13379,12 @@ LABEL_129:
 						if ((unsigned __int8)(((v966 & 0x8000u) != 0) ^ v18) | ((x_WORD)v966 == 0))
 							goto LABEL_1219;
 						v967 += v964;
-						v971 = __ROL4__(*((x_DWORD*)v963 + 3), 16);
+						v971 = __ROL4_16__(*((x_DWORD*)v963 + 3));
 						BYTE1(v965) = v971;
 						LOWORD(v971) = v963[4];
 						LOBYTE(v965) = *((x_BYTE*)v963 + 10);
 						v1226 = v966;
-						v972 = __ROL4__(*((x_DWORD*)v963 + 4), 16);
+						v972 = __ROL4_16__(*((x_DWORD*)v963 + 4));
 						goto LABEL_1168;
 					case 0x19:
 						v1004 = (unsigned __int16*)unk_DE56Cx[startLine];
@@ -13396,8 +13396,8 @@ LABEL_129:
 						{
 							LOWORD(v1005) = v1004[1];
 							v1007 = v1004[3];
-							v1008 = (x_BYTE*)(iScreenWidth_DE560 + v1102);
-							v1102 += iScreenWidth_DE560;
+							v1008 = (x_BYTE*)(iScreenWidth_DE560 + StartAdress);
+							StartAdress += iScreenWidth_DE560;
 							line24++;
 							if (line24 >= drawEveryNthLine)
 							{
@@ -13411,13 +13411,13 @@ LABEL_129:
 									v1242 = v1007;
 									v1009 = (unsigned __int16)-(signed __int16)v1005;
 									v1010 = v1009;
-									v1012 = __ROL4__(*((x_DWORD*)v1004 + 3) + v1135 * v1009, 16);
+									v1012 = __ROL4_16__(*((x_DWORD*)v1004 + 3) + v1135 * v1009);
 									BYTE1(v1006) = v1012;
 									v1011 = *((x_DWORD*)v1004 + 2) + v1124 * v1009;
 									LOWORD(v1012) = v1011;
 									v1005 = v1011 >> 8;
 									LOBYTE(v1006) = BYTE1(v1005);
-									v1013 = __ROL4__(*((x_DWORD*)v1004 + 4) + v1146 * v1010, 16);
+									v1013 = __ROL4_16__(*((x_DWORD*)v1004 + 4) + v1146 * v1010);
 									v1005 = (unsigned __int16)v1005;
 								LABEL_1231:
 									v1290 = v1004;
@@ -13761,12 +13761,12 @@ LABEL_129:
 						if ((unsigned __int8)(((v1007 & 0x8000u) != 0) ^ v18) | ((x_WORD)v1007 == 0))
 							goto LABEL_1282;
 						v1008 += v1005;
-						v1012 = __ROL4__(*((x_DWORD*)v1004 + 3), 16);
+						v1012 = __ROL4_16__(*((x_DWORD*)v1004 + 3));
 						BYTE1(v1006) = v1012;
 						LOWORD(v1012) = v1004[4];
 						LOBYTE(v1006) = *((x_BYTE*)v1004 + 10);
 						v1242 = v1007;
-						v1013 = __ROL4__(*((x_DWORD*)v1004 + 4), 16);
+						v1013 = __ROL4_16__(*((x_DWORD*)v1004 + 4));
 						goto LABEL_1231;
 					case 0x1A:
 						v1045 = (unsigned __int16*)unk_DE56Cx[startLine];
@@ -13780,8 +13780,8 @@ LABEL_129:
 					{
 						LOWORD(v1046) = v1045[1];
 						v1048 = v1045[3];
-						v1049 = (char*)(iScreenWidth_DE560 + v1102);
-						v1102 += iScreenWidth_DE560;
+						v1049 = (char*)(iScreenWidth_DE560 + StartAdress);
+						StartAdress += iScreenWidth_DE560;
 						line25++;
 						if (line25 >= drawEveryNthLine)
 						{
@@ -13795,13 +13795,13 @@ LABEL_129:
 								v1258 = v1048;
 								v1050 = (unsigned __int16)-(signed __int16)v1046;
 								v1051 = v1050;
-								v1053 = __ROL4__(*((x_DWORD*)v1045 + 3) + v1135 * v1050, 16);
+								v1053 = __ROL4_16__(*((x_DWORD*)v1045 + 3) + v1135 * v1050);
 								BYTE1(v1047) = v1053;
 								v1052 = *((x_DWORD*)v1045 + 2) + v1124 * v1050;
 								LOWORD(v1053) = v1052;
 								v1046 = v1052 >> 8;
 								LOBYTE(v1047) = BYTE1(v1046);
-								v1054 = __ROL4__(*((x_DWORD*)v1045 + 4) + v1146 * v1051, 16);
+								v1054 = __ROL4_16__(*((x_DWORD*)v1045 + 4) + v1146 * v1051);
 								v1046 = (unsigned __int16)v1046;
 							LABEL_1294:
 								v1291 = v1045;
@@ -14225,12 +14225,12 @@ LABEL_129:
 					if ((unsigned __int8)(((v1048 & 0x8000u) != 0) ^ v18) | ((x_WORD)v1048 == 0))
 						goto LABEL_1361;
 					v1049 += v1046;
-					v1053 = __ROL4__(*((x_DWORD*)v1045 + 3), 16);
+					v1053 = __ROL4_16__(*((x_DWORD*)v1045 + 3));
 					BYTE1(v1047) = v1053;
 					LOWORD(v1053) = v1045[4];
 					LOBYTE(v1047) = *((x_BYTE*)v1045 + 10);
 					v1258 = v1048;
-					v1054 = __ROL4__(*((x_DWORD*)v1045 + 4), 16);
+					v1054 = __ROL4_16__(*((x_DWORD*)v1045 + 4));
 					goto LABEL_1294;
 				}
 				v1114 += v1191;

@@ -206,6 +206,18 @@ template<class T> T __ROR__(T value, uint count)
   return value;
 }*/
 
+inline uint8 __ROL1__(uint8 value, int count){return (value << count)|(value >> (8-count));}
+inline uint16 __ROL2__(uint16 value, int count) { return (value << count) | (value >> (16 - count)); }
+//inline uint32 __ROL4__(uint32 value, int count) { return (value << count) | (value >> (32 - count)); }
+inline uint64 __ROL8__(uint64 value, int count) { return (value << count) | (value >> (64 - count)); }
+inline uint8 __ROR1__(uint8 value, int count){ return (value >> count) | (value << (8 - count)); }
+inline uint16 __ROR2__(uint16 value, int count) { return (value >> count) | (value << (16 - count)); }
+inline uint32 __ROR4__(uint32 value, int count) { return (value >> count) | (value << (32 - count)); }
+inline uint64 __ROR8__(uint64 value, int count) { return (value >> count) | (value << (64 - count)); }
+
+inline uint32 __ROL4_16__(uint32  value) { return (value << 16) | (value >> 16); }
+
+/*
 inline uint8  __ROL1__(uint8  value, int count) { return __ROL__((uint8)value, count); }
 inline uint16 __ROL2__(uint16 value, int count) { return __ROL__((uint16)value, count); }
 inline uint32 __ROL4__(uint32 value, int count) { return __ROL__((uint32)value, count); }
@@ -213,7 +225,7 @@ inline uint64 __ROL8__(uint64 value, int count) { return __ROL__((uint64)value, 
 inline uint8  __ROR1__(uint8  value, int count) { return __ROL__((uint8)value, -count); }
 inline uint16 __ROR2__(uint16 value, int count) { return __ROL__((uint16)value, -count); }
 inline uint32 __ROR4__(uint32 value, int count) { return __ROL__((uint32)value, -count); }
-inline uint64 __ROR8__(uint64 value, int count) { return __ROL__((uint64)value, -count); }
+inline uint64 __ROR8__(uint64 value, int count) { return __ROL__((uint64)value, -count); }*/
 
 // carry flag of left shift
 template<class T> int8 __MKCSHL__(T value, uint count)

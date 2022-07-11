@@ -4,7 +4,7 @@ GameRender_old::~GameRender_old()
 {
 }
 
-#define _BITS_PER_PIXEL	32
+#define _BITS_PER_PIXEL	8
 
 LPBYTE m_lpZBuffer;
 long m_iWidth;
@@ -64,8 +64,8 @@ LPBYTE m_lpData;
 	int vPosY; // [esp+38h] [ebp+1Ch]
 
 	m_lpZBuffer = pdwScreenBuffer_351628;
-	m_iWidth = viewPort.Width_DE564;
-	m_iHeight = viewPort.Height_DE568;
+	m_iWidth = screenWidth_18062C;
+	m_iHeight = screenHeight_180624;
 
 	//m_hWnd = hWnd;
 	//m_iWidth = iWindowWidth;
@@ -401,7 +401,7 @@ void GameRender_old::DrawSky_40950(int16_t roll/*, uint8_t startLine, uint8_t dr
 				BYTE1(v18) = v15[v17];
 				LOBYTE(v17) = v13[6] + v17;
 				BYTE1(v17) += v13[7];
-				v12 = __ROL4__(v18, 16);
+				v12 = __ROL4_16__(v18);
 				*v14 = v12;
 				v14++;
 				v13 += 8;
@@ -5362,11 +5362,11 @@ void GameRender_old::DrawSprite_41BD3(uint32 a1)
 		VGA_Debug_Blit(640, 480, pdwScreenBuffer);*/
 }
 
-#define _PIXEL	DWORD
+#define _PIXEL	BYTE
 
-#define _GetRValue(c)	((BYTE)(((c) & 0x00FF0000) >> 16))		// Red color component
-#define _GetGValue(c)	((BYTE)(((c) & 0x0000FF00) >> 8))		// Green color component
-#define _GetBValue(c)	((BYTE)((c) & 0x000000FF))				// Blue color component
+#define _GetRValue(c)	((BYTE)((c) & 0xFF))		// Red color component
+#define _GetGValue(c)	((BYTE)((c) & 0xFF))		// Green color component
+#define _GetBValue(c)	((BYTE)((c) & 0xFF))		// Blue color component
 
 typedef long fixed;
 #define itofx(x) ((x) << 8)										// Integer to fixed point
@@ -5412,7 +5412,7 @@ typedef enum __TEXTURE_FILTERING
 
 typedef struct __TEXTUREINFO
 {
-	LPDWORD lpTexture;
+	LPBYTE lpTexture;
 	DWORD dwSize;
 	DWORD dwPitch;
 	DWORD dwTextureOffset;
@@ -5601,9 +5601,9 @@ void RasterizeLine(_POINT3DI p1, _POINT3DI p2, _PIXEL color)
 		__asm {
 			mov edi, lpTempData
 			mov ecx, width
-			mov eax, color
-			loop1 : mov[edi], eax
-			add edi, 4
+			mov al, color
+			loop1 : mov[edi], al
+			add edi, 1
 			dec cx
 			jnz loop1
 		}
@@ -5620,8 +5620,8 @@ void RasterizeLine(_POINT3DI p1, _POINT3DI p2, _PIXEL color)
 		__asm {
 			mov edi, lpTempData
 			mov ecx, height
-			mov eax, color
-			loop2 : mov[edi], eax
+			mov al, color
+			loop2 : mov[edi], al
 			sub edi, dwOffset
 			dec cx
 			jnz loop2
@@ -5647,7 +5647,7 @@ void RasterizeLine(_POINT3DI p1, _POINT3DI p2, _PIXEL color)
 			__asm {
 				mov edi, lpTempData
 				mov ecx, width
-				mov eax, color
+				mov al, color
 				mov ebx, f_y
 				loop3 : add ebx, f_d
 				mov edx, ebx
@@ -5658,7 +5658,7 @@ void RasterizeLine(_POINT3DI p1, _POINT3DI p2, _PIXEL color)
 				and f_oldy, 0xFFFFFF00
 				sub edi, dwOffsetY
 				next1 : add edi, dwOffsetX
-				mov[edi], eax
+				mov[edi], al
 				dec cx
 				jnz loop3
 			}
@@ -5685,7 +5685,7 @@ void RasterizeLine(_POINT3DI p1, _POINT3DI p2, _PIXEL color)
 			__asm {
 				mov edi, lpTempData
 				mov ecx, height
-				mov eax, color
+				mov al, color
 				mov ebx, f_x
 				loop4 : add ebx, f_d
 				mov edx, ebx
@@ -5696,7 +5696,7 @@ void RasterizeLine(_POINT3DI p1, _POINT3DI p2, _PIXEL color)
 				and f_oldx, 0xFFFFFF00
 				add edi, dwOffsetX
 				next2 : sub edi, dwOffsetY
-				mov[edi], eax
+				mov[edi], al
 				dec cx
 				jnz loop4
 			}
@@ -5808,27 +5808,27 @@ void Draw_Bottom_Triangle_Color(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D botto
 								}*/
 
 				long dwFillRate = 0;
-				long zi;
+				byte zi;
 				__asm {
 					mov edi, lpTempData
 					mov esi, lpTempZBufferData
 					mov ecx, dwSize
-					mov ebx, color
+					mov bl, color
 					loop1 : fld1
 					fdiv z
 					frndint
 					fistp zi
-					mov eax, zi
-					cmp eax, [esi]
+					mov al, zi
+					cmp al, [esi]
 					jge next1
-					mov[esi], eax
-					mov[edi], ebx
+					mov[esi], al
+					mov[edi], bl
 					inc dwFillRate
 					next1 : fld z
 					fadd dz
 					fstp z
-					add edi, 4
-					add esi, 4
+					add edi, 1
+					add esi, 1
 					dec ecx
 					jnz loop1
 				}
@@ -6429,7 +6429,7 @@ void Draw_Bottom_Triangle_Texture(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D bot
 				}
 
 				DWORD dwTextureSize = textureInfo.dwSize - 1;
-				LPDWORD lpTextureData = textureInfo.lpTexture;
+				LPBYTE lpTextureData = textureInfo.lpTexture;
 				DWORD dwShift = (dwTextureSize + 1) << 2;
 				/*				for (int x=0; x<(int)dwSize; x++)
 								{
@@ -6819,7 +6819,7 @@ void Draw_Bottom_Triangle_Texture_Color(_VERTEX3D top, _VERTEX3D middle, _VERTEX
 				}
 
 				DWORD dwTextureSize = textureInfo.dwSize - 1;
-				LPDWORD lpTextureData = textureInfo.lpTexture;
+				LPBYTE lpTextureData = textureInfo.lpTexture;
 				DWORD dwShift = (dwTextureSize + 1) << 2;
 				/*				for (int x=0; x<(int)dwSize; x++)
 								{
@@ -7375,7 +7375,7 @@ void Draw_Bottom_Triangle_Texture_Gouraud(_VERTEX3D top, _VERTEX3D middle, _VERT
 				}
 
 				DWORD dwTextureSize = textureInfo.dwSize - 1;
-				LPDWORD lpTextureData = textureInfo.lpTexture;
+				LPBYTE lpTextureData = textureInfo.lpTexture;
 				DWORD dwShift = (dwTextureSize + 1) << 2;
 				/*				for (int x=0; x<(int)dwSize; x++)
 								{
@@ -7955,27 +7955,27 @@ void Draw_Top_Triangle_Color(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D bottom)
 								}*/
 
 				long dwFillRate = 0;
-				long zi;
+				byte zi;
 				__asm {
 					mov edi, lpTempData
 					mov esi, lpTempZBufferData
 					mov ecx, dwSize
-					mov ebx, color
+					mov bl, color
 					loop1 : fld1
 					fdiv z
 					frndint
 					fistp zi
-					mov eax, zi
-					cmp eax, [esi]
+					mov al, zi
+					cmp al, [esi]
 					jge next1
-					mov[esi], eax
-					mov[edi], ebx
+					mov[esi], al
+					mov[edi], bl
 					inc dwFillRate
 					next1 : fld z
 					fadd dz
 					fstp z
-					add edi, 4
-					add esi, 4
+					add edi, 1
+					add esi, 1
 					dec ecx
 					jnz loop1
 				}
@@ -8543,7 +8543,7 @@ void Draw_Top_Triangle_Texture(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D bottom
 				}
 
 				DWORD dwTextureSize = textureInfo.dwSize - 1;
-				LPDWORD lpTextureData = textureInfo.lpTexture;
+				LPBYTE lpTextureData = textureInfo.lpTexture;
 				DWORD dwShift = (dwTextureSize + 1) << 2;
 				/*				for (int x=0; x<(int)dwSize; x++)
 								{
@@ -8919,7 +8919,7 @@ void Draw_Top_Triangle_Texture_Color(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D 
 				}
 
 				DWORD dwTextureSize = textureInfo.dwSize - 1;
-				LPDWORD lpTextureData = textureInfo.lpTexture;
+				LPBYTE lpTextureData = textureInfo.lpTexture;
 				DWORD dwShift = (dwTextureSize + 1) << 2;
 				/*				for (int x=0; x<(int)dwSize; x++)
 								{
@@ -9451,7 +9451,7 @@ void Draw_Top_Triangle_Texture_Gouraud(_VERTEX3D top, _VERTEX3D middle, _VERTEX3
 				}
 
 				DWORD dwTextureSize = textureInfo.dwSize - 1;
-				LPDWORD lpTextureData = textureInfo.lpTexture;
+				LPBYTE lpTextureData = textureInfo.lpTexture;
 				DWORD dwShift = (dwTextureSize + 1) << 2;
 				/*				for (int x=0; x<(int)dwSize; x++)
 								{
@@ -10441,23 +10441,36 @@ void GameRender_old::DrawTriangleInProjectionSpace_B6253(x_DWORD* vertex1, x_DWO
 {
 	TRIANGLE lpTriangle;
 	//lpTriangle->shadingMode = _SHADING_MODE_TEXTURE;
-	lpTriangle.shadingMode = _SHADING_MODE_CONSTANT;
+	lpTriangle.shadingMode = _SHADING_MODE_TEXTURE;
+	//lpTriangle.shadingMode = _SHADING_MODE_NONE;
 	lpTriangle.p1.x = vertex1[0];
 	lpTriangle.p1.y = vertex1[1];
-	lpTriangle.p1.z = vertex1[2];
-	lpTriangle.t1.x = vertex1[3];
-	lpTriangle.t1.y = vertex1[4];
+	lpTriangle.p1.z = 1;
+	lpTriangle.t1.x = vertex1[2] / 8192;
+	lpTriangle.t1.y = vertex1[3] / 8192;
 
 	lpTriangle.p2.x = vertex2[0];
 	lpTriangle.p2.y = vertex2[1];
-	lpTriangle.p2.z = vertex2[2];
-	lpTriangle.t2.x = vertex2[3];
-	lpTriangle.t2.y = vertex2[4];
+	lpTriangle.p2.z = 1;
+	lpTriangle.t2.x = vertex2[2] / 8192;
+	lpTriangle.t2.y = vertex2[3] / 8192;
 
 	lpTriangle.p3.x = vertex3[0];
 	lpTriangle.p3.y = vertex3[1];
-	lpTriangle.p3.z = vertex3[2];
-	lpTriangle.t3.x = vertex3[3];
-	lpTriangle.t3.y = vertex3[4];
+	lpTriangle.p3.z = 1;
+	lpTriangle.t3.x = vertex3[2] / 8192;
+	lpTriangle.t3.y = vertex3[3] / 8192;
+
+	BYTE* textdata = (BYTE*)malloc(16*16+1000000);
+
+	_TEXTUREINFO texture;
+	texture.dwTextureOffset = 0;
+	texture.dwPitch = 16;
+	texture.dwSize = 16;
+	texture.filter = _TEXTURE_FILTERING_NONE;
+	texture.lpTexture = textdata;
+	lpTriangle.texture = texture;
+
 	RasterizeTriangle(&lpTriangle);
+	free(textdata);
 }
