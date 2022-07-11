@@ -39718,8 +39718,8 @@ void sub_46830_main_loop(/*int16_t* a1, */signed int a2, unsigned __int16 a3)//2
 				SetMousePositionByRes_6EDB0();
 				if (m_ptrGameRender == nullptr)
 				{
-					m_ptrGameRender = (GameRenderInterface*)new GameRender_new((multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
-					//m_ptrGameRender = (GameRenderInterface*)new GameRender_old();
+					//m_ptrGameRender = (GameRenderInterface*)new GameRender_new((multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
+					m_ptrGameRender = (GameRenderInterface*)new GameRender_old();
 				}
 				sub_47320_in_game_loop(a2);
 				if (m_ptrGameRender != nullptr)
