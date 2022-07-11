@@ -73179,18 +73179,15 @@ void sub_6D200(type_str_0x2BDE* a1x)//24e200
 	int v15; // [esp+8h] [ebp-14h]
 	int16_t spellIdxX; // [esp+14h] [ebp-8h]
 
-	int prePosY = 0;
+	int helpWidth = 640;
+	int helpHeight = 480;	
 	if (x_WORD_180660_VGA_type_resolution & 1)
-		prePosY = 400;
-	else
-		prePosY = 480;
+		helpHeight = 400;
 	if(!DefaultResolutions())
 	{
-		posY = screenWidth_18062C;
-		if (screenWidth_18062C > 640)
-		{
-			offsetPosX = (screenWidth_18062C - 640) / 2;
-		}
+		helpWidth = screenWidth_18062C;
+		helpHeight = screenHeight_180624;
+		offsetPosX = (screenWidth_18062C - 640) / 2;
 	}
 
 	if (a1x->word_0x007_2BE4_11237 == D41A0_0.LevelIndex_0xc)
@@ -73228,7 +73225,7 @@ void sub_6D200(type_str_0x2BDE* a1x)//24e200
 					subCategoryWidth = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[163].width_4;
 					subCategoryTotalWidth = 3 * subCategoryWidth;
 					//LOWORD(v1) = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[164].height;
-					v10 = prePosY - 2 * v15 - (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[163].height_5;
+					v10 = helpHeight - 2 * v15 - (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[163].height_5;
 
 					subCategoryPosX = offsetPosX + ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[89].width_4 >> 1)
 						+ (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[89].width_4 * spellIdxX
@@ -73281,7 +73278,7 @@ void sub_6D200(type_str_0x2BDE* a1x)//24e200
 					+ ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[89].width_4 >> 1);
 
 				posY = ((signed __int16)v15 >> 1)
-					+ (signed __int16)prePosY
+					+ (signed __int16)helpHeight
 					- 2 * (signed __int16)v15
 					+ (signed __int16)v15 * (a1x->dword_0x3E6_2BE4_12228.str_611.byte_0x458_1112 >= 13);
 
