@@ -5573,11 +5573,11 @@ void RasterizeLine(_POINT3DI p1, _POINT3DI p2, _PIXEL color)
 		bottom.y = by;
 	}
 
-	LPDWORD lpData = (LPDWORD)m_lpData;
+	LPBYTE lpData = m_lpData;
 	DWORD dwTotalOffset = (m_iHeight - 1 - top.y) * m_iWidth;
 	lpData += (dwTotalOffset + top.x);
 	*lpData = color;
-	LPDWORD lpTempData = lpData;
+	LPBYTE lpTempData = lpData;
 
 	float dx = (float)abs(bottom.x - top.x);
 	float dy = (float)abs(bottom.y - top.y);
@@ -5662,7 +5662,7 @@ void RasterizeLine(_POINT3DI p1, _POINT3DI p2, _PIXEL color)
 				dec cx
 				jnz loop3
 			}
-			lpData = (LPDWORD)m_lpData;
+			lpData = m_lpData;
 			dwTotalOffset = (m_iHeight - 1 - bottom.y) * m_iWidth;
 			lpData += (dwTotalOffset + bottom.x);
 			*lpData = color;
@@ -5700,7 +5700,7 @@ void RasterizeLine(_POINT3DI p1, _POINT3DI p2, _PIXEL color)
 				dec cx
 				jnz loop4
 			}
-			lpData = (LPDWORD)m_lpData;
+			lpData = m_lpData;
 			dwTotalOffset = (m_iHeight - 1 - bottom.y) * m_iWidth;
 			lpData += (dwTotalOffset + bottom.x);
 			*lpData = color;
@@ -5720,8 +5720,8 @@ void Draw_Bottom_Triangle_Color(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D botto
 		return;
 	}
 
-	LPDWORD lpData = (LPDWORD)m_lpData;
-	LPDWORD lpZBufferData = (LPDWORD)m_lpZBuffer;
+	LPBYTE lpData = m_lpData;
+	LPBYTE lpZBufferData = m_lpZBuffer;
 	DWORD dwTotalOffset = 0;
 	if (maxY <= m_iHeight - 1)
 	{
@@ -5772,8 +5772,8 @@ void Draw_Bottom_Triangle_Color(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D botto
 		if ((y1 >= 0) && (y1 <= m_iHeight - 1))
 		{
 			DWORD dwSize = xmax - xmin + 1;
-			LPDWORD lpTempData = lpData;
-			LPDWORD lpTempZBufferData = lpZBufferData;
+			LPBYTE lpTempData = lpData;
+			LPBYTE lpTempZBufferData = lpZBufferData;
 
 			if ((xmin <= m_iWidth - 1) && (xmax >= 0))
 			{
@@ -5863,8 +5863,8 @@ void Draw_Bottom_Triangle_Gouraud(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D bot
 		return;
 	}
 
-	LPDWORD lpData = (LPDWORD)m_lpData;
-	LPDWORD lpZBufferData = (LPDWORD)m_lpZBuffer;
+	LPBYTE lpData = m_lpData;
+	LPBYTE lpZBufferData = m_lpZBuffer;
 	DWORD dwTotalOffset = 0;
 	if (maxY <= m_iHeight - 1)
 	{
@@ -5982,8 +5982,8 @@ void Draw_Bottom_Triangle_Gouraud(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D bot
 		if ((y1 >= 0) && (y1 <= m_iHeight - 1))
 		{
 			DWORD dwSize = xmax - xmin + 1;
-			LPDWORD lpTempData = lpData;
-			LPDWORD lpTempZBufferData = lpZBufferData;
+			LPBYTE lpTempData = lpData;
+			LPBYTE lpTempZBufferData = lpZBufferData;
 
 			if ((xmin <= m_iWidth - 1) && (xmax >= 0))
 			{
@@ -6305,8 +6305,8 @@ void Draw_Bottom_Triangle_Texture(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D bot
 		return;
 	}
 
-	LPDWORD lpData = (LPDWORD)m_lpData;
-	LPDWORD lpZBufferData = (LPDWORD)m_lpZBuffer;
+	LPBYTE lpData = m_lpData;
+	LPBYTE lpZBufferData = m_lpZBuffer;
 	DWORD dwTotalOffset = 0;
 	if (maxY <= m_iHeight - 1)
 	{
@@ -6397,8 +6397,8 @@ void Draw_Bottom_Triangle_Texture(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D bot
 		if ((y1 >= 0) && (y1 <= m_iHeight - 1))
 		{
 			DWORD dwSize = xmax - xmin + 1;
-			LPDWORD lpTempData = lpData;
-			LPDWORD lpTempZBufferData = lpZBufferData;
+			LPBYTE lpTempData = lpData;
+			LPBYTE lpTempZBufferData = lpZBufferData;
 
 			if ((xmin <= m_iWidth - 1) && (xmax >= 0))
 			{
@@ -6695,8 +6695,8 @@ void Draw_Bottom_Triangle_Texture_Color(_VERTEX3D top, _VERTEX3D middle, _VERTEX
 		return;
 	}
 
-	LPDWORD lpData = (LPDWORD)m_lpData;
-	LPDWORD lpZBufferData = (LPDWORD)m_lpZBuffer;
+	LPBYTE lpData = m_lpData;
+	LPBYTE lpZBufferData = m_lpZBuffer;
 	DWORD dwTotalOffset = 0;
 	if (maxY <= m_iHeight - 1)
 	{
@@ -6787,8 +6787,8 @@ void Draw_Bottom_Triangle_Texture_Color(_VERTEX3D top, _VERTEX3D middle, _VERTEX
 		if ((y1 >= 0) && (y1 <= m_iHeight - 1))
 		{
 			DWORD dwSize = xmax - xmin + 1;
-			LPDWORD lpTempData = lpData;
-			LPDWORD lpTempZBufferData = lpZBufferData;
+			LPBYTE lpTempData = lpData;
+			LPBYTE lpTempZBufferData = lpZBufferData;
 
 			if ((xmin <= m_iWidth - 1) && (xmax >= 0))
 			{
@@ -7195,8 +7195,8 @@ void Draw_Bottom_Triangle_Texture_Gouraud(_VERTEX3D top, _VERTEX3D middle, _VERT
 		return;
 	}
 
-	LPDWORD lpData = (LPDWORD)m_lpData;
-	LPDWORD lpZBufferData = (LPDWORD)m_lpZBuffer;
+	LPBYTE lpData = m_lpData;
+	LPBYTE lpZBufferData = m_lpZBuffer;
 	DWORD dwTotalOffset = 0;
 	if (maxY <= m_iHeight - 1)
 	{
@@ -7334,8 +7334,8 @@ void Draw_Bottom_Triangle_Texture_Gouraud(_VERTEX3D top, _VERTEX3D middle, _VERT
 		if ((y1 >= 0) && (y1 <= m_iHeight - 1))
 		{
 			DWORD dwSize = xmax - xmin + 1;
-			LPDWORD lpTempData = lpData;
-			LPDWORD lpTempZBufferData = lpZBufferData;
+			LPBYTE lpTempData = lpData;
+			LPBYTE lpTempZBufferData = lpZBufferData;
 
 			if ((xmin <= m_iWidth - 1) && (xmax >= 0))
 			{
@@ -7862,8 +7862,8 @@ void Draw_Top_Triangle_Color(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D bottom)
 	long maxY = (long)middle.p.y;
 	long topX = (long)top.p.x;
 
-	LPDWORD lpData = (LPDWORD)m_lpData;
-	LPDWORD lpZBufferData = (LPDWORD)m_lpZBuffer;
+	LPBYTE lpData = m_lpData;
+	LPBYTE lpZBufferData = m_lpZBuffer;
 	DWORD dwTotalOffset = 0;
 	if (minY >= 0)
 	{
@@ -7919,8 +7919,8 @@ void Draw_Top_Triangle_Color(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D bottom)
 		if ((y1 >= 0) && (y1 <= m_iHeight - 1))
 		{
 			DWORD dwSize = xmax - xmin + 1;
-			LPDWORD lpTempData = lpData;
-			LPDWORD lpTempZBufferData = lpZBufferData;
+			LPBYTE lpTempData = lpData;
+			LPBYTE lpTempZBufferData = lpZBufferData;
 
 			if ((xmin <= m_iWidth - 1) && (xmax >= 0))
 			{
@@ -8005,8 +8005,8 @@ void Draw_Top_Triangle_Gouraud(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D bottom
 	long maxY = (long)middle.p.y;
 	long topX = (long)top.p.x;
 
-	LPDWORD lpData = (LPDWORD)m_lpData;
-	LPDWORD lpZBufferData = (LPDWORD)m_lpZBuffer;
+	LPBYTE lpData = m_lpData;
+	LPBYTE lpZBufferData = m_lpZBuffer;
 	DWORD dwTotalOffset = 0;
 	if (minY >= 0)
 	{
@@ -8111,8 +8111,8 @@ void Draw_Top_Triangle_Gouraud(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D bottom
 		if ((y1 >= 0) && (y1 <= m_iHeight - 1))
 		{
 			DWORD dwSize = xmax - xmin + 1;
-			LPDWORD lpTempData = lpData;
-			LPDWORD lpTempZBufferData = lpZBufferData;
+			LPBYTE lpTempData = lpData;
+			LPBYTE lpTempZBufferData = lpZBufferData;
 
 			if ((xmin <= m_iWidth - 1) && (xmax >= 0))
 			{
@@ -8429,8 +8429,8 @@ void Draw_Top_Triangle_Texture(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D bottom
 	long maxY = (long)middle.p.y;
 	long topX = (long)top.p.x;
 
-	LPDWORD lpData = (LPDWORD)m_lpData;
-	LPDWORD lpZBufferData = (LPDWORD)m_lpZBuffer;
+	LPBYTE lpData = m_lpData;
+	LPBYTE lpZBufferData = m_lpZBuffer;
 	DWORD dwTotalOffset = 0;
 	if (minY >= 0)
 	{
@@ -8511,8 +8511,8 @@ void Draw_Top_Triangle_Texture(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D bottom
 		if ((y1 >= 0) && (y1 <= m_iHeight - 1))
 		{
 			DWORD dwSize = xmax - xmin + 1;
-			LPDWORD lpTempData = lpData;
-			LPDWORD lpTempZBufferData = lpZBufferData;
+			LPBYTE lpTempData = lpData;
+			LPBYTE lpTempZBufferData = lpZBufferData;
 
 			if ((xmin <= m_iWidth - 1) && (xmax >= 0))
 			{
@@ -8805,8 +8805,8 @@ void Draw_Top_Triangle_Texture_Color(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D 
 	float f_green = (float)_GetGValue(top.color) / 255.0f;
 	float f_blue = (float)_GetBValue(top.color) / 255.0f;
 
-	LPDWORD lpData = (LPDWORD)m_lpData;
-	LPDWORD lpZBufferData = (LPDWORD)m_lpZBuffer;
+	LPBYTE lpData = m_lpData;
+	LPBYTE lpZBufferData = m_lpZBuffer;
 	DWORD dwTotalOffset = 0;
 	if (minY >= 0)
 	{
@@ -8887,8 +8887,8 @@ void Draw_Top_Triangle_Texture_Color(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D 
 		if ((y1 >= 0) && (y1 <= m_iHeight - 1))
 		{
 			DWORD dwSize = xmax - xmin + 1;
-			LPDWORD lpTempData = lpData;
-			LPDWORD lpTempZBufferData = lpZBufferData;
+			LPBYTE lpTempData = lpData;
+			LPBYTE lpTempZBufferData = lpZBufferData;
 
 			if ((xmin <= m_iWidth - 1) && (xmax >= 0))
 			{
@@ -9290,8 +9290,8 @@ void Draw_Top_Triangle_Texture_Gouraud(_VERTEX3D top, _VERTEX3D middle, _VERTEX3
 	float bgreen = (float)_GetGValue(c3) / 255.0f;
 	float bblue = (float)_GetBValue(c3) / 255.0f;
 
-	LPDWORD lpData = (LPDWORD)m_lpData;
-	LPDWORD lpZBufferData = (LPDWORD)m_lpZBuffer;
+	LPBYTE lpData = m_lpData;
+	LPBYTE lpZBufferData = m_lpZBuffer;
 	DWORD dwTotalOffset = 0;
 	if (minY >= 0)
 	{
@@ -9410,8 +9410,8 @@ void Draw_Top_Triangle_Texture_Gouraud(_VERTEX3D top, _VERTEX3D middle, _VERTEX3
 		if ((y1 >= 0) && (y1 <= m_iHeight - 1))
 		{
 			DWORD dwSize = xmax - xmin + 1;
-			LPDWORD lpTempData = lpData;
-			LPDWORD lpTempZBufferData = lpZBufferData;
+			LPBYTE lpTempData = lpData;
+			LPBYTE lpTempZBufferData = lpZBufferData;
 
 			if ((xmin <= m_iWidth - 1) && (xmax >= 0))
 			{
@@ -10462,6 +10462,14 @@ void GameRender_old::DrawTriangleInProjectionSpace_B6253(x_DWORD* vertex1, x_DWO
 	lpTriangle.t3.y = vertex3[3] / 8192;
 
 	BYTE* textdata = (BYTE*)malloc(16*16+1000000);
+	memset(textdata,50, 16 * 16 + 1000000);
+
+	/*lpTriangle.p1.x = 0;
+	lpTriangle.p1.y = 0;
+	lpTriangle.p2.x = 100;
+	lpTriangle.p2.y = 0;
+	lpTriangle.p3.x = 0;
+	lpTriangle.p3.y = 100;*/
 
 	_TEXTUREINFO texture;
 	texture.dwTextureOffset = 0;
