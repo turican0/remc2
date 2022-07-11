@@ -1620,11 +1620,11 @@ void write_posistruct_to_png(uint8_t* buffer, int width, int height, char* filen
 	} while (a1byte2);
 	*/
 
-	uint8_t pallettebuffer[768];
+	uint8_t Palettebuffer[768];
 	FILE* palfile;
 	//fopen_s(&palfile, "c:\\prenos\\remc2\\testpal.pal", "rb");
 	palfile = fopen("c:\\prenos\\remc2\\tools\\palletelight\\Debug\\out-n.pal", "rb");
-	fread(pallettebuffer, 768, 1, palfile);
+	fread(Palettebuffer, 768, 1, palfile);
 	fclose(palfile);
 
 	uint8_t buffer2[10000 * 4];
@@ -1633,9 +1633,9 @@ void write_posistruct_to_png(uint8_t* buffer, int width, int height, char* filen
 		/*buffer2[i * 4 + 0] = buffer[i];
 		buffer2[i * 4 + 1] = buffer[i];
 		buffer2[i * 4 + 2] = buffer[i];*/
-		buffer2[i * 4 + 0] = pallettebuffer[buffer[(width * height) - 1 - i] * 3 + 2];
-		buffer2[i * 4 + 1] = pallettebuffer[buffer[(width * height) - 1 - i] * 3 + 1];
-		buffer2[i * 4 + 2] = pallettebuffer[buffer[(width * height) - 1 - i] * 3];
+		buffer2[i * 4 + 0] = Palettebuffer[buffer[(width * height) - 1 - i] * 3 + 2];
+		buffer2[i * 4 + 1] = Palettebuffer[buffer[(width * height) - 1 - i] * 3 + 1];
+		buffer2[i * 4 + 2] = Palettebuffer[buffer[(width * height) - 1 - i] * 3];
 
 		if (buffer[(width * height) - 1 - i] != 0xff)buffer2[i * 4 + 3] = 255;
 	}
@@ -1697,18 +1697,18 @@ void write_posistruct_to_png(uint8_t* buffer, int width, int height, char* filen
 
 void buff_posistruct_to_png(uint8_t* buffer, int width, int height, char* filename) {
 	png_bytep row = NULL;
-	uint8_t pallettebuffer[768];
+	uint8_t Palettebuffer[768];
 	FILE* palfile;
 	palfile = fopen("c:\\prenos\\remc2\\testpal.pal", "rb");
-	fread(pallettebuffer, 768, 1, palfile);
+	fread(Palettebuffer, 768, 1, palfile);
 	fclose(palfile);
 
 	uint8_t buffer2[10000 * 4];
 	for (int i = 0; i < 10000; i++)
 	{
-		buffer2[i * 4 + 0] = pallettebuffer[buffer[i] * 3];
-		buffer2[i * 4 + 1] = pallettebuffer[buffer[i] * 3 + 1];
-		buffer2[i * 4 + 2] = pallettebuffer[buffer[i] * 3 + 2];
+		buffer2[i * 4 + 0] = Palettebuffer[buffer[i] * 3];
+		buffer2[i * 4 + 1] = Palettebuffer[buffer[i] * 3 + 1];
+		buffer2[i * 4 + 2] = Palettebuffer[buffer[i] * 3 + 2];
 
 		if (buffer[i] != 0xff)buffer2[i * 4 + 3] = 255;
 	}

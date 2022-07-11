@@ -15,7 +15,7 @@ add =1a1038
 
 typedef struct pathstruct {
 	char path[ 1c];
-	int32_t* colorPallette_var28;//1C // asi buffer
+	int32_t* colorPalette_var28;//1C // asi buffer
 	int32_t* var32_end_buffer;//20 // asi buffer
 	uint32_t var36_size_buffer;//24 //asi file size
 	uint32_t var40_alloc_type;//28
@@ -25,7 +25,7 @@ sub_9A32D - malloc open unpack
 
 unk_D4350 - 2A5350
 
-  sub_53E60_readfile_and_decompress("data/pald-0.dat", (uint8_t*)x_DWORD_EA3D8_pallette);
+  sub_53E60_readfile_and_decompress("data/pald-0.dat", (uint8_t*)x_DWORD_EA3D8_Palette);
   sub_53E60_readfile_and_decompress("data/clrd-0.dat", (uint8_t*)x_BYTE_E8900);
 
   ebx 0
@@ -70,7 +70,7 @@ pointers_buffer - off_D918C
 
   Problem1:-ok
 
-    v3 = (x_BYTE*)xasearchd.colorPallette_var28;//002bac30 //je to v 23c8d0,23cf50,265250,27B32d, nekde u 27b453
+    v3 = (x_BYTE*)xasearchd.colorPalette_var28;//002bac30 //je to v 23c8d0,23cf50,265250,27B32d, nekde u 27b453
   result = 0;
 
   Problem2:
@@ -249,7 +249,7 @@ void /*__cdecl*/ sub_7A110(char a1, char a2)//25b110
 25ba70
 
 sub_9A0FC
-sub_41A90_VGA_pallette_install
+sub_41A90_VGA_Palette_install
 
 vylepsit sub_90B27_VGA_command
 
@@ -258,9 +258,9 @@ v8[i] = x_BYTE_181544[i] + ((unk_181B42 >> 16) * (buffer[i] - x_BYTE_181544[i]) 
 //352b42 352544
 
 find
-void /*__cdecl*/ sub_41A90_VGA_pallette_install(uint8_t* buffer)//222a90
+void /*__cdecl*/ sub_41A90_VGA_Palette_install(uint8_t* buffer)//222a90
 and
-void /*__cdecl*/ sub_A0D2C_VGA_get_pallette(uint8_t* buffer)
+void /*__cdecl*/ sub_A0D2C_VGA_get_Palette(uint8_t* buffer)
 
 sub_90B27_VGA_pal_fadein_fadeout((uint8_t*)x_DWORD_17DE38,  20u, 0);//271b27 - tady se nacita paleta
 000000 1a1a15 13120f
@@ -339,7 +339,7 @@ najit puvod a1 v 270935
 je to promenna 1a6f48
 v void sub_8CD27(Pathstruct a1)//26dd27
 0 0 1a6f44
-spust sub_8F8B0(0, 0, a1.colorPallette_var28[0]);//2708B0 super inicializace //a2 ma byt 86 nebo a1 nema nikam ukazovat
+spust sub_8F8B0(0, 0, a1.colorPalette_var28[0]);//2708B0 super inicializace //a2 ma byt 86 nebo a1 nema nikam ukazovat
   
 
 hleda se puvod:
@@ -360,7 +360,7 @@ hlavni procedura-
 char /*__cdecl*/ sub_779E0(int a1)//2589E0
 34eed4? - void /*__cdecl*/ sub_7A110(char a1, char a2)//25b110
 [34eed4]<-[[34ee48]+4d54a+38cdf] - toto zkontrolovat
-x_DWORD_17DE38 = *xadatapald0dat2.colorPallette_var28;
+x_DWORD_17DE38 = *xadatapald0dat2.colorPalette_var28;
 
 toto se nakrmi zde:
 19b
@@ -368,10 +368,10 @@ toto se nakrmi zde:
 push 2a2a18
 call 25ba70
 
-48c73d - zkontrolovat xadatapald0dat2.colorPallette_var28:
+48c73d - zkontrolovat xadatapald0dat2.colorPalette_var28:
 000000000000020000005d5fc2220000
 
-xadatapald0dat2.colorPallette_var28
+xadatapald0dat2.colorPalette_var28
 x_DWORD_EA3D8 - 2bb3d8->58731a
 prirazeno v  23vf50
 sub_5BF50_load_psxdata()
@@ -394,7 +394,7 @@ jeste je treba rozlustit toto:
 najit problem zde:
 
 //4527b9=[ebp+66]+6 4527bf 161545005835->58e2e2e2e2e2
-sub_2BB40(263, 134, xadatalang.colorPallette_var28[0]);//20cb40
+sub_2BB40(263, 134, xadatalang.colorPalette_var28[0]);//20cb40
 4527bf se nakrmi v:
 
 push eax - 3550d2 -> d2.txt
@@ -436,9 +436,9 @@ v ní opravit:
 sub_7FAE0(v87, v99, a4, v98, v86);
 
 problemek:
-v12 = sub_5BE80_index_pallette(x_DWORD_17DE38, 0, 0, v86);
+v12 = sub_5BE80_index_Palette(x_DWORD_17DE38, 0, 0, v86);
 
-v12 = sub_5BE80_index_pallette(x_DWORD_17DE38, 0, 0, v86);//mozny problem
+v12 = sub_5BE80_index_Palette(x_DWORD_17DE38, 0, 0, v86);//mozny problem
 
  260ae0
 
@@ -1744,7 +1744,7 @@ if ( !byte_E3766 )
 	x_DWORD_17DB50->a4523f
 
 	v3 = (char*)"COLOUR256 ";
-    sub_76260_read_intro_pallette( 100);
+    sub_76260_read_intro_Palette( 100);
 	-tady je to ok
 	v7 = (char*)"BRUN ";//ok
     sub_76540();
@@ -1776,8 +1776,8 @@ zkontrolovat tento kod:
     sub_9A0FC_wait_to_screen_beam();//27b0fc
     if ( x_WORD_E12FC )
     {
-      sub_41A90_VGA_pallette_install(unk_17D838);
-      v19 = sub_5BE80_test_pallette(unk_17D838,  3Fu,  3Fu,  3Fu);
+      sub_41A90_VGA_Palette_install(unk_17D838);
+      v19 = sub_5BE80_test_Palette(unk_17D838,  3Fu,  3Fu,  3Fu);
       sub_2EC90(v19);//20fc90
 
 zkontrolovat paletu:
@@ -1807,7 +1807,7 @@ void sub_8F935_bitmap_draw_final(uint8_t a1byte1,uint8_t a1byte2, uint16_t tiley
 
 void sub_loc_1B5BC(uint16_t a1) {
 	memset(pdwScreenBuffer_351628, 200, 320*200);//debug
-	Set_basic_pallette();
+	Set_basic_Palette();
 	sub_2EBB0_draw_text_with_border_63 340(x_DWORD_E9C4C_langindexbuffer[a1]);//fix it - edx
 	sub_90478_VGA_Blit320();//debug
 }
@@ -1915,7 +1915,7 @@ sub_5B8D0_initialize_ 0023C8D0
 	sub_5BF50_load_psxdata()-23CF50
 		sub_84250_load_file_array-265250
 			sub_9A32D_malloc_open_unpack-27b32d
-*pstr[3].colorPallette_var28,100
+*pstr[3].colorPalette_var28,100
 
 tempposistruct.pointer= &x_DWORD_EA3D4[v8];//fixed
 
@@ -1923,7 +1923,7 @@ tempposistruct.pointer= &x_DWORD_EA3D4[v8];//fixed
 -prvni 24fb90
 19f990->59361a00 080e 70361a00 08 0e 85361a00
 nekde se to musi upravit a tam z toho bude posistruct
-sub_7AC00_load_and_set_graphics_and_pallette - 25bc00
+sub_7AC00_load_and_set_graphics_and_Palette - 25bc00
 	24fbf0
 
 sub_6EBF0(&filearray_2aa18c[filearrayindex_POINTERSDATTAB]);
@@ -1948,7 +1948,7 @@ sub_5B8D0_initialize()//23c8d0
 toto je cil!
 Pathstruct x_DWORD_E9B20 = filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct;
 
-sub_7AC00_load_and_set_graphics_and_pallette - tady to nutne zkontrolovat
+sub_7AC00_load_and_set_graphics_and_Palette - tady to nutne zkontrolovat
 v 19f0ec
 25cc28
 
@@ -1989,7 +1989,7 @@ find x_DWORD_E9C2C);//2bac2c
 
 sub_5BF50_load_psxdata()
 
-x_DWORD_E9C2C == pstr[psxadatablock32dat].colorPallette_var28
+x_DWORD_E9C2C == pstr[psxadatablock32dat].colorPalette_var28
 
 find &off_D41A8);//2a51a8
 
@@ -2464,7 +2464,7 @@ dword_EA3BC - 2bb3bc
 sub_84250_load_file_array
 sub_5BF50_load_psxdata -23cf50
 ->1a7088 - 000000 ... 1515f203000015156407
-*pstr[ c].colorPallette_var28
+*pstr[ c].colorPalette_var28
 
 find
 x_WORD_17B4E0 - 34c4e0
@@ -3190,7 +3190,7 @@ void sub_56A30_init_game_level(unsigned int a1)//237a30
 x_BYTE_F6EE0_tables
 x_BYTE_10B1E0==x_BYTE_F6EE0_tables[ 14300]
 
-pallette
+Palette
 1a7358 -> 000000 000101 000203 000305
 
 35d7d8->7ffbffff40020000
@@ -3267,7 +3267,7 @@ x_DWORD_DE55C-2af55c->34c68000
 
 x_DWORD_DDF50
 2aef50
-23c809 sub_5B7A0_prepare_pallette()//23C7A0
+23c809 sub_5B7A0_prepare_Palette()//23C7A0
 
 x_DWORD_B8845 299845:00000000 f1ffffffff
 299961
@@ -3520,7 +3520,7 @@ c7 21a3
  24BB8F36
 filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct[41].data  24BB8E6F
 filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct[41].data+ e7
-*path.colorPallette_var28+ 20dc+ e0
+*path.colorPalette_var28+ 20dc+ e0
 
 pdwScreenBuffer_351628+ 125d
 versus
@@ -4181,7 +4181,7 @@ c203 - 1fc9d8 call sub_1B8C0(uint8_t* a1)//1fc8c0
 
 porovnat x_DWORD_EA3E4 tj 2bb3e4
 
-void sub_41A90_VGA_pallette_install(uint8_t* buffer)//222a90
+void sub_41A90_VGA_Palette_install(uint8_t* buffer)//222a90
 271c10 call int16_t sub_90B27_VGA_pal_fadein_fadeout(uint8_t *newpalbuffer, uint8_t shadow_levels, bool singlestep)//271B27 init and nightfall
 void sub_47760(/*int a1,*/uint32_t user/* int a2, int a3*/)//228760
 fix:
@@ -4415,7 +4415,7 @@ uint8_t* v1102; // [esp+0h] [ebp-88h] - fix
 adress 1f9c12
 
 void sub_693F0(uint8_t* a1)//24a3f0
-(__int16 *)&*xadataspellsdat.colorPallette_var28[80 * *(char *)(a1 + 64) + 2 + 26 * *(char *)(a1 + 70)],
+(__int16 *)&*xadataspellsdat.colorPalette_var28[80 * *(char *)(a1 + 64) + 2 + 26 * *(char *)(a1 + 70)],
 
 2482e0
 
@@ -4609,7 +4609,7 @@ versus
  2530c0 void sub_720C0(int *a1)//2530c0
  void sub_713A0()//2523a0
 
- x_BYTE_F3FA0 - pallette
+ x_BYTE_F3FA0 - Palette
 
  castle procedures:
  22e900
@@ -5056,7 +5056,7 @@ void sub_71410_process_tmaps()//252410
 
 test all x_BYTE_D951C
 fix:
-				v39 = (char*)&((*xadataspellsdat.colorPallette_var28)[80 * v44 + 2 + 26 * v10]);
+				v39 = (char*)&((*xadataspellsdat.colorPalette_var28)[80 * v44 + 2 + 26 * v10]);
 				if (x_BYTE_D951C[0x12fd+80 * *(char *)(v9 + 64)] & 4)
 
 x_BYTE_D951C+0x12fd(00)
@@ -7259,7 +7259,7 @@ sub_2EBB0_draw_text_with_border_630x340(x_DWORD_E9C4C_langindexbuffer[*(uint32_t
 sub_2EBB0_draw_text_with_border_630x340(x_DWORD_E9C4C_langindexbuffer[a1]);//fix it - edx
 
 sub_2BC10_draw_text(v11x, v9, v13, v8); ?
-sub_2BC10_draw_text(printbuffer, v4x, v2, (*xadataclrd0dat.colorPallette_var28)[0xf00]);
+sub_2BC10_draw_text(printbuffer, v4x, v2, (*xadataclrd0dat.colorPalette_var28)[0xf00]);
 
 v83 = D41A0_BYTESTR_0.array_0x2BDE[v18x].array_0x01c_2BFA_11258;
 v84 = x_DWORD_E9C4C_langindexbuffer[*(int16_t*)&x_DWORD_DA750ar[0xde+2*40 * v82 + 13 * D41A0_BYTESTR_0.array_0x6E3E[v114x].str_0x6E3E_byte2]];
@@ -7268,7 +7268,7 @@ strcpy(v83,v84);
 //fixing
 sub_6EB90(&filearray_2aa18c[filearrayindex_BUILD00DATTAB]);//24fb90 adress 0x23ca2e
 
-(char*)&((*xadataspellsdat.colorPallette_var28)[80 * 1 + 2 + 26 * 1])
+(char*)&((*xadataspellsdat.colorPalette_var28)[80 * 1 + 2 + 26 * 1])
 
 &v37x->dword_0xA4_164x->str_611.byte_0x458_1112 -selected
 &v37x->dword_0xA4_164x->str_611.byte_0x459_1113 -selected
@@ -8393,7 +8393,7 @@ uint8_t unk_D3F80x[0x9] = { 0x10,0x12,0x09,*0x07*,0x14,0x15,0x13,0x00,0xFF };
 
 x_DWORD_DA750ar[0xd2] + v23
 
-*xadataspellsdat.colorPallette_var28 .... x_DWORD_DA750ar
+*xadataspellsdat.colorPalette_var28 .... x_DWORD_DA750ar
 
 test
 type_str_0x6E8E* sub_15170(type_str_0x6E8E* a1x, unsigned __int8 a2)//1f6170
@@ -9082,7 +9082,7 @@ void sub_82670()//263670
 
 x_BYTE_10B4E0_terraintype
 
-			/*LOWORD(v5) = */sub_90B27_VGA_pal_fadein_fadeout(*xadatapald0dat2.colorPallette_var28, 0x20u, 0);
+			/*LOWORD(v5) = */sub_90B27_VGA_pal_fadein_fadeout(*xadatapald0dat2.colorPalette_var28, 0x20u, 0);
 
 &D41A0_BYTESTR_0.str_0x3664C[0].dword_A
 0x38C68E

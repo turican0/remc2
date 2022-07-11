@@ -270,9 +270,9 @@ void GameRender_new::WriteWorldToBMP()
 	}
 
 	GetSubDirectoryPath(path, "BufferOut/PaletteOut.bmp");
-	BitmapIO::WritePalletteAsImageBMP(path, 256, *xadatapald0dat2.colorPallette_var28);
+	BitmapIO::WritePaletteAsImageBMP(path, 256, *xadatapald0dat2.colorPalette_var28);
 	GetSubDirectoryPath(path, "BufferOut/BufferOut.bmp");
-	BitmapIO::WriteImageBufferAsImageBMP(path, screenWidth_18062C, screenHeight_180624, *xadatapald0dat2.colorPallette_var28, pdwScreenBuffer_351628);
+	BitmapIO::WriteImageBufferAsImageBMP(path, screenWidth_18062C, screenHeight_180624, *xadatapald0dat2.colorPalette_var28, pdwScreenBuffer_351628);
 }
 
 void GameRender_new::ClearGraphicsBuffer(uint8_t colorIdx)
@@ -2811,7 +2811,7 @@ void GameRender_new::DrawSorcererNameAndHealthBar_2CB30(type_event_0x6E8E* a1x, 
 	v5 = D41A0_0.array_0x2BDE[v25].array_0x39f_2BFA_12157;//wizard name
 	strcpy(v24, v5);
 	v36 = x_BYTE_E88E0x[3 * sub_61790(v25)];//c
-	v35 = (*xadataclrd0dat.colorPallette_var28)[0];//10 //v19
+	v35 = (*xadataclrd0dat.colorPalette_var28)[0];//10 //v19
 	v34 = x_BYTE_E88E0x[3 * sub_61790(v25)];	//14 //v18
 	v33 = str_D94F0_bldgprmbuffer[static_cast<std::underlying_type<MapType_t>::type>(D41A0_0.terrain_2FECE.MapType)][2];//18 v14
 	v38 = str_D94F0_bldgprmbuffer[static_cast<std::underlying_type<MapType_t>::type>(D41A0_0.terrain_2FECE.MapType)][3];//4 v15

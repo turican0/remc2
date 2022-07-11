@@ -85,7 +85,7 @@ void init_pal() {
 		temppal[i * 3 + 1] = i;
 		temppal[i * 3 + 2] = i;
 	}
-	VGA_Set_pallette2(temppal);
+	VGA_Set_Palette2(temppal);
 };
 
 void clean_tarrain()
@@ -109,7 +109,7 @@ void loadlevel(int levelnumber) {
 
 void editor_run()
 {	
-	*xadataclrd0dat.colorPallette_var28 = (uint8_t*)malloc(4096);//fix it 3x256 ?
+	*xadataclrd0dat.colorPalette_var28 = (uint8_t*)malloc(4096);//fix it 3x256 ?
 
 	initposistruct();
 
