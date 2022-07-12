@@ -22,8 +22,8 @@
 **/*.opendb
 **/*.ipch
 **/*.suo
-**/*.FileListAbsolute.txt
 
+**/remc2.vcxproj.FileListAbsolute.txt
 **/remc2.exe
 **/remc2.exp
 **/remc2.lib
