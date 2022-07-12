@@ -26,7 +26,7 @@
 #include "RenderThread.h"
 #include "ProjectionPolygon.h"
 
-class GameRender_old : public GameRenderInterface
+class GameRenderOriginal : public GameRenderInterface
 {
 
 private:
@@ -82,8 +82,7 @@ private:
 	void DrawSorcererNameAndHealthBar_2CB30(type_event_0x6E8E* a1x, __int16 a2, int a3, __int16 a4);
 
 public:
-	~GameRender_old();
-
+	~GameRenderOriginal();
 	void DrawWorld_411A0(int posX, int posY, int16_t yaw, int16_t posZ, int16_t pitch, int16_t roll, int16_t fov);
 };
 

@@ -1,12 +1,12 @@
-#include "GameRender_new.h"
+#include "GameRenderHD.h"
 
-GameRender_new::GameRender_new(uint8_t renderThreads, bool assignToSpecificCores)
+GameRenderHD::GameRenderHD(uint8_t renderThreads, bool assignToSpecificCores)
 {
 	m_assignToSpecificCores = assignToSpecificCores;
 	SetRenderThreads(renderThreads);
 }
 
-GameRender_new::~GameRender_new()
+GameRenderHD::~GameRenderHD()
 {
 	if (m_renderThreads.size() > 0)
 	{
@@ -14,7 +14,7 @@ GameRender_new::~GameRender_new()
 	}
 }
 
-void GameRender_new::DrawWorld_411A0(int posX, int posY, int16_t yaw, int16_t posZ, int16_t pitch, int16_t roll, int16_t fov)
+void GameRenderHD::DrawWorld_411A0(int posX, int posY, int16_t yaw, int16_t posZ, int16_t pitch, int16_t roll, int16_t fov)
 {
 	unsigned __int16 v8; // ax
 	int v9; // ecx
@@ -260,7 +260,7 @@ void GameRender_new::DrawWorld_411A0(int posX, int posY, int16_t yaw, int16_t po
 	}
 }
 
-void GameRender_new::WriteWorldToBMP()
+void GameRenderHD::WriteWorldToBMP()
 {
 	char path[MAX_PATH];
 	GetSubDirectoryPath(path, "BufferOut");
@@ -275,7 +275,7 @@ void GameRender_new::WriteWorldToBMP()
 	BitmapIO::WriteImageBufferAsImageBMP(path, screenWidth_18062C, screenHeight_180624, *xadatapald0dat2.colorPalette_var28, pdwScreenBuffer_351628);
 }
 
-void GameRender_new::ClearGraphicsBuffer(uint8_t colorIdx)
+void GameRenderHD::ClearGraphicsBuffer(uint8_t colorIdx)
 {
 	if (colorIdx > 255)
 	{
@@ -284,7 +284,7 @@ void GameRender_new::ClearGraphicsBuffer(uint8_t colorIdx)
 	memset32(pdwScreenBuffer_351628, colorIdx, screenWidth_18062C * screenHeight_180624);
 }
 
-void GameRender_new::DrawSky_40950_TH(int16_t roll)
+void GameRenderHD::DrawSky_40950_TH(int16_t roll)
 {
 	if (m_renderThreads.size() > 0)
 	{
@@ -312,7 +312,7 @@ void GameRender_new::DrawSky_40950_TH(int16_t roll)
 /*
 * Sky texture is currently 256x256
 */
-void GameRender_new::DrawSky_40950(int16_t roll, uint8_t startLine, uint8_t drawEveryNthLine)
+void GameRenderHD::DrawSky_40950(int16_t roll, uint8_t startLine, uint8_t drawEveryNthLine)
 {
 	if (drawEveryNthLine < 1)
 	{
@@ -405,7 +405,7 @@ void GameRender_new::DrawSky_40950(int16_t roll, uint8_t startLine, uint8_t draw
 	}
 }
 
-void GameRender_new::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __int16 yaw, signed int posZ, int pitch, int16_t roll, int fov)
+void GameRenderHD::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __int16 yaw, signed int posZ, int pitch, int16_t roll, int fov)
 {
 	int v9; // eax
 	int v10; // edx
@@ -1697,7 +1697,7 @@ LABEL_259:
 	} while (v289);
 }
 
-uint16_t GameRender_new::sub_3FD60(int a2x, uint8_t x_BYTE_E88E0x[], type_event_0x6E8E* x_DWORD_EA3E4[], type_str_unk_1804B0ar str_unk_1804B0ar, type_particle_str** str_DWORD_F66F0x[], int32_t x_DWORD_F5730[], ViewPort viewPort, uint16_t screenWidth)
+uint16_t GameRenderHD::sub_3FD60(int a2x, uint8_t x_BYTE_E88E0x[], type_event_0x6E8E* x_DWORD_EA3E4[], type_str_unk_1804B0ar str_unk_1804B0ar, type_particle_str** str_DWORD_F66F0x[], int32_t x_DWORD_F5730[], ViewPort viewPort, uint16_t screenWidth)
 {
 	uint16_t result; // ax
 	type_event_0x6E8E* v3x; // eax
@@ -2042,7 +2042,7 @@ uint16_t GameRender_new::sub_3FD60(int a2x, uint8_t x_BYTE_E88E0x[], type_event_
 	return result;
 }
 
-void GameRender_new::sub_88740(type_event_0x6E8E* a1x, int a2, int a3)
+void GameRenderHD::sub_88740(type_event_0x6E8E* a1x, int a2, int a3)
 {
 	int v3; // esi
 	type_event_0x6E8E* v4x; // edx
@@ -2187,7 +2187,7 @@ LABEL_48:
 	}
 }
 
-void GameRender_new::SetBillboards_3B560(int16_t roll)
+void GameRenderHD::SetBillboards_3B560(int16_t roll)
 {
 	int v1; // edx
 	type_unk_F0E20x* v2x; // edi
@@ -2780,7 +2780,7 @@ void GameRender_new::SetBillboards_3B560(int16_t roll)
 	}
 }
 
-void GameRender_new::DrawSorcererNameAndHealthBar_2CB30(type_event_0x6E8E* a1x, __int16 a2, int a3, __int16 a4)
+void GameRenderHD::DrawSorcererNameAndHealthBar_2CB30(type_event_0x6E8E* a1x, __int16 a2, int a3, __int16 a4)
 {
 	char* v5; // esi
 	int v9x; // eax
@@ -2864,7 +2864,7 @@ void GameRender_new::DrawSorcererNameAndHealthBar_2CB30(type_event_0x6E8E* a1x, 
 	}
 }
 
-void GameRender_new::StartWorkerThreads(uint8_t numOfThreads, bool assignToSpecificCores)
+void GameRenderHD::StartWorkerThreads(uint8_t numOfThreads, bool assignToSpecificCores)
 {
 	m_multiThreadRender = true;
 	if (m_renderThreads.size() < numOfThreads)
@@ -2885,7 +2885,7 @@ void GameRender_new::StartWorkerThreads(uint8_t numOfThreads, bool assignToSpeci
 	}
 }
 
-void GameRender_new::StartWorkerThread()
+void GameRenderHD::StartWorkerThread()
 {
 	RenderThread* renderThread = new RenderThread();
 
@@ -2895,7 +2895,7 @@ void GameRender_new::StartWorkerThread()
 	}
 }
 
-void GameRender_new::StartWorkerThread(int core)
+void GameRenderHD::StartWorkerThread(int core)
 {
 	RenderThread* renderThread = new RenderThread(core);
 
@@ -2905,7 +2905,7 @@ void GameRender_new::StartWorkerThread(int core)
 	}
 }
 
-void GameRender_new::StopWorkerThreads()
+void GameRenderHD::StopWorkerThreads()
 {
 	if (m_renderThreads.size() > 0)
 	{
@@ -2923,7 +2923,7 @@ void GameRender_new::StopWorkerThreads()
 int DrawSquareInProjectionSpace_index = 0;
 
 //Coordinates Already transformed into "Screen Space" (x & y, top left 0,0)
-void GameRender_new::DrawSquareInProjectionSpace(std::vector<int>& vertexs, int index)
+void GameRenderHD::DrawSquareInProjectionSpace(std::vector<int>& vertexs, int index)
 {
 	//Set Texture coordinates for polys
 	vertexs[20] = xunk_D4350[Str_E9C38_smalltit[index].byte42_std][0];
@@ -2998,7 +2998,7 @@ void GameRender_new::DrawSquareInProjectionSpace(std::vector<int>& vertexs, int 
 	}
 }
 
-void GameRender_new::DrawInverseSquareInProjectionSpace(int* vertexs, int index)
+void GameRenderHD::DrawInverseSquareInProjectionSpace(int* vertexs, int index)
 {
 	//Set Texture coordinates for polys
 	vertexs[20] = xunk_D4350[Str_E9C38_smalltit[index].byte42_std][0];
@@ -3075,7 +3075,7 @@ void GameRender_new::DrawInverseSquareInProjectionSpace(int* vertexs, int index)
 	}
 }
 
-void GameRender_new::DrawParticles_3E360(int a2x, type_particle_str** str_DWORD_F66F0x[], uint8_t x_BYTE_E88E0x[], int32_t x_DWORD_F5730[], type_event_0x6E8E* x_DWORD_EA3E4[], type_str_unk_1804B0ar str_unk_1804B0ar, ViewPort viewPort, uint16_t screenWidth)
+void GameRenderHD::DrawParticles_3E360(int a2x, type_particle_str** str_DWORD_F66F0x[], uint8_t x_BYTE_E88E0x[], int32_t x_DWORD_F5730[], type_event_0x6E8E* x_DWORD_EA3E4[], type_str_unk_1804B0ar str_unk_1804B0ar, ViewPort viewPort, uint16_t screenWidth)
 {
 	unsigned __int16 result; // ax
 	type_event_0x6E8E* v3x; // eax
@@ -3837,7 +3837,7 @@ void GameRender_new::DrawParticles_3E360(int a2x, type_particle_str** str_DWORD_
 	} while (result);
 }
 
-void GameRender_new::DrawSprite_41BD3(uint32 a1)
+void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 {
 	int8_t* v2x; // ebx
 	x_DWORD* v3; // esi
@@ -5322,7 +5322,7 @@ void GameRender_new::DrawSprite_41BD3(uint32 a1)
 	}
 }
 
-void GameRender_new::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* vertex1, const ProjectionPolygon* vertex2, const ProjectionPolygon* vertex3, uint8_t startLine, uint8_t drawEveryNthLine)
+void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* vertex1, const ProjectionPolygon* vertex2, const ProjectionPolygon* vertex3, uint8_t startLine, uint8_t drawEveryNthLine)
 {
 	uint8_t line1 = startLine;
 	uint8_t line2 = startLine;
@@ -14276,7 +14276,7 @@ LABEL_129:
 	}
 }
 
-x_DWORD* GameRender_new::LoadPolygon(x_DWORD* ptrPolys, int* v0, int* v1, int s0, int s1, int* line)
+x_DWORD* GameRenderHD::LoadPolygon(x_DWORD* ptrPolys, int* v0, int* v1, int s0, int s1, int* line)
 {
 	do
 	{
@@ -14291,7 +14291,7 @@ x_DWORD* GameRender_new::LoadPolygon(x_DWORD* ptrPolys, int* v0, int* v1, int s0
 	return ptrPolys;
 }
 
-x_DWORD* GameRender_new::LoadPolygon(x_DWORD* ptrPolys, int* v0, int* v1, int* v4, int s0, int s1, int s4, int* line)
+x_DWORD* GameRenderHD::LoadPolygon(x_DWORD* ptrPolys, int* v0, int* v1, int* v4, int s0, int s1, int s4, int* line)
 {
 	do
 	{
@@ -14308,7 +14308,7 @@ x_DWORD* GameRender_new::LoadPolygon(x_DWORD* ptrPolys, int* v0, int* v1, int* v
 	return ptrPolys;
 }
 
-x_DWORD* GameRender_new::LoadPolygon(x_DWORD* ptrPolys, int* v0, int* v1, int* v2, int* v3, int s0, int s1, int s2, int s3, int* line)
+x_DWORD* GameRenderHD::LoadPolygon(x_DWORD* ptrPolys, int* v0, int* v1, int* v2, int* v3, int s0, int s1, int s2, int s3, int* line)
 {
 	do
 	{
@@ -14327,7 +14327,7 @@ x_DWORD* GameRender_new::LoadPolygon(x_DWORD* ptrPolys, int* v0, int* v1, int* v
 	return ptrPolys;
 }
 
-x_DWORD* GameRender_new::LoadPolygon(x_DWORD* ptrPolys, int* v0, int* v1, int* v2, int* v3, int* v4, int s0, int s1, int s2, int s3, int s4, int* line)
+x_DWORD* GameRenderHD::LoadPolygon(x_DWORD* ptrPolys, int* v0, int* v1, int* v2, int* v3, int* v4, int s0, int s1, int s2, int s3, int s4, int* line)
 {
 	do
 	{
@@ -14348,7 +14348,7 @@ x_DWORD* GameRender_new::LoadPolygon(x_DWORD* ptrPolys, int* v0, int* v1, int* v
 	return ptrPolys;
 }
 
-void GameRender_new::SetRenderThreads(uint8_t renderThreads)
+void GameRenderHD::SetRenderThreads(uint8_t renderThreads)
 {
 	StopWorkerThreads();
 
@@ -14363,12 +14363,12 @@ void GameRender_new::SetRenderThreads(uint8_t renderThreads)
 	}
 }
 
-uint8_t GameRender_new::GetRenderThreads()
+uint8_t GameRenderHD::GetRenderThreads()
 {
 	return m_renderThreads.size();
 }
 
-void GameRender_new::WaitForRenderFinish()
+void GameRenderHD::WaitForRenderFinish()
 {
 	int taskCount = 0;
 

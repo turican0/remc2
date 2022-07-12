@@ -1,10 +1,10 @@
-#include "GameRender_old.h"
+#include "GameRenderOriginal.h"
 
-GameRender_old::~GameRender_old()
+GameRenderOriginal::~GameRenderOriginal()
 {
 }
 
-/* ---- */void GameRender_old::DrawWorld_411A0(int posX, int posY, int16_t yaw, int16_t posZ, int16_t pitch, int16_t roll, int16_t fov)
+/* ---- */void GameRenderOriginal::DrawWorld_411A0(int posX, int posY, int16_t yaw, int16_t posZ, int16_t pitch, int16_t roll, int16_t fov)
 {
 	unsigned __int16 v8; // ax
 	int v9; // ecx
@@ -253,7 +253,7 @@ GameRender_old::~GameRender_old()
 	}
 }
 
-void GameRender_old::DrawSky_40950(int16_t roll/*, uint8_t startLine, uint8_t drawEveryNthLine*/)
+void GameRenderOriginal::DrawSky_40950(int16_t roll/*, uint8_t startLine, uint8_t drawEveryNthLine*/)
 {
 	int v1; // ebx
 	int v2; // edx
@@ -366,7 +366,7 @@ void GameRender_old::DrawSky_40950(int16_t roll/*, uint8_t startLine, uint8_t dr
 	}
 }
 
-void GameRender_old::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __int16 yaw, signed int posZ, int pitch, int16_t roll, int fov)
+void GameRenderOriginal::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __int16 yaw, signed int posZ, int pitch, int16_t roll, int fov)
 {
 	int v9; // eax
 	int v10; // edx
@@ -1843,12 +1843,12 @@ LABEL_259:
 	} while (v289);
 }
 
-int32_t* GameRender_old::x_DWORD_DB350_ret(uint32_t adress) {
+int32_t* GameRenderOriginal::x_DWORD_DB350_ret(uint32_t adress) {
 	if (adress >= 0x100) return &Maths::x_DWORD_DB750[adress - 0x100];
 	allert_error();
 }
 
-uint16_t GameRender_old::sub_3FD60(int a2x)
+uint16_t GameRenderOriginal::sub_3FD60(int a2x)
 {
 	unsigned __int16 result; // ax
 	type_event_0x6E8E* v3x; // eax
@@ -2218,7 +2218,7 @@ uint16_t GameRender_old::sub_3FD60(int a2x)
 	return result;
 }
 
-void GameRender_old::sub_88740(type_event_0x6E8E* a1x, int a2, int a3)
+void GameRenderOriginal::sub_88740(type_event_0x6E8E* a1x, int a2, int a3)
 {
 	int v3; // esi
 	type_event_0x6E8E* v4x; // edx
@@ -2357,7 +2357,7 @@ LABEL_48:
 	}
 }
 
-void GameRender_old::SetBillboards_3B560(int16_t roll)
+void GameRenderOriginal::SetBillboards_3B560(int16_t roll)
 {
 	int v1; // edx
 	type_unk_F0E20x* v2x; // edi
@@ -2942,7 +2942,7 @@ void GameRender_old::SetBillboards_3B560(int16_t roll)
 	}
 }
 
-void GameRender_old::DrawSorcererNameAndHealthBar_2CB30(type_event_0x6E8E* a1x, __int16 a2, int a3, __int16 a4)//20db30 //maybe draw sorcerer name
+void GameRenderOriginal::DrawSorcererNameAndHealthBar_2CB30(type_event_0x6E8E* a1x, __int16 a2, int a3, __int16 a4)//20db30 //maybe draw sorcerer name
 {
 	char* v5; // esi
 	int v9x; // eax
@@ -3043,7 +3043,7 @@ void GameRender_old::DrawSorcererNameAndHealthBar_2CB30(type_event_0x6E8E* a1x, 
 	}
 }
 
-void GameRender_old::DrawParticles_3E360(int a2x)//21f360
+void GameRenderOriginal::DrawParticles_3E360(int a2x)//21f360
 {
 	unsigned __int16 result; // ax
 	type_event_0x6E8E* v3x; // eax
@@ -3825,7 +3825,7 @@ void GameRender_old::DrawParticles_3E360(int a2x)//21f360
 	pdwScreenBuffer = pdwScreenBuffer;//debug*/
 }
 
-void GameRender_old::DrawSprite_41BD3(uint32 a1)
+void GameRenderOriginal::DrawSprite_41BD3(uint32 a1)
 {
 	int8_t* v2x; // ebx
 	x_DWORD* v3; // esi
@@ -5312,7 +5312,7 @@ void GameRender_old::DrawSprite_41BD3(uint32 a1)
 		VGA_Debug_Blit(640, 480, pdwScreenBuffer);*/
 }
 
-void GameRender_old::DrawTriangleInProjectionSpace_B6253(x_DWORD* vertex1, x_DWORD* vertex2, x_DWORD* vertex3)//sub_B6253 - 297253
+void GameRenderOriginal::DrawTriangleInProjectionSpace_B6253(x_DWORD* vertex1, x_DWORD* vertex2, x_DWORD* vertex3)//sub_B6253 - 297253
 {
 	x_DWORD* v3; // esi
 	x_DWORD* v4; // edi

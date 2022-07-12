@@ -423,16 +423,16 @@
     <ClInclude Include="engine\Type_SecretMapScreenPortals_E2970.h">
       <Filter>Header Files\engine</Filter>
     </ClInclude>
-    <ClInclude Include="engine\GameRender_new.h">
+    <ClInclude Include="engine\GameRenderHD.h">
       <Filter>Header Files\engine</Filter>
     </ClInclude>
-    <ClInclude Include="engine\GameRender_old.h">
+    <ClInclude Include="engine\GameRenderOriginal.h">
       <Filter>Header Files\engine</Filter>
     </ClInclude>
     <ClInclude Include="engine\GameRenderInterface.h">
       <Filter>Header Files\engine</Filter>
     </ClInclude>
-    <ClInclude Include="engine\GameRender_GL.h">
+    <ClInclude Include="engine\GameRenderGL.h">
       <Filter>Header Files\engine</Filter>
     </ClInclude>
     <ClInclude Include="portability\port_net.h">
@@ -725,13 +725,13 @@
     <ClCompile Include="engine\Type_SecretMapScreenPortals_E2970.cpp">
       <Filter>Source Files\engine</Filter>
     </ClCompile>
-    <ClCompile Include="engine\GameRender_new.cpp">
+    <ClCompile Include="engine\GameRenderHD.cpp">
       <Filter>Source Files\engine</Filter>
     </ClCompile>
-    <ClCompile Include="engine\GameRender_old.cpp">
+    <ClCompile Include="engine\GameRenderOriginal.cpp">
       <Filter>Source Files\engine</Filter>
     </ClCompile>
-    <ClCompile Include="engine\GameRender_GL.cpp">
+    <ClCompile Include="engine\GameRenderGL.cpp">
       <Filter>Source Files\engine</Filter>
     </ClCompile>
     <ClCompile Include="engine\ViewPort.cpp">

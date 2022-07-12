@@ -337,9 +337,9 @@
     <ClInclude Include="engine\Animation.h" />
     <ClInclude Include="engine\Basic.h" />
     <ClInclude Include="engine\GameRenderInterface.h" />
-    <ClInclude Include="engine\GameRender_GL.h" />
-    <ClInclude Include="engine\GameRender_new.h" />
-    <ClInclude Include="engine\GameRender_old.h" />
+    <ClInclude Include="engine\GameRenderGL.h" />
+    <ClInclude Include="engine\GameRenderHD.h" />
+    <ClInclude Include="engine\GameRenderOriginal.h" />
     <ClInclude Include="engine\ProjectionPolygon.h" />
     <ClInclude Include="engine\Type_BigSpritesBuffer.h" />
     <ClInclude Include="engine\Sound.h" />
@@ -451,9 +451,9 @@
     <ClCompile Include="..\temp\dirent.c" />
     <ClCompile Include="engine\Animation.cpp" />
     <ClCompile Include="engine\Basic.cpp" />
-    <ClCompile Include="engine\GameRender_GL.cpp" />
-    <ClCompile Include="engine\GameRender_new.cpp" />
-    <ClCompile Include="engine\GameRender_old.cpp" />
+    <ClCompile Include="engine\GameRenderGL.cpp" />
+    <ClCompile Include="engine\GameRenderHD.cpp" />
+    <ClCompile Include="engine\GameRenderOriginal.cpp" />
     <ClCompile Include="engine\ProjectionPolygon.cpp" />
     <ClCompile Include="engine\Sound.cpp" />
     <ClCompile Include="engine\Terrain.cpp" />

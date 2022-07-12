@@ -14520,18 +14520,18 @@ void sub_1A970_change_game_settings(char a1, int a2, int a3)//1fb970
 		sub_417D0_install_pal_and_mouse_minmax2();
 		return;
 	case 19:
-		if (m_ptrGameRender != nullptr && typeid(*m_ptrGameRender) == typeid(GameRender_new))
+		if (m_ptrGameRender != nullptr && typeid(*m_ptrGameRender) == typeid(GameRenderHD))
 		{
-			uint8_t numRenderThreads = ((GameRender_new*)m_ptrGameRender)->GetRenderThreads();
+			uint8_t numRenderThreads = ((GameRenderHD*)m_ptrGameRender)->GetRenderThreads();
 			if (numRenderThreads >= 7)
 			{
-				((GameRender_new*)m_ptrGameRender)->SetRenderThreads(0);
+				((GameRenderHD*)m_ptrGameRender)->SetRenderThreads(0);
 				sub_19760_set_message("Multi-thread render OFF", 3u, 50);
 			}
 			else
 			{
 				numRenderThreads++;
-				((GameRender_new*)m_ptrGameRender)->SetRenderThreads(numRenderThreads);
+				((GameRenderHD*)m_ptrGameRender)->SetRenderThreads(numRenderThreads);
 				std::string message = "Multi-thread render ON: Number of Threads: ";
 				message += std::to_string(numRenderThreads);
 				sub_19760_set_message(message.c_str(), 3u, 50);
@@ -39718,8 +39718,12 @@ void sub_46830_main_loop(/*int16_t* a1, */signed int a2, unsigned __int16 a3)//2
 				SetMousePositionByRes_6EDB0();
 				if (m_ptrGameRender == nullptr)
 				{
-					m_ptrGameRender = (GameRenderInterface*)new GameRender_new((multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
-					//m_ptrGameRender = (GameRenderInterface*)new GameRender_old();
+					if (DefaultResolutions()) {
+						m_ptrGameRender = (GameRenderInterface*)new GameRenderOriginal();
+					}
+					else {
+						m_ptrGameRender = (GameRenderInterface*)new GameRenderHD((multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
+					}
 				}
 				sub_47320_in_game_loop(a2);
 				if (m_ptrGameRender != nullptr)

@@ -26,7 +26,7 @@
 #include "RenderThread.h"
 #include "ProjectionPolygon.h"
 
-class GameRender_new : public GameRenderInterface
+class GameRenderHD : public GameRenderInterface
 {
 
 private:
@@ -97,8 +97,8 @@ private:
 	void WaitForRenderFinish();
 
 public:
-	GameRender_new(uint8_t renderThreads, bool assignToSpecificCores);
-	~GameRender_new();
+	GameRenderHD(uint8_t renderThreads, bool assignToSpecificCores);
+	~GameRenderHD();
 	
 	void SetRenderThreads(uint8_t renderThreads);
 	uint8_t GetRenderThreads();

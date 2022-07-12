@@ -24,9 +24,9 @@
 #include "engine/Sound.h"
 #include "engine/Type_Animations.h"
 #include "engine/Animation.h"
-#include "engine/GameRender_old.h"
-#include "engine/GameRender_new.h"
-#include "engine/GameRender_GL.h"
+#include "engine/GameRenderOriginal.h"
+#include "engine/GameRenderHD.h"
+#include "engine/GameRenderGL.h"
 
 #include "engine/Terrain.h"
 
