@@ -15,8 +15,8 @@ struct ViewPort
 	uint16_t PosX_EA3D0 = 0;
 	uint16_t PosY_EA3CC = 0;
 
-	uint16_t Width_DE564 = 0;
-	uint16_t Height_DE568 = 0;
+	int32_t Width_DE564 = 0;
+	int32_t Height_DE568 = 0;
 
 
 	ViewPort()

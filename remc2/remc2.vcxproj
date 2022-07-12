@@ -358,6 +358,13 @@
     <ClInclude Include="engine\ViewPort.h" />
     <ClInclude Include="engine\XUnk_D4350.h" />
     <ClInclude Include="engine\RenderThread.h" />
+    <ClInclude Include="keeperfx\bflib_basics.h" />
+    <ClInclude Include="keeperfx\bflib_datetm.h" />
+    <ClInclude Include="keeperfx\bflib_memory.h" />
+    <ClInclude Include="keeperfx\bflib_render.h" />
+    <ClInclude Include="keeperfx\bflib_sprite.h" />
+    <ClInclude Include="keeperfx\globals.h" />
+    <ClInclude Include="keeperfx\version.h" />
     <ClInclude Include="portability\port_net.h" />
     <ClInclude Include="utilities\BitmapIO.h" />
     <ClInclude Include="utilities\DataFileIO.h" />
@@ -467,6 +474,12 @@
     <ClCompile Include="engine\ViewPort.cpp" />
     <ClCompile Include="engine\XUnk_D4350.cpp" />
     <ClCompile Include="engine\RenderThread.cpp" />
+    <ClCompile Include="keeperfx\bflib_basics.c" />
+    <ClCompile Include="keeperfx\bflib_datetm.c" />
+    <ClCompile Include="keeperfx\bflib_memory.c" />
+    <ClCompile Include="keeperfx\bflib_render.c" />
+    <ClCompile Include="keeperfx\bflib_render_gpoly.c" />
+    <ClCompile Include="keeperfx\bflib_sprite.c" />
     <ClCompile Include="portability\port_net.cpp" />
     <ClCompile Include="utilities\BitmapIO.cpp" />
     <ClCompile Include="utilities\DataFileIO.cpp" />

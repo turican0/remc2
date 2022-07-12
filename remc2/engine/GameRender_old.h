@@ -26,6 +26,8 @@
 #include "RenderThread.h"
 #include "ProjectionPolygon.h"
 
+#include "..\keeperfx\bflib_render.h"
+
 class GameRender_old : public GameRenderInterface
 {
 
@@ -75,6 +77,7 @@ private:
 	void DrawSprite_41BD3(uint32 a1);
 	void DrawParticles_3E360(int a2x);
 	void DrawTriangleInProjectionSpace_B6253(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3);
+	//void DrawTriangleInProjectionSpace_B6253_asm(x_DWORD* vertex1, x_DWORD* vertex2, x_DWORD* vertex3);//sub_B6253 - 297253
 	int32_t* x_DWORD_DB350_ret(uint32_t adress);
 	uint16_t sub_3FD60(int a2x);
 	void sub_88740(type_event_0x6E8E* a1x, int a2, int a3);
@@ -86,5 +89,7 @@ public:
 
 	void DrawWorld_411A0(int posX, int posY, int16_t yaw, int16_t posZ, int16_t pitch, int16_t roll, int16_t fov);
 };
+
+void draw_gpoly(struct PolyPoint* point_a, struct PolyPoint* point_b, struct PolyPoint* point_c);
 
 #endif //GAME_RENDER_OLD

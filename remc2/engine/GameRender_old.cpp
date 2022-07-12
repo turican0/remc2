@@ -6,7 +6,7 @@ GameRender_old::~GameRender_old()
 
 #define _BITS_PER_PIXEL	8
 
-LPBYTE m_lpZBuffer;
+//LPBYTE m_lpZBuffer;
 long m_iWidth;
 long m_iHeight;
 DWORD m_dwSize;
@@ -63,7 +63,7 @@ LPBYTE m_lpData;
 	int vPosX; // [esp+34h] [ebp+18h]
 	int vPosY; // [esp+38h] [ebp+1Ch]
 
-	m_lpZBuffer = pdwScreenBuffer_351628;
+	m_lpData = pdwScreenBuffer_351628;
 	m_iWidth = screenWidth_18062C;
 	m_iHeight = screenHeight_180624;
 
@@ -73,7 +73,7 @@ LPBYTE m_lpData;
 	//m_iNomFPS = iFPS;
 	//m_fFrameNomTime = 1000.0 / m_iNomFPS;
 	m_dwSize = m_iWidth * (_BITS_PER_PIXEL >> 3) * m_iHeight;
-	m_lpData = (LPBYTE)malloc(m_dwSize * sizeof(BYTE));
+	//m_lpZBuffer = (LPBYTE)malloc(m_dwSize * sizeof(BYTE));
 	//m_iShadingMode = _SHADING_MODE_NONE;
 	//m_iTextureFiltering = _TEXTURE_FILTERING_NONE;
 	//m_lpZBuffer = (LPBYTE)malloc(m_dwSize * sizeof(BYTE));
@@ -5721,7 +5721,7 @@ void Draw_Bottom_Triangle_Color(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D botto
 	}
 
 	LPBYTE lpData = m_lpData;
-	LPBYTE lpZBufferData = m_lpZBuffer;
+	//LPBYTE lpZBufferData = m_lpZBuffer;
 	DWORD dwTotalOffset = 0;
 	if (maxY <= m_iHeight - 1)
 	{
@@ -5732,7 +5732,7 @@ void Draw_Bottom_Triangle_Color(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D botto
 		dwTotalOffset = 0;
 	}
 	lpData += dwTotalOffset;
-	lpZBufferData += dwTotalOffset;
+	//lpZBufferData += dwTotalOffset;
 
 	float xm, xb;
 	long x, xmin, xmax, oldxmin, oldxmax;
@@ -5773,7 +5773,7 @@ void Draw_Bottom_Triangle_Color(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D botto
 		{
 			DWORD dwSize = xmax - xmin + 1;
 			LPBYTE lpTempData = lpData;
-			LPBYTE lpTempZBufferData = lpZBufferData;
+			//LPBYTE lpTempZBufferData = lpZBufferData;
 
 			if ((xmin <= m_iWidth - 1) && (xmax >= 0))
 			{
@@ -5789,7 +5789,7 @@ void Draw_Bottom_Triangle_Color(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D botto
 				else
 				{
 					lpTempData += xmin;
-					lpTempZBufferData += xmin;
+					//lpTempZBufferData += xmin;
 				}
 
 				if (xmax > m_iWidth - 1)
@@ -5811,24 +5811,24 @@ void Draw_Bottom_Triangle_Color(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D botto
 				byte zi;
 				__asm {
 					mov edi, lpTempData
-					mov esi, lpTempZBufferData
+					//mov esi, lpTempZBufferData
 					mov ecx, dwSize
 					mov bl, color
 					loop1 : fld1
 					fdiv z
 					frndint
-					fistp zi
-					mov al, zi
-					cmp al, [esi]
-					jge next1
-					mov[esi], al
+					//fistp zi
+					//mov al, zi
+					//cmp al, [esi]
+					//jge next1
+					//mov[esi], al
 					mov[edi], bl
 					inc dwFillRate
 					next1 : fld z
 					fadd dz
 					fstp z
 					add edi, 1
-					add esi, 1
+					//add esi, 1
 					dec ecx
 					jnz loop1
 				}
@@ -5836,7 +5836,7 @@ void Draw_Bottom_Triangle_Color(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D botto
 				m_iSkipRate += (dwSize - dwFillRate);
 			}
 			lpData += m_iWidth;
-			lpZBufferData += m_iWidth;
+			//lpZBufferData += m_iWidth;
 		}
 
 		oldxmin = xmin;
@@ -5864,7 +5864,7 @@ void Draw_Bottom_Triangle_Gouraud(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D bot
 	}
 
 	LPBYTE lpData = m_lpData;
-	LPBYTE lpZBufferData = m_lpZBuffer;
+	//LPBYTE lpZBufferData = m_lpZBuffer;
 	DWORD dwTotalOffset = 0;
 	if (maxY <= m_iHeight - 1)
 	{
@@ -5875,7 +5875,7 @@ void Draw_Bottom_Triangle_Gouraud(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D bot
 		dwTotalOffset = 0;
 	}
 	lpData += dwTotalOffset;
-	lpZBufferData += dwTotalOffset;
+	//lpZBufferData += dwTotalOffset;
 
 	float cxm, cxb, red1, green1, blue1, red2, green2, blue2;
 	float xm, xb, reds, greens, blues, rede, greene, bluee;
@@ -5983,7 +5983,7 @@ void Draw_Bottom_Triangle_Gouraud(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D bot
 		{
 			DWORD dwSize = xmax - xmin + 1;
 			LPBYTE lpTempData = lpData;
-			LPBYTE lpTempZBufferData = lpZBufferData;
+			//LPBYTE lpTempZBufferData = lpZBufferData;
 
 			if ((xmin <= m_iWidth - 1) && (xmax >= 0))
 			{
@@ -6008,7 +6008,7 @@ void Draw_Bottom_Triangle_Gouraud(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D bot
 				else
 				{
 					lpTempData += xmin;
-					lpTempZBufferData += xmin;
+					//lpTempZBufferData += xmin;
 				}
 
 				if (xmax > m_iWidth - 1)
@@ -6060,12 +6060,12 @@ void Draw_Bottom_Triangle_Gouraud(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D bot
 				long ri[4] = { 0, 0, 0, 0 };
 				long gi[4] = { 0, 0, 0, 0 };
 				long bi[4] = { 0, 0, 0, 0 };
-				long zi[4] = { 0, 0, 0, 0 };
+				//long zi[4] = { 0, 0, 0, 0 };
 
 				long dwFillRate = 0;
 				_asm {
 					mov edi, lpTempData
-					mov esi, lpTempZBufferData
+					//mov esi, lpTempZBufferData
 					mov ecx, dwSize
 					movaps xmm0, simd_r
 					movaps xmm1, simd_g
@@ -6088,11 +6088,11 @@ void Draw_Bottom_Triangle_Gouraud(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D bot
 					addps xmm3, simd_dz
 					fld simd_z[0]
 					frndint
-					fistp zi[0]
-					mov eax, zi[0]
-					cmp eax, [esi]
-					jge next26
-					mov[esi], eax
+					//fistp zi[0]
+					//mov eax, zi[0]
+					//cmp eax, [esi]
+					//jge next26
+					//mov[esi], eax
 					fld simd_r[0]
 					frndint
 					fistp ri[0]
@@ -6127,17 +6127,18 @@ void Draw_Bottom_Triangle_Gouraud(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D bot
 					or eax, bi[0]
 					mov[edi], eax
 					inc dwFillRate
-					next26 : add edi, 4
-					add esi, 4
+					next26 :
+					add edi, 1
+					//add esi, 4
 					dec ecx
 					jz next25
 					fld simd_z[4]
 					frndint
-					fistp zi[4]
-					mov eax, zi[4]
-					cmp eax, [esi]
-					jge next27
-					mov[esi], eax
+					//fistp zi[4]
+					//mov eax, zi[4]
+					//cmp eax, [esi]
+					//jge next27
+					//mov[esi], eax
 					fld simd_r[4]
 					frndint
 					fistp ri[4]
@@ -6178,11 +6179,11 @@ void Draw_Bottom_Triangle_Gouraud(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D bot
 					jz next25
 					fld simd_z[8]
 					frndint
-					fistp zi[8]
-					mov eax, zi[8]
-					cmp eax, [esi]
-					jge next28
-					mov[esi], eax
+					//fistp zi[8]
+					//mov eax, zi[8]
+					//cmp eax, [esi]
+					//jge next28
+					//mov[esi], eax
 					fld simd_r[8]
 					frndint
 					fistp ri[8]
@@ -6223,11 +6224,11 @@ void Draw_Bottom_Triangle_Gouraud(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D bot
 					jz next25
 					fld simd_z[12]
 					frndint
-					fistp zi[12]
-					mov eax, zi[12]
-					cmp eax, [esi]
-					jge next29
-					mov[esi], eax
+					//fistp zi[12]
+					//mov eax, zi[12]
+					//cmp eax, [esi]
+					//jge next29
+					//mov[esi], eax
 					fld simd_r[12]
 					frndint
 					fistp ri[12]
@@ -6272,7 +6273,7 @@ void Draw_Bottom_Triangle_Gouraud(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D bot
 				m_iSkipRate += (dwSize - dwFillRate);
 			}
 			lpData += m_iWidth;
-			lpZBufferData += m_iWidth;
+			//lpZBufferData += m_iWidth;
 		}
 
 		oldxmin = xmin;
@@ -6306,7 +6307,7 @@ void Draw_Bottom_Triangle_Texture(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D bot
 	}
 
 	LPBYTE lpData = m_lpData;
-	LPBYTE lpZBufferData = m_lpZBuffer;
+	//LPBYTE lpZBufferData = m_lpZBuffer;
 	DWORD dwTotalOffset = 0;
 	if (maxY <= m_iHeight - 1)
 	{
@@ -6317,7 +6318,7 @@ void Draw_Bottom_Triangle_Texture(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D bot
 		dwTotalOffset = 0;
 	}
 	lpData += dwTotalOffset;
-	lpZBufferData += dwTotalOffset;
+	//lpZBufferData += dwTotalOffset;
 
 	float xm, xb;
 	long x, xmin, xmax, oldxmin, oldxmax;
@@ -6398,7 +6399,7 @@ void Draw_Bottom_Triangle_Texture(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D bot
 		{
 			DWORD dwSize = xmax - xmin + 1;
 			LPBYTE lpTempData = lpData;
-			LPBYTE lpTempZBufferData = lpZBufferData;
+			//LPBYTE lpTempZBufferData = lpZBufferData;
 
 			if ((xmin <= m_iWidth - 1) && (xmax >= 0))
 			{
@@ -6420,7 +6421,7 @@ void Draw_Bottom_Triangle_Texture(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D bot
 				else
 				{
 					lpTempData += xmin;
-					lpTempZBufferData += xmin;
+					//lpTempZBufferData += xmin;
 				}
 
 				if (xmax > m_iWidth - 1)
@@ -6464,14 +6465,14 @@ void Draw_Bottom_Triangle_Texture(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D bot
 				__m128 simd_du = { u_du4, u_du4, u_du4, u_du4 };
 				__m128 simd_dv = { v_dv4, v_dv4, v_dv4, v_dv4 };
 				__m128 simd_dz = { z_dz4, z_dz4, z_dz4, z_dz4 };
-				long ui[4] = { 0, 0, 0, 0 };
-				long vi[4] = { 0, 0, 0, 0 };
-				long zi[4] = { 0, 0, 0, 0 };
+				long ui[12] = { 0, 0, 0, 0, 0, 0, 0, 0 };
+				long vi[12] = { 0, 0, 0, 0, 0, 0, 0, 0 };
+				//byte zi[12] = { 0, 0, 0, 0, 0, 0, 0, 0 };
 
 				long dwFillRate = 0;
 				_asm {
 					mov edi, lpTempData
-					mov esi, lpTempZBufferData
+					//mov esi, lpTempZBufferData
 					mov ecx, dwSize
 					movaps xmm0, simd_u
 					movaps xmm1, simd_v
@@ -6489,11 +6490,11 @@ void Draw_Bottom_Triangle_Texture(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D bot
 					addps xmm2, simd_dz
 					fld simd_z[0]
 					frndint
-					fistp zi[0]
-					mov eax, zi[0]
-					cmp eax, [esi]
+					/*fistp zi[0]
+					mov al, zi[0]
+					cmp al, [esi]
 					jge next18
-					mov[esi], eax
+					mov[esi], al*/
 					mov eax, dwTextureSize
 					fld simd_u[0]
 					frndint
@@ -6501,41 +6502,46 @@ void Draw_Bottom_Triangle_Texture(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D bot
 					cmp ui[0], 0
 					jge next1
 					mov ui[0], 0
-					next1:				cmp ui[0], eax
+				next1:
+					cmp ui[0], eax
 					jle next2
 					mov ui[0], eax
-					next2 : fld simd_v[0]
+				next2:
+					fld simd_v[0]
 					frndint
 					fistp vi[0]
 					cmp vi[0], 0
 					jge next3
 					mov vi[0], 0
-					next3 : cmp vi[0], eax
+				next3:
+					cmp vi[0], eax
 					jle next4
 					mov vi[0], eax
-					next4 : mov eax, vi[0]
+				next4:
+					mov eax, vi[0]
 					mul dwShift
 					shr eax, 2
 					add eax, ui[0]
 					shl eax, 2
-					push esi
+					//push esi
 					mov esi, lpTextureData
 					add esi, eax
-					mov eax, [esi]
-					mov[edi], eax
+					mov al, [esi]
+					mov[edi], al
 					inc dwFillRate
-					pop esi
-					next18 : add edi, 4
-					add esi, 4
+					//pop esi
+				next18:
+					add edi, 1
+					//add esi, 1
 					dec ecx
 					jz next17
 					fld simd_z[4]
 					frndint
-					fistp zi[4]
-					mov eax, zi[4]
-					cmp eax, [esi]
+					/*fistp zi[4]
+					mov al, zi[4]
+					cmp al, [esi]
 					jge next19
-					mov[esi], eax
+					mov[esi], al*/
 					mov eax, dwTextureSize
 					fld simd_u[4]
 					frndint
@@ -6543,7 +6549,8 @@ void Draw_Bottom_Triangle_Texture(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D bot
 					cmp ui[4], 0
 					jge next5
 					mov ui[4], 0
-					next5:				cmp ui[4], eax
+				next5:
+					cmp ui[4], eax
 					jle next6
 					mov ui[4], eax
 					next6 : fld simd_v[4]
@@ -6555,29 +6562,31 @@ void Draw_Bottom_Triangle_Texture(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D bot
 					next7 : cmp vi[4], eax
 					jle next8
 					mov vi[4], eax
-					next8 : mov eax, vi[4]
+				next8:
+					mov eax, vi[4]
 					mul dwShift
 					shr eax, 2
 					add eax, ui[4]
 					shl eax, 2
-					push esi
+					//push esi
 					mov esi, lpTextureData
 					add esi, eax
-					mov eax, [esi]
-					mov[edi], eax
+					mov al, [esi]
+					mov[edi], al
 					inc dwFillRate
-					pop esi
-					next19 : add edi, 4
-					add esi, 4
+					//pop esi
+				next19:
+					add edi, 1
+					//add esi, 1
 					dec ecx
 					jz next17
 					fld simd_z[8]
 					frndint
-					fistp zi[8]
-					mov eax, zi[8]
-					cmp eax, [esi]
+					/*fistp zi[8]
+					mov al, zi[8]
+					cmp al, [esi]
 					jge next20
-					mov[esi], eax
+					mov[esi], al*/
 					mov eax, dwTextureSize
 					fld simd_u[8]
 					frndint
@@ -6585,41 +6594,46 @@ void Draw_Bottom_Triangle_Texture(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D bot
 					cmp ui[8], 0
 					jge next9
 					mov ui[8], 0
-					next9:				cmp ui[8], eax
+				next9:
+					cmp ui[8], eax
 					jle next10
 					mov ui[8], eax
-					next10 : fld simd_v[8]
+				next10:
+					fld simd_v[8]
 					frndint
 					fistp vi[8]
 					cmp vi[8], 0
 					jge next11
 					mov vi[8], 0
-					next11 : cmp vi[8], eax
+				next11:
+					cmp vi[8], eax
 					jle next12
 					mov vi[8], eax
-					next12 : mov eax, vi[8]
+				next12:
+					mov eax, vi[8]
 					mul dwShift
 					shr eax, 2
 					add eax, ui[8]
 					shl eax, 2
-					push esi
+					//push esi
 					mov esi, lpTextureData
 					add esi, eax
-					mov eax, [esi]
-					mov[edi], eax
+					mov al, [esi]
+					mov[edi], al
 					inc dwFillRate
-					pop esi
-					next20 : add edi, 4
-					add esi, 4
+					//pop esi
+				next20:
+					add edi, 1
+					//add esi, 1
 					dec ecx
 					jz next17
 					fld simd_z[12]
 					frndint
-					fistp zi[12]
-					mov eax, zi[12]
-					cmp eax, [esi]
+					/*fistp zi[12]
+					mov al, zi[12]
+					cmp al, [esi]
 					jge next21
-					mov[esi], eax
+					mov[esi], al*/
 					mov eax, dwTextureSize
 					fld simd_u[12]
 					frndint
@@ -6627,32 +6641,37 @@ void Draw_Bottom_Triangle_Texture(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D bot
 					cmp ui[12], 0
 					jge next13
 					mov ui[12], 0
-					next13:				cmp ui[12], eax
+				next13:
+					cmp ui[12], eax
 					jle next14
 					mov ui[12], eax
-					next14 : fld simd_v[12]
+				next14:
+					fld simd_v[12]
 					frndint
 					fistp vi[12]
 					cmp vi[12], 0
 					jge next15
 					mov vi[12], 0
-					next15 : cmp vi[12], eax
+				next15:
+					cmp vi[12], eax
 					jle next16
 					mov vi[12], eax
-					next16 : mov eax, vi[12]
+				next16:
+					mov eax, vi[12]
 					mul dwShift
 					shr eax, 2
 					add eax, ui[12]
 					shl eax, 2
-					push esi
+					//push esi
 					mov esi, lpTextureData
 					add esi, eax
-					mov eax, [esi]
-					mov[edi], eax
+					mov al, [esi]
+					mov[edi], al
 					inc dwFillRate
-					pop esi
-					next21 : add edi, 4
-					add esi, 4
+					//pop esi
+				next21:
+					add edi, 1
+					//add esi, 1
 					dec ecx
 					jnz loop1
 					next17 : nop
@@ -6661,7 +6680,7 @@ void Draw_Bottom_Triangle_Texture(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D bot
 				m_iSkipRate += (dwSize - dwFillRate);
 			}
 			lpData += m_iWidth;
-			lpZBufferData += m_iWidth;
+			//lpZBufferData += m_iWidth;
 		}
 
 		oldxmin = xmin;
@@ -6696,7 +6715,7 @@ void Draw_Bottom_Triangle_Texture_Color(_VERTEX3D top, _VERTEX3D middle, _VERTEX
 	}
 
 	LPBYTE lpData = m_lpData;
-	LPBYTE lpZBufferData = m_lpZBuffer;
+	//LPBYTE lpZBufferData = m_lpZBuffer;
 	DWORD dwTotalOffset = 0;
 	if (maxY <= m_iHeight - 1)
 	{
@@ -6707,7 +6726,7 @@ void Draw_Bottom_Triangle_Texture_Color(_VERTEX3D top, _VERTEX3D middle, _VERTEX
 		dwTotalOffset = 0;
 	}
 	lpData += dwTotalOffset;
-	lpZBufferData += dwTotalOffset;
+	//lpZBufferData += dwTotalOffset;
 
 	float xm, xb;
 	long x, xmin, xmax, oldxmin, oldxmax;
@@ -6788,7 +6807,7 @@ void Draw_Bottom_Triangle_Texture_Color(_VERTEX3D top, _VERTEX3D middle, _VERTEX
 		{
 			DWORD dwSize = xmax - xmin + 1;
 			LPBYTE lpTempData = lpData;
-			LPBYTE lpTempZBufferData = lpZBufferData;
+			//LPBYTE lpTempZBufferData = lpZBufferData;
 
 			if ((xmin <= m_iWidth - 1) && (xmax >= 0))
 			{
@@ -6810,7 +6829,7 @@ void Draw_Bottom_Triangle_Texture_Color(_VERTEX3D top, _VERTEX3D middle, _VERTEX
 				else
 				{
 					lpTempData += xmin;
-					lpTempZBufferData += xmin;
+					//lpTempZBufferData += xmin;
 				}
 
 				if (xmax > m_iWidth - 1)
@@ -6860,13 +6879,13 @@ void Draw_Bottom_Triangle_Texture_Color(_VERTEX3D top, _VERTEX3D middle, _VERTEX
 				__m128 simd_dz = { z_dz4, z_dz4, z_dz4, z_dz4 };
 				long ui[4] = { 0, 0, 0, 0 };
 				long vi[4] = { 0, 0, 0, 0 };
-				long zi[4] = { 0, 0, 0, 0 };
+				//long zi[4] = { 0, 0, 0, 0 };
 
 				long dwFillRate = 0;
 				long red, green, blue;
 				_asm {
 					mov edi, lpTempData
-					mov esi, lpTempZBufferData
+					//mov esi, lpTempZBufferData
 					mov ecx, dwSize
 					movaps xmm0, simd_u
 					movaps xmm1, simd_v
@@ -6884,11 +6903,11 @@ void Draw_Bottom_Triangle_Texture_Color(_VERTEX3D top, _VERTEX3D middle, _VERTEX
 					addps xmm2, simd_dz
 					fld simd_z[0]
 					frndint
-					fistp zi[0]
-					mov eax, zi[0]
-					cmp eax, [esi]
-					jge next18
-					mov[esi], eax
+					//fistp zi[0]
+					//mov eax, zi[0]
+					//cmp eax, [esi]
+					//jge next18
+					//mov[esi], eax
 					mov eax, dwTextureSize
 					fld simd_u[0]
 					frndint
@@ -6950,11 +6969,11 @@ void Draw_Bottom_Triangle_Texture_Color(_VERTEX3D top, _VERTEX3D middle, _VERTEX
 					jz next17
 					fld simd_z[4]
 					frndint
-					fistp zi[4]
-					mov eax, zi[4]
-					cmp eax, [esi]
-					jge next19
-					mov[esi], eax
+					//fistp zi[4]
+					//mov eax, zi[4]
+					//cmp eax, [esi]
+					//jge next19
+					//mov[esi], eax
 					mov eax, dwTextureSize
 					fld simd_u[4]
 					frndint
@@ -7016,11 +7035,11 @@ void Draw_Bottom_Triangle_Texture_Color(_VERTEX3D top, _VERTEX3D middle, _VERTEX
 					jz next17
 					fld simd_z[8]
 					frndint
-					fistp zi[8]
-					mov eax, zi[8]
-					cmp eax, [esi]
-					jge next20
-					mov[esi], eax
+					//fistp zi[8]
+					//mov eax, zi[8]
+					//cmp eax, [esi]
+					//jge next20
+					//mov[esi], eax
 					mov eax, dwTextureSize
 					fld simd_u[8]
 					frndint
@@ -7082,10 +7101,10 @@ void Draw_Bottom_Triangle_Texture_Color(_VERTEX3D top, _VERTEX3D middle, _VERTEX
 					jz next17
 					fld simd_z[12]
 					frndint
-					fistp zi[12]
-					mov eax, zi[12]
-					cmp eax, [esi]
-					jge next21
+					//fistp zi[12]
+					//mov eax, zi[12]
+					//cmp eax, [esi]
+					//jge next21
 					mov[esi], eax
 					mov eax, dwTextureSize
 					fld simd_u[12]
@@ -7152,7 +7171,7 @@ void Draw_Bottom_Triangle_Texture_Color(_VERTEX3D top, _VERTEX3D middle, _VERTEX
 				m_iSkipRate += (dwSize - dwFillRate);
 			}
 			lpData += m_iWidth;
-			lpZBufferData += m_iWidth;
+			//lpZBufferData += m_iWidth;
 		}
 
 		oldxmin = xmin;
@@ -7196,7 +7215,7 @@ void Draw_Bottom_Triangle_Texture_Gouraud(_VERTEX3D top, _VERTEX3D middle, _VERT
 	}
 
 	LPBYTE lpData = m_lpData;
-	LPBYTE lpZBufferData = m_lpZBuffer;
+	//LPBYTE lpZBufferData = m_lpZBuffer;
 	DWORD dwTotalOffset = 0;
 	if (maxY <= m_iHeight - 1)
 	{
@@ -7207,7 +7226,7 @@ void Draw_Bottom_Triangle_Texture_Gouraud(_VERTEX3D top, _VERTEX3D middle, _VERT
 		dwTotalOffset = 0;
 	}
 	lpData += dwTotalOffset;
-	lpZBufferData += dwTotalOffset;
+	//lpZBufferData += dwTotalOffset;
 
 	float cxm, cxb, red1, green1, blue1, red2, green2, blue2;
 	float xm, xb, reds, greens, blues, rede, greene, bluee;
@@ -7335,7 +7354,7 @@ void Draw_Bottom_Triangle_Texture_Gouraud(_VERTEX3D top, _VERTEX3D middle, _VERT
 		{
 			DWORD dwSize = xmax - xmin + 1;
 			LPBYTE lpTempData = lpData;
-			LPBYTE lpTempZBufferData = lpZBufferData;
+			//LPBYTE lpTempZBufferData = lpZBufferData;
 
 			if ((xmin <= m_iWidth - 1) && (xmax >= 0))
 			{
@@ -7366,7 +7385,7 @@ void Draw_Bottom_Triangle_Texture_Gouraud(_VERTEX3D top, _VERTEX3D middle, _VERT
 				else
 				{
 					lpTempData += xmin;
-					lpTempZBufferData += xmin;
+					//lpTempZBufferData += xmin;
 				}
 
 				if (xmax > m_iWidth - 1)
@@ -7446,13 +7465,13 @@ void Draw_Bottom_Triangle_Texture_Gouraud(_VERTEX3D top, _VERTEX3D middle, _VERT
 				__m128 simd_db = { b_db4, b_db4, b_db4, b_db4 };
 				long ui[4] = { 0, 0, 0, 0 };
 				long vi[4] = { 0, 0, 0, 0 };
-				long zi[4] = { 0, 0, 0, 0 };
+				//long zi[4] = { 0, 0, 0, 0 };
 
 				long dwFillRate = 0;
 				long red, green, blue;
 				_asm {
 					mov edi, lpTempData
-					mov esi, lpTempZBufferData
+					//mov esi, lpTempZBufferData
 					mov ecx, dwSize
 					movaps xmm0, simd_u
 					movaps xmm1, simd_v
@@ -7492,11 +7511,11 @@ void Draw_Bottom_Triangle_Texture_Gouraud(_VERTEX3D top, _VERTEX3D middle, _VERT
 					movaps simd_tb, xmm5
 					fld simd_z[0]
 					frndint
-					fistp zi[0]
-					mov eax, zi[0]
-					cmp eax, [esi]
-					jge next18
-					mov[esi], eax
+					//fistp zi[0]
+					//mov eax, zi[0]
+					//cmp eax, [esi]
+					//jge next18
+					//mov[esi], eax
 					mov eax, dwTextureSize
 					fld simd_u[0]
 					frndint
@@ -7504,7 +7523,8 @@ void Draw_Bottom_Triangle_Texture_Gouraud(_VERTEX3D top, _VERTEX3D middle, _VERT
 					cmp ui[0], 0
 					jge next1
 					mov ui[0], 0
-					next1:				cmp ui[0], eax
+				next1:
+					cmp ui[0], eax
 					jle next2
 					mov ui[0], eax
 					next2 : fld simd_v[0]
@@ -7521,7 +7541,7 @@ void Draw_Bottom_Triangle_Texture_Gouraud(_VERTEX3D top, _VERTEX3D middle, _VERT
 					shr eax, 2
 					add eax, ui[0]
 					shl eax, 2
-					push esi
+					//push esi
 					mov esi, lpTextureData
 					add esi, eax
 					mov eax, [esi]
@@ -7533,10 +7553,12 @@ void Draw_Bottom_Triangle_Texture_Gouraud(_VERTEX3D top, _VERTEX3D middle, _VERT
 					cmp blue, 0
 					jge next22
 					mov blue, 0
-					next22:				cmp blue, 255
+				next22:
+					cmp blue, 255
 					jle next23
 					mov blue, 255
-					next23 : mov eax, [esi]
+				next23:
+					mov eax, [esi]
 					and eax, 0x0000FF00
 					shr eax, 8
 					mov green, eax
@@ -7549,7 +7571,8 @@ void Draw_Bottom_Triangle_Texture_Gouraud(_VERTEX3D top, _VERTEX3D middle, _VERT
 					next24:				cmp green, 255
 					jle next25
 					mov green, 255
-					next25 : mov eax, [esi]
+				next25:
+					mov eax, [esi]
 					and eax, 0x00FF0000
 					shr eax, 16
 					mov red, eax
@@ -7569,18 +7592,19 @@ void Draw_Bottom_Triangle_Texture_Gouraud(_VERTEX3D top, _VERTEX3D middle, _VERT
 					or eax, blue
 					mov[edi], eax
 					inc dwFillRate
-					pop esi
-					next18 : add edi, 4
-					add esi, 4
+					//pop esi
+				next18:
+					add edi, 1
+					//add esi, 1
 					dec ecx
 					jz next17
 					fld simd_z[4]
 					frndint
-					fistp zi[4]
-					mov eax, zi[4]
-					cmp eax, [esi]
-					jge next19
-					mov[esi], eax
+					//fistp zi[4]
+					//mov eax, zi[4]
+					//cmp eax, [esi]
+					//jge next19
+					//mov[esi], eax
 					mov eax, dwTextureSize
 					fld simd_u[4]
 					frndint
@@ -7605,7 +7629,7 @@ void Draw_Bottom_Triangle_Texture_Gouraud(_VERTEX3D top, _VERTEX3D middle, _VERT
 					shr eax, 2
 					add eax, ui[4]
 					shl eax, 2
-					push esi
+					//push esi
 					mov esi, lpTextureData
 					add esi, eax
 					mov eax, [esi]
@@ -7653,18 +7677,19 @@ void Draw_Bottom_Triangle_Texture_Gouraud(_VERTEX3D top, _VERTEX3D middle, _VERT
 					or eax, blue
 					mov[edi], eax
 					inc dwFillRate
-					pop esi
-					next19 : add edi, 4
-					add esi, 4
+					//pop esi
+				next19:
+					add edi, 1
+					add esi, 1
 					dec ecx
 					jz next17
 					fld simd_z[8]
 					frndint
-					fistp zi[8]
-					mov eax, zi[8]
-					cmp eax, [esi]
-					jge next20
-					mov[esi], eax
+					//fistp zi[8]
+					//mov eax, zi[8]
+					//cmp eax, [esi]
+					//jge next20
+					//mov[esi], eax
 					mov eax, dwTextureSize
 					fld simd_u[8]
 					frndint
@@ -7672,7 +7697,8 @@ void Draw_Bottom_Triangle_Texture_Gouraud(_VERTEX3D top, _VERTEX3D middle, _VERT
 					cmp ui[8], 0
 					jge next9
 					mov ui[8], 0
-					next9:				cmp ui[8], eax
+				next9:
+					cmp ui[8], eax
 					jle next10
 					mov ui[8], eax
 					next10 : fld simd_v[8]
@@ -7689,7 +7715,7 @@ void Draw_Bottom_Triangle_Texture_Gouraud(_VERTEX3D top, _VERTEX3D middle, _VERT
 					shr eax, 2
 					add eax, ui[8]
 					shl eax, 2
-					push esi
+					//push esi
 					mov esi, lpTextureData
 					add esi, eax
 					mov eax, [esi]
@@ -7704,7 +7730,8 @@ void Draw_Bottom_Triangle_Texture_Gouraud(_VERTEX3D top, _VERTEX3D middle, _VERT
 					next34:				cmp blue, 255
 					jle next35
 					mov blue, 255
-					next35 : mov eax, [esi]
+				next35:
+					mov eax, [esi]
 					and eax, 0x0000FF00
 					shr eax, 8
 					mov green, eax
@@ -7737,18 +7764,19 @@ void Draw_Bottom_Triangle_Texture_Gouraud(_VERTEX3D top, _VERTEX3D middle, _VERT
 					or eax, blue
 					mov[edi], eax
 					inc dwFillRate
-					pop esi
-					next20 : add edi, 4
-					add esi, 4
+					//pop esi
+				next20:
+					add edi, 1
+					//add esi, 1
 					dec ecx
 					jz next17
 					fld simd_z[12]
 					frndint
-					fistp zi[12]
-					mov eax, zi[12]
-					cmp eax, [esi]
-					jge next21
-					mov[esi], eax
+					//fistp zi[12]
+					//mov eax, zi[12]
+					//cmp eax, [esi]
+					//jge next21
+					//mov[esi], eax
 					mov eax, dwTextureSize
 					fld simd_u[12]
 					frndint
@@ -7756,7 +7784,8 @@ void Draw_Bottom_Triangle_Texture_Gouraud(_VERTEX3D top, _VERTEX3D middle, _VERT
 					cmp ui[12], 0
 					jge next13
 					mov ui[12], 0
-					next13:				cmp ui[12], eax
+				next13:
+					cmp ui[12], eax
 					jle next14
 					mov ui[12], eax
 					next14 : fld simd_v[12]
@@ -7773,7 +7802,7 @@ void Draw_Bottom_Triangle_Texture_Gouraud(_VERTEX3D top, _VERTEX3D middle, _VERT
 					shr eax, 2
 					add eax, ui[12]
 					shl eax, 2
-					push esi
+					//push esi
 					mov esi, lpTextureData
 					add esi, eax
 					mov eax, [esi]
@@ -7821,9 +7850,10 @@ void Draw_Bottom_Triangle_Texture_Gouraud(_VERTEX3D top, _VERTEX3D middle, _VERT
 					or eax, blue
 					mov[edi], eax
 					inc dwFillRate
-					pop esi
-					next21 : add edi, 4
-					add esi, 4
+					//pop esi
+				next21:
+					add edi, 1
+					add esi, 1
 					dec ecx
 					jnz loop1
 					next17 : nop
@@ -7832,7 +7862,7 @@ void Draw_Bottom_Triangle_Texture_Gouraud(_VERTEX3D top, _VERTEX3D middle, _VERT
 				m_iSkipRate += (dwSize - dwFillRate);
 			}
 			lpData += m_iWidth;
-			lpZBufferData += m_iWidth;
+			//lpZBufferData += m_iWidth;
 		}
 
 		oldxmin = xmin;
@@ -7863,7 +7893,7 @@ void Draw_Top_Triangle_Color(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D bottom)
 	long topX = (long)top.p.x;
 
 	LPBYTE lpData = m_lpData;
-	LPBYTE lpZBufferData = m_lpZBuffer;
+	//LPBYTE lpZBufferData = m_lpZBuffer;
 	DWORD dwTotalOffset = 0;
 	if (minY >= 0)
 	{
@@ -7874,7 +7904,7 @@ void Draw_Top_Triangle_Color(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D bottom)
 		dwTotalOffset = (m_iHeight - 1) * m_iWidth;
 	}
 	lpData += dwTotalOffset;
-	lpZBufferData += dwTotalOffset;
+	//lpZBufferData += dwTotalOffset;
 
 	if ((minY > m_iHeight - 1) || (maxY < 0))
 	{
@@ -7920,7 +7950,7 @@ void Draw_Top_Triangle_Color(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D bottom)
 		{
 			DWORD dwSize = xmax - xmin + 1;
 			LPBYTE lpTempData = lpData;
-			LPBYTE lpTempZBufferData = lpZBufferData;
+			//LPBYTE lpTempZBufferData = lpZBufferData;
 
 			if ((xmin <= m_iWidth - 1) && (xmax >= 0))
 			{
@@ -7936,7 +7966,7 @@ void Draw_Top_Triangle_Color(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D bottom)
 				else
 				{
 					lpTempData += xmin;
-					lpTempZBufferData += xmin;
+					//lpTempZBufferData += xmin;
 				}
 
 				if (xmax > m_iWidth - 1)
@@ -7958,24 +7988,24 @@ void Draw_Top_Triangle_Color(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D bottom)
 				byte zi;
 				__asm {
 					mov edi, lpTempData
-					mov esi, lpTempZBufferData
+					//mov esi, lpTempZBufferData
 					mov ecx, dwSize
 					mov bl, color
 					loop1 : fld1
 					fdiv z
 					frndint
 					fistp zi
-					mov al, zi
-					cmp al, [esi]
-					jge next1
-					mov[esi], al
+					//mov al, zi
+					//cmp al, [esi]
+					//jge next1
+					//mov[esi], al
 					mov[edi], bl
 					inc dwFillRate
 					next1 : fld z
 					fadd dz
 					fstp z
 					add edi, 1
-					add esi, 1
+					//add esi, 1
 					dec ecx
 					jnz loop1
 				}
@@ -7983,7 +8013,7 @@ void Draw_Top_Triangle_Color(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D bottom)
 				m_iSkipRate += (dwSize - dwFillRate);
 			}
 			lpData -= m_iWidth;
-			lpZBufferData -= m_iWidth;
+			//lpZBufferData -= m_iWidth;
 		}
 
 		oldxmin = xmin;
@@ -8006,7 +8036,7 @@ void Draw_Top_Triangle_Gouraud(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D bottom
 	long topX = (long)top.p.x;
 
 	LPBYTE lpData = m_lpData;
-	LPBYTE lpZBufferData = m_lpZBuffer;
+	//LPBYTE lpZBufferData = m_lpZBuffer;
 	DWORD dwTotalOffset = 0;
 	if (minY >= 0)
 	{
@@ -8017,7 +8047,7 @@ void Draw_Top_Triangle_Gouraud(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D bottom
 		dwTotalOffset = (m_iHeight - 1) * m_iWidth;
 	}
 	lpData += dwTotalOffset;
-	lpZBufferData += dwTotalOffset;
+	//lpZBufferData += dwTotalOffset;
 
 	float cxm, cxb, red1, green1, blue1, red2, green2, blue2;
 	float xm, xb, reds, greens, blues, rede, greene, bluee;
@@ -8112,7 +8142,7 @@ void Draw_Top_Triangle_Gouraud(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D bottom
 		{
 			DWORD dwSize = xmax - xmin + 1;
 			LPBYTE lpTempData = lpData;
-			LPBYTE lpTempZBufferData = lpZBufferData;
+			//LPBYTE lpTempZBufferData = lpZBufferData;
 
 			if ((xmin <= m_iWidth - 1) && (xmax >= 0))
 			{
@@ -8137,7 +8167,7 @@ void Draw_Top_Triangle_Gouraud(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D bottom
 				else
 				{
 					lpTempData += xmin;
-					lpTempZBufferData += xmin;
+					//lpTempZBufferData += xmin;
 				}
 
 				if (xmax > m_iWidth - 1)
@@ -8189,12 +8219,12 @@ void Draw_Top_Triangle_Gouraud(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D bottom
 				long ri[4] = { 0, 0, 0, 0 };
 				long gi[4] = { 0, 0, 0, 0 };
 				long bi[4] = { 0, 0, 0, 0 };
-				long zi[4] = { 0, 0, 0, 0 };
+				//long zi[4] = { 0, 0, 0, 0 };
 
 				long dwFillRate = 0;
 				_asm {
 					mov edi, lpTempData
-					mov esi, lpTempZBufferData
+					//mov esi, lpTempZBufferData
 					mov ecx, dwSize
 					movaps xmm0, simd_r
 					movaps xmm1, simd_g
@@ -8217,11 +8247,11 @@ void Draw_Top_Triangle_Gouraud(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D bottom
 					addps xmm3, simd_dz
 					fld simd_z[0]
 					frndint
-					fistp zi[0]
-					mov eax, zi[0]
-					cmp eax, [esi]
-					jge next26
-					mov[esi], eax
+					//fistp zi[0]
+					//mov eax, zi[0]
+					//cmp eax, [esi]
+					//jge next26
+					//mov[esi], eax
 					fld simd_r[0]
 					frndint
 					fistp ri[0]
@@ -8262,18 +8292,19 @@ void Draw_Top_Triangle_Gouraud(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D bottom
 					jz next25
 					fld simd_z[4]
 					frndint
-					fistp zi[4]
-					mov eax, zi[4]
-					cmp eax, [esi]
-					jge next27
-					mov[esi], eax
+					//fistp zi[4]
+					//mov eax, zi[4]
+					//cmp eax, [esi]
+					//jge next27
+					//mov[esi], eax
 					fld simd_r[4]
 					frndint
 					fistp ri[4]
 					cmp ri[4], 0
 					jge next7
 					mov ri[4], 0
-					next7:				cmp ri[4], 255
+				next7:
+					cmp ri[4], 255
 					jle next8
 					mov ri[4], 255
 					next8 : fld simd_g[4]
@@ -8307,11 +8338,11 @@ void Draw_Top_Triangle_Gouraud(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D bottom
 					jz next25
 					fld simd_z[8]
 					frndint
-					fistp zi[8]
-					mov eax, zi[8]
-					cmp eax, [esi]
-					jge next28
-					mov[esi], eax
+					//fistp zi[8]
+					//mov eax, zi[8]
+					//cmp eax, [esi]
+					//jge next28
+					//mov[esi], eax
 					fld simd_r[8]
 					frndint
 					fistp ri[8]
@@ -8352,18 +8383,19 @@ void Draw_Top_Triangle_Gouraud(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D bottom
 					jz next25
 					fld simd_z[12]
 					frndint
-					fistp zi[12]
-					mov eax, zi[12]
-					cmp eax, [esi]
-					jge next29
-					mov[esi], eax
+					//fistp zi[12]
+					//mov eax, zi[12]
+					//cmp eax, [esi]
+					//jge next29
+					//mov[esi], eax
 					fld simd_r[12]
 					frndint
 					fistp ri[12]
 					cmp ri[12], 0
 					jge next19
 					mov ri[12], 0
-					next19:				cmp ri[12], 255
+				next19:
+					cmp ri[12], 255
 					jle next20
 					mov ri[12], 255
 					next20 : fld simd_g[12]
@@ -8401,7 +8433,7 @@ void Draw_Top_Triangle_Gouraud(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D bottom
 				m_iSkipRate += (dwSize - dwFillRate);
 			}
 			lpData -= m_iWidth;
-			lpZBufferData -= m_iWidth;
+			//lpZBufferData -= m_iWidth;
 		}
 
 		oldxmin = xmin;
@@ -8430,7 +8462,7 @@ void Draw_Top_Triangle_Texture(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D bottom
 	long topX = (long)top.p.x;
 
 	LPBYTE lpData = m_lpData;
-	LPBYTE lpZBufferData = m_lpZBuffer;
+	//LPBYTE lpZBufferData = m_lpZBuffer;
 	DWORD dwTotalOffset = 0;
 	if (minY >= 0)
 	{
@@ -8441,7 +8473,7 @@ void Draw_Top_Triangle_Texture(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D bottom
 		dwTotalOffset = (m_iHeight - 1) * m_iWidth;
 	}
 	lpData += dwTotalOffset;
-	lpZBufferData += dwTotalOffset;
+	//lpZBufferData += dwTotalOffset;
 
 	float xm, xb;
 	long x, xmin, xmax, oldxmin, oldxmax;
@@ -8512,7 +8544,7 @@ void Draw_Top_Triangle_Texture(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D bottom
 		{
 			DWORD dwSize = xmax - xmin + 1;
 			LPBYTE lpTempData = lpData;
-			LPBYTE lpTempZBufferData = lpZBufferData;
+			//LPBYTE lpTempZBufferData = lpZBufferData;
 
 			if ((xmin <= m_iWidth - 1) && (xmax >= 0))
 			{
@@ -8534,7 +8566,7 @@ void Draw_Top_Triangle_Texture(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D bottom
 				else
 				{
 					lpTempData += xmin;
-					lpTempZBufferData += xmin;
+					//lpTempZBufferData += xmin;
 				}
 
 				if (xmax > m_iWidth - 1)
@@ -8580,12 +8612,12 @@ void Draw_Top_Triangle_Texture(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D bottom
 				__m128 simd_dz = { z_dz4, z_dz4, z_dz4, z_dz4 };
 				long ui[4] = { 0, 0, 0, 0 };
 				long vi[4] = { 0, 0, 0, 0 };
-				long zi[4] = { 0, 0, 0, 0 };
+				//long zi[4] = { 0, 0, 0, 0 };
 
 				long dwFillRate = 0;
 				_asm {
 					mov edi, lpTempData
-					mov esi, lpTempZBufferData
+					//mov esi, lpTempZBufferData
 					mov ecx, dwSize
 					movaps xmm0, simd_u
 					movaps xmm1, simd_v
@@ -8603,11 +8635,11 @@ void Draw_Top_Triangle_Texture(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D bottom
 					addps xmm2, simd_dz
 					fld simd_z[0]
 					frndint
-					fistp zi[0]
-					mov eax, zi[0]
-					cmp eax, [esi]
-					jge next18
-					mov[esi], eax
+					//fistp zi[0]
+					//mov eax, zi[0]
+					//cmp eax, [esi]
+					//jge next18
+					//mov[esi], eax
 					mov eax, dwTextureSize
 					fld simd_u[0]
 					frndint
@@ -8615,7 +8647,8 @@ void Draw_Top_Triangle_Texture(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D bottom
 					cmp ui[0], 0
 					jge next1
 					mov ui[0], 0
-					next1:				cmp ui[0], eax
+				next1:
+					cmp ui[0], eax
 					jle next2
 					mov ui[0], eax
 					next2 : fld simd_v[0]
@@ -8632,24 +8665,25 @@ void Draw_Top_Triangle_Texture(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D bottom
 					shr eax, 2
 					add eax, ui[0]
 					shl eax, 2
-					push esi
+					//push esi
 					mov esi, lpTextureData
 					add esi, eax
 					mov eax, [esi]
 					mov[edi], eax
 					inc dwFillRate
-					pop esi
-					next18 : add edi, 4
-					add esi, 4
+					//pop esi
+				next18:
+					add edi, 1
+					//add esi, 1
 					dec ecx
 					jz next17
 					fld simd_z[4]
 					frndint
-					fistp zi[4]
-					mov eax, zi[4]
-					cmp eax, [esi]
-					jge next19
-					mov[esi], eax
+					//fistp zi[4]
+					//mov eax, zi[4]
+					//cmp eax, [esi]
+					//jge next19
+					//mov[esi], eax
 					mov eax, dwTextureSize
 					fld simd_u[4]
 					frndint
@@ -8657,7 +8691,8 @@ void Draw_Top_Triangle_Texture(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D bottom
 					cmp ui[4], 0
 					jge next5
 					mov ui[4], 0
-					next5:				cmp ui[4], eax
+				next5:
+					cmp ui[4], eax
 					jle next6
 					mov ui[4], eax
 					next6 : fld simd_v[4]
@@ -8674,24 +8709,25 @@ void Draw_Top_Triangle_Texture(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D bottom
 					shr eax, 2
 					add eax, ui[4]
 					shl eax, 2
-					push esi
+					//push esi
 					mov esi, lpTextureData
 					add esi, eax
 					mov eax, [esi]
 					mov[edi], eax
 					inc dwFillRate
-					pop esi
-					next19 : add edi, 4
-					add esi, 4
+					//pop esi
+				next19:
+					add edi, 1
+					//add esi, 1
 					dec ecx
 					jz next17
 					fld simd_z[8]
 					frndint
-					fistp zi[8]
-					mov eax, zi[8]
-					cmp eax, [esi]
-					jge next20
-					mov[esi], eax
+					//fistp zi[8]
+					//mov eax, zi[8]
+					//cmp eax, [esi]
+					//jge next20
+					//mov[esi], eax
 					mov eax, dwTextureSize
 					fld simd_u[8]
 					frndint
@@ -8699,7 +8735,8 @@ void Draw_Top_Triangle_Texture(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D bottom
 					cmp ui[8], 0
 					jge next9
 					mov ui[8], 0
-					next9:				cmp ui[8], eax
+				next9:
+					cmp ui[8], eax
 					jle next10
 					mov ui[8], eax
 					next10 : fld simd_v[8]
@@ -8716,24 +8753,25 @@ void Draw_Top_Triangle_Texture(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D bottom
 					shr eax, 2
 					add eax, ui[8]
 					shl eax, 2
-					push esi
+					//push esi
 					mov esi, lpTextureData
 					add esi, eax
 					mov eax, [esi]
 					mov[edi], eax
 					inc dwFillRate
-					pop esi
-					next20 : add edi, 4
-					add esi, 4
+					//pop esi
+				next20:
+					add edi, 1
+					//add esi, 1
 					dec ecx
 					jz next17
 					fld simd_z[12]
 					frndint
-					fistp zi[12]
-					mov eax, zi[12]
-					cmp eax, [esi]
-					jge next21
-					mov[esi], eax
+					//fistp zi[12]
+					//mov eax, zi[12]
+					//cmp eax, [esi]
+					//jge next21
+					//mov[esi], eax
 					mov eax, dwTextureSize
 					fld simd_u[12]
 					frndint
@@ -8741,7 +8779,8 @@ void Draw_Top_Triangle_Texture(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D bottom
 					cmp ui[12], 0
 					jge next13
 					mov ui[12], 0
-					next13:				cmp ui[12], eax
+				next13:
+					cmp ui[12], eax
 					jle next14
 					mov ui[12], eax
 					next14 : fld simd_v[12]
@@ -8758,15 +8797,16 @@ void Draw_Top_Triangle_Texture(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D bottom
 					shr eax, 2
 					add eax, ui[12]
 					shl eax, 2
-					push esi
+					//push esi
 					mov esi, lpTextureData
 					add esi, eax
 					mov eax, [esi]
 					mov[edi], eax
 					inc dwFillRate
-					pop esi
-					next21 : add edi, 4
-					add esi, 4
+					//pop esi
+				next21:
+					add edi, 1
+					//add esi, 1
 					dec ecx
 					jnz loop1
 					next17 : nop
@@ -8775,7 +8815,7 @@ void Draw_Top_Triangle_Texture(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D bottom
 				m_iSkipRate += (dwSize - dwFillRate);
 			}
 			lpData -= m_iWidth;
-			lpZBufferData -= m_iWidth;
+			//lpZBufferData -= m_iWidth;
 		}
 
 		oldxmin = xmin;
@@ -8806,7 +8846,7 @@ void Draw_Top_Triangle_Texture_Color(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D 
 	float f_blue = (float)_GetBValue(top.color) / 255.0f;
 
 	LPBYTE lpData = m_lpData;
-	LPBYTE lpZBufferData = m_lpZBuffer;
+	//LPBYTE lpZBufferData = m_lpZBuffer;
 	DWORD dwTotalOffset = 0;
 	if (minY >= 0)
 	{
@@ -8817,7 +8857,7 @@ void Draw_Top_Triangle_Texture_Color(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D 
 		dwTotalOffset = (m_iHeight - 1) * m_iWidth;
 	}
 	lpData += dwTotalOffset;
-	lpZBufferData += dwTotalOffset;
+	//lpZBufferData += dwTotalOffset;
 
 	float xm, xb;
 	long x, xmin, xmax, oldxmin, oldxmax;
@@ -8888,7 +8928,7 @@ void Draw_Top_Triangle_Texture_Color(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D 
 		{
 			DWORD dwSize = xmax - xmin + 1;
 			LPBYTE lpTempData = lpData;
-			LPBYTE lpTempZBufferData = lpZBufferData;
+			//LPBYTE lpTempZBufferData = lpZBufferData;
 
 			if ((xmin <= m_iWidth - 1) && (xmax >= 0))
 			{
@@ -8910,7 +8950,7 @@ void Draw_Top_Triangle_Texture_Color(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D 
 				else
 				{
 					lpTempData += xmin;
-					lpTempZBufferData += xmin;
+					//lpTempZBufferData += xmin;
 				}
 
 				if (xmax > m_iWidth - 1)
@@ -8960,13 +9000,13 @@ void Draw_Top_Triangle_Texture_Color(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D 
 				__m128 simd_dz = { z_dz4, z_dz4, z_dz4, z_dz4 };
 				long ui[4] = { 0, 0, 0, 0 };
 				long vi[4] = { 0, 0, 0, 0 };
-				long zi[4] = { 0, 0, 0, 0 };
+				//long zi[4] = { 0, 0, 0, 0 };
 
 				long dwFillRate = 0;
 				long red, green, blue;
 				_asm {
 					mov edi, lpTempData
-					mov esi, lpTempZBufferData
+					//mov esi, lpTempZBufferData
 					mov ecx, dwSize
 					movaps xmm0, simd_u
 					movaps xmm1, simd_v
@@ -8984,11 +9024,11 @@ void Draw_Top_Triangle_Texture_Color(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D 
 					addps xmm2, simd_dz
 					fld simd_z[0]
 					frndint
-					fistp zi[0]
-					mov eax, zi[0]
-					cmp eax, [esi]
-					jge next18
-					mov[esi], eax
+					//fistp zi[0]
+					//mov eax, zi[0]
+					//cmp eax, [esi]
+					//jge next18
+					//mov[esi], eax
 					mov eax, dwTextureSize
 					fld simd_u[0]
 					frndint
@@ -9013,7 +9053,7 @@ void Draw_Top_Triangle_Texture_Color(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D 
 					shr eax, 2
 					add eax, ui[0]
 					shl eax, 2
-					push esi
+					//push esi
 					mov esi, lpTextureData
 					add esi, eax
 					mov eax, [esi]
@@ -9043,18 +9083,18 @@ void Draw_Top_Triangle_Texture_Color(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D 
 					or eax, blue
 					mov[edi], eax
 					inc dwFillRate
-					pop esi
+					//pop esi
 					next18 : add edi, 4
-					add esi, 4
+					//add esi, 4
 					dec ecx
 					jz next17
 					fld simd_z[4]
 					frndint
-					fistp zi[4]
-					mov eax, zi[4]
-					cmp eax, [esi]
-					jge next19
-					mov[esi], eax
+					//fistp zi[4]
+					//mov eax, zi[4]
+					//cmp eax, [esi]
+					//jge next19
+					//mov[esi], eax
 					mov eax, dwTextureSize
 					fld simd_u[4]
 					frndint
@@ -9116,11 +9156,11 @@ void Draw_Top_Triangle_Texture_Color(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D 
 					jz next17
 					fld simd_z[8]
 					frndint
-					fistp zi[8]
-					mov eax, zi[8]
-					cmp eax, [esi]
-					jge next20
-					mov[esi], eax
+					//fistp zi[8]
+					//mov eax, zi[8]
+					//cmp eax, [esi]
+					//jge next20
+					//mov[esi], eax
 					mov eax, dwTextureSize
 					fld simd_u[8]
 					frndint
@@ -9128,7 +9168,8 @@ void Draw_Top_Triangle_Texture_Color(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D 
 					cmp ui[8], 0
 					jge next9
 					mov ui[8], 0
-					next9:				cmp ui[8], eax
+				next9:
+					cmp ui[8], eax
 					jle next10
 					mov ui[8], eax
 					next10 : fld simd_v[8]
@@ -9182,11 +9223,11 @@ void Draw_Top_Triangle_Texture_Color(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D 
 					jz next17
 					fld simd_z[12]
 					frndint
-					fistp zi[12]
-					mov eax, zi[12]
-					cmp eax, [esi]
-					jge next21
-					mov[esi], eax
+					//fistp zi[12]
+					//mov eax, zi[12]
+					//cmp eax, [esi]
+					//jge next21
+					//mov[esi], eax
 					mov eax, dwTextureSize
 					fld simd_u[12]
 					frndint
@@ -9252,7 +9293,7 @@ void Draw_Top_Triangle_Texture_Color(_VERTEX3D top, _VERTEX3D middle, _VERTEX3D 
 				m_iSkipRate += (dwSize - dwFillRate);
 			}
 			lpData -= m_iWidth;
-			lpZBufferData -= m_iWidth;
+			//lpZBufferData -= m_iWidth;
 		}
 
 		oldxmin = xmin;
@@ -9291,7 +9332,7 @@ void Draw_Top_Triangle_Texture_Gouraud(_VERTEX3D top, _VERTEX3D middle, _VERTEX3
 	float bblue = (float)_GetBValue(c3) / 255.0f;
 
 	LPBYTE lpData = m_lpData;
-	LPBYTE lpZBufferData = m_lpZBuffer;
+	//LPBYTE lpZBufferData = m_lpZBuffer;
 	DWORD dwTotalOffset = 0;
 	if (minY >= 0)
 	{
@@ -9302,7 +9343,7 @@ void Draw_Top_Triangle_Texture_Gouraud(_VERTEX3D top, _VERTEX3D middle, _VERTEX3
 		dwTotalOffset = (m_iHeight - 1) * m_iWidth;
 	}
 	lpData += dwTotalOffset;
-	lpZBufferData += dwTotalOffset;
+	//lpZBufferData += dwTotalOffset;
 
 	float cxm, cxb, red1, green1, blue1, red2, green2, blue2;
 	float xm, xb, reds, greens, blues, rede, greene, bluee;
@@ -9411,7 +9452,7 @@ void Draw_Top_Triangle_Texture_Gouraud(_VERTEX3D top, _VERTEX3D middle, _VERTEX3
 		{
 			DWORD dwSize = xmax - xmin + 1;
 			LPBYTE lpTempData = lpData;
-			LPBYTE lpTempZBufferData = lpZBufferData;
+			//LPBYTE lpTempZBufferData = lpZBufferData;
 
 			if ((xmin <= m_iWidth - 1) && (xmax >= 0))
 			{
@@ -9442,7 +9483,7 @@ void Draw_Top_Triangle_Texture_Gouraud(_VERTEX3D top, _VERTEX3D middle, _VERTEX3
 				else
 				{
 					lpTempData += xmin;
-					lpTempZBufferData += xmin;
+					//lpTempZBufferData += xmin;
 				}
 
 				if (xmax > m_iWidth - 1)
@@ -9522,13 +9563,13 @@ void Draw_Top_Triangle_Texture_Gouraud(_VERTEX3D top, _VERTEX3D middle, _VERTEX3
 				__m128 simd_db = { b_db4, b_db4, b_db4, b_db4 };
 				long ui[4] = { 0, 0, 0, 0 };
 				long vi[4] = { 0, 0, 0, 0 };
-				long zi[4] = { 0, 0, 0, 0 };
+				//long zi[4] = { 0, 0, 0, 0 };
 
 				long dwFillRate = 0;
 				long red, green, blue;
 				_asm {
 					mov edi, lpTempData
-					mov esi, lpTempZBufferData
+					//mov esi, lpTempZBufferData
 					mov ecx, dwSize
 					movaps xmm0, simd_u
 					movaps xmm1, simd_v
@@ -9568,11 +9609,11 @@ void Draw_Top_Triangle_Texture_Gouraud(_VERTEX3D top, _VERTEX3D middle, _VERTEX3
 					movaps simd_tb, xmm5
 					fld simd_z[0]
 					frndint
-					fistp zi[0]
-					mov eax, zi[0]
-					cmp eax, [esi]
-					jge next18
-					mov[esi], eax
+					//fistp zi[0]
+					//mov eax, zi[0]
+					//cmp eax, [esi]
+					//jge next18
+					//mov[esi], eax
 					mov eax, dwTextureSize
 					fld simd_u[0]
 					frndint
@@ -9652,11 +9693,11 @@ void Draw_Top_Triangle_Texture_Gouraud(_VERTEX3D top, _VERTEX3D middle, _VERTEX3
 					jz next17
 					fld simd_z[4]
 					frndint
-					fistp zi[4]
-					mov eax, zi[4]
-					cmp eax, [esi]
-					jge next19
-					mov[esi], eax
+					//fistp zi[4]
+					//mov eax, zi[4]
+					//cmp eax, [esi]
+					//jge next19
+					//mov[esi], eax
 					mov eax, dwTextureSize
 					fld simd_u[4]
 					frndint
@@ -9736,11 +9777,11 @@ void Draw_Top_Triangle_Texture_Gouraud(_VERTEX3D top, _VERTEX3D middle, _VERTEX3
 					jz next17
 					fld simd_z[8]
 					frndint
-					fistp zi[8]
-					mov eax, zi[8]
-					cmp eax, [esi]
-					jge next20
-					mov[esi], eax
+					//fistp zi[8]
+					//mov eax, zi[8]
+					//cmp eax, [esi]
+					//jge next20
+					//mov[esi], eax
 					mov eax, dwTextureSize
 					fld simd_u[8]
 					frndint
@@ -9820,11 +9861,11 @@ void Draw_Top_Triangle_Texture_Gouraud(_VERTEX3D top, _VERTEX3D middle, _VERTEX3
 					jz next17
 					fld simd_z[12]
 					frndint
-					fistp zi[12]
-					mov eax, zi[12]
-					cmp eax, [esi]
-					jge next21
-					mov[esi], eax
+					//fistp zi[12]
+					//mov eax, zi[12]
+					//cmp eax, [esi]
+					//jge next21
+					//mov[esi], eax
 					mov eax, dwTextureSize
 					fld simd_u[12]
 					frndint
@@ -9908,7 +9949,7 @@ void Draw_Top_Triangle_Texture_Gouraud(_VERTEX3D top, _VERTEX3D middle, _VERTEX3
 				m_iSkipRate += (dwSize - dwFillRate);
 			}
 			lpData -= m_iWidth;
-			lpZBufferData -= m_iWidth;
+			//lpZBufferData -= m_iWidth;
 		}
 
 		oldxmin = xmin;
@@ -10439,46 +10480,8766 @@ void RasterizeTriangle(LPTRIANGLE lpTriangle)
 
 void GameRender_old::DrawTriangleInProjectionSpace_B6253(x_DWORD* vertex1, x_DWORD* vertex2, x_DWORD* vertex3)//sub_B6253 - 297253
 {
+	PolyPoint point_a;
+	PolyPoint point_b;
+	PolyPoint point_c;
+
+	point_a.field_0 = vertex1[0];
+	point_a.field_4 = vertex1[1];
+	point_a.field_8 = vertex1[2];
+	point_a.field_C = vertex1[3];
+	point_a.field_10 = vertex1[4];
+
+	point_b.field_0 = vertex2[0];
+	point_b.field_4 = vertex2[1];
+	point_b.field_8 = vertex2[2];
+	point_b.field_C = vertex2[3];
+	point_b.field_10 = vertex2[4];
+
+	point_c.field_0 = vertex3[0];
+	point_c.field_4 = vertex3[1];
+	point_c.field_8 = vertex3[2];
+	point_c.field_C = vertex3[3];
+	point_c.field_10 = vertex3[4];
+
+	LOC_poly_screen = (unsigned char*)malloc(640*480*4);//poly_screen;
+	LOC_vec_map = x_DWORD_DE55C_ActTexture;//vec_map;
+	LOC_vec_screen = pdwScreenBuffer_351628;//vec_screen;
+	LOC_vec_screen_width = screenWidth_18062C;//vec_screen_width;
+	LOC_vec_window_width = screenWidth_18062C;//vec_window_width;
+	LOC_vec_window_height = screenHeight_180624;//vec_window_height;
+
+	vec_window_width = 0;
+
+	draw_gpoly(&point_a, &point_b, &point_c);
+
+	/*
 	TRIANGLE lpTriangle;
 	//lpTriangle->shadingMode = _SHADING_MODE_TEXTURE;
 	lpTriangle.shadingMode = _SHADING_MODE_TEXTURE;
 	//lpTriangle.shadingMode = _SHADING_MODE_NONE;
 	lpTriangle.p1.x = vertex1[0];
-	lpTriangle.p1.y = vertex1[1];
+	lpTriangle.p1.y = screenHeight_180624 - vertex1[1];
 	lpTriangle.p1.z = 1;
-	lpTriangle.t1.x = vertex1[2] / 8192;
-	lpTriangle.t1.y = vertex1[3] / 8192;
+	lpTriangle.t1.x = vertex1[2] / 512;
+	lpTriangle.t1.y = vertex1[3] / 512;
 
 	lpTriangle.p2.x = vertex2[0];
-	lpTriangle.p2.y = vertex2[1];
+	lpTriangle.p2.y = screenHeight_180624 - vertex2[1];
 	lpTriangle.p2.z = 1;
-	lpTriangle.t2.x = vertex2[2] / 8192;
-	lpTriangle.t2.y = vertex2[3] / 8192;
+	lpTriangle.t2.x = vertex2[2] / 512;
+	lpTriangle.t2.y = vertex2[3] / 512;
 
 	lpTriangle.p3.x = vertex3[0];
-	lpTriangle.p3.y = vertex3[1];
+	lpTriangle.p3.y = screenHeight_180624 - vertex3[1];
 	lpTriangle.p3.z = 1;
-	lpTriangle.t3.x = vertex3[2] / 8192;
-	lpTriangle.t3.y = vertex3[3] / 8192;
-
-	BYTE* textdata = (BYTE*)malloc(16*16+1000000);
-	memset(textdata,50, 16 * 16 + 1000000);
-
-	/*lpTriangle.p1.x = 0;
-	lpTriangle.p1.y = 0;
-	lpTriangle.p2.x = 100;
-	lpTriangle.p2.y = 0;
-	lpTriangle.p3.x = 0;
-	lpTriangle.p3.y = 100;*/
+	lpTriangle.t3.x = vertex3[2] / 512;
+	lpTriangle.t3.y = vertex3[3] / 512;
 
 	_TEXTUREINFO texture;
 	texture.dwTextureOffset = 0;
 	texture.dwPitch = 16;
 	texture.dwSize = 16;
 	texture.filter = _TEXTURE_FILTERING_NONE;
-	texture.lpTexture = textdata;
+	texture.lpTexture = x_DWORD_DE55C_ActTexture;
 	lpTriangle.texture = texture;
 
-	RasterizeTriangle(&lpTriangle);
-	free(textdata);
+	RasterizeTriangle(&lpTriangle);*/
 }
+/*
+void GameRender_old::DrawTriangleInProjectionSpace_B6253_asm(x_DWORD* arg_0, x_DWORD* arg_4, x_DWORD* arg_8)//sub_B6253 - 297253
+{
+_asm {
+
+pusha
+sub	esp, 68h
+mov	esi, [esp + 88h + arg_0]
+mov	edi, [esp + 88h + arg_4]
+mov	ecx, [esp + 88h + arg_8]
+mov	eax, [esi + 4]
+mov	ebx, [edi + 4]
+mov	edx, [ecx + 4]
+cmp	eax, ebx
+jz	short loc_B62C1
+jg	short loc_B6287
+cmp	eax, edx
+jz	short loc_B62AE
+jl	short loc_B62FC
+xchg	esi, ecx
+xchg	edi, ecx
+jmp	short loc_B6306
+; -------------------------------------------------------------------------- -
+
+loc_B6287:; CODE XREF : sub_B6253 + 26j
+cmp	eax, edx
+jz	loc_B751C
+jl	loc_B6BE2
+cmp	ebx, edx
+jz	loc_B799B
+jl	short loc_B62A8
+xchg	esi, ecx
+xchg	edi, ecx
+jmp	loc_B6BE6
+; -------------------------------------------------------------------------- -
+
+loc_B62A8:; CODE XREF : sub_B6253 + 4Aj
+xchg	esi, edi
+xchg	edi, ecx
+jmp	short loc_B6306
+; -------------------------------------------------------------------------- -
+
+loc_B62AE:; CODE XREF : sub_B6253 + 2Aj
+mov	eax, [esi]
+cmp	eax, [ecx]
+jle	loc_B7EE4
+xchg	esi, ecx
+xchg	edi, ecx
+jmp	loc_B79A9
+; -------------------------------------------------------------------------- -
+
+loc_B62C1:; CODE XREF : sub_B6253 + 24j
+cmp	eax, edx
+jz	loc_B7EE4
+jl	short loc_B62DE
+mov	eax, [esi]
+cmp	eax, [edi]
+jle	loc_B7EE4
+xchg	esi, ecx
+xchg	edi, ecx
+jmp	loc_B752A
+; -------------------------------------------------------------------------- -
+
+loc_B62DE:; CODE XREF : sub_B6253 + 76j
+mov	eax, [edi]
+cmp	eax, [esi]
+jle	loc_B7EE4
+jmp	loc_B79A9
+; -------------------------------------------------------------------------- -
+
+loc_B62ED:; CODE XREF : sub_B6253 + ABj
+mov	eax, [edi]
+cmp	eax, [ecx]
+jle	loc_B7EE4
+jmp	loc_B752A
+; -------------------------------------------------------------------------- -
+
+loc_B62FC:; CODE XREF : sub_B6253 + 2Cj
+cmp	ebx, edx
+jz	short loc_B62ED
+jg	loc_B6BE6
+
+loc_B6306 : ; CODE XREF : sub_B6253 + 32j
+; sub_B6253 + 59j
+mov	eax, [esi + 4]
+mov[esp + 88h + var_34], eax
+or eax, eax
+jns	short loc_B6321
+mov	ebx, ViewPortRenderBufferAltStart_DE554
+mov[esp + 88h + var_88], ebx
+mov[esp + 88h + var_26], 1
+jmp	short loc_B6344
+; -------------------------------------------------------------------------- -
+
+loc_B6321:; CODE XREF : sub_B6253 + BCj
+cmp	eax, viewPort.Height_DE568
+jge	loc_B7EE4
+mov	ebx, eax
+imul	ebx, iScreenWidth_DE560
+add	ebx, ViewPortRenderBufferAltStart_DE554
+mov[esp + 88h + var_88], ebx
+mov[esp + 88h + var_26], 0
+
+loc_B6344:; CODE XREF : sub_B6253 + CCj
+mov	ebx, [ecx + 4]
+cmp	ebx, viewPort.Height_DE568
+setnle[esp + 88h + var_24]
+sub	ebx, eax
+mov[esp + 88h + var_78], ebx
+mov[esp + 88h + var_68], ebx
+mov	ebx, [edi + 4]
+cmp	ebx, viewPort.Height_DE568
+setnle[esp + 88h + var_25]
+sub	ebx, eax
+mov[esp + 88h + var_74], ebx
+mov	eax, [ecx]
+sub	eax, [esi]
+shl	eax, 10h
+cdq
+idiv[esp + 88h + var_78]
+mov[esp + 88h + var_84], eax
+mov	eax, [edi]
+sub	eax, [esi]
+shl	eax, 10h
+cdq
+idiv[esp + 88h + var_74]
+cmp	eax, [esp + 88h + var_84]
+jle	loc_B7EE4
+mov[esp + 88h + var_80], eax
+mov	ebx, [ecx + 4]
+sub	ebx, [edi + 4]
+mov	eax, [ecx]
+sub	eax, [edi]
+shl	eax, 10h
+cdq
+idiv	ebx
+mov[esp + 88h + var_7C], eax
+mov[esp + 88h + var_70], ebx
+mov	eax, [edi]
+shl	eax, 10h
+mov[esp + 88h + var_6C], eax
+//movzx	eax, x_BYTE_E126D
+xor eax, eax
+mov	al, x_BYTE_E126D
+
+jmp	ds : off_B63C9[eax * 4]
+; -------------------------------------------------------------------------- -
+
+loc_B6435:; CODE XREF : sub_B6253 + 16Fj
+; DATA XREF : sub_B6253 + 18Ao ...
+mov	eax, [esi]
+sub	eax, [ecx]
+imul[esp + 88h + var_74]
+idiv[esp + 88h + var_78]
+mov	ebx, [edi]
+sub	ebx, [esi]
+add	ebx, eax
+jl	loc_B7EE4
+jz	short loc_B64A1
+inc	ebx
+mov	eax, [esi + 8]
+sub	eax, [ecx + 8]
+imul[esp + 88h + var_74]
+idiv[esp + 88h + var_78]
+add	eax, [edi + 8]
+sub	eax, [esi + 8]
+cdq
+idiv	ebx
+mov[esp + 88h + var_64], eax
+mov	eax, [esi + 0Ch]
+sub	eax, [ecx + 0Ch]
+imul[esp + 88h + var_74]
+idiv[esp + 88h + var_78]
+add	eax, [edi + 0Ch]
+sub	eax, [esi + 0Ch]
+cdq
+idiv	ebx
+mov[esp + 88h + var_58], eax
+mov	eax, [esi + 10h]
+sub	eax, [ecx + 10h]
+imul[esp + 88h + var_74]
+idiv[esp + 88h + var_78]
+add	eax, [edi + 10h]
+sub	eax, [esi + 10h]
+cdq
+idiv	ebx
+mov[esp + 88h + var_4C], eax
+
+loc_B64A1 : ; CODE XREF : sub_B6253 + 1FAj
+mov	eax, [ecx + 8]
+sub	eax, [esi + 8]
+cdq
+idiv[esp + 88h + var_78]
+mov[esp + 88h + var_60], eax
+mov	eax, [ecx + 0Ch]
+sub	eax, [esi + 0Ch]
+cdq
+idiv[esp + 88h + var_78]
+mov[esp + 88h + var_54], eax
+mov	eax, [ecx + 10h]
+sub	eax, [esi + 10h]
+cdq
+idiv[esp + 88h + var_78]
+mov[esp + 88h + var_48], eax
+mov	eax, [esi]
+shl	eax, 10h
+mov	ebx, eax
+mov	ecx, [esi + 8]
+mov	edx, [esi + 0Ch]
+mov	esi, [esi + 10h]
+cmp[esp + 88h + var_26], 0
+jz	loc_B6602
+mov	edi, [esp + 88h + var_34]
+neg	edi
+sub[esp + 88h + var_68], edi
+jle	loc_B7EE4
+mov[esp + 88h + var_40], edi
+cmp	edi, [esp + 88h + var_74]
+js	loc_B659A
+mov	edi, [esp + 88h + var_84]
+imul	edi, [esp + 88h + var_74]
+add	eax, edi
+mov	edi, [esp + 88h + var_60]
+imul	edi, [esp + 88h + var_74]
+add	ecx, edi
+mov	edi, [esp + 88h + var_54]
+imul	edi, [esp + 88h + var_74]
+add	edx, edi
+mov	edi, [esp + 88h + var_48]
+imul	edi, [esp + 88h + var_74]
+add	esi, edi
+mov	ebx, [esp + 88h + var_6C]
+mov	edi, [esp + 88h + var_40]
+sub	edi, [esp + 88h + var_74]
+sub[esp + 88h + var_70], edi
+mov[esp + 88h + var_40], edi
+imul	edi, [esp + 88h + var_84]
+add	eax, edi
+mov	edi, [esp + 88h + var_40]
+imul	edi, [esp + 88h + var_7C]
+add	ebx, edi
+mov	edi, [esp + 88h + var_60]
+imul	edi, [esp + 88h + var_40]
+add	ecx, edi
+mov	edi, [esp + 88h + var_54]
+imul	edi, [esp + 88h + var_40]
+add	edx, edi
+mov	edi, [esp + 88h + var_48]
+imul	edi, [esp + 88h + var_40]
+add	esi, edi
+cmp[esp + 88h + var_24], 0
+jz	short loc_B658F
+mov	edi, viewPort.Height_DE568
+mov[esp + 88h + var_70], edi
+mov[esp + 88h + var_68], edi
+
+loc_B658F : ; CODE XREF : sub_B6253 + 32Cj
+lea	edi, unk_DE56Cx
+jmp	loc_B6666
+; -------------------------------------------------------------------------- -
+
+loc_B659A:; CODE XREF : sub_B6253 + 2AEj
+mov	edi, [esp + 88h + var_40]
+sub[esp + 88h + var_74], edi
+imul	edi, [esp + 88h + var_84]
+add	eax, edi
+mov	edi, [esp + 88h + var_80]
+imul	edi, [esp + 88h + var_40]
+add	ebx, edi
+mov	edi, [esp + 88h + var_60]
+imul	edi, [esp + 88h + var_40]
+add	ecx, edi
+mov	edi, [esp + 88h + var_54]
+imul	edi, [esp + 88h + var_40]
+add	edx, edi
+mov	edi, [esp + 88h + var_48]
+imul	edi, [esp + 88h + var_40]
+add	esi, edi
+cmp[esp + 88h + var_24], 0
+jz	short loc_B6631
+mov	edi, viewPort.Height_DE568
+mov[esp + 88h + var_68], edi
+cmp[esp + 88h + var_25], 0
+jz	short loc_B65F3
+mov[esp + 88h + var_74], edi
+jmp	short loc_B6600
+; -------------------------------------------------------------------------- -
+
+loc_B65F3:; CODE XREF : sub_B6253 + 398j
+sub	edi, [esp + 88h + var_74]
+setle[esp + 88h + var_25]
+mov[esp + 88h + var_70], edi
+
+loc_B6600 : ; CODE XREF : sub_B6253 + 39Ej
+jmp	short loc_B6631
+; -------------------------------------------------------------------------- -
+
+loc_B6602:; CODE XREF : sub_B6253 + 290j
+cmp[esp + 88h + var_24], 0
+jz	short loc_B6631
+mov	edi, viewPort.Height_DE568
+sub	edi, [esp + 88h + var_34]
+mov[esp + 88h + var_68], edi
+cmp[esp + 88h + var_25], 0
+jz	short loc_B6624
+mov[esp + 88h + var_74], edi
+jmp	short loc_B6631
+; -------------------------------------------------------------------------- -
+
+loc_B6624:; CODE XREF : sub_B6253 + 3C9j
+sub	edi, [esp + 88h + var_74]
+setle[esp + 88h + var_25]
+mov[esp + 88h + var_70], edi
+
+loc_B6631 : ; CODE XREF : sub_B6253 + 387j
+; sub_B6253:loc_B6600j	...
+lea	edi, unk_DE56Cx
+
+loc_B6637 : ; CODE XREF : sub_B6253 + 40Dj
+mov[edi], eax
+add	eax, [esp + 88h + var_84]
+mov[edi + 4], ebx
+add	ebx, [esp + 88h + var_80]
+mov[edi + 8], ecx
+add	ecx, [esp + 88h + var_60]
+mov[edi + 0Ch], edx
+add	edx, [esp + 88h + var_54]
+mov[edi + 10h], esi
+add	esi, [esp + 88h + var_48]
+add	edi, 14h
+dec[esp + 88h + var_74]
+jnz	short loc_B6637
+mov	ebx, [esp + 88h + var_6C]
+
+loc_B6666:; CODE XREF : sub_B6253 + 342j
+cmp[esp + 88h + var_25], 0
+jz	short loc_B667B
+//movzx	eax, x_BYTE_E126D
+xor eax, eax
+//movzx	al, x_BYTE_E126D
+xor eax, eax
+mov	al, x_BYTE_E126D
+
+jmp	ds : off_B7E1B[eax * 4]
+; -------------------------------------------------------------------------- -
+
+loc_B667B:; CODE XREF : sub_B6253 + 418j
+; sub_B6253 + 451j
+mov[edi], eax
+add	eax, [esp + 88h + var_84]
+mov[edi + 4], ebx
+add	ebx, [esp + 88h + var_7C]
+mov[edi + 8], ecx
+add	ecx, [esp + 88h + var_60]
+mov[edi + 0Ch], edx
+add	edx, [esp + 88h + var_54]
+mov[edi + 10h], esi
+add	esi, [esp + 88h + var_48]
+add	edi, 14h
+dec[esp + 88h + var_70]
+jnz	short loc_B667B
+//movzx	eax, x_BYTE_E126D
+xor eax, eax
+mov	al, x_BYTE_E126D
+
+jmp	ds : off_B7E1B[eax * 4]
+; -------------------------------------------------------------------------- -
+
+loc_B66B4:; CODE XREF : sub_B6253 + 16Fj
+; DATA XREF : sub_B6253 + 17Eo ...
+mov	eax, [esi]
+sub	eax, [ecx]
+imul[esp + 88h + var_74]
+idiv[esp + 88h + var_78]
+mov	ebx, [edi]
+sub	ebx, [esi]
+add	ebx, eax
+jl	loc_B7EE4
+jz	short loc_B6705
+inc	ebx
+mov	eax, [esi + 8]
+sub	eax, [ecx + 8]
+imul[esp + 88h + var_74]
+idiv[esp + 88h + var_78]
+add	eax, [edi + 8]
+sub	eax, [esi + 8]
+cdq
+idiv	ebx
+mov[esp + 88h + var_64], eax
+mov	eax, [esi + 0Ch]
+sub	eax, [ecx + 0Ch]
+imul[esp + 88h + var_74]
+idiv[esp + 88h + var_78]
+add	eax, [edi + 0Ch]
+sub	eax, [esi + 0Ch]
+cdq
+idiv	ebx
+mov[esp + 88h + var_58], eax
+
+loc_B6705 : ; CODE XREF : sub_B6253 + 479j
+mov	eax, [ecx + 8]
+sub	eax, [esi + 8]
+cdq
+idiv[esp + 88h + var_78]
+mov[esp + 88h + var_60], eax
+mov	eax, [ecx + 0Ch]
+sub	eax, [esi + 0Ch]
+cdq
+idiv[esp + 88h + var_78]
+mov[esp + 88h + var_54], eax
+mov	eax, [esi]
+shl	eax, 10h
+mov	ebx, eax
+mov	ecx, [esi + 8]
+mov	edx, [esi + 0Ch]
+cmp[esp + 88h + var_26], 0
+jz	loc_B682F
+mov	edi, [esp + 88h + var_34]
+neg	edi
+sub[esp + 88h + var_68], edi
+jle	loc_B7EE4
+mov[esp + 88h + var_40], edi
+cmp	edi, [esp + 88h + var_74]
+js	short loc_B67D2
+mov	edi, [esp + 88h + var_84]
+imul	edi, [esp + 88h + var_74]
+add	eax, edi
+mov	edi, [esp + 88h + var_60]
+imul	edi, [esp + 88h + var_74]
+add	ecx, edi
+mov	edi, [esp + 88h + var_54]
+imul	edi, [esp + 88h + var_74]
+add	edx, edi
+mov	ebx, [esp + 88h + var_6C]
+mov	edi, [esp + 88h + var_40]
+sub	edi, [esp + 88h + var_74]
+sub[esp + 88h + var_70], edi
+mov[esp + 88h + var_40], edi
+imul	edi, [esp + 88h + var_84]
+add	eax, edi
+mov	edi, [esp + 88h + var_40]
+imul	edi, [esp + 88h + var_7C]
+add	ebx, edi
+mov	edi, [esp + 88h + var_60]
+imul	edi, [esp + 88h + var_40]
+add	ecx, edi
+mov	edi, [esp + 88h + var_54]
+imul	edi, [esp + 88h + var_40]
+add	edx, edi
+cmp[esp + 88h + var_24], 0
+jz	short loc_B67C7
+mov	edi, viewPort.Height_DE568
+mov[esp + 88h + var_70], edi
+mov[esp + 88h + var_68], edi
+
+loc_B67C7 : ; CODE XREF : sub_B6253 + 564j
+lea	edi, unk_DE56Cx
+jmp	loc_B688C
+; -------------------------------------------------------------------------- -
+
+loc_B67D2:; CODE XREF : sub_B6253 + 500j
+mov	edi, [esp + 88h + var_40]
+sub[esp + 88h + var_74], edi
+imul	edi, [esp + 88h + var_84]
+add	eax, edi
+mov	edi, [esp + 88h + var_80]
+imul	edi, [esp + 88h + var_40]
+add	ebx, edi
+mov	edi, [esp + 88h + var_60]
+imul	edi, [esp + 88h + var_40]
+add	ecx, edi
+mov	edi, [esp + 88h + var_54]
+imul	edi, [esp + 88h + var_40]
+add	edx, edi
+cmp[esp + 88h + var_24], 0
+jz	short loc_B685E
+mov	edi, viewPort.Height_DE568
+mov[esp + 88h + var_68], edi
+cmp[esp + 88h + var_25], 0
+jz	short loc_B6820
+mov[esp + 88h + var_74], edi
+jmp	short loc_B682D
+; -------------------------------------------------------------------------- -
+
+loc_B6820:; CODE XREF : sub_B6253 + 5C5j
+sub	edi, [esp + 88h + var_74]
+setle[esp + 88h + var_25]
+mov[esp + 88h + var_70], edi
+
+loc_B682D : ; CODE XREF : sub_B6253 + 5CBj
+jmp	short loc_B685E
+; -------------------------------------------------------------------------- -
+
+loc_B682F:; CODE XREF : sub_B6253 + 4E2j
+cmp[esp + 88h + var_24], 0
+jz	short loc_B685E
+mov	edi, viewPort.Height_DE568
+sub	edi, [esp + 88h + var_34]
+mov[esp + 88h + var_68], edi
+cmp[esp + 88h + var_25], 0
+jz	short loc_B6851
+mov[esp + 88h + var_74], edi
+jmp	short loc_B685E
+; -------------------------------------------------------------------------- -
+
+loc_B6851:; CODE XREF : sub_B6253 + 5F6j
+sub	edi, [esp + 88h + var_74]
+setle[esp + 88h + var_25]
+mov[esp + 88h + var_70], edi
+
+loc_B685E : ; CODE XREF : sub_B6253 + 5B4j
+; sub_B6253:loc_B682Dj	...
+lea	edi, unk_DE56Cx
+
+loc_B6864 : ; CODE XREF : sub_B6253 + 633j
+mov[edi], eax
+add	eax, [esp + 88h + var_84]
+mov[edi + 4], ebx
+add	ebx, [esp + 88h + var_80]
+mov[edi + 8], ecx
+add	ecx, [esp + 88h + var_60]
+mov[edi + 0Ch], edx
+add	edx, [esp + 88h + var_54]
+add	edi, 14h
+dec[esp + 88h + var_74]
+jnz	short loc_B6864
+mov	ebx, [esp + 88h + var_6C]
+
+loc_B688C:; CODE XREF : sub_B6253 + 57Aj
+cmp[esp + 88h + var_25], 0
+jz	short loc_B68A1
+//movzx	eax, x_BYTE_E126D
+xor eax, eax
+mov	al, x_BYTE_E126D
+
+jmp	ds : off_B7E1B[eax * 4]
+; -------------------------------------------------------------------------- -
+
+loc_B68A1:; CODE XREF : sub_B6253 + 63Ej
+; sub_B6253 + 670j
+mov[edi], eax
+add	eax, [esp + 88h + var_84]
+mov[edi + 4], ebx
+add	ebx, [esp + 88h + var_7C]
+mov[edi + 8], ecx
+add	ecx, [esp + 88h + var_60]
+mov[edi + 0Ch], edx
+add	edx, [esp + 88h + var_54]
+add	edi, 14h
+dec[esp + 88h + var_70]
+jnz	short loc_B68A1
+//movzx	eax, x_BYTE_E126D
+xor eax, eax
+mov	al, x_BYTE_E126D
+
+jmp	ds : off_B7E1B[eax * 4]
+; -------------------------------------------------------------------------- -
+
+loc_B68D3:; CODE XREF : sub_B6253 + 16Fj
+; DATA XREF : sub_B6253 + 17Ao ...
+mov	eax, [esi]
+sub	eax, [ecx]
+imul[esp + 88h + var_74]
+idiv[esp + 88h + var_78]
+mov	ebx, [edi]
+sub	ebx, [esi]
+add	ebx, eax
+jl	loc_B7EE4
+jz	short loc_B6909
+inc	ebx
+mov	eax, [esi + 10h]
+sub	eax, [ecx + 10h]
+imul[esp + 88h + var_74]
+idiv[esp + 88h + var_78]
+add	eax, [edi + 10h]
+sub	eax, [esi + 10h]
+cdq
+idiv	ebx
+mov[esp + 88h + var_4C], eax
+
+loc_B6909 : ; CODE XREF : sub_B6253 + 698j
+mov	eax, [ecx + 10h]
+sub	eax, [esi + 10h]
+cdq
+idiv[esp + 88h + var_78]
+mov[esp + 88h + var_48], eax
+mov	eax, [esi]
+shl	eax, 10h
+mov	ebx, eax
+mov	esi, [esi + 10h]
+cmp[esp + 88h + var_26], 0
+jz	loc_B6A00
+mov	edi, [esp + 88h + var_34]
+neg	edi
+sub[esp + 88h + var_68], edi
+jle	loc_B7EE4
+mov[esp + 88h + var_40], edi
+cmp	edi, [esp + 88h + var_74]
+js	short loc_B69AE
+mov	edi, [esp + 88h + var_84]
+imul	edi, [esp + 88h + var_74]
+add	eax, edi
+mov	edi, [esp + 88h + var_48]
+imul	edi, [esp + 88h + var_74]
+add	esi, edi
+mov	ebx, [esp + 88h + var_6C]
+mov	edi, [esp + 88h + var_40]
+sub	edi, [esp + 88h + var_74]
+sub[esp + 88h + var_70], edi
+mov[esp + 88h + var_40], edi
+imul	edi, [esp + 88h + var_84]
+add	eax, edi
+mov	edi, [esp + 88h + var_40]
+imul	edi, [esp + 88h + var_7C]
+add	ebx, edi
+mov	edi, [esp + 88h + var_48]
+imul	edi, [esp + 88h + var_40]
+add	esi, edi
+cmp[esp + 88h + var_24], 0
+jz	short loc_B69A3
+mov	edi, viewPort.Height_DE568
+mov[esp + 88h + var_70], edi
+mov[esp + 88h + var_68], edi
+
+loc_B69A3 : ; CODE XREF : sub_B6253 + 740j
+lea	edi, unk_DE56Cx
+jmp	loc_B6A56
+; -------------------------------------------------------------------------- -
+
+loc_B69AE:; CODE XREF : sub_B6253 + 6F2j
+mov	edi, [esp + 88h + var_40]
+sub[esp + 88h + var_74], edi
+imul	edi, [esp + 88h + var_84]
+add	eax, edi
+mov	edi, [esp + 88h + var_80]
+imul	edi, [esp + 88h + var_40]
+add	ebx, edi
+mov	edi, [esp + 88h + var_48]
+imul	edi, [esp + 88h + var_40]
+add	esi, edi
+cmp[esp + 88h + var_24], 0
+jz	short loc_B6A2F
+mov	edi, viewPort.Height_DE568
+mov[esp + 88h + var_68], edi
+cmp[esp + 88h + var_25], 0
+jz	short loc_B69F1
+mov[esp + 88h + var_74], edi
+jmp	short loc_B69FE
+; -------------------------------------------------------------------------- -
+
+loc_B69F1:; CODE XREF : sub_B6253 + 796j
+sub	edi, [esp + 88h + var_74]
+setle[esp + 88h + var_25]
+mov[esp + 88h + var_70], edi
+
+loc_B69FE : ; CODE XREF : sub_B6253 + 79Cj
+jmp	short loc_B6A2F
+; -------------------------------------------------------------------------- -
+
+loc_B6A00:; CODE XREF : sub_B6253 + 6D4j
+cmp[esp + 88h + var_24], 0
+jz	short loc_B6A2F
+mov	edi, viewPort.Height_DE568
+sub	edi, [esp + 88h + var_34]
+mov[esp + 88h + var_68], edi
+cmp[esp + 88h + var_25], 0
+jz	short loc_B6A22
+mov[esp + 88h + var_74], edi
+jmp	short loc_B6A2F
+; -------------------------------------------------------------------------- -
+
+loc_B6A22:; CODE XREF : sub_B6253 + 7C7j
+sub	edi, [esp + 88h + var_74]
+setle[esp + 88h + var_25]
+mov[esp + 88h + var_70], edi
+
+loc_B6A2F : ; CODE XREF : sub_B6253 + 785j
+; sub_B6253:loc_B69FEj	...
+lea	edi, unk_DE56Cx
+
+loc_B6A35 : ; CODE XREF : sub_B6253 + 7FDj
+mov[edi], eax
+add	eax, [esp + 88h + var_84]
+mov[edi + 4], ebx
+add	ebx, [esp + 88h + var_80]
+mov[edi + 10h], esi
+add	esi, [esp + 88h + var_48]
+add	edi, 14h
+dec[esp + 88h + var_74]
+jnz	short loc_B6A35
+mov	ebx, [esp + 88h + var_6C]
+
+loc_B6A56:; CODE XREF : sub_B6253 + 756j
+cmp[esp + 88h + var_25], 0
+jz	short loc_B6A6B
+//movzx	eax, x_BYTE_E126D
+xor eax, eax
+mov	al, x_BYTE_E126D
+
+jmp	ds : off_B7E1B[eax * 4]
+; -------------------------------------------------------------------------- -
+
+loc_B6A6B:; CODE XREF : sub_B6253 + 808j
+; sub_B6253 + 833j
+mov[edi], eax
+add	eax, [esp + 88h + var_84]
+mov[edi + 4], ebx
+add	ebx, [esp + 88h + var_7C]
+mov[edi + 10h], esi
+add	esi, [esp + 88h + var_48]
+add	edi, 14h
+dec[esp + 88h + var_70]
+jnz	short loc_B6A6B
+//movzx	eax, x_BYTE_E126D
+xor eax, eax
+mov	al, x_BYTE_E126D
+jmp	ds : off_B7E1B[eax * 4]
+; -------------------------------------------------------------------------- -
+
+loc_B6A96:; CODE XREF : sub_B6253 + 16Fj
+; DATA XREF : sub_B6253:off_B63C9o ...
+mov	eax, [esi]
+shl	eax, 10h
+mov	ebx, eax
+cmp[esp + 88h + var_26], 0
+jz	loc_B6B5A
+mov	edi, [esp + 88h + var_34]
+neg	edi
+sub[esp + 88h + var_68], edi
+jle	loc_B7EE4
+mov[esp + 88h + var_40], edi
+cmp	edi, [esp + 88h + var_74]
+js	short loc_B6B13
+mov	edi, [esp + 88h + var_84]
+imul	edi, [esp + 88h + var_74]
+add	eax, edi
+mov	ebx, [esp + 88h + var_6C]
+mov	edi, [esp + 88h + var_40]
+sub	edi, [esp + 88h + var_74]
+sub[esp + 88h + var_70], edi
+mov[esp + 88h + var_40], edi
+imul	edi, [esp + 88h + var_84]
+add	eax, edi
+mov	edi, [esp + 88h + var_40]
+imul	edi, [esp + 88h + var_7C]
+add	ebx, edi
+cmp[esp + 88h + var_24], 0
+jz	short loc_B6B08
+mov	edi, viewPort.Height_DE568
+mov[esp + 88h + var_70], edi
+mov[esp + 88h + var_68], edi
+
+loc_B6B08 : ; CODE XREF : sub_B6253 + 8A5j
+lea	edi, unk_DE56Cx
+jmp	loc_B6BA9
+; -------------------------------------------------------------------------- -
+
+loc_B6B13:; CODE XREF : sub_B6253 + 86Dj
+mov	edi, [esp + 88h + var_40]
+sub[esp + 88h + var_74], edi
+imul	edi, [esp + 88h + var_84]
+add	eax, edi
+mov	edi, [esp + 88h + var_80]
+imul	edi, [esp + 88h + var_40]
+add	ebx, edi
+cmp[esp + 88h + var_24], 0
+jz	short loc_B6B89
+mov	edi, viewPort.Height_DE568
+mov[esp + 88h + var_68], edi
+cmp[esp + 88h + var_25], 0
+jz	short loc_B6B4B
+mov[esp + 88h + var_74], edi
+jmp	short loc_B6B58
+; -------------------------------------------------------------------------- -
+
+loc_B6B4B:; CODE XREF : sub_B6253 + 8F0j
+sub	edi, [esp + 88h + var_74]
+setle[esp + 88h + var_25]
+mov[esp + 88h + var_70], edi
+
+loc_B6B58 : ; CODE XREF : sub_B6253 + 8F6j
+jmp	short loc_B6B89
+; -------------------------------------------------------------------------- -
+
+loc_B6B5A:; CODE XREF : sub_B6253 + 84Fj
+cmp[esp + 88h + var_24], 0
+jz	short loc_B6B89
+mov	edi, viewPort.Height_DE568
+sub	edi, [esp + 88h + var_34]
+mov[esp + 88h + var_68], edi
+cmp[esp + 88h + var_25], 0
+jz	short loc_B6B7C
+mov[esp + 88h + var_74], edi
+jmp	short loc_B6B89
+; -------------------------------------------------------------------------- -
+
+loc_B6B7C:; CODE XREF : sub_B6253 + 921j
+sub	edi, [esp + 88h + var_74]
+setle[esp + 88h + var_25]
+mov[esp + 88h + var_70], edi
+
+loc_B6B89 : ; CODE XREF : sub_B6253 + 8DFj
+; sub_B6253:loc_B6B58j	...
+lea	edi, unk_DE56Cx
+
+loc_B6B8F : ; CODE XREF : sub_B6253 + 950j
+mov[edi], eax
+add	eax, [esp + 88h + var_84]
+mov[edi + 4], ebx
+add	ebx, [esp + 88h + var_80]
+add	edi, 14h
+dec[esp + 88h + var_74]
+jnz	short loc_B6B8F
+mov	ebx, [esp + 88h + var_6C]
+
+loc_B6BA9:; CODE XREF : sub_B6253 + 8BBj
+cmp[esp + 88h + var_25], 0
+jz	short loc_B6BBE
+//movzx	eax, x_BYTE_E126D
+xor eax, eax
+//movzx	al, x_BYTE_E126D
+xor eax, eax
+mov	al, x_BYTE_E126D
+jmp	ds : off_B7E1B[eax * 4]
+; -------------------------------------------------------------------------- -
+
+loc_B6BBE:; CODE XREF : sub_B6253 + 95Bj
+; sub_B6253 + 97Fj
+mov[edi], eax
+add	eax, [esp + 88h + var_84]
+mov[edi + 4], ebx
+add	ebx, [esp + 88h + var_7C]
+add	edi, 14h
+dec[esp + 88h + var_70]
+jnz	short loc_B6BBE
+//movzx	eax, x_BYTE_E126D
+xor eax, eax
+mov	al, x_BYTE_E126D
+
+jmp	ds : off_B7E1B[eax * 4]
+; -------------------------------------------------------------------------- -
+
+loc_B6BE2:; CODE XREF : sub_B6253 + 3Cj
+xchg	esi, edi
+xchg	edi, ecx
+
+loc_B6BE6 : ; CODE XREF : sub_B6253 + 50j
+; sub_B6253 + ADj
+mov	eax, [esi + 4]
+mov[esp + 88h + var_34], eax
+or eax, eax
+jns	short loc_B6C01
+mov	ebx, ViewPortRenderBufferAltStart_DE554
+mov[esp + 88h + var_88], ebx
+mov[esp + 88h + var_26], 1
+jmp	short loc_B6C24
+; -------------------------------------------------------------------------- -
+
+loc_B6C01:; CODE XREF : sub_B6253 + 99Cj
+cmp	eax, viewPort.Height_DE568
+jge	loc_B7EE4
+mov	ebx, eax
+imul	ebx, iScreenWidth_DE560
+add	ebx, ViewPortRenderBufferAltStart_DE554
+mov[esp + 88h + var_88], ebx
+mov[esp + 88h + var_26], 0
+
+loc_B6C24:; CODE XREF : sub_B6253 + 9ACj
+mov	ebx, [ecx + 4]
+cmp	ebx, viewPort.Height_DE568
+setnle[esp + 88h + var_25]
+sub	ebx, eax
+mov[esp + 88h + var_78], ebx
+mov	ebx, [edi + 4]
+cmp	ebx, viewPort.Height_DE568
+setnle[esp + 88h + var_24]
+sub	ebx, eax
+mov[esp + 88h + var_74], ebx
+mov[esp + 88h + var_68], ebx
+mov	eax, [ecx]
+sub	eax, [esi]
+shl	eax, 10h
+cdq
+idiv[esp + 88h + var_78]
+mov[esp + 88h + var_84], eax
+mov	eax, [edi]
+sub	eax, [esi]
+shl	eax, 10h
+cdq
+idiv[esp + 88h + var_74]
+cmp	eax, [esp + 88h + var_84]
+jle	loc_B7EE4
+mov[esp + 88h + var_80], eax
+mov	ebx, [edi + 4]
+sub	ebx, [ecx + 4]
+mov	eax, [edi]
+sub	eax, [ecx]
+shl	eax, 10h
+cdq
+idiv	ebx
+mov[esp + 88h + var_7C], eax
+mov[esp + 88h + var_70], ebx
+mov	eax, [ecx]
+shl	eax, 10h
+mov[esp + 88h + var_6C], eax
+//movzx	eax, x_BYTE_E126D
+xor eax, eax
+//movzx	al, x_BYTE_E126D
+xor eax, eax
+mov	al, x_BYTE_E126D
+jmp	ds : off_B6CA9[eax * 4]
+; -------------------------------------------------------------------------- -
+
+loc_B6D15:; CODE XREF : sub_B6253 + A4Fj
+; DATA XREF : sub_B6253 + A6Ao ...
+mov	eax, [edi]
+sub	eax, [esi]
+imul[esp + 88h + var_78]
+idiv[esp + 88h + var_74]
+mov	ebx, [esi]
+sub	ebx, [ecx]
+add	ebx, eax
+jl	loc_B7EE4
+jz	short loc_B6D7D
+inc	ebx
+mov	eax, [edi + 8]
+sub	eax, [esi + 8]
+imul[esp + 88h + var_78]
+idiv[esp + 88h + var_74]
+add	eax, [esi + 8]
+sub	eax, [ecx + 8]
+cdq
+idiv	ebx
+mov[esp + 88h + var_64], eax
+mov	eax, [edi + 0Ch]
+sub	eax, [esi + 0Ch]
+imul[esp + 88h + var_78]
+idiv[esp + 88h + var_74]
+add	eax, [esi + 0Ch]
+sub	eax, [ecx + 0Ch]
+cdq
+idiv	ebx
+mov[esp + 88h + var_58], eax
+mov	eax, [edi + 10h]
+sub	eax, [esi + 10h]
+imul[esp + 88h + var_78]
+idiv[esp + 88h + var_74]
+add	eax, [esi + 10h]
+sub	eax, [ecx + 10h]
+cdq
+idiv	ebx
+
+loc_B6D7D : ; CODE XREF : sub_B6253 + ADAj
+mov[esp + 88h + var_4C], eax
+mov	eax, [ecx + 8]
+sub	eax, [esi + 8]
+cdq
+idiv[esp + 88h + var_78]
+mov[esp + 88h + var_60], eax
+mov	eax, [ecx + 0Ch]
+sub	eax, [esi + 0Ch]
+cdq
+idiv[esp + 88h + var_78]
+mov[esp + 88h + var_54], eax
+mov	eax, [ecx + 10h]
+sub	eax, [esi + 10h]
+cdq
+idiv[esp + 88h + var_78]
+mov[esp + 88h + var_48], eax
+mov	eax, [edi + 8]
+sub	eax, [ecx + 8]
+cdq
+idiv[esp + 88h + var_70]
+mov[esp + 88h + var_5C], eax
+mov	eax, [edi + 0Ch]
+sub	eax, [ecx + 0Ch]
+cdq
+idiv[esp + 88h + var_70]
+mov[esp + 88h + var_50], eax
+mov	eax, [edi + 10h]
+sub	eax, [ecx + 10h]
+cdq
+idiv[esp + 88h + var_70]
+mov[esp + 88h + var_44], eax
+mov	eax, [esi]
+shl	eax, 10h
+mov	ebx, eax
+mov	ecx, [esi + 8]
+mov	edx, [esi + 0Ch]
+mov	esi, [esi + 10h]
+cmp[esp + 88h + var_26], 0
+jz	loc_B6F0F
+mov	edi, [esp + 88h + var_34]
+neg	edi
+sub[esp + 88h + var_68], edi
+jle	loc_B7EE4
+mov[esp + 88h + var_40], edi
+cmp	edi, [esp + 88h + var_78]
+js	loc_B6EA7
+mov	edi, [esp + 88h + var_80]
+imul	edi, [esp + 88h + var_78]
+add	ebx, edi
+mov	edi, [esp + 88h + var_60]
+imul	edi, [esp + 88h + var_78]
+add	ecx, edi
+mov	edi, [esp + 88h + var_54]
+imul	edi, [esp + 88h + var_78]
+add	edx, edi
+mov	edi, [esp + 88h + var_48]
+imul	edi, [esp + 88h + var_78]
+add	esi, edi
+mov	eax, [esp + 88h + var_6C]
+mov	edi, [esp + 88h + var_40]
+sub	edi, [esp + 88h + var_78]
+mov[esp + 88h + var_40], edi
+sub[esp + 88h + var_70], edi
+imul	edi, [esp + 88h + var_7C]
+add	eax, edi
+mov	edi, [esp + 88h + var_80]
+imul	edi, [esp + 88h + var_40]
+add	ebx, edi
+mov	edi, [esp + 88h + var_5C]
+imul	edi, [esp + 88h + var_40]
+add	ecx, edi
+mov	edi, [esp + 88h + var_50]
+imul	edi, [esp + 88h + var_40]
+add	edx, edi
+mov	edi, [esp + 88h + var_44]
+imul	edi, [esp + 88h + var_40]
+add	esi, edi
+cmp[esp + 88h + var_24], 0
+jz	short loc_B6E9C
+mov	edi, viewPort.Height_DE568
+mov[esp + 88h + var_70], edi
+mov[esp + 88h + var_68], edi
+
+loc_B6E9C : ; CODE XREF : sub_B6253 + C39j
+lea	edi, unk_DE56Cx
+jmp	loc_B6F73
+; -------------------------------------------------------------------------- -
+
+loc_B6EA7:; CODE XREF : sub_B6253 + BBBj
+mov	edi, [esp + 88h + var_40]
+sub[esp + 88h + var_78], edi
+imul	edi, [esp + 88h + var_84]
+add	eax, edi
+mov	edi, [esp + 88h + var_80]
+imul	edi, [esp + 88h + var_40]
+add	ebx, edi
+mov	edi, [esp + 88h + var_60]
+imul	edi, [esp + 88h + var_40]
+add	ecx, edi
+mov	edi, [esp + 88h + var_54]
+imul	edi, [esp + 88h + var_40]
+add	edx, edi
+mov	edi, [esp + 88h + var_48]
+imul	edi, [esp + 88h + var_40]
+add	esi, edi
+cmp[esp + 88h + var_24], 0
+jz	short loc_B6F3E
+mov	edi, viewPort.Height_DE568
+mov[esp + 88h + var_68], edi
+cmp[esp + 88h + var_25], 0
+jz	short loc_B6F00
+mov[esp + 88h + var_78], edi
+jmp	short loc_B6F0D
+; -------------------------------------------------------------------------- -
+
+loc_B6F00:; CODE XREF : sub_B6253 + CA5j
+sub	edi, [esp + 88h + var_78]
+setle[esp + 88h + var_25]
+mov[esp + 88h + var_70], edi
+
+loc_B6F0D : ; CODE XREF : sub_B6253 + CABj
+jmp	short loc_B6F3E
+; -------------------------------------------------------------------------- -
+
+loc_B6F0F:; CODE XREF : sub_B6253 + B9Dj
+cmp[esp + 88h + var_24], 0
+jz	short loc_B6F3E
+mov	edi, viewPort.Height_DE568
+sub	edi, [esp + 88h + var_34]
+mov[esp + 88h + var_68], edi
+cmp[esp + 88h + var_25], 0
+jz	short loc_B6F31
+mov[esp + 88h + var_78], edi
+jmp	short loc_B6F3E
+; -------------------------------------------------------------------------- -
+
+loc_B6F31:; CODE XREF : sub_B6253 + CD6j
+sub	edi, [esp + 88h + var_78]
+setle[esp + 88h + var_25]
+mov[esp + 88h + var_70], edi
+
+loc_B6F3E : ; CODE XREF : sub_B6253 + C94j
+; sub_B6253:loc_B6F0Dj	...
+lea	edi, unk_DE56Cx
+
+loc_B6F44 : ; CODE XREF : sub_B6253 + D1Aj
+mov[edi], eax
+add	eax, [esp + 88h + var_84]
+mov[edi + 4], ebx
+add	ebx, [esp + 88h + var_80]
+mov[edi + 8], ecx
+add	ecx, [esp + 88h + var_60]
+mov[edi + 0Ch], edx
+add	edx, [esp + 88h + var_54]
+mov[edi + 10h], esi
+add	esi, [esp + 88h + var_48]
+add	edi, 14h
+dec[esp + 88h + var_78]
+jnz	short loc_B6F44
+mov	eax, [esp + 88h + var_6C]
+
+loc_B6F73:; CODE XREF : sub_B6253 + C4Fj
+cmp[esp + 88h + var_25], 0
+jz	short loc_B6F88
+//movzx	eax, x_BYTE_E126D
+xor eax, eax
+mov	al, x_BYTE_E126D
+
+jmp	ds : off_B7E1B[eax * 4]
+; -------------------------------------------------------------------------- -
+
+loc_B6F88:; CODE XREF : sub_B6253 + D25j
+; sub_B6253 + D5Ej
+mov[edi], eax
+add	eax, [esp + 88h + var_7C]
+mov[edi + 4], ebx
+add	ebx, [esp + 88h + var_80]
+mov[edi + 8], ecx
+add	ecx, [esp + 88h + var_5C]
+mov[edi + 0Ch], edx
+add	edx, [esp + 88h + var_50]
+mov[edi + 10h], esi
+add	esi, [esp + 88h + var_44]
+add	edi, 14h
+dec[esp + 88h + var_70]
+jnz	short loc_B6F88
+//movzx	eax, x_BYTE_E126D
+xor eax, eax
+mov	al, x_BYTE_E126D
+
+jmp	ds : off_B7E1B[eax * 4]
+; -------------------------------------------------------------------------- -
+
+loc_B6FC1:; CODE XREF : sub_B6253 + A4Fj
+; DATA XREF : sub_B6253 + A5Eo ...
+mov	eax, [edi]
+sub	eax, [esi]
+imul[esp + 88h + var_78]
+idiv[esp + 88h + var_74]
+mov	ebx, [esi]
+sub	ebx, [ecx]
+add	ebx, eax
+jl	loc_B7EE4
+jz	short loc_B7012
+inc	ebx
+mov	eax, [edi + 8]
+sub	eax, [esi + 8]
+imul[esp + 88h + var_78]
+idiv[esp + 88h + var_74]
+add	eax, [esi + 8]
+sub	eax, [ecx + 8]
+cdq
+idiv	ebx
+mov[esp + 88h + var_64], eax
+mov	eax, [edi + 0Ch]
+sub	eax, [esi + 0Ch]
+imul[esp + 88h + var_78]
+idiv[esp + 88h + var_74]
+add	eax, [esi + 0Ch]
+sub	eax, [ecx + 0Ch]
+cdq
+idiv	ebx
+mov[esp + 88h + var_58], eax
+
+loc_B7012 : ; CODE XREF : sub_B6253 + D86j
+mov	eax, [ecx + 8]
+sub	eax, [esi + 8]
+cdq
+idiv[esp + 88h + var_78]
+mov[esp + 88h + var_60], eax
+mov	eax, [ecx + 0Ch]
+sub	eax, [esi + 0Ch]
+cdq
+idiv[esp + 88h + var_78]
+mov[esp + 88h + var_54], eax
+mov	eax, [edi + 8]
+sub	eax, [ecx + 8]
+cdq
+idiv[esp + 88h + var_70]
+mov[esp + 88h + var_5C], eax
+mov	eax, [edi + 0Ch]
+sub	eax, [ecx + 0Ch]
+cdq
+idiv[esp + 88h + var_70]
+mov[esp + 88h + var_50], eax
+mov	eax, [esi]
+shl	eax, 10h
+mov	ebx, eax
+mov	ecx, [esi + 8]
+mov	edx, [esi + 0Ch]
+cmp[esp + 88h + var_26], 0
+jz	loc_B715A
+mov	edi, [esp + 88h + var_34]
+neg	edi
+sub[esp + 88h + var_68], edi
+jle	loc_B7EE4
+mov[esp + 88h + var_40], edi
+cmp	edi, [esp + 88h + var_78]
+js	short loc_B70FD
+mov	edi, [esp + 88h + var_80]
+imul	edi, [esp + 88h + var_78]
+add	ebx, edi
+mov	edi, [esp + 88h + var_60]
+imul	edi, [esp + 88h + var_78]
+add	ecx, edi
+mov	edi, [esp + 88h + var_54]
+imul	edi, [esp + 88h + var_78]
+add	edx, edi
+mov	eax, [esp + 88h + var_6C]
+mov	edi, [esp + 88h + var_40]
+sub	edi, [esp + 88h + var_78]
+mov[esp + 88h + var_40], edi
+sub[esp + 88h + var_70], edi
+imul	edi, [esp + 88h + var_7C]
+add	eax, edi
+mov	edi, [esp + 88h + var_80]
+imul	edi, [esp + 88h + var_40]
+add	ebx, edi
+mov	edi, [esp + 88h + var_5C]
+imul	edi, [esp + 88h + var_40]
+add	ecx, edi
+mov	edi, [esp + 88h + var_50]
+imul	edi, [esp + 88h + var_40]
+add	edx, edi
+cmp[esp + 88h + var_24], 0
+jz	short loc_B70F2
+mov	edi, viewPort.Height_DE568
+mov[esp + 88h + var_70], edi
+mov[esp + 88h + var_68], edi
+
+loc_B70F2 : ; CODE XREF : sub_B6253 + E8Fj
+lea	edi, unk_DE56Cx
+jmp	loc_B71B7
+; -------------------------------------------------------------------------- -
+
+loc_B70FD:; CODE XREF : sub_B6253 + E2Bj
+mov	edi, [esp + 88h + var_40]
+sub[esp + 88h + var_78], edi
+imul	edi, [esp + 88h + var_84]
+add	eax, edi
+mov	edi, [esp + 88h + var_80]
+imul	edi, [esp + 88h + var_40]
+add	ebx, edi
+mov	edi, [esp + 88h + var_60]
+imul	edi, [esp + 88h + var_40]
+add	ecx, edi
+mov	edi, [esp + 88h + var_54]
+imul	edi, [esp + 88h + var_40]
+add	edx, edi
+cmp[esp + 88h + var_24], 0
+jz	short loc_B7189
+mov	edi, viewPort.Height_DE568
+mov[esp + 88h + var_68], edi
+cmp[esp + 88h + var_25], 0
+jz	short loc_B714B
+mov[esp + 88h + var_78], edi
+jmp	short loc_B7158
+; -------------------------------------------------------------------------- -
+
+loc_B714B:; CODE XREF : sub_B6253 + EF0j
+sub	edi, [esp + 88h + var_78]
+setle[esp + 88h + var_25]
+mov[esp + 88h + var_70], edi
+
+loc_B7158 : ; CODE XREF : sub_B6253 + EF6j
+jmp	short loc_B7189
+; -------------------------------------------------------------------------- -
+
+loc_B715A:; CODE XREF : sub_B6253 + E0Dj
+cmp[esp + 88h + var_24], 0
+jz	short loc_B7189
+mov	edi, viewPort.Height_DE568
+sub	edi, [esp + 88h + var_34]
+mov[esp + 88h + var_68], edi
+cmp[esp + 88h + var_25], 0
+jz	short loc_B717C
+mov[esp + 88h + var_78], edi
+jmp	short loc_B7189
+; -------------------------------------------------------------------------- -
+
+loc_B717C:; CODE XREF : sub_B6253 + F21j
+sub	edi, [esp + 88h + var_78]
+setle[esp + 88h + var_25]
+mov[esp + 88h + var_70], edi
+
+loc_B7189 : ; CODE XREF : sub_B6253 + EDFj
+; sub_B6253:loc_B7158j	...
+lea	edi, unk_DE56Cx
+
+loc_B718F : ; CODE XREF : sub_B6253 + F5Ej
+mov[edi], eax
+add	eax, [esp + 88h + var_84]
+mov[edi + 4], ebx
+add	ebx, [esp + 88h + var_80]
+mov[edi + 8], ecx
+add	ecx, [esp + 88h + var_60]
+mov[edi + 0Ch], edx
+add	edx, [esp + 88h + var_54]
+add	edi, 14h
+dec[esp + 88h + var_78]
+jnz	short loc_B718F
+mov	eax, [esp + 88h + var_6C]
+
+loc_B71B7:; CODE XREF : sub_B6253 + EA5j
+cmp[esp + 88h + var_25], 0
+jz	short loc_B71CC
+//movzx	eax, x_BYTE_E126D
+xor eax, eax
+//movzx	al, x_BYTE_E126D
+xor eax, eax
+mov	al, x_BYTE_E126D
+
+jmp	ds : off_B7E1B[eax * 4]
+; -------------------------------------------------------------------------- -
+
+loc_B71CC:; CODE XREF : sub_B6253 + F69j
+; sub_B6253 + F9Bj
+mov[edi], eax
+add	eax, [esp + 88h + var_7C]
+mov[edi + 4], ebx
+add	ebx, [esp + 88h + var_80]
+mov[edi + 8], ecx
+add	ecx, [esp + 88h + var_5C]
+mov[edi + 0Ch], edx
+add	edx, [esp + 88h + var_50]
+add	edi, 14h
+dec[esp + 88h + var_70]
+jnz	short loc_B71CC
+//movzx	eax, x_BYTE_E126D
+xor eax, eax
+//movzx	al, x_BYTE_E126D
+xor eax, eax
+mov	al, x_BYTE_E126D
+
+jmp	ds : off_B7E1B[eax * 4]
+; -------------------------------------------------------------------------- -
+
+loc_B71FE:; CODE XREF : sub_B6253 + A4Fj
+; DATA XREF : sub_B6253 + A5Ao ...
+mov	eax, [edi]
+sub	eax, [esi]
+imul[esp + 88h + var_78]
+idiv[esp + 88h + var_74]
+mov	ebx, [esi]
+sub	ebx, [ecx]
+add	ebx, eax
+jl	loc_B7EE4
+jz	short loc_B7234
+inc	ebx
+mov	eax, [edi + 10h]
+sub	eax, [esi + 10h]
+imul[esp + 88h + var_78]
+idiv[esp + 88h + var_74]
+add	eax, [esi + 10h]
+sub	eax, [ecx + 10h]
+cdq
+idiv	ebx
+mov[esp + 88h + var_4C], eax
+
+loc_B7234 : ; CODE XREF : sub_B6253 + FC3j
+mov	eax, [ecx + 10h]
+sub	eax, [esi + 10h]
+cdq
+idiv[esp + 88h + var_78]
+mov[esp + 88h + var_48], eax
+mov	eax, [edi + 10h]
+sub	eax, [ecx + 10h]
+cdq
+idiv[esp + 88h + var_70]
+mov[esp + 88h + var_44], eax
+mov	eax, [esi]
+shl	eax, 10h
+mov	ebx, eax
+mov	esi, [esi + 10h]
+cmp[esp + 88h + var_26], 0
+jz	loc_B733A
+mov	edi, [esp + 88h + var_34]
+neg	edi
+sub[esp + 88h + var_68], edi
+jle	loc_B7EE4
+mov[esp + 88h + var_40], edi
+cmp	edi, [esp + 88h + var_78]
+js	short loc_B72E8
+mov	edi, [esp + 88h + var_80]
+imul	edi, [esp + 88h + var_78]
+add	ebx, edi
+mov	edi, [esp + 88h + var_48]
+imul	edi, [esp + 88h + var_78]
+add	esi, edi
+mov	eax, [esp + 88h + var_6C]
+mov	edi, [esp + 88h + var_40]
+sub	edi, [esp + 88h + var_78]
+mov[esp + 88h + var_40], edi
+sub[esp + 88h + var_70], edi
+imul	edi, [esp + 88h + var_7C]
+add	eax, edi
+mov	edi, [esp + 88h + var_80]
+imul	edi, [esp + 88h + var_40]
+add	ebx, edi
+mov	edi, [esp + 88h + var_44]
+imul	edi, [esp + 88h + var_40]
+add	esi, edi
+cmp[esp + 88h + var_24], 0
+jz	short loc_B72DD
+mov	edi, viewPort.Height_DE568
+mov[esp + 88h + var_70], edi
+mov[esp + 88h + var_68], edi
+
+loc_B72DD : ; CODE XREF : sub_B6253 + 107Aj
+lea	edi, unk_DE56Cx
+jmp	loc_B7390
+; -------------------------------------------------------------------------- -
+
+loc_B72E8:; CODE XREF : sub_B6253 + 102Cj
+mov	edi, [esp + 88h + var_40]
+sub[esp + 88h + var_78], edi
+imul	edi, [esp + 88h + var_84]
+add	eax, edi
+mov	edi, [esp + 88h + var_80]
+imul	edi, [esp + 88h + var_40]
+add	ebx, edi
+mov	edi, [esp + 88h + var_48]
+imul	edi, [esp + 88h + var_40]
+add	esi, edi
+cmp[esp + 88h + var_24], 0
+jz	short loc_B7369
+mov	edi, viewPort.Height_DE568
+mov[esp + 88h + var_68], edi
+cmp[esp + 88h + var_25], 0
+jz	short loc_B732B
+mov[esp + 88h + var_78], edi
+jmp	short loc_B7338
+; -------------------------------------------------------------------------- -
+
+loc_B732B:; CODE XREF : sub_B6253 + 10D0j
+sub	edi, [esp + 88h + var_78]
+setle[esp + 88h + var_25]
+mov[esp + 88h + var_70], edi
+
+loc_B7338 : ; CODE XREF : sub_B6253 + 10D6j
+jmp	short loc_B7369
+; -------------------------------------------------------------------------- -
+
+loc_B733A:; CODE XREF : sub_B6253 + 100Ej
+cmp[esp + 88h + var_24], 0
+jz	short loc_B7369
+mov	edi, viewPort.Height_DE568
+sub	edi, [esp + 88h + var_34]
+mov[esp + 88h + var_68], edi
+cmp[esp + 88h + var_25], 0
+jz	short loc_B735C
+mov[esp + 88h + var_78], edi
+jmp	short loc_B7369
+; -------------------------------------------------------------------------- -
+
+loc_B735C:; CODE XREF : sub_B6253 + 1101j
+sub	edi, [esp + 88h + var_78]
+setle[esp + 88h + var_25]
+mov[esp + 88h + var_70], edi
+
+loc_B7369 : ; CODE XREF : sub_B6253 + 10BFj
+; sub_B6253:loc_B7338j	...
+lea	edi, unk_DE56Cx
+
+loc_B736F : ; CODE XREF : sub_B6253 + 1137j
+mov[edi], eax
+add	eax, [esp + 88h + var_84]
+mov[edi + 4], ebx
+add	ebx, [esp + 88h + var_80]
+mov[edi + 10h], esi
+add	esi, [esp + 88h + var_48]
+add	edi, 14h
+dec[esp + 88h + var_78]
+jnz	short loc_B736F
+mov	eax, [esp + 88h + var_6C]
+
+loc_B7390:; CODE XREF : sub_B6253 + 1090j
+cmp[esp + 88h + var_25], 0
+jz	short loc_B73A5
+//movzx	eax, x_BYTE_E126D
+xor eax, eax
+mov	al, x_BYTE_E126D
+
+jmp	ds : off_B7E1B[eax * 4]
+; -------------------------------------------------------------------------- -
+
+loc_B73A5:; CODE XREF : sub_B6253 + 1142j
+; sub_B6253 + 116Dj
+mov[edi], eax
+add	eax, [esp + 88h + var_7C]
+mov[edi + 4], ebx
+add	ebx, [esp + 88h + var_80]
+mov[edi + 10h], esi
+add	esi, [esp + 88h + var_44]
+add	edi, 14h
+dec[esp + 88h + var_70]
+jnz	short loc_B73A5
+//movzx	eax, x_BYTE_E126D
+xor eax, eax
+mov	al, x_BYTE_E126D
+
+jmp	ds : off_B7E1B[eax * 4]
+; -------------------------------------------------------------------------- -
+
+loc_B73D0:; CODE XREF : sub_B6253 + A4Fj
+; DATA XREF : sub_B6253:off_B6CA9o ...
+mov	eax, [esi]
+shl	eax, 10h
+mov	ebx, eax
+cmp[esp + 88h + var_26], 0
+jz	loc_B7494
+mov	edi, [esp + 88h + var_34]
+neg	edi
+sub[esp + 88h + var_68], edi
+jle	loc_B7EE4
+mov[esp + 88h + var_40], edi
+cmp	edi, [esp + 88h + var_78]
+js	short loc_B744D
+mov	edi, [esp + 88h + var_80]
+imul	edi, [esp + 88h + var_78]
+add	ebx, edi
+mov	eax, [esp + 88h + var_6C]
+mov	edi, [esp + 88h + var_40]
+sub	edi, [esp + 88h + var_78]
+mov[esp + 88h + var_40], edi
+sub[esp + 88h + var_70], edi
+imul	edi, [esp + 88h + var_7C]
+add	eax, edi
+mov	edi, [esp + 88h + var_80]
+imul	edi, [esp + 88h + var_40]
+add	ebx, edi
+cmp[esp + 88h + var_24], 0
+jz	short loc_B7442
+mov	edi, viewPort.Height_DE568
+mov[esp + 88h + var_70], edi
+mov[esp + 88h + var_68], edi
+
+loc_B7442 : ; CODE XREF : sub_B6253 + 11DFj
+lea	edi, unk_DE56Cx
+jmp	loc_B74E3
+; -------------------------------------------------------------------------- -
+
+loc_B744D:; CODE XREF : sub_B6253 + 11A7j
+mov	edi, [esp + 88h + var_40]
+sub[esp + 88h + var_78], edi
+imul	edi, [esp + 88h + var_84]
+add	eax, edi
+mov	edi, [esp + 88h + var_80]
+imul	edi, [esp + 88h + var_40]
+add	ebx, edi
+cmp[esp + 88h + var_24], 0
+jz	short loc_B74C3
+mov	edi, viewPort.Height_DE568
+mov[esp + 88h + var_68], edi
+cmp[esp + 88h + var_25], 0
+jz	short loc_B7485
+mov[esp + 88h + var_78], edi
+jmp	short loc_B7492
+; -------------------------------------------------------------------------- -
+
+loc_B7485:; CODE XREF : sub_B6253 + 122Aj
+sub	edi, [esp + 88h + var_78]
+setle[esp + 88h + var_25]
+mov[esp + 88h + var_70], edi
+
+loc_B7492 : ; CODE XREF : sub_B6253 + 1230j
+jmp	short loc_B74C3
+; -------------------------------------------------------------------------- -
+
+loc_B7494:; CODE XREF : sub_B6253 + 1189j
+cmp[esp + 88h + var_24], 0
+jz	short loc_B74C3
+mov	edi, viewPort.Height_DE568
+sub	edi, [esp + 88h + var_34]
+mov[esp + 88h + var_68], edi
+cmp[esp + 88h + var_25], 0
+jz	short loc_B74B6
+mov[esp + 88h + var_78], edi
+jmp	short loc_B74C3
+; -------------------------------------------------------------------------- -
+
+loc_B74B6:; CODE XREF : sub_B6253 + 125Bj
+sub	edi, [esp + 88h + var_78]
+setle[esp + 88h + var_25]
+mov[esp + 88h + var_70], edi
+
+loc_B74C3 : ; CODE XREF : sub_B6253 + 1219j
+; sub_B6253:loc_B7492j	...
+lea	edi, unk_DE56Cx
+
+loc_B74C9 : ; CODE XREF : sub_B6253 + 128Aj
+mov[edi], eax
+add	eax, [esp + 88h + var_84]
+mov[edi + 4], ebx
+add	ebx, [esp + 88h + var_80]
+add	edi, 14h
+dec[esp + 88h + var_78]
+jnz	short loc_B74C9
+mov	eax, [esp + 88h + var_6C]
+
+loc_B74E3:; CODE XREF : sub_B6253 + 11F5j
+cmp[esp + 88h + var_25], 0
+jz	short loc_B74F8
+//movzx	eax, x_BYTE_E126D
+xor eax, eax
+mov	al, x_BYTE_E126D
+
+jmp	ds : off_B7E1B[eax * 4]
+; -------------------------------------------------------------------------- -
+
+loc_B74F8:; CODE XREF : sub_B6253 + 1295j
+; sub_B6253 + 12B9j
+mov[edi], eax
+add	eax, [esp + 88h + var_7C]
+mov[edi + 4], ebx
+add	ebx, [esp + 88h + var_80]
+add	edi, 14h
+dec[esp + 88h + var_70]
+jnz	short loc_B74F8
+//movzx	eax, x_BYTE_E126D
+xor eax, eax
+mov	al, x_BYTE_E126D
+
+jmp	ds : off_B7E1B[eax * 4]
+; -------------------------------------------------------------------------- -
+
+loc_B751C:; CODE XREF : sub_B6253 + 36j
+mov	eax, [ecx]
+cmp	eax, [esi]
+jle	loc_B7EE4
+xchg	esi, edi
+xchg	edi, ecx
+
+loc_B752A : ; CODE XREF : sub_B6253 + 86j
+; sub_B6253 + A4j
+mov	eax, [esi + 4]
+mov[esp + 88h + var_34], eax
+or eax, eax
+jns	short loc_B7545
+mov	ebx, ViewPortRenderBufferAltStart_DE554
+mov[esp + 88h + var_88], ebx
+mov[esp + 88h + var_26], 1
+jmp	short loc_B7568
+; -------------------------------------------------------------------------- -
+
+loc_B7545:; CODE XREF : sub_B6253 + 12E0j
+cmp	eax, viewPort.Height_DE568
+jge	loc_B7EE4
+mov	ebx, eax
+imul	ebx, iScreenWidth_DE560
+add	ebx, ViewPortRenderBufferAltStart_DE554
+mov[esp + 88h + var_88], ebx
+mov[esp + 88h + var_26], 0
+
+loc_B7568:; CODE XREF : sub_B6253 + 12F0j
+mov	ebx, [ecx + 4]
+cmp	ebx, viewPort.Height_DE568
+setnle[esp + 88h + var_25]
+sub	ebx, eax
+mov[esp + 88h + var_78], ebx
+mov[esp + 88h + var_68], ebx
+mov	eax, [ecx]
+sub	eax, [esi]
+shl	eax, 10h
+cdq
+idiv	ebx
+mov[esp + 88h + var_84], eax
+mov	eax, [edi]
+sub	eax, [esi]
+shl	eax, 10h
+cdq
+idiv	ebx
+mov[esp + 88h + var_80], eax
+//movzx	eax, x_BYTE_E126D
+xor eax, eax
+mov	al, x_BYTE_E126D
+
+jmp	ds : off_B75AA[eax * 4]
+; -------------------------------------------------------------------------- -
+
+loc_B7616:; CODE XREF : sub_B6253 + 1350j
+; DATA XREF : sub_B6253 + 136Bo ...
+mov	ebx, [edi]
+sub	ebx, [ecx]
+mov	eax, [edi + 8]
+sub	eax, [ecx + 8]
+cdq
+idiv	ebx
+mov[esp + 88h + var_64], eax
+mov	eax, [edi + 0Ch]
+sub	eax, [ecx + 0Ch]
+cdq
+idiv	ebx
+mov[esp + 88h + var_58], eax
+mov	eax, [edi + 10h]
+sub	eax, [ecx + 10h]
+cdq
+idiv	ebx
+mov[esp + 88h + var_4C], eax
+mov	eax, [ecx + 8]
+sub	eax, [esi + 8]
+cdq
+idiv[esp + 88h + var_68]
+mov[esp + 88h + var_60], eax
+mov	eax, [ecx + 0Ch]
+sub	eax, [esi + 0Ch]
+cdq
+idiv[esp + 88h + var_68]
+mov[esp + 88h + var_54], eax
+mov	eax, [ecx + 10h]
+sub	eax, [esi + 10h]
+cdq
+idiv[esp + 88h + var_68]
+mov[esp + 88h + var_48], eax
+mov	eax, [esi]
+shl	eax, 10h
+mov	ebx, eax
+mov	ecx, [esi + 8]
+mov	edx, [esi + 0Ch]
+mov	esi, [esi + 10h]
+cmp[esp + 88h + var_26], 0
+jz	short loc_B76E7
+mov	edi, [esp + 88h + var_34]
+neg	edi
+sub[esp + 88h + var_78], edi
+sub[esp + 88h + var_68], edi
+jle	loc_B7EE4
+mov[esp + 88h + var_40], edi
+imul	edi, [esp + 88h + var_84]
+add	eax, edi
+mov	edi, [esp + 88h + var_80]
+imul	edi, [esp + 88h + var_40]
+add	ebx, edi
+mov	edi, [esp + 88h + var_60]
+imul	edi, [esp + 88h + var_40]
+add	ecx, edi
+mov	edi, [esp + 88h + var_54]
+imul	edi, [esp + 88h + var_40]
+add	edx, edi
+mov	edi, [esp + 88h + var_48]
+imul	edi, [esp + 88h + var_40]
+add	esi, edi
+cmp[esp + 88h + var_25], 0
+jz	short loc_B7700
+mov	edi, viewPort.Height_DE568
+mov[esp + 88h + var_68], edi
+mov[esp + 88h + var_78], edi
+jmp	short loc_B7700
+; -------------------------------------------------------------------------- -
+
+loc_B76E7:; CODE XREF : sub_B6253 + 1430j
+cmp[esp + 88h + var_25], 0
+jz	short loc_B7700
+mov	edi, viewPort.Height_DE568
+sub	edi, [esp + 88h + var_34]
+mov[esp + 88h + var_68], edi
+mov[esp + 88h + var_78], edi
+
+loc_B7700 : ; CODE XREF : sub_B6253 + 1482j
+; sub_B6253 + 1492j ...
+lea	edi, unk_DE56Cx
+
+loc_B7706 : ; CODE XREF : sub_B6253 + 14DCj
+mov[edi], eax
+add	eax, [esp + 88h + var_84]
+mov[edi + 4], ebx
+add	ebx, [esp + 88h + var_80]
+mov[edi + 8], ecx
+add	ecx, [esp + 88h + var_60]
+mov[edi + 0Ch], edx
+add	edx, [esp + 88h + var_54]
+mov[edi + 10h], esi
+add	esi, [esp + 88h + var_48]
+add	edi, 14h
+dec[esp + 88h + var_78]
+jnz	short loc_B7706
+//movzx	eax, x_BYTE_E126D
+xor eax, eax
+mov	al, x_BYTE_E126D
+
+jmp	ds : off_B7E1B[eax * 4]
+; -------------------------------------------------------------------------- -
+
+loc_B773F:; CODE XREF : sub_B6253 + 1350j
+; DATA XREF : sub_B6253 + 135Fo ...
+mov	ebx, [edi]
+sub	ebx, [ecx]
+mov	eax, [edi + 8]
+sub	eax, [ecx + 8]
+cdq
+idiv	ebx
+mov[esp + 88h + var_64], eax
+mov	eax, [edi + 0Ch]
+sub	eax, [ecx + 0Ch]
+cdq
+idiv	ebx
+mov[esp + 88h + var_58], eax
+mov	eax, [ecx + 8]
+sub	eax, [esi + 8]
+cdq
+idiv[esp + 88h + var_68]
+mov[esp + 88h + var_60], eax
+mov	eax, [ecx + 0Ch]
+sub	eax, [esi + 0Ch]
+cdq
+idiv[esp + 88h + var_68]
+mov[esp + 88h + var_54], eax
+mov	eax, [esi]
+shl	eax, 10h
+mov	ebx, eax
+mov	ecx, [esi + 8]
+mov	edx, [esi + 0Ch]
+cmp[esp + 88h + var_26], 0
+jz	short loc_B77F1
+mov	edi, [esp + 88h + var_34]
+neg	edi
+sub[esp + 88h + var_78], edi
+sub[esp + 88h + var_68], edi
+jle	loc_B7EE4
+mov[esp + 88h + var_40], edi
+imul	edi, [esp + 88h + var_84]
+add	eax, edi
+mov	edi, [esp + 88h + var_80]
+imul	edi, [esp + 88h + var_40]
+add	ebx, edi
+mov	edi, [esp + 88h + var_60]
+imul	edi, [esp + 88h + var_40]
+add	ecx, edi
+mov	edi, [esp + 88h + var_54]
+imul	edi, [esp + 88h + var_40]
+add	edx, edi
+mov	edi, [esp + 88h + var_48]
+imul	edi, [esp + 88h + var_40]
+add	esi, edi
+cmp[esp + 88h + var_25], 0
+jz	short loc_B780A
+mov	edi, viewPort.Height_DE568
+mov[esp + 88h + var_68], edi
+mov[esp + 88h + var_78], edi
+jmp	short loc_B780A
+; -------------------------------------------------------------------------- -
+
+loc_B77F1:; CODE XREF : sub_B6253 + 153Aj
+cmp[esp + 88h + var_25], 0
+jz	short loc_B780A
+mov	edi, viewPort.Height_DE568
+sub	edi, [esp + 88h + var_34]
+mov[esp + 88h + var_68], edi
+mov[esp + 88h + var_78], edi
+
+loc_B780A : ; CODE XREF : sub_B6253 + 158Cj
+; sub_B6253 + 159Cj ...
+lea	edi, unk_DE56Cx
+
+loc_B7810 : ; CODE XREF : sub_B6253 + 15DFj
+mov[edi], eax
+add	eax, [esp + 88h + var_84]
+mov[edi + 4], ebx
+add	ebx, [esp + 88h + var_80]
+mov[edi + 8], ecx
+add	ecx, [esp + 88h + var_60]
+mov[edi + 0Ch], edx
+add	edx, [esp + 88h + var_54]
+add	edi, 14h
+dec[esp + 88h + var_78]
+jnz	short loc_B7810
+//movzx	eax, x_BYTE_E126D
+xor eax, eax
+mov	al, x_BYTE_E126D
+
+jmp	ds : off_B7E1B[eax * 4]
+; -------------------------------------------------------------------------- -
+
+loc_B7842:; CODE XREF : sub_B6253 + 1350j
+; DATA XREF : sub_B6253 + 135Bo ...
+mov	ebx, [edi]
+sub	ebx, [ecx]
+mov	eax, [edi + 10h]
+sub	eax, [ecx + 10h]
+cdq
+idiv	ebx
+mov[esp + 88h + var_4C], eax
+mov	eax, [ecx + 10h]
+sub	eax, [esi + 10h]
+cdq
+idiv[esp + 88h + var_68]
+mov[esp + 88h + var_48], eax
+mov	eax, [esi]
+shl	eax, 10h
+mov	ebx, eax
+mov	esi, [esi + 10h]
+cmp[esp + 88h + var_26], 0
+jz	short loc_B78BF
+mov	edi, [esp + 88h + var_34]
+neg	edi
+sub[esp + 88h + var_78], edi
+sub[esp + 88h + var_68], edi
+jle	loc_B7EE4
+mov[esp + 88h + var_40], edi
+imul	edi, [esp + 88h + var_84]
+add	eax, edi
+mov	edi, [esp + 88h + var_80]
+imul	edi, [esp + 88h + var_40]
+add	ebx, edi
+mov	edi, [esp + 88h + var_48]
+imul	edi, [esp + 88h + var_40]
+add	esi, edi
+cmp[esp + 88h + var_25], 0
+jz	short loc_B78D8
+mov	edi, viewPort.Height_DE568
+mov[esp + 88h + var_68], edi
+mov[esp + 88h + var_78], edi
+jmp	short loc_B78D8
+; -------------------------------------------------------------------------- -
+
+loc_B78BF:; CODE XREF : sub_B6253 + 161Ej
+cmp[esp + 88h + var_25], 0
+jz	short loc_B78D8
+mov	edi, viewPort.Height_DE568
+sub	edi, [esp + 88h + var_34]
+mov[esp + 88h + var_68], edi
+mov[esp + 88h + var_78], edi
+
+loc_B78D8 : ; CODE XREF : sub_B6253 + 165Aj
+; sub_B6253 + 166Aj ...
+lea	edi, unk_DE56Cx
+
+loc_B78DE : ; CODE XREF : sub_B6253 + 16A6j
+mov[edi], eax
+add	eax, [esp + 88h + var_84]
+mov[edi + 4], ebx
+add	ebx, [esp + 88h + var_80]
+mov[edi + 10h], esi
+add	esi, [esp + 88h + var_48]
+add	edi, 14h
+dec[esp + 88h + var_78]
+jnz	short loc_B78DE
+//movzx	eax, x_BYTE_E126D
+xor eax, eax
+mov	al, x_BYTE_E126D
+
+jmp	ds : off_B7E1B[eax * 4]
+; -------------------------------------------------------------------------- -
+
+loc_B7909:; CODE XREF : sub_B6253 + 1350j
+; DATA XREF : sub_B6253:off_B75AAo ...
+mov	eax, [esi]
+shl	eax, 10h
+mov	ebx, eax
+cmp[esp + 88h + var_26], 0
+jz	short loc_B7958
+mov	edi, [esp + 88h + var_34]
+neg	edi
+sub[esp + 88h + var_78], edi
+sub[esp + 88h + var_68], edi
+jle	loc_B7EE4
+mov[esp + 88h + var_40], edi
+imul	edi, [esp + 88h + var_84]
+add	eax, edi
+mov	edi, [esp + 88h + var_80]
+imul	edi, [esp + 88h + var_40]
+add	ebx, edi
+cmp[esp + 88h + var_25], 0
+jz	short loc_B7971
+mov	edi, viewPort.Height_DE568
+mov[esp + 88h + var_68], edi
+mov[esp + 88h + var_78], edi
+jmp	short loc_B7971
+; -------------------------------------------------------------------------- -
+
+loc_B7958:; CODE XREF : sub_B6253 + 16C2j
+cmp[esp + 88h + var_25], 0
+jz	short loc_B7971
+mov	edi, viewPort.Height_DE568
+sub	edi, [esp + 88h + var_34]
+mov[esp + 88h + var_68], edi
+mov[esp + 88h + var_78], edi
+
+loc_B7971 : ; CODE XREF : sub_B6253 + 16F3j
+; sub_B6253 + 1703j ...
+lea	edi, unk_DE56Cx
+
+loc_B7977 : ; CODE XREF : sub_B6253 + 1738j
+mov[edi], eax
+add	eax, [esp + 88h + var_84]
+mov[edi + 4], ebx
+add	ebx, [esp + 88h + var_80]
+add	edi, 14h
+dec[esp + 88h + var_78]
+jnz	short loc_B7977
+//movzx	eax, x_BYTE_E126D
+xor eax, eax
+mov	al, x_BYTE_E126D
+
+jmp	ds : off_B7E1B[eax * 4]
+; -------------------------------------------------------------------------- -
+
+loc_B799B:; CODE XREF : sub_B6253 + 44j
+mov	eax, [ecx]
+cmp	eax, [edi]
+jle	loc_B7EE4
+xchg	esi, edi
+xchg	edi, ecx
+
+loc_B79A9 : ; CODE XREF : sub_B6253 + 69j
+; sub_B6253 + 95j
+mov	eax, [esi + 4]
+mov[esp + 88h + var_34], eax
+or eax, eax
+jns	short loc_B79C4
+mov	ebx, ViewPortRenderBufferAltStart_DE554
+mov[esp + 88h + var_88], ebx
+mov[esp + 88h + var_26], 1
+jmp	short loc_B79E7
+; -------------------------------------------------------------------------- -
+
+loc_B79C4:; CODE XREF : sub_B6253 + 175Fj
+cmp	eax, viewPort.Height_DE568
+jge	loc_B7EE4
+mov	ebx, eax
+imul	ebx, iScreenWidth_DE560
+add	ebx, ViewPortRenderBufferAltStart_DE554
+mov[esp + 88h + var_88], ebx
+mov[esp + 88h + var_26], 0
+
+loc_B79E7:; CODE XREF : sub_B6253 + 176Fj
+mov	ebx, [ecx + 4]
+cmp	ebx, viewPort.Height_DE568
+setnle[esp + 88h + var_25]
+sub	ebx, eax
+mov[esp + 88h + var_78], ebx
+mov[esp + 88h + var_68], ebx
+mov	eax, [ecx]
+sub	eax, [esi]
+shl	eax, 10h
+cdq
+idiv	ebx
+mov[esp + 88h + var_84], eax
+mov	eax, [ecx]
+sub	eax, [edi]
+shl	eax, 10h
+cdq
+idiv	ebx
+mov[esp + 88h + var_80], eax
+//movzx	eax, x_BYTE_E126D
+xor eax, eax
+mov	al, x_BYTE_E126D
+
+jmp	ds : off_B7A29[eax * 4]
+; -------------------------------------------------------------------------- -
+
+loc_B7A95:; CODE XREF : sub_B6253 + 17CFj
+; DATA XREF : sub_B6253 + 17EAo ...
+mov	ebx, [edi]
+sub	ebx, [esi]
+mov	eax, [edi + 8]
+sub	eax, [esi + 8]
+cdq
+idiv	ebx
+mov[esp + 88h + var_64], eax
+mov	eax, [edi + 0Ch]
+sub	eax, [esi + 0Ch]
+cdq
+idiv	ebx
+mov[esp + 88h + var_58], eax
+mov	eax, [edi + 10h]
+sub	eax, [esi + 10h]
+cdq
+idiv	ebx
+mov[esp + 88h + var_4C], eax
+mov	eax, [ecx + 8]
+sub	eax, [esi + 8]
+cdq
+idiv[esp + 88h + var_68]
+mov[esp + 88h + var_60], eax
+mov	eax, [ecx + 0Ch]
+sub	eax, [esi + 0Ch]
+cdq
+idiv[esp + 88h + var_68]
+mov[esp + 88h + var_54], eax
+mov	eax, [ecx + 10h]
+sub	eax, [esi + 10h]
+cdq
+idiv[esp + 88h + var_68]
+mov[esp + 88h + var_48], eax
+mov	eax, [esi]
+shl	eax, 10h
+mov	ebx, [edi]
+shl	ebx, 10h
+mov	ecx, [esi + 8]
+mov	edx, [esi + 0Ch]
+mov	esi, [esi + 10h]
+cmp[esp + 88h + var_26], 0
+jz	short loc_B7B69
+mov	edi, [esp + 88h + var_34]
+neg	edi
+sub[esp + 88h + var_78], edi
+sub[esp + 88h + var_68], edi
+jle	loc_B7EE4
+mov[esp + 88h + var_40], edi
+imul	edi, [esp + 88h + var_84]
+add	eax, edi
+mov	edi, [esp + 88h + var_80]
+imul	edi, [esp + 88h + var_40]
+add	ebx, edi
+mov	edi, [esp + 88h + var_60]
+imul	edi, [esp + 88h + var_40]
+add	ecx, edi
+mov	edi, [esp + 88h + var_54]
+imul	edi, [esp + 88h + var_40]
+add	edx, edi
+mov	edi, [esp + 88h + var_48]
+imul	edi, [esp + 88h + var_40]
+add	esi, edi
+cmp[esp + 88h + var_25], 0
+jz	short loc_B7B82
+mov	edi, viewPort.Height_DE568
+mov[esp + 88h + var_68], edi
+mov[esp + 88h + var_78], edi
+jmp	short loc_B7B82
+; -------------------------------------------------------------------------- -
+
+loc_B7B69:; CODE XREF : sub_B6253 + 18B2j
+cmp[esp + 88h + var_25], 0
+jz	short loc_B7B82
+mov	edi, viewPort.Height_DE568
+sub	edi, [esp + 88h + var_34]
+mov[esp + 88h + var_68], edi
+mov[esp + 88h + var_78], edi
+
+loc_B7B82 : ; CODE XREF : sub_B6253 + 1904j
+; sub_B6253 + 1914j ...
+lea	edi, unk_DE56Cx
+
+loc_B7B88 : ; CODE XREF : sub_B6253 + 195Ej
+mov[edi], eax
+add	eax, [esp + 88h + var_84]
+mov[edi + 4], ebx
+add	ebx, [esp + 88h + var_80]
+mov[edi + 8], ecx
+add	ecx, [esp + 88h + var_60]
+mov[edi + 0Ch], edx
+add	edx, [esp + 88h + var_54]
+mov[edi + 10h], esi
+add	esi, [esp + 88h + var_48]
+add	edi, 14h
+dec[esp + 88h + var_78]
+jnz	short loc_B7B88
+//movzx	eax, x_BYTE_E126D
+xor eax, eax
+mov	al, x_BYTE_E126D
+
+jmp	ds : off_B7E1B[eax * 4]
+; -------------------------------------------------------------------------- -
+
+loc_B7BC1:; CODE XREF : sub_B6253 + 17CFj
+; DATA XREF : sub_B6253 + 17DEo ...
+mov	ebx, [edi]
+sub	ebx, [esi]
+mov	eax, [edi + 8]
+sub	eax, [esi + 8]
+cdq
+idiv	ebx
+mov[esp + 88h + var_64], eax
+mov	eax, [edi + 0Ch]
+sub	eax, [esi + 0Ch]
+cdq
+idiv	ebx
+mov[esp + 88h + var_58], eax
+mov	eax, [ecx + 8]
+sub	eax, [esi + 8]
+cdq
+idiv[esp + 88h + var_68]
+mov[esp + 88h + var_60], eax
+mov	eax, [ecx + 0Ch]
+sub	eax, [esi + 0Ch]
+cdq
+idiv[esp + 88h + var_68]
+mov[esp + 88h + var_54], eax
+mov	eax, [esi]
+shl	eax, 10h
+mov	ebx, [edi]
+shl	ebx, 10h
+mov	ecx, [esi + 8]
+mov	edx, [esi + 0Ch]
+cmp[esp + 88h + var_26], 0
+jz	short loc_B7C6B
+mov	edi, [esp + 88h + var_34]
+neg	edi
+sub[esp + 88h + var_78], edi
+sub[esp + 88h + var_68], edi
+jle	loc_B7EE4
+mov[esp + 88h + var_40], edi
+imul	edi, [esp + 88h + var_84]
+add	eax, edi
+mov	edi, [esp + 88h + var_80]
+imul	edi, [esp + 88h + var_40]
+add	ebx, edi
+mov	edi, [esp + 88h + var_60]
+imul	edi, [esp + 88h + var_40]
+add	ecx, edi
+mov	edi, [esp + 88h + var_54]
+imul	edi, [esp + 88h + var_40]
+add	edx, edi
+cmp[esp + 88h + var_25], 0
+jz	short loc_B7C84
+mov	edi, viewPort.Height_DE568
+mov[esp + 88h + var_68], edi
+mov[esp + 88h + var_78], edi
+jmp	short loc_B7C84
+; -------------------------------------------------------------------------- -
+
+loc_B7C6B:; CODE XREF : sub_B6253 + 19BFj
+cmp[esp + 88h + var_25], 0
+jz	short loc_B7C84
+mov	edi, viewPort.Height_DE568
+sub	edi, [esp + 88h + var_34]
+mov[esp + 88h + var_68], edi
+mov[esp + 88h + var_78], edi
+
+loc_B7C84 : ; CODE XREF : sub_B6253 + 1A06j
+; sub_B6253 + 1A16j ...
+lea	edi, unk_DE56Cx
+
+loc_B7C8A : ; CODE XREF : sub_B6253 + 1A59j
+mov[edi], eax
+add	eax, [esp + 88h + var_84]
+mov[edi + 4], ebx
+add	ebx, [esp + 88h + var_80]
+mov[edi + 8], ecx
+add	ecx, [esp + 88h + var_60]
+mov[edi + 0Ch], edx
+add	edx, [esp + 88h + var_54]
+add	edi, 14h
+dec[esp + 88h + var_78]
+jnz	short loc_B7C8A
+//movzx	eax, x_BYTE_E126D
+xor eax, eax
+mov	al, x_BYTE_E126D
+
+jmp	ds : off_B7E1B[eax * 4]
+; -------------------------------------------------------------------------- -
+
+loc_B7CBC:; CODE XREF : sub_B6253 + 17CFj
+; DATA XREF : sub_B6253 + 17DAo ...
+mov	ebx, [edi]
+sub	ebx, [esi]
+mov	eax, [edi + 10h]
+sub	eax, [esi + 10h]
+cdq
+idiv	ebx
+mov[esp + 88h + var_4C], eax
+mov	eax, [ecx + 10h]
+sub	eax, [esi + 10h]
+cdq
+idiv[esp + 88h + var_68]
+mov[esp + 88h + var_48], eax
+mov	eax, [esi]
+shl	eax, 10h
+mov	ebx, [edi]
+shl	ebx, 10h
+mov	esi, [esi + 10h]
+cmp[esp + 88h + var_26], 0
+jz	short loc_B7D3C
+mov	edi, [esp + 88h + var_34]
+neg	edi
+sub[esp + 88h + var_78], edi
+sub[esp + 88h + var_68], edi
+jle	loc_B7EE4
+mov[esp + 88h + var_40], edi
+imul	edi, [esp + 88h + var_84]
+add	eax, edi
+mov	edi, [esp + 88h + var_80]
+imul	edi, [esp + 88h + var_40]
+add	ebx, edi
+mov	edi, [esp + 88h + var_48]
+imul	edi, [esp + 88h + var_40]
+add	esi, edi
+cmp[esp + 88h + var_25], 0
+jz	short loc_B7D55
+mov	edi, viewPort.Height_DE568
+mov[esp + 88h + var_68], edi
+mov[esp + 88h + var_78], edi
+jmp	short loc_B7D55
+; -------------------------------------------------------------------------- -
+
+loc_B7D3C:; CODE XREF : sub_B6253 + 1A9Bj
+cmp[esp + 88h + var_25], 0
+jz	short loc_B7D55
+mov	edi, viewPort.Height_DE568
+sub	edi, [esp + 88h + var_34]
+mov[esp + 88h + var_68], edi
+mov[esp + 88h + var_78], edi
+
+loc_B7D55 : ; CODE XREF : sub_B6253 + 1AD7j
+; sub_B6253 + 1AE7j ...
+lea	edi, unk_DE56Cx
+
+loc_B7D5B : ; CODE XREF : sub_B6253 + 1B23j
+mov[edi], eax
+add	eax, [esp + 88h + var_84]
+mov[edi + 4], ebx
+add	ebx, [esp + 88h + var_80]
+mov[edi + 10h], esi
+add	esi, [esp + 88h + var_48]
+add	edi, 14h
+dec[esp + 88h + var_78]
+jnz	short loc_B7D5B
+//movzx	eax, x_BYTE_E126D
+xor eax, eax
+mov	al, x_BYTE_E126D
+
+jmp	ds : off_B7E1B[eax * 4]
+; -------------------------------------------------------------------------- -
+
+loc_B7D86:; CODE XREF : sub_B6253 + 17CFj
+; DATA XREF : sub_B6253:off_B7A29o ...
+mov	eax, [esi]
+shl	eax, 10h
+mov	ebx, [edi]
+shl	ebx, 10h
+cmp[esp + 88h + var_26], 0
+jz	short loc_B7DD8
+mov	edi, [esp + 88h + var_34]
+neg	edi
+sub[esp + 88h + var_78], edi
+sub[esp + 88h + var_68], edi
+jle	loc_B7EE4
+mov[esp + 88h + var_40], edi
+imul	edi, [esp + 88h + var_84]
+add	eax, edi
+mov	edi, [esp + 88h + var_80]
+imul	edi, [esp + 88h + var_40]
+add	ebx, edi
+cmp[esp + 88h + var_25], 0
+jz	short loc_B7DF1
+mov	edi, viewPort.Height_DE568
+mov[esp + 88h + var_68], edi
+mov[esp + 88h + var_78], edi
+jmp	short loc_B7DF1
+; -------------------------------------------------------------------------- -
+
+loc_B7DD8:; CODE XREF : sub_B6253 + 1B42j
+cmp[esp + 88h + var_25], 0
+jz	short loc_B7DF1
+mov	edi, viewPort.Height_DE568
+sub	edi, [esp + 88h + var_34]
+mov[esp + 88h + var_68], edi
+mov[esp + 88h + var_78], edi
+
+loc_B7DF1 : ; CODE XREF : sub_B6253 + 1B73j
+; sub_B6253 + 1B83j ...
+lea	edi, unk_DE56Cx
+
+loc_B7DF7 : ; CODE XREF : sub_B6253 + 1BB8j
+mov[edi], eax
+add	eax, [esp + 88h + var_84]
+mov[edi + 4], ebx
+add	ebx, [esp + 88h + var_80]
+add	edi, 14h
+dec[esp + 88h + var_78]
+jnz	short loc_B7DF7
+//movzx	eax, x_BYTE_E126D
+xor eax, eax
+mov	al, x_BYTE_E126D
+
+jmp	ds : off_B7E1B[eax * 4]
+; -------------------------------------------------------------------------- -
+
+loc_B7E87:; CODE XREF : sub_B6253 + 421j
+; sub_B6253 + 45Aj ...
+lea	esi, unk_DE56Cx
+mov	edx, [esp + 88h + var_88]
+mov	al, x_BYTE_E126C
+xor ebx, ebx
+xor ecx, ecx
+
+loc_B7E99 : ; CODE XREF : sub_B6253 + 1C8Fj
+mov	bx, [esi + 2]
+movzx	ecx, word ptr[esi + 6]
+add	edx, iScreenWidth_DE560
+or bx, bx
+jns	short loc_B7EC3
+or cx, cx
+jle	short loc_B7EDB
+cmp	ecx, viewPort.Width_DE564
+jle	short loc_B7EBF
+mov	ecx, viewPort.Width_DE564
+
+loc_B7EBF : ; CODE XREF : sub_B6253 + 1C64j
+mov	edi, edx
+jmp	short loc_B7ED9
+; -------------------------------------------------------------------------- -
+
+loc_B7EC3:; CODE XREF : sub_B6253 + 1C57j
+cmp	ecx, viewPort.Width_DE564
+jle	short loc_B7ED1
+mov	ecx, viewPort.Width_DE564
+
+loc_B7ED1 : ; CODE XREF : sub_B6253 + 1C76j
+sub	cx, bx
+jle	short loc_B7EDB
+lea	edi, [ebx + edx]
+
+loc_B7ED9:; CODE XREF : sub_B6253 + 1C6Ej
+rep stosb
+
+loc_B7EDB : ; CODE XREF : sub_B6253 + 1C5Cj
+; sub_B6253 + 1C81j
+add	esi, 14h
+dec[esp + 88h + var_68]
+jnz	short loc_B7E99
+
+loc_B7EE4 : ; CODE XREF : sub_B6253 + 5Fj
+; sub_B6253 + 70j ...
+add	esp, 68h
+popa
+retn
+; -------------------------------------------------------------------------- -
+
+loc_B7EE9:; CODE XREF : sub_B6253 + 421j
+; sub_B6253 + 45Aj ...
+lea	esi, unk_DE56Cx
+xor ebx, ebx
+xor ecx, ecx
+
+loc_B7EF3 : ; CODE XREF : sub_B6253 + 1E47j
+mov	ax, [esi + 2]
+movzx	ecx, word ptr[esi + 6]
+mov	edi, [esp + 88h + var_88]
+add	edi, iScreenWidth_DE560
+mov[esp + 88h + var_88], edi
+or ax, ax
+jns	short loc_B7F45
+or cx, cx
+jle	loc_B8093
+neg	ax
+movzx	eax, ax
+imul	eax, [esp + 88h + var_4C]
+mov	bx, ax
+shr	eax, 8
+add	bx, [esi + 10h]
+adc	ah, [esi + 12h]
+cmp	ecx, viewPort.Width_DE564
+jle	short loc_B7F3B
+mov	ecx, viewPort.Width_DE564
+
+loc_B7F3B : ; CODE XREF : sub_B6253 + 1CE0j
+movzx	eax, ax
+mov	al, x_BYTE_E126C
+jmp	short loc_B7F6C
+; -------------------------------------------------------------------------- -
+
+loc_B7F45:; CODE XREF : sub_B6253 + 1CB7j
+cmp	ecx, viewPort.Width_DE564
+jle	short loc_B7F53
+mov	ecx, viewPort.Width_DE564
+
+loc_B7F53 : ; CODE XREF : sub_B6253 + 1CF8j
+sub	cx, ax
+jle	loc_B8093
+add	edi, eax
+
+//movzx eax, x_BYTE_E126C
+xor eax, eax
+mov al, x_BYTE_E126C
+
+mov	bx, [esi + 10h]
+mov	ah, [esi + 12h]
+
+loc_B7F6C:; CODE XREF : sub_B6253 + 1CF0j
+; sub_B6253 + 1E3Bj
+mov[edi], ah
+add	bx, word ptr[esp + 88h + var_4C]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+dec	cx
+jz	loc_B8093
+mov[edi + 1], ah
+add	bx, word ptr[esp + 88h + var_4C]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+dec	cx
+jz	loc_B8093
+mov[edi + 2], ah
+add	bx, word ptr[esp + 88h + var_4C]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+dec	cx
+jz	loc_B8093
+mov[edi + 3], ah
+add	bx, word ptr[esp + 88h + var_4C]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+dec	cx
+jz	loc_B8093
+mov[edi + 4], ah
+add	bx, word ptr[esp + 88h + var_4C]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+dec	cx
+jz	loc_B8093
+mov[edi + 5], ah
+add	bx, word ptr[esp + 88h + var_4C]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+dec	cx
+jz	loc_B8093
+mov[edi + 6], ah
+add	bx, word ptr[esp + 88h + var_4C]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+dec	cx
+jz	loc_B8093
+mov[edi + 7], ah
+add	bx, word ptr[esp + 88h + var_4C]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+dec	cx
+jz	loc_B8093
+mov[edi + 8], ah
+add	bx, word ptr[esp + 88h + var_4C]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+dec	cx
+jz	short loc_B8093
+mov[edi + 9], ah
+add	bx, word ptr[esp + 88h + var_4C]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+dec	cx
+jz	short loc_B8093
+mov[edi + 0Ah], ah
+add	bx, word ptr[esp + 88h + var_4C]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+dec	cx
+jz	short loc_B8093
+mov[edi + 0Bh], ah
+add	bx, word ptr[esp + 88h + var_4C]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+dec	cx
+jz	short loc_B8093
+mov[edi + 0Ch], ah
+add	bx, word ptr[esp + 88h + var_4C]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+dec	cx
+jz	short loc_B8093
+mov[edi + 0Dh], ah
+add	bx, word ptr[esp + 88h + var_4C]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+dec	cx
+jz	short loc_B8093
+mov[edi + 0Eh], ah
+add	bx, word ptr[esp + 88h + var_4C]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+dec	cx
+jz	short loc_B8093
+mov[edi + 0Fh], ah
+add	bx, word ptr[esp + 88h + var_4C]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+dec	cx
+jz	short loc_B8093
+add	edi, 10h
+jmp	loc_B7F6C
+; -------------------------------------------------------------------------- -
+
+loc_B8093:; CODE XREF : sub_B6253 + 1CBCj
+; sub_B6253 + 1D03j ...
+add	esi, 14h
+dec[esp + 88h + var_68]
+jnz	loc_B7EF3
+add	esp, 68h
+popa
+retn
+; -------------------------------------------------------------------------- -
+
+loc_B80A5:; CODE XREF : sub_B6253 + 421j
+; sub_B6253 + 45Aj ...
+lea	esi, unk_DE56Cx
+mov	eax, [esp + 88h + var_58]
+shl	eax, 10h
+mov[esp + 88h + var_3C], eax
+xor eax, eax
+xor ebx, ebx
+xor ecx, ecx
+
+loc_B80BC : ; CODE XREF : sub_B6253 + 20E3j
+mov	ax, [esi + 2]
+movzx	ecx, word ptr[esi + 6]
+mov	edi, [esp + 88h + var_88]
+add	edi, iScreenWidth_DE560
+mov[esp + 88h + var_88], edi
+or ax, ax
+jns	short loc_B8116
+or cx, cx
+jle	loc_B832F
+neg	ax
+movzx	eax, ax
+mov	edx, eax
+imul	edx, [esp + 88h + var_58]
+add	edx, [esi + 0Ch]
+rol	edx, 10h
+mov	bh, dl
+imul	eax, [esp + 88h + var_64]
+add	eax, [esi + 8]
+mov	dx, ax
+shr	eax, 8
+mov	bl, ah
+cmp	ecx, viewPort.Width_DE564
+jle	short loc_B8111
+mov	ecx, viewPort.Width_DE564
+
+loc_B8111 : ; CODE XREF : sub_B6253 + 1EB6j
+movzx	eax, ax
+jmp	short loc_B813E
+; -------------------------------------------------------------------------- -
+
+loc_B8116:; CODE XREF : sub_B6253 + 1E80j
+cmp	ecx, viewPort.Width_DE564
+jle	short loc_B8124
+mov	ecx, viewPort.Width_DE564
+
+loc_B8124 : ; CODE XREF : sub_B6253 + 1EC9j
+sub	cx, ax
+jle	loc_B832F
+add	edi, eax
+mov	edx, [esi + 0Ch]
+rol	edx, 10h
+mov	bh, dl
+mov	dx, [esi + 8]
+mov	bl, [esi + 0Ah]
+
+loc_B813E:; CODE XREF : sub_B6253 + 1EC1j
+mov[esp + 88h + var_2C], esi
+mov	esi, x_DWORD_DE55C_ActTexture
+
+loc_B8148 : ; CODE XREF : sub_B6253 + 20D3j
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov[edi], al
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B832B
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov[edi + 1], al
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B832B
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov[edi + 2], al
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B832B
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov[edi + 3], al
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B832B
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov[edi + 4], al
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B832B
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov[edi + 5], al
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B832B
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov[edi + 6], al
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B832B
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov[edi + 7], al
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B832B
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov[edi + 8], al
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B832B
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov[edi + 9], al
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B832B
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov[edi + 0Ah], al
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B832B
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov[edi + 0Bh], al
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	short loc_B832B
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov[edi + 0Ch], al
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	short loc_B832B
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov[edi + 0Dh], al
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	short loc_B832B
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov[edi + 0Eh], al
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	short loc_B832B
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov[edi + 0Fh], al
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	short loc_B832B
+add	edi, 10h
+jmp	loc_B8148
+; -------------------------------------------------------------------------- -
+
+loc_B832B:; CODE XREF : sub_B6253 + 1F0Dj
+; sub_B6253 + 1F2Cj ...
+mov	esi, [esp + 88h + var_2C]
+
+loc_B832F:; CODE XREF : sub_B6253 + 1E85j
+; sub_B6253 + 1ED4j
+add	esi, 14h
+dec[esp + 88h + var_68]
+jnz	loc_B80BC
+add	esp, 68h
+popa
+retn
+; -------------------------------------------------------------------------- -
+
+loc_B8341:; CODE XREF : sub_B6253 + 421j
+; sub_B6253 + 45Aj ...
+lea	esi, unk_DE56Cx
+mov	eax, [esp + 88h + var_58]
+shl	eax, 10h
+mov[esp + 88h + var_3C], eax
+xor eax, eax
+xor ebx, ebx
+xor ecx, ecx
+
+loc_B8358 : ; CODE XREF : sub_B6253 + 23C3j
+mov	ax, [esi + 2]
+movzx	ecx, word ptr[esi + 6]
+mov	edi, [esp + 88h + var_88]
+add	edi, iScreenWidth_DE560
+mov[esp + 88h + var_88], edi
+or ax, ax
+jns	short loc_B83B2
+or cx, cx
+jle	loc_B860F
+neg	ax
+movzx	eax, ax
+mov	edx, eax
+imul	edx, [esp + 88h + var_58]
+add	edx, [esi + 0Ch]
+rol	edx, 10h
+mov	bh, dl
+imul	eax, [esp + 88h + var_64]
+add	eax, [esi + 8]
+mov	dx, ax
+shr	eax, 8
+mov	bl, ah
+cmp	ecx, viewPort.Width_DE564
+jle	short loc_B83AD
+mov	ecx, viewPort.Width_DE564
+
+loc_B83AD : ; CODE XREF : sub_B6253 + 2152j
+movzx	eax, ax
+jmp	short loc_B83DA
+; -------------------------------------------------------------------------- -
+
+loc_B83B2:; CODE XREF : sub_B6253 + 211Cj
+cmp	ecx, viewPort.Width_DE564
+jle	short loc_B83C0
+mov	ecx, viewPort.Width_DE564
+
+loc_B83C0 : ; CODE XREF : sub_B6253 + 2165j
+sub	cx, ax
+jle	loc_B860F
+add	edi, eax
+mov	edx, [esi + 0Ch]
+rol	edx, 10h
+mov	bh, dl
+mov	dx, [esi + 8]
+mov	bl, [esi + 0Ah]
+
+loc_B83DA:; CODE XREF : sub_B6253 + 215Dj
+mov[esp + 88h + var_2C], esi
+mov	esi, x_DWORD_DE55C_ActTexture
+
+loc_B83E4 : ; CODE XREF : sub_B6253 + 23B3j
+mov	al, [ebx + esi]
+or al, al
+jz	short loc_B83ED
+mov[edi], al
+
+loc_B83ED : ; CODE XREF : sub_B6253 + 2196j
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B860B
+mov	al, [ebx + esi]
+or al, al
+jz	short loc_B8410
+mov[edi + 1], al
+
+loc_B8410 : ; CODE XREF : sub_B6253 + 21B8j
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B860B
+mov	al, [ebx + esi]
+or al, al
+jz	short loc_B8433
+mov[edi + 2], al
+
+loc_B8433 : ; CODE XREF : sub_B6253 + 21DBj
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B860B
+mov	al, [ebx + esi]
+or al, al
+jz	short loc_B8456
+mov[edi + 3], al
+
+loc_B8456 : ; CODE XREF : sub_B6253 + 21FEj
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B860B
+mov	al, [ebx + esi]
+or al, al
+jz	short loc_B8479
+mov[edi + 4], al
+
+loc_B8479 : ; CODE XREF : sub_B6253 + 2221j
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B860B
+mov	al, [ebx + esi]
+or al, al
+jz	short loc_B849C
+mov[edi + 5], al
+
+loc_B849C : ; CODE XREF : sub_B6253 + 2244j
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B860B
+mov	al, [ebx + esi]
+or al, al
+jz	short loc_B84BF
+mov[edi + 6], al
+
+loc_B84BF : ; CODE XREF : sub_B6253 + 2267j
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B860B
+mov	al, [ebx + esi]
+or al, al
+jz	short loc_B84E2
+mov[edi + 7], al
+
+loc_B84E2 : ; CODE XREF : sub_B6253 + 228Aj
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B860B
+mov	al, [ebx + esi]
+or al, al
+jz	short loc_B8505
+mov[edi + 8], al
+
+loc_B8505 : ; CODE XREF : sub_B6253 + 22ADj
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B860B
+mov	al, [ebx + esi]
+or al, al
+jz	short loc_B8528
+mov[edi + 9], al
+
+loc_B8528 : ; CODE XREF : sub_B6253 + 22D0j
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B860B
+mov	al, [ebx + esi]
+or al, al
+jz	short loc_B854B
+mov[edi + 0Ah], al
+
+loc_B854B : ; CODE XREF : sub_B6253 + 22F3j
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B860B
+mov	al, [ebx + esi]
+or al, al
+jz	short loc_B856E
+mov[edi + 0Bh], al
+
+loc_B856E : ; CODE XREF : sub_B6253 + 2316j
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B860B
+mov	al, [ebx + esi]
+or al, al
+jz	short loc_B8591
+mov[edi + 0Ch], al
+
+loc_B8591 : ; CODE XREF : sub_B6253 + 2339j
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	short loc_B860B
+mov	al, [ebx + esi]
+or al, al
+jz	short loc_B85B0
+mov[edi + 0Dh], al
+
+loc_B85B0 : ; CODE XREF : sub_B6253 + 2358j
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	short loc_B860B
+mov	al, [ebx + esi]
+or al, al
+jz	short loc_B85CF
+mov[edi + 0Eh], al
+
+loc_B85CF : ; CODE XREF : sub_B6253 + 2377j
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	short loc_B860B
+mov	al, [ebx + esi]
+or al, al
+jz	short loc_B85EE
+mov[edi + 0Fh], al
+
+loc_B85EE : ; CODE XREF : sub_B6253 + 2396j
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	short loc_B860B
+add	edi, 10h
+jmp	loc_B83E4
+; -------------------------------------------------------------------------- -
+
+loc_B860B:; CODE XREF : sub_B6253 + 21ADj
+; sub_B6253 + 21D0j ...
+mov	esi, [esp + 88h + var_2C]
+
+loc_B860F:; CODE XREF : sub_B6253 + 2121j
+; sub_B6253 + 2170j
+add	esi, 14h
+dec[esp + 88h + var_68]
+jnz	loc_B8358
+add	esp, 68h
+popa
+retn
+; -------------------------------------------------------------------------- -
+
+loc_B8621:; CODE XREF : sub_B6253 + 421j
+; sub_B6253 + 45Aj ...
+lea	esi, unk_DE56Cx
+xor ebx, ebx
+xor ecx, ecx
+
+loc_B862B : ; CODE XREF : sub_B6253 + 25E7j
+mov	ax, [esi + 2]
+movzx	ecx, word ptr[esi + 6]
+mov	edi, [esp + 88h + var_88]
+add	edi, iScreenWidth_DE560
+mov[esp + 88h + var_88], edi
+or ax, ax
+jns	short loc_B867D
+or cx, cx
+jle	loc_B8833
+neg	ax
+movzx	eax, ax
+imul	eax, [esp + 88h + var_4C]
+mov	bx, ax
+shr	eax, 8
+add	bx, [esi + 10h]
+adc	ah, [esi + 12h]
+cmp	ecx, viewPort.Width_DE564
+jle	short loc_B8673
+mov	ecx, viewPort.Width_DE564
+
+loc_B8673 : ; CODE XREF : sub_B6253 + 2418j
+movzx	eax, ax
+mov	al, x_BYTE_E126C
+jmp	short loc_B86A4
+; -------------------------------------------------------------------------- -
+
+loc_B867D:; CODE XREF : sub_B6253 + 23EFj
+cmp	ecx, viewPort.Width_DE564
+jle	short loc_B868B
+mov	ecx, viewPort.Width_DE564
+
+loc_B868B : ; CODE XREF : sub_B6253 + 2430j
+sub	cx, ax
+jle	loc_B8833
+add	edi, eax
+//movzx	eax, x_BYTE_E126C
+xor eax, eax
+mov al, x_BYTE_E126C
+
+mov	bx, [esi + 10h]
+mov	ah, [esi + 12h]
+
+loc_B86A4:; CODE XREF : sub_B6253 + 2428j
+; sub_B6253 + 25DBj
+mov	dl, x_BYTE_F6EE0_tablesx[eax]
+mov[edi], dl
+add	bx, word ptr[esp + 88h + var_4C]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+dec	cx
+jz	loc_B8833
+mov	dl, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 1], dl
+add	bx, word ptr[esp + 88h + var_4C]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+dec	cx
+jz	loc_B8833
+mov	dl, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 2], dl
+add	bx, word ptr[esp + 88h + var_4C]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+dec	cx
+jz	loc_B8833
+mov	dl, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 3], dl
+add	bx, word ptr[esp + 88h + var_4C]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+dec	cx
+jz	loc_B8833
+mov	dl, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 4], dl
+add	bx, word ptr[esp + 88h + var_4C]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+dec	cx
+jz	loc_B8833
+mov	dl, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 5], dl
+add	bx, word ptr[esp + 88h + var_4C]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+dec	cx
+jz	loc_B8833
+mov	dl, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 6], dl
+add	bx, word ptr[esp + 88h + var_4C]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+dec	cx
+jz	loc_B8833
+mov	dl, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 7], dl
+add	bx, word ptr[esp + 88h + var_4C]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+dec	cx
+jz	loc_B8833
+mov	dl, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 8], dl
+add	bx, word ptr[esp + 88h + var_4C]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+dec	cx
+jz	loc_B8833
+mov	dl, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 9], dl
+add	bx, word ptr[esp + 88h + var_4C]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+dec	cx
+jz	loc_B8833
+mov	dl, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 0Ah], dl
+add	bx, word ptr[esp + 88h + var_4C]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+dec	cx
+jz	short loc_B8833
+mov	dl, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 0Bh], dl
+add	bx, word ptr[esp + 88h + var_4C]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+dec	cx
+jz	short loc_B8833
+mov	dl, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 0Ch], dl
+add	bx, word ptr[esp + 88h + var_4C]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+dec	cx
+jz	short loc_B8833
+mov	dl, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 0Dh], dl
+add	bx, word ptr[esp + 88h + var_4C]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+dec	cx
+jz	short loc_B8833
+mov	dl, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 0Eh], dl
+add	bx, word ptr[esp + 88h + var_4C]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+dec	cx
+jz	short loc_B8833
+mov	dl, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 0Fh], dl
+add	bx, word ptr[esp + 88h + var_4C]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+dec	cx
+jz	short loc_B8833
+add	edi, 10h
+jmp	loc_B86A4
+; -------------------------------------------------------------------------- -
+
+loc_B8833:; CODE XREF : sub_B6253 + 23F4j
+; sub_B6253 + 243Bj ...
+add	esi, 14h
+dec[esp + 88h + var_68]
+jnz	loc_B862B
+add	esp, 68h
+popa
+retn
+; -------------------------------------------------------------------------- -
+
+loc_B8885:; CODE XREF : sub_B6253 + 421j
+; sub_B6253 + 45Aj ...
+lea	esi, unk_DE56Cx
+mov[esp + 88h + var_2C], esi
+mov	eax, [esp + 88h + var_58]
+shl	eax, 10h
+mov[esp + 88h + var_3C], eax
+mov	eax, [esp + 88h + var_4C]
+shl	eax, 10h
+mov[esp + 88h + var_38], eax
+xor eax, eax
+xor ebx, ebx
+xor ecx, ecx
+
+loc_B88AB : ; CODE XREF : sub_B6253 + 29C2j
+mov	esi, [esp + 88h + var_2C]
+add[esp + 88h + var_2C], 14h
+mov	ax, [esi + 2]
+movzx	ecx, word ptr[esi + 6]
+mov	edi, [esp + 88h + var_88]
+add	edi, iScreenWidth_DE560
+mov[esp + 88h + var_88], edi
+or ax, ax
+jns	short loc_B8925
+or cx, cx
+jle	loc_B8C11
+mov	bp, cx
+neg	ax
+movzx	eax, ax
+mov	edx, eax
+mov	ecx, eax
+imul	edx, [esp + 88h + var_58]
+add	edx, [esi + 0Ch]
+rol	edx, 10h
+mov	bh, dl
+imul	eax, [esp + 88h + var_64]
+add	eax, [esi + 8]
+mov	dx, ax
+shr	eax, 8
+mov	bl, ah
+imul	ecx, [esp + 88h + var_4C]
+add	ecx, [esi + 10h]
+rol	ecx, 10h
+mov	ah, cl
+mov	cx, bp
+movzx	eax, ax
+cmp	cx, word ptr viewPort.Width_DE564
+jle	short loc_B8923
+mov	cx, word ptr viewPort.Width_DE564
+
+loc_B8923 : ; CODE XREF : sub_B6253 + 26C7j
+jmp	short loc_B895B
+; -------------------------------------------------------------------------- -
+
+loc_B8925:; CODE XREF : sub_B6253 + 2678j
+cmp	ecx, viewPort.Width_DE564
+jle	short loc_B8933
+mov	ecx, viewPort.Width_DE564
+
+loc_B8933 : ; CODE XREF : sub_B6253 + 26D8j
+sub	cx, ax
+jle	loc_B8C11
+add	edi, eax
+mov	edx, [esi + 0Ch]
+mov	bl, [esi + 0Ah]
+rol	edx, 10h
+mov	bp, cx
+mov	bh, dl
+mov	ecx, [esi + 10h]
+mov	dx, [esi + 8]
+rol	ecx, 10h
+mov	ah, cl
+mov	cx, bp
+
+loc_B895B : ; CODE XREF : sub_B6253:loc_B8923j
+mov	si, cx
+and esi, 0Fh
+add	edi, ds:offsets_B8845[esi * 4]
+mov	ebp, x_DWORD_DE55C_ActTexture
+jmp	ds : off_B8975[esi * 4]
+; -------------------------------------------------------------------------- -
+
+loc_B89B5:; CODE XREF : sub_B6253 + 271Bj
+; sub_B6253 + 29B8j
+; DATA XREF : ...
+add	dx, word ptr[esp + 88h + var_64]
+mov	al, [ebx + ebp]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+mov[edi], al
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+
+loc_B89D9:; CODE XREF : sub_B6253 + 271Bj
+; DATA XREF : sub_B6253 + 275Eo
+add	dx, word ptr[esp + 88h + var_64]
+mov	al, [ebx + ebp]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+mov[edi + 1], al
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+
+loc_B89FE:; CODE XREF : sub_B6253 + 271Bj
+; DATA XREF : sub_B6253 + 275Ao
+add	dx, word ptr[esp + 88h + var_64]
+mov	al, [ebx + ebp]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+mov[edi + 2], al
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+
+loc_B8A23:; CODE XREF : sub_B6253 + 271Bj
+; DATA XREF : sub_B6253 + 2756o
+add	dx, word ptr[esp + 88h + var_64]
+mov	al, [ebx + ebp]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+mov[edi + 3], al
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+
+loc_B8A48:; CODE XREF : sub_B6253 + 271Bj
+; DATA XREF : sub_B6253 + 2752o
+add	dx, word ptr[esp + 88h + var_64]
+mov	al, [ebx + ebp]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+mov[edi + 4], al
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+
+loc_B8A6D:; CODE XREF : sub_B6253 + 271Bj
+; DATA XREF : sub_B6253 + 274Eo
+add	dx, word ptr[esp + 88h + var_64]
+mov	al, [ebx + ebp]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+mov[edi + 5], al
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+
+loc_B8A92:; CODE XREF : sub_B6253 + 271Bj
+; DATA XREF : sub_B6253 + 274Ao
+add	dx, word ptr[esp + 88h + var_64]
+mov	al, [ebx + ebp]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+mov[edi + 6], al
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+
+loc_B8AB7:; CODE XREF : sub_B6253 + 271Bj
+; DATA XREF : sub_B6253 + 2746o
+add	dx, word ptr[esp + 88h + var_64]
+mov	al, [ebx + ebp]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+mov[edi + 7], al
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+
+loc_B8ADC:; CODE XREF : sub_B6253 + 271Bj
+; DATA XREF : sub_B6253 + 2742o
+add	dx, word ptr[esp + 88h + var_64]
+mov	al, [ebx + ebp]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+mov[edi + 8], al
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+
+loc_B8B01:; CODE XREF : sub_B6253 + 271Bj
+; DATA XREF : sub_B6253 + 273Eo
+add	dx, word ptr[esp + 88h + var_64]
+mov	al, [ebx + ebp]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+mov[edi + 9], al
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+
+loc_B8B26:; CODE XREF : sub_B6253 + 271Bj
+; DATA XREF : sub_B6253 + 273Ao
+add	dx, word ptr[esp + 88h + var_64]
+mov	al, [ebx + ebp]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+mov[edi + 0Ah], al
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+
+loc_B8B4B:; CODE XREF : sub_B6253 + 271Bj
+; DATA XREF : sub_B6253 + 2736o
+add	dx, word ptr[esp + 88h + var_64]
+mov	al, [ebx + ebp]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+mov[edi + 0Bh], al
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+
+loc_B8B70:; CODE XREF : sub_B6253 + 271Bj
+; DATA XREF : sub_B6253 + 2732o
+add	dx, word ptr[esp + 88h + var_64]
+mov	al, [ebx + ebp]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+mov[edi + 0Ch], al
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+
+loc_B8B95:; CODE XREF : sub_B6253 + 271Bj
+; DATA XREF : sub_B6253 + 272Eo
+add	dx, word ptr[esp + 88h + var_64]
+mov	al, [ebx + ebp]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+mov[edi + 0Dh], al
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+
+loc_B8BBA:; CODE XREF : sub_B6253 + 271Bj
+; DATA XREF : sub_B6253 + 272Ao
+add	dx, word ptr[esp + 88h + var_64]
+mov	al, [ebx + ebp]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+mov[edi + 0Eh], al
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+
+loc_B8BDF:; CODE XREF : sub_B6253 + 271Bj
+; DATA XREF : sub_B6253 + 2726o
+add	dx, word ptr[esp + 88h + var_64]
+mov	al, [ebx + ebp]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+mov[edi + 0Fh], al
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+add	edi, 10h
+sub	cx, 10h
+jg	loc_B89B5
+
+loc_B8C11 : ; CODE XREF : sub_B6253 + 267Dj
+; sub_B6253 + 26E3j
+dec[esp + 88h + var_68]
+jnz	loc_B88AB
+add	esp, 68h
+popa
+retn
+; -------------------------------------------------------------------------- -
+
+loc_B8C20:; CODE XREF : sub_B6253 + 421j
+; sub_B6253 + 45Aj ...
+lea	esi, unk_DE56Cx
+mov[esp + 88h + var_2C], esi
+mov	eax, [esp + 88h + var_58]
+shl	eax, 10h
+mov[esp + 88h + var_3C], eax
+mov	eax, [esp + 88h + var_4C]
+shl	eax, 10h
+mov[esp + 88h + var_38], eax
+xor eax, eax
+xor ebx, ebx
+xor ecx, ecx
+
+loc_B8C46 : ; CODE XREF : sub_B6253 + 2D9Dj
+mov	esi, [esp + 88h + var_2C]
+add[esp + 88h + var_2C], 14h
+mov	ax, [esi + 2]
+movzx	ecx, word ptr[esi + 6]
+mov	edi, [esp + 88h + var_88]
+add	edi, iScreenWidth_DE560
+mov[esp + 88h + var_88], edi
+or ax, ax
+jns	short loc_B8CC0
+or cx, cx
+jle	loc_B8FEC
+mov	bp, cx
+neg	ax
+movzx	eax, ax
+mov	edx, eax
+mov	ecx, eax
+imul	edx, [esp + 88h + var_58]
+add	edx, [esi + 0Ch]
+rol	edx, 10h
+mov	bh, dl
+imul	eax, [esp + 88h + var_64]
+add	eax, [esi + 8]
+mov	dx, ax
+shr	eax, 8
+mov	bl, ah
+imul	ecx, [esp + 88h + var_4C]
+add	ecx, [esi + 10h]
+rol	ecx, 10h
+mov	ah, cl
+mov	cx, bp
+movzx	eax, ax
+cmp	cx, word ptr viewPort.Width_DE564
+jle	short loc_B8CBE
+mov	cx, word ptr viewPort.Width_DE564
+
+loc_B8CBE : ; CODE XREF : sub_B6253 + 2A62j
+jmp	short loc_B8CF6
+; -------------------------------------------------------------------------- -
+
+loc_B8CC0:; CODE XREF : sub_B6253 + 2A13j
+cmp	ecx, viewPort.Width_DE564
+jle	short loc_B8CCE
+mov	ecx, viewPort.Width_DE564
+
+loc_B8CCE : ; CODE XREF : sub_B6253 + 2A73j
+sub	cx, ax
+jle	loc_B8FEC
+add	edi, eax
+mov	edx, [esi + 0Ch]
+mov	bl, [esi + 0Ah]
+rol	edx, 10h
+mov	bp, cx
+mov	bh, dl
+mov	ecx, [esi + 10h]
+mov	dx, [esi + 8]
+rol	ecx, 10h
+mov	ah, cl
+mov	cx, bp
+
+loc_B8CF6 : ; CODE XREF : sub_B6253:loc_B8CBEj
+mov	si, cx
+and esi, 0Fh
+add	edi, ds:offsets_B8845[esi * 4]
+mov	ebp, x_DWORD_DE55C_ActTexture
+jmp	ds : off_B8D10[esi * 4]
+; -------------------------------------------------------------------------- -
+
+loc_B8D50:; CODE XREF : sub_B6253 + 2AB6j
+; sub_B6253 + 2D93j
+; DATA XREF : ...
+mov	al, [ebx + ebp]
+or al, al
+jz	short loc_B8D5F
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi], al
+
+loc_B8D5F : ; CODE XREF : sub_B6253 + 2B02j
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+
+loc_B8D78:; CODE XREF : sub_B6253 + 2AB6j
+; DATA XREF : sub_B6253 + 2AF9o
+mov	al, [ebx + ebp]
+or al, al
+jz	short loc_B8D88
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 1], al
+
+loc_B8D88 : ; CODE XREF : sub_B6253 + 2B2Aj
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+
+loc_B8DA1:; CODE XREF : sub_B6253 + 2AB6j
+; DATA XREF : sub_B6253 + 2AF5o
+mov	al, [ebx + ebp]
+or al, al
+jz	short loc_B8DB1
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 2], al
+
+loc_B8DB1 : ; CODE XREF : sub_B6253 + 2B53j
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+
+loc_B8DCA:; CODE XREF : sub_B6253 + 2AB6j
+; DATA XREF : sub_B6253 + 2AF1o
+mov	al, [ebx + ebp]
+or al, al
+jz	short loc_B8DDA
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 3], al
+
+loc_B8DDA : ; CODE XREF : sub_B6253 + 2B7Cj
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+
+loc_B8DF3:; CODE XREF : sub_B6253 + 2AB6j
+; DATA XREF : sub_B6253 + 2AEDo
+mov	al, [ebx + ebp]
+or al, al
+jz	short loc_B8E03
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 4], al
+
+loc_B8E03 : ; CODE XREF : sub_B6253 + 2BA5j
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+
+loc_B8E1C:; CODE XREF : sub_B6253 + 2AB6j
+; DATA XREF : sub_B6253 + 2AE9o
+mov	al, [ebx + ebp]
+or al, al
+jz	short loc_B8E2C
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 5], al
+
+loc_B8E2C : ; CODE XREF : sub_B6253 + 2BCEj
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+
+loc_B8E45:; CODE XREF : sub_B6253 + 2AB6j
+; DATA XREF : sub_B6253 + 2AE5o
+mov	al, [ebx + ebp]
+or al, al
+jz	short loc_B8E55
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 6], al
+
+loc_B8E55 : ; CODE XREF : sub_B6253 + 2BF7j
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+
+loc_B8E6E:; CODE XREF : sub_B6253 + 2AB6j
+; DATA XREF : sub_B6253 + 2AE1o
+mov	al, [ebx + ebp]
+or al, al
+jz	short loc_B8E7E
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 7], al
+
+loc_B8E7E : ; CODE XREF : sub_B6253 + 2C20j
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+
+loc_B8E97:; CODE XREF : sub_B6253 + 2AB6j
+; DATA XREF : sub_B6253 + 2ADDo
+mov	al, [ebx + ebp]
+or al, al
+jz	short loc_B8EA7
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 8], al
+
+loc_B8EA7 : ; CODE XREF : sub_B6253 + 2C49j
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+
+loc_B8EC0:; CODE XREF : sub_B6253 + 2AB6j
+; DATA XREF : sub_B6253 + 2AD9o
+mov	al, [ebx + ebp]
+or al, al
+jz	short loc_B8ED0
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 9], al
+
+loc_B8ED0 : ; CODE XREF : sub_B6253 + 2C72j
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+
+loc_B8EE9:; CODE XREF : sub_B6253 + 2AB6j
+; DATA XREF : sub_B6253 + 2AD5o
+mov	al, [ebx + ebp]
+or al, al
+jz	short loc_B8EF9
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 0Ah], al
+
+loc_B8EF9 : ; CODE XREF : sub_B6253 + 2C9Bj
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+
+loc_B8F12:; CODE XREF : sub_B6253 + 2AB6j
+; DATA XREF : sub_B6253 + 2AD1o
+mov	al, [ebx + ebp]
+or al, al
+jz	short loc_B8F22
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 0Bh], al
+
+loc_B8F22 : ; CODE XREF : sub_B6253 + 2CC4j
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+
+loc_B8F3B:; CODE XREF : sub_B6253 + 2AB6j
+; DATA XREF : sub_B6253 + 2ACDo
+mov	al, [ebx + ebp]
+or al, al
+jz	short loc_B8F4B
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 0Ch], al
+
+loc_B8F4B : ; CODE XREF : sub_B6253 + 2CEDj
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+
+loc_B8F64:; CODE XREF : sub_B6253 + 2AB6j
+; DATA XREF : sub_B6253 + 2AC9o
+mov	al, [ebx + ebp]
+or al, al
+jz	short loc_B8F74
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 0Dh], al
+
+loc_B8F74 : ; CODE XREF : sub_B6253 + 2D16j
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+
+loc_B8F8D:; CODE XREF : sub_B6253 + 2AB6j
+; DATA XREF : sub_B6253 + 2AC5o
+mov	al, [ebx + ebp]
+or al, al
+jz	short loc_B8F9D
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 0Eh], al
+
+loc_B8F9D : ; CODE XREF : sub_B6253 + 2D3Fj
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+
+loc_B8FB6:; CODE XREF : sub_B6253 + 2AB6j
+; DATA XREF : sub_B6253 + 2AC1o
+mov	al, [ebx + ebp]
+or al, al
+jz	short loc_B8FC6
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 0Fh], al
+
+loc_B8FC6 : ; CODE XREF : sub_B6253 + 2D68j
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+add	edi, 10h
+sub	cx, 10h
+jg	loc_B8D50
+
+loc_B8FEC : ; CODE XREF : sub_B6253 + 2A18j
+; sub_B6253 + 2A7Ej
+dec[esp + 88h + var_68]
+jnz	loc_B8C46
+add	esp, 68h
+popa
+retn
+; -------------------------------------------------------------------------- -
+
+loc_B8FFB:; CODE XREF : sub_B6253 + 421j
+; sub_B6253 + 45Aj ...
+lea	esi, unk_DE56Cx
+mov	eax, [esp + 88h + var_58]
+shl	eax, 10h
+mov[esp + 88h + var_3C], eax
+xor eax, eax
+xor ebx, ebx
+xor ecx, ecx
+
+loc_B9012 : ; CODE XREF : sub_B6253 + 30A3j
+mov	ax, [esi + 2]
+movzx	ecx, word ptr[esi + 6]
+mov	edi, [esp + 88h + var_88]
+add	edi, iScreenWidth_DE560
+mov[esp + 88h + var_88], edi
+or ax, ax
+jns	short loc_B906C
+or cx, cx
+jle	loc_B92EF
+neg	ax
+movzx	eax, ax
+mov	edx, eax
+imul	edx, [esp + 88h + var_58]
+add	edx, [esi + 0Ch]
+rol	edx, 10h
+mov	bh, dl
+imul	eax, [esp + 88h + var_64]
+add	eax, [esi + 8]
+mov	dx, ax
+shr	eax, 8
+mov	bl, ah
+cmp	ecx, viewPort.Width_DE564
+jle	short loc_B9067
+mov	ecx, viewPort.Width_DE564
+
+loc_B9067 : ; CODE XREF : sub_B6253 + 2E0Cj
+movzx	eax, ax
+jmp	short loc_B9094
+; -------------------------------------------------------------------------- -
+
+loc_B906C:; CODE XREF : sub_B6253 + 2DD6j
+cmp	ecx, viewPort.Width_DE564
+jle	short loc_B907A
+mov	ecx, viewPort.Width_DE564
+
+loc_B907A : ; CODE XREF : sub_B6253 + 2E1Fj
+sub	cx, ax
+jle	loc_B92EF
+add	edi, eax
+mov	edx, [esi + 0Ch]
+rol	edx, 10h
+mov	bh, dl
+mov	dx, [esi + 8]
+mov	bl, [esi + 0Ah]
+
+loc_B9094:; CODE XREF : sub_B6253 + 2E17j
+mov[esp + 88h + var_2C], esi
+mov	esi, x_DWORD_DE55C_ActTexture
+mov	ah, x_BYTE_E126C
+
+loc_B90A4 : ; CODE XREF : sub_B6253 + 3093j
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi], al
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B92EB
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi + 1], al
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B92EB
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi + 2], al
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B92EB
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi + 3], al
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B92EB
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi + 4], al
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B92EB
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi + 5], al
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B92EB
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi + 6], al
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B92EB
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi + 7], al
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B92EB
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi + 8], al
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B92EB
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi + 9], al
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B92EB
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi + 0Ah], al
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B92EB
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi + 0Bh], al
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B92EB
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi + 0Ch], al
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	short loc_B92EB
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi + 0Dh], al
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	short loc_B92EB
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi + 0Eh], al
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	short loc_B92EB
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi + 0Fh], al
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	short loc_B92EB
+add	edi, 10h
+jmp	loc_B90A4
+; -------------------------------------------------------------------------- -
+
+loc_B92EB:; CODE XREF : sub_B6253 + 2E6Fj
+; sub_B6253 + 2E94j ...
+mov	esi, [esp + 88h + var_2C]
+
+loc_B92EF:; CODE XREF : sub_B6253 + 2DDBj
+; sub_B6253 + 2E2Aj
+add	esi, 14h
+dec[esp + 88h + var_68]
+jnz	loc_B9012
+add	esp, 68h
+popa
+retn
+; -------------------------------------------------------------------------- -
+
+loc_B9301:; CODE XREF : sub_B6253 + 421j
+; sub_B6253 + 45Aj ...
+lea	esi, unk_DE56Cx
+mov	eax, [esp + 88h + var_58]
+shl	eax, 10h
+mov[esp + 88h + var_3C], eax
+xor eax, eax
+xor ebx, ebx
+xor ecx, ecx
+
+loc_B9318 : ; CODE XREF : sub_B6253 + 33E9j
+mov	ax, [esi + 2]
+movzx	ecx, word ptr[esi + 6]
+mov	edi, [esp + 88h + var_88]
+add	edi, iScreenWidth_DE560
+mov[esp + 88h + var_88], edi
+or ax, ax
+jns	short loc_B9372
+or cx, cx
+jle	loc_B9635
+neg	ax
+movzx	eax, ax
+mov	edx, eax
+imul	edx, [esp + 88h + var_58]
+add	edx, [esi + 0Ch]
+rol	edx, 10h
+mov	bh, dl
+imul	eax, [esp + 88h + var_64]
+add	eax, [esi + 8]
+mov	dx, ax
+shr	eax, 8
+mov	bl, ah
+cmp	ecx, viewPort.Width_DE564
+jle	short loc_B936D
+mov	ecx, viewPort.Width_DE564
+
+loc_B936D : ; CODE XREF : sub_B6253 + 3112j
+movzx	eax, ax
+jmp	short loc_B939A
+; -------------------------------------------------------------------------- -
+
+loc_B9372:; CODE XREF : sub_B6253 + 30DCj
+cmp	ecx, viewPort.Width_DE564
+jle	short loc_B9380
+mov	ecx, viewPort.Width_DE564
+
+loc_B9380 : ; CODE XREF : sub_B6253 + 3125j
+sub	cx, ax
+jle	loc_B9635
+add	edi, eax
+mov	edx, [esi + 0Ch]
+rol	edx, 10h
+mov	bh, dl
+mov	dx, [esi + 8]
+mov	bl, [esi + 0Ah]
+
+loc_B939A:; CODE XREF : sub_B6253 + 311Dj
+mov[esp + 88h + var_2C], esi
+mov	esi, x_DWORD_DE55C_ActTexture
+mov	ah, x_BYTE_E126C
+
+loc_B93AA : ; CODE XREF : sub_B6253 + 33D9j
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+or al, al
+jz	short loc_B93C2
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi], al
+
+loc_B93C2 : ; CODE XREF : sub_B6253 + 3165j
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B9631
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+or al, al
+jz	short loc_B93EB
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 1], al
+
+loc_B93EB : ; CODE XREF : sub_B6253 + 318Dj
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B9631
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+or al, al
+jz	short loc_B9414
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 2], al
+
+loc_B9414 : ; CODE XREF : sub_B6253 + 31B6j
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B9631
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+or al, al
+jz	short loc_B943D
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 3], al
+
+loc_B943D : ; CODE XREF : sub_B6253 + 31DFj
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B9631
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+or al, al
+jz	short loc_B9466
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 4], al
+
+loc_B9466 : ; CODE XREF : sub_B6253 + 3208j
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B9631
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+or al, al
+jz	short loc_B948F
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 5], al
+
+loc_B948F : ; CODE XREF : sub_B6253 + 3231j
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B9631
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+or al, al
+jz	short loc_B94B8
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 6], al
+
+loc_B94B8 : ; CODE XREF : sub_B6253 + 325Aj
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B9631
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+or al, al
+jz	short loc_B94E1
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 7], al
+
+loc_B94E1 : ; CODE XREF : sub_B6253 + 3283j
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B9631
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+or al, al
+jz	short loc_B950A
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 8], al
+
+loc_B950A : ; CODE XREF : sub_B6253 + 32ACj
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B9631
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+or al, al
+jz	short loc_B9533
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 9], al
+
+loc_B9533 : ; CODE XREF : sub_B6253 + 32D5j
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B9631
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+or al, al
+jz	short loc_B955C
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 0Ah], al
+
+loc_B955C : ; CODE XREF : sub_B6253 + 32FEj
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B9631
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+or al, al
+jz	short loc_B9585
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 0Bh], al
+
+loc_B9585 : ; CODE XREF : sub_B6253 + 3327j
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B9631
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+or al, al
+jz	short loc_B95AE
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 0Ch], al
+
+loc_B95AE : ; CODE XREF : sub_B6253 + 3350j
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	short loc_B9631
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+or al, al
+jz	short loc_B95D3
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 0Dh], al
+
+loc_B95D3 : ; CODE XREF : sub_B6253 + 3375j
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	short loc_B9631
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+or al, al
+jz	short loc_B95F8
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 0Eh], al
+
+loc_B95F8 : ; CODE XREF : sub_B6253 + 339Aj
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	short loc_B9631
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+or al, al
+jz	short loc_B961D
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 0Fh], al
+
+loc_B961D : ; CODE XREF : sub_B6253 + 33BFj
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	short loc_B9631
+add	edi, 10h
+jmp	loc_B93AA
+; -------------------------------------------------------------------------- -
+
+loc_B9631:; CODE XREF : sub_B6253 + 3179j
+; sub_B6253 + 31A2j ...
+mov	esi, [esp + 88h + var_2C]
+
+loc_B9635:; CODE XREF : sub_B6253 + 30E1j
+; sub_B6253 + 3130j
+add	esi, 14h
+dec[esp + 88h + var_68]
+jnz	loc_B9318
+add	esp, 68h
+popa
+retn
+; -------------------------------------------------------------------------- -
+
+loc_B9647:; CODE XREF : sub_B6253 + 421j
+; sub_B6253 + 45Aj ...
+lea	esi, unk_DE56Cx
+mov	eax, [esp + 88h + var_58]
+shl	eax, 10h
+mov[esp + 88h + var_3C], eax
+xor eax, eax
+xor ebx, ebx
+xor ecx, ecx
+
+loc_B965E : ; CODE XREF : sub_B6253 + 375Cj
+mov	ax, [esi + 2]
+movzx	ecx, word ptr[esi + 6]
+mov	edi, [esp + 88h + var_88]
+add	edi, iScreenWidth_DE560
+mov[esp + 88h + var_88], edi
+or ax, ax
+jns	short loc_B96B8
+or cx, cx
+jle	loc_B99A8
+neg	ax
+movzx	eax, ax
+mov	edx, eax
+imul	edx, [esp + 88h + var_58]
+add	edx, [esi + 0Ch]
+rol	edx, 10h
+mov	bh, dl
+imul	eax, [esp + 88h + var_64]
+add	eax, [esi + 8]
+mov	dx, ax
+shr	eax, 8
+mov	bl, ah
+cmp	ecx, viewPort.Width_DE564
+jle	short loc_B96B3
+mov	ecx, viewPort.Width_DE564
+
+loc_B96B3 : ; CODE XREF : sub_B6253 + 3458j
+movzx	eax, ax
+jmp	short loc_B96E0
+; -------------------------------------------------------------------------- -
+
+loc_B96B8:; CODE XREF : sub_B6253 + 3422j
+cmp	ecx, viewPort.Width_DE564
+jle	short loc_B96C6
+mov	ecx, viewPort.Width_DE564
+
+loc_B96C6 : ; CODE XREF : sub_B6253 + 346Bj
+sub	cx, ax
+jle	loc_B99A8
+add	edi, eax
+mov	edx, [esi + 0Ch]
+rol	edx, 10h
+mov	bh, dl
+mov	dx, [esi + 8]
+mov	bl, [esi + 0Ah]
+
+loc_B96E0:; CODE XREF : sub_B6253 + 3463j
+mov[esp + 88h + var_2C], esi
+mov	esi, x_DWORD_DE55C_ActTexture
+
+loc_B96EA : ; CODE XREF : sub_B6253 + 374Cj
+mov	ah, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+or ah, ah
+jz	short loc_B9704
+mov	al, [edi]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi], al
+
+loc_B9704 : ; CODE XREF : sub_B6253 + 34A5j
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B99A4
+mov	ah, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+or ah, ah
+jz	short loc_B9730
+mov	al, [edi + 1]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 1], al
+
+loc_B9730 : ; CODE XREF : sub_B6253 + 34CFj
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B99A4
+mov	ah, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+or ah, ah
+jz	short loc_B975C
+mov	al, [edi + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 2], al
+
+loc_B975C : ; CODE XREF : sub_B6253 + 34FBj
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B99A4
+mov	ah, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+or ah, ah
+jz	short loc_B9788
+mov	al, [edi + 3]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 3], al
+
+loc_B9788 : ; CODE XREF : sub_B6253 + 3527j
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B99A4
+mov	ah, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+or ah, ah
+jz	short loc_B97B4
+mov	al, [edi + 4]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 4], al
+
+loc_B97B4 : ; CODE XREF : sub_B6253 + 3553j
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B99A4
+mov	ah, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+or ah, ah
+jz	short loc_B97E0
+mov	al, [edi + 5]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 5], al
+
+loc_B97E0 : ; CODE XREF : sub_B6253 + 357Fj
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B99A4
+mov	ah, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+or ah, ah
+jz	short loc_B980C
+mov	al, [edi + 6]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 6], al
+
+loc_B980C : ; CODE XREF : sub_B6253 + 35ABj
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B99A4
+mov	ah, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+or ah, ah
+jz	short loc_B9838
+mov	al, [edi + 7]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 7], al
+
+loc_B9838 : ; CODE XREF : sub_B6253 + 35D7j
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B99A4
+mov	ah, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+or ah, ah
+jz	short loc_B9864
+mov	al, [edi + 8]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 8], al
+
+loc_B9864 : ; CODE XREF : sub_B6253 + 3603j
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B99A4
+mov	ah, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+or ah, ah
+jz	short loc_B9890
+mov	al, [edi + 9]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 9], al
+
+loc_B9890 : ; CODE XREF : sub_B6253 + 362Fj
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B99A4
+mov	ah, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+or ah, ah
+jz	short loc_B98BC
+mov	al, [edi + 0Ah]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 0Ah], al
+
+loc_B98BC : ; CODE XREF : sub_B6253 + 365Bj
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B99A4
+mov	ah, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+or ah, ah
+jz	short loc_B98E8
+mov	al, [edi + 0Bh]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 0Bh], al
+
+loc_B98E8 : ; CODE XREF : sub_B6253 + 3687j
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B99A4
+mov	ah, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+or ah, ah
+jz	short loc_B9914
+mov	al, [edi + 0Ch]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 0Ch], al
+
+loc_B9914 : ; CODE XREF : sub_B6253 + 36B3j
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B99A4
+mov	ah, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+or ah, ah
+jz	short loc_B9940
+mov	al, [edi + 0Dh]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 0Dh], al
+
+loc_B9940 : ; CODE XREF : sub_B6253 + 36DFj
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	short loc_B99A4
+mov	ah, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+or ah, ah
+jz	short loc_B9968
+mov	al, [edi + 0Eh]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 0Eh], al
+
+loc_B9968 : ; CODE XREF : sub_B6253 + 3707j
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	short loc_B99A4
+mov	ah, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+or ah, ah
+jz	short loc_B9990
+mov	al, [edi + 0Fh]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 0Fh], al
+
+loc_B9990 : ; CODE XREF : sub_B6253 + 372Fj
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	short loc_B99A4
+add	edi, 10h
+jmp	loc_B96EA
+; -------------------------------------------------------------------------- -
+
+loc_B99A4:; CODE XREF : sub_B6253 + 34BBj
+; sub_B6253 + 34E7j ...
+mov	esi, [esp + 88h + var_2C]
+
+loc_B99A8:; CODE XREF : sub_B6253 + 3427j
+; sub_B6253 + 3476j
+add	esi, 14h
+dec[esp + 88h + var_68]
+jnz	loc_B965E
+add	esp, 68h
+popa
+retn
+; -------------------------------------------------------------------------- -
+
+loc_B99BA:; CODE XREF : sub_B6253 + 421j
+; sub_B6253 + 45Aj ...
+lea	esi, unk_DE56Cx
+mov	eax, [esp + 88h + var_58]
+shl	eax, 10h
+mov[esp + 88h + var_3C], eax
+xor eax, eax
+xor ebx, ebx
+xor ecx, ecx
+
+loc_B99D1 : ; CODE XREF : sub_B6253 + 3A61j
+mov	ax, [esi + 2]
+movzx	ecx, word ptr[esi + 6]
+mov	edi, [esp + 88h + var_88]
+add	edi, iScreenWidth_DE560
+mov[esp + 88h + var_88], edi
+or ax, ax
+jns	short loc_B9A2B
+or cx, cx
+jle	loc_B9CAD
+neg	ax
+movzx	eax, ax
+mov	edx, eax
+imul	edx, [esp + 88h + var_58]
+add	edx, [esi + 0Ch]
+rol	edx, 10h
+mov	bh, dl
+imul	eax, [esp + 88h + var_64]
+add	eax, [esi + 8]
+mov	dx, ax
+shr	eax, 8
+mov	bl, ah
+cmp	ecx, viewPort.Width_DE564
+jle	short loc_B9A26
+mov	ecx, viewPort.Width_DE564
+
+loc_B9A26 : ; CODE XREF : sub_B6253 + 37CBj
+movzx	eax, ax
+jmp	short loc_B9A53
+; -------------------------------------------------------------------------- -
+
+loc_B9A2B:; CODE XREF : sub_B6253 + 3795j
+cmp	ecx, viewPort.Width_DE564
+jle	short loc_B9A39
+mov	ecx, viewPort.Width_DE564
+
+loc_B9A39 : ; CODE XREF : sub_B6253 + 37DEj
+sub	cx, ax
+jle	loc_B9CAD
+add	edi, eax
+mov	edx, [esi + 0Ch]
+rol	edx, 10h
+mov	bh, dl
+mov	dx, [esi + 8]
+mov	bl, [esi + 0Ah]
+
+loc_B9A53:; CODE XREF : sub_B6253 + 37D6j
+mov[esp + 88h + var_2C], esi
+mov	esi, x_DWORD_DE55C_ActTexture
+mov	al, x_BYTE_E126C
+
+loc_B9A62 : ; CODE XREF : sub_B6253 + 3A51j
+mov	ah, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	ah, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi], ah
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B9CA9
+mov	ah, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	ah, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi + 1], ah
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B9CA9
+mov	ah, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	ah, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi + 2], ah
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B9CA9
+mov	ah, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	ah, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi + 3], ah
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B9CA9
+mov	ah, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	ah, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi + 4], ah
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B9CA9
+mov	ah, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	ah, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi + 5], ah
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B9CA9
+mov	ah, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	ah, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi + 6], ah
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B9CA9
+mov	ah, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	ah, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi + 7], ah
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B9CA9
+mov	ah, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	ah, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi + 8], ah
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B9CA9
+mov	ah, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	ah, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi + 9], ah
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B9CA9
+mov	ah, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	ah, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi + 0Ah], ah
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B9CA9
+mov	ah, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	ah, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi + 0Bh], ah
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B9CA9
+mov	ah, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	ah, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi + 0Ch], ah
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	short loc_B9CA9
+mov	ah, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	ah, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi + 0Dh], ah
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	short loc_B9CA9
+mov	ah, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	ah, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi + 0Eh], ah
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	short loc_B9CA9
+mov	ah, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	ah, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi + 0Fh], ah
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	short loc_B9CA9
+add	edi, 10h
+jmp	loc_B9A62
+; -------------------------------------------------------------------------- -
+
+loc_B9CA9:; CODE XREF : sub_B6253 + 382Dj
+; sub_B6253 + 3852j ...
+mov	esi, [esp + 88h + var_2C]
+
+loc_B9CAD:; CODE XREF : sub_B6253 + 379Aj
+; sub_B6253 + 37E9j
+add	esi, 14h
+dec[esp + 88h + var_68]
+jnz	loc_B99D1
+add	esp, 68h
+popa
+retn
+; -------------------------------------------------------------------------- -
+
+loc_B9CBF:; CODE XREF : sub_B6253 + 421j
+; sub_B6253 + 45Aj ...
+lea	esi, unk_DE56Cx
+mov	eax, [esp + 88h + var_58]
+shl	eax, 10h
+mov[esp + 88h + var_3C], eax
+xor eax, eax
+xor ebx, ebx
+xor ecx, ecx
+
+loc_B9CD6 : ; CODE XREF : sub_B6253 + 3D67j
+mov	ax, [esi + 2]
+movzx	ecx, word ptr[esi + 6]
+mov	edi, [esp + 88h + var_88]
+add	edi, iScreenWidth_DE560
+mov[esp + 88h + var_88], edi
+or ax, ax
+jns	short loc_B9D30
+or cx, cx
+jle	loc_B9FB3
+neg	ax
+movzx	eax, ax
+mov	edx, eax
+imul	edx, [esp + 88h + var_58]
+add	edx, [esi + 0Ch]
+rol	edx, 10h
+mov	bh, dl
+imul	eax, [esp + 88h + var_64]
+add	eax, [esi + 8]
+mov	dx, ax
+shr	eax, 8
+mov	bl, ah
+cmp	ecx, viewPort.Width_DE564
+jle	short loc_B9D2B
+mov	ecx, viewPort.Width_DE564
+
+loc_B9D2B : ; CODE XREF : sub_B6253 + 3AD0j
+movzx	eax, ax
+jmp	short loc_B9D58
+; -------------------------------------------------------------------------- -
+
+loc_B9D30:; CODE XREF : sub_B6253 + 3A9Aj
+cmp	ecx, viewPort.Width_DE564
+jle	short loc_B9D3E
+mov	ecx, viewPort.Width_DE564
+
+loc_B9D3E : ; CODE XREF : sub_B6253 + 3AE3j
+sub	cx, ax
+jle	loc_B9FB3
+add	edi, eax
+mov	edx, [esi + 0Ch]
+rol	edx, 10h
+mov	bh, dl
+mov	dx, [esi + 8]
+mov	bl, [esi + 0Ah]
+
+loc_B9D58:; CODE XREF : sub_B6253 + 3ADBj
+mov[esp + 88h + var_2C], esi
+mov	esi, x_DWORD_DE55C_ActTexture
+mov	ah, x_BYTE_E126C
+
+loc_B9D68 : ; CODE XREF : sub_B6253 + 3D57j
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi], al
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B9FAF
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi + 1], al
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B9FAF
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi + 2], al
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B9FAF
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi + 3], al
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B9FAF
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi + 4], al
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B9FAF
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi + 5], al
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B9FAF
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi + 6], al
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B9FAF
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi + 7], al
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B9FAF
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi + 8], al
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B9FAF
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi + 9], al
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B9FAF
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi + 0Ah], al
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B9FAF
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi + 0Bh], al
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_B9FAF
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi + 0Ch], al
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	short loc_B9FAF
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi + 0Dh], al
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	short loc_B9FAF
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi + 0Eh], al
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	short loc_B9FAF
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi + 0Fh], al
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	short loc_B9FAF
+add	edi, 10h
+jmp	loc_B9D68
+; -------------------------------------------------------------------------- -
+
+loc_B9FAF:; CODE XREF : sub_B6253 + 3B33j
+; sub_B6253 + 3B58j ...
+mov	esi, [esp + 88h + var_2C]
+
+loc_B9FB3:; CODE XREF : sub_B6253 + 3A9Fj
+; sub_B6253 + 3AEEj
+add	esi, 14h
+dec[esp + 88h + var_68]
+jnz	loc_B9CD6
+add	esp, 68h
+popa
+retn
+; -------------------------------------------------------------------------- -
+
+loc_B9FC5:; CODE XREF : sub_B6253 + 421j
+; sub_B6253 + 45Aj ...
+lea	esi, unk_DE56Cx
+mov	edx, [esp + 88h + var_88]
+xor eax, eax
+mov	ah, x_BYTE_E126C
+xor ebx, ebx
+xor ecx, ecx
+
+loc_B9FDA : ; CODE XREF : sub_B6253 + 3EFCj
+mov	bx, [esi + 2]
+movzx	ecx, word ptr[esi + 6]
+add	edx, iScreenWidth_DE560
+or bx, bx
+jns	short loc_BA008
+or cx, cx
+jle	loc_BA148
+cmp	ecx, viewPort.Width_DE564
+jle	short loc_BA004
+mov	ecx, viewPort.Width_DE564
+
+loc_BA004 : ; CODE XREF : sub_B6253 + 3DA9j
+mov	edi, edx
+jmp	short loc_BA022
+; -------------------------------------------------------------------------- -
+
+loc_BA008:; CODE XREF : sub_B6253 + 3D98j
+cmp	ecx, viewPort.Width_DE564
+jle	short loc_BA016
+mov	ecx, viewPort.Width_DE564
+
+loc_BA016 : ; CODE XREF : sub_B6253 + 3DBBj
+sub	cx, bx
+jle	loc_BA148
+lea	edi, [ebx + edx]
+
+loc_BA022:; CODE XREF : sub_B6253 + 3DB3j
+; sub_B6253 + 3EF0j
+mov	al, [edi]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi], al
+dec	cx
+jz	loc_BA148
+mov	al, [edi + 1]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 1], al
+dec	cx
+jz	loc_BA148
+mov	al, [edi + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 2], al
+dec	cx
+jz	loc_BA148
+mov	al, [edi + 3]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 3], al
+dec	cx
+jz	loc_BA148
+mov	al, [edi + 4]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 4], al
+dec	cx
+jz	loc_BA148
+mov	al, [edi + 5]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 5], al
+dec	cx
+jz	loc_BA148
+mov	al, [edi + 6]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 6], al
+dec	cx
+jz	loc_BA148
+mov	al, [edi + 7]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 7], al
+dec	cx
+jz	loc_BA148
+mov	al, [edi + 8]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 8], al
+dec	cx
+jz	short loc_BA148
+mov	al, [edi + 9]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 9], al
+dec	cx
+jz	short loc_BA148
+mov	al, [edi + 0Ah]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 0Ah], al
+dec	cx
+jz	short loc_BA148
+mov	al, [edi + 0Bh]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 0Bh], al
+dec	cx
+jz	short loc_BA148
+mov	al, [edi + 0Ch]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 0Ch], al
+dec	cx
+jz	short loc_BA148
+mov	al, [edi + 0Dh]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 0Dh], al
+dec	cx
+jz	short loc_BA148
+mov	al, [edi + 0Eh]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 0Eh], al
+dec	cx
+jz	short loc_BA148
+mov	al, [edi + 0Fh]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 0Fh], al
+dec	cx
+jz	short loc_BA148
+add	edi, 10h
+jmp	loc_BA022
+; -------------------------------------------------------------------------- -
+
+loc_BA148:; CODE XREF : sub_B6253 + 3D9Dj
+; sub_B6253 + 3DC6j ...
+add	esi, 14h
+dec[esp + 88h + var_68]
+jnz	loc_B9FDA
+add	esp, 68h
+popa
+retn
+; -------------------------------------------------------------------------- -
+
+loc_BA15A:; CODE XREF : sub_B6253 + 421j
+; sub_B6253 + 45Aj ...
+lea	esi, unk_DE56Cx
+mov	edx, [esp + 88h + var_88]
+//movzx	eax, x_BYTE_E126C
+xor eax, eax
+mov al, x_BYTE_E126C
+
+xor ebx, ebx
+xor ecx, ecx
+
+loc_BA16E : ; CODE XREF : sub_B6253 + 4090j
+mov	bx, [esi + 2]
+movzx	ecx, word ptr[esi + 6]
+add	edx, iScreenWidth_DE560
+or bx, bx
+jns	short loc_BA19C
+or cx, cx
+jle	loc_BA2DC
+cmp	ecx, viewPort.Width_DE564
+jle	short loc_BA198
+mov	ecx, viewPort.Width_DE564
+
+loc_BA198 : ; CODE XREF : sub_B6253 + 3F3Dj
+mov	edi, edx
+jmp	short loc_BA1B6
+; -------------------------------------------------------------------------- -
+
+loc_BA19C:; CODE XREF : sub_B6253 + 3F2Cj
+cmp	ecx, viewPort.Width_DE564
+jle	short loc_BA1AA
+mov	ecx, viewPort.Width_DE564
+
+loc_BA1AA : ; CODE XREF : sub_B6253 + 3F4Fj
+sub	cx, bx
+jle	loc_BA2DC
+lea	edi, [ebx + edx]
+
+loc_BA1B6:; CODE XREF : sub_B6253 + 3F47j
+; sub_B6253 + 4084j
+mov	ah, [edi]
+mov	ah, x_BYTE_F6EE0_tablesx[eax]
+mov[edi], ah
+dec	cx
+jz	loc_BA2DC
+mov	ah, [edi + 1]
+mov	ah, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 1], ah
+dec	cx
+jz	loc_BA2DC
+mov	ah, [edi + 2]
+mov	ah, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 2], ah
+dec	cx
+jz	loc_BA2DC
+mov	ah, [edi + 3]
+mov	ah, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 3], ah
+dec	cx
+jz	loc_BA2DC
+mov	ah, [edi + 4]
+mov	ah, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 4], ah
+dec	cx
+jz	loc_BA2DC
+mov	ah, [edi + 5]
+mov	ah, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 5], ah
+dec	cx
+jz	loc_BA2DC
+mov	ah, [edi + 6]
+mov	ah, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 6], ah
+dec	cx
+jz	loc_BA2DC
+mov	ah, [edi + 7]
+mov	ah, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 7], ah
+dec	cx
+jz	loc_BA2DC
+mov	ah, [edi + 8]
+mov	ah, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 8], ah
+dec	cx
+jz	short loc_BA2DC
+mov	ah, [edi + 9]
+mov	ah, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 9], ah
+dec	cx
+jz	short loc_BA2DC
+mov	ah, [edi + 0Ah]
+mov	ah, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 0Ah], ah
+dec	cx
+jz	short loc_BA2DC
+mov	ah, [edi + 0Bh]
+mov	ah, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 0Bh], ah
+dec	cx
+jz	short loc_BA2DC
+mov	ah, [edi + 0Ch]
+mov	ah, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 0Ch], ah
+dec	cx
+jz	short loc_BA2DC
+mov	ah, [edi + 0Dh]
+mov	ah, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 0Dh], ah
+dec	cx
+jz	short loc_BA2DC
+mov	ah, [edi + 0Eh]
+mov	ah, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 0Eh], ah
+dec	cx
+jz	short loc_BA2DC
+mov	ah, [edi + 0Fh]
+mov	ah, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 0Fh], ah
+dec	cx
+jz	short loc_BA2DC
+add	edi, 10h
+jmp	loc_BA1B6
+; -------------------------------------------------------------------------- -
+
+loc_BA2DC:; CODE XREF : sub_B6253 + 3F31j
+; sub_B6253 + 3F5Aj ...
+add	esi, 14h
+dec[esp + 88h + var_68]
+jnz	loc_BA16E
+add	esp, 68h
+popa
+retn
+; -------------------------------------------------------------------------- -
+
+loc_BA2EE:; CODE XREF : sub_B6253 + 421j
+; sub_B6253 + 45Aj ...
+lea	esi, unk_DE56Cx
+xor edx, edx
+
+loc_BA2F6 : ; CODE XREF : sub_B6253 + 4349j
+mov	ax, [esi + 2]
+movzx	ecx, word ptr[esi + 6]
+mov	edi, [esp + 88h + var_88]
+add	edi, iScreenWidth_DE560
+mov[esp + 88h + var_88], edi
+or ax, ax
+jns	short loc_BA348
+or cx, cx
+jle	loc_BA595
+neg	ax
+movzx	eax, ax
+imul	eax, [esp + 88h + var_4C]
+mov	bx, ax
+shr	eax, 8
+add	bx, [esi + 10h]
+adc	ah, [esi + 12h]
+cmp	ecx, viewPort.Width_DE564
+jle	short loc_BA33E
+mov	ecx, viewPort.Width_DE564
+
+loc_BA33E : ; CODE XREF : sub_B6253 + 40E3j
+movzx	eax, ax
+mov	al, x_BYTE_E126C
+jmp	short loc_BA36F
+; -------------------------------------------------------------------------- -
+
+loc_BA348:; CODE XREF : sub_B6253 + 40BAj
+cmp	ecx, viewPort.Width_DE564
+jle	short loc_BA356
+mov	ecx, viewPort.Width_DE564
+
+loc_BA356 : ; CODE XREF : sub_B6253 + 40FBj
+sub	cx, ax
+jle	loc_BA595
+add	edi, eax
+//movzx	eax, x_BYTE_E126C
+xor eax, eax
+mov al, x_BYTE_E126C
+
+mov	bx, [esi + 10h]
+mov	ah, [esi + 12h]
+
+loc_BA36F:; CODE XREF : sub_B6253 + 40F3j
+; sub_B6253 + 433Dj
+mov	dh, x_BYTE_F6EE0_tablesx[eax]
+mov	dl, [edi]
+mov	dl, x_BYTE_F6EE0_tablesx[edx]
+mov[edi], dl
+add	bx, word ptr[esp + 88h + var_4C]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+dec	cx
+jz	loc_BA595
+mov	dh, x_BYTE_F6EE0_tablesx[eax]
+mov	dl, [edi + 1]
+mov	dl, x_BYTE_F6EE0_tablesx[edx]
+mov[edi + 1], dl
+add	bx, word ptr[esp + 88h + var_4C]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+dec	cx
+jz	loc_BA595
+mov	dh, x_BYTE_F6EE0_tablesx[eax]
+mov	dl, [edi + 2]
+mov	dl, x_BYTE_F6EE0_tablesx[edx]
+mov[edi + 2], dl
+add	bx, word ptr[esp + 88h + var_4C]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+dec	cx
+jz	loc_BA595
+mov	dh, x_BYTE_F6EE0_tablesx[eax]
+mov	dl, [edi + 3]
+mov	dl, x_BYTE_F6EE0_tablesx[edx]
+mov[edi + 3], dl
+add	bx, word ptr[esp + 88h + var_4C]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+dec	cx
+jz	loc_BA595
+mov	dh, x_BYTE_F6EE0_tablesx[eax]
+mov	dl, [edi + 4]
+mov	dl, x_BYTE_F6EE0_tablesx[edx]
+mov[edi + 4], dl
+add	bx, word ptr[esp + 88h + var_4C]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+dec	cx
+jz	loc_BA595
+mov	dh, x_BYTE_F6EE0_tablesx[eax]
+mov	dl, [edi + 5]
+mov	dl, x_BYTE_F6EE0_tablesx[edx]
+mov[edi + 5], dl
+add	bx, word ptr[esp + 88h + var_4C]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+dec	cx
+jz	loc_BA595
+mov	dh, x_BYTE_F6EE0_tablesx[eax]
+mov	dl, [edi + 6]
+mov	dl, x_BYTE_F6EE0_tablesx[edx]
+mov[edi + 6], dl
+add	bx, word ptr[esp + 88h + var_4C]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+dec	cx
+jz	loc_BA595
+mov	dh, x_BYTE_F6EE0_tablesx[eax]
+mov	dl, [edi + 7]
+mov	dl, x_BYTE_F6EE0_tablesx[edx]
+mov[edi + 7], dl
+add	bx, word ptr[esp + 88h + var_4C]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+dec	cx
+jz	loc_BA595
+mov	dh, x_BYTE_F6EE0_tablesx[eax]
+mov	dl, [edi + 8]
+mov	dl, x_BYTE_F6EE0_tablesx[edx]
+mov[edi + 8], dl
+add	bx, word ptr[esp + 88h + var_4C]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+dec	cx
+jz	loc_BA595
+mov	dh, x_BYTE_F6EE0_tablesx[eax]
+mov	dl, [edi + 9]
+mov	dl, x_BYTE_F6EE0_tablesx[edx]
+mov[edi + 9], dl
+add	bx, word ptr[esp + 88h + var_4C]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+dec	cx
+jz	loc_BA595
+mov	dh, x_BYTE_F6EE0_tablesx[eax]
+mov	dl, [edi + 0Ah]
+mov	dl, x_BYTE_F6EE0_tablesx[edx]
+mov[edi + 0Ah], dl
+add	bx, word ptr[esp + 88h + var_4C]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+dec	cx
+jz	loc_BA595
+mov	dh, x_BYTE_F6EE0_tablesx[eax]
+mov	dl, [edi + 0Bh]
+mov	dl, x_BYTE_F6EE0_tablesx[edx]
+mov[edi + 0Bh], dl
+add	bx, word ptr[esp + 88h + var_4C]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+dec	cx
+jz	loc_BA595
+mov	dh, x_BYTE_F6EE0_tablesx[eax]
+mov	dl, [edi + 0Ch]
+mov	dl, x_BYTE_F6EE0_tablesx[edx]
+mov[edi + 0Ch], dl
+add	bx, word ptr[esp + 88h + var_4C]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+dec	cx
+jz	short loc_BA595
+mov	dh, x_BYTE_F6EE0_tablesx[eax]
+mov	dl, [edi + 0Dh]
+mov	dl, x_BYTE_F6EE0_tablesx[edx]
+mov[edi + 0Dh], dl
+add	bx, word ptr[esp + 88h + var_4C]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+dec	cx
+jz	short loc_BA595
+mov	dh, x_BYTE_F6EE0_tablesx[eax]
+mov	dl, [edi + 0Eh]
+mov	dl, x_BYTE_F6EE0_tablesx[edx]
+mov[edi + 0Eh], dl
+add	bx, word ptr[esp + 88h + var_4C]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+dec	cx
+jz	short loc_BA595
+mov	dh, x_BYTE_F6EE0_tablesx[eax]
+mov	dl, [edi + 0Fh]
+mov	dl, x_BYTE_F6EE0_tablesx[edx]
+mov[edi + 0Fh], dl
+add	bx, word ptr[esp + 88h + var_4C]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+dec	cx
+jz	short loc_BA595
+add	edi, 10h
+jmp	loc_BA36F
+; -------------------------------------------------------------------------- -
+
+loc_BA595:; CODE XREF : sub_B6253 + 40BFj
+; sub_B6253 + 4106j ...
+add	esi, 14h
+dec[esp + 88h + var_68]
+jnz	loc_BA2F6
+add	esp, 68h
+popa
+retn
+; -------------------------------------------------------------------------- -
+
+loc_BA5A7:; CODE XREF : sub_B6253 + 421j
+; sub_B6253 + 45Aj ...
+lea	esi, unk_DE56Cx
+xor edx, edx
+
+loc_BA5AF : ; CODE XREF : sub_B6253 + 4602j
+mov	ax, [esi + 2]
+movzx	ecx, word ptr[esi + 6]
+mov	edi, [esp + 88h + var_88]
+add	edi, iScreenWidth_DE560
+mov[esp + 88h + var_88], edi
+or ax, ax
+jns	short loc_BA601
+or cx, cx
+jle	loc_BA84E
+neg	ax
+movzx	eax, ax
+imul	eax, [esp + 88h + var_4C]
+mov	bx, ax
+shr	eax, 8
+add	bx, [esi + 10h]
+adc	ah, [esi + 12h]
+cmp	ecx, viewPort.Width_DE564
+jle	short loc_BA5F7
+mov	ecx, viewPort.Width_DE564
+
+loc_BA5F7 : ; CODE XREF : sub_B6253 + 439Cj
+movzx	eax, ax
+mov	al, x_BYTE_E126C
+jmp	short loc_BA628
+; -------------------------------------------------------------------------- -
+
+loc_BA601:; CODE XREF : sub_B6253 + 4373j
+cmp	ecx, viewPort.Width_DE564
+jle	short loc_BA60F
+mov	ecx, viewPort.Width_DE564
+
+loc_BA60F : ; CODE XREF : sub_B6253 + 43B4j
+sub	cx, ax
+jle	loc_BA84E
+add	edi, eax
+//movzx	eax, x_BYTE_E126C
+xor eax, eax
+mov al, x_BYTE_E126C
+
+mov	bx, [esi + 10h]
+mov	ah, [esi + 12h]
+
+loc_BA628:; CODE XREF : sub_B6253 + 43ACj
+; sub_B6253 + 45F6j
+mov	dl, x_BYTE_F6EE0_tablesx[eax]
+mov	dh, [edi]
+mov	dl, x_BYTE_F6EE0_tablesx[edx]
+mov[edi], dl
+add	bx, word ptr[esp + 88h + var_4C]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+dec	cx
+jz	loc_BA84E
+mov	dl, x_BYTE_F6EE0_tablesx[eax]
+mov	dh, [edi + 1]
+mov	dl, x_BYTE_F6EE0_tablesx[edx]
+mov[edi + 1], dl
+add	bx, word ptr[esp + 88h + var_4C]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+dec	cx
+jz	loc_BA84E
+mov	dl, x_BYTE_F6EE0_tablesx[eax]
+mov	dh, [edi + 2]
+mov	dl, x_BYTE_F6EE0_tablesx[edx]
+mov[edi + 2], dl
+add	bx, word ptr[esp + 88h + var_4C]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+dec	cx
+jz	loc_BA84E
+mov	dl, x_BYTE_F6EE0_tablesx[eax]
+mov	dh, [edi + 3]
+mov	dl, x_BYTE_F6EE0_tablesx[edx]
+mov[edi + 3], dl
+add	bx, word ptr[esp + 88h + var_4C]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+dec	cx
+jz	loc_BA84E
+mov	dl, x_BYTE_F6EE0_tablesx[eax]
+mov	dh, [edi + 4]
+mov	dl, x_BYTE_F6EE0_tablesx[edx]
+mov[edi + 4], dl
+add	bx, word ptr[esp + 88h + var_4C]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+dec	cx
+jz	loc_BA84E
+mov	dl, x_BYTE_F6EE0_tablesx[eax]
+mov	dh, [edi + 5]
+mov	dl, x_BYTE_F6EE0_tablesx[edx]
+mov[edi + 5], dl
+add	bx, word ptr[esp + 88h + var_4C]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+dec	cx
+jz	loc_BA84E
+mov	dl, x_BYTE_F6EE0_tablesx[eax]
+mov	dh, [edi + 6]
+mov	dl, x_BYTE_F6EE0_tablesx[edx]
+mov[edi + 6], dl
+add	bx, word ptr[esp + 88h + var_4C]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+dec	cx
+jz	loc_BA84E
+mov	dl, x_BYTE_F6EE0_tablesx[eax]
+mov	dh, [edi + 7]
+mov	dl, x_BYTE_F6EE0_tablesx[edx]
+mov[edi + 7], dl
+add	bx, word ptr[esp + 88h + var_4C]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+dec	cx
+jz	loc_BA84E
+mov	dl, x_BYTE_F6EE0_tablesx[eax]
+mov	dh, [edi + 8]
+mov	dl, x_BYTE_F6EE0_tablesx[edx]
+mov[edi + 8], dl
+add	bx, word ptr[esp + 88h + var_4C]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+dec	cx
+jz	loc_BA84E
+mov	dl, x_BYTE_F6EE0_tablesx[eax]
+mov	dh, [edi + 9]
+mov	dl, x_BYTE_F6EE0_tablesx[edx]
+mov[edi + 9], dl
+add	bx, word ptr[esp + 88h + var_4C]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+dec	cx
+jz	loc_BA84E
+mov	dl, x_BYTE_F6EE0_tablesx[eax]
+mov	dh, [edi + 0Ah]
+mov	dl, x_BYTE_F6EE0_tablesx[edx]
+mov[edi + 0Ah], dl
+add	bx, word ptr[esp + 88h + var_4C]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+dec	cx
+jz	loc_BA84E
+mov	dl, x_BYTE_F6EE0_tablesx[eax]
+mov	dh, [edi + 0Bh]
+mov	dl, x_BYTE_F6EE0_tablesx[edx]
+mov[edi + 0Bh], dl
+add	bx, word ptr[esp + 88h + var_4C]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+dec	cx
+jz	loc_BA84E
+mov	dl, x_BYTE_F6EE0_tablesx[eax]
+mov	dh, [edi + 0Ch]
+mov	dl, x_BYTE_F6EE0_tablesx[edx]
+mov[edi + 0Ch], dl
+add	bx, word ptr[esp + 88h + var_4C]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+dec	cx
+jz	short loc_BA84E
+mov	dl, x_BYTE_F6EE0_tablesx[eax]
+mov	dh, [edi + 0Dh]
+mov	dl, x_BYTE_F6EE0_tablesx[edx]
+mov[edi + 0Dh], dl
+add	bx, word ptr[esp + 88h + var_4C]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+dec	cx
+jz	short loc_BA84E
+mov	dl, x_BYTE_F6EE0_tablesx[eax]
+mov	dh, [edi + 0Eh]
+mov	dl, x_BYTE_F6EE0_tablesx[edx]
+mov[edi + 0Eh], dl
+add	bx, word ptr[esp + 88h + var_4C]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+dec	cx
+jz	short loc_BA84E
+mov	dl, x_BYTE_F6EE0_tablesx[eax]
+mov	dh, [edi + 0Fh]
+mov	dl, x_BYTE_F6EE0_tablesx[edx]
+mov[edi + 0Fh], dl
+add	bx, word ptr[esp + 88h + var_4C]
+adc	ah, byte ptr[esp + 88h + var_4C + 2]
+dec	cx
+jz	short loc_BA84E
+add	edi, 10h
+jmp	loc_BA628
+; -------------------------------------------------------------------------- -
+
+loc_BA84E:; CODE XREF : sub_B6253 + 4378j
+; sub_B6253 + 43BFj ...
+add	esi, 14h
+dec[esp + 88h + var_68]
+jnz	loc_BA5AF
+add	esp, 68h
+popa
+retn
+; -------------------------------------------------------------------------- -
+
+loc_BA860:; CODE XREF : sub_B6253 + 421j
+; sub_B6253 + 45Aj ...
+lea	esi, unk_DE56Cx
+mov	eax, [esp + 88h + var_58]
+shl	eax, 10h
+mov[esp + 88h + var_3C], eax
+xor eax, eax
+xor ebx, ebx
+xor ecx, ecx
+
+loc_BA877 : ; CODE XREF : sub_B6253 + 4931j
+mov	ax, [esi + 2]
+movzx	ecx, word ptr[esi + 6]
+mov	edi, [esp + 88h + var_88]
+add	edi, iScreenWidth_DE560
+mov[esp + 88h + var_88], edi
+or ax, ax
+jns	short loc_BA8D1
+or cx, cx
+jle	loc_BAB7D
+neg	ax
+movzx	eax, ax
+mov	edx, eax
+imul	edx, [esp + 88h + var_58]
+add	edx, [esi + 0Ch]
+rol	edx, 10h
+mov	bh, dl
+imul	eax, [esp + 88h + var_64]
+add	eax, [esi + 8]
+mov	dx, ax
+shr	eax, 8
+mov	bl, ah
+cmp	ecx, viewPort.Width_DE564
+jle	short loc_BA8CC
+mov	ecx, viewPort.Width_DE564
+
+loc_BA8CC : ; CODE XREF : sub_B6253 + 4671j
+movzx	eax, ax
+jmp	short loc_BA8F9
+; -------------------------------------------------------------------------- -
+
+loc_BA8D1:; CODE XREF : sub_B6253 + 463Bj
+cmp	ecx, viewPort.Width_DE564
+jle	short loc_BA8DF
+mov	ecx, viewPort.Width_DE564
+
+loc_BA8DF : ; CODE XREF : sub_B6253 + 4684j
+sub	cx, ax
+jle	loc_BAB7D
+add	edi, eax
+mov	edx, [esi + 0Ch]
+rol	edx, 10h
+mov	bh, dl
+mov	dx, [esi + 8]
+mov	bl, [esi + 0Ah]
+
+loc_BA8F9:; CODE XREF : sub_B6253 + 467Cj
+mov[esp + 88h + var_2C], esi
+mov	esi, x_DWORD_DE55C_ActTexture
+
+loc_BA903 : ; CODE XREF : sub_B6253 + 4921j
+mov	ah, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	al, [edi]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi], al
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_BAB79
+mov	ah, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	al, [edi + 1]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi + 1], al
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_BAB79
+mov	ah, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	al, [edi + 2]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi + 2], al
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_BAB79
+mov	ah, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	al, [edi + 3]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi + 3], al
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_BAB79
+mov	ah, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	al, [edi + 4]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi + 4], al
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_BAB79
+mov	ah, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	al, [edi + 5]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi + 5], al
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_BAB79
+mov	ah, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	al, [edi + 6]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi + 6], al
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_BAB79
+mov	ah, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	al, [edi + 7]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi + 7], al
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_BAB79
+mov	ah, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	al, [edi + 8]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi + 8], al
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_BAB79
+mov	ah, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	al, [edi + 9]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi + 9], al
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_BAB79
+mov	ah, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	al, [edi + 0Ah]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi + 0Ah], al
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_BAB79
+mov	ah, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	al, [edi + 0Bh]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi + 0Bh], al
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_BAB79
+mov	ah, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	al, [edi + 0Ch]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi + 0Ch], al
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	short loc_BAB79
+mov	ah, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	al, [edi + 0Dh]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi + 0Dh], al
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	short loc_BAB79
+mov	ah, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	al, [edi + 0Eh]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi + 0Eh], al
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	short loc_BAB79
+mov	ah, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	al, [edi + 0Fh]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi + 0Fh], al
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	short loc_BAB79
+add	edi, 10h
+jmp	loc_BA903
+; -------------------------------------------------------------------------- -
+
+loc_BAB79:; CODE XREF : sub_B6253 + 46D0j
+; sub_B6253 + 46F8j ...
+mov	esi, [esp + 88h + var_2C]
+
+loc_BAB7D:; CODE XREF : sub_B6253 + 4640j
+; sub_B6253 + 468Fj
+add	esi, 14h
+dec[esp + 88h + var_68]
+jnz	loc_BA877
+add	esp, 68h
+popa
+retn
+; -------------------------------------------------------------------------- -
+
+loc_BAB8F:; CODE XREF : sub_B6253 + 421j
+; sub_B6253 + 45Aj ...
+lea	esi, unk_DE56Cx
+mov	eax, [esp + 88h + var_58]
+shl	eax, 10h
+mov[esp + 88h + var_3C], eax
+xor eax, eax
+xor ebx, ebx
+xor ecx, ecx
+
+loc_BABA6 : ; CODE XREF : sub_B6253 + 4C60j
+mov	ax, [esi + 2]
+movzx	ecx, word ptr[esi + 6]
+mov	edi, [esp + 88h + var_88]
+add	edi, iScreenWidth_DE560
+mov[esp + 88h + var_88], edi
+or ax, ax
+jns	short loc_BAC00
+or cx, cx
+jle	loc_BAEAC
+neg	ax
+movzx	eax, ax
+mov	edx, eax
+imul	edx, [esp + 88h + var_58]
+add	edx, [esi + 0Ch]
+rol	edx, 10h
+mov	bh, dl
+imul	eax, [esp + 88h + var_64]
+add	eax, [esi + 8]
+mov	dx, ax
+shr	eax, 8
+mov	bl, ah
+cmp	ecx, viewPort.Width_DE564
+jle	short loc_BABFB
+mov	ecx, viewPort.Width_DE564
+
+loc_BABFB : ; CODE XREF : sub_B6253 + 49A0j
+movzx	eax, ax
+jmp	short loc_BAC28
+; -------------------------------------------------------------------------- -
+
+loc_BAC00:; CODE XREF : sub_B6253 + 496Aj
+cmp	ecx, viewPort.Width_DE564
+jle	short loc_BAC0E
+mov	ecx, viewPort.Width_DE564
+
+loc_BAC0E : ; CODE XREF : sub_B6253 + 49B3j
+sub	cx, ax
+jle	loc_BAEAC
+add	edi, eax
+mov	edx, [esi + 0Ch]
+rol	edx, 10h
+mov	bh, dl
+mov	dx, [esi + 8]
+mov	bl, [esi + 0Ah]
+
+loc_BAC28:; CODE XREF : sub_B6253 + 49ABj
+mov[esp + 88h + var_2C], esi
+mov	esi, x_DWORD_DE55C_ActTexture
+
+loc_BAC32 : ; CODE XREF : sub_B6253 + 4C50j
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	ah, [edi]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi], al
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_BAEA8
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	ah, [edi + 1]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi + 1], al
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_BAEA8
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	ah, [edi + 2]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi + 2], al
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_BAEA8
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	ah, [edi + 3]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi + 3], al
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_BAEA8
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	ah, [edi + 4]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi + 4], al
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_BAEA8
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	ah, [edi + 5]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi + 5], al
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_BAEA8
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	ah, [edi + 6]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi + 6], al
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_BAEA8
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	ah, [edi + 7]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi + 7], al
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_BAEA8
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	ah, [edi + 8]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi + 8], al
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_BAEA8
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	ah, [edi + 9]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi + 9], al
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_BAEA8
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	ah, [edi + 0Ah]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi + 0Ah], al
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_BAEA8
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	ah, [edi + 0Bh]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi + 0Bh], al
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_BAEA8
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	ah, [edi + 0Ch]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi + 0Ch], al
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	short loc_BAEA8
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	ah, [edi + 0Dh]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi + 0Dh], al
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	short loc_BAEA8
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	ah, [edi + 0Eh]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi + 0Eh], al
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	short loc_BAEA8
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	ah, [edi + 0Fh]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov[edi + 0Fh], al
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	short loc_BAEA8
+add	edi, 10h
+jmp	loc_BAC32
+; -------------------------------------------------------------------------- -
+
+loc_BAEA8:; CODE XREF : sub_B6253 + 49FFj
+; sub_B6253 + 4A27j ...
+mov	esi, [esp + 88h + var_2C]
+
+loc_BAEAC:; CODE XREF : sub_B6253 + 496Fj
+; sub_B6253 + 49BEj
+add	esi, 14h
+dec[esp + 88h + var_68]
+jnz	loc_BABA6
+add	esp, 68h
+popa
+retn
+; -------------------------------------------------------------------------- -
+
+loc_BAEBE:; CODE XREF : sub_B6253 + 421j
+; sub_B6253 + 45Aj ...
+lea	esi, unk_DE56Cx
+mov	eax, [esp + 88h + var_58]
+shl	eax, 10h
+mov[esp + 88h + var_3C], eax
+mov	eax, [esp + 88h + var_4C]
+shl	eax, 10h
+mov[esp + 88h + var_38], eax
+xor eax, eax
+xor ebx, ebx
+xor ecx, ecx
+
+loc_BAEE0 : ; CODE XREF : sub_B6253 + 50D9j
+mov	ax, [esi + 2]
+movzx	ecx, word ptr[esi + 6]
+mov	edi, [esp + 88h + var_88]
+add	edi, iScreenWidth_DE560
+mov[esp + 88h + var_88], edi
+or ax, ax
+jns	short loc_BAF4B
+or cx, cx
+jle	loc_BB325
+cmp	ecx, viewPort.Width_DE564
+jle	short loc_BAF10
+mov	ecx, viewPort.Width_DE564
+
+loc_BAF10 : ; CODE XREF : sub_B6253 + 4CB5j
+mov[esp + 88h + var_30], ecx
+neg	ax
+movzx	eax, ax
+mov	edx, eax
+mov	ecx, eax
+imul	edx, [esp + 88h + var_58]
+add	edx, [esi + 0Ch]
+rol	edx, 10h
+mov	bh, dl
+imul	eax, [esp + 88h + var_64]
+add	eax, [esi + 8]
+mov	dx, ax
+shr	eax, 8
+mov	bl, ah
+imul	ecx, [esp + 88h + var_4C]
+add	ecx, [esi + 10h]
+rol	ecx, 10h
+movzx	eax, ax
+jmp	short loc_BAF7D
+; -------------------------------------------------------------------------- -
+
+loc_BAF4B:; CODE XREF : sub_B6253 + 4CA4j
+cmp	ecx, viewPort.Width_DE564
+jle	short loc_BAF59
+mov	ecx, viewPort.Width_DE564
+
+loc_BAF59 : ; CODE XREF : sub_B6253 + 4CFEj
+sub	cx, ax
+jle	loc_BB325
+add	edi, eax
+mov	edx, [esi + 0Ch]
+rol	edx, 10h
+mov	bh, dl
+mov	dx, [esi + 8]
+mov	bl, [esi + 0Ah]
+mov[esp + 88h + var_30], ecx
+mov	ecx, [esi + 10h]
+rol	ecx, 10h
+
+loc_BAF7D : ; CODE XREF : sub_B6253 + 4CF6j
+mov[esp + 88h + var_2C], esi
+mov	esi, x_DWORD_DE55C_ActTexture
+
+loc_BAF87 : ; CODE XREF : sub_B6253 + 50C9j
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	ah, cl
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	ah, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov	al, [edi]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	ecx, [esp + 88h + var_38]
+mov[edi], al
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	loc_BB321
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	ah, cl
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	ah, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov	al, [edi + 1]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	ecx, [esp + 88h + var_38]
+mov[edi + 1], al
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	loc_BB321
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	ah, cl
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	ah, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov	al, [edi + 2]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	ecx, [esp + 88h + var_38]
+mov[edi + 2], al
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	loc_BB321
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	ah, cl
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	ah, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov	al, [edi + 3]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	ecx, [esp + 88h + var_38]
+mov[edi + 3], al
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	loc_BB321
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	ah, cl
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	ah, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov	al, [edi + 4]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	ecx, [esp + 88h + var_38]
+mov[edi + 4], al
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	loc_BB321
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	ah, cl
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	ah, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov	al, [edi + 5]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	ecx, [esp + 88h + var_38]
+mov[edi + 5], al
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	loc_BB321
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	ah, cl
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	ah, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov	al, [edi + 6]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	ecx, [esp + 88h + var_38]
+mov[edi + 6], al
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	loc_BB321
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	ah, cl
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	ah, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov	al, [edi + 7]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	ecx, [esp + 88h + var_38]
+mov[edi + 7], al
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	loc_BB321
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	ah, cl
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	ah, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov	al, [edi + 8]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	ecx, [esp + 88h + var_38]
+mov[edi + 8], al
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	loc_BB321
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	ah, cl
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	ah, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov	al, [edi + 9]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	ecx, [esp + 88h + var_38]
+mov[edi + 9], al
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	loc_BB321
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	ah, cl
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	ah, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov	al, [edi + 0Ah]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	ecx, [esp + 88h + var_38]
+mov[edi + 0Ah], al
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	loc_BB321
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	ah, cl
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	ah, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov	al, [edi + 0Bh]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	ecx, [esp + 88h + var_38]
+mov[edi + 0Bh], al
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	loc_BB321
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	ah, cl
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	ah, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov	al, [edi + 0Ch]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	ecx, [esp + 88h + var_38]
+mov[edi + 0Ch], al
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	loc_BB321
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	ah, cl
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	ah, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov	al, [edi + 0Dh]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	ecx, [esp + 88h + var_38]
+mov[edi + 0Dh], al
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	short loc_BB321
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	ah, cl
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	ah, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov	al, [edi + 0Eh]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	ecx, [esp + 88h + var_38]
+mov[edi + 0Eh], al
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	short loc_BB321
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	ah, cl
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	ah, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov	al, [edi + 0Fh]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	ecx, [esp + 88h + var_38]
+mov[edi + 0Fh], al
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	short loc_BB321
+add	edi, 10h
+jmp	loc_BAF87
+; -------------------------------------------------------------------------- -
+
+loc_BB321:; CODE XREF : sub_B6253 + 4D66j
+; sub_B6253 + 4DA0j ...
+mov	esi, [esp + 88h + var_2C]
+
+loc_BB325:; CODE XREF : sub_B6253 + 4CA9j
+; sub_B6253 + 4D09j
+add	esi, 14h
+dec[esp + 88h + var_68]
+jnz	loc_BAEE0
+add	esp, 68h
+popa
+retn
+; -------------------------------------------------------------------------- -
+
+loc_BB337:; CODE XREF : sub_B6253 + 421j
+; sub_B6253 + 45Aj ...
+lea	esi, unk_DE56Cx
+mov	eax, [esp + 88h + var_58]
+shl	eax, 10h
+mov[esp + 88h + var_3C], eax
+mov	eax, [esp + 88h + var_4C]
+shl	eax, 10h
+mov[esp + 88h + var_38], eax
+xor eax, eax
+xor ebx, ebx
+xor ecx, ecx
+
+loc_BB359 : ; CODE XREF : sub_B6253 + 5552j
+mov	ax, [esi + 2]
+movzx	ecx, word ptr[esi + 6]
+mov	edi, [esp + 88h + var_88]
+add	edi, iScreenWidth_DE560
+mov[esp + 88h + var_88], edi
+or ax, ax
+jns	short loc_BB3C4
+or cx, cx
+jle	loc_BB79E
+cmp	ecx, viewPort.Width_DE564
+jle	short loc_BB389
+mov	ecx, viewPort.Width_DE564
+
+loc_BB389 : ; CODE XREF : sub_B6253 + 512Ej
+mov[esp + 88h + var_30], ecx
+neg	ax
+movzx	eax, ax
+mov	edx, eax
+mov	ecx, eax
+imul	edx, [esp + 88h + var_58]
+add	edx, [esi + 0Ch]
+rol	edx, 10h
+mov	bh, dl
+imul	eax, [esp + 88h + var_64]
+add	eax, [esi + 8]
+mov	dx, ax
+shr	eax, 8
+mov	bl, ah
+imul	ecx, [esp + 88h + var_4C]
+add	ecx, [esi + 10h]
+rol	ecx, 10h
+movzx	eax, ax
+jmp	short loc_BB3F6
+; -------------------------------------------------------------------------- -
+
+loc_BB3C4:; CODE XREF : sub_B6253 + 511Dj
+cmp	ecx, viewPort.Width_DE564
+jle	short loc_BB3D2
+mov	ecx, viewPort.Width_DE564
+
+loc_BB3D2 : ; CODE XREF : sub_B6253 + 5177j
+sub	cx, ax
+jle	loc_BB79E
+add	edi, eax
+mov	edx, [esi + 0Ch]
+rol	edx, 10h
+mov	bh, dl
+mov	dx, [esi + 8]
+mov	bl, [esi + 0Ah]
+mov[esp + 88h + var_30], ecx
+mov	ecx, [esi + 10h]
+rol	ecx, 10h
+
+loc_BB3F6 : ; CODE XREF : sub_B6253 + 516Fj
+mov[esp + 88h + var_2C], esi
+mov	esi, x_DWORD_DE55C_ActTexture
+
+loc_BB400 : ; CODE XREF : sub_B6253 + 5542j
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	ah, cl
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov	ah, [edi]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	ecx, [esp + 88h + var_38]
+mov[edi], al
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	loc_BB79A
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	ah, cl
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov	ah, [edi + 1]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	ecx, [esp + 88h + var_38]
+mov[edi + 1], al
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	loc_BB79A
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	ah, cl
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov	ah, [edi + 2]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	ecx, [esp + 88h + var_38]
+mov[edi + 2], al
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	loc_BB79A
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	ah, cl
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov	ah, [edi + 3]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	ecx, [esp + 88h + var_38]
+mov[edi + 3], al
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	loc_BB79A
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	ah, cl
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov	ah, [edi + 4]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	ecx, [esp + 88h + var_38]
+mov[edi + 4], al
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	loc_BB79A
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	ah, cl
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov	ah, [edi + 5]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	ecx, [esp + 88h + var_38]
+mov[edi + 5], al
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	loc_BB79A
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	ah, cl
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov	ah, [edi + 6]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	ecx, [esp + 88h + var_38]
+mov[edi + 6], al
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	loc_BB79A
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	ah, cl
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov	ah, [edi + 7]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	ecx, [esp + 88h + var_38]
+mov[edi + 7], al
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	loc_BB79A
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	ah, cl
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov	ah, [edi + 8]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	ecx, [esp + 88h + var_38]
+mov[edi + 8], al
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	loc_BB79A
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	ah, cl
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov	ah, [edi + 9]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	ecx, [esp + 88h + var_38]
+mov[edi + 9], al
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	loc_BB79A
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	ah, cl
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov	ah, [edi + 0Ah]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	ecx, [esp + 88h + var_38]
+mov[edi + 0Ah], al
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	loc_BB79A
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	ah, cl
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov	ah, [edi + 0Bh]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	ecx, [esp + 88h + var_38]
+mov[edi + 0Bh], al
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	loc_BB79A
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	ah, cl
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov	ah, [edi + 0Ch]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	ecx, [esp + 88h + var_38]
+mov[edi + 0Ch], al
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	loc_BB79A
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	ah, cl
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov	ah, [edi + 0Dh]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	ecx, [esp + 88h + var_38]
+mov[edi + 0Dh], al
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	short loc_BB79A
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	ah, cl
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov	ah, [edi + 0Eh]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	ecx, [esp + 88h + var_38]
+mov[edi + 0Eh], al
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	short loc_BB79A
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	ah, cl
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	edx, [esp + 88h + var_3C]
+mov	ah, [edi + 0Fh]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+add	ecx, [esp + 88h + var_38]
+mov[edi + 0Fh], al
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	short loc_BB79A
+add	edi, 10h
+jmp	loc_BB400
+; -------------------------------------------------------------------------- -
+
+loc_BB79A:; CODE XREF : sub_B6253 + 51DFj
+; sub_B6253 + 5219j ...
+mov	esi, [esp + 88h + var_2C]
+
+loc_BB79E:; CODE XREF : sub_B6253 + 5122j
+; sub_B6253 + 5182j
+add	esi, 14h
+dec[esp + 88h + var_68]
+jnz	loc_BB359
+add	esp, 68h
+popa
+retn
+; -------------------------------------------------------------------------- -
+
+loc_BB7B0:; CODE XREF : sub_B6253 + 421j
+; sub_B6253 + 45Aj ...
+lea	esi, unk_DE56Cx
+mov	eax, [esp + 88h + var_58]
+shl	eax, 10h
+mov[esp + 88h + var_3C], eax
+xor eax, eax
+xor ebx, ebx
+xor ecx, ecx
+
+loc_BB7C7 : ; CODE XREF : sub_B6253 + 58C5j
+mov	ax, [esi + 2]
+movzx	ecx, word ptr[esi + 6]
+mov	edi, [esp + 88h + var_88]
+add	edi, iScreenWidth_DE560
+mov[esp + 88h + var_88], edi
+or ax, ax
+jns	short loc_BB821
+or cx, cx
+jle	loc_BBB11
+neg	ax
+movzx	eax, ax
+mov	edx, eax
+imul	edx, [esp + 88h + var_58]
+add	edx, [esi + 0Ch]
+rol	edx, 10h
+mov	bh, dl
+imul	eax, [esp + 88h + var_64]
+add	eax, [esi + 8]
+mov	dx, ax
+shr	eax, 8
+mov	bl, ah
+cmp	ecx, viewPort.Width_DE564
+jle	short loc_BB81C
+mov	ecx, viewPort.Width_DE564
+
+loc_BB81C : ; CODE XREF : sub_B6253 + 55C1j
+movzx	eax, ax
+jmp	short loc_BB849
+; -------------------------------------------------------------------------- -
+
+loc_BB821:; CODE XREF : sub_B6253 + 558Bj
+cmp	ecx, viewPort.Width_DE564
+jle	short loc_BB82F
+mov	ecx, viewPort.Width_DE564
+
+loc_BB82F : ; CODE XREF : sub_B6253 + 55D4j
+sub	cx, ax
+jle	loc_BBB11
+add	edi, eax
+mov	edx, [esi + 0Ch]
+rol	edx, 10h
+mov	bh, dl
+mov	dx, [esi + 8]
+mov	bl, [esi + 0Ah]
+
+loc_BB849:; CODE XREF : sub_B6253 + 55CCj
+mov[esp + 88h + var_2C], esi
+mov	esi, x_DWORD_DE55C_ActTexture
+
+loc_BB853 : ; CODE XREF : sub_B6253 + 58B5j
+mov	ah, [ebx + esi]
+or ah, ah
+jz	short loc_BB864
+mov	al, [edi]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi], al
+
+loc_BB864 : ; CODE XREF : sub_B6253 + 5605j
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_BBB0D
+mov	ah, [ebx + esi]
+or ah, ah
+jz	short loc_BB890
+mov	al, [edi + 1]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 1], al
+
+loc_BB890 : ; CODE XREF : sub_B6253 + 562Fj
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_BBB0D
+mov	ah, [ebx + esi]
+or ah, ah
+jz	short loc_BB8BC
+mov	al, [edi + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 2], al
+
+loc_BB8BC : ; CODE XREF : sub_B6253 + 565Bj
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_BBB0D
+mov	ah, [ebx + esi]
+or ah, ah
+jz	short loc_BB8E8
+mov	al, [edi + 3]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 3], al
+
+loc_BB8E8 : ; CODE XREF : sub_B6253 + 5687j
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_BBB0D
+mov	ah, [ebx + esi]
+or ah, ah
+jz	short loc_BB914
+mov	al, [edi + 4]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 4], al
+
+loc_BB914 : ; CODE XREF : sub_B6253 + 56B3j
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_BBB0D
+mov	ah, [ebx + esi]
+or ah, ah
+jz	short loc_BB940
+mov	al, [edi + 5]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 5], al
+
+loc_BB940 : ; CODE XREF : sub_B6253 + 56DFj
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_BBB0D
+mov	ah, [ebx + esi]
+or ah, ah
+jz	short loc_BB96C
+mov	al, [edi + 6]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 6], al
+
+loc_BB96C : ; CODE XREF : sub_B6253 + 570Bj
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_BBB0D
+mov	ah, [ebx + esi]
+or ah, ah
+jz	short loc_BB998
+mov	al, [edi + 7]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 7], al
+
+loc_BB998 : ; CODE XREF : sub_B6253 + 5737j
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_BBB0D
+mov	ah, [ebx + esi]
+or ah, ah
+jz	short loc_BB9C4
+mov	al, [edi + 8]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 8], al
+
+loc_BB9C4 : ; CODE XREF : sub_B6253 + 5763j
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_BBB0D
+mov	ah, [ebx + esi]
+or ah, ah
+jz	short loc_BB9F0
+mov	al, [edi + 9]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 9], al
+
+loc_BB9F0 : ; CODE XREF : sub_B6253 + 578Fj
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_BBB0D
+mov	ah, [ebx + esi]
+or ah, ah
+jz	short loc_BBA1C
+mov	al, [edi + 0Ah]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 0Ah], al
+
+loc_BBA1C : ; CODE XREF : sub_B6253 + 57BBj
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_BBB0D
+mov	ah, [ebx + esi]
+or ah, ah
+jz	short loc_BBA48
+mov	al, [edi + 0Bh]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 0Bh], al
+
+loc_BBA48 : ; CODE XREF : sub_B6253 + 57E7j
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_BBB0D
+mov	ah, [ebx + esi]
+or ah, ah
+jz	short loc_BBA74
+mov	al, [edi + 0Ch]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 0Ch], al
+
+loc_BBA74 : ; CODE XREF : sub_B6253 + 5813j
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_BBB0D
+mov	ah, [ebx + esi]
+or ah, ah
+jz	short loc_BBAA0
+mov	al, [edi + 0Dh]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 0Dh], al
+
+loc_BBAA0 : ; CODE XREF : sub_B6253 + 583Fj
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	short loc_BBB0D
+mov	ah, [ebx + esi]
+or ah, ah
+jz	short loc_BBAC8
+mov	al, [edi + 0Eh]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 0Eh], al
+
+loc_BBAC8 : ; CODE XREF : sub_B6253 + 5867j
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	short loc_BBB0D
+mov	ah, [ebx + esi]
+or ah, ah
+jz	short loc_BBAF0
+mov	al, [edi + 0Fh]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 0Fh], al
+
+loc_BBAF0 : ; CODE XREF : sub_B6253 + 588Fj
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	short loc_BBB0D
+add	edi, 10h
+jmp	loc_BB853
+; -------------------------------------------------------------------------- -
+
+loc_BBB0D:; CODE XREF : sub_B6253 + 5624j
+; sub_B6253 + 5650j ...
+mov	esi, [esp + 88h + var_2C]
+
+loc_BBB11:; CODE XREF : sub_B6253 + 5590j
+; sub_B6253 + 55DFj
+add	esi, 14h
+dec[esp + 88h + var_68]
+jnz	loc_BB7C7
+add	esp, 68h
+popa
+retn
+; -------------------------------------------------------------------------- -
+
+loc_BBB23:; CODE XREF : sub_B6253 + 421j
+; sub_B6253 + 45Aj ...
+lea	esi, unk_DE56Cx
+mov	eax, [esp + 88h + var_58]
+shl	eax, 10h
+mov[esp + 88h + var_3C], eax
+xor eax, eax
+xor ebx, ebx
+xor ecx, ecx
+
+loc_BBB3A : ; CODE XREF : sub_B6253 + 5C38j
+mov	ax, [esi + 2]
+movzx	ecx, word ptr[esi + 6]
+mov	edi, [esp + 88h + var_88]
+add	edi, iScreenWidth_DE560
+mov[esp + 88h + var_88], edi
+or ax, ax
+jns	short loc_BBB94
+or cx, cx
+jle	loc_BBE84
+neg	ax
+movzx	eax, ax
+mov	edx, eax
+imul	edx, [esp + 88h + var_58]
+add	edx, [esi + 0Ch]
+rol	edx, 10h
+mov	bh, dl
+imul	eax, [esp + 88h + var_64]
+add	eax, [esi + 8]
+mov	dx, ax
+shr	eax, 8
+mov	bl, ah
+cmp	ecx, viewPort.Width_DE564
+jle	short loc_BBB8F
+mov	ecx, viewPort.Width_DE564
+
+loc_BBB8F : ; CODE XREF : sub_B6253 + 5934j
+movzx	eax, ax
+jmp	short loc_BBBBC
+; -------------------------------------------------------------------------- -
+
+loc_BBB94:; CODE XREF : sub_B6253 + 58FEj
+cmp	ecx, viewPort.Width_DE564
+jle	short loc_BBBA2
+mov	ecx, viewPort.Width_DE564
+
+loc_BBBA2 : ; CODE XREF : sub_B6253 + 5947j
+sub	cx, ax
+jle	loc_BBE84
+add	edi, eax
+mov	edx, [esi + 0Ch]
+rol	edx, 10h
+mov	bh, dl
+mov	dx, [esi + 8]
+mov	bl, [esi + 0Ah]
+
+loc_BBBBC:; CODE XREF : sub_B6253 + 593Fj
+mov[esp + 88h + var_2C], esi
+mov	esi, x_DWORD_DE55C_ActTexture
+
+loc_BBBC6 : ; CODE XREF : sub_B6253 + 5C28j
+mov	al, [ebx + esi]
+or al, al
+jz	short loc_BBBD7
+mov	ah, [edi]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi], al
+
+loc_BBBD7 : ; CODE XREF : sub_B6253 + 5978j
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_BBE80
+mov	al, [ebx + esi]
+or al, al
+jz	short loc_BBC03
+mov	ah, [edi + 1]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 1], al
+
+loc_BBC03 : ; CODE XREF : sub_B6253 + 59A2j
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_BBE80
+mov	al, [ebx + esi]
+or al, al
+jz	short loc_BBC2F
+mov	ah, [edi + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 2], al
+
+loc_BBC2F : ; CODE XREF : sub_B6253 + 59CEj
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_BBE80
+mov	al, [ebx + esi]
+or al, al
+jz	short loc_BBC5B
+mov	ah, [edi + 3]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 3], al
+
+loc_BBC5B : ; CODE XREF : sub_B6253 + 59FAj
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_BBE80
+mov	al, [ebx + esi]
+or al, al
+jz	short loc_BBC87
+mov	ah, [edi + 4]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 4], al
+
+loc_BBC87 : ; CODE XREF : sub_B6253 + 5A26j
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_BBE80
+mov	al, [ebx + esi]
+or al, al
+jz	short loc_BBCB3
+mov	ah, [edi + 5]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 5], al
+
+loc_BBCB3 : ; CODE XREF : sub_B6253 + 5A52j
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_BBE80
+mov	al, [ebx + esi]
+or al, al
+jz	short loc_BBCDF
+mov	ah, [edi + 6]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 6], al
+
+loc_BBCDF : ; CODE XREF : sub_B6253 + 5A7Ej
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_BBE80
+mov	al, [ebx + esi]
+or al, al
+jz	short loc_BBD0B
+mov	ah, [edi + 7]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 7], al
+
+loc_BBD0B : ; CODE XREF : sub_B6253 + 5AAAj
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_BBE80
+mov	al, [ebx + esi]
+or al, al
+jz	short loc_BBD37
+mov	ah, [edi + 8]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 8], al
+
+loc_BBD37 : ; CODE XREF : sub_B6253 + 5AD6j
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_BBE80
+mov	al, [ebx + esi]
+or al, al
+jz	short loc_BBD63
+mov	ah, [edi + 9]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 9], al
+
+loc_BBD63 : ; CODE XREF : sub_B6253 + 5B02j
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_BBE80
+mov	al, [ebx + esi]
+or al, al
+jz	short loc_BBD8F
+mov	ah, [edi + 0Ah]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 0Ah], al
+
+loc_BBD8F : ; CODE XREF : sub_B6253 + 5B2Ej
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_BBE80
+mov	al, [ebx + esi]
+or al, al
+jz	short loc_BBDBB
+mov	ah, [edi + 0Bh]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 0Bh], al
+
+loc_BBDBB : ; CODE XREF : sub_B6253 + 5B5Aj
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_BBE80
+mov	al, [ebx + esi]
+or al, al
+jz	short loc_BBDE7
+mov	ah, [edi + 0Ch]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 0Ch], al
+
+loc_BBDE7 : ; CODE XREF : sub_B6253 + 5B86j
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	loc_BBE80
+mov	al, [ebx + esi]
+or al, al
+jz	short loc_BBE13
+mov	ah, [edi + 0Dh]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 0Dh], al
+
+loc_BBE13 : ; CODE XREF : sub_B6253 + 5BB2j
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	short loc_BBE80
+mov	al, [ebx + esi]
+or al, al
+jz	short loc_BBE3B
+mov	ah, [edi + 0Eh]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 0Eh], al
+
+loc_BBE3B : ; CODE XREF : sub_B6253 + 5BDAj
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	short loc_BBE80
+mov	al, [ebx + esi]
+or al, al
+jz	short loc_BBE63
+mov	ah, [edi + 0Fh]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 0Fh], al
+
+loc_BBE63 : ; CODE XREF : sub_B6253 + 5C02j
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+dec	cx
+jz	short loc_BBE80
+add	edi, 10h
+jmp	loc_BBBC6
+; -------------------------------------------------------------------------- -
+
+loc_BBE80:; CODE XREF : sub_B6253 + 5997j
+; sub_B6253 + 59C3j ...
+mov	esi, [esp + 88h + var_2C]
+
+loc_BBE84:; CODE XREF : sub_B6253 + 5903j
+; sub_B6253 + 5952j
+add	esi, 14h
+dec[esp + 88h + var_68]
+jnz	loc_BBB3A
+add	esp, 68h
+popa
+retn
+; -------------------------------------------------------------------------- -
+
+loc_BBE96:; CODE XREF : sub_B6253 + 421j
+; sub_B6253 + 45Aj ...
+lea	esi, unk_DE56Cx
+mov	eax, [esp + 88h + var_58]
+shl	eax, 10h
+mov[esp + 88h + var_3C], eax
+mov	eax, [esp + 88h + var_4C]
+shl	eax, 10h
+mov[esp + 88h + var_38], eax
+xor eax, eax
+xor ebx, ebx
+xor ecx, ecx
+
+loc_BBEB8 : ; CODE XREF : sub_B6253 + 60F1j
+mov	ax, [esi + 2]
+movzx	ecx, word ptr[esi + 6]
+mov	edi, [esp + 88h + var_88]
+add	edi, iScreenWidth_DE560
+mov[esp + 88h + var_88], edi
+or ax, ax
+jns	short loc_BBF23
+or cx, cx
+jle	loc_BC33D
+cmp	ecx, viewPort.Width_DE564
+jle	short loc_BBEE8
+mov	ecx, viewPort.Width_DE564
+
+loc_BBEE8 : ; CODE XREF : sub_B6253 + 5C8Dj
+mov[esp + 88h + var_30], ecx
+neg	ax
+movzx	eax, ax
+mov	edx, eax
+mov	ecx, eax
+imul	edx, [esp + 88h + var_58]
+add	edx, [esi + 0Ch]
+rol	edx, 10h
+mov	bh, dl
+imul	eax, [esp + 88h + var_64]
+add	eax, [esi + 8]
+mov	dx, ax
+shr	eax, 8
+mov	bl, ah
+imul	ecx, [esp + 88h + var_4C]
+add	ecx, [esi + 10h]
+rol	ecx, 10h
+movzx	eax, ax
+jmp	short loc_BBF55
+; -------------------------------------------------------------------------- -
+
+loc_BBF23:; CODE XREF : sub_B6253 + 5C7Cj
+cmp	ecx, viewPort.Width_DE564
+jle	short loc_BBF31
+mov	ecx, viewPort.Width_DE564
+
+loc_BBF31 : ; CODE XREF : sub_B6253 + 5CD6j
+sub	cx, ax
+jle	loc_BC33D
+add	edi, eax
+mov	edx, [esi + 0Ch]
+rol	edx, 10h
+mov	bh, dl
+mov	dx, [esi + 8]
+mov	bl, [esi + 0Ah]
+mov[esp + 88h + var_30], ecx
+mov	ecx, [esi + 10h]
+rol	ecx, 10h
+
+loc_BBF55 : ; CODE XREF : sub_B6253 + 5CCEj
+mov[esp + 88h + var_2C], esi
+mov	esi, x_DWORD_DE55C_ActTexture
+
+loc_BBF5F : ; CODE XREF : sub_B6253 + 60E1j
+mov	al, [ebx + esi]
+or al, al
+jz	short loc_BBF78
+mov	ah, cl
+mov	ah, x_BYTE_F6EE0_tablesx[eax]
+mov	al, [edi]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi], al
+
+loc_BBF78 : ; CODE XREF : sub_B6253 + 5D11j
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	loc_BC339
+mov	al, [ebx + esi]
+or al, al
+jz	short loc_BBFB6
+mov	ah, cl
+mov	ah, x_BYTE_F6EE0_tablesx[eax]
+mov	al, [edi + 1]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 1], al
+
+loc_BBFB6 : ; CODE XREF : sub_B6253 + 5D4Dj
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	loc_BC339
+mov	al, [ebx + esi]
+or al, al
+jz	short loc_BBFF4
+mov	ah, cl
+mov	ah, x_BYTE_F6EE0_tablesx[eax]
+mov	al, [edi + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 2], al
+
+loc_BBFF4 : ; CODE XREF : sub_B6253 + 5D8Bj
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	loc_BC339
+mov	al, [ebx + esi]
+or al, al
+jz	short loc_BC032
+mov	ah, cl
+mov	ah, x_BYTE_F6EE0_tablesx[eax]
+mov	al, [edi + 3]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 3], al
+
+loc_BC032 : ; CODE XREF : sub_B6253 + 5DC9j
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	loc_BC339
+mov	al, [ebx + esi]
+or al, al
+jz	short loc_BC070
+mov	ah, cl
+mov	ah, x_BYTE_F6EE0_tablesx[eax]
+mov	al, [edi + 4]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 4], al
+
+loc_BC070 : ; CODE XREF : sub_B6253 + 5E07j
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	loc_BC339
+mov	al, [ebx + esi]
+or al, al
+jz	short loc_BC0AE
+mov	ah, cl
+mov	ah, x_BYTE_F6EE0_tablesx[eax]
+mov	al, [edi + 5]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 5], al
+
+loc_BC0AE : ; CODE XREF : sub_B6253 + 5E45j
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	loc_BC339
+mov	al, [ebx + esi]
+or al, al
+jz	short loc_BC0EC
+mov	ah, cl
+mov	ah, x_BYTE_F6EE0_tablesx[eax]
+mov	al, [edi + 6]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 6], al
+
+loc_BC0EC : ; CODE XREF : sub_B6253 + 5E83j
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	loc_BC339
+mov	al, [ebx + esi]
+or al, al
+jz	short loc_BC12A
+mov	ah, cl
+mov	ah, x_BYTE_F6EE0_tablesx[eax]
+mov	al, [edi + 7]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 7], al
+
+loc_BC12A : ; CODE XREF : sub_B6253 + 5EC1j
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	loc_BC339
+mov	al, [ebx + esi]
+or al, al
+jz	short loc_BC168
+mov	ah, cl
+mov	ah, x_BYTE_F6EE0_tablesx[eax]
+mov	al, [edi + 8]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 8], al
+
+loc_BC168 : ; CODE XREF : sub_B6253 + 5EFFj
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	loc_BC339
+mov	al, [ebx + esi]
+or al, al
+jz	short loc_BC1A6
+mov	ah, cl
+mov	ah, x_BYTE_F6EE0_tablesx[eax]
+mov	al, [edi + 9]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 9], al
+
+loc_BC1A6 : ; CODE XREF : sub_B6253 + 5F3Dj
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	loc_BC339
+mov	al, [ebx + esi]
+or al, al
+jz	short loc_BC1E4
+mov	ah, cl
+mov	ah, x_BYTE_F6EE0_tablesx[eax]
+mov	al, [edi + 0Ah]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 0Ah], al
+
+loc_BC1E4 : ; CODE XREF : sub_B6253 + 5F7Bj
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	loc_BC339
+mov	al, [ebx + esi]
+or al, al
+jz	short loc_BC222
+mov	ah, cl
+mov	ah, x_BYTE_F6EE0_tablesx[eax]
+mov	al, [edi + 0Bh]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 0Bh], al
+
+loc_BC222 : ; CODE XREF : sub_B6253 + 5FB9j
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	loc_BC339
+mov	al, [ebx + esi]
+or al, al
+jz	short loc_BC260
+mov	ah, cl
+mov	ah, x_BYTE_F6EE0_tablesx[eax]
+mov	al, [edi + 0Ch]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 0Ch], al
+
+loc_BC260 : ; CODE XREF : sub_B6253 + 5FF7j
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	loc_BC339
+mov	al, [ebx + esi]
+or al, al
+jz	short loc_BC29E
+mov	ah, cl
+mov	ah, x_BYTE_F6EE0_tablesx[eax]
+mov	al, [edi + 0Dh]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 0Dh], al
+
+loc_BC29E : ; CODE XREF : sub_B6253 + 6035j
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	short loc_BC339
+mov	al, [ebx + esi]
+or al, al
+jz	short loc_BC2D8
+mov	ah, cl
+mov	ah, x_BYTE_F6EE0_tablesx[eax]
+mov	al, [edi + 0Eh]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 0Eh], al
+
+loc_BC2D8 : ; CODE XREF : sub_B6253 + 606Fj
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	short loc_BC339
+mov	al, [ebx + esi]
+or al, al
+jz	short loc_BC312
+mov	ah, cl
+mov	ah, x_BYTE_F6EE0_tablesx[eax]
+mov	al, [edi + 0Fh]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 0Fh], al
+
+loc_BC312 : ; CODE XREF : sub_B6253 + 60A9j
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	short loc_BC339
+add	edi, 10h
+jmp	loc_BBF5F
+; -------------------------------------------------------------------------- -
+
+loc_BC339:; CODE XREF : sub_B6253 + 5D42j
+; sub_B6253 + 5D80j ...
+mov	esi, [esp + 88h + var_2C]
+
+loc_BC33D:; CODE XREF : sub_B6253 + 5C81j
+; sub_B6253 + 5CE1j
+add	esi, 14h
+dec[esp + 88h + var_68]
+jnz	loc_BBEB8
+add	esp, 68h
+popa
+retn
+; -------------------------------------------------------------------------- -
+
+loc_BC34F:; CODE XREF : sub_B6253 + 421j
+; sub_B6253 + 45Aj ...
+lea	esi, unk_DE56Cx
+mov	eax, [esp + 88h + var_58]
+shl	eax, 10h
+mov[esp + 88h + var_3C], eax
+mov	eax, [esp + 88h + var_4C]
+shl	eax, 10h
+mov[esp + 88h + var_38], eax
+xor eax, eax
+xor ebx, ebx
+xor ecx, ecx
+
+loc_BC371 : ; CODE XREF : sub_B6253 + 65AAj
+mov	ax, [esi + 2]
+movzx	ecx, word ptr[esi + 6]
+mov	edi, [esp + 88h + var_88]
+add	edi, iScreenWidth_DE560
+mov[esp + 88h + var_88], edi
+or ax, ax
+jns	short loc_BC3DC
+or cx, cx
+jle	loc_BC7F6
+cmp	ecx, viewPort.Width_DE564
+jle	short loc_BC3A1
+mov	ecx, viewPort.Width_DE564
+
+loc_BC3A1 : ; CODE XREF : sub_B6253 + 6146j
+mov[esp + 88h + var_30], ecx
+neg	ax
+movzx	eax, ax
+mov	edx, eax
+mov	ecx, eax
+imul	edx, [esp + 88h + var_58]
+add	edx, [esi + 0Ch]
+rol	edx, 10h
+mov	bh, dl
+imul	eax, [esp + 88h + var_64]
+add	eax, [esi + 8]
+mov	dx, ax
+shr	eax, 8
+mov	bl, ah
+imul	ecx, [esp + 88h + var_4C]
+add	ecx, [esi + 10h]
+rol	ecx, 10h
+movzx	eax, ax
+jmp	short loc_BC40E
+; -------------------------------------------------------------------------- -
+
+loc_BC3DC:; CODE XREF : sub_B6253 + 6135j
+cmp	ecx, viewPort.Width_DE564
+jle	short loc_BC3EA
+mov	ecx, viewPort.Width_DE564
+
+loc_BC3EA : ; CODE XREF : sub_B6253 + 618Fj
+sub	cx, ax
+jle	loc_BC7F6
+add	edi, eax
+mov	edx, [esi + 0Ch]
+rol	edx, 10h
+mov	bh, dl
+mov	dx, [esi + 8]
+mov	bl, [esi + 0Ah]
+mov[esp + 88h + var_30], ecx
+mov	ecx, [esi + 10h]
+rol	ecx, 10h
+
+loc_BC40E : ; CODE XREF : sub_B6253 + 6187j
+mov[esp + 88h + var_2C], esi
+mov	esi, x_DWORD_DE55C_ActTexture
+
+loc_BC418 : ; CODE XREF : sub_B6253 + 659Aj
+mov	al, [ebx + esi]
+or al, al
+jz	short loc_BC431
+mov	ah, cl
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov	ah, [edi]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi], al
+
+loc_BC431 : ; CODE XREF : sub_B6253 + 61CAj
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	loc_BC7F2
+mov	al, [ebx + esi]
+or al, al
+jz	short loc_BC46F
+mov	ah, cl
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov	ah, [edi + 1]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 1], al
+
+loc_BC46F : ; CODE XREF : sub_B6253 + 6206j
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	loc_BC7F2
+mov	al, [ebx + esi]
+or al, al
+jz	short loc_BC4AD
+mov	ah, cl
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov	ah, [edi + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 2], al
+
+loc_BC4AD : ; CODE XREF : sub_B6253 + 6244j
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	loc_BC7F2
+mov	al, [ebx + esi]
+or al, al
+jz	short loc_BC4EB
+mov	ah, cl
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov	ah, [edi + 3]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 3], al
+
+loc_BC4EB : ; CODE XREF : sub_B6253 + 6282j
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	loc_BC7F2
+mov	al, [ebx + esi]
+or al, al
+jz	short loc_BC529
+mov	ah, cl
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov	ah, [edi + 4]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 4], al
+
+loc_BC529 : ; CODE XREF : sub_B6253 + 62C0j
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	loc_BC7F2
+mov	al, [ebx + esi]
+or al, al
+jz	short loc_BC567
+mov	ah, cl
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov	ah, [edi + 5]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 5], al
+
+loc_BC567 : ; CODE XREF : sub_B6253 + 62FEj
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	loc_BC7F2
+mov	al, [ebx + esi]
+or al, al
+jz	short loc_BC5A5
+mov	ah, cl
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov	ah, [edi + 6]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 6], al
+
+loc_BC5A5 : ; CODE XREF : sub_B6253 + 633Cj
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	loc_BC7F2
+mov	al, [ebx + esi]
+or al, al
+jz	short loc_BC5E3
+mov	ah, cl
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov	ah, [edi + 7]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 7], al
+
+loc_BC5E3 : ; CODE XREF : sub_B6253 + 637Aj
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	loc_BC7F2
+mov	al, [ebx + esi]
+or al, al
+jz	short loc_BC621
+mov	ah, cl
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov	ah, [edi + 8]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 8], al
+
+loc_BC621 : ; CODE XREF : sub_B6253 + 63B8j
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	loc_BC7F2
+mov	al, [ebx + esi]
+or al, al
+jz	short loc_BC65F
+mov	ah, cl
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov	ah, [edi + 9]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 9], al
+
+loc_BC65F : ; CODE XREF : sub_B6253 + 63F6j
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	loc_BC7F2
+mov	al, [ebx + esi]
+or al, al
+jz	short loc_BC69D
+mov	ah, cl
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov	ah, [edi + 0Ah]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 0Ah], al
+
+loc_BC69D : ; CODE XREF : sub_B6253 + 6434j
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	loc_BC7F2
+mov	al, [ebx + esi]
+or al, al
+jz	short loc_BC6DB
+mov	ah, cl
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov	ah, [edi + 0Bh]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 0Bh], al
+
+loc_BC6DB : ; CODE XREF : sub_B6253 + 6472j
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	loc_BC7F2
+mov	al, [ebx + esi]
+or al, al
+jz	short loc_BC719
+mov	ah, cl
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov	ah, [edi + 0Ch]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 0Ch], al
+
+loc_BC719 : ; CODE XREF : sub_B6253 + 64B0j
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	loc_BC7F2
+mov	al, [ebx + esi]
+or al, al
+jz	short loc_BC757
+mov	ah, cl
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov	ah, [edi + 0Dh]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 0Dh], al
+
+loc_BC757 : ; CODE XREF : sub_B6253 + 64EEj
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	short loc_BC7F2
+mov	al, [ebx + esi]
+or al, al
+jz	short loc_BC791
+mov	ah, cl
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov	ah, [edi + 0Eh]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 0Eh], al
+
+loc_BC791 : ; CODE XREF : sub_B6253 + 6528j
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	short loc_BC7F2
+mov	al, [ebx + esi]
+or al, al
+jz	short loc_BC7CB
+mov	ah, cl
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov	ah, [edi + 0Fh]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov[edi + 0Fh], al
+
+loc_BC7CB : ; CODE XREF : sub_B6253 + 6562j
+add	dx, word ptr[esp + 88h + var_64]
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	short loc_BC7F2
+add	edi, 10h
+jmp	loc_BC418
+; -------------------------------------------------------------------------- -
+
+loc_BC7F2:; CODE XREF : sub_B6253 + 61FBj
+; sub_B6253 + 6239j ...
+mov	esi, [esp + 88h + var_2C]
+
+loc_BC7F6:; CODE XREF : sub_B6253 + 613Aj
+; sub_B6253 + 619Aj
+add	esi, 14h
+dec[esp + 88h + var_68]
+jnz	loc_BC371
+add	esp, 68h
+popa
+retn
+; -------------------------------------------------------------------------- -
+
+loc_BC808:; CODE XREF : sub_B6253 + 421j
+; sub_B6253 + 45Aj ...
+lea	esi, unk_DE56Cx
+mov	eax, [esp + 88h + var_58]
+shl	eax, 10h
+mov[esp + 88h + var_3C], eax
+mov	eax, [esp + 88h + var_4C]
+shl	eax, 10h
+mov[esp + 88h + var_38], eax
+xor eax, eax
+xor ebx, ebx
+xor ecx, ecx
+
+loc_BC82A : ; CODE XREF : sub_B6253 + 6AE7j
+mov	ax, [esi + 2]
+movzx	ecx, word ptr[esi + 6]
+mov	edi, [esp + 88h + var_88]
+add	edi, iScreenWidth_DE560
+mov[esp + 88h + var_88], edi
+or ax, ax
+jns	short loc_BC895
+or cx, cx
+jle	loc_BCD33
+cmp	ecx, viewPort.Width_DE564
+jle	short loc_BC85A
+mov	ecx, viewPort.Width_DE564
+
+loc_BC85A : ; CODE XREF : sub_B6253 + 65FFj
+mov[esp + 88h + var_30], ecx
+neg	ax
+movzx	eax, ax
+mov	edx, eax
+mov	ecx, eax
+imul	edx, [esp + 88h + var_58]
+add	edx, [esi + 0Ch]
+rol	edx, 10h
+mov	bh, dl
+imul	eax, [esp + 88h + var_64]
+add	eax, [esi + 8]
+mov	dx, ax
+shr	eax, 8
+mov	bl, ah
+imul	ecx, [esp + 88h + var_4C]
+add	ecx, [esi + 10h]
+rol	ecx, 10h
+movzx	eax, ax
+jmp	short loc_BC8C7
+; -------------------------------------------------------------------------- -
+
+loc_BC895:; CODE XREF : sub_B6253 + 65EEj
+cmp	ecx, viewPort.Width_DE564
+jle	short loc_BC8A3
+mov	ecx, viewPort.Width_DE564
+
+loc_BC8A3 : ; CODE XREF : sub_B6253 + 6648j
+sub	cx, ax
+jle	loc_BCD33
+add	edi, eax
+mov	edx, [esi + 0Ch]
+rol	edx, 10h
+mov	bh, dl
+mov	dx, [esi + 8]
+mov	bl, [esi + 0Ah]
+mov[esp + 88h + var_30], ecx
+mov	ecx, [esi + 10h]
+rol	ecx, 10h
+
+loc_BC8C7 : ; CODE XREF : sub_B6253 + 6640j
+mov[esp + 88h + var_2C], esi
+mov	esi, x_DWORD_DE55C_ActTexture
+
+loc_BC8D1 : ; CODE XREF : sub_B6253 + 6AD7j
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	ah, cl
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+cmp	al, 0Ch
+jnb	short loc_BC8F3
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov	ah, [edi]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+jmp	short loc_BC8F9
+; -------------------------------------------------------------------------- -
+
+loc_BC8F3:; CODE XREF : sub_B6253 + 668Ej
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+
+loc_BC8F9:; CODE XREF : sub_B6253 + 669Ej
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+mov[edi], al
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	loc_BCD2F
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	ah, cl
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+cmp	al, 0Ch
+jnb	short loc_BC938
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov	ah, [edi + 1]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+jmp	short loc_BC93E
+; -------------------------------------------------------------------------- -
+
+loc_BC938:; CODE XREF : sub_B6253 + 66D2j
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+
+loc_BC93E:; CODE XREF : sub_B6253 + 66E3j
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+mov[edi + 1], al
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	loc_BCD2F
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	ah, cl
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+cmp	al, 0Ch
+jnb	short loc_BC97E
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov	ah, [edi + 2]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+jmp	short loc_BC984
+; -------------------------------------------------------------------------- -
+
+loc_BC97E:; CODE XREF : sub_B6253 + 6718j
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+
+loc_BC984:; CODE XREF : sub_B6253 + 6729j
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+mov[edi + 2], al
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	loc_BCD2F
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	ah, cl
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+cmp	al, 0Ch
+jnb	short loc_BC9C4
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov	ah, [edi + 3]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+jmp	short loc_BC9CA
+; -------------------------------------------------------------------------- -
+
+loc_BC9C4:; CODE XREF : sub_B6253 + 675Ej
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+
+loc_BC9CA:; CODE XREF : sub_B6253 + 676Fj
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+mov[edi + 3], al
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	loc_BCD2F
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	ah, cl
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+cmp	al, 0Ch
+jnb	short loc_BCA0A
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov	ah, [edi + 4]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+jmp	short loc_BCA10
+; -------------------------------------------------------------------------- -
+
+loc_BCA0A:; CODE XREF : sub_B6253 + 67A4j
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+
+loc_BCA10:; CODE XREF : sub_B6253 + 67B5j
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+mov[edi + 4], al
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	loc_BCD2F
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	ah, cl
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+cmp	al, 0Ch
+jnb	short loc_BCA50
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov	ah, [edi + 5]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+jmp	short loc_BCA56
+; -------------------------------------------------------------------------- -
+
+loc_BCA50:; CODE XREF : sub_B6253 + 67EAj
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+
+loc_BCA56:; CODE XREF : sub_B6253 + 67FBj
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+mov[edi + 5], al
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	loc_BCD2F
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	ah, cl
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+cmp	al, 0Ch
+jnb	short loc_BCA96
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov	ah, [edi + 6]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+jmp	short loc_BCA9C
+; -------------------------------------------------------------------------- -
+
+loc_BCA96:; CODE XREF : sub_B6253 + 6830j
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+
+loc_BCA9C:; CODE XREF : sub_B6253 + 6841j
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+mov[edi + 6], al
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	loc_BCD2F
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	ah, cl
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+cmp	al, 0Ch
+jnb	short loc_BCADC
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov	ah, [edi + 7]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+jmp	short loc_BCAE2
+; -------------------------------------------------------------------------- -
+
+loc_BCADC:; CODE XREF : sub_B6253 + 6876j
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+
+loc_BCAE2:; CODE XREF : sub_B6253 + 6887j
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+mov[edi + 7], al
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	loc_BCD2F
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	ah, cl
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+cmp	al, 0Ch
+jnb	short loc_BCB22
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov	ah, [edi + 8]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+jmp	short loc_BCB28
+; -------------------------------------------------------------------------- -
+
+loc_BCB22:; CODE XREF : sub_B6253 + 68BCj
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+
+loc_BCB28:; CODE XREF : sub_B6253 + 68CDj
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+mov[edi + 8], al
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	loc_BCD2F
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	ah, cl
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+cmp	al, 0Ch
+jnb	short loc_BCB68
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov	ah, [edi + 9]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+jmp	short loc_BCB6E
+; -------------------------------------------------------------------------- -
+
+loc_BCB68:; CODE XREF : sub_B6253 + 6902j
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+
+loc_BCB6E:; CODE XREF : sub_B6253 + 6913j
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+mov[edi + 9], al
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	loc_BCD2F
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	ah, cl
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+cmp	al, 0Ch
+jnb	short loc_BCBAE
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov	ah, [edi + 0Ah]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+jmp	short loc_BCBB4
+; -------------------------------------------------------------------------- -
+
+loc_BCBAE:; CODE XREF : sub_B6253 + 6948j
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+
+loc_BCBB4:; CODE XREF : sub_B6253 + 6959j
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+mov[edi + 0Ah], al
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	loc_BCD2F
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	ah, cl
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+cmp	al, 0Ch
+jnb	short loc_BCBF4
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov	ah, [edi + 0Bh]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+jmp	short loc_BCBFA
+; -------------------------------------------------------------------------- -
+
+loc_BCBF4:; CODE XREF : sub_B6253 + 698Ej
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+
+loc_BCBFA:; CODE XREF : sub_B6253 + 699Fj
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+mov[edi + 0Bh], al
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	loc_BCD2F
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	ah, cl
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+cmp	al, 0Ch
+jnb	short loc_BCC3A
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov	ah, [edi + 0Ch]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+jmp	short loc_BCC40
+; -------------------------------------------------------------------------- -
+
+loc_BCC3A:; CODE XREF : sub_B6253 + 69D4j
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+
+loc_BCC40:; CODE XREF : sub_B6253 + 69E5j
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+mov[edi + 0Ch], al
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	loc_BCD2F
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	ah, cl
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+cmp	al, 0Ch
+jnb	short loc_BCC80
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov	ah, [edi + 0Dh]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+jmp	short loc_BCC86
+; -------------------------------------------------------------------------- -
+
+loc_BCC80:; CODE XREF : sub_B6253 + 6A1Aj
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+
+loc_BCC86:; CODE XREF : sub_B6253 + 6A2Bj
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+mov[edi + 0Dh], al
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	loc_BCD2F
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	ah, cl
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+cmp	al, 0Ch
+jnb	short loc_BCCC6
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov	ah, [edi + 0Eh]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+jmp	short loc_BCCCC
+; -------------------------------------------------------------------------- -
+
+loc_BCCC6:; CODE XREF : sub_B6253 + 6A60j
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+
+loc_BCCCC:; CODE XREF : sub_B6253 + 6A71j
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+mov[edi + 0Eh], al
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	short loc_BCD2F
+mov	al, [ebx + esi]
+add	dx, word ptr[esp + 88h + var_64]
+mov	ah, cl
+adc	bl, byte ptr[esp + 88h + var_64 + 2]
+cmp	al, 0Ch
+jnb	short loc_BCD08
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+mov	ah, [edi + 0Fh]
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+jmp	short loc_BCD0E
+; -------------------------------------------------------------------------- -
+
+loc_BCD08:; CODE XREF : sub_B6253 + 6AA2j
+mov	al, x_BYTE_F6EE0_tablesx[eax]
+
+loc_BCD0E:; CODE XREF : sub_B6253 + 6AB3j
+add	edx, [esp + 88h + var_3C]
+adc	bh, byte ptr[esp + 88h + var_58 + 2]
+add	ecx, [esp + 88h + var_38]
+mov[edi + 0Fh], al
+adc	cl, byte ptr[esp + 88h + var_4C + 2]
+dec[esp + 88h + var_30]
+jz	short loc_BCD2F
+add	edi, 10h
+jmp	loc_BC8D1
+; -------------------------------------------------------------------------- -
+
+loc_BCD2F:; CODE XREF : sub_B6253 + 66BCj
+; sub_B6253 + 6702j ...
+mov	esi, [esp + 88h + var_2C]
+
+loc_BCD33:; CODE XREF : sub_B6253 + 65F3j
+; sub_B6253 + 6653j
+add	esi, 14h
+dec[esp + 88h + var_68]
+jnz	loc_BC82A
+add	esp, 68h
+popa
+//retn
+}
+}
+*/
+
