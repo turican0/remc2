@@ -38,10 +38,10 @@
 	return 1;
 }*/
 //myprintf("invalid_operation:__CFSHL__(x, y)")
-#define __RCR__(x, y) printf("invalid_operation:__RCR__(x, y)")
-#define __RCL__(x, y) printf("invalid_operation:__RCL__(x, y)")
-#define __ROL4__(x, y) __ROL__(x, y)       // Rotate left
-#define __ROR4__(x, y) __ROR__(x, y)       // Rotate left
+//#define __RCR__(x, y) printf("invalid_operation:__RCR__(x, y)")
+//#define __RCL__(x, y) printf("invalid_operation:__RCL__(x, y)")
+//#define __ROL4__(x, y) __ROL__(x, y)       // Rotate left
+//#define __ROR4__(x, y) __ROR__(x, y)       // Rotate left
 
 #include "engine/sub_main_mouse.h"
 //#include "engine/ail_sound.h"

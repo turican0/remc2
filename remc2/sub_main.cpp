@@ -38317,8 +38317,8 @@ int sub_40D10()//221d10//fix vga
 			LOBYTE(v1) = v3[24];
 			BYTE1(a1) = v3[12];
 			BYTE1(v1) = v3[28];
-			a1 = __ROL4__(a1, 16);
-			v1 = __ROL4__(v1, 16);
+			a1 = __ROL4_16__(a1);
+			v1 = __ROL4_16__(v1);
 			LOBYTE(a1) = *v3;
 			LOBYTE(v1) = v3[16];
 			BYTE1(a1) = v3[4];
@@ -38338,8 +38338,8 @@ int sub_40D10()//221d10//fix vga
 			LOBYTE(v1) = v6[24];
 			BYTE1(a1) = v6[12];
 			BYTE1(v1) = v6[28];
-			a1 = __ROL4__(a1, 16);
-			v1 = __ROL4__(v1, 16);
+			a1 = __ROL4_16__(a1);
+			v1 = __ROL4_16__(v1);
 			LOBYTE(a1) = *v6;
 			LOBYTE(v1) = v6[16];
 			BYTE1(a1) = v6[4];
@@ -38360,8 +38360,8 @@ int sub_40D10()//221d10//fix vga
 			LOBYTE(v1) = v10[24];
 			BYTE1(a1) = v10[12];
 			BYTE1(v1) = v10[28];
-			a1 = __ROL4__(a1, 16);
-			v1 = __ROL4__(v1, 16);
+			a1 = __ROL4_16__(a1);
+			v1 = __ROL4_16__(v1);
 			LOBYTE(a1) = *v10;
 			LOBYTE(v1) = v10[16];
 			BYTE1(a1) = v10[4];
@@ -38381,8 +38381,8 @@ int sub_40D10()//221d10//fix vga
 			LOBYTE(v1) = v13[24];
 			BYTE1(a1) = v13[12];
 			BYTE1(v1) = v13[28];
-			a1 = __ROL4__(a1, 16);
-			v1 = __ROL4__(v1, 16);
+			a1 = __ROL4_16__(a1);
+			v1 = __ROL4_16__(v1);
 			LOBYTE(a1) = *v13;
 			LOBYTE(v1) = v13[16];
 			BYTE1(a1) = v13[4];
@@ -38403,8 +38403,8 @@ int sub_40D10()//221d10//fix vga
 			LOBYTE(v1) = v16[24];
 			BYTE1(a1) = v16[12];
 			BYTE1(v1) = v16[28];
-			a1 = __ROL4__(a1, 16);
-			v1 = __ROL4__(v1, 16);
+			a1 = __ROL4_16__(a1);
+			v1 = __ROL4_16__(v1);
 			LOBYTE(a1) = *v16;
 			LOBYTE(v1) = v16[16];
 			BYTE1(a1) = v16[4];
@@ -38424,8 +38424,8 @@ int sub_40D10()//221d10//fix vga
 			LOBYTE(v1) = v19[24];
 			BYTE1(a1) = v19[12];
 			BYTE1(v1) = v19[28];
-			a1 = __ROL4__(a1, 16);
-			v1 = __ROL4__(v1, 16);
+			a1 = __ROL4_16__(a1);
+			v1 = __ROL4_16__(v1);
 			LOBYTE(a1) = *v19;
 			LOBYTE(v1) = v19[16];
 			BYTE1(a1) = v19[4];
@@ -38446,8 +38446,8 @@ int sub_40D10()//221d10//fix vga
 			LOBYTE(v1) = v22[24];
 			BYTE1(a1) = v22[12];
 			BYTE1(v1) = v22[28];
-			a1 = __ROL4__(a1, 16);
-			v1 = __ROL4__(v1, 16);
+			a1 = __ROL4_16__(a1);
+			v1 = __ROL4_16__(v1);
 			LOBYTE(a1) = *v22;
 			LOBYTE(v1) = v22[16];
 			BYTE1(a1) = v22[4];
@@ -38467,8 +38467,8 @@ int sub_40D10()//221d10//fix vga
 			LOBYTE(v1) = v25[24];
 			BYTE1(a1) = v25[12];
 			BYTE1(v1) = v25[28];
-			a1 = __ROL4__(a1, 16);
-			v1 = __ROL4__(v1, 16);
+			a1 = __ROL4_16__(a1);
+			v1 = __ROL4_16__(v1);
 			LOBYTE(a1) = *v25;
 			LOBYTE(v1) = v25[16];
 			BYTE1(a1) = v25[4];
@@ -78573,7 +78573,7 @@ char sub_779E0_lang_setting_dialog(type_WORD_E1F84* a1y)//2589E0
 	char configFilePath[MAX_PATH];
 	sprintf(configFilePath, "%s/%s", gameDataPath, "CONFIG.DAT");
 	/*memset(&v25, 0, 32);//355104 ->355120
-	memset(&v29_old_time, 0, 16);
+	memset(&v29_old_time, 0);
 	qmemcpy(&v25, (void *)x_D41A0_BYTEARRAY_4, 0x14u);
 	qmemcpy(&v27, (void *)(x_D41A0_BYTEARRAY_4[20]), 2u);
 	fix it

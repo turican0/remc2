@@ -8146,7 +8146,7 @@ LABEL_129:
 								if ((signed __int16)v230 > 0)
 								{
 									v232 = (unsigned __int16)-(signed __int16)v228;
-									v234 = __ROL4__(*((x_DWORD*)v227 + 3) + v1135 * v232, 16);
+									v234 = __ROL4_16__(*((x_DWORD*)v227 + 3) + v1135 * v232);
 									BYTE1(v229) = v234;
 									v233 = *((x_DWORD*)v227 + 2) + v1124 * v232;
 									LOWORD(v234) = v233;
@@ -8353,7 +8353,7 @@ LABEL_129:
 						if ((unsigned __int8)(((v230 & 0x8000u) != 0) ^ v18) | ((x_WORD)v230 == 0))
 							goto LABEL_389;
 						v231 += v228;
-						v234 = __ROL4__(*((x_DWORD*)v227 + 3), 16);
+						v234 = __ROL4_16__(*((x_DWORD*)v227 + 3));
 						BYTE1(v229) = v234;
 						LOWORD(v234) = v227[4];
 						LOBYTE(v229) = *((x_BYTE*)v227 + 10);
@@ -8378,7 +8378,7 @@ LABEL_129:
 								if ((signed __int16)v286 > 0)
 								{
 									v288 = (unsigned __int16)-(signed __int16)v284;
-									v290 = __ROL4__(*((x_DWORD*)v283 + 3) + v1135 * v288, 16);
+									v290 = __ROL4_16__(*((x_DWORD*)v283 + 3) + v1135 * v288);
 									BYTE1(v285) = v290;
 									v289 = *((x_DWORD*)v283 + 2) + v1124 * v288;
 									LOWORD(v290) = v289;
@@ -8601,7 +8601,7 @@ LABEL_129:
 						if ((unsigned __int8)(((v286 & 0x8000u) != 0) ^ v18) | ((x_WORD)v286 == 0))
 							goto LABEL_452;
 						v287 += v284;
-						v290 = __ROL4__(*((x_DWORD*)v283 + 3), 16);
+						v290 = __ROL4_16__(*((x_DWORD*)v283 + 3));
 						BYTE1(v285) = v290;
 						LOWORD(v290) = v283[4];
 						LOBYTE(v285) = *((x_BYTE*)v283 + 10);
@@ -8791,13 +8791,13 @@ LABEL_129:
 								{
 									v380 = (unsigned __int16)-(signed __int16)v375;
 									v381 = v380;
-									v383 = __ROL4__(*((x_DWORD*)v377 + 3) + v1135 * v380, 16);
+									v383 = __ROL4_16__(*((x_DWORD*)v377 + 3) + v1135 * v380);
 									BYTE1(v376) = v383;
 									v382 = *((x_DWORD*)v377 + 2) + v1124 * v380;
 									LOWORD(v383) = v382;
 									v375 = v382 >> 8;
 									LOBYTE(v376) = BYTE1(v375);
-									v384 = __ROL4__(*((x_DWORD*)v377 + 4) + v1146 * v381, 16);
+									v384 = __ROL4_16__(*((x_DWORD*)v377 + 4) + v1146 * v381);
 									BYTE1(v375) = v384;
 									LOWORD(v384) = *((x_WORD*)v377 + 3);
 									v375 = (unsigned __int16)v375;
@@ -9055,11 +9055,11 @@ LABEL_129:
 							goto LABEL_510;
 						v379 += v375;
 						LOBYTE(v376) = v377[10];
-						v383 = __ROL4__(*((x_DWORD*)v377 + 3), 16);
+						v383 = __ROL4_16__(*((x_DWORD*)v377 + 3));
 						v386 = v385;
 						BYTE1(v376) = v383;
 						LOWORD(v383) = *((x_WORD*)v377 + 4);
-						v384 = __ROL4__(*((x_DWORD*)v377 + 4), 16);
+						v384 = __ROL4_16__(*((x_DWORD*)v377 + 4));
 						BYTE1(v375) = v384;
 						LOWORD(v384) = v386;
 						goto LABEL_493;
@@ -9087,13 +9087,13 @@ LABEL_129:
 								{
 									v395 = (unsigned __int16)-(signed __int16)v390;
 									v396 = v395;
-									v398 = __ROL4__(*((x_DWORD*)v392 + 3) + v1135 * v395, 16);
+									v398 = __ROL4_16__(*((x_DWORD*)v392 + 3) + v1135 * v395);
 									BYTE1(v391) = v398;
 									v397 = *((x_DWORD*)v392 + 2) + v1124 * v395;
 									LOWORD(v398) = v397;
 									v390 = v397 >> 8;
 									LOBYTE(v391) = BYTE1(v390);
-									v399 = __ROL4__(*((x_DWORD*)v392 + 4) + v1146 * v396, 16);
+									v399 = __ROL4_16__(*((x_DWORD*)v392 + 4) + v1146 * v396);
 									BYTE1(v390) = v399;
 									LOWORD(v399) = *((x_WORD*)v392 + 3);
 									v390 = (unsigned __int16)v390;
@@ -9367,11 +9367,11 @@ LABEL_129:
 							goto LABEL_571;
 						v394 += v390;
 						LOBYTE(v391) = v392[10];
-						v398 = __ROL4__(*((x_DWORD*)v392 + 3), 16);
+						v398 = __ROL4_16__(*((x_DWORD*)v392 + 3));
 						v401 = v400;
 						BYTE1(v391) = v398;
 						LOWORD(v398) = *((x_WORD*)v392 + 4);
-						v399 = __ROL4__(*((x_DWORD*)v392 + 4), 16);
+						v399 = __ROL4_16__(*((x_DWORD*)v392 + 4));
 						BYTE1(v390) = v399;
 						LOWORD(v399) = v401;
 						goto LABEL_522;
@@ -9396,7 +9396,7 @@ LABEL_129:
 								if ((signed __int16)v408 > 0)
 								{
 									v410 = (unsigned __int16)-(signed __int16)v406;
-									v412 = __ROL4__(*((x_DWORD*)v405 + 3) + v1135 * v410, 16);
+									v412 = __ROL4_16__(*((x_DWORD*)v405 + 3) + v1135 * v410);
 									BYTE1(v407) = v412;
 									v411 = *((x_DWORD*)v405 + 2) + v1124 * v410;
 									LOWORD(v412) = v411;
@@ -9604,7 +9604,7 @@ LABEL_129:
 						if ((unsigned __int8)(((v408 & 0x8000u) != 0) ^ v18) | ((x_WORD)v408 == 0))
 							goto LABEL_602;
 						v409 += v406;
-						v412 = __ROL4__(*((x_DWORD*)v405 + 3), 16);
+						v412 = __ROL4_16__(*((x_DWORD*)v405 + 3));
 						BYTE1(v407) = v412;
 						LOWORD(v412) = v405[4];
 						LOBYTE(v407) = *((x_BYTE*)v405 + 10);
@@ -9629,7 +9629,7 @@ LABEL_129:
 								if ((signed __int16)v448 > 0)
 								{
 									v450 = (unsigned __int16)-(signed __int16)v446;
-									v452 = __ROL4__(*((x_DWORD*)v445 + 3) + v1135 * v450, 16);
+									v452 = __ROL4_16__(*((x_DWORD*)v445 + 3) + v1135 * v450);
 									BYTE1(v447) = v452;
 									v451 = *((x_DWORD*)v445 + 2) + v1124 * v450;
 									LOWORD(v452) = v451;
@@ -9853,7 +9853,7 @@ LABEL_129:
 						if ((unsigned __int8)(((v448 & 0x8000u) != 0) ^ v18) | ((x_WORD)v448 == 0))
 							goto LABEL_665;
 						v449 += v446;
-						v452 = __ROL4__(*((x_DWORD*)v445 + 3), 16);
+						v452 = __ROL4_16__(*((x_DWORD*)v445 + 3));
 						BYTE1(v447) = v452;
 						LOWORD(v452) = v445[4];
 						LOBYTE(v447) = *((x_BYTE*)v445 + 10);
@@ -9879,7 +9879,7 @@ LABEL_129:
 								if ((signed __int16)v488 > 0)
 								{
 									v490 = (unsigned __int16)-(signed __int16)v486;
-									v492 = __ROL4__(*((x_DWORD*)v485 + 3) + v1135 * v490, 16);
+									v492 = __ROL4_16__(*((x_DWORD*)v485 + 3) + v1135 * v490);
 									BYTE1(v487) = v492;
 									v491 = *((x_DWORD*)v485 + 2) + v1124 * v490;
 									LOWORD(v492) = v491;
@@ -10150,7 +10150,7 @@ LABEL_129:
 						if ((unsigned __int8)(((v488 & 0x8000u) != 0) ^ v18) | ((x_WORD)v488 == 0))
 							goto LABEL_728;
 						v489 += v486;
-						v492 = __ROL4__(*((x_DWORD*)v485 + 3), 16);
+						v492 = __ROL4_16__(*((x_DWORD*)v485 + 3));
 						BYTE1(v487) = v492;
 						LOWORD(v492) = v485[4];
 						LOBYTE(v487) = *((x_BYTE*)v485 + 10);
@@ -10175,7 +10175,7 @@ LABEL_129:
 								if ((signed __int16)v528 > 0)
 								{
 									v530 = (unsigned __int16)-(signed __int16)v526;
-									v532 = __ROL4__(*((x_DWORD*)v525 + 3) + v1135 * v530, 16);
+									v532 = __ROL4_16__(*((x_DWORD*)v525 + 3) + v1135 * v530);
 									BYTE1(v527) = v532;
 									v531 = *((x_DWORD*)v525 + 2) + v1124 * v530;
 									LOWORD(v532) = v531;
@@ -10383,7 +10383,7 @@ LABEL_129:
 						if ((unsigned __int8)(((v528 & 0x8000u) != 0) ^ v18) | ((x_WORD)v528 == 0))
 							goto LABEL_759;
 						v529 += v526;
-						v532 = __ROL4__(*((x_DWORD*)v525 + 3), 16);
+						v532 = __ROL4_16__(*((x_DWORD*)v525 + 3));
 						BYTE1(v527) = v532;
 						LOWORD(v532) = v525[4];
 						LOBYTE(v527) = *((x_BYTE*)v525 + 10);
@@ -10408,7 +10408,7 @@ LABEL_129:
 								if ((signed __int16)v568 > 0)
 								{
 									v570 = (unsigned __int16)-(signed __int16)v566;
-									v572 = __ROL4__(*((x_DWORD*)v565 + 3) + v1135 * v570, 16);
+									v572 = __ROL4_16__(*((x_DWORD*)v565 + 3) + v1135 * v570);
 									BYTE1(v567) = v572;
 									v571 = *((x_DWORD*)v565 + 2) + v1124 * v570;
 									LOWORD(v572) = v571;
@@ -10616,7 +10616,7 @@ LABEL_129:
 						if ((unsigned __int8)(((v568 & 0x8000u) != 0) ^ v18) | ((x_WORD)v568 == 0))
 							goto LABEL_790;
 						v569 += v566;
-						v572 = __ROL4__(*((x_DWORD*)v565 + 3), 16);
+						v572 = __ROL4_16__(*((x_DWORD*)v565 + 3));
 						BYTE1(v567) = v572;
 						LOWORD(v572) = v565[4];
 						LOBYTE(v567) = *((x_BYTE*)v565 + 10);
@@ -11268,7 +11268,7 @@ LABEL_129:
 								if ((signed __int16)v724 > 0)
 								{
 									v726 = (unsigned __int16)-(signed __int16)v722;
-									v728 = __ROL4__(*((x_DWORD*)v721 + 3) + v1135 * v726, 16);
+									v728 = __ROL4_16__(*((x_DWORD*)v721 + 3) + v1135 * v726);
 									BYTE1(v723) = v728;
 									v727 = *((x_DWORD*)v721 + 2) + v1124 * v726;
 									LOWORD(v728) = v727;
@@ -11491,7 +11491,7 @@ LABEL_129:
 						if ((unsigned __int8)(((v724 & 0x8000u) != 0) ^ v18) | ((x_WORD)v724 == 0))
 							goto LABEL_937;
 						v725 += v722;
-						v728 = __ROL4__(*((x_DWORD*)v721 + 3), 16);
+						v728 = __ROL4_16__(*((x_DWORD*)v721 + 3));
 						BYTE1(v723) = v728;
 						LOWORD(v728) = v721[4];
 						LOBYTE(v723) = *((x_BYTE*)v721 + 10);
@@ -11516,7 +11516,7 @@ LABEL_129:
 								if ((signed __int16)v764 > 0)
 								{
 									v766 = (unsigned __int16)-(signed __int16)v762;
-									v768 = __ROL4__(*((x_DWORD*)v761 + 3) + v1135 * v766, 16);
+									v768 = __ROL4_16__(*((x_DWORD*)v761 + 3) + v1135 * v766);
 									BYTE1(v763) = v768;
 									v767 = *((x_DWORD*)v761 + 2) + v1124 * v766;
 									LOWORD(v768) = v767;
@@ -11739,7 +11739,7 @@ LABEL_129:
 						if ((unsigned __int8)(((v764 & 0x8000u) != 0) ^ v18) | ((x_WORD)v764 == 0))
 							goto LABEL_968;
 						v765 += v762;
-						v768 = __ROL4__(*((x_DWORD*)v761 + 3), 16);
+						v768 = __ROL4_16__(*((x_DWORD*)v761 + 3));
 						BYTE1(v763) = v768;
 						LOWORD(v768) = v761[4];
 						LOBYTE(v763) = *((x_BYTE*)v761 + 10);
@@ -11769,13 +11769,13 @@ LABEL_129:
 									v1194 = v804;
 									v806 = (unsigned __int16)-(signed __int16)v802;
 									v807 = v806;
-									v809 = __ROL4__(*((x_DWORD*)v801 + 3) + v1135 * v806, 16);
+									v809 = __ROL4_16__(*((x_DWORD*)v801 + 3) + v1135 * v806);
 									BYTE1(v803) = v809;
 									v808 = *((x_DWORD*)v801 + 2) + v1124 * v806;
 									LOWORD(v809) = v808;
 									v802 = v808 >> 8;
 									LOBYTE(v803) = BYTE1(v802);
-									v810 = __ROL4__(*((x_DWORD*)v801 + 4) + v1146 * v807, 16);
+									v810 = __ROL4_16__(*((x_DWORD*)v801 + 4) + v1146 * v807);
 									v802 = (unsigned __int16)v802;
 								LABEL_980:
 									v1285 = v801;
@@ -12071,12 +12071,12 @@ LABEL_129:
 						if ((unsigned __int8)(((v804 & 0x8000u) != 0) ^ v18) | ((x_WORD)v804 == 0))
 							goto LABEL_999;
 						v805 += v802;
-						v809 = __ROL4__(*((x_DWORD*)v801 + 3), 16);
+						v809 = __ROL4_16__(*((x_DWORD*)v801 + 3));
 						BYTE1(v803) = v809;
 						LOWORD(v809) = v801[4];
 						LOBYTE(v803) = *((x_BYTE*)v801 + 10);
 						v1194 = v804;
-						v810 = __ROL4__(*((x_DWORD*)v801 + 4), 16);
+						v810 = __ROL4_16__(*((x_DWORD*)v801 + 4));
 						goto LABEL_980;
 					case 0x15:
 						v842 = (unsigned __int16*)unk_DE56Cx[startLine];
@@ -12103,13 +12103,13 @@ LABEL_129:
 									v1210 = v845;
 									v847 = (unsigned __int16)-(signed __int16)v843;
 									v848 = v847;
-									v850 = __ROL4__(*((x_DWORD*)v842 + 3) + v1135 * v847, 16);
+									v850 = __ROL4_16__(*((x_DWORD*)v842 + 3) + v1135 * v847);
 									BYTE1(v844) = v850;
 									v849 = *((x_DWORD*)v842 + 2) + v1124 * v847;
 									LOWORD(v850) = v849;
 									v843 = v849 >> 8;
 									LOBYTE(v844) = BYTE1(v843);
-									v851 = __ROL4__(*((x_DWORD*)v842 + 4) + v1146 * v848, 16);
+									v851 = __ROL4_16__(*((x_DWORD*)v842 + 4) + v1146 * v848);
 									v843 = (unsigned __int16)v843;
 								LABEL_1011:
 									v1286 = v842;
@@ -12405,12 +12405,12 @@ LABEL_129:
 						if ((unsigned __int8)(((v845 & 0x8000u) != 0) ^ v18) | ((x_WORD)v845 == 0))
 							goto LABEL_1030;
 						v846 += v843;
-						v850 = __ROL4__(*((x_DWORD*)v842 + 3), 16);
+						v850 = __ROL4_16__(*((x_DWORD*)v842 + 3));
 						BYTE1(v844) = v850;
 						LOWORD(v850) = v842[4];
 						LOBYTE(v844) = *((x_BYTE*)v842 + 10);
 						v1210 = v845;
-						v851 = __ROL4__(*((x_DWORD*)v842 + 4), 16);
+						v851 = __ROL4_16__(*((x_DWORD*)v842 + 4));
 						goto LABEL_1011;
 					case 0x16:
 						v883 = (unsigned __int16*)unk_DE56Cx[startLine];
@@ -12432,7 +12432,7 @@ LABEL_129:
 								if ((signed __int16)v886 > 0)
 								{
 									v888 = (unsigned __int16)-(signed __int16)v884;
-									v890 = __ROL4__(*((x_DWORD*)v883 + 3) + v1135 * v888, 16);
+									v890 = __ROL4_16__(*((x_DWORD*)v883 + 3) + v1135 * v888);
 									BYTE1(v885) = v890;
 									v889 = *((x_DWORD*)v883 + 2) + v1124 * v888;
 									LOWORD(v890) = v889;
@@ -12703,7 +12703,7 @@ LABEL_129:
 						if ((unsigned __int8)(((v886 & 0x8000u) != 0) ^ v18) | ((x_WORD)v886 == 0))
 							goto LABEL_1093;
 						v887 += v884;
-						v890 = __ROL4__(*((x_DWORD*)v883 + 3), 16);
+						v890 = __ROL4_16__(*((x_DWORD*)v883 + 3));
 						BYTE1(v885) = v890;
 						LOWORD(v890) = v883[4];
 						LOBYTE(v885) = *((x_BYTE*)v883 + 10);
@@ -12728,7 +12728,7 @@ LABEL_129:
 								if ((signed __int16)v926 > 0)
 								{
 									v928 = (unsigned __int16)-(signed __int16)v924;
-									v930 = __ROL4__(*((x_DWORD*)v923 + 3) + v1135 * v928, 16);
+									v930 = __ROL4_16__(*((x_DWORD*)v923 + 3) + v1135 * v928);
 									BYTE1(v925) = v930;
 									v929 = *((x_DWORD*)v923 + 2) + v1124 * v928;
 									LOWORD(v930) = v929;
@@ -12999,7 +12999,7 @@ LABEL_129:
 						if ((unsigned __int8)(((v926 & 0x8000u) != 0) ^ v18) | ((x_WORD)v926 == 0))
 							goto LABEL_1156;
 						v927 += v924;
-						v930 = __ROL4__(*((x_DWORD*)v923 + 3), 16);
+						v930 = __ROL4_16__(*((x_DWORD*)v923 + 3));
 						BYTE1(v925) = v930;
 						LOWORD(v930) = v923[4];
 						LOBYTE(v925) = *((x_BYTE*)v923 + 10);
@@ -13029,13 +13029,13 @@ LABEL_129:
 									v1226 = v966;
 									v968 = (unsigned __int16)-(signed __int16)v964;
 									v969 = v968;
-									v971 = __ROL4__(*((x_DWORD*)v963 + 3) + v1135 * v968, 16);
+									v971 = __ROL4_16__(*((x_DWORD*)v963 + 3) + v1135 * v968);
 									BYTE1(v965) = v971;
 									v970 = *((x_DWORD*)v963 + 2) + v1124 * v968;
 									LOWORD(v971) = v970;
 									v964 = v970 >> 8;
 									LOBYTE(v965) = BYTE1(v964);
-									v972 = __ROL4__(*((x_DWORD*)v963 + 4) + v1146 * v969, 16);
+									v972 = __ROL4_16__(*((x_DWORD*)v963 + 4) + v1146 * v969);
 									v964 = (unsigned __int16)v964;
 								LABEL_1168:
 									v1289 = v963;
@@ -13379,12 +13379,12 @@ LABEL_129:
 						if ((unsigned __int8)(((v966 & 0x8000u) != 0) ^ v18) | ((x_WORD)v966 == 0))
 							goto LABEL_1219;
 						v967 += v964;
-						v971 = __ROL4__(*((x_DWORD*)v963 + 3), 16);
+						v971 = __ROL4_16__(*((x_DWORD*)v963 + 3));
 						BYTE1(v965) = v971;
 						LOWORD(v971) = v963[4];
 						LOBYTE(v965) = *((x_BYTE*)v963 + 10);
 						v1226 = v966;
-						v972 = __ROL4__(*((x_DWORD*)v963 + 4), 16);
+						v972 = __ROL4_16__(*((x_DWORD*)v963 + 4));
 						goto LABEL_1168;
 					case 0x19:
 						v1004 = (unsigned __int16*)unk_DE56Cx[startLine];
@@ -13411,13 +13411,13 @@ LABEL_129:
 									v1242 = v1007;
 									v1009 = (unsigned __int16)-(signed __int16)v1005;
 									v1010 = v1009;
-									v1012 = __ROL4__(*((x_DWORD*)v1004 + 3) + v1135 * v1009, 16);
+									v1012 = __ROL4_16__(*((x_DWORD*)v1004 + 3) + v1135 * v1009);
 									BYTE1(v1006) = v1012;
 									v1011 = *((x_DWORD*)v1004 + 2) + v1124 * v1009;
 									LOWORD(v1012) = v1011;
 									v1005 = v1011 >> 8;
 									LOBYTE(v1006) = BYTE1(v1005);
-									v1013 = __ROL4__(*((x_DWORD*)v1004 + 4) + v1146 * v1010, 16);
+									v1013 = __ROL4_16__(*((x_DWORD*)v1004 + 4) + v1146 * v1010);
 									v1005 = (unsigned __int16)v1005;
 								LABEL_1231:
 									v1290 = v1004;
@@ -13761,12 +13761,12 @@ LABEL_129:
 						if ((unsigned __int8)(((v1007 & 0x8000u) != 0) ^ v18) | ((x_WORD)v1007 == 0))
 							goto LABEL_1282;
 						v1008 += v1005;
-						v1012 = __ROL4__(*((x_DWORD*)v1004 + 3), 16);
+						v1012 = __ROL4_16__(*((x_DWORD*)v1004 + 3));
 						BYTE1(v1006) = v1012;
 						LOWORD(v1012) = v1004[4];
 						LOBYTE(v1006) = *((x_BYTE*)v1004 + 10);
 						v1242 = v1007;
-						v1013 = __ROL4__(*((x_DWORD*)v1004 + 4), 16);
+						v1013 = __ROL4_16__(*((x_DWORD*)v1004 + 4));
 						goto LABEL_1231;
 					case 0x1A:
 						v1045 = (unsigned __int16*)unk_DE56Cx[startLine];
@@ -13795,13 +13795,13 @@ LABEL_129:
 								v1258 = v1048;
 								v1050 = (unsigned __int16)-(signed __int16)v1046;
 								v1051 = v1050;
-								v1053 = __ROL4__(*((x_DWORD*)v1045 + 3) + v1135 * v1050, 16);
+								v1053 = __ROL4_16__(*((x_DWORD*)v1045 + 3) + v1135 * v1050);
 								BYTE1(v1047) = v1053;
 								v1052 = *((x_DWORD*)v1045 + 2) + v1124 * v1050;
 								LOWORD(v1053) = v1052;
 								v1046 = v1052 >> 8;
 								LOBYTE(v1047) = BYTE1(v1046);
-								v1054 = __ROL4__(*((x_DWORD*)v1045 + 4) + v1146 * v1051, 16);
+								v1054 = __ROL4_16__(*((x_DWORD*)v1045 + 4) + v1146 * v1051);
 								v1046 = (unsigned __int16)v1046;
 							LABEL_1294:
 								v1291 = v1045;
@@ -14225,12 +14225,12 @@ LABEL_129:
 					if ((unsigned __int8)(((v1048 & 0x8000u) != 0) ^ v18) | ((x_WORD)v1048 == 0))
 						goto LABEL_1361;
 					v1049 += v1046;
-					v1053 = __ROL4__(*((x_DWORD*)v1045 + 3), 16);
+					v1053 = __ROL4_16__(*((x_DWORD*)v1045 + 3));
 					BYTE1(v1047) = v1053;
 					LOWORD(v1053) = v1045[4];
 					LOBYTE(v1047) = *((x_BYTE*)v1045 + 10);
 					v1258 = v1048;
-					v1054 = __ROL4__(*((x_DWORD*)v1045 + 4), 16);
+					v1054 = __ROL4_16__(*((x_DWORD*)v1045 + 4));
 					goto LABEL_1294;
 				}
 				v1114 += v1191;
