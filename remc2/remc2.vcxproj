@@ -453,6 +453,7 @@
     <ClCompile Include="engine\Basic.cpp" />
     <ClCompile Include="engine\GameRenderGL.cpp" />
     <ClCompile Include="engine\GameRenderHD.cpp" />
+    <ClCompile Include="engine\GameRenderInterface.cpp" />
     <ClCompile Include="engine\GameRenderOriginal.cpp" />
     <ClCompile Include="engine\ProjectionPolygon.cpp" />
     <ClCompile Include="engine\Sound.cpp" />

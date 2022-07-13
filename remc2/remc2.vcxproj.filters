@@ -740,6 +740,9 @@
     <ClCompile Include="portability\port_net.cpp">
       <Filter>Source Files\portability</Filter>
     </ClCompile>
+    <ClCompile Include="engine\GameRenderInterface.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="engine\info.x">

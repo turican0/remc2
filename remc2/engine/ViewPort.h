@@ -7,8 +7,9 @@
 
 #include "Basic.h"
 
-struct ViewPort
+class ViewPort
 {
+public:
 	uint16_t PreWidth_EA3C4 = 0;
 	uint16_t PreHeight_EA3C0 = 0;
 	//uint16_t x_DWORD_EA3C8 = 0;
@@ -19,54 +20,17 @@ struct ViewPort
 	uint16_t Height_DE568 = 0;
 
 
-	ViewPort()
-	{
-		PosX_EA3D0 = 0;
-		PosY_EA3CC = 0;
-		Width_DE564 = 0;
-		Height_DE568 = 0;
-
-		PreWidth_EA3C4 = 0;
-		PreHeight_EA3C0 = 0;
-	};
-
-	ViewPort(const ViewPort &v)
-	{
-		PosX_EA3D0 = v.PosX_EA3D0;
-		PosY_EA3CC = v.PosY_EA3CC;
-		Width_DE564 = v.Width_DE564;
-		Height_DE568 = v.Height_DE568;
-
-		PreWidth_EA3C4 = v.PreWidth_EA3C4;
-		PreHeight_EA3C0 = v.PreHeight_EA3C0;
-	};
-
-	ViewPort(uint16_t viewPortPosX, uint16_t viewPortPosY, uint16_t viewPortWidth, uint16_t viewPortHeight)
-	{
-		PosX_EA3D0 = viewPortPosX;
-		PosY_EA3CC = viewPortPosY;
-		Width_DE564 = viewPortWidth;
-		Height_DE568 = viewPortHeight;
-	};
-
-	ViewPort(uint16_t viewPortPosX, uint16_t viewPortPosY, uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t viewPortPreWidth, uint16_t viewPortPreHeight)
-	{
-		PosX_EA3D0 = viewPortPosX;
-		PosY_EA3CC = viewPortPosY;
-		Width_DE564 = viewPortWidth;
-		Height_DE568 = viewPortHeight;
-
-		PreWidth_EA3C4 = viewPortPreWidth;
-		PreHeight_EA3C0 = viewPortPreHeight;		
-	};
+	ViewPort();
+	ViewPort(const ViewPort& v);
+	ViewPort(uint16_t viewPortPosX, uint16_t viewPortPosY, uint16_t viewPortWidth, uint16_t viewPortHeight);
+	ViewPort(uint16_t viewPortPosX, uint16_t viewPortPosY, uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t viewPortPreWidth, uint16_t viewPortPreHeight);
+	
+	void SetRenderViewPortSize_40BF0(int width, int height, int viewPortWidth, int viewPortHeight);//221bf0
+	void SetViewPortScreenCoordinates_2CA60(int16_t viewPortX, int16_t viewPortY, uint16_t viewPortWidth, uint16_t viewPortHeight);//20da60
+	void ResizeViewPort_2CA90(__int16 a1);//20da90
+	void SetRenderViewPortSize_BCD45(ViewPort viewPort, uint16_t screenWidth, uint16_t screenHeight);
+	void SetRenderViewPortSize_BCD45(uint8_t* ptrScreenBufferStart, uint16_t screenWidth, uint16_t viewPortWidth, uint16_t viewPortHeight);
+	void SetRenderViewPortSize_40C50(uint8_t viewPortSizeSetting);
 };
-
-extern ViewPort viewPort;
-
-extern void SetRenderViewPortSize_40BF0(int a1, int a2, int a3, int a4);//221bf0
-extern void SetViewPortScreenCoordinates_2CA60(int16_t viewPortX, int16_t viewPortY, uint16_t viewPortWidth, uint16_t viewPortHeight);//20da60
-extern void ResizeViewPort_2CA90(__int16 a1);//20da90
-extern void SetRenderViewPortSize_BCD45(uint8_t* ptrScreenBufferStart, uint16_t screenWidth, uint16_t viewPortWidth, uint16_t viewPortHeight);
-extern void SetRenderViewPortSize_40C50(uint8_t viewPortSizeSetting);
 
 #endif //VIEWPORT_H
