@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef GAME_RENDER_NEW
-#define GAME_RENDER_NEW
+#ifndef GAME_RENDER_HD
+#define GAME_RENDER_HD
 
 #include "GameRenderInterface.h"
 
@@ -108,4 +108,4 @@ public:
 	void ClearGraphicsBuffer(uint8_t colorIdx);
 };
 
-#endif //GAME_RENDER_NEW
+#endif //GAME_RENDER_HD

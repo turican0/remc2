@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef GAME_RENDER_OLD
-#define GAME_RENDER_OLD
+#ifndef GAME_RENDER_ORIGINAL
+#define GAME_RENDER_ORIGINAL
 
 #include "GameRenderInterface.h"
 
@@ -86,4 +86,4 @@ public:
 	void DrawWorld_411A0(int posX, int posY, int16_t yaw, int16_t posZ, int16_t pitch, int16_t roll, int16_t fov);
 };
 
-#endif //GAME_RENDER_OLD
+#endif //GAME_RENDER_ORIGINAL
