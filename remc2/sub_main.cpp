@@ -27841,7 +27841,22 @@ void DrawGameFrame_2BE30()//20CE30
 			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.yaw,
 			204);
 
-		m_ptrGameRender->GetViewPort()->SetRenderViewPortSize_40BF0(384, 0, 256, 400);
+		if (DefaultResolutions())
+		{
+			m_ptrGameRender->GetViewPort()->SetRenderViewPortSize_40BF0(384, 0, 256, 400);
+		}
+		else
+		{
+			if (x_WORD_180660_VGA_type_resolution == 1)
+			{
+				m_ptrGameRender->GetViewPort()->SetRenderViewPortSize_BCD45(192, 0, screenWidth_18062C - 192, 200, screenWidth_18062C, screenHeight_180624);
+			}
+			else
+			{
+				m_ptrGameRender->GetViewPort()->SetRenderViewPortSize_BCD45(384, 0, screenWidth_18062C - 384, screenHeight_180624 - 80, screenWidth_18062C, screenHeight_180624);
+			}
+		}
+
 		m_ptrGameRender->DrawWorld_411A0(
 			//pdwScreenBuffer_351628,
 			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].axis_2BDE_11695.x,

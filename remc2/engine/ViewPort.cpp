@@ -79,6 +79,35 @@ void ViewPort::SetRenderViewPortSize_40C50(uint8_t viewPortSizeSetting)//221c50
 	SetRenderViewPortSize_BCD45(v2 + pdwScreenBuffer_351628, screenWidth_18062C, width, height);
 }
 
+void ViewPort::SetRenderViewPortSize_BCD45(uint16_t viewPortPosX, uint16_t viewPortPosY, uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t screenWidth, uint16_t screenHeight)
+{
+	iScreenWidth_DE560 = screenWidth;
+	SetViewPortScreenCoordinates_2CA60(viewPortPosX, viewPortPosY, viewPortWidth, viewPortHeight);
+
+	if (viewPortWidth > screenWidth)
+	{
+		Width_DE564 = screenWidth;
+	}
+
+	if (viewPortHeight > screenHeight)
+	{
+		Height_DE568 = screenHeight;
+	}
+
+	if (viewPortPosX > screenWidth)
+	{
+		PosX_EA3D0 = screenWidth - 1;
+	}
+
+	if (viewPortPosY > screenHeight)
+	{
+		PosY_EA3CC = screenHeight - 1;
+	}
+
+	int32_t ptrScreenRenderBufferStart = PosX_EA3D0 + iScreenWidth_DE560 * PosY_EA3CC;
+	SetRenderViewPortSize_BCD45(ptrScreenRenderBufferStart + pdwScreenBuffer_351628, iScreenWidth_DE560, Width_DE564, Height_DE568);
+}
+
 void ViewPort::SetRenderViewPortSize_BCD45(uint8_t* ptrScreenBufferStart, uint16_t screenWidth, uint16_t viewPortWidth, uint16_t viewPortHeight)
 {
 	if (screenWidth)
@@ -106,10 +135,12 @@ void ViewPort::SetRenderViewPortSize_BCD45(uint8_t* ptrScreenBufferStart, uint16
 //----- (0002CA60) --------------------------------------------------------
 void ViewPort::SetViewPortScreenCoordinates_2CA60(int16_t viewPortX, int16_t viewPortY, uint16_t viewPortWidth, uint16_t viewPortHeight)//20da60
 {
+	PreWidth_EA3C4 = Width_DE564;
+	PreHeight_EA3C0 = Height_DE568;
 	PosX_EA3D0 = viewPortX;
 	PosY_EA3CC = viewPortY;
-	PreWidth_EA3C4 = viewPortWidth;
-	PreHeight_EA3C0 = viewPortHeight;
+	Width_DE564 = viewPortWidth;
+	Height_DE568 = viewPortHeight;
 }
 
 //----- (0002CA90) --------------------------------------------------------
