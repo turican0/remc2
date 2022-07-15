@@ -27825,31 +27825,22 @@ void DrawGameFrame_2BE30()//20CE30
 		int locViewportWidth;
 		int locViewportHeight;
 
-		if (!DefaultResolutions())//alternative resolution
+#ifdef NOORIG_640x480_ENTER_FULL_HEIGHT
+		if (x_WORD_180660_VGA_type_resolution == 1)
+#endif //NOORIG_640x480_ENTER_FULL_HEIGHT
 		{
-			locViewportPosx = 0.6 * screenWidth_18062C;
-			locViewportWidth = screenWidth_18062C - (0.6 * screenWidth_18062C);
-			locViewportHeight = screenHeight_180624;
+			locViewportPosx = 384;//320x200
+			locViewportWidth = 256;
+			locViewportHeight = 400;
 		}
+#ifdef NOORIG_640x480_ENTER_FULL_HEIGHT
 		else
 		{
-#ifdef NOORIG_640x480_ENTER_FULL_HEIGHT
-			if (x_WORD_180660_VGA_type_resolution == 1)
-#endif //NOORIG_640x480_ENTER_FULL_HEIGHT
-			{
-				locViewportPosx = 384;//320x200
-				locViewportWidth = 256;
-				locViewportHeight = 400;
-			}
-#ifdef NOORIG_640x480_ENTER_FULL_HEIGHT
-			else
-			{
-				locViewportPosx = 384;//640x480
-				locViewportWidth = 256;
-				locViewportHeight = 480;
-			}
-#endif //NOORIG_640x480_ENTER_FULL_HEIGHT
+			locViewportPosx = 384;//640x480
+			locViewportWidth = 256;
+			locViewportHeight = 480;
 		}
+#endif //NOORIG_640x480_ENTER_FULL_HEIGHT
 
 		DrawMinimap_63600(
 			0,
@@ -27872,9 +27863,23 @@ void DrawGameFrame_2BE30()//20CE30
 			locViewportHeight,
 			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.yaw,
 			204);
-		
-		viewPort.SetRenderViewPortSize_40BF0(locViewportPosx, 0, locViewportWidth, locViewportHeight);
-		
+
+		if (!DefaultResolutions())
+		{
+			if (x_WORD_180660_VGA_type_resolution == 1)
+			{
+				viewPort.SetRenderViewPortSize_BCD45(192, 0, screenWidth_18062C - 192, 200, screenWidth_18062C, screenHeight_180624);
+			}
+			else
+			{
+				viewPort.SetRenderViewPortSize_BCD45(384, 0, screenWidth_18062C - 384, screenHeight_180624 - 80, screenWidth_18062C, screenHeight_180624);
+			}
+		}
+		else
+		{
+			viewPort.SetRenderViewPortSize_40BF0(locViewportPosx, 0, locViewportWidth, locViewportHeight);
+		}
+
 		m_ptrGameRender->DrawWorld_411A0(
 			//pdwScreenBuffer_351628,
 			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].axis_2BDE_11695.x,
