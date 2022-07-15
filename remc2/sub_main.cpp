@@ -127,6 +127,8 @@ int test_regression_level = 50;
 	bool hideGraphics = false;
 #endif
 
+#define NOORIG_640x480_ENTER_FULL_HEIGHT // difference from original
+
 #define ANALYZE_ENTITY
 
 //#define TEST_RENDERERS //only for debugging!!!!
@@ -27819,13 +27821,43 @@ void DrawGameFrame_2BE30()//20CE30
 		else
 			ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, screenWidth_18062C, screenHeight_180624, uiBackGroundColorIdx_EB3A8);
 
+		int locViewportPosx;
+		int locViewportWidth;
+		int locViewportHeight;
+
+		if (!DefaultResolutions())//alternative resolution
+		{
+			locViewportPosx = 0.6 * screenWidth_18062C;
+			locViewportWidth = screenWidth_18062C - (0.6 * screenWidth_18062C);
+			locViewportHeight = screenHeight_180624;
+		}
+		else
+		{
+#ifdef NOORIG_640x480_ENTER_FULL_HEIGHT
+			if (x_WORD_180660_VGA_type_resolution == 1)
+#endif //NOORIG_640x480_ENTER_FULL_HEIGHT
+			{
+				locViewportPosx = 384;//320x200
+				locViewportWidth = 256;
+				locViewportHeight = 400;
+			}
+#ifdef NOORIG_640x480_ENTER_FULL_HEIGHT
+			else
+			{
+				locViewportPosx = 384;//640x480
+				locViewportWidth = 256;
+				locViewportHeight = 480;
+			}
+#endif //NOORIG_640x480_ENTER_FULL_HEIGHT
+		}
+
 		DrawMinimap_63600(
 			0,
 			0,
 			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].axis_2BDE_11695.x,
 			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].axis_2BDE_11695.y,
-			382,
-			400,
+			locViewportPosx-2,
+			locViewportHeight,
 			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.yaw,
 			204,
 			//x_DWORD_180648_map_resolution2_x - 192,
@@ -27836,12 +27868,13 @@ void DrawGameFrame_2BE30()//20CE30
 			0,
 			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].axis_2BDE_11695.x,
 			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].axis_2BDE_11695.y,
-			382,
-			400,
+			locViewportPosx-2,
+			locViewportHeight,
 			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.yaw,
 			204);
-
-		SetRenderViewPortSize_40BF0(384, 0, 256, 400);
+		
+		SetRenderViewPortSize_40BF0(locViewportPosx, 0, locViewportWidth, locViewportHeight);
+		
 		m_ptrGameRender->DrawWorld_411A0(
 			//pdwScreenBuffer_351628,
 			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].axis_2BDE_11695.x,
@@ -27876,13 +27909,13 @@ void DrawGameFrame_2BE30()//20CE30
 #endif
 
 		if (x_WORD_180660_VGA_type_resolution & 1)
-			sub_9025C(384, 0, 384, 400, (unsigned short)(*xadataclrd0dat.colorPalette_var28)[0], 0);
+			sub_9025C(locViewportPosx, 0, locViewportPosx, locViewportHeight, (unsigned short)(*xadataclrd0dat.colorPalette_var28)[0], 0);
 		else
-			sub_90374(384, 0, 384, 400, (unsigned short)(*xadataclrd0dat.colorPalette_var28)[0], 0);
+			sub_90374(locViewportPosx, 0, locViewportPosx, locViewportHeight, (unsigned short)(*xadataclrd0dat.colorPalette_var28)[0], 0);
 		if (x_WORD_180660_VGA_type_resolution & 1)
-			sub_9025C(382, 0, 382, 400, (unsigned short)(*xadataclrd0dat.colorPalette_var28)[0], 0);
+			sub_9025C(locViewportPosx-2, 0, locViewportPosx-2, locViewportHeight, (unsigned short)(*xadataclrd0dat.colorPalette_var28)[0], 0);
 		else
-			sub_90374(382, 0, 382, 400, (unsigned short)(*xadataclrd0dat.colorPalette_var28)[0], 0);
+			sub_90374(locViewportPosx-2, 0, locViewportPosx-2, locViewportHeight, (unsigned short)(*xadataclrd0dat.colorPalette_var28)[0], 0);
 		SetRenderViewPortSize_40C50(D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize);
 		DrawMinimapMarks_644F0(
 			0,
