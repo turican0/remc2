@@ -267,7 +267,7 @@ void GameRenderOriginal::DrawSky_40950(int16_t roll/*, uint8_t startLine, uint8_
 	__int16 result; // ax
 	int v12; // eax
 	char* v13; // esi
-	uint8_t* v14; // edi
+	uint32_t* v14; // edi
 	uint8_t* v15; // edx
 	int v16; // ecx
 	int v17; // ebx
@@ -294,6 +294,8 @@ void GameRenderOriginal::DrawSky_40950(int16_t roll/*, uint8_t startLine, uint8_
 	v29 = 0;
 	v5 = v19ar;
 	v30 = 0;
+
+	// prepare sky texture lookup table
 	uint16_t width = viewPort.Width_DE564;
 	while (width)
 	{
@@ -327,7 +329,7 @@ void GameRenderOriginal::DrawSky_40950(int16_t roll/*, uint8_t startLine, uint8_
 					+ 4 * ((signed int)(unsigned __int16)viewPort.Width_DE564 >> 31))) >> 2;
 			v13 = v19ar;
 			v20 = v27 >> 16;
-			v14 = viewPortRenderBufferStart;
+			v14 = (uint32_t*)viewPortRenderBufferStart;
 			v21 = v23 >> 16;
 			v15 = off_D41A8_sky;
 			BYTE1(v17) = BYTE2(v27);
