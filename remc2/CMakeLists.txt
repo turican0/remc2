@@ -71,7 +71,6 @@ set(SOURCE_FILES_ENGINE
     "engine/GameRenderHD.h"
     "engine/GameRenderGL.cpp"
     "engine/GameRenderGL.h"
-    "engine/GameRenderInterface.cpp"
     "engine/GameRenderInterface.h"
     "sub_main.cpp"
     "sub_main.h"
