@@ -39,7 +39,7 @@ void SetRenderViewPortSize_40C50(uint8_t viewPortSizeSetting)//221c50
 	double koefWidth = (double)screenWidth_18062C / 40;
 	double koefHeight = (double)screenHeight_180624 / 40;
 	v1 = 40 - viewPortSizeSetting;
-	v2 = screenWidth_18062C * ((koefWidth * v1) / 2) + ((koefHeight * v1) / 2);
+	v2 = screenWidth_18062C * ((int)((koefWidth * v1) / 2)) + ((koefHeight * v1) / 2);
 	width = koefWidth * viewPortSizeSetting;
 	height = koefHeight * viewPortSizeSetting;
 	str_F2C20ar.dword0x0e_ptrScreenRenderBufferStart = v2;
