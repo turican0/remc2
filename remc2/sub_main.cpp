@@ -12153,7 +12153,7 @@ void MouseAndKeysEvents_17A00(signed int a2, __int16 a3)//1f8a00
 						if (D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize < 40)
 						{
 							D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize++;
-							m_ptrGameRender->GetViewPort()->ResizeViewPort_2CA90(D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize);
+							ResizeViewPort_2CA90(D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize);
 						}
 					}
 					LastPressedKey_1806E4 = 0;
@@ -12166,7 +12166,7 @@ void MouseAndKeysEvents_17A00(signed int a2, __int16 a3)//1f8a00
 						if (D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize > 17)
 						{
 							D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize--;// = v10 - 1;
-							m_ptrGameRender->GetViewPort()->ResizeViewPort_2CA90(D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize);
+							ResizeViewPort_2CA90(D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize);
 						}
 					}
 					LastPressedKey_1806E4 = 0;
@@ -14437,7 +14437,7 @@ void sub_1A970_change_game_settings(char a1, int a2, int a3)//1fb970
 		}
 		D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize = 40;
 	LABEL_97:
-		m_ptrGameRender->GetViewPort()->ResizeViewPort_2CA90(D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize);
+		ResizeViewPort_2CA90(D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize);
 		return;
 	case 9:
 		if (!D41A0_0.str_0x21AA.creflections_0x21AA)
@@ -27630,7 +27630,7 @@ void DrawGameFrame_2BE30()//20CE30
 				ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, screenWidth_18062C, screenHeight_180624, uiBackGroundColorIdx_EB3A8);
 		}
 
-		m_ptrGameRender->GetViewPort()->SetRenderViewPortSize_40C50(D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize);
+		SetRenderViewPortSize_40C50(D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize);
 		m_ptrGameRender->DrawWorld_411A0(//draw terrain and particles
 			//pdwScreenBuffer_351628,
 			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].axis_2BDE_11695.x,//position of player
@@ -27841,7 +27841,7 @@ void DrawGameFrame_2BE30()//20CE30
 			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.yaw,
 			204);
 
-		m_ptrGameRender->GetViewPort()->SetRenderViewPortSize_40BF0(384, 0, 256, 400);
+		SetRenderViewPortSize_40BF0(384, 0, 256, 400);
 		m_ptrGameRender->DrawWorld_411A0(
 			//pdwScreenBuffer_351628,
 			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].axis_2BDE_11695.x,
@@ -27883,7 +27883,7 @@ void DrawGameFrame_2BE30()//20CE30
 			sub_9025C(382, 0, 382, 400, (unsigned short)(*xadataclrd0dat.colorPalette_var28)[0], 0);
 		else
 			sub_90374(382, 0, 382, 400, (unsigned short)(*xadataclrd0dat.colorPalette_var28)[0], 0);
-		m_ptrGameRender->GetViewPort()->SetRenderViewPortSize_40C50(D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize);
+		SetRenderViewPortSize_40C50(D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize);
 		DrawMinimapMarks_644F0(
 			0,
 			0,
@@ -38517,11 +38517,11 @@ void sub_40F80()//221f80
 
 	if (D41A0_0.m_GameSettings.m_Display.m_uiScreenSize == 2 && !x_BYTE_D478C)
 	{
-		v13 = (signed int)(unsigned __int16)m_ptrGameRender->GetViewPort()->Width_DE564 >> 2;
+		v13 = (signed int)(unsigned __int16)viewPort.Width_DE564 >> 2;
 		v15 = x_DWORD_E9C3C;
 		v17 = ViewPortRenderBufferStart_DE558;
-		v0 = (unsigned __int16)m_ptrGameRender->GetViewPort()->Height_DE568 / 2;
-		for (i = (unsigned __int16)m_ptrGameRender->GetViewPort()->Height_DE568 / 2; i; i--)
+		v0 = (unsigned __int16)viewPort.Height_DE568 / 2;
+		for (i = (unsigned __int16)viewPort.Height_DE568 / 2; i; i--)
 		{
 			v1 = v13;
 			v2 = (x_BYTE*)v15;
@@ -53090,12 +53090,12 @@ LABEL_40:
 	case 0xC:
 	case 0xE:
 		if (!DefaultResolutions())
-			m_ptrGameRender->GetViewPort()->SetViewPortScreenCoordinates_2CA60(384, 0, screenWidth_18062C - 384, screenHeight_180624 - 80);
+			SetViewPortScreenCoordinates_2CA60(384, 0, screenWidth_18062C - 384, screenHeight_180624 - 80);
 		else
-			m_ptrGameRender->GetViewPort()->SetViewPortScreenCoordinates_2CA60(384, 0, 256, 400);
+			SetViewPortScreenCoordinates_2CA60(384, 0, 256, 400);
 		break;
 	default:
-		m_ptrGameRender->GetViewPort()->ResizeViewPort_2CA90(D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize);
+		ResizeViewPort_2CA90(D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize);
 		break;
 	}
 	if (a3)
@@ -60894,6 +60894,7 @@ signed int sub_5C1B0_set_any_variables2()//23A05 - 23D1B0
 	if (str_unk_1804B0ar.byte_0xa2)
 		x_D41A0_BYTEARRAY_4_struct.byteindex_10 = 1;
 	//sub_2CA90(x_D41A0_BYTEARRAY_0[8589]);//268090//0x218d
+	ResizeViewPort_2CA90(D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize);//268090//0x218d
 	return 1;
 }
 // D0C18: using guessed type char x_BYTE_D0C18;

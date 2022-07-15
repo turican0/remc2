@@ -23,6 +23,7 @@
 #include "Type_D93C0_Bldgprmbuffer.h"
 #include "TextureMaps.h"
 #include "defs.h"
+#include "RenderThread.h"
 #include "ProjectionPolygon.h"
 
 class GameRenderOriginal : public GameRenderInterface
