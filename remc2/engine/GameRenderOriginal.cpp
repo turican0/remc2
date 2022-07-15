@@ -101,7 +101,7 @@ GameRenderOriginal::~GameRenderOriginal()
 	if (D41A0_0.m_GameSettings.str_0x2192.xxxx_0x2193 && D41A0_0.m_GameSettings.m_Display.m_uiScreenSize && screenWidth_18062C == 640)
 	{
 		//VR interlaced render
-		SetRenderViewPortSize_BCD45(
+		viewPort.SetRenderViewPortSize_BCD45(
 			pdwScreenBuffer_351628,
 			2 * screenWidth_18062C,
 			screenWidth_18062C / 2 - 8,
@@ -114,11 +114,11 @@ GameRenderOriginal::~GameRenderOriginal()
 		v25 = 4 * v23 >> 16;
 		v26 = 20 * (signed int)v24 >> 16;
 		DrawTerrainAndParticles_3C080(vPosX - v26, vPosY - v25, vYaw, posZ, pitch, roll, fov);
-		SetRenderViewPortSize_BCD45(pdwScreenBuffer_351628 + (screenWidth_18062C / 2), 0, 0, 0);
+		viewPort.SetRenderViewPortSize_BCD45(pdwScreenBuffer_351628 + (screenWidth_18062C / 2), 0, 0, 0);
 		x_DWORD_D4324 = 5;
 		DrawTerrainAndParticles_3C080(vPosX + v26, vPosY + v25, vYaw, posZ, pitch, roll, fov);
 		x_DWORD_D4324 = 0;
-		SetRenderViewPortSize_BCD45(pdwScreenBuffer_351628, screenWidth_18062C, screenWidth_18062C, screenHeight_180624);
+		viewPort.SetRenderViewPortSize_BCD45(pdwScreenBuffer_351628, screenWidth_18062C, screenWidth_18062C, screenHeight_180624);
 	}
 	else if (D41A0_0.m_GameSettings.m_Display.m_uiScreenSize != 1 || D41A0_0.m_GameSettings.str_0x2192.xxxx_0x2193)
 	{
@@ -145,10 +145,10 @@ GameRenderOriginal::~GameRenderOriginal()
 		{
 			//Blur
 			v35 = ViewPortRenderBufferStart_DE558;
-			SetRenderViewPortSize_BCD45(x_DWORD_E9C3C, 0, 0, 0);
+			viewPort.SetRenderViewPortSize_BCD45(x_DWORD_E9C3C, 0, 0, 0);
 			DrawTerrainAndParticles_3C080(vPosX, vPosY, vYaw, posZ, pitch, roll, fov);
 			//Apply Blur
-			SetRenderViewPortSize_BCD45(v35, 0, 0, 0);
+			viewPort.SetRenderViewPortSize_BCD45(v35, 0, 0, 0);
 			v51 = (signed int)(unsigned __int16)viewPort.Width_DE564 >> 2;
 			v49 = iScreenWidth_DE560 - (unsigned __int16)viewPort.Width_DE564;
 			v50 = (unsigned __int16)viewPort.Height_DE568;
@@ -245,10 +245,10 @@ GameRenderOriginal::~GameRenderOriginal()
 		v31 = 20 * (signed int)v29 >> 16;
 		DrawTerrainAndParticles_3C080(v31 + vPosX, v30 + vPosY, vYaw, posZ, pitch, roll, fov);
 		v32 = ViewPortRenderBufferStart_DE558;
-		SetRenderViewPortSize_BCD45(x_DWORD_E9C3C, 0, 0, 0);
+		viewPort.SetRenderViewPortSize_BCD45(x_DWORD_E9C3C, 0, 0, 0);
 		x_DWORD_D4324 = 0 - (iScreenWidth_DE560 / 40);
 		DrawTerrainAndParticles_3C080(vPosX - v31, vPosY - v30, vYaw, posZ, pitch, roll, fov);
-		SetRenderViewPortSize_BCD45(v32, 0, 0, 0);
+		viewPort.SetRenderViewPortSize_BCD45(v32, 0, 0, 0);
 		x_DWORD_D4324 = 0;
 	}
 }
