@@ -27824,31 +27824,41 @@ void DrawGameFrame_2BE30()//20CE30
 		int locViewportPosx;
 		int locViewportWidth;
 		int locViewportHeight;
+		int locMinimapHeight;
 
-#ifdef NOORIG_640x480_ENTER_FULL_HEIGHT
 		if (x_WORD_180660_VGA_type_resolution == 1)
-#endif //NOORIG_640x480_ENTER_FULL_HEIGHT
 		{
 			locViewportPosx = 384;//320x200
 			locViewportWidth = 256;
 			locViewportHeight = 400;
+			locMinimapHeight = 400;
 		}
-#ifdef NOORIG_640x480_ENTER_FULL_HEIGHT
 		else
 		{
-			locViewportPosx = 384;//640x480
-			locViewportWidth = 256;
-			locViewportHeight = 480;
-		}
+			locViewportPosx = 0.6 * screenWidth_18062C;//bigger than 320x200
+			if (locViewportPosx > 384)
+				locViewportPosx = 384;
+			locViewportWidth = screenWidth_18062C - locViewportPosx;
+			locViewportHeight = screenHeight_180624;
+			locMinimapHeight = screenHeight_180624;
+			if (locMinimapHeight > 480)
+				locMinimapHeight = 480;
+#ifndef NOORIG_640x480_ENTER_FULL_HEIGHT
+			if (screenHeight_180624 == 480)//fix for original 640x480 look
+			{
+				locViewportHeight = 400;
+				locMinimapHeight = 400;
+			}
 #endif //NOORIG_640x480_ENTER_FULL_HEIGHT
+		}
 
 		DrawMinimap_63600(
 			0,
 			0,
 			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].axis_2BDE_11695.x,
 			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].axis_2BDE_11695.y,
-			locViewportPosx-2,
-			locViewportHeight,
+			locViewportPosx - 2,
+			locMinimapHeight,
 			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.yaw,
 			204,
 			//x_DWORD_180648_map_resolution2_x - 192,
@@ -27859,26 +27869,12 @@ void DrawGameFrame_2BE30()//20CE30
 			0,
 			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].axis_2BDE_11695.x,
 			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].axis_2BDE_11695.y,
-			locViewportPosx-2,
-			locViewportHeight,
+			locViewportPosx - 2,
+			locMinimapHeight,
 			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.yaw,
 			204);
 
-		if (!DefaultResolutions())
-		{
-			if (x_WORD_180660_VGA_type_resolution == 1)
-			{
-				viewPort.SetRenderViewPortSize_BCD45(192, 0, screenWidth_18062C - 192, 200, screenWidth_18062C, screenHeight_180624);
-			}
-			else
-			{
-				viewPort.SetRenderViewPortSize_BCD45(384, 0, screenWidth_18062C - 384, screenHeight_180624 - 80, screenWidth_18062C, screenHeight_180624);
-			}
-		}
-		else
-		{
-			viewPort.SetRenderViewPortSize_40BF0(locViewportPosx, 0, locViewportWidth, locViewportHeight);
-		}
+		viewPort.SetRenderViewPortSize_40BF0(locViewportPosx, 0, locViewportWidth, locViewportHeight);
 
 		m_ptrGameRender->DrawWorld_411A0(
 			//pdwScreenBuffer_351628,
@@ -27918,17 +27914,17 @@ void DrawGameFrame_2BE30()//20CE30
 		else
 			sub_90374(locViewportPosx, 0, locViewportPosx, locViewportHeight, (unsigned short)(*xadataclrd0dat.colorPalette_var28)[0], 0);
 		if (x_WORD_180660_VGA_type_resolution & 1)
-			sub_9025C(locViewportPosx-2, 0, locViewportPosx-2, locViewportHeight, (unsigned short)(*xadataclrd0dat.colorPalette_var28)[0], 0);
+			sub_9025C(locViewportPosx-2, 0, locViewportPosx-2, locMinimapHeight, (unsigned short)(*xadataclrd0dat.colorPalette_var28)[0], 0);
 		else
-			sub_90374(locViewportPosx-2, 0, locViewportPosx-2, locViewportHeight, (unsigned short)(*xadataclrd0dat.colorPalette_var28)[0], 0);
+			sub_90374(locViewportPosx-2, 0, locViewportPosx-2, locMinimapHeight, (unsigned short)(*xadataclrd0dat.colorPalette_var28)[0], 0);
 		viewPort.SetRenderViewPortSize_40C50(D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize);
 		DrawMinimapMarks_644F0(
 			0,
 			0,
 			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].axis_2BDE_11695.x,
 			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].axis_2BDE_11695.y,
-			382,
-			400,
+			locViewportPosx - 2,
+			locMinimapHeight,
 			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.yaw,
 			204);
 		switch (D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x3DF_2BE4_12221)
