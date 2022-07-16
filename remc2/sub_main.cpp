@@ -127,8 +127,6 @@ int test_regression_level = 50;
 	bool hideGraphics = false;
 #endif
 
-#define NOORIG_640x480_ENTER_FULL_HEIGHT // difference from original
-
 #define ANALYZE_ENTITY
 
 //#define TEST_RENDERERS //only for debugging!!!!
@@ -27841,15 +27839,8 @@ void DrawGameFrame_2BE30()//20CE30
 			locViewportWidth = screenWidth_18062C - locViewportPosx;
 			locViewportHeight = screenHeight_180624;
 			locMinimapHeight = screenHeight_180624;
-			if (locMinimapHeight > 480)
-				locMinimapHeight = 480;
-#ifndef NOORIG_640x480_ENTER_FULL_HEIGHT
-			if (screenHeight_180624 == 480)//fix for original 640x480 look
-			{
-				locViewportHeight = 400;
+			if (locMinimapHeight > 400)
 				locMinimapHeight = 400;
-			}
-#endif //NOORIG_640x480_ENTER_FULL_HEIGHT
 		}
 
 		DrawMinimap_63600(
@@ -65549,11 +65540,11 @@ void sub_61A00_draw_minimap_entites_b(int a1, int a2, int16_t posX, int16_t posY
 		}
 	}
 	v67 = width / 12;
-	v68 = (x_BYTE*)(screenWidth_18062C * (height / 2) + width / 2 + v84 - 1);
+	v68 = (x_BYTE*)(screenWidth_18062C * (int)(height / 2) + width / 2 + v84 - 1);
 	index = (char*)&x_BYTE_F6EE0_tablesx[0x4000 + 256 * v93];
-	v70 = (x_BYTE*)(screenWidth_18062C * (height / 2) + width / 2 + v84 - 1);
-	v77 = (x_BYTE*)(screenWidth_18062C * (height / 2) + width / 2 + v84 - 1);
-	v81 = (x_BYTE*)(screenWidth_18062C * (height / 2) + width / 2 + v84 - 1);
+	v70 = (x_BYTE*)(screenWidth_18062C * (int)(height / 2) + width / 2 + v84 - 1);
+	v77 = (x_BYTE*)(screenWidth_18062C * (int)(height / 2) + width / 2 + v84 - 1);
+	v81 = (x_BYTE*)(screenWidth_18062C * (int)(height / 2) + width / 2 + v84 - 1);
 	for (*v68 = index[(unsigned __int8)*v68]; v67; *v68 = x_BYTE_F6EE0_tablesx[0x4000 + 256 * v93 + v71])
 	{
 		v81 -= screenWidth_18062C;

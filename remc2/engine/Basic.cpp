@@ -2098,7 +2098,7 @@ void sub_6F940_sub_draw_text(const char* textbuffer, int posx, int posy, uint8_t
 	v4 = (uint8_t*)const_cast<char*>(textbuffer); // FIXME: temporary const cast hack
 	v5 = posx;
 	x_WORD_E36D4 = 64;
-	while (*v4 && v5 < 640)
+	while (*v4 && v5 < screenWidth_18062C)
 	{
 		v6 = (unsigned __int8)*v4;
 		if (v6 < 0xAu)
