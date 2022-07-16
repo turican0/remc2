@@ -29747,7 +29747,10 @@ void GetPauseMenuCoordinates_2FFE0(int16_t* a1, int16_t* a2, int16_t* a3, int16_
 	v7 = (640 - *a3) / 2;
 	if (x_WORD_180660_VGA_type_resolution != 1)
 		if (!DefaultResolutions())
+		{
+			v6 = (screenHeight_180624 - 4 * v5) / 2 - 60;
 			v7 = (screenWidth_18062C - *a3) / 2;
+		}
 
 	LOBYTE(v7) = v7 & 0xFE;
 	*a1 = v7;
@@ -74527,10 +74530,12 @@ void SetMousePositionByRes_6EDB0()//24FDB0
 	if (x_WORD_180660_VGA_type_resolution == 1)
 		SetMousePosition_6EDE0(320, 200);
 	else
-		SetMousePosition_6EDE0(320, 240);
-	if (x_WORD_180660_VGA_type_resolution != 1)
+	{
 		if (!DefaultResolutions())
 			SetMousePosition_6EDE0(screenWidth_18062C / 2, screenHeight_180624 / 2);
+		else
+			SetMousePosition_6EDE0(320, 240);
+	}
 }
 
 //----- (0006EDE0) --------------------------------------------------------
