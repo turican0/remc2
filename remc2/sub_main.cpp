@@ -13323,8 +13323,9 @@ void OptionMenuEvents_19AB0()//1faab0
 	signed int v3; // eax
 
 	int helpWidth = 640;
-	if(!DefaultResolutions())
-		helpWidth = screenWidth_18062C;
+	if (x_WORD_180660_VGA_type_resolution != 1)
+		if(!DefaultResolutions())
+			helpWidth = screenWidth_18062C;
 
 	if (unk_18058Cstr.x_WORD_1805C2_joystick == 7 || unk_18058Cstr.x_WORD_1805C2_joystick == 1 || unk_18058Cstr.x_WORD_1805C2_joystick == 2)
 		sub_8CD27_set_cursor((*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct)[x_BYTE_D419E]); //fix it
@@ -27572,11 +27573,12 @@ void DrawGameFrame_2BE30()//20CE30
 
 	int16_t spellLeftPosX = 510;
 	int16_t spellRightPosX = 574;
-	if (!DefaultResolutions())
-	{
-		spellLeftPosX = screenWidth_18062C - 130;
-		spellRightPosX = screenWidth_18062C - 66;
-	}
+	if (x_WORD_180660_VGA_type_resolution != 1)
+		if (!DefaultResolutions())
+		{
+			spellLeftPosX = screenWidth_18062C - 130;
+			spellRightPosX = screenWidth_18062C - 66;
+		}
 
 	v0 = x_D41A0_BYTEARRAY_4_struct.setting_byte1_22;
 	x_DWORD_D41C8 = 0;
@@ -27705,11 +27707,12 @@ void DrawGameFrame_2BE30()//20CE30
 					v39 = 4;
 					v37 = 6;
 				}
-				if (!DefaultResolutions())
-				{
-					offSetX = (screenWidth_18062C - 640) / 2;
-					offSetY = (screenHeight_180624 - 480) / 2;
-				}
+				if (x_WORD_180660_VGA_type_resolution != 1)
+					if (!DefaultResolutions())
+					{
+						offSetX = (screenWidth_18062C - 640) / 2;
+						offSetY = (screenHeight_180624 - 480) / 2;
+					}
 				v6 = 1;
 				v38 = 0;
 				v40 = 0;
@@ -28222,11 +28225,12 @@ void DrawSorcererScores_2D1D0()//20e1d0
 		helpHeight = 400;
 	else
 		helpHeight = 480;
-	if (!DefaultResolutions())
-	{
-		helpWidth = screenWidth_18062C;
-		helpHeight = screenHeight_180624;
-	}
+	if (x_WORD_180660_VGA_type_resolution != 1)
+		if (!DefaultResolutions())
+		{
+			helpWidth = screenWidth_18062C;
+			helpHeight = screenHeight_180624;
+		}
 
 	v0 = 0;
 	DrawHelpText_6FC50(x_BYTE_D419D_fonttype);
@@ -29051,11 +29055,12 @@ void DrawBottomMenu_2ECC0()//20fcc0
 		posY = 400;
 	else
 		posY = 480;
-	if (!DefaultResolutions())
-	{
-		posX = (screenWidth_18062C - 640) / 2;
-		posY = screenHeight_180624;
-	}
+	if (x_WORD_180660_VGA_type_resolution != 1)
+		if (!DefaultResolutions())
+		{
+			posX = (screenWidth_18062C - 640) / 2;
+			posY = screenHeight_180624;
+		}
 
 	//v41 = *(unsigned __int8 *)(**filearray_2aa18c[6] + 532);
 	v41 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[88].width_4;
@@ -29740,8 +29745,9 @@ void GetPauseMenuCoordinates_2FFE0(int16_t* a1, int16_t* a2, int16_t* a3, int16_
 	*a4 = v5;
 	v6 = (400 - 4 * v5) / 2 - 60;
 	v7 = (640 - *a3) / 2;
-	if (!DefaultResolutions())
-		v7 = (screenWidth_18062C - *a3) / 2;
+	if (x_WORD_180660_VGA_type_resolution != 1)
+		if (!DefaultResolutions())
+			v7 = (screenWidth_18062C - *a3) / 2;
 
 	LOBYTE(v7) = v7 & 0xFE;
 	*a1 = v7;
@@ -29782,10 +29788,11 @@ void DrawInGameOptionsMenu_30050()//211050
 	v1 = 0;
 	
 	int optionMenuXPos = (640 - x_D41A0_BYTEARRAY_4_struct.byteindex_186) / 2;
-	if (!DefaultResolutions())
-	{
-		optionMenuXPos = (screenWidth_18062C - x_D41A0_BYTEARRAY_4_struct.byteindex_186) / 2;
-	}
+	if (x_WORD_180660_VGA_type_resolution != 1)
+		if (!DefaultResolutions())
+		{
+			optionMenuXPos = (screenWidth_18062C - x_D41A0_BYTEARRAY_4_struct.byteindex_186) / 2;
+		}
 
 	while (1)
 	{
@@ -29849,10 +29856,11 @@ void DrawInGameOptionsMenu_30050()//211050
 	}
 
 	int okayBtnXPos = (x_D41A0_BYTEARRAY_4_struct.byteindex_186 - 82) / 2 + (640 - x_D41A0_BYTEARRAY_4_struct.byteindex_186) / 2;
-	if (!DefaultResolutions())
-	{
-		okayBtnXPos = (x_D41A0_BYTEARRAY_4_struct.byteindex_186 - 82) / 2 + (screenWidth_18062C - x_D41A0_BYTEARRAY_4_struct.byteindex_186) / 2;
-	}
+	if (x_WORD_180660_VGA_type_resolution != 1)
+		if (!DefaultResolutions())
+		{
+			okayBtnXPos = (x_D41A0_BYTEARRAY_4_struct.byteindex_186 - 82) / 2 + (screenWidth_18062C - x_D41A0_BYTEARRAY_4_struct.byteindex_186) / 2;
+		}
 
 	/*v16 = v8 + *(unsigned __int8 *)(**filearray_2aa18c[6] + 1012);
 	v9 = *(unsigned __int8 *)(**filearray_2aa18c[6] + 1018);
@@ -29878,17 +29886,18 @@ void DrawInGameOptionsMenu_30050()//211050
 	}
 
 	int okayBtnTextXPos = (640 - x_D41A0_BYTEARRAY_4_struct.byteindex_186) / 2 + (x_D41A0_BYTEARRAY_4_struct.byteindex_186 - 82) / 2;
-	if (!DefaultResolutions())
-	{
-		okayBtnTextXPos = (screenWidth_18062C - x_D41A0_BYTEARRAY_4_struct.byteindex_186) / 2 + (x_D41A0_BYTEARRAY_4_struct.byteindex_186 - 82) / 2;
-	}
+	if (x_WORD_180660_VGA_type_resolution != 1)
+		if (!DefaultResolutions())
+		{
+			okayBtnTextXPos = (screenWidth_18062C - x_D41A0_BYTEARRAY_4_struct.byteindex_186) / 2 + (x_D41A0_BYTEARRAY_4_struct.byteindex_186 - 82) / 2;
+		}
 
 	if (okayBtnTextXPos > unk_18058Cstr.x_DWORD_1805B0_mouse.x || okayBtnTextXPos + 82 <= unk_18058Cstr.x_DWORD_1805B0_mouse.x || unk_18058Cstr.x_DWORD_1805B0_mouse.y < 377 || unk_18058Cstr.x_DWORD_1805B0_mouse.y >= 395)
 		v12 = (*xadataclrd0dat.colorPalette_var28)[0xfff];
 	else
 		v12 = (*xadataclrd0dat.colorPalette_var28)[0xf00];
 		
-	if (!DefaultResolutions())
+	if ((!DefaultResolutions())&& (x_WORD_180660_VGA_type_resolution != 1))
 		DrawText_2BC10((char*)"OK", okayBtnTextXPos + 33, 379, v12);
 	else
 		DrawText_2BC10((char*)"OK", (640 - x_D41A0_BYTEARRAY_4_struct.byteindex_186) / 2 + (x_D41A0_BYTEARRAY_4_struct.byteindex_186 - 82) / 2 + 33, 379, v12);	
@@ -30167,8 +30176,9 @@ void GetOkayCancelButtonPositions_30BE0(int16_t* ptrX, int16_t* ptrY)//211be0
 {
 	*ptrX = 270;
 	*ptrY = 104;
-	if (!DefaultResolutions())
-		*ptrX = (screenWidth_18062C / 2) - 50;
+	if (x_WORD_180660_VGA_type_resolution != 1)
+		if (!DefaultResolutions())
+			*ptrX = (screenWidth_18062C / 2) - 50;
 }
 
 int debugcounter_30D50 = 0;
@@ -38617,7 +38627,7 @@ void sub_40F80()//221f80
 		{
 			sub_BD2CB(unk_F0A20x);//maybe for virtual head set
 		}
-		else if (!DefaultResolutions())
+		else if ((!DefaultResolutions())&&(x_WORD_180660_VGA_type_resolution != 1))
 		{
 			VGA_BlitAny();
 		}
@@ -38638,7 +38648,7 @@ void sub_40F80()//221f80
 	{
 		sub_BD1B6(unk_F0A20x);
 	}
-	else if (!DefaultResolutions())
+	else if ((!DefaultResolutions())&&(x_WORD_180660_VGA_type_resolution != 1))
 	{
 		VGA_BlitAny();
 	}
@@ -39901,13 +39911,12 @@ void sub_46B40()//227b40
 			sub_90D6E_VGA_set_video_mode_320x200_and_Palette((TColor*)*xadatapald0dat2.colorPalette_var28);
 		else
 		{
-			if ((gameResWidth > 640) || (gameResHeight > 480))
+			if ((!DefaultResolutions()) && (x_WORD_180660_VGA_type_resolution != 1))
 			{
 				screenWidth_18062C = gameResWidth;
 				screenHeight_180624 = gameResHeight;
-			}
-			if(!DefaultResolutions())
 				sub_90E07_VGA_set_video_mode_alt_and_Palette((TColor*)*xadatapald0dat2.colorPalette_var28);
+			}
 			else
 				sub_90E07_VGA_set_video_mode_640x480_and_Palette((TColor*)*xadatapald0dat2.colorPalette_var28);
 		}
@@ -53114,7 +53123,7 @@ LABEL_40:
 	case 0xB:
 	case 0xC:
 	case 0xE:
-		if (!DefaultResolutions())
+		if ((!DefaultResolutions())&&(x_WORD_180660_VGA_type_resolution != 1))
 			viewPort.SetViewPortScreenCoordinates_2CA60(384, 0, screenWidth_18062C - 384, screenHeight_180624 - 80);
 		else
 			viewPort.SetViewPortScreenCoordinates_2CA60(384, 0, 256, 400);
@@ -54159,8 +54168,9 @@ void sub_54960()//235960
 		posY = 400;
 	else
 		posY = 480;
-	if (!DefaultResolutions())
-		posY = screenHeight_180624;
+	if (x_WORD_180660_VGA_type_resolution != 1)
+		if (!DefaultResolutions())
+			posY = screenHeight_180624;
 	SetMousePositionInMemory_5BDC0(426, posY - 72 + 17);
 }
 
@@ -73212,12 +73222,13 @@ void sub_6D200(type_str_0x2BDE* a1x)//24e200
 	int helpHeight = 480;	
 	if (x_WORD_180660_VGA_type_resolution & 1)
 		helpHeight = 400;
-	if(!DefaultResolutions())
-	{
-		helpWidth = screenWidth_18062C;
-		helpHeight = screenHeight_180624;
-		offsetPosX = (screenWidth_18062C - 640) / 2;
-	}
+	if (x_WORD_180660_VGA_type_resolution != 1)
+		if(!DefaultResolutions())
+		{
+			helpWidth = screenWidth_18062C;
+			helpHeight = screenHeight_180624;
+			offsetPosX = (screenWidth_18062C - 640) / 2;
+		}
 
 	if (a1x->word_0x007_2BE4_11237 == D41A0_0.LevelIndex_0xc)
 	{
@@ -73337,14 +73348,15 @@ int SelectSpellCategory_6D420(int16_t posX, int16_t posY)//24e420
 		v2 = 400;
 	else
 		v2 = 480;
-	if (!DefaultResolutions())
-	{
-		v2 = screenHeight_180624;
-		if (screenWidth_18062C > 640)
+	if (x_WORD_180660_VGA_type_resolution != 1)
+		if (!DefaultResolutions())
 		{
-			posXOffSet = (screenWidth_18062C - 640) / 2;
+			v2 = screenHeight_180624;
+			if (screenWidth_18062C > 640)
+			{
+				posXOffSet = (screenWidth_18062C - 640) / 2;
+			}
 		}
-	}
 
 	spellPosY = (posY - (v2 - 2 * (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[89].height_5)) / (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[89].height_5;
 	spellPosX = ((posX - posXOffSet) - (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[88].width_4) / (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[89].width_4;
@@ -73390,10 +73402,11 @@ int SelectSpell_6D4F0(type_str_611* a1x, int16_t mouseX)//24e4f0
 
 	int16_t posXOffSet = 0;
 
-	if (!DefaultResolutions())
-	{
-		posXOffSet = ((screenWidth_18062C - 640) / 2);
-	}
+	if (x_WORD_180660_VGA_type_resolution != 1)
+		if (!DefaultResolutions())
+		{
+			posXOffSet = ((screenWidth_18062C - 640) / 2);
+		}
 
 	subCategoryTotalWidth = 3 * (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[163].width_4;
 	spellMenuXPos = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[89].width_4 / 2
@@ -74515,8 +74528,9 @@ void SetMousePositionByRes_6EDB0()//24FDB0
 		SetMousePosition_6EDE0(320, 200);
 	else
 		SetMousePosition_6EDE0(320, 240);
-	if (!DefaultResolutions())
-		SetMousePosition_6EDE0(screenWidth_18062C / 2, screenHeight_180624 / 2);
+	if (x_WORD_180660_VGA_type_resolution != 1)
+		if (!DefaultResolutions())
+			SetMousePosition_6EDE0(screenWidth_18062C / 2, screenHeight_180624 / 2);
 }
 
 //----- (0006EDE0) --------------------------------------------------------
@@ -92403,11 +92417,12 @@ void UpdateMouseEventData_8CB3A(uint32_t mouse_states, int32_t mouse_posx, int32
 
 	int helpWidth = 640;
 	int helpHeight = 480;
-	if (!DefaultResolutions())
-	{
-		helpWidth = screenWidth_18062C;
-		helpHeight = screenHeight_180624;
-	}
+	if (x_WORD_180660_VGA_type_resolution != 1)
+		if (!DefaultResolutions())
+		{
+			helpWidth = screenWidth_18062C;
+			helpHeight = screenHeight_180624;
+		}
 
 	//!!!!!!!! debug
 	if (mouseturnoff)

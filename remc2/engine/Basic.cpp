@@ -2043,8 +2043,9 @@ void DrawLineHighRes_901E4(int16_t posStartX, int16_t posStartY, int16_t posEndX
 	int v10; // [esp+0h] [ebp-4h]
 
 	int helpWidth = 640;
-	if (!DefaultResolutions())
-		helpWidth = screenWidth_18062C;
+	if (x_WORD_180660_VGA_type_resolution != 1)
+		if (!DefaultResolutions())
+			helpWidth = screenWidth_18062C;
 
 	v5 = (x_BYTE*)(helpWidth * posStartY + pdwScreenBuffer_351628 + posStartX);
 	v6 = posEndY;
@@ -2092,13 +2093,14 @@ void sub_6F940_sub_draw_text(const char* textbuffer, int posx, int posy, uint8_t
 	int result; // eax
 
 	int helpWidth = 640;
-	if (!DefaultResolutions())
-		helpWidth = screenWidth_18062C;
+	if (x_WORD_180660_VGA_type_resolution != 1)
+		if (!DefaultResolutions())
+			helpWidth = screenWidth_18062C;
 
 	v4 = (uint8_t*)const_cast<char*>(textbuffer); // FIXME: temporary const cast hack
 	v5 = posx;
 	x_WORD_E36D4 = 64;
-	while (*v4 && v5 < screenWidth_18062C)
+	while (*v4 && v5 < helpWidth)
 	{
 		v6 = (unsigned __int8)*v4;
 		if (v6 < 0xAu)
