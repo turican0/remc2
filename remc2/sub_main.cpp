@@ -60,7 +60,7 @@ void _strupr(char* s)
 
 //#define TEST_NETWORK_CHNG1
 
-int test_regression_level = 50;
+int test_regression_level = 0;
 //first multi is 50(51) 10
 //first hide level is 30(31) 5
 
