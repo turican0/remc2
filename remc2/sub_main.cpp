@@ -78366,10 +78366,10 @@ bool sub_77350_new_game_dialog(type_WORD_E1F84* a1x)//258350
 			#ifdef TEST_REGRESSIONS_GAME
 				x_DWORD_17DB70str.x_BYTE_17DB8E = 1;
 				x_D41A0_BYTEARRAY_4_struct.levelnumber_43w = test_regression_level;
-				if (mapScreenPortals_E17CC[test_regression_level].byte_18_act == 1)
+				if (mapScreenPortals_E17CC[test_regression_level].activated_18 == 1)
 					x_D41A0_BYTEARRAY_4_struct.setting_38545 |= 4u;
-				type_x_WORD_E2970* v46x = sub_824B0(x_D41A0_BYTEARRAY_4_struct.levelnumber_43w);
-				if (v46x && v46x->word_12 == 2)
+				Type_SecretMapScreenPortals_E2970* v46x = sub_824B0(x_D41A0_BYTEARRAY_4_struct.levelnumber_43w);
+				if (v46x && v46x->activated_12 == 2)
 					x_D41A0_BYTEARRAY_4_struct.setting_38545 |= 0x10u;
 				if (x_D41A0_BYTEARRAY_4_struct.levelnumber_43w == 24)
 					x_D41A0_BYTEARRAY_4_struct.setting_38545 |= 0x20u;
