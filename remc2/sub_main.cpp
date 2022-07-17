@@ -106,6 +106,7 @@ int test_regression_level = 50;
 	#define DETECT_DWORD_A
 	#define COPY_SKIP_CONFIG
 	//#define DEBUG_SEQUENCES
+	#define TEST_REGRESSION
 	#define FIX_MOUSE
 	#define MOUSE_OFF2
 	#define OFF_PAUSE_5
@@ -6427,8 +6428,8 @@ signed int sub_10130(int a1, x_DWORD* a2, x_DWORD* a3)//1f1130
 {
 	*a2 = str_E7EE0x[a1].bitmapsData_20xx[0];
 	*a3 = str_E7EE0x[a1].bitmapsData_20xx[1];
-	str_E7EE0x[a1].bitmapsData_20xx = str_E7EE0x[a1].bitmapsData_20xx + sizeof(int8_t*);
-	str_E7EE0x[a1].dword_12 += 4;
+	str_E7EE0x[a1].bitmapsData_20xx += sizeof(int32_t);
+	str_E7EE0x[a1].dword_12++;
 	if (str_E7EE0x[a1].bitmapsStr_16->bitmapIndex_4 > str_E7EE0x[a1].dword_12)
 	{
 		return 1;
@@ -6436,7 +6437,7 @@ signed int sub_10130(int a1, x_DWORD* a2, x_DWORD* a3)//1f1130
 	else
 	{
 		str_E7EE0x[a1].dword_12 = 0;
-		str_E7EE0x[a1].bitmapsStr_16 = &str_E7EE0x[a1].bitmapsStr_16[1];
+		str_E7EE0x[a1].bitmapsStr_16++;
 		str_E7EE0x[a1].dword_8++;
 		if (str_E7EE0x[a1].dword_8 <= str_E7EE0x[a1].dword_4)
 		{
@@ -30993,13 +30994,13 @@ void sub_31E90(type_event_0x6E8E* a1x)//212e90
 	//return 1;
 }
 
+int debugcounter_212f00 = 0;
 //----- (00031F00) --------------------------------------------------------
 void sub_31F00(type_event_0x6E8E* a1x, __int16 a2, __int16 a3)//212f00
 {
-	int v3; // ebx
+	__int16 v3; // ebx
 	int v4; // esi
 	int v5; // edi
-	//unsigned int result; // eax
 	int v7; // ebx
 	int v8; // [esp+0h] [ebp-Ch]
 	int v9; // [esp+4h] [ebp-8h]
@@ -31009,21 +31010,19 @@ void sub_31F00(type_event_0x6E8E* a1x, __int16 a2, __int16 a3)//212f00
 	//add_compare(0x212f04, debugafterload,0x218);
 #endif //DEBUG_SEQUENCES
 
-	LOWORD(v3) = a3;
+	v3 = a3;
 	v4 = (a1x->axis_0x4C_76.x + 128) >> 8;
 	v5 = (a1x->axis_0x4C_76.y + 128) >> 8;
 	if (a3 > ((a1x->array_0x52_82.pitch - (my_sign32(a1x->array_0x52_82.pitch) << 8) + my_sign32(a1x->array_0x52_82.pitch))) >> 8)
 		v3 = ((a1x->array_0x52_82.pitch - (my_sign32(a1x->array_0x52_82.pitch) << 8) + my_sign32(a1x->array_0x52_82.pitch))) >> 8;
 	v10 = -3;
-	v7 = AddE7EE0x_10080(a2, (signed __int16)v3);
-	//v7 = result;
+	v7 = AddE7EE0x_10080(a2, v3);
 	if (v7)
 	{
 		while (sub_10130(v7, &v9, &v8) == 1)
 			sub_56F10(v4 + v9, v5 + v8, v10, 0);
 		ResetEvent08_10100(v7);
 	}
-	//return result;
 }
 
 //----- (00031FB0) --------------------------------------------------------
