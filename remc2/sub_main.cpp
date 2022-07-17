@@ -66,6 +66,7 @@ int test_regression_level = 50;
 
 //adress 2285ff
 #if defined(RELEASE_GAME) //this is standard setting
+	#define NO_SHOW_NEW_PROCEDURES
 	#define AUTO_CHANGE_RES
 	#define FIX_FLYASISTANT
 	#define LOAD_EDITED_LEVEL
@@ -43775,7 +43776,7 @@ type_event_0x6E8E* pre_sub_4A190_axis_3d(uint32_t adress, axis_3d* a1_axis3d)//p
 
 void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E)//pre 22b190
 {
-#ifndef RELEASE_GAME
+#ifndef NO_SHOW_NEW_PROCEDURES
 	test_pre_sub_4a190(adress);//for debug
 #endif
 	switch (adress)
