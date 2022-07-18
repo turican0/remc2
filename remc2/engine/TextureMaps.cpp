@@ -42,7 +42,7 @@ bool MainInitTmaps_71520(unsigned __int16 a1)
 	return str_DWORD_F66F0x[a1] != 0;
 }
 
-int sub_70EF0(unsigned __int16 a1)
+int sub_70EF0(unsigned __int16 a1)//251ef0
 {
 	unsigned __int16 v1; // dx
 	int i; // ebx
@@ -303,16 +303,16 @@ type_animations1* sub_724F0(type_E9C08* a1x, __int16 a2)
 
 void sub_71F20(type_x_DWORD_E9C28_str* a1y, subtype_x_DWORD_E9C28_str* a2x)//252f20
 {
-	int v2x; // eax
+	//int v2x; // eax
 	type_particle_str* v2y;
 	subtype_x_DWORD_E9C28_str* v3x; // ecx
 	unsigned __int16 v4; // bx
 	int v5; // esi
 	subtype_x_DWORD_E9C28_str* v6x; // ecx
-	unsigned __int16 v7; // cx
+	//unsigned __int16 v7; // cx
 	//int v8; // edi
 	//int v9; // eax
-	const void* v10; // esi
+	//const void* v10; // esi
 	type_particle_str* i; // [esp+4h] [ebp-4h]
 
 	//allert_error();//fix this code
@@ -544,29 +544,46 @@ subtype_x_DWORD_E9C28_str* LoadTMapMetadata_71E70(type_x_DWORD_E9C28_str* a1y, u
 		v3 = idx;
 		if (idx > -1)
 		{
+			//v7 = 14 * v4;
+			/*
+			*(x_WORD*)(a1y->dword_8_data + v7 + 10) = v5;
+			*(x_DWORD*)(a1y->dword_8_data + v7 + 4) = a2;
+#ifdef TEST_x64
+	allert_error();
+#endif
+#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
+  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+#else
+			*(x_DWORD*)(a1y->dword_8_data + v7) = a1y->dword_0 + (int)a1y->dword_16x - a1y->dword_4;
+#endif
+			*(x_WORD*)(a1y->dword_8_data + v7 + 12) = a3;
+			a1y->dword_4 -= a2;
+			*(x_WORD*)(a1y->dword_8_data + v7 + 8) = a1y->word_20;
+#ifdef TEST_x64
+	allert_error();
+#endif
+#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
+  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+#else
+			*(x_DWORD*)(a1y->dword_12x + (unsigned __int16)(a1y->word_20)++) = (uint32_t)a1y->dword_8_data + 14 * v6;
+#endif
+*/
 			a1y->str_8_data[idx].Index = idx;
 			a1y->str_8_data[idx].dword_4 = a2;
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit 
-			std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-			a1y->str_8_data[idx].partstr_0 = (type_particle_str*)a1y->dword_16x[a1y->dword_0 - a1y->dword_4];
-#else
-			a1y->str_8_data[idx].partstr_0 = (type_particle_str*)(a1y->dword_0 + (int)a1y->dword_16x - a1y->dword_4);
-#endif
+			a1y->str_8_data[idx].partstr_0 = (type_particle_str*)(a1y->dword_16x + (a1y->dword_0 - a1y->dword_4));
 			a1y->str_8_data[idx].word_12 = a3;
 			a1y->dword_4 -= a2;
 			a1y->str_8_data[idx].word_8 = a1y->word_20;
+			//*(x_DWORD*)(a1y->dword_12x + (unsigned __int16)(a1y->word_20)++) = (uint32_t)&a1y->str_8_data[v4];
 			a1y->dword_12x[a1y->word_20++] = &a1y->str_8_data[idx];
+			//allert_error();//for 64x fix
+			//it is must rewrite
 		}
 	}
-
 	if (v3 <= -1)
-	{
 		result = 0;
-	} 
 	else
-	{
-		result = &a1y->str_8_data[idx];
-	}
+		result = &a1y->str_8_data[v3];
 	return result;
 }
 
@@ -672,7 +689,7 @@ void WriteTextureMapToBmp(uint16_t texture_index, type_particle_str* ptextureMap
 
 uint8_t* LoadTMapColorPalette(MapType_t mapType)
 {
-	uint8_t* pallettebuffer = new uint8_t[768];
+	uint8_t* Palettebuffer = new uint8_t[768];
 	FILE* palfile;
 	char path[MAX_PATH];
 	char palleteName[50];
@@ -692,10 +709,10 @@ uint8_t* LoadTMapColorPalette(MapType_t mapType)
 
 	GetSubDirectoryPath(path, palleteName);
 	palfile = fopen(path, "rb");
-	fread(pallettebuffer, 768, 1, palfile);
+	fread(Palettebuffer, 768, 1, palfile);
 	fclose(palfile);
 
-	return pallettebuffer;
+	return Palettebuffer;
 }
 
 type_animations1* sub_721C0_initTmap(type_E9C08* a1x, type_particle_str** a2x, __int16 a3)//2531c0

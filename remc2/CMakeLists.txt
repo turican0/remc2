@@ -65,8 +65,13 @@ set(SOURCE_FILES_ENGINE
     "engine/read_config.h"
     "engine/TextureMaps.cpp"
     "engine/TextureMaps.h"
-    "engine/GameRender.cpp"
-    "engine/GameRender.h"
+    "engine/GameRenderOriginal.cpp"
+    "engine/GameRenderOriginal.h"
+    "engine/GameRenderHD.cpp"
+    "engine/GameRenderHD.h"
+    "engine/GameRenderGL.cpp"
+    "engine/GameRenderGL.h"
+    "engine/GameRenderInterface.h"
     "sub_main.cpp"
     "sub_main.h"
     "engine/ProjectionPolygon.cpp"
@@ -80,6 +85,8 @@ set(SOURCE_FILES_ENGINE
     "engine/Terrain.cpp"
     "engine/Terrain.h"
     "engine/sub_main_mouse.h"
+    "engine/ViewPort.cpp"
+    "engine/ViewPort.h"
 )
 source_group("Source Files\\engine" FILES ${SOURCE_FILES_ENGINE})
 
@@ -102,6 +109,8 @@ source_group("Source Files\\libs\\findfirst" FILES ${SOURCE_FILES__libs__findfir
 
 set(SOURCE_FILES__portability
     "portability/mctypes.h"
+    "portability/port_net.cpp"
+    "portability/port_net.h"
     "portability/port_filesystem.cpp"
     "portability/port_filesystem.h"
     "portability/port_inputs.cpp"
@@ -118,13 +127,19 @@ set(SOURCE_FILES__portability
     "portability/xmi2mid.h"
 )
 source_group("Source Files\\portability" FILES ${SOURCE_FILES__portability})
-
+set(SOURCE_FILES__networklib
+    "networklib/Constants.h"
+    "networklib/LockedQueue.h"
+    "networklib/Log.h"
+)
+source_group("Source Files\\networklib" FILES ${SOURCE_FILES__networklib})
 set(ALL_FILES
     ${HEADER_FILES}
     ${SOURCE_FILES}
     ${SOURCE_FILES_ENGINE}
     ${SOURCE_FILES__libs__inih}
     ${SOURCE_FILES__portability}
+    ${SOURCE_FILES__networklib}
 )
 
 ################################################################################

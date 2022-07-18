@@ -1011,7 +1011,7 @@ void sub_8E160_sound_proc15_startsequence(__int16 track, unsigned __int8 volume)
 			x_WORD_E3802 = 0;
 		}
 		//sub_95C00_AIL_init_sequence(m_hSequence, (uint8_t*) * (uint32_t*)(x_DWORD_E3808_music_header + 32 * track + 18), 0, track);
-		sub_95C00_AIL_init_sequence(m_hSequence, str_E3808_music_header->str_8.track_10[track].dword_0, 0, track);
+		sub_95C00_AIL_init_sequence(m_hSequence, str_E3808_music_header->str_8.track_10[track].xmiData_0, 0, track);
 		sub_97670_AIL_register_trigger_callback(m_hSequence, reinterpret_cast<void*>(sub_8E0D0));
 		/*for ( i = 0; i < 0x10u; i++ )
 		{
@@ -2960,7 +2960,7 @@ char ReadAndDecompressSound(FILE* file, unsigned __int8 a2)//2654f0
 		soundIndex_E37A0->str_8.wavs_10[i].wavData_0 = (uint8_t*)shadow_str_E37A0_sound_buffer2->str_8.wavs_10[i].wavData_0;
 		for (int j = 0; j < 4; j++)
 			soundIndex_E37A0->str_8.wavs_10[i].stub_4[j] = shadow_str_E37A0_sound_buffer2->str_8.wavs_10[i].stub_4[j];
-		soundIndex_E37A0->str_8.wavs_10[i].dword_8 = shadow_str_E37A0_sound_buffer2->str_8.wavs_10[i].dword_8;
+		soundIndex_E37A0->str_8.wavs_10[i].wavSize_8 = shadow_str_E37A0_sound_buffer2->str_8.wavs_10[i].wavSize_8;
 		soundIndex_E37A0->str_8.wavs_10[i].word_12 = shadow_str_E37A0_sound_buffer2->str_8.wavs_10[i].word_12;
 		for (int j = 18; j < 18; j++)
 			soundIndex_E37A0->str_8.wavs_10[i].filename_14[j] = shadow_str_E37A0_sound_buffer2->str_8.wavs_10[i].filename_14[j];
@@ -4562,6 +4562,9 @@ int sub_A2650(HDIGDRIVER a1)//283650
 			break;
 		}
 	}
+	// FIXME: runtime error: load of misaligned address 0xf60fe75e for type 'int', which requires 4 byte alignment
+	//        a1->hw_mode_flags_7 = *(x_DWORD*)(14 * a1->hw_mode_flags_7 + (uint8_t*)&a1->DDT_1 + 26);
+	//        it seems like only the lowest byte of hw_mode_flags_7 is used -> use WORD instead of DWORD for aligned memory access
 	a1->hw_mode_flags_7 = *(x_DWORD*)(14 * a1->hw_mode_flags_7 + (uint8_t*)&a1->DDT_1 + 26);
 	if (x_DWORD_181DAC[1] < 1)
 	{
@@ -9160,25 +9163,15 @@ LABEL_24:
 //----- (0008EC90) --------------------------------------------------------
 void GetMusicSequenceCount()//26fc90 // set index
 {
-	//uint8_t* v1; // [esp+0h] [ebp-4h]
 	int v1x;
 
 	if (str_E3808_music_header && array_E3810_music_data)
 	{
-		//v1 = (uint8_t*)x_DWORD_E3808_music_header + 32;
 		v1x = 0;
-		//for (m_iNumberOfTracks = 0; str_E3808_music_header->str_8.track_10[v1x].filename_14 < x_DWORD_E380C; m_iNumberOfTracks++)
 		for (m_iNumberOfTracks = 0; v1x < index_E380C_CountOfMusic; m_iNumberOfTracks++)
 		{
-			//str_E3808_music_header->str_8.track_10[v1x].dword_0+= (int)str_E3810_music_data;
-#ifdef x32_BIT_ENVIRONMENT
-			str_E3808_music_header->str_8.track_10[v1x].dword_0 = (int)str_E3808_music_header->str_8.track_10[v1x].dword_0 + array_E3810_music_data;
-#endif //x32_BIT_ENVIRONMENT
-#ifdef x64_BIT_ENVIRONMENT
-			str_E3808_music_header->str_8.track_10[v1x].dword_0 = reinterpret_cast<uint64_t>(str_E3808_music_header->str_8.track_10[v1x].dword_0) + array_E3810_music_data;
-#endif //x64_BIT_ENVIRONMENT
-			//*(x_DWORD*)(v1 + 18) += (int)x_DWORD_E3810_music_data;
-			//v1 += 32;
+			uint8_t* zero_pointer = 0;
+			str_E3808_music_header->str_8.track_10[v1x].xmiData_0 = &array_E3810_music_data[str_E3808_music_header->str_8.track_10[v1x].xmiData_0 - zero_pointer];
 			v1x++;
 		}
 	}
@@ -9220,14 +9213,16 @@ char LoadMusicTrack(FILE* filehandle, uint8_t drivernumber)//26fd00
 		return 0;
 	//str_E3808_music_header = (type_E3808_music_header*)sub_83CD0_malloc2(header[2 + 4 * drivernumber]);
 	//str_E3808_music_header = (type_E3808_music_header*)sub_83CD0_malloc2(headerx[drivernumber].dword_8);
-	str_E3808_music_header = (type_E3808_music_header*)sub_83CD0_malloc2((((headerx[drivernumber].sizeBytes_8 - 32) / 32) * sizeof(sub2type_E3808_music_header)) + 32);//with 64bit fix
+	//str_E3808_music_header = (type_E3808_music_header*)sub_83CD0_malloc2((((headerx[drivernumber].sizeBytes_8 - 32) / 32) * sizeof(sub2type_E3808_music_header)) + 32);//with 64bit fix
+	str_E3808_music_header = (type_E3808_music_header*)sub_83CD0_malloc2(sizeof(type_E3808_music_header));
 	if (!str_E3808_music_header)
 	{
 		sub_83E80_freemem4(array_E3810_music_data);
 		return 0;
 	}
 	//64xbit fix
-	shadow_type_E3808_music_header* shadow_str_E3808_music_header = (shadow_type_E3808_music_header*)sub_83CD0_malloc2(headerx[drivernumber].sizeBytes_8);
+	//shadow_type_E3808_music_header* shadow_str_E3808_music_header = (shadow_type_E3808_music_header*)sub_83CD0_malloc2(headerx[drivernumber].sizeBytes_8);
+	shadow_type_E3808_music_header * shadow_str_E3808_music_header = (shadow_type_E3808_music_header*)sub_83CD0_malloc2(sizeof(shadow_type_E3808_music_header));
 	if (!shadow_str_E3808_music_header)
 	{
 		sub_83E80_freemem4((uint8_t*)shadow_str_E3808_music_header);
@@ -9312,10 +9307,10 @@ char LoadMusicTrack(FILE* filehandle, uint8_t drivernumber)//26fd00
 		str_E3808_music_header->str_8.stub[i] = shadow_str_E3808_music_header->str_8.stub[i];
 	for (int i = 0; i < 6; i++)
 	{
-		str_E3808_music_header->str_8.track_10[i].dword_0 = (uint8_t*)shadow_str_E3808_music_header->str_8.track_10[i].dword_0;
+		str_E3808_music_header->str_8.track_10[i].xmiData_0 = (uint8_t*)shadow_str_E3808_music_header->str_8.track_10[i].xmiData_0;
 		for (int j = 0; j < 4; j++)
 			str_E3808_music_header->str_8.track_10[i].stub_4[j] = shadow_str_E3808_music_header->str_8.track_10[i].stub_4[j];
-		str_E3808_music_header->str_8.track_10[i].dword_8 = shadow_str_E3808_music_header->str_8.track_10[i].dword_8;
+		str_E3808_music_header->str_8.track_10[i].xmiSize_8 = shadow_str_E3808_music_header->str_8.track_10[i].xmiSize_8;
 		str_E3808_music_header->str_8.track_10[i].word_12 = shadow_str_E3808_music_header->str_8.track_10[i].word_12;
 		for (int j = 0; j < 18; j++)
 			str_E3808_music_header->str_8.track_10[i].filename_14[j] = shadow_str_E3808_music_header->str_8.track_10[i].filename_14[j];
@@ -9327,7 +9322,7 @@ char LoadMusicTrack(FILE* filehandle, uint8_t drivernumber)//26fd00
 	GetMusicSequenceCount();
 
 	for (i = 1; i <= m_iNumberOfTracks; i++)//2b4804 - 6
-		sub_95C00_AIL_init_sequence(m_hSequence, str_E3808_music_header->str_8.track_10[i].dword_0, 0, i);
+		sub_95C00_AIL_init_sequence(m_hSequence, str_E3808_music_header->str_8.track_10[i].xmiData_0, 0, i);
 		//sub_95C00_AIL_init_sequence(m_hSequence, (uint8_t*)*(x_DWORD*)(x_DWORD_E3808_music_header + 32 * i + 18), 0, i);
 	x_BYTE_E37FC_music = 1;
 	return 1;

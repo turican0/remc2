@@ -23,6 +23,7 @@
 **/*.ipch
 **/*.suo
 
+**/remc2.vcxproj.FileListAbsolute.txt
 **/remc2.exe
 **/remc2.exp
 **/remc2.lib
@@ -51,3 +52,4 @@ Debug/remc2_without_xcopy.exe
 Debug/remc2_without_xcopy.exe
 Debug/remc2_without_xcopy.exp
 **/net_messages_log.txt
+remc2/memimages/regressions/*.bin

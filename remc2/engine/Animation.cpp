@@ -43,7 +43,7 @@ __int16 x_WORD_E12FE = 0; // weak
 void PlayInfoFmv(__int16 a1, __int16 a2, Type_SoundEvent_E17CC* pSoundEvent, char* path)//sub_76160 - 257160
 {
 	//fix
-	//memset(&pdwScreenBuffer[320 * 200], 0, 320*200);
+	//memset(&pdwScreenBuffer_351628[320 * 200], 0, 320*200);
 	//fix
 	FILE* tempfile; // eax
 
@@ -51,7 +51,7 @@ void PlayInfoFmv(__int16 a1, __int16 a2, Type_SoundEvent_E17CC* pSoundEvent, cha
 	x_WORD_D4004 = 0;
 	x_WORD_17DB58 = 0;
 	ActualKeyframe_17DB60 = 0;
-	x_DWORD_E12F4x = (TColor*)pdwScreenBuffer;
+	x_DWORD_E12F4x = (TColor*)pdwScreenBuffer_351628;
 	tempfile = DataFileIO::CreateOrOpenFile(path, 512);
 	x_DWORD_17DB38_intro_file_handle = tempfile;
 	if (tempfile)
@@ -429,8 +429,8 @@ void sub_loc_1B5A7() {//1fc5a7
 	//x_WORD_D4004++;
 }
 void sub_loc_1B5BC(uint16_t a1) {//1fc5bc
-	//memset(pdwScreenBuffer, 200, 320*200);//debug
-	//Set_basic_pallette();
+	//memset(pdwScreenBuffer_351628, 200, 320*200);//debug
+	//Set_basic_Palette();
 	if ((a1 != 1) && (a1 != 0xe))//fixed write pause text
 		sub_2EBB0_draw_text_with_border_630x340(x_DWORD_E9C4C_langindexbuffer[a1]);//fix it - edx
 	//sub_90478_VGA_Blit320();//debug
@@ -513,7 +513,7 @@ void /*__fastcall*/ sub_75E70()//256e70
 			{
 			case 4:
 				v3 = (char*)"COLOUR256 ";
-				sub_76260_read_intro_pallette(0x100);
+				sub_76260_read_intro_Palette(0x100);
 				v4 = &x_BYTE_17D738[strlen(x_BYTE_17D738)];
 				strcpy(v4,v3);
 				v23 = 1;
@@ -525,7 +525,7 @@ void /*__fastcall*/ sub_75E70()//256e70
 				strcpy(v16, v7);
 				break;
 			case 0xB:
-				sub_76260_read_intro_pallette(0x40);
+				sub_76260_read_intro_Palette(0x40);
 				v8 = (char*)"COLOUR ";
 				v9 = &x_BYTE_17D738[strlen(x_BYTE_17D738)];
 				strcpy(v9, v8);
@@ -585,8 +585,8 @@ void /*__fastcall*/ sub_75E70()//256e70
 			long compar = compare_with_snapshot((char*)"0160-00256E70", unk_17D838, 0x34e838, 0x300, &origbyte, &remakebyte);
 			*/
 
-			sub_41A90_VGA_pallette_install(unk_17D838x);
-			v19 = getPalletteIndex_5BE80(unk_17D838x, 0x3Fu, 0x3Fu, 0x3Fu);
+			sub_41A90_VGA_Palette_install(unk_17D838x);
+			v19 = getPaletteIndex_5BE80(unk_17D838x, 0x3Fu, 0x3Fu, 0x3Fu);
 			sub_2EC90(v19);//20fc90 -zde se prekresli texty
 		}
 	}
@@ -594,9 +594,9 @@ void /*__fastcall*/ sub_75E70()//256e70
 	speedGame = speedAnim;
 	if (x_BYTE_D41C1)
 	{
-		pdwScreenBuffer += 0x26C0;
+		pdwScreenBuffer_351628 += 0x26C0;
 		sub_90478_VGA_Blit320();
-		pdwScreenBuffer -= 0x26C0;
+		pdwScreenBuffer_351628 -= 0x26C0;
 	}
 	else
 	{

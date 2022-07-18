@@ -9,10 +9,10 @@ extern uint8_t unk_D4A30[];//terrain gen
 extern char x_BYTE_F2CD0x[7 * 7 * 7 * 7][2]; // 233cd0//4802 //4816
 extern uint8_t x_BYTE_D41B7; // weak
 
-extern uint8_t x_BYTE_10B4E0_terraintype[0x10000]; // idb// x_BYTE_10B1E0[0x300]//2DC4E0 //map array1
-extern uint8_t x_BYTE_11B4E0_heightmap[0x10000]; // idb		//2EC4E0    	//map array2 // heightmap
-extern uint8_t x_BYTE_12B4E0_shading[0x10000]; // fix it -  weak	//2FC4E0    //map array3
-extern uint8_t x_BYTE_13B4E0_angle[0x10000]; // idb//30C4E0	//map array4 // water
+extern uint8_t mapTerrainType_10B4E0[0x10000]; // idb// x_BYTE_10B1E0[0x300]//2DC4E0 //map array1
+extern uint8_t mapHeightmap_11B4E0[0x10000]; // idb		//2EC4E0    	//map array2 // heightmap
+extern uint8_t mapShading_12B4E0[0x10000]; // fix it -  weak	//2FC4E0    //map array3
+extern uint8_t mapAngle_13B4E0[0x10000]; // idb//30C4E0	//map array4 // water
 extern __int16 mapEntityIndex_15B4E0[0x10000]; // idb//32C4E0	//map array5
 
 void GenerateLevelMap_43830(unsigned int a1, type_str_2FECE* a2x);//224830
