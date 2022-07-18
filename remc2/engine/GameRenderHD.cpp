@@ -897,7 +897,7 @@ void GameRenderHD::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 								v69 = 0;
 								if (!(v69 & 0xF00))
 								{
-									DrawInverseSquareInProjectionSpace(&v248x[0], v68x);
+									DrawInverseSquareInProjectionSpace(&v248x[0], v68x, x_DWORD_DDF50_texture_adresses.at(1));
 								}
 							}
 						}
@@ -989,7 +989,7 @@ void GameRenderHD::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 								if (!(v93 & 2))
 								{
 
-									DrawInverseSquareInProjectionSpace(&v248x[0], v94x);
+									DrawInverseSquareInProjectionSpace(&v248x[0], v94x, x_DWORD_DDF50_texture_adresses.at(1));
 								}
 							}
 							v248x[18] = Str_E9C38_smalltit[v94x].dword16;
@@ -3000,6 +3000,11 @@ void GameRenderHD::DrawSquareInProjectionSpace(std::vector<int>& vertexs, int in
 
 void GameRenderHD::DrawInverseSquareInProjectionSpace(int* vertexs, int index)
 {
+	DrawInverseSquareInProjectionSpace(vertexs, index, x_DWORD_DDF50_texture_adresses.at(Str_E9C38_smalltit[index].byte41));
+}
+
+void GameRenderHD::DrawInverseSquareInProjectionSpace(int* vertexs, int index, uint8_t* pTexture)
+{
 	//Set Texture coordinates for polys
 	vertexs[20] = xunk_D4350[Str_E9C38_smalltit[index].byte42_std][0];
 	vertexs[21] = xunk_D4350[Str_E9C38_smalltit[index].byte42_std][1];
@@ -3012,7 +3017,7 @@ void GameRenderHD::DrawInverseSquareInProjectionSpace(int* vertexs, int index)
 	x_BYTE_E126D = 5;
 
 	//Get Texture
-	x_DWORD_DE55C_ActTexture = x_DWORD_DDF50_texture_adresses.at(Str_E9C38_smalltit[index].byte41);
+	x_DWORD_DE55C_ActTexture = pTexture;
 
 	//Render
 	auto vertex0 = ProjectionPolygon(&vertexs[0]);
