@@ -9,6 +9,7 @@
 //#include <vld.h>//only for debug
 
 #include <array>
+#include <typeinfo>
 
 #include "utilities/DataFileIO.h"
 #include "utilities/BitmapIO.h"
@@ -23,7 +24,13 @@
 #include "engine/Sound.h"
 #include "engine/Type_Animations.h"
 #include "engine/Animation.h"
-#include "engine/GameRender.h"
+#include "engine/GameRenderOriginal.h"
+#include "engine/GameRenderHD.h"
+#include "engine/GameRenderGL.h"
+
+#include "engine/Terrain.h"
+
+#include "portability/port_net.h"
 
 //#define __CFSHL__(x, y) (x<<y)
 //#define __CFSHL__(x, y) 1
@@ -31,10 +38,10 @@
 	return 1;
 }*/
 //myprintf("invalid_operation:__CFSHL__(x, y)")
-#define __RCR__(x, y) printf("invalid_operation:__RCR__(x, y)")
-#define __RCL__(x, y) printf("invalid_operation:__RCL__(x, y)")
-#define __ROL4__(x, y) __ROL__(x, y)       // Rotate left
-#define __ROR4__(x, y) __ROR__(x, y)       // Rotate left
+//#define __RCR__(x, y) printf("invalid_operation:__RCR__(x, y)")
+//#define __RCL__(x, y) printf("invalid_operation:__RCL__(x, y)")
+//#define __ROL4__(x, y) __ROL__(x, y)       // Rotate left
+//#define __ROR4__(x, y) __ROR__(x, y)       // Rotate left
 
 #include "engine/sub_main_mouse.h"
 //#include "engine/ail_sound.h"
@@ -136,15 +143,6 @@ x_DWORD * sub_A5850(int a1, char a2, unsigned int a3, signed int a4, int a5);*/
 
 //#if !defined(_M_I86) && !defined(__WINDOWS_386__)
 
-struct SREGS {
-	unsigned short es;
-	unsigned short ds;
-	unsigned short fs;
-	unsigned short gs;
-	unsigned short cs;
-	unsigned short ss;
-};
-
 /* dword registers */
 
 struct DWORDREGS {
@@ -196,16 +194,6 @@ union REGS {
 */
 //#define REGS x_DWORD[6]
 
-struct REGS {
-	uint32 eax;
-	uint32 ebx;
-	uint32 ecx;
-	uint32 edx;
-	uint32 esi;
-	uint32 edi;
-	uint32 cflag;
-};
-
 /*extern x_WORD __CS__;
 extern x_WORD __GS__;
 extern x_WORD __DS__;
@@ -217,8 +205,8 @@ extern x_WORD __SS__;*/
 
 #pragma pack (1)
 typedef struct {//lenght 6
-	int8_t* dword_0;
-	int16_t word_4;
+	int8_t* bitmapData_0;
+	int16_t bitmapIndex_4;
 }
 sub2x_BYTE_E7EE0x;
 
@@ -227,8 +215,8 @@ typedef struct {//lenght 24
 	int32_t dword_4;
 	int32_t dword_8;
 	int32_t dword_12;
-	sub2x_BYTE_E7EE0x* str_16;
-	int8_t* dword_20xx;
+	sub2x_BYTE_E7EE0x* bitmapsStr_16;
+	int8_t* bitmapsData_20xx;
 }
 subx_BYTE_E7EE0x;
 
@@ -329,7 +317,7 @@ typedef struct {//lenght 44
 	//int16_t word_2;
 	int32_t dword_4;//4 dword
 	//int16_t word_6;//remove it
-	int16_t word_8;
+	int16_t selected_8;
 	int16_t xmin_10;
 	int16_t ymin_12;
 	int16_t sizex_14;
@@ -338,7 +326,7 @@ typedef struct {//lenght 44
 	uint8_t byte_20;//index of gold sprite
 	uint8_t byte_21;//index of gray sprite
 	int8_t byte_22;
-	int8_t byte_23;
+	int8_t canSelect_23;
 	int8_t gold_color_24;
 	int8_t byte_25;
 	//int16_t word_24;//23 and 24 byte
@@ -369,25 +357,25 @@ uint16_t word_22;
 type_E1BAC_0x3c4;
 #pragma pack (16)
 
-#pragma pack (1)
-typedef struct {//lenght 66
-	int8_t byte_0;
-	int8_t byte_1;
-	int8_t byte_2;
-	int8_t byte_3;
-	int16_t word_4;
-	int16_t word_6;
-	int16_t word_8;
-	char arr_byte_10[15];
-	char arr_byte_26[15];
-	int8_t byte_42;
-	int8_t byte_43;
-	int8_t stubd_44[5];
-	int8_t byte_49;
-	int8_t stube_50[16];	
-}
-type_DWORD_E12AE;
-#pragma pack (16)
+
+// typedef struct NCB{
+//				BYTE     ncb_command;	/* NetBIOS command (see netbios.h) */
+//BYTE     ncb_retcode;	/* NetBIOS return code; 0xFF until asynchronous call  finishes */
+//BYTE     ncb_lsn;	/* local session number */
+//BYTE     ncb_num; 	/* NetBIOS name number */
+//DWORD    ncb_buffer;	/* transmit/receive buffer */
+//WORD     ncb_length;	/* buffer length */
+//BYTE     ncb_callName[16];  	/* name of remote node to send datagram or to be connected; */
+//		/* when listening for connections: name trying to connect  */
+//BYTE     ncb_name[16];	/* local name */
+//BYTE     ncb_rto;	/* receive timeout in 500 ms units;  0=forever */
+//BYTE     ncb_sto;	/* send timeout in 500 ms units;  0=default */
+//DWORD    ncb_post;	/* ptr to post-processing routine */
+//	/* (DOS: ES:BX points to NCB when entered. Ends with RETF) */
+//BYTE     ncb_lana_num;	/* LAN adapter number; 0-based */
+//BYTE     ncb_cmd_cplt;	/* completion status */
+//BYTE     ncb_reserved[14];
+//		 } NCB;
 
 extern Pathstruct pstr[];
 
@@ -431,7 +419,7 @@ int16_t sub_16730(/*int a1,*/ type_event_0x6E8E* a2, char a3); // weak
 int16_t sub_16CA0(baxis_2d* a2, __int16 a3, char a4); // weak
 void sub_17A00(int8_t* a1, signed int a2, __int16 a3); // weak
 int _wcpp_1_unwind_leave__120(int32_t a, int32_t b, int32_t c);// weak
-void sub_1A070(signed int a1, __int16 a2, uint16_t screenWidth);
+void sub_1A070(signed int a1, __int16 a2);
 void JUMPOUT(int* adr);
 void JUMPOUT(int32_t cs, int* adr);
 void JUMPOUT(int32_t cs, int a, int* adr);
@@ -442,7 +430,7 @@ signed int sub_369F0(/*signed int a1,*/ __int16 a2);
 void sub_2A340(/*int a1, type_str_0x6E8E* a2, type_str_0x6E8E* a3, int a4, *//*type_str_0x6E8E* a5, */type_event_0x6E8E* a6);
 void sub_2AA90(/*type_str_0x6E8E* a1, */type_event_0x6E8E* a2, type_event_0x6E8E* a3);
 void ClearGraphicsBuffer_72883(void* ptrBuffer, uint16_t width, uint16_t height, char value);
-void DrawVolumnSettings_303D0(uint16_t width);
+void DrawVolumnSettings_303D0();
 int _wcpp_1_unwind_leave__62(void); //weak
 //int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* a2, int32_t a3, int32_t a4, int a5, uint8_t a6, unsigned __int8 a7, uint32_t a8);//560cb0
 void sub_45DC0(/*uint8_t a1,*/ uint8_t a2, uaxis_2d a3, unsigned __int8 a4);
@@ -458,11 +446,11 @@ void sub_44EE0_smooth_tiles(/*int a1, */uaxis_2d a2);
 void sub_56A30_init_game_level(unsigned int a1);
 void sub_47320_in_game_loop(signed int a1);
 void sub_56D60(unsigned int a1, char a2);
-void VGA_BlitAny(uint16_t width, uint16_t height, uint8_t* pScreenBuffer);
+void VGA_BlitAny();
 void VGA_CalculateAndPrintFPS(int x, int y);
 void sub_7A060_get_mouse_and_keyboard_events();
 void DrawAndEventsInGame_47560(uint32_t a3, signed int a4, __int16 a5);
-void GameEvents_51BB0(uint16_t screenWidth, uint16_t screenHeight);
+void GameEvents_51BB0();
 //x_DWORD /*__cdecl*/ toupper(x_DWORD); //weak
 void sub_55C60(/*int a1, int a2,*/ type_str_0x2BDE* a3);
 int32_t /*__cdecl*/ fix_filelength(int32_t);// weak
@@ -484,7 +472,7 @@ int32_t /*__cdecl*/ signal(int32_t, int32_t);// weak
 //unsigned char _BitScanReverse(unsigned long * Index, unsigned long Mask);
 //void sub_8F920(uint8_t a1byte1, uint8_t a1byte2, int16_t posx, int16_t posy, uint8_t* a4, unsigned __int8 a5, char a6);
 //void sub_8F935_bitmap_draw_final(uint8_t a1byte1, uint8_t a1byte2, uint16_t a2, int a3, uint8_t* a4, uint8_t setbyte, char a6);
-signed int sub_74767(signed __int16* a1, type_DWORD_E12AE* a2x, uint8_t* a3);
+signed int NetworkAddName_74767(/*signed __int16* a1,*/ myNCB* a2x, char* a3);
 //x_DWORD /*__cdecl*/ segread(SREGS*); //weak
 //x_DWORD /*__cdecl*/ int386x(x_DWORD, x_DWORD, x_DWORD, x_DWORD);// weak
 //int int386x(int, REGS *, REGS *, struct SREGS *);
@@ -555,7 +543,7 @@ int sub_ACE8D(int16_t* a1, int a2, int* a3);
 void sub_AD0E2(int8_t* a1, int a2, int* a3, int8_t** a4);
 void sub_ACF1A(int8_t* a1, int a2, int* a3);
 void sub_B5F8F(__int16 a1, uint16_t* a2, int32_t a3, __int16* a4);
-int sub_BD320(int result, int8_t* a2, int8_t* a3, int a4, int a5, int a6);
+int sub_BD320(int result, int8_t* a2, int8_t* a3, int a4, int a5, uint8_t* a6);
 void sub_B5EFA(__int16 a1, uint16_t* a2, int32_t a3, __int16* a4);
 
 void sub_101C0();
@@ -568,7 +556,7 @@ void CreateIndexes_6EB90(filearray_struct* a1);
 //type_str_0x6E8E* pre_sub_4A190(uint32_t adress, int16_t* a1,int type);
 type_event_0x6E8E* pre_sub_4A190_axis_3d(uint32_t adress, axis_3d* a1);//pre 22b190
 
-void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1, uint16_t screenWidth, uint16_t screenHeight);//pre 22b190
+void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1);//pre 22b190
 
 //---------------------------
 

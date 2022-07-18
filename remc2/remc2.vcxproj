@@ -336,9 +336,12 @@
     <ClInclude Include="..\SDL-Mixer-X-master\src\music.h" />
     <ClInclude Include="engine\Animation.h" />
     <ClInclude Include="engine\Basic.h" />
+    <ClInclude Include="engine\GameRenderInterface.h" />
+    <ClInclude Include="engine\GameRenderGL.h" />
+    <ClInclude Include="engine\GameRenderHD.h" />
+    <ClInclude Include="engine\GameRenderOriginal.h" />
     <ClInclude Include="engine\ProjectionPolygon.h" />
     <ClInclude Include="engine\Type_BigSpritesBuffer.h" />
-    <ClInclude Include="engine\GameRender.h" />
     <ClInclude Include="engine\Sound.h" />
     <ClInclude Include="engine\Terrain.h" />
     <ClInclude Include="engine\TextureMaps.h" />
@@ -355,6 +358,7 @@
     <ClInclude Include="engine\ViewPort.h" />
     <ClInclude Include="engine\XUnk_D4350.h" />
     <ClInclude Include="engine\RenderThread.h" />
+    <ClInclude Include="portability\port_net.h" />
     <ClInclude Include="utilities\BitmapIO.h" />
     <ClInclude Include="utilities\DataFileIO.h" />
     <ClInclude Include="editor\editor.h" />
@@ -447,7 +451,9 @@
     <ClCompile Include="..\temp\dirent.c" />
     <ClCompile Include="engine\Animation.cpp" />
     <ClCompile Include="engine\Basic.cpp" />
-    <ClCompile Include="engine\GameRender.cpp" />
+    <ClCompile Include="engine\GameRenderGL.cpp" />
+    <ClCompile Include="engine\GameRenderHD.cpp" />
+    <ClCompile Include="engine\GameRenderOriginal.cpp" />
     <ClCompile Include="engine\ProjectionPolygon.cpp" />
     <ClCompile Include="engine\Sound.cpp" />
     <ClCompile Include="engine\Terrain.cpp" />
@@ -458,8 +464,10 @@
     <ClCompile Include="engine\Type_MapScreenPortals_E17CC.cpp" />
     <ClCompile Include="engine\Type_SecretMapScreenPortals_E2970.cpp" />
     <ClCompile Include="engine\Type_WORD_D951C.cpp" />
+    <ClCompile Include="engine\ViewPort.cpp" />
     <ClCompile Include="engine\XUnk_D4350.cpp" />
     <ClCompile Include="engine\RenderThread.cpp" />
+    <ClCompile Include="portability\port_net.cpp" />
     <ClCompile Include="utilities\BitmapIO.cpp" />
     <ClCompile Include="utilities\DataFileIO.cpp" />
     <ClCompile Include="editor\editor.cpp" />
