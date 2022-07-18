@@ -8,15 +8,16 @@ if [ "$#" -ne 2 ]; then
 fi
 
 INSTALLER="$1"
-BUILD_DIR="$2"
+EXTRACT_DIR="$2"
 
 if [ ! -f "${INSTALLER}" ]; then
     echo "${INSTALLER} does not exist."
     return
 fi
-if [ ! -d "${BUILD_DIR}" ]; then
-    echo "${BUILD_DIR} is not a directory."
-    return
+if [ ! -d "${EXTRACT_DIR}" ]; then
+    echo "The extraction directory does not exist."
+    echo "Creating directory ${EXTRACT_DIR}"
+    mkdir -p "${EXTRACT_DIR}"
 fi
 
 rm -rf temp_mc2
@@ -25,7 +26,7 @@ cd temp_mc2
 
 innoextract "${INSTALLER}"
 
-cp -r GAME/NETHERW "${BUILD_DIR}"
+cp -r GAME/NETHERW "${EXTRACT_DIR}"
 
 mkdir Extract
 cd Extract
@@ -35,7 +36,7 @@ cp ../../XXCOPY16.EXE .
 # NOTE: could be avoided by mounting the bin/cue (aka gog/ins) image directly
 dosbox -conf "../../dosboxExtract-GOG-CD.conf" -c exit
 
-mv CD_Files "${BUILD_DIR}"
+mv CD_Files "${EXTRACT_DIR}"
 
 cd ../..
 rm -rf temp_mc2

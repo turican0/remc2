@@ -56,6 +56,7 @@ find_package(SDL2_mixer REQUIRED)
 find_package(SDL2_ttf REQUIRED)
 find_package(SDL2_image REQUIRED)
 find_package(PNG REQUIRED)
+find_package(Boost REQUIRED system)
 
 
 ################################################################################
@@ -136,6 +137,11 @@ if (USE_64_BIT)
     set_target_properties(ADLMIDI_static PROPERTIES COMPILE_FLAGS "-m64" LINK_FLAGS "-m64")
 else ()
     set_target_properties(ADLMIDI_static PROPERTIES COMPILE_FLAGS "-m32" LINK_FLAGS "-m32")
+endif ()
+
+# preprocessor flags
+if (FLATPAK)
+    add_compile_definitions(FLATPAK)
 endif ()
         
 # remc2

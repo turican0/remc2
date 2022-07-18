@@ -25,7 +25,7 @@
 #ifndef READ_CONFIG
 #define READ_CONFIG
 
-void readini(const std::string& filename);
+bool readini();
 extern int config_skip_screen;
 extern int texturepixels;
 extern int speedGame;

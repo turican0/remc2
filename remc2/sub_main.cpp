@@ -37,7 +37,7 @@ void _strupr(char* s)
 		++p;
 	}
 }
-#endif
+#endif //__linux__
 
 //#define MOUSE_OFF
 
@@ -1968,7 +1968,7 @@ void sub_53C70();
 void sub_53CA0();
 void sub_53CC0_close_movie();
 int sub_53CF0_access(char* a1);
-uint8_t sub_53D10_create_nether_subdir(uint8_t* a1, uint8_t* a2, uint8_t* a3);
+uint8_t sub_53D10_create_nether_subdir(const std::string& gameDir, const std::string& subDir);
 bool sub_53EF0_fileexist(char* path, char* path2);
 bool sub_53F60(char* a1);
 char LoadFilesFromCDAndGameData(char* cdPath, char* gamePath, char* fileName);
@@ -53607,104 +53607,23 @@ void sub_53CC0_close_movie()//234cc0
 // D41A4: using guessed type int x_DWORD_D41A4;
 
 //----- (00053CF0) --------------------------------------------------------
-int sub_53CF0_access(char* a1)//234cf0
+int sub_53CF0_access(const char* a1)//234cf0
 {
 	return myaccess(a1, 0);
 }
 // 98CF2: using guessed type x_DWORD access(x_DWORD, x_DWORD);
 
 //----- (00053D10) --------------------------------------------------------
-uint8_t sub_53D10_create_nether_subdir(uint8_t* a1, uint8_t* a2, uint8_t* a3)//234d10
+uint8_t sub_53D10_create_nether_subdir(const std::string& gameDir, const std::string& subDir)
 {
-	__int16 v3; // cx
 	char result; // al
-	char* v4; // esi
-	char* v5; // edi
-	//char v6; // al
-	//char v7; // al
-	char* v8; // esi
-	char* v9; // edi
-	//char v10; // al
-	//char v11; // al
-	char* v12; // esi
-	char* v13; // edi
-	//char v14; // al
-	//char v15; // al
-	//printbuffer -char v16; // [esp+0h] [ebp-12h]
-	//char_355198 -
-	char v17[144]; // [esp+90h] [ebp+7Eh]
-	//char v18; // [esp+120h] [ebp+10Eh] //fix it - minimal space or space struct
-
-#ifdef DEBUG_MKDIR
-	debug_printf("sub_53D10:Begin\n");
-#endif //DEBUG_MKDIR
-	//
-	v3 = 0;//fix it
-	//
-	// ebx=0 esi=3532c1(c:\netherw.exe) edi=2b9ee0(0000) ebp=355250(80 52 35) eax=355228(c6 d2 26) edi=3=a1
-	//if (dos_getdiskfree(v3, (__int16)a3, a1 - 64, (short*)&v18))//234D3A - 26D1E8
-	//	return 1;
-#ifdef DEBUG_MKDIR
-	debug_printf("sub_53D10:Disc Free\n");
-#endif //DEBUG_MKDIR
-	sprintf(printbuffer, "%s/%s", a1, a2);//234D5E - 26F3D5
-	if ((signed __int16)sub_53CF0_access(printbuffer) <= -1 && mymkdir(printbuffer))//234D6A - 234CF0 | 279D30
+	if ((signed __int16)sub_53CF0_access(gameDir.c_str()) <= -1 && mymkdir(gameDir.c_str()))//234D6A - 234CF0 | 279D30
 		return 2;
-#ifdef DEBUG_MKDIR
-	debug_printf("sub_53D10:After access and mkdir\n");
-#endif //DEBUG_MKDIR
-	v4 = printbuffer;
-	v5 = v17;//355198 385235
-	/*do
-	{
-		v6 = v4[0];//43
-		v5[0] = v4[0];//prvni znak 5 se rovna prvnimu znaku
-		if (!v6)
-			break;
-		v7 = v4[1];
-		v4 += 2;
-		v5[1] = v7;
-		v5 += 2;
-	} while (v7);*/
-	strcpy(v5, v4);
-	v8 = (char*)"/";
-	v9 = &v17[strlen(v17)];
-	/*do
-	{
-		v10 = v8[0];
-		v9[0] = v8[0];
-		if (!v10)
-			break;
-		v11 = v8[1];
-		v8 += 2;
-		v9[1] = v11;
-		v9 += 2;
-	} while (v11);*/
-	strcpy(v9, v8);
-	v12 = (char*)a3;
-	v13 = &v17[strlen(v17)];
-	/*do
-	{
-		v14 = *v12;
-		*v13 = *v12;
-		if (!v14)
-			break;
-		v15 = v12[1];
-		v12 += 2;
-		v13[1] = v15;
-		v13 += 2;
-	} while (v15);*/
-	strcpy(v13, v12);
-#ifdef DEBUG_MKDIR
-	debug_printf("sub_53D10:Before second access and mkdir\n");
-#endif //DEBUG_MKDIR
-	if ((sub_53CF0_access(v17) & 0x8000u) != 0 && mymkdir(v17))
+	std::string fullDir = std::filesystem::path(gameDir) / std::filesystem::path(subDir);
+	if ((sub_53CF0_access(fullDir.c_str()) & 0x8000u) != 0 && mymkdir(fullDir.c_str()))
 		result = 2;
 	else
 		result = 3;
-#ifdef DEBUG_MKDIR
-	debug_printf("sub_53D10:End value %d\n", result);
-#endif //DEBUG_MKDIR
 	return result;
 }
 // 8C1E8: using guessed type x_DWORD dos_getdiskfree(x_DWORD, x_DWORD);
@@ -55531,6 +55450,7 @@ void InitNetworkInfo() {
 #endif //TEST_NETWORK
 };
 
+
 //----- (00055F70) --------------------------------------------------------
 int sub_main(int argc, char** argv, char**  /*envp*/)//236F70
 {
@@ -55560,8 +55480,8 @@ int sub_main(int argc, char** argv, char**  /*envp*/)//236F70
 	//skip signal(7, 1);//236FA9 - 279DC0
 	//skip signal(4, 1);//236FB5 - 279DC0
 	//skip signal(6, 1);//236FC1 - 279DC0
-	std::string inifile = get_exe_path() + "/config.ini";
-	readini(inifile);
+
+	if (!readini()) exit(1);
 
 	if (assignToSpecificCores)
 	{
@@ -55588,7 +55508,6 @@ int sub_main(int argc, char** argv, char**  /*envp*/)//236F70
 	//char maindir[1024];
 	myprintf("Finding Game Data...\n");
 	GetSubDirectoryFile(mainfile, gameFolder, "CDATA", "TMAPS0-0.DAT");
-	sprintf(mainfile, "%s", mainfile);
 	if (!file_exists(mainfile))//test original file
 	{
 		//myprintf("Original Game Data Not Found, find GOG iso file\n");
@@ -60366,12 +60285,12 @@ void Initialize()//23c8d0
 
 	std::string exepath = get_exe_path();
 
-	if (sub_53D10_create_nether_subdir((uint8_t*)exepath.c_str(), (uint8_t*)"NETHERW", (uint8_t*)"SAVE") != 3//23C906 - 234D10
-		|| sub_53D10_create_nether_subdir((uint8_t*)exepath.c_str(), (uint8_t*)"NETHERW", (uint8_t*)"CDATA") != 3//23C931 - 234D10
-		|| sub_53D10_create_nether_subdir((uint8_t*)exepath.c_str(), (uint8_t*)"NETHERW", (uint8_t*)"CLEVELS") != 3//23C95C - 234D10
-		|| sub_53D10_create_nether_subdir((uint8_t*)exepath.c_str(), (uint8_t*)"NETHERW", (uint8_t*)"SOUND") != 3//23C987 - 234D10
-		|| sub_53D10_create_nether_subdir((uint8_t*)exepath.c_str(), (uint8_t*)"NETHERW", (uint8_t*)"LANGUAGE") != 3//23C9B2 - 234D10
-		|| sub_53D10_create_nether_subdir((uint8_t*)exepath.c_str(), (uint8_t*)"NETHERW", (uint8_t*)"SHOTS") != 3)//23C9DD - 234D10
+	if (sub_53D10_create_nether_subdir(gameDataPath, "SAVE") != 3//23C906 - 234D10
+		|| sub_53D10_create_nether_subdir(gameDataPath, "CDATA") != 3//23C931 - 234D10
+		|| sub_53D10_create_nether_subdir(gameDataPath, "CLEVELS") != 3//23C95C - 234D10
+		|| sub_53D10_create_nether_subdir(gameDataPath, "SOUND") != 3//23C987 - 234D10
+		|| sub_53D10_create_nether_subdir(gameDataPath, "LANGUAGE") != 3//23C9B2 - 234D10
+		|| sub_53D10_create_nether_subdir(gameDataPath, "SHOTS") != 3)//23C9DD - 234D10
 	{
 		myprintf("Error creating setup directories.\n");
 		exit(-1);

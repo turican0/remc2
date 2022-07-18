@@ -1,0 +1,13 @@
+#!/bin/sh
+
+
+./bootstrap.sh "$@"
+
+
+cat <<EOF >Makefile
+all:
+	./b2 --build-type=minimal link=shared
+
+install:
+	./b2 --build-type=minimal link=shared install
+EOF
