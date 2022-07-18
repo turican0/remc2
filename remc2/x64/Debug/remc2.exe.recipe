@@ -2,12 +2,12 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>C:\prenos\remc2-dev-B\x64\Debug\remc2.exe</FullPath>
+      <FullPath>C:\prenos\remc2-merge-help\x64\Debug\remc2.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles>
     <ContentFile>
-      <FullPath>C:\prenos\remc2-dev-B\config.ini</FullPath>
+      <FullPath>C:\prenos\remc2-merge-help\config.ini</FullPath>
     </ContentFile>
   </ContentFiles>
   <SatelliteDlls />

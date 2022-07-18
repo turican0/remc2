@@ -689,7 +689,7 @@ void WriteTextureMapToBmp(uint16_t texture_index, type_particle_str* ptextureMap
 
 uint8_t* LoadTMapColorPalette(MapType_t mapType)
 {
-	uint8_t* pallettebuffer = new uint8_t[768];
+	uint8_t* Palettebuffer = new uint8_t[768];
 	FILE* palfile;
 	char path[MAX_PATH];
 	char palleteName[50];
@@ -709,10 +709,10 @@ uint8_t* LoadTMapColorPalette(MapType_t mapType)
 
 	GetSubDirectoryPath(path, palleteName);
 	palfile = fopen(path, "rb");
-	fread(pallettebuffer, 768, 1, palfile);
+	fread(Palettebuffer, 768, 1, palfile);
 	fclose(palfile);
 
-	return pallettebuffer;
+	return Palettebuffer;
 }
 
 type_animations1* sub_721C0_initTmap(type_E9C08* a1x, type_particle_str** a2x, __int16 a3)//2531c0

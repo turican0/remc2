@@ -30,7 +30,9 @@ bool settingWASD = false;
 const char* default_caption = "Magic Carpet 2 - Community Update";
 
 bool inited = false;
-Uint8 temppallettebuffer[768];
+Uint8 tempPalettebuffer[768];
+
+int oldWidth;
 
 // Initalize Color Masks.
 #if SDL_BYTEORDER == SDL_BIG_ENDIAN
@@ -124,19 +126,19 @@ void VGA_Init(Uint32  /*flags*/, int width, int height, bool maintainAspectRatio
 			exit(-1);
 		}
 
-		Set_basic_pallette1();
+		Set_basic_Palette1();
 		Draw_debug_matrix1();
 		inited = true;
 	}
 }
 
-Uint8* VGA_Get_pallette() {
-	return temppallettebuffer;
+Uint8* VGA_Get_Palette() {
+	return tempPalettebuffer;
 }
 
 uint16_t lastResHeight=0;
 
-void SetPallette(SDL_Color* colours) {
+void SetPalette(SDL_Color* colours) {
 	memcpy(m_currentPalletColours, colours, sizeof(SDL_Color) * 256);
 	if (m_gamePalletisedSurface)
 	{
@@ -145,19 +147,19 @@ void SetPallette(SDL_Color* colours) {
 	}
 }
 
-void Set_basic_pallette0() {
+void Set_basic_Palette0() {
 	SDL_Color colors[256];
 	for (int i = 0; i < 256; i++) {
-		temppallettebuffer[i * 3] = i / 4;
-		temppallettebuffer[i * 3 + 1] = i / 4;
-		temppallettebuffer[i * 3 + 2] = i / 4;
-		colors[i].r = temppallettebuffer[i * 3];
-		colors[i].g = temppallettebuffer[i * 3 + 1];
-		colors[i].b = temppallettebuffer[i * 3 + 2];
+		tempPalettebuffer[i * 3] = i / 4;
+		tempPalettebuffer[i * 3 + 1] = i / 4;
+		tempPalettebuffer[i * 3 + 2] = i / 4;
+		colors[i].r = tempPalettebuffer[i * 3];
+		colors[i].g = tempPalettebuffer[i * 3 + 1];
+		colors[i].b = tempPalettebuffer[i * 3 + 2];
 	}
-	SetPallette(colors);
+	SetPalette(colors);
 }
-void Set_basic_pallette1() {
+void Set_basic_Palette1() {
 	SDL_Color colors[256];
 	for (int i = 0; i < 256; i++) {
 		if (i != 0)
@@ -173,20 +175,20 @@ void Set_basic_pallette1() {
 			colors[i].b = 255;
 		}
 	}
-	SetPallette(colors);
+	SetPalette(colors);
 }
 
-void Set_basic_pallette3() {
+void Set_basic_Palette3() {
 	SDL_Color colors[256];
 	for (int i = 0; i < 256; i++) {
-		temppallettebuffer[i * 3] = i;
-		temppallettebuffer[i * 3 + 1] = ((int)(i / 16)) * 16;
-		temppallettebuffer[i * 3 + 2] = (i % 16) * 16;
-		colors[i].r = temppallettebuffer[i * 3];
-		colors[i].g = temppallettebuffer[i * 3 + 1];
-		colors[i].b = temppallettebuffer[i * 3 + 2];
+		tempPalettebuffer[i * 3] = i;
+		tempPalettebuffer[i * 3 + 1] = ((int)(i / 16)) * 16;
+		tempPalettebuffer[i * 3 + 2] = (i % 16) * 16;
+		colors[i].r = tempPalettebuffer[i * 3];
+		colors[i].g = tempPalettebuffer[i * 3 + 1];
+		colors[i].b = tempPalettebuffer[i * 3 + 2];
 	}
-	SetPallette(colors);
+	SetPalette(colors);
 }
 
 void putpixel(SDL_Surface* surface, int x, int y, Uint32 pixel)
@@ -334,7 +336,7 @@ void Draw_letterToBuffer(int letter_number, int pozx, int pozy, uint8_t* buffer)
 		{
 			int srcx = xx + srcrect.x;
 			int srcy = yy + srcrect.y;
-			buffer[(dstrect.y + yy) * 640 + (dstrect.x + xx)] = fontbuffer[srcx + srcy * 256];
+			buffer[(dstrect.y + yy) * m_gamePalletisedSurface->w + (dstrect.x + xx)] = fontbuffer[srcx + srcy * 256];
 		}
 };
 
@@ -387,7 +389,16 @@ void VGA_Draw_string(char* wrstring) {
 	mydelay(10);
 }
 
+int drawCounter = 0;
 void VGA_Draw_stringXYtoBuffer(char* wrstring, int x, int y, uint8_t* buffer) {
+	if (buffer == NULL) return;
+	if (oldWidth != m_gamePalletisedSurface->w)
+		drawCounter = 0;
+	if (drawCounter<20)
+	{
+		drawCounter++;
+		return;
+	}
 	int loclastpoz = 0;
 	for (uint32_t i = 0; i < strlen(wrstring); i++)
 	{
@@ -418,54 +429,54 @@ void VGA_Resize(int width, int height) {
 }
 
 FILE* fptpal;
-void SavePal(Uint8* pallettebuffer, char* filename)
+void SavePal(Uint8* Palettebuffer, char* filename)
 {
 	fptpal = fopen(filename, "wb");
-	fwrite(pallettebuffer, 768, 1, fptpal);
+	fwrite(Palettebuffer, 768, 1, fptpal);
 	fclose(fptpal);
 }
 
-void VGA_Set_file_pallette(char* filename) {
-	uint8_t pallettebuffer[768];
+void VGA_Set_file_Palette(char* filename) {
+	uint8_t Palettebuffer[768];
 	fptpal = fopen(filename, "rb");
-	fread(pallettebuffer, 768, 1, fptpal);
+	fread(Palettebuffer, 768, 1, fptpal);
 	fclose(fptpal);
 
 	SDL_Color colors[256];
 	for (int i = 0; i < 256; i++) {
-		colors[i].r = 4 * pallettebuffer[i * 3];
-		colors[i].g = 4 * pallettebuffer[i * 3 + 1];
-		colors[i].b = 4 * pallettebuffer[i * 3 + 2];
+		colors[i].r = 4 * Palettebuffer[i * 3];
+		colors[i].g = 4 * Palettebuffer[i * 3 + 1];
+		colors[i].b = 4 * Palettebuffer[i * 3 + 2];
 	}
-	SetPallette(colors);
+	SetPalette(colors);
 }
 
-void VGA_Set_pallette(Uint8* pallettebuffer) {
-	memcpy(temppallettebuffer, pallettebuffer, 768);
+void VGA_Set_Palette(Uint8* Palettebuffer) {
+	memcpy(tempPalettebuffer, Palettebuffer, 768);
 	SDL_Color colors[256];
 	/* Fill colors with color information */
 	for (int i = 0; i < 256; i++) {
-		colors[i].r = 4 * pallettebuffer[i * 3];
-		colors[i].g = 4 * pallettebuffer[i * 3 + 1];
-		colors[i].b = 4 * pallettebuffer[i * 3 + 2];
+		colors[i].r = 4 * Palettebuffer[i * 3];
+		colors[i].g = 4 * Palettebuffer[i * 3 + 1];
+		colors[i].b = 4 * Palettebuffer[i * 3 + 2];
 	}
 
-	SetPallette(colors);
+	SetPalette(colors);
 }
 
-void VGA_Set_pallette2(Uint8* pallettebuffer) {
-	memcpy(temppallettebuffer, pallettebuffer, 768);
+void VGA_Set_Palette2(Uint8* Palettebuffer) {
+	memcpy(tempPalettebuffer, Palettebuffer, 768);
 	SDL_Color colors[256];
 	for (int i = 0; i < 256; i++) {
-		colors[i].r = pallettebuffer[i * 3];
-		colors[i].g = pallettebuffer[i * 3 + 1];
-		colors[i].b = pallettebuffer[i * 3 + 2];
+		colors[i].r = Palettebuffer[i * 3];
+		colors[i].g = Palettebuffer[i * 3 + 1];
+		colors[i].b = Palettebuffer[i * 3 + 2];
 	}
-	SetPallette(colors);
+	SetPalette(colors);
 }
 
-void VGA_Write_basic_pallette(Uint8* pallettebuffer) {
-	memcpy(temppallettebuffer, pallettebuffer, 768);
+void VGA_Write_basic_Palette(Uint8* Palettebuffer) {
+	memcpy(tempPalettebuffer, Palettebuffer, 768);
 }
 
 void VGA_test() {
@@ -694,7 +705,7 @@ int events()
 		case SDL_MOUSEMOTION:
 			mousex = event.motion.x;
 			mousey = event.motion.y;
-			MouseEvents(1, event.motion.x, event.motion.y, m_iOrigw, m_iOrigh);
+			MouseEvents(1, event.motion.x, event.motion.y);
 			break;
 		case SDL_MOUSEBUTTONDOWN:
 		case SDL_MOUSEBUTTONUP:
@@ -753,7 +764,7 @@ int events()
 			}
 			}
 
-			MouseEvents(buttonresult, event.motion.x, event.motion.y, m_iOrigw, m_iOrigh);
+			MouseEvents(buttonresult, event.motion.x, event.motion.y);
 			break;
 
 		case SDL_QUIT: return 0;
@@ -767,6 +778,7 @@ void VGA_Set_mouse(int16_t x, int16_t y) {
 };
 
 void VGA_Blit(Uint8* srcBuffer) {
+	oldWidth = m_gamePalletisedSurface->w;
 	if (hideGraphics)return;
 	events();
 
