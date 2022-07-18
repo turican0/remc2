@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <filesystem>
+#include <iostream>
 using namespace std;
 /*
 #ifndef DIR
@@ -501,7 +502,7 @@ std::string getExistingDataPath(std::filesystem::path path)
 	auto home_path =  std::getenv("HOMEPATH");
 	if (home_drive && home_path) {
 		std::string home_dir = std::string(std::getenv("HOMEDRIVE")) + "/" + std::string(std::getenv("HOMEPATH"));
-		file_locations.emplace_back(home_dir / "remc2" / path);
+		file_locations.emplace_back(std::filesystem::path(home_dir) / "remc2" / path);
 	}
 #endif //__linux__
 	file_locations.emplace_back(std::filesystem::path(get_exe_path()) / path);

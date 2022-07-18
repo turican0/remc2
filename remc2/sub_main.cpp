@@ -24,7 +24,6 @@ after NetworkCancel_748F7 not changed
 #define __cdecl
 #include <ctype.h>
 #include "../findfirst/findfirst.h"
-#include <filesystem>
 #include <iostream>
 #include <functional>
 #include <type_traits>
@@ -37,6 +36,8 @@ void _strupr(char* s)
 		++p;
 	}
 }
+#else
+#include <filesystem>
 #endif //__linux__
 
 //#define MOUSE_OFF
@@ -53619,7 +53620,7 @@ uint8_t sub_53D10_create_nether_subdir(const std::string& gameDir, const std::st
 	char result; // al
 	if ((signed __int16)sub_53CF0_access(gameDir.c_str()) <= -1 && mymkdir(gameDir.c_str()))//234D6A - 234CF0 | 279D30
 		return 2;
-	std::string fullDir = std::filesystem::path(gameDir) / std::filesystem::path(subDir);
+	std::string fullDir = std::string(gameDir) + "/" + std::string(subDir);
 	if ((sub_53CF0_access(fullDir.c_str()) & 0x8000u) != 0 && mymkdir(fullDir.c_str()))
 		result = 2;
 	else

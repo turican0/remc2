@@ -45,7 +45,7 @@ std::string findIniFile() {
 	auto home_path =  std::getenv("HOMEPATH");
 	if (home_drive && home_path) {
 		std::string home_dir = std::string(std::getenv("HOMEDRIVE")) + "/" + std::string(std::getenv("HOMEPATH"));
-		inifile_locations.emplace_back(home_dir / "remc2" / "config.ini");
+		inifile_locations.emplace_back(std::filesystem::path(home_dir) / "remc2" / "config.ini");
 	}
 #endif //__linux__
 	inifile_locations.emplace_back(std::filesystem::path(get_exe_path()) / "config.ini");
