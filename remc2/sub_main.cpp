@@ -74541,6 +74541,16 @@ void SetMousePositionByRes_6EDB0()//24FDB0
 //----- (0006EDE0) --------------------------------------------------------
 void SetMousePosition_6EDE0(int16_t posX, int16_t posY)//24fde0
 {
+	int locScreenWidth;
+	if (x_WORD_180660_VGA_type_resolution == 1)
+	{
+		locScreenWidth = 640;
+	}
+	else
+	{
+		locScreenWidth = screenWidth_18062C;
+	}
+
 	if (x_DWORD_E3768 > 0)
 	{
 		if (posX != -1 || posY != -1)
@@ -74554,8 +74564,8 @@ void SetMousePosition_6EDE0(int16_t posX, int16_t posY)//24fde0
 				}
 				else
 				{
-					if (posX > screenWidth_18062C -2)
-						posX = screenWidth_18062C -2;
+					if (posX > locScreenWidth -2)
+						posX = locScreenWidth -2;
 					x_WORD_E3760_mouse.x = posX;
 					if (!(x_WORD_180660_VGA_type_resolution & 1))
 						posX *= 8;
