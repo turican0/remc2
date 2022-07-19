@@ -37,11 +37,12 @@ private:
 	};//2a5328
 
 	uint8_t unk_DE56Cx[1][4194304]; //Number of possible render threads (8) //number of polygons (2048 * 2048)
-	uint32_t offsets_B8845[16] = {
-		0x00000000,0xFFFFFFF1,0xFFFFFFF2,0xFFFFFFF3,
-		0xFFFFFFF4,0xFFFFFFF5,0xFFFFFFF6,0xFFFFFFF7,
-		0xFFFFFFF8,0xFFFFFFF9,0xFFFFFFFA,0xFFFFFFFB,
-		0xFFFFFFFC,0xFFFFFFFD,0xFFFFFFFE,0xFFFFFFFF
+	
+	int offsets_B8845[16] = {
+		  0, -15, -14, -13,
+		-12, -11, -10,  -9,
+		 -8,  -7,  -6,  -5,
+		 -4,  -3,  -2,  -1
 	};
 
 	char x_BYTE_D4750[60] = {
