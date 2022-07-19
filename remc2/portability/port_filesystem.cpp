@@ -501,11 +501,11 @@ std::string getExistingDataPath(std::filesystem::path path)
 	auto home_drive = std::getenv("HOMEDRIVE");
 	auto home_path =  std::getenv("HOMEPATH");
 	if (home_drive && home_path) {
-		std::string home_dir = std::string(std::getenv("HOMEDRIVE")) + "/" + std::string(std::getenv("HOMEPATH"));
-		file_locations.emplace_back(std::filesystem::path(home_dir) / "remc2" / path);
+		std::filesystem::path home_dir(std::string(home_drive) + "/" + std::string(home_path));
+		file_locations.push_back((home_dir / "remc2" / path).string());
 	}
 #endif //__linux__
-	file_locations.emplace_back(std::filesystem::path(get_exe_path()) / path);
+	file_locations.push_back(get_exe_path() + "/" + path.string());
 
 	std::string file_found;
 
