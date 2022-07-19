@@ -27604,7 +27604,7 @@ void DrawGameFrame_2BE30()//20CE30
 	v6 = D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].word_0x00e_2BDE_11244;
 #ifdef TEST_RENDERERS
 	uint8_t* help_ScreenBuffer = (uint8_t*)malloc(screenWidth_18062C * screenHeight_180624);
-#endif
+#endif //TEST_RENDERERS
 	switch (D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x3DF_2BE4_12221)
 	{
 	case 0:
@@ -27644,10 +27644,22 @@ void DrawGameFrame_2BE30()//20CE30
 			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.pitch,
 			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.roll,
 			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.fov);
+
 #ifdef TEST_RENDERERS
 		memcpy(help_ScreenBuffer, pdwScreenBuffer_351628, screenWidth_18062C * screenHeight_180624);
-		m_ptrGameRender = (GameRenderInterface*)new GameRender_old();
-		//m_ptrGameRender->Init((multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
+
+		if (typeid(*m_ptrGameRender) == typeid(GameRenderHD))
+		{
+			delete m_ptrGameRender;
+			m_ptrGameRender = nullptr;
+			m_ptrGameRender = (GameRenderInterface*)new GameRenderOriginal();
+		}
+		else
+		{
+			delete m_ptrGameRender;
+			m_ptrGameRender = nullptr;
+			m_ptrGameRender = (GameRenderInterface*)new GameRenderHD((multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
+		}
 		m_ptrGameRender->DrawWorld_411A0(
 			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].axis_2BDE_11695.x,//position of player
 			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].axis_2BDE_11695.y,//position of player
@@ -27661,12 +27673,19 @@ void DrawGameFrame_2BE30()//20CE30
 			if (pdwScreenBuffer_351628[test_compi] != help_ScreenBuffer[test_compi])
 				allert_error();
 
-		delete m_ptrGameRender;
-		m_ptrGameRender = nullptr;
-
-		m_ptrGameRender = (GameRenderInterface*)new GameRender_new((multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
-		//m_ptrGameRender->Init((multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
-#endif
+		if (typeid(*m_ptrGameRender) == typeid(GameRenderHD))
+		{
+			delete m_ptrGameRender;
+			m_ptrGameRender = nullptr;
+			m_ptrGameRender = (GameRenderInterface*)new GameRenderOriginal();
+		}
+		else
+		{
+			delete m_ptrGameRender;
+			m_ptrGameRender = nullptr;
+			m_ptrGameRender = (GameRenderInterface*)new GameRenderHD((multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
+		}
+#endif //TEST_RENDERERS
 
 		//WriteBufferToBMP(screenWidth, screenHeight, *xadatapald0dat2.colorPalette_var28, pdwScreenBuffer_351628);
 
@@ -27881,10 +27900,23 @@ void DrawGameFrame_2BE30()//20CE30
 			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.pitch,
 			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.roll,
 			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.fov);
+
 #ifdef TEST_RENDERERS
 		memcpy(help_ScreenBuffer, pdwScreenBuffer_351628, screenWidth_18062C* screenHeight_180624);
-		m_ptrGameRender = (GameRenderInterface*)new GameRender_old();
-		//m_ptrGameRender->Init((multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
+
+		if (typeid(*m_ptrGameRender) == typeid(GameRenderHD))
+		{
+			delete m_ptrGameRender;
+			m_ptrGameRender = nullptr;
+			m_ptrGameRender = (GameRenderInterface*)new GameRenderOriginal();
+		}
+		else
+		{
+			delete m_ptrGameRender;
+			m_ptrGameRender = nullptr;
+			m_ptrGameRender = (GameRenderInterface*)new GameRenderHD((multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
+		}
+
 		m_ptrGameRender->DrawWorld_411A0(
 			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].axis_2BDE_11695.x,//position of player
 			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].axis_2BDE_11695.y,//position of player
@@ -27898,12 +27930,20 @@ void DrawGameFrame_2BE30()//20CE30
 			if (pdwScreenBuffer_351628[test_compi] != help_ScreenBuffer[test_compi])
 				allert_error();
 
-		delete m_ptrGameRender;
-		m_ptrGameRender = nullptr;
-
-		m_ptrGameRender = (GameRenderInterface*)new GameRender_new((multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
-		//m_ptrGameRender->Init((multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
-#endif
+		if (typeid(*m_ptrGameRender) == typeid(GameRenderHD))
+		{
+			delete m_ptrGameRender;
+			m_ptrGameRender = nullptr;
+			m_ptrGameRender = (GameRenderInterface*)new GameRenderOriginal();
+		}
+		else
+		{
+			delete m_ptrGameRender;
+			m_ptrGameRender = nullptr;
+			m_ptrGameRender = (GameRenderInterface*)new GameRenderHD((multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
+		}
+		
+#endif //TEST_RENDERERS
 
 		if (x_WORD_180660_VGA_type_resolution & 1)
 			sub_9025C(locViewportPosx, 0, locViewportPosx, locViewportHeight, (unsigned short)(*xadataclrd0dat.colorPalette_var28)[0], 0);
@@ -27965,7 +28005,7 @@ void DrawGameFrame_2BE30()//20CE30
 	}
 #ifdef TEST_RENDERERS
 	free(help_ScreenBuffer);
-#endif
+#endif //TEST_RENDERERS
 	if (D41A0_0.byte_0x36E04)
 		sub_30630();
 	DrawHelpText_6FC50(x_BYTE_D419D_fonttype);
