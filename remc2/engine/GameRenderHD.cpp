@@ -419,7 +419,7 @@ void GameRenderHD::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 	int v18x;
 	char v19; // dh
 	int v20; // ebx
-	int v21; // ecx
+	//int v21; // ecx
 	char v22; // ch
 	int v23; // eax
 	uint8_t* v25x; // edi
@@ -439,7 +439,7 @@ void GameRenderHD::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 	__int16 v38; // ax
 	int v39; // eax
 	int v40; // edi
-	int v41x; // edx
+	//int v41x; // edx
 	unsigned __int16 v42; // bx
 	int v43x;
 	uint8_t* v44; // eax
@@ -491,7 +491,7 @@ void GameRenderHD::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 	char v92; // cl
 	char v93; // dl
 	int v94x;
-	char v96; // al
+	//char v96; // al
 	char v97; // dl
 	char v98; // dh
 	char v99; // ah
@@ -508,8 +508,8 @@ void GameRenderHD::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 	unsigned __int16 v111; // dx
 	__int16 v112; // ax
 	int v113; // eax
-	int v114x;
-	signed int v115; // edx
+	//int v114x;
+	//signed int v115; // edx
 	int v116; // eax
 	int v117x;
 	unsigned __int16 v118; // bx
@@ -535,7 +535,7 @@ void GameRenderHD::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 	char v138; // dl
 	int v139; // eax
 	int v140x;
-	int v141; // eax
+	//int v141; // eax
 	char v142; // ch
 	int v143x;
 	char v144; // dl
@@ -551,7 +551,7 @@ void GameRenderHD::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 	int v155x;
 	char v156; // dl
 	int v157; // eax
-	int v159; // eax
+	//int v159; // eax
 	int v160;
 	int v161;
 	int v162; // eax
@@ -583,8 +583,8 @@ void GameRenderHD::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 	int v190x;
 	char v191; // dl
 	char v192; // dh
-	char v194; // ch
-	char v196; // ch
+	//char v194; // ch
+	//char v196; // ch
 	int v197; // ecx
 	signed int v198; // esi
 	int v199; // ebx
@@ -633,7 +633,7 @@ void GameRenderHD::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 	char v245; // dh
 	std::vector<int> v248x(33);  //[33]; // [esp+0h] [ebp-62h]//v248x[0]
 	uint8_t* v277; // [esp+84h] [ebp+22h]
-	uint8_t* v278;
+	//uint8_t* v278;
 	int v278x;
 	unsigned __int16 v279; // [esp+8Ch] [ebp+2Ah]
 	char l; // [esp+90h] [ebp+2Eh]
@@ -1084,7 +1084,7 @@ void GameRenderHD::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 				if (mapAngle_13B4E0[v279] & 8)
 					Str_E9C38_smalltit[v278x].word38 |= 0x80u;
 				v40 = str_F2C20ar.dword0x18;
-				v41x = v278x;
+				//v41x = v278x;
 				Str_E9C38_smalltit[v278x].dword20 = str_F2C20ar.dword0x22 + str_F2C20ar.dword0x18 * Str_E9C38_smalltit[v278x].dword4_height / v34;
 				Str_E9C38_smalltit[v278x].dword28 = str_F2C20ar.dword0x22 + v40 * Str_E9C38_smalltit[v278x].dword8 / v34;
 				LOBYTE(v42) = v277[2] + v279;
@@ -2792,8 +2792,8 @@ void GameRenderHD::DrawSorcererNameAndHealthBar_2CB30(type_event_0x6E8E* a1x, __
 	char v24[32]; // [esp+0h] [ebp-58h]
 	int v25; // [esp+20h] [ebp-38h]
 	int v26; // [esp+24h] [ebp-34h]
-	int v27; // [esp+28h] [ebp-30h]
-	int v28; // [esp+2Ch] [ebp-2Ch]
+	//int v27; // [esp+28h] [ebp-30h]
+	//int v28; // [esp+2Ch] [ebp-2Ch]
 	int v29; // [esp+30h] [ebp-28h]
 	int v30; // [esp+34h] [ebp-24h]
 	int v31; // [esp+38h] [ebp-20h]
@@ -2843,9 +2843,9 @@ void GameRenderHD::DrawSorcererNameAndHealthBar_2CB30(type_event_0x6E8E* a1x, __
 				v26 = (signed __int16)(v13 + 2);
 				v30 = v11;
 				DrawLine_2BC80(v11, v39, v13 + 2, 18, v37);//8
-				v27 = v33;//30// v16
+				//v27 = v33;//30// v16
 				DrawLine_2BC80(v30, v39, v26, 2, v33);//18
-				v28 = v38;//2c//v17
+				//v28 = v38;//2c//v17
 				DrawLine_2BC80(v30, v39 + 16, v26, 2, v38);//4
 				DrawLine_2BC80(v30, v39, 2, 16, v33);//30,tj.18
 				DrawLine_2BC80(v11 + v32 - 2, v39, 2, 18, v38);//2c tj. 4
@@ -5478,23 +5478,23 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 	int v123; // edx
 	int v124; // esi
 	int v125; // edi
-	x_DWORD* v126; // edi
+	//x_DWORD* v126; // edi
 	int v127; // ebx
 	int v128; // eax
 	int v129; // ebx
 	int v130; // ecx
 	int v131; // edx
 	int v132; // edi
-	x_DWORD* v133; // edi
+	//x_DWORD* v133; // edi
 	int v134; // eax
 	int v135; // ebx
 	int v136; // esi
 	int v137; // edi
-	x_DWORD* v138; // edi
+	//x_DWORD* v138; // edi
 	int v139; // eax
 	int v140; // ebx
 	int v141; // edi
-	x_DWORD* v142; // edi
+	//x_DWORD* v142; // edi
 	int v143; // eax
 	int v144; // ebx
 	int v145; // ebx
@@ -5504,23 +5504,23 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 	int v149; // edx
 	int v150; // esi
 	int v151; // edi
-	x_DWORD* v152; // edi
+	//x_DWORD* v152; // edi
 	int v153; // ebx
 	int v154; // eax
 	int v155; // ebx
 	int v156; // ecx
 	int v157; // edx
 	int v158; // edi
-	x_DWORD* v159; // edi
+	//x_DWORD* v159; // edi
 	int v160; // eax
 	int v161; // ebx
 	int v162; // esi
 	int v163; // edi
-	x_DWORD* v164; // edi
+	//x_DWORD* v164; // edi
 	int v165; // eax
 	int v166; // ebx
 	int v167; // edi
-	x_DWORD* v168; // edi
+	//x_DWORD* v168; // edi
 	unsigned __int16* v169; // esi
 	char* v170; // edx
 	char v171; // al
@@ -7184,7 +7184,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 					triLn_v1123 = viewPort.Height_DE568 - v1192;
 					v1115 = viewPort.Height_DE568 - v1192;
 				}
-				v142 = LoadPolygon((x_DWORD*)unk_DE56Cx[startLine], &v139, &v140, v1105, v1109, &v1115);
+				LoadPolygon((x_DWORD*)unk_DE56Cx[startLine], &v139, &v140, v1105, v1109, &v1115);
 				v31 = (unsigned __int8)x_BYTE_E126D;
 				goto LABEL_53;
 			case 1:
@@ -7220,7 +7220,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 					triLn_v1123 = viewPort.Height_DE568 - v1192;
 					v1115 = viewPort.Height_DE568 - v1192;
 				}
-				v138 = LoadPolygon((x_DWORD*)unk_DE56Cx[startLine], &v134, &v135, &v136, v1105, v1109, v1152, &v1115);
+				LoadPolygon((x_DWORD*)unk_DE56Cx[startLine], &v134, &v135, &v136, v1105, v1109, v1152, &v1115);
 				v31 = (unsigned __int8)x_BYTE_E126D;
 				goto LABEL_53;
 			case 2:
@@ -7270,7 +7270,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 					triLn_v1123 = viewPort.Height_DE568 - v1192;
 					v1115 = viewPort.Height_DE568 - v1192;
 				}
-				v133 = LoadPolygon((x_DWORD*)unk_DE56Cx[startLine], &v128, &v129, &v130, &v131, v1105, v1109, v1130, v1141, &v1115);
+				LoadPolygon((x_DWORD*)unk_DE56Cx[startLine], &v128, &v129, &v130, &v131, v1105, v1109, v1130, v1141, &v1115);
 				v31 = (unsigned __int8)x_BYTE_E126D;
 				goto LABEL_53;
 			case 5:
@@ -7318,7 +7318,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 					triLn_v1123 = viewPort.Height_DE568 - v1192;
 					v1115 = viewPort.Height_DE568 - v1192;
 				}
-				v126 = LoadPolygon((x_DWORD*)unk_DE56Cx[startLine], &v120, &v121, &v122, &v123, &v124, v1105, v1109, v1129, v1140, v1151, &v1115);
+				LoadPolygon((x_DWORD*)unk_DE56Cx[startLine], &v120, &v121, &v122, &v123, &v124, v1105, v1109, v1129, v1140, v1151, &v1115);
 				v31 = (unsigned __int8)x_BYTE_E126D;
 				goto LABEL_53;
 			}
@@ -7379,7 +7379,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 				triLn_v1123 = viewPort.Height_DE568 - v1193;
 				v1116 = viewPort.Height_DE568 - v1193;
 			}
-			v168 = LoadPolygon((x_DWORD*)unk_DE56Cx[startLine], &v165, &v166, v1106, v1110, &v1116);
+			LoadPolygon((x_DWORD*)unk_DE56Cx[startLine], &v165, &v166, v1106, v1110, &v1116);
 			v31 = (unsigned __int8)x_BYTE_E126D;
 			goto LABEL_53;
 		case 1:
@@ -7415,7 +7415,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 				triLn_v1123 = viewPort.Height_DE568 - v1193;
 				v1116 = viewPort.Height_DE568 - v1193;
 			}
-			v164 = LoadPolygon((x_DWORD*)unk_DE56Cx[startLine], &v160, &v161, &v162, v1106, v1110, v1154, &v1116);
+			LoadPolygon((x_DWORD*)unk_DE56Cx[startLine], &v160, &v161, &v162, v1106, v1110, v1154, &v1116);
 			v31 = (unsigned __int8)x_BYTE_E126D;
 			goto LABEL_53;
 		case 2:
@@ -7465,7 +7465,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 				triLn_v1123 = viewPort.Height_DE568 - v1193;
 				v1116 = viewPort.Height_DE568 - v1193;
 			}
-			v159 = LoadPolygon((x_DWORD*)unk_DE56Cx[startLine], &v154, &v155, &v156, &v157, v1106, v1110, v1132, v1143, &v1116);
+			LoadPolygon((x_DWORD*)unk_DE56Cx[startLine], &v154, &v155, &v156, &v157, v1106, v1110, v1132, v1143, &v1116);
 			v31 = (unsigned __int8)x_BYTE_E126D;
 			goto LABEL_53;
 		case 5:
@@ -7513,7 +7513,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 				triLn_v1123 = viewPort.Height_DE568 - v1193;
 				v1116 = viewPort.Height_DE568 - v1193;
 			}
-			v152 = LoadPolygon((x_DWORD*)unk_DE56Cx[startLine], &v146, &v147, &v148, &v149, &v150, v1106, v1110, v1131, v1142, v1153, &v1116);
+			LoadPolygon((x_DWORD*)unk_DE56Cx[startLine], &v146, &v147, &v148, &v149, &v150, v1106, v1110, v1131, v1142, v1153, &v1116);
 			v31 = (unsigned __int8)x_BYTE_E126D;
 			goto LABEL_53;
 		}

@@ -1764,7 +1764,7 @@ void sub_6EF10_set_mouse_minmax(__int16 a1, signed __int16 a2, __int16 a3, signe
 {
 	signed __int16 v4; // si
 	signed __int16 v5; // bx
-	__int16 result; // ax
+	//__int16 result; // ax
 	char v7ar[28]; // [esp+0h] [ebp-38h]
 	__int16 v8ar[14]; // [esp+1Ch] [ebp-1Ch]
 	//__int16 v9; // [esp+24h] [ebp-14h]//v8ar[4]
@@ -1776,7 +1776,7 @@ void sub_6EF10_set_mouse_minmax(__int16 a1, signed __int16 a2, __int16 a3, signe
 	memset(v7ar, 0, 28);
 	if (a2 > 638)
 		v4 = 638;
-	result = x_WORD_180660_VGA_type_resolution;
+	//result = x_WORD_180660_VGA_type_resolution;
 	if ((unsigned __int16)x_WORD_180660_VGA_type_resolution >= 1u)
 	{
 		if ((unsigned __int16)x_WORD_180660_VGA_type_resolution <= 1u)
@@ -2090,7 +2090,7 @@ void sub_6F940_sub_draw_text(const char* textbuffer, int posx, int posy, uint8_t
 	int v7; // eax
 	//int v8; // edi
 	int v9; // eax
-	int result; // eax
+	//int result; // eax
 
 	int helpWidth = 640;
 	if (x_WORD_180660_VGA_type_resolution != 1)
@@ -2160,7 +2160,7 @@ void sub_6F940_sub_draw_text(const char* textbuffer, int posx, int posy, uint8_t
 	LABEL_16:
 		v4++;
 	}
-	result = v5;
+	//result = v5;
 	x_WORD_E36D4 = 0;
 }
 // E36D4: using guessed type __int16 x_WORD_E36D4;

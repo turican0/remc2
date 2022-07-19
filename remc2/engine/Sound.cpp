@@ -431,7 +431,7 @@ void sub_8D290_init_sound(/*char* a1*//*, int a2, int a3*/)//26e290
 		}
 		return;
 	}
-	size_t sz = 0;
+	//size_t sz = 0;
 	//v7x = _dupenv_s(&v7,&sz, "MDSOUND");//fix v7
 	v7 = mygetenv("MDSOUND");
 	if (v7)
@@ -698,13 +698,13 @@ void sub_8D8F0_sound_proc3_endsample()//26e8f0
 		for (i = 0; i < x_DWORD_180B4C_end_sound_buffer3_endindex; i++)
 		{
 			sub_93D00_AIL_end_sample(unk_180750_sound_buffer3[i]);//274d00
-			/*//*((x_WORD *)i + 9) = 0;
+			/* // *((x_WORD *)i + 9) = 0;
 			unk_180750_sound_buffer3[i]->sam_var[4] &= 0x0000ffff;
-			//*(int *)((char *)i + 14) = 0;
+			// *(int *)((char *)i + 14) = 0;
 			unk_180750_sound_buffer3[i]->sam_var[3] &= 0x0000ffff;
 			unk_180750_sound_buffer3[i]->sam_var[4] &= 0xffff0000;
-			//*((x_BYTE *)i + 20) = 0;
-			//*((x_BYTE *)i + 21) = 0;
+			// *((x_BYTE *)i + 20) = 0;
+			// *((x_BYTE *)i + 21) = 0;
 			unk_180750_sound_buffer3[i]->sam_var[5] &= 0xffff0000;*/
 			unk_180750_sound_buffer3[i]->vol_scale_18[0][0] = 0;//18
 			unk_180750_sound_buffer3[i]->flags_14 = 0;//14
@@ -779,7 +779,7 @@ void /*__fastcall*/ sub_8D970_init_music(/*char* a1*//*int a1, int a2, char* a3*
 		}
 		return;
 	}
-	size_t sz = 0;
+	//size_t sz = 0;
 	//_dupenv_s(&v7,&sz, "MDMUSIC");
 	v7 = mygetenv("MDMUSIC");
 	if (v7)
@@ -1117,10 +1117,10 @@ void sub_90FD0(/*char* a1*//*, int a2, char* a3*/)//271fd0
 //----- (00091010) --------------------------------------------------------
 void sub_91010()
 {
-	__int16 result; // ax
+	//__int16 result; // ax
 	__int16 v1; // [esp+0h] [ebp-4h]
 
-	result = x_WORD_180B30;
+	//result = x_WORD_180B30;
 	v1 = x_WORD_180B30;
 	if (x_WORD_180B30 == 544)
 	{
@@ -1153,7 +1153,7 @@ void sub_91010()
 			x_outp(v1 + 5, 8 * x_WORD_E39A4 - 24);
 			x_outp(v1 + 4, 53);
 			x_WORD_E39AA = x_inp(v1 + 5);
-			result = x_outp(v1 + 5, 8 * x_WORD_E39A6 - 24);
+			x_outp(v1 + 5, 8 * x_WORD_E39A6 - 24);
 		}
 		else if (!_stricmp(unk_180BE0, "MPU401.MDI"))
 		{
@@ -1162,7 +1162,7 @@ void sub_91010()
 			x_outp(v1 + 5, 8 * x_WORD_E39A4 - 24);
 			x_outp(v1 + 4, 53);
 			x_WORD_E39AA = x_inp(v1 + 5);
-			result = x_outp(v1 + 5, 8 * x_WORD_E39A6 - 24);
+			x_outp(v1 + 5, 8 * x_WORD_E39A6 - 24);
 		}
 		else
 		{
@@ -1171,7 +1171,7 @@ void sub_91010()
 			x_outp(v1 + 5, 8 * x_WORD_E39A4 - 8);
 			x_outp(v1 + 4, 53);
 			x_WORD_E39AA = x_inp(v1 + 5);
-			result = x_outp(v1 + 5, 8 * x_WORD_E39A6 - 8);
+			x_outp(v1 + 5, 8 * x_WORD_E39A6 - 8);
 		}
 		x_BYTE_E39B8 = 1;
 	}
@@ -2808,7 +2808,7 @@ void sub_844A0_sound_proc5(uint16_t count)//2654a0
 {
 	__int16 v0; // bx
 	//type_E37A0_sound_buffer2* v1x; // eax
-	int v2; // esi
+	//int v2; // esi
 
 	v0 = x_WORD_180B50;
 	if (soundIndex_E37A0 && x_DWORD_E37A8_sound_buffer1)
@@ -2844,7 +2844,7 @@ char ReadAndDecompressSound(FILE* file, unsigned __int8 a2)//2654f0
 {
 	//int v2; // ebx
 	//uint8_t* v3; // eax
-	char result; // al
+	//char result; // al
 	//int v5; // eax
 	//type_E37A0_sound_buffer2* v6x; // ebx
 	//uint8_t* v7; // esi
@@ -2992,23 +2992,23 @@ char ReadAndDecompressSound(FILE* file, unsigned __int8 a2)//2654f0
 //----- (0009E3A0) --------------------------------------------------------
 int sub_9E3A0_AIL_API_read_INI(AIL_INI* INI, char* filename/*,char* a8*/)//27f3a0
 {
-	unsigned int v2; // eax
-	unsigned int v3; // eax
-	unsigned int v4; // eax
-	unsigned int v5; // eax
+	//unsigned int v2; // eax
+	//unsigned int v3; // eax
+	//unsigned int v4; // eax
+	//unsigned int v5; // eax
 	//char v7[300]; // [esp+0h] [ebp-180h]
 	//char v8[200]; // [esp+80h] [ebp-100h]
 	//int16_t v9[12]; // [esp+100h] [ebp-80h]
-	FILE* v9x;
+	//FILE* v9x;
 	//errno_t v9y;
 	//__int16 v10; // [esp+102h] [ebp-7Eh]
 	//__int16 v11; // [esp+104h] [ebp-7Ch]
 	//__int16 v12; // [esp+106h] [ebp-7Ah]
-	char v13[80]; // [esp+118h] [ebp-68h]
-	char* v14; // [esp+168h] [ebp-18h]
-	char* key; // [esp+16Ch] [ebp-14h]
-	char* value; // [esp+170h] [ebp-10h]
-	unsigned int i; // [esp+174h] [ebp-Ch]
+	//char v13[80]; // [esp+118h] [ebp-68h]
+	//char* v14; // [esp+168h] [ebp-18h]
+	//char* key; // [esp+16Ch] [ebp-14h]
+	//char* value; // [esp+170h] [ebp-10h]
+	//unsigned int i; // [esp+174h] [ebp-Ch]
 	int v18; // [esp+178h] [ebp-8h]
 	//char v19[80]; // [esp+17Ch] [ebp-4h]
 
@@ -3151,20 +3151,20 @@ int sub_9E6E0_set_preference(uint32_t number, int32_t value)
 AIL_DRIVER* sub_9E720_AIL_API_install_driver(/*int a1, */uint8_t* driver_image, int32_t n_bytes)//27f720
 {
 	//VDI_HDR* v3; // edx
-	int v4; // ecx
-	int v5; // ST0C_4
-	int v6; // ST08_4
-	int v7; // ST0C_4
-	int v8; // ST08_4
-	int v9; // ST0C_4
-	int v10; // ST08_4
+	//int v4; // ecx
+	//int v5; // ST0C_4
+	//int v6; // ST08_4
+	//int v7; // ST0C_4
+	//int v8; // ST08_4
+	//int v9; // ST0C_4
+	//int v10; // ST08_4
 	AIL_DRIVER* result; // [esp+0h] [ebp-Ch]
 	unsigned int i; // [esp+4h] [ebp-8h]
 	AIL_DRIVER* v14; // [esp+8h] [ebp-4h]
 
 	//fix it
 	//v3 = new VDI_HDR();
-	v4 = 0;
+	//v4 = 0;
 	//fix it
 
 	v14 = (AIL_DRIVER*)malloc(sizeof(AIL_DRIVER));
@@ -3185,8 +3185,8 @@ AIL_DRIVER* sub_9E720_AIL_API_install_driver(/*int a1, */uint8_t* driver_image, 
 				if (_strnicmp((char*)v14->VHDR_4->ID_8, "AIL3MDI", 7))
 				{
 					qmemcpy(&x_BYTE_181C90, (void*)"Invalid driver type\n", 0x15u);
-					v5 = v14->sel_1;
-					v6 = v14->seg_0;
+					//v5 = v14->sel_1;
+					//v6 = v14->seg_0;
 					sub_9D560((uint8_t*)v14->buf_2);
 					sub_9D490_free4(v14, 44);
 					return 0;
@@ -3220,8 +3220,8 @@ AIL_DRIVER* sub_9E720_AIL_API_install_driver(/*int a1, */uint8_t* driver_image, 
 					{
 						qmemcpy(&x_BYTE_181C90, (void*)"Out of timer handles\n", 0x16u);
 						sub_91D50_AIL_set_real_vect(102, v14->VHDR_4->VDI_HDR_var54_prev_ISR);
-						v9 = v14->sel_1;
-						v10 = (int)v14->seg_0;
+						//v9 = v14->sel_1;
+						//v10 = (int)v14->seg_0;
 						sub_9D560((uint8_t*)v14->buf_2);
 						sub_9D490_free4(v14, 44);
 						return 0;
@@ -3237,8 +3237,8 @@ AIL_DRIVER* sub_9E720_AIL_API_install_driver(/*int a1, */uint8_t* driver_image, 
 				return v14;
 			}
 			qmemcpy(x_BYTE_181C90, (void*)"Out of driver handles\n", 0x17u);
-			v7 = v14->sel_1;
-			v8 = (int)v14->seg_0;
+			//v7 = v14->sel_1;
+			//v8 = (int)v14->seg_0;
 			sub_9D560((uint8_t*)v14->buf_2);
 			sub_9D490_free4(v14, 44);
 			result = 0;
@@ -3265,8 +3265,8 @@ AIL_DRIVER* sub_9E720_AIL_API_install_driver(/*int a1, */uint8_t* driver_image, 
 //----- (0009EA60) --------------------------------------------------------
 int sub_9EA60_AIL_API_uninstall_driver(AIL_DRIVER* a1)
 {
-	int v1; // ST0C_4
-	int v2; // ST08_4
+	//int v1; // ST0C_4
+	//int v2; // ST08_4
 	int result; // eax
 	signed int i; // [esp+0h] [ebp-4h]
 
@@ -3284,8 +3284,8 @@ int sub_9EA60_AIL_API_uninstall_driver(AIL_DRIVER* a1)
 		sub_91F70_AIL_call_driver(a1, 774, 0, 0);
 	}
 	sub_91D50_AIL_set_real_vect(102, 0/*(uint8_t*)*(x_DWORD *)(*(x_DWORD *)(a1 + 16) + 54)*/);//fix
-	v1 = a1->sel_1;
-	v2 = a1->seg_0;
+	//v1 = a1->sel_1;
+	//v2 = a1->seg_0;
 	sub_9D560((uint8_t*)a1->buf_2);
 	result = sub_9D490_free4(a1, 44);
 	for (i = 0; i < 16; i++)
@@ -3443,7 +3443,7 @@ void sub_9FA80()//280a80
 int sub_9F280(int* a1)//a1 bude nejaky driver
 {
 	VDI_CALL v2; // [esp+0h] [ebp-10h]
-	__int16 v3; // [esp+4h] [ebp-Ch]
+	//__int16 v3; // [esp+4h] [ebp-Ch]
 	__int16 v4; // [esp+6h] [ebp-Ah]
 	__int16 v5; // [esp+8h] [ebp-8h]
 	int v6; // [esp+Ch] [ebp-4h]
@@ -3453,7 +3453,7 @@ int sub_9F280(int* a1)//a1 bude nejaky driver
 	v5 = 0;
 	//fix it
 
-	v3 = 16;
+	//v3 = 16;
 	sub_91F70_AIL_call_driver((AIL_DRIVER*)*a1, 1286, &v2, &v2);
 	if (v2.AX == 0)//fix
 		v6 = -1;
@@ -3468,9 +3468,9 @@ VDI_CALL sub_9F2E0(int* a1, int  /*a2*/, unsigned __int16 a3, unsigned __int16 a
 	signed __int64 v4; // rax
 	unsigned __int16 v5; // ax
 	VDI_CALL v7; // [esp+0h] [ebp-10h]
-	__int16 v8; // [esp+4h] [ebp-Ch]
-	__int16 v9; // [esp+6h] [ebp-Ah]
-	__int16 v10; // [esp+8h] [ebp-8h]
+	//__int16 v8; // [esp+4h] [ebp-Ch]
+	//__int16 v9; // [esp+6h] [ebp-Ah]
+	//__int16 v10; // [esp+8h] [ebp-8h]
 
 	if (!*(x_DWORD*)x_BYTE_E3E54 && !*(x_WORD*)&x_BYTE_E3E54[4])
 	{
@@ -3488,9 +3488,9 @@ VDI_CALL sub_9F2E0(int* a1, int  /*a2*/, unsigned __int16 a3, unsigned __int16 a
 	v5 = sub_9F220(a3);
 	//__GS__ = *(x_WORD *)&x_BYTE_E3E54[4];
 	__writegsx_WORD(*(x_DWORD*)x_BYTE_E3E54 + 2, v5);
-	v8 = 17;
-	v9 = sub_9F220(*(unsigned __int16*)&x_BYTE_E3E54[4]);
-	v10 = 0;
+	//v8 = 17;
+	sub_9F220(*(unsigned __int16*)&x_BYTE_E3E54[4]);
+	//v10 = 0;
 	sub_91F70_AIL_call_driver((AIL_DRIVER*)*a1, 1286, &v7, &v7);
 	return v7;
 }
@@ -3502,7 +3502,7 @@ __int64 sub_9F3D0(int* a1, int  /*a2*/, unsigned __int16 a3, unsigned __int16 a4
 	unsigned __int16 v5; // ax
 	int v6; // ebx
 	VDI_CALL v8; // [esp+0h] [ebp-14h]
-	__int16 v9; // [esp+4h] [ebp-10h]
+	//__int16 v9; // [esp+4h] [ebp-10h]
 	__int16 v10; // [esp+6h] [ebp-Eh]
 	__int16 v11; // [esp+8h] [ebp-Ch]
 	__int64 v12; // [esp+Ch] [ebp-8h]
@@ -3517,7 +3517,7 @@ __int64 sub_9F3D0(int* a1, int  /*a2*/, unsigned __int16 a3, unsigned __int16 a4
 		v5 = sub_9F220(a3);
 		//__GS__ = *(x_WORD *)&x_BYTE_E3E54[4];
 		__writegsx_WORD(*(x_DWORD*)x_BYTE_E3E54 + 2, v5);
-		v9 = 23;
+		//v9 = 23;
 		v10 = sub_9F220(*(unsigned __int16*)&x_BYTE_E3E54[4]);
 		v11 = 0;
 		sub_91F70_AIL_call_driver((AIL_DRIVER*)*a1, 1286, &v8, &v8);
@@ -3547,9 +3547,9 @@ VDI_CALL sub_9F4F0(int* a1, int  /*a2*/, unsigned __int16 a3, unsigned __int16 a
 	signed __int64 v4; // rax
 	unsigned __int16 v5; // ax
 	VDI_CALL result; // [esp+0h] [ebp-10h]
-	__int16 v8; // [esp+4h] [ebp-Ch]
-	__int16 v9; // [esp+6h] [ebp-Ah]
-	__int16 v10; // [esp+8h] [ebp-8h]
+	//__int16 v8; // [esp+4h] [ebp-Ch]
+	//__int16 v9; // [esp+6h] [ebp-Ah]
+	//__int16 v10; // [esp+8h] [ebp-8h]
 
 	if (!*(x_DWORD*)x_BYTE_E3E54 && !*(x_WORD*)&x_BYTE_E3E54[4])
 	{
@@ -3567,9 +3567,9 @@ VDI_CALL sub_9F4F0(int* a1, int  /*a2*/, unsigned __int16 a3, unsigned __int16 a
 	v5 = sub_9F220(a3);
 	//__GS__ = *(x_WORD *)&x_BYTE_E3E54[4];
 	__writegsx_WORD(*(x_DWORD*)x_BYTE_E3E54 + 2, v5);
-	v8 = 24;
-	v9 = sub_9F220(*(unsigned __int16*)&x_BYTE_E3E54[4]);
-	v10 = 0;
+	//v8 = 24;
+	sub_9F220(*(unsigned __int16*)&x_BYTE_E3E54[4]);
+	//v10 = 0;
 	sub_91F70_AIL_call_driver((AIL_DRIVER*)*a1, 1286, &result, &result);
 	return result;
 }
@@ -3580,9 +3580,9 @@ VDI_CALL sub_9F5E0(int* a1, int  /*a2*/, unsigned __int16 a3, unsigned __int16 a
 	signed __int64 v4; // rax
 	unsigned __int16 v5; // ax
 	VDI_CALL result; // [esp+0h] [ebp-10h]
-	__int16 v8; // [esp+4h] [ebp-Ch]
-	__int16 v9; // [esp+6h] [ebp-Ah]
-	__int16 v10; // [esp+8h] [ebp-8h]
+	//__int16 v8; // [esp+4h] [ebp-Ch]
+	//__int16 v9; // [esp+6h] [ebp-Ah]
+	//__int16 v10; // [esp+8h] [ebp-8h]
 
 	if (!*(x_DWORD*)x_BYTE_E3E54 && !*(x_WORD*)&x_BYTE_E3E54[4])
 	{
@@ -3600,9 +3600,9 @@ VDI_CALL sub_9F5E0(int* a1, int  /*a2*/, unsigned __int16 a3, unsigned __int16 a
 	v5 = sub_9F220(a3);
 	//__GS__ = *(x_WORD *)&x_BYTE_E3E54[4];
 	__writegsx_WORD(*(x_DWORD*)x_BYTE_E3E54 + 2, v5);
-	v8 = 25;
-	v9 = sub_9F220(*(unsigned __int16*)&x_BYTE_E3E54[4]);
-	v10 = 0;
+	//v8 = 25;
+	sub_9F220(*(unsigned __int16*)&x_BYTE_E3E54[4]);
+	//v10 = 0;
 	sub_91F70_AIL_call_driver((AIL_DRIVER*)*a1, 1286, &result, &result);
 	return result;
 }
@@ -3611,14 +3611,14 @@ VDI_CALL sub_9F5E0(int* a1, int  /*a2*/, unsigned __int16 a3, unsigned __int16 a
 VDI_CALL sub_9F6D0(int* a1, __int16 a2)
 {
 	VDI_CALL result; // [esp+0h] [ebp-10h]
-	__int16 v4; // [esp+4h] [ebp-Ch]
-	__int16 v5; // [esp+6h] [ebp-Ah]
+	//__int16 v4; // [esp+4h] [ebp-Ch]
+	//__int16 v5; // [esp+6h] [ebp-Ah]
 
 	sub_9F170(*(int*)x_BYTE_E3E54, *(unsigned __int16*)&x_BYTE_E3E54[4]);
 	*(x_WORD*)&x_BYTE_E3E54[4] = 0;
 	*(x_DWORD*)x_BYTE_E3E54 = 0;
-	v4 = 18;
-	v5 = a2;
+	//v4 = 18;
+	//v5 = a2;
 	sub_91F70_AIL_call_driver((AIL_DRIVER*)*a1, 1286, &result, &result);
 	return result;
 }
@@ -4272,13 +4272,13 @@ void sub_A1840_AIL_API_set_timer_frequency(HTIMER  /*timer*/, uint32_t  /*hertz*
 //----- (000A1870) --------------------------------------------------------
 void sub_A1870(int  /*a1*/, unsigned int a2)//282870
 {
-	int v2; // eax
+	//int v2; // eax
 
 	sub_91BD0_s_plus();
-	if (a2)
-		v2 = 10000 * (unsigned __int64)a2 / 0x2E9C;
-	else
-		v2 = 54925;
+	//if (a2)
+	//	v2 = 10000 * (unsigned __int64)a2 / 0x2E9C;
+	//else
+	//	v2 = 54925;
 	//sub_92890_AIL_set_timer_period(a1, v2);
 	sub_91BF0_s_minus();
 }
@@ -4294,8 +4294,8 @@ int sub_A18B2()//2828b2
 void sub_A2070(HDIGDRIVER a1)//283070
 {
 	VDI_CALL v2; // [esp+0h] [ebp-Ch]
-	__int16 v3; // [esp+4h] [ebp-8h]
-	__int16 v4; // [esp+6h] [ebp-6h]
+	//__int16 v3; // [esp+4h] [ebp-8h]
+	//__int16 v4; // [esp+6h] [ebp-6h]
 
 	/*
 	cx=5622
@@ -4306,8 +4306,8 @@ void sub_A2070(HDIGDRIVER a1)//283070
 
 	if (!a1->playing_21)
 	{
-		v4 = a1->hw_format_6;
-		v3 = a1->DMA_rate_5;
+		//v4 = a1->hw_format_6;
+		//v3 = a1->DMA_rate_5;
 		sub_91F70_AIL_call_driver(a1->drvr_0, 1025, &v2, 0);
 		a1->playing_21 = 1;
 	}
@@ -4708,7 +4708,7 @@ int sub_A2C80(HDIGDRIVER a1, IO_PARMS*  /*a2*/)//283c80
 	//__int16 v6; // [esp+6h] [ebp-2Ah]
 	int16_t v7[4]; // [esp+8h] [ebp-28h]
 	VDI_CALL v8; // [esp+18h] [ebp-18h]
-	int16_t v9; // [esp+1Eh] [ebp-12h]
+	//int16_t v9; // [esp+1Eh] [ebp-12h]
 	unsigned int i; // [esp+24h] [ebp-Ch]
 	int16_t* v11; // [esp+28h] [ebp-8h]
 
@@ -4756,10 +4756,10 @@ int sub_A2C80(HDIGDRIVER a1, IO_PARMS*  /*a2*/)//283c80
 		}
 	}
 	qmemcpy((void*)&(a1->drvr_0->VHDR_4->IO), v3, 0x18u);
-	if (x_DWORD_181DAC[9])
-		v9 = 3;
-	else
-		v9 = 1;
+	//if (x_DWORD_181DAC[9])
+	//	v9 = 3;
+	//else
+	//	v9 = 1;
 	return sub_91F70_AIL_call_driver(a1->drvr_0, 772, &v8, 0);
 }
 // 181DD0: using guessed type int x_DWORD_181DD0;
@@ -4767,18 +4767,18 @@ int sub_A2C80(HDIGDRIVER a1, IO_PARMS*  /*a2*/)//283c80
 //----- (000A2EA0) --------------------------------------------------------
 HDIGDRIVER sub_A2EA0(AIL_DRIVER* a1, IO_PARMS IO)//283ea0
 {
-	int v2; // ST0C_4
-	int v3; // ST08_4
-	int v4; // ST0C_4
-	int v5; // ST08_4
+	//int v2; // ST0C_4
+	//int v3; // ST08_4
+	//int v4; // ST0C_4
+	//int v5; // ST08_4
 	uint8_t* v6; // eax
-	int v7; // ST0C_4
-	int v8; // ST08_4
-	int v9; // ST0C_4
-	int v10; // ST08_4
+	//int v7; // ST0C_4
+	//int v8; // ST08_4
+	//int v9; // ST0C_4
+	//int v10; // ST08_4
 	unsigned int v11; // eax
-	int v12; // ST0C_4
-	int v13; // ST08_4
+	//int v12; // ST0C_4
+	//int v13; // ST08_4
 	uint8_t v15[0x18 * 4]; // [esp+0h] [ebp-50h]
 	VDI_CALL v16/*[100]*/; // [esp+18h] [ebp-38h]
 	//int16_t v17; // [esp+1Ah] [ebp-36h]
@@ -4894,8 +4894,8 @@ HDIGDRIVER sub_A2EA0(AIL_DRIVER* a1, IO_PARMS IO)//283ea0
 					}
 					if (v26->DMA_buf_10)
 					{
-						v2 = v26->DMA_sel_9;
-						v3 = v26->DMA_seg_8;
+						//v2 = v26->DMA_sel_9;
+						//v3 = v26->DMA_seg_8;
 						sub_9D560((uint8_t*)v26->DMA_buf_10);
 					}
 					v26->DMA_buf_10 = (void*)v30;
@@ -4937,11 +4937,11 @@ HDIGDRIVER sub_A2EA0(AIL_DRIVER* a1, IO_PARMS IO)//283ea0
 									sub_91E90_AIL_restore_USE16_ISR(a1->PM_ISR_7);
 								sub_91F70_AIL_call_driver(v26->drvr_0, 774, 0, 0);
 								v26->n_samples_24 = 0;
-								v12 = v26->DMA_sel_9;
+								//v12 = v26->DMA_sel_9;
 #ifdef TEST_x64
 	allert_error();
 #endif
-								v13 = v26->DMA_seg_8;
+								//v13 = v26->DMA_seg_8;
 								sub_9D560((uint8_t*)v26->DMA_buf_10);
 								sub_9D490_free4(v26->samples_23, sizeof(_SAMPLE) * v26->n_samples_24);
 								sub_9D490_free4(v26->build_buffer_20, v26->build_size_19);
@@ -4969,8 +4969,8 @@ HDIGDRIVER sub_A2EA0(AIL_DRIVER* a1, IO_PARMS IO)//283ea0
 								sub_91E90_AIL_restore_USE16_ISR(a1->PM_ISR_7);
 							sub_91F70_AIL_call_driver(v26->drvr_0, 774, 0, 0);
 							v26->n_samples_24 = 0;
-							v9 = v26->DMA_sel_9;
-							v10 = v26->DMA_seg_8;
+							//v9 = v26->DMA_sel_9;
+							//v10 = v26->DMA_seg_8;
 							sub_9D560((uint8_t*)v26->DMA_buf_10);
 							sub_9D490_free4(v26->samples_23, v26->build_size_19);
 							sub_9D490_free4(v26, 140);
@@ -4984,8 +4984,8 @@ HDIGDRIVER sub_A2EA0(AIL_DRIVER* a1, IO_PARMS IO)//283ea0
 							sub_91E90_AIL_restore_USE16_ISR(a1->PM_ISR_7);
 						sub_91F70_AIL_call_driver(v26->drvr_0, 774, 0, 0);
 						v26->n_samples_24 = 0;
-						v7 = v26->DMA_sel_9;
-						v8 = v26->DMA_seg_8;
+						//v7 = v26->DMA_sel_9;
+						//v8 = v26->DMA_seg_8;
 						sub_9D560((uint8_t*)v26->DMA_buf_10);
 						sub_9D490_free4(v26, 140);
 						result = 0;
@@ -4993,8 +4993,8 @@ HDIGDRIVER sub_A2EA0(AIL_DRIVER* a1, IO_PARMS IO)//283ea0
 				}
 				else
 				{
-					v4 = v26->DMA_sel_9;
-					v5 = v26->DMA_seg_8;
+					//v4 = v26->DMA_sel_9;
+					//v5 = v26->DMA_seg_8;
 					sub_9D560((uint8_t*)v26->DMA_buf_10);
 					sub_9D490_free4(v26, 140);
 					result = 0;
@@ -5267,7 +5267,8 @@ void init_hqsound(HSAMPLE S) {
 
 		uint16_t lastval = ((uint8_t*)S->start_2_3[0])[0] * 256;
 		uint16_t actval;
-		int16_t val1, val2, val3, val4;
+		//int16_t val1, val2, val3, val4;
+		int16_t val1, val3;
 		for (int i = 0; i < S->len_4_5[0]; i++)
 		{
 			actval = ((uint8_t*)S->start_2_3[0])[i] * 256;
@@ -5614,7 +5615,7 @@ void sub_A3F00_set_sample_user_data(HSAMPLE S, int index, int  /*a3*/)//284f00
 	{
 		//result = a3;
 		//*(x_DWORD *)(4 * a2 + S + 2132) = a3;
-		S->sam_var[533 + index];
+		//S->sam_var[533 + index];
 	}
 	//return result;
 }
@@ -5655,30 +5656,30 @@ int sub_A3FE0(int a1)//284fe0
 //----- (000A4000) --------------------------------------------------------
 char sub_A4000(x_DWORD* a1, int a2, unsigned int a3)//285000
 {
-	int v3; // ST04_4
-	signed int v5; // [esp+Ch] [ebp-4h]
+	//int v3; // ST04_4
+	//signed int v5; // [esp+Ch] [ebp-4h]
 
-	if (a3 <= 3)
-	{
-		switch (a3)
-		{
-		case 0u:
-			v5 = 1;
-			break;
-		case 1u:
-			v5 = 2;
-			break;
-		case 2u:
-			v5 = 2;
-			break;
-		case 3u:
-			v5 = 4;
-			break;
-		}
-	}
-	v3 = a2 * (v5 * a1[4] / (a1[16] * a1[15])) / a1[5];
-	if (a1[5] != a2 && 2 * a2 != a1[5])
-		a1[5];
+	//if (a3 <= 3)
+	//{
+	//	switch (a3)
+	//	{
+	//	case 0u:
+	//		v5 = 1;
+	//		break;
+	//	case 1u:
+	//		v5 = 2;
+	//		break;
+	//	case 2u:
+	//		v5 = 2;
+	//		break;
+	//	case 3u:
+	//		v5 = 4;
+	//		break;
+	//	}
+	//}
+	//v3 = a2 * (v5 * a1[4] / (a1[16] * a1[15])) / a1[5];
+	//if (a1[5] != a2 && 2 * a2 != a1[5])
+		//a1[5];
 	return 0;
 }
 
@@ -5970,12 +5971,12 @@ void sub_A4EB0(HMDIDRIVER a1)//285eb0
 {
 	//HMDIDRIVER result; // eax
 	VDI_CALL v2; // [esp+0h] [ebp-Ch]
-	__int16 v3; // [esp+4h] [ebp-8h]
+	//__int16 v3; // [esp+4h] [ebp-8h]
 
 	//result = a1;
 	if (a1->var106_aildrv > 0)
 	{
-		v3 = a1->var106_aildrv;
+		//v3 = a1->var106_aildrv;
 		sub_91F70_AIL_call_driver(a1->drvr_0, 1282, &v2, 0);
 		a1->var106_aildrv = 0;
 		//result = a1;
@@ -7892,9 +7893,9 @@ int sub_A8550(int a1)
 int sub_A8570_sound_proc39(int* a1, __int16 a2, __int16 a3)
 {
 	VDI_CALL v4; // [esp+0h] [ebp-10h]
-	__int16 v5; // [esp+4h] [ebp-Ch]
+	//__int16 v5; // [esp+4h] [ebp-Ch]
 
-	v5 = (a2 << 8) | a3;
+	//v5 = (a2 << 8) | a3;
 	return sub_91F70_AIL_call_driver((AIL_DRIVER*)*a1, 1284, &v4, 0);
 }
 
@@ -7934,11 +7935,11 @@ VDI_CALL sub_A85B0_sound_proc40(int* a1, int a2, int a3)
 int sub_A8690_sound_proc41(int* a1, __int16 a2, __int16 a3)
 {
 	VDI_CALL v4; // [esp+0h] [ebp-Ch]
-	__int16 v5; // [esp+4h] [ebp-8h]
-	__int16 v6; // [esp+6h] [ebp-6h]
+	//__int16 v5; // [esp+4h] [ebp-8h]
+	//__int16 v6; // [esp+6h] [ebp-6h]
 
-	v5 = (a2 << 8) | a3;
-	v6 = 1;
+	//v5 = (a2 << 8) | a3;
+	//v6 = 1;
 	return sub_91F70_AIL_call_driver((AIL_DRIVER*)*a1, 1285, &v4, 0);
 }
 
@@ -7946,11 +7947,11 @@ int sub_A8690_sound_proc41(int* a1, __int16 a2, __int16 a3)
 int sub_A86D0_sound_proc42(int* a1, __int16 a2, __int16 a3)
 {
 	VDI_CALL v4; // [esp+0h] [ebp-Ch]
-	__int16 v5; // [esp+4h] [ebp-8h]
-	__int16 v6; // [esp+6h] [ebp-6h]
+	//__int16 v5; // [esp+4h] [ebp-8h]
+	//__int16 v6; // [esp+6h] [ebp-6h]
 
-	v5 = (a2 << 8) | a3;
-	v6 = 0;
+	//v5 = (a2 << 8) | a3;
+	//v6 = 0;
 	return sub_91F70_AIL_call_driver((AIL_DRIVER*)*a1, 1285, &v4, 0);
 }
 
@@ -8911,8 +8912,8 @@ void AIL_fix() {
 //----- (0009F110) --------------------------------------------------------
 signed __int64 sub_9F110(int a1)
 {
-	int v2; // [esp+0h] [ebp-24h]
-	int v3; // [esp+4h] [ebp-20h]
+	//int v2; // [esp+0h] [ebp-24h]
+	//int v3; // [esp+4h] [ebp-20h]
 	int v4; // [esp+Ch] [ebp-18h]
 	int v5; // [esp+18h] [ebp-Ch]
 	unsigned int v6; // [esp+20h] [ebp-4h]
@@ -8922,8 +8923,8 @@ signed __int64 sub_9F110(int a1)
 	v5 = 0;
 	//fix it
 
-	v2 = 256;
-	v3 = (a1 + 15) >> 4;
+	//v2 = 256;
+	//v3 = (a1 + 15) >> 4;
 	//int386(49, (REGS*)&v2, (REGS*)&v2);
 	if (v5)
 		LOWORD(v6) = 0;
@@ -8936,8 +8937,8 @@ signed __int64 sub_9F110(int a1)
 //----- (0009F170) --------------------------------------------------------
 int sub_9F170(int  /*a1*/, unsigned __int16 a2)
 {
-	int v3; // [esp+0h] [ebp-20h]
-	int v4; // [esp+Ch] [ebp-14h]
+	//int v3; // [esp+0h] [ebp-20h]
+	//int v4; // [esp+Ch] [ebp-14h]
 	int v5; // [esp+18h] [ebp-8h]
 	int v6; // [esp+1Ch] [ebp-4h]
 
@@ -8945,8 +8946,8 @@ int sub_9F170(int  /*a1*/, unsigned __int16 a2)
 	v5 = 0;
 	//fix it
 
-	v3 = 257;
-	v4 = a2;
+	//v3 = 257;
+	//v4 = a2;
 	//int386(49, (REGS*)&v3, (REGS*)&v3);
 	if (v5)
 		v6 = -1;
@@ -8960,7 +8961,7 @@ int sub_9F170(int  /*a1*/, unsigned __int16 a2)
 int sub_9F1D0(int a1)
 {
 	int v2; // [esp+0h] [ebp-20h]
-	int v3; // [esp+4h] [ebp-1Ch]
+	//int v3; // [esp+4h] [ebp-1Ch]
 	int v4; // [esp+18h] [ebp-8h]
 	int v5; // [esp+1Ch] [ebp-4h]
 
@@ -8969,7 +8970,7 @@ int sub_9F1D0(int a1)
 	//fix it
 
 	v2 = 2;
-	v3 = a1;
+	//v3 = a1;
 	//int386(49, (REGS*)&v2, (REGS*)&v2);
 	if (v4)
 		v5 = -1;
@@ -8982,8 +8983,8 @@ int sub_9F1D0(int a1)
 //----- (0009F220) --------------------------------------------------------
 int sub_9F220(int a1)
 {
-	int v2; // [esp+0h] [ebp-20h]
-	int v3; // [esp+4h] [ebp-1Ch]
+	//int v2; // [esp+0h] [ebp-20h]
+	//int v3; // [esp+4h] [ebp-1Ch]
 	unsigned __int16 v4; // [esp+8h] [ebp-18h]
 	unsigned __int16 v5; // [esp+Ch] [ebp-14h]
 	int v6; // [esp+18h] [ebp-8h]
@@ -8998,8 +8999,8 @@ int sub_9F220(int a1)
 	v6 = 0;
 	//fix it
 
-	v2 = 6;
-	v3 = a1;
+	//v2 = 6;
+	//v3 = a1;
 	//int386(49, (REGS*)&v2, (REGS*)&v2);
 	if (v6)
 		v7 = -1;
@@ -9016,7 +9017,7 @@ int sub_B0B87(HDIGDRIVER a1, int a2)
 	int* v3; // esi
 	int v4; // ecx
 	uint8_t* v5; // edi
-	int v6; // eax
+	//int v6; // eax
 
 	//fix
 	v5 = 0;
@@ -9042,8 +9043,8 @@ int sub_B0B87(HDIGDRIVER a1, int a2)
 		//v5 = (x_BYTE *)a1[a2 + 11];//fix it!
 		v5 = (uint8_t*)a1->DMA_11_12[a2];//fix it
 
-		if (a1->hw_mode_flags_7 & 8)
-			v6 = a1->half_buffer_size_4;
+		//if (a1->hw_mode_flags_7 & 8)
+			//v6 = a1->half_buffer_size_4;
 	}
 	return ((int(*)(int, x_BYTE*, int*))off_AEB40[x_DWORD_E4E1C])(v4, (int8*)v5, v3);
 }
@@ -9187,12 +9188,12 @@ char LoadMusicTrack(FILE* filehandle, uint8_t drivernumber)//26fd00
 	//int32_t header[16]; // [esp+0h] [ebp-5Ch] //355024
 	type_v8 headerx[4];
 	//uint8_t* midibuffer1; // [esp+40h] [ebp-1Ch]
-	int filelenght; // [esp+44h] [ebp-18h]
+	//int filelenght; // [esp+44h] [ebp-18h]
 	//uint8_t* midibuffer2; // [esp+4Ch] [ebp-10h]
 	int rncsize; // [esp+50h] [ebp-Ch]
 	unsigned __int8 i; // [esp+58h] [ebp-4h]
 
-	filelenght = myftell(filehandle);
+	myftell(filehandle);
 	DataFileIO::Read(filehandle, (uint8_t*)headerx, 64);
 	//if (header[1 + 4 * drivernumber] == -1)
 	if (headerx[drivernumber].dword_4 == -1)
@@ -9472,7 +9473,7 @@ void sub_8F100_sound_proc19(uint32_t a1, __int16 index, int volume, int a4, unsi
 	sub_93F70_AIL_set_sample_loop_count(*v14, a6 + 1);
 #ifdef DEBUG_SOUND
 	if (debug_first_sound) {
-		uint8_t* debug_sound_buff = soundIndex_E37A0->str_8.wavs_10[index].wavData_0;
+		//uint8_t* debug_sound_buff = soundIndex_E37A0->str_8.wavs_10[index].wavData_0;
 		debug_printf("sub_8F100_sound_proc19:44mhz:\n");
 		//for (int i = 0; i < 100; i++)
 		//	debug_printf("%02X", ((uint8_t*)((*v14)->start_44mhz))[i]);
@@ -9904,7 +9905,7 @@ int sub_9A230_set_x_WORD_E37B4(int a1)//27B230
 //----- (000ACB61) --------------------------------------------------------
 signed int sub_ACB61(int a1, unsigned __int8* a2, int* a3)//28db61
 {
-	int* v3; // edi
+	//int* v3; // edi
 	int v4; // ebp
 	unsigned __int8* v5; // ebx
 	unsigned __int8* v6; // ecx
@@ -9914,10 +9915,10 @@ signed int sub_ACB61(int a1, unsigned __int8* a2, int* a3)//28db61
 	unsigned int v10; // ebx
 	int v11; // eax
 	signed int result; // eax
-	int v13; // [esp-4h] [ebp-18h]
+	//int v13; // [esp-4h] [ebp-18h]
 	signed int v14; // [esp+0h] [ebp-14h]
 
-	v3 = a3;
+	//v3 = a3;
 	v4 = 0;
 	v14 = 0;
 	*(x_BYTE*)(a1 + 16) &= 0xFDu;
@@ -9975,7 +9976,7 @@ signed int sub_ACB61(int a1, unsigned __int8* a2, int* a3)//28db61
 					{
 						if (v10 > 0x63)
 						{
-							v13 = 1;
+							//v13 = 1;
 							goto LABEL_40;
 						}
 						//v11 = sub_ACE8D((x_WORD *)a1, a1, v3);
@@ -10035,7 +10036,7 @@ signed int sub_ACB61(int a1, unsigned __int8* a2, int* a3)//28db61
 					{
 						if (v10 <= 0x75)
 						{
-							v13 = 0;
+							//v13 = 0;
 						LABEL_40:
 							//sub_AD52B(a1, v3, 10, v13);
 							goto LABEL_50;
