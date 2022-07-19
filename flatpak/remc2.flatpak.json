@@ -31,7 +31,6 @@
                 "-DUSE_SANITIZERS=False", 
                 "-DUSE_CLANG_TIDY=False", 
                 "-DALL_WARNINGS=False", 
-                "-DUSE_64_BIT=True",
                 "-DFLATPAK=True"
             ],
             "sources": [
