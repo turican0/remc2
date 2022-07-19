@@ -1,0 +1,21 @@
+{
+    "name": "boost",
+    "config-opts": [
+        "--with-libraries=filesystem,locale,regex,system,thread"
+    ],
+    "sources": [
+        {
+            "type": "archive",
+            "url": "https://downloads.sourceforge.net/project/boost/boost/1.66.0/boost_1_66_0.tar.bz2",
+            "sha256": "5721818253e6a0989583192f96782c4a98eb6204965316df9f5ad75819225ca9"
+        },
+        {
+            "type": "file",
+            "path": "configure",
+            "dest-filename": "configure"
+        }
+    ],
+    "cleanup": [
+        "/include"
+    ]
+}

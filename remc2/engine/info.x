@@ -15,7 +15,7 @@ add =1a1038
 
 typedef struct pathstruct {
 	char path[ 1c];
-	int32_t* var28_begin_buffer;//1C // asi buffer
+	int32_t* colorPalette_var28;//1C // asi buffer
 	int32_t* var32_end_buffer;//20 // asi buffer
 	uint32_t var36_size_buffer;//24 //asi file size
 	uint32_t var40_alloc_type;//28
@@ -25,7 +25,7 @@ sub_9A32D - malloc open unpack
 
 unk_D4350 - 2A5350
 
-  sub_53E60_readfile_and_decompress("data/pald-0.dat", (uint8_t*)x_DWORD_EA3D8_pallette);
+  sub_53E60_readfile_and_decompress("data/pald-0.dat", (uint8_t*)x_DWORD_EA3D8_Palette);
   sub_53E60_readfile_and_decompress("data/clrd-0.dat", (uint8_t*)x_BYTE_E8900);
 
   ebx 0
@@ -70,7 +70,7 @@ pointers_buffer - off_D918C
 
   Problem1:-ok
 
-    v3 = (x_BYTE*)xasearchd.var28_begin_buffer;//002bac30 //je to v 23c8d0,23cf50,265250,27B32d, nekde u 27b453
+    v3 = (x_BYTE*)xasearchd.colorPalette_var28;//002bac30 //je to v 23c8d0,23cf50,265250,27B32d, nekde u 27b453
   result = 0;
 
   Problem2:
@@ -249,7 +249,7 @@ void /*__cdecl*/ sub_7A110(char a1, char a2)//25b110
 25ba70
 
 sub_9A0FC
-sub_41A90_VGA_pallette_install
+sub_41A90_VGA_Palette_install
 
 vylepsit sub_90B27_VGA_command
 
@@ -258,9 +258,9 @@ v8[i] = x_BYTE_181544[i] + ((unk_181B42 >> 16) * (buffer[i] - x_BYTE_181544[i]) 
 //352b42 352544
 
 find
-void /*__cdecl*/ sub_41A90_VGA_pallette_install(uint8_t* buffer)//222a90
+void /*__cdecl*/ sub_41A90_VGA_Palette_install(uint8_t* buffer)//222a90
 and
-void /*__cdecl*/ sub_A0D2C_VGA_get_pallette(uint8_t* buffer)
+void /*__cdecl*/ sub_A0D2C_VGA_get_Palette(uint8_t* buffer)
 
 sub_90B27_VGA_pal_fadein_fadeout((uint8_t*)x_DWORD_17DE38,  20u, 0);//271b27 - tady se nacita paleta
 000000 1a1a15 13120f
@@ -328,7 +328,7 @@ esi=[esi], tj 47ae48
 odladit
 signed int sub_7E0E0()//25f0e0
 
-pdwScreenBuffer
+pdwScreenBuffer_351628
 texture
 a dalsi
 v
@@ -339,7 +339,7 @@ najit puvod a1 v 270935
 je to promenna 1a6f48
 v void sub_8CD27(Pathstruct a1)//26dd27
 0 0 1a6f44
-spust sub_8F8B0(0, 0, a1.var28_begin_buffer[0]);//2708B0 super inicializace //a2 ma byt 86 nebo a1 nema nikam ukazovat
+spust sub_8F8B0(0, 0, a1.colorPalette_var28[0]);//2708B0 super inicializace //a2 ma byt 86 nebo a1 nema nikam ukazovat
   
 
 hleda se puvod:
@@ -360,7 +360,7 @@ hlavni procedura-
 char /*__cdecl*/ sub_779E0(int a1)//2589E0
 34eed4? - void /*__cdecl*/ sub_7A110(char a1, char a2)//25b110
 [34eed4]<-[[34ee48]+4d54a+38cdf] - toto zkontrolovat
-x_DWORD_17DE38 = *xadatapald0dat2.var28_begin_buffer;
+x_DWORD_17DE38 = *xadatapald0dat2.colorPalette_var28;
 
 toto se nakrmi zde:
 19b
@@ -368,10 +368,10 @@ toto se nakrmi zde:
 push 2a2a18
 call 25ba70
 
-48c73d - zkontrolovat xadatapald0dat2.var28_begin_buffer:
+48c73d - zkontrolovat xadatapald0dat2.colorPalette_var28:
 000000000000020000005d5fc2220000
 
-xadatapald0dat2.var28_begin_buffer
+xadatapald0dat2.colorPalette_var28
 x_DWORD_EA3D8 - 2bb3d8->58731a
 prirazeno v  23vf50
 sub_5BF50_load_psxdata()
@@ -394,7 +394,7 @@ jeste je treba rozlustit toto:
 najit problem zde:
 
 //4527b9=[ebp+66]+6 4527bf 161545005835->58e2e2e2e2e2
-sub_2BB40(263, 134, xadatalang.var28_begin_buffer[0]);//20cb40
+sub_2BB40(263, 134, xadatalang.colorPalette_var28[0]);//20cb40
 4527bf se nakrmi v:
 
 push eax - 3550d2 -> d2.txt
@@ -436,9 +436,9 @@ v ní opravit:
 sub_7FAE0(v87, v99, a4, v98, v86);
 
 problemek:
-v12 = sub_5BE80_index_pallette(x_DWORD_17DE38, 0, 0, v86);
+v12 = sub_5BE80_index_Palette(x_DWORD_17DE38, 0, 0, v86);
 
-v12 = sub_5BE80_index_pallette(x_DWORD_17DE38, 0, 0, v86);//mozny problem
+v12 = sub_5BE80_index_Palette(x_DWORD_17DE38, 0, 0, v86);//mozny problem
 
  260ae0
 
@@ -466,7 +466,7 @@ zde se nastavi:
 sub_2BB40(263, 134, v1_langdattab[1].pointer);//20cb40
 -sub_8F8E8(a1, a2, a3);
 druhy pruchod:qmemcpy(&v21_buffer_temp_index1[outindex], &texture[inindex], count);
-chyba je v nastaveni x_DWORD_18062C_resolution_x(35162c) - coz ma byt  280 - 640
+chyba je v nastaveni screenWidth_18062C(35162c) - coz ma byt  280 - 640
 
 problém zde:
 
@@ -474,7 +474,7 @@ while ( v141 );
       }
       else if ( x_WORD_E36D4 &  40 )
       {
-        v56 = (char *)(x_DWORD_18062C_resolution_x * tiley + tilex + pixel_buffer_index);
+        v56 = (char *)(screenWidth_18062C * tiley + tilex + pixel_buffer_index);
 
 sub_72C40(v5, v6, x_DWORD_17DEC0_spritestr[v4[0]].pointer, a4);
 
@@ -1672,7 +1672,7 @@ if ( !byte_E3766 )
 	x_DWORD_180700 - 351700 // tady mozna nevadi - nealokovane pole
 	x_DWORD_1806F0 - 3516f0 // tady mozna take ne - nealokovane pole
 	x_DWORD_180730 - 351730 - 191919 fefefefe		
-	x_DWORD_18062C_resolution_x - 35162c musi byt 40
+	screenWidth_18062C - 35162c musi byt 40
 
 	vlajka se prekresli v 258cba - v prvnim kroku je puvodni vlajka, ale v druhem
 	se vlajka nastavi
@@ -1682,7 +1682,7 @@ if ( !byte_E3766 )
 	misto vlajky:
 	 152C0
 
-	x_DWORD_18062C_resolution_x(351628) -3BF364
+	screenWidth_18062C(351628) -3BF364
 	27b144 - tady se vlajka smaze
 	sub_7F960 / 260960 - prekresli texturu vlajky
 
@@ -1737,14 +1737,14 @@ if ( !byte_E3766 )
 	versus
 	2b22f4 = a4a03a00000000001000000
 
-	pdwScreenBuffer
+	pdwScreenBuffer_351628
 
 	34eb50
 	a
 	x_DWORD_17DB50->a4523f
 
 	v3 = (char*)"COLOUR256 ";
-    sub_76260_read_intro_pallette( 100);
+    sub_76260_read_intro_Palette( 100);
 	-tady je to ok
 	v7 = (char*)"BRUN ";//ok
     sub_76540();
@@ -1776,8 +1776,8 @@ zkontrolovat tento kod:
     sub_9A0FC_wait_to_screen_beam();//27b0fc
     if ( x_WORD_E12FC )
     {
-      sub_41A90_VGA_pallette_install(unk_17D838);
-      v19 = sub_5BE80_test_pallette(unk_17D838,  3Fu,  3Fu,  3Fu);
+      sub_41A90_VGA_Palette_install(unk_17D838);
+      v19 = sub_5BE80_test_Palette(unk_17D838,  3Fu,  3Fu,  3Fu);
       sub_2EC90(v19);//20fc90
 
 zkontrolovat paletu:
@@ -1799,22 +1799,22 @@ setbyte is color
 
 void sub_8F935_bitmap_draw_final(uint8_t a1byte1,uint8_t a1byte2, uint16_t tiley, int tilex, uint8_t* texture, uint8_t setbyte, char a6)//270935
 
-	memset(pdwScreenBuffer, 127, 320*200);//debug
-		//VGA_Blit(320, 200, pdwScreenBuffer);
+	memset(pdwScreenBuffer_351628, 127, 320*200);//debug
+		//VGA_Blit(320, 200, pdwScreenBuffer_351628);
 	sub_2EBB0_draw_text_with_border_63 340(x_DWORD_E9C4C_langindexbuffer[a1]);//fix it - edx
 	sub_90478_VGA_Blit320();//debug
 }
 
 void sub_loc_1B5BC(uint16_t a1) {
-	memset(pdwScreenBuffer, 200, 320*200);//debug
-	Set_basic_pallette();
+	memset(pdwScreenBuffer_351628, 200, 320*200);//debug
+	Set_basic_Palette();
 	sub_2EBB0_draw_text_with_border_63 340(x_DWORD_E9C4C_langindexbuffer[a1]);//fix it - edx
 	sub_90478_VGA_Blit320();//debug
 }
 
 void sub_76160_play_intro(__int16 a1, __int16 a2, uint8_t* a3)//257160
 
-pdwScreenBuffer
+pdwScreenBuffer_351628
 
  3aa0a4
 
@@ -1915,7 +1915,7 @@ sub_5B8D0_initialize_ 0023C8D0
 	sub_5BF50_load_psxdata()-23CF50
 		sub_84250_load_file_array-265250
 			sub_9A32D_malloc_open_unpack-27b32d
-*pstr[3].var28_begin_buffer,100
+*pstr[3].colorPalette_var28,100
 
 tempposistruct.pointer= &x_DWORD_EA3D4[v8];//fixed
 
@@ -1923,7 +1923,7 @@ tempposistruct.pointer= &x_DWORD_EA3D4[v8];//fixed
 -prvni 24fb90
 19f990->59361a00 080e 70361a00 08 0e 85361a00
 nekde se to musi upravit a tam z toho bude posistruct
-sub_7AC00_load_and_set_graphics_and_pallette - 25bc00
+sub_7AC00_load_and_set_graphics_and_Palette - 25bc00
 	24fbf0
 
 sub_6EBF0(&filearray_2aa18c[filearrayindex_POINTERSDATTAB]);
@@ -1948,7 +1948,7 @@ sub_5B8D0_initialize()//23c8d0
 toto je cil!
 Pathstruct x_DWORD_E9B20 = filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct;
 
-sub_7AC00_load_and_set_graphics_and_pallette - tady to nutne zkontrolovat
+sub_7AC00_load_and_set_graphics_and_Palette - tady to nutne zkontrolovat
 v 19f0ec
 25cc28
 
@@ -1989,7 +1989,7 @@ find x_DWORD_E9C2C);//2bac2c
 
 sub_5BF50_load_psxdata()
 
-x_DWORD_E9C2C == pstr[psxadatablock32dat].var28_begin_buffer
+x_DWORD_E9C2C == pstr[psxadatablock32dat].colorPalette_var28
 
 find &off_D41A8);//2a51a8
 
@@ -2464,7 +2464,7 @@ dword_EA3BC - 2bb3bc
 sub_84250_load_file_array
 sub_5BF50_load_psxdata -23cf50
 ->1a7088 - 000000 ... 1515f203000015156407
-*pstr[ c].var28_begin_buffer
+*pstr[ c].colorPalette_var28
 
 find
 x_WORD_17B4E0 - 34c4e0
@@ -3190,7 +3190,7 @@ void sub_56A30_init_game_level(unsigned int a1)//237a30
 x_BYTE_F6EE0_tables
 x_BYTE_10B1E0==x_BYTE_F6EE0_tables[ 14300]
 
-pallette
+Palette
 1a7358 -> 000000 000101 000203 000305
 
 35d7d8->7ffbffff40020000
@@ -3216,7 +3216,7 @@ __int16 sub_98AE9(__int16 *a1, int a2)//279ae9
 void sub_3C080_draw_terrain_and_particles(int a1, int a2, __int16 a3, __int16 a4, __int16 a5, signed int a6, int a7, __int16 a8, int a9)//21d080
 
 x_DWORD_DE558 - 2af558->3aa0a4
-pdwScreenBuffer
+pdwScreenBuffer_351628
  3aa0a4
 
 29dd67 - void /*__spoils<>*/ sub_BCD45(uint8_t* a1, int a2, int a3, int a4, int a5)//29dd45
@@ -3267,7 +3267,7 @@ x_DWORD_DE55C-2af55c->34c68000
 
 x_DWORD_DDF50
 2aef50
-23c809 sub_5B7A0_prepare_pallette()//23C7A0
+23c809 sub_5B7A0_prepare_Palette()//23C7A0
 
 x_DWORD_B8845 299845:00000000 f1ffffffff
 299961
@@ -3328,7 +3328,7 @@ call size_t sub_988A7_read(FILE* a1, uint8_t* a2, int a3)//2798a7
 call int sub_53E60_readfile_and_decompress(const char* path, uint8_t** a2)//234E60 
 void sub_54800_read_and_decompress_tables(uint8_t a1)//235800
 
-pdwScreenBuffer+ 141
+pdwScreenBuffer_351628+ 141
 versus
 3aa0a4+ 141
 
@@ -3344,7 +3344,7 @@ versus a67ac8-> a5c78e->10898a8b8c8f
 20cbc4 void sub_2BBB0(__int16 a1, __int16 a2, posistruct a3)//20cbb0
 20e7c9 void sub_2D710_draw_menu(uint8_t* a1)//20e710
 
-pdwScreenBuffer+ 210
+pdwScreenBuffer_351628+ 210
 versus
 3aa0a4+ 210  31(ma byt) versus  20
 
@@ -3352,7 +3352,7 @@ versus
 20cbca void sub_2BBB0(__int16 a1, __int16 a2, posistruct a3)//20cbb0
 20ed4e void sub_2D710_draw_menu(uint8_t* a1)//20e710
 
-pdwScreenBuffer+ 39a
+pdwScreenBuffer_351628+ 39a
 versus
 3aa0a4+ 39a  0c(ma byt) versus  f0
 
@@ -3370,7 +3370,7 @@ call void sub_2BC10_draw_text(uint8_t* textbuffer, int16_t posx, int16_t posy, u
 
 void sub_2E260_draw_spell(__int16 a1, __int16 a2, uint8_t* a3, char a4)//20f260
 
-pdwScreenBuffer+ 4ed
+pdwScreenBuffer_351628+ 4ed
 versus
 3aa0a4+ 4ed  99(ma byt) versus  34
 
@@ -3446,7 +3446,7 @@ versus
 byte_d94ff[v5]
 versus [esi+2aa4ff]->0001020304
 
-pdwScreenBuffer+ 51d
+pdwScreenBuffer_351628+ 51d
 versus
 3aa0a4+ 51d  84(ma byt) versus  33
 
@@ -3465,7 +3465,7 @@ __int16 x_WORD_F4962[830]; // idb 2c5962
 
 244d86 void sub_63C90_draw_minimap_b(int a1, int a2, int a3, int a4, int a5, int a6, __int16 a7, int a8, int a9, int a10)//244c90
 
-pdwScreenBuffer+ 59b
+pdwScreenBuffer_351628+ 59b
 versus
 3aa0a4+ 59b  34(ma byt) versus  3d
 
@@ -3476,7 +3476,7 @@ versus
 
 void sub_2D710_draw_menu(uint8_t* a1)//20e710
 x_DWORD_F01E8(v8, 2, filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct[41]);
-(i-v4 - pdwScreenBuffer)/40 ==  21
+(i-v4 - pdwScreenBuffer_351628)/40 ==  21
 
 a3.data -  cd
 
@@ -3520,9 +3520,9 @@ c7 21a3
  24BB8F36
 filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct[41].data  24BB8E6F
 filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct[41].data+ e7
-*path.var28_begin_buffer+ 20dc+ e0
+*path.colorPalette_var28+ 20dc+ e0
 
-pdwScreenBuffer+ 125d
+pdwScreenBuffer_351628+ 125d
 versus
 3aa0a4+ 125d  a1(ma byt) versus  a4
 
@@ -3570,7 +3570,7 @@ x_DWORD_EA3E4[ 3e8]
 problem je zde:
 uint8_t* sub_48690(__int16 a1, __int16 a2, __int16 a3, __int16 a4)//229690
 
-pdwScreenBuffer+ 1cde
+pdwScreenBuffer_351628+ 1cde
 versus
 3aa0a4+ 1c  1cde  24(ma byt) versus  d1
 
@@ -3620,7 +3620,7 @@ void sub_57730()//238730
 --sub_21030
 204340
 
-pdwScreenBuffer+ 26e2
+pdwScreenBuffer_351628+ 26e2
 versus
 3aa0a4+ 26e2  32(ma byt) versus  35
 
@@ -3661,7 +3661,7 @@ after
 void sub_47560_draw_and_events_in_game(uint8_t* a1, int a2, uint32_t a3, signed int a4, __int16 a5)//228560
 sub_57730
 
-pdwScreenBuffer+ 26e2
+pdwScreenBuffer_351628+ 26e2
 versus
 3aa0a4+ 26e2  32(ma byt) versus  35
 
@@ -3675,7 +3675,7 @@ versus
 2dc4e0
 
 3ac786-3aa0a4 - 1f=26c0
-2580=v71-pdwScreenBuffer
+2580=v71-pdwScreenBuffer_351628
 
 x_BYTE_F6EE0_tablesx[ 2302]
 versus
@@ -3756,7 +3756,7 @@ ebx=2a9a54
 00000000000000000000000000030ac2b->0000000000000
 40ac2b->00000    0010        
 ---------------------------------
-pdwScreenBuffer+ 8f09
+pdwScreenBuffer_351628+ 8f09
 versus
 3aa0a4+ 8f09  30(ma byt) versus  35
 
@@ -3865,7 +3865,7 @@ versus
 2ac350
 -----------------------------------
 step 2
-pdwScreenBuffer+ 51d
+pdwScreenBuffer_351628+ 51d
 versus
 3aa0a4+ 51d
 62 versus 84
@@ -3935,7 +3935,7 @@ void sub_4A310(unsigned __int16 *a1)//22b310
 ---------------------------------------
 -----------------------------------
 step 2
-pdwScreenBuffer+ 51d
+pdwScreenBuffer_351628+ 51d
 versus
 3aa0a4+ 51d
 62 versus 84
@@ -3947,7 +3947,7 @@ test druheho pruchodu x_D41A0_BYTEARRAY_0
 x_BYTE_E88E0 -- 2b98e0
 22920f
 --------------------------------
-pdwScreenBuffer+ ddd0
+pdwScreenBuffer_351628+ ddd0
 versus
 3aa0a4+ ddd0
 
@@ -3999,7 +3999,7 @@ versus
 versus
 &x_D41A0_BYTEARRAY_0[10 * x_D41A0_BYTEARRAY_4_struct.byteindex_12 + 28222]
 --------------------------------
-pdwScreenBuffer+ 51d
+pdwScreenBuffer_351628+ 51d
 versus
 3aa0a4+ 51d  62(ma byt) versus  84
 
@@ -4129,7 +4129,7 @@ x_D41A0_BYTEARRAY_0+ 12aa// 356038+ 12aa
 
 37
 --------------------------------------------
-pdwScreenBuffer+ 9b6e//3aa0a4+ 9b6e
+pdwScreenBuffer_351628+ 9b6e//3aa0a4+ 9b6e
 37 versus 77
 
 299b6c call void /*__spoils<ecx>*/ sub_B6253_draw_quad(x_DWORD *a1, x_DWORD *a2, x_DWORD *a3)//297253
@@ -4151,7 +4151,7 @@ problem je zde
 uint8_t* sub_57F20(uint8_t* a1)//238f20
 void sub_57730()//238730
 ------------------------------------------------
-pdwScreenBuffer+ 1f71//3aa0a4+ 1f71
+pdwScreenBuffer_351628+ 1f71//3aa0a4+ 1f71
 b8 versus 37
 -blinking rectangle
 245db2 call void char sub_64CE0(int a1)//245ce0
@@ -4181,7 +4181,7 @@ c203 - 1fc9d8 call sub_1B8C0(uint8_t* a1)//1fc8c0
 
 porovnat x_DWORD_EA3E4 tj 2bb3e4
 
-void sub_41A90_VGA_pallette_install(uint8_t* buffer)//222a90
+void sub_41A90_VGA_Palette_install(uint8_t* buffer)//222a90
 271c10 call int16_t sub_90B27_VGA_pal_fadein_fadeout(uint8_t *newpalbuffer, uint8_t shadow_levels, bool singlestep)//271B27 init and nightfall
 void sub_47760(/*int a1,*/uint32_t user/* int a2, int a3*/)//228760
 fix:
@@ -4279,7 +4279,7 @@ array_E2A74+ 06 versus 2b3a74+ 06
 01 versus 0
 ---------
 krok 41
-pdwScreenBuffer+ 1e29
+pdwScreenBuffer_351628+ 1e29
 versus
 3aa0a4+ 1e29  77(ma byt) versus  3a
 
@@ -4415,7 +4415,7 @@ uint8_t* v1102; // [esp+0h] [ebp-88h] - fix
 adress 1f9c12
 
 void sub_693F0(uint8_t* a1)//24a3f0
-(__int16 *)&*xadataspellsdat.var28_begin_buffer[80 * *(char *)(a1 + 64) + 2 + 26 * *(char *)(a1 + 70)],
+(__int16 *)&*xadataspellsdat.colorPalette_var28[80 * *(char *)(a1 + 64) + 2 + 26 * *(char *)(a1 + 70)],
 
 2482e0
 
@@ -4497,17 +4497,17 @@ x_D41A0_BYTEARRAY_0[10 * *(int16_t*)&x_D41A0_BYTEARRAY_0[12] + 28227]
 void sub_69640(uint8_t* a1)//24a640
 
 --------------------------
-pdwScreenBuffer+ 2168( 00)
+pdwScreenBuffer_351628+ 2168( 00)
 versus
  3aa0a4+ 2168( 86)
 
-pdwScreenBuffer+ 6ef9( 00)
+pdwScreenBuffer_351628+ 6ef9( 00)
 versus
  3aa0a4+ 6ef9( 86)
 
 
 cyklus3
-pdwScreenBuffer+ f99a( 1f)
+pdwScreenBuffer_351628+ f99a( 1f)
 versus
  3aa0a4+ f99a( f7)
 
@@ -4554,7 +4554,7 @@ v18 = x_D41A0_BYTEARRAY_0 + 11230; - projektily?
 x_DWORD_EA3E4[ 25a1]
 
 --------------------------
-pdwScreenBuffer+ 2168( 00)
+pdwScreenBuffer_351628+ 2168( 00)
 versus
  3aa0a4+ 2168( 86)
 
@@ -4609,7 +4609,7 @@ versus
  2530c0 void sub_720C0(int *a1)//2530c0
  void sub_713A0()//2523a0
 
- x_BYTE_F3FA0 - pallette
+ x_BYTE_F3FA0 - Palette
 
  castle procedures:
  22e900
@@ -4661,7 +4661,7 @@ misto 0x2130e0 tam dat 240a70
 
 
 -------------------
-pdwScreenBuffer+ 0x21df
+pdwScreenBuffer_351628+ 0x21df
 versus
 3aa0a4+ 0x21df  b2(ma byt) versus  83
 
@@ -4708,7 +4708,7 @@ fix end //end 17B4E0
 test  sub_61A00_draw_minimap_entites_b asi 7 pruchod
 
 -------------------
-pdwScreenBuffer+ 0x1415
+pdwScreenBuffer_351628+ 0x1415
 versus
 3aa0a4+ 0x1415  39(ma byt) versus  b0
 
@@ -4760,7 +4760,7 @@ void sub_65F60(uint8_t* a1)//246f60 - test this
 12
 
 ------------------------------------------pruchod a
-pdwScreenBuffer+ 0x1415
+pdwScreenBuffer_351628+ 0x1415
 versus
 3aa0a4+ 0x1415  39(ma byt) versus  b0
 ------------------------------------------pruchod a
@@ -4771,7 +4771,7 @@ versus
 void sub_385C0(uint8_t* a1)//2195c0
 
 ------------------------------------------pruchod a
-pdwScreenBuffer+ 0x1a5a
+pdwScreenBuffer_351628+ 0x1a5a
 versus
 3aa0a4+ 0x1a5a  9e(ma byt) versus  3b
 
@@ -4936,7 +4936,7 @@ versus
 void sub_17A00(uint8_t* a1, signed int a2, __int16 a3)//1f8a00
 
 --------------------- pruchod 1
-pdwScreenBuffer + 0x2167(00)
+pdwScreenBuffer_351628 + 0x2167(00)
 versus
 0x3aa0a4 + 0x2167 (86)
 
@@ -4952,12 +4952,12 @@ x_D41A0_BYTEARRAY_0[10 * D41A0_BYTESTR_0.word_0xc + 28225] = v3;
 x_D41A0_BYTEARRAY_0[10 * D41A0_BYTESTR_0.word_0xc + 28226] = v4;
 
 --------------------- pruchod 1
-pdwScreenBuffer + 0xe051(38)
+pdwScreenBuffer_351628 + 0xe051(38)
 versus
 0x3aa0a4 + 0xe051 (3a)
 
 --------------------- pruchod 8
-pdwScreenBuffer + 0x5306(a2)
+pdwScreenBuffer_351628 + 0x5306(a2)
 versus
 0x3aa0a4 + 0x5306 (3d)
 
@@ -5010,7 +5010,7 @@ orig
 x_D41A0_BYTEARRAY_0[0x2f75+4] - rotation of player
 
 --------------------- pruchod 0
-pdwScreenBuffer + 0xdf11(39)
+pdwScreenBuffer_351628 + 0xdf11(39)
 versus
 0x3aa0a4 + 0xdf11 (3b)
 
@@ -5021,7 +5021,7 @@ versus
 39 3b 39 39 - particles
 
 --------------------- pruchod 8
-pdwScreenBuffer + 0x508e(a2)
+pdwScreenBuffer_351628 + 0x508e(a2)
 versus
 0x3aa0a4 + 0x508e (3d)
 
@@ -5056,7 +5056,7 @@ void sub_71410_process_tmaps()//252410
 
 test all x_BYTE_D951C
 fix:
-				v39 = (char*)&((*xadataspellsdat.var28_begin_buffer)[80 * v44 + 2 + 26 * v10]);
+				v39 = (char*)&((*xadataspellsdat.colorPalette_var28)[80 * v44 + 2 + 26 * v10]);
 				if (x_BYTE_D951C[0x12fd+80 * *(char *)(v9 + 64)] & 4)
 
 x_BYTE_D951C+0x12fd(00)
@@ -5071,7 +5071,7 @@ versus
 23ca55 - void sub_5B8D0_initialize()//23c8d0
 
 --------------------- pruchod 8
-pdwScreenBuffer + 0x5807(7e)
+pdwScreenBuffer_351628 + 0x5807(7e)
 versus
 0x3aa0a4 + 0x5807 (4)
 22304e
@@ -5558,7 +5558,7 @@ void sub_2D710_draw_top_menu(uint8_t* a1)//20e710
 find
 x_DWORD_E9B20
 
-x_DWORD_18062C_resolution_x
+screenWidth_18062C
 versus
 35162c
 
@@ -5930,7 +5930,7 @@ sub_30630
 
 sub_87610
 
-pdwScreenBuffer+0x4ed 0x34
+pdwScreenBuffer_351628+0x4ed 0x34
  0x3aa0a4+0x4ed 0x99
 
  test here:
@@ -5941,7 +5941,7 @@ pdwScreenBuffer+0x4ed 0x34
  (uint8_t*)&filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct[1]+6
 
 
- pdwScreenBuffer+0x51d 0x33
+ pdwScreenBuffer_351628+0x51d 0x33
  0x3aa0a4+0x51d 0x84
 
  sub_61A00_draw_minimap_entites_b
@@ -5962,10 +5962,10 @@ pdwScreenBuffer+0x4ed 0x34
 fix
 for (jy = &D41A0_BYTESTR_0.struct_0x6E8E[1]; jy <= &D41A0_BYTESTR_0.struct_0x6E8E[0x3e8-1]; jy += sizeof(type_str_0x6E8E))
 
- pdwScreenBuffer+0x125d 0xa4
+ pdwScreenBuffer_351628+0x125d 0xa4
  0x3aa0a4+0x125d 0xa1
 
-  pdwScreenBuffer+0x1448d 0x92
+  pdwScreenBuffer_351628+0x1448d 0x92
  0x3aa0a4+0x1448d 0x2f
 
  (uint8_t*)&x_WORD_15B4E0+0x1ba9a 0xce
@@ -5997,7 +5997,7 @@ for (jy = &D41A0_BYTESTR_0.struct_0x6E8E[1]; jy <= &D41A0_BYTESTR_0.struct_0x6E8
 (uint8_t*)&D41A0_BYTESTR_0+0xd25b 0x00
 (uint8_t*)x_D41A0_BYTEARRAY_0+0xd25b 0x02
 
-pdwScreenBuffer+0x1f71 0x37
+pdwScreenBuffer_351628+0x1f71 0x37
  0x3aa0a4+0x1f71 0xb8
 
  find
@@ -6072,7 +6072,7 @@ sub_871F0();
 
 0xd2
 
- pdwScreenBuffer+0x2988 0x89
+ pdwScreenBuffer_351628+0x2988 0x89
  0x3aa0a4+0x2988 0x00
 
  str_unk_1804B0ar.array_0x8e[0]
@@ -6163,7 +6163,7 @@ sub_69640
 
 0x3c6
 
-pdwScreenBuffer+0x1a4d 0x23
+pdwScreenBuffer_351628+0x1a4d 0x23
  0x3aa0a4+0x1a4d 0xb8
  x=13,y=21
 
@@ -6230,11 +6230,11 @@ procedure 216940
 (uint8_t*)x_D41A0_BYTEARRAY_0+0xb4a0 0x12
 0x356038 +0xb4a0
 
-pdwScreenBuffer+ 0x2960
+pdwScreenBuffer_351628+ 0x2960
 versus
 3aa0a4+ 0x2960  3d(ma byt) versus  f8
 
-pdwScreenBuffer+ 0x26de
+pdwScreenBuffer_351628+ 0x26de
 versus
 3aa0a4+ 0x26de  b0(ma byt) versus  3d
 
@@ -6309,7 +6309,7 @@ stop
 0xbedc
 0xd541
 
-pdwScreenBuffer+ 0x2581
+pdwScreenBuffer_351628+ 0x2581
 versus
 3aa0a4+ 0x2581  17(ma byt) versus  03
 
@@ -6322,7 +6322,7 @@ step 0x25
 0xd491
 
 step 0x1c1
-pdwScreenBuffer+ 0x191e
+pdwScreenBuffer_351628+ 0x191e
 versus
 3aa0a4+ 0x191e  77(ma byt) versus  23
 
@@ -6349,7 +6349,7 @@ sub_47560_draw_and_events_in_game(/*uint8_t* a1, int a2, */uint32_t a3, signed i
 {
 
 step 0x2
-pdwScreenBuffer+ 0x7da0
+pdwScreenBuffer_351628+ 0x7da0
 versus
 3aa0a4+ 0x7da0  59(ma byt) versus  1f
 
@@ -6366,7 +6366,7 @@ versus 34ebd8 0x1f
 
 0x356038+0x314d
 
-pdwScreenBuffer+0x5d3 0x78
+pdwScreenBuffer_351628+0x5d3 0x78
  0x3aa0a4+0x5d3 0xd8
 
  x 4 y 211
@@ -6393,7 +6393,7 @@ find adress:
 v2x->dword_0xA4_164x->array_0x1FC_508[4 * l+4] = 24607;
 of v2x
 
-pdwScreenBuffer+0x3688 0xe3
+pdwScreenBuffer_351628+0x3688 0xe3
 0x3aa0a4+0x3688 0x00
 
  (uint8_t*)&x_WORD_15B4E0+0x1e402 0x6f
@@ -6802,11 +6802,11 @@ void sub_159E0()//1f69e0
 
 0x38cf50 + 0x9683
 
-pdwScreenBuffer+ 0x5806
+pdwScreenBuffer_351628+ 0x5806
 versus
 3aa0a4+ 0x5806  6c(ma byt) versus  b3
 
-pdwScreenBuffer+ 0x74e1
+pdwScreenBuffer_351628+ 0x74e1
 versus
 3aa0a4+ 0x74e1  00(ma byt) versus  63
 
@@ -6985,7 +6985,7 @@ v113x->dword_0xA4_164x->word_0x4_4 = ((v100x - ((v100x>>31) << 2)) - cftemp) >> 
 20e15c
 20d35a - void sub_2CE30_pause_end_level(int a1, int a2)//20de30
 
-pdwScreenBuffer+0x5806 0xb3
+pdwScreenBuffer_351628+0x5806 0xb3
 0x3aa0a4+0x5806 0x6c
 
 b3 - bitmap final
@@ -7040,11 +7040,11 @@ versus
  type_str_0x6E8E* sub_4A050_new_event()//22b050
  type_str_0x6E8E* sub_500C0(axis_3d* a1x, __int16 a2)//2310c0
 
-pdwScreenBuffer+0x16527 0x30
+pdwScreenBuffer_351628+0x16527 0x30
 0x3aa0a4+0x16527 0x92
 
 step1
-pdwScreenBuffer+0x153a0 0x92
+pdwScreenBuffer_351628+0x153a0 0x92
 0x3aa0a4+0x153a0 0x19
 
 //test removing sub_917D0(/*v3*/);
@@ -7173,7 +7173,7 @@ x_DWORD_F2C20ar[0x14]
 0x356038 +0x11cd0
 
 step 0x88
-pdwScreenBuffer+0x0 0x24
+pdwScreenBuffer_351628+0x0 0x24
  0x3aa0a4+0x0 0xa8
 
  a8
@@ -7213,7 +7213,7 @@ pdwScreenBuffer+0x0 0x24
  22fa20
  2132a0
 
-pdwScreenBuffer+ 0x85c
+pdwScreenBuffer_351628+ 0x85c
 versus
 3aa0a4+ 0x85c  43(ma byt) versus  f0
 
@@ -7259,7 +7259,7 @@ sub_2EBB0_draw_text_with_border_630x340(x_DWORD_E9C4C_langindexbuffer[*(uint32_t
 sub_2EBB0_draw_text_with_border_630x340(x_DWORD_E9C4C_langindexbuffer[a1]);//fix it - edx
 
 sub_2BC10_draw_text(v11x, v9, v13, v8); ?
-sub_2BC10_draw_text(printbuffer, v4x, v2, (*xadataclrd0dat.var28_begin_buffer)[0xf00]);
+sub_2BC10_draw_text(printbuffer, v4x, v2, (*xadataclrd0dat.colorPalette_var28)[0xf00]);
 
 v83 = D41A0_BYTESTR_0.array_0x2BDE[v18x].array_0x01c_2BFA_11258;
 v84 = x_DWORD_E9C4C_langindexbuffer[*(int16_t*)&x_DWORD_DA750ar[0xde+2*40 * v82 + 13 * D41A0_BYTESTR_0.array_0x6E3E[v114x].str_0x6E3E_byte2]];
@@ -7268,7 +7268,7 @@ strcpy(v83,v84);
 //fixing
 sub_6EB90(&filearray_2aa18c[filearrayindex_BUILD00DATTAB]);//24fb90 adress 0x23ca2e
 
-(char*)&((*xadataspellsdat.var28_begin_buffer)[80 * 1 + 2 + 26 * 1])
+(char*)&((*xadataspellsdat.colorPalette_var28)[80 * 1 + 2 + 26 * 1])
 
 &v37x->dword_0xA4_164x->str_611.byte_0x458_1112 -selected
 &v37x->dword_0xA4_164x->str_611.byte_0x459_1113 -selected
@@ -7663,7 +7663,7 @@ end game after dead
 						sub_191B0(15, 0);
 						x_BYTE_1806E4 = 0;
 
-pdwScreenBuffer+0x42 0x40
+pdwScreenBuffer_351628+0x42 0x40
  0x3aa0a4+0x42 0x29
 
  BLOCK32DAT_BEGIN_BUFFER+200
@@ -8080,15 +8080,15 @@ versus
 38ce32
 36dfa
 
-pdwScreenBuffer+ 0x6b73 0x63
+pdwScreenBuffer_351628+ 0x6b73 0x63
 versus
 0x3aa0a4+ 0x6b73  0x21
 
-pdwScreenBuffer+ 0xbdcd 0x01
+pdwScreenBuffer_351628+ 0xbdcd 0x01
 versus
 0x3aa0a4+ 0xbdcd  0x40
 
-pdwScreenBuffer+ 0x2fc4 0x10
+pdwScreenBuffer_351628+ 0x2fc4 0x10
 versus
 0x3aa0a4+ 0x2fc4  0x00
 
@@ -8109,15 +8109,15 @@ void sub_848A0()//2658a0
 
 void sub_84B80()//265b80
 
-pdwScreenBuffer+0x8C81
+pdwScreenBuffer_351628+0x8C81
 
-pdwScreenBuffer+0x8EF9
+pdwScreenBuffer_351628+0x8EF9
 
-pdwScreenBuffer+0x8DAA
+pdwScreenBuffer_351628+0x8DAA
 
-pdwScreenBuffer+0x8C81
+pdwScreenBuffer_351628+0x8C81
 
-pdwScreenBuffer+0x90B4
+pdwScreenBuffer_351628+0x90B4
 
 if (!x_DWORD_F66F0[(unsigned __int16)* v9] && !sub_71520_mainInitTmaps(*v9))
 
@@ -8393,7 +8393,7 @@ uint8_t unk_D3F80x[0x9] = { 0x10,0x12,0x09,*0x07*,0x14,0x15,0x13,0x00,0xFF };
 
 x_DWORD_DA750ar[0xd2] + v23
 
-*xadataspellsdat.var28_begin_buffer .... x_DWORD_DA750ar
+*xadataspellsdat.colorPalette_var28 .... x_DWORD_DA750ar
 
 test
 type_str_0x6E8E* sub_15170(type_str_0x6E8E* a1x, unsigned __int8 a2)//1f6170
@@ -8743,8 +8743,8 @@ versus
 2dc4e0+0x12 0x08
 
 sub_1A970_change_game_settings(16, 0, 0);
-x_DWORD_18062C_resolution_x
-x_DWORD_180624_resolution_y
+screenWidth_18062C
+screenHeight_180624
 
 (uint8_t*)&x_BYTE_12B4E0_shading+0x9f90 0x24
 0x2fc4e0+0x9f90 0x20
@@ -9082,7 +9082,7 @@ void sub_82670()//263670
 
 x_BYTE_10B4E0_terraintype
 
-			/*LOWORD(v5) = */sub_90B27_VGA_pal_fadein_fadeout(*xadatapald0dat2.var28_begin_buffer, 0x20u, 0);
+			/*LOWORD(v5) = */sub_90B27_VGA_pal_fadein_fadeout(*xadatapald0dat2.colorPalette_var28, 0x20u, 0);
 
 &D41A0_BYTESTR_0.str_0x3664C[0].dword_A
 0x38C68E

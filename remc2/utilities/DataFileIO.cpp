@@ -318,7 +318,10 @@ int DataFileIO::unpack_data_m1(vars_t* v)
 
 				ror_w(&v->enc_key);
 
-				v->bit_buffer = (((v->pack_block_start[2] << 16) | (v->pack_block_start[1] << 8) | v->pack_block_start[0]) << v->bit_count) | (v->bit_buffer & ((1 << v->bit_count) - 1));
+				// FIXME: runtime error: left shift of 8355742 by 11 places cannot be represented in type 'int'
+				//        using int64_t is just a quick an dirty hack
+				int64_t fix_overflow = ((v->pack_block_start[2] << 16) | (v->pack_block_start[1] << 8) | v->pack_block_start[0]);
+				v->bit_buffer = (fix_overflow << v->bit_count) | (v->bit_buffer & ((1 << v->bit_count) - 1));
 			}
 
 			if (subchunks)

@@ -1,5 +1,9 @@
 #include "read_config.h"
 
+#include <vector>
+#include <filesystem>
+#include <cstdlib>
+
 int config_skip_screen;
 int texturepixels = 32;
 int speedGame = 35;
@@ -17,14 +21,61 @@ bool dynamicLighting = false;
 bool multiThreadedRender = false;
 int numberOfRenderThreads = 0;
 bool assignToSpecificCores = false;
+bool openGLRender = false;
 
-void readini(const std::string& filename) {
+std::string findIniFile() {
+	// find location of inifile and read it
+	std::vector<std::string> inifile_locations;
+#ifdef __linux__
+	auto env_home_dir = std::getenv("HOME");
+	auto env_xdg_config_home_dir = std::getenv("XDG_CONFIG_HOME");
+	std::filesystem::path home_dir;
+	std::filesystem::path xdg_config_home_dir;
+	if (env_home_dir) home_dir = env_home_dir;
+	if (env_xdg_config_home_dir) xdg_config_home_dir = env_xdg_config_home_dir;
 
-	INIReader reader(filename);
+	if (std::filesystem::exists(xdg_config_home_dir)) {
+		inifile_locations.emplace_back(xdg_config_home_dir / "remc2" / "config.ini");
+	}
+	if (std::filesystem::exists(home_dir)) {
+		inifile_locations.emplace_back(home_dir / ".config" / "remc2" / "config.ini");
+	}
+#else //__linux__
+	auto home_drive = std::getenv("HOMEDRIVE");
+	auto home_path =  std::getenv("HOMEPATH");
+	if (home_drive && home_path) {
+		std::string home_dir = std::string(home_drive) + "/" + std::string(home_path);
+		inifile_locations.push_back(home_dir + "/remc2/config.ini");
+	}
+#endif //__linux__
+	inifile_locations.push_back(get_exe_path() + "/config.ini");
+	std::string inifile;
+	// first location at which an inifile can be found is chosen
+	for (auto inifile_location: inifile_locations) {
+		if (std::filesystem::exists(inifile_location)) {
+			inifile = inifile_location;
+			break;
+		}
+	}
+
+	return inifile;
+}
+
+bool readini() {
+	std::string inifile = findIniFile();
+	if (std::filesystem::exists(inifile)) {
+		std::cout << "Using inifile: " << inifile << "\n";
+	}
+	else {
+		std::cout << "Inifile cannot be found... Exiting\n";
+		return false;
+	}
+
+	INIReader reader(inifile);
 
 	if (reader.ParseError() < 0) {
 		std::cout << "Can't load 'test.ini'\n";
-		return;
+		return false;
 	}
 	if (reader.GetBoolean("skips", "skipintro", true))
 		config_skip_screen = 1;
@@ -115,20 +166,28 @@ void readini(const std::string& filename) {
 
 	speedGame = reader.GetInteger("game", "speed", 30);
 	speedAnim = reader.GetInteger("game", "animspeed", 100);
-	multiThreadedRender = reader.GetBoolean("graphics", "multiThreadedRender", false);
-	numberOfRenderThreads = reader.GetInteger("graphics", "numberOfRenderThreads", 0);
 
-	if (multiThreadedRender)
+	openGLRender = reader.GetBoolean("graphics", "openGLRender", false);
+
+	if (!openGLRender)
 	{
-		assignToSpecificCores = reader.GetBoolean("graphics", "assignToSpecificCores", false);
+		multiThreadedRender = reader.GetBoolean("graphics", "multiThreadedRender", false);
+		numberOfRenderThreads = reader.GetInteger("graphics", "numberOfRenderThreads", 0);
 
-		if (numberOfRenderThreads < 1)
+		if (multiThreadedRender)
 		{
-			numberOfRenderThreads = 1;
+			assignToSpecificCores = reader.GetBoolean("graphics", "assignToSpecificCores", false);
+
+			if (numberOfRenderThreads < 1)
+			{
+				numberOfRenderThreads = 1;
+			}
+		}
+		else
+		{
+			numberOfRenderThreads = 0;
 		}
 	}
-	else
-	{
-		numberOfRenderThreads = 0;
-	}
+
+	return true;
 };

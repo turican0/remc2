@@ -85,7 +85,7 @@ void init_pal() {
 		temppal[i * 3 + 1] = i;
 		temppal[i * 3 + 2] = i;
 	}
-	VGA_Set_pallette2(temppal);
+	VGA_Set_Palette2(temppal);
 };
 
 void clean_tarrain()
@@ -109,7 +109,7 @@ void loadlevel(int levelnumber) {
 
 void editor_run()
 {	
-	*xadataclrd0dat.var28_begin_buffer = (uint8_t*)malloc(4096);//fix it
+	*xadataclrd0dat.colorPalette_var28 = (uint8_t*)malloc(4096);//fix it 3x256 ?
 
 	initposistruct();
 
@@ -153,7 +153,7 @@ void editor_run()
 	terrain_recalculate();
 
 	main_x(/*int argc, char** argv*/);
-	//pdwScreenBuffer= back_pdwScreenBuffer;
+	//pdwScreenBuffer_351628= back_pdwScreenBuffer_351628;
 	
 	//sub_47320_in_game_loop(0);//run game	
 
@@ -219,7 +219,7 @@ void terrain_recalculate() {
 	}
 	if (stage > 9)
 	{
-		memset((void*)x_BYTE_10B4E0_terraintype, 0, 0x10000);
+		memset((void*)mapTerrainType_10B4E0, 0, 0x10000);
 		sub_43970(0);//224970 // smooth terrain
 	}
 	if (stage > 10)
@@ -232,7 +232,7 @@ void terrain_recalculate() {
 	}
 	if (stage > 12)
 	{
-		if (x_BYTE_D41B6)
+		if (isCaveLevel_D41B6)
 			sub_43B40();//224b40 //change angle of terrain
 		else
 			sub_43D50();//224d50 //change angle of terrain
@@ -405,16 +405,16 @@ void fillterrain(kiss_terrain* terrain, SDL_Surface* mapsurface,float zoom, int 
 					switch (maptype)
 					{
 					case 0:
-						SetPixelMapSurface(i, j, nx, ny, x_BYTE_10B4E0_terraintype, mapsurface);
+						SetPixelMapSurface(i, j, nx, ny, mapTerrainType_10B4E0, mapsurface);
 						break;
 					case 1:
-						SetPixelMapSurface(i, j, nx, ny, x_BYTE_11B4E0_heightmap, mapsurface);
+						SetPixelMapSurface(i, j, nx, ny, mapHeightmap_11B4E0, mapsurface);
 						break;
 					case 2:
-						SetPixelMapSurface(i, j, nx, ny, x_BYTE_12B4E0_shading, mapsurface);
+						SetPixelMapSurface(i, j, nx, ny, mapShading_12B4E0, mapsurface);
 						break;
 					case 3:
-						SetPixelMapSurface(i, j, nx, ny, x_BYTE_13B4E0_angle, mapsurface);
+						SetPixelMapSurface(i, j, nx, ny, mapAngle_13B4E0, mapsurface);
 						break;
 					}
 					break;
@@ -692,7 +692,7 @@ static void terrain_feat_append(kiss_textbox* textbox, kiss_vscrollbar* vscrollb
 	kiss_array_free(textbox->array);
 	kiss_array_new(textbox->array);
 	char temp[256];
-	//VGA_Draw_stringXYtoBuffer(temp, 304, 32, pdwScreenBuffer);
+	//VGA_Draw_stringXYtoBuffer(temp, 304, 32, pdwScreenBuffer_351628);
 	for (int i = first_terrain_feature; i < 0x4B0; i++)
 	{
 		type_entity_0x30311 actfeat = temparray_0x30311[i];//D41A0_BYTESTR_0.str_2FECE.array_0x30311[first_terrain_feature + i];
@@ -708,7 +708,7 @@ static void terrain_stages_append(kiss_textbox* textbox) {
 	kiss_array_free(textbox->array);
 	kiss_array_new(textbox->array);
 	char temp[256];
-	//VGA_Draw_stringXYtoBuffer(temp, 304, 32, pdwScreenBuffer);
+	//VGA_Draw_stringXYtoBuffer(temp, 304, 32, pdwScreenBuffer_351628);
 	for (int i = 0; i < 8; i++)
 	{
 		type_str_0x36442 actstage = D41A0_0.terrain_2FECE.stages_0x36442[i];
@@ -722,11 +722,11 @@ static void terrain_vars_append(kiss_textbox* textbox) {
 kiss_array_free(textbox->array);
 kiss_array_new(textbox->array);
 char temp[256];
-//VGA_Draw_stringXYtoBuffer(temp, 304, 32, pdwScreenBuffer);
+//VGA_Draw_stringXYtoBuffer(temp, 304, 32, pdwScreenBuffer_351628);
 for (int i = 0; i < 0xb; i++)
 {
 	type_str_0x3647Ac actstage = D41A0_0.terrain_2FECE.StageVars_0x3647A[i];
-	sprintf(temp, "%02X |%02X|%02X|%02X|%04X|%04X", i, (uint8_t)actstage.index_0x3647A_0, (uint8_t)actstage.stage_0x3647A_1, actstage.str_0x3647A_2._axis_2d.x, actstage.str_0x3647A_2._axis_2d.y,actstage.str_0x3647C_4.axis.x, actstage.str_0x3647C_4.axis.y);
+	sprintf(temp, "%01X |%02X|%02X|%04X|%04X|%04X", i, (uint8_t)actstage.index_0x3647A_0, (uint8_t)actstage.stage_0x3647A_1, actstage.str_0x3647A_2.word,actstage.str_0x3647C_4.axis.x, actstage.str_0x3647C_4.axis.y);
 	kiss_array_appendstring(textbox->array, 0, (char*)"", temp);
 }
 //text_reset(textbox1, vscrollbar1);
@@ -904,7 +904,7 @@ static bool button_loadlevel_event(kiss_button* button, SDL_Event* e, int* draw)
 		FILE* file = fopen(path2, "rb");
 		fread(&D41A0_0.terrain_2FECE, sizeof(D41A0_0.terrain_2FECE), 1, file);
 		memcpy(temparray_0x30311,D41A0_0.terrain_2FECE.entity_0x30311, sizeof(D41A0_0.terrain_2FECE.entity_0x30311));		
-		fclose;
+		fclose(file);
 		return true;
 	}//*quit = 1;
 	return false;
@@ -993,7 +993,7 @@ static void button_savelevelcsv_event(kiss_button* button, SDL_Event* e, int* dr
 			type_entity_0x30311 actfeat = temparray_0x30311[i];//D41A0_BYTESTR_0.str_2FECE.array_0x30311[first_terrain_feature + i];
 			fprintf(file, "0x%03X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X\n", i, actfeat.type_0x30311, actfeat.subtype_0x30311, actfeat.axis2d_4.x, actfeat.axis2d_4.y, actfeat.DisId, actfeat.word_10, actfeat.stageTag_12, actfeat.par1_14, actfeat.par2_16, actfeat.par3_18);			
 		}
-		fclose;
+		fclose(file);
 	}//*quit = 1;
 }
 
@@ -2135,7 +2135,7 @@ int main_x(/*int argc, char** argv*/)
 	textbox_height = count_features * 18 + 12;
 	textbox2_width = 200;
 	textbox2_height = count_stages * 18 + 12;
-	textbox3_width = 210;
+	textbox3_width = 220;
 	textbox3_height = count_variables * 18 + 12;
 	window2_width = 532;
 	window2_height = 740;//300;
@@ -2954,10 +2954,10 @@ int main_x(/*int argc, char** argv*/)
 	kiss_label_new(&label_terfeat2, &window1, (char*)"IDX|TYPE|SUBT| X  | Y  |DIID| 10 |STAG|PAR1|PAR2|PAR3", 5 + textbox1.rect.x + kiss_edge, textbox1.rect.y - kiss_textfont.lineheight);
 
 	kiss_label_new(&label_stages, &window1, (char*)"LEVEL STAGES:", 5 + textbox2.rect.x + kiss_edge, textbox2.rect.y - kiss_textfont.lineheight * 2);
-	kiss_label_new(&label_stages2, &window1, (char*)"IX|ST|1D| 03 | 05 ", 5 + textbox2.rect.x + kiss_edge, textbox2.rect.y - kiss_textfont.lineheight);
+	kiss_label_new(&label_stages2, &window1, (char*)"IX|ST| 01 | 03 | 05 ", 5 + textbox2.rect.x + kiss_edge, textbox2.rect.y - kiss_textfont.lineheight);
 
 	kiss_label_new(&label_vars, &window1, (char*)"LEVEL VARS:", 5 + textbox3.rect.x + kiss_edge, textbox3.rect.y - kiss_textfont.lineheight * 2);
-	kiss_label_new(&label_vars2, &window1, (char*)"IX|ST|X1|Y1| X2 | Y2 ", 5 + textbox3.rect.x + kiss_edge, textbox3.rect.y - kiss_textfont.lineheight);
+	kiss_label_new(&label_vars2, &window1, (char*)"IX|ST|01| 02 | 4X | 4Y ", 5 + textbox3.rect.x + kiss_edge, textbox3.rect.y - kiss_textfont.lineheight);
 	//kiss_label_new(&label2, &window1, (char*)"Files", textbox2.rect.x +	kiss_edge, textbox1.rect.y - kiss_textfont.lineheight);
 	//kiss_label_new(&label_sel, &window1, (char*)"", textbox1.rect.x +kiss_edge, textbox1.rect.y + textbox_height +kiss_normal.h);
 	//kiss_entry_new(&entry, &window1, 1, (char*)"kiss", textbox1.rect.x,label_sel.rect.y + kiss_textfont.lineheight,2 * textbox_width + 2 * kiss_up.w + kiss_edge);

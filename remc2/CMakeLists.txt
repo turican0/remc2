@@ -65,8 +65,13 @@ set(SOURCE_FILES_ENGINE
     "engine/read_config.h"
     "engine/TextureMaps.cpp"
     "engine/TextureMaps.h"
-    "engine/GameRender.cpp"
-    "engine/GameRender.h"
+    "engine/GameRenderOriginal.cpp"
+    "engine/GameRenderOriginal.h"
+    "engine/GameRenderHD.cpp"
+    "engine/GameRenderHD.h"
+    "engine/GameRenderGL.cpp"
+    "engine/GameRenderGL.h"
+    "engine/GameRenderInterface.h"
     "sub_main.cpp"
     "sub_main.h"
     "engine/ProjectionPolygon.cpp"
@@ -80,6 +85,8 @@ set(SOURCE_FILES_ENGINE
     "engine/Terrain.cpp"
     "engine/Terrain.h"
     "engine/sub_main_mouse.h"
+    "engine/ViewPort.cpp"
+    "engine/ViewPort.h"
 )
 source_group("Source Files\\engine" FILES ${SOURCE_FILES_ENGINE})
 
@@ -102,6 +109,8 @@ source_group("Source Files\\libs\\findfirst" FILES ${SOURCE_FILES__libs__findfir
 
 set(SOURCE_FILES__portability
     "portability/mctypes.h"
+    "portability/port_net.cpp"
+    "portability/port_net.h"
     "portability/port_filesystem.cpp"
     "portability/port_filesystem.h"
     "portability/port_inputs.cpp"
@@ -118,13 +127,19 @@ set(SOURCE_FILES__portability
     "portability/xmi2mid.h"
 )
 source_group("Source Files\\portability" FILES ${SOURCE_FILES__portability})
-
+set(SOURCE_FILES__networklib
+    "networklib/Constants.h"
+    "networklib/LockedQueue.h"
+    "networklib/Log.h"
+)
+source_group("Source Files\\networklib" FILES ${SOURCE_FILES__networklib})
 set(ALL_FILES
     ${HEADER_FILES}
     ${SOURCE_FILES}
     ${SOURCE_FILES_ENGINE}
     ${SOURCE_FILES__libs__inih}
     ${SOURCE_FILES__portability}
+    ${SOURCE_FILES__networklib}
 )
 
 ################################################################################
@@ -189,6 +204,7 @@ if (UNIX)
         ${PNG_LIBRARY}
         findfirst
         ADLMIDI_static
+        Boost::system
     )
     target_link_directories(${PROJECT_NAME} PUBLIC
     )
@@ -201,31 +217,35 @@ endif ()
 ################################################################################
 # Unit tests
 ################################################################################
-include(GoogleTest)
+if (UNIT_TESTS)
+    include(GoogleTest)
 
-add_executable(remc2unittests UnitTests.cpp)
-target_include_directories(remc2unittests PUBLIC
-    "${CMAKE_SOURCE_DIR}/findfirst"
-)
-target_link_libraries(remc2unittests PUBLIC 
-    findfirst
-    gtest
-    pthread
-)
-if (USE_64_BIT)
-    add_compile_definitions(COMPILE_FOR_64BIT)
-    set_target_properties(remc2unittests PROPERTIES COMPILE_FLAGS "-m64" LINK_FLAGS "-m64")
-else ()
-    set_target_properties(remc2unittests PROPERTIES COMPILE_FLAGS "-m32" LINK_FLAGS "-m32")
+    add_executable(remc2unittests UnitTests.cpp)
+    target_include_directories(remc2unittests PUBLIC
+        "${CMAKE_SOURCE_DIR}/findfirst"
+    )
+    target_link_libraries(remc2unittests PUBLIC 
+        findfirst
+        gtest
+        pthread
+    )
+    if (USE_64_BIT)
+        add_compile_definitions(COMPILE_FOR_64BIT)
+        set_target_properties(remc2unittests PROPERTIES COMPILE_FLAGS "-m64" LINK_FLAGS "-m64")
+    else ()
+        set_target_properties(remc2unittests PROPERTIES COMPILE_FLAGS "-m32" LINK_FLAGS "-m32")
+    endif ()
+    gtest_add_tests(TARGET      remc2unittests
+                    TEST_SUFFIX .noArgs
+                    TEST_LIST   noArgsTests
+    )
+    set_tests_properties(${noArgsTests}   PROPERTIES TIMEOUT 10)
 endif ()
-gtest_add_tests(TARGET      remc2unittests
-                TEST_SUFFIX .noArgs
-                TEST_LIST   noArgsTests
-)
-set_tests_properties(${noArgsTests}   PROPERTIES TIMEOUT 10)
 
 # editor
-add_subdirectory(editor)
+if (EDITOR)
+    add_subdirectory(editor)
+endif ()
 
 
 if (UNIX)
@@ -241,7 +261,11 @@ if (UNIX)
             -static-libubsan
         )
         target_link_options(remc2 PRIVATE ${SANITIZER_OPTIONS})
-        target_link_options(remc2unittests PRIVATE ${SANITIZER_OPTIONS})
-        target_link_options(remc2editor PRIVATE ${SANITIZER_OPTIONS})
+        if (UNIT_TESTS)
+            target_link_options(remc2unittests PRIVATE ${SANITIZER_OPTIONS})
+        endif () 
+        if (EDITOR)
+            target_link_options(remc2editor PRIVATE ${SANITIZER_OPTIONS})
+        endif ()
     endif ()
 endif ()
