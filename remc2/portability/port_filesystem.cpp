@@ -1,5 +1,8 @@
 #include "port_filesystem.h"
 #include <string>
+#include <vector>
+#include <filesystem>
+#include <iostream>
 using namespace std;
 /*
 #ifndef DIR
@@ -18,7 +21,6 @@ char bigGraphicsFolder[512] = "bigGraphics";
 	#include <unistd.h>
 	#include <stdarg.h>
 	#include <sys/stat.h>
-    #include <filesystem>
     #include <cstdio>
 #endif
 
@@ -102,7 +104,7 @@ bool file_exists(const char * filename) {
 	return false;
 }
 
-FILE* mycreate(char* path, uint32_t  /*flags*/) {
+FILE* mycreate(const char* path, uint32_t  /*flags*/) {
 	FILE *fp;
 	fp = fopen(path, "wb+");
 	#ifdef DEBUG_START
@@ -119,6 +121,7 @@ std::string path = {};
 
 void debug_printf(const char* format, ...) {
 	char prbuffer[1024];
+#ifndef FLATPAK
 	va_list arg;
 	int done;
 	va_start(arg, format);
@@ -140,9 +143,10 @@ void debug_printf(const char* format, ...) {
 	#ifdef DEBUG_PRINT_DEBUG_TO_SCREEN
 		printf(prbuffer);
 	#endif
+#endif
 }
 
-int32_t myaccess(char* path, uint32_t  /*flags*/) {
+int32_t myaccess(const char* path, uint32_t  /*flags*/) {
 	DIR *dir;
 	//char path2[2048] = "\0";
 	#ifdef DEBUG_FILEOPS
@@ -169,7 +173,7 @@ int32_t myaccess(char* path, uint32_t  /*flags*/) {
 	return -1;
 };
 
-int32_t /*__cdecl*/ mymkdir(char* path) {
+int32_t /*__cdecl*/ mymkdir(const char* path) {
 	//char path2[512] = "\0";
 	#ifdef DEBUG_FILEOPS
 		debug_printf("mymkdir:path: %s\n", path);
@@ -476,16 +480,59 @@ void ReadGraphicsfile(const char* path, uint8_t* buffer, long size)
 	}
 };
 
+std::string getExistingDataPath(std::filesystem::path path) 
+{
+	std::vector<std::string> file_locations;
+#ifdef __linux__
+	auto env_home_dir = std::getenv("HOME");
+	auto env_xdg_data_home_dir = std::getenv("XDG_DATA_HOME");
+	std::filesystem::path home_dir;
+	std::filesystem::path xdg_data_home_dir;
+	if (env_home_dir) home_dir = env_home_dir;
+	if (env_xdg_data_home_dir) xdg_data_home_dir = env_xdg_data_home_dir;
+
+	if (std::filesystem::exists(xdg_data_home_dir)) {
+		file_locations.emplace_back(xdg_data_home_dir / "remc2" / path);
+	}
+	if (std::filesystem::exists(home_dir)) {
+		file_locations.emplace_back(home_dir / ".local" / "share" / "remc2" / path);
+	}
+#else //__linux__
+	auto home_drive = std::getenv("HOMEDRIVE");
+	auto home_path =  std::getenv("HOMEPATH");
+	if (home_drive && home_path) {
+		std::filesystem::path home_dir(std::string(home_drive) + "/" + std::string(home_path));
+		file_locations.push_back((home_dir / "remc2" / path).string());
+	}
+#endif //__linux__
+	file_locations.push_back(get_exe_path() + "/" + path.string());
+
+	std::string file_found;
+
+	// first location at which the file can be found is chosen
+	for (auto file_location: file_locations) {
+		if (std::filesystem::exists(file_location)) {
+			file_found = file_location;
+			break;
+		}
+	}
+
+	std::cout << "Data file found: " << file_found << "\n";
+	return file_found;
+}
+
 void GetSubDirectoryPath(char* buffer, const char* subDirectory)
 {
-	std::string exepath = get_exe_path();
-	sprintf(buffer, "%s/%s", exepath.c_str(), subDirectory);
+	std::string path = getExistingDataPath(subDirectory);
+	sprintf(buffer, "%s", path.c_str());
 }
 
 void GetSubDirectoryPath(char* buffer, const char* gamepath, const char* subDirectory)
 {
-	std::string exepath = get_exe_path();
-	sprintf(buffer, "%s/%s/%s", exepath.c_str(), gamepath, subDirectory);
+	std::string path = getExistingDataPath(
+		std::filesystem::path(gamepath) / std::filesystem::path(subDirectory)
+	);
+	sprintf(buffer, "%s", path.c_str());
 }
 
 void GetSubDirectoryFile(char* buffer, const char* gamepath, const char* subDirectory, const char* fileName)

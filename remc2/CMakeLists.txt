@@ -204,6 +204,7 @@ if (UNIX)
         ${PNG_LIBRARY}
         findfirst
         ADLMIDI_static
+        Boost::system
     )
     target_link_directories(${PROJECT_NAME} PUBLIC
     )
@@ -216,31 +217,35 @@ endif ()
 ################################################################################
 # Unit tests
 ################################################################################
-include(GoogleTest)
+if (UNIT_TESTS)
+    include(GoogleTest)
 
-add_executable(remc2unittests UnitTests.cpp)
-target_include_directories(remc2unittests PUBLIC
-    "${CMAKE_SOURCE_DIR}/findfirst"
-)
-target_link_libraries(remc2unittests PUBLIC 
-    findfirst
-    gtest
-    pthread
-)
-if (USE_64_BIT)
-    add_compile_definitions(COMPILE_FOR_64BIT)
-    set_target_properties(remc2unittests PROPERTIES COMPILE_FLAGS "-m64" LINK_FLAGS "-m64")
-else ()
-    set_target_properties(remc2unittests PROPERTIES COMPILE_FLAGS "-m32" LINK_FLAGS "-m32")
+    add_executable(remc2unittests UnitTests.cpp)
+    target_include_directories(remc2unittests PUBLIC
+        "${CMAKE_SOURCE_DIR}/findfirst"
+    )
+    target_link_libraries(remc2unittests PUBLIC 
+        findfirst
+        gtest
+        pthread
+    )
+    if (USE_64_BIT)
+        add_compile_definitions(COMPILE_FOR_64BIT)
+        set_target_properties(remc2unittests PROPERTIES COMPILE_FLAGS "-m64" LINK_FLAGS "-m64")
+    else ()
+        set_target_properties(remc2unittests PROPERTIES COMPILE_FLAGS "-m32" LINK_FLAGS "-m32")
+    endif ()
+    gtest_add_tests(TARGET      remc2unittests
+                    TEST_SUFFIX .noArgs
+                    TEST_LIST   noArgsTests
+    )
+    set_tests_properties(${noArgsTests}   PROPERTIES TIMEOUT 10)
 endif ()
-gtest_add_tests(TARGET      remc2unittests
-                TEST_SUFFIX .noArgs
-                TEST_LIST   noArgsTests
-)
-set_tests_properties(${noArgsTests}   PROPERTIES TIMEOUT 10)
 
 # editor
-add_subdirectory(editor)
+if (EDITOR)
+    add_subdirectory(editor)
+endif ()
 
 
 if (UNIX)
@@ -256,7 +261,11 @@ if (UNIX)
             -static-libubsan
         )
         target_link_options(remc2 PRIVATE ${SANITIZER_OPTIONS})
-        target_link_options(remc2unittests PRIVATE ${SANITIZER_OPTIONS})
-        target_link_options(remc2editor PRIVATE ${SANITIZER_OPTIONS})
+        if (UNIT_TESTS)
+            target_link_options(remc2unittests PRIVATE ${SANITIZER_OPTIONS})
+        endif () 
+        if (EDITOR)
+            target_link_options(remc2editor PRIVATE ${SANITIZER_OPTIONS})
+        endif ()
     endif ()
 endif ()
