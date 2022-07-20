@@ -6370,17 +6370,17 @@ char sub_7C200(uint8_t a1);
 //----- (00010010) --------------------------------------------------------
 signed __int16 sub_10010()
 {
-	//__int16 v0; // bx
-	//__int16 v1; // cx
-	//__int16 v2; // [esp+0h] [ebp-Ch]
-	//__int16 v3; // [esp+2h] [ebp-Ah]
-	//int v4; // [esp+4h] [ebp-8h]
-	//int v5; // [esp+8h] [ebp-4h]
+	__int16 v0; // bx
+	__int16 v1; // cx
+	__int16 v2; // [esp+0h] [ebp-Ch]
+	__int16 v3; // [esp+2h] [ebp-Ah]
+	int v4; // [esp+4h] [ebp-8h]
+	int v5; // [esp+8h] [ebp-4h]
 
 	// fix if begin
-	//v1 = 0;
-	//v3 = 0;
-	//v4 = 0;
+	v1 = 0;
+	v3 = 0;
+	v4 = 0;
 	// end
 
 	//v0 = 0;
