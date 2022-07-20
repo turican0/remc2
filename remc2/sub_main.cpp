@@ -82225,14 +82225,13 @@ signed int sub_7D230(char a1, unsigned __int8 a2, unsigned __int8 a3)//25e230
 //----- (0007D310) --------------------------------------------------------
 void SetMultiplayerColors_7D310()//25e310
 {
-	int v3 = 0;
 	for (int v0 = 0; v0 < 8; v0++)
 	{
 		if (x_DWORD_17DE38str.array_BYTE_17DE68x[v0].connected_0)
 		{
 			if (v0 != x_DWORD_17DE38str.serverIndex_17DEFC)
 			{
-				SetPaletteColor_7CDC0(v3++, x_DWORD_17DE38str.array_BYTE_17DE68x[sub_74515()].array_byte_1[v0]);
+				SetPaletteColor_7CDC0(v0, x_DWORD_17DE38str.array_BYTE_17DE68x[sub_74515()].array_byte_1[v0]);
 			}
 		}
 	}
