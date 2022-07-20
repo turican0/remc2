@@ -82050,8 +82050,8 @@ int sub_7CDA0()//25dda0
 //----- (0007CDC0) --------------------------------------------------------
 void SetPaletteColor_7CDC0(unsigned __int8 a1, unsigned __int8 a2)//25ddc0
 {
-	TColor* v2a = &((TColor*)*xadatapald0dat2.colorPalette_var28)[134];
-	TColor* v2b = &((TColor*)*xadatapald0dat2.colorPalette_var28)[135];
+	TColor* v2a = &((TColor*)*xadatapald0dat2.colorPalette_var28)[134 + 2 * a1];
+	TColor* v2b = &((TColor*)*xadatapald0dat2.colorPalette_var28)[135 + 2 * a1];
 	*v2a = str_BYTE_E1711[0][a2];
 	*v2b = str_BYTE_E1711[1][a2];
 }
