@@ -817,7 +817,11 @@ void VGA_Blit(Uint8* srcBuffer) {
 	SOUND_UPDATE();
 }
 
+bool myprint_lock = false;
+
 void SubBlit(uint16_t originalResWidth, uint16_t originalResHeight) {
+	while (myprint_lock);//fix problem with quick blitting
+	myprint_lock = true;
 
 	SDL_Rect rectSrc;
 	rectSrc.x = 0;
@@ -867,6 +871,7 @@ void SubBlit(uint16_t originalResWidth, uint16_t originalResHeight) {
 
 	SDL_RenderPresent(m_renderer);
 	SDL_RenderClear(m_renderer);
+	myprint_lock = false;
 }
 
 void VGA_Init_test() {//only for debug
