@@ -55559,15 +55559,31 @@ type_SPELLS_BEGIN_BUFFER_str;
 	int8_t SPELLS_BEGIN_BUFFER_DA818x[0x820] = {*/
 }
 
+int StartNetworkTimeout = 5;
+
 void InitNetworkInfo() {
 #ifdef TEST_NETWORK
-		std::string exepath = get_exe_path();
-		debug_net_filename2 = exepath + "/../" + debug_net_filename1;
+	std::string exepath = get_exe_path();
+	debug_net_filename2 = exepath + "/../" + debug_net_filename1;
 
-		//testlib1();
-		if (Iam_server)
-			InitLibNetServer(ServerMPort);
-		InitLibNetClient(serverIP, ServerMPort, ClientMPort);
+	//testlib1();
+	if (Iam_server)
+		InitLibNetServer(ServerMPort);
+	InitLibNetClient(serverIP, ServerMPort, ClientMPort);
+	if (Iam_server)
+	{
+		while (StartNetworkTimeout > 0) {
+			mydelay(1000);
+			StartNetworkTimeout--;
+			myprintf("I wait for clients %d s\n", StartNetworkTimeout);
+		}
+		SendMessagesRegisterOK();
+	}
+	bool receive_timeout = false;
+	while (!receive_timeout) {
+		receive_timeout = ReceiveTimeout();
+		mydelay(1000);
+	}
 #endif //TEST_NETWORK
 };
 
