@@ -123,9 +123,9 @@ void debug_printf(const char* format, ...) {
 	char prbuffer[1024];
 #ifndef FLATPAK
 	va_list arg;
-	int done;
+	//int done;
 	va_start(arg, format);
-	done = vsprintf(prbuffer, format, arg);
+	vsprintf(prbuffer, format, arg);
 	va_end(arg);
 
 	std::string exepath = get_exe_path();

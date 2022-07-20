@@ -809,7 +809,7 @@ uint32_t compare_with_sequence_E7EE0(char* filename, uint8_t* adress, uint32_t  
 	fread(buffer, size2, 1, fptestepc);
 	uint32_t i;
 	bool testa, testb;
-	int diffindex = 0;
+	//int diffindex = 0;
 	for (i = 0; i < size2; i++)
 	{
 		int testx = test_E7EE0_id_pointer(i);
@@ -1130,7 +1130,7 @@ uint32_t compare_with_sequence_array_E2A74(char* filename, uint8_t* adress, uint
 	fread(buffer, size2, 1, fptestepc);
 	uint32_t i;
 	bool testa, testb;
-	int diffindex = 0;
+	//int diffindex = 0;
 	for (i = 0; i < size2; i++)
 	{
 		int testx = test_E2A74_id_pointer(i);
@@ -1567,7 +1567,7 @@ void write_posistruct_to_png(uint8_t* buffer, int width, int height, char* filen
 	//int width = actposistruct->width;
 	//int height = actposistruct->height;
 	//png_bytep *row_pointers=(png_bytep*)malloc(sizeof(row_pointers)*height);
-	png_bytep row = NULL;
+	//png_bytep row = NULL;
 	//uint8_t buffer[10000];
 
 	//uint8_t* buffer_ptr = buffer;
@@ -1696,7 +1696,7 @@ void write_posistruct_to_png(uint8_t* buffer, int width, int height, char* filen
 }
 
 void buff_posistruct_to_png(uint8_t* buffer, int width, int height, char* filename) {
-	png_bytep row = NULL;
+	//png_bytep row = NULL;
 	uint8_t Palettebuffer[768];
 	FILE* palfile;
 	palfile = fopen("c:\\prenos\\remc2\\testpal.pal", "rb");
@@ -2092,7 +2092,7 @@ axis_3d get_x_D41A0_BYTEARRAY_0_0x2362(int number) {
 };
 void set_x_D41A0_BYTEARRAY_0_0x2362(int number, axis_3d value) {
 	memcpy(&x_D41A0_BYTEARRAY_0[6 * number + 0x2362],&value,6);
-	//*(int32_t*)&x_D41A0_BYTEARRAY_0[6 * number + 0x2362] = value;
+	// *(int32_t*)&x_D41A0_BYTEARRAY_0[6 * number + 0x2362] = value;
 	D41A0_BYTESTR_0.array_0x2362[number] = value;
 };
 */

@@ -479,12 +479,12 @@ void /*__fastcall*/ sub_75E70()//256e70
 	char v19; // al
 	int16_t v20x[3]; // [esp+0h] [ebp-10h]
 	//uint32_t v20y; // [esp+0h] [ebp-10h]
-	int v21; // [esp+4h] [ebp-Ch]
+	//int v21; // [esp+4h] [ebp-Ch]
 	uint8_t* v22; // [esp+8h] [ebp-8h]
 	char v23; // [esp+Ch] [ebp-4h]
 
 	//fix it
-	v21 = 0;
+	//v21 = 0;
 	x_DWORD_17DB54_game_turn2 = 0x40;
 	//fix it
 

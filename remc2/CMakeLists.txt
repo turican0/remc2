@@ -147,13 +147,6 @@ set(ALL_FILES
 ################################################################################
 add_library(findfirst ${SOURCE_FILES__libs__findfirst})
 add_executable(${PROJECT_NAME} ${ALL_FILES})
-if (USE_64_BIT)
-    set_target_properties(findfirst PROPERTIES COMPILE_FLAGS "-m64" LINK_FLAGS "-m64")
-    set_target_properties(${PROJECT_NAME} PROPERTIES COMPILE_FLAGS "-m64" LINK_FLAGS "-m64")
-else ()
-    set_target_properties(findfirst PROPERTIES COMPILE_FLAGS "-m32" LINK_FLAGS "-m32")
-    set_target_properties(${PROJECT_NAME} PROPERTIES COMPILE_FLAGS "-m32" LINK_FLAGS "-m32")
-endif ()
 
 install(
     TARGETS ${PROJECT_NAME}
@@ -229,12 +222,7 @@ if (UNIT_TESTS)
         gtest
         pthread
     )
-    if (USE_64_BIT)
-        add_compile_definitions(COMPILE_FOR_64BIT)
-        set_target_properties(remc2unittests PROPERTIES COMPILE_FLAGS "-m64" LINK_FLAGS "-m64")
-    else ()
-        set_target_properties(remc2unittests PROPERTIES COMPILE_FLAGS "-m32" LINK_FLAGS "-m32")
-    endif ()
+    add_compile_definitions(COMPILE_FOR_64BIT)
     gtest_add_tests(TARGET      remc2unittests
                     TEST_SUFFIX .noArgs
                     TEST_LIST   noArgsTests

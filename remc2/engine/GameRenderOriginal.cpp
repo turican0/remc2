@@ -264,7 +264,7 @@ void GameRenderOriginal::DrawSky_40950(int16_t roll/*, uint8_t startLine, uint8_
 	int v8; // eax
 	int v9; // ecx
 	int v10; // edx
-	__int16 result; // ax
+	//__int16 result; // ax
 	int v12; // eax
 	char* v13; // esi
 	uint32_t* v14; // edi
@@ -273,8 +273,8 @@ void GameRenderOriginal::DrawSky_40950(int16_t roll/*, uint8_t startLine, uint8_
 	int v17; // ebx
 	int v18; // eax
 	char v19ar[0x500]; // [esp+0h] [ebp-52Ch]
-	int v20; // [esp+500h] [ebp-2Ch]
-	int v21; // [esp+504h] [ebp-28h]
+	//int v20; // [esp+500h] [ebp-2Ch]
+	//int v21; // [esp+504h] [ebp-28h]
 	//int* viewPortRenderBufferStart; // [esp+508h] [ebp-24h]
 	int v23; // [esp+50Ch] [ebp-20h]
 	int v24; // [esp+510h] [ebp-1Ch]
@@ -301,8 +301,8 @@ void GameRenderOriginal::DrawSky_40950(int16_t roll/*, uint8_t startLine, uint8_
 	{
 		v28 = BYTE2(v3);
 		*v5 = BYTE2(v3) - v29;
-		v21 = BYTE2(v4);
-		v20 = BYTE2(v4) - v30;
+		//v21 = BYTE2(v4);
+		//v20 = BYTE2(v4) - v30;
 		v5 += 2;
 		width--;
 		*(v5 - 1) = BYTE2(v4) - v30;
@@ -317,7 +317,7 @@ void GameRenderOriginal::DrawSky_40950(int16_t roll/*, uint8_t startLine, uint8_
 	v10 = v25 * v8 + v26 * v7;
 	v23 = ((unsigned __int16)x_WORD_F2CC0 << 15) - v9;
 	uint8_t* viewPortRenderBufferStart = ViewPortRenderBufferStart_DE558;
-	result = viewPort.Height_DE568;
+	//result = viewPort.Height_DE568;
 	v27 = -v10;
 	v24 = (unsigned __int16)viewPort.Height_DE568;
 	if ((x_WORD)viewPort.Height_DE568)
@@ -328,9 +328,9 @@ void GameRenderOriginal::DrawSky_40950(int16_t roll/*, uint8_t startLine, uint8_
 				- (__CFSHL__((signed int)(unsigned __int16)viewPort.Width_DE564 >> 31, 2)
 					+ 4 * ((signed int)(unsigned __int16)viewPort.Width_DE564 >> 31))) >> 2;
 			v13 = v19ar;
-			v20 = v27 >> 16;
+			//v20 = v27 >> 16;
 			v14 = (uint32_t*)viewPortRenderBufferStart;
-			v21 = v23 >> 16;
+			//v21 = v23 >> 16;
 			v15 = off_D41A8_sky;
 			BYTE1(v17) = BYTE2(v27);
 			v16 = ((unsigned __int16)viewPort.Width_DE564
@@ -360,7 +360,7 @@ void GameRenderOriginal::DrawSky_40950(int16_t roll/*, uint8_t startLine, uint8_
 				v16--;
 			} while (v16);
 			viewPortRenderBufferStart += iScreenWidth_DE560;
-			result = v25;
+			//result = v25;
 			v24--;
 			v23 -= v26;
 			v27 += v25;
@@ -1896,9 +1896,9 @@ uint16_t GameRenderOriginal::sub_3FD60(int a2x)
 	//fix
 
 
-	uint8_t origbyte20 = 0;
-	uint8_t remakebyte20 = 0;
-	int comp20;
+	//uint8_t origbyte20 = 0;
+	//uint8_t remakebyte20 = 0;
+	//int comp20;
 	//if (debug_counter_1f3e70 >= 0xb5)
 	/*{
 		comp20 = compare_with_sequence((char*)"00220D6C-FFFFFF04", (uint8_t*)&Str_E9C38_smalltit[a2x], 0x2dc4e0, debug_sub_3FD60B, 44, 44, &origbyte20, &remakebyte20);
@@ -2953,16 +2953,16 @@ void GameRenderOriginal::DrawSorcererNameAndHealthBar_2CB30(type_event_0x6E8E* a
 	__int16 v11; // bx
 	int v12; // edi
 	int v13; // esi
-	unsigned __int8 v15; // ST10_1
-	unsigned __int8 v16; // ST10_1
-	unsigned __int8 v17; // ST10_1
-	unsigned __int8 v18; // ST10_1
-	unsigned __int8 v19; // ST10_1*/
+	//unsigned __int8 v15; // ST10_1
+	//unsigned __int8 v16; // ST10_1
+	//unsigned __int8 v17; // ST10_1
+	//unsigned __int8 v18; // ST10_1
+	//unsigned __int8 v19; // ST10_1*/
 	char v24[32]; // [esp+0h] [ebp-58h]
 	int v25; // [esp+20h] [ebp-38h]
 	int v26; // [esp+24h] [ebp-34h]
-	int v27; // [esp+28h] [ebp-30h]
-	int v28; // [esp+2Ch] [ebp-2Ch]
+	//int v27; // [esp+28h] [ebp-30h]
+	//int v28; // [esp+2Ch] [ebp-2Ch]
 	int v29; // [esp+30h] [ebp-28h]
 	int v30; // [esp+34h] [ebp-24h]
 	int v31; // [esp+38h] [ebp-20h]
@@ -3024,9 +3024,9 @@ void GameRenderOriginal::DrawSorcererNameAndHealthBar_2CB30(type_event_0x6E8E* a
 				v26 = (signed __int16)(v13 + 2);
 				v30 = v11;
 				DrawLine_2BC80(v11, v39, v13 + 2, 18, v37);//8
-				v27 = v33;//30// v16
+				//v27 = v33;//30// v16
 				DrawLine_2BC80(v30, v39, v26, 2, v33);//18
-				v28 = v38;//2c//v17
+				//v28 = v38;//2c//v17
 				DrawLine_2BC80(v30, v39 + 16, v26, 2, v38);//4
 				DrawLine_2BC80(v30, v39, 2, 16, v33);//30,tj.18
 				DrawLine_2BC80(v11 + v32 - 2, v39, 2, 18, v38);//2c tj. 4
