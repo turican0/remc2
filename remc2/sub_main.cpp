@@ -5362,10 +5362,10 @@ type_WORD_E1F84 str_WORD_E2008[3] = {
 {0x00000000,0x00000000,0x0000,0x011B,0x017D,0x003C,0x003C,0x0000,0x00,0x6C,0x02,0x01,0x01,0x00,{0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0003}},
 {0x00000000,0x00000000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x00,0x00,0x00,0x00,0x00,0x00,{0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000}}};
 
-int x_DWORD_E208C = 0; // weak
-__int16 x_WORD_E2094 = 40; // weak
-char x_BYTE_E2096 = 40; // weak
-char x_BYTE_E2097 = 49; // weak
+long lastTime_E208C = 0; // weak
+__int16 timeCounter_E2094 = 40; // weak
+char minTimeCounter_E2096 = 40; // weak
+char maxTimeCounter_E2097 = 49; // weak
 
 #pragma pack (1)
 typedef struct {//lenght 69
@@ -78503,7 +78503,7 @@ char /*__fastcall*/ sub_77680()//258680
 	v14 = 0;
 	//fix it
 
-	x_WORD_E2094 = x_BYTE_E2096;
+	timeCounter_E2094 = minTimeCounter_E2096;
 	memset(printbuffer, 0, 80);
 	memset(v12, 0, 16);
 	v15 = 2;
@@ -81589,8 +81589,6 @@ char sub_7C200(unsigned __int8 a1)//25d200
 //----- (0007C230) --------------------------------------------------------
 void WaitToConnect_7C230()//25d230
 {
-	int v8; // edx
-
 	if (x_WORD_180660_VGA_type_resolution & 1)
 	{
 		CopyScreen((void*)x_DWORD_E9C38_smalltit, (void*)pdwScreenBuffer_351628, 320, 200);
@@ -81606,16 +81604,16 @@ void WaitToConnect_7C230()//25d230
 		x_WORD_E131A = 1;
 		ClearScrollDialogVars_7C020(&str_WORD_E1F70);
 	}
-	v8 = j___clock();
-	if ((unsigned int)(v8 - x_DWORD_E208C) >> 2 >= 1)
+	long actTime = j___clock();
+	if ((actTime - lastTime_E208C) >> 2 >= 1)
 	{
-		if ((unsigned __int8)x_BYTE_E2097 >= x_WORD_E2094)
-			++x_WORD_E2094;
+		if (maxTimeCounter_E2097 >= timeCounter_E2094)
+			timeCounter_E2094++;
 		else
-			x_WORD_E2094 = (unsigned __int8)x_BYTE_E2096;
-		x_DWORD_E208C = v8;
+			timeCounter_E2094 = minTimeCounter_E2096;
+		lastTime_E208C = actTime;
 	}
-	sub_7C120_draw_bitmap_640(x_DWORD_17DE38str.x_DWORD_17DEE4_mouse_positionx, x_DWORD_17DE38str.x_DWORD_17DEE6_mouse_positiony, xy_DWORD_17DED4_spritestr[x_WORD_E2094]);
+	sub_7C120_draw_bitmap_640(x_DWORD_17DE38str.x_DWORD_17DEE4_mouse_positionx, x_DWORD_17DE38str.x_DWORD_17DEE6_mouse_positiony, xy_DWORD_17DED4_spritestr[timeCounter_E2094]);
 	if (x_WORD_180660_VGA_type_resolution & 1)
 		sub_90478_VGA_Blit320();
 	else
