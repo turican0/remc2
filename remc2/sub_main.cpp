@@ -82161,19 +82161,15 @@ signed int SetMultiplayerColors_7CE50()//25de50
 //----- (0007D1F0) --------------------------------------------------------
 void DrawNetworkLevelName_7D1F0()//25e1f0
 {
-	int index; // eax
-
-	index = 0;
+	int index = 0;
 	x_DWORD_17DE38str.x_WORD_17DEFE = 0;
 	do
 	{
 		if (x_DWORD_17DE38str.array_BYTE_17DE68x[index].connected_0)
 			x_DWORD_17DE38str.x_WORD_17DEFE++;
 		index++;
-	} while ((signed __int16)index < 8);
-	//return result;
+	} while (index < 8);
 }
-// 17DEFE: using guessed type __int16 x_WORD_17DEFE;
 
 //----- (0007D230) --------------------------------------------------------
 signed int sub_7D230(char a1, unsigned __int8 a2, unsigned __int8 a3)//25e230
