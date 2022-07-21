@@ -37,10 +37,14 @@ Tomas has done amazing work, not only reverse engineering this code but updating
 There are two ways to build the Linux binary.
 - Building a native binary
   1. Pull the development branch
-  2. Make sure that you have the following dependencies as x86 development packages
+  2. Make sure that you have the following dependencies as development packages (the exact names depend on your distro)
   - SDL2
-  - SDL2_MIXER
+  - SDL2_mixer
+  - SDL2_image
+  - SDL2_ttf
   - libpng
+  - boost
+  - boost-system
   3. Make sure that you have `CMake`, `make` and a recent `GCC` installed
   4. Build the code
   ```bash
@@ -53,7 +57,6 @@ There are two ways to build the Linux binary.
   ```
     - You can also run the code with sanitizers (leak, address, undefined behaviour, pointers) by passing `-DUSE_SANITIZERS=True` to CMake
     - Additionally you can compile the code with clang-tidy analyzers by passing `-DUSE_CLANG_TIDY=True` to CMake
-    - For building a 64 bit version use the flag `-DUSE_64_BIT=True` 
   9. Run the `remc2` executable in install directory
 
 - Building a [flatpak](https://flatpak.org/)
@@ -78,7 +81,7 @@ In order to run the game you need to own a copy of Magic Carpet 2. We provide a 
   ```
   ./extract-GOG-CD.sh ~/Downloads/setup_magic_carpet_2_1.0_\(28044\).exe ~/.local/share/remc2
   ```
-  5. NOTE: The game will search in the following locations (and this particular order) for the game assets. For the flatpak only location 1. and 2. can be used.
+  5. NOTE: The game will search in the following locations (and in this particular order) for the game assets. For the flatpak only the first two locations can be used.
      1. `$XDG_DATA_HOME/remc2/`
      2. `$HOME/.local/share/remc2`
      3. next to the `remc2` binary
@@ -86,7 +89,7 @@ In order to run the game you need to own a copy of Magic Carpet 2. We provide a 
 #### Configuring `remc2`
 
 Some settings can be configured via the file `config.ini`. An example for this file can be found in the root directory of the `remc2` repository.
-The game will search for this file in the following locations and this particular order. For the flatpak only location 1. and 2. can be used.
+The game will search for this file in the following locations and this particular order. For the flatpak only the first two locations can be used.
 1. `$XDG_CONFIG_HOME/remc2`
 2. `$HOME/.config/remc2`
 3. next to the `remc2` binary
@@ -120,7 +123,7 @@ The game will search for this file in the following locations and this particula
 ## If you know a bit about game development or want to help out, branch away or email me here: thobbsinteractive@gmail.com
 
 ## Development Guide ##
-- The Project is compiled as C++ 11. Updating this to say version 17 causes build errors with build of libogg.
+- The Project is compiled as C++17.
 - If you re-name a method include the id from the original method name as this makes it easier to track changes from the generated code.
 e.g. `void sub_19CA0_sound_proc5(unsigned __int8 a1)` was renamed to `void ChangeSoundLevel_19CA0(uint8_t option)`
 - Please follow the general style of the refactored code. Upper Camel Case (Pascal Case) for Class/Method names. Camel Case for variables. 'm_' for class members. `GameRender.cpp` is a good example of the style.
