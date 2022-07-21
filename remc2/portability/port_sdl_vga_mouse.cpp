@@ -817,7 +817,7 @@ void VGA_Blit(Uint8* srcBuffer) {
 	SOUND_UPDATE();
 }
 
-bool subBlitLock = false;
+const bool subBlitLock = false;
 
 void SubBlit(uint16_t originalResWidth, uint16_t originalResHeight) {
 	while (subBlitLock);//fix problem with quick blitting

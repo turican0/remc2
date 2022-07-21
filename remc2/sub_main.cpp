@@ -2507,7 +2507,7 @@ int sub_7CCA0();
 int sub_7CCF0();
 int sub_7CD30();
 int sub_7CDA0();
-void SetPaletteColor_7CDC0(unsigned __int8 a1, unsigned __int8 a2);
+void SetPaletteColor_7CDC0(int a1, unsigned __int8 a2);
 signed int SetMultiplayerColors_7CE50();
 void DrawNetworkLevelName_7D1F0();
 signed int sub_7D230(char a1, unsigned __int8 a2, unsigned __int8 a3);
@@ -55559,7 +55559,7 @@ type_SPELLS_BEGIN_BUFFER_str;
 	int8_t SPELLS_BEGIN_BUFFER_DA818x[0x820] = {*/
 }
 
-int StartNetworkTimeout = 5;
+const int StartNetworkTimeout = 5;
 
 void InitNetworkInfo() {
 #ifdef TEST_NETWORK
@@ -81589,6 +81589,7 @@ char sub_7C200(unsigned __int8 a1)//25d200
 //----- (0007C230) --------------------------------------------------------
 void WaitToConnect_7C230()//25d230
 {
+	long actTime;
 	if (x_WORD_180660_VGA_type_resolution & 1)
 	{
 		CopyScreen((void*)x_DWORD_E9C38_smalltit, (void*)pdwScreenBuffer_351628, 320, 200);
@@ -81604,7 +81605,7 @@ void WaitToConnect_7C230()//25d230
 		x_WORD_E131A = 1;
 		ClearScrollDialogVars_7C020(&str_WORD_E1F70);
 	}
-	long actTime = j___clock();
+	actTime = j___clock();
 	if ((actTime - lastTime_E208C) >> 2 >= 1)
 	{
 		if (maxTimeCounter_E2097 >= timeCounter_E2094)
@@ -81644,7 +81645,7 @@ signed int sub_7C390()//25d390
 	x_DWORD_E9C38_smalltit = x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226;
 	x_DWORD_17DE38str.x_WORD_17DF00 = x_DWORD_17DE38str.x_WORD_17DEFE;
 	qmemcpy(x_BYTE_E1BA4, x_BYTE_E1B9C, sizeof(x_BYTE_E1BA4));
-	if ((unsigned __int16)SetMultiplayerColors_7CE50())
+	if (SetMultiplayerColors_7CE50())
 	{
 		x_DWORD_E9C38_smalltit = v6x;
 		result = 1;
@@ -82048,7 +82049,7 @@ int sub_7CDA0()//25dda0
 // 17DEFC: using guessed type __int16 x_WORD_17DEFC;
 
 //----- (0007CDC0) --------------------------------------------------------
-void SetPaletteColor_7CDC0(unsigned __int8 a1, unsigned __int8 a2)//25ddc0
+void SetPaletteColor_7CDC0(int a1, unsigned __int8 a2)//25ddc0
 {
 	TColor* v2a = &((TColor*)*xadatapald0dat2.colorPalette_var28)[134 + 2 * a1];
 	TColor* v2b = &((TColor*)*xadatapald0dat2.colorPalette_var28)[135 + 2 * a1];
