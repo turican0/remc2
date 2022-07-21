@@ -13,9 +13,9 @@
 #endif // win32
 
 void mydelay(int timems);
-long mygethundredths();
-long mygetthousandths();
-long mygetsecond();
+unsigned long mygethundredths();
+unsigned long mygetthousandths();
+unsigned long mygetsecond();
 double clockToMilliseconds(clock_t ticks);
 
 #endif //PORT_TIME

@@ -1023,7 +1023,7 @@ int /*__fastcall*/ nullsub_1(x_DWORD) { stub_fix_it(); return 0; }; // weak
 int sub_8E0D0() { stub_fix_it(); return 0; }; // weak
 void sub_8F4B0(HMDIDRIVER user) { stub_fix_it(); }; // weak
 int dword_1820E0 = 0;
-long clock_value()
+unsigned long clock_value()
 {
 	return mygethundredths();
 	//return clock()*0.1;
@@ -1044,7 +1044,7 @@ long clock_value()
 	//intdos(&v1, &v1); //fix it
 	return 100 * (v6 + 60 * (60 * v4 + v3)) + v5;*/
 }
-long _clock()
+unsigned long _clock()
 {
 	return clock_value();
 	/*unsigned int v0; // eax
@@ -1054,7 +1054,7 @@ long _clock()
 		v0 += 8640000;
 	return v0 - dword_1820E0;*/
 }
-long /*__fastcall*/ j___clock() {
+unsigned long /*__fastcall*/ j___clock() {
 	return _clock();
 }; // weak
 void sub_99830(HMDIDRIVER  /*user*/) { stub_fix_it(); }; // weak
@@ -2710,7 +2710,7 @@ void sub_90E07_VGA_set_video_mode_640x480_and_Palette(TColor* Palette);
 void sub_90E07_VGA_set_video_mode_alt_and_Palette(TColor* Palette);
 int sub_90EA0(int a1, char* a2);
 void sub_986E0();
-long j___clock(); // weak
+unsigned long j___clock(); // weak
 void sub_98790(unsigned __int16 a1, unsigned __int8 a2);
 signed int sub_98C48_open_nwrite_close(char* file, uint8_t* buffer, uint32_t count);
 size_t sub_98CAA_write(FILE* a1, uint8_t* a2, uint32_t a3);
@@ -5238,10 +5238,10 @@ TColor str_BYTE_E1711[2][18] = {{//players Palette colors is halfed
 }; // weak//2b2711
 
 type_str_unk_E1748 unk_E1748x[5] = { // menu fire animation positions and sprites
-	{0,17, 159, 1, 1,8},
-	{0,531,156, 9, 9,16},
-	{0,154,308, 17,17,25},
-	{0,226,308, 26,26,34},
+	{0,17, 159, 1, 1,8},   // left fire
+	{0,531,156, 9, 9,16},  // right fire
+	{0,152,308, 17,17,25}, // left incense stick
+	{0,481,307, 26,26,34}, // right incense stick
 	{0,0,0,0,0,0}
 };
 //unk_E1784x[3] // removed - referenced from menu animations but never in any code path
@@ -80550,40 +80550,26 @@ void sub_7AA70_load_and_decompres_dat_file(char* path, uint8_t* filebuffer, int 
 //----- (0007AB00) --------------------------------------------------------
 void sub_7AB00_draw_menu_animations()//25bb00
 {
-	int v5; // eax
-	int v6; // edi
-	int iy;
-	int v10; // [esp+0h] [ebp-4h]
-
+	unsigned long now = j___clock();
 	type_str_unk_E1748* a3x = unk_E1748x;
 
-	int ii = 0;
-	while (a3x[ii].word_4) // fire animation
+	// animate fire and incense stick animation
+	for (int ii = 0; a3x[ii].PosX_4; ii++)
 	{
-		v5 = j___clock();
-		v6 = v5;
-		v10 = v5;
-		sub_2BB40_draw_bitmap(a3x[ii].word_4, a3x[ii].word_6, xy_DWORD_17DED4_spritestr[a3x[ii].word_8]);
-		if ((v6 - a3x[ii].dword_0) >> 2 >= 1)
+		sub_2BB40_draw_bitmap(a3x[ii].PosX_4, a3x[ii].PosY_6, xy_DWORD_17DED4_spritestr[a3x[ii].ActSprite_8]);
+		if ((now - a3x[ii].LastTimeRendered_0) >> 2 >= 1)
 		{
-			//a2 = a3x[ii].word_8 + 1;
-			a3x[ii].word_8++;
-			//v7 = a3x[ii].byte_11;
-			//a3[4] = a2;
-			if (a3x[ii].byte_11 < a3x[ii].word_8)
-				a3x[ii].word_8 = a3x[ii].byte_10;
-			//a1 = v10;
-			a3x[ii].dword_0 = v10;
+			a3x[ii].ActSprite_8++;
+			if (a3x[ii].LastSprite_11 < a3x[ii].ActSprite_8)
+				a3x[ii].ActSprite_8 = a3x[ii].FirstSprite_10;
+			a3x[ii].LastTimeRendered_0 = now;
 		}
-		ii++;
-		//a3 += 6;
 	}
-	//for (i = off_E1BAC; *((int32_t*)(i + 10)); i += 44)
-	for (iy = 0; (str_E1BAC[iy].xmin_10<<16) + str_E1BAC[iy].ymin_12; iy++)
+	// draw selected main menu item
+	for (int iy = 0; (str_E1BAC[iy].xmin_10<<16) + str_E1BAC[iy].ymin_12; iy++)
 	{
 		if (str_E1BAC[iy].canSelect_23 && str_E1BAC[iy].gold_color_24)
 		{
-			//v4 = i;
 			sub_2BB40_draw_bitmap(str_E1BAC[iy].xmin_10, str_E1BAC[iy].ymin_12, xy_DWORD_17DED4_spritestr[str_E1BAC[iy].byte_21]);
 		}
 	}

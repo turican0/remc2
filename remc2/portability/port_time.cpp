@@ -13,7 +13,7 @@ void mydelay(int milliseconds) {
 
 };
 
-long mygethundredths() {
+unsigned long mygethundredths() {
 #ifdef WIN32
 	return clock() / (CLOCKS_PER_SEC/100);
 #else
@@ -23,7 +23,7 @@ long mygethundredths() {
 #endif
 };
 
-long mygetthousandths() {
+unsigned long mygetthousandths() {
 #ifdef WIN32
 	return clock() / (CLOCKS_PER_SEC/1000);
 #else
@@ -33,7 +33,7 @@ long mygetthousandths() {
 #endif
 };
 
-long mygetsecond() {
+unsigned long mygetsecond() {
 #ifdef WIN32
 	return clock();
 #else
