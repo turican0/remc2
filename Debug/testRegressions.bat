@@ -2,7 +2,7 @@
 
 echo "testing level1"
 del /s /Y ..\remc2\memimages\regressions\*.*
-copy /s ..\remc2\memimages\regressions\level1\*.* ..\remc2\memimages\regressions\
+copy ..\remc2\memimages\regressions\level1\*.* ..\remc2\memimages\regressions\
 remc2.exe
 echo ERRORLEVEL 
 echo %ERRORLEVEL%

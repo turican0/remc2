@@ -52,11 +52,11 @@ extern type_E3808_music_header* str_E3808_music_header;
 extern char x_BYTE_180C84_drivertype; // weak
 extern int16_t x_WORD_181B44; // weak
 
-extern signed int x_DWORD_182188[]; // idb
-extern signed int x_DWORD_1821A0[]; // idb
-extern signed int x_DWORD_1821B8[]; // idb
-extern signed int x_DWORD_1821D0[]; // idb
-extern signed int x_DWORD_1821E8[]; // idb
+extern uint8_t* x_DWORD_182188[]; // idb
+extern uint8_t* x_DWORD_1821A0[]; // idb
+extern uint8_t* x_DWORD_1821B8[]; // idb
+extern uint8_t* x_DWORD_1821D0[]; // idb
+extern uint8_t* x_DWORD_1821E8[]; // idb
 
 void /*__fastcall*/ sub_8D290_init_sound(/*char* a1*//*, int a2, int a3*/);
 void sub_8D800_sound_proc2();
@@ -95,7 +95,7 @@ void sub_99C10_sound_proc4();
 void sub_99C90();
 
 HDIGDRIVER sub_93330_AIL_install_DIG_driver_file(char* filename, IO_PARMS* IO);
-char sub_9AE90(int eax0, int edx0, int ebx0, int* a1, int8_t* a2, int a3, int a4);
+char sub_9AE90(int eax0, int edx0, char* ebx0, int* a1, int8_t* a2, int a3, int a4);
 int sub_931F0_AIL_install_DIG_INI(HDIGDRIVER* a2, char* digPath);
 HMDIDRIVER sub_95850_AIL_install_MDI_driver_file(char* filename, IO_PARMS* IO);
 int32_t sub_95710_AIL_install_MDI_INI(HMDIDRIVER* mdi, char* fileName);
@@ -157,9 +157,9 @@ x_DWORD* sub_97480_AIL_branch_index(HSEQUENCE hSequence, int a2);
 xCALLBACK sub_97670_AIL_register_trigger_callback(HSEQUENCE hSequence, xCALLBACK a2);
 int sub_97A60_AIL_register_event_callback(int a1, int a2);
 int sub_97BB0_AIL_register_timbre_callback(int a1, int a2);
-int sub_97F90_AIL_lock_channel(x_DWORD* a1);
-int sub_980D0_AIL_release_channel(x_DWORD* a1, int a2);
-int sub_98170_AIL_map_sequence_channel(x_DWORD* a1, int a2, int a3);
+int sub_97F90_AIL_lock_channel(MDI_DRIVER* a1);
+void sub_980D0_AIL_release_channel(x_DWORD* a1, int a2);
+int sub_98170_AIL_map_sequence_channel(HSEQUENCE a1, int a2, int a3);
 void sub_98360_AIL_send_channel_voice_message(HMDIDRIVER mdi, HSEQUENCE hSequence, int32_t status, int32_t data_1, int32_t data_2);
 
 int32_t sub_84300_load_sound(uint8_t a1);
@@ -180,7 +180,7 @@ void sub_9F040();
 
 void sub_9FA80();
 
-void sub_9F740(char* a1);
+void initAWE32_9F740(char* a1);
 
 int sub_9F280(int* a1);
 VDI_CALL sub_9F2E0(int* a1, int a2, unsigned __int16 a3, unsigned __int16 a4);
@@ -197,7 +197,7 @@ void sub_A108F();
 void sub_A10F4_sound_proc_irq();
 signed int sub_A11E2();
 void sub_A1249_AIL_API_set_real_vect(uint32_t vectnum, uint16_t real_ptr);
-signed int sub_A12C5_sound_proc_irq(int a1, int a2, __int16 a3);
+//signed int sub_A12C5_sound_proc_irq(int a1, int a2, __int16 a3);
 void sub_A14DB_AIL_API_restore_USE16_ISR(int a1);
 unsigned int sub_A1520();
 void sub_A1524(unsigned int a1);
@@ -278,16 +278,16 @@ int sub_A4C60(int a1, int a2);
 signed int sub_A4E10(char a1);
 void sub_A4EB0(HMDIDRIVER a1);
 void sub_A4F10(HMDIDRIVER a1, char a2, char a3, char a4);
-void sub_A4FD0(int a1, int a2, unsigned int a3);
+void sub_A4FD0(HMDIDRIVER a1, int a2, unsigned int a3);
 int sub_A5040(x_DWORD* a1);
 unsigned int sub_A50A0(int a1);
 uint8_t* sub_A50F0(uint8_t* a1, int a2);
 int sub_A5210(int a1, char a2, unsigned int a3);
-x_DWORD* sub_A5530(int a1, char a2, unsigned int a3, unsigned __int8 a4);
+void sub_A5530(CTRL_LOG* a1, char a2, unsigned int a3, unsigned __int8 a4);
 void sub_A5850(HSEQUENCE hSequence, char a2, unsigned int a3, signed int a4, int a5);
 void sub_A5E50(HSEQUENCE hSequence);
 void sub_A5F30(int* a1, int a2);
-void sub_A5FD0(int a1, int a2);
+void sub_A5FD0(HSEQUENCE a1, int a2);
 void sub_A6370(HSEQUENCE hSequence);
 void sub_A6490(HSEQUENCE hSequence);
 void sub_A64C0(HSEQUENCE hSequence);
@@ -336,9 +336,9 @@ int sub_A8B20(int a1, int a2);
 int sub_A8B60(int a1, int a2, int a3);
 int sub_A8B90(int a1, int a2);
 int sub_A8BD0(int a1, int a2);
-int sub_A8BF0(x_DWORD* a1);
-int sub_A8EA0(x_DWORD* a1, int a2);
-int sub_A9080(x_DWORD* a1, int a2, int a3);
+int sub_A8BF0(MDI_DRIVER* a1);
+void sub_A8EA0(x_DWORD* a1, int a2);
+int sub_A9080(HSEQUENCE a1, int a2, int a3);
 int sub_A9100(int a1, int a2);
 void sub_A9140_AIL_API_send_channel_voice_message(HMDIDRIVER mdi, HSEQUENCE hSequence, int32_t status, int32_t data_1, int32_t data_2);
 int sub_A9230(int a1, int a2);

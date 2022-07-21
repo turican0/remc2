@@ -45,9 +45,9 @@ long my_findfirst(char* path, _finddata_t* c_file);
 long my_findnext(long hFile, _finddata_t* c_file);
 void my_findclose(long hFile);
 bool file_exists(const char * filename);
-FILE* mycreate(char* path, uint32_t flags);
-int32_t myaccess(char* path, uint32_t flags);
-int32_t mymkdir(char* path);
+FILE* mycreate(const char* path, uint32_t flags);
+int32_t myaccess(const char* path, uint32_t flags);
+int32_t mymkdir(const char* path);
 
 FILE* myopen(char* path, int pmode, uint32_t flags);
 int myclose(FILE* descriptor);

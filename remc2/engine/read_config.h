@@ -25,7 +25,7 @@
 #ifndef READ_CONFIG
 #define READ_CONFIG
 
-void readini(const std::string& filename);
+bool readini();
 extern int config_skip_screen;
 extern int texturepixels;
 extern int speedGame;
@@ -40,6 +40,7 @@ extern bool bigSprites;
 extern bool sky;
 extern bool reflections;
 extern bool dynamicLighting;
+extern bool openGLRender;
 extern bool multiThreadedRender;
 extern int numberOfRenderThreads;
 extern bool assignToSpecificCores;
