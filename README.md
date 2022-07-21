@@ -81,7 +81,7 @@ In order to run the game you need to own a copy of Magic Carpet 2. We provide a 
   ```
   ./extract-GOG-CD.sh ~/Downloads/setup_magic_carpet_2_1.0_\(28044\).exe ~/.local/share/remc2
   ```
-  5. NOTE: The game will search in the following locations (and this particular order) for the game assets. For the flatpak only location 1. and 2. can be used.
+  5. NOTE: The game will search in the following locations (and in this particular order) for the game assets. For the flatpak only the first two locations can be used.
      1. `$XDG_DATA_HOME/remc2/`
      2. `$HOME/.local/share/remc2`
      3. next to the `remc2` binary
@@ -89,7 +89,7 @@ In order to run the game you need to own a copy of Magic Carpet 2. We provide a 
 #### Configuring `remc2`
 
 Some settings can be configured via the file `config.ini`. An example for this file can be found in the root directory of the `remc2` repository.
-The game will search for this file in the following locations and this particular order. For the flatpak only location 1. and 2. can be used.
+The game will search for this file in the following locations and this particular order. For the flatpak only the first two locations can be used.
 1. `$XDG_CONFIG_HOME/remc2`
 2. `$HOME/.config/remc2`
 3. next to the `remc2` binary
