@@ -221,13 +221,13 @@ typedef struct {//lenght 24
 subx_BYTE_E7EE0x;
 
 typedef struct {
-	unsigned long LastTimeRendered_0; // time of last render
-	int16_t PosX_4;  // posx
-	int16_t PosY_6;  // posy
-	int16_t ActSprite_8;  // act sprite
-	int8_t FirstSprite_10;  // first sprite
-	int8_t LastSprite_11;  // last sprite
-}type_str_unk_E1748;
+	unsigned long LastTimeRendered_0;
+	int16_t PosX_4;
+	int16_t PosY_6;
+	int16_t ActSprite_8;
+	int8_t FirstSprite_10;
+	int8_t LastSprite_11;
+} type_MainMenuAnimations_E1748;
 
 typedef struct {//lenght 30
 	int32_t dword_0;

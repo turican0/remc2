@@ -5237,7 +5237,7 @@ TColor str_BYTE_E1711[2][18] = {{//players Palette colors is halfed
 {0x00,0x00,0x00}}//27-8
 }; // weak//2b2711
 
-type_str_unk_E1748 unk_E1748x[5] = { // menu fire animation positions and sprites
+type_MainMenuAnimations_E1748 MainMenuAnimations_E1748x[5] = { // menu fire animation positions and sprites
 	{0,17, 159, 1, 1,8},   // left fire
 	{0,531,156, 9, 9,16},  // right fire
 	{0,152,308, 17,17,25}, // left incense stick
@@ -80551,7 +80551,7 @@ void sub_7AA70_load_and_decompres_dat_file(char* path, uint8_t* filebuffer, int 
 void sub_7AB00_draw_menu_animations()//25bb00
 {
 	unsigned long now = j___clock();
-	type_str_unk_E1748* a3x = unk_E1748x;
+	type_MainMenuAnimations_E1748* a3x = MainMenuAnimations_E1748x;
 
 	// animate fire and incense stick animation
 	for (int ii = 0; a3x[ii].PosX_4; ii++)
