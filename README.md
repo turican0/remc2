@@ -37,10 +37,14 @@ Tomas has done amazing work, not only reverse engineering this code but updating
 There are two ways to build the Linux binary.
 - Building a native binary
   1. Pull the development branch
-  2. Make sure that you have the following dependencies as x86 development packages
+  2. Make sure that you have the following dependencies as development packages (the exact names depend on your distro)
   - SDL2
-  - SDL2_MIXER
+  - SDL2_mixer
+  - SDL2_image
+  - SDL2_ttf
   - libpng
+  - boost
+  - boost-system
   3. Make sure that you have `CMake`, `make` and a recent `GCC` installed
   4. Build the code
   ```bash
@@ -53,7 +57,6 @@ There are two ways to build the Linux binary.
   ```
     - You can also run the code with sanitizers (leak, address, undefined behaviour, pointers) by passing `-DUSE_SANITIZERS=True` to CMake
     - Additionally you can compile the code with clang-tidy analyzers by passing `-DUSE_CLANG_TIDY=True` to CMake
-    - For building a 64 bit version use the flag `-DUSE_64_BIT=True` 
   9. Run the `remc2` executable in install directory
 
 - Building a [flatpak](https://flatpak.org/)
