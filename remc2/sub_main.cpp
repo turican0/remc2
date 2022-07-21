@@ -2489,7 +2489,7 @@ void sub_7B5D0();
 int sub_7B660_draw_scroll_dialog2(int a1, int a2, __int16 a3, type_str_word_26* a4x, char* a5, char a6);
 void sub_7BEC0();
 int sub_7BF20_draw_scroll_dialog(type_str_word_26* a1x);
-void sub_7C020(type_str_word_26* a1x);
+void ClearScrollDialogVars_7C020(type_str_word_26* a1x);
 signed int /*__fastcall*/ sub_7C050_get_keyboard_keys1();
 //void sub_7C120_draw_bitmap_640(int16_t posx, int16_t posy, posistruct_t tempstr);
 //void sub_7C140_draw_text_background(int16_t a1, int16_t a2, int16_t a3, int16_t a4, uint8_t a5);
@@ -2508,7 +2508,7 @@ int sub_7CCA0();
 int sub_7CCF0();
 int sub_7CD30();
 int sub_7CDA0();
-void SetPaletteColor_7CDC0(unsigned __int8 a1, unsigned __int8 a2);
+void SetPaletteColor_7CDC0(int a1, unsigned __int8 a2);
 signed int SetMultiplayerColors_7CE50();
 void DrawNetworkLevelName_7D1F0();
 signed int sub_7D230(char a1, unsigned __int8 a2, unsigned __int8 a3);
@@ -5363,10 +5363,10 @@ type_WORD_E1F84 str_WORD_E2008[3] = {
 {0x00000000,0x00000000,0x0000,0x011B,0x017D,0x003C,0x003C,0x0000,0x00,0x6C,0x02,0x01,0x01,0x00,{0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0003}},
 {0x00000000,0x00000000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x00,0x00,0x00,0x00,0x00,0x00,{0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000}}};
 
-int x_DWORD_E208C = 0; // weak
-__int16 x_WORD_E2094 = 40; // weak
-char x_BYTE_E2096 = 40; // weak
-char x_BYTE_E2097 = 49; // weak
+long lastTime_E208C = 0; // weak
+__int16 timeCounter_E2094 = 40; // weak
+char minTimeCounter_E2096 = 40; // weak
+char maxTimeCounter_E2097 = 49; // weak
 
 #pragma pack (1)
 typedef struct {//lenght 69
@@ -55478,15 +55478,31 @@ type_SPELLS_BEGIN_BUFFER_str;
 	int8_t SPELLS_BEGIN_BUFFER_DA818x[0x820] = {*/
 }
 
+const int StartNetworkTimeout = 5;
+
 void InitNetworkInfo() {
 #ifdef TEST_NETWORK
-		std::string exepath = get_exe_path();
-		debug_net_filename2 = exepath + "/../" + debug_net_filename1;
+	std::string exepath = get_exe_path();
+	debug_net_filename2 = exepath + "/../" + debug_net_filename1;
 
-		//testlib1();
-		if (Iam_server)
-			InitLibNetServer(ServerMPort);
-		InitLibNetClient(serverIP, ServerMPort, ClientMPort);
+	//testlib1();
+	if (Iam_server)
+		InitLibNetServer(ServerMPort);
+	InitLibNetClient(serverIP, ServerMPort, ClientMPort);
+	if (Iam_server)
+	{
+		while (StartNetworkTimeout > 0) {
+			mydelay(1000);
+			StartNetworkTimeout--;
+			myprintf("I wait for clients %d s\n", StartNetworkTimeout);
+		}
+		SendMessagesRegisterOK();
+	}
+	bool receive_timeout = false;
+	while (!receive_timeout) {
+		receive_timeout = ReceiveTimeout();
+		mydelay(1000);
+	}
 #endif //TEST_NETWORK
 };
 
@@ -78406,7 +78422,7 @@ char /*__fastcall*/ sub_77680()//258680
 	v14 = 0;
 	//fix it
 
-	x_WORD_E2094 = x_BYTE_E2096;
+	timeCounter_E2094 = minTimeCounter_E2096;
 	memset(printbuffer, 0, 80);
 	memset(v12, 0, 16);
 	v15 = 2;
@@ -78520,7 +78536,7 @@ char sub_77980_exit_dialog(type_WORD_E1F84* a1x)//258980
 	else if (v1 == 2)
 	{
 		v2 = 1;
-		sub_7C020(&a1x->str_26);
+		ClearScrollDialogVars_7C020(&a1x->str_26);
 	}
 	return v2;
 }
@@ -78930,7 +78946,7 @@ char sub_780F0_load_game_dialog(type_WORD_E1F84* a1x)//0x2590f0
 	v51 = sub_7BF20_draw_scroll_dialog(&a1x->str_26);
 	if ((x_BYTE)v51)
 	{
-		sub_7C020(&a1x->str_26);
+		ClearScrollDialogVars_7C020(&a1x->str_26);
 		if ((x_BYTE)v51 == 1 && x_DWORD_17DE38str.x_WORD_17DF04 > 0)
 		{
 			//Load Saved Game File
@@ -79193,7 +79209,7 @@ char sub_78730_save_game_dialog(type_WORD_E1F84* a1x)//259730
 	v59 = sub_7BF20_draw_scroll_dialog(&a1x->str_26);
 	if (v59)
 	{
-		sub_7C020(&a1x->str_26);
+		ClearScrollDialogVars_7C020(&a1x->str_26);
 		if (v59 == 1 && x_DWORD_17DE38str.x_WORD_17DF04 > 0)
 		{
 			v9 = &x_DWORD_17DE38str.xx_BYTE_17DF14[(x_DWORD_17DE38str.x_WORD_17DF04 - 1)][0];
@@ -79518,7 +79534,7 @@ LABEL_15:
 			v21[1] = v24;
 			v21 += 2;
 		} while (v24);*/
-		sub_7C020(&a3x->str_26);
+		ClearScrollDialogVars_7C020(&a3x->str_26);
 		v28 = 1;
 	}
 	return v28;
@@ -79702,7 +79718,7 @@ char sub_79160_set_joystick_dialog(type_WORD_E1F84* a1x)//25a160
 			if (v16 != 1)
 			{
 			LABEL_42:
-				sub_7C020(&a1x->str_26);
+				ClearScrollDialogVars_7C020(&a1x->str_26);
 				return v27;
 			}
 			if (sub_89B60_aplicate_setting(0xBu) != -1)
@@ -79714,7 +79730,7 @@ char sub_79160_set_joystick_dialog(type_WORD_E1F84* a1x)//25a160
 				goto LABEL_42;
 			}
 			unk_18058Cstr.x_WORD_1805C2_joystick = v14;
-			sub_7C020(&a1x->str_26);
+			ClearScrollDialogVars_7C020(&a1x->str_26);
 		}
 		return v27;
 	}
@@ -79751,7 +79767,7 @@ char sub_79160_set_joystick_dialog(type_WORD_E1F84* a1x)//25a160
 		a1x->byte_25 = 0;
 		a1x->str_26.word_38_6 = 411;
 		a1x->str_26.nocl_42_8 = 3;
-		sub_7C020(&a1x->str_26);
+		ClearScrollDialogVars_7C020(&a1x->str_26);
 		return 1;
 	}
 	x_DWORD_17DE38str.x_BYTE_17DF10_get_key_scancode = 0;
@@ -81369,12 +81385,12 @@ int sub_7BF20_draw_scroll_dialog(type_str_word_26* a1x)//25cf20
 // 17DF13: using guessed type char x_BYTE_17DF13;
 
 //----- (0007C020) --------------------------------------------------------
-void sub_7C020(type_str_word_26* a1x)//25d020
+void ClearScrollDialogVars_7C020(type_str_word_26* a1x)//25d020
 {
 	if (a1x->word_30_2)
 	{
 		a1x->word_32_3 = 0;
-		a1x->word_30_2 = a1x->word_32_3;
+		a1x->word_30_2 = 0;
 	}
 	a1x->word_36_5 = 0;
 }
@@ -81492,8 +81508,7 @@ char sub_7C200(unsigned __int8 a1)//25d200
 //----- (0007C230) --------------------------------------------------------
 void WaitToConnect_7C230()//25d230
 {
-	int v8; // edx
-
+	long actTime;
 	if (x_WORD_180660_VGA_type_resolution & 1)
 	{
 		CopyScreen((void*)x_DWORD_E9C38_smalltit, (void*)pdwScreenBuffer_351628, 320, 200);
@@ -81507,18 +81522,18 @@ void WaitToConnect_7C230()//25d230
 	if (sub_7BF20_draw_scroll_dialog(&str_WORD_E1F70))
 	{
 		x_WORD_E131A = 1;
-		sub_7C020(&str_WORD_E1F70);
+		ClearScrollDialogVars_7C020(&str_WORD_E1F70);
 	}
-	v8 = j___clock();
-	if ((unsigned int)(v8 - x_DWORD_E208C) >> 2 >= 1)
+	actTime = j___clock();
+	if ((actTime - lastTime_E208C) >> 2 >= 1)
 	{
-		if ((unsigned __int8)x_BYTE_E2097 >= x_WORD_E2094)
-			++x_WORD_E2094;
+		if (maxTimeCounter_E2097 >= timeCounter_E2094)
+			timeCounter_E2094++;
 		else
-			x_WORD_E2094 = (unsigned __int8)x_BYTE_E2096;
-		x_DWORD_E208C = v8;
+			timeCounter_E2094 = minTimeCounter_E2096;
+		lastTime_E208C = actTime;
 	}
-	sub_7C120_draw_bitmap_640(x_DWORD_17DE38str.x_DWORD_17DEE4_mouse_positionx, x_DWORD_17DE38str.x_DWORD_17DEE6_mouse_positiony, xy_DWORD_17DED4_spritestr[x_WORD_E2094]);
+	sub_7C120_draw_bitmap_640(x_DWORD_17DE38str.x_DWORD_17DEE4_mouse_positionx, x_DWORD_17DE38str.x_DWORD_17DEE6_mouse_positiony, xy_DWORD_17DED4_spritestr[timeCounter_E2094]);
 	if (x_WORD_180660_VGA_type_resolution & 1)
 		sub_90478_VGA_Blit320();
 	else
@@ -81549,7 +81564,7 @@ signed int sub_7C390()//25d390
 	x_DWORD_E9C38_smalltit = x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226;
 	x_DWORD_17DE38str.x_WORD_17DF00 = x_DWORD_17DE38str.x_WORD_17DEFE;
 	qmemcpy(x_BYTE_E1BA4, x_BYTE_E1B9C, sizeof(x_BYTE_E1BA4));
-	if ((unsigned __int16)SetMultiplayerColors_7CE50())
+	if (SetMultiplayerColors_7CE50())
 	{
 		x_DWORD_E9C38_smalltit = v6x;
 		result = 1;
@@ -81953,10 +81968,10 @@ int sub_7CDA0()//25dda0
 // 17DEFC: using guessed type __int16 x_WORD_17DEFC;
 
 //----- (0007CDC0) --------------------------------------------------------
-void SetPaletteColor_7CDC0(unsigned __int8 a1, unsigned __int8 a2)//25ddc0
+void SetPaletteColor_7CDC0(int a1, unsigned __int8 a2)//25ddc0
 {
-	TColor* v2a = &((TColor*)*xadatapald0dat2.colorPalette_var28)[134];
-	TColor* v2b = &((TColor*)*xadatapald0dat2.colorPalette_var28)[135];
+	TColor* v2a = &((TColor*)*xadatapald0dat2.colorPalette_var28)[134 + 2 * a1];
+	TColor* v2b = &((TColor*)*xadatapald0dat2.colorPalette_var28)[135 + 2 * a1];
 	*v2a = str_BYTE_E1711[0][a2];
 	*v2b = str_BYTE_E1711[1][a2];
 }
@@ -82066,19 +82081,15 @@ signed int SetMultiplayerColors_7CE50()//25de50
 //----- (0007D1F0) --------------------------------------------------------
 void DrawNetworkLevelName_7D1F0()//25e1f0
 {
-	int index; // eax
-
-	index = 0;
+	int index = 0;
 	x_DWORD_17DE38str.x_WORD_17DEFE = 0;
 	do
 	{
 		if (x_DWORD_17DE38str.array_BYTE_17DE68x[index].connected_0)
 			x_DWORD_17DE38str.x_WORD_17DEFE++;
 		index++;
-	} while ((signed __int16)index < 8);
-	//return result;
+	} while (index < 8);
 }
-// 17DEFE: using guessed type __int16 x_WORD_17DEFE;
 
 //----- (0007D230) --------------------------------------------------------
 signed int sub_7D230(char a1, unsigned __int8 a2, unsigned __int8 a3)//25e230
@@ -82134,14 +82145,13 @@ signed int sub_7D230(char a1, unsigned __int8 a2, unsigned __int8 a3)//25e230
 //----- (0007D310) --------------------------------------------------------
 void SetMultiplayerColors_7D310()//25e310
 {
-	int v3 = 0;
 	for (int v0 = 0; v0 < 8; v0++)
 	{
 		if (x_DWORD_17DE38str.array_BYTE_17DE68x[v0].connected_0)
 		{
 			if (v0 != x_DWORD_17DE38str.serverIndex_17DEFC)
 			{
-				SetPaletteColor_7CDC0(v3++, x_DWORD_17DE38str.array_BYTE_17DE68x[sub_74515()].array_byte_1[v0]);
+				SetPaletteColor_7CDC0(v0, x_DWORD_17DE38str.array_BYTE_17DE68x[sub_74515()].array_byte_1[v0]);
 			}
 		}
 	}
@@ -82724,7 +82734,7 @@ char MultiplayerMenu_7DE80(type_WORD_E1F84* a2x)//25ee80
 	}
 	if (v23)
 	{
-		sub_7C020(&a2x->str_26);
+		ClearScrollDialogVars_7C020(&a2x->str_26);
 		if (v23 == 1)
 		{
 			x_WORD_E131A = 0;
@@ -83075,14 +83085,14 @@ signed int sub_7E640(type_WORD_E1F84* a1x)//25f640
 		if (a1x)
 		{
 			a1x->selected_8 = 0;
-			sub_7C020(&a1x->str_26);
+			ClearScrollDialogVars_7C020(&a1x->str_26);
 		}
 		result = 1;
 	}
 	else if (v1 == 2)
 	{
 		a1x->selected_8 = 0;
-		sub_7C020(&a1x->str_26);
+		ClearScrollDialogVars_7C020(&a1x->str_26);
 		result = 1;
 	}
 	else

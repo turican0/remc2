@@ -34,6 +34,8 @@ Uint8 tempPalettebuffer[768];
 
 int oldWidth;
 
+bool subBlitLock = false;
+
 // Initalize Color Masks.
 #if SDL_BYTEORDER == SDL_BIG_ENDIAN
 Uint32 redMask = 0xff000000;
@@ -818,6 +820,8 @@ void VGA_Blit(Uint8* srcBuffer) {
 }
 
 void SubBlit(uint16_t originalResWidth, uint16_t originalResHeight) {
+	while (subBlitLock);//fix problem with quick blitting
+	subBlitLock = true;
 
 	SDL_Rect rectSrc;
 	rectSrc.x = 0;
@@ -867,6 +871,7 @@ void SubBlit(uint16_t originalResWidth, uint16_t originalResHeight) {
 
 	SDL_RenderPresent(m_renderer);
 	SDL_RenderClear(m_renderer);
+	subBlitLock = false;
 }
 
 void VGA_Init_test() {//only for debug
