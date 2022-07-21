@@ -2479,7 +2479,6 @@ signed int sub_79E10(char* a1, char a2);
 //char sub_7A060_get_mouse_and_keyboard_events();
 void sub_7A110_load_hscreen(char a1, char a2);
 void sub_7AA70_load_and_decompres_dat_file(char* a1, uint8_t* a2, int a3, int a4);
-// int (**sub_7AB00_draw_menu_animations(__int16 a1, int a2, signed __int16 *a3, unsigned __int8 a4))(int);
 void sub_7AC00_load_and_set_graphics_and_Palette();
 int sub_7ADE0(char a1);
 //bool sub_7B200_in_region(int16_t* a1, int16_t testx, int16_t testy);
@@ -5238,19 +5237,14 @@ TColor str_BYTE_E1711[2][18] = {{//players Palette colors is halfed
 {0x00,0x00,0x00}}//27-8
 }; // weak//2b2711
 
-type_str_unk_E1748 unk_E1748x[5] = {//some in animations
+type_str_unk_E1748 unk_E1748x[5] = { // menu fire animation positions and sprites
 	{0,17, 159, 1, 1,8},
 	{0,531,156, 9, 9,16},
 	{0,154,308, 17,17,25},
 	{0,226,308, 26,26,34},
 	{0,0,0,0,0,0}
 };
-
-type_str_unk_E1748 unk_E1784x[3] = {
-	{0,299, 306, 1, 1,8},
-	{0,348, 118, 9, 9,16},
-	{0,0,0,0,0,0}
-};
+//unk_E1784x[3] // removed - referenced from menu animations but never in any code path
 
 Type_SoundEvent_E17CC str_E17CC_0[0x32] = {//anim events
 {0x0000,0x45,0x00000004},
@@ -78234,7 +78228,7 @@ void /*__fastcall*/ sub_76FA0_main_menu(/*int a1, */int  /*a2*/, uint16_t a3x)//
 			/*v19 = */sub_7C120_draw_bitmap_640(185, 232, xy_DWORD_17DED4_spritestr[66]);//adress 25827a
 			//ax,ebx,a3
 			//6038,100,4?
-			/*v21 = */sub_7AB00_draw_menu_animations(/*v19,*/ /*v20,*/ /*(int16_t*)a3x,*/ 4u);//25bb00
+			sub_7AB00_draw_menu_animations();//25bb00
 			if (sub_7B250_draw_and_serve(/*(int)v21, v22*/))//25c250
 			{
 				v12 = x_DWORD_17DE38str.x_DWORD_17DEE6_mouse_positiony;
@@ -80554,34 +80548,18 @@ void sub_7AA70_load_and_decompres_dat_file(char* path, uint8_t* filebuffer, int 
 // 17DEE0: using guessed type int x_DWORD_17DEE0_filedesc;
 
 //----- (0007AB00) --------------------------------------------------------
-void sub_7AB00_draw_menu_animations(/*__int16 a1,*/ /*int a2,*/ /*type_str_unk_E1748* a3,*/ unsigned __int8 a4)//25bb00
+void sub_7AB00_draw_menu_animations()//25bb00
 {
-	//uint8_t* v4; // esi
 	int v5; // eax
 	int v6; // edi
-	//signed __int16 v7; // ax
-	//uint8_t* i; // ebx
 	int iy;
 	int v10; // [esp+0h] [ebp-4h]
 
-	//HIBYTE(a1) = a4;//04
-	//v4 = 0;
-	type_str_unk_E1748* a3x = 0;
-	if (a4 == 4u)
-	{
-		a3x = unk_E1748x;
-	}
-	else if (a4 == 6u)
-	{
-		a3x = unk_E1784x;
-	}
+	type_str_unk_E1748* a3x = unk_E1748x;
+
 	int ii = 0;
-	while (a3x[ii].word_4)//fair animation
+	while (a3x[ii].word_4) // fire animation
 	{
-		/*
-		43d1be
-		43d1f4 9c 213
-		*/
 		v5 = j___clock();
 		v6 = v5;
 		v10 = v5;
@@ -80600,16 +80578,13 @@ void sub_7AB00_draw_menu_animations(/*__int16 a1,*/ /*int a2,*/ /*type_str_unk_E
 		ii++;
 		//a3 += 6;
 	}
-	if (a4 == 4)//draw gold selected buttons
+	//for (i = off_E1BAC; *((int32_t*)(i + 10)); i += 44)
+	for (iy = 0; (str_E1BAC[iy].xmin_10<<16) + str_E1BAC[iy].ymin_12; iy++)
 	{
-		//for (i = off_E1BAC; *((int32_t*)(i + 10)); i += 44)
-		for (iy = 0; (str_E1BAC[iy].xmin_10<<16) + str_E1BAC[iy].ymin_12; iy++)
+		if (str_E1BAC[iy].canSelect_23 && str_E1BAC[iy].gold_color_24)
 		{
-			if (str_E1BAC[iy].canSelect_23 && str_E1BAC[iy].gold_color_24)
-			{
-				//v4 = i;
-				sub_2BB40_draw_bitmap(str_E1BAC[iy].xmin_10, str_E1BAC[iy].ymin_12, xy_DWORD_17DED4_spritestr[str_E1BAC[iy].byte_21]);
-			}
+			//v4 = i;
+			sub_2BB40_draw_bitmap(str_E1BAC[iy].xmin_10, str_E1BAC[iy].ymin_12, xy_DWORD_17DED4_spritestr[str_E1BAC[iy].byte_21]);
 		}
 	}
 }
@@ -81518,7 +81493,7 @@ void WaitToConnect_7C230()//25d230
 		CopyScreen((void*)x_DWORD_E9C38_smalltit, (void*)pdwScreenBuffer_351628, 640, 480);
 	}
 	sub_7C120_draw_bitmap_640(185, 232, xy_DWORD_17DED4_spritestr[66]);
-	sub_7AB00_draw_menu_animations(4u);
+	sub_7AB00_draw_menu_animations();
 	if (sub_7BF20_draw_scroll_dialog(&str_WORD_E1F70))
 	{
 		x_WORD_E131A = 1;

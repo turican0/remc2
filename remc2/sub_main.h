@@ -221,12 +221,12 @@ typedef struct {//lenght 24
 subx_BYTE_E7EE0x;
 
 typedef struct {
-	int32_t dword_0;
-	int16_t word_4;
-	int16_t word_6;
-	int16_t word_8;//act sprite
-	int8_t byte_10;//first sprite
-	int8_t byte_11;//last sprite
+	long   dword_0; // time of last render
+	int16_t word_4;  // posx
+	int16_t word_6;  // posy
+	int16_t word_8;  // act sprite
+	int8_t byte_10;  // first sprite
+	int8_t byte_11;  // last sprite
 }type_str_unk_E1748;
 
 typedef struct {//lenght 30
@@ -479,7 +479,7 @@ signed int NetworkAddName_74767(/*signed __int16* a1,*/ myNCB* a2x, char* a3);
 //unsigned char __readgsx_BYTE(unsigned long Offset);
 //unsigned short __readgsx_WORD(unsigned long Offset);
 //int /*__fastcall*/ _wcpp_1_unwind_leave__131(x_DWORD);// weak
-void sub_7AB00_draw_menu_animations(/*__int16 a1,*/ /*int a2,*/ /*type_str_unk_E1748* a3,*/ unsigned __int8 a4);
+void sub_7AB00_draw_menu_animations();
 int sub_7F6A0(int a1, int a2, __int16 a3, __int16 a4, char* a5, int8_t* a6, unsigned __int8 a7);
 void sub_81CA0(int a1, int a2, __int16 a3, __int16 a4, type_x_BYTE_E25ED_db_str* a5);
 signed int sub_7E5A0_pre_draw(int a1, int a2, __int16 a3, __int16 a4, uint8_t* a5, __int16 a6, __int16 a7);
