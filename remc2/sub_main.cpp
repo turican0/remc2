@@ -5240,8 +5240,8 @@ TColor str_BYTE_E1711[2][18] = {{//players Palette colors is halfed
 type_MainMenuAnimations_E1748 MainMenuAnimations_E1748x[5] = { // menu fire animation positions and sprites
 	{0,17, 159, 1, 1,8},   // left fire
 	{0,531,156, 9, 9,16},  // right fire
-	{0,152,308, 17,17,25}, // left incense stick
-	{0,481,307, 26,26,34}, // right incense stick
+	{0,154,308, 17,17,25}, // left incense stick
+	{0,482,308, 26,26,34}, // right incense stick
 	{0,0,0,0,0,0}
 };
 //unk_E1784x[3] // removed - referenced from menu animations but never in any code path
