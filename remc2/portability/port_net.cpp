@@ -83,61 +83,61 @@ char* MessageIndexToText(int index)
 {
 	switch (index) {
 	case 0:
-		return "MESS_CLIENT_SERVER_NAME_ADDED";
+		return (char*)"MESS_CLIENT_SERVER_NAME_ADDED";
 		break;
 	case 1:		
-		return "MESS_SERVER_SERVER_NAME_ADDED";
+		return (char*)"MESS_SERVER_SERVER_NAME_ADDED";
 		break;
 	case 2:
-		return "MESS_CLIENT_REGISTER_TIMEOUT";
+		return (char*)"MESS_CLIENT_REGISTER_TIMEOUT";
 		break;
 	case 3:
-		return "MESS_SERVER_REGISTER_TIMEOUT";
+		return (char*)"MESS_SERVER_REGISTER_TIMEOUT";
 		break;
 	case 4:
-		return "MESS_CLIENT_TESTADDNAME";
+		return (char*)"MESS_CLIENT_TESTADDNAME";
 		break;
 	case 5:
-		return "MESS_SERVER_TESTADDNAME_OK";
+		return (char*)"MESS_SERVER_TESTADDNAME_OK";
 		break;
 	case 6:
-		return "MESS_SERVER_TESTADDNAME_REJECT";
+		return (char*)"MESS_SERVER_TESTADDNAME_REJECT";
 		break;
 	case 7:
-		return "MESS_CLIENT_MESSAGE_LISTEN";
+		return (char*)"MESS_CLIENT_MESSAGE_LISTEN";
 		break;
 	case 8:
-		return "MESS_CLIENT_MESSAGE_CALL";
+		return (char*)"MESS_CLIENT_MESSAGE_CALL";
 		break;
 	case 9:
-		return "MESS_SERVER_CALL_ACCEPT";
+		return (char*)"MESS_SERVER_CALL_ACCEPT";
 		break;
 	case 10:
-		return "MESS_SERVER_LISTEN_ACCEPT";
+		return (char*)"MESS_SERVER_LISTEN_ACCEPT";
 		break;
 	case 11:
-		return "MESS_SERVER_CALL_REJECT";
+		return (char*)"MESS_SERVER_CALL_REJECT";
 		break;
 	case 12:
-		return "MESS_SERVER_LISTEN_REJECT";
+		return (char*)"MESS_SERVER_LISTEN_REJECT";
 		break;
 	case 13:
-		return "MESS_CLIENT_CANCEL";
+		return (char*)"MESS_CLIENT_CANCEL";
 		break;
 	case 14:
-		return "MESS_CLIENT_DELETE";
+		return (char*)"MESS_CLIENT_DELETE";
 		break;
 	case 15:
-		return "MESS_CLIENT_SEND";
+		return (char*)"MESS_CLIENT_SEND";
 		break;
 	case 16:
-		return "MESS_SERVER_SEND_OK";
+		return (char*)"MESS_SERVER_SEND_OK";
 		break;
 	case 17:
-		return "MESS_SERVER_SEND";
+		return (char*)"MESS_SERVER_SEND";
 		break;
 	}
-	return "";
+	return (char*)"";
 }
 
 #pragma pack (1)

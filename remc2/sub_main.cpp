@@ -76269,7 +76269,7 @@ int NetworkInitConnection_7308F(char* a2, __int16 a3)//25408f
 		while (!receiveServerAddName) {
 			receiveServerAddName = ReceiveServerAddName();
 			mydelay(1000);
-			VGA_Draw_string(".");
+			VGA_Draw_string((char*)".");
 		}
 	}
 	//wait for Server AddName
