@@ -35,6 +35,11 @@
 #include <array>
 #include <thread>
 
+#include <iostream>
+#include <sstream>
+#include <string>
+using namespace std;
+
 using boost::asio::ip::udp;
 
 typedef std::map<uint32_t, udp::endpoint> ClientList;
@@ -51,9 +56,154 @@ int netstate_shared = -1;
 #define NETI_CALL_ACCEPT 4
 #define NETI_CALL_REJECT 5
 #define NETI_LISTEN 6
-#define NETI_LISTEN_ACCEPT 7
+//#define NETI_LISTEN_ACCEPT 7
 #define NETI_LISTEN_REJECT 8
 #define NETI_RECEIVE 9
+
+#define MESS_CLIENT_SERVER_NAME_ADDED 0
+#define MESS_SERVER_SERVER_NAME_ADDED 1
+//#define MESS_CLIENT_REGISTER_TIMEOUT 2
+//#define MESS_SERVER_REGISTER_TIMEOUT 3
+#define MESS_CLIENT_TESTADDNAME 4
+#define MESS_SERVER_TESTADDNAME_OK 5
+#define MESS_SERVER_TESTADDNAME_REJECT 6
+#define MESS_CLIENT_MESSAGE_LISTEN 7
+#define MESS_CLIENT_MESSAGE_CALL 8
+#define MESS_SERVER_CALL_ACCEPT 9
+#define MESS_SERVER_LISTEN_ACCEPT 10
+#define MESS_SERVER_CALL_REJECT 11
+#define MESS_SERVER_LISTEN_REJECT 12
+#define MESS_CLIENT_CANCEL 13
+#define MESS_CLIENT_DELETE 14
+#define MESS_CLIENT_SEND 15
+#define MESS_SERVER_SEND_OK 16
+#define MESS_SERVER_SEND 17
+
+char* MessageIndexToText(int index)
+{
+	switch (index) {
+	case 0:
+		return "MESS_CLIENT_SERVER_NAME_ADDED";
+		break;
+	case 1:		
+		return "MESS_SERVER_SERVER_NAME_ADDED";
+		break;
+	case 2:
+		return "MESS_CLIENT_REGISTER_TIMEOUT";
+		break;
+	case 3:
+		return "MESS_SERVER_REGISTER_TIMEOUT";
+		break;
+	case 4:
+		return "MESS_CLIENT_TESTADDNAME";
+		break;
+	case 5:
+		return "MESS_SERVER_TESTADDNAME_OK";
+		break;
+	case 6:
+		return "MESS_SERVER_TESTADDNAME_REJECT";
+		break;
+	case 7:
+		return "MESS_CLIENT_MESSAGE_LISTEN";
+		break;
+	case 8:
+		return "MESS_CLIENT_MESSAGE_CALL";
+		break;
+	case 9:
+		return "MESS_SERVER_CALL_ACCEPT";
+		break;
+	case 10:
+		return "MESS_SERVER_LISTEN_ACCEPT";
+		break;
+	case 11:
+		return "MESS_SERVER_CALL_REJECT";
+		break;
+	case 12:
+		return "MESS_SERVER_LISTEN_REJECT";
+		break;
+	case 13:
+		return "MESS_CLIENT_CANCEL";
+		break;
+	case 14:
+		return "MESS_CLIENT_DELETE";
+		break;
+	case 15:
+		return "MESS_CLIENT_SEND";
+		break;
+	case 16:
+		return "MESS_SERVER_SEND_OK";
+		break;
+	case 17:
+		return "MESS_SERVER_SEND";
+		break;
+	}
+	return "";
+}
+
+#pragma pack (1)
+typedef struct message_info{
+	uint32_t size;
+	uint32_t message;
+	uint32_t clientid;
+	char data[256];
+};
+#pragma pack (16)
+
+std::string DataToString(message_info messInfo)
+{
+	std::string output;
+	for (int i = 0; i < messInfo.size + 12; i++)
+	{
+		char helpChar = ((char*)&messInfo)[i];
+		char helpChar0 = ((uint8)helpChar) >> 4;
+		char helpChar1 = helpChar & 0xf;
+		if (helpChar0 > 9)
+			output += ('a' + (helpChar0 - 10));
+		else
+			output += ('0' + helpChar0);
+		if (helpChar1 > 9)
+			output += ('a' + (helpChar1 - 10));
+		else
+			output += ('0' + helpChar1);
+	}
+	return output;
+}
+
+std::string Pack_Message(uint32 message, uint32_t clientid=0, char* data=NULL,int size_of_data=0) {
+	message_info locmessage_info;
+	locmessage_info.message = message;
+	locmessage_info.clientid = clientid;
+	locmessage_info.size = size_of_data;
+	memcpy(locmessage_info.data, data, size_of_data);
+	return DataToString(locmessage_info);
+}
+
+message_info Unpack_Message(std::string data) {
+	message_info output;
+	for (int i = 0; i < 4; i++)
+	{
+		if (data[i * 2] > '9')
+			((char*)(&output))[i] = ((data[i * 2] - 'a') + 10) << 4;
+		else
+			((char*)(&output))[i] = (data[i * 2] - '0') << 4;
+		if (data[i * 2 + 1] > '9')
+			((char*)(&output))[i] += (data[i * 2 + 1] - 'a') + 10;
+		else
+			((char*)(&output))[i] += (data[i * 2 + 1] - '0');
+	}
+	for (int i = 4; i < output.size + 12; i++)
+	{
+		if (data[i * 2] > '9')
+			((char*)(&output))[i] = ((data[i * 2] - 'a') + 10) << 4;
+		else
+			((char*)(&output))[i] = (data[i * 2] - '0') << 4;
+		if (data[i * 2 + 1] > '9')
+			((char*)(&output))[i] += (data[i * 2 + 1] - 'a') + 10;
+		else
+			((char*)(&output))[i] += (data[i * 2 + 1] - '0');
+	}
+	return output;
+}
 
 namespace NetworkLib {
 	class Client/* : public IClient*/ {
@@ -105,12 +255,18 @@ namespace NetworkLib {
 		void SendToClient(const std::string& message, uint32_t clientID)/* override*/;
 		void SendToAllExcept(const std::string& message, uint32_t clientID);
 		void SendToAll(const std::string& message);
+		void SendToAllRegistered(const std::string& message);
 
 		size_t GetClientCount()/* override*/;
 		uint32_t GetClientIdByIndex(size_t index)/* override*/;
 
+		bool Registered(uint32_t ip);
+		void Register(uint32_t ip);
+
 		//const Statistics& GetStatistics() const { return statistics; };
 		std::vector<std::function<void(uint32_t)>> clientDisconnectedHandlers;
+
+		bool serverAddname = false;
 	private:
 		// Network send/receive stuff
 		boost::asio::io_service io_service;
@@ -139,6 +295,8 @@ namespace NetworkLib {
 		// Clients of the server
 		ClientList clients;
 		std::atomic_int32_t nextClientID;
+
+		std::vector<uint32_t> registered;
 
 		Server(Server&); // block default copy constructor
 
@@ -349,6 +507,12 @@ namespace NetworkLib {
 			send(message, client.second);
 	}
 
+	void Server::SendToAllRegistered(const std::string& message)
+	{
+		for (int i = 0; i < registered.size(); i++)
+			send(message, clients.at(registered[i]));
+	}
+
 	size_t Server::GetClientCount()
 	{
 		return clients.size();
@@ -374,15 +538,27 @@ namespace NetworkLib {
 	{
 		return !incomingMessages.empty();
 	};
+
+	bool Server::Registered(uint32_t ip) {
+		for (int i = 0; i < registered.size(); i++)
+			if (registered[i] == ip)
+				return true;
+		return false;
+	}
+
+	void Server::Register(uint32_t ip) {
+		registered.push_back(ip);
+	}
 }
 
 void mySleep(int sleepMs)
 {
-#ifdef _WIN32
-	Sleep(sleepMs);
+	std::this_thread::sleep_for(std::chrono::milliseconds(sleepMs));
+/*#ifdef _WIN32
+	//Sleep(sleepMs);
 #else
-	usleep(sleepMs * 1000);   // usleep takes sleep time in us (1 millionth of a second)
-#endif
+	//usleep(sleepMs * 1000);   // usleep takes sleep time in us (1 millionth of a second)
+#endif*/
 }
 
 #define TEST_NETWORK_MESSAGES
@@ -443,6 +619,7 @@ void InitLibNetClient(char* ip, int serverport, int clientport) {
 }
 
 void InitLibNetServer(int serverport) {
+
 	server = new NetworkLib::Server(serverport);
 	NetworkInitServer();
 }
@@ -459,6 +636,18 @@ std::vector<uint32_t> clientListenID2;
 //int lastindexListen = 0;
 
 std::vector<myNCB*> clientConnection;
+
+//bool Client_registered = false;
+//bool Client_Timeout = false;
+bool receiveServerAddName = false;
+
+/*void SendMessagesRegisterOK() {
+	client->Send(Pack_Message(MESS_CLIENT_REGISTER_TIMEOUT));
+};*/
+
+bool ReceiveServerAddName() {
+	return receiveServerAddName;
+}
 
 uint32_t GetIdNetworkFromName(std::string name) {
 	for (int i = 0; i < NetworkName.size(); i++)
@@ -502,7 +691,7 @@ void AddNetworkName(std::string name, uint32_t id) {
 		clientID.push_back(id);
 	}
 #ifdef TEST_NETWORK_MESSAGES
-	debug_net_printf("net name added:%s %d\n", name.c_str(), id);
+	debug_net_printf("AddNetworkName - net name added:%s %d\n", name.c_str(), id);
 #endif //TEST_NETWORK_MESSAGES
 }
 
@@ -537,34 +726,34 @@ int GetName2ListenIndex(std::string name) {
 	return -1;
 }
 
-void AddListenName(std::string name, std::string name2) {
+void AddListenName(myNCB* connection) {//10 26
 	//if (GetNameNetwork(name).compare(""))
-		if (!GetListenNetwork(name).compare(""))
+		if (!GetListenNetwork(connection->ncb_callName_10).compare(""))
 		{
-			ListenName.push_back(name);
-			clientListenID.push_back(GetIdNetworkFromName(name));
-			ListenName2.push_back(name2);
-			clientListenID2.push_back(GetIdNetworkFromName(name2));
+			ListenName.push_back(connection->ncb_callName_10);
+			clientListenID.push_back(GetIdNetworkFromName(connection->ncb_callName_10));
+			ListenName2.push_back(connection->ncb_name_26);
+			clientListenID2.push_back(GetIdNetworkFromName(connection->ncb_name_26));
 		#ifdef TEST_NETWORK_MESSAGES
-			debug_net_printf("listen name added:%s %s\n", name.c_str(), name2.c_str());
+			debug_net_printf("AddListenName - listen name added:%s %s\n", connection->ncb_callName_10, connection->ncb_name_26);
 		#endif //TEST_NETWORK_MESSAGES
 		}
 }
 
-bool AddListenName2(std::string name, std::string name2){
-	uint32_t id1 = GetIdNetworkFromName(name);
+bool AddListenName2(myNCB* connection){
+	uint32_t id1 = GetIdNetworkFromName(connection->ncb_callName_10);
 	if(id1==999)return false;
-	uint32_t id2 = GetIdNetworkFromName(name2);
+	uint32_t id2 = GetIdNetworkFromName(connection->ncb_name_26);
 	if (id2 == 999)return false;
 	//fix it
-	int indexid = GetNameListenIndex(name);
+	int indexid = GetNameListenIndex(connection->ncb_name_26);
 	if(indexid==-1)return false;
-	ListenName[indexid] = name;
+	ListenName[indexid] = connection->ncb_callName_10;
 	clientListenID[indexid] = id1;
-	ListenName2[indexid]= name2;
+	ListenName2[indexid]= connection->ncb_name_26;
 	clientListenID2[indexid] = id2;
 #ifdef TEST_NETWORK_MESSAGES
-	debug_net_printf("listen accepted:%s %d,%s %d\n", name.c_str(), indexid, name2.c_str(), id2);
+	debug_net_printf("listen accepted:%s %d,%s %d\n", connection->ncb_callName_10, indexid, connection->ncb_name_26, id2);
 #endif //TEST_NETWORK_MESSAGES
 	return true;
 }
@@ -642,7 +831,7 @@ void networkTimeout(int input)
 	networkTimeout_shared = input;
 	networkTimeout_mt.unlock();
 #ifdef TEST_NETWORK_MESSAGES
-	debug_net_printf("change timeout %d\n", input);
+	debug_net_printf("networkTimeout - change timeout %d\n", input);
 #endif //TEST_NETWORK_MESSAGES
 }
 
@@ -663,12 +852,20 @@ long oldtime()
 }
 
 void processEnd() {
+	//new
+	if (!receiveServerAddName)
+	{
+		client->Send(Pack_Message(MESS_CLIENT_SERVER_NAME_ADDED));
+		mySleep(100);
+	}
+	//new
+
 	lastconnection_mt.lock();
 	if(lastconnection_shared)
 		if (clock() > oldtime() + networkTimeout())
 		{
 #ifdef TEST_NETWORK_MESSAGES
-			debug_net_printf("WAITING FOR MESSAGE TIMEOUT:%x\n", lastconnection_shared->ncb_command_0);
+			debug_net_printf("processEnd: WAITING FOR MESSAGE TIMEOUT:%x\n", lastconnection_shared->ncb_command_0);
 #endif //TEST_NETWORK_MESSAGES			
 			switch (lastconnection_shared->ncb_command_0)
 			{
@@ -679,7 +876,7 @@ void processEnd() {
 				lastconnection_shared->ncb_cmd_cplt_49 = 0x0;
 				lastconnection_shared = NULL;
 #ifdef TEST_NETWORK_MESSAGES
-				debug_net_printf("lastconnection set to NULL CANCEL\n");
+				debug_net_printf("processEnd: lastconnection set to NULL CANCEL\n");
 #endif //TEST_NETWORK_MESSAGES
 				break;
 			}
@@ -687,7 +884,7 @@ void processEnd() {
 				lastconnection_shared->ncb_cmd_cplt_49 = 0;
 				lastconnection_shared = NULL;
 #ifdef TEST_NETWORK_MESSAGES
-				debug_net_printf("lastconnection set to NULL INIT\n");
+				debug_net_printf("processEnd: lastconnection set to NULL INIT\n");
 #endif //TEST_NETWORK_MESSAGES
 				break;
 			}
@@ -700,7 +897,7 @@ void processEnd() {
 				}*/
 				lastconnection_shared = NULL;
 #ifdef TEST_NETWORK_MESSAGES
-				debug_net_printf("lastconnection set to NULL CALL\n");
+				debug_net_printf("processEnd: lastconnection set to NULL CALL\n");
 #endif //TEST_NETWORK_MESSAGES
 				break;
 			}
@@ -710,7 +907,7 @@ void processEnd() {
 				//lastconnection_shared->ncb_cmd_cplt_49 = 0;
 				lastconnection_shared = NULL;
 #ifdef TEST_NETWORK_MESSAGES
-				debug_net_printf("lastconnection set to NULL LISTEN\n");
+				debug_net_printf("processEnd: lastconnection set to NULL LISTEN\n");
 #endif //TEST_NETWORK_MESSAGES
 				break;
 			}
@@ -719,7 +916,7 @@ void processEnd() {
 				lastconnection_shared = NULL;
 
 #ifdef TEST_NETWORK_MESSAGES
-				debug_net_printf("lastconnection set to NULL SEND\n");
+				debug_net_printf("processEnd: lastconnection set to NULL SEND\n");
 #endif //TEST_NETWORK_MESSAGES
 				break;
 			}
@@ -745,19 +942,19 @@ void processEnd() {
 					IHaveNameStrP = lastconnection_shared->ncb_name_26;
 					lastconnection_shared->ncb_cmd_cplt_49 = 0;
 #ifdef TEST_NETWORK_MESSAGES
-					debug_net_printf("NETI_ADD_NAME_OK\n");
+					debug_net_printf("processEnd: NETI_ADD_NAME_OK\n");
 #endif //TEST_NETWORK_MESSAGES
 				}
 				else
 				{
 					lastconnection_shared->ncb_cmd_cplt_49 = 22;
 #ifdef TEST_NETWORK_MESSAGES
-					debug_net_printf("NETI_ADD_NAME_NOTOK\n");
+					debug_net_printf("processEnd: NETI_ADD_NAME_NOTOK\n");
 #endif //TEST_NETWORK_MESSAGES
 				}
 				lastconnection_shared = NULL;
 #ifdef TEST_NETWORK_MESSAGES
-				debug_net_printf("lastconnection set to NULL ADD_NAME\n");
+				debug_net_printf("processEnd: lastconnection set to NULL ADD_NAME\n");
 #endif //TEST_NETWORK_MESSAGES
 				break;
 			}
@@ -765,7 +962,7 @@ void processEnd() {
 				lastconnection_shared->ncb_cmd_cplt_49 = 0;
 				lastconnection_shared = NULL;
 #ifdef TEST_NETWORK_MESSAGES
-				debug_net_printf("lastconnection set to NULL INIT\n");
+				debug_net_printf("processEnd: lastconnection set to NULL INIT\n");
 #endif //TEST_NETWORK_MESSAGES
 				break;
 			}		
@@ -799,8 +996,8 @@ void processEnd() {
 					StringToBin(&lastconnection_shared->ncb_buffer_4.p, &lastconnection_shared->ncb_bufferLength_8, &tempstr);
 					lastconnection_shared->ncb_cmd_cplt_49 = 0x0;
 #ifdef TEST_NETWORK_MESSAGES
-					debug_net_printf("CONVERT FROM MESSAGE:%d:%d\n", lastconnection_shared->ncb_bufferLength_8, strlen(tempstr.c_str()));
-					debug_net_printf("lastconnection set to NULL RECEIVE\n");
+					debug_net_printf("processEnd: CONVERT FROM MESSAGE:%d:%d\n", lastconnection_shared->ncb_bufferLength_8, strlen(tempstr.c_str()));
+					debug_net_printf("processEnd: lastconnection set to NULL RECEIVE\n");
 #endif //TEST_NETWORK_MESSAGES
 					lastconnection_shared = NULL;
 					break;
@@ -810,14 +1007,24 @@ void processEnd() {
 	lastconnection_mt.unlock();
 }
 
+int messageToDelete = 1000;
+
 void ListenerServer() {
 	aServer.lock();
 	while (listenerServerOn)
 	{
+		while (messageToDelete > 0)
+		{
+			if (server->HasMessages())
+			{
+				server->PopMessage();
+			}
+			messageToDelete--;
+		}
 		if (server->HasMessages())
 		{
 			NetworkLib::ClientMessage receivedMessage = server->PopMessage();
-			std::string receivedMessageStr = receivedMessage.first;
+			/*std::string receivedMessageStr = receivedMessage.first;
 			std::string delimiter = ";";
 
 			size_t pos = 0;
@@ -828,12 +1035,120 @@ void ListenerServer() {
 				messages.push_back(token);
 				receivedMessageStr.erase(0, pos + delimiter.length());
 			}
-			messages.push_back(receivedMessageStr);
+			messages.push_back(receivedMessageStr);*/
 
 #ifdef TEST_NETWORK_MESSAGES
-			debug_net_printf("Server Get Message:%s\n", messages[0].c_str());
+			//debug_net_printf("Server Get Message:%s\n", messages[0].c_str());
 #endif //TEST_NETWORK_MESSAGES
 
+			//new
+			message_info unpacked_message=Unpack_Message(receivedMessage.first);
+
+			myprintf("Server: message - %s\n", MessageIndexToText(unpacked_message.message));
+#ifdef TEST_NETWORK_MESSAGES
+			debug_net_printf("Server: message - %s\n", MessageIndexToText(unpacked_message.message));
+#endif //TEST_NETWORK_MESSAGES
+
+			if (unpacked_message.message== MESS_CLIENT_SERVER_NAME_ADDED)
+			{
+				if (!server->Registered(receivedMessage.second))
+				{
+					server->Register(receivedMessage.second);					
+				}
+				if (server->serverAddname)
+				{
+					server->SendToClient(Pack_Message(MESS_SERVER_SERVER_NAME_ADDED, receivedMessage.second), receivedMessage.second);
+					debug_net_printf("Client %d can AddName\n", receivedMessage.second);
+				}
+/*
+#ifdef TEST_NETWORK_MESSAGES
+				debug_net_printf("SERVER MESSAGE_CANCEL:%s %d\n", messages[1].c_str(), receivedMessage.second);
+#endif //TEST_NETWORK_MESSAGES
+*/
+			}
+			/*else if (unpacked_message.message == MESS_CLIENT_REGISTER_TIMEOUT) {
+				server->SendToAllRegistered(Pack_Message(MESS_SERVER_REGISTER_TIMEOUT));
+			}*/
+			else if (unpacked_message.message == MESS_CLIENT_TESTADDNAME) {
+				// server->SendToAll(messages[0]+std::string(";")+messages[1]+std::string(";")+ std::to_string(receivedMessage.second));
+				// //"MESSAGE_TESTADDNAME;NETH200        ;1"
+				if ((!GetNameNetwork(unpacked_message.data).compare(""))/* && strcmp(unpacked_message.data, "NETH210        ")*/)
+				{
+					AddNetworkName(unpacked_message.data, receivedMessage.second);
+					server->SendToClient(Pack_Message(MESS_SERVER_TESTADDNAME_OK), receivedMessage.second);
+#ifdef TEST_NETWORK_MESSAGES
+					debug_net_printf("Server: MESSAGE_TESTADDNAME OK:%s %d\n", unpacked_message.data, receivedMessage.second);
+#endif //TEST_NETWORK_MESSAGES
+					if(!strcmp(unpacked_message.data, "NETH210        "))//is Server
+						server->serverAddname=true;
+				}
+				else
+				{
+					server->SendToClient(Pack_Message(MESS_SERVER_TESTADDNAME_REJECT), receivedMessage.second);
+#ifdef TEST_NETWORK_MESSAGES
+					debug_net_printf("Server: MESSAGE_TESTADDNAME REJECT:%s %d\n", unpacked_message.data, receivedMessage.second);
+#endif //TEST_NETWORK_MESSAGES
+				}
+			}
+			else if (unpacked_message.message == MESS_CLIENT_MESSAGE_LISTEN)
+			{
+				AddListenName((myNCB*)unpacked_message.data);
+				//"NETH200        "
+#ifdef TEST_NETWORK_MESSAGES
+				debug_net_printf("Server: MESSAGE_LISTEN:%s ; %s %d\n", ((myNCB*)unpacked_message.data)->ncb_callName_10, ((myNCB*)unpacked_message.data)->ncb_name_26, receivedMessage.second);
+#endif //TEST_NETWORK_MESSAGES
+			}
+			else if (unpacked_message.message == MESS_CLIENT_MESSAGE_CALL)
+			{
+				if (AddListenName2((myNCB*)unpacked_message.data))
+				{
+					server->SendToClient(Pack_Message(MESS_SERVER_CALL_ACCEPT), receivedMessage.second);
+					server->SendToClient(Pack_Message(MESS_SERVER_LISTEN_ACCEPT, GetIdNetworkFromName(((myNCB*)unpacked_message.data)->ncb_name_26), ((myNCB*)unpacked_message.data)->ncb_callName_10, sizeof(((myNCB*)unpacked_message.data)->ncb_callName_10)), GetIdNetworkFromName(((myNCB*)unpacked_message.data)->ncb_name_26));
+					//"NETH200        "
+#ifdef TEST_NETWORK_MESSAGES
+					debug_net_printf("Server: NETI_LISTEN_CONNECTED:%s %s %d\n", ((myNCB*)unpacked_message.data)->ncb_callName_10, ((myNCB*)unpacked_message.data)->ncb_name_26, receivedMessage.second);
+#endif //TEST_NETWORK_MESSAGES
+				}
+				else
+				{
+					server->SendToClient(Pack_Message(MESS_SERVER_CALL_REJECT), receivedMessage.second);
+					server->SendToClient(Pack_Message(MESS_SERVER_LISTEN_REJECT, GetIdNetworkFromName(((myNCB*)unpacked_message.data)->ncb_name_26)), GetIdNetworkFromName(((myNCB*)unpacked_message.data)->ncb_name_26));
+					//"NETH200        "
+#ifdef TEST_NETWORK_MESSAGES
+					debug_net_printf("Server: NETI_LISTEN_REJECT:%s %s %d\n", ((myNCB*)unpacked_message.data)->ncb_callName_10, ((myNCB*)unpacked_message.data)->ncb_name_26, receivedMessage.second);
+#endif //TEST_NETWORK_MESSAGES
+				}
+			}
+			else if (unpacked_message.message == MESS_CLIENT_CANCEL)
+			{
+				if (strlen(unpacked_message.data) > 0)
+					RemoveListenName(unpacked_message.data);
+#ifdef TEST_NETWORK_MESSAGES
+				debug_net_printf("Server: MESSAGE_CANCEL:%s %d\n", unpacked_message.data, receivedMessage.second);
+#endif //TEST_NETWORK_MESSAGES
+			}
+			else if (unpacked_message.message == MESS_CLIENT_DELETE)
+			{
+				if (strlen(unpacked_message.data) > 0)
+					RemoveNetworkName(unpacked_message.data);
+#ifdef TEST_NETWORK_MESSAGES
+				debug_net_printf("Server: MESSAGE_DELETE:%s %d\n", unpacked_message.data, receivedMessage.second);
+#endif //TEST_NETWORK_MESSAGES
+			}
+			else if (unpacked_message.message == MESS_CLIENT_SEND)
+			{
+				uint32_t otherid = GetOtherSide(receivedMessage.second);
+				if (otherid != 1000)
+				{
+					server->SendToClient(Pack_Message(MESS_SERVER_SEND, receivedMessage.second, unpacked_message.data, 1+strlen(unpacked_message.data)), otherid);
+					server->SendToClient(Pack_Message(MESS_SERVER_SEND_OK), receivedMessage.second);
+				}
+#ifdef TEST_NETWORK_MESSAGES
+				debug_net_printf("Server: MESSAGE_SEND:%s %d %d\n", unpacked_message.data, otherid, receivedMessage.second);
+#endif //TEST_NETWORK_MESSAGES
+			}
+			//new
+			/*
 			if (!messages[0].compare("MESSAGE_CANCEL"))
 			{
 				if(messages[1].compare(""))
@@ -852,8 +1167,8 @@ void ListenerServer() {
 			}
 			else if (!messages[0].compare("MESSAGE_TESTADDNAME"))
 			{
-				/*server->SendToAll(messages[0]+std::string(";")+messages[1]+std::string(";")+ std::to_string(receivedMessage.second));
-				//"MESSAGE_TESTADDNAME;NETH200        ;1"*/
+				// server->SendToAll(messages[0]+std::string(";")+messages[1]+std::string(";")+ std::to_string(receivedMessage.second));
+				// //"MESSAGE_TESTADDNAME;NETH200        ;1"
 				if (!GetNameNetwork(messages[1]).compare(""))
 				{
 					AddNetworkName(messages[1], receivedMessage.second);
@@ -870,7 +1185,7 @@ void ListenerServer() {
 #endif //TEST_NETWORK_MESSAGES
 				}
 			}
-			else if (!messages[0].compare("MESSAGE_LISTEN"))
+			else if (!messages[0].compare("MESSAGE_LISTEN"))//MESS_CLIENT_MESSAGE_LISTEN
 			{
 				AddListenName(messages[1], messages[2]);
 				//"NETH200        "
@@ -890,10 +1205,10 @@ void ListenerServer() {
 				debug_net_printf("SERVER MESSAGE_SEND:%s %d %d\n", messages[1].c_str(), otherid, receivedMessage.second);
 #endif //TEST_NETWORK_MESSAGES
 			}
-			/*else if (!messages[0].compare("MESSAGE_RECEIVE"))
-			{
+			//else if (!messages[0].compare("MESSAGE_RECEIVE"))
+			//{
 
-			}*/
+			//}
 			else if (!messages[0].compare("MESSAGE_CALL"))
 			{
 				if (AddListenName2(messages[1], messages[2]))
@@ -915,7 +1230,7 @@ void ListenerServer() {
 #endif //TEST_NETWORK_MESSAGES
 				}
 			}
-			
+			*/
 			//processEnd();
 		}
 		mySleep(1);
@@ -981,14 +1296,24 @@ void deleteListenConnection(myNCB* connection) {
 	clientConnection_mt.unlock();
 };
 
+int clientMessageToDelete = 1000;
+
 void ListenerClient() {
 	aClient.lock();
 	while (listenerClientOn)
 	{
+		while (clientMessageToDelete > 0)
+		{
+			if (client->HasMessages())
+			{
+				client->PopMessage();
+			}
+			clientMessageToDelete--;
+		}
 		if (client->HasMessages())
 		{
 			std::string receivedMessage = client->PopMessage();
-			std::string receivedMessageStr = receivedMessage;
+			/*std::string receivedMessageStr = receivedMessage;
 			std::string delimiter = ";";
 
 			size_t pos = 0;
@@ -999,11 +1324,118 @@ void ListenerClient() {
 				messages.push_back(token);
 				receivedMessageStr.erase(0, pos + delimiter.length());
 			}
-			messages.push_back(receivedMessageStr);
+			messages.push_back(receivedMessageStr);*/
 
 #ifdef TEST_NETWORK_MESSAGES
-			debug_net_printf("Client Get Message:%s\n", messages[0].c_str());
+			//debug_net_printf("Client Get Message:%s\n", messages[0].c_str());
 #endif //TEST_NETWORK_MESSAGES
+			message_info unpacked_message = Unpack_Message(receivedMessage);
+
+			myprintf("Client: message - %s\n", MessageIndexToText(unpacked_message.message));
+#ifdef TEST_NETWORK_MESSAGES
+			debug_net_printf("Client: message - %s\n", MessageIndexToText(unpacked_message.message));
+#endif //TEST_NETWORK_MESSAGES
+
+			if (unpacked_message.message == MESS_SERVER_SERVER_NAME_ADDED)
+			{
+				receiveServerAddName = true;
+				myprintf("Can Add Name...\n");
+			}
+			/*else if (unpacked_message.message == MESS_SERVER_REGISTER_TIMEOUT)
+			{
+				Client_Timeout = true;
+				myprintf("Client run after waiting...\n");
+			}*/
+			else if (unpacked_message.message == MESS_SERVER_TESTADDNAME_OK)
+			{
+				netstate(NETI_ADD_NAME_OK);
+				networkTimeout(500);
+				resetTimeout();
+#ifdef TEST_NETWORK_MESSAGES
+				debug_net_printf("Client: NETI_ADD_NAME_OK:\n");
+#endif //TEST_NETWORK_MESSAGES
+			}
+			else if (unpacked_message.message == MESS_SERVER_TESTADDNAME_REJECT)
+			{
+				netstate(NETI_ADD_NAME_REJECT);
+				networkTimeout(500);
+				resetTimeout();
+#ifdef TEST_NETWORK_MESSAGES
+				debug_net_printf("CLIENT NETI_ADD_NAME_REJECT:\n");
+#endif //TEST_NETWORK_MESSAGES
+			}
+			else if (unpacked_message.message == MESS_SERVER_CALL_ACCEPT)
+			{
+				netstate(NETI_CALL_ACCEPT);
+
+				lastconnection_mt.lock();
+				//lastconnection_shared->ncb_lsn_2 = 20;
+
+				myNCB* mypointer = lastconnection_shared;
+
+				lastconnection_shared->ncb_retcode_1 = 0x00;
+				lastconnection_shared->ncb_cmd_cplt_49 = 0x00;
+
+
+				lastconnection_mt.unlock();
+
+				networkTimeout(0);
+				resetTimeout();
+#ifdef TEST_NETWORK_MESSAGES
+				debug_net_printf("CLIENT MESSAGE_CALL_ACCEPT: %p|%s|%s|\n", mypointer, mypointer->ncb_callName_10, mypointer->ncb_name_26);
+#endif //TEST_NETWORK_MESSAGES
+			}
+			else if (unpacked_message.message == MESS_SERVER_CALL_REJECT)
+			{
+				netstate(NETI_CALL_REJECT);
+				networkTimeout(0);
+				resetTimeout();
+#ifdef TEST_NETWORK_MESSAGES
+				debug_net_printf("CLIENT MESSAGE_CALL_REJECT:\n");
+#endif //TEST_NETWORK_MESSAGES
+			}
+			else if (unpacked_message.message == MESS_SERVER_LISTEN_ACCEPT)
+			{
+				//netstate(NETI_CALL_ACCEPT);
+
+				//lastconnection_mt.lock();
+				//lastconnection_shared->ncb_lsn_2 = 20;
+				//lastconnection_mt.unlock();
+
+				//networkTimeout(0);
+
+				//netstate(NETI_LISTEN_ACCEPT);
+				//networkTimeout(0);
+				setListen(unpacked_message.data);
+#ifdef TEST_NETWORK_MESSAGES
+				debug_net_printf("CLIENT MESSAGE_LISTEN_ACCEPT:\n");
+#endif //TEST_NETWORK_MESSAGES
+			}
+			else if (unpacked_message.message == MESS_SERVER_LISTEN_REJECT)
+			{
+				//netstate(NETI_LISTEN_REJECT);
+				//networkTimeout(0);
+#ifdef TEST_NETWORK_MESSAGES
+				debug_net_printf("CLIENT MESSAGE_LISTEN_REJECT:\n");
+#endif //TEST_NETWORK_MESSAGES
+			}
+			else if (unpacked_message.message == MESS_SERVER_SEND)
+			{
+				AddRecMess(unpacked_message.data);
+				networkTimeout(0);
+				resetTimeout();
+#ifdef TEST_NETWORK_MESSAGES
+				debug_net_printf("CLIENT MESSAGE_SEND:\n");
+#endif //TEST_NETWORK_MESSAGES
+			}
+			else if (unpacked_message.message == MESS_SERVER_SEND_OK)
+			{
+				networkTimeout(0);
+				resetTimeout();
+#ifdef TEST_NETWORK_MESSAGES
+				debug_net_printf("CLIENT MESSAGE_SEND OK:\n");
+#endif //TEST_NETWORK_MESSAGES
+			}
 
 			/*
 								server->SendToClient(std::string("MESSAGE_TESTADDNAME_OK;"), receivedMessage.second);
@@ -1011,6 +1443,7 @@ void ListenerClient() {
 				else
 					server->SendToClient(std::string("MESSAGE_TESTADDNAME_REJECT;"), receivedMessage.second);
 			*/
+			/*
 			if (!messages[0].compare("MESSAGE_TESTADDNAME_OK"))
 			{
 				netstate(NETI_ADD_NAME_OK);
@@ -1102,6 +1535,7 @@ void ListenerClient() {
 				debug_net_printf("CLIENT MESSAGE_SEND OK:\n");
 #endif //TEST_NETWORK_MESSAGES
 			}
+			*/
 		}
 		mySleep(1);
 		processEnd();
@@ -1256,7 +1690,7 @@ void CreateFakeMessage(int type, uint8_t* mesg, int lenght) {
 }*/
 
 void AddName(myNCB* connection) {
-	client->Send(std::string("MESSAGE_TESTADDNAME;") + std::string(connection->ncb_name_26));
+	client->Send(Pack_Message(MESS_CLIENT_TESTADDNAME,-1, connection->ncb_name_26, sizeof(connection->ncb_name_26)));
 };
 
 void AddNameReceive(bool nameIsOk, uint32_t id)
@@ -1281,16 +1715,16 @@ char* getConnection() {
 };
 
 void CancelNetwork(myNCB* connection) {
-	client->Send(std::string("MESSAGE_CANCEL;") + connection->ncb_name_26);
+	client->Send(Pack_Message(MESS_CLIENT_CANCEL, -1, connection->ncb_name_26, sizeof(connection->ncb_name_26)));
 	deleteListenConnection(connection);
 }
 
 void DeleteNetwork(myNCB* connection) {
-	client->Send(std::string("MESSAGE_DELETE;") + connection->ncb_name_26);
+	client->Send(Pack_Message(MESS_CLIENT_DELETE, -1, connection->ncb_name_26, sizeof(connection->ncb_name_26)));
 }
 
 void CallNetwork(myNCB* connection) {
-	client->Send(std::string("MESSAGE_CALL;") + connection->ncb_name_26 + std::string(";") + connection->ncb_callName_10);
+	client->Send(Pack_Message(MESS_CLIENT_MESSAGE_CALL, -1, (char*)connection, sizeof(*connection)));// +connection->ncb_name_26 + std::string(";") + connection->ncb_callName_10);
 	/*CreateMessage(MESSAGE_MAKECONNECT, (uint8_t*)&connection, sizeof(myNCB));
 	makeConnection(connection->ncb_callName_10);
 	SendToIp(boost::asio::ip::make_address_v4(GetIpNetwork(connection->ncb_callName_10)));*/
@@ -1298,10 +1732,12 @@ void CallNetwork(myNCB* connection) {
 
 void ListenNetwork(myNCB* connection) {
 	//SendToIp(boost::asio::ip::make_address_v4(lastIp), messageStr);
-	client->Send(std::string("MESSAGE_LISTEN;")+ connection->ncb_callName_10+ std::string(";") + connection->ncb_name_26);
+	
+	client->Send(Pack_Message(MESS_CLIENT_MESSAGE_LISTEN, -1, (char*)connection, sizeof(*connection)));/*->ncb_callName_10 + ';' + connection->ncb_name_26*/
 	setListenConnection(connection);
 };
 
+/*
 void BinToString(uint8_t** buffer, uint16_t* lenght, std::string* str) {
 	std::stringstream ss;
 	for (int i = 0; i < *lenght; i++)
@@ -1312,6 +1748,7 @@ void BinToString(uint8_t** buffer, uint16_t* lenght, std::string* str) {
 	ss << 'Z';
 	*str=ss.str();
 }
+*/
 
 void StringToBin(uint8_t** buffer, uint16_t* lenght, std::string* str) {
 	*lenght = 0;
@@ -1323,11 +1760,11 @@ void StringToBin(uint8_t** buffer, uint16_t* lenght, std::string* str) {
 }
 
 void SendNetwork(myNCB* connection) {
-	std::string tempstr;
-	BinToString(&connection->ncb_buffer_4.p, &connection->ncb_bufferLength_8, &tempstr);
-	client->Send(std::string("MESSAGE_SEND;") + tempstr);
+	//std::string tempstr;
+	//BinToString(&connection->ncb_buffer_4.p, &connection->ncb_bufferLength_8, &tempstr);
+	client->Send(Pack_Message(MESS_CLIENT_SEND,-1, (char*)&connection->ncb_buffer_4.p, connection->ncb_bufferLength_8));
 #ifdef TEST_NETWORK_MESSAGES
-	debug_net_printf("CONVERT TO MESSAGE:%d:%d\n", connection->ncb_bufferLength_8, strlen(tempstr.c_str()));
+	debug_net_printf("CONVERT TO MESSAGE:%d:%d\n", connection->ncb_bufferLength_8, connection->ncb_bufferLength_8);
 #endif //TEST_NETWORK_MESSAGES
 	/*if (!getConnection())return;
 	CreateMessage(MESSAGE_SEND, (uint8_t*)connection->ncb_buffer_4.p, connection->ncb_bufferLength_8);
@@ -1348,7 +1785,7 @@ void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myN
 		networkTimeout(10000);
 		resetTimeout();
 #ifdef TEST_NETWORK_MESSAGES
-		debug_net_printf("\n*SET NETWORK CANCEL %s %s\n", connection->ncb_name_26, connection->ncb_callName_10);
+		debug_net_printf("makeNetwork - SET NETWORK CANCEL %s %s\n", connection->ncb_name_26, connection->ncb_callName_10);
 #endif //TEST_NETWORK_MESSAGES
 		myNCB* secondcon = (myNCB*)connection->ncb_buffer_4.p;
 		if (secondcon)
@@ -1369,7 +1806,7 @@ void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myN
 		networkTimeout(10000);
 		resetTimeout();
 #ifdef TEST_NETWORK_MESSAGES
-		debug_net_printf("SET NETWORK INIT\n");
+		debug_net_printf("makeNetwork - SET NETWORK INIT\n");
 #endif //TEST_NETWORK_MESSAGES
 		connection->ncb_retcode_1 = 0x03;
 		connection->ncb_cmd_cplt_49 = 0x03;
@@ -1381,10 +1818,10 @@ void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myN
 		break;
 	}
 	case 0x90: {//CALL
-		networkTimeout(10000);
+		networkTimeout(600000);
 		resetTimeout();
 #ifdef TEST_NETWORK_MESSAGES
-		debug_net_printf("\n*SET NETWORK CALL %p|%s|%s|\n", connection,connection->ncb_name_26, connection->ncb_callName_10);
+		debug_net_printf("makeNetwork - SET NETWORK CALL %p|%s|%s|\n", connection,connection->ncb_name_26, connection->ncb_callName_10);
 #endif //TEST_NETWORK_MESSAGES
 		connection->ncb_retcode_1 = 0xff;
 		connection->ncb_lsn_2 = 0xe8;
@@ -1404,7 +1841,7 @@ void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myN
 		networkTimeout(10000);
 		resetTimeout();
 #ifdef TEST_NETWORK_MESSAGES
-		debug_net_printf("\n*SET NETWORK LISTEN %s %s\n", connection->ncb_name_26, connection->ncb_callName_10);
+		debug_net_printf("makeNetwork - SET NETWORK LISTEN %s %s\n", connection->ncb_name_26, connection->ncb_callName_10);
 #endif //TEST_NETWORK_MESSAGES
 		connection->ncb_retcode_1 = 0xff;
 		//connection->ncb_lsn_2 = 0x01;
@@ -1418,7 +1855,7 @@ void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myN
 		networkTimeout(10000);
 		resetTimeout();
 #ifdef TEST_NETWORK_MESSAGES
-		debug_net_printf("\n*SET NETWORK SEND %s %s\n", connection->ncb_name_26, connection->ncb_callName_10);
+		debug_net_printf("makeNetwork - SET NETWORK SEND %s %s\n", connection->ncb_name_26, connection->ncb_callName_10);
 #endif //TEST_NETWORK_MESSAGES
 		connection->ncb_retcode_1 = 0xff;
 		connection->ncb_cmd_cplt_49 = 0xff;
@@ -1430,7 +1867,7 @@ void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myN
 		networkTimeout(100000);
 		resetTimeout();
 #ifdef TEST_NETWORK_MESSAGES
-		debug_net_printf("\n*SET NETWORK RECEIVE %s %s\n", connection->ncb_name_26, connection->ncb_callName_10);
+		debug_net_printf("makeNetwork - SET NETWORK RECEIVE %s %s\n", connection->ncb_name_26, connection->ncb_callName_10);
 #endif //TEST_NETWORK_MESSAGES
 		connection->ncb_retcode_1 = 0xff;
 		//connection->ncb_lsn_2 = 0xd9;
@@ -1446,7 +1883,7 @@ void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myN
 		networkTimeout(15000);
 		resetTimeout();
 
-		debug_net_printf("\n*SET NETWORK ADD_NAME %s %s\n", connection->ncb_name_26, connection->ncb_callName_10);
+		debug_net_printf("makeNetwork - SET NETWORK ADD_NAME %s %s\n", connection->ncb_name_26, connection->ncb_callName_10);
 #endif //TEST_NETWORK_MESSAGES
 		connection->ncb_retcode_1 = 0xff;
 		connection->ncb_num_3 = lastnetworkname + 0x02;
@@ -1464,7 +1901,7 @@ void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myN
 		networkTimeout(10000);
 		resetTimeout();
 #ifdef TEST_NETWORK_MESSAGES
-		debug_net_printf("\n*SET NETWORK DELETE_NAME %s %s\n", connection->ncb_name_26, connection->ncb_callName_10);
+		debug_net_printf("makeNetwork - SET NETWORK DELETE_NAME %s %s\n", connection->ncb_name_26, connection->ncb_callName_10);
 #endif //TEST_NETWORK_MESSAGES
 		/*connection->ncb_retcode_1 = 0xff;
 		connection->ncb_num_3 = lastnetworkname + 0x02;
@@ -1488,7 +1925,7 @@ void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myN
 	lastconnection_shared = connection;
 	lastconnection_mt.unlock();
 #ifdef TEST_NETWORK_MESSAGES
-	debug_net_printf("SET CONNECTION\n");
+	debug_net_printf("makeNetwork - SET CONNECTION\n");
 #endif //TEST_NETWORK_MESSAGES
 }
 

@@ -7,6 +7,7 @@
 //#include <boost/asio.hpp>
 
 #include "../engine/defs.h"
+#include "../portability/port_outputs.h"
 
 extern const char* debug_net_filename1;
 extern std::string debug_net_filename2;
@@ -111,4 +112,10 @@ void printState2(char* text);
 
 void SendNetwork(myNCB* connection);
 
-#endif //PORT_TIME
+//void SendMessagesRegisterOK();
+
+//bool ReceiveTimeout();
+
+bool ReceiveServerAddName();
+
+#endif //PORT_NETWORK
