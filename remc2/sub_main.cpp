@@ -2926,7 +2926,6 @@ int32_t xx_DWORD_D40BC[17][3] =  // weak//min 16*3 //2a50bc
 posistruct2_t* x_DWORD_D4188 = 0; // weak
 posistruct2_t* x_DWORD_D418C = 0; // weak
 posistruct2_t* x_DWORD_D4190 = 0; // weak
-uint8_t* x_DWORD_D4198 = 0; // weak
 char x_BYTE_D419C_level_num = -1; // weak
 char x_BYTE_D419D_fonttype = 1; // weak
 char x_BYTE_D419E = 0; // weak//2a519e
@@ -60499,13 +60498,11 @@ void sub_5BC20()//23cc20
 		sub_6FE20();
 		sub_5C060();
 	}
-	sub_83E80_freemem4(x_DWORD_D4198);
 	//sub_83E80_freemem4(x_D41A0_BYTEARRAY_0);
 	//sub_83E80_freemem4(x_D41A0_BYTEARRAY_4);
 	sub_86860_speak_Sound(x_WORD_1803EC);
 	sub_86BD0_freemem1();
 }
-// D4198: using guessed type int x_DWORD_D4198;
 // D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
 // D41A4: using guessed type int x_DWORD_D41A4;
 // D4B80: using guessed type char x_BYTE_D4B80;
