@@ -1023,7 +1023,7 @@ int /*__fastcall*/ nullsub_1(x_DWORD) { stub_fix_it(); return 0; }; // weak
 int sub_8E0D0() { stub_fix_it(); return 0; }; // weak
 void sub_8F4B0(HMDIDRIVER user) { stub_fix_it(); }; // weak
 int dword_1820E0 = 0;
-long clock_value()
+unsigned long clock_value()
 {
 	return mygethundredths();
 	//return clock()*0.1;
@@ -1044,7 +1044,7 @@ long clock_value()
 	//intdos(&v1, &v1); //fix it
 	return 100 * (v6 + 60 * (60 * v4 + v3)) + v5;*/
 }
-long _clock()
+unsigned long _clock()
 {
 	return clock_value();
 	/*unsigned int v0; // eax
@@ -1054,7 +1054,7 @@ long _clock()
 		v0 += 8640000;
 	return v0 - dword_1820E0;*/
 }
-long /*__fastcall*/ j___clock() {
+unsigned long /*__fastcall*/ j___clock() {
 	return _clock();
 }; // weak
 void sub_99830(HMDIDRIVER  /*user*/) { stub_fix_it(); }; // weak
@@ -2479,7 +2479,6 @@ signed int sub_79E10(char* a1, char a2);
 //char sub_7A060_get_mouse_and_keyboard_events();
 void sub_7A110_load_hscreen(char a1, char a2);
 void sub_7AA70_load_and_decompres_dat_file(char* a1, uint8_t* a2, int a3, int a4);
-// int (**sub_7AB00_draw_menu_animations(__int16 a1, int a2, signed __int16 *a3, unsigned __int8 a4))(int);
 void sub_7AC00_load_and_set_graphics_and_Palette();
 int sub_7ADE0(char a1);
 //bool sub_7B200_in_region(int16_t* a1, int16_t testx, int16_t testy);
@@ -2711,7 +2710,7 @@ void sub_90E07_VGA_set_video_mode_640x480_and_Palette(TColor* Palette);
 void sub_90E07_VGA_set_video_mode_alt_and_Palette(TColor* Palette);
 int sub_90EA0(int a1, char* a2);
 void sub_986E0();
-long j___clock(); // weak
+unsigned long j___clock(); // weak
 void sub_98790(unsigned __int16 a1, unsigned __int8 a2);
 signed int sub_98C48_open_nwrite_close(char* file, uint8_t* buffer, uint32_t count);
 size_t sub_98CAA_write(FILE* a1, uint8_t* a2, uint32_t a3);
@@ -5238,19 +5237,13 @@ TColor str_BYTE_E1711[2][18] = {{//players Palette colors is halfed
 {0x00,0x00,0x00}}//27-8
 }; // weak//2b2711
 
-type_str_unk_E1748 unk_E1748x[5] = {//some in animations
-	{0,17, 159, 1, 1,8},
-	{0,531,156, 9, 9,16},
-	{0,154,308, 17,17,25},
-	{0,226,308, 26,26,34},
-	{0,0,0,0,0,0}
-};
-
-type_str_unk_E1748 unk_E1784x[3] = {
-	{0,299, 306, 1, 1,8},
-	{0,348, 118, 9, 9,16},
-	{0,0,0,0,0,0}
-};
+std::array<type_MainMenuAnimations_E1748, 4> MainMenuAnimations_E1748x {{ // menu fire animation positions and sprites
+	{0,17, 159, 1, 1,8},   // left fire
+	{0,531,156, 9, 9,16},  // right fire
+	{0,154,308, 17,17,25}, // left incense stick
+	{0,482,308, 26,26,34}, // right incense stick
+}};
+//unk_E1784x[3] // removed - referenced from menu animations but never in any code path
 
 Type_SoundEvent_E17CC str_E17CC_0[0x32] = {//anim events
 {0x0000,0x45,0x00000004},
@@ -78234,7 +78227,7 @@ void /*__fastcall*/ sub_76FA0_main_menu(/*int a1, */int  /*a2*/, uint16_t a3x)//
 			/*v19 = */sub_7C120_draw_bitmap_640(185, 232, xy_DWORD_17DED4_spritestr[66]);//adress 25827a
 			//ax,ebx,a3
 			//6038,100,4?
-			/*v21 = */sub_7AB00_draw_menu_animations(/*v19,*/ /*v20,*/ /*(int16_t*)a3x,*/ 4u);//25bb00
+			sub_7AB00_draw_menu_animations();//25bb00
 			if (sub_7B250_draw_and_serve(/*(int)v21, v22*/))//25c250
 			{
 				v12 = x_DWORD_17DE38str.x_DWORD_17DEE6_mouse_positiony;
@@ -80554,62 +80547,28 @@ void sub_7AA70_load_and_decompres_dat_file(char* path, uint8_t* filebuffer, int 
 // 17DEE0: using guessed type int x_DWORD_17DEE0_filedesc;
 
 //----- (0007AB00) --------------------------------------------------------
-void sub_7AB00_draw_menu_animations(/*__int16 a1,*/ /*int a2,*/ /*type_str_unk_E1748* a3,*/ unsigned __int8 a4)//25bb00
+void sub_7AB00_draw_menu_animations()//25bb00
 {
-	//uint8_t* v4; // esi
-	int v5; // eax
-	int v6; // edi
-	//signed __int16 v7; // ax
-	//uint8_t* i; // ebx
-	int iy;
-	int v10; // [esp+0h] [ebp-4h]
+	unsigned long now = j___clock();
 
-	//HIBYTE(a1) = a4;//04
-	//v4 = 0;
-	type_str_unk_E1748* a3x = 0;
-	if (a4 == 4u)
+	// animate fire and incense stick animation
+	for (auto& ani: MainMenuAnimations_E1748x)
 	{
-		a3x = unk_E1748x;
-	}
-	else if (a4 == 6u)
-	{
-		a3x = unk_E1784x;
-	}
-	int ii = 0;
-	while (a3x[ii].word_4)//fair animation
-	{
-		/*
-		43d1be
-		43d1f4 9c 213
-		*/
-		v5 = j___clock();
-		v6 = v5;
-		v10 = v5;
-		sub_2BB40_draw_bitmap(a3x[ii].word_4, a3x[ii].word_6, xy_DWORD_17DED4_spritestr[a3x[ii].word_8]);
-		if ((v6 - a3x[ii].dword_0) >> 2 >= 1)
+		sub_2BB40_draw_bitmap(ani.PosX_4, ani.PosY_6, xy_DWORD_17DED4_spritestr[ani.ActSprite_8]);
+		if ((now - ani.LastTimeRendered_0) >> 2 >= 1)
 		{
-			//a2 = a3x[ii].word_8 + 1;
-			a3x[ii].word_8++;
-			//v7 = a3x[ii].byte_11;
-			//a3[4] = a2;
-			if (a3x[ii].byte_11 < a3x[ii].word_8)
-				a3x[ii].word_8 = a3x[ii].byte_10;
-			//a1 = v10;
-			a3x[ii].dword_0 = v10;
+			ani.ActSprite_8++;
+			if (ani.LastSprite_11 < ani.ActSprite_8)
+				ani.ActSprite_8 = ani.FirstSprite_10;
+			ani.LastTimeRendered_0 = now;
 		}
-		ii++;
-		//a3 += 6;
 	}
-	if (a4 == 4)//draw gold selected buttons
+	// draw selected main menu item
+	for (int iy = 0; (str_E1BAC[iy].xmin_10<<16) + str_E1BAC[iy].ymin_12; iy++)
 	{
-		//for (i = off_E1BAC; *((int32_t*)(i + 10)); i += 44)
-		for (iy = 0; (str_E1BAC[iy].xmin_10<<16) + str_E1BAC[iy].ymin_12; iy++)
+		if (str_E1BAC[iy].canSelect_23 && str_E1BAC[iy].gold_color_24)
 		{
-			if (str_E1BAC[iy].canSelect_23 && str_E1BAC[iy].gold_color_24)
-			{
-				//v4 = i;
-				sub_2BB40_draw_bitmap(str_E1BAC[iy].xmin_10, str_E1BAC[iy].ymin_12, xy_DWORD_17DED4_spritestr[str_E1BAC[iy].byte_21]);
-			}
+			sub_2BB40_draw_bitmap(str_E1BAC[iy].xmin_10, str_E1BAC[iy].ymin_12, xy_DWORD_17DED4_spritestr[str_E1BAC[iy].byte_21]);
 		}
 	}
 }
@@ -81518,7 +81477,7 @@ void WaitToConnect_7C230()//25d230
 		CopyScreen((void*)x_DWORD_E9C38_smalltit, (void*)pdwScreenBuffer_351628, 640, 480);
 	}
 	sub_7C120_draw_bitmap_640(185, 232, xy_DWORD_17DED4_spritestr[66]);
-	sub_7AB00_draw_menu_animations(4u);
+	sub_7AB00_draw_menu_animations();
 	if (sub_7BF20_draw_scroll_dialog(&str_WORD_E1F70))
 	{
 		x_WORD_E131A = 1;
