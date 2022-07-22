@@ -39,6 +39,7 @@
 **/config.ini
 **/BufferOut
 /build*
+flatpak/build-dir
 .flatpak*
 .cache
 

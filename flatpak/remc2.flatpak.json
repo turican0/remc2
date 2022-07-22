@@ -1,0 +1,44 @@
+{
+    "app-id": "com.github.thobbsinteractive.magic-carpet-2-hd",
+    "default-branch": "stable",
+    "runtime": "org.freedesktop.Platform",
+    "runtime-version": "20.08",
+    "sdk": "org.freedesktop.Sdk",
+    "command": "remc2",
+    "finish-args": [
+        "--share=ipc",
+        "--socket=x11",
+        "--socket=wayland",
+        "--socket=pulseaudio",
+        "--share=network",
+        "--device=all",
+        "--filesystem=home"
+    ],
+    "cleanup": ["/include", "/lib/pkgconfig",
+                "/share/pkgconfig", "/share/aclocal",
+                "/man", "/share/man", "/share/gtk-doc",
+                "/share/vala",
+                "*.la", "*.a"],
+    "modules": [
+        "boost/boost-1.66.0.json",
+        {
+            "name": "remc2",
+            "buildsystem": "cmake-ninja",
+            "config-opts": [
+                "-DCMAKE_BUILD_TYPE=Release", 
+                "-DUNIT_TESTS=False", 
+                "-DEDITOR=False", 
+                "-DUSE_SANITIZERS=False", 
+                "-DUSE_CLANG_TIDY=False", 
+                "-DALL_WARNINGS=False", 
+                "-DFLATPAK=True"
+            ],
+            "sources": [
+                {
+                    "type": "dir",
+                    "path": ".."
+                }
+            ]
+        }
+    ]
+}

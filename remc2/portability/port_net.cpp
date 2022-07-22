@@ -410,9 +410,9 @@ void debug_net_printf(const char* format, ...) {
 	print_mt.lock();
 	char prbuffer[1024*40];
 	va_list arg;
-	int done;
+	//int done;
 	va_start(arg, format);
-	done = vsprintf(prbuffer, format, arg);
+	vsprintf(prbuffer, format, arg);
 	va_end(arg);
 
 	//std::string exepath = get_exe_path();
