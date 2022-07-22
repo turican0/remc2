@@ -557,14 +557,14 @@ void support_end() {
 		//free(x_D41A0_BYTEARRAY_4_struct.player_name_57);
 		//if(x_D41A0_BYTEARRAY_4_struct.savestring_89)delete(x_D41A0_BYTEARRAY_4_struct.savestring_89);
 
-	if (x_BYTE_14B4E0_second_heightmap)delete(x_BYTE_14B4E0_second_heightmap);
-	if (off_D41A8_sky)delete(off_D41A8_sky);
+	if (x_BYTE_14B4E0_second_heightmap) delete[](x_BYTE_14B4E0_second_heightmap);
+	if (off_D41A8_sky) delete[](off_D41A8_sky);
 
-	if (xy_DWORD_17DED4_spritestr)delete(xy_DWORD_17DED4_spritestr);
-	if (xy_DWORD_17DEC0_spritestr_orig)delete(xy_DWORD_17DEC0_spritestr_orig);//fixed
-	if (xy_DWORD_17DEC8_spritestr)delete(xy_DWORD_17DEC8_spritestr);
+	if (xy_DWORD_17DED4_spritestr) delete[](xy_DWORD_17DED4_spritestr);
+	if (xy_DWORD_17DEC0_spritestr_orig) delete[](xy_DWORD_17DEC0_spritestr_orig);//fixed
+	if (xy_DWORD_17DEC8_spritestr) delete[](xy_DWORD_17DEC8_spritestr);
 
-	if (x_DWORD_D4188t_spritestr)delete(x_DWORD_D4188t_spritestr);
+	if (x_DWORD_D4188t_spritestr) delete[](x_DWORD_D4188t_spritestr);
 }
 
 void loadfromsnapshot(char* filename, uint8_t* adress, uint32_t adressdos, uint32_t size) {
