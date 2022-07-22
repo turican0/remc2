@@ -47,95 +47,80 @@ typedef ClientList::value_type LClient;
 
 myNCB* lastconnection_shared;
 
-int netstate_shared = -1;
+enum Neti_type {
+	NETI_NOT_SET,
+	NETI_ADD_NAME,
+	NETI_ADD_NAME_REJECT,
+	NETI_ADD_NAME_OK,
+	NETI_CALL,
+	NETI_CALL_ACCEPT,
+	NETI_CALL_REJECT,
+	NETI_LISTEN,
+	//#define NETI_LISTEN_ACCEPT,
+	NETI_LISTEN_REJECT,
+	NETI_RECEIVE
+	};
 
-#define NETI_ADD_NAME 0
-#define NETI_ADD_NAME_REJECT 1
-#define NETI_ADD_NAME_OK 2
-#define NETI_CALL 3
-#define NETI_CALL_ACCEPT 4
-#define NETI_CALL_REJECT 5
-#define NETI_LISTEN 6
-//#define NETI_LISTEN_ACCEPT 7
-#define NETI_LISTEN_REJECT 8
-#define NETI_RECEIVE 9
+Neti_type netstate_shared = NETI_NOT_SET;
 
-#define MESS_CLIENT_SERVER_NAME_ADDED 0
-#define MESS_SERVER_SERVER_NAME_ADDED 1
-//#define MESS_CLIENT_REGISTER_TIMEOUT 2
-//#define MESS_SERVER_REGISTER_TIMEOUT 3
-#define MESS_CLIENT_TESTADDNAME 4
-#define MESS_SERVER_TESTADDNAME_OK 5
-#define MESS_SERVER_TESTADDNAME_REJECT 6
-#define MESS_CLIENT_MESSAGE_LISTEN 7
-#define MESS_CLIENT_MESSAGE_CALL 8
-#define MESS_SERVER_CALL_ACCEPT 9
-#define MESS_SERVER_LISTEN_ACCEPT 10
-#define MESS_SERVER_CALL_REJECT 11
-#define MESS_SERVER_LISTEN_REJECT 12
-#define MESS_CLIENT_CANCEL 13
-#define MESS_CLIENT_DELETE 14
-#define MESS_CLIENT_SEND 15
-#define MESS_SERVER_SEND_OK 16
-#define MESS_SERVER_SEND 17
+const int MESS_CLIENT_SERVER_NAME_ADDED = 0;
+const int MESS_SERVER_SERVER_NAME_ADDED = 1;
+//const int MESS_CLIENT_REGISTER_TIMEOUT = 2;
+//const int MESS_SERVER_REGISTER_TIMEOUT = 3;
+const int MESS_CLIENT_TESTADDNAME = 4;
+const int MESS_SERVER_TESTADDNAME_OK = 5;
+const int MESS_SERVER_TESTADDNAME_REJECT = 6;
+const int MESS_CLIENT_MESSAGE_LISTEN = 7;
+const int MESS_CLIENT_MESSAGE_CALL = 8;
+const int MESS_SERVER_CALL_ACCEPT = 9;
+const int MESS_SERVER_LISTEN_ACCEPT = 10;
+const int MESS_SERVER_CALL_REJECT = 11;
+const int MESS_SERVER_LISTEN_REJECT = 12;
+const int MESS_CLIENT_CANCEL = 13;
+const int MESS_CLIENT_DELETE = 14;
+const int MESS_CLIENT_SEND = 15;
+const int MESS_SERVER_SEND_OK = 16;
+const int MESS_SERVER_SEND = 17;
 
 char* MessageIndexToText(int index)
 {
 	switch (index) {
-	case 0:
+	case MESS_CLIENT_SERVER_NAME_ADDED:
 		return (char*)"MESS_CLIENT_SERVER_NAME_ADDED";
-		break;
-	case 1:		
+	case MESS_SERVER_SERVER_NAME_ADDED:
 		return (char*)"MESS_SERVER_SERVER_NAME_ADDED";
-		break;
-	case 2:
-		return (char*)"MESS_CLIENT_REGISTER_TIMEOUT";
-		break;
-	case 3:
-		return (char*)"MESS_SERVER_REGISTER_TIMEOUT";
-		break;
-	case 4:
+//	case MESS_CLIENT_REGISTER_TIMEOUT:
+//		return (char*)"MESS_CLIENT_REGISTER_TIMEOUT";
+//	case MESS_SERVER_REGISTER_TIMEOUT:
+//		return (char*)"MESS_SERVER_REGISTER_TIMEOUT";
+	case MESS_CLIENT_TESTADDNAME:
 		return (char*)"MESS_CLIENT_TESTADDNAME";
-		break;
-	case 5:
+	case MESS_SERVER_TESTADDNAME_OK:
 		return (char*)"MESS_SERVER_TESTADDNAME_OK";
-		break;
-	case 6:
+	case MESS_SERVER_TESTADDNAME_REJECT:
 		return (char*)"MESS_SERVER_TESTADDNAME_REJECT";
-		break;
-	case 7:
+	case MESS_CLIENT_MESSAGE_LISTEN:
 		return (char*)"MESS_CLIENT_MESSAGE_LISTEN";
-		break;
-	case 8:
+	case MESS_CLIENT_MESSAGE_CALL:
 		return (char*)"MESS_CLIENT_MESSAGE_CALL";
-		break;
-	case 9:
+	case MESS_SERVER_CALL_ACCEPT:
 		return (char*)"MESS_SERVER_CALL_ACCEPT";
-		break;
-	case 10:
+	case MESS_SERVER_LISTEN_ACCEPT:
 		return (char*)"MESS_SERVER_LISTEN_ACCEPT";
-		break;
-	case 11:
+	case MESS_SERVER_CALL_REJECT:
 		return (char*)"MESS_SERVER_CALL_REJECT";
-		break;
-	case 12:
+	case MESS_SERVER_LISTEN_REJECT:
 		return (char*)"MESS_SERVER_LISTEN_REJECT";
-		break;
-	case 13:
+	case MESS_CLIENT_CANCEL:
 		return (char*)"MESS_CLIENT_CANCEL";
-		break;
-	case 14:
+	case MESS_CLIENT_DELETE:
 		return (char*)"MESS_CLIENT_DELETE";
-		break;
-	case 15:
+	case MESS_CLIENT_SEND:
 		return (char*)"MESS_CLIENT_SEND";
-		break;
-	case 16:
+	case MESS_SERVER_SEND_OK:
 		return (char*)"MESS_SERVER_SEND_OK";
-		break;
-	case 17:
+	case MESS_SERVER_SEND:
 		return (char*)"MESS_SERVER_SEND";
-		break;
 	}
 	return (char*)"";
 }
@@ -174,7 +159,8 @@ std::string Pack_Message(uint32 message, uint32_t clientid=0, char* data=NULL,in
 	locmessage_info.message = message;
 	locmessage_info.clientid = clientid;
 	locmessage_info.size = size_of_data;
-	memcpy(locmessage_info.data, data, size_of_data);
+	if(data)
+		memcpy(locmessage_info.data, data, size_of_data);
 	return DataToString(locmessage_info);
 }
 
@@ -800,16 +786,16 @@ std::mutex lastconnection_mt;
 std::mutex netstate_mt;
 std::mutex networkTimeout_mt;
 
-int netstate()
+Neti_type netstate()
 {
-	int result;
+	Neti_type result;
 	netstate_mt.lock();
 	result = netstate_shared;
 	netstate_mt.unlock();
 	return result;
 }
 
-void netstate(int input)
+void netstate(Neti_type input)
 {
 	netstate_mt.lock();
 	netstate_shared= input;
