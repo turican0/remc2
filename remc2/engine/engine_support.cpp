@@ -4,6 +4,8 @@
 extern DOS_Device* DOS_CON;
 #endif //USE_DOSBOX
 
+const int printBufferSize = 4096;
+
 //delete after finalization
 uint8_t* readbuffer;
 
@@ -500,9 +502,9 @@ void allert_error() {
 
 void support_begin() {
 	readbuffer = (uint8_t*)malloc(1000000);//fix it max 64000
-	printbuffer = (char*)malloc(4096);
+	printbuffer = (char*)malloc(printBufferSize);
 	//printbuffer[0] = '\0';
-	printbuffer2 = (char*)malloc(4096);
+	printbuffer2 = (char*)malloc(printBufferSize);
 
 	//pre_pdwScreenBuffer_351628 = (uint8_t*)malloc(2228224);// 640x480
 	//pdwScreenBuffer_351628 = &pre_pdwScreenBuffer_351628[1114112];// 640x480
