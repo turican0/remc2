@@ -991,12 +991,12 @@ void processEnd() {
 			if(lastconnection_shared)
 			switch (lastconnection_shared->ncb_command_0)
 			{
-				case 0x95: {//RECEIVE(opposite send)
+				case 0x95: {//RECEIVE(opposite send)//fix it!!!!!!!!!!!!!!!!!!!
 					std::string tempstr = GetRecMess();
 					StringToBin(&lastconnection_shared->ncb_buffer_4.p, &lastconnection_shared->ncb_bufferLength_8, &tempstr);
 					lastconnection_shared->ncb_cmd_cplt_49 = 0x0;
 #ifdef TEST_NETWORK_MESSAGES
-					debug_net_printf("processEnd: CONVERT FROM MESSAGE:%d:%d\n", lastconnection_shared->ncb_bufferLength_8, strlen(tempstr.c_str()));
+					debug_net_printf("processEnd: CONVERT FROM MESSAGE:%d:%d\n", lastconnection_shared->ncb_bufferLength_8, 10/*strlen(tempstr.c_str())*/);
 					debug_net_printf("processEnd: lastconnection set to NULL RECEIVE\n");
 #endif //TEST_NETWORK_MESSAGES
 					lastconnection_shared = NULL;
@@ -1121,7 +1121,7 @@ void ListenerServer() {
 			}
 			else if (unpacked_message.message == MESS_CLIENT_CANCEL)
 			{
-				if (strlen(unpacked_message.data) > 0)
+				if (unpacked_message.data[0] != 0)
 					RemoveListenName(unpacked_message.data);
 #ifdef TEST_NETWORK_MESSAGES
 				debug_net_printf("Server: MESSAGE_CANCEL:%s %d\n", unpacked_message.data, receivedMessage.second);
@@ -1129,7 +1129,7 @@ void ListenerServer() {
 			}
 			else if (unpacked_message.message == MESS_CLIENT_DELETE)
 			{
-				if (strlen(unpacked_message.data) > 0)
+				if (unpacked_message.data[0] != 0)
 					RemoveNetworkName(unpacked_message.data);
 #ifdef TEST_NETWORK_MESSAGES
 				debug_net_printf("Server: MESSAGE_DELETE:%s %d\n", unpacked_message.data, receivedMessage.second);
@@ -1138,9 +1138,9 @@ void ListenerServer() {
 			else if (unpacked_message.message == MESS_CLIENT_SEND)
 			{
 				uint32_t otherid = GetOtherSide(receivedMessage.second);
-				if (otherid != 1000)
+				if (otherid != 1000)//fix it !!!!!!!!!!!!!!!!!
 				{
-					server->SendToClient(Pack_Message(MESS_SERVER_SEND, receivedMessage.second, unpacked_message.data, 1+strlen(unpacked_message.data)), otherid);
+					server->SendToClient(Pack_Message(MESS_SERVER_SEND, receivedMessage.second, unpacked_message.data, 1/* + strlen(unpacked_message.data)*/), otherid);
 					server->SendToClient(Pack_Message(MESS_SERVER_SEND_OK), receivedMessage.second);
 				}
 #ifdef TEST_NETWORK_MESSAGES
@@ -1710,7 +1710,7 @@ void hangupConnection() {
 	strcpy(connectionCompName, "");
 };
 char* getConnection() {
-	if (strlen(connectionCompName) == 0)return NULL;
+	if (connectionCompName[0] == 0)return NULL;
 	return connectionCompName;
 };
 
