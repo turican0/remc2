@@ -55489,9 +55489,10 @@ void InitNetworkInfo() {
 	if (Iam_server)
 		InitLibNetServer(ServerMPort);
 	InitLibNetClient(serverIP, ServerMPort, ClientMPort);
+	/*
 	if (Iam_server)
 	{
-		while (StartNetworkTimeout > 0) {
+		while (StartNetworkTimeout>0) {
 			mydelay(1000);
 			StartNetworkTimeout--;
 			myprintf("I wait for clients %d s\n", StartNetworkTimeout);
@@ -55502,7 +55503,7 @@ void InitNetworkInfo() {
 	while (!receive_timeout) {
 		receive_timeout = ReceiveTimeout();
 		mydelay(1000);
-	}
+	}*/
 #endif //TEST_NETWORK
 };
 
@@ -76255,8 +76256,24 @@ int NetworkInitConnection_7308F(char* a2, __int16 a3)//25408f
 		while (connection_E12AE[i]->ncb_cmd_cplt_49 == 0xff)
 			/*fake_network_interupt(connection_E12AE[i])*/;
 	}
-	while (mainConnection_E12AA->ncb_cmd_cplt_49 == 0xff)
+	while (mainConnection_E12AA->ncb_cmd_cplt_49 == 0xff)//AddNameNotSet?
 		/*fake_network_interupt(mainConnection_E12AA)*/;
+
+	//wait for Server AddName
+	if (!Iam_server)
+	{
+		char prbuffer[1024];
+		sprintf(prbuffer, "WAITING FOR SERVER: %s", serverIP);
+		VGA_Draw_string(prbuffer);
+		bool receiveServerAddName = false;
+		while (!receiveServerAddName) {
+			receiveServerAddName = ReceiveServerAddName();
+			mydelay(1000);
+			VGA_Draw_string(".");
+		}
+	}
+	//wait for Server AddName
+
 	i = 0;
 	IndexInNetwork_E1276 = -1;
 	while (maxPlayers_E127A > i && IndexInNetwork_E1276 == -1 && !connected_E12A6)
@@ -76273,9 +76290,9 @@ int NetworkInitConnection_7308F(char* a2, __int16 a3)//25408f
 		else
 		{
 			IndexInNetwork_E1276 = i;
-		}
-		i++;
 	}
+		i++;
+}
 	if (IndexInNetwork_E1276 == -1)//2541e7
 		return -1;
 	for (i = 0; i < maxPlayers_E127A; i++)
@@ -76287,16 +76304,16 @@ int NetworkInitConnection_7308F(char* a2, __int16 a3)//25408f
 		}
 	}
 #ifdef TEST_NETWORK_CHNG1
-	x_WORD_E1276 = 1;
+	IndexInNetwork_E1276 = 1;
 #endif// TEST_NETWORK_CHNG1
 	if (IndexInNetwork_E1276)//254278
 	{
-		if (!NetworkTestCall_72FBB())
+		if (!NetworkTestCall_72FBB()) // it is main connection
 			connected_E12A6 = 1;
 	}
 	else
 	{
-		NetworkListenAll_7302E();
+		NetworkListenAll_7302E(); // it is second connection 
 		IndexInNetwork2_E12A8 = IndexInNetwork_E1276;
 	}
 	if (connected_E12A6 == 1)
