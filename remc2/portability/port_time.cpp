@@ -18,8 +18,8 @@ unsigned long mygethundredths() {
 	return clock() / (CLOCKS_PER_SEC/100);
 #else
 	struct timeval timecheck;
-	gettimeofday(&timecheck, NULL);
-    return ((long)timecheck.tv_sec * 1000 + (long)timecheck.tv_usec / 1000) / 10;
+	gettimeofday(&timecheck, nullptr);
+    return (timecheck.tv_sec * 1000 + timecheck.tv_usec / 1000) / 10;
 #endif
 };
 
@@ -28,8 +28,8 @@ unsigned long mygetthousandths() {
 	return clock() / (CLOCKS_PER_SEC/1000);
 #else
 	struct timeval timecheck;
-	gettimeofday(&timecheck, NULL);
-    return ((long)timecheck.tv_sec * 1000 + (long)timecheck.tv_usec / 1000);
+	gettimeofday(&timecheck, nullptr);
+    return (timecheck.tv_sec * 1000 + timecheck.tv_usec / 1000);
 #endif
 };
 
@@ -38,8 +38,8 @@ unsigned long mygetsecond() {
 	return clock();
 #else
 	struct timeval timecheck;
-	gettimeofday(&timecheck, NULL);
-    return ((long)timecheck.tv_sec * 1000 + (long)timecheck.tv_usec / 1000) / 1000;
+	gettimeofday(&timecheck, nullptr);
+    return (timecheck.tv_sec * 1000 + timecheck.tv_usec / 1000) / 1000;
 #endif
 };
 

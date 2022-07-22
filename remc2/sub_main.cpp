@@ -5237,13 +5237,12 @@ TColor str_BYTE_E1711[2][18] = {{//players Palette colors is halfed
 {0x00,0x00,0x00}}//27-8
 }; // weak//2b2711
 
-type_MainMenuAnimations_E1748 MainMenuAnimations_E1748x[5] = { // menu fire animation positions and sprites
+std::array<type_MainMenuAnimations_E1748, 4> MainMenuAnimations_E1748x {{ // menu fire animation positions and sprites
 	{0,17, 159, 1, 1,8},   // left fire
 	{0,531,156, 9, 9,16},  // right fire
 	{0,154,308, 17,17,25}, // left incense stick
 	{0,482,308, 26,26,34}, // right incense stick
-	{0,0,0,0,0,0}
-};
+}};
 //unk_E1784x[3] // removed - referenced from menu animations but never in any code path
 
 Type_SoundEvent_E17CC str_E17CC_0[0x32] = {//anim events
@@ -80551,18 +80550,17 @@ void sub_7AA70_load_and_decompres_dat_file(char* path, uint8_t* filebuffer, int 
 void sub_7AB00_draw_menu_animations()//25bb00
 {
 	unsigned long now = j___clock();
-	type_MainMenuAnimations_E1748* a3x = MainMenuAnimations_E1748x;
 
 	// animate fire and incense stick animation
-	for (int ii = 0; a3x[ii].PosX_4; ii++)
+	for (auto& ani: MainMenuAnimations_E1748x)
 	{
-		sub_2BB40_draw_bitmap(a3x[ii].PosX_4, a3x[ii].PosY_6, xy_DWORD_17DED4_spritestr[a3x[ii].ActSprite_8]);
-		if ((now - a3x[ii].LastTimeRendered_0) >> 2 >= 1)
+		sub_2BB40_draw_bitmap(ani.PosX_4, ani.PosY_6, xy_DWORD_17DED4_spritestr[ani.ActSprite_8]);
+		if ((now - ani.LastTimeRendered_0) >> 2 >= 1)
 		{
-			a3x[ii].ActSprite_8++;
-			if (a3x[ii].LastSprite_11 < a3x[ii].ActSprite_8)
-				a3x[ii].ActSprite_8 = a3x[ii].FirstSprite_10;
-			a3x[ii].LastTimeRendered_0 = now;
+			ani.ActSprite_8++;
+			if (ani.LastSprite_11 < ani.ActSprite_8)
+				ani.ActSprite_8 = ani.FirstSprite_10;
+			ani.LastTimeRendered_0 = now;
 		}
 	}
 	// draw selected main menu item
