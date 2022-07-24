@@ -851,14 +851,7 @@ x_DWORD settextposition(x_DWORD x, x_DWORD y) {
 	return 0;
 };// weak
 void outtext(char* text) { myWriteOut(text);};// weak
-//x_DWORD int386(x_DWORD, x_DWORD, x_DWORD) { stub_fix_it();return 0; };// weak
-/*int int386(int intno, REGS *inregs, REGS *outregs)
-{
-	struct SREGS    segregs;
 
-	segread(&segregs);//160:0027ADE6
-	return(int386x(intno, inregs, outregs, &segregs));
-}*/
 POSITION gettextposition(/*x_DWORD, x_DWORD, x_DWORD*/) {
 	return VGA_WhereXY();
 };// weak
@@ -2440,7 +2433,6 @@ void sub_759B0_set_mouse_minmax_vert();
 unsigned __int8 sub_75A10(int a1, unsigned __int8* a2);
 void sub_75AB0();
 //void sub_75AE0(int a1);
-void sub_75B50(__int16 a1);
 int sub_75B80_alloc_mem_block(int a1, x_WORD* a2, x_WORD* a3);
 void sub_75C50();
 //void sub_75CB0();
@@ -2580,7 +2572,6 @@ __int16 sub_86180(unsigned __int16 a1);
 __int16 sub_86270(unsigned __int16 a1);
 __int16 sub_86370(unsigned __int16 a1, char a2);
 void sub_86460(uint16_t a1);
-void sub_86550();
 char sub_86780(unsigned __int16 a1, int a2, int a3);
 char sub_86860_speak_Sound(unsigned __int16 a1);
 char sub_86930(unsigned __int16 a1);
@@ -2670,7 +2661,6 @@ char sub_8C140(unsigned __int16 a1, uint8_t* a2);
 // x_DWORD dos_getdrive(x_DWORD); weak
 // x_DWORD dos_setdrive(x_DWORD, x_DWORD); weak
 // x_DWORD dos_getdiskfree(x_DWORD, x_DWORD); weak
-int sub_8C21F_any_graphics_command();
 // x_DWORD memset(x_DWORD, x_DWORD, x_DWORD); weak
 // int rand(void); weak
 // x_DWORD printf(x_DWORD);
@@ -2685,7 +2675,6 @@ void sub_8CB1F();
 void UpdateMouseEventData_8CB3A(uint32_t mouse_states, int32_t mouse_posx, int32_t mouse_posy);
 void sub_8CD27_set_cursor(posistruct_t a2);
 signed int sub_8CEDF_install_mouse();
-int sub_8D12F_set_mouse_viewport();
 //-------------
 //void sub_8F8B0_draw_bitmap320(int16_t posx, int16_t posy, posistruct_t temppstr);
 //void sub_8F8E8_draw_bitmap640(int16_t posx, int16_t posy, posistruct_t temppstr);
@@ -2716,7 +2705,6 @@ signed int sub_98C48_open_nwrite_close(char* file, uint8_t* buffer, uint32_t cou
 size_t sub_98CAA_write(FILE* a1, uint8_t* a2, uint32_t a3);
 void sub_99080(char a1);
 int sub_9937E_set_video_mode(__int16 a1);
-int sub_994BA_cursor_move(__int16 a1);
 signed int sub_9951B(__int16 a1);
 int sub_995B0_test_vga_driver();
 void sub_99830(uint32_t user); // weak
@@ -2736,15 +2724,11 @@ int sub_9B234(int* a1);
 signed int sub_9B260(x_DWORD** a1);
 char sub_9B274(int* a1, int a2);
 char* sub_9B498(char a1);
-bool sub_9B540_lock_linear_mem_region(unsigned int a1, unsigned int a2);
-bool sub_9B5B4_unlock_mem_region(unsigned int a1, unsigned int a2);
-void sub_9B628();
 int sub_9B63C(int a1);
 void sub_9B688(int a1);
 int sub_9B7E8(int a1);
 void sub_9BAB0();
 int sub_9BAC4(uint8_t* a1, signed int a2);
-signed int sub_9BC68_allocate_and_lock_memory(x_WORD* a1, uint8_t* a2, unsigned int a3);
 int sub_9BE18(uint8_t* a1, int a2, char a3, unsigned int a4, unsigned int a5);
 signed int sub_9C810(x_DWORD* a1, char a2);
 signed int sub_9C938(x_DWORD* a1);
@@ -53890,12 +53874,10 @@ void sub_54600_mouse_reset()////235600 mouse reset
 	//__int16 v2; // [esp+1Ch] [ebp-1Ch]
 
 	//v2 = 0;
-	//result = int386(0x33, (REGS*)&v2, (REGS*)&v1);//Mouse Reset/Get Mouse Installed Flag //fix
 	//result=1;
 	x_DWORD_E3768 = 0;
 	//return result;
 }
-// 98D52: using guessed type x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);
 // E3768: using guessed type int x_DWORD_E3768;
 
 uint8_t BigTextureBuffer[128 * 128 * 160];
@@ -55524,7 +55506,6 @@ int sub_main(int argc, char** argv, char**  /*envp*/)//236F70
 	//skip memset(&v6, 0, 28);//236F7F - 26D250
 	//v7 = 0;
 	//skip v6 = 0x3301;
-	//skip int386(0x21, (REGS*)&v6, (REGS*)&v6);//236F9D - 279D52 //INT 21,33 - Get/Set System Values (Ctl-Break/Boot Drive) AH = 33h AL = 01 to set Ctrl - Break checking flag
 
 	//skip signal(7, 1);//236FA9 - 279DC0
 	//skip signal(4, 1);//236FB5 - 279DC0
@@ -60493,7 +60474,6 @@ void sub_5BC20()//23cc20
 		else
 			sub_75420();*/
 		sub_46F50_sound_proc7();
-		sub_8C21F_any_graphics_command();
 		NetworkDisallocation_72D04();
 		sub_6FE20();
 		sub_5C060();
@@ -77357,12 +77337,10 @@ void sub_759B0_set_mouse_minmax_vert()
 		memset(&v1, 0, 28);
 		v1 = 0x6008;
 		v2 = bswap_16(*(x_WORD*)(x_DWORD_17D6C4 + 2));
-		//result = int386(0x33, (REGS*)&v1, (REGS*)&v1);//set mouse minmax vertical
 	}
 	//return result;
 }
 // 8C250: using guessed type x_DWORD memset(x_DWORD, x_DWORD, x_DWORD);
-// 98D52: using guessed type x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);
 // E12EC: using guessed type char x_BYTE_E12EC;
 // 17D6C4: using guessed type int x_DWORD_17D6C4;
 
@@ -77427,7 +77405,6 @@ void sub_75AB0()
 
 	if (x_DWORD_17D6C8)
 	{
-		/*result = */sub_75B50(*(int16_t*)&unk_17D6D4ar[0x32]);
 		x_DWORD_17D6C8 = 0;
 	}
 	//return result;
@@ -77456,18 +77433,6 @@ void sub_75AB0()
 // 8C250: using guessed type x_DWORD memset(x_DWORD, x_DWORD, x_DWORD);
 // 99E10: using guessed type x_DWORD int386x(x_DWORD, x_DWORD, x_DWORD, x_DWORD);
 
-//----- (00075B50) --------------------------------------------------------
-void sub_75B50(__int16 a1)
-{
-	//int v2; // [esp+0h] [ebp-1Ch]
-	//int v3; // [esp+Ch] [ebp-10h]
-
-	//v3 = a1;
-	//v2 = 0x101;
-	//return int386(0x31, (REGS*)&v2, (REGS*)&v2);//free memory block
-}
-// 98D52: using guessed type x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);
-
 //----- (00075B80) --------------------------------------------------------
 int sub_75B80_alloc_mem_block(int a1, x_WORD* a2, x_WORD* a3)
 {
@@ -77489,7 +77454,6 @@ int sub_75B80_alloc_mem_block(int a1, x_WORD* a2, x_WORD* a3)
 	v3 = 0;
 	//v6 = (unsigned int)(a1 + 15) >> 4;
 	v5 = 0x100;
-	//int386(0x31, (REGS*)&v5, (REGS*)&v5);//allocate memory block
 	if (!v8)
 	{
 		*a2 = v5;
@@ -77498,7 +77462,6 @@ int sub_75B80_alloc_mem_block(int a1, x_WORD* a2, x_WORD* a3)
 	}
 	return v3;
 }
-// 98D52: using guessed type x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);
 // 99DE6: using guessed type x_DWORD segread(x_DWORD);
 
 //----- (00075C50) --------------------------------------------------------
@@ -87176,7 +87139,6 @@ int sub_85E40()//266e40
 	  return 1;
 	x_DWORD_17FF10 = 4096;//ax
 	x_DWORD_17FF0C = 256;//bx - size
-	int386(49, (REGS*)&x_DWORD_17FF0C, (REGS*)&x_DWORD_17FF0C);
 	x_WORD_E2A24 = x_DWORD_17FF0C;//2B3A24 AA0
 	x_WORD_17FF5A = x_WORD_17FF18;//350F5A 1C8
 	LOBYTE(result) = x_DWORD_17FF24 == 0;//desriptor
@@ -87188,7 +87150,6 @@ int sub_85E40()//266e40
 	x_WORD_E2A24 = (uint8_t*)malloc(size * 16 * sizeof(uint8_t));
 	return size & 0xff;
 }
-// 98D52: using guessed type x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);
 // E2A24: using guessed type __int16 x_WORD_E2A24;
 // 17FF0C: using guessed type int x_DWORD_17FF0C;
 // 17FF10: using guessed type int x_DWORD_17FF10;
@@ -87212,7 +87173,6 @@ void* sub_85EB0_alloc_memory(int32 a1)//266eb0 //malloc
 	*/
 	return malloc(a1*16*sizeof(uint8_t));
 }
-// 98D52: using guessed type x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);
 // 17FF0C: using guessed type int x_DWORD_17FF0C;
 // 17FF10: using guessed type int x_DWORD_17FF10;
 // 17FF24: using guessed type int x_DWORD_17FF24;
@@ -87224,7 +87184,6 @@ __int16 sub_85F00_free_memory(__int16  /*a1*/)//266f00
 
 	x_WORD_17FF18 = a1;
 	LOWORD(x_DWORD_17FF0C) = 0x100;
-	int386(49, (REGS*)&x_DWORD_17FF0C, (REGS*)&x_DWORD_17FF0C);
 	if ( x_DWORD_17FF24 )
 	  myprintf("fdm:error freeing %lx\n");
 	LOBYTE(result) = x_DWORD_17FF24 == 0;
@@ -87240,7 +87199,6 @@ __int16 sub_85F00_free_memory(__int16  /*a1*/)//266f00
 	}
 	return 0;
 }
-// 98D52: using guessed type x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);
 // 17FF0C: using guessed type int x_DWORD_17FF0C;
 // 17FF18: using guessed type __int16 x_WORD_17FF18;
 // 17FF24: using guessed type int x_DWORD_17FF24;
@@ -87274,16 +87232,12 @@ int sub_86010()//267010
 	x_DWORD_17FF10 = 0x2f;//nemeni se
 	x_DWORD_17FF14 = 0;//nemeni se
 	x_DWORD_17FF20 = x_DWORD_17FF28;//350f28 //nemeni se
-	/*
-	int386(49, (REGS*)&x_DWORD_17FF0C, (REGS*)&x_DWORD_17FF0C);
-	*/
 	if (x_DWORD_17FF10 == 0)x_DWORD_17FF38 = 0;
 
 	x_WORD_1803EA = x_DWORD_17FF38;//0
 	x_WORD_1803EC = x_DWORD_17FF40;//0
 	return x_DWORD_17FF38;
 }
-// 98D52: using guessed type x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);
 // 17FF0C: using guessed type int x_DWORD_17FF0C;
 // 17FF10: using guessed type int x_DWORD_17FF10;
 // 17FF14: using guessed type int x_DWORD_17FF14;
@@ -87329,14 +87283,12 @@ __int16 sub_86180(unsigned __int16 a1)//267180
 	x_DWORD_17FF44 = 0x1510;
 	//x_DWORD_17FF0C = 0x300;
 	x_DWORD_17FF20 = x_DWORD_17FF28;
-	//int386(0x31, (REGS*)&x_DWORD_17FF0C, (REGS*)&x_DWORD_17FF0C);//return display params
 	//qmemcpy(unk_1803C0x, v3, 0x1Au);
 	result = x_WORD_1803C3;
 	/*unk_180498 = *(x_DWORD*)v4;
 	*((x_BYTE*)&unk_180498 + 4) = *(x_BYTE*)(v4 + 4);*/
 	return result;
 }
-// 98D52: using guessed type x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);
 // E2A6C: using guessed type int x_DWORD_E2A6C;
 // E2A70: using guessed type int x_DWORD_E2A70;
 // 17FF0C: using guessed type int x_DWORD_17FF0C;
@@ -87384,7 +87336,6 @@ __int16 sub_86270(unsigned __int16 a1)//267270
 	x_DWORD_17FF44 = 0x1510;
 	//x_DWORD_17FF0C = 0x300;
 	x_DWORD_17FF20 = x_DWORD_17FF28;
-	//int386(0x31, (REGS*)&x_DWORD_17FF0C, (REGS*)&x_DWORD_17FF0C);//Return Physical Display Parms
 	//qmemcpy(unk_1803C0x, v3, 0x1Au);
 	result = x_WORD_1803C3;
 	/**unk_180470ar = *(x_DWORD*)v4;
@@ -87392,7 +87343,6 @@ __int16 sub_86270(unsigned __int16 a1)//267270
 	*((x_BYTE*)unk_180470ar + 6) = *(x_BYTE*)(v4 + 6);*/
 	return result;
 }
-// 98D52: using guessed type x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);
 // E2A6C: using guessed type int x_DWORD_E2A6C;
 // E2A70: using guessed type int x_DWORD_E2A70;
 // 17FF0C: using guessed type int x_DWORD_17FF0C;
@@ -87441,7 +87391,6 @@ __int16 sub_86370(unsigned __int16 a1, char  /*a2*/)//267370
 	x_DWORD_17FF44 = 0x1510;
 	//x_DWORD_17FF0C = 0x300;
 	x_DWORD_17FF20 = x_DWORD_17FF28;
-	//int386(0x31, (REGS*)&x_DWORD_17FF0C, (REGS*)&x_DWORD_17FF0C);//joystick, or graphics
 	//qmemcpy(unk_1803C0x, v4, 0x1Au);
 	result = x_WORD_1803C3;
 	/* *unk_180484ar = *(x_DWORD*)v5;
@@ -87449,7 +87398,6 @@ __int16 sub_86370(unsigned __int16 a1, char  /*a2*/)//267370
 	*((x_BYTE*)&unk_180484ar + 6) = *(x_BYTE*)(v5 + 6);*/
 	return result;
 }
-// 98D52: using guessed type x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);
 // E2A6C: using guessed type int x_DWORD_E2A6C;
 // E2A70: using guessed type int x_DWORD_E2A70;
 // 17FF0C: using guessed type int x_DWORD_17FF0C;
@@ -87497,7 +87445,6 @@ void sub_86460(uint16_t a1)//267460
 	x_DWORD_17FF44 = 0x1510;
 	//x_DWORD_17FF0C = 0x300;
 	x_DWORD_17FF20 = x_DWORD_17FF28;
-	//int386(0x31, (REGS*)&x_DWORD_17FF0C, (REGS*)&x_DWORD_17FF0C);//joystick nebo grafika
 	//qmemcpy(unk_1803C0x, v3, 0x1Au);
 	//result = x_WORD_1803C3;
 	/**unk_18048Bar = *(x_DWORD*)v4;
@@ -87506,7 +87453,6 @@ void sub_86460(uint16_t a1)//267460
 	*((x_BYTE*)&unk_18048Bar + 10) = *(x_BYTE*)(v4 + 10);*/
 	//return result;
 }
-// 98D52: using guessed type x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);
 // E2A6C: using guessed type int x_DWORD_E2A6C;
 // E2A70: using guessed type int x_DWORD_E2A70;
 // 17FF0C: using guessed type int x_DWORD_17FF0C;
@@ -87518,27 +87464,6 @@ void sub_86460(uint16_t a1)//267460
 // 17FF44: using guessed type int x_DWORD_17FF44;
 // 17FF4A: using guessed type __int16 x_WORD_17FF4A;
 // 1803C3: using guessed type __int16 x_WORD_1803C3;
-
-//----- (00086550) --------------------------------------------------------
-void sub_86550()//267550
-{
-	/*x_DWORD_17FF38 = 0;
-	x_DWORD_17FF44 = 5388;
-	x_DWORD_17FF0C = 768;
-	x_DWORD_17FF10 = 47;
-	x_DWORD_17FF14 = 0;
-	x_DWORD_17FF20 = (int)&unk_17FF28;
-	int386(49, (REGS*)&x_DWORD_17FF0C, (REGS*)&x_DWORD_17FF0C);
-	return x_DWORD_17FF38;*/
-	//malloc(768 * sizeof(uint8_t));
-}
-// 98D52: using guessed type x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);
-// 17FF0C: using guessed type int x_DWORD_17FF0C;
-// 17FF10: using guessed type int x_DWORD_17FF10;
-// 17FF14: using guessed type int x_DWORD_17FF14;
-// 17FF20: using guessed type int x_DWORD_17FF20;
-// 17FF38: using guessed type int x_DWORD_17FF38;
-// 17FF44: using guessed type int x_DWORD_17FF44;
 
 //----- (00086780) --------------------------------------------------------
 char sub_86780(unsigned __int16 a1, int  /*a2*/, int  /*a3*/)//267780
@@ -87565,11 +87490,9 @@ char sub_86780(unsigned __int16 a1, int  /*a2*/, int  /*a3*/)//267780
 	x_DWORD_17FF40 = a1;
 	//x_DWORD_17FF0C = 0x300;
 	x_DWORD_17FF44 = 0x1510;
-	//int386(0x31, (REGS*)&x_DWORD_17FF0C, (REGS*)&x_DWORD_17FF0C);//joystick nebo grafika
 	//qmemcpy(unk_1803A8x, v4, 0x16u);
 	return x_WORD_1803AB;
 }
-// 98D52: using guessed type x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);
 // E2A28: using guessed type char x_BYTE_E2A28;
 // E2A6C: using guessed type int x_DWORD_E2A6C;
 // E2A70: using guessed type int x_DWORD_E2A70;
@@ -87607,7 +87530,6 @@ char sub_86860_speak_Sound(unsigned __int16 a1)//267860
 	x_DWORD_17FF40 = a1;
 	//x_DWORD_17FF0C = 0x300;
 	x_DWORD_17FF44 = 0x1510;
-	//int386(0x31, (REGS*)&x_DWORD_17FF0C, (REGS*)&x_DWORD_17FF0C);//Return Physical Display Parms
 	// *unk_180452ar = *(x_DWORD*)v2;
 	/*v2 += 4;
 	*((x_DWORD*)unk_180452ar + 1) = *(x_DWORD*)v2;
@@ -87616,7 +87538,6 @@ char sub_86860_speak_Sound(unsigned __int16 a1)//267860
 	*((x_BYTE*)unk_180452ar + 12) = *(x_BYTE*)(v2 + 4);*/
 	return x_WORD_180455;
 }
-// 98D52: using guessed type x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);
 // E2A28: using guessed type char x_BYTE_E2A28;
 // E2A6C: using guessed type int x_DWORD_E2A6C;
 // E2A70: using guessed type int x_DWORD_E2A70;
@@ -87654,7 +87575,6 @@ char sub_86930(unsigned __int16 a1)//267930
 	x_DWORD_17FF40 = a1;
 	//x_DWORD_17FF0C = 0x300;
 	x_DWORD_17FF44 = 0x1510;
-	//int386(0x31, (REGS*)&x_DWORD_17FF0C, (REGS*)&x_DWORD_17FF0C);
 	/**unk_180460ar = *(x_DWORD*)v2;
 	v2 += 4;
 	*((x_DWORD*)unk_180460ar + 1) = *(x_DWORD*)v2;
@@ -87663,7 +87583,6 @@ char sub_86930(unsigned __int16 a1)//267930
 	*((x_BYTE*)unk_180460ar + 12) = *(x_BYTE*)(v2 + 4);*/
 	return x_WORD_180463;
 }
-// 98D52: using guessed type x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);
 // E2A28: using guessed type char x_BYTE_E2A28;
 // E2A6C: using guessed type int x_DWORD_E2A6C;
 // E2A70: using guessed type int x_DWORD_E2A70;
@@ -87706,7 +87625,6 @@ void sub_86A00_some_allocs()//267a00
 	{
 		if (sub_86010())
 		{
-			sub_86550();
 			v1 = 0;
 			while (1)
 			{
@@ -92138,19 +92056,6 @@ char sub_8C140(unsigned __int16 a1, uint8_t* a2)//26d140
 // 99DE6: using guessed type x_DWORD segread(x_DWORD);
 // 99E10: using guessed type x_DWORD int386x(x_DWORD, x_DWORD, x_DWORD, x_DWORD);
 
-//----- (0008C21F) --------------------------------------------------------
-int sub_8C21F_any_graphics_command()//26d21f
-{
-	/*char v1; // [esp+0h] [ebp-38h]
-	int v2; // [esp+1Ch] [ebp-1Ch]
-
-	v2 = (unsigned __int16)x_WORD_180662_graphics_handle;
-	return int386(0x10, (REGS*)&v2, (REGS*)&v1);//grafika*/
-	return(0);//fix it
-}
-// 98D52: using guessed type x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);
-// 180662: using guessed type __int16 x_WORD_180662_graphics_handle;
-
 //----- (0008C2CD) --------------------------------------------------------
 void sub_8C2CD()//26d2cd
 {
@@ -92590,7 +92495,6 @@ signed int sub_8CEDF_install_mouse()//26dedf
 	x_DWORD_E3768 = 0;
 	//segread((SREGS*)&v5);
 	//v2 = 0;
-	//int386(0x33, (REGS*)&v2, (REGS*)&v1);//mouse reset
 	//if ( v1 != -1 )
 	//  return 0;
 	//v2 = 0xc;
@@ -92605,7 +92509,6 @@ signed int sub_8CEDF_install_mouse()//26dedf
 	http://stanislavs.org/helppc/int_33-c.html
 	*/
 	//int386x(0x33, (REGS*)&v2, (REGS*)&v1, (SREGS*)&v5);//set mouse subroutine
-	sub_8D12F_set_mouse_viewport();
 	if (!x_DWORD_180730_cursor_data)
 		x_DWORD_180730_cursor_data = (uint8_t*)sub_83CD0_malloc2(4096);//image buffers?-blit?
 	if (!x_DWORD_180700)
@@ -92622,18 +92525,15 @@ signed int sub_8CEDF_install_mouse()//26dedf
 	if (x_DWORD_180720)
 		;// fix it! sub_8CD27_set_cursor((uint8_t**)x_DWORD_180720);
 	//v2 = 2;
-	//int386(0x33, (REGS*)&v2, (REGS*)&v1);//hide mouse
 	if (x_WORD_180660_VGA_type_resolution & 8)
 	{
 		//v2 = 0xF;
 		//v3 = 1;
 		LOWORD(v4) = 1;
-		//int386(0x33, (REGS*)&v2, (REGS*)&v1);//set pixel ratio
 	}
 	x_DWORD_E3768 = 1;//fix it
 	return 1;
 }
-// 98D52: using guessed type x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);
 // 99DE6: using guessed type x_DWORD segread(x_DWORD);
 // 99E10: using guessed type x_DWORD int386x(x_DWORD, x_DWORD, x_DWORD, x_DWORD);
 // E3768: using guessed type int x_DWORD_E3768;
@@ -92645,65 +92545,6 @@ signed int sub_8CEDF_install_mouse()//26dedf
 // 18072E: using guessed type __int16 x_WORD_18072E_cursor_sizey;
 // 180730: using guessed type int x_DWORD_180730_cursor_data;
 // 180734: using guessed type int x_DWORD_180734;
-
-//----- (0008D12F) --------------------------------------------------------
-int sub_8D12F_set_mouse_viewport()//26e12f
-{
-	/*int result; // eax
-	char v1; // [esp+0h] [ebp-38h]
-	__int16 v2; // [esp+1Ch] [ebp-1Ch]
-	__int16 v3; // [esp+24h] [ebp-14h]
-	__int16 v4; // [esp+28h] [ebp-10h]
-
-	if ( x_WORD_180660_VGA_type_resolution == 8 )
-	{
-	  v2 = 7;
-	  v3 = 0;
-	  v4 = 5120;
-	  int386(0x33, (REGS*)&v2, (REGS*)&v1);//set mouse hor minmax
-	  v2 = 8;
-	  v3 = 0;
-	  v4 = 3840;
-	  result = int386(0x33, (REGS*)&v2, (REGS*)&v1);//set mouse vert minmax
-	}
-	if ( x_WORD_180660_VGA_type_resolution == 2 )
-	{
-	  v2 = 7;
-	  v3 = 0;
-	  v4 = 640;
-	  int386(0x33, (REGS*)&v2, (REGS*)&v1);//set mouse hor minmax
-	  v2 = 8;
-	  v3 = 0;
-	  v4 = 480;
-	  result = int386(0x33, (REGS*)&v2, (REGS*)&v1);//set mouse vert minmax
-	}
-	if ( x_WORD_180660_VGA_type_resolution == 4 )
-	{
-	  v2 = 7;
-	  v3 = 0;
-	  v4 = 640;
-	  int386(0x33, (REGS*)&v2, (REGS*)&v1);//set mouse hor minmax
-	  v2 = 8;
-	  v3 = 0;
-	  v4 = 400;
-	  result = int386(0x33, (REGS*)&v2, (REGS*)&v1);//set mouse vert minmax
-	}
-	if ( x_WORD_180660_VGA_type_resolution == 1 )
-	{
-	  v2 = 7;
-	  v3 = 0;
-	  v4 = 640;
-	  int386(0x33, (REGS*)&v2, (REGS*)&v1);//set mouse hor minmax
-	  v2 = 8;
-	  v3 = 0;
-	  v4 = 400;
-	  result = int386(0x33, (REGS*)&v2, (REGS*)&v1);//set mouse vert minmax
-	}
-	return result;*/
-	return 0;
-}
-// 98D52: using guessed type x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);
-// 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
 /*
 bool Sprite::loadSprite(uint8 * tabData, uint8 * spriteData, uint32 offset,
@@ -92993,53 +92834,6 @@ char sub_904C0(float a1)//2714c0
 // D2218: using guessed type double dbl_D2218;
 // D2220: using guessed type double dbl_D2220;
 
-//----- (00090530) --------------------------------------------------------
-/*unsigned __int8 sub_90530(int a1, int a2, float a3)//fix//271530
-{
-	int v3; // esi
-	unsigned __int8 result; // al
-	int v5; // ecx
-	x_DWORD *v6; // ebx
-	int v7; // eax
-
-	v3 = a2;
-	sub_904C0(a3);
-	if (a2 > 256)
-		v3 = 256;
-	result = 0;
-	//__outx_BYTE(0x3C8u, 0);
-	v5 = 0;
-	if (v3 > 0)
-	{
-		v6 = (x_DWORD *)a1;
-		do
-		{
-			// __outx_BYTE(0x3C9u, x_BYTE_181504[*(unsigned __int8 *)v6]);
-			// __outx_BYTE(0x3C9u, x_BYTE_181504[(*v6 >> 8) & 0xFF]);
-			v7 = (*v6 >> 16) & 0xFF;
-			v6++;
-			result = x_BYTE_181504[v7];
-			v5++;
-			//__outx_BYTE(0x3C9u, result);
-		} while (v5 < v3);
-	}
-	return result;
-}*/
-
-//----- (000905EC) --------------------------------------------------------
-/*void sub_905EC_any_graphics_command2(char a1)//2715ec
-{
-	char v2; // [esp+0h] [ebp-1Ch]
-	char v3; // [esp+1h] [ebp-1Bh]
-
-	x_WORD_E3908 = MEMORY[0x449];
-	v2 = a1;
-	v3 = 0;
-	//return int386(0x10, (REGS*)&v2, (REGS*)&v2);//graphics command
-}*/
-// 98D52: using guessed type x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);
-// E3908: using guessed type __int16 x_WORD_E3908;
-
 //----- (00090668) --------------------------------------------------------
 signed int sub_90668(int a1)//271668
 {
@@ -93097,7 +92891,6 @@ int sub_906B4()//fix bios graphics//2716b4
 	//v8 = 0x13;
 	//v9 = 0;
 	//x_WORD_E3908 = MEMORY[0x449];
-	//int386(0x10, (REGS*)&v8, (REGS*)&v8);//Write string (BIOS after 1/10/86) (graphics)
 	//sub_A0BB0((int *)&unk_E3894, 25);
 	/*__outx_WORD(0x3C4u, 0x604u);
 	__outx_WORD(0x3D4u, 0x14u);
@@ -93137,7 +92930,6 @@ int sub_906B4()//fix bios graphics//2716b4
 	//__outx_BYTE(0x3C0u, 0x20u);
 	return result;
 }
-// 98D52: using guessed type x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);
 // E3908: using guessed type __int16 x_WORD_E3908;
 // 180CA0: using guessed type int x_DWORD_180CA0[];
 
@@ -93361,18 +93153,15 @@ void sub_90D6E_VGA_set_video_mode_320x200_and_Palette(TColor* Palettex)//271d6e
 			//input1 355200(180200) - 3
 			//input2 35521c 00 0f 00 00 00
 	//v3 = 0xf00;
-	//int386(0x10, (REGS*)&v3, (REGS*)&v2);//Set video mode
 	VGA_Resize(320, 200);
 	if (!x_WORD_180662_graphics_handle)
 		x_WORD_180662_graphics_handle = 0x13;
 	//v3 = 0x13;
 	screenWidth_18062C = 320;
 	screenHeight_180624 = 200;
-	//int386(0x10, (REGS*)&v3, (REGS*)&v2);//Write string (BIOS after 1/10/86)
 
 	//a1 - 3aa0a4
 	sub_41A90_VGA_Palette_install(Palettex);
-	sub_8D12F_set_mouse_viewport();
 	sub_A0D50_set_viewport(0, 0, 320, 200);
 }
 
@@ -93387,15 +93176,12 @@ void sub_90D6E_VGA_set_video_mode_320x200_and_Palette_orig(TColor* a1x)
 	//fix
 
 	//v3 = 0xf00;
-	//int386(0x10, (REGS*)&v3, (REGS*)&v2);//Set video mode
 	if (!x_WORD_180662_graphics_handle)
 		x_WORD_180662_graphics_handle = v2;
 	//v3 = 0x13;
 	screenWidth_18062C = 320;
 	screenHeight_180624 = 200;
-	//int386(0x10, (REGS*)&v3, (REGS*)&v2);//Write string (BIOS after 1/10/86)
 	sub_41A90_VGA_Palette_install(a1x);
-	sub_8D12F_set_mouse_viewport();
 	sub_A0D50_set_viewport(0, 0, 320, 200);
 }
 
@@ -93406,15 +93192,12 @@ void sub_90E07_VGA_set_video_mode_640x480_and_Palette(TColor* Palettex)//271e07
 	//int v3; // [esp+1Ch] [ebp-1Ch]
 
 	//v3 = 0xf00;//
-	//int386(0x10, (REGS*)&v3, (REGS*)&v2);//Set video mode
 	VGA_Resize(640, 480);
 	if (!x_WORD_180662_graphics_handle)
 		x_WORD_180662_graphics_handle = 0x13;
 	screenWidth_18062C = 640;
 	screenHeight_180624 = 480;
-	sub_994BA_cursor_move(0x101);
 	sub_41A90_VGA_Palette_install(Palettex);
-	sub_8D12F_set_mouse_viewport();
 	sub_A0D50_set_viewport(0, 0, 640, 480);
 }
 
@@ -93424,15 +93207,12 @@ void sub_90E07_VGA_set_video_mode_alt_and_Palette(TColor* Palette)//271e07
 	//int v3; // [esp+1Ch] [ebp-1Ch]
 
 	//v3 = 0xf00;//
-	//int386(0x10, (REGS*)&v3, (REGS*)&v2);//Set video mode
 	VGA_Resize(screenWidth_18062C, screenHeight_180624);
 	if (!x_WORD_180662_graphics_handle)
 		x_WORD_180662_graphics_handle = 0x13;
 	screenWidth_18062C = screenWidth_18062C;
 	screenHeight_180624 = screenHeight_180624;
-	sub_994BA_cursor_move(0x101);
 	sub_41A90_VGA_Palette_install(Palette);
-	sub_8D12F_set_mouse_viewport();
 	sub_A0D50_set_viewport(0, 0, screenWidth_18062C, screenHeight_180624);
 }
 
@@ -93570,27 +93350,6 @@ int sub_9937E_set_video_mode(__int16  /*a1*/)//27a37e
 // E3BAA: using guessed type __int16 x_WORD_E3BAA;
 // 181C40: using guessed type int x_DWORD_181C40_vga_init_buffer;
 // 181C44: using guessed type __int16 x_WORD_181C44;
-
-//----- (000994BA) --------------------------------------------------------
-int sub_994BA_cursor_move(__int16  /*a1*/)//27a4ba
-{
-	/*char v2; // [esp+0h] [ebp-38h]
-	char v3; // [esp+1Ch] [ebp-1Ch]
-	char v4; // [esp+1Dh] [ebp-1Bh]
-	__int16 v5; // [esp+20h] [ebp-18h]
-
-	memset(&v3, 0, 28);
-	memset(&v2, 0, 28);
-	v4 = 0x4f;
-	v3 = 2;
-	v5 = a1;
-	int386(0x10, (REGS*)&v3, (REGS*)&v2);//Set cursor position
-	return sub_9937E_set_video_mode(a1);
-	*/
-	return 0;//fix it
-}
-// 8C250: using guessed type x_DWORD memset(x_DWORD, x_DWORD, x_DWORD);
-// 98D52: using guessed type x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);
 
 //----- (0009951B) --------------------------------------------------------
 signed int sub_9951B(__int16 a1)//27a51b //fix graphics
@@ -93780,24 +93539,9 @@ signed int UnpackAndLoadMemoryFromPath(Pathstruct path)//27B32d
 //----- (0009AD16) --------------------------------------------------------
 int sub_9AD16_free_mem_pool(void* a1)//27Bd16
 {
-	/* fix it
-	  int result; // eax
-	char v2; // [esp+0h] [ebp-38h]
-	int v3; // [esp+1Ch] [ebp-1Ch]
-	int v4; // [esp+28h] [ebp-10h]
-
-	if ( a1 )
-	{
-	  v3 = 257;
-	  v4 = a1;
-	  result = int386(49, (REGS*)&v3, (REGS*)&v2);
-	}
-	return result;
-	*/
 	free(a1);
 	return 1;
 }
-// 98D52: using guessed type x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);
 
 //----- (0009AD9C) --------------------------------------------------------
 int sub_9AD9C(int a1)//27Bd9c
@@ -94078,66 +93822,6 @@ char* sub_9B498(char a1)//27C498
 	return result;
 }
 
-//----- (0009B540) --------------------------------------------------------
-bool sub_9B540_lock_linear_mem_region(unsigned int a1, unsigned int a2)//27C540
-{
-	// FIXME: Remove unused function
-
-	//int v3; // [esp+4h] [ebp-20h]
-	//unsigned int v4; // [esp+8h] [ebp-1Ch]
-	//int v5; // [esp+Ch] [ebp-18h]
-	//unsigned int v6; // [esp+14h] [ebp-10h]
-	//int v7; // [esp+18h] [ebp-Ch]
-	//int v8; // [esp+1Ch] [ebp-8h]
-
-	//fix it
-	//v8 = 0;
-	//fix it
-
-	//v3 = 0x600;
-	//v4 = a1 >> 16;
-	//v5 = (unsigned __int16)a1;
-	//v6 = a2 >> 16;
-	//v7 = (unsigned __int16)a2;
-	//int386(0x31, (REGS*)&v3, (REGS*)&v3);//Lock Linear Region
-	//return v8 == 0;
-	return true;
-}
-// 98D52: using guessed type x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);
-
-//----- (0009B5B4) --------------------------------------------------------
-bool sub_9B5B4_unlock_mem_region(unsigned int a1, unsigned int a2)//27C5B4
-{
-	// FIXME: Remove unused function
-
-	//int v3; // [esp+4h] [ebp-20h]
-	//unsigned int v4; // [esp+8h] [ebp-1Ch]
-	//int v5; // [esp+Ch] [ebp-18h]
-	//unsigned int v6; // [esp+14h] [ebp-10h]
-	//int v7; // [esp+18h] [ebp-Ch]
-	//int v8; // [esp+1Ch] [ebp-8h]
-
-	//fix it
-	//v8 = 0;
-	//fix it
-
-	//v3 = 0x601;
-	//v4 = a1 >> 16;
-	//v5 = (unsigned __int16)a1;
-	//v6 = a2 >> 16;
-	//v7 = (unsigned __int16)a2;
-	//int386(0x31, (REGS*)&v3, (REGS*)&v3);//Unlock Linear Region
-	//return v8 == 0;
-	return true;
-}
-// 98D52: using guessed type x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);
-
-//----- (0009B628) --------------------------------------------------------
-void sub_9B628()//27C628
-{
-	;
-}
-
 //----- (0009B63C) --------------------------------------------------------
 int sub_9B63C(int a1)//27C63C
 {
@@ -94332,80 +94016,6 @@ int sub_9BAC4(uint8_t* a1, signed int a2)//27CAC4
 }
 // A0ED7: using guessed type x_DWORD outp(x_DWORD, char);
 
-//----- (0009BC68) --------------------------------------------------------
-signed int sub_9BC68_allocate_and_lock_memory(x_WORD* a1, uint8_t* a2, unsigned int a3)//27CC68
-{
-	//int v4; // [esp+0h] [ebp-20h]
-	//int v5; // [esp+4h] [ebp-1Ch]
-	//int v6; // [esp+Ch] [ebp-14h]
-	//int v7; // [esp+18h] [ebp-8h]
-	/*
-	//fix it
-	v6 = 0;
-	v7 = 0;
-	//fix it
-
-	*(x_DWORD*)a2 = a1;
-	if (*(x_DWORD*)(a2 + 4))
-		goto LABEL_5;
-	v4 = 0x100;
-	v5 = (signed int)(a3 + 15) >> 4;
-	//int386(0x31, (REGS*)&v4, (REGS*)&v4);//Allocate DOS Memory Block
-	if (!v7)
-	{
-		*(x_DWORD*)(a2 + 4) = 16 * (unsigned __int16)v4;
-		*(x_WORD*)(a2 + 8) = v6;
-		a1[4] = v4;
-		sub_9B540_lock_linear_mem_region(*(x_DWORD*)(a2 + 4), a3);
-	LABEL_5:
-		*a1 = 0;
-		a1[1] = 0;
-		a1[2] = 0;
-		a1[3] = a3;
-		return 1;
-	}
-	*/
-	return 0;
-}
-// 98D52: using guessed type x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);
-/*
-//----- (0009BD28) --------------------------------------------------------
-signed int sub_9BD28_allocate_and_lock_memory2(int a1)
-{
-	int v2; // [esp+0h] [ebp-28h]
-	unsigned int v3; // [esp+4h] [ebp-24h]
-	int v4; // [esp+Ch] [ebp-1Ch]
-	int v5; // [esp+18h] [ebp-10h]
-	unsigned int v7; // [esp+20h] [ebp-8h]
-	unsigned int v8; // [esp+24h] [ebp-4h]
-
-	//fix it
-	v4 = 0;
-	v5 = 0;
-	//fix it
-
-	v8 = x_BYTE_C0134 - 0xC0000;
-	v2 = 0x100;
-	v3 = (unsigned int)(x_BYTE_C0134 - 0xC0000 + 15) >> 4;
-	//int386(0x31, (REGS*)&v2, (REGS*)&v2);//allocate dos memory
-	if (v5)
-		return 0;
-	*(x_DWORD *)(a1 + 44) = 16 * (unsigned __int16)v2;
-	v7 = *(x_DWORD *)(a1 + 44);
-	*(x_WORD *)(a1 + 48) = v4;
-	memcpy((void*)v7, 0xC0000, v8);
-	sub_9B540_lock_linear_mem_region(v7, v8);
-	*(x_WORD *)(v7 + 2) = *(x_WORD *)(a1 + 28);
-	*(x_WORD *)(v7 + 4) = 0;
-	memset((void*)(v7 + 6), 0, 10);
-	memset((void*)(v7 + 16), 0, 10);
-	return 1;
-}
-// 8C250: using guessed type x_DWORD memset(x_DWORD, x_DWORD, x_DWORD);
-// 98D52: using guessed type x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);
-// 99DBD: using guessed type x_DWORD memcpy(x_DWORD, x_DWORD, x_DWORD);
-// C0000: using guessed type int  sub_C0000();
-*/
 //----- (0009BE18) --------------------------------------------------------
 int sub_9BE18(uint8_t* a1, int a2, char a3, unsigned int a4, unsigned int a5)//27CE18
 {
@@ -94484,7 +94094,6 @@ int sub_9BE18(uint8_t* a1, int a2, char a3, unsigned int a4, unsigned int a5)//2
 			x_outp(*(x_DWORD*)(a1 + 28) + 2, 0);
 			v10 = 0x200;
 			v11 = *(x_DWORD*)(a1 + 36);
-			//int386(0x31, (REGS*)&v10, (REGS*)&v10);//Get Real Mode Interrupt Vector
 			*(x_WORD*)(a1 + 50) = v12;
 			*(x_WORD*)(a1 + 52) = v13;
 			//v6 = dos_getvect(*(x_DWORD *)(a1 + 36));
@@ -94499,7 +94108,6 @@ int sub_9BE18(uint8_t* a1, int a2, char a3, unsigned int a4, unsigned int a5)//2
 			v11 = *(x_DWORD*)(a1 + 36);
 			v12 = (*(x_DWORD*)(a1 + 44) >> 4) & 0xFFFF;
 			v13 = *(x_DWORD*)(a1 + 44) & 0xF;
-			//int386(0x31, (REGS*)&v10, (REGS*)&v10);//Set Real Mode Interrupt Vector
 			sub_9B540_lock_linear_mem_region(sub_9B628, (char*)sub_9BAB0 - (char*)sub_9B628);
 			if (a3 & 1)
 			{
@@ -94547,7 +94155,6 @@ int sub_9BE18(uint8_t* a1, int a2, char a3, unsigned int a4, unsigned int a5)//2
 	*/
 	return v14;
 }
-// 98D52: using guessed type x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);
 // 99BA7: using guessed type x_DWORD dos_getvect(x_DWORD);
 // 99BDB: using guessed type x_DWORD dos_setvect(x_DWORD, x_DWORD, x_DWORD);
 // A0ED7: using guessed type x_DWORD outp(x_DWORD, char);
