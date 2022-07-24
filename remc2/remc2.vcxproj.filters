@@ -438,6 +438,9 @@
     <ClInclude Include="portability\port_net.h">
       <Filter>Header Files\portability</Filter>
     </ClInclude>
+    <ClInclude Include="portability\fcaseopen.h">
+      <Filter>Header Files\portability</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -738,6 +741,9 @@
       <Filter>Source Files\engine</Filter>
     </ClCompile>
     <ClCompile Include="portability\port_net.cpp">
+      <Filter>Source Files\portability</Filter>
+    </ClCompile>
+    <ClCompile Include="portability\fcaseopen.c">
       <Filter>Source Files\portability</Filter>
     </ClCompile>
   </ItemGroup>

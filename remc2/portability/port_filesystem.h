@@ -8,6 +8,7 @@
 #include <string.h>
 #include <string>
 #include "mctypes.h"
+#include "fcaseopen.h"
 
 #ifdef _MSC_VER
 	#include <windows.h>

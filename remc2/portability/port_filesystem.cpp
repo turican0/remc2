@@ -85,13 +85,13 @@ void my_findclose(long hFile){
 };
 
 bool file_exists(const char * filename) {
-	/*if (FILE * file = fopen(filename, "r")) {
+	/*if (FILE * file = fcaseopen(filename, "r")) {
 		fclose(file);
 		return true;
 	}
 	return false;*/
 	FILE* file;
-	if ((file = fopen(filename, "r")) != NULL) {
+	if ((file = fcaseopen(filename, "r")) != NULL) {
 		fclose(file);
 		#ifdef DEBUG_START
 				debug_printf("file_exists:true-%s\n", filename);
@@ -106,7 +106,7 @@ bool file_exists(const char * filename) {
 
 FILE* mycreate(const char* path, uint32_t  /*flags*/) {
 	FILE *fp;
-	fp = fopen(path, "wb+");
+	fp = fcaseopen(path, "wb+");
 	#ifdef DEBUG_START
 		debug_printf("mycreate:%p\n",fp);
 	#endif //DEBUG_START
@@ -133,11 +133,11 @@ void debug_printf(const char* format, ...) {
 
 	if (debug_first)
 	{
-		debug_output = fopen(path.c_str(), "wt");
+		debug_output = fcaseopen(path.c_str(), "wt");
 		debug_first = false;
 	}
 	else
-		debug_output = fopen(path.c_str(), "at");
+		debug_output = fcaseopen(path.c_str(), "at");
 	fprintf(debug_output, "%s", prbuffer);
 	fclose(debug_output);
 	#ifdef DEBUG_PRINT_DEBUG_TO_SCREEN
@@ -225,7 +225,7 @@ FILE* myopen(char* path, int pmode, uint32_t flags) {
 	else if ((pmode == 0x200) && (flags == 0x40))type = "rb+";
 	else
 		exit(1);//error - DOSSetError(DOSERR_ACCESS_CODE_INVALID);
-	FILE *fp;
+	FILE *fp = NULL;
 	//char path2[512] = "\0";
 	//pathfix(path, path2);//only for DOSBOX version
 	//#ifdef DEBUG_START
@@ -233,7 +233,7 @@ FILE* myopen(char* path, int pmode, uint32_t flags) {
 	//#endif //DEBUG_START
 	//if(file_exists(path2))
 
-	fp=fopen(path, type);
+	fp= fcaseopen(path, type);
 	#ifdef DEBUG_START
 		debug_printf("myopen:open end %p\n", fp);
 	#endif //DEBUG_START
@@ -268,7 +268,7 @@ int DirExists(const char* path)
 
 FILE* myopent(char* path, char* type) {
 	FILE *fp;
-	fp=fopen(path, type);
+	fp= fcaseopen(path, type);
 	#ifdef DEBUG_FILEOPS
 		debug_printf("myopent:end: %p\n", fp);
 	#endif //DEBUG_FILEOPS
@@ -438,7 +438,7 @@ void AdvReadfile(const char* path, uint8_t* buffer) {
 	*/
 	FILE* file;
 	//fopen_s(&file, (char*)"c:\\prenos\\remc2\\biggraphics\\out_rlt-n-out.data", (char*)"rb");
-	file=fopen(path2.c_str(), (char*)"rb");
+	file= fcaseopen(path2.c_str(), (char*)"rb");
 	fseek(file, 0L, SEEK_END);
 	long szdata = ftell(file);
 	fseek(file, 0L, SEEK_SET);
@@ -466,7 +466,7 @@ bool ExistGraphicsfile(const char* path) {
 void ReadGraphicsfile(const char* path, uint8_t* buffer, long size) 
 {
 	FILE* file;
-	file = fopen(path, (char*)"rb");
+	file = fcaseopen(path, (char*)"rb");
 	if (file != NULL)
 	{
 		if (size == -1)
