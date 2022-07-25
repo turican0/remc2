@@ -893,7 +893,7 @@ uint32_t compare_with_sequence_D41A0(char* filename, uint8_t* adress, uint32_t  
 	}
 
 	if (i < size) {
-		std::cout << "Regression compare sequence error at " << i << std::endl;
+		std::cout << "Regression compare sequence error @ function " << __FUNCTION__ << ", line " << __LINE__ << ": " << i << std::endl;
 		allert_error();
 	}
 	free(buffer);
@@ -946,8 +946,10 @@ uint32_t compare_0x6E8E(char* filename, uint8_t* adress, uint32_t count, uint32_
 
 	free(buffer);
 	fclose(fptestepc);
-	if (i < size)
+	if (i < size) {
+		std::cout << "Regression compare sequence error @ function " << __FUNCTION__ << ", line " << __LINE__ << ": " << i << std::endl;
 		allert_error();
+	}
 	return(i);
 };
 
@@ -996,8 +998,10 @@ uint32_t compare_with_sequence_EA3E4(char* filename, type_event_0x6E8E** adress,
 				}
 			}
 		}
-		if (i < size)
+		if (i < size) {
+			std::cout << "Regression compare sequence error @ function " << __FUNCTION__ << ", line " << __LINE__ << ": " << i << std::endl;
 			allert_error();
+		}
 	}
 
 	free(buffer);
@@ -1052,8 +1056,10 @@ uint32_t compare_with_sequence_D41A0_4(char* filename, uint8_t* adress, uint32_t
 
 	free(buffer);
 	fclose(fptestepc);
-	if (i < size)
+	if (i < size) {
+		std::cout << "Regression compare sequence error @ function " << __FUNCTION__ << ", line " << __LINE__ << ": " << i << std::endl;
 		allert_error();
+	}
 	return(i);
 };
 
@@ -1266,8 +1272,10 @@ uint32_t compare_with_sequence(char* filename, uint8_t* adress, uint32_t  /*adre
 		}
 	}
 
-	if (i < size2)
+	if (i < size2) {
+		std::cout << "Regression compare sequence error @ function " << __FUNCTION__ << ", line " << __LINE__ << ": " << i << std::endl;
 		allert_error();
+	}
 	free(buffer);
 	fclose(fptestepc);
 	return(i);
