@@ -649,7 +649,7 @@ int test_D41A0_id_pointer(uint32_t adress) {
 	if ((adress >= 0x2fc4) && (adress < 0x2fc5))return 2;//event
 
 	if ((adress >= 0x314d) && (adress < 0x3151))return 2;//clock
-	if ((adress >= 0x3999) && (adress < 0x399c))return 2;//clock2
+	if ((adress >= 0x3999) && (adress < 0x399d))return 2;//clock2 - 4 bytes
 	if ((adress >= 0x41e5) && (adress < 0x41e8))return 2;//clock3
 	if ((adress >= 0x4a31) && (adress < 0x4a34))return 2;//clock4
 	if ((adress >= 0x527d) && (adress < 0x5280))return 2;//clock5
@@ -792,6 +792,10 @@ uint32_t compare_with_snapshot_D41A0(char* filename, uint8_t* adress, uint32_t a
 
 	free(buffer);
 	fclose(fptestepc);
+
+	if (i < size) {
+		std::cout << "Regression compare sequence error @ function " << __FUNCTION__ << ", line " << __LINE__ << ": " << i << std::endl;
+	}
 	return(i);
 };
 
@@ -841,6 +845,10 @@ uint32_t compare_with_sequence_E7EE0(char* filename, uint8_t* adress, uint32_t  
 
 	free(buffer);
 	fclose(fptestepc);
+
+	if (i < size2) {
+		std::cout << "Regression compare sequence error @ function " << __FUNCTION__ << ", line " << __LINE__ << ": " << i << std::endl;
+	}
 	return(i);
 };
 
@@ -1116,6 +1124,10 @@ uint32_t compare_with_sequence_x_DWORD_F2C20ar(char* filename, uint8_t* adress, 
 
 	free(buffer);
 	fclose(fptestepc);
+
+	if (i < size) {
+		std::cout << "Regression compare sequence error @ function " << __FUNCTION__ << ", line " << __LINE__ << ": " << i << std::endl;
+	}
 	return(diffindex);
 };
 
@@ -1170,6 +1182,10 @@ uint32_t compare_with_sequence_array_E2A74(char* filename, uint8_t* adress, uint
 
 	free(buffer);
 	fclose(fptestepc);
+
+	if (i < size2) {
+		std::cout << "Regression compare sequence error @ function " << __FUNCTION__ << ", line " << __LINE__ << ": " << i << std::endl;
+	}
 	return(i);
 };
 
@@ -1221,6 +1237,10 @@ uint32_t compare_with_sequence_array_222BD3(char* filename, uint8_t* adress, uin
 
 	free(buffer);
 	fclose(fptestepc);
+
+	if (i < size) {
+		std::cout << "Regression compare sequence error @ function " << __FUNCTION__ << ", line " << __LINE__ << ": " << i << std::endl;
+	}
 	return(i);
 };
 
