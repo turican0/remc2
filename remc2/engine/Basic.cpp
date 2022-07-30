@@ -4110,3 +4110,16 @@ void Convert_to_shadow_D41A0_BYTESTR_0(type_D41A0_BYTESTR_0* from, type_shadow_D
 	for (int i = 0; i < 11; i++)to->stubend[i] = from->stubend[i];
 }
 
+void Convert_to_shadow_str_E2A74(type_str_E2A74* from, type_shadow_str_E2A74* to)
+{
+	for (int j = 0; j < 0x69; ++j) {
+		to[j].word_0 = from[j].word_0;
+		for (int i = 0; i < 4; i++) to[j].axis_2[i] = from[j].axis_2[i];
+		to[j].dword_12 = ((uint8_t*)from[j].dword_12 - Zero_pointer);
+		to[j].dword_16 = from[j].dword_16;
+		to[j].dword_20 = from[j].dword_20;
+		to[j].dword_24 = from[j].dword_24;
+		to[j].byte_28 = from[j].byte_28;
+		to[j].byte_29 = from[j].byte_29;
+	}
+}

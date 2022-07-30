@@ -732,9 +732,13 @@ int test_D41A0_id_pointer(uint32_t adress) {
 }
 
 int test_E2A74_id_pointer(uint32_t adress) {
-	if ((adress >= 0x246) && (adress < 0x247))return 1;
-	if ((adress >= 0x282) && (adress < 0x283))return 1;
-	if ((adress >= 0x2a0) && (adress < 0x2a1))return 1;
+	int offset = adress % 30;
+	if (offset == 12 || offset == 13)
+		return 1;
+
+	//if ((adress >= 0x246) && (adress < 0x247))return 1;
+	//if ((adress >= 0x282) && (adress < 0x283))return 1;
+	//if ((adress >= 0x2a0) && (adress < 0x2a1))return 1;
 
 	return 0;
 }

@@ -975,6 +975,21 @@ typedef struct {//lenght 30
 }
 type_str_E2A74;
 
+typedef struct {//lenght 30
+	int16_t word_0;//str_E2A74[].word_0
+	int16_t axis_2[5]; //str_E2A74[].axis_2[0]
+	//int16_t axis_4[3];//?? str_E2A74[].axis_2[0]
+	//int16_t stuba;
+	int32_t dword_12;//str_E2A74[].dword_12
+	int32_t dword_16;
+	int32_t dword_20;//str_E2A74[].dword_20
+	int32_t dword_24;//str_E2A74[].dword_24
+	//int8_t byte_25;
+	int8_t byte_28;
+	int8_t byte_29;
+}
+type_shadow_str_E2A74;
+
 extern type_str_E2A74 str_E2A74[0x69];
 
 //extern uint8_t test_str_E2A74[];
