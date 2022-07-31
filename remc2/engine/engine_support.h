@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <cstdint>
 #include <assert.h>
+#include <array>
 #include <sstream>
 #include <stddef.h>
 #include <stdarg.h>     /* va_list, va_start, va_arg, va_end */
@@ -962,7 +963,7 @@ extern uint8_t* pdwScreenBuffer_351628;
 
 typedef struct {//lenght 30
 	int16_t word_0;//str_E2A74[].word_0
-	int16_t axis_2[5]; //str_E2A74[].axis_2[0]
+	std::array<int16_t, 5> axis_2; //str_E2A74[].axis_2[0]
 	//int16_t axis_4[3];//?? str_E2A74[].axis_2[0]
 	//int16_t stuba;
 	type_event_0x6E8E* dword_12;//str_E2A74[].dword_12
@@ -990,7 +991,9 @@ typedef struct {//lenght 30
 }
 type_shadow_str_E2A74;
 
-extern type_str_E2A74 str_E2A74[0x69];
+typedef std::array<type_str_E2A74, 0x69> type_array_str_E2A74;
+
+extern type_array_str_E2A74 str_E2A74;
 
 //extern uint8_t test_str_E2A74[];
 
