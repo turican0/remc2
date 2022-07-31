@@ -55,6 +55,7 @@ private:
 
 	type_unk_F0E20x m_str_F0E20x[1920]; // Originally 640
 
+	uint8_t* m_ptrScreenBuffer_351628 = nullptr;
 	uint16_t m_uiScreenWidth_18062C = 0;
 	uint16_t m_uiScreenHeight_180624 = 0;
 
@@ -101,7 +102,7 @@ private:
 	void WaitForRenderFinish();
 
 public:
-	GameRenderHD(uint16_t screenWidth, uint16_t screenHeight, uint8_t renderThreads, bool assignToSpecificCores);
+	GameRenderHD(uint8_t* ptrScreenBuffer, uint16_t screenWidth, uint16_t screenHeight, uint8_t renderThreads, bool assignToSpecificCores);
 	~GameRenderHD();
 	
 	void SetRenderThreads(uint8_t renderThreads);
