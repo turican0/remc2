@@ -55,6 +55,9 @@ private:
 
 	type_unk_F0E20x m_str_F0E20x[1920]; // Originally 640
 
+	uint16_t m_uiScreenWidth_18062C = 0;
+	uint16_t m_uiScreenHeight_180624 = 0;
+
 	std::vector<RenderThread*> m_renderThreads;
 	bool m_multiThreadRender = false;
 	bool m_assignToSpecificCores = false;
@@ -98,7 +101,7 @@ private:
 	void WaitForRenderFinish();
 
 public:
-	GameRenderHD(uint8_t renderThreads, bool assignToSpecificCores);
+	GameRenderHD(uint16_t screenWidth, uint16_t screenHeight, uint8_t renderThreads, bool assignToSpecificCores);
 	~GameRenderHD();
 	
 	void SetRenderThreads(uint8_t renderThreads);
