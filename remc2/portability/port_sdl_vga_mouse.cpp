@@ -34,6 +34,8 @@ Uint8 tempPalettebuffer[768];
 
 int oldWidth;
 
+bool subBlitLock = false;
+
 // Initalize Color Masks.
 #if SDL_BYTEORDER == SDL_BIG_ENDIAN
 Uint32 redMask = 0xff000000;
@@ -359,8 +361,8 @@ POSITION VGA_WhereXY() {
 
 void VGA_Draw_string(char* wrstring) {
 	if(!m_gamePalletisedSurface)return;
-	SDL_Rect srcrect = { 0,0,0,0 };
-	SDL_Rect dstrect = { 0,0,0,0 };
+	//SDL_Rect srcrect = { 0,0,0,0 };
+	//SDL_Rect dstrect = { 0,0,0,0 };
 	if (SDL_MUSTLOCK(m_gamePalletisedSurface)) {
 		if (SDL_LockSurface(m_gamePalletisedSurface) < 0) {
 			fprintf(stderr, "Can't lock screen: %s\n", SDL_GetError());
@@ -480,8 +482,8 @@ void VGA_Write_basic_Palette(Uint8* Palettebuffer) {
 }
 
 void VGA_test() {
-	int x = m_gamePalletisedSurface->w / 2;
-	int y = m_gamePalletisedSurface->h / 2;
+	//int x = m_gamePalletisedSurface->w / 2;
+	//int y = m_gamePalletisedSurface->h / 2;
 
 	/* Lock the screen for direct access to the pixels */
 	if (SDL_MUSTLOCK(m_gamePalletisedSurface)) {
@@ -628,17 +630,17 @@ void ToggleFullscreen() {
 		SDL_Log("SDL_GetDesktopDisplayMode failed: %s", SDL_GetError());
 		return;
 	}
-	SDL_WindowFlags test_fullscr;
+	//SDL_WindowFlags test_fullscr;
 	if (!(IsFullscreen ? 0 : FullscreenFlag))
 	{
 		dm.w = 640;
 		dm.h = 480;
-		test_fullscr = SDL_WINDOW_SHOWN;
+		//test_fullscr = SDL_WINDOW_SHOWN;
 	}
-	else
-	{
-		test_fullscr = SDL_WINDOW_FULLSCREEN;
-	}
+	//else
+	//{
+		//test_fullscr = SDL_WINDOW_FULLSCREEN;
+	//}
 
 	if (!(IsFullscreen ? 0 : FullscreenFlag))
 	{
@@ -818,6 +820,8 @@ void VGA_Blit(Uint8* srcBuffer) {
 }
 
 void SubBlit(uint16_t originalResWidth, uint16_t originalResHeight) {
+	while (subBlitLock);//fix problem with quick blitting
+	subBlitLock = true;
 
 	SDL_Rect rectSrc;
 	rectSrc.x = 0;
@@ -867,6 +871,7 @@ void SubBlit(uint16_t originalResWidth, uint16_t originalResHeight) {
 
 	SDL_RenderPresent(m_renderer);
 	SDL_RenderClear(m_renderer);
+	subBlitLock = false;
 }
 
 void VGA_Init_test() {//only for debug
@@ -891,8 +896,8 @@ void VGA_Init_test() {//only for debug
 
 	SDL_SetPaletteColors(m_gamePalletisedSurface->format->palette, colors, 0, 256);
 
-	int x = m_gamePalletisedSurface->w / 2;
-	int y = m_gamePalletisedSurface->h / 2;
+	//int x = m_gamePalletisedSurface->w / 2;
+	//int y = m_gamePalletisedSurface->h / 2;
 
 	/* Lock the screen for direct access to the pixels */
 	if (SDL_MUSTLOCK(m_gamePalletisedSurface)) {
@@ -934,7 +939,7 @@ void VGA_close()
 	SDL_DestroyWindow(m_window);
 	m_window = NULL;
 	SDL_Quit();
-	free(m_currentPalletColours);
+	//free(m_currentPalletColours);
 }
 
 int16_t VGA_get_shift_status() {
@@ -942,7 +947,7 @@ int16_t VGA_get_shift_status() {
 }
 bool VGA_check_standart_input_status() {
 	bool locpressed = pressed;
-	uint16_t loclastchar = lastchar;
+	//uint16_t loclastchar = lastchar;
 	pressed = false;
 	return locpressed;
 }
@@ -1238,7 +1243,7 @@ void VGA_cleanKeyBuffer() {
 }
 
 uint16_t VGA_read_char_from_buffer() {
-	bool locpressed = pressed;
+	//bool locpressed = pressed;
 	uint16_t loclastchar = lastchar;
 	lastchar = 0;
 	loclastchar = fixchar(loclastchar);

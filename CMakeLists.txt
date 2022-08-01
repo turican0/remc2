@@ -7,28 +7,6 @@ project(remc2 LANGUAGES C CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-################################################################################
-# Set target arch type if empty. Visual studio solution generator provides it.
-################################################################################
-if(NOT CMAKE_VS_PLATFORM_NAME)
-    set(CMAKE_VS_PLATFORM_NAME "x86")
-endif()
-message("${CMAKE_VS_PLATFORM_NAME} architecture in use")
-
-if(NOT "${CMAKE_VS_PLATFORM_NAME}" STREQUAL "x86")
-    message(FATAL_ERROR "${CMAKE_VS_PLATFORM_NAME} arch is not supported!")
-endif()
-
-
-
-################################################################################
-# Conan setup
-################################################################################
-
-#include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-#conan_basic_setup()
-
-
 
 ################################################################################
 # Dependencies
@@ -41,21 +19,12 @@ if (GITHUB_CI_COMPATIBILITY_PATH)
     set(CMAKE_LIBRARY_PATH "${GITHUB_CI_COMPATIBILITY_PATH}")
 endif ()
 
-if (USE_64_BIT)
-    message("Use 64 bit")
-    set(FIND_LIBRARY_USE_LIB64_PATHS True)
-    set(CMAKE_LIBRARY_ARCHITECTURE x86_64)
-else ()
-    message("Use 32 bit")
-    set(CMAKE_FIND_LIBRARY_CUSTOM_LIB_SUFFIX "")
-    set(CMAKE_LIBRARY_ARCHITECTURE i686)
-endif ()
-
 find_package(SDL2 REQUIRED)
 find_package(SDL2_mixer REQUIRED)
 find_package(SDL2_ttf REQUIRED)
 find_package(SDL2_image REQUIRED)
 find_package(PNG REQUIRED)
+find_package(Boost REQUIRED system)
 
 
 ################################################################################
@@ -85,12 +54,7 @@ if(MSVC)
 else()
     #add_compile_options(-fpermissive)
     add_compile_options(-Wno-narrowing)
-    if (ALL_WARNINGS)
-        add_compile_options(-Wall)
-    else ()
-        add_compile_options(-Wunused)
-        add_compile_options(-Wunused-function)
-    endif ()
+    add_compile_options(-Wall)
     if (USE_SANITIZERS)
         add_compile_options(-fsanitize=address)
         add_compile_options(-fsanitize=pointer-compare)
@@ -131,11 +95,11 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 # dependencies
 set(libADLMIDI_STATIC TRUE)
 add_subdirectory(libADLMIDI-master)
-if (USE_64_BIT)
-    add_compile_definitions(COMPILE_FOR_64BIT)
-    set_target_properties(ADLMIDI_static PROPERTIES COMPILE_FLAGS "-m64" LINK_FLAGS "-m64")
-else ()
-    set_target_properties(ADLMIDI_static PROPERTIES COMPILE_FLAGS "-m32" LINK_FLAGS "-m32")
+add_compile_definitions(COMPILE_FOR_64BIT)
+
+# preprocessor flags
+if (FLATPAK)
+    add_compile_definitions(FLATPAK)
 endif ()
         
 # remc2

@@ -17,9 +17,9 @@ void myWriteOut(const char * format, ...) {
 void myprintf(const char * format, ...) {
 	char prbuffer[1024];
 	va_list arg;
-	int done;
+	//int done;
 	va_start(arg, format);
-	done = vsprintf(prbuffer, format, arg);
+	vsprintf(prbuffer, format, arg);
 	va_end(arg);
 
 #ifdef USE_DOSBOX

@@ -63,6 +63,7 @@ template<class T, class U> int8 __OFADD__x(T x, U y)
 void allert_error();
 
 extern uint8_t* readbuffer;
+extern const int printBufferSize;
 extern char* printbuffer;//char* buffer; // [esp+0h] [ebp-2h]
 extern char* printbuffer2;//char v11; // [esp+40h] [ebp+3Eh]
 //extern uint8_t *x_DWORD_E9C38_smalltit; // weak
