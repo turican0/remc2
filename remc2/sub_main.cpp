@@ -2433,6 +2433,7 @@ void sub_759B0_set_mouse_minmax_vert();
 unsigned __int8 sub_75A10(int a1, unsigned __int8* a2);
 void sub_75AB0();
 //void sub_75AE0(int a1);
+//void sub_75B50(__int16 a1);
 int sub_75B80_alloc_mem_block(int a1, x_WORD* a2, x_WORD* a3);
 void sub_75C50();
 //void sub_75CB0();
@@ -2572,6 +2573,7 @@ __int16 sub_86180(unsigned __int16 a1);
 __int16 sub_86270(unsigned __int16 a1);
 __int16 sub_86370(unsigned __int16 a1, char a2);
 void sub_86460(uint16_t a1);
+//void sub_86550();
 char sub_86780(unsigned __int16 a1, int a2, int a3);
 char sub_86860_speak_Sound(unsigned __int16 a1);
 char sub_86930(unsigned __int16 a1);
@@ -2661,6 +2663,7 @@ char sub_8C140(unsigned __int16 a1, uint8_t* a2);
 // x_DWORD dos_getdrive(x_DWORD); weak
 // x_DWORD dos_setdrive(x_DWORD, x_DWORD); weak
 // x_DWORD dos_getdiskfree(x_DWORD, x_DWORD); weak
+// int sub_8C21F_any_graphics_command();
 // x_DWORD memset(x_DWORD, x_DWORD, x_DWORD); weak
 // int rand(void); weak
 // x_DWORD printf(x_DWORD);
@@ -2675,6 +2678,7 @@ void sub_8CB1F();
 void UpdateMouseEventData_8CB3A(uint32_t mouse_states, int32_t mouse_posx, int32_t mouse_posy);
 void sub_8CD27_set_cursor(posistruct_t a2);
 signed int sub_8CEDF_install_mouse();
+// int sub_8D12F_set_mouse_viewport();
 //-------------
 //void sub_8F8B0_draw_bitmap320(int16_t posx, int16_t posy, posistruct_t temppstr);
 //void sub_8F8E8_draw_bitmap640(int16_t posx, int16_t posy, posistruct_t temppstr);
@@ -2705,6 +2709,7 @@ signed int sub_98C48_open_nwrite_close(char* file, uint8_t* buffer, uint32_t cou
 size_t sub_98CAA_write(FILE* a1, uint8_t* a2, uint32_t a3);
 void sub_99080(char a1);
 int sub_9937E_set_video_mode(__int16 a1);
+// int sub_994BA_cursor_move(__int16 a1);
 signed int sub_9951B(__int16 a1);
 int sub_995B0_test_vga_driver();
 void sub_99830(uint32_t user); // weak
@@ -2724,11 +2729,15 @@ int sub_9B234(int* a1);
 signed int sub_9B260(x_DWORD** a1);
 char sub_9B274(int* a1, int a2);
 char* sub_9B498(char a1);
+// bool sub_9B540_lock_linear_mem_region(unsigned int a1, unsigned int a2);
+// bool sub_9B5B4_unlock_mem_region(unsigned int a1, unsigned int a2);
+// void sub_9B628();
 int sub_9B63C(int a1);
 void sub_9B688(int a1);
 int sub_9B7E8(int a1);
 void sub_9BAB0();
 int sub_9BAC4(uint8_t* a1, signed int a2);
+// signed int sub_9BC68_allocate_and_lock_memory(x_WORD* a1, uint8_t* a2, unsigned int a3);
 int sub_9BE18(uint8_t* a1, int a2, char a3, unsigned int a4, unsigned int a5);
 signed int sub_9C810(x_DWORD* a1, char a2);
 signed int sub_9C938(x_DWORD* a1);
@@ -77433,6 +77442,9 @@ void sub_75AB0()
 // 8C250: using guessed type x_DWORD memset(x_DWORD, x_DWORD, x_DWORD);
 // 99E10: using guessed type x_DWORD int386x(x_DWORD, x_DWORD, x_DWORD, x_DWORD);
 
+//----- (00075B50) --------------------------------------------------------
+// NOTE: void sub_75B50(__int16 a1) removed as it did DOS memory handling
+
 //----- (00075B80) --------------------------------------------------------
 int sub_75B80_alloc_mem_block(int a1, x_WORD* a2, x_WORD* a3)
 {
@@ -87301,6 +87313,9 @@ __int16 sub_86180(unsigned __int16 a1)//267180
 // 17FF4A: using guessed type __int16 x_WORD_17FF4A;
 // 1803C3: using guessed type __int16 x_WORD_1803C3;
 
+//----- (00086550) --------------------------------------------------------
+// void sub_86550()//267550 NOTE: removed as it did DOS memory handling
+
 //----- (00086270) --------------------------------------------------------
 __int16 sub_86270(unsigned __int16 a1)//267270
 {
@@ -92056,6 +92071,9 @@ char sub_8C140(unsigned __int16 a1, uint8_t* a2)//26d140
 // 99DE6: using guessed type x_DWORD segread(x_DWORD);
 // 99E10: using guessed type x_DWORD int386x(x_DWORD, x_DWORD, x_DWORD, x_DWORD);
 
+//----- (0008C21F) --------------------------------------------------------
+// int sub_8C21F_any_graphics_command()//26d21f NOTE: removed as it did DOS memory handling
+
 //----- (0008C2CD) --------------------------------------------------------
 void sub_8C2CD()//26d2cd
 {
@@ -92546,6 +92564,9 @@ signed int sub_8CEDF_install_mouse()//26dedf
 // 180730: using guessed type int x_DWORD_180730_cursor_data;
 // 180734: using guessed type int x_DWORD_180734;
 
+//----- (0008D12F) --------------------------------------------------------
+// int sub_8D12F_set_mouse_viewport()//26e12f NOTE: unused -> removed 
+
 /*
 bool Sprite::loadSprite(uint8 * tabData, uint8 * spriteData, uint32 offset,
 	bool rle)
@@ -92833,6 +92854,9 @@ char sub_904C0(float a1)//2714c0
 // D220C: using guessed type double dbl_D220C;
 // D2218: using guessed type double dbl_D2218;
 // D2220: using guessed type double dbl_D2220;
+
+//----- (00090530) --------------------------------------------------------
+//unsigned __int8 sub_90530(int a1, int a2, float a3)//fix//271530 NOTE: removed (unused)
 
 //----- (00090668) --------------------------------------------------------
 signed int sub_90668(int a1)//271668
@@ -93351,6 +93375,9 @@ int sub_9937E_set_video_mode(__int16  /*a1*/)//27a37e
 // 181C40: using guessed type int x_DWORD_181C40_vga_init_buffer;
 // 181C44: using guessed type __int16 x_WORD_181C44;
 
+//----- (000994BA) --------------------------------------------------------
+// int sub_994BA_cursor_move(__int16  /*a1*/)//27a4ba NOTE: removed (DOS memory handling)
+
 //----- (0009951B) --------------------------------------------------------
 signed int sub_9951B(__int16 a1)//27a51b //fix graphics
 {
@@ -93821,6 +93848,15 @@ char* sub_9B498(char a1)//27C498
 	}
 	return result;
 }
+
+//----- (0009B540) --------------------------------------------------------
+// bool sub_9B540_lock_linear_mem_region(unsigned int a1, unsigned int a2)//27C540 NOTE: removed (DOS memory handling)
+
+//----- (0009B5B4) --------------------------------------------------------
+// bool sub_9B5B4_unlock_mem_region(unsigned int a1, unsigned int a2)//27C5B4 NOTE: removed (DOS memory handling)
+
+//----- (0009B628) --------------------------------------------------------
+// void sub_9B628()//27C628 NOTE: removed (empty function)
 
 //----- (0009B63C) --------------------------------------------------------
 int sub_9B63C(int a1)//27C63C
@@ -94296,6 +94332,12 @@ int sub_9CCF8(uint8_t* a1, int a2)//27dcf8
 	return result;
 }
 // A0ED7: using guessed type x_DWORD outp(x_DWORD, char);
+
+//----- (0009BC68) --------------------------------------------------------
+// signed int sub_9BC68_allocate_and_lock_memory(x_WORD* a1, uint8_t* a2, unsigned int a3)//27CC68 NOTE: removed (DOS memory handling)
+
+//----- (0009BD28) --------------------------------------------------------
+// signed int sub_9BD28_allocate_and_lock_memory2(int a1) // NOTE: removed (DOS memory handling)
 
 //----- (0009CD9C) --------------------------------------------------------
 int sub_9CD9C(uint8_t* a1, int a2)//27dd9c
