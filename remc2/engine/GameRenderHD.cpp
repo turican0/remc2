@@ -1,8 +1,9 @@
 #include "GameRenderHD.h"
 
-GameRenderHD::GameRenderHD(uint8_t* ptrScreenBuffer, uint16_t screenWidth, uint16_t screenHeight, uint8_t renderThreads, bool assignToSpecificCores)
+GameRenderHD::GameRenderHD(uint8_t* ptrScreenBuffer, uint8_t* pColorPalette, uint16_t screenWidth, uint16_t screenHeight, uint8_t renderThreads, bool assignToSpecificCores)
 {
 	m_ptrScreenBuffer_351628 = ptrScreenBuffer;
+	m_ptrColorPalette = pColorPalette;
 	m_uiScreenWidth_18062C = screenWidth;
 	m_uiScreenHeight_180624 = screenHeight;
 
@@ -274,9 +275,9 @@ void GameRenderHD::WriteWorldToBMP()
 	}
 
 	GetSubDirectoryPath(path, "BufferOut/PaletteOut.bmp");
-	BitmapIO::WritePaletteAsImageBMP(path, 256, *xadatapald0dat2.colorPalette_var28);
+	BitmapIO::WritePaletteAsImageBMP(path, 256, m_ptrColorPalette);
 	GetSubDirectoryPath(path, "BufferOut/BufferOut.bmp");
-	BitmapIO::WriteImageBufferAsImageBMP(path, m_uiScreenWidth_18062C, m_uiScreenHeight_180624, *xadatapald0dat2.colorPalette_var28, m_ptrScreenBuffer_351628);
+	BitmapIO::WriteImageBufferAsImageBMP(path, m_uiScreenWidth_18062C, m_uiScreenHeight_180624, m_ptrColorPalette, m_ptrScreenBuffer_351628);
 }
 
 void GameRenderHD::ClearGraphicsBuffer(uint8_t colorIdx)
@@ -2815,7 +2816,7 @@ void GameRenderHD::DrawSorcererNameAndHealthBar_2CB30(type_event_0x6E8E* a1x, __
 	v5 = D41A0_0.array_0x2BDE[v25].array_0x39f_2BFA_12157;//wizard name
 	strcpy(v24, v5);
 	v36 = x_BYTE_E88E0x[3 * sub_61790(v25)];//c
-	v35 = (*xadataclrd0dat.colorPalette_var28)[0];//10 //v19
+	v35 = (m_ptrColorPalette)[0];//10 //v19
 	v34 = x_BYTE_E88E0x[3 * sub_61790(v25)];	//14 //v18
 	v33 = str_D94F0_bldgprmbuffer[static_cast<std::underlying_type<MapType_t>::type>(D41A0_0.terrain_2FECE.MapType)][2];//18 v14
 	v38 = str_D94F0_bldgprmbuffer[static_cast<std::underlying_type<MapType_t>::type>(D41A0_0.terrain_2FECE.MapType)][3];//4 v15
