@@ -1,13 +1,9 @@
 #include "GameRenderHD.h"
 
-GameRenderHD::GameRenderHD(uint8_t* ptrScreenBuffer, uint8_t* pColorPalette, uint16_t screenWidth, uint16_t screenHeight, uint8_t renderThreads, bool assignToSpecificCores)
+GameRenderHD::GameRenderHD(uint8_t* ptrScreenBuffer, uint8_t* pColorPalette, uint16_t screenWidth, uint16_t screenHeight, uint8_t renderThreads, bool assignToSpecificCores) : 
+	m_ptrScreenBuffer_351628(ptrScreenBuffer), m_ptrColorPalette(pColorPalette), m_uiScreenWidth_18062C(screenWidth), m_uiScreenHeight_180624(screenHeight), 
+	m_assignToSpecificCores(assignToSpecificCores)
 {
-	m_ptrScreenBuffer_351628 = ptrScreenBuffer;
-	m_ptrColorPalette = pColorPalette;
-	m_uiScreenWidth_18062C = screenWidth;
-	m_uiScreenHeight_180624 = screenHeight;
-
-	m_assignToSpecificCores = assignToSpecificCores;
 	SetRenderThreads(renderThreads);
 }
 
