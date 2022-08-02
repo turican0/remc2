@@ -12,26 +12,7 @@
             "environment": [],
             "externalConsole": false,
             "MIMode": "gdb",
-            //"setupCommands": [
-            //    {
-            //        "description": "Enable pretty-printing for gdb",
-            //        "text": "-enable-pretty-printing",
-            //        "ignoreFailures": true
-            //    }
-            //],
             "miDebuggerPath": "/usr/bin/gdb"
         },
-        {
-            "name": "Attach to gdbserver",
-            "type": "gdb",
-            "request": "attach",
-            "executable": "${workspaceRoot}/build/Debug/inst/bin/remc2",
-            "target": ":9999",
-            "remote": true,
-            "cwd": "${workspaceRoot}/build/Debug/inst/bin",
-            "autorun": [ ],
-            "printCalls": true,
-            "showDevDebugOutput": true 
-        }
     ]
 }

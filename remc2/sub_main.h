@@ -458,8 +458,6 @@ int32_t /*__cdecl*/ fix_filelength(int32_t);// weak
 //x_DWORD /*__cdecl*/ mkdir(char* path);
 int32_t /*__cdecl*/ settextposition(int32_t, int32_t);// weak
 void outtext(char* text);// weak
-//x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);// weak
-//int int386(int intno, REGS *inregs, REGS *outregs);
 int /*__fastcall*/ gettextposition(int32_t, int32_t, int32_t);// weak
 int32_t /*__cdecl*/ signal(int32_t, int32_t);// weak
 //int __cdecl unknown_libname_1(char *a1);
