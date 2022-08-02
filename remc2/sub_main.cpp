@@ -53876,13 +53876,14 @@ char sub_54200_create_user_directiores()//235200
 // F4720: using guessed type int x_DWORD_F4720;
 
 //----- (00054600) --------------------------------------------------------
-void sub_54600_mouse_reset()////235600 mouse reset
+void sub_54600_mouse_reset()////235600 mouse reset see:https://www.equestionanswers.com/c/c-int33-mouse-service.php
 {
 	//int result; // eax
 	//char v1; // [esp+0h] [ebp-38h]
 	//__int16 v2; // [esp+1Ch] [ebp-1Ch]
 
 	//v2 = 0;
+//removed result = int386(0x33, (REGS*)&v2, (REGS*)&v1);//Mouse Reset/Get Mouse Installed Flag //fix
 	//result=1;
 	x_DWORD_E3768 = 0;
 	//return result;
@@ -55515,7 +55516,8 @@ int sub_main(int argc, char** argv, char**  /*envp*/)//236F70
 	//skip memset(&v6, 0, 28);//236F7F - 26D250
 	//v7 = 0;
 	//skip v6 = 0x3301;
-
+//removed  int386(0x21, (REGS*)&v6, (REGS*)&v6);//236F9D - 279D52 //INT 21,33 - Get/Set System Values (Ctl-Break/Boot Drive) AH = 33h AL = 01 to set Ctrl - Break checking flag
+//may be INT 33,1 Show Mouse Cursor see:https://www.equestionanswers.com/c/c-int33-mouse-service.php
 	//skip signal(7, 1);//236FA9 - 279DC0
 	//skip signal(4, 1);//236FB5 - 279DC0
 	//skip signal(6, 1);//236FC1 - 279DC0
@@ -60483,10 +60485,12 @@ void sub_5BC20()//23cc20
 		else
 			sub_75420();*/
 		sub_46F50_sound_proc7();
+//removed sub_8C21F_any_graphics_command(); // end of graphics?
 		NetworkDisallocation_72D04();
 		sub_6FE20();
 		sub_5C060();
 	}
+//removed sub_83E80_freemem4(x_DWORD_D4198);
 	//sub_83E80_freemem4(x_D41A0_BYTEARRAY_0);
 	//sub_83E80_freemem4(x_D41A0_BYTEARRAY_4);
 	sub_86860_speak_Sound(x_WORD_1803EC);
@@ -77414,6 +77418,7 @@ void sub_75AB0()
 
 	if (x_DWORD_17D6C8)
 	{
+//removed sub_75B50(*(int16_t*)&unk_17D6D4ar[0x32]);
 		x_DWORD_17D6C8 = 0;
 	}
 	//return result;
@@ -77446,7 +77451,7 @@ void sub_75AB0()
 // NOTE: void sub_75B50(__int16 a1) removed as it did DOS memory handling
 
 //----- (00075B80) --------------------------------------------------------
-int sub_75B80_alloc_mem_block(int a1, x_WORD* a2, x_WORD* a3)
+int sub_75B80_alloc_mem_block(int a1, x_WORD* a2, x_WORD* a3)//see: https://github.com/videogamepreservation/descent2/blob/master/SOURCE/BIOS/DPMI.C
 {
 	int v3; // ebx
 	int v5; // [esp+0h] [ebp-28h]
@@ -77466,6 +77471,7 @@ int sub_75B80_alloc_mem_block(int a1, x_WORD* a2, x_WORD* a3)
 	v3 = 0;
 	//v6 = (unsigned int)(a1 + 15) >> 4;
 	v5 = 0x100;
+//removed int386(0x31, (REGS*)&v5, (REGS*)&v5);//allocate memory block //dpmi_real_malloc
 	if (!v8)
 	{
 		*a2 = v5;
@@ -87143,7 +87149,7 @@ void sub_85CC3_draw_round_frame(uint16_t* buffer)//266cc3
 }
 
 //----- (00085E40) --------------------------------------------------------
-int sub_85E40()//266e40
+int sub_85E40()//266e40 //see https://github.com/videogamepreservation/descent2/blob/master/SOURCE/BIOS/DPMI.C
 {
 	/*signed __int16 result; // ax
 
@@ -87151,6 +87157,7 @@ int sub_85E40()//266e40
 	  return 1;
 	x_DWORD_17FF10 = 4096;//ax
 	x_DWORD_17FF0C = 256;//bx - size
+//removed int386(49, (REGS*)&x_DWORD_17FF0C, (REGS*)&x_DWORD_17FF0C);//dpmi_real_malloc
 	x_WORD_E2A24 = x_DWORD_17FF0C;//2B3A24 AA0
 	x_WORD_17FF5A = x_WORD_17FF18;//350F5A 1C8
 	LOBYTE(result) = x_DWORD_17FF24 == 0;//desriptor
@@ -87190,12 +87197,13 @@ void* sub_85EB0_alloc_memory(int32 a1)//266eb0 //malloc
 // 17FF24: using guessed type int x_DWORD_17FF24;
 
 //----- (00085F00) --------------------------------------------------------
-__int16 sub_85F00_free_memory(__int16  /*a1*/)//266f00
+__int16 sub_85F00_free_memory(__int16  /*a1*/)//266f00 //https://github.com/videogamepreservation/descent2/blob/master/SOURCE/BIOS/DPMI.C
 {
 	/*__int16 result; // ax
 
 	x_WORD_17FF18 = a1;
 	LOWORD(x_DWORD_17FF0C) = 0x100;
+//removed int386(49, (REGS*)&x_DWORD_17FF0C, (REGS*)&x_DWORD_17FF0C);
 	if ( x_DWORD_17FF24 )
 	  myprintf("fdm:error freeing %lx\n");
 	LOBYTE(result) = x_DWORD_17FF24 == 0;
@@ -87236,14 +87244,15 @@ bool sub_85FD0()//266fd0
 */
 
 //----- (00086010) --------------------------------------------------------
-int sub_86010()//267010
+int sub_86010()//267010 //dpmi_real_int386x see:https://github.com/videogamepreservation/descent2/blob/master/SOURCE/BIOS/DPMI.C
 {
-	x_DWORD_17FF38 = 0;//nemeni se
-	x_DWORD_17FF44 = 0x1500;//nemeni se
-	//x_DWORD_17FF0C = 0x300;//nemeni se
-	x_DWORD_17FF10 = 0x2f;//nemeni se
-	x_DWORD_17FF14 = 0;//nemeni se
-	x_DWORD_17FF20 = x_DWORD_17FF28;//350f28 //nemeni se
+	x_DWORD_17FF38 = 0;//not changed
+	x_DWORD_17FF44 = 0x1500;//not changed
+	//x_DWORD_17FF0C = 0x300;//not changed
+	x_DWORD_17FF10 = 0x2f;//not changed
+	x_DWORD_17FF14 = 0;//not changed
+	x_DWORD_17FF20 = x_DWORD_17FF28;//350f28 //not changed
+//removed int386(49, (REGS*)&x_DWORD_17FF0C, (REGS*)&x_DWORD_17FF0C);
 	if (x_DWORD_17FF10 == 0)x_DWORD_17FF38 = 0;
 
 	x_WORD_1803EA = x_DWORD_17FF38;//0
@@ -87317,7 +87326,7 @@ __int16 sub_86180(unsigned __int16 a1)//267180
 // void sub_86550()//267550 NOTE: removed as it did DOS memory handling
 
 //----- (00086270) --------------------------------------------------------
-__int16 sub_86270(unsigned __int16 a1)//267270
+__int16 sub_86270(unsigned __int16 a1)//267270 see:https://github.com/videogamepreservation/descent2/blob/master/SOURCE/BIOS/DPMI.C
 {
 	//int v1; // ecx
 	__int16 result; // ax
@@ -87351,6 +87360,7 @@ __int16 sub_86270(unsigned __int16 a1)//267270
 	x_DWORD_17FF44 = 0x1510;
 	//x_DWORD_17FF0C = 0x300;
 	x_DWORD_17FF20 = x_DWORD_17FF28;
+//removed int386(0x31, (REGS*)&x_DWORD_17FF0C, (REGS*)&x_DWORD_17FF0C);//Return Physical Display Parms
 	//qmemcpy(unk_1803C0x, v3, 0x1Au);
 	result = x_WORD_1803C3;
 	/**unk_180470ar = *(x_DWORD*)v4;
@@ -87373,7 +87383,7 @@ __int16 sub_86270(unsigned __int16 a1)//267270
 // 1803C3: using guessed type __int16 x_WORD_1803C3;
 
 //----- (00086370) --------------------------------------------------------
-__int16 sub_86370(unsigned __int16 a1, char  /*a2*/)//267370
+__int16 sub_86370(unsigned __int16 a1, char  /*a2*/)//267370 see:https://github.com/videogamepreservation/descent2/blob/master/SOURCE/BIOS/DPMI.C
 {
 	//int v2; // ecx
 	__int16 result; // ax
@@ -87406,6 +87416,7 @@ __int16 sub_86370(unsigned __int16 a1, char  /*a2*/)//267370
 	x_DWORD_17FF44 = 0x1510;
 	//x_DWORD_17FF0C = 0x300;
 	x_DWORD_17FF20 = x_DWORD_17FF28;
+//removed int386(0x31, (REGS*)&x_DWORD_17FF0C, (REGS*)&x_DWORD_17FF0C);//joystick, or graphics
 	//qmemcpy(unk_1803C0x, v4, 0x1Au);
 	result = x_WORD_1803C3;
 	/* *unk_180484ar = *(x_DWORD*)v5;
@@ -87426,7 +87437,7 @@ __int16 sub_86370(unsigned __int16 a1, char  /*a2*/)//267370
 // 1803C3: using guessed type __int16 x_WORD_1803C3;
 
 //----- (00086460) --------------------------------------------------------
-void sub_86460(uint16_t a1)//267460
+void sub_86460(uint16_t a1)//267460 see:https://github.com/videogamepreservation/descent2/blob/master/SOURCE/BIOS/DPMI.C
 {
 	//int v1; // ecx
 	//__int16 result; // ax
@@ -87460,6 +87471,7 @@ void sub_86460(uint16_t a1)//267460
 	x_DWORD_17FF44 = 0x1510;
 	//x_DWORD_17FF0C = 0x300;
 	x_DWORD_17FF20 = x_DWORD_17FF28;
+//removed int386(0x31, (REGS*)&x_DWORD_17FF0C, (REGS*)&x_DWORD_17FF0C);//joystick nebo grafika
 	//qmemcpy(unk_1803C0x, v3, 0x1Au);
 	//result = x_WORD_1803C3;
 	/**unk_18048Bar = *(x_DWORD*)v4;
@@ -87481,7 +87493,7 @@ void sub_86460(uint16_t a1)//267460
 // 1803C3: using guessed type __int16 x_WORD_1803C3;
 
 //----- (00086780) --------------------------------------------------------
-char sub_86780(unsigned __int16 a1, int  /*a2*/, int  /*a3*/)//267780
+char sub_86780(unsigned __int16 a1, int  /*a2*/, int  /*a3*/)//267780 see:https://github.com/videogamepreservation/descent2/blob/master/SOURCE/BIOS/DPMI.C
 {
 	/* char* v4; // esi
 
@@ -87505,6 +87517,7 @@ char sub_86780(unsigned __int16 a1, int  /*a2*/, int  /*a3*/)//267780
 	x_DWORD_17FF40 = a1;
 	//x_DWORD_17FF0C = 0x300;
 	x_DWORD_17FF44 = 0x1510;
+//removed int386(0x31, (REGS*)&x_DWORD_17FF0C, (REGS*)&x_DWORD_17FF0C);//joystick nebo grafika
 	//qmemcpy(unk_1803A8x, v4, 0x16u);
 	return x_WORD_1803AB;
 }
@@ -87522,7 +87535,7 @@ char sub_86780(unsigned __int16 a1, int  /*a2*/, int  /*a3*/)//267780
 // 1803AB: using guessed type __int16 x_WORD_1803AB;
 
 //----- (00086860) --------------------------------------------------------
-char sub_86860_speak_Sound(unsigned __int16 a1)//267860
+char sub_86860_speak_Sound(unsigned __int16 a1)//267860 see:https://github.com/videogamepreservation/descent2/blob/master/SOURCE/BIOS/DPMI.C
 {
 	/*int v2; // esi
 	//__int16 v3; // ax
@@ -87545,6 +87558,7 @@ char sub_86860_speak_Sound(unsigned __int16 a1)//267860
 	x_DWORD_17FF40 = a1;
 	//x_DWORD_17FF0C = 0x300;
 	x_DWORD_17FF44 = 0x1510;
+//removed int386(0x31, (REGS*)&x_DWORD_17FF0C, (REGS*)&x_DWORD_17FF0C);//Return Physical Display Parms
 	// *unk_180452ar = *(x_DWORD*)v2;
 	/*v2 += 4;
 	*((x_DWORD*)unk_180452ar + 1) = *(x_DWORD*)v2;
@@ -87567,7 +87581,7 @@ char sub_86860_speak_Sound(unsigned __int16 a1)//267860
 // 180455: using guessed type __int16 x_WORD_180455;
 
 //----- (00086930) --------------------------------------------------------
-char sub_86930(unsigned __int16 a1)//267930
+char sub_86930(unsigned __int16 a1)//267930 see:https://github.com/videogamepreservation/descent2/blob/master/SOURCE/BIOS/DPMI.C
 {
 	//int v2; // esi
 	//__int16 v3; // ax
@@ -87590,6 +87604,7 @@ char sub_86930(unsigned __int16 a1)//267930
 	x_DWORD_17FF40 = a1;
 	//x_DWORD_17FF0C = 0x300;
 	x_DWORD_17FF44 = 0x1510;
+//removed int386(0x31, (REGS*)&x_DWORD_17FF0C, (REGS*)&x_DWORD_17FF0C);
 	/**unk_180460ar = *(x_DWORD*)v2;
 	v2 += 4;
 	*((x_DWORD*)unk_180460ar + 1) = *(x_DWORD*)v2;
@@ -87640,6 +87655,7 @@ void sub_86A00_some_allocs()//267a00
 	{
 		if (sub_86010())
 		{
+//removed sub_86550();//some allocation
 			v1 = 0;
 			while (1)
 			{
@@ -92513,6 +92529,7 @@ signed int sub_8CEDF_install_mouse()//26dedf
 	x_DWORD_E3768 = 0;
 	//segread((SREGS*)&v5);
 	//v2 = 0;
+//removed int386(0x33, (REGS*)&v2, (REGS*)&v1);//mouse reset
 	//if ( v1 != -1 )
 	//  return 0;
 	//v2 = 0xc;
@@ -92527,6 +92544,7 @@ signed int sub_8CEDF_install_mouse()//26dedf
 	http://stanislavs.org/helppc/int_33-c.html
 	*/
 	//int386x(0x33, (REGS*)&v2, (REGS*)&v1, (SREGS*)&v5);//set mouse subroutine
+//removed sub_8D12F_set_mouse_viewport(); //set min/max of viewport
 	if (!x_DWORD_180730_cursor_data)
 		x_DWORD_180730_cursor_data = (uint8_t*)sub_83CD0_malloc2(4096);//image buffers?-blit?
 	if (!x_DWORD_180700)
@@ -92543,11 +92561,13 @@ signed int sub_8CEDF_install_mouse()//26dedf
 	if (x_DWORD_180720)
 		;// fix it! sub_8CD27_set_cursor((uint8_t**)x_DWORD_180720);
 	//v2 = 2;
+//removed int386(0x33, (REGS*)&v2, (REGS*)&v1);//hide mouse
 	if (x_WORD_180660_VGA_type_resolution & 8)
 	{
 		//v2 = 0xF;
 		//v3 = 1;
 		LOWORD(v4) = 1;
+//removed int386(0x33, (REGS*)&v2, (REGS*)&v1);//set pixel ratio
 	}
 	x_DWORD_E3768 = 1;//fix it
 	return 1;
@@ -92915,6 +92935,7 @@ int sub_906B4()//fix bios graphics//2716b4
 	//v8 = 0x13;
 	//v9 = 0;
 	//x_WORD_E3908 = MEMORY[0x449];
+//removed int386(0x10, (REGS*)&v8, (REGS*)&v8);//Write string (BIOS after 1/10/86) (graphics)
 	//sub_A0BB0((int *)&unk_E3894, 25);
 	/*__outx_WORD(0x3C4u, 0x604u);
 	__outx_WORD(0x3D4u, 0x14u);
@@ -93177,15 +93198,18 @@ void sub_90D6E_VGA_set_video_mode_320x200_and_Palette(TColor* Palettex)//271d6e
 			//input1 355200(180200) - 3
 			//input2 35521c 00 0f 00 00 00
 	//v3 = 0xf00;
+//removed int386(0x10, (REGS*)&v3, (REGS*)&v2);//Set video mode
 	VGA_Resize(320, 200);
 	if (!x_WORD_180662_graphics_handle)
 		x_WORD_180662_graphics_handle = 0x13;
 	//v3 = 0x13;
 	screenWidth_18062C = 320;
 	screenHeight_180624 = 200;
+//removed int386(0x10, (REGS*)&v3, (REGS*)&v2);//Write string (BIOS after 1/10/86)
 
 	//a1 - 3aa0a4
 	sub_41A90_VGA_Palette_install(Palettex);
+//removed sub_8D12F_set_mouse_viewport();//set min/max viewport
 	sub_A0D50_set_viewport(0, 0, 320, 200);
 }
 
@@ -93200,12 +93224,15 @@ void sub_90D6E_VGA_set_video_mode_320x200_and_Palette_orig(TColor* a1x)
 	//fix
 
 	//v3 = 0xf00;
+//removed int386(0x10, (REGS*)&v3, (REGS*)&v2);//Set video mode
 	if (!x_WORD_180662_graphics_handle)
 		x_WORD_180662_graphics_handle = v2;
 	//v3 = 0x13;
 	screenWidth_18062C = 320;
 	screenHeight_180624 = 200;
+//removed int386(0x10, (REGS*)&v3, (REGS*)&v2);//Write string (BIOS after 1/10/86)
 	sub_41A90_VGA_Palette_install(a1x);
+//removed sub_8D12F_set_mouse_viewport(); /set min/max viewport
 	sub_A0D50_set_viewport(0, 0, 320, 200);
 }
 
@@ -93216,12 +93243,15 @@ void sub_90E07_VGA_set_video_mode_640x480_and_Palette(TColor* Palettex)//271e07
 	//int v3; // [esp+1Ch] [ebp-1Ch]
 
 	//v3 = 0xf00;//
+//removed int386(0x10, (REGS*)&v3, (REGS*)&v2);//Set video mode
 	VGA_Resize(640, 480);
 	if (!x_WORD_180662_graphics_handle)
 		x_WORD_180662_graphics_handle = 0x13;
 	screenWidth_18062C = 640;
 	screenHeight_180624 = 480;
+//removed sub_994BA_cursor_move(0x101); //set position of cursor?
 	sub_41A90_VGA_Palette_install(Palettex);
+//removed sub_8D12F_set_mouse_viewport(); //set min/max of viewport
 	sub_A0D50_set_viewport(0, 0, 640, 480);
 }
 
@@ -93231,12 +93261,15 @@ void sub_90E07_VGA_set_video_mode_alt_and_Palette(TColor* Palette)//271e07
 	//int v3; // [esp+1Ch] [ebp-1Ch]
 
 	//v3 = 0xf00;//
+//removed int386(0x10, (REGS*)&v3, (REGS*)&v2);//Set video mode
 	VGA_Resize(screenWidth_18062C, screenHeight_180624);
 	if (!x_WORD_180662_graphics_handle)
 		x_WORD_180662_graphics_handle = 0x13;
 	screenWidth_18062C = screenWidth_18062C;
 	screenHeight_180624 = screenHeight_180624;
+//removed sub_994BA_cursor_move(0x101); //set position of cursor?
 	sub_41A90_VGA_Palette_install(Palette);
+//removed sub_8D12F_set_mouse_viewport(); //set min/max of viewport
 	sub_A0D50_set_viewport(0, 0, screenWidth_18062C, screenHeight_180624);
 }
 
@@ -94130,6 +94163,7 @@ int sub_9BE18(uint8_t* a1, int a2, char a3, unsigned int a4, unsigned int a5)//2
 			x_outp(*(x_DWORD*)(a1 + 28) + 2, 0);
 			v10 = 0x200;
 			v11 = *(x_DWORD*)(a1 + 36);
+//removed int386(0x31, (REGS*)&v10, (REGS*)&v10);//Get Real Mode Interrupt Vector
 			*(x_WORD*)(a1 + 50) = v12;
 			*(x_WORD*)(a1 + 52) = v13;
 			//v6 = dos_getvect(*(x_DWORD *)(a1 + 36));
@@ -94144,6 +94178,7 @@ int sub_9BE18(uint8_t* a1, int a2, char a3, unsigned int a4, unsigned int a5)//2
 			v11 = *(x_DWORD*)(a1 + 36);
 			v12 = (*(x_DWORD*)(a1 + 44) >> 4) & 0xFFFF;
 			v13 = *(x_DWORD*)(a1 + 44) & 0xF;
+//removed int386(0x31, (REGS*)&v10, (REGS*)&v10);//Set Real Mode Interrupt Vector
 			sub_9B540_lock_linear_mem_region(sub_9B628, (char*)sub_9BAB0 - (char*)sub_9B628);
 			if (a3 & 1)
 			{
