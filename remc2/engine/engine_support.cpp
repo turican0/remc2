@@ -105,7 +105,7 @@ uint8_t x_BYTE_12B4E0_shading[0x10000]; // fix it -  weak	//2FC4E0    //map arra
 uint8_t x_BYTE_13B4E0_angle[0x10000]; // idb//30C4E0	//map array4 // water
 int16_t x_WORD_15B4E0_source[0x10000]; // idb//32C4E0	//map array5
 */
-type_str_E2A74 str_E2A74[0x69] = {//2b3a74
+type_array_str_E2A74 str_E2A74 {{//2b3a74
 {0x0000,{0x0000,0x0000,0x0000,0x0000,0x0000},0x00000000,0x00000000,0x00000000,0x00000000,0x00,0x00},
 {0x0001,{0x0004,0x011E,0x0032,0x0140,0x0050},0x00000000,0x00000000,0x00000000,0x00000258,0x02,0x00},
 {0x0001,{0x0200,0x011F,0x0032,0x0000,0x0000},0x00000000,0x00000000,0x00000000,0x00000258,0x02,0x00},
@@ -211,7 +211,7 @@ type_str_E2A74 str_E2A74[0x69] = {//2b3a74
 {0x000D,{0x0000,0x015F,0x0032,0x0198,0x0168},0x00000000,0x00000000,0x00000000,0x00000000,0x01,0x00},
 {0x0000,{0x0000,0x0000,0x0000,0x0000,0x0000},0x00000000,0x00000000,0x00000000,0x00000000,0x00,0x00},
 {0x0000,{0x0000,0x0000,0x0000,0x0000,0x0000},0x00000000,0x00000000,0x00000000,0x00000000,0x00,0x00},
-};
+}};
 /*
 uint8_t test_str_E2A74[] = {
 	0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
@@ -559,14 +559,14 @@ void support_end() {
 		//free(x_D41A0_BYTEARRAY_4_struct.player_name_57);
 		//if(x_D41A0_BYTEARRAY_4_struct.savestring_89)delete(x_D41A0_BYTEARRAY_4_struct.savestring_89);
 
-	if (x_BYTE_14B4E0_second_heightmap)delete(x_BYTE_14B4E0_second_heightmap);
-	if (off_D41A8_sky)delete(off_D41A8_sky);
+	if (x_BYTE_14B4E0_second_heightmap) delete[](x_BYTE_14B4E0_second_heightmap);
+	if (off_D41A8_sky) delete[](off_D41A8_sky);
 
-	if (xy_DWORD_17DED4_spritestr)delete(xy_DWORD_17DED4_spritestr);
-	if (xy_DWORD_17DEC0_spritestr_orig)delete(xy_DWORD_17DEC0_spritestr_orig);//fixed
-	if (xy_DWORD_17DEC8_spritestr)delete(xy_DWORD_17DEC8_spritestr);
+	if (xy_DWORD_17DED4_spritestr) delete[](xy_DWORD_17DED4_spritestr);
+	if (xy_DWORD_17DEC0_spritestr_orig) delete[](xy_DWORD_17DEC0_spritestr_orig);//fixed
+	if (xy_DWORD_17DEC8_spritestr) delete[](xy_DWORD_17DEC8_spritestr);
 
-	if (x_DWORD_D4188t_spritestr)delete(x_DWORD_D4188t_spritestr);
+	if (x_DWORD_D4188t_spritestr) delete[](x_DWORD_D4188t_spritestr);
 }
 
 void loadfromsnapshot(char* filename, uint8_t* adress, uint32_t adressdos, uint32_t size) {
@@ -649,7 +649,7 @@ int test_D41A0_id_pointer(uint32_t adress) {
 	if ((adress >= 0x2fc4) && (adress < 0x2fc5))return 2;//event
 
 	if ((adress >= 0x314d) && (adress < 0x3151))return 2;//clock
-	if ((adress >= 0x3999) && (adress < 0x399c))return 2;//clock2
+	if ((adress >= 0x3999) && (adress < 0x399d))return 2;//clock2 - 4 bytes
 	if ((adress >= 0x41e5) && (adress < 0x41e8))return 2;//clock3
 	if ((adress >= 0x4a31) && (adress < 0x4a34))return 2;//clock4
 	if ((adress >= 0x527d) && (adress < 0x5280))return 2;//clock5
@@ -732,6 +732,10 @@ int test_D41A0_id_pointer(uint32_t adress) {
 }
 
 int test_E2A74_id_pointer(uint32_t adress) {
+	//int offset = adress % 30;
+	//if (offset == 12 || offset == 13)
+	//	return 1;
+
 	if ((adress >= 0x246) && (adress < 0x247))return 1;
 	if ((adress >= 0x282) && (adress < 0x283))return 1;
 	if ((adress >= 0x2a0) && (adress < 0x2a1))return 1;
@@ -792,6 +796,10 @@ uint32_t compare_with_snapshot_D41A0(char* filename, uint8_t* adress, uint32_t a
 
 	free(buffer);
 	fclose(fptestepc);
+
+	if (i < size) {
+		std::cout << "Regression compare sequence error @ function " << __FUNCTION__ << ", line " << __LINE__ << ": " << i << std::endl;
+	}
 	return(i);
 };
 
@@ -841,6 +849,10 @@ uint32_t compare_with_sequence_E7EE0(char* filename, uint8_t* adress, uint32_t  
 
 	free(buffer);
 	fclose(fptestepc);
+
+	if (i < size2) {
+		std::cout << "Regression compare sequence error @ function " << __FUNCTION__ << ", line " << __LINE__ << ": " << i << std::endl;
+	}
 	return(i);
 };
 
@@ -892,8 +904,10 @@ uint32_t compare_with_sequence_D41A0(char* filename, uint8_t* adress, uint32_t  
 		}
 	}
 
-	if (i < size)
+	if (i < size) {
+		std::cout << "Regression compare sequence error @ function " << __FUNCTION__ << ", line " << __LINE__ << ": " << i << std::endl;
 		allert_error();
+	}
 	free(buffer);
 	fclose(fptestepc);
 	return(i);
@@ -944,8 +958,10 @@ uint32_t compare_0x6E8E(char* filename, uint8_t* adress, uint32_t count, uint32_
 
 	free(buffer);
 	fclose(fptestepc);
-	if (i < size)
+	if (i < size) {
+		std::cout << "Regression compare sequence error @ function " << __FUNCTION__ << ", line " << __LINE__ << ": " << i << std::endl;
 		allert_error();
+	}
 	return(i);
 };
 
@@ -994,8 +1010,10 @@ uint32_t compare_with_sequence_EA3E4(char* filename, type_event_0x6E8E** adress,
 				}
 			}
 		}
-		if (i < size)
+		if (i < size) {
+			std::cout << "Regression compare sequence error @ function " << __FUNCTION__ << ", line " << __LINE__ << ": " << i << std::endl;
 			allert_error();
+		}
 	}
 
 	free(buffer);
@@ -1050,8 +1068,10 @@ uint32_t compare_with_sequence_D41A0_4(char* filename, uint8_t* adress, uint32_t
 
 	free(buffer);
 	fclose(fptestepc);
-	if (i < size)
+	if (i < size) {
+		std::cout << "Regression compare sequence error @ function " << __FUNCTION__ << ", line " << __LINE__ << ": " << i << std::endl;
 		allert_error();
+	}
 	return(i);
 };
 
@@ -1108,6 +1128,10 @@ uint32_t compare_with_sequence_x_DWORD_F2C20ar(char* filename, uint8_t* adress, 
 
 	free(buffer);
 	fclose(fptestepc);
+
+	if (i < size) {
+		std::cout << "Regression compare sequence error @ function " << __FUNCTION__ << ", line " << __LINE__ << ": " << i << std::endl;
+	}
 	return(diffindex);
 };
 
@@ -1162,6 +1186,10 @@ uint32_t compare_with_sequence_array_E2A74(char* filename, uint8_t* adress, uint
 
 	free(buffer);
 	fclose(fptestepc);
+
+	if (i < size2) {
+		std::cout << "Regression compare sequence error @ function " << __FUNCTION__ << ", line " << __LINE__ << ": " << i << std::endl;
+	}
 	return(i);
 };
 
@@ -1213,6 +1241,10 @@ uint32_t compare_with_sequence_array_222BD3(char* filename, uint8_t* adress, uin
 
 	free(buffer);
 	fclose(fptestepc);
+
+	if (i < size) {
+		std::cout << "Regression compare sequence error @ function " << __FUNCTION__ << ", line " << __LINE__ << ": " << i << std::endl;
+	}
 	return(i);
 };
 
@@ -1264,8 +1296,10 @@ uint32_t compare_with_sequence(char* filename, uint8_t* adress, uint32_t  /*adre
 		}
 	}
 
-	if (i < size2)
+	if (i < size2) {
+		std::cout << "Regression compare sequence error @ function " << __FUNCTION__ << ", line " << __LINE__ << ": " << i << std::endl;
 		allert_error();
+	}
 	free(buffer);
 	fclose(fptestepc);
 	return(i);
