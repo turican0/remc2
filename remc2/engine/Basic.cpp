@@ -1784,7 +1784,6 @@ void sub_6EF10_set_mouse_minmax(__int16 a1, signed __int16 a2, __int16 a3, signe
 			v8ar[4] = a1;
 			v8ar[6] = v4;
 			v8ar[0] = 7;
-			//int386(0x33, (REGS*)v8ar, (REGS*)v7ar);//set mouse min,max
 			v8ar[0] = 8;
 			v8ar[4] = a3;
 			if (a4 > 398)
@@ -1797,7 +1796,6 @@ void sub_6EF10_set_mouse_minmax(__int16 a1, signed __int16 a2, __int16 a3, signe
 			v8ar[0] = 7;
 			v8ar[4] = 8 * a1;
 			v8ar[6] = 8 * v4;
-			//int386(0x33, (REGS*)v8ar, (REGS*)v7ar);//set mouse min,max
 			v8ar[0] = 8;
 			if (a4 > 478)
 				v5 = 478;
@@ -1805,12 +1803,10 @@ void sub_6EF10_set_mouse_minmax(__int16 a1, signed __int16 a2, __int16 a3, signe
 			v5 *= 8;
 		}
 		v8ar[6] = v5;
-		//result = int386(0x33, (REGS*)v8ar, (REGS*)v7ar);//set mouse min,max
 	}
 	//return;
 }
 // 8C250: using guessed type x_DWORD memset(x_DWORD, x_DWORD, x_DWORD);
-// 98D52: using guessed type x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
 //----- (0007FB90) --------------------------------------------------------
@@ -4114,3 +4110,17 @@ void Convert_to_shadow_D41A0_BYTESTR_0(type_D41A0_BYTESTR_0* from, type_shadow_D
 	for (int i = 0; i < 11; i++)to->stubend[i] = from->stubend[i];
 }
 
+void Convert_to_shadow_str_E2A74(const type_array_str_E2A74 &from, type_shadow_str_E2A74* to)
+{
+	for (int j = 0; j < from.size(); ++j) {
+		to[j].word_0 = from[j].word_0;
+		for (int i = 0; i < from[j].axis_2.size(); i++)
+			to[j].axis_2[i] = from[j].axis_2[i];
+		to[j].dword_12 = ((uint8_t*)from[j].dword_12 - Zero_pointer);
+		to[j].dword_16 = from[j].dword_16;
+		to[j].dword_20 = from[j].dword_20;
+		to[j].dword_24 = from[j].dword_24;
+		to[j].byte_28 = from[j].byte_28;
+		to[j].byte_29 = from[j].byte_29;
+	}
+}
