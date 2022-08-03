@@ -2385,8 +2385,8 @@ void sub_727F0(unsigned __int8 a1, unsigned __int8 a2, unsigned __int8 a3, unsig
 //int sub_72CB0(unsigned __int8* a1, int a2);//not used
 void NetworkDisallocation_72D04();
 // int sub_72DDE(signed __int16 *a1, int a2);
-int /*__fastcall*/ sub_72E70(int a1, int a2, signed __int16* a3);//not used
-signed int /*__fastcall*/ NetworkTestCall_72FBB();
+int sub_72E70(int a1, int a2, signed __int16* a3);//not used
+signed int NetworkTestCall_72FBB();
 void NetworkListenAll_7302E();
 // int NetworkInitConnection_7308F(signed __int16 *a1, int a2, __int16 a3);
 void NetworkCanceling_73669(__int16 a1);
@@ -76123,7 +76123,7 @@ uint8 NetworkTestAddName_72DDE(/*signed __int16* a1,*/ int compindex)//253dde
 }
 
 //----- (00072E70) --------------------------------------------------------
-int /*__fastcall*/ sub_72E70(int  /*a1*/, int  /*a2*/, signed __int16* a3)//253e70
+int sub_72E70(int  /*a1*/, int  /*a2*/, signed __int16* a3)//253e70
 {
 	int v3; // edx
 	char v5; // [esp+0h] [ebp-30h]
@@ -76792,8 +76792,6 @@ signed int NetworkInit_74A11()//255a11 // netbios
 	}
 	return -1;
 }
-// 99BA7: using guessed type x_DWORD dos_getvect(x_DWORD);
-// E12AA: using guessed type int x_DWORD_E12AA;
 
 //----- (00074A86) --------------------------------------------------------
 void NetworkDeleteName_74A86(myNCB* a1x, char* a2)//255a86
@@ -76808,9 +76806,6 @@ void NetworkDeleteName_74A86(myNCB* a1x, char* a2)//255a86
 		/*fake_network_interupt(a1x)*/;
 	//return -(unsigned __int8)a1[49];
 }
-// 99D46: using guessed type x_DWORD strcpy(x_DWORD, x_DWORD);
-// 99D6B: using guessed type x_DWORD strlen(x_DWORD);
-// 99D84: using guessed type x_DWORD strcat(x_DWORD, x_DWORD);
 
 //----- (00074B19) --------------------------------------------------------
 void NetworkHangUp_74B19(myNCB* a1x)//255b19
@@ -76845,10 +76840,6 @@ signed int NetworkListen_74B75(__int16 a1)//255b75
 	}
 	return -99;
 }
-// 8E3D5: using guessed type x_DWORD sprintf(x_DWORD, const char *, ...);
-// 99D46: using guessed type x_DWORD strcpy(x_DWORD, x_DWORD);
-// 99D6B: using guessed type x_DWORD strlen(x_DWORD);
-// 99D84: using guessed type x_DWORD strcat(x_DWORD, x_DWORD);
 
 //----- (00074C9D) --------------------------------------------------------
 int NetworkReceivePacket_74C9D(myNCB* connection, uint8_t* buffer, int maxsize = 50000)//255c9d
@@ -76925,8 +76916,6 @@ int NetworkSendPacket_74E6D(myNCB* connection, uint8_t* buffer, int size)//255e6
 		/*fake_network_interupt(connection)*/;
 	return -connection->ncb_cmd_cplt_49;
 }
-// 99DBD: using guessed type x_DWORD memcpy(x_DWORD, x_DWORD, x_DWORD);
-// E127E: using guessed type int networkBuffer_E127E;
 
 //----- (00074EF1) --------------------------------------------------------
 void NetworkSendMessage_74EF1(myNCB* connection, uint8_t* inbuffer, unsigned int size)//255ef1
