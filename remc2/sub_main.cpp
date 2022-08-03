@@ -2403,7 +2403,7 @@ int16_t GetIndexNetwork2_74515();
 int16_t GetIndexNetwork_74536();
 uint8_t NetworkAllocation_74556();
 // signed int sub_74767(signed __int16 *a1, x_BYTE *a2, int a3);
-int NetworkCall_74809(__int16 a1);
+void NetworkCall_74809(__int16 clientIndex);
 signed int NetworkCancel_748F7(__int16 a1);
 signed int NetworkInit_74A11();
 void NetworkDeleteName_74A86(myNCB* a1x, char* a2);
@@ -2501,7 +2501,7 @@ int sub_7CCA0();
 int sub_7CCF0();
 int sub_7CD30();
 int sub_7CDA0();
-void SetPaletteColor_7CDC0(int a1, unsigned __int8 a2);
+void SetPaletteColor_7CDC0(unsigned __int8 a1, unsigned __int8 a2);
 bool SetMultiplayerColors_7CE50();
 void DrawNetworkLevelName_7D1F0();
 signed int sub_7D230(char a1, unsigned __int8 a2, unsigned __int8 a3);
@@ -76609,13 +76609,13 @@ void NetworkCancelAll_7449C()//25549c
 }
 
 //----- (00074515) --------------------------------------------------------
-int sub_74515()//255515
+int16_t GetIndexNetwork2_74515()//255515
 {
 	return (unsigned __int16)IndexInNetwork2_E12A8;
 }
 
 //----- (00074536) --------------------------------------------------------
-int sub_74536()//255536
+int16_t GetIndexNetwork_74536()//255536
 {
 	return IndexInNetwork_E1276;
 }
@@ -76721,20 +76721,21 @@ uint8_t NetworkAddName_74767(/*signed __int16* a1,*/ myNCB* connection, char* na
 }
 
 //----- (00074809) --------------------------------------------------------
-int NetworkCall_74809(__int16 a1)//255809
+void NetworkCall_74809(__int16 clientIndex)//255809
 {
-	int result; // [esp+14h] [ebp-8h]
-	connection_E12AE[a1]->ncb_command_0 = 0x90;//CALL 
-	sprintf(connection_E12AE[a1]->ncb_callName_10, "%s%d", nethID, a1);
-	while (strlen(connection_E12AE[a1]->ncb_callName_10) < 0xFu)
-		strcat(connection_E12AE[a1]->ncb_callName_10, " ");
-	connection_E12AE[a1]->ncb_rto_42 = 0;
-	connection_E12AE[a1]->ncb_sto_43 = 0;
-	if (setNetbios_75044(connection_E12AE[a1]) == -1)
-		result = -99;
-	else
-		result = -connection_E12AE[a1]->ncb_cmd_cplt_49;
-	return result;
+	//int result; // [esp+14h] [ebp-8h]
+	connection_E12AE[clientIndex]->ncb_command_0 = 0x90;//CALL 
+	sprintf(connection_E12AE[clientIndex]->ncb_callName_10, "%s%d", nethID, clientIndex);
+	while (strlen(connection_E12AE[clientIndex]->ncb_callName_10) < 0xFu)
+		strcat(connection_E12AE[clientIndex]->ncb_callName_10, " ");
+	connection_E12AE[clientIndex]->ncb_rto_42 = 0;
+	connection_E12AE[clientIndex]->ncb_sto_43 = 0;
+	setNetbios_75044(connection_E12AE[clientIndex]);
+	//if (setNetbios_75044(connection_E12AE[clientIndex]) == -1)
+	//	result = -99;
+	//else
+	//	result = -connection_E12AE[clientIndex]->ncb_cmd_cplt_49;
+	//return result;
 }
 
 //----- (000748F7) --------------------------------------------------------
@@ -76842,13 +76843,13 @@ signed int NetworkListen_74B75(__int16 a1)//255b75
 }
 
 //----- (00074C9D) --------------------------------------------------------
-int NetworkReceivePacket_74C9D(myNCB* connection, uint8_t* buffer, int maxsize = 50000)//255c9d
+int NetworkReceivePacket_74C9D(myNCB* connection, uint8_t* buffer, int size)//255c9d
 {
 	connection->ncb_command_0 = 0x95;//RECEIVE
 
 	connection->ncb_buffer_4.p = paket_E1282;
 
-	connection->ncb_bufferLength_8 = maxsize;
+	connection->ncb_bufferLength_8 = size;
 	if (setNetbios_75044(connection) == -1)
 		return -99;
 	while (connection->ncb_cmd_cplt_49 == 0xffu)
@@ -76857,7 +76858,7 @@ int NetworkReceivePacket_74C9D(myNCB* connection, uint8_t* buffer, int maxsize =
 		return -connection->ncb_cmd_cplt_49;
 	//allert_error();
 	//memcpy((void*)a2x, (void*)x_DWORD_E1282, a1x->ncb_length_8);
-	for (int i = 0; i < maxsize/*connection->ncb_bufferLength_8*/; i++)
+	for (int i = 0; i < size/*connection->ncb_bufferLength_8*/; i++)
 		buffer[i] = paket_E1282[i];
 	return connection->ncb_bufferLength_8;
 }
@@ -76873,13 +76874,31 @@ void NetworkReceiveMessage_74D41(myNCB* connection, uint8_t* inbuffer, unsigned 
 
 	buffer = inbuffer;
 	packedReceived = 0;
+	while (size > maxSizeOfPacket * (packedReceived + 1))
+	{
+		if (NetworkReceivePacket_74C9D(connection, buffer, maxSizeOfPacket) != maxSizeOfPacket)
+			return;
+		packedReceived++;
+		buffer += maxSizeOfPacket;
+	}
+	NetworkReceivePacket_74C9D(connection, buffer, size - maxSizeOfPacket * packedReceived);
+
+	/*
+	//int v3; // eax
+	//int v5; // [esp+0h] [ebp-10h]
+	//int v6; // [esp+4h] [ebp-Ch]
+	unsigned int packedReceived; // [esp+8h] [ebp-8h]
+	uint8_t* buffer; // [esp+Ch] [ebp-4h]
+
+	buffer = inbuffer;
+	packedReceived = 0;
 	while (size > 50000 * (packedReceived + 1))
 	{
 		if (NetworkReceivePacket_74C9D(connection, buffer) != 50000)
 			return;
 		packedReceived++;
 		buffer += 50000;
-	}
+	}*/
 }
 
 /*
@@ -76922,21 +76941,38 @@ void NetworkSendMessage_74EF1(myNCB* connection, uint8_t* inbuffer, unsigned int
 {
 	unsigned int packedSended; // [esp+4h] [ebp-Ch]
 	uint8_t* buffer; // [esp+8h] [ebp-8h]
+
+	buffer = inbuffer;
+	packedSended = 0;
+	while (1)
+	{
+		if (size <= maxSizeOfPacket * (packedSended + 1))
+		{
+			NetworkSendPacket_74E6D(connection, buffer, size - maxSizeOfPacket * packedSended);
+			return;
+		}
+		if (NetworkSendPacket_74E6D(connection, buffer, maxSizeOfPacket))
+			break;
+		packedSended++;
+		buffer += maxSizeOfPacket;
+	}
+	/*
+	unsigned int packedSended; // [esp+4h] [ebp-Ch]
+	uint8_t* buffer; // [esp+8h] [ebp-8h]
 	//__int16 v7; // [esp+Ch] [ebp-4h]
 
 	buffer = inbuffer;
 	packedSended = 0;
 
-
-	while (size > 50000 * (packedSended + 1))
+	while (size > maxSizeOfPacket * (packedSended + 1))
 	{
-		if (NetworkSendPacket_74E6D(connection, buffer, 50000) != 50000)
+		if (NetworkSendPacket_74E6D(connection, buffer, maxSizeOfPacket) != maxSizeOfPacket)
 			return;
 		packedSended++;
-		buffer += 50000;
+		buffer += maxSizeOfPacket;
 	}
-	NetworkSendPacket_74E6D(connection, buffer, size - (50000 * packedSended));
-
+	NetworkSendPacket_74E6D(connection, buffer, size - (maxSizeOfPacket * packedSended));
+	*/
 	/*
 	while (1)
 	{
@@ -80802,7 +80838,7 @@ char sub_7B250_draw_and_serve(/*int a1, int a2*//*, __int16 a3*/)//25c250
 #ifdef TEST_NETWORK
 	if (first_enter)
 	{
-		str_E1BAC[2].dword_0 = 0x25EE80;
+		//str_E1BAC[2].dword_0 = 0x25EE80;
 		str_E1BAC[2].selected_8 = 1;
 	}
 #endif
