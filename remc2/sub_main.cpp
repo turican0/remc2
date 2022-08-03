@@ -918,28 +918,29 @@ x_DWORD dos_setvect(x_DWORD number, void(*actcall)(), x_DWORD) {
 //uint8_t** pointersdat_buffer; // ebx
 
 //x_DWORD int386x(x_DWORD, x_DWORD, x_DWORD, x_DWORD) { stub_fix_it();return 0; };// weak
-uint32 sub_AB59E(SREGS* a1, REGS* a2, int  /*intvar*/)
+/*
+uint32 sub_AB59E(SREGS* a1, REGS* a2, int  )
 {
-	//uint32 v2; // bp
+	uint32 v2; // bp
 	uint32 result; // eax
-	//uint32 v4; // ebx
-	//uint32 v5; // ecx
-	//uint32 v6; // edx
-	//uint32 v7; // esi
-	//uint32 v8; // edi
+	uint32 v4; // ebx
+	uint32 v5; // ecx
+	uint32 v6; // edx
+	uint32 v7; // esi
+	uint32 v8; // edi
 
 	// fix it:__ES__ = *a1;
-	//v2 = a1->gs;
+	v2 = a1->gs;
 	result = a2->eax;
-	//v4 = a2->ebx;
-	//v5 = a2->ecx;
-	//v6 = a2->edx;
-	//v7 = a2->edi;
-	//v8 = a2->eax;
+	v4 = a2->ebx;
+	v5 = a2->ecx;
+	v6 = a2->edx;
+	v7 = a2->edi;
+	v8 = a2->eax;
 	//esi je typ 21
 	return result;
 }
-
+*/
 /*int _int386x(REGS* a1, SREGS* a2, REGS* a3, int a4) {
 	REGS* v4; // ST00_4
 	REGS* v5; // edi
@@ -76999,36 +77000,36 @@ int setNetbios_75044(myNCB* connection)//256044
 {
 	//a1x 0x2b22aa
 	type_v2x v2x; // [esp+0h] [ebp-7Ch]
-	//int v3; // [esp+10h] [ebp-6Ch]
-	//int v4; // [esp+1Ch] [ebp-60h]
-	//__int16 v5; // [esp+22h] [ebp-5Ah]
-	//__int16 v6; // [esp+24h] [ebp-58h]
-	REGS v7x;
+	int v3; // [esp+10h] [ebp-6Ch]
+	int v4; // [esp+1Ch] [ebp-60h]
+	__int16 v5; // [esp+22h] [ebp-5Ah]
+	__int16 v6; // [esp+24h] [ebp-58h]
+	//REGS v7x;
 	//int v7; // [esp+34h] [ebp-48h]
 	//int v8; // [esp+38h] [ebp-44h]
 	//char *v9; // [esp+48h] [ebp-34h]
-	REGS v10x;
+	//REGS v10x;
 	//char v10; // [esp+50h] [ebp-2Ch]
 	//int v11; // [esp+68h] [ebp-14h]
-	SREGS v12x;
+	//SREGS v12x;
 	//char v12; // [esp+6Ch] [ebp-10h]
 	int v13; // [esp+78h] [ebp-4h]
-	
+
 	//fix it
 	//v11 = 0;
 	//fix it
 
 	connection->ncb_cmd_cplt_49 = 0;
 	memset(&v2x, 0, sizeof(type_v2x));//35517c
-	//v6 = connection->ncb_command_0 >> 4;
-	//v5 = connection->ncb_command_0 >> 4;
-	//v3 = 0;
-	//v4 = 256;
-	memset(&v7x, 0, sizeof(REGS));
-	memset(&v10x, 0, sizeof(REGS));
-	memset(&v12x, 0, sizeof(SREGS));
+	v6 = connection->ncb_command_0 >> 4;
+	v5 = connection->ncb_command_0 >> 4;
+	v3 = 0;
+	v4 = 256;
+	//memset(&v7x, 0, sizeof(REGS));
+	//memset(&v10x, 0, sizeof(REGS));
+	//memset(&v12x, 0, sizeof(SREGS));
 	//segread((SREGS*)&v12);
-	v12x.es = 0x168;
+	/*v12x.es = 0x168;
 	v12x.ds = 0x168;
 	v12x.fs = 0x168;
 	v12x.gs = 0x168;
@@ -77036,19 +77037,19 @@ int setNetbios_75044(myNCB* connection)//256044
 	v12x.ss = 0x20;
 
 	v7x.eax = 0x300;
-	v7x.ebx = 0x5C;
+	v7x.ebx = 0x5C;*/
 	//v7x.edx = &v2x;
-	makeNetwork(0x31, &v7x, &v10x, &v12x, &v2x, connection);//Simulate Real Mode Interrupt //network
-	if (v10x.esi)
+	makeNetwork(connection);//Simulate Real Mode Interrupt //network
+	/*if (v10x.esi)
 		v13 = -1;
-	else
-		v13 = 0;
+	else*/
+	v13 = 0;
 	return v13;
 
-/*#ifdef TEST_NETWORK
-	a1x->byte_1 = 3;
-#endif
-	return 1;*/
+	/*#ifdef TEST_NETWORK
+		a1x->byte_1 = 3;
+	#endif
+		return 1;*/
 }
 
 //----- (00075110) --------------------------------------------------------
