@@ -119,10 +119,14 @@ int test_regression_level = 0;
 	//#define MOVE_PLAYER
 	bool hideGraphics = false;
 #elif defined(TEST_NETWORK)
-	#define COPY_SKIP_CONFIG
+	#define AUTO_CHANGE_RES
+	#define FIX_FLYASISTANT
+	#define LOAD_EDITED_LEVEL
+	int debugafterload = 0;
+	#define DISABLE_GRAPHICS_ENHANCE
 	bool hideGraphics = false;
-	//bool hideGraphics = true;
-	int debugafterload = 1;
+
+	#define COPY_SKIP_CONFIG
 	bool first_enter = true;
 #else 
 	int debugafterload = 1;
