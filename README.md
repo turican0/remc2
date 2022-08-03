@@ -126,7 +126,7 @@ The game will search for this file in the following locations and this particula
 - The Project is compiled as C++17.
 - If you re-name a method include the id from the original method name as this makes it easier to track changes from the generated code.
 e.g. `void sub_19CA0_sound_proc5(unsigned __int8 a1)` was renamed to `void ChangeSoundLevel_19CA0(uint8_t option)`
-- Please follow the general style of the refactored code. Upper Camel Case (Pascal Case) for Class/Method names. Camel Case for variables. 'm_' for class members. `GameRender.cpp` is a good example of the style.
+- Please follow the general style of the refactored code. Upper Camel Case (Pascal Case) for Class/Method names. Camel Case for variables. 'm_' for class members. `GameRenderHD.cpp` is a good example of the style.
 - Where possible (if writting new code) please use the fixed width types. https://en.cppreference.com/w/cpp/types/integer
-- Be careful with making logic changes to the code and Test, Test, Test!
+- Be careful with making logic changes to the code and Test, Test, Test! I recommend playing the first level all the way though. Then the first Cave level (4) and I also recomend Level 5 as you have a nice mix of AI to kill and a cutscene at level completion.
 
