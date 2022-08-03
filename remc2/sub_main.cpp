@@ -2926,8 +2926,8 @@ char x_BYTE_D419E = 0; // weak//2a519e
 
 bool Iam_server = false;
 bool Iam_client = false;
-int ClientMPort = 3491;
-int ServerMPort = 3490;
+//int ClientMPort = 3491;
+int NetworkPort = 15001;
 char serverIP[256] = "000.000.000.000";
 
 x_DWORD x_DWORD_D41A4_4 = 0;
@@ -55471,9 +55471,10 @@ void InitNetworkInfo() {
 	debug_net_filename2 = exepath + "/../" + debug_net_filename1;
 
 	//testlib1();
-	if (Iam_server)
+	/*if (Iam_server)
 		InitLibNetServer(ServerMPort);
-	InitLibNetClient(serverIP, ServerMPort, ClientMPort);
+	InitLibNetClient(serverIP, ServerMPort, ClientMPort);*/
+	InitMyNetLib(Iam_server, serverIP, NetworkPort);
 	/*
 	if (Iam_server)
 	{
@@ -55852,12 +55853,12 @@ void sub_56210_process_command_line(int argc, char** argv)//237210
 				{
 					Iam_client = true;
 					strcpy(serverIP, (char*)argv[++argnumber]);
-					ServerMPort = atoi(argv[++argnumber]);
-					if (ServerMPort <0)ServerMPort = 0;
-					if (ServerMPort > 9999)ServerMPort = 9999;
-					ClientMPort = atoi(argv[++argnumber]);
+					NetworkPort = atoi(argv[++argnumber]);
+					if (NetworkPort < 0)NetworkPort = 0;
+					if (NetworkPort > 99999)NetworkPort = 99999;
+					/*ClientMPort = atoi(argv[++argnumber]);
 					if (ClientMPort < 0)ClientMPort = 0;
-					if (ClientMPort > 9999)ClientMPort = 9999;
+					if (ClientMPort > 9999)ClientMPort = 9999;*/
 				}
 			}
 			else if (!_stricmp("server", (char*)actarg))//set to all one computer adress
@@ -55866,12 +55867,12 @@ void sub_56210_process_command_line(int argc, char** argv)//237210
 				{
 					Iam_server = true;
 					strcpy(serverIP, (char*)argv[++argnumber]);
-					ServerMPort = atoi(argv[++argnumber]);
-					if (ServerMPort < 0)ServerMPort = 0;
-					if (ServerMPort > 9999)ServerMPort = 9999;
-					ClientMPort = atoi(argv[++argnumber]);
+					NetworkPort = atoi(argv[++argnumber]);
+					if (NetworkPort < 0)NetworkPort = 0;
+					if (NetworkPort > 99999)NetworkPort = 99999;
+					/*ClientMPort = atoi(argv[++argnumber]);
 					if (ClientMPort < 0)ClientMPort = 0;
-					if (ClientMPort > 9999)ClientMPort = 9999;
+					if (ClientMPort > 9999)ClientMPort = 9999;*/
 				}
 			}
 			/*else if (!_stricmp("netinitwait", (char*)actarg))//set to all one computer adress
