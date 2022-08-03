@@ -55634,10 +55634,11 @@ int sub_main(int argc, char** argv, char**  /*envp*/)//236F70
 #ifdef TEST_NETWORK
 	if (Iam_server || Iam_client)
 	{
-		EndLibNetClient();
+		EndMyNetLib();
+		/*EndLibNetClient();
 		if (Iam_server)
-			EndLibNetServer();
-	}	
+			EndLibNetServer();*/
+	}
 #endif //TEST_NETWORK
 
 	return 0;
