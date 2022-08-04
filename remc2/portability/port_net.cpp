@@ -1385,7 +1385,7 @@ void CleanMessages(myNCB* locNCB) {
 	for (auto it = recMessages.begin(); it != recMessages.end();)
 	{
 		message_info unpackedMess = Unpack_Message(*it);
-		if (strncpy(unpackedMess.messNCB.ncb_name_26, locNCB->ncb_name_26,sizeof(locNCB->ncb_name_26-1))) {
+		if (strncpy(unpackedMess.messNCB.ncb_name_26, locNCB->ncb_name_26,sizeof(locNCB->ncb_name_26)-1)) {
 			it = recMessages.erase(it);
 		}
 		else {
