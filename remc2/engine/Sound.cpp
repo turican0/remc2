@@ -8910,7 +8910,7 @@ void AIL_fix() {
 };
 
 //----- (0009F110) --------------------------------------------------------
-signed __int64 sub_9F110(int a1)
+signed __int64 sub_9F110(int a1)//dpmi_real_malloc see: https://github.com/videogamepreservation/descent2/blob/master/SOURCE/BIOS/DPMI.C
 {
 	//int v2; // [esp+0h] [ebp-24h]
 	//int v3; // [esp+4h] [ebp-20h]
@@ -8925,6 +8925,7 @@ signed __int64 sub_9F110(int a1)
 
 	//v2 = 256;
 	//v3 = (a1 + 15) >> 4;
+//removed int386(49, (REGS*)&v2, (REGS*)&v2);
 	if (v5)
 		LOWORD(v6) = 0;
 	else
@@ -8933,7 +8934,7 @@ signed __int64 sub_9F110(int a1)
 }
 
 //----- (0009F170) --------------------------------------------------------
-int sub_9F170(int  /*a1*/, unsigned __int16 a2)
+int sub_9F170(int  /*a1*/, unsigned __int16 a2)//dpmi_real_free see: https://github.com/videogamepreservation/descent2/blob/master/SOURCE/BIOS/DPMI.C
 {
 	//int v3; // [esp+0h] [ebp-20h]
 	//int v4; // [esp+Ch] [ebp-14h]
@@ -8946,6 +8947,7 @@ int sub_9F170(int  /*a1*/, unsigned __int16 a2)
 
 	//v3 = 257;
 	//v4 = a2;
+//removed int386(49, (REGS*)&v3, (REGS*)&v3);
 	if (v5)
 		v6 = -1;
 	else
@@ -8954,7 +8956,7 @@ int sub_9F170(int  /*a1*/, unsigned __int16 a2)
 }
 
 //----- (0009F1D0) --------------------------------------------------------
-int sub_9F1D0(int a1)
+int sub_9F1D0(int a1)//see: https://www.delorie.com/djgpp/doc/dpmi/api/310002.html
 {
 	int v2; // [esp+0h] [ebp-20h]
 	//int v3; // [esp+4h] [ebp-1Ch]
@@ -8967,6 +8969,7 @@ int sub_9F1D0(int a1)
 
 	v2 = 2;
 	//v3 = a1;
+//removed int386(49, (REGS*)&v2, (REGS*)&v2);
 	if (v4)
 		v5 = -1;
 	else
@@ -8975,7 +8978,7 @@ int sub_9F1D0(int a1)
 }
 
 //----- (0009F220) --------------------------------------------------------
-int sub_9F220(int a1)
+int sub_9F220(int a1)//serial_dpmi_lock_linear_memory/serial_dpmi_unlock_linear_memory see:https://github.com/kstenerud/DOS-Serial-Library/blob/master/serial.c
 {
 	//int v2; // [esp+0h] [ebp-20h]
 	//int v3; // [esp+4h] [ebp-1Ch]
@@ -8995,6 +8998,7 @@ int sub_9F220(int a1)
 
 	//v2 = 6;
 	//v3 = a1;
+//removed int386(49, (REGS*)&v2, (REGS*)&v2);
 	if (v6)
 		v7 = -1;
 	else

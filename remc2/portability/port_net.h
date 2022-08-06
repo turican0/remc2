@@ -12,15 +12,7 @@
 extern const char* debug_net_filename1;
 extern std::string debug_net_filename2;
 
-extern int ClientMPort;
-extern int ServerMPort;
-
-extern bool Iam_server;
-extern bool Iam_client;
-extern char serverIP[256];
-
-//extern int NetworkInitWait;
-
+/*
 typedef struct _REGS {
 	uint32 eax;
 	uint32 ebx;
@@ -38,7 +30,7 @@ struct SREGS {
 	unsigned short gs;
 	unsigned short cs;
 	unsigned short ss;
-};
+};*/
 
 typedef struct {//lenght 10
 	char byte_0[50];
@@ -69,53 +61,27 @@ typedef struct {//lenght 66(changed to 70)
 }
 myNCB;
 #pragma pack (16)
-/*
-#define MaxMessageSize 20000
 
-#pragma pack (1)
-typedef struct {
-	uint8_t stamp[9];
-	uint8_t compid[8];
-	uint32_t type;
-	uint32_t lenght;
-	char ip[20];
-	uint8_t mesg[MaxMessageSize];
-}
-messType;
-#pragma pack (16)
-
-
-void NetworkTestServer();
-*/
 
 bool NetworkGetInitInfoFromServer(char* serverIP);
 char* NetworkListenForClients();
 
-void makeNetwork(int irg, REGS* v7x, REGS* v10x, SREGS* v12x, type_v2x* v2x, myNCB* connection);
-//void fake_network_interupt(myNCB* connection);
+void makeNetwork(myNCB* connection);
 
-void InitLibNetServer(int serverport);
-void InitLibNetClient(char* ip, int serverport, int clientport);
-void EndLibNetClient();
-void EndLibNetServer();
+void EndMyNetLib();
 
-void FakeTestsClient();
-void NetworkInitServer();
-void NetworkInitClient();
-
-void StringToBin(uint8_t** buffer, uint16_t* lenght, std::string* str);
+void AddRecMess(std::string message);
 std::string GetRecMess();
-unsigned int GetRecSize();
+unsigned int GetRecCount();
+void CleanMessages(myNCB* locNCB);
 
 void printState(myNCB** connections);
 void printState2(char* text);
 
 void SendNetwork(myNCB* connection);
 
-//void SendMessagesRegisterOK();
-
-//bool ReceiveTimeout();
-
 bool ReceiveServerAddName();
+
+void InitMyNetLib(bool iam_server, char* ip, int networkPort);
 
 #endif //PORT_NETWORK
