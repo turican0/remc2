@@ -138,12 +138,6 @@ set(SOURCE_FILES__portability
     "portability/xmi2mid.h"
 )
 source_group("Source Files\\portability" FILES ${SOURCE_FILES__portability})
-set(SOURCE_FILES__networklib
-    "networklib/Constants.h"
-    "networklib/LockedQueue.h"
-    "networklib/Log.h"
-)
-source_group("Source Files\\networklib" FILES ${SOURCE_FILES__networklib})
 set(ALL_FILES
     ${HEADER_FILES}
     ${SOURCE_FILES}
