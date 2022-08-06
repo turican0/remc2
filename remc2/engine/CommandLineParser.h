@@ -5,10 +5,10 @@
 
 class CommandLineParser {
     public:
-        CommandLineParser () {};
-        CommandLineParser (int &argc, char **argv);
+        CommandLineParser () = default;
+        CommandLineParser (int argc, char **argv);
 
-        void Init(int &argc, char **argv);
+        void Init(int argc, char **argv);
 
         // modes: these control behaviour and set multiple other parameters
         bool ModeReleaseGame() const {return m_mode_release_game;}; //this is standard setting

@@ -4,11 +4,11 @@
 
 CommandLineParser CommandLineParams;
 
-CommandLineParser::CommandLineParser (int &argc, char **argv) {
+CommandLineParser::CommandLineParser (int argc, char **argv) {
     this->Init(argc, argv);
 }
 
-void CommandLineParser::Init(int &argc, char **argv) {
+void CommandLineParser::Init(int argc, char **argv) {
 
     m_mode_release_game = false;
     m_mode_playing_game = false;
@@ -46,7 +46,7 @@ void CommandLineParser::Init(int &argc, char **argv) {
 
     this->m_params.clear();
     for (int i=1; i < argc; ++i) {
-        this->m_params.push_back(argv[i]);
+        this->m_params.emplace_back(argv[i]);
     }
     this->InterpretParams();
 }
@@ -65,15 +65,15 @@ void CommandLineParser::InterpretParams() {
         "--mode_debug_onstart",
         "--mode_test_network",
     };
-    auto is_in_all_params = [&all_modes](std::string s) {
+    auto is_in_all_params = [&all_modes](const std::string &s) {
         return end(all_modes) != std::find(begin(all_modes), end(all_modes), s);
     };
     if (!std::any_of(begin(p), end(p), is_in_all_params)) {
-        this->m_params.push_back("--mode_release_game");
+        this->m_params.emplace_back("--mode_release_game");
     }
 
     // check for modes (that define a set of params) and single params
-    for (auto param: p) {
+    for (const auto &param: p) {
         if (param == "--mode_release_game") { //this is standard setting
             m_mode_release_game = true;
             m_no_show_new_procedures = true;

@@ -21,12 +21,12 @@ TEST (DebugParameters, CommandLineParser) {
     CommandLineParams.Init(args, with_test_reg_game_group);
 
     EXPECT_EQ (true, CommandLineParams.ModeTestRegressionsGame());
-    EXPECT_EQ (true, CommandLineParams.DoCopySkipConfig());      // set by group
-    EXPECT_EQ (true, CommandLineParams.DoFixMouse());            // set by group
-    EXPECT_EQ (false, CommandLineParams.DoLoadEditedLevel());    // not set by group
+    EXPECT_EQ (true, CommandLineParams.DoCopySkipConfig());      // set by mode
+    EXPECT_EQ (true, CommandLineParams.DoFixMouse());            // set by mode
+    EXPECT_EQ (false, CommandLineParams.DoLoadEditedLevel());    // not set by mode
 
     CommandLineParams.Init(args, without_group);
 
-    EXPECT_EQ (true, CommandLineParams.ModeReleaseGame());          // default group if no other group is selected
-    EXPECT_EQ (false, CommandLineParams.ModeTestRegressionsGame()); // group should not be set
+    EXPECT_EQ (true, CommandLineParams.ModeReleaseGame());          // default mode if no other mode is selected
+    EXPECT_EQ (false, CommandLineParams.ModeTestRegressionsGame()); // this mode should not be set
 }
