@@ -16,8 +16,8 @@ test_level() {
     rm -f "${regression_files}/*"
     cp "${data_location}/level${level}/"* "${regression_files}"
     gamelevel="$(($level-1))"
-    ./build/Debug/inst/bin/remc2 reglevel $gamelevel 2>&1 | grep 'Regression compare sequence error'
-    if [ ${PIPESTATUS[0]} -eq 0 ]; then
+    ./build/Debug/inst/bin/remc2 --mode_test_regressions_game reglevel $gamelevel 2>&1 | grep 'Regression compare sequence error'
+    if [ ${PIPESTATUS[0]} -eq 20 ]; then
         echo "test level$level ok"
     else
         echo "test level$level failed"

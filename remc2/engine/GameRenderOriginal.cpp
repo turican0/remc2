@@ -1,4 +1,5 @@
 #include "GameRenderOriginal.h"
+#include "CommandLineParser.h"
 
 GameRenderOriginal::~GameRenderOriginal()
 {
@@ -205,7 +206,7 @@ GameRenderOriginal::~GameRenderOriginal()
 		DrawTerrainAndParticles_3C080(vPosX, vPosY, vYaw, posZ, pitch, roll, fov);
 
 		//22270D
-		//add_compare(0x22270D, debugafterload);
+		//add_compare(0x22270D, CommandLineParams.DoDebugafterload());
 
 		if (D41A0_0.m_GameSettings.str_0x2192.xxxx_0x2192)
 		{
@@ -561,11 +562,11 @@ void GameRenderOriginal::DrawTerrainAndParticles_3C080(__int16 posX, __int16 pos
 	int a2;
 
 	/*
-	#ifdef DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
 		uint8_t origbyte20 = 0;
 		uint8_t remakebyte20 = 0;
 		int comp20;
-		if (debugafterload)
+		if (CommandLineParams.DoDebugafterload())
 		{
 			if (debugcounter_21d080 > 0)
 			comp20 = compare_with_sequence((char*)"0021D080-003F52A4", (uint8_t*)x_DWORD_E9C38_smalltit, 0x3f52a4, debugcounter_21d080, 36916 * 2, 36916 * 2, &origbyte20, &remakebyte20);
@@ -576,7 +577,7 @@ void GameRenderOriginal::DrawTerrainAndParticles_3C080(__int16 posX, __int16 pos
 			}
 			debugcounter_21d080++;
 		}
-	#endif DEBUG_SEQUENCES
+	}
 	*/
 
 	shadows_F2CC7 = D41A0_0.m_GameSettings.m_Graphics.m_wShadows;//21d080
@@ -1909,7 +1910,7 @@ uint16_t GameRenderOriginal::sub_3FD60(int a2x)
 		debug_sub_3FD60B--;
 	}
 	debug_sub_3FD60B++;*/
-	//add_compare(0x297272, debugafterload);
+	//add_compare(0x297272, CommandLineParams.DoDebugafterload());
 
 
 	result = Str_E9C38_smalltit[a2x].word36;
@@ -1925,7 +1926,7 @@ uint16_t GameRenderOriginal::sub_3FD60(int a2x)
 		debug_sub_3FD60B2++;*/
 		//debug
 
-		//add_compare(0x220d70, debugafterload);
+		//add_compare(0x220d70, CommandLineParams.DoDebugafterload());
 
 		if (result < 0x3E8u)
 		{
@@ -3130,20 +3131,20 @@ void GameRenderOriginal::DrawParticles_3E360(int a2x)//21f360
 	int v100; // [esp+1Ch] [ebp-4h]
 
 	type_particle_str* a1y = NULL;
-	/*if(debugafterload)
+	/*if(CommandLineParams.DoDebugafterload())
 		VGA_Debug_Blit(640, 480, pdwScreenBuffer);*/
 
-#ifdef DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
 		/*uint8_t origbyte20 = 0;
 		uint8_t remakebyte20 = 0;
 		int comp20;
-		if (debugafterload)
+		if (CommandLineParams.DoDebugafterload())
 		{
 			if(debugcountersub_3E360>0x470)
 				comp20 = compare_with_sequence_D41A0((char*)"0021f360-00356038", (uint8_t*)&D41A0_BYTESTR_0, 0x356038, debugcountersub_3E360, 224790, &origbyte20, &remakebyte20);
 			debugcountersub_3E360++;
 		}*/
-#endif //DEBUG_SEQUENCES
+	}
 
 	result = Str_E9C38_smalltit[a2x].word36;
 	do
@@ -4012,7 +4013,7 @@ void GameRenderOriginal::DrawSprite_41BD3(uint32 a1)
 	if (comp22a< 0x28 * 4)
 		comp22a = comp22a;
 		*/
-		/*if (debugafterload)
+		/*if (CommandLineParams.DoDebugafterload())
 			VGA_Debug_Blit(640, 480, pdwScreenBuffer);*/
 
 	if (!x_BYTE_F2CC6)
@@ -5310,7 +5311,7 @@ void GameRenderOriginal::DrawSprite_41BD3(uint32 a1)
 		}
 	}
 
-	/*if (debugafterload)
+	/*if (CommandLineParams.DoDebugafterload())
 		VGA_Debug_Blit(640, 480, pdwScreenBuffer);*/
 }
 
@@ -6616,7 +6617,7 @@ void GameRenderOriginal::DrawTriangleInProjectionSpace_B6253(x_DWORD* vertex1, x
 	bool v1300; // [esp+64h] [ebp-24h]
 	bool v1301; // [esp+64h] [ebp-24h]
 
-	/*if(debugafterload)
+	/*if(CommandLineParams.DoDebugafterload())
 	{
 		if (debugcounter_297253 >= 0x37) {
 			debugcounter_297253++;
@@ -6624,7 +6625,7 @@ void GameRenderOriginal::DrawTriangleInProjectionSpace_B6253(x_DWORD* vertex1, x
 		}
 		debugcounter_297253++;
 	}*/
-	//add_compare(0x297257, debugafterload,0x37);
+	//add_compare(0x297257, CommandLineParams.DoDebugafterload(),0x37);
 
 	/*
 	uint8_t origbyte20 = 0;
@@ -6645,7 +6646,7 @@ void GameRenderOriginal::DrawTriangleInProjectionSpace_B6253(x_DWORD* vertex1, x
 		debugcounter_297253++;
 		debugcounter_297253--;
 	}
-	add_compare(0x297272, debugafterload);
+	add_compare(0x297272, CommandLineParams.DoDebugafterload());
 	*/
 
 	//fix it
