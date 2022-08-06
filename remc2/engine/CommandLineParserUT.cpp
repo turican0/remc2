@@ -7,7 +7,7 @@ TEST (DebugParameters, CommandLineParser) {
     int args = 3;
     char *with_test_reg_game_group[] = {
         (char*)"exe filename",
-        (char*)"--test_regressions_game",
+        (char*)"--mode_test_regressions_game",
         (char*)"dummy",
         nullptr
     };
