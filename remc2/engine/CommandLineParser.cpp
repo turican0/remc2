@@ -141,6 +141,9 @@ void CommandLineParser::InterpretParams() {
             m_copy_skip_config = true;
             m_hide_graphics = false;
             m_debugafterload = true;
+            m_auto_change_res = true;
+            m_load_edited_level = true;
+            m_disable_graphics_enhance = true;
         }
         else if (param == "--no_alternative_gamespeed_control") m_alternative_gamespeed_control = false;
         else if (param == "--no_analyze_entity")                m_analyze_entity = false;
