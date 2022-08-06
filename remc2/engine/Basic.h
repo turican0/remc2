@@ -51,9 +51,9 @@
 typedef struct//lenght 11
 {
 	int8_t connected_0;
-	uint8_t array_byte_1[8];
-	int8_t byte_9;
-	int8_t byte_10;
+	uint8_t arrayColors_1[8];
+	int8_t action_9;
+	int8_t selectedLevel_10;
 } type_BYTE_17DE68x;
 
 typedef struct {//lenght 18
