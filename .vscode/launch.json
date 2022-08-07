@@ -2,11 +2,28 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "(gdb) Launch",
+            "name": "Game",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/build/Debug/inst/bin/remc2",
-            "args": [],
+            "args": [
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/build/Debug/inst/bin",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "miDebuggerPath": "/usr/bin/gdb"
+        },
+        {
+            "name": "Regression Tests",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/Debug/inst/bin/remc2",
+            "args": [
+                "reglevel", "0",
+                "--mode_test_regressions_game"
+            ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/build/Debug/inst/bin",
             "environment": [],
