@@ -4,6 +4,7 @@
 #include <cstdint>
 
 #include "../engine/sub_main_mouse.h"
+#include "../engine/CommandLineParser.h"
 
 #ifdef USE_DOSBOX
 extern DOS_Device* DOS_CON;
@@ -781,7 +782,7 @@ void VGA_Set_mouse(int16_t x, int16_t y) {
 
 void VGA_Blit(Uint8* srcBuffer) {
 	oldWidth = m_gamePalletisedSurface->w;
-	if (hideGraphics)return;
+	if (CommandLineParams.DoHideGraphics()) return;
 	events();
 
 	if (m_iOrigh != m_gamePalletisedSurface->h)
