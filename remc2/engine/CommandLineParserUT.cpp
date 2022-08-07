@@ -19,7 +19,7 @@ TEST (DebugParameters, CommandLineParser) {
     };
     char *memimage_check[] = {
         (char*)"exe filename",
-        (char*)"--memimage_path",
+        (char*)"--memimages_path",
         (char*)"/home/user/remc2/memimages",
         nullptr
     };
@@ -38,5 +38,5 @@ TEST (DebugParameters, CommandLineParser) {
 
     CommandLineParams.Init(args, memimage_check);
 
-    EXPECT_EQ ("/home/user/remc2/memimages", CommandLineParams.GetMemimagePath());
+    EXPECT_EQ ("/home/user/remc2/memimages", CommandLineParams.GetMemimagesPath());
 }

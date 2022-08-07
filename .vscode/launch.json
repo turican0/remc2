@@ -22,7 +22,8 @@
             "program": "${workspaceFolder}/build/Debug/inst/bin/remc2",
             "args": [
                 "reglevel", "0",
-                "--mode_test_regressions_game"
+                "--mode_test_regressions_game",
+                "--memimages_path", "${workspaceFolder}/build/Debug/inst/memimages/"
             ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/build/Debug/inst/bin",

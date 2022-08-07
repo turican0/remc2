@@ -43,7 +43,7 @@ void CommandLineParser::Init(int argc, char **argv) {
     m_set_objective = false;
     m_set_level = false;
     m_test_network_chng1 = false;
-    m_memimage_path = "../remc2/memimages/";
+    m_memimages_path = "../remc2/memimages/";
 
     this->m_params.clear();
     for (int i=1; i < argc; ++i) {
@@ -174,8 +174,8 @@ void CommandLineParser::InterpretParams() {
         else if (param == "--set_objective")                    m_set_objective = true;
         else if (param == "--set_level")                        m_set_level = true;
         else if (param == "--test_network_chng1")               m_test_network_chng1 = true;
-        else if (param == "--memimage_path") {
-            m_memimage_path = *(++p);
+        else if (param == "--memimages_path") {
+            m_memimages_path = *(++p);
         }
     }
 }

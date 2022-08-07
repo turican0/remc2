@@ -49,7 +49,7 @@ class CommandLineParser {
         bool DoTestNetworkChng1() const {return m_test_network_chng1;};
 
         // settings
-        std::string GetMemimagePath() const {return m_memimage_path;};
+        std::string GetMemimagesPath() const {return m_memimages_path;};
 
     private:
         void InterpretParams();
@@ -92,7 +92,7 @@ class CommandLineParser {
         bool m_set_objective;
         bool m_set_level;
         bool m_test_network_chng1;
-        std::string m_memimage_path;
+        std::string m_memimages_path;
 };
 
 extern CommandLineParser CommandLineParams;
