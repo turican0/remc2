@@ -113,7 +113,7 @@ typedef struct//lenght 613 // end 17E09D
 	__int16 x_WORD_17DEF4; // weak
 	__int16 x_WORD_17DEF6; // weak
 	__int16 x_WORD_17DEF8; // weak
-	__int16 network_session_17DEFA; // weak
+	__int16 networkSession_17DEFA; // weak
 	__int16 serverIndex_17DEFC; // weak
 	__int16 x_WORD_17DEFE; // weak
 	__int16 x_WORD_17DF00; // weak
