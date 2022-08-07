@@ -113,7 +113,7 @@ The game will search for this file in the following locations and this particula
 - [ ] Implement a wix sharp .msi installation for new .exe to make patching the and running existing game simple and something similar for the Linux versions
 
 ## MILLSTONE 4
-- [ ] Get basic LAN/IPv4 multiplayer working again
+- [ ] Get basic LAN/IPv4 multiplayer working again (Tom is currently making great progress on this!)
 
 ## MILLSTONE 5
 - [ ] Get Magic Carpet 1 working using this engine. Ideally with original music and graphics.
@@ -122,7 +122,7 @@ The game will search for this file in the following locations and this particula
 - Add VR support back into the game (yes it was originally supported! This game was waaay ahead of its time)<br />
 - Implement online multiplayer match making
 
-## If you know a bit about game development or want to help out, branch away or email me here: thobbsinteractive@gmail.com
+## If you know a bit about game development or want to help out, branch away or email me here: thobbsinteractive@gmail.com or find us on Discord here: https://discord.gg/mFMRUVeu
 
 ## Development Guide ##
 - The Project is compiled as C++17.
