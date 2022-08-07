@@ -1,5 +1,6 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include "port_net.h"
+#include <thread>
 
 #define USE_BOOST_ASIO_
 

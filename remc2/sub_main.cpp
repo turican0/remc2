@@ -1,5 +1,6 @@
 #include "sub_main.h"
 #include "engine/engine_support.h"
+#include "engine/CommandLineParser.h"
 
 /*
 
@@ -40,113 +41,16 @@ void _strupr(char* s)
 #include <filesystem>
 #endif //__linux__
 
-//#define MOUSE_OFF
-
-//#define RIGHT_BUTTON
-//#define ROTATE_PLAYER
-//#define MOVE_PLAYER
-//#define FIX_MOUSE
-//#define MOUSE_OFF2
-//#define SET_OBJECTIVE
-//#define SET_LEVEL
-
-#define RELEASE_GAME
-//#define PLAYING_GAME
-//#define DEBUG_AFTERLOAD
-//#define DEBUG_ONSTART
-//#define TEST_REGRESSIONS_GAME
-
-//#define TEST_NETWORK
-
-
-//#define TEST_NETWORK_CHNG1
-
-int test_regression_level = 0;
+int test_regression_level = 1;
 //first multi is 50(51) 10
 //first hide level is 30(31) 5
+bool first_enter = true;
 
 //adress 2285ff
-#if defined(RELEASE_GAME) //this is standard setting
-	#define NO_SHOW_NEW_PROCEDURES
-	#define AUTO_CHANGE_RES
-	#define FIX_FLYASISTANT
-	#define LOAD_EDITED_LEVEL
-	int debugafterload = 0;
-	//#define DISABLE_GRAPHICS_ENHANCE
-	bool hideGraphics = false;
-#elif defined(PLAYING_GAME) //this is setting for autosavegame
-	#define DETECT_DWORD_A
-	#define AUTO_CHANGE_RES
-	#define INTERVAL_SAVE
-	#define FIX_FLYASISTANT
-	#define LOAD_EDITED_LEVEL
-	int debugafterload = 1;
-	bool hideGraphics = false;
-#elif defined(TEST_REGRESSIONS_GAME) //this is setting for regressions testing
-	#define DETECT_DWORD_A
-	#define COPY_SKIP_CONFIG
-	#define FIX_MOUSE
-	#define MOUSE_OFF2
-	#define OFF_PAUSE_5
-	#define TEST_REGRESSION
-	bool hideGraphics = true;
-	//#define DEBUG_SEQUENCES
-	//#define DEBUG_SEQUENCES2
-	int debugafterload = 1;
-	//#define DISABLE_GRAPHICS_ENHANCE
-#elif defined(DEBUG_AFTERLOAD) //this is setting is for compare data with dosbox afterload(can fix mouse move, and etc.)
-	#define DETECT_DWORD_A
-	#define COPY_SKIP_CONFIG
-	#define DEBUG_SEQUENCES2
-	#define FIX_MOUSE
-	#define MOUSE_OFF2
-	#define OFF_PAUSE_5
-	int debugafterload = 0;
-	#define DISABLE_GRAPHICS_ENHANCE
-	bool hideGraphics = false;
-#elif defined(DEBUG_ONSTART) //this is setting is for compare data with dosbox(can fix mouse move, and etc.)
-	#define DETECT_DWORD_A
-	#define COPY_SKIP_CONFIG
-	//#define DEBUG_SEQUENCES
-	#define TEST_REGRESSION
-	#define FIX_MOUSE
-	#define MOUSE_OFF2
-	#define OFF_PAUSE_5
-	//#define LOAD_EDITED_LEVEL
-	//#define RIGHT_BUTTON
-	int debugafterload = 1;
-	//#define DISABLE_GRAPHICS_ENHANCE
-	//#define MOVE_PLAYER
-	bool hideGraphics = false;
-#elif defined(TEST_NETWORK)
-	#define AUTO_CHANGE_RES
-	#define FIX_FLYASISTANT
-	#define LOAD_EDITED_LEVEL
-	int debugafterload = 0;
-	#define DISABLE_GRAPHICS_ENHANCE
-	bool hideGraphics = false;
 
-	#define COPY_SKIP_CONFIG
-	bool first_enter = true;
-#else 
-	int debugafterload = 1;
-	int graphics_debug = false;
-	bool hideGraphics = false;
-#endif
-
-#define ANALYZE_ENTITY
-
-//#define TEST_RENDERERS //only for debugging!!!!
-
-#ifdef INTERVAL_SAVE
 int save_debugcounter = 0;
-#endif //INTERVAL_SAVE
-
-//#define DEBUG_GRAPHICS
 
 #define FIX_sub_48B90// - when set game have error, but compactible with original
-
-#define ALTERNATIVE_GAMESPEED_CONTROL
 
 //(set in bool sub_558E0_InGameLoad(uint8_t fileindex)//2368e0)
 int count_begin = 1;//1
@@ -155,7 +59,6 @@ int count_begin = 1;//1
 
 bool config_EDITOR = false;
 bool config_LOAD_EDITED_LEVEL = false;
-#define EDITOR
 
 /*
 fix sub_3C080_draw_terrain_and_particles_old
@@ -256,10 +159,10 @@ problem with set str_E23E0[v3x].word_26
 //bug hunting 2 find difference 0x356038+0xd49a
 find in:
 void sub_49CD0(type_str_0x6E8E* a1x, __int16 a2)//22acd0
-add_compare(0x237B55, debugafterload);
-add_compare(0x237BB0, debugafterload);
-add_compare(0x237bb9, debugafterload);
-add_compare(0x237BC7, debugafterload);
+add_compare(0x237B55, CommandLineParams.DoDebugafterload());
+add_compare(0x237BB0, CommandLineParams.DoDebugafterload());
+add_compare(0x237bb9, CommandLineParams.DoDebugafterload());
+add_compare(0x237BC7, CommandLineParams.DoDebugafterload());
 
 problem is in void GameEvents_51BB0()//232bb0
 //find changes after 228320
@@ -275,7 +178,7 @@ fixed
 //bug hunting 4 find difference 0x356038+79 D41A0_BYTESTR_0.array_0x39[22]
 
 next debugging:
-add_compare(0x0022860F, debugafterload && (count_begin == 1), 0x1a);
+add_compare(0x0022860F, CommandLineParams.DoDebugafterload() && (count_begin == 1), 0x1a);
 
 //bug hunting 5 can not load save from this revision
 x_D41A0_BYTEARRAY_4_struct.byteindex_208 is set to 0
@@ -6990,9 +6893,9 @@ int sub_10C80(type_event_0x6E8E* a1x, unsigned __int8 a2, unsigned __int16 a3)//
 	int v31; // [esp+4Ch] [ebp-10h]
 	signed int v32; // [esp+54h] [ebp-8h]
 
-#ifdef DEBUG_SEQUENCES
-	//add_compare(0x1F1C80, debugafterload);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		//add_compare(0x1F1C80, CommandLineParams.DoDebugafterload());
+	}
 
 	//adress 1f1c84
 
@@ -8106,9 +8009,9 @@ void sub_12500(type_event_0x6E8E* a1x)//1f3500
 	__int16 v9; // cx
 	signed __int16 v11; // [esp+0h] [ebp-4h]
 
-#ifdef DEBUG_SEQUENCES
-	//add_compare(0x1f3504, debugafterload, 0xd7);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		//add_compare(0x1f3504, CommandLineParams.DoDebugafterload(), 0xd7);
+	}
 
 	v2 = 0;
 	v3 = a1x->byte_0x45_69 & 7;
@@ -8245,9 +8148,9 @@ void sub_12780()//1f3780
 	char v5; // dh
 
 	//adress 1f3783
-#ifdef DEBUG_SEQUENCES
-		//add_compare(0x1F3783, debugafterload);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		//add_compare(0x1F3783, CommandLineParams.DoDebugafterload());
+	}
 	/*if (debugcount_sub_12780 >= 2)
 	{
 		debugcount_sub_12780++;
@@ -8354,9 +8257,9 @@ signed int sub_12910(type_event_0x6E8E* event)//1f3910
 {
 	signed int result; // eax
 
-#ifdef DEBUG_SEQUENCES
-	//add_compare(0x1f3912, debugafterload,0x19);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		//add_compare(0x1f3912, CommandLineParams.DoDebugafterload(),0x19);
+	}
 
 	sub_12A70(event);
 	switch (event->dword_0xA4_164x->byte_0x1C1_449)
@@ -9877,27 +9780,27 @@ signed int sub_14E10(type_event_0x6E8E* a1x, unsigned __int8 a2)//1f5e10
 	type_event_0x6E8E* v8x; // esi
 	type_event_0x6E8E* v9x; // eax
 
-#ifdef DEBUG_SEQUENCES
-	/*if (debugafterload)
-	{
-		if (debugcounter_1f5e10 >= 0x34)
+	if (CommandLineParams.DoDebugSequences()) {
+		/*if (CommandLineParams.DoDebugafterload())
 		{
-			int comp20;
-			uint8_t origbyte20 = 0;
-			uint8_t remakebyte20 = 0;
+			if (debugcounter_1f5e10 >= 0x34)
+			{
+				int comp20;
+				uint8_t origbyte20 = 0;
+				uint8_t remakebyte20 = 0;
 
-			comp20 = compare_with_sequence((char*)"001f5e14-002DC4E0", (uint8_t*)x_BYTE_10B4E0_terraintype, 0x2dc4e0, debugcounter_1f5e10, 0x70000, 0x10000, &origbyte20, &remakebyte20);
-			comp20 = compare_with_sequence((char*)"001f5e14-002DC4E0", (uint8_t*)x_BYTE_11B4E0_height, 0x2dc4e0, debugcounter_1f5e10, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x10000);
-			comp20 = compare_with_sequence((char*)"001f5e14-002DC4E0", (uint8_t*)x_BYTE_12B4E0_shading, 0x2dc4e0, debugcounter_1f5e10, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x20000);
-			comp20 = compare_with_sequence((char*)"001f5e14-002DC4E0", (uint8_t*)x_BYTE_13B4E0_angle, 0x2dc4e0, debugcounter_1f5e10, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x30000);
-			comp20 = compare_with_sequence((char*)"001f5e14-002DC4E0", (uint8_t*)x_WORD_15B4E0_source, 0x2dc4e0, debugcounter_1f5e10, 0x70000, 0x20000, &origbyte20, &remakebyte20, 0x50000);
-			comp20 = compare_with_sequence_D41A0((char*)"001f5e14-00356038", (uint8_t*)& D41A0_BYTESTR_0, 0x356038, debugcounter_1f5e10, 224790, &origbyte20, &remakebyte20);
+				comp20 = compare_with_sequence((char*)"001f5e14-002DC4E0", (uint8_t*)x_BYTE_10B4E0_terraintype, 0x2dc4e0, debugcounter_1f5e10, 0x70000, 0x10000, &origbyte20, &remakebyte20);
+				comp20 = compare_with_sequence((char*)"001f5e14-002DC4E0", (uint8_t*)x_BYTE_11B4E0_height, 0x2dc4e0, debugcounter_1f5e10, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x10000);
+				comp20 = compare_with_sequence((char*)"001f5e14-002DC4E0", (uint8_t*)x_BYTE_12B4E0_shading, 0x2dc4e0, debugcounter_1f5e10, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x20000);
+				comp20 = compare_with_sequence((char*)"001f5e14-002DC4E0", (uint8_t*)x_BYTE_13B4E0_angle, 0x2dc4e0, debugcounter_1f5e10, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x30000);
+				comp20 = compare_with_sequence((char*)"001f5e14-002DC4E0", (uint8_t*)x_WORD_15B4E0_source, 0x2dc4e0, debugcounter_1f5e10, 0x70000, 0x20000, &origbyte20, &remakebyte20, 0x50000);
+				comp20 = compare_with_sequence_D41A0((char*)"001f5e14-00356038", (uint8_t*)& D41A0_BYTESTR_0, 0x356038, debugcounter_1f5e10, 224790, &origbyte20, &remakebyte20);
 
-			comp20 = compare_with_sequence_array_E2A74((char*)"001f5e14-002B3A74", (uint8_t*)& str_E2A74, 0x2b3a74, debugcounter_1f5e10, 0xc4e, 0xc4e, &origbyte20, &remakebyte20);
-		}
-		debugcounter_1f5e10++;
-	}*/
-#endif //DEBUG_SEQUENCES
+				comp20 = compare_with_sequence_array_E2A74((char*)"001f5e14-002B3A74", (uint8_t*)& str_E2A74, 0x2b3a74, debugcounter_1f5e10, 0xc4e, 0xc4e, &origbyte20, &remakebyte20);
+			}
+			debugcounter_1f5e10++;
+		}*/
+	}
 
 	if (!sub_15170(a1x, a2))
 		return 0;
@@ -11245,9 +11148,9 @@ char sub_169C0(type_event_0x6E8E* a1x)//1f79c0
 	//v3 = 0;
 	// end
 
-#ifdef DEBUG_SEQUENCES
-	//add_compare(0x1f79c3, debugafterload,0x77);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+    	//add_compare(0x1f79c3, CommandLineParams.DoDebugafterload(),0x77);
+	}
 
 	//LOBYTE(*(int32_t*)&v9x[6]) = a1x->array_0x4C_76.x >> 8;
 	//BYTE1(*(int32_t*)&v9x[6]) = a1x->array_0x4C_76.y >> 8;
@@ -11650,10 +11553,10 @@ void ComputeMousePlayerMovement_17060(int16_t x, int16_t y)//1f8060
 	int roll; // ebx
 	int pitch; // ecx
 
-#ifdef MOUSE_OFF2
-	x = 0x140;
-	y = 0xc8;
-#endif
+	if (CommandLineParams.DoMouseOff2()) {
+		x = 0x140;
+		y = 0xc8;
+	}
 
 	if (!x_D41A0_BYTEARRAY_4_struct.speedIndex)
 	{
@@ -11688,26 +11591,26 @@ void sub_17190_process_keyboard()//1f8190
 {
 	type_event_0x6E8E* event; // edx
 
-#ifdef OFF_PAUSE_5
-	if (debugcounter_47560 == 5)
-	{
-		x_D41A0_BYTEARRAY_4_struct.setting_byte3_24 &= 0xfe;
-		//sub_41B60();
-		/*x_D41A0_BYTEARRAY_4_struct.byteindex_205 = 0;
-		x_D41A0_BYTEARRAY_4_struct.byteindex_206 = 0;
-		sub_8CD27_set_cursor((*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct)[0]);
-		sub_52E90(
-			&D41A0_BYTESTR_0.array_0x2BDE[D41A0_BYTESTR_0.word_0xc],
-			D41A0_BYTESTR_0.array_0x2BDE[D41A0_BYTESTR_0.word_0xc].byte_0x3DF_2BE4_12221,
-			1);
-		if (x_BYTE_E37FD)
-			sub_8E160_sound_proc15_startsequence(D41A0_BYTESTR_0.dword_0x235, 0x7Fu);
-		sub_86930(x_WORD_1803EC);
-		if (x_D41A0_BYTEARRAY_4_struct.byteindex_225)
-			x_D41A0_BYTEARRAY_4_struct.byteindex_225 = 1;
-		x_D41A0_BYTEARRAY_4_struct.byteindex_208 = sub_55C00(x_D41A0_BYTEARRAY_4_struct.levelnumber_43w);*/
+	if (CommandLineParams.DoOffPause5()) {
+		if (debugcounter_47560 == 5)
+		{
+			x_D41A0_BYTEARRAY_4_struct.setting_byte3_24 &= 0xfe;
+			//sub_41B60();
+			/*x_D41A0_BYTEARRAY_4_struct.byteindex_205 = 0;
+			x_D41A0_BYTEARRAY_4_struct.byteindex_206 = 0;
+			sub_8CD27_set_cursor((*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct)[0]);
+			sub_52E90(
+				&D41A0_BYTESTR_0.array_0x2BDE[D41A0_BYTESTR_0.word_0xc],
+				D41A0_BYTESTR_0.array_0x2BDE[D41A0_BYTESTR_0.word_0xc].byte_0x3DF_2BE4_12221,
+				1);
+			if (x_BYTE_E37FD)
+				sub_8E160_sound_proc15_startsequence(D41A0_BYTESTR_0.dword_0x235, 0x7Fu);
+			sub_86930(x_WORD_1803EC);
+			if (x_D41A0_BYTEARRAY_4_struct.byteindex_225)
+				x_D41A0_BYTEARRAY_4_struct.byteindex_225 = 1;
+			x_D41A0_BYTEARRAY_4_struct.byteindex_208 = sub_55C00(x_D41A0_BYTEARRAY_4_struct.levelnumber_43w);*/
+		}
 	}
-#endif
 
 	if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 4) || sub_473E0() == 0)
 	{
@@ -13424,9 +13327,9 @@ void SetSoundEffectAndMusicLevelCoordinates_19D60(signed int a1)//1fad60
 
 	int a2;
 
-#ifdef DEBUG_SEQUENCES
-	add_compare(0x1fad63, debugafterload);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		add_compare(0x1fad63, CommandLineParams.DoDebugafterload());
+	}
 
 	v2 = x_D41A0_BYTEARRAY_4_struct.byte_38591;
 	if (v2 == 1u)
@@ -14060,23 +13963,23 @@ void sub_1A7A0_fly_asistant()//1fb7a0 // fly asistant
 	//__int16 v4; // dx
 	//int v5; // eax
 
-#ifdef FIX_MOUSE
-	if (debugafterload)
-	{
-		unk_18058Cstr.x_DWORD_18059C = 0;
-		x_WORD_18074C_mouse_left2_button = 0;
-		if (debugcounter_1fb7a0 < 1000) {
-			unk_18058Cstr.x_DWORD_1805B8_mouse_position_x = 0x128;
-			unk_18058Cstr.x_DWORD_1805BC_mouse_position_y = 0x7e;
+	if (CommandLineParams.DoFixMouse()) {
+		if (CommandLineParams.DoDebugafterload())
+		{
+			unk_18058Cstr.x_DWORD_18059C = 0;
+			x_WORD_18074C_mouse_left2_button = 0;
+			if (debugcounter_1fb7a0 < 1000) {
+				unk_18058Cstr.x_DWORD_1805B8_mouse_position_x = 0x128;
+				unk_18058Cstr.x_DWORD_1805BC_mouse_position_y = 0x7e;
+			}
+			debugcounter_1fb7a0++;
 		}
-		debugcounter_1fb7a0++;
 	}
-#endif //FIX_MOUSE
 
-#ifdef FIX_FLYASISTANT
-	if (x_D41A0_BYTEARRAY_4_struct.setting_byte3_24 & 1)
-		return;
-#endif //FIX_FLYASISTANT
+	if (CommandLineParams.DoFixFlyasistant()) {
+		if (x_D41A0_BYTEARRAY_4_struct.setting_byte3_24 & 1)
+			return;
+	}
 
 	//result = x_D41A0_BYTEARRAY_0;
 	if (D41A0_0.byte_0x36DEA_fly_asistant)
@@ -14358,23 +14261,24 @@ void sub_1A970_change_game_settings(char a1, int a2, int a3)//1fb970
 		v13x = x_DWORD_EA3E4[D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].word_0x00a_2BE4_11240];
 		if (v13x <= x_DWORD_EA3E4[0] || v13x->dword_0x8 < 0)
 			return;
-#ifdef ALTERNATIVE_GAMESPEED_CONTROL
-		if (x_D41A0_BYTEARRAY_4_struct.speedIndex == 2)
-			x_D41A0_BYTEARRAY_4_struct.speedIndex = 0;
-		else
-		{
-			x_D41A0_BYTEARRAY_4_struct.speedIndex = x_D41A0_BYTEARRAY_4_struct.speedIndex + (a2 != 0) + 1;
-			if (x_D41A0_BYTEARRAY_4_struct.speedIndex > 2)
+		if (CommandLineParams.DoAlternativeGamespeedControl()) {
+			if (x_D41A0_BYTEARRAY_4_struct.speedIndex == 2)
+				x_D41A0_BYTEARRAY_4_struct.speedIndex = 0;
+			else
 			{
-				x_D41A0_BYTEARRAY_4_struct.speedIndex = 2;
+				x_D41A0_BYTEARRAY_4_struct.speedIndex = x_D41A0_BYTEARRAY_4_struct.speedIndex + (a2 != 0) + 1;
+				if (x_D41A0_BYTEARRAY_4_struct.speedIndex > 2)
+				{
+					x_D41A0_BYTEARRAY_4_struct.speedIndex = 2;
+				}
 			}
 		}
-#else
-		if (x_D41A0_BYTEARRAY_4_struct.speedIndex)
-			x_D41A0_BYTEARRAY_4_struct.speedIndex = 0;
-		else
-			x_D41A0_BYTEARRAY_4_struct.speedIndex = (a2 != 0) + 1;
-#endif //#ifdef ALTERNATIVE_GAMESPEED_CONTROL
+		else {
+			if (x_D41A0_BYTEARRAY_4_struct.speedIndex)
+				x_D41A0_BYTEARRAY_4_struct.speedIndex = 0;
+			else
+				x_D41A0_BYTEARRAY_4_struct.speedIndex = (a2 != 0) + 1;
+		}
 		v14 = x_D41A0_BYTEARRAY_4_struct.speedIndex;
 		if (v14 < 1u)
 		{
@@ -14767,9 +14671,9 @@ signed int sub_1B8C0(type_event_0x6E8E* a1x)//1fc8c0
 	//int v36; // ebx
 	__int16 v37; // [esp+0h] [ebp-4h]
 
-#ifdef DEBUG_SEQUENCES2
-	//add_compare(0x1fc8c4, debugafterload);
-#endif //DEBUG_SEQUENCES2
+	if (CommandLineParams.DoDebugSequences2()) {
+		//add_compare(0x1fc8c4, CommandLineParams.DoDebugafterload());
+	}
 
 	//v1 = a1x->struct_byte_0xc_12_15.byte[1];
 	if (a1x->struct_byte_0xc_12_15.byte[1] & 8)
@@ -15350,9 +15254,9 @@ void sub_1C560(type_event_0x6E8E* a1x, unsigned __int16 a2)//1fd560
 	type_event_0x6E8E* v14x; // ecx
 	bool v16; // [esp+4h] [ebp-4h]
 
-#ifdef DEBUG_SEQUENCES
-	//add_compare(0x1fd564, debugafterload);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+        //add_compare(0x1fd564, CommandLineParams.DoDebugafterload());
+	}
 
 	//fix
 	v3x = 0;
@@ -20234,9 +20138,9 @@ void sub_22E60(type_event_0x6E8E* a1x)//203e60
 	type_event_0x6E8E* v8x; // eax
 	axis_3d* v9; // esi
 
-#ifdef DEBUG_SEQUENCES
-	//add_compare(0x203e64, debugafterload,0x2e);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		//add_compare(0x203e64, CommandLineParams.DoDebugafterload(),0x2e);
+	}
 
 	v1 = 0;
 	if (a1x->str_0x5E_94.word_0x62_98)
@@ -22935,14 +22839,14 @@ void sub_26470(type_event_0x6E8E* a1x)//207470
 {
 	//int result; // eax
 
-#ifdef DEBUG_SEQUENCES
-	if (debug_sub_26470 >= 0x153c)
-	{
+	if (CommandLineParams.DoDebugSequences()) {
+		if (debug_sub_26470 >= 0x153c)
+		{
+			debug_sub_26470++;
+			debug_sub_26470--;
+		}
 		debug_sub_26470++;
-		debug_sub_26470--;
 	}
-	debug_sub_26470++;
-#endif //DEBUG_SEQUENCES
 
 	sub_1D5D0(a1x, 168);
 	//result = (unsigned __int8)(a1x->StageVar2_0x49_73 - 1);
@@ -25798,9 +25702,9 @@ void sub_29A90(type_event_0x6E8E* a1x)//20aa90
 	//LOWORD(v2) = a1x->word_0x34_52;
 	for (ix = x_DWORD_EA3E4[a1x->word_0x34_52]; ix > x_DWORD_EA3E4[0]; ix = x_DWORD_EA3E4[ix->word_0x34_52])
 	{
-#ifdef DEBUG_SEQUENCES
-		//add_compare(0x20aab8, debugafterload);
-#endif //DEBUG_SEQUENCES
+		if (CommandLineParams.DoDebugSequences()) {
+			//add_compare(0x20aab8, CommandLineParams.DoDebugafterload());
+		}
 
 		if (ix->byte_0x45_69 == 233)
 		{
@@ -27592,9 +27496,11 @@ void DrawGameFrame_2BE30()//20CE30
 	if (v2)
 		sub_88580();
 	v6 = D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].word_0x00e_2BDE_11244;
-#ifdef TEST_RENDERERS
-	uint8_t* help_ScreenBuffer = (uint8_t*)malloc(screenWidth_18062C * screenHeight_180624);
-#endif //TEST_RENDERERS
+
+	uint8_t* help_ScreenBuffer = nullptr;
+	if (CommandLineParams.DoTestRenderers()) {
+		help_ScreenBuffer = (uint8_t*)malloc(screenWidth_18062C * screenHeight_180624);
+	}
 	switch (D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x3DF_2BE4_12221)
 	{
 	case 0:
@@ -27635,47 +27541,49 @@ void DrawGameFrame_2BE30()//20CE30
 			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.roll,
 			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.fov);
 
-#ifdef TEST_RENDERERS
-		memcpy(help_ScreenBuffer, pdwScreenBuffer_351628, screenWidth_18062C * screenHeight_180624);
+		if (CommandLineParams.DoTestRenderers()) {
+			memcpy(help_ScreenBuffer, pdwScreenBuffer_351628, screenWidth_18062C * screenHeight_180624);
 
-		if (typeid(*m_ptrGameRender) == typeid(GameRenderHD))
-		{
-			delete m_ptrGameRender;
-			m_ptrGameRender = nullptr;
-			m_ptrGameRender = (GameRenderInterface*)new GameRenderOriginal();
-		}
-		else
-		{
-			delete m_ptrGameRender;
-			m_ptrGameRender = nullptr;
-			m_ptrGameRender = (GameRenderInterface*)new GameRenderHD((multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
-		}
-		m_ptrGameRender->DrawWorld_411A0(
-			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].axis_2BDE_11695.x,//position of player
-			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].axis_2BDE_11695.y,//position of player
-			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.yaw,//rotation of player z
-			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].axis_2BDE_11695.z + 128,
-			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.pitch,
-			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.roll,
-			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.fov);
+			if (typeid(*m_ptrGameRender) == typeid(GameRenderHD))
+			{
+				delete m_ptrGameRender;
+				m_ptrGameRender = nullptr;
+				m_ptrGameRender = (GameRenderInterface*)new GameRenderOriginal();
+			}
+			else
+			{
+				delete m_ptrGameRender;
+				m_ptrGameRender = nullptr;
+				// FIXME: code not working
+				// m_ptrGameRender = (GameRenderInterface*)new GameRenderHD((multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
+			}
+			m_ptrGameRender->DrawWorld_411A0(
+				D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].axis_2BDE_11695.x,//position of player
+				D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].axis_2BDE_11695.y,//position of player
+				D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.yaw,//rotation of player z
+				D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].axis_2BDE_11695.z + 128,
+				D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.pitch,
+				D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.roll,
+				D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.fov);
 
-		for (int test_compi = 0; test_compi < screenWidth_18062C * screenHeight_180624; test_compi++)
-			if (pdwScreenBuffer_351628[test_compi] != help_ScreenBuffer[test_compi])
-				allert_error();
+			for (int test_compi = 0; test_compi < screenWidth_18062C * screenHeight_180624; test_compi++)
+				if (pdwScreenBuffer_351628[test_compi] != help_ScreenBuffer[test_compi])
+					allert_error();
 
-		if (typeid(*m_ptrGameRender) == typeid(GameRenderHD))
-		{
-			delete m_ptrGameRender;
-			m_ptrGameRender = nullptr;
-			m_ptrGameRender = (GameRenderInterface*)new GameRenderOriginal();
+			if (typeid(*m_ptrGameRender) == typeid(GameRenderHD))
+			{
+				delete m_ptrGameRender;
+				m_ptrGameRender = nullptr;
+				m_ptrGameRender = (GameRenderInterface*)new GameRenderOriginal();
+			}
+			else
+			{
+				delete m_ptrGameRender;
+				m_ptrGameRender = nullptr;
+				// FIXME: code not working
+				// m_ptrGameRender = (GameRenderInterface*)new GameRenderHD((multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
+			}
 		}
-		else
-		{
-			delete m_ptrGameRender;
-			m_ptrGameRender = nullptr;
-			m_ptrGameRender = (GameRenderInterface*)new GameRenderHD((multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
-		}
-#endif //TEST_RENDERERS
 
 		//WriteBufferToBMP(screenWidth, screenHeight, *xadatapald0dat2.colorPalette_var28, pdwScreenBuffer_351628);
 
@@ -27891,49 +27799,50 @@ void DrawGameFrame_2BE30()//20CE30
 			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.roll,
 			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.fov);
 
-#ifdef TEST_RENDERERS
-		memcpy(help_ScreenBuffer, pdwScreenBuffer_351628, screenWidth_18062C* screenHeight_180624);
+		if (CommandLineParams.DoTestRenderers()) {
+			memcpy(help_ScreenBuffer, pdwScreenBuffer_351628, screenWidth_18062C* screenHeight_180624);
 
-		if (typeid(*m_ptrGameRender) == typeid(GameRenderHD))
-		{
-			delete m_ptrGameRender;
-			m_ptrGameRender = nullptr;
-			m_ptrGameRender = (GameRenderInterface*)new GameRenderOriginal();
-		}
-		else
-		{
-			delete m_ptrGameRender;
-			m_ptrGameRender = nullptr;
-			m_ptrGameRender = (GameRenderInterface*)new GameRenderHD((multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
-		}
+			if (typeid(*m_ptrGameRender) == typeid(GameRenderHD))
+			{
+				delete m_ptrGameRender;
+				m_ptrGameRender = nullptr;
+				m_ptrGameRender = (GameRenderInterface*)new GameRenderOriginal();
+			}
+			else
+			{
+				delete m_ptrGameRender;
+				m_ptrGameRender = nullptr;
+				// FIXME: code not working
+				// m_ptrGameRender = (GameRenderInterface*)new GameRenderHD((multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
+			}
 
-		m_ptrGameRender->DrawWorld_411A0(
-			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].axis_2BDE_11695.x,//position of player
-			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].axis_2BDE_11695.y,//position of player
-			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.yaw,//rotation of player z
-			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].axis_2BDE_11695.z + 128,
-			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.pitch,
-			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.roll,
-			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.fov);
+			m_ptrGameRender->DrawWorld_411A0(
+				D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].axis_2BDE_11695.x,//position of player
+				D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].axis_2BDE_11695.y,//position of player
+				D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.yaw,//rotation of player z
+				D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].axis_2BDE_11695.z + 128,
+				D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.pitch,
+				D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.roll,
+				D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.fov);
 
-		for (int test_compi = 0; test_compi < screenWidth_18062C * screenHeight_180624; test_compi++)
-			if (pdwScreenBuffer_351628[test_compi] != help_ScreenBuffer[test_compi])
-				allert_error();
+			for (int test_compi = 0; test_compi < screenWidth_18062C * screenHeight_180624; test_compi++)
+				if (pdwScreenBuffer_351628[test_compi] != help_ScreenBuffer[test_compi])
+					allert_error();
 
-		if (typeid(*m_ptrGameRender) == typeid(GameRenderHD))
-		{
-			delete m_ptrGameRender;
-			m_ptrGameRender = nullptr;
-			m_ptrGameRender = (GameRenderInterface*)new GameRenderOriginal();
+			if (typeid(*m_ptrGameRender) == typeid(GameRenderHD))
+			{
+				delete m_ptrGameRender;
+				m_ptrGameRender = nullptr;
+				m_ptrGameRender = (GameRenderInterface*)new GameRenderOriginal();
+			}
+			else
+			{
+				delete m_ptrGameRender;
+				m_ptrGameRender = nullptr;
+				// FIXME: code not working
+				// m_ptrGameRender = (GameRenderInterface*)new GameRenderHD((multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
+			}
 		}
-		else
-		{
-			delete m_ptrGameRender;
-			m_ptrGameRender = nullptr;
-			m_ptrGameRender = (GameRenderInterface*)new GameRenderHD((multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
-		}
-		
-#endif //TEST_RENDERERS
 
 		if (x_WORD_180660_VGA_type_resolution & 1)
 			sub_9025C(locViewportPosx, 0, locViewportPosx, locViewportHeight, (unsigned short)(*xadataclrd0dat.colorPalette_var28)[0], 0);
@@ -27993,9 +27902,12 @@ void DrawGameFrame_2BE30()//20CE30
 	default:
 		break;
 	}
-#ifdef TEST_RENDERERS
-	free(help_ScreenBuffer);
-#endif //TEST_RENDERERS
+	if (CommandLineParams.DoTestRenderers()) {
+		if (help_ScreenBuffer) {
+			free(help_ScreenBuffer);
+			help_ScreenBuffer = nullptr;
+		} 
+	}
 	if (D41A0_0.byte_0x36E04)
 		sub_30630();
 	DrawHelpText_6FC50(x_BYTE_D419D_fonttype);
@@ -31037,9 +30949,9 @@ void sub_31F00(type_event_0x6E8E* a1x, __int16 a2, __int16 a3)//212f00
 	int v9; // [esp+4h] [ebp-8h]
 	int v10; // [esp+8h] [ebp-4h]
 
-#ifdef DEBUG_SEQUENCES
-	//add_compare(0x212f04, debugafterload,0x218);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		//add_compare(0x212f04, CommandLineParams.DoDebugafterload(),0x218);
+	}
 
 	v3 = a3;
 	v4 = (a1x->axis_0x4C_76.x + 128) >> 8;
@@ -33999,9 +33911,9 @@ void sub_35FB0(type_event_0x6E8E* a1x)//216FB0
 	signed __int16 v30; // [esp+0h] [ebp-8h]
 	char v31; // [esp+4h] [ebp-4h]
 
-#ifdef DEBUG_SEQUENCES
-	//add_compare(0x216FB4, debugafterload);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		//add_compare(0x216FB4, CommandLineParams.DoDebugafterload());
+	}
 
 	v1 = a1x->struct_byte_0xc_12_15.byte[1];
 	v31 = 0;
@@ -34737,9 +34649,9 @@ void sub_36FC0(type_event_0x6E8E* a1x)//217fc0
 	char v28; // [esp+25h] [ebp-7h]
 	char v29; // [esp+28h] [ebp-4h]
 
-#ifdef DEBUG_SEQUENCES
-	//add_compare(0x217fc4, debugafterload,1);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		//add_compare(0x217fc4, CommandLineParams.DoDebugafterload(),1);
+	}
 
 	v29 = 0;
 	v26 = (unsigned __int16)(a1x->axis_0x4C_76.x + 128) >> 8;
@@ -34904,9 +34816,9 @@ void ApplyTerrainModification_37240(type_event_0x6E8E* event)//218240
 	uint8_t v50; // [esp+54h] [ebp-4h]
 	//uint8_t v17x;
 
-#ifdef DEBUG_SEQUENCES
-	//add_compare(0x218244, debugafterload,0xb8);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		//add_compare(0x218244, CommandLineParams.DoDebugafterload(),0xb8);
+	}
 
 	v50 = 0;
 	if (event->dword_0x4 == event->dword_0x8)
@@ -37523,9 +37435,9 @@ void sub_3A8B0(type_event_0x6E8E* a1x)//21b8b0
 	unsigned __int8 v36; // [esp+1Ch] [ebp-8h]
 	char v37; // [esp+20h] [ebp-4h]
 
-#ifdef DEBUG_SEQUENCES
-	add_compare(0x21b8b4, debugafterload);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		add_compare(0x21b8b4, CommandLineParams.DoDebugafterload());
+	}
 
 	v2x = x_DWORD_EA3E4[a1x->word_0x32_50];
 	v31x = 0;
@@ -39042,9 +38954,9 @@ void sub_45DC0(/*uint8_t a1, */uint8_t a2, uaxis_2d a3x, unsigned __int8 a4)//22
 	char v22; // dl
 	unsigned __int8 v24; // [esp+0h] [ebp-4h]
 
-#ifdef DEBUG_SEQUENCES
-	//add_compare(0x226dc4, debugafterload);//1cf0
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		//add_compare(0x226dc4, CommandLineParams.DoDebugafterload());//1cf0
+	}
 
 	v4x._axis_2d.y = a3x._axis_2d.y;
 	v24 = 8 * ((a3x._axis_2d.y + a3x._axis_2d.x) & 1);
@@ -39296,9 +39208,9 @@ void sub_462A0(uaxis_2d a1x, uaxis_2d a2x)//2272a0
 	char v27; // [esp+8h] [ebp-Ch]
 	char v28; // [esp+Ch] [ebp-8h]
 
-#ifdef DEBUG_SEQUENCES
-	//add_compare(0x2272a3, debugafterload);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		//add_compare(0x2272a3, CommandLineParams.DoDebugafterload());
+	}
 	v4x._axis_2d.x = a2x._axis_2d.x - a1x._axis_2d.x + 1;
 	v2x.word = a1x.word;
 	v25 = a2x._axis_2d.x - a1x._axis_2d.x + 1;
@@ -39457,9 +39369,9 @@ void sub_46570(uaxis_2d a1x, uaxis_2d a2x)//227570
 	char v32; // [esp+10h] [ebp-4h]
 	//unsigned __int16 v33; // [esp+24h] [ebp+10h]
 
-#ifdef DEBUG_SEQUENCES
-	//add_compare(0x227573,debugafterload);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		//add_compare(0x227573,CommandLineParams.DoDebugafterload());
+	}
 
 	// fix if begin
 	//v33 = a1;
@@ -39507,9 +39419,9 @@ void sub_46570(uaxis_2d a1x, uaxis_2d a2x)//227570
 	//adress 2275eb
 	while (v32)
 	{
-#ifdef DEBUG_SEQUENCES
-		//add_compare(0x227607, debugafterload);
-#endif //DEBUG_SEQUENCES
+		if (CommandLineParams.DoDebugSequences()) {
+			//add_compare(0x227607, CommandLineParams.DoDebugafterload());
+		}
 		v4x._axis_2d.x = v30;
 		for (i = v30; i; i--)
 		{
@@ -39673,10 +39585,7 @@ uint8_t testarraymain[168] = {
 0x09,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
 0x5e,0x24,0x57,0x01,0x18,0x91,0xb1,0x02 };*/
 
-#ifdef AUTO_CHANGE_RES
 int resindex_begin = 0;
-//int resindex_end = -1;
-#endif //AUTO_CHANGE_RES
 
 //----- (00046830) --------------------------------------------------------
 void sub_46830_main_loop(/*int16_t* a1, */signed int a2, unsigned __int16 a3)//227830
@@ -39697,13 +39606,13 @@ void sub_46830_main_loop(/*int16_t* a1, */signed int a2, unsigned __int16 a3)//2
 	v5 = 0;
 	// end
 	//x_D41A0_BYTEARRAY_0_to_x_D41A0_BYTESTR_0();//fixing x_D41A0_BYTEARRAY_0
-#ifdef DEBUG_SEQUENCES
-	/*uint8_t origbyte20 = 0;
-	uint8_t remakebyte20 = 0;
-	int debugcounter11 = 0;
-	int comp20 = compare_with_sequence_D41A0((char*)"00227830-00356038", (uint8_t*)& D41A0_BYTESTR_0, 0x356038, debugcounter11, 224790, &origbyte20, &remakebyte20);
-*/
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		/*uint8_t origbyte20 = 0;
+		uint8_t remakebyte20 = 0;
+		int debugcounter11 = 0;
+		int comp20 = compare_with_sequence_D41A0((char*)"00227830-00356038", (uint8_t*)& D41A0_BYTESTR_0, 0x356038, debugcounter11, 224790, &origbyte20, &remakebyte20);
+		*/
+	}
 
 	x_D41A0_BYTEARRAY_4_struct.setting_30 = 0;//2a51a4
 	D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x004_2BE0_11234 = 0;
@@ -39742,9 +39651,9 @@ void sub_46830_main_loop(/*int16_t* a1, */signed int a2, unsigned __int16 a3)//2
 			debug_printf("sub_46830_main_loop:init game level passed\n");
 #endif //DEBUG_START
 
-#ifdef AUTO_CHANGE_RES
-			resindex_begin = 0;
-#endif //AUTO_CHANGE_RES
+			if (CommandLineParams.DoAutoChangeRes()) {
+				resindex_begin = 0;
+			}
 
 			//!!!!!!!!!!! debug fix it
 			//mouseturnoff = true;
@@ -40300,25 +40209,25 @@ void sub_47320_in_game_loop(signed int a1)//228320
 	while (1)
 	{
 		//debug
-#ifdef RIGHT_BUTTON
-		if (debugafterload)
-		{
-			if (debug_first_run % 10 == 8)
+		if (CommandLineParams.DoRightButton()) {
+			if (CommandLineParams.DoDebugafterload())
 			{
-				if (!x_WORD_18074A_mouse_right2_button && !x_WORD_180744_mouse_right_button)//first cycle after press and ...
+				if (debug_first_run % 10 == 8)
 				{
-					//x_WORD_180744_mouse_right_button = 1;
-					x_WORD_180746_mouse_left_button = 1;
-					//x_WORD_E375C_mouse_position_x = temp_mouse_x;
-					//mouse_state = temp_mouse_y;
-					//x_WORD_E375E_mouse_position_y = temp_mouse_y;
+					if (!x_WORD_18074A_mouse_right2_button && !x_WORD_180744_mouse_right_button)//first cycle after press and ...
+					{
+						//x_WORD_180744_mouse_right_button = 1;
+						x_WORD_180746_mouse_left_button = 1;
+						//x_WORD_E375C_mouse_position_x = temp_mouse_x;
+						//mouse_state = temp_mouse_y;
+						//x_WORD_E375E_mouse_position_y = temp_mouse_y;
+					}
+					//x_WORD_18074A_mouse_right2_button = 1;
+					x_WORD_18074C_mouse_left2_button = 1;
 				}
-				//x_WORD_18074A_mouse_right2_button = 1;
-				x_WORD_18074C_mouse_left2_button = 1;
+				debug_first_run++;
 			}
-			debug_first_run++;
 		}
-#endif
 
 		//debug
 
@@ -40390,7 +40299,7 @@ void DrawAndEventsInGame_47560(/*uint8_t* a1, int a2, */uint32_t a3, signed int 
 	//frameStart = clock();
 #endif
 
-	if ((debugafterload == 1) && (count_begin == 1))
+	if ((CommandLineParams.DoDebugafterload() == 1) && (count_begin == 1))
 		debugcounter_47560++;
 
 	PaletteChanges_47760(/*a1, a2, (int)a3*/a3);
@@ -40400,47 +40309,47 @@ void DrawAndEventsInGame_47560(/*uint8_t* a1, int a2, */uint32_t a3, signed int 
 	}
 	ReadGameUserInputs_89D10();//get keys
 
-#ifdef AUTO_CHANGE_RES
-	if ((windowResWidth >= 640)&&(windowResHeight >= 480))
-	//if (true)
-	{
-		if (resindex_begin == 1)
+	if (CommandLineParams.DoAutoChangeRes()) {
+		if ((windowResWidth >= 640)&&(windowResHeight >= 480))
+		//if (true)
 		{
-			LastPressedKey_1806E4 = 0x13;
-			resindex_begin++;
-		}
-		else
-		{
-			if (resindex_begin == 2)
+			if (resindex_begin == 1)
 			{
-				LastPressedKey_1806E4 = 0;
+				LastPressedKey_1806E4 = 0x13;
 				resindex_begin++;
 			}
 			else
 			{
-				if (resindex_begin < 1)
+				if (resindex_begin == 2)
 				{
+					LastPressedKey_1806E4 = 0;
 					resindex_begin++;
+				}
+				else
+				{
+					if (resindex_begin < 1)
+					{
+						resindex_begin++;
+					}
 				}
 			}
 		}
 	}
-#endif //AUTO_CHANGE_RES
 
 	MouseAndKeysEvents_17A00(a4, a5);
 
-#ifdef INTERVAL_SAVE
-//save in interval
-	int interval = 1;
-	if (save_debugcounter % interval == 0)
-		intervalsave(save_debugcounter / interval);
-	//save in interval
-	save_debugcounter++;
-#endif //INTERVAL_SAVE
+	if (CommandLineParams.DoIntervalSave()) {
+		//save in interval
+		int interval = 1;
+		if (save_debugcounter % interval == 0)
+			intervalsave(save_debugcounter / interval);
+		//save in interval
+		save_debugcounter++;
+	}
 //adress 228583
-#ifdef DEBUG_SEQUENCES2
-	//add_compare(0x228583, debugafterload);
-#endif //DEBUG_SEQUENCES2
+	if (CommandLineParams.DoDebugSequences2()) {
+		//add_compare(0x228583, CommandLineParams.DoDebugafterload());
+	}
 	GameEvents_51BB0();//nothing draw
 	//adress 228588
 	sub_848A0();//nothing draw
@@ -40470,41 +40379,41 @@ void DrawAndEventsInGame_47560(/*uint8_t* a1, int a2, */uint32_t a3, signed int 
 	sub_6E150();//nothing draw
 	DrawGameFrame_2BE30();
 	//adress 2285ff
-	//add_compare(0x002285FF, debugafterload);
-#ifdef TEST_REGRESSION
-	add_compare(0x002285FF, debugafterload, -1, false, 20);
-	//add_compare(0x002285FF, debugafterload, 6);
-#endif //TEST_REGRESSION
-#ifdef DEBUG_SEQUENCES2
-	//add_compare(0x002285FF, debugafterload);
-#endif //DEBUG_SEQUENCES2
-#ifdef DEBUG_SEQUENCES
-	//add_compare(0x002285FF, debugafterload);
-#endif //DEBUG_SEQUENCES
+	//add_compare(0x002285FF, CommandLineParams.DoDebugafterload());
+	if (CommandLineParams.DoTestRegression()) {
+		add_compare(0x002285FF, CommandLineParams.DoDebugafterload(), -1, false, 20);
+		//add_compare(0x002285FF, CommandLineParams.DoDebugafterload(), 6);
+	}
+	if (CommandLineParams.DoDebugSequences2()) {
+		//add_compare(0x002285FF, CommandLineParams.DoDebugafterload());
+	}
+	if (CommandLineParams.DoDebugSequences()) {
+		//add_compare(0x002285FF, CommandLineParams.DoDebugafterload());
+	}
 	/*if (debugcounter_47560_2>=0x8f)
 	{
 		debugcounter_47560_2++;
 		debugcounter_47560_2--;
 	}
 	debugcounter_47560_2++;*/
-#ifdef ANALYZE_ENTITY
-	analyzeEntites();
-#endif //ANALYZE_ENTITY
+	if (CommandLineParams.DoAnalyzeEntity()) {
+		analyzeEntites();
+	}
 	if (x_D41A0_BYTEARRAY_4_struct.byteindex_10)
 		DrawHelpPopUps_871F0();
 	//adress 22860f
 
-#ifdef DETECT_DWORD_A
-	for (int iii = 1; iii < 0x3E9; iii++)
-		if (x_DWORD_EA3E4[iii]->oldMapEntity_0x16_22 == iii)
-			allert_error();
-	for (int jx = 1; jx < 50; jx++)
-	{
-		if (D41A0_0.str_0x3664C[jx].byte_0)
-			if (D41A0_0.str_0x3664C[jx].event_A.pointer_0x6E8E < D41A0_0.struct_0x6E8E || D41A0_0.str_0x3664C[jx].event_A.pointer_0x6E8E >= &D41A0_0.struct_0x6E8E[0x3e8])
+	if (CommandLineParams.DoDetectDwordA()) {
+		for (int iii = 1; iii < 0x3E9; iii++)
+			if (x_DWORD_EA3E4[iii]->oldMapEntity_0x16_22 == iii)
 				allert_error();
+		for (int jx = 1; jx < 50; jx++)
+		{
+			if (D41A0_0.str_0x3664C[jx].byte_0)
+				if (D41A0_0.str_0x3664C[jx].event_A.pointer_0x6E8E < D41A0_0.struct_0x6E8E || D41A0_0.str_0x3664C[jx].event_A.pointer_0x6E8E >= &D41A0_0.struct_0x6E8E[0x3e8])
+					allert_error();
+		}
 	}
-#endif //DETECT_DWORD_A
 
 	x_D41A0_BYTEARRAY_4_struct.byteindex_196 = x_DWORD_17DB54_game_turn2 - x_D41A0_BYTEARRAY_4_struct.byteindex_196;
 	sub_6FEC0();
@@ -41720,15 +41629,15 @@ void sub_48B90(uaxis_2d a1x)//229b90
 		//myprintf("i:%d,", debugcounter2);
 	}
 	debugcounter2++;*/
-#ifdef DEBUG_SEQUENCES
-	//if (debugcounter_229b90 >= 0x00001C43) {
-	if (debugcounter_229b90 >= 0x00001d5d) {
+	if (CommandLineParams.DoDebugSequences()) {
+		//if (debugcounter_229b90 >= 0x00001C43) {
+		if (debugcounter_229b90 >= 0x00001d5d) {
+			debugcounter_229b90++;
+			debugcounter_229b90--;
+		}
 		debugcounter_229b90++;
-		debugcounter_229b90--;
+		//add_compare(0x229B94, CommandLineParams.DoDebugafterload());
 	}
-	debugcounter_229b90++;
-	//add_compare(0x229B94, debugafterload);
-#endif //DEBUG_SEQUENCES
 
 	//LOWORD(i) = a1;
 	v2 = 0;
@@ -42098,13 +42007,13 @@ void sub_49270_generate_level_features(type_str_2FECE* terrain)//22a270
 {
 	SetStagetagForTermod_49830(terrain);
 	//adress 22A27D
-#ifdef DEBUG_SEQUENCES
-	add_compare(0x22A280, debugafterload);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		add_compare(0x22A280, CommandLineParams.DoDebugafterload());
+	}
 	GenerateEvents_49290(terrain, 1, 640, 480);
-#ifdef DEBUG_SEQUENCES
-	add_compare(0x22A288, debugafterload);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		add_compare(0x22A288, CommandLineParams.DoDebugafterload());
+	}
 }
 
 //----- (00049290) --------------------------------------------------------
@@ -42128,9 +42037,9 @@ void GenerateEvents_49290(type_str_2FECE* terrain, char a2, uint16_t width, uint
 		}
 	}
 	ApplyEvents_498A0();//adress 22a2de
-#ifdef DEBUG_SEQUENCES
-	add_compare(0x22A2E3, debugafterload);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		add_compare(0x22A2E3, CommandLineParams.DoDebugafterload());
+	}
 
 	for (jx = 1; jx < 0x4b0; jx++)
 	{
@@ -42156,15 +42065,15 @@ void GenerateEvents_49290(type_str_2FECE* terrain, char a2, uint16_t width, uint
 			}
 		}
 	}
-#ifdef DEBUG_SEQUENCES
-	add_compare(0x22A383, debugafterload);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		add_compare(0x22A383, CommandLineParams.DoDebugafterload());
+	}
 
 	ApplyEvents_498A0();//22a383
 
-#ifdef DEBUG_SEQUENCES
-	add_compare(0x22A388, debugafterload);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		add_compare(0x22A388, CommandLineParams.DoDebugafterload());
+	}
 	for (kx = 1; kx < 0x4b0; kx++)
 	{
 		if (terrain->entity_0x30311[kx].DisId == -1 && terrain->entity_0x30311[kx].type_0x30311 == 0x000a)
@@ -42178,9 +42087,9 @@ void GenerateEvents_49290(type_str_2FECE* terrain, char a2, uint16_t width, uint
 			}
 		}
 	}
-#ifdef DEBUG_SEQUENCES
-	add_compare(0x22A3D7, debugafterload);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		add_compare(0x22A3D7, CommandLineParams.DoDebugafterload());
+	}
 	ApplyEvents_498A0();//adress 22a3d7
 	for (lx = 1; lx < 0x4b0; lx++)
 	{
@@ -42191,13 +42100,13 @@ void GenerateEvents_49290(type_str_2FECE* terrain, char a2, uint16_t width, uint
 				terrain->entity_0x30311[lx].type_0x30311 = 0;
 		}
 	}
-#ifdef DEBUG_SEQUENCES
-	add_compare(0x22A422, debugafterload);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		add_compare(0x22A422, CommandLineParams.DoDebugafterload());
+	}
 	ApplyEvents_498A0();//22a422
-#ifdef DEBUG_SEQUENCES
-	add_compare(0x22A427, debugafterload);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		add_compare(0x22A427, CommandLineParams.DoDebugafterload());
+	}
 	for (mx = 1; mx < 0x4b0; mx++)
 	{
 		if (terrain->entity_0x30311[mx].DisId == -1 && terrain->entity_0x30311[mx].type_0x30311 == 0x000a)
@@ -42222,9 +42131,9 @@ void GenerateEvents_49290(type_str_2FECE* terrain, char a2, uint16_t width, uint
 		}
 	}
 	ApplyEvents_498A0();//adress 22a4d1
-#ifdef DEBUG_SEQUENCES
-	add_compare(0x22A4D6, debugafterload);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		add_compare(0x22A4D6, CommandLineParams.DoDebugafterload());
+	}
 	for (ox = 1; ox < 0x4b0; ox++)
 	{
 		if (terrain->entity_0x30311[ox].DisId == -1 && terrain->entity_0x30311[ox].type_0x30311 == 0x000a && terrain->entity_0x30311[ox].subtype_0x30311 == 0x002d && !(str_D93C0_bldgprmbuffer[terrain->entity_0x30311[ox].par1_14].byte_2 & 0x10))
@@ -42234,9 +42143,9 @@ void GenerateEvents_49290(type_str_2FECE* terrain, char a2, uint16_t width, uint
 				terrain->entity_0x30311[ox].type_0x30311 = 0;
 		}
 	}
-#ifdef DEBUG_SEQUENCES
-	add_compare(0x22A52C, debugafterload);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		add_compare(0x22A52C, CommandLineParams.DoDebugafterload());
+	}
 	ApplyEvents_498A0();//adress 22a52c
 }
 
@@ -42249,15 +42158,15 @@ void PrepareEvents_49540(type_str_2FECE* terrain, type_entity_0x30311* entity)//
 	type_event_0x6E8E* event; // eax
 	uint32_t temp_adress;
 
-#ifdef DEBUG_SEQUENCES
-	debugcounter_22a540++;
-	if (debugcounter_22a540 >= 0x14)
-	{
+	if (CommandLineParams.DoDebugSequences()) {
 		debugcounter_22a540++;
-		debugcounter_22a540--;
+		if (debugcounter_22a540 >= 0x14)
+		{
+			debugcounter_22a540++;
+			debugcounter_22a540--;
+		}
+		add_compare(0x22a545, CommandLineParams.DoDebugafterload(),0x13);
 	}
-	add_compare(0x22a545, debugafterload,0x13);
-#endif //DEBUG_SEQUENCES
 	switch (entity->type_0x30311)
 	{
 		case 0x02:
@@ -43806,9 +43715,9 @@ type_event_0x6E8E* pre_sub_4A190_axis_3d(uint32_t adress, axis_3d* a1_axis3d)//p
 
 void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E)//pre 22b190
 {
-#ifndef NO_SHOW_NEW_PROCEDURES
-	test_pre_sub_4a190(adress);//for debug
-#endif
+	if (CommandLineParams.DoShowNewProcedures()) {
+		test_pre_sub_4a190(adress);//for debug
+	}
 	switch (adress)
 	{
 	case 0x1f3910: {
@@ -47472,9 +47381,9 @@ void sub_4A1E0(int a1, char a2)//22b1e0
 		CleanF5538_716A0();
 		for (int v3x = 1; v3x < 0x4b0; v3x++)
 		{
-#ifdef DEBUG_SEQUENCES
-			//add_compare(0x22b21a, debugafterload);//0x9ac
-#endif //DEBUG_SEQUENCES			
+			if (CommandLineParams.DoDebugSequences()) {
+				//add_compare(0x22b21a, CommandLineParams.DoDebugafterload());//0x9ac
+			}
 			sub_716C0(D41A0_0.terrain_2FECE.entity_0x30311[v3x].type_0x30311, D41A0_0.terrain_2FECE.entity_0x30311[v3x].subtype_0x30311, 0xFFFFu);
 		}
 		sub_71780();
@@ -47492,9 +47401,9 @@ void sub_4A1E0(int a1, char a2)//22b1e0
 		debugcounter_0022B25D++;*/
 
 		//adress 22b26e
-#ifdef DEBUG_SEQUENCES
-		//add_compare(0x22b268, debugafterload,0x54);//0x9ac
-#endif //DEBUG_SEQUENCES
+		if (CommandLineParams.DoDebugSequences()) {
+			//add_compare(0x22b268, CommandLineParams.DoDebugafterload(),0x54);//0x9ac
+		}
 		if (D41A0_0.terrain_2FECE.entity_0x30311[iy].type_0x30311 && D41A0_0.terrain_2FECE.entity_0x30311[iy].DisId == a1)
 		{//adress 22b278
 			sub_4A310(&D41A0_0.terrain_2FECE.entity_0x30311[iy]);
@@ -52458,15 +52367,15 @@ void GameEvents_51BB0()//232bb0
 	while (1)
 	{
 		//adress 233d56
-#ifdef DEBUG_SEQUENCES
-		if (debugcounter_233d56 >= 0x365)
-		{
+		if (CommandLineParams.DoDebugSequences()) {
+			if (debugcounter_233d56 >= 0x365)
+			{
+				debugcounter_233d56++;
+				debugcounter_233d56--;
+			}
 			debugcounter_233d56++;
-			debugcounter_233d56--;
+			//add_compare(0x233d56, CommandLineParams.DoDebugafterload(),0x365);
 		}
-		debugcounter_233d56++;
-		//add_compare(0x233d56, debugafterload,0x365);
-#endif //DEBUG_SEQUENCES
 
 		if ((unsigned __int16)v116 >= D41A0_0.word_0xe)
 			return;
@@ -53395,7 +53304,8 @@ char sub_533B0_decompress_levels(__int16 a1, type_str_2FECE* a2x)//2343b0
 		DataFileIO::Close(levelsdatfile);
 
 		//if exist editor generated level
-		#if defined(LOAD_EDITED_LEVEL) && !defined(IS_EDITOR)
+		#if !defined(IS_EDITOR)
+			if (CommandLineParams.DoLoadEditedLevel()) {
 				if (config_LOAD_EDITED_LEVEL) {
 					char path2[512];
 					FixDir(path2, (char*)"../remc2/editor/Debug/testsave.sav");
@@ -53411,7 +53321,8 @@ char sub_533B0_decompress_levels(__int16 a1, type_str_2FECE* a2x)//2343b0
 					}
 					fclose(file);
 				}
-		#endif //LOAD_EDITED_LEVEL
+			}
+		#endif //!IS_EDITOR
 		//if exist editor generated level
 
 		sub_56C00_sound_proc2(a2x);
@@ -54929,7 +54840,9 @@ bool LoadLevelSMAP_558E0(uint8_t savefileindex)//2368e0
 	x_D41A0_BYTEARRAY_4_struct.dword_38519 = x_DWORD_EA3E4[1];
 	//fix
 
-	debugafterload = 1;
+	// FIXME: cannot set this here.
+	//        was before: debugafterload = 1;
+	//        cannot be: CommandLineParams.DoDebugafterload() = 1;
 	x_D41A0_BYTEARRAY_4_struct.setting_30 = 0x3d;//fix same run after load
 	x_WORD_17B4E0 = 0x21ed;//fix random variable for debugging
 
@@ -55470,31 +55383,31 @@ type_SPELLS_BEGIN_BUFFER_str;
 const int StartNetworkTimeout = 5;
 
 void InitNetworkInfo() {
-#ifdef TEST_NETWORK
-	std::string exepath = get_exe_path();
-	debug_net_filename2 = exepath + "/../" + debug_net_filename1;
+	if (CommandLineParams.ModeTestNetwork()) {
+		std::string exepath = get_exe_path();
+		debug_net_filename2 = exepath + "/../" + debug_net_filename1;
 
-	//testlib1();
-	/*if (Iam_server)
-		InitLibNetServer(ServerMPort);
-	InitLibNetClient(serverIP, ServerMPort, ClientMPort);*/
-	InitMyNetLib(Iam_server, serverIP, NetworkPort);
-	/*
-	if (Iam_server)
-	{
-		while (StartNetworkTimeout>0) {
-			mydelay(1000);
-			StartNetworkTimeout--;
-			myprintf("I wait for clients %d s\n", StartNetworkTimeout);
+		//testlib1();
+		/*if (Iam_server)
+			InitLibNetServer(ServerMPort);
+		InitLibNetClient(serverIP, ServerMPort, ClientMPort);*/
+		InitMyNetLib(Iam_server, serverIP, NetworkPort);
+		/*
+		if (Iam_server)
+		{
+			while (StartNetworkTimeout>0) {
+				mydelay(1000);
+				StartNetworkTimeout--;
+				myprintf("I wait for clients %d s\n", StartNetworkTimeout);
+			}
+			SendMessagesRegisterOK();
 		}
-		SendMessagesRegisterOK();
+		bool receive_timeout = false;
+		while (!receive_timeout) {
+			receive_timeout = ReceiveTimeout();
+			mydelay(1000);
+		}*/
 	}
-	bool receive_timeout = false;
-	while (!receive_timeout) {
-		receive_timeout = ReceiveTimeout();
-		mydelay(1000);
-	}*/
-#endif //TEST_NETWORK
 };
 
 
@@ -55538,11 +55451,11 @@ int sub_main(int argc, char** argv, char**  /*envp*/)//236F70
 #endif
 	}
 
-#ifdef DISABLE_GRAPHICS_ENHANCE
+	if (CommandLineParams.DoDisableGraphicsEnhance()) {
 		bigSprites = false;
 		bigTextures = false;
 		texturepixels = 32;
-#endif //DISABLE_GRAPHICS_ENHANCE
+	}
 
 	//Set Paths for game data
 	GetSubDirectoryPath(gameDataPath, gameFolder);
@@ -55614,16 +55527,16 @@ int sub_main(int argc, char** argv, char**  /*envp*/)//236F70
 	initposistruct();
 
 	sub_56210_process_command_line(argc, argv);//236FD4 - 237210
-#ifdef TEST_NETWORK
-	if (Iam_server || Iam_client)
-		InitNetworkInfo();
-#endif //TEST_NETWORK
-
+	if (CommandLineParams.ModeTestNetwork()) {
+		if (Iam_server || Iam_client)
+			InitNetworkInfo();
+	}
 
 	//-init 0x2a51a4 je nekde tu
-#ifdef COPY_SKIP_CONFIG
-	x_BYTE_D41AD_skip_screen = config_skip_screen;
-#endif //COPY_SKIP_CONFIG
+	if (CommandLineParams.DoCopySkipConfig()) {
+		x_BYTE_D41AD_skip_screen = config_skip_screen;
+	}
+
 	Initialize();//236FDC - 23C8D0//rozdil 1E1000
 
 	sub_46830_main_loop(/*0, */v3, v4);//227830
@@ -55631,15 +55544,15 @@ int sub_main(int argc, char** argv, char**  /*envp*/)//236F70
 	sub_5BC20();//23CC20 //remove devices?
 	sub_56730_clean_memory();//237730
 	
-#ifdef TEST_NETWORK
-	if (Iam_server || Iam_client)
-	{
-		EndMyNetLib();
-		/*EndLibNetClient();
-		if (Iam_server)
-			EndLibNetServer();*/
+	if (CommandLineParams.ModeTestNetwork()) {
+		if (Iam_server || Iam_client)
+		{
+			EndMyNetLib();
+			/*EndLibNetClient();
+			if (Iam_server)
+				EndLibNetServer();*/
+		}	
 	}
-#endif //TEST_NETWORK
 
 	return 0;
 }
@@ -56041,12 +55954,10 @@ void ClearSettings_567C0()//2377c0 // clean level
 //----- (00056A30) --------------------------------------------------------
 void sub_56A30_init_game_level(unsigned int a1)//237a30
 {
-#ifdef MOUSE_OFF
-	mouseturnoff = true;
-#endif
-#ifdef SET_LEVEL
-	x_D41A0_BYTEARRAY_4_struct.levelnumber_43 = 1;
-#endif
+	if (CommandLineParams.DoMouseOff()) { mouseturnoff = true; }
+	if (CommandLineParams.DoSetLevel()) {
+		x_D41A0_BYTEARRAY_4_struct.levelnumber_43w = 1;
+	}
 #ifdef DEBUG_START
 	debug_printf("sub_56A30_init_game_level:before sub_6EB90\n");
 #endif //DEBUG_START
@@ -56080,9 +55991,9 @@ void sub_56A30_init_game_level(unsigned int a1)//237a30
 		GenerateLevelMap_43830(a1, &D41A0_0.terrain_2FECE);
 	sub_49F30();//prepare events pointers
 	//237B05
-#ifdef DEBUG_SEQUENCES
-	add_compare(0x237B05, debugafterload);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		add_compare(0x237B05, CommandLineParams.DoDebugafterload());
+	}
 	PrintTextMessage_70910((char*)"Generate features\0");
 	if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 4))
 		sub_49270_generate_level_features(&D41A0_0.terrain_2FECE);
@@ -56090,9 +56001,9 @@ void sub_56A30_init_game_level(unsigned int a1)//237a30
 	memset(&x_WORD_EB398ar, 0, 6);
 	sub_49F90();
 	//adress 237B55
-#ifdef DEBUG_SEQUENCES
-	add_compare(0x237B55, debugafterload);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		add_compare(0x237B55, CommandLineParams.DoDebugafterload());
+	}
 	D41A0_0.dword_0x11e6 = -1;
 	sub_71A70_setTmaps(D41A0_0.terrain_2FECE.MapType);
 	//adress 237b75
@@ -56103,35 +56014,36 @@ void sub_56A30_init_game_level(unsigned int a1)//237a30
 		Init0x3664C_84790();
 	}
 	//adress 237BB0
-#ifdef DEBUG_SEQUENCES
-	add_compare(0x237BB0, debugafterload);
-#endif //DEBUG_SEQUENCES
-#ifdef SET_OBJECTIVE
-	D41A0_BYTESTR_0.struct_0x3659C[0].substr_3659C.stage_0x3659F[0] = 2;
-	D41A0_BYTESTR_0.struct_0x3659C[0].substr_3659C.stage_0x3659F[1] = 2;
-	D41A0_BYTESTR_0.struct_0x3659C[0].substr_3659C.stage_0x3659F[2] = 2;
-	D41A0_BYTESTR_0.struct_0x3659C[0].substr_3659C.stage_0x3659F[3] = 2;
-	//D41A0_BYTESTR_0.struct_0x3659C[0].substr_3659C.stage_0x3659F[4] = 2;
-	D41A0_BYTESTR_0.struct_0x3659C[0].substr_3659C.array_0x3659C_byte[1] = 4;
-	//D41A0_BYTESTR_0.struct_0x3654C[0].str_3654E_word2 = 40;
-	//D41A0_BYTESTR_0.struct_0x3654C[0].str_36550_word4 = 40;
-#endif
+	if (CommandLineParams.DoDebugSequences()) {
+		add_compare(0x237BB0, CommandLineParams.DoDebugafterload());
+	}
+	if (CommandLineParams.DoSetObjective()) {
+		// FIXME: D41A0_BYTESTR_0 undeclared
+		// D41A0_BYTESTR_0.struct_0x3659C[0].substr_3659C.stage_0x3659F[0] = 2;
+		// D41A0_BYTESTR_0.struct_0x3659C[0].substr_3659C.stage_0x3659F[1] = 2;
+		// D41A0_BYTESTR_0.struct_0x3659C[0].substr_3659C.stage_0x3659F[2] = 2;
+		// D41A0_BYTESTR_0.struct_0x3659C[0].substr_3659C.stage_0x3659F[3] = 2;
+		// //D41A0_BYTESTR_0.struct_0x3659C[0].substr_3659C.stage_0x3659F[4] = 2;
+		// D41A0_BYTESTR_0.struct_0x3659C[0].substr_3659C.array_0x3659C_byte[1] = 4;
+		// //D41A0_BYTESTR_0.struct_0x3654C[0].str_3654E_word2 = 40;
+		// //D41A0_BYTESTR_0.struct_0x3654C[0].str_36550_word4 = 40;
+	}
 	sub_4A1E0(0, 1);
 	//adress 237bb9
-#ifdef DEBUG_SEQUENCES
-	add_compare(0x237bb9, debugafterload);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		add_compare(0x237bb9, CommandLineParams.DoDebugafterload());
+	}
 	x_BYTE_E3799_sound_card = temp_x_BYTE_E3799_sound_card;
 	sub_53160();
 	//adress 237bc7
-#ifdef DEBUG_SEQUENCES
-	add_compare(0x237BC7, debugafterload);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		add_compare(0x237BC7, CommandLineParams.DoDebugafterload());
+	}
 	//adress 237beb
 	sub_60F00();
-#ifdef DEBUG_SEQUENCES
-	add_compare(0x237BF0, debugafterload);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		add_compare(0x237BF0, CommandLineParams.DoDebugafterload());
+	}
 }
 
 //----- (00056C00) --------------------------------------------------------
@@ -56275,9 +56187,9 @@ char sub_56F10(__int16 a1, __int16 a2, __int16 a3, char a4)//237f10
 	char v11; // [esp+0h] [ebp-8h]
 	uaxis_2d v12x; // [esp+4h] [ebp-4h]
 
-#ifdef DEBUG_SEQUENCES
-	//add_compare(0x237f12,debugafterload,1);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		//add_compare(0x237f12,CommandLineParams.DoDebugafterload(),1);
+	}
 
 	//LOBYTE(v12) = a1;
 	//HIBYTE(v12) = a2;
@@ -56373,30 +56285,30 @@ char sub_570F0(__int16 a1, __int16 a2, signed __int16 a3, char a4, char a5, char
 	char v8; // [esp+0h] [ebp-8h]
 	uaxis_2d v9x; // [esp+4h] [ebp-4h]
 
-#ifdef DEBUG_SEQUENCES
-	/*uint8_t origbyte20 = 0;
-	uint8_t remakebyte20 = 0;
-	int comp20;
-	if (debugcounter_2380f0_2 >= 0xce70)
-	{
-		debugcounter_2380f0_2++;
-		debugcounter_2380f0_2--;
-	}
-	debugcounter_2380f0_2++;
-	if (debugafter_215540)
-	{
-		if (debugcounter_2380f0 >= 0x1000)
+	if (CommandLineParams.DoDebugSequences()) {
+		/*uint8_t origbyte20 = 0;
+		uint8_t remakebyte20 = 0;
+		int comp20;
+		if (debugcounter_2380f0_2 >= 0xce70)
 		{
-			comp20 = compare_with_sequence((char*)"002380f0-002DC4E0", (uint8_t*)x_BYTE_10B4E0_terraintype, 0x2dc4e0, debugcounter_2380f0, 0x70000, 0x10000, &origbyte20, &remakebyte20);
-			comp20 = compare_with_sequence((char*)"002380f0-002DC4E0", (uint8_t*)x_BYTE_11B4E0_height, 0x2dc4e0, debugcounter_2380f0, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x10000);
-			comp20 = compare_with_sequence((char*)"002380f0-002DC4E0", (uint8_t*)x_BYTE_12B4E0_shading, 0x2dc4e0, debugcounter_2380f0, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x20000);
-			comp20 = compare_with_sequence((char*)"002380f0-002DC4E0", (uint8_t*)x_BYTE_13B4E0_angle, 0x2dc4e0, debugcounter_2380f0, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x30000);
-			comp20 = compare_with_sequence((char*)"002380f0-002DC4E0", (uint8_t*)x_WORD_15B4E0_source, 0x2dc4e0, debugcounter_2380f0, 0x70000, 0x20000, &origbyte20, &remakebyte20, 0x50000);
-			comp20 = compare_with_sequence_D41A0((char*)"002380f0-00356038", (uint8_t*)& D41A0_BYTESTR_0, 0x356038, debugcounter_2380f0, 224790, &origbyte20, &remakebyte20);
+			debugcounter_2380f0_2++;
+			debugcounter_2380f0_2--;
 		}
-		debugcounter_2380f0++;
-	}*/
-#endif //DEBUG_SEQUENCES
+		debugcounter_2380f0_2++;
+		if (debugafter_215540)
+		{
+			if (debugcounter_2380f0 >= 0x1000)
+			{
+				comp20 = compare_with_sequence((char*)"002380f0-002DC4E0", (uint8_t*)x_BYTE_10B4E0_terraintype, 0x2dc4e0, debugcounter_2380f0, 0x70000, 0x10000, &origbyte20, &remakebyte20);
+				comp20 = compare_with_sequence((char*)"002380f0-002DC4E0", (uint8_t*)x_BYTE_11B4E0_height, 0x2dc4e0, debugcounter_2380f0, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x10000);
+				comp20 = compare_with_sequence((char*)"002380f0-002DC4E0", (uint8_t*)x_BYTE_12B4E0_shading, 0x2dc4e0, debugcounter_2380f0, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x20000);
+				comp20 = compare_with_sequence((char*)"002380f0-002DC4E0", (uint8_t*)x_BYTE_13B4E0_angle, 0x2dc4e0, debugcounter_2380f0, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x30000);
+				comp20 = compare_with_sequence((char*)"002380f0-002DC4E0", (uint8_t*)x_WORD_15B4E0_source, 0x2dc4e0, debugcounter_2380f0, 0x70000, 0x20000, &origbyte20, &remakebyte20, 0x50000);
+				comp20 = compare_with_sequence_D41A0((char*)"002380f0-00356038", (uint8_t*)& D41A0_BYTESTR_0, 0x356038, debugcounter_2380f0, 224790, &origbyte20, &remakebyte20);
+			}
+			debugcounter_2380f0++;
+		}*/
+	}
 
 	//LOBYTE(v9) = a1;
 	//HIBYTE(v9) = a2;
@@ -56808,17 +56720,17 @@ void UpdateEntities_57730()//238730
 	type_event_0x6E8E* v23x; // [esp+74h] [ebp-8h]
 	type_event_0x6E8E* v24x; // [esp+78h] [ebp-4h]
 
-#ifdef DEBUG_SEQUENCES2
-	//add_compare(0x238734, debugafterload);
-#endif //DEBUG_SEQUENCES2
+	if (CommandLineParams.DoDebugSequences2()) {
+		//add_compare(0x238734, CommandLineParams.DoDebugafterload());
+	}
 
 	D41A0_0.rand_0x8 = 9377 * D41A0_0.rand_0x8 + 9439;
 	for (ix = x_DWORD_EA3E4[1]; ix < x_DWORD_EA3E4[0x3e8]; ix++)
 	{
 		//adress 238756
-#ifdef DEBUG_SEQUENCES2
-		//add_compare(0x238756, debugafterload);
-#endif //DEBUG_SEQUENCES2
+		if (CommandLineParams.DoDebugSequences2()) {
+			//add_compare(0x238756, CommandLineParams.DoDebugafterload());
+		}
 		if (ix->type_0x3F_63 && ix->struct_byte_0xc_12_15.byte[1] & 4)
 			sub_57F20(ix);
 	}
@@ -56969,14 +56881,14 @@ void UpdateEntities_57730()//238730
 					sub_12500(lx);
 			}
 		}
-#ifdef DEBUG_SEQUENCES2
-		//add_compare(0x2389eb, debugafterload);
-#endif //DEBUG_SEQUENCES2
+		if (CommandLineParams.DoDebugSequences2()) {
+			//add_compare(0x2389eb, CommandLineParams.DoDebugafterload());
+		}
 		if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 0x10))
 			sub_68BF0();
-#ifdef DEBUG_SEQUENCES2
-		//add_compare(0x2389f6, debugafterload);
-#endif //DEBUG_SEQUENCES2
+		if (CommandLineParams.DoDebugSequences2()) {
+			//add_compare(0x2389f6, CommandLineParams.DoDebugafterload());
+		}
 		sub_159E0();//adress 2389f6
 		if (isCaveLevel_D41B6)
 			sub_58630();
@@ -56984,42 +56896,41 @@ void UpdateEntities_57730()//238730
 		for (mx = x_DWORD_EA3E4[1]; mx < x_DWORD_EA3E4[0x3e8]; mx++)
 		{
 			//adress 238a3d
-#ifdef DEBUG_SEQUENCES2
-			if (debug_UpdateEntities_57730_2 >= 0x33)
-			{
+			if (CommandLineParams.DoDebugSequences2()) {
+				if (debug_UpdateEntities_57730_2 >= 0x33)
+				{
+					debug_UpdateEntities_57730_2++;
+					debug_UpdateEntities_57730_2--;
+				}
 				debug_UpdateEntities_57730_2++;
-				debug_UpdateEntities_57730_2--;
+				//add_compare(0x238a3d, CommandLineParams.DoDebugafterload());//0x9ac
 			}
-			debug_UpdateEntities_57730_2++;
-			//add_compare(0x238a3d, debugafterload);//0x9ac
-#endif //DEBUG_SEQUENCES2
 			if (mx->type_0x3F_63)
 			{
 				if (mx->byte_0x45_69 == str_D4C48ar[mx->type_0x3F_63].dword_10[mx->byte_0x45_69].word_4)
 				{
 					if (str_D4C48ar[mx->type_0x3F_63].dword_10[mx->byte_0x45_69].dword_10)
 					{
-#ifdef DEBUG_SEQUENCES
-						if (debug_UpdateEntities_57730 == 0x72c0)
-						{
+						if (CommandLineParams.DoDebugSequences()) {
+							if (debug_UpdateEntities_57730 == 0x72c0)
+							{
+								debug_UpdateEntities_57730++;
+								debug_UpdateEntities_57730--;
+							}
 							debug_UpdateEntities_57730++;
-							debug_UpdateEntities_57730--;
+							//add_compare(0x238A8A, CommandLineParams.DoDebugafterload());//0x9ac
+							//add_compare(0x238A8A,CommandLineParams.DoDebugafterload());
 						}
-						debug_UpdateEntities_57730++;
-						//add_compare(0x238A8A, debugafterload);//0x9ac
-						//add_compare(0x238A8A,debugafterload);
-#endif //DEBUG_SEQUENCES
-#ifdef DEBUG_SEQUENCES2
-						if (debug_UpdateEntities_57730 == 0x84b4)
-						{
+						if (CommandLineParams.DoDebugSequences2()) {
+							if (debug_UpdateEntities_57730 == 0x84b4)
+							{
+								debug_UpdateEntities_57730++;
+								debug_UpdateEntities_57730--;
+							}
 							debug_UpdateEntities_57730++;
-							debug_UpdateEntities_57730--;
+							//add_compare(0x238A8A, CommandLineParams.DoDebugafterload(),-1,false,1000000, 0x7d40);
+							//add_compare(0x238A8A, CommandLineParams.DoDebugafterload());
 						}
-						debug_UpdateEntities_57730++;
-						//add_compare(0x238A8A, debugafterload,-1,false,1000000, 0x7d40);
-						//add_compare(0x238A8A, debugafterload);
-						
-#endif //DEBUG_SEQUENCES2
 
 						//adress 238a8a zacina na 35cf6e 363bb6 =6c48/168=165=a5
 						pre_sub_4A190_0x6E8E(str_D4C48ar[mx->type_0x3F_63].dword_10[mx->byte_0x45_69].address_6, mx);
@@ -57046,58 +56957,58 @@ void sub_57B20(type_str_0x2BDE* a1x, type_event_0x6E8E* a2x)//238b20 //copy posi
 	//int v3; // edi
 	int v4; // ecx
 
-#ifdef ROTATE_PLAYER
-	a2x->word_0x1C_28 = 0x900;
-#endif
+	if (CommandLineParams.DoRotatePlayer()) {
+		a2x->word_0x1C_28 = 0x900;
+	}
 
-#ifdef MOVE_PLAYER
-	if (debugcounter_238b2f == 10)
-	{
-		a2x->array_0x4C_76.x = 0x8c07;
-		a2x->array_0x4C_76.y = 0xb427;
-	}
-	/*if (debugcounter_238b2f == 10) {
-		a2x->array_0x4C_76.x = 0x7249;
-		a2x->array_0x4C_76.y = 0xd491;
-	}else
-	if (debugcounter_238b2f == 351) {
-		//a2x->array_0x4C_76.x = 0xbedc+656;
-		//a2x->array_0x4C_76.y = 0xd541+1200;
-		//a2x->word_0x82_130 = 0x50;
-		//a2x->array_0x52_82.aa = 64;
-	}
-	else*/
-	/*	if (debugcounter_238b2f == 10) {
-			//a2x->array_0x4C_76.x = 0xbedc + 356;
-			//a2x->array_0x4C_76.y = 0xd541 - 1200;
-			a2x->word_0x82_130 = 0x300;
+	if (CommandLineParams.DoMovePlayer()) {
+		if (debugcounter_238b2f == 10)
+		{
+			a2x->axis_0x4C_76.x = 0x8c07;
+			a2x->axis_0x4C_76.y = 0xb427;
+		}
+		/*if (debugcounter_238b2f == 10) {
+			a2x->array_0x4C_76.x = 0x7249;
+			a2x->array_0x4C_76.y = 0xd491;
+		}else
+		if (debugcounter_238b2f == 351) {
+			//a2x->array_0x4C_76.x = 0xbedc+656;
+			//a2x->array_0x4C_76.y = 0xd541+1200;
+			//a2x->word_0x82_130 = 0x50;
 			//a2x->array_0x52_82.aa = 64;
 		}
-		if (debugcounter_238b2f == 200) {
-			//a2x->array_0x4C_76.x = 0xbedc + 356;
-			//a2x->array_0x4C_76.y = 0xd541 - 1200;
-			a2x->word_0x1C_28 = -0x10;
-			a2x->word_0x82_130 = 0x200;
-			//a2x->array_0x52_82.aa = 64;
-		}
-		if(debugcounter_238b2f>250)
-			if (debugcounter_238b2f % 50 == 0)
-			{
-				a2x->word_0x1C_28 -= 0x10;
-				a2x->word_0x82_130 = 0x200;
+		else*/
+		/*	if (debugcounter_238b2f == 10) {
+				//a2x->array_0x4C_76.x = 0xbedc + 356;
+				//a2x->array_0x4C_76.y = 0xd541 - 1200;
+				a2x->word_0x82_130 = 0x300;
+				//a2x->array_0x52_82.aa = 64;
 			}
-		//a2x->array_0x4C_76.x = 0x2876;
-		//a2x->array_0x4C_76.y = 0x2c75;*/
-		/*if (debugcounter_238b2f < 10) {
-			a2x->array_0x4C_76.x = 0x73a0;
-			a2x->array_0x4C_76.y = 0xd5e6;
-		}
-		else {
-			a2x->array_0x4C_76.x = 0xc1aa;
-			a2x->array_0x4C_76.y = 0xd542;
-		}*/
-	debugcounter_238b2f++;
-#endif
+			if (debugcounter_238b2f == 200) {
+				//a2x->array_0x4C_76.x = 0xbedc + 356;
+				//a2x->array_0x4C_76.y = 0xd541 - 1200;
+				a2x->word_0x1C_28 = -0x10;
+				a2x->word_0x82_130 = 0x200;
+				//a2x->array_0x52_82.aa = 64;
+			}
+			if(debugcounter_238b2f>250)
+				if (debugcounter_238b2f % 50 == 0)
+				{
+					a2x->word_0x1C_28 -= 0x10;
+					a2x->word_0x82_130 = 0x200;
+				}
+			//a2x->array_0x4C_76.x = 0x2876;
+			//a2x->array_0x4C_76.y = 0x2c75;*/
+			/*if (debugcounter_238b2f < 10) {
+				a2x->array_0x4C_76.x = 0x73a0;
+				a2x->array_0x4C_76.y = 0xd5e6;
+			}
+			else {
+				a2x->array_0x4C_76.x = 0xc1aa;
+				a2x->array_0x4C_76.y = 0xd542;
+			}*/
+		debugcounter_238b2f++;
+	}
 
 	if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte3_24 & 1))
 	{
@@ -57135,16 +57046,15 @@ int debug_sub_57CF0 = 0;
 //----- (00057CF0) --------------------------------------------------------
 void sub_57CF0(type_event_0x6E8E* entity, axis_3d* position)//238cf0
 {
-#ifdef DEBUG_SEQUENCES2
-	//add_compare(0x238cf3, debugafterload,0x348);
-	/*if (debug_sub_57CF0 >= 0x348)
-	{
-		debug_sub_57CF0++;
-		debug_sub_57CF0--;
+	if (CommandLineParams.DoDebugSequences2()) {
+		//add_compare(0x238cf3, CommandLineParams.DoDebugafterload(),0x348);
+		/*if (debug_sub_57CF0 >= 0x348)
+		{
+			debug_sub_57CF0++;
+			debug_sub_57CF0--;
+		}
+		debug_sub_57CF0++;*/
 	}
-	debug_sub_57CF0++;*/
-
-#endif //DEBUG_SEQUENCES2
 
 	if (((entity->axis_0x4C_76.x & 0xff00) == (position->x & 0xff00)) && ((entity->axis_0x4C_76.y & 0xff00) == (position->y & 0xff00)))
 	{
@@ -58518,9 +58428,9 @@ void sub_59F60(type_event_0x6E8E* a1x)//23af60
 	uaxis_2d v207x; // [esp+1Ch] [ebp-4h]
 	uaxis_2d v208x; // [esp+1Ch] [ebp-4h]
 
-#ifdef DEBUG_SEQUENCES
-	//add_compare(0x23af64, debugafterload,9);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		//add_compare(0x23af64, CommandLineParams.DoDebugafterload(),9);
+	}
 
 	v1 = a1x->dword_0x8;
 	if (v1 < 1)
@@ -58584,9 +58494,9 @@ void sub_59F60(type_event_0x6E8E* a1x)//23af60
 						v37++;
 						v36x.word--;
 					}
-#ifdef DEBUG_SEQUENCES
-					//add_compare(0x23b2a6, debugafterload);
-#endif //DEBUG_SEQUENCES
+					if (CommandLineParams.DoDebugSequences()) {
+						//add_compare(0x23b2a6, CommandLineParams.DoDebugafterload());
+					}
 					if (isCaveLevel_D41B6)//23b2a9
 					{
 						v46x.word = v208x.word + 1;
@@ -58788,9 +58698,9 @@ void sub_59F60(type_event_0x6E8E* a1x)//23af60
 				}
 				v20 = -1;
 				v21x.word = v208x.word - 1;//12c
-#ifdef DEBUG_SEQUENCES
-		//add_compare(0x23b12c, debugafterload);
-#endif //DEBUG_SEQUENCES
+				if (CommandLineParams.DoDebugSequences()) {
+					//add_compare(0x23b12c, CommandLineParams.DoDebugafterload());
+				}
 				while (v20 < a1x->dword_0x10_16)//23b194
 				{
 					//LOBYTE(v21)++;
@@ -61278,9 +61188,9 @@ void sub_5C950(type_str_0x2BDE* a1x, type_event_0x6E8E* a2x)//23d950
 	int j; // [esp+Ch] [ebp-8h]
 	type_event_0x6E8E* v39x; // [esp+10h] [ebp-4h]
 
-#ifdef DEBUG_SEQUENCES2
-	//add_compare(0x23d954, debugafterload);
-#endif //DEBUG_SEQUENCES2
+	if (CommandLineParams.DoDebugSequences2()) {
+		//add_compare(0x23d954, CommandLineParams.DoDebugafterload());
+	}
 
 	//fix it
 	//v10 = 0;
@@ -63875,32 +63785,32 @@ LABEL_22:
 	{
 		do
 		{
-#ifdef DEBUG_SEQUENCES
-			//adress 24128D
-			/*if (debugafterload)
-			{
-				uint8_t origbyte20 = 0;
-				uint8_t remakebyte20 = 0;
-				int comp20;
-				comp20 = compare_with_sequence((char*)"0024128D-002DC4E0", (uint8_t*)x_BYTE_10B4E0_terraintype, 0x2dc4e0, debugcounter_240f50, 0x70000, 0x10000, &origbyte20, &remakebyte20);
-				comp20 = compare_with_sequence((char*)"0024128D-002DC4E0", (uint8_t*)x_BYTE_11B4E0_height, 0x2dc4e0, debugcounter_240f50, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x10000);
-				comp20 = compare_with_sequence((char*)"0024128D-002DC4E0", (uint8_t*)x_BYTE_12B4E0_shading, 0x2dc4e0, debugcounter_240f50, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x20000);
-				comp20 = compare_with_sequence((char*)"0024128D-002DC4E0", (uint8_t*)x_BYTE_13B4E0_angle, 0x2dc4e0, debugcounter_240f50, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x30000);
-				//comp20 = compare_with_sequence((char*)"00228320", (uint8_t*)x_BYTE_14B4E0, 0x2dc4e0, debugcounter11, 0x70000,0x10000, &origbyte20, &remakebyte20, 0x40000);
-				comp20 = compare_with_sequence((char*)"0024128D-002DC4E0", (uint8_t*)x_WORD_15B4E0_source, 0x2dc4e0, debugcounter_240f50, 0x70000, 0x20000, &origbyte20, &remakebyte20, 0x50000);
+			if (CommandLineParams.DoDebugSequences()) {
+				//adress 24128D
+				/*if (CommandLineParams.DoDebugafterload())
+				{
+					uint8_t origbyte20 = 0;
+					uint8_t remakebyte20 = 0;
+					int comp20;
+					comp20 = compare_with_sequence((char*)"0024128D-002DC4E0", (uint8_t*)x_BYTE_10B4E0_terraintype, 0x2dc4e0, debugcounter_240f50, 0x70000, 0x10000, &origbyte20, &remakebyte20);
+					comp20 = compare_with_sequence((char*)"0024128D-002DC4E0", (uint8_t*)x_BYTE_11B4E0_height, 0x2dc4e0, debugcounter_240f50, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x10000);
+					comp20 = compare_with_sequence((char*)"0024128D-002DC4E0", (uint8_t*)x_BYTE_12B4E0_shading, 0x2dc4e0, debugcounter_240f50, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x20000);
+					comp20 = compare_with_sequence((char*)"0024128D-002DC4E0", (uint8_t*)x_BYTE_13B4E0_angle, 0x2dc4e0, debugcounter_240f50, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x30000);
+					//comp20 = compare_with_sequence((char*)"00228320", (uint8_t*)x_BYTE_14B4E0, 0x2dc4e0, debugcounter11, 0x70000,0x10000, &origbyte20, &remakebyte20, 0x40000);
+					comp20 = compare_with_sequence((char*)"0024128D-002DC4E0", (uint8_t*)x_WORD_15B4E0_source, 0x2dc4e0, debugcounter_240f50, 0x70000, 0x20000, &origbyte20, &remakebyte20, 0x50000);
 
-				//uint8_t origbyte20 = 0;
-				//uint8_t remakebyte20 = 0;
-				comp20 = compare_with_sequence_D41A0((char*)"0024128D-00356038", (uint8_t*)& D41A0_BYTESTR_0, 0x356038, debugcounter_240f50, 224790, &origbyte20, &remakebyte20);
+					//uint8_t origbyte20 = 0;
+					//uint8_t remakebyte20 = 0;
+					comp20 = compare_with_sequence_D41A0((char*)"0024128D-00356038", (uint8_t*)& D41A0_BYTESTR_0, 0x356038, debugcounter_240f50, 224790, &origbyte20, &remakebyte20);
 
-				comp20 = compare_with_sequence_array_E2A74((char*)"0024128D-002B3A74", (uint8_t*)& array_E2A74, 0x2b3a74, debugcounter_240f50, 0xc4e, 0xc4e, &origbyte20, &remakebyte20);
-				//comp20 = compare_with_sequence((char*)"0022860F-003514B0", (uint8_t*)& str_unk_1804B0ar, 0x3514b0, debugcounter_47560, 0xab, 0xab, &origbyte20, &remakebyte20);
+					comp20 = compare_with_sequence_array_E2A74((char*)"0024128D-002B3A74", (uint8_t*)& array_E2A74, 0x2b3a74, debugcounter_240f50, 0xc4e, 0xc4e, &origbyte20, &remakebyte20);
+					//comp20 = compare_with_sequence((char*)"0022860F-003514B0", (uint8_t*)& str_unk_1804B0ar, 0x3514b0, debugcounter_47560, 0xab, 0xab, &origbyte20, &remakebyte20);
 
-				//comp20 = compare_with_sequence((char*)"0022860F-003AA0A4", pdwScreenBuffer_351628, 0x3aa0a4, debugcounter_47560, 320 * 200, 320 * 200, &origbyte20, &remakebyte20);
+					//comp20 = compare_with_sequence((char*)"0022860F-003AA0A4", pdwScreenBuffer_351628, 0x3aa0a4, debugcounter_47560, 320 * 200, 320 * 200, &origbyte20, &remakebyte20);
 
-				debugcounter_240f50++;
-			}*/
-#endif //DEBUG_SEQUENCES
+					debugcounter_240f50++;
+				}*/
+			}
 
 			//v13 = 2 * (signed __int16)v20;
 			v14x = x_DWORD_EA3E4[v18x->dword_0xA4_164x->array_0x5C_92[v20]];
@@ -67512,9 +67422,9 @@ void sub_652C0(type_event_0x6E8E* a1x)//2462c0
 	int v13; // eax
 	int v14; // edx
 
-#ifdef DEBUG_SEQUENCES
-	//add_compare(0x2462c4,debugafterload,0x8f);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		//add_compare(0x2462c4,CommandLineParams.DoDebugafterload(),0x8f);
+	}
 
 	v1 = a1x->struct_byte_0xc_12_15.byte[1];
 	if (v1 & 8)
@@ -68557,9 +68467,9 @@ void sub_66750(type_event_0x6E8E* a1x)//247750
 	int v27; // [esp+24h] [ebp-8h]
 	int v28; // [esp+28h] [ebp-4h]
 
-#ifdef DEBUG_SEQUENCES
-			//add_compare(0x247754, debugafterload,0x75);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		//add_compare(0x247754, CommandLineParams.DoDebugafterload(),0x75);
+	}
 
 	a1x->word_0x82_130 = a1x->word_0x84_132;
 	v18x = a1x->axis_0x4C_76;
@@ -70408,9 +70318,9 @@ void sub_68BF0()//249bf0
 		{
 			if (jx->dword_0x8 >= 0)
 			{
-#ifdef DEBUG_SEQUENCES
-				//add_compare(0x249c1b, debugafterload);
-#endif //DEBUG_SEQUENCES
+				if (CommandLineParams.DoDebugSequences()) {
+					//add_compare(0x249c1b, CommandLineParams.DoDebugafterload());
+				}
 				/*result = */sub_68C70(jx);
 			}
 			else
@@ -70893,9 +70803,9 @@ void sub_69640(type_event_0x6E8E* a1x)//24a640//spell posses
 	//__int16 v9; // dx
 	//uint8_t* v10; // [esp+4h] [ebp-4h]
 
-#ifdef DEBUG_SEQUENCES
-	//add_compare(0x24a644, debugafterload,8);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		//add_compare(0x24a644, CommandLineParams.DoDebugafterload(),8);
+	}
 
 	if (a1x->word_0x2E_46 > 0)
 	{
@@ -71547,9 +71457,9 @@ void sub_6A5C0(type_event_0x6E8E* a1x)//24b5c0
 	__int16 v17; // [esp+18h] [ebp-8h]
 	__int16 v18; // [esp+1Ch] [ebp-4h]
 
-#ifdef DEBUG_SEQUENCES
-	//add_compare(0x24b5c4, debugafterload,0xa4);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		//add_compare(0x24b5c4, CommandLineParams.DoDebugafterload(),0xa4);
+	}
 
 	v12x = 0;
 	v13x = 0;
@@ -76284,9 +76194,9 @@ int NetworkInitConnection_7308F(char* a2, __int16 a3)//25408f
 			connection_E12AE[i]->ncb_num_3 = connection_E12AE[IndexInNetwork_E1276]->ncb_num_3;
 		}
 	}
-#ifdef TEST_NETWORK_CHNG1
-	IndexInNetwork_E1276 = 1;
-#endif// TEST_NETWORK_CHNG1
+	if (CommandLineParams.DoTestNetworkChng1()) {
+		IndexInNetwork_E1276 = 1;
+	}
 	if (IndexInNetwork_E1276)//254278
 	{
 		if (!NetworkTestCall_72FBB()) // it is main connection
@@ -76765,17 +76675,16 @@ signed int NetworkCancel_748F7(__int16 compindex)//2558f7
 }
 
 int dos_getvect(int vector) {
-
-#ifdef TEST_NETWORK
-	if ((Iam_server) || (Iam_client))
-	{
-		//get ah from 2b5cb2 - 01
-		//335c 
-		//int 21
-		//get ebx d49
-		if (vector == 92)return 0xd49;
+	if (CommandLineParams.ModeTestNetwork()) {
+		if ((Iam_server) || (Iam_client))
+		{
+			//get ah from 2b5cb2 - 01
+			//335c 
+			//int 21
+			//get ebx d49
+			if (vector == 92)return 0xd49;
+		}
 	}
-#endif
 	return 0;
 }
 
@@ -77069,10 +76978,10 @@ int setNetbios_75044(myNCB* connection)//256044
 	v13 = 0;
 	return v13;
 
-	/*#ifdef TEST_NETWORK
+	/* if (CommandLineParams.ModeTestNetwork()) {
 		a1x->byte_1 = 3;
-	#endif
-		return 1;*/
+	}
+	return 1;*/
 }
 
 //----- (00075110) --------------------------------------------------------
@@ -78360,7 +78269,7 @@ bool sub_77350_new_game_dialog(type_WORD_E1F84* a1x)//258350
 				&x_DWORD_17DB70str.unk_17DB80,
 				&x_DWORD_17DB70str.x_BYTE_17DB8F,
 				&x_DWORD_17DB70str.unk_17DB90);
-			#ifdef TEST_REGRESSIONS_GAME
+			if (CommandLineParams.ModeTestRegressionsGame()) {
 				x_DWORD_17DB70str.x_BYTE_17DB8E = 1;
 				x_D41A0_BYTEARRAY_4_struct.levelnumber_43w = test_regression_level;
 				if (mapScreenPortals_E17CC[test_regression_level].activated_18 == 1)
@@ -78371,7 +78280,7 @@ bool sub_77350_new_game_dialog(type_WORD_E1F84* a1x)//258350
 				if (x_D41A0_BYTEARRAY_4_struct.levelnumber_43w == 24)
 					x_D41A0_BYTEARRAY_4_struct.setting_38545 |= 0x20u;
 				v1 = 1;
-			#endif
+			}
 			if (x_WORD_180660_VGA_type_resolution & 1)
 				sub_90478_VGA_Blit320();
 			else
@@ -80835,18 +80744,18 @@ char sub_7B250_draw_and_serve(/*int a1, int a2*//*, __int16 a3*/)//25c250
 	//v12 = 0;
 	//fix it
 
-	#ifdef TEST_REGRESSIONS_GAME
-	str_E1BAC[0].dword_0 = 0x258350;
-	str_E1BAC[0].selected_8 = 1;
-	#endif
-
-#ifdef TEST_NETWORK
-	if (first_enter)
-	{
-		//str_E1BAC[2].dword_0 = 0x25EE80;
-		str_E1BAC[2].selected_8 = 1;
+	if (CommandLineParams.ModeTestRegressionsGame()) {
+		str_E1BAC[0].dword_0 = 0x258350;
+		str_E1BAC[0].selected_8 = 1;
 	}
-#endif
+
+	if (CommandLineParams.ModeTestNetwork()) {
+		if (first_enter)
+		{
+			//str_E1BAC[2].dword_0 = 0x25EE80;
+			str_E1BAC[2].selected_8 = 1;
+		}
+	}
 
 	//for (i = off_E1BAC; *((int16_t*)i + 5); i += 44)
 	for (iy = 0; str_E1BAC[iy].xmin_10; iy++)
@@ -81223,13 +81132,13 @@ int sub_7B660_draw_scroll_dialog2(int a1, int a2, __int16 a3, type_str_word_26* 
 				v44 = 2;
 			}
 		}
-#ifdef TEST_NETWORK
-		if (first_enter)
-		{
-			first_enter = false;
-			v44 = 1;
+		if (CommandLineParams.ModeTestNetwork()) {
+			if (first_enter)
+			{
+				first_enter = false;
+				v44 = 1;
+			}
 		}
-#endif
 	}
 	DrawHelpText_6FC50(1);
 	//v29 = xy_DWORD_17DED4_spritestr[x_WORD_17DF06].pointer;
@@ -83715,9 +83624,10 @@ int sub_7EAE0_new_game_draw(int16_t* posx, int16_t* posy, __int16* a3, __int16* 
 								sub_80D40_move_graphics_and_play_sounds(*posx, *posy, mapScreenPortals_E17CC[v44x].portalPosX_12, mapScreenPortals_E17CC[v44x].portalPosY_14, mapScreenPortals_E17CC[v44x].activated_18);
 								x_DWORD_17DB70str.x_BYTE_17DB8E = 1;
 								x_D41A0_BYTEARRAY_4_struct.levelnumber_43w = v68;
-//#ifdef TEST_REGRESSIONS_GAME
-								//x_D41A0_BYTEARRAY_4_struct.levelnumber_43w = 1;
-//#endif
+
+								if (CommandLineParams.ModeTestRegressionsGame()) {
+									//x_D41A0_BYTEARRAY_4_struct.levelnumber_43w = 1;
+								}
 								if (mapScreenPortals_E17CC[v44x].activated_18 == 1)
 									x_D41A0_BYTEARRAY_4_struct.setting_38545 |= 4u;
 								v46x = sub_824B0(x_D41A0_BYTEARRAY_4_struct.levelnumber_43w);
@@ -86390,9 +86300,9 @@ void sub_848A0()//2658a0
 	unsigned __int16 v29; // di*/
 	__int16 v31; // [esp+4h] [ebp-4h]
 
-#ifdef DEBUG_SEQUENCES
-	//add_compare(0x2658a4, debugafterload);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		//add_compare(0x2658a4, CommandLineParams.DoDebugafterload());
+	}
 
 	//LOBYTE(v0) = D41A0_BYTESTR_0.str_2FECE.MapType;
 	if (D41A0_0.terrain_2FECE.MapType == MapType_t::Night || D41A0_0.terrain_2FECE.MapType == MapType_t::Cave)
@@ -86536,9 +86446,9 @@ void sub_84B80()//265b80
 	int16_t v7x;
 	int16_t v9; // [esp+Ch] [ebp-4h]
 
-#ifdef DEBUG_SEQUENCES
-	//add_compare(0x265b84, debugafterload);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		//add_compare(0x265b84, CommandLineParams.DoDebugafterload());
+	}
 
 	if (D41A0_0.terrain_2FECE.MapType == MapType_t::Night || D41A0_0.terrain_2FECE.MapType == MapType_t::Cave)
 	{
@@ -86650,9 +86560,9 @@ void sub_84B80()//265b80
 	int16_t v7x;
 	//__int16 v8; // [esp+8h] [ebp-8h]
 
-#ifdef DEBUG_SEQUENCES
-	//add_compare(0x265b84, debugafterload);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		//add_compare(0x265b84, CommandLineParams.DoDebugafterload());
+	}
 	if (D41A0_0.terrain_2FECE.MapType == MapType_t::Night || D41A0_0.terrain_2FECE.MapType == MapType_t::Cave)
 	{
 		if (D41A0_0.word_0x36DFA)
@@ -86768,9 +86678,9 @@ void sub_84EA0(uaxis_2d a1x, type_str_0x3664C* a2x, char a3, __int16 a4)//265ea0
 	//__int16 v13; // [esp+2h] [ebp-6h]
 	//__int16 v14; // [esp+4h] [ebp-4h]
 
-#ifdef DEBUG_SEQUENCES
-	//add_compare(0x265ea4, debugafterload,0x19);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		//add_compare(0x265ea4, CommandLineParams.DoDebugafterload(),0x19);
+	}
 
 	v4 = 31;
 	v5 = (unsigned __int8)mapShading_12B4E0[a1x.word];
