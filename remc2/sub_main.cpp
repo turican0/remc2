@@ -42731,9 +42731,9 @@ void test_pre_sub_4a190(uint32_t adress)//for debug
 
 type_event_0x6E8E* pre_sub_4A190_axis_3d(uint32_t adress, axis_3d* a1_axis3d)//pre 22b190
 {
-#ifndef RELEASE_GAME
-	test_pre_sub_4a190(adress);//for debug
-#endif
+	if (CommandLineParams.DoShowNewProcedures()) {
+		test_pre_sub_4a190(adress);//for debug
+	}
 	switch (adress)
 	{
 		/*case 0x22b810: {
