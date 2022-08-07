@@ -2835,6 +2835,7 @@ bool Iam_server = false;
 bool Iam_client = false;
 //int ClientMPort = 3491;
 int NetworkPort = 15001;
+int ServerPort = -1;
 char serverIP[256] = "000.000.000.000";
 
 x_DWORD x_DWORD_D41A4_4 = 0;
@@ -42730,6 +42731,9 @@ void test_pre_sub_4a190(uint32_t adress)//for debug
 
 type_event_0x6E8E* pre_sub_4A190_axis_3d(uint32_t adress, axis_3d* a1_axis3d)//pre 22b190
 {
+	if (CommandLineParams.DoShowNewProcedures()) {
+		test_pre_sub_4a190(adress);//for debug
+	}
 	switch (adress)
 	{
 		/*case 0x22b810: {
@@ -55391,7 +55395,7 @@ void InitNetworkInfo() {
 		/*if (Iam_server)
 			InitLibNetServer(ServerMPort);
 		InitLibNetClient(serverIP, ServerMPort, ClientMPort);*/
-		InitMyNetLib(Iam_server, serverIP, NetworkPort);
+		InitMyNetLib(Iam_server, serverIP, NetworkPort, ServerPort);
 		/*
 		if (Iam_server)
 		{
@@ -55774,9 +55778,7 @@ void sub_56210_process_command_line(int argc, char** argv)//237210
 					NetworkPort = atoi(argv[++argnumber]);
 					if (NetworkPort < 0)NetworkPort = 0;
 					if (NetworkPort > 99999)NetworkPort = 99999;
-					/*ClientMPort = atoi(argv[++argnumber]);
-					if (ClientMPort < 0)ClientMPort = 0;
-					if (ClientMPort > 9999)ClientMPort = 9999;*/
+					if (ServerPort == -1)ServerPort = NetworkPort;
 				}
 			}
 			else if (!_stricmp("server", (char*)actarg))//set to all one computer adress
@@ -55788,30 +55790,15 @@ void sub_56210_process_command_line(int argc, char** argv)//237210
 					NetworkPort = atoi(argv[++argnumber]);
 					if (NetworkPort < 0)NetworkPort = 0;
 					if (NetworkPort > 99999)NetworkPort = 99999;
-					/*ClientMPort = atoi(argv[++argnumber]);
-					if (ClientMPort < 0)ClientMPort = 0;
-					if (ClientMPort > 9999)ClientMPort = 9999;*/
+					if (ServerPort == -1)ServerPort = NetworkPort;
 				}
 			}
-			/*else if (!_stricmp("netinitwait", (char*)actarg))//set to all one computer adress
+			else if (!_stricmp("otherserverport", (char*)actarg))//set to all one computer adress
 			{
-				//if (!Iam_client)
-				{
-					//Iam_server = true;
-					NetworkInitWait = atoi(argv[++argnumber]);
-				}
-			}*/
-			/*else if (!_stricmp("client", (char*)actarg))
-			{
-				if (!Iam_server)
-				{
-					Iam_client = true;
-					strcpy(serverIP, (char*)argv[++argnumber][0]);
-					MultiplayerPort = atoi(argv[++argnumber]);
-					if (MultiplayerPort < 0)MultiplayerPort = 0;
-					if (MultiplayerPort > 9999)MultiplayerPort = 9999;
-				}
-			}*/
+				ServerPort = atoi(argv[++argnumber]);
+				if (ServerPort < 0)ServerPort = 0;
+				if (ServerPort > 99999)ServerPort = 99999;
+			}
 		}
 		argnumber++;
 	}
@@ -78347,7 +78334,7 @@ char /*__fastcall*/ sub_77680()//258680
 	memset(printbuffer, 0, 80);
 	memset(v12, 0, 16);
 	v15 = 2;
-	sprintf(printbuffer, "NETH%d", (unsigned __int16)x_DWORD_17DE38str.x_WORD_17DEFA + 20);
+	sprintf(printbuffer, "NETH%d", (unsigned __int16)x_DWORD_17DE38str.networkSession_17DEFA + 20);
 	int8_t a3a = 0;
 	int8_t a3b = 0;
 	x_DWORD_17DE38str.serverIndex_17DEFC = NetworkInitConnection_7308F(printbuffer, 8);//-1 == false
@@ -81384,9 +81371,7 @@ signed int /*__fastcall*/ sub_7C050_get_keyboard_keys1()//25d050
 //----- (0007C200) --------------------------------------------------------
 char sub_7C200(unsigned __int8 a1)//25d200
 {
-	char result; // al
-
-	result = 0;
+	char result = 0;
 	if (a1 == 32 || a1 >= 0x30u && a1 <= 0x39u || a1 >= 0x41u && a1 <= 0x5Au || a1 >= 0x61u && a1 <= 0x7Au)
 		result = 1;
 	return result;
@@ -81432,16 +81417,12 @@ void WaitToConnect_7C230()//25d230
 signed int sub_7C390()//25d390
 {
 	signed int result; // eax
-	//int* v1; // ebx
 	type_E1BAC_0x3c4* v1x;
-	//x_WORD* v2; // ebx
 	type_WORD_E1F84* v2x;
 	int v3; // esi
 	signed __int16 v4; // dx
 	__int16 i; // ax
 	uint8_t* v6x = 0; // [esp+0h] [ebp-8h]
-	//char* v7; // [esp+4h] [ebp-4h]
-	//uint8_t* v14;
 
 	char dataPath[MAX_PATH];
 
@@ -81523,7 +81504,7 @@ signed int sub_7C390()//25d390
 			v2x++;
 		}
 		sub_7C140_draw_text_background(382, 18, 16, 16, 0);
-		sprintf((char* const)x_DWORD_17DE38str.x_DWORD_17DE50, "%d", (unsigned __int16)x_DWORD_17DE38str.x_WORD_17DEFA);
+		sprintf((char* const)x_DWORD_17DE38str.x_DWORD_17DE50, "%d", (unsigned __int16)x_DWORD_17DE38str.networkSession_17DEFA);
 		sub_7FAE0_draw_text((char*)x_DWORD_17DE38str.x_DWORD_17DE50, 382, 398, 18, 0);
 		DrawNetworkLevelName_7D380();
 		SetMultiplayerColors_7D310();
@@ -81549,20 +81530,17 @@ void sub_7C710()//25d710
 {
 	x_DWORD_17DE38str.palMulti_17DF02 = 0;
 }
-// 17DF02: using guessed type __int16 x_WORD_17DF02;
 
 //----- (0007C720) --------------------------------------------------------
 void sub_7C720(unsigned __int8 a1, uint8_t* a2)//25d720
 {
-	//void** v2; // eax
 	type_E1BAC_0x3c4* v2x;
 	__int16 v3; // bx
 	__int16 v4; // dx
 	__int16 v5; // cx
 	__int16 v6; // ax
 
-	//v2 = (void**)&off_E1BAC[0x2ec] + 6 * a1;
-	v2x=&str_E1BAC_0x2ec[a1];
+	v2x = &str_E1BAC_0x2ec[a1];
 	v3 = v2x->word_18;// *((x_WORD*)v2 + 9);
 	v4 = v2x->word_16;//*((x_WORD*)v2 + 8);
 	v5 = v2x->word_20;//*((x_WORD*)v2 + 10);
@@ -81573,8 +81551,6 @@ void sub_7C720(unsigned __int8 a1, uint8_t* a2)//25d720
 		v4 = v5 + v4 - 640;
 	sub_85BF5(a2, x_DWORD_E9C38_smalltit, v4, v3, v5, v6);
 }
-// E1E98: using guessed type void *off_E1E98;
-// E9C38: using guessed type int x_DWORD_E9C38_smalltit;
 
 //----- (0007C7C0) --------------------------------------------------------
 void CleanRectByColor_7C7C0(uint8_t* a2)//25d7c0
@@ -81585,89 +81561,48 @@ void CleanRectByColor_7C7C0(uint8_t* a2)//25d7c0
 //----- (0007C800) --------------------------------------------------------
 void PaletteCopy_7C800(signed __int16 a1)//25d800
 {
-	signed __int16 v1; // bx
-	//unsigned __int8* v2; // edx
-	int v3c; // eax
-	//unsigned __int8 v4; // ch
-	//unsigned __int8 v5; // ch
-	//unsigned __int8 v6; // ch
-	//unsigned __int8* v7; // edx
-	//int v7c;
-	//unsigned __int8 v8; // ch
-	//x_BYTE* v9; // eax
-	//unsigned __int8 v10; // ch
-	//unsigned __int8 v11; // ch
-	//unsigned __int8 v12; // cl
-	//unsigned __int8* v13; // edx
-	//unsigned __int8 v14; // ch
-	//x_BYTE* v15; // eax
-	//unsigned __int8 v16; // ch
-	//unsigned __int8 v17; // ch
-	//int v19c; // [esp+4h] [ebp-4h]
+	signed __int16 v1 = a1;
 
-	v1 = a1;
-	if ((unsigned __int16)a1 > 0xFFu)
+	if (v1 > 255)
 		v1 = 255;
-	//v2 = (unsigned __int8*)(x_DWORD_17DE38str.x_DWORD_17DE3C + 477);
-	//v19 = (uint8_t*)x_DWORD_17DE38str.x_DWORD_17DE38x + 765;
-	//v19c = 255;
-	//v3 = (unsigned __int8*)((uint8_t*)x_DWORD_17DE38str.x_DWORD_17DE38x + 477);
-	v3c = 159;
-	while (v3c < 255)
+	for (int v3c = 159; v3c < 255; v3c++)
 	{
-		//v4 = v2[0];
 		if (x_DWORD_17DE38str.x_DWORD_17DE38x[v3c].red < x_DWORD_17DE38str.x_DWORD_17DE3C->c[v3c].red)
-			x_DWORD_17DE38str.x_DWORD_17DE38x[v3c].red = (unsigned __int16)(x_DWORD_17DE38str.x_DWORD_17DE3C->c[v3c].red * v1) >> 8;
+			x_DWORD_17DE38str.x_DWORD_17DE38x[v3c].red = (x_DWORD_17DE38str.x_DWORD_17DE3C->c[v3c].red * v1) >> 8;
 		else
 			x_DWORD_17DE38str.x_DWORD_17DE38x[v3c].red = x_DWORD_17DE38str.x_DWORD_17DE3C->c[v3c].red;
-		//v5 = v2[1];
 		if (x_DWORD_17DE38str.x_DWORD_17DE38x[v3c].green < x_DWORD_17DE38str.x_DWORD_17DE3C->c[v3c].green)
-			x_DWORD_17DE38str.x_DWORD_17DE38x[v3c].green = (unsigned __int16)(x_DWORD_17DE38str.x_DWORD_17DE3C->c[v3c].green * v1) >> 8;
+			x_DWORD_17DE38str.x_DWORD_17DE38x[v3c].green = (x_DWORD_17DE38str.x_DWORD_17DE3C->c[v3c].green * v1) >> 8;
 		else
 			x_DWORD_17DE38str.x_DWORD_17DE38x[v3c].green = x_DWORD_17DE38str.x_DWORD_17DE3C->c[v3c].green;
-		//v6 = v2[2];
 		if (x_DWORD_17DE38str.x_DWORD_17DE38x[v3c].blue < x_DWORD_17DE38str.x_DWORD_17DE3C->c[v3c].blue)
-			x_DWORD_17DE38str.x_DWORD_17DE38x[v3c].blue = (unsigned __int16)(x_DWORD_17DE38str.x_DWORD_17DE3C->c[v3c].blue * v1) >> 8;
+			x_DWORD_17DE38str.x_DWORD_17DE38x[v3c].blue = (x_DWORD_17DE38str.x_DWORD_17DE3C->c[v3c].blue * v1) >> 8;
 		else
 			x_DWORD_17DE38str.x_DWORD_17DE38x[v3c].blue = x_DWORD_17DE38str.x_DWORD_17DE3C->c[v3c].blue;
-		//v3 += 3;
-		v3c++;
-		//v2 += 3;
 	}
-	//v7 = (unsigned __int8*)((uint8_t*)x_DWORD_17DE38str.x_DWORD_17DE38x + 444);
-	//v7c = 148;
-	//v8 = *(x_BYTE*)(x_DWORD_17DE38str.x_DWORD_17DE3C + 444);
-	//v9 = (x_BYTE*)(x_DWORD_17DE38str.x_DWORD_17DE3C + 444);
 	if (x_DWORD_17DE38str.x_DWORD_17DE38x[148].red < x_DWORD_17DE38str.x_DWORD_17DE3C->c[148].red)
-		x_DWORD_17DE38str.x_DWORD_17DE38x[148].red = (unsigned __int16)(x_DWORD_17DE38str.x_DWORD_17DE3C->c[148].red * v1) >> 8;
+		x_DWORD_17DE38str.x_DWORD_17DE38x[148].red = (x_DWORD_17DE38str.x_DWORD_17DE3C->c[148].red * v1) >> 8;
 	else
 		x_DWORD_17DE38str.x_DWORD_17DE38x[148].red = x_DWORD_17DE38str.x_DWORD_17DE3C->c[148].red;
-	//v10 = v9[1];
 	if (x_DWORD_17DE38str.x_DWORD_17DE38x[148].green < x_DWORD_17DE38str.x_DWORD_17DE3C->c[148].green)
-		x_DWORD_17DE38str.x_DWORD_17DE38x[148].green = (unsigned __int16)(x_DWORD_17DE38str.x_DWORD_17DE3C->c[148].green * v1) >> 8;
+		x_DWORD_17DE38str.x_DWORD_17DE38x[148].green = (x_DWORD_17DE38str.x_DWORD_17DE3C->c[148].green * v1) >> 8;
 	else
 		x_DWORD_17DE38str.x_DWORD_17DE38x[148].green = x_DWORD_17DE38str.x_DWORD_17DE3C->c[148].green;
-	//v11 = v9[2];
 	if (x_DWORD_17DE38str.x_DWORD_17DE38x[148].blue < x_DWORD_17DE38str.x_DWORD_17DE3C->c[148].blue)
-		x_DWORD_17DE38str.x_DWORD_17DE38x[148].blue = (unsigned __int16)(v1 * x_DWORD_17DE38str.x_DWORD_17DE3C->c[148].blue) >> 8;
+		x_DWORD_17DE38str.x_DWORD_17DE38x[148].blue = (x_DWORD_17DE38str.x_DWORD_17DE3C->c[148].blue * v1) >> 8;
 	else
 		x_DWORD_17DE38str.x_DWORD_17DE38x[148].blue = x_DWORD_17DE38str.x_DWORD_17DE3C->c[148].blue;
-	//v12 = x_DWORD_17DE38str.x_DWORD_17DE38x[v7c+1].red;
-	//v13 = v7 + 3;
-	//v14 = v9[3];
-	//v15 = (v9 + 3);
+
 	if (x_DWORD_17DE38str.x_DWORD_17DE38x[149].red < x_DWORD_17DE38str.x_DWORD_17DE3C->c[149].red)
-		x_DWORD_17DE38str.x_DWORD_17DE38x[149].red = (unsigned __int16)(x_DWORD_17DE38str.x_DWORD_17DE3C->c[149].red * v1) >> 8;
+		x_DWORD_17DE38str.x_DWORD_17DE38x[149].red = (x_DWORD_17DE38str.x_DWORD_17DE3C->c[149].red * v1) >> 8;
 	else
 		x_DWORD_17DE38str.x_DWORD_17DE38x[149].red = x_DWORD_17DE38str.x_DWORD_17DE3C->c[149].red;
-	//v16 = *(x_BYTE*)(v15 + 1);
 	if (x_DWORD_17DE38str.x_DWORD_17DE38x[149].green < x_DWORD_17DE38str.x_DWORD_17DE3C->c[149].green)
-		x_DWORD_17DE38str.x_DWORD_17DE38x[149].green = (unsigned __int16)(x_DWORD_17DE38str.x_DWORD_17DE3C->c[149].green * v1) >> 8;
+		x_DWORD_17DE38str.x_DWORD_17DE38x[149].green = (x_DWORD_17DE38str.x_DWORD_17DE3C->c[149].green * v1) >> 8;
 	else
 		x_DWORD_17DE38str.x_DWORD_17DE38x[149].green = x_DWORD_17DE38str.x_DWORD_17DE3C->c[149].green;
-	//v17 = *(x_BYTE*)(v15 + 2);
 	if (x_DWORD_17DE38str.x_DWORD_17DE38x[149].blue < x_DWORD_17DE38str.x_DWORD_17DE3C->c[149].blue)
-		x_DWORD_17DE38str.x_DWORD_17DE38x[149].blue = (unsigned __int16)(x_DWORD_17DE38str.x_DWORD_17DE3C->c[149].blue * v1) >> 8;
+		x_DWORD_17DE38str.x_DWORD_17DE38x[149].blue = (x_DWORD_17DE38str.x_DWORD_17DE3C->c[149].blue * v1) >> 8;
 	else
 		x_DWORD_17DE38str.x_DWORD_17DE38x[149].blue = x_DWORD_17DE38str.x_DWORD_17DE3C->c[149].blue;
 	sub_9A0FC_wait_to_screen_beam();
@@ -81677,43 +81612,23 @@ void PaletteCopy_7C800(signed __int16 a1)//25d800
 //----- (0007C9D0) --------------------------------------------------------
 void PaletteMulti_7C9D0(signed __int16 a1)//25d9d0
 {
-	signed __int16 v1; // cx
-	//uint8_t* i; // eax
-	int ic;
-	//__int16 v3; // bx
-	//uint8_t* v4x; // eax
-	//uint8_t* v5x; // eax
-	//uint8_t* v7x; // [esp+4h] [ebp-4h]
-	//int v7c=
-
-	v1 = a1;
-	if ((unsigned __int16)a1 > 0xFFu)
+	signed __int16 v1 = a1;
+	if (v1 > 255)
 		v1 = 255;
-	//v7x = (uint8_t*)x_DWORD_17DE38str.x_DWORD_17DE38x + 765;
-	//v7c = 255;
-	for (ic = 159;ic < 255;ic++)
+	for (int ic = 159; ic < 255; ic++)
 	{
-		x_DWORD_17DE38str.x_DWORD_17DE38x[ic].red -= (unsigned __int16)(v1 * x_DWORD_17DE38str.x_DWORD_17DE38x[ic].red) >> 8;
-		x_DWORD_17DE38str.x_DWORD_17DE38x[ic].green -= (unsigned __int16)(v1 * x_DWORD_17DE38str.x_DWORD_17DE38x[ic].green) >> 8;
-		x_DWORD_17DE38str.x_DWORD_17DE38x[ic].blue -= (unsigned __int16)(v1 * x_DWORD_17DE38str.x_DWORD_17DE38x[ic].blue) >> 8;
+		x_DWORD_17DE38str.x_DWORD_17DE38x[ic].red -= (v1 * x_DWORD_17DE38str.x_DWORD_17DE38x[ic].red) >> 8;
+		x_DWORD_17DE38str.x_DWORD_17DE38x[ic].green -= (v1 * x_DWORD_17DE38str.x_DWORD_17DE38x[ic].green) >> 8;
+		x_DWORD_17DE38str.x_DWORD_17DE38x[ic].blue -= (v1 * x_DWORD_17DE38str.x_DWORD_17DE38x[ic].blue) >> 8;
 	}
 
-	//v4x = (uint8_t*)x_DWORD_17DE38str.x_DWORD_17DE38x;
-	//*(x_BYTE*)((uint8_t*)x_DWORD_17DE38str.x_DWORD_17DE38x + 447) -= (unsigned __int16)(v1 * *(unsigned __int8*)((uint8_t*)x_DWORD_17DE38str.x_DWORD_17DE38x + 447)) >> 8;
-	//*(x_BYTE*)(v4x + 448) -= (unsigned __int16)(v1 * *(unsigned __int8*)(v4x + 448)) >> 8;
-	//*(x_BYTE*)(v4x + 449) -= (unsigned __int16)(v1 * *(unsigned __int8*)(v4x + 449)) >> 8;
-	x_DWORD_17DE38str.x_DWORD_17DE38x[149].red -= (unsigned __int16)(v1 * x_DWORD_17DE38str.x_DWORD_17DE38x[149].red) >> 8;
-	x_DWORD_17DE38str.x_DWORD_17DE38x[149].green -= (unsigned __int16)(v1 * x_DWORD_17DE38str.x_DWORD_17DE38x[149].green) >> 8;
-	x_DWORD_17DE38str.x_DWORD_17DE38x[149].blue -= (unsigned __int16)(v1 * x_DWORD_17DE38str.x_DWORD_17DE38x[149].blue) >> 8;
+	x_DWORD_17DE38str.x_DWORD_17DE38x[149].red -= (v1 * x_DWORD_17DE38str.x_DWORD_17DE38x[149].red) >> 8;
+	x_DWORD_17DE38str.x_DWORD_17DE38x[149].green -= (v1 * x_DWORD_17DE38str.x_DWORD_17DE38x[149].green) >> 8;
+	x_DWORD_17DE38str.x_DWORD_17DE38x[149].blue -= (v1 * x_DWORD_17DE38str.x_DWORD_17DE38x[149].blue) >> 8;
 
-
-	//v5x = (uint8_t*)x_DWORD_17DE38str.x_DWORD_17DE38x;
-	//*(x_BYTE*)((uint8_t*)x_DWORD_17DE38str.x_DWORD_17DE38x + 444) -= (unsigned __int16)(v1 * *(unsigned __int8*)((uint8_t*)x_DWORD_17DE38str.x_DWORD_17DE38x + 444)) >> 8;
-	//*(x_BYTE*)(v5x + 445) -= (unsigned __int16)(v1 * *(unsigned __int8*)(v5x + 445)) >> 8;
-	//*(x_BYTE*)(v5x + 446) -= (unsigned __int16)(*(unsigned __int8*)(v5x + 446) * v1) >> 8;
-	x_DWORD_17DE38str.x_DWORD_17DE38x[148].red -= (unsigned __int16)(v1 * x_DWORD_17DE38str.x_DWORD_17DE38x[148].red) >> 8;
-	x_DWORD_17DE38str.x_DWORD_17DE38x[148].green -= (unsigned __int16)(v1 * x_DWORD_17DE38str.x_DWORD_17DE38x[148].green) >> 8;
-	x_DWORD_17DE38str.x_DWORD_17DE38x[148].blue -= (unsigned __int16)(v1 * x_DWORD_17DE38str.x_DWORD_17DE38x[148].blue) >> 8;
+	x_DWORD_17DE38str.x_DWORD_17DE38x[148].red -= (v1 * x_DWORD_17DE38str.x_DWORD_17DE38x[148].red) >> 8;
+	x_DWORD_17DE38str.x_DWORD_17DE38x[148].green -= (v1 * x_DWORD_17DE38str.x_DWORD_17DE38x[148].green) >> 8;
+	x_DWORD_17DE38str.x_DWORD_17DE38x[148].blue -= (v1 * x_DWORD_17DE38str.x_DWORD_17DE38x[148].blue) >> 8;
 	sub_9A0FC_wait_to_screen_beam();
 	sub_41A90_VGA_Palette_install(x_DWORD_17DE38str.x_DWORD_17DE38x);
 }
@@ -81721,12 +81636,8 @@ void PaletteMulti_7C9D0(signed __int16 a1)//25d9d0
 //----- (0007CB10) --------------------------------------------------------
 int sub_7CB10()//25db10
 {
-	//int(**i)(); // ebx
 	int ix;
-	//int result; // eax
-	//int(**j)(); // ebx
 	int jx;
-	//int(**v3)(); // ebx
 	int v3x;
 
 	for (ix = 0; str_E1BAC_0x1b8[ix].xmin_10; ix++)
@@ -81798,11 +81709,7 @@ char sub_7CC40()//25dc40
 //----- (0007CCA0) --------------------------------------------------------
 int sub_7CCA0()//25dca0
 {
-	int v0; // ebx
-	int v1; // ebx
-
-	v0 = x_DWORD_17DE38str.serverIndex_17DEFC;
-	if (v0 == GetIndexNetwork2_74515() && x_DWORD_17DE38str.x_WORD_17DEFE == 1 || (v1 = x_DWORD_17DE38str.serverIndex_17DEFC, v1 != GetIndexNetwork2_74515()))
+	if (x_DWORD_17DE38str.serverIndex_17DEFC == GetIndexNetwork2_74515() && x_DWORD_17DE38str.x_WORD_17DEFE == 1 || x_DWORD_17DE38str.serverIndex_17DEFC != GetIndexNetwork2_74515())
 		x_DWORD_17DE38str.array_BYTE_17DE68x[x_DWORD_17DE38str.serverIndex_17DEFC].action_9 = 1;
 	return 0;
 }
@@ -81810,34 +81717,18 @@ int sub_7CCA0()//25dca0
 //----- (0007CCF0) --------------------------------------------------------
 int sub_7CCF0()//25dcf0
 {
-	//int v0; // eax
-	//char v1; // dl
-
-	//v0 = 11 * x_DWORD_17DE38str.x_WORD_17DEFC;
-	//v1 = x_DWORD_17DE38str.array_BYTE_17DE68x[x_DWORD_17DE38str.x_WORD_17DEFC].byte_10;
 	if (x_DWORD_17DE38str.array_BYTE_17DE68x[x_DWORD_17DE38str.serverIndex_17DEFC].selectedLevel_10 > 50)
 	{
 		x_DWORD_17DE38str.array_BYTE_17DE68x[x_DWORD_17DE38str.serverIndex_17DEFC].selectedLevel_10--;
-		//x_DWORD_17DE38str.array_BYTE_17DE68x[x_DWORD_17DE38str.x_WORD_17DEFC].byte_10 = v1 - 1;
 		x_DWORD_17DE38str.array_BYTE_17DE68x[x_DWORD_17DE38str.serverIndex_17DEFC].action_9 = 6;
 	}
 	return 0;
 }
-// 17DEFC: using guessed type __int16 x_WORD_17DEFC;
 
 //----- (0007CD30) --------------------------------------------------------
 int sub_7CD30()//25dd30
 {
-	char* v0; // esi
-	//char v2[5]; // [esp+0h] [ebp-Ch]
-	//char v3; // [esp+4h] [ebp-8h]
-
-	//fix save wizard name to enything
-
-	//v0 = (char*)(&off_D9204_wizards_names1)[1 + x_DWORD_17DE38str.x_BYTE_17DE68x[0xa + 11 * x_DWORD_17DE38str.x_WORD_17DEFC]];//fix it
-	v0 = (char*)(LevelsNames_D9204)[1 + x_DWORD_17DE38str.array_BYTE_17DE68x[x_DWORD_17DE38str.serverIndex_17DEFC].selectedLevel_10];
-	//qmemcpy(&v2, v0, 5u);
-	//qmemcpy(&v3, v0 + 4, sizeof(v3));
+	char* v0 = (char*)(LevelsNames_D9204)[1 + x_DWORD_17DE38str.array_BYTE_17DE68x[x_DWORD_17DE38str.serverIndex_17DEFC].selectedLevel_10];
 	if (v0[0] && v0[0] != 48)
 	{
 		x_DWORD_17DE38str.array_BYTE_17DE68x[x_DWORD_17DE38str.serverIndex_17DEFC].selectedLevel_10++;
@@ -81852,7 +81743,6 @@ int sub_7CDA0()//25dda0
 	x_DWORD_17DE38str.array_BYTE_17DE68x[x_DWORD_17DE38str.serverIndex_17DEFC].action_9 = 5;
 	return 0;
 }
-// 17DEFC: using guessed type __int16 x_WORD_17DEFC;
 
 //----- (0007CDC0) --------------------------------------------------------
 void SetPaletteColor_7CDC0(unsigned __int8 a1, unsigned __int8 a2)//25ddc0
@@ -82606,7 +82496,7 @@ char MultiplayerMenu_7DE80(type_WORD_E1F84* a2x)//25ee80
 		if (v23 == 1)
 		{
 			x_WORD_E131A = 0;
-			x_DWORD_17DE38str.x_WORD_17DEFA = (unsigned __int8)x_BYTE_E29DF_skip_screen;
+			x_DWORD_17DE38str.networkSession_17DEFA = (unsigned __int8)x_BYTE_E29DF_skip_screen;
 			ResetMouse_7B5A0();
 			if (1 == x_D41A0_BYTEARRAY_4_struct.byteindex_10)
 				v24 = x_DWORD_17DE38str.x_BYTE_17DF13;
@@ -82617,7 +82507,7 @@ char MultiplayerMenu_7DE80(type_WORD_E1F84* a2x)//25ee80
 		}
 		else
 		{
-			x_BYTE_E29DF_skip_screen = x_DWORD_17DE38str.x_WORD_17DEFA;
+			x_BYTE_E29DF_skip_screen = x_DWORD_17DE38str.networkSession_17DEFA;
 		}
 		return 1;
 	}
