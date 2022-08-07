@@ -931,7 +931,9 @@ namespace MyNetworkLib {
 	#ifdef TEST_NETWORK_MESSAGES
 				debug_net_printf("Server: MESSAGE_TESTADDNAME OK:%s %d\n", unpacked_message.data, sender.address().to_string());
 	#endif //TEST_NETWORK_MESSAGES
-				if (!strcmp(unpacked_message.data, "NETH210        "))//is Server
+				char compText[16];
+				sprintf(compText, "NETH2%c0        ", unpacked_message.data[5]);
+				if (!strcmp(unpacked_message.data, compText))//is Server
 					serverAddname = true;
 			}
 			else
