@@ -48,47 +48,51 @@ class CommandLineParser {
         bool DoSetLevel() const {return m_set_level;};
         bool DoTestNetworkChng1() const {return m_test_network_chng1;};
 
+        // settings
+        std::string GetMemimagePath() const {return m_memimage_path;};
+
     private:
         void InterpretParams();
 
         std::vector<std::string> m_params;
 
         // modes: these control behaviour and set multiple other parameters
-        bool m_mode_release_game {false};
-        bool m_mode_playing_game {false};
-        bool m_mode_test_regressions_game {false};
-        bool m_mode_debug_afterload {false};
-        bool m_mode_debug_onstart {false};
-        bool m_mode_test_network {false};
+        bool m_mode_release_game;
+        bool m_mode_playing_game;
+        bool m_mode_test_regressions_game;
+        bool m_mode_debug_afterload;
+        bool m_mode_debug_onstart;
+        bool m_mode_test_network;
 
         // parameters
-        bool m_alternative_gamespeed_control {true};
-        bool m_analyze_entity {true};
-        bool m_auto_change_res {false};
-        bool m_copy_skip_config {false};
-        bool m_debug_sequences {false};
-        bool m_debug_sequences2 {false};
-        bool m_detect_dword_a {false};
-        bool m_disable_graphics_enhance {false};
-        bool m_fix_flyasistant {false};
-        bool m_fix_mouse {false};
-        bool m_interval_save {false};
-        bool m_load_edited_level {false};
-        bool m_mouse_off {false};
-        bool m_mouse_off2 {false};
-        bool m_move_player {false};
-        bool m_no_show_new_procedures {false};
-        bool m_off_pause_5 {false};
-        bool m_right_button {false};
-        bool m_test_regression {false};
-        bool m_test_renderers {false};
-        bool m_debugafterload {false};
-        bool m_graphics_debug {false};
-        bool m_hide_graphics {false};
-        bool m_rotate_player {false};
-        bool m_set_objective {false};
-        bool m_set_level {false};
-        bool m_test_network_chng1 {false};
+        bool m_alternative_gamespeed_control;
+        bool m_analyze_entity;
+        bool m_auto_change_res;
+        bool m_copy_skip_config;
+        bool m_debug_sequences;
+        bool m_debug_sequences2;
+        bool m_detect_dword_a;
+        bool m_disable_graphics_enhance;
+        bool m_fix_flyasistant;
+        bool m_fix_mouse;
+        bool m_interval_save;
+        bool m_load_edited_level;
+        bool m_mouse_off;
+        bool m_mouse_off2;
+        bool m_move_player;
+        bool m_no_show_new_procedures;
+        bool m_off_pause_5;
+        bool m_right_button;
+        bool m_test_regression;
+        bool m_test_renderers;
+        bool m_debugafterload;
+        bool m_graphics_debug;
+        bool m_hide_graphics;
+        bool m_rotate_player;
+        bool m_set_objective;
+        bool m_set_level;
+        bool m_test_network_chng1;
+        std::string m_memimage_path;
 };
 
 extern CommandLineParser CommandLineParams;

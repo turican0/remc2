@@ -43,6 +43,7 @@ void CommandLineParser::Init(int argc, char **argv) {
     m_set_objective = false;
     m_set_level = false;
     m_test_network_chng1 = false;
+    m_memimage_path = "../remc2/memimages/";
 
     this->m_params.clear();
     for (int i=1; i < argc; ++i) {
@@ -52,7 +53,7 @@ void CommandLineParser::Init(int argc, char **argv) {
 }
 
 void CommandLineParser::InterpretParams() {
-    const auto &p = this->m_params;
+    const auto &params = this->m_params;
 
     // FIXME: check if multiple modes are selected and warn/fix
 
@@ -68,12 +69,13 @@ void CommandLineParser::InterpretParams() {
     auto is_in_all_params = [&all_modes](const std::string &s) {
         return end(all_modes) != std::find(begin(all_modes), end(all_modes), s);
     };
-    if (!std::any_of(begin(p), end(p), is_in_all_params)) {
+    if (!std::any_of(begin(params), end(params), is_in_all_params)) {
         this->m_params.emplace_back("--mode_release_game");
     }
 
     // check for modes (that define a set of params) and single params
-    for (const auto &param: p) {
+    for (auto p = params.cbegin(); p != params.cend(); ++p) {
+        const auto param = *p;
         if (param == "--mode_release_game") { //this is standard setting
             m_mode_release_game = true;
             m_no_show_new_procedures = true;
@@ -172,9 +174,8 @@ void CommandLineParser::InterpretParams() {
         else if (param == "--set_objective")                    m_set_objective = true;
         else if (param == "--set_level")                        m_set_level = true;
         else if (param == "--test_network_chng1")               m_test_network_chng1 = true;
-    
-    
-    
-    
+        else if (param == "--memimage_path") {
+            m_memimage_path = *(++p);
+        }
     }
 }
