@@ -3,6 +3,7 @@
 #include <boost/bind/bind.hpp>
 #include <boost/asio.hpp>
 
+#include "engine/CommandLineParser.h"
 #include "engine/engine_support.h"
 #include "sub_main.h"
 
@@ -22,6 +23,8 @@ int main(int argc, char** argv)
 	//char *envp[] = { "env=xx", NULL };
 	//ds:esi - cesta k nazvu
 	//mine_texts((char*)"0160-0022A288", 0x2a1000, 1000, (char*)"mined-texts.txt");
+
+	CommandLineParams.Init(argc, argv);
 
 	support_begin();
 	int retval = sub_main(argc, argv, envp);

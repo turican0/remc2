@@ -4028,7 +4028,7 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 	if (comp22a< 0x28 * 4)
 		comp22a = comp22a;
 		*/
-		/*if (debugafterload)
+		/*if (CommandLineParams.DoDebugafterload())
 			VGA_Debug_Blit(640, 480, m_ptrScreenBuffer_351628);*/
 
 	if (!x_BYTE_F2CC6)
@@ -6656,7 +6656,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 	bool v1300; // [esp+64h] [ebp-24h]
 	bool v1301; // [esp+64h] [ebp-24h]
 
-	/*if(debugafterload)
+	/*if(CommandLineParams.DoDebugafterload())
 	{
 		if (debugcounter_297253 >= 0x37) {
 			debugcounter_297253++;
@@ -6664,7 +6664,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 		}
 		debugcounter_297253++;
 	}*/
-	//add_compare(0x297257, debugafterload,0x37);
+	//add_compare(0x297257, CommandLineParams.DoDebugafterload(),0x37);
 
 	//fix it
 	v1045 = 0;
