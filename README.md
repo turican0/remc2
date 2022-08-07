@@ -34,6 +34,8 @@ Tomas has done amazing work, not only reverse engineering this code but updating
 
 #### Building on Linux
 
+The Raspberry Pi OS/Debian Guide click here: [a relative link](README-PI-DEBIAN.md)
+
 There are two ways to build the Linux binary.
 - Building a native binary
   1. Pull the development branch
