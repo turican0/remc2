@@ -2835,6 +2835,7 @@ bool Iam_server = false;
 bool Iam_client = false;
 //int ClientMPort = 3491;
 int NetworkPort = 15001;
+int ServerPort = -1;
 char serverIP[256] = "000.000.000.000";
 
 x_DWORD x_DWORD_D41A4_4 = 0;
@@ -55391,7 +55392,7 @@ void InitNetworkInfo() {
 		/*if (Iam_server)
 			InitLibNetServer(ServerMPort);
 		InitLibNetClient(serverIP, ServerMPort, ClientMPort);*/
-		InitMyNetLib(Iam_server, serverIP, NetworkPort);
+		InitMyNetLib(Iam_server, serverIP, NetworkPort, ServerPort);
 		/*
 		if (Iam_server)
 		{
@@ -55774,9 +55775,7 @@ void sub_56210_process_command_line(int argc, char** argv)//237210
 					NetworkPort = atoi(argv[++argnumber]);
 					if (NetworkPort < 0)NetworkPort = 0;
 					if (NetworkPort > 99999)NetworkPort = 99999;
-					/*ClientMPort = atoi(argv[++argnumber]);
-					if (ClientMPort < 0)ClientMPort = 0;
-					if (ClientMPort > 9999)ClientMPort = 9999;*/
+					if (ServerPort == -1)ServerPort = NetworkPort;
 				}
 			}
 			else if (!_stricmp("server", (char*)actarg))//set to all one computer adress
@@ -55788,30 +55787,15 @@ void sub_56210_process_command_line(int argc, char** argv)//237210
 					NetworkPort = atoi(argv[++argnumber]);
 					if (NetworkPort < 0)NetworkPort = 0;
 					if (NetworkPort > 99999)NetworkPort = 99999;
-					/*ClientMPort = atoi(argv[++argnumber]);
-					if (ClientMPort < 0)ClientMPort = 0;
-					if (ClientMPort > 9999)ClientMPort = 9999;*/
+					if (ServerPort == -1)ServerPort = NetworkPort;
 				}
 			}
-			/*else if (!_stricmp("netinitwait", (char*)actarg))//set to all one computer adress
+			else if (!_stricmp("otherserverport", (char*)actarg))//set to all one computer adress
 			{
-				//if (!Iam_client)
-				{
-					//Iam_server = true;
-					NetworkInitWait = atoi(argv[++argnumber]);
-				}
-			}*/
-			/*else if (!_stricmp("client", (char*)actarg))
-			{
-				if (!Iam_server)
-				{
-					Iam_client = true;
-					strcpy(serverIP, (char*)argv[++argnumber][0]);
-					MultiplayerPort = atoi(argv[++argnumber]);
-					if (MultiplayerPort < 0)MultiplayerPort = 0;
-					if (MultiplayerPort > 9999)MultiplayerPort = 9999;
-				}
-			}*/
+				ServerPort = atoi(argv[++argnumber]);
+				if (ServerPort < 0)ServerPort = 0;
+				if (ServerPort > 99999)ServerPort = 99999;
+			}
 		}
 		argnumber++;
 	}
