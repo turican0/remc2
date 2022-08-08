@@ -650,14 +650,14 @@ int test_0x6E8E_id_pointer(uint32_t adress) {
 int test_D41A0_id_pointer(uint32_t adress) {
 	if ((adress >= 0x2fc4) && (adress < 0x2fc5))return 2;//event
 
-	if ((adress >= 0x314d) && (adress < 0x3151))return 2;//clock
+	if ((adress >= 0x314d) && (adress < 0x3151))return 2;//clock - 4 bytes
 	if ((adress >= 0x3999) && (adress < 0x399d))return 2;//clock2 - 4 bytes
-	if ((adress >= 0x41e5) && (adress < 0x41e8))return 2;//clock3
-	if ((adress >= 0x4a31) && (adress < 0x4a34))return 2;//clock4
-	if ((adress >= 0x527d) && (adress < 0x5280))return 2;//clock5
-	if ((adress >= 0x5ac9) && (adress < 0x5acc))return 2;//clock6
-	if ((adress >= 0x6315) && (adress < 0x6318))return 2;//clock7
-	if ((adress >= 0x6b61) && (adress < 0x6b64))return 2;//clock8
+	if ((adress >= 0x41e5) && (adress < 0x41e9))return 2;//clock3 - 4 bytes
+	if ((adress >= 0x4a31) && (adress < 0x4a35))return 2;//clock4 - 4 bytes
+	if ((adress >= 0x527d) && (adress < 0x5281))return 2;//clock5 - 4 bytes
+	if ((adress >= 0x5ac9) && (adress < 0x5acd))return 2;//clock6 - 4 bytes
+	if ((adress >= 0x6315) && (adress < 0x6319))return 2;//clock7 - 4 bytes
+	if ((adress >= 0x6b61) && (adress < 0x6b65))return 2;//clock8 - 4 bytes
 
 	if ((adress >= 0x235) && (adress < 0x236))return 2;//music
 
