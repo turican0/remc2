@@ -64045,7 +64045,7 @@ unsigned int sub_60810(type_event_0x6E8E* a1x)//241810
 			v4x = x_DWORD_EA3E4[v3];
 	}
 	v5 = v1x->dword_0xA4_164x->word_0x24A_586
-		* ((v1x->dword_0xA4_164x->array_0x24E_590[a1x->dword_0x10_16] << 8) + 256);
+		* ((v1x->dword_0xA4_164x->array_0x24E_590.at(a1x->dword_0x10_16) << 8) + 256);
 	result = a1x->dword_0x10_16;
 	v7 = v5 >> 8;
 	if (result <= 7)
@@ -64645,8 +64645,8 @@ void sub_613D0(type_event_0x6E8E* a1x)//2423d0
 		while (v4 > 0)
 		{
 			//LOWORD(i) = *(char *)(v4 + *(x_DWORD *)(v5 + 164) + 599);
-			v16 = v5x->dword_0xA4_164x->array_0x24E_590[9 + v4];
-			if (v5x->dword_0xA4_164x->array_0x24E_590[9 + v4])
+			v16 = v5x->dword_0xA4_164x->array_0x24E_590.at(9 + v4);
+			if (v5x->dword_0xA4_164x->array_0x24E_590.at(9 + v4))
 				break;
 			v4--;
 		}
@@ -70982,8 +70982,8 @@ type_event_0x6E8E* sub_69AB0(type_event_0x6E8E* a1x)//24aab0
 					v4 = 1;
 					if (v2)
 						v4 = x_DWORD_EA3E4[v2]->dword_0x10_16 + 1;
-					v1x->dword_0xA4_164x->array_0x24E_590[v4] = SPELLS_BEGIN_BUFFER_str[a1x->subtype_0x40_64].subspell[a1x->byte_0x46_70].dword_2;
-					v1x->dword_0xA4_164x->array_0x24E_590[v4 + 9] = SPELLS_BEGIN_BUFFER_str[a1x->subtype_0x40_64].subspell[a1x->byte_0x46_70].byte_0x1A;
+					v1x->dword_0xA4_164x->array_0x24E_590.at(v4) = SPELLS_BEGIN_BUFFER_str[a1x->subtype_0x40_64].subspell[a1x->byte_0x46_70].dword_2;
+					v1x->dword_0xA4_164x->array_0x24E_590.at(v4 + 9) = SPELLS_BEGIN_BUFFER_str[a1x->subtype_0x40_64].subspell[a1x->byte_0x46_70].byte_0x1A;
 					sub_68DE0(a1x, v1x);
 					v5x = IfSubtypeCallAxisEvent_4A190(&v1x->axis_0x4C_76, 9, 10);
 					v12x = v5x;
