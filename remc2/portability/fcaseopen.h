@@ -10,6 +10,9 @@ extern "C" {
 	extern FILE* fcaseopen(char const* path, char const* mode);
 
 	extern void casechdir(char const* path);
+#if !defined(_WIN32)
+	extern int casepath(char const* path, char* r);
+#endif
 
 #if defined(__cplusplus)
 }

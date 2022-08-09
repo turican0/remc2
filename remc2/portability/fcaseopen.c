@@ -12,7 +12,7 @@
 #include <unistd.h>
 
 // r must have strlen(path) + 2 bytes
-static int casepath(char const* path, char* r)
+int casepath(char const* path, char* r)
 {
     size_t l = strlen(path);
     char* p = alloca(l + 1);
