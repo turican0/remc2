@@ -561,7 +561,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1);//pre 22b190
 //char sub_54200();
 
 void sub_71410_process_tmaps();
-void SetCDFilePaths(char* cdDataPath, Pathstruct pstr[]);
+void SetCDFilePaths(const char* cdDataPath, Pathstruct pstr[]);
 void initposistruct();
 
 void Initialize();
