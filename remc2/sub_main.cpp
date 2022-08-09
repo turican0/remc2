@@ -549,7 +549,7 @@ int _null_int23_exit() { stub_fix_it(); return 0; };
 int nullsub_3(x_DWORD  /*number*/) { stub_fix_it(); return 0; };
 int _no_support_loaded(x_DWORD  /*number1*/, x_DWORD  /*number2*/) { stub_fix_it(); return 0; };
 
-void SetCDFilePaths(char* cdDataPath, Pathstruct pstr[])
+void SetCDFilePaths(const char* cdDataPath, Pathstruct pstr[])
 {
 	sprintf(pstr[psxafonts0dat].path, "%s/%s", cdDataPath, "DATA/FONT0.DAT\0");
 	sprintf(pstr[psxafonts0tab].path, "%s/%s", cdDataPath, "DATA/FONT0.TAB\0");
@@ -1871,9 +1871,9 @@ void sub_53CA0();
 void sub_53CC0_close_movie();
 int sub_53CF0_access(char* a1);
 uint8_t sub_53D10_create_nether_subdir(const std::string& gameDir, const std::string& subDir);
-bool sub_53EF0_fileexist(char* path, char* path2);
+bool sub_53EF0_fileexist(const char* path, const char* path2);
 bool sub_53F60(char* a1);
-char LoadFilesFromCDAndGameData(char* cdPath, char* gamePath, char* fileName);
+char LoadFilesFromCDAndGameData(const char* cdPath, const char* gamePath, const char* fileName);
 
 void sub_54600_mouse_reset();
 void sub_54630_load_psxblock(uint16_t TextSize);
@@ -2379,7 +2379,7 @@ char sub_79610_set_keys_dialog();
 signed int sub_79E10(char* a1, char a2);
 //char sub_7A060_get_mouse_and_keyboard_events();
 void sub_7A110_load_hscreen(char a1, char a2);
-void sub_7AA70_load_and_decompres_dat_file(char* a1, uint8_t* a2, int a3, int a4);
+void sub_7AA70_load_and_decompres_dat_file(const char* a1, uint8_t* a2, int a3, int a4);
 void sub_7AC00_load_and_set_graphics_and_Palette();
 int sub_7ADE0(char a1);
 //bool sub_7B200_in_region(int16_t* a1, int16_t testx, int16_t testy);
@@ -2613,7 +2613,7 @@ int sub_90EA0(int a1, char* a2);
 void sub_986E0();
 unsigned long j___clock(); // weak
 void sub_98790(unsigned __int16 a1, unsigned __int8 a2);
-signed int sub_98C48_open_nwrite_close(char* file, uint8_t* buffer, uint32_t count);
+signed int sub_98C48_open_nwrite_close(const char* file, uint8_t* buffer, uint32_t count);
 size_t sub_98CAA_write(FILE* a1, uint8_t* a2, uint32_t a3);
 void sub_99080(char a1);
 int sub_9937E_set_video_mode(__int16 a1);
@@ -6369,7 +6369,7 @@ void sub_101C0()//1f11c0
 	//v0 = pdwScreenBuffer_351628;
 	//xasearchd_2bac30.var32_end_buffer = (uint8_t*)malloc(100000);//fix it
 	char searchPath[MAX_PATH];
-	sprintf(searchPath, "%s/%s", cdDataPath, "DATA/SEARCH.DAT\0");
+	sprintf(searchPath, "%s/%s", cdDataPath.c_str(), "DATA/SEARCH.DAT\0");
 	DataFileIO::ReadFileAndDecompress(searchPath, xawscreen_351628.colorPalette_var28);//2A1004,351628->3AA0A4
 	//v1 = 1;
 	for (uint16_t k = 1; k < 100; k++)
@@ -39909,7 +39909,7 @@ void /*__fastcall*/ sub_46DD0_init_sound_and_music(/*int a1, int a2, char* a3*/)
 		}
 		else
 		{
-			sprintf(printbuffer, "%s/%s", gameDataPath, "sound");
+			sprintf(printbuffer, "%s/%s", gameDataPath.c_str(), "sound");
 			PrintTextMessage_70910((char*)"Initialise Sound\0");
 			sub_90FD0(/*v3*//*v3, v4, a3*/); //fix it sound off here!
 			if (!x_WORD_E2A14_sound_activel)
@@ -39997,13 +39997,13 @@ void LoadTextureData(__int16 vgaTypeResolution, MapType_t MapType, uint8_t* text
 			{
 				if (vgaTypeResolution == 1)
 				{
-					sprintf(dataPath, "%s/%s", cdDataPath, "DATA/MWEBN0-0.DAT");
-					sprintf(tabPath, "%s/%s", cdDataPath, "DATA/MWEBN0-0.TAB");
+					sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/MWEBN0-0.DAT");
+					sprintf(tabPath, "%s/%s", cdDataPath.c_str(), "DATA/MWEBN0-0.TAB");
 				}
 				else
 				{
-					sprintf(dataPath, "%s/%s", cdDataPath, "DATA/HWEBN0-0.DAT");
-					sprintf(tabPath, "%s/%s", cdDataPath, "DATA/HWEBN0-0.TAB");
+					sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/HWEBN0-0.DAT");
+					sprintf(tabPath, "%s/%s", cdDataPath.c_str(), "DATA/HWEBN0-0.TAB");
 				}
 				break;
 			}
@@ -40011,13 +40011,13 @@ void LoadTextureData(__int16 vgaTypeResolution, MapType_t MapType, uint8_t* text
 			{
 				if (vgaTypeResolution == 1)
 				{
-					sprintf(dataPath, "%s/%s", cdDataPath, "DATA/MWEBC0-0.DAT");
-					sprintf(tabPath, "%s/%s", cdDataPath, "DATA/MWEBC0-0.TAB");
+					sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/MWEBC0-0.DAT");
+					sprintf(tabPath, "%s/%s", cdDataPath.c_str(), "DATA/MWEBC0-0.TAB");
 				}
 				else
 				{
-					sprintf(dataPath, "%s/%s", cdDataPath, "DATA/HWEBC0-0.DAT");
-					sprintf(tabPath, "%s/%s", cdDataPath, "DATA/HWEBC0-0.TAB");
+					sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/HWEBC0-0.DAT");
+					sprintf(tabPath, "%s/%s", cdDataPath.c_str(), "DATA/HWEBC0-0.TAB");
 				}
 				break;
 			}
@@ -40025,13 +40025,13 @@ void LoadTextureData(__int16 vgaTypeResolution, MapType_t MapType, uint8_t* text
 		{
 			if (vgaTypeResolution == 1)
 			{
-				sprintf(dataPath, "%s/%s", cdDataPath, "DATA/MWEBD0-0.DAT");
-				sprintf(tabPath, "%s/%s", cdDataPath, "DATA/MWEBD0-0.TAB");
+				sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/MWEBD0-0.DAT");
+				sprintf(tabPath, "%s/%s", cdDataPath.c_str(), "DATA/MWEBD0-0.TAB");
 			}
 			else
 			{
-				sprintf(dataPath, "%s/%s", cdDataPath, "DATA/HWEBD0-0.DAT");
-				sprintf(tabPath, "%s/%s", cdDataPath, "DATA/HWEBD0-0.TAB");
+				sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/HWEBD0-0.DAT");
+				sprintf(tabPath, "%s/%s", cdDataPath.c_str(), "DATA/HWEBD0-0.TAB");
 			}
 			break;
 		}
@@ -40091,24 +40091,24 @@ void sub_47160()//228160
 
 	if (D41A0_0.terrain_2FECE.MapType == MapType_t::Day)
 	{
-		sprintf(xadatamsprd00dat.path, "%s/%s", cdDataPath, "DATA/MSPRD0-0.DAT");
-		sprintf(xadatamsprd00tab.path, "%s/%s", cdDataPath, "DATA/MSPRD0-0.TAB");
-		sprintf(xadatahsprd00dat.path, "%s/%s", cdDataPath, "DATA/HSPRD0-0.DAT");
-		sprintf(xadatahsprd00tab.path, "%s/%s", cdDataPath, "DATA/HSPRD0-0.TAB");
+		sprintf(xadatamsprd00dat.path, "%s/%s", cdDataPath.c_str(), "DATA/MSPRD0-0.DAT");
+		sprintf(xadatamsprd00tab.path, "%s/%s", cdDataPath.c_str(), "DATA/MSPRD0-0.TAB");
+		sprintf(xadatahsprd00dat.path, "%s/%s", cdDataPath.c_str(), "DATA/HSPRD0-0.DAT");
+		sprintf(xadatahsprd00tab.path, "%s/%s", cdDataPath.c_str(), "DATA/HSPRD0-0.TAB");
 	}
 	else if (D41A0_0.terrain_2FECE.MapType == MapType_t::Night)
 	{
-		sprintf(xadatamsprd00dat.path, "%s/%s", cdDataPath, "DATA/MSPRN0-0.DAT");
-		sprintf(xadatamsprd00tab.path, "%s/%s", cdDataPath, "DATA/MSPRN0-0.TAB");
-		sprintf(xadatahsprd00dat.path, "%s/%s", cdDataPath, "DATA/HSPRN0-0.DAT");
-		sprintf(xadatahsprd00tab.path, "%s/%s", cdDataPath, "DATA/HSPRN0-0.TAB");
+		sprintf(xadatamsprd00dat.path, "%s/%s", cdDataPath.c_str(), "DATA/MSPRN0-0.DAT");
+		sprintf(xadatamsprd00tab.path, "%s/%s", cdDataPath.c_str(), "DATA/MSPRN0-0.TAB");
+		sprintf(xadatahsprd00dat.path, "%s/%s", cdDataPath.c_str(), "DATA/HSPRN0-0.DAT");
+		sprintf(xadatahsprd00tab.path, "%s/%s", cdDataPath.c_str(), "DATA/HSPRN0-0.TAB");
 	}
 	else if (D41A0_0.terrain_2FECE.MapType == MapType_t::Cave)
 	{
-		sprintf(xadatamsprd00dat.path, "%s/%s", cdDataPath, "DATA/MSPRC0-0.DAT");
-		sprintf(xadatamsprd00tab.path, "%s/%s", cdDataPath, "DATA/MSPRC0-0.TAB");
-		sprintf(xadatahsprd00dat.path, "%s/%s", cdDataPath, "DATA/HSPRC0-0.DAT");
-		sprintf(xadatahsprd00tab.path, "%s/%s", cdDataPath, "DATA/HSPRC0-0.TAB");
+		sprintf(xadatamsprd00dat.path, "%s/%s", cdDataPath.c_str(), "DATA/MSPRC0-0.DAT");
+		sprintf(xadatamsprd00tab.path, "%s/%s", cdDataPath.c_str(), "DATA/MSPRC0-0.TAB");
+		sprintf(xadatahsprd00dat.path, "%s/%s", cdDataPath.c_str(), "DATA/HSPRC0-0.DAT");
+		sprintf(xadatahsprd00tab.path, "%s/%s", cdDataPath.c_str(), "DATA/HSPRC0-0.TAB");
 	}
 
 	memcpy(pstr[psxadatamsprd00dat].path, xadatamsprd00dat.path, strlen(xadatamsprd00dat.path));
@@ -40537,9 +40537,9 @@ void PaletteChanges_47760(/*int a1,*/uint32_t  /*user*//* int a2, int a3*/)//228
 		{
 			case MapType_t::Day:
 			{
-				sprintf(dataPath, "%s/%s", cdDataPath, "DATA/PALD-0.DAT");
+				sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/PALD-0.DAT");
 				DataFileIO::ReadFileAndDecompress(dataPath, xadatapald0dat2.colorPalette_var28);
-				sprintf(dataPath, "%s/%s", cdDataPath, "DATA/CLRD-0.DAT");
+				sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/CLRD-0.DAT");
 				DataFileIO::ReadFileAndDecompress(dataPath, xadataclrd0dat.colorPalette_var28);
 			}
 				break;
@@ -40547,23 +40547,23 @@ void PaletteChanges_47760(/*int a1,*/uint32_t  /*user*//* int a2, int a3*/)//228
 			{
 				if (D41A0_0.terrain_2FECE.byte_0x2FED2 & 2)
 				{
-					sprintf(dataPath, "%s/%s", cdDataPath, "DATA/PALF-0.DAT");
+					sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/PALF-0.DAT");
 					DataFileIO::ReadFileAndDecompress(dataPath, xadatapald0dat2.colorPalette_var28);
 				}
 				else
 				{
-					sprintf(dataPath, "%s/%s", cdDataPath, "DATA/PALN-0.DAT");
+					sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/PALN-0.DAT");
 					DataFileIO::ReadFileAndDecompress(dataPath, xadatapald0dat2.colorPalette_var28);
 				}
-				sprintf(dataPath, "%s/%s", cdDataPath, "DATA/CLRN-0.DAT");
+				sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/CLRN-0.DAT");
 				DataFileIO::ReadFileAndDecompress(dataPath, xadataclrd0dat.colorPalette_var28);
 				break;
 			}
 			case MapType_t::Cave:
 			{
-				sprintf(dataPath, "%s/%s", cdDataPath, "DATA/PALC-0.DAT");
+				sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/PALC-0.DAT");
 				DataFileIO::ReadFileAndDecompress(dataPath, xadatapald0dat2.colorPalette_var28);
-				sprintf(dataPath, "%s/%s", cdDataPath, "DATA/CLRC-0.DAT");
+				sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/CLRC-0.DAT");
 				DataFileIO::ReadFileAndDecompress(dataPath, xadataclrd0dat.colorPalette_var28);
 				break;
 			}
@@ -40809,12 +40809,12 @@ void sub_47FC0_load_screen(bool isSecretLevel)//228fc0
 
 	if (isSecretLevel)
 	{
-		sprintf(dataPath, "%s/%s", cdDataPath, "DATA/SMATITL2.DAT");
+		sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/SMATITL2.DAT");
 		DataFileIO::ReadFileAndDecompress(dataPath, &x_DWORD_E9C38_smalltit);
 	}
 	else
 	{
-		sprintf(dataPath, "%s/%s", cdDataPath, "DATA/SMATITLE.DAT");
+		sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/SMATITLE.DAT");
 		DataFileIO::ReadFileAndDecompress(dataPath, &x_DWORD_E9C38_smalltit);
 	}
 	sub_85B20_copy_bitmap((x_BYTE*)x_DWORD_E9C38_smalltit, (x_WORD*)pdwScreenBuffer_351628, 0x190u);
@@ -40824,12 +40824,12 @@ void sub_47FC0_load_screen(bool isSecretLevel)//228fc0
 		sub_75200_VGA_Blit640(480);
 	if (isSecretLevel)
 	{
-		sprintf(dataPath, "%s/%s", cdDataPath, "DATA/SMATITL2.PAL");
+		sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/SMATITL2.PAL");
 		DataFileIO::ReadFileAndDecompress(dataPath, xadatapald0dat2.colorPalette_var28);
 	}
 	else
 	{
-		sprintf(dataPath, "%s/%s", cdDataPath, "DATA/SMATITLE.PAL");
+		sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/SMATITLE.PAL");
 		DataFileIO::ReadFileAndDecompress(dataPath, xadatapald0dat2.colorPalette_var28);
 	}
 	sub_90B27_VGA_pal_fadein_fadeout((TColor*)*xadatapald0dat2.colorPalette_var28, 0x20u, 0);
@@ -40864,9 +40864,9 @@ void sub_480A0_set_clear_Palette(/*int a1, int a2, int a3*/)//2290a0
 	sub_90B27_VGA_pal_fadein_fadeout(0, 0x10u, 0);
 	D41A0_0.dword_0x23a = 0;
 
-	sprintf(dataPath, "%s/%s", cdDataPath, "DATA/PALD-0.DAT");
+	sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/PALD-0.DAT");
 	DataFileIO::ReadFileAndDecompress(dataPath, xadatapald0dat2.colorPalette_var28);
-	sprintf(dataPath, "%s/%s", cdDataPath, "DATA/CLRD-0.DAT");
+	sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/CLRD-0.DAT");
 	DataFileIO::ReadFileAndDecompress(dataPath, xadataclrd0dat.colorPalette_var28);
 	sub_48120();
 }
@@ -53259,21 +53259,21 @@ char sub_533B0_decompress_levels(__int16 a1, type_str_2FECE* a2x)//2343b0
 	v2 = (uint8_t*)x_DWORD_E9C38_smalltit;
 	if (a1 < 1000)
 	{
-		GetSubDirectoryFile(levelDataPath, gameFolder, "CLEVELS", "LEVELS.DAT");
-		levelsdatfile = DataFileIO::CreateOrOpenFile(levelDataPath, 512);
+		std::string levelDataPath = GetSubDirectoryFile(gameFolder, "CLEVELS", "LEVELS.DAT");
+		levelsdatfile = DataFileIO::CreateOrOpenFile(strdup(levelDataPath.c_str()), 512);
 		if (levelsdatfile == NULL)
 		{
-			GetSubDirectoryFile(levelDataPath, cdFolder, "LEVELS", "LEVELS.DAT");
-			levelsdatfile = DataFileIO::CreateOrOpenFile(levelDataPath, 512);
+			levelDataPath = GetSubDirectoryFile(cdFolder, "LEVELS", "LEVELS.DAT");
+			levelsdatfile = DataFileIO::CreateOrOpenFile(strdup(levelDataPath.c_str()), 512);
 			if (levelsdatfile == NULL)
 				return 0;
 		}
-		GetSubDirectoryFile(levelDataPath, gameFolder, "CLEVELS", "LEVELS.TAB");
-		levelstabfile = DataFileIO::CreateOrOpenFile(levelDataPath, 512);
+		levelDataPath = GetSubDirectoryFile(gameFolder, "CLEVELS", "LEVELS.TAB");
+		levelstabfile = DataFileIO::CreateOrOpenFile(strdup(levelDataPath.c_str()), 512);
 		if (levelstabfile == NULL)
 		{
-			GetSubDirectoryFile(levelDataPath, cdFolder, "LEVELS", "LEVELS.TAB");
-			levelstabfile = DataFileIO::CreateOrOpenFile(levelDataPath, 512);
+			levelDataPath = GetSubDirectoryFile(cdFolder, "LEVELS", "LEVELS.TAB");
+			levelstabfile = DataFileIO::CreateOrOpenFile(strdup(levelDataPath.c_str()), 512);
 			if (levelstabfile == NULL)
 			{
 				DataFileIO::Close(levelsdatfile);
@@ -53383,7 +53383,7 @@ void sub_539A0_load_bldgprm()//2349a0
 {
 	char bldPath[MAX_PATH];
 
-	sprintf(bldPath, "%s/%s", cdDataPath, "DATA/BLDGPRM.DAT\0");
+	sprintf(bldPath, "%s/%s", cdDataPath.c_str(), "DATA/BLDGPRM.DAT\0");
 
 	FILE* bldgprmfile = DataFileIO::CreateOrOpenFile(bldPath, 512);
 	if (bldgprmfile)
@@ -53580,13 +53580,13 @@ uint8_t sub_53D10_create_nether_subdir(const std::string& gameDir, const std::st
 // 988DA: using guessed type x_DWORD filelength(x_DWORD);
 
 //----- (00053EF0) --------------------------------------------------------
-bool sub_53EF0_fileexist(char* path, char* path2)//234ef0//fix a2
+bool sub_53EF0_fileexist(const char* path, const char* path2)//234ef0//fix a2
 {
 	FILE* testfile1; // eax
 	FILE* testfile2; // eax
 	bool result = false; // [esp+0h] [ebp-4h]
-	testfile1 = DataFileIO::CreateOrOpenFile(path, 512);
-	testfile2 = DataFileIO::CreateOrOpenFile(path2, 512);
+	testfile1 = DataFileIO::CreateOrOpenFile(strdup(path), 512);
+	testfile2 = DataFileIO::CreateOrOpenFile(strdup(path2), 512);
 	if (testfile1 == NULL || testfile2 == NULL)
 		result = true;
 	if (testfile1 != NULL)
@@ -53604,7 +53604,7 @@ bool sub_53F60(char* a1)//234f60
 // 98CF2: using guessed type x_DWORD access(x_DWORD, x_DWORD);
 
 //----- (00053F80) --------------------------------------------------------
-char LoadFilesFromCDAndGameData(char* cdPath, char* gamePath, char* fileName)//234f80
+char LoadFilesFromCDAndGameData(const char* cdPath, const char* gamePath, const char* fileName)//234f80
 {
 	FILE* file1; // ebx
 	FILE* file2; // esi
@@ -53627,9 +53627,9 @@ char LoadFilesFromCDAndGameData(char* cdPath, char* gamePath, char* fileName)//2
 	int v20; // [esp+18Ch] [ebp-8h]
 	//FILE* v21; // [esp+190h] [ebp-4h]
 
-	if (!sub_53F60(cdPath))//234F90 - 234F60
+	if (!sub_53F60(strdup(cdPath)))//234F90 - 234F60
 		return 2;
-	if (!sub_53F60(gamePath))//234FA5 - 234F60
+	if (!sub_53F60(strdup(gamePath)))//234FA5 - 234F60
 		return 1;
 	sprintf(printbuffer, "%s/%s.TAB", cdPath, fileName);//234FCA - 269F3D5
 	sprintf(printbuffer2, "%s/%s.TAB", gamePath, fileName);//234FE3 - 269F3D5
@@ -53717,74 +53717,73 @@ char sub_54200_create_user_directiores()//235200
 	printbuffer[0] = 0;
 	outtext((char*)"Checking Setup Version ..");//23521B - 29EBED
 	v0l = 1;
-	GetSubDirectoryFile(printbuffer, gameFolder, "CDATA", "VERSION.DAT");//235250 - 26F3D5
-	DataFileIO::ReadFileAndDecompress(printbuffer, &readbuffer);//235260 - 234E60
+	std::string versionPath = GetSubDirectoryFile(gameFolder, "CDATA", "VERSION.DAT");//235250 - 26F3D5
+	DataFileIO::ReadFileAndDecompress(versionPath.c_str(), &readbuffer);//235260 - 234E60
 	if (readbuffer[0] != 60)
 		v0h = 1;
 	outtext((char*)"\n");//235277 - 29EBED
-	GetSubDirectoryFile(printbuffer, gameFolder, "CDATA", "TMAPS0-0.DAT");//2352A8 - 26F3D5
-	GetSubDirectoryFile(printbuffer2, cdFolder, "DATA", "TMAPS0-0.DAT");//2352BE - 26F3D5
-	if (v0h || sub_53EF0_fileexist(printbuffer, printbuffer2))
+	std::string cDataTmapsPath0 = GetSubDirectoryFile(gameFolder, "CDATA", "TMAPS0-0.DAT");//2352A8 - 26F3D5
+	std::string dataTmapsPath0 = GetSubDirectoryFile(cdFolder, "DATA", "TMAPS0-0.DAT");//2352BE - 26F3D5
+	if (v0h || sub_53EF0_fileexist(cDataTmapsPath0.c_str(), dataTmapsPath0.c_str()))
 	{
 		x_BYTE_D41AD_skip_screen = 0;//fix can not exit from setup
 		//fix it - whne file not exist
 		outtext((char*)"Creating Setup Directories 1 ..");//2352E4 -29EBED
 		x_DWORD_F4720 = gettextposition();//2352EC - 29E953
 
-		GetSubDirectoryPath(printbuffer, gameFolder, "CDATA");//23531A - 26F3D5
-		GetSubDirectoryPath(printbuffer2, cdFolder, "DATA");//23531A - 26F3D5
-		if (LoadFilesFromCDAndGameData(printbuffer2, printbuffer, (char*)"TMAPS0-0"))// this needs to create something // 235330 -234F80 // create tmaps00 tab / data
+		std::string cDataTmapsPath = GetSubDirectoryPath(gameFolder, "CDATA");//23531A - 26F3D5
+		std::string dataTmapsPath = GetSubDirectoryPath(cdFolder, "DATA");//23531A - 26F3D5
+		if (LoadFilesFromCDAndGameData(dataTmapsPath.c_str(), cDataTmapsPath.c_str(), (char*)"TMAPS0-0"))// this needs to create something // 235330 -234F80 // create tmaps00 tab / data
 			v0l = 0;
 		outtext((char*)"\n");//235343 - 29EBED
 	}
 	if (v0l)
 	{
-		GetSubDirectoryFile(printbuffer, gameFolder, "CDATA", "TMAPS1-0.DAT");//23537C - 26F3D5
-		GetSubDirectoryFile(printbuffer2, cdFolder, "DATA", "TMAPS1-0.DAT");//235392 - 26F3D5
-		if (v0h || sub_53EF0_fileexist(printbuffer, printbuffer2))
+		std::string cDataTmapsPath1 = GetSubDirectoryFile(gameFolder, "CDATA", "TMAPS1-0.DAT");//23537C - 26F3D5
+		std::string dataTmapsPath1 = GetSubDirectoryFile(cdFolder, "DATA", "TMAPS1-0.DAT");//235392 - 26F3D5
+		if (v0h || sub_53EF0_fileexist(cDataTmapsPath1.c_str(), dataTmapsPath1.c_str()))
 		{
 			//fix it - whne file not exist
 			outtext((char*)"Creating Setup Directories 2 ..");
 			x_DWORD_F4720 = gettextposition(/*v3, v4, v0*/);
-			GetSubDirectoryPath(printbuffer, gameFolder, "CDATA");//2353EE - 26F3D5
-			GetSubDirectoryPath(printbuffer2, cdFolder, "DATA");//23531A - 26F3D5
-			if (LoadFilesFromCDAndGameData(printbuffer2, printbuffer, (char*)"TMAPS1-0"))//235404 - 234F80
+			std::string cDataTmapsPath = GetSubDirectoryPath(gameFolder, "CDATA");//2353EE - 26F3D5
+			std::string dataTmapsPath = GetSubDirectoryPath(cdFolder, "DATA");//23531A - 26F3D5
+			if (LoadFilesFromCDAndGameData(dataTmapsPath.c_str(), cDataTmapsPath.c_str(), (char*)"TMAPS1-0"))//235404 - 234F80
 				v0l = 0;
 			outtext((char*)"\n");
 		}
 	}
 	if (v0l)
 	{
-		GetSubDirectoryFile(printbuffer, gameFolder, "CDATA", "TMAPS2-0.DAT");
-		GetSubDirectoryFile(printbuffer2, cdFolder, "DATA", "TMAPS2-0.DAT");
-		if (v0h || sub_53EF0_fileexist(printbuffer, printbuffer2))
+		std::string cDataTmapsPath2 = GetSubDirectoryFile(gameFolder, "CDATA", "TMAPS2-0.DAT");
+		std::string dataTmapsPath2 = GetSubDirectoryFile(cdFolder, "DATA", "TMAPS2-0.DAT");
+		if (v0h || sub_53EF0_fileexist(cDataTmapsPath2.c_str(), dataTmapsPath2.c_str()))
 		{
 			//fix it - whne file not exist
 			outtext((char*)"Creating Setup Directories 3 ..");
 			x_DWORD_F4720 = gettextposition(/*v5, v6, v0*/);
-			GetSubDirectoryPath(printbuffer, gameFolder, "CDATA");
-			GetSubDirectoryPath(printbuffer2, cdFolder, "DATA");
-			if (LoadFilesFromCDAndGameData(printbuffer2, printbuffer, (char*)"TMAPS2-0"))
+			std::string cDataTmapsPath = GetSubDirectoryPath(gameFolder, "CDATA");
+			std::string dataTmapsPath = GetSubDirectoryPath(cdFolder, "DATA");
+			if (LoadFilesFromCDAndGameData(dataTmapsPath.c_str(), cDataTmapsPath.c_str(), (char*)"TMAPS2-0"))
 				v0l = 0;
 			outtext((char*)"\n");
 		}
 	}
 	if (v0l && !((x_D41A0_BYTEARRAY_4_struct.setting_byte1_22) & 8))//test it
 	{
-		GetSubDirectoryFile(printbuffer, gameFolder, "CLEVELS", "LEVELS.DAT");
 		outtext((char*)"Setting Up Levels ..");
 		x_DWORD_F4720 = gettextposition(/*v7, v8, v0*/);
-		GetSubDirectoryPath(printbuffer, gameFolder, "CLEVELS");
-		GetSubDirectoryPath(printbuffer2, cdFolder, "LEVELS");
-		if (LoadFilesFromCDAndGameData(printbuffer2, printbuffer, (char*)"LEVELS"))
+		std::string clevelsPath = GetSubDirectoryPath(gameFolder, "CLEVELS");
+		std::string levelPath = GetSubDirectoryPath(cdFolder, "LEVELS");
+		if (LoadFilesFromCDAndGameData(levelPath.c_str(), clevelsPath.c_str(), (char*)"LEVELS"))
 			v0l = 0;
 		outtext((char*)"\n");
 	}
 	if (v0l && v0h)
 	{
-		GetSubDirectoryFile(printbuffer, gameFolder, "CDATA", "VERSION.DAT");
+		versionPath = GetSubDirectoryFile(gameFolder, "CDATA", "VERSION.DAT");
 		readbuffer[0] = 60;
-		sub_98C48_open_nwrite_close(printbuffer, readbuffer, 4);
+		sub_98C48_open_nwrite_close(versionPath.c_str(), readbuffer, 4);
 	}
 
 	return v0l;
@@ -53851,13 +53850,13 @@ void sub_54660_read_and_decompress_sky_and_blocks(MapType_t GraphicsType, uint8_
 		{
 		case 16:
 		{
-			sprintf(dataPath, "%s/%s", cdDataPath, "DATA/BLOCK16.DAT");
+			sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/BLOCK16.DAT");
 			DataFileIO::ReadFileAndDecompress(dataPath, &BLOCK32DAT_BEGIN_BUFFER);//2bac2c
 			break;
 		}
 		case 32:
 		{
-			sprintf(dataPath, "%s/%s", cdDataPath, "DATA/BLOCK32.DAT");
+			sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/BLOCK32.DAT");
 			DataFileIO::ReadFileAndDecompress(dataPath, &BLOCK32DAT_BEGIN_BUFFER);//2bac2c
 			break;
 		}
@@ -53865,14 +53864,14 @@ void sub_54660_read_and_decompress_sky_and_blocks(MapType_t GraphicsType, uint8_
 		{
 			//AdvReadfile("biggraphics/block128.data",BigTextureBuffer);//advance graphics
 			//AdvReadfile(bigtexturepath, BigTextureBuffer);//advance graphics
-			sprintf(dataPath, "%s/%s", bigGraphicsPath, "block128.data");
+			sprintf(dataPath, "%s/%s", bigGraphicsPath.c_str(), "block128.data");
 			ReadGraphicsfile(dataPath, BigTextureBuffer);//advance graphics
 			break;
 		}
 		}
-		sprintf(dataPath, "%s/%s", cdDataPath, "DATA/SKYD0-0.DAT");
+		sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/SKYD0-0.DAT");
 		DataFileIO::ReadFileAndDecompress(dataPath, &off_D41A8_sky);//2a51a8
-		sprintf(dataPath, "%s/%s", cdDataPath, "DATA/TMAPS0-0.TAB");
+		sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/TMAPS0-0.TAB");
 		DataFileIO::ReadFileAndDecompress(dataPath, (uint8_t**)&str_TMAPS00TAB_BEGIN_BUFFER);//2c7ed0
 		break;
 	}
@@ -53884,12 +53883,12 @@ void sub_54660_read_and_decompress_sky_and_blocks(MapType_t GraphicsType, uint8_
 		{
 			if (D41A0_0.terrain_2FECE.byte_0x2FED2 & 2)
 			{
-				sprintf(dataPath, "%s/%s", cdDataPath, "DATA/BL16F0-0.DAT");
+				sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/BL16F0-0.DAT");
 				DataFileIO::ReadFileAndDecompress(dataPath, &BLOCK32DAT_BEGIN_BUFFER);//2bac2c
 			}
 			else
 			{
-				sprintf(dataPath, "%s/%s", cdDataPath, "DATA/BL16N0-0.DAT");
+				sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/BL16N0-0.DAT");
 				DataFileIO::ReadFileAndDecompress(dataPath, &BLOCK32DAT_BEGIN_BUFFER);//2bac2c
 			}
 			break;
@@ -53898,12 +53897,12 @@ void sub_54660_read_and_decompress_sky_and_blocks(MapType_t GraphicsType, uint8_
 		{
 			if (D41A0_0.terrain_2FECE.byte_0x2FED2 & 2)
 			{
-				sprintf(dataPath, "%s/%s", cdDataPath, "DATA/BL32F0-0.DAT");
+				sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/BL32F0-0.DAT");
 				DataFileIO::ReadFileAndDecompress(dataPath, &BLOCK32DAT_BEGIN_BUFFER);//2bac2c
 			}
 			else
 			{
-				sprintf(dataPath, "%s/%s", cdDataPath, "DATA/BL32N0-0.DAT");
+				sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/BL32N0-0.DAT");
 				DataFileIO::ReadFileAndDecompress(dataPath, &BLOCK32DAT_BEGIN_BUFFER);//2bac2c
 			}
 			break;
@@ -53912,20 +53911,20 @@ void sub_54660_read_and_decompress_sky_and_blocks(MapType_t GraphicsType, uint8_
 		{
 			if (D41A0_0.terrain_2FECE.byte_0x2FED2 & 2)
 			{
-				sprintf(dataPath, "%s/%s", bigGraphicsPath, "bl128f0-0.data");
+				sprintf(dataPath, "%s/%s", bigGraphicsPath.c_str(), "bl128f0-0.data");
 				ReadGraphicsfile(dataPath, BigTextureBuffer);//advance graphics
 			}
 			else
 			{
-				sprintf(dataPath, "%s/%s", bigGraphicsPath, "bl128n0-0.data");
+				sprintf(dataPath, "%s/%s", bigGraphicsPath.c_str(), "bl128n0-0.data");
 				ReadGraphicsfile(dataPath, BigTextureBuffer);//advance graphics
 			}
 			break;
 		}
 		}
-		sprintf(dataPath, "%s/%s", cdDataPath, "DATA/SKYN0-0.DAT");
+		sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/SKYN0-0.DAT");
 		DataFileIO::ReadFileAndDecompress(dataPath, &off_D41A8_sky);//2a51a8
-		sprintf(dataPath, "%s/%s", cdDataPath, "DATA/TMAPS1-0.TAB");
+		sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/TMAPS1-0.TAB");
 		DataFileIO::ReadFileAndDecompress(dataPath, (uint8_t**)&str_TMAPS00TAB_BEGIN_BUFFER);//2c7ed0
 		break;
 	}
@@ -53935,19 +53934,19 @@ void sub_54660_read_and_decompress_sky_and_blocks(MapType_t GraphicsType, uint8_
 		{
 		case 16:
 		{
-			sprintf(dataPath, "%s/%s", cdDataPath, "DATA/BL16C0-0.DAT");
+			sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/BL16C0-0.DAT");
 			DataFileIO::ReadFileAndDecompress(dataPath, &BLOCK32DAT_BEGIN_BUFFER);//2bac2c
 			break;
 		}
 		case 32:
 		{
-			sprintf(dataPath, "%s/%s", cdDataPath, "DATA/BL32C0-0.DAT");
+			sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/BL32C0-0.DAT");
 			DataFileIO::ReadFileAndDecompress(dataPath, &BLOCK32DAT_BEGIN_BUFFER);//2bac2c
 			break;
 		}
 		case 128:
 		{
-			sprintf(dataPath, "%s/%s", bigGraphicsPath, "bl128c0-0.data");
+			sprintf(dataPath, "%s/%s", bigGraphicsPath.c_str(), "bl128c0-0.data");
 			ReadGraphicsfile(dataPath, BigTextureBuffer);//advance graphics
 			break;
 		}
@@ -53971,21 +53970,21 @@ void sub_54800_read_and_decompress_tables(MapType_t a1)//235800
 
 	if (a1 == MapType_t::Day)
 	{
-		sprintf(dataPath, "%s/%s", cdDataPath, "DATA/TABLESD.DAT");
+		sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/TABLESD.DAT");
 		DataFileIO::ReadFileAndDecompress(dataPath, &x_BYTE_F6EE0_tablesx_pre);//2c7ee0
 		x_WORD_D4B7E = 0;
 		x_WORD_D4B7C = 254;
 	}
 	else if (a1 == MapType_t::Night)
 	{
-		sprintf(dataPath, "%s/%s", cdDataPath, "DATA/TABLESN.DAT");
+		sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/TABLESN.DAT");
 		DataFileIO::ReadFileAndDecompress(dataPath, &x_BYTE_F6EE0_tablesx_pre);
 		x_WORD_D4B7E = 255;
 		x_WORD_D4B7C = 0;
 	}
 	else if (a1 == MapType_t::Cave)
 	{
-		sprintf(dataPath, "%s/%s", cdDataPath, "DATA/TABLESC.DAT");
+		sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/TABLESC.DAT");
 		DataFileIO::ReadFileAndDecompress(dataPath, &x_BYTE_F6EE0_tablesx_pre);
 		x_WORD_D4B7C = 254;
 		x_WORD_D4B7E = 255;
@@ -54575,7 +54574,7 @@ char SaveLevelSLEV_55250(uint8_t savefileindex, char* savefileindex2)//236250 //
 	//fix for saving
 
 	success = 0;
-	sprintf(printbuffer, "%s/%s/%s%d%s.DAT", gameDataPath, "SAVE", "SLEV", savefileindex + 1, savefileindex2);
+	sprintf(printbuffer, "%s/%s/%s%d%s.DAT", gameDataPath.c_str(), "SAVE", "SLEV", savefileindex + 1, savefileindex2);
 	D41A0_0.dword_0x36DF6 = &str_D7BD6[59]; //(x_DWORD)&unk_D7BD6[0x7d6];
 	temptime = D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x3E6_2BE4_12228.dword_0x189_393;
 	acttime = j___clock();
@@ -54617,7 +54616,7 @@ bool SaveLevelSMAP_55320(uint8_t savefileindex, char* savefileindex2)//236320 //
 	debug_printf("InGameSave-begin\n");
 #endif //DEBUG_START
 
-	sprintf(printbuffer, "%s/%s/%s%d%s.DAT", gameDataPath, "SAVE", "SMAP", savefileindex + 1, savefileindex2);
+	sprintf(printbuffer, "%s/%s/%s%d%s.DAT", gameDataPath.c_str(), "SAVE", "SMAP", savefileindex + 1, savefileindex2);
 	savesmapfile = DataFileIO::CreateOrOpenFile(printbuffer, 546);
 	if (savesmapfile)
 	{
@@ -54647,7 +54646,7 @@ char SaveLevelSVER_55450(uint8_t savefileindex, int32_t levelNumber, char* savef
 	data[1] = levelNumber;
 	data[0] = 15;
 	success = 0;
-	sprintf(printbuffer, "%s/%s/%s%d%s.DAT", gameDataPath, "SAVE", "SVER", savefileindex + 1, savefileindex2);
+	sprintf(printbuffer, "%s/%s/%s%d%s.DAT", gameDataPath.c_str(), "SAVE", "SVER", savefileindex + 1, savefileindex2);
 	if (sub_98C48_open_nwrite_close(printbuffer, (uint8_t*)data, 2*sizeof(int32_t)) == 8)
 		success = 1;
 	return success;
@@ -54794,10 +54793,10 @@ uint8_t sub_55750_TestExistingSaveFile(uint8_t fileindex, int levelindex)//23675
 	//!!!!v12 fix
 
 	result = 0;
-	sprintf(printbuffer, "%s/%s/%s%d.DAT", gameDataPath, "SAVE", "SVER", fileindex + 1);
+	sprintf(printbuffer, "%s/%s/%s%d.DAT", gameDataPath.c_str(), "SAVE", "SVER", fileindex + 1);
 	if (DataFileIO::ReadFileAndDecompress(printbuffer, &readbuffer) == 8 && *(uint32_t*)&readbuffer[4] == levelindex && *(uint32_t*)&readbuffer[0] == 0xf)
 	{
-		sprintf(printbuffer, "%s/%s/%s%d.DAT", gameDataPath, "SAVE", "SLEV", fileindex + 1);
+		sprintf(printbuffer, "%s/%s/%s%d.DAT", gameDataPath.c_str(), "SAVE", "SLEV", fileindex + 1);
 		saveslevfile = DataFileIO::CreateOrOpenFile(printbuffer, 512);
 		//v3 = saveslevfile;
 		if (saveslevfile)
@@ -54810,7 +54809,7 @@ uint8_t sub_55750_TestExistingSaveFile(uint8_t fileindex, int levelindex)//23675
 			DataFileIO::Close(saveslevfile);
 			if (filesize2 == sizeof(type_shadow_D41A0_BYTESTR_0) && !v5)
 			{
-				sprintf(printbuffer, "%s/%s/%s%d.DAT", gameDataPath, "SAVE", "SMAP", fileindex + 1);
+				sprintf(printbuffer, "%s/%s/%s%d.DAT", gameDataPath.c_str(), "SAVE", "SMAP", fileindex + 1);
 				savesmapfile = DataFileIO::CreateOrOpenFile(printbuffer, 512);
 				//v8 = v7;
 				if (savesmapfile)
@@ -54850,7 +54849,7 @@ bool LoadLevelSMAP_558E0(uint8_t savefileindex)//2368e0
 	x_D41A0_BYTEARRAY_4_struct.setting_30 = 0x3d;//fix same run after load
 	x_WORD_17B4E0 = 0x21ed;//fix random variable for debugging
 
-	sprintf(printbuffer, "%s/%s/%s%d.DAT", gameDataPath, "SAVE", "SMAP", savefileindex + 1);
+	sprintf(printbuffer, "%s/%s/%s%d.DAT", gameDataPath.c_str(), "SAVE", "SMAP", savefileindex + 1);
 	loadfile = DataFileIO::CreateOrOpenFile(printbuffer, 512);
 	if (loadfile)
 	{
@@ -54883,7 +54882,7 @@ char LoadLevelSLEV_55A10(uint8_t savefileindex)//236a10
 {
 	char success; // bl
 	success = 0;
-	sprintf(printbuffer, "%s/%s/%s%d.DAT", gameDataPath, "SAVE", "SLEV", savefileindex + 1);
+	sprintf(printbuffer, "%s/%s/%s%d.DAT", gameDataPath.c_str(), "SAVE", "SLEV", savefileindex + 1);
 	//x64 fix
 	uint8_t* D41A0_pointer;
 	type_shadow_D41A0_BYTESTR_0 shadow_D41A0_BYTESTR_0;
@@ -55462,17 +55461,16 @@ int sub_main(int argc, char** argv, char**  /*envp*/)//236F70
 	}
 
 	//Set Paths for game data
-	GetSubDirectoryPath(gameDataPath, gameFolder);
-	GetSubDirectoryPath(cdDataPath, cdFolder);
-	GetSubDirectoryPath(bigGraphicsPath, bigGraphicsFolder);
+	gameDataPath = GetSubDirectoryPath(gameFolder);
+	cdDataPath = GetSubDirectoryPath(cdFolder);
+	bigGraphicsPath = GetSubDirectoryPath(bigGraphicsFolder);
 
 	VGA_Init(windowResWidth, windowResHeight, maintainAspectRatio);
 
-	char mainfile[1024];
 	//char maindir[1024];
 	myprintf("Finding Game Data...\n");
-	GetSubDirectoryFile(mainfile, gameFolder, "CDATA", "TMAPS0-0.DAT");
-	if (!file_exists(mainfile))//test original file
+	std::string mainfile = GetSubDirectoryFile(gameFolder, "CDATA", "TMAPS0-0.DAT");
+	if (!file_exists(mainfile.c_str()))//test original file
 	{
 		//myprintf("Original Game Data Not Found, find GOG iso file\n");
 		/*char locexepath[1024];
@@ -55488,7 +55486,7 @@ int sub_main(int argc, char** argv, char**  /*envp*/)//236F70
 		//sprintf(maindir, "%s", (char*)"c:\\prenos\\ex");
 		//if (!file_exists(mainfile))//test existing GOG cd iso file
 		{
-			myprintf("Original game not found in\n %s folder\n", gameDataPath);
+			myprintf("Original game not found in\n %s folder\n", gameDataPath.c_str());
 			mydelay(20000);
 			exit(1);//iso not found
 		}
@@ -55574,11 +55572,11 @@ void sub_560D0_create_sound_dir()//2370d0
 
 	//v7 = 1;
 	sprintf(printbuffer, "DEVICE\t\tNone\r\nDRIVER\t\tNone\r\nIO_ADDR\t\t-1\r\nIRQ\t\t-1\r\nDMA_8_BIT\t\t-1\r\nDMA_16_BIT\t\t-1\r\n");
-	GetSubDirectoryFile(printbuffer2, gameFolder, "SOUND", "DIG.INI");
-	diginifile2 = DataFileIO::CreateOrOpenFile(printbuffer2, 512);
+	std::string digPath = GetSubDirectoryFile(gameFolder, "SOUND", "DIG.INI");
+	diginifile2 = DataFileIO::CreateOrOpenFile(strdup(digPath.c_str()), 512);
 	if (diginifile2 == NULL)
 	{
-		diginifile = DataFileIO::CreateOrOpenFile(printbuffer2, 546);
+		diginifile = DataFileIO::CreateOrOpenFile(strdup(digPath.c_str()), 546);
 		if (diginifile != NULL)
 		{
 			sub_98CAA_write(diginifile, (uint8_t*)printbuffer, strlen(printbuffer));
@@ -55589,11 +55587,11 @@ void sub_560D0_create_sound_dir()//2370d0
 	{
 		DataFileIO::Close(diginifile2);
 	}
-	GetSubDirectoryFile(printbuffer2, gameFolder, "SOUND", "MDI.INI");
-	mdiini = DataFileIO::CreateOrOpenFile(printbuffer2, 512);
+	std::string mdiPath = GetSubDirectoryFile(gameFolder, "SOUND", "MDI.INI");
+	mdiini = DataFileIO::CreateOrOpenFile(strdup(mdiPath.c_str()), 512);
 	if (mdiini == NULL)
 	{
-		mdiini2 = DataFileIO::CreateOrOpenFile(printbuffer2, 546);
+		mdiini2 = DataFileIO::CreateOrOpenFile(strdup(mdiPath.c_str()), 546);
 		if (mdiini2 != NULL)
 		{
 			sub_98CAA_write(mdiini2, (uint8_t*)printbuffer, strlen(printbuffer));
@@ -60190,9 +60188,9 @@ void sub_5B840_load_Palette_and_help_Palette()//23C840
 {
 	char dataPath[MAX_PATH];
 
-	sprintf(dataPath, "%s/%s", cdDataPath, "DATA/PALD-0.DAT");
+	sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/PALD-0.DAT");
 	DataFileIO::ReadFileAndDecompress(dataPath, xadatapald0dat2.colorPalette_var28);
-	sprintf(dataPath, "%s/%s", cdDataPath, "DATA/CLRD-0.DAT");
+	sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/CLRD-0.DAT");
 	DataFileIO::ReadFileAndDecompress(dataPath, xadataclrd0dat.colorPalette_var28);
 }
 // EA3D8: using guessed type int *xadatapald0dat2.colorPalette_var28;
@@ -60241,7 +60239,7 @@ void Initialize()//23c8d0
 		exit(-1);
 	}
 
-	SetCDFilePaths(cdDataPath, pstr);
+	SetCDFilePaths(cdDataPath.c_str(), pstr);
 
 #ifdef DEBUG_MKDIR
 	debug_printf("Init:End of creating dirs\n");
@@ -60277,7 +60275,7 @@ void Initialize()//23c8d0
 	if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte3_24 & 8))
 	{
 		char spellDataPath[MAX_PATH];
-		sprintf(spellDataPath, "%s/%s", cdDataPath, "DATA/SPELLS.DAT");
+		sprintf(spellDataPath, "%s/%s", cdDataPath.c_str(), "DATA/SPELLS.DAT");
 		DataFileIO::ReadFileAndDecompress(spellDataPath, xadataspellsdatx.colorPalette_var28);//234e60 buffer - 2ab818
 	}
 
@@ -62634,7 +62632,7 @@ signed int sub_5E8C0_endGameSeq(type_event_0x6E8E* a1x)//23f8c0 //end game seque
 			if (x_DWORD_E9C3C && (D41A0_0.terrain_2FECE.MapType == MapType_t::Day))
 			{
 				sub_86860_speak_Sound(x_WORD_1803EC);
-				sprintf(dataPath, "%s/%s", cdDataPath, "DATA/GTD2.DAT");
+				sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/GTD2.DAT");
 				DataFileIO::ReadFileAndDecompress(dataPath, &x_BYTE_FAEE0_tablesx_pre); //fix it
 			}
 		}
@@ -77799,7 +77797,7 @@ void sub_76A40_lang_setting()//257A40
 	memset(&x_DWORD_17DE38str, 0, 613);//fix it
 	x_DWORD_17DE38str.x_DWORD_17DEE0_filedesc = NULL;
 	memset(v10, 0, 32);
-	sprintf(printbuffer, "%s/%s", gameDataPath, "CONFIG.DAT");
+	sprintf(printbuffer, "%s/%s", gameDataPath.c_str(), "CONFIG.DAT");
 	configdatfile = DataFileIO::CreateOrOpenFile(printbuffer, 512);
 	if (configdatfile == NULL)//config is not found
 	{
@@ -77841,7 +77839,7 @@ void sub_76A40_lang_setting()//257A40
 			sub_8E470_sound_proc17_volume(x_D41A0_BYTEARRAY_4_struct.wordindex_6);
 			sub_8E410_sound_proc16_xmidivolume(x_D41A0_BYTEARRAY_4_struct.wordindex_8);
 
-			sprintf(printbuffer, "%s/%s/L%d.TXT", cdDataPath, "LANGUAGE", x_D41A0_BYTEARRAY_4_struct.wordindex_4);
+			sprintf(printbuffer, "%s/%s/L%d.TXT", cdDataPath.c_str(), "LANGUAGE", x_D41A0_BYTEARRAY_4_struct.wordindex_4);
 			for (int16_t i = 0; i < 2; i++)
 				//i = 0;
 				//while (i < 2 )
@@ -77866,7 +77864,7 @@ void sub_76A40_lang_setting()//257A40
 					break;
 				}
 				//i++;
-				sprintf(printbuffer, "%s/%s/L%d.TXT", cdDataPath, "LANGUAGE", x_D41A0_BYTEARRAY_4_struct.SelectedLangIndex);
+				sprintf(printbuffer, "%s/%s/L%d.TXT", cdDataPath.c_str(), "LANGUAGE", x_D41A0_BYTEARRAY_4_struct.SelectedLangIndex);
 			}
 		}
 		else
@@ -77916,7 +77914,7 @@ void sub_76D10_intros(char a1)//257d10
 	x_DWORD_17DE38str.x_DWORD_17DEC0 = (posistruct2_t*)&x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4B52F];//308527;
 	x_DWORD_17DE38str.x_DWORD_17DEC4 = (posistruct2_t*)&x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4BB8F];
 
-	sprintf(dataPath, "%s/%s", cdDataPath, "DATA/SCREENS/HSCREEN0.DAT");
+	sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/SCREENS/HSCREEN0.DAT");
 	sub_7AA70_load_and_decompres_dat_file(dataPath, &x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x49ADB], 0x164FCD, 0x35C);
 	sub_7AA70_load_and_decompres_dat_file(dataPath, (uint8_t*)x_DWORD_17DE38str.x_DWORD_17DEC0, 0x165329, 0x224);
 	sub_7AA70_load_and_decompres_dat_file(0, 0, 0, 0);
@@ -77938,7 +77936,7 @@ void sub_76D10_intros(char a1)//257d10
 	}
 	sub_8CD27_set_cursor((*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct)[0]);
 	char introPath[MAX_PATH];
-	sprintf(introPath, "%s/%s", cdDataPath, "INTRO/INTRO.DAT");
+	sprintf(introPath, "%s/%s", cdDataPath.c_str(), "INTRO/INTRO.DAT");
 	switch (a1)
 	{
 	case 0:
@@ -77955,7 +77953,7 @@ void sub_76D10_intros(char a1)//257d10
 			/*v1 = */sub_7A060_get_mouse_and_keyboard_events();
 		}
 		j___delay(50);
-		sprintf(introPath, "%s/%s", cdDataPath, "INTRO/INTRO2.DAT");
+		sprintf(introPath, "%s/%s", cdDataPath.c_str(), "INTRO/INTRO2.DAT");
 		goto LABEL_17;
 	case 1:
 		PlayInfoFmv(1, 1, str_E17CC_0, introPath);
@@ -77964,7 +77962,7 @@ void sub_76D10_intros(char a1)//257d10
 		LastPressedKey_1806E4 = 0;
 		x_BYTE_D41C1 = 0;
 		x_BYTE_D41C0 = 0;
-		sprintf(introPath, "%s/%s", cdDataPath, "INTRO/INTRO2.DAT");
+		sprintf(introPath, "%s/%s", cdDataPath.c_str(), "INTRO/INTRO2.DAT");
 	LABEL_17:
 		PlayInfoFmv(1, 1, str_E17CC_0x160, introPath);//E192C
 		break;
@@ -78512,7 +78510,7 @@ char sub_779E0_lang_setting_dialog(type_WORD_E1F84* a1y)//2589E0
 	v39 = 0;
 
 	char configFilePath[MAX_PATH];
-	sprintf(configFilePath, "%s/%s", gameDataPath, "CONFIG.DAT");
+	sprintf(configFilePath, "%s/%s", gameDataPath.c_str(), "CONFIG.DAT");
 	/*memset(&v25, 0, 32);//355104 ->355120
 	memset(&v29_old_time, 0);
 	qmemcpy(&v25, (void *)x_D41A0_BYTEARRAY_4, 0x14u);
@@ -78543,11 +78541,11 @@ char sub_779E0_lang_setting_dialog(type_WORD_E1F84* a1y)//2589E0
 	x_DWORD_17DE38str.x_WORD_17DEEC = 0;
 
 	char languagePath[MAX_PATH];
-	sprintf(languagePath, "%s/LANGUAGE/L*.TXT", cdDataPath);
+	sprintf(languagePath, "%s/LANGUAGE/L*.TXT", cdDataPath.c_str());
 	langlhandle = unknown_libname_2_findfirst(languagePath, 0, &langfileL);
 	if (langlhandle != 0)// 27B166 - 355088
 	{
-		sprintf(languagePath, "%s/LANGUAGE/D*.TXT", cdDataPath);
+		sprintf(languagePath, "%s/LANGUAGE/D*.TXT", cdDataPath.c_str());
 		langdhandle = unknown_libname_2_findfirst(languagePath, 0, &langfileD); //v21=3550b4 3550b4
 		if (langlhandle == 0 || langdhandle == 0)
 			langfilename = (char*)langfileL.name;//something was not found
@@ -78774,7 +78772,7 @@ char sub_779E0_lang_setting_dialog(type_WORD_E1F84* a1y)//2589E0
 	if (langlhandle != 0)//3551d4
 	{
 		char dataPath[MAX_PATH];
-		sprintf(dataPath, "%s/%s", cdDataPath, "DATA/SCREENS/HSCREEN0.DAT");
+		sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/SCREENS/HSCREEN0.DAT");
 
 		sub_7AA70_load_and_decompres_dat_file(dataPath, (uint8_t*)x_DWORD_17DE38str.x_DWORD_17DE38x, 0, 768);
 		sub_7AA70_load_and_decompres_dat_file(dataPath, (uint8_t*)x_DWORD_17DE38str.x_DWORD_17DE40, x_DWORD_17DE38str.x_DWORD_17DEDC, 168081);
@@ -78836,8 +78834,8 @@ char sub_780F0_load_game_dialog(type_WORD_E1F84* a1x)//0x2590f0
 			strcpy(save_name, x_DWORD_E9C4C_langindexbuffer[414]);//(char *)x_DWORD_EA2C4;//2bb2c4 Empty
 			x_DWORD_17DE38str.xx_BYTE_17DF14[im][41] = 0;
 			x_DWORD_17DE38str.xx_BYTE_17DF14[im][42] = 0;
-			GetSaveGameFile(printbuffer, gameFolder, im + 1);
-			SEARCH_FILE = DataFileIO::CreateOrOpenFile(printbuffer, 512);
+			std::string saveGameFilePath = GetSaveGameFile(gameFolder, im + 1);
+			SEARCH_FILE = DataFileIO::CreateOrOpenFile(strdup(saveGameFilePath.c_str()), 512);
 			if (SEARCH_FILE != NULL)
 			{
 				DataFileIO::Read(SEARCH_FILE, (uint8_t*)&dword_0, 4);
@@ -78858,8 +78856,8 @@ char sub_780F0_load_game_dialog(type_WORD_E1F84* a1x)//0x2590f0
 		if ((x_BYTE)v51 == 1 && x_DWORD_17DE38str.x_WORD_17DF04 > 0)
 		{
 			//Load Saved Game File
-			GetSaveGameFile(printbuffer, gameFolder, x_DWORD_17DE38str.x_WORD_17DF04);
-			FILE = DataFileIO::CreateOrOpenFile(printbuffer, 512);
+			std::string loadFilePath = GetSaveGameFile(gameFolder, x_DWORD_17DE38str.x_WORD_17DF04);
+			FILE = DataFileIO::CreateOrOpenFile(strdup(loadFilePath.c_str()), 512);
 			//v10 = v9;
 			if (FILE != NULL)
 			{
@@ -79102,8 +79100,8 @@ char sub_78730_save_game_dialog(type_WORD_E1F84* a1x)//259730
 				v5 += 2;
 			} while (v7);*/
 			v56 = v45;
-			GetSaveGameFile(printbuffer, gameFolder, v2);
-			file1 = DataFileIO::CreateOrOpenFile(printbuffer, 512);
+			std::string saveGameFilePath = GetSaveGameFile(gameFolder, v2);
+			file1 = DataFileIO::CreateOrOpenFile(strdup(saveGameFilePath.c_str()), 512);
 			if (file1 != NULL)
 			{
 				DataFileIO::Read(file1, (uint8_t*)&v54, 4);
@@ -79134,8 +79132,8 @@ char sub_78730_save_game_dialog(type_WORD_E1F84* a1x)//259730
 				v9[1] = v12;
 				v9 += 2;
 			} while (v12);*/
-			GetSaveGameFile(printbuffer, gameFolder, x_DWORD_17DE38str.x_WORD_17DF04);
-			file2 = DataFileIO::CreateOrOpenFile(printbuffer, 546);
+			std::string saveGameFilePath = GetSaveGameFile(gameFolder, x_DWORD_17DE38str.x_WORD_17DF04);
+			file2 = DataFileIO::CreateOrOpenFile(strdup(saveGameFilePath.c_str()), 546);
 			if (file2 != NULL)
 			{
 				//v14 = (x_WORD*)unk_E17CC_0x194;
@@ -80022,7 +80020,7 @@ char sub_79610_set_keys_dialog()//25a610
 		sub_75200_VGA_Blit640(480);
 
 	char dataPath[MAX_PATH];
-	sprintf(dataPath, "%s/%s", cdDataPath, "DATA/SCREENS/HSCREEN0.DAT");
+	sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/SCREENS/HSCREEN0.DAT");
 
 	sub_7AA70_load_and_decompres_dat_file(dataPath, (uint8_t*)x_DWORD_17DE38str.x_DWORD_17DE38x, 0, 768);
 	sub_7AA70_load_and_decompres_dat_file(dataPath, x_DWORD_17DE38str.x_DWORD_17DE40, x_DWORD_17DE38str.x_DWORD_17DEDC, 168081);
@@ -80242,7 +80240,7 @@ void sub_7A110_load_hscreen(char a1, char a2)//25b110
 	x_DWORD_17DE38str.x_DWORD_17DE48c = x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226;
 	sub_7B5D0();//25c5d0
 
-	sprintf(dataPath, "%s/%s", cdDataPath, "DATA/SCREENS/HSCREEN0.DAT");
+	sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/SCREENS/HSCREEN0.DAT");
 
 	if (a1 == 8)
 	{
@@ -80433,11 +80431,11 @@ void sub_7A110_load_hscreen(char a1, char a2)//25b110
 }
 
 //----- (0007AA70) --------------------------------------------------------
-void sub_7AA70_load_and_decompres_dat_file(char* path, uint8_t* filebuffer, int position, int lenght)//25ba70
+void sub_7AA70_load_and_decompres_dat_file(const char* path, uint8_t* filebuffer, int position, int lenght)//25ba70
 {
 	//FILE* result; // eax
 
-	if (x_DWORD_17DE38str.x_DWORD_17DEE0_filedesc != NULL || (x_DWORD_17DE38str.x_DWORD_17DEE0_filedesc = DataFileIO::CreateOrOpenFile(path, 512)))
+	if (x_DWORD_17DE38str.x_DWORD_17DEE0_filedesc != NULL || (x_DWORD_17DE38str.x_DWORD_17DEE0_filedesc = DataFileIO::CreateOrOpenFile(strdup(path), 512)))
 	{
 		//result = x_DWORD_17DEE0_filedesc;
 		if (x_DWORD_17DE38str.x_DWORD_17DEE0_filedesc != NULL)
@@ -81426,7 +81424,7 @@ signed int sub_7C390()//25d390
 
 	char dataPath[MAX_PATH];
 
-	sprintf(dataPath, "%s/%s", cdDataPath, "DATA/SCREENS/HSCREEN0.DAT");
+	sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/SCREENS/HSCREEN0.DAT");
 
 	v6x = x_DWORD_E9C38_smalltit;
 	x_DWORD_E9C38_smalltit = x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226;
@@ -82794,7 +82792,7 @@ signed int sub_7E640(type_WORD_E1F84* a1x)//25f640
 
 	char dataPath[MAX_PATH];
 
-	sprintf(dataPath, "%s/%s", cdDataPath, "DATA/SCREENS/HSCREEN0.DAT");
+	sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/SCREENS/HSCREEN0.DAT");
 
 	if (a1x)
 		v1 = sub_7BF20_draw_scroll_dialog(&a1x->str_26);
@@ -83716,12 +83714,12 @@ int LoadLanguageFile(posistruct2_t** a1x, posistruct2_t** a2x, uint8_t* a3, char
 	//fix it
 	//v9=0;//fix it
 	//fix it
-	GetSubDirectoryFile(printbuffer, cdFolder, "LANGUAGE", langfilename);
+	std::string languageFilePath = GetSubDirectoryFile(cdFolder, "LANGUAGE", langfilename);
 	for (uint8_t i = 0; i < 2; i++)//[ebp-4]=354f70
 	{
 		//v4 = atoi(langfilename +1);
 		//v4 = unknown_libname_1_atoi((char*)(a4 + 1));
-		langfile = DataFileIO::CreateOrOpenFile(printbuffer, 512);//279f9e
+		langfile = DataFileIO::CreateOrOpenFile(strdup(languageFilePath.c_str()), 512);//279f9e
 		//v6 = langfile;
 		//v14 = langfile;
 		if (langfile != NULL)
@@ -83743,7 +83741,10 @@ int LoadLanguageFile(posistruct2_t** a1x, posistruct2_t** a2x, uint8_t* a3, char
 			break;
 		}
 		//v9 = i;
-		sprintf(printbuffer, "LANGUAGE/%s", langfilename);
+		char updatedLanguagePath[MAX_PATH];
+		sprintf(updatedLanguagePath, "LANGUAGE/%s", langfilename);
+		languageFilePath = std::string(updatedLanguagePath);
+
 	}
 	*a1x = (posistruct2_t*)(a3 + 4773);//35513c
 	//v10 = x_WORD_180660_VGA_type_resolution;
@@ -83778,15 +83779,13 @@ int sub_7F960(posistruct2_t* a1x, posistruct2_t* a2x, uint8_t* a3, char* langcou
 	//char v12; // [esp+0h] [ebp-58h]
 	int v13; // [esp+50h] [ebp-8h]
 	unsigned __int8 i; // [esp+54h] [ebp-4h]
-	char languagePath[MAX_PATH];
-
 	langcount = 0;
 
-	GetSubDirectoryFile(languagePath, cdFolder, "LANGUAGE", langcountstring);
+	std::string languagePath = GetSubDirectoryFile(cdFolder, "LANGUAGE", langcountstring);
 	for (i = 0; i < 2u; i = v10 + 1)
 	{
 		langcount = atoi((langcountstring + 1));
-		langfile = DataFileIO::CreateOrOpenFile(languagePath, 512);
+		langfile = DataFileIO::CreateOrOpenFile(strdup(languagePath.c_str()), 512);
 		//v6 = v5;
 		//v7 = v5;
 		if (langfile != NULL)
@@ -83808,7 +83807,7 @@ int sub_7F960(posistruct2_t* a1x, posistruct2_t* a2x, uint8_t* a3, char* langcou
 			break;
 		}
 		v10 = i;
-		GetSubDirectoryFile(languagePath, cdFolder, "LANGUAGE", langcountstring);
+		languagePath = GetSubDirectoryFile(cdFolder, "LANGUAGE", langcountstring);
 	}
 	if (x_WORD_180660_VGA_type_resolution & 1)
 		sub_98709_create_index_dattab_power(a1x, a2x, a3, a3dattabindex);
@@ -84664,7 +84663,7 @@ void sub_81DB0_read_config()//262db0
 	if (x_D41A0_BYTEARRAY_4_struct.setting_38402 == 1)
 	{
 		memset(printbuffer, 0, 80);
-		sprintf(printbuffer, "%s/%s", gameDataPath, "CONFIG.DAT");
+		sprintf(printbuffer, "%s/%s", gameDataPath.c_str(), "CONFIG.DAT");
 		memset(readbuffer, 0, 32);
 		configdatfile = DataFileIO::CreateOrOpenFile(printbuffer, 546);
 		if (configdatfile != NULL)
@@ -85169,7 +85168,7 @@ void sub_82670()//263670
 
 	char dataPath[MAX_PATH];
 
-	sprintf(dataPath, "%s/%s", cdDataPath, "DATA/SCREENS/HSCREEN0.DAT");
+	sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/SCREENS/HSCREEN0.DAT");
 
 	//LOWORD(v1) = (unsigned __int8)x_WORD_180660_VGA_type_resolution;
 	LastPressedKey_1806E4 = 0;
@@ -85290,7 +85289,7 @@ void sub_82670()//263670
 					}
 
 					char cutScenePath[MAX_PATH];
-					sprintf(cutScenePath, "%s/INTRO/CUT%d.DAT", cdDataPath, str_E16E0[v3x].byte_6);
+					sprintf(cutScenePath, "%s/INTRO/CUT%d.DAT", cdDataPath.c_str(), str_E16E0[v3x].byte_6);
 					sprintf(printbuffer, "%s", cutScenePath);
 
 					PlayInfoFmv(0, 1, str_E16E0[v3x].pSoundEvent_0, cutScenePath);
@@ -85700,7 +85699,7 @@ void sub_833C0()//2643c0
 
 	char dataPath[MAX_PATH];
 
-	sprintf(dataPath, "%s/%s", cdDataPath, "DATA/SCREENS/HSCREEN0.DAT");
+	sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/SCREENS/HSCREEN0.DAT");
 
 	//fix it
 	//v2 = 0;
@@ -85876,7 +85875,7 @@ void sub_83850_show_welcome_screen()//264850
 
 	char dataPath[MAX_PATH];
 
-	sprintf(dataPath, "%s/%s", cdDataPath, "DATA/SCREENS/HSCREEN0.DAT");
+	sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/SCREENS/HSCREEN0.DAT");
 
 	//fix it
 	//v2 = 0;
@@ -85887,7 +85886,7 @@ void sub_83850_show_welcome_screen()//264850
 
 	sub_7AA70_load_and_decompres_dat_file(dataPath, x_DWORD_E9C38_smalltit, 0x178E5F, 0x32B9);
 	sub_7AA70_load_and_decompres_dat_file(dataPath, *xadatapald0dat2.colorPalette_var28, 0x17C118, 0x300);
-	sub_7AA70_load_and_decompres_dat_file(cdDataPath, 0, 0, 0);
+	sub_7AA70_load_and_decompres_dat_file(cdDataPath.c_str(), 0, 0, 0);
 	//v0 = (int)sub_7AA70_load_and_decompres_dat_file(0, 0, 0, 0); //fix it
 	//v0 = 0;//fix it
 	v1 = 0;
@@ -93115,12 +93114,12 @@ int sub_92160()
 }
 
 //----- (00098C48) --------------------------------------------------------
-signed int sub_98C48_open_nwrite_close(char* filename, uint8_t* buffer, uint32_t count)//279c48
+signed int sub_98C48_open_nwrite_close(const char* filename, uint8_t* buffer, uint32_t count)//279c48
 {
 	int result; // ST14_4
 	FILE* file; // [esp+4h] [ebp-8h]
 
-	file = DataFileIO::CreateOrOpenFile(filename, 546);
+	file = DataFileIO::CreateOrOpenFile(strdup(filename), 546);
 	if (file == NULL)
 		return -1;//mozna null
 	result = sub_98CAA_write(file, buffer, count);

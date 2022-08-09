@@ -337,7 +337,7 @@ void sub_8D290_init_sound(/*char* a1*//*, int a2, int a3*/)//26e290
 
 	char soundGamePath[MAX_PATH];
 
-	sprintf(soundGamePath, "%s/SOUND", gameDataPath);
+	sprintf(soundGamePath, "%s/SOUND", gameDataPath.c_str());
 	//fix it
 	//v7 = 0;
 	//v5 = 0;
@@ -730,8 +730,8 @@ void /*__fastcall*/ sub_8D970_init_music(/*char* a1*//*int a1, int a2, char* a3*
 	char soundCdPath[MAX_PATH];
 	char soundGamePath[MAX_PATH];
 
-	sprintf(soundCdPath, "%s/SOUND", cdDataPath);
-	sprintf(soundGamePath, "%s/SOUND", gameDataPath);
+	sprintf(soundCdPath, "%s/SOUND", cdDataPath.c_str());
+	sprintf(soundGamePath, "%s/SOUND", gameDataPath.c_str());
 
 	//errno_t v7x;
 	//fix it
@@ -2717,8 +2717,6 @@ __int16 sub_98AE9(__int16* a1, int a2)//279ae9
 //----- (00084300) --------------------------------------------------------
 int32_t sub_84300_load_sound(uint8_t a1)//265300
 {
-	char soundPath[MAX_PATH];
-
 	FILE* file; // eax
 	//FILE* v2; // ebx
 	//FILE* v3; // edi
@@ -2736,8 +2734,8 @@ int32_t sub_84300_load_sound(uint8_t a1)//265300
 		if (x_WORD_E2A14_sound_activeh)
 			sub_8D8F0_sound_proc3_endsample();
 
-		GetSubDirectoryFile(soundPath, cdFolder, "SOUND", "SOUND.DAT");
-		file = DataFileIO::CreateOrOpenFile(soundPath, 512);
+		std::string soundPath = GetSubDirectoryFile(cdFolder, "SOUND", "SOUND.DAT");
+		file = DataFileIO::CreateOrOpenFile(strdup(soundPath.c_str()), 512);
 		//v2 = v1;
 		//v3 = v1;
 		if (file != NULL)
@@ -9083,7 +9081,7 @@ signed int LoadMusic(int channel)//26fad0
 		return 0;
 	sub_8E020_sound_proc14_stopsequence();
 
-	sprintf(musicPath, "%s/SOUND/MUSIC.DAT", cdDataPath);
+	sprintf(musicPath, "%s/SOUND/MUSIC.DAT", cdDataPath.c_str());
 	filehandle = DataFileIO::CreateOrOpenFile(musicPath, 512);
 	if (!filehandle)
 		return 0;

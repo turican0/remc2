@@ -140,9 +140,7 @@ void SOUND_init_MIDI_sequence(uint8_t*  /*datax*/, type_E3808_music_header* head
 
 	if (oggmusic) {
 
-		char oggmusicPath[MAX_PATH];
-
-		GetSubDirectoryPath(oggmusicPath, oggmusicFolder);
+		std::string oggmusicPath = GetSubDirectoryPath(oggmusicFolder);
 		char alternativeMusicPath[512] = "";
 		char selectedTrackPath[512] = "";
 		//if (track_number > 1)track_number = 0;
@@ -150,31 +148,31 @@ void SOUND_init_MIDI_sequence(uint8_t*  /*datax*/, type_E3808_music_header* head
 		{
 			if (track_number == 0)
 			{
-				sprintf(alternativeMusicPath, "%s/alternative/day", oggmusicPath);
+				sprintf(alternativeMusicPath, "%s/alternative/day", oggmusicPath.c_str());
 			}
 			else if (track_number == 1)
 			{
-				sprintf(alternativeMusicPath, "%s/alternative/night", oggmusicPath);
+				sprintf(alternativeMusicPath, "%s/alternative/night", oggmusicPath.c_str());
 			}
 			else if (track_number == 2)
 			{
-				sprintf(alternativeMusicPath, "%s/alternative/cave", oggmusicPath);
+				sprintf(alternativeMusicPath, "%s/alternative/cave", oggmusicPath.c_str());
 			}
 			else if (track_number == 3)
 			{
-				sprintf(alternativeMusicPath, "%s/alternative/cave", oggmusicPath);
+				sprintf(alternativeMusicPath, "%s/alternative/cave", oggmusicPath.c_str());
 			}
 			else if (track_number == 4)
 			{
-				sprintf(alternativeMusicPath, "%s/alternative/cave", oggmusicPath);
+				sprintf(alternativeMusicPath, "%s/alternative/cave", oggmusicPath.c_str());
 			}
 			else if (track_number == 5)
 			{
-				sprintf(alternativeMusicPath, "%s/alternative/cave", oggmusicPath);
+				sprintf(alternativeMusicPath, "%s/alternative/cave", oggmusicPath.c_str());
 			}
 			else
 			{
-				sprintf(alternativeMusicPath, "%s/alternative/cave", oggmusicPath);
+				sprintf(alternativeMusicPath, "%s/alternative/cave", oggmusicPath.c_str());
 			}
 
 			helpdirsstruct = getListDir(alternativeMusicPath);
@@ -183,15 +181,15 @@ void SOUND_init_MIDI_sequence(uint8_t*  /*datax*/, type_E3808_music_header* head
 			{
 				int randtrack = rand()%(helpdirsstruct.number + 1);
 				if(randtrack==0)
-					sprintf(selectedTrackPath, "%s/music%d.ogg", oggmusicPath, track_number);
+					sprintf(selectedTrackPath, "%s/music%d.ogg", oggmusicPath.c_str(), track_number);
 				else
 					sprintf(selectedTrackPath, "%s/%s", alternativeMusicPath ,helpdirsstruct.dir[randtrack-1]);
 			}
 			else
-				sprintf(selectedTrackPath, "%s/music%d.ogg", oggmusicPath, track_number);
+				sprintf(selectedTrackPath, "%s/music%d.ogg", oggmusicPath.c_str(), track_number);
 		}
 		else
-			sprintf(selectedTrackPath, "%s/music%d.ogg", oggmusicPath, track_number);
+			sprintf(selectedTrackPath, "%s/music%d.ogg", oggmusicPath.c_str(), track_number);
 #ifdef SOUND_SDLMIXER
 		GAME_music[track_number] = Mix_LoadMUS(selectedTrackPath);
 #endif//SOUND_SDLMIXER
