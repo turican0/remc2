@@ -458,8 +458,6 @@ int32_t /*__cdecl*/ fix_filelength(int32_t);// weak
 //x_DWORD /*__cdecl*/ mkdir(char* path);
 int32_t /*__cdecl*/ settextposition(int32_t, int32_t);// weak
 void outtext(char* text);// weak
-//x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);// weak
-//int int386(int intno, REGS *inregs, REGS *outregs);
 int /*__fastcall*/ gettextposition(int32_t, int32_t, int32_t);// weak
 int32_t /*__cdecl*/ signal(int32_t, int32_t);// weak
 //int __cdecl unknown_libname_1(char *a1);
@@ -472,7 +470,7 @@ int32_t /*__cdecl*/ signal(int32_t, int32_t);// weak
 //unsigned char _BitScanReverse(unsigned long * Index, unsigned long Mask);
 //void sub_8F920(uint8_t a1byte1, uint8_t a1byte2, int16_t posx, int16_t posy, uint8_t* a4, unsigned __int8 a5, char a6);
 //void sub_8F935_bitmap_draw_final(uint8_t a1byte1, uint8_t a1byte2, uint16_t a2, int a3, uint8_t* a4, uint8_t setbyte, char a6);
-signed int NetworkAddName_74767(/*signed __int16* a1,*/ myNCB* a2x, char* a3);
+uint8_t NetworkAddName_74767(/*signed __int16* a1,*/ myNCB* a2x, char* a3);
 //x_DWORD /*__cdecl*/ segread(SREGS*); //weak
 //x_DWORD /*__cdecl*/ int386x(x_DWORD, x_DWORD, x_DWORD, x_DWORD);// weak
 //int int386x(int, REGS *, REGS *, struct SREGS *);

@@ -51,9 +51,9 @@
 typedef struct//lenght 11
 {
 	int8_t connected_0;
-	uint8_t array_byte_1[8];
-	int8_t byte_9;
-	int8_t byte_10;
+	uint8_t arrayColors_1[8];
+	int8_t action_9;
+	int8_t selectedLevel_10;
 } type_BYTE_17DE68x;
 
 typedef struct {//lenght 18
@@ -113,7 +113,7 @@ typedef struct//lenght 613 // end 17E09D
 	__int16 x_WORD_17DEF4; // weak
 	__int16 x_WORD_17DEF6; // weak
 	__int16 x_WORD_17DEF8; // weak
-	__int16 x_WORD_17DEFA; // weak
+	__int16 networkSession_17DEFA; // weak
 	__int16 serverIndex_17DEFC; // weak
 	__int16 x_WORD_17DEFE; // weak
 	__int16 x_WORD_17DF00; // weak
@@ -603,5 +603,6 @@ signed int sub_61790(signed int a1);
 void Convert_from_shadow_str_2FECE(type_shadow_str_2FECE* from, type_str_2FECE* to);
 void Convert_from_shadow_D41A0_BYTESTR_0(type_shadow_D41A0_BYTESTR_0* from, type_D41A0_BYTESTR_0* to);
 void Convert_to_shadow_D41A0_BYTESTR_0(type_D41A0_BYTESTR_0* from, type_shadow_D41A0_BYTESTR_0* to);
+void Convert_to_shadow_str_E2A74(const type_array_str_E2A74 &from, type_shadow_str_E2A74* to);
 
 #endif //MAIN_BASIC

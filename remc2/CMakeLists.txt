@@ -87,8 +87,19 @@ set(SOURCE_FILES_ENGINE
     "engine/sub_main_mouse.h"
     "engine/ViewPort.cpp"
     "engine/ViewPort.h"
+    "engine/CommandLineParser.cpp"
+    "engine/CommandLineParser.h"
 )
 source_group("Source Files\\engine" FILES ${SOURCE_FILES_ENGINE})
+
+set(SOURCE_FILES_UNITTESTS
+    "engine/CommandLineParser.cpp"
+    "engine/CommandLineParser.h"
+    "engine/CommandLineParserUT.cpp"
+    "UnitTests.cpp"
+)
+source_group("Source Files\\unittests" FILES ${SOURCE_FILES_UNITTESTS})
+
 
 set(SOURCE_FILES__libs__inih
     "../inih/ini.c"
@@ -129,12 +140,6 @@ set(SOURCE_FILES__portability
     "portability/xmi2mid.h"
 )
 source_group("Source Files\\portability" FILES ${SOURCE_FILES__portability})
-set(SOURCE_FILES__networklib
-    "networklib/Constants.h"
-    "networklib/LockedQueue.h"
-    "networklib/Log.h"
-)
-source_group("Source Files\\networklib" FILES ${SOURCE_FILES__networklib})
 set(ALL_FILES
     ${HEADER_FILES}
     ${SOURCE_FILES}
@@ -215,21 +220,27 @@ endif ()
 if (UNIT_TESTS)
     include(GoogleTest)
 
-    add_executable(remc2unittests UnitTests.cpp)
+    add_executable(remc2unittests ${SOURCE_FILES_UNITTESTS})
     target_include_directories(remc2unittests PUBLIC
-        "${CMAKE_SOURCE_DIR}/findfirst"
     )
     target_link_libraries(remc2unittests PUBLIC 
-        findfirst
         gtest
         pthread
     )
     add_compile_definitions(COMPILE_FOR_64BIT)
-    gtest_add_tests(TARGET      remc2unittests
-                    TEST_SUFFIX .noArgs
-                    TEST_LIST   noArgsTests
+    gtest_add_tests(
+        TARGET      remc2unittests
+        TEST_SUFFIX .noArgs
+        TEST_LIST   noArgsTests
     )
-    set_tests_properties(${noArgsTests}   PROPERTIES TIMEOUT 10)
+    set_tests_properties(${noArgsTests} PROPERTIES TIMEOUT 10)
+    install(
+        TARGETS remc2unittests
+        CONFIGURATIONS Debug;Release;RelWithDebInfo
+        RUNTIME DESTINATION bin
+        LIBRARY DESTINATION lib
+        ARCHIVE DESTINATION lib/static
+    )
 endif ()
 
 # editor

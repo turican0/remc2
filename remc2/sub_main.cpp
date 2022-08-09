@@ -1,5 +1,6 @@
 #include "sub_main.h"
 #include "engine/engine_support.h"
+#include "engine/CommandLineParser.h"
 
 /*
 
@@ -40,109 +41,16 @@ void _strupr(char* s)
 #include <filesystem>
 #endif //__linux__
 
-//#define MOUSE_OFF
-
-//#define RIGHT_BUTTON
-//#define ROTATE_PLAYER
-//#define MOVE_PLAYER
-//#define FIX_MOUSE
-//#define MOUSE_OFF2
-//#define SET_OBJECTIVE
-//#define SET_LEVEL
-
-#define RELEASE_GAME
-//#define PLAYING_GAME
-//#define DEBUG_AFTERLOAD
-//#define DEBUG_ONSTART
-//#define TEST_REGRESSIONS_GAME
-
-//#define TEST_NETWORK
-
-
-//#define TEST_NETWORK_CHNG1
-
-int test_regression_level = 0;
+int test_regression_level = 1;
 //first multi is 50(51) 10
 //first hide level is 30(31) 5
+bool first_enter = true;
 
 //adress 2285ff
-#if defined(RELEASE_GAME) //this is standard setting
-	#define NO_SHOW_NEW_PROCEDURES
-	#define AUTO_CHANGE_RES
-	#define FIX_FLYASISTANT
-	#define LOAD_EDITED_LEVEL
-	int debugafterload = 0;
-	//#define DISABLE_GRAPHICS_ENHANCE
-	bool hideGraphics = false;
-#elif defined(PLAYING_GAME) //this is setting for autosavegame
-	#define DETECT_DWORD_A
-	#define AUTO_CHANGE_RES
-	#define INTERVAL_SAVE
-	#define FIX_FLYASISTANT
-	#define LOAD_EDITED_LEVEL
-	int debugafterload = 1;
-	bool hideGraphics = false;
-#elif defined(TEST_REGRESSIONS_GAME) //this is setting for regressions testing
-	#define DETECT_DWORD_A
-	#define COPY_SKIP_CONFIG
-	#define FIX_MOUSE
-	#define MOUSE_OFF2
-	#define OFF_PAUSE_5
-	#define TEST_REGRESSION
-	bool hideGraphics = true;
-	//#define DEBUG_SEQUENCES
-	//#define DEBUG_SEQUENCES2
-	int debugafterload = 1;
-	//#define DISABLE_GRAPHICS_ENHANCE
-#elif defined(DEBUG_AFTERLOAD) //this is setting is for compare data with dosbox afterload(can fix mouse move, and etc.)
-	#define DETECT_DWORD_A
-	#define COPY_SKIP_CONFIG
-	#define DEBUG_SEQUENCES2
-	#define FIX_MOUSE
-	#define MOUSE_OFF2
-	#define OFF_PAUSE_5
-	int debugafterload = 0;
-	#define DISABLE_GRAPHICS_ENHANCE
-	bool hideGraphics = false;
-#elif defined(DEBUG_ONSTART) //this is setting is for compare data with dosbox(can fix mouse move, and etc.)
-	#define DETECT_DWORD_A
-	#define COPY_SKIP_CONFIG
-	//#define DEBUG_SEQUENCES
-	#define TEST_REGRESSION
-	#define FIX_MOUSE
-	#define MOUSE_OFF2
-	#define OFF_PAUSE_5
-	//#define LOAD_EDITED_LEVEL
-	//#define RIGHT_BUTTON
-	int debugafterload = 1;
-	//#define DISABLE_GRAPHICS_ENHANCE
-	//#define MOVE_PLAYER
-	bool hideGraphics = false;
-#elif defined(TEST_NETWORK)
-	#define COPY_SKIP_CONFIG
-	bool hideGraphics = false;
-	//bool hideGraphics = true;
-	int debugafterload = 1;
-	bool first_enter = true;
-#else 
-	int debugafterload = 1;
-	int graphics_debug = false;
-	bool hideGraphics = false;
-#endif
 
-#define ANALYZE_ENTITY
-
-//#define TEST_RENDERERS //only for debugging!!!!
-
-#ifdef INTERVAL_SAVE
 int save_debugcounter = 0;
-#endif //INTERVAL_SAVE
-
-//#define DEBUG_GRAPHICS
 
 #define FIX_sub_48B90// - when set game have error, but compactible with original
-
-#define ALTERNATIVE_GAMESPEED_CONTROL
 
 //(set in bool sub_558E0_InGameLoad(uint8_t fileindex)//2368e0)
 int count_begin = 1;//1
@@ -151,7 +59,6 @@ int count_begin = 1;//1
 
 bool config_EDITOR = false;
 bool config_LOAD_EDITED_LEVEL = false;
-#define EDITOR
 
 /*
 fix sub_3C080_draw_terrain_and_particles_old
@@ -252,10 +159,10 @@ problem with set str_E23E0[v3x].word_26
 //bug hunting 2 find difference 0x356038+0xd49a
 find in:
 void sub_49CD0(type_str_0x6E8E* a1x, __int16 a2)//22acd0
-add_compare(0x237B55, debugafterload);
-add_compare(0x237BB0, debugafterload);
-add_compare(0x237bb9, debugafterload);
-add_compare(0x237BC7, debugafterload);
+add_compare(0x237B55, CommandLineParams.DoDebugafterload());
+add_compare(0x237BB0, CommandLineParams.DoDebugafterload());
+add_compare(0x237bb9, CommandLineParams.DoDebugafterload());
+add_compare(0x237BC7, CommandLineParams.DoDebugafterload());
 
 problem is in void GameEvents_51BB0()//232bb0
 //find changes after 228320
@@ -271,7 +178,7 @@ fixed
 //bug hunting 4 find difference 0x356038+79 D41A0_BYTESTR_0.array_0x39[22]
 
 next debugging:
-add_compare(0x0022860F, debugafterload && (count_begin == 1), 0x1a);
+add_compare(0x0022860F, CommandLineParams.DoDebugafterload() && (count_begin == 1), 0x1a);
 
 //bug hunting 5 can not load save from this revision
 x_D41A0_BYTEARRAY_4_struct.byteindex_208 is set to 0
@@ -851,14 +758,7 @@ x_DWORD settextposition(x_DWORD x, x_DWORD y) {
 	return 0;
 };// weak
 void outtext(char* text) { myWriteOut(text);};// weak
-//x_DWORD int386(x_DWORD, x_DWORD, x_DWORD) { stub_fix_it();return 0; };// weak
-/*int int386(int intno, REGS *inregs, REGS *outregs)
-{
-	struct SREGS    segregs;
 
-	segread(&segregs);//160:0027ADE6
-	return(int386x(intno, inregs, outregs, &segregs));
-}*/
 POSITION gettextposition(/*x_DWORD, x_DWORD, x_DWORD*/) {
 	return VGA_WhereXY();
 };// weak
@@ -925,28 +825,29 @@ x_DWORD dos_setvect(x_DWORD number, void(*actcall)(), x_DWORD) {
 //uint8_t** pointersdat_buffer; // ebx
 
 //x_DWORD int386x(x_DWORD, x_DWORD, x_DWORD, x_DWORD) { stub_fix_it();return 0; };// weak
-uint32 sub_AB59E(SREGS* a1, REGS* a2, int  /*intvar*/)
+/*
+uint32 sub_AB59E(SREGS* a1, REGS* a2, int  )
 {
-	//uint32 v2; // bp
+	uint32 v2; // bp
 	uint32 result; // eax
-	//uint32 v4; // ebx
-	//uint32 v5; // ecx
-	//uint32 v6; // edx
-	//uint32 v7; // esi
-	//uint32 v8; // edi
+	uint32 v4; // ebx
+	uint32 v5; // ecx
+	uint32 v6; // edx
+	uint32 v7; // esi
+	uint32 v8; // edi
 
 	// fix it:__ES__ = *a1;
-	//v2 = a1->gs;
+	v2 = a1->gs;
 	result = a2->eax;
-	//v4 = a2->ebx;
-	//v5 = a2->ecx;
-	//v6 = a2->edx;
-	//v7 = a2->edi;
-	//v8 = a2->eax;
+	v4 = a2->ebx;
+	v5 = a2->ecx;
+	v6 = a2->edx;
+	v7 = a2->edi;
+	v8 = a2->eax;
 	//esi je typ 21
 	return result;
 }
-
+*/
 /*int _int386x(REGS* a1, SREGS* a2, REGS* a3, int a4) {
 	REGS* v4; // ST00_4
 	REGS* v5; // edi
@@ -2388,28 +2289,28 @@ void sub_727F0(unsigned __int8 a1, unsigned __int8 a2, unsigned __int8 a3, unsig
 // void /*__spoils<ecx>*/ ClearGraphicsBuffer320(int a1, void *a2, unsigned __int16 a3, char a4);
 // void /*__spoils<ecx>*/ ClearGraphicsBuffer640(int a1, void *a2, unsigned __int16 a3, char a4);
 //void sub_72C40_draw_bitmap_640_setcolor(__int16 a1, __int16 a2, posistruct_t a3, unsigned __int8 a4);
-int sub_72CB0(unsigned __int8* a1, int a2);//not used
+//int sub_72CB0(unsigned __int8* a1, int a2);//not used
 void NetworkDisallocation_72D04();
 // int sub_72DDE(signed __int16 *a1, int a2);
-int /*__fastcall*/ sub_72E70(int a1, int a2, signed __int16* a3);//not used
-signed int /*__fastcall*/ NetworkTestCall_72FBB();
+int sub_72E70(int a1, int a2, signed __int16* a3);//not used
+signed int NetworkTestCall_72FBB();
 void NetworkListenAll_7302E();
 // int NetworkInitConnection_7308F(signed __int16 *a1, int a2, __int16 a3);
 void NetworkCanceling_73669(__int16 a1);
-void sub_7373D(__int16 a1);
-void sub_739AD(__int16 a1);
-void sub_73AA1(__int16 a1);
+void NetworkEvent_7373D(int16_t a1);
+void NetworkRemoveClient_739AD(__int16 a1);
+void NetworkSomeChange_73AA1(__int16 a1);
 void NetworkEnd_73D11(__int16 a1);
 void NetworkSendMessage2_74006(unsigned __int16 a1, uint8_t* a2, unsigned int a3);
 void NetworkReceiveMessage2_7404E(unsigned __int16 a1, uint8_t* a2, unsigned int a3);
 void NetworkUpdateConnections2_74374();
 void ReceiveSendAll_7438A(uint8_t* a1, unsigned int a2);
 void NetworkCancelAll_7449C();
-int sub_74515();
-int sub_74536();
+int16_t GetIndexNetwork2_74515();
+int16_t GetIndexNetwork_74536();
 uint8_t NetworkAllocation_74556();
 // signed int sub_74767(signed __int16 *a1, x_BYTE *a2, int a3);
-int NetworkCall_74809(__int16 a1);
+void NetworkCall_74809(__int16 clientIndex);
 signed int NetworkCancel_748F7(__int16 a1);
 signed int NetworkInit_74A11();
 void NetworkDeleteName_74A86(myNCB* a1x, char* a2);
@@ -2421,7 +2322,7 @@ void NetworkReceiveMessage_74D41(myNCB* a1x, uint8_t* a2x, unsigned int a3);
 int NetworkSendPacket_74E6D(myNCB* a1x, uint8_t* a2, int a3);
 void NetworkSendMessage_74EF1(myNCB* a1x, uint8_t* inbuffer, unsigned int size);
 void NetworkUpdateConnections_74F76();
-signed int NetworkGetState_74FE1(__int16 a1);
+signed int NetworkGetState_74FE1(__int16 clientIndex);
 int setNetbios_75044(myNCB* a1x);
 void sub_75110(__int16 a1, __int16 a2, __int16 a3, unsigned __int16 a4, __int16 a5);
 void sub_75160(__int16 a1, __int16 a2, __int16 a3, unsigned __int16 a4, __int16 a5);
@@ -2440,7 +2341,7 @@ void sub_759B0_set_mouse_minmax_vert();
 unsigned __int8 sub_75A10(int a1, unsigned __int8* a2);
 void sub_75AB0();
 //void sub_75AE0(int a1);
-void sub_75B50(__int16 a1);
+//void sub_75B50(__int16 a1);
 int sub_75B80_alloc_mem_block(int a1, x_WORD* a2, x_WORD* a3);
 void sub_75C50();
 //void sub_75CB0();
@@ -2507,8 +2408,8 @@ int sub_7CCA0();
 int sub_7CCF0();
 int sub_7CD30();
 int sub_7CDA0();
-void SetPaletteColor_7CDC0(int a1, unsigned __int8 a2);
-signed int SetMultiplayerColors_7CE50();
+void SetPaletteColor_7CDC0(unsigned __int8 a1, unsigned __int8 a2);
+bool SetMultiplayerColors_7CE50();
 void DrawNetworkLevelName_7D1F0();
 signed int sub_7D230(char a1, unsigned __int8 a2, unsigned __int8 a3);
 void SetMultiplayerColors_7D310();
@@ -2580,7 +2481,7 @@ __int16 sub_86180(unsigned __int16 a1);
 __int16 sub_86270(unsigned __int16 a1);
 __int16 sub_86370(unsigned __int16 a1, char a2);
 void sub_86460(uint16_t a1);
-void sub_86550();
+//void sub_86550();
 char sub_86780(unsigned __int16 a1, int a2, int a3);
 char sub_86860_speak_Sound(unsigned __int16 a1);
 char sub_86930(unsigned __int16 a1);
@@ -2670,7 +2571,7 @@ char sub_8C140(unsigned __int16 a1, uint8_t* a2);
 // x_DWORD dos_getdrive(x_DWORD); weak
 // x_DWORD dos_setdrive(x_DWORD, x_DWORD); weak
 // x_DWORD dos_getdiskfree(x_DWORD, x_DWORD); weak
-int sub_8C21F_any_graphics_command();
+// int sub_8C21F_any_graphics_command();
 // x_DWORD memset(x_DWORD, x_DWORD, x_DWORD); weak
 // int rand(void); weak
 // x_DWORD printf(x_DWORD);
@@ -2685,7 +2586,7 @@ void sub_8CB1F();
 void UpdateMouseEventData_8CB3A(uint32_t mouse_states, int32_t mouse_posx, int32_t mouse_posy);
 void sub_8CD27_set_cursor(posistruct_t a2);
 signed int sub_8CEDF_install_mouse();
-int sub_8D12F_set_mouse_viewport();
+// int sub_8D12F_set_mouse_viewport();
 //-------------
 //void sub_8F8B0_draw_bitmap320(int16_t posx, int16_t posy, posistruct_t temppstr);
 //void sub_8F8E8_draw_bitmap640(int16_t posx, int16_t posy, posistruct_t temppstr);
@@ -2716,7 +2617,7 @@ signed int sub_98C48_open_nwrite_close(char* file, uint8_t* buffer, uint32_t cou
 size_t sub_98CAA_write(FILE* a1, uint8_t* a2, uint32_t a3);
 void sub_99080(char a1);
 int sub_9937E_set_video_mode(__int16 a1);
-int sub_994BA_cursor_move(__int16 a1);
+// int sub_994BA_cursor_move(__int16 a1);
 signed int sub_9951B(__int16 a1);
 int sub_995B0_test_vga_driver();
 void sub_99830(uint32_t user); // weak
@@ -2736,15 +2637,15 @@ int sub_9B234(int* a1);
 signed int sub_9B260(x_DWORD** a1);
 char sub_9B274(int* a1, int a2);
 char* sub_9B498(char a1);
-bool sub_9B540_lock_linear_mem_region(unsigned int a1, unsigned int a2);
-bool sub_9B5B4_unlock_mem_region(unsigned int a1, unsigned int a2);
-void sub_9B628();
+// bool sub_9B540_lock_linear_mem_region(unsigned int a1, unsigned int a2);
+// bool sub_9B5B4_unlock_mem_region(unsigned int a1, unsigned int a2);
+// void sub_9B628();
 int sub_9B63C(int a1);
 void sub_9B688(int a1);
 int sub_9B7E8(int a1);
 void sub_9BAB0();
 int sub_9BAC4(uint8_t* a1, signed int a2);
-signed int sub_9BC68_allocate_and_lock_memory(x_WORD* a1, uint8_t* a2, unsigned int a3);
+// signed int sub_9BC68_allocate_and_lock_memory(x_WORD* a1, uint8_t* a2, unsigned int a3);
 int sub_9BE18(uint8_t* a1, int a2, char a3, unsigned int a4, unsigned int a5);
 signed int sub_9C810(x_DWORD* a1, char a2);
 signed int sub_9C938(x_DWORD* a1);
@@ -2926,15 +2827,15 @@ int32_t xx_DWORD_D40BC[17][3] =  // weak//min 16*3 //2a50bc
 posistruct2_t* x_DWORD_D4188 = 0; // weak
 posistruct2_t* x_DWORD_D418C = 0; // weak
 posistruct2_t* x_DWORD_D4190 = 0; // weak
-uint8_t* x_DWORD_D4198 = 0; // weak
 char x_BYTE_D419C_level_num = -1; // weak
 char x_BYTE_D419D_fonttype = 1; // weak
 char x_BYTE_D419E = 0; // weak//2a519e
 
 bool Iam_server = false;
 bool Iam_client = false;
-int ClientMPort = 3491;
-int ServerMPort = 3490;
+//int ClientMPort = 3491;
+int NetworkPort = 15001;
+int ServerPort = -1;
 char serverIP[256] = "000.000.000.000";
 
 x_DWORD x_DWORD_D41A4_4 = 0;
@@ -4888,8 +4789,8 @@ __int16 maxPlayers_E127A = 8; // weak
 uint8_t* networkBuffer_E127E = 0; // weak
 uint8_t* paket_E1282 = 0; // weak
 uint8_t* packetArray_E1286[8] = { 0, 0, 0, 0, 0, 0, 0, 0 }; // idb
-__int16 connected_E12A6 = 0; // weak
-__int16 IndexInNetwork2_E12A8 = 0; // weak
+uint8_t connected_E12A6 = 0; // weak
+int16_t IndexInNetwork2_E12A8 = 0; // weak
 myNCB* mainConnection_E12AA = 0; // weak //array size 66 //0x2b22aa
 
 myNCB* connection_E12AE[8] = { 0, 0, 0, 0, 0, 0, 0, 0 };
@@ -6993,9 +6894,9 @@ int sub_10C80(type_event_0x6E8E* a1x, unsigned __int8 a2, unsigned __int16 a3)//
 	int v31; // [esp+4Ch] [ebp-10h]
 	signed int v32; // [esp+54h] [ebp-8h]
 
-#ifdef DEBUG_SEQUENCES
-	//add_compare(0x1F1C80, debugafterload);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		//add_compare(0x1F1C80, CommandLineParams.DoDebugafterload());
+	}
 
 	//adress 1f1c84
 
@@ -8109,9 +8010,9 @@ void sub_12500(type_event_0x6E8E* a1x)//1f3500
 	__int16 v9; // cx
 	signed __int16 v11; // [esp+0h] [ebp-4h]
 
-#ifdef DEBUG_SEQUENCES
-	//add_compare(0x1f3504, debugafterload, 0xd7);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		//add_compare(0x1f3504, CommandLineParams.DoDebugafterload(), 0xd7);
+	}
 
 	v2 = 0;
 	v3 = a1x->byte_0x45_69 & 7;
@@ -8248,9 +8149,9 @@ void sub_12780()//1f3780
 	char v5; // dh
 
 	//adress 1f3783
-#ifdef DEBUG_SEQUENCES
-		//add_compare(0x1F3783, debugafterload);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		//add_compare(0x1F3783, CommandLineParams.DoDebugafterload());
+	}
 	/*if (debugcount_sub_12780 >= 2)
 	{
 		debugcount_sub_12780++;
@@ -8357,9 +8258,9 @@ signed int sub_12910(type_event_0x6E8E* event)//1f3910
 {
 	signed int result; // eax
 
-#ifdef DEBUG_SEQUENCES
-	//add_compare(0x1f3912, debugafterload,0x19);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		//add_compare(0x1f3912, CommandLineParams.DoDebugafterload(),0x19);
+	}
 
 	sub_12A70(event);
 	switch (event->dword_0xA4_164x->byte_0x1C1_449)
@@ -9880,27 +9781,27 @@ signed int sub_14E10(type_event_0x6E8E* a1x, unsigned __int8 a2)//1f5e10
 	type_event_0x6E8E* v8x; // esi
 	type_event_0x6E8E* v9x; // eax
 
-#ifdef DEBUG_SEQUENCES
-	/*if (debugafterload)
-	{
-		if (debugcounter_1f5e10 >= 0x34)
+	if (CommandLineParams.DoDebugSequences()) {
+		/*if (CommandLineParams.DoDebugafterload())
 		{
-			int comp20;
-			uint8_t origbyte20 = 0;
-			uint8_t remakebyte20 = 0;
+			if (debugcounter_1f5e10 >= 0x34)
+			{
+				int comp20;
+				uint8_t origbyte20 = 0;
+				uint8_t remakebyte20 = 0;
 
-			comp20 = compare_with_sequence((char*)"001f5e14-002DC4E0", (uint8_t*)x_BYTE_10B4E0_terraintype, 0x2dc4e0, debugcounter_1f5e10, 0x70000, 0x10000, &origbyte20, &remakebyte20);
-			comp20 = compare_with_sequence((char*)"001f5e14-002DC4E0", (uint8_t*)x_BYTE_11B4E0_height, 0x2dc4e0, debugcounter_1f5e10, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x10000);
-			comp20 = compare_with_sequence((char*)"001f5e14-002DC4E0", (uint8_t*)x_BYTE_12B4E0_shading, 0x2dc4e0, debugcounter_1f5e10, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x20000);
-			comp20 = compare_with_sequence((char*)"001f5e14-002DC4E0", (uint8_t*)x_BYTE_13B4E0_angle, 0x2dc4e0, debugcounter_1f5e10, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x30000);
-			comp20 = compare_with_sequence((char*)"001f5e14-002DC4E0", (uint8_t*)x_WORD_15B4E0_source, 0x2dc4e0, debugcounter_1f5e10, 0x70000, 0x20000, &origbyte20, &remakebyte20, 0x50000);
-			comp20 = compare_with_sequence_D41A0((char*)"001f5e14-00356038", (uint8_t*)& D41A0_BYTESTR_0, 0x356038, debugcounter_1f5e10, 224790, &origbyte20, &remakebyte20);
+				comp20 = compare_with_sequence((char*)"001f5e14-002DC4E0", (uint8_t*)x_BYTE_10B4E0_terraintype, 0x2dc4e0, debugcounter_1f5e10, 0x70000, 0x10000, &origbyte20, &remakebyte20);
+				comp20 = compare_with_sequence((char*)"001f5e14-002DC4E0", (uint8_t*)x_BYTE_11B4E0_height, 0x2dc4e0, debugcounter_1f5e10, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x10000);
+				comp20 = compare_with_sequence((char*)"001f5e14-002DC4E0", (uint8_t*)x_BYTE_12B4E0_shading, 0x2dc4e0, debugcounter_1f5e10, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x20000);
+				comp20 = compare_with_sequence((char*)"001f5e14-002DC4E0", (uint8_t*)x_BYTE_13B4E0_angle, 0x2dc4e0, debugcounter_1f5e10, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x30000);
+				comp20 = compare_with_sequence((char*)"001f5e14-002DC4E0", (uint8_t*)x_WORD_15B4E0_source, 0x2dc4e0, debugcounter_1f5e10, 0x70000, 0x20000, &origbyte20, &remakebyte20, 0x50000);
+				comp20 = compare_with_sequence_D41A0((char*)"001f5e14-00356038", (uint8_t*)& D41A0_BYTESTR_0, 0x356038, debugcounter_1f5e10, 224790, &origbyte20, &remakebyte20);
 
-			comp20 = compare_with_sequence_array_E2A74((char*)"001f5e14-002B3A74", (uint8_t*)& str_E2A74, 0x2b3a74, debugcounter_1f5e10, 0xc4e, 0xc4e, &origbyte20, &remakebyte20);
-		}
-		debugcounter_1f5e10++;
-	}*/
-#endif //DEBUG_SEQUENCES
+				comp20 = compare_with_sequence_array_E2A74((char*)"001f5e14-002B3A74", (uint8_t*)& str_E2A74, 0x2b3a74, debugcounter_1f5e10, 0xc4e, 0xc4e, &origbyte20, &remakebyte20);
+			}
+			debugcounter_1f5e10++;
+		}*/
+	}
 
 	if (!sub_15170(a1x, a2))
 		return 0;
@@ -11248,9 +11149,9 @@ char sub_169C0(type_event_0x6E8E* a1x)//1f79c0
 	//v3 = 0;
 	// end
 
-#ifdef DEBUG_SEQUENCES
-	//add_compare(0x1f79c3, debugafterload,0x77);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+    	//add_compare(0x1f79c3, CommandLineParams.DoDebugafterload(),0x77);
+	}
 
 	//LOBYTE(*(int32_t*)&v9x[6]) = a1x->array_0x4C_76.x >> 8;
 	//BYTE1(*(int32_t*)&v9x[6]) = a1x->array_0x4C_76.y >> 8;
@@ -11653,10 +11554,10 @@ void ComputeMousePlayerMovement_17060(int16_t x, int16_t y)//1f8060
 	int roll; // ebx
 	int pitch; // ecx
 
-#ifdef MOUSE_OFF2
-	x = 0x140;
-	y = 0xc8;
-#endif
+	if (CommandLineParams.DoMouseOff2()) {
+		x = 0x140;
+		y = 0xc8;
+	}
 
 	if (!x_D41A0_BYTEARRAY_4_struct.speedIndex)
 	{
@@ -11691,26 +11592,26 @@ void sub_17190_process_keyboard()//1f8190
 {
 	type_event_0x6E8E* event; // edx
 
-#ifdef OFF_PAUSE_5
-	if (debugcounter_47560 == 5)
-	{
-		x_D41A0_BYTEARRAY_4_struct.setting_byte3_24 &= 0xfe;
-		//sub_41B60();
-		/*x_D41A0_BYTEARRAY_4_struct.byteindex_205 = 0;
-		x_D41A0_BYTEARRAY_4_struct.byteindex_206 = 0;
-		sub_8CD27_set_cursor((*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct)[0]);
-		sub_52E90(
-			&D41A0_BYTESTR_0.array_0x2BDE[D41A0_BYTESTR_0.word_0xc],
-			D41A0_BYTESTR_0.array_0x2BDE[D41A0_BYTESTR_0.word_0xc].byte_0x3DF_2BE4_12221,
-			1);
-		if (x_BYTE_E37FD)
-			sub_8E160_sound_proc15_startsequence(D41A0_BYTESTR_0.dword_0x235, 0x7Fu);
-		sub_86930(x_WORD_1803EC);
-		if (x_D41A0_BYTEARRAY_4_struct.byteindex_225)
-			x_D41A0_BYTEARRAY_4_struct.byteindex_225 = 1;
-		x_D41A0_BYTEARRAY_4_struct.byteindex_208 = sub_55C00(x_D41A0_BYTEARRAY_4_struct.levelnumber_43w);*/
+	if (CommandLineParams.DoOffPause5()) {
+		if (debugcounter_47560 == 5)
+		{
+			x_D41A0_BYTEARRAY_4_struct.setting_byte3_24 &= 0xfe;
+			//sub_41B60();
+			/*x_D41A0_BYTEARRAY_4_struct.byteindex_205 = 0;
+			x_D41A0_BYTEARRAY_4_struct.byteindex_206 = 0;
+			sub_8CD27_set_cursor((*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct)[0]);
+			sub_52E90(
+				&D41A0_BYTESTR_0.array_0x2BDE[D41A0_BYTESTR_0.word_0xc],
+				D41A0_BYTESTR_0.array_0x2BDE[D41A0_BYTESTR_0.word_0xc].byte_0x3DF_2BE4_12221,
+				1);
+			if (x_BYTE_E37FD)
+				sub_8E160_sound_proc15_startsequence(D41A0_BYTESTR_0.dword_0x235, 0x7Fu);
+			sub_86930(x_WORD_1803EC);
+			if (x_D41A0_BYTEARRAY_4_struct.byteindex_225)
+				x_D41A0_BYTEARRAY_4_struct.byteindex_225 = 1;
+			x_D41A0_BYTEARRAY_4_struct.byteindex_208 = sub_55C00(x_D41A0_BYTEARRAY_4_struct.levelnumber_43w);*/
+		}
 	}
-#endif
 
 	if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 4) || sub_473E0() == 0)
 	{
@@ -13427,9 +13328,9 @@ void SetSoundEffectAndMusicLevelCoordinates_19D60(signed int a1)//1fad60
 
 	int a2;
 
-#ifdef DEBUG_SEQUENCES
-	add_compare(0x1fad63, debugafterload);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		add_compare(0x1fad63, CommandLineParams.DoDebugafterload());
+	}
 
 	v2 = x_D41A0_BYTEARRAY_4_struct.byte_38591;
 	if (v2 == 1u)
@@ -14063,23 +13964,23 @@ void sub_1A7A0_fly_asistant()//1fb7a0 // fly asistant
 	//__int16 v4; // dx
 	//int v5; // eax
 
-#ifdef FIX_MOUSE
-	if (debugafterload)
-	{
-		unk_18058Cstr.x_DWORD_18059C = 0;
-		x_WORD_18074C_mouse_left2_button = 0;
-		if (debugcounter_1fb7a0 < 1000) {
-			unk_18058Cstr.x_DWORD_1805B8_mouse_position_x = 0x128;
-			unk_18058Cstr.x_DWORD_1805BC_mouse_position_y = 0x7e;
+	if (CommandLineParams.DoFixMouse()) {
+		if (CommandLineParams.DoDebugafterload())
+		{
+			unk_18058Cstr.x_DWORD_18059C = 0;
+			x_WORD_18074C_mouse_left2_button = 0;
+			if (debugcounter_1fb7a0 < 1000) {
+				unk_18058Cstr.x_DWORD_1805B8_mouse_position_x = 0x128;
+				unk_18058Cstr.x_DWORD_1805BC_mouse_position_y = 0x7e;
+			}
+			debugcounter_1fb7a0++;
 		}
-		debugcounter_1fb7a0++;
 	}
-#endif //FIX_MOUSE
 
-#ifdef FIX_FLYASISTANT
-	if (x_D41A0_BYTEARRAY_4_struct.setting_byte3_24 & 1)
-		return;
-#endif //FIX_FLYASISTANT
+	if (CommandLineParams.DoFixFlyasistant()) {
+		if (x_D41A0_BYTEARRAY_4_struct.setting_byte3_24 & 1)
+			return;
+	}
 
 	//result = x_D41A0_BYTEARRAY_0;
 	if (D41A0_0.byte_0x36DEA_fly_asistant)
@@ -14361,23 +14262,24 @@ void sub_1A970_change_game_settings(char a1, int a2, int a3)//1fb970
 		v13x = x_DWORD_EA3E4[D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].word_0x00a_2BE4_11240];
 		if (v13x <= x_DWORD_EA3E4[0] || v13x->dword_0x8 < 0)
 			return;
-#ifdef ALTERNATIVE_GAMESPEED_CONTROL
-		if (x_D41A0_BYTEARRAY_4_struct.speedIndex == 2)
-			x_D41A0_BYTEARRAY_4_struct.speedIndex = 0;
-		else
-		{
-			x_D41A0_BYTEARRAY_4_struct.speedIndex = x_D41A0_BYTEARRAY_4_struct.speedIndex + (a2 != 0) + 1;
-			if (x_D41A0_BYTEARRAY_4_struct.speedIndex > 2)
+		if (CommandLineParams.DoAlternativeGamespeedControl()) {
+			if (x_D41A0_BYTEARRAY_4_struct.speedIndex == 2)
+				x_D41A0_BYTEARRAY_4_struct.speedIndex = 0;
+			else
 			{
-				x_D41A0_BYTEARRAY_4_struct.speedIndex = 2;
+				x_D41A0_BYTEARRAY_4_struct.speedIndex = x_D41A0_BYTEARRAY_4_struct.speedIndex + (a2 != 0) + 1;
+				if (x_D41A0_BYTEARRAY_4_struct.speedIndex > 2)
+				{
+					x_D41A0_BYTEARRAY_4_struct.speedIndex = 2;
+				}
 			}
 		}
-#else
-		if (x_D41A0_BYTEARRAY_4_struct.speedIndex)
-			x_D41A0_BYTEARRAY_4_struct.speedIndex = 0;
-		else
-			x_D41A0_BYTEARRAY_4_struct.speedIndex = (a2 != 0) + 1;
-#endif //#ifdef ALTERNATIVE_GAMESPEED_CONTROL
+		else {
+			if (x_D41A0_BYTEARRAY_4_struct.speedIndex)
+				x_D41A0_BYTEARRAY_4_struct.speedIndex = 0;
+			else
+				x_D41A0_BYTEARRAY_4_struct.speedIndex = (a2 != 0) + 1;
+		}
 		v14 = x_D41A0_BYTEARRAY_4_struct.speedIndex;
 		if (v14 < 1u)
 		{
@@ -14770,9 +14672,9 @@ signed int sub_1B8C0(type_event_0x6E8E* a1x)//1fc8c0
 	//int v36; // ebx
 	__int16 v37; // [esp+0h] [ebp-4h]
 
-#ifdef DEBUG_SEQUENCES2
-	//add_compare(0x1fc8c4, debugafterload);
-#endif //DEBUG_SEQUENCES2
+	if (CommandLineParams.DoDebugSequences2()) {
+		//add_compare(0x1fc8c4, CommandLineParams.DoDebugafterload());
+	}
 
 	//v1 = a1x->struct_byte_0xc_12_15.byte[1];
 	if (a1x->struct_byte_0xc_12_15.byte[1] & 8)
@@ -15353,9 +15255,9 @@ void sub_1C560(type_event_0x6E8E* a1x, unsigned __int16 a2)//1fd560
 	type_event_0x6E8E* v14x; // ecx
 	bool v16; // [esp+4h] [ebp-4h]
 
-#ifdef DEBUG_SEQUENCES
-	//add_compare(0x1fd564, debugafterload);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+        //add_compare(0x1fd564, CommandLineParams.DoDebugafterload());
+	}
 
 	//fix
 	v3x = 0;
@@ -20237,9 +20139,9 @@ void sub_22E60(type_event_0x6E8E* a1x)//203e60
 	type_event_0x6E8E* v8x; // eax
 	axis_3d* v9; // esi
 
-#ifdef DEBUG_SEQUENCES
-	//add_compare(0x203e64, debugafterload,0x2e);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		//add_compare(0x203e64, CommandLineParams.DoDebugafterload(),0x2e);
+	}
 
 	v1 = 0;
 	if (a1x->str_0x5E_94.word_0x62_98)
@@ -22938,14 +22840,14 @@ void sub_26470(type_event_0x6E8E* a1x)//207470
 {
 	//int result; // eax
 
-#ifdef DEBUG_SEQUENCES
-	if (debug_sub_26470 >= 0x153c)
-	{
+	if (CommandLineParams.DoDebugSequences()) {
+		if (debug_sub_26470 >= 0x153c)
+		{
+			debug_sub_26470++;
+			debug_sub_26470--;
+		}
 		debug_sub_26470++;
-		debug_sub_26470--;
 	}
-	debug_sub_26470++;
-#endif //DEBUG_SEQUENCES
 
 	sub_1D5D0(a1x, 168);
 	//result = (unsigned __int8)(a1x->StageVar2_0x49_73 - 1);
@@ -25801,9 +25703,9 @@ void sub_29A90(type_event_0x6E8E* a1x)//20aa90
 	//LOWORD(v2) = a1x->word_0x34_52;
 	for (ix = x_DWORD_EA3E4[a1x->word_0x34_52]; ix > x_DWORD_EA3E4[0]; ix = x_DWORD_EA3E4[ix->word_0x34_52])
 	{
-#ifdef DEBUG_SEQUENCES
-		//add_compare(0x20aab8, debugafterload);
-#endif //DEBUG_SEQUENCES
+		if (CommandLineParams.DoDebugSequences()) {
+			//add_compare(0x20aab8, CommandLineParams.DoDebugafterload());
+		}
 
 		if (ix->byte_0x45_69 == 233)
 		{
@@ -27595,9 +27497,11 @@ void DrawGameFrame_2BE30()//20CE30
 	if (v2)
 		sub_88580();
 	v6 = D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].word_0x00e_2BDE_11244;
-#ifdef TEST_RENDERERS
-	uint8_t* help_ScreenBuffer = (uint8_t*)malloc(screenWidth_18062C * screenHeight_180624);
-#endif //TEST_RENDERERS
+
+	uint8_t* help_ScreenBuffer = nullptr;
+	if (CommandLineParams.DoTestRenderers()) {
+		help_ScreenBuffer = (uint8_t*)malloc(screenWidth_18062C * screenHeight_180624);
+	}
 	switch (D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x3DF_2BE4_12221)
 	{
 	case 0:
@@ -27638,47 +27542,49 @@ void DrawGameFrame_2BE30()//20CE30
 			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.roll,
 			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.fov);
 
-#ifdef TEST_RENDERERS
-		memcpy(help_ScreenBuffer, pdwScreenBuffer_351628, screenWidth_18062C * screenHeight_180624);
+		if (CommandLineParams.DoTestRenderers()) {
+			memcpy(help_ScreenBuffer, pdwScreenBuffer_351628, screenWidth_18062C * screenHeight_180624);
 
-		if (typeid(*m_ptrGameRender) == typeid(GameRenderHD))
-		{
-			delete m_ptrGameRender;
-			m_ptrGameRender = nullptr;
-			m_ptrGameRender = (GameRenderInterface*)new GameRenderOriginal();
-		}
-		else
-		{
-			delete m_ptrGameRender;
-			m_ptrGameRender = nullptr;
-			m_ptrGameRender = (GameRenderInterface*)new GameRenderHD((multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
-		}
-		m_ptrGameRender->DrawWorld_411A0(
-			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].axis_2BDE_11695.x,//position of player
-			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].axis_2BDE_11695.y,//position of player
-			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.yaw,//rotation of player z
-			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].axis_2BDE_11695.z + 128,
-			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.pitch,
-			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.roll,
-			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.fov);
+			if (typeid(*m_ptrGameRender) == typeid(GameRenderHD))
+			{
+				delete m_ptrGameRender;
+				m_ptrGameRender = nullptr;
+				m_ptrGameRender = (GameRenderInterface*)new GameRenderOriginal();
+			}
+			else
+			{
+				delete m_ptrGameRender;
+				m_ptrGameRender = nullptr;
+				// FIXME: code not working
+				// m_ptrGameRender = (GameRenderInterface*)new GameRenderHD((multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
+			}
+			m_ptrGameRender->DrawWorld_411A0(
+				D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].axis_2BDE_11695.x,//position of player
+				D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].axis_2BDE_11695.y,//position of player
+				D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.yaw,//rotation of player z
+				D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].axis_2BDE_11695.z + 128,
+				D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.pitch,
+				D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.roll,
+				D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.fov);
 
-		for (int test_compi = 0; test_compi < screenWidth_18062C * screenHeight_180624; test_compi++)
-			if (pdwScreenBuffer_351628[test_compi] != help_ScreenBuffer[test_compi])
-				allert_error();
+			for (int test_compi = 0; test_compi < screenWidth_18062C * screenHeight_180624; test_compi++)
+				if (pdwScreenBuffer_351628[test_compi] != help_ScreenBuffer[test_compi])
+					allert_error();
 
-		if (typeid(*m_ptrGameRender) == typeid(GameRenderHD))
-		{
-			delete m_ptrGameRender;
-			m_ptrGameRender = nullptr;
-			m_ptrGameRender = (GameRenderInterface*)new GameRenderOriginal();
+			if (typeid(*m_ptrGameRender) == typeid(GameRenderHD))
+			{
+				delete m_ptrGameRender;
+				m_ptrGameRender = nullptr;
+				m_ptrGameRender = (GameRenderInterface*)new GameRenderOriginal();
+			}
+			else
+			{
+				delete m_ptrGameRender;
+				m_ptrGameRender = nullptr;
+				// FIXME: code not working
+				// m_ptrGameRender = (GameRenderInterface*)new GameRenderHD((multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
+			}
 		}
-		else
-		{
-			delete m_ptrGameRender;
-			m_ptrGameRender = nullptr;
-			m_ptrGameRender = (GameRenderInterface*)new GameRenderHD((multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
-		}
-#endif //TEST_RENDERERS
 
 		//WriteBufferToBMP(screenWidth, screenHeight, *xadatapald0dat2.colorPalette_var28, pdwScreenBuffer_351628);
 
@@ -27894,49 +27800,50 @@ void DrawGameFrame_2BE30()//20CE30
 			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.roll,
 			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.fov);
 
-#ifdef TEST_RENDERERS
-		memcpy(help_ScreenBuffer, pdwScreenBuffer_351628, screenWidth_18062C* screenHeight_180624);
+		if (CommandLineParams.DoTestRenderers()) {
+			memcpy(help_ScreenBuffer, pdwScreenBuffer_351628, screenWidth_18062C* screenHeight_180624);
 
-		if (typeid(*m_ptrGameRender) == typeid(GameRenderHD))
-		{
-			delete m_ptrGameRender;
-			m_ptrGameRender = nullptr;
-			m_ptrGameRender = (GameRenderInterface*)new GameRenderOriginal();
-		}
-		else
-		{
-			delete m_ptrGameRender;
-			m_ptrGameRender = nullptr;
-			m_ptrGameRender = (GameRenderInterface*)new GameRenderHD((multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
-		}
+			if (typeid(*m_ptrGameRender) == typeid(GameRenderHD))
+			{
+				delete m_ptrGameRender;
+				m_ptrGameRender = nullptr;
+				m_ptrGameRender = (GameRenderInterface*)new GameRenderOriginal();
+			}
+			else
+			{
+				delete m_ptrGameRender;
+				m_ptrGameRender = nullptr;
+				// FIXME: code not working
+				// m_ptrGameRender = (GameRenderInterface*)new GameRenderHD((multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
+			}
 
-		m_ptrGameRender->DrawWorld_411A0(
-			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].axis_2BDE_11695.x,//position of player
-			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].axis_2BDE_11695.y,//position of player
-			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.yaw,//rotation of player z
-			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].axis_2BDE_11695.z + 128,
-			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.pitch,
-			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.roll,
-			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.fov);
+			m_ptrGameRender->DrawWorld_411A0(
+				D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].axis_2BDE_11695.x,//position of player
+				D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].axis_2BDE_11695.y,//position of player
+				D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.yaw,//rotation of player z
+				D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].axis_2BDE_11695.z + 128,
+				D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.pitch,
+				D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.roll,
+				D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.fov);
 
-		for (int test_compi = 0; test_compi < screenWidth_18062C * screenHeight_180624; test_compi++)
-			if (pdwScreenBuffer_351628[test_compi] != help_ScreenBuffer[test_compi])
-				allert_error();
+			for (int test_compi = 0; test_compi < screenWidth_18062C * screenHeight_180624; test_compi++)
+				if (pdwScreenBuffer_351628[test_compi] != help_ScreenBuffer[test_compi])
+					allert_error();
 
-		if (typeid(*m_ptrGameRender) == typeid(GameRenderHD))
-		{
-			delete m_ptrGameRender;
-			m_ptrGameRender = nullptr;
-			m_ptrGameRender = (GameRenderInterface*)new GameRenderOriginal();
+			if (typeid(*m_ptrGameRender) == typeid(GameRenderHD))
+			{
+				delete m_ptrGameRender;
+				m_ptrGameRender = nullptr;
+				m_ptrGameRender = (GameRenderInterface*)new GameRenderOriginal();
+			}
+			else
+			{
+				delete m_ptrGameRender;
+				m_ptrGameRender = nullptr;
+				// FIXME: code not working
+				// m_ptrGameRender = (GameRenderInterface*)new GameRenderHD((multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
+			}
 		}
-		else
-		{
-			delete m_ptrGameRender;
-			m_ptrGameRender = nullptr;
-			m_ptrGameRender = (GameRenderInterface*)new GameRenderHD((multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
-		}
-		
-#endif //TEST_RENDERERS
 
 		if (x_WORD_180660_VGA_type_resolution & 1)
 			sub_9025C(locViewportPosx, 0, locViewportPosx, locViewportHeight, (unsigned short)(*xadataclrd0dat.colorPalette_var28)[0], 0);
@@ -27996,9 +27903,12 @@ void DrawGameFrame_2BE30()//20CE30
 	default:
 		break;
 	}
-#ifdef TEST_RENDERERS
-	free(help_ScreenBuffer);
-#endif //TEST_RENDERERS
+	if (CommandLineParams.DoTestRenderers()) {
+		if (help_ScreenBuffer) {
+			free(help_ScreenBuffer);
+			help_ScreenBuffer = nullptr;
+		} 
+	}
 	if (D41A0_0.byte_0x36E04)
 		sub_30630();
 	DrawHelpText_6FC50(x_BYTE_D419D_fonttype);
@@ -31040,9 +30950,9 @@ void sub_31F00(type_event_0x6E8E* a1x, __int16 a2, __int16 a3)//212f00
 	int v9; // [esp+4h] [ebp-8h]
 	int v10; // [esp+8h] [ebp-4h]
 
-#ifdef DEBUG_SEQUENCES
-	//add_compare(0x212f04, debugafterload,0x218);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		//add_compare(0x212f04, CommandLineParams.DoDebugafterload(),0x218);
+	}
 
 	v3 = a3;
 	v4 = (a1x->axis_0x4C_76.x + 128) >> 8;
@@ -34002,9 +33912,9 @@ void sub_35FB0(type_event_0x6E8E* a1x)//216FB0
 	signed __int16 v30; // [esp+0h] [ebp-8h]
 	char v31; // [esp+4h] [ebp-4h]
 
-#ifdef DEBUG_SEQUENCES
-	//add_compare(0x216FB4, debugafterload);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		//add_compare(0x216FB4, CommandLineParams.DoDebugafterload());
+	}
 
 	v1 = a1x->struct_byte_0xc_12_15.byte[1];
 	v31 = 0;
@@ -34740,9 +34650,9 @@ void sub_36FC0(type_event_0x6E8E* a1x)//217fc0
 	char v28; // [esp+25h] [ebp-7h]
 	char v29; // [esp+28h] [ebp-4h]
 
-#ifdef DEBUG_SEQUENCES
-	//add_compare(0x217fc4, debugafterload,1);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		//add_compare(0x217fc4, CommandLineParams.DoDebugafterload(),1);
+	}
 
 	v29 = 0;
 	v26 = (unsigned __int16)(a1x->axis_0x4C_76.x + 128) >> 8;
@@ -34907,9 +34817,9 @@ void ApplyTerrainModification_37240(type_event_0x6E8E* event)//218240
 	uint8_t v50; // [esp+54h] [ebp-4h]
 	//uint8_t v17x;
 
-#ifdef DEBUG_SEQUENCES
-	//add_compare(0x218244, debugafterload,0xb8);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		//add_compare(0x218244, CommandLineParams.DoDebugafterload(),0xb8);
+	}
 
 	v50 = 0;
 	if (event->dword_0x4 == event->dword_0x8)
@@ -37526,9 +37436,9 @@ void sub_3A8B0(type_event_0x6E8E* a1x)//21b8b0
 	unsigned __int8 v36; // [esp+1Ch] [ebp-8h]
 	char v37; // [esp+20h] [ebp-4h]
 
-#ifdef DEBUG_SEQUENCES
-	add_compare(0x21b8b4, debugafterload);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		add_compare(0x21b8b4, CommandLineParams.DoDebugafterload());
+	}
 
 	v2x = x_DWORD_EA3E4[a1x->word_0x32_50];
 	v31x = 0;
@@ -39045,9 +38955,9 @@ void sub_45DC0(/*uint8_t a1, */uint8_t a2, uaxis_2d a3x, unsigned __int8 a4)//22
 	char v22; // dl
 	unsigned __int8 v24; // [esp+0h] [ebp-4h]
 
-#ifdef DEBUG_SEQUENCES
-	//add_compare(0x226dc4, debugafterload);//1cf0
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		//add_compare(0x226dc4, CommandLineParams.DoDebugafterload());//1cf0
+	}
 
 	v4x._axis_2d.y = a3x._axis_2d.y;
 	v24 = 8 * ((a3x._axis_2d.y + a3x._axis_2d.x) & 1);
@@ -39299,9 +39209,9 @@ void sub_462A0(uaxis_2d a1x, uaxis_2d a2x)//2272a0
 	char v27; // [esp+8h] [ebp-Ch]
 	char v28; // [esp+Ch] [ebp-8h]
 
-#ifdef DEBUG_SEQUENCES
-	//add_compare(0x2272a3, debugafterload);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		//add_compare(0x2272a3, CommandLineParams.DoDebugafterload());
+	}
 	v4x._axis_2d.x = a2x._axis_2d.x - a1x._axis_2d.x + 1;
 	v2x.word = a1x.word;
 	v25 = a2x._axis_2d.x - a1x._axis_2d.x + 1;
@@ -39460,9 +39370,9 @@ void sub_46570(uaxis_2d a1x, uaxis_2d a2x)//227570
 	char v32; // [esp+10h] [ebp-4h]
 	//unsigned __int16 v33; // [esp+24h] [ebp+10h]
 
-#ifdef DEBUG_SEQUENCES
-	//add_compare(0x227573,debugafterload);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		//add_compare(0x227573,CommandLineParams.DoDebugafterload());
+	}
 
 	// fix if begin
 	//v33 = a1;
@@ -39510,9 +39420,9 @@ void sub_46570(uaxis_2d a1x, uaxis_2d a2x)//227570
 	//adress 2275eb
 	while (v32)
 	{
-#ifdef DEBUG_SEQUENCES
-		//add_compare(0x227607, debugafterload);
-#endif //DEBUG_SEQUENCES
+		if (CommandLineParams.DoDebugSequences()) {
+			//add_compare(0x227607, CommandLineParams.DoDebugafterload());
+		}
 		v4x._axis_2d.x = v30;
 		for (i = v30; i; i--)
 		{
@@ -39676,10 +39586,7 @@ uint8_t testarraymain[168] = {
 0x09,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
 0x5e,0x24,0x57,0x01,0x18,0x91,0xb1,0x02 };*/
 
-#ifdef AUTO_CHANGE_RES
 int resindex_begin = 0;
-//int resindex_end = -1;
-#endif //AUTO_CHANGE_RES
 
 //----- (00046830) --------------------------------------------------------
 void sub_46830_main_loop(/*int16_t* a1, */signed int a2, unsigned __int16 a3)//227830
@@ -39700,13 +39607,13 @@ void sub_46830_main_loop(/*int16_t* a1, */signed int a2, unsigned __int16 a3)//2
 	v5 = 0;
 	// end
 	//x_D41A0_BYTEARRAY_0_to_x_D41A0_BYTESTR_0();//fixing x_D41A0_BYTEARRAY_0
-#ifdef DEBUG_SEQUENCES
-	/*uint8_t origbyte20 = 0;
-	uint8_t remakebyte20 = 0;
-	int debugcounter11 = 0;
-	int comp20 = compare_with_sequence_D41A0((char*)"00227830-00356038", (uint8_t*)& D41A0_BYTESTR_0, 0x356038, debugcounter11, 224790, &origbyte20, &remakebyte20);
-*/
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		/*uint8_t origbyte20 = 0;
+		uint8_t remakebyte20 = 0;
+		int debugcounter11 = 0;
+		int comp20 = compare_with_sequence_D41A0((char*)"00227830-00356038", (uint8_t*)& D41A0_BYTESTR_0, 0x356038, debugcounter11, 224790, &origbyte20, &remakebyte20);
+		*/
+	}
 
 	x_D41A0_BYTEARRAY_4_struct.setting_30 = 0;//2a51a4
 	D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x004_2BE0_11234 = 0;
@@ -39745,9 +39652,9 @@ void sub_46830_main_loop(/*int16_t* a1, */signed int a2, unsigned __int16 a3)//2
 			debug_printf("sub_46830_main_loop:init game level passed\n");
 #endif //DEBUG_START
 
-#ifdef AUTO_CHANGE_RES
-			resindex_begin = 0;
-#endif //AUTO_CHANGE_RES
+			if (CommandLineParams.DoAutoChangeRes()) {
+				resindex_begin = 0;
+			}
 
 			//!!!!!!!!!!! debug fix it
 			//mouseturnoff = true;
@@ -39793,7 +39700,7 @@ void sub_46830_main_loop(/*int16_t* a1, */signed int a2, unsigned __int16 a3)//2
 						m_ptrGameRender = (GameRenderInterface*)new GameRenderOriginal();
 					}
 					else {
-						m_ptrGameRender = (GameRenderInterface*)new GameRenderHD((multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
+						m_ptrGameRender = (GameRenderInterface*)new GameRenderHD(pdwScreenBuffer_351628, *xadatapald0dat2.colorPalette_var28, (uint16_t)screenWidth_18062C, (uint16_t)screenHeight_180624,(multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
 					}
 				}
 				sub_47320_in_game_loop(a2);
@@ -40303,25 +40210,25 @@ void sub_47320_in_game_loop(signed int a1)//228320
 	while (1)
 	{
 		//debug
-#ifdef RIGHT_BUTTON
-		if (debugafterload)
-		{
-			if (debug_first_run % 10 == 8)
+		if (CommandLineParams.DoRightButton()) {
+			if (CommandLineParams.DoDebugafterload())
 			{
-				if (!x_WORD_18074A_mouse_right2_button && !x_WORD_180744_mouse_right_button)//first cycle after press and ...
+				if (debug_first_run % 10 == 8)
 				{
-					//x_WORD_180744_mouse_right_button = 1;
-					x_WORD_180746_mouse_left_button = 1;
-					//x_WORD_E375C_mouse_position_x = temp_mouse_x;
-					//mouse_state = temp_mouse_y;
-					//x_WORD_E375E_mouse_position_y = temp_mouse_y;
+					if (!x_WORD_18074A_mouse_right2_button && !x_WORD_180744_mouse_right_button)//first cycle after press and ...
+					{
+						//x_WORD_180744_mouse_right_button = 1;
+						x_WORD_180746_mouse_left_button = 1;
+						//x_WORD_E375C_mouse_position_x = temp_mouse_x;
+						//mouse_state = temp_mouse_y;
+						//x_WORD_E375E_mouse_position_y = temp_mouse_y;
+					}
+					//x_WORD_18074A_mouse_right2_button = 1;
+					x_WORD_18074C_mouse_left2_button = 1;
 				}
-				//x_WORD_18074A_mouse_right2_button = 1;
-				x_WORD_18074C_mouse_left2_button = 1;
+				debug_first_run++;
 			}
-			debug_first_run++;
 		}
-#endif
 
 		//debug
 
@@ -40393,7 +40300,7 @@ void DrawAndEventsInGame_47560(/*uint8_t* a1, int a2, */uint32_t a3, signed int 
 	//frameStart = clock();
 #endif
 
-	if ((debugafterload == 1) && (count_begin == 1))
+	if ((CommandLineParams.DoDebugafterload() == 1) && (count_begin == 1))
 		debugcounter_47560++;
 
 	PaletteChanges_47760(/*a1, a2, (int)a3*/a3);
@@ -40403,47 +40310,47 @@ void DrawAndEventsInGame_47560(/*uint8_t* a1, int a2, */uint32_t a3, signed int 
 	}
 	ReadGameUserInputs_89D10();//get keys
 
-#ifdef AUTO_CHANGE_RES
-	if ((windowResWidth >= 640)&&(windowResHeight >= 480))
-	//if (true)
-	{
-		if (resindex_begin == 1)
+	if (CommandLineParams.DoAutoChangeRes()) {
+		if ((windowResWidth >= 640)&&(windowResHeight >= 480))
+		//if (true)
 		{
-			LastPressedKey_1806E4 = 0x13;
-			resindex_begin++;
-		}
-		else
-		{
-			if (resindex_begin == 2)
+			if (resindex_begin == 1)
 			{
-				LastPressedKey_1806E4 = 0;
+				LastPressedKey_1806E4 = 0x13;
 				resindex_begin++;
 			}
 			else
 			{
-				if (resindex_begin < 1)
+				if (resindex_begin == 2)
 				{
+					LastPressedKey_1806E4 = 0;
 					resindex_begin++;
+				}
+				else
+				{
+					if (resindex_begin < 1)
+					{
+						resindex_begin++;
+					}
 				}
 			}
 		}
 	}
-#endif //AUTO_CHANGE_RES
 
 	MouseAndKeysEvents_17A00(a4, a5);
 
-#ifdef INTERVAL_SAVE
-//save in interval
-	int interval = 1;
-	if (save_debugcounter % interval == 0)
-		intervalsave(save_debugcounter / interval);
-	//save in interval
-	save_debugcounter++;
-#endif //INTERVAL_SAVE
+	if (CommandLineParams.DoIntervalSave()) {
+		//save in interval
+		int interval = 1;
+		if (save_debugcounter % interval == 0)
+			intervalsave(save_debugcounter / interval);
+		//save in interval
+		save_debugcounter++;
+	}
 //adress 228583
-#ifdef DEBUG_SEQUENCES2
-	//add_compare(0x228583, debugafterload);
-#endif //DEBUG_SEQUENCES2
+	if (CommandLineParams.DoDebugSequences2()) {
+		//add_compare(0x228583, CommandLineParams.DoDebugafterload());
+	}
 	GameEvents_51BB0();//nothing draw
 	//adress 228588
 	sub_848A0();//nothing draw
@@ -40473,41 +40380,41 @@ void DrawAndEventsInGame_47560(/*uint8_t* a1, int a2, */uint32_t a3, signed int 
 	sub_6E150();//nothing draw
 	DrawGameFrame_2BE30();
 	//adress 2285ff
-	//add_compare(0x002285FF, debugafterload);
-#ifdef TEST_REGRESSION
-	add_compare(0x002285FF, debugafterload, -1, false, 20);
-	//add_compare(0x002285FF, debugafterload, 6);
-#endif //TEST_REGRESSION
-#ifdef DEBUG_SEQUENCES2
-	//add_compare(0x002285FF, debugafterload);
-#endif //DEBUG_SEQUENCES2
-#ifdef DEBUG_SEQUENCES
-	//add_compare(0x002285FF, debugafterload);
-#endif //DEBUG_SEQUENCES
+	//add_compare(0x002285FF, CommandLineParams.DoDebugafterload());
+	if (CommandLineParams.DoTestRegression()) {
+		add_compare(0x002285FF, CommandLineParams.DoDebugafterload(), -1, false, 20);
+		//add_compare(0x002285FF, CommandLineParams.DoDebugafterload(), 6);
+	}
+	if (CommandLineParams.DoDebugSequences2()) {
+		//add_compare(0x002285FF, CommandLineParams.DoDebugafterload());
+	}
+	if (CommandLineParams.DoDebugSequences()) {
+		//add_compare(0x002285FF, CommandLineParams.DoDebugafterload());
+	}
 	/*if (debugcounter_47560_2>=0x8f)
 	{
 		debugcounter_47560_2++;
 		debugcounter_47560_2--;
 	}
 	debugcounter_47560_2++;*/
-#ifdef ANALYZE_ENTITY
-	analyzeEntites();
-#endif //ANALYZE_ENTITY
+	if (CommandLineParams.DoAnalyzeEntity()) {
+		analyzeEntites();
+	}
 	if (x_D41A0_BYTEARRAY_4_struct.byteindex_10)
 		DrawHelpPopUps_871F0();
 	//adress 22860f
 
-#ifdef DETECT_DWORD_A
-	for (int iii = 1; iii < 0x3E9; iii++)
-		if (x_DWORD_EA3E4[iii]->oldMapEntity_0x16_22 == iii)
-			allert_error();
-	for (int jx = 1; jx < 50; jx++)
-	{
-		if (D41A0_0.str_0x3664C[jx].byte_0)
-			if (D41A0_0.str_0x3664C[jx].event_A.pointer_0x6E8E < D41A0_0.struct_0x6E8E || D41A0_0.str_0x3664C[jx].event_A.pointer_0x6E8E >= &D41A0_0.struct_0x6E8E[0x3e8])
+	if (CommandLineParams.DoDetectDwordA()) {
+		for (int iii = 1; iii < 0x3E9; iii++)
+			if (x_DWORD_EA3E4[iii]->oldMapEntity_0x16_22 == iii)
 				allert_error();
+		for (int jx = 1; jx < 50; jx++)
+		{
+			if (D41A0_0.str_0x3664C[jx].byte_0)
+				if (D41A0_0.str_0x3664C[jx].event_A.pointer_0x6E8E < D41A0_0.struct_0x6E8E || D41A0_0.str_0x3664C[jx].event_A.pointer_0x6E8E >= &D41A0_0.struct_0x6E8E[0x3e8])
+					allert_error();
+		}
 	}
-#endif //DETECT_DWORD_A
 
 	x_D41A0_BYTEARRAY_4_struct.byteindex_196 = x_DWORD_17DB54_game_turn2 - x_D41A0_BYTEARRAY_4_struct.byteindex_196;
 	sub_6FEC0();
@@ -41723,15 +41630,15 @@ void sub_48B90(uaxis_2d a1x)//229b90
 		//myprintf("i:%d,", debugcounter2);
 	}
 	debugcounter2++;*/
-#ifdef DEBUG_SEQUENCES
-	//if (debugcounter_229b90 >= 0x00001C43) {
-	if (debugcounter_229b90 >= 0x00001d5d) {
+	if (CommandLineParams.DoDebugSequences()) {
+		//if (debugcounter_229b90 >= 0x00001C43) {
+		if (debugcounter_229b90 >= 0x00001d5d) {
+			debugcounter_229b90++;
+			debugcounter_229b90--;
+		}
 		debugcounter_229b90++;
-		debugcounter_229b90--;
+		//add_compare(0x229B94, CommandLineParams.DoDebugafterload());
 	}
-	debugcounter_229b90++;
-	//add_compare(0x229B94, debugafterload);
-#endif //DEBUG_SEQUENCES
 
 	//LOWORD(i) = a1;
 	v2 = 0;
@@ -42101,13 +42008,13 @@ void sub_49270_generate_level_features(type_str_2FECE* terrain)//22a270
 {
 	SetStagetagForTermod_49830(terrain);
 	//adress 22A27D
-#ifdef DEBUG_SEQUENCES
-	add_compare(0x22A280, debugafterload);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		add_compare(0x22A280, CommandLineParams.DoDebugafterload());
+	}
 	GenerateEvents_49290(terrain, 1, 640, 480);
-#ifdef DEBUG_SEQUENCES
-	add_compare(0x22A288, debugafterload);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		add_compare(0x22A288, CommandLineParams.DoDebugafterload());
+	}
 }
 
 //----- (00049290) --------------------------------------------------------
@@ -42131,9 +42038,9 @@ void GenerateEvents_49290(type_str_2FECE* terrain, char a2, uint16_t width, uint
 		}
 	}
 	ApplyEvents_498A0();//adress 22a2de
-#ifdef DEBUG_SEQUENCES
-	add_compare(0x22A2E3, debugafterload);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		add_compare(0x22A2E3, CommandLineParams.DoDebugafterload());
+	}
 
 	for (jx = 1; jx < 0x4b0; jx++)
 	{
@@ -42159,15 +42066,15 @@ void GenerateEvents_49290(type_str_2FECE* terrain, char a2, uint16_t width, uint
 			}
 		}
 	}
-#ifdef DEBUG_SEQUENCES
-	add_compare(0x22A383, debugafterload);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		add_compare(0x22A383, CommandLineParams.DoDebugafterload());
+	}
 
 	ApplyEvents_498A0();//22a383
 
-#ifdef DEBUG_SEQUENCES
-	add_compare(0x22A388, debugafterload);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		add_compare(0x22A388, CommandLineParams.DoDebugafterload());
+	}
 	for (kx = 1; kx < 0x4b0; kx++)
 	{
 		if (terrain->entity_0x30311[kx].DisId == -1 && terrain->entity_0x30311[kx].type_0x30311 == 0x000a)
@@ -42181,9 +42088,9 @@ void GenerateEvents_49290(type_str_2FECE* terrain, char a2, uint16_t width, uint
 			}
 		}
 	}
-#ifdef DEBUG_SEQUENCES
-	add_compare(0x22A3D7, debugafterload);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		add_compare(0x22A3D7, CommandLineParams.DoDebugafterload());
+	}
 	ApplyEvents_498A0();//adress 22a3d7
 	for (lx = 1; lx < 0x4b0; lx++)
 	{
@@ -42194,13 +42101,13 @@ void GenerateEvents_49290(type_str_2FECE* terrain, char a2, uint16_t width, uint
 				terrain->entity_0x30311[lx].type_0x30311 = 0;
 		}
 	}
-#ifdef DEBUG_SEQUENCES
-	add_compare(0x22A422, debugafterload);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		add_compare(0x22A422, CommandLineParams.DoDebugafterload());
+	}
 	ApplyEvents_498A0();//22a422
-#ifdef DEBUG_SEQUENCES
-	add_compare(0x22A427, debugafterload);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		add_compare(0x22A427, CommandLineParams.DoDebugafterload());
+	}
 	for (mx = 1; mx < 0x4b0; mx++)
 	{
 		if (terrain->entity_0x30311[mx].DisId == -1 && terrain->entity_0x30311[mx].type_0x30311 == 0x000a)
@@ -42225,9 +42132,9 @@ void GenerateEvents_49290(type_str_2FECE* terrain, char a2, uint16_t width, uint
 		}
 	}
 	ApplyEvents_498A0();//adress 22a4d1
-#ifdef DEBUG_SEQUENCES
-	add_compare(0x22A4D6, debugafterload);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		add_compare(0x22A4D6, CommandLineParams.DoDebugafterload());
+	}
 	for (ox = 1; ox < 0x4b0; ox++)
 	{
 		if (terrain->entity_0x30311[ox].DisId == -1 && terrain->entity_0x30311[ox].type_0x30311 == 0x000a && terrain->entity_0x30311[ox].subtype_0x30311 == 0x002d && !(str_D93C0_bldgprmbuffer[terrain->entity_0x30311[ox].par1_14].byte_2 & 0x10))
@@ -42237,9 +42144,9 @@ void GenerateEvents_49290(type_str_2FECE* terrain, char a2, uint16_t width, uint
 				terrain->entity_0x30311[ox].type_0x30311 = 0;
 		}
 	}
-#ifdef DEBUG_SEQUENCES
-	add_compare(0x22A52C, debugafterload);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		add_compare(0x22A52C, CommandLineParams.DoDebugafterload());
+	}
 	ApplyEvents_498A0();//adress 22a52c
 }
 
@@ -42252,15 +42159,15 @@ void PrepareEvents_49540(type_str_2FECE* terrain, type_entity_0x30311* entity)//
 	type_event_0x6E8E* event; // eax
 	uint32_t temp_adress;
 
-#ifdef DEBUG_SEQUENCES
-	debugcounter_22a540++;
-	if (debugcounter_22a540 >= 0x14)
-	{
+	if (CommandLineParams.DoDebugSequences()) {
 		debugcounter_22a540++;
-		debugcounter_22a540--;
+		if (debugcounter_22a540 >= 0x14)
+		{
+			debugcounter_22a540++;
+			debugcounter_22a540--;
+		}
+		add_compare(0x22a545, CommandLineParams.DoDebugafterload(),0x13);
 	}
-	add_compare(0x22a545, debugafterload,0x13);
-#endif //DEBUG_SEQUENCES
 	switch (entity->type_0x30311)
 	{
 		case 0x02:
@@ -42824,6 +42731,9 @@ void test_pre_sub_4a190(uint32_t adress)//for debug
 
 type_event_0x6E8E* pre_sub_4A190_axis_3d(uint32_t adress, axis_3d* a1_axis3d)//pre 22b190
 {
+	if (CommandLineParams.DoShowNewProcedures()) {
+		test_pre_sub_4a190(adress);//for debug
+	}
 	switch (adress)
 	{
 		/*case 0x22b810: {
@@ -43809,9 +43719,9 @@ type_event_0x6E8E* pre_sub_4A190_axis_3d(uint32_t adress, axis_3d* a1_axis3d)//p
 
 void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E)//pre 22b190
 {
-#ifndef NO_SHOW_NEW_PROCEDURES
-	test_pre_sub_4a190(adress);//for debug
-#endif
+	if (CommandLineParams.DoShowNewProcedures()) {
+		test_pre_sub_4a190(adress);//for debug
+	}
 	switch (adress)
 	{
 	case 0x1f3910: {
@@ -47475,9 +47385,9 @@ void sub_4A1E0(int a1, char a2)//22b1e0
 		CleanF5538_716A0();
 		for (int v3x = 1; v3x < 0x4b0; v3x++)
 		{
-#ifdef DEBUG_SEQUENCES
-			//add_compare(0x22b21a, debugafterload);//0x9ac
-#endif //DEBUG_SEQUENCES			
+			if (CommandLineParams.DoDebugSequences()) {
+				//add_compare(0x22b21a, CommandLineParams.DoDebugafterload());//0x9ac
+			}
 			sub_716C0(D41A0_0.terrain_2FECE.entity_0x30311[v3x].type_0x30311, D41A0_0.terrain_2FECE.entity_0x30311[v3x].subtype_0x30311, 0xFFFFu);
 		}
 		sub_71780();
@@ -47495,9 +47405,9 @@ void sub_4A1E0(int a1, char a2)//22b1e0
 		debugcounter_0022B25D++;*/
 
 		//adress 22b26e
-#ifdef DEBUG_SEQUENCES
-		//add_compare(0x22b268, debugafterload,0x54);//0x9ac
-#endif //DEBUG_SEQUENCES
+		if (CommandLineParams.DoDebugSequences()) {
+			//add_compare(0x22b268, CommandLineParams.DoDebugafterload(),0x54);//0x9ac
+		}
 		if (D41A0_0.terrain_2FECE.entity_0x30311[iy].type_0x30311 && D41A0_0.terrain_2FECE.entity_0x30311[iy].DisId == a1)
 		{//adress 22b278
 			sub_4A310(&D41A0_0.terrain_2FECE.entity_0x30311[iy]);
@@ -52461,15 +52371,15 @@ void GameEvents_51BB0()//232bb0
 	while (1)
 	{
 		//adress 233d56
-#ifdef DEBUG_SEQUENCES
-		if (debugcounter_233d56 >= 0x365)
-		{
+		if (CommandLineParams.DoDebugSequences()) {
+			if (debugcounter_233d56 >= 0x365)
+			{
+				debugcounter_233d56++;
+				debugcounter_233d56--;
+			}
 			debugcounter_233d56++;
-			debugcounter_233d56--;
+			//add_compare(0x233d56, CommandLineParams.DoDebugafterload(),0x365);
 		}
-		debugcounter_233d56++;
-		//add_compare(0x233d56, debugafterload,0x365);
-#endif //DEBUG_SEQUENCES
 
 		if ((unsigned __int16)v116 >= D41A0_0.word_0xe)
 			return;
@@ -52497,7 +52407,7 @@ void GameEvents_51BB0()//232bb0
 				D41A0_0.array_0x2BDE[v18x].byte_0x004_2BE0_11234 = 1;
 			if (x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 0x10)
 				sub_5E660(v113x);
-			sub_7373D(v116);
+			NetworkEvent_7373D(v116);
 			D41A0_0.array_0x2BDE[v18x].byte_0x006_2BE4_11236 = 0;
 			goto LABEL_215;
 		case 3:
@@ -52633,7 +52543,7 @@ void GameEvents_51BB0()//232bb0
 				if (D41A0_0.array_0x2BDE[v59].byte_0x006_2BE4_11236)
 				{
 					D41A0_0.array_0x2BDE[v59].byte_0x004_2BE0_11234 = 1;
-					sub_7373D(v59);
+					NetworkEvent_7373D(v59);
 				}
 				v59++;
 			}
@@ -52642,12 +52552,12 @@ void GameEvents_51BB0()//232bb0
 			sub_53120();
 			v24 = v116;
 			D41A0_0.array_0x2BDE[v18x].dw_w_b_0_2BDE_11230.word[1] = 10;
-			sub_7373D(v24);
+			NetworkEvent_7373D(v24);
 			goto LABEL_215;
 		case 0x1C:
 			v25 = v116;
 			D41A0_0.array_0x2BDE[v18x].dw_w_b_0_2BDE_11230.word[1] = 12;
-			sub_7373D(v25);
+			NetworkEvent_7373D(v25);
 			goto LABEL_215;
 		case 0x1D://banished
 		LABEL_56:
@@ -52658,7 +52568,7 @@ void GameEvents_51BB0()//232bb0
 			v30 = v116;
 			D41A0_0.array_0x2BDE[v18x].word_0x04d_2C2B_11307 = 100;
 			D41A0_0.array_0x2BDE[v18x].dw_w_b_0_2BDE_11230.word[1] = 8;
-			sub_7373D(v30);
+			NetworkEvent_7373D(v30);
 			D41A0_0.array_0x2BDE[v18x].byte_0x006_2BE4_11236 = 0;
 			if (x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 0x10)
 				sub_5E660(v113x);
@@ -53398,7 +53308,8 @@ char sub_533B0_decompress_levels(__int16 a1, type_str_2FECE* a2x)//2343b0
 		DataFileIO::Close(levelsdatfile);
 
 		//if exist editor generated level
-		#if defined(LOAD_EDITED_LEVEL) && !defined(IS_EDITOR)
+		#if !defined(IS_EDITOR)
+			if (CommandLineParams.DoLoadEditedLevel()) {
 				if (config_LOAD_EDITED_LEVEL) {
 					char path2[512];
 					FixDir(path2, (char*)"../remc2/editor/Debug/testsave.sav");
@@ -53414,7 +53325,8 @@ char sub_533B0_decompress_levels(__int16 a1, type_str_2FECE* a2x)//2343b0
 					}
 					fclose(file);
 				}
-		#endif //LOAD_EDITED_LEVEL
+			}
+		#endif //!IS_EDITOR
 		//if exist editor generated level
 
 		sub_56C00_sound_proc2(a2x);
@@ -53884,19 +53796,18 @@ char sub_54200_create_user_directiores()//235200
 // F4720: using guessed type int x_DWORD_F4720;
 
 //----- (00054600) --------------------------------------------------------
-void sub_54600_mouse_reset()////235600 mouse reset
+void sub_54600_mouse_reset()////235600 mouse reset see:https://www.equestionanswers.com/c/c-int33-mouse-service.php
 {
 	//int result; // eax
 	//char v1; // [esp+0h] [ebp-38h]
 	//__int16 v2; // [esp+1Ch] [ebp-1Ch]
 
 	//v2 = 0;
-	//result = int386(0x33, (REGS*)&v2, (REGS*)&v1);//Mouse Reset/Get Mouse Installed Flag //fix
+//removed result = int386(0x33, (REGS*)&v2, (REGS*)&v1);//Mouse Reset/Get Mouse Installed Flag //fix
 	//result=1;
 	x_DWORD_E3768 = 0;
 	//return result;
 }
-// 98D52: using guessed type x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);
 // E3768: using guessed type int x_DWORD_E3768;
 
 uint8_t BigTextureBuffer[128 * 128 * 160];
@@ -54933,7 +54844,9 @@ bool LoadLevelSMAP_558E0(uint8_t savefileindex)//2368e0
 	x_D41A0_BYTEARRAY_4_struct.dword_38519 = x_DWORD_EA3E4[1];
 	//fix
 
-	debugafterload = 1;
+	// FIXME: cannot set this here.
+	//        was before: debugafterload = 1;
+	//        cannot be: CommandLineParams.DoDebugafterload() = 1;
 	x_D41A0_BYTEARRAY_4_struct.setting_30 = 0x3d;//fix same run after load
 	x_WORD_17B4E0 = 0x21ed;//fix random variable for debugging
 
@@ -55474,30 +55387,31 @@ type_SPELLS_BEGIN_BUFFER_str;
 const int StartNetworkTimeout = 5;
 
 void InitNetworkInfo() {
-#ifdef TEST_NETWORK
-	std::string exepath = get_exe_path();
-	debug_net_filename2 = exepath + "/../" + debug_net_filename1;
+	if (CommandLineParams.ModeTestNetwork()) {
+		std::string exepath = get_exe_path();
+		debug_net_filename2 = exepath + "/../" + debug_net_filename1;
 
-	//testlib1();
-	if (Iam_server)
-		InitLibNetServer(ServerMPort);
-	InitLibNetClient(serverIP, ServerMPort, ClientMPort);
-	/*
-	if (Iam_server)
-	{
-		while (StartNetworkTimeout>0) {
-			mydelay(1000);
-			StartNetworkTimeout--;
-			myprintf("I wait for clients %d s\n", StartNetworkTimeout);
+		//testlib1();
+		/*if (Iam_server)
+			InitLibNetServer(ServerMPort);
+		InitLibNetClient(serverIP, ServerMPort, ClientMPort);*/
+		InitMyNetLib(Iam_server, serverIP, NetworkPort, ServerPort);
+		/*
+		if (Iam_server)
+		{
+			while (StartNetworkTimeout>0) {
+				mydelay(1000);
+				StartNetworkTimeout--;
+				myprintf("I wait for clients %d s\n", StartNetworkTimeout);
+			}
+			SendMessagesRegisterOK();
 		}
-		SendMessagesRegisterOK();
+		bool receive_timeout = false;
+		while (!receive_timeout) {
+			receive_timeout = ReceiveTimeout();
+			mydelay(1000);
+		}*/
 	}
-	bool receive_timeout = false;
-	while (!receive_timeout) {
-		receive_timeout = ReceiveTimeout();
-		mydelay(1000);
-	}*/
-#endif //TEST_NETWORK
 };
 
 
@@ -55525,8 +55439,8 @@ int sub_main(int argc, char** argv, char**  /*envp*/)//236F70
 	//skip memset(&v6, 0, 28);//236F7F - 26D250
 	//v7 = 0;
 	//skip v6 = 0x3301;
-	//skip int386(0x21, (REGS*)&v6, (REGS*)&v6);//236F9D - 279D52 //INT 21,33 - Get/Set System Values (Ctl-Break/Boot Drive) AH = 33h AL = 01 to set Ctrl - Break checking flag
-
+//removed  int386(0x21, (REGS*)&v6, (REGS*)&v6);//236F9D - 279D52 //INT 21,33 - Get/Set System Values (Ctl-Break/Boot Drive) AH = 33h AL = 01 to set Ctrl - Break checking flag
+//may be INT 33,1 Show Mouse Cursor see:https://www.equestionanswers.com/c/c-int33-mouse-service.php
 	//skip signal(7, 1);//236FA9 - 279DC0
 	//skip signal(4, 1);//236FB5 - 279DC0
 	//skip signal(6, 1);//236FC1 - 279DC0
@@ -55541,11 +55455,11 @@ int sub_main(int argc, char** argv, char**  /*envp*/)//236F70
 #endif
 	}
 
-#ifdef DISABLE_GRAPHICS_ENHANCE
+	if (CommandLineParams.DoDisableGraphicsEnhance()) {
 		bigSprites = false;
 		bigTextures = false;
 		texturepixels = 32;
-#endif //DISABLE_GRAPHICS_ENHANCE
+	}
 
 	//Set Paths for game data
 	GetSubDirectoryPath(gameDataPath, gameFolder);
@@ -55617,16 +55531,16 @@ int sub_main(int argc, char** argv, char**  /*envp*/)//236F70
 	initposistruct();
 
 	sub_56210_process_command_line(argc, argv);//236FD4 - 237210
-#ifdef TEST_NETWORK
-	if (Iam_server || Iam_client)
-		InitNetworkInfo();
-#endif //TEST_NETWORK
-
+	if (CommandLineParams.ModeTestNetwork()) {
+		if (Iam_server || Iam_client)
+			InitNetworkInfo();
+	}
 
 	//-init 0x2a51a4 je nekde tu
-#ifdef COPY_SKIP_CONFIG
-	x_BYTE_D41AD_skip_screen = config_skip_screen;
-#endif //COPY_SKIP_CONFIG
+	if (CommandLineParams.DoCopySkipConfig()) {
+		x_BYTE_D41AD_skip_screen = config_skip_screen;
+	}
+
 	Initialize();//236FDC - 23C8D0//rozdil 1E1000
 
 	sub_46830_main_loop(/*0, */v3, v4);//227830
@@ -55634,14 +55548,15 @@ int sub_main(int argc, char** argv, char**  /*envp*/)//236F70
 	sub_5BC20();//23CC20 //remove devices?
 	sub_56730_clean_memory();//237730
 	
-#ifdef TEST_NETWORK
-	if (Iam_server || Iam_client)
-	{
-		EndLibNetClient();
-		if (Iam_server)
-			EndLibNetServer();
-	}	
-#endif //TEST_NETWORK
+	if (CommandLineParams.ModeTestNetwork()) {
+		if (Iam_server || Iam_client)
+		{
+			EndMyNetLib();
+			/*EndLibNetClient();
+			if (Iam_server)
+				EndLibNetServer();*/
+		}	
+	}
 
 	return 0;
 }
@@ -55860,12 +55775,10 @@ void sub_56210_process_command_line(int argc, char** argv)//237210
 				{
 					Iam_client = true;
 					strcpy(serverIP, (char*)argv[++argnumber]);
-					ServerMPort = atoi(argv[++argnumber]);
-					if (ServerMPort <0)ServerMPort = 0;
-					if (ServerMPort > 9999)ServerMPort = 9999;
-					ClientMPort = atoi(argv[++argnumber]);
-					if (ClientMPort < 0)ClientMPort = 0;
-					if (ClientMPort > 9999)ClientMPort = 9999;
+					NetworkPort = atoi(argv[++argnumber]);
+					if (NetworkPort < 0)NetworkPort = 0;
+					if (NetworkPort > 99999)NetworkPort = 99999;
+					if (ServerPort == -1)ServerPort = NetworkPort;
 				}
 			}
 			else if (!_stricmp("server", (char*)actarg))//set to all one computer adress
@@ -55874,33 +55787,18 @@ void sub_56210_process_command_line(int argc, char** argv)//237210
 				{
 					Iam_server = true;
 					strcpy(serverIP, (char*)argv[++argnumber]);
-					ServerMPort = atoi(argv[++argnumber]);
-					if (ServerMPort < 0)ServerMPort = 0;
-					if (ServerMPort > 9999)ServerMPort = 9999;
-					ClientMPort = atoi(argv[++argnumber]);
-					if (ClientMPort < 0)ClientMPort = 0;
-					if (ClientMPort > 9999)ClientMPort = 9999;
+					NetworkPort = atoi(argv[++argnumber]);
+					if (NetworkPort < 0)NetworkPort = 0;
+					if (NetworkPort > 99999)NetworkPort = 99999;
+					if (ServerPort == -1)ServerPort = NetworkPort;
 				}
 			}
-			/*else if (!_stricmp("netinitwait", (char*)actarg))//set to all one computer adress
+			else if (!_stricmp("otherserverport", (char*)actarg))//set to all one computer adress
 			{
-				//if (!Iam_client)
-				{
-					//Iam_server = true;
-					NetworkInitWait = atoi(argv[++argnumber]);
-				}
-			}*/
-			/*else if (!_stricmp("client", (char*)actarg))
-			{
-				if (!Iam_server)
-				{
-					Iam_client = true;
-					strcpy(serverIP, (char*)argv[++argnumber][0]);
-					MultiplayerPort = atoi(argv[++argnumber]);
-					if (MultiplayerPort < 0)MultiplayerPort = 0;
-					if (MultiplayerPort > 9999)MultiplayerPort = 9999;
-				}
-			}*/
+				ServerPort = atoi(argv[++argnumber]);
+				if (ServerPort < 0)ServerPort = 0;
+				if (ServerPort > 99999)ServerPort = 99999;
+			}
 		}
 		argnumber++;
 	}
@@ -56043,12 +55941,10 @@ void ClearSettings_567C0()//2377c0 // clean level
 //----- (00056A30) --------------------------------------------------------
 void sub_56A30_init_game_level(unsigned int a1)//237a30
 {
-#ifdef MOUSE_OFF
-	mouseturnoff = true;
-#endif
-#ifdef SET_LEVEL
-	x_D41A0_BYTEARRAY_4_struct.levelnumber_43 = 1;
-#endif
+	if (CommandLineParams.DoMouseOff()) { mouseturnoff = true; }
+	if (CommandLineParams.DoSetLevel()) {
+		x_D41A0_BYTEARRAY_4_struct.levelnumber_43w = 1;
+	}
 #ifdef DEBUG_START
 	debug_printf("sub_56A30_init_game_level:before sub_6EB90\n");
 #endif //DEBUG_START
@@ -56082,9 +55978,9 @@ void sub_56A30_init_game_level(unsigned int a1)//237a30
 		GenerateLevelMap_43830(a1, &D41A0_0.terrain_2FECE);
 	sub_49F30();//prepare events pointers
 	//237B05
-#ifdef DEBUG_SEQUENCES
-	add_compare(0x237B05, debugafterload);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		add_compare(0x237B05, CommandLineParams.DoDebugafterload());
+	}
 	PrintTextMessage_70910((char*)"Generate features\0");
 	if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 4))
 		sub_49270_generate_level_features(&D41A0_0.terrain_2FECE);
@@ -56092,9 +55988,9 @@ void sub_56A30_init_game_level(unsigned int a1)//237a30
 	memset(&x_WORD_EB398ar, 0, 6);
 	sub_49F90();
 	//adress 237B55
-#ifdef DEBUG_SEQUENCES
-	add_compare(0x237B55, debugafterload);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		add_compare(0x237B55, CommandLineParams.DoDebugafterload());
+	}
 	D41A0_0.dword_0x11e6 = -1;
 	sub_71A70_setTmaps(D41A0_0.terrain_2FECE.MapType);
 	//adress 237b75
@@ -56105,35 +56001,36 @@ void sub_56A30_init_game_level(unsigned int a1)//237a30
 		Init0x3664C_84790();
 	}
 	//adress 237BB0
-#ifdef DEBUG_SEQUENCES
-	add_compare(0x237BB0, debugafterload);
-#endif //DEBUG_SEQUENCES
-#ifdef SET_OBJECTIVE
-	D41A0_BYTESTR_0.struct_0x3659C[0].substr_3659C.stage_0x3659F[0] = 2;
-	D41A0_BYTESTR_0.struct_0x3659C[0].substr_3659C.stage_0x3659F[1] = 2;
-	D41A0_BYTESTR_0.struct_0x3659C[0].substr_3659C.stage_0x3659F[2] = 2;
-	D41A0_BYTESTR_0.struct_0x3659C[0].substr_3659C.stage_0x3659F[3] = 2;
-	//D41A0_BYTESTR_0.struct_0x3659C[0].substr_3659C.stage_0x3659F[4] = 2;
-	D41A0_BYTESTR_0.struct_0x3659C[0].substr_3659C.array_0x3659C_byte[1] = 4;
-	//D41A0_BYTESTR_0.struct_0x3654C[0].str_3654E_word2 = 40;
-	//D41A0_BYTESTR_0.struct_0x3654C[0].str_36550_word4 = 40;
-#endif
+	if (CommandLineParams.DoDebugSequences()) {
+		add_compare(0x237BB0, CommandLineParams.DoDebugafterload());
+	}
+	if (CommandLineParams.DoSetObjective()) {
+		// FIXME: D41A0_BYTESTR_0 undeclared
+		// D41A0_BYTESTR_0.struct_0x3659C[0].substr_3659C.stage_0x3659F[0] = 2;
+		// D41A0_BYTESTR_0.struct_0x3659C[0].substr_3659C.stage_0x3659F[1] = 2;
+		// D41A0_BYTESTR_0.struct_0x3659C[0].substr_3659C.stage_0x3659F[2] = 2;
+		// D41A0_BYTESTR_0.struct_0x3659C[0].substr_3659C.stage_0x3659F[3] = 2;
+		// //D41A0_BYTESTR_0.struct_0x3659C[0].substr_3659C.stage_0x3659F[4] = 2;
+		// D41A0_BYTESTR_0.struct_0x3659C[0].substr_3659C.array_0x3659C_byte[1] = 4;
+		// //D41A0_BYTESTR_0.struct_0x3654C[0].str_3654E_word2 = 40;
+		// //D41A0_BYTESTR_0.struct_0x3654C[0].str_36550_word4 = 40;
+	}
 	sub_4A1E0(0, 1);
 	//adress 237bb9
-#ifdef DEBUG_SEQUENCES
-	add_compare(0x237bb9, debugafterload);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		add_compare(0x237bb9, CommandLineParams.DoDebugafterload());
+	}
 	x_BYTE_E3799_sound_card = temp_x_BYTE_E3799_sound_card;
 	sub_53160();
 	//adress 237bc7
-#ifdef DEBUG_SEQUENCES
-	add_compare(0x237BC7, debugafterload);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		add_compare(0x237BC7, CommandLineParams.DoDebugafterload());
+	}
 	//adress 237beb
 	sub_60F00();
-#ifdef DEBUG_SEQUENCES
-	add_compare(0x237BF0, debugafterload);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		add_compare(0x237BF0, CommandLineParams.DoDebugafterload());
+	}
 }
 
 //----- (00056C00) --------------------------------------------------------
@@ -56277,9 +56174,9 @@ char sub_56F10(__int16 a1, __int16 a2, __int16 a3, char a4)//237f10
 	char v11; // [esp+0h] [ebp-8h]
 	uaxis_2d v12x; // [esp+4h] [ebp-4h]
 
-#ifdef DEBUG_SEQUENCES
-	//add_compare(0x237f12,debugafterload,1);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		//add_compare(0x237f12,CommandLineParams.DoDebugafterload(),1);
+	}
 
 	//LOBYTE(v12) = a1;
 	//HIBYTE(v12) = a2;
@@ -56375,30 +56272,30 @@ char sub_570F0(__int16 a1, __int16 a2, signed __int16 a3, char a4, char a5, char
 	char v8; // [esp+0h] [ebp-8h]
 	uaxis_2d v9x; // [esp+4h] [ebp-4h]
 
-#ifdef DEBUG_SEQUENCES
-	/*uint8_t origbyte20 = 0;
-	uint8_t remakebyte20 = 0;
-	int comp20;
-	if (debugcounter_2380f0_2 >= 0xce70)
-	{
-		debugcounter_2380f0_2++;
-		debugcounter_2380f0_2--;
-	}
-	debugcounter_2380f0_2++;
-	if (debugafter_215540)
-	{
-		if (debugcounter_2380f0 >= 0x1000)
+	if (CommandLineParams.DoDebugSequences()) {
+		/*uint8_t origbyte20 = 0;
+		uint8_t remakebyte20 = 0;
+		int comp20;
+		if (debugcounter_2380f0_2 >= 0xce70)
 		{
-			comp20 = compare_with_sequence((char*)"002380f0-002DC4E0", (uint8_t*)x_BYTE_10B4E0_terraintype, 0x2dc4e0, debugcounter_2380f0, 0x70000, 0x10000, &origbyte20, &remakebyte20);
-			comp20 = compare_with_sequence((char*)"002380f0-002DC4E0", (uint8_t*)x_BYTE_11B4E0_height, 0x2dc4e0, debugcounter_2380f0, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x10000);
-			comp20 = compare_with_sequence((char*)"002380f0-002DC4E0", (uint8_t*)x_BYTE_12B4E0_shading, 0x2dc4e0, debugcounter_2380f0, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x20000);
-			comp20 = compare_with_sequence((char*)"002380f0-002DC4E0", (uint8_t*)x_BYTE_13B4E0_angle, 0x2dc4e0, debugcounter_2380f0, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x30000);
-			comp20 = compare_with_sequence((char*)"002380f0-002DC4E0", (uint8_t*)x_WORD_15B4E0_source, 0x2dc4e0, debugcounter_2380f0, 0x70000, 0x20000, &origbyte20, &remakebyte20, 0x50000);
-			comp20 = compare_with_sequence_D41A0((char*)"002380f0-00356038", (uint8_t*)& D41A0_BYTESTR_0, 0x356038, debugcounter_2380f0, 224790, &origbyte20, &remakebyte20);
+			debugcounter_2380f0_2++;
+			debugcounter_2380f0_2--;
 		}
-		debugcounter_2380f0++;
-	}*/
-#endif //DEBUG_SEQUENCES
+		debugcounter_2380f0_2++;
+		if (debugafter_215540)
+		{
+			if (debugcounter_2380f0 >= 0x1000)
+			{
+				comp20 = compare_with_sequence((char*)"002380f0-002DC4E0", (uint8_t*)x_BYTE_10B4E0_terraintype, 0x2dc4e0, debugcounter_2380f0, 0x70000, 0x10000, &origbyte20, &remakebyte20);
+				comp20 = compare_with_sequence((char*)"002380f0-002DC4E0", (uint8_t*)x_BYTE_11B4E0_height, 0x2dc4e0, debugcounter_2380f0, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x10000);
+				comp20 = compare_with_sequence((char*)"002380f0-002DC4E0", (uint8_t*)x_BYTE_12B4E0_shading, 0x2dc4e0, debugcounter_2380f0, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x20000);
+				comp20 = compare_with_sequence((char*)"002380f0-002DC4E0", (uint8_t*)x_BYTE_13B4E0_angle, 0x2dc4e0, debugcounter_2380f0, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x30000);
+				comp20 = compare_with_sequence((char*)"002380f0-002DC4E0", (uint8_t*)x_WORD_15B4E0_source, 0x2dc4e0, debugcounter_2380f0, 0x70000, 0x20000, &origbyte20, &remakebyte20, 0x50000);
+				comp20 = compare_with_sequence_D41A0((char*)"002380f0-00356038", (uint8_t*)& D41A0_BYTESTR_0, 0x356038, debugcounter_2380f0, 224790, &origbyte20, &remakebyte20);
+			}
+			debugcounter_2380f0++;
+		}*/
+	}
 
 	//LOBYTE(v9) = a1;
 	//HIBYTE(v9) = a2;
@@ -56810,17 +56707,17 @@ void UpdateEntities_57730()//238730
 	type_event_0x6E8E* v23x; // [esp+74h] [ebp-8h]
 	type_event_0x6E8E* v24x; // [esp+78h] [ebp-4h]
 
-#ifdef DEBUG_SEQUENCES2
-	//add_compare(0x238734, debugafterload);
-#endif //DEBUG_SEQUENCES2
+	if (CommandLineParams.DoDebugSequences2()) {
+		//add_compare(0x238734, CommandLineParams.DoDebugafterload());
+	}
 
 	D41A0_0.rand_0x8 = 9377 * D41A0_0.rand_0x8 + 9439;
 	for (ix = x_DWORD_EA3E4[1]; ix < x_DWORD_EA3E4[0x3e8]; ix++)
 	{
 		//adress 238756
-#ifdef DEBUG_SEQUENCES2
-		//add_compare(0x238756, debugafterload);
-#endif //DEBUG_SEQUENCES2
+		if (CommandLineParams.DoDebugSequences2()) {
+			//add_compare(0x238756, CommandLineParams.DoDebugafterload());
+		}
 		if (ix->type_0x3F_63 && ix->struct_byte_0xc_12_15.byte[1] & 4)
 			sub_57F20(ix);
 	}
@@ -56971,14 +56868,14 @@ void UpdateEntities_57730()//238730
 					sub_12500(lx);
 			}
 		}
-#ifdef DEBUG_SEQUENCES2
-		//add_compare(0x2389eb, debugafterload);
-#endif //DEBUG_SEQUENCES2
+		if (CommandLineParams.DoDebugSequences2()) {
+			//add_compare(0x2389eb, CommandLineParams.DoDebugafterload());
+		}
 		if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 0x10))
 			sub_68BF0();
-#ifdef DEBUG_SEQUENCES2
-		//add_compare(0x2389f6, debugafterload);
-#endif //DEBUG_SEQUENCES2
+		if (CommandLineParams.DoDebugSequences2()) {
+			//add_compare(0x2389f6, CommandLineParams.DoDebugafterload());
+		}
 		sub_159E0();//adress 2389f6
 		if (isCaveLevel_D41B6)
 			sub_58630();
@@ -56986,42 +56883,41 @@ void UpdateEntities_57730()//238730
 		for (mx = x_DWORD_EA3E4[1]; mx < x_DWORD_EA3E4[0x3e8]; mx++)
 		{
 			//adress 238a3d
-#ifdef DEBUG_SEQUENCES2
-			if (debug_UpdateEntities_57730_2 >= 0x33)
-			{
+			if (CommandLineParams.DoDebugSequences2()) {
+				if (debug_UpdateEntities_57730_2 >= 0x33)
+				{
+					debug_UpdateEntities_57730_2++;
+					debug_UpdateEntities_57730_2--;
+				}
 				debug_UpdateEntities_57730_2++;
-				debug_UpdateEntities_57730_2--;
+				//add_compare(0x238a3d, CommandLineParams.DoDebugafterload());//0x9ac
 			}
-			debug_UpdateEntities_57730_2++;
-			//add_compare(0x238a3d, debugafterload);//0x9ac
-#endif //DEBUG_SEQUENCES2
 			if (mx->type_0x3F_63)
 			{
 				if (mx->byte_0x45_69 == str_D4C48ar[mx->type_0x3F_63].dword_10[mx->byte_0x45_69].word_4)
 				{
 					if (str_D4C48ar[mx->type_0x3F_63].dword_10[mx->byte_0x45_69].dword_10)
 					{
-#ifdef DEBUG_SEQUENCES
-						if (debug_UpdateEntities_57730 == 0x72c0)
-						{
+						if (CommandLineParams.DoDebugSequences()) {
+							if (debug_UpdateEntities_57730 == 0x72c0)
+							{
+								debug_UpdateEntities_57730++;
+								debug_UpdateEntities_57730--;
+							}
 							debug_UpdateEntities_57730++;
-							debug_UpdateEntities_57730--;
+							//add_compare(0x238A8A, CommandLineParams.DoDebugafterload());//0x9ac
+							//add_compare(0x238A8A,CommandLineParams.DoDebugafterload());
 						}
-						debug_UpdateEntities_57730++;
-						//add_compare(0x238A8A, debugafterload);//0x9ac
-						//add_compare(0x238A8A,debugafterload);
-#endif //DEBUG_SEQUENCES
-#ifdef DEBUG_SEQUENCES2
-						if (debug_UpdateEntities_57730 == 0x84b4)
-						{
+						if (CommandLineParams.DoDebugSequences2()) {
+							if (debug_UpdateEntities_57730 == 0x84b4)
+							{
+								debug_UpdateEntities_57730++;
+								debug_UpdateEntities_57730--;
+							}
 							debug_UpdateEntities_57730++;
-							debug_UpdateEntities_57730--;
+							//add_compare(0x238A8A, CommandLineParams.DoDebugafterload(),-1,false,1000000, 0x7d40);
+							//add_compare(0x238A8A, CommandLineParams.DoDebugafterload());
 						}
-						debug_UpdateEntities_57730++;
-						//add_compare(0x238A8A, debugafterload,-1,false,1000000, 0x7d40);
-						//add_compare(0x238A8A, debugafterload);
-						
-#endif //DEBUG_SEQUENCES2
 
 						//adress 238a8a zacina na 35cf6e 363bb6 =6c48/168=165=a5
 						pre_sub_4A190_0x6E8E(str_D4C48ar[mx->type_0x3F_63].dword_10[mx->byte_0x45_69].address_6, mx);
@@ -57048,58 +56944,58 @@ void sub_57B20(type_str_0x2BDE* a1x, type_event_0x6E8E* a2x)//238b20 //copy posi
 	//int v3; // edi
 	int v4; // ecx
 
-#ifdef ROTATE_PLAYER
-	a2x->word_0x1C_28 = 0x900;
-#endif
+	if (CommandLineParams.DoRotatePlayer()) {
+		a2x->word_0x1C_28 = 0x900;
+	}
 
-#ifdef MOVE_PLAYER
-	if (debugcounter_238b2f == 10)
-	{
-		a2x->array_0x4C_76.x = 0x8c07;
-		a2x->array_0x4C_76.y = 0xb427;
-	}
-	/*if (debugcounter_238b2f == 10) {
-		a2x->array_0x4C_76.x = 0x7249;
-		a2x->array_0x4C_76.y = 0xd491;
-	}else
-	if (debugcounter_238b2f == 351) {
-		//a2x->array_0x4C_76.x = 0xbedc+656;
-		//a2x->array_0x4C_76.y = 0xd541+1200;
-		//a2x->word_0x82_130 = 0x50;
-		//a2x->array_0x52_82.aa = 64;
-	}
-	else*/
-	/*	if (debugcounter_238b2f == 10) {
-			//a2x->array_0x4C_76.x = 0xbedc + 356;
-			//a2x->array_0x4C_76.y = 0xd541 - 1200;
-			a2x->word_0x82_130 = 0x300;
+	if (CommandLineParams.DoMovePlayer()) {
+		if (debugcounter_238b2f == 10)
+		{
+			a2x->axis_0x4C_76.x = 0x8c07;
+			a2x->axis_0x4C_76.y = 0xb427;
+		}
+		/*if (debugcounter_238b2f == 10) {
+			a2x->array_0x4C_76.x = 0x7249;
+			a2x->array_0x4C_76.y = 0xd491;
+		}else
+		if (debugcounter_238b2f == 351) {
+			//a2x->array_0x4C_76.x = 0xbedc+656;
+			//a2x->array_0x4C_76.y = 0xd541+1200;
+			//a2x->word_0x82_130 = 0x50;
 			//a2x->array_0x52_82.aa = 64;
 		}
-		if (debugcounter_238b2f == 200) {
-			//a2x->array_0x4C_76.x = 0xbedc + 356;
-			//a2x->array_0x4C_76.y = 0xd541 - 1200;
-			a2x->word_0x1C_28 = -0x10;
-			a2x->word_0x82_130 = 0x200;
-			//a2x->array_0x52_82.aa = 64;
-		}
-		if(debugcounter_238b2f>250)
-			if (debugcounter_238b2f % 50 == 0)
-			{
-				a2x->word_0x1C_28 -= 0x10;
-				a2x->word_0x82_130 = 0x200;
+		else*/
+		/*	if (debugcounter_238b2f == 10) {
+				//a2x->array_0x4C_76.x = 0xbedc + 356;
+				//a2x->array_0x4C_76.y = 0xd541 - 1200;
+				a2x->word_0x82_130 = 0x300;
+				//a2x->array_0x52_82.aa = 64;
 			}
-		//a2x->array_0x4C_76.x = 0x2876;
-		//a2x->array_0x4C_76.y = 0x2c75;*/
-		/*if (debugcounter_238b2f < 10) {
-			a2x->array_0x4C_76.x = 0x73a0;
-			a2x->array_0x4C_76.y = 0xd5e6;
-		}
-		else {
-			a2x->array_0x4C_76.x = 0xc1aa;
-			a2x->array_0x4C_76.y = 0xd542;
-		}*/
-	debugcounter_238b2f++;
-#endif
+			if (debugcounter_238b2f == 200) {
+				//a2x->array_0x4C_76.x = 0xbedc + 356;
+				//a2x->array_0x4C_76.y = 0xd541 - 1200;
+				a2x->word_0x1C_28 = -0x10;
+				a2x->word_0x82_130 = 0x200;
+				//a2x->array_0x52_82.aa = 64;
+			}
+			if(debugcounter_238b2f>250)
+				if (debugcounter_238b2f % 50 == 0)
+				{
+					a2x->word_0x1C_28 -= 0x10;
+					a2x->word_0x82_130 = 0x200;
+				}
+			//a2x->array_0x4C_76.x = 0x2876;
+			//a2x->array_0x4C_76.y = 0x2c75;*/
+			/*if (debugcounter_238b2f < 10) {
+				a2x->array_0x4C_76.x = 0x73a0;
+				a2x->array_0x4C_76.y = 0xd5e6;
+			}
+			else {
+				a2x->array_0x4C_76.x = 0xc1aa;
+				a2x->array_0x4C_76.y = 0xd542;
+			}*/
+		debugcounter_238b2f++;
+	}
 
 	if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte3_24 & 1))
 	{
@@ -57137,16 +57033,15 @@ int debug_sub_57CF0 = 0;
 //----- (00057CF0) --------------------------------------------------------
 void sub_57CF0(type_event_0x6E8E* entity, axis_3d* position)//238cf0
 {
-#ifdef DEBUG_SEQUENCES2
-	//add_compare(0x238cf3, debugafterload,0x348);
-	/*if (debug_sub_57CF0 >= 0x348)
-	{
-		debug_sub_57CF0++;
-		debug_sub_57CF0--;
+	if (CommandLineParams.DoDebugSequences2()) {
+		//add_compare(0x238cf3, CommandLineParams.DoDebugafterload(),0x348);
+		/*if (debug_sub_57CF0 >= 0x348)
+		{
+			debug_sub_57CF0++;
+			debug_sub_57CF0--;
+		}
+		debug_sub_57CF0++;*/
 	}
-	debug_sub_57CF0++;*/
-
-#endif //DEBUG_SEQUENCES2
 
 	if (((entity->axis_0x4C_76.x & 0xff00) == (position->x & 0xff00)) && ((entity->axis_0x4C_76.y & 0xff00) == (position->y & 0xff00)))
 	{
@@ -58520,9 +58415,9 @@ void sub_59F60(type_event_0x6E8E* a1x)//23af60
 	uaxis_2d v207x; // [esp+1Ch] [ebp-4h]
 	uaxis_2d v208x; // [esp+1Ch] [ebp-4h]
 
-#ifdef DEBUG_SEQUENCES
-	//add_compare(0x23af64, debugafterload,9);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		//add_compare(0x23af64, CommandLineParams.DoDebugafterload(),9);
+	}
 
 	v1 = a1x->dword_0x8;
 	if (v1 < 1)
@@ -58586,9 +58481,9 @@ void sub_59F60(type_event_0x6E8E* a1x)//23af60
 						v37++;
 						v36x.word--;
 					}
-#ifdef DEBUG_SEQUENCES
-					//add_compare(0x23b2a6, debugafterload);
-#endif //DEBUG_SEQUENCES
+					if (CommandLineParams.DoDebugSequences()) {
+						//add_compare(0x23b2a6, CommandLineParams.DoDebugafterload());
+					}
 					if (isCaveLevel_D41B6)//23b2a9
 					{
 						v46x.word = v208x.word + 1;
@@ -58790,9 +58685,9 @@ void sub_59F60(type_event_0x6E8E* a1x)//23af60
 				}
 				v20 = -1;
 				v21x.word = v208x.word - 1;//12c
-#ifdef DEBUG_SEQUENCES
-		//add_compare(0x23b12c, debugafterload);
-#endif //DEBUG_SEQUENCES
+				if (CommandLineParams.DoDebugSequences()) {
+					//add_compare(0x23b12c, CommandLineParams.DoDebugafterload());
+				}
 				while (v20 < a1x->dword_0x10_16)//23b194
 				{
 					//LOBYTE(v21)++;
@@ -60494,18 +60389,17 @@ void sub_5BC20()//23cc20
 		else
 			sub_75420();*/
 		sub_46F50_sound_proc7();
-		sub_8C21F_any_graphics_command();
+//removed sub_8C21F_any_graphics_command(); // end of graphics?
 		NetworkDisallocation_72D04();
 		sub_6FE20();
 		sub_5C060();
 	}
-	sub_83E80_freemem4(x_DWORD_D4198);
+//removed sub_83E80_freemem4(x_DWORD_D4198);
 	//sub_83E80_freemem4(x_D41A0_BYTEARRAY_0);
 	//sub_83E80_freemem4(x_D41A0_BYTEARRAY_4);
 	sub_86860_speak_Sound(x_WORD_1803EC);
 	sub_86BD0_freemem1();
 }
-// D4198: using guessed type int x_DWORD_D4198;
 // D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
 // D41A4: using guessed type int x_DWORD_D41A4;
 // D4B80: using guessed type char x_BYTE_D4B80;
@@ -61281,9 +61175,9 @@ void sub_5C950(type_str_0x2BDE* a1x, type_event_0x6E8E* a2x)//23d950
 	int j; // [esp+Ch] [ebp-8h]
 	type_event_0x6E8E* v39x; // [esp+10h] [ebp-4h]
 
-#ifdef DEBUG_SEQUENCES2
-	//add_compare(0x23d954, debugafterload);
-#endif //DEBUG_SEQUENCES2
+	if (CommandLineParams.DoDebugSequences2()) {
+		//add_compare(0x23d954, CommandLineParams.DoDebugafterload());
+	}
 
 	//fix it
 	//v10 = 0;
@@ -63878,32 +63772,32 @@ LABEL_22:
 	{
 		do
 		{
-#ifdef DEBUG_SEQUENCES
-			//adress 24128D
-			/*if (debugafterload)
-			{
-				uint8_t origbyte20 = 0;
-				uint8_t remakebyte20 = 0;
-				int comp20;
-				comp20 = compare_with_sequence((char*)"0024128D-002DC4E0", (uint8_t*)x_BYTE_10B4E0_terraintype, 0x2dc4e0, debugcounter_240f50, 0x70000, 0x10000, &origbyte20, &remakebyte20);
-				comp20 = compare_with_sequence((char*)"0024128D-002DC4E0", (uint8_t*)x_BYTE_11B4E0_height, 0x2dc4e0, debugcounter_240f50, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x10000);
-				comp20 = compare_with_sequence((char*)"0024128D-002DC4E0", (uint8_t*)x_BYTE_12B4E0_shading, 0x2dc4e0, debugcounter_240f50, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x20000);
-				comp20 = compare_with_sequence((char*)"0024128D-002DC4E0", (uint8_t*)x_BYTE_13B4E0_angle, 0x2dc4e0, debugcounter_240f50, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x30000);
-				//comp20 = compare_with_sequence((char*)"00228320", (uint8_t*)x_BYTE_14B4E0, 0x2dc4e0, debugcounter11, 0x70000,0x10000, &origbyte20, &remakebyte20, 0x40000);
-				comp20 = compare_with_sequence((char*)"0024128D-002DC4E0", (uint8_t*)x_WORD_15B4E0_source, 0x2dc4e0, debugcounter_240f50, 0x70000, 0x20000, &origbyte20, &remakebyte20, 0x50000);
+			if (CommandLineParams.DoDebugSequences()) {
+				//adress 24128D
+				/*if (CommandLineParams.DoDebugafterload())
+				{
+					uint8_t origbyte20 = 0;
+					uint8_t remakebyte20 = 0;
+					int comp20;
+					comp20 = compare_with_sequence((char*)"0024128D-002DC4E0", (uint8_t*)x_BYTE_10B4E0_terraintype, 0x2dc4e0, debugcounter_240f50, 0x70000, 0x10000, &origbyte20, &remakebyte20);
+					comp20 = compare_with_sequence((char*)"0024128D-002DC4E0", (uint8_t*)x_BYTE_11B4E0_height, 0x2dc4e0, debugcounter_240f50, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x10000);
+					comp20 = compare_with_sequence((char*)"0024128D-002DC4E0", (uint8_t*)x_BYTE_12B4E0_shading, 0x2dc4e0, debugcounter_240f50, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x20000);
+					comp20 = compare_with_sequence((char*)"0024128D-002DC4E0", (uint8_t*)x_BYTE_13B4E0_angle, 0x2dc4e0, debugcounter_240f50, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x30000);
+					//comp20 = compare_with_sequence((char*)"00228320", (uint8_t*)x_BYTE_14B4E0, 0x2dc4e0, debugcounter11, 0x70000,0x10000, &origbyte20, &remakebyte20, 0x40000);
+					comp20 = compare_with_sequence((char*)"0024128D-002DC4E0", (uint8_t*)x_WORD_15B4E0_source, 0x2dc4e0, debugcounter_240f50, 0x70000, 0x20000, &origbyte20, &remakebyte20, 0x50000);
 
-				//uint8_t origbyte20 = 0;
-				//uint8_t remakebyte20 = 0;
-				comp20 = compare_with_sequence_D41A0((char*)"0024128D-00356038", (uint8_t*)& D41A0_BYTESTR_0, 0x356038, debugcounter_240f50, 224790, &origbyte20, &remakebyte20);
+					//uint8_t origbyte20 = 0;
+					//uint8_t remakebyte20 = 0;
+					comp20 = compare_with_sequence_D41A0((char*)"0024128D-00356038", (uint8_t*)& D41A0_BYTESTR_0, 0x356038, debugcounter_240f50, 224790, &origbyte20, &remakebyte20);
 
-				comp20 = compare_with_sequence_array_E2A74((char*)"0024128D-002B3A74", (uint8_t*)& array_E2A74, 0x2b3a74, debugcounter_240f50, 0xc4e, 0xc4e, &origbyte20, &remakebyte20);
-				//comp20 = compare_with_sequence((char*)"0022860F-003514B0", (uint8_t*)& str_unk_1804B0ar, 0x3514b0, debugcounter_47560, 0xab, 0xab, &origbyte20, &remakebyte20);
+					comp20 = compare_with_sequence_array_E2A74((char*)"0024128D-002B3A74", (uint8_t*)& array_E2A74, 0x2b3a74, debugcounter_240f50, 0xc4e, 0xc4e, &origbyte20, &remakebyte20);
+					//comp20 = compare_with_sequence((char*)"0022860F-003514B0", (uint8_t*)& str_unk_1804B0ar, 0x3514b0, debugcounter_47560, 0xab, 0xab, &origbyte20, &remakebyte20);
 
-				//comp20 = compare_with_sequence((char*)"0022860F-003AA0A4", pdwScreenBuffer_351628, 0x3aa0a4, debugcounter_47560, 320 * 200, 320 * 200, &origbyte20, &remakebyte20);
+					//comp20 = compare_with_sequence((char*)"0022860F-003AA0A4", pdwScreenBuffer_351628, 0x3aa0a4, debugcounter_47560, 320 * 200, 320 * 200, &origbyte20, &remakebyte20);
 
-				debugcounter_240f50++;
-			}*/
-#endif //DEBUG_SEQUENCES
+					debugcounter_240f50++;
+				}*/
+			}
 
 			//v13 = 2 * (signed __int16)v20;
 			v14x = x_DWORD_EA3E4[v18x->dword_0xA4_164x->array_0x5C_92[v20]];
@@ -67515,9 +67409,9 @@ void sub_652C0(type_event_0x6E8E* a1x)//2462c0
 	int v13; // eax
 	int v14; // edx
 
-#ifdef DEBUG_SEQUENCES
-	//add_compare(0x2462c4,debugafterload,0x8f);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		//add_compare(0x2462c4,CommandLineParams.DoDebugafterload(),0x8f);
+	}
 
 	v1 = a1x->struct_byte_0xc_12_15.byte[1];
 	if (v1 & 8)
@@ -68560,9 +68454,9 @@ void sub_66750(type_event_0x6E8E* a1x)//247750
 	int v27; // [esp+24h] [ebp-8h]
 	int v28; // [esp+28h] [ebp-4h]
 
-#ifdef DEBUG_SEQUENCES
-			//add_compare(0x247754, debugafterload,0x75);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		//add_compare(0x247754, CommandLineParams.DoDebugafterload(),0x75);
+	}
 
 	a1x->word_0x82_130 = a1x->word_0x84_132;
 	v18x = a1x->axis_0x4C_76;
@@ -70411,9 +70305,9 @@ void sub_68BF0()//249bf0
 		{
 			if (jx->dword_0x8 >= 0)
 			{
-#ifdef DEBUG_SEQUENCES
-				//add_compare(0x249c1b, debugafterload);
-#endif //DEBUG_SEQUENCES
+				if (CommandLineParams.DoDebugSequences()) {
+					//add_compare(0x249c1b, CommandLineParams.DoDebugafterload());
+				}
 				/*result = */sub_68C70(jx);
 			}
 			else
@@ -70896,9 +70790,9 @@ void sub_69640(type_event_0x6E8E* a1x)//24a640//spell posses
 	//__int16 v9; // dx
 	//uint8_t* v10; // [esp+4h] [ebp-4h]
 
-#ifdef DEBUG_SEQUENCES
-	//add_compare(0x24a644, debugafterload,8);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		//add_compare(0x24a644, CommandLineParams.DoDebugafterload(),8);
+	}
 
 	if (a1x->word_0x2E_46 > 0)
 	{
@@ -71550,9 +71444,9 @@ void sub_6A5C0(type_event_0x6E8E* a1x)//24b5c0
 	__int16 v17; // [esp+18h] [ebp-8h]
 	__int16 v18; // [esp+1Ch] [ebp-4h]
 
-#ifdef DEBUG_SEQUENCES
-	//add_compare(0x24b5c4, debugafterload,0xa4);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		//add_compare(0x24b5c4, CommandLineParams.DoDebugafterload(),0xa4);
+	}
 
 	v12x = 0;
 	v13x = 0;
@@ -76081,23 +75975,14 @@ void WriteBufferToBMP(uint16_t width, uint16_t height, uint8_t* ptrPalette, uint
 
 
 //----- (00072CB0) --------------------------------------------------------
-int sub_72CB0(unsigned __int8* a1, int a2)
+/*int sub_72CB0(unsigned __int8* a1, int a2)
 {
 	int v3; // [esp+4h] [ebp-Ch]
 	int v4; // [esp+8h] [ebp-8h]
-	unsigned __int8* v5; // [esp+Ch] [ebp-4h]
-
-	v5 = a1;
-	v4 = a2;
-	v3 = 0;
-	while (v4)
-	{
-		--v4;
 		v3 += *v5++;
 	}
 	return v3;
-}
-
+}*/
 //----- (00072D04) --------------------------------------------------------
 void NetworkDisallocation_72D04()
 {
@@ -76126,9 +76011,9 @@ void NetworkDisallocation_72D04()
 }
 
 //----- (00072DDE) --------------------------------------------------------
-int NetworkTestAddName_72DDE(/*signed __int16* a1,*/ int compindex)//253dde
+uint8 NetworkTestAddName_72DDE(/*signed __int16* a1,*/ int compindex)//253dde
 {//253de2
-	int result; // [esp+14h] [ebp-8h]
+	uint8 result; // [esp+14h] [ebp-8h]
 	sprintf(printbuffer, "%s%d", nethID, compindex);
 	do
 	{//253e06
@@ -76140,7 +76025,7 @@ int NetworkTestAddName_72DDE(/*signed __int16* a1,*/ int compindex)//253dde
 }
 
 //----- (00072E70) --------------------------------------------------------
-int /*__fastcall*/ sub_72E70(int  /*a1*/, int  /*a2*/, signed __int16* a3)//253e70
+int sub_72E70(int  /*a1*/, int  /*a2*/, signed __int16* a3)//253e70
 {
 	int v3; // edx
 	char v5; // [esp+0h] [ebp-30h]
@@ -76229,9 +76114,9 @@ void NetworkListenAll_7302E()//25402e
 //----- (0007308F) --------------------------------------------------------
 int NetworkInitConnection_7308F(char* a2, __int16 a3)//25408f
 {
-	int v6; // [esp+4h] [ebp-24h]
+	uint8 addNameResult; // [esp+4h] [ebp-24h]
 	int i; // [esp+1Ch] [ebp-Ch]
-	int v9; // [esp+20h] [ebp-8h]
+	int result; // [esp+20h] [ebp-8h]
 	//254093
 	if (!x_BYTE_E1274 || x_BYTE_E1275)
 		return -1;
@@ -76271,10 +76156,10 @@ int NetworkInitConnection_7308F(char* a2, __int16 a3)//25408f
 	IndexInNetwork_E1276 = -1;
 	while (maxPlayers_E127A > i && IndexInNetwork_E1276 == -1 && !connected_E12A6)
 	{//2541a1
-		v6 = NetworkTestAddName_72DDE(i);
-		if (v6)//2541aa
+		addNameResult = NetworkTestAddName_72DDE(i);
+		if (addNameResult)//2541aa
 		{
-			if (v6 == 0xff)
+			if (addNameResult == 0xff)
 			{
 				NetworkCancel_748F7(i);
 				i = maxPlayers_E127A;
@@ -76296,9 +76181,9 @@ int NetworkInitConnection_7308F(char* a2, __int16 a3)//25408f
 			connection_E12AE[i]->ncb_num_3 = connection_E12AE[IndexInNetwork_E1276]->ncb_num_3;
 		}
 	}
-#ifdef TEST_NETWORK_CHNG1
-	IndexInNetwork_E1276 = 1;
-#endif// TEST_NETWORK_CHNG1
+	if (CommandLineParams.DoTestNetworkChng1()) {
+		IndexInNetwork_E1276 = 1;
+	}
 	if (IndexInNetwork_E1276)//254278
 	{
 		if (!NetworkTestCall_72FBB()) // it is main connection
@@ -76318,15 +76203,15 @@ int NetworkInitConnection_7308F(char* a2, __int16 a3)//25408f
 		}
 		snprintf(printbuffer, printBufferSize, "%s%d", nethID, IndexInNetwork_E1276);
 		NetworkDeleteName_74A86(connection_E12AE[IndexInNetwork_E1276], printbuffer);
-		v9 = -1;
+		result = -1;
 	}
 	else
 	{
 		NetworkUpdateConnections_74F76();
 		x_BYTE_E1275 = 1;
-		v9 = IndexInNetwork_E1276;
+		result = IndexInNetwork_E1276;
 	}
-	return v9;
+	return result;
 }
 
 //----- (00073669) --------------------------------------------------------
@@ -76354,49 +76239,49 @@ void NetworkCanceling_73669(__int16 a1)//254669
 }
 
 //----- (0007373D) --------------------------------------------------------
-void sub_7373D(__int16 a1)//25473d
+void NetworkEvent_7373D(int16_t a1)//25473d
 {
-	uint8_t v3[8]; // [esp+54h] [ebp-10h]
+	uint8_t locConnected[8]; // [esp+54h] [ebp-10h]
 	int i; // [esp+5Ch] [ebp-8h]
 
 	if (x_BYTE_E1274 && x_BYTE_E1275)
 	{
-		if ((unsigned __int16)IndexInNetwork2_E12A8 == a1)
+		if (IndexInNetwork2_E12A8 == a1)
 		{
 			if (IndexInNetwork_E1276 == a1)
 			{
 				for (i = 0; maxPlayers_E127A > i; i++)
-					v3[i] = connected_E12CE[i] == 1;
+					locConnected[i] = connected_E12CE[i] == 1;
 				for (i = 0; maxPlayers_E127A > i; i++)
 				{
-					if (v3[i] == 1)
+					if (locConnected[i] == 1)
 					{
 						printState2((char*)"Send State 1\n");
-						NetworkSendMessage2_74006(i, v3, 8u);
+						NetworkSendMessage2_74006(i, locConnected, 8u);
 					}
 				}
 				NetworkCanceling_73669(a1);
 			}
 			else
 			{
-				NetworkReceiveMessage2_7404E(IndexInNetwork2_E12A8, v3, 8u);
+				NetworkReceiveMessage2_7404E(IndexInNetwork2_E12A8, locConnected, 8u);
 				NetworkCanceling_73669(a1);
 				for (i = 0; maxPlayers_E127A > i; i++)
 				{
-					if (v3[i] == 1)
+					if (locConnected[i] == 1)
 					{
 						IndexInNetwork2_E12A8 = i;
-						v3[i] = 0;
+						locConnected[i] = 0;
 						break;
 					}
 				}
-				if ((unsigned __int16)IndexInNetwork2_E12A8 == IndexInNetwork_E1276)
+				if (IndexInNetwork2_E12A8 == IndexInNetwork_E1276)
 				{
 					for (i = 0; ; i++)
 					{
 						if (maxPlayers_E127A <= i)
 							break;
-						if (IndexInNetwork_E1276 != i && v3[i] == 1)
+						if (IndexInNetwork_E1276 != i && locConnected[i] == 1)
 						{
 							NetworkListen_74B75(i);
 							while (connection_E12AE[i]->ncb_cmd_cplt_49 == 0xff)
@@ -76415,7 +76300,7 @@ void sub_7373D(__int16 a1)//25473d
 							/*fake_network_interupt(connection_E12AE[x_WORD_E12A8])*/;
 						if (!connection_E12AE[IndexInNetwork2_E12A8]->ncb_cmd_cplt_49)
 							break;
-						snprintf(printbuffer, printBufferSize, "Error code (CALL) : %d", connection_E12AE[IndexInNetwork2_E12A8]->ncb_cmd_cplt_49);
+						sprintf(printbuffer, "Error code (CALL) : %d", connection_E12AE[IndexInNetwork2_E12A8]->ncb_cmd_cplt_49);
 					}
 				}
 			}
@@ -76428,7 +76313,7 @@ void sub_7373D(__int16 a1)//25473d
 }
 
 //----- (000739AD) --------------------------------------------------------
-void sub_739AD(__int16 a1)//2549ad
+void NetworkRemoveClient_739AD(__int16 a1)//2549ad
 {
 	if (IndexInNetwork_E1276 == a1)
 	{
@@ -76454,9 +76339,9 @@ void sub_739AD(__int16 a1)//2549ad
 }
 
 //----- (00073AA1) --------------------------------------------------------
-void sub_73AA1(__int16 a1)//254aa1
+void NetworkSomeChange_73AA1(__int16 a1)//254aa1
 {
-	uint8_t v4[8]; // [esp+54h] [ebp-10h]
+	uint8_t locConnected[8]; // [esp+54h] [ebp-10h]
 	int i; // [esp+5Ch] [ebp-8h]
 
 	if (x_BYTE_E1274 && x_BYTE_E1275)
@@ -76466,27 +76351,27 @@ void sub_73AA1(__int16 a1)//254aa1
 			if (IndexInNetwork_E1276 == a1)
 			{
 				for (i = 0; maxPlayers_E127A > i; i++)
-					v4[i] = connected_E12CE[i] == 1;
+					locConnected[i] = connected_E12CE[i] == 1;
 				for (i = 0; maxPlayers_E127A > i; i++)
 				{
-					if (v4[i] == 1)
+					if (locConnected[i] == 1)
 					{
 						printState2((char*)"Send State 2\n");
-						NetworkSendMessage2_74006(i, v4, 8u);
+						NetworkSendMessage2_74006(i, locConnected, 8);
 					}
 				}
-				sub_739AD(a1);
+				NetworkRemoveClient_739AD(a1);
 			}
 			else
 			{
-				NetworkReceiveMessage2_7404E(IndexInNetwork2_E12A8, v4, 8u);
-				sub_739AD(a1);
+				NetworkReceiveMessage2_7404E(IndexInNetwork2_E12A8, locConnected, 8);
+				NetworkRemoveClient_739AD(a1);
 				for (i = 0; maxPlayers_E127A > i; i++)
 				{
-					if (v4[i] == 1)
+					if (locConnected[i] == 1)
 					{
 						IndexInNetwork2_E12A8 = i;
-						v4[i] = 0;
+						locConnected[i] = 0;
 						break;
 					}
 				}
@@ -76496,7 +76381,7 @@ void sub_73AA1(__int16 a1)//254aa1
 					{
 						if (maxPlayers_E127A <= i)
 							break;
-						if (IndexInNetwork_E1276 != i && v4[i] == 1)
+						if (IndexInNetwork_E1276 != i && locConnected[i] == 1)
 						{
 							NetworkListen_74B75(i);
 							while (connection_E12AE[i]->ncb_cmd_cplt_49 == 0xff)
@@ -76522,7 +76407,7 @@ void sub_73AA1(__int16 a1)//254aa1
 		}
 		else
 		{
-			sub_739AD(a1);
+			NetworkRemoveClient_739AD(a1);
 		}
 	}
 }
@@ -76626,16 +76511,18 @@ void NetworkCancelAll_7449C()//25549c
 }
 
 //----- (00074515) --------------------------------------------------------
-int sub_74515()//255515
+int16_t GetIndexNetwork2_74515()//255515
 {
 	return (unsigned __int16)IndexInNetwork2_E12A8;
 }
 
 //----- (00074536) --------------------------------------------------------
-int sub_74536()//255536
+int16_t GetIndexNetwork_74536()//255536
 {
 	return IndexInNetwork_E1276;
 }
+
+const int maxSizeOfPacket = 2048 * 30;//original 2048
 
 //----- (00074556) --------------------------------------------------------
 uint8_t NetworkAllocation_74556()//255556 push ebp 355250
@@ -76648,7 +76535,7 @@ uint8_t NetworkAllocation_74556()//255556 push ebp 355250
 	if (!x_BYTE_E1274 && !mainConnection_E12AA)
 	{
 		mainConnection_E12AA = (myNCB*)sub_83D70_malloc1(sizeof(myNCB));
-		memset(mainConnection_E12AA,0, sizeof(myNCB));
+		memset(mainConnection_E12AA, 0, sizeof(myNCB));
 		mainConnection_E12AA->ncb_command_0 = 0x7f;//?
 		mainConnection_E12AA->ncb_retcode_1 = 0x03;
 		mainConnection_E12AA->ncb_cmd_cplt_49 = 0x03;
@@ -76656,18 +76543,18 @@ uint8_t NetworkAllocation_74556()//255556 push ebp 355250
 		{
 			if (NetworkInit_74A11() == -1)//255a11
 				return 0;
-			networkBuffer_E127E = (uint8_t*)sub_83D70_malloc1(2048*10);
-			memset(networkBuffer_E127E, 0, 2048 * 10);
+			networkBuffer_E127E = (uint8_t*)sub_83D70_malloc1(maxSizeOfPacket);
+			memset(networkBuffer_E127E, 0, maxSizeOfPacket);
 			if (networkBuffer_E127E)
 			{
-				paket_E1282 = (uint8_t*)sub_83D70_malloc1(2048 * 10);
-				memset(paket_E1282, 0, 2048 * 10);
+				paket_E1282 = (uint8_t*)sub_83D70_malloc1(maxSizeOfPacket);
+				memset(paket_E1282, 0, maxSizeOfPacket);
 				if (paket_E1282)
 				{
 					for (i = 0; i < 8; i++)
 					{
-						packetArray_E1286[i] = (uint8_t*)sub_83D70_malloc1(2048 * 10);
-						memset(packetArray_E1286[i], 0, 2048 * 10);
+						packetArray_E1286[i] = (uint8_t*)sub_83D70_malloc1(maxSizeOfPacket);
+						memset(packetArray_E1286[i], 0, maxSizeOfPacket);
 						if (!packetArray_E1286[i])
 						{
 							v2 = 0;
@@ -76720,7 +76607,7 @@ uint8_t NetworkAllocation_74556()//255556 push ebp 355250
 }
 
 //----- (00074767) --------------------------------------------------------
-signed int NetworkAddName_74767(/*signed __int16* a1,*/ myNCB* connection, char* name)//255767
+uint8_t NetworkAddName_74767(/*signed __int16* a1,*/ myNCB* connection, char* name)//255767
 {
 	strcpy(connection->ncb_name_26, name);
 	while (strlen(connection->ncb_name_26) < 0xFu)
@@ -76730,27 +76617,27 @@ signed int NetworkAddName_74767(/*signed __int16* a1,*/ myNCB* connection, char*
 		return 157;
 	while (connection->ncb_cmd_cplt_49 == 0xff && !connected_E12A6)
 	{
-		WaitToConnect_7C230(/*a2x,*/ /*v3, a1*/);
-		/*fake_network_interupt(connection)*/;//25d36d
+		WaitToConnect_7C230();//25d36d
 	}
 	return connection->ncb_cmd_cplt_49;
 }
 
 //----- (00074809) --------------------------------------------------------
-int NetworkCall_74809(__int16 a1)//255809
+void NetworkCall_74809(__int16 clientIndex)//255809
 {
-	int result; // [esp+14h] [ebp-8h]
-	connection_E12AE[a1]->ncb_command_0 = 0x90;//CALL 
-	sprintf(connection_E12AE[a1]->ncb_callName_10, "%s%d", nethID, a1);
-	while (strlen(connection_E12AE[a1]->ncb_callName_10) < 0xFu)
-		strcat(connection_E12AE[a1]->ncb_callName_10, " ");
-	connection_E12AE[a1]->ncb_rto_42 = 0;
-	connection_E12AE[a1]->ncb_sto_43 = 0;
-	if (setNetbios_75044(connection_E12AE[a1]) == -1)
-		result = -99;
-	else
-		result = -connection_E12AE[a1]->ncb_cmd_cplt_49;
-	return result;
+	//int result; // [esp+14h] [ebp-8h]
+	connection_E12AE[clientIndex]->ncb_command_0 = 0x90;//CALL 
+	sprintf(connection_E12AE[clientIndex]->ncb_callName_10, "%s%d", nethID, clientIndex);
+	while (strlen(connection_E12AE[clientIndex]->ncb_callName_10) < 0xFu)
+		strcat(connection_E12AE[clientIndex]->ncb_callName_10, " ");
+	connection_E12AE[clientIndex]->ncb_rto_42 = 0;
+	connection_E12AE[clientIndex]->ncb_sto_43 = 0;
+	setNetbios_75044(connection_E12AE[clientIndex]);
+	//if (setNetbios_75044(connection_E12AE[clientIndex]) == -1)
+	//	result = -99;
+	//else
+	//	result = -connection_E12AE[clientIndex]->ncb_cmd_cplt_49;
+	//return result;
 }
 
 //----- (000748F7) --------------------------------------------------------
@@ -76775,17 +76662,16 @@ signed int NetworkCancel_748F7(__int16 compindex)//2558f7
 }
 
 int dos_getvect(int vector) {
-
-#ifdef TEST_NETWORK
-	if ((Iam_server) || (Iam_client))
-	{
-		//get ah from 2b5cb2 - 01
-		//335c 
-		//int 21
-		//get ebx d49
-		if (vector == 92)return 0xd49;
+	if (CommandLineParams.ModeTestNetwork()) {
+		if ((Iam_server) || (Iam_client))
+		{
+			//get ah from 2b5cb2 - 01
+			//335c 
+			//int 21
+			//get ebx d49
+			if (vector == 92)return 0xd49;
+		}
 	}
-#endif
 	return 0;
 }
 
@@ -76808,8 +76694,6 @@ signed int NetworkInit_74A11()//255a11 // netbios
 	}
 	return -1;
 }
-// 99BA7: using guessed type x_DWORD dos_getvect(x_DWORD);
-// E12AA: using guessed type int x_DWORD_E12AA;
 
 //----- (00074A86) --------------------------------------------------------
 void NetworkDeleteName_74A86(myNCB* a1x, char* a2)//255a86
@@ -76824,9 +76708,6 @@ void NetworkDeleteName_74A86(myNCB* a1x, char* a2)//255a86
 		/*fake_network_interupt(a1x)*/;
 	//return -(unsigned __int8)a1[49];
 }
-// 99D46: using guessed type x_DWORD strcpy(x_DWORD, x_DWORD);
-// 99D6B: using guessed type x_DWORD strlen(x_DWORD);
-// 99D84: using guessed type x_DWORD strcat(x_DWORD, x_DWORD);
 
 //----- (00074B19) --------------------------------------------------------
 void NetworkHangUp_74B19(myNCB* a1x)//255b19
@@ -76861,19 +76742,15 @@ signed int NetworkListen_74B75(__int16 a1)//255b75
 	}
 	return -99;
 }
-// 8E3D5: using guessed type x_DWORD sprintf(x_DWORD, const char *, ...);
-// 99D46: using guessed type x_DWORD strcpy(x_DWORD, x_DWORD);
-// 99D6B: using guessed type x_DWORD strlen(x_DWORD);
-// 99D84: using guessed type x_DWORD strcat(x_DWORD, x_DWORD);
 
 //----- (00074C9D) --------------------------------------------------------
-int NetworkReceivePacket_74C9D(myNCB* connection, uint8_t* buffer, int maxsize = 50000)//255c9d
+int NetworkReceivePacket_74C9D(myNCB* connection, uint8_t* buffer, int size)//255c9d
 {
 	connection->ncb_command_0 = 0x95;//RECEIVE
 
 	connection->ncb_buffer_4.p = paket_E1282;
 
-	connection->ncb_bufferLength_8 = maxsize;
+	connection->ncb_bufferLength_8 = size;
 	if (setNetbios_75044(connection) == -1)
 		return -99;
 	while (connection->ncb_cmd_cplt_49 == 0xffu)
@@ -76882,7 +76759,7 @@ int NetworkReceivePacket_74C9D(myNCB* connection, uint8_t* buffer, int maxsize =
 		return -connection->ncb_cmd_cplt_49;
 	//allert_error();
 	//memcpy((void*)a2x, (void*)x_DWORD_E1282, a1x->ncb_length_8);
-	for (int i = 0; i < maxsize/*connection->ncb_bufferLength_8*/; i++)
+	for (int i = 0; i < size/*connection->ncb_bufferLength_8*/; i++)
 		buffer[i] = paket_E1282[i];
 	return connection->ncb_bufferLength_8;
 }
@@ -76898,13 +76775,31 @@ void NetworkReceiveMessage_74D41(myNCB* connection, uint8_t* inbuffer, unsigned 
 
 	buffer = inbuffer;
 	packedReceived = 0;
+	while (size > maxSizeOfPacket * (packedReceived + 1))
+	{
+		if (NetworkReceivePacket_74C9D(connection, buffer, maxSizeOfPacket) != maxSizeOfPacket)
+			return;
+		packedReceived++;
+		buffer += maxSizeOfPacket;
+	}
+	NetworkReceivePacket_74C9D(connection, buffer, size - maxSizeOfPacket * packedReceived);
+
+	/*
+	//int v3; // eax
+	//int v5; // [esp+0h] [ebp-10h]
+	//int v6; // [esp+4h] [ebp-Ch]
+	unsigned int packedReceived; // [esp+8h] [ebp-8h]
+	uint8_t* buffer; // [esp+Ch] [ebp-4h]
+
+	buffer = inbuffer;
+	packedReceived = 0;
 	while (size > 50000 * (packedReceived + 1))
 	{
 		if (NetworkReceivePacket_74C9D(connection, buffer) != 50000)
 			return;
 		packedReceived++;
 		buffer += 50000;
-	}
+	}*/
 }
 
 /*
@@ -76941,12 +76836,28 @@ int NetworkSendPacket_74E6D(myNCB* connection, uint8_t* buffer, int size)//255e6
 		/*fake_network_interupt(connection)*/;
 	return -connection->ncb_cmd_cplt_49;
 }
-// 99DBD: using guessed type x_DWORD memcpy(x_DWORD, x_DWORD, x_DWORD);
-// E127E: using guessed type int networkBuffer_E127E;
 
 //----- (00074EF1) --------------------------------------------------------
 void NetworkSendMessage_74EF1(myNCB* connection, uint8_t* inbuffer, unsigned int size)//255ef1
 {
+	unsigned int packedSended; // [esp+4h] [ebp-Ch]
+	uint8_t* buffer; // [esp+8h] [ebp-8h]
+
+	buffer = inbuffer;
+	packedSended = 0;
+	while (1)
+	{
+		if (size <= maxSizeOfPacket * (packedSended + 1))
+		{
+			NetworkSendPacket_74E6D(connection, buffer, size - maxSizeOfPacket * packedSended);
+			return;
+		}
+		if (NetworkSendPacket_74E6D(connection, buffer, maxSizeOfPacket))
+			break;
+		packedSended++;
+		buffer += maxSizeOfPacket;
+	}
+	/*
 	unsigned int packedSended; // [esp+4h] [ebp-Ch]
 	uint8_t* buffer; // [esp+8h] [ebp-8h]
 	//__int16 v7; // [esp+Ch] [ebp-4h]
@@ -76954,16 +76865,15 @@ void NetworkSendMessage_74EF1(myNCB* connection, uint8_t* inbuffer, unsigned int
 	buffer = inbuffer;
 	packedSended = 0;
 
-
-	while (size > 50000 * (packedSended + 1))
+	while (size > maxSizeOfPacket * (packedSended + 1))
 	{
-		if (NetworkSendPacket_74E6D(connection, buffer, 50000) != 50000)
+		if (NetworkSendPacket_74E6D(connection, buffer, maxSizeOfPacket) != maxSizeOfPacket)
 			return;
 		packedSended++;
-		buffer += 50000;
+		buffer += maxSizeOfPacket;
 	}
-	NetworkSendPacket_74E6D(connection, buffer, size - (50000 * packedSended));
-
+	NetworkSendPacket_74E6D(connection, buffer, size - (maxSizeOfPacket * packedSended));
+	*/
 	/*
 	while (1)
 	{
@@ -77009,36 +76919,36 @@ int setNetbios_75044(myNCB* connection)//256044
 {
 	//a1x 0x2b22aa
 	type_v2x v2x; // [esp+0h] [ebp-7Ch]
-	//int v3; // [esp+10h] [ebp-6Ch]
-	//int v4; // [esp+1Ch] [ebp-60h]
-	//__int16 v5; // [esp+22h] [ebp-5Ah]
-	//__int16 v6; // [esp+24h] [ebp-58h]
-	REGS v7x;
+	int v3; // [esp+10h] [ebp-6Ch]
+	int v4; // [esp+1Ch] [ebp-60h]
+	__int16 v5; // [esp+22h] [ebp-5Ah]
+	__int16 v6; // [esp+24h] [ebp-58h]
+	//REGS v7x;
 	//int v7; // [esp+34h] [ebp-48h]
 	//int v8; // [esp+38h] [ebp-44h]
 	//char *v9; // [esp+48h] [ebp-34h]
-	REGS v10x;
+	//REGS v10x;
 	//char v10; // [esp+50h] [ebp-2Ch]
 	//int v11; // [esp+68h] [ebp-14h]
-	SREGS v12x;
+	//SREGS v12x;
 	//char v12; // [esp+6Ch] [ebp-10h]
 	int v13; // [esp+78h] [ebp-4h]
-	
+
 	//fix it
 	//v11 = 0;
 	//fix it
 
 	connection->ncb_cmd_cplt_49 = 0;
 	memset(&v2x, 0, sizeof(type_v2x));//35517c
-	//v6 = connection->ncb_command_0 >> 4;
-	//v5 = connection->ncb_command_0 >> 4;
-	//v3 = 0;
-	//v4 = 256;
-	memset(&v7x, 0, sizeof(REGS));
-	memset(&v10x, 0, sizeof(REGS));
-	memset(&v12x, 0, sizeof(SREGS));
+	v6 = connection->ncb_command_0 >> 4;
+	v5 = connection->ncb_command_0 >> 4;
+	v3 = 0;
+	v4 = 256;
+	//memset(&v7x, 0, sizeof(REGS));
+	//memset(&v10x, 0, sizeof(REGS));
+	//memset(&v12x, 0, sizeof(SREGS));
 	//segread((SREGS*)&v12);
-	v12x.es = 0x168;
+	/*v12x.es = 0x168;
 	v12x.ds = 0x168;
 	v12x.fs = 0x168;
 	v12x.gs = 0x168;
@@ -77046,18 +76956,18 @@ int setNetbios_75044(myNCB* connection)//256044
 	v12x.ss = 0x20;
 
 	v7x.eax = 0x300;
-	v7x.ebx = 0x5C;
+	v7x.ebx = 0x5C;*/
 	//v7x.edx = &v2x;
-	makeNetwork(0x31, &v7x, &v10x, &v12x, &v2x, connection);//Simulate Real Mode Interrupt //network
-	if (v10x.esi)
+	makeNetwork(connection);//Simulate Real Mode Interrupt //network
+	/*if (v10x.esi)
 		v13 = -1;
-	else
-		v13 = 0;
+	else*/
+	v13 = 0;
 	return v13;
 
-/*#ifdef TEST_NETWORK
-	a1x->byte_1 = 3;
-#endif
+	/* if (CommandLineParams.ModeTestNetwork()) {
+		a1x->byte_1 = 3;
+	}
 	return 1;*/
 }
 
@@ -77360,12 +77270,10 @@ void sub_759B0_set_mouse_minmax_vert()
 		memset(&v1, 0, 28);
 		v1 = 0x6008;
 		v2 = bswap_16(*(x_WORD*)(x_DWORD_17D6C4 + 2));
-		//result = int386(0x33, (REGS*)&v1, (REGS*)&v1);//set mouse minmax vertical
 	}
 	//return result;
 }
 // 8C250: using guessed type x_DWORD memset(x_DWORD, x_DWORD, x_DWORD);
-// 98D52: using guessed type x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);
 // E12EC: using guessed type char x_BYTE_E12EC;
 // 17D6C4: using guessed type int x_DWORD_17D6C4;
 
@@ -77430,7 +77338,7 @@ void sub_75AB0()
 
 	if (x_DWORD_17D6C8)
 	{
-		/*result = */sub_75B50(*(int16_t*)&unk_17D6D4ar[0x32]);
+//removed sub_75B50(*(int16_t*)&unk_17D6D4ar[0x32]);
 		x_DWORD_17D6C8 = 0;
 	}
 	//return result;
@@ -77460,19 +77368,10 @@ void sub_75AB0()
 // 99E10: using guessed type x_DWORD int386x(x_DWORD, x_DWORD, x_DWORD, x_DWORD);
 
 //----- (00075B50) --------------------------------------------------------
-void sub_75B50(__int16 a1)
-{
-	//int v2; // [esp+0h] [ebp-1Ch]
-	//int v3; // [esp+Ch] [ebp-10h]
-
-	//v3 = a1;
-	//v2 = 0x101;
-	//return int386(0x31, (REGS*)&v2, (REGS*)&v2);//free memory block
-}
-// 98D52: using guessed type x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);
+// NOTE: void sub_75B50(__int16 a1) removed as it did DOS memory handling
 
 //----- (00075B80) --------------------------------------------------------
-int sub_75B80_alloc_mem_block(int a1, x_WORD* a2, x_WORD* a3)
+int sub_75B80_alloc_mem_block(int a1, x_WORD* a2, x_WORD* a3)//see: https://github.com/videogamepreservation/descent2/blob/master/SOURCE/BIOS/DPMI.C
 {
 	int v3; // ebx
 	int v5; // [esp+0h] [ebp-28h]
@@ -77492,7 +77391,7 @@ int sub_75B80_alloc_mem_block(int a1, x_WORD* a2, x_WORD* a3)
 	v3 = 0;
 	//v6 = (unsigned int)(a1 + 15) >> 4;
 	v5 = 0x100;
-	//int386(0x31, (REGS*)&v5, (REGS*)&v5);//allocate memory block
+//removed int386(0x31, (REGS*)&v5, (REGS*)&v5);//allocate memory block //dpmi_real_malloc
 	if (!v8)
 	{
 		*a2 = v5;
@@ -77501,7 +77400,6 @@ int sub_75B80_alloc_mem_block(int a1, x_WORD* a2, x_WORD* a3)
 	}
 	return v3;
 }
-// 98D52: using guessed type x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);
 // 99DE6: using guessed type x_DWORD segread(x_DWORD);
 
 //----- (00075C50) --------------------------------------------------------
@@ -78358,7 +78256,7 @@ bool sub_77350_new_game_dialog(type_WORD_E1F84* a1x)//258350
 				&x_DWORD_17DB70str.unk_17DB80,
 				&x_DWORD_17DB70str.x_BYTE_17DB8F,
 				&x_DWORD_17DB70str.unk_17DB90);
-			#ifdef TEST_REGRESSIONS_GAME
+			if (CommandLineParams.ModeTestRegressionsGame()) {
 				x_DWORD_17DB70str.x_BYTE_17DB8E = 1;
 				x_D41A0_BYTEARRAY_4_struct.levelnumber_43w = test_regression_level;
 				if (mapScreenPortals_E17CC[test_regression_level].activated_18 == 1)
@@ -78369,7 +78267,7 @@ bool sub_77350_new_game_dialog(type_WORD_E1F84* a1x)//258350
 				if (x_D41A0_BYTEARRAY_4_struct.levelnumber_43w == 24)
 					x_D41A0_BYTEARRAY_4_struct.setting_38545 |= 0x20u;
 				v1 = 1;
-			#endif
+			}
 			if (x_WORD_180660_VGA_type_resolution & 1)
 				sub_90478_VGA_Blit320();
 			else
@@ -78413,7 +78311,7 @@ char /*__fastcall*/ sub_77680()//258680
 {
 	char result; // al
 	//int v4; // eax
-	//int v5; // edx
+	int v5; // edx
 	//int v6; // eax
 	//__int16 v7; // dx
 	//char* v8; // esi
@@ -78436,10 +78334,10 @@ char /*__fastcall*/ sub_77680()//258680
 	memset(printbuffer, 0, 80);
 	memset(v12, 0, 16);
 	v15 = 2;
-	sprintf(printbuffer, "NETH%d", (unsigned __int16)x_DWORD_17DE38str.x_WORD_17DEFA + 20);
+	sprintf(printbuffer, "NETH%d", (unsigned __int16)x_DWORD_17DE38str.networkSession_17DEFA + 20);
 	int8_t a3a = 0;
 	int8_t a3b = 0;
-	x_DWORD_17DE38str.serverIndex_17DEFC = NetworkInitConnection_7308F(printbuffer, 8);
+	x_DWORD_17DE38str.serverIndex_17DEFC = NetworkInitConnection_7308F(printbuffer, 8);//-1 == false
 	if (x_DWORD_17DE38str.serverIndex_17DEFC == -1)
 	{
 		sub_8CD27_set_cursor(xy_DWORD_17DED4_spritestr[39]);
@@ -78463,12 +78361,12 @@ char /*__fastcall*/ sub_77680()//258680
 
 		if (x_D41A0_BYTEARRAY_4_struct.levelnumber_43w >= 0x32u)
 			//x_DWORD_17DE38str.x_BYTE_17DE68x[0xa + 11 * x_DWORD_17DE38str.x_WORD_17DEFC] = *(x_BYTE*)(x_D41A0_BYTEARRAY_4_struct.levelnumber_43w);
-			x_DWORD_17DE38str.array_BYTE_17DE68x[x_DWORD_17DE38str.serverIndex_17DEFC].byte_10 = x_D41A0_BYTEARRAY_4_struct.levelnumber_43w;
+			x_DWORD_17DE38str.array_BYTE_17DE68x[x_DWORD_17DE38str.serverIndex_17DEFC].selectedLevel_10 = x_D41A0_BYTEARRAY_4_struct.levelnumber_43w;
 		else
 			//x_DWORD_17DE38str.x_BYTE_17DE68x[0xa + 11 * x_DWORD_17DE38str.x_WORD_17DEFC] = 50;
-			x_DWORD_17DE38str.array_BYTE_17DE68x[x_DWORD_17DE38str.serverIndex_17DEFC].byte_10 = 50;
+			x_DWORD_17DE38str.array_BYTE_17DE68x[x_DWORD_17DE38str.serverIndex_17DEFC].selectedLevel_10 = 50;
 		//x_DWORD_17DE38str.x_BYTE_17DE68x[0x9 + 11 * x_DWORD_17DE38str.x_WORD_17DEFC] = 2;
-		x_DWORD_17DE38str.array_BYTE_17DE68x[x_DWORD_17DE38str.serverIndex_17DEFC].byte_9 = 2;
+		x_DWORD_17DE38str.array_BYTE_17DE68x[x_DWORD_17DE38str.serverIndex_17DEFC].action_9 = 2;
 		x_DWORD_17DE38str.x_WORD_17DEEE_mouse_buttons = 0;
 		while (!a3a)
 		{
@@ -80833,18 +80731,18 @@ char sub_7B250_draw_and_serve(/*int a1, int a2*//*, __int16 a3*/)//25c250
 	//v12 = 0;
 	//fix it
 
-	#ifdef TEST_REGRESSIONS_GAME
-	str_E1BAC[0].dword_0 = 0x258350;
-	str_E1BAC[0].selected_8 = 1;
-	#endif
-
-#ifdef TEST_NETWORK
-	if (first_enter)
-	{
-		str_E1BAC[2].dword_0 = 0x25EE80;
-		str_E1BAC[2].selected_8 = 1;
+	if (CommandLineParams.ModeTestRegressionsGame()) {
+		str_E1BAC[0].dword_0 = 0x258350;
+		str_E1BAC[0].selected_8 = 1;
 	}
-#endif
+
+	if (CommandLineParams.ModeTestNetwork()) {
+		if (first_enter)
+		{
+			//str_E1BAC[2].dword_0 = 0x25EE80;
+			str_E1BAC[2].selected_8 = 1;
+		}
+	}
 
 	//for (i = off_E1BAC; *((int16_t*)i + 5); i += 44)
 	for (iy = 0; str_E1BAC[iy].xmin_10; iy++)
@@ -81221,13 +81119,13 @@ int sub_7B660_draw_scroll_dialog2(int a1, int a2, __int16 a3, type_str_word_26* 
 				v44 = 2;
 			}
 		}
-#ifdef TEST_NETWORK
-		if (first_enter)
-		{
-			first_enter = false;
-			v44 = 1;
+		if (CommandLineParams.ModeTestNetwork()) {
+			if (first_enter)
+			{
+				first_enter = false;
+				v44 = 1;
+			}
 		}
-#endif
 	}
 	DrawHelpText_6FC50(1);
 	//v29 = xy_DWORD_17DED4_spritestr[x_WORD_17DF06].pointer;
@@ -81473,9 +81371,7 @@ signed int /*__fastcall*/ sub_7C050_get_keyboard_keys1()//25d050
 //----- (0007C200) --------------------------------------------------------
 char sub_7C200(unsigned __int8 a1)//25d200
 {
-	char result; // al
-
-	result = 0;
+	char result = 0;
 	if (a1 == 32 || a1 >= 0x30u && a1 <= 0x39u || a1 >= 0x41u && a1 <= 0x5Au || a1 >= 0x61u && a1 <= 0x7Au)
 		result = 1;
 	return result;
@@ -81521,16 +81417,12 @@ void WaitToConnect_7C230()//25d230
 signed int sub_7C390()//25d390
 {
 	signed int result; // eax
-	//int* v1; // ebx
 	type_E1BAC_0x3c4* v1x;
-	//x_WORD* v2; // ebx
 	type_WORD_E1F84* v2x;
 	int v3; // esi
 	signed __int16 v4; // dx
 	__int16 i; // ax
-	uint8_t* v6x=0; // [esp+0h] [ebp-8h]
-	//char* v7; // [esp+4h] [ebp-4h]
-	//uint8_t* v14;
+	uint8_t* v6x = 0; // [esp+0h] [ebp-8h]
 
 	char dataPath[MAX_PATH];
 
@@ -81547,7 +81439,7 @@ signed int sub_7C390()//25d390
 	}
 	else
 	{
-		qmemcpy(x_BYTE_E1B9C, &x_DWORD_17DE38str.array_BYTE_17DE68x[sub_74515()].array_byte_1, sizeof(x_BYTE_E1B9C));
+		qmemcpy(x_BYTE_E1B9C, &x_DWORD_17DE38str.array_BYTE_17DE68x[GetIndexNetwork2_74515()].arrayColors_1, sizeof(x_BYTE_E1B9C));
 		v1x = &str_E1BAC_0x2ec[x_DWORD_17DE38str.x_WORD_17DEF4];
 		if (x_WORD_180660_VGA_type_resolution & 1)
 			CopyScreen((void*)x_DWORD_E9C38_smalltit, (void*)pdwScreenBuffer_351628, 320, 200);
@@ -81596,7 +81488,7 @@ signed int sub_7C390()//25d390
 			x_DWORD_17DE38str.palMulti_17DF02 = 255;
 			PaletteMulti_7C9D0(255);
 			x_DWORD_17DE38str.x_WORD_17DEF6 = 1;
-			x_DWORD_17DE38str.array_BYTE_17DE68x[x_DWORD_17DE38str.serverIndex_17DEFC].byte_10 = x_DWORD_17DE38str.array_BYTE_17DE68x[sub_74515()].byte_10;
+			x_DWORD_17DE38str.array_BYTE_17DE68x[x_DWORD_17DE38str.serverIndex_17DEFC].selectedLevel_10 = x_DWORD_17DE38str.array_BYTE_17DE68x[GetIndexNetwork2_74515()].selectedLevel_10;
 			v2x = str_E1BAC_0x1b8;
 			v3 = sub_7CB10();
 			break;
@@ -81612,7 +81504,7 @@ signed int sub_7C390()//25d390
 			v2x++;
 		}
 		sub_7C140_draw_text_background(382, 18, 16, 16, 0);
-		sprintf((char* const)x_DWORD_17DE38str.x_DWORD_17DE50, "%d", (unsigned __int16)x_DWORD_17DE38str.x_WORD_17DEFA);
+		sprintf((char* const)x_DWORD_17DE38str.x_DWORD_17DE50, "%d", (unsigned __int16)x_DWORD_17DE38str.networkSession_17DEFA);
 		sub_7FAE0_draw_text((char*)x_DWORD_17DE38str.x_DWORD_17DE50, 382, 398, 18, 0);
 		DrawNetworkLevelName_7D380();
 		SetMultiplayerColors_7D310();
@@ -81638,20 +81530,17 @@ void sub_7C710()//25d710
 {
 	x_DWORD_17DE38str.palMulti_17DF02 = 0;
 }
-// 17DF02: using guessed type __int16 x_WORD_17DF02;
 
 //----- (0007C720) --------------------------------------------------------
 void sub_7C720(unsigned __int8 a1, uint8_t* a2)//25d720
 {
-	//void** v2; // eax
 	type_E1BAC_0x3c4* v2x;
 	__int16 v3; // bx
 	__int16 v4; // dx
 	__int16 v5; // cx
 	__int16 v6; // ax
 
-	//v2 = (void**)&off_E1BAC[0x2ec] + 6 * a1;
-	v2x=&str_E1BAC_0x2ec[a1];
+	v2x = &str_E1BAC_0x2ec[a1];
 	v3 = v2x->word_18;// *((x_WORD*)v2 + 9);
 	v4 = v2x->word_16;//*((x_WORD*)v2 + 8);
 	v5 = v2x->word_20;//*((x_WORD*)v2 + 10);
@@ -81662,8 +81551,6 @@ void sub_7C720(unsigned __int8 a1, uint8_t* a2)//25d720
 		v4 = v5 + v4 - 640;
 	sub_85BF5(a2, x_DWORD_E9C38_smalltit, v4, v3, v5, v6);
 }
-// E1E98: using guessed type void *off_E1E98;
-// E9C38: using guessed type int x_DWORD_E9C38_smalltit;
 
 //----- (0007C7C0) --------------------------------------------------------
 void CleanRectByColor_7C7C0(uint8_t* a2)//25d7c0
@@ -81674,89 +81561,48 @@ void CleanRectByColor_7C7C0(uint8_t* a2)//25d7c0
 //----- (0007C800) --------------------------------------------------------
 void PaletteCopy_7C800(signed __int16 a1)//25d800
 {
-	signed __int16 v1; // bx
-	//unsigned __int8* v2; // edx
-	int v3c; // eax
-	//unsigned __int8 v4; // ch
-	//unsigned __int8 v5; // ch
-	//unsigned __int8 v6; // ch
-	//unsigned __int8* v7; // edx
-	//int v7c;
-	//unsigned __int8 v8; // ch
-	//x_BYTE* v9; // eax
-	//unsigned __int8 v10; // ch
-	//unsigned __int8 v11; // ch
-	//unsigned __int8 v12; // cl
-	//unsigned __int8* v13; // edx
-	//unsigned __int8 v14; // ch
-	//x_BYTE* v15; // eax
-	//unsigned __int8 v16; // ch
-	//unsigned __int8 v17; // ch
-	//int v19c; // [esp+4h] [ebp-4h]
+	signed __int16 v1 = a1;
 
-	v1 = a1;
-	if ((unsigned __int16)a1 > 0xFFu)
+	if (v1 > 255)
 		v1 = 255;
-	//v2 = (unsigned __int8*)(x_DWORD_17DE38str.x_DWORD_17DE3C + 477);
-	//v19 = (uint8_t*)x_DWORD_17DE38str.x_DWORD_17DE38x + 765;
-	//v19c = 255;
-	//v3 = (unsigned __int8*)((uint8_t*)x_DWORD_17DE38str.x_DWORD_17DE38x + 477);
-	v3c = 159;
-	while (v3c < 255)
+	for (int v3c = 159; v3c < 255; v3c++)
 	{
-		//v4 = v2[0];
 		if (x_DWORD_17DE38str.x_DWORD_17DE38x[v3c].red < x_DWORD_17DE38str.x_DWORD_17DE3C->c[v3c].red)
-			x_DWORD_17DE38str.x_DWORD_17DE38x[v3c].red = (unsigned __int16)(x_DWORD_17DE38str.x_DWORD_17DE3C->c[v3c].red * v1) >> 8;
+			x_DWORD_17DE38str.x_DWORD_17DE38x[v3c].red = (x_DWORD_17DE38str.x_DWORD_17DE3C->c[v3c].red * v1) >> 8;
 		else
 			x_DWORD_17DE38str.x_DWORD_17DE38x[v3c].red = x_DWORD_17DE38str.x_DWORD_17DE3C->c[v3c].red;
-		//v5 = v2[1];
 		if (x_DWORD_17DE38str.x_DWORD_17DE38x[v3c].green < x_DWORD_17DE38str.x_DWORD_17DE3C->c[v3c].green)
-			x_DWORD_17DE38str.x_DWORD_17DE38x[v3c].green = (unsigned __int16)(x_DWORD_17DE38str.x_DWORD_17DE3C->c[v3c].green * v1) >> 8;
+			x_DWORD_17DE38str.x_DWORD_17DE38x[v3c].green = (x_DWORD_17DE38str.x_DWORD_17DE3C->c[v3c].green * v1) >> 8;
 		else
 			x_DWORD_17DE38str.x_DWORD_17DE38x[v3c].green = x_DWORD_17DE38str.x_DWORD_17DE3C->c[v3c].green;
-		//v6 = v2[2];
 		if (x_DWORD_17DE38str.x_DWORD_17DE38x[v3c].blue < x_DWORD_17DE38str.x_DWORD_17DE3C->c[v3c].blue)
-			x_DWORD_17DE38str.x_DWORD_17DE38x[v3c].blue = (unsigned __int16)(x_DWORD_17DE38str.x_DWORD_17DE3C->c[v3c].blue * v1) >> 8;
+			x_DWORD_17DE38str.x_DWORD_17DE38x[v3c].blue = (x_DWORD_17DE38str.x_DWORD_17DE3C->c[v3c].blue * v1) >> 8;
 		else
 			x_DWORD_17DE38str.x_DWORD_17DE38x[v3c].blue = x_DWORD_17DE38str.x_DWORD_17DE3C->c[v3c].blue;
-		//v3 += 3;
-		v3c++;
-		//v2 += 3;
 	}
-	//v7 = (unsigned __int8*)((uint8_t*)x_DWORD_17DE38str.x_DWORD_17DE38x + 444);
-	//v7c = 148;
-	//v8 = *(x_BYTE*)(x_DWORD_17DE38str.x_DWORD_17DE3C + 444);
-	//v9 = (x_BYTE*)(x_DWORD_17DE38str.x_DWORD_17DE3C + 444);
 	if (x_DWORD_17DE38str.x_DWORD_17DE38x[148].red < x_DWORD_17DE38str.x_DWORD_17DE3C->c[148].red)
-		x_DWORD_17DE38str.x_DWORD_17DE38x[148].red = (unsigned __int16)(x_DWORD_17DE38str.x_DWORD_17DE3C->c[148].red * v1) >> 8;
+		x_DWORD_17DE38str.x_DWORD_17DE38x[148].red = (x_DWORD_17DE38str.x_DWORD_17DE3C->c[148].red * v1) >> 8;
 	else
 		x_DWORD_17DE38str.x_DWORD_17DE38x[148].red = x_DWORD_17DE38str.x_DWORD_17DE3C->c[148].red;
-	//v10 = v9[1];
 	if (x_DWORD_17DE38str.x_DWORD_17DE38x[148].green < x_DWORD_17DE38str.x_DWORD_17DE3C->c[148].green)
-		x_DWORD_17DE38str.x_DWORD_17DE38x[148].green = (unsigned __int16)(x_DWORD_17DE38str.x_DWORD_17DE3C->c[148].green * v1) >> 8;
+		x_DWORD_17DE38str.x_DWORD_17DE38x[148].green = (x_DWORD_17DE38str.x_DWORD_17DE3C->c[148].green * v1) >> 8;
 	else
 		x_DWORD_17DE38str.x_DWORD_17DE38x[148].green = x_DWORD_17DE38str.x_DWORD_17DE3C->c[148].green;
-	//v11 = v9[2];
 	if (x_DWORD_17DE38str.x_DWORD_17DE38x[148].blue < x_DWORD_17DE38str.x_DWORD_17DE3C->c[148].blue)
-		x_DWORD_17DE38str.x_DWORD_17DE38x[148].blue = (unsigned __int16)(v1 * x_DWORD_17DE38str.x_DWORD_17DE3C->c[148].blue) >> 8;
+		x_DWORD_17DE38str.x_DWORD_17DE38x[148].blue = (x_DWORD_17DE38str.x_DWORD_17DE3C->c[148].blue * v1) >> 8;
 	else
 		x_DWORD_17DE38str.x_DWORD_17DE38x[148].blue = x_DWORD_17DE38str.x_DWORD_17DE3C->c[148].blue;
-	//v12 = x_DWORD_17DE38str.x_DWORD_17DE38x[v7c+1].red;
-	//v13 = v7 + 3;
-	//v14 = v9[3];
-	//v15 = (v9 + 3);
+
 	if (x_DWORD_17DE38str.x_DWORD_17DE38x[149].red < x_DWORD_17DE38str.x_DWORD_17DE3C->c[149].red)
-		x_DWORD_17DE38str.x_DWORD_17DE38x[149].red = (unsigned __int16)(x_DWORD_17DE38str.x_DWORD_17DE3C->c[149].red * v1) >> 8;
+		x_DWORD_17DE38str.x_DWORD_17DE38x[149].red = (x_DWORD_17DE38str.x_DWORD_17DE3C->c[149].red * v1) >> 8;
 	else
 		x_DWORD_17DE38str.x_DWORD_17DE38x[149].red = x_DWORD_17DE38str.x_DWORD_17DE3C->c[149].red;
-	//v16 = *(x_BYTE*)(v15 + 1);
 	if (x_DWORD_17DE38str.x_DWORD_17DE38x[149].green < x_DWORD_17DE38str.x_DWORD_17DE3C->c[149].green)
-		x_DWORD_17DE38str.x_DWORD_17DE38x[149].green = (unsigned __int16)(x_DWORD_17DE38str.x_DWORD_17DE3C->c[149].green * v1) >> 8;
+		x_DWORD_17DE38str.x_DWORD_17DE38x[149].green = (x_DWORD_17DE38str.x_DWORD_17DE3C->c[149].green * v1) >> 8;
 	else
 		x_DWORD_17DE38str.x_DWORD_17DE38x[149].green = x_DWORD_17DE38str.x_DWORD_17DE3C->c[149].green;
-	//v17 = *(x_BYTE*)(v15 + 2);
 	if (x_DWORD_17DE38str.x_DWORD_17DE38x[149].blue < x_DWORD_17DE38str.x_DWORD_17DE3C->c[149].blue)
-		x_DWORD_17DE38str.x_DWORD_17DE38x[149].blue = (unsigned __int16)(x_DWORD_17DE38str.x_DWORD_17DE3C->c[149].blue * v1) >> 8;
+		x_DWORD_17DE38str.x_DWORD_17DE38x[149].blue = (x_DWORD_17DE38str.x_DWORD_17DE3C->c[149].blue * v1) >> 8;
 	else
 		x_DWORD_17DE38str.x_DWORD_17DE38x[149].blue = x_DWORD_17DE38str.x_DWORD_17DE3C->c[149].blue;
 	sub_9A0FC_wait_to_screen_beam();
@@ -81766,43 +81612,23 @@ void PaletteCopy_7C800(signed __int16 a1)//25d800
 //----- (0007C9D0) --------------------------------------------------------
 void PaletteMulti_7C9D0(signed __int16 a1)//25d9d0
 {
-	signed __int16 v1; // cx
-	//uint8_t* i; // eax
-	int ic;
-	//__int16 v3; // bx
-	//uint8_t* v4x; // eax
-	//uint8_t* v5x; // eax
-	//uint8_t* v7x; // [esp+4h] [ebp-4h]
-	//int v7c=
-
-	v1 = a1;
-	if ((unsigned __int16)a1 > 0xFFu)
+	signed __int16 v1 = a1;
+	if (v1 > 255)
 		v1 = 255;
-	//v7x = (uint8_t*)x_DWORD_17DE38str.x_DWORD_17DE38x + 765;
-	//v7c = 255;
-	for (ic = 159;ic < 255;ic++)
+	for (int ic = 159; ic < 255; ic++)
 	{
-		x_DWORD_17DE38str.x_DWORD_17DE38x[ic].red -= (unsigned __int16)(v1 * x_DWORD_17DE38str.x_DWORD_17DE38x[ic].red) >> 8;
-		x_DWORD_17DE38str.x_DWORD_17DE38x[ic].green -= (unsigned __int16)(v1 * x_DWORD_17DE38str.x_DWORD_17DE38x[ic].green) >> 8;
-		x_DWORD_17DE38str.x_DWORD_17DE38x[ic].blue -= (unsigned __int16)(v1 * x_DWORD_17DE38str.x_DWORD_17DE38x[ic].blue) >> 8;
+		x_DWORD_17DE38str.x_DWORD_17DE38x[ic].red -= (v1 * x_DWORD_17DE38str.x_DWORD_17DE38x[ic].red) >> 8;
+		x_DWORD_17DE38str.x_DWORD_17DE38x[ic].green -= (v1 * x_DWORD_17DE38str.x_DWORD_17DE38x[ic].green) >> 8;
+		x_DWORD_17DE38str.x_DWORD_17DE38x[ic].blue -= (v1 * x_DWORD_17DE38str.x_DWORD_17DE38x[ic].blue) >> 8;
 	}
 
-	//v4x = (uint8_t*)x_DWORD_17DE38str.x_DWORD_17DE38x;
-	//*(x_BYTE*)((uint8_t*)x_DWORD_17DE38str.x_DWORD_17DE38x + 447) -= (unsigned __int16)(v1 * *(unsigned __int8*)((uint8_t*)x_DWORD_17DE38str.x_DWORD_17DE38x + 447)) >> 8;
-	//*(x_BYTE*)(v4x + 448) -= (unsigned __int16)(v1 * *(unsigned __int8*)(v4x + 448)) >> 8;
-	//*(x_BYTE*)(v4x + 449) -= (unsigned __int16)(v1 * *(unsigned __int8*)(v4x + 449)) >> 8;
-	x_DWORD_17DE38str.x_DWORD_17DE38x[149].red -= (unsigned __int16)(v1 * x_DWORD_17DE38str.x_DWORD_17DE38x[149].red) >> 8;
-	x_DWORD_17DE38str.x_DWORD_17DE38x[149].green -= (unsigned __int16)(v1 * x_DWORD_17DE38str.x_DWORD_17DE38x[149].green) >> 8;
-	x_DWORD_17DE38str.x_DWORD_17DE38x[149].blue -= (unsigned __int16)(v1 * x_DWORD_17DE38str.x_DWORD_17DE38x[149].blue) >> 8;
+	x_DWORD_17DE38str.x_DWORD_17DE38x[149].red -= (v1 * x_DWORD_17DE38str.x_DWORD_17DE38x[149].red) >> 8;
+	x_DWORD_17DE38str.x_DWORD_17DE38x[149].green -= (v1 * x_DWORD_17DE38str.x_DWORD_17DE38x[149].green) >> 8;
+	x_DWORD_17DE38str.x_DWORD_17DE38x[149].blue -= (v1 * x_DWORD_17DE38str.x_DWORD_17DE38x[149].blue) >> 8;
 
-
-	//v5x = (uint8_t*)x_DWORD_17DE38str.x_DWORD_17DE38x;
-	//*(x_BYTE*)((uint8_t*)x_DWORD_17DE38str.x_DWORD_17DE38x + 444) -= (unsigned __int16)(v1 * *(unsigned __int8*)((uint8_t*)x_DWORD_17DE38str.x_DWORD_17DE38x + 444)) >> 8;
-	//*(x_BYTE*)(v5x + 445) -= (unsigned __int16)(v1 * *(unsigned __int8*)(v5x + 445)) >> 8;
-	//*(x_BYTE*)(v5x + 446) -= (unsigned __int16)(*(unsigned __int8*)(v5x + 446) * v1) >> 8;
-	x_DWORD_17DE38str.x_DWORD_17DE38x[148].red -= (unsigned __int16)(v1 * x_DWORD_17DE38str.x_DWORD_17DE38x[148].red) >> 8;
-	x_DWORD_17DE38str.x_DWORD_17DE38x[148].green -= (unsigned __int16)(v1 * x_DWORD_17DE38str.x_DWORD_17DE38x[148].green) >> 8;
-	x_DWORD_17DE38str.x_DWORD_17DE38x[148].blue -= (unsigned __int16)(v1 * x_DWORD_17DE38str.x_DWORD_17DE38x[148].blue) >> 8;
+	x_DWORD_17DE38str.x_DWORD_17DE38x[148].red -= (v1 * x_DWORD_17DE38str.x_DWORD_17DE38x[148].red) >> 8;
+	x_DWORD_17DE38str.x_DWORD_17DE38x[148].green -= (v1 * x_DWORD_17DE38str.x_DWORD_17DE38x[148].green) >> 8;
+	x_DWORD_17DE38str.x_DWORD_17DE38x[148].blue -= (v1 * x_DWORD_17DE38str.x_DWORD_17DE38x[148].blue) >> 8;
 	sub_9A0FC_wait_to_screen_beam();
 	sub_41A90_VGA_Palette_install(x_DWORD_17DE38str.x_DWORD_17DE38x);
 }
@@ -81810,12 +81636,8 @@ void PaletteMulti_7C9D0(signed __int16 a1)//25d9d0
 //----- (0007CB10) --------------------------------------------------------
 int sub_7CB10()//25db10
 {
-	//int(**i)(); // ebx
 	int ix;
-	//int result; // eax
-	//int(**j)(); // ebx
 	int jx;
-	//int(**v3)(); // ebx
 	int v3x;
 
 	for (ix = 0; str_E1BAC_0x1b8[ix].xmin_10; ix++)
@@ -81866,7 +81688,7 @@ int sub_7CB10()//25db10
 char sub_7CBF0()//25dbf0
 {
 	x_DWORD_17DE38str.x_WORD_17DEF8 = 0;
-	x_DWORD_17DE38str.array_BYTE_17DE68x[x_DWORD_17DE38str.serverIndex_17DEFC].byte_9 = 3;
+	x_DWORD_17DE38str.array_BYTE_17DE68x[x_DWORD_17DE38str.serverIndex_17DEFC].action_9 = 3;
 	x_DWORD_17DE38str.palMulti_17DF02 = 0;
 	x_DWORD_17DE38str.x_WORD_17DEF6 = 2;
 	x_DWORD_17DE38str.x_WORD_17DEF2 = x_DWORD_17DE38str.x_WORD_17DEF4;
@@ -81878,7 +81700,7 @@ char sub_7CC40()//25dc40
 {
 	x_DWORD_17DE38str.palMulti_17DF02 = 0;
 	x_DWORD_17DE38str.x_WORD_17DEF8 = 1;
-	x_DWORD_17DE38str.array_BYTE_17DE68x[x_DWORD_17DE38str.serverIndex_17DEFC].byte_9 = 4;
+	x_DWORD_17DE38str.array_BYTE_17DE68x[x_DWORD_17DE38str.serverIndex_17DEFC].action_9 = 4;
 	x_DWORD_17DE38str.x_WORD_17DEF6 = 2;
 	x_DWORD_17DE38str.x_WORD_17DEF2 = x_DWORD_17DE38str.x_WORD_17DEF4;
 	return 0;
@@ -81887,50 +81709,30 @@ char sub_7CC40()//25dc40
 //----- (0007CCA0) --------------------------------------------------------
 int sub_7CCA0()//25dca0
 {
-	int v0; // ebx
-	int v1; // ebx
-
-	v0 = x_DWORD_17DE38str.serverIndex_17DEFC;
-	if (v0 == sub_74515() && x_DWORD_17DE38str.x_WORD_17DEFE == 1 || (v1 = x_DWORD_17DE38str.serverIndex_17DEFC, v1 != sub_74515()))
-		x_DWORD_17DE38str.array_BYTE_17DE68x[x_DWORD_17DE38str.serverIndex_17DEFC].byte_9 = 1;
+	if (x_DWORD_17DE38str.serverIndex_17DEFC == GetIndexNetwork2_74515() && x_DWORD_17DE38str.x_WORD_17DEFE == 1 || x_DWORD_17DE38str.serverIndex_17DEFC != GetIndexNetwork2_74515())
+		x_DWORD_17DE38str.array_BYTE_17DE68x[x_DWORD_17DE38str.serverIndex_17DEFC].action_9 = 1;
 	return 0;
 }
 
 //----- (0007CCF0) --------------------------------------------------------
 int sub_7CCF0()//25dcf0
 {
-	//int v0; // eax
-	//char v1; // dl
-
-	//v0 = 11 * x_DWORD_17DE38str.x_WORD_17DEFC;
-	//v1 = x_DWORD_17DE38str.array_BYTE_17DE68x[x_DWORD_17DE38str.x_WORD_17DEFC].byte_10;
-	if (x_DWORD_17DE38str.array_BYTE_17DE68x[x_DWORD_17DE38str.serverIndex_17DEFC].byte_10 > 50)
+	if (x_DWORD_17DE38str.array_BYTE_17DE68x[x_DWORD_17DE38str.serverIndex_17DEFC].selectedLevel_10 > 50)
 	{
-		x_DWORD_17DE38str.array_BYTE_17DE68x[x_DWORD_17DE38str.serverIndex_17DEFC].byte_10--;
-		//x_DWORD_17DE38str.array_BYTE_17DE68x[x_DWORD_17DE38str.x_WORD_17DEFC].byte_10 = v1 - 1;
-		x_DWORD_17DE38str.array_BYTE_17DE68x[x_DWORD_17DE38str.serverIndex_17DEFC].byte_9 = 6;
+		x_DWORD_17DE38str.array_BYTE_17DE68x[x_DWORD_17DE38str.serverIndex_17DEFC].selectedLevel_10--;
+		x_DWORD_17DE38str.array_BYTE_17DE68x[x_DWORD_17DE38str.serverIndex_17DEFC].action_9 = 6;
 	}
 	return 0;
 }
-// 17DEFC: using guessed type __int16 x_WORD_17DEFC;
 
 //----- (0007CD30) --------------------------------------------------------
 int sub_7CD30()//25dd30
 {
-	char* v0; // esi
-	//char v2[5]; // [esp+0h] [ebp-Ch]
-	//char v3; // [esp+4h] [ebp-8h]
-
-	//fix save wizard name to enything
-
-	//v0 = (char*)(&off_D9204_wizards_names1)[1 + x_DWORD_17DE38str.x_BYTE_17DE68x[0xa + 11 * x_DWORD_17DE38str.x_WORD_17DEFC]];//fix it
-	v0 = (char*)(LevelsNames_D9204)[1 + x_DWORD_17DE38str.array_BYTE_17DE68x[x_DWORD_17DE38str.serverIndex_17DEFC].byte_10];
-	//qmemcpy(&v2, v0, 5u);
-	//qmemcpy(&v3, v0 + 4, sizeof(v3));
+	char* v0 = (char*)(LevelsNames_D9204)[1 + x_DWORD_17DE38str.array_BYTE_17DE68x[x_DWORD_17DE38str.serverIndex_17DEFC].selectedLevel_10];
 	if (v0[0] && v0[0] != 48)
 	{
-		x_DWORD_17DE38str.array_BYTE_17DE68x[x_DWORD_17DE38str.serverIndex_17DEFC].byte_10++;
-		x_DWORD_17DE38str.array_BYTE_17DE68x[x_DWORD_17DE38str.serverIndex_17DEFC].byte_9 = 6;
+		x_DWORD_17DE38str.array_BYTE_17DE68x[x_DWORD_17DE38str.serverIndex_17DEFC].selectedLevel_10++;
+		x_DWORD_17DE38str.array_BYTE_17DE68x[x_DWORD_17DE38str.serverIndex_17DEFC].action_9 = 6;
 	}
 	return 0;
 }
@@ -81938,13 +81740,12 @@ int sub_7CD30()//25dd30
 //----- (0007CDA0) --------------------------------------------------------
 int sub_7CDA0()//25dda0
 {
-	x_DWORD_17DE38str.array_BYTE_17DE68x[x_DWORD_17DE38str.serverIndex_17DEFC].byte_9 = 5;
+	x_DWORD_17DE38str.array_BYTE_17DE68x[x_DWORD_17DE38str.serverIndex_17DEFC].action_9 = 5;
 	return 0;
 }
-// 17DEFC: using guessed type __int16 x_WORD_17DEFC;
 
 //----- (0007CDC0) --------------------------------------------------------
-void SetPaletteColor_7CDC0(int a1, unsigned __int8 a2)//25ddc0
+void SetPaletteColor_7CDC0(unsigned __int8 a1, unsigned __int8 a2)//25ddc0
 {
 	TColor* v2a = &((TColor*)*xadatapald0dat2.colorPalette_var28)[134 + 2 * a1];
 	TColor* v2b = &((TColor*)*xadatapald0dat2.colorPalette_var28)[135 + 2 * a1];
@@ -81953,30 +81754,11 @@ void SetPaletteColor_7CDC0(int a1, unsigned __int8 a2)//25ddc0
 }
 
 //----- (0007CE50) --------------------------------------------------------
-signed int SetMultiplayerColors_7CE50()//25de50
+bool SetMultiplayerColors_7CE50()//25de50
 {
-	//__int16 v0; // bx
-	//uint8_t* v1; // esi
-	//uint8_t* v2; // edx
-	//__int16 i; // bx
-	//int v4; // eax
-	__int16 v5; // di
-	//x_BYTE* v6; // esi
-	//int v7; // edi
-	//int v8; // eax
-	//char v9; // ST10_1
-	//int v10; // edi
-	//int v11; // eax
-	//char v12; // ST10_1
-	//int v13; // edi
-	//int v14; // eax
-	//char v15; // ST10_1
-	//__int16 v16; // dx
-	//int v17; // eax
-	//char v18; // ch
-	signed int v20; // [esp+0h] [ebp-Ch]
+	__int16 colorIndex; // di
+	bool result = false;
 
-	v20 = 0;
 	x_DWORD_17DE38str.array_BYTE_17DE68x[x_DWORD_17DE38str.serverIndex_17DEFC].connected_0 = 1;
 	NetworkUpdateConnections2_74374();//some with network
 	printState(connection_E12AE);
@@ -81985,73 +81767,73 @@ signed int SetMultiplayerColors_7CE50()//25de50
 	{
 		for (int j = 0; j < 8; j++)
 		{
-			x_DWORD_17DE38str.array_BYTE_17DE68x[v0].array_byte_1[j] = x_DWORD_17DE38str.array_BYTE_17DE68x[sub_74515()].array_byte_1[j];
-			x_BYTE_E131C[j] = x_DWORD_17DE38str.array_BYTE_17DE68x[v0].array_byte_1[j];
+			x_DWORD_17DE38str.array_BYTE_17DE68x[v0].arrayColors_1[j] = x_DWORD_17DE38str.array_BYTE_17DE68x[GetIndexNetwork2_74515()].arrayColors_1[j];
+			x_BYTE_E131C[j] = x_DWORD_17DE38str.array_BYTE_17DE68x[v0].arrayColors_1[j];
 		}
 	}
 	for (int i = 0; i < 8; i++)
 	{
 		if (x_DWORD_17DE38str.array_BYTE_17DE68x[i].connected_0)
 		{
-			switch (x_DWORD_17DE38str.array_BYTE_17DE68x[i].byte_9)
+			switch (x_DWORD_17DE38str.array_BYTE_17DE68x[i].action_9)
 			{
-			case 1:
-				for (v5 = 134; v5 < 148; v5++)
+			case 1://end of select character
+				for (colorIndex = 134; colorIndex < 148; colorIndex++)
 				{
-					x_DWORD_17DE38str.x_DWORD_17DE38x[v5].red = 0;
-					x_DWORD_17DE38str.x_DWORD_17DE38x[v5].green = 0;
-					x_DWORD_17DE38str.x_DWORD_17DE38x[v5].blue = 0;
+					x_DWORD_17DE38str.x_DWORD_17DE38x[colorIndex].red = 0;
+					x_DWORD_17DE38str.x_DWORD_17DE38x[colorIndex].green = 0;
+					x_DWORD_17DE38str.x_DWORD_17DE38x[colorIndex].blue = 0;
 				}
 				sub_41A90_VGA_Palette_install(x_DWORD_17DE38str.x_DWORD_17DE38x);
 
 				x_DWORD_17DE38str.array_BYTE_17DE68x[i].connected_0 = 0;
-				sub_73AA1(i);
+				NetworkSomeChange_73AA1(i);
 				if (i == x_DWORD_17DE38str.serverIndex_17DEFC)
-					v20 = 1;
+					result = true;
 				break;
 			case 2:
-				if (sub_74515() == sub_74536())
+				if (GetIndexNetwork2_74515() == GetIndexNetwork_74536())//begin of select character
 				{
 					if (i <= 0)
-						x_DWORD_17DE38str.array_BYTE_17DE68x[sub_74515()].array_byte_1[i] = i;
+						x_DWORD_17DE38str.array_BYTE_17DE68x[GetIndexNetwork2_74515()].arrayColors_1[i] = i;
 					else
-						x_DWORD_17DE38str.array_BYTE_17DE68x[sub_74515()].array_byte_1[i] = i - 1;
-					x_DWORD_17DE38str.array_BYTE_17DE68x[sub_74515()].array_byte_1[i] = sub_7D230(1, x_DWORD_17DE38str.array_BYTE_17DE68x[sub_74515()].array_byte_1[i], i);
+						x_DWORD_17DE38str.array_BYTE_17DE68x[GetIndexNetwork2_74515()].arrayColors_1[i] = i - 1;
+					x_DWORD_17DE38str.array_BYTE_17DE68x[GetIndexNetwork2_74515()].arrayColors_1[i] = sub_7D230(1, x_DWORD_17DE38str.array_BYTE_17DE68x[GetIndexNetwork2_74515()].arrayColors_1[i], i);
 				}
 				break;
-			case 3:
-				if (sub_74515() == sub_74536() && (unsigned __int16)x_DWORD_17DE38str.x_WORD_17DEFE < 7u)
+			case 3://change to left character
+				if (GetIndexNetwork2_74515() == GetIndexNetwork_74536() && x_DWORD_17DE38str.x_WORD_17DEFE < 7)
 				{
-					x_DWORD_17DE38str.array_BYTE_17DE68x[sub_74515()].array_byte_1[i] = sub_7D230(1, x_DWORD_17DE38str.array_BYTE_17DE68x[sub_74515()].array_byte_1[i], i);
+					x_DWORD_17DE38str.array_BYTE_17DE68x[GetIndexNetwork2_74515()].arrayColors_1[i] = sub_7D230(1, x_DWORD_17DE38str.array_BYTE_17DE68x[GetIndexNetwork2_74515()].arrayColors_1[i], i);
 				}
 				break;
-			case 4:
-				if (sub_74515() == sub_74536() && (unsigned __int16)x_DWORD_17DE38str.x_WORD_17DEFE < 7u)
+			case 4://change to right character
+				if (GetIndexNetwork2_74515() == GetIndexNetwork_74536() && x_DWORD_17DE38str.x_WORD_17DEFE < 7)
 				{
-					x_DWORD_17DE38str.array_BYTE_17DE68x[sub_74515()].array_byte_1[i] = sub_7D230(0, x_DWORD_17DE38str.array_BYTE_17DE68x[sub_74515()].array_byte_1[i], i);
+					x_DWORD_17DE38str.array_BYTE_17DE68x[GetIndexNetwork2_74515()].arrayColors_1[i] = sub_7D230(0, x_DWORD_17DE38str.array_BYTE_17DE68x[GetIndexNetwork2_74515()].arrayColors_1[i], i);
 				}
 				break;
-			case 5:
+			case 5://start multiplayer level
 				D41A0_0.LevelIndex_0xc = x_DWORD_17DE38str.serverIndex_17DEFC;
-				x_D41A0_BYTEARRAY_4_struct.levelnumber_43w = x_DWORD_17DE38str.array_BYTE_17DE68x[sub_74515()].byte_10;
+				x_D41A0_BYTEARRAY_4_struct.levelnumber_43w = x_DWORD_17DE38str.array_BYTE_17DE68x[GetIndexNetwork2_74515()].selectedLevel_10;
 				x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 |= 0x10;
 				D41A0_0.word_0xe = x_DWORD_17DE38str.x_WORD_17DEFE;
 				NetworkCancelAll_7449C();
 				x_WORD_E29DC = 1;
-				v20 = 1;
+				result = true;
 				break;
 			case 6:
-				x_DWORD_17DE38str.array_BYTE_17DE68x[x_DWORD_17DE38str.serverIndex_17DEFC].byte_10 = x_DWORD_17DE38str.array_BYTE_17DE68x[i].byte_10;
+				x_DWORD_17DE38str.array_BYTE_17DE68x[x_DWORD_17DE38str.serverIndex_17DEFC].selectedLevel_10 = x_DWORD_17DE38str.array_BYTE_17DE68x[i].selectedLevel_10;//select next level
 				break;
 			default:
 				continue;
 			}
 		}
 	}
-	x_DWORD_17DE38str.array_BYTE_17DE68x[x_DWORD_17DE38str.serverIndex_17DEFC].byte_9 = 0;
-	x_DWORD_17DE38str.x_WORD_17DEF4 = x_DWORD_17DE38str.array_BYTE_17DE68x[sub_74515()].array_byte_1[x_DWORD_17DE38str.serverIndex_17DEFC];
+	x_DWORD_17DE38str.array_BYTE_17DE68x[x_DWORD_17DE38str.serverIndex_17DEFC].action_9 = 0;
+	x_DWORD_17DE38str.x_WORD_17DEF4 = x_DWORD_17DE38str.array_BYTE_17DE68x[GetIndexNetwork2_74515()].arrayColors_1[x_DWORD_17DE38str.serverIndex_17DEFC];
 	DrawNetworkLevelName_7D1F0();
-	return v20;
+	return result;
 }
 
 //----- (0007D1F0) --------------------------------------------------------
@@ -82087,7 +81869,7 @@ signed int sub_7D230(char a1, unsigned __int8 a2, unsigned __int8 a3)//25e230
 			v7 = 0;
 			while (v5 < 8)
 			{
-				if (v5 != a3 && x_DWORD_17DE38str.array_BYTE_17DE68x[v5].connected_0 && x_DWORD_17DE38str.array_BYTE_17DE68x[sub_74515()].array_byte_1[v5] == (x_WORD)v3)
+				if (v5 != a3 && x_DWORD_17DE38str.array_BYTE_17DE68x[v5].connected_0 && x_DWORD_17DE38str.array_BYTE_17DE68x[GetIndexNetwork2_74515()].arrayColors_1[v5] == (x_WORD)v3)
 				{
 					v7 = 1;
 					break;
@@ -82106,7 +81888,7 @@ signed int sub_7D230(char a1, unsigned __int8 a2, unsigned __int8 a3)//25e230
 			v8 = 0;
 			while (v4 < 8)
 			{
-				if (v4 != a3 && x_DWORD_17DE38str.array_BYTE_17DE68x[v4].connected_0 && x_DWORD_17DE38str.array_BYTE_17DE68x[sub_74515()].array_byte_1[v4] == (x_WORD)v3)
+				if (v4 != a3 && x_DWORD_17DE38str.array_BYTE_17DE68x[v4].connected_0 && x_DWORD_17DE38str.array_BYTE_17DE68x[GetIndexNetwork2_74515()].arrayColors_1[v4] == (x_WORD)v3)
 				{
 					v8 = 1;
 					break;
@@ -82127,7 +81909,7 @@ void SetMultiplayerColors_7D310()//25e310
 		{
 			if (v0 != x_DWORD_17DE38str.serverIndex_17DEFC)
 			{
-				SetPaletteColor_7CDC0(v0, x_DWORD_17DE38str.array_BYTE_17DE68x[sub_74515()].array_byte_1[v0]);
+				SetPaletteColor_7CDC0(v0, x_DWORD_17DE38str.array_BYTE_17DE68x[GetIndexNetwork2_74515()].arrayColors_1[v0]);
 			}
 		}
 	}
@@ -82138,7 +81920,7 @@ void DrawNetworkLevelName_7D380()//25e380
 {
 	CleanRecByColor_85C42(pdwScreenBuffer_351628, 246, 14, 109, 14, 0x9Fu);
 	DrawHelpText_6FC50(1);
-	int v0 = x_DWORD_17DE38str.array_BYTE_17DE68x[x_DWORD_17DE38str.serverIndex_17DEFC].byte_10;
+	int v0 = x_DWORD_17DE38str.array_BYTE_17DE68x[x_DWORD_17DE38str.serverIndex_17DEFC].selectedLevel_10;
 	sprintf(printbuffer, "%d. %s", v0 - 49, LevelsNames_D9204[v0]);
 	sub_7FAE0_draw_text(printbuffer, 246, 355, 14, 0);
 }
@@ -82714,7 +82496,7 @@ char MultiplayerMenu_7DE80(type_WORD_E1F84* a2x)//25ee80
 		if (v23 == 1)
 		{
 			x_WORD_E131A = 0;
-			x_DWORD_17DE38str.x_WORD_17DEFA = (unsigned __int8)x_BYTE_E29DF_skip_screen;
+			x_DWORD_17DE38str.networkSession_17DEFA = (unsigned __int8)x_BYTE_E29DF_skip_screen;
 			ResetMouse_7B5A0();
 			if (1 == x_D41A0_BYTEARRAY_4_struct.byteindex_10)
 				v24 = x_DWORD_17DE38str.x_BYTE_17DF13;
@@ -82725,7 +82507,7 @@ char MultiplayerMenu_7DE80(type_WORD_E1F84* a2x)//25ee80
 		}
 		else
 		{
-			x_BYTE_E29DF_skip_screen = x_DWORD_17DE38str.x_WORD_17DEFA;
+			x_BYTE_E29DF_skip_screen = x_DWORD_17DE38str.networkSession_17DEFA;
 		}
 		return 1;
 	}
@@ -83732,9 +83514,10 @@ int sub_7EAE0_new_game_draw(int16_t* posx, int16_t* posy, __int16* a3, __int16* 
 								sub_80D40_move_graphics_and_play_sounds(*posx, *posy, mapScreenPortals_E17CC[v44x].portalPosX_12, mapScreenPortals_E17CC[v44x].portalPosY_14, mapScreenPortals_E17CC[v44x].activated_18);
 								x_DWORD_17DB70str.x_BYTE_17DB8E = 1;
 								x_D41A0_BYTEARRAY_4_struct.levelnumber_43w = v68;
-//#ifdef TEST_REGRESSIONS_GAME
-								//x_D41A0_BYTEARRAY_4_struct.levelnumber_43w = 1;
-//#endif
+
+								if (CommandLineParams.ModeTestRegressionsGame()) {
+									//x_D41A0_BYTEARRAY_4_struct.levelnumber_43w = 1;
+								}
 								if (mapScreenPortals_E17CC[v44x].activated_18 == 1)
 									x_D41A0_BYTEARRAY_4_struct.setting_38545 |= 4u;
 								v46x = sub_824B0(x_D41A0_BYTEARRAY_4_struct.levelnumber_43w);
@@ -86407,9 +86190,9 @@ void sub_848A0()//2658a0
 	unsigned __int16 v29; // di*/
 	__int16 v31; // [esp+4h] [ebp-4h]
 
-#ifdef DEBUG_SEQUENCES
-	//add_compare(0x2658a4, debugafterload);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		//add_compare(0x2658a4, CommandLineParams.DoDebugafterload());
+	}
 
 	//LOBYTE(v0) = D41A0_BYTESTR_0.str_2FECE.MapType;
 	if (D41A0_0.terrain_2FECE.MapType == MapType_t::Night || D41A0_0.terrain_2FECE.MapType == MapType_t::Cave)
@@ -86553,9 +86336,9 @@ void sub_84B80()//265b80
 	int16_t v7x;
 	int16_t v9; // [esp+Ch] [ebp-4h]
 
-#ifdef DEBUG_SEQUENCES
-	//add_compare(0x265b84, debugafterload);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		//add_compare(0x265b84, CommandLineParams.DoDebugafterload());
+	}
 
 	if (D41A0_0.terrain_2FECE.MapType == MapType_t::Night || D41A0_0.terrain_2FECE.MapType == MapType_t::Cave)
 	{
@@ -86667,9 +86450,9 @@ void sub_84B80()//265b80
 	int16_t v7x;
 	//__int16 v8; // [esp+8h] [ebp-8h]
 
-#ifdef DEBUG_SEQUENCES
-	//add_compare(0x265b84, debugafterload);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		//add_compare(0x265b84, CommandLineParams.DoDebugafterload());
+	}
 	if (D41A0_0.terrain_2FECE.MapType == MapType_t::Night || D41A0_0.terrain_2FECE.MapType == MapType_t::Cave)
 	{
 		if (D41A0_0.word_0x36DFA)
@@ -86785,9 +86568,9 @@ void sub_84EA0(uaxis_2d a1x, type_str_0x3664C* a2x, char a3, __int16 a4)//265ea0
 	//__int16 v13; // [esp+2h] [ebp-6h]
 	//__int16 v14; // [esp+4h] [ebp-4h]
 
-#ifdef DEBUG_SEQUENCES
-	//add_compare(0x265ea4, debugafterload,0x19);
-#endif //DEBUG_SEQUENCES
+	if (CommandLineParams.DoDebugSequences()) {
+		//add_compare(0x265ea4, CommandLineParams.DoDebugafterload(),0x19);
+	}
 
 	v4 = 31;
 	v5 = (unsigned __int8)mapShading_12B4E0[a1x.word];
@@ -87171,7 +86954,7 @@ void sub_85CC3_draw_round_frame(uint16_t* buffer)//266cc3
 }
 
 //----- (00085E40) --------------------------------------------------------
-int sub_85E40()//266e40
+int sub_85E40()//266e40 //see https://github.com/videogamepreservation/descent2/blob/master/SOURCE/BIOS/DPMI.C
 {
 	/*signed __int16 result; // ax
 
@@ -87179,7 +86962,7 @@ int sub_85E40()//266e40
 	  return 1;
 	x_DWORD_17FF10 = 4096;//ax
 	x_DWORD_17FF0C = 256;//bx - size
-	int386(49, (REGS*)&x_DWORD_17FF0C, (REGS*)&x_DWORD_17FF0C);
+//removed int386(49, (REGS*)&x_DWORD_17FF0C, (REGS*)&x_DWORD_17FF0C);//dpmi_real_malloc
 	x_WORD_E2A24 = x_DWORD_17FF0C;//2B3A24 AA0
 	x_WORD_17FF5A = x_WORD_17FF18;//350F5A 1C8
 	LOBYTE(result) = x_DWORD_17FF24 == 0;//desriptor
@@ -87191,7 +86974,6 @@ int sub_85E40()//266e40
 	x_WORD_E2A24 = (uint8_t*)malloc(size * 16 * sizeof(uint8_t));
 	return size & 0xff;
 }
-// 98D52: using guessed type x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);
 // E2A24: using guessed type __int16 x_WORD_E2A24;
 // 17FF0C: using guessed type int x_DWORD_17FF0C;
 // 17FF10: using guessed type int x_DWORD_17FF10;
@@ -87215,19 +86997,18 @@ void* sub_85EB0_alloc_memory(int32 a1)//266eb0 //malloc
 	*/
 	return malloc(a1*16*sizeof(uint8_t));
 }
-// 98D52: using guessed type x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);
 // 17FF0C: using guessed type int x_DWORD_17FF0C;
 // 17FF10: using guessed type int x_DWORD_17FF10;
 // 17FF24: using guessed type int x_DWORD_17FF24;
 
 //----- (00085F00) --------------------------------------------------------
-__int16 sub_85F00_free_memory(__int16  /*a1*/)//266f00
+__int16 sub_85F00_free_memory(__int16  /*a1*/)//266f00 //https://github.com/videogamepreservation/descent2/blob/master/SOURCE/BIOS/DPMI.C
 {
 	/*__int16 result; // ax
 
 	x_WORD_17FF18 = a1;
 	LOWORD(x_DWORD_17FF0C) = 0x100;
-	int386(49, (REGS*)&x_DWORD_17FF0C, (REGS*)&x_DWORD_17FF0C);
+//removed int386(49, (REGS*)&x_DWORD_17FF0C, (REGS*)&x_DWORD_17FF0C);
 	if ( x_DWORD_17FF24 )
 	  myprintf("fdm:error freeing %lx\n");
 	LOBYTE(result) = x_DWORD_17FF24 == 0;
@@ -87243,7 +87024,6 @@ __int16 sub_85F00_free_memory(__int16  /*a1*/)//266f00
 	}
 	return 0;
 }
-// 98D52: using guessed type x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);
 // 17FF0C: using guessed type int x_DWORD_17FF0C;
 // 17FF18: using guessed type __int16 x_WORD_17FF18;
 // 17FF24: using guessed type int x_DWORD_17FF24;
@@ -87269,24 +87049,21 @@ bool sub_85FD0()//266fd0
 */
 
 //----- (00086010) --------------------------------------------------------
-int sub_86010()//267010
+int sub_86010()//267010 //dpmi_real_int386x see:https://github.com/videogamepreservation/descent2/blob/master/SOURCE/BIOS/DPMI.C
 {
-	x_DWORD_17FF38 = 0;//nemeni se
-	x_DWORD_17FF44 = 0x1500;//nemeni se
-	//x_DWORD_17FF0C = 0x300;//nemeni se
-	x_DWORD_17FF10 = 0x2f;//nemeni se
-	x_DWORD_17FF14 = 0;//nemeni se
-	x_DWORD_17FF20 = x_DWORD_17FF28;//350f28 //nemeni se
-	/*
-	int386(49, (REGS*)&x_DWORD_17FF0C, (REGS*)&x_DWORD_17FF0C);
-	*/
+	x_DWORD_17FF38 = 0;//not changed
+	x_DWORD_17FF44 = 0x1500;//not changed
+	//x_DWORD_17FF0C = 0x300;//not changed
+	x_DWORD_17FF10 = 0x2f;//not changed
+	x_DWORD_17FF14 = 0;//not changed
+	x_DWORD_17FF20 = x_DWORD_17FF28;//350f28 //not changed
+//removed int386(49, (REGS*)&x_DWORD_17FF0C, (REGS*)&x_DWORD_17FF0C);
 	if (x_DWORD_17FF10 == 0)x_DWORD_17FF38 = 0;
 
 	x_WORD_1803EA = x_DWORD_17FF38;//0
 	x_WORD_1803EC = x_DWORD_17FF40;//0
 	return x_DWORD_17FF38;
 }
-// 98D52: using guessed type x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);
 // 17FF0C: using guessed type int x_DWORD_17FF0C;
 // 17FF10: using guessed type int x_DWORD_17FF10;
 // 17FF14: using guessed type int x_DWORD_17FF14;
@@ -87332,14 +87109,12 @@ __int16 sub_86180(unsigned __int16 a1)//267180
 	x_DWORD_17FF44 = 0x1510;
 	//x_DWORD_17FF0C = 0x300;
 	x_DWORD_17FF20 = x_DWORD_17FF28;
-	//int386(0x31, (REGS*)&x_DWORD_17FF0C, (REGS*)&x_DWORD_17FF0C);//return display params
 	//qmemcpy(unk_1803C0x, v3, 0x1Au);
 	result = x_WORD_1803C3;
 	/*unk_180498 = *(x_DWORD*)v4;
 	*((x_BYTE*)&unk_180498 + 4) = *(x_BYTE*)(v4 + 4);*/
 	return result;
 }
-// 98D52: using guessed type x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);
 // E2A6C: using guessed type int x_DWORD_E2A6C;
 // E2A70: using guessed type int x_DWORD_E2A70;
 // 17FF0C: using guessed type int x_DWORD_17FF0C;
@@ -87352,8 +87127,11 @@ __int16 sub_86180(unsigned __int16 a1)//267180
 // 17FF4A: using guessed type __int16 x_WORD_17FF4A;
 // 1803C3: using guessed type __int16 x_WORD_1803C3;
 
+//----- (00086550) --------------------------------------------------------
+// void sub_86550()//267550 NOTE: removed as it did DOS memory handling
+
 //----- (00086270) --------------------------------------------------------
-__int16 sub_86270(unsigned __int16 a1)//267270
+__int16 sub_86270(unsigned __int16 a1)//267270 see:https://github.com/videogamepreservation/descent2/blob/master/SOURCE/BIOS/DPMI.C
 {
 	//int v1; // ecx
 	__int16 result; // ax
@@ -87387,7 +87165,7 @@ __int16 sub_86270(unsigned __int16 a1)//267270
 	x_DWORD_17FF44 = 0x1510;
 	//x_DWORD_17FF0C = 0x300;
 	x_DWORD_17FF20 = x_DWORD_17FF28;
-	//int386(0x31, (REGS*)&x_DWORD_17FF0C, (REGS*)&x_DWORD_17FF0C);//Return Physical Display Parms
+//removed int386(0x31, (REGS*)&x_DWORD_17FF0C, (REGS*)&x_DWORD_17FF0C);//Return Physical Display Parms
 	//qmemcpy(unk_1803C0x, v3, 0x1Au);
 	result = x_WORD_1803C3;
 	/**unk_180470ar = *(x_DWORD*)v4;
@@ -87395,7 +87173,6 @@ __int16 sub_86270(unsigned __int16 a1)//267270
 	*((x_BYTE*)unk_180470ar + 6) = *(x_BYTE*)(v4 + 6);*/
 	return result;
 }
-// 98D52: using guessed type x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);
 // E2A6C: using guessed type int x_DWORD_E2A6C;
 // E2A70: using guessed type int x_DWORD_E2A70;
 // 17FF0C: using guessed type int x_DWORD_17FF0C;
@@ -87411,7 +87188,7 @@ __int16 sub_86270(unsigned __int16 a1)//267270
 // 1803C3: using guessed type __int16 x_WORD_1803C3;
 
 //----- (00086370) --------------------------------------------------------
-__int16 sub_86370(unsigned __int16 a1, char  /*a2*/)//267370
+__int16 sub_86370(unsigned __int16 a1, char  /*a2*/)//267370 see:https://github.com/videogamepreservation/descent2/blob/master/SOURCE/BIOS/DPMI.C
 {
 	//int v2; // ecx
 	__int16 result; // ax
@@ -87444,7 +87221,7 @@ __int16 sub_86370(unsigned __int16 a1, char  /*a2*/)//267370
 	x_DWORD_17FF44 = 0x1510;
 	//x_DWORD_17FF0C = 0x300;
 	x_DWORD_17FF20 = x_DWORD_17FF28;
-	//int386(0x31, (REGS*)&x_DWORD_17FF0C, (REGS*)&x_DWORD_17FF0C);//joystick, or graphics
+//removed int386(0x31, (REGS*)&x_DWORD_17FF0C, (REGS*)&x_DWORD_17FF0C);//joystick, or graphics
 	//qmemcpy(unk_1803C0x, v4, 0x1Au);
 	result = x_WORD_1803C3;
 	/* *unk_180484ar = *(x_DWORD*)v5;
@@ -87452,7 +87229,6 @@ __int16 sub_86370(unsigned __int16 a1, char  /*a2*/)//267370
 	*((x_BYTE*)&unk_180484ar + 6) = *(x_BYTE*)(v5 + 6);*/
 	return result;
 }
-// 98D52: using guessed type x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);
 // E2A6C: using guessed type int x_DWORD_E2A6C;
 // E2A70: using guessed type int x_DWORD_E2A70;
 // 17FF0C: using guessed type int x_DWORD_17FF0C;
@@ -87466,7 +87242,7 @@ __int16 sub_86370(unsigned __int16 a1, char  /*a2*/)//267370
 // 1803C3: using guessed type __int16 x_WORD_1803C3;
 
 //----- (00086460) --------------------------------------------------------
-void sub_86460(uint16_t a1)//267460
+void sub_86460(uint16_t a1)//267460 see:https://github.com/videogamepreservation/descent2/blob/master/SOURCE/BIOS/DPMI.C
 {
 	//int v1; // ecx
 	//__int16 result; // ax
@@ -87500,7 +87276,7 @@ void sub_86460(uint16_t a1)//267460
 	x_DWORD_17FF44 = 0x1510;
 	//x_DWORD_17FF0C = 0x300;
 	x_DWORD_17FF20 = x_DWORD_17FF28;
-	//int386(0x31, (REGS*)&x_DWORD_17FF0C, (REGS*)&x_DWORD_17FF0C);//joystick nebo grafika
+//removed int386(0x31, (REGS*)&x_DWORD_17FF0C, (REGS*)&x_DWORD_17FF0C);//joystick nebo grafika
 	//qmemcpy(unk_1803C0x, v3, 0x1Au);
 	//result = x_WORD_1803C3;
 	/**unk_18048Bar = *(x_DWORD*)v4;
@@ -87509,7 +87285,6 @@ void sub_86460(uint16_t a1)//267460
 	*((x_BYTE*)&unk_18048Bar + 10) = *(x_BYTE*)(v4 + 10);*/
 	//return result;
 }
-// 98D52: using guessed type x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);
 // E2A6C: using guessed type int x_DWORD_E2A6C;
 // E2A70: using guessed type int x_DWORD_E2A70;
 // 17FF0C: using guessed type int x_DWORD_17FF0C;
@@ -87522,29 +87297,8 @@ void sub_86460(uint16_t a1)//267460
 // 17FF4A: using guessed type __int16 x_WORD_17FF4A;
 // 1803C3: using guessed type __int16 x_WORD_1803C3;
 
-//----- (00086550) --------------------------------------------------------
-void sub_86550()//267550
-{
-	/*x_DWORD_17FF38 = 0;
-	x_DWORD_17FF44 = 5388;
-	x_DWORD_17FF0C = 768;
-	x_DWORD_17FF10 = 47;
-	x_DWORD_17FF14 = 0;
-	x_DWORD_17FF20 = (int)&unk_17FF28;
-	int386(49, (REGS*)&x_DWORD_17FF0C, (REGS*)&x_DWORD_17FF0C);
-	return x_DWORD_17FF38;*/
-	//malloc(768 * sizeof(uint8_t));
-}
-// 98D52: using guessed type x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);
-// 17FF0C: using guessed type int x_DWORD_17FF0C;
-// 17FF10: using guessed type int x_DWORD_17FF10;
-// 17FF14: using guessed type int x_DWORD_17FF14;
-// 17FF20: using guessed type int x_DWORD_17FF20;
-// 17FF38: using guessed type int x_DWORD_17FF38;
-// 17FF44: using guessed type int x_DWORD_17FF44;
-
 //----- (00086780) --------------------------------------------------------
-char sub_86780(unsigned __int16 a1, int  /*a2*/, int  /*a3*/)//267780
+char sub_86780(unsigned __int16 a1, int  /*a2*/, int  /*a3*/)//267780 see:https://github.com/videogamepreservation/descent2/blob/master/SOURCE/BIOS/DPMI.C
 {
 	/* char* v4; // esi
 
@@ -87568,11 +87322,10 @@ char sub_86780(unsigned __int16 a1, int  /*a2*/, int  /*a3*/)//267780
 	x_DWORD_17FF40 = a1;
 	//x_DWORD_17FF0C = 0x300;
 	x_DWORD_17FF44 = 0x1510;
-	//int386(0x31, (REGS*)&x_DWORD_17FF0C, (REGS*)&x_DWORD_17FF0C);//joystick nebo grafika
+//removed int386(0x31, (REGS*)&x_DWORD_17FF0C, (REGS*)&x_DWORD_17FF0C);//joystick nebo grafika
 	//qmemcpy(unk_1803A8x, v4, 0x16u);
 	return x_WORD_1803AB;
 }
-// 98D52: using guessed type x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);
 // E2A28: using guessed type char x_BYTE_E2A28;
 // E2A6C: using guessed type int x_DWORD_E2A6C;
 // E2A70: using guessed type int x_DWORD_E2A70;
@@ -87587,7 +87340,7 @@ char sub_86780(unsigned __int16 a1, int  /*a2*/, int  /*a3*/)//267780
 // 1803AB: using guessed type __int16 x_WORD_1803AB;
 
 //----- (00086860) --------------------------------------------------------
-char sub_86860_speak_Sound(unsigned __int16 a1)//267860
+char sub_86860_speak_Sound(unsigned __int16 a1)//267860 see:https://github.com/videogamepreservation/descent2/blob/master/SOURCE/BIOS/DPMI.C
 {
 	/*int v2; // esi
 	//__int16 v3; // ax
@@ -87610,7 +87363,7 @@ char sub_86860_speak_Sound(unsigned __int16 a1)//267860
 	x_DWORD_17FF40 = a1;
 	//x_DWORD_17FF0C = 0x300;
 	x_DWORD_17FF44 = 0x1510;
-	//int386(0x31, (REGS*)&x_DWORD_17FF0C, (REGS*)&x_DWORD_17FF0C);//Return Physical Display Parms
+//removed int386(0x31, (REGS*)&x_DWORD_17FF0C, (REGS*)&x_DWORD_17FF0C);//Return Physical Display Parms
 	// *unk_180452ar = *(x_DWORD*)v2;
 	/*v2 += 4;
 	*((x_DWORD*)unk_180452ar + 1) = *(x_DWORD*)v2;
@@ -87619,7 +87372,6 @@ char sub_86860_speak_Sound(unsigned __int16 a1)//267860
 	*((x_BYTE*)unk_180452ar + 12) = *(x_BYTE*)(v2 + 4);*/
 	return x_WORD_180455;
 }
-// 98D52: using guessed type x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);
 // E2A28: using guessed type char x_BYTE_E2A28;
 // E2A6C: using guessed type int x_DWORD_E2A6C;
 // E2A70: using guessed type int x_DWORD_E2A70;
@@ -87634,7 +87386,7 @@ char sub_86860_speak_Sound(unsigned __int16 a1)//267860
 // 180455: using guessed type __int16 x_WORD_180455;
 
 //----- (00086930) --------------------------------------------------------
-char sub_86930(unsigned __int16 a1)//267930
+char sub_86930(unsigned __int16 a1)//267930 see:https://github.com/videogamepreservation/descent2/blob/master/SOURCE/BIOS/DPMI.C
 {
 	//int v2; // esi
 	//__int16 v3; // ax
@@ -87657,7 +87409,7 @@ char sub_86930(unsigned __int16 a1)//267930
 	x_DWORD_17FF40 = a1;
 	//x_DWORD_17FF0C = 0x300;
 	x_DWORD_17FF44 = 0x1510;
-	//int386(0x31, (REGS*)&x_DWORD_17FF0C, (REGS*)&x_DWORD_17FF0C);
+//removed int386(0x31, (REGS*)&x_DWORD_17FF0C, (REGS*)&x_DWORD_17FF0C);
 	/**unk_180460ar = *(x_DWORD*)v2;
 	v2 += 4;
 	*((x_DWORD*)unk_180460ar + 1) = *(x_DWORD*)v2;
@@ -87666,7 +87418,6 @@ char sub_86930(unsigned __int16 a1)//267930
 	*((x_BYTE*)unk_180460ar + 12) = *(x_BYTE*)(v2 + 4);*/
 	return x_WORD_180463;
 }
-// 98D52: using guessed type x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);
 // E2A28: using guessed type char x_BYTE_E2A28;
 // E2A6C: using guessed type int x_DWORD_E2A6C;
 // E2A70: using guessed type int x_DWORD_E2A70;
@@ -87709,7 +87460,7 @@ void sub_86A00_some_allocs()//267a00
 	{
 		if (sub_86010())
 		{
-			sub_86550();
+//removed sub_86550();//some allocation
 			v1 = 0;
 			while (1)
 			{
@@ -92142,17 +91893,7 @@ char sub_8C140(unsigned __int16 a1, uint8_t* a2)//26d140
 // 99E10: using guessed type x_DWORD int386x(x_DWORD, x_DWORD, x_DWORD, x_DWORD);
 
 //----- (0008C21F) --------------------------------------------------------
-int sub_8C21F_any_graphics_command()//26d21f
-{
-	/*char v1; // [esp+0h] [ebp-38h]
-	int v2; // [esp+1Ch] [ebp-1Ch]
-
-	v2 = (unsigned __int16)x_WORD_180662_graphics_handle;
-	return int386(0x10, (REGS*)&v2, (REGS*)&v1);//grafika*/
-	return(0);//fix it
-}
-// 98D52: using guessed type x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);
-// 180662: using guessed type __int16 x_WORD_180662_graphics_handle;
+// int sub_8C21F_any_graphics_command()//26d21f NOTE: removed as it did DOS memory handling
 
 //----- (0008C2CD) --------------------------------------------------------
 void sub_8C2CD()//26d2cd
@@ -92593,7 +92334,7 @@ signed int sub_8CEDF_install_mouse()//26dedf
 	x_DWORD_E3768 = 0;
 	//segread((SREGS*)&v5);
 	//v2 = 0;
-	//int386(0x33, (REGS*)&v2, (REGS*)&v1);//mouse reset
+//removed int386(0x33, (REGS*)&v2, (REGS*)&v1);//mouse reset
 	//if ( v1 != -1 )
 	//  return 0;
 	//v2 = 0xc;
@@ -92608,7 +92349,7 @@ signed int sub_8CEDF_install_mouse()//26dedf
 	http://stanislavs.org/helppc/int_33-c.html
 	*/
 	//int386x(0x33, (REGS*)&v2, (REGS*)&v1, (SREGS*)&v5);//set mouse subroutine
-	sub_8D12F_set_mouse_viewport();
+//removed sub_8D12F_set_mouse_viewport(); //set min/max of viewport
 	if (!x_DWORD_180730_cursor_data)
 		x_DWORD_180730_cursor_data = (uint8_t*)sub_83CD0_malloc2(4096);//image buffers?-blit?
 	if (!x_DWORD_180700)
@@ -92625,18 +92366,17 @@ signed int sub_8CEDF_install_mouse()//26dedf
 	if (x_DWORD_180720)
 		;// fix it! sub_8CD27_set_cursor((uint8_t**)x_DWORD_180720);
 	//v2 = 2;
-	//int386(0x33, (REGS*)&v2, (REGS*)&v1);//hide mouse
+//removed int386(0x33, (REGS*)&v2, (REGS*)&v1);//hide mouse
 	if (x_WORD_180660_VGA_type_resolution & 8)
 	{
 		//v2 = 0xF;
 		//v3 = 1;
 		LOWORD(v4) = 1;
-		//int386(0x33, (REGS*)&v2, (REGS*)&v1);//set pixel ratio
+//removed int386(0x33, (REGS*)&v2, (REGS*)&v1);//set pixel ratio
 	}
 	x_DWORD_E3768 = 1;//fix it
 	return 1;
 }
-// 98D52: using guessed type x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);
 // 99DE6: using guessed type x_DWORD segread(x_DWORD);
 // 99E10: using guessed type x_DWORD int386x(x_DWORD, x_DWORD, x_DWORD, x_DWORD);
 // E3768: using guessed type int x_DWORD_E3768;
@@ -92650,63 +92390,7 @@ signed int sub_8CEDF_install_mouse()//26dedf
 // 180734: using guessed type int x_DWORD_180734;
 
 //----- (0008D12F) --------------------------------------------------------
-int sub_8D12F_set_mouse_viewport()//26e12f
-{
-	/*int result; // eax
-	char v1; // [esp+0h] [ebp-38h]
-	__int16 v2; // [esp+1Ch] [ebp-1Ch]
-	__int16 v3; // [esp+24h] [ebp-14h]
-	__int16 v4; // [esp+28h] [ebp-10h]
-
-	if ( x_WORD_180660_VGA_type_resolution == 8 )
-	{
-	  v2 = 7;
-	  v3 = 0;
-	  v4 = 5120;
-	  int386(0x33, (REGS*)&v2, (REGS*)&v1);//set mouse hor minmax
-	  v2 = 8;
-	  v3 = 0;
-	  v4 = 3840;
-	  result = int386(0x33, (REGS*)&v2, (REGS*)&v1);//set mouse vert minmax
-	}
-	if ( x_WORD_180660_VGA_type_resolution == 2 )
-	{
-	  v2 = 7;
-	  v3 = 0;
-	  v4 = 640;
-	  int386(0x33, (REGS*)&v2, (REGS*)&v1);//set mouse hor minmax
-	  v2 = 8;
-	  v3 = 0;
-	  v4 = 480;
-	  result = int386(0x33, (REGS*)&v2, (REGS*)&v1);//set mouse vert minmax
-	}
-	if ( x_WORD_180660_VGA_type_resolution == 4 )
-	{
-	  v2 = 7;
-	  v3 = 0;
-	  v4 = 640;
-	  int386(0x33, (REGS*)&v2, (REGS*)&v1);//set mouse hor minmax
-	  v2 = 8;
-	  v3 = 0;
-	  v4 = 400;
-	  result = int386(0x33, (REGS*)&v2, (REGS*)&v1);//set mouse vert minmax
-	}
-	if ( x_WORD_180660_VGA_type_resolution == 1 )
-	{
-	  v2 = 7;
-	  v3 = 0;
-	  v4 = 640;
-	  int386(0x33, (REGS*)&v2, (REGS*)&v1);//set mouse hor minmax
-	  v2 = 8;
-	  v3 = 0;
-	  v4 = 400;
-	  result = int386(0x33, (REGS*)&v2, (REGS*)&v1);//set mouse vert minmax
-	}
-	return result;*/
-	return 0;
-}
-// 98D52: using guessed type x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);
-// 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
+// int sub_8D12F_set_mouse_viewport()//26e12f NOTE: unused -> removed 
 
 /*
 bool Sprite::loadSprite(uint8 * tabData, uint8 * spriteData, uint32 offset,
@@ -92997,51 +92681,7 @@ char sub_904C0(float a1)//2714c0
 // D2220: using guessed type double dbl_D2220;
 
 //----- (00090530) --------------------------------------------------------
-/*unsigned __int8 sub_90530(int a1, int a2, float a3)//fix//271530
-{
-	int v3; // esi
-	unsigned __int8 result; // al
-	int v5; // ecx
-	x_DWORD *v6; // ebx
-	int v7; // eax
-
-	v3 = a2;
-	sub_904C0(a3);
-	if (a2 > 256)
-		v3 = 256;
-	result = 0;
-	//__outx_BYTE(0x3C8u, 0);
-	v5 = 0;
-	if (v3 > 0)
-	{
-		v6 = (x_DWORD *)a1;
-		do
-		{
-			// __outx_BYTE(0x3C9u, x_BYTE_181504[*(unsigned __int8 *)v6]);
-			// __outx_BYTE(0x3C9u, x_BYTE_181504[(*v6 >> 8) & 0xFF]);
-			v7 = (*v6 >> 16) & 0xFF;
-			v6++;
-			result = x_BYTE_181504[v7];
-			v5++;
-			//__outx_BYTE(0x3C9u, result);
-		} while (v5 < v3);
-	}
-	return result;
-}*/
-
-//----- (000905EC) --------------------------------------------------------
-/*void sub_905EC_any_graphics_command2(char a1)//2715ec
-{
-	char v2; // [esp+0h] [ebp-1Ch]
-	char v3; // [esp+1h] [ebp-1Bh]
-
-	x_WORD_E3908 = MEMORY[0x449];
-	v2 = a1;
-	v3 = 0;
-	//return int386(0x10, (REGS*)&v2, (REGS*)&v2);//graphics command
-}*/
-// 98D52: using guessed type x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);
-// E3908: using guessed type __int16 x_WORD_E3908;
+//unsigned __int8 sub_90530(int a1, int a2, float a3)//fix//271530 NOTE: removed (unused)
 
 //----- (00090668) --------------------------------------------------------
 signed int sub_90668(int a1)//271668
@@ -93100,7 +92740,7 @@ int sub_906B4()//fix bios graphics//2716b4
 	//v8 = 0x13;
 	//v9 = 0;
 	//x_WORD_E3908 = MEMORY[0x449];
-	//int386(0x10, (REGS*)&v8, (REGS*)&v8);//Write string (BIOS after 1/10/86) (graphics)
+//removed int386(0x10, (REGS*)&v8, (REGS*)&v8);//Write string (BIOS after 1/10/86) (graphics)
 	//sub_A0BB0((int *)&unk_E3894, 25);
 	/*__outx_WORD(0x3C4u, 0x604u);
 	__outx_WORD(0x3D4u, 0x14u);
@@ -93140,7 +92780,6 @@ int sub_906B4()//fix bios graphics//2716b4
 	//__outx_BYTE(0x3C0u, 0x20u);
 	return result;
 }
-// 98D52: using guessed type x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);
 // E3908: using guessed type __int16 x_WORD_E3908;
 // 180CA0: using guessed type int x_DWORD_180CA0[];
 
@@ -93364,18 +93003,18 @@ void sub_90D6E_VGA_set_video_mode_320x200_and_Palette(TColor* Palettex)//271d6e
 			//input1 355200(180200) - 3
 			//input2 35521c 00 0f 00 00 00
 	//v3 = 0xf00;
-	//int386(0x10, (REGS*)&v3, (REGS*)&v2);//Set video mode
+//removed int386(0x10, (REGS*)&v3, (REGS*)&v2);//Set video mode
 	VGA_Resize(320, 200);
 	if (!x_WORD_180662_graphics_handle)
 		x_WORD_180662_graphics_handle = 0x13;
 	//v3 = 0x13;
 	screenWidth_18062C = 320;
 	screenHeight_180624 = 200;
-	//int386(0x10, (REGS*)&v3, (REGS*)&v2);//Write string (BIOS after 1/10/86)
+//removed int386(0x10, (REGS*)&v3, (REGS*)&v2);//Write string (BIOS after 1/10/86)
 
 	//a1 - 3aa0a4
 	sub_41A90_VGA_Palette_install(Palettex);
-	sub_8D12F_set_mouse_viewport();
+//removed sub_8D12F_set_mouse_viewport();//set min/max viewport
 	sub_A0D50_set_viewport(0, 0, 320, 200);
 }
 
@@ -93390,15 +93029,15 @@ void sub_90D6E_VGA_set_video_mode_320x200_and_Palette_orig(TColor* a1x)
 	//fix
 
 	//v3 = 0xf00;
-	//int386(0x10, (REGS*)&v3, (REGS*)&v2);//Set video mode
+//removed int386(0x10, (REGS*)&v3, (REGS*)&v2);//Set video mode
 	if (!x_WORD_180662_graphics_handle)
 		x_WORD_180662_graphics_handle = v2;
 	//v3 = 0x13;
 	screenWidth_18062C = 320;
 	screenHeight_180624 = 200;
-	//int386(0x10, (REGS*)&v3, (REGS*)&v2);//Write string (BIOS after 1/10/86)
+//removed int386(0x10, (REGS*)&v3, (REGS*)&v2);//Write string (BIOS after 1/10/86)
 	sub_41A90_VGA_Palette_install(a1x);
-	sub_8D12F_set_mouse_viewport();
+//removed sub_8D12F_set_mouse_viewport(); /set min/max viewport
 	sub_A0D50_set_viewport(0, 0, 320, 200);
 }
 
@@ -93409,15 +93048,15 @@ void sub_90E07_VGA_set_video_mode_640x480_and_Palette(TColor* Palettex)//271e07
 	//int v3; // [esp+1Ch] [ebp-1Ch]
 
 	//v3 = 0xf00;//
-	//int386(0x10, (REGS*)&v3, (REGS*)&v2);//Set video mode
+//removed int386(0x10, (REGS*)&v3, (REGS*)&v2);//Set video mode
 	VGA_Resize(640, 480);
 	if (!x_WORD_180662_graphics_handle)
 		x_WORD_180662_graphics_handle = 0x13;
 	screenWidth_18062C = 640;
 	screenHeight_180624 = 480;
-	sub_994BA_cursor_move(0x101);
+//removed sub_994BA_cursor_move(0x101); //set position of cursor?
 	sub_41A90_VGA_Palette_install(Palettex);
-	sub_8D12F_set_mouse_viewport();
+//removed sub_8D12F_set_mouse_viewport(); //set min/max of viewport
 	sub_A0D50_set_viewport(0, 0, 640, 480);
 }
 
@@ -93427,15 +93066,15 @@ void sub_90E07_VGA_set_video_mode_alt_and_Palette(TColor* Palette)//271e07
 	//int v3; // [esp+1Ch] [ebp-1Ch]
 
 	//v3 = 0xf00;//
-	//int386(0x10, (REGS*)&v3, (REGS*)&v2);//Set video mode
+//removed int386(0x10, (REGS*)&v3, (REGS*)&v2);//Set video mode
 	VGA_Resize(screenWidth_18062C, screenHeight_180624);
 	if (!x_WORD_180662_graphics_handle)
 		x_WORD_180662_graphics_handle = 0x13;
 	screenWidth_18062C = screenWidth_18062C;
 	screenHeight_180624 = screenHeight_180624;
-	sub_994BA_cursor_move(0x101);
+//removed sub_994BA_cursor_move(0x101); //set position of cursor?
 	sub_41A90_VGA_Palette_install(Palette);
-	sub_8D12F_set_mouse_viewport();
+//removed sub_8D12F_set_mouse_viewport(); //set min/max of viewport
 	sub_A0D50_set_viewport(0, 0, screenWidth_18062C, screenHeight_180624);
 }
 
@@ -93575,25 +93214,7 @@ int sub_9937E_set_video_mode(__int16  /*a1*/)//27a37e
 // 181C44: using guessed type __int16 x_WORD_181C44;
 
 //----- (000994BA) --------------------------------------------------------
-int sub_994BA_cursor_move(__int16  /*a1*/)//27a4ba
-{
-	/*char v2; // [esp+0h] [ebp-38h]
-	char v3; // [esp+1Ch] [ebp-1Ch]
-	char v4; // [esp+1Dh] [ebp-1Bh]
-	__int16 v5; // [esp+20h] [ebp-18h]
-
-	memset(&v3, 0, 28);
-	memset(&v2, 0, 28);
-	v4 = 0x4f;
-	v3 = 2;
-	v5 = a1;
-	int386(0x10, (REGS*)&v3, (REGS*)&v2);//Set cursor position
-	return sub_9937E_set_video_mode(a1);
-	*/
-	return 0;//fix it
-}
-// 8C250: using guessed type x_DWORD memset(x_DWORD, x_DWORD, x_DWORD);
-// 98D52: using guessed type x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);
+// int sub_994BA_cursor_move(__int16  /*a1*/)//27a4ba NOTE: removed (DOS memory handling)
 
 //----- (0009951B) --------------------------------------------------------
 signed int sub_9951B(__int16 a1)//27a51b //fix graphics
@@ -93783,24 +93404,9 @@ signed int UnpackAndLoadMemoryFromPath(Pathstruct path)//27B32d
 //----- (0009AD16) --------------------------------------------------------
 int sub_9AD16_free_mem_pool(void* a1)//27Bd16
 {
-	/* fix it
-	  int result; // eax
-	char v2; // [esp+0h] [ebp-38h]
-	int v3; // [esp+1Ch] [ebp-1Ch]
-	int v4; // [esp+28h] [ebp-10h]
-
-	if ( a1 )
-	{
-	  v3 = 257;
-	  v4 = a1;
-	  result = int386(49, (REGS*)&v3, (REGS*)&v2);
-	}
-	return result;
-	*/
 	free(a1);
 	return 1;
 }
-// 98D52: using guessed type x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);
 
 //----- (0009AD9C) --------------------------------------------------------
 int sub_9AD9C(int a1)//27Bd9c
@@ -94082,64 +93688,13 @@ char* sub_9B498(char a1)//27C498
 }
 
 //----- (0009B540) --------------------------------------------------------
-bool sub_9B540_lock_linear_mem_region(unsigned int a1, unsigned int a2)//27C540
-{
-	// FIXME: Remove unused function
-
-	//int v3; // [esp+4h] [ebp-20h]
-	//unsigned int v4; // [esp+8h] [ebp-1Ch]
-	//int v5; // [esp+Ch] [ebp-18h]
-	//unsigned int v6; // [esp+14h] [ebp-10h]
-	//int v7; // [esp+18h] [ebp-Ch]
-	//int v8; // [esp+1Ch] [ebp-8h]
-
-	//fix it
-	//v8 = 0;
-	//fix it
-
-	//v3 = 0x600;
-	//v4 = a1 >> 16;
-	//v5 = (unsigned __int16)a1;
-	//v6 = a2 >> 16;
-	//v7 = (unsigned __int16)a2;
-	//int386(0x31, (REGS*)&v3, (REGS*)&v3);//Lock Linear Region
-	//return v8 == 0;
-	return true;
-}
-// 98D52: using guessed type x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);
+// bool sub_9B540_lock_linear_mem_region(unsigned int a1, unsigned int a2)//27C540 NOTE: removed (DOS memory handling)
 
 //----- (0009B5B4) --------------------------------------------------------
-bool sub_9B5B4_unlock_mem_region(unsigned int a1, unsigned int a2)//27C5B4
-{
-	// FIXME: Remove unused function
-
-	//int v3; // [esp+4h] [ebp-20h]
-	//unsigned int v4; // [esp+8h] [ebp-1Ch]
-	//int v5; // [esp+Ch] [ebp-18h]
-	//unsigned int v6; // [esp+14h] [ebp-10h]
-	//int v7; // [esp+18h] [ebp-Ch]
-	//int v8; // [esp+1Ch] [ebp-8h]
-
-	//fix it
-	//v8 = 0;
-	//fix it
-
-	//v3 = 0x601;
-	//v4 = a1 >> 16;
-	//v5 = (unsigned __int16)a1;
-	//v6 = a2 >> 16;
-	//v7 = (unsigned __int16)a2;
-	//int386(0x31, (REGS*)&v3, (REGS*)&v3);//Unlock Linear Region
-	//return v8 == 0;
-	return true;
-}
-// 98D52: using guessed type x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);
+// bool sub_9B5B4_unlock_mem_region(unsigned int a1, unsigned int a2)//27C5B4 NOTE: removed (DOS memory handling)
 
 //----- (0009B628) --------------------------------------------------------
-void sub_9B628()//27C628
-{
-	;
-}
+// void sub_9B628()//27C628 NOTE: removed (empty function)
 
 //----- (0009B63C) --------------------------------------------------------
 int sub_9B63C(int a1)//27C63C
@@ -94335,80 +93890,6 @@ int sub_9BAC4(uint8_t* a1, signed int a2)//27CAC4
 }
 // A0ED7: using guessed type x_DWORD outp(x_DWORD, char);
 
-//----- (0009BC68) --------------------------------------------------------
-signed int sub_9BC68_allocate_and_lock_memory(x_WORD* a1, uint8_t* a2, unsigned int a3)//27CC68
-{
-	//int v4; // [esp+0h] [ebp-20h]
-	//int v5; // [esp+4h] [ebp-1Ch]
-	//int v6; // [esp+Ch] [ebp-14h]
-	//int v7; // [esp+18h] [ebp-8h]
-	/*
-	//fix it
-	v6 = 0;
-	v7 = 0;
-	//fix it
-
-	*(x_DWORD*)a2 = a1;
-	if (*(x_DWORD*)(a2 + 4))
-		goto LABEL_5;
-	v4 = 0x100;
-	v5 = (signed int)(a3 + 15) >> 4;
-	//int386(0x31, (REGS*)&v4, (REGS*)&v4);//Allocate DOS Memory Block
-	if (!v7)
-	{
-		*(x_DWORD*)(a2 + 4) = 16 * (unsigned __int16)v4;
-		*(x_WORD*)(a2 + 8) = v6;
-		a1[4] = v4;
-		sub_9B540_lock_linear_mem_region(*(x_DWORD*)(a2 + 4), a3);
-	LABEL_5:
-		*a1 = 0;
-		a1[1] = 0;
-		a1[2] = 0;
-		a1[3] = a3;
-		return 1;
-	}
-	*/
-	return 0;
-}
-// 98D52: using guessed type x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);
-/*
-//----- (0009BD28) --------------------------------------------------------
-signed int sub_9BD28_allocate_and_lock_memory2(int a1)
-{
-	int v2; // [esp+0h] [ebp-28h]
-	unsigned int v3; // [esp+4h] [ebp-24h]
-	int v4; // [esp+Ch] [ebp-1Ch]
-	int v5; // [esp+18h] [ebp-10h]
-	unsigned int v7; // [esp+20h] [ebp-8h]
-	unsigned int v8; // [esp+24h] [ebp-4h]
-
-	//fix it
-	v4 = 0;
-	v5 = 0;
-	//fix it
-
-	v8 = x_BYTE_C0134 - 0xC0000;
-	v2 = 0x100;
-	v3 = (unsigned int)(x_BYTE_C0134 - 0xC0000 + 15) >> 4;
-	//int386(0x31, (REGS*)&v2, (REGS*)&v2);//allocate dos memory
-	if (v5)
-		return 0;
-	*(x_DWORD *)(a1 + 44) = 16 * (unsigned __int16)v2;
-	v7 = *(x_DWORD *)(a1 + 44);
-	*(x_WORD *)(a1 + 48) = v4;
-	memcpy((void*)v7, 0xC0000, v8);
-	sub_9B540_lock_linear_mem_region(v7, v8);
-	*(x_WORD *)(v7 + 2) = *(x_WORD *)(a1 + 28);
-	*(x_WORD *)(v7 + 4) = 0;
-	memset((void*)(v7 + 6), 0, 10);
-	memset((void*)(v7 + 16), 0, 10);
-	return 1;
-}
-// 8C250: using guessed type x_DWORD memset(x_DWORD, x_DWORD, x_DWORD);
-// 98D52: using guessed type x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);
-// 99DBD: using guessed type x_DWORD memcpy(x_DWORD, x_DWORD, x_DWORD);
-// C0000: using guessed type int  sub_C0000();
-*/
 //----- (0009BE18) --------------------------------------------------------
 int sub_9BE18(uint8_t* a1, int a2, char a3, unsigned int a4, unsigned int a5)//27CE18
 {
@@ -94487,7 +93968,7 @@ int sub_9BE18(uint8_t* a1, int a2, char a3, unsigned int a4, unsigned int a5)//2
 			x_outp(*(x_DWORD*)(a1 + 28) + 2, 0);
 			v10 = 0x200;
 			v11 = *(x_DWORD*)(a1 + 36);
-			//int386(0x31, (REGS*)&v10, (REGS*)&v10);//Get Real Mode Interrupt Vector
+//removed int386(0x31, (REGS*)&v10, (REGS*)&v10);//Get Real Mode Interrupt Vector
 			*(x_WORD*)(a1 + 50) = v12;
 			*(x_WORD*)(a1 + 52) = v13;
 			//v6 = dos_getvect(*(x_DWORD *)(a1 + 36));
@@ -94502,7 +93983,7 @@ int sub_9BE18(uint8_t* a1, int a2, char a3, unsigned int a4, unsigned int a5)//2
 			v11 = *(x_DWORD*)(a1 + 36);
 			v12 = (*(x_DWORD*)(a1 + 44) >> 4) & 0xFFFF;
 			v13 = *(x_DWORD*)(a1 + 44) & 0xF;
-			//int386(0x31, (REGS*)&v10, (REGS*)&v10);//Set Real Mode Interrupt Vector
+//removed int386(0x31, (REGS*)&v10, (REGS*)&v10);//Set Real Mode Interrupt Vector
 			sub_9B540_lock_linear_mem_region(sub_9B628, (char*)sub_9BAB0 - (char*)sub_9B628);
 			if (a3 & 1)
 			{
@@ -94550,7 +94031,6 @@ int sub_9BE18(uint8_t* a1, int a2, char a3, unsigned int a4, unsigned int a5)//2
 	*/
 	return v14;
 }
-// 98D52: using guessed type x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);
 // 99BA7: using guessed type x_DWORD dos_getvect(x_DWORD);
 // 99BDB: using guessed type x_DWORD dos_setvect(x_DWORD, x_DWORD, x_DWORD);
 // A0ED7: using guessed type x_DWORD outp(x_DWORD, char);
@@ -94692,6 +94172,12 @@ int sub_9CCF8(uint8_t* a1, int a2)//27dcf8
 	return result;
 }
 // A0ED7: using guessed type x_DWORD outp(x_DWORD, char);
+
+//----- (0009BC68) --------------------------------------------------------
+// signed int sub_9BC68_allocate_and_lock_memory(x_WORD* a1, uint8_t* a2, unsigned int a3)//27CC68 NOTE: removed (DOS memory handling)
+
+//----- (0009BD28) --------------------------------------------------------
+// signed int sub_9BD28_allocate_and_lock_memory2(int a1) // NOTE: removed (DOS memory handling)
 
 //----- (0009CD9C) --------------------------------------------------------
 int sub_9CD9C(uint8_t* a1, int a2)//27dd9c

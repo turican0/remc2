@@ -1,5 +1,6 @@
 ﻿#include "Basic.h"
 #include "engine_support.h"
+#include "CommandLineParser.h"
 
 char gameDataPath[MAX_PATH];
 char cdDataPath[MAX_PATH];
@@ -8,8 +9,6 @@ char bigGraphicsPath[MAX_PATH];
 //lenght 18
 //type_17ECA0 str_17ECA0[256]; // weak
 //uint8_t x_DWORD_17ECA0[4608]; // weak
-
-//bool hideGraphics;
 
 //extern int16_t m_iViewPortX_EA3D0; // weak?x_DWORD_E9C4C_langindexbuffer[481]
 //extern uint16_t m_uiViewPortWidth_EA3C4; // weak?x_DWORD_E9C4C_langindexbuffer[478]
@@ -1527,27 +1526,27 @@ uint32_t sub_7FAE0_draw_text(char* text, int16_t a2, int16_t a3, int16_t posy, u
 //----- (00090478) --------------------------------------------------------
 void sub_90478_VGA_Blit320()//271478
 {
-#ifdef DEBUG_SEQUENCES
-	uint8_t origbyte20 = 0;
-	uint8_t remakebyte20 = 0;
-	int comp20;
-	if (debugafterload)
-	{
-		//comp20 = compare_with_sequence((char*)"0022860F-002DC4E0", (uint8_t*)x_BYTE_10B4E0_terraintype, 0x2dc4e0, debugcounter_47560, 0x70000, 0x10000, &origbyte20, &remakebyte20);
-		//comp20 = compare_with_sequence((char*)"0022860F-002DC4E0", (uint8_t*)x_BYTE_11B4E0_height, 0x2dc4e0, debugcounter_47560, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x10000);
-		//comp20 = compare_with_sequence((char*)"0022860F-002DC4E0", (uint8_t*)x_BYTE_12B4E0_shading, 0x2dc4e0, debugcounter_47560, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x20000);
-		//comp20 = compare_with_sequence((char*)"0022860F-002DC4E0", (uint8_t*)x_BYTE_13B4E0_angle, 0x2dc4e0, debugcounter_47560, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x30000);
-		//comp20 = compare_with_sequence((char*)"0022860F-002DC4E0", (uint8_t*)x_WORD_15B4E0_source, 0x2dc4e0, debugcounter_47560, 0x70000, 0x20000, &origbyte20, &remakebyte20, 0x50000);
+	if (CommandLineParams.DoDebugSequences()) {
+		/* uint8_t origbyte20 = 0;
+		uint8_t remakebyte20 = 0;
+		int comp20;
+		if (debugafterload)
+		{
+			//comp20 = compare_with_sequence((char*)"0022860F-002DC4E0", (uint8_t*)x_BYTE_10B4E0_terraintype, 0x2dc4e0, debugcounter_47560, 0x70000, 0x10000, &origbyte20, &remakebyte20);
+			//comp20 = compare_with_sequence((char*)"0022860F-002DC4E0", (uint8_t*)x_BYTE_11B4E0_height, 0x2dc4e0, debugcounter_47560, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x10000);
+			//comp20 = compare_with_sequence((char*)"0022860F-002DC4E0", (uint8_t*)x_BYTE_12B4E0_shading, 0x2dc4e0, debugcounter_47560, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x20000);
+			//comp20 = compare_with_sequence((char*)"0022860F-002DC4E0", (uint8_t*)x_BYTE_13B4E0_angle, 0x2dc4e0, debugcounter_47560, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x30000);
+			//comp20 = compare_with_sequence((char*)"0022860F-002DC4E0", (uint8_t*)x_WORD_15B4E0_source, 0x2dc4e0, debugcounter_47560, 0x70000, 0x20000, &origbyte20, &remakebyte20, 0x50000);
 
-		//comp20 = compare_with_sequence_D41A0((char*)"0022860F-00356038", (uint8_t*)&D41A0_BYTESTR_0, 0x356038, debugcounter_271478, 224790, &origbyte20, &remakebyte20);
+			//comp20 = compare_with_sequence_D41A0((char*)"0022860F-00356038", (uint8_t*)&D41A0_BYTESTR_0, 0x356038, debugcounter_271478, 224790, &origbyte20, &remakebyte20);
 
-		//comp20 = compare_with_sequence_array_E2A74((char*)"0022860F-002B3A74", (uint8_t*)&array_E2A74, 0x2b3a74, debugcounter_271478, 0xc4e, 0xc4e, &origbyte20, &remakebyte20);
-		//if(debugcounter_271478>5)
-		//comp20 = compare_with_sequence((char*)"0022860F-003AA0A4", pdwScreenBuffer_351628, 0x3aa0a4, debugcounter_271478, 320 * 200, 320 * 200, &origbyte20, &remakebyte20);
+			//comp20 = compare_with_sequence_array_E2A74((char*)"0022860F-002B3A74", (uint8_t*)&array_E2A74, 0x2b3a74, debugcounter_271478, 0xc4e, 0xc4e, &origbyte20, &remakebyte20);
+			//if(debugcounter_271478>5)
+			//comp20 = compare_with_sequence((char*)"0022860F-003AA0A4", pdwScreenBuffer_351628, 0x3aa0a4, debugcounter_271478, 320 * 200, 320 * 200, &origbyte20, &remakebyte20);
 
-		debugcounter_271478++;
+			debugcounter_271478++;
+		} */
 	}
-#endif //DEBUG_SEQUENCES
 	if (!x_BYTE_E3766)
 		sub_8CACD_draw_cursor2();
 #ifndef debug_hide_graphics
@@ -1784,7 +1783,7 @@ void sub_6EF10_set_mouse_minmax(__int16 a1, signed __int16 a2, __int16 a3, signe
 			v8ar[4] = a1;
 			v8ar[6] = v4;
 			v8ar[0] = 7;
-			//int386(0x33, (REGS*)v8ar, (REGS*)v7ar);//set mouse min,max
+//removed int386(0x33, (REGS*)v8ar, (REGS*)v7ar);//set mouse min,max see: https://github.com/open-watcom/open-watcom-v2/blob/master/bld/src/goodies/mouse.c
 			v8ar[0] = 8;
 			v8ar[4] = a3;
 			if (a4 > 398)
@@ -1797,7 +1796,7 @@ void sub_6EF10_set_mouse_minmax(__int16 a1, signed __int16 a2, __int16 a3, signe
 			v8ar[0] = 7;
 			v8ar[4] = 8 * a1;
 			v8ar[6] = 8 * v4;
-			//int386(0x33, (REGS*)v8ar, (REGS*)v7ar);//set mouse min,max
+//removed int386(0x33, (REGS*)v8ar, (REGS*)v7ar);//set mouse min,max see: https://github.com/open-watcom/open-watcom-v2/blob/master/bld/src/goodies/mouse.c
 			v8ar[0] = 8;
 			if (a4 > 478)
 				v5 = 478;
@@ -1805,13 +1804,10 @@ void sub_6EF10_set_mouse_minmax(__int16 a1, signed __int16 a2, __int16 a3, signe
 			v5 *= 8;
 		}
 		v8ar[6] = v5;
-		//result = int386(0x33, (REGS*)v8ar, (REGS*)v7ar);//set mouse min,max
+//removed result = int386(0x33, (REGS*)v8ar, (REGS*)v7ar);//set mouse min,max see: https://github.com/open-watcom/open-watcom-v2/blob/master/bld/src/goodies/mouse.c
 	}
 	//return;
 }
-// 8C250: using guessed type x_DWORD memset(x_DWORD, x_DWORD, x_DWORD);
-// 98D52: using guessed type x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);
-// 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
 //----- (0007FB90) --------------------------------------------------------
 void sub_7FB90_draw_text(char* textbuffer, int16_t posx, int16_t posy, uint8_t color)//260b90
@@ -4114,3 +4110,17 @@ void Convert_to_shadow_D41A0_BYTESTR_0(type_D41A0_BYTESTR_0* from, type_shadow_D
 	for (int i = 0; i < 11; i++)to->stubend[i] = from->stubend[i];
 }
 
+void Convert_to_shadow_str_E2A74(const type_array_str_E2A74 &from, type_shadow_str_E2A74* to)
+{
+	for (int j = 0; j < from.size(); ++j) {
+		to[j].word_0 = from[j].word_0;
+		for (int i = 0; i < from[j].axis_2.size(); i++)
+			to[j].axis_2[i] = from[j].axis_2[i];
+		to[j].dword_12 = ((uint8_t*)from[j].dword_12 - Zero_pointer);
+		to[j].dword_16 = from[j].dword_16;
+		to[j].dword_20 = from[j].dword_20;
+		to[j].dword_24 = from[j].dword_24;
+		to[j].byte_28 = from[j].byte_28;
+		to[j].byte_29 = from[j].byte_29;
+	}
+}

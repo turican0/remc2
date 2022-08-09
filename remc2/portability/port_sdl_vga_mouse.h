@@ -60,6 +60,4 @@ void Draw_debug_matrix1();
 extern uint8_t LastPressedKey_1806E4; // weak//3516e4
 extern int8_t pressedKeys_180664[128]; // idb
 
-extern bool hideGraphics;
-
 #endif //PORT_SDL_VGA_MOUSE

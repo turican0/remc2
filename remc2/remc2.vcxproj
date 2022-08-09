@@ -354,6 +354,7 @@
     <ClInclude Include="..\SDL-Mixer-X-master\src\music.h" />
     <ClInclude Include="engine\Animation.h" />
     <ClInclude Include="engine\Basic.h" />
+    <ClInclude Include="engine\CommandLineParser.h" />
     <ClInclude Include="engine\GameRenderInterface.h" />
     <ClInclude Include="engine\GameRenderGL.h" />
     <ClInclude Include="engine\GameRenderHD.h" />
@@ -470,6 +471,7 @@
     <ClCompile Include="..\temp\dirent.c" />
     <ClCompile Include="engine\Animation.cpp" />
     <ClCompile Include="engine\Basic.cpp" />
+    <ClCompile Include="engine\CommandLineParser.cpp" />
     <ClCompile Include="engine\GameRenderGL.cpp" />
     <ClCompile Include="engine\GameRenderHD.cpp" />
     <ClCompile Include="engine\GameRenderOriginal.cpp" />

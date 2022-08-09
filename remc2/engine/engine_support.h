@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <cstdint>
 #include <assert.h>
+#include <array>
 #include <sstream>
 #include <stddef.h>
 #include <stdarg.h>     /* va_list, va_start, va_arg, va_end */
@@ -168,7 +169,7 @@ typedef struct {
 typedef struct {
 	uint16_t x;
 	uint16_t y;
-	uint16_t z;
+	int16_t z;
 }axis_3d;
 
 typedef struct {
@@ -962,7 +963,7 @@ extern uint8_t* pdwScreenBuffer_351628;
 
 typedef struct {//lenght 30
 	int16_t word_0;//str_E2A74[].word_0
-	int16_t axis_2[5]; //str_E2A74[].axis_2[0]
+	std::array<int16_t, 5> axis_2; //str_E2A74[].axis_2[0]
 	//int16_t axis_4[3];//?? str_E2A74[].axis_2[0]
 	//int16_t stuba;
 	type_event_0x6E8E* dword_12;//str_E2A74[].dword_12
@@ -975,7 +976,24 @@ typedef struct {//lenght 30
 }
 type_str_E2A74;
 
-extern type_str_E2A74 str_E2A74[0x69];
+typedef struct {//lenght 30
+	int16_t word_0;//str_E2A74[].word_0
+	int16_t axis_2[5]; //str_E2A74[].axis_2[0]
+	//int16_t axis_4[3];//?? str_E2A74[].axis_2[0]
+	//int16_t stuba;
+	int32_t dword_12;//str_E2A74[].dword_12
+	int32_t dword_16;
+	int32_t dword_20;//str_E2A74[].dword_20
+	int32_t dword_24;//str_E2A74[].dword_24
+	//int8_t byte_25;
+	int8_t byte_28;
+	int8_t byte_29;
+}
+type_shadow_str_E2A74;
+
+typedef std::array<type_str_E2A74, 0x69> type_array_str_E2A74;
+
+extern type_array_str_E2A74 str_E2A74;
 
 //extern uint8_t test_str_E2A74[];
 
@@ -984,26 +1002,26 @@ extern type_str_E2A74 str_E2A74[0x69];
 void support_begin();
 void support_end();
 
-void loadfromsnapshot(char* filename, uint8_t* adress, uint32_t adressdos, uint32_t size);
-void loadfromsnapshot2(char* filename, uint8_t* adress, uint32_t adressdos, uint32_t size);
-uint32_t compare_with_snapshot(char* filename, uint8_t* adress, uint32_t adressdos, uint32_t size, uint8_t* origbyte, uint8_t* copybyte);
-uint32_t compare_with_sequence(char* filename, uint8_t* adress, uint32_t adressdos, long count, long size1, uint32_t size2, uint8_t* origbyte, uint8_t* copybyte, long offset = 0, bool regressions=false);
-uint32_t compare_with_sequence_E7EE0(char* filename, uint8_t* adress, uint32_t adressdos, uint32_t count, uint32_t size1, uint32_t size2, uint8_t* origbyte, uint8_t* copybyte, long offset = 0);
-uint32_t compare_with_snapshot_D41A0(char* filename, uint8_t* adress, uint32_t adressdos, uint32_t size, uint8_t* origbyte, uint8_t* copybyte);
-uint32_t compare_with_sequence_D41A0(char* filename, uint8_t* adress, uint32_t adressdos, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte, long offset = 0, bool regressions = false);
-uint32_t compare_with_sequence_array_E2A74(char* filename, uint8_t* adress, uint32_t adressdos, uint32_t count, uint32_t size1, uint32_t size2, uint8_t* origbyte, uint8_t* copybyte, long offset = 0, bool regressions = false);
-uint32_t compare_with_sequence_x_DWORD_F2C20ar(char* filename, uint8_t* adress, uint32_t adressdos, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte, int* posdiff);
-uint32_t compare_with_sequence_array_222BD3(char* filename, uint8_t* adress, uint32_t adressdos, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte, int* posdiff);
-uint32_t compare_with_sequence_D41A0_4(char* filename, uint8_t* adress, uint32_t adressdos, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte, long offset = 0);
-uint32_t compare_with_sequence_EA3E4(char* filename, type_event_0x6E8E** adress, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte);
-uint32_t compare_0x6E8E(char* filename, uint8_t* adress, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte, long offset = 0);
+void loadfromsnapshot(const char* filename, uint8_t* adress, uint32_t adressdos, uint32_t size);
+void loadfromsnapshot2(const char* filename, uint8_t* adress, uint32_t adressdos, uint32_t size);
+uint32_t compare_with_snapshot(const char* filename, uint8_t* adress, uint32_t adressdos, uint32_t size, uint8_t* origbyte, uint8_t* copybyte);
+uint32_t compare_with_sequence(const char* filename, const uint8_t* adress, uint32_t adressdos, long count, long size1, uint32_t size2, uint8_t* origbyte, uint8_t* copybyte, long offset = 0, bool regressions=false);
+uint32_t compare_with_sequence_E7EE0(const char* filename, uint8_t* adress, uint32_t adressdos, uint32_t count, uint32_t size1, uint32_t size2, uint8_t* origbyte, uint8_t* copybyte, long offset = 0);
+uint32_t compare_with_snapshot_D41A0(const char* filename, uint8_t* adress, uint32_t adressdos, uint32_t size, uint8_t* origbyte, uint8_t* copybyte);
+uint32_t compare_with_sequence_D41A0(const char* filename, uint8_t* adress, uint32_t adressdos, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte, long offset = 0, bool regressions = false);
+uint32_t compare_with_sequence_array_E2A74(const char* filename, uint8_t* adress, uint32_t adressdos, uint32_t count, uint32_t size1, uint32_t size2, uint8_t* origbyte, uint8_t* copybyte, long offset = 0, bool regressions = false);
+uint32_t compare_with_sequence_x_DWORD_F2C20ar(const char* filename, uint8_t* adress, uint32_t adressdos, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte, int* posdiff);
+uint32_t compare_with_sequence_array_222BD3(const char* filename, uint8_t* adress, uint32_t adressdos, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte, int* posdiff);
+uint32_t compare_with_sequence_D41A0_4(const char* filename, uint8_t* adress, uint32_t adressdos, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte, long offset = 0);
+uint32_t compare_with_sequence_EA3E4(const char* filename, type_event_0x6E8E** adress, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte);
+uint32_t compare_0x6E8E(const char* filename, uint8_t* adress, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte, long offset = 0);
 void add_compare(uint32_t adress, bool debugafterload, int stopstep = -1, bool skip = false,int exitindex=1000000,int skip2=0);
 void add_compare2(uint32_t adress, uint8_t* memadress, uint32_t dosmemadress, uint32_t size, bool debugafterload, int stopstep = -1, bool skip = false, int exitindex = 1000000);
 void writehex(uint8_t* buffer, uint32_t count);
 
-void mine_texts(char* filename, uint32_t adressdos, uint32_t count, char* outfilename);
-int writeImage(char* filename, int width, int height, uint8_t* buffer, char* title);
-void writeImageBMP(char* imageFileName, int width, int height, uint8_t* image);
+void mine_texts(const char* filename, uint32_t adressdos, uint32_t count, char* outfilename);
+int writeImage(const char* filename, int width, int height, uint8_t* buffer, char* title);
+void writeImageBMP(const char* imageFileName, int width, int height, uint8_t* image);
 
 /*
 typedef struct {//lenght 8
@@ -2033,7 +2051,7 @@ extern type_D41A0_BYTESTR_0 D41A0_0;
 
 /*void x_D41A0_BYTEARRAY_0_to_x_D41A0_BYTESTR_0();
 void x_D41A0_BYTESTR_0_to_x_D41A0_BYTEARRAY_0();*/
-void write_posistruct_to_png(uint8_t* buffer, int width, int height, char* filename);
+void write_posistruct_to_png(uint8_t* buffer, int width, int height, const char* filename);
 
 int my_sign32(int32_t var);
 int my_sign16(int16_t var);
