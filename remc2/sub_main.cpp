@@ -53951,7 +53951,7 @@ void sub_54660_read_and_decompress_sky_and_blocks(MapType_t GraphicsType, uint8_
 			break;
 		}
 		}
-		sprintf(dataPath, "%s/%s", cdDataPath, "DATA/TMAPS2-0.TAB");
+		sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/TMAPS2-0.TAB");
 		DataFileIO::ReadFileAndDecompress(dataPath, (uint8_t**)&str_TMAPS00TAB_BEGIN_BUFFER);//2c7ed0
 		break;
 	}
