@@ -757,7 +757,7 @@ x_DWORD settextposition(x_DWORD x, x_DWORD y) {
 	#endif*/
 	return 0;
 };// weak
-void outtext(char* text) { myWriteOut(text);};// weak
+void outtext(const char* text) { myWriteOut(text);};// weak
 
 POSITION gettextposition(/*x_DWORD, x_DWORD, x_DWORD*/) {
 	return VGA_WhereXY();
@@ -53254,8 +53254,6 @@ char sub_533B0_decompress_levels(__int16 a1, type_str_2FECE* a2x)//2343b0
 	//char v8; // [esp+0h] [ebp-44h]
 	int v9; // [esp+40h] [ebp-4h]
 
-	char levelDataPath[MAX_PATH];
-
 	v2 = (uint8_t*)x_DWORD_E9C38_smalltit;
 	if (a1 < 1000)
 	{
@@ -53715,27 +53713,27 @@ char sub_54200_create_user_directiores()//235200
 	// end
 
 	printbuffer[0] = 0;
-	outtext((char*)"Checking Setup Version ..");//23521B - 29EBED
+	outtext("Checking Setup Version ..");//23521B - 29EBED
 	v0l = 1;
 	std::string versionPath = GetSubDirectoryFile(gameFolder, "CDATA", "VERSION.DAT");//235250 - 26F3D5
 	DataFileIO::ReadFileAndDecompress(versionPath.c_str(), &readbuffer);//235260 - 234E60
 	if (readbuffer[0] != 60)
 		v0h = 1;
-	outtext((char*)"\n");//235277 - 29EBED
+	outtext("\n");//235277 - 29EBED
 	std::string cDataTmapsPath0 = GetSubDirectoryFile(gameFolder, "CDATA", "TMAPS0-0.DAT");//2352A8 - 26F3D5
 	std::string dataTmapsPath0 = GetSubDirectoryFile(cdFolder, "DATA", "TMAPS0-0.DAT");//2352BE - 26F3D5
 	if (v0h || sub_53EF0_fileexist(cDataTmapsPath0.c_str(), dataTmapsPath0.c_str()))
 	{
 		x_BYTE_D41AD_skip_screen = 0;//fix can not exit from setup
 		//fix it - whne file not exist
-		outtext((char*)"Creating Setup Directories 1 ..");//2352E4 -29EBED
+		outtext("Creating Setup Directories 1 ..");//2352E4 -29EBED
 		x_DWORD_F4720 = gettextposition();//2352EC - 29E953
 
 		std::string cDataTmapsPath = GetSubDirectoryPath(gameFolder, "CDATA");//23531A - 26F3D5
 		std::string dataTmapsPath = GetSubDirectoryPath(cdFolder, "DATA");//23531A - 26F3D5
 		if (LoadFilesFromCDAndGameData(dataTmapsPath.c_str(), cDataTmapsPath.c_str(), (char*)"TMAPS0-0"))// this needs to create something // 235330 -234F80 // create tmaps00 tab / data
 			v0l = 0;
-		outtext((char*)"\n");//235343 - 29EBED
+		outtext("\n");//235343 - 29EBED
 	}
 	if (v0l)
 	{
@@ -53744,13 +53742,13 @@ char sub_54200_create_user_directiores()//235200
 		if (v0h || sub_53EF0_fileexist(cDataTmapsPath1.c_str(), dataTmapsPath1.c_str()))
 		{
 			//fix it - whne file not exist
-			outtext((char*)"Creating Setup Directories 2 ..");
+			outtext("Creating Setup Directories 2 ..");
 			x_DWORD_F4720 = gettextposition(/*v3, v4, v0*/);
 			std::string cDataTmapsPath = GetSubDirectoryPath(gameFolder, "CDATA");//2353EE - 26F3D5
 			std::string dataTmapsPath = GetSubDirectoryPath(cdFolder, "DATA");//23531A - 26F3D5
 			if (LoadFilesFromCDAndGameData(dataTmapsPath.c_str(), cDataTmapsPath.c_str(), (char*)"TMAPS1-0"))//235404 - 234F80
 				v0l = 0;
-			outtext((char*)"\n");
+			outtext("\n");
 		}
 	}
 	if (v0l)
@@ -53760,24 +53758,24 @@ char sub_54200_create_user_directiores()//235200
 		if (v0h || sub_53EF0_fileexist(cDataTmapsPath2.c_str(), dataTmapsPath2.c_str()))
 		{
 			//fix it - whne file not exist
-			outtext((char*)"Creating Setup Directories 3 ..");
+			outtext("Creating Setup Directories 3 ..");
 			x_DWORD_F4720 = gettextposition(/*v5, v6, v0*/);
 			std::string cDataTmapsPath = GetSubDirectoryPath(gameFolder, "CDATA");
 			std::string dataTmapsPath = GetSubDirectoryPath(cdFolder, "DATA");
 			if (LoadFilesFromCDAndGameData(dataTmapsPath.c_str(), cDataTmapsPath.c_str(), (char*)"TMAPS2-0"))
 				v0l = 0;
-			outtext((char*)"\n");
+			outtext("\n");
 		}
 	}
 	if (v0l && !((x_D41A0_BYTEARRAY_4_struct.setting_byte1_22) & 8))//test it
 	{
-		outtext((char*)"Setting Up Levels ..");
+		outtext("Setting Up Levels ..");
 		x_DWORD_F4720 = gettextposition(/*v7, v8, v0*/);
 		std::string clevelsPath = GetSubDirectoryPath(gameFolder, "CLEVELS");
 		std::string levelPath = GetSubDirectoryPath(cdFolder, "LEVELS");
-		if (LoadFilesFromCDAndGameData(levelPath.c_str(), clevelsPath.c_str(), (char*)"LEVELS"))
+		if (LoadFilesFromCDAndGameData(levelPath.c_str(), clevelsPath.c_str(), "LEVELS"))
 			v0l = 0;
-		outtext((char*)"\n");
+		outtext("\n");
 	}
 	if (v0l && v0h)
 	{
