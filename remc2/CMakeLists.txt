@@ -96,6 +96,9 @@ set(SOURCE_FILES_UNITTESTS
     "engine/CommandLineParser.cpp"
     "engine/CommandLineParser.h"
     "engine/CommandLineParserUT.cpp"
+    "portability/fcaseopen.cpp"
+    "portability/fcaseopen.h"
+    "portability/fcaseopenUT.cpp"
     "UnitTests.cpp"
 )
 source_group("Source Files\\unittests" FILES ${SOURCE_FILES_UNITTESTS})
@@ -120,7 +123,7 @@ source_group("Source Files\\libs\\findfirst" FILES ${SOURCE_FILES__libs__findfir
 
 set(SOURCE_FILES__portability
     "portability/mctypes.h"
-    "portability/fcaseopen.c"
+    "portability/fcaseopen.cpp"
     "portability/fcaseopen.h"
     "portability/port_net.cpp"
     "portability/port_net.h"
