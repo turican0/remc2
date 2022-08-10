@@ -3,7 +3,7 @@
 #include "fcaseopen.h"
 
 
-TEST (tokens, fcaseopen) { 
+TEST (fcaseopen, tokens) { 
     std::string path1 = "/asdf/dummy/file.c";
     std::string path2 = "./dummy2/file2.c";
 
@@ -18,7 +18,7 @@ TEST (tokens, fcaseopen) {
     EXPECT_EQ ("file2.c", tokens2[2]);
 }
 
-TEST (casepath, fcaseopen) { 
+TEST (fcaseopen, casepath) { 
     EXPECT_EQ ( casepath("/usr/share"),          "/usr/share");
     EXPECT_EQ ( casepath("/usr/share/"),         "/usr/share/");
     EXPECT_EQ ( casepath("/usr/../usr/share"),   "/usr/../usr/share");
