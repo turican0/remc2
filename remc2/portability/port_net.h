@@ -3,34 +3,12 @@
 
 #include <cstdlib>
 #include <iostream>
-//#include <boost/bind/bind.hpp>
-//#include <boost/asio.hpp>
 
 #include "../engine/defs.h"
 #include "../portability/port_outputs.h"
 
 extern const char* debug_net_filename1;
 extern std::string debug_net_filename2;
-
-/*
-typedef struct _REGS {
-	uint32 eax;
-	uint32 ebx;
-	uint32 ecx;
-	uint32 edx;
-	uint32 esi;
-	uint32 edi;
-	uint32 cflag;
-} REGS;
-
-struct SREGS {
-	unsigned short es;
-	unsigned short ds;
-	unsigned short fs;
-	unsigned short gs;
-	unsigned short cs;
-	unsigned short ss;
-};*/
 
 typedef struct {//lenght 10
 	char byte_0[50];
@@ -62,10 +40,6 @@ typedef struct {//lenght 66(changed to 70)
 myNCB;
 #pragma pack (16)
 
-
-bool NetworkGetInitInfoFromServer(char* serverIP);
-char* NetworkListenForClients();
-
 void makeNetwork(myNCB* connection);
 
 void EndMyNetLib();
@@ -78,10 +52,10 @@ void CleanMessages(myNCB* locNCB);
 void printState(myNCB** connections);
 void printState2(char* text);
 
-void SendNetwork(myNCB* connection);
-
 bool ReceiveServerAddName();
 
-void InitMyNetLib(bool iam_server, char* ip, int networkPort);
+void InitMyNetLib(bool iam_server, char* ip, int networkPort, int serverPort);
+
+void debug_net_printf(const char* format, ...);
 
 #endif //PORT_NETWORK

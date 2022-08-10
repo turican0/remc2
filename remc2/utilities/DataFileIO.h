@@ -84,9 +84,9 @@ public:
 	static vars_t* init_vars();
 	static int UnpackData(vars_t* v);
 	static int Unpack(vars_t* v);
-	static FILE* CreateOrOpenFile(char* pathname, int __pmode);
-	static FILE* CreateFile(char* path, uint32_t flags);
-	static FILE* Open(char* path, int pmode, uint32_t flags);
+	static FILE* CreateOrOpenFile(const char* pathname, int __pmode);
+	static FILE* CreateFile(const char* path, uint32_t flags);
+	static FILE* Open(const char* path, int pmode, uint32_t flags);
 	static int32_t Close(FILE* file);
 	static int32_t Seek(FILE* file, x_DWORD position, char type);
 	static size_t Read(FILE* file, uint8_t* data, uint32_t length);

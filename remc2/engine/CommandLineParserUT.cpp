@@ -17,6 +17,12 @@ TEST (DebugParameters, CommandLineParser) {
         (char*)"dummy2",
         nullptr
     };
+    char *memimage_check[] = {
+        (char*)"exe filename",
+        (char*)"--memimages_path",
+        (char*)"/home/user/remc2/memimages",
+        nullptr
+    };
 
     CommandLineParams.Init(args, with_test_reg_game_group);
 
@@ -29,4 +35,8 @@ TEST (DebugParameters, CommandLineParser) {
 
     EXPECT_EQ (true, CommandLineParams.ModeReleaseGame());          // default mode if no other mode is selected
     EXPECT_EQ (false, CommandLineParams.ModeTestRegressionsGame()); // this mode should not be set
+
+    CommandLineParams.Init(args, memimage_check);
+
+    EXPECT_EQ ("/home/user/remc2/memimages", CommandLineParams.GetMemimagesPath());
 }

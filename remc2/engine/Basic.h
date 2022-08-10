@@ -113,7 +113,7 @@ typedef struct//lenght 613 // end 17E09D
 	__int16 x_WORD_17DEF4; // weak
 	__int16 x_WORD_17DEF6; // weak
 	__int16 x_WORD_17DEF8; // weak
-	__int16 x_WORD_17DEFA; // weak
+	__int16 networkSession_17DEFA; // weak
 	__int16 serverIndex_17DEFC; // weak
 	__int16 x_WORD_17DEFE; // weak
 	__int16 x_WORD_17DF00; // weak
@@ -177,9 +177,9 @@ extern uint8_t* ViewPortRenderBufferStart_DE558;
 
 extern uint8_t* ViewPortRenderBufferAltStart_DE554;
 
-extern char gameDataPath[];
-extern char cdDataPath[];
-extern char bigGraphicsPath[];
+extern std::string gameDataPath;
+extern std::string cdDataPath;
+extern std::string bigGraphicsPath;
 
 //extern type_17ECA0 str_17ECA0[];
 //extern uint8_t x_DWORD_17ECA0[];
