@@ -88,6 +88,8 @@ std::string GetSubDirectoryPath(const char* subDirectory);
 
 std::string GetSubDirectoryPath(const char* gamepath, const char* subDirectory);
 
+std::string GetSubDirectoryFilePath(const char* subDirectory, const char* fileName);
+
 std::string GetSubDirectoryFile(const char* gamepath, const char* subDirectory, const char* fileName);
 
 std::string GetSaveGameFile(const char* gamepath, int16_t index);

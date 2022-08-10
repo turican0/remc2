@@ -27586,7 +27586,7 @@ void DrawGameFrame_2BE30()//20CE30
 			}
 		}
 
-		//WriteBufferToBMP(screenWidth, screenHeight, *xadatapald0dat2.colorPalette_var28, pdwScreenBuffer_351628);
+		//WriteBufferToBMP(screenWidth_18062C, screenHeight_180624, *xadatapald0dat2.colorPalette_var28, pdwScreenBuffer_351628);
 
 		if (v3x->dword_0x8 < 0)
 		{
@@ -39528,8 +39528,12 @@ void sub_46820_simple_timer(HMDIDRIVER  /*user*/)//227820
 void write_pngs2()
 {
 	//uint8_t buffer[10000];
-	char outdir[512];
-	GetSubDirectoryPath(outdir, "outimg");
+	std::string outdir = GetSubDirectoryPath("outimg");
+	if (myaccess(outdir.c_str(), 0) < 0)
+	{
+		std::string exepath = get_exe_path();
+		mymkdir((exepath + "/" + "outimg").c_str());
+	}
 
 	for (int k = 0; k < 0x1F8u; k++)
 	{
@@ -39546,9 +39550,10 @@ void write_pngs2()
 			//memcpy((uint8_t*)buffer, actimg + 6, lenght);
 			if ((width > 0) && (width < 1024) && (width != 0xcdcd) && (height < 768))
 			{
-				char outname[512];
-				sprintf(outname, "%s\\test-%03d.bmp", outdir, k);
-				write_posistruct_to_png((uint8_t*)&actimg->textureBuffer, width, height, outname);//test write
+				char outname[MAX_PATH];
+				sprintf(outname, "test-%03d.bmp", k);
+				std::string path = GetSubDirectoryFilePath("outimg", outname);
+				write_posistruct_to_png((uint8_t*)&actimg->textureBuffer, width, height, path.c_str());//test write
 			}
 		}
 	}
@@ -75956,17 +75961,17 @@ void ClearGraphicsBuffer_72883(void* ptrScreenBuffer, uint16_t width, uint16_t h
 
 void WriteBufferToBMP(uint16_t width, uint16_t height, uint8_t* ptrPalette, uint8_t* ptrBuffer)
 {
-	char path[MAX_PATH];
-	GetSubDirectoryPath(path, "BufferOut");
-	if (myaccess(path, 0) < 0)
+	std::string path = GetSubDirectoryPath("BufferOut");
+	if (myaccess(path.c_str(), 0) < 0)
 	{
-		mymkdir(path);
+		std::string exepath = get_exe_path();
+		mymkdir((exepath + "/" + "BufferOut").c_str());
 	}
 
-	GetSubDirectoryPath(path, "BufferOut/PaletteOut.bmp");
-	BitmapIO::WritePaletteAsImageBMP(path, 256, ptrPalette);
-	GetSubDirectoryPath(path, "BufferOut/BufferOut.bmp");
-	BitmapIO::WriteImageBufferAsImageBMP(path, width, height, ptrPalette, ptrBuffer);
+	path = GetSubDirectoryFilePath("BufferOut", "PaletteOut.bmp");
+	BitmapIO::WritePaletteAsImageBMP(path.c_str(), 256, ptrPalette);
+	path = GetSubDirectoryFilePath("BufferOut","BufferOut.bmp");
+	BitmapIO::WriteImageBufferAsImageBMP(path.c_str(), width, height, ptrPalette, ptrBuffer);
 }
 
 
@@ -82789,6 +82794,7 @@ signed int sub_7E640(type_WORD_E1F84* a1x)//25f640
 	signed int result; // eax
 
 	char dataPath[MAX_PATH];
+	std::string dataPath2 = GetSubDirectoryPath(cdDataPath.c_str(), "DATA/SCREENS/HSCREEN0.DAT");
 
 	sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/SCREENS/HSCREEN0.DAT");
 

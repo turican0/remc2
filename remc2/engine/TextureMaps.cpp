@@ -452,6 +452,7 @@ void InitTmaps(unsigned __int16 a1)//251f50
 			if (index3x)
 			{
 				int index4 = sub_70C60_decompress_tmap(i, (uint8_t*)index3x->partstr_0);
+				//WriteTextureMapToBmp(i, index3x->partstr_0, D41A0_0.terrain_2FECE.MapType);
 				if (index4 != -1)
 				{
 					if (bigSprites)
@@ -666,31 +667,30 @@ int sub_70C60_decompress_tmap(uint16_t texture_index, uint8_t* texture_buffer)//
 
 void WriteTextureMapToBmp(uint16_t texture_index, type_particle_str* ptextureMap, MapType_t mapType)
 {
-	char path[MAX_PATH];
-	char name[50];
-	GetSubDirectoryPath(path, "BufferOut");
-	if (myaccess(path, 0) < 0)
+	char name[MAX_PATH];
+	std::string path = GetSubDirectoryPath("BufferOut");
+	if (myaccess(path.c_str(), 0) < 0)
 	{
-		mymkdir(path);
+		std::string exepath = get_exe_path();
+		mymkdir((exepath + "/" + "BufferOut").c_str());
 	}
 
 	if (m_pColorPalette == NULL)
 	{
 		m_pColorPalette = LoadTMapColorPalette(mapType);
-		GetSubDirectoryPath(path, "BufferOut/PalletOut.bmp");
-		BitmapIO::WritePaletteAsImageBMP(path, 256, m_pColorPalette);
+		path = GetSubDirectoryFilePath("BufferOut","PalletOut.bmp");
+		BitmapIO::WritePaletteAsImageBMP(path.c_str(), 256, m_pColorPalette);
 	}
 
-	sprintf(name, "BufferOut/TmapOut%03d%s", texture_index, ".bmp");
-	GetSubDirectoryPath(path, name);
-	BitmapIO::WriteRGBAImageBufferAsImageBMP(path, ptextureMap->width, ptextureMap->height, m_pColorPalette, (uint8_t*)ptextureMap->textureBuffer);
+	sprintf(name, "TmapOut%03d%s", texture_index, ".bmp");
+	path = GetSubDirectoryFilePath("BufferOut", name);
+	BitmapIO::WriteRGBAImageBufferAsImageBMP(path.c_str(), ptextureMap->width, ptextureMap->height, m_pColorPalette, (uint8_t*)ptextureMap->textureBuffer);
 }
 
 uint8_t* LoadTMapColorPalette(MapType_t mapType)
 {
 	uint8_t* Palettebuffer = new uint8_t[768];
 	FILE* palfile;
-	char path[MAX_PATH];
 	char palleteName[50];
 
 	switch (mapType)
@@ -706,8 +706,8 @@ uint8_t* LoadTMapColorPalette(MapType_t mapType)
 		break;
 	}
 
-	GetSubDirectoryPath(path, palleteName);
-	palfile = fopen(path, "rb");
+	std::string path = GetSubDirectoryPath(palleteName);
+	palfile = fopen(path.c_str(), "rb");
 	fread(Palettebuffer, 768, 1, palfile);
 	fclose(palfile);
 

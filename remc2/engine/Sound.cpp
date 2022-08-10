@@ -10159,18 +10159,18 @@ int sub_AEAF5()//28faf5
 
 void WriteWaveToFile(wav_t* wav, int index)
 {
-	char path[MAX_PATH];
 	char name[50];
-	GetSubDirectoryPath(path, "BufferOut");
-	if (myaccess(path, 0) < 0)
+	std::string path = GetSubDirectoryPath("BufferOut");
+	if (myaccess(path.c_str(), 0) < 0)
 	{
-		mymkdir(path);
+		std::string exepath = get_exe_path();
+		mymkdir((exepath + "/" + std::string("BufferOut")).c_str());
 	}
 
-	sprintf(name, "BufferOut/SoundFile%03d%s", index, ".wav");
-	GetSubDirectoryPath(path, name);
+	sprintf(name, "SoundFile%03d%s", index, ".wav");
+	path = GetSubDirectoryFilePath("BufferOut", name);
 
-	FILE* wavFile = fopen(path, "wb");
+	FILE* wavFile = fopen(path.c_str(), "wb");
 	fwrite((uint8_t*)wav, 1, WAVE_HEADER_SIZE_BYTES, wavFile);
 	fwrite((uint8_t*)wav->data_44, 1, wav->dataSizeBytes_40, wavFile);
 

@@ -544,6 +544,12 @@ std::string GetSubDirectoryPath(const char* gamepath, const char* subDirectory)
 	return path.c_str();
 }
 
+std::string GetSubDirectoryFilePath(const char* subDirectory, const char* fileName)
+{
+	std::string subDirPath = GetSubDirectoryPath(subDirectory);
+	return subDirPath + "/" + std::string(fileName);
+}
+
 std::string GetSubDirectoryFile(const char* gamepath, const char* subDirectory, const char* fileName)
 {
 	std::string subDirPath = GetSubDirectoryPath(gamepath, subDirectory);
