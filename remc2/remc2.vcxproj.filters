@@ -440,6 +440,9 @@
     </ClInclude>
     <ClInclude Include="engine\CommandLineParser.h">
       <Filter>Header Files\engine</Filter>
+	</ClInclude>
+    <ClInclude Include="portability\fcaseopen.h">
+      <Filter>Header Files\portability</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -745,6 +748,9 @@
     </ClCompile>
     <ClCompile Include="engine\CommandLineParser.cpp">
       <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="portability\fcaseopen.c">
+      <Filter>Source Files\portability</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
