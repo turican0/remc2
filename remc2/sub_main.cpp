@@ -55471,8 +55471,7 @@ int sub_main(int argc, char** argv, char**  /*envp*/)//236F70
 
 	//char maindir[1024];
 	myprintf("Finding Game Data...\n");
-	std::string mainfile = GetSubDirectoryFile(gameFolder, "CDATA", "TMAPS0-0.DAT");
-	if (!file_exists(mainfile.c_str()))//test original file
+	if (std::string mainfile = GetSubDirectoryFile(gameFolder, "CDATA", "TMAPS0-0.DAT"); !file_exists(mainfile.c_str()))//test original file
 	{
 		//myprintf("Original Game Data Not Found, find GOG iso file\n");
 		/*char locexepath[1024];
@@ -85889,7 +85888,7 @@ void sub_83850_show_welcome_screen()//264850
 
 	sub_7AA70_load_and_decompres_dat_file(dataPath, x_DWORD_E9C38_smalltit, 0x178E5F, 0x32B9);
 	sub_7AA70_load_and_decompres_dat_file(dataPath, *xadatapald0dat2.colorPalette_var28, 0x17C118, 0x300);
-	sub_7AA70_load_and_decompres_dat_file(cdDataPath.c_str(), 0, 0, 0);
+	sub_7AA70_load_and_decompres_dat_file(cdDataPath.c_str(), nullptr, 0, 0);
 	//v0 = (int)sub_7AA70_load_and_decompres_dat_file(0, 0, 0, 0); //fix it
 	//v0 = 0;//fix it
 	v1 = 0;
