@@ -2735,7 +2735,7 @@ int32_t sub_84300_load_sound(uint8_t a1)//265300
 			sub_8D8F0_sound_proc3_endsample();
 
 		std::string soundPath = GetSubDirectoryFile(cdFolder, "SOUND", "SOUND.DAT");
-		file = DataFileIO::CreateOrOpenFile(strdup(soundPath.c_str()), 512);
+		file = DataFileIO::CreateOrOpenFile(soundPath.c_str(), 512);
 		//v2 = v1;
 		//v3 = v1;
 		if (file != NULL)

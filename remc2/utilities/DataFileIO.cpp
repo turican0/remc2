@@ -227,7 +227,7 @@ int DataFileIO::Unpack(vars_t* v)
 	return -result;
 }
 
-FILE* DataFileIO::CreateOrOpenFile(char* pathname, int __pmode)
+FILE* DataFileIO::CreateOrOpenFile(const char* pathname, int __pmode)
 {
 	FILE* file; // ST10_4
 
@@ -241,12 +241,12 @@ FILE* DataFileIO::CreateOrOpenFile(char* pathname, int __pmode)
 	return Open(pathname, __pmode, 0x40);
 }
 
-FILE* DataFileIO::CreateFile(char* path, uint32_t flags) 
+FILE* DataFileIO::CreateFile(const char* path, uint32_t flags)
 {
 	return mycreate(path, flags);
 }
 
-FILE* DataFileIO::Open(char* path, int pmode, uint32_t flags) {
+FILE* DataFileIO::Open(const char* path, int pmode, uint32_t flags) {
 	return myopen(path, pmode, flags);
 }
 

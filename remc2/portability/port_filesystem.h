@@ -50,7 +50,7 @@ FILE* mycreate(const char* path, uint32_t flags);
 int32_t myaccess(const char* path, uint32_t flags);
 int32_t mymkdir(const char* path);
 
-FILE* myopen(char* path, int pmode, uint32_t flags);
+FILE* myopen(const char* path, int pmode, uint32_t flags);
 int myclose(FILE* descriptor);
 int32_t mylseek(FILE* filedesc, x_DWORD position, char type);
 int32_t myfseek(FILE* filedesc, x_DWORD position, char type);

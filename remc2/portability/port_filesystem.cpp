@@ -215,7 +215,7 @@ int32_t /*__cdecl*/ mymkdir(const char* path) {
 	return result;
 };
 
-FILE* myopen(char* path, int pmode, uint32_t flags) {
+FILE* myopen(const char* path, int pmode, uint32_t flags) {
 	#ifdef DEBUG_START
 		debug_printf("myopen:open file:%s\n", path);
 	#endif //DEBUG_START

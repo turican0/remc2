@@ -53260,20 +53260,20 @@ char sub_533B0_decompress_levels(__int16 a1, type_str_2FECE* a2x)//2343b0
 	if (a1 < 1000)
 	{
 		std::string levelDataPath = GetSubDirectoryFile(gameFolder, "CLEVELS", "LEVELS.DAT");
-		levelsdatfile = DataFileIO::CreateOrOpenFile(strdup(levelDataPath.c_str()), 512);
+		levelsdatfile = DataFileIO::CreateOrOpenFile(levelDataPath.c_str(), 512);
 		if (levelsdatfile == NULL)
 		{
 			levelDataPath = GetSubDirectoryFile(cdFolder, "LEVELS", "LEVELS.DAT");
-			levelsdatfile = DataFileIO::CreateOrOpenFile(strdup(levelDataPath.c_str()), 512);
+			levelsdatfile = DataFileIO::CreateOrOpenFile(levelDataPath.c_str(), 512);
 			if (levelsdatfile == NULL)
 				return 0;
 		}
 		levelDataPath = GetSubDirectoryFile(gameFolder, "CLEVELS", "LEVELS.TAB");
-		levelstabfile = DataFileIO::CreateOrOpenFile(strdup(levelDataPath.c_str()), 512);
+		levelstabfile = DataFileIO::CreateOrOpenFile(levelDataPath.c_str(), 512);
 		if (levelstabfile == NULL)
 		{
 			levelDataPath = GetSubDirectoryFile(cdFolder, "LEVELS", "LEVELS.TAB");
-			levelstabfile = DataFileIO::CreateOrOpenFile(strdup(levelDataPath.c_str()), 512);
+			levelstabfile = DataFileIO::CreateOrOpenFile(levelDataPath.c_str(), 512);
 			if (levelstabfile == NULL)
 			{
 				DataFileIO::Close(levelsdatfile);
@@ -53585,8 +53585,8 @@ bool sub_53EF0_fileexist(const char* path, const char* path2)//234ef0//fix a2
 	FILE* testfile1; // eax
 	FILE* testfile2; // eax
 	bool result = false; // [esp+0h] [ebp-4h]
-	testfile1 = DataFileIO::CreateOrOpenFile(strdup(path), 512);
-	testfile2 = DataFileIO::CreateOrOpenFile(strdup(path2), 512);
+	testfile1 = DataFileIO::CreateOrOpenFile(path, 512);
+	testfile2 = DataFileIO::CreateOrOpenFile(path2, 512);
 	if (testfile1 == NULL || testfile2 == NULL)
 		result = true;
 	if (testfile1 != NULL)
@@ -53597,7 +53597,7 @@ bool sub_53EF0_fileexist(const char* path, const char* path2)//234ef0//fix a2
 }
 
 //----- (00053F60) --------------------------------------------------------
-bool sub_53F60(char* a1)//234f60
+bool sub_53F60(const char* a1)//234f60
 {
 	return myaccess(a1, 0) != NULL;//234F69 - 279CF2
 }
@@ -53627,9 +53627,9 @@ char LoadFilesFromCDAndGameData(const char* cdPath, const char* gamePath, const 
 	int v20; // [esp+18Ch] [ebp-8h]
 	//FILE* v21; // [esp+190h] [ebp-4h]
 
-	if (!sub_53F60(strdup(cdPath)))//234F90 - 234F60
+	if (!sub_53F60(cdPath))//234F90 - 234F60
 		return 2;
-	if (!sub_53F60(strdup(gamePath)))//234FA5 - 234F60
+	if (!sub_53F60(gamePath))//234FA5 - 234F60
 		return 1;
 	sprintf(printbuffer, "%s/%s.TAB", cdPath, fileName);//234FCA - 269F3D5
 	sprintf(printbuffer2, "%s/%s.TAB", gamePath, fileName);//234FE3 - 269F3D5
@@ -55573,10 +55573,10 @@ void sub_560D0_create_sound_dir()//2370d0
 	//v7 = 1;
 	sprintf(printbuffer, "DEVICE\t\tNone\r\nDRIVER\t\tNone\r\nIO_ADDR\t\t-1\r\nIRQ\t\t-1\r\nDMA_8_BIT\t\t-1\r\nDMA_16_BIT\t\t-1\r\n");
 	std::string digPath = GetSubDirectoryFile(gameFolder, "SOUND", "DIG.INI");
-	diginifile2 = DataFileIO::CreateOrOpenFile(strdup(digPath.c_str()), 512);
+	diginifile2 = DataFileIO::CreateOrOpenFile(digPath.c_str(), 512);
 	if (diginifile2 == NULL)
 	{
-		diginifile = DataFileIO::CreateOrOpenFile(strdup(digPath.c_str()), 546);
+		diginifile = DataFileIO::CreateOrOpenFile(digPath.c_str(), 546);
 		if (diginifile != NULL)
 		{
 			sub_98CAA_write(diginifile, (uint8_t*)printbuffer, strlen(printbuffer));
@@ -55588,10 +55588,10 @@ void sub_560D0_create_sound_dir()//2370d0
 		DataFileIO::Close(diginifile2);
 	}
 	std::string mdiPath = GetSubDirectoryFile(gameFolder, "SOUND", "MDI.INI");
-	mdiini = DataFileIO::CreateOrOpenFile(strdup(mdiPath.c_str()), 512);
+	mdiini = DataFileIO::CreateOrOpenFile(mdiPath.c_str(), 512);
 	if (mdiini == NULL)
 	{
-		mdiini2 = DataFileIO::CreateOrOpenFile(strdup(mdiPath.c_str()), 546);
+		mdiini2 = DataFileIO::CreateOrOpenFile(mdiPath.c_str(), 546);
 		if (mdiini2 != NULL)
 		{
 			sub_98CAA_write(mdiini2, (uint8_t*)printbuffer, strlen(printbuffer));
@@ -78835,7 +78835,7 @@ char sub_780F0_load_game_dialog(type_WORD_E1F84* a1x)//0x2590f0
 			x_DWORD_17DE38str.xx_BYTE_17DF14[im][41] = 0;
 			x_DWORD_17DE38str.xx_BYTE_17DF14[im][42] = 0;
 			std::string saveGameFilePath = GetSaveGameFile(gameFolder, im + 1);
-			SEARCH_FILE = DataFileIO::CreateOrOpenFile(strdup(saveGameFilePath.c_str()), 512);
+			SEARCH_FILE = DataFileIO::CreateOrOpenFile(saveGameFilePath.c_str(), 512);
 			if (SEARCH_FILE != NULL)
 			{
 				DataFileIO::Read(SEARCH_FILE, (uint8_t*)&dword_0, 4);
@@ -78857,7 +78857,7 @@ char sub_780F0_load_game_dialog(type_WORD_E1F84* a1x)//0x2590f0
 		{
 			//Load Saved Game File
 			std::string loadFilePath = GetSaveGameFile(gameFolder, x_DWORD_17DE38str.x_WORD_17DF04);
-			FILE = DataFileIO::CreateOrOpenFile(strdup(loadFilePath.c_str()), 512);
+			FILE = DataFileIO::CreateOrOpenFile(loadFilePath.c_str(), 512);
 			//v10 = v9;
 			if (FILE != NULL)
 			{
@@ -79101,7 +79101,7 @@ char sub_78730_save_game_dialog(type_WORD_E1F84* a1x)//259730
 			} while (v7);*/
 			v56 = v45;
 			std::string saveGameFilePath = GetSaveGameFile(gameFolder, v2);
-			file1 = DataFileIO::CreateOrOpenFile(strdup(saveGameFilePath.c_str()), 512);
+			file1 = DataFileIO::CreateOrOpenFile(saveGameFilePath.c_str(), 512);
 			if (file1 != NULL)
 			{
 				DataFileIO::Read(file1, (uint8_t*)&v54, 4);
@@ -79133,7 +79133,7 @@ char sub_78730_save_game_dialog(type_WORD_E1F84* a1x)//259730
 				v9 += 2;
 			} while (v12);*/
 			std::string saveGameFilePath = GetSaveGameFile(gameFolder, x_DWORD_17DE38str.x_WORD_17DF04);
-			file2 = DataFileIO::CreateOrOpenFile(strdup(saveGameFilePath.c_str()), 546);
+			file2 = DataFileIO::CreateOrOpenFile(saveGameFilePath.c_str(), 546);
 			if (file2 != NULL)
 			{
 				//v14 = (x_WORD*)unk_E17CC_0x194;
@@ -80435,7 +80435,7 @@ void sub_7AA70_load_and_decompres_dat_file(const char* path, uint8_t* filebuffer
 {
 	//FILE* result; // eax
 
-	if (x_DWORD_17DE38str.x_DWORD_17DEE0_filedesc != NULL || (x_DWORD_17DE38str.x_DWORD_17DEE0_filedesc = DataFileIO::CreateOrOpenFile(strdup(path), 512)))
+	if (x_DWORD_17DE38str.x_DWORD_17DEE0_filedesc != NULL || (x_DWORD_17DE38str.x_DWORD_17DEE0_filedesc = DataFileIO::CreateOrOpenFile(path, 512)))
 	{
 		//result = x_DWORD_17DEE0_filedesc;
 		if (x_DWORD_17DE38str.x_DWORD_17DEE0_filedesc != NULL)
@@ -83719,7 +83719,7 @@ int LoadLanguageFile(posistruct2_t** a1x, posistruct2_t** a2x, uint8_t* a3, char
 	{
 		//v4 = atoi(langfilename +1);
 		//v4 = unknown_libname_1_atoi((char*)(a4 + 1));
-		langfile = DataFileIO::CreateOrOpenFile(strdup(languageFilePath.c_str()), 512);//279f9e
+		langfile = DataFileIO::CreateOrOpenFile(languageFilePath.c_str(), 512);//279f9e
 		//v6 = langfile;
 		//v14 = langfile;
 		if (langfile != NULL)
@@ -83785,7 +83785,7 @@ int sub_7F960(posistruct2_t* a1x, posistruct2_t* a2x, uint8_t* a3, char* langcou
 	for (i = 0; i < 2u; i = v10 + 1)
 	{
 		langcount = atoi((langcountstring + 1));
-		langfile = DataFileIO::CreateOrOpenFile(strdup(languagePath.c_str()), 512);
+		langfile = DataFileIO::CreateOrOpenFile(languagePath.c_str(), 512);
 		//v6 = v5;
 		//v7 = v5;
 		if (langfile != NULL)
@@ -93119,7 +93119,7 @@ signed int sub_98C48_open_nwrite_close(const char* filename, uint8_t* buffer, ui
 	int result; // ST14_4
 	FILE* file; // [esp+4h] [ebp-8h]
 
-	file = DataFileIO::CreateOrOpenFile(strdup(filename), 546);
+	file = DataFileIO::CreateOrOpenFile(filename, 546);
 	if (file == NULL)
 		return -1;//mozna null
 	result = sub_98CAA_write(file, buffer, count);
