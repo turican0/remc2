@@ -215,7 +215,7 @@ int32_t /*__cdecl*/ mymkdir(const char* path) {
 	return result;
 };
 
-FILE* myopen(char* path, int pmode, uint32_t flags) {
+FILE* myopen(const char* path, int pmode, uint32_t flags) {
 	#ifdef DEBUG_START
 		debug_printf("myopen:open file:%s\n", path);
 	#endif //DEBUG_START
@@ -225,7 +225,7 @@ FILE* myopen(char* path, int pmode, uint32_t flags) {
 	else if ((pmode == 0x200) && (flags == 0x40))type = "rb+";
 	else
 		exit(1);//error - DOSSetError(DOSERR_ACCESS_CODE_INVALID);
-	FILE *fp = NULL;
+	FILE* fp = nullptr;
 	//char path2[512] = "\0";
 	//pathfix(path, path2);//only for DOSBOX version
 	//#ifdef DEBUG_START
@@ -529,32 +529,38 @@ std::string getExistingDataPath(std::filesystem::path path)
 	return file_found;
 }
 
-void GetSubDirectoryPath(char* buffer, const char* subDirectory)
+std::string GetSubDirectoryPath(const char* subDirectory)
 {
 	std::string path = getExistingDataPath(subDirectory);
-	sprintf(buffer, "%s", path.c_str());
+	return path.c_str();
 }
 
-void GetSubDirectoryPath(char* buffer, const char* gamepath, const char* subDirectory)
+std::string GetSubDirectoryPath(const char* gamepath, const char* subDirectory)
 {
 	std::string path = getExistingDataPath(
 		std::filesystem::path(gamepath) / std::filesystem::path(subDirectory)
 	);
-	sprintf(buffer, "%s", path.c_str());
+	return path.c_str();
 }
 
-void GetSubDirectoryFile(char* buffer, const char* gamepath, const char* subDirectory, const char* fileName)
+std::string GetSubDirectoryFilePath(const char* subDirectory, const char* fileName)
 {
-	char subDirPath[MAX_PATH]; 
-	GetSubDirectoryPath(subDirPath, gamepath, subDirectory);
-	sprintf(buffer, "%s/%s", subDirPath, fileName);
+	std::string subDirPath = GetSubDirectoryPath(subDirectory);
+	return subDirPath + "/" + std::string(fileName);
 }
 
-void GetSaveGameFile(char* buffer, const char* gamepath, int16_t index)
+std::string GetSubDirectoryFile(const char* gamepath, const char* subDirectory, const char* fileName)
 {
-	char subDirPath[MAX_PATH];
-	GetSubDirectoryPath(subDirPath, gamepath, "SAVE");
-	sprintf(buffer, "%s/SAVE%d.GAM", subDirPath, index);
+	std::string subDirPath = GetSubDirectoryPath(gamepath, subDirectory);
+	return subDirPath + "/" + std::string(fileName);
+}
+
+std::string GetSaveGameFile(const char* gamepath, int16_t index)
+{
+	std::string subDirPath = GetSubDirectoryPath(gamepath, "SAVE");
+	char buffer[MAX_PATH];
+	sprintf(buffer, "%s/SAVE%d.GAM", subDirPath.c_str(), index);
+	return std::string(buffer);
 }
 
 int GetDirectory(char* directory, const char* filePath)

@@ -337,7 +337,7 @@ void sub_8D290_init_sound(/*char* a1*//*, int a2, int a3*/)//26e290
 
 	char soundGamePath[MAX_PATH];
 
-	sprintf(soundGamePath, "%s/SOUND", gameDataPath);
+	sprintf(soundGamePath, "%s/SOUND", gameDataPath.c_str());
 	//fix it
 	//v7 = 0;
 	//v5 = 0;
@@ -730,8 +730,8 @@ void /*__fastcall*/ sub_8D970_init_music(/*char* a1*//*int a1, int a2, char* a3*
 	char soundCdPath[MAX_PATH];
 	char soundGamePath[MAX_PATH];
 
-	sprintf(soundCdPath, "%s/SOUND", cdDataPath);
-	sprintf(soundGamePath, "%s/SOUND", gameDataPath);
+	sprintf(soundCdPath, "%s/SOUND", cdDataPath.c_str());
+	sprintf(soundGamePath, "%s/SOUND", gameDataPath.c_str());
 
 	//errno_t v7x;
 	//fix it
@@ -2717,8 +2717,6 @@ __int16 sub_98AE9(__int16* a1, int a2)//279ae9
 //----- (00084300) --------------------------------------------------------
 int32_t sub_84300_load_sound(uint8_t a1)//265300
 {
-	char soundPath[MAX_PATH];
-
 	FILE* file; // eax
 	//FILE* v2; // ebx
 	//FILE* v3; // edi
@@ -2736,8 +2734,8 @@ int32_t sub_84300_load_sound(uint8_t a1)//265300
 		if (x_WORD_E2A14_sound_activeh)
 			sub_8D8F0_sound_proc3_endsample();
 
-		GetSubDirectoryFile(soundPath, cdFolder, "SOUND", "SOUND.DAT");
-		file = DataFileIO::CreateOrOpenFile(soundPath, 512);
+		std::string soundPath = GetSubDirectoryFile(cdFolder, "SOUND", "SOUND.DAT");
+		file = DataFileIO::CreateOrOpenFile(soundPath.c_str(), 512);
 		//v2 = v1;
 		//v3 = v1;
 		if (file != NULL)
@@ -2804,7 +2802,7 @@ int32_t sub_84300_load_sound(uint8_t a1)//265300
 // 84300: using guessed type __int16 var_14[6];
 
 //----- (000844A0) --------------------------------------------------------
-void sub_844A0_sound_proc5(uint16_t count)//2654a0
+void LoadSoundDataFromBuffer_844A0(uint16_t count)//2654a0
 {
 	__int16 v0; // bx
 	//type_E37A0_sound_buffer2* v1x; // eax
@@ -2828,6 +2826,9 @@ void sub_844A0_sound_proc5(uint16_t count)//2654a0
 #ifdef x64_BIT_ENVIRONMENT
 			soundIndex_E37A0->str_8.wavs_10[index].wavData_0 = reinterpret_cast<uint64_t>(soundIndex_E37A0->str_8.wavs_10[index].wavData_0) + x_DWORD_E37A8_sound_buffer1;
 #endif //x64_BIT_ENVIRONMENT
+
+			//WriteWaveToFile((wav_t*)soundIndex_E37A0->str_8.wavs_10[index].wavData_0, (char*)soundIndex_E37A0->str_8.wavs_10[index-1].filename_14);
+
 			index++;
 			v0++;
 		}
@@ -2924,7 +2925,7 @@ char ReadAndDecompressSound(FILE* file, unsigned __int8 a2)//2654f0
 	numOfLoadedSounds_E37A4 = (v8x[a2].sizeBytes_8) / sizeof(shadow_sub2type_E37A0_sound_buffer2);
 	DataFileIO::Seek(file, v8x[a2].dword_4, 0);
 	DataFileIO::Read(file, x_DWORD_E37A8_sound_buffer1, 8);
-	if (x_DWORD_E37A8_sound_buffer1[0] != 82 || x_DWORD_E37A8_sound_buffer1[1] != 78 || x_DWORD_E37A8_sound_buffer1[2] != 67)
+	if (x_DWORD_E37A8_sound_buffer1[0] != 'R' || x_DWORD_E37A8_sound_buffer1[1] != 'N' || x_DWORD_E37A8_sound_buffer1[2] != 'C')
 	{
 		DataFileIO::Read(file, (x_DWORD_E37A8_sound_buffer1 + 8), v8x[a2].dword_12 - 8);
 	}
@@ -2959,11 +2960,16 @@ char ReadAndDecompressSound(FILE* file, unsigned __int8 a2)//2654f0
 	{
 		soundIndex_E37A0->str_8.wavs_10[i].wavData_0 = (uint8_t*)shadow_str_E37A0_sound_buffer2->str_8.wavs_10[i].wavData_0;
 		for (int j = 0; j < 4; j++)
+		{
 			soundIndex_E37A0->str_8.wavs_10[i].stub_4[j] = shadow_str_E37A0_sound_buffer2->str_8.wavs_10[i].stub_4[j];
+		}
+
 		soundIndex_E37A0->str_8.wavs_10[i].wavSize_8 = shadow_str_E37A0_sound_buffer2->str_8.wavs_10[i].wavSize_8;
 		soundIndex_E37A0->str_8.wavs_10[i].word_12 = shadow_str_E37A0_sound_buffer2->str_8.wavs_10[i].word_12;
-		for (int j = 18; j < 18; j++)
+		for (int j = 0; j < 18; j++)
+		{
 			soundIndex_E37A0->str_8.wavs_10[i].filename_14[j] = shadow_str_E37A0_sound_buffer2->str_8.wavs_10[i].filename_14[j];
+		}
 	}
 	/*for (int i = 0; i < 14; i++)
 		str_E37A0_sound_buffer2->str_8.stubb[i] = shadow_str_E37A0_sound_buffer2->str_8.stubb[i];*/
@@ -2972,7 +2978,7 @@ char ReadAndDecompressSound(FILE* file, unsigned __int8 a2)//2654f0
 	sub_83E80_freemem4((uint8_t*)shadow_str_E37A0_sound_buffer2);
 	//64xfix
 
-	sub_844A0_sound_proc5(numOfLoadedSounds_E37A4);
+	LoadSoundDataFromBuffer_844A0(numOfLoadedSounds_E37A4);
 	x_BYTE_E3798_sound_active2 = 1;
 	return 1;
 }
@@ -9083,7 +9089,7 @@ signed int LoadMusic(int channel)//26fad0
 		return 0;
 	sub_8E020_sound_proc14_stopsequence();
 
-	sprintf(musicPath, "%s/SOUND/MUSIC.DAT", cdDataPath);
+	sprintf(musicPath, "%s/SOUND/MUSIC.DAT", cdDataPath.c_str());
 	filehandle = DataFileIO::CreateOrOpenFile(musicPath, 512);
 	if (!filehandle)
 		return 0;
@@ -10157,26 +10163,30 @@ int sub_AEAF5()//28faf5
 {
 	return x_DWORD_E4C90;
 }
-// E4C90: using guessed type int x_DWORD_E4C90;
 
-void WriteWaveToFile(wav_t* wav, int index)
+void WriteWaveToFile(wav_t* wav, const char* name)
 {
-	char path[MAX_PATH];
-	char name[50];
-	GetSubDirectoryPath(path, "BufferOut");
-	if (myaccess(path, 0) < 0)
+	if (wav != nullptr && wav->data_44 != nullptr)
 	{
-		mymkdir(path);
+		std::string path = GetSubDirectoryPath("BufferOut");
+		if (myaccess(path.c_str(), 0) < 0)
+		{
+			std::string exepath = get_exe_path();
+			mymkdir((exepath + "/" + std::string("BufferOut")).c_str());
+		}
+
+		if (_stricmp(name, "") == 0)
+		{
+			name = "UNKNOWN.WAV";
+		}
+
+		path = GetSubDirectoryFilePath("BufferOut", name);
+		FILE* wavFile = fopen(path.c_str(), "wb");
+		fwrite((uint8_t*)wav, 1, WAVE_HEADER_SIZE_BYTES, wavFile);
+		fwrite((uint8_t*)wav->data_44, 1, wav->dataSizeBytes_40, wavFile);
+
+		fclose(wavFile);
 	}
-
-	sprintf(name, "BufferOut/SoundFile%03d%s", index, ".wav");
-	GetSubDirectoryPath(path, name);
-
-	FILE* wavFile = fopen(path, "wb");
-	fwrite((uint8_t*)wav, 1, WAVE_HEADER_SIZE_BYTES, wavFile);
-	fwrite((uint8_t*)wav->data_44, 1, wav->dataSizeBytes_40, wavFile);
-
-	fclose(wavFile);
 }
 
 

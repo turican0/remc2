@@ -286,9 +286,8 @@ bool VGA_LoadFont()
 	bool success = true;
 
 	//Load splash image
-	char fontPath[512];
-	GetSubDirectoryPath(fontPath, "font/16x16-font.bmp");
-	surface_font = SDL_LoadBMP(fontPath);
+	std::string fontPath = GetSubDirectoryPath("font/16x16-font.bmp");
+	surface_font = SDL_LoadBMP(fontPath.c_str());
 	if (surface_font == NULL)
 	{
 		printf("Unable to load image %s! SDL Error: %s\n", "16x16-font.bmp", SDL_GetError());
