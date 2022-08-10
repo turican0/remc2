@@ -225,7 +225,7 @@ FILE* myopen(const char* path, int pmode, uint32_t flags) {
 	else if ((pmode == 0x200) && (flags == 0x40))type = "rb+";
 	else
 		exit(1);//error - DOSSetError(DOSERR_ACCESS_CODE_INVALID);
-	FILE *fp = NULL;
+	FILE* fp = nullptr;
 	//char path2[512] = "\0";
 	//pathfix(path, path2);//only for DOSBOX version
 	//#ifdef DEBUG_START
@@ -512,7 +512,7 @@ std::string getExistingDataPath(std::filesystem::path path)
 	// first location at which the file can be found is chosen
 	for (std::string file_location : file_locations) {
 #if !defined(_WIN32)
-		char caseInsensitivePath[250];
+		char caseInsensitivePath[MAX_PATH];
 		casepath(file_location.c_str(), caseInsensitivePath);
 		if (std::filesystem::exists(caseInsensitivePath)) {
 			file_found = std::string(caseInsensitivePath);
