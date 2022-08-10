@@ -2660,7 +2660,7 @@ int sub_A0B24(int a1);
 int sub_A0BB0(int* a1, int a2);
 void sub_A0D2C_VGA_get_Palette(TColor* a1);
 void sub_A0D50_set_viewport(uint16_t posX, uint16_t posY, uint16_t width, uint16_t height);
-signed int sub_AB9E1_get_file_unpack_size(char* a1);
+signed int sub_AB9E1_get_file_unpack_size(const char* a1);
 int sub_AC24B();
 void sub_AC250(int a1, int a2, int a3, int a4, int a5, x_DWORD* a6, x_DWORD* a7, signed int* a8);
 x_BYTE* sub_AD09E(x_BYTE* a1, int a2);
@@ -39528,8 +39528,7 @@ void sub_46820_simple_timer(HMDIDRIVER  /*user*/)//227820
 void write_pngs2()
 {
 	//uint8_t buffer[10000];
-	std::string outdir = GetSubDirectoryPath("outimg");
-	if (myaccess(outdir.c_str(), 0) < 0)
+	if (std::string outdir = GetSubDirectoryPath("outimg"); myaccess(outdir.c_str(), 0) < 0)
 	{
 		std::string exepath = get_exe_path();
 		mymkdir((exepath + "/" + "outimg").c_str());
@@ -53736,7 +53735,7 @@ char sub_54200_create_user_directiores()//235200
 
 		std::string cDataTmapsPath = GetSubDirectoryPath(gameFolder, "CDATA");//23531A - 26F3D5
 		std::string dataTmapsPath = GetSubDirectoryPath(cdFolder, "DATA");//23531A - 26F3D5
-		if (LoadFilesFromCDAndGameData(dataTmapsPath.c_str(), cDataTmapsPath.c_str(), (char*)"TMAPS0-0"))// this needs to create something // 235330 -234F80 // create tmaps00 tab / data
+		if (LoadFilesFromCDAndGameData(dataTmapsPath.c_str(), cDataTmapsPath.c_str(), "TMAPS0-0"))// this needs to create something // 235330 -234F80 // create tmaps00 tab / data
 			v0l = 0;
 		outtext("\n");//235343 - 29EBED
 	}
@@ -53751,7 +53750,7 @@ char sub_54200_create_user_directiores()//235200
 			x_DWORD_F4720 = gettextposition(/*v3, v4, v0*/);
 			std::string cDataTmapsPath = GetSubDirectoryPath(gameFolder, "CDATA");//2353EE - 26F3D5
 			std::string dataTmapsPath = GetSubDirectoryPath(cdFolder, "DATA");//23531A - 26F3D5
-			if (LoadFilesFromCDAndGameData(dataTmapsPath.c_str(), cDataTmapsPath.c_str(), (char*)"TMAPS1-0"))//235404 - 234F80
+			if (LoadFilesFromCDAndGameData(dataTmapsPath.c_str(), cDataTmapsPath.c_str(), "TMAPS1-0"))//235404 - 234F80
 				v0l = 0;
 			outtext("\n");
 		}
@@ -53767,7 +53766,7 @@ char sub_54200_create_user_directiores()//235200
 			x_DWORD_F4720 = gettextposition(/*v5, v6, v0*/);
 			std::string cDataTmapsPath = GetSubDirectoryPath(gameFolder, "CDATA");
 			std::string dataTmapsPath = GetSubDirectoryPath(cdFolder, "DATA");
-			if (LoadFilesFromCDAndGameData(dataTmapsPath.c_str(), cDataTmapsPath.c_str(), (char*)"TMAPS2-0"))
+			if (LoadFilesFromCDAndGameData(dataTmapsPath.c_str(), cDataTmapsPath.c_str(), "TMAPS2-0"))
 				v0l = 0;
 			outtext("\n");
 		}
@@ -94420,7 +94419,7 @@ void sub_A0D50_set_viewport(uint16_t posX, uint16_t posY, uint16_t width, uint16
 }*/
 
 //----- (000AB9E1) --------------------------------------------------------
-signed int sub_AB9E1_get_file_unpack_size(char* path)//28c9e1
+signed int sub_AB9E1_get_file_unpack_size(const char* path)//28c9e1
 {
 	uint8_t v2[10]; // [esp+0h] [ebp-1Ch]
 	//unsigned __int8 v3; // [esp+4h] [ebp-18h]
