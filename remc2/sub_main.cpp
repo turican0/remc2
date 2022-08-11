@@ -27979,7 +27979,7 @@ void sub_2CE30_pause_end_level(int a1, int a2)//20de30
 	//int result; // eax
 	//unsigned int v4; // edi
 	int16_t v4x;
-	unsigned __int8 v5; // bl
+	unsigned __int8 indexedColor; // bl
 	int v6; // eax
 	//uint8_t* v7; // ebx
 	int v7y;
@@ -28003,7 +28003,7 @@ void sub_2CE30_pause_end_level(int a1, int a2)//20de30
 	DrawHelpText_6FC50(x_BYTE_D419D_fonttype);
 	//result = (int)x_D41A0_BYTEARRAY_4;
 	v4x = a1;
-	v5 = (*xadataclrd0dat.colorPalette_var28)[0xf00];
+	indexedColor = (*xadataclrd0dat.colorPalette_var28)[0xf00];
 	if (!x_D41A0_BYTEARRAY_4_struct.byteindex_205 && !x_D41A0_BYTEARRAY_4_struct.SelectedMenuItem_38546)
 	{
 		if (x_D41A0_BYTEARRAY_4_struct.setting_byte3_24 & 1)
@@ -28015,7 +28015,7 @@ void sub_2CE30_pause_end_level(int a1, int a2)//20de30
 		if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 0x20) && D41A0_0.struct_0x3659C[D41A0_0.LevelIndex_0xc].substr_3659C.IsLevelEnd_0)
 		{
 			sprintf(printbuffer, "%s. %s.", x_DWORD_E9C4C_langindexbuffer[378], x_DWORD_E9C4C_langindexbuffer[379]);//Tasks completed,Fly to the exit point.
-			DrawText_2BC10(printbuffer, v4x, a2, v5);
+			DrawText_2BC10(printbuffer, v4x, a2, indexedColor);
 			v4x = a1;
 			LOWORD(v6) = sub_6FC30_get34_height();
 			v2 = v6 + a2;
@@ -29646,13 +29646,10 @@ void DrawPauseMenu_2FD90()//210d90
 //----- (0002FFE0) --------------------------------------------------------
 void GetPauseMenuCoordinates_2FFE0(int16_t* a1, int16_t* a2, int16_t* a3, int16_t* a4)//210fe0
 {
-	//int v4; // eax
 	int v5; // eax
-	int v6; // ebx
-	int v7; // eax
+	int32_t v6; // ebx
+	int32_t v7; // eax
 
-	/*v4 = **filearray_2aa18c[6];
-	*a3 = *(unsigned __int8 *)(**filearray_2aa18c[6] + 1048) + 2;*/
 	*a3 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[178].width_4 + 2;
 	v5 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[178].height_5;
 	*a4 = v5;
@@ -29665,12 +29662,11 @@ void GetPauseMenuCoordinates_2FFE0(int16_t* a1, int16_t* a2, int16_t* a3, int16_
 			v7 = (screenWidth_18062C - *a3) / 2;
 		}
 
-	LOBYTE(v7) = v7 & 0xFE;
+	v7 &= 0xFFFFFFFE;
 	*a1 = v7;
-	LOBYTE(v6) = v6 & 0xFE;
+	v6 &= 0xFFFFFFFE;
 	*a2 = v6;
 }
-// EA3DC: using guessed type int **filearray_2aa18c[6];
 
 //----- (00030050) --------------------------------------------------------
 void DrawInGameOptionsMenu_30050()//211050
