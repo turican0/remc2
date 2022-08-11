@@ -88832,15 +88832,9 @@ void sub_88BA0()//269ba0
 //----- (00088D00) --------------------------------------------------------
 void sub_88D00()//269d00
 {
-	//int result; // eax
-
-	//result = (int)x_D41A0_BYTEARRAY_4;
 	if (x_D41A0_BYTEARRAY_4_struct.byteindex_10)
 		str_unk_1804B0ar.word_0x88 = 93;
-	//return result;
 }
-// D41A4: using guessed type int x_DWORD_D41A4;
-// 180538: using guessed type __int16 x_WORD_180538;
 
 //----- (00088D40) --------------------------------------------------------
 void sub_88D40()//269d40
