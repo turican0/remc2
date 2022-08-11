@@ -1588,7 +1588,3 @@ void EndMyNetLib() {
 	singleThreadSleep(500);
 	delete locNetworkClass;
 }
-
-#include <math.h>   
-#include <corecrt_math_defines.h>
-
