@@ -2,9 +2,9 @@
 #include "engine_support.h"
 #include "CommandLineParser.h"
 
-char gameDataPath[MAX_PATH];
-char cdDataPath[MAX_PATH];
-char bigGraphicsPath[MAX_PATH];
+std::string gameDataPath;
+std::string cdDataPath;
+std::string bigGraphicsPath;
 
 //lenght 18
 //type_17ECA0 str_17ECA0[256]; // weak

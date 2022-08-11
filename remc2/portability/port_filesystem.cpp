@@ -85,13 +85,13 @@ void my_findclose(long hFile){
 };
 
 bool file_exists(const char * filename) {
-	/*if (FILE * file = fopen(filename, "r")) {
+	/*if (FILE * file = fcaseopen(filename, "r")) {
 		fclose(file);
 		return true;
 	}
 	return false;*/
 	FILE* file;
-	if ((file = fopen(filename, "r")) != NULL) {
+	if ((file = fcaseopen(filename, "r")) != NULL) {
 		fclose(file);
 		#ifdef DEBUG_START
 				debug_printf("file_exists:true-%s\n", filename);
@@ -106,7 +106,7 @@ bool file_exists(const char * filename) {
 
 FILE* mycreate(const char* path, uint32_t  /*flags*/) {
 	FILE *fp;
-	fp = fopen(path, "wb+");
+	fp = fcaseopen(path, "wb+");
 	#ifdef DEBUG_START
 		debug_printf("mycreate:%p\n",fp);
 	#endif //DEBUG_START
@@ -133,11 +133,11 @@ void debug_printf(const char* format, ...) {
 
 	if (debug_first)
 	{
-		debug_output = fopen(path.c_str(), "wt");
+		debug_output = fcaseopen(path.c_str(), "wt");
 		debug_first = false;
 	}
 	else
-		debug_output = fopen(path.c_str(), "at");
+		debug_output = fcaseopen(path.c_str(), "at");
 	fprintf(debug_output, "%s", prbuffer);
 	fclose(debug_output);
 	#ifdef DEBUG_PRINT_DEBUG_TO_SCREEN
@@ -215,7 +215,7 @@ int32_t /*__cdecl*/ mymkdir(const char* path) {
 	return result;
 };
 
-FILE* myopen(char* path, int pmode, uint32_t flags) {
+FILE* myopen(const char* path, int pmode, uint32_t flags) {
 	#ifdef DEBUG_START
 		debug_printf("myopen:open file:%s\n", path);
 	#endif //DEBUG_START
@@ -225,7 +225,7 @@ FILE* myopen(char* path, int pmode, uint32_t flags) {
 	else if ((pmode == 0x200) && (flags == 0x40))type = "rb+";
 	else
 		exit(1);//error - DOSSetError(DOSERR_ACCESS_CODE_INVALID);
-	FILE *fp;
+	FILE* fp = nullptr;
 	//char path2[512] = "\0";
 	//pathfix(path, path2);//only for DOSBOX version
 	//#ifdef DEBUG_START
@@ -233,7 +233,7 @@ FILE* myopen(char* path, int pmode, uint32_t flags) {
 	//#endif //DEBUG_START
 	//if(file_exists(path2))
 
-	fp=fopen(path, type);
+	fp= fcaseopen(path, type);
 	#ifdef DEBUG_START
 		debug_printf("myopen:open end %p\n", fp);
 	#endif //DEBUG_START
@@ -268,7 +268,7 @@ int DirExists(const char* path)
 
 FILE* myopent(char* path, char* type) {
 	FILE *fp;
-	fp=fopen(path, type);
+	fp= fcaseopen(path, type);
 	#ifdef DEBUG_FILEOPS
 		debug_printf("myopent:end: %p\n", fp);
 	#endif //DEBUG_FILEOPS
@@ -438,7 +438,7 @@ void AdvReadfile(const char* path, uint8_t* buffer) {
 	*/
 	FILE* file;
 	//fopen_s(&file, (char*)"c:\\prenos\\remc2\\biggraphics\\out_rlt-n-out.data", (char*)"rb");
-	file=fopen(path2.c_str(), (char*)"rb");
+	file= fcaseopen(path2.c_str(), (char*)"rb");
 	fseek(file, 0L, SEEK_END);
 	long szdata = ftell(file);
 	fseek(file, 0L, SEEK_SET);
@@ -466,7 +466,7 @@ bool ExistGraphicsfile(const char* path) {
 void ReadGraphicsfile(const char* path, uint8_t* buffer, long size) 
 {
 	FILE* file;
-	file = fopen(path, (char*)"rb");
+	file = fcaseopen(path, (char*)"rb");
 	if (file != NULL)
 	{
 		if (size == -1)
@@ -510,43 +510,57 @@ std::string getExistingDataPath(std::filesystem::path path)
 	std::string file_found;
 
 	// first location at which the file can be found is chosen
-	for (auto file_location: file_locations) {
+	for (const std::string &file_location: file_locations) {
+#if !defined(_WIN32)
+		std::string caseInsensitivePath = casepath(file_location);
+		if (std::filesystem::exists(caseInsensitivePath)) {
+			file_found = std::string(caseInsensitivePath);
+			break;
+		}
+#else
 		if (std::filesystem::exists(file_location)) {
 			file_found = file_location;
 			break;
 		}
+#endif
 	}
 
 	std::cout << "Data file found: " << file_found << "\n";
 	return file_found;
 }
 
-void GetSubDirectoryPath(char* buffer, const char* subDirectory)
+std::string GetSubDirectoryPath(const char* subDirectory)
 {
 	std::string path = getExistingDataPath(subDirectory);
-	sprintf(buffer, "%s", path.c_str());
+	return path.c_str();
 }
 
-void GetSubDirectoryPath(char* buffer, const char* gamepath, const char* subDirectory)
+std::string GetSubDirectoryPath(const char* gamepath, const char* subDirectory)
 {
 	std::string path = getExistingDataPath(
 		std::filesystem::path(gamepath) / std::filesystem::path(subDirectory)
 	);
-	sprintf(buffer, "%s", path.c_str());
+	return path.c_str();
 }
 
-void GetSubDirectoryFile(char* buffer, const char* gamepath, const char* subDirectory, const char* fileName)
+std::string GetSubDirectoryFilePath(const char* subDirectory, const char* fileName)
 {
-	char subDirPath[MAX_PATH]; 
-	GetSubDirectoryPath(subDirPath, gamepath, subDirectory);
-	sprintf(buffer, "%s/%s", subDirPath, fileName);
+	std::string subDirPath = GetSubDirectoryPath(subDirectory);
+	return subDirPath + "/" + std::string(fileName);
 }
 
-void GetSaveGameFile(char* buffer, const char* gamepath, int16_t index)
+std::string GetSubDirectoryFile(const char* gamepath, const char* subDirectory, const char* fileName)
 {
-	char subDirPath[MAX_PATH];
-	GetSubDirectoryPath(subDirPath, gamepath, "SAVE");
-	sprintf(buffer, "%s/SAVE%d.GAM", subDirPath, index);
+	std::string subDirPath = GetSubDirectoryPath(gamepath, subDirectory);
+	return subDirPath + "/" + std::string(fileName);
+}
+
+std::string GetSaveGameFile(const char* gamepath, int16_t index)
+{
+	std::string subDirPath = GetSubDirectoryPath(gamepath, "SAVE");
+	char buffer[MAX_PATH];
+	sprintf(buffer, "%s/SAVE%d.GAM", subDirPath.c_str(), index);
+	return std::string(buffer);
 }
 
 int GetDirectory(char* directory, const char* filePath)

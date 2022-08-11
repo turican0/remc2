@@ -36,8 +36,10 @@ Tomas has done amazing work, not only reverse engineering this code but updating
 
 There are two ways to build the Linux binary.
 - Building a native binary
-  1. Pull the development branch
-  2. Make sure that you have the following dependencies as development packages (the exact names depend on your distro)
+  1. Pull the development branch using GitHub (this is much easier if you install Visual Studio Code and install C++ Extension, cmake, cmake tools)
+  2. Make sure that you have `CMake`, `make` and a recent `GCC` installed
+     - To install them on Debian/Pi OS: `sudo apt install -y cmake`  
+  3. Make sure that you have the following dependencies as development packages (the exact names depend on your distro)
   - SDL2
   - SDL2_mixer
   - SDL2_image
@@ -45,7 +47,7 @@ There are two ways to build the Linux binary.
   - libpng
   - boost
   - boost-system
-  3. Make sure that you have `CMake`, `make` and a recent `GCC` installed
+    - To install them on Debian/Pi OS: `sudo apt install libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev libpng-dev libpng++-dev libboost-system-dev` 
   4. Build the code
   ```bash
   export BUILDTYPE=Debug # or Release
@@ -55,9 +57,9 @@ There are two ways to build the Linux binary.
   make
   make install
   ```
-    - You can also run the code with sanitizers (leak, address, undefined behaviour, pointers) by passing `-DUSE_SANITIZERS=True` to CMake
-    - Additionally you can compile the code with clang-tidy analyzers by passing `-DUSE_CLANG_TIDY=True` to CMake
-  9. Run the `remc2` executable in install directory
+  5. Magic Carpet 2 is now built. you can find it in `build/Debug/inst/bin`
+     - You can also run the code with sanitizers (leak, address, undefined behaviour, pointers) by passing `-DUSE_SANITIZERS=True` to CMake
+     - Additionally you can compile the code with clang-tidy analyzers by passing `-DUSE_CLANG_TIDY=True` to CMake
 
 - Building a [flatpak](https://flatpak.org/)
   1. Pull the development branch
@@ -71,12 +73,21 @@ There are two ways to build the Linux binary.
   flatpak run com.github.thobbsinteractive.magic-carpet-2-hd
   ```
 
-#### Providing the original game assets to `remc2`
+### Providing the original game assets to `remc2` and running the game
 
 In order to run the game you need to own a copy of Magic Carpet 2. We provide a script to extract the assets from the GOG version. The following steps extract the required files from the original.
   1. Purchase a copy of Magic Carpet 2 from GOG here: https://www.gog.com/game/magic_carpet_2_the_netherworlds
   2. Download the Windows "Offline Backup Game Installer"
+  - Open GOGGalaxy
+  - Install the game
+  - Go to the "Extras" section of a GOG Magic Carpet 2
+  - In the Offline Backup Installers Windows section:
+    - Click the Download button
+    - Wait for the download to complete
+    - Click the Downloads menu item on the left. 
+    - Click to open the containing folder and copy it to the `Downloads` folder on your Linux PC
   3. Make sure that you have `innoextract` and `dosbox` installed
+     - To install them on Debian/Pi OS:`sudo apt install innoextract dosbox`  
   4. Run the `extract-GOG-CD.sh` script from the `EXTRACT` directory of the `remc2` source code and provide the path to the GOG installer as well as a path where the files should be extractet to. Example:
   ```
   ./extract-GOG-CD.sh ~/Downloads/setup_magic_carpet_2_1.0_\(28044\).exe ~/.local/share/remc2
@@ -85,6 +96,11 @@ In order to run the game you need to own a copy of Magic Carpet 2. We provide a 
      1. `$XDG_DATA_HOME/remc2/`
      2. `$HOME/.local/share/remc2`
      3. next to the `remc2` binary
+  6. Run the `remc2` executable in install directory
+  ```bash
+  cd /Documents/repos/magic-carpet-2-hd/build/${BUILDTYPE}/inst/bin
+  ./remc2
+  ```
 
 #### Configuring `remc2`
 
@@ -111,7 +127,7 @@ The game will search for this file in the following locations and this particula
 - [ ] Implement a wix sharp .msi installation for new .exe to make patching the and running existing game simple and something similar for the Linux versions
 
 ## MILLSTONE 4
-- [ ] Get basic LAN/IPv4 multiplayer working again
+- [ ] Get basic LAN/IPv4 multiplayer working again (Tom is currently making great progress on this!)
 
 ## MILLSTONE 5
 - [ ] Get Magic Carpet 1 working using this engine. Ideally with original music and graphics.
@@ -120,7 +136,7 @@ The game will search for this file in the following locations and this particula
 - Add VR support back into the game (yes it was originally supported! This game was waaay ahead of its time)<br />
 - Implement online multiplayer match making
 
-## If you know a bit about game development or want to help out, branch away or email me here: thobbsinteractive@gmail.com
+## If you know a bit about game development or want to help out, branch away or email me here: thobbsinteractive@gmail.com or find us on Discord here: https://discord.gg/mFMRUVeu
 
 ## Development Guide ##
 - The Project is compiled as C++17.
@@ -129,4 +145,3 @@ e.g. `void sub_19CA0_sound_proc5(unsigned __int8 a1)` was renamed to `void Chang
 - Please follow the general style of the refactored code. Upper Camel Case (Pascal Case) for Class/Method names. Camel Case for variables. 'm_' for class members. `GameRenderHD.cpp` is a good example of the style.
 - Where possible (if writting new code) please use the fixed width types. https://en.cppreference.com/w/cpp/types/integer
 - Be careful with making logic changes to the code and Test, Test, Test! I recommend playing the first level all the way though. Then the first Cave level (4) and I also recomend Level 5 as you have a nice mix of AI to kill and a cutscene at level completion.
-

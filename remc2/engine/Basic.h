@@ -177,9 +177,9 @@ extern uint8_t* ViewPortRenderBufferStart_DE558;
 
 extern uint8_t* ViewPortRenderBufferAltStart_DE554;
 
-extern char gameDataPath[];
-extern char cdDataPath[];
-extern char bigGraphicsPath[];
+extern std::string gameDataPath;
+extern std::string cdDataPath;
+extern std::string bigGraphicsPath;
 
 //extern type_17ECA0 str_17ECA0[];
 //extern uint8_t x_DWORD_17ECA0[];
