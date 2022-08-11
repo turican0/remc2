@@ -149,7 +149,7 @@ myNCB myNCBfromShadow(shadow_myNCB from) {
 	to.ncb_retcode_1 = from.ncb_retcode_1;
 	to.ncb_lsn_2 = from.ncb_lsn_2;
 	to.ncb_num_3 = from.ncb_num_3;
-	to.ncb_buffer_4.p = (uint8_t*)from.ncb_buffer_4;
+	to.ncb_buffer_4.p = (uint8_t*)(from.ncb_buffer_4+ Zero_pointer_net);
 	to.ncb_bufferLength_8 = from.ncb_bufferLength_8;
 	for (int i = 0; i < 16; i++)to.ncb_callName_10[i] = from.ncb_callName_10[i];
 	for (int i = 0; i < 16; i++)to.ncb_name_26[i] = from.ncb_name_26[i];
@@ -1563,7 +1563,7 @@ void timeState(bool start, char* text) {
 #ifdef TEST_TIME_NETWORK_MESSAGES
 	if ((start)||(timest_index==0))timest_timer = clock();
 	char buff[100];
-	snprintf(buff, sizeof(buff), "%s | %d", text, clock()- timest_timer);
+	snprintf(buff, sizeof(buff), "%s | %d", text, (int)(clock()- timest_timer));
 	timest_buffer[timest_index].assign(buff, strlen(buff));
 	timest_index++;
 	if (timest_index > timest_max_mess) {
