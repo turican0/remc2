@@ -2520,7 +2520,7 @@ void sub_88D40();
 void sub_89360();
 void ComputeTextboxSizesFromTextWords_89420(type_textbox_sub1804B0* textbox, char* text);
 void ComputeTextboxSizes_89520(type_textbox_sub1804B0* textbox);
-void DrawTextbox_895D0(type_textbox_sub1804B0* a1x, char* a2);
+void DrawTextbox_895D0(type_textbox_sub1804B0* textbox, char* text);
 void sub_89690_draw_frame(type_textbox_sub1804B0* a1);
 void sub_89830(type_textbox_sub1804B0* a1);
 void sub_898A0(type_textbox_sub1804B0* a1);
@@ -89651,54 +89651,31 @@ void ComputeTextboxSizes_89520(type_textbox_sub1804B0* textbox)//26a520
 }
 
 //----- (000895D0) --------------------------------------------------------
-void DrawTextbox_895D0(type_textbox_sub1804B0* a1y, char* a2)//26a5d0
+void DrawTextbox_895D0(type_textbox_sub1804B0* textbox, char* text)//26a5d0
 {
-	char* v2; // edi
-	int result; // eax
-	char* i; // ebx
-	char* v5; // eax
-	char* v6; // edx
-	char v7; // cl
-	unsigned __int8 v8; // ST0C_1
-	__int16 v9; // ST04_2
-	int v10; // ebx
-	char v11x[1000]; // [esp+0h] [ebp-12h]
-	int v12; // [esp+80h] [ebp+6Eh]
-	int v13; // [esp+84h] [ebp+72h]
-	char* v14; // [esp+88h] [ebp+76h]
+	int i;
+	unsigned __int8 color;
+	int textboxPosX;
+	char buffer[1000]; // [esp+0h] [ebp-12h]
 
-	//a1x fix - struct uint16_t and uint8_t
-
-	v14 = a2;
-	v13 = a1y->textboxPosY_0xa;
-	v2 = &a2[strlen(a2)];
-	result = a1y->textBoxWidth_0x4 / a1y->charWidth_0x10;
-	v12 = a1y->textBoxWidth_0x4 / a1y->charWidth_0x10;
-	if (v2 > a2)
+	int lastPos = 0;
+	int posY = textbox->textboxPosY_0xa;
+	int textlen = strlen(text);
+	int width = textbox->textBoxWidth_0x4 / textbox->charWidth_0x10;
+	if (textlen > 0)
 	{
 		do
 		{
-			for (i = (char*)(v12 + v14); i[0] != 32 && i < v2; i--)
-				;
-			v5 = v14;
-			v6 = v11x;
-			while (v5 < i)
-			{
-				v6++;
-				v7 = *v5++;
-				*(v6 - 1) = v7;
-			}
-			v6[0] = 0;
-			v8 = a1y->color1_0x30;
-			v9 = a1y->textboxPosX_0x8;
-			v14 = (i + 1);
-			v10 = v13;
-			DrawText_2BC10(v11x, v9, v13, v8);
-			result = a1y->charHeight_0x12;
-			v13 = result + v10;
-		} while (v2 > v14);
+			for (i = width + lastPos; text[i] != 32 && i < textlen; i--);
+			memcpy(buffer, &text[lastPos], i - lastPos);
+			buffer[i] = 0;
+			color = textbox->color1_0x30;
+			textboxPosX = textbox->textboxPosX_0x8;
+			lastPos = i + 1;
+			DrawText_2BC10(buffer, textboxPosX, posY, color);
+			posY += textbox->charHeight_0x12;
+		} while (textlen > lastPos);
 	}
-	//return result;
 }
 
 //----- (00089690) --------------------------------------------------------
