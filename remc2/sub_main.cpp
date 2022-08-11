@@ -1397,7 +1397,7 @@ void DrawTopStatusBar_2D710(type_event_0x6E8E* a1);
 void DrawMenuBitmap_2DE80(int16_t posX, int16_t posY, posistruct_t a3);
 void sub_2DFD0(__int16 a1, __int16 a2, posistruct_t a3, unsigned __int8 a4);
 void DrawSpellIcon_2E260(int16_t posX, int16_t posY, type_event_0x6E8E* a3, char a4);
-int sub_2E790(__int16 a1, int a2, int a3, int a4, unsigned __int8 a5);
+void ColorizeScreen_2E790(int posX, int posY, int width, int height, uint8_t color);
 void sub_2E850(__int16 a1, int a2, int a3, int a4, unsigned __int8 a5);
 void sub_2EB40();
 //void sub_2EB60();
@@ -28827,44 +28827,27 @@ void DrawSpellIcon_2E260(int16_t posX, int16_t posY, type_event_0x6E8E* a3x, cha
 // F01E8: using guessed type int (*x_DWORD_F01E8)(x_DWORD, x_DWORD, x_DWORD);
 
 //----- (0002E790) --------------------------------------------------------
-int sub_2E790(__int16 a1, int a2, int a3, int a4, unsigned __int8 a5)//20f790
+void ColorizeScreen_2E790(int posX, int posY, int width, int height, uint8_t color)//20f790
 {
-	__int16 v5; // bx
-	int v6; // ecx
-	int v7; // eax
-	int result; // eax
-	__int16 v9; // si
-	int v10; // [esp+Ch] [ebp-4h]
-
-	v5 = a1;
-	v6 = a2;
+	int locPosX = posX;
+	int locPosY = posY;
+	int locWidth = width;
+	int locHeight = height;
 	if (x_WORD_180660_VGA_type_resolution == 1)
 	{
-		v5 = a1 / 2;
-		HIWORD(v7) = HIWORD(a2);
-		LOWORD(v7) = (signed __int16)a2 / 2;
-		v6 = v7;
-		HIWORD(v7) = HIWORD(a3);
-		LOWORD(v7) = (signed __int16)a3 / 2;
-		a3 = v7;
-		HIWORD(v7) = HIWORD(a4);
-		LOWORD(v7) = (signed __int16)a4 / 2;
-		a4 = v7;
+		locPosX = posX / 2;
+		locPosY = posY / 2;
+		locWidth = width / 2;
+		locHeight = height / 2;
 	}
-	for (result = v6; (signed __int16)result < (signed __int16)v6 + (signed __int16)a4; ++result)
+	for (int indexY = locPosY; indexY < locPosY + locHeight; indexY++)
 	{
-		v9 = v5;
-		while (1)
+		for (int indexX = locPosX; indexX < locWidth + locPosX; indexX++)
 		{
-			v10 = v9;
-			if ((signed __int16)a3 + v5 <= v9)
-				break;
-			++v9;
-			pdwScreenBuffer_351628[screenWidth_18062C * (signed __int16)result + v10]= x_BYTE_F6EE0_tablesx[0x4000 + 256 * a5
-				+ pdwScreenBuffer_351628[screenWidth_18062C * (signed __int16)result + v10]];
+			pdwScreenBuffer_351628[screenWidth_18062C * indexY + indexX] = x_BYTE_F6EE0_tablesx[0x4000 + 256 * color
+				+ pdwScreenBuffer_351628[screenWidth_18062C * indexY + indexX]];
 		}
 	}
-	return result;
 }
 
 //----- (0002E850) --------------------------------------------------------
@@ -29601,7 +29584,7 @@ void DrawPauseMenu_2FD90()//210d90
 				{
 					v1++;
 					//VGA_Debug_Blit(640, 480, pdwScreenBuffer_351628);
-					sub_2E790(v6, (signed __int16)v7, (signed __int16)(v5 - 2), (signed __int16)v4, v8);//Shade Load Dialog
+					ColorizeScreen_2E790(v6, (signed __int16)v7, (signed __int16)(v5 - 2), (signed __int16)v4, v8);//Shade Load Dialog
 					//VGA_Debug_Blit(640, 480, pdwScreenBuffer_351628);
 				}
 			}
@@ -29621,7 +29604,7 @@ void DrawPauseMenu_2FD90()//210d90
 					  *(unsigned __int8 *)(**filearray_2aa18c[6] + 1061),
 					  v8);*/
 					  //VGA_Debug_Blit(640, 480, pdwScreenBuffer_351628);
-					sub_2E790(
+					ColorizeScreen_2E790(
 						v6,
 						(signed __int16)v7,
 						(*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[176].width_4,
@@ -29645,7 +29628,7 @@ void DrawPauseMenu_2FD90()//210d90
 					  *(unsigned __int8 *)(**filearray_2aa18c[6] + 1067),
 					  v8);*/
 					  //VGA_Debug_Blit(640, 480, pdwScreenBuffer_351628);
-					sub_2E790(
+					ColorizeScreen_2E790(
 						v6 + (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[176].width_4,
 						(signed __int16)v7,
 						(*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[177].width_4,
@@ -29996,7 +29979,7 @@ void sub_30630()//211630
 			sub_89420(&v6z, v5);
 			sub_89520(&v6z);
 			sub_89980(&v6z);
-			sub_2E790(v6z.framePosX_0x24, v6z.framePosY_0x26, v6z.frameWidth_0x28, v6z.frameHeight_0x2a, v6z.color2_0x31);
+			ColorizeScreen_2E790(v6z.framePosX_0x24, v6z.framePosY_0x26, v6z.frameWidth_0x28, v6z.frameHeight_0x2a, v6z.color2_0x31);
 			DrawTextbox_895D0(&v6z, v5);
 			sub_89690_draw_frame(&v6z);
 		}
@@ -88031,7 +88014,7 @@ void sub_87610()//268610
 			sub_89520(&str_unk_1804B0ar.type_sub_0[0]);
 			sub_89980(&str_unk_1804B0ar.type_sub_0[0]);
 		}
-		sub_2E790(
+		ColorizeScreen_2E790(
 			str_unk_1804B0ar.type_sub_0[0].framePosX_0x24,
 			str_unk_1804B0ar.type_sub_0[0].framePosY_0x26,
 			str_unk_1804B0ar.type_sub_0[0].frameWidth_0x28,
@@ -88055,7 +88038,7 @@ void sub_87610()//268610
 			sub_89980(&str_unk_1804B0ar.type_sub_0[0]);
 		}
 		sub_898A0(&str_unk_1804B0ar.type_sub_0[0]);
-		sub_2E790(
+		ColorizeScreen_2E790(
 			str_unk_1804B0ar.type_sub_0[0].framePosX_0x24,
 			str_unk_1804B0ar.type_sub_0[0].framePosY_0x26,
 			str_unk_1804B0ar.type_sub_0[0].frameWidth_0x28,
@@ -88077,7 +88060,7 @@ void sub_87610()//268610
 		sub_89980(&str_unk_1804B0ar.type_sub_0[0]);
 		sub_898A0(&str_unk_1804B0ar.type_sub_0[0]);
 		v4 = 0;
-		sub_2E790(
+		ColorizeScreen_2E790(
 			str_unk_1804B0ar.type_sub_0[0].framePosX_0x24,
 			str_unk_1804B0ar.type_sub_0[0].framePosY_0x26,
 			str_unk_1804B0ar.type_sub_0[0].frameWidth_0x28,
@@ -88246,7 +88229,7 @@ void sub_87860()//268860
 		sub_89520(&str_unk_1804B0ar.type_sub_0[1]);
 		sub_89980(&str_unk_1804B0ar.type_sub_0[1]);
 		sub_898A0(&str_unk_1804B0ar.type_sub_0[1]);
-		sub_2E790(str_unk_1804B0ar.type_sub_0[1].framePosX_0x24, str_unk_1804B0ar.type_sub_0[1].framePosY_0x26, str_unk_1804B0ar.type_sub_0[1].frameWidth_0x28, str_unk_1804B0ar.type_sub_0[1].frameHeight_0x2a, str_unk_1804B0ar.type_sub_0[1].color2_0x31);
+		ColorizeScreen_2E790(str_unk_1804B0ar.type_sub_0[1].framePosX_0x24, str_unk_1804B0ar.type_sub_0[1].framePosY_0x26, str_unk_1804B0ar.type_sub_0[1].frameWidth_0x28, str_unk_1804B0ar.type_sub_0[1].frameHeight_0x2a, str_unk_1804B0ar.type_sub_0[1].color2_0x31);
 		DrawTextbox_895D0(&str_unk_1804B0ar.type_sub_0[1], (char*)x_DWORD_E9C4C_langindexbuffer[str_E2A74[(str_unk_1804B0ar.byte_0xaa + 86)].axis_2[1]]);
 		sub_89A30_draw_line(&str_unk_1804B0ar.type_sub_0[1]);
 		sub_89690_draw_frame(&str_unk_1804B0ar.type_sub_0[1]);
@@ -88334,7 +88317,7 @@ void sub_87A30()//268a30
 		sub_89520(&str_unk_1804B0ar.type_sub_0[1]);
 		sub_89980(&str_unk_1804B0ar.type_sub_0[1]);
 		sub_898A0(&str_unk_1804B0ar.type_sub_0[1]);
-		sub_2E790(str_unk_1804B0ar.type_sub_0[1].framePosX_0x24, str_unk_1804B0ar.type_sub_0[1].framePosY_0x26, str_unk_1804B0ar.type_sub_0[1].frameWidth_0x28, str_unk_1804B0ar.type_sub_0[1].frameHeight_0x2a, str_unk_1804B0ar.type_sub_0[1].color2_0x31);
+		ColorizeScreen_2E790(str_unk_1804B0ar.type_sub_0[1].framePosX_0x24, str_unk_1804B0ar.type_sub_0[1].framePosY_0x26, str_unk_1804B0ar.type_sub_0[1].frameWidth_0x28, str_unk_1804B0ar.type_sub_0[1].frameHeight_0x2a, str_unk_1804B0ar.type_sub_0[1].color2_0x31);
 		DrawTextbox_895D0(&str_unk_1804B0ar.type_sub_0[1], (char*)x_DWORD_E9C4C_langindexbuffer[str_E2A74[str_unk_1804B0ar.byte_0xa9].axis_2[1]]);
 		sub_89A30_draw_line(&str_unk_1804B0ar.type_sub_0[1]);
 		/*result = */sub_89690_draw_frame(&str_unk_1804B0ar.type_sub_0[1]);
