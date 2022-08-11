@@ -89215,7 +89215,7 @@ void ComputeTextboxSizesFromTextLines_89920(type_textbox_sub1804B0* textbox, __i
 {
 	int maxTextLenght = 0;
 	int textLenght;
-	for (int indexLine = 0; indexLine < countLines; indexLine)
+	for (int indexLine = 0; indexLine < countLines; indexLine++)
 	{
 		textLenght = strlen((const char*)x_DWORD_E9C4C_langindexbuffer[textLines[indexLine]]) + 1;
 		// FireBall | Rapid Fire | Fire Storm		
