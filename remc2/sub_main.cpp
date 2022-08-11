@@ -76246,7 +76246,7 @@ void NetworkEvent_7373D(int16_t a1)//25473d
 				{
 					if (locConnected[i] == 1)
 					{
-						printState2((char*)"Send State 1\n");
+						printState2((char*)"Send State 1\n");//debug	
 						NetworkSendMessage2_74006(i, locConnected, 8u);
 					}
 				}
