@@ -1398,7 +1398,7 @@ void DrawMenuBitmap_2DE80(int16_t posX, int16_t posY, posistruct_t a3);
 void sub_2DFD0(__int16 a1, __int16 a2, posistruct_t a3, unsigned __int8 a4);
 void DrawSpellIcon_2E260(int16_t posX, int16_t posY, type_event_0x6E8E* a3, char a4);
 void ColorizeScreen_2E790(int posX, int posY, int width, int height, uint8_t color);
-void sub_2E850(__int16 a1, int a2, int a3, int a4, unsigned __int8 a5);
+void ColorizeScreen_2E850(int posX, int posY, int width, int height, uint8_t color);
 void sub_2EB40();
 //void sub_2EB60();
 //void sub_2EBB0_draw_text_with_border_630x340(char* a1);
@@ -28811,7 +28811,7 @@ void DrawSpellIcon_2E260(int16_t posX, int16_t posY, type_event_0x6E8E* a3x, cha
 							v12 = 16;
 						else
 							v12 = 48;
-						sub_2E850(posX, posY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[1].width_4, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[1].height_5, v12);
+						ColorizeScreen_2E850(posX, posY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[1].width_4, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[1].height_5, v12);
 					}
 				}
 			}
@@ -28851,41 +28851,26 @@ void ColorizeScreen_2E790(int posX, int posY, int width, int height, uint8_t col
 }
 
 //----- (0002E850) --------------------------------------------------------
-void sub_2E850(__int16 a1, int a2, int a3, int height, unsigned __int8 a5)//20f850
+void ColorizeScreen_2E850(int posX, int posY, int width, int height, uint8_t color)//20f850
 {
-	__int16 v5; // bx
-	int beginX; // ecx
-	int v7; // eax
-	int indexY; // eax
-	__int16 v9; // si
-	int v10; // [esp+Ch] [ebp-4h]
+	int locPosX = posX;
+	int locPosY = posY;
+	int locWidth = width;
+	int locHeight = height;
 
-	v5 = a1;
-	beginX = a2;
 	if (x_WORD_180660_VGA_type_resolution == 1)
 	{
-		v5 = a1 / 2;
-		HIWORD(v7) = HIWORD(a2);
-		LOWORD(v7) = (signed __int16)a2 / 2;
-		beginX = v7;
-		HIWORD(v7) = HIWORD(a3);
-		LOWORD(v7) = (signed __int16)a3 / 2;
-		a3 = v7;
-		HIWORD(v7) = HIWORD(height);
-		LOWORD(v7) = (signed __int16)height / 2;
-		height = v7;
+		locPosX = posX / 2;
+		locPosY = posY / 2;
+		locWidth = width / 2;
+		locHeight = height / 2;
 	}
-	for (indexY = beginX; indexY < beginX + height; ++indexY)
+	for (int indexY = locPosY; indexY < locPosY + locHeight; indexY++)
 	{
-		v9 = v5;
-		while (1)
+		for (int indexX = locPosX; indexX < locWidth + locPosX; indexX++)
 		{
-			v10 = v9;
-			if ((signed __int16)a3 + v5 <= v9)
-				break;
-			v9++;
-			pdwScreenBuffer_351628[screenWidth_18062C * indexY + v10] = x_BYTE_F6EE0_tablesx[256 * a5
-				+ pdwScreenBuffer_351628[screenWidth_18062C * indexY + v10]];
+			pdwScreenBuffer_351628[screenWidth_18062C * indexY + indexX] = x_BYTE_F6EE0_tablesx[256 * color
+				+ pdwScreenBuffer_351628[screenWidth_18062C * indexY + indexX]];
 		}
 	}
 }
