@@ -89128,22 +89128,15 @@ void sub_88D40()//269d40
 //----- (00089360) --------------------------------------------------------
 void sub_89360()//26a360
 {
-	char v0; // al
-	int v1; // ebx
-	//int v2; // eax
-	//int v4; // [esp+0h] [ebp-4h]
-
-	v0 = 0;
-	v1 = 0;
+	char v0 = 0;
+	int v1 = 0;
 	if (str_unk_1804B0ar.byte_0xa7)
 	{
 		str_unk_1804B0ar.byte_0xa7 = 0;
 		if (str_unk_1804B0ar.byte_0xa8 && D41A0_0.word_0xe > 1u)
 		{
-			//*(int16_t*)&array_E2A74[0xb48] = str_unk_1804B0ar.word_0x9a;
 			str_E2A74[96].axis_2[3] = str_unk_1804B0ar.word_0x9a;
 			v1 = 96;
-			//*(int16_t*)&array_E2A74[0xb4a] = str_unk_1804B0ar.word_0x9c;
 			str_E2A74[96].axis_2[4] = str_unk_1804B0ar.word_0x9c;
 		}
 		else
@@ -89159,33 +89152,15 @@ void sub_89360()//26a360
 	if (v0)
 	{
 		v1 = 95;
-		//*(int16_t*)&array_E2A74[0xb2a] = str_unk_1804B0ar.word_0x96;
 		str_E2A74[95].axis_2[3] = str_unk_1804B0ar.word_0x96;
 		str_unk_1804B0ar.byte_0xa8 = 0;
-		//*(int16_t*)&array_E2A74[0xb2c] = str_unk_1804B0ar.word_0x98;
 		str_E2A74[95].axis_2[4] = str_unk_1804B0ar.word_0x98;
 	}
 	if (v1)
 	{
-		//v2 = 15 * v1;
-		//LOWORD(v2) = *(int16_t*)&array_E2A74[0x4+30 * v1];
-		//v4 = v2;
-		sub_884D0(v1, 1, &str_E2A74[v1].axis_2[1], 2, 0);
+		sub_884D0(v1, 1, &str_E2A74[v1].axis_2[0], 2, 0);
 	}
-	//return v1;
 }
-// D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
-// E2A78: using guessed type __int16 x_WORD_E2A78[];
-// E359E: using guessed type __int16 x_WORD_E359E;
-// E35A0: using guessed type __int16 x_WORD_E35A0;
-// E35BC: using guessed type __int16 x_WORD_E35BC;
-// E35BE: using guessed type __int16 x_WORD_E35BE;
-// 180546: using guessed type __int16 x_WORD_180546;
-// 180548: using guessed type __int16 x_WORD_180548;
-// 18054A: using guessed type __int16 x_WORD_18054A;
-// 18054C: using guessed type __int16 x_WORD_18054C;
-// 180557: using guessed type char x_BYTE_180557;
-// 180558: using guessed type char x_BYTE_180558;
 
 //----- (00089420) --------------------------------------------------------
 void ComputeTextboxSizesFromTextWords_89420(type_textbox_sub1804B0* textbox, char* text)//26a420
