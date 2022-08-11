@@ -6,7 +6,6 @@
 #include <vector>
 
 FILE* fcaseopen(char const* path, char const* mode);
-void casechdir(char const* path);
 
 std::vector<std::string> GetTokensFromPath(const std::string &path);
 #if !defined(_WIN32)
