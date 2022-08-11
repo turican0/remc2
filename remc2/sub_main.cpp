@@ -87975,16 +87975,9 @@ void sub_87A30()//268a30
 //----- (00087B30) --------------------------------------------------------
 void sub_87B30()//268b30
 {
-	//int result; // eax
-
-	//if (++str_unk_1804B0ar.dword_0x76 >= str_unk_1804B0ar.dword_0x7a || /*(result = 15 * x_WORD_180536,*/ !(array_E2A74[0x2 + 30 * str_unk_1804B0ar.word_0x86] & 1/*)*/))
 	if (++str_unk_1804B0ar.dword_0x76 >= str_unk_1804B0ar.dword_0x7a || !(str_E2A74[str_unk_1804B0ar.word_0x86].axis_2[0] & 1))
-		/*result = */sub_87C10();
-	//return result;
+		sub_87C10();
 }
-// 180526: using guessed type int x_DWORD_180526;
-// 18052A: using guessed type int x_DWORD_18052A;
-// 180536: using guessed type __int16 x_WORD_180536;
 
 //----- (00087B70) --------------------------------------------------------
 void sub_87B70()//268b70
