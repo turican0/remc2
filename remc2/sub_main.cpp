@@ -87836,17 +87836,13 @@ void sub_872A0()//2682a0
 	}
 }
 
-int debugcounter_sub_87580 = 0;
 //----- (00087580) --------------------------------------------------------
 void sub_87580()//268580
 {
-	int v0; // eax
-
 	sub_87BE0();
 	if (str_unk_1804B0ar.byte_0x9f & 0x4)
 	{
-		//sub_884D0(91, 1, &array_E2A74[0xaae], 1, 0);
-		sub_884D0(91, 1, &str_E2A74[0x5b].axis_2[1], 1, 0);
+		sub_884D0(91, 1, &str_E2A74[0x5b].axis_2[0], 1, 0);
 	}
 	else if (str_unk_1804B0ar.byte_0x9e & 0x2)
 	{
@@ -87859,35 +87855,10 @@ void sub_87580()//268580
 	else
 	{
 		sub_87CF0();
-
-		//adress 2685a7
-		/*uint8_t origbyte2z=0;
-		uint8_t remakebyte2z=0;
-		//uint8_t origbyte2y[100];
-		//uint8_t remakebyte2y[100];
-		//int remakepos2y[100];
-		int comp20 = compare_with_sequence_array_E2A74((char*)"002685A7-002B3A74", (uint8_t*)&array_E2A74, 0x2B3A74, debugcounter_sub_87580, 0xc4e, 0xc4e, &origbyte2z, &remakebyte2z);
-		*/
-
-		v0 = sub_88450();
-
-		/*
-		//adress 2685ac
-		uint8_t origbyte2z=0;
-		uint8_t remakebyte2z=0;
-		//uint8_t origbyte2y[100];
-		//uint8_t remakebyte2y[100];
-		//int remakepos2y[100];
-		int comp20 = compare_with_sequence_array_E2A74((char*)"002685AC-002B3A74", (uint8_t*)&array_E2A74, 0x2B3A74, debugcounter_sub_87580, 0xc4e, 0xc4e, &origbyte2z, &remakebyte2z);
-		*/
-
-		debugcounter_sub_87580++;
-		//sub_884D0(v0, 1, &array_E2A74[30 * v0 + 4], ((array_E2A74[0x2 + 30 * v0] & 4) == 0) + 1, 0);
-		sub_884D0(v0, 1, &str_E2A74[v0].axis_2[1], ((str_E2A74[v0].axis_2[0] & 4) == 0) + 1, 0);
+		int v0 = sub_88450();
+		sub_884D0(v0, 1, &str_E2A74[v0].axis_2[0], ((str_E2A74[v0].axis_2[0] & 4) == 0) + 1, 0);
 	}
 }
-// E2A74: using guessed type __int16 x_WORD_E2A74[];
-// 18054E: using guessed type __int16 x_WORD_18054E;
 
 int debugcounter_sub_87610 = 0;
 
