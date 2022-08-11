@@ -1408,7 +1408,7 @@ void sub_2EB40();
 void DrawBottomMenu_2ECC0();
 void DrawChatMenu_2F6B0();
 void DrawPauseMenu_2FD90();
-void GetPauseMenuCoordinates_2FFE0(int16_t* a1, int16_t* a2, int16_t* a3, int16_t* a4);
+void GetPauseMenuCoordinates_2FFE0(int16_t* posX, int16_t* posY, int16_t* width, int16_t* height);
 void DrawInGameOptionsMenu_30050();
 // int sub_303D0(signed int a1);
 void sub_30630();
@@ -13073,18 +13073,16 @@ void sub_19760_set_message(const char* a1, unsigned __int8 a2, __int16 a3)//1fa7
 //----- (000197F0) --------------------------------------------------------
 void PauseMenuEvents_197F0()//1fa7f0
 {
-	//int result; // eax
 	char v1; // bl
 	signed int v2; // ebx
 	signed int v3; // edx
 	unsigned __int8 v4; // al
 	unsigned __int8 v5; // al
-	int16_t v6; // [esp+0h] [ebp-10h]
-	int16_t v7; // [esp+4h] [ebp-Ch]
-	int16_t v8; // [esp+8h] [ebp-8h]
-	int16_t v9; // [esp+Ch] [ebp-4h]
+	int16_t width; // [esp+0h] [ebp-10h]
+	int16_t height; // [esp+4h] [ebp-Ch]
+	int16_t posX;
+	int16_t posY; // [esp+Ch] [ebp-4h]
 
-	//result = x_D41A0_BYTEARRAY_4_struct.dwordindex_0;
 	if (x_D41A0_BYTEARRAY_4_struct.setting_byte3_24 & 1)
 	{
 		v1 = x_D41A0_BYTEARRAY_4_struct.byteindex_225;
@@ -13101,21 +13099,21 @@ void PauseMenuEvents_197F0()//1fa7f0
 			}
 			if (!x_D41A0_BYTEARRAY_4_struct.byteindex_206)
 			{
-				GetPauseMenuCoordinates_2FFE0(&v8, &v9, &v6, &v7);
-				if (unk_18058Cstr.x_DWORD_1805B0_mouse.x >= v8 && v8 + v6 > unk_18058Cstr.x_DWORD_1805B0_mouse.x)
+				GetPauseMenuCoordinates_2FFE0(&posX, &posY, &width, &height);
+				if (unk_18058Cstr.x_DWORD_1805B0_mouse.x >= posX && posX + width > unk_18058Cstr.x_DWORD_1805B0_mouse.x)
 				{
 					v2 = -1;
 					v3 = 0;
 					while (v3 < 4 && v2 < 0)
 					{
-						if (v9 <= unk_18058Cstr.x_DWORD_1805B0_mouse.y && v9 + v7 > unk_18058Cstr.x_DWORD_1805B0_mouse.y)
+						if (posY <= unk_18058Cstr.x_DWORD_1805B0_mouse.y && posY + height > unk_18058Cstr.x_DWORD_1805B0_mouse.y)
 							v2 = v3;
 						v3++;
-						v9 += v7;
+						posY += height;
 					}
 					if (v2 >= 0)
 					{
-						if (v2 != 2 || v8 + v6 / 2 > unk_18058Cstr.x_DWORD_1805B0_mouse.x)
+						if (v2 != 2 || posX + width / 2 > unk_18058Cstr.x_DWORD_1805B0_mouse.x)
 						{
 							if (v2 > 2)
 								v2++;
@@ -13136,7 +13134,7 @@ void PauseMenuEvents_197F0()//1fa7f0
 								else
 									SelectSpell_191B0(20, 14);
 								x_D41A0_BYTEARRAY_4_struct.SelectedMenuItem_38546 = 3;
-								/*return */sub_19A50();
+								sub_19A50();
 								return;
 							case 1:
 								if (!x_D41A0_BYTEARRAY_4_struct.byteindex_208)
@@ -13147,15 +13145,15 @@ void PauseMenuEvents_197F0()//1fa7f0
 								else
 									SelectSpell_191B0(20, 14);
 								x_D41A0_BYTEARRAY_4_struct.SelectedMenuItem_38546 = 2;
-								/*return */sub_19A50();
+								sub_19A50();
 								return;
 							case 2:
 								ChangeSoundLevel_19CA0(1u);
-								/*return */sub_19A50();
+								sub_19A50();
 								return;
 							case 3:
 								ChangeSoundLevel_19CA0(2u);
-								/*return */sub_19A50();
+								sub_19A50();
 								return;
 							case 4:
 								sub_19A70();
@@ -13167,21 +13165,10 @@ void PauseMenuEvents_197F0()//1fa7f0
 					}
 				}
 			}
-			//result = sub_19A50();
-			/*return */sub_19A50();
+			sub_19A50();
 		}
 	}
-	//return result;
 }
-// D419E: using guessed type char x_BYTE_D419E;
-// D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
-// D41A4: using guessed type int x_DWORD_D41A4;
-// EB394: using guessed type int **filearray_2aa18c[0];
-// 18055A: using guessed type char x_BYTE_18055A;
-// 18059C: using guessed type int x_DWORD_18059C;
-// 1805B0: using guessed type int x_DWORD_1805B0_mouse.x;
-// 1805B4: using guessed type int x_DWORD_1805B0_mouse.y;
-// 1805C2: using guessed type __int16 x_WORD_1805C2_joystick;
 
 //----- (00019A50) --------------------------------------------------------
 void sub_19A50()//1faa50
@@ -29644,28 +29631,23 @@ void DrawPauseMenu_2FD90()//210d90
 }
 
 //----- (0002FFE0) --------------------------------------------------------
-void GetPauseMenuCoordinates_2FFE0(int16_t* a1, int16_t* a2, int16_t* a3, int16_t* a4)//210fe0
+void GetPauseMenuCoordinates_2FFE0(int16_t* posX, int16_t* posY, int16_t* width, int16_t* height)//210fe0
 {
-	int v5; // eax
-	int32_t v6; // ebx
-	int32_t v7; // eax
-
-	*a3 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[178].width_4 + 2;
-	v5 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[178].height_5;
-	*a4 = v5;
-	v6 = (400 - 4 * v5) / 2 - 60;
-	v7 = (640 - *a3) / 2;
+	*width = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[178].width_4 + 2;
+	*height = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[178].height_5;
+	int32_t locHeight = (400 - 4 * *height) / 2 - 60;
+	int32_t locWidth = (640 - *width) / 2;
 	if (x_WORD_180660_VGA_type_resolution != 1)
 		if (!DefaultResolutions())
 		{
-			v6 = (screenHeight_180624 - 4 * v5) / 2 - 60;
-			v7 = (screenWidth_18062C - *a3) / 2;
+			locHeight = (screenHeight_180624 - 4 * *height) / 2 - 60;
+			locWidth = (screenWidth_18062C - *width) / 2;
 		}
 
-	v7 &= 0xFFFFFFFE;
-	*a1 = v7;
-	v6 &= 0xFFFFFFFE;
-	*a2 = v6;
+	locWidth &= 0xFFFFFFFE;
+	*posX = locWidth;
+	locHeight &= 0xFFFFFFFE;
+	*posY = locHeight;
 }
 
 //----- (00030050) --------------------------------------------------------
@@ -87993,46 +87975,24 @@ void sub_87860()//268860
 //----- (00087970) --------------------------------------------------------
 void sub_87970()//268970
 {
-	//int result; // eax
-	int16_t v1; // [esp+0h] [ebp-10h]
-	int16_t v2; // [esp+4h] [ebp-Ch]
-	int16_t v3; // [esp+8h] [ebp-8h]
-	int16_t v4; // [esp+Ch] [ebp-4h]
+	int16_t height; // [esp+0h] [ebp-10h]
+	int16_t width; // [esp+4h] [ebp-Ch]
+	int16_t posY; // [esp+8h] [ebp-8h]
+	int16_t posX; // [esp+Ch] [ebp-4h]
 
-	GetPauseMenuCoordinates_2FFE0(&v4, &v3, &v2, &v1);
-	/**(int16_t*)&array_E2A74[0xa1c] = v2 + v4 - 12;
-	*(int16_t*)&array_E2A74[0xa1e] = v3 + 6;
-	*(int16_t*)&array_E2A74[0xa3a] = v2 + v4 - 12;
-	*(int16_t*)&array_E2A74[0xa3c] = v1 + v3 + 6;
-	*(int16_t*)&array_E2A74[0xa58] = v4 + v2 / 2 - 12;
-	*(int16_t*)&array_E2A74[0xa5a] = v3 + 2 * v1 + 6;
-	*(int16_t*)&array_E2A74[0xa76] = v2 + v4 - 12;
-	*(int16_t*)&array_E2A74[0xa78] = v3 + 2 * v1 + 6;
-	*(int16_t*)&array_E2A74[0xa94] = v2 + v4 - 12;
-	//result = v3 + 3 * v1 + 6;
-	*(int16_t*)&array_E2A74[0xa96] = v3 + 3 * v1 + 6;*/
-
-	str_E2A74[0x56].axis_2[3] = v2 + v4 - 12;//0x56 tj 0xa14 8
-	str_E2A74[0x56].axis_2[4] = v3 + 6;//0x56 tj 0xa14 a
-	str_E2A74[0x57].axis_2[3] = v2 + v4 - 12;//0x57 tj 0xa32 8
-	str_E2A74[0x57].axis_2[4] = v1 + v3 + 6;//0x57 tj 0xa32 a
-	str_E2A74[0x58].axis_2[3] = v4 + v2 / 2 - 12;//0x58 tj 0xa50 8
-	str_E2A74[0x58].axis_2[4] = v3 + 2 * v1 + 6;//0x58 tj 0xa50 a
-	str_E2A74[0x59].axis_2[3] = v2 + v4 - 12;//0x59 tj 0xa6e 8
-	str_E2A74[0x59].axis_2[4] = v3 + 2 * v1 + 6;//0x59 tj 0xa6e a
-	str_E2A74[0x5a].axis_2[3] = v2 + v4 - 12;//0x5a tj 0xa8c 8
-	str_E2A74[0x5a].axis_2[4] = v3 + 3 * v1 + 6;//0x5a tj 0xa8c a
+	GetPauseMenuCoordinates_2FFE0(&posX, &posY, &width, &height);
+	str_E2A74[0x56].axis_2[3] = width + posX - 12;//0x56 tj 0xa14 8
+	str_E2A74[0x56].axis_2[4] = posY + 6;//0x56 tj 0xa14 a
+	str_E2A74[0x57].axis_2[3] = width + posX - 12;//0x57 tj 0xa32 8
+	str_E2A74[0x57].axis_2[4] = height + posY + 6;//0x57 tj 0xa32 a
+	str_E2A74[0x58].axis_2[3] = posX + width / 2 - 12;//0x58 tj 0xa50 8
+	str_E2A74[0x58].axis_2[4] = posY + 2 * height + 6;//0x58 tj 0xa50 a
+	str_E2A74[0x59].axis_2[3] = width + posX - 12;//0x59 tj 0xa6e 8
+	str_E2A74[0x59].axis_2[4] = posY + 2 * height + 6;//0x59 tj 0xa6e a
+	str_E2A74[0x5a].axis_2[3] = width + posX - 12;//0x5a tj 0xa8c 8
+	str_E2A74[0x5a].axis_2[4] = posY + 3 * height + 6;//0x5a tj 0xa8c a
 }
-// E3490: using guessed type __int16 x_WORD_E3490;
-// E3492: using guessed type __int16 x_WORD_E3492;
-// E34AE: using guessed type __int16 x_WORD_E34AE;
-// E34B0: using guessed type __int16 x_WORD_E34B0;
-// E34CC: using guessed type __int16 x_WORD_E34CC;
-// E34CE: using guessed type __int16 x_WORD_E34CE;
-// E34EA: using guessed type __int16 x_WORD_E34EA;
-// E34EC: using guessed type __int16 x_WORD_E34EC;
-// E3508: using guessed type __int16 x_WORD_E3508;
-// E350A: using guessed type __int16 x_WORD_E350A;
+
 
 //----- (00087A30) --------------------------------------------------------
 void sub_87A30()//268a30
