@@ -88020,7 +88020,7 @@ void sub_87610()//268610
 	str_unk_1804B0ar.type_sub_0[0].color2_0x31 = (*xadataclrd0dat.colorPalette_var28)[0];
 	str_unk_1804B0ar.type_sub_0[0].color3_0x32 = (*xadataclrd0dat.colorPalette_var28)[0xf00];
 	//result = str_unk_1804B0ar.byte_0xa3;
-	switch (str_unk_1804B0ar.byte_0xa3) {
+	switch (str_unk_1804B0ar.drawTextType_0xa3) {
 	case 1: {
 		if (*(int16_t*)&str_unk_1804B0ar.byte_0x9e & 8)
 		{
@@ -88907,7 +88907,7 @@ void sub_884D0(int a1, __int16 a2, int16_t* a3x, char a4, char a5)//2694d0
 	{
 		//str_unk_1804B0ar.dword_0x7a = *(int16_t*)&array_E2A74[0x6 + 30 * a1];
 		str_unk_1804B0ar.dword_0x7a = str_E2A74[a1].axis_2[2];
-		str_unk_1804B0ar.byte_0xa3 = a4;
+		str_unk_1804B0ar.drawTextType_0xa3 = a4;
 		str_unk_1804B0ar.word_0x86 = a1;
 		str_unk_1804B0ar.byte_0x9e |= 8;
 		str_unk_1804B0ar.byte_0xa1 = a5;
