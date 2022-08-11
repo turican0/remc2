@@ -2524,7 +2524,7 @@ void DrawTextbox_895D0(type_textbox_sub1804B0* textbox, char* text);
 void DrawTextbox2_89690(type_textbox_sub1804B0* textbox);
 void ComputeTextboxSizes_89830(type_textbox_sub1804B0* textbox);
 void ComputeTextboxLine_898A0(type_textbox_sub1804B0* textbox);
-void sub_89920(type_textbox_sub1804B0* a1, __int16 a2, int16_t* a3);
+void ComputeTextboxSizesFromTextLines_89920(type_textbox_sub1804B0* textbox, __int16 countLines, int16_t* textLines);
 void sub_89980(type_textbox_sub1804B0* a1);
 void sub_89A30_draw_line(type_textbox_sub1804B0* a1);
 void sub_89AC0(x_BYTE* a1, int a2);
@@ -88040,7 +88040,7 @@ void sub_87610()//268610
 		str_unk_1804B0ar.type_sub_0[0].lineX1_0x1c = str_E2A74[str_unk_1804B0ar.word_0x86].axis_2[3];//3
 		str_unk_1804B0ar.type_sub_0[0].lineY1_0x1e = str_E2A74[str_unk_1804B0ar.word_0x86].axis_2[4];
 		ComputeTextboxSizes_89830(&str_unk_1804B0ar.type_sub_0[0]);
-		sub_89920(&str_unk_1804B0ar.type_sub_0[0], str_unk_1804B0ar.byte_0xa0, &str_unk_1804B0ar.uni_0x8a.word[2]);
+		ComputeTextboxSizesFromTextLines_89920(&str_unk_1804B0ar.type_sub_0[0], str_unk_1804B0ar.byte_0xa0, &str_unk_1804B0ar.uni_0x8a.word[2]);
 		ComputeTextboxSizes_89520(&str_unk_1804B0ar.type_sub_0[0]);
 		sub_89980(&str_unk_1804B0ar.type_sub_0[0]);
 		ComputeTextboxLine_898A0(&str_unk_1804B0ar.type_sub_0[0]);
@@ -89761,33 +89761,19 @@ void ComputeTextboxLine_898A0(type_textbox_sub1804B0* textbox)//26a8a0
 }
 
 //----- (00089920) --------------------------------------------------------
-void sub_89920(type_textbox_sub1804B0* a1x, __int16 a2, int16_t* a3x)//26a920
+void ComputeTextboxSizesFromTextLines_89920(type_textbox_sub1804B0* textbox, __int16 countLines, int16_t* textLines)//26a920
 {
-	signed int v3; // edx
-	int v4; // ebx
-	//int result; // eax
-	unsigned int v6; // kr04_4
-	//__int16 v7; // dx
-
-	v3 = 0;
-	v4 = 0;
-	while (v3 < a2)
+	int maxTextLenght = 0;
+	int textLenght;
+	for (int indexLine = 0; indexLine < countLines; indexLine)
 	{
-		//result = 0;
-		v6 = strlen((const char*)x_DWORD_E9C4C_langindexbuffer[a3x[v3]]) + 1;
-		/*
-		FireBall
-		Rapid Fire
-		Fire Storm
-		*/
-		if ((signed int)(v6 - 1) > v4)
-			v4 = v6 - 1;
-		v3++;
+		textLenght = strlen((const char*)x_DWORD_E9C4C_langindexbuffer[textLines[indexLine]]) + 1;
+		// FireBall | Rapid Fire | Fire Storm		
+		if ((signed int)(textLenght - 1) > maxTextLenght)
+			maxTextLenght = textLenght - 1;
 	}
-	//v7 = a1[9];
-	a1x->textBoxWidth_0x4 = a1x->charWidth_0x10 * v4;
-	a1x->textboxHeight_0x6 = a1x->charHeight_0x12 * a2;
-	//return result;
+	textbox->textBoxWidth_0x4 = textbox->charWidth_0x10 * maxTextLenght;
+	textbox->textboxHeight_0x6 = textbox->charHeight_0x12 * countLines;
 }
 
 //----- (00089980) --------------------------------------------------------
