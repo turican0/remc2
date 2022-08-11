@@ -87982,36 +87982,18 @@ void sub_87B30()//268b30
 //----- (00087B70) --------------------------------------------------------
 void sub_87B70()//268b70
 {
-	//int8_t* result; // eax
 	int indexx;
 	int i; // ebx
-	//int v2; // edx
-	//int v3; // ecx
 	int v4; // edx
-	//char v5; // dl
 
-	//result = (int8_t*)&array_E2A74[0x1e];
 	indexx = 1;
-	//for (i = 0; i < str_unk_1804B0ar.dword_0x66; result += 0x1e)
 	for (i = 0; i < str_unk_1804B0ar.dword_0x66; indexx++)
 	{
-		//v2 = *(int32_t*)&result[16] + 1;
-		//v3 = *(int32_t*)&result[24];
-		//(*(int32_t*)&result[0x10])++;
 		str_E2A74[indexx].dword_16++;
-		//v4 = (*(int32_t*)&result[0x10]) - (*(int32_t*)&result[0x18]);
 		v4 = str_E2A74[indexx].dword_16 - str_E2A74[indexx].dword_24;
-		//if (v4 > 0 && v4 > 2 * (*(int32_t*)&result[0x18]))
 		if (v4 > 0 && v4 > 2 * str_E2A74[indexx].dword_24)
 		{
-			//*(int32_t*)&result[0x10] = *(int32_t*)&result[0x18];
 			str_E2A74[indexx].dword_16 = str_E2A74[indexx].dword_24;
-			//v5 = result[29] + 1;
-			/*result[0x1d]++;
-			if (result[0x1d] < 0)
-				result[0x1d] = 0;
-			if (result[0x1d] > 5)
-				result[0x1d] = 5;*/
 			str_E2A74[indexx].byte_29++;
 			if (str_E2A74[indexx].byte_29 < 0)
 				str_E2A74[indexx].byte_29 = 0;
@@ -88020,10 +88002,7 @@ void sub_87B70()//268b70
 		}
 		i++;
 	}
-	//return (uint8_t*)result;
 }
-// E2A92: using guessed type void *off_E2A92;
-// 180516: using guessed type int x_DWORD_180516;
 
 //----- (00087BE0) --------------------------------------------------------
 void sub_87BE0()//268be0
