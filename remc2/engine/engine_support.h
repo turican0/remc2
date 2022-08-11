@@ -963,7 +963,7 @@ extern uint8_t* pdwScreenBuffer_351628;
 
 typedef struct {//lenght 30
 	int16_t word_0;//str_E2A74[].word_0
-	std::array<int16_t, 5> axis_2; //str_E2A74[].axis_2[0]
+	std::array<int16_t, 5> axis_2; // 1=textIndex 3=lineX1, 4=lineY1
 	//int16_t axis_4[3];//?? str_E2A74[].axis_2[0]
 	//int16_t stuba;
 	type_event_0x6E8E* dword_12;//str_E2A74[].dword_12
