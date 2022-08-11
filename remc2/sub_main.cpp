@@ -88484,11 +88484,9 @@ int sub_88450()//269450
 void sub_884D0(int a1, __int16 a2, int16_t* a3x, char a4, char a5)//2694d0
 {
 	signed int i; // eax
-	//char v6; // dl
 
 	if (a1)
 	{
-		//str_unk_1804B0ar.dword_0x7a = *(int16_t*)&array_E2A74[0x6 + 30 * a1];
 		str_unk_1804B0ar.dword_0x7a = str_E2A74[a1].axis_2[2];
 		str_unk_1804B0ar.drawTextType_0xa3 = a4;
 		str_unk_1804B0ar.word_0x86 = a1;
@@ -88496,31 +88494,29 @@ void sub_884D0(int a1, __int16 a2, int16_t* a3x, char a4, char a5)//2694d0
 		str_unk_1804B0ar.byte_0xa1 = a5;
 		str_unk_1804B0ar.dword_0x76 = 0;
 		str_unk_1804B0ar.byte_0xa0 = a2;
-		for (i = 0; i < a2; str_unk_1804B0ar.uni_0x8a.word[i + 1] = a3x[i - 1])//*(int16_t*)(a3 + 2 * i - 2))
+		for (i = 0; i < a2; str_unk_1804B0ar.uni_0x8a.word[i + 1] = a3x[i])
 			i++;
-		//v6 = array_E2A74[0x2 + 30 * a1] | 3;
+
+		if (!DefaultResolutions())
+		{
+			if ((str_E2A74[10].axis_2[1] == a3x[1]) || (str_E2A74[11].axis_2[1] == a3x[1]) || (str_E2A74[12].axis_2[1] == a3x[1]))
+			{
+				a3x[3] += screenWidth_18062C - 640;
+			}
+		}
+
 		str_E2A74[a1].axis_2[0] |= 3;
 		if (str_E2A74[a1].axis_2[0] & 8)
 		{
-			//LOBYTE(*(int16_t*)&str_unk_1804B0ar.byte_0x9e) = *(int16_t*)&str_unk_1804B0ar.byte_0x9e | 0x20;
 			str_unk_1804B0ar.byte_0x9e |= 0x20;
 		}
 		else if (str_E2A74[a1].axis_2[0] & 0x10)
 		{
-			//HIBYTE(*(int16_t*)&str_unk_1804B0ar.byte_0x9e) |= 1u;
 			str_unk_1804B0ar.byte_0x9f |= 1u;
 		}
 	}
 }
-// E2A7A: using guessed type __int16 x_WORD_E2A7A[];
-// 180526: using guessed type int x_DWORD_180526;
-// 18052A: using guessed type int x_DWORD_18052A;
-// 180536: using guessed type __int16 x_WORD_180536;
-// 18053A: using guessed type int x_DWORD_18053A;
-// 18054E: using guessed type __int16 x_WORD_18054E;
-// 180550: using guessed type char x_BYTE_180550;
-// 180551: using guessed type char x_BYTE_180551;
-// 180553: using guessed type char x_BYTE_180553;
+
 
 //----- (00088580) --------------------------------------------------------
 void sub_88580()//269580
