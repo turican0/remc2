@@ -88007,24 +88007,16 @@ void sub_87B70()//268b70
 //----- (00087BE0) --------------------------------------------------------
 void sub_87BE0()//268be0
 {
-	//uint8_t* result; // eax
-	int index;
-	int i; // edx
 	char v2; // bl
 
-	//result = array_E2A74;
-	index = 0;
-	for (i = 0; i < str_unk_1804B0ar.dword_0x66; str_E2A74[index].axis_2[0] = v2 & 0xFE)
+	int index = 0;
+	for (int i = 0; i < str_unk_1804B0ar.dword_0x66; str_E2A74[index].axis_2[0] = v2 & 0xFE)
 	{
-		v2 = str_E2A74[index + 1].axis_2[0];//20
-		//result += 0x1e;
+		v2 = str_E2A74[index + 1].axis_2[0];
 		index++;
 		i++;
 	}//shift array_E2A74[0x02] by 1
-	//return result;
 }
-// E2A92: using guessed type void *off_E2A92;
-// 180516: using guessed type int x_DWORD_180516;
 
 //----- (00087C10) --------------------------------------------------------
 void sub_87C10()//268c10
