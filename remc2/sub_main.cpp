@@ -87860,58 +87860,35 @@ void sub_87580()//268580
 	}
 }
 
-int debugcounter_sub_87610 = 0;
-
 //----- (00087610) --------------------------------------------------------
 void sub_87610()//268610
 {
-	char* v0; // edi
-	//__int16 *v1; // esi
-	//char result; // al
-	//__int16 v3; // ax
+	char* textForDraw; // edi
 	signed int v4; // esi
-	int v5; // edi
-	unsigned __int8 v6; // al
-	//x_BYTE *v7; // ST04_4
-	char v8; // [esp+0h] [ebp-80h]
+	int posY; // edi
+	unsigned __int8 color; // al
+	char textBuffer[256]; // [esp+0h] [ebp-80h]
 
-	/*uint8_t origbyte20 = 0;
-	uint8_t remakebyte20 = 0;
-	int comp20;
-
-	comp20 = compare_with_sequence((char*)"00268610-003514B0", (uint8_t*)&str_unk_1804B0ar, 0x3514b0, debugcounter_sub_87610, 0xab, 0xab, &origbyte20, &remakebyte20);
-	debugcounter_sub_87610++;
-	*/
-
-	v0 = (char*)x_DWORD_E9C4C_langindexbuffer[str_unk_1804B0ar.uni_0x8a.word[2]];
-
-	//if (str_unk_1804B0ar.uni_0x8a.word[2] == 331)
-//		str_unk_1804B0ar.uni_0x8a.word[2] = 331;
-
-	//if ((v0[0] == 'Z') && (v0[1] == 'k'))
-		//v0 = v0;
-	//Your current objective is to fly to a point
-	//v1 = (int16_t*)&array_E2A74[30 * str_unk_1804B0ar.word_0x86];
-	//if (*((_BYTE*)v1 + 3) & 1)
+	textForDraw = (char*)x_DWORD_E9C4C_langindexbuffer[str_unk_1804B0ar.uni_0x8a.word[2]];
 	if (str_E2A74[str_unk_1804B0ar.word_0x86].axis_2[0] & 0x100)
 	{
-		v0 = &v8;
-		GetHintText_89AC0(&v8, str_unk_1804B0ar.word_0x86);
+		textForDraw = textBuffer;
+		GetHintText_89AC0(textBuffer, str_unk_1804B0ar.word_0x86);
 	}
-	str_unk_1804B0ar.type_sub_0[0].color1_0x30 = (*xadataclrd0dat.colorPalette_var28)[0xfff];
+	str_unk_1804B0ar.type_sub_0[0].color1_0x30 = (*xadataclrd0dat.colorPalette_var28)[0xfff];//convert RGB to indexed color
 	str_unk_1804B0ar.type_sub_0[0].color2_0x31 = (*xadataclrd0dat.colorPalette_var28)[0];
 	str_unk_1804B0ar.type_sub_0[0].color3_0x32 = (*xadataclrd0dat.colorPalette_var28)[0xf00];
-	//result = str_unk_1804B0ar.byte_0xa3;
+
 	switch (str_unk_1804B0ar.drawTextType_0xa3) {
-	case 1: {
-		if (*(int16_t*)&str_unk_1804B0ar.byte_0x9e & 8)
+	case 1: {//draw hint
+		if (str_unk_1804B0ar.byte_0x9e & 8)
 		{
 			str_unk_1804B0ar.type_sub_0[0].maxTextboxWidth_0x0 = 320;
 			str_unk_1804B0ar.type_sub_0[0].maxTextboxHeight_0x2 = 80;
 			str_unk_1804B0ar.type_sub_0[0].maxTextboxWidth2_0xc = 320;
-			ComputeTextboxSizesFromTextWords_89420(&str_unk_1804B0ar.type_sub_0[0], v0);
-			ComputeTextboxSizes_89520(&str_unk_1804B0ar.type_sub_0[0]);
-			ComputeFrameSizes_89980(&str_unk_1804B0ar.type_sub_0[0]);
+			ComputeTextboxSizesFromTextWords_89420(str_unk_1804B0ar.type_sub_0, textForDraw);
+			ComputeTextboxSizes_89520(str_unk_1804B0ar.type_sub_0);
+			ComputeFrameSizes_89980(str_unk_1804B0ar.type_sub_0);
 		}
 		ColorizeScreen_2E790(
 			str_unk_1804B0ar.type_sub_0[0].framePosX_0x24,
@@ -87919,8 +87896,8 @@ void sub_87610()//268610
 			str_unk_1804B0ar.type_sub_0[0].frameWidth_0x28,
 			str_unk_1804B0ar.type_sub_0[0].frameHeight_0x2a,
 			str_unk_1804B0ar.type_sub_0[0].color2_0x31);
-		DrawTextbox_895D0(&str_unk_1804B0ar.type_sub_0[0], v0);
-		DrawTextbox2_89690(&str_unk_1804B0ar.type_sub_0[0]);
+		DrawTextbox_895D0(str_unk_1804B0ar.type_sub_0, textForDraw);
+		DrawTextbox2_89690(str_unk_1804B0ar.type_sub_0);
 		str_unk_1804B0ar.byte_0x9e &= 0xF7;
 		break;
 	}
@@ -87931,21 +87908,21 @@ void sub_87610()//268610
 		str_unk_1804B0ar.type_sub_0[0].lineY1_0x1e = str_E2A74[str_unk_1804B0ar.word_0x86].axis_2[4];
 		if (str_unk_1804B0ar.byte_0x9e & 0x8)
 		{
-			ComputeTextboxSizes_89830(&str_unk_1804B0ar.type_sub_0[0]);//here
-			ComputeTextboxSizesFromTextWords_89420(&str_unk_1804B0ar.type_sub_0[0], v0);
-			ComputeTextboxSizes_89520(&str_unk_1804B0ar.type_sub_0[0]);
-			ComputeFrameSizes_89980(&str_unk_1804B0ar.type_sub_0[0]);
+			ComputeTextboxSizes_89830(str_unk_1804B0ar.type_sub_0);//here
+			ComputeTextboxSizesFromTextWords_89420(str_unk_1804B0ar.type_sub_0, textForDraw);
+			ComputeTextboxSizes_89520(str_unk_1804B0ar.type_sub_0);
+			ComputeFrameSizes_89980(str_unk_1804B0ar.type_sub_0);
 		}
-		ComputeTextboxLine_898A0(&str_unk_1804B0ar.type_sub_0[0]);
+		ComputeTextboxLine_898A0(str_unk_1804B0ar.type_sub_0);
 		ColorizeScreen_2E790(
 			str_unk_1804B0ar.type_sub_0[0].framePosX_0x24,
 			str_unk_1804B0ar.type_sub_0[0].framePosY_0x26,
 			str_unk_1804B0ar.type_sub_0[0].frameWidth_0x28,
 			str_unk_1804B0ar.type_sub_0[0].frameHeight_0x2a,
 			str_unk_1804B0ar.type_sub_0[0].color2_0x31);
-		DrawTextbox_895D0(&str_unk_1804B0ar.type_sub_0[0], v0);
-		DrawTextboxLine_89A30(&str_unk_1804B0ar.type_sub_0[0]);
-		DrawTextbox2_89690(&str_unk_1804B0ar.type_sub_0[0]);
+		DrawTextbox_895D0(str_unk_1804B0ar.type_sub_0, textForDraw);
+		DrawTextboxLine_89A30(str_unk_1804B0ar.type_sub_0);
+		DrawTextbox2_89690(str_unk_1804B0ar.type_sub_0);
 		str_unk_1804B0ar.byte_0x9e &= 0xF7;
 		break;
 	}
@@ -87953,11 +87930,11 @@ void sub_87610()//268610
 	{
 		str_unk_1804B0ar.type_sub_0[0].lineX1_0x1c = str_E2A74[str_unk_1804B0ar.word_0x86].axis_2[3];//3
 		str_unk_1804B0ar.type_sub_0[0].lineY1_0x1e = str_E2A74[str_unk_1804B0ar.word_0x86].axis_2[4];
-		ComputeTextboxSizes_89830(&str_unk_1804B0ar.type_sub_0[0]);
-		ComputeTextboxSizesFromTextLines_89920(&str_unk_1804B0ar.type_sub_0[0], str_unk_1804B0ar.byte_0xa0, &str_unk_1804B0ar.uni_0x8a.word[2]);
-		ComputeTextboxSizes_89520(&str_unk_1804B0ar.type_sub_0[0]);
-		ComputeFrameSizes_89980(&str_unk_1804B0ar.type_sub_0[0]);
-		ComputeTextboxLine_898A0(&str_unk_1804B0ar.type_sub_0[0]);
+		ComputeTextboxSizes_89830(str_unk_1804B0ar.type_sub_0);
+		ComputeTextboxSizesFromTextLines_89920(str_unk_1804B0ar.type_sub_0, str_unk_1804B0ar.byte_0xa0, &str_unk_1804B0ar.uni_0x8a.word[2]);
+		ComputeTextboxSizes_89520(str_unk_1804B0ar.type_sub_0);
+		ComputeFrameSizes_89980(str_unk_1804B0ar.type_sub_0);
+		ComputeTextboxLine_898A0(str_unk_1804B0ar.type_sub_0);
 		v4 = 0;
 		ColorizeScreen_2E790(
 			str_unk_1804B0ar.type_sub_0[0].framePosX_0x24,
@@ -87965,19 +87942,19 @@ void sub_87610()//268610
 			str_unk_1804B0ar.type_sub_0[0].frameWidth_0x28,
 			str_unk_1804B0ar.type_sub_0[0].frameHeight_0x2a,
 			str_unk_1804B0ar.type_sub_0[0].color2_0x31);
-		v5 = str_unk_1804B0ar.type_sub_0[0].textboxPosY_0xa;
+		posY = str_unk_1804B0ar.type_sub_0[0].textboxPosY_0xa;
 		while (v4 < str_unk_1804B0ar.byte_0xa0)
 		{
 			if (v4 == str_unk_1804B0ar.byte_0xa1)
-				v6 = str_unk_1804B0ar.type_sub_0[0].color3_0x32;
+				color = str_unk_1804B0ar.type_sub_0[0].color3_0x32;
 			else
-				v6 = str_unk_1804B0ar.type_sub_0[0].color1_0x30;
+				color = str_unk_1804B0ar.type_sub_0[0].color1_0x30;
 			//FireBall,Rapid Fire,Fire Storm
-			DrawText_2BC10(x_DWORD_E9C4C_langindexbuffer[str_unk_1804B0ar.uni_0x8a.word[2 + v4++]], str_unk_1804B0ar.type_sub_0[0].textboxPosX_0x8, v5, v6);
-			v5 += str_unk_1804B0ar.type_sub_0[0].charHeight_0x12;
+			DrawText_2BC10(x_DWORD_E9C4C_langindexbuffer[str_unk_1804B0ar.uni_0x8a.word[2 + v4++]], str_unk_1804B0ar.type_sub_0[0].textboxPosX_0x8, posY, color);
+			posY += str_unk_1804B0ar.type_sub_0[0].charHeight_0x12;
 		}
-		DrawTextboxLine_89A30(&str_unk_1804B0ar.type_sub_0[0]);
-		DrawTextbox2_89690(&str_unk_1804B0ar.type_sub_0[0]);
+		DrawTextboxLine_89A30(str_unk_1804B0ar.type_sub_0);
+		DrawTextbox2_89690(str_unk_1804B0ar.type_sub_0);
 		str_unk_1804B0ar.byte_0x9e &= 0xF7;
 		break;
 	}
@@ -87987,114 +87964,7 @@ void sub_87610()//268610
 		break;
 	}
 	}
-	/*
-	if (str_unk_1804B0ar.byte_0xa3 >= 2u)
-	{
-		if (str_unk_1804B0ar.byte_0xa3 <= 2u)//2
-		{
-			str_unk_1804B0ar.type_sub_0[0].word_0x1c = str_E2A74[str_unk_1804B0ar.word_0x86].axis_2[3];
-			//v3 = v1[5];
-			str_unk_1804B0ar.type_sub_0[0].word_0xc = 220;
-			str_unk_1804B0ar.type_sub_0[0].word_0x1e = str_E2A74[str_unk_1804B0ar.word_0x86].axis_2[4];
-			if (str_unk_1804B0ar.byte_0x9e & 0x8)
-			{
-				sub_89830(&str_unk_1804B0ar.type_sub_0[0]);//here
-				sub_89420(&str_unk_1804B0ar.type_sub_0[0], v0);
-				sub_89520(&str_unk_1804B0ar.type_sub_0[0]);
-				sub_89980(&str_unk_1804B0ar.type_sub_0[0]);
-			}
-			sub_898A0(&str_unk_1804B0ar.type_sub_0[0]);
-			sub_2E790(
-				str_unk_1804B0ar.type_sub_0[0].word_0x24,
-				str_unk_1804B0ar.type_sub_0[0].word_0x26,
-				str_unk_1804B0ar.type_sub_0[0].word_0x28,
-				str_unk_1804B0ar.type_sub_0[0].word_0x2a,
-				str_unk_1804B0ar.type_sub_0[0].byte_0x31);
-			DrawTextbox_895D0(&str_unk_1804B0ar.type_sub_0[0], v0);
-		}
-		else
-		{
-			if (str_unk_1804B0ar.byte_0xa3 != 3)
-			{
-				str_unk_1804B0ar.byte_0x9e &= 0xF7;
-				return;
-			}
-			str_unk_1804B0ar.type_sub_0[0].word_0x1c = str_E2A74[str_unk_1804B0ar.word_0x86].axis_2[3];//3
-			str_unk_1804B0ar.type_sub_0[0].word_0x1e = str_E2A74[str_unk_1804B0ar.word_0x86].axis_2[4];
-			sub_89830(&str_unk_1804B0ar.type_sub_0[0]);
-			sub_89920(&str_unk_1804B0ar.type_sub_0[0], str_unk_1804B0ar.byte_0xa0, &str_unk_1804B0ar.uni_0x8a.word[2]);
-			sub_89520(&str_unk_1804B0ar.type_sub_0[0]);
-			sub_89980(&str_unk_1804B0ar.type_sub_0[0]);
-			sub_898A0(&str_unk_1804B0ar.type_sub_0[0]);
-			v4 = 0;
-			sub_2E790(
-				str_unk_1804B0ar.type_sub_0[0].word_0x24,
-				str_unk_1804B0ar.type_sub_0[0].word_0x26,
-				str_unk_1804B0ar.type_sub_0[0].word_0x28,
-				str_unk_1804B0ar.type_sub_0[0].word_0x2a,
-				str_unk_1804B0ar.type_sub_0[0].byte_0x31);
-			v5 = str_unk_1804B0ar.type_sub_0[0].word_0xa;
-			while (v4 < str_unk_1804B0ar.byte_0xa0)
-			{
-				if (v4 == str_unk_1804B0ar.byte_0xa1)
-					v6 = str_unk_1804B0ar.type_sub_0[0].byte_0x32;
-				else
-					v6 = str_unk_1804B0ar.type_sub_0[0].byte_0x30;
-				//v7 = (x_BYTE *)x_DWORD_E9C4C_langindexbuffer[*(int16_t*)&unk_1804B0ar[0x8e+2*(v4++)]];
-				//FireBall
-				//Rapid Fire
-				//Fire Storm
-				DrawText_2BC10(x_DWORD_E9C4C_langindexbuffer[str_unk_1804B0ar.uni_0x8a.word[2+v4++]], str_unk_1804B0ar.type_sub_0[0].word_0x8, v5, v6);
-				v5 += str_unk_1804B0ar.type_sub_0[0].word_0x12;
-			}
-		}
-		sub_89A30_draw_line(&str_unk_1804B0ar.type_sub_0[0]);
-		sub_89690_draw_frame(&str_unk_1804B0ar.type_sub_0[0]);
-		str_unk_1804B0ar.byte_0x9e &= 0xF7;
-		return;
-	}
-	if (str_unk_1804B0ar.byte_0xa3 == 1)
-	{
-		if (*(int16_t*)&str_unk_1804B0ar.byte_0x9e & 8)
-		{
-			str_unk_1804B0ar.type_sub_0[0].word_0x0 = 320;
-			str_unk_1804B0ar.type_sub_0[0].word_0x2 = 80;
-			str_unk_1804B0ar.type_sub_0[0].word_0xc = 320;
-			sub_89420(&str_unk_1804B0ar.type_sub_0[0], v0);
-			sub_89520(&str_unk_1804B0ar.type_sub_0[0]);
-			sub_89980(&str_unk_1804B0ar.type_sub_0[0]);
-		}
-		sub_2E790(
-			str_unk_1804B0ar.type_sub_0[0].word_0x24,
-			str_unk_1804B0ar.type_sub_0[0].word_0x26,
-			str_unk_1804B0ar.type_sub_0[0].word_0x28,
-			str_unk_1804B0ar.type_sub_0[0].word_0x2a,
-			str_unk_1804B0ar.type_sub_0[0].byte_0x31);
-		DrawTextbox_895D0(&str_unk_1804B0ar.type_sub_0[0], v0);
-	//LABEL_21:
-		sub_89690_draw_frame(&str_unk_1804B0ar.type_sub_0[0]);
-	}
-//LABEL_22:
-	str_unk_1804B0ar.byte_0x9e &= 0xF7;
-	*/
-	//int comp17 = compare_with_sequence((char*)"00268858", (uint8_t*)unk_1804B0ar, 0x3514b0, debugcounter_sub_87610, 0xb0, &origbyte2z, &remakebyte2z);
-	//int comp16 = compare_with_sequence_array_E2A74((char*)"00269450-2", (uint8_t*)array_E2A74, 0x2b3a74, debugcounter_sub_87610, 0xc4e, origbyte2y, remakebyte2y, remakepos2y);
-	//int comp16 = compare_with_sequence_array_E2A74((char*)"00269450", (uint8_t*)array_E2A74, 0x2b3a74, debugcounter11, 0x1000, origbyte2y, remakebyte2y, remakepos2y);
-	//debugcounter_sub_87580++;
-	/*if (comp17 < 0xb0)
-		comp17 = comp17;
-
-	debugcounter_sub_87610++;*/
-	//return result;
 }
-// E2A74: using guessed type __int16 x_WORD_E2A74[];
-// E9800: using guessed type char x_BYTE_E9800;
-// E98FF: using guessed type char x_BYTE_E98FF;
-// 180536: using guessed type __int16 x_WORD_180536;
-// 18054E: using guessed type __int16 x_WORD_18054E;
-// 180550: using guessed type char x_BYTE_180550;
-// 180551: using guessed type char x_BYTE_180551;
-// 180553: using guessed type char x_BYTE_180553;
 
 //----- (00087860) --------------------------------------------------------
 void sub_87860()//268860
