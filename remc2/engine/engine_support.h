@@ -1838,7 +1838,7 @@ struct {//0xb0 nebo spis 171(0xab)
 	int8_t byte_0xa0;//a0
 	int8_t byte_0xa1;//a1
 	int8_t byte_0xa2;//a2
-	int8_t byte_0xa3;//a3
+	int8_t drawTextType_0xa3;//a3
 	int8_t byte_0xa4;//a4
 	int8_t byte_0xa5;//a5
 	int8_t byte_0xa6;//a6
