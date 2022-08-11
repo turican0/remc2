@@ -2519,7 +2519,7 @@ void sub_88D00();
 void sub_88D40();
 void sub_89360();
 void ComputeTextboxSizesFromTextWords_89420(type_textbox_sub1804B0* textbox, char* text);
-void sub_89520(type_textbox_sub1804B0* a1);
+void ComputeTextboxSizes_89520(type_textbox_sub1804B0* textbox);
 void DrawTextbox_895D0(type_textbox_sub1804B0* a1x, char* a2);
 void sub_89690_draw_frame(type_textbox_sub1804B0* a1);
 void sub_89830(type_textbox_sub1804B0* a1);
@@ -29962,7 +29962,7 @@ void sub_30630()//211630
 			v6z.maxTextboxHeight_0x2 = 300;
 			v6z.maxTextboxWidth2_0xc = 320;
 			ComputeTextboxSizesFromTextWords_89420(&v6z, v5);
-			sub_89520(&v6z);
+			ComputeTextboxSizes_89520(&v6z);
 			sub_89980(&v6z);
 			ColorizeScreen_2E790(v6z.framePosX_0x24, v6z.framePosY_0x26, v6z.frameWidth_0x28, v6z.frameHeight_0x2a, v6z.color2_0x31);
 			DrawTextbox_895D0(&v6z, v5);
@@ -30007,7 +30007,7 @@ void sub_30870()//211870
 	v4y.maxHeight_0x1a = 630;
 	v4y.maxTextboxHeight_0x2 = 310;
 	ComputeTextboxSizesFromTextWords_89420(&v4y, v0);
-	sub_89520(&v4y);
+	ComputeTextboxSizes_89520(&v4y);
 	sub_89980(&v4y);
 	DrawTextbox_895D0(&v4y, v0);
 	switch (LastPressedKey_1806E4)
@@ -87996,7 +87996,7 @@ void sub_87610()//268610
 			str_unk_1804B0ar.type_sub_0[0].maxTextboxHeight_0x2 = 80;
 			str_unk_1804B0ar.type_sub_0[0].maxTextboxWidth2_0xc = 320;
 			ComputeTextboxSizesFromTextWords_89420(&str_unk_1804B0ar.type_sub_0[0], v0);
-			sub_89520(&str_unk_1804B0ar.type_sub_0[0]);
+			ComputeTextboxSizes_89520(&str_unk_1804B0ar.type_sub_0[0]);
 			sub_89980(&str_unk_1804B0ar.type_sub_0[0]);
 		}
 		ColorizeScreen_2E790(
@@ -88019,7 +88019,7 @@ void sub_87610()//268610
 		{
 			sub_89830(&str_unk_1804B0ar.type_sub_0[0]);//here
 			ComputeTextboxSizesFromTextWords_89420(&str_unk_1804B0ar.type_sub_0[0], v0);
-			sub_89520(&str_unk_1804B0ar.type_sub_0[0]);
+			ComputeTextboxSizes_89520(&str_unk_1804B0ar.type_sub_0[0]);
 			sub_89980(&str_unk_1804B0ar.type_sub_0[0]);
 		}
 		sub_898A0(&str_unk_1804B0ar.type_sub_0[0]);
@@ -88041,7 +88041,7 @@ void sub_87610()//268610
 		str_unk_1804B0ar.type_sub_0[0].lineY1_0x1e = str_E2A74[str_unk_1804B0ar.word_0x86].axis_2[4];
 		sub_89830(&str_unk_1804B0ar.type_sub_0[0]);
 		sub_89920(&str_unk_1804B0ar.type_sub_0[0], str_unk_1804B0ar.byte_0xa0, &str_unk_1804B0ar.uni_0x8a.word[2]);
-		sub_89520(&str_unk_1804B0ar.type_sub_0[0]);
+		ComputeTextboxSizes_89520(&str_unk_1804B0ar.type_sub_0[0]);
 		sub_89980(&str_unk_1804B0ar.type_sub_0[0]);
 		sub_898A0(&str_unk_1804B0ar.type_sub_0[0]);
 		v4 = 0;
@@ -88211,7 +88211,7 @@ void sub_87860()//268860
 		str_unk_1804B0ar.type_sub_0[1].color2_0x31 = (*xadataclrd0dat.colorPalette_var28)[0];
 		sub_89830(&str_unk_1804B0ar.type_sub_0[1]);
 		ComputeTextboxSizesFromTextWords_89420(&str_unk_1804B0ar.type_sub_0[1], (char*)x_DWORD_E9C4C_langindexbuffer[str_E2A74[(str_unk_1804B0ar.byte_0xaa + 86)].axis_2[1]]);
-		sub_89520(&str_unk_1804B0ar.type_sub_0[1]);
+		ComputeTextboxSizes_89520(&str_unk_1804B0ar.type_sub_0[1]);
 		sub_89980(&str_unk_1804B0ar.type_sub_0[1]);
 		sub_898A0(&str_unk_1804B0ar.type_sub_0[1]);
 		ColorizeScreen_2E790(str_unk_1804B0ar.type_sub_0[1].framePosX_0x24, str_unk_1804B0ar.type_sub_0[1].framePosY_0x26, str_unk_1804B0ar.type_sub_0[1].frameWidth_0x28, str_unk_1804B0ar.type_sub_0[1].frameHeight_0x2a, str_unk_1804B0ar.type_sub_0[1].color2_0x31);
@@ -88299,7 +88299,7 @@ void sub_87A30()//268a30
 		str_unk_1804B0ar.type_sub_0[1].color2_0x31 = (*xadataclrd0dat.colorPalette_var28)[0];
 		sub_89830(&str_unk_1804B0ar.type_sub_0[1]);
 		ComputeTextboxSizesFromTextWords_89420(&str_unk_1804B0ar.type_sub_0[1], (char*)x_DWORD_E9C4C_langindexbuffer[str_E2A74[str_unk_1804B0ar.byte_0xa9].axis_2[1]]);
-		sub_89520(&str_unk_1804B0ar.type_sub_0[1]);
+		ComputeTextboxSizes_89520(&str_unk_1804B0ar.type_sub_0[1]);
 		sub_89980(&str_unk_1804B0ar.type_sub_0[1]);
 		sub_898A0(&str_unk_1804B0ar.type_sub_0[1]);
 		ColorizeScreen_2E790(str_unk_1804B0ar.type_sub_0[1].framePosX_0x24, str_unk_1804B0ar.type_sub_0[1].framePosY_0x26, str_unk_1804B0ar.type_sub_0[1].frameWidth_0x28, str_unk_1804B0ar.type_sub_0[1].frameHeight_0x2a, str_unk_1804B0ar.type_sub_0[1].color2_0x31);
@@ -89625,36 +89625,29 @@ void ComputeTextboxSizesFromTextWords_89420(type_textbox_sub1804B0* textbox, cha
 }
 
 //----- (00089520) --------------------------------------------------------
-void sub_89520(type_textbox_sub1804B0* a1x)//26a520
+void ComputeTextboxSizes_89520(type_textbox_sub1804B0* textbox)//26a520
 {
-	int v1; // edi
-	int v2; // ecx
-	int v3; // esi
-	int result; // eax
-	int v5; // [esp+0h] [ebp-Ch]
-	int v6; // [esp+4h] [ebp-8h]
-	int v7; // [esp+8h] [ebp-4h]
+	int textboxHeight; // edi
+	int centerToMaxWidth; // ecx
+	int centerToMaxHeight; // esi
+	int textBoxWidth; // [esp+0h] [ebp-Ch]
 
-	v5 = a1x->textBoxWidth_0x4;
-	v1 = a1x->textboxHeight_0x6;
-	v2 = a1x->maxTextboxWidth_0x0 - v5 / 2;
-	v3 = a1x->maxTextboxHeight_0x2 - v1 / 2;
-	if (v2 < a1x->minWidth_0x14)
-		v2 = a1x->minWidth_0x14;
-	if (v3 < a1x->minHeight_0x18)
-		v3 = a1x->minHeight_0x18;
-	v7 = a1x->maxWidth_0x16;
-	if (v2 + v5 >= v7)
-		LOWORD(v2) = v7 - v5;
-	v6 = a1x->maxHeight_0x1a;
-	if (v3 + v1 >= v6)
-		v3 = v6 - v1;
-	a1x->maxTextboxWidth_0x0 = v2 + a1x->textBoxWidth_0x4 / 2;
-	a1x->textboxPosX_0x8 = v2;
-	a1x->textboxPosY_0xa = v3;
-	result = v3 + v1 / 2;
-	a1x->maxTextboxHeight_0x2 = result;
-	//return result;
+	textBoxWidth = textbox->textBoxWidth_0x4;
+	textboxHeight = textbox->textboxHeight_0x6;
+	centerToMaxWidth = textbox->maxTextboxWidth_0x0 - textBoxWidth / 2;
+	centerToMaxHeight = textbox->maxTextboxHeight_0x2 - textboxHeight / 2;
+	if (centerToMaxWidth < textbox->minWidth_0x14)
+		centerToMaxWidth = textbox->minWidth_0x14;
+	if (centerToMaxHeight < textbox->minHeight_0x18)
+		centerToMaxHeight = textbox->minHeight_0x18;
+	if (centerToMaxWidth + textBoxWidth >= textbox->maxWidth_0x16)
+		centerToMaxWidth = textbox->maxWidth_0x16 - textBoxWidth;
+	if (centerToMaxHeight + textboxHeight >= textbox->maxHeight_0x1a)
+		centerToMaxHeight = textbox->maxHeight_0x1a - textboxHeight;
+	textbox->maxTextboxWidth_0x0 = centerToMaxWidth + textbox->textBoxWidth_0x4 / 2;
+	textbox->textboxPosX_0x8 = centerToMaxWidth;
+	textbox->textboxPosY_0xa = centerToMaxHeight;
+	textbox->maxTextboxHeight_0x2 = centerToMaxHeight + textboxHeight / 2;
 }
 
 //----- (000895D0) --------------------------------------------------------
