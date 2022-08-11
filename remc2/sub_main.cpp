@@ -87953,18 +87953,9 @@ void sub_87970()//268970
 //----- (00087A30) --------------------------------------------------------
 void sub_87A30()//268a30
 {
-	//int result; // eax
-	//__int16 *v1; // eax
-	//int v2; // ebx
-	//char* v3; // ebx
-
-	//BYTE1(result) = str_unk_1804B0ar.byte_0xa9;
 	if (str_unk_1804B0ar.byte_0xa9 > 0)
 	{
-		//v1 = (int16_t*)&array_E2A74[30 * str_unk_1804B0ar.byte_0xa9];
-		//v2 = v1[2];
 		str_unk_1804B0ar.type_sub_0[1].lineX1_0x1c = str_E2A74[str_unk_1804B0ar.byte_0xa9].axis_2[3];
-		//v3 = (char*)x_DWORD_E9C4C_langindexbuffer[v1[2]];
 		str_unk_1804B0ar.type_sub_0[1].lineY1_0x1e = str_E2A74[str_unk_1804B0ar.byte_0xa9].axis_2[4];
 		str_unk_1804B0ar.type_sub_0[1].color1_0x30 = (*xadataclrd0dat.colorPalette_var28)[0xfff];
 		str_unk_1804B0ar.type_sub_0[1].maxTextboxWidth2_0xc = 220;
@@ -87977,22 +87968,9 @@ void sub_87A30()//268a30
 		ColorizeScreen_2E790(str_unk_1804B0ar.type_sub_0[1].framePosX_0x24, str_unk_1804B0ar.type_sub_0[1].framePosY_0x26, str_unk_1804B0ar.type_sub_0[1].frameWidth_0x28, str_unk_1804B0ar.type_sub_0[1].frameHeight_0x2a, str_unk_1804B0ar.type_sub_0[1].color2_0x31);
 		DrawTextbox_895D0(&str_unk_1804B0ar.type_sub_0[1], (char*)x_DWORD_E9C4C_langindexbuffer[str_E2A74[str_unk_1804B0ar.byte_0xa9].axis_2[1]]);
 		DrawTextboxLine_89A30(&str_unk_1804B0ar.type_sub_0[1]);
-		/*result = */DrawTextbox2_89690(&str_unk_1804B0ar.type_sub_0[1]);
+		DrawTextbox2_89690(&str_unk_1804B0ar.type_sub_0[1]);
 	}
-	//return result;
 }
-// E2A74: using guessed type __int16 x_WORD_E2A74[];
-// E98FF: using guessed type char x_BYTE_E98FF;
-// 1804EF: using guessed type __int16 x_WORD_1804EF;
-// 1804FF: using guessed type __int16 x_WORD_1804FF;
-// 180501: using guessed type __int16 x_WORD_180501;
-// 180507: using guessed type __int16 x_WORD_180507;
-// 180509: using guessed type __int16 x_WORD_180509;
-// 18050B: using guessed type __int16 x_WORD_18050B;
-// 18050D: using guessed type __int16 x_WORD_18050D;
-// 180513: using guessed type char x_BYTE_180513;
-// 180514: using guessed type char x_BYTE_180514;
-// 180559: using guessed type char x_BYTE_180559;
 
 //----- (00087B30) --------------------------------------------------------
 void sub_87B30()//268b30
