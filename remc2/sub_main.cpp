@@ -2521,7 +2521,7 @@ void sub_89360();
 void ComputeTextboxSizesFromTextWords_89420(type_textbox_sub1804B0* textbox, char* text);
 void ComputeTextboxSizes_89520(type_textbox_sub1804B0* textbox);
 void DrawTextbox_895D0(type_textbox_sub1804B0* textbox, char* text);
-void sub_89690_draw_frame(type_textbox_sub1804B0* a1);
+void DrawTextbox2_89690(type_textbox_sub1804B0* textbox);
 void sub_89830(type_textbox_sub1804B0* a1);
 void sub_898A0(type_textbox_sub1804B0* a1);
 void sub_89920(type_textbox_sub1804B0* a1, __int16 a2, int16_t* a3);
@@ -29966,7 +29966,7 @@ void sub_30630()//211630
 			sub_89980(&v6z);
 			ColorizeScreen_2E790(v6z.framePosX_0x24, v6z.framePosY_0x26, v6z.frameWidth_0x28, v6z.frameHeight_0x2a, v6z.color2_0x31);
 			DrawTextbox_895D0(&v6z, v5);
-			sub_89690_draw_frame(&v6z);
+			DrawTextbox2_89690(&v6z);
 		}
 	}
 }
@@ -88006,7 +88006,7 @@ void sub_87610()//268610
 			str_unk_1804B0ar.type_sub_0[0].frameHeight_0x2a,
 			str_unk_1804B0ar.type_sub_0[0].color2_0x31);
 		DrawTextbox_895D0(&str_unk_1804B0ar.type_sub_0[0], v0);
-		sub_89690_draw_frame(&str_unk_1804B0ar.type_sub_0[0]);
+		DrawTextbox2_89690(&str_unk_1804B0ar.type_sub_0[0]);
 		str_unk_1804B0ar.byte_0x9e &= 0xF7;
 		break;
 	}
@@ -88031,7 +88031,7 @@ void sub_87610()//268610
 			str_unk_1804B0ar.type_sub_0[0].color2_0x31);
 		DrawTextbox_895D0(&str_unk_1804B0ar.type_sub_0[0], v0);
 		sub_89A30_draw_line(&str_unk_1804B0ar.type_sub_0[0]);
-		sub_89690_draw_frame(&str_unk_1804B0ar.type_sub_0[0]);
+		DrawTextbox2_89690(&str_unk_1804B0ar.type_sub_0[0]);
 		str_unk_1804B0ar.byte_0x9e &= 0xF7;
 		break;
 	}
@@ -88063,7 +88063,7 @@ void sub_87610()//268610
 			v5 += str_unk_1804B0ar.type_sub_0[0].charHeight_0x12;
 		}
 		sub_89A30_draw_line(&str_unk_1804B0ar.type_sub_0[0]);
-		sub_89690_draw_frame(&str_unk_1804B0ar.type_sub_0[0]);
+		DrawTextbox2_89690(&str_unk_1804B0ar.type_sub_0[0]);
 		str_unk_1804B0ar.byte_0x9e &= 0xF7;
 		break;
 	}
@@ -88217,7 +88217,7 @@ void sub_87860()//268860
 		ColorizeScreen_2E790(str_unk_1804B0ar.type_sub_0[1].framePosX_0x24, str_unk_1804B0ar.type_sub_0[1].framePosY_0x26, str_unk_1804B0ar.type_sub_0[1].frameWidth_0x28, str_unk_1804B0ar.type_sub_0[1].frameHeight_0x2a, str_unk_1804B0ar.type_sub_0[1].color2_0x31);
 		DrawTextbox_895D0(&str_unk_1804B0ar.type_sub_0[1], (char*)x_DWORD_E9C4C_langindexbuffer[str_E2A74[(str_unk_1804B0ar.byte_0xaa + 86)].axis_2[1]]);
 		sub_89A30_draw_line(&str_unk_1804B0ar.type_sub_0[1]);
-		sub_89690_draw_frame(&str_unk_1804B0ar.type_sub_0[1]);
+		DrawTextbox2_89690(&str_unk_1804B0ar.type_sub_0[1]);
 	}
 	//return result;
 }
@@ -88305,7 +88305,7 @@ void sub_87A30()//268a30
 		ColorizeScreen_2E790(str_unk_1804B0ar.type_sub_0[1].framePosX_0x24, str_unk_1804B0ar.type_sub_0[1].framePosY_0x26, str_unk_1804B0ar.type_sub_0[1].frameWidth_0x28, str_unk_1804B0ar.type_sub_0[1].frameHeight_0x2a, str_unk_1804B0ar.type_sub_0[1].color2_0x31);
 		DrawTextbox_895D0(&str_unk_1804B0ar.type_sub_0[1], (char*)x_DWORD_E9C4C_langindexbuffer[str_E2A74[str_unk_1804B0ar.byte_0xa9].axis_2[1]]);
 		sub_89A30_draw_line(&str_unk_1804B0ar.type_sub_0[1]);
-		/*result = */sub_89690_draw_frame(&str_unk_1804B0ar.type_sub_0[1]);
+		/*result = */DrawTextbox2_89690(&str_unk_1804B0ar.type_sub_0[1]);
 	}
 	//return result;
 }
@@ -89679,61 +89679,35 @@ void DrawTextbox_895D0(type_textbox_sub1804B0* textbox, char* text)//26a5d0
 }
 
 //----- (00089690) --------------------------------------------------------
-void sub_89690_draw_frame(type_textbox_sub1804B0* a1x)//26a690
+void DrawTextbox2_89690(type_textbox_sub1804B0* textbox)//26a690
 {
-	__int16 v1; // ST0C_2
-	int v2; // edi
-	int v3; // esi
-	__int16 v4; // bx
-	__int16 v5; // bx
-	//int result; // eax
-	int i; // ebx
-	__int16 v8; // [esp+Ch] [ebp-1Ch]
-	int v9; // [esp+10h] [ebp-18h]
-	__int16 v10; // [esp+14h] [ebp-14h]
-	int v11; // [esp+18h] [ebp-10h]
-	int v12; // [esp+1Ch] [ebp-Ch]
-	int v13; // [esp+20h] [ebp-8h]
-	__int16 v14; // [esp+24h] [ebp-4h]
-
-	/*v11 = *(unsigned __int8 *)(**filearray_2aa18c[6] + 1042);
-	v12 = *(unsigned __int8 *)(**filearray_2aa18c[6] + 1036);
-	v1 = *(unsigned __int8 *)(**filearray_2aa18c[6] + 1031);
-	v10 = *(unsigned __int8 *)(**filearray_2aa18c[6] + 1037);*/
-	v11 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[173].width_4;
-	v12 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[172].width_4;
-	v1 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[171].height_5;
-	v10 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[172].height_5;
-	v2 = a1x->framePosX_0x24 - v12;
-	v3 = a1x->frameWidth_0x28 + a1x->framePosX_0x24;
-	//v14 = a1[19] - *(unsigned __int8 *)(**filearray_2aa18c[6] + 1043);
-	v14 = a1x->framePosY_0x26 - (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[173].height_5;
-	v8 = a1x->framePosY_0x26 + a1x->frameHeight_0x2a;
-	//v4 = a1[19] - *(unsigned __int8 *)(**filearray_2aa18c[6] + 1043);
-	v4 = a1x->framePosY_0x26 - (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[173].height_5;
-	v9 = a1x->textboxHeight_0x6 / a1x->charHeight_0x12;
-	/*sub_2BB40_draw_bitmap(a1[18] - v12, v14, (uint8_t**)(**filearray_2aa18c[6] + 1026));
-	sub_2BB40_draw_bitmap(v3, v4, (uint8_t**)(**filearray_2aa18c[6] + 1026));*/
-	sub_2BB40_draw_bitmap(a1x->framePosX_0x24 - v12, v14, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[171]);
-	sub_2BB40_draw_bitmap(v3, v4, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[171]);
-	v5 = v1 + v14;
-	for (v13 = 0; v13 < v9; v13++)
+	int width1 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[173].width_4;
+	int width2 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[172].width_4;
+	int height1 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[171].height_5;
+	int height2 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[172].height_5;
+	int beginX = textbox->framePosX_0x24 - width2;
+	int endX = textbox->frameWidth_0x28 + textbox->framePosX_0x24;
+	int beginYPlus = textbox->framePosY_0x26 - (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[173].height_5;
+	int endY = textbox->frameHeight_0x2a + textbox->framePosY_0x26;
+	int countYchars = textbox->textboxHeight_0x6 / textbox->charHeight_0x12;
+	sub_2BB40_draw_bitmap(textbox->framePosX_0x24 - width2, beginYPlus, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[171]);
+	sub_2BB40_draw_bitmap(endX, beginYPlus, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[171]);
+	int indexY = height1 + beginYPlus;
+	for (int i = 0; i < countYchars; i++)
 	{
-		sub_2BB40_draw_bitmap(v2, v5, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[172]);
-		sub_2BB40_draw_bitmap(v3, v5, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[172]);
-		v5 += v10;
+		sub_2BB40_draw_bitmap(beginX, indexY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[172]);
+		sub_2BB40_draw_bitmap(endX, indexY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[172]);
+		indexY += height2;
 	}
-	sub_2BB40_draw_bitmap(v2, v5, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[171]);
-	sub_2BB40_draw_bitmap(v3, v5, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[171]);
+	sub_2BB40_draw_bitmap(beginX, indexY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[171]);
+	sub_2BB40_draw_bitmap(endX, indexY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[171]);
 
-	for (i = v2 + v12; i < v3; i += v11)
+	for (int i = beginX + width2; i < endX; i += width1)
 	{
-		sub_2BB40_draw_bitmap(i, v14, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[173]);
-		sub_2BB40_draw_bitmap(i, v8, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[173]);
+		sub_2BB40_draw_bitmap(i, beginYPlus, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[173]);
+		sub_2BB40_draw_bitmap(i, endY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[173]);
 	}
-	//return result;
 }
-// EA3DC: using guessed type int **filearray_2aa18c[6];
 
 int debugcounter_sub_89830 = 0;
 //----- (00089830) --------------------------------------------------------
