@@ -30031,50 +30031,16 @@ void GetOkayCancelButtonPositions_30BE0(int16_t* ptrX, int16_t* ptrY)//211be0
 			*ptrX = (screenWidth_18062C / 2) - 50;
 }
 
-int debugcounter_30D50 = 0;
-
 //----- (00030D50) --------------------------------------------------------
 void sub_30D50(type_event_0x6E8E* a1x)//211d50
 {
-	//int v1; // eax
-	//char v2; // dl
 	signed int v3; // esi
-	char v4; // cl
-	char v5; // ch
-	//__int16 v6; // ax
-	//uint8_t* v7; // eax
-	//int v8; // edi
+	uint8_t v4; // cl
+	uint8_t altitude; // ch
 	int v9; // esi
 	uaxis_2d v10x; // [esp+0h] [ebp-4h]
 
-	// fix if begin
-	//v2 = 0;
 	v4 = 0;
-	// end
-	/*
-	uint8_t origbyte20 = 0;
-	uint8_t remakebyte20 = 0;
-	int comp20;
-
-	comp20 = compare_with_sequence((char*)"00211D50-002DC4E0", (uint8_t*)x_BYTE_10B4E0_terraintype, 0x2dc4e0, debugcounter_30D50, 0x70000, 0x10000, &origbyte20, &remakebyte20);
-	comp20 = compare_with_sequence((char*)"00211D50-002DC4E0", (uint8_t*)x_BYTE_11B4E0_height, 0x2dc4e0, debugcounter_30D50, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x10000);
-	comp20 = compare_with_sequence((char*)"00211D50-002DC4E0", (uint8_t*)x_BYTE_12B4E0_shading, 0x2dc4e0, debugcounter_30D50, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x20000);
-	comp20 = compare_with_sequence((char*)"00211D50-002DC4E0", (uint8_t*)x_BYTE_13B4E0_angle, 0x2dc4e0, debugcounter_30D50, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x30000);
-	//comp20 = compare_with_sequence((char*)"00228320", (uint8_t*)x_BYTE_14B4E0, 0x2dc4e0, debugcounter11, 0x70000,0x10000, &origbyte20, &remakebyte20, 0x40000);
-	comp20 = compare_with_sequence((char*)"00211D50-002DC4E0", (uint8_t*)x_WORD_15B4E0_source, 0x2dc4e0, debugcounter_30D50, 0x70000, 0x20000, &origbyte20, &remakebyte20, 0x50000);
-
-	comp20 = compare_with_sequence_D41A0((char*)"00211D50-00356038", (uint8_t*)& D41A0_BYTESTR_0, 0x356038, debugcounter_30D50, 224790, &origbyte20, &remakebyte20);
-	if (debugcounter_30D50 >= 0x0a)
-	{
-		//myprintf("i:%d,", debugcounter5);
-	}
-	debugcounter_30D50++;
-
-	if (debugcounter_30D50 >= 0x20c)
-	{
-		debugcounter_30D50++;
-		debugcounter_30D50--;
-	}*/
 
 	if (a1x->dword_0x10_16 & 3)
 	{
@@ -30082,35 +30048,34 @@ void sub_30D50(type_event_0x6E8E* a1x)//211d50
 	}
 	else
 	{
-		//v1 = a1x->dword_0x8;
-		a1x->dword_0x8--;// = v1 - 1;
+		a1x->dword_0x8--;
 		if (a1x->dword_0x8 >= -1)
 		{
 			a1x->struct_byte_0xc_12_15.byte[0] &= 0xFEu;
-			v3 = (signed __int16)getTerrainAlt_10C40(&a1x->axis_0x4C_76);
+			v3 = getTerrainAlt_10C40(&a1x->axis_0x4C_76);
 			if (!(a1x->struct_byte_0xc_12_15.byte[0] & 2))
 			{
-				v10x._axis_2d.x = (unsigned __int16)(a1x->axis_0x4C_76.x + 128) >> 8;
+				v10x._axis_2d.x = (a1x->axis_0x4C_76.x + 128) >> 8;
 				v4 = a1x->struct_byte_0xc_12_15.byte[2];
-				v10x._axis_2d.y = (unsigned __int16)(a1x->axis_0x4C_76.y + 128) >> 8;
+				v10x._axis_2d.y = (a1x->axis_0x4C_76.y + 128) >> 8;
 				if (!(a1x->struct_byte_0xc_12_15.byte[2] & 1))
 					sub_10C80(a1x, 0, a1x->word_0x2A_42);
-				v5 = mapTerrainType_10B4E0[v10x.word];
-				if (v5)
+				altitude = mapTerrainType_10B4E0[v10x.word];
+				if (altitude)
 				{
-					switch (v5)
+					switch (altitude)
 					{
 					case 26:
-						sub_45DC0(/*v2,*/ v4, v10x, 0x14u);
+						sub_45DC0(v4, v10x, 0x14u);
 						break;
 					case 10:
-						sub_45DC0(/*v2,*/ v4, v10x, 0x15u);
+						sub_45DC0(v4, v10x, 0x15u);
 						break;
 					case 11:
-						sub_45DC0(/*v2,*/ v4, v10x, 0x16u);
+						sub_45DC0(v4, v10x, 0x16u);
 						break;
 					default:
-						if (((unsigned __int8)v5 < 6u || (unsigned __int8)v5 > 0x22u)
+						if ((altitude < 6u || altitude > 0x22u)
 							&& (mapAngle_13B4E0[v10x.word] & 7) != 1
 							&& a1x->axis_0x4C_76.z - v3 <= 128
 							&& !(sub_104A0(&a1x->axis_0x4C_76) & 1))
@@ -30121,7 +30086,6 @@ void sub_30D50(type_event_0x6E8E* a1x)//211d50
 						break;
 					}
 				}
-				//v6 = 9377 * a1x->word_0x14_20;
 				a1x->struct_byte_0xc_12_15.byte[0] |= 2u;
 				a1x->rand_0x14_20 = 9377 * a1x->rand_0x14_20 + 9439;
 				a1x->word_0x2C_44 = a1x->rand_0x14_20 % 0x41u - 32;
@@ -30130,8 +30094,7 @@ void sub_30D50(type_event_0x6E8E* a1x)//211d50
 			sub_580E0(&a1x->axis_0x4C_76, v3, 0, 0, a1x->word_0x2C_44);
 			if (isCaveLevel_D41B6)
 			{
-				//v8 = a1x->array_0x52_82.dd;
-				v9 = (signed __int16)sub_10C60(&a1x->axis_0x4C_76) - a1x->array_0x52_82.fov;
+				v9 = sub_10C60(&a1x->axis_0x4C_76) - a1x->array_0x52_82.fov;
 				if (a1x->axis_0x4C_76.z > v9)
 					a1x->axis_0x4C_76.z = v9;
 			}
@@ -30142,12 +30105,8 @@ void sub_30D50(type_event_0x6E8E* a1x)//211d50
 			SetEntity04_57F10(a1x);
 		}
 	}
-	debugcounter_30D50++;
 }
-// D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
-// D41B6: using guessed type char x_BYTE_D41B6;
 
-//long debugcounter31 = 0;
 //----- (00030F60) --------------------------------------------------------
 void AddQuickfair0A_01_30F60(type_event_0x6E8E* event)//211f60
 {
@@ -38467,7 +38426,7 @@ void sub_40F80()//221f80
 	v12 = D41A0_0.m_GameSettings.m_Display.m_uiScreenSize;
 	if (v12 == 1)
 	{
-		sub_40D10(/*(int)x_D41A0_BYTEARRAY_0*/);
+		sub_40D10();
 	}
 	else if (x_WORD_180660_VGA_type_resolution & 1)
 	{
@@ -38517,7 +38476,6 @@ void sub_417D0_install_pal_and_mouse_minmax2()//2227d0
 	sub_41A90_VGA_Palette_install((TColor*)*xadatapald0dat2.colorPalette_var28);
 	sub_6EF10_set_mouse_minmax(0, 640, 0, 800);
 }
-// EA3D8: using guessed type int *xadatapald0dat2.colorPalette_var28;
 
 void sub_41A90_VGA_Palette_install(TColor* bufferx)//222a90
 {
@@ -38564,67 +38522,40 @@ void sub_41A90_VGA_Palette_install(TColor* bufferx)//222a90
 //----- (00041AF0) --------------------------------------------------------
 void sub_41AF0()//222af0
 {
-	//char result; // al
-	//unsigned __int8 *v1; // ST00_4
-
 	if (!x_BYTE_D47D9)
 	{
-		//result = (int)x_D41A0_BYTEARRAY_0;
 		if (D41A0_0.m_GameSettings.m_Display.m_uiScreenSize)
 		{
 			if (D41A0_0.m_GameSettings.str_0x2192.xxxx_0x2193 && iScreenWidth_DE560 == 640)
 				sub_75C50();
 			x_BYTE_D47D8 = D41A0_0.m_GameSettings.m_Display.m_uiScreenSize;
 			sub_417A0_install_pal_and_mouse_minmax();
-			//v1 = *xadatapald0dat2.colorPalette_var28;
 			D41A0_0.m_GameSettings.m_Display.m_uiScreenSize = 0;
 			sub_41A90_VGA_Palette_install((TColor*)*xadatapald0dat2.colorPalette_var28);
 		}
 	}
 	x_BYTE_D47D9++;
 }
-// D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
-// D47D8: using guessed type char x_BYTE_D47D8;
-// D47D9: using guessed type char x_BYTE_D47D9;
-// DE560: using guessed type int iScreenWidth;
-// EA3D8: using guessed type int *xadatapald0dat2.colorPalette_var28;
 
 //----- (00041B60) --------------------------------------------------------
 void sub_41B60()//222b60
 {
-	//char v0; // dl
-	//char result; // al
-
-	//fix
-	//result = 0;
-	//fix
-
 	if (x_BYTE_D47D9 == 1)
 	{
-		//v0 = x_BYTE_D47D8;
 		D41A0_0.m_GameSettings.m_Display.m_uiScreenSize = x_BYTE_D47D8;
-		//result = v0;
 		if ((unsigned __int8)x_BYTE_D47D8 >= 1u && (unsigned __int8)x_BYTE_D47D8 <= 1u)
 			sub_417D0_install_pal_and_mouse_minmax2();
 		x_BYTE_D47D8 = 0;
 	}
 	if (x_BYTE_D47D9)
 		x_BYTE_D47D9--;
-	//return result;
 }
-// D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
-// D47D8: using guessed type char x_BYTE_D47D8;
-// D47D9: using guessed type char x_BYTE_D47D9;
 
 //----- (00041BC0) --------------------------------------------------------
 void sub_41BC0()//222bc0
 {
-	//__int64 result; // rax
-
-	//BYTE1(result) = 0;
 	x_BYTE_D47D9 = 0;
 	x_BYTE_D47D8 = 0;
-	//return result;
 }
 
 /*
@@ -38703,7 +38634,7 @@ void sub_43C60(unsigned __int8 a1, char a2, int a3, int a4)//224c60
 }
 
 //----- (00045BE0) --------------------------------------------------------
-uint8_t sub_45BE0(/*uint8_t a1,*/ uint8_t a2, uaxis_2d a3x)//226be0
+uint8_t sub_45BE0(uint8_t a2, uaxis_2d a3x)//226be0
 {
 	uaxis_2d v3x; // ax
 	uint8_t v4; // bl
@@ -38714,7 +38645,6 @@ uint8_t sub_45BE0(/*uint8_t a1,*/ uint8_t a2, uaxis_2d a3x)//226be0
 	uint8_t result; // al
 
 	uint8_t a1=0;
-	//uint8_t a2=0;
 
 	v3x.word = a3x.word;
 	v4 = 0xFFu;
@@ -38831,10 +38761,9 @@ uint8_t sub_45BE0(/*uint8_t a1,*/ uint8_t a2, uaxis_2d a3x)//226be0
 	}
 	return result;
 }
-// D47DC: using guessed type int x_DWORD_D47DC;
 
 //----- (00045DC0) --------------------------------------------------------
-void sub_45DC0(/*uint8_t a1, */uint8_t a2, uaxis_2d a3x, unsigned __int8 a4)//226dc0
+void sub_45DC0(uint8_t a2, uaxis_2d a3x, unsigned __int8 a4)//226dc0
 {
 	uaxis_2d v4x; // bx
 	uaxis_2d v5x; // eax
@@ -38874,29 +38803,29 @@ void sub_45DC0(/*uint8_t a1, */uint8_t a2, uaxis_2d a3x, unsigned __int8 a4)//22
 			mapTerrainType_10B4E0[a3x.word] = 9;
 			break;
 		case 0xAu:
-			v8 = sub_45BE0(/*a1,*/ a2, a3x);
+			v8 = sub_45BE0(a2, a3x);
 			v9 = v8;
 			if (x_DWORD_D47DC)
 				v9 = v8 + 8;
 			v10 = v9;
 			goto LABEL_28;
 		case 0xBu:
-			v10 = sub_45BE0(/*a1,*/ a2, a3x) + 16;
+			v10 = sub_45BE0(a2, a3x) + 16;
 			if (x_DWORD_D47DC)
 				v10 += 8;
 			goto LABEL_28;
 		case 0xCu:
-			v10 = sub_45BE0(/*a1,*/ a2, a3x) + 32;
+			v10 = sub_45BE0(a2, a3x) + 32;
 			if (x_DWORD_D47DC)
 				v10 += 8;
 			goto LABEL_28;
 		case 0xDu:
-			v10 = sub_45BE0(/*a1,*/ a2, a3x) + 48;
+			v10 = sub_45BE0(a2, a3x) + 48;
 			if (x_DWORD_D47DC)
 				v10 += 8;
 			goto LABEL_28;
 		case 0xEu:
-			v10 = sub_45BE0(/*a1,*/ a2, a3x) + 64;
+			v10 = sub_45BE0(a2, a3x) + 64;
 			if (x_DWORD_D47DC)
 				v10 += 8;
 		LABEL_28:
@@ -38909,25 +38838,25 @@ void sub_45DC0(/*uint8_t a1, */uint8_t a2, uaxis_2d a3x, unsigned __int8 a4)//22
 			v6 = mapTerrainType_10B4E0[a3x.word];
 			if (v6 == 10 || v6 == 11 || v6 == 12)
 				break;
-			v7 = unk_D4A30 + 2 * sub_45BE0(/*a1,*/ a2, a3x);
+			v7 = unk_D4A30 + 2 * sub_45BE0(a2, a3x);
 			goto LABEL_29;
 		case 0x11u:
-			v7 = &unk_D4A30[0x40] + 2 * sub_45BE0(/*a1,*/ a2, a3x);
+			v7 = &unk_D4A30[0x40] + 2 * sub_45BE0(a2, a3x);
 			goto LABEL_29;
 		case 0x12u:
-			v7 = &unk_D4A30[0x50] + 2 * (v24 + sub_45BE0(/*a1,*/ a2, a3x));
+			v7 = &unk_D4A30[0x50] + 2 * (v24 + sub_45BE0(a2, a3x));
 			goto LABEL_29;
 		case 0x13u:
-			v7 = &unk_D4A30[0x50] + 2 * (sub_45BE0(/*a1,*/ a2, a3x) + v24) + 16;
+			v7 = &unk_D4A30[0x50] + 2 * (sub_45BE0(a2, a3x) + v24) + 16;
 			goto LABEL_29;
 		case 0x14u:
-			v7 = &unk_D4A30[0x10] + 2 * sub_45BE0(/*a1,*/ a2, a3x);
+			v7 = &unk_D4A30[0x10] + 2 * sub_45BE0(a2, a3x);
 			goto LABEL_29;
 		case 0x15u:
-			v7 = &unk_D4A30[0x10] + 2 * sub_45BE0(/*a1,*/ a2, a3x) + 16;
+			v7 = &unk_D4A30[0x10] + 2 * sub_45BE0(a2, a3x) + 16;
 			goto LABEL_29;
 		case 0x16u:
-			v7 = &unk_D4A30[0x10] + 2 * sub_45BE0(/*a1,*/ a2, a3x) + 32;
+			v7 = &unk_D4A30[0x10] + 2 * sub_45BE0(a2, a3x) + 32;
 		LABEL_29:
 			mapTerrainType_10B4E0[a3x.word] = v7[0];
 			mapAngle_13B4E0[a3x.word] = mapAngle_13B4E0[a3x.word] & 0x8F | v7[1];
@@ -38996,18 +38925,14 @@ void sub_45DC0(/*uint8_t a1, */uint8_t a2, uaxis_2d a3x, unsigned __int8 a4)//22
 			v22 = mapAngle_13B4E0[v4x.word] & 0xF7;
 			v4x._axis_2d.x = a3x._axis_2d.x;
 			mapAngle_13B4E0[v21x.word] = v22;
-			//v5x.word = v21x.word;
-			v5x.word = v4x.word;//0xa9bc
+			v5x.word = v4x.word;
 		}
 		mapAngle_13B4E0[v5x.word] &= 0xF7u;
 		return;
 	}
 	mapAngle_13B4E0[a3x.word] = a4 | mapAngle_13B4E0[a3x.word] & 0xF0;
-	/*LOBYTE(v5) = */sub_462A0(a3x, a3x);
-	//return v5;
+	sub_462A0(a3x, a3x);
 }
-// D41B6: using guessed type char x_BYTE_D41B6;
-// D47DC: using guessed type int x_DWORD_D47DC;
 
 //----- (00046180) --------------------------------------------------------
 unsigned __int16 sub_46180(unsigned __int16 a1, char a2)//227180
