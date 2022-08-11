@@ -2522,7 +2522,7 @@ void ComputeTextboxSizesFromTextWords_89420(type_textbox_sub1804B0* textbox, cha
 void ComputeTextboxSizes_89520(type_textbox_sub1804B0* textbox);
 void DrawTextbox_895D0(type_textbox_sub1804B0* textbox, char* text);
 void DrawTextbox2_89690(type_textbox_sub1804B0* textbox);
-void sub_89830(type_textbox_sub1804B0* a1);
+void ComputeTextboxSizes_89830(type_textbox_sub1804B0* textbox);
 void sub_898A0(type_textbox_sub1804B0* a1);
 void sub_89920(type_textbox_sub1804B0* a1, __int16 a2, int16_t* a3);
 void sub_89980(type_textbox_sub1804B0* a1);
@@ -88017,7 +88017,7 @@ void sub_87610()//268610
 		str_unk_1804B0ar.type_sub_0[0].lineY1_0x1e = str_E2A74[str_unk_1804B0ar.word_0x86].axis_2[4];
 		if (str_unk_1804B0ar.byte_0x9e & 0x8)
 		{
-			sub_89830(&str_unk_1804B0ar.type_sub_0[0]);//here
+			ComputeTextboxSizes_89830(&str_unk_1804B0ar.type_sub_0[0]);//here
 			ComputeTextboxSizesFromTextWords_89420(&str_unk_1804B0ar.type_sub_0[0], v0);
 			ComputeTextboxSizes_89520(&str_unk_1804B0ar.type_sub_0[0]);
 			sub_89980(&str_unk_1804B0ar.type_sub_0[0]);
@@ -88039,7 +88039,7 @@ void sub_87610()//268610
 	{
 		str_unk_1804B0ar.type_sub_0[0].lineX1_0x1c = str_E2A74[str_unk_1804B0ar.word_0x86].axis_2[3];//3
 		str_unk_1804B0ar.type_sub_0[0].lineY1_0x1e = str_E2A74[str_unk_1804B0ar.word_0x86].axis_2[4];
-		sub_89830(&str_unk_1804B0ar.type_sub_0[0]);
+		ComputeTextboxSizes_89830(&str_unk_1804B0ar.type_sub_0[0]);
 		sub_89920(&str_unk_1804B0ar.type_sub_0[0], str_unk_1804B0ar.byte_0xa0, &str_unk_1804B0ar.uni_0x8a.word[2]);
 		ComputeTextboxSizes_89520(&str_unk_1804B0ar.type_sub_0[0]);
 		sub_89980(&str_unk_1804B0ar.type_sub_0[0]);
@@ -88209,7 +88209,7 @@ void sub_87860()//268860
 		str_unk_1804B0ar.type_sub_0[1].color1_0x30 = (*xadataclrd0dat.colorPalette_var28)[0xfff];
 		str_unk_1804B0ar.type_sub_0[1].maxTextboxWidth2_0xc = 220;
 		str_unk_1804B0ar.type_sub_0[1].color2_0x31 = (*xadataclrd0dat.colorPalette_var28)[0];
-		sub_89830(&str_unk_1804B0ar.type_sub_0[1]);
+		ComputeTextboxSizes_89830(&str_unk_1804B0ar.type_sub_0[1]);
 		ComputeTextboxSizesFromTextWords_89420(&str_unk_1804B0ar.type_sub_0[1], (char*)x_DWORD_E9C4C_langindexbuffer[str_E2A74[(str_unk_1804B0ar.byte_0xaa + 86)].axis_2[1]]);
 		ComputeTextboxSizes_89520(&str_unk_1804B0ar.type_sub_0[1]);
 		sub_89980(&str_unk_1804B0ar.type_sub_0[1]);
@@ -88297,7 +88297,7 @@ void sub_87A30()//268a30
 		str_unk_1804B0ar.type_sub_0[1].color1_0x30 = (*xadataclrd0dat.colorPalette_var28)[0xfff];
 		str_unk_1804B0ar.type_sub_0[1].maxTextboxWidth2_0xc = 220;
 		str_unk_1804B0ar.type_sub_0[1].color2_0x31 = (*xadataclrd0dat.colorPalette_var28)[0];
-		sub_89830(&str_unk_1804B0ar.type_sub_0[1]);
+		ComputeTextboxSizes_89830(&str_unk_1804B0ar.type_sub_0[1]);
 		ComputeTextboxSizesFromTextWords_89420(&str_unk_1804B0ar.type_sub_0[1], (char*)x_DWORD_E9C4C_langindexbuffer[str_E2A74[str_unk_1804B0ar.byte_0xa9].axis_2[1]]);
 		ComputeTextboxSizes_89520(&str_unk_1804B0ar.type_sub_0[1]);
 		sub_89980(&str_unk_1804B0ar.type_sub_0[1]);
@@ -89709,30 +89709,17 @@ void DrawTextbox2_89690(type_textbox_sub1804B0* textbox)//26a690
 	}
 }
 
-int debugcounter_sub_89830 = 0;
 //----- (00089830) --------------------------------------------------------
-void sub_89830(type_textbox_sub1804B0* a1x)//26a830
+void ComputeTextboxSizes_89830(type_textbox_sub1804B0* textbox)//26a830
 {
-	int v1; // eax
-	__int16 v2; // si
-	int result; // eax
-	int v4; // [esp+0h] [ebp-4h]
-
-	if (debugcounter_sub_89830 >= 1)
-		debugcounter_sub_89830 = debugcounter_sub_89830;
-
-	v1 = a1x->lineX1_0x1c;//64 //90
-	v2 = v1 + 25;//+0x50-0x37
-	v4 = a1x->lineY1_0x1e;	//01
-	if (a1x->maxWidth_0x16 < v1 + 135)//00<73+135
-		v2 = v1 - 135;
-	result = v4 - 94;
-	if (v4 - 94 + 28 < a1x->minHeight_0x18)
-		result = v4 + 66;
-	a1x->maxTextboxWidth_0x0 = v2;
-	a1x->maxTextboxHeight_0x2 = result;
-	debugcounter_sub_89830++;
-	//return result;
+	int preMaxTextboxWidth = textbox->lineX1_0x1c + 25;
+	if (textbox->maxWidth_0x16 < textbox->lineX1_0x1c + 135)
+		preMaxTextboxWidth = textbox->lineX1_0x1c - 135;
+	int preMaxTextboxHeight = textbox->lineY1_0x1e - 94;
+	if (textbox->lineY1_0x1e - 94 + 28 < textbox->minHeight_0x18)
+		preMaxTextboxHeight = textbox->lineY1_0x1e + 66;
+	textbox->maxTextboxWidth_0x0 = preMaxTextboxWidth;
+	textbox->maxTextboxHeight_0x2 = preMaxTextboxHeight;
 }
 
 //----- (000898A0) --------------------------------------------------------
