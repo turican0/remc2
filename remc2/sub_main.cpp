@@ -88024,7 +88024,8 @@ void sub_87C10()//268c10
 	if (x_D41A0_BYTEARRAY_4_struct.byteindex_10)
 	{
 		str_unk_1804B0ar.dword_0x6a = 0;
-		*(int16_t*)&str_unk_1804B0ar.byte_0x9e &= 0xFEDFu;
+		str_unk_1804B0ar.byte_0x9e &= 0xDFu;
+		str_unk_1804B0ar.byte_0x9f &= 0xFEu;
 		str_unk_1804B0ar.dword_0x72 = str_unk_1804B0ar.dword_0x6e;
 		str_E2A74[str_unk_1804B0ar.word_0x86].axis_2[0] &= 0xffFDu;
 		str_E2A74[str_unk_1804B0ar.word_0x86].dword_16 = 0;
