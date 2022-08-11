@@ -87969,25 +87969,10 @@ void sub_87610()//268610
 //----- (00087860) --------------------------------------------------------
 void sub_87860()//268860
 {
-	//__int16 *v0; // eax
-	//char* v1; // ebx
-	//__int16 v2; // dx
-	//int result; // eax
-
 	if (str_unk_1804B0ar.byte_0xaa >= 0)
 	{
 		sub_87970();
-		//v0 = (int16_t*)&array_E2A74[30 * (str_unk_1804B0ar.byte_0xaa + 86)];
-		//v1 = (char*)x_DWORD_E9C4C_langindexbuffer[v0[2]];
-
-		//Options
-		//Load Level
-		//Save Level
-		//Music Volume
-		//Sound Volume
-
-		//v2 = v0[4];
-		//LOWORD(v0) = v0[5];
+		//Options | Load Level | Save Level | Music Volume | Sound Volume
 		str_unk_1804B0ar.type_sub_0[1].lineX1_0x1c = str_E2A74[(str_unk_1804B0ar.byte_0xaa + 86)].axis_2[3];
 		str_unk_1804B0ar.type_sub_0[1].lineY1_0x1e = str_E2A74[(str_unk_1804B0ar.byte_0xaa + 86)].axis_2[4];
 		str_unk_1804B0ar.type_sub_0[1].color1_0x30 = (*xadataclrd0dat.colorPalette_var28)[0xfff];
@@ -88003,20 +87988,7 @@ void sub_87860()//268860
 		DrawTextboxLine_89A30(&str_unk_1804B0ar.type_sub_0[1]);
 		DrawTextbox2_89690(&str_unk_1804B0ar.type_sub_0[1]);
 	}
-	//return result;
 }
-// E2A74: using guessed type __int16 x_WORD_E2A74[];
-// E98FF: using guessed type char x_BYTE_E98FF;
-// 1804EF: using guessed type __int16 x_WORD_1804EF;
-// 1804FF: using guessed type __int16 x_WORD_1804FF;
-// 180501: using guessed type __int16 x_WORD_180501;
-// 180507: using guessed type __int16 x_WORD_180507;
-// 180509: using guessed type __int16 x_WORD_180509;
-// 18050B: using guessed type __int16 x_WORD_18050B;
-// 18050D: using guessed type __int16 x_WORD_18050D;
-// 180513: using guessed type char x_BYTE_180513;
-// 180514: using guessed type char x_BYTE_180514;
-// 18055A: using guessed type char x_BYTE_18055A;
 
 //----- (00087970) --------------------------------------------------------
 void sub_87970()//268970
