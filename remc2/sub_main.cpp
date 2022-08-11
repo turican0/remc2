@@ -76454,6 +76454,8 @@ void NetworkUpdateConnections2_74374()//255374
 	NetworkUpdateConnections_74F76();
 }
 
+char fixBuffer[60000];
+
 //----- (0007438A) --------------------------------------------------------
 void ReceiveSendAll_7438A(uint8_t* buffer, unsigned int size)//25538a
 {
@@ -76461,25 +76463,43 @@ void ReceiveSendAll_7438A(uint8_t* buffer, unsigned int size)//25538a
 	{
 		if (IndexInNetwork_E1276 == IndexInNetwork2_E12A8)
 		{
+			timeState(false, "End");//debug	
+			timeState(true, "Begin - pre Send");//debug	
 			for (int i = 0; i < countConnected_E1278; i++)
 			{
 				if (i != IndexInNetwork_E1276)
-					NetworkReceiveMessage2_7404E(i, buffer + size * i, size);
+					NetworkReceiveMessage2_7404E(i, &buffer[size * i], size);
 			}
+			timeState(true, "After Send, Before Receive");//debug
 			for (int j = 0; j < countConnected_E1278; j++)
 			{
 				if (j != IndexInNetwork_E1276)
 				{
-					printState2((char*)"Send State 3\n");
+					printState2((char*)"Send State 3\n");//debug
 					NetworkSendMessage2_74006(j, buffer, size * countConnected_E1278);
 				}
 			}
+			timeState(true, "After Receive");//debug
 		}
 		else
 		{
-			printState2((char*)"Send State 4\n");
+			timeState(false, "End");//debug	
+			timeState(true, "Begin - pre Send");//debug	
+			printState2((char*)"Send State 4\n");//debug	
+			//fix some problems
+			memcpy(fixBuffer, buffer, size * countConnected_E1278);
+			//fix some problems
 			NetworkSendMessage2_74006(IndexInNetwork2_E12A8, (buffer + size * IndexInNetwork_E1276), size);
+			timeState(true, "After Send, Before Receive");//debug
 			NetworkReceiveMessage2_7404E(IndexInNetwork2_E12A8, buffer, size * countConnected_E1278);
+			//debug
+			if (memcmp((char*)&fixBuffer[IndexInNetwork_E1276 * size], (char*)&buffer[IndexInNetwork_E1276 * size], size))
+			{
+				//memcpy(buffer, fixBuffer, size * countConnected_E1278);
+				//allert_error();
+			}
+			//debug
+			timeState(true, "After Receive");//debug
 		}
 	}
 }
