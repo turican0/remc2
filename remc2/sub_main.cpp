@@ -2527,7 +2527,7 @@ void ComputeTextboxLine_898A0(type_textbox_sub1804B0* textbox);
 void ComputeTextboxSizesFromTextLines_89920(type_textbox_sub1804B0* textbox, __int16 countLines, int16_t* textLines);
 void ComputeFrameSizes_89980(type_textbox_sub1804B0* textbox);
 void DrawTextboxLine_89A30(type_textbox_sub1804B0* textbox);
-void sub_89AC0(x_BYTE* a1, int a2);
+void GetHintText_89AC0(char* buffer, int typeOfText);
 int16_t sub_89B60_aplicate_setting(uint8_t a1);
 int ReadGameUserInputs_89D10();
 int sub_8B5A0();
@@ -87982,7 +87982,7 @@ void sub_87610()//268610
 	if (str_E2A74[str_unk_1804B0ar.word_0x86].axis_2[0] & 0x100)
 	{
 		v0 = &v8;
-		sub_89AC0(&v8, str_unk_1804B0ar.word_0x86);
+		GetHintText_89AC0(&v8, str_unk_1804B0ar.word_0x86);
 	}
 	str_unk_1804B0ar.type_sub_0[0].color1_0x30 = (*xadataclrd0dat.colorPalette_var28)[0xfff];
 	str_unk_1804B0ar.type_sub_0[0].color2_0x31 = (*xadataclrd0dat.colorPalette_var28)[0];
@@ -89801,37 +89801,20 @@ void DrawTextboxLine_89A30(type_textbox_sub1804B0* textbox)//26aa30
 }
 
 //----- (00089AC0) --------------------------------------------------------
-void sub_89AC0(x_BYTE* a1, int a2)//26aac0
+void GetHintText_89AC0(char* buffer, int typeOfText)//26aac0
 {
-	//int result; // eax
-	signed int v3; // eax
-
-	//result = a2;
-	if ((unsigned __int16)a2 < 0x5Cu)
-		a1[0] = 0;
-	else {
-		if ((unsigned __int16)a2 <= 0x5Cu)
-		{
-			sprintf(a1, "[F1] %s", x_DWORD_E9C4C_langindexbuffer[14]);//Toggle help on / off
-			return;
-		}
-		if ((x_WORD)a2 == 96)
-		{
-			v3 = GetTrueWizardNumber_61790((unsigned __int8)str_unk_1804B0ar.byte_0xa8);
-			/*result = */sprintf(a1, (const char*)x_DWORD_E9C4C_langindexbuffer[353], (&WizardsNames_D93A0)[v3]);//Number of times you have killed %s
-		}
-		else
-		{
-			a1[0] = 0;
-		}
+	switch (typeOfText) {
+	case 92:
+		sprintf(buffer, "[F1] %s", x_DWORD_E9C4C_langindexbuffer[14]);//Toggle help on / off
+		break;
+	case 96:
+		sprintf(buffer, (const char*)x_DWORD_E9C4C_langindexbuffer[353], (&WizardsNames_D93A0)[GetTrueWizardNumber_61790(str_unk_1804B0ar.byte_0xa8)]);//Number of times you have killed %s
+		break;
+	default:
+		buffer[0] = 0;
+		break;
 	}
-	//return result;
 }
-// 8E3D5: using guessed type x_DWORD sprintf(x_DWORD, const char *, ...);
-// D93A0: using guessed type const char *off_D93A0_wizards_names2;
-// E9C84: using guessed type int x_DWORD_E9C84;
-// EA1D0: using guessed type int x_DWORD_EA1D0;
-// 180558: using guessed type char x_BYTE_180558;
 
 //----- (00089B60) --------------------------------------------------------
 int16_t sub_89B60_aplicate_setting(uint8_t a1)//26ab60
