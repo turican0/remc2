@@ -87705,25 +87705,20 @@ char sub_871E0()//2681e0
 //----- (000871F0) --------------------------------------------------------
 void DrawHelpPopUps_871F0()//2681f0
 {
-	//uint8_t* v0; // eax
-	char v1; // bl
-	//int v2; // eax
-	//int v4; // eax
+	bool hintType1 = true;
 
-	/*v0 = (uint8_t*)*/sub_872A0();
-	//BYTE1(v0) = *(int16_t*)&str_unk_1804B0ar.byte_0x9e;
-	v1 = 1;
+	sub_872A0();
 	if (str_unk_1804B0ar.byte_0x9e & 0x10)
 	{
-		/*v0 = (uint8_t*)*/sub_87C10();
+		sub_87C10();
 	}
 	else
 	{
 		if (str_unk_1804B0ar.byte_0x9f & 0x20 || str_unk_1804B0ar.byte_0x9f & 0x10)
-			v1 = 0;
+			hintType1 = false;
 		if (str_unk_1804B0ar.byte_0x9e & 2 || str_unk_1804B0ar.byte_0x9f & 0x8)
-			v1 = 1;
-		if (v1)
+			hintType1 = true;
+		if (hintType1)
 		{
 			if (str_unk_1804B0ar.word_0x86)
 			{
@@ -87734,30 +87729,23 @@ void DrawHelpPopUps_871F0()//2681f0
 			{
 				sub_87580();
 			}
-			/*v0 = */sub_87B70();
+			sub_87B70();
 		}
 		else
 		{
 			if (str_unk_1804B0ar.byte_0x9f & 0x10)
 			{
-				/*v2 = */sub_87A30();
+				sub_87A30();
 				return;
-				//return _wcpp_1_unwind_leave__132(0/*v2*/);
 			}
 			if (str_unk_1804B0ar.byte_0x9f & 0x20)
 			{
-				/*v4 = */sub_87860();
+				sub_87860();
 				return;
-				//return _wcpp_1_unwind_leave__132(0/*v4*/);
 			}
 		}
 	}
-	//return _wcpp_1_unwind_leave__132(0/*(x_DWORD)v0*/);
 }
-// 87BD0: using guessed type int /*__fastcall*/ _wcpp_1_unwind_leave__132(x_DWORD);
-// 180522: using guessed type int x_DWORD_180522;
-// 180536: using guessed type __int16 x_WORD_180536;
-// 18054E: using guessed type __int16 x_WORD_18054E;
 
 //----- (000872A0) --------------------------------------------------------
 void sub_872A0()//2682a0
