@@ -2518,7 +2518,7 @@ void sub_88BA0();
 void sub_88D00();
 void sub_88D40();
 void sub_89360();
-void sub_89420(type_textbox_sub1804B0* a1, char* a2);
+void ComputeTextboxSizesFromTextWords_89420(type_textbox_sub1804B0* textbox, char* text);
 void sub_89520(type_textbox_sub1804B0* a1);
 void DrawTextbox_895D0(type_textbox_sub1804B0* a1x, char* a2);
 void sub_89690_draw_frame(type_textbox_sub1804B0* a1);
@@ -29961,7 +29961,7 @@ void sub_30630()//211630
 			v6z.maxTextboxWidth_0x0 = 320;
 			v6z.maxTextboxHeight_0x2 = 300;
 			v6z.maxTextboxWidth2_0xc = 320;
-			sub_89420(&v6z, v5);
+			ComputeTextboxSizesFromTextWords_89420(&v6z, v5);
 			sub_89520(&v6z);
 			sub_89980(&v6z);
 			ColorizeScreen_2E790(v6z.framePosX_0x24, v6z.framePosY_0x26, v6z.frameWidth_0x28, v6z.frameHeight_0x2a, v6z.color2_0x31);
@@ -30006,7 +30006,7 @@ void sub_30870()//211870
 	v4y.minHeight_0x18 = 310;
 	v4y.maxHeight_0x1a = 630;
 	v4y.maxTextboxHeight_0x2 = 310;
-	sub_89420(&v4y, v0);
+	ComputeTextboxSizesFromTextWords_89420(&v4y, v0);
 	sub_89520(&v4y);
 	sub_89980(&v4y);
 	DrawTextbox_895D0(&v4y, v0);
@@ -87995,7 +87995,7 @@ void sub_87610()//268610
 			str_unk_1804B0ar.type_sub_0[0].maxTextboxWidth_0x0 = 320;
 			str_unk_1804B0ar.type_sub_0[0].maxTextboxHeight_0x2 = 80;
 			str_unk_1804B0ar.type_sub_0[0].maxTextboxWidth2_0xc = 320;
-			sub_89420(&str_unk_1804B0ar.type_sub_0[0], v0);
+			ComputeTextboxSizesFromTextWords_89420(&str_unk_1804B0ar.type_sub_0[0], v0);
 			sub_89520(&str_unk_1804B0ar.type_sub_0[0]);
 			sub_89980(&str_unk_1804B0ar.type_sub_0[0]);
 		}
@@ -88018,7 +88018,7 @@ void sub_87610()//268610
 		if (str_unk_1804B0ar.byte_0x9e & 0x8)
 		{
 			sub_89830(&str_unk_1804B0ar.type_sub_0[0]);//here
-			sub_89420(&str_unk_1804B0ar.type_sub_0[0], v0);
+			ComputeTextboxSizesFromTextWords_89420(&str_unk_1804B0ar.type_sub_0[0], v0);
 			sub_89520(&str_unk_1804B0ar.type_sub_0[0]);
 			sub_89980(&str_unk_1804B0ar.type_sub_0[0]);
 		}
@@ -88210,7 +88210,7 @@ void sub_87860()//268860
 		str_unk_1804B0ar.type_sub_0[1].maxTextboxWidth2_0xc = 220;
 		str_unk_1804B0ar.type_sub_0[1].color2_0x31 = (*xadataclrd0dat.colorPalette_var28)[0];
 		sub_89830(&str_unk_1804B0ar.type_sub_0[1]);
-		sub_89420(&str_unk_1804B0ar.type_sub_0[1], (char*)x_DWORD_E9C4C_langindexbuffer[str_E2A74[(str_unk_1804B0ar.byte_0xaa + 86)].axis_2[1]]);
+		ComputeTextboxSizesFromTextWords_89420(&str_unk_1804B0ar.type_sub_0[1], (char*)x_DWORD_E9C4C_langindexbuffer[str_E2A74[(str_unk_1804B0ar.byte_0xaa + 86)].axis_2[1]]);
 		sub_89520(&str_unk_1804B0ar.type_sub_0[1]);
 		sub_89980(&str_unk_1804B0ar.type_sub_0[1]);
 		sub_898A0(&str_unk_1804B0ar.type_sub_0[1]);
@@ -88298,7 +88298,7 @@ void sub_87A30()//268a30
 		str_unk_1804B0ar.type_sub_0[1].maxTextboxWidth2_0xc = 220;
 		str_unk_1804B0ar.type_sub_0[1].color2_0x31 = (*xadataclrd0dat.colorPalette_var28)[0];
 		sub_89830(&str_unk_1804B0ar.type_sub_0[1]);
-		sub_89420(&str_unk_1804B0ar.type_sub_0[1], (char*)x_DWORD_E9C4C_langindexbuffer[str_E2A74[str_unk_1804B0ar.byte_0xa9].axis_2[1]]);
+		ComputeTextboxSizesFromTextWords_89420(&str_unk_1804B0ar.type_sub_0[1], (char*)x_DWORD_E9C4C_langindexbuffer[str_E2A74[str_unk_1804B0ar.byte_0xa9].axis_2[1]]);
 		sub_89520(&str_unk_1804B0ar.type_sub_0[1]);
 		sub_89980(&str_unk_1804B0ar.type_sub_0[1]);
 		sub_898A0(&str_unk_1804B0ar.type_sub_0[1]);
@@ -89573,64 +89573,55 @@ void sub_89360()//26a360
 // 180558: using guessed type char x_BYTE_180558;
 
 //----- (00089420) --------------------------------------------------------
-void sub_89420(type_textbox_sub1804B0* a1x, char* a2)//26a420
+void ComputeTextboxSizesFromTextWords_89420(type_textbox_sub1804B0* textbox, char* text)//26a420
 {
-	int result; // eax
-	unsigned int v3; // kr04_4
-	signed int v4; // ecx
-	signed int v5; // ebx
-	char* v6x; // ecx
-	char* v7x; // edx
-	x_BYTE* i; // ecx
-	signed __int16 v9; // [esp+4h] [ebp-4h]
+	int lineCharWidth; // eax
+	unsigned int textBufferLenght; // kr04_4
+	signed int textWidth; // ecx
+	signed int textboxWidth; // ebx
+	int lastLineIndex;
+	int textIndex;
+	signed __int16 countOfLines; // [esp+4h] [ebp-4h]
 
-	//result = 0;
-	v3 = strlen(a2) + 1;
-	v9 = 1;
-	a1x->textBoxWidth_0x4 = 0;
-	a1x->textboxHeight_0x6 = 0;
-	if (v3 != 1)
+	textBufferLenght = strlen(text) + 1;
+	countOfLines = 1;
+	textbox->textBoxWidth_0x4 = 0;
+	textbox->textboxHeight_0x6 = 0;
+	if (textBufferLenght != 1)
 	{
-		//HIWORD(result) = 0;
-		v4 = a1x->charWidth_0x10 * strlen(a2);
-		v5 = a1x->maxTextboxWidth2_0xc;
-		if (v4 <= v5)
+		textWidth = textbox->charWidth_0x10 * strlen(text);
+		textboxWidth = textbox->maxTextboxWidth2_0xc;
+		if (textWidth <= textboxWidth)
 		{
-			a1x->textBoxWidth_0x4 = v4;
+			textbox->textBoxWidth_0x4 = textWidth;
 		}
 		else
 		{
-			//result = v5 / 2;
-			if (v4 % v5 < v5 / 2)
+			if (textWidth % textboxWidth < textboxWidth / 2)//last line is lower than halfscreen
 			{
 				while (1)
 				{
-					//result = v5 / 2;
-					if (v4 % v5 >= v5 / 2 || v5 <= 0)
+					if (textWidth % textboxWidth >= textboxWidth / 2 || textboxWidth <= 0)
 						break;
-					v5 -= a1x->charWidth_0x10;
+					textboxWidth -= textbox->charWidth_0x10;
 				}
 			}
-			if (v5 > 0)
+			if (textboxWidth > 0)
 			{
-				result = (v5 + a1x->charWidth_0x10 - 1) / a1x->charWidth_0x10;
-				v9 = 0;
-				v6x = a2;
-				v7x = &a2[v3 - 1];
-				while (v6x < v7x)
+				lineCharWidth = (textboxWidth + textbox->charWidth_0x10 - 1) / textbox->charWidth_0x10;
+				countOfLines = 0;
+				lastLineIndex = 0;
+				while (lastLineIndex < textBufferLenght - 1)
 				{
-					for (i = &v6x[result]; *i != 32 && i < v7x; i--)
-						;
-					v6x = (i + 1);
-					v9++;
+					for (textIndex = lastLineIndex + lineCharWidth; text[lastLineIndex + textIndex] != 32 && textIndex < textBufferLenght - 1; textIndex--);//to previous word
+					lastLineIndex = textIndex + 1;
+					countOfLines++;
 				}
-				a1x->textBoxWidth_0x4 = v5;
+				textbox->textBoxWidth_0x4 = textboxWidth;
 			}
 		}
-		//LOWORD(result) = a1x->word_0x12;
-		a1x->textboxHeight_0x6 = a1x->charHeight_0x12 * v9;
+		textbox->textboxHeight_0x6 = textbox->charHeight_0x12 * countOfLines;
 	}
-	//return result;
 }
 
 //----- (00089520) --------------------------------------------------------
