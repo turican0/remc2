@@ -2525,7 +2525,7 @@ void DrawTextbox2_89690(type_textbox_sub1804B0* textbox);
 void ComputeTextboxSizes_89830(type_textbox_sub1804B0* textbox);
 void ComputeTextboxLine_898A0(type_textbox_sub1804B0* textbox);
 void ComputeTextboxSizesFromTextLines_89920(type_textbox_sub1804B0* textbox, __int16 countLines, int16_t* textLines);
-void sub_89980(type_textbox_sub1804B0* a1);
+void ComputeFrameSizes_89980(type_textbox_sub1804B0* textbox);
 void sub_89A30_draw_line(type_textbox_sub1804B0* a1);
 void sub_89AC0(x_BYTE* a1, int a2);
 int16_t sub_89B60_aplicate_setting(uint8_t a1);
@@ -29963,7 +29963,7 @@ void sub_30630()//211630
 			v6z.maxTextboxWidth2_0xc = 320;
 			ComputeTextboxSizesFromTextWords_89420(&v6z, v5);
 			ComputeTextboxSizes_89520(&v6z);
-			sub_89980(&v6z);
+			ComputeFrameSizes_89980(&v6z);
 			ColorizeScreen_2E790(v6z.framePosX_0x24, v6z.framePosY_0x26, v6z.frameWidth_0x28, v6z.frameHeight_0x2a, v6z.color2_0x31);
 			DrawTextbox_895D0(&v6z, v5);
 			DrawTextbox2_89690(&v6z);
@@ -30008,7 +30008,7 @@ void sub_30870()//211870
 	v4y.maxTextboxHeight_0x2 = 310;
 	ComputeTextboxSizesFromTextWords_89420(&v4y, v0);
 	ComputeTextboxSizes_89520(&v4y);
-	sub_89980(&v4y);
+	ComputeFrameSizes_89980(&v4y);
 	DrawTextbox_895D0(&v4y, v0);
 	switch (LastPressedKey_1806E4)
 	{
@@ -87997,7 +87997,7 @@ void sub_87610()//268610
 			str_unk_1804B0ar.type_sub_0[0].maxTextboxWidth2_0xc = 320;
 			ComputeTextboxSizesFromTextWords_89420(&str_unk_1804B0ar.type_sub_0[0], v0);
 			ComputeTextboxSizes_89520(&str_unk_1804B0ar.type_sub_0[0]);
-			sub_89980(&str_unk_1804B0ar.type_sub_0[0]);
+			ComputeFrameSizes_89980(&str_unk_1804B0ar.type_sub_0[0]);
 		}
 		ColorizeScreen_2E790(
 			str_unk_1804B0ar.type_sub_0[0].framePosX_0x24,
@@ -88020,7 +88020,7 @@ void sub_87610()//268610
 			ComputeTextboxSizes_89830(&str_unk_1804B0ar.type_sub_0[0]);//here
 			ComputeTextboxSizesFromTextWords_89420(&str_unk_1804B0ar.type_sub_0[0], v0);
 			ComputeTextboxSizes_89520(&str_unk_1804B0ar.type_sub_0[0]);
-			sub_89980(&str_unk_1804B0ar.type_sub_0[0]);
+			ComputeFrameSizes_89980(&str_unk_1804B0ar.type_sub_0[0]);
 		}
 		ComputeTextboxLine_898A0(&str_unk_1804B0ar.type_sub_0[0]);
 		ColorizeScreen_2E790(
@@ -88042,7 +88042,7 @@ void sub_87610()//268610
 		ComputeTextboxSizes_89830(&str_unk_1804B0ar.type_sub_0[0]);
 		ComputeTextboxSizesFromTextLines_89920(&str_unk_1804B0ar.type_sub_0[0], str_unk_1804B0ar.byte_0xa0, &str_unk_1804B0ar.uni_0x8a.word[2]);
 		ComputeTextboxSizes_89520(&str_unk_1804B0ar.type_sub_0[0]);
-		sub_89980(&str_unk_1804B0ar.type_sub_0[0]);
+		ComputeFrameSizes_89980(&str_unk_1804B0ar.type_sub_0[0]);
 		ComputeTextboxLine_898A0(&str_unk_1804B0ar.type_sub_0[0]);
 		v4 = 0;
 		ColorizeScreen_2E790(
@@ -88212,7 +88212,7 @@ void sub_87860()//268860
 		ComputeTextboxSizes_89830(&str_unk_1804B0ar.type_sub_0[1]);
 		ComputeTextboxSizesFromTextWords_89420(&str_unk_1804B0ar.type_sub_0[1], (char*)x_DWORD_E9C4C_langindexbuffer[str_E2A74[(str_unk_1804B0ar.byte_0xaa + 86)].axis_2[1]]);
 		ComputeTextboxSizes_89520(&str_unk_1804B0ar.type_sub_0[1]);
-		sub_89980(&str_unk_1804B0ar.type_sub_0[1]);
+		ComputeFrameSizes_89980(&str_unk_1804B0ar.type_sub_0[1]);
 		ComputeTextboxLine_898A0(&str_unk_1804B0ar.type_sub_0[1]);
 		ColorizeScreen_2E790(str_unk_1804B0ar.type_sub_0[1].framePosX_0x24, str_unk_1804B0ar.type_sub_0[1].framePosY_0x26, str_unk_1804B0ar.type_sub_0[1].frameWidth_0x28, str_unk_1804B0ar.type_sub_0[1].frameHeight_0x2a, str_unk_1804B0ar.type_sub_0[1].color2_0x31);
 		DrawTextbox_895D0(&str_unk_1804B0ar.type_sub_0[1], (char*)x_DWORD_E9C4C_langindexbuffer[str_E2A74[(str_unk_1804B0ar.byte_0xaa + 86)].axis_2[1]]);
@@ -88300,7 +88300,7 @@ void sub_87A30()//268a30
 		ComputeTextboxSizes_89830(&str_unk_1804B0ar.type_sub_0[1]);
 		ComputeTextboxSizesFromTextWords_89420(&str_unk_1804B0ar.type_sub_0[1], (char*)x_DWORD_E9C4C_langindexbuffer[str_E2A74[str_unk_1804B0ar.byte_0xa9].axis_2[1]]);
 		ComputeTextboxSizes_89520(&str_unk_1804B0ar.type_sub_0[1]);
-		sub_89980(&str_unk_1804B0ar.type_sub_0[1]);
+		ComputeFrameSizes_89980(&str_unk_1804B0ar.type_sub_0[1]);
 		ComputeTextboxLine_898A0(&str_unk_1804B0ar.type_sub_0[1]);
 		ColorizeScreen_2E790(str_unk_1804B0ar.type_sub_0[1].framePosX_0x24, str_unk_1804B0ar.type_sub_0[1].framePosY_0x26, str_unk_1804B0ar.type_sub_0[1].frameWidth_0x28, str_unk_1804B0ar.type_sub_0[1].frameHeight_0x2a, str_unk_1804B0ar.type_sub_0[1].color2_0x31);
 		DrawTextbox_895D0(&str_unk_1804B0ar.type_sub_0[1], (char*)x_DWORD_E9C4C_langindexbuffer[str_E2A74[str_unk_1804B0ar.byte_0xa9].axis_2[1]]);
@@ -89777,40 +89777,17 @@ void ComputeTextboxSizesFromTextLines_89920(type_textbox_sub1804B0* textbox, __i
 }
 
 //----- (00089980) --------------------------------------------------------
-void sub_89980(type_textbox_sub1804B0* a1x)//26a980
+void ComputeFrameSizes_89980(type_textbox_sub1804B0* textbox)//26a980
 {
-	__int16 v1; // di
-	int v2; // ecx
-	__int16 v3; // ST00_2
-	signed __int16 v4; // ax
-	int v5; // edx
-	signed __int16 v6; // ax
-	int v7; // edx
-	int result; // eax
-
-				/*v1 = *(unsigned __int8 *)(**filearray_2aa18c[6] + 1043);
-				v2 = *(unsigned __int8 *)(**filearray_2aa18c[6] + 1037);
-				v3 = *(unsigned __int8 *)(**filearray_2aa18c[6] + 1031);
-				v4 = *(unsigned __int8 *)(**filearray_2aa18c[6] + 1042)
-					* (unsigned __int16)((*(unsigned __int8 *)(**filearray_2aa18c[6] + 1042) - 1 + a1[2] + 8)
-					/ *(unsigned __int8 *)(**filearray_2aa18c[6] + 1042));*/
-					//filearray_2aa18c[filearrayindex_HFONT3DATTAB].posistruct[85].width
-	v1 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[173].height_5;//173 y
-	v2 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[172].height_5;//172 y
-	v3 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[171].height_5;//171 y
-	v4 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[173].width_4
-		* (unsigned __int16)(((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[173].width_4 - 1 + a1x->textBoxWidth_0x4 + 8) / (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[173].width_4);
-	v5 = a1x->textBoxWidth_0x4;
-	a1x->frameWidth_0x28 = v4;
-	a1x->framePosX_0x24 = a1x->textboxPosX_0x8 - (v4 - v5) / 2;
-	v6 = (v2 - 1 + a1x->textboxHeight_0x6) / v2 * v2 + 2 * (v3 - v1);
-	v7 = a1x->textboxHeight_0x6;
-	a1x->frameHeight_0x2a = v6;
-	result = (v6 - v7) / 2;
-	a1x->framePosY_0x26 = a1x->textboxPosY_0xa - result;
-	//return result;
+	int height1 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[173].height_5;
+	int height2 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[172].height_5;
+	int height3 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[171].height_5;
+	textbox->frameWidth_0x28 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[173].width_4
+		* (((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[173].width_4 - 1 + textbox->textBoxWidth_0x4 + 8) / (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[173].width_4);
+	textbox->framePosX_0x24 = textbox->textboxPosX_0x8 - (textbox->frameWidth_0x28 - textbox->textBoxWidth_0x4) / 2;
+	textbox->frameHeight_0x2a = (height2 - 1 + textbox->textboxHeight_0x6) / height2 * height2 + 2 * (height3 - height1);
+	textbox->framePosY_0x26 = textbox->textboxPosY_0xa - (textbox->frameHeight_0x2a - textbox->textboxHeight_0x6) / 2;
 }
-// EA3DC: using guessed type int **filearray_2aa18c[6];
 
 //----- (00089A30) --------------------------------------------------------
 void sub_89A30_draw_line(type_textbox_sub1804B0* a1x)//26aa30
