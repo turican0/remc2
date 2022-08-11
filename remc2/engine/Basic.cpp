@@ -3640,44 +3640,42 @@ void sub_99AEB_create_index_dattab_minus(uint8_t* tabbuffer, uint8_t* tabbuffere
 	}
 }
 
-signed int sub_61790(signed int a1)//242790
+signed int GetTrueWizardNumber_61790(signed int inputnumber)//242790
 {
-	signed int result; // eax
-
-	result = a1;
+	signed int outputNumber = inputnumber;
 	if (x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 0x10)
 	{
-		switch (D41A0_0.array_0x2BDE[a1].dword_0x3E6_2BE4_12228.byte_0x1C0_448)
+		switch (D41A0_0.array_0x2BDE[inputnumber].dword_0x3E6_2BE4_12228.byte_0x1C0_448)
 		{
 		case 0:
-			result = 0;
+			outputNumber = 0;
 			break;
 		case 1:
-			result = 2;
+			outputNumber = 2;
 			break;
 		case 2:
-			result = 1;
+			outputNumber = 1;
 			break;
 		case 3:
-			result = 4;
+			outputNumber = 4;
 			break;
 		case 4:
-			result = 5;
+			outputNumber = 5;
 			break;
 		case 5:
-			result = 6;
+			outputNumber = 6;
 			break;
 		case 6:
-			result = 3;
+			outputNumber = 3;
 			break;
 		case 7:
-			result = 7;
+			outputNumber = 7;
 			break;
 		default:
-			return result;
+			return outputNumber;
 		}
 	}
-	return result;
+	return outputNumber;
 }
 
 void Convert_from_shadow_str_2FECE(type_shadow_str_2FECE* from, type_str_2FECE* to) {

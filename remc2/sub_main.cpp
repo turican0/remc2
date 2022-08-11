@@ -28204,8 +28204,8 @@ void DrawSorcererScores_2D1D0()//20e1d0
 		v23x = x_DWORD_EA3E4[D41A0_0.array_0x2BDE[ix].word_0x00a_2BE4_11240];
 		if (v6 == 1)
 		{
-			v29 = x_BYTE_E88E0x[1 + 3 * sub_61790(v25)];
-			v30 = x_BYTE_E88E0x[3 * sub_61790(v25)];
+			v29 = x_BYTE_E88E0x[1 + 3 * GetTrueWizardNumber_61790(v25)];
+			v30 = x_BYTE_E88E0x[3 * GetTrueWizardNumber_61790(v25)];
 			v7 = v28;
 			sub_2BB40_draw_bitmap(v28, v5, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[85]);
 			DrawLine_2BC80(
@@ -28265,8 +28265,8 @@ void DrawSorcererScores_2D1D0()//20e1d0
 					}
 					else
 					{
-						v29 = x_BYTE_E88E0x[1 + 3 * sub_61790(j)];
-						v30 = x_BYTE_E88E0x[3 * sub_61790(j)];
+						v29 = x_BYTE_E88E0x[1 + 3 * GetTrueWizardNumber_61790(j)];
+						v30 = x_BYTE_E88E0x[3 * GetTrueWizardNumber_61790(j)];
 						sub_2BB40_draw_bitmap(v12, v5, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[86]);
 						DrawLine_2BC80(
 							v27,
@@ -28335,9 +28335,9 @@ void DrawTopStatusBar_2D710(type_event_0x6E8E* a1x)//20e710
 	unsigned __int8 v27; // [esp+3Ch] [ebp-Ch]
 	unsigned __int8 v28; // [esp+40h] [ebp-8h]
 
-	v28 = x_BYTE_E88E0x[3 * sub_61790(a1x->dword_0xA4_164x->word_0x38_56)];
-	v27 = x_BYTE_E88E0x[1 + 3 * sub_61790(a1x->dword_0xA4_164x->word_0x38_56)];
-	v26 = x_BYTE_E88E0x[3 * sub_61790(a1x->dword_0xA4_164x->word_0x38_56) + x_D41A0_BYTEARRAY_4_struct.byteindex_121[2]];
+	v28 = x_BYTE_E88E0x[3 * GetTrueWizardNumber_61790(a1x->dword_0xA4_164x->word_0x38_56)];
+	v27 = x_BYTE_E88E0x[1 + 3 * GetTrueWizardNumber_61790(a1x->dword_0xA4_164x->word_0x38_56)];
+	v26 = x_BYTE_E88E0x[3 * GetTrueWizardNumber_61790(a1x->dword_0xA4_164x->word_0x38_56) + x_D41A0_BYTEARRAY_4_struct.byteindex_121[2]];
 	//x_DWORD_F01E8(2, 2, **filearray_2aa18c[6] + 240);
 	x_DWORD_F01E8(2, 2, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[40]);
 	//v1 = *(unsigned __int8 *)(*filearray_2aa18c[6] + 244) + 2;
@@ -28745,8 +28745,8 @@ void DrawSpellIcon_2E260(int16_t posX, int16_t posY, type_event_0x6E8E* a3x, cha
 		v15x = v4x;
 		if (v4x > x_DWORD_EA3E4[0])
 		{
-			v17 = x_BYTE_E88E0x[3 * sub_61790(v4x->dword_0xA4_164x->word_0x38_56)];
-			v5 = sub_61790(v15x->dword_0xA4_164x->word_0x38_56);
+			v17 = x_BYTE_E88E0x[3 * GetTrueWizardNumber_61790(v4x->dword_0xA4_164x->word_0x38_56)];
+			v5 = GetTrueWizardNumber_61790(v15x->dword_0xA4_164x->word_0x38_56);
 			//v6 = a3x->word_0x2E_46;
 			v16 = x_BYTE_E88E0x[1 + 3 * v5];
 			//if (!(SPELLS_BEGIN_BUFFER_DA818[0x1+80 * a3x->byte_0x40_64] & 4)
@@ -28988,8 +28988,8 @@ void DrawBottomMenu_2ECC0()//20fcc0
 	v37x = x_DWORD_EA3E4[D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].word_0x00a_2BE4_11240];
 	//v2 = *(x_DWORD *)(v37 + 164);
 	//v36x = &v37x->dword_0xA4_164x->str_611;
-	v57 = x_BYTE_E88E0x[3 * sub_61790(v37x->dword_0xA4_164x->word_0x38_56)];
-	v56 = x_BYTE_E88E0x[1 + 3 * sub_61790(v37x->dword_0xA4_164x->word_0x38_56)];
+	v57 = x_BYTE_E88E0x[3 * GetTrueWizardNumber_61790(v37x->dword_0xA4_164x->word_0x38_56)];
+	v56 = x_BYTE_E88E0x[1 + 3 * GetTrueWizardNumber_61790(v37x->dword_0xA4_164x->word_0x38_56)];
 	//v3 = x_WORD_180660_VGA_type_resolution;
 	x_D41A0_BYTEARRAY_4_struct.byteindex_50 = -1;
 
@@ -46245,7 +46245,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E)//pre 22b1
 #ifdef COMPILE_FOR_64BIT // FIXME: 64bit
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
-		sub_61790((int)a1_6E8E);
+		GetTrueWizardNumber_61790((int)a1_6E8E);
 		allert_error();
 #endif
 		break;
@@ -53218,7 +53218,7 @@ void sub_53160()//234160
 		//v6 = (char *)(v0 + 927);//wizard name
 		v6 = (char*)D41A0_0.array_0x2BDE[v0index].array_0x39f_2BFA_12157;
 		//adress 2342e4
-		v7 = (char*)WizardsNames_D93A0[sub_61790(v12)];
+		v7 = (char*)WizardsNames_D93A0[GetTrueWizardNumber_61790(v12)];
 		strcpy(v6, v7);
 		strcpy(D41A0_0.array_0x2BDE[v0index].array_0x39f_2BFA_12157, v7);
 		/*do
@@ -65114,7 +65114,7 @@ void sub_61A00_draw_minimap_entites_b(int a1, int a2, int16_t posX, int16_t posY
 				v45 = jy->word_0x1A_26;
 				if (v45 != jy - D41A0_0.struct_0x6E8E)
 				{
-					v47 = x_BYTE_E88E0x[1 + 3 * sub_61790(x_DWORD_EA3E4[v45]->dword_0xA4_164x->word_0x38_56)];
+					v47 = x_BYTE_E88E0x[1 + 3 * GetTrueWizardNumber_61790(x_DWORD_EA3E4[v45]->dword_0xA4_164x->word_0x38_56)];
 					goto LABEL_102;
 				}
 				v46 = jy->subtype_0x40_64;
@@ -65171,9 +65171,9 @@ void sub_61A00_draw_minimap_entites_b(int a1, int a2, int16_t posX, int16_t posY
 						if (v41x->type_0x3F_63 == 3)
 						{
 							if (x_D41A0_BYTEARRAY_4_struct.byteindex_121[3])
-								v38 = x_BYTE_E88E0x[3 * sub_61790(v41x->dword_0xA4_164x->word_0x38_56)];
+								v38 = x_BYTE_E88E0x[3 * GetTrueWizardNumber_61790(v41x->dword_0xA4_164x->word_0x38_56)];
 							else
-								v38 = x_BYTE_E88E0x[1 + 3 * sub_61790(v41x->dword_0xA4_164x->word_0x38_56)];
+								v38 = x_BYTE_E88E0x[1 + 3 * GetTrueWizardNumber_61790(v41x->dword_0xA4_164x->word_0x38_56)];
 							goto LABEL_121;
 						}
 					}
@@ -65182,7 +65182,7 @@ void sub_61A00_draw_minimap_entites_b(int a1, int a2, int16_t posX, int16_t posY
 				LABEL_56:
 					v39x = x_DWORD_EA3E4[jy->word_0x1A_26];
 					if (v39x->type_0x3F_63 == 3)
-						v38 = x_BYTE_E88E0x[3 * sub_61790(v39x->dword_0xA4_164x->word_0x38_56)];
+						v38 = x_BYTE_E88E0x[3 * GetTrueWizardNumber_61790(v39x->dword_0xA4_164x->word_0x38_56)];
 					else
 						v38 = (*xadataclrd0dat.colorPalette_var28)[0xf0f];
 				LABEL_121:
@@ -65196,9 +65196,9 @@ void sub_61A00_draw_minimap_entites_b(int a1, int a2, int16_t posX, int16_t posY
 					if (v35 && (v36x = x_DWORD_EA3E4[v35], v36x->type_0x3F_63 == 3))
 					{
 						if (x_D41A0_BYTEARRAY_4_struct.byteindex_121[3])
-							v37 = x_BYTE_E88E0x[3 * sub_61790(v36x->dword_0xA4_164x->word_0x38_56)];
+							v37 = x_BYTE_E88E0x[3 * GetTrueWizardNumber_61790(v36x->dword_0xA4_164x->word_0x38_56)];
 						else
-							v37 = x_BYTE_E88E0x[1 + 3 * sub_61790(v36x->dword_0xA4_164x->word_0x38_56)];
+							v37 = x_BYTE_E88E0x[1 + 3 * GetTrueWizardNumber_61790(v36x->dword_0xA4_164x->word_0x38_56)];
 						v94 = v37;
 					}
 					else
@@ -65217,7 +65217,7 @@ void sub_61A00_draw_minimap_entites_b(int a1, int a2, int16_t posX, int16_t posY
 					{
 						if (jy->word_0x32_50 != D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].word_0x00a_2BE4_11240)
 							break;
-						v38 = x_BYTE_E88E0x[3 * sub_61790(v80x->dword_0xA4_164x->word_0x38_56)
+						v38 = x_BYTE_E88E0x[3 * GetTrueWizardNumber_61790(v80x->dword_0xA4_164x->word_0x38_56)
 							+ x_D41A0_BYTEARRAY_4_struct.byteindex_121[3]];
 						goto LABEL_121;
 					}
@@ -65400,7 +65400,7 @@ void sub_61A00_draw_minimap_entites_b(int a1, int a2, int16_t posX, int16_t posY
 							if (v64 >= 0 && v64 < height && v63 >= x_WORD_F4960[1 + 2 * v64] && v63 < x_WORD_F4960[2 * v64])
 							{
 								v65 = (unsigned __int8*)(v64 * screenWidth_18062C + v63 + v84);
-								v66 = x_BYTE_E88E0x[3 * sub_61790(v60x->dword_0xA4_164x->word_0x38_56)];
+								v66 = x_BYTE_E88E0x[3 * GetTrueWizardNumber_61790(v60x->dword_0xA4_164x->word_0x38_56)];
 								*v65 = v66;
 								if (x_WORD_180660_VGA_type_resolution == 1)
 									DrawText_2BC10(D41A0_0.array_0x2BDE[v87].array_0x39f_2BFA_12157, 2 * v63 + 4, 2 * v64, v66);//wizard name
@@ -65709,7 +65709,7 @@ void sub_627F0_draw_minimap_entites_a(int a1, int a2, int16_t posX, int16_t posY
 				v50 = iy->word_0x1A_26;
 				if (v50 != iy - D41A0_0.struct_0x6E8E)
 				{
-					v52 = x_BYTE_E88E0x[1 + 3 * sub_61790(x_DWORD_EA3E4[v50]->dword_0xA4_164x->word_0x38_56)];
+					v52 = x_BYTE_E88E0x[1 + 3 * GetTrueWizardNumber_61790(x_DWORD_EA3E4[v50]->dword_0xA4_164x->word_0x38_56)];
 					goto LABEL_98;
 				}
 				v51 = iy->subtype_0x40_64;
@@ -65763,7 +65763,7 @@ void sub_627F0_draw_minimap_entites_a(int a1, int a2, int16_t posX, int16_t posY
 						if (v45 && (v46x = x_DWORD_EA3E4[v45], v46x->type_0x3F_63 == 3))
 						{
 							//v47 = x_D41A0_BYTEARRAY_4_struct.byteindex_121[3] == 0;
-							sub_61790(v46x->dword_0xA4_164x->word_0x38_56);
+							GetTrueWizardNumber_61790(v46x->dword_0xA4_164x->word_0x38_56);
 						}
 						else
 						{
@@ -65775,7 +65775,7 @@ void sub_627F0_draw_minimap_entites_a(int a1, int a2, int16_t posX, int16_t posY
 				LABEL_57:
 					v44x = x_DWORD_EA3E4[iy->word_0x1A_26];
 					if (v44x->type_0x3F_63 == 3)
-						v43 = x_BYTE_E88E0x[3 * sub_61790(v44x->dword_0xA4_164x->word_0x38_56)];
+						v43 = x_BYTE_E88E0x[3 * GetTrueWizardNumber_61790(v44x->dword_0xA4_164x->word_0x38_56)];
 					else
 						v43 = (*xadataclrd0dat.colorPalette_var28)[0xf0f];
 				LABEL_117:
@@ -65789,9 +65789,9 @@ void sub_627F0_draw_minimap_entites_a(int a1, int a2, int16_t posX, int16_t posY
 					if (v40 && (v41x = x_DWORD_EA3E4[v40], v41x->type_0x3F_63 == 3))
 					{
 						if (x_D41A0_BYTEARRAY_4_struct.byteindex_121[3])
-							v42 = x_BYTE_E88E0x[3 * sub_61790(v41x->dword_0xA4_164x->word_0x38_56)];
+							v42 = x_BYTE_E88E0x[3 * GetTrueWizardNumber_61790(v41x->dword_0xA4_164x->word_0x38_56)];
 						else
-							v42 = x_BYTE_E88E0x[1 + 3 * sub_61790(v41x->dword_0xA4_164x->word_0x38_56)];
+							v42 = x_BYTE_E88E0x[1 + 3 * GetTrueWizardNumber_61790(v41x->dword_0xA4_164x->word_0x38_56)];
 						v110 = v42;
 					}
 					else
@@ -65810,7 +65810,7 @@ void sub_627F0_draw_minimap_entites_a(int a1, int a2, int16_t posX, int16_t posY
 					{
 						if (iy->word_0x32_50 != D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].word_0x00a_2BE4_11240)
 							break;
-						v43 = x_BYTE_E88E0x[3 * sub_61790(v102x->dword_0xA4_164x->word_0x38_56)
+						v43 = x_BYTE_E88E0x[3 * GetTrueWizardNumber_61790(v102x->dword_0xA4_164x->word_0x38_56)
 							+ x_D41A0_BYTEARRAY_4_struct.byteindex_121[3]];
 						goto LABEL_117;
 					}
@@ -66011,7 +66011,7 @@ void sub_627F0_draw_minimap_entites_a(int a1, int a2, int16_t posX, int16_t posY
 							{
 								v71 = &v99x[v70 * screenWidth_18062C + v69];
 								v72 = &v100x[v70 * screenWidth_18062C + v69];
-								v73 = x_BYTE_E88E0x[1 + 3 * sub_61790(v66x->dword_0xA4_164x->word_0x38_56)];
+								v73 = x_BYTE_E88E0x[1 + 3 * GetTrueWizardNumber_61790(v66x->dword_0xA4_164x->word_0x38_56)];
 								*v72 = v73;
 								*v71 = v73;
 								if (x_WORD_180660_VGA_type_resolution == 1)
@@ -89977,7 +89977,7 @@ void sub_89AC0(x_BYTE* a1, int a2)//26aac0
 		}
 		if ((x_WORD)a2 == 96)
 		{
-			v3 = sub_61790((unsigned __int8)str_unk_1804B0ar.byte_0xa8);
+			v3 = GetTrueWizardNumber_61790((unsigned __int8)str_unk_1804B0ar.byte_0xa8);
 			/*result = */sprintf(a1, (const char*)x_DWORD_E9C4C_langindexbuffer[353], (&WizardsNames_D93A0)[v3]);//Number of times you have killed %s
 		}
 		else
