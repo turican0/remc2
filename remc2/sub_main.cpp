@@ -87750,32 +87750,20 @@ void DrawHelpPopUps_871F0()//2681f0
 //----- (000872A0) --------------------------------------------------------
 void sub_872A0()//2682a0
 {
-	//int v0; // edx
 	unsigned __int8 v1; // al
 	type_event_0x6E8E* v2x; // esi
 	char v3; // dh
-	//int v4; // ebx
 	int v5; // edx
-	//int v6; // ebx
 	int v7; // eax
-	//char v8; // cl
-	//char v9; // bh
-	//int result; // eax
-	//char v11; // ch
-	//__int16 v12; // cx
-	//int v13; // ebx
-	//debug
-	/*if (str_unk_1804B0ar.word_0x86==0x51)
-		v0 = 0;*/
-		//debug
-		//v0 = 2124 * D41A0_BYTESTR_0.word_0xc;
+
 	v1 = D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x3DF_2BE4_12221;
 	v2x = x_DWORD_EA3E4[D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].word_0x00a_2BE4_11240];
 	if (v1 < 6u || v1 > 8u)
 		str_unk_1804B0ar.byte_0x9e &= 0xFA;
 	else
 		str_unk_1804B0ar.byte_0x9e |= 5;
-	*(int16_t*)&str_unk_1804B0ar.byte_0x9e &= 0xC7FDu;
+	str_unk_1804B0ar.byte_0x9e &= 0xFDu;
+	str_unk_1804B0ar.byte_0x9f &= 0xC7u;
 	v3 = D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x3DF_2BE4_12221;
 	if (v3 != 5 && v3 != 8)
 	{
@@ -87786,10 +87774,8 @@ void sub_872A0()//2682a0
 	else
 	{
 		str_unk_1804B0ar.byte_0x9e |= 2;
-		//v4 = v2x->dword_0xA4_164;
 		str_unk_1804B0ar.dword_0x6e = 6;
 		v5 = v2x->dword_0xA4_164x->str_611.byte_0x458_1112;
-		//v6 = v4 + 611;
 		if (v5 != (unsigned __int8)str_unk_1804B0ar.byte_0xa5 || v2x->dword_0xA4_164x->str_611.byte_0x459_1113 != str_unk_1804B0ar.byte_0xa6)
 		{
 			v7 = x_BYTE_D94FF_spell_index[v2x->dword_0xA4_164x->str_611.byte_0x458_1112];
@@ -87818,7 +87804,6 @@ void sub_872A0()//2682a0
 		str_unk_1804B0ar.uni_0x8a.dword[0] = 0;
 	else
 		(str_unk_1804B0ar.uni_0x8a.dword[0])++;
-	//v8 = str_unk_1804B0ar.byte_0x9f & 0xFB;
 	str_unk_1804B0ar.byte_0x9f &= 0xFBu;
 	if (v2x->byte_0x45_69 == 3)
 		str_unk_1804B0ar.byte_0x9f = str_unk_1804B0ar.byte_0x9f | 4;
@@ -87830,52 +87815,26 @@ void sub_872A0()//2682a0
 		|| D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x3DF_2BE4_12221 == 13
 		|| D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x3DF_2BE4_12221 == 14)
 	{
-		//result = str_unk_1804B0ar.dword_0x6e;
 		str_unk_1804B0ar.dword_0x72 = str_unk_1804B0ar.dword_0x6e;
 		str_unk_1804B0ar.byte_0x9e |= 0x10;
 	}
 	if (str_unk_1804B0ar.word_0x86)
-	{
-		//adress 268509
-		//result = 30 * str_unk_1804B0ar.word_0x86;
-		//v12 = *(int16_t*)&array_E2A74[30 * str_unk_1804B0ar.word_0x86]/* + result)*/;
+	{	//adress 268509
 		if (str_E2A74[str_unk_1804B0ar.word_0x86].word_0 == 2 || str_E2A74[str_unk_1804B0ar.word_0x86].word_0 == 8)
 		{
-			//if (!(str_unk_1804B0ar.byte_0x9f & 0x2)
-			//	|| (/*result = 30 * str_unk_1804B0ar.word_0x86, */(int8_t)array_E2A74[0x2+30 * str_unk_1804B0ar.word_0x86] >= 0)
-			//	&& ((v13 = *(int32_t*)&array_E2A74[0xc + 30 * str_unk_1804B0ar.word_0x86]) == 0
-			//		|| /*(result = *(int32_t*)&array_E2A74[0xc + 30 * str_unk_1804B0ar.word_0x86],*/ *(x_DWORD *)(v13 + 8) < 0/*)*/
-			//		|| *(x_BYTE *)(v13 + 13) & 4))
 			if (!(str_unk_1804B0ar.byte_0x9f & 0x2)
-				|| ((int8_t)str_E2A74[str_unk_1804B0ar.word_0x86].axis_2[0] >= 0)
+				|| (str_E2A74[str_unk_1804B0ar.word_0x86].axis_2[0] >= 0)
 				&& (str_E2A74[str_unk_1804B0ar.word_0x86].dword_12 == 0
 					|| str_E2A74[str_unk_1804B0ar.word_0x86].dword_20 < 0
 					|| str_E2A74[str_unk_1804B0ar.word_0x86].dword_24 & 0x400))
 			{
-				/*result = */sub_87C10();
+				sub_87C10();
 			}
 		}
 		if (v2x->byte_0x45_69 == 2)
-			/*result = */sub_87C10();
+			sub_87C10();
 	}
-	//return result;
 }
-// D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
-// D41A4: using guessed type int x_DWORD_D41A4;
-// D41B6: using guessed type char x_BYTE_D41B6;
-// E2A74: using guessed type __int16 x_WORD_E2A74[];
-// E2A80: using guessed type int x_DWORD_E2A80;
-// EA3E4: using guessed type int x_DWORD_EA3E4[];
-// 18051E: using guessed type int x_DWORD_18051E;
-// 180522: using guessed type int x_DWORD_180522;
-// 180526: using guessed type int x_DWORD_180526;
-// 180536: using guessed type __int16 x_WORD_180536;
-// 18053A: using guessed type int x_DWORD_18053A;
-// 18054C: using guessed type __int16 x_WORD_18054C;
-// 18054E: using guessed type __int16 x_WORD_18054E;
-// 180554: using guessed type char x_BYTE_180554;
-// 180555: using guessed type char x_BYTE_180555;
-// 180556: using guessed type char x_BYTE_180556;
 
 int debugcounter_sub_87580 = 0;
 //----- (00087580) --------------------------------------------------------
