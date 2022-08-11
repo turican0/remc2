@@ -488,7 +488,7 @@
     <ClCompile Include="engine\ViewPort.cpp" />
     <ClCompile Include="engine\XUnk_D4350.cpp" />
     <ClCompile Include="engine\RenderThread.cpp" />
-    <ClCompile Include="portability\fcaseopen.c" />
+    <ClCompile Include="portability\fcaseopen.cpp" />
     <ClCompile Include="portability\port_net.cpp" />
     <ClCompile Include="utilities\BitmapIO.cpp" />
     <ClCompile Include="utilities\DataFileIO.cpp" />
