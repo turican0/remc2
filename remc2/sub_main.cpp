@@ -2526,7 +2526,7 @@ void ComputeTextboxSizes_89830(type_textbox_sub1804B0* textbox);
 void ComputeTextboxLine_898A0(type_textbox_sub1804B0* textbox);
 void ComputeTextboxSizesFromTextLines_89920(type_textbox_sub1804B0* textbox, __int16 countLines, int16_t* textLines);
 void ComputeFrameSizes_89980(type_textbox_sub1804B0* textbox);
-void sub_89A30_draw_line(type_textbox_sub1804B0* a1);
+void DrawTextboxLine_89A30(type_textbox_sub1804B0* textbox);
 void sub_89AC0(x_BYTE* a1, int a2);
 int16_t sub_89B60_aplicate_setting(uint8_t a1);
 int ReadGameUserInputs_89D10();
@@ -88030,7 +88030,7 @@ void sub_87610()//268610
 			str_unk_1804B0ar.type_sub_0[0].frameHeight_0x2a,
 			str_unk_1804B0ar.type_sub_0[0].color2_0x31);
 		DrawTextbox_895D0(&str_unk_1804B0ar.type_sub_0[0], v0);
-		sub_89A30_draw_line(&str_unk_1804B0ar.type_sub_0[0]);
+		DrawTextboxLine_89A30(&str_unk_1804B0ar.type_sub_0[0]);
 		DrawTextbox2_89690(&str_unk_1804B0ar.type_sub_0[0]);
 		str_unk_1804B0ar.byte_0x9e &= 0xF7;
 		break;
@@ -88062,7 +88062,7 @@ void sub_87610()//268610
 			DrawText_2BC10(x_DWORD_E9C4C_langindexbuffer[str_unk_1804B0ar.uni_0x8a.word[2 + v4++]], str_unk_1804B0ar.type_sub_0[0].textboxPosX_0x8, v5, v6);
 			v5 += str_unk_1804B0ar.type_sub_0[0].charHeight_0x12;
 		}
-		sub_89A30_draw_line(&str_unk_1804B0ar.type_sub_0[0]);
+		DrawTextboxLine_89A30(&str_unk_1804B0ar.type_sub_0[0]);
 		DrawTextbox2_89690(&str_unk_1804B0ar.type_sub_0[0]);
 		str_unk_1804B0ar.byte_0x9e &= 0xF7;
 		break;
@@ -88216,7 +88216,7 @@ void sub_87860()//268860
 		ComputeTextboxLine_898A0(&str_unk_1804B0ar.type_sub_0[1]);
 		ColorizeScreen_2E790(str_unk_1804B0ar.type_sub_0[1].framePosX_0x24, str_unk_1804B0ar.type_sub_0[1].framePosY_0x26, str_unk_1804B0ar.type_sub_0[1].frameWidth_0x28, str_unk_1804B0ar.type_sub_0[1].frameHeight_0x2a, str_unk_1804B0ar.type_sub_0[1].color2_0x31);
 		DrawTextbox_895D0(&str_unk_1804B0ar.type_sub_0[1], (char*)x_DWORD_E9C4C_langindexbuffer[str_E2A74[(str_unk_1804B0ar.byte_0xaa + 86)].axis_2[1]]);
-		sub_89A30_draw_line(&str_unk_1804B0ar.type_sub_0[1]);
+		DrawTextboxLine_89A30(&str_unk_1804B0ar.type_sub_0[1]);
 		DrawTextbox2_89690(&str_unk_1804B0ar.type_sub_0[1]);
 	}
 	//return result;
@@ -88304,7 +88304,7 @@ void sub_87A30()//268a30
 		ComputeTextboxLine_898A0(&str_unk_1804B0ar.type_sub_0[1]);
 		ColorizeScreen_2E790(str_unk_1804B0ar.type_sub_0[1].framePosX_0x24, str_unk_1804B0ar.type_sub_0[1].framePosY_0x26, str_unk_1804B0ar.type_sub_0[1].frameWidth_0x28, str_unk_1804B0ar.type_sub_0[1].frameHeight_0x2a, str_unk_1804B0ar.type_sub_0[1].color2_0x31);
 		DrawTextbox_895D0(&str_unk_1804B0ar.type_sub_0[1], (char*)x_DWORD_E9C4C_langindexbuffer[str_E2A74[str_unk_1804B0ar.byte_0xa9].axis_2[1]]);
-		sub_89A30_draw_line(&str_unk_1804B0ar.type_sub_0[1]);
+		DrawTextboxLine_89A30(&str_unk_1804B0ar.type_sub_0[1]);
 		/*result = */DrawTextbox2_89690(&str_unk_1804B0ar.type_sub_0[1]);
 	}
 	//return result;
@@ -89790,21 +89790,15 @@ void ComputeFrameSizes_89980(type_textbox_sub1804B0* textbox)//26a980
 }
 
 //----- (00089A30) --------------------------------------------------------
-void sub_89A30_draw_line(type_textbox_sub1804B0* a1x)//26aa30
+void DrawTextboxLine_89A30(type_textbox_sub1804B0* textbox)//26aa30
 {
-	__int16 v1; // si
-	__int16 result = 0; // ax //fix it
-
-	v1 = ((x_WORD_180660_VGA_type_resolution & 1) != 0) + 1;
-	if (a1x->lineX2_0x20 != a1x->maxTextboxWidth_0x0 || (result = a1x->lineY2_0x22, result != a1x->maxTextboxHeight_0x2))
+	int widthFix = ((x_WORD_180660_VGA_type_resolution & 1) != 0) + 1;
+	if (textbox->lineX2_0x20 != textbox->maxTextboxWidth_0x0 || textbox->lineY2_0x22 != textbox->maxTextboxHeight_0x2)
 	{
-		sub_2BD10_draw_line(a1x->lineX1_0x1c, a1x->lineY1_0x1e, a1x->lineX2_0x20, a1x->lineY2_0x22, *xadataclrd0dat.colorPalette_var28[0]);
-		/*result = */sub_2BD10_draw_line(a1x->lineX1_0x1c + v1, a1x->lineY1_0x1e, v1 + a1x->lineX2_0x20, a1x->lineY2_0x22, (*xadataclrd0dat.colorPalette_var28)[0xf00]);
+		sub_2BD10_draw_line(textbox->lineX1_0x1c, textbox->lineY1_0x1e, textbox->lineX2_0x20, textbox->lineY2_0x22, *xadataclrd0dat.colorPalette_var28[0]);
+		sub_2BD10_draw_line(textbox->lineX1_0x1c + widthFix, textbox->lineY1_0x1e, widthFix + textbox->lineX2_0x20, textbox->lineY2_0x22, (*xadataclrd0dat.colorPalette_var28)[0xf00]);
 	}
-	//return result;
 }
-// E9800: using guessed type char x_BYTE_E9800;
-// 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
 //----- (00089AC0) --------------------------------------------------------
 void sub_89AC0(x_BYTE* a1, int a2)//26aac0
