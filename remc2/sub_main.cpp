@@ -76079,21 +76079,12 @@ int sub_72E70(int  /*a1*/, int  /*a2*/, signed __int16* a3)//253e70
 signed int NetworkTestCall_72FBB()//253fbb
 {
 	NetworkCall_74809(0);
-	/*for (int i = x_DWORD_17DB54_game_turn2; ; WaitToConnect_7C230())
-	{
-		if (connection_E12AE[0]->ncb_cmd_cplt_49 != 0xff)
-			return 1;
-		if ((x_DWORD_17DB54_game_turn2 - i) > 0x78)
-			break;
-		fake_network_interupt(connection_E12AE[0]);
-	}*/
 	for (int i = mygetthousandths(); ; WaitToConnect_7C230())
 	{
 		if (connection_E12AE[0]->ncb_cmd_cplt_49 != 0xff)
 			return 1;//254024
-		if ((mygetthousandths() - i) > 120)
+		if ((mygetthousandths() - i) > 120 * 100)//original only 120
 			break;//253ffd
-		/*fake_network_interupt(connection_E12AE[0])*/;
 	}
 	//253fff
 	NetworkCancel_748F7(0);
