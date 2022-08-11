@@ -2518,15 +2518,15 @@ void sub_88BA0();
 void sub_88D00();
 void sub_88D40();
 void sub_89360();
-void sub_89420(type_sub_str_unk_1804B0ar* a1, char* a2);
-void sub_89520(type_sub_str_unk_1804B0ar* a1);
-void DrawTextbox_895D0(type_sub_str_unk_1804B0ar* a1x, char* a2);
-void sub_89690_draw_frame(type_sub_str_unk_1804B0ar* a1);
-void sub_89830(type_sub_str_unk_1804B0ar* a1);
-void sub_898A0(type_sub_str_unk_1804B0ar* a1);
-void sub_89920(type_sub_str_unk_1804B0ar* a1, __int16 a2, int16_t* a3);
-void sub_89980(type_sub_str_unk_1804B0ar* a1);
-void sub_89A30_draw_line(type_sub_str_unk_1804B0ar* a1);
+void sub_89420(type_textbox_sub1804B0* a1, char* a2);
+void sub_89520(type_textbox_sub1804B0* a1);
+void DrawTextbox_895D0(type_textbox_sub1804B0* a1x, char* a2);
+void sub_89690_draw_frame(type_textbox_sub1804B0* a1);
+void sub_89830(type_textbox_sub1804B0* a1);
+void sub_898A0(type_textbox_sub1804B0* a1);
+void sub_89920(type_textbox_sub1804B0* a1, __int16 a2, int16_t* a3);
+void sub_89980(type_textbox_sub1804B0* a1);
+void sub_89A30_draw_line(type_textbox_sub1804B0* a1);
 void sub_89AC0(x_BYTE* a1, int a2);
 int16_t sub_89B60_aplicate_setting(uint8_t a1);
 int ReadGameUserInputs_89D10();
@@ -29935,7 +29935,7 @@ void sub_30630()//211630
 	int result; // eax
 	unsigned __int16 v2; // cx
 	char* v5; // ebx
-	type_sub_str_unk_1804B0ar v6z;
+	type_textbox_sub1804B0 v6z;
 
 	v0 = x_D41A0_BYTEARRAY_4_struct.setting_byte1_22;
 	result = 0;
@@ -29981,22 +29981,22 @@ void sub_30630()//211630
 			v5 = (char*)x_DWORD_E9C4C_langindexbuffer[result];
 			/*"Fly towards my beacon."*/
 
-			v6z.word_0x10 = 8;
-			v6z.word_0xe = 400;
-			v6z.word_0x14 = 40;
-			v6z.word_0x16 = 600;
-			v6z.word_0x12 = 14;
-			v6z.word_0x1a = 260;
-			v6z.byte_0x30 = (*xadataclrd0dat.colorPalette_var28)[0xf00];
-			v6z.byte_0x31 = ((*xadataclrd0dat.colorPalette_var28)[0]);
-			v6z.word_0x18 = 80;
-			v6z.word_0x0 = 320;
-			v6z.word_0x2 = 300;
-			v6z.word_0xc = 320;
+			v6z.charWidth_0x10 = 8;
+			v6z.maxTextboxHeight2_0xe = 400;
+			v6z.minWidth_0x14 = 40;
+			v6z.maxWidth_0x16 = 600;
+			v6z.charHeight_0x12 = 14;
+			v6z.maxHeight_0x1a = 260;
+			v6z.color1_0x30 = (*xadataclrd0dat.colorPalette_var28)[0xf00];
+			v6z.color2_0x31 = ((*xadataclrd0dat.colorPalette_var28)[0]);
+			v6z.minHeight_0x18 = 80;
+			v6z.maxTextboxWidth_0x0 = 320;
+			v6z.maxTextboxHeight_0x2 = 300;
+			v6z.maxTextboxWidth2_0xc = 320;
 			sub_89420(&v6z, v5);
 			sub_89520(&v6z);
 			sub_89980(&v6z);
-			sub_2E790(v6z.word_0x24, v6z.word_0x26, v6z.word_0x28, v6z.word_0x2a, v6z.byte_0x31);
+			sub_2E790(v6z.framePosX_0x24, v6z.framePosY_0x26, v6z.frameWidth_0x28, v6z.frameHeight_0x2a, v6z.color2_0x31);
 			DrawTextbox_895D0(&v6z, v5);
 			sub_89690_draw_frame(&v6z);
 		}
@@ -30009,7 +30009,7 @@ void sub_30870()//211870
 	char* v0; // ebx
 	__int16 v1; // ax
 	//char v3; // [esp+0h] [ebp-32h]
-	type_sub_str_unk_1804B0ar v4y; // [esp+80h] [ebp+4Eh]
+	type_textbox_sub1804B0 v4y; // [esp+80h] [ebp+4Eh]
 	//__int16 v5; // [esp+82h] [ebp+50h]//v4x[1]
 	//__int16 v6; // [esp+8Ch] [ebp+5Ah]//v4x[6]
 	//__int16 v7; // [esp+8Eh] [ebp+5Ch]//v4x[7]
@@ -30025,19 +30025,19 @@ void sub_30870()//211870
 	DrawLine_2BC80(4, 286, 632, 190, 0);
 	sprintf(printbuffer, "%d", x_WORD_D41D4);
 	DrawText_2BC10(printbuffer, 10, 300, (*xadataclrd0dat.colorPalette_var28)[0xfff]);
-	v4y.word_0xe = 400;
-	v4y.word_0x14 = 4;
-	v4y.word_0x10 = 8;
-	v4y.word_0x12 = 14;
-	v4y.word_0x16 = 636;
+	v4y.maxTextboxHeight2_0xe = 400;
+	v4y.minWidth_0x14 = 4;
+	v4y.charWidth_0x10 = 8;
+	v4y.charHeight_0x12 = 14;
+	v4y.maxWidth_0x16 = 636;
 	v0 = x_DWORD_E9C4C_langindexbuffer[x_WORD_D41D4];
-	v4y.word_0xc = 600;
-	v4y.word_0x0 = 320;
-	v4y.byte_0x30 = (*xadataclrd0dat.colorPalette_var28)[0xf00];
-	v4y.byte_0x31 = (*xadataclrd0dat.colorPalette_var28)[0x0];
-	v4y.word_0x18 = 310;
-	v4y.word_0x1a = 630;
-	v4y.word_0x2 = 310;
+	v4y.maxTextboxWidth2_0xc = 600;
+	v4y.maxTextboxWidth_0x0 = 320;
+	v4y.color1_0x30 = (*xadataclrd0dat.colorPalette_var28)[0xf00];
+	v4y.color2_0x31 = (*xadataclrd0dat.colorPalette_var28)[0x0];
+	v4y.minHeight_0x18 = 310;
+	v4y.maxHeight_0x1a = 630;
+	v4y.maxTextboxHeight_0x2 = 310;
 	sub_89420(&v4y, v0);
 	sub_89520(&v4y);
 	sub_89980(&v4y);
@@ -87693,22 +87693,22 @@ void sub_87090()//268090
 	if (result)
 	{
 		str_unk_1804B0ar.byte_0xa2 = 1;
-		str_unk_1804B0ar.type_sub_0[0].word_0x10 = 8;
-		str_unk_1804B0ar.type_sub_0[0].word_0x12 = 14;
-		str_unk_1804B0ar.type_sub_0[0].word_0xe = 400;
-		str_unk_1804B0ar.type_sub_0[0].word_0x16 = 600;
-		str_unk_1804B0ar.type_sub_0[0].word_0x18 = 80;
-		str_unk_1804B0ar.type_sub_0[0].word_0x1a = 260;
-		str_unk_1804B0ar.type_sub_0[0].word_0x14 = 40;
+		str_unk_1804B0ar.type_sub_0[0].charWidth_0x10 = 8;
+		str_unk_1804B0ar.type_sub_0[0].charHeight_0x12 = 14;
+		str_unk_1804B0ar.type_sub_0[0].maxTextboxHeight2_0xe = 400;
+		str_unk_1804B0ar.type_sub_0[0].maxWidth_0x16 = 600;
+		str_unk_1804B0ar.type_sub_0[0].minHeight_0x18 = 80;
+		str_unk_1804B0ar.type_sub_0[0].maxHeight_0x1a = 260;
+		str_unk_1804B0ar.type_sub_0[0].minWidth_0x14 = 40;
 		str_unk_1804B0ar.type_sub_0[1] = str_unk_1804B0ar.type_sub_0[0];
 		//qmemcpy(&unk_1804B0ar[0x33], unk_1804B0ar, 0x30u);
 		//qmemcpy(&unk_1804B0ar[0x33+0x30], &str_unk_1804B0ar.type_sub_0[0].byte_0x30, 3u);
 		//v2 = &array_E2A74[0x1e];
 		v2x = 0;
-		str_unk_1804B0ar.type_sub_0[1].word_0x1a = 370;
-		str_unk_1804B0ar.type_sub_0[1].word_0x14 = 30;
-		str_unk_1804B0ar.type_sub_0[1].word_0x16 = 610;
-		str_unk_1804B0ar.type_sub_0[1].word_0x18 = 30;
+		str_unk_1804B0ar.type_sub_0[1].maxHeight_0x1a = 370;
+		str_unk_1804B0ar.type_sub_0[1].minWidth_0x14 = 30;
+		str_unk_1804B0ar.type_sub_0[1].maxWidth_0x16 = 610;
+		str_unk_1804B0ar.type_sub_0[1].minHeight_0x18 = 30;
 		v3 = 0;
 		while (v3 < str_unk_1804B0ar.dword_0x66)
 		{
@@ -88016,27 +88016,27 @@ void sub_87610()//268610
 		v0 = &v8;
 		sub_89AC0(&v8, str_unk_1804B0ar.word_0x86);
 	}
-	str_unk_1804B0ar.type_sub_0[0].byte_0x30 = (*xadataclrd0dat.colorPalette_var28)[0xfff];
-	str_unk_1804B0ar.type_sub_0[0].byte_0x31 = (*xadataclrd0dat.colorPalette_var28)[0];
-	str_unk_1804B0ar.type_sub_0[0].byte_0x32 = (*xadataclrd0dat.colorPalette_var28)[0xf00];
+	str_unk_1804B0ar.type_sub_0[0].color1_0x30 = (*xadataclrd0dat.colorPalette_var28)[0xfff];
+	str_unk_1804B0ar.type_sub_0[0].color2_0x31 = (*xadataclrd0dat.colorPalette_var28)[0];
+	str_unk_1804B0ar.type_sub_0[0].color3_0x32 = (*xadataclrd0dat.colorPalette_var28)[0xf00];
 	//result = str_unk_1804B0ar.byte_0xa3;
 	switch (str_unk_1804B0ar.byte_0xa3) {
 	case 1: {
 		if (*(int16_t*)&str_unk_1804B0ar.byte_0x9e & 8)
 		{
-			str_unk_1804B0ar.type_sub_0[0].word_0x0 = 320;
-			str_unk_1804B0ar.type_sub_0[0].word_0x2 = 80;
-			str_unk_1804B0ar.type_sub_0[0].word_0xc = 320;
+			str_unk_1804B0ar.type_sub_0[0].maxTextboxWidth_0x0 = 320;
+			str_unk_1804B0ar.type_sub_0[0].maxTextboxHeight_0x2 = 80;
+			str_unk_1804B0ar.type_sub_0[0].maxTextboxWidth2_0xc = 320;
 			sub_89420(&str_unk_1804B0ar.type_sub_0[0], v0);
 			sub_89520(&str_unk_1804B0ar.type_sub_0[0]);
 			sub_89980(&str_unk_1804B0ar.type_sub_0[0]);
 		}
 		sub_2E790(
-			str_unk_1804B0ar.type_sub_0[0].word_0x24,
-			str_unk_1804B0ar.type_sub_0[0].word_0x26,
-			str_unk_1804B0ar.type_sub_0[0].word_0x28,
-			str_unk_1804B0ar.type_sub_0[0].word_0x2a,
-			str_unk_1804B0ar.type_sub_0[0].byte_0x31);
+			str_unk_1804B0ar.type_sub_0[0].framePosX_0x24,
+			str_unk_1804B0ar.type_sub_0[0].framePosY_0x26,
+			str_unk_1804B0ar.type_sub_0[0].frameWidth_0x28,
+			str_unk_1804B0ar.type_sub_0[0].frameHeight_0x2a,
+			str_unk_1804B0ar.type_sub_0[0].color2_0x31);
 		DrawTextbox_895D0(&str_unk_1804B0ar.type_sub_0[0], v0);
 		sub_89690_draw_frame(&str_unk_1804B0ar.type_sub_0[0]);
 		str_unk_1804B0ar.byte_0x9e &= 0xF7;
@@ -88044,9 +88044,9 @@ void sub_87610()//268610
 	}
 	case 2:
 	{
-		str_unk_1804B0ar.type_sub_0[0].word_0x1c = str_E2A74[str_unk_1804B0ar.word_0x86].axis_2[3];
-		str_unk_1804B0ar.type_sub_0[0].word_0xc = 220;
-		str_unk_1804B0ar.type_sub_0[0].word_0x1e = str_E2A74[str_unk_1804B0ar.word_0x86].axis_2[4];
+		str_unk_1804B0ar.type_sub_0[0].lineX1_0x1c = str_E2A74[str_unk_1804B0ar.word_0x86].axis_2[3];
+		str_unk_1804B0ar.type_sub_0[0].maxTextboxWidth2_0xc = 220;
+		str_unk_1804B0ar.type_sub_0[0].lineY1_0x1e = str_E2A74[str_unk_1804B0ar.word_0x86].axis_2[4];
 		if (str_unk_1804B0ar.byte_0x9e & 0x8)
 		{
 			sub_89830(&str_unk_1804B0ar.type_sub_0[0]);//here
@@ -88056,11 +88056,11 @@ void sub_87610()//268610
 		}
 		sub_898A0(&str_unk_1804B0ar.type_sub_0[0]);
 		sub_2E790(
-			str_unk_1804B0ar.type_sub_0[0].word_0x24,
-			str_unk_1804B0ar.type_sub_0[0].word_0x26,
-			str_unk_1804B0ar.type_sub_0[0].word_0x28,
-			str_unk_1804B0ar.type_sub_0[0].word_0x2a,
-			str_unk_1804B0ar.type_sub_0[0].byte_0x31);
+			str_unk_1804B0ar.type_sub_0[0].framePosX_0x24,
+			str_unk_1804B0ar.type_sub_0[0].framePosY_0x26,
+			str_unk_1804B0ar.type_sub_0[0].frameWidth_0x28,
+			str_unk_1804B0ar.type_sub_0[0].frameHeight_0x2a,
+			str_unk_1804B0ar.type_sub_0[0].color2_0x31);
 		DrawTextbox_895D0(&str_unk_1804B0ar.type_sub_0[0], v0);
 		sub_89A30_draw_line(&str_unk_1804B0ar.type_sub_0[0]);
 		sub_89690_draw_frame(&str_unk_1804B0ar.type_sub_0[0]);
@@ -88069,8 +88069,8 @@ void sub_87610()//268610
 	}
 	case 3:
 	{
-		str_unk_1804B0ar.type_sub_0[0].word_0x1c = str_E2A74[str_unk_1804B0ar.word_0x86].axis_2[3];//3
-		str_unk_1804B0ar.type_sub_0[0].word_0x1e = str_E2A74[str_unk_1804B0ar.word_0x86].axis_2[4];
+		str_unk_1804B0ar.type_sub_0[0].lineX1_0x1c = str_E2A74[str_unk_1804B0ar.word_0x86].axis_2[3];//3
+		str_unk_1804B0ar.type_sub_0[0].lineY1_0x1e = str_E2A74[str_unk_1804B0ar.word_0x86].axis_2[4];
 		sub_89830(&str_unk_1804B0ar.type_sub_0[0]);
 		sub_89920(&str_unk_1804B0ar.type_sub_0[0], str_unk_1804B0ar.byte_0xa0, &str_unk_1804B0ar.uni_0x8a.word[2]);
 		sub_89520(&str_unk_1804B0ar.type_sub_0[0]);
@@ -88078,21 +88078,21 @@ void sub_87610()//268610
 		sub_898A0(&str_unk_1804B0ar.type_sub_0[0]);
 		v4 = 0;
 		sub_2E790(
-			str_unk_1804B0ar.type_sub_0[0].word_0x24,
-			str_unk_1804B0ar.type_sub_0[0].word_0x26,
-			str_unk_1804B0ar.type_sub_0[0].word_0x28,
-			str_unk_1804B0ar.type_sub_0[0].word_0x2a,
-			str_unk_1804B0ar.type_sub_0[0].byte_0x31);
-		v5 = str_unk_1804B0ar.type_sub_0[0].word_0xa;
+			str_unk_1804B0ar.type_sub_0[0].framePosX_0x24,
+			str_unk_1804B0ar.type_sub_0[0].framePosY_0x26,
+			str_unk_1804B0ar.type_sub_0[0].frameWidth_0x28,
+			str_unk_1804B0ar.type_sub_0[0].frameHeight_0x2a,
+			str_unk_1804B0ar.type_sub_0[0].color2_0x31);
+		v5 = str_unk_1804B0ar.type_sub_0[0].textboxPosY_0xa;
 		while (v4 < str_unk_1804B0ar.byte_0xa0)
 		{
 			if (v4 == str_unk_1804B0ar.byte_0xa1)
-				v6 = str_unk_1804B0ar.type_sub_0[0].byte_0x32;
+				v6 = str_unk_1804B0ar.type_sub_0[0].color3_0x32;
 			else
-				v6 = str_unk_1804B0ar.type_sub_0[0].byte_0x30;
+				v6 = str_unk_1804B0ar.type_sub_0[0].color1_0x30;
 			//FireBall,Rapid Fire,Fire Storm
-			DrawText_2BC10(x_DWORD_E9C4C_langindexbuffer[str_unk_1804B0ar.uni_0x8a.word[2 + v4++]], str_unk_1804B0ar.type_sub_0[0].word_0x8, v5, v6);
-			v5 += str_unk_1804B0ar.type_sub_0[0].word_0x12;
+			DrawText_2BC10(x_DWORD_E9C4C_langindexbuffer[str_unk_1804B0ar.uni_0x8a.word[2 + v4++]], str_unk_1804B0ar.type_sub_0[0].textboxPosX_0x8, v5, v6);
+			v5 += str_unk_1804B0ar.type_sub_0[0].charHeight_0x12;
 		}
 		sub_89A30_draw_line(&str_unk_1804B0ar.type_sub_0[0]);
 		sub_89690_draw_frame(&str_unk_1804B0ar.type_sub_0[0]);
@@ -88236,17 +88236,17 @@ void sub_87860()//268860
 
 		//v2 = v0[4];
 		//LOWORD(v0) = v0[5];
-		str_unk_1804B0ar.type_sub_0[1].word_0x1c = str_E2A74[(str_unk_1804B0ar.byte_0xaa + 86)].axis_2[3];
-		str_unk_1804B0ar.type_sub_0[1].word_0x1e = str_E2A74[(str_unk_1804B0ar.byte_0xaa + 86)].axis_2[4];
-		str_unk_1804B0ar.type_sub_0[1].byte_0x30 = (*xadataclrd0dat.colorPalette_var28)[0xfff];
-		str_unk_1804B0ar.type_sub_0[1].word_0xc = 220;
-		str_unk_1804B0ar.type_sub_0[1].byte_0x31 = (*xadataclrd0dat.colorPalette_var28)[0];
+		str_unk_1804B0ar.type_sub_0[1].lineX1_0x1c = str_E2A74[(str_unk_1804B0ar.byte_0xaa + 86)].axis_2[3];
+		str_unk_1804B0ar.type_sub_0[1].lineY1_0x1e = str_E2A74[(str_unk_1804B0ar.byte_0xaa + 86)].axis_2[4];
+		str_unk_1804B0ar.type_sub_0[1].color1_0x30 = (*xadataclrd0dat.colorPalette_var28)[0xfff];
+		str_unk_1804B0ar.type_sub_0[1].maxTextboxWidth2_0xc = 220;
+		str_unk_1804B0ar.type_sub_0[1].color2_0x31 = (*xadataclrd0dat.colorPalette_var28)[0];
 		sub_89830(&str_unk_1804B0ar.type_sub_0[1]);
 		sub_89420(&str_unk_1804B0ar.type_sub_0[1], (char*)x_DWORD_E9C4C_langindexbuffer[str_E2A74[(str_unk_1804B0ar.byte_0xaa + 86)].axis_2[1]]);
 		sub_89520(&str_unk_1804B0ar.type_sub_0[1]);
 		sub_89980(&str_unk_1804B0ar.type_sub_0[1]);
 		sub_898A0(&str_unk_1804B0ar.type_sub_0[1]);
-		sub_2E790(str_unk_1804B0ar.type_sub_0[1].word_0x24, str_unk_1804B0ar.type_sub_0[1].word_0x26, str_unk_1804B0ar.type_sub_0[1].word_0x28, str_unk_1804B0ar.type_sub_0[1].word_0x2a, str_unk_1804B0ar.type_sub_0[1].byte_0x31);
+		sub_2E790(str_unk_1804B0ar.type_sub_0[1].framePosX_0x24, str_unk_1804B0ar.type_sub_0[1].framePosY_0x26, str_unk_1804B0ar.type_sub_0[1].frameWidth_0x28, str_unk_1804B0ar.type_sub_0[1].frameHeight_0x2a, str_unk_1804B0ar.type_sub_0[1].color2_0x31);
 		DrawTextbox_895D0(&str_unk_1804B0ar.type_sub_0[1], (char*)x_DWORD_E9C4C_langindexbuffer[str_E2A74[(str_unk_1804B0ar.byte_0xaa + 86)].axis_2[1]]);
 		sub_89A30_draw_line(&str_unk_1804B0ar.type_sub_0[1]);
 		sub_89690_draw_frame(&str_unk_1804B0ar.type_sub_0[1]);
@@ -88323,18 +88323,18 @@ void sub_87A30()//268a30
 	{
 		//v1 = (int16_t*)&array_E2A74[30 * str_unk_1804B0ar.byte_0xa9];
 		//v2 = v1[2];
-		str_unk_1804B0ar.type_sub_0[1].word_0x1c = str_E2A74[str_unk_1804B0ar.byte_0xa9].axis_2[3];
+		str_unk_1804B0ar.type_sub_0[1].lineX1_0x1c = str_E2A74[str_unk_1804B0ar.byte_0xa9].axis_2[3];
 		//v3 = (char*)x_DWORD_E9C4C_langindexbuffer[v1[2]];
-		str_unk_1804B0ar.type_sub_0[1].word_0x1e = str_E2A74[str_unk_1804B0ar.byte_0xa9].axis_2[4];
-		str_unk_1804B0ar.type_sub_0[1].byte_0x30 = (*xadataclrd0dat.colorPalette_var28)[0xfff];
-		str_unk_1804B0ar.type_sub_0[1].word_0xc = 220;
-		str_unk_1804B0ar.type_sub_0[1].byte_0x31 = (*xadataclrd0dat.colorPalette_var28)[0];
+		str_unk_1804B0ar.type_sub_0[1].lineY1_0x1e = str_E2A74[str_unk_1804B0ar.byte_0xa9].axis_2[4];
+		str_unk_1804B0ar.type_sub_0[1].color1_0x30 = (*xadataclrd0dat.colorPalette_var28)[0xfff];
+		str_unk_1804B0ar.type_sub_0[1].maxTextboxWidth2_0xc = 220;
+		str_unk_1804B0ar.type_sub_0[1].color2_0x31 = (*xadataclrd0dat.colorPalette_var28)[0];
 		sub_89830(&str_unk_1804B0ar.type_sub_0[1]);
 		sub_89420(&str_unk_1804B0ar.type_sub_0[1], (char*)x_DWORD_E9C4C_langindexbuffer[str_E2A74[str_unk_1804B0ar.byte_0xa9].axis_2[1]]);
 		sub_89520(&str_unk_1804B0ar.type_sub_0[1]);
 		sub_89980(&str_unk_1804B0ar.type_sub_0[1]);
 		sub_898A0(&str_unk_1804B0ar.type_sub_0[1]);
-		sub_2E790(str_unk_1804B0ar.type_sub_0[1].word_0x24, str_unk_1804B0ar.type_sub_0[1].word_0x26, str_unk_1804B0ar.type_sub_0[1].word_0x28, str_unk_1804B0ar.type_sub_0[1].word_0x2a, str_unk_1804B0ar.type_sub_0[1].byte_0x31);
+		sub_2E790(str_unk_1804B0ar.type_sub_0[1].framePosX_0x24, str_unk_1804B0ar.type_sub_0[1].framePosY_0x26, str_unk_1804B0ar.type_sub_0[1].frameWidth_0x28, str_unk_1804B0ar.type_sub_0[1].frameHeight_0x2a, str_unk_1804B0ar.type_sub_0[1].color2_0x31);
 		DrawTextbox_895D0(&str_unk_1804B0ar.type_sub_0[1], (char*)x_DWORD_E9C4C_langindexbuffer[str_E2A74[str_unk_1804B0ar.byte_0xa9].axis_2[1]]);
 		sub_89A30_draw_line(&str_unk_1804B0ar.type_sub_0[1]);
 		/*result = */sub_89690_draw_frame(&str_unk_1804B0ar.type_sub_0[1]);
@@ -89605,7 +89605,7 @@ void sub_89360()//26a360
 // 180558: using guessed type char x_BYTE_180558;
 
 //----- (00089420) --------------------------------------------------------
-void sub_89420(type_sub_str_unk_1804B0ar* a1x, char* a2)//26a420
+void sub_89420(type_textbox_sub1804B0* a1x, char* a2)//26a420
 {
 	int result; // eax
 	unsigned int v3; // kr04_4
@@ -89619,16 +89619,16 @@ void sub_89420(type_sub_str_unk_1804B0ar* a1x, char* a2)//26a420
 	//result = 0;
 	v3 = strlen(a2) + 1;
 	v9 = 1;
-	a1x->word_0x4 = 0;
-	a1x->word_0x6 = 0;
+	a1x->textBoxWidth_0x4 = 0;
+	a1x->textboxHeight_0x6 = 0;
 	if (v3 != 1)
 	{
 		//HIWORD(result) = 0;
-		v4 = a1x->word_0x10 * strlen(a2);
-		v5 = a1x->word_0xc;
+		v4 = a1x->charWidth_0x10 * strlen(a2);
+		v5 = a1x->maxTextboxWidth2_0xc;
 		if (v4 <= v5)
 		{
-			a1x->word_0x4 = v4;
+			a1x->textBoxWidth_0x4 = v4;
 		}
 		else
 		{
@@ -89640,12 +89640,12 @@ void sub_89420(type_sub_str_unk_1804B0ar* a1x, char* a2)//26a420
 					//result = v5 / 2;
 					if (v4 % v5 >= v5 / 2 || v5 <= 0)
 						break;
-					v5 -= a1x->word_0x10;
+					v5 -= a1x->charWidth_0x10;
 				}
 			}
 			if (v5 > 0)
 			{
-				result = (v5 + a1x->word_0x10 - 1) / a1x->word_0x10;
+				result = (v5 + a1x->charWidth_0x10 - 1) / a1x->charWidth_0x10;
 				v9 = 0;
 				v6x = a2;
 				v7x = &a2[v3 - 1];
@@ -89656,17 +89656,17 @@ void sub_89420(type_sub_str_unk_1804B0ar* a1x, char* a2)//26a420
 					v6x = (i + 1);
 					v9++;
 				}
-				a1x->word_0x4 = v5;
+				a1x->textBoxWidth_0x4 = v5;
 			}
 		}
 		//LOWORD(result) = a1x->word_0x12;
-		a1x->word_0x6 = a1x->word_0x12 * v9;
+		a1x->textboxHeight_0x6 = a1x->charHeight_0x12 * v9;
 	}
 	//return result;
 }
 
 //----- (00089520) --------------------------------------------------------
-void sub_89520(type_sub_str_unk_1804B0ar* a1x)//26a520
+void sub_89520(type_textbox_sub1804B0* a1x)//26a520
 {
 	int v1; // edi
 	int v2; // ecx
@@ -89676,30 +89676,30 @@ void sub_89520(type_sub_str_unk_1804B0ar* a1x)//26a520
 	int v6; // [esp+4h] [ebp-8h]
 	int v7; // [esp+8h] [ebp-4h]
 
-	v5 = a1x->word_0x4;
-	v1 = a1x->word_0x6;
-	v2 = a1x->word_0x0 - v5 / 2;
-	v3 = a1x->word_0x2 - v1 / 2;
-	if (v2 < a1x->word_0x14)
-		v2 = a1x->word_0x14;
-	if (v3 < a1x->word_0x18)
-		v3 = a1x->word_0x18;
-	v7 = a1x->word_0x16;
+	v5 = a1x->textBoxWidth_0x4;
+	v1 = a1x->textboxHeight_0x6;
+	v2 = a1x->maxTextboxWidth_0x0 - v5 / 2;
+	v3 = a1x->maxTextboxHeight_0x2 - v1 / 2;
+	if (v2 < a1x->minWidth_0x14)
+		v2 = a1x->minWidth_0x14;
+	if (v3 < a1x->minHeight_0x18)
+		v3 = a1x->minHeight_0x18;
+	v7 = a1x->maxWidth_0x16;
 	if (v2 + v5 >= v7)
 		LOWORD(v2) = v7 - v5;
-	v6 = a1x->word_0x1a;
+	v6 = a1x->maxHeight_0x1a;
 	if (v3 + v1 >= v6)
 		v3 = v6 - v1;
-	a1x->word_0x0 = v2 + a1x->word_0x4 / 2;
-	a1x->word_0x8 = v2;
-	a1x->word_0xa = v3;
+	a1x->maxTextboxWidth_0x0 = v2 + a1x->textBoxWidth_0x4 / 2;
+	a1x->textboxPosX_0x8 = v2;
+	a1x->textboxPosY_0xa = v3;
 	result = v3 + v1 / 2;
-	a1x->word_0x2 = result;
+	a1x->maxTextboxHeight_0x2 = result;
 	//return result;
 }
 
 //----- (000895D0) --------------------------------------------------------
-void DrawTextbox_895D0(type_sub_str_unk_1804B0ar* a1y, char* a2)//26a5d0
+void DrawTextbox_895D0(type_textbox_sub1804B0* a1y, char* a2)//26a5d0
 {
 	char* v2; // edi
 	int result; // eax
@@ -89718,10 +89718,10 @@ void DrawTextbox_895D0(type_sub_str_unk_1804B0ar* a1y, char* a2)//26a5d0
 	//a1x fix - struct uint16_t and uint8_t
 
 	v14 = a2;
-	v13 = a1y->word_0xa;
+	v13 = a1y->textboxPosY_0xa;
 	v2 = &a2[strlen(a2)];
-	result = a1y->word_0x4 / a1y->word_0x10;
-	v12 = a1y->word_0x4 / a1y->word_0x10;
+	result = a1y->textBoxWidth_0x4 / a1y->charWidth_0x10;
+	v12 = a1y->textBoxWidth_0x4 / a1y->charWidth_0x10;
 	if (v2 > a2)
 	{
 		do
@@ -89737,12 +89737,12 @@ void DrawTextbox_895D0(type_sub_str_unk_1804B0ar* a1y, char* a2)//26a5d0
 				*(v6 - 1) = v7;
 			}
 			v6[0] = 0;
-			v8 = a1y->byte_0x30;
-			v9 = a1y->word_0x8;
+			v8 = a1y->color1_0x30;
+			v9 = a1y->textboxPosX_0x8;
 			v14 = (i + 1);
 			v10 = v13;
 			DrawText_2BC10(v11x, v9, v13, v8);
-			result = a1y->word_0x12;
+			result = a1y->charHeight_0x12;
 			v13 = result + v10;
 		} while (v2 > v14);
 	}
@@ -89750,7 +89750,7 @@ void DrawTextbox_895D0(type_sub_str_unk_1804B0ar* a1y, char* a2)//26a5d0
 }
 
 //----- (00089690) --------------------------------------------------------
-void sub_89690_draw_frame(type_sub_str_unk_1804B0ar* a1x)//26a690
+void sub_89690_draw_frame(type_textbox_sub1804B0* a1x)//26a690
 {
 	__int16 v1; // ST0C_2
 	int v2; // edi
@@ -89775,17 +89775,17 @@ void sub_89690_draw_frame(type_sub_str_unk_1804B0ar* a1x)//26a690
 	v12 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[172].width_4;
 	v1 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[171].height_5;
 	v10 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[172].height_5;
-	v2 = a1x->word_0x24 - v12;
-	v3 = a1x->word_0x28 + a1x->word_0x24;
+	v2 = a1x->framePosX_0x24 - v12;
+	v3 = a1x->frameWidth_0x28 + a1x->framePosX_0x24;
 	//v14 = a1[19] - *(unsigned __int8 *)(**filearray_2aa18c[6] + 1043);
-	v14 = a1x->word_0x26 - (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[173].height_5;
-	v8 = a1x->word_0x26 + a1x->word_0x2a;
+	v14 = a1x->framePosY_0x26 - (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[173].height_5;
+	v8 = a1x->framePosY_0x26 + a1x->frameHeight_0x2a;
 	//v4 = a1[19] - *(unsigned __int8 *)(**filearray_2aa18c[6] + 1043);
-	v4 = a1x->word_0x26 - (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[173].height_5;
-	v9 = a1x->word_0x6 / a1x->word_0x12;
+	v4 = a1x->framePosY_0x26 - (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[173].height_5;
+	v9 = a1x->textboxHeight_0x6 / a1x->charHeight_0x12;
 	/*sub_2BB40_draw_bitmap(a1[18] - v12, v14, (uint8_t**)(**filearray_2aa18c[6] + 1026));
 	sub_2BB40_draw_bitmap(v3, v4, (uint8_t**)(**filearray_2aa18c[6] + 1026));*/
-	sub_2BB40_draw_bitmap(a1x->word_0x24 - v12, v14, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[171]);
+	sub_2BB40_draw_bitmap(a1x->framePosX_0x24 - v12, v14, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[171]);
 	sub_2BB40_draw_bitmap(v3, v4, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[171]);
 	v5 = v1 + v14;
 	for (v13 = 0; v13 < v9; v13++)
@@ -89808,7 +89808,7 @@ void sub_89690_draw_frame(type_sub_str_unk_1804B0ar* a1x)//26a690
 
 int debugcounter_sub_89830 = 0;
 //----- (00089830) --------------------------------------------------------
-void sub_89830(type_sub_str_unk_1804B0ar* a1x)//26a830
+void sub_89830(type_textbox_sub1804B0* a1x)//26a830
 {
 	int v1; // eax
 	__int16 v2; // si
@@ -89818,22 +89818,22 @@ void sub_89830(type_sub_str_unk_1804B0ar* a1x)//26a830
 	if (debugcounter_sub_89830 >= 1)
 		debugcounter_sub_89830 = debugcounter_sub_89830;
 
-	v1 = a1x->word_0x1c;//64 //90
+	v1 = a1x->lineX1_0x1c;//64 //90
 	v2 = v1 + 25;//+0x50-0x37
-	v4 = a1x->word_0x1e;	//01
-	if (a1x->word_0x16 < v1 + 135)//00<73+135
+	v4 = a1x->lineY1_0x1e;	//01
+	if (a1x->maxWidth_0x16 < v1 + 135)//00<73+135
 		v2 = v1 - 135;
 	result = v4 - 94;
-	if (v4 - 94 + 28 < a1x->word_0x18)
+	if (v4 - 94 + 28 < a1x->minHeight_0x18)
 		result = v4 + 66;
-	a1x->word_0x0 = v2;
-	a1x->word_0x2 = result;
+	a1x->maxTextboxWidth_0x0 = v2;
+	a1x->maxTextboxHeight_0x2 = result;
 	debugcounter_sub_89830++;
 	//return result;
 }
 
 //----- (000898A0) --------------------------------------------------------
-void sub_898A0(type_sub_str_unk_1804B0ar* a1x)//26a8a0
+void sub_898A0(type_textbox_sub1804B0* a1x)//26a8a0
 {
 	//x_WORD *result; // eax
 	int v2; // ebx
@@ -89844,41 +89844,41 @@ void sub_898A0(type_sub_str_unk_1804B0ar* a1x)//26a8a0
 	__int16 v7; // dx
 
 	//result = a1x;
-	v2 = a1x->word_0x24;
-	v3 = a1x->word_0x1c;
+	v2 = a1x->framePosX_0x24;
+	v3 = a1x->lineX1_0x1c;
 	if (v3 >= v2 - 30)
 	{
-		if (v3 <= a1x->word_0x28 + v2 + 30)
-			v4 = a1x->word_0x0;
+		if (v3 <= a1x->frameWidth_0x28 + v2 + 30)
+			v4 = a1x->maxTextboxWidth_0x0;
 		else
-			v4 = a1x->word_0x28 + a1x->word_0x24;
+			v4 = a1x->frameWidth_0x28 + a1x->framePosX_0x24;
 	}
 	else
 	{
-		v4 = a1x->word_0x24 - 2;
+		v4 = a1x->framePosX_0x24 - 2;
 	}
-	a1x->word_0x20 = v4;
-	v5 = a1x->word_0x26;
-	v6 = a1x->word_0x1e;
+	a1x->lineX2_0x20 = v4;
+	v5 = a1x->framePosY_0x26;
+	v6 = a1x->lineY1_0x1e;
 	if (v6 >= v5 - 30)
 	{
-		if (v6 > a1x->word_0x2a + v5 + 30)
+		if (v6 > a1x->frameHeight_0x2a + v5 + 30)
 		{
-			a1x->word_0x22 = a1x->word_0x2a + a1x->word_0x26;
+			a1x->lineY2_0x22 = a1x->frameHeight_0x2a + a1x->framePosY_0x26;
 			return;// result;
 		}
-		v7 = a1x->word_0x2;
+		v7 = a1x->maxTextboxHeight_0x2;
 	}
 	else
 	{
-		v7 = a1x->word_0x26 - 2;
+		v7 = a1x->framePosY_0x26 - 2;
 	}
-	a1x->word_0x22 = v7;
+	a1x->lineY2_0x22 = v7;
 	//return result;
 }
 
 //----- (00089920) --------------------------------------------------------
-void sub_89920(type_sub_str_unk_1804B0ar* a1x, __int16 a2, int16_t* a3x)//26a920
+void sub_89920(type_textbox_sub1804B0* a1x, __int16 a2, int16_t* a3x)//26a920
 {
 	signed int v3; // edx
 	int v4; // ebx
@@ -89902,13 +89902,13 @@ void sub_89920(type_sub_str_unk_1804B0ar* a1x, __int16 a2, int16_t* a3x)//26a920
 		v3++;
 	}
 	//v7 = a1[9];
-	a1x->word_0x4 = a1x->word_0x10 * v4;
-	a1x->word_0x6 = a1x->word_0x12 * a2;
+	a1x->textBoxWidth_0x4 = a1x->charWidth_0x10 * v4;
+	a1x->textboxHeight_0x6 = a1x->charHeight_0x12 * a2;
 	//return result;
 }
 
 //----- (00089980) --------------------------------------------------------
-void sub_89980(type_sub_str_unk_1804B0ar* a1x)//26a980
+void sub_89980(type_textbox_sub1804B0* a1x)//26a980
 {
 	__int16 v1; // di
 	int v2; // ecx
@@ -89930,30 +89930,30 @@ void sub_89980(type_sub_str_unk_1804B0ar* a1x)//26a980
 	v2 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[172].height_5;//172 y
 	v3 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[171].height_5;//171 y
 	v4 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[173].width_4
-		* (unsigned __int16)(((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[173].width_4 - 1 + a1x->word_0x4 + 8) / (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[173].width_4);
-	v5 = a1x->word_0x4;
-	a1x->word_0x28 = v4;
-	a1x->word_0x24 = a1x->word_0x8 - (v4 - v5) / 2;
-	v6 = (v2 - 1 + a1x->word_0x6) / v2 * v2 + 2 * (v3 - v1);
-	v7 = a1x->word_0x6;
-	a1x->word_0x2a = v6;
+		* (unsigned __int16)(((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[173].width_4 - 1 + a1x->textBoxWidth_0x4 + 8) / (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[173].width_4);
+	v5 = a1x->textBoxWidth_0x4;
+	a1x->frameWidth_0x28 = v4;
+	a1x->framePosX_0x24 = a1x->textboxPosX_0x8 - (v4 - v5) / 2;
+	v6 = (v2 - 1 + a1x->textboxHeight_0x6) / v2 * v2 + 2 * (v3 - v1);
+	v7 = a1x->textboxHeight_0x6;
+	a1x->frameHeight_0x2a = v6;
 	result = (v6 - v7) / 2;
-	a1x->word_0x26 = a1x->word_0xa - result;
+	a1x->framePosY_0x26 = a1x->textboxPosY_0xa - result;
 	//return result;
 }
 // EA3DC: using guessed type int **filearray_2aa18c[6];
 
 //----- (00089A30) --------------------------------------------------------
-void sub_89A30_draw_line(type_sub_str_unk_1804B0ar* a1x)//26aa30
+void sub_89A30_draw_line(type_textbox_sub1804B0* a1x)//26aa30
 {
 	__int16 v1; // si
 	__int16 result = 0; // ax //fix it
 
 	v1 = ((x_WORD_180660_VGA_type_resolution & 1) != 0) + 1;
-	if (a1x->word_0x20 != a1x->word_0x0 || (result = a1x->word_0x22, result != a1x->word_0x2))
+	if (a1x->lineX2_0x20 != a1x->maxTextboxWidth_0x0 || (result = a1x->lineY2_0x22, result != a1x->maxTextboxHeight_0x2))
 	{
-		sub_2BD10_draw_line(a1x->word_0x1c, a1x->word_0x1e, a1x->word_0x20, a1x->word_0x22, *xadataclrd0dat.colorPalette_var28[0]);
-		/*result = */sub_2BD10_draw_line(a1x->word_0x1c + v1, a1x->word_0x1e, v1 + a1x->word_0x20, a1x->word_0x22, (*xadataclrd0dat.colorPalette_var28)[0xf00]);
+		sub_2BD10_draw_line(a1x->lineX1_0x1c, a1x->lineY1_0x1e, a1x->lineX2_0x20, a1x->lineY2_0x22, *xadataclrd0dat.colorPalette_var28[0]);
+		/*result = */sub_2BD10_draw_line(a1x->lineX1_0x1c + v1, a1x->lineY1_0x1e, v1 + a1x->lineX2_0x20, a1x->lineY2_0x22, (*xadataclrd0dat.colorPalette_var28)[0xf00]);
 	}
 	//return result;
 }
