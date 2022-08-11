@@ -1,7 +1,4 @@
 #include <boost/algorithm/string/predicate.hpp>
-#ifdef _MSC_VER
-#define _CRT_SECURE_NO_WARNINGS
-#endif
 #include "fcaseopen.h"
 
 #if !defined(_WIN32)
@@ -83,14 +80,4 @@ FILE* fcaseopen(char const* path, char const* mode)
     }
 #endif
     return f;
-}
-
-void casechdir(char const* path)
-{
-#if !defined(_WIN32)
-    std::string r = casepath(path);
-    chdir(r.c_str());
-#else
-    chdir(path);
-#endif
 }
