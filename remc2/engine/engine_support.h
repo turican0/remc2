@@ -389,8 +389,8 @@ typedef struct Type_str_164 {//size 1136
 	int16_t word_0x248_584;
 	int16_t word_0x24A_586;
 	int16_t word_0x24C_588;
-	std::array<int8_t, 11> array_0x24E_590;//size??
-	uint8_t stubn[8];
+	std::array<int8_t, 19> array_0x24E_590; // size?? -> at least 12 in level 19. using the whole space of stubn now.
+	//uint8_t stubn[8];
 	int8_t byte_0x261_609;
 	int8_t byte_0x262_610;
 	type_str_611 str_611;
