@@ -66,7 +66,7 @@ void EndMyNetLib();
 void AddRecMess(std::string message);
 std::string GetRecMess();
 unsigned int GetRecCount();
-void CleanMessages(myNCB* locNCB);
+void CleanMessages(myNCB locNCB);
 
 void printState(myNCB** connections);
 void printState2(char* text);

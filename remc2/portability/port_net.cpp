@@ -1090,7 +1090,7 @@ namespace MyNetworkLib {
 		}
 		else if (unpacked_message.message == MESS_CLIENT_DELETE)
 		{
-			CleanMessages(&myNCBfromShadow(unpacked_message.messNCB));
+			CleanMessages(myNCBfromShadow(unpacked_message.messNCB));
 			RemoveNetworkName(unpacked_message.data);
 	#ifdef TEST_NETWORK_MESSAGES
 			debug_net_printf("Server: MESSAGE_DELETE:%s %s\n", unpacked_message.data, sender.address().to_string().c_str());
@@ -1313,7 +1313,7 @@ namespace MyNetworkLib {
 	void NetworkClass::DeleteNetwork(myNCB* connection, int32_t index) {
 		SendToServer(Pack_Message(MESS_CLIENT_DELETE, myNCBtoShadow(*connection), index, MyUniqueIpPort, clPort, connection->ncb_name_26, sizeof(connection->ncb_name_26)));
 		singleThreadSleep(400);
-		CleanMessages(connection);
+		CleanMessages(*connection);
 		savedMessages.clear();
 	}
 
@@ -1374,14 +1374,14 @@ std::string GetRecMess() {
 	return result;
 };
 
-void CleanMessages(myNCB* locNCB) {
+void CleanMessages(myNCB locNCB) {
 	std::string result;
 	RecMess_mt.lock();
 	for (auto it = recMessages.begin(); it != recMessages.end();)
 	{
 		message_info unpackedMess = Unpack_Message(*it);
-		if ((memcpy(unpackedMess.messNCB.ncb_name_26, locNCB->ncb_name_26,sizeof(locNCB->ncb_name_26)))||
-			(memcpy(unpackedMess.messNCB.ncb_callName_10, locNCB->ncb_name_26, sizeof(locNCB->ncb_name_26))))
+		if ((memcpy(unpackedMess.messNCB.ncb_name_26, locNCB.ncb_name_26,sizeof(locNCB.ncb_name_26)))||
+			(memcpy(unpackedMess.messNCB.ncb_callName_10, locNCB.ncb_name_26, sizeof(locNCB.ncb_name_26))))
 		{
 			it = recMessages.erase(it);
 		}
