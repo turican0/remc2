@@ -76320,7 +76320,7 @@ void ReceiveSendAll_7438A(uint8_t* buffer, unsigned int size)//25538a
 			timeState(true, "After Send, Before Receive");//debug
 			NetworkReceiveMessage2_7404E(IndexInNetwork2_E12A8, buffer, size * countConnected_E1278);
 			//debug
-			if (memcmp((char*)&fixBuffer[IndexInNetwork_E1276 * size], (char*)&buffer[IndexInNetwork_E1276 * size], size))
+			if (memcmp(&fixBuffer[IndexInNetwork_E1276 * size], (char*)&buffer[IndexInNetwork_E1276 * size], size))
 			{
 				//memcpy(buffer, fixBuffer, size * countConnected_E1278);
 				//allert_error();
@@ -87732,7 +87732,7 @@ void sub_87610()//268610
 	unsigned __int8 color; // al
 	char textBuffer[256]; // [esp+0h] [ebp-80h]
 
-	textForDraw = (char*)x_DWORD_E9C4C_langindexbuffer[str_unk_1804B0ar.uni_0x8a.word[2]];
+	textForDraw = x_DWORD_E9C4C_langindexbuffer[str_unk_1804B0ar.uni_0x8a.word[2]];
 	if (str_E2A74[str_unk_1804B0ar.word_0x86].axis_2[0] & 0x100)
 	{
 		textForDraw = textBuffer;
