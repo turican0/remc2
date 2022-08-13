@@ -29785,7 +29785,7 @@ void DrawVolumnSettings_303D0()//2113d0
 	int v14 = 1; // [esp+14h] [ebp-8h] At its lowest value, this equals 1
 	unsigned __int8 v15; // [esp+18h] [ebp-4h]
 
-	signed int a1 = 0;//fix this
+	signed int a1 = 1; //Lowest possible value
 
 	v2 = str_D94F0_bldgprmbuffer[static_cast<std::underlying_type<MapType_t>::type>(D41A0_0.terrain_2FECE.MapType)][0];
 	v3 = str_D94F0_bldgprmbuffer[static_cast<std::underlying_type<MapType_t>::type>(D41A0_0.terrain_2FECE.MapType)][2];
