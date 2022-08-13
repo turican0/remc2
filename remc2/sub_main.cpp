@@ -20371,7 +20371,7 @@ char sub_232C0()//2042c0
 	D41A0_0.rand_0x8 = 9377 * D41A0_0.rand_0x8 + 9439;
 	v1 = 0;
 	v2 = D41A0_0.rand_0x8 % 0x3Cu + 17;
-	while (!(str_D93C0_bldgprmbuffer[v2].byte_2 & 2) && v1 < 0x4Du)
+	while (!(str_D93C0_bldgprmbuffer.at(v2).byte_2 & 2) && v1 < 0x4Du)
 	{
 		LOBYTE(v2) = v2 + 1;
 		v1++;
@@ -53217,7 +53217,7 @@ void sub_539A0_load_bldgprm()//2349a0
 	FILE* bldgprmfile = DataFileIO::CreateOrOpenFile(bldPath, 512);
 	if (bldgprmfile)
 	{
-		DataFileIO::Read(bldgprmfile, (uint8_t*)str_D93C0_bldgprmbuffer, 76*sizeof(type_D93C0_bldgprmbuffer));
+		DataFileIO::Read(bldgprmfile, (uint8_t*)&str_D93C0_bldgprmbuffer[0], 76*sizeof(type_D93C0_bldgprmbuffer));
 		DataFileIO::Close(bldgprmfile);
 	}
 }
@@ -63638,7 +63638,7 @@ LABEL_22:
 						v15 = a1x->word_0x1A_26;
 						v17x->word_0x1A_26 = v15;
 						v17x->word_0x94_148 = v15;
-						v18x->dword_0xA4_164x->array_0x5C_92[v20] = v17x - D41A0_0.struct_0x6E8E;
+						v18x->dword_0xA4_164x->array_0x5C_92.at(v20) = v17x - D41A0_0.struct_0x6E8E;
 						v17x->word_0x1C_28 = 512;
 						v17x->word_0x20_32 = v17x->word_0x1C_28;
 						x_WORD_EB398ar = v17x->axis_0x4C_76;
