@@ -2508,7 +2508,7 @@ void sub_87BE0();
 void sub_87C10();
 void sub_87CF0();
 int sub_88450();
-void sub_884D0(int a1, __int16 a2, int16_t* a3, char a4, char a5);
+void sub_884D0(int a1, __int16 a2, char a4, char a5);
 void sub_88580();
 void sub_885E0(type_event_0x6E8E* a1, int a2, int a3, unsigned __int16 a4);
 void sub_889F0(uint16_t a1);
@@ -87705,7 +87705,7 @@ void sub_87580()//268580
 	sub_87BE0();
 	if (str_unk_1804B0ar.byte_0x9f & 0x4)
 	{
-		sub_884D0(91, 1, &str_E2A74[0x5b].axis_2[0], 1, 0);
+		sub_884D0(91, 1, 1, 0);
 	}
 	else if (str_unk_1804B0ar.byte_0x9e & 0x2)
 	{
@@ -87719,7 +87719,7 @@ void sub_87580()//268580
 	{
 		sub_87CF0();
 		int v0 = sub_88450();
-		sub_884D0(v0, 1, &str_E2A74[v0].axis_2[0], ((str_E2A74[v0].axis_2[0] & 4) == 0) + 1, 0);
+		sub_884D0(v0, 1, ((str_E2A74[v0].axis_2[0] & 4) == 0) + 1, 0);
 	}
 }
 
@@ -88406,7 +88406,7 @@ int sub_88450()//269450
 // 180538: using guessed type __int16 x_WORD_180538;
 
 //----- (000884D0) --------------------------------------------------------
-void sub_884D0(int a1, __int16 a2, int16_t* a3x, char a4, char a5)//2694d0
+void sub_884D0(int a1, __int16 a2, char a4, char a5)//2694d0
 {
 	if (a1)
 	{
@@ -88417,14 +88417,18 @@ void sub_884D0(int a1, __int16 a2, int16_t* a3x, char a4, char a5)//2694d0
 		str_unk_1804B0ar.byte_0xa1 = a5;
 		str_unk_1804B0ar.dword_0x76 = 0;
 		str_unk_1804B0ar.byte_0xa0 = a2;
-		for (int i = 0; i < a2; str_unk_1804B0ar.uni_0x8a.word[i + 1] = a3x[i])
+		for (int i = 0; i < a2; str_unk_1804B0ar.uni_0x8a.word[i + 1] = str_E2A74[a1].axis_2[i])
 			i++;
 
 		if (!DefaultResolutions())
 		{
-			if ((str_E2A74[10].axis_2[1] == a3x[1]) || (str_E2A74[11].axis_2[1] == a3x[1]) || (str_E2A74[12].axis_2[1] == a3x[1]))
+			if ((str_E2A74[10].axis_2[1] == str_E2A74[a1].axis_2[1]) ||
+				(str_E2A74[11].axis_2[1] == str_E2A74[a1].axis_2[1]) ||
+				(str_E2A74[12].axis_2[1] == str_E2A74[a1].axis_2[1]) ||
+				(str_E2A74[38].axis_2[1] == str_E2A74[a1].axis_2[1]) ||
+				(str_E2A74[39].axis_2[1] == str_E2A74[a1].axis_2[1]))
 			{
-				a3x[3] += screenWidth_18062C - 640;
+				str_E2A74[a1].axis_2[3] += screenWidth_18062C - 640;
 			}
 		}
 
@@ -88979,7 +88983,7 @@ void sub_88D40()//269d40
 				str_unk_1804B0ar.byte_0xa4 = 0;
 		}
 		if (v42_6A)
-			sub_884D0(v42_6A, v34, v21_A, v44, v45);
+			sub_884D0(v42_6A, v34, v44, v45);
 	}
 }
 
@@ -89016,7 +89020,7 @@ void sub_89360()//26a360
 	}
 	if (v1)
 	{
-		sub_884D0(v1, 1, &str_E2A74[v1].axis_2[0], 2, 0);
+		sub_884D0(v1, 1, 2, 0);
 	}
 }
 
