@@ -3,6 +3,7 @@
 
 #include <cstdlib>
 #include <iostream>
+#include <fstream>
 
 #include "../engine/defs.h"
 #include "../portability/port_outputs.h"

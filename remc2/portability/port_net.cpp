@@ -14,6 +14,11 @@ using namespace boost;
 static const int NetworkBufferSize = 4096;
 uint8_t* Zero_pointer_net = nullptr;
 
+int timest_index = 0;
+clock_t timest_timer = 0;
+const int timest_max_mess = 400;
+std::string timest_buffer[timest_max_mess];
+
 //#define TEST_NETWORK_MESSAGES
 
 //#define TEST_BAD_NETWORK
@@ -1552,15 +1557,9 @@ void printState2(char* text) {
 #endif //TEST_NETWORK_MESSAGES
 }
 
-
-int timest_index = 0;
-clock_t timest_timer = 0;
-const int timest_max_mess = 400;
-std::string timest_buffer[timest_max_mess];
-#include <fstream>      // std::ofstream
 void timeState(bool start, char* text) {
 #ifdef TEST_TIME_NETWORK_MESSAGES
-	if ((start)||(timest_index==0))timest_timer = clock();
+	if (start||(timest_index==0))timest_timer = clock();
 	char buff[100];
 	snprintf(buff, sizeof(buff), "%s | %d", text, (int)(clock()- timest_timer));
 	timest_buffer[timest_index].assign(buff, strlen(buff));
