@@ -963,7 +963,7 @@ extern uint8_t* pdwScreenBuffer_351628;
 
 typedef struct {//lenght 30
 	int16_t word_0;//str_E2A74[].word_0
-	std::array<int16_t, 5> axis_2; //str_E2A74[].axis_2[0]
+	std::array<int16_t, 5> axis_2; // 1=textIndex 3=lineX1, 4=lineY1
 	//int16_t axis_4[3];//?? str_E2A74[].axis_2[0]
 	//int16_t stuba;
 	type_event_0x6E8E* dword_12;//str_E2A74[].dword_12
@@ -1768,34 +1768,34 @@ typedef struct {//lenght 224791
 } type_shadow_D41A0_BYTESTR_0;
 
 struct {//lenght 0x33
-	int16_t word_0x0;//0 //0
-	int16_t word_0x2;//2 //1
-	int16_t word_0x4;//4 //2
-	int16_t word_0x6;//6 //3
-	int16_t word_0x8;//8 //4
-	int16_t word_0xa;//a //5
-	int16_t word_0xc;//c-3f //6
-	int16_t word_0xe;//e //7
-	int16_t word_0x10;//10 //8
-	int16_t word_0x12;//12 //9
-	int16_t word_0x14;//14 //10
-	int16_t word_0x16;//16 //11
-	int16_t word_0x18;//18 //12
-	int16_t word_0x1a;//1a //13
-	int16_t word_0x1c;//1c-4f //14
-	int16_t word_0x1e;//1e-51 //15
-	int16_t word_0x20;//20 //16
-	int16_t word_0x22;//22 //17
-	int16_t word_0x24;//24-57 //width 18
-	int16_t word_0x26;//26-59 //19
-	int16_t word_0x28;//28-5b //20
-	int16_t word_0x2a;//2a-5d//21
+	int16_t maxTextboxWidth_0x0;//0 //0
+	int16_t maxTextboxHeight_0x2;//2 //1
+	int16_t textBoxWidth_0x4;//4 //2
+	int16_t textboxHeight_0x6;//6 //3
+	int16_t textboxPosX_0x8;//8 //4
+	int16_t textboxPosY_0xa;//a //5
+	int16_t maxTextboxWidth2_0xc;//c-3f //6
+	int16_t maxTextboxHeight2_0xe;//e //7
+	int16_t charWidth_0x10;//10 //8
+	int16_t charHeight_0x12;//12 //9
+	int16_t minWidth_0x14;//14 //10
+	int16_t maxWidth_0x16;//16 //11
+	int16_t minHeight_0x18;//18 //12
+	int16_t maxHeight_0x1a;//1a //13
+	int16_t lineX1_0x1c;//1c-4f //14
+	int16_t lineY1_0x1e;//1e-51 //15
+	int16_t lineX2_0x20;//20 //16
+	int16_t lineY2_0x22;//22 //17
+	int16_t framePosX_0x24;//24-57 //width 18
+	int16_t framePosY_0x26;//26-59 //19
+	int16_t frameWidth_0x28;//28-5b //20
+	int16_t frameHeight_0x2a;//2a-5d//21
 	int8_t stub[4];
-	int8_t byte_0x30;//30-63 - color1 //24
-	int8_t byte_0x31;//31-64 - color2
-	int8_t byte_0x32;//32-65 - color2
+	int8_t color1_0x30;//30-63 - color1 //24
+	int8_t color2_0x31;//31-64 - color2
+	int8_t color3_0x32;//32-65 - color2
 }
-typedef type_sub_str_unk_1804B0ar;
+typedef type_textbox_sub1804B0;
 
 typedef union {//lenght 12
 	int32_t dword[3];
@@ -1804,7 +1804,7 @@ typedef union {//lenght 12
 type_uni_0x8a;
 
 struct {//0xb0 nebo spis 171(0xab)
-	type_sub_str_unk_1804B0ar type_sub_0[2];
+	type_textbox_sub1804B0 type_sub_0[2];
 	/*int16_t word_0xe;//e
 	int16_t word_0x10;//10
 	int16_t word_0x12;//12
@@ -1838,7 +1838,7 @@ struct {//0xb0 nebo spis 171(0xab)
 	int8_t byte_0xa0;//a0
 	int8_t byte_0xa1;//a1
 	int8_t byte_0xa2;//a2
-	int8_t byte_0xa3;//a3
+	int8_t drawTextType_0xa3;//a3
 	int8_t byte_0xa4;//a4
 	int8_t byte_0xa5;//a5
 	int8_t byte_0xa6;//a6
