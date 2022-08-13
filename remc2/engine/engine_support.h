@@ -323,7 +323,7 @@ typedef struct Type_str_164 {//size 1136
 	int16_t word_0x38_56;
 	int16_t word_0x3A_58;
 	uint16_t array_0x3C_60[16];//size??
-	std::array<uint16_t, 34> array_0x5C_92; // size?? at least index 18 is accessed in level 19
+	std::array<uint16_t, 34> array_0x5C_92; // size?? at least index 33 is accessed in level 19
 	uint8_t stubd[138];
 	/*int8_t byte_0xD3_211;
 	int8_t byte_0xD4_212;

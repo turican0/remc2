@@ -86174,6 +86174,7 @@ void sub_84B80()//265b80
 	int iy;
 	int16_t v7x;
 	int16_t v9; // [esp+Ch] [ebp-4h]
+	type_event_0x6E8E FIXx;
 
 	if (CommandLineParams.DoDebugSequences()) {
 		//add_compare(0x265b84, CommandLineParams.DoDebugafterload());
@@ -86196,7 +86197,6 @@ void sub_84B80()//265b80
 					//fix
 					if (v2x == 0)
 					{
-						type_event_0x6E8E FIXx;
 						FIXx.dword_0x8 = 0x00700008;
 						FIXx.axis_0x4C_76.x = 0xe98c;
 						FIXx.axis_0x4C_76.y = 0xf000;
