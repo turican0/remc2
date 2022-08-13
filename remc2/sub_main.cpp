@@ -2518,15 +2518,15 @@ void sub_88BA0();
 void sub_88D00();
 void sub_88D40();
 void sub_89360();
-void ComputeTextboxSizesFromTextWords_89420(type_textbox_sub1804B0* textbox, char* text);
+void ComputeTextboxSizesFromTextWords_89420(type_textbox_sub1804B0* textbox, const char* text);
 void ComputeTextboxSizes_89520(type_textbox_sub1804B0* textbox);
-void DrawTextbox_895D0(type_textbox_sub1804B0* textbox, char* text);
+void DrawTextbox_895D0(type_textbox_sub1804B0* textbox, const char* text);
 void DrawTextbox2_89690(type_textbox_sub1804B0* textbox);
 void ComputeTextboxSizes_89830(type_textbox_sub1804B0* textbox);
 void ComputeTextboxLine_898A0(type_textbox_sub1804B0* textbox);
 void ComputeTextboxSizesFromTextLines_89920(type_textbox_sub1804B0* textbox, __int16 countLines, int16_t* textLines);
 void ComputeFrameSizes_89980(type_textbox_sub1804B0* textbox);
-void DrawTextboxLine_89A30(type_textbox_sub1804B0* textbox);
+void DrawTextboxLine_89A30(const type_textbox_sub1804B0* textbox);
 void GetHintText_89AC0(char* buffer, int typeOfText);
 int16_t sub_89B60_aplicate_setting(uint8_t a1);
 int ReadGameUserInputs_89D10();
@@ -87842,7 +87842,7 @@ void sub_87860()//268860
 		str_unk_1804B0ar.type_sub_0[1].maxTextboxWidth2_0xc = 220;
 		str_unk_1804B0ar.type_sub_0[1].color2_0x31 = (*xadataclrd0dat.colorPalette_var28)[0];
 		ComputeTextboxSizes_89830(&str_unk_1804B0ar.type_sub_0[1]);
-		ComputeTextboxSizesFromTextWords_89420(&str_unk_1804B0ar.type_sub_0[1], (char*)x_DWORD_E9C4C_langindexbuffer[str_E2A74[(str_unk_1804B0ar.byte_0xaa + 86)].axis_2[1]]);
+		ComputeTextboxSizesFromTextWords_89420(&str_unk_1804B0ar.type_sub_0[1], x_DWORD_E9C4C_langindexbuffer[str_E2A74[(str_unk_1804B0ar.byte_0xaa + 86)].axis_2[1]]);
 		ComputeTextboxSizes_89520(&str_unk_1804B0ar.type_sub_0[1]);
 		ComputeFrameSizes_89980(&str_unk_1804B0ar.type_sub_0[1]);
 		ComputeTextboxLine_898A0(&str_unk_1804B0ar.type_sub_0[1]);
@@ -87886,7 +87886,7 @@ void sub_87A30()//268a30
 		str_unk_1804B0ar.type_sub_0[1].maxTextboxWidth2_0xc = 220;
 		str_unk_1804B0ar.type_sub_0[1].color2_0x31 = (*xadataclrd0dat.colorPalette_var28)[0];
 		ComputeTextboxSizes_89830(&str_unk_1804B0ar.type_sub_0[1]);
-		ComputeTextboxSizesFromTextWords_89420(&str_unk_1804B0ar.type_sub_0[1], (char*)x_DWORD_E9C4C_langindexbuffer[str_E2A74[str_unk_1804B0ar.byte_0xa9].axis_2[1]]);
+		ComputeTextboxSizesFromTextWords_89420(&str_unk_1804B0ar.type_sub_0[1], x_DWORD_E9C4C_langindexbuffer[str_E2A74[str_unk_1804B0ar.byte_0xa9].axis_2[1]]);
 		ComputeTextboxSizes_89520(&str_unk_1804B0ar.type_sub_0[1]);
 		ComputeFrameSizes_89980(&str_unk_1804B0ar.type_sub_0[1]);
 		ComputeTextboxLine_898A0(&str_unk_1804B0ar.type_sub_0[1]);
@@ -88408,8 +88408,6 @@ int sub_88450()//269450
 //----- (000884D0) --------------------------------------------------------
 void sub_884D0(int a1, __int16 a2, int16_t* a3x, char a4, char a5)//2694d0
 {
-	signed int i; // eax
-
 	if (a1)
 	{
 		str_unk_1804B0ar.dword_0x7a = str_E2A74[a1].axis_2[2];
@@ -88419,7 +88417,7 @@ void sub_884D0(int a1, __int16 a2, int16_t* a3x, char a4, char a5)//2694d0
 		str_unk_1804B0ar.byte_0xa1 = a5;
 		str_unk_1804B0ar.dword_0x76 = 0;
 		str_unk_1804B0ar.byte_0xa0 = a2;
-		for (i = 0; i < a2; str_unk_1804B0ar.uni_0x8a.word[i + 1] = a3x[i])
+		for (int i = 0; i < a2; str_unk_1804B0ar.uni_0x8a.word[i + 1] = a3x[i])
 			i++;
 
 		if (!DefaultResolutions())
@@ -89023,7 +89021,7 @@ void sub_89360()//26a360
 }
 
 //----- (00089420) --------------------------------------------------------
-void ComputeTextboxSizesFromTextWords_89420(type_textbox_sub1804B0* textbox, char* text)//26a420
+void ComputeTextboxSizesFromTextWords_89420(type_textbox_sub1804B0* textbox, const char* text)//26a420
 {
 	int lineCharWidth; // eax
 	unsigned int textBufferLenght; // kr04_4
@@ -89101,7 +89099,7 @@ void ComputeTextboxSizes_89520(type_textbox_sub1804B0* textbox)//26a520
 }
 
 //----- (000895D0) --------------------------------------------------------
-void DrawTextbox_895D0(type_textbox_sub1804B0* textbox, char* text)//26a5d0
+void DrawTextbox_895D0(type_textbox_sub1804B0* textbox, const char* text)//26a5d0
 {
 	int i;
 	unsigned __int8 color;
@@ -89179,8 +89177,8 @@ void ComputeTextboxLine_898A0(type_textbox_sub1804B0* textbox)//26a8a0
 	int preLineY2;
 
 	int centerToFrameWidth = textbox->framePosX_0x24;
-	int lineX1 = textbox->lineX1_0x1c;
-	if (lineX1 >= centerToFrameWidth - 30)
+
+	if (int lineX1 = textbox->lineX1_0x1c; lineX1 >= centerToFrameWidth - 30)
 	{
 		if (lineX1 <= textbox->frameWidth_0x28 + centerToFrameWidth + 30)
 			preLineX2 = textbox->maxTextboxWidth_0x0;
@@ -89193,8 +89191,8 @@ void ComputeTextboxLine_898A0(type_textbox_sub1804B0* textbox)//26a8a0
 	}
 	textbox->lineX2_0x20 = preLineX2;
 	int centerToFrameHeight = textbox->framePosY_0x26;
-	int lineY1 = textbox->lineY1_0x1e;
-	if (lineY1 >= centerToFrameHeight - 30)
+
+	if (int lineY1 = textbox->lineY1_0x1e; lineY1 >= centerToFrameHeight - 30)
 	{
 		if (lineY1 > textbox->frameHeight_0x2a + centerToFrameHeight + 30)
 		{
@@ -89219,7 +89217,7 @@ void ComputeTextboxSizesFromTextLines_89920(type_textbox_sub1804B0* textbox, __i
 	{
 		textLenght = strlen((const char*)x_DWORD_E9C4C_langindexbuffer[textLines[indexLine]]) + 1;
 		// FireBall | Rapid Fire | Fire Storm		
-		if ((signed int)(textLenght - 1) > maxTextLenght)
+		if ((textLenght - 1) > maxTextLenght)
 			maxTextLenght = textLenght - 1;
 	}
 	textbox->textBoxWidth_0x4 = textbox->charWidth_0x10 * maxTextLenght;
@@ -89240,7 +89238,7 @@ void ComputeFrameSizes_89980(type_textbox_sub1804B0* textbox)//26a980
 }
 
 //----- (00089A30) --------------------------------------------------------
-void DrawTextboxLine_89A30(type_textbox_sub1804B0* textbox)//26aa30
+void DrawTextboxLine_89A30(const type_textbox_sub1804B0* textbox)//26aa30
 {
 	int widthFix = ((x_WORD_180660_VGA_type_resolution & 1) != 0) + 1;
 	if (textbox->lineX2_0x20 != textbox->maxTextboxWidth_0x0 || textbox->lineY2_0x22 != textbox->maxTextboxHeight_0x2)
