@@ -16,6 +16,20 @@
             "miDebuggerPath": "/usr/bin/gdb"
         },
         {
+            "name": "Game Sanitizer",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/buildsanitizers/Debug/inst/bin/remc2",
+            "args": [
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/buildsanitizers/Debug/inst/bin",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "miDebuggerPath": "/usr/bin/gdb"
+        },
+        {
             "name": "Regression Tests",
             "type": "cppdbg",
             "request": "launch",

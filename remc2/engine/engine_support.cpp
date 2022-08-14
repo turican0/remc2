@@ -1313,7 +1313,7 @@ void mine_texts(const char* filename, uint32_t adressdos, uint32_t count, char* 
 	FILE* fileout;
 	char actchar;
 	char outtext[2048];
-	char outtext2[2048];
+	char outtext2[2176];
 	sprintf(findnamec, "c:/prenos/dosbox-x-remc2/vs2015/engine-memory-%s", filename);
 	fptestepc = fopen(findnamec, "rb");
 	fileout = fopen(outfilename, "wb");
