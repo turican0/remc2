@@ -323,8 +323,8 @@ typedef struct Type_str_164 {//size 1136
 	int16_t word_0x38_56;
 	int16_t word_0x3A_58;
 	uint16_t array_0x3C_60[16];//size??
-	uint16_t array_0x5C_92[16];
-	uint8_t stubd[174];
+	std::array<uint16_t, 34> array_0x5C_92; // size?? at least index 33 is accessed in level 19
+	uint8_t stubd[138];
 	/*int8_t byte_0xD3_211;
 	int8_t byte_0xD4_212;
 	int8_t byte_0xD5_213;*/
@@ -389,8 +389,8 @@ typedef struct Type_str_164 {//size 1136
 	int16_t word_0x248_584;
 	int16_t word_0x24A_586;
 	int16_t word_0x24C_588;
-	int8_t array_0x24E_590[10];//size??
-	uint8_t stubn[9];
+	std::array<int8_t, 19> array_0x24E_590; // size?? -> at least 12 in level 19. using the whole space of stubn now.
+	//uint8_t stubn[8];
 	int8_t byte_0x261_609;
 	int8_t byte_0x262_610;
 	type_str_611 str_611;
