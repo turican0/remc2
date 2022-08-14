@@ -1557,7 +1557,7 @@ void printState2(char* text) {
 #endif //TEST_NETWORK_MESSAGES
 }
 
-void timeState(bool start, char* text) {
+void timeState(bool start, const char* text) {
 #ifdef TEST_TIME_NETWORK_MESSAGES
 	if (start||(timest_index==0))timest_timer = clock();
 	char buff[100];

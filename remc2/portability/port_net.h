@@ -77,6 +77,6 @@ void InitMyNetLib(bool iam_server, char* ip, int networkPort, int serverPort);
 
 void debug_net_printf(const char* format, ...);
 
-void timeState(bool start, char* text);
+void timeState(bool start, const char* text);
 
 #endif //PORT_NETWORK
