@@ -574,7 +574,7 @@ void GameRenderHD::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 	{
 		projectedVertexBuffer[29] = a1 * v13 >> 16;
 		v16 = 21;
-		projectedVertexBuffer[28] = a1 * (signed int)projectedVertexBuffer[30] >> 16;
+		projectedVertexBuffer[28] = a1 * projectedVertexBuffer[30] >> 16;
 		while (v16)
 		{
 			Str_E9C38_smalltit[v15x].dword0_rot = projectedVertexBuffer[28];
@@ -597,7 +597,7 @@ void GameRenderHD::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 	{
 		projectedVertexBuffer[27] = a2 * v13 >> 16;
 		v19 = 40;
-		v20 = a2 * (signed int)projectedVertexBuffer[30] >> 16;
+		v20 = a2 * projectedVertexBuffer[30] >> 16;
 		while (v19)
 		{
 			Str_E9C38_smalltit[v18x].dword0_rot -= projectedVertexBuffer[27];
@@ -1123,7 +1123,7 @@ void GameRenderHD::SubDrawCaveTerrainAndParticles(std::vector<int>& projectedVer
 				if (Str_E9C38_smalltit[v68x].word38 & 0x1000)
 				{
 					x_BYTE_E126D = 7;
-					x_BYTE_E126C = ((signed int)projectedVertexBuffer[10] + projectedVertexBuffer[16] + projectedVertexBuffer[22] + projectedVertexBuffer[4]) >> 18;
+					x_BYTE_E126C = (projectedVertexBuffer[10] + projectedVertexBuffer[16] + projectedVertexBuffer[22] + projectedVertexBuffer[4]) >> 18;
 				}
 				else
 				{
@@ -1168,7 +1168,7 @@ void GameRenderHD::SubDrawCaveTerrainAndParticles(std::vector<int>& projectedVer
 				if (Str_E9C38_smalltit[v80x].word38 & 0x1000)
 				{
 					x_BYTE_E126D = 7;
-					x_BYTE_E126C = ((signed int)projectedVertexBuffer[10] + projectedVertexBuffer[16] + projectedVertexBuffer[22] + projectedVertexBuffer[4]) >> 18;
+					x_BYTE_E126C = (projectedVertexBuffer[10] + projectedVertexBuffer[16] + projectedVertexBuffer[22] + projectedVertexBuffer[4]) >> 18;
 				}
 				else
 				{
@@ -1218,7 +1218,7 @@ void GameRenderHD::SubDrawCaveTerrainAndParticles(std::vector<int>& projectedVer
 					if (Str_E9C38_smalltit[v94x].word38 & 0x1000)
 					{
 						x_BYTE_E126D = 7;
-						x_BYTE_E126C = ((signed int)projectedVertexBuffer[10] + projectedVertexBuffer[16] + projectedVertexBuffer[22] + projectedVertexBuffer[4]) >> 18;
+						x_BYTE_E126C = (projectedVertexBuffer[10] + projectedVertexBuffer[16] + projectedVertexBuffer[22] + projectedVertexBuffer[4]) >> 18;
 					}
 					else
 					{
@@ -1258,7 +1258,7 @@ void GameRenderHD::SubDrawCaveTerrainAndParticles(std::vector<int>& projectedVer
 					if (Str_E9C38_smalltit[v107x].word38 & 0x1000)
 					{
 						x_BYTE_E126D = 7;
-						x_BYTE_E126C = ((signed int)projectedVertexBuffer[10] + projectedVertexBuffer[16] + projectedVertexBuffer[22] + projectedVertexBuffer[4]) >> 18;
+						x_BYTE_E126C = (projectedVertexBuffer[10] + projectedVertexBuffer[16] + projectedVertexBuffer[22] + projectedVertexBuffer[4]) >> 18;
 					}
 					else
 					{
