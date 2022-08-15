@@ -2014,7 +2014,7 @@ void sub_60480(type_event_0x6E8E* a1);
 void sub_605E0(type_event_0x6E8E* a1);
 void sub_60780(type_event_0x6E8E* a1, type_event_0x6E8E* a2, int a3, int a4);
 void sub_60810(type_event_0x6E8E* locEvent);
-signed int sub_609E0(type_event_0x6E8E* a1);
+int sub_609E0(type_event_0x6E8E* locEvent);
 void AddBallon_60AB0(type_event_0x6E8E* a1);
 void sub_60D50(axis_3d* a1, type_event_0x6E8E* a2);
 void sub_60EA0(type_event_0x6E8E* a1);
@@ -63256,42 +63256,33 @@ void sub_60810(type_event_0x6E8E* locEvent)//241810
 }
 
 //----- (000609E0) --------------------------------------------------------
-signed int sub_609E0(type_event_0x6E8E* a1x)//2419e0
+int sub_609E0(type_event_0x6E8E* locEvent)//2419e0
 {
-	signed int v1; // esi
-	int v3; // ecx
-	__int16 v4; // ax
-	int v5; // eax
-
-	v1 = 0;
-	if (a1x->dword_0x8 < 0)
+	int result = 0;
+	if (locEvent->dword_0x8 < 0)
 		return 2;
-	if (a1x->str_0x5E_94.word_0x62_98)
+	if (locEvent->str_0x5E_94.word_0x62_98)
 	{
-		v3 = a1x->dword_0x8 - a1x->str_0x5E_94.dword_0x5E_94;
-		a1x->dword_0x8 = v3;
-		if (v3 < 0)
+		locEvent->dword_0x8 -= locEvent->str_0x5E_94.dword_0x5E_94;
+		if (locEvent->dword_0x8 < 0)
 		{
-			v4 = a1x->str_0x5E_94.word_0x62_98;
-			a1x->str_0x5E_94.word_0x62_98 = 0;
-			a1x->word_0x24_36 = v4;
+			locEvent->word_0x24_36 = locEvent->str_0x5E_94.word_0x62_98;
+			locEvent->str_0x5E_94.word_0x62_98 = 0;
 			return 2;
 		}
-		a1x->str_0x5E_94.word_0x62_98 = 0;
-		v5 = a1x->word_0x1A_26;
-		a1x->str_0x5E_94.dword_0x5E_94 = 0;
-		v1 = 1;
-		x_DWORD_EA3E4[v5]->dword_0xA4_164x->byte_0x195_405 = 4;
+		locEvent->str_0x5E_94.word_0x62_98 = 0;
+		locEvent->str_0x5E_94.dword_0x5E_94 = 0;
+		result = 1;
+		x_DWORD_EA3E4[locEvent->word_0x1A_26]->dword_0xA4_164x->byte_0x195_405 = 4;
 	}
-	if (a1x->str_0x5E_94.word_0x80_128 == a1x->word_0x1A_26)
+	if (locEvent->str_0x5E_94.word_0x80_128 == locEvent->word_0x1A_26)
 	{
-		if (a1x->dword_0x10_16 < 7)
-			a1x->struct_byte_0xc_12_15.byte[0] |= 0x40u;
-		a1x->str_0x5E_94.word_0x80_128 = 0;
+		if (locEvent->dword_0x10_16 < 7)
+			locEvent->struct_byte_0xc_12_15.byte[0] |= 0x40u;
+		locEvent->str_0x5E_94.word_0x80_128 = 0;
 	}
-	return v1;
+	return result;
 }
-// EA3E4: using guessed type int x_DWORD_EA3E4[];
 
 //----- (00060AB0) --------------------------------------------------------
 void AddBallon_60AB0(type_event_0x6E8E* a1x)//241ab0
