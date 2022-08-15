@@ -735,7 +735,7 @@ namespace MyNetworkLib {
 
 	void NetworkClass::SendGiveIPMessage(asio::ip::udp::endpoint sender, int port) {		
 		shadow_myNCB nullNCB;
-		nullNCB.ncb_command_0 = 999;
+		nullNCB.ncb_command_0 = 254;
 
 		SendToClient(Pack_Message(MESS_SERVER_GIVE_IP, nullNCB, -1, port, sender.address().to_string().c_str(), 1+strlen(sender.address().to_string().c_str())), sender.address().to_string(), port);
 	};
@@ -757,7 +757,7 @@ namespace MyNetworkLib {
 			if (!IpPortIsSet)
 			{
 				shadow_myNCB nullNCB;
-				nullNCB.ncb_command_0 = 999;
+				nullNCB.ncb_command_0 = 254;
 				SendToServer(Pack_Message(MESS_CLIENT_GET_IP, nullNCB, GetNextIndex(), clPort));
 				singleThreadSleep(500);
 				continue;
@@ -767,7 +767,7 @@ namespace MyNetworkLib {
 			if (!receiveServerAddName)
 			{
 				shadow_myNCB nullNCB;
-				nullNCB.ncb_command_0 = 999;
+				nullNCB.ncb_command_0 = 254;
 				SendToServer(Pack_Message(MESS_CLIENT_SERVER_NAME_ADDED, nullNCB, GetNextIndex(), clPort));
 				singleThreadSleep(1000);
 			}
@@ -983,7 +983,7 @@ namespace MyNetworkLib {
 			if (serverAddname)
 			{
 				shadow_myNCB nullNCB;
-				nullNCB.ncb_command_0 = 999;
+				nullNCB.ncb_command_0 = 254;
 				SendToClient(Pack_Message(MESS_SERVER_SERVER_NAME_ADDED, nullNCB, unpacked_message.index, - 10), sender.address().to_string(), unpacked_message.port);
 	#ifdef TEST_NETWORK_MESSAGES
 				debug_net_printf("Client %s can AddName\n", sender.address().to_string().c_str());
@@ -999,7 +999,7 @@ namespace MyNetworkLib {
 			{
 				AddNetworkName(unpacked_message.data, locIpPort);
 				shadow_myNCB nullNCB;
-				nullNCB.ncb_command_0 = 999;
+				nullNCB.ncb_command_0 = 254;
 				SendToClient(Pack_Message(MESS_SERVER_TESTADDNAME_OK, nullNCB, unpacked_message.index, -10), sender.address().to_string(), unpacked_message.port);
 	#ifdef TEST_NETWORK_MESSAGES
 				debug_net_printf("Server: MESSAGE_TESTADDNAME OK:%s %d\n", unpacked_message.data, sender.address().to_string());
@@ -1012,7 +1012,7 @@ namespace MyNetworkLib {
 			else if (ExistNetworkName(unpacked_message.data, locIpPort))
 			{
 				shadow_myNCB nullNCB;
-				nullNCB.ncb_command_0 = 999;
+				nullNCB.ncb_command_0 = 254;
 				SendToClient(Pack_Message(MESS_SERVER_TESTADDNAME_OK, nullNCB, unpacked_message.index, -10), sender.address().to_string(), unpacked_message.port);
 #ifdef TEST_NETWORK_MESSAGES
 				debug_net_printf("Server: MESSAGE_TESTADDNAME OK:%s %d\n", unpacked_message.data, sender.address().to_string());
@@ -1021,7 +1021,7 @@ namespace MyNetworkLib {
 			else
 			{
 				shadow_myNCB nullNCB;
-				nullNCB.ncb_command_0 = 999;
+				nullNCB.ncb_command_0 = 254;
 				SendToClient(Pack_Message(MESS_SERVER_TESTADDNAME_REJECT, nullNCB, unpacked_message.index, - 10), sender.address().to_string(), unpacked_message.port);
 	#ifdef TEST_NETWORK_MESSAGES
 				debug_net_printf("Server: MESSAGE_TESTADDNAME REJECT:%s %d\n", unpacked_message.data, sender.address().to_string());
