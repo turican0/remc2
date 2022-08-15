@@ -6124,6 +6124,9 @@ int x_DWORD_17D6A4; // weak
 int x_DWORD_17D6A8; // weak
 uint8_t** x_DWORD_17D6AC; // weak
 int x_DWORD_17D6B0; // weak
+int x_DWORD_17D6B8; // weak
+int x_DWORD_17D6BC; // weak
+int x_DWORD_17D6C0; // weak
 int x_DWORD_17D6C4; // weak
 int x_DWORD_17D6C8; // weak
 __int16 x_WORD_17D6CCar[3]; // weak
@@ -6131,6 +6134,7 @@ uint8_t unk_17D6D4ar[0x32]; // weak
 
 uint8_t x_WORD_17D70Aar[7]; // weak//
 
+char byte_17D711; // weak
 #pragma pack (1)
 struct //lenght 50
 {
@@ -76979,78 +76983,128 @@ int sub_755B0(int a1, x_DWORD* a2, uint8_t* a3)
 //----- (00075650) --------------------------------------------------------
 signed int sub_75650()//VR something
 {
-	signed int result; // eax
 	char* v1; // eax
-	signed int v2; // eax
-	int v3; // eax
-	char v4; // [esp+0h] [ebp-4h]
+	int v2; // eax
+	char* v3; // eax
+	int v4; // ebx
+	int v5; // edx
+	int v6; // esi
+	char v7; // dh
+	char v8; // bh
+	int v9; // ecx
+	int v10; // edx
+	int v11; // ebx
+	char v12; // dl
+	char v13; // bl
+	char v14; // dh
+	unsigned __int8* v15; // [esp+0h] [ebp-4h] BYREF
 
-   //fix it
-	v1 = 0;
-	//fix it
+	uint16 __DS__ = 0;
 
 	memset(x_WORD_17D6CCar, 0, 6);
 	memset(x_WORD_17D70Aar, 0, 7);
 	x_DWORD_17D6C8 = sub_75B80_alloc_mem_block(256, (int16_t*)&unk_17D6D4ar[0x1c], (int16_t*)&unk_17D6D4ar[0x32]);
 	if (!x_DWORD_17D6C8)
 		return 0;
-	//_dupenv_s((char**)v1,(size_t*)sizeof(v1), "VIPPORT");
 	v1 = mygetenv("VIPPORT");
 	if (v1)
 	{
-		v2 = sub_99FF0(v1, (unsigned __int8**)&v4, 16);
-		x_DWORD_17D6B0 = v2;
-		x_DWORD_17D6A0 = v2 + 1;
-		v3 = sub_75440();
-		x_DWORD_17D640 = v3;
-		if (v3)
+		x_DWORD_17D6B0 = sub_99FF0(v1, &v15, 16);
+		x_DWORD_17D6A0 = x_DWORD_17D6B0 + 1;
+		v2 = sub_75440();
+		x_DWORD_17D640 = v2;
+		if (!v2 || sub_754C0(v2, &x_DWORD_17D648, (uint8_t*)x_BYTE_17D440))
+			goto LABEL_22;
+		x_DWORD_17D644 = 0;
+		x_DWORD_17D6A8 = 0;
+		x_DWORD_17D698 = 0;
+		x_DWORD_17D6AC = (uint8_t**)&unk_17D540;
+		while (x_DWORD_17D698 < x_DWORD_17D648)
 		{
-			if (sub_754C0(v3, &x_DWORD_17D648, (uint8_t*)x_BYTE_17D440))
+			x_DWORD_17D6A4 = x_BYTE_17D440[x_DWORD_17D698];
+			v3 = &x_BYTE_17D440[x_DWORD_17D698];
+			switch (x_BYTE_17D440[x_DWORD_17D698 + 1])
 			{
-				sub_75AB0();
-				result = 0;
+			case 0:
+				x_DWORD_17D698 = x_DWORD_17D648;
+				break;
+			case 1:
+				x_DWORD_17D6C0 = (int)&x_BYTE_17D440[x_DWORD_17D698];
+				break;
+			case 2:
+				x_DWORD_17D6B8 = (int)&x_BYTE_17D440[x_DWORD_17D698];
+				byte_17D711 = strcmp(v3 + 34, "VFX1 CyberPuck") == 0;
+				break;
+			case 6:
+				if (x_DWORD_17D6A8 < 6)
+				{
+					v4 = x_DWORD_17D6A8;
+					v5 = 3 * x_DWORD_17D6A8;
+					v6 = (int)x_DWORD_17D6AC;
+					x_DWORD_17D6C4 = (int)&x_BYTE_17D440[x_DWORD_17D698];
+					*(_WORD*)&x_BYTE_17D674[2 * v5 + 4] = __DS__;
+					*(_DWORD*)&x_BYTE_17D674[2 * v5] = v6;
+					x_DWORD_17D6A8 = (int)(v4 + 1);
+					x_DWORD_17D6AC = (uint8_t**)(v6 + 6);
+					if (byte_17D711)
+					{
+						v7 = v3[14];
+						v3[22] |= 0x80u;
+						v8 = v3[30];
+						v3[14] = v7 | 0x80;
+						v3[30] = v8 | 0x80;
+					}
+				}
+				break;
+			case 7:
+				if (x_DWORD_17D644 < 6)
+				{
+					v9 = (int)x_DWORD_17D6AC;
+					v10 = 3 * x_DWORD_17D644;
+					x_DWORD_17D6BC = (int)&x_BYTE_17D440[x_DWORD_17D698];
+					v11 = x_DWORD_17D644 + 1;
+					*(_DWORD*)&x_BYTE_17D650[2 * v10] = (uint32)x_DWORD_17D6AC;
+					*(_WORD*)&x_BYTE_17D650[2 * v10 + 4] = __DS__;
+					x_DWORD_17D6AC = (uint8_t**)v9 + 7;
+					x_DWORD_17D644 = v11;
+					if (byte_17D711)
+					{
+						v12 = v3[22];
+						v3[14] |= 0x80u;
+						v13 = v3[33];
+						v3[22] = v12 | 0x80;
+						v14 = v3[30];
+						v3[33] = v13 | 0x80;
+						v3[30] = v14 | 0x80;
+					}
+				}
+				break;
+			default:
+				break;
 			}
-			else
-			{
-				x_DWORD_17D644 = 0;
-				x_DWORD_17D6A8 = 0;
-				x_DWORD_17D698 = 0;
-				x_DWORD_17D6AC = (uint8_t**)&unk_17D540;
-				while (x_DWORD_17D698 < x_DWORD_17D648)
-				{
-					x_DWORD_17D6A4 = x_BYTE_17D440[x_DWORD_17D698];
-					if ((unsigned __int8)x_BYTE_17D440[1 + x_DWORD_17D698] <= 7u)
-						;//fix it JUMPOUT(__CS__, (int*) * (&off_75628 + (unsigned __int8)x_BYTE_17D440[1 + x_DWORD_17D698]));
-					x_DWORD_17D698 += x_DWORD_17D6A4;
-				}
-				if (sub_75540(x_DWORD_17D640, (uint8_t*)x_BYTE_17D440))
-				{
-					sub_75AB0();
-					result = 0;
-				}
-				else
-				{
-					if (x_DWORD_17D6A8)
-						x_BYTE_E12EC = 1;
-					if (x_DWORD_17D644)
-						x_BYTE_E12ED = 1;
-					result = 1;
-				}
-			}
+			x_DWORD_17D698 += x_DWORD_17D6A4;
+		}
+		if (sub_75540(x_DWORD_17D640, (uint8_t*)x_BYTE_17D440))
+		{
+		LABEL_22:
+			sub_75AB0();
+			return 0;
 		}
 		else
 		{
-			sub_75AB0();
-			result = 0;
+			if (x_DWORD_17D6A8)
+				x_BYTE_E12EC = 1;
+			if (x_DWORD_17D644)
+				x_BYTE_E12ED = 1;
+			return 1;
 		}
 	}
 	else
 	{
 		x_DWORD_17D6B0 = 768;
 		sub_75AB0();
-		result = 0;
+		return 0;
 	}
-	return result;
 }
 
 //----- (00075900) --------------------------------------------------------
