@@ -301,8 +301,8 @@ extern char isCaveLevel_D41B6;
 
 #pragma pack (1)
 typedef struct {//lenght 16
-	int16_t word_26_0;//0 x
-	int16_t word_28_1;//1 y
+	int16_t x1_26_0;//0 x
+	int16_t y1_28_1;//1 y
 	int16_t word_30_2;//2
 	int16_t word_32_3;//3
 	int16_t word_34_4;//4
