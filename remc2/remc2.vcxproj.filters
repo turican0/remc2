@@ -432,9 +432,6 @@
     <ClInclude Include="engine\GameRenderInterface.h">
       <Filter>Header Files\engine</Filter>
     </ClInclude>
-    <ClInclude Include="engine\GameRenderGL.h">
-      <Filter>Header Files\engine</Filter>
-    </ClInclude>
     <ClInclude Include="portability\port_net.h">
       <Filter>Header Files\portability</Filter>
     </ClInclude>
@@ -735,9 +732,6 @@
       <Filter>Source Files\engine</Filter>
     </ClCompile>
     <ClCompile Include="engine\GameRenderOriginal.cpp">
-      <Filter>Source Files\engine</Filter>
-    </ClCompile>
-    <ClCompile Include="engine\GameRenderGL.cpp">
       <Filter>Source Files\engine</Filter>
     </ClCompile>
     <ClCompile Include="engine\ViewPort.cpp">

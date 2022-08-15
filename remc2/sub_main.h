@@ -26,7 +26,6 @@
 #include "engine/Animation.h"
 #include "engine/GameRenderOriginal.h"
 #include "engine/GameRenderHD.h"
-#include "engine/GameRenderGL.h"
 
 #include "engine/Terrain.h"
 
