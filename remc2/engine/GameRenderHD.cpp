@@ -505,49 +505,17 @@ void GameRenderHD::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 	int v214; // ecx
 	int v215; // edx
 	signed int v216; // esi
-	int v217x, v218x;
-	char v219; // dl
-	char v220; // dh
-	char v221; // al
-	char v222; // dl
-	char v223; // dh
-	int v224; // eax
-	int v225x;
-	char v226; // cl
-	int v227x;
-	char v228; // dl
-	char v229; // dh
-	int v231x, v232x;
-	char v233; // dl
-	char v234; // ch
-	char v235; // dh
-	char v236; // ah
-	char v237; // dl
-	char v238; // dh
-	int v239; // eax
-	int v240x;
-	int v241; // eax
-	char v242; // ch
-	int v243x;
-	char v244; // dl
-	char v245; // dh
 	std::vector<int> projectedVertexBuffer(33);  //[33]; // [esp+0h] [ebp-62h]//v248x[0]
 	uint8_t* v277; // [esp+84h] [ebp+22h]
 	//uint8_t* v278;
 	int v278x;
 	unsigned __int16 v279; // [esp+8Ch] [ebp+2Ah]
 	char l; // [esp+90h] [ebp+2Eh]
-	char v282; // [esp+98h] [ebp+36h]
 	char v283; // [esp+9Ch] [ebp+3Ah]
 	char k; // [esp+A0h] [ebp+3Eh]
 	char v285; // [esp+A4h] [ebp+42h]
 	char i; // [esp+A8h] [ebp+46h]
 	char jj; // [esp+ACh] [ebp+4Ah]
-	char m; // [esp+B0h] [ebp+4Eh]
-	char v289; // [esp+B4h] [ebp+52h]
-	char n; // [esp+B8h] [ebp+56h]
-	char ii; // [esp+BCh] [ebp+5Ah]
-	char kk; // [esp+C0h] [ebp+5Eh]
 
 	int a1;
 	int a2;
@@ -1336,7 +1304,6 @@ void GameRenderHD::SubDrawInverseTerrainAndParticles(std::vector<int>& projected
 	char v156; // dl
 	int v157; // eax
 	char m; // [esp+B0h] [ebp+4Eh]
-	char v289; // [esp+B4h] [ebp+52h]
 	char n; // [esp+B8h] [ebp+56h]
 
 	for (m = 20; m; --m)
