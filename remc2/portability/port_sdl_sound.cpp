@@ -438,10 +438,13 @@ int32_t ac_sound_call_driver(AIL_DRIVER* drvr, int32_t fn, VDI_CALL*  /*in*/, VD
 	return 1;
 };
 
+float master_volume = 0;
+
 void SOUND_set_master_volume(int32_t volume) {
 	//gamechunk[S->index_sample].volume = volume;
 #ifdef SOUND_SDLMIXER
 	Mix_Volume(-1, volume);
+	master_volume = volume;
 #endif//SOUND_SDLMIXER
 	
 	//may be can fix - must analyze
@@ -450,6 +453,7 @@ void SOUND_set_master_volume(int32_t volume) {
 
 void SOUND_set_sample_volume(HSAMPLE S, int32_t volume) {
 #ifdef SOUND_SDLMIXER
+	volume *= master_volume / 127;
 	gamechunk[S->index_sample].volume = volume;
 	Mix_Volume(S->index_sample, volume);
 #endif//SOUND_SDLMIXER
