@@ -13313,7 +13313,7 @@ void SetSoundEffectAndMusicLevelCoordinates_19D60(signed int a1)//1fad60
 	int16_t posY; // [esp+8h] [ebp-8h]
 	int16_t posX; // [esp+Ch] [ebp-4h]
 
-	int a2 = 1; // At its lowest value, this equals 1
+	int a2 = 0; // set zero, add stopper for x_D41A0_BYTEARRAY_4_struct.byte_38591 ==0
 
 	if (CommandLineParams.DoDebugSequences()) {
 		add_compare(0x1fad63, CommandLineParams.DoDebugafterload());
@@ -29782,10 +29782,10 @@ void DrawVolumnSettings_303D0()//2113d0
 	int16_t posY; // [esp+8h] [ebp-14h]
 	int16_t posX; // [esp+Ch] [ebp-10h]
 	int v13; // [esp+10h] [ebp-Ch]
-	int v14 = 1; // [esp+14h] [ebp-8h] At its lowest value, this equals 1
+	int v14 = 0; // set zero, add stopper when x_D41A0_BYTEARRAY_4_struct.byte_38591 == 0
 	unsigned __int8 v15; // [esp+18h] [ebp-4h]
 
-	signed int a1 = 1; //Lowest possible value
+	signed int a1 = 0; //Lowest possible value
 
 	v2 = str_D94F0_bldgprmbuffer[static_cast<std::underlying_type<MapType_t>::type>(D41A0_0.terrain_2FECE.MapType)][0];
 	v3 = str_D94F0_bldgprmbuffer[static_cast<std::underlying_type<MapType_t>::type>(D41A0_0.terrain_2FECE.MapType)][2];
