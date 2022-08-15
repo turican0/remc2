@@ -10,9 +10,9 @@
 
 #pragma pack (1)
 typedef struct {//lenght 7
-	int16_t startFrame;
-	int8_t byte_2;
-	int32_t index;
+	int16_t startFrame;//0
+	char key_2;//2
+	int32_t index;//3
 }
 Type_SoundEvent_E17CC;
 #pragma pack (16)
