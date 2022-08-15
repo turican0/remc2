@@ -517,8 +517,8 @@ void GameRenderHD::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 	char i; // [esp+A8h] [ebp+46h]
 	char jj; // [esp+ACh] [ebp+4Ah]
 
-	int a1;
-	int a2;
+	int a1 = 0;
+	int a2 = 0;
 
 	shadows_F2CC7 = D41A0_0.m_GameSettings.m_Graphics.m_wShadows;//21d080
 	notDay_D4320 = D41A0_0.terrain_2FECE.MapType != MapType_t::Day;
@@ -544,27 +544,30 @@ void GameRenderHD::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 			+ (unsigned __int16)viewPort.Height_DE568 * (unsigned __int16)viewPort.Height_DE568)
 		* fov >> 11;
 	v277 = unk_D4328x + 10 * projectedVertexBuffer[32];
+
+	//This is based on rotation direction there is always a direction
 	switch ((unsigned __int8)projectedVertexBuffer[32])//fixed? //rotations
 	{
-	case 0u:
+	case 0u: // 270 -> 0
 		a2 = (unsigned __int8)posY - 256;
 		a1 = -(unsigned __int8)posX - 4864;
 		break;
-	case 1u:
+	case 1u: // 0 -> 90
 		a1 = -(unsigned __int8)posY - 4864;
 		a2 = -(unsigned __int8)posX;
 		break;
-	case 2u:
+	case 2u: // 90 -> 180
 		a1 = (unsigned __int8)posX - 4864;
 		a2 = -(unsigned __int8)posY;
 		break;
-	case 3u:
+	case 3u: // 180 -> 270
 		a1 = (unsigned __int8)posY - 4864;
 		a2 = (unsigned __int8)posX - 256;
 		break;
 	default:
 		break;
 	}
+
 	v14 = 40;//21d231
 	v15x = 0;
 	do//filling first pointer of x_DWORD_E9C38_smalltit(3f52a4)//prepare billboards
