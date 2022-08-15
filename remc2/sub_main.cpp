@@ -2003,7 +2003,7 @@ void sub_5F7E0(type_event_0x6E8E* a1, type_event_0x6E8E* a2);
 type_event_0x6E8E* sub_5F810(type_event_0x6E8E* a1, type_event_0x6E8E* a2, type_event_0x6E8E* a3);
 void sub_5F890(type_event_0x6E8E* a1, __int16 a2);
 void EndOfCastleProjectile_5F8F0(type_event_0x6E8E* a1);
-void BeginOfCastleCreation_5FA70(type_event_0x6E8E* a1);
+void BeginOfCastleCreation_5FA70(type_event_0x6E8E* locEvent);
 void sub_5FBD0(type_event_0x6E8E* a1);
 type_event_0x6E8E* sub_5FC40(type_event_0x6E8E* a1);
 void sub_5FCA0_destroy_castle_level(type_event_0x6E8E* a1);
@@ -62639,200 +62639,65 @@ void EndOfCastleProjectile_5F8F0(type_event_0x6E8E* a1x)//2408f0
 	}
 }
 
-// D41A4: using guessed type int x_DWORD_D41A4;
-// EA3E4: using guessed type int x_DWORD_EA3E4[];
-/*void sub_5FA96(type_str_0x6E8E* a1x)//240a96
+//----- (0005FA70) --------------------------------------------------------
+void BeginOfCastleCreation_5FA70(type_event_0x6E8E* locEvent)//240a70
 {
-	sub_11960(a1x);
-	uint32_t edx = a1x->dword_0x10_16;
-	if (!edx || sub_11A10(a1x)) {
-		if (!(a1x->struct_byte_0xc_12_15.byte[0] & 2)) {
-			int32_t eax = a1x->word_0x1A_26;
-			type_str_0x6E8E* eaxb=x_DWORD_EA3E4[eax];
-			type_str_164* eaxc = eaxb->dword_0xA4_164x;
-			int32_t eaxd = eaxc->word_0x38_56;
-			int ax11 = sub_616D0(eaxd);
-			a1x->word_0x5A_90 += ax11;
-			a1x->struct_byte_0xc_12_15.byte[0] = (a1x->struct_byte_0xc_12_15.byte[2] | 2);
-		}
-		sub_60480(a1x);
-	}
-	else {
-		uint8_t ah17 = a1x->struct_byte_0xc_12_15.byte[0];
-		a1x->word_0x2E_46 = 2;
-		a1x->struct_byte_0xc_12_15.byte[0] = ah17 & 0xbf;
-		sub_88D00();
-	}
-	//push    ebx
-}
-
-	void sub_5FBB1(type_str_0x6E8E* a1x) {
-		a1x->array_0x4C_76.z = sub_10C40_getTerrainAlt(&a1x->array_0x4C_76);//fix it esi;
-	};
-	void sub_5FB09(type_str_0x6E8E* a1x) {
-		a1x->byte_0x45_69 = 4;
-		sub_5F890(a1x, 0);
-		a1x->word_0x2E_46 = 0;
-	};
-	void sub_5FB22(type_str_0x6E8E* a1x) {
-		sub_5F890(a1x, 1);
-		sub_5FBD0(a1x);
-	};
-	void sub_5FB3A(type_str_0x6E8E* a1x) {
-		int16_t ax5 = sub_10C40_getTerrainAlt(&a1x->array_0x4C_76);//fix it esi;
-		uint8_t cl6=a1x->byte_0x3E_62;
-		bool dl10;
-		a1x->array_0x4C_76.z = ax5;
-		if (!(cl6 & 0x1f)) {
-			//eax9 = x_D41A0_BYTEARRAY_4_struct.dword_38535;
-			dl10 = false;
-			type_str_0x6E8E* eax11x = x_D41A0_BYTEARRAY_4_struct.dword_38535;
-			while ((eax11x > x_DWORD_EA3E4[0]) && !dl10) {
-				if (eax11x->byte_0x3F_63 == 0x0a && eax11x->byte_0x40_64 == 42) {
-					dl10 = true;
-				}
-				eax11x = eax11x->next_0;
-			}
-			if (dl10)
-				return;
-			a1x->word_0x2E_46 = 3;
-		}
-	};
-
-	void sub_5FB8C(type_str_0x6E8E* a1x) {
-		sub_5F890(a1x, 1);
-		int16_t ax6 = sub_10C40_getTerrainAlt(&a1x->array_0x4C_76);//fix it esi;
-		a1x->array_0x4C_76.z = ax6;
-		sub_5FC40(a1x);
-	};
-	*/
-	//----- (0005FA70) --------------------------------------------------------
-	/*void sub_5FA70(type_str_0x6E8E* a1x)//240a70
-	{
-		if (a1x->word_0x2E_46 != 6)
-		{
-			//jump 240a4c
-			switch (a1x->word_0x2E_46) {//240a4c+0x4c
-			case 0: {
-				sub_5FA96(a1x);
-				break;
-			}
-			case 1: {
-				sub_5FBB1(a1x);
-				break;
-			}
-			case 2: {
-				sub_5FB09(a1x);
-				break;
-			}
-			case 3: {
-				sub_5FB22(a1x);
-				break;
-			}
-			case 4: {
-				sub_5FB3A(a1x);
-				break;
-			}
-			case 5: {
-				sub_5FB8C(a1x);
-				break;
-			}
-			case 6: {
-				sub_5FBB1(a1x);
-				break;
-			}
-			}
-		}
-
-		//JUMPOUT((x_WORD)*(x_WORD *)(a1 + 46), 6, (int*)&loc_5FBBE);//240bbe+4c
-
-		//JUMPOUT(__CS__, (int*)off_5FA4C[*(unsigned __int16 *)(a1 + 46)]);//240a4c
-	}*/
-	// 5FA4C: using guessed type int (*off_5FA4C[7])();
-void BeginOfCastleCreation_5FA70(type_event_0x6E8E* a1x)//240a70
-{
-	//char v1; // ah
-	type_event_0x6E8E* result; // eax
-	char v3; // cl
-	char v4; // dl
-
-	switch (a1x->word_0x2E_46)
+	switch (locEvent->word_0x2E_46)
 	{
 	case 0:
-		sub_11960(a1x);
-		if (!a1x->dword_0x10_16 || (unsigned __int8)sub_11A10(a1x))
+		sub_11960(locEvent);
+		if (!locEvent->dword_0x10_16 || sub_11A10(locEvent))
 		{
-			if (!(a1x->struct_byte_0xc_12_15.byte[0] & 2))
+			if ((locEvent->struct_byte_0xc_12_15.byte[0] & 2) == 0)
 			{
-				a1x->word_0x5A_90 += sub_616D0(x_DWORD_EA3E4[a1x->word_0x1A_26]->dword_0xA4_164x->word_0x38_56);
-				a1x->struct_byte_0xc_12_15.byte[0] |= 2u;
+				locEvent->word_0x5A_90 += sub_616D0(x_DWORD_EA3E4[locEvent->word_0x1A_26]->dword_0xA4_164x->word_0x38_56);
+				locEvent->struct_byte_0xc_12_15.byte[0] |= 2u;
 			}
-			/*result = */sub_60480(a1x);
+			sub_60480(locEvent);
 		}
 		else
 		{
-			//v1 = a1x->struct_byte_0xc_12_15.byte[0];
-			a1x->word_0x2E_46 = 2;
-			a1x->struct_byte_0xc_12_15.byte[0] &= 0xBF;
-			/*result = */sub_88D00();
+			locEvent->word_0x2E_46 = 2;
+			locEvent->struct_byte_0xc_12_15.byte[0] &= 0xBF;
+			sub_88D00();
 		}
 		break;
 	case 1:
 	case 6:
-		//result = sub_10C40(a1 + 76);
-		a1x->axis_0x4C_76.z = getTerrainAlt_10C40(&a1x->axis_0x4C_76);
+		locEvent->axis_0x4C_76.z = getTerrainAlt_10C40(&locEvent->axis_0x4C_76);
 		break;
 	case 2:
-		a1x->byte_0x45_69 = 4;
-		/*result = */sub_5F890(a1x, 0);
-		a1x->word_0x2E_46 = 0;
+		locEvent->byte_0x45_69 = 4;
+		sub_5F890(locEvent, 0);
+		locEvent->word_0x2E_46 = 0;
 		break;
 	case 3:
-		sub_5F890(a1x, 1);
-		/*result = */sub_5FBD0(a1x);
+		sub_5F890(locEvent, 1);
+		sub_5FBD0(locEvent);
 		break;
 	case 4:
-		//result = sub_10C40(&a1x->array_0x4C_76);
-		v3 = a1x->byte_0x3E_62;
-		a1x->axis_0x4C_76.z = getTerrainAlt_10C40(&a1x->axis_0x4C_76);
-		if (!(v3 & 0x1F))
+		locEvent->axis_0x4C_76.z = getTerrainAlt_10C40(&locEvent->axis_0x4C_76);
+		if ((locEvent->byte_0x3E_62 & 0x1F) == 0)
 		{
-			v4 = 0;
-			for (result = x_D41A0_BYTEARRAY_4_struct.dword_38535; result > x_DWORD_EA3E4[0] && !v4; result = result->next_0)
+			bool is10_42Type = false;
+			for (type_event_0x6E8E* i = x_D41A0_BYTEARRAY_4_struct.dword_38535; i > x_DWORD_EA3E4[0] && !is10_42Type; i = i->next_0)
 			{
-				if (result->type_0x3F_63 == 10 && result->subtype_0x40_64 == 42)
-					v4 = 1;
+				if (i->type_0x3F_63 == 10 && i->subtype_0x40_64 == 42)
+					is10_42Type = true;
 			}
-			if (!v4)
-				a1x->word_0x2E_46 = 3;
+			if (!is10_42Type)
+				locEvent->word_0x2E_46 = 3;
 		}
 		break;
 	case 5:
-		sub_5F890(a1x, 1);
-		a1x->axis_0x4C_76.z = getTerrainAlt_10C40(&a1x->axis_0x4C_76);
-		/*result = */sub_5FC40(a1x);
+		sub_5F890(locEvent, 1);
+		locEvent->axis_0x4C_76.z = getTerrainAlt_10C40(&locEvent->axis_0x4C_76);
+		sub_5FC40(locEvent);
 		break;
+	default:
+		return;
 	}
-	//return result;
 }
-
-//----- (0005FA96) --------------------------------------------------------
-//#error "5FAC8: positive sp value has been found (funcsize=17)"
-
-//----- (0005FB09) --------------------------------------------------------
-//#error "5FB1F: positive sp value has been found (funcsize=7)"
-
-//----- (0005FB22) --------------------------------------------------------
-//#error "5FB37: positive sp value has been found (funcsize=8)"
-
-//----- (0005FB3A) --------------------------------------------------------
-//#error "5FB89: positive sp value has been found (funcsize=25)"
-
-//----- (0005FB8C) --------------------------------------------------------
-//#error "5FBAE: positive sp value has been found (funcsize=12)"
-
-//----- (0005FBB1) --------------------------------------------------------
-//#error "5FBBF: positive sp value has been found (funcsize=5)"
 
 //----- (0005FBD0) --------------------------------------------------------
 void sub_5FBD0(type_event_0x6E8E* a1x)//240bd0
