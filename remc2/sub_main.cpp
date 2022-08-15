@@ -2099,7 +2099,7 @@ char sub_68AC0(type_event_0x6E8E* a1, type_event_0x6E8E* a2);
 char sub_68BD0(type_event_0x6E8E* a1, type_event_0x6E8E* a2);
 void sub_68BF0();
 int sub_68C70(type_event_0x6E8E* a1);
-signed int sub_68D50(type_event_0x6E8E* a1, type_event_0x6E8E* a2);
+bool sub_68D50(type_event_0x6E8E* locEvent1, type_event_0x6E8E* locEvent2);
 signed int sub_68DE0(type_event_0x6E8E* a1, type_event_0x6E8E* a2);
 signed int sub_68E50(type_event_0x6E8E* a1, type_event_0x6E8E* a2, type_event_0x6E8E* a3);
 signed int sub_68FF0(type_event_0x6E8E* a1, char a2, char a3);
@@ -69530,33 +69530,25 @@ int sub_68C70(type_event_0x6E8E* a1x)//249c70
 // EA3E4: using guessed type int x_DWORD_EA3E4[];
 
 //----- (00068D50) --------------------------------------------------------
-signed int sub_68D50(type_event_0x6E8E* a1x, type_event_0x6E8E* a2x)//249d50
+bool sub_68D50(type_event_0x6E8E* locEvent1, type_event_0x6E8E* locEvent2)//249d50
 {
-	int v2; // esi
-	unsigned __int16 v3; // cx
-	signed int result; // eax
-
-	if (a2x->dword_0x90_144 < 0)
-		goto LABEL_14;
-	if (a2x->dword_0x8 < 0)
-		goto LABEL_14;
-	v2 = a1x->dword_0x88_136;
-	if (v2)
+	if (locEvent2->dword_0x90_144 < 0)
+		return false;
+	if (locEvent2->dword_0x8 < 0)
+		return false;
+	if (locEvent1->dword_0x88_136)
 	{
-		v3 = a2x->dword_0xA4_164x->word_0x3A_58;
-		if (!v3 || v2 > x_DWORD_EA3E4[v3]->dword_0x90_144)
-			goto LABEL_14;
+		if (!locEvent2->dword_0xA4_164x->word_0x3A_58 || locEvent1->dword_0x88_136 > x_DWORD_EA3E4[locEvent2->dword_0xA4_164x->word_0x3A_58]->dword_0x90_144)
+			return false;
 	}
-	if (a2x->dword_0x90_144 >= a1x->dword_0x8C_140 && a1x->word_0x2E_46 == a1x->word_0x30_48)
-		return 1;
-	if (a1x->word_0x2E_46 == a1x->word_0x30_48)
-		LABEL_14:
-	result = 0;
+	if (locEvent2->dword_0x90_144 >= locEvent1->dword_0x8C_140 && locEvent1->word_0x2E_46 == locEvent1->word_0x30_48)
+		return true;
+	if (locEvent1->word_0x2E_46 == locEvent1->word_0x30_48)
+		return false;
 	else
-		result = 1;
-	return result;
+		return true;
+	return false;
 }
-// EA3E4: using guessed type int x_DWORD_EA3E4[];
 
 //----- (00068DE0) --------------------------------------------------------
 signed int sub_68DE0(type_event_0x6E8E* a1x, type_event_0x6E8E* a2x)//249de0
