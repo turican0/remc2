@@ -2878,97 +2878,50 @@ void GameRenderHD::DrawSquareInProjectionSpace(std::vector<int>& vertexs, int in
 	{
 		if (m_renderThreads.size() > 0)
 		{
-			if ((m_renderThreads.size() + 1) == 4)
-			{ 
-				uint8_t i = 0;
+			uint8_t i = 0;
 
-				m_renderThreads[0]->Run([this, vertex0, vertex6, vertex12, vertex18, i, drawEveryNthLine] {
-					this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex12, &vertex0, 0, 2, m_unk_DE56Cx[i]);
-					});
-				i++;
-				m_renderThreads[1]->Run([this, vertex0, vertex6, vertex12, vertex18, i, drawEveryNthLine] {
-					this->DrawTriangleInProjectionSpace_B6253(&vertex0, &vertex12, &vertex6, 0, 2, m_unk_DE56Cx[i]);
-					});
-				i++;
-				m_renderThreads[2]->Run([this, vertex0, vertex6, vertex12, vertex18, i, drawEveryNthLine] {
-					this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex12, &vertex0, 1, 2, m_unk_DE56Cx[i]);
-					});
-				i++;
-				this->DrawTriangleInProjectionSpace_B6253(&vertex0, &vertex12, &vertex6, 1, 2, m_unk_DE56Cx[i]);
-
-				WaitForRenderFinish();
-			}
-			else
+			for (i = 0; i < m_renderThreads.size(); i++)
 			{
-				uint8_t i = 0;
-
-				for (i = 0; i < m_renderThreads.size(); i++)
-				{
-					m_renderThreads[i]->Run([this, vertex0, vertex6, vertex12, vertex18, i, drawEveryNthLine] {
-						this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex12, &vertex0, i, drawEveryNthLine, m_unk_DE56Cx[i]);
-						this->DrawTriangleInProjectionSpace_B6253(&vertex0, &vertex12, &vertex6, i, drawEveryNthLine, m_unk_DE56Cx[i]);
-						});
-				}
-
-				this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex12, &vertex0, i, drawEveryNthLine, m_unk_DE56Cx[i]);
-				this->DrawTriangleInProjectionSpace_B6253(&vertex0, &vertex12, &vertex6, i, drawEveryNthLine, m_unk_DE56Cx[i]);
-
-				WaitForRenderFinish();
+				m_renderThreads[i]->Run([this, vertex0, vertex6, vertex12, vertex18, i, drawEveryNthLine] {
+					this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex12, &vertex0, i, drawEveryNthLine);
+					this->DrawTriangleInProjectionSpace_B6253(&vertex0, &vertex12, &vertex6, i, drawEveryNthLine);
+				});
 			}
+
+			this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex12, &vertex0, i, drawEveryNthLine);
+			this->DrawTriangleInProjectionSpace_B6253(&vertex0, &vertex12, &vertex6, i, drawEveryNthLine);
+
+			WaitForRenderFinish();
 		}
 		else
 		{
-			DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex12, &vertex0, 0, 1, m_unk_DE56Cx[0]);
-			DrawTriangleInProjectionSpace_B6253(&vertex0, &vertex12, &vertex6, 0, 1, m_unk_DE56Cx[0]);
+			DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex12, &vertex0, 0, 1);
+			DrawTriangleInProjectionSpace_B6253(&vertex0, &vertex12, &vertex6, 0, 1);
 		}
 	}
 	else
 	{
 		if (m_renderThreads.size() > 0)
 		{
+			uint8_t i = 0;
 
-			if ((m_renderThreads.size() + 1) == 4)
+			for (i = 0; i < m_renderThreads.size(); i++)
 			{
-				uint8_t i = 0;
-
-				m_renderThreads[0]->Run([this, vertex0, vertex6, vertex12, vertex18, i, drawEveryNthLine] {
-					this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex12, &vertex6, 0, 2, m_unk_DE56Cx[i]);
-					});
-				i++;
-				m_renderThreads[1]->Run([this, vertex0, vertex6, vertex12, vertex18, i, drawEveryNthLine] {
-					this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex6, &vertex0, 0, 2, m_unk_DE56Cx[i]);
-					});
-				i++;
-				m_renderThreads[2]->Run([this, vertex0, vertex6, vertex12, vertex18, i, drawEveryNthLine] {
-					this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex12, &vertex6, 1, 2, m_unk_DE56Cx[i]);
-					});
-				i++;
-				this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex6, &vertex0, 1, 2, m_unk_DE56Cx[i]);
-
-				WaitForRenderFinish();
+				m_renderThreads[i]->Run([this, vertex0, vertex6, vertex12, vertex18, i, drawEveryNthLine] {
+					this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex12, &vertex6, i, drawEveryNthLine);
+					this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex6, &vertex0, i, drawEveryNthLine);
+				});
 			}
-			else
-			{
-				uint8_t i = 0;
 
-				for (i = 0; i < m_renderThreads.size(); i++)
-				{
-					m_renderThreads[i]->Run([this, vertex0, vertex6, vertex12, vertex18, i, drawEveryNthLine] {
-						this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex12, &vertex6, i, drawEveryNthLine, m_unk_DE56Cx[i]);
-						this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex6, &vertex0, i, drawEveryNthLine, m_unk_DE56Cx[i]);
-						});
-				}
+			this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex12, &vertex6, i, drawEveryNthLine);
+			this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex6, &vertex0, i, drawEveryNthLine);
 
-				this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex12, &vertex6, i, drawEveryNthLine, m_unk_DE56Cx[i]);
-				this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex6, &vertex0, i, drawEveryNthLine, m_unk_DE56Cx[i]);
-
-				WaitForRenderFinish();
-			}
+			WaitForRenderFinish();
 		}
 		else
 		{
-			DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex12, &vertex6, 0, 1, m_unk_DE56Cx[0]);
-			DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex6, &vertex0, 0, 1, m_unk_DE56Cx[0]);
+			DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex12, &vertex6, 0, 1);
+			DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex6, &vertex0, 0, 1);
 		}
 	}
 }
@@ -3006,48 +2959,25 @@ void GameRenderHD::DrawInverseSquareInProjectionSpace(int* vertexs, int index, u
 	{
 		if (m_renderThreads.size() > 0)
 		{
-			if ((m_renderThreads.size() + 1) == 4)
+			uint8_t i = 0;
+
+			for (i = 0; i < m_renderThreads.size(); i++)
 			{
-				uint8_t i = 0;
-
-				m_renderThreads[0]->Run([this, vertex0, vertex6, vertex12, vertex18, i, drawEveryNthLine] {
-					this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex0, &vertex12, 0, 2, m_unk_DE56Cx[i]);
+				m_renderThreads[i]->Run([this, vertex0, vertex6, vertex12, vertex18, i, drawEveryNthLine] {
+					this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex0, &vertex12, i, drawEveryNthLine);
+					this->DrawTriangleInProjectionSpace_B6253(&vertex0, &vertex6, &vertex12, i, drawEveryNthLine);
 					});
-				i++;
-				m_renderThreads[1]->Run([this, vertex0, vertex6, vertex12, vertex18, i, drawEveryNthLine] {
-					this->DrawTriangleInProjectionSpace_B6253(&vertex0, &vertex6, &vertex12, 0, 2, m_unk_DE56Cx[i]);
-					});
-				i++;
-				m_renderThreads[2]->Run([this, vertex0, vertex6, vertex12, vertex18, i, drawEveryNthLine] {
-					this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex0, &vertex12, 1, 2, m_unk_DE56Cx[i]);
-					});
-				i++;
-				this->DrawTriangleInProjectionSpace_B6253(&vertex0, &vertex6, &vertex12, 1, 2, m_unk_DE56Cx[i]);
-
-				WaitForRenderFinish();
 			}
-			else
-			{
-				uint8_t i = 0;
 
-				for (i = 0; i < m_renderThreads.size(); i++)
-				{
-					m_renderThreads[i]->Run([this, vertex0, vertex6, vertex12, vertex18, i, drawEveryNthLine] {
-						this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex0, &vertex12, i, drawEveryNthLine, m_unk_DE56Cx[i]);
-						this->DrawTriangleInProjectionSpace_B6253(&vertex0, &vertex6, &vertex12, i, drawEveryNthLine, m_unk_DE56Cx[i]);
-						});
-				}
+			this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex0, &vertex12, i, drawEveryNthLine);
+			this->DrawTriangleInProjectionSpace_B6253(&vertex0, &vertex6, &vertex12, i, drawEveryNthLine);
 
-				this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex0, &vertex12, i, drawEveryNthLine, m_unk_DE56Cx[i]);
-				this->DrawTriangleInProjectionSpace_B6253(&vertex0, &vertex6, &vertex12, i, drawEveryNthLine, m_unk_DE56Cx[i]);
-
-				WaitForRenderFinish();
-			}
+			WaitForRenderFinish();
 		}
 		else
 		{
-			DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex0, &vertex12, 0, 1, m_unk_DE56Cx[0]);
-			DrawTriangleInProjectionSpace_B6253(&vertex0, &vertex6, &vertex12, 0, 1, m_unk_DE56Cx[0]);
+			DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex0, &vertex12, 0, 1);
+			DrawTriangleInProjectionSpace_B6253(&vertex0, &vertex6, &vertex12, 0, 1);
 		}
 
 	}
@@ -3055,48 +2985,25 @@ void GameRenderHD::DrawInverseSquareInProjectionSpace(int* vertexs, int index, u
 	{
 		if (m_renderThreads.size() > 0)
 		{
-			if ((m_renderThreads.size() + 1) == 4)
+			uint8_t i = 0;
+
+			for (i = 0; i < m_renderThreads.size(); i++)
 			{
-				uint8_t i = 0;
-
-				m_renderThreads[0]->Run([this, vertex0, vertex6, vertex12, vertex18, i, drawEveryNthLine] {
-					this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex6, &vertex12, 0, 2, m_unk_DE56Cx[i]);
-					});
-				i++;
-				m_renderThreads[1]->Run([this, vertex0, vertex6, vertex12, vertex18, i, drawEveryNthLine] {
-					this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex0, &vertex6, 0, 2, m_unk_DE56Cx[i]);
-					});
-				i++;
-				m_renderThreads[2]->Run([this, vertex0, vertex6, vertex12, vertex18, i, drawEveryNthLine] {
-					this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex6, &vertex12, 1, 2, m_unk_DE56Cx[i]);
-					});
-				i++;
-				this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex0, &vertex6, 1, 2, m_unk_DE56Cx[i]);
-
-				WaitForRenderFinish();
+				m_renderThreads[i]->Run([this, vertex0, vertex6, vertex12, vertex18, i, drawEveryNthLine] {
+					this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex6, &vertex12, i, drawEveryNthLine);
+					this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex0, &vertex6, i, drawEveryNthLine);
+				});
 			}
-			else
-			{
-				uint8_t i = 0;
 
-				for (i = 0; i < m_renderThreads.size(); i++)
-				{
-					m_renderThreads[i]->Run([this, vertex0, vertex6, vertex12, vertex18, i, drawEveryNthLine] {
-						this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex6, &vertex12, i, drawEveryNthLine, m_unk_DE56Cx[i]);
-						this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex0, &vertex6, i, drawEveryNthLine, m_unk_DE56Cx[i]);
-						});
-				}
+			this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex6, &vertex12, i, drawEveryNthLine);
+			this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex0, &vertex6, i, drawEveryNthLine);
 
-				this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex6, &vertex12, i, drawEveryNthLine, m_unk_DE56Cx[i]);
-				this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex0, &vertex6, i, drawEveryNthLine, m_unk_DE56Cx[i]);
-
-				WaitForRenderFinish();
-			}
+			WaitForRenderFinish();
 		}
 		else
 		{
-			DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex6, &vertex12, 0, 1, m_unk_DE56Cx[0]);
-			DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex0, &vertex6, 0, 1, m_unk_DE56Cx[0]);
+			DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex6, &vertex12, 0, 1);
+			DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex0, &vertex6, 0, 1);
 		}
 	}
 }
@@ -5348,9 +5255,8 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 	}
 }
 
-void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* vertex1, const ProjectionPolygon* vertex2, const ProjectionPolygon* vertex3, uint8_t startLine, uint8_t drawEveryNthLine, uint8_t* unk_DE56Cx)
+void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* vertex1, const ProjectionPolygon* vertex2, const ProjectionPolygon* vertex3, uint8_t startLine, uint8_t drawEveryNthLine)
 {
-	//uint8_t new unk_DE56Cx[4194304]; //number of polygons (2048 * 2048)
 	uint8_t line1 = startLine;
 	uint8_t line2 = startLine;
 	uint8_t line3 = startLine;
@@ -6802,7 +6708,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 									v1119 = viewPort.Height_DE568;
 									triLn_v1123 = viewPort.Height_DE568;
 								}
-								v62 = (x_DWORD*)unk_DE56Cx;
+								v62 = (x_DWORD*)unk_DE56Cx[startLine];
 								goto LABEL_124;
 							}
 							v1117 += v1190;
@@ -6822,7 +6728,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 								}
 							}
 						LABEL_121:
-							v62 = LoadPolygon((x_DWORD*)unk_DE56Cx, &v58, &v59, v1103, v1107, &v1117);
+							v62 = LoadPolygon((x_DWORD*)unk_DE56Cx[startLine], &v58, &v59, v1103, v1107, &v1117);
 							v61 = v1121;
 						LABEL_124:
 							if (v1296)
@@ -6877,7 +6783,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 									v1119 = viewPort.Height_DE568;
 									triLn_v1123 = viewPort.Height_DE568;
 								}
-								v55 = (x_DWORD*)unk_DE56Cx;
+								v55 = (x_DWORD*)unk_DE56Cx[startLine];
 							LABEL_102:
 								if (v1296)
 								{
@@ -6924,7 +6830,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 								v1119 = v57;
 							}
 						}
-						v55 = LoadPolygon((x_DWORD*)unk_DE56Cx, &v50, &v51, &v52, v1103, v1107, v1148, &v1117);
+						v55 = LoadPolygon((x_DWORD*)unk_DE56Cx[startLine], &v50, &v51, &v52, v1103, v1107, v1148, &v1117);
 						v54 = v1121;
 						goto LABEL_102;
 					case 2:
@@ -6984,7 +6890,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 									v1119 = viewPort.Height_DE568;
 									triLn_v1123 = viewPort.Height_DE568;
 								}
-								v43 = (x_DWORD*)unk_DE56Cx;
+								v43 = (x_DWORD*)unk_DE56Cx[startLine];
 							LABEL_77:
 								if (v1296)
 								{
@@ -7032,7 +6938,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 								v1119 = v45;
 							}
 						}
-						v43 = LoadPolygon((x_DWORD*)unk_DE56Cx, &v37, &v38, &v39, &v40, v1103, v1107, v1126, v1137, &v1117);
+						v43 = LoadPolygon((x_DWORD*)unk_DE56Cx[startLine], &v37, &v38, &v39, &v40, v1103, v1107, v1126, v1137, &v1117);
 						v42 = v1121;
 						goto LABEL_77;
 					case 5:
@@ -7091,7 +6997,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 									v1119 = viewPort.Height_DE568;
 									triLn_v1123 = viewPort.Height_DE568;
 								}
-								v28 = (x_DWORD*)unk_DE56Cx;
+								v28 = (x_DWORD*)unk_DE56Cx[startLine];
 							LABEL_51:
 								if (v1296)
 								{
@@ -7140,7 +7046,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 								v1119 = v30;
 							}
 						}
-						v28 = LoadPolygon((x_DWORD*)unk_DE56Cx, &v21, &v22, &v23, &v24, &v25, v1103, v1107, v1125, v1136, v1147, &v1117);
+						v28 = LoadPolygon((x_DWORD*)unk_DE56Cx[startLine], &v21, &v22, &v23, &v24, &v25, v1103, v1107, v1125, v1136, v1147, &v1117);
 						v27 = v1121;
 						goto LABEL_51;
 					}
@@ -7206,7 +7112,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 					triLn_v1123 = viewPort.Height_DE568 - v1192;
 					v1115 = viewPort.Height_DE568 - v1192;
 				}
-				LoadPolygon((x_DWORD*)unk_DE56Cx, &v139, &v140, v1105, v1109, &v1115);
+				LoadPolygon((x_DWORD*)unk_DE56Cx[startLine], &v139, &v140, v1105, v1109, &v1115);
 				v31 = (unsigned __int8)x_BYTE_E126D;
 				goto LABEL_53;
 			case 1:
@@ -7242,7 +7148,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 					triLn_v1123 = viewPort.Height_DE568 - v1192;
 					v1115 = viewPort.Height_DE568 - v1192;
 				}
-				LoadPolygon((x_DWORD*)unk_DE56Cx, &v134, &v135, &v136, v1105, v1109, v1152, &v1115);
+				LoadPolygon((x_DWORD*)unk_DE56Cx[startLine], &v134, &v135, &v136, v1105, v1109, v1152, &v1115);
 				v31 = (unsigned __int8)x_BYTE_E126D;
 				goto LABEL_53;
 			case 2:
@@ -7292,7 +7198,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 					triLn_v1123 = viewPort.Height_DE568 - v1192;
 					v1115 = viewPort.Height_DE568 - v1192;
 				}
-				LoadPolygon((x_DWORD*)unk_DE56Cx, &v128, &v129, &v130, &v131, v1105, v1109, v1130, v1141, &v1115);
+				LoadPolygon((x_DWORD*)unk_DE56Cx[startLine], &v128, &v129, &v130, &v131, v1105, v1109, v1130, v1141, &v1115);
 				v31 = (unsigned __int8)x_BYTE_E126D;
 				goto LABEL_53;
 			case 5:
@@ -7340,7 +7246,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 					triLn_v1123 = viewPort.Height_DE568 - v1192;
 					v1115 = viewPort.Height_DE568 - v1192;
 				}
-				LoadPolygon((x_DWORD*)unk_DE56Cx, &v120, &v121, &v122, &v123, &v124, v1105, v1109, v1129, v1140, v1151, &v1115);
+				LoadPolygon((x_DWORD*)unk_DE56Cx[startLine], &v120, &v121, &v122, &v123, &v124, v1105, v1109, v1129, v1140, v1151, &v1115);
 				v31 = (unsigned __int8)x_BYTE_E126D;
 				goto LABEL_53;
 			}
@@ -7401,7 +7307,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 				triLn_v1123 = viewPort.Height_DE568 - v1193;
 				v1116 = viewPort.Height_DE568 - v1193;
 			}
-			LoadPolygon((x_DWORD*)unk_DE56Cx, &v165, &v166, v1106, v1110, &v1116);
+			LoadPolygon((x_DWORD*)unk_DE56Cx[startLine], &v165, &v166, v1106, v1110, &v1116);
 			v31 = (unsigned __int8)x_BYTE_E126D;
 			goto LABEL_53;
 		case 1:
@@ -7437,7 +7343,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 				triLn_v1123 = viewPort.Height_DE568 - v1193;
 				v1116 = viewPort.Height_DE568 - v1193;
 			}
-			LoadPolygon((x_DWORD*)unk_DE56Cx, &v160, &v161, &v162, v1106, v1110, v1154, &v1116);
+			LoadPolygon((x_DWORD*)unk_DE56Cx[startLine], &v160, &v161, &v162, v1106, v1110, v1154, &v1116);
 			v31 = (unsigned __int8)x_BYTE_E126D;
 			goto LABEL_53;
 		case 2:
@@ -7487,7 +7393,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 				triLn_v1123 = viewPort.Height_DE568 - v1193;
 				v1116 = viewPort.Height_DE568 - v1193;
 			}
-			LoadPolygon((x_DWORD*)unk_DE56Cx, &v154, &v155, &v156, &v157, v1106, v1110, v1132, v1143, &v1116);
+			LoadPolygon((x_DWORD*)unk_DE56Cx[startLine], &v154, &v155, &v156, &v157, v1106, v1110, v1132, v1143, &v1116);
 			v31 = (unsigned __int8)x_BYTE_E126D;
 			goto LABEL_53;
 		case 5:
@@ -7535,7 +7441,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 				triLn_v1123 = viewPort.Height_DE568 - v1193;
 				v1116 = viewPort.Height_DE568 - v1193;
 			}
-			LoadPolygon((x_DWORD*)unk_DE56Cx, &v146, &v147, &v148, &v149, &v150, v1106, v1110, v1131, v1142, v1153, &v1116);
+			LoadPolygon((x_DWORD*)unk_DE56Cx[startLine], &v146, &v147, &v148, &v149, &v150, v1106, v1110, v1131, v1142, v1153, &v1116);
 			v31 = (unsigned __int8)x_BYTE_E126D;
 			goto LABEL_53;
 		}
@@ -7632,7 +7538,7 @@ LABEL_129:
 						v1120 = viewPort.Height_DE568;
 						triLn_v1123 = viewPort.Height_DE568;
 					}
-					v114 = (int*)unk_DE56Cx;
+					v114 = (int*)unk_DE56Cx[startLine];
 					goto LABEL_228;
 				}
 				v1114 += v1191;
@@ -7668,7 +7574,7 @@ LABEL_129:
 					v1120 = v116;
 				}
 			}
-			v114 = LoadPolygon((x_DWORD*)unk_DE56Cx, &v110, &v111, v1104, v1108, &v1114);
+			v114 = LoadPolygon((x_DWORD*)unk_DE56Cx[startLine], &v110, &v111, v1104, v1108, &v1114);
 			v113 = v1122;
 		LABEL_228:
 			if (v1297)
@@ -7722,7 +7628,7 @@ LABEL_129:
 						v1120 = viewPort.Height_DE568;
 						triLn_v1123 = viewPort.Height_DE568;
 					}
-					v107 = (int*)unk_DE56Cx;
+					v107 = (int*)unk_DE56Cx[startLine];
 				LABEL_206:
 					if (v1297)
 					{
@@ -7769,7 +7675,7 @@ LABEL_129:
 					v1120 = v109;
 				}
 			}
-			v107 = LoadPolygon((x_DWORD*)unk_DE56Cx, &v102, &v103, &v104, v1104, v1108, v1150, &v1114);
+			v107 = LoadPolygon((x_DWORD*)unk_DE56Cx[startLine], &v102, &v103, &v104, v1104, v1108, v1150, &v1114);
 			v106 = v1122;
 			goto LABEL_206;
 		case 2:
@@ -7831,7 +7737,7 @@ LABEL_129:
 						v1120 = viewPort.Height_DE568;
 						triLn_v1123 = viewPort.Height_DE568;
 					}
-					v95 = (int*)unk_DE56Cx;
+					v95 = (int*)unk_DE56Cx[startLine];
 				LABEL_181:
 					if (v1297)
 					{
@@ -7879,7 +7785,7 @@ LABEL_129:
 					v1120 = v97;
 				}
 			}
-			v95 = LoadPolygon((x_DWORD*)unk_DE56Cx, &v89, &v90, &v91, &v92, v1104, v1108, v1128, v1139, &v1114);
+			v95 = LoadPolygon((x_DWORD*)unk_DE56Cx[startLine], &v89, &v90, &v91, &v92, v1104, v1108, v1128, v1139, &v1114);
 			v94 = v1122;
 			goto LABEL_181;
 		case 5:
@@ -7941,7 +7847,7 @@ LABEL_129:
 						v1120 = viewPort.Height_DE568;
 						triLn_v1123 = viewPort.Height_DE568;
 					}
-					v81 = (x_DWORD*)unk_DE56Cx;
+					v81 = (x_DWORD*)unk_DE56Cx[startLine];
 				LABEL_156:
 					if (v1297)
 					{
@@ -7956,7 +7862,7 @@ LABEL_129:
 					switch (x_BYTE_E126D)
 					{
 					case 0:
-						v169 = (unsigned __int16*)unk_DE56Cx;
+						v169 = (unsigned __int16*)unk_DE56Cx[startLine];
 						v170 = (char*)v1102;
 						v171 = x_BYTE_E126C;
 						HIWORD(v172) = 0;
@@ -7994,7 +7900,7 @@ LABEL_129:
 						v174 = &v170[v172];
 						goto LABEL_328;
 					case 1:
-						v175 = (unsigned __int16*)unk_DE56Cx;
+						v175 = (unsigned __int16*)unk_DE56Cx[startLine];
 						while (1)
 						{
 							LOWORD(v31) = v175[1];
@@ -8154,7 +8060,7 @@ LABEL_129:
 						BYTE1(v31) = *((x_BYTE*)v175 + 18);
 						goto LABEL_341;
 					case 2:
-						v227 = (unsigned __int16*)unk_DE56Cx;
+						v227 = (unsigned __int16*)unk_DE56Cx[startLine];
 						v1165 = v1135 << 16;
 						HIWORD(v228) = 0;
 						HIWORD(v229) = 0;
@@ -8386,7 +8292,7 @@ LABEL_129:
 						LOBYTE(v229) = *((x_BYTE*)v227 + 10);
 						goto LABEL_370;
 					case 3:
-						v283 = (unsigned __int16*)unk_DE56Cx;
+						v283 = (unsigned __int16*)unk_DE56Cx[startLine];
 						v1166 = v1135 << 16;
 						HIWORD(v284) = 0;
 						HIWORD(v285) = 0;
@@ -8634,7 +8540,7 @@ LABEL_129:
 						LOBYTE(v285) = *((x_BYTE*)v283 + 10);
 						goto LABEL_401;
 					case 4:
-						v339 = (unsigned __int16*)unk_DE56Cx;
+						v339 = (unsigned __int16*)unk_DE56Cx[startLine];
 						while (1)
 						{
 							LOWORD(v31) = v339[1];
@@ -8795,7 +8701,7 @@ LABEL_129:
 						BYTE1(v31) = *((x_BYTE*)v339 + 18);
 						goto LABEL_464;
 					case 5:
-						v1276 = (char*)unk_DE56Cx;
+						v1276 = (char*)unk_DE56Cx[startLine];
 						v1167 = v1135 << 16;
 						v1183 = v1146 << 16;
 						HIWORD(v375) = 0;
@@ -9091,7 +8997,7 @@ LABEL_129:
 						LOWORD(v384) = v386;
 						goto LABEL_493;
 					case 6:
-						v1277 = (char*)unk_DE56Cx;
+						v1277 = (char*)unk_DE56Cx[startLine];
 						v1168 = v1135 << 16;
 						v1184 = v1146 << 16;
 						HIWORD(v390) = 0;
@@ -9404,7 +9310,7 @@ LABEL_129:
 						goto LABEL_522;
 					case 7:
 					case 0xB:
-						v405 = (unsigned __int16*)unk_DE56Cx;
+						v405 = (unsigned __int16*)unk_DE56Cx[startLine];
 						v1169 = v1135 << 16;
 						HIWORD(v406) = 0;
 						HIWORD(v407) = 0;
@@ -9637,7 +9543,7 @@ LABEL_129:
 						LOBYTE(v407) = *((x_BYTE*)v405 + 10);
 						goto LABEL_583;
 					case 8:
-						v445 = (unsigned __int16*)unk_DE56Cx;
+						v445 = (unsigned __int16*)unk_DE56Cx[startLine];
 						v1170 = v1135 << 16;
 						HIWORD(v446) = 0;
 						HIWORD(v447) = 0;
@@ -9887,7 +9793,7 @@ LABEL_129:
 						goto LABEL_614;
 					case 9:
 					case 0xA:
-						v485 = (unsigned __int16*)unk_DE56Cx;
+						v485 = (unsigned __int16*)unk_DE56Cx[startLine];
 						v1171 = v1135 << 16;
 						HIWORD(v486) = 0;
 						HIWORD(v487) = 0;
@@ -10183,7 +10089,7 @@ LABEL_129:
 						LOBYTE(v487) = *((x_BYTE*)v485 + 10);
 						goto LABEL_677;
 					case 0xC:
-						v525 = (unsigned __int16*)unk_DE56Cx;
+						v525 = (unsigned __int16*)unk_DE56Cx[startLine];
 						v1172 = v1135 << 16;
 						HIWORD(v526) = 0;
 						HIWORD(v527) = 0;
@@ -10416,7 +10322,7 @@ LABEL_129:
 						LOBYTE(v527) = *((x_BYTE*)v525 + 10);
 						goto LABEL_740;
 					case 0xD:
-						v565 = (unsigned __int16*)unk_DE56Cx;
+						v565 = (unsigned __int16*)unk_DE56Cx[startLine];
 						v1173 = v1135 << 16;
 						HIWORD(v566) = 0;
 						HIWORD(v567) = 0;
@@ -10649,7 +10555,7 @@ LABEL_129:
 						LOBYTE(v567) = *((x_BYTE*)v565 + 10);
 						goto LABEL_771;
 					case 0xE:
-						v605 = (unsigned __int16*)unk_DE56Cx;
+						v605 = (unsigned __int16*)unk_DE56Cx[startLine];
 						v606 = (x_BYTE*)v1102;
 						HIWORD(v607) = 0;
 						BYTE1(v607) = x_BYTE_E126C;
@@ -10769,7 +10675,7 @@ LABEL_129:
 						i = &v606[v608];
 						goto LABEL_802;
 					case 0xF:
-						v626 = (unsigned __int16*)unk_DE56Cx;
+						v626 = (unsigned __int16*)unk_DE56Cx[startLine];
 						v627 = (x_BYTE*)v1102;
 						v628 = (unsigned __int8)x_BYTE_E126C;
 						HIWORD(v629) = 0;
@@ -10888,7 +10794,7 @@ LABEL_129:
 						j = &v627[v629];
 						goto LABEL_831;
 					case 0x10:
-						v647 = (unsigned __int16*)unk_DE56Cx;
+						v647 = (unsigned __int16*)unk_DE56Cx[startLine];
 						HIWORD(v648) = 0;
 						while (1)
 						{
@@ -11082,7 +10988,7 @@ LABEL_129:
 						BYTE1(v31) = *((x_BYTE*)v647 + 18);
 						goto LABEL_860;
 					case 0x11:
-						v684 = (unsigned __int16*)unk_DE56Cx;
+						v684 = (unsigned __int16*)unk_DE56Cx[startLine];
 						HIWORD(v685) = 0;
 						while (1)
 						{
@@ -11276,7 +11182,7 @@ LABEL_129:
 						BYTE1(v31) = *((x_BYTE*)v684 + 18);
 						goto LABEL_889;
 					case 0x12:
-						v721 = (unsigned __int16*)unk_DE56Cx;
+						v721 = (unsigned __int16*)unk_DE56Cx[startLine];
 						v1174 = v1135 << 16;
 						HIWORD(v722) = 0;
 						HIWORD(v723) = 0;
@@ -11524,7 +11430,7 @@ LABEL_129:
 						LOBYTE(v723) = *((x_BYTE*)v721 + 10);
 						goto LABEL_918;
 					case 0x13:
-						v761 = (unsigned __int16*)unk_DE56Cx;
+						v761 = (unsigned __int16*)unk_DE56Cx[startLine];
 						v1175 = v1135 << 16;
 						HIWORD(v762) = 0;
 						HIWORD(v763) = 0;
@@ -11772,7 +11678,7 @@ LABEL_129:
 						LOBYTE(v763) = *((x_BYTE*)v761 + 10);
 						goto LABEL_949;
 					case 0x14:
-						v801 = (unsigned __int16*)unk_DE56Cx;
+						v801 = (unsigned __int16*)unk_DE56Cx[startLine];
 						v1176 = v1135 << 16;
 						v1185 = v1146 << 16;
 						HIWORD(v802) = 0;
@@ -12106,7 +12012,7 @@ LABEL_129:
 						v810 = __ROL4_16__(*((x_DWORD*)v801 + 4));
 						goto LABEL_980;
 					case 0x15:
-						v842 = (unsigned __int16*)unk_DE56Cx;
+						v842 = (unsigned __int16*)unk_DE56Cx[startLine];
 						v1177 = v1135 << 16;
 						v1186 = v1146 << 16;
 						HIWORD(v843) = 0;
@@ -12440,7 +12346,7 @@ LABEL_129:
 						v851 = __ROL4_16__(*((x_DWORD*)v842 + 4));
 						goto LABEL_1011;
 					case 0x16:
-						v883 = (unsigned __int16*)unk_DE56Cx;
+						v883 = (unsigned __int16*)unk_DE56Cx[startLine];
 						v1178 = v1135 << 16;
 						HIWORD(v884) = 0;
 						HIWORD(v885) = 0;
@@ -12736,7 +12642,7 @@ LABEL_129:
 						LOBYTE(v885) = *((x_BYTE*)v883 + 10);
 						goto LABEL_1042;
 					case 0x17:
-						v923 = (unsigned __int16*)unk_DE56Cx;
+						v923 = (unsigned __int16*)unk_DE56Cx[startLine];
 						v1179 = v1135 << 16;
 						HIWORD(v924) = 0;
 						HIWORD(v925) = 0;
@@ -13032,7 +12938,7 @@ LABEL_129:
 						LOBYTE(v925) = *((x_BYTE*)v923 + 10);
 						goto LABEL_1105;
 					case 0x18:
-						v963 = (unsigned __int16*)unk_DE56Cx;
+						v963 = (unsigned __int16*)unk_DE56Cx[startLine];
 						v1180 = v1135 << 16;
 						v1187 = v1146 << 16;
 						HIWORD(v964) = 0;
@@ -13414,7 +13320,7 @@ LABEL_129:
 						v972 = __ROL4_16__(*((x_DWORD*)v963 + 4));
 						goto LABEL_1168;
 					case 0x19:
-						v1004 = (unsigned __int16*)unk_DE56Cx;
+						v1004 = (unsigned __int16*)unk_DE56Cx[startLine];
 						v1181 = v1135 << 16;
 						v1188 = v1146 << 16;
 						HIWORD(v1005) = 0;
@@ -13796,7 +13702,7 @@ LABEL_129:
 						v1013 = __ROL4_16__(*((x_DWORD*)v1004 + 4));
 						goto LABEL_1231;
 					case 0x1A:
-						v1045 = (unsigned __int16*)unk_DE56Cx;
+						v1045 = (unsigned __int16*)unk_DE56Cx[startLine];
 						v1182 = v1135 << 16;
 						v1189 = v1146 << 16;
 						HIWORD(v1046) = 0;
@@ -14296,7 +14202,7 @@ LABEL_129:
 				v1120 = v83;
 			}
 			}
-			v81 = LoadPolygon((x_DWORD*)unk_DE56Cx, &v74, &v75, &v76, &v77, &v78, v1104, v1108, v1127, v1138, v1149, &v1114);
+			v81 = LoadPolygon((x_DWORD*)unk_DE56Cx[startLine], &v74, &v75, &v76, &v77, &v78, v1104, v1108, v1127, v1138, v1149, &v1114);
 			v80 = v1122;
 			goto LABEL_156;
 		}
