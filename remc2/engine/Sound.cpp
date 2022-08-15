@@ -5763,18 +5763,112 @@ int sub_A4390(int a1)//285390
 //----- (000A43E0) --------------------------------------------------------
 void sub_A43E0(HSAMPLE S)//2853e0
 {
-	x_DWORD* v1; // [esp+4h] [ebp-8h]
+	int v2; // eax
+	int v3; // edx
+	int v4; // eax
+	int v5; // eax
+	int v6; // eax
+	uint8_t* v7; // [esp+4h] [ebp-8h]
+	int v8; // [esp+8h] [ebp-4h]
 
-	while (1)
+	int a2 = 0;
+
+	v8 = 0;
+	while (!v8)
 	{
-		v1 = *(x_DWORD**)(S + 2168);
-		if (*(x_BYTE*)v1 <= 9u)
+		v7 = S->sam_var542;
+		switch (*(_BYTE*)v7)
+		{
+		case 0:
+			sub_A4390((int)S->driver_0);
+			return;
+		case 1:
+			if (S->index_sample)
+			{
+				v2 = sub_A4370((x_DWORD*)v7);
+				sub_93A10_AIL_set_sample_address(S, v7 + 6, v2 - 2);
+				sub_93D90_AIL_set_sample_playback_rate(S, 1000000 / (256 - (unsigned int)*(unsigned __int8*)(v7 + 4)));
+				sub_93AB0_AIL_set_sample_type(S, 0, 0);
+				if (a2)
+					sub_93B50_AIL_start_sample(S);
+				v8 = 1;
+			}
+			goto LABEL_44;
+		case 4:
+			if (((char*)S)[545] != -1)
+				((char*)S)[546] = *(__int16*)(v7 + 4) == ((char*)S)[545];
+			goto LABEL_44;
+		case 6:
+			((char*)S)[543] = (char)v7;
+			((char*)S)[544] = *(unsigned __int16*)(v7 + 4);
+			goto LABEL_44;
+		case 7:
+			if (((char*)S)[544] != 0xFFFF)
+			{
+				v3 = ((char*)S)[544];
+				((char*)S)[544] = v3 - 1;
+				if (!v3)
+					goto LABEL_44;
+			}
+			v7 = (uint8_t*)((char*)S)[543];
+			v4 = sub_A4370((x_DWORD*)v7);
 			break;
-		//fixit whne can use AWE32: *(x_DWORD*)(S + 2168) = (x_DWORD)(char*)v1 + sub_A4370(v1) + 4;
+		case 8:
+			if (((char*)S)[546])
+			{
+				if (*(_BYTE*)(v7 + 7))
+				{
+					sub_93AB0_AIL_set_sample_type(S, 2, 0);
+					sub_93D90_AIL_set_sample_playback_rate(S, 0x7A12000 / (10000 - *(unsigned __int16*)(v7 + 4)));
+				}
+				else
+				{
+					sub_93AB0_AIL_set_sample_type(S, 0, 0);
+					sub_93D90_AIL_set_sample_playback_rate(S, 0xF424000 / (10000 - *(unsigned __int16*)(v7 + 4)));
+				}
+				v7 += sub_A4370((x_DWORD*)v7) + 4;
+				v5 = sub_A4370((x_DWORD*)v7);
+				sub_93A10_AIL_set_sample_address(S, v7 + 6, v5 - 2);
+				if (a2)
+					sub_93B50_AIL_start_sample(S);
+				v8 = 1;
+			}
+			goto LABEL_44;
+		case 9:
+			if (((char*)S)[546])
+			{
+				v6 = sub_A4370((x_DWORD*)v7);
+				sub_93A10_AIL_set_sample_address(S, v7 + 16, v6 - 12);
+				sub_93D90_AIL_set_sample_playback_rate(S, *(_DWORD*)(v7 + 4));
+				if (*(_BYTE*)(v7 + 9) == 1 && !*(_WORD*)(v7 + 10))
+				{
+					sub_93AB0_AIL_set_sample_type(S, 0, 0);
+				}
+				else if (*(_BYTE*)(v7 + 9) == 2 && !*(_WORD*)(v7 + 10))
+				{
+					sub_93AB0_AIL_set_sample_type(S, 2, 0);
+				}
+				else if (*(_BYTE*)(v7 + 9) == 1 && *(_WORD*)(v7 + 10) == 4)
+				{
+					sub_93AB0_AIL_set_sample_type(S, 1, 1);
+				}
+				else if (*(_BYTE*)(v7 + 9) == 2 && *(_WORD*)(v7 + 10) == 4)
+				{
+					sub_93AB0_AIL_set_sample_type(S, 3, 1);
+				}
+				if (a2)
+					sub_93B50_AIL_start_sample(S);
+				v8 = 1;
+			}
+			goto LABEL_44;
+		default:
+		LABEL_44:
+			v4 = sub_A4370((x_DWORD*)v7);
+			break;
+		}
+		S->sam_var542 = v4 + v7 + 4;
 	}
-	//JUMPOUT(__CS__, (int*) *(&off_A4400 + *(unsigned __int8 *)v1));
 }
-// A4400: using guessed type void *off_A4400;
 
 //----- (000A47C0) --------------------------------------------------------
 void sub_A47C0_sub_set_sample_file(uint8_t* pWaveData, HSAMPLE S)//2857c0
