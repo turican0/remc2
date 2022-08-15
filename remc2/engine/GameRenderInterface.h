@@ -6,8 +6,6 @@
 #include <cstdint>
 #include "engine_support.h"
 #include "ViewPort.h"
-//#include "Type_E9C38_Smalltit.h"
-//#include "Type_F2C20ar.h"
 
 class GameRenderInterface 
 {
