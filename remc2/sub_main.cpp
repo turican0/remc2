@@ -94369,14 +94369,14 @@ void sub_BD524(__int16 a1, __int16 a2, __int16 a3, __int16 a4, char a5)//29e524
 }
 
 //----- (000BD542) --------------------------------------------------------
-void /*__spoils<ecx>*/ sub_BD542(unsigned __int16 a1, unsigned __int16 a2, unsigned __int16 a3, unsigned __int16 a4, char a5)//29e542
+void sub_BD542(unsigned __int16 a1, unsigned __int16 a2, unsigned __int16 a3, unsigned __int16 a4, char a5)//29e542
 {
-	signed __int16 v5; // bx
-	unsigned __int16 v6; // cx
+	__int16 v5; // bx
+	__int16 v6; // cx
 	unsigned __int16 v7; // cx
 	unsigned __int16 v8; // ax
 	unsigned __int16 v9; // ax
-	uint8_t* v10; // edi
+	_BYTE* v10; // edi
 	int v11; // esi
 	unsigned __int16 v12; // ax
 	unsigned __int16 v13; // cx
@@ -94386,16 +94386,16 @@ void /*__spoils<ecx>*/ sub_BD542(unsigned __int16 a1, unsigned __int16 a2, unsig
 	__int16 v17; // cx
 	int v18; // edi
 	unsigned int v19; // ecx
-	unsigned __int16 v20; // ax
+	__int16 v20; // ax
 	int v21; // eax
 	int v22; // ecx
 	__int16 v23; // cx
-	x_BYTE* v24; // edi
+	_BYTE* v24; // edi
 	int v25; // [esp+0h] [ebp-Ch]
-	signed int v26; // [esp+4h] [ebp-8h]
+	int v26; // [esp+4h] [ebp-8h]
 	uint8_t* v27; // [esp+8h] [ebp-4h]
 
-	v27 = pdwScreenBuffer_351628 + x_DWORD_18063C_sprite_sizex + screenWidth_18062C * x_DWORD_180650_positiony;
+	v27 = &pdwScreenBuffer_351628[x_DWORD_18063C_sprite_sizex + screenWidth_18062C * x_DWORD_180650_positiony];
 	v5 = a2;
 	if ((a2 & 0x8000u) == 0)
 	{
@@ -94404,7 +94404,7 @@ void /*__spoils<ecx>*/ sub_BD542(unsigned __int16 a1, unsigned __int16 a2, unsig
 		{
 			if (a2 == a4)
 			{
-				if ((signed __int16)a2 >= (signed __int16)x_DWORD_180644_map_resolution2_y)
+				if ((__int16)a2 >= (__int16)x_DWORD_180644_map_resolution2_y)
 					return;
 				v18 = a1;
 				v19 = a3;
@@ -94416,39 +94416,39 @@ void /*__spoils<ecx>*/ sub_BD542(unsigned __int16 a1, unsigned __int16 a2, unsig
 				v20 = x_DWORD_180648_map_resolution2_x - 1;
 				if ((v18 & 0x8000u) == 0)
 				{
-					if ((signed __int16)v18 > (signed __int16)v20)
+					if ((__int16)v18 > v20)
 						return;
-					if ((unsigned __int16)v19 > v20)
+					if ((unsigned __int16)v19 > (unsigned __int16)v20)
 						LOWORD(v19) = x_DWORD_180648_map_resolution2_x - 1;
 				}
 				else
 				{
-					if ((signed __int16)v19 <= 0)
+					if ((__int16)v19 <= 0)
 						return;
 					LOWORD(v18) = 0;
-					if ((unsigned __int16)v19 > v20)
+					if ((unsigned __int16)v19 > (unsigned __int16)v20)
 						LOWORD(v19) = x_DWORD_180648_map_resolution2_x - 1;
 				}
 				LOWORD(v19) = v19 - v18;
 				goto LABEL_54;
 			}
-			if ((signed __int16)(a2 - a4) < 0)
+			if ((__int16)(a2 - a4) < 0)
 			{
-				if ((signed __int16)a2 >= (signed __int16)x_DWORD_180644_map_resolution2_y)
+				if ((__int16)a2 >= (__int16)x_DWORD_180644_map_resolution2_y)
 					return;
-				if ((signed __int16)a4 >= (signed __int16)x_DWORD_180644_map_resolution2_y)
+				if ((__int16)a4 >= (__int16)x_DWORD_180644_map_resolution2_y)
 					goto LABEL_5;
 			}
 			else
 			{
-				if ((signed __int16)a4 >= (signed __int16)x_DWORD_180644_map_resolution2_y)
+				if ((__int16)a4 >= (__int16)x_DWORD_180644_map_resolution2_y)
 					return;
 				a4 = a2;
 				a2 = v7;
 				v9 = a1;
 				a1 = a3;
 				a3 = v9;
-				if (v5 >= (signed __int16)x_DWORD_180644_map_resolution2_y)
+				if (v5 >= (__int16)x_DWORD_180644_map_resolution2_y)
 					goto LABEL_5;
 			}
 			goto LABEL_15;
@@ -94464,25 +94464,24 @@ void /*__spoils<ecx>*/ sub_BD542(unsigned __int16 a1, unsigned __int16 a2, unsig
 	{
 		v6 = a4;
 	}
-	if ((v6 & 0x8000u) != 0)
+	if (v6 < 0)
 		return;
-	a1 += (signed __int16)-v5 * (signed __int16)(a3 - a1) / (signed __int16)(v6 - v5);
+	a1 += (__int16)-v5 * (__int16)(a3 - a1) / (__int16)(v6 - v5);
 	a2 = 0;
-	if ((signed __int16)(a4 - x_DWORD_180644_map_resolution2_y) >= 0)
+	if ((__int16)(a4 - x_DWORD_180644_map_resolution2_y) >= 0)
 	{
 	LABEL_5:
-		a3 = a1
-			+ (unsigned int)((signed __int16)(x_DWORD_180644_map_resolution2_y - a2) * (signed __int16)(a3 - a1) / (signed __int16)(a4 - a2));
+		a3 = a1 + (__int16)(x_DWORD_180644_map_resolution2_y - a2) * (__int16)(a3 - a1) / (__int16)(a4 - a2);
 		a4 = x_DWORD_180644_map_resolution2_y - 1;
 	}
 LABEL_15:
 	if ((a1 & 0x8000u) == 0)
 	{
-		if ((signed __int16)(a1 - x_DWORD_180648_map_resolution2_x) < 0)
+		if ((__int16)(a1 - x_DWORD_180648_map_resolution2_x) < 0)
 		{
 			if ((a3 & 0x8000u) == 0)
 			{
-				if ((signed __int16)(a3 - x_DWORD_180648_map_resolution2_x) < 0)
+				if ((__int16)(a3 - x_DWORD_180648_map_resolution2_x) < 0)
 				{
 					v26 = 1;
 					if (a1 == a3)
@@ -94498,44 +94497,43 @@ LABEL_15:
 							LOWORD(v21) = a4;
 							v23 = a2 - a4;
 						}
-						v24 = (x_BYTE*)(v27 + screenWidth_18062C * v21 + a1);
+						v24 = (_BYTE*)(v27 + screenWidth_18062C * v21 + a1);
 						LOWORD(v22) = v23 + 1;
 						do
 						{
 							*v24 = a5;
 							v24 += screenWidth_18062C;
-							v22--;
+							--v22;
 						} while (v22);
 						return;
 					}
-					if ((signed __int16)(a1 - a3) >= 0)
+					if ((__int16)(a1 - a3) >= 0)
 						v26 = -1;
 				}
 				else
 				{
 					v26 = 1;
-					a4 = a2
-						+ (unsigned int)((signed __int16)(x_DWORD_180648_map_resolution2_x - a1) * (signed __int16)(a4 - a2) / (signed __int16)(a3 - a1));
+					a4 = a2 + (__int16)(x_DWORD_180648_map_resolution2_x - a1) * (__int16)(a4 - a2) / (__int16)(a3 - a1);
 					a3 = x_DWORD_180648_map_resolution2_x - 1;
 				}
 			}
 			else
 			{
 				v26 = -1;
-				a4 = a2 + (unsigned int)((signed __int16)a1 * (signed __int16)(a4 - a2) / (signed __int16)(a1 - a3));
+				a4 = a2 + (__int16)a1 * (__int16)(a4 - a2) / (__int16)(a1 - a3);
 				a3 = 0;
 			}
 		}
 		else
 		{
-			if ((signed __int16)a3 >= (signed __int16)x_DWORD_180648_map_resolution2_x)
+			if ((__int16)a3 >= (__int16)x_DWORD_180648_map_resolution2_x)
 				return;
 			v26 = -1;
-			a2 += (signed __int16)(a1 - x_DWORD_180648_map_resolution2_x) * (signed __int16)(a4 - a2) / (signed __int16)(a1 - a3);
+			a2 += (__int16)(a1 - x_DWORD_180648_map_resolution2_x) * (__int16)(a4 - a2) / (__int16)(a1 - a3);
 			a1 = x_DWORD_180648_map_resolution2_x - 1;
 			if ((a3 & 0x8000u) != 0)
 			{
-				a4 -= (signed __int16)-a3 * (signed __int16)(a4 - a2) / (signed __int16)(a1 - a3);
+				a4 -= (__int16)-a3 * (__int16)(a4 - a2) / (__int16)(a1 - a3);
 				a3 = 0;
 			}
 		}
@@ -94545,15 +94543,15 @@ LABEL_15:
 		if ((a3 & 0x8000u) != 0)
 			return;
 		v26 = 1;
-		a2 += (signed __int16)-a1 * (signed __int16)(a4 - a2) / (signed __int16)(a3 - a1);
+		a2 += (__int16)-a1 * (__int16)(a4 - a2) / (__int16)(a3 - a1);
 		a1 = 0;
-		if ((signed __int16)(a3 - x_DWORD_180648_map_resolution2_x) >= 0)
+		if ((__int16)(a3 - x_DWORD_180648_map_resolution2_x) >= 0)
 		{
-			a4 = a2 + (unsigned int)((signed __int16)x_DWORD_180648_map_resolution2_x * (signed __int16)(a4 - a2) / (signed __int16)a3);
+			a4 = a2 + (__int16)x_DWORD_180648_map_resolution2_x * (__int16)(a4 - a2) / (__int16)a3;
 			a3 = x_DWORD_180648_map_resolution2_x - 1;
 		}
 	}
-	v10 = (v27 + screenWidth_18062C * a2 + a1);
+	v10 = (_BYTE*)(v27 + screenWidth_18062C * a2 + a1);
 	v11 = v26;
 	v12 = v26 * (a3 - a1);
 	v13 = a4 - a2;
