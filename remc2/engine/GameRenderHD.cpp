@@ -2878,29 +2878,23 @@ void GameRenderHD::DrawSquareInProjectionSpace(std::vector<int>& vertexs, int in
 	{
 		if (m_renderThreads.size() > 0)
 		{
-			if ((m_renderThreads.size() + 1) % 2 == 0)
+			if ((m_renderThreads.size() + 1) == 4)
 			{ 
 				uint8_t i = 0;
-				uint8_t startLine = 0;
-				drawEveryNthLine = drawEveryNthLine / 2;
 
-				for (i = 0; i < m_renderThreads.size(); i++)
-				{
-					if (i % 2 == 0)
-					{
-						m_renderThreads[i]->Run([this, vertex0, vertex6, vertex12, vertex18, i, startLine, drawEveryNthLine] {
-							this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex12, &vertex0, startLine, drawEveryNthLine, m_unk_DE56Cx[i]);
-							});
-					}
-					else
-					{
-						m_renderThreads[i]->Run([this, vertex0, vertex6, vertex12, vertex18, i, startLine, drawEveryNthLine] {
-							this->DrawTriangleInProjectionSpace_B6253(&vertex0, &vertex12, &vertex6, startLine, drawEveryNthLine, m_unk_DE56Cx[i]);
-							});
-						startLine++;
-					}
-				}
-				this->DrawTriangleInProjectionSpace_B6253(&vertex0, &vertex12, &vertex6, startLine, drawEveryNthLine, m_unk_DE56Cx[i]);
+				m_renderThreads[0]->Run([this, vertex0, vertex6, vertex12, vertex18, i, drawEveryNthLine] {
+					this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex12, &vertex0, 0, 2, m_unk_DE56Cx[i]);
+					});
+				i++;
+				m_renderThreads[1]->Run([this, vertex0, vertex6, vertex12, vertex18, i, drawEveryNthLine] {
+					this->DrawTriangleInProjectionSpace_B6253(&vertex0, &vertex12, &vertex6, 0, 2, m_unk_DE56Cx[i]);
+					});
+				i++;
+				m_renderThreads[2]->Run([this, vertex0, vertex6, vertex12, vertex18, i, drawEveryNthLine] {
+					this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex12, &vertex0, 1, 2, m_unk_DE56Cx[i]);
+					});
+				i++;
+				this->DrawTriangleInProjectionSpace_B6253(&vertex0, &vertex12, &vertex6, 1, 2, m_unk_DE56Cx[i]);
 
 				WaitForRenderFinish();
 			}
@@ -2933,29 +2927,23 @@ void GameRenderHD::DrawSquareInProjectionSpace(std::vector<int>& vertexs, int in
 		if (m_renderThreads.size() > 0)
 		{
 
-			if ((m_renderThreads.size() + 1) % 2 == 0)
+			if ((m_renderThreads.size() + 1) == 4)
 			{
 				uint8_t i = 0;
-				uint8_t startLine = 0;
-				drawEveryNthLine = drawEveryNthLine / 2;
 
-				for (i = 0; i < m_renderThreads.size(); i++)
-				{
-					if (i % 2 == 0)
-					{
-						m_renderThreads[i]->Run([this, vertex0, vertex6, vertex12, vertex18, i, startLine, drawEveryNthLine] {
-							this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex12, &vertex6, startLine, drawEveryNthLine, m_unk_DE56Cx[i]);
-							});
-					}
-					else
-					{
-						m_renderThreads[i]->Run([this, vertex0, vertex6, vertex12, vertex18, i, startLine, drawEveryNthLine] {
-							this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex6, &vertex0, startLine, drawEveryNthLine, m_unk_DE56Cx[i]);
-							});
-						startLine++;
-					}
-				}
-				this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex6, &vertex0, startLine, drawEveryNthLine, m_unk_DE56Cx[i]);
+				m_renderThreads[0]->Run([this, vertex0, vertex6, vertex12, vertex18, i, drawEveryNthLine] {
+					this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex12, &vertex6, 0, 2, m_unk_DE56Cx[i]);
+					});
+				i++;
+				m_renderThreads[1]->Run([this, vertex0, vertex6, vertex12, vertex18, i, drawEveryNthLine] {
+					this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex6, &vertex0, 0, 2, m_unk_DE56Cx[i]);
+					});
+				i++;
+				m_renderThreads[2]->Run([this, vertex0, vertex6, vertex12, vertex18, i, drawEveryNthLine] {
+					this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex12, &vertex6, 1, 2, m_unk_DE56Cx[i]);
+					});
+				i++;
+				this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex6, &vertex0, 1, 2, m_unk_DE56Cx[i]);
 
 				WaitForRenderFinish();
 			}
@@ -3018,29 +3006,23 @@ void GameRenderHD::DrawInverseSquareInProjectionSpace(int* vertexs, int index, u
 	{
 		if (m_renderThreads.size() > 0)
 		{
-			if ((m_renderThreads.size() + 1) % 2 == 0)
+			if ((m_renderThreads.size() + 1) == 4)
 			{
 				uint8_t i = 0;
-				uint8_t startLine = 0;
-				drawEveryNthLine = drawEveryNthLine / 2;
 
-				for (i = 0; i < m_renderThreads.size(); i++)
-				{
-					if (i % 2 == 0)
-					{
-						m_renderThreads[i]->Run([this, vertex0, vertex6, vertex12, vertex18, i, startLine, drawEveryNthLine] {
-							this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex0, &vertex12, startLine, drawEveryNthLine, m_unk_DE56Cx[i]);
-							});
-					}
-					else
-					{
-						m_renderThreads[i]->Run([this, vertex0, vertex6, vertex12, vertex18, i, startLine, drawEveryNthLine] {
-							this->DrawTriangleInProjectionSpace_B6253(&vertex0, &vertex6, &vertex12, startLine, drawEveryNthLine, m_unk_DE56Cx[i]);
-							});
-						startLine++;
-					}
-				}
-				this->DrawTriangleInProjectionSpace_B6253(&vertex0, &vertex6, &vertex12, startLine, drawEveryNthLine, m_unk_DE56Cx[i]);
+				m_renderThreads[0]->Run([this, vertex0, vertex6, vertex12, vertex18, i, drawEveryNthLine] {
+					this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex0, &vertex12, 0, 2, m_unk_DE56Cx[i]);
+					});
+				i++;
+				m_renderThreads[1]->Run([this, vertex0, vertex6, vertex12, vertex18, i, drawEveryNthLine] {
+					this->DrawTriangleInProjectionSpace_B6253(&vertex0, &vertex6, &vertex12, 0, 2, m_unk_DE56Cx[i]);
+					});
+				i++;
+				m_renderThreads[2]->Run([this, vertex0, vertex6, vertex12, vertex18, i, drawEveryNthLine] {
+					this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex0, &vertex12, 1, 2, m_unk_DE56Cx[i]);
+					});
+				i++;
+				this->DrawTriangleInProjectionSpace_B6253(&vertex0, &vertex6, &vertex12, 1, 2, m_unk_DE56Cx[i]);
 
 				WaitForRenderFinish();
 			}
@@ -3073,29 +3055,23 @@ void GameRenderHD::DrawInverseSquareInProjectionSpace(int* vertexs, int index, u
 	{
 		if (m_renderThreads.size() > 0)
 		{
-			if ((m_renderThreads.size() + 1) % 2 == 0)
+			if ((m_renderThreads.size() + 1) == 4)
 			{
 				uint8_t i = 0;
-				uint8_t startLine = 0;
-				drawEveryNthLine = drawEveryNthLine / 2;
 
-				for (i = 0; i < m_renderThreads.size(); i++)
-				{
-					if (i % 2 == 0)
-					{
-						m_renderThreads[i]->Run([this, vertex0, vertex6, vertex12, vertex18, i, startLine, drawEveryNthLine] {
-							this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex6, &vertex12, startLine, drawEveryNthLine, m_unk_DE56Cx[i]);
-							});
-					}
-					else
-					{
-						m_renderThreads[i]->Run([this, vertex0, vertex6, vertex12, vertex18, i, startLine, drawEveryNthLine] {
-							this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex0, &vertex6, startLine, drawEveryNthLine, m_unk_DE56Cx[i]);
-							});
-						startLine++;
-					}
-				}
-				this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex0, &vertex6, startLine, drawEveryNthLine, m_unk_DE56Cx[i]);
+				m_renderThreads[0]->Run([this, vertex0, vertex6, vertex12, vertex18, i, drawEveryNthLine] {
+					this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex6, &vertex12, 0, 2, m_unk_DE56Cx[i]);
+					});
+				i++;
+				m_renderThreads[1]->Run([this, vertex0, vertex6, vertex12, vertex18, i, drawEveryNthLine] {
+					this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex0, &vertex6, 0, 2, m_unk_DE56Cx[i]);
+					});
+				i++;
+				m_renderThreads[2]->Run([this, vertex0, vertex6, vertex12, vertex18, i, drawEveryNthLine] {
+					this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex6, &vertex12, 1, 2, m_unk_DE56Cx[i]);
+					});
+				i++;
+				this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex0, &vertex6, 1, 2, m_unk_DE56Cx[i]);
 
 				WaitForRenderFinish();
 			}
