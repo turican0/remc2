@@ -12,8 +12,18 @@ using namespace boost;
 #endif
 
 static const int NetworkBufferSize = 4096;
+uint8_t* Zero_pointer_net = nullptr;
+
+int timest_index = 0;
+clock_t timest_timer = 0;
+const int timest_max_mess = 400;
+std::string timest_buffer[timest_max_mess];
 
 //#define TEST_NETWORK_MESSAGES
+
+//#define TEST_BAD_NETWORK
+
+#define TEST_TIME_NETWORK_MESSAGES
 
 using namespace std;
 
@@ -116,28 +126,72 @@ typedef struct message_info{
 	int32_t message;
 	int32_t index;
 	int32_t port;
-	myNCB messNCB;
+	int32_t idHash;
+	shadow_myNCB messNCB;
 	char data[2048*30];
 };
 #pragma pack (16)
 
+shadow_myNCB myNCBtoShadow(myNCB from) {
+	shadow_myNCB to;
+	to.ncb_command_0= from.ncb_command_0;
+	to.ncb_retcode_1 = from.ncb_retcode_1;
+	to.ncb_lsn_2 = from.ncb_lsn_2;
+	to.ncb_num_3 = from.ncb_num_3;
+	to.ncb_buffer_4 = (from.ncb_buffer_4.p - Zero_pointer_net);
+	to.ncb_bufferLength_8 = from.ncb_bufferLength_8;
+	for (int i = 0; i < 16; i++)to.ncb_callName_10[i] = from.ncb_callName_10[i];
+	for (int i = 0; i < 16; i++)to.ncb_name_26[i] = from.ncb_name_26[i];
+	to.ncb_rto_42 = from.ncb_rto_42;
+	to.ncb_sto_43 = from.ncb_sto_43;
+	to.ncb_cmd_cplt_49 = from.ncb_cmd_cplt_49;
+	return to;
+};
+myNCB myNCBfromShadow(shadow_myNCB from) {
+	myNCB to;
+	to.ncb_command_0 = from.ncb_command_0;
+	to.ncb_retcode_1 = from.ncb_retcode_1;
+	to.ncb_lsn_2 = from.ncb_lsn_2;
+	to.ncb_num_3 = from.ncb_num_3;
+	to.ncb_buffer_4.p = (from.ncb_buffer_4 + Zero_pointer_net);
+	to.ncb_bufferLength_8 = from.ncb_bufferLength_8;
+	for (int i = 0; i < 16; i++)to.ncb_callName_10[i] = from.ncb_callName_10[i];
+	for (int i = 0; i < 16; i++)to.ncb_name_26[i] = from.ncb_name_26[i];
+	to.ncb_rto_42 = from.ncb_rto_42;
+	to.ncb_sto_43 = from.ncb_sto_43;
+	to.ncb_cmd_cplt_49 = from.ncb_cmd_cplt_49;
+	return to;
+};
+
+
+
+const int PRIME_CONST = 31;
+int32_t hashFunction(string key) {
+	int32_t hashCode = 0;
+	for (int i = 0; i < key.length(); i++) {
+		hashCode += (int32_t)key[i] * pow(PRIME_CONST, i);
+	}
+	return hashCode;
+}
+
 std::string DataToString(message_info messInfo)
 {
 	std::string output;
-	for (int i = 0; i < messInfo.size + sizeof(myNCB) + 20; i++)
+	for (int i = 0; i < messInfo.size + sizeof(shadow_myNCB) + 24; i++)
 	{
 		output += ((char*)&messInfo)[i];
 	}
 	return output;
 }
 
-std::string Pack_Message(uint32 message, myNCB locNCB, int32_t locIndex, int32_t port=-1, char* data = NULL, int size_of_data = 0) {
+std::string Pack_Message(uint32 message, shadow_myNCB locNCB, int32_t locIndex, int32_t idHash, int32_t port=-1, const char* data = nullptr, int size_of_data = 0) {
 	message_info locmessage_info;
 	locmessage_info.message = message;
 	locmessage_info.size = size_of_data;
 	locmessage_info.messNCB = locNCB;
 	locmessage_info.index = locIndex;
 	locmessage_info.port = port;
+	locmessage_info.idHash = idHash;
 	if(data)
 		memcpy(locmessage_info.data, data, size_of_data);
 	return DataToString(locmessage_info);
@@ -145,9 +199,9 @@ std::string Pack_Message(uint32 message, myNCB locNCB, int32_t locIndex, int32_t
 
 message_info Unpack_Message(std::string data) {
 	message_info output;
-	for (int i = 0; i < sizeof(myNCB) + 20; i++)
+	for (int i = 0; i < sizeof(shadow_myNCB) + 24; i++)
 		((char*)(&output))[i] = data[i];
-	for (int i = sizeof(myNCB) + 20; i < output.size + sizeof(myNCB) + 20; i++)
+	for (int i = sizeof(shadow_myNCB) + 24; i < output.size + sizeof(shadow_myNCB) + 24; i++)
 		((char*)(&output))[i] = data[i];
 	return output;
 }
@@ -264,6 +318,13 @@ void AddNetworkName(std::string name, TypeIpPort ipPort) {
 #endif //TEST_NETWORK_MESSAGES
 }
 
+bool ExistNetworkName(std::string name, TypeIpPort ipPort) {
+	for (int i = 0; i < NetworkName.size(); i++)
+		if ((!name.compare(NetworkName[i]))&&(clientIpPort[i].adress== ipPort.adress) && (clientIpPort[i].port == ipPort.port))
+			return true;
+	return false;
+}
+
 TypeIpPort GetOtherSide(TypeIpPort ipPort) {
 	for (int i = 0; i < clientListenID.size(); i++)
 		if ((clientListenID[i].adress== ipPort.adress)&& (clientListenID[i].port == ipPort.port))
@@ -311,21 +372,40 @@ void AddListenName(myNCB* connection) {//10 26
 		}
 }
 
-bool AddListenName2(myNCB* connection){
+bool AddListenName2(const shadow_myNCB* connection){
 	TypeIpPort id1 = GetIpPortFromName(connection->ncb_callName_10);
-	if(id1.adress=="x999")return false;
+	if(id1.adress=="x999") return false;
 	TypeIpPort id2 = GetIpPortFromName(connection->ncb_name_26);
-	if (id2.adress == "x999")return false;
+	if (id2.adress == "x999") return false;
 	//fix it
 	int indexid = GetNameListenIndex(connection->ncb_name_26);
-	if(indexid==-1)return false;
-	ListenName[indexid] = connection->ncb_callName_10;
+	if (indexid == -1) return false;
+	//ListenName[indexid] = connection->ncb_callName_10;
 	clientListenID[indexid] = id1;
-	ListenName2[indexid]= connection->ncb_name_26;
+	//ListenName2[indexid]= connection->ncb_name_26;
 	clientListenID2[indexid] = id2;
 #ifdef TEST_NETWORK_MESSAGES
 	debug_net_printf("listen accepted:%s %d,%s %d\n", connection->ncb_callName_10, indexid, connection->ncb_name_26, id2);
 #endif //TEST_NETWORK_MESSAGES
+	return true;
+}
+
+bool IsListenName2(const shadow_myNCB* connection) {
+	TypeIpPort id1 = GetIpPortFromName(connection->ncb_callName_10);
+	if (id1.adress == "x999") return false;
+	TypeIpPort id2 = GetIpPortFromName(connection->ncb_name_26);
+	if (id2.adress == "x999") return false;
+	//fix it
+	int indexid = GetNameListenIndex(connection->ncb_name_26);
+	if (indexid == -1) return false;
+	if (ListenName[indexid] != connection->ncb_callName_10)
+		return false;
+	if ((clientListenID[indexid].adress != id1.adress)|| (clientListenID[indexid].port != id1.port))
+		return false;
+	if (ListenName2[indexid] != connection->ncb_name_26)
+		return false;
+	if ((clientListenID2[indexid].adress != id2.adress) || (clientListenID2[indexid].port != id1.port))
+		return false;
 	return true;
 }
 
@@ -520,7 +600,9 @@ namespace MyNetworkLib {
 		int clServerPort;
 		std::string clHost;
 		bool clIam_server = false;
-		std::string MyUniqueIpPort;
+		
+		//std::string MyUniqueIpPort;
+		int32_t MyUniqueIpPort=-1;
 
 		unsigned int stamp = 0;
 
@@ -594,7 +676,7 @@ namespace MyNetworkLib {
 
 	bool NetworkClass::SendMessage_UDP(const std::string& message, const std::string& destination_ip,
 		const unsigned short port) {
-		if (MyUniqueIpPort == "")
+		if (MyUniqueIpPort == -1)
 		{
 			message_info unpacked_message = Unpack_Message(message);
 			if ((unpacked_message.message!= MESS_CLIENT_GET_IP)&& (unpacked_message.message != MESS_SERVER_GIVE_IP))
@@ -667,10 +749,10 @@ namespace MyNetworkLib {
 	};
 
 	void NetworkClass::SendGiveIPMessage(asio::ip::udp::endpoint sender, int port) {		
-		myNCB nullNCB;
-		nullNCB.ncb_command_0 = 999;
+		shadow_myNCB nullNCB;
+		nullNCB.ncb_command_0 = 255;
 
-		SendToClient(Pack_Message(MESS_SERVER_GIVE_IP, nullNCB, -1, port, (char*)sender.address().to_string().c_str(), 1+strlen((char*)sender.address().to_string().c_str())), sender.address().to_string(), port);
+		SendToClient(Pack_Message(MESS_SERVER_GIVE_IP, nullNCB, -1, -10, port, sender.address().to_string().c_str(), 1+strlen(sender.address().to_string().c_str())), sender.address().to_string(), port);
 	};
 
 	bool NetworkClass::Registered(TypeIpPort ipPort) {
@@ -687,11 +769,11 @@ namespace MyNetworkLib {
 	void NetworkClass::Handler() {
 		while (HandleHandlerOn)
 		{
-			if (MyUniqueIpPort == "")
+			if (MyUniqueIpPort == -1)
 			{
-				myNCB nullNCB;
-				nullNCB.ncb_command_0 = 999;
-				SendToServer(Pack_Message(MESS_CLIENT_GET_IP, nullNCB, GetNextIndex(), clPort));
+				shadow_myNCB nullNCB;
+				nullNCB.ncb_command_0 = 255;
+				SendToServer(Pack_Message(MESS_CLIENT_GET_IP, nullNCB, GetNextIndex(), -10, clPort));
 				singleThreadSleep(500);
 				continue;
 			}
@@ -699,9 +781,9 @@ namespace MyNetworkLib {
 			//new
 			if (!receiveServerAddName)
 			{
-				myNCB nullNCB;
-				nullNCB.ncb_command_0 = 999;
-				SendToServer(Pack_Message(MESS_CLIENT_SERVER_NAME_ADDED, nullNCB, GetNextIndex(), clPort));
+				shadow_myNCB nullNCB;
+				nullNCB.ncb_command_0 = 255;
+				SendToServer(Pack_Message(MESS_CLIENT_SERVER_NAME_ADDED, nullNCB, GetNextIndex(), -10, clPort));
 				singleThreadSleep(1000);
 			}
 			//new
@@ -720,7 +802,7 @@ namespace MyNetworkLib {
 							message_info unpacked_message = Unpack_Message(GetRecMess());
 							if ((unpacked_message.message != MESS_SERVER_SEND)||(unpacked_message.messNCB.ncb_command_0!=0x94))
 							{
-								AddRecMess(Pack_Message(unpacked_message.message, unpacked_message.messNCB, unpacked_message.index, clServerPort, unpacked_message.data, unpacked_message.size));
+								AddRecMess(Pack_Message(unpacked_message.message, unpacked_message.messNCB, unpacked_message.index, -10, clServerPort, unpacked_message.data, unpacked_message.size));
 								break;
 							}
 							if (actConnection.connection->ncb_bufferLength_8 != unpacked_message.size)
@@ -773,12 +855,12 @@ namespace MyNetworkLib {
 						break;
 					}
 					case 0x90: {//CALL(opposite listen)
-									//connection->ncb_retcode_1= 0xb;
-									//connection->ncb_cmd_cplt_49 = 0xb;
-						/*if (netstate() == NETI_CALL)
+						if (netstate() == NETI_CALL)
 						{
-							lastconnection_shared->ncb_cmd_cplt_49 = 0xb;
-						}*/
+							actConnection.startTime = actClock;
+							deleteConnection = false;
+							SendToServer(Pack_Message(MESS_CLIENT_MESSAGE_CALL, myNCBtoShadow(*actConnection.connection), actConnection.index, MyUniqueIpPort, clPort, actConnection.connection->ncb_name_26, sizeof(actConnection.connection->ncb_name_26)));
+						}
 #ifdef TEST_NETWORK_MESSAGES
 						debug_net_printf("processEnd: lastconnection set to NULL CALL\n");
 #endif //TEST_NETWORK_MESSAGES
@@ -803,12 +885,12 @@ namespace MyNetworkLib {
 							message_info unpacked_message = Unpack_Message(GetRecMess());
 							if ((unpacked_message.message != MESS_SERVER_SEND) || (unpacked_message.messNCB.ncb_command_0 != 0x94))
 							{
-								AddRecMess(Pack_Message(unpacked_message.message, unpacked_message.messNCB, unpacked_message.index, clServerPort, unpacked_message.data, unpacked_message.size));
+								AddRecMess(Pack_Message(unpacked_message.message, unpacked_message.messNCB, unpacked_message.index, -10, clServerPort, unpacked_message.data, unpacked_message.size));
 								break;
 							}
 						}
 						actConnection.connection->ncb_bufferLength_8 = 0;
-						actConnection.connection->ncb_cmd_cplt_49 = 10;//timeout
+						actConnection.connection->ncb_cmd_cplt_49 = 0;//10//timeout
 #ifdef TEST_NETWORK_MESSAGES
 						debug_net_printf("processEnd: CONVERT FROM MESSAGE - timeout:%d:%d\n", actConnection.connection->ncb_bufferLength_8, 10/*strlen(tempstr.c_str())*/);
 						debug_net_printf("processEnd: lastconnection set to NULL RECEIVE - timeout\n");
@@ -819,8 +901,11 @@ namespace MyNetworkLib {
 						if (netstate() == NETI_ADD_NAME_REJECT)
 						{
 							actConnection.connection->ncb_cmd_cplt_49 = 22;
+#ifdef TEST_NETWORK_MESSAGES
+							debug_net_printf("processEnd: NETI_ADD_NAME_NOTOK\n");
+#endif //TEST_NETWORK_MESSAGES
 						}
-						if (netstate() == NETI_ADD_NAME_OK)
+						else if (netstate() == NETI_ADD_NAME_OK)
 						{
 							IHaveNameStrP = actConnection.connection->ncb_name_26;
 							actConnection.connection->ncb_cmd_cplt_49 = 0;
@@ -830,9 +915,12 @@ namespace MyNetworkLib {
 						}
 						else
 						{
-							actConnection.connection->ncb_cmd_cplt_49 = 22;
+							actConnection.startTime = actClock;
+							deleteConnection = false;
+							SendToServer(Pack_Message(MESS_CLIENT_TESTADDNAME, myNCBtoShadow(*actConnection.connection), actConnection.index, MyUniqueIpPort, clPort, actConnection.connection->ncb_name_26, sizeof(actConnection.connection->ncb_name_26)));
+							//actConnection.connection->ncb_cmd_cplt_49 = 22;
 #ifdef TEST_NETWORK_MESSAGES
-							debug_net_printf("processEnd: NETI_ADD_NAME_NOTOK\n");
+							debug_net_printf("I try MESS_CLIENT_TESTADDNAME again\n");
 #endif //TEST_NETWORK_MESSAGES
 						}
 #ifdef TEST_NETWORK_MESSAGES
@@ -859,7 +947,7 @@ namespace MyNetworkLib {
 			}
 			handleConnections_mt.unlock();
 
-			singleThreadSleep(3);
+			singleThreadSleep(1);
 		}
 	}
 
@@ -879,7 +967,7 @@ namespace MyNetworkLib {
 		message_info unpacked_message = Unpack_Message(bufferStr);
 		if (unpacked_message.message == MESS_SERVER_GIVE_IP)
 		{
-			MyUniqueIpPort = unpacked_message.data +';' + std::to_string(clPort);
+			MyUniqueIpPort = hashFunction(unpacked_message.data +';' + std::to_string(clPort));
 			return true;
 		}
 		return false;
@@ -909,9 +997,9 @@ namespace MyNetworkLib {
 			}
 			if (serverAddname)
 			{
-				myNCB nullNCB;
-				nullNCB.ncb_command_0 = 999;
-				SendToClient(Pack_Message(MESS_SERVER_SERVER_NAME_ADDED, nullNCB, unpacked_message.index), sender.address().to_string(), unpacked_message.port);
+				shadow_myNCB nullNCB;
+				nullNCB.ncb_command_0 = 255;
+				SendToClient(Pack_Message(MESS_SERVER_SERVER_NAME_ADDED, nullNCB, unpacked_message.index, - 10), sender.address().to_string(), unpacked_message.port);
 	#ifdef TEST_NETWORK_MESSAGES
 				debug_net_printf("Client %s can AddName\n", sender.address().to_string().c_str());
 	#endif //TEST_NETWORK_MESSAGES
@@ -919,15 +1007,15 @@ namespace MyNetworkLib {
 		}
 
 		else if (unpacked_message.message == MESS_CLIENT_TESTADDNAME) {
+			TypeIpPort locIpPort;
+			locIpPort.adress = sender.address().to_string();
+			locIpPort.port = unpacked_message.port;
 			if ((!GetNameNetwork(unpacked_message.data).compare("")))
 			{
-				TypeIpPort locIpPort;
-				locIpPort.adress = sender.address().to_string();
-				locIpPort.port = unpacked_message.port;
 				AddNetworkName(unpacked_message.data, locIpPort);
-				myNCB nullNCB;
-				nullNCB.ncb_command_0 = 999;
-				SendToClient(Pack_Message(MESS_SERVER_TESTADDNAME_OK, nullNCB, unpacked_message.index), sender.address().to_string(), unpacked_message.port);
+				shadow_myNCB nullNCB;
+				nullNCB.ncb_command_0 = 255;
+				SendToClient(Pack_Message(MESS_SERVER_TESTADDNAME_OK, nullNCB, unpacked_message.index, -10), sender.address().to_string(), unpacked_message.port);
 	#ifdef TEST_NETWORK_MESSAGES
 				debug_net_printf("Server: MESSAGE_TESTADDNAME OK:%s %d\n", unpacked_message.data, sender.address().to_string());
 	#endif //TEST_NETWORK_MESSAGES
@@ -936,11 +1024,20 @@ namespace MyNetworkLib {
 				if (!strcmp(unpacked_message.data, compText))//is Server
 					serverAddname = true;
 			}
+			else if (ExistNetworkName(unpacked_message.data, locIpPort))
+			{
+				shadow_myNCB nullNCB;
+				nullNCB.ncb_command_0 = 255;
+				SendToClient(Pack_Message(MESS_SERVER_TESTADDNAME_OK, nullNCB, unpacked_message.index, -10), sender.address().to_string(), unpacked_message.port);
+#ifdef TEST_NETWORK_MESSAGES
+				debug_net_printf("Server: MESSAGE_TESTADDNAME OK:%s %d\n", unpacked_message.data, sender.address().to_string());
+#endif //TEST_NETWORK_MESSAGES
+			}
 			else
 			{
-				myNCB nullNCB;
-				nullNCB.ncb_command_0 = 999;
-				SendToClient(Pack_Message(MESS_SERVER_TESTADDNAME_REJECT, nullNCB, unpacked_message.index), sender.address().to_string(), unpacked_message.port);
+				shadow_myNCB nullNCB;
+				nullNCB.ncb_command_0 = 255;
+				SendToClient(Pack_Message(MESS_SERVER_TESTADDNAME_REJECT, nullNCB, unpacked_message.index, - 10), sender.address().to_string(), unpacked_message.port);
 	#ifdef TEST_NETWORK_MESSAGES
 				debug_net_printf("Server: MESSAGE_TESTADDNAME REJECT:%s %d\n", unpacked_message.data, sender.address().to_string());
 	#endif //TEST_NETWORK_MESSAGES
@@ -951,29 +1048,35 @@ namespace MyNetworkLib {
 			AddListenName((myNCB*)unpacked_message.data);
 			//"NETH200        "
 	#ifdef TEST_NETWORK_MESSAGES
-			debug_net_printf("Server: MESSAGE_LISTEN:%s ; %s %s\n", ((myNCB*)unpacked_message.data)->ncb_callName_10, ((myNCB*)unpacked_message.data)->ncb_name_26, sender.address().to_string().c_str());
+			debug_net_printf("Server: MESSAGE_LISTEN:%s ; %s %s\n", ((shadow_myNCB*)unpacked_message.data)->ncb_callName_10, ((myNCB*)unpacked_message.data)->ncb_name_26, sender.address().to_string().c_str());
 	#endif //TEST_NETWORK_MESSAGES
 		}
 		else if (unpacked_message.message == MESS_CLIENT_MESSAGE_CALL)
 		{
-			if (AddListenName2((myNCB*)unpacked_message.data))
+			TypeIpPort callLocIpPort = GetIpPortFromName(unpacked_message.messNCB.ncb_callName_10);
+			if (AddListenName2(&unpacked_message.messNCB))
 			{
-				SendToClient(Pack_Message(MESS_SERVER_CALL_ACCEPT, unpacked_message.messNCB, unpacked_message.index), sender.address().to_string(), unpacked_message.port);
-				TypeIpPort locIpPort = GetIpPortFromName(((myNCB*)unpacked_message.data)->ncb_callName_10);
-				SendToClient(Pack_Message(MESS_SERVER_LISTEN_ACCEPT, unpacked_message.messNCB, unpacked_message.index, clServerPort, unpacked_message.data, unpacked_message.size), locIpPort.adress, locIpPort.port);
+				SendToClient(Pack_Message(MESS_SERVER_CALL_ACCEPT, unpacked_message.messNCB, unpacked_message.index, -10), sender.address().to_string(), unpacked_message.port);
+				SendToClient(Pack_Message(MESS_SERVER_LISTEN_ACCEPT, unpacked_message.messNCB, unpacked_message.index, -10, clServerPort, unpacked_message.data, unpacked_message.size), callLocIpPort.adress, callLocIpPort.port);
 				//"NETH200        "
 	#ifdef TEST_NETWORK_MESSAGES
-				debug_net_printf("Server: NETI_LISTEN_CONNECTED:%s %s %s\n", ((myNCB*)unpacked_message.data)->ncb_callName_10, ((myNCB*)unpacked_message.data)->ncb_name_26, sender.address().to_string().c_str());
+				debug_net_printf("Server: NETI_LISTEN_CONNECTED:%s %s %s\n", unpacked_message.messNCB.ncb_callName_10, unpacked_message.messNCB.ncb_name_26, sender.address().to_string().c_str());
 	#endif //TEST_NETWORK_MESSAGES
-			}
+			}/* else if (IsListenName2(&unpacked_message.messNCB)) {
+				SendToClient(Pack_Message(MESS_SERVER_CALL_ACCEPT, unpacked_message.messNCB, unpacked_message.index, -10), sender.address().to_string(), unpacked_message.port);
+				SendToClient(Pack_Message(MESS_SERVER_LISTEN_ACCEPT, unpacked_message.messNCB, unpacked_message.index, -10, clServerPort, unpacked_message.data, unpacked_message.size), callLocIpPort.adress, callLocIpPort.port);
+				//"NETH200        "
+#ifdef TEST_NETWORK_MESSAGES
+				debug_net_printf("Server: NETI_LISTEN_CONNECTED:%s %s %s\n", unpacked_message.messNCB.ncb_callName_10, unpacked_message.messNCB.ncb_name_26, sender.address().to_string().c_str());
+#endif //TEST_NETWORK_MESSAGES
+			}*/
 			else
 			{
-				SendToClient(Pack_Message(MESS_SERVER_CALL_REJECT, unpacked_message.messNCB, unpacked_message.index), sender.address().to_string(), unpacked_message.port);
-				TypeIpPort locIpPort = GetIpPortFromName(((myNCB*)unpacked_message.data)->ncb_name_26);
-				SendToClient(Pack_Message(MESS_SERVER_LISTEN_REJECT, unpacked_message.messNCB, unpacked_message.index), locIpPort.adress, locIpPort.port);
+				SendToClient(Pack_Message(MESS_SERVER_CALL_REJECT, unpacked_message.messNCB, unpacked_message.index, -10), sender.address().to_string(), unpacked_message.port);
+				SendToClient(Pack_Message(MESS_SERVER_LISTEN_REJECT, unpacked_message.messNCB, unpacked_message.index, -10), callLocIpPort.adress, callLocIpPort.port);
 				//"NETH200        "
 	#ifdef TEST_NETWORK_MESSAGES
-				debug_net_printf("Server: NETI_LISTEN_REJECT:%s %s %s\n", ((myNCB*)unpacked_message.data)->ncb_callName_10, ((myNCB*)unpacked_message.data)->ncb_name_26, sender.address().to_string().c_str());
+				debug_net_printf("Server: NETI_LISTEN_REJECT:%s %s %s\n", unpacked_message.messNCB.ncb_callName_10, unpacked_message.messNCB.ncb_name_26, sender.address().to_string().c_str());
 	#endif //TEST_NETWORK_MESSAGES
 			}
 		}
@@ -987,7 +1090,7 @@ namespace MyNetworkLib {
 		}
 		else if (unpacked_message.message == MESS_CLIENT_DELETE)
 		{
-			CleanMessages(&unpacked_message.messNCB);
+			CleanMessages(myNCBfromShadow(unpacked_message.messNCB));
 			RemoveNetworkName(unpacked_message.data);
 	#ifdef TEST_NETWORK_MESSAGES
 			debug_net_printf("Server: MESSAGE_DELETE:%s %s\n", unpacked_message.data, sender.address().to_string().c_str());
@@ -1001,8 +1104,8 @@ namespace MyNetworkLib {
 			TypeIpPort otherid = GetOtherSide(locIpPort);
 			if (otherid.adress != "x1000")
 			{
-				SendToClient(Pack_Message(MESS_SERVER_SEND, unpacked_message.messNCB, unpacked_message.index, clServerPort, unpacked_message.data, unpacked_message.size), otherid.adress, otherid.port);
-				SendToClient(Pack_Message(MESS_SERVER_SEND_OK, unpacked_message.messNCB, unpacked_message.index), sender.address().to_string(), unpacked_message.port);
+				SendToClient(Pack_Message(MESS_SERVER_SEND, unpacked_message.messNCB, unpacked_message.index, -10, clServerPort, unpacked_message.data, unpacked_message.size), otherid.adress, otherid.port);
+				SendToClient(Pack_Message(MESS_SERVER_SEND_OK, unpacked_message.messNCB, unpacked_message.index, - 10), sender.address().to_string(), unpacked_message.port);
 			}
 	#ifdef TEST_NETWORK_MESSAGES
 			debug_net_printf("Server: MESSAGE_SEND:%s %d %s %d\n", /*unpacked_message.data,*/ otherid.adress.c_str(), otherid.port, sender.address().to_string().c_str(), unpacked_message.port);
@@ -1031,7 +1134,7 @@ namespace MyNetworkLib {
 		else if (unpacked_message.message == MESS_SERVER_TESTADDNAME_OK)
 		{
 			netstate(NETI_ADD_NAME_OK);
-			SetNetworkTime(unpacked_message.index, 500);
+			SetNetworkTime(unpacked_message.index, 0);
 	#ifdef TEST_NETWORK_MESSAGES
 			debug_net_printf("Client: NETI_ADD_NAME_OK:\n");
 	#endif //TEST_NETWORK_MESSAGES
@@ -1039,7 +1142,7 @@ namespace MyNetworkLib {
 		else if (unpacked_message.message == MESS_SERVER_TESTADDNAME_REJECT)
 		{
 			netstate(NETI_ADD_NAME_REJECT);
-			SetNetworkTime(unpacked_message.index, 500);
+			SetNetworkTime(unpacked_message.index, 0);
 	#ifdef TEST_NETWORK_MESSAGES
 			debug_net_printf("CLIENT NETI_ADD_NAME_REJECT:\n");
 	#endif //TEST_NETWORK_MESSAGES
@@ -1064,9 +1167,12 @@ namespace MyNetworkLib {
 			handleConnections_mt.unlock();
 
 			SetNetworkTime(unpacked_message.index, 0);
-	#ifdef TEST_NETWORK_MESSAGES
-			debug_net_printf("CLIENT MESSAGE_CALL_ACCEPT: %p|%s|%s|\n", ptrConn->connection, ptrConn->connection->ncb_callName_10, ptrConn->connection->ncb_name_26);
-	#endif //TEST_NETWORK_MESSAGES
+#ifdef TEST_NETWORK_MESSAGES
+			if (ptrConn)
+				debug_net_printf("CLIENT MESSAGE_CALL_ACCEPT: %p|%s|%s|\n", ptrConn->connection, ptrConn->connection->ncb_callName_10, ptrConn->connection->ncb_name_26);
+			else
+				debug_net_printf("CLIENT MESSAGE_CALL_ACCEPT\n");
+#endif //TEST_NETWORK_MESSAGES
 		}
 		else if (unpacked_message.message == MESS_SERVER_CALL_REJECT)
 		{
@@ -1092,7 +1198,7 @@ namespace MyNetworkLib {
 		}
 		else if (unpacked_message.message == MESS_SERVER_SEND)
 		{
-			AddRecMess(Pack_Message(MESS_SERVER_SEND, unpacked_message.messNCB, unpacked_message.index, clServerPort, unpacked_message.data, unpacked_message.size));
+			AddRecMess(Pack_Message(MESS_SERVER_SEND, unpacked_message.messNCB, unpacked_message.index, -10, clServerPort, unpacked_message.data, unpacked_message.size));
 			SetNetworkTime(unpacked_message.index, 0);
 	#ifdef TEST_NETWORK_MESSAGES
 			debug_net_printf("CLIENT MESSAGE_SEND:\n");
@@ -1129,7 +1235,18 @@ namespace MyNetworkLib {
 			type_savedMessages locMessage;
 			locMessage.messages = bufferStr;
 			locMessage.sender = sender;
-			savedMessages.push_back(locMessage);
+
+			if (bufferStr == "Xend")continue;
+#ifdef TEST_BAD_NETWORK
+			message_info unpacked_message = Unpack_Message(bufferStr);
+			if ((rand() % 3 == 0)||(unpacked_message.message == MESS_CLIENT_MESSAGE_LISTEN) || (unpacked_message.message == MESS_SERVER_LISTEN_ACCEPT))
+			{
+#endif //TEST_BAD_NETWORK
+				savedMessages.push_back(locMessage);
+#ifdef TEST_BAD_NETWORK
+			}
+#endif //TEST_BAD_NETWORK
+			singleThreadSleep(1);
 		}
 	}
 
@@ -1151,9 +1268,7 @@ namespace MyNetworkLib {
 				if (bufferStr.size() == 0)
 					continue;
 
-				if (bufferStr == "Xend")continue;
-
-				if (clIam_server/* && clPort == clServerPort*/)
+				if (clIam_server)
 					if (HandleMessagesServerPre(bufferStr, sender))
 						continue;
 				if (HandleMessagesClientPre(bufferStr, sender))
@@ -1166,7 +1281,7 @@ namespace MyNetworkLib {
 					HandleMessagesClient(bufferStr, sender);
 				}
 			}
-			singleThreadSleep(3);
+			singleThreadSleep(1);
 		}
 	}
 
@@ -1179,7 +1294,7 @@ namespace MyNetworkLib {
 	};
 
 	void NetworkClass::AddName(myNCB* connection, int32_t index) {
-		SendToServer(Pack_Message(MESS_CLIENT_TESTADDNAME, *connection, index, clPort, connection->ncb_name_26, sizeof(connection->ncb_name_26)));
+		SendToServer(Pack_Message(MESS_CLIENT_TESTADDNAME, myNCBtoShadow(*connection), index, MyUniqueIpPort, clPort, connection->ncb_name_26, sizeof(connection->ncb_name_26)));
 	};
 
 	void NetworkClass::AddNameReceive(bool nameIsOk, uint32_t id)
@@ -1191,23 +1306,23 @@ namespace MyNetworkLib {
 	}
 
 	void NetworkClass::CancelNetwork(myNCB* connection, int32_t index) {
-		SendToServer(Pack_Message(MESS_CLIENT_CANCEL, *connection, index, clPort, connection->ncb_name_26, sizeof(connection->ncb_name_26)));
+		SendToServer(Pack_Message(MESS_CLIENT_CANCEL, myNCBtoShadow (*connection), index, MyUniqueIpPort, clPort, connection->ncb_name_26, sizeof(connection->ncb_name_26)));
 		deleteListenConnection(connection);
 	}
 
 	void NetworkClass::DeleteNetwork(myNCB* connection, int32_t index) {
-		SendToServer(Pack_Message(MESS_CLIENT_DELETE, *connection, index, clPort, connection->ncb_name_26, sizeof(connection->ncb_name_26)));
+		SendToServer(Pack_Message(MESS_CLIENT_DELETE, myNCBtoShadow(*connection), index, MyUniqueIpPort, clPort, connection->ncb_name_26, sizeof(connection->ncb_name_26)));
 		singleThreadSleep(400);
-		CleanMessages(connection);
+		CleanMessages(*connection);
 		savedMessages.clear();
 	}
 
 	void NetworkClass::CallNetwork(myNCB* connection, int32_t index) {
-		SendToServer(Pack_Message(MESS_CLIENT_MESSAGE_CALL, *connection, index, clPort, (char*)connection, sizeof(*connection)));// +connection->ncb_name_26 + std::string(";") + connection->ncb_callName_10);
+		SendToServer(Pack_Message(MESS_CLIENT_MESSAGE_CALL, myNCBtoShadow(*connection), index, MyUniqueIpPort, clPort, (char*)connection, sizeof(*connection)));// +connection->ncb_name_26 + std::string(";") + connection->ncb_callName_10);
 	};
 
 	void NetworkClass::ListenNetwork(myNCB* connection, int32_t index) {
-		SendToServer(Pack_Message(MESS_CLIENT_MESSAGE_LISTEN, *connection, index, clPort, (char*)connection, sizeof(*connection)));/*->ncb_callName_10 + ';' + connection->ncb_name_26*/
+		SendToServer(Pack_Message(MESS_CLIENT_MESSAGE_LISTEN, myNCBtoShadow(*connection), index, MyUniqueIpPort, clPort, (char*)connection, sizeof(*connection)));/*->ncb_callName_10 + ';' + connection->ncb_name_26*/
 		setListenConnection(connection);
 	};
 
@@ -1218,7 +1333,7 @@ namespace MyNetworkLib {
 			int b = 0;
 			int c = a / b;
 		}
-		SendToServer(Pack_Message(MESS_CLIENT_SEND, *connection, index, clPort, (char*)connection->ncb_buffer_4.p, connection->ncb_bufferLength_8));
+		SendToServer(Pack_Message(MESS_CLIENT_SEND, myNCBtoShadow(*connection), index, MyUniqueIpPort, clPort, (char*)connection->ncb_buffer_4.p, connection->ncb_bufferLength_8));
 #ifdef TEST_NETWORK_MESSAGES
 		debug_net_printf("CONVERT TO MESSAGE:%d:%d\n", connection->ncb_bufferLength_8, connection->ncb_bufferLength_8);
 #endif //TEST_NETWORK_MESSAGES
@@ -1259,14 +1374,14 @@ std::string GetRecMess() {
 	return result;
 };
 
-void CleanMessages(myNCB* locNCB) {
+void CleanMessages(myNCB locNCB) {
 	std::string result;
 	RecMess_mt.lock();
 	for (auto it = recMessages.begin(); it != recMessages.end();)
 	{
 		message_info unpackedMess = Unpack_Message(*it);
-		if ((memcpy(unpackedMess.messNCB.ncb_name_26, locNCB->ncb_name_26,sizeof(locNCB->ncb_name_26)))||
-			(memcpy(unpackedMess.messNCB.ncb_callName_10, locNCB->ncb_name_26, sizeof(locNCB->ncb_name_26))))
+		if ((memcpy(unpackedMess.messNCB.ncb_name_26, locNCB.ncb_name_26,sizeof(locNCB.ncb_name_26)))||
+			(memcpy(unpackedMess.messNCB.ncb_callName_10, locNCB.ncb_name_26, sizeof(locNCB.ncb_name_26))))
 		{
 			it = recMessages.erase(it);
 		}
@@ -1313,7 +1428,7 @@ void makeNetwork(myNCB* connection) {
 		break;
 	}
 	case 0x90: {//CALL
-		locTimeout = 600000;
+		locTimeout = 1000;
 #ifdef TEST_NETWORK_MESSAGES
 		debug_net_printf("makeNetwork - SET NETWORK CALL %p|%s|%s|\n", connection,connection->ncb_name_26, connection->ncb_callName_10);
 #endif //TEST_NETWORK_MESSAGES
@@ -1325,7 +1440,7 @@ void makeNetwork(myNCB* connection) {
 		break;
 	}
 	case 0x91: {//LISTEN
-		locTimeout = 10000;
+		locTimeout = 200;
 #ifdef TEST_NETWORK_MESSAGES
 		debug_net_printf("makeNetwork - SET NETWORK LISTEN %s %s\n", connection->ncb_name_26, connection->ncb_callName_10);
 #endif //TEST_NETWORK_MESSAGES
@@ -1333,6 +1448,7 @@ void makeNetwork(myNCB* connection) {
 		connection->ncb_cmd_cplt_49 = 0xff;
 		locNetworkClass->ListenNetwork(connection, locIndex);
 		netstate(NETI_LISTEN);
+		singleThreadSleep(200);
 		break;
 	}
 	case 0x92: {//HANG UP
@@ -1350,7 +1466,7 @@ void makeNetwork(myNCB* connection) {
 		break;
 	}
 	case 0x95: {//RECEIVE
-		locTimeout = 100000000;
+		locTimeout = 10000;//500;
 #ifdef TEST_NETWORK_MESSAGES
 		debug_net_printf("makeNetwork - SET NETWORK RECEIVE %s %s\n", connection->ncb_name_26, connection->ncb_callName_10);
 #endif //TEST_NETWORK_MESSAGES
@@ -1363,7 +1479,7 @@ void makeNetwork(myNCB* connection) {
 		break;
 	}
 	case 0xb0: {//ADD_NAME 
-		locTimeout = 15000;
+		locTimeout = 1000;
 #ifdef TEST_NETWORK_MESSAGES
 		debug_net_printf("makeNetwork - SET NETWORK ADD_NAME %s %s\n", connection->ncb_name_26, connection->ncb_callName_10);
 #endif //TEST_NETWORK_MESSAGES
@@ -1441,6 +1557,25 @@ void printState2(char* text) {
 #endif //TEST_NETWORK_MESSAGES
 }
 
+void timeState(bool start, const char* text) {
+#ifdef TEST_TIME_NETWORK_MESSAGES
+	if (start||(timest_index==0))timest_timer = clock();
+	char buff[100];
+	snprintf(buff, sizeof(buff), "%s | %d", text, (int)(clock()- timest_timer));
+	timest_buffer[timest_index].assign(buff, strlen(buff));
+	timest_index++;
+	if (timest_index > timest_max_mess) {
+		ofstream ofs("net_time_messages_log.txt", std::ofstream::out);
+		for (int i = 0; i < timest_max_mess; i++) {
+
+			ofs << timest_buffer[i] << endl; // I also tried replacing endl with a "\n"
+		}
+		ofs.close();
+		exit(0);
+	}
+#endif //TEST_TIME_NETWORK_MESSAGES
+}
+
 void InitMyNetLib(bool iam_server, char* ip, int networkPort, int serverPort)
 {
 	if (iam_server)networkPort = serverPort;
@@ -1451,4 +1586,3 @@ void EndMyNetLib() {
 	singleThreadSleep(500);
 	delete locNetworkClass;
 }
-

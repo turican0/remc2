@@ -3,7 +3,7 @@
 #include "CommandLineParser.h"
 
 
-TEST (DebugParameters, CommandLineParser) { 
+TEST (CommandLineParser, DebugParameters) { 
     int args = 3;
     char *with_test_reg_game_group[] = {
         (char*)"exe filename",
