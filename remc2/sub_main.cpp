@@ -92854,20 +92854,64 @@ void sub_9B688(int a1)//27C688
 }
 
 //----- (0009B7E8) --------------------------------------------------------
-int sub_9B7E8(int a1)//27C7E8
+int sub_9B7E8(_DWORD* a1)
 {
-	char v4; // [esp+44h] [ebp-1Ch]
+	__int16 v1; // dx
+	char v3; // [esp+44h] [ebp-1Ch]
+	_WORD* v4; // [esp+50h] [ebp-10h]
+	char v5; // [esp+54h] [ebp-Ch]
+	char v6; // [esp+58h] [ebp-8h]
 
-	if (*(x_DWORD*)(a1 + 28))
+	if (a1[7])
 	{
-		*(x_WORD*)(*(x_DWORD*)(a1 + 44) + 4) |= 0x10u;
+		*(_WORD*)(a1[11] + 4) |= 0x10u;
 		while (1)
 		{
-			v4 = x_inp(*(x_DWORD*)(a1 + 28) + 2);
-			if (v4 & 1)
+			v3 = x_inp(a1[7] + 2);
+			if ((v3 & 1) != 0)
 				break;
-			if ((v4 & 7u) <= 6)
-				;//fix it JUMPOUT(__CS__, (int*) * (&off_9B844 + (v4 & 7)));
+			switch (v3 & 7)
+			{
+			case 0:
+				v6 = x_inp(a1[7] + 6);
+				if (a1[5])
+				{
+					if ((v6 & 0x10) != 0)
+					{
+						if ((*(_WORD*)(a1[11] + 4) & 2) != 0)
+							sub_9B688((int)a1);
+					}
+					else
+					{
+						*(_WORD*)(a1[11] + 4) |= 2u;
+					}
+				}
+				break;
+			case 2:
+				sub_9B688((int)a1);
+				break;
+			case 4:
+				while ((x_inp(a1[7] + 5) & 1) != 0)
+				{
+					v5 = x_inp(a1[7]);
+					v4 = *(_WORD**)((char*)a1 + 10);
+					if (v4[2] < v4[3])
+					{
+						v1 = v4[1];
+						v4[1] = v1 + 1;
+						*(_BYTE*)(*(_DWORD*)((char*)a1 + 14) + v1) = v5;
+						if (v4[1] == v4[3])
+							v4[1] = 0;
+						++v4[2];
+					}
+				}
+				break;
+			case 6:
+				x_inp(a1[7] + 5);
+				break;
+			default:
+				continue;
+			}
 		}
 	}
 	return x_outp(32, 32);
