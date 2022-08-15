@@ -31,7 +31,7 @@ void PlayIntoSoundEvents_1B280(Type_SoundEvent_E17CC* pSoundEvent);
 void sub_75DB0();
 void sub_75E70();
 
-void sub_loc_1B2E6();
+/*void sub_loc_1B2E6();
 void sub_loc_1B2F7(Type_SoundEvent_E17CC* pSoundEvent);
 void sub_loc_1B316(uint8_t a1);
 void sub_loc_1B334(Type_SoundEvent_E17CC* pSoundEvent);
@@ -51,7 +51,7 @@ void sub_loc_1B54A(uint16_t a1, Type_SoundEvent_E17CC* pSoundEvent);
 void sub_loc_1B589();
 void sub_loc_1B5A7();
 void sub_loc_1B5BC(uint16_t a1);
-void sub_loc_1B5CB();
+void sub_loc_1B5CB();*/
 //void sub_loc_1B5D7();
 void sub_2EC60();
 int sub_473E0();

@@ -43935,131 +43935,88 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E)//pre 22b1
 		PlayIntoSoundEvents_1B280((Type_SoundEvent_E17CC*)a1_6E8E);//FIX ME
 		break;
 	}
-
 	case 0x1fc2e6: {
-		sub_loc_1B2E6();
+		allert_error();
 		break;
 	}
 	case 0x1fc2f7: {
-		sub_loc_1B2F7((Type_SoundEvent_E17CC*)a1_6E8E);//FIX ME
+		allert_error();
 		break;
 	}
 	case 0x1fc316: {
-#ifdef __linux__ // FIXME: types
-		std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-		sub_loc_1B316((uint8_t)a1_6E8E);
-		stub_fix_it();//bad retyping
-#endif
+		allert_error();
 		break;
 	}
 	case 0x1fc334: {
-		sub_loc_1B334((Type_SoundEvent_E17CC*)a1_6E8E);//FIX ME
+		allert_error();
 		break;
 	}
 	case 0x1fc352: {
-		sub_loc_1B352((Type_SoundEvent_E17CC*)a1_6E8E);//FIX ME
+		allert_error();
 		break;
 	}
-
 	case 0x1fc36c: {
-		sub_loc_1B36C();
+		allert_error();
 		break;
 	}
 	case 0x1fc37d: {
-		sub_loc_1B37D((Type_SoundEvent_E17CC*)a1_6E8E);//FIX ME
+		allert_error();
 		break;
 	}
 	case 0x1fc398: {
-		sub_loc_1B398((Type_SoundEvent_E17CC*)a1_6E8E);//FIX ME
+		allert_error();
 		break;
 	}
 	case 0x1fc3c9: {
-		sub_loc_1B3C9((Type_SoundEvent_E17CC*)a1_6E8E);//FIX ME
+		allert_error();
 		break;
 	}
 	case 0x1fc413: {
-		sub_loc_1B413();
+		allert_error();
 		break;
 	}
-
 	case 0x1fc424: {
-#ifdef __linux__ // FIXME: types
-		std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-		sub_loc_1B424((uint16_t)a1_6E8E, 0);
-		stub_fix_it();//bad retyping
-#endif
+		allert_error();
 		break;
 	}
 	case 0x1fc450: {
-		sub_loc_1B450();
+		allert_error();
 		break;
 	}
 	case 0x1fc461: {
-#ifdef __linux__ // FIXME: types
-		std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-		sub_loc_1B461((uint16_t)a1_6E8E, 0);
-		stub_fix_it();//bad retyping
-#endif
+		allert_error();
 		break;
 	}
 	case 0x1fc4a0: {
-#ifdef __linux__ // FIXME: types
-		std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-		sub_loc_1B4A0((uint16_t)a1_6E8E, 0);
-		stub_fix_it();//bad retyping
-#endif
+		allert_error();
 		break;
 	}
 	case 0x1fc4df: {
-#ifdef __linux__ // FIXME: types
-		std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-		sub_loc_1B4DF((uint16_t)a1_6E8E, 0);
-		stub_fix_it();//bad retyping
-#endif
+		allert_error();
 		break;
 	}
-
 	case 0x1fc51e: {
-		sub_loc_1B51E((Type_SoundEvent_E17CC*)a1_6E8E);//FIX ME
+		allert_error();
 		break;
 	}
 	case 0x1fc54a: {
-#ifdef __linux__ // FIXME: types
-		std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-		sub_loc_1B54A((uint16_t)a1_6E8E, 0);
-		stub_fix_it();//bad retyping
-#endif
+		allert_error();
 		break;
 	}
 	case 0x1fc589: {
-		sub_loc_1B589();
+		allert_error();
 		break;
 	}
 	case 0x1fc5a7: {
-		sub_loc_1B5A7();
+		allert_error();
 		break;
 	}
 	case 0x1fc5bc: {
-#ifdef TEST_x64
-	allert_error();
-#endif
-#ifdef COMPILE_FOR_64BIT // FIXME: 64bit
-  std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-#else
-		sub_loc_1B5BC((int)a1_6E8E);
 		allert_error();
-#endif
 		break;
 	}
-
 	case 0x1fc5cb: {
-		sub_loc_1B5CB();
+		allert_error();
 		break;
 	}
 	case 0x1fc5f0: {
