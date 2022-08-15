@@ -54760,129 +54760,97 @@ char sub_55C00_TestSaveFile2(__int16 a1)//236c00
 }
 
 //----- (00055C60) --------------------------------------------------------
-void sub_55C60(/*int a1, int a2, */type_str_0x2BDE* a3x)//236c60
+void sub_55C60(type_str_0x2BDE* loc0x2BDE)//236c60
 {
-	//unsigned int result; // eax
-	int v4; // eax
-	__int16 v5; // ax
-	//int v6; // edx
-	char v7; // cl
-	//__int16 v8; // ax
-	__int16 v9; // ax
-	unsigned __int8 v10; // ch
-	char v11; // dl
-	__int16 v12; // ax
-	__int16 v13; // dx
-	signed int v14; // [esp+0h] [ebp-4h]
+	int param1 = 0;
+	int param2 = 0;
+	int param3 = 0;
 
-	//fix it
-	v14 = 0;
-	int a1 = 0;
-	int a2 = 0;
-	//fix it
-
-	//result = (unsigned int)x_D41A0_BYTEARRAY_4;
-	if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte3_24 & 1))
+	if ((x_D41A0_BYTEARRAY_4_struct.setting_byte3_24 & 1) == 0)
 	{
-		v4 = abs(a3x->dword_0x3E6_2BE4_12228.word_0x155_341);
-		if ((unsigned __int8)(a3x->byte_0x846_2BDE - 1) <= 6u)
-			//JUMPOUT(__CS__, (int*) *(&off_55C38 + (unsigned __int8)(*(x_BYTE *)(a3 + 2118) - 1)));
-			switch ((unsigned __int8)(a3x->byte_0x846_2BDE - 1)) {
-			case 0: //loc_55CB2
-			case 1: {//loc_55CB2
-				a2 = 1;
-				a1 = -2;
-				v14 = 1024;
-				break;
-			}
-			case 2: {//loc_55CEB
-				a2 = 1;
-				v14 = v4 + 2048;
-				a1 = 1;
-				break;
-			}
-			case 3: {//loc_55CC3
-				a2 = 1;
-				a1 = -2;
-				v14 = v4 + 2116;
-				break;
-			}
-			case 4: {//loc_55CF7
-				a2 = -1;
-				a1 = 3;
-				v14 = v4 + 2048;
-				break;
-			}
-			case 5: {//loc_55CD7
-				a2 = -1;
-				a1 = -4;
-				v14 = v4 + 2013;
-				break;
-			}
-			case 6: {//loc_55D03
-				a2 = 1;
-				a1 = 5;
-				v14 = v4 + 2048;
-				break;
-			}
-			}
-		if (a3x->byte_0x846_2BDE == 1)
+		int number1 = abs(loc0x2BDE->dword_0x3E6_2BE4_12228.word_0x155_341);
+		switch (loc0x2BDE->byte_0x846_2BDE)
 		{
-			if (a3x->dword_0x3E6_2BE4_12228.word_0x155_341 >= 0)
-				a3x->byte_0x847_2BDE = 1;
+		case 1:
+		case 2:
+			param1 = 1;
+			param2 = -2;
+			param3 = 1024;
+			break;
+		case 3:
+			param1 = 1;
+			param3 = number1 + 2048;
+			param2 = 1;
+			break;
+		case 4:
+			param1 = 1;
+			param2 = -2;
+			param3 = number1 + 2116;
+			break;
+		case 5:
+			param1 = -1;
+			param2 = 3;
+			param3 = number1 + 2048;
+			break;
+		case 6:
+			param1 = -1;
+			param2 = -4;
+			param3 = number1 + 2013;
+			break;
+		case 7:
+			param1 = 1;
+			param2 = 5;
+			param3 = number1 + 2048;
+			break;
+		default:
+			break;
+		}
+		if (loc0x2BDE->byte_0x846_2BDE == 1)
+		{
+			if (loc0x2BDE->dword_0x3E6_2BE4_12228.word_0x155_341 >= 0)
+				loc0x2BDE->byte_0x847_2BDE = 1;
 			else
-				a3x->byte_0x847_2BDE = -1;
-			v5 = abs(a3x->dword_0x3E6_2BE4_12228.word_0x155_341);
-			a3x->word_0x84A_2BDE = 91;
-			//v6 = (int)x_D41A0_BYTEARRAY_4;
-			v7 = a3x->byte_0x846_2BDE;
-			a3x->word_0x848_2BDE = v5;
-			//v8 = x_WORD_E3760_mouse.x;
-			a3x->byte_0x846_2BDE = v7 + 1;
+				loc0x2BDE->byte_0x847_2BDE = -1;
+			loc0x2BDE->word_0x84A_2BDE = 91;
+			loc0x2BDE->word_0x848_2BDE = abs(loc0x2BDE->dword_0x3E6_2BE4_12228.word_0x155_341);
+			loc0x2BDE->byte_0x846_2BDE++;
 			x_D41A0_BYTEARRAY_4_struct.byteindex_220 = x_WORD_E3760_mouse.x;
-			sub_55EB0(a3x->word_0x00a_2BE4_11240);
+			sub_55EB0(loc0x2BDE->word_0x00a_2BE4_11240);
 		}
-		a3x->word_0x848_2BDE += a2 * a3x->word_0x84A_2BDE;
-		if (a1)
+		loc0x2BDE->word_0x848_2BDE += param1 * loc0x2BDE->word_0x84A_2BDE;
+		if (param2)
 		{
-			v9 = (short)(a1 + a3x->word_0x84A_2BDE);
-			a3x->word_0x84A_2BDE = v9;
-			if (v9 < 11)
-				a3x->word_0x84A_2BDE = 11;
-			if (a3x->word_0x84A_2BDE > 68)
-				a3x->word_0x84A_2BDE = 68;
+			loc0x2BDE->word_0x84A_2BDE += param2;
+			if (loc0x2BDE->word_0x84A_2BDE < 11)
+				loc0x2BDE->word_0x84A_2BDE = 11;
+			if (loc0x2BDE->word_0x84A_2BDE > 68)
+				loc0x2BDE->word_0x84A_2BDE = 68;
 		}
-		if (a2 > 0 && a3x->word_0x848_2BDE >= v14 || a2 < 0 && a3x->word_0x848_2BDE <= v14)
+		if (param1 > 0 && loc0x2BDE->word_0x848_2BDE >= param3 || param1 < 0 && loc0x2BDE->word_0x848_2BDE <= param3)
 		{
-			v10 = a3x->byte_0x846_2BDE + 1;
-			a3x->byte_0x846_2BDE = v10;
-			if (v10 > 3u)
-				a3x->word_0x84A_2BDE >>= 1;
+			loc0x2BDE->byte_0x846_2BDE++;
+			if (loc0x2BDE->byte_0x846_2BDE > 3u)
+				loc0x2BDE->word_0x84A_2BDE >>= 1;
 		}
-		if (a3x->byte_0x846_2BDE >= 4u)
+		if (loc0x2BDE->byte_0x846_2BDE >= 4u)
 		{
 			if (abs(x_WORD_E3760_mouse.x - x_D41A0_BYTEARRAY_4_struct.byteindex_220) > 16)
-				a3x->byte_0x846_2BDE = 8;
+				loc0x2BDE->byte_0x846_2BDE = 8;
 			x_D41A0_BYTEARRAY_4_struct.byteindex_220 = x_WORD_E3760_mouse.x;
 		}
-		v11 = a3x->byte_0x846_2BDE;
-		a3x->dword_0x3E6_2BE4_12228.word_0x4_4 = 0;
-		if (v11 == 8)
+		loc0x2BDE->dword_0x3E6_2BE4_12228.word_0x4_4 = 0;
+		if (loc0x2BDE->byte_0x846_2BDE == 8)
 		{
-			/*result = */sub_55EB0(a3x->word_0x00a_2BE4_11240);
-			a3x->byte_0x846_2BDE = 0;
+			sub_55EB0(loc0x2BDE->word_0x00a_2BE4_11240);
+			loc0x2BDE->byte_0x846_2BDE = 0;
 		}
 		else
 		{
-			v12 = a3x->word_0x848_2BDE * a3x->byte_0x847_2BDE;
-			HIBYTE(v12) &= 7u;
-			v13 = v12;
-			//result = *(unsigned __int16 *)(a3 + 16) - 1;
-			//*(x_WORD *)(a3 + 14 * (a3x->word_0x010_2BDE_11246 - 1) + 489) = v13;
-			a3x->struct_0x1d1_2BDE_11695[a3x->word_0x010_2BDE_11246].rotation__2BDE_11701.yaw = v13;
+			param3 = loc0x2BDE->word_0x848_2BDE * loc0x2BDE->byte_0x847_2BDE;
+			param3 &= 0x07ffu;
+			loc0x2BDE->struct_0x1d1_2BDE_11695[loc0x2BDE->word_0x010_2BDE_11246].rotation__2BDE_11701.roll = param3;
 		}
 	}
-	//return result;
 }
 
 //----- (00055EB0) --------------------------------------------------------
