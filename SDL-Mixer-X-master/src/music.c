@@ -1659,18 +1659,18 @@ static void music_internal_volume(int volume)
         music_playing->interface->SetVolume(music_playing->context, volume);
     }
 }
+int prev_volume=-1;
 int SDLCALLCC Mix_VolumeMusic(int volume)
 {
-    int prev_volume;
-
-    prev_volume = music_volume;
     if (volume < 0) {
-        return prev_volume;
+        volume = prev_volume;
     }
     if (volume > SDL_MIX_MAXVOLUME) {
         volume = SDL_MIX_MAXVOLUME;
     }
     music_volume = volume;
+    prev_volume = music_volume;
+
     Mix_LockAudio();
     if (music_playing) {
         music_internal_volume(music_volume);

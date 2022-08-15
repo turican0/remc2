@@ -78,13 +78,19 @@ void test_midi_play(uint8_t*  /*data*/, uint8_t* header, int32_t track_number)
 	playmusic2(track_number);
 }
 
+bool firstRunMusic=true;
 void SOUND_start_sequence(int32_t sequence_num) {
 	//3 - menu
 	//4 - intro
 #ifdef SOUND_SDLMIXER
 	//volume fix
-	if(Mix_VolumeMusic(-1)==0)
+	if (firstRunMusic)
+	{
 		Mix_VolumeMusic(0x7f);
+		firstRunMusic = false;
+	}
+	else
+		Mix_VolumeMusic(-1);
 	//volume fix
 
 	if (Mix_PlayingMusic() == 0)
