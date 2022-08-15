@@ -2012,7 +2012,7 @@ void sub_5FF50(type_event_0x6E8E* a1);
 x_WORD* sub_60400(__int16 a1, x_WORD* a2, x_WORD* a3);
 void sub_60480(type_event_0x6E8E* a1);
 void sub_605E0(type_event_0x6E8E* a1);
-int sub_60780(type_event_0x6E8E* a1, type_event_0x6E8E* a2, int a3, int a4);
+void sub_60780(type_event_0x6E8E* a1, type_event_0x6E8E* a2, int a3, int a4);
 unsigned int sub_60810(type_event_0x6E8E* a1);
 signed int sub_609E0(type_event_0x6E8E* a1);
 void AddBallon_60AB0(type_event_0x6E8E* a1);
@@ -63187,38 +63187,27 @@ void sub_605E0(type_event_0x6E8E* a1x)//2415e0
 }
 
 //----- (00060780) --------------------------------------------------------
-int sub_60780(type_event_0x6E8E* a1x, type_event_0x6E8E* a2x, int a3, int a4)//241780
+void sub_60780(type_event_0x6E8E* locEvent, type_event_0x6E8E* locEvent2, int number1, int number2)//241780
 {
-	int v4; // edx
-	int v5; // ecx
-	char v6; // ST04_1
-	__int16 v7; // di
-	int result; // eax
-
-	if (a3)
+	if (number1)
 	{
-		v4 = a1x->dword_0x8;
-		v5 = 0;
-		a1x->dword_0x4 = a3;
-		if (v4 < 0)
+		int number3 = 0;
+		locEvent->dword_0x4 = number1;
+		if (locEvent->dword_0x8 < 0)
 		{
-			v5 = -v4;
-			if (-v4 > a3 / 2)
-				v5 = a3 / 2;
+			number3 = -locEvent->dword_0x8;
+			if (-locEvent->dword_0x8 > number1 / 2)
+				number3 = number1 / 2;
 		}
-		a1x->dword_0x8 = a1x->dword_0x4 - v5;
+		locEvent->dword_0x8 = locEvent->dword_0x4 - number3;
 	}
-	if (a2x)
+	if (locEvent2)
 	{
-		v6 = a2x->byte_0x46_70;
-		v7 = a2x->word_0x2E_46;
-		a2x->word_0x2E_46 = 0;
-		SetSpell_6D5E0(a2x, v6);
-		a2x->word_0x2E_46 = v7;
+		locEvent2->word_0x2E_46 = 0;
+		SetSpell_6D5E0(locEvent2, locEvent2->byte_0x46_70);
+		locEvent2->word_0x2E_46 = locEvent2->word_0x2E_46;
 	}
-	result = a4;
-	a1x->dword_0x8C_140 = a4;
-	return result;
+	locEvent->dword_0x8C_140 = number2;
 }
 
 //----- (00060810) --------------------------------------------------------
@@ -63254,38 +63243,38 @@ unsigned int sub_60810(type_event_0x6E8E* a1x)//241810
 		switch (result) {
 		case 0://loc_608FD
 		{
-			result = sub_60780(a1x, v4x, 0, 5000);
+			sub_60780(a1x, v4x, 0, 5000);
 			break;
 		}
 		case 1://loc_60915
 		{
-			result = sub_60780(a1x, v4x, 20000 * v7 >> 8, 8500);
+			sub_60780(a1x, v4x, 20000 * v7 >> 8, 8500);
 			break;
 		}
 		case 2://loc_60949
 		{
-			result = sub_60780(a1x, v4x, 40000 * v7 >> 8, 18000);
+			sub_60780(a1x, v4x, 40000 * v7 >> 8, 18000);
 			break;
 		}
 		case 3://loc_60960
 		{
-			result = sub_60780(a1x, v4x, 40000 * v7 >> 8, 38800);
+			sub_60780(a1x, v4x, 40000 * v7 >> 8, 38800);
 			break;
 		}
 		case 4://loc_60977
-		{	result = sub_60780(a1x, v4x, 60000 * v7 >> 8, 78600);
+		{	sub_60780(a1x, v4x, 60000 * v7 >> 8, 78600);
 		break;
 		}
 		case 5://loc_60991
-		{	result = sub_60780(a1x, v4x, 60000 * v7 >> 8, 158200);
+		{	sub_60780(a1x, v4x, 60000 * v7 >> 8, 158200);
 		break;
 		}
 		case 6://loc_609AB
-		{	result = sub_60780(a1x, v4x, 80000 * v7 >> 8, 317400);
+		{	sub_60780(a1x, v4x, 80000 * v7 >> 8, 317400);
 		break;
 		}
 		case 7://loc_609C2
-		{	result = sub_60780(a1x, v4x, 80000 * v7 >> 8, 300000000);
+		{	sub_60780(a1x, v4x, 80000 * v7 >> 8, 300000000);
 		break;
 		}
 		}
