@@ -34004,12 +34004,14 @@ void sub_35FB0(type_event_0x6E8E* a1x)//216FB0
 						a1x->word_0x2C_44 = 0;
 					x_WORD_EB398ar.z = v24;
 				}
-				if (isCaveLevel_D41B6 && (signed __int16)(sub_10C60(&x_WORD_EB398ar) - a1x->array_0x52_82.fov) < x_WORD_EB398ar.z)
+				if (isCaveLevel_D41B6)
 				{
-					//v26 = -abs(a1x->word_0x2C_44);
-					//JUMPOUT(*(_DWORD*)byte_3659C);
-					//[2BC39C],cx
-					//[2BC39C] = (signed __int16)(sub_10C60(&word_EB398) - *(_WORD*)(a1 + 88));//fix !!
+					v24 = sub_10C60(&x_WORD_EB398ar) - a1x->array_0x52_82.fov;
+					if (v24 < x_WORD_EB398ar.z)
+					{
+						a1x->word_0x2C_44 = -abs(a1x->word_0x2C_44);
+						x_WORD_EB398ar.z = v24;
+					}
 				}
 				sub_57CF0(a1x, &x_WORD_EB398ar);
 				if (v24 == x_WORD_EB398ar.z)
@@ -93735,8 +93737,7 @@ void sub_BD3DD()//29e3dd
 //----- (000BD524) --------------------------------------------------------
 void sub_BD524(__int16 a1, __int16 a2, __int16 a3, __int16 a4, char a5)//29e524
 {
-	//JUMPOUT((int*)&loc_BD550);
-	/*test and fix*/sub_BD542(a1 / 2, a2 / 2, a3 / 2, a4 / 2, a5);
+	sub_BD542(a1 / 2, a2 / 2, a3 / 2, a4 / 2, a5);
 }
 
 //----- (000BD542) --------------------------------------------------------
