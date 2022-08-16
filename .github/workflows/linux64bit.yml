@@ -36,7 +36,7 @@ jobs:
         cd ${{ github.workspace }}
         mkdir build_release
         cd build_release
-        cmake -DCMAKE_BUILD_TYPE=Release -DUSE_64_BIT=True -DGITHUB_CI_COMPATIBILITY_PATH="${{env.GITHUB_CI_COMPATIBILITY_PATH}}" ..
+        cmake -DCMAKE_BUILD_TYPE=Release -DUSE_64_BIT=True -DUNIT_TESTS=True -DGITHUB_CI_COMPATIBILITY_PATH="${{env.GITHUB_CI_COMPATIBILITY_PATH}}" ..
         
     - name: make release
       run: |
