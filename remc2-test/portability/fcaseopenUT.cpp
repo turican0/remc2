@@ -26,9 +26,9 @@ TEST (fcaseopen, casepath) {
     EXPECT_EQ(casepath("/usr/share/"), "/usr/share/");
     EXPECT_EQ(casepath("/usr/../usr/share"), "/usr/../usr/share");
     EXPECT_EQ(casepath("/USR/SHARE"), "/usr/share");
-    EXPECT_EQ(casepath("remc2unittests"), "remc2unittests");
-    EXPECT_EQ(casepath("./remc2unittests"), "./remc2unittests");
-    EXPECT_EQ(casepath("./REMC2unittests"), "./remc2unittests");
+    EXPECT_EQ(casepath("remc2-test"), "remc2-test");
+    EXPECT_EQ(casepath("./remc2-test"), "./remc2-test");
+    EXPECT_EQ(casepath("./REMC2-test"), "./remc2-test");
     EXPECT_EQ(casepath("./not_existing_file"), "./not_existing_file");
 #else //__linux__
     EXPECT_EQ(1, 1);
