@@ -46,12 +46,11 @@ jobs:
         unzip -o build-wrapper-linux-x86.zip
         build-wrapper-linux-x86/build-wrapper-linux-x86-64 --out-dir build_wrapper_output make
         
-    # skip 64bit UT until ingame save with correct size is clarified, see convert_struct_to_array_D41A0_0
-    #- name: run unit tests
-    #  run: |
-    #    cd ${{ github.workspace }}
-    #    cd build_release
-    #    ./remc2/remc2unittests
+    - name: run unit tests
+      run: |
+        cd ${{ github.workspace }}
+        cd build_release/remc2
+        ./remc2unittests
 
     - name: sonarcloud scan
       if: github.repository_owner == 'thobbsinteractive'
