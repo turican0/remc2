@@ -457,7 +457,7 @@ int32_t /*__cdecl*/ fix_filelength(int32_t);// weak
 //x_DWORD /*__cdecl*/ access(char* path, uint32_t flags);// weak
 //x_DWORD /*__cdecl*/ mkdir(char* path);
 int32_t /*__cdecl*/ settextposition(int32_t, int32_t);// weak
-void outtext(char* text);// weak
+void outtext(const char* text);// weak
 int /*__fastcall*/ gettextposition(int32_t, int32_t, int32_t);// weak
 int32_t /*__cdecl*/ signal(int32_t, int32_t);// weak
 //int __cdecl unknown_libname_1(char *a1);
@@ -561,7 +561,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1);//pre 22b190
 //char sub_54200();
 
 void sub_71410_process_tmaps();
-void SetCDFilePaths(char* cdDataPath, Pathstruct pstr[]);
+void SetCDFilePaths(const char* cdDataPath, Pathstruct pstr[]);
 void initposistruct();
 
 void Initialize();

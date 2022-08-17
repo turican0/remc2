@@ -412,11 +412,11 @@ void InitTmaps(unsigned __int16 a1)//251f50
 		char spritePath[512];
 		if (big_sprites_inited)
 		{
-			sprintf(spritePath, "%s", bigGraphicsPath);
+			sprintf(spritePath, "%s", bigGraphicsPath.c_str());
 		}
 		else
 		{
-			sprintf(spritePath, "%s", gameDataPath);
+			sprintf(spritePath, "%s", gameDataPath.c_str());
 		}
 
 		switch (D41A0_0.terrain_2FECE.MapType) {
@@ -452,6 +452,7 @@ void InitTmaps(unsigned __int16 a1)//251f50
 			if (index3x)
 			{
 				int index4 = sub_70C60_decompress_tmap(i, (uint8_t*)index3x->partstr_0);
+				//WriteTextureMapToBmp(i, index3x->partstr_0, D41A0_0.terrain_2FECE.MapType);
 				if (index4 != -1)
 				{
 					if (bigSprites)
@@ -589,28 +590,27 @@ subtype_x_DWORD_E9C28_str* LoadTMapMetadata_71E70(type_x_DWORD_E9C28_str* a1y, u
 
 void sub_70A60_open_tmaps()//251a60
 {
-	//char printbuffer[512];//char v1; // [esp+0h] [ebp-40h]
 
-	GetSubDirectoryFile(printbuffer, gameFolder, "CDATA", "TMAPS0-0.DAT");
-	x_DWORD_DB740_tmaps00file = DataFileIO::CreateOrOpenFile(printbuffer, 512);
+	std::string tMapPath0 = GetSubDirectoryFile(gameFolder, "CDATA", "TMAPS0-0.DAT");
+	x_DWORD_DB740_tmaps00file = DataFileIO::CreateOrOpenFile(tMapPath0.c_str(), 512);
 	if (x_DWORD_DB740_tmaps00file == NULL)
 	{
-		GetSubDirectoryFile(printbuffer, gameFolder, "DATA", "TMAPS0-0.DAT");
-		x_DWORD_DB740_tmaps00file = DataFileIO::CreateOrOpenFile(printbuffer, 512);
+		tMapPath0 = GetSubDirectoryFile(gameFolder, "DATA", "TMAPS0-0.DAT");
+		x_DWORD_DB740_tmaps00file = DataFileIO::CreateOrOpenFile(tMapPath0.c_str(), 512);
 	}
-	GetSubDirectoryFile(printbuffer, gameFolder, "CDATA", "TMAPS1-0.DAT");
-	x_DWORD_DB744_tmaps10file = DataFileIO::CreateOrOpenFile(printbuffer, 512);
+	std::string tMapPath1 = GetSubDirectoryFile(gameFolder, "CDATA", "TMAPS1-0.DAT");
+	x_DWORD_DB744_tmaps10file = DataFileIO::CreateOrOpenFile(tMapPath1.c_str(), 512);
 	if (x_DWORD_DB744_tmaps10file == NULL)
 	{
-		GetSubDirectoryFile(printbuffer, gameFolder, "DATA", "TMAPS1-0.DAT");
-		x_DWORD_DB744_tmaps10file = DataFileIO::CreateOrOpenFile(printbuffer, 512);
+		tMapPath1 = GetSubDirectoryFile(gameFolder, "DATA", "TMAPS1-0.DAT");
+		x_DWORD_DB744_tmaps10file = DataFileIO::CreateOrOpenFile(tMapPath1.c_str(), 512);
 	}
-	GetSubDirectoryFile(printbuffer, gameFolder, "CDATA", "TMAPS2-0.DAT");
-	x_DWORD_DB748_tmaps20file = DataFileIO::CreateOrOpenFile(printbuffer, 512);
+	std::string tMapPath2 = GetSubDirectoryFile(gameFolder, "CDATA", "TMAPS2-0.DAT");
+	x_DWORD_DB748_tmaps20file = DataFileIO::CreateOrOpenFile(tMapPath2.c_str(), 512);
 	if (x_DWORD_DB748_tmaps20file == NULL)
 	{
-		GetSubDirectoryFile(printbuffer, gameFolder, "DATA", "TMAPS2-0.DAT");
-		x_DWORD_DB748_tmaps20file = DataFileIO::CreateOrOpenFile(printbuffer, 512);
+		tMapPath2 = GetSubDirectoryFile(gameFolder, "DATA", "TMAPS2-0.DAT");
+		x_DWORD_DB748_tmaps20file = DataFileIO::CreateOrOpenFile(tMapPath2.c_str(), 512);
 	}
 	x_DWORD_DB73C_tmapsfile = x_DWORD_DB740_tmaps00file;
 	//return 1;
@@ -667,31 +667,30 @@ int sub_70C60_decompress_tmap(uint16_t texture_index, uint8_t* texture_buffer)//
 
 void WriteTextureMapToBmp(uint16_t texture_index, type_particle_str* ptextureMap, MapType_t mapType)
 {
-	char path[MAX_PATH];
-	char name[50];
-	GetSubDirectoryPath(path, "BufferOut");
-	if (myaccess(path, 0) < 0)
+	char name[MAX_PATH];
+	std::string path = GetSubDirectoryPath("BufferOut");
+	if (myaccess(path.c_str(), 0) < 0)
 	{
-		mymkdir(path);
+		std::string exepath = get_exe_path();
+		mymkdir((exepath + "/" + "BufferOut").c_str());
 	}
 
 	if (m_pColorPalette == NULL)
 	{
 		m_pColorPalette = LoadTMapColorPalette(mapType);
-		GetSubDirectoryPath(path, "BufferOut/PalletOut.bmp");
-		BitmapIO::WritePaletteAsImageBMP(path, 256, m_pColorPalette);
+		path = GetSubDirectoryFilePath("BufferOut","PalletOut.bmp");
+		BitmapIO::WritePaletteAsImageBMP(path.c_str(), 256, m_pColorPalette);
 	}
 
-	sprintf(name, "BufferOut/TmapOut%03d%s", texture_index, ".bmp");
-	GetSubDirectoryPath(path, name);
-	BitmapIO::WriteRGBAImageBufferAsImageBMP(path, ptextureMap->width, ptextureMap->height, m_pColorPalette, (uint8_t*)ptextureMap->textureBuffer);
+	sprintf(name, "TmapOut%03d%s", texture_index, ".bmp");
+	path = GetSubDirectoryFilePath("BufferOut", name);
+	BitmapIO::WriteRGBAImageBufferAsImageBMP(path.c_str(), ptextureMap->width, ptextureMap->height, m_pColorPalette, (uint8_t*)ptextureMap->textureBuffer);
 }
 
 uint8_t* LoadTMapColorPalette(MapType_t mapType)
 {
 	uint8_t* Palettebuffer = new uint8_t[768];
 	FILE* palfile;
-	char path[MAX_PATH];
 	char palleteName[50];
 
 	switch (mapType)
@@ -707,8 +706,8 @@ uint8_t* LoadTMapColorPalette(MapType_t mapType)
 		break;
 	}
 
-	GetSubDirectoryPath(path, palleteName);
-	palfile = fopen(path, "rb");
+	std::string path = GetSubDirectoryPath(palleteName);
+	palfile = fopen(path.c_str(), "rb");
 	fread(Palettebuffer, 768, 1, palfile);
 	fclose(palfile);
 
