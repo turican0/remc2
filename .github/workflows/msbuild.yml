@@ -37,7 +37,7 @@ jobs:
       working-directory: ${{env.GITHUB_WORKSPACE}}
       # Add additional options to the MSBuild command line here (like platform or verbosity level).
       # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
-      run: msbuild /m /p:Configuration=${{env.BUILD_CONFIGURATION}} /p:PlatformTarget=${{env.BUILD_PLATFORM}} /p:Platform=${{env.BUILD_PLATFORM}} ${{env.SOLUTION_FILE_PATH}}/libogg/win32/VS2015/libogg_static.sln
+      run: msbuild /m /p:Configuration=${{env.BUILD_CONFIGURATION}} /p:PlatformTarget=win32 /p:Platform=win32 ${{env.SOLUTION_FILE_PATH}}/libogg/win32/VS2015/libogg_static.sln
 
     - name: Build
       working-directory: ${{env.GITHUB_WORKSPACE}}
