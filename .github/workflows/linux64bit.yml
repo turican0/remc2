@@ -50,7 +50,7 @@ jobs:
       run: |
         cd ${{ github.workspace }}
         cd build_release/remc2
-        ./remc2unittests
+        ./remc2-test
 
     - name: sonarcloud scan
       if: github.repository_owner == 'thobbsinteractive'
