@@ -23,7 +23,13 @@
 **/*.ipch
 **/*.suo
 
+**/remc2-test.vcxproj.FileListAbsolute.txt
+**/remc2-test.exe
+**/remc2-test.vcxproj.user
+remc2-test/Debug
+
 **/remc2.vcxproj.FileListAbsolute.txt
+**/remc2-test.exe.gta.testdurations
 **/remc2.exe
 **/remc2.exp
 **/remc2.lib
