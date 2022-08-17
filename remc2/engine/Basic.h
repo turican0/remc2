@@ -230,6 +230,8 @@ extern uint8_t* x_DWORD_E9C38_smalltit;
 
 extern TColor unk_17D838x[]; // weak
 
+extern uint8_t x_BYTE_D41B5_texture_size;
+
 #pragma pack (1)
 typedef struct {
 	posistruct2_t** begin_buffer;
