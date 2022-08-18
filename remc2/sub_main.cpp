@@ -13305,33 +13305,28 @@ void ChangeSoundLevel_19CA0(uint8_t option)//1faca0
 // E37FD: using guessed type char x_BYTE_E37FD;
 
 //----- (00019D60) --------------------------------------------------------
-void SetSoundEffectAndMusicLevelCoordinates_19D60(signed int a1)//1fad60
+void SetSoundEffectAndMusicLevelCoordinates_19D60(signed int volume)//1fad60
 {
-	unsigned __int8 v2; // dl
-	int16_t height; // [esp+0h] [ebp-10h]
-	int16_t width; // [esp+4h] [ebp-Ch]
-	int16_t posY; // [esp+8h] [ebp-8h]
-	int16_t posX; // [esp+Ch] [ebp-4h]
+	int16_t height;
+	int16_t width;
+	int16_t posY;
+	int16_t posX;
 
-	int a2 = 1; // At its lowest value, this equals 1
+	int posYbyType = 0; // set zero, add stopper for x_D41A0_BYTEARRAY_4_struct.byte_38591 ==0
 
-	if (CommandLineParams.DoDebugSequences()) {
-		add_compare(0x1fad63, CommandLineParams.DoDebugafterload());
-	}
-
-	v2 = x_D41A0_BYTEARRAY_4_struct.byte_38591;
-	if (v2 == 1u)
+	switch (x_D41A0_BYTEARRAY_4_struct.byte_38591)
 	{
-		a1 = 127;
-		a2 = x_D41A0_BYTEARRAY_4_struct.wordindex_6;
-	}
-	else if (v2 == 2u)
-	{
-		a1 = 127;
-		a2 = x_D41A0_BYTEARRAY_4_struct.wordindex_8;
+		case 1:
+			volume = 127;
+			posYbyType = x_D41A0_BYTEARRAY_4_struct.wordindex_6;
+			break;
+		case 2:
+			volume = 127;
+			posYbyType = x_D41A0_BYTEARRAY_4_struct.wordindex_8;
+			break;
 	}
 	GetPauseMenuCoordinates_2FFE0(&posX, &posY, &width, &height);
-	SetMousePositionInMemory_5BDC0((unsigned int)(a2 * (width - 12) / a1) + 5 + posX, 9 * height / 2 + posY);
+	SetMousePositionInMemory_5BDC0((int)(posYbyType * (width - 12) / volume) + 5 + posX, (int)(9 * height / 2) + posY);
 }
 
 //----- (00019E00) --------------------------------------------------------
