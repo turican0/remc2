@@ -29803,7 +29803,9 @@ void DrawVolumeSettings_303D0()//2113d0
 	posY += 6;
 	posX += 6;
 	DrawLine_2BC80(posX, posY, width - 12, 12, (*xadataclrd0dat.colorPalette_var28)[0]);
-	DrawLine_2BC80(posX, posY, index * (width - 12) / volume, 12, (*xadataclrd0dat.colorPalette_var28)[240]);
+	if (volume > 0) {
+		DrawLine_2BC80(posX, posY, (index * (width - 12)) / volume, 12, (*xadataclrd0dat.colorPalette_var28)[240]);
+	}
 }
 
 //----- (00030630) --------------------------------------------------------
