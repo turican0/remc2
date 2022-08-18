@@ -130,7 +130,8 @@ void VGA_Init(Uint32  /*flags*/, int width, int height, bool maintainAspectRatio
 		}
 
 		Set_basic_Palette1();
-		Draw_debug_matrix1();
+		//Draw_debug_matrix1();
+		Draw_black();
 		inited = true;
 	}
 }
@@ -246,6 +247,27 @@ void Draw_debug_matrix0() {
 			dstrect.h = m_gamePalletisedSurface->h / 16;
 			SDL_FillRect(m_gamePalletisedSurface, &dstrect, i * 16 + j/*SDL_MapRGB(screen->format, i*16+j, 0, 0)*/);
 		}
+
+	if (SDL_MUSTLOCK(m_gamePalletisedSurface)) {
+		SDL_UnlockSurface(m_gamePalletisedSurface);
+	}
+	SubBlit(m_iOrigw, m_iOrigh);
+};
+
+void Draw_black() {
+	SDL_Rect dstrect;
+	if (SDL_MUSTLOCK(m_gamePalletisedSurface)) {
+		if (SDL_LockSurface(m_gamePalletisedSurface) < 0) {
+			fprintf(stderr, "Can't lock screen: %s\n", SDL_GetError());
+			return;
+		}
+	}
+
+	dstrect.x = 0;
+	dstrect.y = 0;
+	dstrect.w = m_gamePalletisedSurface->w;
+	dstrect.h = m_gamePalletisedSurface->h;
+	SDL_FillRect(m_gamePalletisedSurface, &dstrect, 1);
 
 	if (SDL_MUSTLOCK(m_gamePalletisedSurface)) {
 		SDL_UnlockSurface(m_gamePalletisedSurface);
