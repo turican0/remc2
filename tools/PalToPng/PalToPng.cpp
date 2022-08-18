@@ -1,4 +1,4 @@
-﻿// PalToPng.cpp : This file contains the function main. Program execution starts and ends there.
+﻿// PalToPng.cpp : Tento soubor obsahuje funkci main. Provádění programu se tam zahajuje a ukončuje.
 //
 
 #include <iostream>
@@ -16,6 +16,7 @@ const char* outdata_filename = "c:\\prenos\\remc2\\Debug\\biggraphics\\skyn0-0.p
 const char* orig32_filename = "c:\\prenos\\Magic2\\mc2-orig\\data\\skyn0-0.dat";
 const char* bigbmp_filename = "c:\\prenos\\remc2\\Debug\\biggraphics\\skyn128.bmp";
 const char* outdata2_filename = "c:\\prenos\\remc2\\Debug\\biggraphics\\skyn1024.data";
+const char* outpng_filename = "c:\\prenos\\remc2\\Debug\\biggraphics\\skyn1024.png";
 #endif sky1
 #ifdef sky2
 const char* standartpal_filename = "c:\\prenos\\remc2\\tools\\palletelight\\Debug\\out-c.pal";
@@ -23,6 +24,7 @@ const char* outdata_filename = "c:\\prenos\\remc2\\Debug\\biggraphics\\skyc0-0.p
 const char* orig32_filename = "c:\\prenos\\Magic2\\mc2-orig\\data\\skyc0-0.dat";
 const char* bigbmp_filename = "c:\\prenos\\remc2\\Debug\\biggraphics\\skyc128.bmp";
 const char* outdata2_filename = "c:\\prenos\\remc2\\Debug\\biggraphics\\skyc1024.data";
+const char* outpng_filename = "c:\\prenos\\remc2\\Debug\\biggraphics\\skyc1024.png";
 #endif sky2
 #ifdef sky3
 const char* standartpal_filename = "c:\\prenos\\remc2\\tools\\palletelight\\Debug\\out-block.pal";
@@ -30,6 +32,7 @@ const char* outdata_filename = "c:\\prenos\\remc2\\Debug\\biggraphics\\skyd0-0.p
 const char* orig32_filename = "c:\\prenos\\Magic2\\mc2-orig\\data\\skyd0-0.dat";
 const char* bigbmp_filename = "c:\\prenos\\remc2\\Debug\\biggraphics\\skyd128.bmp";
 const char* outdata2_filename = "c:\\prenos\\remc2\\Debug\\biggraphics\\skyd1024.data";
+const char* outpng_filename = "c:\\prenos\\remc2\\Debug\\biggraphics\\skyd1024.png";
 #endif sky3
 
 #include "png.h"
@@ -130,10 +133,10 @@ finalise:
 	//return code;
 }
 
-char getIndexedColor(int colorR, int colorG, int colorB, unsigned char* palette, int paletteSize) {
-	char index;
+int getIndexedColor(int colorR, int colorG, int colorB, unsigned char* palette, int paletteSize) {
+	int index;
 	int diference = 10000000000;
-	for (int i = 0; i < paletteSize; i++)
+	for (int i = 0; i < paletteSize/3; i++)
 	{
 		int testDiference = (abs(colorR- palette[i*3+0])+ abs(colorG - palette[i * 3 + 1])+ abs(colorB - palette[i * 3 + 2]));
 		if (testDiference < diference)
@@ -166,19 +169,76 @@ int main()
 	fread(content_bigbmp, szstdbigbmp, 1, fptr_stdbigbmp);
 	fclose(fptr_stdbigbmp);
 
-	char x;
+	int width = 1024;
+	int height = 1024;
+	Bit8u* buffer2 = (Bit8u*)malloc(width * height * 4);
+
+	int x;
 	int sizeBMPheader = 138;
 	FILE* fptw_outdata2;
-	fopen_s(&fptw_outdata2, outdata2_filename, "wb");
+	float colorRIerr[1024];
+	float colorGIerr[1024];
+	float colorBIerr[1024];
+	float colorRJerr[1024];
+	float colorGJerr[1024];
+	float colorBJerr[1024];
+	int colorRerr = 0;
+	int colorGerr = 0;
+	int colorBerr = 0;
 	for (int i = 0; i < 1024; i++)
-		for (int j = 0; j < 1024; j++)
+	{
+		colorRIerr[i] = 0;
+		colorGIerr[i] = 0;
+		colorBIerr[i] = 0;
+		colorRJerr[i] = 0;
+		colorGJerr[i] = 0;
+		colorBJerr[i] = 0;
+	}
+	fopen_s(&fptw_outdata2, outdata2_filename, "wb");
+
+	int j;
+	for (int i = 0; i < 1024; i++)
+	{		
+		for (int jx = 0; jx < 1024; jx++)
 		{
-			int colorR = content_bigbmp[sizeBMPheader + szstdbigbmp - 1 - (3 * (i * 1024 + j) + 0)];
-			int colorG = content_bigbmp[sizeBMPheader + szstdbigbmp - 1 - (3 * (i * 1024 + j) + 1)];
-			int colorB = content_bigbmp[sizeBMPheader + szstdbigbmp - 1 - (3 * (i * 1024 + j) + 2)];
-			x = getIndexedColor(colorR,colorG,colorB, content_stdpal, szstd);
-			fwrite(&x, 1, 1, fptw_outdata2);
+			if (i % 2 == 0)j = jx;
+			else j = 1024 - 1 - jx;
+			int colorR = content_bigbmp[szstdbigbmp - 1 - (3 * (i * 1024 + j) + 0)];
+			int colorG = content_bigbmp[szstdbigbmp - 1 - (3 * (i * 1024 + j) + 1)];
+			int colorB = content_bigbmp[szstdbigbmp - 1 - (3 * (i * 1024 + j) + 2)];
+			float koef = 0.5;
+			colorRerr = koef * (colorRIerr[i] + colorRJerr[j]);
+			colorGerr = koef * (colorGIerr[i] + colorGJerr[j]);
+			colorBerr = koef * (colorBIerr[i] + colorBJerr[j]);
+
+			colorRIerr[i] -= 0.5 * colorRerr;
+			colorGIerr[i] -= 0.5 * colorGerr;
+			colorBIerr[i] -= 0.5 * colorBerr;
+
+			colorRJerr[j] -= 0.5 * colorRerr;
+			colorGJerr[j] -= 0.5 * colorGerr;
+			colorBJerr[j] -= 0.5 * colorBerr;
+
+
+			x = getIndexedColor(colorR - colorRerr, colorG - colorGerr, colorB - colorBerr, content_stdpal, szstd);
+			fwrite((char*)&x, 1, 1, fptw_outdata2);
+
+			colorRIerr[i] += (content_stdpal[x * 3 + 0] - colorR) * 0.5;
+			colorGIerr[i] += (content_stdpal[x * 3 + 1] - colorG) * 0.5;
+			colorBIerr[i] += (content_stdpal[x * 3 + 2] - colorB) * 0.5;
+
+			colorRJerr[j] += (content_stdpal[x * 3 + 0] - colorR) * 0.5;
+			colorGJerr[j] += (content_stdpal[x * 3 + 1] - colorG) * 0.5;
+			colorBJerr[j] += (content_stdpal[x * 3 + 2] - colorB) * 0.5;
+
+			buffer2[(i * width + j) * 4] = content_stdpal[x * 3 + 0];
+			buffer2[(i * width + j) * 4 + 1] = content_stdpal[x * 3 + 1];
+			buffer2[(i * width + j) * 4 + 2] = content_stdpal[x * 3 + 2];
+			buffer2[(i * width + j) * 4 + 3] = 255;
 		}
+	}
+
+	writeImagePNG((char*)outpng_filename, width, height, buffer2, (char*)"aa");
 	fclose(fptw_outdata2);
 #else
 	FILE* fptr_stdpal;
@@ -210,6 +270,7 @@ int main()
 			buffer2[(i * width + j) * 4] = content_stdpal[content_data32[i * width + j] * 3 + 0];
 			buffer2[(i * width + j) * 4+1] = content_stdpal[content_data32[i * width + j] * 3 + 1];
 			buffer2[(i * width + j) * 4+2] = content_stdpal[content_data32[i * width + j] * 3 + 2];
+			buffer2[(i * width + j) * 4 + 3] = 255;
 		}
 
 	writeImagePNG((char*)outdata_filename, width, height, buffer2, (char*)"aa");
