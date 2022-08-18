@@ -1,4 +1,4 @@
-﻿// PalToPng.cpp : Tento soubor obsahuje funkci main. Provádění programu se tam zahajuje a ukončuje.
+﻿// PalToPng.cpp : This file contains the function main. Program execution starts and ends there.
 //
 
 #include <iostream>
