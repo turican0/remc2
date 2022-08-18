@@ -27576,7 +27576,7 @@ void DrawGameFrame_2BE30()//20CE30
 			}
 			else if (v13 <= 0xAu)
 			{
-				DrawVolumnSettings_303D0();
+				DrawVolumeSettings_303D0();
 			}
 			else if (v13 == 13)
 			{
@@ -27690,7 +27690,7 @@ void DrawGameFrame_2BE30()//20CE30
 				DrawInGameOptionsMenu_30050();
 				break;
 			case 10:
-				DrawVolumnSettings_303D0();
+				DrawVolumeSettings_303D0();
 				goto LABEL_41;
 			case 13:
 				DrawOkCancelMenu_30A60(132, 50);
@@ -27851,7 +27851,7 @@ void DrawGameFrame_2BE30()//20CE30
 			DrawInGameOptionsMenu_30050();
 			break;
 		case 0xC:
-			DrawVolumnSettings_303D0();
+			DrawVolumeSettings_303D0();
 			goto LABEL_73;
 		case 0xE:
 			DrawOkCancelMenu_30A60(6, 6);
@@ -29768,12 +29768,12 @@ void DrawInGameOptionsMenu_30050()//211050
 }
 
 //----- (000303D0) --------------------------------------------------------
-void DrawVolumnSettings_303D0()//2113d0
+void DrawVolumeSettings_303D0()//2113d0
 {
 	int16_t height;
 	int16_t width;
 	int16_t posY;
-	int16_t posX;	
+	int16_t posX;
 	int index = 0;
 	signed int volume = 0;
 
