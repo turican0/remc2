@@ -53645,9 +53645,6 @@ void sub_54630_load_psxblock(uint16_t TextSize)//235630
 void sub_54660_read_and_decompress_sky_and_blocks(MapType_t GraphicsType, uint8_t GraphicsSize)//235660
 {
 	char dataPath[MAX_PATH];
-	//int result; // eax
-
-	//result = a2;
 
 	switch (GraphicsType)
 	{
@@ -53655,29 +53652,29 @@ void sub_54660_read_and_decompress_sky_and_blocks(MapType_t GraphicsType, uint8_
 	{
 		switch (GraphicsSize)
 		{
-		case 16:
-		{
-			sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/BLOCK16.DAT");
-			DataFileIO::ReadFileAndDecompress(dataPath, &BLOCK32DAT_BEGIN_BUFFER);//2bac2c
-			break;
+			case 16:
+			{
+				sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/BLOCK16.DAT");
+				DataFileIO::ReadFileAndDecompress(dataPath, &BLOCK32DAT_BEGIN_BUFFER);//2bac2c
+				break;
+			}
+			case 32:
+			{
+				sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/BLOCK32.DAT");
+				DataFileIO::ReadFileAndDecompress(dataPath, &BLOCK32DAT_BEGIN_BUFFER);//2bac2c
+				sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/SKYD0-0.DAT");
+				DataFileIO::ReadFileAndDecompress(dataPath, &off_D41A8_sky);//2a51a8
+				break;
+			}
+			case 128:
+			{
+				sprintf(dataPath, "%s/%s", bigGraphicsPath.c_str(), "block128.data");
+				ReadGraphicsfile(dataPath, BigTextureBuffer);//advance graphics
+				sprintf(dataPath, "%s/%s", bigGraphicsPath.c_str(), "skyd1024.data");
+				ReadGraphicsfile(dataPath, off_D41A8_sky);//2a51a8
+				break;
+			}
 		}
-		case 32:
-		{
-			sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/BLOCK32.DAT");
-			DataFileIO::ReadFileAndDecompress(dataPath, &BLOCK32DAT_BEGIN_BUFFER);//2bac2c
-			break;
-		}
-		case 128:
-		{
-			//AdvReadfile("biggraphics/block128.data",BigTextureBuffer);//advance graphics
-			//AdvReadfile(bigtexturepath, BigTextureBuffer);//advance graphics
-			sprintf(dataPath, "%s/%s", bigGraphicsPath.c_str(), "block128.data");
-			ReadGraphicsfile(dataPath, BigTextureBuffer);//advance graphics
-			break;
-		}
-		}
-		sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/SKYD0-0.DAT");
-		DataFileIO::ReadFileAndDecompress(dataPath, &off_D41A8_sky);//2a51a8
 		sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/TMAPS0-0.TAB");
 		DataFileIO::ReadFileAndDecompress(dataPath, (uint8_t**)&str_TMAPS00TAB_BEGIN_BUFFER);//2c7ed0
 		break;
@@ -53686,51 +53683,53 @@ void sub_54660_read_and_decompress_sky_and_blocks(MapType_t GraphicsType, uint8_
 	{
 		switch (GraphicsSize)
 		{
-		case 16:
-		{
-			if (D41A0_0.terrain_2FECE.byte_0x2FED2 & 2)
+			case 16:
 			{
-				sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/BL16F0-0.DAT");
-				DataFileIO::ReadFileAndDecompress(dataPath, &BLOCK32DAT_BEGIN_BUFFER);//2bac2c
+				if (D41A0_0.terrain_2FECE.byte_0x2FED2 & 2)
+				{
+					sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/BL16F0-0.DAT");
+					DataFileIO::ReadFileAndDecompress(dataPath, &BLOCK32DAT_BEGIN_BUFFER);//2bac2c
+				}
+				else
+				{
+					sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/BL16N0-0.DAT");
+					DataFileIO::ReadFileAndDecompress(dataPath, &BLOCK32DAT_BEGIN_BUFFER);//2bac2c
+				}
+				break;
 			}
-			else
+			case 32:
 			{
-				sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/BL16N0-0.DAT");
-				DataFileIO::ReadFileAndDecompress(dataPath, &BLOCK32DAT_BEGIN_BUFFER);//2bac2c
+				if (D41A0_0.terrain_2FECE.byte_0x2FED2 & 2)
+				{
+					sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/BL32F0-0.DAT");
+					DataFileIO::ReadFileAndDecompress(dataPath, &BLOCK32DAT_BEGIN_BUFFER);//2bac2c
+				}
+				else
+				{
+					sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/BL32N0-0.DAT");
+					DataFileIO::ReadFileAndDecompress(dataPath, &BLOCK32DAT_BEGIN_BUFFER);//2bac2c
+				}
+				sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/SKYN0-0.DAT");
+				DataFileIO::ReadFileAndDecompress(dataPath, &off_D41A8_sky);//2a51a8
+				break;
 			}
-			break;
+			case 128:
+			{
+				if (D41A0_0.terrain_2FECE.byte_0x2FED2 & 2)
+				{
+					sprintf(dataPath, "%s/%s", bigGraphicsPath.c_str(), "bl128f0-0.data");
+					ReadGraphicsfile(dataPath, BigTextureBuffer);//advance graphics
+				}
+				else
+				{
+					sprintf(dataPath, "%s/%s", bigGraphicsPath.c_str(), "bl128n0-0.data");
+					ReadGraphicsfile(dataPath, BigTextureBuffer);//advance graphics
+				}
+				sprintf(dataPath, "%s/%s", bigGraphicsPath.c_str(), "skyn1024.data");
+				ReadGraphicsfile(dataPath, off_D41A8_sky);//2a51a8
+				break;
+			}
 		}
-		case 32:
-		{
-			if (D41A0_0.terrain_2FECE.byte_0x2FED2 & 2)
-			{
-				sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/BL32F0-0.DAT");
-				DataFileIO::ReadFileAndDecompress(dataPath, &BLOCK32DAT_BEGIN_BUFFER);//2bac2c
-			}
-			else
-			{
-				sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/BL32N0-0.DAT");
-				DataFileIO::ReadFileAndDecompress(dataPath, &BLOCK32DAT_BEGIN_BUFFER);//2bac2c
-			}
-			break;
-		}
-		case 128:
-		{
-			if (D41A0_0.terrain_2FECE.byte_0x2FED2 & 2)
-			{
-				sprintf(dataPath, "%s/%s", bigGraphicsPath.c_str(), "bl128f0-0.data");
-				ReadGraphicsfile(dataPath, BigTextureBuffer);//advance graphics
-			}
-			else
-			{
-				sprintf(dataPath, "%s/%s", bigGraphicsPath.c_str(), "bl128n0-0.data");
-				ReadGraphicsfile(dataPath, BigTextureBuffer);//advance graphics
-			}
-			break;
-		}
-		}
-		sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/SKYN0-0.DAT");
-		DataFileIO::ReadFileAndDecompress(dataPath, &off_D41A8_sky);//2a51a8
 		sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/TMAPS1-0.TAB");
 		DataFileIO::ReadFileAndDecompress(dataPath, (uint8_t**)&str_TMAPS00TAB_BEGIN_BUFFER);//2c7ed0
 		break;
@@ -53763,12 +53762,8 @@ void sub_54660_read_and_decompress_sky_and_blocks(MapType_t GraphicsType, uint8_
 		break;
 	}
 	}
-	//return result;
 }
-// D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
-// D41A8: using guessed type char *off_D41A8;
-// E9C2C: using guessed type int x_DWORD_E9C2C;
-// F6ED0: using guessed type int TMAPS00TAB_BEGIN_BUFFER;
+
 
 //----- (00054800) --------------------------------------------------------
 void sub_54800_read_and_decompress_tables(MapType_t a1)//235800

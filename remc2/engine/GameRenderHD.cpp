@@ -320,88 +320,74 @@ void GameRenderHD::DrawSky_40950(int16_t roll, uint8_t startLine, uint8_t drawEv
 		drawEveryNthLine = 1;
 	}
 
-	int v1; // ebx
-	int v2; // edx
-	int v3; // esi
-	int v4; // ebx
-	char* v5; // edx
-	int v7; // edx
-	int v8; // eax
-	int v9; // ecx
-	int v10; // edx
-	int v17; // ebx
-	char v19ar[3840]; // [esp+0h] [ebp-52Ch]
-	int v23; // [esp+50Ch] [ebp-20h]
-	int v25; // [esp+514h] [ebp-18h]
-	int v26; // [esp+518h] [ebp-14h]
-	int v27; // [esp+51Ch] [ebp-10h]
-	char v28; // [esp+520h] [ebp-Ch]
-	char v29; // [esp+524h] [ebp-8h]
-	unsigned __int8 v30; // [esp+528h] [ebp-4h]
+	int skyTextSize = 256;
+	if (x_BYTE_D41B5_texture_size == 128)
+	{
+		skyTextSize = 1024;
+	}
+	int lineWidthSQ = skyTextSize * skyTextSize;
 
-	v1 = roll & 0x7FF;
-	v2 = (x_DWORD)Maths::x_DWORD_DB750[512 + v1] << 8;
-	v26 = (Maths::x_DWORD_DB750[v1] << 8) / viewPort.Width_DE564;
-	v3 = 0;
-	v25 = v2 / viewPort.Width_DE564;
-	v4 = 0;
-	v29 = 0;
-	v5 = v19ar;
-	v30 = 0;
+	int texturePixelIndex;
+	bsaxis_2d errLine[3840]; // for 4K
+	int beginX;
+	int beginY;
+
+	int roundRoll = roll & 0x7FF;
+	int sinRoll = (Maths::x_DWORD_DB750[roundRoll] * skyTextSize) / viewPort.Width_DE564;
+	int cosRoll = (Maths::x_DWORD_DB750[512 + roundRoll] * skyTextSize) / viewPort.Width_DE564;
+	int errorX = 0;
+	int errorY = 0;
+	int8_t oldErrorX = 0;
+	int8_t oldErrorY = 0;
+	int index = 0;
 
 	// prepare sky texture lookup table
 	uint16_t width = viewPort.Width_DE564;
 	while (width)
 	{
-		v28 = BYTE2(v3);
-		*v5 = BYTE2(v3) - v29;
-		v5 += 2;
+		errLine[index].x = BYTE2(errorX) - oldErrorX;
+		errLine[index].y = BYTE2(errorY) - oldErrorY;
+		oldErrorX = BYTE2(errorX);
+		oldErrorY = BYTE2(errorY);
+		errorY += sinRoll;
+		errorX += cosRoll;
+		index++;
 		width--;
-		*(v5 - 1) = BYTE2(v4) - v30;
-		v29 = v28;
-		v30 = BYTE2(v4);
-		v4 += v26;
-		v3 += v25;
 	}
 
-	v7 = (-(str_F2C20ar.dword0x0d * str_F2C20ar.dword0x22) >> 16) + str_F2C20ar.dword0x24;
-	v8 = str_F2C20ar.dword0x10 - (str_F2C20ar.dword0x11 * str_F2C20ar.dword0x22 >> 16);
-	v9 = v7 * v25 - v8 * v26;
-	v10 = v25 * v8 + v26 * v7;
-	v23 = ((unsigned __int16)x_WORD_F2CC0 << 15) - v9;
 	uint8_t* viewPortRenderBufferStart = (ViewPortRenderBufferStart_DE558 + (startLine * iScreenWidth_DE560));
-	v27 = -v10;
+	int addX = (-(str_F2C20ar.dword0x0d * str_F2C20ar.dword0x22) >> 16) + str_F2C20ar.dword0x24;
+	int addY = str_F2C20ar.dword0x10 - (str_F2C20ar.dword0x11 * str_F2C20ar.dword0x22 >> 16);
+	beginX = (x_WORD_F2CC0 << 15) * (skyTextSize / 256) - (addX * cosRoll - addY * sinRoll);
+	beginY = -(cosRoll * addY + sinRoll * addX);
 	uint16_t height = viewPort.Height_DE568;
 
-	v23 -= (v26 * startLine);
-	v27 += (v25 * startLine);
+	beginX -= (sinRoll * startLine);
+	beginY += (cosRoll * startLine);
 
 	if (viewPort.Height_DE568)
 	{
 		do
 		{
-			v5 = v19ar;
+			index = 0;
 			uint8_t* viewPortLineRenderBufferStart = viewPortRenderBufferStart;
-			BYTE1(v17) = BYTE2(v27);
-			LOBYTE(v17) = BYTE2(v23);
-			v17 = (unsigned __int16)v17;
+
+			texturePixelIndex = (beginX / (256 * 256)) + skyTextSize * (int)(beginY / (256 * 256));
+			texturePixelIndex = (texturePixelIndex + lineWidthSQ * 2) % lineWidthSQ;
 
 			//Scales sky texture to viewport
-			int32_t width = viewPort.Width_DE564;
-			do
+			for (uint8_t* endLine = viewPortLineRenderBufferStart + viewPort.Width_DE564; viewPortLineRenderBufferStart < endLine; viewPortLineRenderBufferStart++)
 			{
-				*viewPortLineRenderBufferStart = off_D41A8_sky[v17];
-				LOBYTE(v17) = v5[0] + v17;
-				BYTE1(v17) += v5[1];
-				viewPortLineRenderBufferStart++;
-				v5 += 2;
-				width--;
-			} while (width);
+				*viewPortLineRenderBufferStart = off_D41A8_sky[texturePixelIndex];
+				texturePixelIndex += errLine[index].x + skyTextSize * errLine[index].y;
+				texturePixelIndex = (texturePixelIndex + lineWidthSQ) % lineWidthSQ;
+				index++;
+			}
 
 			viewPortRenderBufferStart = viewPortRenderBufferStart + (iScreenWidth_DE560 * drawEveryNthLine);
 			height = Maths::SubtrackUntilZero(height, drawEveryNthLine);
-			v23 -= (v26 * drawEveryNthLine);
-			v27 += (v25 * drawEveryNthLine);
+			beginX -= (sinRoll * drawEveryNthLine);
+			beginY += (cosRoll * drawEveryNthLine);
 		} while (height);
 	}
 }
