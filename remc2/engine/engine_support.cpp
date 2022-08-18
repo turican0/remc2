@@ -533,7 +533,7 @@ void support_begin() {
 		//x_D41A0_BYTEARRAY_4_struct.savestring_89 = new char[256];
 
 	x_BYTE_14B4E0_second_heightmap = new uint8_t[65536];
-	off_D41A8_sky = new uint8_t[65536];
+	off_D41A8_sky = new uint8_t[1024 * 1024];
 	memcpy(off_D41A8_sky, &x_BYTE_14B4E0_second_heightmap, 4);
 
 	xy_DWORD_17DED4_spritestr = new posistruct_t[1000];
