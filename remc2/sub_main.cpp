@@ -29771,63 +29771,57 @@ void DrawInGameOptionsMenu_30050()//211050
 void DrawVolumnSettings_303D0()//2113d0
 {
 	//int v1; // edx
-	unsigned __int8 v2; // bh
-	unsigned __int8 v3; // bl
-	unsigned __int8 v4; // al
-	int v5; // eax
-	unsigned __int8 v6; // si
-	int v7; // ebx
+	unsigned __int8 color1; // bh
+	unsigned __int8 color2; // bl
+	//unsigned __int8 v4; // al
+	//int v5; // eax
+	//unsigned __int8 v6; // si
+	//int v7; // ebx
 	int16_t height; // [esp+0h] [ebp-1Ch]
 	int16_t width; // [esp+4h] [ebp-18h]
 	int16_t posY; // [esp+8h] [ebp-14h]
 	int16_t posX; // [esp+Ch] [ebp-10h]
-	int v13; // [esp+10h] [ebp-Ch]
-	int v14 = 1; // [esp+14h] [ebp-8h] At its lowest value, this equals 1
-	unsigned __int8 v15; // [esp+18h] [ebp-4h]
+	//int v13; // [esp+10h] [ebp-Ch]
+	int index = 0; // set zero, add stopper when x_D41A0_BYTEARRAY_4_struct.byte_38591 == 0
+	unsigned __int8 color3; // [esp+18h] [ebp-4h]
 
 	signed int a1 = 1; //Lowest possible value
 
-	v2 = str_D94F0_bldgprmbuffer[static_cast<std::underlying_type<MapType_t>::type>(D41A0_0.terrain_2FECE.MapType)][0];
-	v3 = str_D94F0_bldgprmbuffer[static_cast<std::underlying_type<MapType_t>::type>(D41A0_0.terrain_2FECE.MapType)][2];
-	v15 = str_D94F0_bldgprmbuffer[static_cast<std::underlying_type<MapType_t>::type>(D41A0_0.terrain_2FECE.MapType)][3];
+	color1 = str_D94F0_bldgprmbuffer[static_cast<std::underlying_type<MapType_t>::type>(D41A0_0.terrain_2FECE.MapType)][0];
+	color2 = str_D94F0_bldgprmbuffer[static_cast<std::underlying_type<MapType_t>::type>(D41A0_0.terrain_2FECE.MapType)][2];
+	color3 = str_D94F0_bldgprmbuffer[static_cast<std::underlying_type<MapType_t>::type>(D41A0_0.terrain_2FECE.MapType)][3];
 
 	GetPauseMenuCoordinates_2FFE0(&posX, &posY, &width, &height);
-	v4 = x_D41A0_BYTEARRAY_4_struct.byte_38591;
-	if (v4 >= 1u)
+	switch (x_D41A0_BYTEARRAY_4_struct.byte_38591)
 	{
-		if (v4 <= 1u)
-		{
-			v5 = x_D41A0_BYTEARRAY_4_struct.wordindex_6;
-		}
-		else
-		{
-			if (v4 != 2)
-				goto LABEL_8;
-			v5 = x_D41A0_BYTEARRAY_4_struct.wordindex_8;
-		}
+	case 1:
 		a1 = 127;
-		v14 = v5;
+		index = x_D41A0_BYTEARRAY_4_struct.wordindex_6;
+		break;
+	case 2:
+		a1 = 127;
+		index = x_D41A0_BYTEARRAY_4_struct.wordindex_8;
+		break;
 	}
-LABEL_8:
 	width -= 2;
-	v13 = v2;
+	//v13 = color1;
 	posY += 4 * height;
-	DrawLine_2BC80(posX, posY, width, 24, v2);
-	DrawLine_2BC80(posX, posY, width, 2, v3);
-	v6 = v15;
-	DrawLine_2BC80(posX, posY + 22, width, 2, v15);
-	DrawLine_2BC80(posX, posY, 2, 22, v3);
-	DrawLine_2BC80(width + posX - 2, posY, 2, 24, v6);
-	DrawLine_2BC80(posX + 4, posY + 4, width - 8, 16, v13);
-	DrawLine_2BC80(posX + 4, posY + 4, width - 8, 2, v6);
-	DrawLine_2BC80(posX + 4, posY + 18, width - 8, 2, v3);
-	DrawLine_2BC80(posX + 4, posY + 4, 2, 14, v6);
-	DrawLine_2BC80(posX + 4 + width - 8 - 2, posY + 4, 2, 16, v3);
-	v7 = v14 * (width - 12) / a1;
+	DrawLine_2BC80(posX, posY, width, 24, color1);
+	DrawLine_2BC80(posX, posY, width, 2, color2);
+	//v6 = color3;
+	DrawLine_2BC80(posX, posY + 22, width, 2, color3);
+	DrawLine_2BC80(posX, posY, 2, 22, color2);
+	DrawLine_2BC80(width + posX - 2, posY, 2, 24, color3);
+	DrawLine_2BC80(posX + 4, posY + 4, width - 8, 16, color1);
+	DrawLine_2BC80(posX + 4, posY + 4, width - 8, 2, color3);
+	DrawLine_2BC80(posX + 4, posY + 18, width - 8, 2, color2);
+	DrawLine_2BC80(posX + 4, posY + 4, 2, 14, color3);
+	DrawLine_2BC80(posX + 4 + width - 8 - 2, posY + 4, 2, 16, color2);
+	//v7 = v14 * (width - 12) / a1;
 	posY += 6;
 	posX += 6;
 	DrawLine_2BC80(posX, posY, width - 12, 12, (*xadataclrd0dat.colorPalette_var28)[0]);
-	DrawLine_2BC80(posX, posY, v7, 12, (*xadataclrd0dat.colorPalette_var28)[240]);
+	DrawLine_2BC80(posX, posY, index * (width - 12) / a1, 12, (*xadataclrd0dat.colorPalette_var28)[240]);
 }
 
 //----- (00030630) --------------------------------------------------------
