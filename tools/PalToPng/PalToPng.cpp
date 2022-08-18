@@ -148,6 +148,8 @@ int getIndexedColor(int colorR, int colorG, int colorB, unsigned char* palette, 
 	return index;
 };
 
+char buffer[1024 * 1024];
+
 int main()
 {
 #ifdef BMPTOBIG
@@ -221,7 +223,8 @@ int main()
 
 
 			x = getIndexedColor(colorR - colorRerr, colorG - colorGerr, colorB - colorBerr, content_stdpal, szstd);
-			fwrite((char*)&x, 1, 1, fptw_outdata2);
+			//fwrite((char*)&x, 1, 1, fptw_outdata2);
+			buffer[i * 1024 + j] = (char)x;
 
 			colorRIerr[i] += (content_stdpal[x * 3 + 0] - colorR) * 0.5;
 			colorGIerr[i] += (content_stdpal[x * 3 + 1] - colorG) * 0.5;
@@ -237,6 +240,12 @@ int main()
 			buffer2[(i * width + j) * 4 + 3] = 255;
 		}
 	}
+
+	
+
+	for (int i = 0; i < 1024; i++)
+		for (int j = 0; j < 1024; j++)
+			fwrite(&buffer[i * 1024 + j], 1, 1, fptw_outdata2);
 
 	writeImagePNG((char*)outpng_filename, width, height, buffer2, (char*)"aa");
 	fclose(fptw_outdata2);
