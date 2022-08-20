@@ -188,7 +188,7 @@ void convert_struct_to_array_164(type_str_164* input, uint8_t* output) {
 	//int16_t word_0x24C_588;
 	memcpy(output + 0x24c, &input->word_0x24C_588, 2);
 	//int8_t array_0x24E_590[10];//size??
-	for (int i = 0; i < 11; i++)
+	for (int i = 0; i < 19; i++)
 		memcpy(output + 0x24e + i, &input->array_0x24E_590.at(i), 1);
 	//uint8_t stubn[8];
 	memset(output + 0x608, 0, 9);
