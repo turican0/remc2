@@ -171,7 +171,7 @@ std::string DataToString(message_info messInfo)
 	return output;
 }
 
-std::string Pack_Message(uint32 message, shadow_myNCB locNCB, int32_t locIndex, int32_t port=-1, const char* data = NULL, int size_of_data = 0) {
+std::string Pack_Message(uint32 message, shadow_myNCB locNCB, int32_t locIndex, int32_t port=-1, const char* data = nullptr, int size_of_data = 0) {
 	message_info locmessage_info;
 	locmessage_info.message = message;
 	locmessage_info.size = size_of_data;
