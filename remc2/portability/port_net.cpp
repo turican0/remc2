@@ -1572,6 +1572,3 @@ void EndMyNetLib() {
 	delete locNetworkClass;
 }
 
-#include <math.h>   
-#include <corecrt_math_defines.h>
-
