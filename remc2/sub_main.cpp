@@ -13309,28 +13309,33 @@ void ChangeSoundLevel_19CA0(uint8_t option)//1faca0
 // E37FD: using guessed type char x_BYTE_E37FD;
 
 //----- (00019D60) --------------------------------------------------------
-void SetSoundEffectAndMusicLevelCoordinates_19D60(signed int volume)//1fad60
+void SetSoundEffectAndMusicLevelCoordinates_19D60(signed int a1)//1fad60
 {
-	int16_t height;
-	int16_t width;
-	int16_t posY;
-	int16_t posX;
+	unsigned __int8 v2; // dl
+	int16_t height; // [esp+0h] [ebp-10h]
+	int16_t width; // [esp+4h] [ebp-Ch]
+	int16_t posY; // [esp+8h] [ebp-8h]
+	int16_t posX; // [esp+Ch] [ebp-4h]
 
-	int posYbyType = 0; // set zero, add stopper for x_D41A0_BYTEARRAY_4_struct.byte_38591 ==0
+	int a2 = 1; // At its lowest value, this equals 1
 
-	switch (x_D41A0_BYTEARRAY_4_struct.byte_38591)
+	if (CommandLineParams.DoDebugSequences()) {
+		add_compare(0x1fad63, CommandLineParams.DoDebugafterload());
+	}
+
+	v2 = x_D41A0_BYTEARRAY_4_struct.byte_38591;
+	if (v2 == 1u)
 	{
-		case 1:
-			volume = 127;
-			posYbyType = x_D41A0_BYTEARRAY_4_struct.wordindex_6;
-			break;
-		case 2:
-			volume = 127;
-			posYbyType = x_D41A0_BYTEARRAY_4_struct.wordindex_8;
-			break;
+		a1 = 127;
+		a2 = x_D41A0_BYTEARRAY_4_struct.wordindex_6;
+	}
+	else if (v2 == 2u)
+	{
+		a1 = 127;
+		a2 = x_D41A0_BYTEARRAY_4_struct.wordindex_8;
 	}
 	GetPauseMenuCoordinates_2FFE0(&posX, &posY, &width, &height);
-	SetMousePositionInMemory_5BDC0((int)(posYbyType * (width - 12) / volume) + 5 + posX, (int)(9 * height / 2) + posY);
+	SetMousePositionInMemory_5BDC0((unsigned int)(a2 * (width - 12) / a1) + 5 + posX, 9 * height / 2 + posY);
 }
 
 //----- (00019E00) --------------------------------------------------------
@@ -27575,7 +27580,7 @@ void DrawGameFrame_2BE30()//20CE30
 			}
 			else if (v13 <= 0xAu)
 			{
-				DrawVolumeSettings_303D0();
+				DrawVolumnSettings_303D0();
 			}
 			else if (v13 == 13)
 			{
@@ -27689,7 +27694,7 @@ void DrawGameFrame_2BE30()//20CE30
 				DrawInGameOptionsMenu_30050();
 				break;
 			case 10:
-				DrawVolumeSettings_303D0();
+				DrawVolumnSettings_303D0();
 				goto LABEL_41;
 			case 13:
 				DrawOkCancelMenu_30A60(132, 50);
@@ -27850,7 +27855,7 @@ void DrawGameFrame_2BE30()//20CE30
 			DrawInGameOptionsMenu_30050();
 			break;
 		case 0xC:
-			DrawVolumeSettings_303D0();
+			DrawVolumnSettings_303D0();
 			goto LABEL_73;
 		case 0xE:
 			DrawOkCancelMenu_30A60(6, 6);
@@ -29767,49 +29772,66 @@ void DrawInGameOptionsMenu_30050()//211050
 }
 
 //----- (000303D0) --------------------------------------------------------
-void DrawVolumeSettings_303D0()//2113d0
+void DrawVolumnSettings_303D0()//2113d0
 {
-	int16_t height;
-	int16_t width;
-	int16_t posY;
-	int16_t posX;
-	int index = 0;
-	signed int volume = 0;
+	//int v1; // edx
+	unsigned __int8 v2; // bh
+	unsigned __int8 v3; // bl
+	unsigned __int8 v4; // al
+	int v5; // eax
+	unsigned __int8 v6; // si
+	int v7; // ebx
+	int16_t height; // [esp+0h] [ebp-1Ch]
+	int16_t width; // [esp+4h] [ebp-18h]
+	int16_t posY; // [esp+8h] [ebp-14h]
+	int16_t posX; // [esp+Ch] [ebp-10h]
+	int v13; // [esp+10h] [ebp-Ch]
+	int v14 = 1; // [esp+14h] [ebp-8h] At its lowest value, this equals 1
+	unsigned __int8 v15; // [esp+18h] [ebp-4h]
 
-	unsigned __int8 color1 = str_D94F0_bldgprmbuffer[static_cast<std::underlying_type<MapType_t>::type>(D41A0_0.terrain_2FECE.MapType)][0];
-	unsigned __int8 color2 = str_D94F0_bldgprmbuffer[static_cast<std::underlying_type<MapType_t>::type>(D41A0_0.terrain_2FECE.MapType)][2];
-	unsigned __int8 color3 = str_D94F0_bldgprmbuffer[static_cast<std::underlying_type<MapType_t>::type>(D41A0_0.terrain_2FECE.MapType)][3];
+	signed int a1 = 1; //Lowest possible value
+
+	v2 = str_D94F0_bldgprmbuffer[static_cast<std::underlying_type<MapType_t>::type>(D41A0_0.terrain_2FECE.MapType)][0];
+	v3 = str_D94F0_bldgprmbuffer[static_cast<std::underlying_type<MapType_t>::type>(D41A0_0.terrain_2FECE.MapType)][2];
+	v15 = str_D94F0_bldgprmbuffer[static_cast<std::underlying_type<MapType_t>::type>(D41A0_0.terrain_2FECE.MapType)][3];
 
 	GetPauseMenuCoordinates_2FFE0(&posX, &posY, &width, &height);
-	switch (x_D41A0_BYTEARRAY_4_struct.byte_38591)
+	v4 = x_D41A0_BYTEARRAY_4_struct.byte_38591;
+	if (v4 >= 1u)
 	{
-	case 1:
-		volume = 127;
-		index = x_D41A0_BYTEARRAY_4_struct.wordindex_6;
-		break;
-	case 2:
-		volume = 127;
-		index = x_D41A0_BYTEARRAY_4_struct.wordindex_8;
-		break;
+		if (v4 <= 1u)
+		{
+			v5 = x_D41A0_BYTEARRAY_4_struct.wordindex_6;
+		}
+		else
+		{
+			if (v4 != 2)
+				goto LABEL_8;
+			v5 = x_D41A0_BYTEARRAY_4_struct.wordindex_8;
+		}
+		a1 = 127;
+		v14 = v5;
 	}
+LABEL_8:
 	width -= 2;
+	v13 = v2;
 	posY += 4 * height;
-	DrawLine_2BC80(posX, posY, width, 24, color1);
-	DrawLine_2BC80(posX, posY, width, 2, color2);
-	DrawLine_2BC80(posX, posY + 22, width, 2, color3);
-	DrawLine_2BC80(posX, posY, 2, 22, color2);
-	DrawLine_2BC80(width + posX - 2, posY, 2, 24, color3);
-	DrawLine_2BC80(posX + 4, posY + 4, width - 8, 16, color1);
-	DrawLine_2BC80(posX + 4, posY + 4, width - 8, 2, color3);
-	DrawLine_2BC80(posX + 4, posY + 18, width - 8, 2, color2);
-	DrawLine_2BC80(posX + 4, posY + 4, 2, 14, color3);
-	DrawLine_2BC80(posX + 4 + width - 8 - 2, posY + 4, 2, 16, color2);
+	DrawLine_2BC80(posX, posY, width, 24, v2);
+	DrawLine_2BC80(posX, posY, width, 2, v3);
+	v6 = v15;
+	DrawLine_2BC80(posX, posY + 22, width, 2, v15);
+	DrawLine_2BC80(posX, posY, 2, 22, v3);
+	DrawLine_2BC80(width + posX - 2, posY, 2, 24, v6);
+	DrawLine_2BC80(posX + 4, posY + 4, width - 8, 16, v13);
+	DrawLine_2BC80(posX + 4, posY + 4, width - 8, 2, v6);
+	DrawLine_2BC80(posX + 4, posY + 18, width - 8, 2, v3);
+	DrawLine_2BC80(posX + 4, posY + 4, 2, 14, v6);
+	DrawLine_2BC80(posX + 4 + width - 8 - 2, posY + 4, 2, 16, v3);
+	v7 = v14 * (width - 12) / a1;
 	posY += 6;
 	posX += 6;
 	DrawLine_2BC80(posX, posY, width - 12, 12, (*xadataclrd0dat.colorPalette_var28)[0]);
-	if (volume > 0) {
-		DrawLine_2BC80(posX, posY, (index * (width - 12)) / volume, 12, (*xadataclrd0dat.colorPalette_var28)[240]);
-	}
+	DrawLine_2BC80(posX, posY, v7, 12, (*xadataclrd0dat.colorPalette_var28)[240]);
 }
 
 //----- (00030630) --------------------------------------------------------
@@ -53620,6 +53642,9 @@ void sub_54630_load_psxblock(uint16_t TextSize)//235630
 void sub_54660_read_and_decompress_sky_and_blocks(MapType_t GraphicsType, uint8_t GraphicsSize)//235660
 {
 	char dataPath[MAX_PATH];
+	//int result; // eax
+
+	//result = a2;
 
 	switch (GraphicsType)
 	{
@@ -53627,29 +53652,29 @@ void sub_54660_read_and_decompress_sky_and_blocks(MapType_t GraphicsType, uint8_
 	{
 		switch (GraphicsSize)
 		{
-			case 16:
-			{
-				sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/BLOCK16.DAT");
-				DataFileIO::ReadFileAndDecompress(dataPath, &BLOCK32DAT_BEGIN_BUFFER);//2bac2c
-				break;
-			}
-			case 32:
-			{
-				sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/BLOCK32.DAT");
-				DataFileIO::ReadFileAndDecompress(dataPath, &BLOCK32DAT_BEGIN_BUFFER);//2bac2c
-				sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/SKYD0-0.DAT");
-				DataFileIO::ReadFileAndDecompress(dataPath, &off_D41A8_sky);//2a51a8
-				break;
-			}
-			case 128:
-			{
-				sprintf(dataPath, "%s/%s", bigGraphicsPath.c_str(), "block128.data");
-				ReadGraphicsfile(dataPath, BigTextureBuffer);//advance graphics
-				sprintf(dataPath, "%s/%s", bigGraphicsPath.c_str(), "skyd1024.data");
-				ReadGraphicsfile(dataPath, off_D41A8_sky);//2a51a8
-				break;
-			}
+		case 16:
+		{
+			sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/BLOCK16.DAT");
+			DataFileIO::ReadFileAndDecompress(dataPath, &BLOCK32DAT_BEGIN_BUFFER);//2bac2c
+			break;
 		}
+		case 32:
+		{
+			sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/BLOCK32.DAT");
+			DataFileIO::ReadFileAndDecompress(dataPath, &BLOCK32DAT_BEGIN_BUFFER);//2bac2c
+			break;
+		}
+		case 128:
+		{
+			//AdvReadfile("biggraphics/block128.data",BigTextureBuffer);//advance graphics
+			//AdvReadfile(bigtexturepath, BigTextureBuffer);//advance graphics
+			sprintf(dataPath, "%s/%s", bigGraphicsPath.c_str(), "block128.data");
+			ReadGraphicsfile(dataPath, BigTextureBuffer);//advance graphics
+			break;
+		}
+		}
+		sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/SKYD0-0.DAT");
+		DataFileIO::ReadFileAndDecompress(dataPath, &off_D41A8_sky);//2a51a8
 		sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/TMAPS0-0.TAB");
 		DataFileIO::ReadFileAndDecompress(dataPath, (uint8_t**)&str_TMAPS00TAB_BEGIN_BUFFER);//2c7ed0
 		break;
@@ -53658,53 +53683,51 @@ void sub_54660_read_and_decompress_sky_and_blocks(MapType_t GraphicsType, uint8_
 	{
 		switch (GraphicsSize)
 		{
-			case 16:
+		case 16:
+		{
+			if (D41A0_0.terrain_2FECE.byte_0x2FED2 & 2)
 			{
-				if (D41A0_0.terrain_2FECE.byte_0x2FED2 & 2)
-				{
-					sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/BL16F0-0.DAT");
-					DataFileIO::ReadFileAndDecompress(dataPath, &BLOCK32DAT_BEGIN_BUFFER);//2bac2c
-				}
-				else
-				{
-					sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/BL16N0-0.DAT");
-					DataFileIO::ReadFileAndDecompress(dataPath, &BLOCK32DAT_BEGIN_BUFFER);//2bac2c
-				}
-				break;
+				sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/BL16F0-0.DAT");
+				DataFileIO::ReadFileAndDecompress(dataPath, &BLOCK32DAT_BEGIN_BUFFER);//2bac2c
 			}
-			case 32:
+			else
 			{
-				if (D41A0_0.terrain_2FECE.byte_0x2FED2 & 2)
-				{
-					sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/BL32F0-0.DAT");
-					DataFileIO::ReadFileAndDecompress(dataPath, &BLOCK32DAT_BEGIN_BUFFER);//2bac2c
-				}
-				else
-				{
-					sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/BL32N0-0.DAT");
-					DataFileIO::ReadFileAndDecompress(dataPath, &BLOCK32DAT_BEGIN_BUFFER);//2bac2c
-				}
-				sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/SKYN0-0.DAT");
-				DataFileIO::ReadFileAndDecompress(dataPath, &off_D41A8_sky);//2a51a8
-				break;
+				sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/BL16N0-0.DAT");
+				DataFileIO::ReadFileAndDecompress(dataPath, &BLOCK32DAT_BEGIN_BUFFER);//2bac2c
 			}
-			case 128:
-			{
-				if (D41A0_0.terrain_2FECE.byte_0x2FED2 & 2)
-				{
-					sprintf(dataPath, "%s/%s", bigGraphicsPath.c_str(), "bl128f0-0.data");
-					ReadGraphicsfile(dataPath, BigTextureBuffer);//advance graphics
-				}
-				else
-				{
-					sprintf(dataPath, "%s/%s", bigGraphicsPath.c_str(), "bl128n0-0.data");
-					ReadGraphicsfile(dataPath, BigTextureBuffer);//advance graphics
-				}
-				sprintf(dataPath, "%s/%s", bigGraphicsPath.c_str(), "skyn1024.data");
-				ReadGraphicsfile(dataPath, off_D41A8_sky);//2a51a8
-				break;
-			}
+			break;
 		}
+		case 32:
+		{
+			if (D41A0_0.terrain_2FECE.byte_0x2FED2 & 2)
+			{
+				sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/BL32F0-0.DAT");
+				DataFileIO::ReadFileAndDecompress(dataPath, &BLOCK32DAT_BEGIN_BUFFER);//2bac2c
+			}
+			else
+			{
+				sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/BL32N0-0.DAT");
+				DataFileIO::ReadFileAndDecompress(dataPath, &BLOCK32DAT_BEGIN_BUFFER);//2bac2c
+			}
+			break;
+		}
+		case 128:
+		{
+			if (D41A0_0.terrain_2FECE.byte_0x2FED2 & 2)
+			{
+				sprintf(dataPath, "%s/%s", bigGraphicsPath.c_str(), "bl128f0-0.data");
+				ReadGraphicsfile(dataPath, BigTextureBuffer);//advance graphics
+			}
+			else
+			{
+				sprintf(dataPath, "%s/%s", bigGraphicsPath.c_str(), "bl128n0-0.data");
+				ReadGraphicsfile(dataPath, BigTextureBuffer);//advance graphics
+			}
+			break;
+		}
+		}
+		sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/SKYN0-0.DAT");
+		DataFileIO::ReadFileAndDecompress(dataPath, &off_D41A8_sky);//2a51a8
 		sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/TMAPS1-0.TAB");
 		DataFileIO::ReadFileAndDecompress(dataPath, (uint8_t**)&str_TMAPS00TAB_BEGIN_BUFFER);//2c7ed0
 		break;
@@ -53737,8 +53760,12 @@ void sub_54660_read_and_decompress_sky_and_blocks(MapType_t GraphicsType, uint8_
 		break;
 	}
 	}
+	//return result;
 }
-
+// D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
+// D41A8: using guessed type char *off_D41A8;
+// E9C2C: using guessed type int x_DWORD_E9C2C;
+// F6ED0: using guessed type int TMAPS00TAB_BEGIN_BUFFER;
 
 //----- (00054800) --------------------------------------------------------
 void sub_54800_read_and_decompress_tables(MapType_t a1)//235800
@@ -63204,11 +63231,11 @@ void sub_60780(type_event_0x6E8E* locEvent, type_event_0x6E8E* locEvent2, int nu
 //----- (00060810) --------------------------------------------------------
 void sub_60810(type_event_0x6E8E* locEvent)//241810
 {
-	type_event_0x6E8E* locEvent2 = nullptr;
+	type_event_0x6E8E* locEvent2 = 0;
 
-	if ((x_DWORD_EA3E4[locEvent->word_0x1A_26]->byte_0x45_69 <= 1u) && 
-		(x_DWORD_EA3E4[locEvent->word_0x1A_26]->dword_0xA4_164x->str_611.array_0x333_819x.word[2]))
+	if (x_DWORD_EA3E4[locEvent->word_0x1A_26]->byte_0x45_69 <= 1u)
 	{
+		if (x_DWORD_EA3E4[locEvent->word_0x1A_26]->dword_0xA4_164x->str_611.array_0x333_819x.word[2])
 			locEvent2 = x_DWORD_EA3E4[x_DWORD_EA3E4[locEvent->word_0x1A_26]->dword_0xA4_164x->str_611.array_0x333_819x.word[2]];
 	}
 	int number1 = (x_DWORD_EA3E4[locEvent->word_0x1A_26]->dword_0xA4_164x->word_0x24A_586 * ((x_DWORD_EA3E4[locEvent->word_0x1A_26]->dword_0xA4_164x->array_0x24E_590[locEvent->dword_0x10_16] << 8) + 256)) >> 8;
@@ -72983,7 +73010,7 @@ type_event_0x6E8E* sub_6DCA0(type_event_0x6E8E* a1x, axis_3d* a2x, unsigned __in
 			{
 				v23x->byte_0x43_67 = 10;
 				v23x->byte_0x44_68 = 89;
-				if (a4x->byte_0x1A)
+				if (a4x->dword_2)
 					v22 = a4x->dword_2 / a4x->byte_0x1A;
 				else
 					LOWORD(v22) = a4x->dword_2;
@@ -73523,7 +73550,7 @@ void SetMousePositionByRes_6EDB0()//24FDB0
 	else
 	{
 		if (!DefaultResolutions())
-			SetMousePosition_6EDE0(320, 200);
+			SetMousePosition_6EDE0(screenWidth_18062C / 2, screenHeight_180624 / 2);
 		else
 			SetMousePosition_6EDE0(320, 240);
 	}
