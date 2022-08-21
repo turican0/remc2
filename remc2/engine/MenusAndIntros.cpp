@@ -169,6 +169,25 @@ type_E16E0 str_E16E0[7] = {//cutscenes
 {NULL,0x00,0x00,0x00}
 };
 
+type_x_BYTE_E25ED_db_str x_BYTE_E26C8_str[16] = {//set keys
+{0x00000000,0x00000000,0x01BF,0x0274,0x0073,0x008A,0x0073,0x0004,0x00,0x01,0x0007,0x0026,0x0002,0x0000},
+{0x00000000,0x00000000,0x036C,0x0216,0x0073,0x008A,0x0075,0x0008,0x00,0x01,0x0008,0x0026,0x0002,0x0000},
+{0x00000000,0x00000000,0x0221,0x0036,0x0055,0x0055,0x0055,0x0000,0x01,0x00,0xFFFF,0x0000,0x0000,0x0000},
+{0x00000000,0x00000000,0x028F,0x003A,0x0055,0x0055,0x0057,0x0000,0x01,0x00,0xFFFF,0x0000,0x0000,0x0000},
+{0x00000000,0x00000000,0x0234,0x0058,0x0055,0x0055,0x0058,0x0000,0x01,0x00,0xFFFF,0x0000,0x0000,0x0000},
+{0x00000000,0x00000000,0x0266,0x007B,0x0055,0x0055,0x0059,0x0000,0x01,0x00,0xFFFF,0x0000,0x0000,0x0000},
+{0x00000000,0x00000000,0x0221,0x0036,0x0056,0x005C,0x0056,0x0008,0x00,0x01,0x0009,0x0017,0x0003,0x0000},
+{0x00000000,0x00000000,0x028F,0x003A,0x0056,0x005C,0x0058,0x0004,0x00,0x01,0xFFFF,0x0017,0x0002,0x0000},
+{0x00000000,0x00000000,0x0234,0x0058,0x0056,0x005C,0x0059,0x0016,0x00,0x01,0xFFFF,0x0017,0x0003,0x0000},
+{0x00000000,0x00000000,0x0266,0x007B,0x0056,0x005C,0x005A,0x0015,0x00,0x01,0xFFFF,0x0017,0x0003,0x0000},
+{0x00000000,0x00000000,0x033F,0x00F5,0x002E,0x003A,0x0031,0x0000,0x01,0x00,0x000A,0x0005,0x0002,0x0000},
+{0x00000000,0x00000000,0x033F,0x00F5,0x002E,0x003A,0x0031,0x0000,0x01,0x01,0x000A,0x0005,0x0002,0xFFFF},
+{0x00000000,0x00000000,0x035F,0x0149,0x002E,0x003A,0x002E,0x0000,0x01,0x00,0xFFFF,0x0005,0x0002,0x0000},
+{0x00000000,0x00000000,0x0276,0x025F,0x002E,0x003A,0x0034,0x0000,0x01,0x00,0xFFFF,0x0005,0x0002,0x0000},
+{0x00000000,0x00000000,0x00F4,0x0278,0x002E,0x003A,0x0038,0x0000,0x01,0x00,0xFFFF,0x0005,0x0002,0x0000},
+{0x00000000,0x00000000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x00,0x00,0x0000,0x0000,0x0000,0x0000}
+};
+
 #pragma pack (1)
 typedef struct {//lenght 69
 	int32_t dword_0;//0
@@ -1779,8 +1798,8 @@ char sub_780F0_load_game_dialog(type_WORD_E1F84* a1x)//0x2590f0
 		if (a1x->str_26.word_36_5 /**(signed __int16*)(a1 + 36)*/ > 16 * (signed __int16)j + 3 * sub_6FC30_get34_height())
 		{
       std::string savegame = std::to_string(j) + ". " + std::string(&x_DWORD_17DE38str.xx_BYTE_17DF14[(j - 1)][0]);
-      int16_t savegame_y_pos = a1x->str_26.word_28_1 + 16 * (j + 1);
-      int16_t savegame_x_pos = a1x->str_26.word_26_0 + 20;
+      int16_t savegame_y_pos = a1x->str_26.y1_28_1 + 16 * (j + 1);
+      int16_t savegame_x_pos = a1x->str_26.x1_26_0 + 20;
       uint8_t pal_text_color = (j == x_DWORD_17DE38str.x_WORD_17DF04) ? pal_selected_text : pal_text;
       DrawText_2BC10(savegame.c_str(), savegame_x_pos, savegame_y_pos, pal_text_color);
 		}
@@ -1791,9 +1810,9 @@ char sub_780F0_load_game_dialog(type_WORD_E1F84* a1x)//0x2590f0
 		for (int km = 0; km < 8; km++)
 		{
 			int k = km + 1;
-			v34x.xmin_10 = a1x->str_26.word_26_0 + 20;
+			v34x.xmin_10 = a1x->str_26.x1_26_0 + 20;
 			//v25 = 16 * k;
-			v34x.ymin_12 = 16 * k + a1x->str_26.word_28_1 + 16;
+			v34x.ymin_12 = 16 * k + a1x->str_26.y1_28_1 + 16;
 			v34x.sizex_14 = 100;
 			//v45 = k;
 			v34x.sizey_16 = 16;
@@ -1808,8 +1827,8 @@ char sub_780F0_load_game_dialog(type_WORD_E1F84* a1x)//0x2590f0
 				else
 				{
           std::string savegame = std::to_string(k) + ". " + std::string(&x_DWORD_17DE38str.xx_BYTE_17DF14[(k - 1)][0]);
-					int16_t savegame_y_pos = a1x->str_26.word_28_1 + 16 * (k + 1);
-					int16_t savegame_x_pos = a1x->str_26.word_26_0 + 20;
+					int16_t savegame_y_pos = a1x->str_26.y1_28_1 + 16 * (k + 1);
+					int16_t savegame_x_pos = a1x->str_26.x1_26_0 + 20;
 					DrawText_2BC10(savegame.c_str(), savegame_x_pos, savegame_y_pos, pal_selected_text);
 				}
 			}
@@ -3027,10 +3046,10 @@ char sub_78730_save_game_dialog(type_WORD_E1F84* a1x)//259730
 			v16 = &x_DWORD_17DE38str.xx_BYTE_17DF14[(j - 1)][0];
 			if (j == x_DWORD_17DE38str.x_WORD_17DF04)
 			{//draw edtited text line loc 78b10
-				v20 = a1x->str_26.word_26_0;
+				v20 = a1x->str_26.x1_26_0;
 				v21 = 16 * j + 20;
 				v63 = v20 + 20;
-				LOWORD(v21) = a1x->str_26.word_28_1;
+				LOWORD(v21) = a1x->str_26.y1_28_1;
 				//v57 = v68;
 				//v58 = (signed __int16)(v21 + 16 + v62);
 				v61 = v21 + 16 + v62;
@@ -3043,10 +3062,10 @@ char sub_78730_save_game_dialog(type_WORD_E1F84* a1x)//259730
 			else
 			{
 				//v57 = v67;
-				DrawText_2BC10(printbuffer, a1x->str_26.word_26_0 + 20, v62 + a1x->str_26.word_28_1 + 16, v67);//draw number
+				DrawText_2BC10(printbuffer, a1x->str_26.x1_26_0 + 20, v62 + a1x->str_26.y1_28_1 + 16, v67);//draw number
 				//v17 = v67;
-				v18 = v62 + a1x->str_26.word_28_1 + 16;
-				v19 = a1x->str_26.word_26_0 + 20 + 3 * sub_6FC10_letter_width();
+				v18 = v62 + a1x->str_26.y1_28_1 + 16;
+				v19 = a1x->str_26.x1_26_0 + 20 + 3 * sub_6FC10_letter_width();
 				DrawText_2BC10(v16, v19, v18, v67);//draw text
 			}
 		}
@@ -3055,8 +3074,8 @@ char sub_78730_save_game_dialog(type_WORD_E1F84* a1x)//259730
 	{
 		for (k = 1; k < 9; k++)
 		{
-			v47x.xmin_10 = a1x->str_26.word_26_0 + 20;//x pos
-			v25 = a1x->str_26.word_28_1;
+			v47x.xmin_10 = a1x->str_26.x1_26_0 + 20;//x pos
+			v25 = a1x->str_26.y1_28_1;
 			v64 = 16 * k;
 			v47x.sizey_16 = 16;//y size
 			v47x.sizex_14 = 90;//x size
@@ -3089,9 +3108,9 @@ char sub_78730_save_game_dialog(type_WORD_E1F84* a1x)//259730
 					x_DWORD_17DE38str.xx_BYTE_17DF14[(x_DWORD_17DE38str.x_WORD_17DF04 - 1)][40] = 0;
 					//LOWORD(v30) = *v1;
 					//v30 += 20;
-					v63 = a1x->str_26.word_26_0 + 20;
+					v63 = a1x->str_26.x1_26_0 + 20;
 					//LOWORD(v30) = a1[14];
-					v61 = a1x->str_26.word_28_1 + 16 + v64;
+					v61 = a1x->str_26.y1_28_1 + 16 + v64;
 					x_DWORD_17DE38str.xx_BYTE_17DF14[(x_DWORD_17DE38str.x_WORD_17DF04 - 1)][42] = 0;
 				}
 				else if (k != x_DWORD_17DE38str.x_WORD_17DF04)
@@ -3099,10 +3118,10 @@ char sub_78730_save_game_dialog(type_WORD_E1F84* a1x)//259730
 					//v31 = 43 * (k - 1);
 					sprintf(printbuffer, "%d.", k);
 					v32 = v68;
-					DrawText_2BC10(printbuffer, a1x->str_26.word_26_0 + 20, v64 + a1x->str_26.word_28_1 + 16, v68);
-					v33 = v64 + a1x->str_26.word_28_1 + 16;
+					DrawText_2BC10(printbuffer, a1x->str_26.x1_26_0 + 20, v64 + a1x->str_26.y1_28_1 + 16, v68);
+					v33 = v64 + a1x->str_26.y1_28_1 + 16;
 					v34 = sub_6FC10_letter_width();
-					DrawText_2BC10(&x_DWORD_17DE38str.xx_BYTE_17DF14[(k - 1)][0], a1x->str_26.word_26_0 + 20 + 3 * v34, v33, v32);
+					DrawText_2BC10(&x_DWORD_17DE38str.xx_BYTE_17DF14[(k - 1)][0], a1x->str_26.x1_26_0 + 20 + 3 * v34, v33, v32);
 				}
 			}
 		}
@@ -3236,11 +3255,11 @@ void sub_7D400_draw_texts_and_play_sounds(int  /*a1*/, __int16 a2, __int16 a3, c
 	v41x = -1;
 	v40x = -1;
 	v39 = j___clock();
-	while (x_BYTE_E25ED_db_str[v4x].word_8)
+	while (x_BYTE_E26C8_str[v4x].word_8)
 	{
 		//if (x_WORD_E1964x[0x21E] != 1 || x_BYTE_E25ED_db_str[v4x].word_12 != 85 && x_BYTE_E25ED_db_str[v4x].word_12 != 86)
-		if (mapScreenPortals_E17CC[24].activated_18 != 1 || x_BYTE_E25ED_db_str[v4x].word_12 != 85 && x_BYTE_E25ED_db_str[v4x].word_12 != 86)
-			sub_81CA0(a2, v5, a2, a3, &x_BYTE_E25ED_db_str[v4x]);
+		if (mapScreenPortals_E17CC[24].activated_18 != 1 || x_BYTE_E26C8_str[v4x].word_12 != 85 && x_BYTE_E26C8_str[v4x].word_12 != 86)
+			sub_81CA0(a2, v5, a2, a3, &x_BYTE_E26C8_str[v4x]);
 		//v4 += 15;
 		v4x++;
 	}
