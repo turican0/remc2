@@ -74194,7 +74194,7 @@ void SetMousePositionByRes_6EDB0()//24FDB0
 	else
 	{
 		if (!DefaultResolutions())
-			SetMousePosition_6EDE0(screenWidth_18062C / 2, screenHeight_180624 / 2);
+			SetMousePosition_6EDE0(320, 200);
 		else
 			SetMousePosition_6EDE0(320, 240);
 	}
