@@ -2334,7 +2334,7 @@ int sub_75440();
 int sub_754C0(int a1, x_DWORD* a2, uint8_t* a3);
 int sub_75540(int a1, uint8_t* a2);
 int sub_755B0(int a1, x_DWORD* a2, uint8_t* a3);
-signed int sub_75650();
+bool sub_75650();
 void sub_75900();
 signed int sub_75910();
 void sub_759B0_set_mouse_minmax_vert();
@@ -76981,7 +76981,7 @@ int sub_755B0(int a1, x_DWORD* a2, uint8_t* a3)
 // 17D708: using guessed type __int16 x_WORD_17D708;
 
 //----- (00075650) --------------------------------------------------------
-signed int sub_75650()//VR something
+bool sub_75650()//VR something
 {
 	char* v1; // eax
 	int v2; // eax
@@ -77005,7 +77005,7 @@ signed int sub_75650()//VR something
 	memset(x_WORD_17D70Aar, 0, 7);
 	x_DWORD_17D6C8 = sub_75B80_alloc_mem_block(256, (int16_t*)&unk_17D6D4ar[0x1c], (int16_t*)&unk_17D6D4ar[0x32]);
 	if (!x_DWORD_17D6C8)
-		return 0;
+		return false;
 	v1 = mygetenv("VIPPORT");
 	if (v1)
 	{
@@ -77088,7 +77088,7 @@ signed int sub_75650()//VR something
 		{
 		LABEL_22:
 			sub_75AB0();
-			return 0;
+			return false;
 		}
 		else
 		{
@@ -77096,14 +77096,14 @@ signed int sub_75650()//VR something
 				x_BYTE_E12EC = 1;
 			if (x_DWORD_17D644)
 				x_BYTE_E12ED = 1;
-			return 1;
+			return true;
 		}
 	}
 	else
 	{
 		x_DWORD_17D6B0 = 768;
 		sub_75AB0();
-		return 0;
+		return false;
 	}
 }
 
@@ -89347,7 +89347,7 @@ int16_t sub_89B60_aplicate_setting(uint8_t a1)//26ab60
 			goto LABEL_3;
 		break;
 	case 2u:
-		if ((unsigned __int16)sub_75650())//fix it
+		if (sub_75650())//fix it
 		{
 			v1 = 1;
 			myprintf("VFX INITIALISED\n");
