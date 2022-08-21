@@ -1,3 +1,9 @@
-[submodule "findfirst"]
-	path = findfirst
-	url = https://github.com/MathieuTurcotte/findfirst.git
+[submodule "src/libs/findfirst"]
+	path = src/libs/findfirst
+	url = http://github.com/MathieuTurcotte/findfirst.git
+[submodule "src/libs/inih"]
+	path = src/libs/inih
+	url = http://github.com/Benhoyt/inih.git
+[submodule "src/libs/dirent"]
+	path = src/libs/dirent
+	url = http://github.com/tronkko/dirent.git
