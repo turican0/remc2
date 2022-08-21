@@ -452,7 +452,7 @@ void sub_7A060_get_mouse_and_keyboard_events();
 void DrawAndEventsInGame_47560(uint32_t a3, signed int a4, __int16 a5);
 void GameEvents_51BB0();
 //x_DWORD /*__cdecl*/ toupper(x_DWORD); //weak
-void sub_55C60(/*int a1, int a2,*/ type_str_0x2BDE* a3);
+void sub_55C60(type_str_0x2BDE* loc0x2BDE);
 int32_t /*__cdecl*/ fix_filelength(int32_t);// weak
 //x_DWORD /*__cdecl*/ access(char* path, uint32_t flags);// weak
 //x_DWORD /*__cdecl*/ mkdir(char* path);
