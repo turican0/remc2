@@ -6122,7 +6122,7 @@ int x_DWORD_17D698; // weak
 int x_DWORD_17D6A0; // weak
 int x_DWORD_17D6A4; // weak
 int x_DWORD_17D6A8; // weak
-uint8_t** x_DWORD_17D6AC; // weak
+uint8_t* x_DWORD_17D6AC; // weak
 int x_DWORD_17D6B0; // weak
 char* x_DWORD_17D6B8; // weak
 char* x_DWORD_17D6BC; // weak
@@ -76988,10 +76988,10 @@ bool sub_75650()//VR something
 	char* v3; // eax
 	int v4; // ebx
 	int v5; // edx
-	int v6; // esi
+	uint8_t* v6; // esi
 	char v7; // dh
 	char v8; // bh
-	int v9; // ecx
+	uint8_t* v9; // ecx
 	int v10; // edx
 	int v11; // ebx
 	char v12; // dl
@@ -77021,7 +77021,7 @@ bool sub_75650()//VR something
 		x_DWORD_17D644 = 0;
 		x_DWORD_17D6A8 = 0;
 		x_DWORD_17D698 = 0;
-		x_DWORD_17D6AC = (uint8_t**)&unk_17D540;
+		x_DWORD_17D6AC = unk_17D540;
 		while (x_DWORD_17D698 < x_DWORD_17D648)
 		{
 			x_DWORD_17D6A4 = x_BYTE_17D440[x_DWORD_17D698];
@@ -77043,12 +77043,12 @@ bool sub_75650()//VR something
 				{
 					v4 = x_DWORD_17D6A8;
 					v5 = 3 * x_DWORD_17D6A8;
-					v6 = (int)x_DWORD_17D6AC;
+					v6 = x_DWORD_17D6AC;
 					x_DWORD_17D6C4 = &x_BYTE_17D440[x_DWORD_17D698];
 					*(_WORD*)&x_BYTE_17D674[2 * v5 + 4] = __DS__;
-					*(_DWORD*)&x_BYTE_17D674[2 * v5] = v6;
+					*(uint8_t**)&x_BYTE_17D674[2 * v5] = v6;
 					x_DWORD_17D6A8 = (int)(v4 + 1);
-					x_DWORD_17D6AC = (uint8_t**)(v6 + 6);
+					x_DWORD_17D6AC = v6 + 6;
 					if (byte_17D711)
 					{
 						v7 = v3[14];
@@ -77062,13 +77062,13 @@ bool sub_75650()//VR something
 			case 7:
 				if (x_DWORD_17D644 < 6)
 				{
-					v9 = (int)x_DWORD_17D6AC;
+					v9 = x_DWORD_17D6AC;
 					v10 = 3 * x_DWORD_17D644;
 					x_DWORD_17D6BC = &x_BYTE_17D440[x_DWORD_17D698];
 					v11 = x_DWORD_17D644 + 1;
-					*(_DWORD*)&x_BYTE_17D650[2 * v10] = (uint32)x_DWORD_17D6AC;
+					*(uint8_t**)&x_BYTE_17D650[2 * v10] = x_DWORD_17D6AC;
 					*(_WORD*)&x_BYTE_17D650[2 * v10 + 4] = __DS__;
-					x_DWORD_17D6AC = (uint8_t**)v9 + 7;
+					x_DWORD_17D6AC = v9 + 7;
 					x_DWORD_17D644 = v11;
 					if (byte_17D711)
 					{
