@@ -1,21 +1,9 @@
-﻿################################################################################
-# Tento soubor .gitignore byl automaticky vytvořen aplikací Microsoft(R) Visual Studio.
-################################################################################
-flatpak/build-dir
+﻿./flatpak/build-dir
 .flatpak*
 Makefile
-remc2
 remc2.exe
-remc2editor
 remc2editor.exe
 CMakeCache.txt
 CMakeFiles/
 cmake_install.cmake
 install_manifest.txt
-*.a
-*.lib
-*.o
-*.lo
-*.ko
-*.exe
-*.obj

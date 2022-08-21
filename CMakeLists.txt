@@ -248,9 +248,9 @@ if (UNIT_TESTS)
     install(
         TARGETS remc2unittests
         CONFIGURATIONS Debug;Release;RelWithDebInfo
-        RUNTIME DESTINATION bin
-        LIBRARY DESTINATION lib
-        ARCHIVE DESTINATION lib/static
+	RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+	LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+	ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}/static
     )
 endif ()
 
@@ -283,7 +283,7 @@ target_compile_options(${PROJECT_NAME} PUBLIC
 message("-- Data files will be installed to: ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_DATADIR}/")
 
 install(TARGETS ${PROJECT_NAME} EXPORT ${PROJECT_NAME}Config )
-install(DIRECTORY ${DATADIR}  TYPE DATA COMPONENT assets)
+install(DIRECTORY ${DATADIR} TYPE DATA COMPONENT assets)
 
 install(
     TARGETS ${PROJECT_NAME}
