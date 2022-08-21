@@ -6124,10 +6124,10 @@ int x_DWORD_17D6A4; // weak
 int x_DWORD_17D6A8; // weak
 uint8_t** x_DWORD_17D6AC; // weak
 int x_DWORD_17D6B0; // weak
-int x_DWORD_17D6B8; // weak
-int x_DWORD_17D6BC; // weak
-int x_DWORD_17D6C0; // weak
-int x_DWORD_17D6C4; // weak
+char* x_DWORD_17D6B8; // weak
+char* x_DWORD_17D6BC; // weak
+char* x_DWORD_17D6C0; // weak
+char* x_DWORD_17D6C4; // weak
 int x_DWORD_17D6C8; // weak
 __int16 x_WORD_17D6CCar[3]; // weak
 uint8_t unk_17D6D4ar[0x32]; // weak
@@ -76997,7 +76997,7 @@ bool sub_75650()//VR something
 	char v12; // dl
 	char v13; // bl
 	char v14; // dh
-	unsigned __int8* v15; // [esp+0h] [ebp-4h] BYREF
+	unsigned __int8 v15[16]; // [esp+0h] [ebp-4h] BYREF
 
 	uint16 __DS__ = 0;
 
@@ -77009,12 +77009,15 @@ bool sub_75650()//VR something
 	v1 = mygetenv("VIPPORT");
 	if (v1)
 	{
-		x_DWORD_17D6B0 = sub_99FF0(v1, &v15, 16);
+		x_DWORD_17D6B0 = sub_99FF0(v1, (unsigned char**)&v15, 16);
 		x_DWORD_17D6A0 = x_DWORD_17D6B0 + 1;
 		v2 = sub_75440();
 		x_DWORD_17D640 = v2;
 		if (!v2 || sub_754C0(v2, &x_DWORD_17D648, (uint8_t*)x_BYTE_17D440))
-			goto LABEL_22;
+		{
+			sub_75AB0();
+			return false;
+		}
 		x_DWORD_17D644 = 0;
 		x_DWORD_17D6A8 = 0;
 		x_DWORD_17D698 = 0;
@@ -77029,10 +77032,10 @@ bool sub_75650()//VR something
 				x_DWORD_17D698 = x_DWORD_17D648;
 				break;
 			case 1:
-				x_DWORD_17D6C0 = (int)&x_BYTE_17D440[x_DWORD_17D698];
+				x_DWORD_17D6C0 = &x_BYTE_17D440[x_DWORD_17D698];
 				break;
 			case 2:
-				x_DWORD_17D6B8 = (int)&x_BYTE_17D440[x_DWORD_17D698];
+				x_DWORD_17D6B8 = &x_BYTE_17D440[x_DWORD_17D698];
 				byte_17D711 = strcmp(v3 + 34, "VFX1 CyberPuck") == 0;
 				break;
 			case 6:
@@ -77041,7 +77044,7 @@ bool sub_75650()//VR something
 					v4 = x_DWORD_17D6A8;
 					v5 = 3 * x_DWORD_17D6A8;
 					v6 = (int)x_DWORD_17D6AC;
-					x_DWORD_17D6C4 = (int)&x_BYTE_17D440[x_DWORD_17D698];
+					x_DWORD_17D6C4 = &x_BYTE_17D440[x_DWORD_17D698];
 					*(_WORD*)&x_BYTE_17D674[2 * v5 + 4] = __DS__;
 					*(_DWORD*)&x_BYTE_17D674[2 * v5] = v6;
 					x_DWORD_17D6A8 = (int)(v4 + 1);
@@ -77061,7 +77064,7 @@ bool sub_75650()//VR something
 				{
 					v9 = (int)x_DWORD_17D6AC;
 					v10 = 3 * x_DWORD_17D644;
-					x_DWORD_17D6BC = (int)&x_BYTE_17D440[x_DWORD_17D698];
+					x_DWORD_17D6BC = &x_BYTE_17D440[x_DWORD_17D698];
 					v11 = x_DWORD_17D644 + 1;
 					*(_DWORD*)&x_BYTE_17D650[2 * v10] = (uint32)x_DWORD_17D6AC;
 					*(_WORD*)&x_BYTE_17D650[2 * v10 + 4] = __DS__;
@@ -77086,7 +77089,6 @@ bool sub_75650()//VR something
 		}
 		if (sub_75540(x_DWORD_17D640, (uint8_t*)x_BYTE_17D440))
 		{
-		LABEL_22:
 			sub_75AB0();
 			return false;
 		}
