@@ -269,6 +269,22 @@ typedef struct {//lenght 18
 type_E24BCx;
 #pragma pack (16)
 
+
+#pragma pack (1)
+typedef struct {//lenght 18
+	int16_t word_0;
+	int16_t word_2;
+	int16_t word_4;
+	int16_t word_6;
+	int16_t word_8;
+	int16_t word_10;
+	int16_t word_12;
+	int16_t word_14;
+	int16_t word_16;
+}
+type_x_BYTE_E25ED_2BB;
+#pragma pack (16)
+
 //extern type_x_DWORD_17DE38str x_DWORD_17DE38str;
 /*
 extern int16_t x_DWORD_17DEE4_mouse_positionx; // weak
@@ -296,6 +312,7 @@ extern char x_BYTE_17DF11_last_key_status; // weak
 */
 
 extern uint16_t x_WORD_17B4E0; // 34c4e0
+
 
 extern char isCaveLevel_D41B6;
 
@@ -357,6 +374,30 @@ uint16_t word_22;
 type_E1BAC_0x3c4;
 #pragma pack (16)
 
+#pragma pack (1)
+typedef struct //lenght 50
+{
+	uint32_t x_DWORD_17DB70; // weak
+	int16_t x_WORD_17DB74; // weak 4
+	int16_t unk_17DB76_posx; // weak 6
+	int16_t unk_17DB78_posy; // weak 8
+	int16_t fill1; // test 10
+	int16_t fill2; // test 12
+	int16_t unk_17DB7E; // weak 14
+	int16_t unk_17DB80; // weak 16
+	int16_t x_WORD_17DB82_shift_step; // weak 18
+	int16_t x_WORD_17DB84; // weak 20
+	int16_t x_WORD_17DB86; // weak 22
+	int16_t x_WORD_17DB88; // weak 24
+	int16_t x_WORD_17DB8A; // weak 26
+	int16_t x_WORD_17DB8C; // weak 28
+	int8_t x_BYTE_17DB8E; // weak 30
+	int8_t x_BYTE_17DB8F; // weak 31
+	int16_t unk_17DB90; // weak 32
+	uint8_t unk_17DB92[6]; // weak 32
+	uint8_t fill3[16]; // fill
+} type_x_DWORD_17DB70str;
+#pragma pack (16)
 
 // typedef struct NCB{
 //				BYTE     ncb_command;	/* NetBIOS command (see netbios.h) */
@@ -378,6 +419,9 @@ type_E1BAC_0x3c4;
 //		 } NCB;
 
 extern Pathstruct pstr[];
+
+void j___delay(x_DWORD); // weak
+unsigned long j___clock();
 
 void WriteBufferToBMP(uint16_t width, uint16_t height, uint8_t* ptrPalette, uint8_t* ptrBuffer);
 
@@ -441,14 +485,19 @@ unsigned int sub_439A0(unsigned int a1, unsigned __int16 a2);
 //void __outx_WORD(unsigned short Port, unsigned short Data);
 //void __outx_BYTE(unsigned short Port, unsigned char Data);
 //unsigned char __inx_BYTE(unsigned short Port);
+void sub_41BC0();
 void sub_43970(unsigned int a1);
 void sub_44EE0_smooth_tiles(/*int a1, */uaxis_2d a2);
+void sub_54600_mouse_reset();
 void sub_56A30_init_game_level(unsigned int a1);
+void sub_5B870_copy_sentence(char* langbuffer, char** langindexbuffer, uint32_t count);
 void sub_47320_in_game_loop(signed int a1);
 void sub_56D60(unsigned int a1, char a2);
+void SetMousePositionByRes_6EDB0();
 void VGA_BlitAny();
 void VGA_CalculateAndPrintFPS(int x, int y);
 void sub_7A060_get_mouse_and_keyboard_events();
+void sub_7AA70_load_and_decompres_dat_file(const char* a1, uint8_t* a2, int a3, int a4);
 void DrawAndEventsInGame_47560(uint32_t a3, signed int a4, __int16 a5);
 void GameEvents_51BB0();
 //x_DWORD /*__cdecl*/ toupper(x_DWORD); //weak
@@ -476,13 +525,22 @@ uint8_t NetworkAddName_74767(/*signed __int16* a1,*/ myNCB* a2x, char* a3);
 //int int386x(int, REGS *, REGS *, struct SREGS *);
 //unsigned char __readgsx_BYTE(unsigned long Offset);
 //unsigned short __readgsx_WORD(unsigned long Offset);
-//int /*__fastcall*/ _wcpp_1_unwind_leave__131(x_DWORD);// weak
-void sub_7AB00_draw_menu_animations();
+void sub_753D0();
+void sub_7A110_load_hscreen(char a1, char a2);
+char sub_7B250_draw_and_serve(/*int a1, int a2*//*, __int16 a3*/);
+void ResetMouse_7B5A0();
+void sub_7B5D0();
+int sub_7BF20_draw_scroll_dialog(type_str_word_26* a1x);
+void ClearScrollDialogVars_7C020(type_str_word_26* a1x);
+char sub_7C200(uint8_t a1);
+void sub_7E840_draw_textbox_with_line(type_E24BCx* a1x, __int16 a2, __int16 a3);
+void sub_7E8D0(x_WORD* a1, __int16 a2, __int16 a3, __int16 a4, __int16 a5, __int16 a6, __int16 a7);
+bool sub_7E9D0(x_WORD* a1, x_WORD* a2, x_WORD* a3);
 int sub_7F6A0(int a1, int a2, __int16 a3, __int16 a4, char* a5, int8_t* a6, unsigned __int8 a7);
 void sub_81CA0(int a1, int a2, __int16 a3, __int16 a4, type_x_BYTE_E25ED_db_str* a5);
 signed int sub_7E5A0_pre_draw(int a1, int a2, __int16 a3, __int16 a4, uint8_t* a5, __int16 a6, __int16 a7);
 void sub_81260(int a1, int a2, int8_t* a3, __int16 a4, __int16 a5);
-void sub_82510(/*__int16 a1*//*, int *a2*/);
+int sub_812D0_drawDotBitmap(__int16 a1, __int16 a2);
 signed __int16 sub_81EE0(int a1, int a2, int a3, signed __int16 a4, __int16 a5, __int16 a6);
 bool sub_80D40_move_graphics_and_play_sounds(__int16 a2, __int16 a3, __int16 a4, __int16 a5, char a6);
 void sub_85CC3_draw_round_frame(/*unsigned int a1, int a2, */unsigned __int16* a3);
@@ -490,6 +548,8 @@ void sub_85CC3_draw_round_frame(/*unsigned int a1, int a2, */unsigned __int16* a
 //unsigned     int __readeflags(void);
 __int16 sub_840D3(char _CF, bool _ZF, char _SF, char _OF);
 void  sub_841CE(__int16 a1);
+char sub_86860_speak_Sound(unsigned __int16 a1);
+void sub_86EB0(unsigned __int8 a1, unsigned __int8 a2, char a3);
 //void __writeeflags(unsigned Value);
 int32_t /*__cdecl*/ gets(int32_t);// weak
 //x_DWORD /*__cdecl*/ fix_tell(x_DWORD);// weak
@@ -498,6 +558,14 @@ int32_t /*__cdecl*/ expand(int32_t, int32_t);// weak
 void sub_8BA10(int a2, int* a3, char* a4, int a5);
 double /*__fastcall*/ _CHP(int32_t);// weak
 char sub_8B980(int a1, int a2, char* a3, int a4);
+void sub_8CD27_set_cursor(posistruct_t a2);
+signed int sub_8CEDF_install_mouse();
+int16_t sub_90B27_VGA_pal_fadein_fadeout(TColor* a1x, uint8_t shadow_levels, bool a3);
+void sub_90D6E_VGA_set_video_mode_320x200_and_Palette(TColor* Palette);
+void sub_90E07_VGA_set_video_mode_640x480_and_Palette(TColor* Palette);
+void CopyScreen(void* source, void* desc, unsigned __int16 width, unsigned __int16 height);
+size_t sub_98CAA_write(FILE* a1, uint8_t* a2, uint32_t a3);
+signed int sub_9A10A_check_keyboard();
 bool sub_9AE04(int a1, int a2);
 /*
 HDIGDRIVER sub_93330_AIL_install_DIG_driver_file(char* filename, IO_PARMS* IO);
@@ -543,6 +611,8 @@ void sub_ACF1A(int8_t* a1, int a2, int* a3);
 void sub_B5F8F(__int16 a1, uint16_t* a2, int32_t a3, __int16* a4);
 int sub_BD320(int result, int8_t* a2, int8_t* a3, int a4, int a5, uint8_t* a6);
 void sub_B5EFA(__int16 a1, uint16_t* a2, int32_t a3, __int16* a4);
+Type_SecretMapScreenPortals_E2970* sub_824B0(__int16 a1);
+Type_SecretMapScreenPortals_E2970* sub_824E0(__int16 a1);
 
 void sub_101C0();
 void sub_5BCC0_set_any_variables1();
