@@ -73654,7 +73654,7 @@ type_event_0x6E8E* sub_6DCA0(type_event_0x6E8E* a1x, axis_3d* a2x, unsigned __in
 			{
 				v23x->byte_0x43_67 = 10;
 				v23x->byte_0x44_68 = 89;
-				if (a4x->dword_2)
+				if (a4x->byte_0x1A)
 					v22 = a4x->dword_2 / a4x->byte_0x1A;
 				else
 					LOWORD(v22) = a4x->dword_2;
