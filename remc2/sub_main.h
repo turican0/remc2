@@ -318,8 +318,8 @@ extern char isCaveLevel_D41B6;
 
 #pragma pack (1)
 typedef struct {//lenght 16
-	int16_t word_26_0;//0 x
-	int16_t word_28_1;//1 y
+	int16_t x1_26_0;//0 x
+	int16_t y1_28_1;//1 y
 	int16_t word_30_2;//2
 	int16_t word_32_3;//3
 	int16_t word_34_4;//4
@@ -501,7 +501,7 @@ void sub_7AA70_load_and_decompres_dat_file(const char* a1, uint8_t* a2, int a3, 
 void DrawAndEventsInGame_47560(uint32_t a3, signed int a4, __int16 a5);
 void GameEvents_51BB0();
 //x_DWORD /*__cdecl*/ toupper(x_DWORD); //weak
-void sub_55C60(/*int a1, int a2,*/ type_str_0x2BDE* a3);
+void sub_55C60(type_str_0x2BDE* loc0x2BDE);
 int32_t /*__cdecl*/ fix_filelength(int32_t);// weak
 //x_DWORD /*__cdecl*/ access(char* path, uint32_t flags);// weak
 //x_DWORD /*__cdecl*/ mkdir(char* path);
