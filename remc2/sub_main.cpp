@@ -63213,11 +63213,11 @@ void sub_60780(type_event_0x6E8E* locEvent, type_event_0x6E8E* locEvent2, int nu
 //----- (00060810) --------------------------------------------------------
 void sub_60810(type_event_0x6E8E* locEvent)//241810
 {
-	type_event_0x6E8E* locEvent2 = 0;
+	type_event_0x6E8E* locEvent2 = nullptr;
 
-	if (x_DWORD_EA3E4[locEvent->word_0x1A_26]->byte_0x45_69 <= 1u)
+	if ((x_DWORD_EA3E4[locEvent->word_0x1A_26]->byte_0x45_69 <= 1u) && 
+		(x_DWORD_EA3E4[locEvent->word_0x1A_26]->dword_0xA4_164x->str_611.array_0x333_819x.word[2]))
 	{
-		if (x_DWORD_EA3E4[locEvent->word_0x1A_26]->dword_0xA4_164x->str_611.array_0x333_819x.word[2])
 			locEvent2 = x_DWORD_EA3E4[x_DWORD_EA3E4[locEvent->word_0x1A_26]->dword_0xA4_164x->str_611.array_0x333_819x.word[2]];
 	}
 	int number1 = (x_DWORD_EA3E4[locEvent->word_0x1A_26]->dword_0xA4_164x->word_0x24A_586 * ((x_DWORD_EA3E4[locEvent->word_0x1A_26]->dword_0xA4_164x->array_0x24E_590[locEvent->dword_0x10_16] << 8) + 256)) >> 8;
