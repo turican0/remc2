@@ -337,12 +337,12 @@ void sub_loc_1B37D(Type_SoundEvent_E17CC* pSoundEvent) {//1fc37d // Draw text
 	//x_WORD_D4004++;
 }
 void sub_loc_1B398(Type_SoundEvent_E17CC* pSoundEvent) {//1fc398
-	if (x_BYTE_E3798_sound_active2)sub_loc_1B5CB();
+	if (soundActive2_E3798)sub_loc_1B5CB();
 	sub_8F100_sound_proc19(0, pSoundEvent[x_WORD_D4004].index, 0x7f, 0x40, 0x64, 0xFFFFFFFF, 2);
 	//x_WORD_D4004++;
 }
 void sub_loc_1B3C9(Type_SoundEvent_E17CC* pSoundEvent) {//1fc3c9
-	if (x_BYTE_E3798_sound_active2)sub_loc_1B5CB();
+	if (soundActive2_E3798)sub_loc_1B5CB();
 	//uint8_t* v1 = a1 + x_WORD_D4004 * 7 + 3;
 	if (pSoundEvent[x_WORD_D4004].index == 0)sub_loc_1B413();//tempesi = 2b27cc
 	sub_8F100_sound_proc19(0, pSoundEvent[x_WORD_D4004].index, 0x7f, 0x40, 0x64, 0, 2);
@@ -353,7 +353,7 @@ void sub_loc_1B413() {//1fc413
 	//x_WORD_D4004++;
 }
 void sub_loc_1B424(uint16_t a1, Type_SoundEvent_E17CC* pSoundEvent) {//1fc424
-	if (x_BYTE_E3798_sound_active2 == 0)sub_loc_1B5BC(a1);
+	if (soundActive2_E3798 == 0)sub_loc_1B5BC(a1);
 	if (pSoundEvent[x_WORD_D4004].index)sub_loc_1B413();
 	sub_8F420_sound_proc20(0, pSoundEvent[x_WORD_D4004].index);
 	//x_WORD_D4004++;
@@ -363,7 +363,7 @@ void sub_loc_1B450() {//1fc450
 	//x_WORD_D4004++;
 }
 void sub_loc_1B461(uint16_t a1, Type_SoundEvent_E17CC* pSoundEvent) {//1fc461
-	if (x_BYTE_E3798_sound_active2 == 0)sub_loc_1B5BC(a1);
+	if (soundActive2_E3798 == 0)sub_loc_1B5BC(a1);
 	sub_8F710_sound_proc21(0, pSoundEvent[x_WORD_D4004].index, 0, 4, 0x64/*, 1, 2*/);
 	/*cseg01 : 0001B46E                 movsx   edx, word_D4004
 	cseg01 : 0001B475                 push    1
@@ -378,7 +378,7 @@ void sub_loc_1B461(uint16_t a1, Type_SoundEvent_E17CC* pSoundEvent) {//1fc461
 	//x_WORD_D4004++;
 }
 void sub_loc_1B4A0(uint16_t a1, Type_SoundEvent_E17CC* pSoundEvent) {//1fc4a0
-	if (x_BYTE_E3798_sound_active2 == 0)sub_loc_1B5BC(a1);
+	if (soundActive2_E3798 == 0)sub_loc_1B5BC(a1);
 	sub_8F710_sound_proc21(0, pSoundEvent[x_WORD_D4004].index, 50, 2, 0);
 	/*cseg01 : 0001B4AD                 movsx   edx, word_D4004
 	cseg01 : 0001B4B4                 push    0
@@ -393,7 +393,7 @@ void sub_loc_1B4A0(uint16_t a1, Type_SoundEvent_E17CC* pSoundEvent) {//1fc4a0
 	//x_WORD_D4004++;
 }
 void sub_loc_1B4DF(uint16_t a1, Type_SoundEvent_E17CC* pSoundEvent) {//1fc4df
-	if (x_BYTE_E3798_sound_active2 == 0)sub_loc_1B5BC(a1);
+	if (soundActive2_E3798 == 0)sub_loc_1B5BC(a1);
 	sub_8F710_sound_proc21(0, pSoundEvent[x_WORD_D4004].index, 0x7f, 2, 0);
 	/*	cseg01 : 0001B4EC                 movsx   edx, word_D4004
 		cseg01 : 0001B4F3                 push    0
@@ -412,7 +412,7 @@ void sub_loc_1B51E(Type_SoundEvent_E17CC* pSoundEvent) {//1fc51e
 	//x_WORD_D4004++;
 }
 void sub_loc_1B54A(uint16_t a1, Type_SoundEvent_E17CC* pSoundEvent) {//1fc54a
-	if (x_BYTE_E3798_sound_active2 == 0)sub_loc_1B5BC(a1);
+	if (soundActive2_E3798 == 0)sub_loc_1B5BC(a1);
 	sub_8F100_sound_proc19(0, pSoundEvent[x_WORD_D4004].index, 0, 0x40, 0x64, 0xFFFFFFFF, 2);
 	//x_WORD_D4004++;
 }
