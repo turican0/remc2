@@ -19,10 +19,10 @@ typedef struct {//lenght 12
 #pragma pack (16)
 
 extern char soundCard_E3799;
-extern char x_BYTE_E37FD;
+extern char midiStarted_E37FD;
 extern char soundActive2_E3798;
 extern char midiInicialized_E37FC;
-extern char x_BYTE_E37FD;
+extern char midiStarted_E37FD;
 extern int x_DWORD_E3844;
 extern int x_DWORD_E387C;
 extern FILE* x_FILE_E3840;
