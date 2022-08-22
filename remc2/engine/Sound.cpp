@@ -5172,7 +5172,7 @@ HSAMPLE sub_A3820_allocate_sample_handle(HDIGDRIVER dig)//284820
 //----- (000A38C0) --------------------------------------------------------
 HDIGDRIVER sub_A38C0_AIL_API_release_sample_handle(HDIGDRIVER a1)
 {
-	HDIGDRIVER result; // eax
+	HDIGDRIVER result = nullptr; // eax
 
 	if (a1)
 	{
