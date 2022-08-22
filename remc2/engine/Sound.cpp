@@ -1,4 +1,5 @@
 #include "Sound.h"
+#include "ail_sound.h"
 
 //fix str2_E37A4_sound_buffer3 = str_E37A0_sound_buffer2->next_str + v8x[a2].dword_8;
 //fix x_DWORD_E380C = str_E3808_music_header->next_str + headerx[drivernumber].dword_8;
@@ -1657,18 +1658,17 @@ HSAMPLE sub_93510_AIL_allocate_sample_handle(HDIGDRIVER dig/*HDIGDRIVER dig*/)//
 // 181C04: using guessed type int x_DWORD_181C04;
 
 //----- (000937A0) --------------------------------------------------------
-int sub_937A0_AIL_release_sample_handle(int S/*HSAMPLE S*/)//AIL_release_sample_handle //2747a0
+HDIGDRIVER sub_937A0_AIL_release_sample_handle(HDIGDRIVER S)//AIL_release_sample_handle //2747a0
 {
 	AIL_fix();
 
-	int result; // eax
 	bool v2; // [esp+0h] [ebp-4h]
 
 	x_DWORD_181C04++;
 	v2 = x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2() && sub_916F0_sound_proc24();
 	if (v2)
 		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "AIL_release_sample_handle(0x%X)\n", S);
-	result = sub_A38C0_AIL_API_release_sample_handle(S);
+	HDIGDRIVER result = sub_A38C0_AIL_API_release_sample_handle(S);
 	x_DWORD_181C04--;
 	return result;
 }
@@ -5170,14 +5170,14 @@ HSAMPLE sub_A3820_allocate_sample_handle(HDIGDRIVER dig)//284820
 // 181C90: using guessed type char x_BYTE_181C90;
 
 //----- (000A38C0) --------------------------------------------------------
-int sub_A38C0_AIL_API_release_sample_handle(int a1)
+HDIGDRIVER sub_A38C0_AIL_API_release_sample_handle(HDIGDRIVER a1)
 {
-	int result; // eax
+	HDIGDRIVER result; // eax
 
 	if (a1)
 	{
 		result = a1;
-		*(x_DWORD*)(a1 + 4) = 1;
+		*(x_DWORD*)((char*)a1 + 4) = 1;
 	}
 	return result;
 }
@@ -5747,12 +5747,12 @@ int sub_A4370(x_DWORD* a1)//285370
 }
 
 //----- (000A4390) --------------------------------------------------------
-int sub_A4390(int a1)//285390
+HDIGDRIVER sub_A4390(HDIGDRIVER a1)
 {
-	int result; // eax
+	HDIGDRIVER result; // eax
 
 	if (*(x_DWORD*)(a1 + 2164))
-		(*(void(**)(int))(a1 + 2164))(a1);
+		(*(void(**)(HDIGDRIVER))(a1 + 2164))(a1);
 	if (*(x_DWORD*)(a1 + 2188) > 0)
 		sub_937A0_AIL_release_sample_handle(a1);
 	result = a1;
@@ -5780,7 +5780,7 @@ void sub_A43E0(HSAMPLE S)//2853e0
 		switch (*(_BYTE*)v7)
 		{
 		case 0:
-			sub_A4390((int)S->driver_0);
+			sub_A4390(S->driver_0);
 			return;
 		case 1:
 			if (S->index_sample)
@@ -5799,7 +5799,7 @@ void sub_A43E0(HSAMPLE S)//2853e0
 				((char*)S)[546] = *(__int16*)(v7 + 4) == ((char*)S)[545];
 			goto LABEL_44;
 		case 6:
-			((char*)S)[543] = (char)v7;
+			((char*)S)[543] = (char)*v7;
 			((char*)S)[544] = *(unsigned __int16*)(v7 + 4);
 			goto LABEL_44;
 		case 7:
@@ -8759,8 +8759,11 @@ int sub_AA590(int* a1)//28b590
 {
 	int i; // [esp+0h] [ebp-4h]
 
-	for (i = 0; i < a1[325]; i++)
-		sub_937A0_AIL_release_sample_handle(a1[i + 309]);
+	for (i = 0; i < a1[325]; i++) {
+		// FIXME
+		std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+		//sub_937A0_AIL_release_sample_handle(a1[i + 309]);
+	}
 	sub_97A60_AIL_register_event_callback(*a1, a1[3]);
 	sub_97BB0_AIL_register_timbre_callback(*a1, a1[4]);
 	return sub_9D490_free4(a1, 1692);

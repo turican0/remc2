@@ -2641,8 +2641,8 @@ char* sub_9B498(char a1);
 // bool sub_9B5B4_unlock_mem_region(unsigned int a1, unsigned int a2);
 // void sub_9B628();
 int sub_9B63C(int a1);
-void sub_9B688(int a1);
-int sub_9B7E8(int a1);
+void sub_9B688(_DWORD* a1);
+int sub_9B7E8(_DWORD* a1);
 void sub_9BAB0();
 int sub_9BAC4(uint8_t* a1, signed int a2);
 // signed int sub_9BC68_allocate_and_lock_memory(x_WORD* a1, uint8_t* a2, unsigned int a3);
@@ -92161,7 +92161,7 @@ int sub_9B63C(int a1)//27C63C
 // A0EE1: using guessed type x_DWORD inp(x_DWORD);
 
 //----- (0009B688) --------------------------------------------------------
-void sub_9B688(int a1)//27C688
+void sub_9B688(_DWORD* a1)//27C688
 {
 	//x_WORD* result; // eax
 	__int16 v2; // dx
@@ -92173,12 +92173,12 @@ void sub_9B688(int a1)//27C688
 	char v8; // [esp+40h] [ebp-4h]
 
 	//result = (x_WORD*)a1;
-	if (*(x_DWORD*)(a1 + 28))
+	if (a1[7])
 	{
-		if (*(x_DWORD*)(a1 + 20))
+		if (a1[5])
 		{
-			v6 = *(x_WORD**)(a1 + 44);
-			if (!(x_inp(*(x_DWORD*)(a1 + 28) + 6) & 0x10))
+			v6 = *(x_WORD**)((char*)a1 + 44);
+			if (!(x_inp(a1[7] + 6) & 0x10))
 			{
 				//result = v6;
 				v6[2] |= 2u;
@@ -92187,9 +92187,9 @@ void sub_9B688(int a1)//27C688
 			v6[2] &= 0xFFFDu;
 		}
 		//result = (x_WORD*)x_inp(*(x_DWORD*)(a1 + 28) + 5);
-		if (x_inp(*(x_DWORD*)(a1 + 28) + 5) & 0x20)
+		if (x_inp(a1[7] + 5) & 0x20)
 		{
-			if (*(x_DWORD*)(a1 + 24))
+			if (a1[6])
 				v4 = 16;
 			else
 				v4 = 1;
@@ -92203,11 +92203,11 @@ void sub_9B688(int a1)//27C688
 				if (i >= v4)
 					break;
 				v2 = (*v5)++;
-				v8 = *(x_BYTE*)(v2 + *(x_DWORD*)(a1 + 4));
+				v8 = *(x_BYTE*)(v2 + a1[1]);
 				if (*v5 == v5[3])
 					*v5 = 0;
 				v3 = v5[2]--;
-				x_outp(*(x_DWORD*)(a1 + 28), v8);
+				x_outp(a1[7], v8);
 			}
 		}
 	}
@@ -92240,7 +92240,7 @@ int sub_9B7E8(_DWORD* a1)
 					if ((v6 & 0x10) != 0)
 					{
 						if ((*(_WORD*)(a1[11] + 4) & 2) != 0)
-							sub_9B688((int)a1);
+							sub_9B688(a1);
 					}
 					else
 					{
@@ -92249,7 +92249,7 @@ int sub_9B7E8(_DWORD* a1)
 				}
 				break;
 			case 2:
-				sub_9B688((int)a1);
+				sub_9B688(a1);
 				break;
 			case 4:
 				while ((x_inp(a1[7] + 5) & 1) != 0)
