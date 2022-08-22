@@ -430,7 +430,7 @@ signed int sub_369F0(/*signed int a1,*/ __int16 a2);
 void sub_2A340(/*int a1, type_str_0x6E8E* a2, type_str_0x6E8E* a3, int a4, *//*type_str_0x6E8E* a5, */type_event_0x6E8E* a6);
 void sub_2AA90(/*type_str_0x6E8E* a1, */type_event_0x6E8E* a2, type_event_0x6E8E* a3);
 void ClearGraphicsBuffer_72883(void* ptrBuffer, uint16_t width, uint16_t height, char value);
-void DrawVolumnSettings_303D0();
+void DrawVolumeSettings_303D0();
 int _wcpp_1_unwind_leave__62(void); //weak
 //int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* a2, int32_t a3, int32_t a4, int a5, uint8_t a6, unsigned __int8 a7, uint32_t a8);//560cb0
 void sub_45DC0(/*uint8_t a1,*/ uint8_t a2, uaxis_2d a3, unsigned __int8 a4);
@@ -452,7 +452,7 @@ void sub_7A060_get_mouse_and_keyboard_events();
 void DrawAndEventsInGame_47560(uint32_t a3, signed int a4, __int16 a5);
 void GameEvents_51BB0();
 //x_DWORD /*__cdecl*/ toupper(x_DWORD); //weak
-void sub_55C60(/*int a1, int a2,*/ type_str_0x2BDE* a3);
+void sub_55C60(type_str_0x2BDE* loc0x2BDE);
 int32_t /*__cdecl*/ fix_filelength(int32_t);// weak
 //x_DWORD /*__cdecl*/ access(char* path, uint32_t flags);// weak
 //x_DWORD /*__cdecl*/ mkdir(char* path);

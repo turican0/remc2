@@ -533,7 +533,7 @@ void support_begin() {
 		//x_D41A0_BYTEARRAY_4_struct.savestring_89 = new char[256];
 
 	x_BYTE_14B4E0_second_heightmap = new uint8_t[65536];
-	off_D41A8_sky = new uint8_t[65536];
+	off_D41A8_sky = new uint8_t[1024 * 1024];
 	memcpy(off_D41A8_sky, &x_BYTE_14B4E0_second_heightmap, 4);
 
 	xy_DWORD_17DED4_spritestr = new posistruct_t[1000];
@@ -806,15 +806,17 @@ uint32_t compare_with_snapshot_D41A0(const char* filename, uint8_t* adress, uint
 };
 
 uint32_t compare_with_sequence_E7EE0(const char* filename, uint8_t* adress, uint32_t  /*adressdos*/, uint32_t count, uint32_t size1, uint32_t size2, uint8_t* origbyte, uint8_t* copybyte, long offset) {
-	char findnamec[500];
+	std::string finddir;
 	uint8_t* buffer = (uint8_t*)malloc(size2);
 	FILE* fptestepc;
-	sprintf(findnamec, "c:/prenos/dosbox-x-remc2/vs2015/sequence-%s.bin", filename);
-	fptestepc = fopen(findnamec, "rb");
+	finddir = CommandLineParams.GetMemimagesPath() + std::string("regressions");
+	std::string finddir2 = GetSubDirectoryPath("", "");
+	std::string findname = finddir2 + finddir + std::string("/sequence-") + filename + ".bin";
+	fptestepc = fopen(findname.c_str(), "rb");
 	if (fptestepc == NULL)
 	{
 		mydelay(100);
-		fptestepc = fopen(findnamec, "rb");
+		fptestepc = fopen(findname.c_str(), "rb");
 	}
 	fseek(fptestepc, count * size1 + offset, SEEK_SET);
 
@@ -859,20 +861,20 @@ uint32_t compare_with_sequence_E7EE0(const char* filename, uint8_t* adress, uint
 };
 
 uint32_t compare_with_sequence_D41A0(const char* filename, uint8_t* adress, uint32_t  /*adressdos*/, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte, long offset, bool regressions) {
-	std::string findname;
-	char findnamec2[512];
+	std::string finddir;
 	uint8_t* buffer = (uint8_t*)malloc(size);
 	FILE* fptestepc;
-	if(regressions)
-		findname = CommandLineParams.GetMemimagesPath() + "/regressions/sequence-" + filename + ".bin";
+	if (regressions)
+		finddir = CommandLineParams.GetMemimagesPath() + std::string("regressions");
 	else
-		findname = std::string("../../dosbox-x-remc2/vs2015/sequence-") + filename + ".bin";
-	GetSubDirectoryPath(findnamec2, findname.c_str());
-	fptestepc = fopen(findnamec2, "rb");
+		finddir = std::string("../../dosbox-x-remc2/vs2015");
+	std::string finddir2 = GetSubDirectoryPath("", "");
+	std::string findname = finddir2 + finddir + std::string("/sequence-") + filename + ".bin";
+	fptestepc = fopen(findname.c_str(), "rb");
 	if (fptestepc == NULL)
 	{
 		mydelay(100);
-		fptestepc = fopen(findnamec2, "rb");
+		fptestepc = fopen(findname.c_str(), "rb");
 	}
 	fseek(fptestepc, count * size + offset, SEEK_SET);
 
@@ -968,15 +970,17 @@ uint32_t compare_0x6E8E(const char* filename, uint8_t* adress, uint32_t count, u
 };
 
 uint32_t compare_with_sequence_EA3E4(const char* filename, type_event_0x6E8E** adress, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte) {
-	char findnamec[500];
+	std::string finddir;
 	uint8_t* buffer = (uint8_t*)malloc(size * 0x3E9);
 	FILE* fptestepc;
-	sprintf(findnamec, "c:/prenos/dosbox-x-remc2/vs2015/seq_D41A0-%s.bin", filename);
-	fptestepc = fopen(findnamec, "rb");
+	finddir = CommandLineParams.GetMemimagesPath() + std::string("regressions");
+	std::string finddir2 = GetSubDirectoryPath("", "");
+	std::string findname = finddir2 + finddir + std::string("/sequence-") + filename + ".bin";
+	fptestepc = fopen(findname.c_str(), "rb");
 	if (fptestepc == NULL)
 	{
 		mydelay(100);
-		fptestepc = fopen(findnamec, "rb");
+		fptestepc = fopen(findname.c_str(), "rb");
 	}
 	fseek(fptestepc, count * size * 0x3E9/* + offset*/, SEEK_SET);
 
@@ -1026,15 +1030,17 @@ uint32_t compare_with_sequence_EA3E4(const char* filename, type_event_0x6E8E** a
 };
 
 uint32_t compare_with_sequence_D41A0_4(const char* filename, uint8_t* adress, uint32_t  /*adressdos*/, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte, long offset) {
-	char findnamec[500];
+	std::string finddir;
 	uint8_t* buffer = (uint8_t*)malloc(size);
 	FILE* fptestepc;
-	sprintf(findnamec, "c:/prenos/dosbox-x-remc2/vs2015/sequence-%s.bin", filename);
-	fptestepc = fopen(findnamec, "rb");
+	finddir = CommandLineParams.GetMemimagesPath() + std::string("regressions");
+	std::string finddir2 = GetSubDirectoryPath("", "");
+	std::string findname = finddir2 + finddir + std::string("/sequence-") + filename + ".bin";
+	fptestepc = fopen(findname.c_str(), "rb");
 	if (fptestepc == NULL)
 	{
 		mydelay(100);
-		fptestepc = fopen(findnamec, "rb");
+		fptestepc = fopen(findname.c_str(), "rb");
 	}
 	fseek(fptestepc, count * size + offset, SEEK_SET);
 
@@ -1083,15 +1089,17 @@ int test_F2C20ar_id_pointer(uint32_t adress) {
 }
 
 uint32_t compare_with_sequence_x_DWORD_F2C20ar(const char* filename, uint8_t* adress, uint32_t  /*adressdos*/, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte, int* posdiff) {
-	char findnamec[500];
+	std::string finddir;
 	uint8_t* buffer = (uint8_t*)malloc(size);
 	FILE* fptestepc;
-	sprintf(findnamec, "c:/prenos/dosbox-x-remc2/vs2015/sequence-%s.bin", filename);
-	fptestepc = fopen(findnamec, "rb");
+	finddir = CommandLineParams.GetMemimagesPath() + std::string("regressions");
+	std::string finddir2 = GetSubDirectoryPath("", "");
+	std::string findname = finddir2 + finddir + std::string("/sequence-") + filename + ".bin";
+	fptestepc = fopen(findname.c_str(), "rb");
 	if (fptestepc == NULL)
 	{
 		mydelay(100);
-		fptestepc = fopen(findnamec, "rb");
+		fptestepc = fopen(findname.c_str(), "rb");
 	}
 	fseek(fptestepc, count * size, SEEK_SET);
 
@@ -1138,20 +1146,20 @@ uint32_t compare_with_sequence_x_DWORD_F2C20ar(const char* filename, uint8_t* ad
 };
 
 uint32_t compare_with_sequence_array_E2A74(const char* filename, uint8_t* adress, uint32_t  /*adressdos*/, uint32_t count, uint32_t size1, uint32_t size2, uint8_t* origbyte, uint8_t* copybyte, long offset, bool regressions) {
-	std::string findname;
-	char findnamec2[512];
+	std::string finddir;
 	uint8_t* buffer = (uint8_t*)malloc(size2);
 	FILE* fptestepc;
-	if(regressions)
-		findname = CommandLineParams.GetMemimagesPath() + "/regressions/sequence-" + filename + ".bin";
+	if (regressions)
+		finddir = CommandLineParams.GetMemimagesPath() + std::string("regressions");
 	else
-		findname = std::string("../../dosbox-x-remc2/vs2015/sequence-") + filename + ".bin";
-	GetSubDirectoryPath(findnamec2, findname.c_str());
-	fptestepc = fopen(findnamec2, "rb");
+		finddir = std::string("../../dosbox-x-remc2/vs2015");
+	std::string finddir2 = GetSubDirectoryPath("", "");
+	std::string findname = finddir2 + finddir + std::string("/sequence-") + filename + ".bin";
+	fptestepc = fopen(findname.c_str(), "rb");
 	if (fptestepc == NULL)
 	{
 		mydelay(100);
-		fptestepc = fopen(findnamec2, "rb");
+		fptestepc = fopen(findname.c_str(), "rb");
 	}
 	fseek(fptestepc, count * size1 + offset, SEEK_SET);
 
@@ -1196,15 +1204,17 @@ uint32_t compare_with_sequence_array_E2A74(const char* filename, uint8_t* adress
 };
 
 uint32_t compare_with_sequence_array_222BD3(const char* filename, uint8_t* adress, uint32_t  /*adressdos*/, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte, int* posdiff) {
-	char findnamec[500];
+	std::string finddir;
 	uint8_t* buffer = (uint8_t*)malloc(size);
 	FILE* fptestepc;
-	sprintf(findnamec, "c:/prenos/dosbox-x-remc2/vs2015/sequence-%s.bin", filename);
-	fptestepc = fopen(findnamec, "rb");
+	finddir = CommandLineParams.GetMemimagesPath() + std::string("regressions");
+	std::string finddir2 = GetSubDirectoryPath("", "");
+	std::string findname = finddir2 + finddir + std::string("/sequence-") + filename + ".bin";
+	fptestepc = fopen(findname.c_str(), "rb");
 	if (fptestepc == NULL)
 	{
 		mydelay(100);
-		fptestepc = fopen(findnamec, "rb");
+		fptestepc = fopen(findname.c_str(), "rb");
 	}
 	fseek(fptestepc, count * size, SEEK_SET);
 
@@ -1251,20 +1261,20 @@ uint32_t compare_with_sequence_array_222BD3(const char* filename, uint8_t* adres
 };
 
 uint32_t compare_with_sequence(const char* filename, const uint8_t* adress, uint32_t  /*adressdos*/, long count, long size1, uint32_t size2, uint8_t* origbyte, uint8_t* copybyte, long offset, bool regressions) {
-	std::string findname;
-	char findnamec2[512];
+	std::string finddir;
 	uint8_t* buffer = (uint8_t*)malloc(size2);
 	FILE* fptestepc;
-	if(regressions)
-		findname = CommandLineParams.GetMemimagesPath() + "/regressions/sequence-" + filename + ".bin";
+	if (regressions)
+		finddir = CommandLineParams.GetMemimagesPath() + std::string("regressions");
 	else
-		findname = std::string("../../dosbox-x-remc2/vs2015/sequence-") + filename + ".bin";
-	GetSubDirectoryPath(findnamec2, findname.c_str());
-	fptestepc = fopen(findnamec2, "rb");
+		finddir = std::string("../../dosbox-x-remc2/vs2015");
+	std::string finddir2 = GetSubDirectoryPath("", "");
+	std::string findname = finddir2 + finddir + std::string("/sequence-") + filename + ".bin";
+	fptestepc = fopen(findname.c_str(), "rb");
 	if (fptestepc == NULL)
 	{
 		mydelay(100);
-		fptestepc = fopen(findnamec2, "rb");
+		fptestepc = fopen(findname.c_str(), "rb");
 	}
 
 #ifdef __linux__

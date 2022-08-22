@@ -2334,7 +2334,7 @@ int sub_75440();
 int sub_754C0(int a1, x_DWORD* a2, uint8_t* a3);
 int sub_75540(int a1, uint8_t* a2);
 int sub_755B0(int a1, x_DWORD* a2, uint8_t* a3);
-signed int sub_75650();
+bool sub_75650();
 void sub_75900();
 signed int sub_75910();
 void sub_759B0_set_mouse_minmax_vert();
@@ -6122,12 +6122,12 @@ int x_DWORD_17D698; // weak
 int x_DWORD_17D6A0; // weak
 int x_DWORD_17D6A4; // weak
 int x_DWORD_17D6A8; // weak
-uint8_t** x_DWORD_17D6AC; // weak
+uint8_t* x_DWORD_17D6AC; // weak
 int x_DWORD_17D6B0; // weak
-int x_DWORD_17D6B8; // weak
-int x_DWORD_17D6BC; // weak
-int x_DWORD_17D6C0; // weak
-int x_DWORD_17D6C4; // weak
+char* x_DWORD_17D6B8; // weak
+char* x_DWORD_17D6BC; // weak
+char* x_DWORD_17D6C0; // weak
+char* x_DWORD_17D6C4; // weak
 int x_DWORD_17D6C8; // weak
 __int16 x_WORD_17D6CCar[3]; // weak
 uint8_t unk_17D6D4ar[0x32]; // weak
@@ -13309,33 +13309,28 @@ void ChangeSoundLevel_19CA0(uint8_t option)//1faca0
 // E37FD: using guessed type char x_BYTE_E37FD;
 
 //----- (00019D60) --------------------------------------------------------
-void SetSoundEffectAndMusicLevelCoordinates_19D60(signed int a1)//1fad60
+void SetSoundEffectAndMusicLevelCoordinates_19D60(signed int volume)//1fad60
 {
-	unsigned __int8 v2; // dl
-	int16_t height; // [esp+0h] [ebp-10h]
-	int16_t width; // [esp+4h] [ebp-Ch]
-	int16_t posY; // [esp+8h] [ebp-8h]
-	int16_t posX; // [esp+Ch] [ebp-4h]
+	int16_t height;
+	int16_t width;
+	int16_t posY;
+	int16_t posX;
 
-	int a2 = 1; // At its lowest value, this equals 1
+	int posYbyType = 0; // set zero, add stopper for x_D41A0_BYTEARRAY_4_struct.byte_38591 ==0
 
-	if (CommandLineParams.DoDebugSequences()) {
-		add_compare(0x1fad63, CommandLineParams.DoDebugafterload());
-	}
-
-	v2 = x_D41A0_BYTEARRAY_4_struct.byte_38591;
-	if (v2 == 1u)
+	switch (x_D41A0_BYTEARRAY_4_struct.byte_38591)
 	{
-		a1 = 127;
-		a2 = x_D41A0_BYTEARRAY_4_struct.wordindex_6;
-	}
-	else if (v2 == 2u)
-	{
-		a1 = 127;
-		a2 = x_D41A0_BYTEARRAY_4_struct.wordindex_8;
+		case 1:
+			volume = 127;
+			posYbyType = x_D41A0_BYTEARRAY_4_struct.wordindex_6;
+			break;
+		case 2:
+			volume = 127;
+			posYbyType = x_D41A0_BYTEARRAY_4_struct.wordindex_8;
+			break;
 	}
 	GetPauseMenuCoordinates_2FFE0(&posX, &posY, &width, &height);
-	SetMousePositionInMemory_5BDC0((unsigned int)(a2 * (width - 12) / a1) + 5 + posX, 9 * height / 2 + posY);
+	SetMousePositionInMemory_5BDC0((int)(posYbyType * (width - 12) / volume) + 5 + posX, (int)(9 * height / 2) + posY);
 }
 
 //----- (00019E00) --------------------------------------------------------
@@ -27580,7 +27575,7 @@ void DrawGameFrame_2BE30()//20CE30
 			}
 			else if (v13 <= 0xAu)
 			{
-				DrawVolumnSettings_303D0();
+				DrawVolumeSettings_303D0();
 			}
 			else if (v13 == 13)
 			{
@@ -27694,7 +27689,7 @@ void DrawGameFrame_2BE30()//20CE30
 				DrawInGameOptionsMenu_30050();
 				break;
 			case 10:
-				DrawVolumnSettings_303D0();
+				DrawVolumeSettings_303D0();
 				goto LABEL_41;
 			case 13:
 				DrawOkCancelMenu_30A60(132, 50);
@@ -27855,7 +27850,7 @@ void DrawGameFrame_2BE30()//20CE30
 			DrawInGameOptionsMenu_30050();
 			break;
 		case 0xC:
-			DrawVolumnSettings_303D0();
+			DrawVolumeSettings_303D0();
 			goto LABEL_73;
 		case 0xE:
 			DrawOkCancelMenu_30A60(6, 6);
@@ -29772,66 +29767,49 @@ void DrawInGameOptionsMenu_30050()//211050
 }
 
 //----- (000303D0) --------------------------------------------------------
-void DrawVolumnSettings_303D0()//2113d0
+void DrawVolumeSettings_303D0()//2113d0
 {
-	//int v1; // edx
-	unsigned __int8 v2; // bh
-	unsigned __int8 v3; // bl
-	unsigned __int8 v4; // al
-	int v5; // eax
-	unsigned __int8 v6; // si
-	int v7; // ebx
-	int16_t height; // [esp+0h] [ebp-1Ch]
-	int16_t width; // [esp+4h] [ebp-18h]
-	int16_t posY; // [esp+8h] [ebp-14h]
-	int16_t posX; // [esp+Ch] [ebp-10h]
-	int v13; // [esp+10h] [ebp-Ch]
-	int v14 = 1; // [esp+14h] [ebp-8h] At its lowest value, this equals 1
-	unsigned __int8 v15; // [esp+18h] [ebp-4h]
+	int16_t height;
+	int16_t width;
+	int16_t posY;
+	int16_t posX;
+	int index = 0;
+	signed int volume = 0;
 
-	signed int a1 = 1; //Lowest possible value
-
-	v2 = str_D94F0_bldgprmbuffer[static_cast<std::underlying_type<MapType_t>::type>(D41A0_0.terrain_2FECE.MapType)][0];
-	v3 = str_D94F0_bldgprmbuffer[static_cast<std::underlying_type<MapType_t>::type>(D41A0_0.terrain_2FECE.MapType)][2];
-	v15 = str_D94F0_bldgprmbuffer[static_cast<std::underlying_type<MapType_t>::type>(D41A0_0.terrain_2FECE.MapType)][3];
+	unsigned __int8 color1 = str_D94F0_bldgprmbuffer[static_cast<std::underlying_type<MapType_t>::type>(D41A0_0.terrain_2FECE.MapType)][0];
+	unsigned __int8 color2 = str_D94F0_bldgprmbuffer[static_cast<std::underlying_type<MapType_t>::type>(D41A0_0.terrain_2FECE.MapType)][2];
+	unsigned __int8 color3 = str_D94F0_bldgprmbuffer[static_cast<std::underlying_type<MapType_t>::type>(D41A0_0.terrain_2FECE.MapType)][3];
 
 	GetPauseMenuCoordinates_2FFE0(&posX, &posY, &width, &height);
-	v4 = x_D41A0_BYTEARRAY_4_struct.byte_38591;
-	if (v4 >= 1u)
+	switch (x_D41A0_BYTEARRAY_4_struct.byte_38591)
 	{
-		if (v4 <= 1u)
-		{
-			v5 = x_D41A0_BYTEARRAY_4_struct.wordindex_6;
-		}
-		else
-		{
-			if (v4 != 2)
-				goto LABEL_8;
-			v5 = x_D41A0_BYTEARRAY_4_struct.wordindex_8;
-		}
-		a1 = 127;
-		v14 = v5;
+	case 1:
+		volume = 127;
+		index = x_D41A0_BYTEARRAY_4_struct.wordindex_6;
+		break;
+	case 2:
+		volume = 127;
+		index = x_D41A0_BYTEARRAY_4_struct.wordindex_8;
+		break;
 	}
-LABEL_8:
 	width -= 2;
-	v13 = v2;
 	posY += 4 * height;
-	DrawLine_2BC80(posX, posY, width, 24, v2);
-	DrawLine_2BC80(posX, posY, width, 2, v3);
-	v6 = v15;
-	DrawLine_2BC80(posX, posY + 22, width, 2, v15);
-	DrawLine_2BC80(posX, posY, 2, 22, v3);
-	DrawLine_2BC80(width + posX - 2, posY, 2, 24, v6);
-	DrawLine_2BC80(posX + 4, posY + 4, width - 8, 16, v13);
-	DrawLine_2BC80(posX + 4, posY + 4, width - 8, 2, v6);
-	DrawLine_2BC80(posX + 4, posY + 18, width - 8, 2, v3);
-	DrawLine_2BC80(posX + 4, posY + 4, 2, 14, v6);
-	DrawLine_2BC80(posX + 4 + width - 8 - 2, posY + 4, 2, 16, v3);
-	v7 = v14 * (width - 12) / a1;
+	DrawLine_2BC80(posX, posY, width, 24, color1);
+	DrawLine_2BC80(posX, posY, width, 2, color2);
+	DrawLine_2BC80(posX, posY + 22, width, 2, color3);
+	DrawLine_2BC80(posX, posY, 2, 22, color2);
+	DrawLine_2BC80(width + posX - 2, posY, 2, 24, color3);
+	DrawLine_2BC80(posX + 4, posY + 4, width - 8, 16, color1);
+	DrawLine_2BC80(posX + 4, posY + 4, width - 8, 2, color3);
+	DrawLine_2BC80(posX + 4, posY + 18, width - 8, 2, color2);
+	DrawLine_2BC80(posX + 4, posY + 4, 2, 14, color3);
+	DrawLine_2BC80(posX + 4 + width - 8 - 2, posY + 4, 2, 16, color2);
 	posY += 6;
 	posX += 6;
 	DrawLine_2BC80(posX, posY, width - 12, 12, (*xadataclrd0dat.colorPalette_var28)[0]);
-	DrawLine_2BC80(posX, posY, v7, 12, (*xadataclrd0dat.colorPalette_var28)[240]);
+	if (volume > 0) {
+		DrawLine_2BC80(posX, posY, (index * (width - 12)) / volume, 12, (*xadataclrd0dat.colorPalette_var28)[240]);
+	}
 }
 
 //----- (00030630) --------------------------------------------------------
@@ -53642,9 +53620,6 @@ void sub_54630_load_psxblock(uint16_t TextSize)//235630
 void sub_54660_read_and_decompress_sky_and_blocks(MapType_t GraphicsType, uint8_t GraphicsSize)//235660
 {
 	char dataPath[MAX_PATH];
-	//int result; // eax
-
-	//result = a2;
 
 	switch (GraphicsType)
 	{
@@ -53652,29 +53627,29 @@ void sub_54660_read_and_decompress_sky_and_blocks(MapType_t GraphicsType, uint8_
 	{
 		switch (GraphicsSize)
 		{
-		case 16:
-		{
-			sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/BLOCK16.DAT");
-			DataFileIO::ReadFileAndDecompress(dataPath, &BLOCK32DAT_BEGIN_BUFFER);//2bac2c
-			break;
+			case 16:
+			{
+				sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/BLOCK16.DAT");
+				DataFileIO::ReadFileAndDecompress(dataPath, &BLOCK32DAT_BEGIN_BUFFER);//2bac2c
+				break;
+			}
+			case 32:
+			{
+				sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/BLOCK32.DAT");
+				DataFileIO::ReadFileAndDecompress(dataPath, &BLOCK32DAT_BEGIN_BUFFER);//2bac2c
+				sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/SKYD0-0.DAT");
+				DataFileIO::ReadFileAndDecompress(dataPath, &off_D41A8_sky);//2a51a8
+				break;
+			}
+			case 128:
+			{
+				sprintf(dataPath, "%s/%s", bigGraphicsPath.c_str(), "block128.data");
+				ReadGraphicsfile(dataPath, BigTextureBuffer);//advance graphics
+				sprintf(dataPath, "%s/%s", bigGraphicsPath.c_str(), "skyd1024.data");
+				ReadGraphicsfile(dataPath, off_D41A8_sky);//2a51a8
+				break;
+			}
 		}
-		case 32:
-		{
-			sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/BLOCK32.DAT");
-			DataFileIO::ReadFileAndDecompress(dataPath, &BLOCK32DAT_BEGIN_BUFFER);//2bac2c
-			break;
-		}
-		case 128:
-		{
-			//AdvReadfile("biggraphics/block128.data",BigTextureBuffer);//advance graphics
-			//AdvReadfile(bigtexturepath, BigTextureBuffer);//advance graphics
-			sprintf(dataPath, "%s/%s", bigGraphicsPath.c_str(), "block128.data");
-			ReadGraphicsfile(dataPath, BigTextureBuffer);//advance graphics
-			break;
-		}
-		}
-		sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/SKYD0-0.DAT");
-		DataFileIO::ReadFileAndDecompress(dataPath, &off_D41A8_sky);//2a51a8
 		sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/TMAPS0-0.TAB");
 		DataFileIO::ReadFileAndDecompress(dataPath, (uint8_t**)&str_TMAPS00TAB_BEGIN_BUFFER);//2c7ed0
 		break;
@@ -53683,51 +53658,53 @@ void sub_54660_read_and_decompress_sky_and_blocks(MapType_t GraphicsType, uint8_
 	{
 		switch (GraphicsSize)
 		{
-		case 16:
-		{
-			if (D41A0_0.terrain_2FECE.byte_0x2FED2 & 2)
+			case 16:
 			{
-				sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/BL16F0-0.DAT");
-				DataFileIO::ReadFileAndDecompress(dataPath, &BLOCK32DAT_BEGIN_BUFFER);//2bac2c
+				if (D41A0_0.terrain_2FECE.byte_0x2FED2 & 2)
+				{
+					sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/BL16F0-0.DAT");
+					DataFileIO::ReadFileAndDecompress(dataPath, &BLOCK32DAT_BEGIN_BUFFER);//2bac2c
+				}
+				else
+				{
+					sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/BL16N0-0.DAT");
+					DataFileIO::ReadFileAndDecompress(dataPath, &BLOCK32DAT_BEGIN_BUFFER);//2bac2c
+				}
+				break;
 			}
-			else
+			case 32:
 			{
-				sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/BL16N0-0.DAT");
-				DataFileIO::ReadFileAndDecompress(dataPath, &BLOCK32DAT_BEGIN_BUFFER);//2bac2c
+				if (D41A0_0.terrain_2FECE.byte_0x2FED2 & 2)
+				{
+					sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/BL32F0-0.DAT");
+					DataFileIO::ReadFileAndDecompress(dataPath, &BLOCK32DAT_BEGIN_BUFFER);//2bac2c
+				}
+				else
+				{
+					sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/BL32N0-0.DAT");
+					DataFileIO::ReadFileAndDecompress(dataPath, &BLOCK32DAT_BEGIN_BUFFER);//2bac2c
+				}
+				sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/SKYN0-0.DAT");
+				DataFileIO::ReadFileAndDecompress(dataPath, &off_D41A8_sky);//2a51a8
+				break;
 			}
-			break;
+			case 128:
+			{
+				if (D41A0_0.terrain_2FECE.byte_0x2FED2 & 2)
+				{
+					sprintf(dataPath, "%s/%s", bigGraphicsPath.c_str(), "bl128f0-0.data");
+					ReadGraphicsfile(dataPath, BigTextureBuffer);//advance graphics
+				}
+				else
+				{
+					sprintf(dataPath, "%s/%s", bigGraphicsPath.c_str(), "bl128n0-0.data");
+					ReadGraphicsfile(dataPath, BigTextureBuffer);//advance graphics
+				}
+				sprintf(dataPath, "%s/%s", bigGraphicsPath.c_str(), "skyn1024.data");
+				ReadGraphicsfile(dataPath, off_D41A8_sky);//2a51a8
+				break;
+			}
 		}
-		case 32:
-		{
-			if (D41A0_0.terrain_2FECE.byte_0x2FED2 & 2)
-			{
-				sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/BL32F0-0.DAT");
-				DataFileIO::ReadFileAndDecompress(dataPath, &BLOCK32DAT_BEGIN_BUFFER);//2bac2c
-			}
-			else
-			{
-				sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/BL32N0-0.DAT");
-				DataFileIO::ReadFileAndDecompress(dataPath, &BLOCK32DAT_BEGIN_BUFFER);//2bac2c
-			}
-			break;
-		}
-		case 128:
-		{
-			if (D41A0_0.terrain_2FECE.byte_0x2FED2 & 2)
-			{
-				sprintf(dataPath, "%s/%s", bigGraphicsPath.c_str(), "bl128f0-0.data");
-				ReadGraphicsfile(dataPath, BigTextureBuffer);//advance graphics
-			}
-			else
-			{
-				sprintf(dataPath, "%s/%s", bigGraphicsPath.c_str(), "bl128n0-0.data");
-				ReadGraphicsfile(dataPath, BigTextureBuffer);//advance graphics
-			}
-			break;
-		}
-		}
-		sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/SKYN0-0.DAT");
-		DataFileIO::ReadFileAndDecompress(dataPath, &off_D41A8_sky);//2a51a8
 		sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/TMAPS1-0.TAB");
 		DataFileIO::ReadFileAndDecompress(dataPath, (uint8_t**)&str_TMAPS00TAB_BEGIN_BUFFER);//2c7ed0
 		break;
@@ -53760,12 +53737,8 @@ void sub_54660_read_and_decompress_sky_and_blocks(MapType_t GraphicsType, uint8_
 		break;
 	}
 	}
-	//return result;
 }
-// D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
-// D41A8: using guessed type char *off_D41A8;
-// E9C2C: using guessed type int x_DWORD_E9C2C;
-// F6ED0: using guessed type int TMAPS00TAB_BEGIN_BUFFER;
+
 
 //----- (00054800) --------------------------------------------------------
 void sub_54800_read_and_decompress_tables(MapType_t a1)//235800
@@ -63231,11 +63204,11 @@ void sub_60780(type_event_0x6E8E* locEvent, type_event_0x6E8E* locEvent2, int nu
 //----- (00060810) --------------------------------------------------------
 void sub_60810(type_event_0x6E8E* locEvent)//241810
 {
-	type_event_0x6E8E* locEvent2 = 0;
+	type_event_0x6E8E* locEvent2 = nullptr;
 
-	if (x_DWORD_EA3E4[locEvent->word_0x1A_26]->byte_0x45_69 <= 1u)
+	if ((x_DWORD_EA3E4[locEvent->word_0x1A_26]->byte_0x45_69 <= 1u) && 
+		(x_DWORD_EA3E4[locEvent->word_0x1A_26]->dword_0xA4_164x->str_611.array_0x333_819x.word[2]))
 	{
-		if (x_DWORD_EA3E4[locEvent->word_0x1A_26]->dword_0xA4_164x->str_611.array_0x333_819x.word[2])
 			locEvent2 = x_DWORD_EA3E4[x_DWORD_EA3E4[locEvent->word_0x1A_26]->dword_0xA4_164x->str_611.array_0x333_819x.word[2]];
 	}
 	int number1 = (x_DWORD_EA3E4[locEvent->word_0x1A_26]->dword_0xA4_164x->word_0x24A_586 * ((x_DWORD_EA3E4[locEvent->word_0x1A_26]->dword_0xA4_164x->array_0x24E_590[locEvent->dword_0x10_16] << 8) + 256)) >> 8;
@@ -73010,7 +72983,7 @@ type_event_0x6E8E* sub_6DCA0(type_event_0x6E8E* a1x, axis_3d* a2x, unsigned __in
 			{
 				v23x->byte_0x43_67 = 10;
 				v23x->byte_0x44_68 = 89;
-				if (a4x->dword_2)
+				if (a4x->byte_0x1A)
 					v22 = a4x->dword_2 / a4x->byte_0x1A;
 				else
 					LOWORD(v22) = a4x->dword_2;
@@ -73550,7 +73523,7 @@ void SetMousePositionByRes_6EDB0()//24FDB0
 	else
 	{
 		if (!DefaultResolutions())
-			SetMousePosition_6EDE0(screenWidth_18062C / 2, screenHeight_180624 / 2);
+			SetMousePosition_6EDE0(320, 200);
 		else
 			SetMousePosition_6EDE0(320, 240);
 	}
@@ -76306,23 +76279,23 @@ int sub_755B0(int a1, x_DWORD* a2, uint8_t* a3)
 // 17D708: using guessed type __int16 x_WORD_17D708;
 
 //----- (00075650) --------------------------------------------------------
-signed int sub_75650()//VR something
+bool sub_75650()//VR something
 {
 	char* v1; // eax
 	int v2; // eax
 	char* v3; // eax
 	int v4; // ebx
 	int v5; // edx
-	int v6; // esi
+	uint8_t* v6; // esi
 	char v7; // dh
 	char v8; // bh
-	int v9; // ecx
+	uint8_t* v9; // ecx
 	int v10; // edx
 	int v11; // ebx
 	char v12; // dl
 	char v13; // bl
 	char v14; // dh
-	unsigned __int8* v15; // [esp+0h] [ebp-4h] BYREF
+	unsigned __int8 v15[16]; // [esp+0h] [ebp-4h] BYREF
 
 	uint16 __DS__ = 0;
 
@@ -76330,20 +76303,23 @@ signed int sub_75650()//VR something
 	memset(x_WORD_17D70Aar, 0, 7);
 	x_DWORD_17D6C8 = sub_75B80_alloc_mem_block(256, (int16_t*)&unk_17D6D4ar[0x1c], (int16_t*)&unk_17D6D4ar[0x32]);
 	if (!x_DWORD_17D6C8)
-		return 0;
+		return false;
 	v1 = mygetenv("VIPPORT");
 	if (v1)
 	{
-		x_DWORD_17D6B0 = sub_99FF0(v1, &v15, 16);
+		x_DWORD_17D6B0 = sub_99FF0(v1, (unsigned char**)&v15, 16);
 		x_DWORD_17D6A0 = x_DWORD_17D6B0 + 1;
 		v2 = sub_75440();
 		x_DWORD_17D640 = v2;
 		if (!v2 || sub_754C0(v2, &x_DWORD_17D648, (uint8_t*)x_BYTE_17D440))
-			goto LABEL_22;
+		{
+			sub_75AB0();
+			return false;
+		}
 		x_DWORD_17D644 = 0;
 		x_DWORD_17D6A8 = 0;
 		x_DWORD_17D698 = 0;
-		x_DWORD_17D6AC = (uint8_t**)&unk_17D540;
+		x_DWORD_17D6AC = unk_17D540;
 		while (x_DWORD_17D698 < x_DWORD_17D648)
 		{
 			x_DWORD_17D6A4 = x_BYTE_17D440[x_DWORD_17D698];
@@ -76354,10 +76330,10 @@ signed int sub_75650()//VR something
 				x_DWORD_17D698 = x_DWORD_17D648;
 				break;
 			case 1:
-				x_DWORD_17D6C0 = (int)&x_BYTE_17D440[x_DWORD_17D698];
+				x_DWORD_17D6C0 = &x_BYTE_17D440[x_DWORD_17D698];
 				break;
 			case 2:
-				x_DWORD_17D6B8 = (int)&x_BYTE_17D440[x_DWORD_17D698];
+				x_DWORD_17D6B8 = &x_BYTE_17D440[x_DWORD_17D698];
 				byte_17D711 = strcmp(v3 + 34, "VFX1 CyberPuck") == 0;
 				break;
 			case 6:
@@ -76365,12 +76341,12 @@ signed int sub_75650()//VR something
 				{
 					v4 = x_DWORD_17D6A8;
 					v5 = 3 * x_DWORD_17D6A8;
-					v6 = (int)x_DWORD_17D6AC;
-					x_DWORD_17D6C4 = (int)&x_BYTE_17D440[x_DWORD_17D698];
+					v6 = x_DWORD_17D6AC;
+					x_DWORD_17D6C4 = &x_BYTE_17D440[x_DWORD_17D698];
 					*(_WORD*)&x_BYTE_17D674[2 * v5 + 4] = __DS__;
-					*(_DWORD*)&x_BYTE_17D674[2 * v5] = v6;
+					*(uint8_t**)&x_BYTE_17D674[2 * v5] = v6;
 					x_DWORD_17D6A8 = (int)(v4 + 1);
-					x_DWORD_17D6AC = (uint8_t**)(v6 + 6);
+					x_DWORD_17D6AC = v6 + 6;
 					if (byte_17D711)
 					{
 						v7 = v3[14];
@@ -76384,13 +76360,13 @@ signed int sub_75650()//VR something
 			case 7:
 				if (x_DWORD_17D644 < 6)
 				{
-					v9 = (int)x_DWORD_17D6AC;
+					v9 = x_DWORD_17D6AC;
 					v10 = 3 * x_DWORD_17D644;
-					x_DWORD_17D6BC = (int)&x_BYTE_17D440[x_DWORD_17D698];
+					x_DWORD_17D6BC = &x_BYTE_17D440[x_DWORD_17D698];
 					v11 = x_DWORD_17D644 + 1;
-					*(_DWORD*)&x_BYTE_17D650[2 * v10] = (uint32)x_DWORD_17D6AC;
+					*(uint8_t**)&x_BYTE_17D650[2 * v10] = x_DWORD_17D6AC;
 					*(_WORD*)&x_BYTE_17D650[2 * v10 + 4] = __DS__;
-					x_DWORD_17D6AC = (uint8_t**)v9 + 7;
+					x_DWORD_17D6AC = v9 + 7;
 					x_DWORD_17D644 = v11;
 					if (byte_17D711)
 					{
@@ -76413,7 +76389,7 @@ signed int sub_75650()//VR something
 		{
 		LABEL_22:
 			sub_75AB0();
-			return 0;
+			return false;
 		}
 		else
 		{
@@ -76421,14 +76397,14 @@ signed int sub_75650()//VR something
 				x_BYTE_E12EC = 1;
 			if (x_DWORD_17D644)
 				x_BYTE_E12ED = 1;
-			return 1;
+			return true;
 		}
 	}
 	else
 	{
 		x_DWORD_17D6B0 = 768;
 		sub_75AB0();
-		return 0;
+		return false;
 	}
 }
 
@@ -88630,7 +88606,7 @@ int16_t sub_89B60_aplicate_setting(uint8_t a1)//26ab60
 			goto LABEL_3;
 		break;
 	case 2u:
-		if ((unsigned __int16)sub_75650())//fix it
+		if (sub_75650())//fix it
 		{
 			v1 = 1;
 			myprintf("VFX INITIALISED\n");

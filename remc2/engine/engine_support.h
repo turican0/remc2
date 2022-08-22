@@ -196,6 +196,11 @@ typedef struct {
 	uint8_t y;
 } baxis_2d;
 
+typedef struct {
+	int8_t x;
+	int8_t y;
+} bsaxis_2d;
+
 typedef union {
 	baxis_2d _axis_2d;
 	uint16_t word;
@@ -323,11 +328,7 @@ typedef struct Type_str_164 {//size 1136
 	int16_t word_0x38_56;
 	int16_t word_0x3A_58;
 	uint16_t array_0x3C_60[16];//size??
-	std::array<uint16_t, 34> array_0x5C_92; // size?? at least index 33 is accessed in level 19
-	uint8_t stubd[138];
-	/*int8_t byte_0xD3_211;
-	int8_t byte_0xD4_212;
-	int8_t byte_0xD5_213;*/
+	std::array<uint16_t, 103> array_0x5C_92; // size?? at least index 33 is accessed in level 19
 	int32_t dword_0x12A_298;
 	int32_t dword_0x12E_302;
 	uint8_t stube[10];
