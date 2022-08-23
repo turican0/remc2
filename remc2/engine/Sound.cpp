@@ -27,20 +27,20 @@ int defaultVolume_E37B0 = 127; // weak
 __int16 soundFreqType2_E37B4 = 1644; // weak
 __int16 soundFreqType_E37B6 = 0; // weak
 char soundInicialized_E37B8 = 0; // weak
-int x_DWORD_E37BC_sound_frequence = 0; // weak
-int x_DWORD_E37F8_midi_volume = 127; // weak
-char midiInicialized_E37FC = 1; // weak//2b47fc
-char midiStarted_E37FD = 1; // weak
-char midiLoaded_E37FE = 0; // weak
-__int16 midiTrack_E3802 = 0; // weak //2b4802
+int soundFrequence_E37BC = 0; // weak
+int musicVolume_E37F8 = 127; // weak
+char musicInicialized_E37FC = 1; // weak//2b47fc
+char musicStarted_E37FD = 1; // weak
+char musicLoaded_E37FE = 0; // weak
+__int16 musicTrack_E3802 = 0; // weak //2b4802
 __int16 m_iNumberOfTracks = 0;
-type_E3808_music_header* str_E3808_music_header = 0; // weak
+type_E3808_music_header* musicHeader_E3808 = 0; // weak
 //uint8_t* x_DWORD_E3808_music_header = 0; // weak
 //int8_t* x_DWORD_E380C = 0; // weak
-int index_E380C_CountOfMusic = 0; // weak
+int countOfMusicTracks_E380C = 0; // weak
 //replace str2_E37A4_sound_buffer3 and x_DWORD_E380C with equvivalent index_E37A4_MaxSound and index_E380C_MaxMusic
-uint8_t* array_E3810_music_data = 0; // weak
-uint8_t midiChannel_E3814 = 0; // weak
+uint8_t* musicData_E3810 = 0; // weak
+uint8_t musicChannel_E3814 = 0; // weak
 char x_BYTE_E3815 = 0; // weak
 char x_BYTE_E3816 = 0; // weak
 char x_BYTE_E3817 = 1; // weak
@@ -66,7 +66,7 @@ int x_DWORD_E3888 = 0; // weak
 char x_BYTE_E388D = 0; // weak
 //int x_DWORD_E3890 = 0; // weak
 
-int x_DWORD_181DAC[19]; // fix it -  weak
+int preference_181DAC[19]; // fix it -  weak
 
 char x_DWORD_181C14[256]; // weak
 
@@ -116,7 +116,7 @@ int x_DWORD_181C10; // weak
 uint32_t unk_181B42 = 0; // weak
 int16_t x_WORD_181B44 = 0; // weak
 int x_DWORD_181BE0; // weak
-FILE* x_DWORD_181BF0_AIL_debugfile; // weak
+FILE* ailDebufFile_181BF0; // weak
 int x_DWORD_181BF4 = 0; // weak//352bf4
 int x_DWORD_181BF8; // weak
 int x_DWORD_181BFC; // weak
@@ -340,10 +340,10 @@ void sub_8D290_init_sound()//26e290
 	soundFreqType_E37B6 = soundFreqType2_E37B4;
 	if (!soundFreqType2_E37B4)
 	{
-		if (!midiInicialized_E37FC)
+		if (!musicInicialized_E37FC)
 		{
 			if (soundInicialized_E37B8)
-				sub_919C0();
+				AilShutdown_919C0();
 		}
 		soundActive2_E3798 = 0;
 		soundCard_E3799 = 0;
@@ -361,25 +361,25 @@ void sub_8D290_init_sound()//26e290
 		//removed
 
 		//fixed
-		x_DWORD_181DAC[0] = 0xc8;
-		x_DWORD_181DAC[1] = 0x01;//DB0
-		x_DWORD_181DAC[2] = 0x800;//DB4
-		x_DWORD_181DAC[3] = 0x64;//DB8
-		x_DWORD_181DAC[4] = 0x10;//DBC
-		x_DWORD_181DAC[5] = 0x64;//DC0
-		x_DWORD_181DAC[6] = 0x28f;//DC4
-		x_DWORD_181DAC[7] = 0x00;//DC8
-		x_DWORD_181DAC[8] = 0x00;//DCC
-		x_DWORD_181DAC[9] = 0x01;//DD0
-		x_DWORD_181DAC[10] = 0x00;//DD4
-		x_DWORD_181DAC[11] = 0x78;//DD8
-		x_DWORD_181DAC[12] = 0x08;//DDC
-		x_DWORD_181DAC[13] = 0x7f;//DE0
-		x_DWORD_181DAC[14] = 0x01;//DE4
-		x_DWORD_181DAC[15] = 0x00;//DE8
-		x_DWORD_181DAC[16] = 0x02;//DEC
-		x_DWORD_181DAC[17] = 0x01;//DF0
-		x_DWORD_181DAC[18] = 0x01;//DF4
+		preference_181DAC[0] = 0xc8;
+		preference_181DAC[1] = 0x01;//DB0
+		preference_181DAC[2] = 0x800;//DB4
+		preference_181DAC[3] = 0x64;//DB8
+		preference_181DAC[4] = 0x10;//DBC
+		preference_181DAC[5] = 0x64;//DC0
+		preference_181DAC[6] = 0x28f;//DC4
+		preference_181DAC[7] = 0x00;//DC8
+		preference_181DAC[8] = 0x00;//DCC
+		preference_181DAC[9] = 0x01;//DD0
+		preference_181DAC[10] = 0x00;//DD4
+		preference_181DAC[11] = 0x78;//DD8
+		preference_181DAC[12] = 0x08;//DDC
+		preference_181DAC[13] = 0x7f;//DE0
+		preference_181DAC[14] = 0x01;//DE4
+		preference_181DAC[15] = 0x00;//DE8
+		preference_181DAC[16] = 0x02;//DEC
+		preference_181DAC[17] = 0x01;//DF0
+		preference_181DAC[18] = 0x01;//DF4
 		//fixed
 
 		soundInicialized_E37B8 = 1;
@@ -389,15 +389,15 @@ void sub_8D290_init_sound()//26e290
 	{
 		soundActive2_E3798 = 0;
 		soundCard_E3799 = 0;
-		if (midiInicialized_E37FC && midiLoaded_E37FE)
+		if (musicInicialized_E37FC && musicLoaded_E37FE)
 		{
 			sub_99C90();
 		}
 		else
 		{
-			midiInicialized_E37FC = 0;
-			midiStarted_E37FD = 0;
-			sub_919C0();
+			musicInicialized_E37FC = 0;
+			musicStarted_E37FD = 0;
+			AilShutdown_919C0();
 		}
 		return;
 	}
@@ -409,8 +409,8 @@ void sub_8D290_init_sound()//26e290
 
 		if (!hDigSoundEffectsDriver_180B48)
 		{
-			if (!midiInicialized_E37FC)
-				sub_919C0();
+			if (!musicInicialized_E37FC)
+				AilShutdown_919C0();
 			soundActive2_E3798 = 0;
 			soundCard_E3799 = 0;
 			return;
@@ -428,8 +428,8 @@ void sub_8D290_init_sound()//26e290
 		{
 			if (!_stricmp(soundEffectsAILSettings.driver_name, "None"))//351ab0
 			{
-				if (!midiInicialized_E37FC)
-					sub_919C0();
+				if (!musicInicialized_E37FC)
+					AilShutdown_919C0();
 				soundActive2_E3798 = 0;
 				soundCard_E3799 = 0;
 				return;
@@ -447,8 +447,8 @@ void sub_8D290_init_sound()//26e290
 		}
 		if (!soundCardOk)
 		{
-			if (!midiInicialized_E37FC)
-				sub_919C0();
+			if (!musicInicialized_E37FC)
+				AilShutdown_919C0();
 			soundActive2_E3798 = 0;
 			soundCard_E3799 = 0;
 			return;
@@ -466,52 +466,52 @@ void sub_8D290_init_sound()//26e290
 				myprintf("\nCould not load any digital samples\n");
 				return;
 			case 800:
-				x_DWORD_E37BC_sound_frequence = 11025;//800
+				soundFrequence_E37BC = 11025;//800
 				x_BYTE_E37AE = 0;
 				break;
 			case 811:
-				x_DWORD_E37BC_sound_frequence = 11025;//811
+				soundFrequence_E37BC = 11025;//811
 				x_BYTE_E37AE = 0;
 				break;
 			case 822:
-				x_DWORD_E37BC_sound_frequence = 22050;//822
+				soundFrequence_E37BC = 22050;//822
 				x_BYTE_E37AE = 0;
 				break;
 			case 1611:
-				x_DWORD_E37BC_sound_frequence = 11025;//1611
+				soundFrequence_E37BC = 11025;//1611
 				x_BYTE_E37AE = 1;
 				break;
 			case 1622:
-				x_DWORD_E37BC_sound_frequence = 22050;//1622
+				soundFrequence_E37BC = 22050;//1622
 				x_BYTE_E37AE = 1;
 				break;
 			case 1644:
-				x_DWORD_E37BC_sound_frequence = 44100;//1644
+				soundFrequence_E37BC = 44100;//1644
 				x_BYTE_E37AE = 1;
 				break;
 		}
 			
-		sub_91A80_AIL_set_preference(0, 200);
-		sub_91A80_AIL_set_preference(1, x_DWORD_E37BC_sound_frequence);
-		sub_91A80_AIL_set_preference(3, 100);
-		sub_91A80_AIL_set_preference(4, x_DWORD_E3794_sound_buffer3_lenght + 1);
-		sub_91A80_AIL_set_preference(5, 127);
-		sub_91A80_AIL_set_preference(6, 655);
+		AilSetPreference_91A80(0, 200);
+		AilSetPreference_91A80(1, soundFrequence_E37BC);
+		AilSetPreference_91A80(3, 100);
+		AilSetPreference_91A80(4, x_DWORD_E3794_sound_buffer3_lenght + 1);
+		AilSetPreference_91A80(5, 127);
+		AilSetPreference_91A80(6, 655);
 		if (x_BYTE_E379C)
-			sub_91A80_AIL_set_preference(7, 1);
+			AilSetPreference_91A80(7, 1);
 		else
-			sub_91A80_AIL_set_preference(7, 0);
+			AilSetPreference_91A80(7, 0);
 		if (!x_BYTE_E379B)
-			sub_91A80_AIL_set_preference(17, 0);
+			AilSetPreference_91A80(17, 0);
 		if (x_BYTE_E37AE)
 		{
-			sub_91A80_AIL_set_preference(8, 1);
-			sub_91A80_AIL_set_preference(9, 1);
+			AilSetPreference_91A80(8, 1);
+			AilSetPreference_91A80(9, 1);
 		}
 		else
 		{
-			sub_91A80_AIL_set_preference(8, 0);
-			sub_91A80_AIL_set_preference(9, 0);
+			AilSetPreference_91A80(8, 0);
+			AilSetPreference_91A80(9, 0);
 		}
 
 		hDigSoundEffectsDriver_180B48 = sub_93330_AIL_install_DIG_driver_file(soundEffectsAILSettings.driver_path, &unk_181D90);
@@ -532,8 +532,8 @@ void sub_8D290_init_sound()//26e290
 		}
 		else
 		{
-			if (!midiInicialized_E37FC)
-				sub_919C0();
+			if (!musicInicialized_E37FC)
+				AilShutdown_919C0();
 			soundActive2_E3798 = 0;
 			soundCard_E3799 = 0;
 			sub_83E80_freemem4((uint8_t*)soundIndex_E37A0);
@@ -543,8 +543,8 @@ void sub_8D290_init_sound()//26e290
 	}
 	else
 	{
-		if (!midiInicialized_E37FC)
-			sub_919C0();
+		if (!musicInicialized_E37FC)
+			AilShutdown_919C0();
 		soundActive2_E3798 = 0;
 		soundCard_E3799 = 0;
 		myprintf("\nCould not load any digital samples\n");
@@ -607,10 +607,7 @@ void sub_8D8F0_sound_proc3_endsample()//26e8f0
 //----- (0008D970) --------------------------------------------------------
 void sub_8D970_init_music()//26e970
 {
-	//int(*v3)(int); // eax
-	//char v4; // [esp+0h] [ebp-C8h]
 	IO_PARMS ioParms = {}; // [esp+90h] [ebp-38h]
-	//char v6; // [esp+A8h] [ebp-20h]
 	char soundCdPath[MAX_PATH];
 	char soundGamePath[MAX_PATH];
 
@@ -621,31 +618,33 @@ void sub_8D970_init_music()//26e970
 
 	const char* mdMusic = 0;
 	char v8 = 0;
-	if (!midiInicialized_E37FC)
+	if (!musicInicialized_E37FC)
 		return;
 	if (!soundInicialized_E37B8)
 	{
+		//removed
 		//sub_9D3F0_set_malloc_type(sub_83CD0_malloc2); fix it
 		//v3 = sub_9D420((int (*)(int))sub_83E80_freemem4);
 		//((void (/*__fastcall*/ *)(int (*)(int)))loc_917D0)(v3);
+		//removed
 		soundInicialized_E37B8 = 1;
 	}
-	sub_91A80_AIL_set_preference(11, 120);
-	sub_91A80_AIL_set_preference(12, 1);
-	sub_91A80_AIL_set_preference(13, 127);
-	sub_91A80_AIL_set_preference(14, 1);
-	sub_91A80_AIL_set_preference(15, 0);
-	sub_91A80_AIL_set_preference(16, 12);
+	AilSetPreference_91A80(11, 120);
+	AilSetPreference_91A80(12, 1);
+	AilSetPreference_91A80(13, 127);
+	AilSetPreference_91A80(14, 1);
+	AilSetPreference_91A80(15, 0);
+	AilSetPreference_91A80(16, 12);
 	if (!x_BYTE_E379B)
-		sub_91A80_AIL_set_preference(17, 0);
+		AilSetPreference_91A80(17, 0);
 
 	char samplePath[MAX_PATH];
 	sprintf(samplePath, "%s/SAMPLE", soundCdPath);
 	sub_96AE0_AIL_set_GTL_filename_prefix(samplePath);
 	if (!DirExists(soundCdPath))
 	{
-		midiInicialized_E37FC = 0;
-		midiStarted_E37FD = 0;
+		musicInicialized_E37FC = 0;
+		musicStarted_E37FD = 0;
 		if (soundActive2_E3798 && x_BYTE_E379A)
 		{
 			sub_99C10_sound_proc4();
@@ -654,7 +653,7 @@ void sub_8D970_init_music()//26e970
 		{
 			soundActive2_E3798 = 0;
 			soundCard_E3799 = 0;
-			sub_919C0();
+			AilShutdown_919C0();
 		}
 		return;
 	}
@@ -666,9 +665,9 @@ void sub_8D970_init_music()//26e970
 		if (!hMdiMusicDriver)
 		{
 			if (!soundActive2_E3798)
-				sub_919C0();
-			midiInicialized_E37FC = 0;
-			midiStarted_E37FD = 0;
+				AilShutdown_919C0();
+			musicInicialized_E37FC = 0;
+			musicStarted_E37FD = 0;
 			return;
 		}
 		sprintf(textBuffer_180BE0, "%s", v7);
@@ -683,9 +682,9 @@ void sub_8D970_init_music()//26e970
 			if (!_stricmp(musicAILSettings.driver_name, "None"))
 			{
 				if (!soundActive2_E3798)
-					sub_919C0();
-				midiInicialized_E37FC = 0;
-				midiStarted_E37FD = 0;
+					AilShutdown_919C0();
+				musicInicialized_E37FC = 0;
+				musicStarted_E37FD = 0;
 				return;
 			}
 			if (!sub_95710_AIL_install_MDI_INI(&hMdiMusicDriver, musicMdiPath))
@@ -694,9 +693,9 @@ void sub_8D970_init_music()//26e970
 		if (!v8)
 		{
 			if (!soundActive2_E3798)
-				sub_919C0();
-			midiInicialized_E37FC = 0;
-			midiStarted_E37FD = 0;
+				AilShutdown_919C0();
+			musicInicialized_E37FC = 0;
+			musicStarted_E37FD = 0;
 			return;
 		}
 	}
@@ -783,7 +782,7 @@ void sub_8D970_init_music()//26e970
 	}
 	if (isDriver)
 	{
-		if (midiInicialized_E37FC && LoadMusic(midiChannel_E3814))
+		if (musicInicialized_E37FC && LoadMusic(musicChannel_E3814))
 		{
 			if (x_BYTE_E3815 == 1)
 			{
@@ -792,30 +791,30 @@ void sub_8D970_init_music()//26e970
 			}
 			sub_959A0_AIL_uninstall_MDI_driver(hMdiMusicDriver);
 			if (!soundActive2_E3798)
-				sub_919C0();
-			midiInicialized_E37FC = 0;
-			midiStarted_E37FD = 0;
+				AilShutdown_919C0();
+			musicInicialized_E37FC = 0;
+			musicStarted_E37FD = 0;
 			myprintf("\nError opening music files\n");
 		}
 		else
 		{
-			midiLoaded_E37FE = 1;
-			sub_8E410_sound_proc16_xmidivolume(x_DWORD_E37F8_midi_volume);
+			musicLoaded_E37FE = 1;
+			sub_8E410_sound_proc16_xmidivolume(musicVolume_E37F8);
 		}
 		return;
 	}
 	sub_959A0_AIL_uninstall_MDI_driver(hMdiMusicDriver);
 	if (!soundActive2_E3798)
-		sub_919C0();
-	midiInicialized_E37FC = 0;
-	midiStarted_E37FD = 0;
+		AilShutdown_919C0();
+	musicInicialized_E37FC = 0;
+	musicStarted_E37FD = 0;
 	myprintf("\nError driver not supported\n");
 }
 
 //----- (0008E020) --------------------------------------------------------
-void sub_8E020_sound_proc14_stopsequence()//26f020
+void stopMusic_8E020()//26f020
 {
-	if (midiInicialized_E37FC && midiStarted_E37FD && midiTrack_E3802)
+	if (musicInicialized_E37FC && musicStarted_E37FD && musicTrack_E3802)
 	{
 		if (x_BYTE_E3818)
 			;// sub_92DC0_AIL_release_timer_handle(x_DWORD_180C80);
@@ -824,31 +823,19 @@ void sub_8E020_sound_proc14_stopsequence()//26f020
 		x_BYTE_E3817 = 1;
 		x_BYTE_E3816 = 0;
 		x_BYTE_E381A = -1;
-		if (sub_96170_AIL_sequence_status(m_hSequence) != 2)
+		if (ailSequenceStatus_96170(m_hSequence) != 2)
 		{
-			sub_95DE0_AIL_stop_sequence(m_hSequence);
-			sub_95F00_AIL_end_sequence(m_hSequence);
+			ailStopSequence_95DE0(m_hSequence);
+			ailEndSequence_95F00(m_hSequence);
 		}
-		midiTrack_E3802 = 0;
+		musicTrack_E3802 = 0;
 	}
 }
-// E37FC: using guessed type char x_BYTE_E37FC;
-// E37FD: using guessed type char x_BYTE_E37FD;
-// E3802: using guessed type __int16 x_WORD_E3802;
-// E3816: using guessed type char x_BYTE_E3816;
-// E3817: using guessed type char x_BYTE_E3817;
-// E3818: using guessed type char x_BYTE_E3818;
-// E3819: using guessed type char x_BYTE_E3819;
-// E381A: using guessed type char x_BYTE_E381A;
-// 180C78: using guessed type int x_DWORD_180C78;
-// 180C80: using guessed type int x_DWORD_180C80;
 
 //----- (0008E160) --------------------------------------------------------
-void sub_8E160_sound_proc15_startsequence(__int16 track, unsigned __int8 volume)//26f160
+void startMusic_8E160(int track, int volume)//26f160
 {
-	//unsigned __int8 i; // [esp+0h] [ebp-4h]
-
-	if (midiInicialized_E37FC && midiStarted_E37FD && track <= m_iNumberOfTracks && midiTrack_E3802 != track)
+	if (musicInicialized_E37FC && musicStarted_E37FD && track <= m_iNumberOfTracks && musicTrack_E3802 != track)
 	{
 		if (x_BYTE_E3818)
 			;// sub_92DC0_AIL_release_timer_handle(x_DWORD_180C80);
@@ -857,96 +844,57 @@ void sub_8E160_sound_proc15_startsequence(__int16 track, unsigned __int8 volume)
 		x_BYTE_E3817 = 1;
 		x_BYTE_E3816 = 0;
 		x_BYTE_E381A = -1;
-		if (midiTrack_E3802)
+		if (musicTrack_E3802)
 		{
-			if (sub_96170_AIL_sequence_status(m_hSequence) != 2)
+			if (ailSequenceStatus_96170(m_hSequence) != 2)
 			{
-				sub_95DE0_AIL_stop_sequence(m_hSequence);
-				sub_95F00_AIL_end_sequence(m_hSequence);
+				ailStopSequence_95DE0(m_hSequence);
+				ailEndSequence_95F00(m_hSequence);
 			}
-			midiTrack_E3802 = 0;
+			musicTrack_E3802 = 0;
 		}
-		//sub_95C00_AIL_init_sequence(m_hSequence, (uint8_t*) * (uint32_t*)(x_DWORD_E3808_music_header + 32 * track + 18), 0, track);
-		sub_95C00_AIL_init_sequence(m_hSequence, str_E3808_music_header->str_8.track_10[track].xmiData_0, 0, track);
-		sub_97670_AIL_register_trigger_callback(m_hSequence, reinterpret_cast<void*>(sub_8E0D0));
-		/*for ( i = 0; i < 0x10u; i++ )
-		{
-		  x_BYTE_180C90[i] = 0;
-		  sub_98360_AIL_send_channel_voice_message(x_DWORD_180C7C, x_DWORD_180C78, i | 0xB0, 0, 0);
-		  sub_98360_AIL_send_channel_voice_message(x_DWORD_180C7C, x_DWORD_180C78, i | 0xB0, 7u, 0);
-		  sub_98360_AIL_send_channel_voice_message(x_DWORD_180C7C, x_DWORD_180C78, i | 0xE0, 0, 64);
-		  sub_98360_AIL_send_channel_voice_message(x_DWORD_180C7C, x_DWORD_180C78, i | 0xB0, 0xBu, 127);
-		  sub_98360_AIL_send_channel_voice_message(x_DWORD_180C7C, x_DWORD_180C78, i | 0xB0, 1u, 0);
-		  sub_98360_AIL_send_channel_voice_message(x_DWORD_180C7C, x_DWORD_180C78, i | 0xB0, 0x5Bu, 0);
-		  sub_98360_AIL_send_channel_voice_message(x_DWORD_180C7C, x_DWORD_180C78, i | 0xB0, 0x5Du, 0);
-		}*/
-		if (volume < 0x7Fu)
-			SetAilSequenceVolume(m_hSequence, volume, 0);
+		ailInitSequence_95C00(m_hSequence, musicHeader_E3808->str_8.track_10[track].xmiData_0, 0, track);
+		ailRegisterTriggerCallback_97670(m_hSequence, reinterpret_cast<void*>(sub_8E0D0));
 
-		sub_95D50_AIL_start_sequence(m_hSequence, track);
-		midiTrack_E3802 = track;
+		if (volume < 0x7Fu)
+			ailSetSequenceVolume_96030(volume);
+
+		ailStartSequence_95D50(m_hSequence, track);
+		musicTrack_E3802 = track;
 	}
 }
-// 8E0D0: using guessed type int sub_8E0D0();
-// E37FC: using guessed type char x_BYTE_E37FC;
-// E37FD: using guessed type char x_BYTE_E37FD;
-// E3800: using guessed type __int16 x_WORD_E3800;
-// E3802: using guessed type __int16 x_WORD_E3802;
-// E3804: using guessed type __int16 x_WORD_E3804;
-// E3808: using guessed type int x_DWORD_E3808_music_header;
-// E3816: using guessed type char x_BYTE_E3816;
-// E3817: using guessed type char x_BYTE_E3817;
-// E3818: using guessed type char x_BYTE_E3818;
-// E3819: using guessed type char x_BYTE_E3819;
-// E381A: using guessed type char x_BYTE_E381A;
-// 180C78: using guessed type int x_DWORD_180C78;
-// 180C7C: using guessed type int x_DWORD_180C7C;
-// 180C80: using guessed type int x_DWORD_180C80;
 
 //----- (0008E410) --------------------------------------------------------
-void sub_8E410_sound_proc16_xmidivolume(int32_t master_volume)//26f410
+void sub_8E410_sound_proc16_xmidivolume(int master_volume)//26f410
 {
-	if (midiInicialized_E37FC)
+	if (musicInicialized_E37FC)
 	{
-		if (midiLoaded_E37FE)
+		if (musicLoaded_E37FE)
 		{
-			if (master_volume != x_DWORD_E37F8_midi_volume && master_volume <= 127 && master_volume >= 0)
+			if (master_volume != musicVolume_E37F8 && master_volume <= 127 && master_volume >= 0)
 			{
 				sub_96670_AIL_set_XMIDI_master_volume(hMdiMusicDriver, master_volume);
-				x_DWORD_E37F8_midi_volume = master_volume;
+				musicVolume_E37F8 = master_volume;
 			}
 		}
 	}
 }
-// E37F8: using guessed type int x_DWORD_E37F8_midi_volume;
-// E37FC: using guessed type char x_BYTE_E37FC;
-// E37FE: using guessed type char x_BYTE_E37FE;
-// 180C7C: using guessed type int x_DWORD_180C7C;
 
 //----- (0008E470) --------------------------------------------------------
-int sub_8E470_sound_proc17_volume(int a1)//26f470
+void sub_8E470_sound_proc17_volume(int volume)//26f470
 {
-	int result = 0; // eax
-
 	if (soundActive2_E3798)
 	{
 		if (x_BYTE_E379A)//2b479a
 		{
-			result = a1;
-			if (a1 != defaultVolume_E37B0 && a1 <= 127 && a1 >= 0)
+			if (volume != defaultVolume_E37B0 && volume <= 127 && volume >= 0)
 			{
-				sub_94650_AIL_set_digital_master_volume((x_DWORD*)hDigSoundEffectsDriver_180B48, a1);
-				result = a1;
-				defaultVolume_E37B0 = a1;
+				sub_94650_AIL_set_digital_master_volume(volume);
+				defaultVolume_E37B0 = volume;
 			}
 		}
 	}
-	return result;
 }
-// E3798: using guessed type char x_BYTE_E3798_sound_active2;
-// E379A: using guessed type char x_BYTE_E379A;
-// E37B0: using guessed type int x_DWORD_E37B0;
-// 180B48: using guessed type int x_DWORD_180B48;
 
 //----- (00090FD0) --------------------------------------------------------
 void InitSoundAndMusic_90FD0()//271fd0
@@ -954,17 +902,13 @@ void InitSoundAndMusic_90FD0()//271fd0
 	sub_8D290_init_sound();
 	sub_8D970_init_music();
 	if (!_stricmp(soundEffectsAILSettings.driver_name, "SB16.DIG"))
-		sub_91010();
+		initAWE32orMPU401_91010();
 }
 
 //----- (00091010) --------------------------------------------------------
-void sub_91010()
+void initAWE32orMPU401_91010()
 {
-	//__int16 result; // ax
-	__int16 v1; // [esp+0h] [ebp-4h]
-
-	//result = x_WORD_180B30;
-	v1 = x_WORD_180B30;
+	__int16 v1 = x_WORD_180B30;
 	if (x_WORD_180B30 == 544)
 	{
 		x_outp(x_WORD_180B30 + 4, 48);
@@ -1018,30 +962,12 @@ void sub_91010()
 		}
 		x_BYTE_E39B8 = 1;
 	}
-	//return result;
 }
-// 98F5D: using guessed type x_DWORD stricmp(x_DWORD, x_DWORD);
-// A0ED7: using guessed type x_DWORD outp(x_DWORD, char);
-// A0EE1: using guessed type x_DWORD inp(x_DWORD);
-// E39A4: using guessed type __int16 x_WORD_E39A4;
-// E39A6: using guessed type __int16 x_WORD_E39A6;
-// E39A8: using guessed type __int16 x_WORD_E39A8;
-// E39AA: using guessed type __int16 x_WORD_E39AA;
-// E39AC: using guessed type __int16 x_WORD_E39AC;
-// E39AE: using guessed type __int16 x_WORD_E39AE;
-// E39B0: using guessed type __int16 x_WORD_E39B0;
-// E39B2: using guessed type __int16 x_WORD_E39B2;
-// E39B4: using guessed type __int16 x_WORD_E39B4;
-// E39B6: using guessed type __int16 x_WORD_E39B6;
-// E39B8: using guessed type char x_BYTE_E39B8;
-// 180B30: using guessed type __int16 x_WORD_180B30;
 
 //----- (00091420) --------------------------------------------------------
 int sub_91420()
 {
-	__int16 v0; // ST08_2
-
-	v0 = x_WORD_180B30;
+	__int16 v0 = x_WORD_180B30;
 	x_outp(x_WORD_180B30 + 4, 50);
 	x_outp(549, x_WORD_E39AC);
 	x_outp(v0 + 4, 51);
@@ -1059,117 +985,39 @@ int sub_91420()
 	x_outp(v0 + 4, 71);
 	return x_outp(v0 + 5, x_WORD_E39B6);
 }
-// A0ED7: using guessed type x_DWORD outp(x_DWORD, char);
-// E39A8: using guessed type __int16 x_WORD_E39A8;
-// E39AA: using guessed type __int16 x_WORD_E39AA;
-// E39AC: using guessed type __int16 x_WORD_E39AC;
-// E39AE: using guessed type __int16 x_WORD_E39AE;
-// E39B0: using guessed type __int16 x_WORD_E39B0;
-// E39B2: using guessed type __int16 x_WORD_E39B2;
-// E39B4: using guessed type __int16 x_WORD_E39B4;
-// E39B6: using guessed type __int16 x_WORD_E39B6;
-// 180B30: using guessed type __int16 x_WORD_180B30;
-
-/*
-void sub_91660(HMDIDRIVER user)
-{
-	if ((x_DWORD_181BFC != 99 || x_DWORD_181C0C != 59 || x_DWORD_181C08 != 59 || x_DWORD_181C10 != 99) && ++x_DWORD_181C10 == 100)
-	{
-		x_DWORD_181C10 = 0;
-		if (++x_DWORD_181C08 == 60)
-		{
-			x_DWORD_181C08 = 0;
-			if (++x_DWORD_181C0C == 60)
-			{
-				x_DWORD_181C0C = 0;
-				++x_DWORD_181BFC;
-			}
-		}
-	}
-}
-*/
-
-//----- (000916F0) --------------------------------------------------------
-/*signed int sub_916F0_sound_proc24()
-{
-  int i; // [esp+4h] [ebp-14h]
-  int j; // [esp+4h] [ebp-14h]
-  int v3; // [esp+8h] [ebp-10h]
-  int v4; // [esp+Ch] [ebp-Ch]
-  int v5; // [esp+10h] [ebp-8h]
-  int v6; // [esp+14h] [ebp-4h]
-
-  sub_A0EEC_s_plus2();
-  v6 = x_DWORD_181BFC;
-  v5 = x_DWORD_181C0C;
-  v4 = x_DWORD_181C08;
-  v3 = x_DWORD_181C10;
-  sub_A0EF9_s_minus2();
-  if ( x_DWORD_181C04 == 1 )
-  {
-	dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "[%.02u:%.02u:%.02u.%.02u] ", v6, v5, v4, v3);
-  }
-  else
-  {
-	for ( i = 0; i < 0xE; i++ )
-	  dbgfprintf(x_DWORD_181BF0_AIL_debugfile, " \0");
-  }
-  for ( j = 1; j < x_DWORD_181C04; j++ )
-	dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "\0xfa\0");
-  return 1;
-}*/
-// A18E3: using guessed type x_DWORD fprintf(x_DWORD, const char *, ...);
-// 181BF0: using guessed type int x_DWORD_181BF0_AIL_debugfile;
-// 181BFC: using guessed type int x_DWORD_181BFC;
-// 181C04: using guessed type int x_DWORD_181C04;
-// 181C08: using guessed type int x_DWORD_181C08;
-// 181C0C: using guessed type int x_DWORD_181C0C;
-// 181C10: using guessed type int x_DWORD_181C10;
 
 //----- (000919C0) --------------------------------------------------------
-void sub_919C0()
+void AilShutdown_919C0()
 {
 	x_DWORD_181C04++;
 	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2() && sub_916F0_sound_proc24())
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "AIL_shutdown()\n");
+		dbgfprintf(ailDebufFile_181BF0, "AIL_shutdown()\n");
 	sub_9ED70();
 	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8))
 	{
 		if (!sub_A16A2())
-			fclose(x_DWORD_181BF0_AIL_debugfile);
+			fclose(ailDebufFile_181BF0);
 	}
 	x_DWORD_181C04--;
 }
 
 //----- (00091A80) --------------------------------------------------------
-int sub_91A80_AIL_set_preference(uint32_t number, int32_t value)//int (__stdcall *mss32_AIL_set_preference)(unsigned int, int) = 0;
+void AilSetPreference_91A80(uint32_t number, int32_t value)
 {
-	int i; // [esp+0h] [ebp-10h]
-	int j; // [esp+0h] [ebp-10h]
-	bool v5; // [esp+4h] [ebp-Ch]
-	int result; // [esp+Ch] [ebp-4h]
-
 	x_DWORD_181C04++;
-	v5 = x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2() && sub_916F0_sound_proc24();
-	if (v5)
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "AIL_set_preference(%d,%d)\n", number, value);
-	result = sub_9E6E0_set_preference(number, value);
+	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2() && sub_916F0_sound_proc24())
+		dbgfprintf(ailDebufFile_181BF0, "AIL_set_preference(%d,%d)\n", number, value);
+	AilSetPreference_9E6E0(number, value);
 	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2())
 	{
-		for (i = 0; i < 0xE; i++)
-			dbgfprintf(x_DWORD_181BF0_AIL_debugfile, " \0");
-		for (j = 1; j < x_DWORD_181C04; j++)
-			dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "\0xfa\0");
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "Result = %d\n", result);
+		for (int i = 0; i < 0xE; i++)
+			dbgfprintf(ailDebufFile_181BF0, " \0");
+		for (int j = 1; j < x_DWORD_181C04; j++)
+			dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
+		//dbgfprintf(ailDebufFile_181BF0, "Result = %d\n", result);
 	}
 	x_DWORD_181C04--;
-	return result;
 }
-// A18E3: using guessed type x_DWORD fprintf(x_DWORD, const char *, ...);
-// 181BF0: using guessed type int x_DWORD_181BF0_AIL_debugfile;
-// 181BF4: using guessed type int x_DWORD_181BF4;
-// 181BF8: using guessed type int x_DWORD_181BF8;
-// 181C04: using guessed type int x_DWORD_181C04;
 
 //----- (00091BD0) --------------------------------------------------------
 void sub_91BD0_s_plus()//fix it - remove
@@ -1197,15 +1045,15 @@ uint16_t sub_91C10_AIL_get_real_vect(/*VDI_HDR* a1, int a2, int a3,*/ uint32_t v
 	x_DWORD_181C04++;
 	v8 = x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && (v4 = sub_A16A2(), !v4 && sub_916F0_sound_proc24());
 	if (v8)
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "AIL_get_real_vect(0x%X)\n", vectnum);
+		dbgfprintf(ailDebufFile_181BF0, "AIL_get_real_vect(0x%X)\n", vectnum);
 	result = sub_A121D_AIL_API_get_real_vect(vectnum/*, a1, a3, a2*/);
 	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2())
 	{
 		for (i = 0; i < 0xE; i++)
-			dbgfprintf(x_DWORD_181BF0_AIL_debugfile, " \0");
+			dbgfprintf(ailDebufFile_181BF0, " \0");
 		for (j = 1; j < x_DWORD_181C04; j++)
-			dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "\0xfa\0");
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "Result = 0x%X\n", result);
+			dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
+		dbgfprintf(ailDebufFile_181BF0, "Result = 0x%X\n", result);
 	}
 	x_DWORD_181C04--;
 	return result;
@@ -1226,7 +1074,7 @@ void sub_91D50_AIL_set_real_vect(uint32_t vectnum, uint16_t real_ptr)//AIL_set_r
 	x_DWORD_181C04++;
 	v3 = x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2() && sub_916F0_sound_proc24();
 	if (v3)
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "AIL_set_real_vect(0x%X,0x%X)\n", vectnum, real_ptr);
+		dbgfprintf(ailDebufFile_181BF0, "AIL_set_real_vect(0x%X,0x%X)\n", vectnum, real_ptr);
 	sub_A1249_AIL_API_set_real_vect(vectnum, real_ptr);
 	x_DWORD_181C04--;
 }
@@ -1245,7 +1093,7 @@ void sub_91E90_AIL_restore_USE16_ISR(int32_t a1)//AIL_restore_USE16_ISR
 	x_DWORD_181C04++;
 	v2 = x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2() && sub_916F0_sound_proc24();
 	if (v2)
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "AIL_restore_USE16_ISR(%d)\n", a1);
+		dbgfprintf(ailDebufFile_181BF0, "AIL_restore_USE16_ISR(%d)\n", a1);
 	sub_A14DB_AIL_API_restore_USE16_ISR(a1);
 	x_DWORD_181C04--;
 }
@@ -1261,8 +1109,8 @@ void sub_99C10_sound_proc4()//27ac10
 	if (x_BYTE_E379A)
 	{
 		sub_8D8F0_sound_proc3_endsample();
-		if (!midiLoaded_E37FE)
-			sub_919C0();
+		if (!musicLoaded_E37FE)
+			AilShutdown_919C0();
 		if (soundIndex_E37A0)
 		{
 			sub_83E80_freemem4((uint8_t*)soundIndex_E37A0);
@@ -1286,28 +1134,28 @@ void sub_99C10_sound_proc4()//27ac10
 //----- (00099C90) --------------------------------------------------------
 void sub_99C90()//27ac90
 {
-	if (midiLoaded_E37FE)
+	if (musicLoaded_E37FE)
 	{
-		if (midiTrack_E3802)
+		if (musicTrack_E3802)
 		{
-			sub_95DE0_AIL_stop_sequence((HSEQUENCE)m_hSequence);
-			sub_95F00_AIL_end_sequence(m_hSequence);
-			midiTrack_E3802 = 0;
+			ailStopSequence_95DE0((HSEQUENCE)m_hSequence);
+			ailEndSequence_95F00(m_hSequence);
+			musicTrack_E3802 = 0;
 		}
 		if (x_BYTE_E3815 == 1)
 			sub_9FA80();
 		if (!x_BYTE_E379A)
-			sub_919C0();
-		if (str_E3808_music_header)
+			AilShutdown_919C0();
+		if (musicHeader_E3808)
 		{
-			sub_83E80_freemem4((uint8_t*)str_E3808_music_header);
-			index_E380C_CountOfMusic = 0;
+			sub_83E80_freemem4((uint8_t*)musicHeader_E3808);
+			countOfMusicTracks_E380C = 0;
 		}
-		if (array_E3810_music_data)
-			sub_83E80_freemem4(array_E3810_music_data);
-		midiInicialized_E37FC = 0;
-		midiStarted_E37FD = 0;
-		midiLoaded_E37FE = 0;
+		if (musicData_E3810)
+			sub_83E80_freemem4(musicData_E3810);
+		musicInicialized_E37FC = 0;
+		musicStarted_E37FD = 0;
+		musicLoaded_E37FE = 0;
 	}
 }
 // E379A: using guessed type char x_BYTE_E379A;
@@ -1342,8 +1190,8 @@ void sub_917D0()
 	}
 	if (mygetenv("AIL_SYS_DEBUG"))
 		x_DWORD_181BF8 = 1;
-	x_DWORD_181BF0_AIL_debugfile = myopent((char*)v6, (char*)"w+t"/*(char*)"haw+t"*/);
-	if (!x_DWORD_181BF0_AIL_debugfile)
+	ailDebufFile_181BF0 = myopent((char*)v6, (char*)"w+t"/*(char*)"haw+t"*/);
+	if (!ailDebufFile_181BF0)
 	{
 		sub_9EC30();
 		return;
@@ -1355,10 +1203,10 @@ void sub_917D0()
 	v2 = asctime(timeptr);
 	strcpy(x_DWORD_181C14, v2);
 	x_BYTE_181C2C = 0;
-	dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "-----------------------------------------------------------------");
-	dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "Audio Interface Library application usage script generated by AIL", "3.03");
-	dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "Start time: %s", x_DWORD_181C14);
-	/*v3 = */dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "-----------------------------------------------------------------");
+	dbgfprintf(ailDebufFile_181BF0, "-----------------------------------------------------------------");
+	dbgfprintf(ailDebufFile_181BF0, "Audio Interface Library application usage script generated by AIL", "3.03");
+	dbgfprintf(ailDebufFile_181BF0, "Start time: %s", x_DWORD_181C14);
+	/*v3 = */dbgfprintf(ailDebufFile_181BF0, "-----------------------------------------------------------------");
 	sub_9EC30(/*v3*/);
 	x_DWORD_181BFC = 0;
 	x_DWORD_181C0C = 0;
@@ -1371,7 +1219,7 @@ void sub_917D0()
 	x_DWORD_181C04 = 1;
 	sub_916F0_sound_proc24(/*v4*/);
 	x_DWORD_181C04 = 0;
-	dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "AIL_startup()");
+	dbgfprintf(ailDebufFile_181BF0, "AIL_startup()");
 }
 
 const char* mygetenv(const char* a1)//27ae33
@@ -1413,15 +1261,15 @@ HDIGDRIVER sub_93330_AIL_install_DIG_driver_file(/*int a1, */char* filename, IO_
 	x_DWORD_181C04++;
 	v6 = x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2() && sub_916F0_sound_proc24();
 	if (v6)
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "AIL_install_DIG_driver_file(%s,0x%X)\n", filename, IO);
+		dbgfprintf(ailDebufFile_181BF0, "AIL_install_DIG_driver_file(%s,0x%X)\n", filename, IO);
 	result = sub_A3600_AIL_API_install_DIG_driver_file(/*a1, */filename, IO);
 	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2())
 	{
 		for (i = 0; i < 0xE; i++)
-			dbgfprintf(x_DWORD_181BF0_AIL_debugfile, " \0");
+			dbgfprintf(ailDebufFile_181BF0, " \0");
 		for (j = 1; j < x_DWORD_181C04; j++)
-			dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "\0xfa\0");
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "Result = 0x%X\n", result);
+			dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
+		dbgfprintf(ailDebufFile_181BF0, "Result = 0x%X\n", result);
 	}
 	x_DWORD_181C04--;
 	return result;
@@ -1443,7 +1291,7 @@ int sub_93480_AIL_uninstall_DIG_driver(HDIGDRIVER dig)//AIL_uninstall_DIG_driver
 	x_DWORD_181C04++;
 	v2 = x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2() && sub_916F0_sound_proc24();
 	if (v2)
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "AIL_uninstall_DIG_driver(0x%X)\n", dig);
+		dbgfprintf(ailDebufFile_181BF0, "AIL_uninstall_DIG_driver(0x%X)\n", dig);
 	result = sub_A37A0(dig);
 	x_DWORD_181C04--;
 	return result;
@@ -1467,15 +1315,15 @@ HSAMPLE sub_93510_AIL_allocate_sample_handle(HDIGDRIVER dig/*HDIGDRIVER dig*/)//
 	x_DWORD_181C04++;
 	v4 = x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2() && sub_916F0_sound_proc24();
 	if (v4)
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "AIL_allocate_sample_handle(0x%X)\n", dig);
+		dbgfprintf(ailDebufFile_181BF0, "AIL_allocate_sample_handle(0x%X)\n", dig);
 	result = sub_A3820_allocate_sample_handle(dig);
 	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2())
 	{
 		for (i = 0; i < 0xE; i++)
-			dbgfprintf(x_DWORD_181BF0_AIL_debugfile, " \0");
+			dbgfprintf(ailDebufFile_181BF0, " \0");
 		for (j = 1; j < x_DWORD_181C04; j++)
-			dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "\0xfa\0");
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "Result = 0x%X\n", result);
+			dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
+		dbgfprintf(ailDebufFile_181BF0, "Result = 0x%X\n", result);
 	}
 	x_DWORD_181C04--;
 	return result;
@@ -1497,7 +1345,7 @@ int sub_937A0_AIL_release_sample_handle(int S/*HSAMPLE S*/)//AIL_release_sample_
 	x_DWORD_181C04++;
 	v2 = x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2() && sub_916F0_sound_proc24();
 	if (v2)
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "AIL_release_sample_handle(0x%X)\n", S);
+		dbgfprintf(ailDebufFile_181BF0, "AIL_release_sample_handle(0x%X)\n", S);
 	result = sub_A38C0_AIL_API_release_sample_handle(S);
 	x_DWORD_181C04--;
 	return result;
@@ -1519,7 +1367,7 @@ void sub_93830_AIL_init_sample(HSAMPLE S/*HSAMPLE S*/)//AIL_init_sample //274830
 	x_DWORD_181C04++;
 	v2 = x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2() && sub_916F0_sound_proc24();
 	if (v2)
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "AIL_init_sample(0x%X)\n", S);
+		dbgfprintf(ailDebufFile_181BF0, "AIL_init_sample(0x%X)\n", S);
 	/*result = */sub_A38E0_init_sample(S);
 	x_DWORD_181C04--;
 	//return result;
@@ -1543,16 +1391,16 @@ int32_t sub_938C0_AIL_set_sample_file(HSAMPLE S/*HSAMPLE S*/, uint8_t* pWavData,
 	x_DWORD_181C04--;
 	v6 = x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2() && sub_916F0_sound_proc24();
 	if (v6)
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "AIL_set_sample_file(0x%X,0x%X,%d)\n", S, pWavData, block);
+		dbgfprintf(ailDebufFile_181BF0, "AIL_set_sample_file(0x%X,0x%X,%d)\n", S, pWavData, block);
 
 	result = sub_A4B20_set_sample_file(S, pWavData, block);
 	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2())
 	{
 		for (i = 0; i < 0xE; i++)
-			dbgfprintf(x_DWORD_181BF0_AIL_debugfile, " \0");
+			dbgfprintf(ailDebufFile_181BF0, " \0");
 		for (j = 1; j < x_DWORD_181C04; j++)
-			dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "\0xfa\0");
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "Result = %d\n", result);
+			dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
+		dbgfprintf(ailDebufFile_181BF0, "Result = %d\n", result);
 	}
 	x_DWORD_181C04--;
 	return result;
@@ -1574,7 +1422,7 @@ void sub_93A10_AIL_set_sample_address(HSAMPLE S, uint8_t* start, uint32_t len)//
 	x_DWORD_181C04++;
 	v4 = x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2() && sub_916F0_sound_proc24();
 	if (v4)
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "AIL_set_sample_address(0x%X,0x%X,%u)\n", S, start, len);
+		dbgfprintf(ailDebufFile_181BF0, "AIL_set_sample_address(0x%X,0x%X,%u)\n", S, start, len);
 	/*result = */sub_A3A30_set_sample_address(S, start, len);
 	x_DWORD_181C04--;
 	//return result;
@@ -1596,7 +1444,7 @@ void sub_93AB0_AIL_set_sample_type(HSAMPLE S, int32_t a2, uint32_t a3)//AIL_set_
 	x_DWORD_181C04++;
 	v4 = x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2() && sub_916F0_sound_proc24();
 	if (v4)
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "AIL_set_sample_type(0x%X,%d,%u)\n", S, a2, a3);
+		dbgfprintf(ailDebufFile_181BF0, "AIL_set_sample_type(0x%X,%d,%u)\n", S, a2, a3);
 	/*result = */sub_A3A70_set_sample_type(S, a2, a3);
 	x_DWORD_181C04--;
 	//return result;
@@ -1616,7 +1464,7 @@ void sub_93B50_AIL_start_sample(HSAMPLE S/*HSAMPLE S*/)//AIL_start_sample //274b
 	x_DWORD_181C04++;
 	v2 = x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2() && sub_916F0_sound_proc24();
 	if (v2)
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "AIL_start_sample(0x%X)\n", S);
+		dbgfprintf(ailDebufFile_181BF0, "AIL_start_sample(0x%X)\n", S);
 	sub_A3CB0_API_AIL_start_sample(S);
 	x_DWORD_181C04--;
 }
@@ -1635,7 +1483,7 @@ void sub_93D00_AIL_end_sample(HSAMPLE S/*HSAMPLE S*/)//274d00 AIL_end_sample //2
 	x_DWORD_181C04++;
 	v2 = x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2() && sub_916F0_sound_proc24();
 	if (v2)
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "AIL_end_sample(0x%X)\n", S);
+		dbgfprintf(ailDebufFile_181BF0, "AIL_end_sample(0x%X)\n", S);
 	sub_A3DA0__API_AIL_end_sample(S);
 	x_DWORD_181C04--;
 }
@@ -1654,7 +1502,7 @@ void sub_93D90_AIL_set_sample_playback_rate(HSAMPLE S, int32_t playback_rate)//A
 	x_DWORD_181C04--;
 	v3 = x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2() && sub_916F0_sound_proc24();
 	if (v3)
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "AIL_set_sample_playback_rate(0x%X,%d)\n", S, playback_rate);
+		dbgfprintf(ailDebufFile_181BF0, "AIL_set_sample_playback_rate(0x%X,%d)\n", S, playback_rate);
 	sub_A3AF0_set_sample_playback_rate(S, playback_rate);
 	x_DWORD_181C04--;
 }
@@ -1705,7 +1553,7 @@ void sub_93ED0_AIL_set_sample_volume_pan(HSAMPLE S, int32_t volume)//AIL_set_sam
 	x_DWORD_181C04++;
 	v3 = x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2() && sub_916F0_sound_proc24();
 	if (v3)
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "AIL_set_sample_pan(0x%X,%d)\n", S, volume);
+		dbgfprintf(ailDebufFile_181BF0, "AIL_set_sample_pan(0x%X,%d)\n", S, volume);
 	sub_A3BB0_set_sample_volume_pan(S, volume);
 	x_DWORD_181C04++;
 }
@@ -1724,7 +1572,7 @@ void sub_93F70_AIL_set_sample_loop_count(HSAMPLE S/*HSAMPLE S*/, int loop_count/
 	x_DWORD_181C04++;
 	v3 = x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2() && sub_916F0_sound_proc24();
 	if (v3)
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "AIL_set_sample_loop_count(0x%X,%d)\n", S, loop_count);
+		dbgfprintf(ailDebufFile_181BF0, "AIL_set_sample_loop_count(0x%X,%d)\n", S, loop_count);
 	sub_A3C90_set_sample_loop_count(S, loop_count);
 	x_DWORD_181C04--;
 }
@@ -1750,15 +1598,15 @@ uint32_t sub_94010_AIL_sample_status_orig(HSAMPLE S)//AIL_sample_status
 	x_DWORD_181C04++;
 	v4 = x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2() && sub_916F0_sound_proc24();
 	if (v4)
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "AIL_sample_status(0x%X)\n", S);
+		dbgfprintf(ailDebufFile_181BF0, "AIL_sample_status(0x%X)\n", S);
 	result = sub_A3A00_sample_status(S);
 	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2())
 	{
 		for (i = 0; i < 0xE; i++)
-			dbgfprintf(x_DWORD_181BF0_AIL_debugfile, " \0");
+			dbgfprintf(ailDebufFile_181BF0, " \0");
 		for (j = 1; j < x_DWORD_181C04; j++)
-			dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "\0xfa\0");
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "Result = %u\n", result);
+			dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
+		dbgfprintf(ailDebufFile_181BF0, "Result = %u\n", result);
 	}
 	x_DWORD_181C04--;
 	return result;
@@ -1769,7 +1617,7 @@ uint32_t sub_94010_AIL_sample_status_orig(HSAMPLE S)//AIL_sample_status
 // 181BF8: using guessed type int x_DWORD_181BF8;
 // 181C04: using guessed type int x_DWORD_181C04;
 
-void sub_94650_AIL_set_digital_master_volume(x_DWORD*  /*a1*/, int32_t master_volume)//AIL_set_digital_master_volume
+void ailDigitalMasterVolume_94650(x_DWORD*  /*a1*/, int32_t master_volume)//AIL_set_digital_master_volume
 {
 	SOUND_set_master_volume(master_volume);
 }
@@ -1782,7 +1630,7 @@ void sub_94650_AIL_set_digital_master_volume_orig(x_DWORD* a1, int32_t master_vo
 	x_DWORD_181C04++;
 	v3 = x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2() && sub_916F0_sound_proc24();
 	if (v3)
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "AIL_set_digital_master_volume(0x%X,%d)\n", a1, master_volume);
+		dbgfprintf(ailDebufFile_181BF0, "AIL_set_digital_master_volume(0x%X,%d)\n", a1, master_volume);
 	sub_A3F70_set_digital_master_volume(a1, master_volume);
 	x_DWORD_181C04--;
 }
@@ -1804,15 +1652,15 @@ EOS_callback_type sub_95140_AIL_register_EOS_callback(HSAMPLE S/*HSAMPLE S*/, EO
 	x_DWORD_181C04++;
 	v5 = x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2() && sub_916F0_sound_proc24();
 	if (v5)
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "AIL_register_EOS_callback(0x%X,0x%X)\n", S, EOS);
+		dbgfprintf(ailDebufFile_181BF0, "AIL_register_EOS_callback(0x%X,0x%X)\n", S, EOS);
 	result = sub_A3EB0_register_EOS_callback(S, EOS);
 	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2())
 	{
 		for (i = 0; i < 0xE; i++)
-			dbgfprintf(x_DWORD_181BF0_AIL_debugfile, " \0");
+			dbgfprintf(ailDebufFile_181BF0, " \0");
 		for (j = 1; j < x_DWORD_181C04; j++)
-			dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "\0xfa\0");
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "Result = 0x%X\n", result);
+			dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
+		dbgfprintf(ailDebufFile_181BF0, "Result = 0x%X\n", result);
 	}
 	x_DWORD_181C04--;
 	return result;
@@ -1833,7 +1681,7 @@ void sub_953E0_AIL_set_sample_user_data(HSAMPLE S/*HSAMPLE S*/, int index/*U32  
 	x_DWORD_181C04++;
 	v4 = x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2() && sub_916F0_sound_proc24();
 	if (v4)
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "AIL_set_sample_user_data(0x%X,%u,%d)\n", S, index, value);
+		dbgfprintf(ailDebufFile_181BF0, "AIL_set_sample_user_data(0x%X,%u,%d)\n", S, index, value);
 	/*result = */sub_A3F00_set_sample_user_data(S, index, value);
 	x_DWORD_181C04--;
 	//return result;
@@ -1856,15 +1704,15 @@ int sub_95480_AIL_sample_user_data(HSAMPLE S/*HSAMPLE S*/, int index/*U32     in
 	x_DWORD_181C04++;
 	v5 = x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2() && sub_916F0_sound_proc24();
 	if (v5)
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "AIL_sample_user_data(0x%X,%u)\n", S, index);
+		dbgfprintf(ailDebufFile_181BF0, "AIL_sample_user_data(0x%X,%u)\n", S, index);
 	result = sub_A3F30_sample_user_data(S, index);
 	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2())
 	{
 		for (i = 0; i < 0xE; i++)
-			dbgfprintf(x_DWORD_181BF0_AIL_debugfile, " \0");
+			dbgfprintf(ailDebufFile_181BF0, " \0");
 		for (j = 1; j < x_DWORD_181C04; j++)
-			dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "\0xfa\0");
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "Result = %d\n", result);
+			dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
+		dbgfprintf(ailDebufFile_181BF0, "Result = %d\n", result);
 	}
 	x_DWORD_181C04--;
 	return result;
@@ -1887,15 +1735,15 @@ int32_t sub_95710_AIL_install_MDI_INI(HMDIDRIVER* mdi, char* fileName)//HMDIDRIV
 	x_DWORD_181C04++;
 	v5 = x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2() && sub_916F0_sound_proc24();
 	if (v5)
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "AIL_install_MDI_INI(0x%X)\n", mdi);
+		dbgfprintf(ailDebufFile_181BF0, "AIL_install_MDI_INI(0x%X)\n", mdi);
 	result = sub_A78F0_AIL_API_install_MDI_INI(mdi, fileName);
 	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2())
 	{
 		for (i = 0; i < 0xE; i++)
-			dbgfprintf(x_DWORD_181BF0_AIL_debugfile, " \0");
+			dbgfprintf(ailDebufFile_181BF0, " \0");
 		for (j = 1; j < x_DWORD_181C04; j++)
-			dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "\0xfa\0");
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "Result = %d\n", result);
+			dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
+		dbgfprintf(ailDebufFile_181BF0, "Result = %d\n", result);
 	}
 	x_DWORD_181C04--;
 	return result;
@@ -1918,15 +1766,15 @@ HMDIDRIVER sub_95850_AIL_install_MDI_driver_file(char* filename, IO_PARMS* IO)//
 	x_DWORD_181C04++;
 	v6 = x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2() && sub_916F0_sound_proc24();
 	if (v6)
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "AIL_install_MDI_driver_file(%s,0x%X)\n", filename, IO);
+		dbgfprintf(ailDebufFile_181BF0, "AIL_install_MDI_driver_file(%s,0x%X)\n", filename, IO);
 	result = sub_A77D0_AIL_API_install_MDI_INI(filename, IO);
 	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2())
 	{
 		for (i = 0; i < 0xE; i++)
-			dbgfprintf(x_DWORD_181BF0_AIL_debugfile, " \0");
+			dbgfprintf(ailDebufFile_181BF0, " \0");
 		for (j = 1; j < x_DWORD_181C04; j++)
-			dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "\0xfa\0");
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "Result = 0x%X\n", result);
+			dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
+		dbgfprintf(ailDebufFile_181BF0, "Result = 0x%X\n", result);
 	}
 	x_DWORD_181C04--;
 	return result;
@@ -1947,7 +1795,7 @@ int sub_959A0_AIL_uninstall_MDI_driver(HMDIDRIVER mdi/*HMDIDRIVER  mdi*/)//AIL_u
 	x_DWORD_181C04++;
 	v2 = x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2() && sub_916F0_sound_proc24();
 	if (v2)
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "AIL_uninstall_MDI_driver(0x%X)\n", mdi);
+		dbgfprintf(ailDebufFile_181BF0, "AIL_uninstall_MDI_driver(0x%X)\n", mdi);
 	result = sub_A7970_AIL_API_uninstall_MDI_driver(mdi);
 	x_DWORD_181C04--;
 	return result;
@@ -1970,15 +1818,15 @@ HSEQUENCE sub_95A30_AIL_allocate_sequence_handle(HMDIDRIVER mdi)//AIL_allocate_s
 	x_DWORD_181C04++;
 	v4 = x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2() && sub_916F0_sound_proc24();
 	if (v4)
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "AIL_allocate_sequence_handle(0x%X)\n", mdi);
+		dbgfprintf(ailDebufFile_181BF0, "AIL_allocate_sequence_handle(0x%X)\n", mdi);
 	result = sub_A7B30_AIL_API_allocate_sequence_handle(mdi);
 	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2())
 	{
 		for (i = 0; i < 0xE; i++)
-			dbgfprintf(x_DWORD_181BF0_AIL_debugfile, " \0");
+			dbgfprintf(ailDebufFile_181BF0, " \0");
 		for (j = 1; j < x_DWORD_181C04; j++)
-			dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "\0xfa\0");
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "Result = 0x%X\n", result);
+			dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
+		dbgfprintf(ailDebufFile_181BF0, "Result = 0x%X\n", result);
 	}
 	x_DWORD_181C04--;
 	return result;
@@ -1990,7 +1838,7 @@ HSEQUENCE sub_95A30_AIL_allocate_sequence_handle(HMDIDRIVER mdi)//AIL_allocate_s
 // 181C04: using guessed type int x_DWORD_181C04;
 
 //----- (00095C00) --------------------------------------------------------
-int32_t sub_95C00_AIL_init_sequence(HSEQUENCE hSequence, uint8_t* start, int32_t sequence_num, uint32_t track)//AIL_init_sequence
+int32_t ailInitSequence_95C00(HSEQUENCE hSequence, uint8_t* start, int32_t sequence_num, uint32_t track)//AIL_init_sequence
 {
 	//AIL_fix();
 	int i; // [esp+0h] [ebp-10h]
@@ -2001,15 +1849,15 @@ int32_t sub_95C00_AIL_init_sequence(HSEQUENCE hSequence, uint8_t* start, int32_t
 	x_DWORD_181C04++;
 	v6 = x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2() && sub_916F0_sound_proc24();
 	if (v6)
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "AIL_init_sequence(0x%X,0x%X,%d)\n", hSequence, start, sequence_num);
+		dbgfprintf(ailDebufFile_181BF0, "AIL_init_sequence(0x%X,0x%X,%d)\n", hSequence, start, sequence_num);
 	result = sub_A7C20_AIL_API_init_sequence(hSequence, start, sequence_num, track);
 	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2())
 	{
 		for (i = 0; i < 0xE; i++)
-			dbgfprintf(x_DWORD_181BF0_AIL_debugfile, " \0");
+			dbgfprintf(ailDebufFile_181BF0, " \0");
 		for (j = 1; j < x_DWORD_181C04; j++)
-			dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "\0xfa\0");
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "Result = %d\n", result);
+			dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
+		dbgfprintf(ailDebufFile_181BF0, "Result = %d\n", result);
 	}
 	x_DWORD_181C04--;
 	return result;
@@ -2021,7 +1869,7 @@ int32_t sub_95C00_AIL_init_sequence(HSEQUENCE hSequence, uint8_t* start, int32_t
 // 181C04: using guessed type int x_DWORD_181C04;
 
 //----- (00095D50) --------------------------------------------------------
-void sub_95D50_AIL_start_sequence(HSEQUENCE hSequence/*HSEQUENCE S*/, uint32_t track)//AIL_start_sequence
+void ailStartSequence_95D50(HSEQUENCE hSequence/*HSEQUENCE S*/, uint32_t track)//AIL_start_sequence
 {
 	//AIL_fix();
 	//int *result; // eax
@@ -2030,7 +1878,7 @@ void sub_95D50_AIL_start_sequence(HSEQUENCE hSequence/*HSEQUENCE S*/, uint32_t t
 	x_DWORD_181C04++;
 	v2 = x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2() && sub_916F0_sound_proc24();
 	if (v2)
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "AIL_start_sequence(0x%X)\n", hSequence);
+		dbgfprintf(ailDebufFile_181BF0, "AIL_start_sequence(0x%X)\n", hSequence);
 	/*result = */sub_A8010_AIL_API_start_sequence(hSequence, track);
 	x_DWORD_181C04--;
 	//return result;
@@ -2042,7 +1890,7 @@ void sub_95D50_AIL_start_sequence(HSEQUENCE hSequence/*HSEQUENCE S*/, uint32_t t
 // 181C04: using guessed type int x_DWORD_181C04;
 
 //----- (00095DE0) --------------------------------------------------------
-void sub_95DE0_AIL_stop_sequence(HSEQUENCE hSequence)//AIL_stop_sequence
+void ailStopSequence_95DE0(HSEQUENCE hSequence)//AIL_stop_sequence
 {
 	SOUND_stop_sequence(hSequence->sequence_num);
 }
@@ -2081,7 +1929,7 @@ void sub_95E70_AIL_resume_sequence(HSEQUENCE hSequence)//AIL_resume_sequence
 	x_DWORD_181C04++;
 	v1 = x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2() && sub_916F0_sound_proc24();
 	if (v1)
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "AIL_resume_sequence(0x%X)\n", hSequence);
+		dbgfprintf(ailDebufFile_181BF0, "AIL_resume_sequence(0x%X)\n", hSequence);
 	sub_A8180_AIL_API_resume_sequence(hSequence);
 	x_DWORD_181C04--;
 }
@@ -2092,7 +1940,7 @@ void sub_95E70_AIL_resume_sequence(HSEQUENCE hSequence)//AIL_resume_sequence
 // 181C04: using guessed type int x_DWORD_181C04;
 
 //----- (00095F00) --------------------------------------------------------
-void sub_95F00_AIL_end_sequence(HSEQUENCE hSequence/*HSEQUENCE S*/)//AIL_end_sequence
+void ailEndSequence_95F00(HSEQUENCE hSequence/*HSEQUENCE S*/)//AIL_end_sequence
 {
 	//AIL_fix();
 	//int result; // eax
@@ -2101,7 +1949,7 @@ void sub_95F00_AIL_end_sequence(HSEQUENCE hSequence/*HSEQUENCE S*/)//AIL_end_seq
 	x_DWORD_181C04++;
 	v2 = x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2() && sub_916F0_sound_proc24();
 	if (v2)
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "AIL_end_sequence(0x%X)\n", hSequence);
+		dbgfprintf(ailDebufFile_181BF0, "AIL_end_sequence(0x%X)\n", hSequence);
 	/*result = */sub_A8250_AIL_API_end_sequence(hSequence);
 	x_DWORD_181C04--;
 	//return result;
@@ -2112,7 +1960,8 @@ void sub_95F00_AIL_end_sequence(HSEQUENCE hSequence/*HSEQUENCE S*/)//AIL_end_seq
 // 181BF8: using guessed type int x_DWORD_181BF8;
 // 181C04: using guessed type int x_DWORD_181C04;
 
-void SetAilSequenceVolume(HSEQUENCE  /*hSequence*/, int32_t volume, int32_t  /*milliseconds*/)//AIL_set_sequence_volume
+//----- (00096030) --------------------------------------------------------
+void ailSetSequenceVolume_96030(int32_t volume)//AIL_set_sequence_volume
 {
 	SOUND_set_sequence_volume(volume);
 }
@@ -2141,7 +1990,7 @@ void sub_96030_AIL_set_sequence_volume_orig(HSEQUENCE S, int32_t volume, int32_t
 // 181C04: using guessed type int x_DWORD_181C04;
 */
 //----- (00096170) --------------------------------------------------------
-int sub_96170_AIL_sequence_status(HSEQUENCE hSequence/*HSEQUENCE S*/)//AIL_sequence_status
+int ailSequenceStatus_96170(HSEQUENCE hSequence/*HSEQUENCE S*/)//AIL_sequence_status
 {
 	//AIL_fix();
 	int i; // [esp+0h] [ebp-10h]
@@ -2152,15 +2001,15 @@ int sub_96170_AIL_sequence_status(HSEQUENCE hSequence/*HSEQUENCE S*/)//AIL_seque
 	x_DWORD_181C04++;
 	v4 = x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2() && sub_916F0_sound_proc24();
 	if (v4)
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "AIL_sequence_status(0x%X)\n", hSequence);
+		dbgfprintf(ailDebufFile_181BF0, "AIL_sequence_status(0x%X)\n", hSequence);
 	result = sub_A8410_AIL_API_sequence_status(hSequence);
 	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2())
 	{
 		for (i = 0; i < 0xE; i++)
-			dbgfprintf(x_DWORD_181BF0_AIL_debugfile, " \0");
+			dbgfprintf(ailDebufFile_181BF0, " \0");
 		for (j = 1; j < x_DWORD_181C04; j++)
-			dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "\0xfa\0");
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "Result = %u\n", result);
+			dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
+		dbgfprintf(ailDebufFile_181BF0, "Result = %u\n", result);
 	}
 	x_DWORD_181C04--;
 	return result;
@@ -2202,15 +2051,15 @@ int32_t sub_969A0_AIL_MDI_driver_type(HMDIDRIVER mdi)//AIL_MDI_driver_type
 	x_DWORD_181C04++;
 	v4 = x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2() && sub_916F0_sound_proc24();
 	if (v4)
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "AIL_MDI_driver_type(0x%X)\n", mdi);
+		dbgfprintf(ailDebufFile_181BF0, "AIL_MDI_driver_type(0x%X)\n", mdi);
 	result = sub_A7990_AIL_API_MDI_driver_type(mdi);
 	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2())
 	{
 		for (i = 0; i < 0xE; i++)
-			dbgfprintf(x_DWORD_181BF0_AIL_debugfile, " \0");
+			dbgfprintf(ailDebufFile_181BF0, " \0");
 		for (j = 1; j < x_DWORD_181C04; j++)
-			dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "\0xfa\0");
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "Result = %d\n", result);
+			dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
+		dbgfprintf(ailDebufFile_181BF0, "Result = %d\n", result);
 	}
 	return result;
 }
@@ -2230,7 +2079,7 @@ void sub_96AE0_AIL_set_GTL_filename_prefix(char* prefix)//AIL_set_GTL_filename_p
 	x_DWORD_181C04++;
 	v2 = x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2() && sub_916F0_sound_proc24();
 	if (v2)
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "AIL_set_GTL_filename_prefix(%s)\n", prefix);
+		dbgfprintf(ailDebufFile_181BF0, "AIL_set_GTL_filename_prefix(%s)\n", prefix);
 	sub_A7AA0_AIL_API_set_GTL_filename_prefix(prefix);
 	x_DWORD_181C04--;
 	//return result;
@@ -2253,7 +2102,7 @@ int sub_97330_AIL_sequence_position(x_DWORD* S/*HSEQUENCE S*/, x_DWORD* beat/*FA
 	x_DWORD_181C04++;
 	v6 = x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2() && sub_916F0_sound_proc24();
 	if (v6)
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "AIL_sequence_position(0x%X,0x%X,0x%X)\n", S, beat, measure);
+		dbgfprintf(ailDebufFile_181BF0, "AIL_sequence_position(0x%X,0x%X,0x%X)\n", S, beat, measure);
 	result = sub_A8830(S, beat, measure);
 	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8))
 	{
@@ -2261,10 +2110,10 @@ int sub_97330_AIL_sequence_position(x_DWORD* S/*HSEQUENCE S*/, x_DWORD* beat/*FA
 		if (!result)
 		{
 			for (i = 0; i < 0xE; i++)
-				dbgfprintf(x_DWORD_181BF0_AIL_debugfile, " \0");
+				dbgfprintf(ailDebufFile_181BF0, " \0");
 			for (j = 1; j < x_DWORD_181C04; j++)
-				dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "\0xfa\0");
-			/*result = */dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "Result = %d:%d\n", *measure + 1, *beat + 1);
+				dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
+			/*result = */dbgfprintf(ailDebufFile_181BF0, "Result = %d:%d\n", *measure + 1, *beat + 1);
 		}
 	}
 	x_DWORD_181C04--;
@@ -2286,7 +2135,7 @@ x_DWORD* sub_97480_AIL_branch_index(HSEQUENCE hSequence, int marker/*U32 marker*
 	x_DWORD_181C04++;
 	v3 = x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2() && sub_916F0_sound_proc24();
 	if (v3)
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "AIL_branch_index(0x%X,%u)\n", hSequence, marker);
+		dbgfprintf(ailDebufFile_181BF0, "AIL_branch_index(0x%X,%u)\n", hSequence, marker);
 	result = sub_A8900(hSequence, marker);
 	x_DWORD_181C04--;
 	return result;
@@ -2298,7 +2147,7 @@ x_DWORD* sub_97480_AIL_branch_index(HSEQUENCE hSequence, int marker/*U32 marker*
 // 181C04: using guessed type int x_DWORD_181C04;
 
 //----- (00097670) --------------------------------------------------------
-xCALLBACK sub_97670_AIL_register_trigger_callback(HSEQUENCE hSequence, xCALLBACK callback/*AILTRIGGERCB   callback*/)//AIL_register_trigger_callback
+xCALLBACK ailRegisterTriggerCallback_97670(HSEQUENCE hSequence, xCALLBACK callback/*AILTRIGGERCB   callback*/)//AIL_register_trigger_callback
 {
 	//AIL_fix();
 	int i; // [esp+0h] [ebp-10h]
@@ -2309,15 +2158,15 @@ xCALLBACK sub_97670_AIL_register_trigger_callback(HSEQUENCE hSequence, xCALLBACK
 	x_DWORD_181C04++;
 	v5 = x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2() && sub_916F0_sound_proc24();
 	if (v5)
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "AIL_register_trigger_callback(0x%X,0x%X)\n", hSequence, callback);
+		dbgfprintf(ailDebufFile_181BF0, "AIL_register_trigger_callback(0x%X,0x%X)\n", hSequence, callback);
 	result = sub_A8A20_AIL_API_trigger_callback(hSequence, callback);
 	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2())
 	{
 		for (i = 0; i < 0xE; i++)
-			dbgfprintf(x_DWORD_181BF0_AIL_debugfile, " \0");
+			dbgfprintf(ailDebufFile_181BF0, " \0");
 		for (j = 1; j < x_DWORD_181C04; j++)
-			dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "\0xfa\0");
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "Result = 0x%X\n", result);
+			dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
+		dbgfprintf(ailDebufFile_181BF0, "Result = 0x%X\n", result);
 	}
 	x_DWORD_181C04--;
 	return result;
@@ -2340,15 +2189,15 @@ int sub_97A60_AIL_register_event_callback(int mdi/*HMDIDRIVER mdi*/, int callbac
 	x_DWORD_181C04++;
 	v5 = x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2() && sub_916F0_sound_proc24();
 	if (v5)
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "AIL_register_event_callback(0x%X,0x%X)\n", mdi, callback);
+		dbgfprintf(ailDebufFile_181BF0, "AIL_register_event_callback(0x%X,0x%X)\n", mdi, callback);
 	v6 = sub_A8AE0(mdi, callback);
 	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2())
 	{
 		for (i = 0; i < 0xE; i++)
-			dbgfprintf(x_DWORD_181BF0_AIL_debugfile, " \0");
+			dbgfprintf(ailDebufFile_181BF0, " \0");
 		for (j = 1; j < x_DWORD_181C04; j++)
-			dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "\0xfa\0");
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "Result = 0x%X\n", v6);
+			dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
+		dbgfprintf(ailDebufFile_181BF0, "Result = 0x%X\n", v6);
 	}
 	x_DWORD_181C04--;
 	return v6;
@@ -2371,15 +2220,15 @@ int sub_97BB0_AIL_register_timbre_callback(int mdi/*HMDIDRIVER mdi*/, int callba
 	x_DWORD_181C04++;
 	v5 = x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2() && sub_916F0_sound_proc24();
 	if (v5)
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "AIL_register_timbre_callback(0x%X,0x%X)\n", mdi, callback);
+		dbgfprintf(ailDebufFile_181BF0, "AIL_register_timbre_callback(0x%X,0x%X)\n", mdi, callback);
 	result = sub_A8B20(mdi, callback);
 	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2())
 	{
 		for (i = 0; i < 0xE; i++)
-			dbgfprintf(x_DWORD_181BF0_AIL_debugfile, " \0");
+			dbgfprintf(ailDebufFile_181BF0, " \0");
 		for (j = 1; j < x_DWORD_181C04; j++)
-			dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "\0xfa\0");
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "Result = 0x%X\n", result);
+			dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
+		dbgfprintf(ailDebufFile_181BF0, "Result = 0x%X\n", result);
 	}
 	x_DWORD_181C04--;
 	return result;
@@ -2402,15 +2251,15 @@ int sub_97F90_AIL_lock_channel(MDI_DRIVER* mdi/*HMDIDRIVER mdi*/)//AIL_lock_chan
 	x_DWORD_181C04--;
 	v4 = x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2() && sub_916F0_sound_proc24();
 	if (v4)
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "AIL_lock_channel(0x%X)\n", mdi);
+		dbgfprintf(ailDebufFile_181BF0, "AIL_lock_channel(0x%X)\n", mdi);
 	result = sub_A8BF0(mdi);
 	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2())
 	{
 		for (i = 0; i < 0xE; i++)
-			dbgfprintf(x_DWORD_181BF0_AIL_debugfile, " \0");
+			dbgfprintf(ailDebufFile_181BF0, " \0");
 		for (j = 1; j < x_DWORD_181C04; j++)
-			dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "\0xfa\0");
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "Result = %d\n", result);
+			dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
+		dbgfprintf(ailDebufFile_181BF0, "Result = %d\n", result);
 	}
 	x_DWORD_181C04--;
 	return result;
@@ -2431,7 +2280,7 @@ void sub_980D0_AIL_release_channel(x_DWORD* mdi/*HMDIDRIVER mdi*/, int channel/*
 	x_DWORD_181C04++;
 	v3 = x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2() && sub_916F0_sound_proc24();
 	if (v3)
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "AIL_release_channel(0x%X,%d)\n", mdi, channel);
+		dbgfprintf(ailDebufFile_181BF0, "AIL_release_channel(0x%X,%d)\n", mdi, channel);
 	sub_A8EA0(mdi, channel);
 	x_DWORD_181C04--;
 }
@@ -2451,7 +2300,7 @@ int sub_98170_AIL_map_sequence_channel(HSEQUENCE S/*HSEQUENCE S*/, int seq_chann
 	x_DWORD_181C04++;
 	v4 = x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2() && sub_916F0_sound_proc24();
 	if (v4)
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "AIL_map_sequence_channel(0x%X,%d,%d)\n", S, seq_channel, new_channel);
+		dbgfprintf(ailDebufFile_181BF0, "AIL_map_sequence_channel(0x%X,%d,%d)\n", S, seq_channel, new_channel);
 	result = sub_A9080(S, seq_channel, new_channel);
 	x_DWORD_181C04--;
 	return result;
@@ -2471,7 +2320,7 @@ void sub_98360_AIL_send_channel_voice_message(HMDIDRIVER mdi, HSEQUENCE hSequenc
 	x_DWORD_181C04++;
 	v6 = x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2() && sub_916F0_sound_proc24();
 	if (v6)
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "AIL_send_channel_voice_message(0x%X,0x%X,0x%X,0x%X,0x%X)\n", mdi, hSequence, status, data_1, data_2);
+		dbgfprintf(ailDebufFile_181BF0, "AIL_send_channel_voice_message(0x%X,0x%X,0x%X,0x%X,0x%X)\n", mdi, hSequence, status, data_1, data_2);
 	sub_A9140_AIL_API_send_channel_voice_message(mdi, hSequence, status, data_1, data_2);
 	x_DWORD_181C04--;
 }
@@ -2492,10 +2341,10 @@ void sub_986E0()//2796e0
 // E39B8: using guessed type char x_BYTE_E39B8;
 
 //----- (00098790) --------------------------------------------------------
-void sub_98790(unsigned __int16 milliseconds, unsigned __int8 volume)//279790
+void sub_98790(int volume)//279790
 {
-	if (midiInicialized_E37FC && midiStarted_E37FD && midiTrack_E3802 && volume <= 0x7Fu && sub_96170_AIL_sequence_status(m_hSequence) != 2)
-		SetAilSequenceVolume(m_hSequence, volume, milliseconds);
+	if (musicInicialized_E37FC && musicStarted_E37FD && musicTrack_E3802 && volume <= 0x7Fu && ailSequenceStatus_96170(m_hSequence) != 2)
+		ailSetSequenceVolume_96030(volume);
 }
 
 //----- (00098AE9) --------------------------------------------------------
@@ -2899,14 +2748,10 @@ int sub_9E3A0_AIL_API_read_INI(AIL_INI* INI, char* filename/*,char* a8*/)//27f3a
 // 9E3A0: using guessed type char var_68[80];
 
 //----- (0009E6E0) --------------------------------------------------------
-int sub_9E6E0_set_preference(uint32_t number, int32_t value)
+void AilSetPreference_9E6E0(uint32_t number, int32_t value)
 {
-	int oldvalue;
-	oldvalue = x_DWORD_181DAC[number];
-	x_DWORD_181DAC[number] = value;
-	return oldvalue;
+	preference_181DAC[number] = value;
 }
-// 181DAC: using guessed type int x_DWORD_181DAC[];
 
 //----- (0009E720) --------------------------------------------------------
 AIL_DRIVER* sub_9E720_AIL_API_install_driver(/*int a1, */uint8_t* driver_image, int32_t n_bytes)//27f720
@@ -3090,25 +2935,25 @@ void sub_9EC30()
 {
 	signed int i; // [esp+0h] [ebp-4h]
 
-	sub_91A80_AIL_set_preference(0, 200);
-	sub_91A80_AIL_set_preference(1, 1);
-	sub_91A80_AIL_set_preference(2, 0x8000);
-	sub_91A80_AIL_set_preference(3, 100);
-	sub_91A80_AIL_set_preference(4, 16);
-	sub_91A80_AIL_set_preference(5, 100);
-	sub_91A80_AIL_set_preference(6, 655);
-	sub_91A80_AIL_set_preference(7, 0);
-	sub_91A80_AIL_set_preference(8, 0);
-	sub_91A80_AIL_set_preference(9, 1);
-	sub_91A80_AIL_set_preference(10, 0);
-	sub_91A80_AIL_set_preference(11, 120);
-	sub_91A80_AIL_set_preference(12, 8);
-	sub_91A80_AIL_set_preference(13, 127);
-	sub_91A80_AIL_set_preference(14, 1);
-	sub_91A80_AIL_set_preference(15, 0);
-	sub_91A80_AIL_set_preference(16, 2);
-	sub_91A80_AIL_set_preference(17, 1);
-	sub_91A80_AIL_set_preference(18, 1);
+	AilSetPreference_91A80(0, 200);
+	AilSetPreference_91A80(1, 1);
+	AilSetPreference_91A80(2, 0x8000);
+	AilSetPreference_91A80(3, 100);
+	AilSetPreference_91A80(4, 16);
+	AilSetPreference_91A80(5, 100);
+	AilSetPreference_91A80(6, 655);
+	AilSetPreference_91A80(7, 0);
+	AilSetPreference_91A80(8, 0);
+	AilSetPreference_91A80(9, 1);
+	AilSetPreference_91A80(10, 0);
+	AilSetPreference_91A80(11, 120);
+	AilSetPreference_91A80(12, 8);
+	AilSetPreference_91A80(13, 127);
+	AilSetPreference_91A80(14, 1);
+	AilSetPreference_91A80(15, 0);
+	AilSetPreference_91A80(16, 2);
+	AilSetPreference_91A80(17, 1);
+	AilSetPreference_91A80(18, 1);
 	for (i = 0; i < 16; i++)
 		x_DWORD_181C50[i] = 0;
 	x_BYTE_181C90[0] = 0;
@@ -3179,7 +3024,7 @@ void sub_9F040()
 //----- (0009FA80) --------------------------------------------------------
 void sub_9FA80()//280a80
 {
-	if (midiInicialized_E37FC && !_stricmp(textBuffer_180BE0, "SBAWE32.MDI") && !_stricmp(&x_BYTE_180C84_drivertype, "w"))
+	if (musicInicialized_E37FC && !_stricmp(textBuffer_180BE0, "SBAWE32.MDI") && !_stricmp(&x_BYTE_180C84_drivertype, "w"))
 	{
 		sub_9F6D0((int*)hMdiMusicDriver, 1);
 		sub_9F170(x_DWORD_181E2C, x_WORD_181E30);
@@ -3397,7 +3242,7 @@ void initAWE32_9F740(char* a1)//280740
 
 	FILE* file;
 
-	if (midiInicialized_E37FC && !_stricmp(textBuffer_180BE0, "SBAWE32.MDI") && !_stricmp(&x_BYTE_180C84_drivertype, "w"))
+	if (musicInicialized_E37FC && !_stricmp(textBuffer_180BE0, "SBAWE32.MDI") && !_stricmp(&x_BYTE_180C84_drivertype, "w"))
 	{
 		if (x_BYTE_E3815 == 1)
 		{
@@ -4284,7 +4129,7 @@ int sub_A2650(HDIGDRIVER a1)//283650
 		//dma - sub_B0B87(a1, 0);//fix
 		//dma - sub_B0B87(a1, 1);//fix
 	}
-	v5 = 2 * x_DWORD_181DAC[7] | x_DWORD_181DAC[8];
+	v5 = 2 * preference_181DAC[7] | preference_181DAC[8];
 	if (v5 <= 3)
 	{
 		switch (v5)
@@ -4327,9 +4172,9 @@ int sub_A2650(HDIGDRIVER a1)//283650
 	//        a1->hw_mode_flags_7 = *(x_DWORD*)(14 * a1->hw_mode_flags_7 + (uint8_t*)&a1->DDT_1 + 26);
 	//        it seems like only the lowest byte of hw_mode_flags_7 is used -> use WORD instead of DWORD for aligned memory access
 	a1->hw_mode_flags_7 = *(x_DWORD*)(14 * a1->hw_mode_flags_7 + (uint8_t*)&a1->DDT_1 + 26);
-	if (x_DWORD_181DAC[1] < 1)
+	if (preference_181DAC[1] < 1)
 	{
-		if (!x_DWORD_181DAC[1])
+		if (!preference_181DAC[1])
 		{
 			a1->DMA_rate_5 = *(unsigned __int16*)(14 * a1->hw_format_6 + (uint8_t*)&a1->DDT_1 + 16);
 			goto LABEL_33;
@@ -4337,18 +4182,18 @@ int sub_A2650(HDIGDRIVER a1)//283650
 	}
 	else
 	{
-		if (x_DWORD_181DAC[1] == 0)
+		if (preference_181DAC[1] == 0)
 		{
 			a1->DMA_rate_5 = *(unsigned __int16*)(14 * a1->hw_format_6 + (uint8_t*)&a1->DDT_1 + 18);
 			goto LABEL_33;
 		}
-		if (x_DWORD_181DAC[1] == 2)
+		if (preference_181DAC[1] == 2)
 		{
 			a1->DMA_rate_5 = *(unsigned __int16*)(14 * a1->hw_format_6 + (uint8_t*)&a1->DDT_1 + 20);
 			goto LABEL_33;
 		}
 	}
-	j = x_DWORD_181DAC[1];
+	j = preference_181DAC[1];
 	v6[0] = *(unsigned __int16*)(14 * a1->hw_format_6 + (uint8_t*)&a1->DDT_1 + 16);
 	v6[1] = *(unsigned __int16*)(14 * a1->hw_format_6 + (uint8_t*)&a1->DDT_1 + 18);
 	v6[2] = *(unsigned __int16*)(14 * a1->hw_format_6 + (uint8_t*)&a1->DDT_1 + 20);
@@ -4387,11 +4232,11 @@ LABEL_33:
 			break;
 		}
 	}
-	v16 = x_DWORD_181DAC[3] * a1->DMA_rate_5 / 1000;
+	v16 = preference_181DAC[3] * a1->DMA_rate_5 / 1000;
 	a1->half_buffer_size_4 = a1->channels_per_sample_15 * a1->bytes_per_channel_16 * v16;
 	v18 = *(unsigned __int16*)(14 * a1->hw_format_6 + (uint8_t*)&a1->DDT_1 + 22);
 	v17 = *(unsigned __int16*)(14 * a1->hw_format_6 + (uint8_t*)&a1->DDT_1 + 24);
-	if (!x_DWORD_181DAC[18])
+	if (!preference_181DAC[18])
 		goto LABEL_64;
 	if (v17 > 2048)
 		v17 = 2048;
@@ -4404,7 +4249,7 @@ LABEL_33:
 	{
 	LABEL_64:
 		v13 = 0x7FFFFFFF;
-		for (j = 8; x_DWORD_181DAC[2] / 2 >= j; j *= 2)//00352DB4
+		for (j = 8; preference_181DAC[2] / 2 >= j; j *= 2)//00352DB4
 		{
 			v2 = abs(j - a1->half_buffer_size_4);
 			if (v2 <= v13)
@@ -4420,7 +4265,7 @@ LABEL_33:
 		if (a1->half_buffer_size_4 > v17)
 			a1->half_buffer_size_4 = v17;
 		v12 = a1->DMA_seg_8;
-		if (x_DWORD_181DAC[18])
+		if (preference_181DAC[18])
 		{
 			v12 >>= 12;
 			v12 += 4095;
@@ -4618,7 +4463,7 @@ HDIGDRIVER sub_A2EA0(AIL_DRIVER* a1, IO_PARMS IO)//283ea0
 					}
 				}
 			}
-			if (!v28 && x_DWORD_181DAC[17] == 1)
+			if (!v28 && preference_181DAC[17] == 1)
 			{
 				for (i = 0; (int)v26->drvr_0->VHDR_4->environment_string_16 > i; i++)//fix
 				{
@@ -4638,10 +4483,10 @@ HDIGDRIVER sub_A2EA0(AIL_DRIVER* a1, IO_PARMS IO)//283ea0
 			if (v28)
 			{
 				qmemcpy(&unk_181D90, v15, 0x18u);
-				if (x_DWORD_181DAC[18])
+				if (preference_181DAC[18])
 					v25 = 0x2000;
 				else
-					v25 = x_DWORD_181DAC[2];
+					v25 = preference_181DAC[2];
 				v26->DMA_buf_10 = 0;
 				//do //fixed
 				{
@@ -4678,7 +4523,7 @@ HDIGDRIVER sub_A2EA0(AIL_DRIVER* a1, IO_PARMS IO)//283ea0
 					v26->build_buffer_20 = (int32_t*)v6;
 					if (v26->build_buffer_20)
 					{
-						v26->n_samples_24 = x_DWORD_181DAC[4];
+						v26->n_samples_24 = preference_181DAC[4];
 						v26->samples_23 = (_SAMPLE*)malloc(sizeof(_SAMPLE) * v26->n_samples_24);
 						if (v26->samples_23)
 						{
@@ -4958,7 +4803,7 @@ void sub_A38E0_init_sample(HSAMPLE S/*S32     format,U32     flags*/)//2848e0
 		S->format_13 = 0;
 		S->flags_14 = 0;
 		S->playback_rate_15 = 11025;
-		S->volume_16 = x_DWORD_181DAC[5];
+		S->volume_16 = preference_181DAC[5];
 		if (S->pos_6_7[0] && S->pos_6_7[0] != 1)
 			S->pan_17 = 64;
 		else
@@ -6511,7 +6356,7 @@ void sub_A6530(HMDIDRIVER a1)//287530
 										if (*(_DWORD*)(x_DWORD_181EB8 + 44)
 											&& (v6 = x_DWORD_181EB8, -- * (_DWORD*)(v6 + 44), !*(_DWORD*)(v6 + 44)))
 										{
-											sub_95DE0_AIL_stop_sequence(x_DWORD_181EB8);
+											ailStopSequence_95DE0(x_DWORD_181EB8);
 											*(_DWORD*)(x_DWORD_181EB8 + 4) = 2;
 											if (*(_DWORD*)(x_DWORD_181EB8 + 40))
 												(*(void(__cdecl**)(HSEQUENCE))(x_DWORD_181EB8 + 40))(x_DWORD_181EB8);
@@ -6542,7 +6387,7 @@ void sub_A6530(HMDIDRIVER a1)//287530
 								{
 									*(_DWORD*)(x_DWORD_181EB8 + 100) = **(unsigned __int8**)(x_DWORD_181EB8 + 20);
 									x_DWORD_181ECC = *(unsigned __int8*)(*(_DWORD*)(x_DWORD_181EB8 + 20) + 1) - 2;
-									x_DWORD_181EC8 = 16000000 / x_DWORD_181DAC[11];
+									x_DWORD_181EC8 = 16000000 / preference_181DAC[11];
 									if (x_DWORD_181ECC >= 0)
 									{
 										*(_DWORD*)(x_DWORD_181EB8 + 104) = x_DWORD_181EC8 << x_DWORD_181ECC;
@@ -6587,7 +6432,7 @@ void sub_A6530(HMDIDRIVER a1)//287530
 									if (x_DWORD_181EBC == 32)
 									{
 										qmemcpy(x_BYTE_181C90, (void*)"Internal note queue overflow\n\0", 0x1Eu);
-										sub_95DE0_AIL_stop_sequence(x_DWORD_181EB8);
+										ailStopSequence_95DE0(x_DWORD_181EB8);
 										//result = x_DWORD_181EB8;
 										*(_DWORD*)(x_DWORD_181EB8 + 4) = 2;
 										x_DWORD_E4B18 = 0;
@@ -6802,7 +6647,7 @@ HMDIDRIVER sub_A6FB0_sound_proc26(AIL_DRIVER* a1, IO_PARMS* a2)//287fb0
 					}
 				}
 			}
-			if (!v13 && x_DWORD_181DAC[17] == 1)
+			if (!v13 && preference_181DAC[17] == 1)
 			{
 				for (i = 0; *(unsigned __int16*)v12->drvr_0->VHDR_4->environment_string_16 > i; i++)
 				{
@@ -6827,7 +6672,7 @@ HMDIDRIVER sub_A6FB0_sound_proc26(AIL_DRIVER* a1, IO_PARMS* a2)//287fb0
 				sub_91F70_AIL_call_driver(v12->drvr_0, 1281, 0, &v6);
 				if (v6.AX)
 				{
-					v12->n_sequences_7 = x_DWORD_181DAC[12];
+					v12->n_sequences_7 = preference_181DAC[12];
 					v12->sequences_6 = (HSEQUENCE)malloc(sizeof(SEQUENCE) * v12->n_sequences_7);
 					if (v12->sequences_6)
 					{
@@ -6842,7 +6687,7 @@ HMDIDRIVER sub_A6FB0_sound_proc26(AIL_DRIVER* a1, IO_PARMS* a2)//287fb0
 						v12->var107_aildrv = 0;
 						LODWORD(v2) = 1000000;
 						HIDWORD(v2) = 1000000 >> 31;
-						v12->interval_time_4 = v2 / x_DWORD_181DAC[11];
+						v12->interval_time_4 = v2 / preference_181DAC[11];
 						v12->disable_5 = 0;
 						v12->var108_aildrv = 127;
 						/*for ( i = 0; i < 16; i++ )
@@ -6878,7 +6723,7 @@ HMDIDRIVER sub_A6FB0_sound_proc26(AIL_DRIVER* a1, IO_PARMS* a2)//287fb0
 								sub_A4F10(v12, i | 0xE0, 0, 64);
 								sub_A4F10(v12, i | 0xB0, 112, 0);
 								sub_A4F10(v12, i | 0xB0, 1, 0);
-								sub_A4F10(v12, i | 0xB0, 7, x_DWORD_181DAC[13]);
+								sub_A4F10(v12, i | 0xB0, 7, preference_181DAC[13]);
 								sub_A4F10(v12, i | 0xB0, 10, 64);
 								sub_A4F10(v12, i | 0xB0, 11, 127);
 								sub_A4F10(v12, i | 0xB0, 64, 0);
@@ -6887,7 +6732,7 @@ HMDIDRIVER sub_A6FB0_sound_proc26(AIL_DRIVER* a1, IO_PARMS* a2)//287fb0
 								sub_A4F10(v12, i | 0xB0, 100, 0);
 								sub_A4F10(v12, i | 0xB0, 101, 0);
 								sub_A4F10(v12, i | 0xB0, 38, 0);
-								sub_A4F10(v12, i | 0xB0, 6, x_DWORD_181DAC[16]);
+								sub_A4F10(v12, i | 0xB0, 6, preference_181DAC[16]);
 								sub_A4EB0(v12);
 								if (!(i & 3))
 									sub_920D0_AIL_delay(3);
@@ -7167,7 +7012,7 @@ void sub_A7BF0_sound_proc33(HSEQUENCE hSequence)//288bf0
 
 	if (hSequence)
 	{
-		sub_95DE0_AIL_stop_sequence(hSequence);
+		ailStopSequence_95DE0(hSequence);
 		//result = S;
 		hSequence->status_1 = 1;
 	}
@@ -7181,8 +7026,8 @@ int32_t sub_A7C20_AIL_API_init_sequence(HSEQUENCE hSequence, void*  /*start*/, i
 	//S->beat_callback_9 = 0;
 	//S->EOS_10 = 0;
 	hSequence->loop_count_11 = 1;
-	hSequence->volume_14 = x_DWORD_181DAC[13];
-	hSequence->volume_target_15 = x_DWORD_181DAC[13];
+	hSequence->volume_14 = preference_181DAC[13];
+	hSequence->volume_target_15 = preference_181DAC[13];
 	hSequence->volume_period_17 = 0;
 	hSequence->volume_accum_16 = 0;
 	/*S->tempo_percent_18 = 100;
@@ -7191,7 +7036,7 @@ int32_t sub_A7C20_AIL_API_init_sequence(HSEQUENCE hSequence, void*  /*start*/, i
 	S->tempo_accum_20 = 0;
 	S->tempo_error_22 = 0;*/
 	hSequence->sequence_num = sequence_num;
-	SOUND_init_MIDI_sequence(array_E3810_music_data, str_E3808_music_header, track - 1);
+	SOUND_init_MIDI_sequence(musicData_E3810, musicHeader_E3808, track - 1);
 	return 1;
 }
 
@@ -7247,8 +7092,8 @@ int32_t sub_A7C20_AIL_API_init_sequence_orig(HSEQUENCE hSequence, void* start, i
 			hSequence->EOS_10 = 0;
 			hSequence->loop_count_11 = 1;
 			sub_A6490(hSequence);
-			hSequence->volume_14 = x_DWORD_181DAC[13];
-			hSequence->volume_target_15 = x_DWORD_181DAC[13];
+			hSequence->volume_14 = preference_181DAC[13];
+			hSequence->volume_target_15 = preference_181DAC[13];
 			hSequence->volume_period_17 = 0;
 			hSequence->volume_accum_16 = 0;
 			hSequence->tempo_percent_18 = 100;
@@ -7348,7 +7193,7 @@ void sub_A8010_AIL_API_start_sequence(HSEQUENCE hSequence, uint32_t track)//2890
 	{
 		if (hSequence->status_1 != 1)
 		{
-			sub_95DE0_AIL_stop_sequence(hSequence);
+			ailStopSequence_95DE0(hSequence);
 			SOUND_start_sequence(track - 1);
 			hSequence->status_1 = 4;
 		}
@@ -7369,7 +7214,7 @@ void sub_A8010_AIL_API_start_sequence_orig(HSEQUENCE hSequence)//289010
 		//result = S;
 		if (hSequence->status_1 != 1)
 		{
-			sub_95DE0_AIL_stop_sequence(hSequence);
+			ailStopSequence_95DE0(hSequence);
 			sub_A6490(hSequence);
 			//result = a1;
 			hSequence->status_1 = 4;
@@ -7474,7 +7319,7 @@ void sub_A8250_AIL_API_end_sequence(HSEQUENCE hSequence)//289250
 	{
 		if (hSequence->status_1 != 1)
 		{
-			sub_95DE0_AIL_stop_sequence(hSequence);
+			ailStopSequence_95DE0(hSequence);
 			hSequence->status_1 = 2;
 			SOUND_stop_sequence(hSequence->sequence_num);
 		}
@@ -7491,7 +7336,7 @@ void sub_A8250_AIL_API_end_sequence_orig(HSEQUENCE hSequence)//289250
 		//result = a1;
 		if ((int)hSequence->status_1 != 1)
 		{
-			sub_95DE0_AIL_stop_sequence(hSequence);
+			ailStopSequence_95DE0(hSequence);
 			hSequence->status_1 = 2;
 			//result = a1;
 			if (hSequence->EOS_10)
@@ -7775,7 +7620,7 @@ int sub_A8830(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3)
 		v7 = a1[23];
 		v6 = a1[24];
 		v4 = a1[27];
-		for (i = 0; i < x_DWORD_181DAC[14]; i++)
+		for (i = 0; i < preference_181DAC[14]; i++)
 		{
 			v4 += a1[26];
 			if (v4 >= a1[28])
@@ -7829,7 +7674,7 @@ x_DWORD* sub_A8900(HSEQUENCE hSequence, int a2)
 				//S->EVNT_ptr_5 = (int)*(x_DWORD *)(6 * i + v3 + 2) + /*(uint8_t*)&*/S->EVNT_4+8; // fix it
 			  //result = S;
 				hSequence->interval_count_12 = 0;
-				if (!x_DWORD_181DAC[15])
+				if (!preference_181DAC[15])
 				{
 					for (j = 0; j < 4; j++)
 					{
@@ -8385,7 +8230,7 @@ x_DWORD* sub_AA310(int a1, int a2, int a3, signed int a4)//28b310
 			v10[i + 181] = 127;
 			v10[i + 197] = 64;
 			v10[i + 213] = 127;
-			v10[i + 277] = x_DWORD_181DAC[16];
+			v10[i + 277] = preference_181DAC[16];
 		}
 		for (v10[325] = 0; ; ++v10[325])
 		{
@@ -8439,15 +8284,15 @@ IO_PARMS* sub_92ED0_AIL_get_IO_environment(AIL_DRIVER* drvr/*AIL_DRIVER *drvr  *
 	x_DWORD_181C04++;
 	v4 = x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2() && sub_916F0_sound_proc24();
 	if (v4)
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "AIL_get_IO_environment(0x%X)\n", drvr);
+		dbgfprintf(ailDebufFile_181BF0, "AIL_get_IO_environment(0x%X)\n", drvr);
 	result = sub_9EB60_AIL_API_get_IO_environment(drvr);
 	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2())
 	{
 		for (i = 0; i < 0xE; i++)
-			dbgfprintf(x_DWORD_181BF0_AIL_debugfile, " \0");
+			dbgfprintf(ailDebufFile_181BF0, " \0");
 		for (j = 1; j < x_DWORD_181C04; j++)
-			dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "\0xfa\0");
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "Result = 0x%X\n", result);
+			dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
+		dbgfprintf(ailDebufFile_181BF0, "Result = 0x%X\n", result);
 	}
 	x_DWORD_181C04--;
 	return result;
@@ -8471,15 +8316,15 @@ AIL_DRIVER* sub_93010_AIL_install_driver(/*int a1, */uint8_t* driver_image, int3
 	x_DWORD_181C04++;
 	v6 = x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2() && sub_916F0_sound_proc24();
 	if (v6)
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "AIL_install_driver(0x%X,%u)\n", driver_image, n_bytes);
+		dbgfprintf(ailDebufFile_181BF0, "AIL_install_driver(0x%X,%u)\n", driver_image, n_bytes);
 	v7 = sub_9E720_AIL_API_install_driver(/*a1, */driver_image, n_bytes);
 	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2())
 	{
 		for (i = 0; i < 0xE; i++)
-			dbgfprintf(x_DWORD_181BF0_AIL_debugfile, " \0");
+			dbgfprintf(ailDebufFile_181BF0, " \0");
 		for (j = 1; j < x_DWORD_181C04; j++)
-			dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "\0xfa\0");
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "Result = 0x%X\n", v7);
+			dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
+		dbgfprintf(ailDebufFile_181BF0, "Result = 0x%X\n", v7);
 	}
 	x_DWORD_181C04--;
 	return v7;
@@ -8501,7 +8346,7 @@ int sub_93160_AIL_uninstall_driver(AIL_DRIVER* drvr/*AIL_DRIVER *drvr  */)//AIL_
 	x_DWORD_181C04++;
 	v2 = x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2() && sub_916F0_sound_proc24();
 	if (v2)
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "AIL_uninstall_driver(0x%X)\n", drvr);
+		dbgfprintf(ailDebufFile_181BF0, "AIL_uninstall_driver(0x%X)\n", drvr);
 	result = sub_9EA60_AIL_API_uninstall_driver(drvr);
 	x_DWORD_181C04--;
 	return result;
@@ -8525,15 +8370,15 @@ int sub_931F0_AIL_install_DIG_INI(/*int a1,*/ HDIGDRIVER* dig, char* digPath)//A
 	x_DWORD_181C04++;
 	v5 = x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2() && sub_916F0_sound_proc24();
 	if (v5)
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "AIL_install_DIG_INI(0x%X)\n", dig);
+		dbgfprintf(ailDebufFile_181BF0, "AIL_install_DIG_INI(0x%X)\n", dig);
 	result = sub_A3720_AIL_API_install_DIG_INI(/*a1,*/ dig, digPath);
 	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2())
 	{
 		for (i = 0; i < 0xE; i++)
-			dbgfprintf(x_DWORD_181BF0_AIL_debugfile, " \0");
+			dbgfprintf(ailDebufFile_181BF0, " \0");
 		for (j = 1; j < x_DWORD_181C04; j++)
-			dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "\0xfa\0");
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "Result = %d\n", result);
+			dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
+		dbgfprintf(ailDebufFile_181BF0, "Result = %d\n", result);
 	}
 	x_DWORD_181C04--;
 	return result;
@@ -8588,15 +8433,15 @@ signed int sub_916F0_sound_proc24()
 	sub_A0EF9_s_minus2();
 	if (x_DWORD_181C04 == 1)
 	{
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "[%.02u:%.02u:%.02u.%.02u] ", v6, timer, timeptr, v3);
+		dbgfprintf(ailDebufFile_181BF0, "[%.02u:%.02u:%.02u.%.02u] ", v6, timer, timeptr, v3);
 	}
 	else
 	{
 		for (i = 0; i < 0xE; i++)
-			dbgfprintf(x_DWORD_181BF0_AIL_debugfile, " \0");
+			dbgfprintf(ailDebufFile_181BF0, " \0");
 	}
 	for (j = 1; j < x_DWORD_181C04; j++)
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "\0xfa\0");
+		dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
 	return 1;
 }
 
@@ -8831,23 +8676,23 @@ char* sub_B0CC8()
 // E4C94: using guessed type int x_DWORD_E4C94;
 
 //----- (0008EAD0) --------------------------------------------------------
-signed int LoadMusic(int channel)//26fad0
+bool LoadMusic(int channel)//26fad0
 {
-	int16_t driverarray[4]; // [esp+44h] [ebp-1Ch]
-	FILE* filehandle; // [esp+50h] [ebp-10h]
-	int datapos; // [esp+54h] [ebp-Ch]
-	int finaldrivernumber; // [esp+58h] [ebp-8h]
-	int filelenght; // [esp+5Ch] [ebp-4h]
-	int channellplus; // [esp+74h] [ebp+14h]
+	int16_t driverarray[4];
+	FILE* filehandle;
+	int datapos;
+	int finaldrivernumber = 0;
+	int filelenght;
+	int channellplus;
 	char musicPath[MAX_PATH];
-	if (!midiInicialized_E37FC)
-		return 0;
-	sub_8E020_sound_proc14_stopsequence();
+	if (!musicInicialized_E37FC)
+		return false;
+	stopMusic_8E020();
 
 	sprintf(musicPath, "%s/SOUND/MUSIC.DAT", cdDataPath.c_str());
 	filehandle = DataFileIO::CreateOrOpenFile(musicPath, 512);
 	if (!filehandle)
-		return 0;
+		return false;
 	DataFileIO::Seek(filehandle, 0, 2);
 	filelenght = myftell(filehandle);
 	DataFileIO::Seek(filehandle, filelenght - 4, 0);
@@ -8855,185 +8700,115 @@ signed int LoadMusic(int channel)//26fad0
 	DataFileIO::Seek(filehandle, datapos, 0);
 	DataFileIO::Read(filehandle, (uint8_t*)driverarray, 8);
 	channellplus = channel + 1;
-	if (x_BYTE_180C84_drivertype < 'W')
+
+	switch (x_BYTE_180C84_drivertype)
 	{
-		if (x_BYTE_180C84_drivertype >= 'G')
-		{
-			if (x_BYTE_180C84_drivertype > 'G')
-			{
-				if (x_BYTE_180C84_drivertype == 'R')
-					goto LABEL_21;
-				goto LABEL_24;
-			}
-		LABEL_20:
+		case 'g':
+		case 'G':
 			finaldrivernumber = 0;
-			goto LABEL_24;
-		}
-		if (x_BYTE_180C84_drivertype != 'F')
-			goto LABEL_24;
-	LABEL_22:
-		finaldrivernumber = 2;
-		goto LABEL_24;
-	}
-	if (x_BYTE_180C84_drivertype <= 'W')
-		goto LABEL_23;
-	if (x_BYTE_180C84_drivertype < 'g')
-	{
-		if (x_BYTE_180C84_drivertype != 'f')
-			goto LABEL_24;
-		goto LABEL_22;
-	}
-	if (x_BYTE_180C84_drivertype <= 'g')
-		goto LABEL_20;
-	if (x_BYTE_180C84_drivertype >= 'r')
-	{
-		if (x_BYTE_180C84_drivertype > 'r')
-		{
-			if (x_BYTE_180C84_drivertype != 'w')
-				goto LABEL_24;
-		LABEL_23:
+			break;
+		case 'r':
+		case 'R':
+			finaldrivernumber = 1;
+			break;
+		case 'f':
+		case 'F':
+			finaldrivernumber = 2;
+			break;
+		case 'w':
+		case 'W':
 			finaldrivernumber = 3;
-			goto LABEL_24;
-		}
-	LABEL_21:
-		finaldrivernumber = 1;
+			break;
 	}
-LABEL_24:
+
 	if (channellplus <= driverarray[finaldrivernumber])
 	{
 		DataFileIO::Seek(filehandle, (channellplus - 1) << 6, 1);
 		if (!LoadMusicTrack(filehandle, finaldrivernumber))
 		{
 			DataFileIO::Close(filehandle);
-			return 1;
+			return true;
 		}
 		DataFileIO::Close(filehandle);
-		return 0;
+		return false;
 	}
 	DataFileIO::Close(filehandle);
-	return 1;
+	return true;
 }
-// 9A510: using guessed type x_DWORD tell(x_DWORD);
-// E37FC: using guessed type char x_BYTE_E37FC;
-// 180C84: using guessed type char x_BYTE_180C84_drivertype;
-// 8EAD0: using guessed type char var_1C[8];
 
 //----- (0008EC90) --------------------------------------------------------
 void GetMusicSequenceCount()//26fc90 // set index
 {
-	int v1x;
-
-	if (str_E3808_music_header && array_E3810_music_data)
+	if (musicHeader_E3808 && musicData_E3810)
 	{
-		v1x = 0;
-		for (m_iNumberOfTracks = 0; v1x < index_E380C_CountOfMusic; m_iNumberOfTracks++)
+		for (m_iNumberOfTracks = 0; m_iNumberOfTracks < countOfMusicTracks_E380C; m_iNumberOfTracks++)
 		{
 			uint8_t* zero_pointer = 0;
-			str_E3808_music_header->str_8.track_10[v1x].xmiData_0 = &array_E3810_music_data[str_E3808_music_header->str_8.track_10[v1x].xmiData_0 - zero_pointer];
-			v1x++;
+			musicHeader_E3808->str_8.track_10[m_iNumberOfTracks].xmiData_0 = &musicData_E3810[musicHeader_E3808->str_8.track_10[m_iNumberOfTracks].xmiData_0 - zero_pointer];
 		}
 	}
 }
-// E3804: using guessed type __int16 x_WORD_E3804;
-// E3808: using guessed type int x_DWORD_E3808_music_header;
-// E380C: using guessed type int x_DWORD_E380C;
-// E3810: using guessed type int x_DWORD_E3810_music_data;
 
 //----- (0008ED00) --------------------------------------------------------
-char LoadMusicTrack(FILE* filehandle, uint8_t drivernumber)//26fd00
+bool LoadMusicTrack(FILE* filehandle, uint8_t drivernumber)//26fd00
 {
-	//int32_t header[16]; // [esp+0h] [ebp-5Ch] //355024
 	type_v8 headerx[4];
-	//uint8_t* midibuffer1; // [esp+40h] [ebp-1Ch]
-	//int filelenght; // [esp+44h] [ebp-18h]
-	//uint8_t* midibuffer2; // [esp+4Ch] [ebp-10h]
-	int rncsize; // [esp+50h] [ebp-Ch]
-	unsigned __int8 i; // [esp+58h] [ebp-4h]
+	int rncsize;
 
 	myftell(filehandle);
 	DataFileIO::Read(filehandle, (uint8_t*)headerx, 64);
-	//if (header[1 + 4 * drivernumber] == -1)
 	if (headerx[drivernumber].dword_4 == -1)
-		return 0;
-	if (array_E3810_music_data)
+		return false;
+	if (musicData_E3810)
 	{
-		sub_83E80_freemem4(array_E3810_music_data);
-		midiInicialized_E37FC = 0;
+		sub_83E80_freemem4(musicData_E3810);
+		musicInicialized_E37FC = 0;
 	}
-	if (str_E3808_music_header)
+	if (musicHeader_E3808)
 	{
-		sub_83E80_freemem4((uint8_t*)str_E3808_music_header);
-		midiInicialized_E37FC = 0;
+		sub_83E80_freemem4((uint8_t*)musicHeader_E3808);
+		musicInicialized_E37FC = 0;
 	}
-	//x_DWORD_E3810_music_data = (uint8_t*)sub_83CD0_malloc2(header[3 + 4 * drivernumber]);
-	array_E3810_music_data = (uint8_t*)sub_83CD0_malloc2(headerx[drivernumber].dword_12);
-	if (!array_E3810_music_data)
-		return 0;
-	//str_E3808_music_header = (type_E3808_music_header*)sub_83CD0_malloc2(header[2 + 4 * drivernumber]);
-	//str_E3808_music_header = (type_E3808_music_header*)sub_83CD0_malloc2(headerx[drivernumber].dword_8);
-	//str_E3808_music_header = (type_E3808_music_header*)sub_83CD0_malloc2((((headerx[drivernumber].sizeBytes_8 - 32) / 32) * sizeof(sub2type_E3808_music_header)) + 32);//with 64bit fix
-	str_E3808_music_header = (type_E3808_music_header*)sub_83CD0_malloc2(sizeof(type_E3808_music_header));
-	if (!str_E3808_music_header)
+	musicData_E3810 = (uint8_t*)sub_83CD0_malloc2(headerx[drivernumber].dword_12);
+	if (!musicData_E3810)
+		return false;
+	musicHeader_E3808 = (type_E3808_music_header*)sub_83CD0_malloc2(sizeof(type_E3808_music_header));
+	if (!musicHeader_E3808)
 	{
-		sub_83E80_freemem4(array_E3810_music_data);
-		return 0;
+		sub_83E80_freemem4(musicData_E3810);
+		return false;
 	}
+
 	//64xbit fix
-	//shadow_type_E3808_music_header* shadow_str_E3808_music_header = (shadow_type_E3808_music_header*)sub_83CD0_malloc2(headerx[drivernumber].sizeBytes_8);
 	shadow_type_E3808_music_header * shadow_str_E3808_music_header = (shadow_type_E3808_music_header*)sub_83CD0_malloc2(sizeof(shadow_type_E3808_music_header));
 	if (!shadow_str_E3808_music_header)
 	{
 		sub_83E80_freemem4((uint8_t*)shadow_str_E3808_music_header);
-		return 0;
+		return false;
 	}
 	//64xbit fix
-	//midibuffer1 = x_DWORD_E3810_music_data;
-	//midibuffer2 = x_DWORD_E3808_music_header;
-	//x_DWORD_E380C = (uint8_t*)&x_DWORD_E3808_music_header[header[2 + 4 * drivernumber]];//?
-	//x_DWORD_E380C = str_E3808_music_header + headerx[drivernumber].dword_8;
-	//x_DWORD_E380C = (int8_t*)str_E3808_music_header + headerx[drivernumber].dword_8;
-	index_E380C_CountOfMusic = (headerx[drivernumber].sizeBytes_8) / sizeof(sub2type_E37A0_sound_buffer2);
+	
+	countOfMusicTracks_E380C = (headerx[drivernumber].sizeBytes_8) / sizeof(sub2type_E37A0_sound_buffer2);
 	DataFileIO::Seek(filehandle, headerx[drivernumber].dword_4, 0);
-	DataFileIO::Read(filehandle, array_E3810_music_data, 8);
-	if (array_E3810_music_data[0] == 'R' && array_E3810_music_data[1] == 'N' && array_E3810_music_data[2] == 'C')//RNC
+	DataFileIO::Read(filehandle, musicData_E3810, 8);
+	if (musicData_E3810[0] == 'R' && musicData_E3810[1] == 'N' && musicData_E3810[2] == 'C')//RNC
 	{
-		rncsize = array_E3810_music_data[4];
+		rncsize = musicData_E3810[4];
 		rncsize <<= 8;
-		rncsize += array_E3810_music_data[5];
+		rncsize += musicData_E3810[5];
 		rncsize <<= 8;
-		rncsize += array_E3810_music_data[6];
+		rncsize += musicData_E3810[6];
 		rncsize <<= 8;
-		rncsize += array_E3810_music_data[7];
-		//DataFileIO::Read(filehandle, (x_DWORD_E3810_music_data + 8), rncsize - 8);
-		DataFileIO::Read(filehandle, (uint8_t*)&array_E3810_music_data[8], rncsize - 8);
-		DataFileIO::Decompress(array_E3810_music_data, array_E3810_music_data);
+		rncsize += musicData_E3810[7];
+		DataFileIO::Read(filehandle, (uint8_t*)&musicData_E3810[8], rncsize - 8);
+		DataFileIO::Decompress(musicData_E3810, musicData_E3810);
 	}
 	else
 	{
-		DataFileIO::Read(filehandle, (uint8_t*)&array_E3810_music_data[8], headerx[drivernumber].dword_12 - 8);
+		DataFileIO::Read(filehandle, (uint8_t*)&musicData_E3810[8], headerx[drivernumber].dword_12 - 8);
 	}
 	DataFileIO::Seek(filehandle, headerx[drivernumber].dword_0, 0);
 
-	/*
-	DataFileIO::Read(filehandle, (uint8_t*)str_E3808_music_header, 8);
-	if (str_E3808_music_header->byte_0 == 'R' && str_E3808_music_header->byte_1 == 'N' && str_E3808_music_header->byte_2 == 'C')//RNC
-	{
-		rncsize = str_E3808_music_header->byte_4;
-		rncsize <<= 8;
-		rncsize += str_E3808_music_header->byte_5;
-		rncsize <<= 8;
-		rncsize += str_E3808_music_header->byte_6;
-		rncsize <<= 8;
-		rncsize += str_E3808_music_header->byte_7;
-		//DataFileIO::Read(filehandle, (uint8_t*)(x_DWORD_E3808_music_header + 8), rncsize - 8);
-		DataFileIO::Read(filehandle, (uint8_t*)(&str_E3808_music_header->str_8), rncsize - 8);
-		DataFileIO::Decompress((uint8_t*)str_E3808_music_header, (uint8_t*)str_E3808_music_header);
-	}
-	else
-	{
-		DataFileIO::Read(filehandle, (uint8_t*)(&str_E3808_music_header->str_8), headerx[drivernumber].dword_8 - 8);
-	}
-	*/
 	//64x fix shadow_str_E3808_music_header
 	DataFileIO::Read(filehandle, (uint8_t*)shadow_str_E3808_music_header, 8);
 	if (shadow_str_E3808_music_header->byte_0 == 'R' && shadow_str_E3808_music_header->byte_1 == 'N' && shadow_str_E3808_music_header->byte_2 == 'C')//RNC
@@ -9045,7 +8820,6 @@ char LoadMusicTrack(FILE* filehandle, uint8_t drivernumber)//26fd00
 		rncsize += shadow_str_E3808_music_header->byte_6;
 		rncsize <<= 8;
 		rncsize += shadow_str_E3808_music_header->byte_7;
-		//DataFileIO::Read(filehandle, (uint8_t*)(x_DWORD_E3808_music_header + 8), rncsize - 8);
 		DataFileIO::Read(filehandle, (uint8_t*)(&shadow_str_E3808_music_header->str_8), rncsize - 8);
 		DataFileIO::Decompress((uint8_t*)shadow_str_E3808_music_header, (uint8_t*)shadow_str_E3808_music_header);
 	}
@@ -9053,46 +8827,37 @@ char LoadMusicTrack(FILE* filehandle, uint8_t drivernumber)//26fd00
 	{
 		DataFileIO::Read(filehandle, (uint8_t*)(&shadow_str_E3808_music_header->str_8), headerx[drivernumber].sizeBytes_8 - 8);
 	}
-	str_E3808_music_header->byte_0 = shadow_str_E3808_music_header->byte_0;
-	str_E3808_music_header->byte_1 = shadow_str_E3808_music_header->byte_1;
-	str_E3808_music_header->byte_2 = shadow_str_E3808_music_header->byte_2;
-	str_E3808_music_header->byte_3 = shadow_str_E3808_music_header->byte_3;
-	str_E3808_music_header->byte_4 = shadow_str_E3808_music_header->byte_4;
-	str_E3808_music_header->byte_5 = shadow_str_E3808_music_header->byte_5;
-	str_E3808_music_header->byte_6 = shadow_str_E3808_music_header->byte_6;
-	str_E3808_music_header->byte_7 = shadow_str_E3808_music_header->byte_7;
+	musicHeader_E3808->byte_0 = shadow_str_E3808_music_header->byte_0;
+	musicHeader_E3808->byte_1 = shadow_str_E3808_music_header->byte_1;
+	musicHeader_E3808->byte_2 = shadow_str_E3808_music_header->byte_2;
+	musicHeader_E3808->byte_3 = shadow_str_E3808_music_header->byte_3;
+	musicHeader_E3808->byte_4 = shadow_str_E3808_music_header->byte_4;
+	musicHeader_E3808->byte_5 = shadow_str_E3808_music_header->byte_5;
+	musicHeader_E3808->byte_6 = shadow_str_E3808_music_header->byte_6;
+	musicHeader_E3808->byte_7 = shadow_str_E3808_music_header->byte_7;
 	for (int i = 0; i < 10; i++)
-		str_E3808_music_header->str_8.stub[i] = shadow_str_E3808_music_header->str_8.stub[i];
+		musicHeader_E3808->str_8.stub[i] = shadow_str_E3808_music_header->str_8.stub[i];
 	for (int i = 0; i < 6; i++)
 	{
-		str_E3808_music_header->str_8.track_10[i].xmiData_0 = (uint8_t*)shadow_str_E3808_music_header->str_8.track_10[i].xmiData_0;
+		musicHeader_E3808->str_8.track_10[i].xmiData_0 = shadow_str_E3808_music_header->str_8.track_10[i].xmiData_0 + Zero_pointer;
 		for (int j = 0; j < 4; j++)
-			str_E3808_music_header->str_8.track_10[i].stub_4[j] = shadow_str_E3808_music_header->str_8.track_10[i].stub_4[j];
-		str_E3808_music_header->str_8.track_10[i].xmiSize_8 = shadow_str_E3808_music_header->str_8.track_10[i].xmiSize_8;
-		str_E3808_music_header->str_8.track_10[i].word_12 = shadow_str_E3808_music_header->str_8.track_10[i].word_12;
+			musicHeader_E3808->str_8.track_10[i].stub_4[j] = shadow_str_E3808_music_header->str_8.track_10[i].stub_4[j];
+		musicHeader_E3808->str_8.track_10[i].xmiSize_8 = shadow_str_E3808_music_header->str_8.track_10[i].xmiSize_8;
+		musicHeader_E3808->str_8.track_10[i].word_12 = shadow_str_E3808_music_header->str_8.track_10[i].word_12;
 		for (int j = 0; j < 18; j++)
-			str_E3808_music_header->str_8.track_10[i].filename_14[j] = shadow_str_E3808_music_header->str_8.track_10[i].filename_14[j];
+			musicHeader_E3808->str_8.track_10[i].filename_14[j] = shadow_str_E3808_music_header->str_8.track_10[i].filename_14[j];
 	}
 	for (int i = 0; i < 14; i++)
-		str_E3808_music_header->str_8.stubb[i] = shadow_str_E3808_music_header->str_8.stubb[i];
+		musicHeader_E3808->str_8.stubb[i] = shadow_str_E3808_music_header->str_8.stubb[i];
 	sub_83E80_freemem4((uint8_t*)shadow_str_E3808_music_header);
 	//64x fix
 	GetMusicSequenceCount();
 
-	for (i = 1; i <= m_iNumberOfTracks; i++)//2b4804 - 6
-		sub_95C00_AIL_init_sequence(m_hSequence, str_E3808_music_header->str_8.track_10[i].xmiData_0, 0, i);
-		//sub_95C00_AIL_init_sequence(m_hSequence, (uint8_t*)*(x_DWORD*)(x_DWORD_E3808_music_header + 32 * i + 18), 0, i);
-	midiInicialized_E37FC = 1;
-	return 1;
+	for (int i = 1; i <= m_iNumberOfTracks; i++)//2b4804
+		ailInitSequence_95C00(m_hSequence, musicHeader_E3808->str_8.track_10[i].xmiData_0, 0, i);
+	musicInicialized_E37FC = 1;
+	return true;
 }
-// 9A510: using guessed type x_DWORD tell(x_DWORD);
-// E37FC: using guessed type char x_BYTE_E37FC;
-// E3804: using guessed type __int16 x_WORD_E3804;
-// E3808: using guessed type int x_DWORD_E3808_music_header;
-// E380C: using guessed type int x_DWORD_E380C;
-// E3810: using guessed type int x_DWORD_E3810_music_data;
-// 180C78: using guessed type int x_DWORD_180C78;
-// 8ED00: using guessed type char var_5C[64];
 
 //----- (0008F0AB) --------------------------------------------------------
 int sub_8F0AB(FILE* a1, /*int a2,*/ int a3)//26f0ab
@@ -9226,7 +8991,7 @@ void sub_8F100_sound_proc19(uint32_t a1, __int16 index, int volume, int a4, unsi
 	}
 	sub_93E30_AIL_set_sample_volume(*v14, volume);
 	sub_93ED0_AIL_set_sample_volume_pan(*v14, a4);
-	sub_93D90_AIL_set_sample_playback_rate(*v14, x_DWORD_E37BC_sound_frequence * a5 / 0x64);
+	sub_93D90_AIL_set_sample_playback_rate(*v14, soundFrequence_E37BC * a5 / 0x64);
 	sub_93F70_AIL_set_sample_loop_count(*v14, a6 + 1);
 #ifdef DEBUG_SOUND
 	if (debug_first_sound) {
@@ -9348,15 +9113,15 @@ int32_t sub_91F70_AIL_call_driver(AIL_DRIVER* drvr, int32_t fn, VDI_CALL* in, VD
 	x_DWORD_181C04++;
 	v7 = x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2() && sub_916F0_sound_proc24();
 	if (v7)
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "AIL_call_driver(0x%X,0x%X,0x%X,0x%X)\n", drvr, fn, in, out);
+		dbgfprintf(ailDebufFile_181BF0, "AIL_call_driver(0x%X,0x%X,0x%X,0x%X)\n", drvr, fn, in, out);
 	result = sub_A158B_AIL_API_call_driver(drvr, fn, in, out);
 	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2())
 	{
 		for (i = 0; i < 0xE; i++)
-			dbgfprintf(x_DWORD_181BF0_AIL_debugfile, " \0");
+			dbgfprintf(ailDebufFile_181BF0, " \0");
 		for (j = 1; j < x_DWORD_181C04; j++)
-			dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "\0xfa\0");
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "Result = %d\n", result);
+			dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
+		dbgfprintf(ailDebufFile_181BF0, "Result = %d\n", result);
 	}
 	x_DWORD_181C04--;
 	return result;
@@ -9377,7 +9142,7 @@ void sub_920D0_AIL_delay(int a1)//AIL_delay
 	x_DWORD_181C04++;
 	v2 = x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2() && sub_916F0_sound_proc24();
 	if (v2)
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "AIL_delay(%d)\n", a1);
+		dbgfprintf(ailDebufFile_181BF0, "AIL_delay(%d)\n", a1);
 	/*result = */sub_A1665_AIL_API_delay(a1);
 	x_DWORD_181C04--;
 	//return result;
@@ -9411,51 +9176,51 @@ int LoadAILFromFile(AIL_INI* INI, char* filename/*, char* a8, IO_PARMS IO*/)//AI
 	x_DWORD_181C04++;
 	v17 = x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2() && sub_916F0_sound_proc24();
 	if (v17)
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "AIL_API_read_INI(0x%X,%s)\n", INI, filename);
+		dbgfprintf(ailDebufFile_181BF0, "AIL_API_read_INI(0x%X,%s)\n", INI, filename);
 	result = sub_9E3A0_AIL_API_read_INI(INI, filename);
 	if (result)
 	{
 		if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2())
 		{
 			for (i = 0; i < 0xE; i++)
-				dbgfprintf(x_DWORD_181BF0_AIL_debugfile, " \0");
+				dbgfprintf(ailDebufFile_181BF0, " \0");
 			for (j = 1; j < x_DWORD_181C04; j++)
-				dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "\0xfa\0");
-			dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "Driver = %s\n", INI->driver_name);
+				dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
+			dbgfprintf(ailDebufFile_181BF0, "Driver = %s\n", INI->driver_name);
 			for (k = 0; k < 0xE; k++)
-				dbgfprintf(x_DWORD_181BF0_AIL_debugfile, " \0");
+				dbgfprintf(ailDebufFile_181BF0, " \0");
 			for (l = 1; l < x_DWORD_181C04; l++)
-				dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "\0xfa\0");
-			dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "Device = %s\n", INI->device_name);
+				dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
+			dbgfprintf(ailDebufFile_181BF0, "Device = %s\n", INI->device_name);
 			for (m = 0; m < 0xE; m++)
-				dbgfprintf(x_DWORD_181BF0_AIL_debugfile, " \0");
+				dbgfprintf(ailDebufFile_181BF0, " \0");
 			for (n = 1; n < x_DWORD_181C04; n++)
-				dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "\0xfa\0");
-			dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "IO     = %X\n", INI->IO.IO);//*(signed __int16 *)(a1 + 256)
+				dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
+			dbgfprintf(ailDebufFile_181BF0, "IO     = %X\n", INI->IO.IO);//*(signed __int16 *)(a1 + 256)
 			for (ii = 0; ii < 0xE; ii++)
-				dbgfprintf(x_DWORD_181BF0_AIL_debugfile, " \0");
+				dbgfprintf(ailDebufFile_181BF0, " \0");
 			for (jj = 1; jj < x_DWORD_181C04; jj++)
-				dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "\0xfa\0");
-			dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "IRQ    = %d\n", INI->IO.IRQ);//*(signed __int16 *)(a1 + 258)
+				dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
+			dbgfprintf(ailDebufFile_181BF0, "IRQ    = %d\n", INI->IO.IRQ);//*(signed __int16 *)(a1 + 258)
 			for (kk = 0; kk < 0xE; kk++)
-				dbgfprintf(x_DWORD_181BF0_AIL_debugfile, " \0");
+				dbgfprintf(ailDebufFile_181BF0, " \0");
 			for (ll = 1; ll < x_DWORD_181C04; ll++)
-				dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "\0xfa\0");
-			dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "DMA_8  = %d\n", INI->IO.DMA_8_bit);//*(signed __int16 *)(a1 + 260)
+				dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
+			dbgfprintf(ailDebufFile_181BF0, "DMA_8  = %d\n", INI->IO.DMA_8_bit);//*(signed __int16 *)(a1 + 260)
 			for (mm = 0; mm < 0xE; mm++)
-				dbgfprintf(x_DWORD_181BF0_AIL_debugfile, " \0");
+				dbgfprintf(ailDebufFile_181BF0, " \0");
 			for (nn = 1; nn < x_DWORD_181C04; nn++)
-				dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "\0xfa\0");
-			dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "DMA_16 = %d\n", INI->IO.DMA_16_bit);//*(signed __int16 *)(a1 + 262)
+				dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
+			dbgfprintf(ailDebufFile_181BF0, "DMA_16 = %d\n", INI->IO.DMA_16_bit);//*(signed __int16 *)(a1 + 262)
 		}
 	}
 	else if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2())
 	{
 		for (i1 = 0; i1 < 0xE; i1++)
-			dbgfprintf(x_DWORD_181BF0_AIL_debugfile, " \0");
+			dbgfprintf(ailDebufFile_181BF0, " \0");
 		for (i2 = 1; i2 < x_DWORD_181C04; i2++)
-			dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "\0xfa\0");
-		dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "Result = %u\n", 0);
+			dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
+		dbgfprintf(ailDebufFile_181BF0, "Result = %u\n", 0);
 	}
 	x_DWORD_181C04--;
 	return result;
@@ -9469,7 +9234,7 @@ int LoadAILFromFile(AIL_INI* INI, char* filename/*, char* a8, IO_PARMS IO*/)//AI
 //----- (00099970) --------------------------------------------------------
 void sub_99970(char a1, unsigned __int8 a2)//27a970
 {
-	if (x_BYTE_E3819 && midiInicialized_E37FC && midiStarted_E37FD && midiTrack_E3802 && sub_96170_AIL_sequence_status(m_hSequence) != 2 && x_BYTE_E3817 != a1)
+	if (x_BYTE_E3819 && musicInicialized_E37FC && musicStarted_E37FD && musicTrack_E3802 && ailSequenceStatus_96170(m_hSequence) != 2 && x_BYTE_E3817 != a1)
 	{
 		if (x_BYTE_E3818)
 			;// sub_92DC0_AIL_release_timer_handle(x_DWORD_180C80);

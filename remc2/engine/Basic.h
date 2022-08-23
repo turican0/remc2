@@ -514,6 +514,8 @@ extern __int16 x_WORD_E36D4; // weak
 
 extern type_TMAPS00TAB_BEGIN_BUFFER* str_TMAPS00TAB_BEGIN_BUFFER;
 
+extern uint8_t* Zero_pointer;
+
 bool DefaultResolutions();
 
 void sub_83E80_freemem4(uint8_t* a1);
