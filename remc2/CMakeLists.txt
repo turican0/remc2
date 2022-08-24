@@ -89,6 +89,8 @@ set(SOURCE_FILES_ENGINE
     "engine/ViewPort.h"
     "engine/CommandLineParser.cpp"
     "engine/CommandLineParser.h"
+    "engine/MenusAndIntros.cpp"
+    "engine/MenusAndIntros.h"
 )
 source_group("Source Files\\engine" FILES ${SOURCE_FILES_ENGINE})
 
