@@ -153,13 +153,12 @@ void ViewPort::SetViewPortScreenCoordinates_2CA60(int16_t viewPortX, int16_t vie
 //----- (0002CA90) --------------------------------------------------------
 void ViewPort::ResizeViewPort_2CA90(__int16 a1)//20da90
 {
-	int v1; // eax
+	int factor = 40 - a1;; // eax
 	double widthKoef = (double)screenWidth_18062C / 80;
 	double heightKoef = (double)screenHeight_180624 / 80;
 
-	v1 = 40 - a1;
-	PosX_EA3D0 = widthKoef * v1;
+	PosX_EA3D0 = widthKoef * factor;
+	PosY_EA3CC = heightKoef * factor;
 	PreWidth_EA3C4 = widthKoef * 2 * a1;
 	PreHeight_EA3C0 = heightKoef * 2 * a1;
-	PosY_EA3CC = heightKoef * v1;
 }
