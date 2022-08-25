@@ -82029,7 +82029,7 @@ void sub_884D0(int a1, __int16 a2, int16_t* a3x, char a4, char a5)//2694d0
 		if (!DefaultResolutions())
 		{
 			if ((str_E2A74[10].axis_2[1] == a3x[0]) || (str_E2A74[11].axis_2[1] == a3x[0]) || (str_E2A74[12].axis_2[1] == a3x[0]) ||
-				(str_E2A74[38].axis_2[1] == a3x[0]) || (str_E2A74[39].axis_2[1] == a3x[0]))
+				(str_E2A74[38].axis_2[1] == a3x[0]) || (str_E2A74[39].axis_2[1] == a3x[0]) || (str_E2A74[40].axis_2[1] == a3x[0]))
 			{
 				a3x[2] += screenWidth_18062C - 640;
 			}
