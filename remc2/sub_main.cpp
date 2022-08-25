@@ -38708,7 +38708,7 @@ void sub_46830_main_loop(/*int16_t* a1, */signed int a2, unsigned __int16 a3)//2
 		int comp12 = compare_with_snapshot_D41A0((char*)"0160-0022787A", x_D41A0_BYTEARRAY_0, 0x356038, 224790, &origbyte3, &remakebyte3);
 		*/
 		//!!!!test area1
-		sub_76930_menus_and_intros(v5, 0/*a1*/);//set language, intro, menu, atd. //257930
+		MenusAndIntros_76930(v5, 0/*a1*/);//set language, intro, menu, atd. //257930
 		if (!D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x004_2BE0_11234)
 		{
 #ifdef DEBUG_START
@@ -76566,8 +76566,8 @@ void WaitToConnect_7C230()//25d230
 		CopyScreen((void*)x_DWORD_E9C38_smalltit, (void*)pdwScreenBuffer_351628, 640, 480);
 	}
 	sub_7C120_draw_bitmap_640(185, 232, xy_DWORD_17DED4_spritestr[66]);
-	sub_7AB00_draw_menu_animations();
-	if (sub_7BF20_draw_scroll_dialog(&str_WORD_E1F70))
+	DrawMenuAnimations_7AB00();
+	if (DrawScrollDialog_7BF20(&str_WORD_E1F70))
 	{
 		x_WORD_E131A = 1;
 		ClearScrollDialogVars_7C020(&str_WORD_E1F70);
