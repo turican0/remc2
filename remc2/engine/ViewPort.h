@@ -31,6 +31,7 @@ public:
 	void SetRenderViewPortSize_BCD45(uint16_t viewPortPosX, uint16_t viewPortPosY, uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t screenWidth, uint16_t screenHeight);
 	void SetRenderViewPortSize_BCD45(uint8_t* ptrScreenBufferStart, uint16_t screenWidth, uint16_t viewPortWidth, uint16_t viewPortHeight);
 	void SetRenderViewPortSize_40C50(uint8_t viewPortSizeSetting);
+	ViewPort GetRenderViewPort(uint8_t screenWidth, uint8_t screenHeight, uint8_t viewPortSizeSetting);
 };
 
 extern ViewPort viewPort;
