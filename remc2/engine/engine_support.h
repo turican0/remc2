@@ -196,6 +196,11 @@ typedef struct {
 	uint8_t y;
 } baxis_2d;
 
+typedef struct {
+	int8_t x;
+	int8_t y;
+} bsaxis_2d;
+
 typedef union {
 	baxis_2d _axis_2d;
 	uint16_t word;
