@@ -642,8 +642,8 @@ void sub_76A40_lang_setting()//257A40
 
 			x_D41A0_BYTEARRAY_4_struct.dwordindex_0 = *(uint32_t*)&v10[0];
 			x_D41A0_BYTEARRAY_4_struct.wordindex_4 = *(uint16_t*)&v10[4];
-			x_D41A0_BYTEARRAY_4_struct.wordindex_6 = *(uint16_t*)&v10[6];
-			x_D41A0_BYTEARRAY_4_struct.wordindex_8 = *(uint16_t*)&v10[8];
+			x_D41A0_BYTEARRAY_4_struct.soundVolume_6 = *(uint16_t*)&v10[6];
+			x_D41A0_BYTEARRAY_4_struct.musicVolume_8 = *(uint16_t*)&v10[8];
 			x_D41A0_BYTEARRAY_4_struct.byteindex_10 = *(uint8_t*)&v10[10];
 			x_D41A0_BYTEARRAY_4_struct.byte_brightness_11 = *(uint8_t*)&v10[11];
 			x_D41A0_BYTEARRAY_4_struct.byte_brightness_12 = *(uint8_t*)&v10[12];
@@ -664,8 +664,8 @@ void sub_76A40_lang_setting()//257A40
 			x_BYTE_EB39E_keys[9] = *(uint8_t*)&v10[31];
 
 			DataFileIO::Close(configdatfile);
-			sub_8E470_sound_proc17_volume(x_D41A0_BYTEARRAY_4_struct.wordindex_6);
-			sub_8E410_sound_proc16_xmidivolume(x_D41A0_BYTEARRAY_4_struct.wordindex_8);
+			sub_8E470_sound_proc17_volume(x_D41A0_BYTEARRAY_4_struct.soundVolume_6);
+			sub_8E410_sound_proc16_xmidivolume(x_D41A0_BYTEARRAY_4_struct.musicVolume_8);
 
 			sprintf(printbuffer, "%s/%s/L%d.TXT", cdDataPath.c_str(), "LANGUAGE", x_D41A0_BYTEARRAY_4_struct.wordindex_4);
 			for (int16_t i = 0; i < 2; i++)
@@ -1488,9 +1488,9 @@ char sub_779E0_lang_setting_dialog(type_WORD_E1F84* a1y)//2589E0
 		sub_98CAA_write(configfile, (uint8_t*)&twobyte, 2);//2
 		twobyte = x_D41A0_BYTEARRAY_4_struct.SelectedLangIndex;
 		sub_98CAA_write(configfile, (uint8_t*)&twobyte, 2);//4
-		twobyte = x_D41A0_BYTEARRAY_4_struct.wordindex_6;
+		twobyte = x_D41A0_BYTEARRAY_4_struct.soundVolume_6;
 		sub_98CAA_write(configfile, (uint8_t*)&twobyte, 2);//6
-		twobyte = x_D41A0_BYTEARRAY_4_struct.wordindex_8;
+		twobyte = x_D41A0_BYTEARRAY_4_struct.musicVolume_8;
 		sub_98CAA_write(configfile, (uint8_t*)&twobyte, 2);//8
 		twobyte = x_D41A0_BYTEARRAY_4_struct.byteindex_10;
 		sub_98CAA_write(configfile, (uint8_t*)&twobyte, 2);//10
@@ -4472,8 +4472,8 @@ void sub_81DB0_read_config()//262db0
 			//qmemcpy(&v5, (void *)x_D41A0_BYTEARRAY_4[20], 2u);
 			qmemcpy(&readbuffer[0], (void*)&x_D41A0_BYTEARRAY_4_struct.dwordindex_0, 4);//fixed
 			qmemcpy(&readbuffer[4], (void*)&x_D41A0_BYTEARRAY_4_struct.wordindex_4, 2);//fixed
-			qmemcpy(&readbuffer[6], (void*)&x_D41A0_BYTEARRAY_4_struct.wordindex_6, 2);//fixed
-			qmemcpy(&readbuffer[8], (void*)&x_D41A0_BYTEARRAY_4_struct.wordindex_8, 2);//fixed
+			qmemcpy(&readbuffer[6], (void*)&x_D41A0_BYTEARRAY_4_struct.soundVolume_6, 2);//fixed
+			qmemcpy(&readbuffer[8], (void*)&x_D41A0_BYTEARRAY_4_struct.musicVolume_8, 2);//fixed
 			qmemcpy(&readbuffer[10], (void*)&x_D41A0_BYTEARRAY_4_struct.byteindex_10, 1);//fixed
 			qmemcpy(&readbuffer[11], (void*)&x_D41A0_BYTEARRAY_4_struct.byte_brightness_11, 1);//fixed
 			qmemcpy(&readbuffer[12], (void*)&x_D41A0_BYTEARRAY_4_struct.byte_brightness_12, 1);//fixed

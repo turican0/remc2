@@ -87,9 +87,16 @@ void SOUND_start_sequence(int32_t sequence_num) {
 	//3 - menu
 	//4 - intro
 #ifdef SOUND_SDLMIXER
+	last_sequence_num = sequence_num;
 	//volume fix
-	if(Mix_VolumeMusic(-1)==0)
-		Mix_VolumeMusic(0x7f);
+	if (lastMusicVolume == -1)
+	{
+		SOUND_set_sequence_volume(0x64, 0);
+	}
+	if (lastMusicVolume != settingsMusicVolume)
+	{
+		SOUND_set_sequence_volume(settingsMusicVolume, 0);
+	}
 	//volume fix
 
 	if (Mix_PlayingMusic() == 0)
