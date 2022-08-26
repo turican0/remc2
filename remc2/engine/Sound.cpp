@@ -24,12 +24,12 @@ uint8_t* x_DWORD_E37A8_sound_buffer1 = 0; // weak
 char x_BYTE_E37AC = 0; // weak
 int8_t x_BYTE_E37AD_actual_sound = -1; // weak
 char x_BYTE_E37AE = 0; // weak
-int x_DWORD_E37B0 = 127; // weak
+int lastSoundVolume_E37B0 = 127; // weak
 __int16 x_WORD_E37B4 = 1644; // weak
 __int16 x_WORD_E37B6_sound_number = 0; // weak
 char x_BYTE_E37B8 = 0; // weak
 int x_DWORD_E37BC_sound_frequence = 0; // weak
-int x_DWORD_E37F8_midi_volume = 127; // weak
+int lastMusicVolume_E37F8 = 127; // weak
 char x_BYTE_E37FC_music = 1; // weak//2b47fc
 char x_BYTE_E37FD = 1; // weak
 char x_BYTE_E37FE = 0; // weak
@@ -592,7 +592,7 @@ void sub_8D290_init_sound(/*char* a1*//*, int a2, int a3*/)//26e290
 					v9++;
 				}
 				x_BYTE_E379A = 1;
-				sub_8E470_sound_proc17_volume(x_DWORD_E37B0);
+				sub_8E470_sound_proc17_volume(lastSoundVolume_E37B0);
 			}
 		}
 		else
@@ -852,7 +852,7 @@ void /*__fastcall*/ sub_8D970_init_music(/*char* a1*//*int a1, int a2, char* a3*
 		else
 		{
 			x_BYTE_E37FE = 1;
-			sub_8E410_sound_proc16_xmidivolume(x_DWORD_E37F8_midi_volume);
+			sub_8E410_sound_proc16_xmidivolume(lastMusicVolume_E37F8);
 		}
 		return;
 	}
@@ -1056,10 +1056,10 @@ void sub_8E410_sound_proc16_xmidivolume(int32_t master_volume)//26f410
 	{
 		if (x_BYTE_E37FE)
 		{
-			if (master_volume != x_DWORD_E37F8_midi_volume && master_volume <= 127 && master_volume >= 0)
+			if (master_volume != lastMusicVolume_E37F8 && master_volume <= 127 && master_volume >= 0)
 			{
 				sub_96670_AIL_set_XMIDI_master_volume(hMdiMusicDriver, master_volume);
-				x_DWORD_E37F8_midi_volume = master_volume;
+				lastMusicVolume_E37F8 = master_volume;
 			}
 		}
 	}
@@ -1079,11 +1079,11 @@ int sub_8E470_sound_proc17_volume(int a1)//26f470
 		if (x_BYTE_E379A)//2b479a
 		{
 			result = a1;
-			if (a1 != x_DWORD_E37B0 && a1 <= 127 && a1 >= 0)
+			if (a1 != lastSoundVolume_E37B0 && a1 <= 127 && a1 >= 0)
 			{
 				sub_94650_AIL_set_digital_master_volume((x_DWORD*)hDigSoundEffectsDriver, a1);
 				result = a1;
-				x_DWORD_E37B0 = a1;
+				lastSoundVolume_E37B0 = a1;
 			}
 		}
 	}
