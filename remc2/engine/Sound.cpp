@@ -1026,7 +1026,7 @@ void sub_8E160_sound_proc15_startsequence(__int16 track, unsigned __int8 volume)
 		  sub_98360_AIL_send_channel_voice_message(x_DWORD_180C7C, x_DWORD_180C78, i | 0xB0, 0x5Du, 0);
 		}*/
 		if (volume < 0x7Fu)
-			SetAilSequenceVolume(m_hSequence, volume, 0);
+			SetAilSequenceVolume(m_hSequence, volume, -1);
 
 		sub_95D50_AIL_start_sequence(m_hSequence, track);
 		x_WORD_E3800 = 100;
@@ -2282,9 +2282,9 @@ void sub_95F00_AIL_end_sequence(HSEQUENCE hSequence/*HSEQUENCE S*/)//AIL_end_seq
 // 181BF8: using guessed type int x_DWORD_181BF8;
 // 181C04: using guessed type int x_DWORD_181C04;
 
-void SetAilSequenceVolume(HSEQUENCE  /*hSequence*/, int32_t volume, int32_t  /*milliseconds*/)//AIL_set_sequence_volume
+void SetAilSequenceVolume(HSEQUENCE  /*hSequence*/, int32_t volume, int32_t  milliseconds)//AIL_set_sequence_volume
 {
-	SOUND_set_sequence_volume(volume);
+	SOUND_set_sequence_volume(volume, milliseconds);
 }
 // A18E3: using guessed type x_DWORD fprintf(x_DWORD, const char *, ...);
 // 181BF0: using guessed type int x_DWORD_181BF0_AIL_debugfile;
@@ -2344,7 +2344,7 @@ int sub_96170_AIL_sequence_status(HSEQUENCE hSequence/*HSEQUENCE S*/)//AIL_seque
 //----- (00096670) --------------------------------------------------------
 void sub_96670_AIL_set_XMIDI_master_volume(HMDIDRIVER  /*mdi*/, int32_t master_volume)//AIL_set_XMIDI_master_volume
 {
-	SOUND_set_sequence_volume(master_volume);
+	SOUND_set_sequence_volume(master_volume, 0);
 	/*
 	AIL_fix();
 	x_DWORD_181C04++;

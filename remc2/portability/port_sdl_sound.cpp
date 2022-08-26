@@ -23,6 +23,11 @@ char oggmusicFolder[512];
 
 bool fixspeedsound = false;
 
+int32_t last_sequence_num = 0;
+
+int lastMusicVolume = -1;
+int settingsMusicVolume = 127;
+
 //The music that will be played
 #ifdef SOUND_SDLMIXER
 Mix_Music* GAME_music[20] = { NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL };
@@ -119,11 +124,40 @@ void SOUND_resume_sequence(int32_t  /*sequence_num*/) {
 #endif//SOUND_SDLMIXER
 };
 
-void SOUND_set_sequence_volume(int32_t volume) {
+void SOUND_set_sequence_volume(int32_t volume, int32_t  milliseconds) {
 #ifdef SOUND_SDLMIXER
-	Mix_VolumeMusic(volume);
+#ifndef __linux__
+	if ((milliseconds > 0) && (volume == 0))
+	{
+		if (GAME_music[last_sequence_num])
+		{
+			double position = Mix_GetMusicPosition(GAME_music[last_sequence_num]);
+			if (position != 0)
+			{
+				Mix_FadeOutMusic(milliseconds);
+				Mix_SetMusicPosition(position);
+			}
+		}
+	}
+	else if ((milliseconds > 0) && (lastMusicVolume == 0))
+	{
+		if (GAME_music[last_sequence_num])
+		{
+			double position = Mix_GetMusicPosition(GAME_music[last_sequence_num]);
+			if (position != 0)
+			{
+				Mix_FadeInMusicPos(GAME_music[last_sequence_num], 1, milliseconds, position);
+			}
+		}
+	}
+	else
+#endif //__linux__
+		Mix_VolumeMusic(volume);
+	lastMusicVolume = volume;
+	if (milliseconds == 0)
+		settingsMusicVolume = volume;
 #endif//SOUND_SDLMIXER
-};
+}
 
 void SOUND_init_MIDI_sequence(uint8_t*  /*datax*/, type_E3808_music_header* headerx, int32_t track_number)
 {
