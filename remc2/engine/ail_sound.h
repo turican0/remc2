@@ -53,7 +53,7 @@ typedef MSS_STRUCT                      // Standard MSS 3.X VDI driver header
 	/*52*/uint16_t VDI_HDR_var52_this_ISR;
 	/*54*/uint32_t VDI_HDR_var54_prev_ISR;
    /*58*/int8_t scratch[128];           // Shared scratch workspace   
-   int8_t dev_name[80];           // Device name (VDI version >= 1.12 only)
+   char dev_name[80];           // Device name (VDI version >= 1.12 only)
    int8_t scratch2[1692];
    char mdiapplendix[4];   
 }
@@ -66,7 +66,7 @@ typedef MSS_STRUCT                   // Handle to driver
 {
 	/*0*/REALFAR seg_0;//remove this! segment must be zero!
 /*4*/uint32_t sel_1;
-/*8*/void* buf_2;
+/*8*/uint8_t* buf_2;
 /*12*/uint32_t size_3;
 /*16*/VDI_HDR* VHDR_4;
 /*20*/int32_t type_5;//type
@@ -269,10 +269,10 @@ typedef struct                            // XMIDI sequence state table
 	/*27*/int32_t     beat_fraction_27;
 	/*28*/int32_t     time_per_beat_28;
 
-	/*29*/uint8_t* FOR_ptrs[FOR_NEST];    // Loop stack
+	/*29*/uint8_t* FOR_ptrs[FOR_NEST];    // Loop stack // 28
 	/*33*/int32_t     FOR_loop_count_33[FOR_NEST];
 
-	/*37*/int32_t     chan_map_37[NUM_CHANS];   // Physical channel map for sequence
+	/*37*/int32_t     chan_map_37[NUM_CHANS];   // Physical channel map for sequence // 36
 
 	/*53*/CTRL_LOG shadow_53;                       // Controller values for sequence
 

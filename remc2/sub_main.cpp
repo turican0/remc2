@@ -39643,7 +39643,7 @@ void sub_46B40()//227b40
 
 		if (pre_x_DWORD_E9C3C)
 		{
-			sub_83E80_freemem4(pre_x_DWORD_E9C3C);
+			FreeMem_83E80(pre_x_DWORD_E9C3C);
 			pre_x_DWORD_E9C3C = 0;
 			x_DWORD_E9C3C = 0;
 		}
@@ -39907,7 +39907,7 @@ void sub_47130()//228130
 {
 	if (x_DWORD_D4188)
 	{
-		sub_83E80_freemem4((uint8_t*)x_DWORD_D4188);
+		FreeMem_83E80((uint8_t*)x_DWORD_D4188);
 		x_DWORD_D4188 = 0;
 		x_DWORD_D418C = 0;
 		x_DWORD_D4190 = 0;
@@ -39967,7 +39967,7 @@ void sub_47160()//228160
 		*/
 		//fix
 		if (pre_x_DWORD_E9C3C)
-			sub_83E80_freemem4(pre_x_DWORD_E9C3C);
+			FreeMem_83E80(pre_x_DWORD_E9C3C);
 		pre_x_DWORD_E9C3C = (uint8_t*)sub_83CD0_malloc2(3000000);
 		x_DWORD_E9C3C = &pre_x_DWORD_E9C3C[200000];
 		//sub_6EB90(&filearray_2aa18c[filearrayindex_FONTS0DATTAB]);//2aa1d4
@@ -39990,7 +39990,7 @@ void sub_47160()//228160
 		*/
 		//fix
 		if (pre_x_DWORD_E9C3C)
-			sub_83E80_freemem4(pre_x_DWORD_E9C3C);
+			FreeMem_83E80(pre_x_DWORD_E9C3C);
 		pre_x_DWORD_E9C3C = (uint8_t*)sub_83CD0_malloc2(3000000);
 		x_DWORD_E9C3C = &pre_x_DWORD_E9C3C[200000];
 		CreateIndexes_6EB90(&filearray_2aa18c[filearrayindex_HFONT3DATTAB]);//2aa1d4
@@ -60360,7 +60360,7 @@ signed int sub_5BF50_load_psxdata()//23cf50 //find 2bc394
 {
 	signed int result; // eax
 
-	x_DWORD_181C40_vga_init_buffer = (uint8_t*)sub_83D70_malloc1(0x100); //fix it 264D70
+	x_DWORD_181C40_vga_init_buffer = (uint8_t*)Malloc_83D70(0x100); //fix it 264D70
 	if (x_DWORD_181C40_vga_init_buffer)
 	{
 		if (sub_5C380_test_vga_driver_header(0x101))
@@ -75595,10 +75595,10 @@ type_x_DWORD_E9C28_str* sub_71B40(int a1, unsigned __int16 a2, type_x_DWORD_E9C2
 				if (v10y->dword_16x)
 				{
 					if (v10y->str_8_data)
-						sub_83E80_freemem4((uint8_t*)v10y->str_8_data);
-					sub_83E80_freemem4((uint8_t*)v10y->dword_16x);
+						FreeMem_83E80((uint8_t*)v10y->str_8_data);
+					FreeMem_83E80((uint8_t*)v10y->dword_16x);
 				}
-				sub_83E80_freemem4((uint8_t*)v10y);
+				FreeMem_83E80((uint8_t*)v10y);
 			}
 			exit(1);
 		}
@@ -75624,10 +75624,10 @@ void sub_720C0(type_x_DWORD_E9C28_str** a1y)//2530c0
 	{
 		if ((*a1y)->word_24 == 1)
 		{
-			sub_83E80_freemem4((uint8_t*)(*a1y)->dword_16x);
-			sub_83E80_freemem4((uint8_t*)(*a1y)->str_8_data);
-			sub_83E80_freemem4((uint8_t*)(*a1y)->dword_12x);
-			sub_83E80_freemem4((uint8_t*)*a1y);
+			FreeMem_83E80((uint8_t*)(*a1y)->dword_16x);
+			FreeMem_83E80((uint8_t*)(*a1y)->str_8_data);
+			FreeMem_83E80((uint8_t*)(*a1y)->dword_12x);
+			FreeMem_83E80((uint8_t*)*a1y);
 		}
 		*a1y = 0;
 	}
@@ -75660,7 +75660,7 @@ type_E9C08* sub_72120(unsigned __int16 a1)//253120
 	}
 	else if (v2x)
 	{
-		sub_83E80_freemem4((uint8_t*)v2x);
+		FreeMem_83E80((uint8_t*)v2x);
 		v3x = 0;
 	}
 	sub_83CC0(10);
@@ -75767,9 +75767,9 @@ void sub_72550(type_E9C08** a1x)
 {
 	if (*a1x)
 	{
-		sub_83E80_freemem4((uint8_t*)(*a1x)->dword_2);
+		FreeMem_83E80((uint8_t*)(*a1x)->dword_2);
 		(*a1x)->dword_2 = 0;
-		sub_83E80_freemem4((uint8_t*)*a1x);
+		FreeMem_83E80((uint8_t*)*a1x);
 		*a1x = 0;
 	}
 }
@@ -75828,14 +75828,14 @@ void NetworkDisallocation_72D04()
 		}
 		while (mainConnection_E12AA->ncb_cmd_cplt_49 == 0xff)
 			/*fake_network_interupt(mainConnection_E12AA)*/;
-		sub_83E80_freemem4((uint8_t*)mainConnection_E12AA);
+		FreeMem_83E80((uint8_t*)mainConnection_E12AA);
 		for (j = 0; j < 8; j++)
 		{
-			sub_83E80_freemem4((uint8_t*)connection_E12AE[j]);
-			sub_83E80_freemem4((uint8_t*)packetArray_E1286[j]);
+			FreeMem_83E80((uint8_t*)connection_E12AE[j]);
+			FreeMem_83E80((uint8_t*)packetArray_E1286[j]);
 		}
-		sub_83E80_freemem4((uint8_t*)networkBuffer_E127E);
-		sub_83E80_freemem4((uint8_t*)paket_E1282);
+		FreeMem_83E80((uint8_t*)networkBuffer_E127E);
+		FreeMem_83E80((uint8_t*)paket_E1282);
 		x_BYTE_E1274 = 0;
 	}
 }
@@ -76375,7 +76375,7 @@ uint8_t NetworkAllocation_74556()//255556 push ebp 355250
 	v2 = 1;
 	if (!x_BYTE_E1274 && !mainConnection_E12AA)
 	{
-		mainConnection_E12AA = (myNCB*)sub_83D70_malloc1(sizeof(myNCB));
+		mainConnection_E12AA = (myNCB*)Malloc_83D70(sizeof(myNCB));
 		memset(mainConnection_E12AA, 0, sizeof(myNCB));
 		mainConnection_E12AA->ncb_command_0 = 0x7f;//?
 		mainConnection_E12AA->ncb_retcode_1 = 0x03;
@@ -76384,24 +76384,24 @@ uint8_t NetworkAllocation_74556()//255556 push ebp 355250
 		{
 			if (NetworkInit_74A11() == -1)//255a11
 				return 0;
-			networkBuffer_E127E = (uint8_t*)sub_83D70_malloc1(maxSizeOfPacket);
+			networkBuffer_E127E = (uint8_t*)Malloc_83D70(maxSizeOfPacket);
 			memset(networkBuffer_E127E, 0, maxSizeOfPacket);
 			if (networkBuffer_E127E)
 			{
-				paket_E1282 = (uint8_t*)sub_83D70_malloc1(maxSizeOfPacket);
+				paket_E1282 = (uint8_t*)Malloc_83D70(maxSizeOfPacket);
 				memset(paket_E1282, 0, maxSizeOfPacket);
 				if (paket_E1282)
 				{
 					for (i = 0; i < 8; i++)
 					{
-						packetArray_E1286[i] = (uint8_t*)sub_83D70_malloc1(maxSizeOfPacket);
+						packetArray_E1286[i] = (uint8_t*)Malloc_83D70(maxSizeOfPacket);
 						memset(packetArray_E1286[i], 0, maxSizeOfPacket);
 						if (!packetArray_E1286[i])
 						{
 							v2 = 0;
 							break;
 						}
-						connection_E12AE[i] = (myNCB*)sub_83D70_malloc1(sizeof(myNCB));
+						connection_E12AE[i] = (myNCB*)Malloc_83D70(sizeof(myNCB));
 						memset(connection_E12AE[i], 0, sizeof(myNCB));
 						if (!connection_E12AE[i])
 						{
@@ -76431,17 +76431,17 @@ uint8_t NetworkAllocation_74556()//255556 push ebp 355250
 	{
 		x_BYTE_E1274 = 0;
 		if (mainConnection_E12AA)
-			sub_83E80_freemem4((uint8_t*)mainConnection_E12AA);
+			FreeMem_83E80((uint8_t*)mainConnection_E12AA);
 		if (networkBuffer_E127E)
-			sub_83E80_freemem4(networkBuffer_E127E);
+			FreeMem_83E80(networkBuffer_E127E);
 		if (paket_E1282)
-			sub_83E80_freemem4(paket_E1282);
+			FreeMem_83E80(paket_E1282);
 		for (j = 0; j < 8; j++)
 		{
 			if (connection_E12AE[j])
-				sub_83E80_freemem4((uint8_t*)connection_E12AE[j]);
+				FreeMem_83E80((uint8_t*)connection_E12AE[j]);
 			if (packetArray_E1286[j])
-				sub_83E80_freemem4(packetArray_E1286[j]);
+				FreeMem_83E80(packetArray_E1286[j]);
 		}
 	}
 	return x_BYTE_E1274;
@@ -77741,7 +77741,7 @@ void sub_76A40_lang_setting()//257A40
 			{
 				x_D41A0_BYTEARRAY_4_struct.SelectedLangIndex = x_D41A0_BYTEARRAY_4_struct.wordindex_4 & 0xff;
 				if (x_BYTE_E29E0 || x_DWORD_D41BC_langbuffer)
-					sub_83E80_freemem4((uint8_t*)x_DWORD_D41BC_langbuffer);
+					FreeMem_83E80((uint8_t*)x_DWORD_D41BC_langbuffer);
 				langfile = DataFileIO::CreateOrOpenFile(printbuffer, 512);
 				//v4 = v3;
 				//v5 = v3;
@@ -80398,7 +80398,7 @@ void sub_7AC00_load_and_set_graphics_and_Palette()//25BC00
 		//fix
 		if (pre_x_DWORD_E9C3C)
 		{
-			sub_83E80_freemem4(pre_x_DWORD_E9C3C);
+			FreeMem_83E80(pre_x_DWORD_E9C3C);
 			pre_x_DWORD_E9C3C = 0;
 			x_DWORD_E9C3C = 0;
 		}
@@ -80466,7 +80466,7 @@ int sub_7ADE0(char a1)//25bde0
 		//fix
 		if (pre_x_DWORD_E9C3C)
 		{
-			sub_83E80_freemem4(pre_x_DWORD_E9C3C);
+			FreeMem_83E80(pre_x_DWORD_E9C3C);
 			pre_x_DWORD_E9C3C = 0;
 			x_DWORD_E9C3C = 0;
 		}
@@ -83624,7 +83624,7 @@ int LoadLanguageFile(posistruct2_t** a1x, posistruct2_t** a2x, uint8_t* a3, char
 			DataFileIO::Read(langfile, a3, 4773);//2798a7
 			DataFileIO::Read(langfile, (a3 + 4773), 12);
 			if (x_BYTE_E29E0 || x_DWORD_D41BC_langbuffer)//[2b39e0]00 || [2a51bc]00
-				sub_83E80_freemem4((uint8_t*)x_DWORD_D41BC_langbuffer);
+				FreeMem_83E80((uint8_t*)x_DWORD_D41BC_langbuffer);
 			//v7 = langfilelenght - 4785;
 			x_DWORD_D41BC_langbuffer = (char*)sub_83CD0_malloc2(langfilelenght - 4785);
 			//x_DWORD_D41BC_langbuffer = (uint8_t*)v8;
@@ -83690,7 +83690,7 @@ int sub_7F960(posistruct2_t* a1x, posistruct2_t* a2x, uint8_t* a3, char* langcou
 			DataFileIO::Read(langfile, a3, 4773);
 			DataFileIO::Read(langfile, a3 + 4773, 12);
 			if (x_BYTE_E29E0 || x_DWORD_D41BC_langbuffer)
-				sub_83E80_freemem4((uint8_t*)x_DWORD_D41BC_langbuffer);
+				FreeMem_83E80((uint8_t*)x_DWORD_D41BC_langbuffer);
 			v8 = v13 - 4785;
 			//v9 = (uint8_t*)sub_83CD0_malloc2(v13 - 4785);
 			x_DWORD_D41BC_langbuffer = (char*)sub_83CD0_malloc2(v13 - 4785);
@@ -92316,7 +92316,7 @@ void sub_91F50(unsigned int a1)
 //----- (00092160) --------------------------------------------------------
 int sub_92160()
 {
-	return sub_A16A2();
+	return GetE3FFE_A16A2();
 }
 
 //----- (00098C48) --------------------------------------------------------
@@ -92534,7 +92534,7 @@ uint8_t* ClearMemoryForPath(Pathstruct path)//27B2f5
 	//result = 0;//fix it
 	if (result)
 	{
-		sub_83E80_freemem4(*path.colorPalette_var28);
+		FreeMem_83E80(*path.colorPalette_var28);
 		result = *path.colorPalette_var28;
 		*result = 0;
 	}
@@ -92560,7 +92560,7 @@ signed int UnpackAndLoadMemoryFromPath(Pathstruct path)//27B32d
 	{
 		if (path.var40_alloc_type & 1)
 		{
-			*(path.colorPalette_var28) = (uint8_t*)sub_83D70_malloc1(path.var36_size_buffer);
+			*(path.colorPalette_var28) = (uint8_t*)Malloc_83D70(path.var36_size_buffer);
 			memset(*(path.colorPalette_var28), 0, path.var36_size_buffer);
 		}
 		else
@@ -92580,7 +92580,7 @@ signed int UnpackAndLoadMemoryFromPath(Pathstruct path)//27B32d
 			return 0;
 		if (path.var40_alloc_type & 1)
 		{
-			*(path.colorPalette_var28) = (uint8_t*)sub_83D70_malloc1(path.var36_size_buffer);//asi init a malloc bufferu
+			*(path.colorPalette_var28) = (uint8_t*)Malloc_83D70(path.var36_size_buffer);//asi init a malloc bufferu
 			memset(*(path.colorPalette_var28), 0, path.var36_size_buffer);
 		}
 		else
@@ -93465,62 +93465,55 @@ __int16 /*__fastcall*/ sub_9D31C(__int16 result)//27e31c
 // E3E34: using guessed type int (*off_E3E34_freex)(int);
 
 //----- (0009DEA0) --------------------------------------------------------
-uint8_t* sub_9DEA0_read_file(char* a1, uint8_t* a2)//27eea0
+uint8_t* ReadFile_9DEA0(char* filename, uint8_t* buffer)//27eea0
 {
-	uint8_t* v3; // [esp+0h] [ebp-1Ch]
-	uint8_t* result; // [esp+4h] [ebp-18h]
-	signed int v5; // [esp+10h] [ebp-Ch]
-	FILE* v6; // [esp+14h] [ebp-8h]
+	uint8_t* locBuffer;
+	uint8_t* result;
 
-	x_DWORD_E3E2C = 0;
-	v5 = sub_9DE20_get_file_lenght(a1);
-	if (v5 == -1)
+	readFileStatus_E3E2C = 0;
+	int fileLenght = GetFileLenght_9DE20(filename);
+	if (fileLenght == -1)
 	{
-		x_DWORD_E3E2C = 3;
+		readFileStatus_E3E2C = 3;
 		result = 0;
 	}
 	else
 	{
-		if (a2)
-			v3 = a2;
+		if (buffer)
+			locBuffer = buffer;
 		else
 		{
-			v3 = (uint8_t*)malloc(v5);
+			locBuffer = (uint8_t*)malloc(fileLenght);
 		}
-		if (v3)
+		if (locBuffer)
 		{
-			v6 = x_open(a1, 512);
-			if (v6 == NULL)
+			FILE* locFile = x_open(filename, 512);
+			if (locFile == NULL)
 			{
-				x_free((void*)v3);
-				x_DWORD_E3E2C = 3;
+				x_free((void*)locBuffer);
+				readFileStatus_E3E2C = 3;
 				result = 0;
 			}
-			else if (DataFileIO::Read(v6, v3, v5) == v5)
+			else if (DataFileIO::Read(locFile, locBuffer, fileLenght) == fileLenght)
 			{
-				DataFileIO::Close(v6);
-				result = v3;
+				DataFileIO::Close(locFile);
+				result = locBuffer;
 			}
 			else
 			{
-				x_free((void*)v3);
-				x_DWORD_E3E2C = 5;
+				x_free((void*)locBuffer);
+				readFileStatus_E3E2C = 5;
 				result = 0;
 			}
 		}
 		else
 		{
-			x_DWORD_E3E2C = 2;
+			readFileStatus_E3E2C = 2;
 			result = 0;
 		}
 	}
 	return result;
 }
-// A0855: using guessed type x_DWORD close(x_DWORD);
-// A0863: using guessed type x_DWORD read(x_DWORD, x_DWORD, x_DWORD);
-// E3E2C: using guessed type int x_DWORD_E3E2C;
-// E3E30: using guessed type int (*off_E3E30_mallocx)(x_DWORD);
-// E3E34: using guessed type int (*off_E3E34_freex)(int);
 
 //----- (000A0B24) --------------------------------------------------------
 int sub_A0B24(int a1)//281b24

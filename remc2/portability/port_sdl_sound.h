@@ -214,7 +214,7 @@ void playmusic2(int32_t track_number);
 extern uint8_t sound_buffer[4][20000];
 //extern HSAMPLE last_sample;
 
-int32_t ac_sound_call_driver(AIL_DRIVER* drvr, int32_t fn, VDI_CALL* in, VDI_CALL* out);
+int32_t ac_sound_call_driver(AIL_DRIVER* drvr, int32_t fn, VDI_CALL* out);
 
 void ac_set_real_vect(uint32_t vectnum, uint16_t real_ptr);
 uint16_t ac_get_real_vect(uint32_t vectnum);
