@@ -12541,7 +12541,7 @@ void ChangeSoundLevel_19CA0(uint8_t option)//1faca0
 			soundCard_E3799 = 1;
 		}
 	}
-	else if (option == 2 && musicInicialized_E37FC)
+	else if (option == 2 && musicInitialized_E37FC)
 	{
 		x_D41A0_BYTEARRAY_4_struct.byte_38591 = 2;
 		v1 = D41A0_0.maptypeMusic_0x235;
@@ -12813,7 +12813,7 @@ void sub_1A280()//1fb280
 	x_D41A0_BYTEARRAY_4_struct.dwordindex_192 |= 0x01;//help
 	if (soundActive2_E3798)
 		x_D41A0_BYTEARRAY_4_struct.dwordindex_192 |= /*v2 |*/ 0x02;//sound
-	if (musicInicialized_E37FC)
+	if (musicInitialized_E37FC)
 		x_D41A0_BYTEARRAY_4_struct.dwordindex_192 |= 0x04;//music
 	if (x_BYTE_E2A28_speek)
 		x_D41A0_BYTEARRAY_4_struct.dwordindex_192 |= 0x08;//speek
@@ -13335,7 +13335,7 @@ void sub_1A970_change_game_settings(char a1, int a2, int a3)//1fb970
 		soundCard_E3799 ^= 1u;
 		return;
 	case 3:
-		if (!musicInicialized_E37FC)
+		if (!musicInitialized_E37FC)
 			return;
 		if (musicStarted_E37FD)
 		{
@@ -28801,7 +28801,7 @@ void DrawPauseMenu_2FD90()//210d90
 				}
 			}
 			sub_2BB40_draw_bitmap(posX + (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[176].width_4, posY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[177]);//Music button
-			if (!musicInicialized_E37FC)
+			if (!musicInitialized_E37FC)
 			{
 				v3 = 0;
 				while (v3 < 2)
@@ -38750,7 +38750,7 @@ void sub_46830_main_loop(/*int16_t* a1, */signed int a2, unsigned __int16 a3)//2
 
 			while (!D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x004_2BE0_11234)
 			{
-				if (musicInicialized_E37FC && musicStarted_E37FD && m_iNumberOfTracks)
+				if (musicInitialized_E37FC && musicStarted_E37FD && m_iNumberOfTracks)
 				{
 					//v8 = x_D41A0_BYTEARRAY_0[196308];
 					switch (D41A0_0.terrain_2FECE.MapType) {
@@ -38976,7 +38976,7 @@ void /*__fastcall*/ sub_46DD0_init_sound_and_music(/*int a1, int a2, char* a3*/)
 			PrintTextMessage_70910((char*)"Sound Disabled\0");
 			musicStarted_E37FD = 0;
 			soundCard_E3799 = 0;
-			musicInicialized_E37FC = 0;
+			musicInitialized_E37FC = 0;
 			soundActive2_E3798 = 0;
 		}
 		else
@@ -38989,7 +38989,7 @@ void /*__fastcall*/ sub_46DD0_init_sound_and_music(/*int a1, int a2, char* a3*/)
 			if ((x_D41A0_BYTEARRAY_4_struct.setting_byte4_25) & 0x40)//fix it
 				LoadMusic(1);
 		}
-		if (soundActive2_E3798 || musicInicialized_E37FC)
+		if (soundActive2_E3798 || musicInitialized_E37FC)
 		{
 			//x_DWORD_F42A4_sound_timer = sub_92600_AIL_register_timer(sub_46820_simple_timer);
 			//sub_92930_AIL_set_timer_frequency(x_DWORD_F42A4_sound_timer, 0x78u);
@@ -39001,7 +39001,7 @@ void /*__fastcall*/ sub_46DD0_init_sound_and_music(/*int a1, int a2, char* a3*/)
 			sub_6FDA0();
 		}
 		//v5 = x_BYTE_E3798_sound_active2;
-		if (!soundActive2_E3798 && !musicInicialized_E37FC && x_BYTE_E2A28_speek)
+		if (!soundActive2_E3798 && !musicInitialized_E37FC && x_BYTE_E2A28_speek)
 		{
 			sub_86860_speak_Sound(x_WORD_1803EC);
 			sub_86BD0_freemem1();
@@ -58904,7 +58904,7 @@ void Initialize()//23c8d0
 	// ?keyboard init
 
 	soundCard_E3799 = soundActive2_E3798;
-	musicStarted_E37FD = musicInicialized_E37FC;
+	musicStarted_E37FD = musicInitialized_E37FC;
 	sub_8CEDF_install_mouse();
 	if (!x_DWORD_E3768)
 	{
@@ -79251,7 +79251,7 @@ void sub_86F20(char a1)//267f20
 //----- (00086F70) --------------------------------------------------------
 void sub_86F70_sound_proc12(unsigned __int8 a1, __int16 a2, __int16 a3)//267f70
 {
-	if (x_BYTE_E2A28_speek && (musicInicialized_E37FC || soundActive2_E3798))
+	if (x_BYTE_E2A28_speek && (musicInitialized_E37FC || soundActive2_E3798))
 	{
 		//x_DWORD_180078 = sub_92600_AIL_register_timer(sub_86EA0);
 		//sub_92930_AIL_set_timer_frequency(x_DWORD_180078, 0x32u);
@@ -79268,7 +79268,7 @@ void sub_86F70_sound_proc12(unsigned __int8 a1, __int16 a2, __int16 a3)//267f70
 //----- (00086FF0) --------------------------------------------------------
 void sub_86FF0(unsigned __int8 a1, __int16 a2, __int16 a3)//267ff0
 {
-	if (x_BYTE_E2A28_speek && (musicInicialized_E37FC || soundActive2_E3798))
+	if (x_BYTE_E2A28_speek && (musicInitialized_E37FC || soundActive2_E3798))
 	{
 		x_WORD_1803E8 = a1;
 		sub_86860_speak_Sound(x_WORD_1803EC);

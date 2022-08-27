@@ -21,7 +21,7 @@ typedef struct {//lenght 12
 extern char soundCard_E3799;
 extern char musicStarted_E37FD;
 extern char soundActive2_E3798;
-extern char musicInicialized_E37FC;
+extern char musicInitialized_E37FC;
 extern char musicStarted_E37FD;
 extern int x_DWORD_E3844;
 extern int x_DWORD_E387C;

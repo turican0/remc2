@@ -30,7 +30,7 @@ __int16 x_WORD_E37B6_sound_number = 0; // weak
 char x_BYTE_E37B8 = 0; // weak
 int x_DWORD_E37BC_sound_frequence = 0; // weak
 int lastMusicVolume_E37F8 = 127; // weak
-char musicInicialized_E37FC = 1; // weak//2b47fc
+char musicInitialized_E37FC = 1; // weak//2b47fc
 char musicStarted_E37FD = 1; // weak
 char x_BYTE_E37FE = 0; // weak
 __int16 x_WORD_E3800 = 0; // weak
@@ -353,7 +353,7 @@ void sub_8D290_init_sound(/*char* a1*//*, int a2, int a3*/)//26e290
 	x_WORD_E37B6_sound_number = x_WORD_E37B4;
 	if (!x_WORD_E37B4)
 	{
-		if (!musicInicialized_E37FC)
+		if (!musicInitialized_E37FC)
 		{
 			if (x_BYTE_E37B8)
 				sub_919C0();
@@ -420,13 +420,13 @@ void sub_8D290_init_sound(/*char* a1*//*, int a2, int a3*/)//26e290
 	{
 		soundActive2_E3798 = 0;
 		soundCard_E3799 = 0;
-		if (musicInicialized_E37FC && x_BYTE_E37FE)
+		if (musicInitialized_E37FC && x_BYTE_E37FE)
 		{
 			sub_99C90();
 		}
 		else
 		{
-			musicInicialized_E37FC = 0;
+			musicInitialized_E37FC = 0;
 			musicStarted_E37FD = 0;
 			sub_919C0();
 		}
@@ -446,7 +446,7 @@ void sub_8D290_init_sound(/*char* a1*//*, int a2, int a3*/)//26e290
 		hDigSoundEffectsDriver = sub_93330_AIL_install_DIG_driver_file(/*(int)a1, */&v6, &v5);
 		if (!hDigSoundEffectsDriver)
 		{
-			if (!musicInicialized_E37FC)
+			if (!musicInitialized_E37FC)
 				sub_919C0();
 			soundActive2_E3798 = 0;
 			soundCard_E3799 = 0;
@@ -468,7 +468,7 @@ void sub_8D290_init_sound(/*char* a1*//*, int a2, int a3*/)//26e290
 		{
 			if (!_stricmp(soundEffectsAILSettings.driver_name, "None"))//351ab0
 			{
-				if (!musicInicialized_E37FC)
+				if (!musicInitialized_E37FC)
 					sub_919C0();
 				soundActive2_E3798 = 0;
 				soundCard_E3799 = 0;
@@ -493,7 +493,7 @@ void sub_8D290_init_sound(/*char* a1*//*, int a2, int a3*/)//26e290
 		}
 		if (!v10)
 		{
-			if (!musicInicialized_E37FC)
+			if (!musicInitialized_E37FC)
 				sub_919C0();
 			soundActive2_E3798 = 0;
 			soundCard_E3799 = 0;
@@ -597,7 +597,7 @@ void sub_8D290_init_sound(/*char* a1*//*, int a2, int a3*/)//26e290
 		}
 		else
 		{
-			if (!musicInicialized_E37FC)
+			if (!musicInitialized_E37FC)
 				sub_919C0();
 			soundActive2_E3798 = 0;
 			soundCard_E3799 = 0;
@@ -608,7 +608,7 @@ void sub_8D290_init_sound(/*char* a1*//*, int a2, int a3*/)//26e290
 	}
 	else
 	{
-		if (!musicInicialized_E37FC)
+		if (!musicInitialized_E37FC)
 			sub_919C0();
 		soundActive2_E3798 = 0;
 		soundCard_E3799 = 0;
@@ -743,7 +743,7 @@ void /*__fastcall*/ sub_8D970_init_music(/*char* a1*//*int a1, int a2, char* a3*
 	//IO_PARMS v9x = {};
 
 	v8 = 0;
-	if (!musicInicialized_E37FC)
+	if (!musicInitialized_E37FC)
 		return;
 	if (!x_BYTE_E37B8)
 	{
@@ -766,7 +766,7 @@ void /*__fastcall*/ sub_8D970_init_music(/*char* a1*//*int a1, int a2, char* a3*
 	sub_96AE0_AIL_set_GTL_filename_prefix((uint8_t*)samplePath);
 	if (!DirExists(soundCdPath))
 	{
-		musicInicialized_E37FC = 0;
+		musicInitialized_E37FC = 0;
 		musicStarted_E37FD = 0;
 		if (soundActive2_E3798 && x_BYTE_E379A)
 		{
@@ -796,7 +796,7 @@ void /*__fastcall*/ sub_8D970_init_music(/*char* a1*//*int a1, int a2, char* a3*
 		{
 			if (!soundActive2_E3798)
 				sub_919C0();
-			musicInicialized_E37FC = 0;
+			musicInitialized_E37FC = 0;
 			musicStarted_E37FD = 0;
 			return;
 		}
@@ -813,7 +813,7 @@ void /*__fastcall*/ sub_8D970_init_music(/*char* a1*//*int a1, int a2, char* a3*
 			{
 				if (!soundActive2_E3798)
 					sub_919C0();
-				musicInicialized_E37FC = 0;
+				musicInitialized_E37FC = 0;
 				musicStarted_E37FD = 0;
 				return;
 			}
@@ -824,7 +824,7 @@ void /*__fastcall*/ sub_8D970_init_music(/*char* a1*//*int a1, int a2, char* a3*
 		{
 			if (!soundActive2_E3798)
 				sub_919C0();
-			musicInicialized_E37FC = 0;
+			musicInitialized_E37FC = 0;
 			musicStarted_E37FD = 0;
 			return;
 		}
@@ -835,7 +835,7 @@ void /*__fastcall*/ sub_8D970_init_music(/*char* a1*//*int a1, int a2, char* a3*
 	{
 		x_BYTE_180C84_drivertype = 'f';
 	LABEL_69:
-		if (musicInicialized_E37FC && LoadMusic(x_BYTE_E3814))
+		if (musicInitialized_E37FC && LoadMusic(x_BYTE_E3814))
 		{
 			if (x_BYTE_E3815 == 1)
 			{
@@ -845,7 +845,7 @@ void /*__fastcall*/ sub_8D970_init_music(/*char* a1*//*int a1, int a2, char* a3*
 			sub_959A0_AIL_uninstall_MDI_driver(hMdiMusicDriver);
 			if (!soundActive2_E3798)
 				sub_919C0();
-			musicInicialized_E37FC = 0;
+			musicInitialized_E37FC = 0;
 			musicStarted_E37FD = 0;
 			myprintf("\nError opening music files\n");
 		}
@@ -932,7 +932,7 @@ void /*__fastcall*/ sub_8D970_init_music(/*char* a1*//*int a1, int a2, char* a3*
 	sub_959A0_AIL_uninstall_MDI_driver(hMdiMusicDriver);
 	if (!soundActive2_E3798)
 		sub_919C0();
-	musicInicialized_E37FC = 0;
+	musicInitialized_E37FC = 0;
 	musicStarted_E37FD = 0;
 	myprintf("\nError driver not supported\n");
 }
@@ -960,7 +960,7 @@ void /*__fastcall*/ sub_8D970_init_music(/*char* a1*//*int a1, int a2, char* a3*
 //----- (0008E020) --------------------------------------------------------
 void StopMusic_8E020()//26f020
 {
-	if (musicInicialized_E37FC && musicStarted_E37FD && x_WORD_E3802)
+	if (musicInitialized_E37FC && musicStarted_E37FD && x_WORD_E3802)
 	{
 		if (x_BYTE_E3818)
 			;// sub_92DC0_AIL_release_timer_handle(x_DWORD_180C80);
@@ -993,7 +993,7 @@ void StartMusic_8E160(__int16 track, unsigned __int8 volume)//26f160
 {
 	//unsigned __int8 i; // [esp+0h] [ebp-4h]
 
-	if (musicInicialized_E37FC && musicStarted_E37FD && track <= m_iNumberOfTracks && x_WORD_E3802 != track)
+	if (musicInitialized_E37FC && musicStarted_E37FD && track <= m_iNumberOfTracks && x_WORD_E3802 != track)
 	{
 		if (x_BYTE_E3818)
 			;// sub_92DC0_AIL_release_timer_handle(x_DWORD_180C80);
@@ -1052,7 +1052,7 @@ void StartMusic_8E160(__int16 track, unsigned __int8 volume)//26f160
 //----- (0008E410) --------------------------------------------------------
 void sub_8E410_sound_proc16_xmidivolume(int32_t master_volume)//26f410
 {
-	if (musicInicialized_E37FC)
+	if (musicInitialized_E37FC)
 	{
 		if (x_BYTE_E37FE)
 		{
@@ -1475,7 +1475,7 @@ void sub_99C90()//27ac90
 		}
 		if (array_E3810_music_data)
 			FreeMem_83E80(array_E3810_music_data);
-		musicInicialized_E37FC = 0;
+		musicInitialized_E37FC = 0;
 		musicStarted_E37FD = 0;
 		x_BYTE_E37FE = 0;
 	}
@@ -2664,7 +2664,7 @@ void sub_986E0()//2796e0
 //----- (00098790) --------------------------------------------------------
 void sub_98790(unsigned __int16 milliseconds, unsigned __int8 volume)//279790
 {
-	if (musicInicialized_E37FC && musicStarted_E37FD && x_WORD_E3802 && volume <= 0x7Fu && sub_96170_AIL_sequence_status(m_hSequence) != 2)
+	if (musicInitialized_E37FC && musicStarted_E37FD && x_WORD_E3802 && volume <= 0x7Fu && sub_96170_AIL_sequence_status(m_hSequence) != 2)
 		SetAilSequenceVolume(m_hSequence, volume, milliseconds);
 }
 
@@ -3427,7 +3427,7 @@ void sub_9F040()
 //----- (0009FA80) --------------------------------------------------------
 void sub_9FA80()//280a80
 {
-	if (musicInicialized_E37FC && !_stricmp(unk_180BE0, "SBAWE32.MDI") && !_stricmp(&x_BYTE_180C84_drivertype, "w"))
+	if (musicInitialized_E37FC && !_stricmp(unk_180BE0, "SBAWE32.MDI") && !_stricmp(&x_BYTE_180C84_drivertype, "w"))
 	{
 		sub_9F6D0((int*)hMdiMusicDriver, 1);
 		sub_9F170(x_DWORD_181E2C, x_WORD_181E30);
@@ -3645,7 +3645,7 @@ void initAWE32_9F740(char* a1)//280740
 
 	FILE* file;
 
-	if (musicInicialized_E37FC && !_stricmp(unk_180BE0, "SBAWE32.MDI") && !_stricmp(&x_BYTE_180C84_drivertype, "w"))
+	if (musicInitialized_E37FC && !_stricmp(unk_180BE0, "SBAWE32.MDI") && !_stricmp(&x_BYTE_180C84_drivertype, "w"))
 	{
 		if (x_BYTE_E3815 == 1)
 		{
@@ -9182,7 +9182,7 @@ signed int LoadMusic(int channel)//26fad0
 	int filelenght; // [esp+5Ch] [ebp-4h]
 	int channellplus; // [esp+74h] [ebp+14h]
 	char musicPath[MAX_PATH];
-	if (!musicInicialized_E37FC)
+	if (!musicInitialized_E37FC)
 		return 0;
 	StopMusic_8E020();
 
@@ -9300,12 +9300,12 @@ char LoadMusicTrack(FILE* filehandle, uint8_t drivernumber)//26fd00
 	if (array_E3810_music_data)
 	{
 		FreeMem_83E80(array_E3810_music_data);
-		musicInicialized_E37FC = 0;
+		musicInitialized_E37FC = 0;
 	}
 	if (str_E3808_music_header)
 	{
 		FreeMem_83E80((uint8_t*)str_E3808_music_header);
-		musicInicialized_E37FC = 0;
+		musicInitialized_E37FC = 0;
 	}
 	//x_DWORD_E3810_music_data = (uint8_t*)sub_83CD0_malloc2(header[3 + 4 * drivernumber]);
 	array_E3810_music_data = (uint8_t*)sub_83CD0_malloc2(headerx[drivernumber].dword_12);
@@ -9424,7 +9424,7 @@ char LoadMusicTrack(FILE* filehandle, uint8_t drivernumber)//26fd00
 	for (i = 1; i <= m_iNumberOfTracks; i++)//2b4804 - 6
 		sub_95C00_AIL_init_sequence(m_hSequence, str_E3808_music_header->str_8.track_10[i].xmiData_0, 0, i);
 		//sub_95C00_AIL_init_sequence(m_hSequence, (uint8_t*)*(x_DWORD*)(x_DWORD_E3808_music_header + 32 * i + 18), 0, i);
-	musicInicialized_E37FC = 1;
+	musicInitialized_E37FC = 1;
 	return 1;
 }
 // 9A510: using guessed type x_DWORD tell(x_DWORD);
@@ -9814,7 +9814,7 @@ int LoadAILFromFile(AIL_INI* INI, char* filename/*, char* a8, IO_PARMS IO*/)//AI
 //----- (00099970) --------------------------------------------------------
 void sub_99970(char a1, unsigned __int8 a2)//27a970
 {
-	if (x_BYTE_E3819 && musicInicialized_E37FC && musicStarted_E37FD && x_WORD_E3802 && sub_96170_AIL_sequence_status(m_hSequence) != 2 && x_BYTE_E3817 != a1)
+	if (x_BYTE_E3819 && musicInitialized_E37FC && musicStarted_E37FD && x_WORD_E3802 && sub_96170_AIL_sequence_status(m_hSequence) != 2 && x_BYTE_E3817 != a1)
 	{
 		if (x_BYTE_E3818)
 			;// sub_92DC0_AIL_release_timer_handle(x_DWORD_180C80);
