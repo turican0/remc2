@@ -7,7 +7,7 @@
     Rights:  See end of file.
 
 */
-#include "dirent.h"
+#include "dirent-x.h"
 #include <errno.h>
 #include <io.h> /* _findfirst and _findnext set errno iff they return -1 */
 #include <stdlib.h>
