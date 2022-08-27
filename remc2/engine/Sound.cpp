@@ -24,12 +24,12 @@ uint8_t* x_DWORD_E37A8_sound_buffer1 = 0; // weak
 char x_BYTE_E37AC = 0; // weak
 int8_t x_BYTE_E37AD_actual_sound = -1; // weak
 char x_BYTE_E37AE = 0; // weak
-int x_DWORD_E37B0 = 127; // weak
+int lastSoundVolume_E37B0 = 127; // weak
 __int16 x_WORD_E37B4 = 1644; // weak
 __int16 x_WORD_E37B6_sound_number = 0; // weak
 char x_BYTE_E37B8 = 0; // weak
 int x_DWORD_E37BC_sound_frequence = 0; // weak
-int x_DWORD_E37F8_midi_volume = 127; // weak
+int lastMusicVolume_E37F8 = 127; // weak
 char x_BYTE_E37FC_music = 1; // weak//2b47fc
 char x_BYTE_E37FD = 1; // weak
 char x_BYTE_E37FE = 0; // weak
@@ -592,7 +592,7 @@ void sub_8D290_init_sound(/*char* a1*//*, int a2, int a3*/)//26e290
 					v9++;
 				}
 				x_BYTE_E379A = 1;
-				sub_8E470_sound_proc17_volume(x_DWORD_E37B0);
+				sub_8E470_sound_proc17_volume(lastSoundVolume_E37B0);
 			}
 		}
 		else
@@ -852,7 +852,7 @@ void /*__fastcall*/ sub_8D970_init_music(/*char* a1*//*int a1, int a2, char* a3*
 		else
 		{
 			x_BYTE_E37FE = 1;
-			sub_8E410_sound_proc16_xmidivolume(x_DWORD_E37F8_midi_volume);
+			sub_8E410_sound_proc16_xmidivolume(lastMusicVolume_E37F8);
 		}
 		return;
 	}
@@ -1026,7 +1026,7 @@ void sub_8E160_sound_proc15_startsequence(__int16 track, unsigned __int8 volume)
 		  sub_98360_AIL_send_channel_voice_message(x_DWORD_180C7C, x_DWORD_180C78, i | 0xB0, 0x5Du, 0);
 		}*/
 		if (volume < 0x7Fu)
-			SetAilSequenceVolume(m_hSequence, volume, 0);
+			SetAilSequenceVolume(m_hSequence, volume, -1);
 
 		sub_95D50_AIL_start_sequence(m_hSequence, track);
 		x_WORD_E3800 = 100;
@@ -1056,10 +1056,10 @@ void sub_8E410_sound_proc16_xmidivolume(int32_t master_volume)//26f410
 	{
 		if (x_BYTE_E37FE)
 		{
-			if (master_volume != x_DWORD_E37F8_midi_volume && master_volume <= 127 && master_volume >= 0)
+			if (master_volume != lastMusicVolume_E37F8 && master_volume <= 127 && master_volume >= 0)
 			{
 				sub_96670_AIL_set_XMIDI_master_volume(hMdiMusicDriver, master_volume);
-				x_DWORD_E37F8_midi_volume = master_volume;
+				lastMusicVolume_E37F8 = master_volume;
 			}
 		}
 	}
@@ -1079,11 +1079,11 @@ int sub_8E470_sound_proc17_volume(int a1)//26f470
 		if (x_BYTE_E379A)//2b479a
 		{
 			result = a1;
-			if (a1 != x_DWORD_E37B0 && a1 <= 127 && a1 >= 0)
+			if (a1 != lastSoundVolume_E37B0 && a1 <= 127 && a1 >= 0)
 			{
 				sub_94650_AIL_set_digital_master_volume((x_DWORD*)hDigSoundEffectsDriver, a1);
 				result = a1;
-				x_DWORD_E37B0 = a1;
+				lastSoundVolume_E37B0 = a1;
 			}
 		}
 	}
@@ -2282,9 +2282,9 @@ void sub_95F00_AIL_end_sequence(HSEQUENCE hSequence/*HSEQUENCE S*/)//AIL_end_seq
 // 181BF8: using guessed type int x_DWORD_181BF8;
 // 181C04: using guessed type int x_DWORD_181C04;
 
-void SetAilSequenceVolume(HSEQUENCE  /*hSequence*/, int32_t volume, int32_t  /*milliseconds*/)//AIL_set_sequence_volume
+void SetAilSequenceVolume(HSEQUENCE  /*hSequence*/, int32_t volume, int32_t  milliseconds)//AIL_set_sequence_volume
 {
-	SOUND_set_sequence_volume(volume);
+	SOUND_set_sequence_volume(volume, milliseconds);
 }
 // A18E3: using guessed type x_DWORD fprintf(x_DWORD, const char *, ...);
 // 181BF0: using guessed type int x_DWORD_181BF0_AIL_debugfile;
@@ -2344,7 +2344,7 @@ int sub_96170_AIL_sequence_status(HSEQUENCE hSequence/*HSEQUENCE S*/)//AIL_seque
 //----- (00096670) --------------------------------------------------------
 void sub_96670_AIL_set_XMIDI_master_volume(HMDIDRIVER  /*mdi*/, int32_t master_volume)//AIL_set_XMIDI_master_volume
 {
-	SOUND_set_sequence_volume(master_volume);
+	SOUND_set_sequence_volume(master_volume, 0);
 	/*
 	AIL_fix();
 	x_DWORD_181C04++;

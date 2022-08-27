@@ -23,6 +23,14 @@ char oggmusicFolder[512];
 
 bool fixspeedsound = false;
 
+int32_t last_sequence_num = 0;
+
+int lastMusicVolume = -1;
+int settingsMusicVolume = 127;
+int num_IO_configurations = 3;
+int service_rate = -1;
+int master_volume = -1;
+
 //The music that will be played
 #ifdef SOUND_SDLMIXER
 Mix_Music* GAME_music[20] = { NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL };
@@ -82,9 +90,16 @@ void SOUND_start_sequence(int32_t sequence_num) {
 	//3 - menu
 	//4 - intro
 #ifdef SOUND_SDLMIXER
+	last_sequence_num = sequence_num;
 	//volume fix
-	if(Mix_VolumeMusic(-1)==0)
-		Mix_VolumeMusic(0x7f);
+	if (lastMusicVolume == -1)
+	{
+		SOUND_set_sequence_volume(0x64, 0);
+	}
+	if (lastMusicVolume != settingsMusicVolume)
+	{
+		SOUND_set_sequence_volume(settingsMusicVolume, 0);
+	}
 	//volume fix
 
 	if (Mix_PlayingMusic() == 0)
@@ -119,11 +134,40 @@ void SOUND_resume_sequence(int32_t  /*sequence_num*/) {
 #endif//SOUND_SDLMIXER
 };
 
-void SOUND_set_sequence_volume(int32_t volume) {
+void SOUND_set_sequence_volume(int32_t volume, int32_t  milliseconds) {
 #ifdef SOUND_SDLMIXER
-	Mix_VolumeMusic(volume);
+#ifndef __linux__
+	if ((milliseconds > 0) && (volume == 0))
+	{
+		if (GAME_music[last_sequence_num])
+		{
+			double position = Mix_GetMusicPosition(GAME_music[last_sequence_num]);
+			if (position != 0)
+			{
+				Mix_FadeOutMusic(milliseconds);
+				Mix_SetMusicPosition(position);
+			}
+		}
+	}
+	else if ((milliseconds > 0) && (lastMusicVolume == 0))
+	{
+		if (GAME_music[last_sequence_num])
+		{
+			double position = Mix_GetMusicPosition(GAME_music[last_sequence_num]);
+			if (position != 0)
+			{
+				Mix_FadeInMusicPos(GAME_music[last_sequence_num], 1, milliseconds, position);
+			}
+		}
+	}
+	else
+#endif //__linux__
+		Mix_VolumeMusic(volume);
+	lastMusicVolume = volume;
+	if (milliseconds == 0)
+		settingsMusicVolume = volume;
 #endif//SOUND_SDLMIXER
-};
+}
 
 void SOUND_init_MIDI_sequence(uint8_t*  /*datax*/, type_E3808_music_header* headerx, int32_t track_number)
 {
@@ -358,10 +402,6 @@ struct {
 	int a;
 } environment_string;
 
-int num_IO_configurations = 3;
-int service_rate = -1;
-//HSAMPLE last_sample;
-
 int32_t ac_sound_call_driver(AIL_DRIVER* drvr, int32_t fn, VDI_CALL*  /*in*/, VDI_CALL* out)/*AIL_DRIVER *drvr,S32 fn, VDI_CALL*in,VDI_CALL *out)*/ {
 	switch (fn) {
 	case 0x300: {//AIL_API_install_driver
@@ -435,17 +475,22 @@ int32_t ac_sound_call_driver(AIL_DRIVER* drvr, int32_t fn, VDI_CALL*  /*in*/, VD
 void SOUND_set_master_volume(int32_t volume) {
 	//gamechunk[S->index_sample].volume = volume;
 #ifdef SOUND_SDLMIXER
-	Mix_Volume(-1, volume);
+	master_volume = volume;
+
+	for (int i = 0; i < 32; i++)
+		Mix_Volume(i, (int)((gamechunk[i].volume * master_volume) / 127));
 #endif//SOUND_SDLMIXER
-	
+
 	//may be can fix - must analyze
 
 }
 
 void SOUND_set_sample_volume(HSAMPLE S, int32_t volume) {
 #ifdef SOUND_SDLMIXER
+	if (master_volume == -1)
+		master_volume = 127;
 	gamechunk[S->index_sample].volume = volume;
-	Mix_Volume(S->index_sample, volume);
+	Mix_Volume(S->index_sample, (int)((gamechunk[S->index_sample].volume * master_volume) / 127));
 #endif//SOUND_SDLMIXER
 }
 
