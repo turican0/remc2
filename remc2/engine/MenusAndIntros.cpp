@@ -4493,7 +4493,7 @@ void sub_81DB0_read_config()//262db0
 			qmemcpy(&readbuffer[22], x_BYTE_EB39E_keys, 10);//fixed
 			//qmemcpy((char *)&v5 + 2, &x_BYTE_EB39E_keys, 8u);
 			//qmemcpy(&v6, &x_BYTE_EB39E_keys + 8, 2u);
-			readbuffer[0] = 0xf7;
+			*(int32_t*)&readbuffer[0] = 0xfffffff7;
 			readbuffer[4] = x_D41A0_BYTEARRAY_4_struct.SelectedLangIndex;
 			sub_98CAA_write(configdatfile, readbuffer, 32);
 			DataFileIO::Close(configdatfile);
