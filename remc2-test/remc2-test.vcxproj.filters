@@ -5,6 +5,9 @@
     <ClCompile Include="portability\fcaseopenUT.cpp">
       <Filter>portability</Filter>
     </ClCompile>
+    <ClCompile Include="engine\SetRenderViewPortSize_40C50UT.cpp">
+      <Filter>engine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -12,6 +15,9 @@
   <ItemGroup>
     <Filter Include="portability">
       <UniqueIdentifier>{0f0f048f-e8cd-4a0e-bcd3-6367432a44ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="engine">
+      <UniqueIdentifier>{ab2df1ec-8afb-4548-ba7c-469e00b1a5a9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
