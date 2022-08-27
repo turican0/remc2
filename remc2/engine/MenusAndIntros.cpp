@@ -659,7 +659,7 @@ void MenusAndIntros_76930(int  /*a2*/, uint16_t a3)//257930
 	memset(&x_DWORD_17DE38str, 0, sizeof(type_x_DWORD_17DE38str));
 	x_DWORD_17DE38str.x_DWORD_17DEE0_filedesc = NULL;
 	sub_7BEC0();//25CEC0 // fix this structure
-	SetMousePositionByRes_6EDB0();//24FDB0
+	SetCenterScreenForFlyAssistant_6EDB0();//24FDB0
 	/*v3 = */ReadConfig_81DB0();//262DB0
 
 	//test_x_D41A0_BYTEARRAY_0();
@@ -1008,7 +1008,7 @@ void MainMenu_76FA0(/*int a1, */int  /*a2*/, uint16_t a3x)//257fa0
 	x_BYTE_17DBC6 = 2;
 	x_DWORD_17DE38str.x_WORD_17DF04 = -1;
 	x_DWORD_17DE38str.x_DWORD_17DE44 = x_DWORD_E9C38_smalltit;
-	SetMousePositionByRes_6EDB0();
+	SetCenterScreenForFlyAssistant_6EDB0();
 	sub_8E020_sound_proc14_stopsequence();//26f020
 	sub_8E160_sound_proc15_startsequence(4, 0x7Fu);//26f160
 	/*sub_75420();//256420
@@ -1179,7 +1179,7 @@ bool NewGameDialog_77350(type_WORD_E1F84* a1x)//258350
 		sub_41A90_VGA_Palette_install(x_DWORD_17DE38str.x_DWORD_17DE38x);
 		sub_7DD70();
 		x_DWORD_17DE38str.x_WORD_17DEEC = 0;
-		SetMousePositionByRes_6EDB0();
+		SetCenterScreenForFlyAssistant_6EDB0();
 		sub_8CD27_set_cursor(xy_DWORD_17DED4_spritestr[239]);
 		x_DWORD_17DB70str.x_WORD_17DB8A = x_D41A0_BYTEARRAY_4_struct.levelnumber_43w;
 		while (!v1)
@@ -1412,7 +1412,7 @@ char LanguageSettingDialog_779E0(type_WORD_E1F84* a1y)//2589E0
 	long langdhandle = 0;
 
 	v32 = 2;
-	SetMousePositionByRes_6EDB0();//24fdb0
+	SetCenterScreenForFlyAssistant_6EDB0();//24fdb0
 	x_DWORD_17DE38str.x_DWORD_17DEE4_mouse_positionx = 0x140;
 	x_DWORD_17DE38str.x_DWORD_17DEE6_mouse_positiony = 0xC8;
 	if (a1y)//0x0
@@ -4935,7 +4935,7 @@ void PlayIntros_83250(char a1)//264250
 	sub_90E07_VGA_set_video_mode_640x480_and_Palette((TColor*)*xadatapald0dat2.colorPalette_var28);
 	sub_8CEDF_install_mouse();
 	sub_8CD27_set_cursor((*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct)[0]);
-	SetMousePositionByRes_6EDB0();
+	SetCenterScreenForFlyAssistant_6EDB0();
 	sub_7A110_load_hscreen(x_WORD_180660_VGA_type_resolution, 4);
 	ResetMouse_7B5A0();
 	sub_8CD27_set_cursor(xy_DWORD_17DED4_spritestr[39]);
@@ -6826,7 +6826,7 @@ char /*__fastcall*/ sub_77680()//258680
 		memset(printbuffer, 0, 80);
 		x_DWORD_17DE38str.x_WORD_17DEF6 = 5;
 		x_DWORD_17DE38str.x_WORD_17DEEC = 0;
-		SetMousePositionByRes_6EDB0();
+		SetCenterScreenForFlyAssistant_6EDB0();
 		x_DWORD_17DE38str.x_DWORD_17DEE4_mouse_positionx = 0x140;
 		x_DWORD_17DE38str.x_DWORD_17DEE6_mouse_positiony = 0xf0;//test and fix it
 
@@ -6949,7 +6949,7 @@ char DrawAndServe_7B250(/*int a1, int a2*//*, __int16 a3*/)//25c250
 			if (str_E1BAC[iy].dword_4)
 			{
 				str_E1BAC[iy].selected_8 = 0;
-				SetMousePositionByRes_6EDB0();
+				SetCenterScreenForFlyAssistant_6EDB0();
 				sub_7A110_load_hscreen(x_WORD_180660_VGA_type_resolution, 4);
 				ResetMouse_7B5A0();
 				sub_8CD27_set_cursor(xy_DWORD_17DED4_spritestr[39]);

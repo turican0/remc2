@@ -38765,7 +38765,7 @@ void sub_46830_main_loop(/*int16_t* a1, */signed int a2, unsigned __int16 a3)//2
 						break;
 					}
 				}
-				SetMousePositionByRes_6EDB0();
+				SetCenterScreenForFlyAssistant_6EDB0();
 				if (m_ptrGameRender == nullptr)
 				{
 					if (DefaultResolutions()) {
@@ -46189,7 +46189,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E)//pre 22b1
 		break;
 	}
 	case 0x24FDB0: {
-		SetMousePositionByRes_6EDB0();
+		SetCenterScreenForFlyAssistant_6EDB0();
 		break;
 	}
 	case 0x24fde0: {
@@ -51474,7 +51474,7 @@ void GameEvents_51BB0()//232bb0
 			D41A0_0.array_0x2BDE[v18x].dw_w_b_0_2BDE_11230.byte[2] |= 0xCu;
 		LABEL_33://adress 232dc5
 			sub_5C950(&D41A0_0.array_0x2BDE[v18x], v113x);
-			SetMousePositionByRes_6EDB0();
+			SetCenterScreenForFlyAssistant_6EDB0();
 			sub_548F0(&D41A0_0.array_0x2BDE[v18x]);
 			sub_52E90(&D41A0_0.array_0x2BDE[v18x], 0, 0);
 			goto LABEL_215;
@@ -51484,7 +51484,7 @@ void GameEvents_51BB0()//232bb0
 				//v33 = v114;
 				D41A0_0.array_0x6E3E[v114x].roll = 0;
 				D41A0_0.array_0x6E3E[v114x].pitch = 0;
-				SetMousePositionByRes_6EDB0();
+				SetCenterScreenForFlyAssistant_6EDB0();
 			}
 			sub_52E90(&D41A0_0.array_0x2BDE[v18x], 3, 1);
 			D41A0_0.array_0x2BDE[v18x].byte_0x3E2_2BE4_12224 = 0;
@@ -51544,7 +51544,7 @@ void GameEvents_51BB0()//232bb0
 				case 0xE:
 					D41A0_0.array_0x6E3E[v114x].roll = 0;
 					D41A0_0.array_0x6E3E[v114x].pitch = 0;
-					SetMousePositionByRes_6EDB0();
+					SetCenterScreenForFlyAssistant_6EDB0();
 					break;
 				default:
 					break;
@@ -51767,7 +51767,7 @@ void GameEvents_51BB0()//232bb0
 					x_DWORD_EA3E4[v113x->dword_0xA4_164x->str_611.array_0x333_819x.word[3]]->word_0x2E_46 = 0;
 			}
 			if (D41A0_0.array_0x2BDE[v18x].word_0x007_2BE4_11237 == D41A0_0.LevelIndex_0xc)
-				SetMousePositionByRes_6EDB0();
+				SetCenterScreenForFlyAssistant_6EDB0();
 			goto LABEL_215;
 		case 0x28:
 			if (x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 4)
@@ -52043,7 +52043,7 @@ void sub_52E90(type_str_0x2BDE* a1x, signed int a2, char a3)//233e90
 	case 6:
 		if ((x_WORD)a2 == v8 && x_D41A0_BYTEARRAY_4_struct.setting_byte3_24 & 1)
 		{
-			SetMousePositionByRes_6EDB0();
+			SetCenterScreenForFlyAssistant_6EDB0();
 			goto LABEL_31;
 		}
 		break;
@@ -72761,7 +72761,7 @@ void sub_6EBF0(filearray_struct* a1)//24FBF0
 }
 
 //----- (0006EDB0) --------------------------------------------------------
-void SetMousePositionByRes_6EDB0()//24FDB0
+void SetCenterScreenForFlyAssistant_6EDB0()//24FDB0
 {
 	if (x_WORD_180660_VGA_type_resolution == 1)
 		SetMousePosition_6EDE0(320, 200);
