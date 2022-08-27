@@ -487,8 +487,10 @@ void SOUND_set_master_volume(int32_t volume) {
 
 void SOUND_set_sample_volume(HSAMPLE S, int32_t volume) {
 #ifdef SOUND_SDLMIXER
+	if (master_volume == -1)
+		master_volume = 127;
 	gamechunk[S->index_sample].volume = volume;
-	Mix_Volume(S->index_sample, volume);
+	Mix_Volume(S->index_sample, (int)((gamechunk[S->index_sample].volume * master_volume) / 127));
 #endif//SOUND_SDLMIXER
 }
 
