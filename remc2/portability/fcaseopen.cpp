@@ -1,7 +1,7 @@
 #include <boost/algorithm/string/predicate.hpp>
 #include "fcaseopen.h"
 
-#if !defined(_WIN32)
+#ifdef __linux__
 #include <stdlib.h>
 #include <string.h>
 
@@ -72,7 +72,7 @@ std::string casepath(const std::string &path)
 FILE* fcaseopen(char const* path, char const* mode)
 {
     FILE* f = fopen(path, mode);
-#if !defined(_WIN32)
+#ifdef __linux__
     if (!f)
     {
         std::string r = casepath(path);
