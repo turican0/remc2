@@ -1,17 +1,18 @@
+#include <cstdint>
 #include <gtest/gtest.h>
-#include "../pch.h"
-#include "SDL_stdinc.h"
-#include "../../remc2/engine/ViewPort.cpp"
-#include "../../remc2/engine/engine_support.cpp"
-#include "../../remc2/portability/port_time.cpp"
-#include "../../remc2/portability/port_filesystem.cpp"
-#include "../../remc2/portability/dirent.c"
-#include "../../remc2/portability/fcaseopen.cpp"
-#include "../../remc2/portability/port_sdl_vga_mouse.cpp"
-#include "../../remc2/portability/port_sdl_sound.cpp"
+#include "../../remc2/engine/ViewPort.h"
 
+uint8_t* pdwScreenBuffer_351628;
+__int16_t x_WORD_180660_VGA_type_resolution;
+type_F2C20ar str_F2C20ar;
+uint32_t screenHeight_180624;
+uint32_t screenWidth_18062C;
+int iScreenWidth_DE560;
+uint8_t* ViewPortRenderBufferStart_DE558;
+uint8_t* ViewPortRenderBufferAltStart_DE554;
 
 TEST(viewport, SetRenderViewPortSize_40C50) {
+    pdwScreenBuffer_351628 = new uint8_t[1920*1080*2];
 
     ViewPort::Rectangle viewPort1 = viewPort.SetRenderViewPortSize_40C50(39, 320, 200);
     ViewPort::Rectangle viewPort2 = viewPort.SetRenderViewPortSize_40C50(38, 320, 200);
@@ -29,4 +30,6 @@ TEST(viewport, SetRenderViewPortSize_40C50) {
     EXPECT_EQ(viewPort1.PosY_EA3CC, 3);
     EXPECT_EQ(viewPort1.Width_DE564, 312);
     EXPECT_EQ(viewPort1.Height_DE568, 194);
+
+    delete[] pdwScreenBuffer_351628;
 }

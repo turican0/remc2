@@ -1,4 +1,5 @@
 #include "ViewPort.h"
+#include "defs.h"
 
 //View Port Dimensions for game world render
 ViewPort viewPort = ViewPort(0, 0, 0, 0, 0, 0);
@@ -71,15 +72,15 @@ void ViewPort::SetRenderViewPortSize_40BF0(int width, int height, int viewPortWi
 
 void ViewPort::SetRenderViewPortSize_40C50(uint8_t viewPortSizeSetting)//221c50
 {
-	ViewPort::Rectangle rectangle = SetRenderViewPortSize_40C50(viewPortSizeSetting, screenWidth_18062C, screenHeight_180624);
+	Rectangle rectangle = SetRenderViewPortSize_40C50(viewPortSizeSetting, screenWidth_18062C, screenHeight_180624);
 	int32_t ptr = (screenWidth_18062C * rectangle.PosY_EA3CC) + rectangle.PosX_EA3D0;
 	str_F2C20ar.dword0x0e_ptrScreenRenderBufferStart = ptr;
 	SetRenderViewPortSize_BCD45(pdwScreenBuffer_351628 + ptr, screenWidth_18062C, rectangle.Width_DE564, rectangle.Height_DE568);
 }
 
-ViewPort::Rectangle ViewPort::SetRenderViewPortSize_40C50(uint8_t viewPortSizeSetting, uint32_t screenWidth, uint32_t screenHeight)//221c50
+Rectangle ViewPort::SetRenderViewPortSize_40C50(uint8_t viewPortSizeSetting, uint32_t screenWidth, uint32_t screenHeight)//221c50
 {
-	ViewPort::Rectangle rectangle;
+	Rectangle rectangle;
 
 	int factor = 40 - viewPortSizeSetting; // eax
 	double widthKoef = (double)screenWidth / 80;
