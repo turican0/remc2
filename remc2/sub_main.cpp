@@ -13386,12 +13386,12 @@ void sub_1A970_change_game_settings(char a1, int a2, int a3)//1fb970
       {
         //v3 = x_D41A0_BYTEARRAY_4_struct.dwordindex_0;
         //v19 = x_D41A0_BYTEARRAY_4[0xB] - 1;
-        x_D41A0_BYTEARRAY_4_struct.byte_brightness_11--;// = v19;
-        if (x_D41A0_BYTEARRAY_4_struct.byte_brightness_11 >= 0)
+        x_D41A0_BYTEARRAY_4_struct.brightness_11--;// = v19;
+        if (x_D41A0_BYTEARRAY_4_struct.brightness_11 >= 0)
           goto LABEL_86;
         if (!a3)
         {
-          x_D41A0_BYTEARRAY_4_struct.byte_brightness_11 = 4;
+          x_D41A0_BYTEARRAY_4_struct.brightness_11 = 4;
           goto LABEL_86;
         }
       }
@@ -13399,16 +13399,16 @@ void sub_1A970_change_game_settings(char a1, int a2, int a3)//1fb970
       {
         //v3 = x_D41A0_BYTEARRAY_4_struct.dwordindex_0;
         //v18 = x_D41A0_BYTEARRAY_4[0xB] + 1;
-        x_D41A0_BYTEARRAY_4_struct.byte_brightness_11++;// = v18;
-        if (x_D41A0_BYTEARRAY_4_struct.byte_brightness_11 <= 4)
+        x_D41A0_BYTEARRAY_4_struct.brightness_11++;// = v18;
+        if (x_D41A0_BYTEARRAY_4_struct.brightness_11 <= 4)
           goto LABEL_86;
         if (a3)
         {
-          x_D41A0_BYTEARRAY_4_struct.byte_brightness_11 = 4;
+          x_D41A0_BYTEARRAY_4_struct.brightness_11 = 4;
           goto LABEL_86;
         }
       }
-      x_D41A0_BYTEARRAY_4_struct.byte_brightness_11 = 0;
+      x_D41A0_BYTEARRAY_4_struct.brightness_11 = 0;
 		LABEL_86:
 			sub_47650(a3/*, a2*/);
 			return;
@@ -13419,12 +13419,12 @@ void sub_1A970_change_game_settings(char a1, int a2, int a3)//1fb970
 			{
 				//v23 = x_D41A0_BYTEARRAY_4_struct.dwordindex_0;
 				//v24 = x_D41A0_BYTEARRAY_4[0xD] - 1;
-				x_D41A0_BYTEARRAY_4_struct.byte_brightness_13--;// = v24;
-				if (x_D41A0_BYTEARRAY_4_struct.byte_brightness_13 < 0)
+				x_D41A0_BYTEARRAY_4_struct.brightness_13--;// = v24;
+				if (x_D41A0_BYTEARRAY_4_struct.brightness_13 < 0)
 				{
 					if (!a3)
 					{
-						x_D41A0_BYTEARRAY_4_struct.byte_brightness_13 = 4;
+						x_D41A0_BYTEARRAY_4_struct.brightness_13 = 4;
 						sub_47650(0/*, a2*/);
 						return;
 					}
@@ -13435,17 +13435,17 @@ void sub_1A970_change_game_settings(char a1, int a2, int a3)//1fb970
 			{
 				//v23 = x_D41A0_BYTEARRAY_4_struct.dwordindex_0;
 				//v3 = (unsigned __int8)(x_D41A0_BYTEARRAY_4[0xD] + 1);
-				x_D41A0_BYTEARRAY_4_struct.byte_brightness_13++;// = v3;
-				if (x_D41A0_BYTEARRAY_4_struct.byte_brightness_13 > 4)
+				x_D41A0_BYTEARRAY_4_struct.brightness_13++;// = v3;
+				if (x_D41A0_BYTEARRAY_4_struct.brightness_13 > 4)
 				{
 					if (a3)
 					{
-						x_D41A0_BYTEARRAY_4_struct.byte_brightness_13 = 4;
-						sub_47650(a3/*, x_D41A0_BYTEARRAY_4_struct.byte_brightness_13*/);
+						x_D41A0_BYTEARRAY_4_struct.brightness_13 = 4;
+						sub_47650(a3/*, x_D41A0_BYTEARRAY_4_struct.brightness_13*/);
 						return;
 					}
 				LABEL_85:
-					x_D41A0_BYTEARRAY_4_struct.byte_brightness_13 = 0;
+					x_D41A0_BYTEARRAY_4_struct.brightness_13 = 0;
 					goto LABEL_86;
 				}
 			}
@@ -13455,17 +13455,17 @@ void sub_1A970_change_game_settings(char a1, int a2, int a3)//1fb970
 		{
 			//v21 = x_D41A0_BYTEARRAY_4_struct.dwordindex_0;
 			//v22 = D41A0_BYTESTR_0.word_0xc - 1;
-			(x_D41A0_BYTEARRAY_4_struct.byte_brightness_12)--;
-			if (x_D41A0_BYTEARRAY_4_struct.byte_brightness_12 >= 0)
+			(x_D41A0_BYTEARRAY_4_struct.brightness_12)--;
+			if (x_D41A0_BYTEARRAY_4_struct.brightness_12 >= 0)
 				goto LABEL_86;
 			if (a3)
 			{
-				x_D41A0_BYTEARRAY_4_struct.byte_brightness_12 = 0;
+				x_D41A0_BYTEARRAY_4_struct.brightness_12 = 0;
 				sub_47650(a3/*, a2*/);
 			}
 			else
 			{
-				x_D41A0_BYTEARRAY_4_struct.byte_brightness_12 = 4;
+				x_D41A0_BYTEARRAY_4_struct.brightness_12 = 4;
 				sub_47650(0/*, a2*/);
 			}
 			//result = 0;
@@ -13474,17 +13474,17 @@ void sub_1A970_change_game_settings(char a1, int a2, int a3)//1fb970
 		{
 			//v3 = x_D41A0_BYTEARRAY_4_struct.dwordindex_0;
 			//v20 = D41A0_BYTESTR_0.word_0xc + 1;
-			(x_D41A0_BYTEARRAY_4_struct.byte_brightness_12)++;// = v20;
-			if (x_D41A0_BYTEARRAY_4_struct.byte_brightness_12 <= 4)
+			(x_D41A0_BYTEARRAY_4_struct.brightness_12)++;// = v20;
+			if (x_D41A0_BYTEARRAY_4_struct.brightness_12 <= 4)
 				goto LABEL_86;
 			if (a3)
 			{
-				x_D41A0_BYTEARRAY_4_struct.byte_brightness_12 = 4;
+				x_D41A0_BYTEARRAY_4_struct.brightness_12 = 4;
 				sub_47650(a3/*, D41A0_BYTESTR_0.word_0xc*/);
 			}
 			else
 			{
-				x_D41A0_BYTEARRAY_4_struct.byte_brightness_12 = 0;
+				x_D41A0_BYTEARRAY_4_struct.brightness_12 = 0;
 				sub_47650(0/*, D41A0_BYTESTR_0.word_0xc*/);
 			}
 			//result = 0;
@@ -39512,14 +39512,14 @@ void sub_47650(int  /*a1*//*, int a2*/)//228650
 	qmemcpy((void*)*xadatapald0dat2.colorPalette_var28, (void*)x_DWORD_EA3B8x, 0x300u);
 	v2 = D41A0_0.terrain_2FECE.MapType;
 	if (v2 == MapType_t::Day)
-		v8 = x_D41A0_BYTEARRAY_4_struct.byte_brightness_11;
+		v8 = x_D41A0_BYTEARRAY_4_struct.brightness_11;
 	else if (v2 == MapType_t::Night)
 	{
-		v8 = x_D41A0_BYTEARRAY_4_struct.byte_brightness_12;
+		v8 = x_D41A0_BYTEARRAY_4_struct.brightness_12;
 	}
 	else if (v2 == MapType_t::Cave)
 	{
-		v8 = x_D41A0_BYTEARRAY_4_struct.byte_brightness_13;
+		v8 = x_D41A0_BYTEARRAY_4_struct.brightness_13;
 	}
 	v3 = 0;
 	v4 = 6 * v8;
@@ -58989,17 +58989,17 @@ void sub_5BCC0_set_any_variables1()//23ccc0
 	x_BYTE_EB39E_keys[8] = 0x36;//2bc3a6//RIGHT SHIFT
 	//result = x_D41A0_BYTEARRAY_4;//2a51a4
 	x_BYTE_EB39E_keys[5] = 0x1D;//2bc3A3//CTRL
-	x_D41A0_BYTEARRAY_4_struct.wordindex_4 = 0;//dword 38cf54
+	x_D41A0_BYTEARRAY_4_struct.langIndex_4 = 0;//dword 38cf54
 	x_D41A0_BYTEARRAY_4_struct.soundVolume_6 = 127;//dword 38cf56
 	x_D41A0_BYTEARRAY_4_struct.musicVolume_8 = 127;//dword 38cf58
 	x_BYTE_EB39E_keys[2] = 0x4B;//2BC3A0//LEFT
 	x_D41A0_BYTEARRAY_4_struct.byteindex_10 = 1;//byte 38cf5a
 	x_BYTE_EB39E_keys[4] = 0x1C;//2BC3A2//ENTER
-	x_D41A0_BYTEARRAY_4_struct.byte_brightness_11 = 0;//byte 38cf5b
+	x_D41A0_BYTEARRAY_4_struct.brightness_11 = 0;//byte 38cf5b
 	x_BYTE_EB39E_keys[6] = 0x38;//2BC3A4//ALT
 	D41A0_0.LevelIndex_0xc = 0;//byte 38cf5c
 	x_BYTE_EB39E_keys[9] = 0x38;//2BC3A7//ALT
-	x_D41A0_BYTEARRAY_4_struct.byte_brightness_13 = 0;//byte 38cf5d
+	x_D41A0_BYTEARRAY_4_struct.brightness_13 = 0;//byte 38cf5d
 	//return result;
 }
 

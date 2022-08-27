@@ -755,14 +755,14 @@ void LanugageSetting_76A40()//257A40
 		{
 			DataFileIO::Read(configdatfile, (uint8_t*)&v10[4], 28);
 
-			x_D41A0_BYTEARRAY_4_struct.dwordindex_0 = *(uint32_t*)&v10[0];
-			x_D41A0_BYTEARRAY_4_struct.wordindex_4 = *(uint16_t*)&v10[4];
+			x_D41A0_BYTEARRAY_4_struct.configDatSign_0 = *(uint32_t*)&v10[0];
+			x_D41A0_BYTEARRAY_4_struct.langIndex_4 = *(uint16_t*)&v10[4];
 			x_D41A0_BYTEARRAY_4_struct.soundVolume_6 = *(uint16_t*)&v10[6];
 			x_D41A0_BYTEARRAY_4_struct.musicVolume_8 = *(uint16_t*)&v10[8];
 			x_D41A0_BYTEARRAY_4_struct.byteindex_10 = *(uint8_t*)&v10[10];
-			x_D41A0_BYTEARRAY_4_struct.byte_brightness_11 = *(uint8_t*)&v10[11];
-			x_D41A0_BYTEARRAY_4_struct.byte_brightness_12 = *(uint8_t*)&v10[12];
-			x_D41A0_BYTEARRAY_4_struct.byte_brightness_13 = *(uint8_t*)&v10[13];
+			x_D41A0_BYTEARRAY_4_struct.brightness_11 = *(uint8_t*)&v10[11];
+			x_D41A0_BYTEARRAY_4_struct.brightness_12 = *(uint8_t*)&v10[12];
+			x_D41A0_BYTEARRAY_4_struct.brightness_13 = *(uint8_t*)&v10[13];
 			x_D41A0_BYTEARRAY_4_struct.wordindex_14 = *(uint16_t*)&v10[14];
 			x_D41A0_BYTEARRAY_4_struct.dwordindex_16 = *(uint32_t*)&v10[16];
 			*x_D41A0_BYTEARRAY_4_struct.stubb = *(uint16_t*)&v10[20];
@@ -782,12 +782,12 @@ void LanugageSetting_76A40()//257A40
 			sub_8E470_sound_proc17_volume(x_D41A0_BYTEARRAY_4_struct.soundVolume_6);
 			sub_8E410_sound_proc16_xmidivolume(x_D41A0_BYTEARRAY_4_struct.musicVolume_8);
 
-			sprintf(printbuffer, "%s/%s/L%d.TXT", cdDataPath.c_str(), "LANGUAGE", x_D41A0_BYTEARRAY_4_struct.wordindex_4);
+			sprintf(printbuffer, "%s/%s/L%d.TXT", cdDataPath.c_str(), "LANGUAGE", x_D41A0_BYTEARRAY_4_struct.langIndex_4);
 			for (int16_t i = 0; i < 2; i++)
 				//i = 0;
 				//while (i < 2 )
 			{
-				x_D41A0_BYTEARRAY_4_struct.SelectedLangIndex = x_D41A0_BYTEARRAY_4_struct.wordindex_4 & 0xff;
+				x_D41A0_BYTEARRAY_4_struct.SelectedLangIndex = x_D41A0_BYTEARRAY_4_struct.langIndex_4 & 0xff;
 				if (x_BYTE_E29E0 || x_DWORD_D41BC_langbuffer)
 					sub_83E80_freemem4((uint8_t*)x_DWORD_D41BC_langbuffer);
 				langfile = DataFileIO::CreateOrOpenFile(printbuffer, 512);
@@ -4585,14 +4585,14 @@ void ReadConfig_81DB0()//262db0
 		{
 			//qmemcpy(readbuffer, (void *)x_D41A0_BYTEARRAY_4, 20);
 			//qmemcpy(&v5, (void *)x_D41A0_BYTEARRAY_4[20], 2u);
-			qmemcpy(&readbuffer[0], (void*)&x_D41A0_BYTEARRAY_4_struct.dwordindex_0, 4);//fixed
-			qmemcpy(&readbuffer[4], (void*)&x_D41A0_BYTEARRAY_4_struct.wordindex_4, 2);//fixed
+			qmemcpy(&readbuffer[0], (void*)&x_D41A0_BYTEARRAY_4_struct.configDatSign_0, 4);//fixed
+			qmemcpy(&readbuffer[4], (void*)&x_D41A0_BYTEARRAY_4_struct.langIndex_4, 2);//fixed
 			qmemcpy(&readbuffer[6], (void*)&x_D41A0_BYTEARRAY_4_struct.soundVolume_6, 2);//fixed
 			qmemcpy(&readbuffer[8], (void*)&x_D41A0_BYTEARRAY_4_struct.musicVolume_8, 2);//fixed
 			qmemcpy(&readbuffer[10], (void*)&x_D41A0_BYTEARRAY_4_struct.byteindex_10, 1);//fixed
-			qmemcpy(&readbuffer[11], (void*)&x_D41A0_BYTEARRAY_4_struct.byte_brightness_11, 1);//fixed
-			qmemcpy(&readbuffer[12], (void*)&x_D41A0_BYTEARRAY_4_struct.byte_brightness_12, 1);//fixed
-			qmemcpy(&readbuffer[13], (void*)&x_D41A0_BYTEARRAY_4_struct.byte_brightness_13, 1);//fixed
+			qmemcpy(&readbuffer[11], (void*)&x_D41A0_BYTEARRAY_4_struct.brightness_11, 1);//fixed
+			qmemcpy(&readbuffer[12], (void*)&x_D41A0_BYTEARRAY_4_struct.brightness_12, 1);//fixed
+			qmemcpy(&readbuffer[13], (void*)&x_D41A0_BYTEARRAY_4_struct.brightness_13, 1);//fixed
 			qmemcpy(&readbuffer[14], (void*)&x_D41A0_BYTEARRAY_4_struct.wordindex_14, 2);//fixed
 			qmemcpy(&readbuffer[16], (void*)&x_D41A0_BYTEARRAY_4_struct.dwordindex_16, 4);//fixed
 			qmemcpy(&readbuffer[20], (void*)x_D41A0_BYTEARRAY_4_struct.stubb, 2);//fixed
