@@ -71,19 +71,21 @@ void ViewPort::SetRenderViewPortSize_40BF0(int width, int height, int viewPortWi
 
 void ViewPort::SetRenderViewPortSize_40C50(uint8_t viewPortSizeSetting)//221c50
 {
-	int v1; // eax
-	int v2; // esi
 	int height; // eax
 	int width; // bx
 
-	double koefWidth = (double)screenWidth_18062C / 40;
-	double koefHeight = (double)screenHeight_180624 / 40;
-	v1 = 40 - viewPortSizeSetting;
-	v2 = screenWidth_18062C * ((int)((koefWidth * v1) / 2)) + ((koefHeight * v1) / 2);
-	width = koefWidth * viewPortSizeSetting;
-	height = koefHeight * viewPortSizeSetting;
-	str_F2C20ar.dword0x0e_ptrScreenRenderBufferStart = v2;
-	SetRenderViewPortSize_BCD45(v2 + pdwScreenBuffer_351628, screenWidth_18062C, width, height);
+	int factor = 40 - viewPortSizeSetting; // eax
+	double widthKoef = (double)screenWidth_18062C / 80;
+	double heightKoef = (double)screenHeight_180624 / 80;
+
+	int x = widthKoef * factor;
+	int y = heightKoef * factor;
+	width = widthKoef * 2 * viewPortSizeSetting;
+	height = heightKoef * 2 * viewPortSizeSetting;
+
+	int32_t ptr = (screenWidth_18062C * y) + x;
+	str_F2C20ar.dword0x0e_ptrScreenRenderBufferStart = ptr;
+	SetRenderViewPortSize_BCD45(ptr + pdwScreenBuffer_351628, screenWidth_18062C, width, height);
 }
 
 void ViewPort::SetRenderViewPortSize_BCD45(uint16_t viewPortPosX, uint16_t viewPortPosY, uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t screenWidth, uint16_t screenHeight)
@@ -151,15 +153,14 @@ void ViewPort::SetViewPortScreenCoordinates_2CA60(int16_t viewPortX, int16_t vie
 }
 
 //----- (0002CA90) --------------------------------------------------------
-void ViewPort::ResizeViewPort_2CA90(__int16 a1)//20da90
+void ViewPort::ResizeViewPort_2CA90(uint8_t viewPortSizeSetting)//20da90
 {
-	int v1; // eax
+	int factor = 40 - viewPortSizeSetting; // eax
 	double widthKoef = (double)screenWidth_18062C / 80;
 	double heightKoef = (double)screenHeight_180624 / 80;
 
-	v1 = 40 - a1;
-	PosX_EA3D0 = widthKoef * v1;
-	PreWidth_EA3C4 = widthKoef * 2 * a1;
-	PreHeight_EA3C0 = heightKoef * 2 * a1;
-	PosY_EA3CC = heightKoef * v1;
+	PosX_EA3D0 = widthKoef * factor;
+	PosY_EA3CC = heightKoef * factor;
+	PreWidth_EA3C4 = widthKoef * 2 * viewPortSizeSetting;
+	PreHeight_EA3C0 = heightKoef * 2 * viewPortSizeSetting;
 }
