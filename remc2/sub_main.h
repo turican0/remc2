@@ -505,7 +505,7 @@ void sub_56A30_init_game_level(unsigned int a1);
 void sub_5B870_copy_sentence(char* langbuffer, char** langindexbuffer, uint32_t count);
 void sub_47320_in_game_loop(signed int a1);
 void sub_56D60(unsigned int a1, char a2);
-void SetMousePositionByRes_6EDB0();
+void SetCenterScreenForFlyAssistant_6EDB0();
 void VGA_BlitAny();
 void VGA_CalculateAndPrintFPS(int x, int y);
 int NetworkInitConnection_7308F(char* a2, __int16 a3);

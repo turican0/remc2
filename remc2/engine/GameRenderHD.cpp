@@ -144,7 +144,7 @@ void GameRenderHD::DrawWorld_411A0(int posX, int posY, int16_t yaw, int16_t posZ
 					{
 						if (D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize == 40)
 						{
-							v34 = x_DWORD_EA3E4[D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].word_0x00a_2BE4_11240]->word_0x82_130;
+							v34 = x_DWORD_EA3E4[D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].word_0x00a_2BE4_11240]->actSpeed_0x82_130;
 							if ((signed int)((HIDWORD(v34) ^ v34) - HIDWORD(v34)) > 80)
 								D41A0_0.m_GameSettings.m_Display.xxxx_0x2191 = 1;
 						}
@@ -1949,14 +1949,14 @@ void GameRenderHD::sub_88740(type_event_0x6E8E* a1x, int a2, int a3)
 	if (str_unk_1804B0ar.byte_0x9e & 1)
 		return;
 	v4x = x_DWORD_EA3E4[D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].word_0x00a_2BE4_11240];
-	v5 = a1x->type_0x3F_63;
+	v5 = a1x->class_0x3F_63;
 	if (v5 < 5u)
 	{
 		if (v5 >= 2u)
 		{
 			if (v5 <= 2u)
 			{
-				v6 = a1x->subtype_0x40_64;
+				v6 = a1x->model_0x40_64;
 				if (v6 >= 1u)
 				{
 					if (v6 <= 1u)
@@ -1971,7 +1971,7 @@ void GameRenderHD::sub_88740(type_event_0x6E8E* a1x, int a2, int a3)
 			}
 			else if (v5 == 3)
 			{
-				v11 = a1x->subtype_0x40_64;
+				v11 = a1x->model_0x40_64;
 				if (v11 < 2u)
 				{
 					if (v11 == 1)
@@ -1979,11 +1979,11 @@ void GameRenderHD::sub_88740(type_event_0x6E8E* a1x, int a2, int a3)
 				}
 				else if (v11 <= 2u)
 				{
-					v3 = (a1x->word_0x1A_26 != v4x->word_0x1A_26) + 24;
+					v3 = (a1x->id_0x1A_26 != v4x->id_0x1A_26) + 24;
 				}
 				else if (v11 == 3)
 				{
-					if (a1x->word_0x1A_26 == v4x->word_0x1A_26)
+					if (a1x->id_0x1A_26 == v4x->id_0x1A_26)
 						v3 = 23;
 					else
 						v3 = 26;
@@ -1998,7 +1998,7 @@ void GameRenderHD::sub_88740(type_event_0x6E8E* a1x, int a2, int a3)
 		{
 			if (v5 <= 0xAu)
 			{
-				if (a1x->subtype_0x40_64 == 39 && a1x->word_0x94_148 != v4x->word_0x1A_26)
+				if (a1x->model_0x40_64 == 39 && a1x->word_0x94_148 != v4x->id_0x1A_26)
 					v3 = 18;
 			}
 			else if (v5 == 15 && !(a1x->struct_byte_0xc_12_15.byte[0] & 1))
@@ -2008,25 +2008,25 @@ void GameRenderHD::sub_88740(type_event_0x6E8E* a1x, int a2, int a3)
 		}
 		goto LABEL_48;
 	}
-	if (a1x->word_0x1A_26 != v4x->word_0x1A_26)
+	if (a1x->id_0x1A_26 != v4x->id_0x1A_26)
 	{
-		v7 = a1x->subtype_0x40_64;
+		v7 = a1x->model_0x40_64;
 		if (v7 < 0xCu)
 			goto LABEL_30;
 		if (v7 > 0xEu)
 		{
 			if (v7 == 22)
 			{
-				if (a1x->byte_0x45_69 != -76 && a1x->word_0x94_148 != v4x->word_0x1A_26)
+				if (a1x->state_0x45_69 != -76 && a1x->word_0x94_148 != v4x->id_0x1A_26)
 					v3 = 18;
 				goto LABEL_48;
 			}
 		LABEL_30:
-			v8 = a1x->byte_0x45_69;
+			v8 = a1x->state_0x45_69;
 			if (v8 < 0xE8u || v8 > 0xEAu)
 			{
 				v10 = 1;
-				if ((a1x->StageVar2_0x49_73 == 14 || a1x->StageVar2_0x49_73 == 13) && a1x->word_0x28_40 == v4x->word_0x1A_26)
+				if ((a1x->StageVar2_0x49_73 == 14 || a1x->StageVar2_0x49_73 == 13) && a1x->parentId_0x28_40 == v4x->id_0x1A_26)
 					v10 = 0;
 				if (v10)
 					v3 = 19;
@@ -2735,9 +2735,9 @@ void GameRenderHD::DrawSorcererNameAndHealthBar_2CB30(type_event_0x6E8E* a1x, __
 				DrawLine_2BC80(v11 + v32 - 2, v39, 2, 18, v38);//2c tj. 4
 				DrawText_2BC10(v24, v11 + 4, v39, v34);//14
 				DrawLine_2BC80(v11 + 2, v39 + 14, v13 - 2, 2, v35);//10
-				if (a1x->dword_0x4)
+				if (a1x->maxLife_0x4)
 				{
-					v9y = a1x->dword_0x8 * (v13 - 2) / a1x->dword_0x4;
+					v9y = a1x->life_0x8 * (v13 - 2) / a1x->maxLife_0x4;
 					if (v30 + 2 + v9y > v31 - 2)
 						v9y = v31 - 2 - (v30 + 2);
 					if (v9y > 0)
@@ -3683,14 +3683,14 @@ void GameRenderHD::DrawParticles_3E360(int a2x, type_particle_str** str_DWORD_F6
 						if (v93 & 2)
 						{
 							v94 = (unsigned __int8)x_BYTE_E88E0x[0x2 + 3
-								* x_DWORD_EA3E4[v90x->word_0x28_40]->dword_0xA4_164x->word_0x38_56];
+								* x_DWORD_EA3E4[v90x->parentId_0x28_40]->dword_0xA4_164x->word_0x38_56];
 							str_F2C20ar.dword0x01_rotIdx = 4;
 							str_F2C20ar.dword0x07 = v94;
 						}
 						else if (v93 & 4)
 						{
 							v95 = (unsigned __int8)x_BYTE_E88E0x[0x2 + 3
-								* x_DWORD_EA3E4[v90x->word_0x28_40]->dword_0xA4_164x->word_0x38_56];
+								* x_DWORD_EA3E4[v90x->parentId_0x28_40]->dword_0xA4_164x->word_0x38_56];
 							str_F2C20ar.dword0x01_rotIdx = 5;
 							str_F2C20ar.dword0x07 = v95;
 						}
@@ -4800,8 +4800,8 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 				if (a1 == 1)
 				{
 					if (!x_D41A0_BYTEARRAY_4_struct.byteindex_207
-						&& str_F2C20ar.dword0x14x->type_0x3F_63 == 3
-						&& (!str_F2C20ar.dword0x14x->subtype_0x40_64 || str_F2C20ar.dword0x14x->subtype_0x40_64 == 1))
+						&& str_F2C20ar.dword0x14x->class_0x3F_63 == 3
+						&& (!str_F2C20ar.dword0x14x->model_0x40_64 || str_F2C20ar.dword0x14x->model_0x40_64 == 1))
 					{
 						DrawSorcererNameAndHealthBar_2CB30(str_F2C20ar.dword0x14x, str_F2C20ar.dword0x04_screenY, (signed __int16)str_F2C20ar.dword0x03_screenX, str_F2C20ar.dword0x09_realWidth);
 					}
