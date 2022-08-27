@@ -11944,10 +11944,10 @@ void sub_18BB0()//1f9bb0
 				&D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc],
 				D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x3DF_2BE4_12221,
 				1);
-			if (x_BYTE_E3799_sound_card)
+			if (soundCard_E3799)
 				sub_8D8F0_sound_proc3_endsample();
-			if (x_BYTE_E37FD)
-				sub_8E020_sound_proc14_stopsequence();
+			if (musicStarted_E37FD)
+				StopMusic_8E020();
 			if (x_D41A0_BYTEARRAY_4_struct.byteindex_225)
 				x_D41A0_BYTEARRAY_4_struct.byteindex_225 = 2;
 		}
@@ -11964,8 +11964,8 @@ void sub_18BB0()//1f9bb0
 			&D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc],
 			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x3DF_2BE4_12221,
 			1);
-		if (x_BYTE_E37FD)
-			sub_8E160_sound_proc15_startsequence(D41A0_0.maptypeMusic_0x235, 0x7Fu);
+		if (musicStarted_E37FD)
+			StartMusic_8E160(D41A0_0.maptypeMusic_0x235, 0x7Fu);
 		sub_86930(x_WORD_1803EC);
 		if (x_D41A0_BYTEARRAY_4_struct.byteindex_225)
 			x_D41A0_BYTEARRAY_4_struct.byteindex_225 = 1;
@@ -12535,18 +12535,18 @@ void ChangeSoundLevel_19CA0(uint8_t option)//1faca0
 
 	if (option == 1u)
 	{
-		if (x_BYTE_E3798_sound_active2)
+		if (soundActive2_E3798)
 		{
 			x_D41A0_BYTEARRAY_4_struct.byte_38591 = option;
-			x_BYTE_E3799_sound_card = 1;
+			soundCard_E3799 = 1;
 		}
 	}
-	else if (option == 2 && x_BYTE_E37FC_music)
+	else if (option == 2 && musicInicialized_E37FC)
 	{
 		x_D41A0_BYTEARRAY_4_struct.byte_38591 = 2;
 		v1 = D41A0_0.maptypeMusic_0x235;
-		x_BYTE_E37FD = 1;
-		sub_8E160_sound_proc15_startsequence(v1, 0x7Fu);
+		musicStarted_E37FD = 1;
+		StartMusic_8E160(v1, 0x7Fu);
 	}
 	//v2 = x_D41A0_BYTEARRAY_4_struct.dwordindex_0;
 	if (x_D41A0_BYTEARRAY_4_struct.byte_38591)
@@ -12790,7 +12790,7 @@ LABEL_12:
 		if (x_D41A0_BYTEARRAY_4_struct.setting_byte3_24 & 1)
 		{
 			sub_8D8F0_sound_proc3_endsample();
-			sub_8E020_sound_proc14_stopsequence();
+			StopMusic_8E020();
 		}
 	}
 }
@@ -12811,9 +12811,9 @@ void sub_1A280()//1fb280
 	x_D41A0_BYTEARRAY_4_struct.dwordindex_192 = 0;
 	//v2 = x_D41A0_BYTEARRAY_4_struct.byteindex_192 | 1;
 	x_D41A0_BYTEARRAY_4_struct.dwordindex_192 |= 0x01;//help
-	if (x_BYTE_E3798_sound_active2)
+	if (soundActive2_E3798)
 		x_D41A0_BYTEARRAY_4_struct.dwordindex_192 |= /*v2 |*/ 0x02;//sound
-	if (x_BYTE_E37FC_music)
+	if (musicInicialized_E37FC)
 		x_D41A0_BYTEARRAY_4_struct.dwordindex_192 |= 0x04;//music
 	if (x_BYTE_E2A28_speek)
 		x_D41A0_BYTEARRAY_4_struct.dwordindex_192 |= 0x08;//speek
@@ -12839,9 +12839,9 @@ void sub_1A280()//1fb280
 	x_D41A0_BYTEARRAY_4_struct.dwordindex_188 = 0;
 	if (x_D41A0_BYTEARRAY_4_struct.byteindex_10)
 		x_D41A0_BYTEARRAY_4_struct.dwordindex_188 |= 0x01;//help
-	if (x_BYTE_E3799_sound_card)
+	if (soundCard_E3799)
 		x_D41A0_BYTEARRAY_4_struct.dwordindex_188 |= 0x02;//sound
-	if (x_BYTE_E37FD)
+	if (musicStarted_E37FD)
 		x_D41A0_BYTEARRAY_4_struct.dwordindex_188 |= 0x04;//music
 	if (x_D41A0_BYTEARRAY_4_struct.setting_byte3_24 & 0x40)
 		x_D41A0_BYTEARRAY_4_struct.dwordindex_188 |= 0x08;//speek
@@ -13325,29 +13325,29 @@ void sub_1A970_change_game_settings(char a1, int a2, int a3)//1fb970
 		sub_18AA0();
 		return;
 	case 2:
-		if (!x_BYTE_E3798_sound_active2)
+		if (!soundActive2_E3798)
 			return;
-		sub_19760_set_message((char*)x_DWORD_E9C4C_langindexbuffer[(x_BYTE_E3799_sound_card != 0) + 390], 3u, 50);
+		sub_19760_set_message((char*)x_DWORD_E9C4C_langindexbuffer[(soundCard_E3799 != 0) + 390], 3u, 50);
 		//Sound On / Sound Off
 
 		sub_8D8F0_sound_proc3_endsample();
 		sub_86860_speak_Sound(x_WORD_1803EC);
-		x_BYTE_E3799_sound_card ^= 1u;
+		soundCard_E3799 ^= 1u;
 		return;
 	case 3:
-		if (!x_BYTE_E37FC_music)
+		if (!musicInicialized_E37FC)
 			return;
-		if (x_BYTE_E37FD)
+		if (musicStarted_E37FD)
 		{
-			sub_8E020_sound_proc14_stopsequence();
+			StopMusic_8E020();
 			sub_19760_set_message((char*)x_DWORD_E9C4C_langindexbuffer[393], 3u, 50);//Music Off
-			x_BYTE_E37FD = 0;
+			musicStarted_E37FD = 0;
 		}
 		else
 		{
 			v15 = D41A0_0.maptypeMusic_0x235;
-			x_BYTE_E37FD = 1;
-			sub_8E160_sound_proc15_startsequence(v15, 0x7Fu);
+			musicStarted_E37FD = 1;
+			StartMusic_8E160(v15, 0x7Fu);
 			sub_19760_set_message(x_DWORD_E9C4C_langindexbuffer[392], 3u, 50);//Music On
 		}
 		return;
@@ -28786,7 +28786,7 @@ void DrawPauseMenu_2FD90()//210d90
 			}
 			posY += heigth;
 			sub_2BB40_draw_bitmap(posX, posY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[176]);//Sound button
-			if (!x_BYTE_E3798_sound_active2)
+			if (!soundActive2_E3798)
 			{
 				v2 = 0;
 				while (v2 < 2)
@@ -28801,7 +28801,7 @@ void DrawPauseMenu_2FD90()//210d90
 				}
 			}
 			sub_2BB40_draw_bitmap(posX + (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[176].width_4, posY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[177]);//Music button
-			if (!x_BYTE_E37FC_music)
+			if (!musicInicialized_E37FC)
 			{
 				v3 = 0;
 				while (v3 < 2)
@@ -38750,7 +38750,7 @@ void sub_46830_main_loop(/*int16_t* a1, */signed int a2, unsigned __int16 a3)//2
 
 			while (!D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x004_2BE0_11234)
 			{
-				if (x_BYTE_E37FC_music && x_BYTE_E37FD && m_iNumberOfTracks)
+				if (musicInicialized_E37FC && musicStarted_E37FD && m_iNumberOfTracks)
 				{
 					//v8 = x_D41A0_BYTEARRAY_0[196308];
 					switch (D41A0_0.terrain_2FECE.MapType) {
@@ -38783,7 +38783,7 @@ void sub_46830_main_loop(/*int16_t* a1, */signed int a2, unsigned __int16 a3)//2
 				}
 				sub_53CC0_close_movie();
 				sub_8D8F0_sound_proc3_endsample();
-				sub_8E020_sound_proc14_stopsequence();
+				StopMusic_8E020();
 				sub_86860_speak_Sound(x_WORD_1803EC);//get graphics parametres?
 				sub_59BF0_sound_proc11_volume();
 				sub_90B27_VGA_pal_fadein_fadeout(0, 0x10u, 0);
@@ -38880,7 +38880,7 @@ void sub_46B40()//227b40
 
 		if (pre_x_DWORD_E9C3C)
 		{
-			sub_83E80_freemem4(pre_x_DWORD_E9C3C);
+			FreeMem_83E80(pre_x_DWORD_E9C3C);
 			pre_x_DWORD_E9C3C = 0;
 			x_DWORD_E9C3C = 0;
 		}
@@ -38974,10 +38974,10 @@ void /*__fastcall*/ sub_46DD0_init_sound_and_music(/*int a1, int a2, char* a3*/)
 		if ((x_D41A0_BYTEARRAY_4_struct.setting_byte1_22) & 0x40)//fix it
 		{
 			PrintTextMessage_70910((char*)"Sound Disabled\0");
-			x_BYTE_E37FD = 0;
-			x_BYTE_E3799_sound_card = 0;
-			x_BYTE_E37FC_music = 0;
-			x_BYTE_E3798_sound_active2 = 0;
+			musicStarted_E37FD = 0;
+			soundCard_E3799 = 0;
+			musicInicialized_E37FC = 0;
+			soundActive2_E3798 = 0;
 		}
 		else
 		{
@@ -38989,7 +38989,7 @@ void /*__fastcall*/ sub_46DD0_init_sound_and_music(/*int a1, int a2, char* a3*/)
 			if ((x_D41A0_BYTEARRAY_4_struct.setting_byte4_25) & 0x40)//fix it
 				LoadMusic(1);
 		}
-		if (x_BYTE_E3798_sound_active2 || x_BYTE_E37FC_music)
+		if (soundActive2_E3798 || musicInicialized_E37FC)
 		{
 			//x_DWORD_F42A4_sound_timer = sub_92600_AIL_register_timer(sub_46820_simple_timer);
 			//sub_92930_AIL_set_timer_frequency(x_DWORD_F42A4_sound_timer, 0x78u);
@@ -39001,12 +39001,12 @@ void /*__fastcall*/ sub_46DD0_init_sound_and_music(/*int a1, int a2, char* a3*/)
 			sub_6FDA0();
 		}
 		//v5 = x_BYTE_E3798_sound_active2;
-		if (!x_BYTE_E3798_sound_active2 && !x_BYTE_E37FC_music && x_BYTE_E2A28_speek)
+		if (!soundActive2_E3798 && !musicInicialized_E37FC && x_BYTE_E2A28_speek)
 		{
 			sub_86860_speak_Sound(x_WORD_1803EC);
 			sub_86BD0_freemem1();
 			//v6 = x_D41A0_BYTEARRAY_4_struct.setting_byte3_24 & 0xBF;
-			x_BYTE_E2A28_speek = x_BYTE_E3798_sound_active2;
+			x_BYTE_E2A28_speek = soundActive2_E3798;
 			(x_D41A0_BYTEARRAY_4_struct.setting_byte3_24) &= 0xBF;
 		}
 	}
@@ -39144,7 +39144,7 @@ void sub_47130()//228130
 {
 	if (x_DWORD_D4188)
 	{
-		sub_83E80_freemem4((uint8_t*)x_DWORD_D4188);
+		FreeMem_83E80((uint8_t*)x_DWORD_D4188);
 		x_DWORD_D4188 = 0;
 		x_DWORD_D418C = 0;
 		x_DWORD_D4190 = 0;
@@ -39204,7 +39204,7 @@ void sub_47160()//228160
 		*/
 		//fix
 		if (pre_x_DWORD_E9C3C)
-			sub_83E80_freemem4(pre_x_DWORD_E9C3C);
+			FreeMem_83E80(pre_x_DWORD_E9C3C);
 		pre_x_DWORD_E9C3C = (uint8_t*)sub_83CD0_malloc2(3000000);
 		x_DWORD_E9C3C = &pre_x_DWORD_E9C3C[200000];
 		//sub_6EB90(&filearray_2aa18c[filearrayindex_FONTS0DATTAB]);//2aa1d4
@@ -39227,7 +39227,7 @@ void sub_47160()//228160
 		*/
 		//fix
 		if (pre_x_DWORD_E9C3C)
-			sub_83E80_freemem4(pre_x_DWORD_E9C3C);
+			FreeMem_83E80(pre_x_DWORD_E9C3C);
 		pre_x_DWORD_E9C3C = (uint8_t*)sub_83CD0_malloc2(3000000);
 		x_DWORD_E9C3C = &pre_x_DWORD_E9C3C[200000];
 		CreateIndexes_6EB90(&filearray_2aa18c[filearrayindex_HFONT3DATTAB]);//2aa1d4
@@ -39326,9 +39326,9 @@ void sub_47320_in_game_loop(signed int a1)//228320
 			;*/ // timer only for origin sound
 		if (v1 < 2)
 		{
-			sub_8E020_sound_proc14_stopsequence();
+			StopMusic_8E020();
 			if (v1 == 1)
-				sub_8E160_sound_proc15_startsequence(D41A0_0.maptypeMusic_0x235, 0x7Fu);
+				StartMusic_8E160(D41A0_0.maptypeMusic_0x235, 0x7Fu);
 			v1++;
 		}
 	}
@@ -54941,8 +54941,8 @@ void sub_56A30_init_game_level(unsigned int a1)//237a30
 #ifdef DEBUG_START
 	debug_printf("sub_56A30_init_game_level:sub_6EB90 passed\n");
 #endif //DEBUG_START
-	char temp_x_BYTE_E3799_sound_card = x_BYTE_E3799_sound_card;
-	x_BYTE_E3799_sound_card = 0;
+	char temp_x_BYTE_E3799_sound_card = soundCard_E3799;
+	soundCard_E3799 = 0;
 	ClearSettings_567C0();
 	if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 8))
 	{
@@ -55007,7 +55007,7 @@ void sub_56A30_init_game_level(unsigned int a1)//237a30
 	if (CommandLineParams.DoDebugSequences()) {
 		add_compare(0x237bb9, CommandLineParams.DoDebugafterload());
 	}
-	x_BYTE_E3799_sound_card = temp_x_BYTE_E3799_sound_card;
+	soundCard_E3799 = temp_x_BYTE_E3799_sound_card;
 	sub_53160();
 	//adress 237bc7
 	if (CommandLineParams.DoDebugSequences()) {
@@ -55102,8 +55102,8 @@ void sub_56D60(unsigned int a1, char a2)//237d60
 	//uint8_t* v4; // eax
 	//type_event_0x6E8E* v5x; // ST08_4
 
-	v2 = x_BYTE_E3799_sound_card;
-	x_BYTE_E3799_sound_card = 0;
+	v2 = soundCard_E3799;
+	soundCard_E3799 = 0;
 	ClearSettings_567C0();
 	sub_533B0_decompress_levels(x_D41A0_BYTEARRAY_4_struct.levelnumber_43w, &D41A0_0.terrain_2FECE);
 	if (a2)
@@ -55126,7 +55126,7 @@ void sub_56D60(unsigned int a1, char a2)//237d60
 	InitStageVars_11EE0();
 	Init0x3664C_84790();
 	sub_4A1E0(0, 1);
-	x_BYTE_E3799_sound_card = v2;
+	soundCard_E3799 = v2;
 	sub_53160();
 	//v5x = x_DWORD_EA3E4[D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].word_0x00a_2BE4_11240];
 	sub_60F00();
@@ -58903,8 +58903,8 @@ void Initialize()//23c8d0
 		sub_753D0();
 	// ?keyboard init
 
-	x_BYTE_E3799_sound_card = x_BYTE_E3798_sound_active2;
-	x_BYTE_E37FD = x_BYTE_E37FC_music;
+	soundCard_E3799 = soundActive2_E3798;
+	musicStarted_E37FD = musicInicialized_E37FC;
 	sub_8CEDF_install_mouse();
 	if (!x_DWORD_E3768)
 	{
@@ -59084,13 +59084,13 @@ char sub_5BF10()//23cf10
 {
 	char result; // al
 
-	if (x_BYTE_E3799_sound_card)
+	if (soundCard_E3799)
 		sub_8D8F0_sound_proc3_endsample();
-	if (x_BYTE_E37FD)
-		sub_8E020_sound_proc14_stopsequence();
+	if (musicStarted_E37FD)
+		StopMusic_8E020();
 	result = 0;
-	x_BYTE_E37FD = 0;
-	x_BYTE_E3799_sound_card = 0;
+	musicStarted_E37FD = 0;
+	soundCard_E3799 = 0;
 	return result;
 }
 // E3799: using guessed type char x_BYTE_E3799_sound_card;
@@ -59101,7 +59101,7 @@ signed int sub_5BF50_load_psxdata()//23cf50 //find 2bc394
 {
 	signed int result; // eax
 
-	x_DWORD_181C40_vga_init_buffer = (uint8_t*)sub_83D70_malloc1(0x100); //fix it 264D70
+	x_DWORD_181C40_vga_init_buffer = (uint8_t*)Malloc_83D70(0x100); //fix it 264D70
 	if (x_DWORD_181C40_vga_init_buffer)
 	{
 		if (sub_5C380_test_vga_driver_header(0x101))
@@ -72345,7 +72345,7 @@ void sub_6E150()//24f150
 	//int v3; // ebx
 	//int v4; // ebx
 
-	if (x_BYTE_E3799_sound_card && x_BYTE_E3798_sound_active2 && (!(x_D41A0_BYTEARRAY_4_struct.setting_byte3_24 & 1) || x_D41A0_BYTEARRAY_4_struct.byte_38591))
+	if (soundCard_E3799 && soundActive2_E3798 && (!(x_D41A0_BYTEARRAY_4_struct.setting_byte3_24 & 1) || x_D41A0_BYTEARRAY_4_struct.byte_38591))
 	{
 		v0 = 0;
 		do
@@ -72424,7 +72424,7 @@ void PrepareEventSound_6E450(__int16 a1, __int16 a2, __int16 a3)//24f450
 	v29 = 0;
 	v21 = 0;
 	v24 = D41A0_0.rand_0x8;
-	if (!x_BYTE_E3799_sound_card || !x_BYTE_E3798_sound_active2)
+	if (!soundCard_E3799 || !soundActive2_E3798)
 		return;
 	v3x = x_DWORD_EA3E4[a1];
 	v22x = v3x;
@@ -72697,7 +72697,7 @@ bool sub_6EA90(int a1, int a2)//24fa90
 //----- (0006EAB0) --------------------------------------------------------
 void sub_6EAB0(int  /*a1*/, __int16 a2, __int16 a3)//24fab0
 {
-	if (!x_BYTE_E3799_sound_card || !x_BYTE_E3798_sound_active2)
+	if (!soundCard_E3799 || !soundActive2_E3798)
 		return;
 	if ((unsigned __int16)a3 < 0x1Fu)
 	{
@@ -74138,10 +74138,10 @@ type_x_DWORD_E9C28_str* sub_71B40(int a1, unsigned __int16 a2, type_x_DWORD_E9C2
 				if (v10y->dword_16x)
 				{
 					if (v10y->str_8_data)
-						sub_83E80_freemem4((uint8_t*)v10y->str_8_data);
-					sub_83E80_freemem4((uint8_t*)v10y->dword_16x);
+						FreeMem_83E80((uint8_t*)v10y->str_8_data);
+					FreeMem_83E80((uint8_t*)v10y->dword_16x);
 				}
-				sub_83E80_freemem4((uint8_t*)v10y);
+				FreeMem_83E80((uint8_t*)v10y);
 			}
 			exit(1);
 		}
@@ -74167,10 +74167,10 @@ void sub_720C0(type_x_DWORD_E9C28_str** a1y)//2530c0
 	{
 		if ((*a1y)->word_24 == 1)
 		{
-			sub_83E80_freemem4((uint8_t*)(*a1y)->dword_16x);
-			sub_83E80_freemem4((uint8_t*)(*a1y)->str_8_data);
-			sub_83E80_freemem4((uint8_t*)(*a1y)->dword_12x);
-			sub_83E80_freemem4((uint8_t*)*a1y);
+			FreeMem_83E80((uint8_t*)(*a1y)->dword_16x);
+			FreeMem_83E80((uint8_t*)(*a1y)->str_8_data);
+			FreeMem_83E80((uint8_t*)(*a1y)->dword_12x);
+			FreeMem_83E80((uint8_t*)*a1y);
 		}
 		*a1y = 0;
 	}
@@ -74203,7 +74203,7 @@ type_E9C08* sub_72120(unsigned __int16 a1)//253120
 	}
 	else if (v2x)
 	{
-		sub_83E80_freemem4((uint8_t*)v2x);
+		FreeMem_83E80((uint8_t*)v2x);
 		v3x = 0;
 	}
 	sub_83CC0(10);
@@ -74310,9 +74310,9 @@ void sub_72550(type_E9C08** a1x)
 {
 	if (*a1x)
 	{
-		sub_83E80_freemem4((uint8_t*)(*a1x)->dword_2);
+		FreeMem_83E80((uint8_t*)(*a1x)->dword_2);
 		(*a1x)->dword_2 = 0;
-		sub_83E80_freemem4((uint8_t*)*a1x);
+		FreeMem_83E80((uint8_t*)*a1x);
 		*a1x = 0;
 	}
 }
@@ -74371,14 +74371,14 @@ void NetworkDisallocation_72D04()
 		}
 		while (mainConnection_E12AA->ncb_cmd_cplt_49 == 0xff)
 			/*fake_network_interupt(mainConnection_E12AA)*/;
-		sub_83E80_freemem4((uint8_t*)mainConnection_E12AA);
+		FreeMem_83E80((uint8_t*)mainConnection_E12AA);
 		for (j = 0; j < 8; j++)
 		{
-			sub_83E80_freemem4((uint8_t*)connection_E12AE[j]);
-			sub_83E80_freemem4((uint8_t*)packetArray_E1286[j]);
+			FreeMem_83E80((uint8_t*)connection_E12AE[j]);
+			FreeMem_83E80((uint8_t*)packetArray_E1286[j]);
 		}
-		sub_83E80_freemem4((uint8_t*)networkBuffer_E127E);
-		sub_83E80_freemem4((uint8_t*)paket_E1282);
+		FreeMem_83E80((uint8_t*)networkBuffer_E127E);
+		FreeMem_83E80((uint8_t*)paket_E1282);
 		x_BYTE_E1274 = 0;
 	}
 }
@@ -74918,7 +74918,7 @@ uint8_t NetworkAllocation_74556()//255556 push ebp 355250
 	v2 = 1;
 	if (!x_BYTE_E1274 && !mainConnection_E12AA)
 	{
-		mainConnection_E12AA = (myNCB*)sub_83D70_malloc1(sizeof(myNCB));
+		mainConnection_E12AA = (myNCB*)Malloc_83D70(sizeof(myNCB));
 		memset(mainConnection_E12AA, 0, sizeof(myNCB));
 		mainConnection_E12AA->ncb_command_0 = 0x7f;//?
 		mainConnection_E12AA->ncb_retcode_1 = 0x03;
@@ -74927,24 +74927,24 @@ uint8_t NetworkAllocation_74556()//255556 push ebp 355250
 		{
 			if (NetworkInit_74A11() == -1)//255a11
 				return 0;
-			networkBuffer_E127E = (uint8_t*)sub_83D70_malloc1(maxSizeOfPacket);
+			networkBuffer_E127E = (uint8_t*)Malloc_83D70(maxSizeOfPacket);
 			memset(networkBuffer_E127E, 0, maxSizeOfPacket);
 			if (networkBuffer_E127E)
 			{
-				paket_E1282 = (uint8_t*)sub_83D70_malloc1(maxSizeOfPacket);
+				paket_E1282 = (uint8_t*)Malloc_83D70(maxSizeOfPacket);
 				memset(paket_E1282, 0, maxSizeOfPacket);
 				if (paket_E1282)
 				{
 					for (i = 0; i < 8; i++)
 					{
-						packetArray_E1286[i] = (uint8_t*)sub_83D70_malloc1(maxSizeOfPacket);
+						packetArray_E1286[i] = (uint8_t*)Malloc_83D70(maxSizeOfPacket);
 						memset(packetArray_E1286[i], 0, maxSizeOfPacket);
 						if (!packetArray_E1286[i])
 						{
 							v2 = 0;
 							break;
 						}
-						connection_E12AE[i] = (myNCB*)sub_83D70_malloc1(sizeof(myNCB));
+						connection_E12AE[i] = (myNCB*)Malloc_83D70(sizeof(myNCB));
 						memset(connection_E12AE[i], 0, sizeof(myNCB));
 						if (!connection_E12AE[i])
 						{
@@ -74974,17 +74974,17 @@ uint8_t NetworkAllocation_74556()//255556 push ebp 355250
 	{
 		x_BYTE_E1274 = 0;
 		if (mainConnection_E12AA)
-			sub_83E80_freemem4((uint8_t*)mainConnection_E12AA);
+			FreeMem_83E80((uint8_t*)mainConnection_E12AA);
 		if (networkBuffer_E127E)
-			sub_83E80_freemem4(networkBuffer_E127E);
+			FreeMem_83E80(networkBuffer_E127E);
 		if (paket_E1282)
-			sub_83E80_freemem4(paket_E1282);
+			FreeMem_83E80(paket_E1282);
 		for (j = 0; j < 8; j++)
 		{
 			if (connection_E12AE[j])
-				sub_83E80_freemem4((uint8_t*)connection_E12AE[j]);
+				FreeMem_83E80((uint8_t*)connection_E12AE[j]);
 			if (packetArray_E1286[j])
-				sub_83E80_freemem4(packetArray_E1286[j]);
+				FreeMem_83E80(packetArray_E1286[j]);
 		}
 	}
 	return x_BYTE_E1274;
@@ -79251,7 +79251,7 @@ void sub_86F20(char a1)//267f20
 //----- (00086F70) --------------------------------------------------------
 void sub_86F70_sound_proc12(unsigned __int8 a1, __int16 a2, __int16 a3)//267f70
 {
-	if (x_BYTE_E2A28_speek && (x_BYTE_E37FC_music || x_BYTE_E3798_sound_active2))
+	if (x_BYTE_E2A28_speek && (musicInicialized_E37FC || soundActive2_E3798))
 	{
 		//x_DWORD_180078 = sub_92600_AIL_register_timer(sub_86EA0);
 		//sub_92930_AIL_set_timer_frequency(x_DWORD_180078, 0x32u);
@@ -79268,7 +79268,7 @@ void sub_86F70_sound_proc12(unsigned __int8 a1, __int16 a2, __int16 a3)//267f70
 //----- (00086FF0) --------------------------------------------------------
 void sub_86FF0(unsigned __int8 a1, __int16 a2, __int16 a3)//267ff0
 {
-	if (x_BYTE_E2A28_speek && (x_BYTE_E37FC_music || x_BYTE_E3798_sound_active2))
+	if (x_BYTE_E2A28_speek && (musicInicialized_E37FC || soundActive2_E3798))
 	{
 		x_WORD_1803E8 = a1;
 		sub_86860_speak_Sound(x_WORD_1803EC);
@@ -84212,7 +84212,7 @@ uint8_t* ClearMemoryForPath(Pathstruct path)//27B2f5
 	//result = 0;//fix it
 	if (result)
 	{
-		sub_83E80_freemem4(*path.colorPalette_var28);
+		FreeMem_83E80(*path.colorPalette_var28);
 		result = *path.colorPalette_var28;
 		*result = 0;
 	}
@@ -84238,7 +84238,7 @@ signed int UnpackAndLoadMemoryFromPath(Pathstruct path)//27B32d
 	{
 		if (path.var40_alloc_type & 1)
 		{
-			*(path.colorPalette_var28) = (uint8_t*)sub_83D70_malloc1(path.var36_size_buffer);
+			*(path.colorPalette_var28) = (uint8_t*)Malloc_83D70(path.var36_size_buffer);
 			memset(*(path.colorPalette_var28), 0, path.var36_size_buffer);
 		}
 		else
@@ -84258,7 +84258,7 @@ signed int UnpackAndLoadMemoryFromPath(Pathstruct path)//27B32d
 			return 0;
 		if (path.var40_alloc_type & 1)
 		{
-			*(path.colorPalette_var28) = (uint8_t*)sub_83D70_malloc1(path.var36_size_buffer);//asi init a malloc bufferu
+			*(path.colorPalette_var28) = (uint8_t*)Malloc_83D70(path.var36_size_buffer);//asi init a malloc bufferu
 			memset(*(path.colorPalette_var28), 0, path.var36_size_buffer);
 		}
 		else
@@ -85189,11 +85189,11 @@ uint8_t* sub_9DEA0_read_file(char* a1, uint8_t* a2)//27eea0
 	signed int v5; // [esp+10h] [ebp-Ch]
 	FILE* v6; // [esp+14h] [ebp-8h]
 
-	x_DWORD_E3E2C = 0;
-	v5 = sub_9DE20_get_file_lenght(a1);
+	readFileStatus_E3E2C = 0;
+	v5 = GetFileLenght_9DE20(a1);
 	if (v5 == -1)
 	{
-		x_DWORD_E3E2C = 3;
+		readFileStatus_E3E2C = 3;
 		result = 0;
 	}
 	else
@@ -85210,7 +85210,7 @@ uint8_t* sub_9DEA0_read_file(char* a1, uint8_t* a2)//27eea0
 			if (v6 == NULL)
 			{
 				x_free((void*)v3);
-				x_DWORD_E3E2C = 3;
+				readFileStatus_E3E2C = 3;
 				result = 0;
 			}
 			else if (DataFileIO::Read(v6, v3, v5) == v5)
@@ -85221,13 +85221,13 @@ uint8_t* sub_9DEA0_read_file(char* a1, uint8_t* a2)//27eea0
 			else
 			{
 				x_free((void*)v3);
-				x_DWORD_E3E2C = 5;
+				readFileStatus_E3E2C = 5;
 				result = 0;
 			}
 		}
 		else
 		{
-			x_DWORD_E3E2C = 2;
+			readFileStatus_E3E2C = 2;
 			result = 0;
 		}
 	}

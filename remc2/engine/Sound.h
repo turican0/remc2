@@ -18,11 +18,11 @@ typedef struct {//lenght 12
 }type_F4FE0;
 #pragma pack (16)
 
-extern char x_BYTE_E3799_sound_card;
-extern char x_BYTE_E37FD;
-extern char x_BYTE_E3798_sound_active2;
-extern char x_BYTE_E37FC_music;
-extern char x_BYTE_E37FD;
+extern char soundCard_E3799;
+extern char musicStarted_E37FD;
+extern char soundActive2_E3798;
+extern char musicInicialized_E37FC;
+extern char musicStarted_E37FD;
 extern int x_DWORD_E3844;
 extern int x_DWORD_E387C;
 extern FILE* x_FILE_E3840;
@@ -62,9 +62,9 @@ void /*__fastcall*/ sub_8D290_init_sound(/*char* a1*//*, int a2, int a3*/);
 void sub_8D800_sound_proc2();
 void sub_8D8F0_sound_proc3_endsample();
 void /*__fastcall*/ sub_8D970_init_music(/*char* a1*//*int a1, int a2, char* a3*/);
-void sub_8E020_sound_proc14_stopsequence();
+void StopMusic_8E020();
 int sub_8E0D0(); // weak
-void sub_8E160_sound_proc15_startsequence(__int16 track, unsigned __int8 volume);
+void StartMusic_8E160(__int16 track, unsigned __int8 volume);
 // x_DWORD sprintf(x_DWORD, const char *, ...); weak
 void sub_8E410_sound_proc16_xmidivolume(int32_t master_volume);
 int sub_8E470_sound_proc17_volume(int a1);
@@ -81,7 +81,7 @@ void sub_8F850_sound_proc22();
 void sub_90FD0();
 void sub_91010();
 int sub_91420();
-signed int sub_916F0_sound_proc24();
+signed int DebugSoundTimer_916F0();
 signed int sub_919C0();
 int sub_91A80_AIL_set_preference(uint32_t number, int32_t value);
 void sub_91BD0_s_plus();

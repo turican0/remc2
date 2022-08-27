@@ -789,7 +789,7 @@ void LanugageSetting_76A40()//257A40
 			{
 				x_D41A0_BYTEARRAY_4_struct.SelectedLangIndex = x_D41A0_BYTEARRAY_4_struct.langIndex_4 & 0xff;
 				if (x_BYTE_E29E0 || x_DWORD_D41BC_langbuffer)
-					sub_83E80_freemem4((uint8_t*)x_DWORD_D41BC_langbuffer);
+					FreeMem_83E80((uint8_t*)x_DWORD_D41BC_langbuffer);
 				langfile = DataFileIO::CreateOrOpenFile(printbuffer, 512);
 				//v4 = v3;
 				//v5 = v3;
@@ -819,7 +819,7 @@ void LanugageSetting_76A40()//257A40
 		}
 	}
 	//result = (uint8)x_D41A0_BYTEARRAY_4;
-	if (x_D41A0_BYTEARRAY_4_struct.SelectedLangIndex != 2 || !x_BYTE_E3798_sound_active2)
+	if (x_D41A0_BYTEARRAY_4_struct.SelectedLangIndex != 2 || !soundActive2_E3798)
 		x_BYTE_D41C0 = 1;
 	x_WORD_E29D8 = 1;
 	//return result;
@@ -867,7 +867,7 @@ void Intros_76D10(char a1)//257d10
 		sub_9874D_create_index_dattab(x_DWORD_17DE38str.x_DWORD_17DEC0, x_DWORD_17DE38str.x_DWORD_17DEC4, x_DWORD_17DE38str.x_DWORD_17DE54, xy_DWORD_17DEC0_spritestr);
 
 	sub_2EB40();
-	if (x_BYTE_E3798_sound_active2 && x_D41A0_BYTEARRAY_4_struct.SelectedLangIndex == 2)
+	if (soundActive2_E3798 && x_D41A0_BYTEARRAY_4_struct.SelectedLangIndex == 2)
 	{
 		x_BYTE_D41C1 = 0;
 		x_BYTE_D41C0 = 0;
@@ -912,7 +912,7 @@ void Intros_76D10(char a1)//257d10
 	}
 	sub_90B27_VGA_pal_fadein_fadeout(0, 0x10u, 0);
 	sub_8D8F0_sound_proc3_endsample();
-	sub_8E020_sound_proc14_stopsequence();//?ac_sound_stop_music
+	StopMusic_8E020();//?ac_sound_stop_music
 	sub_7B5D0();
 	//v2 = 0;
 	x_WORD_E29D8 = 4;
@@ -1009,8 +1009,8 @@ void MainMenu_76FA0(/*int a1, */int  /*a2*/, uint16_t a3x)//257fa0
 	x_DWORD_17DE38str.x_WORD_17DF04 = -1;
 	x_DWORD_17DE38str.x_DWORD_17DE44 = x_DWORD_E9C38_smalltit;
 	SetCenterScreenForFlyAssistant_6EDB0();
-	sub_8E020_sound_proc14_stopsequence();//26f020
-	sub_8E160_sound_proc15_startsequence(4, 0x7Fu);//26f160
+	StopMusic_8E020();//26f020
+	StartMusic_8E160(4, 0x7Fu);//26f160
 	/*sub_75420();//256420
 	v3 = dos_getvect(9);*/
 	a3x = 256;
@@ -1054,9 +1054,9 @@ void MainMenu_76FA0(/*int a1, */int  /*a2*/, uint16_t a3x)//257fa0
 					x_DWORD_17DE38str.x_BYTE_17DF10_get_key_scancode = 0;
 					v27 = 0;
 					v26 = j___clock();
-					sub_8E020_sound_proc14_stopsequence();
+					StopMusic_8E020();
 					LOBYTE(a3x) = 0;
-					sub_8E160_sound_proc15_startsequence(4, 0x7Fu);
+					StartMusic_8E160(4, 0x7Fu);
 				}
 			}
 			else
@@ -2497,7 +2497,7 @@ void LoadAndSetGraphicsAndPalette_7AC00()//25BC00
 		//fix
 		if (pre_x_DWORD_E9C3C)
 		{
-			sub_83E80_freemem4(pre_x_DWORD_E9C3C);
+			FreeMem_83E80(pre_x_DWORD_E9C3C);
 			pre_x_DWORD_E9C3C = 0;
 			x_DWORD_E9C3C = 0;
 		}
@@ -2565,7 +2565,7 @@ int sub_7ADE0(char a1)//25bde0
 		//fix
 		if (pre_x_DWORD_E9C3C)
 		{
-			sub_83E80_freemem4(pre_x_DWORD_E9C3C);
+			FreeMem_83E80(pre_x_DWORD_E9C3C);
 			pre_x_DWORD_E9C3C = 0;
 			x_DWORD_E9C3C = 0;
 		}
@@ -4220,7 +4220,7 @@ int LoadLanguageFile(posistruct2_t** a1x, posistruct2_t** a2x, uint8_t* a3, char
 			DataFileIO::Read(langfile, a3, 4773);//2798a7
 			DataFileIO::Read(langfile, (a3 + 4773), 12);
 			if (x_BYTE_E29E0 || x_DWORD_D41BC_langbuffer)//[2b39e0]00 || [2a51bc]00
-				sub_83E80_freemem4((uint8_t*)x_DWORD_D41BC_langbuffer);
+				FreeMem_83E80((uint8_t*)x_DWORD_D41BC_langbuffer);
 			//v7 = langfilelenght - 4785;
 			x_DWORD_D41BC_langbuffer = (char*)sub_83CD0_malloc2(langfilelenght - 4785);
 			//x_DWORD_D41BC_langbuffer = (uint8_t*)v8;
@@ -4286,7 +4286,7 @@ int sub_7F960(posistruct2_t* a1x, posistruct2_t* a2x, uint8_t* a3, char* langcou
 			DataFileIO::Read(langfile, a3, 4773);
 			DataFileIO::Read(langfile, a3 + 4773, 12);
 			if (x_BYTE_E29E0 || x_DWORD_D41BC_langbuffer)
-				sub_83E80_freemem4((uint8_t*)x_DWORD_D41BC_langbuffer);
+				FreeMem_83E80((uint8_t*)x_DWORD_D41BC_langbuffer);
 			v8 = v13 - 4785;
 			//v9 = (uint8_t*)sub_83CD0_malloc2(v13 - 4785);
 			x_DWORD_D41BC_langbuffer = (char*)sub_83CD0_malloc2(v13 - 4785);
@@ -4813,7 +4813,7 @@ void sub_82670()//263670
 				}
 				if (v0)
 				{
-					if (x_D41A0_BYTEARRAY_4_struct.SelectedLangIndex == 2 && x_BYTE_E3798_sound_active2 || v0 >= 6)
+					if (x_D41A0_BYTEARRAY_4_struct.SelectedLangIndex == 2 && soundActive2_E3798 || v0 >= 6)
 					{
 						x_BYTE_D41C1 = 0;
 						x_BYTE_D41C0 = 0;
@@ -4866,7 +4866,7 @@ void sub_82670()//263670
 
 					sub_90B27_VGA_pal_fadein_fadeout(0, 0x10u, 0);
 					sub_8D8F0_sound_proc3_endsample();
-					sub_8E020_sound_proc14_stopsequence();
+					StopMusic_8E020();
 					sub_7B5D0();
 					if (x_WORD_180660_VGA_type_resolution & 1)
 						ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, 320, 200, 0);

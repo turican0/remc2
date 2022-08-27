@@ -17,7 +17,7 @@ type_str_unk_1804B0ar str_unk_1804B0ar;
 
 TColor unk_17D838x[0x100]; // weak
 
-int x_DWORD_E3E2C = 0; // weak
+int readFileStatus_E3E2C = 0; // weak
 
 char x_BYTE_E3766 = 0; // weak
 
@@ -452,7 +452,7 @@ bool DefaultResolutions()
 }
 
 //----- (00083E80) --------------------------------------------------------
-void sub_83E80_freemem4(uint8_t* ptr)//264e80
+void FreeMem_83E80(uint8_t* ptr)//264e80
 {
 	/*if (*ptr != NULL)
 	{
@@ -549,7 +549,7 @@ void qmemcpy(void* a, void* b, size_t c) {
 };
 
 //----- (0009D490) --------------------------------------------------------
-int sub_9D490_free4(void* a1, int  a2)//27e490
+int FreeMem_9D490(void* a1, int  a2)//27e490
 {
 	//fix
 	//a2 may be must used
@@ -640,24 +640,24 @@ int sub_9D770(char* a1, char a2)//27e770
 // A0855: using guessed type x_DWORD close(x_DWORD);
 
 //----- (0009DE20) --------------------------------------------------------
-signed int sub_9DE20_get_file_lenght(char* a1)//27ee20
+signed int GetFileLenght_9DE20(char* a1)//27ee20
 {
 	signed int v2; // [esp+0h] [ebp-Ch]
 	signed int v3; // [esp+4h] [ebp-8h]
 	FILE* v4; // [esp+8h] [ebp-4h]
 
-	x_DWORD_E3E2C = 0;
+	readFileStatus_E3E2C = 0;
 	v4 = x_open(a1, 512);
 	if (v4 == NULL)
 	{
-		x_DWORD_E3E2C = 3;
+		readFileStatus_E3E2C = 3;
 		v2 = -1;
 	}
 	else
 	{
 		v3 = DataFileIO::FileLengthBytes(v4);
 		if (v3 == -1)
-			x_DWORD_E3E2C = 5;
+			readFileStatus_E3E2C = 5;
 		DataFileIO::Close(v4);
 		v2 = v3;
 	}
@@ -694,7 +694,7 @@ char x_toupper(char inputchar) {
 }; //weak
 
 //----- (00083D70) --------------------------------------------------------
-void* sub_83D70_malloc1(int a1)//264d70
+void* Malloc_83D70(int a1)//264d70
 {
 	/*int *v1; // eax
 	unsigned int v2; // edi
