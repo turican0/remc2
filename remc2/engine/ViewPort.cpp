@@ -71,21 +71,26 @@ void ViewPort::SetRenderViewPortSize_40BF0(int width, int height, int viewPortWi
 
 void ViewPort::SetRenderViewPortSize_40C50(uint8_t viewPortSizeSetting)//221c50
 {
-	int height; // eax
-	int width; // bx
+	ViewPort::Rectangle rectangle = SetRenderViewPortSize_40C50(viewPortSizeSetting, screenWidth_18062C, screenHeight_180624);
+	int32_t ptr = (screenWidth_18062C * rectangle.PosY_EA3CC) + rectangle.PosX_EA3D0;
+	str_F2C20ar.dword0x0e_ptrScreenRenderBufferStart = ptr;
+	SetRenderViewPortSize_BCD45(pdwScreenBuffer_351628 + ptr, screenWidth_18062C, rectangle.Width_DE564, rectangle.Height_DE568);
+}
+
+ViewPort::Rectangle ViewPort::SetRenderViewPortSize_40C50(uint8_t viewPortSizeSetting, uint32_t screenWidth, uint32_t screenHeight)//221c50
+{
+	ViewPort::Rectangle rectangle;
 
 	int factor = 40 - viewPortSizeSetting; // eax
-	double widthKoef = (double)screenWidth_18062C / 80;
-	double heightKoef = (double)screenHeight_180624 / 80;
+	double widthKoef = (double)screenWidth / 80;
+	double heightKoef = (double)screenHeight / 80;
 
-	int x = widthKoef * factor;
-	int y = heightKoef * factor;
-	width = widthKoef * 2 * viewPortSizeSetting;
-	height = heightKoef * 2 * viewPortSizeSetting;
+	rectangle.PosX_EA3D0 = widthKoef * factor;
+	rectangle.PosY_EA3CC = heightKoef * factor;
+	rectangle.Width_DE564 = widthKoef * 2 * viewPortSizeSetting;
+	rectangle.Height_DE568 = heightKoef * 2 * viewPortSizeSetting;
 
-	int32_t ptr = (screenWidth_18062C * y) + x;
-	str_F2C20ar.dword0x0e_ptrScreenRenderBufferStart = ptr;
-	SetRenderViewPortSize_BCD45(ptr + pdwScreenBuffer_351628, screenWidth_18062C, width, height);
+	return rectangle;
 }
 
 void ViewPort::SetRenderViewPortSize_BCD45(uint16_t viewPortPosX, uint16_t viewPortPosY, uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t screenWidth, uint16_t screenHeight)
