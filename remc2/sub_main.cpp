@@ -38926,7 +38926,7 @@ void sub_46B40()//227b40
 			sub_90D6E_VGA_set_video_mode_320x200_and_Palette((TColor*)*xadatapald0dat2.colorPalette_var28);
 		else
 		{
-			if ((!DefaultResolutions()) && (x_WORD_180660_VGA_type_resolution != 1))
+			if (((gameResWidth > 640) || (gameResHeight > 480)) && (x_WORD_180660_VGA_type_resolution != 1))
 			{
 				screenWidth_18062C = gameResWidth;
 				screenHeight_180624 = gameResHeight;
