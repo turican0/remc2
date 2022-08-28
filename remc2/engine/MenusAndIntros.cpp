@@ -1549,7 +1549,7 @@ char LanguageSettingDialog_779E0(type_WORD_E1F84* a1y)//2589E0
 		//qmemcpy(&v28, &x_BYTE_EB39E_keys + 8, 2u);//fix it
 		v25 = -9;
 		v26 = x_D41A0_BYTEARRAY_4_struct.byteindex_179;
-		sub_98CAA_write(configfile, (uint8_t*)&v25, 32);*/
+		WriteFile_98CAA(configfile, (uint8_t*)&v25, 32);*/
 		//f7 ff ff ff 02 00 7f 00 7f 00 01 00 00 00 00 00
 		//00 00 00 00 00 00 48 50 4b 4d 1c 1d 38 36 36 38
 
@@ -1557,47 +1557,47 @@ char LanguageSettingDialog_779E0(type_WORD_E1F84* a1y)//2589E0
 		//00 00 00 00 00 00 48 50 4b 4d 1c 1d 38 36 36 38
 		uint16_t twobyte = 0xfff7;
 		uint8_t helpbyte;
-		sub_98CAA_write(configfile, (uint8_t*)&twobyte, 2);//0
+		WriteFile_98CAA(configfile, (uint8_t*)&twobyte, 2);//0
 		twobyte = 0xffff;
-		sub_98CAA_write(configfile, (uint8_t*)&twobyte, 2);//2
+		WriteFile_98CAA(configfile, (uint8_t*)&twobyte, 2);//2
 		twobyte = x_D41A0_BYTEARRAY_4_struct.SelectedLangIndex;
-		sub_98CAA_write(configfile, (uint8_t*)&twobyte, 2);//4
+		WriteFile_98CAA(configfile, (uint8_t*)&twobyte, 2);//4
 		twobyte = x_D41A0_BYTEARRAY_4_struct.soundVolume_6;
-		sub_98CAA_write(configfile, (uint8_t*)&twobyte, 2);//6
+		WriteFile_98CAA(configfile, (uint8_t*)&twobyte, 2);//6
 		twobyte = x_D41A0_BYTEARRAY_4_struct.musicVolume_8;
-		sub_98CAA_write(configfile, (uint8_t*)&twobyte, 2);//8
+		WriteFile_98CAA(configfile, (uint8_t*)&twobyte, 2);//8
 		twobyte = x_D41A0_BYTEARRAY_4_struct.byteindex_10;
-		sub_98CAA_write(configfile, (uint8_t*)&twobyte, 2);//10
+		WriteFile_98CAA(configfile, (uint8_t*)&twobyte, 2);//10
 		twobyte = D41A0_0.LevelIndex_0xc;
-		sub_98CAA_write(configfile, (uint8_t*)&twobyte, 2);//12
+		WriteFile_98CAA(configfile, (uint8_t*)&twobyte, 2);//12
 		twobyte = 0x0000;
-		sub_98CAA_write(configfile, (uint8_t*)&twobyte, 2);//14
+		WriteFile_98CAA(configfile, (uint8_t*)&twobyte, 2);//14
 		twobyte = 0x0000;
-		sub_98CAA_write(configfile, (uint8_t*)&twobyte, 2);//16
+		WriteFile_98CAA(configfile, (uint8_t*)&twobyte, 2);//16
 		twobyte = 0x0000;
-		sub_98CAA_write(configfile, (uint8_t*)&twobyte, 2);//18
+		WriteFile_98CAA(configfile, (uint8_t*)&twobyte, 2);//18
 		twobyte = 0x0000;
-		sub_98CAA_write(configfile, (uint8_t*)&twobyte, 2);//20
+		WriteFile_98CAA(configfile, (uint8_t*)&twobyte, 2);//20
 		helpbyte = x_BYTE_EB39E_keys[0];
-		sub_98CAA_write(configfile, (uint8_t*)&helpbyte, 1);//21
+		WriteFile_98CAA(configfile, (uint8_t*)&helpbyte, 1);//21
 		helpbyte = x_BYTE_EB39E_keys[1];
-		sub_98CAA_write(configfile, (uint8_t*)&helpbyte, 1);//22
+		WriteFile_98CAA(configfile, (uint8_t*)&helpbyte, 1);//22
 		helpbyte = x_BYTE_EB39E_keys[2];
-		sub_98CAA_write(configfile, (uint8_t*)&helpbyte, 1);//23
+		WriteFile_98CAA(configfile, (uint8_t*)&helpbyte, 1);//23
 		helpbyte = x_BYTE_EB39E_keys[3];
-		sub_98CAA_write(configfile, (uint8_t*)&helpbyte, 1);//24
+		WriteFile_98CAA(configfile, (uint8_t*)&helpbyte, 1);//24
 		helpbyte = x_BYTE_EB39E_keys[4];
-		sub_98CAA_write(configfile, (uint8_t*)&helpbyte, 1);//25
+		WriteFile_98CAA(configfile, (uint8_t*)&helpbyte, 1);//25
 		helpbyte = x_BYTE_EB39E_keys[5];
-		sub_98CAA_write(configfile, (uint8_t*)&helpbyte, 1);//26
+		WriteFile_98CAA(configfile, (uint8_t*)&helpbyte, 1);//26
 		helpbyte = x_BYTE_EB39E_keys[6];
-		sub_98CAA_write(configfile, (uint8_t*)&helpbyte, 1);//27
+		WriteFile_98CAA(configfile, (uint8_t*)&helpbyte, 1);//27
 		helpbyte = x_BYTE_EB39E_keys[7];
-		sub_98CAA_write(configfile, (uint8_t*)&helpbyte, 1);//28
+		WriteFile_98CAA(configfile, (uint8_t*)&helpbyte, 1);//28
 		helpbyte = x_BYTE_EB39E_keys[8];
-		sub_98CAA_write(configfile, (uint8_t*)&helpbyte, 1);//29
+		WriteFile_98CAA(configfile, (uint8_t*)&helpbyte, 1);//29
 		helpbyte = x_BYTE_EB39E_keys[9];
-		sub_98CAA_write(configfile, (uint8_t*)&helpbyte, 1);//30
+		WriteFile_98CAA(configfile, (uint8_t*)&helpbyte, 1);//30
 		DataFileIO::Close(configfile);
 	}
 	/*LOWORD(v15) = */sub_90B27_VGA_pal_fadein_fadeout(0, 0x10u, 0);
@@ -3093,17 +3093,17 @@ char SaveGameDialog_78730(type_WORD_E1F84* a1x)//259730
 					v55++;
 				}
 				v53 = D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dw_w_b_0_2BDE_11230.byte[2];
-				sub_98CAA_write(file2, (uint8_t*)&v54, 4);
-				sub_98CAA_write(file2, (uint8_t*)&x_DWORD_17DE38str.xx_BYTE_17DF14[(x_DWORD_17DE38str.x_WORD_17DF04 - 1)][0], 20);
-				sub_98CAA_write(file2, (uint8_t*)x_D41A0_BYTEARRAY_4_struct.player_name_57ar, 32);
-				sub_98CAA_write(file2, (uint8_t*)x_D41A0_BYTEARRAY_4_struct.savestring_89, 32);
-				sub_98CAA_write(file2, (uint8_t*)&secretMapScreenPortals_E2970, 102);
-				sub_98CAA_write(file2, (uint8_t*)&D41A0_0.m_GameSettings, 16);
-				sub_98CAA_write(file2, (uint8_t*)&v55, 4);
-				sub_98CAA_write(file2, (uint8_t*)&v53, 4);
-				sub_98CAA_write(file2, (uint8_t*)&D41A0_0.array_0x2BDE[0].dword_0x3E6_2BE4_12228.str_611, 505);
-				sub_98CAA_write(file2, (uint8_t*)x_DWORD_17DBC8x, 500);
-				sub_98CAA_write(file2, (uint8_t*)x_DWORD_17DDBCx, 100);
+				WriteFile_98CAA(file2, (uint8_t*)&v54, 4);
+				WriteFile_98CAA(file2, (uint8_t*)&x_DWORD_17DE38str.xx_BYTE_17DF14[(x_DWORD_17DE38str.x_WORD_17DF04 - 1)][0], 20);
+				WriteFile_98CAA(file2, (uint8_t*)x_D41A0_BYTEARRAY_4_struct.player_name_57ar, 32);
+				WriteFile_98CAA(file2, (uint8_t*)x_D41A0_BYTEARRAY_4_struct.savestring_89, 32);
+				WriteFile_98CAA(file2, (uint8_t*)&secretMapScreenPortals_E2970, 102);
+				WriteFile_98CAA(file2, (uint8_t*)&D41A0_0.m_GameSettings, 16);
+				WriteFile_98CAA(file2, (uint8_t*)&v55, 4);
+				WriteFile_98CAA(file2, (uint8_t*)&v53, 4);
+				WriteFile_98CAA(file2, (uint8_t*)&D41A0_0.array_0x2BDE[0].dword_0x3E6_2BE4_12228.str_611, 505);
+				WriteFile_98CAA(file2, (uint8_t*)x_DWORD_17DBC8x, 500);
+				WriteFile_98CAA(file2, (uint8_t*)x_DWORD_17DDBCx, 100);
 				DataFileIO::Close(file2);
 			}
 		}
@@ -4569,7 +4569,7 @@ void WriteConfigDat_81DB0()//262db0
 			//qmemcpy(&v6, &x_BYTE_EB39E_keys + 8, 2u);
 			*(int32_t*)&readbuffer[0] = 0xfffffff7;
 			readbuffer[4] = x_D41A0_BYTEARRAY_4_struct.SelectedLangIndex;
-			sub_98CAA_write(configdatfile, readbuffer, 32);
+			WriteFile_98CAA(configdatfile, readbuffer, 32);
 			DataFileIO::Close(configdatfile);
 		}
 		x_D41A0_BYTEARRAY_4_struct.setting_38402 = 0;
