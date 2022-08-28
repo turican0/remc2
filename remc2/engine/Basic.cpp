@@ -443,10 +443,7 @@ Pathstruct xadatatables = { "",(uint8_t**)&x_DWORD_D41BC_langbuffer,&LANG_BEGIN_
 
 bool DefaultResolutions()
 {
-	/*if (((screenWidth_18062C == 640) && (screenHeight_180624 == 480))
-		|| ((screenWidth_18062C == 320) && (screenHeight_180624 == 200)))
-		return true;*/
-	if ((gameResWidth <= 640) && (gameResHeight <= 480))
+	if ((screenWidth_18062C <= 640) && (screenHeight_180624 <= 480))
 		return true;
 	return false;
 }
