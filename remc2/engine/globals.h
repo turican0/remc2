@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef GLOBALS_H
-#define GLOBALS_H
-
 #include <cstdint>
 #include "Type_F2C20ar.h"
 
@@ -14,5 +11,3 @@ extern uint32_t screenWidth_18062C;
 extern int iScreenWidth_DE560;
 extern uint8_t* ViewPortRenderBufferStart_DE558;
 extern uint8_t* ViewPortRenderBufferAltStart_DE554;
-
-#endif //GLOBALS_H
