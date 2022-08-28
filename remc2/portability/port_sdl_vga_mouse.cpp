@@ -130,7 +130,8 @@ void VGA_Init(Uint32  /*flags*/, int width, int height, bool maintainAspectRatio
 		}
 
 		Set_basic_Palette1();
-		Draw_debug_matrix1();
+		//Draw_debug_matrix1();
+		Draw_black();
 		inited = true;
 	}
 }
@@ -253,6 +254,27 @@ void Draw_debug_matrix0() {
 	SubBlit(m_iOrigw, m_iOrigh);
 };
 
+void Draw_black() {
+	SDL_Rect dstrect;
+	if (SDL_MUSTLOCK(m_gamePalletisedSurface)) {
+		if (SDL_LockSurface(m_gamePalletisedSurface) < 0) {
+			fprintf(stderr, "Can't lock screen: %s\n", SDL_GetError());
+			return;
+		}
+	}
+
+	dstrect.x = 0;
+	dstrect.y = 0;
+	dstrect.w = m_gamePalletisedSurface->w;
+	dstrect.h = m_gamePalletisedSurface->h;
+	SDL_FillRect(m_gamePalletisedSurface, &dstrect, 1);
+
+	if (SDL_MUSTLOCK(m_gamePalletisedSurface)) {
+		SDL_UnlockSurface(m_gamePalletisedSurface);
+	}
+	SubBlit(m_iOrigw, m_iOrigh);
+};
+
 void Draw_debug_matrix1() {
 	SDL_Rect dstrect;
 	if (SDL_MUSTLOCK(m_gamePalletisedSurface)) {
@@ -286,9 +308,8 @@ bool VGA_LoadFont()
 	bool success = true;
 
 	//Load splash image
-	char fontPath[512];
-	GetSubDirectoryPath(fontPath, "font/16x16-font.bmp");
-	surface_font = SDL_LoadBMP(fontPath);
+	std::string fontPath = GetSubDirectoryPath("font/16x16-font.bmp");
+	surface_font = SDL_LoadBMP(fontPath.c_str());
 	if (surface_font == NULL)
 	{
 		printf("Unable to load image %s! SDL Error: %s\n", "16x16-font.bmp", SDL_GetError());

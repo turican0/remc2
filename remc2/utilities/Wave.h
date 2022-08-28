@@ -17,7 +17,7 @@ typedef struct {
 	int32_t sampleRate_24;
 	int32_t byteRate_28;
 	int16_t blockAlign_32;
-	int16_t bytesPerSample_34;
+	int16_t bitsPerSample_34;
 	char dataMarker_36[4];
 	int32_t dataSizeBytes_40;
 	uint8_t data_44[];

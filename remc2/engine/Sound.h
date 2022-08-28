@@ -18,11 +18,11 @@ typedef struct {//lenght 12
 }type_F4FE0;
 #pragma pack (16)
 
-extern char x_BYTE_E3799_sound_card;
-extern char x_BYTE_E37FD;
-extern char x_BYTE_E3798_sound_active2;
-extern char x_BYTE_E37FC_music;
-extern char x_BYTE_E37FD;
+extern char soundCard_E3799;
+extern char musicStarted_E37FD;
+extern char soundActive2_E3798;
+extern char musicInitialized_E37FC;
+extern char musicStarted_E37FD;
 extern int x_DWORD_E3844;
 extern int x_DWORD_E387C;
 extern FILE* x_FILE_E3840;
@@ -62,9 +62,9 @@ void /*__fastcall*/ sub_8D290_init_sound(/*char* a1*//*, int a2, int a3*/);
 void sub_8D800_sound_proc2();
 void sub_8D8F0_sound_proc3_endsample();
 void /*__fastcall*/ sub_8D970_init_music(/*char* a1*//*int a1, int a2, char* a3*/);
-void sub_8E020_sound_proc14_stopsequence();
+void StopMusic_8E020();
 int sub_8E0D0(); // weak
-void sub_8E160_sound_proc15_startsequence(__int16 track, unsigned __int8 volume);
+void StartMusic_8E160(__int16 track, unsigned __int8 volume);
 // x_DWORD sprintf(x_DWORD, const char *, ...); weak
 void sub_8E410_sound_proc16_xmidivolume(int32_t master_volume);
 int sub_8E470_sound_proc17_volume(int a1);
@@ -81,7 +81,7 @@ void sub_8F850_sound_proc22();
 void sub_90FD0();
 void sub_91010();
 int sub_91420();
-signed int sub_916F0_sound_proc24();
+signed int DebugSoundTimer_916F0();
 signed int sub_919C0();
 int sub_91A80_AIL_set_preference(uint32_t number, int32_t value);
 void sub_91BD0_s_plus();
@@ -121,7 +121,7 @@ int sub_93160_AIL_uninstall_driver(AIL_DRIVER* a1);
 // int *sub_93330_AIL_install_DIG_driver_file_AIL_install_DIG_driver_file(int a1, int a2, const void *a3);
 int sub_93480_AIL_uninstall_DIG_driver(HDIGDRIVER a1);
 HSAMPLE sub_93510_AIL_allocate_sample_handle(HDIGDRIVER a1);
-int sub_937A0_AIL_release_sample_handle(int a1);
+HDIGDRIVER sub_937A0_AIL_release_sample_handle(HDIGDRIVER a1);
 void sub_93830_AIL_init_sample(HSAMPLE a1);
 //signed int sub_938C0_AIL_set_sample_file(x_DWORD *a1, int a2, int a3);
 int32_t sub_938C0_AIL_set_sample_file(HSAMPLE S, uint8_t* pWaveData, int32_t block);
@@ -163,7 +163,7 @@ int sub_98170_AIL_map_sequence_channel(HSEQUENCE a1, int a2, int a3);
 void sub_98360_AIL_send_channel_voice_message(HMDIDRIVER mdi, HSEQUENCE hSequence, int32_t status, int32_t data_1, int32_t data_2);
 
 int32_t sub_84300_load_sound(uint8_t a1);
-void sub_844A0_sound_proc5(uint16_t count);
+void LoadSoundDataFromBuffer_844A0(uint16_t count);
 char ReadAndDecompressSound(FILE* a1, unsigned __int8 a2);
 
 //int sub_9E3A0_AIL_API_read_INI(uint8_t* a1, char* a2);
@@ -237,7 +237,7 @@ HDIGDRIVER sub_A2EA0(AIL_DRIVER* a1, IO_PARMS IO);
 int sub_A37A0(HDIGDRIVER a1);
 int sub_A37C0(int a1);
 HSAMPLE sub_A3820_allocate_sample_handle(HDIGDRIVER dig);
-int sub_A38C0_AIL_API_release_sample_handle(int a1);
+HDIGDRIVER sub_A38C0_AIL_API_release_sample_handle(HDIGDRIVER a1);
 void sub_A38E0_init_sample(HSAMPLE S);
 uint32_t sub_A3A00_sample_status(HSAMPLE S);
 void sub_A3A30_set_sample_address(HSAMPLE S, uint8_t* start, uint32_t len);
@@ -267,7 +267,7 @@ char sub_A4000(x_DWORD* a1, int a2, unsigned int a3);
 void sub_A4100(int* a1, int a2, int a3, int a4);
 signed int sub_A41B0(x_DWORD* a1);
 int sub_A4370(x_DWORD* a1);
-int sub_A4390(int a1);
+HDIGDRIVER sub_A4390(HDIGDRIVER a1);
 void sub_A43E0(int a1);
 int sub_A47A0(); // weak
 void sub_A47C0_sub_set_sample_file(uint8_t* pWavData, HSAMPLE S);
@@ -387,7 +387,7 @@ unsigned __int8* sub_ACD79(unsigned __int8* a1, int a2);
 int sub_ACE56(int a1);
 
 int sub_AEAF5();
-void WriteWaveToFile(wav_t* wav, int index);
+void WriteWaveToFile(wav_t* wav, const char* name);
 
 void AIL_fix();
 char* mygetenv(const char* a1);

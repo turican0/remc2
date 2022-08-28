@@ -232,7 +232,7 @@ void SOUND_resume_sequence(int32_t sequence_num);
 uint32_t SOUND_sample_status(HSAMPLE S);
 
 void SOUND_set_sample_volume(HSAMPLE S, int32_t volume);
-void SOUND_set_sequence_volume(int32_t volume);
+void SOUND_set_sequence_volume(int32_t volume, int32_t  milliseconds);
 void SOUND_set_master_volume(int32_t volume);
 void SOUND_UPDATE();
 //void test_midi_play(uint8_t* data, uint8_t* header, int32_t track_number);

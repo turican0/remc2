@@ -115,9 +115,9 @@ void editor_run()
 
 	//x_DWORD_EA3E4[D41A0_BYTESTR_0.array_0x2BDE[D41A0_BYTESTR_0.word_0xc].word_0x00a_2BE4_11240]->dword_0xA4_164x->str_611.word_0x451_1105
 
-	GetSubDirectoryPath(gameDataPath, gameFolder);
-	GetSubDirectoryPath(cdDataPath, cdFolder);
-	SetCDFilePaths(cdDataPath, pstr);
+	gameDataPath = GetSubDirectoryPath(gameFolder);
+	cdDataPath = GetSubDirectoryPath(cdFolder);
+	SetCDFilePaths(cdDataPath.c_str(), pstr);
 	//init
 	sub_5BCC0_set_any_variables1();//23C9F2 - 23CCC0
 	if (!sub_5BF50_load_psxdata())//23C9F7 - 23CF50 //something with files about their loading, or just a set of palettes

@@ -426,6 +426,9 @@
     <ClInclude Include="engine\GameRenderHD.h">
       <Filter>Header Files\engine</Filter>
     </ClInclude>
+    <ClInclude Include="engine\MenusAndIntros.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
     <ClInclude Include="engine\GameRenderOriginal.h">
       <Filter>Header Files\engine</Filter>
     </ClInclude>
@@ -440,6 +443,9 @@
     </ClInclude>
     <ClInclude Include="engine\CommandLineParser.h">
       <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="portability\fcaseopen.h">
+      <Filter>Header Files\portability</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -583,9 +589,6 @@
     </ClCompile>
     <ClCompile Include="..\kiss_sdl-master\kiss_widgets.cpp">
       <Filter>Source Files\libs\kiss-sdl</Filter>
-    </ClCompile>
-    <ClCompile Include="..\temp\dirent.c">
-      <Filter>Source Files\portability</Filter>
     </ClCompile>
     <ClCompile Include="..\SDL-Mixer-X-master\src\music.c">
       <Filter>Source Files\libs\sdl-mixer-x</Filter>
@@ -731,6 +734,9 @@
     <ClCompile Include="engine\GameRenderHD.cpp">
       <Filter>Source Files\engine</Filter>
     </ClCompile>
+    <ClCompile Include="engine\MenusAndIntros.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
     <ClCompile Include="engine\GameRenderOriginal.cpp">
       <Filter>Source Files\engine</Filter>
     </ClCompile>
@@ -745,6 +751,12 @@
     </ClCompile>
     <ClCompile Include="engine\CommandLineParser.cpp">
       <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="portability\fcaseopen.cpp">
+      <Filter>Source Files\portability</Filter>
+    </ClCompile>
+    <ClCompile Include="portability\dirent.c">
+      <Filter>Source Files\portability</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

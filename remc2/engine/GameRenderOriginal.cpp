@@ -134,7 +134,7 @@ GameRenderOriginal::~GameRenderOriginal()
 					{
 						if (D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize == 40)
 						{
-							v34 = x_DWORD_EA3E4[D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].word_0x00a_2BE4_11240]->word_0x82_130;
+							v34 = x_DWORD_EA3E4[D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].word_0x00a_2BE4_11240]->actSpeed_0x82_130;
 							if ((signed int)((HIDWORD(v34) ^ v34) - HIDWORD(v34)) > 80)
 								D41A0_0.m_GameSettings.m_Display.xxxx_0x2191 = 1;
 						}
@@ -254,118 +254,74 @@ GameRenderOriginal::~GameRenderOriginal()
 	}
 }
 
-void GameRenderOriginal::DrawSky_40950(int16_t roll/*, uint8_t startLine, uint8_t drawEveryNthLine*/)
+void GameRenderOriginal::DrawSky_40950(int16_t roll)
 {
-	int v1; // ebx
-	int v2; // edx
-	int v3; // esi
-	int v4; // ebx
-	char* v5; // edx
-	int v7; // edx
-	int v8; // eax
-	int v9; // ecx
-	int v10; // edx
-	//__int16 result; // ax
-	int v12; // eax
-	char* v13; // esi
-	uint32_t* v14; // edi
-	uint8_t* v15; // edx
-	int v16; // ecx
-	int v17; // ebx
-	int v18; // eax
-	char v19ar[0x500]; // [esp+0h] [ebp-52Ch]
-	//int v20; // [esp+500h] [ebp-2Ch]
-	//int v21; // [esp+504h] [ebp-28h]
-	//int* viewPortRenderBufferStart; // [esp+508h] [ebp-24h]
-	int v23; // [esp+50Ch] [ebp-20h]
-	int v24; // [esp+510h] [ebp-1Ch]
-	int v25; // [esp+514h] [ebp-18h]
-	int v26; // [esp+518h] [ebp-14h]
-	int v27; // [esp+51Ch] [ebp-10h]
-	char v28; // [esp+520h] [ebp-Ch]
-	char v29; // [esp+524h] [ebp-8h]
-	unsigned __int8 v30; // [esp+528h] [ebp-4h]
+	int skyTextSize = 256;
+	if (x_BYTE_D41B5_texture_size == 128)
+	{
+		skyTextSize = 1024;
+	}
+	int lineWidthSQ = skyTextSize * skyTextSize;
 
-	v1 = roll & 0x7FF;
-	v2 = (x_DWORD)Maths::x_DWORD_DB750[512 + v1] << 8;
-	v26 = (Maths::x_DWORD_DB750[v1] << 8) / viewPort.Width_DE564;
-	v3 = 0;
-	v25 = v2 / viewPort.Width_DE564;
-	v4 = 0;
-	v29 = 0;
-	v5 = v19ar;
-	v30 = 0;
+	int texturePixelIndex;
+	bsaxis_2d errLine[3840]; // for 4K
+	int beginX;
+	int beginY;
+
+	int roundRoll = roll & 0x7FF;
+	int sinRoll = (Maths::x_DWORD_DB750[roundRoll] * skyTextSize) / viewPort.Width_DE564;
+	int cosRoll = (Maths::x_DWORD_DB750[512 + roundRoll] * skyTextSize) / viewPort.Width_DE564;
+	int errorX = 0;
+	int errorY = 0;
+	int8_t oldErrorX = 0;
+	int8_t oldErrorY = 0;
+	int index = 0;
 
 	// prepare sky texture lookup table
 	uint16_t width = viewPort.Width_DE564;
 	while (width)
 	{
-		v28 = BYTE2(v3);
-		*v5 = BYTE2(v3) - v29;
-		//v21 = BYTE2(v4);
-		//v20 = BYTE2(v4) - v30;
-		v5 += 2;
+		errLine[index].x = BYTE2(errorX) - oldErrorX;
+		errLine[index].y = BYTE2(errorY) - oldErrorY;
+		oldErrorX = BYTE2(errorX);
+		oldErrorY = BYTE2(errorY);
+		errorY += sinRoll;
+		errorX += cosRoll;
+		index++;
 		width--;
-		*(v5 - 1) = BYTE2(v4) - v30;
-		v29 = v28;
-		v30 = BYTE2(v4);
-		v4 += v26;
-		v3 += v25;
 	}
-	v7 = (-(str_F2C20ar.dword0x0d * str_F2C20ar.dword0x22) >> 16) + str_F2C20ar.dword0x24;
-	v8 = str_F2C20ar.dword0x10 - (str_F2C20ar.dword0x11 * str_F2C20ar.dword0x22 >> 16);
-	v9 = v7 * v25 - v8 * v26;
-	v10 = v25 * v8 + v26 * v7;
-	v23 = ((unsigned __int16)x_WORD_F2CC0 << 15) - v9;
+
 	uint8_t* viewPortRenderBufferStart = ViewPortRenderBufferStart_DE558;
-	//result = viewPort.Height_DE568;
-	v27 = -v10;
-	v24 = (unsigned __int16)viewPort.Height_DE568;
-	if ((x_WORD)viewPort.Height_DE568)
+	int addX = (-(str_F2C20ar.dword0x0d * str_F2C20ar.dword0x22) >> 16) + str_F2C20ar.dword0x24;
+	int addY = str_F2C20ar.dword0x10 - (str_F2C20ar.dword0x11 * str_F2C20ar.dword0x22 >> 16);
+	beginX = (x_WORD_F2CC0 << 15) * (skyTextSize / 256) - (addX * cosRoll - addY * sinRoll);
+	beginY = -(cosRoll * addY + sinRoll * addX);
+	uint16_t height = viewPort.Height_DE568;
+
+	if (viewPort.Height_DE568)
 	{
 		do
 		{
-			v12 = ((unsigned __int16)viewPort.Width_DE564
-				- (__CFSHL__((signed int)(unsigned __int16)viewPort.Width_DE564 >> 31, 2)
-					+ 4 * ((signed int)(unsigned __int16)viewPort.Width_DE564 >> 31))) >> 2;
-			v13 = v19ar;
-			//v20 = v27 >> 16;
-			v14 = (uint32_t*)viewPortRenderBufferStart;
-			//v21 = v23 >> 16;
-			v15 = off_D41A8_sky;
-			BYTE1(v17) = BYTE2(v27);
-			v16 = ((unsigned __int16)viewPort.Width_DE564
-				- (__CFSHL__((signed int)(unsigned __int16)viewPort.Width_DE564 >> 31, 2)
-					+ 4 * ((signed int)(unsigned __int16)viewPort.Width_DE564 >> 31))) >> 2;
-			LOBYTE(v17) = BYTE2(v23);
-			v17 = (unsigned __int16)v17;
-			do
+			index = 0;
+			uint8_t* viewPortLineRenderBufferStart = viewPortRenderBufferStart;
+
+			texturePixelIndex = (beginX / (256 * 256)) + skyTextSize * (int)(beginY / (256 * 256));
+			texturePixelIndex = (texturePixelIndex + lineWidthSQ * 2) % lineWidthSQ;
+
+			//Scales sky texture to viewport
+			for (uint8_t* endLine = viewPortLineRenderBufferStart + viewPort.Width_DE564; viewPortLineRenderBufferStart < endLine; viewPortLineRenderBufferStart++)
 			{
-				LOBYTE(v12) = v15[v17];
-				LOBYTE(v17) = *v13 + v17;
-				BYTE1(v17) += v13[1];
-				BYTE1(v12) = v15[v17];
-				LOBYTE(v17) = v13[2] + v17;
-				BYTE1(v17) += v13[3];
-				v18 = v12 << 16;
-				LOBYTE(v18) = v15[v17];
-				LOBYTE(v17) = v13[4] + v17;
-				BYTE1(v17) += v13[5];
-				BYTE1(v18) = v15[v17];
-				LOBYTE(v17) = v13[6] + v17;
-				BYTE1(v17) += v13[7];
-				v12 = __ROL4_16__(v18);
-				*v14 = v12;
-				v14++;
-				v13 += 8;
-				v16--;
-			} while (v16);
-			viewPortRenderBufferStart += iScreenWidth_DE560;
-			//result = v25;
-			v24--;
-			v23 -= v26;
-			v27 += v25;
-		} while (v24);
+				*viewPortLineRenderBufferStart = off_D41A8_sky[texturePixelIndex];
+				texturePixelIndex += errLine[index].x + skyTextSize * errLine[index].y;
+				texturePixelIndex = (texturePixelIndex + lineWidthSQ) % lineWidthSQ;
+				index++;
+			}
+
+			viewPortRenderBufferStart = viewPortRenderBufferStart + iScreenWidth_DE560;
+			height = Maths::SubtrackUntilZero(height, 1);
+			beginX -= sinRoll;
+			beginY += cosRoll;
+		} while (height);
 	}
 }
 
@@ -2238,14 +2194,14 @@ void GameRenderOriginal::sub_88740(type_event_0x6E8E* a1x, int a2, int a3)
 	if (str_unk_1804B0ar.byte_0x9e & 1)
 		return;
 	v4x = x_DWORD_EA3E4[D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].word_0x00a_2BE4_11240];
-	v5 = a1x->type_0x3F_63;
+	v5 = a1x->class_0x3F_63;
 	if (v5 < 5u)
 	{
 		if (v5 >= 2u)
 		{
 			if (v5 <= 2u)
 			{
-				v6 = a1x->subtype_0x40_64;
+				v6 = a1x->model_0x40_64;
 				if (v6 >= 1u)
 				{
 					if (v6 <= 1u)
@@ -2260,7 +2216,7 @@ void GameRenderOriginal::sub_88740(type_event_0x6E8E* a1x, int a2, int a3)
 			}
 			else if (v5 == 3)
 			{
-				v11 = a1x->subtype_0x40_64;
+				v11 = a1x->model_0x40_64;
 				if (v11 < 2u)
 				{
 					if (v11 == 1)
@@ -2268,11 +2224,11 @@ void GameRenderOriginal::sub_88740(type_event_0x6E8E* a1x, int a2, int a3)
 				}
 				else if (v11 <= 2u)
 				{
-					v3 = (a1x->word_0x1A_26 != v4x->word_0x1A_26) + 24;
+					v3 = (a1x->id_0x1A_26 != v4x->id_0x1A_26) + 24;
 				}
 				else if (v11 == 3)
 				{
-					if (a1x->word_0x1A_26 == v4x->word_0x1A_26)
+					if (a1x->id_0x1A_26 == v4x->id_0x1A_26)
 						v3 = 23;
 					else
 						v3 = 26;
@@ -2287,7 +2243,7 @@ void GameRenderOriginal::sub_88740(type_event_0x6E8E* a1x, int a2, int a3)
 		{
 			if (v5 <= 0xAu)
 			{
-				if (a1x->subtype_0x40_64 == 39 && a1x->word_0x94_148 != v4x->word_0x1A_26)
+				if (a1x->model_0x40_64 == 39 && a1x->word_0x94_148 != v4x->id_0x1A_26)
 					v3 = 18;
 			}
 			else if (v5 == 15 && !(a1x->struct_byte_0xc_12_15.byte[0] & 1))
@@ -2297,25 +2253,25 @@ void GameRenderOriginal::sub_88740(type_event_0x6E8E* a1x, int a2, int a3)
 		}
 		goto LABEL_48;
 	}
-	if (a1x->word_0x1A_26 != v4x->word_0x1A_26)
+	if (a1x->id_0x1A_26 != v4x->id_0x1A_26)
 	{
-		v7 = a1x->subtype_0x40_64;
+		v7 = a1x->model_0x40_64;
 		if (v7 < 0xCu)
 			goto LABEL_30;
 		if (v7 > 0xEu)
 		{
 			if (v7 == 22)
 			{
-				if (a1x->byte_0x45_69 != -76 && a1x->word_0x94_148 != v4x->word_0x1A_26)
+				if (a1x->state_0x45_69 != -76 && a1x->word_0x94_148 != v4x->id_0x1A_26)
 					v3 = 18;
 				goto LABEL_48;
 			}
 		LABEL_30:
-			v8 = a1x->byte_0x45_69;
+			v8 = a1x->state_0x45_69;
 			if (v8 < 0xE8u || v8 > 0xEAu)
 			{
 				v10 = 1;
-				if ((a1x->StageVar2_0x49_73 == 14 || a1x->StageVar2_0x49_73 == 13) && a1x->word_0x28_40 == v4x->word_0x1A_26)
+				if ((a1x->StageVar2_0x49_73 == 14 || a1x->StageVar2_0x49_73 == 13) && a1x->parentId_0x28_40 == v4x->id_0x1A_26)
 					v10 = 0;
 				if (v10)
 					v3 = 19;
@@ -2992,9 +2948,9 @@ void GameRenderOriginal::DrawSorcererNameAndHealthBar_2CB30(type_event_0x6E8E* a
 	v25 = a1x->dword_0xA4_164x->word_0x38_56;
 	v5 = D41A0_0.array_0x2BDE[v25].array_0x39f_2BFA_12157;//wizard name
 	strcpy(v24, v5);
-	v36 = x_BYTE_E88E0x[3 * sub_61790(v25)];//c
+	v36 = x_BYTE_E88E0x[3 * GetTrueWizardNumber_61790(v25)];//c
 	v35 = (*xadataclrd0dat.colorPalette_var28)[0];//10 //v19
-	v34 = x_BYTE_E88E0x[3 * sub_61790(v25)];	//14 //v18
+	v34 = x_BYTE_E88E0x[3 * GetTrueWizardNumber_61790(v25)];	//14 //v18
 	v33 = str_D94F0_bldgprmbuffer[static_cast<std::underlying_type<MapType_t>::type>(D41A0_0.terrain_2FECE.MapType)][2];//18 v14
 	v38 = str_D94F0_bldgprmbuffer[static_cast<std::underlying_type<MapType_t>::type>(D41A0_0.terrain_2FECE.MapType)][3];//4 v15
 	v37 = str_D94F0_bldgprmbuffer[static_cast<std::underlying_type<MapType_t>::type>(D41A0_0.terrain_2FECE.MapType)][0];//?v22
@@ -3033,9 +2989,9 @@ void GameRenderOriginal::DrawSorcererNameAndHealthBar_2CB30(type_event_0x6E8E* a
 				DrawLine_2BC80(v11 + v32 - 2, v39, 2, 18, v38);//2c tj. 4
 				DrawText_2BC10(v24, v11 + 4, v39, v34);//14
 				DrawLine_2BC80(v11 + 2, v39 + 14, v13 - 2, 2, v35);//10
-				if (a1x->dword_0x4)
+				if (a1x->maxLife_0x4)
 				{
-					v9y = a1x->dword_0x8 * (v13 - 2) / a1x->dword_0x4;
+					v9y = a1x->life_0x8 * (v13 - 2) / a1x->maxLife_0x4;
 					if (v30 + 2 + v9y > v31 - 2)
 						v9y = v31 - 2 - (v30 + 2);
 					if (v9y > 0)
@@ -3783,14 +3739,14 @@ void GameRenderOriginal::DrawParticles_3E360(int a2x)//21f360
 						if (v93 & 2)
 						{
 							v94 = (unsigned __int8)x_BYTE_E88E0x[0x2 + 3
-								* x_DWORD_EA3E4[v90x->word_0x28_40]->dword_0xA4_164x->word_0x38_56];
+								* x_DWORD_EA3E4[v90x->parentId_0x28_40]->dword_0xA4_164x->word_0x38_56];
 							str_F2C20ar.dword0x01_rotIdx = 4;
 							str_F2C20ar.dword0x07 = v94;
 						}
 						else if (v93 & 4)
 						{
 							v95 = (unsigned __int8)x_BYTE_E88E0x[0x2 + 3
-								* x_DWORD_EA3E4[v90x->word_0x28_40]->dword_0xA4_164x->word_0x38_56];
+								* x_DWORD_EA3E4[v90x->parentId_0x28_40]->dword_0xA4_164x->word_0x38_56];
 							str_F2C20ar.dword0x01_rotIdx = 5;
 							str_F2C20ar.dword0x07 = v95;
 						}
@@ -4902,8 +4858,8 @@ void GameRenderOriginal::DrawSprite_41BD3(uint32 a1)
 				if (a1 == 1)
 				{
 					if (!x_D41A0_BYTEARRAY_4_struct.byteindex_207
-						&& str_F2C20ar.dword0x14x->type_0x3F_63 == 3
-						&& (!str_F2C20ar.dword0x14x->subtype_0x40_64 || str_F2C20ar.dword0x14x->subtype_0x40_64 == 1))
+						&& str_F2C20ar.dword0x14x->class_0x3F_63 == 3
+						&& (!str_F2C20ar.dword0x14x->model_0x40_64 || str_F2C20ar.dword0x14x->model_0x40_64 == 1))
 					{
 						DrawSorcererNameAndHealthBar_2CB30(str_F2C20ar.dword0x14x, str_F2C20ar.dword0x04_screenY, (signed __int16)str_F2C20ar.dword0x03_screenX, str_F2C20ar.dword0x09_realWidth);
 					}

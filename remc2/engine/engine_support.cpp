@@ -1,4 +1,6 @@
 #include "engine_support.h"
+#include "CommandLineParser.h"
+#include <string>
 
 #ifdef USE_DOSBOX
 extern DOS_Device* DOS_CON;
@@ -531,7 +533,7 @@ void support_begin() {
 		//x_D41A0_BYTEARRAY_4_struct.savestring_89 = new char[256];
 
 	x_BYTE_14B4E0_second_heightmap = new uint8_t[65536];
-	off_D41A8_sky = new uint8_t[65536];
+	off_D41A8_sky = new uint8_t[1024 * 1024];
 	memcpy(off_D41A8_sky, &x_BYTE_14B4E0_second_heightmap, 4);
 
 	xy_DWORD_17DED4_spritestr = new posistruct_t[1000];
@@ -569,7 +571,7 @@ void support_end() {
 	if (x_DWORD_D4188t_spritestr) delete[](x_DWORD_D4188t_spritestr);
 }
 
-void loadfromsnapshot(char* filename, uint8_t* adress, uint32_t adressdos, uint32_t size) {
+void loadfromsnapshot(const char* filename, uint8_t* adress, uint32_t adressdos, uint32_t size) {
 	char findnamec[500];
 	FILE* fptestepc;
 	sprintf(findnamec, "../remc2/memimages/engine-memory-%s", filename);
@@ -579,7 +581,7 @@ void loadfromsnapshot(char* filename, uint8_t* adress, uint32_t adressdos, uint3
 	fclose(fptestepc);
 };
 
-void loadfromsnapshot2(char* filename, uint8_t* adress, uint32_t adressdos, uint32_t size) {
+void loadfromsnapshot2(const char* filename, uint8_t* adress, uint32_t adressdos, uint32_t size) {
 	char findnamec[500];
 	FILE* fptestepc;
 	uint32_t subadress;
@@ -593,7 +595,7 @@ void loadfromsnapshot2(char* filename, uint8_t* adress, uint32_t adressdos, uint
 	fclose(fptestepc);
 };
 
-uint32_t compare_with_snapshot(char* filename, uint8_t* adress, uint32_t adressdos, uint32_t size, uint8_t* origbyte, uint8_t* copybyte) {
+uint32_t compare_with_snapshot(const char* filename, uint8_t* adress, uint32_t adressdos, uint32_t size, uint8_t* origbyte, uint8_t* copybyte) {
 	char findnamec[500];
 	uint8_t* buffer = (uint8_t*)malloc(size);
 	FILE* fptestepc;
@@ -648,14 +650,14 @@ int test_0x6E8E_id_pointer(uint32_t adress) {
 int test_D41A0_id_pointer(uint32_t adress) {
 	if ((adress >= 0x2fc4) && (adress < 0x2fc5))return 2;//event
 
-	if ((adress >= 0x314d) && (adress < 0x3151))return 2;//clock
+	if ((adress >= 0x314d) && (adress < 0x3151))return 2;//clock - 4 bytes
 	if ((adress >= 0x3999) && (adress < 0x399d))return 2;//clock2 - 4 bytes
-	if ((adress >= 0x41e5) && (adress < 0x41e8))return 2;//clock3
-	if ((adress >= 0x4a31) && (adress < 0x4a34))return 2;//clock4
-	if ((adress >= 0x527d) && (adress < 0x5280))return 2;//clock5
-	if ((adress >= 0x5ac9) && (adress < 0x5acc))return 2;//clock6
-	if ((adress >= 0x6315) && (adress < 0x6318))return 2;//clock7
-	if ((adress >= 0x6b61) && (adress < 0x6b64))return 2;//clock8
+	if ((adress >= 0x41e5) && (adress < 0x41e9))return 2;//clock3 - 4 bytes
+	if ((adress >= 0x4a31) && (adress < 0x4a35))return 2;//clock4 - 4 bytes
+	if ((adress >= 0x527d) && (adress < 0x5281))return 2;//clock5 - 4 bytes
+	if ((adress >= 0x5ac9) && (adress < 0x5acd))return 2;//clock6 - 4 bytes
+	if ((adress >= 0x6315) && (adress < 0x6319))return 2;//clock7 - 4 bytes
+	if ((adress >= 0x6b61) && (adress < 0x6b65))return 2;//clock8 - 4 bytes
 
 	if ((adress >= 0x235) && (adress < 0x236))return 2;//music
 
@@ -751,7 +753,7 @@ int test_222BD3_id_pointer(uint32_t adress) {
 	return 0;
 }
 
-uint32_t compare_with_snapshot_D41A0(char* filename, uint8_t* adress, uint32_t adressdos, uint32_t size, uint8_t* origbyte, uint8_t* copybyte) {
+uint32_t compare_with_snapshot_D41A0(const char* filename, uint8_t* adress, uint32_t adressdos, uint32_t size, uint8_t* origbyte, uint8_t* copybyte) {
 	char findnamec[500];
 	uint8_t* buffer = (uint8_t*)malloc(size);
 	FILE* fptestepc;
@@ -803,16 +805,18 @@ uint32_t compare_with_snapshot_D41A0(char* filename, uint8_t* adress, uint32_t a
 	return(i);
 };
 
-uint32_t compare_with_sequence_E7EE0(char* filename, uint8_t* adress, uint32_t  /*adressdos*/, uint32_t count, uint32_t size1, uint32_t size2, uint8_t* origbyte, uint8_t* copybyte, long offset) {
-	char findnamec[500];
+uint32_t compare_with_sequence_E7EE0(const char* filename, uint8_t* adress, uint32_t  /*adressdos*/, uint32_t count, uint32_t size1, uint32_t size2, uint8_t* origbyte, uint8_t* copybyte, long offset) {
+	std::string finddir;
 	uint8_t* buffer = (uint8_t*)malloc(size2);
 	FILE* fptestepc;
-	sprintf(findnamec, "c:/prenos/dosbox-x-remc2/vs2015/sequence-%s.bin", filename);
-	fptestepc = fopen(findnamec, "rb");
+	finddir = CommandLineParams.GetMemimagesPath() + std::string("regressions");
+	std::string finddir2 = GetSubDirectoryPath("", "");
+	std::string findname = finddir2 + finddir + std::string("/sequence-") + filename + ".bin";
+	fptestepc = fopen(findname.c_str(), "rb");
 	if (fptestepc == NULL)
 	{
 		mydelay(100);
-		fptestepc = fopen(findnamec, "rb");
+		fptestepc = fopen(findname.c_str(), "rb");
 	}
 	fseek(fptestepc, count * size1 + offset, SEEK_SET);
 
@@ -856,21 +860,21 @@ uint32_t compare_with_sequence_E7EE0(char* filename, uint8_t* adress, uint32_t  
 	return(i);
 };
 
-uint32_t compare_with_sequence_D41A0(char* filename, uint8_t* adress, uint32_t  /*adressdos*/, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte, long offset, bool regressions) {
-	char findnamec[512];
-	char findnamec2[512];
+uint32_t compare_with_sequence_D41A0(const char* filename, uint8_t* adress, uint32_t  /*adressdos*/, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte, long offset, bool regressions) {
+	std::string finddir;
 	uint8_t* buffer = (uint8_t*)malloc(size);
 	FILE* fptestepc;
 	if (regressions)
-		sprintf(findnamec, "../remc2/memimages/regressions/sequence-%s.bin", filename);
+		finddir = CommandLineParams.GetMemimagesPath() + std::string("regressions");
 	else
-		sprintf(findnamec, "../../dosbox-x-remc2/vs2015/sequence-%s.bin", filename);
-	GetSubDirectoryPath(findnamec2, findnamec);
-	fptestepc = fopen(findnamec2, "rb");
+		finddir = std::string("../../dosbox-x-remc2/vs2015");
+	std::string finddir2 = GetSubDirectoryPath("", "");
+	std::string findname = finddir2 + finddir + std::string("/sequence-") + filename + ".bin";
+	fptestepc = fopen(findname.c_str(), "rb");
 	if (fptestepc == NULL)
 	{
 		mydelay(100);
-		fptestepc = fopen(findnamec2, "rb");
+		fptestepc = fopen(findname.c_str(), "rb");
 	}
 	fseek(fptestepc, count * size + offset, SEEK_SET);
 
@@ -913,7 +917,7 @@ uint32_t compare_with_sequence_D41A0(char* filename, uint8_t* adress, uint32_t  
 	return(i);
 };
 
-uint32_t compare_0x6E8E(char* filename, uint8_t* adress, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte, long offset) {
+uint32_t compare_0x6E8E(const char* filename, uint8_t* adress, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte, long offset) {
 	char findnamec[500];
 	uint8_t* buffer = (uint8_t*)malloc(size);
 	FILE* fptestepc;
@@ -965,16 +969,18 @@ uint32_t compare_0x6E8E(char* filename, uint8_t* adress, uint32_t count, uint32_
 	return(i);
 };
 
-uint32_t compare_with_sequence_EA3E4(char* filename, type_event_0x6E8E** adress, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte) {
-	char findnamec[500];
+uint32_t compare_with_sequence_EA3E4(const char* filename, type_event_0x6E8E** adress, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte) {
+	std::string finddir;
 	uint8_t* buffer = (uint8_t*)malloc(size * 0x3E9);
 	FILE* fptestepc;
-	sprintf(findnamec, "c:/prenos/dosbox-x-remc2/vs2015/seq_D41A0-%s.bin", filename);
-	fptestepc = fopen(findnamec, "rb");
+	finddir = CommandLineParams.GetMemimagesPath() + std::string("regressions");
+	std::string finddir2 = GetSubDirectoryPath("", "");
+	std::string findname = finddir2 + finddir + std::string("/sequence-") + filename + ".bin";
+	fptestepc = fopen(findname.c_str(), "rb");
 	if (fptestepc == NULL)
 	{
 		mydelay(100);
-		fptestepc = fopen(findnamec, "rb");
+		fptestepc = fopen(findname.c_str(), "rb");
 	}
 	fseek(fptestepc, count * size * 0x3E9/* + offset*/, SEEK_SET);
 
@@ -1023,16 +1029,18 @@ uint32_t compare_with_sequence_EA3E4(char* filename, type_event_0x6E8E** adress,
 	return(1);
 };
 
-uint32_t compare_with_sequence_D41A0_4(char* filename, uint8_t* adress, uint32_t  /*adressdos*/, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte, long offset) {
-	char findnamec[500];
+uint32_t compare_with_sequence_D41A0_4(const char* filename, uint8_t* adress, uint32_t  /*adressdos*/, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte, long offset) {
+	std::string finddir;
 	uint8_t* buffer = (uint8_t*)malloc(size);
 	FILE* fptestepc;
-	sprintf(findnamec, "c:/prenos/dosbox-x-remc2/vs2015/sequence-%s.bin", filename);
-	fptestepc = fopen(findnamec, "rb");
+	finddir = CommandLineParams.GetMemimagesPath() + std::string("regressions");
+	std::string finddir2 = GetSubDirectoryPath("", "");
+	std::string findname = finddir2 + finddir + std::string("/sequence-") + filename + ".bin";
+	fptestepc = fopen(findname.c_str(), "rb");
 	if (fptestepc == NULL)
 	{
 		mydelay(100);
-		fptestepc = fopen(findnamec, "rb");
+		fptestepc = fopen(findname.c_str(), "rb");
 	}
 	fseek(fptestepc, count * size + offset, SEEK_SET);
 
@@ -1080,16 +1088,18 @@ int test_F2C20ar_id_pointer(uint32_t adress) {
 	return 0;
 }
 
-uint32_t compare_with_sequence_x_DWORD_F2C20ar(char* filename, uint8_t* adress, uint32_t  /*adressdos*/, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte, int* posdiff) {
-	char findnamec[500];
+uint32_t compare_with_sequence_x_DWORD_F2C20ar(const char* filename, uint8_t* adress, uint32_t  /*adressdos*/, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte, int* posdiff) {
+	std::string finddir;
 	uint8_t* buffer = (uint8_t*)malloc(size);
 	FILE* fptestepc;
-	sprintf(findnamec, "c:/prenos/dosbox-x-remc2/vs2015/sequence-%s.bin", filename);
-	fptestepc = fopen(findnamec, "rb");
+	finddir = CommandLineParams.GetMemimagesPath() + std::string("regressions");
+	std::string finddir2 = GetSubDirectoryPath("", "");
+	std::string findname = finddir2 + finddir + std::string("/sequence-") + filename + ".bin";
+	fptestepc = fopen(findname.c_str(), "rb");
 	if (fptestepc == NULL)
 	{
 		mydelay(100);
-		fptestepc = fopen(findnamec, "rb");
+		fptestepc = fopen(findname.c_str(), "rb");
 	}
 	fseek(fptestepc, count * size, SEEK_SET);
 
@@ -1135,21 +1145,21 @@ uint32_t compare_with_sequence_x_DWORD_F2C20ar(char* filename, uint8_t* adress, 
 	return(diffindex);
 };
 
-uint32_t compare_with_sequence_array_E2A74(char* filename, uint8_t* adress, uint32_t  /*adressdos*/, uint32_t count, uint32_t size1, uint32_t size2, uint8_t* origbyte, uint8_t* copybyte, long offset, bool regressions) {
-	char findnamec[512];
-	char findnamec2[512];
+uint32_t compare_with_sequence_array_E2A74(const char* filename, uint8_t* adress, uint32_t  /*adressdos*/, uint32_t count, uint32_t size1, uint32_t size2, uint8_t* origbyte, uint8_t* copybyte, long offset, bool regressions) {
+	std::string finddir;
 	uint8_t* buffer = (uint8_t*)malloc(size2);
 	FILE* fptestepc;
 	if (regressions)
-		sprintf(findnamec, "../remc2/memimages/regressions/sequence-%s.bin", filename);
+		finddir = CommandLineParams.GetMemimagesPath() + std::string("regressions");
 	else
-		sprintf(findnamec, "../../dosbox-x-remc2/vs2015/sequence-%s.bin", filename);
-	GetSubDirectoryPath(findnamec2, findnamec);
-	fptestepc = fopen(findnamec2, "rb");
+		finddir = std::string("../../dosbox-x-remc2/vs2015");
+	std::string finddir2 = GetSubDirectoryPath("", "");
+	std::string findname = finddir2 + finddir + std::string("/sequence-") + filename + ".bin";
+	fptestepc = fopen(findname.c_str(), "rb");
 	if (fptestepc == NULL)
 	{
 		mydelay(100);
-		fptestepc = fopen(findnamec2, "rb");
+		fptestepc = fopen(findname.c_str(), "rb");
 	}
 	fseek(fptestepc, count * size1 + offset, SEEK_SET);
 
@@ -1193,16 +1203,18 @@ uint32_t compare_with_sequence_array_E2A74(char* filename, uint8_t* adress, uint
 	return(i);
 };
 
-uint32_t compare_with_sequence_array_222BD3(char* filename, uint8_t* adress, uint32_t  /*adressdos*/, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte, int* posdiff) {
-	char findnamec[500];
+uint32_t compare_with_sequence_array_222BD3(const char* filename, uint8_t* adress, uint32_t  /*adressdos*/, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte, int* posdiff) {
+	std::string finddir;
 	uint8_t* buffer = (uint8_t*)malloc(size);
 	FILE* fptestepc;
-	sprintf(findnamec, "c:/prenos/dosbox-x-remc2/vs2015/sequence-%s.bin", filename);
-	fptestepc = fopen(findnamec, "rb");
+	finddir = CommandLineParams.GetMemimagesPath() + std::string("regressions");
+	std::string finddir2 = GetSubDirectoryPath("", "");
+	std::string findname = finddir2 + finddir + std::string("/sequence-") + filename + ".bin";
+	fptestepc = fopen(findname.c_str(), "rb");
 	if (fptestepc == NULL)
 	{
 		mydelay(100);
-		fptestepc = fopen(findnamec, "rb");
+		fptestepc = fopen(findname.c_str(), "rb");
 	}
 	fseek(fptestepc, count * size, SEEK_SET);
 
@@ -1248,21 +1260,21 @@ uint32_t compare_with_sequence_array_222BD3(char* filename, uint8_t* adress, uin
 	return(i);
 };
 
-uint32_t compare_with_sequence(char* filename, uint8_t* adress, uint32_t  /*adressdos*/, long count, long size1, uint32_t size2, uint8_t* origbyte, uint8_t* copybyte, long offset, bool regressions) {
-	char findnamec[512];
-	char findnamec2[512];
+uint32_t compare_with_sequence(const char* filename, const uint8_t* adress, uint32_t  /*adressdos*/, long count, long size1, uint32_t size2, uint8_t* origbyte, uint8_t* copybyte, long offset, bool regressions) {
+	std::string finddir;
 	uint8_t* buffer = (uint8_t*)malloc(size2);
 	FILE* fptestepc;
-	if(regressions)
-		sprintf(findnamec, "../remc2/memimages/regressions/sequence-%s.bin", filename);
+	if (regressions)
+		finddir = CommandLineParams.GetMemimagesPath() + std::string("regressions");
 	else
-		sprintf(findnamec, "../../dosbox-x-remc2/vs2015/sequence-%s.bin", filename);
-	GetSubDirectoryPath(findnamec2, findnamec);
-	fptestepc = fopen(findnamec2, "rb");
+		finddir = std::string("../../dosbox-x-remc2/vs2015");
+	std::string finddir2 = GetSubDirectoryPath("", "");
+	std::string findname = finddir2 + finddir + std::string("/sequence-") + filename + ".bin";
+	fptestepc = fopen(findname.c_str(), "rb");
 	if (fptestepc == NULL)
 	{
 		mydelay(100);
-		fptestepc = fopen(findnamec2, "rb");
+		fptestepc = fopen(findname.c_str(), "rb");
 	}
 
 #ifdef __linux__
@@ -1305,13 +1317,13 @@ uint32_t compare_with_sequence(char* filename, uint8_t* adress, uint32_t  /*adre
 	return(i);
 };
 
-void mine_texts(char* filename, uint32_t adressdos, uint32_t count, char* outfilename) {
+void mine_texts(const char* filename, uint32_t adressdos, uint32_t count, char* outfilename) {
 	char findnamec[500];
 	FILE* fptestepc;
 	FILE* fileout;
 	char actchar;
 	char outtext[2048];
-	char outtext2[2048];
+	char outtext2[2176];
 	sprintf(findnamec, "c:/prenos/dosbox-x-remc2/vs2015/engine-memory-%s", filename);
 	fptestepc = fopen(findnamec, "rb");
 	fileout = fopen(outfilename, "wb");
@@ -1438,7 +1450,7 @@ inline void setRGBA(png_byte* ptr, uint8_t* val)
 	ptr[3] = val[3];
 }
 
-int writeImage(char* filename, int width, int height, uint8_t* buffer, char* title)
+int writeImage(const char* filename, int width, int height, uint8_t* buffer, char* title)
 {
 	int code = 0;
 	FILE* fp = NULL;
@@ -1574,7 +1586,7 @@ unsigned char* createBitmapInfoHeader(int height, int width) {
 	return infoHeader;
 }
 
-void writeImageBMP(char* imageFileName, int width, int height, uint8_t* image)
+void writeImageBMP(const char* imageFileName, int width, int height, uint8_t* image)
 {
 	int pitch = bytesPerPixel * width;
 	unsigned char padding[3] = { 0, 0, 0 };
@@ -1599,7 +1611,7 @@ void writeImageBMP(char* imageFileName, int width, int height, uint8_t* image)
 	//free(infoHeader);
 }
 
-void write_posistruct_to_png(uint8_t* buffer, int width, int height, char* filename) {
+void write_posistruct_to_png(uint8_t* buffer, int width, int height, const char* filename) {
 	//int width = actposistruct->width;
 	//int height = actposistruct->height;
 	//png_bytep *row_pointers=(png_bytep*)malloc(sizeof(row_pointers)*height);
@@ -1731,7 +1743,7 @@ void write_posistruct_to_png(uint8_t* buffer, int width, int height, char* filen
 	if (row != NULL) free(row);*/
 }
 
-void buff_posistruct_to_png(uint8_t* buffer, int width, int height, char* filename) {
+void buff_posistruct_to_png(uint8_t* buffer, int width, int height, const char* filename) {
 	//png_bytep row = NULL;
 	uint8_t Palettebuffer[768];
 	FILE* palfile;

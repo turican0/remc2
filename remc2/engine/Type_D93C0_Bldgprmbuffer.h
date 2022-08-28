@@ -4,6 +4,7 @@
 #define TYPE_D93C0_BLDGPRMBUFFER_H
 
 #include "stdint.h"
+#include <array>
 
 #pragma pack (1)
 typedef struct {//lenght 4
@@ -14,6 +15,6 @@ typedef struct {//lenght 4
 type_D93C0_bldgprmbuffer;
 #pragma pack (16)
 
-extern type_D93C0_bldgprmbuffer str_D93C0_bldgprmbuffer[76];
+extern std::array<type_D93C0_bldgprmbuffer, 76> str_D93C0_bldgprmbuffer; // size? at least index 76 is accessed
 
 #endif //TYPE_D93C0_BLDGPRMBUFFER_H

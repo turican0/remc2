@@ -169,7 +169,7 @@ typedef struct {
 typedef struct {
 	uint16_t x;
 	uint16_t y;
-	uint16_t z;
+	int16_t z;
 }axis_3d;
 
 typedef struct {
@@ -195,6 +195,11 @@ typedef struct {
 	uint8_t x;
 	uint8_t y;
 } baxis_2d;
+
+typedef struct {
+	int8_t x;
+	int8_t y;
+} bsaxis_2d;
 
 typedef union {
 	baxis_2d _axis_2d;
@@ -323,11 +328,7 @@ typedef struct Type_str_164 {//size 1136
 	int16_t word_0x38_56;
 	int16_t word_0x3A_58;
 	uint16_t array_0x3C_60[16];//size??
-	uint16_t array_0x5C_92[16];
-	uint8_t stubd[174];
-	/*int8_t byte_0xD3_211;
-	int8_t byte_0xD4_212;
-	int8_t byte_0xD5_213;*/
+	std::array<uint16_t, 103> array_0x5C_92; // size?? at least index 33 is accessed in level 19
 	int32_t dword_0x12A_298;
 	int32_t dword_0x12E_302;
 	uint8_t stube[10];
@@ -389,8 +390,8 @@ typedef struct Type_str_164 {//size 1136
 	int16_t word_0x248_584;
 	int16_t word_0x24A_586;
 	int16_t word_0x24C_588;
-	int8_t array_0x24E_590[10];//size??
-	uint8_t stubn[9];
+	std::array<int8_t, 19> array_0x24E_590; // size?? -> at least 12 in level 19. using the whole space of stubn now.
+	//uint8_t stubn[8];
 	int8_t byte_0x261_609;
 	int8_t byte_0x262_610;
 	type_str_611 str_611;
@@ -447,8 +448,8 @@ typedef struct
 
 typedef struct _str_0x6E8E {//lenght a8//THING
 	struct _str_0x6E8E* next_0;
-	int32_t dword_0x4;//4 //?bitmap//LIVE
-	int32_t dword_0x8;//8 // this is int32_t ?bitmap//MAX LIVE
+	int32_t maxLife_0x4;//4 //?bitmap//LIVE
+	int32_t life_0x8;//8 // this is int32_t ?bitmap//MAX LIVE
 	dw_w_b struct_byte_0xc_12_15;//12
 						//12//struct_byte_0xc_12_15.dbyte1_2.byte1
 	//0xfe - all spell
@@ -459,7 +460,7 @@ typedef struct _str_0x6E8E {//lenght a8//THING
 	uint16_t rand_0x14_20;//20 //random seed adress
 	uint16_t oldMapEntity_0x16_22;//22
 	uint16_t nextEntity_0x18_24;//24 //next entity index
-	uint16_t word_0x1A_26;//26 // index - owner //ID last index
+	uint16_t id_0x1A_26;//26 // index - owner //ID last index
 	int16_t word_0x1C_28;//28//rotate1
 	int16_t word_0x1E_30;//30//rotate2
 	int16_t word_0x20_32;//32//rotate3
@@ -467,7 +468,7 @@ typedef struct _str_0x6E8E {//lenght a8//THING
 	int16_t word_0x22_34;//34//rotate4
 	int16_t word_0x24_36;//36 // index subentity
 	int16_t word_0x26_38;//38 // index subentity
-	uint16_t word_0x28_40;//40//WHO OWNS ME
+	uint16_t parentId_0x28_40;//40//WHO OWNS ME
 	uint16_t word_0x2A_42;//42 //maybe int16_t
 	int16_t word_0x2C_44;//44 //add to z
 	int16_t word_0x2E_46;//46
@@ -482,15 +483,15 @@ typedef struct _str_0x6E8E {//lenght a8//THING
 	int8_t byte_0x3C_60;//60
 	int8_t byte_0x3D_61;//61
 	uint8_t byte_0x3E_62;//62 //index
-	uint8_t type_0x3F_63;//63 //type//MODEL
+	uint8_t class_0x3F_63;//63 //type//MODEL
 	//11 - spell
-	uint8_t subtype_0x40_64;//64 //subtype//CLASS
+	uint8_t model_0x40_64;//64 //subtype//CLASS
 	//0 or 1 - player, 2 - castle,3-ballon
 	int8_t xtype_0x41_65;//65 //type subentity
 	int8_t xsubtype_0x42_66;//66 //subtype subentity
 	int8_t byte_0x43_67;//67
 	int8_t byte_0x44_68;//68
-	uint8_t byte_0x45_69;//69 // index of structure with lenght 14//STATE-
+	uint8_t state_0x45_69;//69 // index of structure with lenght 14//STATE-
 	int8_t byte_0x46_70;//70 // index of bitmap // index of ending sequence
 	int8_t byte_0x47_71_xx;//71
 	int8_t StageVar1_0x48_72;//72
@@ -503,12 +504,12 @@ typedef struct _str_0x6E8E {//lenght a8//THING
 	int8_t byte_0x5D_93;
 	type_str_0x5E_94 str_0x5E_94;
 
-	int16_t word_0x82_130;//130 //add to z//ACTUAL SPEED
-	int16_t word_0x84_132;//132//MIN SPEED
-	int16_t word_0x86_134;//134//MAX SPEED
+	int16_t actSpeed_0x82_130;//130 //add to z//ACTUAL SPEED
+	int16_t minSpeed_0x84_132;//132//MIN SPEED
+	int16_t maxSpeed_0x86_134;//134//MAX SPEED
 	int32_t dword_0x88_136;//136
-	int32_t dword_0x8C_140;//140 //wiz name?//ACTUAL MANA
-	int32_t dword_0x90_144;//144 0-1000//MAX MANA
+	int32_t maxMana_0x8C_140;//140 //wiz name?//ACTUAL MANA
+	int32_t mana_0x90_144;//144 0-1000//MAX MANA
 	uint16_t word_0x94_148;//148
 	int16_t word_0x96_150;//150 // index subentity
 	uint16_t word_0x98_152;//152
@@ -754,14 +755,14 @@ typedef struct Type_x_D41A0_BYTEARRAY_4_struct {
 	//uint8_t harddisk_number;
 
 	//uint8_t setting_byte5_19;
-	uint32_t dwordindex_0;//x_D41A0_BYTEARRAY_4_struct.dwordindex_0
-	uint16_t wordindex_4;//x_D41A0_BYTEARRAY_4_struct.byteindex_4
-	uint16_t wordindex_6;//x_D41A0_BYTEARRAY_4_struct.wordindex_6
-	uint16_t wordindex_8;//x_D41A0_BYTEARRAY_4_struct.wordindex_8
+	uint32_t configDatSign_0;//x_D41A0_BYTEARRAY_4_struct.dwordindex_0
+	uint16_t langIndex_4;//x_D41A0_BYTEARRAY_4_struct.byteindex_4
+	uint16_t soundVolume_6;//x_D41A0_BYTEARRAY_4_struct.wordindex_6
+	uint16_t musicVolume_8;//x_D41A0_BYTEARRAY_4_struct.wordindex_8
 	uint8_t byteindex_10;//0xa//x_D41A0_BYTEARRAY_4_struct.byteindex_10//show help
-	int8_t byte_brightness_11;//0xb//x_D41A0_BYTEARRAY_4_struct.byteindex_11
-	int8_t byte_brightness_12;//0xc//x_D41A0_BYTEARRAY_4_struct.byteindex_12
-	int8_t byte_brightness_13;//0xd//x_D41A0_BYTEARRAY_4_struct.byteindex_13
+	int8_t brightness_11;//0xb//x_D41A0_BYTEARRAY_4_struct.byteindex_11
+	int8_t brightness_12;//0xc//x_D41A0_BYTEARRAY_4_struct.byteindex_12
+	int8_t brightness_13;//0xd//x_D41A0_BYTEARRAY_4_struct.byteindex_13
 	uint16_t wordindex_14;
 	uint32_t dwordindex_16;//0x10//x_D41A0_BYTEARRAY_4_struct.dwordindex_16
 	uint8_t stubb[2];
@@ -963,7 +964,7 @@ extern uint8_t* pdwScreenBuffer_351628;
 
 typedef struct {//lenght 30
 	int16_t word_0;//str_E2A74[].word_0
-	std::array<int16_t, 5> axis_2; //str_E2A74[].axis_2[0]
+	std::array<int16_t, 5> axis_2; // 1=textIndex 3=lineX1, 4=lineY1
 	//int16_t axis_4[3];//?? str_E2A74[].axis_2[0]
 	//int16_t stuba;
 	type_event_0x6E8E* dword_12;//str_E2A74[].dword_12
@@ -1002,26 +1003,26 @@ extern type_array_str_E2A74 str_E2A74;
 void support_begin();
 void support_end();
 
-void loadfromsnapshot(char* filename, uint8_t* adress, uint32_t adressdos, uint32_t size);
-void loadfromsnapshot2(char* filename, uint8_t* adress, uint32_t adressdos, uint32_t size);
-uint32_t compare_with_snapshot(char* filename, uint8_t* adress, uint32_t adressdos, uint32_t size, uint8_t* origbyte, uint8_t* copybyte);
-uint32_t compare_with_sequence(char* filename, uint8_t* adress, uint32_t adressdos, long count, long size1, uint32_t size2, uint8_t* origbyte, uint8_t* copybyte, long offset = 0, bool regressions=false);
-uint32_t compare_with_sequence_E7EE0(char* filename, uint8_t* adress, uint32_t adressdos, uint32_t count, uint32_t size1, uint32_t size2, uint8_t* origbyte, uint8_t* copybyte, long offset = 0);
-uint32_t compare_with_snapshot_D41A0(char* filename, uint8_t* adress, uint32_t adressdos, uint32_t size, uint8_t* origbyte, uint8_t* copybyte);
-uint32_t compare_with_sequence_D41A0(char* filename, uint8_t* adress, uint32_t adressdos, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte, long offset = 0, bool regressions = false);
-uint32_t compare_with_sequence_array_E2A74(char* filename, uint8_t* adress, uint32_t adressdos, uint32_t count, uint32_t size1, uint32_t size2, uint8_t* origbyte, uint8_t* copybyte, long offset = 0, bool regressions = false);
-uint32_t compare_with_sequence_x_DWORD_F2C20ar(char* filename, uint8_t* adress, uint32_t adressdos, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte, int* posdiff);
-uint32_t compare_with_sequence_array_222BD3(char* filename, uint8_t* adress, uint32_t adressdos, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte, int* posdiff);
-uint32_t compare_with_sequence_D41A0_4(char* filename, uint8_t* adress, uint32_t adressdos, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte, long offset = 0);
-uint32_t compare_with_sequence_EA3E4(char* filename, type_event_0x6E8E** adress, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte);
-uint32_t compare_0x6E8E(char* filename, uint8_t* adress, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte, long offset = 0);
+void loadfromsnapshot(const char* filename, uint8_t* adress, uint32_t adressdos, uint32_t size);
+void loadfromsnapshot2(const char* filename, uint8_t* adress, uint32_t adressdos, uint32_t size);
+uint32_t compare_with_snapshot(const char* filename, uint8_t* adress, uint32_t adressdos, uint32_t size, uint8_t* origbyte, uint8_t* copybyte);
+uint32_t compare_with_sequence(const char* filename, const uint8_t* adress, uint32_t adressdos, long count, long size1, uint32_t size2, uint8_t* origbyte, uint8_t* copybyte, long offset = 0, bool regressions=false);
+uint32_t compare_with_sequence_E7EE0(const char* filename, uint8_t* adress, uint32_t adressdos, uint32_t count, uint32_t size1, uint32_t size2, uint8_t* origbyte, uint8_t* copybyte, long offset = 0);
+uint32_t compare_with_snapshot_D41A0(const char* filename, uint8_t* adress, uint32_t adressdos, uint32_t size, uint8_t* origbyte, uint8_t* copybyte);
+uint32_t compare_with_sequence_D41A0(const char* filename, uint8_t* adress, uint32_t adressdos, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte, long offset = 0, bool regressions = false);
+uint32_t compare_with_sequence_array_E2A74(const char* filename, uint8_t* adress, uint32_t adressdos, uint32_t count, uint32_t size1, uint32_t size2, uint8_t* origbyte, uint8_t* copybyte, long offset = 0, bool regressions = false);
+uint32_t compare_with_sequence_x_DWORD_F2C20ar(const char* filename, uint8_t* adress, uint32_t adressdos, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte, int* posdiff);
+uint32_t compare_with_sequence_array_222BD3(const char* filename, uint8_t* adress, uint32_t adressdos, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte, int* posdiff);
+uint32_t compare_with_sequence_D41A0_4(const char* filename, uint8_t* adress, uint32_t adressdos, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte, long offset = 0);
+uint32_t compare_with_sequence_EA3E4(const char* filename, type_event_0x6E8E** adress, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte);
+uint32_t compare_0x6E8E(const char* filename, uint8_t* adress, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte, long offset = 0);
 void add_compare(uint32_t adress, bool debugafterload, int stopstep = -1, bool skip = false,int exitindex=1000000,int skip2=0);
 void add_compare2(uint32_t adress, uint8_t* memadress, uint32_t dosmemadress, uint32_t size, bool debugafterload, int stopstep = -1, bool skip = false, int exitindex = 1000000);
 void writehex(uint8_t* buffer, uint32_t count);
 
-void mine_texts(char* filename, uint32_t adressdos, uint32_t count, char* outfilename);
-int writeImage(char* filename, int width, int height, uint8_t* buffer, char* title);
-void writeImageBMP(char* imageFileName, int width, int height, uint8_t* image);
+void mine_texts(const char* filename, uint32_t adressdos, uint32_t count, char* outfilename);
+int writeImage(const char* filename, int width, int height, uint8_t* buffer, char* title);
+void writeImageBMP(const char* imageFileName, int width, int height, uint8_t* image);
 
 /*
 typedef struct {//lenght 8
@@ -1768,34 +1769,34 @@ typedef struct {//lenght 224791
 } type_shadow_D41A0_BYTESTR_0;
 
 struct {//lenght 0x33
-	int16_t word_0x0;//0 //0
-	int16_t word_0x2;//2 //1
-	int16_t word_0x4;//4 //2
-	int16_t word_0x6;//6 //3
-	int16_t word_0x8;//8 //4
-	int16_t word_0xa;//a //5
-	int16_t word_0xc;//c-3f //6
-	int16_t word_0xe;//e //7
-	int16_t word_0x10;//10 //8
-	int16_t word_0x12;//12 //9
-	int16_t word_0x14;//14 //10
-	int16_t word_0x16;//16 //11
-	int16_t word_0x18;//18 //12
-	int16_t word_0x1a;//1a //13
-	int16_t word_0x1c;//1c-4f //14
-	int16_t word_0x1e;//1e-51 //15
-	int16_t word_0x20;//20 //16
-	int16_t word_0x22;//22 //17
-	int16_t word_0x24;//24-57 //width 18
-	int16_t word_0x26;//26-59 //19
-	int16_t word_0x28;//28-5b //20
-	int16_t word_0x2a;//2a-5d//21
+	int16_t maxTextboxWidth_0x0;//0 //0
+	int16_t maxTextboxHeight_0x2;//2 //1
+	int16_t textBoxWidth_0x4;//4 //2
+	int16_t textboxHeight_0x6;//6 //3
+	int16_t textboxPosX_0x8;//8 //4
+	int16_t textboxPosY_0xa;//a //5
+	int16_t maxTextboxWidth2_0xc;//c-3f //6
+	int16_t maxTextboxHeight2_0xe;//e //7
+	int16_t charWidth_0x10;//10 //8
+	int16_t charHeight_0x12;//12 //9
+	int16_t minWidth_0x14;//14 //10
+	int16_t maxWidth_0x16;//16 //11
+	int16_t minHeight_0x18;//18 //12
+	int16_t maxHeight_0x1a;//1a //13
+	int16_t lineX1_0x1c;//1c-4f //14
+	int16_t lineY1_0x1e;//1e-51 //15
+	int16_t lineX2_0x20;//20 //16
+	int16_t lineY2_0x22;//22 //17
+	int16_t framePosX_0x24;//24-57 //width 18
+	int16_t framePosY_0x26;//26-59 //19
+	int16_t frameWidth_0x28;//28-5b //20
+	int16_t frameHeight_0x2a;//2a-5d//21
 	int8_t stub[4];
-	int8_t byte_0x30;//30-63 - color1 //24
-	int8_t byte_0x31;//31-64 - color2
-	int8_t byte_0x32;//32-65 - color2
+	int8_t color1_0x30;//30-63 - color1 //24
+	int8_t color2_0x31;//31-64 - color2
+	int8_t color3_0x32;//32-65 - color2
 }
-typedef type_sub_str_unk_1804B0ar;
+typedef type_textbox_sub1804B0;
 
 typedef union {//lenght 12
 	int32_t dword[3];
@@ -1804,7 +1805,7 @@ typedef union {//lenght 12
 type_uni_0x8a;
 
 struct {//0xb0 nebo spis 171(0xab)
-	type_sub_str_unk_1804B0ar type_sub_0[2];
+	type_textbox_sub1804B0 type_sub_0[2];
 	/*int16_t word_0xe;//e
 	int16_t word_0x10;//10
 	int16_t word_0x12;//12
@@ -1838,7 +1839,7 @@ struct {//0xb0 nebo spis 171(0xab)
 	int8_t byte_0xa0;//a0
 	int8_t byte_0xa1;//a1
 	int8_t byte_0xa2;//a2
-	int8_t byte_0xa3;//a3
+	int8_t drawTextType_0xa3;//a3
 	int8_t byte_0xa4;//a4
 	int8_t byte_0xa5;//a5
 	int8_t byte_0xa6;//a6
@@ -2051,7 +2052,7 @@ extern type_D41A0_BYTESTR_0 D41A0_0;
 
 /*void x_D41A0_BYTEARRAY_0_to_x_D41A0_BYTESTR_0();
 void x_D41A0_BYTESTR_0_to_x_D41A0_BYTEARRAY_0();*/
-void write_posistruct_to_png(uint8_t* buffer, int width, int height, char* filename);
+void write_posistruct_to_png(uint8_t* buffer, int width, int height, const char* filename);
 
 int my_sign32(int32_t var);
 int my_sign16(int16_t var);

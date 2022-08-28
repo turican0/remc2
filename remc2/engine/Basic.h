@@ -113,7 +113,7 @@ typedef struct//lenght 613 // end 17E09D
 	__int16 x_WORD_17DEF4; // weak
 	__int16 x_WORD_17DEF6; // weak
 	__int16 x_WORD_17DEF8; // weak
-	__int16 x_WORD_17DEFA; // weak
+	__int16 networkSession_17DEFA; // weak
 	__int16 serverIndex_17DEFC; // weak
 	__int16 x_WORD_17DEFE; // weak
 	__int16 x_WORD_17DF00; // weak
@@ -177,9 +177,9 @@ extern uint8_t* ViewPortRenderBufferStart_DE558;
 
 extern uint8_t* ViewPortRenderBufferAltStart_DE554;
 
-extern char gameDataPath[];
-extern char cdDataPath[];
-extern char bigGraphicsPath[];
+extern std::string gameDataPath;
+extern std::string cdDataPath;
+extern std::string bigGraphicsPath;
 
 //extern type_17ECA0 str_17ECA0[];
 //extern uint8_t x_DWORD_17ECA0[];
@@ -192,7 +192,7 @@ extern int frameCount;
 extern int fps;
 
 
-extern int x_DWORD_E3E2C;
+extern int readFileStatus_E3E2C;
 
 extern char x_BYTE_D41C1; // weak
 
@@ -229,6 +229,8 @@ extern type_x_DWORD_17DE38str x_DWORD_17DE38str;
 extern uint8_t* x_DWORD_E9C38_smalltit;
 
 extern TColor unk_17D838x[]; // weak
+
+extern uint8_t x_BYTE_D41B5_texture_size;
 
 #pragma pack (1)
 typedef struct {
@@ -516,7 +518,7 @@ extern type_TMAPS00TAB_BEGIN_BUFFER* str_TMAPS00TAB_BEGIN_BUFFER;
 
 bool DefaultResolutions();
 
-void sub_83E80_freemem4(uint8_t* a1);
+void FreeMem_83E80(uint8_t* a1);
 int sub_84000(int a1);
 
 x_DWORD x_outp(x_DWORD, char);// weak
@@ -524,9 +526,9 @@ x_DWORD x_inp(x_DWORD);// weak
 void stub_fix_it();
 void* sub_83CD0_malloc2(size_t a1);
 void qmemcpy(void* a, void* b, size_t c);
-int sub_9D490_free4(void* a1, int a2);
+int FreeMem_9D490(void* a1, int a2);
 int x_free(void* ptr);
-void* sub_83D70_malloc1(int a1);
+void* Malloc_83D70(int a1);
 
 void __writegsx_WORD(unsigned long Offset, unsigned short Data);
 void __writegsx_DWORD(unsigned long Offset, unsigned long Data);
@@ -544,7 +546,7 @@ void dbgfprintf(FILE* file, const char* format, ...);
 
 x_DWORD dos_read(FILE*, char, x_DWORD, x_DWORD, char*);
 
-signed int sub_9DE20_get_file_lenght(char* a1);
+signed int GetFileLenght_9DE20(char* a1);
 uint8_t* sub_9DEA0_read_file(char* a1, uint8_t* a2);
 
 FILE* x_open(char* path, int pmodex);
@@ -598,7 +600,7 @@ void sub_98709_create_index_dattab_power(posistruct2_t* a1, posistruct2_t* a2, u
 void sub_98709_create_index_dattab_power_add(uint8_t* a1, uint8_t* a2, uint8_t* a3, posistruct_t* a4, int add);
 void sub_9874D_create_index_dattab(posistruct2_t* a1, posistruct2_t* a2, uint8_t* a3, posistruct_t* a4);
 void sub_9874D_create_index_dattab_add(uint8_t* a1, uint8_t* a2, uint8_t* a3, posistruct_t* a4, int add);
-signed int sub_61790(signed int a1);
+signed int GetTrueWizardNumber_61790(signed int inputnumber);
 
 void Convert_from_shadow_str_2FECE(type_shadow_str_2FECE* from, type_str_2FECE* to);
 void Convert_from_shadow_D41A0_BYTESTR_0(type_shadow_D41A0_BYTESTR_0* from, type_D41A0_BYTESTR_0* to);
