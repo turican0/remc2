@@ -38768,7 +38768,7 @@ void sub_46830_main_loop(/*int16_t* a1, */signed int a2, unsigned __int16 a3)//2
 				SetCenterScreenForFlyAssistant_6EDB0();
 				if (m_ptrGameRender == nullptr)
 				{
-					if (DefaultResolutions()) {
+					if ((gameResWidth <= 640) && (gameResHeight <= 480)) {
 						m_ptrGameRender = (GameRenderInterface*)new GameRenderOriginal();
 					}
 					else {
