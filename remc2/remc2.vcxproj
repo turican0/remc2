@@ -358,6 +358,8 @@
     <ClInclude Include="engine\GameRenderInterface.h" />
     <ClInclude Include="engine\GameRenderGL.h" />
     <ClInclude Include="engine\GameRenderHD.h" />
+    <ClInclude Include="engine\globals.h" />
+    <ClInclude Include="engine\global_types.h" />
     <ClInclude Include="engine\MenusAndIntros.h" />
     <ClInclude Include="engine\GameRenderOriginal.h" />
     <ClInclude Include="engine\ProjectionPolygon.h" />
