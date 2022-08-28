@@ -1302,143 +1302,95 @@ int16_t TestMouseRegions_7E1F0()//25f1f0
 //----- (000779E0) --------------------------------------------------------
 char LanguageSettingDialog_779E0(type_WORD_E1F84* a1y)//2589E0
 {
-	uint8_t* v1; // ebx
-	char* langfilename; // eax
-	char v4; // al
-	FILE* configfile2; // esi
-	//int v6; // eax
-	//int v7; // edx
-	//int v8; // eax
-	//uint8_t* v9; // esi
-	__int16 v10; // si
-	__int16 v11; // ax
-	//int v12; // esi
-	char v13; // al
-	FILE* configfile; // ebx
-	//int v15; // eax
-	//char v17; // [esp+0h] [ebp-142h]
-	//char v18; // [esp+A0h] [ebp-A2h]
-	//char v19[100]; // [esp+F0h] [ebp-52h]
-	_finddata_t langfileL;
-	//char v20; // [esp+10Eh] [ebp-34h]
-	//char v21[100]; // [esp+11Ch] [ebp-26h]
-	_finddata_t langfileD;
-	//char v22; // [esp+13Ah] [ebp-8h]
-	//uint8_t v23ar[0x24]; // [esp+148h] [ebp+6h]
-	type_E24BCx v23arx[2];
-	//uint8_t v24[100]; // [esp+158h] [ebp+16h]//v23ar[0x10]
+	uint8_t* langBuffer;
+	char* langFilename;
+	FILE* configFile2;
+	char selectLang3;
+	FILE* configFile;
+	_finddata_t langFileL;
+	_finddata_t langFileD;
+	type_E24BCx textBoxStr[2];
+	int actualTime;
+	posistruct2_t* tabBufferEnd;
+	posistruct2_t* tabBuffer;
 
-	//int v25; // [esp+16Ch] [ebp+2Ah]
-	//__int16 v26; // [esp+170h] [ebp+2Eh]
-	//int v27; // [esp+180h] [ebp+3Eh]
-	//char v28; // [esp+18Ah] [ebp+48h]
-	int v29_old_time; // [esp+18Ch] [ebp+4Ah]
-	int v30_actual_time; // [esp+190h] [ebp+4Eh]
-	__int16 v31; // [esp+198h] [ebp+56h]
-	char v32; // [esp+19Ah] [ebp+58h]
-	posistruct2_t* v33x; // [esp+19Ch] [ebp+5Ah]
-	uint8_t v34; // [esp+1A0h] [ebp+5Eh]
-	//uint8_t* v35; // [esp+1A4h] [ebp+62h]
-	posistruct2_t* v35x;
-	//uint8_t* v36; // [esp+1A8h] [ebp+66h]
-	posistruct2_t* v36x; // [esp+1A8h] [ebp+66h]
-	posistruct2_t* v37x; // [esp+1ACh] [ebp+6Ah]
-	//uint8_t* v38; // [esp+1B0h] [ebp+6Eh]
-	int v39; // [esp+1B4h] [ebp+72h]
-	uint8_t v40; // [esp+1B8h] [ebp+76h]
-	int v41; // [esp+1BCh] [ebp+7Ah]
+	uint8_t* tempSmalltit = NULL;
 
-	//fix it
-	//v7 = 0;
-	v31 = 0;
-	v29_old_time = 0;
-	//fix it
+	int textIndex = 0;
+	int oldTime = 0;
 
-	v34 = 0;
-	v41 = 0;
-	v40 = 0;
-	v39 = 0;
+	TypeConfigDat configDat;
+
+	uint8_t selectLang2 = 0;
+	configDat.configDatSign_0 = 0;
+	int frame = 0;
+	configDat.langIndex_4 = 0;
+	int mouseClick = 0;
 
 	char configFilePath[MAX_PATH];
 	sprintf(configFilePath, "%s/%s", gameDataPath.c_str(), "CONFIG.DAT");
-	/*memset(&v25, 0, 32);//355104 ->355120
-	memset(&v29_old_time, 0);
-	qmemcpy(&v25, (void *)x_D41A0_BYTEARRAY_4, 0x14u);
-	qmemcpy(&v27, (void *)(x_D41A0_BYTEARRAY_4[20]), 2u);
-	fix it
-	*/
+
 	long langlhandle = 0;
 	long langdhandle = 0;
 
-	v32 = 2;
+	char codeBranch = 2;
 	SetCenterScreenForFlyAssistant_6EDB0();//24fdb0
-	x_DWORD_17DE38str.x_DWORD_17DEE4_mouse_positionx = 0x140;
-	x_DWORD_17DE38str.x_DWORD_17DEE6_mouse_positiony = 0xC8;
+	x_DWORD_17DE38str.x_DWORD_17DEE4_mouse_positionx = 320;
+	x_DWORD_17DE38str.x_DWORD_17DEE6_mouse_positiony = 200;
 	if (a1y)//0x0
 	{
 		sub_7A110_load_hscreen(x_WORD_180660_VGA_type_resolution, 12);//load hscreen 25b110
-		v1 = &x_DWORD_E9C38_smalltit[307200];//4B000
+		langBuffer = &x_DWORD_E9C38_smalltit[307200];//4B000
 	}
 	else
 	{
-		//v38 = x_DWORD_E9C38_smalltit;
+		tempSmalltit = x_DWORD_E9C38_smalltit;
 		x_DWORD_E9C38_smalltit = x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226;//[[2a51a4]+e2]
-		v1 = &x_DWORD_E9C38_smalltit[307200];//406514+4b000
+		langBuffer = &x_DWORD_E9C38_smalltit[307200];//406514+4b000
 		sub_7A110_load_hscreen(x_WORD_180660_VGA_type_resolution, 14);//25b110
 	}
 	ResetMouse_7B5A0();//25c5a0  disable //enabl
 	sub_8CD27_set_cursor((*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct)[0]/*filearray_2aa18c[0]*/);//26dd27
 	x_DWORD_17DE38str.x_WORD_17DEEC = 0;
 
-	char languagePath[MAX_PATH];
-	sprintf(languagePath, "%s/LANGUAGE/L*.TXT", cdDataPath.c_str());
-	langlhandle = unknown_libname_2_findfirst(languagePath, 0, &langfileL);
+	char languagePathL[MAX_PATH];
+	char languagePathD[MAX_PATH];
+	sprintf(languagePathL, "%s/LANGUAGE/L*.TXT", cdDataPath.c_str());
+	langlhandle = unknown_libname_2_findfirst(languagePathL, 0, &langFileL);
 	if (langlhandle != 0)// 27B166 - 355088
 	{
-		sprintf(languagePath, "%s/LANGUAGE/D*.TXT", cdDataPath.c_str());
-		langdhandle = unknown_libname_2_findfirst(languagePath, 0, &langfileD); //v21=3550b4 3550b4
+		sprintf(languagePathD, "%s/LANGUAGE/D*.TXT", cdDataPath.c_str());
+		langdhandle = unknown_libname_2_findfirst(languagePathD, 0, &langFileD); //v21=3550b4 3550b4
 		if (langlhandle == 0 || langdhandle == 0)
-			langfilename = (char*)langfileL.name;//something was not found
+			langFilename = (char*)langFileL.name;//something was not found
 		else
-			langfilename = (char*)langfileD.name;//both are assigned the case "D2.TXT", address 3550d2
-		//35513c 355134 451414 3550d2
-		//D2.TXT , [451514]000000, [355134]00100000-podobne v20,[35513c]0000
-		//eax - 3550d2 d2.txt
-		//ebx - 451514 - 0000000000000000000
-		//[ebp+5a] 00100000
-		//[ebp+62] 00000000a4a03a00
-		posistruct_t v1_langdattab[1000];
-		v4 = LoadLanguageFile(&v35x, &v33x, v1, langfilename, v1_langdattab);//2607d0
-		//D2.TXT , [451514]020058e2e2e2, [355134]c5274500->00000000,[35513c]b9274500->141545->020058e2e2e2
-		x_D41A0_BYTEARRAY_4_struct.SelectedLangIndex = v4;
-		unknown_libname_4_find_close(&langfileD, langdhandle);//27b1b3
-		v36x = v35x;
-		v37x = v33x;
+			langFilename = (char*)langFileD.name;//both are assigned the case "D2.TXT", address 3550d2
+
+		posistruct_t langDatTab[1000];
+		x_D41A0_BYTEARRAY_4_struct.SelectedLangIndex = LoadLanguageFile(&tabBuffer, &tabBufferEnd, langBuffer, langFilename, langDatTab);//2607d0
+		unknown_libname_4_find_close(&langFileD, langdhandle);//27b1b3
 		if (langlhandle == 0)
 		{
-			configfile2 = DataFileIO::CreateOrOpenFile(configFilePath, 512);
-			if (configfile2 != NULL)
+			configFile2 = DataFileIO::CreateOrOpenFile(configFilePath, 512);
+			if (configFile2 != NULL)
 			{
-				DataFileIO::Read(configfile2, &v34, 4);
-				if (v34 == -9)
+				DataFileIO::Read(configFile2, (uint8_t*)&configDat.configDatSign_0, 4);
+				if (configDat.configDatSign_0 == 0xfffffff7)
 				{
-					DataFileIO::Read(configfile2, &v40, 2);
-					sprintf(printbuffer, "L%d.TXT", v40);
-					x_D41A0_BYTEARRAY_4_struct.SelectedLangIndex = sub_7F960(v36x, v37x, v1, printbuffer, v1_langdattab);//tady se pak zmeni v1 za v1_langdattab
+					DataFileIO::Read(configFile2, (uint8_t*)&configDat.langIndex_4, 2);
+					sprintf(printbuffer, "L%d.TXT", configDat.langIndex_4);
+					x_D41A0_BYTEARRAY_4_struct.SelectedLangIndex = sub_7F960(tabBuffer, tabBufferEnd, langBuffer, printbuffer, langDatTab);//tady se pak zmeni v1 za v1_langdattab
 				}
-				DataFileIO::Close(configfile2);
+				DataFileIO::Close(configFile2);
 			}
 		}
 		ResetMouse_7B5A0();//25c5a0
 		x_DWORD_17DE38str.x_WORD_17DEEE_mouse_buttons = 0;
-		//[34eed4]+de? =48c81b ->3abe47001315
 		sub_8CD27_set_cursor(xy_DWORD_17DED4_spritestr[0x25]);//26dd27
-		//kursor se nastavi zde!
-		while (v39 != 2)//adress 258c30
+		while (mouseClick != 2)//adress 258c30
 		{
 			if (x_DWORD_17DE38str.x_BYTE_17DF10_get_key_scancode == 59)
 			{
-				//v6 = (uint8)x_D41A0_BYTEARRAY_4;
 				x_D41A0_BYTEARRAY_4_struct.byteindex_10 = x_D41A0_BYTEARRAY_4_struct.byteindex_10 != 1;
 				x_D41A0_BYTEARRAY_4_struct.setting_38402 = 1;
 			}
@@ -1446,161 +1398,97 @@ char LanguageSettingDialog_779E0(type_WORD_E1F84* a1y)//2589E0
 				CopyScreen(x_DWORD_E9C38_smalltit, pdwScreenBuffer_351628, 320, 200);
 			else
 				CopyScreen(x_DWORD_E9C38_smalltit, pdwScreenBuffer_351628, 640, 480);//write default screan 27b144  adress 258c99
-			v39 = sub_7E0E0_mouse_events();//25f0e0 adress 258ca1 - zmeni tlacitko, vrati stav kliknuti
-			//4527b9=[ebp+66]+6 4527bf 161545005835->58e2e2e2e2e2
-			//[ebp+66]+6//save1
-			sub_2BB40_draw_bitmap(263, 134, v1_langdattab[1]);//20cb40 adress 258cba - zmeni vlajku
-			//v8 = x_D41A0_BYTEARRAY_4_struct.dwordindex_0;//save2
-			if (x_D41A0_BYTEARRAY_4_struct.byteindex_10 == 1)//je 1  ne nula!
+			mouseClick = sub_7E0E0_mouse_events();//25f0e0 adress 258ca1 - change button, return click
+			sub_2BB40_draw_bitmap(263, 134, langDatTab[1]);//20cb40 adress 258cba - change flag
+			if (x_D41A0_BYTEARRAY_4_struct.byteindex_10 == 1)//is 1 not zero!
 			{
-				//v8 = v32;
-				if (v32 == 2)
+				if (codeBranch == 2)
 				{
-					v30_actual_time = j___clock();//279786 , adresa 258cd9
-					//0x4a3-0x0 b
-					if ((v30_actual_time - v29_old_time) / 100 > 1)//pokud ubehlo 100ms
+					actualTime = j___clock();//279786 , adresa 258cd9
+					if ((actualTime - oldTime) / 100 > 1)//when run 100ms
 					{
-						if (!xx_WORD_E24BE[v31++][0])//2b34be
-							v31 = 0;
-						v29_old_time = v30_actual_time;
+						if (!xx_WORD_E24BE[textIndex++][0])//2b34be
+							textIndex = 0;
+						oldTime = actualTime;
 					}
-					memset(v23arx, 0, 36);//26db3a
-					//esi=[ebp+56] 355130->01
-					//edi=[ebp+6] 3550e0->00000000
-					//eax=[0+esi*8] 8
-					//esp+=c 354f8c+c=354f98
-					//eax+=esi tj.9
-					//esi=002b34bc
-					//eax+=eax 18
-					//ecx=18
-					//esi=002b34bc+18
-
-					/*v9 = &unk_E24BCx[18 * v31];//2b34bc
-					qmemcpy(v23arx, v9, 0x10u+2u);*/
-					v23arx[0] = str_E24BCx[v31];
-					//qmemcpy(&v23ar[0x10], v9 + 16, 2u);
-					//v23
-					//c6012a012c018d
-
-					sub_7E840_draw_textbox_with_line(v23arx, 83, 100);//25f840 adress 258d6a - prida text?
-				  //save3
+					memset(textBoxStr, 0, 2 * sizeof(type_E24BCx));//26db3a
+					textBoxStr[0] = str_E24BCx[textIndex];
+					sub_7E840_draw_textbox_with_line(textBoxStr, 83, 100);//25f840 adress 258d6a - add text?
 				}
-				else if (v32 == 3)
+				else if (codeBranch == 3)
 				{
-					v30_actual_time = j___clock();
-					if ((v30_actual_time - v29_old_time) / 100 > 1)//pokud ubehlo 100ms
-						v32 = 2;
+					actualTime = j___clock();
+					if ((actualTime - oldTime) / 100 > 1)//when run 100ms
+						codeBranch = 2;
 				}
 			}
-			if (v41)
+			if (frame)
 			{
 				if (x_WORD_180660_VGA_type_resolution & 1)
 					sub_90478_VGA_Blit320();
 				else
-					sub_75200_VGA_Blit640(480);//vykresleni //256200
+					sub_75200_VGA_Blit640(480);//draw //256200
 			}
 			else
 			{
 				sub_90B27_VGA_pal_fadein_fadeout(x_DWORD_17DE38str.x_DWORD_17DE38x, 0x20u, 0);//271b27
-				v41++;
+				frame++;
 			}
-			v10 = v39;
 			sub_7A060_get_mouse_and_keyboard_events();//25b060 adress 258ddf
-			if (v10 == 1)
+			if (mouseClick == 1)
 			{
-				if (unknown_libname_3_findnext(&langfileL, langlhandle))//258193
+				if (unknown_libname_3_findnext(&langFileL, langlhandle))//258193
 				{
-					unknown_libname_4_find_close(&langfileL, langlhandle);
-					langlhandle = unknown_libname_2_findfirst(languagePath, 0, &langfileL);
+					unknown_libname_4_find_close(&langFileL, langlhandle);
+					langlhandle = unknown_libname_2_findfirst(languagePathL, 0, &langFileL);
 				}
 				// L2.TXT
-				v11 = sub_7F960(v36x, v37x, v1, langfileL.name, v1_langdattab);//adress 258dec
-				//v12 = (uint8)x_D41A0_BYTEARRAY_4;
-				v40 = v11;
-				if (x_D41A0_BYTEARRAY_4_struct.SelectedLangIndex == v11)
+				selectLang2 = sub_7F960(tabBuffer, tabBufferEnd, langBuffer, langFileL.name, langDatTab);//adress 258dec
+				if (x_D41A0_BYTEARRAY_4_struct.SelectedLangIndex == selectLang2)
 				{
-					if (unknown_libname_3_findnext(&langfileL, langlhandle))
+					if (unknown_libname_3_findnext(&langFileL, langlhandle))
 					{
-						unknown_libname_4_find_close(&langfileL, langlhandle);
-						langlhandle = unknown_libname_2_findfirst(languagePath, 0, &langfileL);
+						unknown_libname_4_find_close(&langFileL, langlhandle);
+						langlhandle = unknown_libname_2_findfirst(languagePathL, 0, &langFileL);
 					}
-					v13 = sub_7F960(v36x, v37x, v1, langfileL.name, v1_langdattab);
-					//v12 = (uint8)x_D41A0_BYTEARRAY_4;
+					selectLang3 = sub_7F960(tabBuffer, tabBufferEnd, langBuffer, langFileL.name, langDatTab);
 				}
 				else
 				{
-					v13 = v40;
+					selectLang3 = selectLang2;
 				}
-				//*(x_BYTE *)(v12 + 179) = v13;
-				x_D41A0_BYTEARRAY_4_struct.SelectedLangIndex = v13;
+				x_D41A0_BYTEARRAY_4_struct.SelectedLangIndex = selectLang3;
 			}
 		}
 	}
 	//adress 258ea1
-	unknown_libname_4_find_close(&langfileL, langlhandle);//adress 258EA2
-	configfile = DataFileIO::CreateOrOpenFile(configFilePath, 546);
-	if (configfile != NULL)
+	unknown_libname_4_find_close(&langFileL, langlhandle);//adress 258EA2
+	configFile = DataFileIO::CreateOrOpenFile(configFilePath, 546);
+	if (configFile != NULL)
 	{
 		if (x_D41A0_BYTEARRAY_4_struct.setting_38402 == 1)
 			x_D41A0_BYTEARRAY_4_struct.setting_38402 = 0;
-		/*qmemcpy(&v25, (void *)x_D41A0_BYTEARRAY_4, 0x14u);
-		qmemcpy(&v27, (void *)(x_D41A0_BYTEARRAY_4[0x14]), 2u);
-		qmemcpy((char *)&v27 + 2, &x_BYTE_EB39E_keys, 8u);
-		//qmemcpy(&v28, &x_BYTE_EB39E_keys + 8, 2u);//fix it
-		v25 = -9;
-		v26 = x_D41A0_BYTEARRAY_4_struct.byteindex_179;
-		WriteFile_98CAA(configfile, (uint8_t*)&v25, 32);*/
-		//f7 ff ff ff 02 00 7f 00 7f 00 01 00 00 00 00 00
-		//00 00 00 00 00 00 48 50 4b 4d 1c 1d 38 36 36 38
 
-		//f7 ff ff ff 03 00 7f 00 7f 00 01 00 00 00 00 00
-		//00 00 00 00 00 00 48 50 4b 4d 1c 1d 38 36 36 38
-		uint16_t twobyte = 0xfff7;
-		uint8_t helpbyte;
-		WriteFile_98CAA(configfile, (uint8_t*)&twobyte, 2);//0
-		twobyte = 0xffff;
-		WriteFile_98CAA(configfile, (uint8_t*)&twobyte, 2);//2
-		twobyte = x_D41A0_BYTEARRAY_4_struct.SelectedLangIndex;
-		WriteFile_98CAA(configfile, (uint8_t*)&twobyte, 2);//4
-		twobyte = x_D41A0_BYTEARRAY_4_struct.soundVolume_6;
-		WriteFile_98CAA(configfile, (uint8_t*)&twobyte, 2);//6
-		twobyte = x_D41A0_BYTEARRAY_4_struct.musicVolume_8;
-		WriteFile_98CAA(configfile, (uint8_t*)&twobyte, 2);//8
-		twobyte = x_D41A0_BYTEARRAY_4_struct.byteindex_10;
-		WriteFile_98CAA(configfile, (uint8_t*)&twobyte, 2);//10
-		twobyte = D41A0_0.LevelIndex_0xc;
-		WriteFile_98CAA(configfile, (uint8_t*)&twobyte, 2);//12
-		twobyte = 0x0000;
-		WriteFile_98CAA(configfile, (uint8_t*)&twobyte, 2);//14
-		twobyte = 0x0000;
-		WriteFile_98CAA(configfile, (uint8_t*)&twobyte, 2);//16
-		twobyte = 0x0000;
-		WriteFile_98CAA(configfile, (uint8_t*)&twobyte, 2);//18
-		twobyte = 0x0000;
-		WriteFile_98CAA(configfile, (uint8_t*)&twobyte, 2);//20
-		helpbyte = x_BYTE_EB39E_keys[0];
-		WriteFile_98CAA(configfile, (uint8_t*)&helpbyte, 1);//21
-		helpbyte = x_BYTE_EB39E_keys[1];
-		WriteFile_98CAA(configfile, (uint8_t*)&helpbyte, 1);//22
-		helpbyte = x_BYTE_EB39E_keys[2];
-		WriteFile_98CAA(configfile, (uint8_t*)&helpbyte, 1);//23
-		helpbyte = x_BYTE_EB39E_keys[3];
-		WriteFile_98CAA(configfile, (uint8_t*)&helpbyte, 1);//24
-		helpbyte = x_BYTE_EB39E_keys[4];
-		WriteFile_98CAA(configfile, (uint8_t*)&helpbyte, 1);//25
-		helpbyte = x_BYTE_EB39E_keys[5];
-		WriteFile_98CAA(configfile, (uint8_t*)&helpbyte, 1);//26
-		helpbyte = x_BYTE_EB39E_keys[6];
-		WriteFile_98CAA(configfile, (uint8_t*)&helpbyte, 1);//27
-		helpbyte = x_BYTE_EB39E_keys[7];
-		WriteFile_98CAA(configfile, (uint8_t*)&helpbyte, 1);//28
-		helpbyte = x_BYTE_EB39E_keys[8];
-		WriteFile_98CAA(configfile, (uint8_t*)&helpbyte, 1);//29
-		helpbyte = x_BYTE_EB39E_keys[9];
-		WriteFile_98CAA(configfile, (uint8_t*)&helpbyte, 1);//30
-		DataFileIO::Close(configfile);
+		configDat.configDatSign_0 = 0xfffffff7;
+		configDat.langIndex_4 = x_D41A0_BYTEARRAY_4_struct.SelectedLangIndex;
+		configDat.soundVolume_6 = x_D41A0_BYTEARRAY_4_struct.soundVolume_6;
+		configDat.musicVolume_8 = x_D41A0_BYTEARRAY_4_struct.musicVolume_8;
+		configDat.byteindex_10 = x_D41A0_BYTEARRAY_4_struct.byteindex_10;
+		configDat.brightness_11 = x_D41A0_BYTEARRAY_4_struct.brightness_11;
+		configDat.brightness_12 = x_D41A0_BYTEARRAY_4_struct.brightness_12;
+		configDat.brightness_13 = x_D41A0_BYTEARRAY_4_struct.brightness_13;
+		configDat.wordindex_14 = x_D41A0_BYTEARRAY_4_struct.wordindex_14;
+		configDat.dwordindex_16 = x_D41A0_BYTEARRAY_4_struct.dwordindex_16;
+		configDat.stubb[0] = x_D41A0_BYTEARRAY_4_struct.stubb[0];
+		configDat.stubb[1] = x_D41A0_BYTEARRAY_4_struct.stubb[1];
+		for (int i = 0; i < 10; i++)
+			configDat.keys[i] = x_BYTE_EB39E_keys[i];
+
+		WriteFile_98CAA(configFile, (uint8_t*)&configDat, sizeof(TypeConfigDat));
+
+		DataFileIO::Close(configFile);
 	}
-	/*LOWORD(v15) = */sub_90B27_VGA_pal_fadein_fadeout(0, 0x10u, 0);
+	sub_90B27_VGA_pal_fadein_fadeout(0, 0x10u, 0);
 	if (x_WORD_180660_VGA_type_resolution & 1)
 	{
 		ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, 320, 200, 0);
@@ -1627,7 +1515,7 @@ char LanguageSettingDialog_779E0(type_WORD_E1F84* a1y)//2589E0
 		sub_7AA70_load_and_decompres_dat_file(dataPath, (uint8_t*)x_DWORD_17DE38str.x_DWORD_17DE38x, 0, 768);
 		sub_7AA70_load_and_decompres_dat_file(dataPath, (uint8_t*)x_DWORD_17DE38str.x_DWORD_17DE40, x_DWORD_17DE38str.x_DWORD_17DEDC, 168081);
 		sub_41A90_VGA_Palette_install(x_DWORD_17DE38str.x_DWORD_17DE38x);
-		sub_8CD27_set_cursor((*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct)[0]);//mozna xadatapointerstab
+		sub_8CD27_set_cursor((*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct)[0]);//maybe xadatapointerstab
 		sub_8CD27_set_cursor(xy_DWORD_17DED4_spritestr[39]);
 		if (x_WORD_180660_VGA_type_resolution & 1)
 			CopyScreen((void*)pdwScreenBuffer_351628, (void*)x_DWORD_E9C38_smalltit, 320, 200);
@@ -1635,10 +1523,10 @@ char LanguageSettingDialog_779E0(type_WORD_E1F84* a1y)//2589E0
 			CopyScreen((void*)pdwScreenBuffer_351628, (void*)x_DWORD_E9C38_smalltit, 640, 480);
 		sub_7C120_draw_bitmap_640(185, 232, xy_DWORD_17DED4_spritestr[66]);
 	}
-	/*else
+	else
 	{
-	  x_DWORD_E9C38_smalltit = v38;
-	}*/
+		x_DWORD_E9C38_smalltit = tempSmalltit;
+	}
 	sub_7AA70_load_and_decompres_dat_file(0, 0, 0, 0);
 	return 1;
 }
