@@ -4414,59 +4414,39 @@ void NewGameSubdraw_81760(/*type_mapScreenPortals_E17CC* a1x*/)//262760
 //----- (00081DB0) --------------------------------------------------------
 void WriteConfigDat_81DB0()//262db0
 {
-	//signed int result; // eax
-	FILE* configdatfile; // ebx
-	//char v2; // [esp+0h] [ebp-70h]
-	//int v3; // [esp+50h] [ebp-20h]
-	//__int16 v4; // [esp+54h] [ebp-1Ch]
-	//int v5; // [esp+64h] [ebp-Ch]
-	//char v6; // [esp+6Eh] [ebp-2h]
+	FILE* configDatFile;
+	TypeConfigDat configDat;
 
 	if (x_D41A0_BYTEARRAY_4_struct.setting_38402 == 1)
 	{
 		memset(printbuffer, 0, 80);
 		sprintf(printbuffer, "%s/%s", gameDataPath.c_str(), "CONFIG.DAT");
-		memset(readbuffer, 0, 32);
-		configdatfile = DataFileIO::CreateOrOpenFile(printbuffer, 546);
-		if (configdatfile != NULL)
+		memset(&configDat, 0, sizeof(TypeConfigDat));
+		configDatFile = DataFileIO::CreateOrOpenFile(printbuffer, 546);
+		if (configDatFile != NULL)
 		{
-			//qmemcpy(readbuffer, (void *)x_D41A0_BYTEARRAY_4, 20);
-			//qmemcpy(&v5, (void *)x_D41A0_BYTEARRAY_4[20], 2u);
-			qmemcpy(&readbuffer[0], (void*)&x_D41A0_BYTEARRAY_4_struct.configDatSign_0, 4);//fixed
-			qmemcpy(&readbuffer[4], (void*)&x_D41A0_BYTEARRAY_4_struct.langIndex_4, 2);//fixed
-			qmemcpy(&readbuffer[6], (void*)&x_D41A0_BYTEARRAY_4_struct.soundVolume_6, 2);//fixed
-			qmemcpy(&readbuffer[8], (void*)&x_D41A0_BYTEARRAY_4_struct.musicVolume_8, 2);//fixed
-			qmemcpy(&readbuffer[10], (void*)&x_D41A0_BYTEARRAY_4_struct.byteindex_10, 1);//fixed
-			qmemcpy(&readbuffer[11], (void*)&x_D41A0_BYTEARRAY_4_struct.brightness_11, 1);//fixed
-			qmemcpy(&readbuffer[12], (void*)&x_D41A0_BYTEARRAY_4_struct.brightness_12, 1);//fixed
-			qmemcpy(&readbuffer[13], (void*)&x_D41A0_BYTEARRAY_4_struct.brightness_13, 1);//fixed
-			qmemcpy(&readbuffer[14], (void*)&x_D41A0_BYTEARRAY_4_struct.wordindex_14, 2);//fixed
-			qmemcpy(&readbuffer[16], (void*)&x_D41A0_BYTEARRAY_4_struct.dwordindex_16, 4);//fixed
-			qmemcpy(&readbuffer[20], (void*)x_D41A0_BYTEARRAY_4_struct.stubb, 2);//fixed
+			configDat.configDatSign_0 = 0xfffffff7;
+			configDat.langIndex_4 = x_D41A0_BYTEARRAY_4_struct.SelectedLangIndex;
+			configDat.soundVolume_6 = x_D41A0_BYTEARRAY_4_struct.soundVolume_6;
+			configDat.musicVolume_8 = x_D41A0_BYTEARRAY_4_struct.musicVolume_8;
+			configDat.byteindex_10 = x_D41A0_BYTEARRAY_4_struct.byteindex_10;
+			configDat.brightness_11 = x_D41A0_BYTEARRAY_4_struct.brightness_11;
+			configDat.brightness_12 = x_D41A0_BYTEARRAY_4_struct.brightness_12;
+			configDat.brightness_13 = x_D41A0_BYTEARRAY_4_struct.brightness_13;
+			configDat.wordindex_14 = x_D41A0_BYTEARRAY_4_struct.wordindex_14;
+			configDat.dwordindex_16 = x_D41A0_BYTEARRAY_4_struct.dwordindex_16;
+			configDat.stubb[0] = x_D41A0_BYTEARRAY_4_struct.stubb[0];
+			configDat.stubb[1] = x_D41A0_BYTEARRAY_4_struct.stubb[1];
 
-			/*
-			qmemcpy(&readbuffer[22], (void *)x_D41A0_BYTEARRAY_4_struct.setting_byte1_22, 1);//fixed
-			qmemcpy(&readbuffer[23], (void *)x_D41A0_BYTEARRAY_4_struct.setting_byte2_23, 1);//fixed
-			qmemcpy(&readbuffer[24], (void *)x_D41A0_BYTEARRAY_4_struct.setting_byte3_24, 1);//fixed
-			qmemcpy(&readbuffer[25], (void *)x_D41A0_BYTEARRAY_4_struct.setting_byte4_25, 1);//fixed
-			qmemcpy(&readbuffer[26], (void *)x_D41A0_BYTEARRAY_4_struct.byteindex_26, 1);//fixed
-			qmemcpy(&readbuffer[30], (void *)x_D41A0_BYTEARRAY_4_struct.setting_30, 1);//fixed
-			*/
-			qmemcpy(&readbuffer[22], x_BYTE_EB39E_keys, 10);//fixed
-			//qmemcpy((char *)&v5 + 2, &x_BYTE_EB39E_keys, 8u);
-			//qmemcpy(&v6, &x_BYTE_EB39E_keys + 8, 2u);
-			*(int32_t*)&readbuffer[0] = 0xfffffff7;
-			readbuffer[4] = x_D41A0_BYTEARRAY_4_struct.SelectedLangIndex;
-			WriteFile_98CAA(configdatfile, readbuffer, 32);
-			DataFileIO::Close(configdatfile);
+			for (int i = 0; i < 10; i++)
+				configDat.keys[i] = x_BYTE_EB39E_keys[i];
+
+			WriteFile_98CAA(configDatFile, (uint8_t*)&configDat, sizeof(TypeConfigDat));
+			DataFileIO::Close(configDatFile);
 		}
 		x_D41A0_BYTEARRAY_4_struct.setting_38402 = 0;
 	}
 }
-// 8C250: using guessed type x_DWORD memset(x_DWORD, x_DWORD, x_DWORD);
-// 8E3D5: using guessed type x_DWORD sprintf(x_DWORD, const char *, ...);
-// D41A4: using guessed type int x_DWORD_D41A4;
-// EB39E: using guessed type char x_BYTE_EB39E_keys;
 
 //----- (00082510) --------------------------------------------------------
 void sub_82510(/*__int16 a1*//*, int *a2*/)//263510
