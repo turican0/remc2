@@ -10,6 +10,7 @@ typedef union {
 }
 dw_w_b;
 
+#pragma pack (push)
 #pragma pack (1)
 typedef struct {
 	uint8_t byte1;
@@ -363,6 +364,8 @@ typedef struct _str_0x6E8E {//lenght a8//THING
 	type_str_164* dword_0xA4_164x;//100 // adress of xx
 }
 type_event_0x6E8E;
+
+#pragma pack (pop)
 /*
 	entite
 	8-dead
