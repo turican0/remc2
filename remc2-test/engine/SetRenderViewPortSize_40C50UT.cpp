@@ -3,7 +3,7 @@
 #include "../../remc2/engine/ViewPort.h"
 
 uint8_t* pdwScreenBuffer_351628;
-__int16_t x_WORD_180660_VGA_type_resolution;
+int16_t x_WORD_180660_VGA_type_resolution;
 type_F2C20ar str_F2C20ar;
 uint32_t screenHeight_180624;
 uint32_t screenWidth_18062C;
