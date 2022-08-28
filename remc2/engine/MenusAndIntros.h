@@ -40,7 +40,7 @@ extern int test_regression_level;
 
 // functions
 void MenusAndIntros_76930(int a2, uint16_t a3);
-void LanugageSetting_76A40();
+void InitLanguage_76A40();
 void Intros_76D10(char a1);
 void sub_76CF0();
 void MainMenu_76FA0(/*int a1,*/ int a2, uint16_t a3);

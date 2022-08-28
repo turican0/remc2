@@ -653,14 +653,14 @@ void MenusAndIntros_76930(int  /*a2*/, uint16_t a3)//257930
 	}
 	if (x_BYTE_D41AD_skip_screen == 1)
 	{
-		LanugageSetting_76A40();
+		InitLanguage_76A40();
 		x_WORD_E29D8 = 4;
 	}
 	memset(&x_DWORD_17DE38str, 0, sizeof(type_x_DWORD_17DE38str));
 	x_DWORD_17DE38str.x_DWORD_17DEE0_filedesc = NULL;
 	sub_7BEC0();//25CEC0 // fix this structure
 	SetCenterScreenForFlyAssistant_6EDB0();//24FDB0
-	/*v3 = */ReadConfig_81DB0();//262DB0
+	/*v3 = */WriteConfigDat_81DB0();//262DB0
 
 	//test_x_D41A0_BYTEARRAY_0();
 
@@ -671,7 +671,7 @@ void MenusAndIntros_76930(int  /*a2*/, uint16_t a3)//257930
 		switch (x_WORD_E29D8)
 		{
 		case 0:
-			/*v3 = */LanugageSetting_76A40();//257A40 //asi inicializace + rovnou i nastaveni jazyka
+			/*v3 = */InitLanguage_76A40();//257A40 //asi inicializace + rovnou i nastaveni jazyka
 			break;
 		case 1:
 			sub_76CF0();//257cf0 nastavi x_WORD_E29D8 na 3
@@ -699,7 +699,7 @@ void MenusAndIntros_76930(int  /*a2*/, uint16_t a3)//257930
 	sub_7ADE0(x_BYTE_E29DE);//zase nejaka inicializace
 	if (x_BYTE_E29E1)
 		x_BYTE_E29E1 = 0;
-	ReadConfig_81DB0();//neco
+	WriteConfigDat_81DB0();//neco
 }
 // 76D00: using guessed type int /*__fastcall*/ _wcpp_1_unwind_leave__131(x_DWORD);
 // 8C250: using guessed type x_DWORD memset(x_DWORD, x_DWORD, x_DWORD);
@@ -713,7 +713,7 @@ void MenusAndIntros_76930(int  /*a2*/, uint16_t a3)//257930
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
 //----- (00076A40) --------------------------------------------------------
-void LanugageSetting_76A40()//257A40
+void InitLanguage_76A40()//257A40
 {
 	FILE* configdatfile; // ebx
 	//int v1; // edi
@@ -2255,7 +2255,7 @@ char SetKeysDialog_79610()//25a610
 				v44 = 2;
 		}
 	}
-	ReadConfig_81DB0();
+	WriteConfigDat_81DB0();
 	sub_90B27_VGA_pal_fadein_fadeout(0, 0x10u, 0);
 	if (x_WORD_180660_VGA_type_resolution & 1)
 	{
@@ -4565,7 +4565,7 @@ void NewGameSubdraw_81760(/*type_mapScreenPortals_E17CC* a1x*/)//262760
 }
 
 //----- (00081DB0) --------------------------------------------------------
-void ReadConfig_81DB0()//262db0
+void WriteConfigDat_81DB0()//262db0
 {
 	//signed int result; // eax
 	FILE* configdatfile; // ebx
