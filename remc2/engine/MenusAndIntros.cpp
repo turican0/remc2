@@ -715,84 +715,58 @@ void MenusAndIntros_76930(int  /*a2*/, uint16_t a3)//257930
 //----- (00076A40) --------------------------------------------------------
 void InitLanguage_76A40()//257A40
 {
-	FILE* configdatfile; // ebx
-	//int v1; // edi
-	//int16_t index; // si
-	FILE* langfile; // eax
-	//FILE* v4; // ebx
-	//FILE* v5; // edi
-	uint32_t filelenght; // esi
-	//int result; // eax
-	//char v8; // [esp+0h] [ebp-42h]
-	//char v9; // [esp+50h] [ebp+Eh]
-	uint8_t v10[32]; // [esp+A0h] [ebp+5Eh]
-	//uint8_t v11[100]; // [esp+A4h] [ebp+62h]
-	//int v12; // [esp+B4h] [ebp+72h]
-	//__int16 v13; // [esp+BEh] [ebp+7Ch]
-	int32_t configdword1; // [esp+C0h] [ebp+7Eh]
+	FILE* configdatfile;
+	FILE* langfile;
+	uint32_t filelenght;
+	TypeConfigDat configDat;
 
-	//fix
-	//v10 = 0;
-	//fix
-
-	configdword1 = 0;
 	memset(printbuffer, 0, 80);
-	memset(&x_DWORD_17DE38str, 0, 613);//fix it
+	memset(&x_DWORD_17DE38str, 0, sizeof(type_x_DWORD_17DE38str));
 	x_DWORD_17DE38str.x_DWORD_17DEE0_filedesc = NULL;
-	memset(v10, 0, 32);
+	memset(&configDat, 0, sizeof(TypeConfigDat));
 	sprintf(printbuffer, "%s/%s", gameDataPath.c_str(), "CONFIG.DAT");
 	configdatfile = DataFileIO::CreateOrOpenFile(printbuffer, 512);
 	if (configdatfile == NULL)//config is not found
 	{
-		LoadAndSetGraphicsAndPalette_7AC00();//25BC00 //zmena pomeru obrazovky
-		LanguageSettingDialog_779E0(0);//2589E0 //nastaveni jazyka
-		sub_7ADE0(1);//25BDE0x_D41A0_BYTEARRAY_4_struct.setting_216
+		LoadAndSetGraphicsAndPalette_7AC00();//25BC00 //change screen radio
+		LanguageSettingDialog_779E0(0);//2589E0 //set language
+		sub_7ADE0(1);
 	}
 	else
 	{
-		DataFileIO::Read(configdatfile, (uint8_t*)&configdword1, 4);//first dword
-		if (configdword1 == 0xfffffff7)
+		DataFileIO::Read(configdatfile, (uint8_t*)&configDat.configDatSign_0, 4);//first dword
+		if (configDat.configDatSign_0 == 0xfffffff7)
 		{
-			DataFileIO::Read(configdatfile, (uint8_t*)&v10[4], 28);
+			DataFileIO::Read(configdatfile, (uint8_t*)&configDat.langIndex_4, 28);
 
-			x_D41A0_BYTEARRAY_4_struct.configDatSign_0 = *(uint32_t*)&v10[0];
-			x_D41A0_BYTEARRAY_4_struct.langIndex_4 = *(uint16_t*)&v10[4];
-			x_D41A0_BYTEARRAY_4_struct.soundVolume_6 = *(uint16_t*)&v10[6];
-			x_D41A0_BYTEARRAY_4_struct.musicVolume_8 = *(uint16_t*)&v10[8];
-			x_D41A0_BYTEARRAY_4_struct.byteindex_10 = *(uint8_t*)&v10[10];
-			x_D41A0_BYTEARRAY_4_struct.brightness_11 = *(uint8_t*)&v10[11];
-			x_D41A0_BYTEARRAY_4_struct.brightness_12 = *(uint8_t*)&v10[12];
-			x_D41A0_BYTEARRAY_4_struct.brightness_13 = *(uint8_t*)&v10[13];
-			x_D41A0_BYTEARRAY_4_struct.wordindex_14 = *(uint16_t*)&v10[14];
-			x_D41A0_BYTEARRAY_4_struct.dwordindex_16 = *(uint32_t*)&v10[16];
-			*x_D41A0_BYTEARRAY_4_struct.stubb = *(uint16_t*)&v10[20];
+			x_D41A0_BYTEARRAY_4_struct.configDatSign_0 = configDat.configDatSign_0;
+			x_D41A0_BYTEARRAY_4_struct.langIndex_4 = configDat.langIndex_4;
+			x_D41A0_BYTEARRAY_4_struct.soundVolume_6 = configDat.soundVolume_6;
+			x_D41A0_BYTEARRAY_4_struct.musicVolume_8 = configDat.musicVolume_8;
+			x_D41A0_BYTEARRAY_4_struct.byteindex_10 = configDat.byteindex_10;
+			x_D41A0_BYTEARRAY_4_struct.brightness_11 = configDat.brightness_11;
+			x_D41A0_BYTEARRAY_4_struct.brightness_12 = configDat.brightness_12;
+			x_D41A0_BYTEARRAY_4_struct.brightness_13 = configDat.brightness_13;
+			x_D41A0_BYTEARRAY_4_struct.wordindex_14 = configDat.wordindex_14;
+			x_D41A0_BYTEARRAY_4_struct.dwordindex_16 = configDat.dwordindex_16;
+			x_D41A0_BYTEARRAY_4_struct.stubb[0] = configDat.stubb[0];
+			x_D41A0_BYTEARRAY_4_struct.stubb[1] = configDat.stubb[1];
 
-			x_BYTE_EB39E_keys[0] = *(uint8_t*)&v10[22];
-			x_BYTE_EB39E_keys[1] = *(uint8_t*)&v10[23];
-			x_BYTE_EB39E_keys[2] = *(uint8_t*)&v10[24];
-			x_BYTE_EB39E_keys[3] = *(uint8_t*)&v10[25];
-			x_BYTE_EB39E_keys[4] = *(uint8_t*)&v10[26];
-			x_BYTE_EB39E_keys[5] = *(uint8_t*)&v10[27];
-			x_BYTE_EB39E_keys[6] = *(uint8_t*)&v10[28];
-			x_BYTE_EB39E_keys[7] = *(uint8_t*)&v10[29];
-			x_BYTE_EB39E_keys[8] = *(uint8_t*)&v10[30];
-			x_BYTE_EB39E_keys[9] = *(uint8_t*)&v10[31];
+			for (int i = 0; i < 10; i++)
+				x_BYTE_EB39E_keys[i] = configDat.keys[i];
 
 			DataFileIO::Close(configdatfile);
 			sub_8E470_sound_proc17_volume(x_D41A0_BYTEARRAY_4_struct.soundVolume_6);
 			sub_8E410_sound_proc16_xmidivolume(x_D41A0_BYTEARRAY_4_struct.musicVolume_8);
 
 			sprintf(printbuffer, "%s/%s/L%d.TXT", cdDataPath.c_str(), "LANGUAGE", x_D41A0_BYTEARRAY_4_struct.langIndex_4);
-			for (int16_t i = 0; i < 2; i++)
-				//i = 0;
-				//while (i < 2 )
+			for (int i = 0; i < 2; i++)
 			{
 				x_D41A0_BYTEARRAY_4_struct.SelectedLangIndex = x_D41A0_BYTEARRAY_4_struct.langIndex_4 & 0xff;
 				if (x_BYTE_E29E0 || x_DWORD_D41BC_langbuffer)
 					FreeMem_83E80((uint8_t*)x_DWORD_D41BC_langbuffer);
 				langfile = DataFileIO::CreateOrOpenFile(printbuffer, 512);
-				//v4 = v3;
-				//v5 = v3;
+
 				if (langfile != NULL)
 				{
 					filelenght = DataFileIO::FileLengthBytes(langfile) - 4785;
@@ -806,7 +780,6 @@ void InitLanguage_76A40()//257A40
 					sub_5B870_copy_sentence(x_DWORD_D41BC_langbuffer, x_DWORD_E9C4C_langindexbuffer, 471);//Exit Game
 					break;
 				}
-				//i++;
 				sprintf(printbuffer, "%s/%s/L%d.TXT", cdDataPath.c_str(), "LANGUAGE", x_D41A0_BYTEARRAY_4_struct.SelectedLangIndex);
 			}
 		}
@@ -818,24 +791,10 @@ void InitLanguage_76A40()//257A40
 			sub_7ADE0(1);
 		}
 	}
-	//result = (uint8)x_D41A0_BYTEARRAY_4;
 	if (x_D41A0_BYTEARRAY_4_struct.SelectedLangIndex != 2 || !soundActive2_E3798)
 		x_BYTE_D41C0 = 1;
 	x_WORD_E29D8 = 1;
-	//return result;
 }
-// 8C250: using guessed type x_DWORD memset(x_DWORD, x_DWORD, x_DWORD);
-// 8E3D5: using guessed type x_DWORD sprintf(x_DWORD, const char *, ...);
-// 988DA: using guessed type x_DWORD filelength(x_DWORD);
-// D41A4: using guessed type int x_DWORD_D41A4;
-// D41BC: using guessed type int x_DWORD_D41BC_langbuffer;
-// D41C0: using guessed type char x_BYTE_D41C0;
-// E29D8: using guessed type __int16 x_WORD_E29D8;
-// E29E0: using guessed type char x_BYTE_E29E0;
-// E3798: using guessed type char x_BYTE_E3798_sound_active2;
-// EB39E: using guessed type char x_BYTE_EB39E_keys;
-// 17DE38: using guessed type int x_DWORD_17DE38;
-// 17DEE0: using guessed type int x_DWORD_17DEE0_filedesc;
 
 //----- (00076CF0) --------------------------------------------------------
 void sub_76CF0()
