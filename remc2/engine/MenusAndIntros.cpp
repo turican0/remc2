@@ -659,7 +659,7 @@ void MenusAndIntros_76930(int  /*a2*/, uint16_t a3)//257930
 	memset(&x_DWORD_17DE38str, 0, sizeof(type_x_DWORD_17DE38str));
 	x_DWORD_17DE38str.x_DWORD_17DEE0_filedesc = NULL;
 	sub_7BEC0();//25CEC0 // fix this structure
-	SetMousePositionByRes_6EDB0();//24FDB0
+	SetCenterScreenForFlyAssistant_6EDB0();//24FDB0
 	/*v3 = */ReadConfig_81DB0();//262DB0
 
 	//test_x_D41A0_BYTEARRAY_0();
@@ -755,14 +755,14 @@ void LanugageSetting_76A40()//257A40
 		{
 			DataFileIO::Read(configdatfile, (uint8_t*)&v10[4], 28);
 
-			x_D41A0_BYTEARRAY_4_struct.dwordindex_0 = *(uint32_t*)&v10[0];
-			x_D41A0_BYTEARRAY_4_struct.wordindex_4 = *(uint16_t*)&v10[4];
+			x_D41A0_BYTEARRAY_4_struct.configDatSign_0 = *(uint32_t*)&v10[0];
+			x_D41A0_BYTEARRAY_4_struct.langIndex_4 = *(uint16_t*)&v10[4];
 			x_D41A0_BYTEARRAY_4_struct.soundVolume_6 = *(uint16_t*)&v10[6];
 			x_D41A0_BYTEARRAY_4_struct.musicVolume_8 = *(uint16_t*)&v10[8];
 			x_D41A0_BYTEARRAY_4_struct.byteindex_10 = *(uint8_t*)&v10[10];
-			x_D41A0_BYTEARRAY_4_struct.byte_brightness_11 = *(uint8_t*)&v10[11];
-			x_D41A0_BYTEARRAY_4_struct.byte_brightness_12 = *(uint8_t*)&v10[12];
-			x_D41A0_BYTEARRAY_4_struct.byte_brightness_13 = *(uint8_t*)&v10[13];
+			x_D41A0_BYTEARRAY_4_struct.brightness_11 = *(uint8_t*)&v10[11];
+			x_D41A0_BYTEARRAY_4_struct.brightness_12 = *(uint8_t*)&v10[12];
+			x_D41A0_BYTEARRAY_4_struct.brightness_13 = *(uint8_t*)&v10[13];
 			x_D41A0_BYTEARRAY_4_struct.wordindex_14 = *(uint16_t*)&v10[14];
 			x_D41A0_BYTEARRAY_4_struct.dwordindex_16 = *(uint32_t*)&v10[16];
 			*x_D41A0_BYTEARRAY_4_struct.stubb = *(uint16_t*)&v10[20];
@@ -782,14 +782,14 @@ void LanugageSetting_76A40()//257A40
 			sub_8E470_sound_proc17_volume(x_D41A0_BYTEARRAY_4_struct.soundVolume_6);
 			sub_8E410_sound_proc16_xmidivolume(x_D41A0_BYTEARRAY_4_struct.musicVolume_8);
 
-			sprintf(printbuffer, "%s/%s/L%d.TXT", cdDataPath.c_str(), "LANGUAGE", x_D41A0_BYTEARRAY_4_struct.wordindex_4);
+			sprintf(printbuffer, "%s/%s/L%d.TXT", cdDataPath.c_str(), "LANGUAGE", x_D41A0_BYTEARRAY_4_struct.langIndex_4);
 			for (int16_t i = 0; i < 2; i++)
 				//i = 0;
 				//while (i < 2 )
 			{
-				x_D41A0_BYTEARRAY_4_struct.SelectedLangIndex = x_D41A0_BYTEARRAY_4_struct.wordindex_4 & 0xff;
+				x_D41A0_BYTEARRAY_4_struct.SelectedLangIndex = x_D41A0_BYTEARRAY_4_struct.langIndex_4 & 0xff;
 				if (x_BYTE_E29E0 || x_DWORD_D41BC_langbuffer)
-					sub_83E80_freemem4((uint8_t*)x_DWORD_D41BC_langbuffer);
+					FreeMem_83E80((uint8_t*)x_DWORD_D41BC_langbuffer);
 				langfile = DataFileIO::CreateOrOpenFile(printbuffer, 512);
 				//v4 = v3;
 				//v5 = v3;
@@ -819,7 +819,7 @@ void LanugageSetting_76A40()//257A40
 		}
 	}
 	//result = (uint8)x_D41A0_BYTEARRAY_4;
-	if (x_D41A0_BYTEARRAY_4_struct.SelectedLangIndex != 2 || !x_BYTE_E3798_sound_active2)
+	if (x_D41A0_BYTEARRAY_4_struct.SelectedLangIndex != 2 || !soundActive2_E3798)
 		x_BYTE_D41C0 = 1;
 	x_WORD_E29D8 = 1;
 	//return result;
@@ -867,7 +867,7 @@ void Intros_76D10(char a1)//257d10
 		sub_9874D_create_index_dattab(x_DWORD_17DE38str.x_DWORD_17DEC0, x_DWORD_17DE38str.x_DWORD_17DEC4, x_DWORD_17DE38str.x_DWORD_17DE54, xy_DWORD_17DEC0_spritestr);
 
 	sub_2EB40();
-	if (x_BYTE_E3798_sound_active2 && x_D41A0_BYTEARRAY_4_struct.SelectedLangIndex == 2)
+	if (soundActive2_E3798 && x_D41A0_BYTEARRAY_4_struct.SelectedLangIndex == 2)
 	{
 		x_BYTE_D41C1 = 0;
 		x_BYTE_D41C0 = 0;
@@ -912,7 +912,7 @@ void Intros_76D10(char a1)//257d10
 	}
 	sub_90B27_VGA_pal_fadein_fadeout(0, 0x10u, 0);
 	sub_8D8F0_sound_proc3_endsample();
-	sub_8E020_sound_proc14_stopsequence();//?ac_sound_stop_music
+	StopMusic_8E020();//?ac_sound_stop_music
 	sub_7B5D0();
 	//v2 = 0;
 	x_WORD_E29D8 = 4;
@@ -1008,9 +1008,9 @@ void MainMenu_76FA0(/*int a1, */int  /*a2*/, uint16_t a3x)//257fa0
 	x_BYTE_17DBC6 = 2;
 	x_DWORD_17DE38str.x_WORD_17DF04 = -1;
 	x_DWORD_17DE38str.x_DWORD_17DE44 = x_DWORD_E9C38_smalltit;
-	SetMousePositionByRes_6EDB0();
-	sub_8E020_sound_proc14_stopsequence();//26f020
-	sub_8E160_sound_proc15_startsequence(4, 0x7Fu);//26f160
+	SetCenterScreenForFlyAssistant_6EDB0();
+	StopMusic_8E020();//26f020
+	StartMusic_8E160(4, 0x7Fu);//26f160
 	/*sub_75420();//256420
 	v3 = dos_getvect(9);*/
 	a3x = 256;
@@ -1054,9 +1054,9 @@ void MainMenu_76FA0(/*int a1, */int  /*a2*/, uint16_t a3x)//257fa0
 					x_DWORD_17DE38str.x_BYTE_17DF10_get_key_scancode = 0;
 					v27 = 0;
 					v26 = j___clock();
-					sub_8E020_sound_proc14_stopsequence();
+					StopMusic_8E020();
 					LOBYTE(a3x) = 0;
-					sub_8E160_sound_proc15_startsequence(4, 0x7Fu);
+					StartMusic_8E160(4, 0x7Fu);
 				}
 			}
 			else
@@ -1179,7 +1179,7 @@ bool NewGameDialog_77350(type_WORD_E1F84* a1x)//258350
 		sub_41A90_VGA_Palette_install(x_DWORD_17DE38str.x_DWORD_17DE38x);
 		sub_7DD70();
 		x_DWORD_17DE38str.x_WORD_17DEEC = 0;
-		SetMousePositionByRes_6EDB0();
+		SetCenterScreenForFlyAssistant_6EDB0();
 		sub_8CD27_set_cursor(xy_DWORD_17DED4_spritestr[239]);
 		x_DWORD_17DB70str.x_WORD_17DB8A = x_D41A0_BYTEARRAY_4_struct.levelnumber_43w;
 		while (!v1)
@@ -1412,7 +1412,7 @@ char LanguageSettingDialog_779E0(type_WORD_E1F84* a1y)//2589E0
 	long langdhandle = 0;
 
 	v32 = 2;
-	SetMousePositionByRes_6EDB0();//24fdb0
+	SetCenterScreenForFlyAssistant_6EDB0();//24fdb0
 	x_DWORD_17DE38str.x_DWORD_17DEE4_mouse_positionx = 0x140;
 	x_DWORD_17DE38str.x_DWORD_17DEE6_mouse_positiony = 0xC8;
 	if (a1y)//0x0
@@ -2497,7 +2497,7 @@ void LoadAndSetGraphicsAndPalette_7AC00()//25BC00
 		//fix
 		if (pre_x_DWORD_E9C3C)
 		{
-			sub_83E80_freemem4(pre_x_DWORD_E9C3C);
+			FreeMem_83E80(pre_x_DWORD_E9C3C);
 			pre_x_DWORD_E9C3C = 0;
 			x_DWORD_E9C3C = 0;
 		}
@@ -2565,7 +2565,7 @@ int sub_7ADE0(char a1)//25bde0
 		//fix
 		if (pre_x_DWORD_E9C3C)
 		{
-			sub_83E80_freemem4(pre_x_DWORD_E9C3C);
+			FreeMem_83E80(pre_x_DWORD_E9C3C);
 			pre_x_DWORD_E9C3C = 0;
 			x_DWORD_E9C3C = 0;
 		}
@@ -4220,7 +4220,7 @@ int LoadLanguageFile(posistruct2_t** a1x, posistruct2_t** a2x, uint8_t* a3, char
 			DataFileIO::Read(langfile, a3, 4773);//2798a7
 			DataFileIO::Read(langfile, (a3 + 4773), 12);
 			if (x_BYTE_E29E0 || x_DWORD_D41BC_langbuffer)//[2b39e0]00 || [2a51bc]00
-				sub_83E80_freemem4((uint8_t*)x_DWORD_D41BC_langbuffer);
+				FreeMem_83E80((uint8_t*)x_DWORD_D41BC_langbuffer);
 			//v7 = langfilelenght - 4785;
 			x_DWORD_D41BC_langbuffer = (char*)sub_83CD0_malloc2(langfilelenght - 4785);
 			//x_DWORD_D41BC_langbuffer = (uint8_t*)v8;
@@ -4286,7 +4286,7 @@ int sub_7F960(posistruct2_t* a1x, posistruct2_t* a2x, uint8_t* a3, char* langcou
 			DataFileIO::Read(langfile, a3, 4773);
 			DataFileIO::Read(langfile, a3 + 4773, 12);
 			if (x_BYTE_E29E0 || x_DWORD_D41BC_langbuffer)
-				sub_83E80_freemem4((uint8_t*)x_DWORD_D41BC_langbuffer);
+				FreeMem_83E80((uint8_t*)x_DWORD_D41BC_langbuffer);
 			v8 = v13 - 4785;
 			//v9 = (uint8_t*)sub_83CD0_malloc2(v13 - 4785);
 			x_DWORD_D41BC_langbuffer = (char*)sub_83CD0_malloc2(v13 - 4785);
@@ -4585,14 +4585,14 @@ void ReadConfig_81DB0()//262db0
 		{
 			//qmemcpy(readbuffer, (void *)x_D41A0_BYTEARRAY_4, 20);
 			//qmemcpy(&v5, (void *)x_D41A0_BYTEARRAY_4[20], 2u);
-			qmemcpy(&readbuffer[0], (void*)&x_D41A0_BYTEARRAY_4_struct.dwordindex_0, 4);//fixed
-			qmemcpy(&readbuffer[4], (void*)&x_D41A0_BYTEARRAY_4_struct.wordindex_4, 2);//fixed
+			qmemcpy(&readbuffer[0], (void*)&x_D41A0_BYTEARRAY_4_struct.configDatSign_0, 4);//fixed
+			qmemcpy(&readbuffer[4], (void*)&x_D41A0_BYTEARRAY_4_struct.langIndex_4, 2);//fixed
 			qmemcpy(&readbuffer[6], (void*)&x_D41A0_BYTEARRAY_4_struct.soundVolume_6, 2);//fixed
 			qmemcpy(&readbuffer[8], (void*)&x_D41A0_BYTEARRAY_4_struct.musicVolume_8, 2);//fixed
 			qmemcpy(&readbuffer[10], (void*)&x_D41A0_BYTEARRAY_4_struct.byteindex_10, 1);//fixed
-			qmemcpy(&readbuffer[11], (void*)&x_D41A0_BYTEARRAY_4_struct.byte_brightness_11, 1);//fixed
-			qmemcpy(&readbuffer[12], (void*)&x_D41A0_BYTEARRAY_4_struct.byte_brightness_12, 1);//fixed
-			qmemcpy(&readbuffer[13], (void*)&x_D41A0_BYTEARRAY_4_struct.byte_brightness_13, 1);//fixed
+			qmemcpy(&readbuffer[11], (void*)&x_D41A0_BYTEARRAY_4_struct.brightness_11, 1);//fixed
+			qmemcpy(&readbuffer[12], (void*)&x_D41A0_BYTEARRAY_4_struct.brightness_12, 1);//fixed
+			qmemcpy(&readbuffer[13], (void*)&x_D41A0_BYTEARRAY_4_struct.brightness_13, 1);//fixed
 			qmemcpy(&readbuffer[14], (void*)&x_D41A0_BYTEARRAY_4_struct.wordindex_14, 2);//fixed
 			qmemcpy(&readbuffer[16], (void*)&x_D41A0_BYTEARRAY_4_struct.dwordindex_16, 4);//fixed
 			qmemcpy(&readbuffer[20], (void*)x_D41A0_BYTEARRAY_4_struct.stubb, 2);//fixed
@@ -4813,7 +4813,7 @@ void sub_82670()//263670
 				}
 				if (v0)
 				{
-					if (x_D41A0_BYTEARRAY_4_struct.SelectedLangIndex == 2 && x_BYTE_E3798_sound_active2 || v0 >= 6)
+					if (x_D41A0_BYTEARRAY_4_struct.SelectedLangIndex == 2 && soundActive2_E3798 || v0 >= 6)
 					{
 						x_BYTE_D41C1 = 0;
 						x_BYTE_D41C0 = 0;
@@ -4866,7 +4866,7 @@ void sub_82670()//263670
 
 					sub_90B27_VGA_pal_fadein_fadeout(0, 0x10u, 0);
 					sub_8D8F0_sound_proc3_endsample();
-					sub_8E020_sound_proc14_stopsequence();
+					StopMusic_8E020();
 					sub_7B5D0();
 					if (x_WORD_180660_VGA_type_resolution & 1)
 						ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, 320, 200, 0);
@@ -4935,7 +4935,7 @@ void PlayIntros_83250(char a1)//264250
 	sub_90E07_VGA_set_video_mode_640x480_and_Palette((TColor*)*xadatapald0dat2.colorPalette_var28);
 	sub_8CEDF_install_mouse();
 	sub_8CD27_set_cursor((*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct)[0]);
-	SetMousePositionByRes_6EDB0();
+	SetCenterScreenForFlyAssistant_6EDB0();
 	sub_7A110_load_hscreen(x_WORD_180660_VGA_type_resolution, 4);
 	ResetMouse_7B5A0();
 	sub_8CD27_set_cursor(xy_DWORD_17DED4_spritestr[39]);
@@ -6826,7 +6826,7 @@ char /*__fastcall*/ sub_77680()//258680
 		memset(printbuffer, 0, 80);
 		x_DWORD_17DE38str.x_WORD_17DEF6 = 5;
 		x_DWORD_17DE38str.x_WORD_17DEEC = 0;
-		SetMousePositionByRes_6EDB0();
+		SetCenterScreenForFlyAssistant_6EDB0();
 		x_DWORD_17DE38str.x_DWORD_17DEE4_mouse_positionx = 0x140;
 		x_DWORD_17DE38str.x_DWORD_17DEE6_mouse_positiony = 0xf0;//test and fix it
 
@@ -6949,7 +6949,7 @@ char DrawAndServe_7B250(/*int a1, int a2*//*, __int16 a3*/)//25c250
 			if (str_E1BAC[iy].dword_4)
 			{
 				str_E1BAC[iy].selected_8 = 0;
-				SetMousePositionByRes_6EDB0();
+				SetCenterScreenForFlyAssistant_6EDB0();
 				sub_7A110_load_hscreen(x_WORD_180660_VGA_type_resolution, 4);
 				ResetMouse_7B5A0();
 				sub_8CD27_set_cursor(xy_DWORD_17DED4_spritestr[39]);

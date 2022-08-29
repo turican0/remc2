@@ -194,7 +194,7 @@ extern int frameCount;
 extern int fps;
 
 
-extern int x_DWORD_E3E2C;
+extern int readFileStatus_E3E2C;
 
 extern char x_BYTE_D41C1; // weak
 
@@ -518,7 +518,7 @@ extern type_TMAPS00TAB_BEGIN_BUFFER* str_TMAPS00TAB_BEGIN_BUFFER;
 
 bool DefaultResolutions();
 
-void sub_83E80_freemem4(uint8_t* a1);
+void FreeMem_83E80(uint8_t* a1);
 int sub_84000(int a1);
 
 x_DWORD x_outp(x_DWORD, char);// weak
@@ -526,9 +526,9 @@ x_DWORD x_inp(x_DWORD);// weak
 void stub_fix_it();
 void* sub_83CD0_malloc2(size_t a1);
 void qmemcpy(void* a, void* b, size_t c);
-int sub_9D490_free4(void* a1, int a2);
+int FreeMem_9D490(void* a1, int a2);
 int x_free(void* ptr);
-void* sub_83D70_malloc1(int a1);
+void* Malloc_83D70(int a1);
 
 void __writegsx_WORD(unsigned long Offset, unsigned short Data);
 void __writegsx_DWORD(unsigned long Offset, unsigned long Data);
@@ -546,7 +546,7 @@ void dbgfprintf(FILE* file, const char* format, ...);
 
 x_DWORD dos_read(FILE*, char, x_DWORD, x_DWORD, char*);
 
-signed int sub_9DE20_get_file_lenght(char* a1);
+signed int GetFileLenght_9DE20(char* a1);
 uint8_t* sub_9DEA0_read_file(char* a1, uint8_t* a2);
 
 FILE* x_open(char* path, int pmodex);
