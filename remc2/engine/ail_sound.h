@@ -138,7 +138,7 @@ DIG_MODE;
 
 typedef struct
 {
-	uint8_t    format_supported[16];
+	uint8_t format_supported[16];
 	DIG_MODE format_data[16];
 }
 DIG_DDT;
@@ -163,7 +163,7 @@ HTIMER timer_3;
  uint32_t hw_mode_flags_7;
  /*13*/int32_t DMA_seg_8;
  /*13*/uint32_t DMA_sel_9;
- /*13*/void* DMA_buf_10;
+ /*13*/uint8_t* DMA_buf_10;
   void* DMA_11_12[2];
   /*13*/int16_t* buffer_flag_13;
   /*13*/int32_t last_buffer_14;

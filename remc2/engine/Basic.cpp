@@ -539,7 +539,7 @@ void dbgfprintf(FILE* file, const char* format, ...) {
 	fprintf(file, "\n");
 }
 
-void* sub_83CD0_malloc2(size_t a1)//264cd0
+void* Malloc_83CD0(size_t a1)//264cd0
 {
 	return malloc(a1);
 }

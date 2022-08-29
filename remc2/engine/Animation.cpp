@@ -313,8 +313,8 @@ void sub_loc_1B2F7(Type_SoundEvent_E17CC* pSoundEvent) {//1fc2f7//LoadMusic
 	//x_WORD_D4004++;
 }
 void sub_loc_1B316(uint8_t a1) {//1fc316//LoadSound
-	sub_8D8F0_sound_proc3_endsample();
-	sub_84300_load_sound(a1);
+	EndSample_8D8F0();
+	LoadSound_84300(a1);
 	//x_WORD_D4004++;
 }
 void sub_loc_1B334(Type_SoundEvent_E17CC* pSoundEvent) {//1fc334
@@ -349,7 +349,7 @@ void sub_loc_1B3C9(Type_SoundEvent_E17CC* pSoundEvent) {//1fc3c9
 	//x_WORD_D4004++;
 }
 void sub_loc_1B413() {//1fc413
-	sub_8D8F0_sound_proc3_endsample();
+	EndSample_8D8F0();
 	//x_WORD_D4004++;
 }
 void sub_loc_1B424(uint16_t a1, Type_SoundEvent_E17CC* pSoundEvent) {//1fc424

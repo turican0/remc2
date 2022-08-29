@@ -514,8 +514,9 @@ uint32_t SOUND_sample_status(HSAMPLE S) {
 	return 0;
 }
 
-void SOUND_end_sample(HSAMPLE  /*S*/) {
+void SOUND_end_sample(HSAMPLE  S) {
 #ifdef SOUND_SDLMIXER
+	//Mix_HaltChannel(S->index_sample);//? better solution ?
 	Mix_HaltChannel(-1);
 #endif//SOUND_SDLMIXER
 };

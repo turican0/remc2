@@ -12685,7 +12685,7 @@ void sub_18BB0()//1f9bb0
 				D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x3DF_2BE4_12221,
 				1);
 			if (soundCard_E3799)
-				sub_8D8F0_sound_proc3_endsample();
+				EndSample_8D8F0();
 			if (musicStarted_E37FD)
 				StopMusic_8E020();
 			if (x_D41A0_BYTEARRAY_4_struct.byteindex_225)
@@ -13534,7 +13534,7 @@ LABEL_12:
 		SetMousePositionInMemory_5BDC0(posX + a2, posY + 5 * height / 2);
 		if (x_D41A0_BYTEARRAY_4_struct.setting_byte3_24 & 1)
 		{
-			sub_8D8F0_sound_proc3_endsample();
+			EndSample_8D8F0();
 			StopMusic_8E020();
 		}
 	}
@@ -14075,7 +14075,7 @@ void sub_1A970_change_game_settings(char a1, int a2, int a3)//1fb970
 		sub_19760_set_message((char*)x_DWORD_E9C4C_langindexbuffer[(soundCard_E3799 != 0) + 390], 3u, 50);
 		//Sound On / Sound Off
 
-		sub_8D8F0_sound_proc3_endsample();
+		EndSample_8D8F0();
 		sub_86860_speak_Sound(x_WORD_1803EC);
 		soundCard_E3799 ^= 1u;
 		return;
@@ -39545,7 +39545,7 @@ void sub_46830_main_loop(/*int16_t* a1, */signed int a2, unsigned __int16 a3)//2
 					m_ptrGameRender = nullptr;
 				}
 				sub_53CC0_close_movie();
-				sub_8D8F0_sound_proc3_endsample();
+				EndSample_8D8F0();
 				StopMusic_8E020();
 				sub_86860_speak_Sound(x_WORD_1803EC);//get graphics parametres?
 				sub_59BF0_sound_proc11_volume();
@@ -39885,7 +39885,7 @@ void LoadTextureData(__int16 vgaTypeResolution, MapType_t MapType, uint8_t* text
 			//v6 = file2lenght+file1Lenght;
 			//filearray1 = (char*)sub_83CD0_malloc2(file2lenght + file1Lenght);
 			//x_DWORD_D4188 = (uint8_t*)filearray1;
-			x_DWORD_D4188 = (posistruct2_t*)sub_83CD0_malloc2(file2lenght + file1Lenght);
+			x_DWORD_D4188 = (posistruct2_t*)Malloc_83CD0(file2lenght + file1Lenght);
 			if (x_DWORD_D4188)
 			{
 				qmemcpy(x_DWORD_D4188, (void*)textureBuffer, file2lenght + file1Lenght);
@@ -39968,7 +39968,7 @@ void sub_47160()//228160
 		//fix
 		if (pre_x_DWORD_E9C3C)
 			FreeMem_83E80(pre_x_DWORD_E9C3C);
-		pre_x_DWORD_E9C3C = (uint8_t*)sub_83CD0_malloc2(3000000);
+		pre_x_DWORD_E9C3C = (uint8_t*)Malloc_83CD0(3000000);
 		x_DWORD_E9C3C = &pre_x_DWORD_E9C3C[200000];
 		//sub_6EB90(&filearray_2aa18c[filearrayindex_FONTS0DATTAB]);//2aa1d4
 		help_VGA_type_resolution = 1;
@@ -39991,7 +39991,7 @@ void sub_47160()//228160
 		//fix
 		if (pre_x_DWORD_E9C3C)
 			FreeMem_83E80(pre_x_DWORD_E9C3C);
-		pre_x_DWORD_E9C3C = (uint8_t*)sub_83CD0_malloc2(3000000);
+		pre_x_DWORD_E9C3C = (uint8_t*)Malloc_83CD0(3000000);
 		x_DWORD_E9C3C = &pre_x_DWORD_E9C3C[200000];
 		CreateIndexes_6EB90(&filearray_2aa18c[filearrayindex_HFONT3DATTAB]);//2aa1d4
 		help_VGA_type_resolution = 8;
@@ -55892,13 +55892,13 @@ void sub_56C00_sound_proc2(type_str_2FECE* a1x)//237c00
     //*(uint8_t*)& SPELLS_BEGIN_BUFFER_DA818[0x606] = 244;
     SPELLS_BEGIN_BUFFER_str[19].subspell[0].word_0x16x = 244;
     D41A0_0.m_GameSettings.str_0x2196.transparency_0x2198 = 0;
-    sub_84300_load_sound(0);
+    LoadSound_84300(0);
     x_BYTE_D419E = 1;
 	}
 	else if (v1 == MapType_t::Night)
 	{
 		D41A0_0.m_GameSettings.str_0x2196.transparency_0x2198 = 0;
-		sub_84300_load_sound(1u);
+		LoadSound_84300(1u);
 		x_BYTE_D419E = 9;
 	}
 	else if (v1 == MapType_t::Cave)
@@ -55906,7 +55906,7 @@ void sub_56C00_sound_proc2(type_str_2FECE* a1x)//237c00
 		D41A0_0.m_GameSettings.str_0x2196.transparency_0x2198 = 1;
 		isCaveLevel_D41B6 = 1;
 		x_BYTE_D41B7 = a1x->byte_0x2FED3;// *(x_BYTE*)(a1 + 5);
-		sub_84300_load_sound(2u);
+		LoadSound_84300(2u);
 		x_BYTE_D419E = 10;
 	}
 	sub_5C0A0();
@@ -60344,7 +60344,7 @@ char sub_5BF10()//23cf10
 	char result; // al
 
 	if (soundCard_E3799)
-		sub_8D8F0_sound_proc3_endsample();
+		EndSample_8D8F0();
 	if (musicStarted_E37FD)
 		StopMusic_8E020();
 	result = 0;
@@ -75583,12 +75583,12 @@ type_x_DWORD_E9C28_str* sub_71B40(int a1, unsigned __int16 a2, type_x_DWORD_E9C2
 	}
 	else
 	{
-		v10y = (type_x_DWORD_E9C28_str*)sub_83CD0_malloc2(26);
+		v10y = (type_x_DWORD_E9C28_str*)Malloc_83CD0(26);
 		v7y = v10y;
 		if (!v10y
-			|| (v11x = (uint8_t*)sub_83CD0_malloc2(a1), (v10y->dword_16x = (uint32_t*)v11x) == 0)
-			|| (v12x = (uint8_t*)sub_83CD0_malloc2(14 * a2), (v10y->str_8_data = (subtype_x_DWORD_E9C28_str*)v12x) == 0)
-			|| (v13x = (uint8_t*)sub_83CD0_malloc2(4 * a2), (v10y->dword_12x = (subtype_x_DWORD_E9C28_str**)v13x) == 0))
+			|| (v11x = (uint8_t*)Malloc_83CD0(a1), (v10y->dword_16x = (uint32_t*)v11x) == 0)
+			|| (v12x = (uint8_t*)Malloc_83CD0(14 * a2), (v10y->str_8_data = (subtype_x_DWORD_E9C28_str*)v12x) == 0)
+			|| (v13x = (uint8_t*)Malloc_83CD0(4 * a2), (v10y->dword_12x = (subtype_x_DWORD_E9C28_str**)v13x) == 0))
 		{
 			if (v10y)
 			{
@@ -75644,9 +75644,9 @@ type_E9C08* sub_72120(unsigned __int16 a1)//253120
 
 	v1 = a1;
 	sub_83CC0(9);
-	v2x = (type_E9C08*)sub_83CD0_malloc2(sizeof(type_E9C08));
+	v2x = (type_E9C08*)Malloc_83CD0(sizeof(type_E9C08));
 	v3x = v2x;
-	if (v2x && (v4 = (type_animations1*)sub_83CD0_malloc2(sizeof(type_animations1) * a1), (v2x->dword_2 = v4) != 0))
+	if (v2x && (v4 = (type_animations1*)Malloc_83CD0(sizeof(type_animations1) * a1), (v2x->dword_2 = v4) != 0))
 	{
 		v2x->word_0 = a1;
 		while (--v1 != 0xffff)
@@ -77748,7 +77748,7 @@ void sub_76A40_lang_setting()//257A40
 				if (langfile != NULL)
 				{
 					filelenght = DataFileIO::FileLengthBytes(langfile) - 4785;
-					x_DWORD_D41BC_langbuffer = (char*)sub_83CD0_malloc2(filelenght);
+					x_DWORD_D41BC_langbuffer = (char*)Malloc_83CD0(filelenght);
 					if (x_DWORD_D41BC_langbuffer)
 					{
 						DataFileIO::Seek(langfile, 4785, 0);
@@ -77863,7 +77863,7 @@ void sub_76D10_intros(char a1)//257d10
 		break;
 	}
 	sub_90B27_VGA_pal_fadein_fadeout(0, 0x10u, 0);
-	sub_8D8F0_sound_proc3_endsample();
+	EndSample_8D8F0();
 	StopMusic_8E020();//?ac_sound_stop_music
 	sub_7B5D0();
 	//v2 = 0;
@@ -77955,7 +77955,7 @@ void /*__fastcall*/ sub_76FA0_main_menu(/*int a1, */int  /*a2*/, uint16_t a3x)//
 	v25 = 0;
 	int386(0x21, (REGS*)&v24, (REGS*)&v24);//get set ctrl break*/
 	sub_86860_speak_Sound(x_WORD_1803EC);//267860
-	sub_84300_load_sound(0);//265300
+	LoadSound_84300(0);//265300
 	memset(&x_DWORD_17DBB8, 0, 16);
 	x_BYTE_17DBC6 = 2;
 	x_DWORD_17DE38str.x_WORD_17DF04 = -1;
@@ -78169,7 +78169,7 @@ bool sub_77350_new_game_dialog(type_WORD_E1F84* a1x)//258350
 		}
 		sub_86860_speak_Sound(x_WORD_1803EC);
 		D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dw_w_b_0_2BDE_11230.byte[2] = 0;
-		sub_8D8F0_sound_proc3_endsample();
+		EndSample_8D8F0();
 		x_WORD_E29D6_not_movex = 0;
 		if (v1 >= 1u)
 		{
@@ -80413,7 +80413,7 @@ void sub_7AC00_load_and_set_graphics_and_Palette()//25BC00
 			x_DWORD_E9C3C = (uint8_t*)sub_83CD0_malloc2(307200);
 			*/
 			//fix
-			pre_x_DWORD_E9C3C = (uint8_t*)sub_83CD0_malloc2(3000000);
+			pre_x_DWORD_E9C3C = (uint8_t*)Malloc_83CD0(3000000);
 			x_DWORD_E9C3C = &pre_x_DWORD_E9C3C[200000];
 			//fix
 			CreateIndexes_6EB90(&filearray_2aa18c[filearrayindex_POINTERSDATTAB]);
@@ -80479,7 +80479,7 @@ int sub_7ADE0(char a1)//25bde0
 		x_DWORD_E9C3C = (uint8_t*)sub_83CD0_malloc2(64000);
 		*/
 		//fix
-		pre_x_DWORD_E9C3C = (uint8_t*)sub_83CD0_malloc2(3000000);
+		pre_x_DWORD_E9C3C = (uint8_t*)Malloc_83CD0(3000000);
 		x_DWORD_E9C3C = &pre_x_DWORD_E9C3C[2000000];
 		//fix
 		//sub_6EB90(&*filearray_2aa18c[0]);
@@ -83626,7 +83626,7 @@ int LoadLanguageFile(posistruct2_t** a1x, posistruct2_t** a2x, uint8_t* a3, char
 			if (x_BYTE_E29E0 || x_DWORD_D41BC_langbuffer)//[2b39e0]00 || [2a51bc]00
 				FreeMem_83E80((uint8_t*)x_DWORD_D41BC_langbuffer);
 			//v7 = langfilelenght - 4785;
-			x_DWORD_D41BC_langbuffer = (char*)sub_83CD0_malloc2(langfilelenght - 4785);
+			x_DWORD_D41BC_langbuffer = (char*)Malloc_83CD0(langfilelenght - 4785);
 			//x_DWORD_D41BC_langbuffer = (uint8_t*)v8;
 			if (x_DWORD_D41BC_langbuffer)
 			{
@@ -83693,7 +83693,7 @@ int sub_7F960(posistruct2_t* a1x, posistruct2_t* a2x, uint8_t* a3, char* langcou
 				FreeMem_83E80((uint8_t*)x_DWORD_D41BC_langbuffer);
 			v8 = v13 - 4785;
 			//v9 = (uint8_t*)sub_83CD0_malloc2(v13 - 4785);
-			x_DWORD_D41BC_langbuffer = (char*)sub_83CD0_malloc2(v13 - 4785);
+			x_DWORD_D41BC_langbuffer = (char*)Malloc_83CD0(v13 - 4785);
 			if (x_DWORD_D41BC_langbuffer)
 			{
 				x_BYTE_E29E0 = 1;
@@ -85194,7 +85194,7 @@ void sub_82670()//263670
 					sub_76160_play_intro(0, 1, 0 + (uint8_t*)array_E1328);*/
 
 					sub_90B27_VGA_pal_fadein_fadeout(0, 0x10u, 0);
-					sub_8D8F0_sound_proc3_endsample();
+					EndSample_8D8F0();
 					StopMusic_8E020();
 					sub_7B5D0();
 					if (x_WORD_180660_VGA_type_resolution & 1)
@@ -85564,7 +85564,7 @@ void sub_83250_play_intros(char a1)//264250
 	sub_8CD27_set_cursor(xy_DWORD_17DED4_spritestr[39]);
 	x_DWORD_17DE38str.x_WORD_17DEEE_mouse_buttons = 0;
 	x_DWORD_17DE38str.x_BYTE_17DF10_get_key_scancode = 0;
-	sub_84300_load_sound(0);
+	LoadSound_84300(0);
 }
 
 //----- (000833C0) --------------------------------------------------------
@@ -85900,7 +85900,7 @@ void sub_83B50()//264B50
 		}
 		//v2 = (int)sub_83CD0_malloc2(x_D41A0_BYTEARRAY_4_struct.dword_0xE6_heapsize_230);
 		//v3 = x_D41A0_BYTEARRAY_4;
-		x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226 = (uint8_t*)sub_83CD0_malloc2(x_D41A0_BYTEARRAY_4_struct.dword_0xE6_heapsize_230);
+		x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226 = (uint8_t*)Malloc_83CD0(x_D41A0_BYTEARRAY_4_struct.dword_0xE6_heapsize_230);
 		if (!x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226)
 		{
 			//v4 = x_D41A0_BYTEARRAY_4[230]; //fix
@@ -91556,11 +91556,11 @@ signed int sub_8CEDF_install_mouse()//26dedf
 	//int386x(0x33, (REGS*)&v2, (REGS*)&v1, (SREGS*)&v5);//set mouse subroutine
 //removed sub_8D12F_set_mouse_viewport(); //set min/max of viewport
 	if (!x_DWORD_180730_cursor_data)
-		x_DWORD_180730_cursor_data = (uint8_t*)sub_83CD0_malloc2(4096);//image buffers?-blit?
+		x_DWORD_180730_cursor_data = (uint8_t*)Malloc_83CD0(4096);//image buffers?-blit?
 	if (!x_DWORD_180700)
-		x_DWORD_180700 = (uint8_t*)sub_83CD0_malloc2(4096);
+		x_DWORD_180700 = (uint8_t*)Malloc_83CD0(4096);
 	if (!x_DWORD_1806F0)
-		x_DWORD_1806F0 = (uint8_t*)sub_83CD0_malloc2(4096);
+		x_DWORD_1806F0 = (uint8_t*)Malloc_83CD0(4096);
 	if (!x_DWORD_180730_cursor_data || !x_DWORD_180700 || !x_DWORD_1806F0)
 		return 0;
 	x_WORD_18072C_cursor_sizex = 0;
@@ -92565,7 +92565,7 @@ signed int UnpackAndLoadMemoryFromPath(Pathstruct path)//27B32d
 		}
 		else
 		{
-			*(path.colorPalette_var28) = (uint8_t*)sub_83CD0_malloc2(path.var36_size_buffer);
+			*(path.colorPalette_var28) = (uint8_t*)Malloc_83CD0(path.var36_size_buffer);
 			memset(*(path.colorPalette_var28), 0, path.var36_size_buffer);
 		}
 		//v2 = *(int *)(path.colorPalette_var28);
@@ -92585,7 +92585,7 @@ signed int UnpackAndLoadMemoryFromPath(Pathstruct path)//27B32d
 		}
 		else
 		{
-			*(path.colorPalette_var28) = (uint8_t*)sub_83CD0_malloc2(path.var36_size_buffer);//asi init a malloc bufferu
+			*(path.colorPalette_var28) = (uint8_t*)Malloc_83CD0(path.var36_size_buffer);//asi init a malloc bufferu
 			memset(*(path.colorPalette_var28), 0, path.var36_size_buffer);
 		}
 		//v4 = *(int **)path.colorPalette_var28;

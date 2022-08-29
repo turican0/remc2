@@ -524,7 +524,7 @@ int sub_84000(int a1);
 x_DWORD x_outp(x_DWORD, char);// weak
 x_DWORD x_inp(x_DWORD);// weak
 void stub_fix_it();
-void* sub_83CD0_malloc2(size_t a1);
+void* Malloc_83CD0(size_t a1);
 void qmemcpy(void* a, void* b, size_t c);
 int FreeMem_9D490(void* buffer, int segment);
 int x_free(void* ptr);
