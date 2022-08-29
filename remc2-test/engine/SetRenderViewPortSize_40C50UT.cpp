@@ -1,6 +1,6 @@
 #include <cstdint>
 #include <gtest/gtest.h>
-#include "../../remc2/engine/ViewPort.h"
+#include "../../remc2/engine/ViewPort.cpp"
 
 uint8_t* pdwScreenBuffer_351628;
 int16_t x_WORD_180660_VGA_type_resolution;
@@ -13,6 +13,7 @@ uint8_t* ViewPortRenderBufferAltStart_DE554;
 
 TEST(viewport, SetRenderViewPortSize_40C50) {
     pdwScreenBuffer_351628 = new uint8_t[1920*1080*2];
+    ViewPort viewPort;
 
     ViewPort::Rectangle viewPort1 = viewPort.SetRenderViewPortSize_40C50(39, 320, 200);
     ViewPort::Rectangle viewPort2 = viewPort.SetRenderViewPortSize_40C50(38, 320, 200);
