@@ -14,6 +14,8 @@ set(SOURCE_FILES_UNITTESTS
     "../remc2/portability/fcaseopen.cpp"
     "../remc2/portability/fcaseopen.h"
     "portability/fcaseopenUT.cpp"
+    "../remc2/engine/ViewPort.cpp"
+    "engine/SetRenderViewPortSize_40C50UT.cpp"
     "UnitTests.cpp"
 )
 source_group("Source Files\\unittests" FILES ${SOURCE_FILES_UNITTESTS})
