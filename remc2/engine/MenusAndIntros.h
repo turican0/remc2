@@ -3,6 +3,7 @@
 #include <cstdint>
 
 #include "../sub_main.h"
+#include "TypeConfigDat.h"
 
 // from sub_main
 extern char x_BYTE_D419C_level_num;

@@ -361,6 +361,7 @@
     <ClInclude Include="engine\MenusAndIntros.h" />
     <ClInclude Include="engine\GameRenderOriginal.h" />
     <ClInclude Include="engine\ProjectionPolygon.h" />
+    <ClInclude Include="engine\TypeConfigDat.h" />
     <ClInclude Include="engine\Type_BigSpritesBuffer.h" />
     <ClInclude Include="engine\Sound.h" />
     <ClInclude Include="engine\Terrain.h" />
