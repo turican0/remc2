@@ -86,10 +86,10 @@ Rectangle ViewPort::SetRenderViewPortSize_40C50(uint8_t viewPortSizeSetting, uin
 	double widthKoef = (double)screenWidth / 80;
 	double heightKoef = (double)screenHeight / 80;
 
-	rectangle.PosX_EA3D0 = widthKoef * factor;
-	rectangle.PosY_EA3CC = heightKoef * factor;
-	rectangle.Width_DE564 = widthKoef * 2 * viewPortSizeSetting;
-	rectangle.Height_DE568 = heightKoef * 2 * viewPortSizeSetting;
+	rectangle.PosX_EA3D0 = (uint16_t)(widthKoef * factor);
+	rectangle.PosY_EA3CC = (uint16_t)(heightKoef * factor);
+	rectangle.Width_DE564 = (uint16_t)((widthKoef * 2) * viewPortSizeSetting);
+	rectangle.Height_DE568 = (uint16_t)((heightKoef * 2) * viewPortSizeSetting);
 
 	return rectangle;
 }
@@ -165,8 +165,8 @@ void ViewPort::ResizeViewPort_2CA90(uint8_t viewPortSizeSetting)//20da90
 	double widthKoef = (double)screenWidth_18062C / 80;
 	double heightKoef = (double)screenHeight_180624 / 80;
 
-	PosX_EA3D0 = widthKoef * factor;
-	PosY_EA3CC = heightKoef * factor;
-	PreWidth_EA3C4 = widthKoef * 2 * viewPortSizeSetting;
-	PreHeight_EA3C0 = heightKoef * 2 * viewPortSizeSetting;
+	PosX_EA3D0 = (uint16_t)(widthKoef * factor);
+	PosY_EA3CC = (uint16_t)(heightKoef * factor);
+	PreWidth_EA3C4 = (uint16_t)((widthKoef * 2) * viewPortSizeSetting);
+	PreHeight_EA3C0 = (uint16_t)((heightKoef * 2) * viewPortSizeSetting);
 }
