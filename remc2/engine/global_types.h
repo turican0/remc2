@@ -292,8 +292,8 @@ typedef struct Type_str_164 {//size 1136
 type_str_164;
 typedef struct _str_0x6E8E {//lenght a8//THING
 	struct _str_0x6E8E* next_0;
-	int32_t dword_0x4;//4 //?bitmap//LIVE
-	int32_t dword_0x8;//8 // this is int32_t ?bitmap//MAX LIVE
+	int32_t maxLife_0x4;//4 //?bitmap//LIVE
+	int32_t life_0x8;//8 // this is int32_t ?bitmap//MAX LIVE
 	dw_w_b struct_byte_0xc_12_15;//12
 						//12//struct_byte_0xc_12_15.dbyte1_2.byte1
 	//0xfe - all spell
@@ -304,7 +304,7 @@ typedef struct _str_0x6E8E {//lenght a8//THING
 	uint16_t rand_0x14_20;//20 //random seed adress
 	uint16_t oldMapEntity_0x16_22;//22
 	uint16_t nextEntity_0x18_24;//24 //next entity index
-	uint16_t word_0x1A_26;//26 // index - owner //ID last index
+	uint16_t id_0x1A_26;//26 // index - owner //ID last index
 	int16_t word_0x1C_28;//28//rotate1
 	int16_t word_0x1E_30;//30//rotate2
 	int16_t word_0x20_32;//32//rotate3
@@ -312,7 +312,7 @@ typedef struct _str_0x6E8E {//lenght a8//THING
 	int16_t word_0x22_34;//34//rotate4
 	int16_t word_0x24_36;//36 // index subentity
 	int16_t word_0x26_38;//38 // index subentity
-	uint16_t word_0x28_40;//40//WHO OWNS ME
+	uint16_t parentId_0x28_40;//40//WHO OWNS ME
 	uint16_t word_0x2A_42;//42 //maybe int16_t
 	int16_t word_0x2C_44;//44 //add to z
 	int16_t word_0x2E_46;//46
@@ -327,15 +327,15 @@ typedef struct _str_0x6E8E {//lenght a8//THING
 	int8_t byte_0x3C_60;//60
 	int8_t byte_0x3D_61;//61
 	uint8_t byte_0x3E_62;//62 //index
-	uint8_t type_0x3F_63;//63 //type//MODEL
+	uint8_t class_0x3F_63;//63 //type//MODEL
 	//11 - spell
-	uint8_t subtype_0x40_64;//64 //subtype//CLASS
+	uint8_t model_0x40_64;//64 //subtype//CLASS
 	//0 or 1 - player, 2 - castle,3-ballon
 	int8_t xtype_0x41_65;//65 //type subentity
 	int8_t xsubtype_0x42_66;//66 //subtype subentity
 	int8_t byte_0x43_67;//67
 	int8_t byte_0x44_68;//68
-	uint8_t byte_0x45_69;//69 // index of structure with lenght 14//STATE-
+	uint8_t state_0x45_69;//69 // index of structure with lenght 14//STATE-
 	int8_t byte_0x46_70;//70 // index of bitmap // index of ending sequence
 	int8_t byte_0x47_71_xx;//71
 	int8_t StageVar1_0x48_72;//72
@@ -348,12 +348,12 @@ typedef struct _str_0x6E8E {//lenght a8//THING
 	int8_t byte_0x5D_93;
 	type_str_0x5E_94 str_0x5E_94;
 
-	int16_t word_0x82_130;//130 //add to z//ACTUAL SPEED
-	int16_t word_0x84_132;//132//MIN SPEED
-	int16_t word_0x86_134;//134//MAX SPEED
+	int16_t actSpeed_0x82_130;//130 //add to z//ACTUAL SPEED
+	int16_t minSpeed_0x84_132;//132//MIN SPEED
+	int16_t maxSpeed_0x86_134;//134//MAX SPEED
 	int32_t dword_0x88_136;//136
-	int32_t dword_0x8C_140;//140 //wiz name?//ACTUAL MANA
-	int32_t dword_0x90_144;//144 0-1000//MAX MANA
+	int32_t maxMana_0x8C_140;//140 //wiz name?//ACTUAL MANA
+	int32_t mana_0x90_144;//144 0-1000//MAX MANA
 	uint16_t word_0x94_148;//148
 	int16_t word_0x96_150;//150 // index subentity
 	uint16_t word_0x98_152;//152
