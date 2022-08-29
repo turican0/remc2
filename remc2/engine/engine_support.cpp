@@ -1,6 +1,8 @@
 #include "engine_support.h"
 #include "CommandLineParser.h"
 #include <string>
+#include <cstring>
+#include <iostream>
 
 #ifdef USE_DOSBOX
 extern DOS_Device* DOS_CON;

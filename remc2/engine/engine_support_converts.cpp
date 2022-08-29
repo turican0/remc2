@@ -1,4 +1,5 @@
 #include "engine_support_converts.h"
+#include <cstring>
 
 void convert_array_to_struct_D41A0_0(uint8_t* input, type_D41A0_BYTESTR_0* output){
 }

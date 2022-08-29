@@ -5,6 +5,8 @@
 
 #include "stdint.h"
 
+#include "global_types.h"
+
 #pragma pack (1)
 typedef struct {
 	int32_t dword0x00;
