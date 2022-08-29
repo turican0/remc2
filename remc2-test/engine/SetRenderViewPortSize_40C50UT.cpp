@@ -1,10 +1,7 @@
 #include <cstdint>
 #include <gtest/gtest.h>
-#ifdef __linux__
 #include "../../remc2/engine/ViewPort.h"
-#else //__linux__
-#include "../../remc2/engine/ViewPort.cpp"
-#endif
+
 uint8_t* pdwScreenBuffer_351628;
 int16_t x_WORD_180660_VGA_type_resolution;
 type_F2C20ar str_F2C20ar;
