@@ -787,7 +787,7 @@ void InitLanguage_76A40()//257A40
 		{
 			DataFileIO::Close(configdatfile);
 			LoadAndSetGraphicsAndPalette_7AC00();
-			LanguageSettingDialog_779E0(0);
+			LanguageSettingDialog_779E0(nullptr);
 			sub_7ADE0(1);
 		}
 	}
@@ -1314,7 +1314,7 @@ char LanguageSettingDialog_779E0(type_WORD_E1F84* a1y)//2589E0
 	posistruct2_t* tabBufferEnd;
 	posistruct2_t* tabBuffer;
 
-	uint8_t* tempSmalltit = NULL;
+	uint8_t* tempSmalltit = nullptr;
 
 	int textIndex = 0;
 	int oldTime = 0;
@@ -1372,7 +1372,7 @@ char LanguageSettingDialog_779E0(type_WORD_E1F84* a1y)//2589E0
 		if (langlhandle == 0)
 		{
 			configFile2 = DataFileIO::CreateOrOpenFile(configFilePath, 512);
-			if (configFile2 != NULL)
+			if (configFile2 != nullptr)
 			{
 				DataFileIO::Read(configFile2, (uint8_t*)&configDat.configDatSign_0, 4);
 				if (configDat.configDatSign_0 == 0xfffffff7)
@@ -1464,7 +1464,7 @@ char LanguageSettingDialog_779E0(type_WORD_E1F84* a1y)//2589E0
 	//adress 258ea1
 	unknown_libname_4_find_close(&langFileL, langlhandle);//adress 258EA2
 	configFile = DataFileIO::CreateOrOpenFile(configFilePath, 546);
-	if (configFile != NULL)
+	if (configFile != nullptr)
 	{
 		if (x_D41A0_BYTEARRAY_4_struct.setting_38402 == 1)
 			x_D41A0_BYTEARRAY_4_struct.setting_38402 = 0;
@@ -1488,7 +1488,7 @@ char LanguageSettingDialog_779E0(type_WORD_E1F84* a1y)//2589E0
 
 		DataFileIO::Close(configFile);
 	}
-	sub_90B27_VGA_pal_fadein_fadeout(0, 0x10u, 0);
+	sub_90B27_VGA_pal_fadein_fadeout(nullptr, 0x10u, 0);
 	if (x_WORD_180660_VGA_type_resolution & 1)
 	{
 		ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, 320, 200, 0);
@@ -4423,7 +4423,7 @@ void WriteConfigDat_81DB0()//262db0
 		sprintf(printbuffer, "%s/%s", gameDataPath.c_str(), "CONFIG.DAT");
 		memset(&configDat, 0, sizeof(TypeConfigDat));
 		configDatFile = DataFileIO::CreateOrOpenFile(printbuffer, 546);
-		if (configDatFile != NULL)
+		if (configDatFile != nullptr)
 		{
 			configDat.configDatSign_0 = 0xfffffff7;
 			configDat.langIndex_4 = x_D41A0_BYTEARRAY_4_struct.SelectedLangIndex;
