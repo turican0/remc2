@@ -889,7 +889,7 @@ void GameRenderHD::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 				HIBYTE(v118) = v277[3] + HIBYTE(v279);
 				v119 = mapTerrainType_10B4E0[v118];
 				Str_E9C38_smalltit[v278x].byte41 = v119;
-				if (Maths::x_BYTE_D41D8[0xa4 + v119])
+				if (Maths::x_BYTE_D41D8[164 + v119])
 					Str_E9C38_smalltit[v278x].word38 |= 0x80u;
 				if (D41A0_0.m_GameSettings.str_0x2196.flat_0x2199)
 					Str_E9C38_smalltit[v278x].word38 |= 0x1000u;
@@ -2646,7 +2646,7 @@ void GameRenderHD::SetBillboards_3B560(int16_t roll)
 		//        the array unk_F0A20x is directly located before unk_F0E20x.
 		//        But not sure if this is intended. Maybe it becomes clearer when the logic get refactored.
 		/*if (resultx == m_str_F0E20x) {
-			v83 = *(x_DWORD*)&unk_F0A20x[0x3f8];
+			v83 = *(x_DWORD*)&unk_F0A20x[1016];
 		}
 		else {
 			v83 = *(result - 2);
@@ -2654,7 +2654,7 @@ void GameRenderHD::SetBillboards_3B560(int16_t roll)
 		result += 3;
 		*(result - 3) = v82 - v83;*/
 		if (resultx == m_str_F0E20x) {
-			v83 = *(x_DWORD*)&unk_F0A20x[0x3f8];
+			v83 = *(x_DWORD*)&unk_F0A20x[1016];
 		}
 		else {
 			v83 = resultx[-1].dword_1;
@@ -3467,7 +3467,7 @@ void GameRenderHD::DrawParticles_3E360(int a2x, type_particle_str** str_DWORD_F6
 				case 17:
 					v72 = (((str_F2C20ar.dword0x14x->word_0x1C_28 - (unsigned __int16)x_WORD_F2CC0) >> 3) & 0xF0) >> 4;
 					if (str_F2C20ar.dword0x14x->struct_byte_0xc_12_15.byte[3] & 0x40)
-						v72 = (unsigned __int8)x_BYTE_D4750[0x2c + v72];
+						v72 = (unsigned __int8)x_BYTE_D4750[44 + v72];
 					if (v72 < 8)
 					{
 						v73 = v72 + v52x->word_0;
@@ -3682,14 +3682,14 @@ void GameRenderHD::DrawParticles_3E360(int a2x, type_particle_str** str_DWORD_F6
 						v93 = v90x->struct_byte_0xc_12_15.byte[3];
 						if (v93 & 2)
 						{
-							v94 = (unsigned __int8)x_BYTE_E88E0x[0x2 + 3
+							v94 = (unsigned __int8)x_BYTE_E88E0x[2 + 3
 								* x_DWORD_EA3E4[v90x->parentId_0x28_40]->dword_0xA4_164x->word_0x38_56];
 							str_F2C20ar.dword0x01_rotIdx = 4;
 							str_F2C20ar.dword0x07 = v94;
 						}
 						else if (v93 & 4)
 						{
-							v95 = (unsigned __int8)x_BYTE_E88E0x[0x2 + 3
+							v95 = (unsigned __int8)x_BYTE_E88E0x[2 + 3
 								* x_DWORD_EA3E4[v90x->parentId_0x28_40]->dword_0xA4_164x->word_0x38_56];
 							str_F2C20ar.dword0x01_rotIdx = 5;
 							str_F2C20ar.dword0x07 = v95;
