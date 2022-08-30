@@ -168,9 +168,9 @@ int DataFileIO::UnpackData(vars_t* v)
 	if (crc_block(v->input, v->input_offset, v->packed_size) != v->packed_crc)
 		return 4;
 
-	v->mem1 = (uint8_t*)malloc(0x10000);
-	v->decoded = (uint8_t*)malloc(0x10000);
-	v->pack_block_start = &v->mem1[0xFFFD];
+	v->mem1 = (uint8_t*)malloc(65536);
+	v->decoded = (uint8_t*)malloc(65536);
+	v->pack_block_start = &v->mem1[65533];
 	v->window = &v->decoded[v->dict_size];
 
 	v->unpacked_crc_real = 0;
@@ -520,9 +520,9 @@ int DataFileIO::input_bits(vars_t* v, short count)
 
 void DataFileIO::write_decoded_byte(vars_t* v, uint8_t b)
 {
-	if (&v->decoded[0xFFFF] == v->window)
+	if (&v->decoded[65535] == v->window)
 	{
-		write_buf(v->output, &v->output_offset, &v->decoded[v->dict_size], 0xFFFF - v->dict_size);
+		write_buf(v->output, &v->output_offset, &v->decoded[v->dict_size], 65535 - v->dict_size);
 		memmove(v->decoded, &v->window[-v->dict_size], v->dict_size);
 		v->window = &v->decoded[v->dict_size];
 	}
@@ -539,15 +539,15 @@ void DataFileIO::write_buf(uint8_t* dest, size_t* offset, uint8_t* source, int s
 
 uint8_t DataFileIO::read_source_byte(vars_t* v)
 {
-	if (v->pack_block_start == &v->mem1[0xFFFD])
+	if (v->pack_block_start == &v->mem1[65533])
 	{
 		int left_size = v->file_size - v->input_offset;
 
 		int size_to_read;
-		if (left_size <= 0xFFFD)
+		if (left_size <= 65533)
 			size_to_read = left_size;
 		else
-			size_to_read = 0xFFFD;
+			size_to_read = 65533;
 
 		v->pack_block_start = v->mem1;
 
