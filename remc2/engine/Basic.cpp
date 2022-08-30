@@ -15,7 +15,7 @@ std::string bigGraphicsPath;
 
 type_str_unk_1804B0ar str_unk_1804B0ar;
 
-TColor unk_17D838x[0x100]; // weak
+TColor unk_17D838x[256]; // weak
 
 int readFileStatus_E3E2C = 0; // weak
 
@@ -115,9 +115,9 @@ __int16 x_WORD_D4B7C = 254; // some key color?
 __int16 x_WORD_D4B7E = 0; // some key color?
 type_event_0x6E8E* x_DWORD_EA3E4[1001];//2bb3e4
 
-uint8_t x_BYTE_F6EE0_tablesx[0x14600];// (uint8_t*)&x_BYTE_F6EE0_tablesbuff;//animated sprites
+uint8_t x_BYTE_F6EE0_tablesx[83456];// (uint8_t*)&x_BYTE_F6EE0_tablesbuff;//animated sprites
 uint8_t* x_BYTE_F6EE0_tablesx_pre = (uint8_t*)x_BYTE_F6EE0_tablesx;
-uint8_t* x_BYTE_FAEE0_tablesx_pre = (uint8_t*)&x_BYTE_F6EE0_tablesx[0x4000];
+uint8_t* x_BYTE_FAEE0_tablesx_pre = (uint8_t*)&x_BYTE_F6EE0_tablesx[16384];
 
 type_E9C38_smalltit Str_E9C38_smalltit[21 * 40];
 

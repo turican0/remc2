@@ -180,11 +180,11 @@ int x_DWORD_E3FEA = 0; // weak
 int x_DWORD_E3FEE = 0; // weak
 int x_DWORD_E3FF2 = 0; // weak
 
-int x_DWORD_E3E9C[0x10]; // weak//sound anything
-//int x_DWORD_E3ED8 = 0; // weak//x_DWORD_E3E9C[0xf]
-int x_DWORD_E3EDC[0x10]; // weak
-int x_DWORD_E3F1C[0x10]; // weak
-int x_DWORD_E3F5C[0x10]; // weak
+int x_DWORD_E3E9C[16]; // weak//sound anything
+//int x_DWORD_E3ED8 = 0; // weak//x_DWORD_E3E9C[15]
+int x_DWORD_E3EDC[16]; // weak
+int x_DWORD_E3F1C[16]; // weak
+int x_DWORD_E3F5C[16]; // weak
 
 int x_DWORD_E3FF8 = 0; // weak
 int x_DWORD_E3FFC = 0; // weak
@@ -233,7 +233,7 @@ int x_DWORD_E4C90 = 0; // weak
 int x_DWORD_E4C94 = 0; // weak
 
 
-int x_DWORD_A9390[0x80] = {
+int x_DWORD_A9390[128] = {
 0x00000008,0x00000011,0x00000012,0x00000013,
 0x00000014,0x00000015,0x00000017,0x00000018,
 0x0000001A,0x0000001B,0x0000001D,0x0000001E,
@@ -3845,7 +3845,7 @@ void sub_A10F4_sound_proc_irq()//2820f4
 	//x_WORD_E3FE0 = __DS__;
 	x_DWORD_E3FE2 = v1;
 	// fix it:__asm { int     21h; DOS - SET INTERRUPT VECTOR }
-	x_DWORD_E3E9C[0xf] = 2;
+	x_DWORD_E3E9C[15] = 2;
 	//sub_92890_AIL_set_timer_period(60, 54925);
 	//_disable();
 	//if (v2 & 0x200)
@@ -4047,7 +4047,7 @@ int32_t sub_A158B_AIL_API_call_driver(AIL_DRIVER* drvr, int32_t fn, VDI_CALL* in
 	__int16 v14; // di
 	int v15; // ST00_4
 	__int16 v17; // [esp+Eh] [ebp-3Ah]
-	uint8_t v18[0x30]; // [esp+10h] [ebp-38h]
+	uint8_t v18[48]; // [esp+10h] [ebp-38h]
 	__int16 v19; // [esp+1Eh] [ebp-2Ah]
 	__int16 v20; // [esp+22h] [ebp-26h]
 	__int16 v21; // [esp+26h] [ebp-22h]
@@ -4111,8 +4111,8 @@ void sub_A1665_AIL_API_delay(int a1)//282665
 	int i; // ecx
 	unsigned __int8 v4; // al
 
-	result = MEMORY[0x463];
-	v2 = MEMORY[0x463] + 6;
+	result = MEMORY[1123];
+	v2 = MEMORY[1123] + 6;
 	for ( i = a1; i; i-- )
 	{
 	  do
@@ -4699,7 +4699,7 @@ LABEL_33:
 // 181DCC: using guessed type int x_DWORD_181DCC;
 // 181DF4: using guessed type int x_DWORD_181DF4;
 
-int16_t envstring[0x18] = {
+int16_t envstring[24] = {
 	220,7,01,05,-1,-1,-1,-1,
 	-1,-1,-1,-1,220,05,01,05,
 	-1,-1,-1,-1,-1,-1,-1,-1
@@ -4708,7 +4708,7 @@ int16_t envstring[0x18] = {
 //----- (000A2C80) --------------------------------------------------------
 int sub_A2C80(HDIGDRIVER a1, IO_PARMS*  /*a2*/)//283c80
 {
-	int16_t v3[0x18]; // [esp+0h] [ebp-30h]
+	int16_t v3[24]; // [esp+0h] [ebp-30h]
 	//__int16 v4; // [esp+2h] [ebp-2Eh]
 	//__int16 v5; // [esp+4h] [ebp-2Ch]
 	//__int16 v6; // [esp+6h] [ebp-2Ah]
@@ -4785,7 +4785,7 @@ HDIGDRIVER sub_A2EA0(AIL_DRIVER* a1, IO_PARMS IO)//283ea0
 	unsigned int v11; // eax
 	//int v12; // ST0C_4
 	//int v13; // ST08_4
-	uint8_t v15[0x18 * 4]; // [esp+0h] [ebp-50h]
+	uint8_t v15[24 * 4]; // [esp+0h] [ebp-50h]
 	VDI_CALL v16/*[100]*/; // [esp+18h] [ebp-38h]
 	//int16_t v17; // [esp+1Ah] [ebp-36h]
 	//unsigned __int16 v18; // [esp+1Ch] [ebp-34h]

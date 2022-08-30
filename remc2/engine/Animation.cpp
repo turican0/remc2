@@ -35,7 +35,7 @@ uint16_t x_WORD_17D726; // weak 6
 
 int x_DWORD_17DB54_game_turn2; // weak
 
-char x_BYTE_17D738[0x100]; // idb
+char x_BYTE_17D738[256]; // idb
 
 __int16 x_WORD_E12FE = 0; // weak
 
@@ -59,7 +59,7 @@ void PlayInfoFmv(__int16 a1, __int16 a2, Type_SoundEvent_E17CC* pSoundEvent, cha
 		DataFileIO::Read(tempfile, unk_17DB40, 12);//ecx=12
 		LastKeyframe_17DB46 = *(int16_t*)&unk_17DB40[6];
 		x_WORD_17DB48 = *(int16_t*)&unk_17DB40[8];
-		x_WORD_17DB4A = *(int16_t*)&unk_17DB40[0xa];
+		x_WORD_17DB4A = *(int16_t*)&unk_17DB40[10];
 
 		x_WORD_180744_mouse_right_button = 0;
 		x_WORD_180746_mouse_left_button = 0;
@@ -645,7 +645,7 @@ int sub_473E0()//2283e0
 		--x_WORD_F42A8;
 	if (!x_WORD_18074C_mouse_left2_button && !x_WORD_18074A_mouse_right2_button)
 	{
-		if (pressedKeys_180664[0x2a] || pressedKeys_180664[0x36])
+		if (pressedKeys_180664[42] || pressedKeys_180664[54])
 		{
 			if (LastPressedKey_1806E4 < 0x36u)
 			{

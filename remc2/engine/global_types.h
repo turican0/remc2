@@ -122,19 +122,19 @@ typedef struct {//lenght 18
 }type_str_0x1AC_428;
 
 typedef struct {
-	uint8_t byte[0x1a];
+	uint8_t byte[26];
 	//uint16_t word_2279;
 }
 type_8_1a;
 
 typedef struct {
-	int16_t word[0x1a];
+	int16_t word[26];
 	//uint16_t word_2279;
 }
 type_16_1a;
 
 typedef struct {
-	int32_t dword[0x1a];
+	int32_t dword[26];
 	//uint16_t word_2279;
 }
 type_32_1a;
@@ -154,13 +154,13 @@ typedef struct {//begin 611//str_611
 	//825//array_0x333_819[3]
 	//827//array_0x333_819[4]
 	//835//array_0x333_819[8]
-	//type_16_1a word_0x34B_843;//232//remove it array_0x333_819x.word[0xc]
-	//type_16_1a word_0x34F_847;//remove it array_0x333_819x.word[0xe]
+	//type_16_1a word_0x34B_843;//232//remove it array_0x333_819x.word[12]
+	//type_16_1a word_0x34F_847;//remove it array_0x333_819x.word[14]
 	type_16_1a array_0x367_871x;//260//ok
 	//875 -array_0x367_871[4]
 	type_8_1a array_0x39B_923x;//312//size??//byte_0x781_2BDE
 	type_8_1a array_0x3B5_949x;//338//size??//array_0x79B_2BDE_13177
-	//int8_t array_0x41D_1053x[0x1a];//size??
+	//int8_t array_0x41D_1053x[26];//size??
 	//int8_t array_0x41E_1054;//array_0x41D_1053x[1]
 	//int8_t array_0x41F_1055;//array_0x41D_1053x[2]
 	//int8_t array_0x420_1056;//array_0x41D_1053x[3]
@@ -263,7 +263,7 @@ typedef struct Type_str_164 {//size 1136
 	int8_t byte_0x1C1_449;//switch - event? type?
 	int16_t word_0x1C2_450;
 	uint8_t stubl[56];
-	//int8_t array_0x1D4_468[0x1a];
+	//int8_t array_0x1D4_468[26];
 	uint16_t array_0x1FC_508[32];//1ca
 	//int16_t word_0x204_516[32];
 	//int16_t word_0x242_578;//word_0x204_516[31]

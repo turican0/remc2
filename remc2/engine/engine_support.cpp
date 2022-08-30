@@ -99,15 +99,15 @@ int16_t x_D41A0_WORDARRAY[10000];
 //uint32_t x_D41A0_BYTEARRAY_4_0xE6_heapsize;
 //uint8_t* x_D41A0_BYTEARRAY_4_0xE2_heapbuffer;
 //uint8_t* x_D41A0_BYTEARRAY_4_0xDE_heapbuffer;
-//uint32_t* off_D918C[0x7c];//turn off - fix it
+//uint32_t* off_D918C[124];//turn off - fix it
 
 //xx uint8_t* dword_E9C30[1000]; // weak
 /*
-uint8_t x_BYTE_10B4E0_terraintype[0x10000]; // idb// x_BYTE_10B1E0[0x300]//2DC4E0 //map array1
-uint8_t x_BYTE_11B4E0_height[0x10000]; // idb		//2EC4E0    	//map array2 // heightmap
-uint8_t x_BYTE_12B4E0_shading[0x10000]; // fix it -  weak	//2FC4E0    //map array3
-uint8_t x_BYTE_13B4E0_angle[0x10000]; // idb//30C4E0	//map array4 // water
-int16_t x_WORD_15B4E0_source[0x10000]; // idb//32C4E0	//map array5
+uint8_t x_BYTE_10B4E0_terraintype[65536]; // idb// x_BYTE_10B1E0[768]//2DC4E0 //map array1
+uint8_t x_BYTE_11B4E0_height[65536]; // idb		//2EC4E0    	//map array2 // heightmap
+uint8_t x_BYTE_12B4E0_shading[65536]; // fix it -  weak	//2FC4E0    //map array3
+uint8_t x_BYTE_13B4E0_angle[65536]; // idb//30C4E0	//map array4 // water
+int16_t x_WORD_15B4E0_source[65536]; // idb//32C4E0	//map array5
 */
 type_array_str_E2A74 str_E2A74 {{//2b3a74
 {0x0000,{0x0000,0x0000,0x0000,0x0000,0x0000},0x00000000,0x00000000,0x00000000,0x00000000,0x00,0x00},
@@ -1376,7 +1376,7 @@ type_D41A0_BYTESTR_0 D41A0_0;
 /*
 void x_D41A0_BYTEARRAY_0_to_x_D41A0_BYTESTR_0()
 {
-	D41A0_BYTESTR_0.word_0xc = *(int16_t*)&x_D41A0_BYTEARRAY_0[0xc];
+	D41A0_BYTESTR_0.word_0xc = *(int16_t*)&x_D41A0_BYTEARRAY_0[12];
 	D41A0_BYTESTR_0.dword_0x235 = *(int32_t*)&x_D41A0_BYTEARRAY_0[0x235];
 
 	D41A0_BYTESTR_0.byte_0x218D = x_D41A0_BYTEARRAY_0[0x218D];
@@ -1411,7 +1411,7 @@ void x_D41A0_BYTEARRAY_0_to_x_D41A0_BYTESTR_0()
 
 void x_D41A0_BYTESTR_0_to_x_D41A0_BYTEARRAY_0()
 {
-	*(int16_t*)&x_D41A0_BYTEARRAY_0[0xc]= D41A0_BYTESTR_0.word_0xc;
+	*(int16_t*)&x_D41A0_BYTEARRAY_0[12]= D41A0_BYTESTR_0.word_0xc;
 	*(int32_t*)&x_D41A0_BYTEARRAY_0[0x235] = D41A0_BYTESTR_0.dword_0x235;
 
 	x_D41A0_BYTEARRAY_0[0x218D] = D41A0_BYTESTR_0.byte_0x218D;
@@ -1821,11 +1821,11 @@ void set_x_D41A0_BYTEARRAY_0_8(int32_t value) {
 };
 
 int16_t get_x_D41A0_BYTEARRAY_0_0xe() {
-	testword((int16_t*)&x_D41A0_BYTEARRAY_0[0xe], &D41A0_BYTESTR_0.word_0xe);
+	testword((int16_t*)&x_D41A0_BYTEARRAY_0[14], &D41A0_BYTESTR_0.word_0xe);
 	return D41A0_BYTESTR_0.word_0xe;
 };
 void set_x_D41A0_BYTEARRAY_0_0xe(int16_t value) {
-	*(int16_t*)&x_D41A0_BYTEARRAY_0[0xe] = value;
+	*(int16_t*)&x_D41A0_BYTEARRAY_0[14] = value;
 	D41A0_BYTESTR_0.word_0xe = value;
 };
 
@@ -1844,31 +1844,31 @@ void plus_x_D41A0_BYTEARRAY_0_0x10(int number) {
 };
 
 uint8_t get_x_D41A0_BYTEARRAY_0_0x22() {
-	testbyte(&x_D41A0_BYTEARRAY_0[0x22], &D41A0_BYTESTR_0.byte_0x22);
+	testbyte(&x_D41A0_BYTEARRAY_0[34], &D41A0_BYTESTR_0.byte_0x22);
 	return D41A0_BYTESTR_0.byte_0x22;
 };
 void set_x_D41A0_BYTEARRAY_0_0x22(uint8_t value) {
-	x_D41A0_BYTEARRAY_0[0x22] = value;
+	x_D41A0_BYTEARRAY_0[34] = value;
 	D41A0_BYTESTR_0.byte_0x22 = value;
 };
 
 int32_t get_x_D41A0_BYTEARRAY_0_0x35() {
-	testdword((int32_t*)&x_D41A0_BYTEARRAY_0[0x35], &D41A0_BYTESTR_0.dword_0x35);
+	testdword((int32_t*)&x_D41A0_BYTEARRAY_0[53], &D41A0_BYTESTR_0.dword_0x35);
 	return D41A0_BYTESTR_0.dword_0x35;
 };
 void set_x_D41A0_BYTEARRAY_0_0x35(int32_t value) {
-	*(int32_t*)&x_D41A0_BYTEARRAY_0[0x35] = value;
+	*(int32_t*)&x_D41A0_BYTEARRAY_0[53] = value;
 	D41A0_BYTESTR_0.dword_0x35 = value;
 };
 
 void plus_x_D41A0_BYTEARRAY_0_0x35() {
-	(*(int32_t*)&x_D41A0_BYTEARRAY_0[0x35])++;
-	D41A0_BYTESTR_0.dword_0x35 = *(int32_t*)&x_D41A0_BYTEARRAY_0[0x35];
+	(*(int32_t*)&x_D41A0_BYTEARRAY_0[53])++;
+	D41A0_BYTESTR_0.dword_0x35 = *(int32_t*)&x_D41A0_BYTEARRAY_0[53];
 };
 
 void minus_x_D41A0_BYTEARRAY_0_0x35() {
-	(*(int32_t*)&x_D41A0_BYTEARRAY_0[0x35])--;
-	D41A0_BYTESTR_0.dword_0x35 = *(int32_t*)&x_D41A0_BYTEARRAY_0[0x35];
+	(*(int32_t*)&x_D41A0_BYTEARRAY_0[53])--;
+	D41A0_BYTESTR_0.dword_0x35 = *(int32_t*)&x_D41A0_BYTEARRAY_0[53];
 };
 
 int32_t get_x_D41A0_BYTEARRAY_0_235() {
@@ -2216,7 +2216,7 @@ void copyto_x_D41A0_BYTEARRAY_0_0x2BDE_0x7CF(int number, uint8_t* value) {
 void copyto_x_D41A0_BYTEARRAY_0_0x2BDE_0x7E7(int number, uint8_t* value) {
 	memcpy(&x_D41A0_BYTEARRAY_0[0x2BDE + 2124 * number + 2023], value, 24);
 	//xx D41A0_BYTESTR_0.array_0x2BDE[number].struct_0x649_2BDE_12839.word_0x7E7_2BDE_13253 = value;
-	memcpy(&D41A0_BYTESTR_0.array_0x2BDE[number].struct_0x649_2BDE_12839.array_0x7CF_2BDE_13229[0x18], value, 24);
+	memcpy(&D41A0_BYTESTR_0.array_0x2BDE[number].struct_0x649_2BDE_12839.array_0x7CF_2BDE_13229[24], value, 24);
 };
 
 void set_x_D41A0_BYTEARRAY_0_0x2BDE_0x7(int number, int16_t value) {

@@ -210,7 +210,7 @@ type_x_BYTE_E25ED_db_str x_BYTE_E26C8_str[16] = {//set keys
 {0x00000000,0x00000000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x00,0x00,0x0000,0x0000,0x0000,0x0000}
 };
 
-type_x_BYTE_E25ED_2BB str_BYTE_E2590[0x3] = {//set joy
+type_x_BYTE_E25ED_2BB str_BYTE_E2590[3] = {//set joy
 { 0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x01B5,0x0000,0x0001 },
 { 0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x01B6,0x0000,0x0002 },
 { 0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000 }
@@ -280,14 +280,14 @@ type_WORD_E20A4 str_WORD_E20A4[12] = {
 {0x00000000,0x00,0x00,0x00,0x00,0x04,0x00,0x0009,0x02,0x00,0x0003,0x03,0x00,{0x0000,0x0000,0x01C7,0x0000,0x018B,0x0072,0x006B,0x0072,0x006B,0x005D,0x0067,0x0012},0x01,0x00,0x00,{0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000}},
 {0x00000000,0x00,0x00,0x00,0x00,0x00,0x00,0x0000,0x00,0x00,0x0000,0x00,0x00,{0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000},0x00,0x00,0x00,{0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000}}};
 
-type_E24BCx str_E2516[0x5] = {
+type_E24BCx str_E2516[5] = {
 {0x01D2,0x012F,0x0169,0x01DC,0x016A,0x0000,0x023C,0x01B8,0x02,0x0B},
 {0x0195,0x015E,0x0041,0x0211,0x0052,0x0000,0x0254,0x001C,0x08,0x08},
 {0x0196,0x007E,0x0041,0x007B,0x0052,0x0000,0x0037,0x001C,0x08,0x09},
 {0x01D3,0x007F,0x0168,0x007B,0x0176,0x0000,0x0034,0x01B0,0x08,0x10},
 {0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x00,0x00} };
 
-Type_SoundEvent_E17CC str_E17CC_0[0x32] = {//anim events
+Type_SoundEvent_E17CC str_E17CC_0[50] = {//anim events
 {0x0000,0x45,0x00000004},
 {0x0000,0x56,0x00000000},
 {0x0000,0x57,0x00000000},
@@ -382,7 +382,7 @@ uint16_t xx_WORD_E24BE[3][9] = { // 2b34be //only for clock?
 	{0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x01D1}
 };
 
-type_E24BCx str_E24BCx[0x1A]= {
+type_E24BCx str_E24BCx[26]= {
 {0x01C7,0x0028,0x0031,0x00C4,0x0026,0x0000,0x011B,0x006A,0x02,0x00},
 {0x01C6,0x012A,0x012C,0x018D,0x012A,0x0000,0x0141,0x00EC,0x08,0x00},
 {0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x00,0x00},
@@ -410,7 +410,7 @@ type_E24BCx str_E24BCx[0x1A]= {
 {0x0197,0x019B,0x001F,0x01E8,0x0029,0x0040,0x015A,0x0028,0x08,0x0B},
 {0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x00,0x00} };
 
-type_x_BYTE_E25ED_2BB str_BYTE_E25ED_2BB[0xb] = {
+type_x_BYTE_E25ED_2BB str_BYTE_E25ED_2BB[11] = {
 { 0x00D4,0x0032,0x0000,0x0000,0x0000,0x0000,0x01BC,0x0001,0x0000 },
 { 0x00D4,0x0053,0x0000,0x0000,0x0000,0x0000,0x01BD,0x0000,0x0000 },
 { 0x00D4,0x0074,0x0000,0x0000,0x0000,0x0000,0x01BE,0x0000,0x0000 },
@@ -432,7 +432,7 @@ type_E24BCx str_E24F2[2] = {
 {0x01D1,0x0103,0x0320,0x015D,0x0320,0x0000,0x0153,0x0320,0x02,0x0B},
 {0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x00,0x00} };
 
-type_E24BCx str_E2570[0x6] = {
+type_E24BCx str_E2570[6] = {
 {0x01C9,0x0004,0x00B8,0x0042,0x00B6,0x0000,0x007E,0x0082,0x00,0x00},
 {0x01CB,0x0005,0x0168,0x004D,0x0168,0x0000,0x0095,0x0130,0x00,0x00},
 {0x01CA,0x01BC,0x016A,0x0227,0x016A,0x0000,0x01C6,0x0122,0x00,0x00},
@@ -440,7 +440,7 @@ type_E24BCx str_E2570[0x6] = {
 {0x01CC,0x01A3,0x000D,0x01D7,0x0019,0x0000,0x0148,0x0018,0x08,0x00},
 {0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x00,0x00} };
 
-type_E24BCx str_E25DC[0xA] = {
+type_E24BCx str_E25DC[10] = {
 {0x019F,0x0002,0x004D,0x007D,0x005A,0x003B,0x00DE,0x005A,0x02,0x06},
 {0x01A0,0x0013,0x0074,0x00AC,0x007C,0x0001,0x0119,0x007C,0x02,0x0A},
 {0x0196,0x0011,0x00F6,0x005F,0x00F6,0x003E,0x00C0,0x00AA,0x00,0x09},
@@ -460,7 +460,7 @@ typedef struct {//lenght 18
 type_BYTE_E25ED_0x;
 #pragma pack (16)
 
-type_BYTE_E25ED_0x str_BYTE_E25ED_0x[0x9] = {//gold selection menu
+type_BYTE_E25ED_0x str_BYTE_E25ED_0x[9] = {//gold selection menu
 {0x06,{0xA0,0x01,0x13,0x00,0x74,0x00,0xAC,0x00,0x7C,0x00,0x01,0x00,0x19,0x01,0x7C,0x00,0x02}},
 {0x0A,{0x96,0x01,0x11,0x00,0xF6,0x00,0x5F,0x00,0xF6,0x00,0x3E,0x00,0xC0,0x00,0xAA,0x00,0x00}},
 {0x09,{0x9B,0x01,0x11,0x00,0x68,0x01,0x5F,0x00,0x68,0x01,0x3E,0x00,0xC1,0x00,0x1C,0x01,0x00}},
@@ -1107,11 +1107,11 @@ bool NewGameDialog_77350(type_WORD_E1F84* a1x)//258350
 	if (x_BYTE_D419C_level_num <= -1)
 	{
 		x_BYTE_17E09D = 0;
-		x_DWORD_17DE38str.unk_17E078x[0xb] = 16;
+		x_DWORD_17DE38str.unk_17E078x[11] = 16;
 		x_DWORD_17DE38str.x_WORD_17E06E = 480;
 		*(int16_t*)&x_DWORD_17DE38str.unk_17E078x[8] = 13;
 		x_DWORD_17DE38str.x_BYTE_17E09C = 0;
-		x_DWORD_17DE38str.unk_17E078x[0xa] = 13;
+		x_DWORD_17DE38str.unk_17E078x[10] = 13;
 		x_DWORD_17DE38str.x_WORD_17E06C = 0;
 		memset((void*)&x_DWORD_17DB70str, 0, 56);
 		if (D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dw_w_b_0_2BDE_11230.byte[2] & 2)
@@ -1386,7 +1386,7 @@ char LanguageSettingDialog_779E0(type_WORD_E1F84* a1y)//2589E0
 		}
 		ResetMouse_7B5A0();//25c5a0
 		x_DWORD_17DE38str.x_WORD_17DEEE_mouse_buttons = 0;
-		sub_8CD27_set_cursor(xy_DWORD_17DED4_spritestr[0x25]);//26dd27
+		sub_8CD27_set_cursor(xy_DWORD_17DED4_spritestr[37]);//26dd27
 		while (mouseClick != 2)//adress 258c30
 		{
 			if (x_DWORD_17DE38str.x_BYTE_17DF10_get_key_scancode == 59)
@@ -1584,10 +1584,10 @@ signed int sub_7E640(type_WORD_E1F84* a1x)//25f640
 		memset(&x_DWORD_17DB70str, 0, 56);
 		*(int16_t*)&x_DWORD_17DE38str.unk_17E078x[8] = 13;
 		x_DWORD_17DE38str.x_WORD_17E06C = 0;
-		x_DWORD_17DE38str.unk_17E078x[0xa] = 13;
+		x_DWORD_17DE38str.unk_17E078x[10] = 13;
 		x_DWORD_17DE38str.x_BYTE_17E09C = 0;
 		x_DWORD_17DE38str.x_WORD_17E06E = 480;
-		x_DWORD_17DE38str.unk_17E078x[0xb] = 16;
+		x_DWORD_17DE38str.unk_17E078x[11] = 16;
 		x_DWORD_17DB70str.x_BYTE_17DB8F = 1;
 		if (a1x)
 		{
@@ -2633,62 +2633,62 @@ void sub_7DA70(__int16 a1, __int16 a2, __int16 a3, __int16 a4, __int16 a5, __int
 					{
 						if (v10 == 512)
 						{
-							if (x_DWORD_17DE38str.unk_17E078x[0xa] != 9)
+							if (x_DWORD_17DE38str.unk_17E078x[10] != 9)
 							{
 								*(int16_t*)&x_DWORD_17DE38str.unk_17E078x[8] = 9;
-								x_DWORD_17DE38str.unk_17E078x[0xb] = 12;
-								x_DWORD_17DE38str.unk_17E078x[0xa] = 9;
+								x_DWORD_17DE38str.unk_17E078x[11] = 12;
+								x_DWORD_17DE38str.unk_17E078x[10] = 9;
 							}
 						}
 						else if (v10 == 1024)
 						{
-							if (x_DWORD_17DE38str.unk_17E078x[0xa] != 1)
+							if (x_DWORD_17DE38str.unk_17E078x[10] != 1)
 							{
-								x_DWORD_17DE38str.unk_17E078x[0xa] = 1;
+								x_DWORD_17DE38str.unk_17E078x[10] = 1;
 								*(int16_t*)&x_DWORD_17DE38str.unk_17E078x[8] = 1;
-								x_DWORD_17DE38str.unk_17E078x[0xb] = 4;
+								x_DWORD_17DE38str.unk_17E078x[11] = 4;
 							}
 						}
-						else if (v10 == 1536 && x_DWORD_17DE38str.unk_17E078x[0xa] != 25)
+						else if (v10 == 1536 && x_DWORD_17DE38str.unk_17E078x[10] != 25)
 						{
 							*(int16_t*)&x_DWORD_17DE38str.unk_17E078x[8] = 25;
-							x_DWORD_17DE38str.unk_17E078x[0xa] = 25;
-							x_DWORD_17DE38str.unk_17E078x[0xb] = 28;
+							x_DWORD_17DE38str.unk_17E078x[10] = 25;
+							x_DWORD_17DE38str.unk_17E078x[11] = 28;
 						}
 					}
-					else if (x_DWORD_17DE38str.unk_17E078x[0xa] != 17)
+					else if (x_DWORD_17DE38str.unk_17E078x[10] != 17)
 					{
-						x_DWORD_17DE38str.unk_17E078x[0xa] = 17;
+						x_DWORD_17DE38str.unk_17E078x[10] = 17;
 						*(int16_t*)&x_DWORD_17DE38str.unk_17E078x[8] = 17;
-						x_DWORD_17DE38str.unk_17E078x[0xb] = 20;
+						x_DWORD_17DE38str.unk_17E078x[11] = 20;
 					}
 				}
-				else if (x_DWORD_17DE38str.unk_17E078x[0xa] != 13)
+				else if (x_DWORD_17DE38str.unk_17E078x[10] != 13)
 				{
 					*(int16_t*)&x_DWORD_17DE38str.unk_17E078x[8] = 13;
-					x_DWORD_17DE38str.unk_17E078x[0xa] = 13;
-					x_DWORD_17DE38str.unk_17E078x[0xb] = 16;
+					x_DWORD_17DE38str.unk_17E078x[10] = 13;
+					x_DWORD_17DE38str.unk_17E078x[11] = 16;
 				}
 			}
-			else if (x_DWORD_17DE38str.unk_17E078x[0xa] != 5)
+			else if (x_DWORD_17DE38str.unk_17E078x[10] != 5)
 			{
-				x_DWORD_17DE38str.unk_17E078x[0xa] = 5;
+				x_DWORD_17DE38str.unk_17E078x[10] = 5;
 				*(int16_t*)&x_DWORD_17DE38str.unk_17E078x[8] = 5;
-				x_DWORD_17DE38str.unk_17E078x[0xb] = 8;
+				x_DWORD_17DE38str.unk_17E078x[11] = 8;
 			}
 		}
-		else if (x_DWORD_17DE38str.unk_17E078x[0xa] != 29)
+		else if (x_DWORD_17DE38str.unk_17E078x[10] != 29)
 		{
 			*(int16_t*)&x_DWORD_17DE38str.unk_17E078x[8] = 29;
-			x_DWORD_17DE38str.unk_17E078x[0xb] = 32;
-			x_DWORD_17DE38str.unk_17E078x[0xa] = 29;
+			x_DWORD_17DE38str.unk_17E078x[11] = 32;
+			x_DWORD_17DE38str.unk_17E078x[10] = 29;
 		}
 	}
-	else if (x_DWORD_17DE38str.unk_17E078x[0xa] != 21)
+	else if (x_DWORD_17DE38str.unk_17E078x[10] != 21)
 	{
 		*(int16_t*)&x_DWORD_17DE38str.unk_17E078x[8] = 21;
-		x_DWORD_17DE38str.unk_17E078x[0xa] = 21;
-		x_DWORD_17DE38str.unk_17E078x[0xb] = 24;
+		x_DWORD_17DE38str.unk_17E078x[10] = 21;
+		x_DWORD_17DE38str.unk_17E078x[11] = 24;
 	}
 	*(int16_t*)&x_DWORD_17DE38str.unk_17E078x[4] = x_DWORD_17DE38str.x_WORD_17E06C;
 	*(int16_t*)&x_DWORD_17DE38str.unk_17E078x[6] = x_DWORD_17DE38str.x_WORD_17E06E;
@@ -3187,9 +3187,9 @@ void sub_7D400_draw_texts_and_play_sounds(int  /*a1*/, __int16 a2, __int16 a3, c
 	//int16_t v32; // [esp+10h] [ebp-44h]
 	//int v33; // [esp+24h] [ebp-30h]//22
 	int8_t v33x[22];
-	//__int16 v34; // [esp+30h] [ebp-24h]//v33x[0xc]
-	//__int16 v35; // [esp+32h] [ebp-22h]//v33x[0xe]
-	//int v36; // [esp+34h] [ebp-20h]//v33x[0x10]
+	//__int16 v34; // [esp+30h] [ebp-24h]//v33x[12]
+	//__int16 v35; // [esp+32h] [ebp-22h]//v33x[14]
+	//int v36; // [esp+34h] [ebp-20h]//v33x[16]
 
 	posistruct2_t* v37x; // [esp+3Ch] [ebp-18h]
 	//uint8_t* v38; // [esp+40h] [ebp-14h]
@@ -3285,13 +3285,13 @@ void sub_7D400_draw_texts_and_play_sounds(int  /*a1*/, __int16 a2, __int16 a3, c
 		{
 			memset(v33x, 0, 22);
 			*(int32_t*)v33x = secretMapScreenPortals_E2970[jjx].dword_0;
-			LOWORD(*(x_DWORD*)&v33x[0x10]) = secretMapScreenPortals_E2970[jjx].word_14;
-			*(int16_t*)&v33x[0xc] = secretMapScreenPortals_E2970[jjx].word_8;
-			*(int16_t*)&v33x[0xe] = secretMapScreenPortals_E2970[jjx].word_10;
+			LOWORD(*(x_DWORD*)&v33x[16]) = secretMapScreenPortals_E2970[jjx].word_14;
+			*(int16_t*)&v33x[12] = secretMapScreenPortals_E2970[jjx].word_8;
+			*(int16_t*)&v33x[14] = secretMapScreenPortals_E2970[jjx].word_10;
 			sub_7E5A0_pre_draw(a2, v12, a2, a3, (uint8_t*)v33x, 305, 311);
 		LABEL_40:
 			secretMapScreenPortals_E2970[jjx].dword_0 = *(x_DWORD*)v33x;
-			secretMapScreenPortals_E2970[jjx].word_14 = *(x_DWORD*)&v33x[0x10];
+			secretMapScreenPortals_E2970[jjx].word_14 = *(x_DWORD*)&v33x[16];
 			continue;
 		}
 		if (v11 == 2 && a4 == 3)
@@ -3307,17 +3307,17 @@ void sub_7D400_draw_texts_and_play_sounds(int  /*a1*/, __int16 a2, __int16 a3, c
 			{
 				memset(v33x, 0, 22);
 				*(x_DWORD*)v33x = secretMapScreenPortals_E2970[jjx].dword_0;
-				LOWORD(*(x_DWORD*)&v33x[0x10]) = secretMapScreenPortals_E2970[jjx].word_14;
-				*(int16_t*)&v33x[0xc] = secretMapScreenPortals_E2970[jjx].word_8;
-				*(int16_t*)&v33x[0xe] = secretMapScreenPortals_E2970[jjx].word_10;
+				LOWORD(*(x_DWORD*)&v33x[16]) = secretMapScreenPortals_E2970[jjx].word_14;
+				*(int16_t*)&v33x[12] = secretMapScreenPortals_E2970[jjx].word_8;
+				*(int16_t*)&v33x[14] = secretMapScreenPortals_E2970[jjx].word_10;
 				sub_7E5A0_pre_draw(a2, v15, a2, a3, (uint8_t*)v33x, 270, 272);
 				goto LABEL_40;
 			}
 			memset(v33x, 0, 22);
 			*(x_DWORD*)v33x = secretMapScreenPortals_E2970[jjx].dword_0;
-			LOWORD(*(x_DWORD*)&v33x[0x10]) = secretMapScreenPortals_E2970[jjx].word_14;
-			*(int16_t*)&v33x[0xc] = secretMapScreenPortals_E2970[jjx].word_8;
-			*(int16_t*)&v33x[0xe] = secretMapScreenPortals_E2970[jjx].word_10;
+			LOWORD(*(x_DWORD*)&v33x[16]) = secretMapScreenPortals_E2970[jjx].word_14;
+			*(int16_t*)&v33x[12] = secretMapScreenPortals_E2970[jjx].word_8;
+			*(int16_t*)&v33x[14] = secretMapScreenPortals_E2970[jjx].word_10;
 			if (sub_7E5A0_pre_draw(a2, v14, a2, a3, (uint8_t*)v33x, 70, 83))
 			{
 				secretMapScreenPortals_E2970[jjx].word_14 = 270;
@@ -3325,7 +3325,7 @@ void sub_7D400_draw_texts_and_play_sounds(int  /*a1*/, __int16 a2, __int16 a3, c
 			}
 			else
 			{
-				secretMapScreenPortals_E2970[jjx].word_14 = *(x_DWORD*)&v33x[0x10];
+				secretMapScreenPortals_E2970[jjx].word_14 = *(x_DWORD*)&v33x[16];
 			}
 			secretMapScreenPortals_E2970[jjx].dword_0 = *(x_DWORD*)v33x;
 		}
@@ -6371,14 +6371,14 @@ void sub_8C0E0(unsigned __int8(/*__fastcall*/ *a1)(signed int))//26d0e0
 	signed int v1=0; // eax
 	signed int v2=0; // eax
 
-	unk_180560x[0x1a] = 0;
-	while (!(unk_180560x[0x1a] & 1))
+	unk_180560x[26] = 0;
+	while (!(unk_180560x[26] & 1))
 	{
 		v1 = sub_8BBE0(unk_180560x);
 		if (a1 && a1(v1))
 			return;
 	}
-	while (unk_180560x[0x1a] & 1)
+	while (unk_180560x[26] & 1)
 	{
 		v2 = sub_8BBE0(unk_180560x);
 		if (a1)
@@ -6614,9 +6614,9 @@ char /*__fastcall*/ sub_77680()//258680
 	//__int16 v7; // dx
 	//char* v8; // esi
 	//char v9; // [esp+0h] [ebp-4h]
-	//char v10ar[0x24]; // [esp+50h] [ebp+4Ch]
+	//char v10ar[36]; // [esp+50h] [ebp+4Ch]
 	type_E24BCx v10arx[2];
-	//char v11; // [esp+60h] [ebp+5Ch]//v10ar[0x10]
+	//char v11; // [esp+60h] [ebp+5Ch]//v10ar[16]
 
 	int v12[4]; // [esp+74h] [ebp+70h]
 	int v13; // [esp+78h] [ebp+74h]
@@ -6695,7 +6695,7 @@ char /*__fastcall*/ sub_77680()//258680
 					/*v8x = str_E2570[v14];
 					qmemcpy(v10arx, v8, 0x10u+2u);*/
 					v10arx[0] = str_E2570[v14];
-					//qmemcpy(&v10ar[0x10], v8 + 16, 2u);
+					//qmemcpy(&v10ar[16], v8 + 16, 2u);
 					sub_7E840_draw_textbox_with_line(v10arx, 21, 27);
 				}
 				else if (v15 == 3)
@@ -6744,7 +6744,7 @@ char DrawAndServe_7B250(/*int a1, int a2*//*, __int16 a3*/)//25c250
 	//int v12; // edx
 	int v13; // eax
 	type_E24BCx v14arx[2]; // [esp+0h] [ebp-24h]
-	//uint8_t v15[2]; // [esp+10h] [ebp-14h]//v14ar[0x10]
+	//uint8_t v15[2]; // [esp+10h] [ebp-14h]//v14ar[16]
 
 	//fix it
 	//v12 = 0;
@@ -6845,7 +6845,7 @@ LABEL_28:
 		/*v8 = &unk_E25DC[18 * x_WORD_17DBC4];
 		qmemcpy(v14arx, v8, 0x10u+2u);*/
 		v14arx[0] = str_E25DC[x_WORD_17DBC4];
-		//qmemcpy(&v14ar[0x10], v8 + 0x10, 2u);
+		//qmemcpy(&v14ar[16], v8 + 0x10, 2u);
 		//v9 = str_E1BAC;
 		v9y = 0;
 		sub_7E840_draw_textbox_with_line(v14arx, 80, 89);
@@ -6892,7 +6892,7 @@ LABEL_28:
 			memset(v14arx, 0, 36);
 			//qmemcpy(v14arx, v10, 0x10u+2u);
 			v14arx[0] = str_E25DC[v10x];
-			//qmemcpy(&v14ar[0x10], v10 + 8, 2u);
+			//qmemcpy(&v14ar[16], v10 + 8, 2u);
 			sub_7E840_draw_textbox_with_line(v14arx, 80, 89);
 			v13 = j___clock();
 			x_DWORD_17DBB8[1] = v13;
