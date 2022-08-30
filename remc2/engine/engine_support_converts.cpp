@@ -1,4 +1,5 @@
 #include "engine_support_converts.h"
+#include <cstring>
 
 void convert_array_to_struct_D41A0_0(uint8_t* input, type_D41A0_BYTESTR_0* output){
 }
@@ -336,9 +337,9 @@ void convert_struct_to_array_0x6E8E(type_event_0x6E8E* input, uint8_t* output) {
 	//struct _str_0x6E8E* next_0;
 	memcpy(output + 0, &input->next_0, 4);
 	//int32_t dword_0x4;//4 //?bitmap//LIVE
-	memcpy(output + 4, &input->dword_0x4, 4);
+	memcpy(output + 4, &input->maxLife_0x4, 4);
 	//int32_t dword_0x8;//8 // this is int32_t ?bitmap//MAX LIVE
-	memcpy(output + 8, &input->dword_0x8, 4);
+	memcpy(output + 8, &input->life_0x8, 4);
 	//dw_w_b struct_byte_0xc_12_15;//12
 	memcpy(output + 12, &input->struct_byte_0xc_12_15.dword, 4);
 	//int32_t dword_0x10_16;//16 // index of array
@@ -350,7 +351,7 @@ void convert_struct_to_array_0x6E8E(type_event_0x6E8E* input, uint8_t* output) {
 	//uint16_t word_0x18_24_next_entity;//24
 	memcpy(output + 24, &input->nextEntity_0x18_24, 2);
 	//uint16_t word_0x1A_26;//26 // index - owner //ID last index
-	memcpy(output + 26, &input->word_0x1A_26, 2);
+	memcpy(output + 26, &input->id_0x1A_26, 2);
 	//int16_t word_0x1C_28;//28//rotate1
 	memcpy(output + 28, &input->word_0x1C_28, 2);
 	//int16_t word_0x1E_30;//30//rotate2
@@ -364,7 +365,7 @@ void convert_struct_to_array_0x6E8E(type_event_0x6E8E* input, uint8_t* output) {
 	//int16_t word_0x26_38;//38 // index subentity
 	memcpy(output + 38, &input->word_0x26_38, 2);
 	//uint16_t word_0x28_40;//40//WHO OWNS ME
-	memcpy(output + 40, &input->word_0x28_40, 2);
+	memcpy(output + 40, &input->parentId_0x28_40, 2);
 	//uint16_t word_0x2A_42;//42 //maybe int16_t
 	memcpy(output + 42, &input->word_0x2A_42, 2);
 	//int16_t word_0x2C_44;//44 //add to z
@@ -394,9 +395,9 @@ void convert_struct_to_array_0x6E8E(type_event_0x6E8E* input, uint8_t* output) {
 	//int8_t byte_0x3E_62;//62 //index
 	memcpy(output + 62, &input->byte_0x3E_62, 1);
 	//int8_t byte_0x3F_63;//63 //type//MODEL
-	memcpy(output + 63, &input->type_0x3F_63, 1);
+	memcpy(output + 63, &input->class_0x3F_63, 1);
 	//int8_t byte_0x40_64;//64 //subtype//CLASS
-	memcpy(output + 64, &input->subtype_0x40_64, 1);
+	memcpy(output + 64, &input->model_0x40_64, 1);
 	//int8_t byte_0x41_65;//65 //type subentity
 	memcpy(output + 65, &input->xtype_0x41_65, 1);
 	//int8_t byte_0x42_66;//66 //subtype subentity
@@ -406,7 +407,7 @@ void convert_struct_to_array_0x6E8E(type_event_0x6E8E* input, uint8_t* output) {
 	//int8_t byte_0x44_68;//68	
 	memcpy(output + 68, &input->byte_0x44_68, 1);
 	//uint8_t byte_0x45_69;//69 // index of structure with lenght 14//STATE
-	memcpy(output + 69, &input->byte_0x45_69, 1);
+	memcpy(output + 69, &input->state_0x45_69, 1);
 	//uint8_t byte_0x46_70;//70 // index of bitmap
 	memcpy(output + 70, &input->byte_0x46_70, 1);
 	//int8_t byte_0x47_71_xx;//71
@@ -428,17 +429,17 @@ void convert_struct_to_array_0x6E8E(type_event_0x6E8E* input, uint8_t* output) {
 	//type_str_0x5E_94 str_0x5E_94;
 	convert_struct_to_array_0x5E_94(&input->str_0x5E_94, output + 94);
 	//int16_t word_0x82_130;//130 //add to z//ACTUAL SPEED
-	memcpy(output + 130, &input->word_0x82_130, 2);
+	memcpy(output + 130, &input->actSpeed_0x82_130, 2);
 	//int16_t word_0x84_132;//132//MIN SPEED
-	memcpy(output + 132, &input->word_0x84_132, 2);
+	memcpy(output + 132, &input->minSpeed_0x84_132, 2);
 	//int16_t word_0x86_134;//134//MAX SPEED
-	memcpy(output + 134, &input->word_0x86_134, 2);
+	memcpy(output + 134, &input->maxSpeed_0x86_134, 2);
 	//int32_t dword_0x88_136;//136
 	memcpy(output + 136, &input->dword_0x88_136, 4);
 	//int32_t dword_0x8C_140;//140 //wiz name?//ACTUAL MANA
-	memcpy(output + 140, &input->dword_0x8C_140, 4);
+	memcpy(output + 140, &input->maxMana_0x8C_140, 4);
 	//int32_t dword_0x90_144;//144 0-1000//MAX MANA
-	memcpy(output + 144, &input->dword_0x90_144, 4);
+	memcpy(output + 144, &input->mana_0x90_144, 4);
 	//uint16_t word_0x94_148;//148
 	memcpy(output + 0x94, &input->word_0x94_148, 2);
 	//int16_t word_0x96_150;//150 // index subentity

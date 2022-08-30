@@ -447,6 +447,18 @@
     <ClInclude Include="portability\fcaseopen.h">
       <Filter>Header Files\portability</Filter>
     </ClInclude>
+    <ClInclude Include="engine\TypeConfigDat.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\Rectangle.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\global_types.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\globals.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -589,9 +601,6 @@
     </ClCompile>
     <ClCompile Include="..\kiss_sdl-master\kiss_widgets.cpp">
       <Filter>Source Files\libs\kiss-sdl</Filter>
-    </ClCompile>
-    <ClCompile Include="..\temp\dirent.c">
-      <Filter>Source Files\portability</Filter>
     </ClCompile>
     <ClCompile Include="..\SDL-Mixer-X-master\src\music.c">
       <Filter>Source Files\libs\sdl-mixer-x</Filter>
@@ -756,6 +765,9 @@
       <Filter>Source Files\engine</Filter>
     </ClCompile>
     <ClCompile Include="portability\fcaseopen.cpp">
+      <Filter>Source Files\portability</Filter>
+    </ClCompile>
+    <ClCompile Include="portability\dirent.c">
       <Filter>Source Files\portability</Filter>
     </ClCompile>
   </ItemGroup>

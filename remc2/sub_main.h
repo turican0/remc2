@@ -285,6 +285,32 @@ typedef struct {//lenght 18
 type_x_BYTE_E25ED_2BB;
 #pragma pack (16)
 
+#pragma pack (1)
+typedef struct {
+	int32_t x_DWORD_18058C;
+	int32_t x_DWORD_180590; // [0x04]//unk_18058Cstr.x_DWORD_180590//1
+	int32_t x_DWORD_180594; // [0x08]//unk_18058Cstr.x_DWORD_180594//2
+	int32_t x_DWORD_180598; // [0x0c]//unk_18058Cstr.x_DWORD_180598//3
+	int32_t x_DWORD_18059C; // [0x10]//unk_18058Cstr.x_DWORD_18059C//4
+	int32_t x_DWORD_1805A0; // weak//unk_18058Car[0x14]//5
+	int32_t x_DWORD_1805A4; // weak//unk_18058Car[0x18]//6
+	int32_t x_DWORD_1805A8; // weak//unk_18058Car[0x1c]//7
+	int32_t x_DWORD_1805AC; // weak//unk_18058Car[0x20]//8
+	axis_2d_32 x_DWORD_1805B0_mouse;
+	//int32_t x_DWORD_1805B0_mouse.x; // weak//unk_18058Car[0x24]
+	//int32_t x_DWORD_1805B0_mouse.y; // weak//unk_18058Car[0x28]
+	int32_t x_DWORD_1805B8_mouse_position_x; // weak//unk_18058Car[0x2c]
+	int32_t x_DWORD_1805BC_mouse_position_y; // weak//unk_18058Car[0x30]
+	int16_t x_WORD_1805C0_arrow_keys; // weak//unk_18058Car[0x34] // keyboard buttons
+	int16_t x_WORD_1805C2_joystick; // weak//unk_18058Car[0x36]
+	int16_t x_WORD_1805C4_vio1_analog_joy; // weak//unk_18058Car[0x38]
+	int16_t x_WORD_1805C6_vio2_analog_joy; // weak//unk_18058Car[0x3a]
+	int16_t x_WORD_1805C8; // weak//unk_18058Car[0x3c]
+	uint8_t unk_1805CE[0x54]; // weak//unk_18058Car[0x42]
+	int16_t stub_180622;
+} type_unk_18058Cstr;//end 180624
+#pragma pack (16)
+
 //extern type_x_DWORD_17DE38str x_DWORD_17DE38str;
 /*
 extern int16_t x_DWORD_17DEE4_mouse_positionx; // weak
@@ -358,20 +384,6 @@ typedef struct {//lenght 44
 	//int16_t nocl_42;
 }
 type_WORD_E1F84;
-#pragma pack (16)
-
-#pragma pack (1)
-typedef struct {//lenght 24
-uint32_t dword_0;
-uint32_t dword_4;
-uint32_t dword_8;
-uint32_t dword_12;
-uint16_t word_16;
-uint16_t word_18;
-uint16_t word_20;
-uint16_t word_22;
-}
-type_E1BAC_0x3c4;
 #pragma pack (16)
 
 #pragma pack (1)
@@ -455,7 +467,6 @@ void sub_6EBF0(filearray_struct* a1);
 
 char sub_533B0_decompress_levels(__int16 a1, type_str_2FECE* a2);
 
-bool sub_7B200_in_region(type_WORD_E1F84* a1x, int16_t testx, int16_t testy);
 //int /*__noreturn*/ sub_10000(); // weak
 type_event_0x6E8E* sub_15CB0(/*type_str_0x6E8E* a1,*/ type_event_0x6E8E* a2); // weak
 char sub_15D40(__int16 a1, type_event_0x6E8E* a2, type_event_0x6E8E* a3); // weak
@@ -473,6 +484,7 @@ signed int sub_369F0(/*signed int a1,*/ __int16 a2);
 //void qmemcpy(void* a, void* b, size_t c);
 void sub_2A340(/*int a1, type_str_0x6E8E* a2, type_str_0x6E8E* a3, int a4, *//*type_str_0x6E8E* a5, */type_event_0x6E8E* a6);
 void sub_2AA90(/*type_str_0x6E8E* a1, */type_event_0x6E8E* a2, type_event_0x6E8E* a3);
+void sub_2BD10_draw_line(__int16 a1, __int16 a2, __int16 a3, __int16 a4, unsigned __int8 a5);
 void ClearGraphicsBuffer_72883(void* ptrBuffer, uint16_t width, uint16_t height, char value);
 void DrawVolumeSettings_303D0();
 int _wcpp_1_unwind_leave__62(void); //weak
@@ -493,9 +505,12 @@ void sub_56A30_init_game_level(unsigned int a1);
 void sub_5B870_copy_sentence(char* langbuffer, char** langindexbuffer, uint32_t count);
 void sub_47320_in_game_loop(signed int a1);
 void sub_56D60(unsigned int a1, char a2);
-void SetMousePositionByRes_6EDB0();
+void SetCenterScreenForFlyAssistant_6EDB0();
 void VGA_BlitAny();
 void VGA_CalculateAndPrintFPS(int x, int y);
+int NetworkInitConnection_7308F(char* a2, __int16 a3);
+void NetworkUpdateConnections2_74374();
+int16_t GetIndexNetwork2_74515();
 void sub_7A060_get_mouse_and_keyboard_events();
 void sub_7AA70_load_and_decompres_dat_file(const char* a1, uint8_t* a2, int a3, int a4);
 void DrawAndEventsInGame_47560(uint32_t a3, signed int a4, __int16 a5);
@@ -527,16 +542,15 @@ uint8_t NetworkAddName_74767(/*signed __int16* a1,*/ myNCB* a2x, char* a3);
 //unsigned short __readgsx_WORD(unsigned long Offset);
 void sub_753D0();
 void sub_7A110_load_hscreen(char a1, char a2);
-char sub_7B250_draw_and_serve(/*int a1, int a2*//*, __int16 a3*/);
 void ResetMouse_7B5A0();
 void sub_7B5D0();
-int sub_7BF20_draw_scroll_dialog(type_str_word_26* a1x);
 void ClearScrollDialogVars_7C020(type_str_word_26* a1x);
 char sub_7C200(uint8_t a1);
+bool SetMultiplayerColors_7CE50();
+void SetMultiplayerColors_7D310();
 void sub_7E840_draw_textbox_with_line(type_E24BCx* a1x, __int16 a2, __int16 a3);
 void sub_7E8D0(x_WORD* a1, __int16 a2, __int16 a3, __int16 a4, __int16 a5, __int16 a6, __int16 a7);
 bool sub_7E9D0(x_WORD* a1, x_WORD* a2, x_WORD* a3);
-int sub_7F6A0(int a1, int a2, __int16 a3, __int16 a4, char* a5, int8_t* a6, unsigned __int8 a7);
 void sub_81CA0(int a1, int a2, __int16 a3, __int16 a4, type_x_BYTE_E25ED_db_str* a5);
 signed int sub_7E5A0_pre_draw(int a1, int a2, __int16 a3, __int16 a4, uint8_t* a5, __int16 a6, __int16 a7);
 void sub_81260(int a1, int a2, int8_t* a3, __int16 a4, __int16 a5);
@@ -550,6 +564,7 @@ __int16 sub_840D3(char _CF, bool _ZF, char _SF, char _OF);
 void  sub_841CE(__int16 a1);
 char sub_86860_speak_Sound(unsigned __int16 a1);
 void sub_86EB0(unsigned __int8 a1, unsigned __int8 a2, char a3);
+int16_t sub_89B60_aplicate_setting(uint8_t a1);
 //void __writeeflags(unsigned Value);
 int32_t /*__cdecl*/ gets(int32_t);// weak
 //x_DWORD /*__cdecl*/ fix_tell(x_DWORD);// weak
@@ -558,13 +573,14 @@ int32_t /*__cdecl*/ expand(int32_t, int32_t);// weak
 void sub_8BA10(int a2, int* a3, char* a4, int a5);
 double /*__fastcall*/ _CHP(int32_t);// weak
 char sub_8B980(int a1, int a2, char* a3, int a4);
+signed int sub_8BBE0(uint8_t* a1);
 void sub_8CD27_set_cursor(posistruct_t a2);
 signed int sub_8CEDF_install_mouse();
 int16_t sub_90B27_VGA_pal_fadein_fadeout(TColor* a1x, uint8_t shadow_levels, bool a3);
 void sub_90D6E_VGA_set_video_mode_320x200_and_Palette(TColor* Palette);
 void sub_90E07_VGA_set_video_mode_640x480_and_Palette(TColor* Palette);
 void CopyScreen(void* source, void* desc, unsigned __int16 width, unsigned __int16 height);
-size_t sub_98CAA_write(FILE* a1, uint8_t* a2, uint32_t a3);
+size_t WriteFile_98CAA(FILE* a1, uint8_t* a2, uint32_t a3);
 signed int sub_9A10A_check_keyboard();
 bool sub_9AE04(int a1, int a2);
 /*

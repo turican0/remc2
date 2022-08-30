@@ -38,6 +38,8 @@
 #include "Type_E9C38_Smalltit.h"
 #include "Type_F2C20ar.h"
 
+#include "globals.h"
+
 #if defined(__LP64__) || defined(_WIN64) || (defined(__x86_64__) &&     !defined(__ILP32__) ) || defined(_M_X64) || defined(__ia64) || defined (_M_IA64) || defined(__aarch64__) || defined(__powerpc64__) || defined(__x86_64__) || (UINT_MAX >= 0xffffffffffffffff) || defined (COMPILE_FOR_64BIT)
 #define x64_BIT_ENVIRONMENT 1
 #else
@@ -192,7 +194,7 @@ extern int frameCount;
 extern int fps;
 
 
-extern int x_DWORD_E3E2C;
+extern int readFileStatus_E3E2C;
 
 extern char x_BYTE_D41C1; // weak
 
@@ -494,8 +496,6 @@ extern int x_DWORD_180704_mouse_byte_index1; // weak
 
 extern int x_DWORD_180644_map_resolution2_y; // weak
 extern int x_DWORD_180648_map_resolution2_x; // weak
-extern uint32_t screenHeight_180624; // weak
-extern uint32_t screenWidth_18062C; // weak
 
 extern int16_t x_DWORD_1806F8_mousex; // weak
 extern int16_t x_DWORD_1806F8_mousey; // weak
@@ -518,7 +518,7 @@ extern type_TMAPS00TAB_BEGIN_BUFFER* str_TMAPS00TAB_BEGIN_BUFFER;
 
 bool DefaultResolutions();
 
-void sub_83E80_freemem4(uint8_t* a1);
+void FreeMem_83E80(uint8_t* a1);
 int sub_84000(int a1);
 
 x_DWORD x_outp(x_DWORD, char);// weak
@@ -526,9 +526,9 @@ x_DWORD x_inp(x_DWORD);// weak
 void stub_fix_it();
 void* sub_83CD0_malloc2(size_t a1);
 void qmemcpy(void* a, void* b, size_t c);
-int sub_9D490_free4(void* a1, int a2);
+int FreeMem_9D490(void* a1, int a2);
 int x_free(void* ptr);
-void* sub_83D70_malloc1(int a1);
+void* Malloc_83D70(int a1);
 
 void __writegsx_WORD(unsigned long Offset, unsigned short Data);
 void __writegsx_DWORD(unsigned long Offset, unsigned long Data);
@@ -546,7 +546,7 @@ void dbgfprintf(FILE* file, const char* format, ...);
 
 x_DWORD dos_read(FILE*, char, x_DWORD, x_DWORD, char*);
 
-signed int sub_9DE20_get_file_lenght(char* a1);
+signed int GetFileLenght_9DE20(char* a1);
 uint8_t* sub_9DEA0_read_file(char* a1, uint8_t* a2);
 
 FILE* x_open(char* path, int pmodex);
