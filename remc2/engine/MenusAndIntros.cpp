@@ -812,12 +812,12 @@ void Intros_76D10(char a1)//257d10
 	char dataPath[MAX_PATH];
 
 	//x_DWORD_17DE48c = x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226;
-	x_DWORD_17DE38str.x_DWORD_17DE54 = &x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x49ADB];// 301787;
-	x_DWORD_17DE38str.x_DWORD_17DEC0 = (posistruct2_t*)&x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4B52F];//308527;
-	x_DWORD_17DE38str.x_DWORD_17DEC4 = (posistruct2_t*)&x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4BB8F];
+	x_DWORD_17DE38str.x_DWORD_17DE54 = &x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[301787];
+	x_DWORD_17DE38str.x_DWORD_17DEC0 = (posistruct2_t*)&x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[308527];
+	x_DWORD_17DE38str.x_DWORD_17DEC4 = (posistruct2_t*)&x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[310159];
 
 	sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/SCREENS/HSCREEN0.DAT");
-	sub_7AA70_load_and_decompres_dat_file(dataPath, &x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x49ADB], 0x164FCD, 0x35C);
+	sub_7AA70_load_and_decompres_dat_file(dataPath, &x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[301787], 0x164FCD, 0x35C);
 	sub_7AA70_load_and_decompres_dat_file(dataPath, (uint8_t*)x_DWORD_17DE38str.x_DWORD_17DEC0, 0x165329, 0x224);
 	sub_7AA70_load_and_decompres_dat_file(0, 0, 0, 0);
 	if (x_WORD_180660_VGA_type_resolution & 1)

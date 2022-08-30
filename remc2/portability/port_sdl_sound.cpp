@@ -657,7 +657,7 @@ AIL_DRIVER* ac_AIL_API_install_driver(int  /*a1*/, uint8_t*  /*a2*/, int  /*a3*/
 	return 0;
 }
 
-uint16_t actvect[0x1000];
+uint16_t actvect[4096];
 
 void ac_set_real_vect(uint32_t vectnum, uint16_t real_ptr)
 {

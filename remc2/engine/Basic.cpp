@@ -743,7 +743,7 @@ void sub_2EB60()//20fb60
 	{
 		x_BYTE_D41CE = 1;
 		x_BYTE_D41C1 = 1;
-		x_DWORD_F01E4 = &pdwScreenBuffer_351628[0xfb40];//line 320x201 - after normal image
+		x_DWORD_F01E4 = &pdwScreenBuffer_351628[64320];//line 320x201 - after normal image
 		x_WORD_F01F4 = 0x3200;//320*40
 		sub_2EC30_clear_img_mem();
 		x_DWORD_D41D0 = 0;
