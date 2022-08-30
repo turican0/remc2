@@ -288,25 +288,25 @@ type_x_BYTE_E25ED_2BB;
 #pragma pack (1)
 typedef struct {
 	int32_t x_DWORD_18058C;
-	int32_t x_DWORD_180590; // [0x04]//unk_18058Cstr.x_DWORD_180590//1
-	int32_t x_DWORD_180594; // [0x08]//unk_18058Cstr.x_DWORD_180594//2
-	int32_t x_DWORD_180598; // [0x0c]//unk_18058Cstr.x_DWORD_180598//3
-	int32_t x_DWORD_18059C; // [0x10]//unk_18058Cstr.x_DWORD_18059C//4
-	int32_t x_DWORD_1805A0; // weak//unk_18058Car[0x14]//5
+	int32_t x_DWORD_180590; // [4]//unk_18058Cstr.x_DWORD_180590//1
+	int32_t x_DWORD_180594; // [8]//unk_18058Cstr.x_DWORD_180594//2
+	int32_t x_DWORD_180598; // [12]//unk_18058Cstr.x_DWORD_180598//3
+	int32_t x_DWORD_18059C; // [16]//unk_18058Cstr.x_DWORD_18059C//4
+	int32_t x_DWORD_1805A0; // weak//unk_18058Car[20]//5
 	int32_t x_DWORD_1805A4; // weak//unk_18058Car[0x18]//6
-	int32_t x_DWORD_1805A8; // weak//unk_18058Car[0x1c]//7
+	int32_t x_DWORD_1805A8; // weak//unk_18058Car[28]//7
 	int32_t x_DWORD_1805AC; // weak//unk_18058Car[0x20]//8
 	axis_2d_32 x_DWORD_1805B0_mouse;
-	//int32_t x_DWORD_1805B0_mouse.x; // weak//unk_18058Car[0x24]
-	//int32_t x_DWORD_1805B0_mouse.y; // weak//unk_18058Car[0x28]
-	int32_t x_DWORD_1805B8_mouse_position_x; // weak//unk_18058Car[0x2c]
-	int32_t x_DWORD_1805BC_mouse_position_y; // weak//unk_18058Car[0x30]
-	int16_t x_WORD_1805C0_arrow_keys; // weak//unk_18058Car[0x34] // keyboard buttons
-	int16_t x_WORD_1805C2_joystick; // weak//unk_18058Car[0x36]
-	int16_t x_WORD_1805C4_vio1_analog_joy; // weak//unk_18058Car[0x38]
-	int16_t x_WORD_1805C6_vio2_analog_joy; // weak//unk_18058Car[0x3a]
-	int16_t x_WORD_1805C8; // weak//unk_18058Car[0x3c]
-	uint8_t unk_1805CE[0x54]; // weak//unk_18058Car[0x42]
+	//int32_t x_DWORD_1805B0_mouse.x; // weak//unk_18058Car[36]
+	//int32_t x_DWORD_1805B0_mouse.y; // weak//unk_18058Car[40]
+	int32_t x_DWORD_1805B8_mouse_position_x; // weak//unk_18058Car[44]
+	int32_t x_DWORD_1805BC_mouse_position_y; // weak//unk_18058Car[48]
+	int16_t x_WORD_1805C0_arrow_keys; // weak//unk_18058Car[52] // keyboard buttons
+	int16_t x_WORD_1805C2_joystick; // weak//unk_18058Car[54]
+	int16_t x_WORD_1805C4_vio1_analog_joy; // weak//unk_18058Car[56]
+	int16_t x_WORD_1805C6_vio2_analog_joy; // weak//unk_18058Car[58]
+	int16_t x_WORD_1805C8; // weak//unk_18058Car[60]
+	uint8_t unk_1805CE[84]; // weak//unk_18058Car[66]
 	int16_t stub_180622;
 } type_unk_18058Cstr;//end 180624
 #pragma pack (16)

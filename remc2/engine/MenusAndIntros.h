@@ -34,7 +34,7 @@ extern uint32_t x_DWORD_17DBC8x[125];
 extern uint32_t x_DWORD_17DDBCx[26];
 extern char x_BYTE_17E09D;
 extern int16_t x_WORD_1803EC;
-extern uint8_t unk_180560x[0x2c];
+extern uint8_t unk_180560x[44];
 extern type_unk_18058Cstr unk_18058Cstr;
 
 extern int test_regression_level;

@@ -92,9 +92,9 @@ typedef struct//lenght 613 // end 17E09D
 	*/
 	type_BYTE_17DE68x array_BYTE_17DE68x[8];
 	//uint8_t x_BYTE_17DE68x[88]; // fix it -  weak //8*11
-	//char x_BYTE_17DE69[1]; //x_BYTE_17DE68x[0x1] fix it -  weak
-	//char x_BYTE_17DE71[1]; //x_BYTE_17DE68x[0x9] fix it -  weak
-	//char x_BYTE_17DE72[78]; //x_BYTE_17DE68x[0xa] idb
+	//char x_BYTE_17DE69[1]; //x_BYTE_17DE68x[1] fix it -  weak
+	//char x_BYTE_17DE71[1]; //x_BYTE_17DE68x[9] fix it -  weak
+	//char x_BYTE_17DE72[78]; //x_BYTE_17DE68x[10] idb
 	posistruct2_t* x_DWORD_17DEC0; // weak
 	posistruct2_t* x_DWORD_17DEC4; // weak
 	posistruct2_t* x_DWORD_17DEC8; // weak
@@ -140,13 +140,13 @@ typedef struct//lenght 613 // end 17E09D
 	__int16 x_WORD_17E072; // weak
 	__int16 x_WORD_17E074; // weak
 	__int16 x_WORD_17E076; // weak
-	int8_t unk_17E078x[0xc]; // weak [11]
+	int8_t unk_17E078x[12]; // weak [11]
 	//__int16 x_WORD_17E07C; // weak unk_17E078x[4]
 	//__int16 x_WORD_17E07E; // weak unk_17E078x[6]
 	//__int16 x_WORD_17E080; // weak unk_17E078x[8]
-	//char x_BYTE_17E082; // weak unk_17E078x[0xa]
-	//char x_BYTE_17E083; // weak unk_17E078x[0xb]
-	int16_t unk_17E084x[0xc]; // weak [11]
+	//char x_BYTE_17E082; // weak unk_17E078x[10]
+	//char x_BYTE_17E083; // weak unk_17E078x[11]
+	int16_t unk_17E084x[12]; // weak [11]
 	char x_BYTE_17E09C; // weak
 } type_x_DWORD_17DE38str;
 #pragma pack (16)
@@ -163,7 +163,7 @@ extern __int16 x_WORD_D4B7C; // weak
 extern __int16 x_WORD_D4B7E; // weak
 extern type_event_0x6E8E* x_DWORD_EA3E4[1001];//2bb3e4
 
-extern uint8_t x_BYTE_F6EE0_tablesx[0x14600];// (uint8_t*)&x_BYTE_F6EE0_tablesbuff;//animated sprites
+extern uint8_t x_BYTE_F6EE0_tablesx[83456];// (uint8_t*)&x_BYTE_F6EE0_tablesbuff;//animated sprites
 extern uint8_t* x_BYTE_F6EE0_tablesx_pre;
 extern uint8_t* x_BYTE_FAEE0_tablesx_pre;
 
