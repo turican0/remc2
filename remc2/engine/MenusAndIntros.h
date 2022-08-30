@@ -3,6 +3,7 @@
 #include <cstdint>
 
 #include "../sub_main.h"
+#include "TypeConfigDat.h"
 
 // from sub_main
 extern char x_BYTE_D419C_level_num;
@@ -40,7 +41,7 @@ extern int test_regression_level;
 
 // functions
 void MenusAndIntros_76930(int a2, uint16_t a3);
-void LanugageSetting_76A40();
+void InitLanguage_76A40();
 void Intros_76D10(char a1);
 void sub_76CF0();
 void MainMenu_76FA0(/*int a1,*/ int a2, uint16_t a3);
@@ -65,7 +66,7 @@ int LoadLanguageFile(posistruct2_t** a1x, posistruct2_t** a2x, uint8_t* a3, char
 int sub_7F960(posistruct2_t* a1x, posistruct2_t* a2x, uint8_t* a3, char* langcountstring, posistruct_t* a3dattabindex);
 void DrawText_80C30(__int16 posX, __int16 posY, __int16 a3);
 void NewGameSubdraw_81760(/*type_unk_E17CC_str_0x194* a1*/);
-void ReadConfig_81DB0();
+void WriteConfigDat_81DB0();
 void DrawAndSoundDragonAndFire_81EE0(__int16 a5, __int16 a6);
 void sub_82510(/*__int16 a1*//*, int *a2*/);
 void sub_82670();

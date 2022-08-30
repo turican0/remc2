@@ -447,6 +447,7 @@
     <ClInclude Include="portability\fcaseopen.h">
       <Filter>Header Files\portability</Filter>
     </ClInclude>
+    <ClInclude Include="engine\TypeConfigDat.h">
     <ClInclude Include="engine\Rectangle.h">
       <Filter>Header Files\engine</Filter>
     </ClInclude>

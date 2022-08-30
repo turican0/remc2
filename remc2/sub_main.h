@@ -580,7 +580,7 @@ int16_t sub_90B27_VGA_pal_fadein_fadeout(TColor* a1x, uint8_t shadow_levels, boo
 void sub_90D6E_VGA_set_video_mode_320x200_and_Palette(TColor* Palette);
 void sub_90E07_VGA_set_video_mode_640x480_and_Palette(TColor* Palette);
 void CopyScreen(void* source, void* desc, unsigned __int16 width, unsigned __int16 height);
-size_t sub_98CAA_write(FILE* a1, uint8_t* a2, uint32_t a3);
+size_t WriteFile_98CAA(FILE* a1, uint8_t* a2, uint32_t a3);
 signed int sub_9A10A_check_keyboard();
 bool sub_9AE04(int a1, int a2);
 /*

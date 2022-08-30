@@ -52521,7 +52521,7 @@ void sub_53A40(type_str_0x6E3E* a1x)//234a40
 			//v13 = x_D41A0_BYTEARRAY_4_struct.moviemvidatfile_byte4_33;
 			if (x_D41A0_BYTEARRAY_4_struct.moviemvidatfile_byte4_35)
 			{
-				if (sub_98CAA_write(x_D41A0_BYTEARRAY_4_struct.moviemvidatfile_byte4_35, (uint8_t*)a1x, 10) != 10)
+				if (WriteFile_98CAA(x_D41A0_BYTEARRAY_4_struct.moviemvidatfile_byte4_35, (uint8_t*)a1x, 10) != 10)
 					sub_53CC0_close_movie();
 				if (a1x->str_0x6E3E_byte0 == 12)
 					a1x->str_0x6E3E_byte0 = 0;
@@ -52668,7 +52668,7 @@ char LoadFilesFromCDAndGameData(const char* cdPath, const char* gamePath, const 
 		return 3;
 	v5 = DataFileIO::FileLengthBytes(file1);
 	v6 = DataFileIO::Read(file1, readbuffer, v5);
-	v19 = sub_98CAA_write(file2, readbuffer, v6);
+	v19 = WriteFile_98CAA(file2, readbuffer, v6);
 	DataFileIO::Close(file1);
 	DataFileIO::Close(file2);
 	if (v6 != v19)
@@ -52693,7 +52693,7 @@ char LoadFilesFromCDAndGameData(const char* cdPath, const char* gamePath, const 
 			v11 = 64000;
 		v12 = DataFileIO::Read(file3, readbuffer, v11);
 		v10 -= v12;
-		if (sub_98CAA_write(file4, readbuffer, v12) != v12)
+		if (WriteFile_98CAA(file4, readbuffer, v12) != v12)
 		{
 			DataFileIO::Close(file3);
 			DataFileIO::Close(file4);
@@ -53378,13 +53378,13 @@ char SaveSMAPSLEVmovie2_54F00(__int16 a1)//235f00 //in game save
 	//v3 = v2;
 	if (file != NULL)
 	{
-		sub_98CAA_write(file, (uint8_t*)mapTerrainType_10B4E0, 0x10000);
-		sub_98CAA_write(file, (uint8_t*)mapHeightmap_11B4E0, 0x10000);
-		sub_98CAA_write(file, (uint8_t*)mapShading_12B4E0, 0x10000);
-		sub_98CAA_write(file, (uint8_t*)mapAngle_13B4E0, 0x10000);
-		sub_98CAA_write(file, (uint8_t*)x_BYTE_14B4E0_second_heightmap, 0x10000);
-		sub_98CAA_write(file, (uint8_t*)mapEntityIndex_15B4E0, 0x20000);
-		sub_98CAA_write(file, (uint8_t*)x_BYTE_F2CD0x, 4802);
+		WriteFile_98CAA(file, (uint8_t*)mapTerrainType_10B4E0, 0x10000);
+		WriteFile_98CAA(file, (uint8_t*)mapHeightmap_11B4E0, 0x10000);
+		WriteFile_98CAA(file, (uint8_t*)mapShading_12B4E0, 0x10000);
+		WriteFile_98CAA(file, (uint8_t*)mapAngle_13B4E0, 0x10000);
+		WriteFile_98CAA(file, (uint8_t*)x_BYTE_14B4E0_second_heightmap, 0x10000);
+		WriteFile_98CAA(file, (uint8_t*)mapEntityIndex_15B4E0, 0x20000);
+		WriteFile_98CAA(file, (uint8_t*)x_BYTE_F2CD0x, 4802);
 		DataFileIO::Close(file);
 	}
 	sub_55100(2);
@@ -53642,13 +53642,13 @@ bool SaveLevelSMAP_55320(uint8_t savefileindex, char* savefileindex2)//236320 //
 	savesmapfile = DataFileIO::CreateOrOpenFile(printbuffer, 546);
 	if (savesmapfile)
 	{
-		sub_98CAA_write(savesmapfile, (uint8_t*)mapTerrainType_10B4E0, 0x10000);
-		sub_98CAA_write(savesmapfile, (uint8_t*)mapHeightmap_11B4E0, 0x10000);
-		sub_98CAA_write(savesmapfile, (uint8_t*)mapShading_12B4E0, 0x10000);
-		sub_98CAA_write(savesmapfile, (uint8_t*)mapAngle_13B4E0, 0x10000);
-		sub_98CAA_write(savesmapfile, (uint8_t*)x_BYTE_14B4E0_second_heightmap, 0x10000);
-		sub_98CAA_write(savesmapfile, (uint8_t*)mapEntityIndex_15B4E0, 0x20000);
-		writedsize = sub_98CAA_write(savesmapfile, (uint8_t*)x_BYTE_F2CD0x, 4802) != 4802;
+		WriteFile_98CAA(savesmapfile, (uint8_t*)mapTerrainType_10B4E0, 0x10000);
+		WriteFile_98CAA(savesmapfile, (uint8_t*)mapHeightmap_11B4E0, 0x10000);
+		WriteFile_98CAA(savesmapfile, (uint8_t*)mapShading_12B4E0, 0x10000);
+		WriteFile_98CAA(savesmapfile, (uint8_t*)mapAngle_13B4E0, 0x10000);
+		WriteFile_98CAA(savesmapfile, (uint8_t*)x_BYTE_14B4E0_second_heightmap, 0x10000);
+		WriteFile_98CAA(savesmapfile, (uint8_t*)mapEntityIndex_15B4E0, 0x20000);
+		writedsize = WriteFile_98CAA(savesmapfile, (uint8_t*)x_BYTE_F2CD0x, 4802) != 4802;
 		DataFileIO::Close(savesmapfile);
 	}
 #ifdef DEBUG_LOADSAVE
@@ -54568,7 +54568,7 @@ void sub_560D0_create_sound_dir()//2370d0
 		diginifile = DataFileIO::CreateOrOpenFile(digPath.c_str(), 546);
 		if (diginifile != NULL)
 		{
-			sub_98CAA_write(diginifile, (uint8_t*)printbuffer, strlen(printbuffer));
+			WriteFile_98CAA(diginifile, (uint8_t*)printbuffer, strlen(printbuffer));
 			DataFileIO::Close(diginifile);
 		}
 	}
@@ -54583,7 +54583,7 @@ void sub_560D0_create_sound_dir()//2370d0
 		mdiini2 = DataFileIO::CreateOrOpenFile(mdiPath.c_str(), 546);
 		if (mdiini2 != NULL)
 		{
-			sub_98CAA_write(mdiini2, (uint8_t*)printbuffer, strlen(printbuffer));
+			WriteFile_98CAA(mdiini2, (uint8_t*)printbuffer, strlen(printbuffer));
 			DataFileIO::Close(mdiini2);
 		}
 	}
@@ -84006,17 +84006,16 @@ signed int sub_98C48_open_nwrite_close(const char* filename, uint8_t* buffer, ui
 	file = DataFileIO::CreateOrOpenFile(filename, 546);
 	if (file == NULL)
 		return -1;//mozna null
-	result = sub_98CAA_write(file, buffer, count);
+	result = WriteFile_98CAA(file, buffer, count);
 	DataFileIO::Close(file);
 	return result;
 }
 
 //----- (00098CAA) --------------------------------------------------------
-size_t sub_98CAA_write(FILE* filename, uint8_t* buffer, uint32_t num_bytes)//279caa
+size_t WriteFile_98CAA(FILE* filename, uint8_t* buffer, uint32_t num_bytes)//279caa
 {
 	return x_write2(filename, buffer, num_bytes);
 }
-// AA80B: using guessed type x_DWORD write(x_DWORD, x_DWORD, x_DWORD);
 
 //----- (00098FF5) --------------------------------------------------------
 /*int sub_98FF5_atoi(char *a1)
