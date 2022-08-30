@@ -2982,7 +2982,7 @@ char SaveGameDialog_78730(type_WORD_E1F84* a1x)//259730
 				}
 				v53 = D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dw_w_b_0_2BDE_11230.byte[2];
 				WriteFile_98CAA(file2, (uint8_t*)&v54, 4);
-				WriteFile_98CAA(file2, (uint8_t*)&x_DWORD_17DE38str.xx_BYTE_17DF14[(x_DWORD_17DE38str.x_WORD_17DF04 - 1)][0], 20);
+				WriteFile_98CAA(file2, (uint8_t*)&x_DWORD_17DE38str.xx_BYTE_17DF14[x_DWORD_17DE38str.x_WORD_17DF04 - 1][0], 20);
 				WriteFile_98CAA(file2, (uint8_t*)x_D41A0_BYTEARRAY_4_struct.player_name_57ar, 32);
 				WriteFile_98CAA(file2, (uint8_t*)x_D41A0_BYTEARRAY_4_struct.savestring_89, 32);
 				WriteFile_98CAA(file2, (uint8_t*)&secretMapScreenPortals_E2970, 102);
