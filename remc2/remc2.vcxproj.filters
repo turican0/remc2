@@ -448,6 +448,8 @@
       <Filter>Header Files\portability</Filter>
     </ClInclude>
     <ClInclude Include="engine\TypeConfigDat.h">
+      <Filter>Header Files\portability</Filter>
+    </ClInclude>
     <ClInclude Include="engine\Rectangle.h">
       <Filter>Header Files\engine</Filter>
     </ClInclude>
