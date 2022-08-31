@@ -511,18 +511,18 @@ std::string getExistingDataPath(std::filesystem::path path)
 
 	// first location at which the file can be found is chosen
 	for (const std::string &file_location: file_locations) {
-#if !defined(_WIN32)
+#ifdef __linux__
 		std::string caseInsensitivePath = casepath(file_location);
 		if (std::filesystem::exists(caseInsensitivePath)) {
 			file_found = std::string(caseInsensitivePath);
 			break;
 		}
-#else
+#else //__linux__
 		if (std::filesystem::exists(file_location)) {
 			file_found = file_location;
 			break;
 		}
-#endif
+#endif //__linux__
 	}
 
 	std::cout << "Data file found: " << file_found << "\n";
