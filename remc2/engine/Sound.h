@@ -16,6 +16,11 @@ typedef struct {//lenght 12
 	int16_t word_4;
 	int16_t word_5;
 }type_F4FE0;
+
+typedef struct {
+	int32_t par1;
+	int16_t par2;
+} type_str_32_16; // weak
 #pragma pack (16)
 
 extern char soundCard_E3799;
@@ -44,11 +49,6 @@ extern __int16 x_WORD_E387A; // weak
 extern int x_DWORD_E383C; // weak
 extern __int16 x_WORD_E3834; // weak
 extern type_E3808_music_header* musicHeader_E3808;
-//extern uint8_t* x_DWORD_E3808_music_header; // weak
-//extern int8_t* x_DWORD_E380C; // weak
-//extern int index_E380C_MaxMusic;
-//extern uint8_t* x_DWORD_E3810_music_data; // weak
-//extern type_E3810_music_data* str_E3810_music_data; // weak
 extern char x_BYTE_180C84_drivertype; // weak
 extern int16_t x_WORD_181B44; // weak
 
@@ -65,7 +65,6 @@ void InitMusic_8D970();
 void StopMusic_8E020();
 int sub_8E0D0(); // weak
 void StartMusic_8E160(int track, int volume);
-// x_DWORD sprintf(x_DWORD, const char *, ...); weak
 void sub_8E410_sound_proc16_xmidivolume(int master_volume);
 void sub_8E470_sound_proc17_volume(int volume);
 bool LoadMusic(int channel);
@@ -87,7 +86,6 @@ void AilSetPreference_91A80(uint32_t number, int32_t value);
 void PlusE3FF2_91BD0();
 void MinusE3FF2_91BF0();
 uint16_t AilApiGetRealVect_A121D(uint32_t vectnum);
-// int sub_91C10_AIL_get_real_vect(__int16 a1, int a2, int a3, int a4);
 void AilSetRealVect_91D50(uint32_t vectnum, uint16_t real_ptr);
 void AilRestoreUSE16ISR_91E90(int32_t isr);
 
@@ -103,27 +101,12 @@ int32_t AilInstallMidiIni_95710(HMDIDRIVER* mdi, char* fileName);
 void AilDelay_920D0(int a1);
 int sub_92160();
 bool AilReadIniFile_92190(AIL_INI* INI, char* filename);
-//HTIMER sub_92600_AIL_register_timer(AILTIMERCB callback_fn);
-//signed __int32 sub_92740_AIL_set_timer_user(int a1, signed __int32 a2);
-//void sub_92890_AIL_set_timer_period(int a1, int a2);
-//void sub_92890_AIL_set_timer_period(HTIMER timer, uint32_t microseconds);
-//void sub_92930_AIL_set_timer_frequency(int a1, unsigned int a2);
-//void sub_92930_AIL_set_timer_frequency(HTIMER timer, uint32_t hertz);
-//void sub_92BA0_AIL_start_timer(HTIMER a1);
-//void sub_92CB0_AIL_stop_timer(HTIMER a1);
-//void sub_92DC0_AIL_release_timer_handle(int32_t a1);
-//void sub_92E50_AIL_release_all_timers();
 IO_PARMS* AilGetIoEnvironment_92ED0(AIL_DRIVER* drvr);
-// x_DWORD *sub_93010_AIL_install_driver(int a1, int a2, int a3);
 AIL_DRIVER* AilInstallDriver_93010(/*int a1, */uint8_t* driver_image, int32_t n_bytes);//AIL_install_driver //274010
 int AilUninstallDriver_93160(AIL_DRIVER* a1);
-// int sub_931F0_AIL_install_DIG_INI(int a1, int **a2);
-// int *sub_93330_AIL_install_DIG_driver_file_AIL_install_DIG_driver_file(int a1, int a2, const void *a3);
 int AilUninstallDigDriver_93480(HDIGDRIVER a1);
 HSAMPLE AilAllocateSampleHandle_93510(HDIGDRIVER a1);
-int AilReleaseSampleHandle_937A0(int a1);
 void AilInitSample_93830(HSAMPLE a1);
-//signed int sub_938C0_AIL_set_sample_file(x_DWORD *a1, int a2, int a3);
 int32_t AilSetSampleFile_938C0(HSAMPLE S, uint8_t* pWaveData, int32_t block);
 void AilSetSampleAddress_93A10(HSAMPLE S, uint8_t* start, uint32_t len);
 void sub_93AB0_AIL_set_sample_type(x_DWORD* a1, int a2, int a3);
@@ -138,8 +121,6 @@ void AilDigitalMasterVolume_94650(int master_volume);
 EOS_callback_type AilRegisterEosCallback_95140(HSAMPLE a1, EOS_callback_type a2);
 void AilSetSampleUserData_953E0(HSAMPLE S, int a2, int a3);
 int AilSampleUserData_95480(HSAMPLE S, int a2);
-// int sub_95710_AIL_install_MDI_INI(int a1, int **a2);
-// int *sub_95850_AIL_install_MDI_driver_file(int a1, int a2, const void *a3);
 int AilUninstallMidiDriver_959A0(HMDIDRIVER  mdi);
 HSEQUENCE AilAllocateSequenceHandle_95A30(HMDIDRIVER mdi);
 int32_t AilInitSequence_95C00(HSEQUENCE hSequence, uint8_t* start, int32_t sequence_num, uint32_t track);
@@ -156,9 +137,9 @@ void AilSequencePosition_97330(HSEQUENCE hSequence, x_DWORD* a2, x_DWORD* a3);
 void AilBranchIndex_97480(HSEQUENCE hSequence, int a2);
 void AilRegisterTriggerCallback_97670(HSEQUENCE hSequence, xCALLBACK a2);
 int AilLockChannel_97F90(MDI_DRIVER* a1);
-void AilReleaseChannel_980D0(x_DWORD* a1, int a2);
+void AilReleaseChannel_980D0(HMDIDRIVER mdi, int a2);
 void AilMapSequenceChannel_98170(HSEQUENCE a1, int a2, int a3);
-void sub_98360_AIL_send_channel_voice_message(HMDIDRIVER mdi, HSEQUENCE hSequence, int32_t status, int32_t data_1, int32_t data_2);
+void AilSendChannelVoiceMessage_98360(HMDIDRIVER mdi, HSEQUENCE hSequence, int32_t status, int32_t data_1, int32_t data_2);
 
 bool LoadSound_84300(uint8_t soundIndex);
 void LoadSoundDataFromBuffer_844A0(uint16_t count);
@@ -166,25 +147,24 @@ bool ReadAndDecompressSound(FILE* file, uint8_t soundIndex2);
 
 bool AilApiReadIni_9E3A0(AIL_INI* INI, char* filename);
 void AilSetPreference_9E6E0(uint32_t number, int32_t value);
-// x_DWORD *sub_9E720_AIL_API_install_driver(int a1, int a2, int a3);
 AIL_DRIVER* AilApiInstallDriver_9E720(uint8_t* driver_image, int32_t n_bytes);//27f720
 int AilApiUninstallDriver_9EA60(AIL_DRIVER* ailDriver);
 IO_PARMS* AilApiGetIoEnvironment_9EB60(AIL_DRIVER* drvr);
 void sub_9EC30();
-void sub_9ED70();
+void UninstallDrivers_9ED70();
 int sub_9EE70(); // weak
 void sub_9F040();
 
 void sub_9FA80();
 
-void initAWE32_9F740(char* a1);
+void InitAWE32_9F740(char* a1);
 
-int sub_9F280(int* a1);
-VDI_CALL sub_9F2E0(int* a1, int a2, unsigned __int16 a3, unsigned __int16 a4);
-__int64 sub_9F3D0(int* a1, int a2, unsigned __int16 a3, unsigned __int16 a4);
-VDI_CALL sub_9F4F0(int* a1, int a2, unsigned __int16 a3, unsigned __int16 a4);
-VDI_CALL sub_9F5E0(int* a1, int a2, unsigned __int16 a3, unsigned __int16 a4);
-VDI_CALL sub_9F6D0(int* a1, __int16 a2);
+int sub_9F280(HMDIDRIVER hMdiDriver);
+VDI_CALL sub_9F2E0(HMDIDRIVER hMdiDriver, int a2, unsigned __int16 a3, unsigned __int16 a4);
+__int64 sub_9F3D0(HMDIDRIVER hMdiDriver, int a2, unsigned __int16 a3, unsigned __int16 a4);
+VDI_CALL sub_9F4F0(HMDIDRIVER hMdiDriver, int a2, unsigned __int16 a3, unsigned __int16 a4);
+VDI_CALL sub_9F5E0(HMDIDRIVER hMdiDriver, int a2, unsigned __int16 a3, unsigned __int16 a4);
+VDI_CALL sub_9F6D0(HMDIDRIVER hMdiDriver, __int16 a2);
 
 void PlusE3FF2_A0EEC();
 void MinusE3FF2_A0EF9();
@@ -194,32 +174,13 @@ void sub_A108F();
 void sub_A10F4_sound_proc_irq();
 void sub_A11E2();
 void AilApiSetRealVect_A1249(uint32_t vectnum, uint16_t real_ptr);
-//signed int sub_A12C5_sound_proc_irq(int a1, int a2, __int16 a3);
 void AilApiRestoreUSE16IISR_A14DB(int isr);
 unsigned int sub_A1520();
 void sub_A1524(unsigned int a1);
-//int sub_A158B_AIL_API_call_driver(int32_t* drvr, __int16 a2, x_WORD *a3, x_WORD *a4);
 int32_t AilApiCallDriver_A158B(AIL_DRIVER* drvr, int32_t fn, VDI_CALL* in, VDI_CALL* out);
 void AilApiDelay_A1665(int a1);
 int GetE3FFE_A16A2();
-//unsigned int sub_A16AE_register_timer(int a1);
-//HTIMER sub_A16AE_register_timer(AILTIMERCB callback_fn);
-//signed __int32 sub_A16F5_AIL_API_set_timer_user(int a1, signed __int32 a2);
-void sub_A171D_release_timer_handle(int32_t a1);
-void sub_A1744_AIL_API_release_all_timers();
-//void sub_A1768_start_timer(HTIMER timer);
 void sub_A1798();
-void sub_A17BC_stop_timer(HTIMER timer);
-void sub_A17EC();
-//void sub_A1810_set_timer_period(int a1, int a2);
-void sub_A1810_set_timer_period(HTIMER timer, uint32_t microseconds);
-//void sub_A1840_AIL_API_set_timer_frequency(int a1, unsigned int a2);
-void sub_A1840_AIL_API_set_timer_frequency(HTIMER timer, uint32_t hertz);
-void sub_A1870(int a1, unsigned int a2);
-int sub_A18B2();
-// x_DWORD fprintf(x_DWORD, const char *, ...); weak
-// x_DWORD fopen(x_DWORD, x_DWORD); weak
-// x_DWORD fclose(x_DWORD); weak
 void sub_A2070(HDIGDRIVER a1);
 void sub_A20D0(HDIGDRIVER a1);
 void InitSampleVolume_A2110(HSAMPLE S);
@@ -228,50 +189,34 @@ bool sub_A2650(HDIGDRIVER digDriver);
 int InitEnvs_A2C80(HDIGDRIVER a1, IO_PARMS* a2);
 int sub_A2DE0(); // weak
 HDIGDRIVER sub_A2EA0(AIL_DRIVER* a1, IO_PARMS IO);
-// int *sub_A3600_AIL_API_install_DIG_driver_file(int a1, int a2, const void *a3);
-// int *sub_A36B0(int a1, int a2, int a3, const void *a4);
-// int sub_A3720_AIL_API_install_DIG_INI(int a1, int **a2);
 int sub_A37A0(HDIGDRIVER a1);
-int sub_A37C0(int a1);
 HSAMPLE sub_A3820_allocate_sample_handle(HDIGDRIVER dig);
-int sub_A38C0_AIL_API_release_sample_handle(int a1);
 void InitSample_A38E0(HSAMPLE S);
 uint32_t sub_A3A00_sample_status(HSAMPLE S);
-void sub_A3A30_set_sample_address(HSAMPLE S, uint8_t* start, uint32_t len);
-void sub_A3A70_set_sample_type(HSAMPLE S, int32_t a2, uint32_t a3);
+void SetSampleAddress_A3A30(HSAMPLE S, uint8_t* start, uint32_t len);
+void SetSampleType_A3A70(HSAMPLE S, int32_t a2, uint32_t a3);
 int sub_A3AC0(int a1);
 void SetSamplePlaybackRate_A3AF0(HSAMPLE S, int32_t playback_rate);
-int32_t sub_A3B10_get_sample_volume(HSAMPLE S);
-void sub_A3B40_set_sample_volume(HSAMPLE S, int32_t volume);
-int32_t sub_A3B80_get_sample_volume_pan(HSAMPLE S);
-void sub_A3BB0_set_sample_volume_pan(HSAMPLE S, int32_t volume);
-int sub_A3BF0(HSAMPLE S);
-int sub_A3C30(HSAMPLE S, int a2);
-signed int sub_A3C60_get_sample_loop_count(HSAMPLE S);
-void sub_A3C90_set_sample_loop_count(HSAMPLE S, int32_t loop_count);
-void sub_A3CB0_API_AIL_start_sample(HSAMPLE S);
-void sub_A3D30(HSAMPLE S);
-void sub_A3D60(HSAMPLE S);
+int32_t GetSampleVolume_A3B10(HSAMPLE S);
+void SetSampleVolume_A3B40(HSAMPLE S, int32_t volume);
+int32_t GetSampleVolumePan_A3B80(HSAMPLE S);
+void SetSampleVolumePan_A3BB0(HSAMPLE S, int32_t volume);
+void SetSampleLoopCount_A3C90(HSAMPLE S, int32_t loop_count);
+void AipAilStartSample_A3CB0(HSAMPLE S);
 void ApiAilEndSample_A3DA0(HSAMPLE S);
-int sub_A3E10(HSAMPLE S, int a2);
-int sub_A3E60(HSAMPLE S, int a2);
-EOS_callback_type sub_A3EB0_register_EOS_callback(HSAMPLE S, EOS_callback_type EOS);
-void sub_A3F00_set_sample_user_data(HSAMPLE S, int a2, int a3);
-int sub_A3F30_sample_user_data(HSAMPLE S, int index);
-void sub_A3F70_set_digital_master_volume(HDIGDRIVER driver, int a2);
+EOS_callback_type RegisterEosCallback_A3EB0(HSAMPLE S, EOS_callback_type EOS);
+void SetSampleUserData_A3F00(HSAMPLE S, int a2, int a3);
+int SampleUserData_A3F30(HSAMPLE S, int index);
+void SetDigitalMasterVolume_A3F70(HDIGDRIVER driver, int a2);
 int sub_A3FE0(int a1);
 char sub_A4000(x_DWORD* a1, int a2, unsigned int a3);
 void sub_A4100(int* a1, int a2, int a3, int a4);
 signed int sub_A41B0(x_DWORD* a1);
-int sub_A4370(x_DWORD* a1);
-int sub_A4390(int a1);
-void sub_A43E0(int a1);
+void sub_A43E0(HSAMPLE sample);
 int sub_A47A0(); // weak
-void SubSetSampleFile_A47C0(TypeWavData* pWavData, HSAMPLE S);
+void SubSetSampleFile_A47C0(uint8_t* pWavData, HSAMPLE S);
 int sub_A4920(); // weak
-HSAMPLE sub_A4970(int a1, uint8_t* a2, int a3);
-bool SetSampleFile_A4B20(HSAMPLE S, TypeWavData* pWavData, int32_t block);
-int sub_A4C60(int a1, int a2);
+bool SetSampleFile_A4B20(HSAMPLE S, uint8_t* pWavData, int32_t block);
 signed int sub_A4E10(char a1);
 void sub_A4EB0(HMDIDRIVER a1);
 void sub_A4F10(HMDIDRIVER a1, char a2, char a3, char a4);
@@ -291,58 +236,29 @@ void sub_A64C0(HSEQUENCE hSequence);
 int SetIoParameters_A6E00(HMDIDRIVER a1, IO_PARMS* a2);
 int sub_A6F30(); // weak
 HMDIDRIVER InitAilDriver_A6FB0(AIL_DRIVER* a1, IO_PARMS* a2);
-// int *sub_A77D0_AIL_API_install_MDI_INI(int a1, int a2, const void *a3);
-// int *sub_A7880_sound_proc27(int a1, int a2, int a3, const void *a4);
-// int sub_A78F0_AIL_API_install_MDI_INI(int a1, int **a2);
 int sub_A7970_AIL_API_uninstall_MDI_driver(HMDIDRIVER mdi);
 int32_t sub_A7990_AIL_API_MDI_driver_type(HMDIDRIVER mdi);
 void AilApiSetGTLFilenamePrefix_A7AA0(char* samplePath);
 HSEQUENCE AilApiAllocateSequenceHandle_A7B30(HMDIDRIVER mdi);
 void sub_A7BF0_sound_proc33(HSEQUENCE hSequence);
-//int sub_A7C20_AIL_API_init_sequence(HSEQUENCE hSequence, int a2, int a3);
 int32_t AilApiInitSequence_A7C20(HSEQUENCE hSequence, void* start, int32_t sequence_num, uint32_t track);
 void AilApiStartSequence_A8010(HSEQUENCE hSequence, uint32_t track);
 void sub_A8050_AIL_API_stop_sequence(HSEQUENCE hSequence);
 void sub_A8180_AIL_API_resume_sequence(HSEQUENCE hSequence);
-void sub_A8250_AIL_API_end_sequence(HSEQUENCE hSequence);
-int sub_A82A0(int a1, int a2);
-void sub_A82C0(x_DWORD* a1, int a2, int a3);
-void sub_A8360_AIL_API_set_sequence_volume(HSEQUENCE hSequence, int32_t volume, int32_t milliseconds);
-int sub_A8410_AIL_API_sequence_status(HSEQUENCE hSequence);
-signed int sub_A8440(int a1);
-int sub_A8470(int a1);
-int sub_A84A0(int a1);
-void sub_A84D0_AIL_API_set_XMIDI_master_volume(HMDIDRIVER mdi, int32_t master_volume);
-int sub_A8550(int a1);
+void AilApiEndSequence_A8250(HSEQUENCE hSequence);
+void AilAPISetSequenceVolume_A8360(HSEQUENCE hSequence, int32_t volume, int32_t milliseconds);
+int AilApiSequenceStatus_A8410(HSEQUENCE hSequence);
 int sub_A8570_sound_proc39(int* a1, __int16 a2, __int16 a3);
-VDI_CALL sub_A85B0_sound_proc40(int* a1, int a2, int a3);
-int sub_A8690_sound_proc41(int* a1, __int16 a2, __int16 a3);
 int sub_A86D0_sound_proc42(int* a1, __int16 a2, __int16 a3);
-int sub_A8710(int a1);
-int sub_A8770(int a1, char a2, unsigned int a3);
-int sub_A87C0(int a1, int a2);
 void sub_A8830(HSEQUENCE hSequence, x_DWORD* a2, x_DWORD* a3);
 void sub_A8900(HSEQUENCE hSequence, int marker);
-int sub_A89E0(int a1, int a2);
 void AilApiTriggerCallback_A8A20(HSEQUENCE hSequence, xCALLBACK callback);
-int sub_A8A60(int a1, int a2);
-int sub_A8AA0(int a1, int a2);
-int sub_A8B60(int a1, int a2, int a3);
-int sub_A8B90(int a1, int a2);
-int sub_A8BD0(int a1, int a2);
 int sub_A8BF0(MDI_DRIVER* a1);
-void sub_A8EA0(x_DWORD* a1, int a2);
+void sub_A8EA0(HMDIDRIVER mdi, int a2);
 void sub_A9080(HSEQUENCE a1, int a2, int a3);
-int sub_A9100(int a1, int a2);
-void sub_A9140_AIL_API_send_channel_voice_message(HMDIDRIVER mdi, HSEQUENCE hSequence, int32_t status, int32_t data_1, int32_t data_2);
-int sub_A9230(int a1, int a2);
-x_DWORD* sub_A95D0(int a1, char a2, unsigned int a3, unsigned __int8 a4);
-x_DWORD* sub_A98D0(x_DWORD* a1, int a2, int a3);
-void sub_A9950(int a1, int a2);
-void sub_A9A30(int a1, int a2);
+void AilAPISendChannelVoiceMessage_A9140(HMDIDRIVER mdi, HSEQUENCE hSequence, int32_t status, int32_t data_1, int32_t data_2);
 int sub_A9C00(); // weak
 int sub_A9C50(); // weak
-x_DWORD* sub_AA310(int a1, int a2, int a3, signed int a4);
 
 int AilApiInstallDigINI_A3720(HDIGDRIVER* dig, char* digPath);
 HDIGDRIVER AilApiInstallDigDriverFile_A3600(char* filename, IO_PARMS* IO);
@@ -364,8 +280,6 @@ int sub_9F170(int a1, unsigned __int16 a2);
 int sub_9F1D0(int a1);
 int sub_9F220(int a1);
 
-int sub_B0B87(HDIGDRIVER a1, int a2);
-char* sub_B0CC8();
 void sub_99970(char a1, unsigned __int8 a2);
 
 signed int sub_99E8E(char* a1, char** a2, signed int a3, int a4);

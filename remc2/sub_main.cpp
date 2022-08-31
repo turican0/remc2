@@ -2612,7 +2612,7 @@ void sub_90E07_VGA_set_video_mode_alt_and_Palette(TColor* Palette);
 int sub_90EA0(int a1, char* a2);
 void sub_986E0();
 unsigned long j___clock(); // weak
-void sub_98790(int volume);
+void SetMusicVolume_98790(int volume);
 signed int sub_98C48_open_nwrite_close(const char* file, uint8_t* buffer, uint32_t count);
 size_t sub_98CAA_write(FILE* a1, uint8_t* a2, uint32_t a3);
 void sub_99080(char a1);
@@ -40692,7 +40692,7 @@ void sub_480A0_set_clear_Palette(/*int a1, int a2, int a3*/)//2290a0
 	// end
 
 	v3 = j___clock();
-	sub_98790(0);
+	SetMusicVolume_98790(0);
 	do
 		v4 = j___clock() - v3;
 	while (v4 < 0x32);

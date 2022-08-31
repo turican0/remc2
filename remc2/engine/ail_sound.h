@@ -269,8 +269,8 @@ typedef struct                            // XMIDI sequence state table
 	/*27*/int32_t     beat_fraction_27;
 	/*28*/int32_t     time_per_beat_28;
 
-	/*29*/uint8_t* FOR_ptrs[FOR_NEST];    // Loop stack // 28
-	/*33*/int32_t     FOR_loop_count_33[FOR_NEST];
+	/*29*/uint8_t* FOR_ptrs[FOR_NEST];    // Loop stack
+	/*33*/int32_t     FOR_loop_count_33[FOR_NEST];//28
 
 	/*37*/int32_t     chan_map_37[NUM_CHANS];   // Physical channel map for sequence // 36
 
@@ -374,7 +374,7 @@ typedef struct _MDI_DRIVER          // Handle to XMIDI driver
   ///*20*/ uint8_t* var20_aildrv_dig_drv;
   ///*13*/uint32_t var21_aildrv;
   ///*13*/uint32_t var22_aildrv;
-  /*13*/HSEQUENCE var23_aildrvx[NUM_CHANS];
+  /*13*/HSEQUENCE var23_aildrvx[NUM_CHANS];//92?
   ///*13*/uint32_t var24_aildrv;
   ///*13*/uint32_t var25_aildrv;
   ///*13*/uint32_t var26_aildrv;
