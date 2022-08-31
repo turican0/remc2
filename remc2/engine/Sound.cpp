@@ -2540,18 +2540,8 @@ void sub_A108F()//28208f
 //----- (000A10F4) --------------------------------------------------------
 void sub_A10F4_sound_proc_irq()//2820f4
 {
-	//unsigned int v0; // et0
-	unsigned __int16 v1; // dx
-	//unsigned int v2; // [esp-8h] [ebp-14h]
+	unsigned __int16 v1 = 0;
 
-	//fix
-	v1 = 0;
-	//fix
-
-	//v0 = x__readeflags();
-	//v2 = v0;
-	//_disable();
-	//x_WORD_E3FF6 = __DS__;
 	x_DWORD_E3FEE = 0;
 	x_DWORD_E3FF2 = 0;
 	x_DWORD_E3FEA = -1;
@@ -2560,21 +2550,10 @@ void sub_A10F4_sound_proc_irq()//2820f4
 	memset(x_DWORD_E3EDC, 0, 64);
 	memset(x_DWORD_E3F1C, 0, 64);
 	memset(x_DWORD_E3F5C, 0, 64);
-	/*__asm
-	{
-	  int     31h; DPMI Services   ax=func xxxxh //eax=200,ebx=8 - system timer?
-	  int     21h; DOS - 2+ - GET INTERRUPT VECTOR
-	}*/
+
 	x_DWORD_E3FDC = 8;
-	//x_WORD_E3FE0 = __DS__;
 	x_DWORD_E3FE2 = v1;
-	// fix it:__asm { int     21h; DOS - SET INTERRUPT VECTOR }
 	x_DWORD_E3E9C[15] = 2;
-	//sub_92890_AIL_set_timer_period(60, 54925);
-	//_disable();
-	//if (v2 & 0x200)
-//		;// _enable();
-	//x__writeeflags(v2);
 }
 
 //----- (000A11E2) --------------------------------------------------------
@@ -2606,27 +2585,15 @@ void AilApiRestoreUSE16IISR_A14DB(int isr)//2824db
 //----- (000A1520) --------------------------------------------------------
 unsigned int sub_A1520()//282520
 {
-	unsigned int v0; // et0
-	unsigned int result; // eax
-
-	v0 = x__getcallerseflags();
-	result = v0;
-	//_disable();
-	return result;
+	return x__getcallerseflags();
 }
 
 //----- (000A1524) --------------------------------------------------------
 void sub_A1524(unsigned int a1)//282524
 {
-	void* retaddr; // [esp+4h] [ebp+4h]
-
-	//fix it
-	retaddr = 0;
-	//fix it
-
-	//_disable();
+	void* retaddr = 0;
 	if (BYTE1(retaddr) & 2)
-		;// _enable();
+		;
 	x__writeeflags(a1);
 }
 
@@ -2658,7 +2625,6 @@ void sub_A1798()//282798
 	v0 = 56;
 	do
 	{
-		//sub_92BA0_AIL_start_timer(v0);
 		v1 = __OFSUB__(v0, 4);
 		v0 -= 4;
 	} while (!((v0 < 0) ^ v1));
@@ -2668,21 +2634,10 @@ void sub_A1798()//282798
 //----- (000A2070) --------------------------------------------------------
 void sub_A2070(HDIGDRIVER a1)//283070
 {
-	VDI_CALL v2; // [esp+0h] [ebp-Ch]
-	//__int16 v3; // [esp+4h] [ebp-8h]
-	//__int16 v4; // [esp+6h] [ebp-6h]
-
-	/*
-	cx=5622
-	dx=a20002
-	si=2b6f44
-	di=35001a
-	*/
+	VDI_CALL v2;
 
 	if (!a1->playing_21)
 	{
-		//v4 = a1->hw_format_6;
-		//v3 = a1->DMA_rate_5;
 		AilCallDriver_91F70(a1->drvr_0, 1025, &v2, 0);
 		a1->playing_21 = 1;
 	}
@@ -3559,31 +3514,10 @@ void sub_A4FD0(HMDIDRIVER a1, int  /*a2*/, unsigned int a3)//285fd0
 {
 	sub_A4EB0(a1);
 	if (a3 <= 0x200)
-		;//fix it:memmove(*(x_DWORD *)(a1 + 8) + 256, a2, a3);
+		;
 	else
-		//fix it:memmove(*(x_DWORD *)(a1 + 8) + 256, a2, 512);
-		//++* (x_DWORD*)(a1 + 424);
+		;
 	sub_A4EB0(a1);
-}
-
-//----- (000A5040) --------------------------------------------------------
-int sub_A5040(x_DWORD* a1)//286040
-{
-	char v1; // ST08_1
-	signed int v3; // [esp+4h] [ebp-Ch]
-	int v4; // [esp+Ch] [ebp-4h]
-
-	v4 = 0;
-	v3 = 4;
-	do
-	{
-		v1 = *(x_BYTE*)(*a1)++;
-		v4 = v1 & 0x7F | (v4 << 7);
-		if (!(v1 & 0x80))
-			break;
-		--v3;
-	} while (v3);
-	return v4;
 }
 
 //----- (000A50A0) --------------------------------------------------------
@@ -3964,7 +3898,7 @@ void sub_A5850(HSEQUENCE hSequence, char a2, unsigned int a3, signed int a4, int
 					mdiDriver->notes[chMap]--;
 				}
 				mdiDriver->user[chMap] = hSequence;
-				if (indexChH != 144 || hSequence->shadow_53.c_mute[4 * indexCh] < 64)
+				if (indexChH != 144 || hSequence->shadow_53.c_mute[indexCh] < 64)
 				{
 					if (!mdiDriver->event_trap
 						|| ((HMDIDRIVER)(x_DWORD*)((int(*)(HMDIDRIVER, HSEQUENCE, int, unsigned int, signed int))mdiDriver->event_trap)(
@@ -3997,25 +3931,25 @@ void sub_A5850(HSEQUENCE hSequence, char a2, unsigned int a3, signed int a4, int
 		{
 			for (j = 3; j >= 0; j--)
 			{
-				if (hSequence->FOR_loop_count_33[4 * j] != -1)
+				if (hSequence->FOR_loop_count_33[j] != -1)
 					break;
 			}
 			if (j != -1)
 			{
-				if (hSequence->FOR_loop_count_33[4 * j])
+				if (hSequence->FOR_loop_count_33[j])
 				{
-					if (--hSequence->FOR_loop_count_33[4 * j])
+					if (--hSequence->FOR_loop_count_33[j])
 					{
 						hSequence->EVNT_ptr_5 = hSequence->FOR_ptrs[j];
 					}
 					else
 					{
-						hSequence->FOR_loop_count_33[4 * j] = -1;
+						hSequence->FOR_loop_count_33[j] = -1;
 					}
 				}
 				else
 				{
-					hSequence->EVNT_ptr_5 = (uint8_t*)hSequence->FOR_loop_count_33[4 * j];
+					hSequence->EVNT_ptr_5 = (uint8_t*)hSequence->FOR_loop_count_33[j];
 				}
 			}
 		}
@@ -4043,10 +3977,9 @@ void sub_A5E50(HSEQUENCE hSequence)
 {
 	int v1;
 	int v3;
-	signed int i;
 
 	v3 = 0;
-	for (i = 0; i < 32; i++)
+	for (int i = 0; i < 32; i++)
 	{
 		if (hSequence->seq_342[i] != -1)
 		{
@@ -4313,21 +4246,6 @@ HMDIDRIVER AilApiInstallMDIIni_A77D0(char* filename, IO_PARMS* IO)//2887d0
 	return result;
 }
 
-//----- (000A7880) --------------------------------------------------------
-HMDIDRIVER sub_A7880_sound_proc27(int  /*a1*/, uint8_t* a2, int a3, IO_PARMS* a4)
-{
-	HMDIDRIVER v6; // [esp+4h] [ebp-8h]
-	AIL_DRIVER* v7; // [esp+8h] [ebp-4h]
-
-	v7 = AilInstallDriver_93010(/*a1, */a2, a3);
-	if (!v7)
-		return 0;
-	v6 = InitAilDriver_A6FB0(v7, a4);
-	if (!v6)
-		AilUninstallDriver_93160((AIL_DRIVER*)v7);
-	return v6;
-}
-
 //----- (000A78F0) --------------------------------------------------------
 int32_t AilApiInstallMDIIni_A78F0(HMDIDRIVER* mdi, char* fileName) //2888f0
 {
@@ -4412,21 +4330,14 @@ HSEQUENCE AilApiAllocateSequenceHandle_A7B30(HMDIDRIVER mdi)//288b30
 //----- (000A7BF0) --------------------------------------------------------
 void sub_A7BF0_sound_proc33(HSEQUENCE hSequence)//288bf0
 {
-	//int *result; // eax
-
-	//fix it
-	//result = 0;
-	//fix itsub_95C00_AIL_init_sequence
-
 	if (hSequence)
 	{
 		AilStopSequence_95DE0(hSequence);
-		//result = S;
 		hSequence->status_1 = 1;
 	}
-	//return result;
 }
 
+//----- (000A7C20) --------------------------------------------------------
 int32_t AilApiInitSequence_A7C20(HSEQUENCE hSequence, void*  /*start*/, int32_t sequence_num, uint32_t track) {
 	hSequence->loop_count_11 = 1;
 	hSequence->volume_14 = preference_181DAC[13];
@@ -4438,148 +4349,7 @@ int32_t AilApiInitSequence_A7C20(HSEQUENCE hSequence, void*  /*start*/, int32_t 
 	return 1;
 }
 
-//----- (000A7C20) --------------------------------------------------------
-int32_t sub_A7C20_AIL_API_init_sequence_orig(HSEQUENCE hSequence, void* start, int32_t sequence_num)
-{
-	VDI_CALL v4; // [esp+0h] [ebp-30h]
-	uint32_t v5; // [esp+2h] [ebp-2Eh]
-	int v6; // [esp+Ch] [ebp-24h]
-	int v7; // [esp+10h] [ebp-20h]
-	unsigned int v8; // [esp+14h] [ebp-1Ch]
-	x_WORD* v9; // [esp+18h] [ebp-18h]
-	unsigned int v10; // [esp+1Ch] [ebp-14h]
-	unsigned int i; // [esp+20h] [ebp-10h]
-	unsigned int v12; // [esp+24h] [ebp-Ch]
-	uint8_t* v13; // [esp+28h] [ebp-8h]
-	uint8_t* v14; // [esp+2Ch] [ebp-4h]
-	//int v14i;//delete
-
-	//fix it
-	v5 = 0;
-	v14 = 0;
-	//fix it
-
-	if (!hSequence)
-		return 0;
-	hSequence->status_1 = 2;
-	v14 = sub_A50F0((uint8_t*)start, sequence_num);
-	if (v14)
-	{
-		v10 = sub_A50A0(*(x_DWORD*)(v14 + 4)) + 8;
-		v13 = v10 + v14;
-		v14 += 12;
-		hSequence->TIMB_2 = 0;
-		hSequence->RBRN_3 = 0;
-		hSequence->EVNT_4 = 0;
-		while (v14 < v13)
-		{
-			if (!strncmp((const char*)v14, "TIMB", 4))
-				hSequence->TIMB_2 = v14;
-			if (!strncmp((const char*)v14, "RBRN", 4))
-				hSequence->RBRN_3 = (uint8_t*)v14;
-			if (!strncmp((const char*)v14, "EVNT", 4))
-				hSequence->EVNT_4 = v14;
-			v14 += sub_A50A0(*(x_DWORD*)(v14 + 4)) + 8;
-		}
-		if (hSequence->EVNT_4)
-		{
-			hSequence->ICA_6 = 0;
-			hSequence->prefix_callback_7 = 0;
-			hSequence->trigger_callback_8_32 = nullptr;
-			hSequence->beat_callback_9 = 0;
-			hSequence->EOS_10 = 0;
-			hSequence->loop_count_11 = 1;
-			sub_A6490(hSequence);
-			hSequence->volume_14 = preference_181DAC[13];
-			hSequence->volume_target_15 = preference_181DAC[13];
-			hSequence->volume_period_17 = 0;
-			hSequence->volume_accum_16 = 0;
-			hSequence->tempo_percent_18 = 100;
-			hSequence->tempo_target_19 = 100;
-			hSequence->tempo_period_21 = 0;
-			hSequence->tempo_accum_20 = 0;
-			hSequence->tempo_error_22 = 0;
-			if (hSequence->TIMB_2)
-			{
-				memmove(unk_181EE0x, (void*)hSequence->TIMB_2, 512);
-				v9 = (x_WORD*)unk_181EE0x;
-				if (hSequence->driver_0->var105_aildrv)
-				{
-					v12 = 0;
-					while ((unsigned __int16)v9[4] > v12)
-					{
-						v7 = v9[v12 + 5] & 0xFF;
-						v8 = (v9[v12 + 5] & 0xFF00u) >> 8;
-						if ((*(int(**)(_MDI_DRIVER*, unsigned int, int))(hSequence->driver_0->var105_aildrv))(hSequence->driver_0, v8, v7))
-						{
-							for (i = v12 + 1; (unsigned __int16)v9[4] > i; i++)
-								v9[i + 4] = v9[i + 5];
-							--v9[4];
-							if (*((x_BYTE*)v9 + 5) >= 2u)
-							{
-								*((x_BYTE*)v9 + 5) -= 2;
-							}
-							else
-							{
-								*((x_BYTE*)v9 + 5) -= 2;
-								--* ((x_BYTE*)v9 + 4);
-							}
-						}
-						else
-						{
-							v12++;
-						}
-					}
-				}
-				if (v9[4])
-				{
-					if (sub_92160())
-					{
-						strcpy(textBuffer_181C90, "No timbres loaded\n");
-						v6 = -1;
-					}
-					else
-					{
-						hSequence->driver_0->disable_5++;
-						sub_A4EB0(hSequence->driver_0);
-						memmove((void*)(&hSequence->driver_0->DST_2->MIDI_data), v9, 512);
-						AilCallDriver_91F70(hSequence->driver_0->drvr_0, 1283, 0, &v4);
-						hSequence->driver_0->disable_5--;
-						if (v4.AX != -1)
-						{
-							v6 = 1;
-						}
-						else
-						{
-							sprintf(textBuffer_181C90, "Driver could not install timbre bank %u, patch %u\n", v5 >> 8, v5);
-							v6 = -1;
-						}
-					}
-				}
-				else
-				{
-					v6 = 1;
-				}
-			}
-			else
-			{
-				v6 = 1;
-			}
-		}
-		else
-		{
-			qmemcpy(textBuffer_181C90, (void*)"Invalid XMIDI sequence\n", 24);
-			v6 = 0;
-		}
-	}
-	else
-	{
-		qmemcpy(textBuffer_181C90, (void*)"Invalid XMIDI sequence\n", 24);
-		v6 = 0;
-	}
-	return v6;
-}
-
+//----- (000A8010) --------------------------------------------------------
 void AilApiStartSequence_A8010(HSEQUENCE hSequence, uint32_t track)//289010
 {
 	if (hSequence)
@@ -4596,38 +4366,24 @@ void AilApiStartSequence_A8010(HSEQUENCE hSequence, uint32_t track)//289010
 //----- (000A8010) --------------------------------------------------------
 void sub_A8010_AIL_API_start_sequence_orig(HSEQUENCE hSequence)//289010
 {
-	//int *result; // eax
-
-	//fix it
-	//result = 0;
-	//fix it
-
 	if (hSequence)
 	{
-		//result = S;
 		if (hSequence->status_1 != 1)
 		{
 			AilStopSequence_95DE0(hSequence);
 			sub_A6490(hSequence);
-			//result = a1;
 			hSequence->status_1 = 4;
 		}
 	}
-	//return result;
 }
 
 void sub_A8050_AIL_API_stop_sequence(HSEQUENCE hSequence)//289050
 {
-	//int v2; // [esp+0h] [ebp-Ch]
-	//signed int i; // [esp+4h] [ebp-8h]
-	//HMDIDRIVER v4; // [esp+8h] [ebp-4h]
-
 	if (hSequence)
 	{
 		if (hSequence->status_1 == 4)
 		{
 			hSequence->status_1 = 8;
-			//SOUND_pause_sequence(hSequence->sequence_num);
 			SOUND_stop_sequence(hSequence->sequence_num);
 		}
 	}
@@ -4698,28 +4454,6 @@ int AilApiSequenceStatus_A8410(HSEQUENCE hSequence)
 	return result;
 }
 
-//----- (000A8570) --------------------------------------------------------
-int sub_A8570_sound_proc39(int* a1, __int16 a2, __int16 a3)
-{
-	VDI_CALL v4; // [esp+0h] [ebp-10h]
-	//__int16 v5; // [esp+4h] [ebp-Ch]
-
-	//v5 = (a2 << 8) | a3;
-	return AilCallDriver_91F70((AIL_DRIVER*)*a1, 1284, &v4, 0);
-}
-
-//----- (000A86D0) --------------------------------------------------------
-int sub_A86D0_sound_proc42(int* a1, __int16 a2, __int16 a3)
-{
-	VDI_CALL v4; // [esp+0h] [ebp-Ch]
-	//__int16 v5; // [esp+4h] [ebp-8h]
-	//__int16 v6; // [esp+6h] [ebp-6h]
-
-	//v5 = (a2 << 8) | a3;
-	//v6 = 0;
-	return AilCallDriver_91F70((AIL_DRIVER*)*a1, 1285, &v4, 0);
-}
-
 //----- (000A8830) --------------------------------------------------------
 void sub_A8830(HSEQUENCE hSequence, x_DWORD* a2, x_DWORD* a3)
 {
@@ -4761,10 +4495,9 @@ void sub_A8830(HSEQUENCE hSequence, x_DWORD* a2, x_DWORD* a3)
 //----- (000A8900) --------------------------------------------------------
 void sub_A8900(HSEQUENCE hSequence, int marker)
 {
-	int v3; // [esp+0h] [ebp-Ch]
-	signed int i; // [esp+4h] [ebp-8h]
-	signed int v5; // [esp+8h] [ebp-4h]
-	signed int j; // [esp+8h] [ebp-4h]
+	int v3;
+	signed int v5;
+	int i;
 
 	if (hSequence)
 	{
@@ -4779,7 +4512,7 @@ void sub_A8900(HSEQUENCE hSequence, int marker)
 				hSequence->interval_count_12 = 0;
 				if (!preference_181DAC[15])
 				{
-					for (j = 0; j < 4; j++)
+					for (int j = 0; j < 4; j++)
 					{
 						hSequence->FOR_loop_count_33[j] = -1;
 					}
@@ -4804,15 +4537,12 @@ int AilApiLockChannel_97F90_A8BF0(MDI_DRIVER* mdi)
 	HSEQUENCE v3;
 	signed int v4;
 	signed int v5;
-	signed int k;
-	signed int i;
-	signed int j;
 	int v9;
 
 	++mdi->disable_5;
 	v5 = -1;
 	v4 = 0x7FFFFFFF;
-	for (i = 8; i >= 1; i--)
+	for (int i = 8; i >= 1; i--)
 	{
 		if (i != 9 && mdi->lock[i] != 1 && mdi->lock[i] != 2 && mdi->notes[i] < v4)
 		{
@@ -4822,7 +4552,7 @@ int AilApiLockChannel_97F90_A8BF0(MDI_DRIVER* mdi)
 	}
 	if (v5 == -1)
 	{
-		for (j = 8; j >= 1; j--)
+		for (int j = 8; j >= 1; j--)
 		{
 			if (j != 9 && mdi->lock[j] != 1 && mdi->notes[j] < v4)
 			{
@@ -4845,7 +4575,7 @@ int AilApiLockChannel_97F90_A8BF0(MDI_DRIVER* mdi)
 		{
 			if (*(x_DWORD*)(v3 + 4) != 1)
 			{
-				for (k = 0; k < 32; k++)
+				for (int k = 0; k < 32; k++)
 				{
 					if (*(x_DWORD*)(v3 + 4 * k + 1368) != -1 && *(x_DWORD*)(v3 + 4 * *(x_DWORD*)(v3 + 4 * k + 1368) + 148) == v5)
 					{
@@ -5075,8 +4805,6 @@ void AIL_fix() {
 //----- (0009F110) --------------------------------------------------------
 signed __int64 sub_9F110(int a1)//dpmi_real_malloc see: https://github.com/videogamepreservation/descent2/blob/master/SOURCE/BIOS/DPMI.C
 {
-	//int v2; // [esp+0h] [ebp-24h]
-	//int v3; // [esp+4h] [ebp-20h]
 	int v4; // [esp+Ch] [ebp-18h]
 	int v5; // [esp+18h] [ebp-Ch]
 	unsigned int v6; // [esp+20h] [ebp-4h]
@@ -5086,9 +4814,6 @@ signed __int64 sub_9F110(int a1)//dpmi_real_malloc see: https://github.com/video
 	v5 = 0;
 	//fix it
 
-	//v2 = 256;
-	//v3 = (a1 + 15) >> 4;
-//removed int386(49, (REGS*)&v2, (REGS*)&v2);
 	if (v5)
 		LOWORD(v6) = 0;
 	else
@@ -5099,8 +4824,6 @@ signed __int64 sub_9F110(int a1)//dpmi_real_malloc see: https://github.com/video
 //----- (0009F170) --------------------------------------------------------
 int sub_9F170(int  /*a1*/, unsigned __int16 a2)//dpmi_real_free see: https://github.com/videogamepreservation/descent2/blob/master/SOURCE/BIOS/DPMI.C
 {
-	//int v3; // [esp+0h] [ebp-20h]
-	//int v4; // [esp+Ch] [ebp-14h]
 	int v5; // [esp+18h] [ebp-8h]
 	int v6; // [esp+1Ch] [ebp-4h]
 
@@ -5108,9 +4831,6 @@ int sub_9F170(int  /*a1*/, unsigned __int16 a2)//dpmi_real_free see: https://git
 	v5 = 0;
 	//fix it
 
-	//v3 = 257;
-	//v4 = a2;
-//removed int386(49, (REGS*)&v3, (REGS*)&v3);
 	if (v5)
 		v6 = -1;
 	else
@@ -5122,7 +4842,6 @@ int sub_9F170(int  /*a1*/, unsigned __int16 a2)//dpmi_real_free see: https://git
 int sub_9F1D0(int a1)//see: https://www.delorie.com/djgpp/doc/dpmi/api/310002.html
 {
 	int v2; // [esp+0h] [ebp-20h]
-	//int v3; // [esp+4h] [ebp-1Ch]
 	int v4; // [esp+18h] [ebp-8h]
 	int v5; // [esp+1Ch] [ebp-4h]
 
@@ -5131,8 +4850,7 @@ int sub_9F1D0(int a1)//see: https://www.delorie.com/djgpp/doc/dpmi/api/310002.ht
 	//fix it
 
 	v2 = 2;
-	//v3 = a1;
-//removed int386(49, (REGS*)&v2, (REGS*)&v2);
+
 	if (v4)
 		v5 = -1;
 	else
@@ -5143,13 +4861,10 @@ int sub_9F1D0(int a1)//see: https://www.delorie.com/djgpp/doc/dpmi/api/310002.ht
 //----- (0009F220) --------------------------------------------------------
 int sub_9F220(int a1)//serial_dpmi_lock_linear_memory/serial_dpmi_unlock_linear_memory see:https://github.com/kstenerud/DOS-Serial-Library/blob/master/serial.c
 {
-	//int v2; // [esp+0h] [ebp-20h]
-	//int v3; // [esp+4h] [ebp-1Ch]
-	unsigned __int16 v4; // [esp+8h] [ebp-18h]
-	unsigned __int16 v5; // [esp+Ch] [ebp-14h]
-	int v6; // [esp+18h] [ebp-8h]
-	int v7; // [esp+1Ch] [ebp-4h]
-
+	unsigned __int16 v4;
+	unsigned __int16 v5;
+	int v6;
+	int v7;
 	//fix it
 	v4 = 0;
 	//fix it
@@ -5159,9 +4874,6 @@ int sub_9F220(int a1)//serial_dpmi_lock_linear_memory/serial_dpmi_unlock_linear_
 	v6 = 0;
 	//fix it
 
-	//v2 = 6;
-	//v3 = a1;
-//removed int386(49, (REGS*)&v2, (REGS*)&v2);
 	if (v6)
 		v7 = -1;
 	else
