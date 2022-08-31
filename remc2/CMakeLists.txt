@@ -78,6 +78,8 @@ set(SOURCE_FILES_ENGINE
     "engine/ProjectionPolygon.h"
     "engine/Sound.cpp"
     "engine/Sound.h"
+    "engine/Network.cpp"
+    "engine/Network.h"
     "engine/Basic.cpp"
     "engine/Basic.h"
     "engine/Animation.cpp"

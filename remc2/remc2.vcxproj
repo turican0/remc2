@@ -362,6 +362,7 @@
     <ClInclude Include="engine\global_types.h" />
     <ClInclude Include="engine\MenusAndIntros.h" />
     <ClInclude Include="engine\GameRenderOriginal.h" />
+    <ClInclude Include="engine\Network.h" />
     <ClInclude Include="engine\ProjectionPolygon.h" />
     <ClInclude Include="engine\TypeConfigDat.h" />
     <ClInclude Include="engine\Rectangle.h" />
@@ -480,6 +481,7 @@
     <ClCompile Include="engine\GameRenderHD.cpp" />
     <ClCompile Include="engine\MenusAndIntros.cpp" />
     <ClCompile Include="engine\GameRenderOriginal.cpp" />
+    <ClCompile Include="engine\Network.cpp" />
     <ClCompile Include="engine\ProjectionPolygon.cpp" />
     <ClCompile Include="engine\Sound.cpp" />
     <ClCompile Include="engine\Terrain.cpp" />

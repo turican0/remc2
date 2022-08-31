@@ -459,6 +459,9 @@
     <ClInclude Include="engine\globals.h">
       <Filter>Header Files\engine</Filter>
     </ClInclude>
+    <ClInclude Include="engine\Network.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -769,6 +772,9 @@
     </ClCompile>
     <ClCompile Include="portability\dirent.c">
       <Filter>Source Files\portability</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\Network.cpp">
+      <Filter>Source Files\engine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
