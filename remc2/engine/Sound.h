@@ -60,7 +60,7 @@ extern uint8_t* x_DWORD_1821E8[]; // idb
 
 void /*__fastcall*/ sub_8D290_init_sound(/*char* a1*//*, int a2, int a3*/);
 void sub_8D800_sound_proc2();
-void sub_8D8F0_sound_proc3_endsample();
+void EndSample_8D8F0();
 void /*__fastcall*/ sub_8D970_init_music(/*char* a1*//*int a1, int a2, char* a3*/);
 void StopMusic_8E020();
 int sub_8E0D0(); // weak
@@ -162,7 +162,7 @@ void sub_980D0_AIL_release_channel(x_DWORD* a1, int a2);
 int sub_98170_AIL_map_sequence_channel(HSEQUENCE a1, int a2, int a3);
 void sub_98360_AIL_send_channel_voice_message(HMDIDRIVER mdi, HSEQUENCE hSequence, int32_t status, int32_t data_1, int32_t data_2);
 
-int32_t sub_84300_load_sound(uint8_t a1);
+int32_t LoadSound_84300(uint8_t a1);
 void LoadSoundDataFromBuffer_844A0(uint16_t count);
 char ReadAndDecompressSound(FILE* a1, unsigned __int8 a2);
 
@@ -204,7 +204,7 @@ void sub_A1524(unsigned int a1);
 //int sub_A158B_AIL_API_call_driver(int32_t* drvr, __int16 a2, x_WORD *a3, x_WORD *a4);
 int32_t sub_A158B_AIL_API_call_driver(AIL_DRIVER* drvr, int32_t fn, VDI_CALL* in, VDI_CALL* out);
 void sub_A1665_AIL_API_delay(int a1);
-int sub_A16A2();
+int GetE3FFE_A16A2();
 //unsigned int sub_A16AE_register_timer(int a1);
 //HTIMER sub_A16AE_register_timer(AILTIMERCB callback_fn);
 //signed __int32 sub_A16F5_AIL_API_set_timer_user(int a1, signed __int32 a2);
@@ -360,9 +360,9 @@ __int16 sub_98B2C(unsigned __int8 a1, int a2);
 
 int sub_9E2B0(char* a1, int a2/*, x_DWORD* a3*/);
 
-signed int sub_9D4D0(int a1, uint8_t** a2, uint32_t* a3, uint32_t* a4);//27e4d0
+signed int AllocMem_9D4D0(int a1, uint8_t** a2, uint32_t* a3, uint32_t* a4);//27e4d0
 
-void sub_9D560(uint8_t* a1);
+void FreeMem_9D560(uint8_t* a1);
 
 unsigned int sub_91F20();
 

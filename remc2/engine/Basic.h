@@ -524,7 +524,7 @@ int sub_84000(int a1);
 x_DWORD x_outp(x_DWORD, char);// weak
 x_DWORD x_inp(x_DWORD);// weak
 void stub_fix_it();
-void* sub_83CD0_malloc2(size_t a1);
+void* Malloc_83CD0(size_t a1);
 void qmemcpy(void* a, void* b, size_t c);
 int FreeMem_9D490(void* a1, int a2);
 int x_free(void* ptr);
@@ -547,7 +547,7 @@ void dbgfprintf(FILE* file, const char* format, ...);
 x_DWORD dos_read(FILE*, char, x_DWORD, x_DWORD, char*);
 
 signed int GetFileLenght_9DE20(char* a1);
-uint8_t* sub_9DEA0_read_file(char* a1, uint8_t* a2);
+uint8_t* ReadFile_9DEA0(char* a1, uint8_t* a2);
 
 FILE* x_open(char* path, int pmodex);
 

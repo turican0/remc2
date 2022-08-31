@@ -39122,7 +39122,7 @@ void LoadTextureData(__int16 vgaTypeResolution, MapType_t MapType, uint8_t* text
 			//v6 = file2lenght+file1Lenght;
 			//filearray1 = (char*)sub_83CD0_malloc2(file2lenght + file1Lenght);
 			//x_DWORD_D4188 = (uint8_t*)filearray1;
-			x_DWORD_D4188 = (posistruct2_t*)sub_83CD0_malloc2(file2lenght + file1Lenght);
+			x_DWORD_D4188 = (posistruct2_t*)Malloc_83CD0(file2lenght + file1Lenght);
 			if (x_DWORD_D4188)
 			{
 				qmemcpy(x_DWORD_D4188, (void*)textureBuffer, file2lenght + file1Lenght);
@@ -39205,7 +39205,7 @@ void sub_47160()//228160
 		//fix
 		if (pre_x_DWORD_E9C3C)
 			FreeMem_83E80(pre_x_DWORD_E9C3C);
-		pre_x_DWORD_E9C3C = (uint8_t*)sub_83CD0_malloc2(3000000);
+		pre_x_DWORD_E9C3C = (uint8_t*)Malloc_83CD0(3000000);
 		x_DWORD_E9C3C = &pre_x_DWORD_E9C3C[200000];
 		//sub_6EB90(&filearray_2aa18c[filearrayindex_FONTS0DATTAB]);//2aa1d4
 		help_VGA_type_resolution = 1;
@@ -39228,7 +39228,7 @@ void sub_47160()//228160
 		//fix
 		if (pre_x_DWORD_E9C3C)
 			FreeMem_83E80(pre_x_DWORD_E9C3C);
-		pre_x_DWORD_E9C3C = (uint8_t*)sub_83CD0_malloc2(3000000);
+		pre_x_DWORD_E9C3C = (uint8_t*)Malloc_83CD0(3000000);
 		x_DWORD_E9C3C = &pre_x_DWORD_E9C3C[200000];
 		CreateIndexes_6EB90(&filearray_2aa18c[filearrayindex_HFONT3DATTAB]);//2aa1d4
 		help_VGA_type_resolution = 8;
@@ -74126,12 +74126,12 @@ type_x_DWORD_E9C28_str* sub_71B40(int a1, unsigned __int16 a2, type_x_DWORD_E9C2
 	}
 	else
 	{
-		v10y = (type_x_DWORD_E9C28_str*)sub_83CD0_malloc2(26);
+		v10y = (type_x_DWORD_E9C28_str*)Malloc_83CD0(26);
 		v7y = v10y;
 		if (!v10y
-			|| (v11x = (uint8_t*)sub_83CD0_malloc2(a1), (v10y->dword_16x = (uint32_t*)v11x) == 0)
-			|| (v12x = (uint8_t*)sub_83CD0_malloc2(14 * a2), (v10y->str_8_data = (subtype_x_DWORD_E9C28_str*)v12x) == 0)
-			|| (v13x = (uint8_t*)sub_83CD0_malloc2(4 * a2), (v10y->dword_12x = (subtype_x_DWORD_E9C28_str**)v13x) == 0))
+			|| (v11x = (uint8_t*)Malloc_83CD0(a1), (v10y->dword_16x = (uint32_t*)v11x) == 0)
+			|| (v12x = (uint8_t*)Malloc_83CD0(14 * a2), (v10y->str_8_data = (subtype_x_DWORD_E9C28_str*)v12x) == 0)
+			|| (v13x = (uint8_t*)Malloc_83CD0(4 * a2), (v10y->dword_12x = (subtype_x_DWORD_E9C28_str**)v13x) == 0))
 		{
 			if (v10y)
 			{
@@ -74187,9 +74187,9 @@ type_E9C08* sub_72120(unsigned __int16 a1)//253120
 
 	v1 = a1;
 	sub_83CC0(9);
-	v2x = (type_E9C08*)sub_83CD0_malloc2(sizeof(type_E9C08));
+	v2x = (type_E9C08*)Malloc_83CD0(sizeof(type_E9C08));
 	v3x = v2x;
-	if (v2x && (v4 = (type_animations1*)sub_83CD0_malloc2(sizeof(type_animations1) * a1), (v2x->dword_2 = v4) != 0))
+	if (v2x && (v4 = (type_animations1*)Malloc_83CD0(sizeof(type_animations1) * a1), (v2x->dword_2 = v4) != 0))
 	{
 		v2x->word_0 = a1;
 		while (--v1 != 0xffff)
@@ -77721,7 +77721,7 @@ void sub_83B50()//264B50
 		}
 		//v2 = (int)sub_83CD0_malloc2(x_D41A0_BYTEARRAY_4_struct.dword_0xE6_heapsize_230);
 		//v3 = x_D41A0_BYTEARRAY_4;
-		x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226 = (uint8_t*)sub_83CD0_malloc2(x_D41A0_BYTEARRAY_4_struct.dword_0xE6_heapsize_230);
+		x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226 = (uint8_t*)Malloc_83CD0(x_D41A0_BYTEARRAY_4_struct.dword_0xE6_heapsize_230);
 		if (!x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226)
 		{
 			//v4 = x_D41A0_BYTEARRAY_4[230]; //fix
@@ -83234,11 +83234,11 @@ signed int sub_8CEDF_install_mouse()//26dedf
 	//int386x(0x33, (REGS*)&v2, (REGS*)&v1, (SREGS*)&v5);//set mouse subroutine
 //removed sub_8D12F_set_mouse_viewport(); //set min/max of viewport
 	if (!x_DWORD_180730_cursor_data)
-		x_DWORD_180730_cursor_data = (uint8_t*)sub_83CD0_malloc2(4096);//image buffers?-blit?
+		x_DWORD_180730_cursor_data = (uint8_t*)Malloc_83CD0(4096);//image buffers?-blit?
 	if (!x_DWORD_180700)
-		x_DWORD_180700 = (uint8_t*)sub_83CD0_malloc2(4096);
+		x_DWORD_180700 = (uint8_t*)Malloc_83CD0(4096);
 	if (!x_DWORD_1806F0)
-		x_DWORD_1806F0 = (uint8_t*)sub_83CD0_malloc2(4096);
+		x_DWORD_1806F0 = (uint8_t*)Malloc_83CD0(4096);
 	if (!x_DWORD_180730_cursor_data || !x_DWORD_180700 || !x_DWORD_1806F0)
 		return 0;
 	x_WORD_18072C_cursor_sizex = 0;
@@ -84242,7 +84242,7 @@ signed int UnpackAndLoadMemoryFromPath(Pathstruct path)//27B32d
 		}
 		else
 		{
-			*(path.colorPalette_var28) = (uint8_t*)sub_83CD0_malloc2(path.var36_size_buffer);
+			*(path.colorPalette_var28) = (uint8_t*)Malloc_83CD0(path.var36_size_buffer);
 			memset(*(path.colorPalette_var28), 0, path.var36_size_buffer);
 		}
 		//v2 = *(int *)(path.colorPalette_var28);
@@ -84262,7 +84262,7 @@ signed int UnpackAndLoadMemoryFromPath(Pathstruct path)//27B32d
 		}
 		else
 		{
-			*(path.colorPalette_var28) = (uint8_t*)sub_83CD0_malloc2(path.var36_size_buffer);//asi init a malloc bufferu
+			*(path.colorPalette_var28) = (uint8_t*)Malloc_83CD0(path.var36_size_buffer);//asi init a malloc bufferu
 			memset(*(path.colorPalette_var28), 0, path.var36_size_buffer);
 		}
 		//v4 = *(int **)path.colorPalette_var28;
