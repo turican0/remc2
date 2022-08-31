@@ -178,11 +178,11 @@ int x_DWORD_E3FEA = 0; // weak
 int x_DWORD_E3FEE = 0; // weak
 int x_DWORD_E3FF2 = 0; // weak
 
-int x_DWORD_E3E9C[0x10]; // weak//sound anything
+int x_DWORD_E3E9C[16]; // weak//sound anything
 //int x_DWORD_E3ED8 = 0; // weak//x_DWORD_E3E9C[0xf]
-int x_DWORD_E3EDC[0x10]; // weak
-int x_DWORD_E3F1C[0x10]; // weak
-int x_DWORD_E3F5C[0x10]; // weak
+int x_DWORD_E3EDC[16]; // weak
+int x_DWORD_E3F1C[16]; // weak
+int x_DWORD_E3F5C[16]; // weak
 
 int isr_E3FF8 = 0; // weak
 int x_DWORD_E3FFC = 0; // weak
@@ -231,7 +231,7 @@ int x_DWORD_E4C90 = 0; // weak
 int x_DWORD_E4C94 = 0; // weak
 
 
-int x_DWORD_A9390[0x80] = {
+int x_DWORD_A9390[128] = {
 0x00000008,0x00000011,0x00000012,0x00000013,
 0x00000014,0x00000015,0x00000017,0x00000018,
 0x0000001A,0x0000001B,0x0000001D,0x0000001E,
@@ -854,7 +854,7 @@ void StartMusic_8E160(int track, int volume)//26f160
 		AilInitSequence_95C00(m_hSequence, musicHeader_E3808->str_8.track_10[track].xmiData_0, 0, track);
 		AilRegisterTriggerCallback_97670(m_hSequence, reinterpret_cast<void*>(sub_8E0D0));
 
-		if (volume < 0x7Fu)
+		if (volume < 127)
 			AilSetSequenceVolume_96030(volume);
 
 		AilStartSequence_95D50(m_hSequence, track);
@@ -1006,7 +1006,7 @@ void AilSetPreference_91A80(uint32_t number, int32_t value)
 	AilSetPreference_9E6E0(number, value);
 	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2())
 	{
-		for (int i = 0; i < 0xE; i++)
+		for (int i = 0; i < 14; i++)
 			dbgfprintf(ailDebufFile_181BF0, " \0");
 		for (int j = 1; j < x_DWORD_181C04; j++)
 			dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
@@ -1036,7 +1036,7 @@ uint16_t AilGetRealVect_91C10(uint32_t vectnum)
 	uint16_t result = AilApiGetRealVect_A121D(vectnum);
 	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2())
 	{
-		for (int i = 0; i < 0xE; i++)
+		for (int i = 0; i < 14; i++)
 			dbgfprintf(ailDebufFile_181BF0, " \0");
 		for (int j = 1; j < x_DWORD_181C04; j++)
 			dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
@@ -1193,7 +1193,7 @@ HDIGDRIVER AilInstallDigDriverFile_93330(char* filename, IO_PARMS* IO)
 	HDIGDRIVER result = AilApiInstallDigDriverFile_A3600(filename, IO);
 	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2())
 	{
-		for (int i = 0; i < 0xE; i++)
+		for (int i = 0; i < 14; i++)
 			dbgfprintf(ailDebufFile_181BF0, " \0");
 		for (int j = 1; j < x_DWORD_181C04; j++)
 			dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
@@ -1223,7 +1223,7 @@ HSAMPLE AilAllocateSampleHandle_93510(HDIGDRIVER dig)
 	HSAMPLE result = sub_A3820_allocate_sample_handle(dig);
 	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2())
 	{
-		for (int i = 0; i < 0xE; i++)
+		for (int i = 0; i < 14; i++)
 			dbgfprintf(ailDebufFile_181BF0, " \0");
 		for (int j = 1; j < x_DWORD_181C04; j++)
 			dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
@@ -1253,7 +1253,7 @@ int32_t AilSetSampleFile_938C0(HSAMPLE S, uint8_t* pWavData, int32_t block)//274
 	int32_t result = SetSampleFile_A4B20(S, pWavData, block);
 	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2())
 	{
-		for (int i = 0; i < 0xE; i++)
+		for (int i = 0; i < 14; i++)
 			dbgfprintf(ailDebufFile_181BF0, " \0");
 		for (int j = 1; j < x_DWORD_181C04; j++)
 			dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
@@ -1369,7 +1369,7 @@ EOS_callback_type AilRegisterEosCallback_95140(HSAMPLE S, EOS_callback_type EOS)
 	EOS_callback_type result = RegisterEosCallback_A3EB0(S, EOS);
 	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2())
 	{
-		for (int i = 0; i < 0xE; i++)
+		for (int i = 0; i < 14; i++)
 			dbgfprintf(ailDebufFile_181BF0, " \0");
 		for (int j = 1; j < x_DWORD_181C04; j++)
 			dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
@@ -1398,7 +1398,7 @@ int AilSampleUserData_95480(HSAMPLE S, int index)
 	int result = SampleUserData_A3F30(S, index);
 	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2())
 	{
-		for (int i = 0; i < 0xE; i++)
+		for (int i = 0; i < 14; i++)
 			dbgfprintf(ailDebufFile_181BF0, " \0");
 		for (int j = 1; j < x_DWORD_181C04; j++)
 			dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
@@ -1417,7 +1417,7 @@ int32_t AilInstallMidiIni_95710(HMDIDRIVER* mdi, char* fileName)
 	int result = AilApiInstallMDIIni_A78F0(mdi, fileName);
 	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2())
 	{
-		for (int i = 0; i < 0xE; i++)
+		for (int i = 0; i < 14; i++)
 			dbgfprintf(ailDebufFile_181BF0, " \0");
 		for (int j = 1; j < x_DWORD_181C04; j++)
 			dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
@@ -1436,7 +1436,7 @@ HMDIDRIVER AilInstakkMidiDriverFile_95850(char* filename, IO_PARMS* IO)//276850
 	HMDIDRIVER result = AilApiInstallMDIIni_A77D0(filename, IO);
 	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2())
 	{
-		for (int i = 0; i < 0xE; i++)
+		for (int i = 0; i < 14; i++)
 			dbgfprintf(ailDebufFile_181BF0, " \0");
 		for (int j = 1; j < x_DWORD_181C04; j++)
 			dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
@@ -1466,7 +1466,7 @@ HSEQUENCE AilAllocateSequenceHandle_95A30(HMDIDRIVER mdi)
 	HSEQUENCE result = AilApiAllocateSequenceHandle_A7B30(mdi);
 	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2())
 	{
-		for (int i = 0; i < 0xE; i++)
+		for (int i = 0; i < 14; i++)
 			dbgfprintf(ailDebufFile_181BF0, " \0");
 		for (int j = 1; j < x_DWORD_181C04; j++)
 			dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
@@ -1485,7 +1485,7 @@ int32_t AilInitSequence_95C00(HSEQUENCE hSequence, uint8_t* start, int32_t seque
 	int result = AilApiInitSequence_A7C20(hSequence, start, sequence_num, track);
 	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2())
 	{
-		for (int i = 0; i < 0xE; i++)
+		for (int i = 0; i < 14; i++)
 			dbgfprintf(ailDebufFile_181BF0, " \0");
 		for (int j = 1; j < x_DWORD_181C04; j++)
 			dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
@@ -1556,7 +1556,7 @@ int AilSequenceStatus_96170(HSEQUENCE hSequence/*HSEQUENCE S*/)//AIL_sequence_st
 	int result = AilApiSequenceStatus_A8410(hSequence);
 	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2())
 	{
-		for (int i = 0; i < 0xE; i++)
+		for (int i = 0; i < 14; i++)
 			dbgfprintf(ailDebufFile_181BF0, " \0");
 		for (int j = 1; j < x_DWORD_181C04; j++)
 			dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
@@ -1581,7 +1581,7 @@ int32_t sub_969A0_AIL_MDI_driver_type(HMDIDRIVER mdi)//AIL_MDI_driver_type
 	int32_t result = sub_A7990_AIL_API_MDI_driver_type(mdi);
 	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2())
 	{
-		for (int i = 0; i < 0xE; i++)
+		for (int i = 0; i < 14; i++)
 			dbgfprintf(ailDebufFile_181BF0, " \0");
 		for (int j = 1; j < x_DWORD_181C04; j++)
 			dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
@@ -1611,7 +1611,7 @@ void AilSequencePosition_97330(HSEQUENCE hSequence, x_DWORD* beat, x_DWORD* meas
 	{
 		if (!GetE3FFE_A16A2())
 		{
-			for (int i = 0; i < 0xE; i++)
+			for (int i = 0; i < 14; i++)
 				dbgfprintf(ailDebufFile_181BF0, " \0");
 			for (int j = 1; j < x_DWORD_181C04; j++)
 				dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
@@ -1640,7 +1640,7 @@ void AilRegisterTriggerCallback_97670(HSEQUENCE hSequence, xCALLBACK callback)
 	AilApiTriggerCallback_A8A20(hSequence, callback);
 	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2())
 	{
-		for (int i = 0; i < 0xE; i++)
+		for (int i = 0; i < 14; i++)
 			dbgfprintf(ailDebufFile_181BF0, " \0");
 		for (int j = 1; j < x_DWORD_181C04; j++)
 			dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
@@ -1655,10 +1655,10 @@ int AilLockChannel_97F90(MDI_DRIVER* mdi)
 	x_DWORD_181C04--;
 	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
 		dbgfprintf(ailDebufFile_181BF0, "AIL_lock_channel(0x%X)\n", mdi);
-	int result = sub_A8BF0(mdi);
+	int result = AilApiLockChannel_97F90_A8BF0(mdi);
 	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2())
 	{
-		for (int i = 0; i < 0xE; i++)
+		for (int i = 0; i < 14; i++)
 			dbgfprintf(ailDebufFile_181BF0, " \0");
 		for (int j = 1; j < x_DWORD_181C04; j++)
 			dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
@@ -1985,7 +1985,7 @@ bool AilApiReadIni_9E3A0(AIL_INI* INI, char* filename)//27f3a0
 	}
 	else
 	{
-		qmemcpy(textBuffer_181C90, (void*)"Corrupted .INI file\n", 0x15u);
+		qmemcpy(textBuffer_181C90, (void*)"Corrupted .INI file\n", 21);
 		result = false;
 	}
 	return result;
@@ -2021,7 +2021,7 @@ AIL_DRIVER* AilApiInstallDriver_9E720(uint8_t* driver_image, int32_t n_bytes)//2
 			{
 				if (_strnicmp((char*)ailDriver->VHDR_4->ID_8, "AIL3MDI", 7))
 				{
-					qmemcpy(textBuffer_181C90, (void*)"Invalid driver type\n", 0x15u);
+					qmemcpy(textBuffer_181C90, (void*)"Invalid driver type\n", 21);
 					FreeMem_9D560(ailDriver->buf_2);
 					FreeMem_9D490(ailDriver, 44);
 					return 0;
@@ -2052,7 +2052,7 @@ AIL_DRIVER* AilApiInstallDriver_9E720(uint8_t* driver_image, int32_t n_bytes)//2
 					ailDriver->server_8 = 1;//fix;
 					if (ailDriver->server_8 == -1)
 					{
-						qmemcpy(textBuffer_181C90, (void*)"Out of timer handles\n", 0x16u);
+						qmemcpy(textBuffer_181C90, (void*)"Out of timer handles\n", 22);
 						AilSetRealVect_91D50(102, ailDriver->VHDR_4->VDI_HDR_var54_prev_ISR);
 						FreeMem_9D560((uint8_t*)ailDriver->buf_2);
 						FreeMem_9D490(ailDriver, 44);
@@ -2065,14 +2065,14 @@ AIL_DRIVER* AilApiInstallDriver_9E720(uint8_t* driver_image, int32_t n_bytes)//2
 				}
 				return ailDriver;
 			}
-			qmemcpy(textBuffer_181C90, (void*)"Out of driver handles\n", 0x17u);
+			qmemcpy(textBuffer_181C90, (void*)"Out of driver handles\n", 23);
 			FreeMem_9D560((uint8_t*)ailDriver->buf_2);
 			FreeMem_9D490(ailDriver, 44);
 			result = 0;
 		}
 		else
 		{
-			qmemcpy(textBuffer_181C90, (void*)"Insufficient low memory\n", 0x19u);
+			qmemcpy(textBuffer_181C90, (void*)"Insufficient low memory\n", 25);
 			FreeMem_9D490(ailDriver, 44);
 			result = 0;
 		}
@@ -2532,7 +2532,7 @@ void sub_A108F()//28208f
 	{
 		x_DWORD_E3FEA = v0;
 		sub_A105C(v0);
-		memset(x_DWORD_E3EDC, 0, 0x40u);
+		memset(x_DWORD_E3EDC, 0, 64);
 	}
 	MinusE3FF2_91BF0();
 }
@@ -2556,10 +2556,10 @@ void sub_A10F4_sound_proc_irq()//2820f4
 	x_DWORD_E3FF2 = 0;
 	x_DWORD_E3FEA = -1;
 	isr_E3FF8 = -1;
-	memset(x_DWORD_E3E9C, 0, 0x40u);
-	memset(x_DWORD_E3EDC, 0, 0x40u);
-	memset(x_DWORD_E3F1C, 0, 0x40u);
-	memset(x_DWORD_E3F5C, 0, 0x40u);
+	memset(x_DWORD_E3E9C, 0, 64);
+	memset(x_DWORD_E3EDC, 0, 64);
+	memset(x_DWORD_E3F1C, 0, 64);
+	memset(x_DWORD_E3F5C, 0, 64);
 	/*__asm
 	{
 	  int     31h; DPMI Services   ax=func xxxxh //eax=200,ebx=8 - system timer?
@@ -2569,7 +2569,7 @@ void sub_A10F4_sound_proc_irq()//2820f4
 	//x_WORD_E3FE0 = __DS__;
 	x_DWORD_E3FE2 = v1;
 	// fix it:__asm { int     21h; DOS - SET INTERRUPT VECTOR }
-	x_DWORD_E3E9C[0xf] = 2;
+	x_DWORD_E3E9C[15] = 2;
 	//sub_92890_AIL_set_timer_period(60, 54925);
 	//_disable();
 	//if (v2 & 0x200)
@@ -2887,7 +2887,7 @@ bool sub_A2650(HDIGDRIVER digDriver)//283650
 	return true;
 }
 
-int16_t envstring[0x18] = {
+int16_t envstring[24] = {
 	220,7,01,05,-1,-1,-1,-1,
 	-1,-1,-1,-1,220,05,01,05,
 	-1,-1,-1,-1,-1,-1,-1,-1
@@ -2896,7 +2896,7 @@ int16_t envstring[0x18] = {
 //----- (000A2C80) --------------------------------------------------------
 int InitEnvs_A2C80(HDIGDRIVER hDigDriver, IO_PARMS*  /*a2*/)//283c80
 {
-	int16_t envs[0x18];
+	int16_t envs[24];
 	VDI_CALL vdiCall;
 	if (hDigDriver->drvr_0->VHDR_4->environment_string_16)
 	{
@@ -2909,7 +2909,7 @@ int InitEnvs_A2C80(HDIGDRIVER hDigDriver, IO_PARMS*  /*a2*/)//283c80
 		if (envs[3] < 0)
 			envs[3] = envstring[3];
 	}
-	qmemcpy((void*)&(hDigDriver->drvr_0->VHDR_4->IO), envs, 0x18u);
+	qmemcpy((void*)&(hDigDriver->drvr_0->VHDR_4->IO), envs, 24);
 	return AilCallDriver_91F70(hDigDriver->drvr_0, 772, &vdiCall, 0);
 }
 
@@ -2933,7 +2933,7 @@ HDIGDRIVER sub_A2EA0(AIL_DRIVER* ailDriver, IO_PARMS IO)//283ea0
 		digDriver->drvr_0 = ailDriver;
 		if (digDriver->drvr_0->type_5)
 		{
-			qmemcpy(textBuffer_181C90, (void*)".DIG driver required\n", 0x16u);
+			qmemcpy(textBuffer_181C90, (void*)".DIG driver required\n", 22);
 			FreeMem_9D490(digDriver, 140);
 			result = 0;
 		}
@@ -2952,7 +2952,7 @@ HDIGDRIVER sub_A2EA0(AIL_DRIVER* ailDriver, IO_PARMS IO)//283ea0
 			ioInitited = false;
 			if (&IO)
 			{
-				qmemcpy(&ioParms_181D90, (void*)&IO, 0x18u);
+				qmemcpy(&ioParms_181D90, (void*)&IO, 24);
 				if (InitEnvs_A2C80(digDriver, &IO))
 				{
 					ioInitited = true;
@@ -2966,7 +2966,7 @@ HDIGDRIVER sub_A2EA0(AIL_DRIVER* ailDriver, IO_PARMS IO)//283ea0
 				{
 					if (!AllocMem_9D4D0(1,&dmaBuffer, &dmaSel, &dmaSeg))
 					{
-						qmemcpy(textBuffer_181C90, (void*)"Could not allocate DMA buffers\n", 0x20u);
+						qmemcpy(textBuffer_181C90, (void*)"Could not allocate DMA buffers\n", 32);
 						FreeMem_9D490(digDriver, 140);
 						return 0;
 					}
@@ -3001,7 +3001,7 @@ HDIGDRIVER sub_A2EA0(AIL_DRIVER* ailDriver, IO_PARMS IO)//283ea0
 							digDriver->timer_3 = 1;
 							if (digDriver->timer_3 == -1)
 							{
-								qmemcpy(textBuffer_181C90, (void*)"Out of timer handles\n", 0x16u);
+								qmemcpy(textBuffer_181C90, (void*)"Out of timer handles\n", 22);
 								if (ailDriver->PM_ISR_7 != -1)
 									AilRestoreUSE16ISR_91E90(ailDriver->PM_ISR_7);
 								AilCallDriver_91F70(digDriver->drvr_0, 774, 0, 0);
@@ -3019,7 +3019,7 @@ HDIGDRIVER sub_A2EA0(AIL_DRIVER* ailDriver, IO_PARMS IO)//283ea0
 						}
 						else
 						{
-							qmemcpy(textBuffer_181C90, (void*)"Could not allocate SAMPLE structures\n", 0x26u);
+							qmemcpy(textBuffer_181C90, (void*)"Could not allocate SAMPLE structures\n", 38);
 							if (ailDriver->PM_ISR_7 != -1)
 								AilRestoreUSE16ISR_91E90(ailDriver->PM_ISR_7);
 							AilCallDriver_91F70(digDriver->drvr_0, 774, 0, 0);
@@ -3032,7 +3032,7 @@ HDIGDRIVER sub_A2EA0(AIL_DRIVER* ailDriver, IO_PARMS IO)//283ea0
 					}
 					else
 					{
-						qmemcpy(textBuffer_181C90, (void*)"Could not allocate build buffer\n", 0x21u);
+						qmemcpy(textBuffer_181C90, (void*)"Could not allocate build buffer\n", 33);
 						if (ailDriver->PM_ISR_7 != -1)
 							AilRestoreUSE16ISR_91E90(ailDriver->PM_ISR_7);
 						AilCallDriver_91F70(digDriver->drvr_0, 774, 0, 0);
@@ -3051,7 +3051,7 @@ HDIGDRIVER sub_A2EA0(AIL_DRIVER* ailDriver, IO_PARMS IO)//283ea0
 			}
 			else
 			{
-				qmemcpy(textBuffer_181C90, (void*)"Digital sound hardware not found\n", 0x22u);
+				qmemcpy(textBuffer_181C90, (void*)"Digital sound hardware not found\n", 34);
 				FreeMem_9D490(digDriver, 140);
 				result = 0;
 			}
@@ -3059,7 +3059,7 @@ HDIGDRIVER sub_A2EA0(AIL_DRIVER* ailDriver, IO_PARMS IO)//283ea0
 	}
 	else
 	{
-		qmemcpy(textBuffer_181C90, (void*)"Could not allocate memory for driver\n", 0x26u);
+		qmemcpy(textBuffer_181C90, (void*)"Could not allocate memory for driver\n", 38);
 		result = 0;
 	}
 	return result;
@@ -3116,7 +3116,7 @@ int AilApiInstallDigINI_A3720(HDIGDRIVER* dig, char* digPath)//284720
 	}
 	else
 	{
-		qmemcpy(textBuffer_181C90, (void*)"Unable to open file DIG.INI\n", 0x1Du);
+		qmemcpy(textBuffer_181C90, (void*)"Unable to open file DIG.INI\n", 29);
 		result = 1;
 	}
 	return result;
@@ -3140,7 +3140,7 @@ HSAMPLE sub_A3820_allocate_sample_handle(HDIGDRIVER dig)//284820
 		;
 	if (i == dig->n_samples_24)
 	{
-		qmemcpy(textBuffer_181C90, (void*)"Out of sample handles\n", 0x17u);
+		qmemcpy(textBuffer_181C90, (void*)"Out of sample handles\n", 23);
 		MinusE3FF2_91BF0();
 		result = 0;
 	}
@@ -3483,7 +3483,7 @@ bool SetSampleFile_A4B20(HSAMPLE S, uint8_t* pWavData, int32_t block)//285b20
 		{
 			if (_strnicmp((const char*)&pWavData[8], "WAVE", 4))
 			{
-				qmemcpy(textBuffer_181C90, (void*)"Unrecognized digital audio file type\n", 0x26u);
+				qmemcpy(textBuffer_181C90, (void*)"Unrecognized digital audio file type\n", 38);
 				return false;
 			}
 			soundStringOk = true;
@@ -3727,9 +3727,9 @@ int sub_A5210(int a1, char a2, unsigned int a3)
 //----- (000A5530) --------------------------------------------------------
 void sub_A5530(CTRL_LOG* a1x, char a2, unsigned int a3, unsigned __int8 a4)
 {
-	x_DWORD* result; // eax
-	int v5; // [esp+0h] [ebp-8h]
-	unsigned int v6; // [esp+4h] [ebp-4h]
+	x_DWORD* result;
+	int v5;
+	unsigned int v6;
 
 	v6 = a2 & 0xF0;
 	result = (x_DWORD*)(a2 & 0xF);
@@ -3847,39 +3847,33 @@ void sub_A5530(CTRL_LOG* a1x, char a2, unsigned int a3, unsigned __int8 a4)
 		result = &a1x->indirect[v5];
 		result[32] = a4;
 	}
-	//return result;
 }
 
 //----- (000A5850) --------------------------------------------------------
 void sub_A5850(HSEQUENCE hSequence, char a2, unsigned int a3, signed int a4, int a5)//286850
 {
-	//HMDIDRIVER result; // eax
-	//int v6; // eaxindirect
-	HMDIDRIVER v7; // [esp+0h] [ebp-14h]
-	int v8; // [esp+4h] [ebp-10h]
-	int v9; // [esp+8h] [ebp-Ch]
-	signed int i; // [esp+Ch] [ebp-8h]
-	signed int j; // [esp+Ch] [ebp-8h]
-	int v12; // [esp+Ch] [ebp-8h]
-	int v13; // [esp+10h] [ebp-4h]
+	HMDIDRIVER mdiDriver;
+	int indexCh;
+	int chMap;
+	signed int i;
+	signed int j;
+	int v12;
+	int indexChH;
 
-	v7 = hSequence->driver_0;
-	v13 = a2 & 0xF0;
-	v8 = a2 & 0xF;
-	//result = S->chan_map_37[4 * v8];
-	v9 = hSequence->chan_map_37[4 * v8];
-	if (v13 == 176 || v13 == 192 || v13 == 224)
-		sub_A5530(&hSequence->shadow_53, v8 | v13, a3, a4);
-	if (v13 != 176)
+	mdiDriver = hSequence->driver_0;
+	indexChH = a2 & 0xF0;
+	indexCh = a2 & 0xF;
+	chMap = hSequence->chan_map_37[indexCh];
+	if (indexChH == 176 || indexChH == 192 || indexChH == 224)
+		sub_A5530(&hSequence->shadow_53, indexCh | indexChH, a3, a4);
+	if (indexChH != 176)
 		goto LABEL_79;
 	if (a5)
 	{
-		//result = (x_DWORD *)(S + 4 * v8);
-		if (hSequence->shadow_53.indirect[v8] != -1)
+		if (hSequence->shadow_53.indirect[indexCh] != -1)
 		{
-			a4 = hSequence->shadow_53.indirect[v8];
-			//result = (x_DWORD *)(S + 4 * v8);
-			hSequence->shadow_53.indirect[v8] = -1;
+			a4 = hSequence->shadow_53.indirect[indexCh];
+			hSequence->shadow_53.indirect[indexCh] = -1;
 		}
 	}
 	if (a3 < 0x6F)
@@ -3889,14 +3883,14 @@ void sub_A5850(HSEQUENCE hSequence, char a2, unsigned int a3, signed int a4, int
 			if (a3 >= 6)
 			{
 				if (a3 <= 6)
-				{
-					sub_A5850(hSequence, v8 | 0xB0, 0x64u, 0, 0);
-					sub_A5850(hSequence, v8 | 0xB0, 0x65u, 0, 0);
-					sub_A5850(hSequence, v8 | 0xB0, 0x26u, 0, 0);
+				{//6
+					sub_A5850(hSequence, indexCh | 0xB0, 0x64u, 0, 0);
+					sub_A5850(hSequence, indexCh | 0xB0, 0x65u, 0, 0);
+					sub_A5850(hSequence, indexCh | 0xB0, 0x26u, 0, 0);
 				}
 				else if (a3 == 7)
-				{
-					a4 = hSequence->volume_14 * a4 * v7->var108_aildrv / 16129;
+				{//7
+					a4 = hSequence->volume_14 * a4 * mdiDriver->var108_aildrv / 16129;
 					if (a4 > 127)
 						a4 = 127;
 					if (a4 < 0)
@@ -3906,53 +3900,48 @@ void sub_A5850(HSEQUENCE hSequence, char a2, unsigned int a3, signed int a4, int
 			goto LABEL_79;
 		}
 		if (a3 <= 0x6C)
-		{
+		{//6c
 			if (hSequence->prefix_callback_7)
-				hSequence->shadow_53.indirect[v8] = (*(int(**)(HSEQUENCE, int, signed int))(hSequence->prefix_callback_7))(hSequence, v8, a4);
+				hSequence->shadow_53.indirect[indexCh] = (*(int(**)(HSEQUENCE, int, signed int))(hSequence->prefix_callback_7))(hSequence, indexCh, a4);
 			goto LABEL_79;
 		}
 		if (a3 <= 0x6D)
-		{
+		{//6d
 			AilBranchIndex_97480(hSequence, a4);
 		}
 		else if (a4 < 64)
-		{
-			//result = &v7[v9];
-			if (v7->lock[v9] == 1)
+		{//
+			if (mdiDriver->lock[chMap] == 1)
 			{
-				sub_A5F30((int*)hSequence, v8);
-				AilReleaseChannel_980D0(v7, v9 + 1);
-				AilMapSequenceChannel_98170(hSequence, v8 + 1, v8 + 1);
+				sub_A5F30(hSequence, indexCh);
+				AilReleaseChannel_980D0(mdiDriver, chMap + 1);
+				AilMapSequenceChannel_98170(hSequence, indexCh + 1, indexCh + 1);
 			}
 		}
 		else
 		{
-			//result = &v7[v9];
-			if (v7->lock[v9] != 1)
+			if (mdiDriver->lock[chMap] != 1)
 			{
-				v12 = AilLockChannel_97F90(v7);
+				v12 = AilLockChannel_97F90(mdiDriver);
 				if (v12)
 				{
-					AilMapSequenceChannel_98170(hSequence, v8 + 1, v12);
-					v7->var23_aildrvx[hSequence->driver_0->drvr_0->seg_0] = hSequence;
+					AilMapSequenceChannel_98170(hSequence, indexCh + 1, v12);
+					mdiDriver->var23_aildrvx[hSequence->driver_0->drvr_0->seg_0] = hSequence;
 				}
 			}
 		}
 	}
 	else if (a3 <= 0x6F)
-	{
-		//result = &v7[v9];
-		if (v7->lock[v9] != 1)
+	{//6f
+		if (mdiDriver->lock[chMap] != 1)
 		{
 			if (a4 >= 64)
 			{
-				//result = &v7[v9];
-				v7->lock[v9] = 2;
+				mdiDriver->lock[chMap] = 2;
 			}
 			else
 			{
-				//result = &v7[v9];
-				v7->lock[v9] = 0;
+				mdiDriver->lock[chMap] = 0;
 			}
 		}
 	}
@@ -3961,31 +3950,31 @@ void sub_A5850(HSEQUENCE hSequence, char a2, unsigned int a3, signed int a4, int
 		if (a3 < 0x73)
 			goto LABEL_79;
 		if (a3 <= 0x73)
-		{
-			*(x_DWORD*)(hSequence + 4 * v8 + 724) = *(unsigned __int8*)(a4 + *(x_DWORD*)(hSequence + 24));
-		LABEL_79:
-			if (v7->lock[v9] != 1 || v7->locker[v9] == hSequence)
+		{//73
+			*(x_DWORD*)(hSequence + 4 * indexCh + 724) = *(unsigned __int8*)(a4 + *(x_DWORD*)(hSequence + 24));
+		LABEL_79://end
+			if (mdiDriver->lock[chMap] != 1 || mdiDriver->locker[chMap] == hSequence)
 			{
-				if (v13 == 144)
+				if (indexChH == 144)
 				{
-					v7->notes[v9]++;
+					mdiDriver->notes[chMap]++;
 				}
-				else if (v13 == 128)
+				else if (indexChH == 128)
 				{
-					v7->notes[v9]--;
+					mdiDriver->notes[chMap]--;
 				}
-				v7->user[v9] = hSequence;
-				if (v13 != 144 || hSequence->shadow_53.c_mute[4 * v8] < 64)
+				mdiDriver->user[chMap] = hSequence;
+				if (indexChH != 144 || hSequence->shadow_53.c_mute[4 * indexCh] < 64)
 				{
-					if (!v7->event_trap
-						|| (/*result = */(HMDIDRIVER)(x_DWORD*)((int(*)(HMDIDRIVER, HSEQUENCE, int, unsigned int, signed int))v7->event_trap)(
-							v7,
+					if (!mdiDriver->event_trap
+						|| ((HMDIDRIVER)(x_DWORD*)((int(*)(HMDIDRIVER, HSEQUENCE, int, unsigned int, signed int))mdiDriver->event_trap)(
+							mdiDriver,
 							hSequence,
-							v9 | v13,
+							chMap | indexChH,
 							a3,
 							(int)a4)) == 0)
 					{
-						/*result = (x_DWORD *)*/sub_A4F10(v7, v9 | v13, a3, a4);
+						sub_A4F10(mdiDriver, chMap | indexChH, a3, a4);
 					}
 				}
 			}
@@ -3993,79 +3982,68 @@ void sub_A5850(HSEQUENCE hSequence, char a2, unsigned int a3, signed int a4, int
 		}
 		for (i = 0; i < 4; i++)
 		{
-			//result = (x_DWORD *)(S + 4 * i);
 			if (hSequence->FOR_loop_count_33[i] == -1)
 				break;
-			//result = (HMDIDRIVER)(x_DWORD *)i;
 		}
 		if (i != 4)
 		{
 			hSequence->FOR_loop_count_33[i] = a4;
-			//result = *(x_DWORD **)(S + 20);
 			hSequence->FOR_ptrs[i] = hSequence->EVNT_ptr_5;
 		}
 	}
 	else if (a3 <= 0x75)
-	{
+	{//75
 		if (a4 >= 64)
 		{
 			for (j = 3; j >= 0; j--)
 			{
-				//result = (x_DWORD *)(S + 4 * j);
 				if (hSequence->FOR_loop_count_33[4 * j] != -1)
 					break;
-				//result = (x_DWORD *)j;
 			}
 			if (j != -1)
 			{
 				if (hSequence->FOR_loop_count_33[4 * j])
 				{
-					//v6 = a1 + 4 * j;
 					if (--hSequence->FOR_loop_count_33[4 * j])
 					{
-						//result = (x_DWORD *)S;
 						hSequence->EVNT_ptr_5 = hSequence->FOR_ptrs[j];
 					}
 					else
 					{
-						//result = (x_DWORD *)(S + 4 * j);
 						hSequence->FOR_loop_count_33[4 * j] = -1;
 					}
 				}
 				else
 				{
-					//result = (x_DWORD *)S;
 					hSequence->EVNT_ptr_5 = (uint8_t*)hSequence->FOR_loop_count_33[4 * j];
 				}
 			}
 		}
 	}
 	else if (a3 <= 0x76)
-	{
+	{//76
 		*(x_DWORD*)(hSequence + 92) = 0;
 		*(x_DWORD*)(hSequence + 96) = 0;
 		*(x_DWORD*)(hSequence + 108) = 0;
 		*(x_DWORD*)(hSequence + 108) -= *(x_DWORD*)(hSequence + 104);
-		//result = (x_DWORD *)S;
 		if (hSequence->beat_callback_9)
-			/*result = (x_DWORD *)*/(*(int(**)(HMDIDRIVER, HSEQUENCE, x_DWORD, x_DWORD))(hSequence->beat_callback_9))(v7, hSequence, 0, 0);
+			(*(int(**)(HMDIDRIVER, HSEQUENCE, x_DWORD, x_DWORD))(hSequence->beat_callback_9))(mdiDriver, hSequence, 0, 0);
 	}
 	else
 	{
 		if (a3 != 119)
 			goto LABEL_79;
-		//result = (x_DWORD *)S;
 		if (hSequence->trigger_callback_8_32)
-			/*result = (x_DWORD *)*/(*(int(**)(HSEQUENCE, int, signed int))(hSequence->trigger_callback_8_32))(hSequence, v8, a4);
+			(*(int(**)(HSEQUENCE, int, signed int))(hSequence->trigger_callback_8_32))(hSequence, indexCh, a4);
 	}
 }
 
 //----- (000A5E50) --------------------------------------------------------
 void sub_A5E50(HSEQUENCE hSequence)
 {
-	int v1; // eax
-	int v3; // [esp+0h] [ebp-8h]
-	signed int i; // [esp+4h] [ebp-4h]
+	int v1;
+	int v3;
+	signed int i;
 
 	v3 = 0;
 	for (i = 0; i < 32; i++)
@@ -4078,66 +4056,32 @@ void sub_A5E50(HSEQUENCE hSequence)
 		}
 	}
 	hSequence->seq_341 = 0;
-	/*LOBYTE(v1) = */sub_A4EB0((HMDIDRIVER)hSequence->driver_0);
+	sub_A4EB0((HMDIDRIVER)hSequence->driver_0);
 	if (v3)
 	{
 		v1 = sub_92160();
 		if (!v1)
-			/*LOBYTE(v1) = */AilDelay_920D0(3);
+			AilDelay_920D0(3);
 	}
-	//return v1;
 }
 
 //----- (000A5F30) --------------------------------------------------------
-void sub_A5F30(int* a1, int a2)
+void sub_A5F30(HSEQUENCE hSequence, int a2)
 {
-	signed int i; // [esp+0h] [ebp-4h]
-
-	for (i = 0; i < 32; i++)
+	for (int i = 0; i < 32; i++)
 	{
-		if (a1[i + 342] == a2)
+		if (hSequence->note_chan[i] == a2)
 		{
-			sub_A5850((HSEQUENCE)a1, a1[i + 342] | 0x80, a1[i + 374], 0, 0);
-			a1[i + 342] = -1;
+			sub_A5850(hSequence, hSequence->note_chan[i] | 0x80, hSequence->note_num[i], 0, 0);
+			hSequence->note_chan[i] = -1;
 		}
 	}
-	return sub_A4EB0((HMDIDRIVER)*a1);
+	return sub_A4EB0(hSequence->driver_0);
 }
 
 //----- (000A5FD0) --------------------------------------------------------
-void sub_A5FD0(HSEQUENCE a1, int a2)
+void sub_A5FD0(HSEQUENCE hSequence, int a2)
 {
-	x_DWORD* result; // eax
-
-	if (*(x_DWORD*)(a1 + 4 * a2 + 660) != -1)
-		sub_A5850(a1, a2 | 0xB0, 0x72u, *(x_DWORD*)(a1 + 4 * a2 + 660), 0);
-	if (*(x_DWORD*)(a1 + 4 * a2 + 212) != -1)
-		sub_A5850(a1, a2 | 0xC0, *(x_DWORD*)(a1 + 4 * a2 + 212), 0, 0);
-	if (*(x_DWORD*)(a1 + 4 * a2 + 340) != -1)
-		sub_A5850(a1, a2 | 0xE0, *(x_DWORD*)(a1 + 4 * a2 + 276), *(x_DWORD*)(a1 + 4 * a2 + 340), 0);
-	if (*(x_DWORD*)(a1 + 4 * a2 + 532) != -1)
-		sub_A5850(a1, a2 | 0xB0, 0x6Bu, *(x_DWORD*)(a1 + 4 * a2 + 532), 0);
-	if (*(x_DWORD*)(a1 + 4 * a2 + 468) != -1)
-		sub_A5850(a1, a2 | 0xB0, 0x6Fu, *(x_DWORD*)(a1 + 4 * a2 + 468), 0);
-	if (*(x_DWORD*)(a1 + 4 * a2 + 596) != -1)
-		sub_A5850(a1, a2 | 0xB0, 0x70u, *(x_DWORD*)(a1 + 4 * a2 + 596), 0);
-	if (*(x_DWORD*)(a1 + 4 * a2 + 852) != -1)
-		sub_A5850(a1, a2 | 0xB0, 1u, *(x_DWORD*)(a1 + 4 * a2 + 852), 0);
-	if (*(x_DWORD*)(a1 + 4 * a2 + 916) != -1)
-		sub_A5850(a1, a2 | 0xB0, 7u, *(x_DWORD*)(a1 + 4 * a2 + 916), 0);
-	if (*(x_DWORD*)(a1 + 4 * a2 + 980) != -1)
-		sub_A5850(a1, a2 | 0xB0, 0xAu, *(x_DWORD*)(a1 + 4 * a2 + 980), 0);
-	if (*(x_DWORD*)(a1 + 4 * a2 + 1044) != -1)
-		sub_A5850(a1, a2 | 0xB0, 0xBu, *(x_DWORD*)(a1 + 4 * a2 + 1044), 0);
-	if (*(x_DWORD*)(a1 + 4 * a2 + 1108) != -1)
-		sub_A5850(a1, a2 | 0xB0, 0x40u, *(x_DWORD*)(a1 + 4 * a2 + 1108), 0);
-	if (*(x_DWORD*)(a1 + 4 * a2 + 1172) != -1)
-		sub_A5850(a1, a2 | 0xB0, 0x5Bu, *(x_DWORD*)(a1 + 4 * a2 + 1172), 0);
-	if (*(x_DWORD*)(a1 + 4 * a2 + 1236) != -1)
-		sub_A5850(a1, a2 | 0xB0, 0x5Du, *(x_DWORD*)(a1 + 4 * a2 + 1236), 0);
-	result = (x_DWORD*)(a1 + 4 * a2);
-	if (result[325] != -1)
-		/*result = (int32*)*/sub_A5850(a1, a2 | 0xB0, 6u, *(x_DWORD*)(a1 + 4 * a2 + 1300), 0);
 }
 
 //----- (000A6370) --------------------------------------------------------
@@ -4164,12 +4108,8 @@ void sub_A6370(HSEQUENCE hSequence)//287370
 //----- (000A6490) --------------------------------------------------------
 void sub_A6490(HSEQUENCE hSequence)
 {
-	//x_DWORD *result; // eax
-
 	sub_A6370(hSequence);
-	//result = a1;
 	hSequence->EVNT_ptr_5 = (uint8_t*)hSequence->EVNT_4 + 8;
-	//return result;
 }
 
 //----- (000A64C0) --------------------------------------------------------
@@ -4301,7 +4241,7 @@ HMDIDRIVER InitAilDriver_A6FB0(AIL_DRIVER* ailDriver, IO_PARMS* io)//287fb0
 					}
 					else
 					{
-						qmemcpy(textBuffer_181C90, (void*)"Could not allocate SEQUENCE structures\n", 0x28u);
+						qmemcpy(textBuffer_181C90, (void*)"Could not allocate SEQUENCE structures\n", 40);
 						AilCallDriver_91F70(hMdiDriver->drvr_0, 774, 0, 0);
 						hMdiDriver->drvr_0->initialized_6 = 0;
 						FreeMem_9D490(hMdiDriver, 468);
@@ -4310,7 +4250,7 @@ HMDIDRIVER InitAilDriver_A6FB0(AIL_DRIVER* ailDriver, IO_PARMS* io)//287fb0
 				}
 				else
 				{
-					qmemcpy(textBuffer_181C90, (void*)"Could not initialize instrument manager\n", 0x29u);
+					qmemcpy(textBuffer_181C90, (void*)"Could not initialize instrument manager\n", 41);
 					AilCallDriver_91F70(hMdiDriver->drvr_0, 774, 0, 0);
 					hMdiDriver->drvr_0->initialized_6 = 0;
 					FreeMem_9D490(hMdiDriver, 468);
@@ -4319,21 +4259,21 @@ HMDIDRIVER InitAilDriver_A6FB0(AIL_DRIVER* ailDriver, IO_PARMS* io)//287fb0
 			}
 			else
 			{
-				qmemcpy(textBuffer_181C90, (void*)"XMIDI sound hardware not found\n", 0x20u);
+				qmemcpy(textBuffer_181C90, (void*)"XMIDI sound hardware not found\n", 32);
 				FreeMem_9D490(hMdiDriver, 468);
 				result = NULL;
 			}
 		}
 		else
 		{
-			qmemcpy(textBuffer_181C90, (void*)".MDI driver required\n", 0x16u);
+			qmemcpy(textBuffer_181C90, (void*)".MDI driver required\n", 24);
 			FreeMem_9D490(hMdiDriver, 468);
 			result = NULL;
 		}
 	}
 	else
 	{
-		qmemcpy(textBuffer_181C90, (void*)"Could not allocate memory for driver\n", 0x26u);
+		qmemcpy(textBuffer_181C90, (void*)"Could not allocate memory for driver\n", 38);
 		result = NULL;
 	}
 
@@ -4403,7 +4343,7 @@ int32_t AilApiInstallMDIIni_A78F0(HMDIDRIVER* mdi, char* fileName) //2888f0
 	}
 	else
 	{
-		qmemcpy(textBuffer_181C90, (void*)"Unable to open file MDI.INI\n", 0x1Du);
+		qmemcpy(textBuffer_181C90, (void*)"Unable to open file MDI.INI\n", 29);
 		result = 1;
 	}
 	return result;
@@ -4453,7 +4393,7 @@ HSEQUENCE AilApiAllocateSequenceHandle_A7B30(HMDIDRIVER mdi)//288b30
 		;
 	if (i == mdi->n_sequences_7)
 	{
-		qmemcpy(textBuffer_181C90, (void*)"Out of sequence handles\n", 0x19u);
+		qmemcpy(textBuffer_181C90, (void*)"Out of sequence handles\n", 25);
 		MinusE3FF2_91BF0();
 		result = 0;
 	}
@@ -4628,22 +4568,17 @@ int32_t sub_A7C20_AIL_API_init_sequence_orig(HSEQUENCE hSequence, void* start, i
 		}
 		else
 		{
-			qmemcpy(textBuffer_181C90, (void*)"Invalid XMIDI sequence\n", 0x18u);
+			qmemcpy(textBuffer_181C90, (void*)"Invalid XMIDI sequence\n", 24);
 			v6 = 0;
 		}
 	}
 	else
 	{
-		qmemcpy(textBuffer_181C90, (void*)"Invalid XMIDI sequence\n", 0x18u);
+		qmemcpy(textBuffer_181C90, (void*)"Invalid XMIDI sequence\n", 24);
 		v6 = 0;
 	}
 	return v6;
 }
-// 8E3D5: using guessed type x_DWORD sprintf(x_DWORD, const char *, ...);
-// 99682: using guessed type x_DWORD strncmp(x_DWORD, x_DWORD, x_DWORD);
-// AD81F: using guessed type x_DWORD memmove(x_DWORD, x_DWORD, x_DWORD);
-// 181C90: using guessed type char x_BYTE_181C90;
-// 181DE0: using guessed type int x_DWORD_181DE0;
 
 void AilApiStartSequence_A8010(HSEQUENCE hSequence, uint32_t track)//289010
 {
@@ -4863,16 +4798,16 @@ void AilApiTriggerCallback_A8A20(HSEQUENCE hSequence, xCALLBACK callback)
 }
 
 //----- (000A8BF0) --------------------------------------------------------
-int sub_A8BF0(MDI_DRIVER* mdi)
+int AilApiLockChannel_97F90_A8BF0(MDI_DRIVER* mdi)
 {
-	int v2; // [esp+0h] [ebp-18h]
-	HSEQUENCE v3; // [esp+4h] [ebp-14h]
-	signed int v4; // [esp+8h] [ebp-10h]
-	signed int v5; // [esp+Ch] [ebp-Ch]
-	signed int k; // [esp+10h] [ebp-8h]
-	signed int i; // [esp+14h] [ebp-4h]
-	signed int j; // [esp+14h] [ebp-4h]
-	int v9; // [esp+14h] [ebp-4h]
+	int v2;
+	HSEQUENCE v3;
+	signed int v4;
+	signed int v5;
+	signed int k;
+	signed int i;
+	signed int j;
+	int v9;
 
 	++mdi->disable_5;
 	v5 = -1;
@@ -4960,33 +4895,6 @@ void AilAPISendChannelVoiceMessage_A9140(HMDIDRIVER mdi, HSEQUENCE hSequence, in
 {
 }
 
-//----- (000A9140) --------------------------------------------------------
-void sub_A9140_AIL_API_send_channel_voice_message_orig(HMDIDRIVER mdi, HSEQUENCE hSequence, int32_t status, int32_t data_1, int32_t data_2)//28a140
-{
-	//x_DWORD *result; // eax
-
-	mdi->disable_5++;
-	if (hSequence)
-	{
-		sub_A5850(hSequence, status, data_1, data_2, 0);
-	}
-	else
-	{
-		if ((status & 0xF0) == 176 && data_1 == 7)
-		{
-			data_2 = mdi->master_volume * data_2 / 127;
-			if (data_2 > 127)
-				data_2 = 127;
-			if (data_2 < 0)
-				data_2 = 0;
-		}
-		if (!mdi->event_trap || !((int(*)(HMDIDRIVER, x_DWORD, int, unsigned int, int))mdi->event_trap)(mdi, 0, status, data_1, data_2))
-			sub_A4F10(mdi, status, data_1, data_2);
-	}
-	sub_A4EB0(mdi);
-	mdi->disable_5--;
-}
-
 IO_PARMS* AilGetIoEnvironment_92ED0(AIL_DRIVER* drvr)
 {
 	IO_PARMS* result; // [esp+Ch] [ebp-4h]
@@ -4997,7 +4905,7 @@ IO_PARMS* AilGetIoEnvironment_92ED0(AIL_DRIVER* drvr)
 	result = AilApiGetIoEnvironment_9EB60(drvr);
 	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2())
 	{
-		for (int i = 0; i < 0xE; i++)
+		for (int i = 0; i < 14; i++)
 			dbgfprintf(ailDebufFile_181BF0, " \0");
 		for (int j = 1; j < x_DWORD_181C04; j++)
 			dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
@@ -5016,7 +4924,7 @@ AIL_DRIVER* AilInstallDriver_93010(uint8_t* driver_image, int32_t n_bytes)//2740
 	AIL_DRIVER* result = AilApiInstallDriver_9E720(driver_image, n_bytes);
 	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2())
 	{
-		for (int i = 0; i < 0xE; i++)
+		for (int i = 0; i < 14; i++)
 			dbgfprintf(ailDebufFile_181BF0, " \0");
 		for (int j = 1; j < x_DWORD_181C04; j++)
 			dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
@@ -5046,7 +4954,7 @@ int AilInstallDigIni_931F0(HDIGDRIVER* dig, char* digPath)//2741f0
 	int result = AilApiInstallDigINI_A3720(dig, digPath);
 	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2())
 	{
-		for (int i = 0; i < 0xE; i++)
+		for (int i = 0; i < 14; i++)
 			dbgfprintf(ailDebufFile_181BF0, " \0");
 		for (int j = 1; j < x_DWORD_181C04; j++)
 			dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
@@ -5059,17 +4967,17 @@ int AilInstallDigIni_931F0(HDIGDRIVER* dig, char* digPath)//2741f0
 //----- (00098B2C) --------------------------------------------------------
 __int16 sub_98B2C(unsigned __int8 a1, int a2)//180804 279b2c
 {
-	unsigned __int8 v2; // cl
-	unsigned __int16 v3; // ax
-	unsigned __int16 v4; // bx
-	char v5; // ch
-	__int16 v7; // [esp-4h] [ebp-4h]
+	unsigned __int8 v2;
+	unsigned __int16 v3;
+	unsigned __int16 v4;
+	char v5;
+	__int16 v7;
 
-	v2 = a1;//mov cl,al
-	v3 = x_WORD_E3B4E;//ma byt 02, ale je 0//ax
-	v4 = x_WORD_E3B4C;//ma byt 10bc, ale je 0//bx //push
+	v2 = a1;
+	v3 = x_WORD_E3B4E;
+	v4 = x_WORD_E3B4C;
 	v7 = v4 & ((1 << v2) - 1);
-	v5 = x_BYTE_E3B51 - v2;//je nula//ch-cl
+	v5 = x_BYTE_E3B51 - v2;
 	if (x_BYTE_E3B51 < v2)
 	{
 		v4 = __ROR2__(x_WORD_E3B4E & ((1 << x_BYTE_E3B51) - 1), x_BYTE_E3B51) |
@@ -5096,7 +5004,7 @@ bool DebugSoundTimer_916F0()
 	}
 	else
 	{
-		for (int i = 0; i < 0xE; i++)
+		for (int i = 0; i < 14; i++)
 			dbgfprintf(ailDebufFile_181BF0, " \0");
 	}
 	for (int j = 1; j < x_DWORD_181C04; j++)
@@ -5559,7 +5467,7 @@ void sub_8F100_sound_proc19(uint32_t flags, __int16 index, int volume, int volum
 	}
 	AilSetSampleVolume_93E30(*soundBuffer1, volume);
 	AilSetSampleVolumePan_93ED0(*soundBuffer1, volumePan);
-	AilSetSamplePlaybackRate_93D90(*soundBuffer1, soundFrequence_E37BC * playRate / 0x64);
+	AilSetSamplePlaybackRate_93D90(*soundBuffer1, soundFrequence_E37BC * playRate / 100);
 	AilSetSampleLoopCount_93F70(*soundBuffer1, loopCount + 1);
 #ifdef DEBUG_SOUND
 	if (debug_first_sound) {
@@ -5653,7 +5561,7 @@ int32_t AilCallDriver_91F70(AIL_DRIVER* drvr, int32_t fn, VDI_CALL* in, VDI_CALL
 	int result = AilApiCallDriver_A158B(drvr, fn, in, out);
 	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2())
 	{
-		for (int i = 0; i < 0xE; i++)
+		for (int i = 0; i < 14; i++)
 			dbgfprintf(ailDebufFile_181BF0, " \0");
 		for (int j = 1; j < x_DWORD_181C04; j++)
 			dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
@@ -5684,32 +5592,32 @@ bool AilReadIniFile_92190(AIL_INI* INI, char* filename)//273190
 	{
 		if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2())
 		{
-			for (int i = 0; i < 0xE; i++)
+			for (int i = 0; i < 14; i++)
 				dbgfprintf(ailDebufFile_181BF0, " \0");
 			for (int j = 1; j < x_DWORD_181C04; j++)
 				dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
 			dbgfprintf(ailDebufFile_181BF0, "Driver = %s\n", INI->driver_name);
-			for (int k = 0; k < 0xE; k++)
+			for (int k = 0; k < 14; k++)
 				dbgfprintf(ailDebufFile_181BF0, " \0");
 			for (int l = 1; l < x_DWORD_181C04; l++)
 				dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
 			dbgfprintf(ailDebufFile_181BF0, "Device = %s\n", INI->device_name);
-			for (int m = 0; m < 0xE; m++)
+			for (int m = 0; m < 14; m++)
 				dbgfprintf(ailDebufFile_181BF0, " \0");
 			for (int n = 1; n < x_DWORD_181C04; n++)
 				dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
 			dbgfprintf(ailDebufFile_181BF0, "IO     = %X\n", INI->IO.IO);//*(signed __int16 *)(a1 + 256)
-			for (int ii = 0; ii < 0xE; ii++)
+			for (int ii = 0; ii < 14; ii++)
 				dbgfprintf(ailDebufFile_181BF0, " \0");
 			for (int jj = 1; jj < x_DWORD_181C04; jj++)
 				dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
 			dbgfprintf(ailDebufFile_181BF0, "IRQ    = %d\n", INI->IO.IRQ);//*(signed __int16 *)(a1 + 258)
-			for (int kk = 0; kk < 0xE; kk++)
+			for (int kk = 0; kk < 14; kk++)
 				dbgfprintf(ailDebufFile_181BF0, " \0");
 			for (int ll = 1; ll < x_DWORD_181C04; ll++)
 				dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
 			dbgfprintf(ailDebufFile_181BF0, "DMA_8  = %d\n", INI->IO.DMA_8_bit);//*(signed __int16 *)(a1 + 260)
-			for (int mm = 0; mm < 0xE; mm++)
+			for (int mm = 0; mm < 14; mm++)
 				dbgfprintf(ailDebufFile_181BF0, " \0");
 			for (int nn = 1; nn < x_DWORD_181C04; nn++)
 				dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
@@ -5718,7 +5626,7 @@ bool AilReadIniFile_92190(AIL_INI* INI, char* filename)//273190
 	}
 	else if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2())
 	{
-		for (int i1 = 0; i1 < 0xE; i1++)
+		for (int i1 = 0; i1 < 14; i1++)
 			dbgfprintf(ailDebufFile_181BF0, " \0");
 		for (int i2 = 1; i2 < x_DWORD_181C04; i2++)
 			dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
@@ -5865,16 +5773,16 @@ int sub_99FF5(unsigned __int8 a1)//27aff5 // some for VR?
 }
 
 //----- (0009A230) --------------------------------------------------------
-void sub_9A230_set_x_WORD_E37B4(int a1)//27B230
+void SetSoundFreq_9A230(int freq)//27B230
 {
-	switch (a1) {
+	switch (freq) {
 		case 800:
 		case 811:
 		case 822:
 		case 1611:
 		case 1622:
 		case 1644:
-			soundFreqType2_E37B4 = a1;
+			soundFreqType2_E37B4 = freq;
 			break;
 		deafult:
 			soundFreqType2_E37B4 = 0;

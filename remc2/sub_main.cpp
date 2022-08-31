@@ -85896,7 +85896,7 @@ void sub_83B50()//264B50
 			//fix
 			x_D41A0_BYTEARRAY_4_struct.dword_0xE6_heapsize_230 += 0x1000000;
 			//fix
-			sub_9A230_set_x_WORD_E37B4(822);
+			SetSoundFreq_9A230(822);
 		}
 		//v2 = (int)sub_83CD0_malloc2(x_D41A0_BYTEARRAY_4_struct.dword_0xE6_heapsize_230);
 		//v3 = x_D41A0_BYTEARRAY_4;
