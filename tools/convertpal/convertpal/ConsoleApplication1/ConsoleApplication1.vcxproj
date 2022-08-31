@@ -153,6 +153,10 @@
   <ItemGroup>
     <ClCompile Include="ConsoleApplication1.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <Library Include="..\..\..\..\libpng2\libpng-master\projects\vstudio2017\Debug\libpng15.lib" />
+    <Library Include="..\..\..\..\zlib\lib\zlib.lib" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
