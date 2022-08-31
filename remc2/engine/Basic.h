@@ -546,8 +546,8 @@ void dbgfprintf(FILE* file, const char* format, ...);
 
 x_DWORD dos_read(FILE*, char, x_DWORD, x_DWORD, char*);
 
-signed int GetFileLenght_9DE20(char* a1);
-uint8_t* ReadFile_9DEA0(char* a1, uint8_t* a2);
+int GetFileLenght_9DE20(char* filename);
+uint8_t* ReadFile_9DEA0(char* filename, uint8_t* buffer);
 
 FILE* x_open(char* path, int pmodex);
 

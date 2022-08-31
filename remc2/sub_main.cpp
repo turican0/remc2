@@ -11945,7 +11945,7 @@ void sub_18BB0()//1f9bb0
 				D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x3DF_2BE4_12221,
 				1);
 			if (soundCard_E3799)
-				sub_8D8F0_sound_proc3_endsample();
+				EndSample_8D8F0();
 			if (musicStarted_E37FD)
 				StopMusic_8E020();
 			if (x_D41A0_BYTEARRAY_4_struct.byteindex_225)
@@ -12789,7 +12789,7 @@ LABEL_12:
 		SetMousePositionInMemory_5BDC0(posX + a2, posY + 5 * height / 2);
 		if (x_D41A0_BYTEARRAY_4_struct.setting_byte3_24 & 1)
 		{
-			sub_8D8F0_sound_proc3_endsample();
+			EndSample_8D8F0();
 			StopMusic_8E020();
 		}
 	}
@@ -13330,7 +13330,7 @@ void sub_1A970_change_game_settings(char a1, int a2, int a3)//1fb970
 		sub_19760_set_message((char*)x_DWORD_E9C4C_langindexbuffer[(soundCard_E3799 != 0) + 390], 3u, 50);
 		//Sound On / Sound Off
 
-		sub_8D8F0_sound_proc3_endsample();
+		EndSample_8D8F0();
 		sub_86860_speak_Sound(x_WORD_1803EC);
 		soundCard_E3799 ^= 1u;
 		return;
@@ -38782,7 +38782,7 @@ void sub_46830_main_loop(/*int16_t* a1, */signed int a2, unsigned __int16 a3)//2
 					m_ptrGameRender = nullptr;
 				}
 				sub_53CC0_close_movie();
-				sub_8D8F0_sound_proc3_endsample();
+				EndSample_8D8F0();
 				StopMusic_8E020();
 				sub_86860_speak_Sound(x_WORD_1803EC);//get graphics parametres?
 				sub_59BF0_sound_proc11_volume();
@@ -55049,13 +55049,13 @@ void sub_56C00_sound_proc2(type_str_2FECE* a1x)//237c00
     //*(uint8_t*)& SPELLS_BEGIN_BUFFER_DA818[0x606] = 244;
     SPELLS_BEGIN_BUFFER_str[19].subspell[0].word_0x16x = 244;
     D41A0_0.m_GameSettings.str_0x2196.transparency_0x2198 = 0;
-    sub_84300_load_sound(0);
+    LoadSound_84300(0);
     x_BYTE_D419E = 1;
 	}
 	else if (v1 == MapType_t::Night)
 	{
 		D41A0_0.m_GameSettings.str_0x2196.transparency_0x2198 = 0;
-		sub_84300_load_sound(1u);
+		LoadSound_84300(1u);
 		x_BYTE_D419E = 9;
 	}
 	else if (v1 == MapType_t::Cave)
@@ -55063,7 +55063,7 @@ void sub_56C00_sound_proc2(type_str_2FECE* a1x)//237c00
 		D41A0_0.m_GameSettings.str_0x2196.transparency_0x2198 = 1;
 		isCaveLevel_D41B6 = 1;
 		x_BYTE_D41B7 = a1x->byte_0x2FED3;// *(x_BYTE*)(a1 + 5);
-		sub_84300_load_sound(2u);
+		LoadSound_84300(2u);
 		x_BYTE_D419E = 10;
 	}
 	sub_5C0A0();
@@ -59085,7 +59085,7 @@ char sub_5BF10()//23cf10
 	char result; // al
 
 	if (soundCard_E3799)
-		sub_8D8F0_sound_proc3_endsample();
+		EndSample_8D8F0();
 	if (musicStarted_E37FD)
 		StopMusic_8E020();
 	result = 0;
@@ -83994,7 +83994,7 @@ void sub_91F50(unsigned int a1)
 //----- (00092160) --------------------------------------------------------
 int sub_92160()
 {
-	return sub_A16A2();
+	return GetE3FFE_A16A2();
 }
 
 //----- (00098C48) --------------------------------------------------------
@@ -85181,45 +85181,43 @@ __int16 /*__fastcall*/ sub_9D31C(__int16 result)//27e31c
 // E3E34: using guessed type int (*off_E3E34_freex)(int);
 
 //----- (0009DEA0) --------------------------------------------------------
-uint8_t* sub_9DEA0_read_file(char* a1, uint8_t* a2)//27eea0
+uint8_t* ReadFile_9DEA0(char* filename, uint8_t* buffer)//27eea0
 {
-	uint8_t* v3; // [esp+0h] [ebp-1Ch]
-	uint8_t* result; // [esp+4h] [ebp-18h]
-	signed int v5; // [esp+10h] [ebp-Ch]
-	FILE* v6; // [esp+14h] [ebp-8h]
+	uint8_t* locBuffer;
+	uint8_t* result;
 
 	readFileStatus_E3E2C = 0;
-	v5 = GetFileLenght_9DE20(a1);
-	if (v5 == -1)
+	int fileLenght = GetFileLenght_9DE20(filename);
+	if (fileLenght == -1)
 	{
 		readFileStatus_E3E2C = 3;
 		result = 0;
 	}
 	else
 	{
-		if (a2)
-			v3 = a2;
+		if (buffer)
+			locBuffer = buffer;
 		else
 		{
-			v3 = (uint8_t*)malloc(v5);
+			locBuffer = (uint8_t*)malloc(fileLenght);
 		}
-		if (v3)
+		if (locBuffer)
 		{
-			v6 = x_open(a1, 512);
-			if (v6 == NULL)
+			FILE* locFile = x_open(filename, 512);
+			if (locFile == NULL)
 			{
-				x_free((void*)v3);
+				x_free((void*)locBuffer);
 				readFileStatus_E3E2C = 3;
 				result = 0;
 			}
-			else if (DataFileIO::Read(v6, v3, v5) == v5)
+			else if (DataFileIO::Read(locFile, locBuffer, fileLenght) == fileLenght)
 			{
-				DataFileIO::Close(v6);
-				result = v3;
+				DataFileIO::Close(locFile);
+				result = locBuffer;
 			}
 			else
 			{
-				x_free((void*)v3);
+				x_free((void*)locBuffer);
 				readFileStatus_E3E2C = 5;
 				result = 0;
 			}
@@ -85232,11 +85230,6 @@ uint8_t* sub_9DEA0_read_file(char* a1, uint8_t* a2)//27eea0
 	}
 	return result;
 }
-// A0855: using guessed type x_DWORD close(x_DWORD);
-// A0863: using guessed type x_DWORD read(x_DWORD, x_DWORD, x_DWORD);
-// E3E2C: using guessed type int x_DWORD_E3E2C;
-// E3E30: using guessed type int (*off_E3E30_mallocx)(x_DWORD);
-// E3E34: using guessed type int (*off_E3E34_freex)(int);
 
 //----- (000A0B24) --------------------------------------------------------
 int sub_A0B24(int a1)//281b24
