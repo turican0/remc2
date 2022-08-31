@@ -312,11 +312,9 @@ void sub_9E250(HMDIDRIVER mdidrv) {
 		x_DWORD_E3E38 = 0;
 	}
 }; // weak
-void sub_A2450(HMDIDRIVER  /*user*/) { stub_fix_it(); }; // weak
 int sub_A2DE0() { stub_fix_it(); return 0; }; // weak
 int sub_A47A0() { stub_fix_it(); return 0; }; // weak
 int sub_A4920() { stub_fix_it(); return 0; }; // weak
-//void sub_A6530(uint32_t user) { stub_fix_it();}; // weak
 int sub_A9C00() { stub_fix_it(); return 0; }; // weak
 int sub_A9C50() { stub_fix_it(); return 0; }; // weak
 void sub_A6F30(void*  /*a*/) { stub_fix_it(); }; // weak
@@ -5107,7 +5105,7 @@ bool DebugSoundTimer_916F0()
 }
 
 //----- (0009E2B0) --------------------------------------------------------
-int StrToInt(char* text, int maxDigits)
+int StrToInt(const char* text, int maxDigits)
 {
 	int value = 0;
 	int sign = 1;
