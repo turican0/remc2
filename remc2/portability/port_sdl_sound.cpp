@@ -402,35 +402,18 @@ struct {
 	int a;
 } environment_string;
 
-int32_t ac_sound_call_driver(AIL_DRIVER* drvr, int32_t fn, VDI_CALL*  /*in*/, VDI_CALL* out)/*AIL_DRIVER *drvr,S32 fn, VDI_CALL*in,VDI_CALL *out)*/ {
+int32_t ac_sound_call_driver(AIL_DRIVER* drvr, int32_t fn, VDI_CALL* out) {
 	switch (fn) {
 	case 0x300: {//AIL_API_install_driver
 		drvr->VHDR_4->VDI_HDR_var10 = (void*)&common_IO_configurations;
 		drvr->VHDR_4->num_IO_configurations_14 = num_IO_configurations;
-#ifdef COMPILE_FOR_64BIT
-		std::cout << "FIXME: 32 bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-		drvr->VHDR_4->environment_string_16 = 0; //FIXME
-#else
-		drvr->VHDR_4->environment_string_16 = (uint32_t)&environment_string;
-#endif
+		drvr->VHDR_4->environment_string_16 = environment_string.a;
 		drvr->VHDR_4->VDI_HDR_var46 = service_rate;
-		/*out->AX = 0;
-		out->BX = 0;
-		out->CX = 0;
-		out->DX = 0;
-		out->SI = 0;
-		out->DI = 0;*/
 		break;
 	}
-	case 0x301: {//AIL_API_install_DIG_driver_file/AIL_API_install_MDI_driver_file
-		/*drvr->AIL_DRIVER_var4_VHDR->VDI_HDR_var10 = (int)&common_IO_configurations;
-		drvr->AIL_DRIVER_var4_VHDR->num_IO_configurations = num_IO_configurations;
-		drvr->AIL_DRIVER_var4_VHDR->environment_string = &environment_string;
-		drvr->AIL_DRIVER_var4_VHDR->VDI_HDR_var46 = service_rate;*/
+	case 0x301: {//AIL_API_install_DIG_driver_file/AIL_API_install_MDI_driver_file		
 		out->AX = 1;//offset
 		out->BX = 2;//offset
-		//out->CX = 0x2c38;//segment
-		//out->DX = 0x2c38;//segment
 		out->SI = 0;
 		out->DI = 0;
 		break;
@@ -468,7 +451,6 @@ int32_t ac_sound_call_driver(AIL_DRIVER* drvr, int32_t fn, VDI_CALL*  /*in*/, VD
 		break;
 	}
 	}
-	//printf("drvr:%08X, fn:%08X, in:%08X, out:%08X\n", drvr, fn, in, out);
 	return 1;
 };
 

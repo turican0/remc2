@@ -4037,7 +4037,7 @@ void sub_A1524(unsigned int a1)//282524
 int32_t sub_A158B_AIL_API_call_driver(AIL_DRIVER* drvr, int32_t fn, VDI_CALL* in, VDI_CALL* out)//28258b
 //int sub_A158B_AIL_API_call_driver(int32_t* drvr, __int16 a2, x_WORD *a3, x_WORD *a4)
 {
-	return ac_sound_call_driver(drvr, fn, in, out);
+	return ac_sound_call_driver(drvr, fn, out);
 	/*__int16 v8; // dx
 	__int16 v9; // si
 	__int16 v10; // di
