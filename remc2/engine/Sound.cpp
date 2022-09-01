@@ -5366,7 +5366,6 @@ signed int sub_99E8E(char* a1, char** a2, signed int a3, int a4)//27ae8e // some
 {
 	signed int v4; // edi
 	char* i; // ebx
-	unsigned __int8 v6; // al
 	signed int result; // eax
 	unsigned __int8 v8; // cl
 	unsigned int v9; // esi
@@ -5386,7 +5385,7 @@ signed int sub_99E8E(char* a1, char** a2, signed int a3, int a4)//27ae8e // some
 		++i;
 	if (!a3)
 	{
-		if (*i != '0' || (v6 = i[1], v6 != 'x') && v6 != 'X')
+		if (*i != '0' || (i[1] != 'x' && i[1] != 'X'))
 		{
 			if (*i == '0')
 				v4 = 8;
@@ -5484,7 +5483,7 @@ void SetSoundFreq_9A230(int freq)//27B230
 		case 1644:
 			soundFreqType2_E37B4 = freq;
 			break;
-		deafult:
+		default:
 			soundFreqType2_E37B4 = 0;
 	};
 }
