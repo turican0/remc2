@@ -546,8 +546,6 @@ void ResetMouse_7B5A0();
 void sub_7B5D0();
 void ClearScrollDialogVars_7C020(type_str_word_26* a1x);
 char sub_7C200(uint8_t a1);
-bool SetMultiplayerColors_7CE50();
-void SetMultiplayerColors_7D310();
 void sub_7E840_draw_textbox_with_line(type_E24BCx* a1x, __int16 a2, __int16 a3);
 void sub_7E8D0(x_WORD* a1, __int16 a2, __int16 a3, __int16 a4, __int16 a5, __int16 a6, __int16 a7);
 bool sub_7E9D0(x_WORD* a1, x_WORD* a2, x_WORD* a3);
