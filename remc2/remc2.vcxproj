@@ -124,9 +124,9 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;_DEBUG;_CONSOLE;WINDOWS_IGNORE_PACKING_MISMATCH;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\sdl2\include;$(SolutionDir)\fluidsynth\include;$(SolutionDir)\libADLMIDI-master\include;$(SolutionDir)\libOPNMIDI-master\include;$(SolutionDir)\SDL-Mixer-X-master\include\SDL_mixer_ext;$(SolutionDir)\SDL-Mixer-X-master\src;$(SolutionDir)\inih;$(SolutionDir)\libvorbis\include;$(SolutionDir)\libogg\include;C:\Program Files %28x86%29\Visual Leak Detector\include;$(SolutionDir)\libpng2\libpng-master;$(SolutionDir)\zlib\include;$(SolutionDir)\kiss_sdl-master;$(SolutionDir)\SDL2_image-2.0.5\include;$(SolutionDir)\SDL2_ttf-2.0.15\include;$(SolutionDir)\SDL-Mixer-X-master\include\;$(SolutionDir)\SDL-Mixer-X-master\src\codecs\;$(SolutionDir)\OpenAL 1.1 SDK\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\sdl2\include;$(SolutionDir)\libADLMIDI-master\include;$(SolutionDir)\libOPNMIDI-master\include;$(SolutionDir)\SDL-Mixer-X-master\include\SDL_mixer_ext;$(SolutionDir)\SDL-Mixer-X-master\src;$(SolutionDir)\inih;$(SolutionDir)\libvorbis\include;$(SolutionDir)\libogg\include;$(SolutionDir)\libpng2\libpng-master;$(SolutionDir)\zlib\include;$(SolutionDir)\kiss_sdl-master;$(SolutionDir)\SDL2_image-2.0.5\include;$(SolutionDir)\SDL2_ttf-2.0.15\include;$(SolutionDir)\SDL-Mixer-X-master\src\codecs\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
       <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -135,7 +135,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)\sdl2\VisualC\Win32\Debug\;$(SolutionDir)\Debug;$(SolutionDir)\fluidsynth\lib;$(SolutionDir)\libvorbis\win32\VS2010\Win32\Debug;$(SolutionDir)\libogg\win32\VS2015\Win32\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)\sdl2\VisualC\Win32\Debug\;$(SolutionDir)\Debug;$(SolutionDir)\libvorbis\win32\VS2010\Win32\Debug;$(SolutionDir)\libogg\win32\VS2015\Win32\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>SDL2.lib;SDL2main.lib;winmm.lib;libvorbis_static.lib;libvorbisfile_static.lib;libogg_static.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
@@ -150,7 +150,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)\sdl2\include;$(SolutionDir)\fluidsynth\include;$(SolutionDir)\libADLMIDI-master\include;$(SolutionDir)\libOPNMIDI-master\include;$(SolutionDir)\SDL-Mixer-X-master\include\SDL_mixer_ext;$(SolutionDir)\SDL-Mixer-X-master\src;$(SolutionDir)\inih;$(SolutionDir)\libvorbis\include;$(SolutionDir)\libogg\include;C:\Program Files %28x86%29\Visual Leak Detector\include;$(SolutionDir)\libpng2\libpng-master;$(SolutionDir)\zlib\include;$(SolutionDir)\kiss_sdl-master;$(SolutionDir)\SDL2_image-2.0.5\include;$(SolutionDir)\SDL2_ttf-2.0.15\include;$(SolutionDir)\SDL-Mixer-X-master\include\;$(SolutionDir)\SDL-Mixer-X-master\src\codecs\;$(SolutionDir)\OpenAL 1.1 SDK\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
@@ -177,7 +177,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)\sdl2\include;$(SolutionDir)\fluidsynth\include;$(SolutionDir)\libADLMIDI-master\include;$(SolutionDir)\libOPNMIDI-master\include;$(SolutionDir)\SDL-Mixer-X-master\include\SDL_mixer_ext;$(SolutionDir)\SDL-Mixer-X-master\src;$(SolutionDir)\inih;$(SolutionDir)\libvorbis\include;$(SolutionDir)\libogg\include;C:\Program Files %28x86%29\Visual Leak Detector\include;$(SolutionDir)\libpng2\libpng-master;$(SolutionDir)\zlib\include;$(SolutionDir)\kiss_sdl-master;$(SolutionDir)\SDL2_image-2.0.5\include;$(SolutionDir)\SDL2_ttf-2.0.15\include;$(SolutionDir)\SDL-Mixer-X-master\include\;$(SolutionDir)\SDL-Mixer-X-master\src\codecs\;$(SolutionDir)\OpenAL 1.1 SDK\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OmitFramePointers>false</OmitFramePointers>
@@ -207,7 +207,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)\sdl2\include;$(SolutionDir)\fluidsynth\include;$(SolutionDir)\libADLMIDI-master\include;$(SolutionDir)\libOPNMIDI-master\include;$(SolutionDir)\SDL-Mixer-X-master\include\SDL_mixer_ext;$(SolutionDir)\SDL-Mixer-X-master\src;$(SolutionDir)\inih;$(SolutionDir)\libvorbis\include;$(SolutionDir)\libogg\include;C:\Program Files %28x86%29\Visual Leak Detector\include;$(SolutionDir)\libpng2\libpng-master;$(SolutionDir)\zlib\include;$(SolutionDir)\kiss_sdl-master;$(SolutionDir)\SDL2_image-2.0.5\include;$(SolutionDir)\SDL2_ttf-2.0.15\include;$(SolutionDir)\SDL-Mixer-X-master\include\;$(SolutionDir)\SDL-Mixer-X-master\src\codecs\;$(SolutionDir)\OpenAL 1.1 SDK\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OmitFramePointers>false</OmitFramePointers>
@@ -240,7 +240,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)\sdl2\include;$(SolutionDir)\fluidsynth\include;$(SolutionDir)\libADLMIDI-master\include;$(SolutionDir)\libOPNMIDI-master\include;$(SolutionDir)\SDL-Mixer-X-master\include\SDL_mixer_ext;$(SolutionDir)\SDL-Mixer-X-master\src;$(SolutionDir)\inih;$(SolutionDir)\libvorbis\include;$(SolutionDir)\libogg\include;C:\Program Files %28x86%29\Visual Leak Detector\include;$(SolutionDir)\libpng2\libpng-master;$(SolutionDir)\zlib\include;$(SolutionDir)\kiss_sdl-master;$(SolutionDir)\SDL2_image-2.0.5\include;$(SolutionDir)\SDL2_ttf-2.0.15\include;$(SolutionDir)\SDL-Mixer-X-master\include\;$(SolutionDir)\SDL-Mixer-X-master\src\codecs\;$(SolutionDir)\OpenAL 1.1 SDK\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
@@ -265,7 +265,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -354,11 +354,18 @@
     <ClInclude Include="..\SDL-Mixer-X-master\src\music.h" />
     <ClInclude Include="engine\Animation.h" />
     <ClInclude Include="engine\Basic.h" />
+    <ClInclude Include="engine\CommandLineParser.h" />
     <ClInclude Include="engine\GameRenderInterface.h" />
     <ClInclude Include="engine\GameRenderGL.h" />
     <ClInclude Include="engine\GameRenderHD.h" />
+    <ClInclude Include="engine\globals.h" />
+    <ClInclude Include="engine\global_types.h" />
+    <ClInclude Include="engine\MenusAndIntros.h" />
     <ClInclude Include="engine\GameRenderOriginal.h" />
+    <ClInclude Include="engine\Network.h" />
     <ClInclude Include="engine\ProjectionPolygon.h" />
+    <ClInclude Include="engine\TypeConfigDat.h" />
+    <ClInclude Include="engine\Rectangle.h" />
     <ClInclude Include="engine\Type_BigSpritesBuffer.h" />
     <ClInclude Include="engine\Sound.h" />
     <ClInclude Include="engine\Terrain.h" />
@@ -376,6 +383,7 @@
     <ClInclude Include="engine\ViewPort.h" />
     <ClInclude Include="engine\XUnk_D4350.h" />
     <ClInclude Include="engine\RenderThread.h" />
+    <ClInclude Include="portability\fcaseopen.h" />
     <ClInclude Include="portability\port_net.h" />
     <ClInclude Include="utilities\BitmapIO.h" />
     <ClInclude Include="utilities\DataFileIO.h" />
@@ -466,12 +474,14 @@
     <ClCompile Include="..\SDL-Mixer-X-master\src\mixer.c" />
     <ClCompile Include="..\SDL-Mixer-X-master\src\mixer_x_deprecated.c" />
     <ClCompile Include="..\SDL-Mixer-X-master\src\music.c" />
-    <ClCompile Include="..\temp\dirent.c" />
     <ClCompile Include="engine\Animation.cpp" />
     <ClCompile Include="engine\Basic.cpp" />
+    <ClCompile Include="engine\CommandLineParser.cpp" />
     <ClCompile Include="engine\GameRenderGL.cpp" />
     <ClCompile Include="engine\GameRenderHD.cpp" />
+    <ClCompile Include="engine\MenusAndIntros.cpp" />
     <ClCompile Include="engine\GameRenderOriginal.cpp" />
+    <ClCompile Include="engine\Network.cpp" />
     <ClCompile Include="engine\ProjectionPolygon.cpp" />
     <ClCompile Include="engine\Sound.cpp" />
     <ClCompile Include="engine\Terrain.cpp" />
@@ -485,6 +495,8 @@
     <ClCompile Include="engine\ViewPort.cpp" />
     <ClCompile Include="engine\XUnk_D4350.cpp" />
     <ClCompile Include="engine\RenderThread.cpp" />
+    <ClCompile Include="portability\dirent.c" />
+    <ClCompile Include="portability\fcaseopen.cpp" />
     <ClCompile Include="portability\port_net.cpp" />
     <ClCompile Include="utilities\BitmapIO.cpp" />
     <ClCompile Include="utilities\DataFileIO.cpp" />

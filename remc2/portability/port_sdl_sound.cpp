@@ -23,6 +23,14 @@ char oggmusicFolder[512];
 
 bool fixspeedsound = false;
 
+int32_t last_sequence_num = 0;
+
+int lastMusicVolume = -1;
+int settingsMusicVolume = 127;
+int num_IO_configurations = 3;
+int service_rate = -1;
+int master_volume = -1;
+
 //The music that will be played
 #ifdef SOUND_SDLMIXER
 Mix_Music* GAME_music[20] = { NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL };
@@ -82,9 +90,16 @@ void SOUND_start_sequence(int32_t sequence_num) {
 	//3 - menu
 	//4 - intro
 #ifdef SOUND_SDLMIXER
+	last_sequence_num = sequence_num;
 	//volume fix
-	if(Mix_VolumeMusic(-1)==0)
-		Mix_VolumeMusic(0x7f);
+	if (lastMusicVolume == -1)
+	{
+		SOUND_set_sequence_volume(0x64, 0);
+	}
+	if (lastMusicVolume != settingsMusicVolume)
+	{
+		SOUND_set_sequence_volume(settingsMusicVolume, 0);
+	}
 	//volume fix
 
 	if (Mix_PlayingMusic() == 0)
@@ -119,11 +134,40 @@ void SOUND_resume_sequence(int32_t  /*sequence_num*/) {
 #endif//SOUND_SDLMIXER
 };
 
-void SOUND_set_sequence_volume(int32_t volume) {
+void SOUND_set_sequence_volume(int32_t volume, int32_t  milliseconds) {
 #ifdef SOUND_SDLMIXER
-	Mix_VolumeMusic(volume);
+#ifndef __linux__
+	if ((milliseconds > 0) && (volume == 0))
+	{
+		if (GAME_music[last_sequence_num])
+		{
+			double position = Mix_GetMusicPosition(GAME_music[last_sequence_num]);
+			if (position != 0)
+			{
+				Mix_FadeOutMusic(milliseconds);
+				Mix_SetMusicPosition(position);
+			}
+		}
+	}
+	else if ((milliseconds > 0) && (lastMusicVolume == 0))
+	{
+		if (GAME_music[last_sequence_num])
+		{
+			double position = Mix_GetMusicPosition(GAME_music[last_sequence_num]);
+			if (position != 0)
+			{
+				Mix_FadeInMusicPos(GAME_music[last_sequence_num], 1, milliseconds, position);
+			}
+		}
+	}
+	else
+#endif //__linux__
+		Mix_VolumeMusic(volume);
+	lastMusicVolume = volume;
+	if (milliseconds == 0)
+		settingsMusicVolume = volume;
 #endif//SOUND_SDLMIXER
-};
+}
 
 void SOUND_init_MIDI_sequence(uint8_t*  /*datax*/, type_E3808_music_header* headerx, int32_t track_number)
 {
@@ -140,9 +184,7 @@ void SOUND_init_MIDI_sequence(uint8_t*  /*datax*/, type_E3808_music_header* head
 
 	if (oggmusic) {
 
-		char oggmusicPath[MAX_PATH];
-
-		GetSubDirectoryPath(oggmusicPath, oggmusicFolder);
+		std::string oggmusicPath = GetSubDirectoryPath(oggmusicFolder);
 		char alternativeMusicPath[512] = "";
 		char selectedTrackPath[512] = "";
 		//if (track_number > 1)track_number = 0;
@@ -150,31 +192,31 @@ void SOUND_init_MIDI_sequence(uint8_t*  /*datax*/, type_E3808_music_header* head
 		{
 			if (track_number == 0)
 			{
-				sprintf(alternativeMusicPath, "%s/alternative/day", oggmusicPath);
+				sprintf(alternativeMusicPath, "%s/alternative/day", oggmusicPath.c_str());
 			}
 			else if (track_number == 1)
 			{
-				sprintf(alternativeMusicPath, "%s/alternative/night", oggmusicPath);
+				sprintf(alternativeMusicPath, "%s/alternative/night", oggmusicPath.c_str());
 			}
 			else if (track_number == 2)
 			{
-				sprintf(alternativeMusicPath, "%s/alternative/cave", oggmusicPath);
+				sprintf(alternativeMusicPath, "%s/alternative/cave", oggmusicPath.c_str());
 			}
 			else if (track_number == 3)
 			{
-				sprintf(alternativeMusicPath, "%s/alternative/cave", oggmusicPath);
+				sprintf(alternativeMusicPath, "%s/alternative/cave", oggmusicPath.c_str());
 			}
 			else if (track_number == 4)
 			{
-				sprintf(alternativeMusicPath, "%s/alternative/cave", oggmusicPath);
+				sprintf(alternativeMusicPath, "%s/alternative/cave", oggmusicPath.c_str());
 			}
 			else if (track_number == 5)
 			{
-				sprintf(alternativeMusicPath, "%s/alternative/cave", oggmusicPath);
+				sprintf(alternativeMusicPath, "%s/alternative/cave", oggmusicPath.c_str());
 			}
 			else
 			{
-				sprintf(alternativeMusicPath, "%s/alternative/cave", oggmusicPath);
+				sprintf(alternativeMusicPath, "%s/alternative/cave", oggmusicPath.c_str());
 			}
 
 			helpdirsstruct = getListDir(alternativeMusicPath);
@@ -183,15 +225,15 @@ void SOUND_init_MIDI_sequence(uint8_t*  /*datax*/, type_E3808_music_header* head
 			{
 				int randtrack = rand()%(helpdirsstruct.number + 1);
 				if(randtrack==0)
-					sprintf(selectedTrackPath, "%s/music%d.ogg", oggmusicPath, track_number);
+					sprintf(selectedTrackPath, "%s/music%d.ogg", oggmusicPath.c_str(), track_number);
 				else
 					sprintf(selectedTrackPath, "%s/%s", alternativeMusicPath ,helpdirsstruct.dir[randtrack-1]);
 			}
 			else
-				sprintf(selectedTrackPath, "%s/music%d.ogg", oggmusicPath, track_number);
+				sprintf(selectedTrackPath, "%s/music%d.ogg", oggmusicPath.c_str(), track_number);
 		}
 		else
-			sprintf(selectedTrackPath, "%s/music%d.ogg", oggmusicPath, track_number);
+			sprintf(selectedTrackPath, "%s/music%d.ogg", oggmusicPath.c_str(), track_number);
 #ifdef SOUND_SDLMIXER
 		GAME_music[track_number] = Mix_LoadMUS(selectedTrackPath);
 #endif//SOUND_SDLMIXER
@@ -360,39 +402,18 @@ struct {
 	int a;
 } environment_string;
 
-int num_IO_configurations = 3;
-int service_rate = -1;
-//HSAMPLE last_sample;
-
-int32_t ac_sound_call_driver(AIL_DRIVER* drvr, int32_t fn, VDI_CALL*  /*in*/, VDI_CALL* out)/*AIL_DRIVER *drvr,S32 fn, VDI_CALL*in,VDI_CALL *out)*/ {
+int32_t ac_sound_call_driver(AIL_DRIVER* drvr, int32_t fn, VDI_CALL* out) {
 	switch (fn) {
 	case 0x300: {//AIL_API_install_driver
 		drvr->VHDR_4->VDI_HDR_var10 = (void*)&common_IO_configurations;
 		drvr->VHDR_4->num_IO_configurations_14 = num_IO_configurations;
-#ifdef COMPILE_FOR_64BIT
-		std::cout << "FIXME: 32 bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-		drvr->VHDR_4->environment_string_16 = 0; //FIXME
-#else
-		drvr->VHDR_4->environment_string_16 = (uint32_t)&environment_string;
-#endif
+		drvr->VHDR_4->environment_string_16 = environment_string.a;
 		drvr->VHDR_4->VDI_HDR_var46 = service_rate;
-		/*out->AX = 0;
-		out->BX = 0;
-		out->CX = 0;
-		out->DX = 0;
-		out->SI = 0;
-		out->DI = 0;*/
 		break;
 	}
-	case 0x301: {//AIL_API_install_DIG_driver_file/AIL_API_install_MDI_driver_file
-		/*drvr->AIL_DRIVER_var4_VHDR->VDI_HDR_var10 = (int)&common_IO_configurations;
-		drvr->AIL_DRIVER_var4_VHDR->num_IO_configurations = num_IO_configurations;
-		drvr->AIL_DRIVER_var4_VHDR->environment_string = &environment_string;
-		drvr->AIL_DRIVER_var4_VHDR->VDI_HDR_var46 = service_rate;*/
+	case 0x301: {//AIL_API_install_DIG_driver_file/AIL_API_install_MDI_driver_file		
 		out->AX = 1;//offset
 		out->BX = 2;//offset
-		//out->CX = 0x2c38;//segment
-		//out->DX = 0x2c38;//segment
 		out->SI = 0;
 		out->DI = 0;
 		break;
@@ -430,24 +451,28 @@ int32_t ac_sound_call_driver(AIL_DRIVER* drvr, int32_t fn, VDI_CALL*  /*in*/, VD
 		break;
 	}
 	}
-	//printf("drvr:%08X, fn:%08X, in:%08X, out:%08X\n", drvr, fn, in, out);
 	return 1;
 };
 
 void SOUND_set_master_volume(int32_t volume) {
 	//gamechunk[S->index_sample].volume = volume;
 #ifdef SOUND_SDLMIXER
-	Mix_Volume(-1, volume);
+	master_volume = volume;
+
+	for (int i = 0; i < 32; i++)
+		Mix_Volume(i, (int)((gamechunk[i].volume * master_volume) / 127));
 #endif//SOUND_SDLMIXER
-	
+
 	//may be can fix - must analyze
 
 }
 
 void SOUND_set_sample_volume(HSAMPLE S, int32_t volume) {
 #ifdef SOUND_SDLMIXER
+	if (master_volume == -1)
+		master_volume = 127;
 	gamechunk[S->index_sample].volume = volume;
-	Mix_Volume(S->index_sample, volume);
+	Mix_Volume(S->index_sample, (int)((gamechunk[S->index_sample].volume * master_volume) / 127));
 #endif//SOUND_SDLMIXER
 }
 
@@ -614,7 +639,7 @@ AIL_DRIVER* ac_AIL_API_install_driver(int  /*a1*/, uint8_t*  /*a2*/, int  /*a3*/
 	return 0;
 }
 
-uint16_t actvect[0x1000];
+uint16_t actvect[4096];
 
 void ac_set_real_vect(uint32_t vectnum, uint16_t real_ptr)
 {

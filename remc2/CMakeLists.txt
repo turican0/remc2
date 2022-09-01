@@ -78,6 +78,8 @@ set(SOURCE_FILES_ENGINE
     "engine/ProjectionPolygon.h"
     "engine/Sound.cpp"
     "engine/Sound.h"
+    "engine/Network.cpp"
+    "engine/Network.h"
     "engine/Basic.cpp"
     "engine/Basic.h"
     "engine/Animation.cpp"
@@ -87,8 +89,13 @@ set(SOURCE_FILES_ENGINE
     "engine/sub_main_mouse.h"
     "engine/ViewPort.cpp"
     "engine/ViewPort.h"
+    "engine/CommandLineParser.cpp"
+    "engine/CommandLineParser.h"
+    "engine/MenusAndIntros.cpp"
+    "engine/MenusAndIntros.h"
 )
 source_group("Source Files\\engine" FILES ${SOURCE_FILES_ENGINE})
+
 
 set(SOURCE_FILES__libs__inih
     "../inih/ini.c"
@@ -109,6 +116,8 @@ source_group("Source Files\\libs\\findfirst" FILES ${SOURCE_FILES__libs__findfir
 
 set(SOURCE_FILES__portability
     "portability/mctypes.h"
+    "portability/fcaseopen.cpp"
+    "portability/fcaseopen.h"
     "portability/port_net.cpp"
     "portability/port_net.h"
     "portability/port_filesystem.cpp"
@@ -127,12 +136,6 @@ set(SOURCE_FILES__portability
     "portability/xmi2mid.h"
 )
 source_group("Source Files\\portability" FILES ${SOURCE_FILES__portability})
-set(SOURCE_FILES__networklib
-    "networklib/Constants.h"
-    "networklib/LockedQueue.h"
-    "networklib/Log.h"
-)
-source_group("Source Files\\networklib" FILES ${SOURCE_FILES__networklib})
 set(ALL_FILES
     ${HEADER_FILES}
     ${SOURCE_FILES}
@@ -147,13 +150,6 @@ set(ALL_FILES
 ################################################################################
 add_library(findfirst ${SOURCE_FILES__libs__findfirst})
 add_executable(${PROJECT_NAME} ${ALL_FILES})
-if (USE_64_BIT)
-    set_target_properties(findfirst PROPERTIES COMPILE_FLAGS "-m64" LINK_FLAGS "-m64")
-    set_target_properties(${PROJECT_NAME} PROPERTIES COMPILE_FLAGS "-m64" LINK_FLAGS "-m64")
-else ()
-    set_target_properties(findfirst PROPERTIES COMPILE_FLAGS "-m32" LINK_FLAGS "-m32")
-    set_target_properties(${PROJECT_NAME} PROPERTIES COMPILE_FLAGS "-m32" LINK_FLAGS "-m32")
-endif ()
 
 install(
     TARGETS ${PROJECT_NAME}
@@ -214,34 +210,6 @@ if (UNIX)
 endif ()
 
 
-################################################################################
-# Unit tests
-################################################################################
-if (UNIT_TESTS)
-    include(GoogleTest)
-
-    add_executable(remc2unittests UnitTests.cpp)
-    target_include_directories(remc2unittests PUBLIC
-        "${CMAKE_SOURCE_DIR}/findfirst"
-    )
-    target_link_libraries(remc2unittests PUBLIC 
-        findfirst
-        gtest
-        pthread
-    )
-    if (USE_64_BIT)
-        add_compile_definitions(COMPILE_FOR_64BIT)
-        set_target_properties(remc2unittests PROPERTIES COMPILE_FLAGS "-m64" LINK_FLAGS "-m64")
-    else ()
-        set_target_properties(remc2unittests PROPERTIES COMPILE_FLAGS "-m32" LINK_FLAGS "-m32")
-    endif ()
-    gtest_add_tests(TARGET      remc2unittests
-                    TEST_SUFFIX .noArgs
-                    TEST_LIST   noArgsTests
-    )
-    set_tests_properties(${noArgsTests}   PROPERTIES TIMEOUT 10)
-endif ()
-
 # editor
 if (EDITOR)
     add_subdirectory(editor)
@@ -261,9 +229,6 @@ if (UNIX)
             -static-libubsan
         )
         target_link_options(remc2 PRIVATE ${SANITIZER_OPTIONS})
-        if (UNIT_TESTS)
-            target_link_options(remc2unittests PRIVATE ${SANITIZER_OPTIONS})
-        endif () 
         if (EDITOR)
             target_link_options(remc2editor PRIVATE ${SANITIZER_OPTIONS})
         endif ()

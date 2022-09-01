@@ -2,36 +2,49 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "(gdb) Launch",
+            "name": "Game",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/build/Debug/inst/bin/remc2",
-            "args": [],
+            "args": [
+            ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/build/Debug/inst/bin",
             "environment": [],
             "externalConsole": false,
             "MIMode": "gdb",
-            //"setupCommands": [
-            //    {
-            //        "description": "Enable pretty-printing for gdb",
-            //        "text": "-enable-pretty-printing",
-            //        "ignoreFailures": true
-            //    }
-            //],
             "miDebuggerPath": "/usr/bin/gdb"
         },
         {
-            "name": "Attach to gdbserver",
-            "type": "gdb",
-            "request": "attach",
-            "executable": "${workspaceRoot}/build/Debug/inst/bin/remc2",
-            "target": ":9999",
-            "remote": true,
-            "cwd": "${workspaceRoot}/build/Debug/inst/bin",
-            "autorun": [ ],
-            "printCalls": true,
-            "showDevDebugOutput": true 
-        }
+            "name": "Game Sanitizer",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/buildsanitizers/Debug/inst/bin/remc2",
+            "args": [
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/buildsanitizers/Debug/inst/bin",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "miDebuggerPath": "/usr/bin/gdb"
+        },
+        {
+            "name": "Regression Tests",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/Debug/inst/bin/remc2",
+            "args": [
+                "reglevel", "0",
+                "--mode_test_regressions_game",
+                "--memimages_path", "${workspaceFolder}/build/Debug/inst/memimages/"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/build/Debug/inst/bin",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "miDebuggerPath": "/usr/bin/gdb"
+        },
     ]
 }

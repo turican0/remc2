@@ -56,7 +56,7 @@ unsigned char* BitmapIO::CreateBitBitmapInfoHeader(int infoHeaderSize, int width
 	return infoHeader;
 }
 
-void BitmapIO::WriteImageBufferAsImageBMP(char* path, int width, int height, uint8_t* ptrPalette, uint8_t* ptrBuffer)
+void BitmapIO::WriteImageBufferAsImageBMP(const char* path, int width, int height, uint8_t* ptrPalette, uint8_t* ptrBuffer)
 {
 	int widthInBytes = (width * BitmapIO::TRUECOLOR_BYTES_PER_PIXEL);
 
@@ -99,7 +99,7 @@ void BitmapIO::WriteImageBufferAsImageBMP(char* path, int width, int height, uin
 	fclose(imageFile);
 }
 
-void BitmapIO::WriteRGBAImageBufferAsImageBMP(char* path, int width, int height, uint8_t* ptrPalette, uint8_t* ptrBuffer)
+void BitmapIO::WriteRGBAImageBufferAsImageBMP(const char* path, int width, int height, uint8_t* ptrPalette, uint8_t* ptrBuffer)
 {
 	int widthInBytes = (width * BitmapIO::RGBA_BYTES_PER_PIXEL);
 	int paddingSize = (4 - (widthInBytes) % 4) % 4;
@@ -139,7 +139,7 @@ void BitmapIO::WriteRGBAImageBufferAsImageBMP(char* path, int width, int height,
 	fclose(imageFile);
 }
 
-void BitmapIO::WritePaletteAsImageBMP(char* path, int numColors, uint8_t* ptrPalette)
+void BitmapIO::WritePaletteAsImageBMP(const char* path, int numColors, uint8_t* ptrPalette)
 {
 	int widthInBytes = (numColors * BitmapIO::TRUECOLOR_BYTES_PER_PIXEL);
 

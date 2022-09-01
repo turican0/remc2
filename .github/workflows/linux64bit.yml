@@ -36,7 +36,7 @@ jobs:
         cd ${{ github.workspace }}
         mkdir build_release
         cd build_release
-        cmake -DCMAKE_BUILD_TYPE=Release -DUSE_64_BIT=True -DGITHUB_CI_COMPATIBILITY_PATH="${{env.GITHUB_CI_COMPATIBILITY_PATH}}" ..
+        cmake -DCMAKE_BUILD_TYPE=Release -DUSE_64_BIT=True -DUNIT_TESTS=True -DGITHUB_CI_COMPATIBILITY_PATH="${{env.GITHUB_CI_COMPATIBILITY_PATH}}" ..
         
     - name: make release
       run: |
@@ -46,12 +46,11 @@ jobs:
         unzip -o build-wrapper-linux-x86.zip
         build-wrapper-linux-x86/build-wrapper-linux-x86-64 --out-dir build_wrapper_output make
         
-    # skip 64bit UT until ingame save with correct size is clarified, see convert_struct_to_array_D41A0_0
-    #- name: run unit tests
-    #  run: |
-    #    cd ${{ github.workspace }}
-    #    cd build_release
-    #    ./remc2/remc2unittests
+    - name: run unit tests
+      run: |
+        cd ${{ github.workspace }}
+        cd build_release/remc2-test
+        ./remc2-test
 
     - name: sonarcloud scan
       if: github.repository_owner == 'thobbsinteractive'

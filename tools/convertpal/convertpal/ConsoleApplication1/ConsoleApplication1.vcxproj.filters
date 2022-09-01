@@ -13,10 +13,21 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Zdrojové soubory\libs">
+      <UniqueIdentifier>{38a07781-b6ce-46dd-8ee7-503ab90cf70c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ConsoleApplication1.cpp">
       <Filter>Zdrojové soubory</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="..\..\..\..\libpng2\libpng-master\projects\vstudio2017\Debug\libpng15.lib">
+      <Filter>Zdrojové soubory\libs</Filter>
+    </Library>
+    <Library Include="..\..\..\..\zlib\lib\zlib.lib">
+      <Filter>Zdrojové soubory\libs</Filter>
+    </Library>
   </ItemGroup>
 </Project>

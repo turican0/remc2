@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <cstdint>
 #include <assert.h>
+#include <array>
 #include <sstream>
 #include <stddef.h>
 #include <stdarg.h>     /* va_list, va_start, va_arg, va_end */
@@ -16,6 +17,7 @@
 #else
 #endif
 
+#include "global_types.h"
 #include "../portability/port_time.h"
 #include "../portability/port_sdl_vga_mouse.h"
 
@@ -63,6 +65,7 @@ template<class T, class U> int8 __OFADD__x(T x, U y)
 void allert_error();
 
 extern uint8_t* readbuffer;
+extern const int printBufferSize;
 extern char* printbuffer;//char* buffer; // [esp+0h] [ebp-2h]
 extern char* printbuffer2;//char v11; // [esp+40h] [ebp+3Eh]
 //extern uint8_t *x_DWORD_E9C38_smalltit; // weak
@@ -139,67 +142,6 @@ extern uint8_t* off_D41A8_sky;
 extern uint8_t* x_BYTE_14B4E0_second_heightmap;
 
 #pragma pack (1)
-typedef struct {
-	uint8_t byte1;
-	uint8_t byte2;
-}doublebyte;
-
-typedef struct {
-	doublebyte dbyte1_2;
-	doublebyte dbyte3_4;
-}tetrabytebyte;
-
-typedef struct {
-	uint16_t x;
-	uint16_t y;
-}axis_2du;
-
-typedef struct {
-	int16_t x;
-	int16_t y;
-}axis_2d;
-
-typedef struct {
-	int32_t x;
-	int32_t y;
-}axis_2d_32;
-
-typedef struct {
-	uint16_t x;
-	uint16_t y;
-	uint16_t z;
-}axis_3d;
-
-typedef struct {
-	int16_t x;
-	int16_t y;
-	int16_t z;
-}axis_3ds;
-/*
-typedef struct {
-	uint16_t x;
-	uint16_t y;
-	uint16_t z;
-}axis_3du;
-*/
-typedef struct {
-	int16_t yaw;
-	int16_t pitch;
-	int16_t roll;
-	int16_t fov;
-}axis_4d;
-
-typedef struct {
-	uint8_t x;
-	uint8_t y;
-} baxis_2d;
-
-typedef union {
-	baxis_2d _axis_2d;
-	uint16_t word;
-}
-uaxis_2d;
-
 typedef struct {//lenght 10
 	int8_t str_0x6E3E_byte0;//0x6E3E-28222//D41A0_BYTESTR_0.array_0x6E3E[xx].str_0x6E3E_byte0
 	int8_t str_0x6E3E_byte1;//0x6E3F-28223
@@ -218,318 +160,10 @@ typedef struct {//lenght 10
 8-2bit-28230
 */
 
-typedef struct {
-	uint8_t byte[0x1a];
-	//uint16_t word_2279;
-}
-type_8_1a;
-
-typedef struct {
-	int16_t word[0x1a];
-	//uint16_t word_2279;
-}
-type_16_1a;
-
-typedef struct {
-	int32_t dword[0x1a];
-	//uint16_t word_2279;
-}
-type_32_1a;
-
-typedef union {
-	uint8_t byte[4];
-	uint16_t word[2];
-	uint32_t dword;
-}
-dw_w_b;
-typedef struct {//begin 611//str_611
-	type_32_1a array_0x263_611x;//size??//dword_0x649_2BDE
-	type_32_1a array_0x2CB_715x;//104//size??
-	//array_0x2CB_715[2] 723
-	type_16_1a array_0x333_819x;//208//size?? spells//word_0x719_2BDE
-	//821//array_0x333_819[1]
-	//823//array_0x333_819[2]
-	//825//array_0x333_819[3]
-	//827//array_0x333_819[4]
-	//835//array_0x333_819[8]
-	//type_16_1a word_0x34B_843;//232//remove it array_0x333_819x.word[0xc]
-	//type_16_1a word_0x34F_847;//remove it array_0x333_819x.word[0xe]
-	type_16_1a array_0x367_871x;//260//ok
-	//875 -array_0x367_871[4]
-	type_8_1a array_0x39B_923x;//312//size??//byte_0x781_2BDE
-	type_8_1a array_0x3B5_949x;//338//size??//array_0x79B_2BDE_13177
-	//int8_t array_0x41D_1053x[0x1a];//size??
-	//int8_t array_0x41E_1054;//array_0x41D_1053x[1]
-	//int8_t array_0x41F_1055;//array_0x41D_1053x[2]
-	//int8_t array_0x420_1056;//array_0x41D_1053x[3]
-	//int8_t array_0x422_1058;//array_0x41D_1053x[5]
-	//int8_t array_0x423_1059;//array_0x41D_1053x[6]
-	//int8_t array_0x424_1060;//array_0x41D_1053x[7]
-	//int8_t array_0x425_1061;//array_0x41D_1053x[8]
-	//int8_t array_0x428_1064;//array_0x41D_1053x[11]
-	//int8_t array_0x433_1075;//array_0x41D_1053x[22]
-	//1079 501+611//spell index
-	type_8_1a array_0x3CF_975x;//364//byte_0x7B5_2BDE
-	type_8_1a array_0x3E9_1001x;//390//size??//array_0x7CF_2BDE_13229
-	type_8_1a array_0x403_1027x;//416//size??//byte_0x7E9_2BDE
-	type_8_1a array_0x41D_1053z;//442//size??//byte_0x803_2BDE
-	type_8_1a array_0x437_1079x;//468//size?? //table of spell indexes//byte_0x81D_2BDE
-	int16_t word_0x451_1105;//494 act left spell index//word_0x837_2BDE
-	int16_t word_0x453_1107;//496 act right spell index//word_0x839_2BDE
-	int8_t byte_0x455_1109;//498
-	int8_t byte_0x456_1110;//499
-	int8_t byte_0x457_1111;//500//byte_0x83D_2BDE //select spell/type spell
-	int8_t byte_0x458_1112;//501//byte_0x83E_2BDE
-	int8_t byte_0x459_1113;//502
-	int8_t byte_0x45A_1114;
-	int8_t byte_0x45B_1115;
-}
-type_str_611;
-
-/*typedef struct {
-	int16_t x;
-	int16_t y;
-}
-type_str_164_pos;*/
-
-typedef struct {//lenght 18
-	int16_t word_0;
-	int16_t word_2BDE_12658[8];
-}type_str_0x1AC_428;
-
-typedef struct Type_str_164 {//size 1136
-	int32_t dword_0x0_0;
-	int16_t word_0x4_4;
-	int16_t word_0x6_6;
-	uint8_t stuba[4];
-	int16_t word_0xc_12;//final speed
-	int16_t word_0xe_14;
-	int16_t word_0x10_16;
-	//int8_t byte_0x11_17;
-	uint8_t stubb[2];
-	axis_2d position_backup_20;//position //mouse backup
-	int16_t word_0x18_24_next_entity;
-	int16_t word_0x1A_26;
-	uint8_t stubc[2];
-	int16_t word_0x1E_30;
-	int16_t word_0x20_32;
-	int16_t word_0x22_34;
-	int16_t word_0x24_36;
-	int16_t word_0x26_38[8];
-	//int16_t word_0x2E_46;//word_0x26_38[4]
-	int16_t word_0x36_54;
-	int16_t word_0x38_56;
-	int16_t word_0x3A_58;
-	uint16_t array_0x3C_60[16];//size??
-	uint16_t array_0x5C_92[16];
-	uint8_t stubd[174];
-	/*int8_t byte_0xD3_211;
-	int8_t byte_0xD4_212;
-	int8_t byte_0xD5_213;*/
-	int32_t dword_0x12A_298;
-	int32_t dword_0x12E_302;
-	uint8_t stube[10];
-	int32_t dword_0x13C_316;
-	uint8_t stubf[2];
-	int32_t dword_0x142_322;
-	int16_t word_0x146_326;
-	int16_t word_0x148_328;
-	int16_t word_0x14A_330;
-	uint8_t byte_0x14C_332;
-	int8_t byte_0x14D_333;
-	int8_t byte_0x14E_334;
-	int8_t byte_0x14F_335;
-	int32_t byte_0x150_336;
-	uint8_t byte_0x154_340;
-	int16_t word_0x155_341;
-	int16_t word_0x157_343;
-	int16_t word_0x159_345;
-	int8_t array_0x15B_347[8] = {0,0,0,0,0,0,0,0};
-	int16_t word_0x163_355;
-	int32_t dword_0x165_357;
-	int32_t dword_0x169_361;
-	int32_t dword_0x16D_365;
-	uint8_t stubg[4];
-	int32_t dword_0x175_373;
-	int32_t dword_0x179_377;
-	int32_t dword_0x17D_381;
-	int32_t dword_0x181_385;
-	int32_t dword_0x185_389;
-	int32_t dword_0x189_393;//clock
-	int32_t dword_0x18D_397;
-	uint8_t stubi[4];
-	int8_t byte_0x195_405;
-	int8_t byte_0x196_406;
-	int8_t byte_0x197_407;
-	uint8_t stubj[2];
-	int32_t dword_0x19A_410;
-	int32_t maxDistance_0x19E_414;
-	int16_t word_0x1A2_418;
-	int16_t word_0x1A4_420;
-	int16_t word_0x1A6_422;//211 x add
-	int16_t word_0x1A8_424;//212 y add
-	int16_t word_0x1AA_426;//213 z add
-	type_str_0x1AC_428 str_0x1AC_428;
-	int8_t byte_0x1BE_446;
-	int8_t byte_0x1BF_447;
-	int8_t byte_0x1C0_448;
-	int8_t byte_0x1C1_449;//switch - event? type?
-	int16_t word_0x1C2_450;
-	uint8_t stubl[56];
-	//int8_t array_0x1D4_468[0x1a];
-	uint16_t array_0x1FC_508[32];//1ca
-	//int16_t word_0x204_516[32];
-	//int16_t word_0x242_578;//word_0x204_516[31]
-	uint8_t stubm[6];
-	int16_t word_0x242_578 = -1;
-	int16_t word_0x244_580;
-	int16_t word_0x246_582;
-	int16_t word_0x248_584;
-	int16_t word_0x24A_586;
-	int16_t word_0x24C_588;
-	int8_t array_0x24E_590[10];//size??
-	uint8_t stubn[9];
-	int8_t byte_0x261_609;
-	int8_t byte_0x262_610;
-	type_str_611 str_611;
-
-	int8_t str_611_byte_0x45C_1116;
-	int8_t str_611_byte_0x45D_1117;
-	int8_t str_611_byte_0x45E_1118;
-	int8_t str_611_byte_0x45E_1119;
-
-	//uint8_t stubo[16];
-	//611;
-}
-type_str_164;
-
-typedef struct {//lenght 34
-	int16_t type_160_0x0_0;
-	int16_t subtype_160_0x2_2;
-	int16_t word_160_0x4_4;
-	int16_t word_160_0x6_6;
-	int16_t word_160_0x8_8;
-	int16_t word_160_0xa_10;
-	int16_t word_160_0xc_12;
-	int16_t word_160_0xe_14;
-	int16_t word_160_0x10_16;//->dword_0xA0_160x->word_160_0x10_16
-	int16_t word_160_0x12_18;
-	int32_t dword_160_0x14_20;
-	uint8_t stuba[2];
-	int16_t word_160_0x1a_26;
-	int16_t word_160_0x1c_28;
-	int16_t word_160_0x1e_30;
-	int8_t byte_160_0x20_32;
-	uint8_t stubb[1];
-}
-type_str_160;
-
 //viz. unk_D7BD6
 
-typedef struct
-{
-	int32_t dword_0x5E_94;//94 //36 lenght
-	int16_t word_0x62_98;//98 //4 // index subentity
-	int32_t dword_0x64_100;//100 //6
-	int16_t word_0x68_104;//104 //10
-	uint8_t stub5b[6];
-	int32_t dword_0x70_112;//112
-	int16_t word_0x74_116;//116
-	int16_t word_0x76_118;//118
-	int16_t word_0x78_120;//120
-	int16_t word_0x7A_122;//122
-	int16_t word_0x7C_124;//124
-	uint8_t stub5d[2];
-	uint16_t word_0x80_128;//128
-} type_str_0x5E_94;
-
-typedef struct _str_0x6E8E {//lenght a8//THING
-	struct _str_0x6E8E* next_0;
-	int32_t dword_0x4;//4 //?bitmap//LIVE
-	int32_t dword_0x8;//8 // this is int32_t ?bitmap//MAX LIVE
-	dw_w_b struct_byte_0xc_12_15;//12
-						//12//struct_byte_0xc_12_15.dbyte1_2.byte1
-	//0xfe - all spell
-	//int8_t byte_0xd_13;//13//struct_byte_0xc_12_15.dbyte1_2.byte2
-	//int8_t byte_0xe_14;//14//struct_byte_0xc_12_15.dbyte3_4.byte1
-	//int8_t byte_0xf_15;//15//struct_byte_0xc_12_15.dbyte3_4.byte2
-	int32_t dword_0x10_16;//16 // index of array
-	uint16_t rand_0x14_20;//20 //random seed adress
-	uint16_t oldMapEntity_0x16_22;//22
-	uint16_t nextEntity_0x18_24;//24 //next entity index
-	uint16_t word_0x1A_26;//26 // index - owner //ID last index
-	int16_t word_0x1C_28;//28//rotate1
-	int16_t word_0x1E_30;//30//rotate2
-	int16_t word_0x20_32;//32//rotate3
-	//int8_t byte_0x21_33;//33
-	int16_t word_0x22_34;//34//rotate4
-	int16_t word_0x24_36;//36 // index subentity
-	int16_t word_0x26_38;//38 // index subentity
-	uint16_t word_0x28_40;//40//WHO OWNS ME
-	uint16_t word_0x2A_42;//42 //maybe int16_t
-	int16_t word_0x2C_44;//44 //add to z
-	int16_t word_0x2E_46;//46
-	uint16_t word_0x30_48;//48
-	uint16_t word_0x32_50;//50
-	uint16_t word_0x34_52;//52 // index subentity
-	uint16_t word_0x36_54;//54
-	int8_t byte_0x38_56;//56
-	int8_t byte_0x39_57;//57
-	int8_t byte_0x3A_58;//58
-	int8_t byte_0x3B_59;//59
-	int8_t byte_0x3C_60;//60
-	int8_t byte_0x3D_61;//61
-	uint8_t byte_0x3E_62;//62 //index
-	uint8_t type_0x3F_63;//63 //type//MODEL
-	//11 - spell
-	uint8_t subtype_0x40_64;//64 //subtype//CLASS
-	//0 or 1 - player, 2 - castle,3-ballon
-	int8_t xtype_0x41_65;//65 //type subentity
-	int8_t xsubtype_0x42_66;//66 //subtype subentity
-	int8_t byte_0x43_67;//67
-	int8_t byte_0x44_68;//68
-	uint8_t byte_0x45_69;//69 // index of structure with lenght 14//STATE-
-	int8_t byte_0x46_70;//70 // index of bitmap // index of ending sequence
-	int8_t byte_0x47_71_xx;//71
-	int8_t StageVar1_0x48_72;//72
-	int8_t StageVar2_0x49_73;//70
-	int16_t word_0x4A_74;
-	axis_3d axis_0x4C_76;//position//ACTUAL X Y Z
-	axis_4d array_0x52_82;
-	int16_t word_0x5A_90;
-	int8_t byte_0x5C_92;
-	int8_t byte_0x5D_93;
-	type_str_0x5E_94 str_0x5E_94;
-
-	int16_t word_0x82_130;//130 //add to z//ACTUAL SPEED
-	int16_t word_0x84_132;//132//MIN SPEED
-	int16_t word_0x86_134;//134//MAX SPEED
-	int32_t dword_0x88_136;//136
-	int32_t dword_0x8C_140;//140 //wiz name?//ACTUAL MANA
-	int32_t dword_0x90_144;//144 0-1000//MAX MANA
-	uint16_t word_0x94_148;//148
-	int16_t word_0x96_150;//150 // index subentity
-	uint16_t word_0x98_152;//152
-	axis_3d word_0x9A_154x;//154
-	//int16_t word_0x9E_158;//152
-	type_str_160* dword_0xA0_160x;//160 //special settings
-	//uint16_t word_0xA2_162;//162
-	type_str_164* dword_0xA4_164x;//100 // adress of xx
-}
-type_event_0x6E8E;
-/*
-	entite
-	8-dead
-	26-index
-	64-type
-		1-player
-		2-castle
-		3-ballon
-	144-mana
-*/
-
 typedef struct {
-	int32_t dword[0x1a];
+	int32_t dword[26];
 }
 type_dword_0x649_2BDE;
 
@@ -537,21 +171,21 @@ type_dword_0x649_2BDE;
 typedef struct {//begin 0x649 //lenght 0x1F9
 	type_dword_0x649_2BDE dword_0x649_2BDE;//1609//0x649+0,lenght 0x68(4x0x1a)
 	uint8_t stub1[104];
-	int16_t word_0x719_2BDE[0x1a];// -2xa1 tj 2x 26//1817
+	int16_t word_0x719_2BDE[26];// -2xa1 tj 2x 26//1817
 	//1817
 	uint8_t stub4c[52];
 	//int16_t word_0x731_2BDE;//13071
-	int8_t byte_0x781_2BDE[0x1a];//1921
+	int8_t byte_0x781_2BDE[26];//1921
 	type_2255ar array_0x79B_2BDE_13177;//0x649+338,lenght 0x18+2
-	int8_t byte_0x7B5_2BDE[0x1a];//1973
-	//uint8_t array_0x7CF_2BDE_13229[0x34];//1999
-	//uint8_t array_0x7CF_2BDE_13229[0x18];//1999
+	int8_t byte_0x7B5_2BDE[26];//1973
+	//uint8_t array_0x7CF_2BDE_13229[52];//1999
+	//uint8_t array_0x7CF_2BDE_13229[24];//1999
 	type_2255ar array_0x7CF_2BDE_13229;//0x649+390,lenght 0x18+2
-	//uint8_t stub4e[0x1a];
+	//uint8_t stub4e[26];
 	//24
 	//2
 
-	//int8_t array_0x7E7_2BDE_13253[0x1c];//array_0x7CF_2BDE_13229[0x18]
+	//int8_t array_0x7E7_2BDE_13253[28];//array_0x7CF_2BDE_13229[24]
 	type_2255ar byte_0x7E9_2BDE;// -1x26//2026
 
 	type_2255ar byte_0x803_2BDE;// -1x26//2051//0x649+442, lenght 0x18+2
@@ -636,7 +270,7 @@ typedef struct {//lenght 2124=0x84C
 	char names_81[8][48];//81 ?8
 	//uint8_t stub2[384];
 
-	type_struct_0x1d1_2BDE_11695 struct_0x1d1_2BDE_11695[0x21];//465
+	type_struct_0x1d1_2BDE_11695 struct_0x1d1_2BDE_11695[33];//465
 	/*int32_t dword_0x1d1_2BDE_11695; //465
 	int32_t dword_0x1d5_2BDE_11699; //465
 	int32_t dword_0x1d9_2BDE_11703; //465
@@ -655,7 +289,7 @@ typedef struct {//lenght 2124=0x84C
 	}*/
 	//uint8_t stub2b[308];
 
-	char array_0x39f_2BFA_12157[0x40];//927//12157 - byte(11230+927) 100% name
+	char array_0x39f_2BFA_12157[64];//927//12157 - byte(11230+927) 100% name
 	uint8_t byte_0x3DF_2BE4_12221;//991//12221 - byte
 	uint8_t byte_0x3E0_2BE4_12222;//992//12222 - byte
 	uint8_t byte_0x3E1_2BE4_12223;//993//12223 - byte - ok
@@ -752,14 +386,14 @@ typedef struct Type_x_D41A0_BYTEARRAY_4_struct {
 	//uint8_t harddisk_number;
 
 	//uint8_t setting_byte5_19;
-	uint32_t dwordindex_0;//x_D41A0_BYTEARRAY_4_struct.dwordindex_0
-	uint16_t wordindex_4;//x_D41A0_BYTEARRAY_4_struct.byteindex_4
-	uint16_t wordindex_6;//x_D41A0_BYTEARRAY_4_struct.wordindex_6
-	uint16_t wordindex_8;//x_D41A0_BYTEARRAY_4_struct.wordindex_8
+	uint32_t configDatSign_0;//x_D41A0_BYTEARRAY_4_struct.dwordindex_0
+	uint16_t langIndex_4;//x_D41A0_BYTEARRAY_4_struct.byteindex_4
+	uint16_t soundVolume_6;//x_D41A0_BYTEARRAY_4_struct.wordindex_6
+	uint16_t musicVolume_8;//x_D41A0_BYTEARRAY_4_struct.wordindex_8
 	uint8_t byteindex_10;//0xa//x_D41A0_BYTEARRAY_4_struct.byteindex_10//show help
-	int8_t byte_brightness_11;//0xb//x_D41A0_BYTEARRAY_4_struct.byteindex_11
-	int8_t byte_brightness_12;//0xc//x_D41A0_BYTEARRAY_4_struct.byteindex_12
-	int8_t byte_brightness_13;//0xd//x_D41A0_BYTEARRAY_4_struct.byteindex_13
+	int8_t brightness_11;//0xb//x_D41A0_BYTEARRAY_4_struct.byteindex_11
+	int8_t brightness_12;//0xc//x_D41A0_BYTEARRAY_4_struct.byteindex_12
+	int8_t brightness_13;//0xd//x_D41A0_BYTEARRAY_4_struct.byteindex_13
 	uint16_t wordindex_14;
 	uint32_t dwordindex_16;//0x10//x_D41A0_BYTEARRAY_4_struct.dwordindex_16
 	uint8_t stubb[2];
@@ -930,7 +564,7 @@ extern int16_t x_D41A0_WORDARRAY[];
 //extern uint32_t x_D41A0_BYTEARRAY_4_0xE6_heapsize;
 //extern uint8_t* x_D41A0_BYTEARRAY_4_0xE2_heapbuffer;
 //extern uint8_t* x_D41A0_BYTEARRAY_4_0xDE_heapbuffer;
-//extern uint32_t* off_D918C[0x7c];
+//extern uint32_t* off_D918C[124];
 
 //xx extern uint8_t* dword_E9C30[]; // weak
 
@@ -957,11 +591,9 @@ extern x_BYTE x_BYTE_35523C;//Detectoff//3551CE+6e BYTE
 extern x_BYTE x_BYTE_355220;//Langcheck//3551CE+52 BYTE
 extern x_BYTE x_BYTE_355238;//aMusic2//3551CE+6a BYTE*/
 
-extern uint8_t* pdwScreenBuffer_351628;
-
 typedef struct {//lenght 30
 	int16_t word_0;//str_E2A74[].word_0
-	int16_t axis_2[5]; //str_E2A74[].axis_2[0]
+	std::array<int16_t, 5> axis_2; // 1=textIndex 3=lineX1, 4=lineY1
 	//int16_t axis_4[3];//?? str_E2A74[].axis_2[0]
 	//int16_t stuba;
 	type_event_0x6E8E* dword_12;//str_E2A74[].dword_12
@@ -974,7 +606,24 @@ typedef struct {//lenght 30
 }
 type_str_E2A74;
 
-extern type_str_E2A74 str_E2A74[0x69];
+typedef struct {//lenght 30
+	int16_t word_0;//str_E2A74[].word_0
+	int16_t axis_2[5]; //str_E2A74[].axis_2[0]
+	//int16_t axis_4[3];//?? str_E2A74[].axis_2[0]
+	//int16_t stuba;
+	int32_t dword_12;//str_E2A74[].dword_12
+	int32_t dword_16;
+	int32_t dword_20;//str_E2A74[].dword_20
+	int32_t dword_24;//str_E2A74[].dword_24
+	//int8_t byte_25;
+	int8_t byte_28;
+	int8_t byte_29;
+}
+type_shadow_str_E2A74;
+
+typedef std::array<type_str_E2A74, 0x69> type_array_str_E2A74;
+
+extern type_array_str_E2A74 str_E2A74;
 
 //extern uint8_t test_str_E2A74[];
 
@@ -983,26 +632,26 @@ extern type_str_E2A74 str_E2A74[0x69];
 void support_begin();
 void support_end();
 
-void loadfromsnapshot(char* filename, uint8_t* adress, uint32_t adressdos, uint32_t size);
-void loadfromsnapshot2(char* filename, uint8_t* adress, uint32_t adressdos, uint32_t size);
-uint32_t compare_with_snapshot(char* filename, uint8_t* adress, uint32_t adressdos, uint32_t size, uint8_t* origbyte, uint8_t* copybyte);
-uint32_t compare_with_sequence(char* filename, uint8_t* adress, uint32_t adressdos, long count, long size1, uint32_t size2, uint8_t* origbyte, uint8_t* copybyte, long offset = 0, bool regressions=false);
-uint32_t compare_with_sequence_E7EE0(char* filename, uint8_t* adress, uint32_t adressdos, uint32_t count, uint32_t size1, uint32_t size2, uint8_t* origbyte, uint8_t* copybyte, long offset = 0);
-uint32_t compare_with_snapshot_D41A0(char* filename, uint8_t* adress, uint32_t adressdos, uint32_t size, uint8_t* origbyte, uint8_t* copybyte);
-uint32_t compare_with_sequence_D41A0(char* filename, uint8_t* adress, uint32_t adressdos, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte, long offset = 0, bool regressions = false);
-uint32_t compare_with_sequence_array_E2A74(char* filename, uint8_t* adress, uint32_t adressdos, uint32_t count, uint32_t size1, uint32_t size2, uint8_t* origbyte, uint8_t* copybyte, long offset = 0, bool regressions = false);
-uint32_t compare_with_sequence_x_DWORD_F2C20ar(char* filename, uint8_t* adress, uint32_t adressdos, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte, int* posdiff);
-uint32_t compare_with_sequence_array_222BD3(char* filename, uint8_t* adress, uint32_t adressdos, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte, int* posdiff);
-uint32_t compare_with_sequence_D41A0_4(char* filename, uint8_t* adress, uint32_t adressdos, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte, long offset = 0);
-uint32_t compare_with_sequence_EA3E4(char* filename, type_event_0x6E8E** adress, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte);
-uint32_t compare_0x6E8E(char* filename, uint8_t* adress, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte, long offset = 0);
+void loadfromsnapshot(const char* filename, uint8_t* adress, uint32_t adressdos, uint32_t size);
+void loadfromsnapshot2(const char* filename, uint8_t* adress, uint32_t adressdos, uint32_t size);
+uint32_t compare_with_snapshot(const char* filename, uint8_t* adress, uint32_t adressdos, uint32_t size, uint8_t* origbyte, uint8_t* copybyte);
+uint32_t compare_with_sequence(const char* filename, const uint8_t* adress, uint32_t adressdos, long count, long size1, uint32_t size2, uint8_t* origbyte, uint8_t* copybyte, long offset = 0, bool regressions=false);
+uint32_t compare_with_sequence_E7EE0(const char* filename, uint8_t* adress, uint32_t adressdos, uint32_t count, uint32_t size1, uint32_t size2, uint8_t* origbyte, uint8_t* copybyte, long offset = 0);
+uint32_t compare_with_snapshot_D41A0(const char* filename, uint8_t* adress, uint32_t adressdos, uint32_t size, uint8_t* origbyte, uint8_t* copybyte);
+uint32_t compare_with_sequence_D41A0(const char* filename, uint8_t* adress, uint32_t adressdos, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte, long offset = 0, bool regressions = false);
+uint32_t compare_with_sequence_array_E2A74(const char* filename, uint8_t* adress, uint32_t adressdos, uint32_t count, uint32_t size1, uint32_t size2, uint8_t* origbyte, uint8_t* copybyte, long offset = 0, bool regressions = false);
+uint32_t compare_with_sequence_x_DWORD_F2C20ar(const char* filename, uint8_t* adress, uint32_t adressdos, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte, int* posdiff);
+uint32_t compare_with_sequence_array_222BD3(const char* filename, uint8_t* adress, uint32_t adressdos, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte, int* posdiff);
+uint32_t compare_with_sequence_D41A0_4(const char* filename, uint8_t* adress, uint32_t adressdos, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte, long offset = 0);
+uint32_t compare_with_sequence_EA3E4(const char* filename, type_event_0x6E8E** adress, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte);
+uint32_t compare_0x6E8E(const char* filename, uint8_t* adress, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte, long offset = 0);
 void add_compare(uint32_t adress, bool debugafterload, int stopstep = -1, bool skip = false,int exitindex=1000000,int skip2=0);
 void add_compare2(uint32_t adress, uint8_t* memadress, uint32_t dosmemadress, uint32_t size, bool debugafterload, int stopstep = -1, bool skip = false, int exitindex = 1000000);
 void writehex(uint8_t* buffer, uint32_t count);
 
-void mine_texts(char* filename, uint32_t adressdos, uint32_t count, char* outfilename);
-int writeImage(char* filename, int width, int height, uint8_t* buffer, char* title);
-void writeImageBMP(char* imageFileName, int width, int height, uint8_t* image);
+void mine_texts(const char* filename, uint32_t adressdos, uint32_t count, char* outfilename);
+int writeImage(const char* filename, int width, int height, uint8_t* buffer, char* title);
+void writeImageBMP(const char* imageFileName, int width, int height, uint8_t* image);
 
 /*
 typedef struct {//lenght 8
@@ -1126,28 +775,28 @@ typedef struct {//lenght 20
 */
 /*
 typedef struct {//begin 0x649 //lenght min 0x1ee
-	int32_t dword_0x649_2BDE[0x33];//1609
+	int32_t dword_0x649_2BDE[51];//1609
 	uint8_t stub1[2];
-	int16_t word_0x717_2BDE[0x1a];// -2xa1 tj 2x 26//1815
+	int16_t word_0x717_2BDE[26];// -2xa1 tj 2x 26//1815
 	//1817
 	uint8_t stub4c[54];
 	int16_t word_0x731_2BDE;//13071
-	int8_t byte_0x781_2BDE[0x1a];//1921
-	uint8_t stub4d[0x1a];
-	int8_t byte_0x7B5_2BDE[0x1a];//1973
-	//uint8_t array_0x7CF_2BDE_13229[0x34];//1999
-	//uint8_t array_0x7CF_2BDE_13229[0x18];//1999
+	int8_t byte_0x781_2BDE[26];//1921
+	uint8_t stub4d[26];
+	int8_t byte_0x7B5_2BDE[26];//1973
+	//uint8_t array_0x7CF_2BDE_13229[52];//1999
+	//uint8_t array_0x7CF_2BDE_13229[24];//1999
 	type_2255ar array_0x7CF_2BDE_13229;
-	uint8_t stub4e[0x1a];
+	uint8_t stub4e[26];
 	//24
 	//2
 
-	//int8_t array_0x7E7_2BDE_13253[0x1c];//array_0x7CF_2BDE_13229[0x18]
-	//int8_t byte_0x7E8_2BDE[0x1a];// -1x26//2024
+	//int8_t array_0x7E7_2BDE_13253[28];//array_0x7CF_2BDE_13229[24]
+	//int8_t byte_0x7E8_2BDE[26];// -1x26//2024
 
-	int8_t byte_0x803_2BDE[0x19];// -1x26//2051
+	int8_t byte_0x803_2BDE[25];// -1x26//2051
 
-	int8_t byte_0x81C_2BDE[0x1a];// -1x26//2076
+	int8_t byte_0x81C_2BDE[26];// -1x26//2076
 	uint8_t stub2[1];
 } type_struct_0x649_2BDE_12839;
 */
@@ -1184,7 +833,7 @@ typedef struct {//lenght 9377
 typedef struct {//lenght 110
 	uint8_t byte_0x360FB;
 	uint8_t byte_0x360E1;
-	uint8_t stuba[0x19];
+	uint8_t stuba[25];
 	uint8_t byte_0x36115;
 	//0x36141;//70
 	//0x36141[8];??
@@ -1203,7 +852,7 @@ typedef struct {//lenght 110 //word_0x360D2
 	uint8_t byte_0x360E1x[26];
 	uint8_t byte_0x360FBx[26];
 	//uint8_t byte_0x36112;
-	//uint8_t stubb[0x2];
+	//uint8_t stubb[2];
 	uint8_t byte_0x36115x[26];
 	//uint8_t stube[25];
 	int16_t word_0x3612F;
@@ -1273,11 +922,11 @@ typedef struct {//lenght 0x6604u
 	uint8_t stubj[2];
 	uint16_t rkSte_0x2FF11;//2FF11//67
 	uint8_t stubk[1022];
-	type_entity_0x30311 entity_0x30311[0x4b0];//end(next entity) - 0x360d1
+	type_entity_0x30311 entity_0x30311[1200];//end(next entity) - 0x360d1
 	uint8_t next_0x360D1;
 	type_str_0x360D2 next_0x360D2[8];//lenght 110  /spells?
 	type_str_0x36442 stages_0x36442[8];//stages(checkpoints)
-	type_str_0x3647Ac StageVars_0x3647A[0xb];//8x11
+	type_str_0x3647Ac StageVars_0x3647A[11];//8x11
 } type_str_2FECE;//compress level
 
 typedef union {
@@ -1501,7 +1150,7 @@ type_str_0x3664C;
 
 typedef struct {//lenght 108
 	uint32_t dword_0x364D2;//lenght 108
-	uint32_t dword_0x364D6[0x1a];// lenght 0x68=104 end 0x3653e
+	uint32_t dword_0x364D6[26];// lenght 0x68=104 end 0x3653e
 }
 type_str_0x364D2;
 
@@ -1526,7 +1175,7 @@ typedef struct {//lenght 224791
 	uint32_t rand_0x8;
 	int16_t LevelIndex_0xc;//player_index?
 	int16_t word_0xe;
-	uint8_t array_0x10[0x1d]; //0x10, next 0x2d(45)
+	uint8_t array_0x10[29]; //0x10, next 0x2d(45)
 	int32_t dword_0x2d;//45
 	uint16_t word_0x31;//49
 	uint16_t word_0x33;//51
@@ -1537,9 +1186,9 @@ typedef struct {//lenght 224791
 	int32_t dword_0x23a;
 	int32_t dword_0x23e;
 	int32_t dword_0x242;
-	type_event_0x6E8E* pointers_0x246[0x3e8];//pointers
+	type_event_0x6E8E* pointers_0x246[1000];//pointers
 	int32_t dword_0x11e6;//second entity counter
-	type_event_0x6E8E* dword_0x11EA[0x3e8];//??4586
+	type_event_0x6E8E* dword_0x11EA[1000];//??4586
 	GameSettingsStruct_t m_GameSettings;
 	uint32_t dword_0x219A;//8602
 	uint32_t dword_0x219E;//8606
@@ -1549,13 +1198,13 @@ typedef struct {//lenght 224791
 	type_str_0x21AE str_0x21AE;
 	type_str_0x21B2 str_0x21B2;
 	type_str_0x21B6 str_0x21B6;
-	uint8_t stub3b[0x1a8];
+	uint8_t stub3b[424];
 	axis_3d array_0x2362[8];
-	uint8_t stub3c[0x14d];
-	uint8_t stub3d[0x6ff];
-	type_str_0x2BDE array_0x2BDE[0x8];
+	uint8_t stub3c[333];
+	uint8_t stub3d[1791];
+	type_str_0x2BDE array_0x2BDE[8];
 	type_str_0x6E3E array_0x6E3E[8];//28222	lenght 0xa size 0x8// game events
-	type_event_0x6E8E struct_0x6E8E[0x3e8];//28302 a8*3e8
+	type_event_0x6E8E struct_0x6E8E[1000];//28302 a8*3e8
 	type_str_2FECE terrain_2FECE;// a1 = &x_D41A0_BYTEARRAY_0[0x2FECE/*196302*/];//fix - size 0x6604u//compress level
 	type_str_0x364D2 str_0x364D2;//lenght 108
 	int16_t word_0x3653E;//
@@ -1565,10 +1214,10 @@ typedef struct {//lenght 224791
 	int16_t word_0x36546;//
 	int16_t word_0x36548;//
 	int16_t word_0x3654A;//
-	type_str_3654C stages_0x3654C[0x8];//size 10 count 8
-	type_str_3659C struct_0x3659C[0x8];//size 11 count 8 C-0 D-1 E-2 F-3
-	type_str_0x3647Ac StageVars2_0x365F4[0xb];//8x11	//set 0x58 // end 0x3664c
-	type_str_0x3664C str_0x3664C[0x32];// lenght 0x79e//39x50 (end-0x36dea)
+	type_str_3654C stages_0x3654C[8];//size 10 count 8
+	type_str_3659C struct_0x3659C[8];//size 11 count 8 C-0 D-1 E-2 F-3
+	type_str_0x3647Ac StageVars2_0x365F4[11];//8x11	//set 0x58 // end 0x3664c
+	type_str_0x3664C str_0x3664C[50];// lenght 0x79e//39x50 (end-0x36dea)
 	int8_t byte_0x36DEA_fly_asistant;
 	int8_t byte_0x36DEB_xx;
 	int16_t word_0x36DEC_mousex;
@@ -1584,9 +1233,9 @@ typedef struct {//lenght 224791
 	int8_t byte_0x36E02;//temp objective
 	int8_t byte_0x36E03;
 	int8_t byte_0x36E04;
-	uint8_t stub3k[0x6];
+	uint8_t stub3k[6];
 	int8_t byte_0x36E0B;
-	uint8_t stubend[0xb];
+	uint8_t stubend[11];
 } type_D41A0_BYTESTR_0; // level data (gets saved to and loaded from SAVE/SLEVxx.dat) was originally forced to 224791 on load/save which is out of bounds
 
 typedef struct {//lenght a8//THING
@@ -1685,7 +1334,7 @@ typedef struct {//lenght 224791
 	uint32_t dword_0x8;
 	int16_t word_0xc;
 	int16_t word_0xe;
-	uint8_t array_0x10[0x1d];
+	uint8_t array_0x10[29];
 	int32_t dword_0x2d;
 	uint16_t word_0x31;
 	uint16_t word_0x33;
@@ -1696,9 +1345,9 @@ typedef struct {//lenght 224791
 	int32_t dword_0x23a;
 	int32_t dword_0x23e;
 	int32_t dword_0x242;
-	uint32_t pointers_0x246[0x3e8];
+	uint32_t pointers_0x246[1000];
 	int32_t dword_0x11e6;
-	uint32_t dword_0x11EA[0x3e8];
+	uint32_t dword_0x11EA[1000];
 	GameSettingsStruct_t m_GameSettings;
 	uint32_t dword_0x219A;
 	uint32_t dword_0x219E;
@@ -1708,13 +1357,13 @@ typedef struct {//lenght 224791
 	type_str_0x21AE str_0x21AE;
 	type_str_0x21B2 str_0x21B2;
 	type_str_0x21B6 str_0x21B6;
-	uint8_t stub3b[0x1a8];
+	uint8_t stub3b[424];
 	axis_3d array_0x2362[8];
-	uint8_t stub3c[0x14d];
-	uint8_t stub3d[0x6ff];
-	type_str_0x2BDE array_0x2BDE[0x8];
+	uint8_t stub3c[333];
+	uint8_t stub3d[1791];
+	type_str_0x2BDE array_0x2BDE[8];
 	type_str_0x6E3E array_0x6E3E[8];
-	type_shadow_str_0x6E8E struct_0x6E8E[0x3e8];
+	type_shadow_str_0x6E8E struct_0x6E8E[1000];
 	type_shadow_str_2FECE str_2FECE;
 	type_str_0x364D2 str_0x364D2;
 	int16_t word_0x3653E;
@@ -1724,10 +1373,10 @@ typedef struct {//lenght 224791
 	int16_t word_0x36546;
 	int16_t word_0x36548;
 	int16_t word_0x3654A;
-	type_shadow_str_3654C struct_0x3654C[0x8];
-	type_str_3659C struct_0x3659C[0x8];
-	type_shadow_str_0x3647Ac array_0x365F4[0xb];
-	type_shadow_str_0x3664C str_0x3664C[0x32];
+	type_shadow_str_3654C struct_0x3654C[8];
+	type_str_3659C struct_0x3659C[8];
+	type_shadow_str_0x3647Ac array_0x365F4[11];
+	type_shadow_str_0x3664C str_0x3664C[50];
 	int8_t byte_0x36DEA_fly_asistant;
 	int8_t byte_0x36DEB_xx;
 	int16_t word_0x36DEC_mousex;
@@ -1743,40 +1392,40 @@ typedef struct {//lenght 224791
 	int8_t byte_0x36E02;
 	int8_t byte_0x36E03;
 	int8_t byte_0x36E04;
-	uint8_t stub3k[0x6];
+	uint8_t stub3k[6];
 	int8_t byte_0x36E0B;
-	uint8_t stubend[0xb];
+	uint8_t stubend[11];
 } type_shadow_D41A0_BYTESTR_0;
 
 struct {//lenght 0x33
-	int16_t word_0x0;//0 //0
-	int16_t word_0x2;//2 //1
-	int16_t word_0x4;//4 //2
-	int16_t word_0x6;//6 //3
-	int16_t word_0x8;//8 //4
-	int16_t word_0xa;//a //5
-	int16_t word_0xc;//c-3f //6
-	int16_t word_0xe;//e //7
-	int16_t word_0x10;//10 //8
-	int16_t word_0x12;//12 //9
-	int16_t word_0x14;//14 //10
-	int16_t word_0x16;//16 //11
-	int16_t word_0x18;//18 //12
-	int16_t word_0x1a;//1a //13
-	int16_t word_0x1c;//1c-4f //14
-	int16_t word_0x1e;//1e-51 //15
-	int16_t word_0x20;//20 //16
-	int16_t word_0x22;//22 //17
-	int16_t word_0x24;//24-57 //width 18
-	int16_t word_0x26;//26-59 //19
-	int16_t word_0x28;//28-5b //20
-	int16_t word_0x2a;//2a-5d//21
+	int16_t maxTextboxWidth_0x0;//0 //0
+	int16_t maxTextboxHeight_0x2;//2 //1
+	int16_t textBoxWidth_0x4;//4 //2
+	int16_t textboxHeight_0x6;//6 //3
+	int16_t textboxPosX_0x8;//8 //4
+	int16_t textboxPosY_0xa;//a //5
+	int16_t maxTextboxWidth2_0xc;//c-3f //6
+	int16_t maxTextboxHeight2_0xe;//e //7
+	int16_t charWidth_0x10;//10 //8
+	int16_t charHeight_0x12;//12 //9
+	int16_t minWidth_0x14;//14 //10
+	int16_t maxWidth_0x16;//16 //11
+	int16_t minHeight_0x18;//18 //12
+	int16_t maxHeight_0x1a;//1a //13
+	int16_t lineX1_0x1c;//1c-4f //14
+	int16_t lineY1_0x1e;//1e-51 //15
+	int16_t lineX2_0x20;//20 //16
+	int16_t lineY2_0x22;//22 //17
+	int16_t framePosX_0x24;//24-57 //width 18
+	int16_t framePosY_0x26;//26-59 //19
+	int16_t frameWidth_0x28;//28-5b //20
+	int16_t frameHeight_0x2a;//2a-5d//21
 	int8_t stub[4];
-	int8_t byte_0x30;//30-63 - color1 //24
-	int8_t byte_0x31;//31-64 - color2
-	int8_t byte_0x32;//32-65 - color2
+	int8_t color1_0x30;//30-63 - color1 //24
+	int8_t color2_0x31;//31-64 - color2
+	int8_t color3_0x32;//32-65 - color2
 }
-typedef type_sub_str_unk_1804B0ar;
+typedef type_textbox_sub1804B0;
 
 typedef union {//lenght 12
 	int32_t dword[3];
@@ -1785,7 +1434,7 @@ typedef union {//lenght 12
 type_uni_0x8a;
 
 struct {//0xb0 nebo spis 171(0xab)
-	type_sub_str_unk_1804B0ar type_sub_0[2];
+	type_textbox_sub1804B0 type_sub_0[2];
 	/*int16_t word_0xe;//e
 	int16_t word_0x10;//10
 	int16_t word_0x12;//12
@@ -1819,7 +1468,7 @@ struct {//0xb0 nebo spis 171(0xab)
 	int8_t byte_0xa0;//a0
 	int8_t byte_0xa1;//a1
 	int8_t byte_0xa2;//a2
-	int8_t byte_0xa3;//a3
+	int8_t drawTextType_0xa3;//a3
 	int8_t byte_0xa4;//a4
 	int8_t byte_0xa5;//a5
 	int8_t byte_0xa6;//a6
@@ -1833,11 +1482,11 @@ typedef type_str_unk_1804B0ar;
 #pragma pack (16)
 
 /*
-	memset((void*)(&x_D41A0_BYTEARRAY_0[0x10]), 0, 0x1d);
-	memset((void*)(&x_D41A0_BYTEARRAY_0[0x2d]), 0, 4);
-	memset((void*)(&x_D41A0_BYTEARRAY_0[0x31]), 0, 2);
-	memset((void*)(&x_D41A0_BYTEARRAY_0[0x33]), 0, 2);
-	memset((void*)(&x_D41A0_BYTEARRAY_0[0x35]), 0, 4);
+	memset((void*)(&x_D41A0_BYTEARRAY_0[16]), 0, 0x1d);
+	memset((void*)(&x_D41A0_BYTEARRAY_0[45]), 0, 4);
+	memset((void*)(&x_D41A0_BYTEARRAY_0[49]), 0, 2);
+	memset((void*)(&x_D41A0_BYTEARRAY_0[51]), 0, 2);
+	memset((void*)(&x_D41A0_BYTEARRAY_0[53]), 0, 4);
 	memset((void*)(&x_D41A0_BYTEARRAY_0[0x239]), 0, 1);
 	memset((void*)(&x_D41A0_BYTEARRAY_0[0x364D2]), 0, 0x6c);
 	memset((void*)(&x_D41A0_BYTEARRAY_0[0x2362]), 0, 0x30);
@@ -2032,7 +1681,7 @@ extern type_D41A0_BYTESTR_0 D41A0_0;
 
 /*void x_D41A0_BYTEARRAY_0_to_x_D41A0_BYTESTR_0();
 void x_D41A0_BYTESTR_0_to_x_D41A0_BYTEARRAY_0();*/
-void write_posistruct_to_png(uint8_t* buffer, int width, int height, char* filename);
+void write_posistruct_to_png(uint8_t* buffer, int width, int height, const char* filename);
 
 int my_sign32(int32_t var);
 int my_sign16(int16_t var);

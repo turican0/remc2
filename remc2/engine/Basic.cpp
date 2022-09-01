@@ -1,24 +1,23 @@
 ﻿#include "Basic.h"
 #include "engine_support.h"
+#include "CommandLineParser.h"
 
-char gameDataPath[MAX_PATH];
-char cdDataPath[MAX_PATH];
-char bigGraphicsPath[MAX_PATH];
+std::string gameDataPath;
+std::string cdDataPath;
+std::string bigGraphicsPath;
 
 //lenght 18
 //type_17ECA0 str_17ECA0[256]; // weak
 //uint8_t x_DWORD_17ECA0[4608]; // weak
-
-//bool hideGraphics;
 
 //extern int16_t m_iViewPortX_EA3D0; // weak?x_DWORD_E9C4C_langindexbuffer[481]
 //extern uint16_t m_uiViewPortWidth_EA3C4; // weak?x_DWORD_E9C4C_langindexbuffer[478]
 
 type_str_unk_1804B0ar str_unk_1804B0ar;
 
-TColor unk_17D838x[0x100]; // weak
+TColor unk_17D838x[256]; // weak
 
-int x_DWORD_E3E2C = 0; // weak
+int readFileStatus_E3E2C = 0; // weak
 
 char x_BYTE_E3766 = 0; // weak
 
@@ -116,9 +115,9 @@ __int16 x_WORD_D4B7C = 254; // some key color?
 __int16 x_WORD_D4B7E = 0; // some key color?
 type_event_0x6E8E* x_DWORD_EA3E4[1001];//2bb3e4
 
-uint8_t x_BYTE_F6EE0_tablesx[0x14600];// (uint8_t*)&x_BYTE_F6EE0_tablesbuff;//animated sprites
+uint8_t x_BYTE_F6EE0_tablesx[83456];// (uint8_t*)&x_BYTE_F6EE0_tablesbuff;//animated sprites
 uint8_t* x_BYTE_F6EE0_tablesx_pre = (uint8_t*)x_BYTE_F6EE0_tablesx;
-uint8_t* x_BYTE_FAEE0_tablesx_pre = (uint8_t*)&x_BYTE_F6EE0_tablesx[0x4000];
+uint8_t* x_BYTE_FAEE0_tablesx_pre = (uint8_t*)&x_BYTE_F6EE0_tablesx[16384];
 
 type_E9C38_smalltit Str_E9C38_smalltit[21 * 40];
 
@@ -444,16 +443,13 @@ Pathstruct xadatatables = { "",(uint8_t**)&x_DWORD_D41BC_langbuffer,&LANG_BEGIN_
 
 bool DefaultResolutions()
 {
-	/*if (((screenWidth_18062C == 640) && (screenHeight_180624 == 480))
-		|| ((screenWidth_18062C == 320) && (screenHeight_180624 == 200)))
-		return true;*/
-	if ((gameResWidth <= 640) && (gameResHeight <= 480))
+	if ((screenWidth_18062C <= 640) && (screenHeight_180624 <= 480))
 		return true;
 	return false;
 }
 
 //----- (00083E80) --------------------------------------------------------
-void sub_83E80_freemem4(uint8_t* ptr)//264e80
+void FreeMem_83E80(uint8_t* ptr)//264e80
 {
 	/*if (*ptr != NULL)
 	{
@@ -540,7 +536,7 @@ void dbgfprintf(FILE* file, const char* format, ...) {
 	fprintf(file, "\n");
 }
 
-void* sub_83CD0_malloc2(size_t a1)//264cd0
+void* Malloc_83CD0(size_t a1)//264cd0
 {
 	return malloc(a1);
 }
@@ -550,7 +546,7 @@ void qmemcpy(void* a, void* b, size_t c) {
 };
 
 //----- (0009D490) --------------------------------------------------------
-int sub_9D490_free4(void* a1, int  a2)//27e490
+int FreeMem_9D490(void* a1, int  a2)//27e490
 {
 	//fix
 	//a2 may be must used
@@ -641,32 +637,26 @@ int sub_9D770(char* a1, char a2)//27e770
 // A0855: using guessed type x_DWORD close(x_DWORD);
 
 //----- (0009DE20) --------------------------------------------------------
-signed int sub_9DE20_get_file_lenght(char* a1)//27ee20
+long GetFileLenght_9DE20(char* filename)//27ee20
 {
-	signed int v2; // [esp+0h] [ebp-Ch]
-	signed int v3; // [esp+4h] [ebp-8h]
-	FILE* v4; // [esp+8h] [ebp-4h]
+	int result;
 
-	x_DWORD_E3E2C = 0;
-	v4 = x_open(a1, 512);
-	if (v4 == NULL)
+	readFileStatus_E3E2C = 0;
+	if (FILE* file = x_open(filename, 512); file == nullptr)
 	{
-		x_DWORD_E3E2C = 3;
-		v2 = -1;
+		readFileStatus_E3E2C = 3;
+		result = -1;
 	}
 	else
 	{
-		v3 = DataFileIO::FileLengthBytes(v4);
-		if (v3 == -1)
-			x_DWORD_E3E2C = 5;
-		DataFileIO::Close(v4);
-		v2 = v3;
+		long fileLenght = DataFileIO::FileLengthBytes(file);
+		if (fileLenght == -1)
+			readFileStatus_E3E2C = 5;
+		DataFileIO::Close(file);
+		result = fileLenght;
 	}
-	return v2;
+	return result;
 }
-// 988DA: using guessed type x_DWORD filelength(x_DWORD);
-// A0855: using guessed type x_DWORD close(x_DWORD);
-// E3E2C: using guessed type int x_DWORD_E3E2C;
 
 FILE* x_open(char* path, int  /*pmodex*/) {
 	return myopent(path, (char*)"rb");
@@ -695,7 +685,7 @@ char x_toupper(char inputchar) {
 }; //weak
 
 //----- (00083D70) --------------------------------------------------------
-void* sub_83D70_malloc1(int a1)//264d70
+void* Malloc_83D70(int a1)//264d70
 {
 	/*int *v1; // eax
 	unsigned int v2; // edi
@@ -747,7 +737,7 @@ void sub_2EB60()//20fb60
 	{
 		x_BYTE_D41CE = 1;
 		x_BYTE_D41C1 = 1;
-		x_DWORD_F01E4 = &pdwScreenBuffer_351628[0xfb40];//line 320x201 - after normal image
+		x_DWORD_F01E4 = &pdwScreenBuffer_351628[64320];//line 320x201 - after normal image
 		x_WORD_F01F4 = 0x3200;//320*40
 		sub_2EC30_clear_img_mem();
 		x_DWORD_D41D0 = 0;
@@ -1527,27 +1517,27 @@ uint32_t sub_7FAE0_draw_text(char* text, int16_t a2, int16_t a3, int16_t posy, u
 //----- (00090478) --------------------------------------------------------
 void sub_90478_VGA_Blit320()//271478
 {
-#ifdef DEBUG_SEQUENCES
-	uint8_t origbyte20 = 0;
-	uint8_t remakebyte20 = 0;
-	int comp20;
-	if (debugafterload)
-	{
-		//comp20 = compare_with_sequence((char*)"0022860F-002DC4E0", (uint8_t*)x_BYTE_10B4E0_terraintype, 0x2dc4e0, debugcounter_47560, 0x70000, 0x10000, &origbyte20, &remakebyte20);
-		//comp20 = compare_with_sequence((char*)"0022860F-002DC4E0", (uint8_t*)x_BYTE_11B4E0_height, 0x2dc4e0, debugcounter_47560, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x10000);
-		//comp20 = compare_with_sequence((char*)"0022860F-002DC4E0", (uint8_t*)x_BYTE_12B4E0_shading, 0x2dc4e0, debugcounter_47560, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x20000);
-		//comp20 = compare_with_sequence((char*)"0022860F-002DC4E0", (uint8_t*)x_BYTE_13B4E0_angle, 0x2dc4e0, debugcounter_47560, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x30000);
-		//comp20 = compare_with_sequence((char*)"0022860F-002DC4E0", (uint8_t*)x_WORD_15B4E0_source, 0x2dc4e0, debugcounter_47560, 0x70000, 0x20000, &origbyte20, &remakebyte20, 0x50000);
+	if (CommandLineParams.DoDebugSequences()) {
+		/* uint8_t origbyte20 = 0;
+		uint8_t remakebyte20 = 0;
+		int comp20;
+		if (debugafterload)
+		{
+			//comp20 = compare_with_sequence((char*)"0022860F-002DC4E0", (uint8_t*)x_BYTE_10B4E0_terraintype, 0x2dc4e0, debugcounter_47560, 0x70000, 0x10000, &origbyte20, &remakebyte20);
+			//comp20 = compare_with_sequence((char*)"0022860F-002DC4E0", (uint8_t*)x_BYTE_11B4E0_height, 0x2dc4e0, debugcounter_47560, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x10000);
+			//comp20 = compare_with_sequence((char*)"0022860F-002DC4E0", (uint8_t*)x_BYTE_12B4E0_shading, 0x2dc4e0, debugcounter_47560, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x20000);
+			//comp20 = compare_with_sequence((char*)"0022860F-002DC4E0", (uint8_t*)x_BYTE_13B4E0_angle, 0x2dc4e0, debugcounter_47560, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x30000);
+			//comp20 = compare_with_sequence((char*)"0022860F-002DC4E0", (uint8_t*)x_WORD_15B4E0_source, 0x2dc4e0, debugcounter_47560, 0x70000, 0x20000, &origbyte20, &remakebyte20, 0x50000);
 
-		//comp20 = compare_with_sequence_D41A0((char*)"0022860F-00356038", (uint8_t*)&D41A0_BYTESTR_0, 0x356038, debugcounter_271478, 224790, &origbyte20, &remakebyte20);
+			//comp20 = compare_with_sequence_D41A0((char*)"0022860F-00356038", (uint8_t*)&D41A0_BYTESTR_0, 0x356038, debugcounter_271478, 224790, &origbyte20, &remakebyte20);
 
-		//comp20 = compare_with_sequence_array_E2A74((char*)"0022860F-002B3A74", (uint8_t*)&array_E2A74, 0x2b3a74, debugcounter_271478, 0xc4e, 0xc4e, &origbyte20, &remakebyte20);
-		//if(debugcounter_271478>5)
-		//comp20 = compare_with_sequence((char*)"0022860F-003AA0A4", pdwScreenBuffer_351628, 0x3aa0a4, debugcounter_271478, 320 * 200, 320 * 200, &origbyte20, &remakebyte20);
+			//comp20 = compare_with_sequence_array_E2A74((char*)"0022860F-002B3A74", (uint8_t*)&array_E2A74, 0x2b3a74, debugcounter_271478, 0xc4e, 0xc4e, &origbyte20, &remakebyte20);
+			//if(debugcounter_271478>5)
+			//comp20 = compare_with_sequence((char*)"0022860F-003AA0A4", pdwScreenBuffer_351628, 0x3aa0a4, debugcounter_271478, 320 * 200, 320 * 200, &origbyte20, &remakebyte20);
 
-		debugcounter_271478++;
+			debugcounter_271478++;
+		} */
 	}
-#endif //DEBUG_SEQUENCES
 	if (!x_BYTE_E3766)
 		sub_8CACD_draw_cursor2();
 #ifndef debug_hide_graphics
@@ -1764,7 +1754,7 @@ void sub_6EF10_set_mouse_minmax(__int16 a1, signed __int16 a2, __int16 a3, signe
 {
 	signed __int16 v4; // si
 	signed __int16 v5; // bx
-	__int16 result; // ax
+	//__int16 result; // ax
 	char v7ar[28]; // [esp+0h] [ebp-38h]
 	__int16 v8ar[14]; // [esp+1Ch] [ebp-1Ch]
 	//__int16 v9; // [esp+24h] [ebp-14h]//v8ar[4]
@@ -1776,7 +1766,7 @@ void sub_6EF10_set_mouse_minmax(__int16 a1, signed __int16 a2, __int16 a3, signe
 	memset(v7ar, 0, 28);
 	if (a2 > 638)
 		v4 = 638;
-	result = x_WORD_180660_VGA_type_resolution;
+	//result = x_WORD_180660_VGA_type_resolution;
 	if ((unsigned __int16)x_WORD_180660_VGA_type_resolution >= 1u)
 	{
 		if ((unsigned __int16)x_WORD_180660_VGA_type_resolution <= 1u)
@@ -1784,7 +1774,7 @@ void sub_6EF10_set_mouse_minmax(__int16 a1, signed __int16 a2, __int16 a3, signe
 			v8ar[4] = a1;
 			v8ar[6] = v4;
 			v8ar[0] = 7;
-			//int386(0x33, (REGS*)v8ar, (REGS*)v7ar);//set mouse min,max
+//removed int386(0x33, (REGS*)v8ar, (REGS*)v7ar);//set mouse min,max see: https://github.com/open-watcom/open-watcom-v2/blob/master/bld/src/goodies/mouse.c
 			v8ar[0] = 8;
 			v8ar[4] = a3;
 			if (a4 > 398)
@@ -1797,7 +1787,7 @@ void sub_6EF10_set_mouse_minmax(__int16 a1, signed __int16 a2, __int16 a3, signe
 			v8ar[0] = 7;
 			v8ar[4] = 8 * a1;
 			v8ar[6] = 8 * v4;
-			//int386(0x33, (REGS*)v8ar, (REGS*)v7ar);//set mouse min,max
+//removed int386(0x33, (REGS*)v8ar, (REGS*)v7ar);//set mouse min,max see: https://github.com/open-watcom/open-watcom-v2/blob/master/bld/src/goodies/mouse.c
 			v8ar[0] = 8;
 			if (a4 > 478)
 				v5 = 478;
@@ -1805,13 +1795,10 @@ void sub_6EF10_set_mouse_minmax(__int16 a1, signed __int16 a2, __int16 a3, signe
 			v5 *= 8;
 		}
 		v8ar[6] = v5;
-		//result = int386(0x33, (REGS*)v8ar, (REGS*)v7ar);//set mouse min,max
+//removed result = int386(0x33, (REGS*)v8ar, (REGS*)v7ar);//set mouse min,max see: https://github.com/open-watcom/open-watcom-v2/blob/master/bld/src/goodies/mouse.c
 	}
 	//return;
 }
-// 8C250: using guessed type x_DWORD memset(x_DWORD, x_DWORD, x_DWORD);
-// 98D52: using guessed type x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);
-// 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
 //----- (0007FB90) --------------------------------------------------------
 void sub_7FB90_draw_text(char* textbuffer, int16_t posx, int16_t posy, uint8_t color)//260b90
@@ -2090,7 +2077,7 @@ void sub_6F940_sub_draw_text(const char* textbuffer, int posx, int posy, uint8_t
 	int v7; // eax
 	//int v8; // edi
 	int v9; // eax
-	int result; // eax
+	//int result; // eax
 
 	int helpWidth = 640;
 	if (x_WORD_180660_VGA_type_resolution != 1)
@@ -2160,7 +2147,7 @@ void sub_6F940_sub_draw_text(const char* textbuffer, int posx, int posy, uint8_t
 	LABEL_16:
 		v4++;
 	}
-	result = v5;
+	//result = v5;
 	x_WORD_E36D4 = 0;
 }
 // E36D4: using guessed type __int16 x_WORD_E36D4;
@@ -3644,44 +3631,42 @@ void sub_99AEB_create_index_dattab_minus(uint8_t* tabbuffer, uint8_t* tabbuffere
 	}
 }
 
-signed int sub_61790(signed int a1)//242790
+signed int GetTrueWizardNumber_61790(signed int inputnumber)//242790
 {
-	signed int result; // eax
-
-	result = a1;
+	signed int outputNumber = inputnumber;
 	if (x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 0x10)
 	{
-		switch (D41A0_0.array_0x2BDE[a1].dword_0x3E6_2BE4_12228.byte_0x1C0_448)
+		switch (D41A0_0.array_0x2BDE[inputnumber].dword_0x3E6_2BE4_12228.byte_0x1C0_448)
 		{
 		case 0:
-			result = 0;
+			outputNumber = 0;
 			break;
 		case 1:
-			result = 2;
+			outputNumber = 2;
 			break;
 		case 2:
-			result = 1;
+			outputNumber = 1;
 			break;
 		case 3:
-			result = 4;
+			outputNumber = 4;
 			break;
 		case 4:
-			result = 5;
+			outputNumber = 5;
 			break;
 		case 5:
-			result = 6;
+			outputNumber = 6;
 			break;
 		case 6:
-			result = 3;
+			outputNumber = 3;
 			break;
 		case 7:
-			result = 7;
+			outputNumber = 7;
 			break;
 		default:
-			return result;
+			return outputNumber;
 		}
 	}
-	return result;
+	return outputNumber;
 }
 
 void Convert_from_shadow_str_2FECE(type_shadow_str_2FECE* from, type_str_2FECE* to) {
@@ -3767,21 +3752,21 @@ void Convert_from_shadow_D41A0_BYTESTR_0(type_shadow_D41A0_BYTESTR_0* from, type
 	for (int i = 0; i < 8; i++)to->array_0x6E3E[i] = from->array_0x6E3E[i];
 	for (int i = 0; i < 0x3e8; i++) {
 		to->struct_0x6E8E[i].next_0 = (_str_0x6E8E*)from->struct_0x6E8E[i].next_0;
-		to->struct_0x6E8E[i].dword_0x4 = from->struct_0x6E8E[i].dword_0x4;
-		to->struct_0x6E8E[i].dword_0x8 = from->struct_0x6E8E[i].dword_0x8;
+		to->struct_0x6E8E[i].maxLife_0x4 = from->struct_0x6E8E[i].dword_0x4;
+		to->struct_0x6E8E[i].life_0x8 = from->struct_0x6E8E[i].dword_0x8;
 		to->struct_0x6E8E[i].struct_byte_0xc_12_15 = from->struct_0x6E8E[i].struct_byte_0xc_12_15;
 		to->struct_0x6E8E[i].dword_0x10_16 = from->struct_0x6E8E[i].dword_0x10_16;
 		to->struct_0x6E8E[i].rand_0x14_20 = from->struct_0x6E8E[i].word_0x14_20;
 		to->struct_0x6E8E[i].oldMapEntity_0x16_22 = from->struct_0x6E8E[i].word_0x16_22;
 		to->struct_0x6E8E[i].nextEntity_0x18_24 = from->struct_0x6E8E[i].word_0x18_24_next_entity;
-		to->struct_0x6E8E[i].word_0x1A_26 = from->struct_0x6E8E[i].word_0x1A_26;
+		to->struct_0x6E8E[i].id_0x1A_26 = from->struct_0x6E8E[i].word_0x1A_26;
 		to->struct_0x6E8E[i].word_0x1C_28 = from->struct_0x6E8E[i].word_0x1C_28;
 		to->struct_0x6E8E[i].word_0x1E_30 = from->struct_0x6E8E[i].word_0x1E_30;
 		to->struct_0x6E8E[i].word_0x20_32 = from->struct_0x6E8E[i].word_0x20_32;
 		to->struct_0x6E8E[i].word_0x22_34 = from->struct_0x6E8E[i].word_0x22_34;
 		to->struct_0x6E8E[i].word_0x24_36 = from->struct_0x6E8E[i].word_0x24_36;
 		to->struct_0x6E8E[i].word_0x26_38 = from->struct_0x6E8E[i].word_0x26_38;
-		to->struct_0x6E8E[i].word_0x28_40 = from->struct_0x6E8E[i].word_0x28_40;
+		to->struct_0x6E8E[i].parentId_0x28_40 = from->struct_0x6E8E[i].word_0x28_40;
 		to->struct_0x6E8E[i].word_0x2A_42 = from->struct_0x6E8E[i].word_0x2A_42;
 		to->struct_0x6E8E[i].word_0x2C_44 = from->struct_0x6E8E[i].word_0x2C_44;
 		to->struct_0x6E8E[i].word_0x2E_46 = from->struct_0x6E8E[i].word_0x2E_46;
@@ -3796,13 +3781,13 @@ void Convert_from_shadow_D41A0_BYTESTR_0(type_shadow_D41A0_BYTESTR_0* from, type
 		to->struct_0x6E8E[i].byte_0x3C_60 = from->struct_0x6E8E[i].byte_0x3C_60;
 		to->struct_0x6E8E[i].byte_0x3D_61 = from->struct_0x6E8E[i].byte_0x3D_61;
 		to->struct_0x6E8E[i].byte_0x3E_62 = from->struct_0x6E8E[i].byte_0x3E_62;
-		to->struct_0x6E8E[i].type_0x3F_63 = from->struct_0x6E8E[i].type_0x3F_63;
-		to->struct_0x6E8E[i].subtype_0x40_64 = from->struct_0x6E8E[i].subtype_0x40_64;
+		to->struct_0x6E8E[i].class_0x3F_63 = from->struct_0x6E8E[i].type_0x3F_63;
+		to->struct_0x6E8E[i].model_0x40_64 = from->struct_0x6E8E[i].subtype_0x40_64;
 		to->struct_0x6E8E[i].xtype_0x41_65 = from->struct_0x6E8E[i].byte_0x41_65;
 		to->struct_0x6E8E[i].xsubtype_0x42_66 = from->struct_0x6E8E[i].byte_0x42_66;
 		to->struct_0x6E8E[i].byte_0x43_67 = from->struct_0x6E8E[i].byte_0x43_67;
 		to->struct_0x6E8E[i].byte_0x44_68 = from->struct_0x6E8E[i].byte_0x44_68;
-		to->struct_0x6E8E[i].byte_0x45_69 = from->struct_0x6E8E[i].byte_0x45_69;
+		to->struct_0x6E8E[i].state_0x45_69 = from->struct_0x6E8E[i].byte_0x45_69;
 		to->struct_0x6E8E[i].byte_0x46_70 = from->struct_0x6E8E[i].byte_0x46_70;
 		to->struct_0x6E8E[i].byte_0x47_71_xx = from->struct_0x6E8E[i].byte_0x47_71_xx;
 		to->struct_0x6E8E[i].StageVar1_0x48_72 = from->struct_0x6E8E[i].byte_0x48_72;
@@ -3814,12 +3799,12 @@ void Convert_from_shadow_D41A0_BYTESTR_0(type_shadow_D41A0_BYTESTR_0* from, type
 		to->struct_0x6E8E[i].byte_0x5C_92 = from->struct_0x6E8E[i].byte_0x5C_92;
 		to->struct_0x6E8E[i].byte_0x5D_93 = from->struct_0x6E8E[i].byte_0x5D_93;
 		to->struct_0x6E8E[i].str_0x5E_94 = from->struct_0x6E8E[i].str_0x5E_94;
-		to->struct_0x6E8E[i].word_0x82_130 = from->struct_0x6E8E[i].word_0x82_130;
-		to->struct_0x6E8E[i].word_0x84_132 = from->struct_0x6E8E[i].word_0x84_132;
-		to->struct_0x6E8E[i].word_0x86_134 = from->struct_0x6E8E[i].word_0x86_134;
+		to->struct_0x6E8E[i].actSpeed_0x82_130 = from->struct_0x6E8E[i].word_0x82_130;
+		to->struct_0x6E8E[i].minSpeed_0x84_132 = from->struct_0x6E8E[i].word_0x84_132;
+		to->struct_0x6E8E[i].maxSpeed_0x86_134 = from->struct_0x6E8E[i].word_0x86_134;
 		to->struct_0x6E8E[i].dword_0x88_136 = from->struct_0x6E8E[i].dword_0x88_136;
-		to->struct_0x6E8E[i].dword_0x8C_140 = from->struct_0x6E8E[i].dword_0x8C_140;
-		to->struct_0x6E8E[i].dword_0x90_144 = from->struct_0x6E8E[i].dword_0x90_144;
+		to->struct_0x6E8E[i].maxMana_0x8C_140 = from->struct_0x6E8E[i].dword_0x8C_140;
+		to->struct_0x6E8E[i].mana_0x90_144 = from->struct_0x6E8E[i].dword_0x90_144;
 		to->struct_0x6E8E[i].word_0x94_148 = from->struct_0x6E8E[i].word_0x94_148;
 		to->struct_0x6E8E[i].word_0x96_150 = from->struct_0x6E8E[i].word_0x96_150;
 		to->struct_0x6E8E[i].word_0x98_152 = from->struct_0x6E8E[i].word_0x98_152;
@@ -3960,21 +3945,21 @@ void Convert_to_shadow_D41A0_BYTESTR_0(type_D41A0_BYTESTR_0* from, type_shadow_D
 	for (int i = 0; i < 8; i++)to->array_0x6E3E[i] = from->array_0x6E3E[i];
 	for (int i = 0; i < 0x3e8; i++) {
 		to->struct_0x6E8E[i].next_0 = ((uint8_t*)from->struct_0x6E8E[i].next_0 - Zero_pointer);
-		to->struct_0x6E8E[i].dword_0x4 = from->struct_0x6E8E[i].dword_0x4;
-		to->struct_0x6E8E[i].dword_0x8 = from->struct_0x6E8E[i].dword_0x8;
+		to->struct_0x6E8E[i].dword_0x4 = from->struct_0x6E8E[i].maxLife_0x4;
+		to->struct_0x6E8E[i].dword_0x8 = from->struct_0x6E8E[i].life_0x8;
 		to->struct_0x6E8E[i].struct_byte_0xc_12_15 = from->struct_0x6E8E[i].struct_byte_0xc_12_15;
 		to->struct_0x6E8E[i].dword_0x10_16 = from->struct_0x6E8E[i].dword_0x10_16;
 		to->struct_0x6E8E[i].word_0x14_20 = from->struct_0x6E8E[i].rand_0x14_20;
 		to->struct_0x6E8E[i].word_0x16_22 = from->struct_0x6E8E[i].oldMapEntity_0x16_22;
 		to->struct_0x6E8E[i].word_0x18_24_next_entity = from->struct_0x6E8E[i].nextEntity_0x18_24;
-		to->struct_0x6E8E[i].word_0x1A_26 = from->struct_0x6E8E[i].word_0x1A_26;
+		to->struct_0x6E8E[i].word_0x1A_26 = from->struct_0x6E8E[i].id_0x1A_26;
 		to->struct_0x6E8E[i].word_0x1C_28 = from->struct_0x6E8E[i].word_0x1C_28;
 		to->struct_0x6E8E[i].word_0x1E_30 = from->struct_0x6E8E[i].word_0x1E_30;
 		to->struct_0x6E8E[i].word_0x20_32 = from->struct_0x6E8E[i].word_0x20_32;
 		to->struct_0x6E8E[i].word_0x22_34 = from->struct_0x6E8E[i].word_0x22_34;
 		to->struct_0x6E8E[i].word_0x24_36 = from->struct_0x6E8E[i].word_0x24_36;
 		to->struct_0x6E8E[i].word_0x26_38 = from->struct_0x6E8E[i].word_0x26_38;
-		to->struct_0x6E8E[i].word_0x28_40 = from->struct_0x6E8E[i].word_0x28_40;
+		to->struct_0x6E8E[i].word_0x28_40 = from->struct_0x6E8E[i].parentId_0x28_40;
 		to->struct_0x6E8E[i].word_0x2A_42 = from->struct_0x6E8E[i].word_0x2A_42;
 		to->struct_0x6E8E[i].word_0x2C_44 = from->struct_0x6E8E[i].word_0x2C_44;
 		to->struct_0x6E8E[i].word_0x2E_46 = from->struct_0x6E8E[i].word_0x2E_46;
@@ -3989,13 +3974,13 @@ void Convert_to_shadow_D41A0_BYTESTR_0(type_D41A0_BYTESTR_0* from, type_shadow_D
 		to->struct_0x6E8E[i].byte_0x3C_60 = from->struct_0x6E8E[i].byte_0x3C_60;
 		to->struct_0x6E8E[i].byte_0x3D_61 = from->struct_0x6E8E[i].byte_0x3D_61;
 		to->struct_0x6E8E[i].byte_0x3E_62 = from->struct_0x6E8E[i].byte_0x3E_62;
-		to->struct_0x6E8E[i].type_0x3F_63 = from->struct_0x6E8E[i].type_0x3F_63;
-		to->struct_0x6E8E[i].subtype_0x40_64 = from->struct_0x6E8E[i].subtype_0x40_64;
+		to->struct_0x6E8E[i].type_0x3F_63 = from->struct_0x6E8E[i].class_0x3F_63;
+		to->struct_0x6E8E[i].subtype_0x40_64 = from->struct_0x6E8E[i].model_0x40_64;
 		to->struct_0x6E8E[i].byte_0x41_65 = from->struct_0x6E8E[i].xtype_0x41_65;
 		to->struct_0x6E8E[i].byte_0x42_66 = from->struct_0x6E8E[i].xsubtype_0x42_66;
 		to->struct_0x6E8E[i].byte_0x43_67 = from->struct_0x6E8E[i].byte_0x43_67;
 		to->struct_0x6E8E[i].byte_0x44_68 = from->struct_0x6E8E[i].byte_0x44_68;
-		to->struct_0x6E8E[i].byte_0x45_69 = from->struct_0x6E8E[i].byte_0x45_69;
+		to->struct_0x6E8E[i].byte_0x45_69 = from->struct_0x6E8E[i].state_0x45_69;
 		to->struct_0x6E8E[i].byte_0x46_70 = from->struct_0x6E8E[i].byte_0x46_70;
 		to->struct_0x6E8E[i].byte_0x47_71_xx = from->struct_0x6E8E[i].byte_0x47_71_xx;
 		to->struct_0x6E8E[i].byte_0x48_72 = from->struct_0x6E8E[i].StageVar1_0x48_72;
@@ -4007,12 +3992,12 @@ void Convert_to_shadow_D41A0_BYTESTR_0(type_D41A0_BYTESTR_0* from, type_shadow_D
 		to->struct_0x6E8E[i].byte_0x5C_92 = from->struct_0x6E8E[i].byte_0x5C_92;
 		to->struct_0x6E8E[i].byte_0x5D_93 = from->struct_0x6E8E[i].byte_0x5D_93;
 		to->struct_0x6E8E[i].str_0x5E_94 = from->struct_0x6E8E[i].str_0x5E_94;
-		to->struct_0x6E8E[i].word_0x82_130 = from->struct_0x6E8E[i].word_0x82_130;
-		to->struct_0x6E8E[i].word_0x84_132 = from->struct_0x6E8E[i].word_0x84_132;
-		to->struct_0x6E8E[i].word_0x86_134 = from->struct_0x6E8E[i].word_0x86_134;
+		to->struct_0x6E8E[i].word_0x82_130 = from->struct_0x6E8E[i].actSpeed_0x82_130;
+		to->struct_0x6E8E[i].word_0x84_132 = from->struct_0x6E8E[i].minSpeed_0x84_132;
+		to->struct_0x6E8E[i].word_0x86_134 = from->struct_0x6E8E[i].maxSpeed_0x86_134;
 		to->struct_0x6E8E[i].dword_0x88_136 = from->struct_0x6E8E[i].dword_0x88_136;
-		to->struct_0x6E8E[i].dword_0x8C_140 = from->struct_0x6E8E[i].dword_0x8C_140;
-		to->struct_0x6E8E[i].dword_0x90_144 = from->struct_0x6E8E[i].dword_0x90_144;
+		to->struct_0x6E8E[i].dword_0x8C_140 = from->struct_0x6E8E[i].maxMana_0x8C_140;
+		to->struct_0x6E8E[i].dword_0x90_144 = from->struct_0x6E8E[i].mana_0x90_144;
 		to->struct_0x6E8E[i].word_0x94_148 = from->struct_0x6E8E[i].word_0x94_148;
 		to->struct_0x6E8E[i].word_0x96_150 = from->struct_0x6E8E[i].word_0x96_150;
 		to->struct_0x6E8E[i].word_0x98_152 = from->struct_0x6E8E[i].word_0x98_152;
@@ -4114,3 +4099,17 @@ void Convert_to_shadow_D41A0_BYTESTR_0(type_D41A0_BYTESTR_0* from, type_shadow_D
 	for (int i = 0; i < 11; i++)to->stubend[i] = from->stubend[i];
 }
 
+void Convert_to_shadow_str_E2A74(const type_array_str_E2A74 &from, type_shadow_str_E2A74* to)
+{
+	for (int j = 0; j < from.size(); ++j) {
+		to[j].word_0 = from[j].word_0;
+		for (int i = 0; i < from[j].axis_2.size(); i++)
+			to[j].axis_2[i] = from[j].axis_2[i];
+		to[j].dword_12 = ((uint8_t*)from[j].dword_12 - Zero_pointer);
+		to[j].dword_16 = from[j].dword_16;
+		to[j].dword_20 = from[j].dword_20;
+		to[j].dword_24 = from[j].dword_24;
+		to[j].byte_28 = from[j].byte_28;
+		to[j].byte_29 = from[j].byte_29;
+	}
+}

@@ -4,6 +4,7 @@
 #include <cstdint>
 
 #include "../engine/sub_main_mouse.h"
+#include "../engine/CommandLineParser.h"
 
 #ifdef USE_DOSBOX
 extern DOS_Device* DOS_CON;
@@ -33,6 +34,8 @@ bool inited = false;
 Uint8 tempPalettebuffer[768];
 
 int oldWidth;
+
+bool subBlitLock = false;
 
 // Initalize Color Masks.
 #if SDL_BYTEORDER == SDL_BIG_ENDIAN
@@ -127,7 +130,8 @@ void VGA_Init(Uint32  /*flags*/, int width, int height, bool maintainAspectRatio
 		}
 
 		Set_basic_Palette1();
-		Draw_debug_matrix1();
+		//Draw_debug_matrix1();
+		Draw_black();
 		inited = true;
 	}
 }
@@ -250,6 +254,27 @@ void Draw_debug_matrix0() {
 	SubBlit(m_iOrigw, m_iOrigh);
 };
 
+void Draw_black() {
+	SDL_Rect dstrect;
+	if (SDL_MUSTLOCK(m_gamePalletisedSurface)) {
+		if (SDL_LockSurface(m_gamePalletisedSurface) < 0) {
+			fprintf(stderr, "Can't lock screen: %s\n", SDL_GetError());
+			return;
+		}
+	}
+
+	dstrect.x = 0;
+	dstrect.y = 0;
+	dstrect.w = m_gamePalletisedSurface->w;
+	dstrect.h = m_gamePalletisedSurface->h;
+	SDL_FillRect(m_gamePalletisedSurface, &dstrect, 1);
+
+	if (SDL_MUSTLOCK(m_gamePalletisedSurface)) {
+		SDL_UnlockSurface(m_gamePalletisedSurface);
+	}
+	SubBlit(m_iOrigw, m_iOrigh);
+};
+
 void Draw_debug_matrix1() {
 	SDL_Rect dstrect;
 	if (SDL_MUSTLOCK(m_gamePalletisedSurface)) {
@@ -283,9 +308,8 @@ bool VGA_LoadFont()
 	bool success = true;
 
 	//Load splash image
-	char fontPath[512];
-	GetSubDirectoryPath(fontPath, "font/16x16-font.bmp");
-	surface_font = SDL_LoadBMP(fontPath);
+	std::string fontPath = GetSubDirectoryPath("font/16x16-font.bmp");
+	surface_font = SDL_LoadBMP(fontPath.c_str());
 	if (surface_font == NULL)
 	{
 		printf("Unable to load image %s! SDL Error: %s\n", "16x16-font.bmp", SDL_GetError());
@@ -359,8 +383,8 @@ POSITION VGA_WhereXY() {
 
 void VGA_Draw_string(char* wrstring) {
 	if(!m_gamePalletisedSurface)return;
-	SDL_Rect srcrect = { 0,0,0,0 };
-	SDL_Rect dstrect = { 0,0,0,0 };
+	//SDL_Rect srcrect = { 0,0,0,0 };
+	//SDL_Rect dstrect = { 0,0,0,0 };
 	if (SDL_MUSTLOCK(m_gamePalletisedSurface)) {
 		if (SDL_LockSurface(m_gamePalletisedSurface) < 0) {
 			fprintf(stderr, "Can't lock screen: %s\n", SDL_GetError());
@@ -480,8 +504,8 @@ void VGA_Write_basic_Palette(Uint8* Palettebuffer) {
 }
 
 void VGA_test() {
-	int x = m_gamePalletisedSurface->w / 2;
-	int y = m_gamePalletisedSurface->h / 2;
+	//int x = m_gamePalletisedSurface->w / 2;
+	//int y = m_gamePalletisedSurface->h / 2;
 
 	/* Lock the screen for direct access to the pixels */
 	if (SDL_MUSTLOCK(m_gamePalletisedSurface)) {
@@ -628,17 +652,17 @@ void ToggleFullscreen() {
 		SDL_Log("SDL_GetDesktopDisplayMode failed: %s", SDL_GetError());
 		return;
 	}
-	SDL_WindowFlags test_fullscr;
+	//SDL_WindowFlags test_fullscr;
 	if (!(IsFullscreen ? 0 : FullscreenFlag))
 	{
 		dm.w = 640;
 		dm.h = 480;
-		test_fullscr = SDL_WINDOW_SHOWN;
+		//test_fullscr = SDL_WINDOW_SHOWN;
 	}
-	else
-	{
-		test_fullscr = SDL_WINDOW_FULLSCREEN;
-	}
+	//else
+	//{
+		//test_fullscr = SDL_WINDOW_FULLSCREEN;
+	//}
 
 	if (!(IsFullscreen ? 0 : FullscreenFlag))
 	{
@@ -779,7 +803,7 @@ void VGA_Set_mouse(int16_t x, int16_t y) {
 
 void VGA_Blit(Uint8* srcBuffer) {
 	oldWidth = m_gamePalletisedSurface->w;
-	if (hideGraphics)return;
+	if (CommandLineParams.DoHideGraphics()) return;
 	events();
 
 	if (m_iOrigh != m_gamePalletisedSurface->h)
@@ -818,6 +842,8 @@ void VGA_Blit(Uint8* srcBuffer) {
 }
 
 void SubBlit(uint16_t originalResWidth, uint16_t originalResHeight) {
+	while (subBlitLock);//fix problem with quick blitting
+	subBlitLock = true;
 
 	SDL_Rect rectSrc;
 	rectSrc.x = 0;
@@ -867,6 +893,7 @@ void SubBlit(uint16_t originalResWidth, uint16_t originalResHeight) {
 
 	SDL_RenderPresent(m_renderer);
 	SDL_RenderClear(m_renderer);
+	subBlitLock = false;
 }
 
 void VGA_Init_test() {//only for debug
@@ -891,8 +918,8 @@ void VGA_Init_test() {//only for debug
 
 	SDL_SetPaletteColors(m_gamePalletisedSurface->format->palette, colors, 0, 256);
 
-	int x = m_gamePalletisedSurface->w / 2;
-	int y = m_gamePalletisedSurface->h / 2;
+	//int x = m_gamePalletisedSurface->w / 2;
+	//int y = m_gamePalletisedSurface->h / 2;
 
 	/* Lock the screen for direct access to the pixels */
 	if (SDL_MUSTLOCK(m_gamePalletisedSurface)) {
@@ -934,7 +961,7 @@ void VGA_close()
 	SDL_DestroyWindow(m_window);
 	m_window = NULL;
 	SDL_Quit();
-	free(m_currentPalletColours);
+	//free(m_currentPalletColours);
 }
 
 int16_t VGA_get_shift_status() {
@@ -942,7 +969,7 @@ int16_t VGA_get_shift_status() {
 }
 bool VGA_check_standart_input_status() {
 	bool locpressed = pressed;
-	uint16_t loclastchar = lastchar;
+	//uint16_t loclastchar = lastchar;
 	pressed = false;
 	return locpressed;
 }
@@ -1238,7 +1265,7 @@ void VGA_cleanKeyBuffer() {
 }
 
 uint16_t VGA_read_char_from_buffer() {
-	bool locpressed = pressed;
+	//bool locpressed = pressed;
 	uint16_t loclastchar = lastchar;
 	lastchar = 0;
 	loclastchar = fixchar(loclastchar);
