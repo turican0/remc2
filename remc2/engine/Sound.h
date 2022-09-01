@@ -186,7 +186,7 @@ void SetSampleVolume_A3B40(HSAMPLE S, int32_t volume);
 int32_t GetSampleVolumePan_A3B80(HSAMPLE S);
 void SetSampleVolumePan_A3BB0(HSAMPLE S, int32_t volume);
 void SetSampleLoopCount_A3C90(HSAMPLE S, int loop_count);
-void AipAilStartSample_A3CB0(HSAMPLE S);
+void ApiAilStartSample_A3CB0(HSAMPLE S);
 void ApiAilEndSample_A3DA0(HSAMPLE S);
 EOS_callback_type RegisterEosCallback_A3EB0(HSAMPLE S, EOS_callback_type EOS);
 void SetSampleUserData_A3F00(HSAMPLE S, int a2, int a3);

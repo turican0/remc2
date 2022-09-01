@@ -1289,7 +1289,7 @@ void AilStartSample_93B50(HSAMPLE S)//274b50
 	x_DWORD_181C04++;
 	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
 		dbgfprintf(ailDebufFile_181BF0, "AIL_start_sample(0x%X)\n", S);
-	AipAilStartSample_A3CB0(S);
+	ApiAilStartSample_A3CB0(S);
 	x_DWORD_181C04--;
 }
 
@@ -3307,7 +3307,7 @@ void SetSampleLoopCount_A3C90(HSAMPLE S, int loop_count)//284c90
 	}
 }
 
-void AipAilStartSample_A3CB0(HSAMPLE S)//284cb0
+void ApiAilStartSample_A3CB0(HSAMPLE S)//284cb0
 {
 	if (S)
 	{
