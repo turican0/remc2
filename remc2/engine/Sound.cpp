@@ -74,8 +74,8 @@ char x_DWORD_181C14[256]; // weak
 
 uint8_t x_BYTE_181C2C; // weak
 
-int8_t x_WORD_E2A14_sound_activel = 1; // weak
-int8_t x_WORD_E2A14_sound_activeh = 0; // weak
+int8_t soundActiveL_E2A14 = 1; // weak
+int8_t soundActiveH_E2A14 = 0; // weak
 
 int x_DWORD_E2A18 = 0; // weak
 int x_DWORD_E2A1C = 0; // weak
@@ -2731,7 +2731,7 @@ int32_t LoadSound_84300(uint8_t a1)//265300
 
 	if (soundActive2_E3798 && x_BYTE_E37AD_actual_sound != a1)
 	{
-		if (x_WORD_E2A14_sound_activeh)
+		if (soundActiveH_E2A14)
 			EndSample_8D8F0();
 
 		std::string soundPath = GetSubDirectoryFile(cdFolder, "SOUND", "SOUND.DAT");
@@ -2865,21 +2865,21 @@ char ReadAndDecompressSound(FILE* file, unsigned __int8 a2)//2654f0
 	if (v8x[a2].dword_4 == -1)//ebp-5c
 		return 0;
 
-	if (!x_WORD_E2A14_sound_activeh)
+	if (!soundActiveH_E2A14)
 	{
 		x_DWORD_E37A8_sound_buffer1 = (uint8_t*)Malloc_83CD0(v8x[a2].dword_12 + 256);
 		soundIndex_E37A0 = (type_E37A0_sound_buffer2*)Malloc_83CD0(sizeof(type_E37A0_sound_buffer2));
-		x_WORD_E2A14_sound_activel = 1;
+		soundActiveL_E2A14 = 1;
 		if (!x_DWORD_E37A8_sound_buffer1 || !soundIndex_E37A0)
 		{
 			FreeMem_83E80(x_DWORD_E37A8_sound_buffer1);
 			FreeMem_83E80((uint8_t*)soundIndex_E37A0);
-			x_WORD_E2A14_sound_activel = 0;
+			soundActiveL_E2A14 = 0;
 			x_BYTE_E37AD_actual_sound = -1;
 			return 0;
 		}
 		x_DWORD_E2A18 = v8x[a2].dword_12 + 256;
-		x_WORD_E2A14_sound_activeh = 1;
+		soundActiveH_E2A14 = 1;
 		x_DWORD_E2A1C = 3100;
 	}
 	soundActive2_E3798 = 0;
@@ -9959,7 +9959,7 @@ int sub_99FF5(unsigned __int8 a1)//27aff5
 // AB952: using guessed type x_DWORD x_tolower(x_DWORD);
 
 //----- (0009A230) --------------------------------------------------------
-int sub_9A230_set_x_WORD_E37B4(int a1)//27B230
+int SetSoundFreq_9A230(int a1)//27B230
 {
 	int result; // eax
 

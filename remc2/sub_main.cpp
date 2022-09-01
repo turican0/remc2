@@ -38984,7 +38984,7 @@ void /*__fastcall*/ sub_46DD0_init_sound_and_music(/*int a1, int a2, char* a3*/)
 			sprintf(printbuffer, "%s/%s", gameDataPath.c_str(), "sound");
 			PrintTextMessage_70910((char*)"Initialise Sound\0");
 			sub_90FD0(/*v3*//*v3, v4, a3*/); //fix it sound off here!
-			if (!x_WORD_E2A14_sound_activel)
+			if (!soundActiveL_E2A14)
 				myprintf("ERROR: NOT ENOUGH MEMORY FOR SOUNDS\n");
 			if ((x_D41A0_BYTEARRAY_4_struct.setting_byte4_25) & 0x40)//fix it
 				LoadMusic(1);
@@ -77717,7 +77717,7 @@ void sub_83B50()//264B50
 			//fix
 			x_D41A0_BYTEARRAY_4_struct.dword_0xE6_heapsize_230 += 0x1000000;
 			//fix
-			sub_9A230_set_x_WORD_E37B4(822);
+			SetSoundFreq_9A230(822);
 		}
 		//v2 = (int)sub_83CD0_malloc2(x_D41A0_BYTEARRAY_4_struct.dword_0xE6_heapsize_230);
 		//v3 = x_D41A0_BYTEARRAY_4;

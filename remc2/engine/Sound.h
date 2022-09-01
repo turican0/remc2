@@ -29,8 +29,8 @@ extern FILE* x_FILE_E3840;
 extern __int16 m_iNumberOfTracks;
 extern int x_DWORD_E387C;
 //extern int x_DWORD_E3840;
-extern int8_t x_WORD_E2A14_sound_activel;
-extern int8_t x_WORD_E2A14_sound_activeh;
+extern int8_t soundActiveL_E2A14;
+extern int8_t soundActiveH_E2A14;
 extern __int16 x_WORD_E37B6_sound_number;
 extern char x_BYTE_E379B; // weak
 extern __int16 x_WORD_E3828; // weak
@@ -380,7 +380,7 @@ signed int sub_99E8E(unsigned __int8* a1, unsigned __int8** a2, signed int a3, i
 
 int sub_99FF5(unsigned __int8 a1);
 
-int sub_9A230_set_x_WORD_E37B4(int a1);
+int SetSoundFreq_9A230(int a1);
 
 signed int sub_ACB61(int a1, unsigned __int8* a2, int* a3);
 unsigned __int8* sub_ACD79(unsigned __int8* a1, int a2);
