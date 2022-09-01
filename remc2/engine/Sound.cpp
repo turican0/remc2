@@ -1026,7 +1026,7 @@ void StartMusic_8E160(__int16 track, unsigned __int8 volume)//26f160
 		  sub_98360_AIL_send_channel_voice_message(x_DWORD_180C7C, x_DWORD_180C78, i | 0xB0, 0x5Du, 0);
 		}*/
 		if (volume < 0x7Fu)
-			SetAilSequenceVolume(m_hSequence, volume, -1);
+			AilSetSequenceVolume_96030(m_hSequence, volume, -1);
 
 		sub_95D50_AIL_start_sequence(m_hSequence, track);
 		x_WORD_E3800 = 100;
@@ -2282,7 +2282,7 @@ void sub_95F00_AIL_end_sequence(HSEQUENCE hSequence/*HSEQUENCE S*/)//AIL_end_seq
 // 181BF8: using guessed type int x_DWORD_181BF8;
 // 181C04: using guessed type int x_DWORD_181C04;
 
-void SetAilSequenceVolume(HSEQUENCE  /*hSequence*/, int32_t volume, int32_t  milliseconds)//AIL_set_sequence_volume
+void AilSetSequenceVolume_96030(HSEQUENCE  /*hSequence*/, int32_t volume, int32_t  milliseconds)//AIL_set_sequence_volume
 {
 	SOUND_set_sequence_volume(volume, milliseconds);
 }
@@ -2665,7 +2665,7 @@ void sub_986E0()//2796e0
 void sub_98790(unsigned __int16 milliseconds, unsigned __int8 volume)//279790
 {
 	if (musicInitialized_E37FC && musicStarted_E37FD && x_WORD_E3802 && volume <= 0x7Fu && sub_96170_AIL_sequence_status(m_hSequence) != 2)
-		SetAilSequenceVolume(m_hSequence, volume, milliseconds);
+		AilSetSequenceVolume_96030(m_hSequence, volume, milliseconds);
 }
 
 //----- (00098AE9) --------------------------------------------------------

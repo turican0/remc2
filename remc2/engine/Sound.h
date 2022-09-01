@@ -147,7 +147,7 @@ void sub_95D50_AIL_start_sequence(HSEQUENCE hSequence, uint32_t track);
 void sub_95DE0_AIL_stop_sequence(HSEQUENCE hSequence);
 void sub_95E70_AIL_resume_sequence(HSEQUENCE hSequence);
 void sub_95F00_AIL_end_sequence(HSEQUENCE hSequence);
-void SetAilSequenceVolume(HSEQUENCE hSequence, int32_t volume, int32_t milliseconds);
+void AilSetSequenceVolume_96030(HSEQUENCE hSequence, int32_t volume, int32_t milliseconds);
 int sub_96170_AIL_sequence_status(HSEQUENCE hSequence);
 void sub_96670_AIL_set_XMIDI_master_volume(HMDIDRIVER mdi, int32_t master_volume);
 int32_t sub_969A0_AIL_MDI_driver_type(HMDIDRIVER mdi);
