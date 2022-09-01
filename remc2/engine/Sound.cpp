@@ -26,7 +26,7 @@ int8_t x_BYTE_E37AD_actual_sound = -1; // weak
 char x_BYTE_E37AE = 0; // weak
 int lastSoundVolume_E37B0 = 127; // weak
 __int16 x_WORD_E37B4 = 1644; // weak
-__int16 x_WORD_E37B6_sound_number = 0; // weak
+__int16 soundFreqType_E37B6 = 0; // weak
 char x_BYTE_E37B8 = 0; // weak
 int x_DWORD_E37BC_sound_frequence = 0; // weak
 int lastMusicVolume_E37F8 = 127; // weak
@@ -350,7 +350,7 @@ void sub_8D290_init_sound(/*char* a1*//*, int a2, int a3*/)//26e290
 	v10 = 0;
 	if (!soundActive2_E3798)
 		return;
-	x_WORD_E37B6_sound_number = x_WORD_E37B4;
+	soundFreqType_E37B6 = x_WORD_E37B4;
 	if (!x_WORD_E37B4)
 	{
 		if (!musicInitialized_E37FC)
@@ -502,13 +502,13 @@ void sub_8D290_init_sound(/*char* a1*//*, int a2, int a3*/)//26e290
 	}
 
 	sub_8D800_sound_proc2();
-	if (x_WORD_E37B6_sound_number)
+	if (soundFreqType_E37B6)
 	{
-		if (x_WORD_E37B6_sound_number < 822)
+		if (soundFreqType_E37B6 < 822)
 		{
-			if (x_WORD_E37B6_sound_number < 800)
+			if (soundFreqType_E37B6 < 800)
 			{
-				if (!x_WORD_E37B6_sound_number)
+				if (!soundFreqType_E37B6)
 				{
 					soundActive2_E3798 = 0;
 					soundCard_E3799 = 0;
@@ -516,36 +516,36 @@ void sub_8D290_init_sound(/*char* a1*//*, int a2, int a3*/)//26e290
 					return;
 				}
 			}
-			else if (x_WORD_E37B6_sound_number <= 800)
+			else if (soundFreqType_E37B6 <= 800)
 			{
 				x_DWORD_E37BC_sound_frequence = 11025;
 				x_BYTE_E37AE = 0;
 			}
-			else if (x_WORD_E37B6_sound_number == 811)
+			else if (soundFreqType_E37B6 == 811)
 			{
 				x_DWORD_E37BC_sound_frequence = 11025;
 				x_BYTE_E37AE = 0;
 			}
 		}
-		else if (x_WORD_E37B6_sound_number <= 822)
+		else if (soundFreqType_E37B6 <= 822)
 		{
 			x_DWORD_E37BC_sound_frequence = 22050;
 			x_BYTE_E37AE = 0;
 		}
-		else if (x_WORD_E37B6_sound_number < 1622)
+		else if (soundFreqType_E37B6 < 1622)
 		{
-			if (x_WORD_E37B6_sound_number == 1611)
+			if (soundFreqType_E37B6 == 1611)
 			{
 				x_DWORD_E37BC_sound_frequence = 11025;
 				x_BYTE_E37AE = 1;
 			}
 		}
-		else if (x_WORD_E37B6_sound_number <= 1622)
+		else if (soundFreqType_E37B6 <= 1622)
 		{
 			x_DWORD_E37BC_sound_frequence = 22050;
 			x_BYTE_E37AE = 1;
 		}
-		else if (x_WORD_E37B6_sound_number == 1644)
+		else if (soundFreqType_E37B6 == 1644)
 		{
 			x_DWORD_E37BC_sound_frequence = 44100;
 			x_BYTE_E37AE = 1;
@@ -652,35 +652,35 @@ void sub_8D800_sound_proc2()//26E800
 		v0 = LoadSound_84300(x_BYTE_E37AC);
 		if (v0)
 		{
-			if (x_WORD_E37B6_sound_number < 822)
+			if (soundFreqType_E37B6 < 822)
 			{
-				if (x_WORD_E37B6_sound_number >= 800)
+				if (soundFreqType_E37B6 >= 800)
 				{
-					if (x_WORD_E37B6_sound_number <= 800)
+					if (soundFreqType_E37B6 <= 800)
 					{
-						x_WORD_E37B6_sound_number = 0;
+						soundFreqType_E37B6 = 0;
 						return;
 					}
-					if (x_WORD_E37B6_sound_number == 811)
-						x_WORD_E37B6_sound_number = 800;
+					if (soundFreqType_E37B6 == 811)
+						soundFreqType_E37B6 = 800;
 				}
 			}
-			else if (x_WORD_E37B6_sound_number <= 822)
+			else if (soundFreqType_E37B6 <= 822)
 			{
-				x_WORD_E37B6_sound_number = 1611;
+				soundFreqType_E37B6 = 1611;
 			}
-			else if (x_WORD_E37B6_sound_number < 1622)
+			else if (soundFreqType_E37B6 < 1622)
 			{
-				if (x_WORD_E37B6_sound_number == 1611)
-					x_WORD_E37B6_sound_number = 811;
+				if (soundFreqType_E37B6 == 1611)
+					soundFreqType_E37B6 = 811;
 			}
-			else if (x_WORD_E37B6_sound_number <= 1622)
+			else if (soundFreqType_E37B6 <= 1622)
 			{
-				x_WORD_E37B6_sound_number = 822;
+				soundFreqType_E37B6 = 822;
 			}
-			else if (x_WORD_E37B6_sound_number == 1644)
+			else if (soundFreqType_E37B6 == 1644)
 			{
-				x_WORD_E37B6_sound_number = 1622;
+				soundFreqType_E37B6 = 1622;
 			}
 		}
 	}
@@ -1095,7 +1095,7 @@ int sub_8E470_sound_proc17_volume(int a1)//26f470
 // 180B48: using guessed type int x_DWORD_180B48;
 
 //----- (00090FD0) --------------------------------------------------------
-void sub_90FD0(/*char* a1*//*, int a2, char* a3*/)//271fd0
+void InitSoundAndMusic_90FD0(/*char* a1*//*, int a2, char* a3*/)//271fd0
 {
 	//int v3; // eax
 	//int v4; // edx
@@ -2746,34 +2746,34 @@ int32_t LoadSound_84300(uint8_t a1)//265300
 			DataFileIO::Read(file, (uint8_t*)&v7, 4);
 			DataFileIO::Seek(file, v7, 0);
 			DataFileIO::Read(file, (uint8_t*)v6, 12);
-			if (x_WORD_E37B6_sound_number < 822)
+			if (soundFreqType_E37B6 < 822)
 			{
-				if (x_WORD_E37B6_sound_number >= 800)
+				if (soundFreqType_E37B6 >= 800)
 				{
-					if (x_WORD_E37B6_sound_number <= 800)
+					if (soundFreqType_E37B6 <= 800)
 					{
 						v8 = 5;
 					}
-					else if (x_WORD_E37B6_sound_number == 811)
+					else if (soundFreqType_E37B6 == 811)
 					{
 						v8 = 4;
 					}
 				}
 			}
-			else if (x_WORD_E37B6_sound_number <= 822)
+			else if (soundFreqType_E37B6 <= 822)
 			{
 				v8 = 3;
 			}
-			else if (x_WORD_E37B6_sound_number < 1622)
+			else if (soundFreqType_E37B6 < 1622)
 			{
-				if (x_WORD_E37B6_sound_number == 1611)
+				if (soundFreqType_E37B6 == 1611)
 					v8 = 2;
 			}
-			else if (x_WORD_E37B6_sound_number <= 1622)
+			else if (soundFreqType_E37B6 <= 1622)
 			{
 				v8 = 1;
 			}
-			else if (x_WORD_E37B6_sound_number == 1644)
+			else if (soundFreqType_E37B6 == 1644)
 			{
 				v8 = 0;
 			}

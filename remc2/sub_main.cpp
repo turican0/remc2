@@ -38983,7 +38983,7 @@ void /*__fastcall*/ sub_46DD0_init_sound_and_music(/*int a1, int a2, char* a3*/)
 		{
 			sprintf(printbuffer, "%s/%s", gameDataPath.c_str(), "sound");
 			PrintTextMessage_70910((char*)"Initialise Sound\0");
-			sub_90FD0(/*v3*//*v3, v4, a3*/); //fix it sound off here!
+			InitSoundAndMusic_90FD0(/*v3*//*v3, v4, a3*/); //fix it sound off here!
 			if (!soundActiveL_E2A14)
 				myprintf("ERROR: NOT ENOUGH MEMORY FOR SOUNDS\n");
 			if ((x_D41A0_BYTEARRAY_4_struct.setting_byte4_25) & 0x40)//fix it
@@ -73500,7 +73500,7 @@ void sub_6FEC0()//250ec0
 		v33 = sub_6FC30_get34_height() + v32;
 		DrawText_2BC10((char*)"Sound Number", 320, v33, (*xadataclrd0dat.colorPalette_var28)[3840]);
 		v34 = sub_6FC30_get34_height() + v33;
-		sprintf(printbuffer, "%d", x_WORD_E37B6_sound_number);
+		sprintf(printbuffer, "%d", soundFreqType_E37B6);
 		DrawText_2BC10(printbuffer, 320, v34, (*xadataclrd0dat.colorPalette_var28)[15]);
 		v35 = sub_6FC30_get34_height() + v34;
 		DrawText_2BC10((char*)"Game turn", 320, v35, (*xadataclrd0dat.colorPalette_var28)[3840]);
