@@ -136,7 +136,7 @@ HSAMPLE mainSample_181E10; // weak
 
 int x_DWORD_E3E40 = 0; // weak
 bool useSampleData_E3E44 = false; // weak
-bool sampleFinisched_E3E45 = true; // weak
+bool sampleFinished_E3E45 = true; // weak
 
 int x_DWORD_181E26; // weak
 __int16 x_WORD_181E2A; // weak
@@ -2157,7 +2157,7 @@ void UninstallDrivers_9ED70()
 //----- (0009EE70) --------------------------------------------------------
 int sub_9EE70()
 {
-	if (!sampleFinisched_E3E45 && AilSampleUserData_95480(mainSample_181E10, x_DWORD_E3E40) && (unsigned int)x_DWORD_E3E40 < 8)
+	if (!sampleFinished_E3E45 && AilSampleUserData_95480(mainSample_181E10, x_DWORD_E3E40) && (unsigned int)x_DWORD_E3E40 < 8)
 	{
 		AilInitSample_93830(mainSample_181E10);
 		AilRegisterEosCallback_95140(mainSample_181E10, sub_9EE70);
@@ -2173,7 +2173,7 @@ void sub_9F040()
 {
 	if (useSampleData_E3E44)
 	{
-		sampleFinisched_E3E45 = true;
+		sampleFinished_E3E45 = true;
 		AilEndSample_93D00(mainSample_181E10);
 		AilSetSampleUserData_953E0(mainSample_181E10, 0, 0);
 		AilSetSampleUserData_953E0(mainSample_181E10, 1, 0);
