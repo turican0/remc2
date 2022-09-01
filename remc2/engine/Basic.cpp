@@ -536,7 +536,7 @@ void dbgfprintf(FILE* file, const char* format, ...) {
 	fprintf(file, "\n");
 }
 
-void* sub_83CD0_malloc2(size_t a1)//264cd0
+void* Malloc_83CD0(size_t a1)//264cd0
 {
 	return malloc(a1);
 }
@@ -637,32 +637,26 @@ int sub_9D770(char* a1, char a2)//27e770
 // A0855: using guessed type x_DWORD close(x_DWORD);
 
 //----- (0009DE20) --------------------------------------------------------
-signed int GetFileLenght_9DE20(char* a1)//27ee20
+long GetFileLenght_9DE20(char* filename)//27ee20
 {
-	signed int v2; // [esp+0h] [ebp-Ch]
-	signed int v3; // [esp+4h] [ebp-8h]
-	FILE* v4; // [esp+8h] [ebp-4h]
+	int result;
 
 	readFileStatus_E3E2C = 0;
-	v4 = x_open(a1, 512);
-	if (v4 == NULL)
+	if (FILE* file = x_open(filename, 512); file == nullptr)
 	{
 		readFileStatus_E3E2C = 3;
-		v2 = -1;
+		result = -1;
 	}
 	else
 	{
-		v3 = DataFileIO::FileLengthBytes(v4);
-		if (v3 == -1)
+		long fileLenght = DataFileIO::FileLengthBytes(file);
+		if (fileLenght == -1)
 			readFileStatus_E3E2C = 5;
-		DataFileIO::Close(v4);
-		v2 = v3;
+		DataFileIO::Close(file);
+		result = fileLenght;
 	}
-	return v2;
+	return result;
 }
-// 988DA: using guessed type x_DWORD filelength(x_DWORD);
-// A0855: using guessed type x_DWORD close(x_DWORD);
-// E3E2C: using guessed type int x_DWORD_E3E2C;
 
 FILE* x_open(char* path, int  /*pmodex*/) {
 	return myopent(path, (char*)"rb");

@@ -119,8 +119,8 @@ void PlayIntoSoundEvents_1B280(Type_SoundEvent_E17CC* pSoundEvent)//1fc280
 			break;
 		case 'E':
 		case 'e':
-			sub_8D8F0_sound_proc3_endsample();
-			sub_84300_load_sound(pSoundEvent[x_WORD_D4004].index);
+			EndSample_8D8F0();
+			LoadSound_84300(pSoundEvent[x_WORD_D4004].index);
 			break;
 		case 'F':
 		case 'f':
@@ -173,7 +173,7 @@ void PlayIntoSoundEvents_1B280(Type_SoundEvent_E17CC* pSoundEvent)//1fc280
 				if (pSoundEvent[x_WORD_D4004].index)
 					sub_8F100_sound_proc19(0, pSoundEvent[x_WORD_D4004].index, 127, 64, 0x64u, 0, 2u);
 				else
-					sub_8D8F0_sound_proc3_endsample();
+					EndSample_8D8F0();
 			}
 			break;
 		case 'T':
@@ -183,7 +183,7 @@ void PlayIntoSoundEvents_1B280(Type_SoundEvent_E17CC* pSoundEvent)//1fc280
 				if (pSoundEvent[x_WORD_D4004].index)
 					sub_8F420_sound_proc20(0, pSoundEvent[x_WORD_D4004].index);
 				else
-					sub_8D8F0_sound_proc3_endsample();
+					EndSample_8D8F0();
 			}
 			break;
 		case 'U':
