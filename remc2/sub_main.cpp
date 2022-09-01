@@ -2388,7 +2388,7 @@ int sub_9937E_set_video_mode(__int16 a1);
 signed int sub_9951B(__int16 a1);
 int sub_995B0_test_vga_driver();
 void sub_99830(uint32_t user); // weak
-signed int sub_99FF0(char* a1, unsigned __int8** a2, signed int a3);
+signed int sub_99FF0(char* a1, char** a2, signed int a3);
 uint8_t* ClearMemoryForPath(Pathstruct path);
 signed int UnpackAndLoadMemoryFromPath(Pathstruct path);
 int sub_9AD16_free_mem_pool(void* a1);
@@ -75552,7 +75552,7 @@ bool sub_75650()//VR something
 	v1 = mygetenv("VIPPORT");
 	if (v1)
 	{
-		x_DWORD_17D6B0 = sub_99FF0(v1, (unsigned char**)&v15, 16);
+		x_DWORD_17D6B0 = sub_99FF0((char*)v1, (char**)&v15, 16);
 		x_DWORD_17D6A0 = x_DWORD_17D6B0 + 1;
 		v2 = sub_75440();
 		x_DWORD_17D640 = v2;
@@ -84173,9 +84173,9 @@ int sub_995B0_test_vga_driver() //27A5B0
 // 181C40: using guessed type int x_DWORD_181C40_vga_init_buffer;
 
 //----- (00099FF0) --------------------------------------------------------
-signed int sub_99FF0(char* a1, unsigned __int8** a2, signed int a3)//27aff0
+signed int sub_99FF0(char* a1, char** a2, signed int a3)//27aff0
 {
-	return sub_99E8E((uint8_t*)a1, a2, a3, 1);
+	return sub_99E8E(a1, a2, a3, 1);
 }
 
 //----- (0009A10A) --------------------------------------------------------

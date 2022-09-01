@@ -9847,17 +9847,17 @@ void sub_99970(char a1, unsigned __int8 a2)//27a970
 // 180C80: using guessed type int x_DWORD_180C80;
 
 //----- (00099E8E) --------------------------------------------------------
-signed int sub_99E8E(unsigned __int8* a1, unsigned __int8** a2, signed int a3, int a4)//27ae8e
+signed int sub_99E8E(char* a1, char** a2, signed int a3, int a4)//27ae8e
 {
 	signed int v4; // edi
-	unsigned __int8* i; // ebx
+	char* i; // ebx
 	unsigned __int8 v6; // al
 	signed int result; // eax
 	unsigned __int8 v8; // cl
 	unsigned int v9; // esi
 	int v10; // eax
 	unsigned int v11; // edx
-	unsigned __int8* v12; // [esp+0h] [ebp-1Ch]
+	char* v12; // [esp+0h] [ebp-1Ch]
 	char v13; // [esp+4h] [ebp-18h]
 	unsigned __int8 v14; // [esp+8h] [ebp-14h]
 

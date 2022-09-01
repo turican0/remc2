@@ -376,7 +376,7 @@ void sub_B0C1A(HDIGDRIVER a1);
 char* sub_B0CC8();
 void sub_99970(char a1, unsigned __int8 a2);
 
-signed int sub_99E8E(unsigned __int8* a1, unsigned __int8** a2, signed int a3, int a4);
+signed int sub_99E8E(char* a1, char** a2, signed int a3, int a4);
 
 int sub_99FF5(unsigned __int8 a1);
 
