@@ -402,7 +402,7 @@ void InitSound_8D290()//26e290
 	mdSound = mygetenv("MDSOUND");
 	if (mdSound)
 	{
-		sscanf((char* const)mdSound, "%s %x %d %d %d", mdSoundPar1, ioParms.IO, ioParms.IRQ, ioParms.DMA_8_bit, ioParms.DMA_16_bit);
+		sscanf((char* const)mdSound, "%s %x %d %d %d", mdSoundPar1, &ioParms.IO, &ioParms.IRQ, &ioParms.DMA_8_bit, &ioParms.DMA_16_bit);
 		hDigSoundEffectsDriver_180B48 = AilInstallDigDriverFile_93330(mdSoundPar1, &ioParms);
 
 		if (!hDigSoundEffectsDriver_180B48)
@@ -609,13 +609,13 @@ void InitMusic_8D970()//26e970
 	char soundCdPath[MAX_PATH];
 	char soundGamePath[MAX_PATH];
 
-	char v7[16];
+	char mdMusicPar1[16];
 
 	sprintf(soundCdPath, "%s/SOUND", cdDataPath.c_str());
 	sprintf(soundGamePath, "%s/SOUND", gameDataPath.c_str());
 
 	const char* mdMusic = 0;
-	char v8 = 0;
+	bool musicCardOk = false;
 	if (!musicInitialized_E37FC)
 		return;
 	if (!soundInicialized_E37B8)
@@ -658,8 +658,8 @@ void InitMusic_8D970()//26e970
 	mdMusic = mygetenv("MDMUSIC");
 	if (mdMusic)
 	{
-		sscanf((char* const)mdMusic, "%s %x %d %d %d", v7, ioParms.IO, ioParms.IRQ, ioParms.DMA_8_bit, ioParms.DMA_16_bit);
-		hMdiMusicDriver = AilInstakkMidiDriverFile_95850(v7, &ioParms);
+		sscanf((char* const)mdMusic, "%s %x %d %d %d", mdMusicPar1, &ioParms.IO, &ioParms.IRQ, &ioParms.DMA_8_bit, &ioParms.DMA_16_bit);
+		hMdiMusicDriver = AilInstakkMidiDriverFile_95850(mdMusicPar1, &ioParms);
 		if (!hMdiMusicDriver)
 		{
 			if (!soundActive2_E3798)
@@ -668,8 +668,8 @@ void InitMusic_8D970()//26e970
 			musicStarted_E37FD = 0;
 			return;
 		}
-		sprintf(textBuffer_180BE0, "%s", v7);
-		v8 = 1;
+		sprintf(textBuffer_180BE0, "%s", mdMusicPar1);
+		musicCardOk = true;
 	}
 	else
 	{
@@ -686,9 +686,9 @@ void InitMusic_8D970()//26e970
 				return;
 			}
 			if (!AilInstallMidiIni_95710(&hMdiMusicDriver, musicMdiPath))
-				v8 = 1;
+				musicCardOk = true;
 		}
-		if (!v8)
+		if (!musicCardOk)
 		{
 			if (!soundActive2_E3798)
 				AilShutdown_919C0();
@@ -2263,8 +2263,7 @@ __int64 sub_9F3D0(HMDIDRIVER hMdiDriver, int  /*a2*/, unsigned __int16 a3, unsig
 
 	if (str_E3E54.par1
 		|| str_E3E54.par2
-		|| (v4 = sub_9F110(4), str_E3E54.par2 = WORD2(v4), (str_E3E54.par1 = v4) != 0)
-		|| str_E3E54.par2)
+		|| (v4 = sub_9F110(4), str_E3E54.par2 = WORD2(v4), (str_E3E54.par1 = v4) != 0))
 	{
 		//__GS__ = *(x_WORD *)&x_BYTE_E3E54[4];
 		__writegsx_WORD(str_E3E54.par1, a4);
@@ -2853,17 +2852,6 @@ int InitEnvs_A2C80(HDIGDRIVER hDigDriver, IO_PARMS*  /*a2*/)//283c80
 {
 	int16_t envs[24];
 	VDI_CALL vdiCall;
-	if (hDigDriver->drvr_0->VHDR_4->environment_string_16)
-	{
-		if (envs[0] < 0)
-			envs[0] = envstring[0];
-		if (envs[1] < 0)
-			envs[1] = envstring[1];
-		if (envs[2] < 0)
-			envs[2] = envstring[2];
-		if (envs[3] < 0)
-			envs[3] = envstring[3];
-	}
 	qmemcpy((void*)&(hDigDriver->drvr_0->VHDR_4->IO), envs, 24);
 	return AilCallDriver_91F70(hDigDriver->drvr_0, 772, &vdiCall, 0);
 }
@@ -2897,7 +2885,7 @@ HDIGDRIVER sub_A2EA0(AIL_DRIVER* ailDriver, IO_PARMS IO)//283ea0
 			AilCallDriver_91F70(digDriver->drvr_0, 769, 0, &outCall);//354fa8
 			digDriver->DDT_1 = (DIG_DDT*)sound_buffer[0];
 			digDriver->DST_2 = (DIG_DST*)sound_buffer[1];
-			digDriver->buffer_flag_13 = (int16_t*)digDriver->DST_2->active_buffer;
+			digDriver->buffer_flag_13 = digDriver->DST_2->active_buffer;
 			digDriver->last_buffer_14 = -1;
 			digDriver->playing_21 = 0;
 			digDriver->quiet_22 = 0;
@@ -3453,7 +3441,7 @@ bool SetSampleFile_A4B20(HSAMPLE S, uint8_t* pWavData, int32_t block)//285b20
 		}
 		else
 		{
-			S->sam_var542 = (uint8_t*)(*(uint16_t*)&pWavData[20] + pWavData);
+			S->sam_var542 = &pWavData[*(uint16_t*)&pWavData[20]];
 			S->sam_var[545] = block;
 			S->sam_var[546] = block == -1;
 			S->sam_var[547] = 0;
