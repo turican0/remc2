@@ -54321,10 +54321,38 @@ void InitNetworkInfo() {
 	}
 };
 
+unsigned int PRNG()
+{
+	// our initial starting seed is 5323
+	static unsigned int nSeed = 5323;
+
+	// Take the current seed and generate a new value from it
+	// Due to our use of large constants and overflow, it would be
+	// very hard for someone to predict what the next number is
+	// going to be from the previous one.
+	nSeed = (8253729 * nSeed + 2396403);
+
+	// Take the seed and return a value between 0 and 32767
+	return nSeed % 32767;
+}
+
+void test_B5C60() {
+	for (int i = 0; i < 256 * 256; i++)
+		mapHeightmap_11B4E0[i] = PRNG() % 256;
+	for (int y = 0; y < 256 * 256; y++)
+	for (int x = 1; x < 256 * 256; x++)
+	{
+		int a = sub_B5C60_getTerrainAlt2(x, y);
+		int b = sub_B5C60_getTerrainAlt2_orig(x, y);
+		if (a != b)
+			allert_error();
+	}
+};
 
 //----- (00055F70) --------------------------------------------------------
 int sub_main(int argc, char** argv, char**  /*envp*/)//236F70
 {
+	test_B5C60();
 	begin_plugin();
 
 	preconvert();//rewrite and remove it later

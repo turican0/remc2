@@ -385,7 +385,72 @@ void sub_44DB0_truncTerrainHeight()//225db0 // map to heightmap
 	//return result;
 }
 
-int sub_B5C60_getTerrainAlt2(uint16_t a1, uint16_t a2)//296c60
+int sub_B5C60_getTerrainAlt2(uint16_t axisX, uint16_t axisY)//296c60
+{
+	int point1; // eax
+	int diaPoint; // esi
+	int result; // eax
+	int point2; // esi
+	
+	uaxis_2d locX;
+	uaxis_2d locY;
+	uaxis_2d locV2;
+	uint8_t locV3;
+
+	locX.word = axisX;
+	locY.word = axisY;
+
+	locV2._axis_2d.x = locX._axis_2d.y;
+	locV2._axis_2d.y = locY._axis_2d.y;
+	locV3 = locX._axis_2d.x;
+
+	if ((locV2._axis_2d.x + locV2._axis_2d.y) & 1)
+	{
+		if (locV3 > (2 * locV3) % 256)
+		{
+			locV2._axis_2d.y++;
+			point1 = mapHeightmap_11B4E0[locV2.word];
+			locV2._axis_2d.x++;
+			point2 = mapHeightmap_11B4E0[locV2.word];
+			locV3 = 255 - locY._axis_2d.x;
+			locV2._axis_2d.y--;
+			diaPoint = locV3 * (mapHeightmap_11B4E0[locV2.word] - point2) + locX._axis_2d.x * (point2 - point1);
+		}
+		else
+		{
+			point1 = mapHeightmap_11B4E0[locV2.word];
+			locV2._axis_2d.x++;
+			point2 = locX._axis_2d.x * (mapHeightmap_11B4E0[locV2.word] - point1);
+			locV2._axis_2d.x--;
+			locV2._axis_2d.y++;
+			diaPoint = locY._axis_2d.x * (mapHeightmap_11B4E0[locV2.word] - point1) + point2;
+		}
+		result = (diaPoint >> 3) + 32 * point1;
+	}
+	else
+	{
+		if (locX._axis_2d.x <= locV3)
+		{
+			point1 = mapHeightmap_11B4E0[locV2.word];
+			locV2._axis_2d.y++;
+			point2 = mapHeightmap_11B4E0[locV2.word];
+			locV2._axis_2d.x++;
+			diaPoint = locY._axis_2d.x * (point2 - point1) + locX._axis_2d.x * (mapHeightmap_11B4E0[locV2.word] - point2);
+		}
+		else
+		{
+			point1 = mapHeightmap_11B4E0[locV2.word];
+			locV2._axis_2d.x++;
+			point2 = mapHeightmap_11B4E0[locV2.word];
+			locV2._axis_2d.y++;
+			diaPoint = locY._axis_2d.x * (mapHeightmap_11B4E0[locV2.word] - point2) + locX._axis_2d.x * (point2 - point1);
+		}
+		result = (diaPoint >> 3) + 32 * point1;
+	}
+	return result;
+}
+
+int sub_B5C60_getTerrainAlt2_orig(uint16_t a1, uint16_t a2)//296c60
 {
 	uint16_t v2; // ebx
 	int v3; // edx
