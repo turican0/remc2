@@ -85204,7 +85204,7 @@ uint8_t* ReadFile_9DEA0(char* filename, uint8_t* buffer)//27eea0
 		if (locBuffer)
 		{
 			FILE* locFile = x_open(filename, 512);
-			if (locFile == NULL)
+			if (locFile == nullptr)
 			{
 				x_free((void*)locBuffer);
 				readFileStatus_E3E2C = 3;
