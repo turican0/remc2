@@ -36,6 +36,7 @@ extern char x_BYTE_17E09D;
 extern int16_t x_WORD_1803EC;
 extern uint8_t unk_180560x[44];
 extern type_unk_18058Cstr unk_18058Cstr;
+extern int16_t x_WORD_E29DC;
 
 extern int test_regression_level;
 
@@ -94,6 +95,7 @@ char /*__fastcall*/ sub_77680();
 char DrawAndServe_7B250(/*int a1, int a2*//*, __int16 a3*/);
 signed int sub_7C390();
 void sub_7C710();
+void SetMultiplayerColors_7D310();
 bool SetMultiplayerColors_7CE50();
 void sub_7C720(unsigned __int8 a1, uint8_t* a2);
 int sub_7CB10();
