@@ -35,7 +35,7 @@ uint16_t x_WORD_17D726; // weak 6
 
 int x_DWORD_17DB54_game_turn2; // weak
 
-char x_BYTE_17D738[0x100]; // idb
+char x_BYTE_17D738[256]; // idb
 
 __int16 x_WORD_E12FE = 0; // weak
 
@@ -59,7 +59,7 @@ void PlayInfoFmv(__int16 a1, __int16 a2, Type_SoundEvent_E17CC* pSoundEvent, cha
 		DataFileIO::Read(tempfile, unk_17DB40, 12);//ecx=12
 		LastKeyframe_17DB46 = *(int16_t*)&unk_17DB40[6];
 		x_WORD_17DB48 = *(int16_t*)&unk_17DB40[8];
-		x_WORD_17DB4A = *(int16_t*)&unk_17DB40[0xa];
+		x_WORD_17DB4A = *(int16_t*)&unk_17DB40[10];
 
 		x_WORD_180744_mouse_right_button = 0;
 		x_WORD_180746_mouse_left_button = 0;
@@ -96,349 +96,116 @@ void FlvInitSet_473B0()//2283b0
 //----- (0001B280) --------------------------------------------------------
 void PlayIntoSoundEvents_1B280(Type_SoundEvent_E17CC* pSoundEvent)//1fc280
 {
-	int index; // eax
-	//type_E17CC_0* v2x; // edx
-	uint8_t v3; // dl
-
 	while (1)
 	{
-		index = 7 * x_WORD_D4004;//2a5004
-		//v2x = &a1x[x_WORD_D4004];
 		if (ActualKeyframe_17DB60 != pSoundEvent[x_WORD_D4004].startFrame)
 			break;
-		index = pSoundEvent[x_WORD_D4004].index;
-		if (index == -1)
+		if (pSoundEvent[x_WORD_D4004].index == -1)
 			break;
-		v3 = pSoundEvent[x_WORD_D4004].byte_2 - 65;
-		if (v3 <= 57)
+		switch (pSoundEvent[x_WORD_D4004].key_2)
 		{
-			switch (v3 * 4) {
-			case 0x00:
-				sub_loc_1B2E6();
-				break;
-			case 0x04:
-				sub_loc_1B2F7(pSoundEvent);
-				break;
-			case 0x08:
-				sub_loc_1B5CB();
-				break;
-			case 0x0c:
-				sub_loc_1B51E(pSoundEvent);
-				break;
-			case 0x10:
-				sub_loc_1B316(index);//test it
-				break;
-			case 0x14:
-				sub_loc_1B461(index, pSoundEvent);//test it
-				break;
-			case 0x18:
-				sub_loc_1B5CB();
-				break;
-			case 0x1c:
-				sub_loc_1B5CB();
-				break;
-			case 0x20:
-				sub_loc_1B5CB();
-				break;
-			case 0x24:
-				sub_loc_1B5CB();
-				break;
-			case 0x28:
-				sub_loc_1B36C();
-				break;
-			case 0x2c:
-				sub_loc_1B334(pSoundEvent);
-				break;
-			case 0x30:
-				sub_loc_1B352(pSoundEvent);
-				break;
-			case 0x34:
-				sub_loc_1B5CB();
-				break;
-			case 0x38:
-				sub_loc_1B4DF(index, pSoundEvent);
-				break;
-			case 0x3c:
-				sub_loc_1B4A0(index, pSoundEvent);
-				break;
-			case 0x40:
-				sub_loc_1B37D(pSoundEvent);
-				break;
-			case 0x44:
-				sub_loc_1B398(pSoundEvent);
-				break;
-			case 0x48:
-				sub_loc_1B3C9(pSoundEvent);
-				break;
-			case 0x4c:
-				sub_loc_1B424(index, pSoundEvent);
-				break;
-			case 0x50:
-				sub_loc_1B5BC(index);
-				break;
-			case 0x54:
-				sub_loc_1B589();
-				break;
-			case 0x58:
-				sub_loc_1B36C();
-				break;
-			case 0x5c:
-				sub_loc_1B450();
-				break;
-			case 0x60:
-				sub_loc_1B5A7();
-				break;
-			case 0x64:
-				sub_loc_1B352(pSoundEvent);
-				break;
-			case 0x68:
-				sub_loc_1B5CB();
-				break;
-			case 0x6c:
-				sub_loc_1B5CB();
-				break;
-			case 0x70:
-				sub_loc_1B5CB();
-				break;
-			case 0x74:
-				sub_loc_1B5CB();
-				break;
-			case 0x78:
-				sub_loc_1B5CB();
-				break;
-			case 0x7c:
-				sub_loc_1B5CB();
-				break;
-			case 0x80:
-				sub_loc_1B2E6();
-				break;
-			case 0x84:
-				sub_loc_1B2F7(pSoundEvent);
-				break;
-			case 0x88:
-				sub_loc_1B5CB();
-				break;
-			case 0x8c:
-				sub_loc_1B51E(pSoundEvent);
-				break;
-			case 0x90:
-				sub_loc_1B316(index);
-				break;
-			case 0x94:
-				sub_loc_1B461(index, pSoundEvent);
-				break;
-			case 0x98:
-				sub_loc_1B5CB();
-				break;
-			case 0x9c:
-				sub_loc_1B54A(index, pSoundEvent);
-				break;
-			case 0xa0:
-				sub_loc_1B5CB();
-				break;
-			case 0xa4:
-				sub_loc_1B5CB();
-				break;
-			case 0xa8:
-				sub_loc_1B5CB();
-				break;
-			case 0xac:
-				sub_loc_1B334(pSoundEvent);
-				break;
-			case 0xb0:
-				sub_loc_1B352(pSoundEvent);
-				break;
-			case 0xb4:
-				sub_loc_1B5CB();
-				break;
-			case 0xb8:
-				sub_loc_1B4DF(index, pSoundEvent);
-				break;
-			case 0xbc:
-				sub_loc_1B4A0(index, pSoundEvent);
-				break;
-			case 0xc0:
-				sub_loc_1B5CB();
-				break;
-			case 0xc4:
-				sub_loc_1B398(pSoundEvent);
-				break;
-			case 0xc8:
-				sub_loc_1B3C9(pSoundEvent);
-				break;
-			case 0xcc:
-				sub_loc_1B424(index, pSoundEvent);
-				break;
-			case 0xd0:
-				sub_loc_1B5CB();
-				break;
-			case 0xd4:
-				sub_loc_1B5CB();
-				break;
-			case 0xd8:
-				sub_loc_1B5CB();
-				break;
-			case 0xdc:
-				sub_loc_1B450();
-				break;
-			case 0xe0:
-				sub_loc_1B5CB();
-				break;
-			case 0xe4:
-				sub_loc_1B352(pSoundEvent);
-				break;
-			default:
-				exit(0);
+		case 'A':
+		case 'a':
+			x_DWORD_E3844 = 0;
+			break;
+		case 'B':
+		case 'b':
+			StopMusic_8E020();
+			LoadMusic(pSoundEvent[x_WORD_D4004].index);
+			break;
+		case 'D':
+		case 'd':
+			StartMusic_8E160(pSoundEvent[x_WORD_D4004].index, 0x64u);
+			break;
+		case 'E':
+		case 'e':
+			EndSample_8D8F0();
+			LoadSound_84300(pSoundEvent[x_WORD_D4004].index);
+			break;
+		case 'F':
+		case 'f':
+			if (soundActive2_E3798)
+				sub_8F710_sound_proc21(0, pSoundEvent[x_WORD_D4004].index, 0, 4u, 1);
+			break;
+		case 'H':
+		case 'h':
+			if (soundActive2_E3798)
+				sub_8F100_sound_proc19(0, pSoundEvent[x_WORD_D4004].index, 0, 64, 0x64u, -1, 2u);
+			break;
+		case 'K':
+		case 'W':
+			sub_2EC30_clear_img_mem();
+			break;
+		case 'L':
+		case 'l':
+			if (x_DWORD_E387C)
+				sub_8F0AB(x_FILE_E3840, /*x_DWORD_E387C, */pSoundEvent[x_WORD_D4004].index);
+			StartMusic_8E160(pSoundEvent[x_WORD_D4004].index, 0x7Fu);
+			break;
+		case 'M':
+		case 'Z':
+		case 'm':
+		case 'z':
+			StartMusic_8E160(pSoundEvent[x_WORD_D4004].index, 0x7Fu);
+			break;
+		case 'O':
+		case 'o':
+			if (soundActive2_E3798)
+				sub_8F710_sound_proc21(0, pSoundEvent[x_WORD_D4004].index, 0x7Fu, 2u, 0);
+			break;
+		case 'P':
+		case 'p':
+			if (soundActive2_E3798)
+				sub_8F710_sound_proc21(0, pSoundEvent[x_WORD_D4004].index, 0x50u, 2u, 0);
+			break;
+		case 'Q':
+			sub_2EBB0_draw_text_with_border_630x340(x_DWORD_E9C4C_langindexbuffer[pSoundEvent[x_WORD_D4004].index]);
+			break;
+		case 'R':
+		case 'r':
+			if (soundActive2_E3798)
+				sub_8F100_sound_proc19(0, pSoundEvent[x_WORD_D4004].index, 127, 64, 0x64u, -1, 2u);
+			break;
+		case 'S':
+		case 's':
+			if (soundActive2_E3798)
+			{
+				if (pSoundEvent[x_WORD_D4004].index)
+					sub_8F100_sound_proc19(0, pSoundEvent[x_WORD_D4004].index, 127, 64, 0x64u, 0, 2u);
+				else
+					EndSample_8D8F0();
 			}
+			break;
+		case 'T':
+		case 't':
+			if (soundActive2_E3798)
+			{
+				if (pSoundEvent[x_WORD_D4004].index)
+					sub_8F420_sound_proc20(0, pSoundEvent[x_WORD_D4004].index);
+				else
+					EndSample_8D8F0();
+			}
+			break;
+		case 'U':
+			sub_2EBB0_draw_text_with_border_630x340(x_DWORD_E9C4C_langindexbuffer[pSoundEvent[x_WORD_D4004].index]);
+			break;
+		case 'V':
+			if (x_BYTE_D41C0)
+				sub_2EB60();
+			break;
+		case 'X':
+		case 'x':
+			StopMusic_8E020();
+			break;
+		case 'Y':
+			sub_2EC60();
+			break;
+		default:
+			break;
 		}
 		x_WORD_D4004++;
 	}
 }
-
-//int tempedx, tempeax,tempebx;
-//eax=d4004*7
-//edx=esi+d4004*7
-//dl=[edx+2] - +2
-//eax=tempebx +3
-//void sub_loc_1B289() {}
-void sub_loc_1B2E6() {//1fc2e6
-	//x_DWORD_E3844, eax
-	x_DWORD_E3844 = 0;
-	//x_WORD_D4004++;
-}
-void sub_loc_1B2F7(Type_SoundEvent_E17CC* pSoundEvent) {//1fc2f7//LoadMusic
-	sub_8E020_sound_proc14_stopsequence();
-	//LoadMusic(*(uint32_t*)(a2 + x_WORD_D4004 * 7 + 3));
-	LoadMusic(pSoundEvent[x_WORD_D4004].index);
-	//x_WORD_D4004++;
-}
-void sub_loc_1B316(uint8_t a1) {//1fc316//LoadSound
-	sub_8D8F0_sound_proc3_endsample();
-	sub_84300_load_sound(a1);
-	//x_WORD_D4004++;
-}
-void sub_loc_1B334(Type_SoundEvent_E17CC* pSoundEvent) {//1fc334
-	if (x_DWORD_E387C)sub_loc_1B352(pSoundEvent);
-	else
-	{
-		sub_8F0AB(x_FILE_E3840, /**(uint32_t*)(a2 + x_WORD_D4004 * 7 + 2),*/pSoundEvent[x_WORD_D4004].index/* *(uint32_t*)(a2 + x_WORD_D4004 * 7 + 3)*/);
-	}
-}
-void sub_loc_1B352(Type_SoundEvent_E17CC* pSoundEvent) {//1fc352
-	sub_8E160_sound_proc15_startsequence(pSoundEvent[x_WORD_D4004].index, 0x7f);
-	//x_WORD_D4004++;
-}
-void sub_loc_1B36C() {//1fc36c
-	sub_2EC30_clear_img_mem();
-	//x_WORD_D4004++;
-}
-void sub_loc_1B37D(Type_SoundEvent_E17CC* pSoundEvent) {//1fc37d // Draw text
-	sub_2EBB0_draw_text_with_border_630x340(x_DWORD_E9C4C_langindexbuffer[pSoundEvent[x_WORD_D4004].byte_2]);
-	//x_WORD_D4004++;
-}
-void sub_loc_1B398(Type_SoundEvent_E17CC* pSoundEvent) {//1fc398
-	if (x_BYTE_E3798_sound_active2)sub_loc_1B5CB();
-	sub_8F100_sound_proc19(0, pSoundEvent[x_WORD_D4004].index, 0x7f, 0x40, 0x64, 0xFFFFFFFF, 2);
-	//x_WORD_D4004++;
-}
-void sub_loc_1B3C9(Type_SoundEvent_E17CC* pSoundEvent) {//1fc3c9
-	if (x_BYTE_E3798_sound_active2)sub_loc_1B5CB();
-	//uint8_t* v1 = a1 + x_WORD_D4004 * 7 + 3;
-	if (pSoundEvent[x_WORD_D4004].index == 0)sub_loc_1B413();//tempesi = 2b27cc
-	sub_8F100_sound_proc19(0, pSoundEvent[x_WORD_D4004].index, 0x7f, 0x40, 0x64, 0, 2);
-	//x_WORD_D4004++;
-}
-void sub_loc_1B413() {//1fc413
-	sub_8D8F0_sound_proc3_endsample();
-	//x_WORD_D4004++;
-}
-void sub_loc_1B424(uint16_t a1, Type_SoundEvent_E17CC* pSoundEvent) {//1fc424
-	if (x_BYTE_E3798_sound_active2 == 0)sub_loc_1B5BC(a1);
-	if (pSoundEvent[x_WORD_D4004].index)sub_loc_1B413();
-	sub_8F420_sound_proc20(0, pSoundEvent[x_WORD_D4004].index);
-	//x_WORD_D4004++;
-}
-void sub_loc_1B450() {//1fc450
-	sub_8E020_sound_proc14_stopsequence();
-	//x_WORD_D4004++;
-}
-void sub_loc_1B461(uint16_t a1, Type_SoundEvent_E17CC* pSoundEvent) {//1fc461
-	if (x_BYTE_E3798_sound_active2 == 0)sub_loc_1B5BC(a1);
-	sub_8F710_sound_proc21(0, pSoundEvent[x_WORD_D4004].index, 0, 4, 0x64/*, 1, 2*/);
-	/*cseg01 : 0001B46E                 movsx   edx, word_D4004
-	cseg01 : 0001B475                 push    1
-	cseg01 : 0001B477                 lea     eax, ds : 0[edx * 8]
-	cseg01 : 0001B47E                 push    4
-	cseg01 : 0001B480                 sub     eax, edx
-	cseg01 : 0001B482                 push    0
-	cseg01 : 0001B484                 movsx   eax, word ptr[esi + eax + 3]
-	cseg01 : 0001B489                 push    eax
-	cseg01 : 0001B48A                 push    0
-	cseg01 : 0001B48C                 call    sub_8F710_sound_proc21*/
-	//x_WORD_D4004++;
-}
-void sub_loc_1B4A0(uint16_t a1, Type_SoundEvent_E17CC* pSoundEvent) {//1fc4a0
-	if (x_BYTE_E3798_sound_active2 == 0)sub_loc_1B5BC(a1);
-	sub_8F710_sound_proc21(0, pSoundEvent[x_WORD_D4004].index, 50, 2, 0);
-	/*cseg01 : 0001B4AD                 movsx   edx, word_D4004
-	cseg01 : 0001B4B4                 push    0
-	cseg01 : 0001B4B6                 lea     eax, ds : 0[edx * 8]
-	cseg01 : 0001B4BD                 push    2
-	cseg01 : 0001B4BF                 sub     eax, edx
-	cseg01 : 0001B4C1                 push    50h; 'P'
-	cseg01:0001B4C3                 movsx   eax, word ptr[esi + eax + 3]
-	cseg01 : 0001B4C8                 push    eax
-	cseg01 : 0001B4C9                 push    0
-	cseg01 : 0001B4CB                 call    sub_8F710_sound_proc21*/
-	//x_WORD_D4004++;
-}
-void sub_loc_1B4DF(uint16_t a1, Type_SoundEvent_E17CC* pSoundEvent) {//1fc4df
-	if (x_BYTE_E3798_sound_active2 == 0)sub_loc_1B5BC(a1);
-	sub_8F710_sound_proc21(0, pSoundEvent[x_WORD_D4004].index, 0x7f, 2, 0);
-	/*	cseg01 : 0001B4EC                 movsx   edx, word_D4004
-		cseg01 : 0001B4F3                 push    0
-		cseg01 : 0001B4F5                 lea     eax, ds : 0[edx * 8]
-		cseg01 : 0001B4FC                 push    2
-		cseg01 : 0001B4FE                 sub     eax, edx
-		cseg01 : 0001B500                 push    7Fh
-		cseg01 : 0001B502                 movsx   eax, word ptr[esi + eax + 3]
-		cseg01 : 0001B507                 push    eax
-		cseg01 : 0001B508                 push    0
-		cseg01 : 0001B50A                 call    sub_8F710_sound_proc21*/
-		//x_WORD_D4004++;
-}
-void sub_loc_1B51E(Type_SoundEvent_E17CC* pSoundEvent) {//1fc51e
-	sub_8E160_sound_proc15_startsequence(pSoundEvent[x_WORD_D4004].index, 0x64/*, tempedx * 7*/);
-	//x_WORD_D4004++;
-}
-void sub_loc_1B54A(uint16_t a1, Type_SoundEvent_E17CC* pSoundEvent) {//1fc54a
-	if (x_BYTE_E3798_sound_active2 == 0)sub_loc_1B5BC(a1);
-	sub_8F100_sound_proc19(0, pSoundEvent[x_WORD_D4004].index, 0, 0x40, 0x64, 0xFFFFFFFF, 2);
-	//x_WORD_D4004++;
-}
-void sub_loc_1B589() {//1fc589//Draw 40 lines after normal image
-	if (x_BYTE_D41C0 == 0)sub_loc_1B5CB();
-	else
-	{
-		sub_2EB60();//maybe must fix
-		//x_WORD_D4004++;
-	}
-}
-void sub_loc_1B5A7() {//1fc5a7
-	sub_2EC60();
-	//x_WORD_D4004++;
-}
-void sub_loc_1B5BC(uint16_t a1) {//1fc5bc
-	//memset(pdwScreenBuffer_351628, 200, 320*200);//debug
-	//Set_basic_Palette();
-	if ((a1 != 1) && (a1 != 0xe))//fixed write pause text
-		sub_2EBB0_draw_text_with_border_630x340(x_DWORD_E9C4C_langindexbuffer[a1]);//fix it - edx
-	//sub_90478_VGA_Blit320();//debug
-}
-void sub_loc_1B5CB() {//1fc5cb
-	//x_WORD_D4004++;
-}
-//void sub_loc_1B5D7() {}
 
 //----- (00075DB0) --------------------------------------------------------
 void sub_75DB0()//256db0
@@ -878,7 +645,7 @@ int sub_473E0()//2283e0
 		--x_WORD_F42A8;
 	if (!x_WORD_18074C_mouse_left2_button && !x_WORD_18074A_mouse_right2_button)
 	{
-		if (pressedKeys_180664[0x2a] || pressedKeys_180664[0x36])
+		if (pressedKeys_180664[42] || pressedKeys_180664[54])
 		{
 			if (LastPressedKey_1806E4 < 0x36u)
 			{

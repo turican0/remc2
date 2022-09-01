@@ -56,6 +56,7 @@ void setPress(bool locpressed, uint16_t loclastchar);
 void VGA_mouse_clear_keys();
 void VGA_cleanKeyBuffer();
 void Draw_debug_matrix1();
+void Draw_black();
 
 extern uint8_t LastPressedKey_1806E4; // weak//3516e4
 extern int8_t pressedKeys_180664[128]; // idb
