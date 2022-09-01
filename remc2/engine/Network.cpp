@@ -6,14 +6,14 @@ char x_BYTE_E1275 = 0; // weak
 int16_t IndexInNetwork_E1276 = -1; // weak
 __int16 countConnected_E1278 = 0; // weak
 __int16 maxPlayers_E127A = 8; // weak
-uint8_t* networkBuffer_E127E = 0; // weak
-uint8_t* paket_E1282 = 0; // weak
-uint8_t* packetArray_E1286[8] = { 0, 0, 0, 0, 0, 0, 0, 0 }; // idb
+uint8_t* networkBuffer_E127E = nullptr; // weak
+uint8_t* paket_E1282 = nullptr; // weak
+uint8_t* packetArray_E1286[8] = { nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr }; // idb
 uint8_t connected_E12A6 = 0; // weak
 int16_t IndexInNetwork2_E12A8 = 0; // weak
-myNCB* mainConnection_E12AA = 0; // weak //array size 66 //0x2b22aa
+myNCB* mainConnection_E12AA = nullptr; // weak //array size 66 //0x2b22aa
 
-myNCB* connection_E12AE[8] = { 0, 0, 0, 0, 0, 0, 0, 0 };
+myNCB* connection_E12AE[8] = { nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr };
 char connected_E12CE[8] = { 0, 0, 0, 0, 0, 0, 0, 0 }; // idb
 
 
