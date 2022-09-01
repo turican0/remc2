@@ -637,20 +637,19 @@ int sub_9D770(char* a1, char a2)//27e770
 // A0855: using guessed type x_DWORD close(x_DWORD);
 
 //----- (0009DE20) --------------------------------------------------------
-int GetFileLenght_9DE20(char* filename)//27ee20
+long GetFileLenght_9DE20(char* filename)//27ee20
 {
 	int result;
 
 	readFileStatus_E3E2C = 0;
-	FILE* file = x_open(filename, 512);
-	if (file == NULL)
+	if (FILE* file = x_open(filename, 512); file == nullptr)
 	{
 		readFileStatus_E3E2C = 3;
 		result = -1;
 	}
 	else
 	{
-		int fileLenght = DataFileIO::FileLengthBytes(file);
+		long fileLenght = DataFileIO::FileLengthBytes(file);
 		if (fileLenght == -1)
 			readFileStatus_E3E2C = 5;
 		DataFileIO::Close(file);
