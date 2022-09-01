@@ -55,6 +55,11 @@ private:
 
 	type_unk_F0E20x m_str_F0E20x[1920]; // Originally 640
 
+	uint8_t* m_ptrScreenBuffer_351628 = nullptr;
+	uint8_t* m_ptrColorPalette = nullptr;
+	uint16_t m_uiScreenWidth_18062C = 0;
+	uint16_t m_uiScreenHeight_180624 = 0;
+
 	std::vector<RenderThread*> m_renderThreads;
 	bool m_multiThreadRender = false;
 	bool m_assignToSpecificCores = false;
@@ -77,6 +82,9 @@ private:
 	void DrawSky_40950(int16_t roll, uint8_t startLine, uint8_t drawEveryNthLine);
 	void DrawSky_40950_TH(int16_t roll);
 	void DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __int16 yaw, signed int posZ, int pitch, int16_t roll, int fov);
+	void SubDrawTerrainAndParticles(std::vector<int>& projectedVertexBuffer, int pitch);
+	void SubDrawInverseTerrainAndParticles(std::vector<int>& projectedVertexBuffer, int pitch);
+	void SubDrawCaveTerrainAndParticles(std::vector<int>& projectedVertexBuffer, int pitch);
 	void DrawSprite_41BD3(uint32 a1);
 	void DrawSquareInProjectionSpace(std::vector<int>& vertexs, int index);
 	void DrawInverseSquareInProjectionSpace(int* vertexs, int index);
@@ -98,7 +106,7 @@ private:
 	void WaitForRenderFinish();
 
 public:
-	GameRenderHD(uint8_t renderThreads, bool assignToSpecificCores);
+	GameRenderHD(uint8_t* ptrScreenBuffer, uint8_t* pColorPalette, uint16_t screenWidth, uint16_t screenHeight, uint8_t renderThreads, bool assignToSpecificCores);
 	~GameRenderHD();
 	
 	void SetRenderThreads(uint8_t renderThreads);
