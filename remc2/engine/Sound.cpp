@@ -26,7 +26,7 @@ char x_BYTE_E37AE = 0; // weak
 int defaultVolume_E37B0 = 127; // weak
 __int16 soundFreqType2_E37B4 = 1644; // weak
 __int16 soundFreqType_E37B6 = 0; // weak
-char soundInicialized_E37B8 = 0; // weak
+char soundInitialized_E37B8 = 0; // weak
 int soundFrequence_E37BC = 0; // weak
 int musicVolume_E37F8 = 127; // weak
 char musicInitialized_E37FC = 1; // weak//2b47fc
@@ -340,7 +340,7 @@ void InitSound_8D290()//26e290
 	{
 		if (!musicInitialized_E37FC)
 		{
-			if (soundInicialized_E37B8)
+			if (soundInitialized_E37B8)
 				AilShutdown_919C0();
 		}
 		soundActive2_E3798 = 0;
@@ -348,7 +348,7 @@ void InitSound_8D290()//26e290
 		myprintf("\nCould not load any digital samples\n");
 		return;
 	}
-	if (!soundInicialized_E37B8)
+	if (!soundInitialized_E37B8)
 	{
 		//removed
 		//sub_90F60();//Get act path
@@ -380,7 +380,7 @@ void InitSound_8D290()//26e290
 		preference_181DAC[18] = 0x01;//DF4
 		//fixed
 
-		soundInicialized_E37B8 = 1;
+		soundInitialized_E37B8 = 1;
 	}
 
 	if (!DirExists(soundGamePath))
@@ -618,14 +618,14 @@ void InitMusic_8D970()//26e970
 	bool musicCardOk = false;
 	if (!musicInitialized_E37FC)
 		return;
-	if (!soundInicialized_E37B8)
+	if (!soundInitialized_E37B8)
 	{
 		//removed
 		//sub_9D3F0_set_malloc_type(sub_83CD0_malloc2); fix it
 		//v3 = sub_9D420((int (*)(int))sub_83E80_freemem4);
 		//((void (/*__fastcall*/ *)(int (*)(int)))loc_917D0)(v3);
 		//removed
-		soundInicialized_E37B8 = 1;
+		soundInitialized_E37B8 = 1;
 	}
 	AilSetPreference_91A80(11, 120);
 	AilSetPreference_91A80(12, 1);
