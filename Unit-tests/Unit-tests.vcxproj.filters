@@ -462,6 +462,9 @@
     <ClInclude Include="Terrain-tests.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="Basic-tests.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\remc2\sub_main.cpp">
@@ -777,6 +780,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Terrain-tests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Basic-tests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

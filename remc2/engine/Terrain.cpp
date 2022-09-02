@@ -650,11 +650,11 @@ void sub_440D0(unsigned __int16 a1)//2250d0
 //----- (00045060) --------------------------------------------------------
 void sub_45060(uint8_t maxHeightCut, uint8_t maxHeightDiffCut)//226060
 {
-	//XoXoX
-	//o...o
-	//XoB.X
-	//.o..o
-	//XoXoX
+	//  X-X-X
+	//  |   |
+	//  X B X
+	//  |/| |
+	//  X X-X
 	
 	uint8_t maxHeight;
 	uint8_t minHeight;
@@ -810,542 +810,462 @@ void sub_44320()//225320
 }
 
 //----- (00045210) --------------------------------------------------------
-void sub_45210(uint8_t a1, uint8_t a2)//226210
-{xx
-	uint16_t v2; // dx
-	uint16_t v3; // eax
-	//char v4; // t1
-	uint8_t v5; // bl
-	uint8_t v6; // bh
-	//unsigned __int16 v7; // dx
-	int v8; // ecx
+void sub_45210(uint8_t maxHeightCut, uint8_t maxHeightDiffCut)//226210
+{
+	//  X-X-X
+	//  |   |
+	//  X B X
+	//  |/| |
+	//  X X-X
 
-	//fix
-	v3 = 0;
-	//fix
+	uint8_t ang2;
+	uint8_t ang5;
+	uint8_t maxHeight;
+	uint8_t minHeight;
 
 	qmemcpy(mapTerrainType_10B4E0, mapAngle_13B4E0, 0x10000);
-	v2 = 0;
-	do
+	uaxis_2d index;
+	for (int i = 0; i < 256 * 256; i++)
 	{
-		BYTE1(v3) = 0xffu;
-		//v4 = x_BYTE_13B4E0_angle[v2];
-		v5 = 0;
-		v6 = 0;
-		if (mapHeightmap_11B4E0[v2] > 0u)
-			LOBYTE(v3) = mapHeightmap_11B4E0[v2];
-		if (mapHeightmap_11B4E0[v2] < 0xFFu)
-			BYTE1(v3) = mapHeightmap_11B4E0[v2];
-		HIBYTE(v2)--;
-		if (LOBYTE(v3) < mapHeightmap_11B4E0[v2])
-			LOBYTE(v3) = mapHeightmap_11B4E0[v2];
-		if (BYTE1(v3) > mapHeightmap_11B4E0[v2])
-			BYTE1(v3) = mapHeightmap_11B4E0[v2];
-		if (mapAngle_13B4E0[v2] == 5)
-			v6 = 1;
-		if (mapAngle_13B4E0[v2] == 2)
-			v5 = 1;
-		LOBYTE(v2)++;
-		if (LOBYTE(v3) < mapHeightmap_11B4E0[v2])
-			LOBYTE(v3) = mapHeightmap_11B4E0[v2];
-		if (BYTE1(v3) > mapHeightmap_11B4E0[v2])
-			BYTE1(v3) = mapHeightmap_11B4E0[v2];
-		if (mapAngle_13B4E0[v2] == 5)
-			v6++;
-		if (mapAngle_13B4E0[v2] == 2)
-			v5++;
-		HIBYTE(v2)++;
-		if (LOBYTE(v3) < mapHeightmap_11B4E0[v2])
-			LOBYTE(v3) = mapHeightmap_11B4E0[v2];
-		if (BYTE1(v3) > mapHeightmap_11B4E0[v2])
-			BYTE1(v3) = mapHeightmap_11B4E0[v2];
-		if (mapAngle_13B4E0[v2] == 5)
-			v6++;
-		if (mapAngle_13B4E0[v2] == 2)
-			v5++;
-		HIBYTE(v2)++;
-		if (LOBYTE(v3) < mapHeightmap_11B4E0[v2])
-			LOBYTE(v3) = mapHeightmap_11B4E0[v2];
-		if (BYTE1(v3) > mapHeightmap_11B4E0[v2])
-			BYTE1(v3) = mapHeightmap_11B4E0[v2];
-		if (mapAngle_13B4E0[v2] == 5)
-			v6++;
-		if (mapAngle_13B4E0[v2] == 2)
-			v5++;
-		LOBYTE(v2)--;
-		if (LOBYTE(v3) < mapHeightmap_11B4E0[v2])
-			LOBYTE(v3) = mapHeightmap_11B4E0[v2];
-		if (BYTE1(v3) > mapHeightmap_11B4E0[v2])
-			BYTE1(v3) = mapHeightmap_11B4E0[v2];
-		if (mapAngle_13B4E0[v2] == 5)
-			v6++;
-		if (mapAngle_13B4E0[v2] == 2)
-			v5++;
-		LOBYTE(v2)--;
-		if (LOBYTE(v3) < mapHeightmap_11B4E0[v2])
-			LOBYTE(v3) = mapHeightmap_11B4E0[v2];
-		if (BYTE1(v3) > mapHeightmap_11B4E0[v2])
-			BYTE1(v3) = mapHeightmap_11B4E0[v2];
-		if (mapAngle_13B4E0[v2] == 5)
-			v6++;
-		if (mapAngle_13B4E0[v2] == 2)
-			v5++;
-		HIBYTE(v2)--;
-		if (LOBYTE(v3) < mapHeightmap_11B4E0[v2])
-			LOBYTE(v3) = mapHeightmap_11B4E0[v2];
-		if (BYTE1(v3) > mapHeightmap_11B4E0[v2])
-			BYTE1(v3) = mapHeightmap_11B4E0[v2];
-		if (mapAngle_13B4E0[v2] == 5)
-			v6++;
-		if (mapAngle_13B4E0[v2] == 2)
-			v5++;
-		HIBYTE(v2)--;
-		if (LOBYTE(v3) < mapHeightmap_11B4E0[v2])
-			LOBYTE(v3) = mapHeightmap_11B4E0[v2];
-		if (BYTE1(v3) > mapHeightmap_11B4E0[v2])
-			BYTE1(v3) = mapHeightmap_11B4E0[v2];
-		if (mapAngle_13B4E0[v2] == 5)
-			v6++;
-		if (mapAngle_13B4E0[v2] == 2)
-			v5++;
-		LOBYTE(v2)++;
-		HIBYTE(v2)++;
-		if (LOBYTE(v3) < a1)
+		index.word = i;
+		minHeight = 255;
+		maxHeight = 0;
+		ang2 = 0;
+		ang5 = 0;
+		if (mapHeightmap_11B4E0[index.word] > 0)
+			maxHeight = mapHeightmap_11B4E0[index.word];
+		if (mapHeightmap_11B4E0[index.word] < 255)
+			minHeight = mapHeightmap_11B4E0[index.word];
+		index._axis_2d.y--;
+		if (maxHeight < mapHeightmap_11B4E0[index.word])
+			maxHeight = mapHeightmap_11B4E0[index.word];
+		if (minHeight > mapHeightmap_11B4E0[index.word])
+			minHeight = mapHeightmap_11B4E0[index.word];
+		if (mapAngle_13B4E0[index.word] == 5)
+			ang5 = 1;
+		if (mapAngle_13B4E0[index.word] == 2)
+			ang2 = 1;
+		index._axis_2d.x++;
+		if (maxHeight < mapHeightmap_11B4E0[index.word])
+			maxHeight = mapHeightmap_11B4E0[index.word];
+		if (minHeight > mapHeightmap_11B4E0[index.word])
+			minHeight = mapHeightmap_11B4E0[index.word];
+		if (mapAngle_13B4E0[index.word] == 5)
+			ang5++;
+		if (mapAngle_13B4E0[index.word] == 2)
+			ang2++;
+		index._axis_2d.y++;
+		if (maxHeight < mapHeightmap_11B4E0[index.word])
+			maxHeight = mapHeightmap_11B4E0[index.word];
+		if (minHeight > mapHeightmap_11B4E0[index.word])
+			minHeight = mapHeightmap_11B4E0[index.word];
+		if (mapAngle_13B4E0[index.word] == 5)
+			ang5++;
+		if (mapAngle_13B4E0[index.word] == 2)
+			ang2++;
+		index._axis_2d.y++;
+		if (maxHeight < mapHeightmap_11B4E0[index.word])
+			maxHeight = mapHeightmap_11B4E0[index.word];
+		if (minHeight > mapHeightmap_11B4E0[index.word])
+			minHeight = mapHeightmap_11B4E0[index.word];
+		if (mapAngle_13B4E0[index.word] == 5)
+			ang5++;
+		if (mapAngle_13B4E0[index.word] == 2)
+			ang2++;
+		index._axis_2d.x--;
+		if (maxHeight < mapHeightmap_11B4E0[index.word])
+			maxHeight = mapHeightmap_11B4E0[index.word];
+		if (minHeight > mapHeightmap_11B4E0[index.word])
+			minHeight = mapHeightmap_11B4E0[index.word];
+		if (mapAngle_13B4E0[index.word] == 5)
+			ang5++;
+		if (mapAngle_13B4E0[index.word] == 2)
+			ang2++;
+		index._axis_2d.x--;
+		if (maxHeight < mapHeightmap_11B4E0[index.word])
+			maxHeight = mapHeightmap_11B4E0[index.word];
+		if (minHeight > mapHeightmap_11B4E0[index.word])
+			minHeight = mapHeightmap_11B4E0[index.word];
+		if (mapAngle_13B4E0[index.word] == 5)
+			ang5++;
+		if (mapAngle_13B4E0[index.word] == 2)
+			ang2++;
+		index._axis_2d.y--;
+		if (maxHeight < mapHeightmap_11B4E0[index.word])
+			maxHeight = mapHeightmap_11B4E0[index.word];
+		if (minHeight > mapHeightmap_11B4E0[index.word])
+			minHeight = mapHeightmap_11B4E0[index.word];
+		if (mapAngle_13B4E0[index.word] == 5)
+			ang5++;
+		if (mapAngle_13B4E0[index.word] == 2)
+			ang2++;
+		index._axis_2d.y--;
+		if (maxHeight < mapHeightmap_11B4E0[index.word])
+			maxHeight = mapHeightmap_11B4E0[index.word];
+		if (minHeight > mapHeightmap_11B4E0[index.word])
+			minHeight = mapHeightmap_11B4E0[index.word];
+		if (mapAngle_13B4E0[index.word] == 5)
+			ang5++;
+		if (mapAngle_13B4E0[index.word] == 2)
+			ang2++;
+		index._axis_2d.x++;
+		index._axis_2d.y++;
+		if (maxHeight < maxHeightCut)
 		{
-			v8 = LOBYTE(v3) - BYTE1(v3);
-			LOBYTE(v3) = a2;
-			if (v8 <= a2 && mapAngle_13B4E0[v2] == 5)
+			if (maxHeight - minHeight <= maxHeightDiffCut && mapAngle_13B4E0[index.word] == 5)
 			{
-				v3 = v6 + v5;
-				if (v3 == 8)
-					mapAngle_13B4E0[v2] = 2;
+				if (ang5 + ang2 == 8)
+					mapAngle_13B4E0[index.word] = 2;
 			}
 		}
-		v2++;
-	} while (v2);
+	}
 }
-// 10000: using guessed type void /*__noreturn*/ sub_10000();
 
 //----- (000454F0) --------------------------------------------------------
-void sub_454F0(uint8_t a1, uint8_t a2)//2264f0
+void sub_454F0(uint8_t maxHeightCut, uint8_t maxHeightDiffCut)//2264f0
 {
-	uint16_t index; // ax
-	uint8_t v3; // dh
-	uint8_t v4; // dl
-	//unsigned __int16 v5; // ax
-	//uint16_t v6; // ax
+	//    X
+	//	 / \
+	//  X-B X
+	//    |/
+	//    X
 
-	// fix if begin
-	//v5 = 0;
-	//v6 = 0;
-	// end
-
-	index = 0;
-	do
+	uint8_t maxHeight;
+	uint8_t minHeight;
+	uaxis_2d index;
+	for (int i = 0; i < 256 * 256; i++)
 	{
-		if (mapHeightmap_11B4E0[index] > a1)
+		index.word = i;
+		if (mapHeightmap_11B4E0[index.word] > maxHeightCut)
 		{
-			v3 = 0;
-			v4 = -1;
-			if (mapHeightmap_11B4E0[index])
-				v3 = mapHeightmap_11B4E0[index];
-			if (mapHeightmap_11B4E0[index] < 0xFFu)
-				v4 = mapHeightmap_11B4E0[index];
-			HIBYTE(index)--;
-			if (v3 < mapHeightmap_11B4E0[index])
-				v3 = mapHeightmap_11B4E0[index];
-			if (v4 > mapHeightmap_11B4E0[index])
-				v4 = mapHeightmap_11B4E0[index];
-			LOBYTE(index)++;
-			HIBYTE(index)++;
-			if (v3 < mapHeightmap_11B4E0[index])
-				v3 = mapHeightmap_11B4E0[index];
-			if (v4 > mapHeightmap_11B4E0[index])
-				v4 = mapHeightmap_11B4E0[index];
-			HIBYTE(index)++;
-			LOBYTE(index)--;
-			if (v3 < mapHeightmap_11B4E0[index])
-				v3 = mapHeightmap_11B4E0[index];
-			if (v4 > mapHeightmap_11B4E0[index])
-				v4 = mapHeightmap_11B4E0[index];
-			LOBYTE(index)--;
-			HIBYTE(index)--;
-			if (v3 < mapHeightmap_11B4E0[index])
-				v3 = mapHeightmap_11B4E0[index];
-			if (v4 > mapHeightmap_11B4E0[index])
-				v4 = mapHeightmap_11B4E0[index];
-			LOBYTE(index)++;
-			if (mapAngle_13B4E0[index])
+			maxHeight = 0;
+			minHeight = 255;
+			if (mapHeightmap_11B4E0[index.word])
+				maxHeight = mapHeightmap_11B4E0[index.word];
+			if (mapHeightmap_11B4E0[index.word] < 255)
+				minHeight = mapHeightmap_11B4E0[index.word];
+			index._axis_2d.y--;
+			if (maxHeight < mapHeightmap_11B4E0[index.word])
+				maxHeight = mapHeightmap_11B4E0[index.word];
+			if (minHeight > mapHeightmap_11B4E0[index.word])
+				minHeight = mapHeightmap_11B4E0[index.word];
+			index._axis_2d.x++;
+			index._axis_2d.y++;
+			if (maxHeight < mapHeightmap_11B4E0[index.word])
+				maxHeight = mapHeightmap_11B4E0[index.word];
+			if (minHeight > mapHeightmap_11B4E0[index.word])
+				minHeight = mapHeightmap_11B4E0[index.word];
+			index._axis_2d.x--;
+			index._axis_2d.y++;
+			if (maxHeight < mapHeightmap_11B4E0[index.word])
+				maxHeight = mapHeightmap_11B4E0[index.word];
+			if (minHeight > mapHeightmap_11B4E0[index.word])
+				minHeight = mapHeightmap_11B4E0[index.word];
+			index._axis_2d.x--;
+			index._axis_2d.y--;
+			if (maxHeight < mapHeightmap_11B4E0[index.word])
+				maxHeight = mapHeightmap_11B4E0[index.word];
+			if (minHeight > mapHeightmap_11B4E0[index.word])
+				minHeight = mapHeightmap_11B4E0[index.word];
+			index._axis_2d.x++;
+			if (mapAngle_13B4E0[index.word])
 			{
-				if (v3 - v4 < a2)
-					mapAngle_13B4E0[index] = 6;
+				if (maxHeight - minHeight < maxHeightDiffCut)
+					mapAngle_13B4E0[index.word] = 6;
 			}
 		}
-		index++;
-	} while (index);
+	}
 }
 
 //----- (00045600) --------------------------------------------------------
 void sub_45600(uint8_t a1)//226600
 {
-	uint16_t index; // ax
-	unsigned __int8 v2; // dh
-	unsigned __int8 v3; // dl
-	//unsigned __int16 v4; // ax
-	//unsigned __int16 v5; // ax
-	//unsigned __int16 v6; // ax
-	__int16 v7; // bx
-	char v8; // dh
-	char v9; // dl
-	//char v10; // t0
-	//char v11; // t0
-	//char v12; // t0
-	//char v13; // t0
-	//char v14; // t0
-	//char v15; // t0
-	//char v16; // t0
-	//char v17; // t0
-	//char v18; // t0
-	//char v19; // t0
-	//char v20; // t0
-	//char v21; // t0
-	//char v22; // t0
-	//char v23; // t0
-	//char v24; // t0
-	//char v25; // t0
-	//char v26; // t0
-	//char v27; // t0
-	//char v28; // t0
-	//char v29; // t0
-	//char v30; // t0
-	//char v31; // t0
-	//char v32; // t0
-	//char v33; // t0
-
-	// fix if begin
-	//v4 = 0;
-	//v5 = 0;
-	//v6 = 0;
-	// end
+	char ang4;
+	char ang2;
+	char ang3;
+	char ang5;
+	uint8_t maxHeight;
+	uint8_t minHeight;
 
 	qmemcpy(mapTerrainType_10B4E0, mapAngle_13B4E0, 0x10000);
-	index = 0;
-	do
+	uaxis_2d index;
+
+	//    X
+	//	 / \
+	//  X-B X
+	//    |/
+	//    X
+
+	for (int i = 0; i < 256 * 256; i++)
 	{
-		v2 = 0;
-		v3 = 0xffu;
-		if (mapHeightmap_11B4E0[index])
-			v2 = mapHeightmap_11B4E0[index];
-		if (mapHeightmap_11B4E0[index] < 0xFFu)
-			v3 = mapHeightmap_11B4E0[index];
-		HIBYTE(index)--;
-		if (v2 < mapHeightmap_11B4E0[index])
-			v2 = mapHeightmap_11B4E0[index];
-		if (v3 > mapHeightmap_11B4E0[index])
-			v3 = mapHeightmap_11B4E0[index];
-		LOBYTE(index)++;
-		HIBYTE(index)++;
-		if (v2 < mapHeightmap_11B4E0[index])
-			v2 = mapHeightmap_11B4E0[index];
-		if (v3 > mapHeightmap_11B4E0[index])
-			v3 = mapHeightmap_11B4E0[index];
-		HIBYTE(index)++;
-		LOBYTE(index)--;
-		if (v2 < mapHeightmap_11B4E0[index])
-			v2 = mapHeightmap_11B4E0[index];
-		if (v3 > mapHeightmap_11B4E0[index])
-			v3 = mapHeightmap_11B4E0[index];
-		LOBYTE(index)--;
-		HIBYTE(index)--;
-		if (v2 < mapHeightmap_11B4E0[index])
-			v2 = mapHeightmap_11B4E0[index];
-		if (v3 > mapHeightmap_11B4E0[index])
-			v3 = mapHeightmap_11B4E0[index];
-		LOBYTE(index)++;
-		if (mapAngle_13B4E0[index] && v2 - v3 >= a1)
-			mapAngle_13B4E0[index] = 1;
-		index++;
-	} while (index);
-	do
+		index.word = i;
+		maxHeight = 0;
+		minHeight = 255;
+		if (mapHeightmap_11B4E0[index.word])
+			maxHeight = mapHeightmap_11B4E0[index.word];
+		if (mapHeightmap_11B4E0[index.word] < 255)
+			minHeight = mapHeightmap_11B4E0[index.word];
+		index._axis_2d.y--;
+		if (maxHeight < mapHeightmap_11B4E0[index.word])
+			maxHeight = mapHeightmap_11B4E0[index.word];
+		if (minHeight > mapHeightmap_11B4E0[index.word])
+			minHeight = mapHeightmap_11B4E0[index.word];
+		index._axis_2d.x++;
+		index._axis_2d.y++;
+		if (maxHeight < mapHeightmap_11B4E0[index.word])
+			maxHeight = mapHeightmap_11B4E0[index.word];
+		if (minHeight > mapHeightmap_11B4E0[index.word])
+			minHeight = mapHeightmap_11B4E0[index.word];
+		index._axis_2d.x--;
+		index._axis_2d.y++;
+		if (maxHeight < mapHeightmap_11B4E0[index.word])
+			maxHeight = mapHeightmap_11B4E0[index.word];
+		if (minHeight > mapHeightmap_11B4E0[index.word])
+			minHeight = mapHeightmap_11B4E0[index.word];
+		index._axis_2d.x--;
+		index._axis_2d.y--;
+		if (maxHeight < mapHeightmap_11B4E0[index.word])
+			maxHeight = mapHeightmap_11B4E0[index.word];
+		if (minHeight > mapHeightmap_11B4E0[index.word])
+			minHeight = mapHeightmap_11B4E0[index.word];
+		index._axis_2d.x++;
+		if (mapAngle_13B4E0[index.word] && maxHeight - minHeight >= a1)
+			mapAngle_13B4E0[index.word] = 1;
+	}
+
+	//  X-X-X
+	//  |   |
+	//  X B X
+	//  |/| |
+	//  X X-X
+
+	for (int i = 0; i < 256 * 256; i++)
 	{
-		if (mapAngle_13B4E0[index] != 6)
-			goto LABEL_100;
-		v7 = 0;
-		HIBYTE(index)--;
-		v8 = 0;
-		v9 = 0;
-		if (mapAngle_13B4E0[index] == 3)
-			HIBYTE(v7) = 1;
-		if (mapAngle_13B4E0[index] == 2)
-			v9 = 1;
-		if (mapAngle_13B4E0[index] == 5)
-			LOBYTE(v7) = 1;
-		//v10 = x_BYTE_13B4E0_angle[index];
-		//v11 = x_BYTE_13B4E0_angle[index];
-		if (mapAngle_13B4E0[index] == 4)
-			v8 = 1;
-		//v12 = x_BYTE_13B4E0_angle[index];
-		LOBYTE(index)++;
-		if (mapAngle_13B4E0[index] == 3)
-			HIBYTE(v7)++;
-		if (mapAngle_13B4E0[index] == 2)
-			v9++;
-		if (mapAngle_13B4E0[index] == 5)
-			LOBYTE(v7)++;
-		//v13 = x_BYTE_13B4E0_angle[index];
-		//v14 = x_BYTE_13B4E0_angle[index];
-		if (mapAngle_13B4E0[index] == 4)
-			v8++;
-		//v15 = x_BYTE_13B4E0_angle[index];
-		HIBYTE(index)++;
-		if (mapAngle_13B4E0[index] == 3)
-			HIBYTE(v7)++;
-		if (mapAngle_13B4E0[index] == 2)
-			v9++;
-		if (mapAngle_13B4E0[index] == 5)
-			LOBYTE(v7)++;
-		//v16 = x_BYTE_13B4E0_angle[index];
-		//v17 = x_BYTE_13B4E0_angle[index];
-		if (mapAngle_13B4E0[index] == 4)
-			v8++;
-		//v18 = x_BYTE_13B4E0_angle[index];
-		HIBYTE(index)++;
-		if (mapAngle_13B4E0[index] == 3)
-			HIBYTE(v7)++;
-		if (mapAngle_13B4E0[index] == 2)
-			v9++;
-		if (mapAngle_13B4E0[index] == 5)
-			LOBYTE(v7)++;
-		//v19 = x_BYTE_13B4E0_angle[index];
-		//v20 = x_BYTE_13B4E0_angle[index];
-		if (mapAngle_13B4E0[index] == 4)
-			v8++;
-		//v21 = x_BYTE_13B4E0_angle[index];
-		LOBYTE(index) = index - 1;
-		if (mapAngle_13B4E0[index] == 3)
-			HIBYTE(v7)++;
-		if (mapAngle_13B4E0[index] == 2)
-			v9++;
-		if (mapAngle_13B4E0[index] == 5)
-			LOBYTE(v7)++;
-		//v22 = x_BYTE_13B4E0_angle[index];
-		//v23 = x_BYTE_13B4E0_angle[index];
-		if (mapAngle_13B4E0[index] == 4)
-			v8++;
-		//v24 = x_BYTE_13B4E0_angle[index];
-		LOBYTE(index)--;
-		if (mapAngle_13B4E0[index] == 3)
-			HIBYTE(v7)++;
-		if (mapAngle_13B4E0[index] == 2)
-			v9++;
-		if (mapAngle_13B4E0[index] == 5)
-			LOBYTE(v7)++;
-		//v25 = x_BYTE_13B4E0_angle[index];
-		//v26 = x_BYTE_13B4E0_angle[index];
-		if (mapAngle_13B4E0[index] == 4)
-			v8++;
-		//v27 = x_BYTE_13B4E0_angle[index];
-		HIBYTE(index)--;
-		if (mapAngle_13B4E0[index] == 3)
-			HIBYTE(v7)++;
-		if (mapAngle_13B4E0[index] == 2)
-			v9++;
-		if (mapAngle_13B4E0[index] == 5)
-			LOBYTE(v7)++;
-		//v28 = x_BYTE_13B4E0_angle[index];
-		//v29 = x_BYTE_13B4E0_angle[index];
-		if (mapAngle_13B4E0[index] == 4)
-			v8++;
-		//v30 = x_BYTE_13B4E0_angle[index];
-		HIBYTE(index)--;
-		if (mapAngle_13B4E0[index] == 3)
-			HIBYTE(v7)++;
-		if (mapAngle_13B4E0[index] == 2)
-			v9++;
-		if (mapAngle_13B4E0[index] == 5)
-			LOBYTE(v7)++;
-		//v31 = x_BYTE_13B4E0_angle[index];
-		//v32 = x_BYTE_13B4E0_angle[index];
-		if (mapAngle_13B4E0[index] == 4)
-			v8++;
-		//v33 = x_BYTE_13B4E0_angle[index];
-		LOBYTE(index)++;
-		HIBYTE(index)++;
-		if (HIBYTE(v7))
+		index.word = i;
+		if (mapAngle_13B4E0[index.word] == 6)
 		{
-			if (v9 || LOBYTE(v7) || v8)
-				goto LABEL_99;
+			ang4 = 0;
+			ang2 = 0;
+			ang3 = 0;
+			ang5 = 0;
+			index._axis_2d.y--;
+			if (mapAngle_13B4E0[index.word] == 3)
+				ang3 = 1;
+			if (mapAngle_13B4E0[index.word] == 2)
+				ang2 = 1;
+			if (mapAngle_13B4E0[index.word] == 5)
+				ang5 = 1;
+			if (mapAngle_13B4E0[index.word] == 4)
+				ang4 = 1;
+			index._axis_2d.x++;
+			if (mapAngle_13B4E0[index.word] == 3)
+				ang3++;
+			if (mapAngle_13B4E0[index.word] == 2)
+				ang2++;
+			if (mapAngle_13B4E0[index.word] == 5)
+				ang5++;
+			if (mapAngle_13B4E0[index.word] == 4)
+				ang4++;
+			index._axis_2d.y++;
+			if (mapAngle_13B4E0[index.word] == 3)
+				ang3++;
+			if (mapAngle_13B4E0[index.word] == 2)
+				ang2++;
+			if (mapAngle_13B4E0[index.word] == 5)
+				ang5++;
+			if (mapAngle_13B4E0[index.word] == 4)
+				ang4++;
+			index._axis_2d.y++;
+			if (mapAngle_13B4E0[index.word] == 3)
+				ang3++;
+			if (mapAngle_13B4E0[index.word] == 2)
+				ang2++;
+			if (mapAngle_13B4E0[index.word] == 5)
+				ang5++;
+			if (mapAngle_13B4E0[index.word] == 4)
+				ang4++;
+			index._axis_2d.x--;
+			if (mapAngle_13B4E0[index.word] == 3)
+				ang3++;
+			if (mapAngle_13B4E0[index.word] == 2)
+				ang2++;
+			if (mapAngle_13B4E0[index.word] == 5)
+				ang5++;
+			if (mapAngle_13B4E0[index.word] == 4)
+				ang4++;
+			index._axis_2d.x--;
+			if (mapAngle_13B4E0[index.word] == 3)
+				ang3++;
+			if (mapAngle_13B4E0[index.word] == 2)
+				ang2++;
+			if (mapAngle_13B4E0[index.word] == 5)
+				ang5++;
+			if (mapAngle_13B4E0[index.word] == 4)
+				ang4++;
+			index._axis_2d.y--;
+			if (mapAngle_13B4E0[index.word] == 3)
+				ang3++;
+			if (mapAngle_13B4E0[index.word] == 2)
+				ang2++;
+			if (mapAngle_13B4E0[index.word] == 5)
+				ang5++;
+			if (mapAngle_13B4E0[index.word] == 4)
+				ang4++;
+			index._axis_2d.y--;
+			if (mapAngle_13B4E0[index.word] == 3)
+				ang3++;
+			if (mapAngle_13B4E0[index.word] == 2)
+				ang2++;
+			if (mapAngle_13B4E0[index.word] == 5)
+				ang5++;
+			if (mapAngle_13B4E0[index.word] == 4)
+				ang4++;
+			index._axis_2d.x++;
+			index._axis_2d.y++;
+			if (ang3)
+			{
+				if (ang2 || ang5 || ang4)
+					mapAngle_13B4E0[index.word] = 1;
+			}
+			else if (ang2 || (ang5 && ang4))
+			{
+				mapAngle_13B4E0[index.word] = 1;
+			}
 		}
-		else if (v9 || (LOBYTE(v7) && v8))
-		{
-		LABEL_99:
-			mapAngle_13B4E0[index] = 1;
-			goto LABEL_100;
-		}
-	LABEL_100:
-		index++;
-	} while (index);
+	}
 }
-// 10000: using guessed type void /*__noreturn*/ sub_10000();
 
 //----- (00043FC0) --------------------------------------------------------
 void sub_43FC0()//224fc0
 {
-	uint16_t index; // ax
-	uint16_t v1; // dx
-	char v2; // dh
-	unsigned __int16 v3; // bx
-	unsigned __int16 v4; // bx
-	unsigned __int16 v5; // bx
-	unsigned __int16 v6; // bx
-	unsigned __int16 v7; // bx
-	char v8; // bl
-	//unsigned __int16 v9; // ax
+	int sameAngle;
+	char centerAngle;
 
-	index = 0;
-	do
+	//  X-X-X
+	//  |   |
+	//  X B X
+	//  |/| |
+	//  X X-X
+
+	uaxis_2d index;
+	for (int i = 0; i < 256 * 256; i++)
 	{
-		HIBYTE(index)--;
-		v1 = index;
-		LOBYTE(index)++;
-		v2 = mapAngle_13B4E0[v1];
-		LOBYTE(v1) = v2 == mapAngle_13B4E0[index];
-		HIBYTE(index)++;
-		v3 = index;
-		HIBYTE(index)++;
-		LOBYTE(v1) = (v2 == mapAngle_13B4E0[v3]) + v1;
-		v4 = index;
-		LOBYTE(index)--;
-		LOBYTE(v1) = (v2 == mapAngle_13B4E0[v4]) + v1;
-		v5 = index;
-		LOBYTE(index)--;
-		LOBYTE(v1) = (v2 == mapAngle_13B4E0[v5]) + v1;
-		v6 = index;
-		HIBYTE(index)--;
-		LOBYTE(v1) = (v2 == mapAngle_13B4E0[v6]) + v1;
-		v7 = index;
-		HIBYTE(index)--;
-		v8 = (v2 == mapAngle_13B4E0[index]) + (v2 == mapAngle_13B4E0[v7]) + v1;
-		LOBYTE(index)++;
-		HIBYTE(index)++;
-		if (v2)
+		index.word = i;
+		index._axis_2d.y--;
+		centerAngle = mapAngle_13B4E0[index.word];
+		index._axis_2d.x++;
+		sameAngle = (centerAngle == mapAngle_13B4E0[index.word]);
+		index._axis_2d.y++;
+		sameAngle += (centerAngle == mapAngle_13B4E0[index.word]);
+		index._axis_2d.y++;
+		sameAngle += (centerAngle == mapAngle_13B4E0[index.word]);
+		index._axis_2d.x--;
+		sameAngle += (centerAngle == mapAngle_13B4E0[index.word]);
+		index._axis_2d.x--;
+		sameAngle += (centerAngle == mapAngle_13B4E0[index.word]);
+		index._axis_2d.y--;
+		sameAngle += (centerAngle == mapAngle_13B4E0[index.word]);
+		index._axis_2d.y--;
+		sameAngle += (centerAngle == mapAngle_13B4E0[index.word]);
+		index._axis_2d.x++;
+		index._axis_2d.y++;
+		if (centerAngle)
 		{
-			if (v8 == 7)
-				mapAngle_13B4E0[index] = v2;
+			if (sameAngle == 7)
+				mapAngle_13B4E0[index.word] = centerAngle;
 		}
-		index++;
-	} while (index);
+	}
 }
 
 //----- (00043970) --------------------------------------------------------
 void sub_43970(uint32_t a1)//224970
 {
-	uint16_t v1; // bx
-	//uint32_t result; // eax
-
-	v1 = 0;
-	do
+	uaxis_2d index;
+	for (int i = 0; i < 256 * 256; i++)
 	{
-		//result = sub_439A0(a1, v1);
-		mapHeightmap_11B4E0[v1] = sub_439A0(a1, v1);
-		v1++;
-	} while (v1);
-	//return result;
+		index.word = i;
+		mapHeightmap_11B4E0[index.word] = sub_439A0(a1, index.word);
+	}
 }
 
 //----- (00043EE0) --------------------------------------------------------
 void sub_43EE0()//224ee0
 {
-	unsigned __int16 index; // ax
-	unsigned __int16 v1; // cx
-	char v2; // dh
-	unsigned __int8 v3; // dl
-	int v4; // ecx
-	char v5; // bl
-	char v6; // bh
-	unsigned __int8 v7; // cl
-	char v8; // bh
-	char v9; // bh
-	unsigned __int16 v10; // cx
-	unsigned __int16 v11; // cx
-	unsigned __int16 v12; // cx
-	unsigned __int16 v13; // cx
-
-	index = 0;
-	do
+	char ang0;
+	char ang4;
+	uint8_t heightM1;
+	uint8_t heightM2;
+	char angleM1;
+	char angleM2;
+	char angleM3;
+	uaxis_2d index;
+	for (int i = 0; i < 256 * 256; i++)
 	{
-		v1 = index;
-		v2 = 0;
-		LOBYTE(index)++;
-		v3 = mapHeightmap_11B4E0[v1];
-		v4 = v1;
-		LOWORD(v4) = index;
-		v5 = 0;
-		v6 = mapAngle_13B4E0[index];
-		if (v6)
+		ang4 = 0;
+		ang0 = 0;
+		index.word = i;
+		heightM1 = mapHeightmap_11B4E0[index.word];
+		index._axis_2d.x++;
+		angleM1 = mapAngle_13B4E0[index.word];
+		if (angleM1)
 		{
-			if (v6 == 4)
-				v2 = 1;
+			if (angleM1 == 4)
+				ang4 = 1;
 		}
 		else
 		{
-			v7 = mapHeightmap_11B4E0[v4];
-			v5 = 1;
-			if (v7 < v3)
-				v3 = v7;
+			heightM2 = mapHeightmap_11B4E0[index.word];
+			ang0 = 1;
+			if (heightM2 < heightM1)
+				heightM1 = heightM2;
 		}
-		HIBYTE(index)++;
-		v8 = mapAngle_13B4E0[index];
-		if (v8)
+		index._axis_2d.y++;
+		angleM2 = mapAngle_13B4E0[index.word];
+		if (angleM2)
 		{
-			if (v8 == 4)
-				v2++;
+			if (angleM2 == 4)
+				ang4++;
 		}
 		else
 		{
-			v5++;
-			if (mapHeightmap_11B4E0[index] < v3)
-				v3 = mapHeightmap_11B4E0[index];
+			ang0++;
+			if (mapHeightmap_11B4E0[index.word] < heightM1)
+				heightM1 = mapHeightmap_11B4E0[index.word];
 		}
-		LOBYTE(index)--;
-		v9 = mapAngle_13B4E0[index];
-		if (v9)
+		index._axis_2d.x--;
+		angleM3 = mapAngle_13B4E0[index.word];
+		if (angleM3)
 		{
-			if (v9 == 4)
-				v2++;
+			if (angleM3 == 4)
+				ang4++;
 		}
 		else
 		{
-			v5++;
-			if (mapHeightmap_11B4E0[index] < v3)
-				v3 = mapHeightmap_11B4E0[index];
+			ang0++;
+			if (mapHeightmap_11B4E0[index.word] < heightM1)
+				heightM1 = mapHeightmap_11B4E0[index.word];
 		}
-		HIBYTE(index)--;
-		if (v2 && v5 && !v3)
+		index._axis_2d.y++;
+		if (ang4 && ang0 && !heightM1)
 		{
-			v10 = index;
-			LOBYTE(index)++;
-			mapHeightmap_11B4E0[v10] = 0;
-			v11 = index;
-			HIBYTE(index)++;
-			mapHeightmap_11B4E0[v11] = 0;
-			v12 = index;
-			LOBYTE(index)--;
-			mapHeightmap_11B4E0[v12] = 0;
-			v13 = index;
-			HIBYTE(index)--;
-			mapHeightmap_11B4E0[v13] = 0;
+			mapHeightmap_11B4E0[index.word] = 0;
+			index._axis_2d.x++;
+			mapHeightmap_11B4E0[index.word] = 0;
+			index._axis_2d.y++;
+			mapHeightmap_11B4E0[index.word] = 0;
+			index._axis_2d.x--;
+			mapHeightmap_11B4E0[index.word] = 0;
+			index._axis_2d.y--;
 		}
-		index++;
-	} while (index);
+	};
 }
 
 //----- (00044580) --------------------------------------------------------
 void sub_44580()//225580
 {
-	uint8_t* v0; // eax
-	unsigned __int16 v1; // bx
-	unsigned __int16 v2; // bx
+	//uint8_t* v0; // eax
+	//unsigned __int16 v1; // bx
+	//unsigned __int16 v2; // bx
 	char v3; // al
 	char v4; // dl
 	char v5; // cl
@@ -1433,20 +1353,23 @@ void sub_44580()//225580
 	uint8_t v86; // bl
 	uint8_t* v87; // edx
 	int8_t* v89; // [esp+8h] [ebp-10h]
-	uint8_t* v90; // [esp+Ch] [ebp-Ch]
+	//uint8_t* v90; // [esp+Ch] [ebp-Ch]
 
-	v0 = pdwScreenBuffer_351628;
+	/*v0 = pdwScreenBuffer_351628;
 	v1 = 0;
 	while (v1 < 0x961u)
 	{
 		v1++;
 		v0[0] = 0;
 		v0 += 25;
-	}
-	v2 = 0;
-	v90 = pdwScreenBuffer_351628;
+	}*/
+	for (int i = 0; i < 2401 * 25; i += 25)
+		pdwScreenBuffer_351628[i] = 0;
+	//v2 = 0;
+	//v90 = pdwScreenBuffer_351628;
 	v89 = unk_D47E0;
-	while (v2 < 0x94u)
+	for (int i = 0; i < 148; i ++)
+	//while (v2 < 0x94u)
 	{
 		v3 = v89[0];
 		if (v89[0] >= 0)
@@ -1461,14 +1384,14 @@ void sub_44580()//225580
 					if (v6 >= 0)
 					{
 						v7 = 49 * v4 + 7 * v5 + v6 + 343 * v3;
-						v8 = v90 + 25 * v7;
+						v8 = pdwScreenBuffer_351628 + 25 * v7;
 						v9 = v8[0];
 						if (v8[0] < 0xCu)
 						{
 							v8[0] = v9 + 1;
 							v10 = &v8[v9];
 							v10[13] = 0;
-							v10[1] = v2;
+							v10[1] = i;
 						}
 						v11 = v3;
 						v12 = v4;
@@ -1476,7 +1399,7 @@ void sub_44580()//225580
 						v14 = v6;
 						v15 = 7 * v6;
 						v16 = v5;
-						v17 = v90 + 25 * (49 * v13 + v5 + v15 + 343 * v12);
+						v17 = pdwScreenBuffer_351628 + 25 * (49 * v13 + v5 + v15 + 343 * v12);
 						v18 = v14;
 						v19 = v17[0];
 						if (v17[0] < 0xCu)
@@ -1484,7 +1407,7 @@ void sub_44580()//225580
 							v17[0] = v19 + 1;
 							v20 = &v17[v19];
 							v20[13] = 16;
-							v20[1] = v2;
+							v20[1] = i;
 						}
 						v21 = v12;
 						v22 = v16;
@@ -1492,7 +1415,7 @@ void sub_44580()//225580
 						v24 = v13;
 						v25 = v18;
 						v26 = 49 * v18 + v23 + 7 * v24 + 343 * v22;
-						v27 = v90 + 25 * v26;
+						v27 = pdwScreenBuffer_351628 + 25 * v26;
 						v28 = v24;
 						v29 = v27[0];
 						if (v27[0] < 0xCu)
@@ -1500,7 +1423,7 @@ void sub_44580()//225580
 							v27[0] = v29 + 1;
 							v30 = &v27[v29];
 							v30[13] = 48;
-							v30[1] = v2;
+							v30[1] = i;
 						}
 						v31 = v22;
 						v32 = v25;
@@ -1508,7 +1431,7 @@ void sub_44580()//225580
 						v34 = v23;
 						v35 = 7 * v23;
 						v36 = v28;
-						v37 = v90 + 25 * (49 * v33 + v28 + v35 + 343 * v32);
+						v37 = pdwScreenBuffer_351628 + 25 * (49 * v33 + v28 + v35 + 343 * v32);
 						v38 = v34;
 						v39 = *v37;
 						if (*v37 < 0xCu)
@@ -1516,13 +1439,13 @@ void sub_44580()//225580
 							*v37 = v39 + 1;
 							v40 = &v37[v39];
 							v40[13] = 32;
-							v40[1] = v2;
+							v40[1] = i;
 						}
 						v41 = v32;
 						v42 = v32;
 						v43 = 8 * v32;
 						v44 = v38;
-						v45 = v90 + 25 * (49 * v33 + v43 - v42 + v36 + 343 * v38);
+						v45 = pdwScreenBuffer_351628 + 25 * (49 * v33 + v43 - v42 + v36 + 343 * v38);
 						v46 = v41;
 						v47 = v45[0];
 						if (v45[0] < 0xCu)
@@ -1530,7 +1453,7 @@ void sub_44580()//225580
 							v45[0] = v47 + 1;
 							v48 = &v45[v47];
 							v48[13] = 96;
-							v48[1] = v2;
+							v48[1] = i;
 						}
 						v49 = v44;
 						v50 = v33;
@@ -1539,7 +1462,7 @@ void sub_44580()//225580
 						v53 = v36;
 						v54 = 8 * v36;
 						v55 = v46;
-						v56 = v90 + 25 * (49 * v51 + v54 - v53 + v46 + 343 * v50);
+						v56 = pdwScreenBuffer_351628 + 25 * (49 * v51 + v54 - v53 + v46 + 343 * v50);
 						v57 = v52;
 						v58 = v56[0];
 						if (v56[0] < 0xCu)
@@ -1547,7 +1470,7 @@ void sub_44580()//225580
 							v56[0] = v58 + 1;
 							v59 = &v56[v58];
 							v59[13] = 112;
-							v59[1] = v2;
+							v59[1] = i;
 						}
 						v60 = v50;
 						v61 = v55;
@@ -1555,7 +1478,7 @@ void sub_44580()//225580
 						v63 = v51;
 						v64 = v57;
 						v65 = 49 * v57 + 7 * v63 + v62 + 343 * v61;
-						v66 = v90 + 25 * v65;
+						v66 = pdwScreenBuffer_351628 + 25 * v65;
 						v67 = v63;
 						v68 = v66[0];
 						if (v66[0] < 0xCu)
@@ -1563,22 +1486,22 @@ void sub_44580()//225580
 							v66[0] = v68 + 1;
 							v69 = &v66[v68];
 							v69[13] = 80;
-							v69[1] = v2;
+							v69[1] = i;
 						}
-						v70 = &v90[25 * (343 * v64 + 7 * v62 + v67 + 49 * v61)];
+						v70 = &pdwScreenBuffer_351628[25 * (343 * v64 + 7 * v62 + v67 + 49 * v61)];
 						v71 = v70[0];
 						if (v70[0] < 0xCu)
 						{
 							v70[0] = v71 + 1;
 							//v71 = v71&0xff;
 							v70[v71 + 13] = 64;
-							v70[v71 + 1] = v2;
+							v70[v71 + 1] = i;
 						}
 					}
 				}
 			}
 		}
-		v2++;
+		//v2++;
 		v89 += 4;
 	}
 	//v72 = x_BYTE_F2CD0x;//adress 225afd
@@ -1591,7 +1514,7 @@ void sub_44580()//225580
 			{
 				for (l = 0; l < 7; l++)
 				{
-					v77 = &v90[25 * (49 * j + 7 * k + l + 343 * i)];
+					v77 = &pdwScreenBuffer_351628[25 * (49 * j + 7 * k + l + 343 * i)];
 					if (v77[0])
 					{
 						x_BYTE_F2CD0x[v72x][0] = v77[1];
@@ -1622,7 +1545,7 @@ void sub_44580()//225580
 			v83 = v78;
 			LOBYTE(v78)--;
 			v84 = 343 * v80 + 49 * (v82 & 7) + (mapAngle_13B4E0[v78] & 7) + 7 * (mapAngle_13B4E0[v83] & 7);
-			v85 = v90[25 * v84];
+			v85 = pdwScreenBuffer_351628[25 * v84];
 			HIBYTE(v78)--;
 			if (v85)
 			{
@@ -1630,7 +1553,7 @@ void sub_44580()//225580
 				v86 = x_WORD_17B4E0 % (v85 + 1);
 				if (v86 >= v85)
 					v86 = 0;
-				v87 = (v86 + 25 * v84 + v90);
+				v87 = (v86 + 25 * v84 + pdwScreenBuffer_351628);
 				//LOWORD(v79) = v78;
 				mapTerrainType_10B4E0[v78] = v87[1];//problem is here!
 				mapAngle_13B4E0[v78] = (mapAngle_13B4E0[v78] & 7) + v87[13];
