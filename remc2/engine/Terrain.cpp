@@ -208,15 +208,9 @@ int debugcounter_224959 = 0;
 //----- (00043830) --------------------------------------------------------
 void GenerateLevelMap_43830(unsigned int a1, type_str_2FECE* a2x)//224830
 {
-	//uint8_t* v2; // ebx
-	//int32_t v3; // ST0C_4
-	//test_x_D41A0_BYTEARRAY_0();
-	//v2 = a2;
 	x_WORD_17B4E0 = a2x->seed_0x2FEE5;
-	//*(uint32_t*)(x_D41A0_BYTEARRAY_0 + 8) = *(uint32_t*)(a2 + 23);
 	D41A0_0.rand_0x8 = a2x->seed_0x2FEE5;
 	memset((void*)mapEntityIndex_15B4E0, 0, 0x20000);
-	//v3 = *(uint16_t*)(v2 + 35);
 	sub_B5E70_decompress_terrain_map_level(x_WORD_17B4E0, a2x->offset_0x2FEE9, a2x->raise_0x2FEED, a2x->gnarl_0x2FEF1);
 
 	sub_44DB0_truncTerrainHeight();//225db0 //trunc and create
@@ -289,11 +283,6 @@ void GenerateLevelMap_43830(unsigned int a1, type_str_2FECE* a2x)//224830
 		//	compsize = compare_with_snapshot((char*)"0160-00256200-2", pdwScreenBuffer_351628, 0x3aa0a4, 640 * height, &origbyte, &remakebyte);//4c
 	//debug
 }
-// 10000: using guessed type void /*__noreturn*/ sub_10000();
-// 8C250: using guessed type x_DWORD memset(x_DWORD, x_DWORD, x_DWORD);
-// D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
-// D41B6: using guessed type char x_BYTE_D41B6;
-// 17B4E0: using guessed type __int16 x_WORD_17B4E0;
 
 //----- (000B5E70) --------------------------------------------------------
 void /*__spoils<ecx>*/ sub_B5E70_decompress_terrain_map_level(__int16 a1, unsigned __int16 a2, __int16 a3, int32_t a4)//296e70
@@ -348,73 +337,58 @@ void /*__spoils<ecx>*/ sub_B5E70_decompress_terrain_map_level(__int16 a1, unsign
 //----- (00044DB0) --------------------------------------------------------
 void sub_44DB0_truncTerrainHeight()//225db0 // map to heightmap
 {
-	__int16 v0; // dx
-	__int16 v1; // cx
-	uint16_t v2; // bx
-	__int16 v3; // ax
-	int v4; // edx
-	uint32_t x; // eax
-
-	v0 = -32000;
-	v1 = 32000;
-	v2 = 0;
-	do
+	int revMaxEnt = 0;
+	uint32_t weightedVar;
+	int maxEnt = -32000;
+	int minEnt = 32000;
+	for(int i = 0; i< 256 * 256; i++)
 	{
-		v3 = mapEntityIndex_15B4E0[v2];
-		if (v3 > v0)
-			v0 = mapEntityIndex_15B4E0[v2];
-		if (v3 < v1)
-			v1 = mapEntityIndex_15B4E0[v2];
-		v2++;
-	} while (v2);//find min and max height
-	if (v0)
-		v4 = 0xC40000 / v0;
-	else
-		v4 = 0;
-	do
+		if (mapEntityIndex_15B4E0[i] > maxEnt)
+			maxEnt = mapEntityIndex_15B4E0[i];
+		if (mapEntityIndex_15B4E0[i] < minEnt)
+			minEnt = mapEntityIndex_15B4E0[i];
+	}
+	if (maxEnt)
+		revMaxEnt = 0xC40000 / maxEnt;
+	for (int i = 0; i < 256 * 256; i++)
 	{
-		x = v4 * mapEntityIndex_15B4E0[v2] >> 16;
-		mapEntityIndex_15B4E0[v2] = 0;
-		if ((x & 0x8000u) != 0)//water level trunc
-			x = 0;
-		if (x > 196)//trunc max height
-			x = 196;
-		mapHeightmap_11B4E0[v2] = x;
-		v2++;
-	} while (v2);
-	//return result;
+		weightedVar = revMaxEnt * mapEntityIndex_15B4E0[i] >> 16;
+		mapEntityIndex_15B4E0[i] = 0;
+		if ((weightedVar & 0x8000u) != 0)//water level trunc
+			weightedVar = 0;
+		if (weightedVar > 196)//trunc max height
+			weightedVar = 196;
+		mapHeightmap_11B4E0[i] = weightedVar;
+	}
 }
 
 int sub_B5C60_getTerrainAlt2(uint16_t axisX, uint16_t axisY)//296c60
 {
-	int point1; // eax
-	int diaPoint; // esi
-	int result; // eax
-	int point2; // esi
+	int point1;
+	int diaPoint;
+	int result;
+	int point2;
 	
 	uaxis_2d locX;
 	uaxis_2d locY;
 	uaxis_2d locV2;
-	uint8_t locV3;
 
 	locX.word = axisX;
 	locY.word = axisY;
 
 	locV2._axis_2d.x = locX._axis_2d.y;
 	locV2._axis_2d.y = locY._axis_2d.y;
-	locV3 = locX._axis_2d.x;
 
 	if ((locV2._axis_2d.x + locV2._axis_2d.y) & 1)
 	{
-		if (locV3 > (2 * locV3) % 256)
+		if (locY._axis_2d.x > (locY._axis_2d.x + locX._axis_2d.x) % 256)
 		{
 			locV2._axis_2d.y++;
 			point1 = mapHeightmap_11B4E0[locV2.word];
 			locV2._axis_2d.x++;
 			point2 = mapHeightmap_11B4E0[locV2.word];
-			locV3 = 255 - locY._axis_2d.x;
 			locV2._axis_2d.y--;
-			diaPoint = locV3 * (mapHeightmap_11B4E0[locV2.word] - point2) + locX._axis_2d.x * (point2 - point1);
+			diaPoint = (255 - locY._axis_2d.x) * (mapHeightmap_11B4E0[locV2.word] - point2) + locX._axis_2d.x * (point2 - point1);
 		}
 		else
 		{
@@ -429,7 +403,7 @@ int sub_B5C60_getTerrainAlt2(uint16_t axisX, uint16_t axisY)//296c60
 	}
 	else
 	{
-		if (locX._axis_2d.x <= locV3)
+		if (locX._axis_2d.x <= locY._axis_2d.x)
 		{
 			point1 = mapHeightmap_11B4E0[locV2.word];
 			locV2._axis_2d.y++;
@@ -446,70 +420,6 @@ int sub_B5C60_getTerrainAlt2(uint16_t axisX, uint16_t axisY)//296c60
 			diaPoint = locY._axis_2d.x * (mapHeightmap_11B4E0[locV2.word] - point2) + locX._axis_2d.x * (point2 - point1);
 		}
 		result = (diaPoint >> 3) + 32 * point1;
-	}
-	return result;
-}
-
-int sub_B5C60_getTerrainAlt2_orig(uint16_t a1, uint16_t a2)//296c60
-{
-	uint16_t v2; // ebx
-	int v3; // edx
-	int v4; // eax
-	int v5; // esi
-	int v6; // esi
-	int result; // eax
-	int v8; // esi
-	int v9; // eax
-	int v10; // esi
-	int v11; // esi
-	int v12; // edi
-
-	v2 = HIBYTE(a1);
-	HIBYTE(v2) = HIBYTE(a2);
-	v3 = LOBYTE(a2);
-	if ((HIBYTE(a1) + HIBYTE(a2)) & 1)
-	{
-		//if (__CFADD__((x_BYTE)v3, (x_BYTE)a1))
-		if (uint8(v3) > uint8(v3 + a1))
-		{
-			HIBYTE(v2) = HIBYTE(a2) + 1;
-			v4 = mapHeightmap_11B4E0[v2];
-			LOBYTE(v2)++;
-			v8 = mapHeightmap_11B4E0[v2];
-			LOBYTE(v3) = ~(x_BYTE)a2;
-			HIBYTE(v2) = HIBYTE(a2);
-			v6 = v3 * (mapHeightmap_11B4E0[v2] - v8) + (unsigned __int8)a1 * (v8 - v4);
-		}
-		else
-		{
-			v4 = mapHeightmap_11B4E0[v2];
-			LOBYTE(v2)++;
-			v5 = (unsigned __int8)a1 * (mapHeightmap_11B4E0[v2] - v4);
-			LOBYTE(v2)--;
-			HIBYTE(v2) = HIBYTE(a2) + 1;
-			v6 = (unsigned __int8)a2 * (mapHeightmap_11B4E0[v2] - v4) + v5;
-		}
-		result = (v6 >> 3) + 32 * v4;
-	}
-	else
-	{
-		if ((unsigned __int8)a1 <= (unsigned __int8)v3)
-		{
-			v9 = mapHeightmap_11B4E0[v2];
-			HIBYTE(v2) = HIBYTE(a2) + 1;
-			v12 = mapHeightmap_11B4E0[v2];
-			LOBYTE(v2)++;
-			v11 = (unsigned __int8)a2 * (v12 - v9) + (unsigned __int8)a1 * (mapHeightmap_11B4E0[v2] - v12);
-		}
-		else
-		{
-			v9 = mapHeightmap_11B4E0[v2];
-			LOBYTE(v2)++;
-			v10 = mapHeightmap_11B4E0[v2];
-			HIBYTE(v2) = HIBYTE(a2) + 1;
-			v11 = (unsigned __int8)a2 * (mapHeightmap_11B4E0[v2] - v10) + (unsigned __int8)a1 * (v10 - v9);
-		}
-		result = (v11 >> 3) + 32 * v9;
 	}
 	return result;
 }
@@ -571,364 +481,337 @@ LABEL_12:
 //----- (00045AA0) --------------------------------------------------------
 void sub_45AA0_setMax4Tiles()//226aa0
 {
-	uaxis_2d indexx; // ax
-	char v1; // dh
-	//unsigned __int16 v2; // cx
-	unsigned __int8 v3; // dl
-	unsigned __int8 v4; // bl
-	//unsigned __int16 v5; // cx
-	//unsigned __int16 v6; // cx
-	//unsigned __int16 v7; // cx
-	//unsigned __int16 v8; // cx
-	char v9; // [esp+0h] [ebp-4h]
+	//[*][*]
+	//[*][*]
 
-	//[*][*]
-	//[*][*]
+	uaxis_2d indexx;
+	char angleIndex;
+	uint8_t minHeight;
+	uint8_t maxHeight;
+	bool runAgain;
 
 	do
 	{
-		indexx.word = 0;
-		v9 = 0;
-		do
+		runAgain = false;
+		for (int i = 0; i < 256 * 256; i++)
 		{
-			v1 = 0;
+			indexx.word = i;
+			angleIndex = 0;
 			if (!mapAngle_13B4E0[indexx.word])
-				v1 = 1;
-			//v2 = index;
-			v3 = mapHeightmap_11B4E0[indexx.word];
-			v4 = mapHeightmap_11B4E0[indexx.word];
-			//LOBYTE(index)++;
+				angleIndex = 1;
+			minHeight = mapHeightmap_11B4E0[indexx.word];
+			maxHeight = minHeight;
 			indexx._axis_2d.x++;
 			if (!mapAngle_13B4E0[indexx.word])
-				v1++;
-			if (v3 > mapHeightmap_11B4E0[indexx.word])
-				v3 = mapHeightmap_11B4E0[indexx.word];
-			if (v4 < mapHeightmap_11B4E0[indexx.word])
-				v4 = mapHeightmap_11B4E0[indexx.word];
-			//HIBYTE(index)++;
+				angleIndex++;
+			if (minHeight > mapHeightmap_11B4E0[indexx.word])
+				minHeight = mapHeightmap_11B4E0[indexx.word];
+			if (maxHeight < mapHeightmap_11B4E0[indexx.word])
+				maxHeight = mapHeightmap_11B4E0[indexx.word];
 			indexx._axis_2d.y++;
 			if (!mapAngle_13B4E0[indexx.word])
-				v1++;
-			if (v3 > mapHeightmap_11B4E0[indexx.word])
-				v3 = mapHeightmap_11B4E0[indexx.word];
-			if (v4 < mapHeightmap_11B4E0[indexx.word])
-				v4 = mapHeightmap_11B4E0[indexx.word];
-			//LOBYTE(index)--;
+				angleIndex++;
+			if (minHeight > mapHeightmap_11B4E0[indexx.word])
+				minHeight = mapHeightmap_11B4E0[indexx.word];
+			if (maxHeight < mapHeightmap_11B4E0[indexx.word])
+				maxHeight = mapHeightmap_11B4E0[indexx.word];
 			indexx._axis_2d.x--;
 			if (!mapAngle_13B4E0[indexx.word])
-				v1++;
-			if (v3 > mapHeightmap_11B4E0[indexx.word])
-				v3 = mapHeightmap_11B4E0[indexx.word];
-			if (v4 < mapHeightmap_11B4E0[indexx.word])
-				v4 = mapHeightmap_11B4E0[indexx.word];
-			//HIBYTE(index)--;
+				angleIndex++;
+			if (minHeight > mapHeightmap_11B4E0[indexx.word])
+				minHeight = mapHeightmap_11B4E0[indexx.word];
+			if (maxHeight < mapHeightmap_11B4E0[indexx.word])
+				maxHeight = mapHeightmap_11B4E0[indexx.word];
 			indexx._axis_2d.y--;
-			if (v4 != v3 && v1 == 4)
+			if (maxHeight != minHeight && angleIndex == 4)
 			{
-				v9 = 1;
-				//v5 = index;
-				mapHeightmap_11B4E0[indexx.word] = v3;
-				//LOBYTE(index)++;
+				runAgain = true;
+				mapHeightmap_11B4E0[indexx.word] = minHeight;
 				indexx._axis_2d.x++;
-				//v6 = index;
-				mapHeightmap_11B4E0[indexx.word] = v3;
-				//HIBYTE(index)++;
+				mapHeightmap_11B4E0[indexx.word] = minHeight;
 				indexx._axis_2d.y++;
-				//v7 = index;
-				mapHeightmap_11B4E0[indexx.word] = v3;
-				//LOBYTE(index)--;
+				mapHeightmap_11B4E0[indexx.word] = minHeight;
 				indexx._axis_2d.x--;
-				//v8 = index;
-				mapHeightmap_11B4E0[indexx.word] = v3;
-				//HIBYTE(index)--;
+				mapHeightmap_11B4E0[indexx.word] = minHeight;
 				indexx._axis_2d.y--;
 			}
-			indexx.word++;
-		} while (indexx.word);
-	} while (v9);
+		}
+	} while (runAgain);
 }
 
 //----- (000440D0) --------------------------------------------------------
 void sub_440D0(unsigned __int16 a1)//2250d0
 {
-	unsigned __int16 i; // ax
-	unsigned __int8 v2; // dh
-	unsigned __int8 v3; // dl
-	//unsigned __int16 v4; // ax
-	//unsigned __int16 v5; // ax
-	int v6; // ebx
-	char v7; // bl
-	char v8; // dl
-	char v9; // dh
+	uint8_t maxHeight;
+	uint8_t minHeight;
+	int diffHeight;
+	char ang3;
+	char ang2;
+	char ang5;
+	uaxis_2d index;
 
-	// fix if begin
-	//v4 = 0;
-	//v5 = 0;
-	// end
-
-	i = 0;
-	do
+	for (int i = 0; i < 256 * 256; i++)
 	{
-		if (mapAngle_13B4E0[i] == 5)
+		index.word = i;
+		if (mapAngle_13B4E0[index.word] == 5)
 		{
-			v2 = 0;
-			v3 = 0xFFu;
-			if (mapHeightmap_11B4E0[i])
-				v2 = mapHeightmap_11B4E0[i];
-			if (mapHeightmap_11B4E0[i] < 0xFFu)
-				v3 = mapHeightmap_11B4E0[i];
-			HIBYTE(i)--;
-			if (v2 < mapHeightmap_11B4E0[i])
-				v2 = mapHeightmap_11B4E0[i];
-			if (v3 > mapHeightmap_11B4E0[i])
-				v3 = mapHeightmap_11B4E0[i];
-			LOBYTE(i)++;
-			HIBYTE(i)++;
-			if (v2 < mapHeightmap_11B4E0[i])
-				v2 = mapHeightmap_11B4E0[i];
-			if (v3 > mapHeightmap_11B4E0[i])
-				v3 = mapHeightmap_11B4E0[i];
-			LOBYTE(i)--;
-			HIBYTE(i)++;
-			if (v2 < mapHeightmap_11B4E0[i])
-				v2 = mapHeightmap_11B4E0[i];
-			if (v3 > mapHeightmap_11B4E0[i])
-				v3 = mapHeightmap_11B4E0[i];
-			LOBYTE(i)--;
-			HIBYTE(i)--;
-			if (v2 < mapHeightmap_11B4E0[i])
-				v2 = mapHeightmap_11B4E0[i];
-			if (v3 > mapHeightmap_11B4E0[i])
-				v3 = mapHeightmap_11B4E0[i];
-			v6 = v2 - v3;
-			LOBYTE(i)++;
-			if (v6 <= a1)
+			maxHeight = 0;
+			minHeight = 255;
+			if (mapHeightmap_11B4E0[index.word])
+				maxHeight = mapHeightmap_11B4E0[index.word];
+			if (mapHeightmap_11B4E0[index.word] < 255)
+				minHeight = mapHeightmap_11B4E0[index.word];
+			index._axis_2d.y--;
+			if (maxHeight < mapHeightmap_11B4E0[index.word])
+				maxHeight = mapHeightmap_11B4E0[index.word];
+			if (minHeight > mapHeightmap_11B4E0[index.word])
+				minHeight = mapHeightmap_11B4E0[index.word];
+			index._axis_2d.x++;
+			index._axis_2d.y++;
+			if (maxHeight < mapHeightmap_11B4E0[index.word])
+				maxHeight = mapHeightmap_11B4E0[index.word];
+			if (minHeight > mapHeightmap_11B4E0[index.word])
+				minHeight = mapHeightmap_11B4E0[index.word];
+			index._axis_2d.x--;
+			index._axis_2d.y++;
+			if (maxHeight < mapHeightmap_11B4E0[index.word])
+				maxHeight = mapHeightmap_11B4E0[index.word];
+			if (minHeight > mapHeightmap_11B4E0[index.word])
+				minHeight = mapHeightmap_11B4E0[index.word];
+			index._axis_2d.x--;
+			index._axis_2d.y--;
+			if (maxHeight < mapHeightmap_11B4E0[index.word])
+				maxHeight = mapHeightmap_11B4E0[index.word];
+			if (minHeight > mapHeightmap_11B4E0[index.word])
+				minHeight = mapHeightmap_11B4E0[index.word];
+			diffHeight = maxHeight - minHeight;
+			index._axis_2d.x++;
+			if (diffHeight <= a1)
 			{
-				if (v6 == a1)
-					mapAngle_13B4E0[i] = 4;
+				if (diffHeight == a1)
+					mapAngle_13B4E0[index.word] = 4;
 				else
-					mapAngle_13B4E0[i] = 3;
+					mapAngle_13B4E0[index.word] = 3;
 			}
 		}
-		i++;
-	} while (i);
-	do
+	}
+	for (int i = 0; i < 256 * 256; i++)	
 	{
-		v7 = 0;
-		v8 = 0;
-		v9 = 0;
-		if (mapAngle_13B4E0[i] == 3)
-			v7 = 1;
-		if (mapAngle_13B4E0[i] == 2)
-			v8 = 1;
-		if (mapAngle_13B4E0[i] == 5)
-			v9 = 1;
-		LOBYTE(i)++;
-		if (mapAngle_13B4E0[i] == 3)
-			v7++;
-		if (mapAngle_13B4E0[i] == 2)
-			v8++;
-		if (mapAngle_13B4E0[i] == 5)
-			v9++;
-		HIBYTE(i)++;
-		if (mapAngle_13B4E0[i] == 3)
-			v7++;
-		if (mapAngle_13B4E0[i] == 2)
-			v8++;
-		if (mapAngle_13B4E0[i] == 5)
-			v9++;
-		LOBYTE(i)--;
-		if (mapAngle_13B4E0[i] == 3)
-			v7++;
-		if (mapAngle_13B4E0[i] == 2)
-			v8++;
-		if (mapAngle_13B4E0[i] == 5)
-			v9++;
-		HIBYTE(i)--;
-		if (!v8 && v7 && v9)
+		index.word = i;
+		ang3 = 0;
+		ang2 = 0;
+		ang5 = 0;
+		if (mapAngle_13B4E0[index.word] == 3)
+			ang3 = 1;
+		if (mapAngle_13B4E0[index.word] == 2)
+			ang2 = 1;
+		if (mapAngle_13B4E0[index.word] == 5)
+			ang5 = 1;
+		index._axis_2d.x++;
+		if (mapAngle_13B4E0[index.word] == 3)
+			ang3++;
+		if (mapAngle_13B4E0[index.word] == 2)
+			ang2++;
+		if (mapAngle_13B4E0[index.word] == 5)
+			ang5++;
+		index._axis_2d.y++;
+		if (mapAngle_13B4E0[index.word] == 3)
+			ang3++;
+		if (mapAngle_13B4E0[index.word] == 2)
+			ang2++;
+		if (mapAngle_13B4E0[index.word] == 5)
+			ang5++;
+		index._axis_2d.x--;
+		if (mapAngle_13B4E0[index.word] == 3)
+			ang3++;
+		if (mapAngle_13B4E0[index.word] == 2)
+			ang2++;
+		if (mapAngle_13B4E0[index.word] == 5)
+			ang5++;
+		index._axis_2d.y--;
+		if (!ang2 && ang3 && ang5)
 		{
-			if (mapAngle_13B4E0[i] == 3)
-				mapAngle_13B4E0[i] = 4;
-			LOBYTE(i)++;
-			if (mapAngle_13B4E0[i] == 3)
-				mapAngle_13B4E0[i] = 4;
-			HIBYTE(i)++;
-			if (mapAngle_13B4E0[i] == 3)
-				mapAngle_13B4E0[i] = 4;
-			LOBYTE(i)--;
-			if (mapAngle_13B4E0[i] == 3)
-				mapAngle_13B4E0[i] = 4;
-			HIBYTE(i)--;
+			if (mapAngle_13B4E0[index.word] == 3)
+				mapAngle_13B4E0[index.word] = 4;
+			index._axis_2d.x++;
+			if (mapAngle_13B4E0[index.word] == 3)
+				mapAngle_13B4E0[index.word] = 4;
+			index._axis_2d.y++;
+			if (mapAngle_13B4E0[index.word] == 3)
+				mapAngle_13B4E0[index.word] = 4;
+			index._axis_2d.x--;
+			if (mapAngle_13B4E0[index.word] == 3)
+				mapAngle_13B4E0[index.word] = 4;
+			index._axis_2d.y--;			
 		}
-		i++;
-	} while (i);
-	//  return result;
+	}
 }
 
 //----- (00045060) --------------------------------------------------------
-void sub_45060(uint8_t a1, uint8_t a2)//226060
+void sub_45060(uint8_t maxHeightCut, uint8_t maxHeightDiffCut)//226060
 {
-	uint16_t v2; // dx
-	uint8_t index; // al
-	uint8_t v4; // ah
-	//unsigned __int16 v5; // dx
-
+	//XoXoX
+	//o...o
+	//XoB.X
+	//.o..o
+	//XoXoX
+	
+	uint8_t maxHeight;
+	uint8_t minHeight;
+	uaxis_2d index;
 	qmemcpy(mapTerrainType_10B4E0, mapAngle_13B4E0, 0x10000);
-	v2 = 0;
-	do
+	for (int i = 0; i < 256 * 256; i++)
 	{
-		index = 0;
-		v4 = -1;
-		if (mapHeightmap_11B4E0[v2])
-			index = mapHeightmap_11B4E0[v2];
-		if (mapHeightmap_11B4E0[v2] < 0xFFu)
-			v4 = mapHeightmap_11B4E0[v2];
-		HIBYTE(v2)--;
-		if (index < mapHeightmap_11B4E0[v2])
-			index = mapHeightmap_11B4E0[v2];
-		if (v4 > mapHeightmap_11B4E0[v2])
-			v4 = mapHeightmap_11B4E0[v2];
-		LOBYTE(v2)++;
-		if (index < mapHeightmap_11B4E0[v2])
-			index = mapHeightmap_11B4E0[v2];
-		if (v4 > mapHeightmap_11B4E0[v2])
-			v4 = mapHeightmap_11B4E0[v2];
-		HIBYTE(v2)++;
-		if (index < mapHeightmap_11B4E0[v2])
-			index = mapHeightmap_11B4E0[v2];
-		if (v4 > mapHeightmap_11B4E0[v2])
-			v4 = mapHeightmap_11B4E0[v2];
-		HIBYTE(v2)++;
-		if (index < mapHeightmap_11B4E0[v2])
-			index = mapHeightmap_11B4E0[v2];
-		if (v4 > mapHeightmap_11B4E0[v2])
-			v4 = mapHeightmap_11B4E0[v2];
-		LOBYTE(v2)--;
-		if (index < mapHeightmap_11B4E0[v2])
-			index = mapHeightmap_11B4E0[v2];
-		if (v4 > mapHeightmap_11B4E0[v2])
-			v4 = mapHeightmap_11B4E0[v2];
-		LOBYTE(v2)--;
-		if (index < mapHeightmap_11B4E0[v2])
-			index = mapHeightmap_11B4E0[v2];
-		if (v4 > mapHeightmap_11B4E0[v2])
-			v4 = mapHeightmap_11B4E0[v2];
-		HIBYTE(v2)--;
-		if (index < mapHeightmap_11B4E0[v2])
-			index = mapHeightmap_11B4E0[v2];
-		if (v4 > mapHeightmap_11B4E0[v2])
-			v4 = mapHeightmap_11B4E0[v2];
-		HIBYTE(v2)--;
-		if (index < mapHeightmap_11B4E0[v2])
-			index = mapHeightmap_11B4E0[v2];
-		if (v4 > mapHeightmap_11B4E0[v2])
-			v4 = mapHeightmap_11B4E0[v2];
-		LOBYTE(v2)++;
-		HIBYTE(v2)++;
-		if (index < a1 && index - v4 <= a2)
+		index.word = i;
+		maxHeight = 0;
+		minHeight = 255;
+		if (mapHeightmap_11B4E0[index.word])
+			maxHeight = mapHeightmap_11B4E0[index.word];
+		if (mapHeightmap_11B4E0[index.word] < 255)
+			minHeight = mapHeightmap_11B4E0[index.word];
+		index._axis_2d.y--;
+		if (maxHeight < mapHeightmap_11B4E0[index.word])
+			maxHeight = mapHeightmap_11B4E0[index.word];
+		if (minHeight > mapHeightmap_11B4E0[index.word])
+			minHeight = mapHeightmap_11B4E0[index.word];
+		index._axis_2d.x++;
+		if (maxHeight < mapHeightmap_11B4E0[index.word])
+			maxHeight = mapHeightmap_11B4E0[index.word];
+		if (minHeight > mapHeightmap_11B4E0[index.word])
+			minHeight = mapHeightmap_11B4E0[index.word];
+		index._axis_2d.y++;
+		if (maxHeight < mapHeightmap_11B4E0[index.word])
+			maxHeight = mapHeightmap_11B4E0[index.word];
+		if (minHeight > mapHeightmap_11B4E0[index.word])
+			minHeight = mapHeightmap_11B4E0[index.word];
+		index._axis_2d.y++;
+		if (maxHeight < mapHeightmap_11B4E0[index.word])
+			maxHeight = mapHeightmap_11B4E0[index.word];
+		if (minHeight > mapHeightmap_11B4E0[index.word])
+			minHeight = mapHeightmap_11B4E0[index.word];
+		index._axis_2d.x--;
+		if (maxHeight < mapHeightmap_11B4E0[index.word])
+			maxHeight = mapHeightmap_11B4E0[index.word];
+		if (minHeight > mapHeightmap_11B4E0[index.word])
+			minHeight = mapHeightmap_11B4E0[index.word];
+		index._axis_2d.x--;
+		if (maxHeight < mapHeightmap_11B4E0[index.word])
+			maxHeight = mapHeightmap_11B4E0[index.word];
+		if (minHeight > mapHeightmap_11B4E0[index.word])
+			minHeight = mapHeightmap_11B4E0[index.word];
+		index._axis_2d.y--;
+		if (maxHeight < mapHeightmap_11B4E0[index.word])
+			maxHeight = mapHeightmap_11B4E0[index.word];
+		if (minHeight > mapHeightmap_11B4E0[index.word])
+			minHeight = mapHeightmap_11B4E0[index.word];
+		index._axis_2d.y--;
+		if (maxHeight < mapHeightmap_11B4E0[index.word])
+			maxHeight = mapHeightmap_11B4E0[index.word];
+		if (minHeight > mapHeightmap_11B4E0[index.word])
+			minHeight = mapHeightmap_11B4E0[index.word];
+		index._axis_2d.x++;
+		index._axis_2d.y++;
+		if (maxHeight < maxHeightCut && maxHeight - minHeight <= maxHeightDiffCut)
 		{
-			if (mapAngle_13B4E0[v2])
-				mapAngle_13B4E0[v2] = 5;
+			if (mapAngle_13B4E0[index.word])
+				mapAngle_13B4E0[index.word] = 5;
 		}
-		v2++;
-	} while (v2);
+	}
 }
-// 10000: using guessed type void /*__noreturn*/ sub_10000();
 
 //----- (00044320) --------------------------------------------------------
 void sub_44320()//225320
 {
-	uint16_t index; // ax
-	char v1; // bl
-	char v2; // dh
-	char v3; // dl
+	char ang0;
+	char ang3;
+	char ang5;
 
-	index = 0;
-	do
+	uaxis_2d index;
+	for (int i = 0; i < 256 * 256; i++)
 	{
-		v1 = 0;
-		v2 = 0;
-		v3 = 0;
-		if (!mapAngle_13B4E0[index])
-			v1 = 1;
-		if (mapAngle_13B4E0[index] == 5)
-			v3 = 1;
-		if (mapAngle_13B4E0[index] == 3)
-			v2 = 1;
-		LOBYTE(index)++;
-		if (!mapAngle_13B4E0[index])
-			v1++;
-		if (mapAngle_13B4E0[index] == 5)
-			v3++;
-		if (mapAngle_13B4E0[index] == 3)
-			v2++;
-		HIBYTE(index)++;
-		if (!mapAngle_13B4E0[index])
-			v1++;
-		if (mapAngle_13B4E0[index] == 5)
-			v3++;
-		if (mapAngle_13B4E0[index] == 3)
-			v2++;
-		LOBYTE(index)--;
-		if (!mapAngle_13B4E0[index])
-			v1++;
-		if (mapAngle_13B4E0[index] == 5)
-			v3++;
-		if (mapAngle_13B4E0[index] == 3)
-			v2++;
-		HIBYTE(index)--;
-		if (v2 && v3)
+		index.word = i;
+		ang0 = 0;
+		ang3 = 0;
+		ang5 = 0;
+		if (!mapAngle_13B4E0[index.word])
+			ang0 = 1;
+		if (mapAngle_13B4E0[index.word] == 5)
+			ang5 = 1;
+		if (mapAngle_13B4E0[index.word] == 3)
+			ang3 = 1;
+		index._axis_2d.x++;
+		if (!mapAngle_13B4E0[index.word])
+			ang0++;
+		if (mapAngle_13B4E0[index.word] == 5)
+			ang5++;
+		if (mapAngle_13B4E0[index.word] == 3)
+			ang3++;
+		index._axis_2d.y++;
+		if (!mapAngle_13B4E0[index.word])
+			ang0++;
+		if (mapAngle_13B4E0[index.word] == 5)
+			ang5++;
+		if (mapAngle_13B4E0[index.word] == 3)
+			ang3++;
+		index._axis_2d.x--;
+		if (!mapAngle_13B4E0[index.word])
+			ang0++;
+		if (mapAngle_13B4E0[index.word] == 5)
+			ang5++;
+		if (mapAngle_13B4E0[index.word] == 3)
+			ang3++;
+		index._axis_2d.y--;
+		if (ang3 && ang5)
 		{
-			if (mapAngle_13B4E0[index] == 5)
-				mapAngle_13B4E0[index] = 4;
-			LOBYTE(index)++;
-			if (mapAngle_13B4E0[index] == 5)
-				mapAngle_13B4E0[index] = 4;
-			HIBYTE(index)++;
-			if (mapAngle_13B4E0[index] == 5)
-				mapAngle_13B4E0[index] = 4;
-			LOBYTE(index)--;
-			if (mapAngle_13B4E0[index] == 5)
-				mapAngle_13B4E0[index] = 4;
-			HIBYTE(index)--;
+			if (mapAngle_13B4E0[index.word] == 5)
+				mapAngle_13B4E0[index.word] = 4;
+			index._axis_2d.x++;
+			if (mapAngle_13B4E0[index.word] == 5)
+				mapAngle_13B4E0[index.word] = 4;
+			index._axis_2d.y++;
+			if (mapAngle_13B4E0[index.word] == 5)
+				mapAngle_13B4E0[index.word] = 4;
+			index._axis_2d.x--;
+			if (mapAngle_13B4E0[index.word] == 5)
+				mapAngle_13B4E0[index.word] = 4;
+			index._axis_2d.y--;
 		}
-		if (v2 && v1)
+		if (ang3 && ang0)
 		{
-			if (mapAngle_13B4E0[index] == 3)
-				mapAngle_13B4E0[index] = 4;
-			LOBYTE(index)++;
-			if (mapAngle_13B4E0[index] == 3)
-				mapAngle_13B4E0[index] = 4;
-			HIBYTE(index)++;
-			if (mapAngle_13B4E0[index] == 3)
-				mapAngle_13B4E0[index] = 4;
-			LOBYTE(index)--;
-			if (mapAngle_13B4E0[index] == 3)
-				mapAngle_13B4E0[index] = 4;
-			HIBYTE(index)--;
+			if (mapAngle_13B4E0[index.word] == 3)
+				mapAngle_13B4E0[index.word] = 4;
+			index._axis_2d.x++;
+			if (mapAngle_13B4E0[index.word] == 3)
+				mapAngle_13B4E0[index.word] = 4;
+			index._axis_2d.y++;
+			if (mapAngle_13B4E0[index.word] == 3)
+				mapAngle_13B4E0[index.word] = 4;
+			index._axis_2d.x--;
+			if (mapAngle_13B4E0[index.word] == 3)
+				mapAngle_13B4E0[index.word] = 4;
+			index._axis_2d.y--;
 		}
-		if (v1 && v3)
+		if (ang0 && ang5)
 		{
-			if (mapAngle_13B4E0[index])
-				mapAngle_13B4E0[index] = 4;
-			LOBYTE(index)++;
-			if (mapAngle_13B4E0[index])
-				mapAngle_13B4E0[index] = 4;
-			HIBYTE(index)++;
-			if (mapAngle_13B4E0[index])
-				mapAngle_13B4E0[index] = 4;
-			LOBYTE(index)--;
-			if (mapAngle_13B4E0[index])
-				mapAngle_13B4E0[index] = 4;
-			HIBYTE(index)--;
+			if (mapAngle_13B4E0[index.word])
+				mapAngle_13B4E0[index.word] = 4;
+			index._axis_2d.x++;
+			if (mapAngle_13B4E0[index.word])
+				mapAngle_13B4E0[index.word] = 4;
+			index._axis_2d.y++;
+			if (mapAngle_13B4E0[index.word])
+				mapAngle_13B4E0[index.word] = 4;
+			index._axis_2d.x--;
+			if (mapAngle_13B4E0[index.word])
+				mapAngle_13B4E0[index.word] = 4;
+			index._axis_2d.y--;
 		}
-		index++;
-	} while (index);
+	}
 }
 
 //----- (00045210) --------------------------------------------------------
 void sub_45210(uint8_t a1, uint8_t a2)//226210
-{
+{xx
 	uint16_t v2; // dx
 	uint16_t v3; // eax
 	//char v4; // t1
@@ -2030,106 +1913,83 @@ void sub_B5F8F(__int16 a1, uint16_t* a2, int32_t a3, __int16* a4)//296f8f
 }
 
 //----- (00044EE0) --------------------------------------------------------
-void sub_44EE0_smooth_tiles(/*int a1,*/ uaxis_2d a2x)//225ee0
+void sub_44EE0_smooth_tiles(uaxis_2d axis)//225ee0
 {
-	uaxis_2d v2x; // eax
-	uint16_t v3; // dx
-	unsigned __int8 v4; // dh
-	//uaxis_2d v5x; // si
-	//uaxis_2d v6x; // esi
-	unsigned __int8 v7; // dl
-	uint16_t index; // ax
-
 	//[*][*][*]
 	//[*][X][*]
 	//[*][*][*]
 
-	uaxis_2d a1x;
+	uaxis_2d tempAxis2;
+	uaxis_2d tempAxis1;
+	uint8_t centralHeight;
+	uint8_t minHeight;
 
-	v2x.word = a2x.word;
-	v3 = 0;
-	do
-		mapTerrainType_10B4E0[v3++] = 3;
-	while (v3);//set all tiles to 3
-	v4 = mapHeightmap_11B4E0[a2x.word];
+	tempAxis1.word = axis.word;
+	for (int i = 0; i < 256 * 256; i++)
+		mapTerrainType_10B4E0[i] = 3;
+	centralHeight = mapHeightmap_11B4E0[axis.word];
 	do
 	{
-		//v5x.word = v2x.word;
-		mapTerrainType_10B4E0[v2x.word] = 0;
-		//BYTE1(v2)--;
-		v2x._axis_2d.y--;
-
-		//v6 = v5;
-		//v6 = v2;
-		v7 = 0xFFu;
-		if (mapTerrainType_10B4E0[v2x.word] && mapHeightmap_11B4E0[v2x.word] < 0xFFu)
+		mapTerrainType_10B4E0[tempAxis1.word] = 0;
+		tempAxis1._axis_2d.y--;
+		minHeight = 255;
+		if (mapTerrainType_10B4E0[tempAxis1.word] && mapHeightmap_11B4E0[tempAxis1.word] < 255)
 		{
-			v7 = mapHeightmap_11B4E0[v2x.word];
-			a1x.word = v2x.word;
+			minHeight = mapHeightmap_11B4E0[tempAxis1.word];
+			tempAxis2.word = tempAxis1.word;
 		}
-		//LOBYTE(v2)++;
-		v2x._axis_2d.x++;
-		if (mapTerrainType_10B4E0[v2x.word] && v7 > mapHeightmap_11B4E0[v2x.word])
+		tempAxis1._axis_2d.x++;
+		if (mapTerrainType_10B4E0[tempAxis1.word] && minHeight > mapHeightmap_11B4E0[tempAxis1.word])
 		{
-			v7 = mapHeightmap_11B4E0[v2x.word];
-			a1x.word = v2x.word;
+			minHeight = mapHeightmap_11B4E0[tempAxis1.word];
+			tempAxis2.word = tempAxis1.word;
 		}
-		//BYTE1(v2)++;
-		v2x._axis_2d.y++;
-		if (mapTerrainType_10B4E0[v2x.word] && v7 > mapHeightmap_11B4E0[v2x.word])
+		tempAxis1._axis_2d.y++;
+		if (mapTerrainType_10B4E0[tempAxis1.word] && minHeight > mapHeightmap_11B4E0[tempAxis1.word])
 		{
-			v7 = mapHeightmap_11B4E0[v2x.word];
-			a1x.word = v2x.word;
+			minHeight = mapHeightmap_11B4E0[tempAxis1.word];
+			tempAxis2.word = tempAxis1.word;
 		}
-		//BYTE1(v2)++;
-		v2x._axis_2d.y++;
-		if (mapTerrainType_10B4E0[v2x.word] && v7 > mapHeightmap_11B4E0[v2x.word])
+		tempAxis1._axis_2d.y++;
+		if (mapTerrainType_10B4E0[tempAxis1.word] && minHeight > mapHeightmap_11B4E0[tempAxis1.word])
 		{
-			v7 = mapHeightmap_11B4E0[v2x.word];
-			a1x.word = v2x.word;
+			minHeight = mapHeightmap_11B4E0[tempAxis1.word];
+			tempAxis2.word = tempAxis1.word;
 		}
-		//LOBYTE(v2)--;
-		v2x._axis_2d.x--;
-		if (mapTerrainType_10B4E0[v2x.word] && v7 > mapHeightmap_11B4E0[v2x.word])
+		tempAxis1._axis_2d.x--;
+		if (mapTerrainType_10B4E0[tempAxis1.word] && minHeight > mapHeightmap_11B4E0[tempAxis1.word])
 		{
-			v7 = mapHeightmap_11B4E0[v2x.word];
-			a1x.word = v2x.word;
+			minHeight = mapHeightmap_11B4E0[tempAxis1.word];
+			tempAxis2.word = tempAxis1.word;
 		}
-		//LOBYTE(v2)--;
-		v2x._axis_2d.x--;
-		if (mapTerrainType_10B4E0[v2x.word] && v7 > mapHeightmap_11B4E0[v2x.word])
+		tempAxis1._axis_2d.x--;
+		if (mapTerrainType_10B4E0[tempAxis1.word] && minHeight > mapHeightmap_11B4E0[tempAxis1.word])
 		{
-			v7 = mapHeightmap_11B4E0[v2x.word];
-			a1x.word = v2x.word;
+			minHeight = mapHeightmap_11B4E0[tempAxis1.word];
+			tempAxis2.word = tempAxis1.word;
 		}
-		//BYTE1(v2)--;
-		v2x._axis_2d.y--;
-		if (mapTerrainType_10B4E0[v2x.word] && v7 > mapHeightmap_11B4E0[v2x.word])
+		tempAxis1._axis_2d.y--;
+		if (mapTerrainType_10B4E0[tempAxis1.word] && minHeight > mapHeightmap_11B4E0[tempAxis1.word])
 		{
-			v7 = mapHeightmap_11B4E0[v2x.word];
-			a1x.word = v2x.word;
+			minHeight = mapHeightmap_11B4E0[tempAxis1.word];
+			tempAxis2.word = tempAxis1.word;
 		}
-		//BYTE1(v2)--;
-		v2x._axis_2d.y--;
-		if (mapTerrainType_10B4E0[v2x.word] && v7 > mapHeightmap_11B4E0[v2x.word])
+		tempAxis1._axis_2d.y--;
+		if (mapTerrainType_10B4E0[tempAxis1.word] && minHeight > mapHeightmap_11B4E0[tempAxis1.word])
 		{
-			v7 = mapHeightmap_11B4E0[v2x.word];
-			a1x.word = v2x.word;
+			minHeight = mapHeightmap_11B4E0[tempAxis1.word];
+			tempAxis2.word = tempAxis1.word;
 		}
-		if (!mapAngle_13B4E0[a1x.word] || v7 == 0xFFu)
+		if (!mapAngle_13B4E0[tempAxis2.word] || minHeight == 255)
 			break;
-		if (v7 > v4)//if near tile is higger then central tile set central as near tile
-			mapHeightmap_11B4E0[a1x.word] = v4;
-		v4 = mapHeightmap_11B4E0[a1x.word];
-		v2x.word = a1x.word;
-	} while (v4);
-	index = 0;
-	do
-	{
-		if (!mapTerrainType_10B4E0[index])
-			mapAngle_13B4E0[index] = 0;
-		index++;
-	} while (index);//delete type
+		if (minHeight > centralHeight)//if near tile is higger then central tile set central as near tile
+			mapHeightmap_11B4E0[tempAxis2.word] = centralHeight;
+		centralHeight = mapHeightmap_11B4E0[tempAxis2.word];
+		tempAxis1.word = tempAxis2.word;
+	} while (centralHeight);
+	for (int i = 0; i < 256 * 256; i++)
+		if (!mapTerrainType_10B4E0[i])
+			mapAngle_13B4E0[i] = 0;
 }
 
 //----- (000439A0) --------------------------------------------------------
