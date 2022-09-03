@@ -220,7 +220,7 @@ void terrain_recalculate() {
 	if (stage > 9)
 	{
 		memset((void*)mapTerrainType_10B4E0, 0, 0x10000);
-		sub_43970(0);//224970 // smooth terrain
+		sub_43970();//224970 // smooth terrain
 	}
 	if (stage > 10)
 	{

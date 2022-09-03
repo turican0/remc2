@@ -35557,7 +35557,8 @@ unsigned __int8 sub_396D0(type_event_0x6E8E* a1x)//21a6d0
 				v23 = 0;
 				while (v23 < 30)
 				{
-					v24 = sub_439A0(v23++, v21);
+					v24 = sub_439A0(v21);
+					v23++;
 					v25 = v21;
 					LOBYTE(v21) = v21 + 1;
 					mapHeightmap_11B4E0[v25] = v24;
@@ -35620,7 +35621,7 @@ unsigned __int8 sub_396D0(type_event_0x6E8E* a1x)//21a6d0
 							v34 = 255;
 						mapHeightmap_11B4E0[v10] = v34;
 						if (a1x->dword_0x10_16 < 3)
-							mapHeightmap_11B4E0[v10] = sub_439A0(v10, v10);
+							mapHeightmap_11B4E0[v10] = sub_439A0(v10);
 						if (isCaveLevel_D41B6)
 						{
 							v15 = mapHeightmap_11B4E0[v10] + 64;

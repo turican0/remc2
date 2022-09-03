@@ -31,7 +31,7 @@ void sub_45210(uint8_t a1, uint8_t a2);//226210
 void sub_454F0(uint8_t a1, uint8_t a2);//2264f0
 void sub_45600(uint8_t a1);//226600
 void sub_43FC0();//224fc0
-void sub_43970(uint32_t a1);//224970
+void sub_43970();//224970
 void sub_43EE0();//224ee0
 void sub_44580();//225580
 void sub_43B40();//224b40
@@ -40,7 +40,7 @@ void sub_44D00();//225d00
 void sub_B5EFA(__int16 a1, uint16_t* a2, int32_t a3, __int16* a4);//296EFA
 void sub_B5F8F(__int16 a1, uint16_t* a2, int32_t a3, __int16* a4);//296f8f
 void sub_44EE0_smooth_tiles(/*int a1,*/ uaxis_2d a2x);//225ee0
-unsigned int sub_439A0(unsigned int a1, unsigned __int16 a2);//2249a0
+unsigned int sub_439A0(unsigned __int16 a2);//2249a0
 void sub_43BB0();//224bb0
 
 

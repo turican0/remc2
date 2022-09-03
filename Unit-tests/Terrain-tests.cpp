@@ -1498,6 +1498,408 @@ void sub_44580_orig()//225580
 		v78++;
 	} while (v78);
 }
+
+//----- (00043BB0) --------------------------------------------------------
+void sub_43BB0_orig()//224bb0
+{
+	unsigned int v0; // esi
+	unsigned __int16 v1; // cx
+	signed int v2; // ebx
+	unsigned __int16 v3; // bx
+	//int v4; // eax
+	unsigned __int8 v5; // dh
+	char v6; // cl
+
+	v0 = 37487429;
+	v1 = 0;
+	do
+	{
+		if (!(mapAngle_13B4E0[v1] & 8))
+		{
+			v0 = 9377 * v0 + 9439;
+			v2 = v0 % 7 - 3 + (unsigned __int8)x_BYTE_14B4E0_second_heightmap[v1];
+			if (v2 < 0)
+				v2 = 0;
+			if (v2 > 254)
+				LOBYTE(v2) = -2;
+			x_BYTE_14B4E0_second_heightmap[v1] = v2;
+		}
+		v1++;
+	} while (v1);
+	v3 = 0;
+	do
+	{
+		//v4 = v3;
+		v5 = mapHeightmap_11B4E0[v3];
+		if ((unsigned __int8)x_BYTE_14B4E0_second_heightmap[v3] > v5)
+		{
+			mapAngle_13B4E0[v3] &= 0xF7u;
+		}
+		else
+		{
+			v6 = mapAngle_13B4E0[v3] | 8;
+			x_BYTE_14B4E0_second_heightmap[v3] = v5 - 1;
+			mapAngle_13B4E0[v3] = v6;
+		}
+		v3++;
+	} while (v3);
+}
+
+//----- (00043B40) --------------------------------------------------------
+void sub_43B40_orig()//224b40
+{
+	uint16_t v0; // dx
+	uint8_t v1; // eax
+	uint8_t v2; // bl
+	uint8_t v3; // bh
+	uint8_t v4; // cl
+
+	v0 = 0;
+	do
+	{
+		v1 = mapHeightmap_11B4E0[v0];
+		if (v1 > x_BYTE_D41B7)
+			v1 = x_BYTE_D41B7;
+		v2 = x_BYTE_D41B7 - v1;
+		x_BYTE_14B4E0_second_heightmap[v0] = x_BYTE_D41B7 - v1;
+		v3 = mapHeightmap_11B4E0[v0];
+		if (v2 > v3)
+		{
+			mapAngle_13B4E0[v0] &= 0xF7u;
+		}
+		else
+		{
+			v4 = mapAngle_13B4E0[v0] | 8;
+			x_BYTE_14B4E0_second_heightmap[v0] = v3 - 1;
+			mapAngle_13B4E0[v0] = v4;
+		}
+		v0++;
+	} while (v0);
+	sub_43BB0_orig();
+}
+// D41B7: using guessed type char x_BYTE_D41B7;
+
+//----- (000439A0) --------------------------------------------------------
+unsigned int sub_439A0_orig(unsigned __int16 a2)//2249a0
+{
+	unsigned __int16 v2; // ax
+	unsigned __int8 v3; // dl
+	unsigned __int8 v4; // dh
+	unsigned __int8 v5; // ch
+	unsigned __int8 v6; // cl
+	int v7; // ebx
+	unsigned __int8 v8; // cl
+	int v9; // ebx
+	unsigned __int8 v10; // cl
+	int v11; // ebx
+	unsigned __int8 v12; // cl
+	int v13; // ebx
+	unsigned __int8 v14; // cl
+	int v15; // ebx
+	unsigned __int8 v16; // cl
+	int v17; // ebx
+	unsigned __int8 v18; // cl
+	int v19; // ebx
+	unsigned __int8 v20; // al
+	unsigned int v21; // ebx
+	unsigned int v22; // ebx
+
+	unsigned int a1;
+	LOBYTE(v2) = a2;
+	LOWORD(a1) = mapHeightmap_11B4E0[a2];
+	if (mapAngle_13B4E0[a2] & 7)
+	{
+		HIBYTE(v2) = HIBYTE(a2) - 1;
+		v3 = mapHeightmap_11B4E0[a2];
+		v4 = v3;
+		v5 = mapHeightmap_11B4E0[a2];
+		v6 = mapHeightmap_11B4E0[v2];
+		v7 = v6;
+		if (v6 > v3)
+			v3 = mapHeightmap_11B4E0[v2];
+		if (v6 < v4)
+			v4 = mapHeightmap_11B4E0[v2];
+		LOBYTE(v2) = a2 + 1;
+		v8 = mapHeightmap_11B4E0[v2];
+		v9 = v8 + v7;
+		if (v8 > v3)
+			v3 = mapHeightmap_11B4E0[v2];
+		if (v8 < v4)
+			v4 = mapHeightmap_11B4E0[v2];
+		HIBYTE(v2) = HIBYTE(a2);
+		v10 = mapHeightmap_11B4E0[v2];
+		v11 = v10 + v9;
+		if (v10 > v3)
+			v3 = mapHeightmap_11B4E0[v2];
+		if (v10 < v4)
+			v4 = mapHeightmap_11B4E0[v2];
+		HIBYTE(v2) = HIBYTE(a2) + 1;
+		v12 = mapHeightmap_11B4E0[v2];
+		v13 = v12 + v11;
+		if (v12 > v3)
+			v3 = mapHeightmap_11B4E0[v2];
+		if (v12 < v4)
+			v4 = mapHeightmap_11B4E0[v2];
+		LOBYTE(v2) = a2;
+		v14 = mapHeightmap_11B4E0[v2];
+		v15 = v14 + v13;
+		if (v14 > v3)
+			v3 = mapHeightmap_11B4E0[v2];
+		if (v14 < v4)
+			v4 = mapHeightmap_11B4E0[v2];
+		LOBYTE(v2) = a2 - 1;
+		v16 = mapHeightmap_11B4E0[v2];
+		v17 = v16 + v15;
+		if (v16 > v3)
+			v3 = mapHeightmap_11B4E0[v2];
+		if (v16 < v4)
+			v4 = mapHeightmap_11B4E0[v2];
+		HIBYTE(v2) = HIBYTE(a2);
+		v18 = mapHeightmap_11B4E0[v2];
+		v19 = v18 + v17;
+		if (v18 > v3)
+			v3 = mapHeightmap_11B4E0[v2];
+		if (v18 < v4)
+			v4 = mapHeightmap_11B4E0[v2];
+		HIBYTE(v2) = HIBYTE(a2) - 1;
+		v20 = mapHeightmap_11B4E0[v2];
+		v21 = v20 + v19;
+		if (v20 > v3)
+			v3 = v20;
+		if (v20 < v4)
+			v4 = v20;
+		v22 = v21 >> 3;
+		if ((unsigned __int8)(v5 - v4) <= 4u)
+		{
+			if ((unsigned __int8)(v3 - v5) <= 4u)
+				return a1;
+			if ((unsigned __int8)(v3 - v5) <= 0xAu)
+				v22 = (v5 + v22) >> 1;
+		}
+		else if ((unsigned __int8)(v5 - v4) <= 0xAu)
+		{
+			return (v22 + v5) >> 1;
+		}
+		a1 = v22;
+	}
+	return a1;
+}
+
+void sub_B5F8F_orig(__int16 a1, uint16_t* a2, int32_t a3, __int16* a4)//296f8f
+{
+	__int16 v4; // di
+	//__int16 v5; // di
+	//__int16 v6; // di
+	uint16_t v7; // si
+	uint16_t v7b; // si
+	uint16_t v8; // ax
+	int16_t v9; // di
+	//__int16 v10; // di
+	//__int16 v11; // di
+	uint32_t v12; // di
+	//__int16 result; // ax
+	uint16_t v14; // [esp-2h] [ebp-2h]
+
+	v4 = mapEntityIndex_15B4E0[*a2];
+	v14 = v4;
+	LOBYTE(*a2) += a1;
+	*a2 -= a1 << 8;
+	v4 += mapEntityIndex_15B4E0[*a2];
+	LOBYTE(*a2) += a1;
+	*a2 += a1 << 8;
+	v4 += mapEntityIndex_15B4E0[*a2];
+	LOBYTE(*a2) -= a1;
+	*a2 += a1 << 8;
+	v4 += mapEntityIndex_15B4E0[*a2];
+	v7 = 9377 * *a4 + 9439;
+	//*a4 = v7;
+	//2ae9*24a1
+	v8 = v7 % (uint16_t)(2 * a3 + 1)
+		+ v7 % (uint16_t)((a1 << 6) + 1)
+		+ (uint16_t)(v4 >> 2)
+		- 32 * a1
+		- a3;
+	//(uint16_t)(v4 >> 2)-(a1*32)+v7 % (uint16_t)((a1 << 6) + 1)-a3+v7 % (uint16_t)(2 * a3 + 1)
+	v9 = mapEntityIndex_15B4E0[*a2];
+	*a2 -= a1 << 8;
+	if (!mapEntityIndex_15B4E0[*a2])
+		mapEntityIndex_15B4E0[*a2] = v8;
+	v9 += v14;
+	LOBYTE(*a2) -= (a1 + a1);
+	*a2 += a1 << 8;
+	v9 += mapEntityIndex_15B4E0[*a2];
+	LOBYTE(*a2) += a1;
+	*a2 += a1 << 8;
+	v9 += mapEntityIndex_15B4E0[*a2];
+	*a2 -= a1 << 8;
+	v7b = 9377 * v7 + 9439;
+	*a4 = v7b;
+	v12 = v7b % (unsigned __int16)(2 * a3 + 1)
+		+ v7b % (unsigned __int16)((a1 << 6) + 1)
+		+ (uint16_t)(v9 >> 2)
+		- 32 * a1
+		- a3;
+	//result = v12;
+	if (!mapEntityIndex_15B4E0[*a2])
+		mapEntityIndex_15B4E0[*a2] = v12;
+	*a2 -= a1 << 8;
+	LOBYTE(*a2) += (a1 + a1);
+	//return result;
+}
+
+void /*__spoils<ecx>*/ sub_B5E70_decompress_terrain_map_level_orig(__int16 a1, unsigned __int16 a2, __int16 a3, int32_t a4)//296e70
+{
+	uint16_t v3; // ebx
+	__int16 v4; // cx
+	//char v5; // sf
+	//char v6; // of
+	int8_t v7; // [esp+1h] [ebp-3h]
+	int8_t v8; // [esp+1h] [ebp-3h]
+	int8_t v9; // [esp+2h] [ebp-2h]
+	int8_t v10; // [esp+2h] [ebp-2h]
+	int8_t v11; // [esp+3h] [ebp-1h]
+	//uint8_t savedregs[20]; // [esp+4h] [ebp+0h]
+
+	mapEntityIndex_15B4E0[a2] = a3;//32c4e0 //first seed
+	v11 = 7;
+	do
+	{
+		v3 = a2;
+		v4 = (1 << v11);
+		v7 = 1 << (7 - v11);
+		do
+		{
+			v9 = 1 << (7 - v11);
+			do
+			{
+				sub_B5F8F_orig(v4, &v3, a4, &a1);//355220
+				v9--;
+			} while (v9);
+			v3 += (v4 + v4) << 8;
+			v7--;
+		} while (v7);
+		v8 = 1 << (7 - v11);
+		do
+		{
+			v10 = 1 << (7 - v11);
+			do
+			{
+				sub_B5F8F_orig(v4, &v3, a4, &a1);
+				v10--;
+			} while (v10);
+			v3 += (v4 + v4) << 8;
+			v8--;
+		} while (v8);
+		v11--;
+		//v6 = __OFSUB__(v11, 1);
+		//v5 = (v11-- - 1) < 0;
+	} while (v11 >= 0/*!(v5 ^ v6)*/);
+}
+
+//sub_B5E70_decompress_terrain_map_level_orig
+//mapEntityIndex_15B4E0
+//__int16 a1, unsigned __int16 a2, __int16 a3, int32_t a4
+
+void test_439A0() {
+	uint8_t* tempAng1 = (uint8_t*)malloc(65536);
+	uint8_t* tempHeight1 = (uint8_t*)malloc(65536);
+
+	uint8_t* tempAng2 = (uint8_t*)malloc(65536);
+	uint8_t* tempHeight2 = (uint8_t*)malloc(65536);
+
+	for (int j = 0; j < 256 * 256; j++)
+	{
+		if ((j > 260) && (j < 256 * 256 - 260))//skip steps for quick compare
+			continue;
+
+		for (int i = 0; i < 256 * 256; i++)
+		{
+			mapAngle_13B4E0[i] = pseudoRand() % 256;
+			mapHeightmap_11B4E0[i] = pseudoRand() % 256;
+			tempAng1[i] = mapAngle_13B4E0[i];
+			tempHeight1[i] = mapHeightmap_11B4E0[i];
+		}
+		sub_439A0_orig(j);
+		for (int i = 0; i < 256 * 256; i++)
+		{
+			tempAng2[i] = mapAngle_13B4E0[i];
+			mapAngle_13B4E0[i] = tempAng1[i];
+			tempHeight2[i] = mapHeightmap_11B4E0[i];
+			mapHeightmap_11B4E0[i] = tempHeight1[i];
+		}
+		sub_439A0(j);
+		for (int i = 0; i < 256 * 256; i++)
+		{
+			if ((tempAng2[i] != mapAngle_13B4E0[i]) ||
+				(tempHeight2[i] != mapHeightmap_11B4E0[i]))
+				TestError();
+		}
+	}
+	free(tempAng1);
+	free(tempHeight1);
+	free(tempAng2);
+	free(tempHeight2);
+}
+
+void test_43B40_43BB0() {
+
+	uint8_t* tempMapHeightmap1 = (uint8_t*)malloc(65536);
+	uint8_t* tempSecondHeightmap1 = (uint8_t*)malloc(65536);
+	uint8_t* tempAng1 = (uint8_t*)malloc(65536);
+
+	uint8_t* tempMapHeightmap2 = (uint8_t*)malloc(65536);
+	uint8_t* tempSecondHeightmap2 = (uint8_t*)malloc(65536);
+	uint8_t* tempAng2 = (uint8_t*)malloc(65536);
+
+	x_BYTE_14B4E0_second_heightmap = (uint8_t*)malloc(65536);
+
+	uint16_t temp_x_BYTE_D41B7_1;
+	uint16_t temp_x_BYTE_D41B7_2;
+
+	for (int i = 0; i < 256 * 256; i++)
+	{
+		mapAngle_13B4E0[i] = pseudoRand() % 256;
+		mapHeightmap_11B4E0[i] = pseudoRand() % 256;
+		x_BYTE_14B4E0_second_heightmap[i] = pseudoRand() % 256;
+		tempAng1[i] = mapAngle_13B4E0[i];
+		tempMapHeightmap1[i] = mapHeightmap_11B4E0[i];
+		tempSecondHeightmap1[i] = x_BYTE_14B4E0_second_heightmap[i];
+	}
+	x_BYTE_D41B7 = pseudoRand() % 256;
+	temp_x_BYTE_D41B7_1 = x_BYTE_D41B7;
+	sub_43B40_orig();
+	for (int i = 0; i < 256 * 256; i++)
+	{
+		tempAng2[i] = mapAngle_13B4E0[i];
+		mapAngle_13B4E0[i] = tempAng1[i];
+		tempSecondHeightmap2[i] = x_BYTE_14B4E0_second_heightmap[i];
+		x_BYTE_14B4E0_second_heightmap[i] = tempSecondHeightmap1[i];
+		tempMapHeightmap2[i] = mapHeightmap_11B4E0[i];
+		mapHeightmap_11B4E0[i] = tempMapHeightmap1[i];
+	}
+	temp_x_BYTE_D41B7_2 = x_BYTE_D41B7;
+	x_BYTE_D41B7 = temp_x_BYTE_D41B7_1;
+	sub_43B40();
+	if (temp_x_BYTE_D41B7_2 != x_BYTE_D41B7)
+		TestError();
+	for (int i = 0; i < 256 * 256; i++)
+	{
+		if ((tempAng2[i] != mapAngle_13B4E0[i]) ||
+			(tempMapHeightmap2[i] != mapHeightmap_11B4E0[i]) ||
+			(tempSecondHeightmap2[i] != x_BYTE_14B4E0_second_heightmap[i]))
+				TestError();
+	}
+	free(tempMapHeightmap1);
+	free(tempSecondHeightmap1);
+	free(tempAng1);
+
+	free(tempMapHeightmap2);
+	free(tempSecondHeightmap2);
+	free(tempAng2);
+
+	free(x_BYTE_14B4E0_second_heightmap);
+}
+
 void test_44580() {
 
 	pdwScreenBuffer_351628 = (uint8_t*)malloc(0x961u * 25);
@@ -1879,6 +2281,14 @@ void test_44DB0() {
 };
 
 void Terrain_test() {
+	printf("test_439A0 - ");
+	test_439A0();
+	printf("OK\n");
+
+	printf("test_43B40_43BB0 - ");
+	test_43B40_43BB0();
+	printf("OK\n");
+
 	printf("test_44580 - ");
 	test_44580();
 	printf("OK\n");
