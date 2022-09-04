@@ -1747,8 +1747,42 @@ void sub_B5F8F_orig(__int16 a1, uint16_t* a2, int32_t a3, __int16* a4)//296f8f
 	//return result;
 }
 
+void sub_B5EFA_orig(__int16 a1, uint16_t* a2, int32_t a3, __int16* a4)//296EFA
+{
+	int16_t v4; // di
+	//__int16 v5; // di
+	//__int16 v6; // di
+	uint16_t v7; // si
+	uint32_t v8; // di
+	//__int16 result; // ax
+
+	v4 = mapEntityIndex_15B4E0[*a2];
+	LOBYTE(*a2) += (a1 + a1);
+	v4 += mapEntityIndex_15B4E0[*a2];
+	*a2 += (a1 + a1) << 8;
+	v4 += mapEntityIndex_15B4E0[*a2];
+	LOBYTE(*a2) -= (a1 + a1);
+	v4 += mapEntityIndex_15B4E0[*a2];
+	LOBYTE(*a2) += a1;
+	*a2 -= a1 << 8;
+	v7 = 9377 * *a4 + 9439;
+	*a4 = v7;
+	v8 = v7 % (uint16_t)(2 * a3 + 1)
+		+ v7 % (uint16_t)((a1 << 6) + 1)
+		+ (v4 >> 2)
+		- 32 * a1
+		- a3;
+	//result = v8;
+	if (!mapEntityIndex_15B4E0[*a2])
+		mapEntityIndex_15B4E0[*a2] = v8;
+	LOBYTE(*a2) += a1;
+	*a2 -= a1 << 8;
+	//return result;
+}
+
 void /*__spoils<ecx>*/ sub_B5E70_decompress_terrain_map_level_orig(__int16 a1, unsigned __int16 a2, __int16 a3, int32_t a4)//296e70
 {
+	/*
 	uint16_t v3; // ebx
 	__int16 v4; // cx
 	//char v5; // sf
@@ -1772,7 +1806,7 @@ void /*__spoils<ecx>*/ sub_B5E70_decompress_terrain_map_level_orig(__int16 a1, u
 			v9 = 1 << (7 - v11);
 			do
 			{
-				sub_B5F8F_orig(v4, &v3, a4, &a1);//355220
+				sub_B5EFA_orig(v4, &v3, a4, &a1);//355220
 				v9--;
 			} while (v9);
 			v3 += (v4 + v4) << 8;
@@ -1793,12 +1827,419 @@ void /*__spoils<ecx>*/ sub_B5E70_decompress_terrain_map_level_orig(__int16 a1, u
 		v11--;
 		//v6 = __OFSUB__(v11, 1);
 		//v5 = (v11-- - 1) < 0;
-	} while (v11 >= 0/*!(v5 ^ v6)*/);
+	} while (v11 >= 1);
+	*/
+	uint16_t v3; // ebx
+	__int16 v4; // cx
+	char v6; // [esp+1h] [ebp-3h]
+	char v7; // [esp+1h] [ebp-3h]
+	char v8; // [esp+2h] [ebp-2h]
+	char v9; // [esp+2h] [ebp-2h]
+	char v10; // [esp+3h] [ebp-1h]
+	int savedregs; // [esp+4h] [ebp+0h] BYREF
+
+	mapEntityIndex_15B4E0[a2] = a3;
+	v10 = 7;
+	do
+	{
+		v3 = a2;
+		v4 = (unsigned __int8)(1 << v10);
+		v6 = 1 << (7 - v10);
+		do
+		{
+			v8 = 1 << (7 - v10);
+			do
+			{
+				sub_B5EFA_orig(v4, &v3, a4, &a1);
+				--v8;
+			} while (v8);
+			BYTE1(v3) += v4 + v4;
+			--v6;
+		} while (v6);
+		v7 = 1 << (7 - v10);
+		do
+		{
+			v9 = 1 << (7 - v10);
+			do
+			{
+				sub_B5F8F_orig(v4, &v3, a4, &a1);
+				--v9;
+			} while (v9);
+			BYTE1(v3) += v4 + v4;
+			--v7;
+		} while (v7);
+	} while (v10-- >= 1);
 }
 
-//sub_B5E70_decompress_terrain_map_level_orig
-//mapEntityIndex_15B4E0
-//__int16 a1, unsigned __int16 a2, __int16 a3, int32_t a4
+void sub_44D00_orig()//225d00
+{
+	uaxis_2d v0x; // cx
+	//uaxis_2d v1x; // dx
+	uaxis_2d indexx; // eax
+	//unsigned __int16 v3; // cx
+	//uaxis_2d v4x; // et2
+	char v5; // dl
+
+	v0x.word = 0;
+	x_WORD_17B4E0 = 0;
+	do
+	{
+		//adress 225d0f
+		v0x._axis_2d.x++;
+		//indexx._axis_2d.y = 0;
+		v0x._axis_2d.y++;
+		indexx.word = v0x.word;
+		v0x._axis_2d.x -= 2;
+		v0x._axis_2d.y -= 2;
+		//v1x.word = v0x.word;
+
+		indexx._axis_2d.x = mapHeightmap_11B4E0[v0x.word] - mapHeightmap_11B4E0[indexx.word] + 32;
+		v0x._axis_2d.x++;
+		v0x._axis_2d.y++;
+		if (indexx._axis_2d.x == 32)
+		{
+			indexx.word = 9377 * x_WORD_17B4E0 + 9439;
+			//LOWORD(index) += 9439;
+			x_WORD_17B4E0 = indexx.word;
+			//v4x.word = indexx.word;
+			indexx._axis_2d.y = (x_WORD_17B4E0 / 9u) >> 8;
+			indexx._axis_2d.x = x_WORD_17B4E0 % 9 + 28;
+		}
+		else if ((int8_t)indexx._axis_2d.x >= 28)
+		{
+			if ((int8_t)indexx._axis_2d.x > 40)
+				indexx._axis_2d.x = (indexx._axis_2d.x & 7) + 40;
+		}
+		else
+		{
+			indexx._axis_2d.x = (indexx._axis_2d.x & 3) + 28;
+		}
+		if (D41A0_0.terrain_2FECE.MapType != MapType_t::Day)
+		{
+			//index = 32 - (index & 0xff);
+			//v5 = (32 - (indexx._axis_2d.x)) + 32;
+			v5 = (64 - indexx._axis_2d.x);
+		}
+		else
+		{
+			v5 = indexx._axis_2d.x;
+		}
+		//LOBYTE(index) = v5;
+		mapShading_12B4E0[v0x.word] = v5;
+		v0x.word++;
+	} while (v0x.word);
+}
+
+void sub_43D50_orig()//224d50
+{
+	uint16_t index; // ax
+	uint16_t v1; // dx
+	//uint16_t v2; // bx
+	//uint16_t v3; // bx
+	//uint16_t v4; // bx
+	//uint16_t v5; // bx
+	//uint16_t v6; // bx
+	uint16_t v7; // bx
+	uint16_t v8; // dx
+	uint16_t v9; // bx
+	uint16_t v10; // bx
+
+	index = 0;
+	do
+	{
+		mapAngle_13B4E0[index] &= 0xF7u;
+		if (!mapHeightmap_11B4E0[index])
+		{
+			HIBYTE(index)--;
+			v1 = index;
+			LOBYTE(index)++;
+			//v2 = index;
+			LOBYTE(v1) = (mapHeightmap_11B4E0[index] != 0) + (mapHeightmap_11B4E0[v1] != 0);
+			HIBYTE(index)++;
+			//v3 = index;
+			LOBYTE(v1) = (mapHeightmap_11B4E0[index] != 0) + v1;
+			HIBYTE(index)++;
+			//v4 = index;
+			LOBYTE(v1) = (mapHeightmap_11B4E0[index] != 0) + v1;
+			LOBYTE(index)--;
+			//v5 = index;
+			LOBYTE(v1) = (mapHeightmap_11B4E0[index] != 0) + v1;
+			LOBYTE(index)--;
+			//v6 = index;
+			LOBYTE(v1) = (mapHeightmap_11B4E0[index] != 0) + v1;
+			HIBYTE(index)--;
+			v7 = index;
+			HIBYTE(index)--;
+			LOBYTE(v1) = (mapHeightmap_11B4E0[v7] != 0) + v1;
+			LOBYTE(v7) = mapHeightmap_11B4E0[index] != 0;
+			LOBYTE(index)++;
+			HIBYTE(index)++;
+			if (!(LOBYTE(v7) + LOBYTE(v1)))
+			{
+				v8 = index;
+				LOBYTE(index)--;
+				v9 = index;
+				HIBYTE(index)--;
+				LOBYTE(v8) = (mapTerrainType_10B4E0[v9] != 0) + (mapTerrainType_10B4E0[v8] != 0);
+				v10 = index;
+				LOBYTE(index)++;
+				LOBYTE(v8) = (mapTerrainType_10B4E0[index] != 0) + (mapTerrainType_10B4E0[v10] != 0) + v8;
+				HIBYTE(index)++;
+				if (!(x_BYTE)v8)
+					mapAngle_13B4E0[index] |= 8u;
+			}
+		}
+		index++;
+	} while (index);
+}
+
+void sub_44E40_orig(int a1, uint8_t a2)//225e40
+{
+	int v2; // edi
+	uint16_t v3; // si
+	signed int v4; // ecx
+	uint16_t v5; // ax
+	uaxis_2d v6x; // dx
+	uint16_t v7; // eax
+	uint16_t v8; // ebx
+	//unsigned __int16 i; // ax
+
+	v2 = a1;
+	v3 = 0;
+	do
+	{
+		if (mapHeightmap_11B4E0[v3])
+			mapAngle_13B4E0[v3] = 5;
+		else
+			mapAngle_13B4E0[v3] = 0;
+		v3++;
+	} while (v3);
+LABEL_12:
+	if (v2 > 0)
+	{
+		v4 = 1000;
+		while (1)
+		{
+			//v8 = -1;
+			v5 = 9377 * x_WORD_17B4E0 + 9439;
+			x_WORD_17B4E0 = v5;
+			v6x.word = v5 % 0xffffu;
+			v7 = v5 % 0xffffu;
+			v8 = mapHeightmap_11B4E0[v7] + 0xff00;
+			if (!--v4)
+				break;
+			if ((v8 & 0xff) > a2 && mapAngle_13B4E0[v7])
+			{
+				v2--;
+				//adress 225eb1
+				//eax e568 ebx ff6f ecx 3e6 edx e568
+				sub_44EE0_smooth_tiles_orig(/*v8,*/ v6x);
+				goto LABEL_12;
+			}
+		}
+	}
+	do
+	{
+		//i = v3;
+		mapTerrainType_10B4E0[v3++] = -1;
+	} while (v3);
+}
+
+void test_44E40() {
+	uint8_t* tempTerrainType1 = (uint8_t*)malloc(65536);
+	uint8_t* tempTerrainType2 = (uint8_t*)malloc(65536);
+
+	uint8_t* tempAngle1 = (uint8_t*)malloc(65536);
+	uint8_t* tempAngle2 = (uint8_t*)malloc(65536);
+
+	uint8_t* tempHeightmap1 = (uint8_t*)malloc(65536);
+	uint8_t* tempHeightmap2 = (uint8_t*)malloc(65536);
+
+	for (int j = 0; j < 400; j++)
+	{
+		x_WORD_17B4E0 = pseudoRand() % (256 * 256);
+		int a1 = pseudoRand() % 256;
+		uint8_t a2 = pseudoRand() % 256;
+		uint16_t temp_17B4E0_1 = x_WORD_17B4E0;
+		for (int i = 0; i < 256 * 256; i++)
+		{
+			mapTerrainType_10B4E0[i] = pseudoRand() % (256 * 256);
+			tempTerrainType1[i] = mapTerrainType_10B4E0[i];
+			mapAngle_13B4E0[i] = pseudoRand() % (256 * 256);
+			tempAngle1[i] = mapAngle_13B4E0[i];
+			mapHeightmap_11B4E0[i] = pseudoRand() % (256 * 256);
+			tempHeightmap1[i] = mapHeightmap_11B4E0[i];
+		}
+		sub_44E40_orig(a1, a2);
+		uint16_t temp_17B4E0_2 = x_WORD_17B4E0;
+		x_WORD_17B4E0 = temp_17B4E0_1;
+		for (int i = 0; i < 256 * 256; i++)
+		{
+			tempTerrainType2[i] = mapTerrainType_10B4E0[i];
+			mapTerrainType_10B4E0[i] = tempTerrainType1[i];
+			tempAngle2[i] = mapAngle_13B4E0[i];
+			mapAngle_13B4E0[i] = tempAngle1[i];
+			tempHeightmap2[i] = mapHeightmap_11B4E0[i];
+			mapHeightmap_11B4E0[i] = tempHeightmap1[i];
+		}
+		sub_44E40(a1, a2);
+		for (int i = 0; i < 256 * 256; i++)
+		{
+			if ((tempTerrainType2[i] != mapTerrainType_10B4E0[i]) ||
+				(tempAngle2[i] != mapAngle_13B4E0[i]) ||
+				(tempHeightmap2[i] != mapHeightmap_11B4E0[i]))
+				TestError();
+			if (temp_17B4E0_2 != x_WORD_17B4E0)
+				TestError();
+		}
+	}
+	free(tempAngle1);
+	free(tempAngle2);
+
+	free(tempTerrainType1);
+	free(tempTerrainType2);
+
+	free(tempHeightmap1);
+	free(tempHeightmap2);
+}
+
+void test_43D50() {
+	uint8_t* tempTerrainType1 = (uint8_t*)malloc(65536);
+	uint8_t* tempTerrainType2 = (uint8_t*)malloc(65536);
+
+	uint8_t* tempAngle1 = (uint8_t*)malloc(65536);
+	uint8_t* tempAngle2 = (uint8_t*)malloc(65536);
+
+	uint8_t* tempHeightmap1 = (uint8_t*)malloc(65536);
+	uint8_t* tempHeightmap2 = (uint8_t*)malloc(65536);
+
+	for (int i = 0; i < 256 * 256; i++)
+	{
+		mapTerrainType_10B4E0[i] = pseudoRand() % (256 * 256);
+		tempTerrainType1[i] = mapTerrainType_10B4E0[i];
+		mapAngle_13B4E0[i] = pseudoRand() % (256 * 256);
+		tempAngle1[i] = mapAngle_13B4E0[i];
+		mapHeightmap_11B4E0[i] = pseudoRand() % (256 * 256);
+		tempHeightmap1[i] = mapHeightmap_11B4E0[i];
+	}
+	sub_43D50_orig();
+	for (int i = 0; i < 256 * 256; i++)
+	{
+		tempTerrainType2[i] = mapTerrainType_10B4E0[i];
+		mapTerrainType_10B4E0[i] = tempTerrainType1[i];
+		tempAngle2[i] = mapAngle_13B4E0[i];
+		mapAngle_13B4E0[i] = tempAngle1[i];
+		tempHeightmap2[i] = mapHeightmap_11B4E0[i];
+		mapHeightmap_11B4E0[i] = tempHeightmap1[i];
+	}
+	sub_43D50();
+	for (int i = 0; i < 256 * 256; i++)
+	{
+		if ((tempTerrainType2[i] != mapTerrainType_10B4E0[i]) ||
+			(tempAngle2[i] != mapAngle_13B4E0[i])||
+			(tempHeightmap2[i] != mapHeightmap_11B4E0[i]))
+			TestError();
+	}
+
+	free(tempAngle1);
+	free(tempAngle2);
+
+	free(tempTerrainType1);
+	free(tempTerrainType2);
+
+	free(tempHeightmap1);
+	free(tempHeightmap2);
+}
+
+void test_44D00() {
+	uint8_t* tempShading1 = (uint8_t*)malloc(65536);
+	uint8_t* tempShading2 = (uint8_t*)malloc(65536);
+
+	uint8_t* tempHeightmap1 = (uint8_t*)malloc(65536);
+	uint8_t* tempHeightmap2 = (uint8_t*)malloc(65536);
+
+	for (int j = 0; j < 40; j++)
+	{
+		switch (pseudoRand() % 3)
+		{
+			case 0:
+				D41A0_0.terrain_2FECE.MapType = MapType_t::Day;
+				break;
+			case 1:
+				D41A0_0.terrain_2FECE.MapType = MapType_t::Night;
+				break;
+			case 2:
+				D41A0_0.terrain_2FECE.MapType = MapType_t::Cave;
+				break;
+		}
+		x_WORD_17B4E0 = pseudoRand() % (256 * 256);
+		uint16_t temp17B4E0_1 = x_WORD_17B4E0;
+		for (int i = 0; i < 256 * 256; i++)
+		{
+			mapShading_12B4E0[i] = pseudoRand() % (256 * 256);
+			tempShading1[i] = mapShading_12B4E0[i];
+			mapHeightmap_11B4E0[i] = pseudoRand() % (256 * 256);
+			tempHeightmap1[i] = mapHeightmap_11B4E0[i];
+		}
+		sub_44D00_orig();
+		for (int i = 0; i < 256 * 256; i++)
+		{
+			tempShading2[i] = mapShading_12B4E0[i];
+			mapShading_12B4E0[i] = tempShading1[i];
+			tempHeightmap2[i] = mapHeightmap_11B4E0[i];
+			mapHeightmap_11B4E0[i] = tempHeightmap1[i];
+		}
+		uint16_t temp17B4E0_2 = x_WORD_17B4E0;
+		x_WORD_17B4E0 = temp17B4E0_1;
+		sub_44D00();
+		for (int i = 0; i < 256 * 256; i++)
+		{
+			if ((tempShading2[i] != mapShading_12B4E0[i])||
+				(tempHeightmap2[i] != mapHeightmap_11B4E0[i]))
+				TestError();
+			if (temp17B4E0_2 != x_WORD_17B4E0)
+				TestError();
+		}
+	}
+
+	free(tempShading1);
+	free(tempShading2);
+
+	free(tempHeightmap1);
+	free(tempHeightmap2);
+}
+
+void test_B5E70_B5EFA_B5F8F() {
+	int16_t* tempEnt1 = (int16_t*)malloc(65536 * sizeof(int16_t));
+	int16_t* tempEnt2 = (int16_t*)malloc(65536 * sizeof(int16_t));
+
+	for (int j = 0; j < 1000; j++)
+	{
+		__int16 a1 = (pseudoRand() % (256 * 256)) - 128 * 256;
+		unsigned __int16 a2 = pseudoRand() % (256 * 256);
+		__int16 a3 = (pseudoRand() % (256 * 256)) - 128 * 256;
+		int32_t a4 = (pseudoRand() % (256 * 256)) - 128 * 256;
+		for (int i = 0; i < 256 * 256; i++)
+		{
+			mapEntityIndex_15B4E0[i] = pseudoRand() % (256 * 256);
+			tempEnt1[i] = mapEntityIndex_15B4E0[i];
+		}
+		sub_B5E70_decompress_terrain_map_level_orig(a1, a2, a3, a4);
+		for (int i = 0; i < 256 * 256; i++)
+		{
+			tempEnt2[i] = mapEntityIndex_15B4E0[i];
+			mapEntityIndex_15B4E0[i] = tempEnt1[i];
+		}
+		sub_B5E70_decompress_terrain_map_level(a1, a2, a3, a4);
+		for (int i = 0; i < 256 * 256; i++)
+		{
+			if (tempEnt2[i] != mapEntityIndex_15B4E0[i])
+				TestError();
+		}
+	}
+	free(tempEnt1);
+	free(tempEnt2);
+}
 
 void test_439A0() {
 	uint8_t* tempAng1 = (uint8_t*)malloc(65536);
@@ -2281,6 +2722,22 @@ void test_44DB0() {
 };
 
 void Terrain_test() {
+	printf("test_44E40 - ");
+	test_44E40();
+	printf("OK\n");
+
+	printf("test_43D50 - ");
+	test_43D50();
+	printf("OK\n");
+
+	printf("test_44D00 - ");
+	test_44D00();
+	printf("OK\n");
+
+	printf("test_B5E70_B5EFA_B5F8F - ");
+	test_B5E70_B5EFA_B5F8F();
+	printf("OK\n");
+
 	printf("test_439A0 - ");
 	test_439A0();
 	printf("OK\n");

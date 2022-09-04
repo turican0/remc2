@@ -80,8 +80,7 @@ typedef struct {
 	int index;
 	uint32_t adress;
 } type_compstr;
-//int compindexes[100];//compstr[i].index
-//int compadresses[100];//compstr[i].adress
+
 type_compstr compstr[100];
 int getcompindex(uint32_t adress) {
 	bool finded = false;
@@ -206,7 +205,7 @@ void add_compare2(uint32_t adress, uint8_t* memadress,uint32_t dosmemadress, uin
 
 int debugcounter_224959 = 0;
 //----- (00043830) --------------------------------------------------------
-void GenerateLevelMap_43830(unsigned int a1, type_str_2FECE* a2x)//224830
+void GenerateLevelMap_43830(type_str_2FECE* a2x)//224830
 {
 	x_WORD_17B4E0 = a2x->seed_0x2FEE5;
 	D41A0_0.rand_0x8 = a2x->seed_0x2FEE5;
@@ -242,96 +241,34 @@ void GenerateLevelMap_43830(unsigned int a1, type_str_2FECE* a2x)//224830
 		sub_43B40();//224b40 //change angle of terrain
 	else
 		sub_43D50();//224d50 //change angle of terrain
-
-	if (CommandLineParams.DoDebugSequences()) {
-		/*uint8_t origbyte20 = 0;
-		uint8_t remakebyte20 = 0;
-		int comp20;
-		//if (debugafterload)
-		{
-			comp20 = compare_with_sequence((char*)"00224959-002DC4E0", (uint8_t*)x_BYTE_10B4E0_terraintype, 0x2dc4e0, debugcounter_224959, 0x70000, 0x10000, &origbyte20, &remakebyte20);
-			comp20 = compare_with_sequence((char*)"00224959-002DC4E0", (uint8_t*)x_BYTE_11B4E0_height, 0x2dc4e0, debugcounter_224959, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x10000);
-			comp20 = compare_with_sequence((char*)"00224959-002DC4E0", (uint8_t*)x_BYTE_12B4E0_shading, 0x2dc4e0, debugcounter_224959, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x20000);
-			comp20 = compare_with_sequence((char*)"00224959-002DC4E0", (uint8_t*)x_BYTE_13B4E0_angle, 0x2dc4e0, debugcounter_224959, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x30000);
-			comp20 = compare_with_sequence((char*)"00224959-002DC4E0", (uint8_t*)x_WORD_15B4E0_source, 0x2dc4e0, debugcounter_224959, 0x70000, 0x20000, &origbyte20, &remakebyte20, 0x50000);
-
-			comp20 = compare_with_sequence_D41A0((char*)"00224959-00356038", (uint8_t*)&D41A0_BYTESTR_0, 0x356038, debugcounter_224959, 224790, &origbyte20, &remakebyte20);
-
-			comp20 = compare_with_sequence_array_E2A74((char*)"00224959-002B3A74", (uint8_t*)& array_E2A74, 0x2b3a74, debugcounter_224959, 0xc4e, 0xc4e, &origbyte20, &remakebyte20);
-			//if(debugcounter_271478>5)
-			//comp20 = compare_with_sequence((char*)"00224959-003AA0A4", pdwScreenBuffer_351628, 0x3aa0a4, debugcounter_224959, 320 * 200, 320 * 200, &origbyte20, &remakebyte20);
-
-			debugcounter_224959++;
-		}*/
-	}
-
 	sub_44D00();//225d00
-	//debug
-		//x_WORD_15B4E0_source 32c4e0
-		//x_BYTE_11B4E0_height 2ec4e0
-		//x_BYTE_13B4E0_angle_type 30c4e0
-		//x_BYTE_10B4E0_terraintype 2dc4e0
-		//x_BYTE_12B4E0_shading 2fc4e0
-		/*origbyte = 0;
-		remakebyte = 0;
-		comp1 = compare_with_snapshot((char*)"0160-0022495E", (uint8_t*)x_WORD_15B4E0_source, 0x32c4e0, 0x20000, &origbyte, &remakebyte);
-		comp2 = compare_with_snapshot((char*)"0160-0022495E", x_BYTE_11B4E0_height, 0x2ec4e0, 0x10000, &origbyte, &remakebyte);
-		comp3 = compare_with_snapshot((char*)"0160-0022495E", x_BYTE_13B4E0_angle_type, 0x30c4e0, 0x10000, &origbyte, &remakebyte);
-		comp4 = compare_with_snapshot((char*)"0160-0022495E", x_BYTE_10B4E0_terraintype, 0x2dc4e0, 0x10000, &origbyte, &remakebyte);
-		int comp5 = compare_with_snapshot((char*)"0160-0022495E", x_BYTE_12B4E0_shading, 0x2fc4e0, 0x10000, &origbyte, &remakebyte);
-		*/
-		//	compsize = compare_with_snapshot((char*)"0160-00256200-2", pdwScreenBuffer_351628, 0x3aa0a4, 640 * height, &origbyte, &remakebyte);//4c
-	//debug
 }
 
 //----- (000B5E70) --------------------------------------------------------
-void /*__spoils<ecx>*/ sub_B5E70_decompress_terrain_map_level(__int16 a1, unsigned __int16 a2, __int16 a3, int32_t a4)//296e70
+void sub_B5E70_decompress_terrain_map_level(__int16 a1, unsigned __int16 a2, __int16 a3, int32_t a4)//296e70
 {
-	uint16_t v3; // ebx
-	__int16 v4; // cx
-	//char v5; // sf
-	//char v6; // of
-	int8_t v7; // [esp+1h] [ebp-3h]
-	int8_t v8; // [esp+1h] [ebp-3h]
-	int8_t v9; // [esp+2h] [ebp-2h]
-	int8_t v10; // [esp+2h] [ebp-2h]
-	int8_t v11; // [esp+3h] [ebp-1h]
-	//uint8_t savedregs[20]; // [esp+4h] [ebp+0h]
-
+	uaxis_2d sumEnt;
 	mapEntityIndex_15B4E0[a2] = a3;//32c4e0 //first seed
-	v11 = 7;
-	do
+	for(int i = 7; i >= 0 ; i--)
 	{
-		v3 = a2;
-		v4 = (1 << v11);
-		v7 = 1 << (7 - v11);
-		do
+		sumEnt.word = a2;
+		for (int j = 1 << (7 - i); j > 0; j--)
 		{
-			v9 = 1 << (7 - v11);
-			do
+			for (int k = 1 << (7 - i); k > 0; k--)
 			{
-				sub_B5EFA(v4, &v3, a4, &a1);//355220
-				v9--;
-			} while (v9);
-			v3 += (v4 + v4) << 8;
-			v7--;
-		} while (v7);
-		v8 = 1 << (7 - v11);
-		do
+				sub_B5EFA(1 << i, &sumEnt, a4, &a1);//355220
+			}
+			sumEnt.word += (2 * (1 << i)) << 8;
+		}
+		for (int j = 1 << (7 - i); j > 0; j--)
 		{
-			v10 = 1 << (7 - v11);
-			do
+			for (int k = 1 << (7 - i); k > 0; k--)
 			{
-				sub_B5F8F(v4, &v3, a4, &a1);
-				v10--;
-			} while (v10);
-			v3 += (v4 + v4) << 8;
-			v8--;
-		} while (v8);
-		v11--;
-		//v6 = __OFSUB__(v11, 1);
-		//v5 = (v11-- - 1) < 0;
-	} while (v11 >= 0/*!(v5 ^ v6)*/);
+				sub_B5F8F(1 << i, &sumEnt, a4, &a1);
+			}
+			sumEnt.word += (2 * (1 << i)) << 8;
+		}
+	}
 }
 
 //----- (00044DB0) --------------------------------------------------------
@@ -425,58 +362,38 @@ int sub_B5C60_getTerrainAlt2(uint16_t axisX, uint16_t axisY)//296c60
 }
 
 //----- (00044E40) --------------------------------------------------------
-void sub_44E40(int a1, uint8_t a2)//225e40
+void sub_44E40(int count, uint8_t minSmooth)//225e40
 {
-	int v2; // edi
-	uint16_t v3; // si
-	signed int v4; // ecx
-	uint16_t v5; // ax
-	uaxis_2d v6x; // dx
-	uint16_t v7; // eax
-	uint16_t v8; // ebx
-	//unsigned __int16 i; // ax
-
-	v2 = a1;
-	v3 = 0;
-	do
+	uint16_t nextRand;
+	uaxis_2d index;
+	int locCount = count;
+	for (int i = 0; i < 256 * 256; i++)
 	{
-		if (mapHeightmap_11B4E0[v3])
-			mapAngle_13B4E0[v3] = 5;
+		if (mapHeightmap_11B4E0[i])
+			mapAngle_13B4E0[i] = 5;
 		else
-			mapAngle_13B4E0[v3] = 0;
-		v3++;
-	} while (v3);
-LABEL_12:
-	if (v2 > 0)
+			mapAngle_13B4E0[i] = 0;
+	}
+	while (locCount > 0)
 	{
-		v4 = 1000;
-		while (1)
+		for (int i = 0; i < 1000; i++)
 		{
-			//v8 = -1;
-			v5 = 9377 * x_WORD_17B4E0 + 9439;
-			x_WORD_17B4E0 = v5;
-			v6x.word = v5 % 0xffffu;
-			v7 = v5 % 0xffffu;
-			v8 = mapHeightmap_11B4E0[v7] + 0xff00;
-			if (!--v4)
-				break;
-			if ((v8 & 0xff) > a2 && mapAngle_13B4E0[v7])
+			nextRand = 9377 * x_WORD_17B4E0 + 9439;
+			x_WORD_17B4E0 = nextRand;
+			index.word = nextRand % 0xffffu;
+			if ((mapHeightmap_11B4E0[index.word] > minSmooth) && mapAngle_13B4E0[index.word])
 			{
-				v2--;
-				//adress 225eb1
-				//eax e568 ebx ff6f ecx 3e6 edx e568
-				sub_44EE0_smooth_tiles(/*v8,*/ v6x);
-				goto LABEL_12;
+				sub_44EE0_smooth_tiles(index);
+				locCount--;
+				break;
 			}
 		}
 	}
-	do
+	for (int i = 0; i < 256 * 256; i++)
 	{
-		//i = v3;
-		mapTerrainType_10B4E0[v3++] = -1;
-	} while (v3);
+		mapTerrainType_10B4E0[i] = 255;
+	}
 }
-// 17B4E0: using guessed type __int16 x_WORD_17B4E0;
 
 //----- (00045AA0) --------------------------------------------------------
 void sub_45AA0_setMax4Tiles()//226aa0
@@ -1455,232 +1372,195 @@ void sub_43B40()//224b40
 //----- (00043D50) --------------------------------------------------------
 void sub_43D50()//224d50
 {
-	uint16_t index; // ax
-	uint16_t v1; // dx
-	//uint16_t v2; // bx
-	//uint16_t v3; // bx
-	//uint16_t v4; // bx
-	//uint16_t v5; // bx
-	//uint16_t v6; // bx
-	uint16_t v7; // bx
-	uint16_t v8; // dx
-	uint16_t v9; // bx
-	uint16_t v10; // bx
 
-	index = 0;
-	do
+	//  X-X-X
+	//  |   |
+	//  X B X
+	//  |/| |
+	//  X X-X
+
+	uint8_t point1;
+	uint8_t point2;
+	uaxis_2d index;
+	for (int i = 0; i < 256 * 256; i++)
 	{
-		mapAngle_13B4E0[index] &= 0xF7u;
-		if (!mapHeightmap_11B4E0[index])
+		index.word = i;
+		mapAngle_13B4E0[index.word] &= 0xF7u;
+		if (!mapHeightmap_11B4E0[index.word])
 		{
-			HIBYTE(index)--;
-			v1 = index;
-			LOBYTE(index)++;
-			//v2 = index;
-			LOBYTE(v1) = (mapHeightmap_11B4E0[index] != 0) + (mapHeightmap_11B4E0[v1] != 0);
-			HIBYTE(index)++;
-			//v3 = index;
-			LOBYTE(v1) = (mapHeightmap_11B4E0[index] != 0) + v1;
-			HIBYTE(index)++;
-			//v4 = index;
-			LOBYTE(v1) = (mapHeightmap_11B4E0[index] != 0) + v1;
-			LOBYTE(index)--;
-			//v5 = index;
-			LOBYTE(v1) = (mapHeightmap_11B4E0[index] != 0) + v1;
-			LOBYTE(index)--;
-			//v6 = index;
-			LOBYTE(v1) = (mapHeightmap_11B4E0[index] != 0) + v1;
-			HIBYTE(index)--;
-			v7 = index;
-			HIBYTE(index)--;
-			LOBYTE(v1) = (mapHeightmap_11B4E0[v7] != 0) + v1;
-			LOBYTE(v7) = mapHeightmap_11B4E0[index] != 0;
-			LOBYTE(index)++;
-			HIBYTE(index)++;
-			if (!(LOBYTE(v7) + LOBYTE(v1)))
+			index._axis_2d.y--;
+			point1 = (mapHeightmap_11B4E0[index.word] != 0);
+			index._axis_2d.x++;
+			point1 += (mapHeightmap_11B4E0[index.word] != 0);
+			index._axis_2d.y++;
+			point1 += (mapHeightmap_11B4E0[index.word] != 0);
+			index._axis_2d.y++;
+			point1 += (mapHeightmap_11B4E0[index.word] != 0);
+			index._axis_2d.x--;
+			point1 += (mapHeightmap_11B4E0[index.word] != 0);
+			index._axis_2d.x--;
+			point1 += (mapHeightmap_11B4E0[index.word] != 0);
+			index._axis_2d.y--;
+			point1 += (mapHeightmap_11B4E0[index.word] != 0);
+			index._axis_2d.y--;
+			point2 = mapHeightmap_11B4E0[index.word] != 0;
+			index._axis_2d.x++;
+			index._axis_2d.y++;
+
+			//  X-X
+			//  | |
+			//  B-X
+
+			if (!(point2 + point1))
 			{
-				v8 = index;
-				LOBYTE(index)--;
-				v9 = index;
-				HIBYTE(index)--;
-				LOBYTE(v8) = (mapTerrainType_10B4E0[v9] != 0) + (mapTerrainType_10B4E0[v8] != 0);
-				v10 = index;
-				LOBYTE(index)++;
-				LOBYTE(v8) = (mapTerrainType_10B4E0[index] != 0) + (mapTerrainType_10B4E0[v10] != 0) + v8;
-				HIBYTE(index)++;
-				if (!(x_BYTE)v8)
-					mapAngle_13B4E0[index] |= 8u;
+				point1 = (mapTerrainType_10B4E0[index.word] != 0);
+				index._axis_2d.x--;
+				point1 += (mapTerrainType_10B4E0[index.word] != 0);
+				index._axis_2d.y--;
+				point1 += (mapTerrainType_10B4E0[index.word] != 0);
+				index._axis_2d.x++;
+				point1 += (mapTerrainType_10B4E0[index.word] != 0);
+				index._axis_2d.y++;
+				if (!point1)
+					mapAngle_13B4E0[index.word] |= 8u;
 			}
 		}
-		index++;
-	} while (index);
+	}
 }
 
-int debugcounter_225d00 = 0;
 //----- (00044D00) --------------------------------------------------------
 void sub_44D00()//225d00
 {
-	uaxis_2d v0x; // cx
-	//uaxis_2d v1x; // dx
-	uaxis_2d indexx; // eax
-	//unsigned __int16 v3; // cx
-	//uaxis_2d v4x; // et2
-	char v5; // dl
 
-	v0x.word = 0;
+	//     X
+	//    /
+	//   B
+	//  /
+	// X
+
+	uaxis_2d tempIndex;
+	uaxis_2d index;
 	x_WORD_17B4E0 = 0;
-	do
+	for (int i = 0; i < 256 * 256; i++)
 	{
-		//adress 225d0f
-		if (debugcounter_225d00 >= 0xb03)
+		index.word = i;
+		index._axis_2d.x++;
+		index._axis_2d.y++;
+		tempIndex.word = index.word;
+		index._axis_2d.x -= 2;
+		index._axis_2d.y -= 2;
+		tempIndex._axis_2d.x = mapHeightmap_11B4E0[index.word] - mapHeightmap_11B4E0[tempIndex.word] + 32;
+		index._axis_2d.x++;
+		index._axis_2d.y++;
+		if (tempIndex._axis_2d.x == 32)
 		{
-			debugcounter_225d00++;
-			debugcounter_225d00--;
+			tempIndex.word = 9377 * x_WORD_17B4E0 + 9439;
+			x_WORD_17B4E0 = tempIndex.word;
+			tempIndex._axis_2d.y = (x_WORD_17B4E0 / 9u) >> 8;
+			tempIndex._axis_2d.x = x_WORD_17B4E0 % 9 + 28;
 		}
-		debugcounter_225d00++;
-
-		v0x._axis_2d.x++;
-		//indexx._axis_2d.y = 0;
-		v0x._axis_2d.y++;
-		indexx.word = v0x.word;
-		v0x._axis_2d.x -= 2;
-		v0x._axis_2d.y -= 2;
-		//v1x.word = v0x.word;
-
-		indexx._axis_2d.x = mapHeightmap_11B4E0[v0x.word] - mapHeightmap_11B4E0[indexx.word] + 32;
-		v0x._axis_2d.x++;
-		v0x._axis_2d.y++;
-		if (indexx._axis_2d.x == 32)
+		else if ((int8_t)tempIndex._axis_2d.x >= 28)
 		{
-			indexx.word = 9377 * x_WORD_17B4E0 + 9439;
-			//LOWORD(index) += 9439;
-			x_WORD_17B4E0 = indexx.word;
-			//v4x.word = indexx.word;
-			indexx._axis_2d.y = (x_WORD_17B4E0 / 9u) >> 8;
-			indexx._axis_2d.x = x_WORD_17B4E0 % 9 + 28;
-		}
-		else if ((int8_t)indexx._axis_2d.x >= 28)
-		{
-			if ((int8_t)indexx._axis_2d.x > 40)
-				indexx._axis_2d.x = (indexx._axis_2d.x & 7) + 40;
+			if ((int8_t)tempIndex._axis_2d.x > 40)
+				tempIndex._axis_2d.x = (tempIndex._axis_2d.x & 7) + 40;
 		}
 		else
 		{
-			indexx._axis_2d.x = (indexx._axis_2d.x & 3) + 28;
+			tempIndex._axis_2d.x = (tempIndex._axis_2d.x & 3) + 28;
 		}
 		if (D41A0_0.terrain_2FECE.MapType != MapType_t::Day)
 		{
-			//index = 32 - (index & 0xff);
-			//v5 = (32 - (indexx._axis_2d.x)) + 32;
-			v5 = (64 - indexx._axis_2d.x);
+			mapShading_12B4E0[index.word] = (64 - tempIndex._axis_2d.x);
 		}
 		else
 		{
-			v5 = indexx._axis_2d.x;
+			mapShading_12B4E0[index.word] = tempIndex._axis_2d.x;
 		}
-		//LOBYTE(index) = v5;
-		mapShading_12B4E0[v0x.word] = v5;
-		v0x.word++;
-	} while (v0x.word);
+	}
 }
-// D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
-// 17B4E0: using guessed type __int16 x_WORD_17B4E0;
 
 //----- (000B5EFA) --------------------------------------------------------
-void sub_B5EFA(__int16 a1, uint16_t* a2, int32_t a3, __int16* a4)//296EFA
+void sub_B5EFA(__int16 a1, uaxis_2d* indexx, int32_t a3, int16_t* nextRand)//296EFA
 {
-	int16_t v4; // di
-	//__int16 v5; // di
-	//__int16 v6; // di
-	uint16_t v7; // si
-	uint32_t v8; // di
-	//__int16 result; // ax
+	//  X-.-X
+	//   \  |
+	//    E .
+	//      |
+	//  B---X
 
-	v4 = mapEntityIndex_15B4E0[*a2];
-	LOBYTE(*a2) += (a1 + a1);
-	v4 += mapEntityIndex_15B4E0[*a2];
-	*a2 += (a1 + a1) << 8;
-	v4 += mapEntityIndex_15B4E0[*a2];
-	LOBYTE(*a2) -= (a1 + a1);
-	v4 += mapEntityIndex_15B4E0[*a2];
-	LOBYTE(*a2) += a1;
-	*a2 -= a1 << 8;
-	v7 = 9377 * *a4 + 9439;
-	*a4 = v7;
-	v8 = v7 % (uint16_t)(2 * a3 + 1)
-		+ v7 % (uint16_t)((a1 << 6) + 1)
-		+ (v4 >> 2)
-		- 32 * a1
-		- a3;
-	//result = v8;
-	if (!mapEntityIndex_15B4E0[*a2])
-		mapEntityIndex_15B4E0[*a2] = v8;
-	LOBYTE(*a2) += a1;
-	*a2 -= a1 << 8;
-	//return result;
+	int16_t sumEnt;
+	uint16_t srandNumber;
+
+	sumEnt = mapEntityIndex_15B4E0[indexx->word];
+	indexx->_axis_2d.x += 2 * a1;
+	sumEnt += mapEntityIndex_15B4E0[indexx->word];
+	indexx->_axis_2d.y += 2 * a1;
+	sumEnt += mapEntityIndex_15B4E0[indexx->word];
+	indexx->_axis_2d.x -= 2 * a1;
+	sumEnt += mapEntityIndex_15B4E0[indexx->word];
+	indexx->_axis_2d.x += a1;
+	indexx->_axis_2d.y -= a1;
+	srandNumber = 9377 * *nextRand + 9439;
+	*nextRand = srandNumber;
+	if (!mapEntityIndex_15B4E0[indexx->word])
+		mapEntityIndex_15B4E0[indexx->word] = srandNumber % (uint16_t)(2 * a3 + 1)
+		+ srandNumber % (uint16_t)((a1 << 6) + 1) + (sumEnt >> 2) - 32 * a1 - a3;
+	indexx->_axis_2d.x += a1;
+	indexx->_axis_2d.y -= a1;
 }
 
 //----- (000B5F8F) --------------------------------------------------------
-void sub_B5F8F(__int16 a1, uint16_t* a2, int32_t a3, __int16* a4)//296f8f
+void sub_B5F8F(__int16 a1, uaxis_2d* indexx, int32_t a3, int16_t* nextRand)//296f8f
 {
-	__int16 v4; // di
-	//__int16 v5; // di
-	//__int16 v6; // di
-	uint16_t v7; // si
-	uint16_t v7b; // si
-	uint16_t v8; // ax
-	int16_t v9; // di
-	//__int16 v10; // di
-	//__int16 v11; // di
-	uint32_t v12; // di
-	//__int16 result; // ax
-	uint16_t v14; // [esp-2h] [ebp-2h]
 
-	v4 = mapEntityIndex_15B4E0[*a2];
-	v14 = v4;
-	LOBYTE(*a2) += a1;
-	*a2 -= a1 << 8;
-	v4 += mapEntityIndex_15B4E0[*a2];
-	LOBYTE(*a2) += a1;
-	*a2 += a1 << 8;
-	v4 += mapEntityIndex_15B4E0[*a2];
-	LOBYTE(*a2) -= a1;
-	*a2 += a1 << 8;
-	v4 += mapEntityIndex_15B4E0[*a2];
-	v7 = 9377 * *a4 + 9439;
-	//*a4 = v7;
-	//2ae9*24a1
-	v8 = v7 % (uint16_t)(2 * a3 + 1)
-		+ v7 % (uint16_t)((a1 << 6) + 1)
-		+ (uint16_t)(v4 >> 2)
-		- 32 * a1
-		- a3;
-	//(uint16_t)(v4 >> 2)-(a1*32)+v7 % (uint16_t)((a1 << 6) + 1)-a3+v7 % (uint16_t)(2 * a3 + 1)
-	v9 = mapEntityIndex_15B4E0[*a2];
-	*a2 -= a1 << 8;
-	if (!mapEntityIndex_15B4E0[*a2])
-		mapEntityIndex_15B4E0[*a2] = v8;
-	v9 += v14;
-	LOBYTE(*a2) -= (a1 + a1);
-	*a2 += a1 << 8;
-	v9 += mapEntityIndex_15B4E0[*a2];
-	LOBYTE(*a2) += a1;
-	*a2 += a1 << 8;
-	v9 += mapEntityIndex_15B4E0[*a2];
-	*a2 -= a1 << 8;
-	v7b = 9377 * v7 + 9439;
-	*a4 = v7b;
-	v12 = v7b % (unsigned __int16)(2 * a3 + 1)
-		+ v7b % (unsigned __int16)((a1 << 6) + 1)
-		+ (uint16_t)(v9 >> 2)
-		- 32 * a1
-		- a3;
-	//result = v12;
-	if (!mapEntityIndex_15B4E0[*a2])
-		mapEntityIndex_15B4E0[*a2] = v12;
-	*a2 -= a1 << 8;
-	LOBYTE(*a2) += (a1 + a1);
-	//return result;
+	//   X
+	//   |\
+	// B E X
+	//  \ /
+	//   X
+
+	int16_t sumEnt;
+	int16_t sumEnt2;
+	uint16_t srandNumber;
+
+	sumEnt = mapEntityIndex_15B4E0[indexx->word];
+	sumEnt2 = sumEnt;
+	indexx->_axis_2d.x += a1;
+	indexx->_axis_2d.y -= a1;
+	sumEnt += mapEntityIndex_15B4E0[indexx->word];
+	indexx->_axis_2d.x += a1;
+	indexx->_axis_2d.y += a1;
+	sumEnt += mapEntityIndex_15B4E0[indexx->word];
+	indexx->_axis_2d.x -= a1;
+	indexx->_axis_2d.y += a1;
+	sumEnt += mapEntityIndex_15B4E0[indexx->word];
+	srandNumber = 9377 * *nextRand + 9439;
+	sumEnt2 += mapEntityIndex_15B4E0[indexx->word];
+	indexx->_axis_2d.y -= a1;
+	if (!mapEntityIndex_15B4E0[indexx->word])
+		mapEntityIndex_15B4E0[indexx->word] = srandNumber % (uint16_t)(2 * a3 + 1)
+		+ srandNumber % (uint16_t)((a1 << 6) + 1) + (uint16_t)(sumEnt >> 2) - 32 * a1 - a3;
+	
+	//   X
+	//  /|
+	// X E-.
+	//  \   \
+	//   .-B R
+
+	indexx->_axis_2d.x -= 2 * a1;
+	indexx->_axis_2d.y += a1;
+	sumEnt2 += mapEntityIndex_15B4E0[indexx->word];
+	indexx->_axis_2d.x += a1;
+	indexx->_axis_2d.y += a1;
+	sumEnt2 += mapEntityIndex_15B4E0[indexx->word];
+	indexx->_axis_2d.y -= a1;
+	srandNumber = 9377 * srandNumber + 9439;
+	*nextRand = srandNumber;
+	if (!mapEntityIndex_15B4E0[indexx->word])
+		mapEntityIndex_15B4E0[indexx->word] = srandNumber % (uint16_t)(2 * a3 + 1)
+		+ srandNumber % (uint16_t)((a1 << 6) + 1) + (uint16_t)(sumEnt2 >> 2) - 32 * a1 - a3;
+	indexx->_axis_2d.x += 2 * a1;
+	indexx->_axis_2d.y -= a1;
 }
 
 //----- (00044EE0) --------------------------------------------------------
@@ -1866,7 +1746,7 @@ void sub_43BB0()//224bb0
 			if (fuzzyHeight < 0)
 				fuzzyHeight = 0;
 			if (fuzzyHeight > 254)
-				fuzzyHeight = -2;
+				fuzzyHeight = 254;
 			x_BYTE_14B4E0_second_heightmap[i] = fuzzyHeight;
 		}
 	}

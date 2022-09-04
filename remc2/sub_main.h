@@ -437,24 +437,7 @@ unsigned long j___clock();
 
 void WriteBufferToBMP(uint16_t width, uint16_t height, uint8_t* ptrPalette, uint8_t* ptrBuffer);
 
-void /*__spoils<ecx>*/ sub_B5E70_decompress_terrain_map_level(__int16 a1, unsigned __int16 a2, __int16 a3, int32_t a4);
-void sub_44DB0_truncTerrainHeight();
-void sub_44E40(int a1, unsigned __int8 a2);
-void sub_45AA0_setMax4Tiles();
-void sub_43B40();
-void sub_43BB0();
 void sub_43C60(unsigned __int8 a1, char a2, int a3, int a4);
-void sub_43D50();
-void sub_43EE0();
-void sub_43FC0();
-void sub_440D0(unsigned __int16 a1);
-void sub_44320();
-void sub_44580();
-void sub_44D00();
-void sub_45060(unsigned __int8 a1, unsigned __int8 a2);
-void sub_45210(unsigned __int8 a1, unsigned __int8 a2);
-void sub_454F0(unsigned __int8 a1, unsigned __int8 a2);
-void sub_45600(unsigned __int8 a1);
 
 void SetStagetagForTermod_49830(type_str_2FECE* terrain);
 void GenerateEvents_49290(type_str_2FECE* terrain, char a2, uint16_t width, uint16_t height);
@@ -497,7 +480,6 @@ void sub_48A20(int a1, char a2, char a3, int a4, int a5, unsigned __int8 a6);
 //void __outx_BYTE(unsigned short Port, unsigned char Data);
 //unsigned char __inx_BYTE(unsigned short Port);
 void sub_41BC0();
-void sub_44EE0_smooth_tiles(/*int a1, */uaxis_2d a2);
 void sub_54600_mouse_reset();
 void sub_56A30_init_game_level(unsigned int a1);
 void sub_5B870_copy_sentence(char* langbuffer, char** langindexbuffer, uint32_t count);
@@ -620,9 +602,7 @@ void __inx_BYTEstring(unsigned short Port, unsigned char* Buffer, unsigned long 
 int sub_ACE8D(int16_t* a1, int a2, int* a3);
 void sub_AD0E2(int8_t* a1, int a2, int* a3, int8_t** a4);
 void sub_ACF1A(int8_t* a1, int a2, int* a3);
-void sub_B5F8F(__int16 a1, uint16_t* a2, int32_t a3, __int16* a4);
 int sub_BD320(int result, int8_t* a2, int8_t* a3, int a4, int a5, uint8_t* a6);
-void sub_B5EFA(__int16 a1, uint16_t* a2, int32_t a3, __int16* a4);
 Type_SecretMapScreenPortals_E2970* sub_824B0(__int16 a1);
 Type_SecretMapScreenPortals_E2970* sub_824E0(__int16 a1);
 

@@ -7,18 +7,18 @@
 
 extern uint8_t unk_D4A30[];//terrain gen
 extern char x_BYTE_F2CD0x[7 * 7 * 7 * 7][2]; // 233cd0//4802 //4816
-extern uint8_t x_BYTE_D41B7; // weak
+extern uint8_t x_BYTE_D41B7;
 
 extern uint16_t x_WORD_17B4E0;
 extern int8_t unk_D47E0[592];
 
-extern uint8_t mapTerrainType_10B4E0[65536]; // idb// x_BYTE_10B1E0[768]//2DC4E0 //map array1
-extern uint8_t mapHeightmap_11B4E0[65536]; // idb		//2EC4E0    	//map array2 // heightmap
-extern uint8_t mapShading_12B4E0[65536]; // fix it -  weak	//2FC4E0    //map array3
-extern uint8_t mapAngle_13B4E0[65536]; // idb//30C4E0	//map array4 // water
-extern __int16 mapEntityIndex_15B4E0[65536]; // idb//32C4E0	//map array5
+extern uint8_t mapTerrainType_10B4E0[65536];
+extern uint8_t mapHeightmap_11B4E0[65536];
+extern uint8_t mapShading_12B4E0[65536];
+extern uint8_t mapAngle_13B4E0[65536];
+extern __int16 mapEntityIndex_15B4E0[65536];
 
-void GenerateLevelMap_43830(unsigned int a1, type_str_2FECE* a2x);//224830
+void GenerateLevelMap_43830(type_str_2FECE* a2x);//224830
 void sub_B5E70_decompress_terrain_map_level(__int16 a1, unsigned __int16 a2, __int16 a3, int32_t a4);//296e70
 void sub_44DB0_truncTerrainHeight();//225db0 // map to heightmap
 int sub_B5C60_getTerrainAlt2(uint16_t a1, uint16_t a2);//296c60
@@ -37,10 +37,10 @@ void sub_44580();//225580
 void sub_43B40();//224b40
 void sub_43D50();//224d50
 void sub_44D00();//225d00
-void sub_B5EFA(__int16 a1, uint16_t* a2, int32_t a3, __int16* a4);//296EFA
-void sub_B5F8F(__int16 a1, uint16_t* a2, int32_t a3, __int16* a4);//296f8f
+void sub_B5EFA(__int16 a1, uaxis_2d* a2, int32_t a3, int16_t* nextRand);//296EFA
+void sub_B5F8F(__int16 a1, uaxis_2d* a2, int32_t a3, int16_t* nextRand);//296f8f
 void sub_44EE0_smooth_tiles(/*int a1,*/ uaxis_2d a2x);//225ee0
-unsigned int sub_439A0(unsigned __int16 a2);//2249a0
+unsigned int sub_439A0(uint16_t index);//2249a0
 void sub_43BB0();//224bb0
 
 

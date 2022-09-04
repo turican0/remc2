@@ -1437,8 +1437,6 @@ void sub_440D0(unsigned __int16 a1);
 void sub_44320();
 void sub_44580();
 void sub_44D00();*/
-//void sub_44DB0_truncTerrainHeight();
-//void sub_44E40(int a1, unsigned __int8 a2);
 // unsigned __int16 sub_44EE0_smooth_tiles(int a1, int a2);
 /*void sub_45060(unsigned __int8 a1, unsigned __int8 a2);
 void sub_45210(unsigned __int8 a1, unsigned __int8 a2);
@@ -54880,7 +54878,7 @@ void sub_56A30_init_game_level(unsigned int a1)//237a30
 		D41A0_0.word_0xe = D41A0_0.terrain_2FECE.word_0x2FED7;
 	PrintTextMessage_70910((char*)"Generate map\0");
 	if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 4))
-		GenerateLevelMap_43830(a1, &D41A0_0.terrain_2FECE);
+		GenerateLevelMap_43830(&D41A0_0.terrain_2FECE);
 	sub_49F30();//prepare events pointers
 	//237B05
 	if (CommandLineParams.DoDebugSequences()) {
@@ -55031,7 +55029,7 @@ void sub_56D60(unsigned int a1, char a2)//237d60
 	}
 	//v3 = x_D41A0_BYTEARRAY_0 + 196302;
 	D41A0_0.word_0xe = D41A0_0.terrain_2FECE.word_0x2FED7;
-	GenerateLevelMap_43830(a1, &D41A0_0.terrain_2FECE);
+	GenerateLevelMap_43830(&D41A0_0.terrain_2FECE);
 	sub_49F30();
 	sub_49270_generate_level_features(&D41A0_0.terrain_2FECE);
 	memset(&x_WORD_EB398ar, 0, 6);
