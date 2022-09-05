@@ -58397,6 +58397,7 @@ void sub_5B100(type_event_0x6E8E* locEvent)//23c100
 	int koefZ2;
 	int koefZ3;
 	int koefZ4;
+	int koefZ5;
 	int koefX;
 	int koefY;
 
@@ -58519,12 +58520,12 @@ void sub_5B100(type_event_0x6E8E* locEvent)//23c100
 				{
 					if ((mapAngle_13B4E0[indexPoint2.word] & 8) == 0)
 					{
-						koefZ2 = signLocKoef2 + mapHeightmap_11B4E0[indexPoint2.word];
-						if (koefZ2 > koefZ1)
-							koefZ2 = koefZ1;
-						if (koefZ2 > mapHeightmap_11B4E0[indexPoint2.word])
+						koefZ5 = signLocKoef2 + mapHeightmap_11B4E0[indexPoint2.word];
+						if (koefZ5 > koefZ1)
+							koefZ5 = koefZ1;
+						if (koefZ5 > mapHeightmap_11B4E0[indexPoint2.word])
 						{
-							mapHeightmap_11B4E0[indexPoint2.word] = koefZ2;
+							mapHeightmap_11B4E0[indexPoint2.word] = koefZ5;
 							finded1 = false;
 						}
 						koefZ3 = x_BYTE_14B4E0_second_heightmap[indexPoint2.word] - signLocKoef2;
