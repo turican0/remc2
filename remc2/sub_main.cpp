@@ -35557,7 +35557,8 @@ unsigned __int8 sub_396D0(type_event_0x6E8E* a1x)//21a6d0
 				v23 = 0;
 				while (v23 < 30)
 				{
-					v24 = sub_439A0(v23++, v21);
+					v24 = sub_439A0(v21);
+					v23++;
 					v25 = v21;
 					LOBYTE(v21) = v21 + 1;
 					mapHeightmap_11B4E0[v25] = v24;
@@ -35620,7 +35621,7 @@ unsigned __int8 sub_396D0(type_event_0x6E8E* a1x)//21a6d0
 							v34 = 255;
 						mapHeightmap_11B4E0[v10] = v34;
 						if (a1x->dword_0x10_16 < 3)
-							mapHeightmap_11B4E0[v10] = sub_439A0(v10, v10);
+							mapHeightmap_11B4E0[v10] = sub_439A0(v10);
 						if (isCaveLevel_D41B6)
 						{
 							v15 = mapHeightmap_11B4E0[v10] + 64;
@@ -54880,7 +54881,7 @@ void sub_56A30_init_game_level(unsigned int a1)//237a30
 		D41A0_0.word_0xe = D41A0_0.terrain_2FECE.word_0x2FED7;
 	PrintTextMessage_70910((char*)"Generate map\0");
 	if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 4))
-		GenerateLevelMap_43830(a1, &D41A0_0.terrain_2FECE);
+		GenerateLevelMap_43830(&D41A0_0.terrain_2FECE);
 	sub_49F30();//prepare events pointers
 	//237B05
 	if (CommandLineParams.DoDebugSequences()) {
@@ -55031,7 +55032,7 @@ void sub_56D60(unsigned int a1, char a2)//237d60
 	}
 	//v3 = x_D41A0_BYTEARRAY_0 + 196302;
 	D41A0_0.word_0xe = D41A0_0.terrain_2FECE.word_0x2FED7;
-	GenerateLevelMap_43830(a1, &D41A0_0.terrain_2FECE);
+	GenerateLevelMap_43830(&D41A0_0.terrain_2FECE);
 	sub_49F30();
 	sub_49270_generate_level_features(&D41A0_0.terrain_2FECE);
 	memset(&x_WORD_EB398ar, 0, 6);

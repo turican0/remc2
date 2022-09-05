@@ -206,8 +206,9 @@ void add_compare2(uint32_t adress, uint8_t* memadress,uint32_t dosmemadress, uin
 
 int debugcounter_224959 = 0;
 //----- (00043830) --------------------------------------------------------
-void GenerateLevelMap_43830(unsigned int a1, type_str_2FECE* a2x)//224830
+void GenerateLevelMap_43830(type_str_2FECE* a2x)//224830
 {
+	unsigned int a1 = 0;
 	//uint8_t* v2; // ebx
 	//int32_t v3; // ST0C_4
 	//test_x_D41A0_BYTEARRAY_0();
@@ -1299,7 +1300,7 @@ void sub_43970(uint32_t a1)//224970
 	do
 	{
 		//result = sub_439A0(a1, v1);
-		mapHeightmap_11B4E0[v1] = sub_439A0(a1, v1);
+		mapHeightmap_11B4E0[v1] = sub_439A0(v1);
 		v1++;
 	} while (v1);
 	//return result;
@@ -2068,7 +2069,7 @@ void sub_44EE0_smooth_tiles(/*int a1,*/ uaxis_2d a2x)//225ee0
 }
 
 //----- (000439A0) --------------------------------------------------------
-unsigned int sub_439A0(unsigned int a1, unsigned __int16 a2)//2249a0
+unsigned int sub_439A0(unsigned __int16 a2)//2249a0
 {
 	unsigned __int16 v2; // ax
 	unsigned __int8 v3; // dl
@@ -2092,6 +2093,7 @@ unsigned int sub_439A0(unsigned int a1, unsigned __int16 a2)//2249a0
 	unsigned int v21; // ebx
 	unsigned int v22; // ebx
 
+	unsigned int a1;
 	LOBYTE(v2) = a2;
 	LOWORD(a1) = mapHeightmap_11B4E0[a2];
 	if (mapAngle_13B4E0[a2] & 7)
