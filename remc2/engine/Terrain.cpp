@@ -364,7 +364,6 @@ int sub_B5C60_getTerrainAlt2(uint16_t axisX, uint16_t axisY)//296c60
 //----- (00044E40) --------------------------------------------------------
 void sub_44E40(int count, uint8_t minSmooth)//225e40
 {
-	uint16_t nextRand;
 	uaxis_2d index;
 	int locCount = count;
 	for (int i = 0; i < 256 * 256; i++)
@@ -374,13 +373,13 @@ void sub_44E40(int count, uint8_t minSmooth)//225e40
 		else
 			mapAngle_13B4E0[i] = 0;
 	}
-	while (locCount > 0)
+	int i = 0;
+	while ((locCount > 0) && (i < 1000))
 	{
-		for (int i = 0; i < 1000; i++)
+		for (i = 0; i < 1000; i++)
 		{
-			nextRand = 9377 * x_WORD_17B4E0 + 9439;
-			x_WORD_17B4E0 = nextRand;
-			index.word = nextRand % 0xffffu;
+			x_WORD_17B4E0 = 9377 * x_WORD_17B4E0 + 9439;
+			index.word = x_WORD_17B4E0 % 0xffffu;
 			if ((mapHeightmap_11B4E0[index.word] > minSmooth) && mapAngle_13B4E0[index.word])
 			{
 				sub_44EE0_smooth_tiles(index);
