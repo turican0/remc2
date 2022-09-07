@@ -44,5 +44,6 @@ unsigned int sub_439A0(uint16_t index);//2249a0
 void sub_43BB0();//224bb0
 
 int sub_1B7A0_tile_compare(axis_3d* a1);
+int sub_1B830(axis_3d* a1);
 
 #endif //MAIN_TERRAIN

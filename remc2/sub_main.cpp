@@ -979,7 +979,6 @@ void sub_1A970_change_game_settings(char a1, int a2, int a3);
 //void sub_1B280_run_intro_events(type_E17CC_0* a1x);
 int sub_1B5F0();
 void sub_1B6B0(type_event_0x6E8E* a1);
-int sub_1B830(axis_3d* a1);
 signed int sub_1B8C0(type_event_0x6E8E* a1);
 void sub_1BD90(type_event_0x6E8E* a1, char a2);
 void sub_1BF90(type_event_0x6E8E* a1, char a2);
@@ -13710,39 +13709,6 @@ void sub_1B6B0(type_event_0x6E8E* a1x)//1fc6b0
 }
 // EA3E4: using guessed type int x_DWORD_EA3E4[];
 // EB398: using guessed type __int16 x_WORD_EB398;
-
-//----- (0001B830) --------------------------------------------------------
-int sub_1B830(axis_3d* a1)//1fc830
-{
-	unsigned __int16 v1; // ax
-	unsigned __int16 v2; // dx
-	unsigned __int16 v3; // bx
-	unsigned __int8 v4; // cl
-	unsigned __int16 v5; // bx
-	int v6; // esi
-	int v7; // ebx
-	int v8; // ecx
-	int v9; // ebx
-
-	LOBYTE(v1) = (a1->x >> 8) - 1;
-	HIBYTE(v1) = (a1->y >> 8) - 1;
-	v2 = v1;
-	LOBYTE(v1) = v1 + 2;
-	v3 = v1;
-	HIBYTE(v1) += 2;
-	v4 = mapHeightmap_11B4E0[v3];
-	v5 = v1;
-	LOBYTE(v2) = mapHeightmap_11B4E0[v2];
-	LOBYTE(v1) = v1 - 2;
-	HIBYTE(v2) = mapHeightmap_11B4E0[v5];
-	v6 = mapHeightmap_11B4E0[v1];
-	v7 = (unsigned __int8)v2 + v4 - v6;
-	v8 = abs((unsigned __int8)v2 + v6 - v4 - HIBYTE(v2));
-	v9 = abs(v7 - HIBYTE(v2));
-	if (v8 > v9)
-		v9 = v8;
-	return v9;
-}
 
 int debugcount_1fc8c0 = 0;
 
