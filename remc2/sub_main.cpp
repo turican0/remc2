@@ -979,7 +979,6 @@ void sub_1A970_change_game_settings(char a1, int a2, int a3);
 //void sub_1B280_run_intro_events(type_E17CC_0* a1x);
 int sub_1B5F0();
 void sub_1B6B0(type_event_0x6E8E* a1);
-int sub_1B7A0_tile_compare(axis_3d* a1);
 int sub_1B830(axis_3d* a1);
 signed int sub_1B8C0(type_event_0x6E8E* a1);
 void sub_1BD90(type_event_0x6E8E* a1, char a2);
@@ -13711,42 +13710,6 @@ void sub_1B6B0(type_event_0x6E8E* a1x)//1fc6b0
 }
 // EA3E4: using guessed type int x_DWORD_EA3E4[];
 // EB398: using guessed type __int16 x_WORD_EB398;
-
-//----- (0001B7A0) --------------------------------------------------------
-int sub_1B7A0_tile_compare(axis_3d* a1)//1fc7a0
-{
-	uint8_t v1x[2]; // eax
-	//uint8_t v2x[2]; // dx
-	//uint8_t v3x[2]; // bx
-	unsigned __int8 v4_00; // cl
-	unsigned __int8 v4_01; // cl
-	unsigned __int8 v4_10; // cl
-	unsigned __int8 v4_11; // cl
-
-	//uint8_t v5x[2]; // bx
-	//int v6; // esi
-	//int v7; // ebx
-	int v8; // ecx
-	int v9; // ebx
-
-	v1x[0] = a1->x >> 8;
-	v1x[1] = a1->y >> 8;
-
-	v4_00 = mapHeightmap_11B4E0[*(uint16_t*)v1x];//0000
-	v1x[0]++;
-	v4_10 = mapHeightmap_11B4E0[*(uint16_t*)v1x];//+100
-	v1x[1]++;
-	v4_11 = mapHeightmap_11B4E0[*(uint16_t*)v1x];//+1+1
-	v1x[0]--;
-	v4_01 = mapHeightmap_11B4E0[*(uint16_t*)v1x];//00+1
-
-	//v7 = v4_00 + v4_10 - v4_01;
-	v8 = abs(v4_00 + v4_01 - v4_10 - v4_11);
-	v9 = abs(v4_00 + v4_10 - v4_01 - v4_11);
-	if (v8 > v9)
-		v9 = v8;
-	return v9;
-}
 
 //----- (0001B830) --------------------------------------------------------
 int sub_1B830(axis_3d* a1)//1fc830
