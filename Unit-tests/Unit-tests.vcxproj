@@ -1,0 +1,598 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug-Deploy-Enhanced-Assets|Win32">
+      <Configuration>Debug-Deploy-Enhanced-Assets</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug-Deploy-Enhanced-Assets|x64">
+      <Configuration>Debug-Deploy-Enhanced-Assets</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\inih\ini.h" />
+    <ClInclude Include="..\inih\INIReader.h" />
+    <ClInclude Include="..\kiss_sdl-master\kiss_sdl.h" />
+    <ClInclude Include="..\libADLMIDI-master\src\adldata.hh" />
+    <ClInclude Include="..\libADLMIDI-master\src\adlmidi_bankmap.h" />
+    <ClInclude Include="..\libADLMIDI-master\src\adlmidi_cvt.hpp" />
+    <ClInclude Include="..\libADLMIDI-master\src\adlmidi_midiplay.hpp" />
+    <ClInclude Include="..\libADLMIDI-master\src\adlmidi_opl3.hpp" />
+    <ClInclude Include="..\libADLMIDI-master\src\adlmidi_private.hpp" />
+    <ClInclude Include="..\libADLMIDI-master\src\adlmidi_ptr.hpp" />
+    <ClInclude Include="..\libADLMIDI-master\src\chips\dosbox\dbopl.h" />
+    <ClInclude Include="..\libADLMIDI-master\src\chips\dosbox_opl3.h" />
+    <ClInclude Include="..\libADLMIDI-master\src\chips\nuked\nukedopl3.h" />
+    <ClInclude Include="..\libADLMIDI-master\src\chips\nuked\nukedopl3_174.h" />
+    <ClInclude Include="..\libADLMIDI-master\src\chips\nuked_opl3.h" />
+    <ClInclude Include="..\libADLMIDI-master\src\chips\nuked_opl3_v174.h" />
+    <ClInclude Include="..\libADLMIDI-master\src\chips\opl_chip_base.h" />
+    <ClInclude Include="..\libADLMIDI-master\src\cvt_mus2mid.hpp" />
+    <ClInclude Include="..\libADLMIDI-master\src\cvt_xmi2mid.hpp" />
+    <ClInclude Include="..\libADLMIDI-master\src\file_reader.hpp" />
+    <ClInclude Include="..\libADLMIDI-master\src\fraction.hpp" />
+    <ClInclude Include="..\libADLMIDI-master\src\midi_sequencer.h" />
+    <ClInclude Include="..\libADLMIDI-master\src\midi_sequencer.hpp" />
+    <ClInclude Include="..\libADLMIDI-master\src\midi_sequencer_impl.hpp" />
+    <ClInclude Include="..\libADLMIDI-master\src\wopl\wopl_file.h" />
+    <ClInclude Include="..\libOPNMIDI-master\src\chips\gens\Ym2612_Emu.h" />
+    <ClInclude Include="..\libOPNMIDI-master\src\chips\gens_opn2.h" />
+    <ClInclude Include="..\libOPNMIDI-master\src\chips\gx\gx_ym2612.h" />
+    <ClInclude Include="..\libOPNMIDI-master\src\chips\gx_opn2.h" />
+    <ClInclude Include="..\libOPNMIDI-master\src\chips\mame\mamedef.h" />
+    <ClInclude Include="..\libOPNMIDI-master\src\chips\mame\mame_ym2612fm.h" />
+    <ClInclude Include="..\libOPNMIDI-master\src\chips\mame_opn2.h" />
+    <ClInclude Include="..\libOPNMIDI-master\src\chips\nuked\ym3438.h" />
+    <ClInclude Include="..\libOPNMIDI-master\src\chips\nuked_opn2.h" />
+    <ClInclude Include="..\libOPNMIDI-master\src\chips\opn_chip_base.h" />
+    <ClInclude Include="..\libOPNMIDI-master\src\cvt_mus2mid.hpp" />
+    <ClInclude Include="..\libOPNMIDI-master\src\cvt_xmi2mid.hpp" />
+    <ClInclude Include="..\libOPNMIDI-master\src\file_reader.hpp" />
+    <ClInclude Include="..\libOPNMIDI-master\src\fraction.hpp" />
+    <ClInclude Include="..\libOPNMIDI-master\src\midi_sequencer.h" />
+    <ClInclude Include="..\libOPNMIDI-master\src\midi_sequencer.hpp" />
+    <ClInclude Include="..\libOPNMIDI-master\src\midi_sequencer_impl.hpp" />
+    <ClInclude Include="..\libOPNMIDI-master\src\opnbank.h" />
+    <ClInclude Include="..\libOPNMIDI-master\src\opnmidi_bankmap.h" />
+    <ClInclude Include="..\libOPNMIDI-master\src\opnmidi_cvt.hpp" />
+    <ClInclude Include="..\libOPNMIDI-master\src\opnmidi_midiplay.hpp" />
+    <ClInclude Include="..\libOPNMIDI-master\src\opnmidi_opn2.hpp" />
+    <ClInclude Include="..\libOPNMIDI-master\src\opnmidi_private.hpp" />
+    <ClInclude Include="..\libOPNMIDI-master\src\opnmidi_ptr.hpp" />
+    <ClInclude Include="..\libOPNMIDI-master\src\wopn\wopn_file.h" />
+    <ClInclude Include="..\remc2\editor\editor.h" />
+    <ClInclude Include="..\remc2\engine\ail_sound.h" />
+    <ClInclude Include="..\remc2\engine\Animation.h" />
+    <ClInclude Include="..\remc2\engine\Basic.h" />
+    <ClInclude Include="..\remc2\engine\CommandLineParser.h" />
+    <ClInclude Include="..\remc2\engine\defs.h" />
+    <ClInclude Include="..\remc2\engine\engine_support.h" />
+    <ClInclude Include="..\remc2\engine\engine_support_converts.h" />
+    <ClInclude Include="..\remc2\engine\GameRenderGL.h" />
+    <ClInclude Include="..\remc2\engine\GameRenderHD.h" />
+    <ClInclude Include="..\remc2\engine\GameRenderInterface.h" />
+    <ClInclude Include="..\remc2\engine\GameRenderOriginal.h" />
+    <ClInclude Include="..\remc2\engine\globals.h" />
+    <ClInclude Include="..\remc2\engine\global_types.h" />
+    <ClInclude Include="..\remc2\engine\MenusAndIntros.h" />
+    <ClInclude Include="..\remc2\engine\Network.h" />
+    <ClInclude Include="..\remc2\engine\ProjectionPolygon.h" />
+    <ClInclude Include="..\remc2\engine\read_config.h" />
+    <ClInclude Include="..\remc2\engine\Rectangle.h" />
+    <ClInclude Include="..\remc2\engine\RenderThread.h" />
+    <ClInclude Include="..\remc2\engine\Sound.h" />
+    <ClInclude Include="..\remc2\engine\sub_main_mouse.h" />
+    <ClInclude Include="..\remc2\engine\Terrain.h" />
+    <ClInclude Include="..\remc2\engine\TextureMaps.h" />
+    <ClInclude Include="..\remc2\engine\TypeConfigDat.h" />
+    <ClInclude Include="..\remc2\engine\Type_Animations.h" />
+    <ClInclude Include="..\remc2\engine\Type_BigSpritesBuffer.h" />
+    <ClInclude Include="..\remc2\engine\Type_D404C.h" />
+    <ClInclude Include="..\remc2\engine\Type_D93C0_Bldgprmbuffer.h" />
+    <ClInclude Include="..\remc2\engine\Type_D94F0_Bldgprmbuffer.h" />
+    <ClInclude Include="..\remc2\engine\Type_E9C38_Smalltit.h" />
+    <ClInclude Include="..\remc2\engine\Type_F2C20ar.h" />
+    <ClInclude Include="..\remc2\engine\Type_MapScreenPortals_E17CC.h" />
+    <ClInclude Include="..\remc2\engine\Type_SecretMapScreenPortals_E2970.h" />
+    <ClInclude Include="..\remc2\engine\Type_Unk_F0E20x.h" />
+    <ClInclude Include="..\remc2\engine\Type_WORD_D951C.h" />
+    <ClInclude Include="..\remc2\engine\ViewPort.h" />
+    <ClInclude Include="..\remc2\engine\XUnk_D4350.h" />
+    <ClInclude Include="..\remc2\portability\dirent-x.h" />
+    <ClInclude Include="..\remc2\portability\fcaseopen.h" />
+    <ClInclude Include="..\remc2\portability\mctypes.h" />
+    <ClInclude Include="..\remc2\portability\port_filesystem.h" />
+    <ClInclude Include="..\remc2\portability\port_inputs.h" />
+    <ClInclude Include="..\remc2\portability\port_net.h" />
+    <ClInclude Include="..\remc2\portability\port_outputs.h" />
+    <ClInclude Include="..\remc2\portability\port_sdl_sound.h" />
+    <ClInclude Include="..\remc2\portability\port_sdl_vga_mouse.h" />
+    <ClInclude Include="..\remc2\portability\port_time.h" />
+    <ClInclude Include="..\remc2\portability\xmi2mid.h" />
+    <ClInclude Include="..\remc2\stdafx.h" />
+    <ClInclude Include="..\remc2\sub_main.h" />
+    <ClInclude Include="..\remc2\targetver.h" />
+    <ClInclude Include="..\remc2\utilities\BitmapIO.h" />
+    <ClInclude Include="..\remc2\utilities\DataFileIO.h" />
+    <ClInclude Include="..\remc2\utilities\Maths.h" />
+    <ClInclude Include="..\remc2\utilities\SafeQueue.h" />
+    <ClInclude Include="..\remc2\utilities\Wave.h" />
+    <ClInclude Include="..\SDL-Mixer-X-master\include\SDL_mixer_ext\SDL_mixer_ext.h" />
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\load_aiff.h" />
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\load_voc.h" />
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_cmd.h" />
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_flac.h" />
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_fluidsynth.h" />
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_gme.h" />
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_id3tag.h" />
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_mad.h" />
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_mikmod.h" />
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_modplug.h" />
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_mpg123.h" />
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_nativemidi.h" />
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_ogg.h" />
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_opus.h" />
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_smpeg.h" />
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_timidity.h" />
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_wav.h" />
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\native_midi\native_midi.h" />
+    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\native_midi\native_midi_common.h" />
+    <ClInclude Include="..\SDL-Mixer-X-master\src\effects_internal.h" />
+    <ClInclude Include="..\SDL-Mixer-X-master\src\mixer.h" />
+    <ClInclude Include="..\SDL-Mixer-X-master\src\music.h" />
+    <ClInclude Include="Basic-tests.h" />
+    <ClInclude Include="Terrain-tests.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\inih\ini.c" />
+    <ClCompile Include="..\inih\INIReader.cpp" />
+    <ClCompile Include="..\kiss_sdl-master\kiss_draw.cpp" />
+    <ClCompile Include="..\kiss_sdl-master\kiss_general.cpp" />
+    <ClCompile Include="..\kiss_sdl-master\kiss_posix.cpp" />
+    <ClCompile Include="..\kiss_sdl-master\kiss_widgets.cpp" />
+    <ClCompile Include="..\libADLMIDI-master\src\adldata.cpp" />
+    <ClCompile Include="..\libADLMIDI-master\src\adlmidi.cpp" />
+    <ClCompile Include="..\libADLMIDI-master\src\adlmidi_load.cpp" />
+    <ClCompile Include="..\libADLMIDI-master\src\adlmidi_midiplay.cpp" />
+    <ClCompile Include="..\libADLMIDI-master\src\adlmidi_opl3.cpp" />
+    <ClCompile Include="..\libADLMIDI-master\src\adlmidi_private.cpp" />
+    <ClCompile Include="..\libADLMIDI-master\src\adlmidi_sequencer.cpp" />
+    <ClCompile Include="..\libADLMIDI-master\src\chips\dosbox\dbopl.cpp" />
+    <ClCompile Include="..\libADLMIDI-master\src\chips\dosbox_opl3.cpp" />
+    <ClCompile Include="..\libADLMIDI-master\src\chips\nuked\nukedopl3.c" />
+    <ClCompile Include="..\libADLMIDI-master\src\chips\nuked\nukedopl3_174.c" />
+    <ClCompile Include="..\libADLMIDI-master\src\chips\nuked_opl3.cpp" />
+    <ClCompile Include="..\libADLMIDI-master\src\chips\nuked_opl3_v174.cpp" />
+    <ClCompile Include="..\libADLMIDI-master\src\wopl\wopl_file.c" />
+    <ClCompile Include="..\libOPNMIDI-master\src\chips\gens\Ym2612_Emu.cpp" />
+    <ClCompile Include="..\libOPNMIDI-master\src\chips\gens_opn2.cpp" />
+    <ClCompile Include="..\libOPNMIDI-master\src\chips\gx\gx_ym2612.c" />
+    <ClCompile Include="..\libOPNMIDI-master\src\chips\gx_opn2.cpp" />
+    <ClCompile Include="..\libOPNMIDI-master\src\chips\mame\mame_ym2612fm.c" />
+    <ClCompile Include="..\libOPNMIDI-master\src\chips\mame_opn2.cpp" />
+    <ClCompile Include="..\libOPNMIDI-master\src\chips\nuked\ym3438.c" />
+    <ClCompile Include="..\libOPNMIDI-master\src\chips\nuked_opn2.cpp" />
+    <ClCompile Include="..\libOPNMIDI-master\src\opnmidi.cpp" />
+    <ClCompile Include="..\libOPNMIDI-master\src\opnmidi_load.cpp" />
+    <ClCompile Include="..\libOPNMIDI-master\src\opnmidi_midiplay.cpp" />
+    <ClCompile Include="..\libOPNMIDI-master\src\opnmidi_opn2.cpp" />
+    <ClCompile Include="..\libOPNMIDI-master\src\opnmidi_private.cpp" />
+    <ClCompile Include="..\libOPNMIDI-master\src\opnmidi_sequencer.cpp" />
+    <ClCompile Include="..\libOPNMIDI-master\src\wopn\wopn_file.c" />
+    <ClCompile Include="..\remc2\editor\editor.cpp" />
+    <ClCompile Include="..\remc2\engine\Animation.cpp" />
+    <ClCompile Include="..\remc2\engine\Basic.cpp" />
+    <ClCompile Include="..\remc2\engine\CommandLineParser.cpp" />
+    <ClCompile Include="..\remc2\engine\engine_support.cpp" />
+    <ClCompile Include="..\remc2\engine\engine_support_converts.cpp" />
+    <ClCompile Include="..\remc2\engine\GameRenderGL.cpp" />
+    <ClCompile Include="..\remc2\engine\GameRenderHD.cpp" />
+    <ClCompile Include="..\remc2\engine\GameRenderOriginal.cpp" />
+    <ClCompile Include="..\remc2\engine\MenusAndIntros.cpp" />
+    <ClCompile Include="..\remc2\engine\Network.cpp" />
+    <ClCompile Include="..\remc2\engine\ProjectionPolygon.cpp" />
+    <ClCompile Include="..\remc2\engine\read_config.cpp" />
+    <ClCompile Include="..\remc2\engine\RenderThread.cpp" />
+    <ClCompile Include="..\remc2\engine\Sound.cpp" />
+    <ClCompile Include="..\remc2\engine\Terrain.cpp" />
+    <ClCompile Include="..\remc2\engine\TextureMaps.cpp" />
+    <ClCompile Include="..\remc2\engine\Type_D404C.cpp" />
+    <ClCompile Include="..\remc2\engine\Type_D93C0_Bldgprmbuffer.cpp" />
+    <ClCompile Include="..\remc2\engine\Type_D94F0_Bldgprmbuffer.cpp" />
+    <ClCompile Include="..\remc2\engine\Type_MapScreenPortals_E17CC.cpp" />
+    <ClCompile Include="..\remc2\engine\Type_SecretMapScreenPortals_E2970.cpp" />
+    <ClCompile Include="..\remc2\engine\Type_WORD_D951C.cpp" />
+    <ClCompile Include="..\remc2\engine\ViewPort.cpp" />
+    <ClCompile Include="..\remc2\engine\XUnk_D4350.cpp" />
+    <ClCompile Include="..\remc2\portability\dirent.c" />
+    <ClCompile Include="..\remc2\portability\fcaseopen.cpp" />
+    <ClCompile Include="..\remc2\portability\port_filesystem.cpp" />
+    <ClCompile Include="..\remc2\portability\port_inputs.cpp" />
+    <ClCompile Include="..\remc2\portability\port_net.cpp" />
+    <ClCompile Include="..\remc2\portability\port_outputs.cpp" />
+    <ClCompile Include="..\remc2\portability\port_sdl_sound.cpp" />
+    <ClCompile Include="..\remc2\portability\port_sdl_vga_mouse.cpp" />
+    <ClCompile Include="..\remc2\portability\port_time.cpp" />
+    <ClCompile Include="..\remc2\portability\xmi2mid.cpp" />
+    <ClCompile Include="..\remc2\stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug-Deploy-Enhanced-Assets|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug-Deploy-Enhanced-Assets|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="..\remc2\sub_main.cpp" />
+    <ClCompile Include="..\remc2\utilities\BitmapIO.cpp" />
+    <ClCompile Include="..\remc2\utilities\DataFileIO.cpp" />
+    <ClCompile Include="..\remc2\utilities\Maths.cpp" />
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\load_aiff.c" />
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\load_voc.c" />
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_cmd.c" />
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_flac.c" />
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_fluidsynth.c" />
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_gme.c" />
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_id3tag.c" />
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_mad.c" />
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_mikmod.c" />
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_modplug.c" />
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_mpg123.c" />
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_nativemidi.c" />
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_ogg.c" />
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_opus.c" />
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_smpeg.c" />
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_timidity.c" />
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_wav.c" />
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\native_midi\native_midi_common.c" />
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\native_midi\native_midi_haiku.cpp" />
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\native_midi\native_midi_mac.c" />
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\native_midi\native_midi_macosx.c" />
+    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\native_midi\native_midi_win32.c" />
+    <ClCompile Include="..\SDL-Mixer-X-master\src\effects_internal.c" />
+    <ClCompile Include="..\SDL-Mixer-X-master\src\effect_position.c" />
+    <ClCompile Include="..\SDL-Mixer-X-master\src\effect_stereoreverse.c" />
+    <ClCompile Include="..\SDL-Mixer-X-master\src\mixer.c" />
+    <ClCompile Include="..\SDL-Mixer-X-master\src\mixer_x_deprecated.c" />
+    <ClCompile Include="..\SDL-Mixer-X-master\src\music.c" />
+    <ClCompile Include="Basic-tests.cpp" />
+    <ClCompile Include="Terrain-tests.cpp" />
+    <ClCompile Include="Unit-tests.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\config.ini">
+      <DeploymentContent>true</DeploymentContent>
+      <FileType>Text</FileType>
+    </None>
+    <None Include="..\libADLMIDI-master\src\adlmidi_bankmap.tcc" />
+    <None Include="..\libADLMIDI-master\src\chips\opl_chip_base.tcc" />
+    <None Include="..\libOPNMIDI-master\src\chips\opn_chip_base.tcc" />
+    <None Include="..\libOPNMIDI-master\src\opnmidi_bankmap.tcc" />
+    <None Include="..\remc2\engine\bytearrays.x" />
+    <None Include="..\remc2\engine\info.x" />
+    <None Include="..\remc2\engine\structures.x" />
+    <None Include="..\SDL-Mixer-X-master\src\codecs\play_cmdmusic.pri" />
+    <None Include="..\SDL-Mixer-X-master\src\codecs\play_flac.pri" />
+    <None Include="..\SDL-Mixer-X-master\src\codecs\play_gme.pri" />
+    <None Include="..\SDL-Mixer-X-master\src\codecs\play_id3tag.pri" />
+    <None Include="..\SDL-Mixer-X-master\src\codecs\play_mad.pri" />
+    <None Include="..\SDL-Mixer-X-master\src\codecs\play_midi_adl.pri" />
+    <None Include="..\SDL-Mixer-X-master\src\codecs\play_midi_fluid.pri" />
+    <None Include="..\SDL-Mixer-X-master\src\codecs\play_midi_native.pri" />
+    <None Include="..\SDL-Mixer-X-master\src\codecs\play_midi_opn.pri" />
+    <None Include="..\SDL-Mixer-X-master\src\codecs\play_midi_timidity.pri" />
+    <None Include="..\SDL-Mixer-X-master\src\codecs\play_mikmod.pri" />
+    <None Include="..\SDL-Mixer-X-master\src\codecs\play_modplug.pri" />
+    <None Include="..\SDL-Mixer-X-master\src\codecs\play_mpg123.pri" />
+    <None Include="..\SDL-Mixer-X-master\src\codecs\play_ogg.pri" />
+    <None Include="..\SDL-Mixer-X-master\src\codecs\play_smpeg.pri" />
+    <None Include="..\SDL-Mixer-X-master\src\codecs\play_wave.pri" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="..\libpng2\libpng-master\projects\vstudio2017\Debug\libpng15.lib" />
+    <Library Include="..\libpng3\lib\libpng16_static.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-Deploy-Enhanced-Assets|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-Deploy-Enhanced-Assets|x64'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="..\SDL2_image-2.0.5\lib\x64\SDL2_image.lib" />
+    <Library Include="..\SDL2_image-2.0.5\lib\x86\SDL2_image.lib" />
+    <Library Include="..\SDL2_ttf-2.0.15\lib\x64\SDL2_ttf.lib" />
+    <Library Include="..\SDL2_ttf-2.0.15\lib\x86\SDL2_ttf.lib" />
+    <Library Include="..\zlib-64\lib\zlib.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-Deploy-Enhanced-Assets|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-Deploy-Enhanced-Assets|x64'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="..\zlib\lib\zlib.lib" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{5a8f70a7-dfc4-4103-bfc2-c8e212918a73}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>Unittests</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-Deploy-Enhanced-Assets|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-Deploy-Enhanced-Assets|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug-Deploy-Enhanced-Assets|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug-Deploy-Enhanced-Assets|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <CopyLocalDeploymentContent>true</CopyLocalDeploymentContent>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-Deploy-Enhanced-Assets|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <CopyLocalDeploymentContent>true</CopyLocalDeploymentContent>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <CopyLocalDeploymentContent>true</CopyLocalDeploymentContent>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-Deploy-Enhanced-Assets|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <CopyLocalDeploymentContent>true</CopyLocalDeploymentContent>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;_DEBUG;_CONSOLE;WINDOWS_IGNORE_PACKING_MISMATCH;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>false</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)\sdl2\include;$(SolutionDir)\libADLMIDI-master\include;$(SolutionDir)\libOPNMIDI-master\include;$(SolutionDir)\SDL-Mixer-X-master\include\SDL_mixer_ext;$(SolutionDir)\SDL-Mixer-X-master\src;$(SolutionDir)\inih;$(SolutionDir)\libvorbis\include;$(SolutionDir)\libogg\include;$(SolutionDir)\libpng2\libpng-master;$(SolutionDir)\zlib\include;$(SolutionDir)\kiss_sdl-master;$(SolutionDir)\SDL2_image-2.0.5\include;$(SolutionDir)\SDL2_ttf-2.0.15\include;$(SolutionDir)\SDL-Mixer-X-master\src\codecs\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)\sdl2\VisualC\Win32\Debug\;$(SolutionDir)\Debug;$(SolutionDir)\libvorbis\win32\VS2010\Win32\Debug;$(SolutionDir)\libogg\win32\VS2015\Win32\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;winmm.lib;libvorbis_static.lib;libvorbisfile_static.lib;libogg_static.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>
+        XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
+      </Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug-Deploy-Enhanced-Assets|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>false</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)\sdl2\include;$(SolutionDir)\fluidsynth\include;$(SolutionDir)\libADLMIDI-master\include;$(SolutionDir)\libOPNMIDI-master\include;$(SolutionDir)\SDL-Mixer-X-master\include\SDL_mixer_ext;$(SolutionDir)\SDL-Mixer-X-master\src;$(SolutionDir)\inih;$(SolutionDir)\libvorbis\include;$(SolutionDir)\libogg\include;C:\Program Files %28x86%29\Visual Leak Detector\include;$(SolutionDir)\libpng2\libpng-master;$(SolutionDir)\zlib\include;$(SolutionDir)\kiss_sdl-master;$(SolutionDir)\SDL2_image-2.0.5\include;$(SolutionDir)\SDL2_ttf-2.0.15\include;$(SolutionDir)\SDL-Mixer-X-master\include\;$(SolutionDir)\SDL-Mixer-X-master\src\codecs\;$(SolutionDir)\OpenAL 1.1 SDK\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)\sdl2\VisualC\Win32\Debug\;$(SolutionDir)\Debug;$(SolutionDir)\fluidsynth\lib;$(SolutionDir)\libvorbis\win32\VS2010\Win32\Debug;$(SolutionDir)\libogg\win32\VS2015\Win32\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;winmm.lib;libvorbis_static.lib;libvorbisfile_static.lib;libogg_static.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>
+        XCOPY "$(SolutionDir)enhancedassets\biggraphics" "$(TargetDir)biggraphics\" /S /Y
+        XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
+      </Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)\sdl2\include;$(SolutionDir)\fluidsynth\include;$(SolutionDir)\libADLMIDI-master\include;$(SolutionDir)\libOPNMIDI-master\include;$(SolutionDir)\SDL-Mixer-X-master\include\SDL_mixer_ext;$(SolutionDir)\SDL-Mixer-X-master\src;$(SolutionDir)\inih;$(SolutionDir)\libvorbis\include;$(SolutionDir)\libogg\include;C:\Program Files %28x86%29\Visual Leak Detector\include;$(SolutionDir)\libpng2\libpng-master;$(SolutionDir)\zlib\include;$(SolutionDir)\kiss_sdl-master;$(SolutionDir)\SDL2_image-2.0.5\include;$(SolutionDir)\SDL2_ttf-2.0.15\include;$(SolutionDir)\SDL-Mixer-X-master\include\;$(SolutionDir)\SDL-Mixer-X-master\src\codecs\;$(SolutionDir)\OpenAL 1.1 SDK\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OmitFramePointers>false</OmitFramePointers>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <TargetMachine>MachineX64</TargetMachine>
+      <AdditionalIncludeDirectories>$(SolutionDir)\sdl2\include;$(SolutionDir)\fluidsynth\include;$(SolutionDir)\libADLMIDI-master\include;$(SolutionDir)\libOPNMIDI-master\include;$(SolutionDir)\SDL-Mixer-X-master\include\SDL_mixer_ext;$(SolutionDir)\SDL-Mixer-X-master\src;$(SolutionDir)\inih;$(SolutionDir)\libvorbis\include;$(SolutionDir)\libogg\include;C:\Program Files %28x86%29\Visual Leak Detector\include;$(SolutionDir)\libpng2\libpng-master;$(SolutionDir)\zlib\include;$(SolutionDir)\kiss_sdl-master;$(SolutionDir)\SDL2_image-2.0.5\include;$(SolutionDir)\SDL2_ttf-2.0.15\include;$(SolutionDir)\SDL-Mixer-X-master\include\;$(SolutionDir)\SDL-Mixer-X-master\src\codecs\;$(SolutionDir)\OpenAL 1.1 SDK\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;winmm.lib;libvorbis_static.lib;libvorbisfile_static.lib;libogg_static.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\sdl2\VisualC\x64\Debug\;$(SolutionDir)\x64\Debug;$(SolutionDir)\fluidsynth\lib;$(SolutionDir)\libvorbis\win32\VS2010\x64\Debug;$(SolutionDir)\libogg\win32\VS2015\x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+    <PostBuildEvent>
+      <Command>
+        XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
+      </Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug-Deploy-Enhanced-Assets|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)\sdl2\include;$(SolutionDir)\fluidsynth\include;$(SolutionDir)\libADLMIDI-master\include;$(SolutionDir)\libOPNMIDI-master\include;$(SolutionDir)\SDL-Mixer-X-master\include\SDL_mixer_ext;$(SolutionDir)\SDL-Mixer-X-master\src;$(SolutionDir)\inih;$(SolutionDir)\libvorbis\include;$(SolutionDir)\libogg\include;C:\Program Files %28x86%29\Visual Leak Detector\include;$(SolutionDir)\libpng2\libpng-master;$(SolutionDir)\zlib\include;$(SolutionDir)\kiss_sdl-master;$(SolutionDir)\SDL2_image-2.0.5\include;$(SolutionDir)\SDL2_ttf-2.0.15\include;$(SolutionDir)\SDL-Mixer-X-master\include\;$(SolutionDir)\SDL-Mixer-X-master\src\codecs\;$(SolutionDir)\OpenAL 1.1 SDK\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OmitFramePointers>false</OmitFramePointers>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <TargetMachine>MachineX64</TargetMachine>
+      <AdditionalIncludeDirectories>$(SolutionDir)\sdl2\include;$(SolutionDir)\fluidsynth\include;$(SolutionDir)\libADLMIDI-master\include;$(SolutionDir)\libOPNMIDI-master\include;$(SolutionDir)\SDL-Mixer-X-master\include\SDL_mixer_ext;$(SolutionDir)\SDL-Mixer-X-master\src;$(SolutionDir)\inih;$(SolutionDir)\libvorbis\include;$(SolutionDir)\libogg\include;C:\Program Files %28x86%29\Visual Leak Detector\include;$(SolutionDir)\libpng2\libpng-master;$(SolutionDir)\zlib\include;$(SolutionDir)\kiss_sdl-master;$(SolutionDir)\SDL2_image-2.0.5\include;$(SolutionDir)\SDL2_ttf-2.0.15\include;$(SolutionDir)\SDL-Mixer-X-master\include\;$(SolutionDir)\SDL-Mixer-X-master\src\codecs\;$(SolutionDir)\OpenAL 1.1 SDK\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;winmm.lib;libvorbis_static.lib;libvorbisfile_static.lib;libogg_static.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\sdl2\VisualC\x64\Debug\;$(SolutionDir)\x64\Debug;$(SolutionDir)\fluidsynth\lib;$(SolutionDir)\libvorbis\win32\VS2010\x64\Debug;$(SolutionDir)\libogg\win32\VS2015\x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+    <PostBuildEvent>
+      <Command>
+        XCOPY "$(SolutionDir)enhancedassets\biggraphics" "$(TargetDir)biggraphics\" /S /Y
+        XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
+      </Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>false</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)\sdl2\include;$(SolutionDir)\fluidsynth\include;$(SolutionDir)\libADLMIDI-master\include;$(SolutionDir)\libOPNMIDI-master\include;$(SolutionDir)\SDL-Mixer-X-master\include\SDL_mixer_ext;$(SolutionDir)\SDL-Mixer-X-master\src;$(SolutionDir)\inih;$(SolutionDir)\libvorbis\include;$(SolutionDir)\libogg\include;C:\Program Files %28x86%29\Visual Leak Detector\include;$(SolutionDir)\libpng2\libpng-master;$(SolutionDir)\zlib\include;$(SolutionDir)\kiss_sdl-master;$(SolutionDir)\SDL2_image-2.0.5\include;$(SolutionDir)\SDL2_ttf-2.0.15\include;$(SolutionDir)\SDL-Mixer-X-master\include\;$(SolutionDir)\SDL-Mixer-X-master\src\codecs\;$(SolutionDir)\OpenAL 1.1 SDK\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>c:\prenos\remc2\sdl2\VisualC\Win32\Debug\;C:\prenos\remc2\Debug;C:\prenos\remc2\fluidsynth\lib;C:\prenos\remc2\libvorbis\win32\VS2010\Win32\Debug;C:\prenos\remc2\libogg\win32\VS2015\Win32\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;winmm.lib;libvorbis_static.lib;libvorbisfile_static.lib;libogg_static.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+    <Import Project="..\packages\boost.1.79.0\build\boost.targets" Condition="Exists('..\packages\boost.1.79.0\build\boost.targets')" />
+    <Import Project="..\packages\ogg-msvc-x86.1.3.2.8787\build\native\ogg-msvc-x86.targets" Condition="Exists('..\packages\ogg-msvc-x86.1.3.2.8787\build\native\ogg-msvc-x86.targets')" />
+    <Import Project="..\packages\ogg-msvc-x64.1.3.2.8787\build\native\ogg-msvc-x64.targets" Condition="Exists('..\packages\ogg-msvc-x64.1.3.2.8787\build\native\ogg-msvc-x64.targets')" />
+  </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Tenhle projekt odkazuje na balíčky NuGet, které nejsou v tomhle počítači k dispozici. Když je chcete stáhnout, použijte funkci obnovení balíčků NuGet.  Další informace najdete na adrese http://go.microsoft.com/fwlink/?LinkID=322105. Chybějícím souborem je soubor {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\boost.1.79.0\build\boost.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\boost.1.79.0\build\boost.targets'))" />
+    <Error Condition="!Exists('..\packages\ogg-msvc-x86.1.3.2.8787\build\native\ogg-msvc-x86.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\ogg-msvc-x86.1.3.2.8787\build\native\ogg-msvc-x86.targets'))" />
+    <Error Condition="!Exists('..\packages\ogg-msvc-x64.1.3.2.8787\build\native\ogg-msvc-x64.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\ogg-msvc-x64.1.3.2.8787\build\native\ogg-msvc-x64.targets'))" />
+  </Target>
+</Project>
