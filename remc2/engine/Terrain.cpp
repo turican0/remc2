@@ -1776,13 +1776,13 @@ int sub_1B7A0_tile_compare(axis_3d* a1)//1fc7a0
 	uindex._axis_2d.y = a1->y >> 8;
 	uint8_t point1 = mapHeightmap_11B4E0[uindex.word];
 	uindex._axis_2d.x++;
-	uint8_t point3 = mapHeightmap_11B4E0[uindex.word];
-	uindex._axis_2d.y++;
-	uint8_t point4 = mapHeightmap_11B4E0[uindex.word];
-	uindex._axis_2d.x--;
 	uint8_t point2 = mapHeightmap_11B4E0[uindex.word];
-	int result1 = abs(point1 + point2 - point3 - point4);
-	int result2 = abs(point1 + point3 - point2 - point4);
+	uindex._axis_2d.y++;
+	uint8_t point3 = mapHeightmap_11B4E0[uindex.word];
+	uindex._axis_2d.x--;
+	uint8_t point4 = mapHeightmap_11B4E0[uindex.word];
+	int result1 = abs(point1 + point4 - point2 - point3);
+	int result2 = abs(point1 + point2 - point4 - point3);
 	if (result1 > result2)
 		return result1;
 	return result2;
@@ -1791,34 +1791,28 @@ int sub_1B7A0_tile_compare(axis_3d* a1)//1fc7a0
 //----- (0001B830) --------------------------------------------------------
 int sub_1B830(axis_3d* a1)//1fc830
 {
-	unsigned __int16 v1; // ax
-	unsigned __int16 v2; // dx
-	unsigned __int16 v3; // bx
-	unsigned __int8 v4; // cl
-	unsigned __int16 v5; // bx
-	int v6; // esi
-	int v7; // ebx
-	int v8; // ecx
-	int v9; // ebx
 
-	LOBYTE(v1) = (a1->x >> 8) - 1;
-	HIBYTE(v1) = (a1->y >> 8) - 1;
-	v2 = v1;
-	LOBYTE(v1) = v1 + 2;
-	v3 = v1;
-	HIBYTE(v1) += 2;
-	v4 = mapHeightmap_11B4E0[v3];
-	v5 = v1;
-	LOBYTE(v2) = mapHeightmap_11B4E0[v2];
-	LOBYTE(v1) = v1 - 2;
-	HIBYTE(v2) = mapHeightmap_11B4E0[v5];
-	v6 = mapHeightmap_11B4E0[v1];
-	v7 = (unsigned __int8)v2 + v4 - v6;
-	v8 = abs((unsigned __int8)v2 + v6 - v4 - HIBYTE(v2));
-	v9 = abs(v7 - HIBYTE(v2));
-	if (v8 > v9)
-		v9 = v8;
-	return v9;
+	//  X-.-X
+	//      |
+	//      .
+	//      |
+	//  B-.-X
+
+	uaxis_2d uindex;
+	uindex._axis_2d.x = (a1->x >> 8) - 1;
+	uindex._axis_2d.y = (a1->y >> 8) - 1;
+	uint8_t point1 = mapHeightmap_11B4E0[uindex.word];
+	uindex._axis_2d.x += 2;
+	uint8_t point2 = mapHeightmap_11B4E0[uindex.word];
+	uindex._axis_2d.y += 2;
+	uint8_t point3 = mapHeightmap_11B4E0[uindex.word];
+	uindex._axis_2d.x += 2;
+	uint8_t point4 = mapHeightmap_11B4E0[uindex.word];
+	int result1 = abs(point1 + point4 - point2 - point3);
+	int result2 = abs(point1 + point2 - point4 - point3);
+	if (result1 > result2)
+		return result1;
+	return result2;
 }
 
 
