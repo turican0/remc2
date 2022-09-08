@@ -2194,7 +2194,7 @@ uint8_t sub_45BE0_orig(uint8_t a2, uaxis_2d a3x)//226be0
 	{
 		result = a1;
 	LABEL_44:
-		x_DWORD_D47DC = v8;
+		lowDiffHeightmap_D47DC = v8;
 		return result;
 	}
 	if (a1 > 3u)
@@ -2213,27 +2213,27 @@ uint8_t sub_45BE0_orig(uint8_t a2, uaxis_2d a3x)//226be0
 			goto LABEL_38;
 	LABEL_36:
 		result = 4;
-		x_DWORD_D47DC = v8;
+		lowDiffHeightmap_D47DC = v8;
 		return result;
 	case 2:
 		if (a2 == 3)
 			goto LABEL_40;
 	LABEL_38:
 		result = 5;
-		x_DWORD_D47DC = v8;
+		lowDiffHeightmap_D47DC = v8;
 		break;
 	case 3:
 		if (a2)
 		{
 		LABEL_40:
 			result = 6;
-			x_DWORD_D47DC = v8;
+			lowDiffHeightmap_D47DC = v8;
 		}
 		else
 		{
 		LABEL_42:
 			result = 7;
-			x_DWORD_D47DC = v8;
+			lowDiffHeightmap_D47DC = v8;
 		}
 		break;
 	}
@@ -2256,7 +2256,7 @@ void test_45BE0() {
 			tempHeight1[i] = mapHeightmap_11B4E0[i];
 		}
 		sub_45BE0_orig(testA2, testAxis2D);
-		int tempx_DWORD_D47DC = x_DWORD_D47DC;
+		int tempx_DWORD_D47DC = lowDiffHeightmap_D47DC;
 		for (int i = 0; i < 256 * 256; i++)
 		{
 			tempHeight2[i] = mapHeightmap_11B4E0[i];
@@ -2268,7 +2268,7 @@ void test_45BE0() {
 			if (tempHeight2[i] != mapHeightmap_11B4E0[i])
 				TestError();
 		}
-		if(tempx_DWORD_D47DC != x_DWORD_D47DC)
+		if(tempx_DWORD_D47DC != lowDiffHeightmap_D47DC)
 			TestError();
 	}
 	free(tempHeight1);

@@ -18,7 +18,7 @@ extern uint8_t mapShading_12B4E0[65536];
 extern uint8_t mapAngle_13B4E0[65536];
 extern __int16 mapEntityIndex_15B4E0[65536];
 
-extern int x_DWORD_D47DC;
+extern bool lowDiffHeightmap_D47DC;
 
 void GenerateLevelMap_43830(type_str_2FECE* a2x);//224830
 void sub_B5E70_decompress_terrain_map_level(__int16 a1, unsigned __int16 a2, __int16 a3, int32_t a4);//296e70
