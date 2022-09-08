@@ -2631,7 +2631,6 @@ void test_45DC0() {
 			for (int m = 0; m < 2; m++)
 			{
 				x_BYTE_F2CD0x[i][m] = pseudoRand() % 256;
-				//tempx_BYTE_F2CD0x1[i][m] = x_BYTE_F2CD0x[i][m];
 			}
 		x_WORD_17B4E0 = pseudoRand() % (256 * 256);
 		uint16_t tempx_WORD_17B4E01 = x_WORD_17B4E0;
