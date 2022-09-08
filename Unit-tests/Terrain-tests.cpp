@@ -2112,8 +2112,168 @@ int sub_1B830_orig(axis_3d* a1)//1fc830
 	return v9;
 }
 
+uint8_t sub_45BE0_orig(uint8_t a2, uaxis_2d a3x)//226be0
+{
+	uaxis_2d v3x; // ax
+	uint8_t v4; // bl
+	uint8_t v5; // dh
+	uint8_t v6; // bh
+	uint8_t v7; // al
+	uint32_t v8; // edi
+	uint8_t result; // al
 
+	uint8_t a1 = 0;
 
+	v3x.word = a3x.word;
+	v4 = 0xFFu;
+	v5 = 0;
+	if (mapHeightmap_11B4E0[a3x.word])
+	{
+		v5 = mapHeightmap_11B4E0[a3x.word];
+		a1 = 0;
+	}
+	if (mapHeightmap_11B4E0[a3x.word] < 0xFFu)
+		v4 = mapHeightmap_11B4E0[a3x.word];
+	v3x._axis_2d.x++;
+	if (mapHeightmap_11B4E0[v3x.word] > v5)
+	{
+		v5 = mapHeightmap_11B4E0[v3x.word];
+		a1 = 1;
+	}
+	if (mapHeightmap_11B4E0[v3x.word] < v4)
+		v4 = mapHeightmap_11B4E0[v3x.word];
+	v3x._axis_2d.y++;
+	if (mapHeightmap_11B4E0[v3x.word] > v5)
+	{
+		v5 = mapHeightmap_11B4E0[v3x.word];
+		a1 = 2;
+	}
+	if (mapHeightmap_11B4E0[v3x.word] < v4)
+		v4 = mapHeightmap_11B4E0[v3x.word];
+	v3x._axis_2d.x--;
+	if (mapHeightmap_11B4E0[v3x.word] > v5)
+	{
+		v5 = mapHeightmap_11B4E0[v3x.word];
+		a1 = 3;
+	}
+	if (mapHeightmap_11B4E0[v3x.word] < v4)
+		v4 = mapHeightmap_11B4E0[v3x.word];
+	v3x._axis_2d.y--;
+	v6 = 0;
+	if (a1 && mapHeightmap_11B4E0[v3x.word])
+	{
+		v6 = mapHeightmap_11B4E0[v3x.word];
+		a2 = 0;
+	}
+	v3x._axis_2d.x++;
+	if (a1 != 1 && mapHeightmap_11B4E0[v3x.word] > v6)
+	{
+		v6 = mapHeightmap_11B4E0[v3x.word];
+		a2 = 1;
+	}
+	v3x._axis_2d.y++;
+	if (a1 != 2 && mapHeightmap_11B4E0[v3x.word] > v6)
+	{
+		v6 = mapHeightmap_11B4E0[v3x.word];
+		a2 = 2;
+	}
+	v3x._axis_2d.x--;
+	if (a1 != 3)
+	{
+		v7 = mapHeightmap_11B4E0[v3x.word];
+		if (v7 > v6)
+		{
+			a2 = 3;
+			v6 = v7;
+		}
+	}
+	v8 = 0;
+	if (v5 - v4 <= 8)
+		v8 = 1;
+	if (v5 - v6 >= 8)
+	{
+		result = a1;
+	LABEL_44:
+		x_DWORD_D47DC = v8;
+		return result;
+	}
+	if (a1 > 3u)
+	{
+		result = 0;
+		goto LABEL_44;
+	}
+	switch (a1)
+	{
+	case 0:
+		if (a2 != 1)
+			goto LABEL_42;
+		goto LABEL_36;
+	case 1:
+		if (a2 == 2)
+			goto LABEL_38;
+	LABEL_36:
+		result = 4;
+		x_DWORD_D47DC = v8;
+		return result;
+	case 2:
+		if (a2 == 3)
+			goto LABEL_40;
+	LABEL_38:
+		result = 5;
+		x_DWORD_D47DC = v8;
+		break;
+	case 3:
+		if (a2)
+		{
+		LABEL_40:
+			result = 6;
+			x_DWORD_D47DC = v8;
+		}
+		else
+		{
+		LABEL_42:
+			result = 7;
+			x_DWORD_D47DC = v8;
+		}
+		break;
+	}
+	return result;
+}
+
+void test_45BE0() {
+	uint8_t* tempHeight1 = (uint8_t*)malloc(65536);
+	uint8_t* tempHeight2 = (uint8_t*)malloc(65536);
+
+	for (int j = 0; j < 400; j++)
+	{
+		uaxis_2d testAxis2D;
+		testAxis2D.word = pseudoRand() % (256 * 256);
+		uint8_t testA2 = pseudoRand() % 256;
+
+		for (int i = 0; i < 256 * 256; i++)
+		{
+			mapHeightmap_11B4E0[i] = pseudoRand() % 256;
+			tempHeight1[i] = mapHeightmap_11B4E0[i];
+		}
+		sub_45BE0_orig(testA2, testAxis2D);
+		int tempx_DWORD_D47DC = x_DWORD_D47DC;
+		for (int i = 0; i < 256 * 256; i++)
+		{
+			tempHeight2[i] = mapHeightmap_11B4E0[i];
+			mapHeightmap_11B4E0[i] = tempHeight1[i];
+		}
+		sub_45BE0(testA2, testAxis2D);
+		for (int i = 0; i < 256 * 256; i++)
+		{
+			if (tempHeight2[i] != mapHeightmap_11B4E0[i])
+				TestError();
+		}
+		if(tempx_DWORD_D47DC != x_DWORD_D47DC)
+			TestError();
+	}
+	free(tempHeight1);
+	free(tempHeight2);
+}
 
 void test_1B830() {
 	uint8_t* tempHeight1 = (uint8_t*)malloc(65536);
@@ -2858,6 +3018,10 @@ void test_44DB0() {
 };
 
 void Terrain_test() {
+	printf("test_45BE0 - ");
+	test_45BE0();
+	printf("OK\n");
+
 	printf("test_1B830 - ");
 	test_1B830();
 	printf("OK\n");
@@ -2942,3 +3106,4 @@ void Terrain_test() {
 	test_B5C60();
 	printf("OK\n");
 }
+
