@@ -2354,14 +2354,9 @@ int sub_10C60(axis_3d* axis3d)//1f1c60
 int sub_B5D68(uint16_t inX, uint16_t inY)//296d68
 {
 	uint8_t point1;
-	int v5; // esi
-	int v6; // esi
-	int result; // eax
 	uint8_t point2;
-	int v9; // eax
-	int v10; // esi
-	int v11; // esi
-	int v12; // edi
+	int finalComp;
+	int result;
 
 	uaxis_2d tempAxis;
 	uaxis_2d tempInX;
@@ -2373,46 +2368,46 @@ int sub_B5D68(uint16_t inX, uint16_t inY)//296d68
 
 	if ((tempInX._axis_2d.y + tempInY._axis_2d.y) & 1)
 	{
-		if (__CFADD__(tempInY._axis_2d.x, tempInX._axis_2d.x))
+		if (tempInY._axis_2d.x > (tempInY._axis_2d.x + tempInX._axis_2d.x) % 256)
 		{
-			tempAxis._axis_2d.y = tempInY._axis_2d.y + 1;
+			tempAxis._axis_2d.y++;
 			point1 = x_BYTE_14B4E0_second_heightmap[tempAxis.word];
 			tempAxis._axis_2d.x++;
 			point2 = x_BYTE_14B4E0_second_heightmap[tempAxis.word];
-			tempInY._axis_2d.x = 255 - tempInY._axis_2d.x;
-			tempAxis._axis_2d.y = tempInY._axis_2d.y;
-			v6 = tempInY._axis_2d.x * ((unsigned __int8)x_BYTE_14B4E0_second_heightmap[tempAxis.word] - point2) + tempInX._axis_2d.x * (point2 - point1);
+			tempInY._axis_2d.x = 255 - 1 - tempInY._axis_2d.x;
+			tempAxis._axis_2d.y--;
+			finalComp = tempInY._axis_2d.x * (x_BYTE_14B4E0_second_heightmap[tempAxis.word] - point2) + tempInX._axis_2d.x * (point2 - point1);
 		}
 		else
 		{
 			point1 = x_BYTE_14B4E0_second_heightmap[tempAxis.word];
 			tempAxis._axis_2d.x++;
-			v5 = tempInX._axis_2d.x * ((unsigned __int8)x_BYTE_14B4E0_second_heightmap[tempAxis.word] - point1);
+			point2 = x_BYTE_14B4E0_second_heightmap[tempAxis.word];
 			tempAxis._axis_2d.x--;
-			tempAxis._axis_2d.y = tempInY._axis_2d.y + 1;
-			v6 = tempInY._axis_2d.x * ((unsigned __int8)x_BYTE_14B4E0_second_heightmap[tempAxis.word] - point1) + v5;
+			tempAxis._axis_2d.y++;
+			finalComp = tempInY._axis_2d.x * (x_BYTE_14B4E0_second_heightmap[tempAxis.word] - point1) + tempInX._axis_2d.x * (point2 - point1);
 		}
-		result = (v6 >> 3) + 32 * point1;
+		result = (finalComp >> 3) + 32 * point1;
 	}
 	else
 	{
 		if (tempInX._axis_2d.x <= tempInY._axis_2d.x)
 		{
-			v9 = (unsigned __int8)x_BYTE_14B4E0_second_heightmap[tempAxis.word];
-			tempAxis._axis_2d.y = tempInY._axis_2d.y + 1;
-			v12 = (unsigned __int8)x_BYTE_14B4E0_second_heightmap[tempAxis.word];
+			point1 = x_BYTE_14B4E0_second_heightmap[tempAxis.word];
+			tempAxis._axis_2d.y++;
+			point2 = x_BYTE_14B4E0_second_heightmap[tempAxis.word];
 			tempAxis._axis_2d.x++;
-			v11 = tempInY._axis_2d.x * (v12 - v9) + tempInX._axis_2d.x * ((unsigned __int8)x_BYTE_14B4E0_second_heightmap[tempAxis.word] - v12);
+			finalComp = tempInY._axis_2d.x * (point2 - point1) + tempInX._axis_2d.x * (x_BYTE_14B4E0_second_heightmap[tempAxis.word] - point2);
 		}
 		else
 		{
-			v9 = (unsigned __int8)x_BYTE_14B4E0_second_heightmap[tempAxis.word];
+			point1 = x_BYTE_14B4E0_second_heightmap[tempAxis.word];
 			tempAxis._axis_2d.x++;
-			v10 = (unsigned __int8)x_BYTE_14B4E0_second_heightmap[tempAxis.word];
-			tempAxis._axis_2d.y = tempInY._axis_2d.y + 1;
-			v11 = tempInY._axis_2d.x * ((unsigned __int8)x_BYTE_14B4E0_second_heightmap[tempAxis.word] - v10) + tempInX._axis_2d.x * (v10 - v9);
+			point2 = x_BYTE_14B4E0_second_heightmap[tempAxis.word];
+			tempAxis._axis_2d.y++;
+			finalComp = tempInY._axis_2d.x * (x_BYTE_14B4E0_second_heightmap[tempAxis.word] - point2) + tempInX._axis_2d.x * (point2 - point1);
 		}
-		result = (v11 >> 3) + 32 * v9;
+		result = (finalComp >> 3) + 32 * point1;
 	}
 	return result;
 }
