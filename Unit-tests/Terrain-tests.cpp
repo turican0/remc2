@@ -2240,6 +2240,70 @@ uint8_t sub_45BE0_orig(uint8_t a2, uaxis_2d a3x)//226be0
 	return result;
 }
 
+bool sub_33F70_orig(unsigned __int16 a1)//214f70
+{
+	unsigned __int16 v1; // ax
+	signed int v2; // edx
+	unsigned __int16 v3; // ax
+	bool result; // al
+
+	HIBYTE(v1) = HIBYTE(a1);
+	LOBYTE(v1) = a1 - 1;
+	result = 1;
+	if (mapTerrainType_10B4E0[v1] == 8)
+	{
+		v2 = (unsigned __int16)(mapHeightmap_11B4E0[a1] + 30);
+		if (mapHeightmap_11B4E0[v1] <= (signed int)(unsigned __int16)v2)
+		{
+			LOBYTE(v1) = v1 + 2;
+			if (mapHeightmap_11B4E0[v1] <= v2)
+			{
+				LOBYTE(v3) = v1 - 1;
+				HIBYTE(v3) = HIBYTE(a1) + 1;
+				if (mapHeightmap_11B4E0[v3] <= v2)
+				{
+					HIBYTE(v3) = HIBYTE(a1) - 1;
+					if (mapHeightmap_11B4E0[v3] <= v2)
+						result = 0;
+				}
+			}
+		}
+	}
+	return result;
+}
+
+void test_33F70() {
+	uint8_t* tempHeight1 = (uint8_t*)malloc(65536);
+	uint8_t* tempHeight2 = (uint8_t*)malloc(65536);
+
+	for (int j = 0; j < 400; j++)
+	{
+		uaxis_2d testAxis2D;
+		testAxis2D.word = pseudoRand() % (256 * 256);
+
+		for (int i = 0; i < 256 * 256; i++)
+		{
+			mapTerrainType_10B4E0[i] = pseudoRand() % 256;
+			mapHeightmap_11B4E0[i] = pseudoRand() % 256;
+			tempHeight1[i] = mapHeightmap_11B4E0[i];
+		}
+		sub_33F70_orig(testAxis2D.word);
+		for (int i = 0; i < 256 * 256; i++)
+		{
+			tempHeight2[i] = mapHeightmap_11B4E0[i];
+			mapHeightmap_11B4E0[i] = tempHeight1[i];
+		}
+		sub_33F70(testAxis2D.word);
+		for (int i = 0; i < 256 * 256; i++)
+		{
+			if (tempHeight2[i] != mapHeightmap_11B4E0[i])
+				TestError();
+		}
+	}
+	free(tempHeight1);
+	free(tempHeight2);
+}
+
 void test_45BE0() {
 	uint8_t* tempHeight1 = (uint8_t*)malloc(65536);
 	uint8_t* tempHeight2 = (uint8_t*)malloc(65536);
@@ -3018,6 +3082,10 @@ void test_44DB0() {
 };
 
 void Terrain_test() {
+	printf("test_45BE0 - ");
+	test_33F70();
+	printf("OK\n");
+
 	printf("test_45BE0 - ");
 	test_45BE0();
 	printf("OK\n");

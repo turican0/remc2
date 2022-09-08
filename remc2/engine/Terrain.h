@@ -48,5 +48,6 @@ void sub_43BB0();//224bb0
 int sub_1B7A0_tile_compare(axis_3d* a1);
 int sub_1B830(axis_3d* a1);
 uint8_t sub_45BE0(uint8_t a2, uaxis_2d a3x);//226be0
+bool sub_33F70(unsigned __int16 a1);
 
 #endif //MAIN_TERRAIN
