@@ -1815,5 +1815,134 @@ int sub_1B830(axis_3d* a1)//1fc830
 	return result2;
 }
 
+//----- (00045BE0) --------------------------------------------------------
+uint8_t sub_45BE0(uint8_t a2, uaxis_2d a3x)//226be0
+{
+	uaxis_2d v3x; // ax
+	uint8_t v4; // bl
+	uint8_t v5; // dh
+	uint8_t v6; // bh
+	uint8_t v7; // al
+	uint32_t v8; // edi
+	uint8_t result; // al
+
+	uint8_t a1 = 0;
+
+	v3x.word = a3x.word;
+	v4 = 0xFFu;
+	v5 = 0;
+	if (mapHeightmap_11B4E0[a3x.word])
+	{
+		v5 = mapHeightmap_11B4E0[a3x.word];
+		a1 = 0;
+	}
+	if (mapHeightmap_11B4E0[a3x.word] < 0xFFu)
+		v4 = mapHeightmap_11B4E0[a3x.word];
+	v3x._axis_2d.x++;
+	if (mapHeightmap_11B4E0[v3x.word] > v5)
+	{
+		v5 = mapHeightmap_11B4E0[v3x.word];
+		a1 = 1;
+	}
+	if (mapHeightmap_11B4E0[v3x.word] < v4)
+		v4 = mapHeightmap_11B4E0[v3x.word];
+	v3x._axis_2d.y++;
+	if (mapHeightmap_11B4E0[v3x.word] > v5)
+	{
+		v5 = mapHeightmap_11B4E0[v3x.word];
+		a1 = 2;
+	}
+	if (mapHeightmap_11B4E0[v3x.word] < v4)
+		v4 = mapHeightmap_11B4E0[v3x.word];
+	v3x._axis_2d.x--;
+	if (mapHeightmap_11B4E0[v3x.word] > v5)
+	{
+		v5 = mapHeightmap_11B4E0[v3x.word];
+		a1 = 3;
+	}
+	if (mapHeightmap_11B4E0[v3x.word] < v4)
+		v4 = mapHeightmap_11B4E0[v3x.word];
+	v3x._axis_2d.y--;
+	v6 = 0;
+	if (a1 && mapHeightmap_11B4E0[v3x.word])
+	{
+		v6 = mapHeightmap_11B4E0[v3x.word];
+		a2 = 0;
+	}
+	v3x._axis_2d.x++;
+	if (a1 != 1 && mapHeightmap_11B4E0[v3x.word] > v6)
+	{
+		v6 = mapHeightmap_11B4E0[v3x.word];
+		a2 = 1;
+	}
+	v3x._axis_2d.y++;
+	if (a1 != 2 && mapHeightmap_11B4E0[v3x.word] > v6)
+	{
+		v6 = mapHeightmap_11B4E0[v3x.word];
+		a2 = 2;
+	}
+	v3x._axis_2d.x--;
+	if (a1 != 3)
+	{
+		v7 = mapHeightmap_11B4E0[v3x.word];
+		if (v7 > v6)
+		{
+			a2 = 3;
+			v6 = v7;
+		}
+	}
+	v8 = 0;
+	if (v5 - v4 <= 8)
+		v8 = 1;
+	if (v5 - v6 >= 8)
+	{
+		result = a1;
+	LABEL_44:
+		x_DWORD_D47DC = v8;
+		return result;
+	}
+	if (a1 > 3u)
+	{
+		result = 0;
+		goto LABEL_44;
+	}
+	switch (a1)
+	{
+	case 0:
+		if (a2 != 1)
+			goto LABEL_42;
+		goto LABEL_36;
+	case 1:
+		if (a2 == 2)
+			goto LABEL_38;
+	LABEL_36:
+		result = 4;
+		x_DWORD_D47DC = v8;
+		return result;
+	case 2:
+		if (a2 == 3)
+			goto LABEL_40;
+	LABEL_38:
+		result = 5;
+		x_DWORD_D47DC = v8;
+		break;
+	case 3:
+		if (a2)
+		{
+		LABEL_40:
+			result = 6;
+			x_DWORD_D47DC = v8;
+		}
+		else
+		{
+		LABEL_42:
+			result = 7;
+			x_DWORD_D47DC = v8;
+		}
+		break;
+	}
+	return result;
+}
+
 
 
