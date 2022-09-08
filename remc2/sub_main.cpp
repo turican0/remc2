@@ -859,9 +859,6 @@ unsigned int AddE7EE0x_10080(int32_t a1, int32_t a2);
 void ResetEvent08_10100(int32_t a1);
 signed int sub_10130(int a1, x_DWORD* a2, x_DWORD* a3);
 int sub_102D0(type_event_0x6E8E* a1, axis_3d* a2, char a3);
-signed int sub_104A0(axis_3d* a1);
-uint32_t sub_104D0_terrain_tile_is_water(axis_3d* a1);
-uint32_t sub_10590_terrain_tile_type(char a1);
 bool sub_10630(axis_3d* a1, axis_4d* a2, axis_3d* a3, axis_4d* a4);
 bool sub_106C0(type_event_0x6E8E* a1, type_event_0x6E8E* a2);
 bool CompareAxisWithShift_106F0(axis_3d* a1, axis_4d* a2, axis_3d* a3, axis_4d* a4);
@@ -870,8 +867,6 @@ type_event_0x6E8E* sub_10780(type_event_0x6E8E* a1);
 type_event_0x6E8E* sub_108B0(type_event_0x6E8E* a1);
 type_event_0x6E8E* sub_10A50(type_event_0x6E8E* a1);
 signed int sub_10B70(axis_3d* a1, char a2, char a3);
-int getTerrainAlt_10C40(axis_3d* a1);
-int sub_10C60(axis_3d* a1);
 int sub_10C80(type_event_0x6E8E* a1, unsigned __int8 a2, unsigned __int16 a3);
 void sub_112D0(type_event_0x6E8E* a1, unsigned __int16 a2);
 void sub_11400(type_event_0x6E8E* a1, char a2, unsigned __int16 a3);
@@ -882,7 +877,6 @@ char sub_11A10(type_event_0x6E8E* a1);
 char sub_11C80(uaxis_2d a1);
 bool sub_11CB0(axis_3d* a1);
 bool sub_11E20(type_event_0x6E8E* a1, axis_3d* a2);
-bool sub_11E70(type_event_0x6E8E* a1, axis_3d* a2);
 void InitStageVars_11EE0();
 void sub_12100(type_entity_0x30311* a1, type_event_0x6E8E* a2, char a3);
 void sub_122A0(type_event_0x6E8E* a1);
@@ -2396,7 +2390,6 @@ int sub_B1304(int a1, int a2);
 int sub_B1414(int a1);
 int sub_B148C(int a1);
 int sub_B14F8(int* a1, int a2);
-int sub_B5D68(__int16 a1, __int16 a2);
 void sub_BD1B6(uint8_t* a1);
 void sub_BD2CB(uint8_t* a1);
 void sub_BD3DD();
@@ -5681,107 +5674,6 @@ int sub_102D0(type_event_0x6E8E* a1x, axis_3d* a2, char a3)//1f12d0
 }
 // D41B6: using guessed type char x_BYTE_D41B6;
 
-//----- (000104A0) --------------------------------------------------------
-signed int sub_104A0(axis_3d* a1x)//1f14a0
-{
-	uint16_t v1; // ax
-
-	v1 = (a1x->x >> 8) + ((a1x->y >> 8) << 8);
-	return 1 << (mapAngle_13B4E0[v1] & 0xF);
-}
-
-//----- (000104D0) --------------------------------------------------------
-uint32_t sub_104D0_terrain_tile_is_water(axis_3d* a1)//1f14d0
-{
-	uaxis_2d v1x; // eax
-
-	v1x._axis_2d.x = a1->x >> 8;
-	v1x._axis_2d.y = a1->y >> 8;
-	return sub_10590_terrain_tile_type(mapTerrainType_10B4E0[v1x.word]);
-}
-
-//----- (00010590) --------------------------------------------------------
-uint32_t sub_10590_terrain_tile_type(char a1)//1f1590
-{
-	uint32_t result; // eax
-
-	result = 0;
-	switch (a1)
-	{
-	case 0:
-		result = 1;
-		break;
-	case 1:
-		result = 2;
-		break;
-	case 2:
-		result = 4;
-		break;
-	case 3:
-		result = 8;
-		break;
-	case 4:
-		result = 0x10;
-		break;
-	case 5:
-		result = 0x20;
-		break;
-	case 8:
-		result = 0x100;
-		break;
-	case 9:
-		result = 0x200;
-		break;
-	case 10:
-		result = 0x100000;
-		break;
-	case 11:
-		result = 0x200000;
-		break;
-	case 12:
-		result = 0x400000;
-		break;
-	case 13:
-	case 14:
-		return result;
-	case 15:
-	case 16:
-	case 17:
-	case 18:
-	case 19:
-	case 20:
-	case 28:
-	case 29:
-	case 30:
-	case 31:
-	case 32:
-	case 33:
-	case 34:
-		result = 0x400;
-		break;
-	case 21:
-	case 22:
-	case 24:
-		result = 0x20000;
-		break;
-	case 23:
-		result = 0x40000;
-		break;
-	case 25:
-	case 27:
-		result = 0x80000;
-		break;
-	case 26:
-		result = 0x10000;
-		break;
-	default:
-		result = 0x800000;
-		break;
-	}
-	return result;
-}
-// 10000: using guessed type int sub_10000();
-
 //----- (00010630) --------------------------------------------------------
 bool sub_10630(axis_3d* a1, axis_4d* a2, axis_3d* a3, axis_4d* a4)//1f1630
 {
@@ -6023,18 +5915,6 @@ signed int sub_10B70(axis_3d* a1x, char a2, char a3)//1f1b70
 	return 0;
 }
 // EA3E4: using guessed type int x_DWORD_EA3E4[];
-
-//----- (00010C40) --------------------------------------------------------
-int getTerrainAlt_10C40(axis_3d* a1x)//1f1c40
-{
-	return sub_B5C60_getTerrainAlt2(a1x->x, a1x->y);
-}
-
-//----- (00010C60) --------------------------------------------------------
-int sub_10C60(axis_3d* a1)//1f1c60
-{
-	return sub_B5D68(a1->x, a1->y);
-}
 
 int debugcounter_10c80 = 0;
 int debugcounter_10c80_2 = 0;
@@ -6717,17 +6597,6 @@ bool sub_11E20(type_event_0x6E8E* a1x, axis_3d* a2x)//1f2e20
 	v2 = a1x->dword_0xA0_160x->word_160_0xc_12;
 	v3 = (signed __int16)getTerrainAlt_10C40(a2x) + v2 + a1x->array_0x52_82.fov;
 	return v3 > (signed __int16)sub_10C60(a2x) - 384;
-}
-
-//----- (00011E70) --------------------------------------------------------
-bool sub_11E70(type_event_0x6E8E* a1x, axis_3d* a2)//1f2e70
-{
-	int v2; // ebx
-	int v3; // ebx
-
-	v2 = a1x->dword_0xA0_160x->word_160_0xc_12;
-	v3 = a1x->array_0x52_82.fov + (signed __int16)getTerrainAlt_10C40(a2) + v2;
-	return v3 > (signed __int16)sub_10C60(a2);
 }
 
 //----- (00011EE0) --------------------------------------------------------
@@ -83889,70 +83758,6 @@ int sub_B14F8(int* a1, int a2)
 	*a1 = sub_B148C(a2);
 	result = sub_B148C(a2 + 25735);
 	a1[1] = result;
-	return result;
-}
-
-//----- (000B5D68) --------------------------------------------------------
-int sub_B5D68(__int16 a1, __int16 a2)//296d68
-{
-	int v2; // ebx
-	int v3; // edx
-	int v4; // eax
-	int v5; // esi
-	int v6; // esi
-	int result; // eax
-	int v8; // esi
-	int v9; // eax
-	int v10; // esi
-	int v11; // esi
-	int v12; // edi
-
-	v2 = HIBYTE(a1);
-	HIBYTE(v2) = HIBYTE(a2);
-	v3 = (unsigned __int8)a2;
-	if ((HIBYTE(a1) + HIBYTE(a2)) & 1)
-	{
-		if (__CFADD__((x_BYTE)v3, (x_BYTE)a1))
-		{
-			HIBYTE(v2) = HIBYTE(a2) + 1;
-			v4 = (unsigned __int8)x_BYTE_14B4E0_second_heightmap[v2];
-			LOBYTE(v2) = v2 + 1;
-			v8 = (unsigned __int8)x_BYTE_14B4E0_second_heightmap[v2];
-			LOBYTE(v3) = ~(x_BYTE)a2;
-			BYTE1(v2) = HIBYTE(a2);
-			v6 = v3 * ((unsigned __int8)x_BYTE_14B4E0_second_heightmap[v2] - v8) + (unsigned __int8)a1 * (v8 - v4);
-		}
-		else
-		{
-			v4 = (unsigned __int8)x_BYTE_14B4E0_second_heightmap[v2];
-			LOBYTE(v2) = v2 + 1;
-			v5 = (unsigned __int8)a1 * ((unsigned __int8)x_BYTE_14B4E0_second_heightmap[v2] - v4);
-			LOBYTE(v2) = v2 - 1;
-			HIBYTE(v2) = HIBYTE(a2) + 1;
-			v6 = (unsigned __int8)a2 * ((unsigned __int8)x_BYTE_14B4E0_second_heightmap[v2] - v4) + v5;
-		}
-		result = (v6 >> 3) + 32 * v4;
-	}
-	else
-	{
-		if ((unsigned __int8)a1 <= (unsigned __int8)v3)
-		{
-			v9 = (unsigned __int8)x_BYTE_14B4E0_second_heightmap[v2];
-			HIBYTE(v2) = HIBYTE(a2) + 1;
-			v12 = (unsigned __int8)x_BYTE_14B4E0_second_heightmap[v2];
-			LOBYTE(v2)++;
-			v11 = (unsigned __int8)a2 * (v12 - v9) + (unsigned __int8)a1 * ((unsigned __int8)x_BYTE_14B4E0_second_heightmap[v2] - v12);
-		}
-		else
-		{
-			v9 = (unsigned __int8)x_BYTE_14B4E0_second_heightmap[v2];
-			LOBYTE(v2)++;
-			v10 = (unsigned __int8)x_BYTE_14B4E0_second_heightmap[v2];
-			HIBYTE(v2) = HIBYTE(a2) + 1;
-			v11 = (unsigned __int8)a2 * ((unsigned __int8)x_BYTE_14B4E0_second_heightmap[v2] - v10) + (unsigned __int8)a1 * (v10 - v9);
-		}
-		result = (v11 >> 3) + 32 * v9;
-	}
 	return result;
 }
 

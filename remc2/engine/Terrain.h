@@ -53,4 +53,12 @@ bool sub_33F70(uint16_t inAxis);
 void sub_45DC0(/*uint8_t a1,*/ uint8_t a2, uaxis_2d a3, unsigned __int8 a4);
 void sub_462A0(uaxis_2d a1x, uaxis_2d a2x);
 
+signed int sub_104A0(axis_3d* a1);
+uint32_t sub_104D0_terrain_tile_is_water(axis_3d* a1);
+uint32_t sub_10590_terrain_tile_type(char a1);
+int getTerrainAlt_10C40(axis_3d* a1);
+bool sub_11E70(type_event_0x6E8E* a1, axis_3d* a2);
+int sub_10C60(axis_3d* a1);
+int sub_B5D68(__int16 a1, __int16 a2);
+
 #endif //MAIN_TERRAIN
