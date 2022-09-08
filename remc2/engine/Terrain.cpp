@@ -2239,31 +2239,25 @@ void sub_462A0(uaxis_2d inAxis2dA, uaxis_2d inAxis2dB)//2272a0
 }
 
 //----- (000104A0) --------------------------------------------------------
-signed int sub_104A0(axis_3d* a1x)//1f14a0
+signed int sub_104A0(axis_3d* axis3d)//1f14a0
 {
-	uint16_t v1; // ax
-
-	v1 = (a1x->x >> 8) + ((a1x->y >> 8) << 8);
-	return 1 << (mapAngle_13B4E0[v1] & 0xF);
+	return 1 << (mapAngle_13B4E0[(axis3d->x >> 8) + ((axis3d->y >> 8) << 8)] & 0xF);
 }
 
 //----- (000104D0) --------------------------------------------------------
-uint32_t sub_104D0_terrain_tile_is_water(axis_3d* a1)//1f14d0
+uint32_t sub_104D0_terrain_tile_is_water(axis_3d* axis3d)//1f14d0
 {
-	uaxis_2d v1x; // eax
-
-	v1x._axis_2d.x = a1->x >> 8;
-	v1x._axis_2d.y = a1->y >> 8;
-	return sub_10590_terrain_tile_type(mapTerrainType_10B4E0[v1x.word]);
+	uaxis_2d axis2d;
+	axis2d._axis_2d.x = axis3d->x >> 8;
+	axis2d._axis_2d.y = axis3d->y >> 8;
+	return sub_10590_terrain_tile_type(mapTerrainType_10B4E0[axis2d.word]);
 }
 
 //----- (00010590) --------------------------------------------------------
-uint32_t sub_10590_terrain_tile_type(char a1)//1f1590
+uint32_t sub_10590_terrain_tile_type(char tileType)//1f1590
 {
-	uint32_t result; // eax
-
-	result = 0;
-	switch (a1)
+	uint32_t result = 0;
+	switch (tileType)
 	{
 	case 0:
 		result = 1;
@@ -2337,89 +2331,86 @@ uint32_t sub_10590_terrain_tile_type(char a1)//1f1590
 	}
 	return result;
 }
-// 10000: using guessed type int sub_10000();
 
 //----- (00010C40) --------------------------------------------------------
-int getTerrainAlt_10C40(axis_3d* a1x)//1f1c40
+int getTerrainAlt_10C40(axis_3d* axis3d)//1f1c40
 {
-	return sub_B5C60_getTerrainAlt2(a1x->x, a1x->y);
+	return sub_B5C60_getTerrainAlt2(axis3d->x, axis3d->y);
 }
 
 //----- (00011E70) --------------------------------------------------------
-bool sub_11E70(type_event_0x6E8E* a1x, axis_3d* a2)//1f2e70
+bool sub_11E70(type_event_0x6E8E* event, axis_3d* axis3d)//1f2e70
 {
-	int v2; // ebx
-	int v3; // ebx
-
-	v2 = a1x->dword_0xA0_160x->word_160_0xc_12;
-	v3 = a1x->array_0x52_82.fov + (signed __int16)getTerrainAlt_10C40(a2) + v2;
-	return v3 > (signed __int16)sub_10C60(a2);
+	return event->array_0x52_82.fov + getTerrainAlt_10C40(axis3d) + event->dword_0xA0_160x->word_160_0xc_12 > sub_10C60(axis3d);
 }
 
 //----- (00010C60) --------------------------------------------------------
-int sub_10C60(axis_3d* a1)//1f1c60
+int sub_10C60(axis_3d* axis3d)//1f1c60
 {
-	return sub_B5D68(a1->x, a1->y);
+	return sub_B5D68(axis3d->x, axis3d->y);
 }
 
 //----- (000B5D68) --------------------------------------------------------
-int sub_B5D68(__int16 a1, __int16 a2)//296d68
+int sub_B5D68(uint16_t inX, uint16_t inY)//296d68
 {
-	int v2; // ebx
-	int v3; // edx
-	int v4; // eax
+	uint8_t point1;
 	int v5; // esi
 	int v6; // esi
 	int result; // eax
-	int v8; // esi
+	uint8_t point2;
 	int v9; // eax
 	int v10; // esi
 	int v11; // esi
 	int v12; // edi
 
-	v2 = HIBYTE(a1);
-	HIBYTE(v2) = HIBYTE(a2);
-	v3 = (unsigned __int8)a2;
-	if ((HIBYTE(a1) + HIBYTE(a2)) & 1)
+	uaxis_2d tempAxis;
+	uaxis_2d tempInX;
+	uaxis_2d tempInY;
+	tempInX.word = inX;
+	tempInY.word = inY;
+	tempAxis._axis_2d.x = tempInX._axis_2d.y;
+	tempAxis._axis_2d.y = tempInY._axis_2d.y;
+
+	if ((tempInX._axis_2d.y + tempInY._axis_2d.y) & 1)
 	{
-		if (__CFADD__((x_BYTE)v3, (x_BYTE)a1))
+		if (__CFADD__(tempInY._axis_2d.x, tempInX._axis_2d.x))
 		{
-			HIBYTE(v2) = HIBYTE(a2) + 1;
-			v4 = (unsigned __int8)x_BYTE_14B4E0_second_heightmap[v2];
-			LOBYTE(v2) = v2 + 1;
-			v8 = (unsigned __int8)x_BYTE_14B4E0_second_heightmap[v2];
-			LOBYTE(v3) = ~(x_BYTE)a2;
-			BYTE1(v2) = HIBYTE(a2);
-			v6 = v3 * ((unsigned __int8)x_BYTE_14B4E0_second_heightmap[v2] - v8) + (unsigned __int8)a1 * (v8 - v4);
+			tempAxis._axis_2d.y = tempInY._axis_2d.y + 1;
+			point1 = x_BYTE_14B4E0_second_heightmap[tempAxis.word];
+			tempAxis._axis_2d.x++;
+			point2 = x_BYTE_14B4E0_second_heightmap[tempAxis.word];
+			tempInY._axis_2d.x = 255 - tempInY._axis_2d.x;
+			tempAxis._axis_2d.y = tempInY._axis_2d.y;
+			v6 = tempInY._axis_2d.x * ((unsigned __int8)x_BYTE_14B4E0_second_heightmap[tempAxis.word] - point2) + tempInX._axis_2d.x * (point2 - point1);
 		}
 		else
 		{
-			v4 = (unsigned __int8)x_BYTE_14B4E0_second_heightmap[v2];
-			LOBYTE(v2) = v2 + 1;
-			v5 = (unsigned __int8)a1 * ((unsigned __int8)x_BYTE_14B4E0_second_heightmap[v2] - v4);
-			LOBYTE(v2) = v2 - 1;
-			HIBYTE(v2) = HIBYTE(a2) + 1;
-			v6 = (unsigned __int8)a2 * ((unsigned __int8)x_BYTE_14B4E0_second_heightmap[v2] - v4) + v5;
+			point1 = x_BYTE_14B4E0_second_heightmap[tempAxis.word];
+			tempAxis._axis_2d.x++;
+			v5 = tempInX._axis_2d.x * ((unsigned __int8)x_BYTE_14B4E0_second_heightmap[tempAxis.word] - point1);
+			tempAxis._axis_2d.x--;
+			tempAxis._axis_2d.y = tempInY._axis_2d.y + 1;
+			v6 = tempInY._axis_2d.x * ((unsigned __int8)x_BYTE_14B4E0_second_heightmap[tempAxis.word] - point1) + v5;
 		}
-		result = (v6 >> 3) + 32 * v4;
+		result = (v6 >> 3) + 32 * point1;
 	}
 	else
 	{
-		if ((unsigned __int8)a1 <= (unsigned __int8)v3)
+		if (tempInX._axis_2d.x <= tempInY._axis_2d.x)
 		{
-			v9 = (unsigned __int8)x_BYTE_14B4E0_second_heightmap[v2];
-			HIBYTE(v2) = HIBYTE(a2) + 1;
-			v12 = (unsigned __int8)x_BYTE_14B4E0_second_heightmap[v2];
-			LOBYTE(v2)++;
-			v11 = (unsigned __int8)a2 * (v12 - v9) + (unsigned __int8)a1 * ((unsigned __int8)x_BYTE_14B4E0_second_heightmap[v2] - v12);
+			v9 = (unsigned __int8)x_BYTE_14B4E0_second_heightmap[tempAxis.word];
+			tempAxis._axis_2d.y = tempInY._axis_2d.y + 1;
+			v12 = (unsigned __int8)x_BYTE_14B4E0_second_heightmap[tempAxis.word];
+			tempAxis._axis_2d.x++;
+			v11 = tempInY._axis_2d.x * (v12 - v9) + tempInX._axis_2d.x * ((unsigned __int8)x_BYTE_14B4E0_second_heightmap[tempAxis.word] - v12);
 		}
 		else
 		{
-			v9 = (unsigned __int8)x_BYTE_14B4E0_second_heightmap[v2];
-			LOBYTE(v2)++;
-			v10 = (unsigned __int8)x_BYTE_14B4E0_second_heightmap[v2];
-			HIBYTE(v2) = HIBYTE(a2) + 1;
-			v11 = (unsigned __int8)a2 * ((unsigned __int8)x_BYTE_14B4E0_second_heightmap[v2] - v10) + (unsigned __int8)a1 * (v10 - v9);
+			v9 = (unsigned __int8)x_BYTE_14B4E0_second_heightmap[tempAxis.word];
+			tempAxis._axis_2d.x++;
+			v10 = (unsigned __int8)x_BYTE_14B4E0_second_heightmap[tempAxis.word];
+			tempAxis._axis_2d.y = tempInY._axis_2d.y + 1;
+			v11 = tempInY._axis_2d.x * ((unsigned __int8)x_BYTE_14B4E0_second_heightmap[tempAxis.word] - v10) + tempInX._axis_2d.x * (v10 - v9);
 		}
 		result = (v11 >> 3) + 32 * v9;
 	}

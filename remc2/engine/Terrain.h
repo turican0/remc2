@@ -59,6 +59,6 @@ uint32_t sub_10590_terrain_tile_type(char a1);
 int getTerrainAlt_10C40(axis_3d* a1);
 bool sub_11E70(type_event_0x6E8E* a1, axis_3d* a2);
 int sub_10C60(axis_3d* a1);
-int sub_B5D68(__int16 a1, __int16 a2);
+int sub_B5D68(uint16_t a1, uint16_t a2);
 
 #endif //MAIN_TERRAIN
