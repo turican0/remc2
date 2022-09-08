@@ -1816,7 +1816,7 @@ int sub_1B830(axis_3d* a1)//1fc830
 }
 
 //----- (00045BE0) --------------------------------------------------------
-uint8_t sub_45BE0(uint8_t a2, uaxis_2d axis2d)//226be0
+uint8_t sub_45BE0(uint8_t inType, uaxis_2d axis2d)//226be0
 {
 	uint8_t result;
 	uint8_t type = 0;
@@ -1858,19 +1858,19 @@ uint8_t sub_45BE0(uint8_t a2, uaxis_2d axis2d)//226be0
 	if (type && mapHeightmap_11B4E0[axis2d.word])
 	{
 		maxHeight2 = mapHeightmap_11B4E0[axis2d.word];
-		a2 = 0;
+		inType = 0;
 	}
 	axis2d._axis_2d.x++;
 	if (type != 1 && mapHeightmap_11B4E0[axis2d.word] > maxHeight2)
 	{
 		maxHeight2 = mapHeightmap_11B4E0[axis2d.word];
-		a2 = 1;
+		inType = 1;
 	}
 	axis2d._axis_2d.y++;
 	if (type != 2 && mapHeightmap_11B4E0[axis2d.word] > maxHeight2)
 	{
 		maxHeight2 = mapHeightmap_11B4E0[axis2d.word];
-		a2 = 2;
+		inType = 2;
 	}
 	axis2d._axis_2d.x--;
 	if (type != 3)
@@ -1878,7 +1878,7 @@ uint8_t sub_45BE0(uint8_t a2, uaxis_2d axis2d)//226be0
 		uint8_t minHeight2 = mapHeightmap_11B4E0[axis2d.word];
 		if (minHeight2 > maxHeight2)
 		{
-			a2 = 3;
+			inType = 3;
 			maxHeight2 = minHeight2;
 		}
 	}
@@ -1894,25 +1894,25 @@ uint8_t sub_45BE0(uint8_t a2, uaxis_2d axis2d)//226be0
 	switch (type)
 	{
 	case 0:
-		if (a2 != 1)
+		if (inType != 1)
 			result = 7;
 		else
 			result = 4;
 		break;
 	case 1:
-		if (a2 == 2)
+		if (inType == 2)
 			result = 5;
 		else
 			result = 4;
 		break;
 	case 2:
-		if (a2 == 3)
+		if (inType == 3)
 			result = 6;
 		else
 			result = 5;
 		break;
 	case 3:
-		if (a2)		
+		if (inType)
 			result = 6;
 		else
 			result = 7;
@@ -1926,30 +1926,30 @@ uint8_t sub_45BE0(uint8_t a2, uaxis_2d axis2d)//226be0
 }
 
 //----- (00033F70) --------------------------------------------------------
-bool sub_33F70(unsigned __int16 a1)//214f70
+bool sub_33F70(uint16_t inAxis)//214f70
 {
-	unsigned __int16 v1; // ax
-	signed int v2; // edx
-	unsigned __int16 v3; // ax
-	bool result; // al
-
-	HIBYTE(v1) = HIBYTE(a1);
-	LOBYTE(v1) = a1 - 1;
+	int compHeight;
+	bool result;
+	uaxis_2d axis2d;
+	uaxis_2d tempAxis2d;
+	axis2d.word = inAxis;
+	tempAxis2d.word = axis2d.word;
+	tempAxis2d._axis_2d.x--;//x-1,y
 	result = 1;
-	if (mapTerrainType_10B4E0[v1] == 8)
+	if (mapTerrainType_10B4E0[tempAxis2d.word] == 8)
 	{
-		v2 = (unsigned __int16)(mapHeightmap_11B4E0[a1] + 30);
-		if (mapHeightmap_11B4E0[v1] <= (signed int)(unsigned __int16)v2)
+		compHeight = mapHeightmap_11B4E0[axis2d.word] + 30;
+		if (mapHeightmap_11B4E0[tempAxis2d.word] <= compHeight)
 		{
-			LOBYTE(v1) = v1 + 2;
-			if (mapHeightmap_11B4E0[v1] <= v2)
+			tempAxis2d._axis_2d.x += 2;//x+1,y
+			if (mapHeightmap_11B4E0[axis2d.word] <= compHeight)
 			{
-				LOBYTE(v3) = v1 - 1;
-				HIBYTE(v3) = HIBYTE(a1) + 1;
-				if (mapHeightmap_11B4E0[v3] <= v2)
+				tempAxis2d._axis_2d.x--;
+				tempAxis2d._axis_2d.y++;//x,y+1
+				if (mapHeightmap_11B4E0[tempAxis2d.word] <= compHeight)
 				{
-					HIBYTE(v3) = HIBYTE(a1) - 1;
-					if (mapHeightmap_11B4E0[v3] <= v2)
+					tempAxis2d._axis_2d.y -= 2;//x,y-1
+					if (mapHeightmap_11B4E0[tempAxis2d.word] <= compHeight)
 						result = 0;
 				}
 			}
