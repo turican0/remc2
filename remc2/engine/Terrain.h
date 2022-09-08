@@ -50,4 +50,7 @@ int sub_1B830(axis_3d* a1);
 uint8_t sub_45BE0(uint8_t a2, uaxis_2d a3x);//226be0
 bool sub_33F70(uint16_t inAxis);
 
+void sub_45DC0(/*uint8_t a1,*/ uint8_t a2, uaxis_2d a3, unsigned __int8 a4);
+void sub_462A0(uaxis_2d a1x, uaxis_2d a2x);
+
 #endif //MAIN_TERRAIN
